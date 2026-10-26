@@ -15,7 +15,7 @@ namespace NewModCompiler.Tests
         static void Check(bool value,string message) { count++; if (!value) throw new Exception("Cache transaction: "+message); }
         sealed class Backend : IStreamCompiler, IBuildCacheCompiler
         {
-            public bool Committed, Completed, Disposed, FailCommit, FailCompile, FailDispose;
+            public bool Committed, Completed, Disposed, FailCommit, FailCompile, FailDispose, FailRollback;
             public bool RollbackObserved; public string Status="Pending";
             public object CacheReport { get { return new {status=Status,hits=2,misses=1}; } }
             public string ProviderIdentity { get { return "TEST_CACHE_TRANSACTION"; } }
@@ -28,7 +28,7 @@ namespace NewModCompiler.Tests
             }
             public void Dispose() { Disposed=true; if (FailDispose) throw new IOException("dispose"); }
             public void CommitCache() { Check(Disposed,"cache installed before provider disposal"); Committed=true; Status="Committed"; if (FailCommit) throw new IOException("commit"); }
-            public void RollbackCache() { if (Completed) return; RollbackObserved=true; Committed=false; Status="Discarded"; }
+            public void RollbackCache() { if (Completed) return; RollbackObserved=true; Committed=false; Status="Discarded"; if (FailRollback) throw new IOException("persistent rollback failure"); }
             public void CompleteCache() { Check(Committed,"completed uncommitted cache"); Completed=true; }
         }
         sealed class Sink : IBuildEventSink
@@ -45,10 +45,10 @@ namespace NewModCompiler.Tests
         }
         public static int Run(string work,string mod,string sdk)
         {
-            for (int mode=0;mode<7;mode++) {
+            for (int mode=0;mode<8;mode++) {
                 var request=Options.Parse(new [] {"build","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(work,"case"+mode),"--package-content","base"});
                 string old=Path.Combine(request.OutputRoot,"published","old.txt"); Directory.CreateDirectory(Path.GetDirectoryName(old)); File.WriteAllText(old,"previous");
-                var backend=new Backend {FailCommit=mode==1,FailCompile=mode==5,FailDispose=mode==6};
+                var backend=new Backend {FailCommit=mode==1 || mode==7,FailCompile=mode==5,FailDispose=mode==6,FailRollback=mode==7};
                 var sink=new Sink {Backend=backend,Request=request,FailClose=mode==2,FailTerminal=mode==3,BlockReport=mode==4};
                 ExitCode result;
                 using (var events=new EventDispatcher(Guid.NewGuid().ToString("N"),new IBuildEventSink[] {sink}))
@@ -60,7 +60,7 @@ namespace NewModCompiler.Tests
                     var cache=(Dictionary<string,object>)report["cache"];
                     Check((string)cache["status"]=="Committed" && Convert.ToInt32(cache["hits"])==2,"cache report lost observed counts");
                 } else {
-                    Check(result!=ExitCode.Success && !backend.Completed && !backend.Committed && backend.RollbackObserved,"failure retained cache installation");
+                    Check((mode!=7 || result==ExitCode.Output) && result!=ExitCode.Success && !backend.Completed && !backend.Committed && backend.RollbackObserved,"failure retained cache installation");
                     Check(File.ReadAllText(old)=="previous","failure did not restore previous publication");
                 }
             }

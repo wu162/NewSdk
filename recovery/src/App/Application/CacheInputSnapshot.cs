@@ -7,11 +7,11 @@ using System.Threading;
 
 namespace NewModCompiler.Application
 {
-    // Preparation for a new cache namespace, deliberately not a cache lookup or
-    // an enablement gate. Core's SessionCache tracks XML documents but does not
-    // expose a complete dependency closure for native/plugin payload reads.
-    // Conservatively inventory whole SDK/MOD/runtime roots instead of trusting
-    // a caller-maintained list of XML includes. Production remains no-cache.
+    // A component of the new build-asset namespace, deliberately not a cache
+    // lookup or an enablement gate by itself. Production additionally requires
+    // the opt-in Core input boundary, audited cacheable providers and process
+    // resolution identity. Inventory whole SDK/MOD/runtime roots instead of
+    // trusting a caller-maintained list of XML includes.
     public sealed class CacheInputSnapshot
     {
         public const string Format = "NewModCompiler.InputInventory.v1";

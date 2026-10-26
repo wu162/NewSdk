@@ -193,6 +193,11 @@ namespace NewModCompiler.Application
                 // Also cover unexpected exceptions during reporting. Participants
                 // ignore rollback after Complete and repeated rollback calls.
                 try { if (cacheCompiler != null) cacheCompiler.RollbackCache(); }
+                catch (Exception e) {
+                    // A controlled failure has already recorded rollback errors.
+                    // Never replace its durable report/return code from finally.
+                    try { Console.Error.WriteLine("CACHE_FINAL_CLEANUP_FAILED: " + e); } catch (Exception) { }
+                }
                 finally {
                 if (publication != null) publication.Dispose();
                 if (stagingGuard != null) stagingGuard.Dispose();
@@ -204,7 +209,20 @@ namespace NewModCompiler.Application
         {
             if (cacheCompiler == null) return;
             try { cacheCompiler.RollbackCache(); }
-            catch (Exception e) { code=ExitCode.Output; Diagnostic("CACHE_ROLLBACK_FAILED",e.ToString()); }
+            catch (Exception e) {
+                code=ExitCode.Output; Diagnostic("CACHE_ROLLBACK_FAILED",e.ToString());
+                var aggregate=e as AggregateException;
+                IEnumerable<Exception> failures=aggregate == null ? (IEnumerable<Exception>)new[] {e} : aggregate.Flatten().InnerExceptions;
+                int retained=0;
+                foreach (Exception failure in failures) {
+                    var paths=failure.Data["RetainedCacheEntries"] as IEnumerable<string>;
+                    if (paths != null) foreach (string path in paths) {
+                        if (++retained > 32) break;
+                        Diagnostic("CACHE_ENTRIES_RETAINED",path);
+                    }
+                    if (retained > 32) break;
+                }
+            }
         }
         void RevokePublication(ref ArtifactPublication publication,ref string publicationStatus,ref ExitCode code)
         {

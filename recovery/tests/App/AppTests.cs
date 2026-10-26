@@ -146,6 +146,7 @@ namespace NewModCompiler.Tests
                 if (Directory.Exists(root)) Directory.Delete(root,true); Directory.CreateDirectory(root);
                 assertions += ArtifactPublisherTests.Run(Path.Combine(root,"publisher-tests"));
                 assertions += CacheInputSnapshotTests.Run(Path.Combine(root,"cache-input-tests"));
+                assertions += BuildAssetCacheTests.Run(Path.Combine(root,"build-asset-cache"));
                 mod=Path.Combine(root,"external mods","中文 MOD"); sdk=Path.Combine(root,"SDK"); Directory.CreateDirectory(sdk);
                 FileAt(Path.Combine(mod,"Data","Mod.xml")); FileAt(Path.Combine(mod,"Data","AptUI","b.xml")); FileAt(Path.Combine(mod,"Data","AptUI","a.xml"));
                 FileAt(Path.Combine(mod,"Data","AdditionalMaps","MapMetaData_z.xml")); FileAt(Path.Combine(mod,"Data","AdditionalMaps","Ignored.xml"));

@@ -34,6 +34,9 @@ on:
       - 'recovery/scripts/BuildManagedFoundation.ps1'
       - 'recovery/tests/CompilerValidationEntry.cpp'
       - 'recovery/tests/CompilerCoreLifecycle.cs'
+      - 'recovery/tests/CompilerCacheContent.cs'
+      - 'recovery/tests/CompilerCacheBoundary.cs'
+      - 'recovery/scripts/TestCompilerBuildCache.ps1'
       - 'recovery/tests/CompilerCorePaths.cs'
       - 'recovery/tests/CompilerUnicodeSettings.cs'
       - 'recovery/tests/CompilerResourceLifecycle.cs'
@@ -125,7 +128,7 @@ jobs:
       - name: Validate CLI scripts and output contracts before long Native linking
         shell: pwsh
         run: |
-          foreach($path in @('recovery/scripts/CompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliOutputs.ps1','recovery/scripts/TestCompilerCli.ps1','recovery/scripts/TestCompilerBackendBaseline.ps1')) {
+          foreach($path in @('recovery/scripts/CompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliOutputs.ps1','recovery/scripts/TestCompilerCli.ps1','recovery/scripts/TestCompilerBackendBaseline.ps1','recovery/scripts/TestCompilerBuildCache.ps1')) {
             $tokens=$null;$errors=$null
             $null=[Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $path),[ref]$tokens,[ref]$errors)
             if($errors.Count -ne 0){$errors|Format-List|Out-Host;throw "PowerShell syntax errors: $path"}
@@ -188,11 +191,17 @@ jobs:
           $evidence="recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/cli-protocol.json"
           if($LASTEXITCODE -ne 0){throw 'Real production CLI protocol validation failed'}
+      - name: Actual build-cache cold hot invalidation and retry matrix
+        if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerBuildCache.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/build-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}

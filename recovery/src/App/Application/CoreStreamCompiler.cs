@@ -17,7 +17,7 @@ namespace NewModCompiler.Application
 {
     // Experimental in-process backend. CLI enablement and SDK/G3 acceptance are
     // separate gates; this type never launches BAB, a worker, or another EXE.
-    public sealed class CoreStreamCompiler : IStreamCompiler
+    public sealed class CoreStreamCompiler : IStreamCompiler, IBuildCacheCompiler
     {
         static readonly object LeaseGate = new object();
         static CoreStreamCompiler leaseOwner;
@@ -25,12 +25,15 @@ namespace NewModCompiler.Application
         BuildRequest request;
         string sdkRoot, modRoot, outputRoot, configurationXml;
         int threadId, traceLevel = 3;
-        bool initialized, initializing, disposed, compiling;
+        bool initialized, initializing, disposed, compiling, buildCacheEnabled, cacheCommitted, cacheCompleted;
+        int buildCacheHits, buildCacheMisses;
+        readonly List<BuildAssetCache> assetCaches = new List<BuildAssetCache>();
         BuiltinCompilers compilers;
         VerifierPluginRegistry verifiers;
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
-        public string ProviderIdentity { get { return "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
+        public string ProviderIdentity { get { return buildCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.BuildAssetCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
+        public object CacheReport { get { return new { status = buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = false, textureCache = false }; } }
 
         public void Initialize(BuildRequest request)
         {
@@ -159,11 +162,11 @@ namespace NewModCompiler.Application
 
         void ValidateOptions(BuildRequest candidate)
         {
-            traceLevel = 3;
+            traceLevel = 3; buildCacheEnabled = false;
             if (candidate.PackageFormat != null && candidate.PackageFormat != "loose")
                 throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Only loose output is available in the experimental backend.");
             var ordinary = new HashSet<string>(new[] { "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format" }, StringComparer.OrdinalIgnoreCase);
-            var disabled = new HashSet<string>(new[] { "sc", "bc", "csc", "psc", "fsc", "atc", "pc", "oof", "vf", "oar", "osh", "oix", "mr", "slowclean" }, StringComparer.OrdinalIgnoreCase);
+            var disabled = new HashSet<string>(new[] { "sc", "csc", "psc", "fsc", "atc", "pc", "oof", "vf", "oar", "osh", "oix", "mr", "slowclean" }, StringComparer.OrdinalIgnoreCase);
             foreach (var option in candidate.Options)
             {
                 if (option.Value == null) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", "A Core option has no effective value: " + option.Key);
@@ -171,13 +174,14 @@ namespace NewModCompiler.Application
                 if (key == "package-format" && !string.Equals(value, "loose", StringComparison.OrdinalIgnoreCase))
                     throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Only loose output is available in the experimental backend.");
                 if (ordinary.Contains(key)) continue;
+                if (key == "bc" && (string.Equals(value, "true", StringComparison.OrdinalIgnoreCase) || string.Equals(value, "false", StringComparison.OrdinalIgnoreCase))) { buildCacheEnabled = string.Equals(value, "true", StringComparison.OrdinalIgnoreCase); continue; }
                 if (disabled.Contains(key) && string.Equals(value, "false", StringComparison.OrdinalIgnoreCase)) continue;
                 if (key == "tp" && string.Equals(value, "Win32", StringComparison.OrdinalIgnoreCase)) continue;
                 if (key == "ls" && string.Equals(value, "true", StringComparison.OrdinalIgnoreCase)) continue;
                 if (key == "el" && value == "0") continue;
                 int level;
                 if (key == "tl" && int.TryParse(value, out level) && level >= 0 && level <= 9) { traceLevel = level; continue; }
-                throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Experimental Core backend does not support option " + key + "=" + value + ". Cache, precompiled, alternate output, reporting, path/configuration overrides and postprocessing options are not enabled.");
+                throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Experimental Core backend does not support option " + key + "=" + value + ". Session cache, precompiled, alternate output, reporting, path/configuration overrides and postprocessing options are not enabled.");
             }
         }
 
@@ -209,10 +213,11 @@ namespace NewModCompiler.Application
             settings.BuildConfigurationName = null;
             settings.BuildConfigurations = new BuildConfiguration[0];
             settings.TargetPlatform = TargetPlatform.Win32;
-            // The experimental backend has no persistent cache implementation;
-            // keep compression disabled too, matching the independent /csc:false
-            // baseline without suggesting that compressed-cache reuse is supported.
-            settings.SessionCache = settings.BuildCache = settings.PartialSessionCache = settings.FreezeSessionCache = settings.CompressedSessionCache = false;
+            // Session-cache documents remain fresh per stream. Build assets use
+            // only this stream's private cache copy; BuildSession confirms its
+            // immutable namespace after the required output transaction succeeds.
+            settings.SessionCache = settings.PartialSessionCache = settings.FreezeSessionCache = settings.CompressedSessionCache = false;
+            settings.BuildCache = buildCacheEnabled;
             settings.AlwaysTouchCache = settings.StreamHints = settings.UsePrecompiled = false;
             settings.GuiMode = settings.Resident = settings.PauseOnError = settings.MetricsReporting = false;
             settings.OldOutputFormat = settings.VersionFiles = settings.OutputAssetReport = settings.OutputStringHashes = settings.OutputIntermediateXml = false;
@@ -307,7 +312,7 @@ namespace NewModCompiler.Application
                 throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "The experimental backend requires an existing XML stream entry.");
             Settings previousSettings = Settings.Current;
             bool previousMetrics = MetricManager.Enabled;
-            IDisposable hashes = null, tracing = null, report = null, processorState = null;
+            IDisposable hashes = null, tracing = null, report = null, processorState = null, inputBoundary = null;
             Exception failure = null;
             IList<Artifact> artifacts = null;
             compiling = true;
@@ -320,6 +325,25 @@ namespace NewModCompiler.Application
                 processorState = DocumentProcessor.BeginStateScope();
                 report = AssetReport.BeginScope();
                 EnsureProviders();
+                // The mixed texture implementation cannot yet prove that every
+                // D3DX payload read uses Core's FileReference closure. Preserve
+                // its compilation behavior, but never authorize a texture hit.
+                if (buildCacheEnabled)
+                    foreach (string name in new[] { "Texture", "OnDemandTexture", "TerrainTextureAtlas" })
+                        compilers.Registry.GetExtendedTypeInformation(InstanceHandle.GetTypeId(name)).UseBuildCache = false;
+                string runtime = Path.GetDirectoryName(typeof(CoreStreamCompiler).Assembly.Location);
+                BuildPlan cachePlan = null; CacheInputSnapshot cacheInputs = null;
+                string processContract = null; BuildAssetCache assetCache = null;
+                if (buildCacheEnabled)
+                {
+                    inputBoundary = CacheInputBoundary.Begin(sdkRoot, modRoot, runtime);
+                    cachePlan = new BuildPlan { PlanKind = "BuildAssetCacheStream.v1", Tasks = new[] { context.Task } };
+                    cacheInputs = CacheInputSnapshot.Capture(request, cachePlan, runtime, cancellation);
+                    processContract = CacheProcessContract();
+                    assetCache = new BuildAssetCache(outputRoot, CacheNamespace(cacheInputs.Fingerprint, processContract));
+                    assetCaches.Add(assetCache);
+                    assetCache.PrepareStream(context.Task.Id, settings.BuildCacheDirectory, cancellation);
+                }
                 var schemas = new SchemaSet(settings.StableSort);
                 hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                 var cache = new SessionCache(); cache.InitializeCache(new List<string>());
@@ -330,6 +354,13 @@ namespace NewModCompiler.Application
                 cancellation.ThrowIfCancellationRequested(); // Cancellation is cooperative at complete stream boundaries.
                 artifacts = CollectArtifacts(settings.OutputDirectory);
                 cancellation.ThrowIfCancellationRequested();
+                if (buildCacheEnabled)
+                {
+                    if (!cacheInputs.MatchesCurrent(request, cachePlan, runtime, cancellation) || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal))
+                        throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Build-cache inputs or process resolution contract changed during compilation.");
+                    assetCache.StageStream(context.Task.Id, settings.BuildCacheDirectory, cancellation);
+                    buildCacheHits += processor.BuildCacheHits; buildCacheMisses += processor.BuildCacheMisses;
+                }
             }
             catch (Exception error)
             {
@@ -343,6 +374,7 @@ namespace NewModCompiler.Application
                 try { if (hashes != null) hashes.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (processorState != null) processorState.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (tracing != null) tracing.Dispose(); } catch (Exception error) { cleanup.Add(error); }
+                try { if (inputBoundary != null) inputBoundary.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 Settings.Current = previousSettings;
                 MetricManager.Enabled = previousMetrics;
                 compiling = false;
@@ -355,6 +387,57 @@ namespace NewModCompiler.Application
             }
             if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
             return artifacts;
+        }
+
+        // BuildSession owns these reversible writes after provider disposal.
+        public void CommitCache()
+        {
+            if (cacheCompleted || cacheCommitted) return;
+            try { foreach (BuildAssetCache cache in assetCaches) cache.Commit(); cacheCommitted = true; }
+            catch (Exception error)
+            {
+                Exception failure = error;
+                try { RollbackCache(); } catch (Exception cleanup) { AddCleanupFailure(ref failure, cleanup, ExitCode.Output, "CORE_CACHE_ROLLBACK_FAILED"); }
+                ExceptionDispatchInfo.Capture(failure).Throw(); throw;
+            }
+        }
+        public void RollbackCache()
+        {
+            if (cacheCompleted) return;
+            var failures = new List<Exception>(); var retained = new List<BuildAssetCache>();
+            foreach (BuildAssetCache cache in assetCaches)
+                try { cache.Dispose(); } catch (Exception error) { failures.Add(error); retained.Add(cache); }
+            assetCaches.Clear(); assetCaches.AddRange(retained); cacheCommitted = false;
+            if (failures.Count != 0) throw new AggregateException("Build asset cache rollback failed.", failures);
+        }
+        public void CompleteCache()
+        {
+            if (cacheCompleted || !cacheCommitted) return;
+            foreach (BuildAssetCache cache in assetCaches) cache.Complete();
+            assetCaches.Clear(); cacheCompleted = true;
+        }
+        static string CacheProcessContract()
+        {
+            using (var bytes = new MemoryStream())
+            using (var writer = new BinaryWriter(bytes, System.Text.Encoding.UTF8))
+            {
+                writer.Write("NewModCompiler.BuildCache.Process.v1");
+                writer.Write(Environment.Version.ToString()); writer.Write(Environment.OSVersion.ToString());
+                writer.Write(Environment.CurrentDirectory);
+                writer.Write(System.Globalization.CultureInfo.CurrentCulture.Name);
+                writer.Write(System.Globalization.CultureInfo.CurrentUICulture.Name);
+                var variables = Environment.GetEnvironmentVariables();
+                var keys = variables.Keys.Cast<string>().OrderBy(x => x, StringComparer.Ordinal).ToArray();
+                writer.Write(keys.Length);
+                // Environment values are hashed only, never persisted or reported.
+                foreach (string key in keys) { writer.Write(key); writer.Write((string)variables[key]); }
+                writer.Flush(); bytes.Position = 0;
+                using (var hash = SHA256.Create()) return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
+            }
+        }
+        static string CacheNamespace(string inputs, string process)
+        {
+            using (var hash = SHA256.Create()) return BitConverter.ToString(hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes("NewModCompiler.BuildAssets.Namespace.v1\n" + inputs + "\n" + process))).Replace("-", "").ToLowerInvariant();
         }
 
         static BuildFailure Failure(ExitCode exitCode, string code, Exception error)

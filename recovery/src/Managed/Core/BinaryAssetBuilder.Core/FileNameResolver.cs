@@ -72,12 +72,14 @@ public class FileNameResolver
 							{
 								string path2 = $"{Path.GetFileNameWithoutExtension(text2)}_{Settings.Current.Postfix}{Path.GetExtension(text2)}";
 								text = Path.GetFullPath(Path.Combine(path, path2));
+								CacheInputBoundary.Validate(text);
 								if (File.Exists(text))
 								{
 									break;
 								}
 							}
 							text = Path.GetFullPath(Path.Combine(path, text2));
+							CacheInputBoundary.Validate(text);
 							if (File.Exists(text))
 							{
 								break;
@@ -103,6 +105,7 @@ public class FileNameResolver
 				}
 			}
 		}
+		CacheInputBoundary.Validate(text);
 		_Tracer.TraceData("Result: {0}", text);
 		return text;
 	}
@@ -209,6 +212,7 @@ public class FileNameResolver
 			foreach (string text2 in includePaths)
 			{
 				text = ShPath.Canonicalize(Path.Combine((text2 == "*") ? baseDirectory : text2, path));
+				CacheInputBoundary.Validate(text);
 				if (File.Exists(text))
 				{
 					return text;
@@ -219,6 +223,7 @@ public class FileNameResolver
 		{
 			text = ShPath.Canonicalize(Path.Combine((includePaths[0] == "*") ? baseDirectory : includePaths[0], path));
 		}
+		CacheInputBoundary.Validate(text);
 		return text;
 	}
 }

@@ -637,6 +637,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Document {0} attempted to load twice.", _Current.SourcePath);
 		}
+		CacheInputBoundary.Validate(_Current.SourcePath);
 		FileNameXmlResolver xmlResolver = FileNameResolver.GetXmlResolver(SourceDirectory);
 		if (!File.Exists(_Current.SourcePath))
 		{
@@ -1045,6 +1046,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 				VerifyInstance(binaryAsset, selfInstance);
 				AssetLocation assetLocation = binaryAsset.Commit();
 				CountCommitSource(assetLocation, ref instancesCompiledCount, ref instancesCopiedFromCacheCount);
+				if (assetLocation == AssetLocation.Cache)
+					_Current.DocumentProcessor.RecordBuildCacheUse(true);
+				else if (assetLocation == AssetLocation.Memory && extendedTypeInformation.UseBuildCache && Settings.Current.BuildCache)
+					_Current.DocumentProcessor.RecordBuildCacheUse(false);
 				if (assetLocation != AssetLocation.BasePatchStream)
 				{
 					_Current.DocumentProcessor.AddLastWrittenAsset(binaryAsset);

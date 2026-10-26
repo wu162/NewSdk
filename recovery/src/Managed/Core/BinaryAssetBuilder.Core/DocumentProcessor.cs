@@ -103,6 +103,18 @@ public class DocumentProcessor
 	[NonSerialized]
 	private IDictionary<string, AssetLocationInfo> _LastWrittenAssets = new SortedDictionary<string, AssetLocationInfo>();
 
+	// Per-processor actual persistent-asset-cache use; Local/intermediate reuse
+	// is deliberately excluded from these build-cache counters.
+	public int BuildCacheHits { get; private set; }
+
+	public int BuildCacheMisses { get; private set; }
+
+	internal void RecordBuildCacheUse(bool hit)
+	{
+		if (hit) BuildCacheHits++;
+		else BuildCacheMisses++;
+	}
+
 	public ISessionCache Cache
 	{
 		get

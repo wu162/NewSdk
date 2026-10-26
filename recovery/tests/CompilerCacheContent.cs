@@ -1,0 +1,156 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web.Script.Serialization;
+using System.Xml;
+using BinaryAssetBuilder;
+using BinaryAssetBuilder.Core;
+using EALA.Hash;
+
+// Run in the independent validation host linked from the production objects.
+// These checks cover content invalidation, not production cache enablement.
+public static class CompilerCacheContent
+{
+    static int checks;
+    static readonly List<string> tests = new List<string>();
+    static void Require(bool condition, string message) { checks++; if (!condition) throw new Exception(message); }
+    static uint LegacyHash(byte[] data)
+    {
+        uint result = (uint)data.Length;
+        for (int offset = 0; offset < data.Length; offset += 1048576)
+        {
+            int count = Math.Min(1048576, data.Length - offset);
+            byte[] chunk = new byte[count]; Buffer.BlockCopy(data, offset, chunk, 0, count);
+            result = FastHash.GetHashCode(result, chunk, count);
+        }
+        return result;
+    }
+    static string Serialize(FileHashItem item)
+    {
+        var text = new StringBuilder();
+        using (var writer = XmlWriter.Create(text, new XmlWriterSettings { OmitXmlDeclaration = true })) item.WriteXml(writer);
+        return text.ToString();
+    }
+    static FileHashItem Deserialize(string text)
+    {
+        var item = new FileHashItem();
+        using (var reader = XmlReader.Create(new StringReader(text))) { reader.MoveToContent(); item.ReadXml(reader); }
+        return item;
+    }
+    static void ReplacePreservingTime(string path, byte[] contents)
+    {
+        DateTime before = File.GetLastWriteTimeUtc(path);
+        long length = new FileInfo(path).Length;
+        File.WriteAllBytes(path, contents); File.SetLastWriteTimeUtc(path, before);
+        Require(File.GetLastWriteTimeUtc(path) == before && new FileInfo(path).Length == length,
+            "Fixture must preserve exact length and timestamp: " + path);
+    }
+    static void ReplacePreservingTime(string path, string text) { ReplacePreservingTime(path, new UTF8Encoding(false).GetBytes(text)); }
+    static void FileCases(string work)
+    {
+        string path = Path.Combine(work, "input.bin");
+        foreach (int length in new[] { 0, 1, 1048576, 1048609 })
+        {
+            byte[] data = new byte[length];
+            for (int i = 0; i < length; i++) data[i] = (byte)((i * 17 + 5) % 251);
+            File.WriteAllBytes(path, data);
+            var item = new FileHashItem(path, "configuration", TargetPlatform.Win32);
+            Require(item.IsDirty && item.Exists, "A new existing file must require hashing");
+            uint first = item.Hash;
+            Require(first == LegacyHash(data), "Content identities must not change legacy FastHash or its one-MiB chunking");
+            Require(!item.IsDirty, "A freshly hashed file must be clean");
+            item.Reset(); Require(!item.IsDirty && item.Hash == first, "Unmodified contents must remain clean after reset");
+            string serialized = Serialize(item);
+            var xml = new XmlDocument(); xml.LoadXml(serialized);
+            using (var sha = SHA256.Create())
+                Require(xml.DocumentElement.GetAttribute("sha256") == Convert.ToBase64String(sha.ComputeHash(data)), "Serialized fingerprint must describe actual bytes");
+            var loaded = Deserialize(serialized);
+            Require(!loaded.IsDirty && loaded.Hash == first, "Persisted unchanged content identity must be reusable");
+            xml.DocumentElement.RemoveAttribute("sha256");
+            var old = Deserialize(xml.OuterXml);
+            Require(old.IsDirty, "Legacy timestamp-only entries must be conservatively invalidated");
+            Require(old.Hash == first && !old.IsDirty, "Legacy entry recomputation must preserve the game hash");
+            if (length != 0)
+            {
+                data[length - 1] ^= 91;
+                ReplacePreservingTime(path, data);
+                loaded.Reset(); Require(loaded.IsDirty, "Equal-length equal-time changed bytes must invalidate a persisted item");
+                Require(loaded.Hash == LegacyHash(data), "Invalidation must update to the new legacy game hash");
+                Require(!loaded.IsDirty, "Changed content must establish a new clean baseline");
+                loaded.Reset(); Require(!loaded.IsDirty, "Repeated checks must use the updated baseline");
+                File.Delete(path); loaded.Reset(); Require(!loaded.Exists && loaded.IsDirty && loaded.Hash == 0, "Deleted files must invalidate and hash as missing");
+                File.WriteAllBytes(path, data); loaded.Reset();
+                Require(loaded.Exists && loaded.Hash == LegacyHash(data), "Recreated files must be hashed correctly");
+            }
+        }
+        tests.Add("real-FileHashItem-zero-small-and-multi-chunk-FastHash-equality-content-reset-XML-roundtrip-legacy-invalidation-delete-recreate");
+    }
+    const string Header = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:a='uri:ea.com:eala:asset' targetNamespace='uri:ea.com:eala:asset'>";
+    static string Root(string kind)
+    {
+        return Header + "<xs:include schemaLocation='helpers.xsd'/><xs:simpleType name='" + kind + "'><xs:restriction base='xs:string'/></xs:simpleType></xs:schema>";
+    }
+    static string Helpers(string item)
+    {
+        return Header + "<xs:complexType name='BaseAssetType'/><xs:complexType name='BaseInheritableAsset'><xs:complexContent><xs:extension base='a:BaseAssetType'/></xs:complexContent></xs:complexType>" +
+            "<xs:simpleType name='AssetReference'><xs:restriction base='xs:string'/></xs:simpleType><xs:simpleType name='WeakReference'><xs:restriction base='xs:string'/></xs:simpleType><xs:simpleType name='FileReference'><xs:restriction base='xs:string'/></xs:simpleType>" +
+            "<xs:simpleType name='" + item + "'><xs:restriction base='xs:string'/></xs:simpleType></xs:schema>";
+    }
+    static void RejectedSchema(Action action, string label)
+    {
+        bool rejected = false;
+        try { action(); } catch (BinaryAssetBuilderException e) { rejected = e.ErrorCode == ErrorCode.ReadingSchema; }
+        Require(rejected, label + " must reject rather than reuse partial schema state");
+    }
+    static void SchemaCases(string work)
+    {
+        string root = Path.Combine(work, "root.xsd"), helper = Path.Combine(work, "helpers.xsd");
+        File.WriteAllText(root, Root("KindAlpha"), new UTF8Encoding(false));
+        File.WriteAllText(helper, Helpers("ItemAlpha"), new UTF8Encoding(false));
+        Settings.Current = new Settings { SchemaPath = root, StringHashBinDescriptors = new StringHashBinDescriptor[0] };
+        var schemas = new SchemaSet(false);
+        Require(schemas.GetXmlType("KindAlpha") != null && schemas.GetXmlType("ItemAlpha") != null, "Initial real schema closure must load");
+        var original = schemas.Schemas; schemas.ReloadIfChanged(false);
+        Require(Object.ReferenceEquals(original, schemas.Schemas), "Unmodified schema closure should be reused");
+        ReplacePreservingTime(root, Root("KindBravo")); schemas.ReloadIfChanged(false);
+        Require(!Object.ReferenceEquals(original, schemas.Schemas) && schemas.GetXmlType("KindBravo") != null && schemas.GetXmlType("KindAlpha") == null,
+            "Root schema changes with equal size and mtime must reload");
+        original = schemas.Schemas;
+        ReplacePreservingTime(helper, Helpers("ItemBravo")); schemas.ReloadIfChanged(false);
+        Require(!Object.ReferenceEquals(original, schemas.Schemas) && schemas.GetXmlType("ItemBravo") != null && schemas.GetXmlType("ItemAlpha") == null,
+            "Included schema changes with equal size and mtime must reload");
+        string alternate = Path.Combine(work, "alternate.xsd");
+        File.WriteAllText(alternate, Root("KindOther"), new UTF8Encoding(false));
+        Settings.Current.SchemaPath = alternate; schemas.ReloadIfChanged(false);
+        Require(schemas.GetXmlType("KindOther") != null && schemas.GetXmlType("KindBravo") == null, "A changed root path outside the previous closure must reload");
+        File.Delete(helper); RejectedSchema(delegate { schemas.ReloadIfChanged(false); }, "Deleted include");
+        RejectedSchema(delegate { schemas.ReloadIfChanged(false); }, "Repeated missing include");
+        File.WriteAllText(helper, Helpers("ItemThird"), new UTF8Encoding(false)); schemas.ReloadIfChanged(false);
+        Require(schemas.GetXmlType("ItemThird") != null && schemas.GetXmlType("KindOther") != null, "Failed include load must recover on the same SchemaSet");
+        string valid = Root("KindFixed");
+        File.WriteAllText(alternate, valid.Replace("<xs:include", "<xx:include"), new UTF8Encoding(false));
+        RejectedSchema(delegate { schemas.ReloadIfChanged(false); }, "Malformed root");
+        RejectedSchema(delegate { schemas.ReloadIfChanged(false); }, "Repeated malformed root");
+        ReplacePreservingTime(alternate, valid); schemas.ReloadIfChanged(false);
+        Require(schemas.GetXmlType("KindFixed") != null, "Same-size same-time repair must retry after failed load");
+        original = schemas.Schemas; schemas.ReloadIfChanged(false);
+        Require(Object.ReferenceEquals(original, schemas.Schemas), "Recovered unchanged closure must become reusable");
+        schemas.ReloadIfChanged(true);
+        Require(schemas.AssetDependencies != null, "Dependency-counting request must reload a closure loaded without dependency counts");
+        tests.Add("real-SchemaSet-root-and-include-equal-time-content-invalidation-root-switch-delete-malformed-repeat-repair-dependency-counting");
+    }
+    public static int Main(string[] args)
+    {
+        Settings previous = Settings.Current;
+        try
+        {
+            Directory.CreateDirectory(args[0]); FileCases(args[0]); SchemaCases(args[0]);
+            File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests }));
+            Console.WriteLine("PASS CacheContent: " + checks + " assertions"); return 0;
+        }
+        catch (Exception error) { Console.Error.WriteLine(error); return 1; }
+        finally { Settings.Current = previous; }
+    }
+}

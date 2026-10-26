@@ -50,6 +50,7 @@ public class FileNameXmlResolver : XmlUrlResolver
 			sourceUri = stringBuilder.ToString();
 			empty = absoluteUri.LocalPath;
 		}
+		CacheInputBoundary.Validate(empty);
 		_Paths.Add(new PathMapItem(sourceUri, empty));
 		return base.GetEntity(absoluteUri, role, ofObjectToReturn);
 	}

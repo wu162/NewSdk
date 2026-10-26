@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Security.Cryptography;
 using System.Xml;
 using System.Xml.Schema;
 
@@ -47,6 +48,10 @@ public class SchemaSet
 
 	private IDictionary<string, DateTime> _SchemaPaths;
 
+	private IDictionary<string, string> _SchemaContentHashes;
+
+	private string _LoadedSchemaPath;
+
 	private string _CurrentSchema = "<unknown>";
 
 	private IDictionary<string, StringCollection> _InheritanceMap;
@@ -79,23 +84,17 @@ public class SchemaSet
 	private void ReadSchema(string baseDirectory, string schemaFile)
 	{
 		schemaFile = (Path.IsPathRooted(schemaFile) ? Path.GetFullPath(schemaFile) : Path.GetFullPath(Path.Combine(baseDirectory, schemaFile)));
+		CacheInputBoundary.Validate(schemaFile);
 		_CurrentSchema = schemaFile;
-		string text = schemaFile.ToLower();
-		if (_SchemaPaths.ContainsKey(text))
-		{
-			return;
-		}
-		if (File.Exists(text))
-		{
-			_SchemaPaths.Add(text, File.GetLastWriteTime(text));
-		}
-		string s = null;
-		using (StreamReader streamReader = new StreamReader(schemaFile))
-		{
-			s = streamReader.ReadToEnd();
-		}
-		using StringReader reader = new StringReader(s);
-		XmlSchema xmlSchema = XmlSchema.Read(reader, null);
+		if (_SchemaPaths.ContainsKey(schemaFile)) return;
+		byte[] contents = File.ReadAllBytes(schemaFile);
+		_SchemaPaths.Add(schemaFile, File.GetLastWriteTime(schemaFile));
+		using (var algorithm = SHA256.Create())
+			_SchemaContentHashes.Add(schemaFile, Convert.ToBase64String(algorithm.ComputeHash(contents)));
+		XmlSchema xmlSchema;
+		using (var input = new MemoryStream(contents, false))
+		using (var reader = new StreamReader(input))
+			xmlSchema = XmlSchema.Read(reader, null);
 		foreach (XmlSchemaInclude include in xmlSchema.Includes)
 		{
 			ReadSchema(Path.GetDirectoryName(schemaFile), include.SchemaLocation);
@@ -310,7 +309,12 @@ public class SchemaSet
 
 	private void LoadSchemas(bool countDependencies)
 	{
-		_SchemaPaths = new SortedDictionary<string, DateTime>();
+		// A failed load must not make its partially read inputs appear reusable.
+		_LoadedSchemaPath = null;
+		_AssetDependencies = null;
+		_CircularCheck = new Set<uint>();
+		_SchemaPaths = new SortedDictionary<string, DateTime>(StringComparer.OrdinalIgnoreCase);
+		_SchemaContentHashes = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 		_Schemas = new XmlSchemaSet();
 		_InheritanceMap = new SortedDictionary<string, StringCollection>();
 		_DependencyTree = new SortedDictionary<uint, DependencyList>();
@@ -365,6 +369,7 @@ public class SchemaSet
 		{
 			FlattenInheritanceTree(key, dictionary);
 		}
+		_LoadedSchemaPath = Path.GetFullPath(Settings.Current.SchemaPath);
 	}
 
 	private void SetupHelperSchemaTypes()
@@ -393,41 +398,33 @@ public class SchemaSet
 
 	public void ReloadIfChanged(bool countDependencies)
 	{
-		bool flag = false;
-		if (countDependencies && _AssetDependencies == null)
+		bool changed = countDependencies && _AssetDependencies == null;
+		string requested = Path.GetFullPath(Settings.Current.SchemaPath);
+		if (!string.Equals(requested, _LoadedSchemaPath, StringComparison.OrdinalIgnoreCase) ||
+			_SchemaPaths == null || _SchemaContentHashes == null)
+			changed = true;
+		if (!changed)
 		{
-			flag = true;
-		}
-		if (_SchemaPaths != null)
-		{
-			string text = Settings.Current.SchemaPath.ToLower();
-			if (_SchemaPaths.TryGetValue(text, out var value))
+			foreach (KeyValuePair<string, DateTime> schemaPath in _SchemaPaths)
 			{
-				if (!File.Exists(text) || File.GetLastWriteTime(text) != value)
+				if (!File.Exists(schemaPath.Key) || File.GetLastWriteTime(schemaPath.Key) != schemaPath.Value)
 				{
-					flag = true;
+					changed = true;
+					break;
 				}
-				else
+				using (var algorithm = SHA256.Create())
+				using (var input = File.OpenRead(schemaPath.Key))
 				{
-					foreach (KeyValuePair<string, DateTime> schemaPath in _SchemaPaths)
+					string content = Convert.ToBase64String(algorithm.ComputeHash(input));
+					if (!string.Equals(content, _SchemaContentHashes[schemaPath.Key], StringComparison.Ordinal))
 					{
-						if (!File.Exists(schemaPath.Key) || File.GetLastWriteTime(schemaPath.Key) != schemaPath.Value)
-						{
-							flag = true;
-							break;
-						}
+						changed = true;
+						break;
 					}
 				}
 			}
 		}
-		else
-		{
-			flag = true;
-		}
-		if (flag)
-		{
-			LoadSchemas(countDependencies);
-		}
+		if (changed) LoadSchemas(countDependencies);
 	}
 
 	public StringCollection GetDerivedTypes(string typeName)
