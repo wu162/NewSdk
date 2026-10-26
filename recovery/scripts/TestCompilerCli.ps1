@@ -29,10 +29,10 @@ function MakeMod([string]$Path,[string]$Probe){
     [IO.File]::WriteAllText((Join-Path $Path 'Data/AptUI/Two.xml'),$Probe.Replace('Default="72.5%"','Default="32.5%"'))
     [IO.File]::WriteAllText((Join-Path $Path 'Data/AdditionalMaps/MapMetaData_One.xml'),$Probe.Replace('Default="72.5%"','Default="42.5%"'))
 }
-function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string]$Selection,[int]$Expected,[int]$StreamCount,[bool]$Cancel=$false,[string[]]$Extra=@(),[string]$HoldReadFile=$null,[int]$CustomDataCount=0){
+function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string]$Selection,[int]$Expected,[int]$StreamCount,[bool]$Cancel=$false,[string[]]$Extra=@(),[string]$HoldReadFile=$null,[int]$CustomDataCount=0,[string]$ReuseDestination=$null){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
-    $destination=Join-Path $script:modeWork ('o'+$script:caseIndex);$script:caseIndex++
-    New-Item -ItemType Directory -Path $destination|Out-Null
+    $destination=if($ReuseDestination){$ReuseDestination}else{Join-Path $script:modeWork ('o'+$script:caseIndex)};$script:caseIndex++
+    New-Item -ItemType Directory -Force -Path $destination|Out-Null
     $arguments=@($Command,'--sdk-root',$Sdk)
     if($Command -ne 'doctor'){$arguments+=@('--mod',$Mod,'--out',$destination,'--package-content',$Selection)}
     $arguments+=@($Extra)
@@ -83,10 +83,15 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
                 Need (@($body.artifacts).Count -eq 4*$StreamCount+$CustomDataCount) 'Expected exactly four linked files per task plus allowed Texture CustomData'
                 Need (@($body.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq $CustomDataCount) 'Reported CustomData count differs'
                 foreach($artifact in $body.artifacts){
-                    Need ((Within (Join-Path $destination ('.build/'+$body.buildId)) $artifact.Path) -and (Test-Path -LiteralPath $artifact.Path)) 'Artifact escaped this atomic isolated build staging'
+                    Need ((Within (ArtifactRoot $destination $body) $artifact.Path) -and (Test-Path -LiteralPath $artifact.Path)) 'Artifact escaped the accepted generation root'
                     Need ((Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size -and (Hash $artifact.Path) -ceq $artifact.Sha256) 'Artifact identity differs from report'
                 }
-                Need ($body.publicationStatus -ceq 'IsolatedStagingOnly' -and $body.executionMode -ceq 'InProcess') 'CLI falsely claimed publication or external execution'
+                if($script:publicationEnabled){
+                    Need ($body.publicationStatus -ceq $(if($StreamCount -eq 0){'NotPublished'}else{'PublishedDirectory'}) -and $body.publicationDirectory -ceq (Join-Path $destination 'published')) 'CLI publication receipt differs'
+                    Need (!(Test-Path -LiteralPath (Join-Path $destination ('.build/'+$body.buildId)))) 'Published CLI retained owned staging'
+                    Need (@(Get-ChildItem -LiteralPath $destination -Directory|Where-Object{$_.Name -like '.publish-*' -or $_.Name -like '.previous-*'}).Count -eq 0) 'CLI retained unlocked preparation/backup'
+                }else{Need ($body.publicationStatus -ceq 'IsolatedStagingOnly') 'Historical runtime publication contract differs'}
+                Need ($body.executionMode -ceq 'InProcess') 'CLI claimed external execution'
             } elseif($Command -eq 'plan'){
                 Need (@($body.artifacts).Count -eq 0 -and $body.executionMode -ceq 'PlanOnly') 'Plan compiled assets'
             } else {
@@ -115,8 +120,12 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
         if(Test-Path -LiteralPath $destination){Copy-Item -LiteralPath $destination -Destination (Join-Path $caseOut 'output') -Recurse}
     }
 }
+function ArtifactRoot([string]$Destination,$Report){
+    if($Report.publicationStatus -ceq 'PublishedDirectory'){return (Join-Path $Destination 'published')}
+    return (Join-Path $Destination ('.build/'+$Report.buildId))
+}
 function TaskOutputs($Case,$Task,[int]$CustomDataCount=0){
-    $prefix=Join-Path $Case.destination ('.build/'+$Case.report.buildId+'/'+$Task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($Task.InputPath))
+    $prefix=Join-Path (ArtifactRoot $Case.destination $Case.report) ($Task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($Task.InputPath))
     $map=@{};foreach($artifact in $Case.report.artifacts){if(Within $prefix $artifact.Path){$map[$artifact.Path.Substring($prefix.Length)]=$artifact.Sha256}}
     Need ($map.Count -eq 4+$CustomDataCount) 'Task output count differs from four streams plus allowed Texture CustomData';$map
 }
@@ -125,7 +134,7 @@ function TaskOutputs($Case,$Task,[int]$CustomDataCount=0){
 function AssertLogicalSources($Case){
     $records=@()
     foreach($task in $Case.report.plan.Tasks){
-        $prefix=Join-Path $Case.destination ('.build/'+$Case.report.buildId+'/'+$task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath))
+        $prefix=Join-Path (ArtifactRoot $Case.destination $Case.report) ($task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath))
         $files=@($Case.report.artifacts|Where-Object{(Within $prefix $_.Path) -and [IO.Path]::GetExtension($_.Path) -ceq '.manifest'})
         Need ($files.Count -eq 1) 'Expected one manifest per source-path semantic case'
         $bytes=[IO.File]::ReadAllBytes($files[0].Path)
@@ -165,6 +174,8 @@ try {
         $state.binarySourceCommit=$reuse.sourceCommit;$state.historicalRuntimeReuse=$reuse
         $state.scope='Current CLI tests executing strictly verified historical production EXE bytes; historical binarySourceCommit and current testSourceCommit remain distinct; this is not a current production rebuild'
     }
+    $script:publicationEnabled=$null -eq $reuse
+    $state.publicationAcceptanceRequested=$script:publicationEnabled
     $state.scriptSha256=Hash $PSCommandPath;$state.controllerSourceSha256=Hash "$root/recovery/tests/CompilerCliControl.cs"
     $sourceSdk=Join-Path $root 'SDK';$schemaSnapshot=Snapshot (Join-Path $sourceSdk 'Schemas/xsd')
     $configHash=Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config');$probeFile=Join-Path $sourceSdk 'Mods/mymod/Data/RecoveryArmorProbe.xml';$probeHash=Hash $probeFile;$probe=[IO.File]::ReadAllText($probeFile)
@@ -241,8 +252,35 @@ try {
         $cancelled=RunCli 'ctrl-break' 'build' $mod $sdk 'base,apt,maps' 6 1 $true
         Need ($cancelled.report.status -ceq 'cancelled' -and @($cancelled.report.artifacts).Count -eq 0) 'Actual cancellation report accepted output'
         $afterCancel=RunCli 'retry-after-cancel' 'build' $mod $sdk 'base' 0 1
+        # Reuse exactly the same destination across actual production processes.
+        # Late report/terminal/close failures are separately injected by App contracts.
+        if($script:publicationEnabled){
+            $firstPublication=RunCli 'publication-first' 'build' $mod $sdk 'base' 0 1
+            $publicationOut=$firstPublication.destination;$generation=Join-Path $publicationOut 'published'
+            [IO.File]::WriteAllText((Join-Path $generation 'obsolete.bin'),'must not survive replacement')
+            $replacement=RunCli 'publication-replace' 'build' $mod $sdk 'apt' 0 2 -ReuseDestination $publicationOut
+            Need (!(Test-Path -LiteralPath (Join-Path $generation 'obsolete.bin')) -and !(Test-Path -LiteralPath (Join-Path $generation 'base'))) 'Replacement retained old generation files'
+            Need (@(Get-ChildItem -LiteralPath $generation -File -Recurse).Count -eq 8) 'Replacement did not publish the exact artifact allowlist'
+            EqualTask $combined $replacement 'apt'
+            $generationSnapshot=Snapshot $generation
+            $cancelPublication=RunCli 'publication-cancel-retains' 'build' $mod $sdk 'base,apt,maps' 6 1 $true -ReuseDestination $publicationOut
+            Unchanged $generation $generationSnapshot
+            [IO.File]::WriteAllText((Join-Path $badMod 'Data/Mod.xml'),'<AssetDeclaration>broken')
+            $failedPublication=RunCli 'publication-compile-failure-retains' 'build' $badMod $sdk 'base' 4 1 -ReuseDestination $publicationOut
+            Unchanged $generation $generationSnapshot
+            [IO.File]::WriteAllText((Join-Path $badMod 'Data/Mod.xml'),$probe)
+            $heldArtifact=@($replacement.report.artifacts)[0].Path
+            $occupiedPublication=RunCli 'publication-occupied-retains' 'build' $mod $sdk 'base' 7 1 -HoldReadFile $heldArtifact -ReuseDestination $publicationOut
+            Need ($occupiedPublication.report.publicationStatus -ceq 'NotPublished') 'Occupied output was accepted as a publication'
+            Need ($occupiedPublication.report.exitCode -eq 7 -and $modeState.cases[-1].control.readLockHeld -and $modeState.cases[-1].control.readLockPath -ceq $heldArtifact) 'Publication fault did not hold an actual prior generation artifact'
+            Unchanged $generation $generationSnapshot
+            $publicationRetry=RunCli 'publication-retry' 'build' $mod $sdk 'base' 0 1 -ReuseDestination $publicationOut
+            Need (@(Get-ChildItem -LiteralPath $generation -File -Recurse).Count -eq 4 -and !(Test-Path -LiteralPath (Join-Path $generation 'apt'))) 'Publication retry mixed old/new selections'
+            EqualTask $combined $publicationRetry 'base'
+            $modeState.publicationAcceptance=@{passed=$true;directory=$generation;first=$firstPublication.name;replacement=$replacement.name;cancel=$cancelPublication.name;compilationFailure=$failedPublication.name;occupied=$occupiedPublication.name;retry=$publicationRetry.name;lateOutputFailures='Separate controlled App lifecycle contracts; no real CLI late failure injection claimed'}
+        }
         foreach($selection in @(@{name='mod-a';task=@($ascii.report.plan.Tasks|Where-Object{$_.Content -ceq 'base'})[0]},@{name='mod-b';task=@($ascii.report.plan.Tasks|Where-Object{$_.Content -ceq 'apt'})[0]})){
-            $task=$selection.task;$prefix=Join-Path $ascii.destination ('.build/'+$ascii.report.buildId+'/'+$task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath));$outputs=@{}
+            $task=$selection.task;$prefix=Join-Path (ArtifactRoot $ascii.destination $ascii.report) ($task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath));$outputs=@{}
             foreach($artifact in $ascii.report.artifacts){if(Within $prefix $artifact.Path){$outputs[[IO.Path]::GetExtension($artifact.Path).Substring(1)]=$artifact.Path}}
             $modeState.baselineCases+=,@{name=$selection.name;modRoot=$asciiMod;inputPath=$task.InputPath;sdkRoot=$sdk;originalToolsRoot=(Join-Path $sourceSdk 'tools');stagingDirectory=$prefix;outputs=$outputs;scope='Identical ASCII-path companion of Unicode combined CLI base/first-APT stream; strict byte comparison, no output normalization; not the remaining two selected streams'}
         }
@@ -275,7 +313,7 @@ try {
                 $tasks=@($businessCombined.report.plan.Tasks|Where-Object{$_.Content -ceq $selection.group})
                 Need ($tasks.Count -eq 1) 'Business original oracle requires exactly one task for its selected group'
                 $task=$tasks[0]
-                $prefix=Join-Path $businessCombined.destination ('.build/'+$businessCombined.report.buildId+'/'+$task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath));$outputs=@{}
+                $prefix=Join-Path (ArtifactRoot $businessCombined.destination $businessCombined.report) ($task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath));$outputs=@{}
                 foreach($artifact in $businessCombined.report.artifacts){if(Within $prefix $artifact.Path){$outputs[[IO.Path]::GetExtension($artifact.Path).Substring(1)]=$artifact.Path}}
                 Need ($outputs.Count -eq 4) 'Business original oracle requires four current CLI outputs'
                 $businessReceipt.baselineCases+=,@{name=$selection.name;modRoot=$businessMod;inputPath=$task.InputPath;sdkRoot=$sdk;originalToolsRoot=(Join-Path $sourceSdk 'tools');stagingDirectory=$prefix;outputs=$outputs;scope=('Actual '+$selection.types+' business task, current original BAB strict four-stream comparison; no historical output reuse or byte normalization')}
@@ -309,7 +347,7 @@ try {
                 $name=[IO.Path]::GetFileNameWithoutExtension($task.InputPath)
                 Need ($task.Content -ceq 'apt' -and $name -cin @('TacticalHUDBuildQueuePage','TacticalHUDCommandListBox','TacticalHUDMainCommandBar')) 'Unexpected original UI task'
                 $textures=@($uiPrepared.textures|Where-Object{$_.entry -ceq $name}|ForEach-Object{$_.qualifiedName})
-                $prefix=Join-Path $ui.destination ('.build/'+$ui.report.buildId+'/'+$task.Content+'/'+$name);$outputs=@{}
+                $prefix=Join-Path (ArtifactRoot $ui.destination $ui.report) ($task.Content+'/'+$name);$outputs=@{}
                 foreach($artifact in $ui.report.artifacts){if((Within $prefix $artifact.Path) -and $artifact.Kind -cne 'custom-data'){$extension=[IO.Path]::GetExtension($artifact.Path).Substring(1);Need (!$outputs.ContainsKey($extension)) 'Duplicate UI stream extension';$outputs[$extension]=$artifact.Path}}
                 Need ($outputs.Count -eq 4) 'Real UI requires exactly four current CLI stream outputs'
                 $inlineTextures=@(Test-CompilerInlineTexturePayload $outputs.manifest $textures)

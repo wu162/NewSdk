@@ -20,6 +20,8 @@ namespace NewModCompiler.Application
         {
             if (executed) throw new InvalidOperationException("BuildSession can only be executed once."); executed = true; acceptingCoreTrace = true;
             DiagnosticDirectory stagingParent = null, stagingGuard = null; bool stagingOwned = false;
+            ArtifactPublication publication = null; string publicationStatus = request.Command == "plan" ? "NoCompilationRequested" : "NotPublished";
+            string publicationDirectory = request.Command == "plan" ? null : Path.Combine(request.OutputRoot,"published");
             try {
             ExitCode code = ExitCode.Success; string status = "succeeded"; string staging = Path.Combine(request.OutputRoot,".build",events.BuildId);
             try {
@@ -91,8 +93,39 @@ namespace NewModCompiler.Application
                 }
                 acceptingCoreTrace = false;
             }
-            bool retainedStaging = code == ExitCode.Success && stagingOwned;
             if (events.OutputFailed) { code=ExitCode.Output; status="failed"; }
+            // The compiler must release every stream and provider before publication.
+            // Keep the previous generation until all required output channels close.
+            if (code == ExitCode.Success && request.Command == "build" && artifacts.Count != 0) {
+                try {
+                    StartStage("publish");
+                    cancellation.ThrowIfCancellationRequested();
+                    publication = new ArtifactPublisher().Prepare(request,staging,"published",artifacts,cancellation);
+                    cancellation.ThrowIfCancellationRequested();
+                    publication.Commit();
+                    artifacts.Clear(); artifacts.AddRange(publication.Result.Artifacts);
+                    CompleteStage("succeeded",artifacts.Count);
+                    cancellation.ThrowIfCancellationRequested();
+                    publicationStatus="PublishedDirectory";
+                } catch (OperationCanceledException e) { code=ExitCode.Cancelled; status="cancelled"; Fail(e,status,"BUILD_CANCELLED","Build cancelled before publication finalization."); }
+                catch (Exception e) { code=ExitCode.Output; status="failed"; Fail(e,status,"PUBLICATION_FAILED",e.ToString()); }
+            }
+            // Neither a published build nor a failed build retains disposable staging.
+            if (stagingOwned && Directory.Exists(staging)) {
+                try { Directory.Delete(staging,true); }
+                catch (Exception e) { code=ExitCode.Output; status="failed"; Diagnostic("STAGING_CLEANUP_FAILED",e.ToString()); ExportExceptionDetails(e); }
+            }
+            // Last cancellable safe boundary. Required report/event/sink finalization
+            // and Complete then form one non-cancellable controlled commit sequence.
+            if (code == ExitCode.Success && cancellation.IsCancellationRequested) {
+                code=ExitCode.Cancelled; status="cancelled";
+                Diagnostic("BUILD_CANCELLED","Build cancelled before publication finalization.");
+            }
+            if (code != ExitCode.Success) {
+                RevokePublication(ref publication,ref publicationStatus,ref code);
+                if (code == ExitCode.Output) status="failed";
+                artifacts.Clear();
+            }
             var report = new Dictionary<string, object> {
                 {"schemaVersion","1.0"},{"buildId",events.BuildId},{"status",status},{"exitCode",(int)code},
                 {"requestArguments",request.Arguments},{"effectiveOptions",request.Options},{"selectedContent",request.Content},
@@ -101,7 +134,7 @@ namespace NewModCompiler.Application
                 {"externalTools",new string[0]},{"cache",new {status="NotImplemented",hits=0,misses=0}},
                 {"elapsedMs",events.ElapsedMilliseconds},{"artifacts",artifacts},{"logPaths",new {events=request.EventsPath,report=request.ReportPath,text=request.LogPath}},
                 {"executionMode",request.Command == "plan" ? "PlanOnly" : "InProcess"},
-                {"publicationStatus",request.Command == "plan" ? "NoCompilationRequested" : "IsolatedStagingOnly"}
+                {"publicationStatus",publicationStatus},{"publicationDirectory",publicationDirectory}
             };
             try { Reports.WriteAtomic(request.ReportPath,report); }
             catch (Exception e) { code=ExitCode.Output; status="failed"; Diagnostic("REPORT_WRITE_FAILED",e.Message); }
@@ -115,26 +148,48 @@ namespace NewModCompiler.Application
                 AddReportDiagnostic("EVENT_CLOSE_FAILED",events.CloseFailureMessage,"error",null,null,null,null);
                 try { Console.Error.WriteLine("EVENT_CLOSE_FAILED: " + events.CloseFailureMessage); } catch (Exception) { }
             }
-            // Output channels finalize after compilation cleanup. A late failure
-            // must revoke the successfully compiled artifacts as well as exit7.
-            bool revokedArtifacts = retainedStaging && code != ExitCode.Success;
-            if (revokedArtifacts) {
-                try { if (Directory.Exists(staging)) Directory.Delete(staging,true); }
-                catch (Exception e) { Diagnostic("STAGING_CLEANUP_FAILED",e.ToString()); ExportExceptionDetails(e); }
-                finally { artifacts.Clear(); }
+            if (code != ExitCode.Success) {
+                RevokePublication(ref publication,ref publicationStatus,ref code);
+                if (code == ExitCode.Output) status="failed";
+                artifacts.Clear();
             }
-            // The exit code and durable report must fail even if an earlier terminal event
-            // was written successfully before an unavoidable close/flush failure.
-            if (revokedArtifacts || events.CloseFailed || (int)code != Convert.ToInt32(report["exitCode"])) {
-                report["status"]=status; report["exitCode"]=(int)code;
+            // A terminal event already written cannot be retracted after close failure;
+            // the final return value and durable report are the authoritative outcome.
+            if (events.CloseFailed || (int)code != Convert.ToInt32(report["exitCode"]) ||
+                !string.Equals(publicationStatus,(string)report["publicationStatus"],StringComparison.Ordinal)) {
+                report["status"]=status; report["exitCode"]=(int)code; report["publicationStatus"]=publicationStatus;
                 report["diagnosticCounts"]=new {error=errorCount,warning=warningCount}; report["elapsedMs"]=events.ElapsedMilliseconds;
                 try { Reports.WriteAtomic(request.ReportPath,report); } catch { code=ExitCode.Output; }
             }
+            if (code == ExitCode.Success && publication != null) {
+                // No required fallible output follows Complete: a report failure must
+                // always have the opportunity to restore the previous generation.
+                publication.Complete();
+                if (publication.Result.RetainedPreviousDirectory != null) {
+                    // Best-effort cleanup of an obsolete generation is distinct from
+                    // publishing the new one. Retain its exact location for recovery.
+                    try { Console.Error.WriteLine("PUBLICATION_PREVIOUS_RETAINED: " + publication.Result.RetainedPreviousDirectory); } catch (Exception) { }
+                }
+            }
             return code;
             } finally {
+                if (publication != null) publication.Dispose();
                 if (stagingGuard != null) stagingGuard.Dispose();
                 if (stagingParent != null) stagingParent.Dispose();
             }
+        }
+        void RevokePublication(ref ArtifactPublication publication,ref string publicationStatus,ref ExitCode code)
+        {
+            if (publication == null) return;
+            bool wasCommitted = publication.Result != null;
+            try { publication.Rollback(); publicationStatus=wasCommitted ? "RolledBack" : "NotPublished"; }
+            catch (Exception e) {
+                code=ExitCode.Output; publicationStatus="RollbackFailed";
+                Diagnostic("PUBLICATION_ROLLBACK_FAILED",e.ToString());
+                object backup=e.Data["PublicationBackupDirectory"];
+                if (backup != null) Diagnostic("PUBLICATION_PREVIOUS_RETAINED",backup.ToString());
+            }
+            finally { try { publication.Dispose(); } catch (Exception e) { code=ExitCode.Output; Diagnostic("PUBLICATION_CLEANUP_FAILED",e.ToString()); } publication=null; }
         }
         void StartStage(string id)
         {

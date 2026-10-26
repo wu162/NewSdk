@@ -145,6 +145,7 @@ namespace NewModCompiler.Tests
                 root=Path.GetFullPath(args.Length==0 ? Path.Combine(Path.GetTempPath(),"NewModCompiler-App-"+Guid.NewGuid().ToString("N")) : args[0]);
                 if (Directory.Exists(root)) Directory.Delete(root,true); Directory.CreateDirectory(root);
                 assertions += ArtifactPublisherTests.Run(Path.Combine(root,"publisher-tests"));
+                assertions += CacheInputSnapshotTests.Run(Path.Combine(root,"cache-input-tests"));
                 mod=Path.Combine(root,"external mods","中文 MOD"); sdk=Path.Combine(root,"SDK"); Directory.CreateDirectory(sdk);
                 FileAt(Path.Combine(mod,"Data","Mod.xml")); FileAt(Path.Combine(mod,"Data","AptUI","b.xml")); FileAt(Path.Combine(mod,"Data","AptUI","a.xml"));
                 FileAt(Path.Combine(mod,"Data","AdditionalMaps","MapMetaData_z.xml")); FileAt(Path.Combine(mod,"Data","AdditionalMaps","Ignored.xml"));
@@ -167,6 +168,7 @@ namespace NewModCompiler.Tests
                 Reject("CLI_CAPABILITY","--package-format","big"); Reject("CLI_PLATFORM","/tp:Xbox360"); Reject("CLI_BOOLEAN","/csc:garbage"); Reject("CLI_RANGE","/tl:10"); Reject("CLI_RANGE","/el:2"); Reject("CLI_CONTENT","--package-content","bogus");
                 Reject("CLI_STDOUT_EVENTS","--events","-"); Reject("CLI_LOG_COLLISION","--events",Path.Combine(root,"same"),"--report",Path.Combine(root,"same")); Reject("CLI_LOG_INPUT","--events",Path.Combine(mod,"input.log"));
                 DiagnosticPathTests.Run(root,mod,sdk);
+                assertions += SessionPublicationTests.Run(Path.Combine(root,"session-publication"),mod,sdk);
                 string project=Path.Combine(mod,"newmodcompiler.json"); FileAt(project,"{\"package-content\":\"apt\",\"tp\":\"Win32\"}");
                 var preset=Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"preset")}); Check(preset.Content.SequenceEqual(new [] {"apt"}) && preset.Options["package-content"].Source=="project","Project preset");
                 Check(Request("base").Options["package-content"].Source=="commandLine","CLI overrides project"); File.Delete(project);

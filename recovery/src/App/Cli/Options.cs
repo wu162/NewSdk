@@ -121,9 +121,11 @@ namespace NewModCompiler.Cli
                 string[] diagnostics=new [] {request.EventsPath,request.ReportPath,request.LogPath};
                 string[] physical=diagnostics.Select(DiagnosticDirectory.ResolveOutput).ToArray();
                 string staging=DiagnosticDirectory.ResolveOutput(Path.Combine(request.OutputRoot,".build"));
+                string published=DiagnosticDirectory.ResolveOutput(Path.Combine(request.OutputRoot,"published"));
                 for (int i=0;i<physical.Length;++i) {
-                    if (Paths.Contains(staging,physical[i]) || Paths.Contains(physical[i],staging))
-                        throw Bad("CLI_LOG_COLLISION","Diagnostic files must not overlap the staging directory.");
+                    if (Paths.Contains(staging,physical[i]) || Paths.Contains(physical[i],staging) ||
+                        Paths.Contains(published,physical[i]) || Paths.Contains(physical[i],published))
+                        throw Bad("CLI_LOG_COLLISION","Diagnostic files must not overlap staging or publication directories.");
                     for (int j=0;j<i;++j)
                         if (Paths.Contains(physical[i],physical[j]) || Paths.Contains(physical[j],physical[i]))
                             throw Bad("CLI_LOG_COLLISION","Diagnostic paths must be distinct files, without ancestor/descendant overlap.");

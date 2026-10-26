@@ -145,7 +145,7 @@ public static class CompilerApplicationBuild
         Require(Text(run.Report["buildId"]) == run.BuildId && Convert.ToInt32(run.Report["exitCode"]) == (int)run.Code, "Report terminal identity differs from return code");
         var terminal = Map(events[events.Count - 1]["payload"]);
         Require(Convert.ToInt32(terminal["exitCode"]) == (int)run.Code && Text(terminal["status"]) == Text(run.Report["status"]), "Terminal event and report disagree");
-        Require(Text(run.Report["executionMode"]) == "InProcess" && Text(run.Report["publicationStatus"]) == "IsolatedStagingOnly" && Array(run.Report["externalTools"]).Length == 0, "Unexpected application execution/publication mode");
+        Require(Text(run.Report["executionMode"]) == "InProcess" && Text(run.Report["publicationStatus"]) == (run.Code == ExitCode.Success && run.Expected.Tasks.Length != 0 ? "PublishedDirectory" : "NotPublished") && Array(run.Report["externalTools"]).Length == 0, "Unexpected application execution/publication mode");
         Require(Array(run.Report["loadedProviders"]).Length == 1 && Text(Array(run.Report["loadedProviders"])[0]) == "NewModCompiler.Core.Experimental.Win32.NoCache", "Application did not use the real experimental Core backend");
         string[] expectedIds = run.Expected.Tasks.Select(t => t.Id).ToArray();
         var reportPlan = Map(run.Report["plan"]);
@@ -196,18 +196,20 @@ public static class CompilerApplicationBuild
         object[] artifacts = Array(run.Report["artifacts"]);
         Require(artifacts.Length == 4 * selected.Length && Events(run, "ArtifactProduced").Length == artifacts.Length, "Expected four artifacts per selected stream");
         string staging = Path.Combine(run.Request.OutputRoot, ".build", run.BuildId);
+        string published = Path.Combine(run.Request.OutputRoot, "published");
+        Require(!Directory.Exists(staging) && Text(run.Report["publicationDirectory"]) == published, "Successful publication retained staging or reported the wrong destination");
         var paths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (object value in artifacts)
         {
             var artifact = Map(value); string path = Text(artifact["Path"]);
-            Require(Paths.Contains(staging, path) && paths.Add(path) && File.Exists(path), "Artifact escaped this build's isolated staging");
+            Require(Paths.Contains(published, path) && paths.Add(path) && File.Exists(path), "Artifact escaped this build's published directory");
             Require(new FileInfo(path).Length == Convert.ToInt64(artifact["Size"]) && Hash(path) == Text(artifact["Sha256"]), "Reported artifact identity differs from actual output");
-            var emitted = Events(run, "ArtifactProduced").Select(e => Map(e["payload"])).Single(a => Text(a["Path"]) == path);
+            var emitted = Events(run, "ArtifactProduced").Select(e => Map(e["payload"])).Single(a => Text(a["Path"]) == Path.Combine(staging, path.Substring(published.Length).TrimStart('\\', '/')));
             Require(Text(emitted["Sha256"]) == Text(artifact["Sha256"]) && Convert.ToInt64(emitted["Size"]) == Convert.ToInt64(artifact["Size"]), "Artifact event and report disagree");
         }
         foreach (BuildTask task in run.Expected.Tasks)
         {
-            string streamRoot = Path.Combine(staging, task.Content, Path.GetFileNameWithoutExtension(task.InputPath));
+            string streamRoot = Path.Combine(published, task.Content, Path.GetFileNameWithoutExtension(task.InputPath));
             var streamFiles = paths.Where(p => Paths.Contains(streamRoot, p)).ToArray();
             Require(streamFiles.Length == 4 && new[] { ".manifest", ".bin", ".imp", ".relo" }.All(extension => streamFiles.Count(p => Path.GetExtension(p) == extension) == 1), "Stream did not produce one exact linked four-file set");
         }

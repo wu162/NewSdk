@@ -15,8 +15,7 @@ namespace NewModCompiler.Application
         public Artifact[] Artifacts { get; internal set; }
     }
 
-    // Prepared integration component. No CLI/BuildSession calls this yet and no
-    // default publication layout is implied. Replaces one caller-selected leaf
+    // BuildSession publishes to OutputRoot/published. Replaces one caller-selected leaf
     // directory; controlled failures roll back, process/power-loss recovery is
     // deliberately not claimed by this two-rename transaction.
     public sealed class ArtifactPublisher
@@ -197,7 +196,7 @@ namespace NewModCompiler.Application
     // on the same thread is rejected just like a separate process. No on-disk
     // lock file can be redirected through a junction/hard link. Local names span
     // processes in the current Windows session; cross-session publication is not
-    // an enabled product scenario of this unintegrated component.
+    // an enabled product scenario.
     internal sealed class PublicationLock : IDisposable
     {
         Semaphore semaphore;

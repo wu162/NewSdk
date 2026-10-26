@@ -165,7 +165,17 @@
     "publicationStatus": {
       "enum": [
         "NoCompilationRequested",
-        "IsolatedStagingOnly"
+        "IsolatedStagingOnly",
+        "PublishedDirectory",
+        "NotPublished",
+        "RolledBack",
+        "RollbackFailed"
+      ]
+    },
+    "publicationDirectory": {
+      "type": [
+        "string",
+        "null"
       ]
     }
   }
