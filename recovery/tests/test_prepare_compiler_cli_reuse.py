@@ -217,6 +217,24 @@ class CliReuseTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Workflow change exceeds'):
                 reuse.closure(self.repo, self.source, self.candidate)
 
+    def test_dedicated_runtime_workflow_requires_exact_reviewed_bytes(self):
+        path = '.github/workflows/refactor-ui-unicode.yml'
+        content = 'name: Fixed historical runtime validation\n'
+        self.commit(path, content)
+        self.candidate = self.git('rev-parse', 'HEAD').strip()
+        with patch.dict(reuse.PINNED_TOOL_WORKFLOWS, {path: reuse.digest(reuse.git(self.repo, 'show', self.candidate + ':' + path))}):
+            self.assertIn(path, reuse.closure(self.repo, self.source, self.candidate))
+            self.commit(path, content + 'env: {BUILD_FLAGS: changed}\n')
+            self.candidate = self.git('rev-parse', 'HEAD').strip()
+            with self.assertRaisesRegex(ValueError, 'differs from reviewed bytes'):
+                reuse.closure(self.repo, self.source, self.candidate)
+            self.git('rm', path)
+            self.git('commit', '-qm', 'delete fixed workflow')
+            self.candidate = self.git('rev-parse', 'HEAD').strip()
+            # Adding then deleting produces no final tree change, so there is
+            # no workflow to execute and no binary-input closure expansion.
+            self.assertNotIn(path, reuse.closure(self.repo, self.source, self.candidate))
+
     def test_baseline_tool_change_allowed_as_tool_only(self):
         self.commit('recovery/scripts/TestCompilerBackendBaseline.ps1', 'new baseline acceptance tool')
         self.candidate = self.git('rev-parse', 'HEAD').strip()

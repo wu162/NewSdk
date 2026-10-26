@@ -291,7 +291,7 @@ try {
         # Complete fixed original UI source closure. Keep both original TGA
         # textures and compare all bytes at the identical absolute input paths.
         $uiMod=Join-Path $modeWork 'real-ui'
-        $uiReceipt=@{succeeded=$false;sourceCommit=$state.sourceCommit;runId=$state.runId;configuration=$mode;scope='All three original Upheaval UI wrappers and complete APT/CONST/DAT/geometry/TGA dependencies; current CLI combined/cold outputs and independent original BAB strict four-stream plus exact manifest-bound Texture CustomData comparison; runtime UI and full G3/SDK remain separate'}
+        $uiReceipt=@{succeeded=$false;sourceCommit=$state.sourceCommit;runId=$state.runId;configuration=$mode;scope='All three original Upheaval UI wrappers and complete APT/CONST/DAT/geometry/TGA dependencies; current CLI combined/cold outputs and independent original BAB strict four-stream comparison including manifest-bound complete inline Texture DDS; fixed Texture metadata has no CustomData; runtime UI and full G3/SDK remain separate'}
         $modeState.realUi=$uiReceipt
         try {
             & python "$PSScriptRoot/PrepareCompilerCliUi.py" $uiMod --entry all *> "$modeOut/real-ui-prepare.log"
@@ -302,7 +302,7 @@ try {
             Need ($uiPrepared.prepared -and !$uiPrepared.compiled -and $uiPrepared.xsdValidated -and $uiPrepared.entry -ceq 'all' -and @($uiPrepared.files).Count -eq 106 -and $uiPrepared.textureInputs -eq 2 -and @($uiPrepared.textures).Count -eq 2) 'Pinned complete UI fixture receipt changed'
             $uiReceipt.fixtureManifestSha256=Hash $uiManifest;$uiReceipt.originalSourceCommit=$uiPrepared.sourceCommit
             $uiSnapshot=Snapshot $uiMod
-            $ui=RunCli 'real-ui-combined' 'build' $uiMod $sdk 'apt' 0 3 -CustomDataCount 2
+            $ui=RunCli 'real-ui-combined' 'build' $uiMod $sdk 'apt' 0 3 -CustomDataCount 0
             Need (@($ui.report.plan.Tasks).Count -eq 3) 'Real UI must compile exactly three selected APT tasks'
             $uiReceipt.baselineCases=@()
             foreach($task in $ui.report.plan.Tasks){
@@ -312,11 +312,12 @@ try {
                 $prefix=Join-Path $ui.destination ('.build/'+$ui.report.buildId+'/'+$task.Content+'/'+$name);$outputs=@{}
                 foreach($artifact in $ui.report.artifacts){if((Within $prefix $artifact.Path) -and $artifact.Kind -cne 'custom-data'){$extension=[IO.Path]::GetExtension($artifact.Path).Substring(1);Need (!$outputs.ContainsKey($extension)) 'Duplicate UI stream extension';$outputs[$extension]=$artifact.Path}}
                 Need ($outputs.Count -eq 4) 'Real UI requires exactly four current CLI stream outputs'
+                $inlineTextures=@(Test-CompilerInlineTexturePayload $outputs.manifest $textures)
                 $custom=@(Get-CompilerCustomDataOutputs $outputs.manifest $textures)
                 $owned=@($ui.report.artifacts|Where-Object{Within $prefix $_.Path})
                 Need ($owned.Count -eq 4+$custom.Count) 'Unexpected file in selected UI task'
                 foreach($item in $custom){Need (@($owned|Where-Object{$_.Path -ceq $item.path -and $_.Kind -ceq 'custom-data'}).Count -eq 1) 'UI CustomData is not bound to the manifest Texture handle'}
-                $uiReceipt.baselineCases+=,@{name=$name;modRoot=$uiMod;inputPath=$task.InputPath;sdkRoot=$sdk;originalToolsRoot=(Join-Path $sourceSdk 'tools');stagingDirectory=$prefix;outputs=$outputs;expectedTextures=$textures;customOutputs=$custom;scope=$uiReceipt.scope}
+                $uiReceipt.baselineCases+=,@{name=$name;modRoot=$uiMod;inputPath=$task.InputPath;sdkRoot=$sdk;originalToolsRoot=(Join-Path $sourceSdk 'tools');stagingDirectory=$prefix;outputs=$outputs;expectedTextures=$textures;inlineTextures=$inlineTextures;customOutputs=$custom;scope=$uiReceipt.scope}
                 # The same entry in a fresh process, using a filtered temporary
                 # source closure with byte-identical inputs at the SAME paths.
                 # Move only unselected top-level wrappers outside discovery;
@@ -336,14 +337,14 @@ try {
             Need ($LASTEXITCODE -eq 0) 'Independent original BAB complete three-UI baseline failed'
             Unchanged $uiMod $uiSnapshot
             foreach($inputFile in $uiPrepared.sourceInputs){Need ((Hash (Join-Path $root $inputFile.path)) -ceq $inputFile.sha256) 'Real UI preparation source changed'}
-            $uiReceipt.inputsUnchanged=$true;$uiReceipt.coldOutputsIdentical=$true;$uiReceipt.originalFourOutputsIdentical=$true;$uiReceipt.originalCustomDataIdentical=$true;$uiReceipt.succeeded=$true
+            $uiReceipt.inputsUnchanged=$true;$uiReceipt.coldOutputsIdentical=$true;$uiReceipt.originalFourOutputsIdentical=$true;$uiReceipt.originalCustomDataIdentical=$true;$uiReceipt.inlineTexturePayloadVerified=$true;$uiReceipt.succeeded=$true
         } finally {$uiReceipt|ConvertTo-Json -Depth 14|Set-Content "$modeOut/real-ui-validation.json"}
         Unchanged $mod $modSnapshot;Unchanged $asciiMod $asciiSnapshot;Unchanged $sdk $sdkSnapshot;Unchanged $runtime $runtimeSnapshot
         $modeState.passed=$true
     }
     Unchanged (Join-Path $sourceSdk 'Schemas/xsd') $schemaSnapshot
     Need ((Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config')) -ceq $configHash -and (Hash $probeFile) -ceq $probeHash) 'Original SDK inputs changed'
-    $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus all three complete original UI entries, combined/cold byte equality and current original BAB four-stream/Texture CustomData comparison; full SDK/cache/publishing remain separate'
+    $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus all three complete original UI entries, combined/cold byte equality and current original BAB four-stream/inline Texture DDS comparison; full SDK/cache/publishing remain separate'
     if($reuse){$state.scope+='; these current tests executed the explicitly recorded historical binarySourceCommit, not a rebuilt current candidate'}
     $global:LASTEXITCODE=0
 } catch {$state.error=$_.Exception.ToString();throw}

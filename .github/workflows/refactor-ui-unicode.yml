@@ -1,0 +1,92 @@
+name: MOD compiler real UI Unicode runtime validation
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-ui-unicode.yml'
+      - 'recovery/scripts/TestCompilerCliUiUnicode.ps1'
+      - 'recovery/scripts/DownloadCompilerCliReuse.py'
+      - 'recovery/scripts/PrepareCompilerCliReuse.py'
+      - 'recovery/scripts/CompilerCliOutputs.ps1'
+      - 'recovery/scripts/TestCompilerCliOutputs.ps1'
+      - 'recovery/scripts/PrepareCompilerCliUi.py'
+      - 'recovery/scripts/TestCompilerBackendBaseline.ps1'
+      - 'recovery/scripts/BuildCompilerCliControl.ps1'
+      - 'recovery/tests/CompilerCliControl.cs'
+      - 'recovery/scripts/ValidateAppProtocol.py'
+      - 'recovery/tests/test_prepare_compiler_cli_reuse.py'
+      - 'recovery/tests/test_download_compiler_cli_reuse.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: refactor-ui-unicode-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  unicode:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-ui-unicode]')
+    runs-on: windows-2022
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Verify archive preparation and download rejection contracts
+        shell: pwsh
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          python -m unittest discover -s recovery/tests -p '*compiler_cli_reuse.py' -v
+          if($LASTEXITCODE -ne 0){throw 'CLI archive reuse guard tests failed'}
+      - name: Parse UI scripts and verify manifest output contracts
+        shell: pwsh
+        run: |
+          foreach($path in @('recovery/scripts/CompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliUiUnicode.ps1','recovery/scripts/TestCompilerBackendBaseline.ps1')) {
+            $tokens=$null;$errors=$null
+            $null=[Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $path),[ref]$tokens,[ref]$errors)
+            if($errors.Count -ne 0){$errors|Format-List|Out-Host;throw "PowerShell syntax errors: $path"}
+          }
+          ./recovery/scripts/TestCompilerCliOutputs.ps1 -OutputDirectory recovery/artifacts/ui-unicode-output-contracts
+          if($LASTEXITCODE -ne 0){throw 'UI manifest output contract preflight failed'}
+      - name: Install pinned Texture audit, XML and protocol dependencies
+        shell: pwsh
+        run: |
+          python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+          if($LASTEXITCODE -ne 0){throw 'Pinned UI validation dependencies failed to install'}
+      - name: Download and strictly verify pinned historical production runtimes
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/scripts/DownloadCompilerCliReuse.py --repo . --candidate-commit $env:GITHUB_SHA --output recovery/artifacts/ui-unicode-runtime --archive "$env:RUNNER_TEMP/ui-unicode-runtime.zip"
+          if($LASTEXITCODE -ne 0){throw 'Pinned UI runtime preparation failed'}
+      - name: Validate real UI Texture inputs through Unicode production paths
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerCliUiUnicode.ps1 -CompilerDirectory recovery/artifacts/ui-unicode-runtime -OutputDirectory "recovery/evidence/refactor/ui-unicode/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if($LASTEXITCODE -ne 0){throw 'Real UI Unicode production validation failed'}
+      - name: Validate real UI reports and events against protocol schemas
+        shell: pwsh
+        run: |
+          $evidence="recovery/evidence/refactor/ui-unicode/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/ui-protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Real UI Unicode protocol validation failed'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-ui-unicode-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/ui-unicode/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/artifacts/ui-unicode-runtime/reuse.json
+            recovery/artifacts/ui-unicode-output-contracts/**
+          include-hidden-files: true
+          if-no-files-found: error

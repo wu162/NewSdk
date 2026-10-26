@@ -105,7 +105,7 @@ def main():
                'files': [{k: v for k, v in item.items() if k != 'data'} for item in files.values()],
                'dependencies': dependencies, 'assetRoots': roots, 'textures': textures,
                'textureInputs': sum(name.endswith('.tga') for name in files),
-               'expectedCustomDataBoundary': 'CommandListBox has no Texture; QueuePage/MainCommandBar each have one Texture and may emit cdata in addition to the four stream files'}
+               'expectedCustomDataBoundary': 'Fixed original Texture metadata: typeId=568797146, typeHash=0x9f5ff8da, HasCustomData=false; QueuePage/MainCommandBar each embed one DDS in linked InstanceData, CommandListBox has no Texture. OnDemandTexture is a different cdata route, absent from this closure.'}
     (destination / 'fixture-manifest.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps({'prepared': True, 'compiled': False, 'files': len(files),
                       'dependencies': len(dependencies), 'xsdValidated': True}))

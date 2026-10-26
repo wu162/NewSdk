@@ -33,10 +33,17 @@ WORKFLOW = '.github/workflows/refactor-core-lifecycle.yml'
 # Exact reviewed migration from legacy CLI-only source checks to pinned archive reuse.
 WORKFLOW_MIGRATION = (
     '49f2b553e62114f13507cae579c45cbb4482a526f276dceac53fd7c672747899',
-    '98e999236c8436085d4d37338769d0a61d9f3318563af7c3ff9e0d5175fbdb15')
+    'a70b941dd56f2e4ec6e5b91a70c15913a5563f7c2571de318fa7967aa6fd89eb')
+# Dedicated historical-runtime validation is admitted only at the reviewed bytes.
+# It cannot silently become a different build/deployment driver.
+PINNED_TOOL_WORKFLOWS = {
+    '.github/workflows/refactor-ui-unicode.yml': '1e58ce9f466c7dfacd5f6f9cf8086b296c7768c4c8771f5f38f55d4c65f3bfee',
+}
 ALLOWED = {
     # Independent preparation-unit-test CI; never a production build driver.
     '.github/workflows/refactor-cli-reuse.yml',
+    '.github/workflows/refactor-ui-unicode.yml',
+    'recovery/scripts/TestCompilerCliUiUnicode.ps1',
     'recovery/scripts/TestCompilerBackendBaseline.ps1',
     'recovery/scripts/TestCompilerCli.ps1',
     'recovery/scripts/CompilerCliOutputs.ps1',
@@ -93,6 +100,10 @@ def closure(repo, source, candidate):
     changed = git(repo, 'diff', '--name-only', '--no-renames', '-z', source, candidate).decode().split('\0')
     changed = sorted(p for p in changed if p)
     require(all(p in ALLOWED or p == WORKFLOW for p in changed), 'Non-CLI input changed: ' + ', '.join(p for p in changed if p not in ALLOWED and p != WORKFLOW))
+    for path in changed:
+        if path in PINNED_TOOL_WORKFLOWS:
+            require(digest(git(repo, 'show', candidate + ':' + path)) == PINNED_TOOL_WORKFLOWS[path],
+                    'Dedicated runtime validation workflow differs from reviewed bytes: ' + path)
     if WORKFLOW in changed:
         old = workflow_without_trigger_paths(git(repo, 'show', source + ':' + WORKFLOW))
         new = workflow_without_trigger_paths(git(repo, 'show', candidate + ':' + WORKFLOW))

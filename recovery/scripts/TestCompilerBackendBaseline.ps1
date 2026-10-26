@@ -179,6 +179,8 @@ try {
             $custom=@()
             $originalManifests=@($actual|Where-Object{$_.Extension -ceq '.manifest'})
             if($originalManifests.Count -ne 1){throw 'Expected one unambiguous original manifest'}
+            $caseState.originalInlineTextures=@(Test-CompilerInlineTexturePayload $originalManifests[0].FullName $expectedTextures)
+            $caseState.backendInlineTextures=@(Test-CompilerInlineTexturePayload ([string]$case.outputs.manifest) $expectedTextures)
             $custom=@(Get-CompilerCustomDataOutputs $originalManifests[0].FullName $expectedTextures)
             $backendCustom=@(Get-CompilerCustomDataOutputs ([string]$case.outputs.manifest) $expectedTextures)
             $allowed=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)

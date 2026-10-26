@@ -209,4 +209,5 @@ jobs:
             recovery/artifacts/core-lifecycle-product/**/*.log
             recovery/artifacts/lifecycle-app/**/test-work/**
             recovery/artifacts/lifecycle-app/**/test-app.log
+          include-hidden-files: true
           if-no-files-found: error

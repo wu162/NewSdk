@@ -5,7 +5,7 @@
 
 ## 当前状态（先读这里即可）
 
-- **本轮检查点：产物收集器路径修复与三份完整真实 UI 测试已准备，Windows 完整候选待验。** 收紧 manifest-stem/cdata 文件布局、修复同名目录误分类，补根/后代 junction 与拒绝回归；不能复用历史 EXE 冒充本次生产修复验证。24 个复用工具本地测试已过；新增 12 个 manifest 输出合同将在 Native 构建前执行。
+- **本轮检查点：产物收集器路径修复已过两配置各130断言，Core全7组及Texture通过；三份UI整组待验。** 收紧 manifest-stem/cdata 文件布局、修复同名目录误分类，补根/后代 junction 与拒绝回归；不能复用历史 EXE 冒充本次生产修复验证。24 个复用工具本地测试已过；新增输出合同已前置通过；完整CLI停在新测试误将Texture视为cdata，已按固定原DLL的正确类型ID/Hash与内联DDS语义修正，完整复验中，不能宣称三UI已通过。
 
 - **P4 已通过；P5 真实后端、路径、生产 CLI 定向组已通过，完整 P5/G3/SDK 未完成。** 生产入口保留实验性 Win32 loose/no-cache 后端；不能宣称完整 MOD 编译器或正式发布流程可用。
 - 本轮完整 Windows 候选两配置均通过：App 各355断言、Core 全7组（含 Unicode/空格/#/% XInclude、根边界、空搜索路径）、原版后端对照、真实 App 协议、当前 EXE 绑定 Texture 部署/payload。
