@@ -17,7 +17,7 @@ jobs:
   xml:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-xml-product]')
     runs-on: windows-2022
-    timeout-minutes: 30
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
         with:

@@ -51,4 +51,4 @@ foreach($payload in @([byte[]](255,255,255,255),[byte[]](4,0,0,0,1,2))) {
     if(!$rejected){throw 'Invalid XML wire buffer framing was accepted'}
 }
 $branch=if($OriginalServer){'original server'}else{'product client'}
-Write-Host "PASS XML $branch branch: C# semantic compilation, lossless UTF-16 DOM round trip, malformed-frame rejection (Core stub only; not ABI or SDK acceptance)"
+Write-Host "PASS XML $branch branch: C# semantic compilation, lossless UTF-16 DOM and nullable AssetBuffer round trip, malformed-frame/tag rejection (Core stub only; not ABI or SDK acceptance)"

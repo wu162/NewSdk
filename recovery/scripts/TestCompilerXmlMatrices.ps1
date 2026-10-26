@@ -2,7 +2,7 @@
 param(
     [Parameter(Mandatory=$true)][string]$CompilerDirectory,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
-    [ValidateRange(30,1800)][int]$GroupTimeoutSeconds=300
+    [ValidateRange(30,1800)][int]$GroupTimeoutSeconds=900
 )
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/CompilerValidation.Common.ps1"
@@ -114,7 +114,15 @@ try {
                 $state|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"
                 Write-Host "$mode $name complete existing matrix passed"
             } finally {
-                foreach($run in @($product,$server)){if($null -ne $run -and !$run.process.HasExited){$run.process.Kill($true);$run.process.WaitForExit()}}
+                foreach($item in @(@{run=$product;log="$groupOut/host.log"},@{run=$server;log="$groupOut/original.log"})){
+                    $run=$item.run
+                    if($null -ne $run){
+                        try {
+                            if(!$run.process.HasExited){$run.process.Kill($true);$run.process.WaitForExit()}
+                            if(!(Test-Path -LiteralPath $item.log)){[IO.File]::WriteAllText($item.log,($run.stdout.GetAwaiter().GetResult()+$run.stderr.GetAwaiter().GetResult()))}
+                        } catch {Write-Warning "Unable to preserve XML process cleanup log: $_"}
+                    }
+                }
             }
         }
         Complete-CompilerValidationRun $validationRun

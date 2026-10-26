@@ -35,6 +35,14 @@ static class XmlOracleWire {
     }
     internal static byte[] Bytes(BinaryReader r) { int n=r.ReadInt32();if(n<0||n>256000000)throw new InvalidDataException("Buffer length");byte[] b=r.ReadBytes(n);if(b.Length!=n)throw new EndOfStreamException();return b; }
     internal static void Bytes(BinaryWriter w,byte[] b) { if(b==null)throw new InvalidDataException("Null buffer");w.Write(b.Length);w.Write(b); }
+    internal static void Buffer(BinaryWriter w,AssetBuffer b) {
+        w.Write((byte)(b==null?0:1));if(b==null)return;
+        Bytes(w,b.InstanceData);Bytes(w,b.RelocationData);Bytes(w,b.ImportsData);
+    }
+    internal static AssetBuffer Buffer(BinaryReader r) {
+        byte tag=r.ReadByte();if(tag>1)throw new InvalidDataException("AssetBuffer response tag");
+        return tag==0?null:new AssetBuffer{InstanceData=Bytes(r),RelocationData=Bytes(r),ImportsData=Bytes(r)};
+    }
     internal static void SelfTest() {
         var d=new XmlDocument();d.LoadXml("<ea:Root xmlns:ea='uri:ea.com:eala:asset' xmlns:q='urn:q'><q:Child/><!--comment--><![CDATA[data]]> text </ea:Root>");
         d.DocumentElement.SetAttribute("Value","prefix\0资源\ud83d\ude00suffix");
@@ -42,6 +50,15 @@ static class XmlOracleWire {
         var clone=new XmlDocument();using(var r=new BinaryReader(new MemoryStream(first)))clone.AppendChild(Node(r,clone));
         using(var m=new MemoryStream()){var w=new BinaryWriter(m);Node(w,clone.DocumentElement);w.Flush();if(Hash(m.ToArray())!=Hash(first))throw new Exception("XML oracle transport self-test round trip");}
         if(clone.DocumentElement.GetAttribute("Value")!=d.DocumentElement.GetAttribute("Value"))throw new Exception("XML oracle transport UTF-16 self-test");
+        // Unknown original TypeIds intentionally return null. Preserve that
+        // outcome so the existing prefix-dispatch rejection assertions run.
+        using(var m=new MemoryStream()) {
+            var w=new BinaryWriter(m);Buffer(w,null);Buffer(w,new AssetBuffer{InstanceData=new byte[]{1,2},RelocationData=new byte[0],ImportsData=new byte[]{3}});w.Flush();m.Position=0;
+            var r=new BinaryReader(m);if(Buffer(r)!=null)throw new Exception("Null original result changed");
+            AssetBuffer b=Buffer(r);if(b==null||b.InstanceData.Length!=2||b.InstanceData[1]!=2||b.RelocationData.Length!=0||b.ImportsData[0]!=3||m.Position!=m.Length)throw new Exception("AssetBuffer framing changed");
+        }
+        try { Buffer(new BinaryReader(new MemoryStream(new byte[]{2})));throw new Exception("Invalid result tag accepted"); }
+        catch(InvalidDataException) { }
     }
     internal static InstanceDeclaration Declaration(XmlNode node) {
         XmlDocument d=node.OwnerDocument;var ns=new XmlNamespaceManager(d.NameTable);ns.AddNamespace("ea","uri:ea.com:eala:asset");
@@ -79,8 +96,9 @@ static class XmlProductOriginalServer {
                             // Require a lossless DOM round trip before invoking the oracle.
                             using(var check=new MemoryStream()) {var cw=new BinaryWriter(check);cw.Write(platform);XmlOracleWire.Text(cw,typeName);cw.Write(typeId);cw.Write(instanceId);XmlOracleWire.Node(cw,node);cw.Flush();if(XmlOracleWire.Hash(check.ToArray())!=hash)throw new InvalidDataException("DOM round trip changed");}
                             AssetBuffer b=plugin.ProcessInstance(declaration);
-                            w.Write(sequence);XmlOracleWire.Text(w,hash);XmlOracleWire.Bytes(w,b.InstanceData);XmlOracleWire.Bytes(w,b.RelocationData);XmlOracleWire.Bytes(w,b.ImportsData);w.Flush();
-                            log.WriteLine(sequence+"\t"+platform+"\t"+hash+"\t"+XmlOracleWire.Hash(b.InstanceData)+"\t"+XmlOracleWire.Hash(b.RelocationData)+"\t"+XmlOracleWire.Hash(b.ImportsData));
+                            w.Write(sequence);XmlOracleWire.Text(w,hash);XmlOracleWire.Buffer(w,b);w.Flush();
+                            string nil=XmlOracleWire.Hash(Encoding.UTF8.GetBytes("<null AssetBuffer>"));
+                            log.WriteLine(sequence+"\t"+platform+"\t"+hash+"\t"+(b==null?nil:XmlOracleWire.Hash(b.InstanceData))+"\t"+(b==null?nil:XmlOracleWire.Hash(b.RelocationData))+"\t"+(b==null?nil:XmlOracleWire.Hash(b.ImportsData)));
                         }
                     }
                 }
@@ -103,7 +121,7 @@ sealed class XmlOriginalClient {
         byte[] payload;using(var data=new MemoryStream()) {var w=new BinaryWriter(data);w.Write(platform);XmlOracleWire.Text(w,declaration.Handle.TypeName);w.Write(declaration.Handle.TypeId);w.Write(declaration.Handle.InstanceId);XmlOracleWire.Node(w,declaration.XmlNode);w.Flush();payload=data.ToArray();}
         writer.Write(1);writer.Write(++sequence);XmlOracleWire.Bytes(writer,payload);writer.Flush();
         if(reader.ReadInt32()!=sequence||XmlOracleWire.Text(reader)!=XmlOracleWire.Hash(payload))throw new InvalidDataException("Oracle response request identity");
-        return new AssetBuffer{InstanceData=XmlOracleWire.Bytes(reader),RelocationData=XmlOracleWire.Bytes(reader),ImportsData=XmlOracleWire.Bytes(reader)};
+        return XmlOracleWire.Buffer(reader);
     }
     public static int OriginalSize(string type) { current.writer.Write(3);XmlOracleWire.Text(current.writer,type);current.writer.Flush();return current.reader.ReadInt32(); }
     public static void Finish() {
