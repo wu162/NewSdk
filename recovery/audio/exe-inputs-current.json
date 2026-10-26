@@ -1,0 +1,380 @@
+{
+  "kind": "static-integration-input-inventory",
+  "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
+  "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
+  "executionValidated": false,
+  "sdkStarted": false,
+  "finalExeIntegrated": false,
+  "files": [
+    {
+      "path": "AssemblyInfo.cs",
+      "gitBlob": "caba22698610926cac073f7a24feb68b87aa36af",
+      "sha256": "9b33dfd0006e85183fdb46bf5741f59a8d9405ee9c8001d93836fd3ed3d5e0da",
+      "bytes": 183,
+      "declaredTypes": [],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "deduplicate-host-assembly-attributes",
+      "futureDestinationHint": null
+    },
+    {
+      "path": "AudioAiffLoopReader.cs",
+      "gitBlob": "4ebd950cbfe6514aa0492860ac3843c4b7400801",
+      "sha256": "6c533a27869833525f45b38326944582f6dae7e2a2b9247cc5bfe081912d91b1",
+      "bytes": 6711,
+      "declaredTypes": [
+        "AudioAiffLoopReader"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/AudioAiffLoopReader.cs"
+    },
+    {
+      "path": "AudioCatalog.cs",
+      "gitBlob": "9053bdc1cfac67ab680b9b041ddcc9f3d7fb257b",
+      "sha256": "7f7a1afb10f9fbc23d1ba5002e7ab91c774adbdb27f3ecd152e0b7ae05716937",
+      "bytes": 3671,
+      "declaredTypes": [
+        "AudioCatalog"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/AudioCatalog.cs"
+    },
+    {
+      "path": "AudioPcmInputReader.cs",
+      "gitBlob": "919b605b57560771966f829276530cf4a7b19517",
+      "sha256": "533903bb5ecb20d9507f59b5c2ab89def2ae231c30d24067568611b736abd261",
+      "bytes": 9274,
+      "declaredTypes": [
+        "AudioPcmInputReader"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/AudioPcmInputReader.cs"
+    },
+    {
+      "path": "AudioResampling.cs",
+      "gitBlob": "7e70c3530c34b60de847f556c7d4579e4e99fd93",
+      "sha256": "25634844b81ba9d0bad8b049d75dc185f8419d4b3f2a60b2737e9702084361b7",
+      "bytes": 5476,
+      "declaredTypes": [
+        "AudioResampling"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/AudioResampling.cs"
+    },
+    {
+      "path": "AutoCleanUpTempFiles.cs",
+      "gitBlob": "4f6fa33934c8abc8cd88ed92d3deb29b5678bab1",
+      "sha256": "3766e783413e22915308c36043cbf795ed84f843cf7004b0ba45494d054df68c",
+      "bytes": 1487,
+      "declaredTypes": [
+        "AutoCleanUpTempFiles"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/AutoCleanUpTempFiles.cs"
+    },
+    {
+      "path": "BinaryAssetBuilder.AudioCompiler.csproj",
+      "gitBlob": "e42f36e708f341cf5303d366200ed82d4a680557",
+      "sha256": "38a0709ca178435b3301cc70774ab369d722f36366d1a055201bd580663fae23",
+      "bytes": 599,
+      "declaredTypes": [],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "standalone-validation-project",
+      "futureDestinationHint": null
+    },
+    {
+      "path": "MpegPassthrough.cs",
+      "gitBlob": "2f752261ce2a3c1325aed2679a16826f1df9f6d0",
+      "sha256": "f0c8d3b85913e201902a230df387dc64d5aaf2b76c47dd6a6e03ce9c23b7e186",
+      "bytes": 7409,
+      "declaredTypes": [
+        "MpegPassthrough"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/MpegPassthrough.cs"
+    },
+    {
+      "path": "Native/Adp4Decoder.cs",
+      "gitBlob": "579995308825f01aca85a77f8961d2b20a3658e0",
+      "sha256": "17e1521762e5b3c01d770ff38d77b3ef9e15fd2c7ed924ac65a716af52961c90",
+      "bytes": 3726,
+      "declaredTypes": [
+        "Adp4Decoder"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/Native/Adp4Decoder.cs"
+    },
+    {
+      "path": "Native/AudioPolicy.cs",
+      "gitBlob": "aed10e2b14113e44fad44638e75646d5c9e6e94a",
+      "sha256": "735e93bbdf5caa24cd526414f8530f6bcda9c403ee0b51733c5ef1539eb1bfcd",
+      "bytes": 2466,
+      "declaredTypes": [
+        "AudioEncodingPolicy"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/Native/AudioPolicy.cs"
+    },
+    {
+      "path": "Native/LoopPcmEncoder.cs",
+      "gitBlob": "8354ea9fbc64ccf34f75dc92b0bba65533b391ef",
+      "sha256": "1ec6a05857a20fe260eb43de4df83548a64e7cd9e15fdc7e2f9454ef900d2cb3",
+      "bytes": 7420,
+      "declaredTypes": [
+        "LoopPcmEncoder"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/Native/LoopPcmEncoder.cs"
+    },
+    {
+      "path": "Native/Pcm16Encoder.cs",
+      "gitBlob": "b916e22aba119fee3eca939eed220ee355a8862c",
+      "sha256": "6715d15ce53b619672a75b364d1df6b3f680cf9772a6c80778acf41ba485a5de",
+      "bytes": 9075,
+      "declaredTypes": [
+        "PcmEncodingResult",
+        "Pcm16Encoder",
+        "PcmWaveInput"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/Native/Pcm16Encoder.cs"
+    },
+    {
+      "path": "Native/ResamplerCoefficients.cs",
+      "gitBlob": "0ea49de42e98edef0585daefc5feeb12bc149336",
+      "sha256": "efede929c5950edbdff9b0bb3077563dbd88938299ac53872cd9607e625f801b",
+      "bytes": 11411,
+      "declaredTypes": [
+        "ResamplerCoefficients"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/Native/ResamplerCoefficients.cs"
+    },
+    {
+      "path": "Native/ResamplerFft.cs",
+      "gitBlob": "6426f8a72420fb557625c75754f0d613d9dd2d23",
+      "sha256": "e215543bcf63e8c9e591fab336c08110da55a1fe83ff1c4da9fbb533b1e5357d",
+      "bytes": 5200,
+      "declaredTypes": [
+        "ResamplerFft"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/Native/ResamplerFft.cs"
+    },
+    {
+      "path": "Native/ResamplerFilter.cs",
+      "gitBlob": "b9a239d381f7d9982225868bea9dc8f97d035e6a",
+      "sha256": "37369a552906672e4df24d083be5b29fc2cb1d0020d41354b4241d86cadf6a04",
+      "bytes": 3891,
+      "declaredTypes": [
+        "ResamplerFilter"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/Native/ResamplerFilter.cs"
+    },
+    {
+      "path": "Native/ResamplerScheduler.cs",
+      "gitBlob": "5ce7a3da6197c1f0cf13960e53dcb83e662ed844",
+      "sha256": "07c0f9affe55d1f41765a50641e790b6d20055573399319849b789c9229a8aa4",
+      "bytes": 8271,
+      "declaredTypes": [
+        "ResamplerScheduler",
+        "Profile"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/Native/ResamplerScheduler.cs"
+    },
+    {
+      "path": "Native/Xas1Encoder.cs",
+      "gitBlob": "e5eff03bce95024e08c798d86c613ebb8dddbfa1",
+      "sha256": "41b93294c9ac4a82a40ee43605d46a318a1fb4ea8fde01f0bf9dab508a454aa5",
+      "bytes": 8482,
+      "declaredTypes": [
+        "Xas1Encoder"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/Native/Xas1Encoder.cs"
+    },
+    {
+      "path": "PathMusicBuilder.cs",
+      "gitBlob": "3b015af1d30b8e269b4e647c0a98ca27b81707ae",
+      "sha256": "13b9b5e1f8f9788fc647eabf41072a34e38b92a17e7676fe0818bf15dc6da7c8",
+      "bytes": 2301,
+      "declaredTypes": [
+        "PathMusicBuilder"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/PathMusicBuilder.cs"
+    },
+    {
+      "path": "PathMusicHeader.cs",
+      "gitBlob": "eb002afbd9a7592e6d0330020b82c002d7725e7c",
+      "sha256": "c6d66c32a844768aaec361d2de673d2a9d2eb49506995d20b228e31f601b24f9",
+      "bytes": 4245,
+      "declaredTypes": [
+        "PathMusicHeader"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/PathMusicHeader.cs"
+    },
+    {
+      "path": "PcmWaveAudioCompiler.cs",
+      "gitBlob": "d060885815ac54176a047f851e1f394d23428a57",
+      "sha256": "6cb2866a61158db00c2c4035d711ebeacc5f9d8f1fea4d12629415c4247fedba",
+      "bytes": 5928,
+      "declaredTypes": [
+        "PcmWaveAudioCompiler"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/PcmWaveAudioCompiler.cs"
+    },
+    {
+      "path": "Plugin.cs",
+      "gitBlob": "3174c4ace46cd88bb6a9dde4987340f531e4bf3c",
+      "sha256": "8beae1d7739460ea7dc45c069c7b4c91f3deec5ea576bb6c43cdf056f3bd8763",
+      "bytes": 10710,
+      "declaredTypes": [
+        "IAudioFileCompiler",
+        "Plugin"
+      ],
+      "staticFindings": {
+        "nativeRuntimeImport": false,
+        "assemblyLoading": false,
+        "resourceLookup": false
+      },
+      "futureHandling": "compile-business-source",
+      "futureDestinationHint": "Compilers/Audio/Plugin.cs"
+    }
+  ],
+  "csharpFiles": 20,
+  "businessCsharpFiles": 19,
+  "standaloneProject": {
+    "AssemblyName": "BinaryAssetBuilder.AudioCompiler",
+    "RootNamespace": "BinaryAssetBuilder.AudioCompiler",
+    "TargetFramework": "net472",
+    "GenerateAssemblyInfo": "false",
+    "LangVersion": "10.0",
+    "AllowUnsafeBlocks": "true"
+  },
+  "explicitAssemblyReferences": [
+    {
+      "assembly": "BinaryAssetBuilder.Core",
+      "hintPath": "../../SDK/tools/BinaryAssetBuilder.Core.dll",
+      "copyLocal": "false"
+    }
+  ],
+  "coreTypeNamesManuallyReviewed": [
+    "IAssetBuilderPlugin",
+    "InstanceDeclaration",
+    "AssetBuffer",
+    "TargetPlatform",
+    "ExtendedTypeInformation",
+    "Tracer",
+    "HashProvider",
+    "BinaryAssetBuilderException",
+    "ErrorCode"
+  ],
+  "limitations": [
+    "Pattern scan is not a compiled AssemblyRef/import/runtime-load audit.",
+    "Destination hints are a proposed inventory, not moved or integrated source.",
+    "Original Core DLL reference remains in the standalone validation project.",
+    "AssemblyInfo title/version attributes need explicit host-owned deduplication, not duplicate compilation or omission of business source."
+  ]
+}
