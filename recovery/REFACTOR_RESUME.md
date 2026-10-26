@@ -18,7 +18,7 @@
 
 ## 下一步（按顺序）
 
-1. **本轮资产缓存和输入根已收尾，直接推进 `/sc`。** 复用未变化的生产/Core/Texture/CLI/原版及缓存成功证据；仅相关实现变更、实际失败或具体缺口才补受影响组，不重复相同输入。
+1. **本轮资产缓存和输入根已收尾，直接推进 `/sc`。** 以接入生产的完整会话缓存链路为本轮实现主线，已明确行为直接成组编码；调查只解除具体阻塞，工具/审查/文档不能替代功能推进。 复用未变化的生产/Core/Texture/CLI/原版及缓存成功证据；仅相关实现变更、实际失败或具体缺口才补受影响组，不重复相同输入。
 2. **实际 `/sc` 会话缓存。** 具体接入在 P5_LIFECYCLE_AUDIT.md：每流 fresh SessionCache.LoadCache→InitializeCache→新 processor，独立包持久 session.xml/intermediate/cdata，重新生成四输出；不得裸共享 Complete 文档或只存 session XML。
 3. `/sc` 增加真实文档复用/解析/实例编译计数，坏包/缺资产整包冷失效；三类混合 Texture 暂明确拒绝 `/sc`，保留 `/sc:false` 编译。覆盖 include/XInclude、定义/表达式、继承、同 mtime 变化、连续 MOD、失败取消/收尾失败重试及原始输出对照。
 4. 缓存及输入根功能稳定后集中完成完整 P5/G3/SDK，再推进 P6/P7。BIG/skudef、正式发行包、完整 Unicode 纹理和完整 SDK 均不得由本轮小型组推断完成。
