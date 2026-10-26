@@ -51,7 +51,8 @@ jobs:
           Invoke-WebRequest https://dot.net/v1/dotnet-install.ps1 -OutFile $install
           $runtime = "$env:RUNNER_TEMP/dotnet-ui-x86"
           & $install -Channel 8.0 -Runtime dotnet -Architecture x86 -InstallDir $runtime
-          if ($LASTEXITCODE -ne 0) { throw 'x86 runtime installation failed' }
+          & "$runtime/dotnet.exe" --list-runtimes
+          if ($LASTEXITCODE -ne 0) { throw 'x86 runtime validation failed' }
           "DOTNET_X86=$runtime/dotnet.exe" >> $env:GITHUB_ENV
       - uses: microsoft/setup-msbuild@v2
       - name: Build source optimizer
