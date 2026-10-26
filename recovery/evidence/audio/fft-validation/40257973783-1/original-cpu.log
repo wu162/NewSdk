@@ -1,0 +1,2 @@
+Original FFT imageBase=0x10000000 _controlfpBefore=0x0009001f configured=0x0009001f
+PASS real original x86 CPU FFT versus Unicorn: 78 cases, both directions, orders 1..13, exact float bits, original MSVCR80 controlfp 53-bit nearest
