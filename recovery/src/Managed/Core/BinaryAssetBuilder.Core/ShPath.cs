@@ -10,6 +10,8 @@ namespace BinaryAssetBuilder.Core;
 
 public static class ShPath
 {
+#if !NEWSdk_MONOLITHIC
+    // Only the retired SetControlText GUI helper uses these native UI APIs.
 	private static class User32
 	{
 		[DllImport("user32.dll")]
@@ -31,6 +33,7 @@ public static class ShPath
 		public static extern IntPtr SelectObject(IntPtr hdc, IntPtr hobject);
 	}
 
+#endif
 	private static class Shlwapi
 	{
 		[DllImport("shlwapi.dll")]

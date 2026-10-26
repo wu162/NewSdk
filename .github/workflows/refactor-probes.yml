@@ -7,6 +7,7 @@ on:
       - 'recovery/probes/**'
       - 'recovery/build/**'
       - 'recovery/src/App/**'
+      - 'recovery/src/Managed/**'
       - 'recovery/tests/App/**'
       - 'recovery/scripts/*SingleExeProbe.ps1'
       - 'recovery/scripts/*ManagedFoundation.ps1'
@@ -17,11 +18,23 @@ on:
       - 'recovery/tests/CompilerDeployment.cs'
       - 'recovery/scripts/TestTextureRedirect.ps1'
       - 'recovery/scripts/ConfirmRefactorBaseline.ps1'
+      - 'recovery/scripts/ValidateAudioSourceTree.py'
+      - 'recovery/tests/ValidateAudioSourceTree.test.py'
   workflow_dispatch:
 permissions:
   contents: read
   actions: read
 jobs:
+  audio-source-identity:
+    if: contains(github.event.head_commit.message, '[refactor-full]') || contains(github.event.head_commit.message, '[refactor-audio-path]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Strict source identity and rejection boundaries after relocation
+        run: python recovery/tests/ValidateAudioSourceTree.test.py
   baseline-receipt:
     if: contains(github.event.head_commit.message, '[refactor-full]') || contains(github.event.head_commit.message, '[refactor-baseline-receipt]')
     runs-on: windows-2022

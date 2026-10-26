@@ -35,8 +35,11 @@ jobs:
           $acceptance = Get-Content recovery/evidence/audio/acceptance-current.json -Raw | ConvertFrom-Json
           $current = $acceptance.currentValidation
           if ($current.status -ne 'passed') { throw 'Current complete component milestone has not passed' }
-          $tree = (git rev-parse HEAD:recovery/src/Managed/Audio).Trim()
-          if ($LASTEXITCODE -ne 0 -or $tree -ne $current.sourceTree) { throw 'Audio source changed after component acceptance' }
+          $identity = (& python recovery/scripts/ValidateAudioSourceTree.py --expected-tree $current.sourceTree) | ConvertFrom-Json
+          if ($LASTEXITCODE -ne 0) { throw 'Audio source changed after component acceptance' }
+          $tree = $identity.acceptanceTree
+          if ($tree -ne $current.sourceTree) { throw 'Exact accepted source identity was not proven' }
+          Write-Host "Audio source tree $($identity.currentTree), accepted tree $tree, equivalence $($identity.equivalence)"
           $sdk = Get-Content "recovery/evidence/audio/sdk-validation/$($current.runId)-$($current.attempt)/validation.json" -Raw | ConvertFrom-Json
           $profiles = @{'create-marker-range'=1820; 'create-multichannel'=1728; 'create-multichannel-aiff'=6336}
           $profile = if ($current.sdkProfile) { $current.sdkProfile } else { 'create-marker-range' }

@@ -1,18 +1,15 @@
 # Managed Foundation integration
 
-G0 run `40269297741` completed the SDK comparison before these production changes.
 Production bindings compile under `NEWSdk_MONOLITHIC`; existing library projects do not
-define it and remain available for the isolated legacy oracle. Windows full Foundation
-validation is tracked separately; do not infer success from the G0 baseline.
+define it and remain available for the isolated legacy oracle. Use the separate runtime/link
+validation entry points below; source co-compilation alone is not deployment acceptance.
 
 `BuildManagedFoundation.ps1` compiles the manifest's full source closure with Roslyn 4.0.1, C# 10,
 .NET Framework 4.8 reference assemblies, AnyCPU build-time IL module, deterministic output, and only `antlr.runtime` as a
 business AssemblyRef. It excludes duplicate AssemblyInfo and old GUI classes. Core's ShPath UI
 helper is conditionally excluded in the production build. EALABuild/Remote are not inputs.
 No decompiled directory or original implementation DLL is compiled into the module. Final MSVC
-link and test host remain strictly x86. G1 minimal run `40269733403` at `fafc306` proved
-AnyCPU intermediate modules avoid LNK1302 without altering unsafe attributes or IL; Debug and
-Release each matched 610 oracle rows. This is not evidence for the full Foundation combination.
+link and test host remain strictly x86. Build-time AnyCPU IL modules preserve unsafe code while the final image remains x86.
 
 The module has no resources. `resources.json` contains absolute paths, logical names and SHA-256;
 the final MSVC linker must embed these exact five resources. Core schema uses a canonical CRLF

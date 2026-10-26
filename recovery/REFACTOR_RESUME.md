@@ -1,17 +1,53 @@
-# MOD compiler refactor: P0–P3 task
+# New MOD compiler: P0–P3 source handoff
 
-Delivery branch: `refactor/modcompiler-p0-p3`, based on `87cf54e254dfb44a129da087316fd04806ed2b10`.
-User authorized up to five child agents for this task. Stop after P3; no P4/P5 production native integration or full MOD execution in this task. PR required; do not merge without explicit user approval. No force pushes.
+Delivery branch: `refactor/modcompiler-p0-p3`, based on `recovery/compiler-source`.
+Task scope stops after P3. Up to five child agents are authorized for this task only.
+Any merge requires a PR and explicit user approval; force pushes are prohibited.
 
-Implementation contract: [NewSdk_ModCompiler_Refactor_Plan.md](NewSdk_ModCompiler_Refactor_Plan.md).
+The implementation contract is [NewSdk_ModCompiler_Refactor_Plan.md](NewSdk_ModCompiler_Refactor_Plan.md).
+This entry describes source organization and continuation instructions. Publication of the new
+acceptance summaries and artifact links is awaiting separate authorization after automatic review.
+It does not replace the actual workflow receipts.
 
-Current checkpoint (not final acceptance):
+## Source and build entry points
 
-- P0: initial source/PE/dependency/state inventory saved under `evidence/refactor`. Original SDK five invocations passed in run `40268595033`; combined restored deployment was blocked by nested tool Platform output paths. Corrected baseline harness committed at `1d260df`, rerun pending. Do not migrate production source until this gate passes.
-- P1: minimal unified linker now works with **AnyCPU build-time C# modules and final x86 MSVC image**. Run `40269733403`, source `fafc306`, Debug/Release each 610 Armor/Hash transcript rows, isolated runtime without modules/old business DLLs. Earlier x86 IL modules produced LNK1302; do not change final EXE away from x86. Full Foundation resources/metadata and G2 A/B/C remain pending.
-- P2: App contracts passed Debug/Release 305 assertions each in run `40269181634`, source `35f6112`. Actual 16 reports and 154 events passed JSON Schema/RFC3339 validation from that run's artifact. Evidence under `evidence/refactor/app/40269181634-1`. Default plan is stream discovery; actual engine dependency closure and output promotion remain later phases. `build` explicitly fails with exit 3 until the production backend is integrated.
-- P3: Foundation manifest, IL-only metadata repair, original-byte resource checks, full host validation, and production source patch are prepared but not yet applied/accepted. Audio still lives at root `src/AudioCompiler` until G0 succeeds. `build/Managed.SourceChanges.patch` is a checkpoint, not proof of integration.
+- `src/App`: directory CLI, stream discovery/dependency-plan interfaces, sequential BuildSession, isolated StreamContext, diagnostics, JSONL and terminal report contracts.
+- `src/Managed`: Core, Utility, Hash, Metrics, MvpXml, ExpressionEval, GameDataVerifier and relocated Audio sources. `build/Managed.Foundation.json` defines production inputs and resource hashes.
+- `scripts/BuildCompiler.ps1`: the separate P3 production CLI/Foundation executable. Its thin `src/Hosting/CompilerEntry.cpp` contains no native asset routes. Probe and test classes are excluded from this product.
+- `scripts/TestCompiler.ps1`: clean-directory product type/resource/entry/CLI checks. `TestManagedFoundation.ps1` checks managed behavior; `TestSingleExeProbe.ps1` separately checks cross-language linking and Armor differential.
+- `probes/TextureRedirect`: build-time native mixed-PE writer, protected-range audit and original/roundtrip/EXE-bound component probe. It never overwrites the SDK original DLL.
+- `protocol`: event/report schemas and compatibility rules. `TestApp.ps1` and `ValidateAppProtocol.py` cover the application contract.
 
-Workflows: `refactor-gates.yml` runs fixed G0 with `[refactor-baseline]`; `refactor-probes.yml` selects `[refactor-link]`, `[refactor-texture]`, or `[refactor-app]` independently. `[refactor-probes]` intentionally runs all probe jobs. All fixed baseline checkouts remain separate from new sources; evidence upload does not auto-commit.
+Use Windows with .NET Framework 4.8 developer reference assemblies and VS 2022 x86 C++/CLI tools.
+Roslyn is pinned by the Foundation build. Build-time C# modules use AnyCPU; the final linker and
+process remain Win32/x86. The declared external managed dependency is `antlr.runtime.dll`.
+The old texture DLL additionally needs its original native runtime when its probe is selected.
 
-Next: complete G0, apply tested source changes and relocate audio with all active paths updated; reuse Debug/Release Foundation modules in full G1; run G2 redirected Texture against the clean full EXE; verify final phase evidence and submit a PR. No unsupported gate is to be marked passed merely because the build starts.
+```powershell
+./recovery/scripts/BuildCompiler.ps1 -Configuration Release -Platform Win32
+# Use the returned bin/NewModCompiler.exe path:
+NewModCompiler.exe --help
+NewModCompiler.exe plan --mod "D:\Mods\Example" --sdk-root "D:\SDK" --out "D:\Build\Example"
+```
+
+The CLI defaults to selected `base,apt,maps` stream discovery and loose output intent. It exposes
+known legacy parameters without silently claiming their backend behavior is integrated.
+`build` currently returns `BACKEND_NOT_INTEGRATED` with exit 3; `doctor` also discloses that limitation.
+A successful `plan` means a plan was produced, not that assets were compiled.
+
+## Continuation boundary
+
+P4 must add shared Native/Bridge and complete built-in asset routing to the production executable.
+P5 must connect the real Core stream engine, dependency closure, cache/state cleanup and output
+promotion to one process/BuildSession, then compare real MOD outputs. P6 packaging and P7 complete
+postprocessing are separate work. Do not infer support for those phases from the P3 CLI skeleton.
+
+Old independent projects remain oracle/compatibility entry points. Under `NEWSdk_MONOLITHIC`,
+expression binding is direct, plugin factories are explicit, serialized Settings resolves locally,
+and old GUI/Remoting sources are outside the production manifest. Historical audio receipts keep
+their original source-tree identities; source migration is not permission to relabel old results.
+
+`refactor-gates.yml` is the fixed pre-refactor baseline harness. `refactor-probes.yml` has explicit
+markers for link, texture, app and full integration checks. Both new workflows are read-only.
+Touched legacy audio workflows preserve their test/artifact steps and no longer write back to Git.
+Do not repeat a complete SDK baseline merely for a wrapper or documentation correction.

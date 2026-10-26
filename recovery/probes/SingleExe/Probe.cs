@@ -117,6 +117,10 @@ public static class SingleExeProbe
             if(!rejected)throw new Exception("null-node failure path not preserved");
 #endif
 #if FULL_FOUNDATION
+            var actualTypes = new List<string>();
+            foreach(Type actualType in self.GetTypes()) actualTypes.Add(actualType.FullName);
+            actualTypes.Sort(StringComparer.Ordinal);
+            File.WriteAllLines(args[0]+".types",actualTypes.ToArray());
             NewSdk.BuildValidation.ManagedFoundationValidation.Run(true);
 #endif
             Fixtures();
