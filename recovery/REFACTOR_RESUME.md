@@ -6,7 +6,7 @@
 ## 当前状态（先读这里即可）
 
 - **P4 已通过；P5 事务式发布已接入，当前真实 CLI 发布整组仍在修复验证，完整 P5/G3/SDK 未完成。** 生产入口保留实验性 Win32 loose/no-cache 后端；不能宣称完整 MOD 编译器或正式发行包可用。
-- 发布采用 `OutputRoot/published` 整代替换，必需报告/终态/日志收尾失败回滚；空可选集合不替换上一代。Debug/Release App 各569断言（发布生命周期147项）已过，含RollbackFailed备份保留。两配置 Core全7组/原版对照/协议/Texture已过；真实CLI的Debug整组已过，Release同目录取消在旧日志替换处失败，最终观察器修复正在Windows整组复验。
+- 发布采用 `OutputRoot/published` 整代替换，必需报告/终态/日志收尾失败回滚；空可选集合不替换上一代。Debug/Release App 各569断言（发布生命周期147项）已过，含RollbackFailed备份保留。两配置 Core全7组/原版对照/协议/Texture已过；前一候选真实CLI的Debug整组通过、Release同目录取消在旧日志替换处失败。最终观察器修复候选现已再次通过生产组合/Core/原版对照/App协议/Texture，真实CLI仍运行，CLI协议尚未取得终态；按用户要求交接，续接先查该现有作业，勿重新启动。
 - 新增未接入的 SDK/MOD/runtime 内容快照及27项合同断言，明确不能授权缓存复用；生产缓存仍关闭。旧缓存的 Complete 文档、资产来源、mtime失效和事务收尾接入仍待实现。
 - 前次完整 Windows 候选两配置均通过：App 各355断言、Core 全7组（路径组各130断言，含产物收集根/后代 junction、精确 cdata 布局、同名目录、Unicode/空格/#/% XInclude）、原版后端对照、真实 App 协议、当前 EXE 绑定 Texture 部署/payload。
 - 前次真实 CLI 各25个独立 PID 已过：单进程 job/no-child、冷分组、内外 MOD、实际 CTRL_BREAK/exit6/retry、真实日志锁/exit7/同路径重试、参数拒绝与协议。每配置22 reports/912 events；独立原版严格比较原始四输出，未归一化字节。
