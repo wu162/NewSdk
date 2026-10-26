@@ -1,0 +1,26 @@
+{
+  "status": "reviewed-pending-user-merge-approval",
+  "targetBranch": "recovery/compiler-source",
+  "targetHead": "b122a54abe4405516b021e425b8fb9235d914a0e",
+  "audioHead": "efbc6d825a7a5fb471740723486eb848e752e9b2",
+  "audioSourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
+  "audioTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
+  "fullSdkSource": "c078bce6e5e28866dfd3c25acabda731203b2556",
+  "fullSdkRun": "40248486242",
+  "sdkTree": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+  "sharedRecoverySourceTree": "c13c492885fc64bfac0f53562360d706252b6489",
+  "unchangedSharedTrees": [
+    "SDK",
+    "recovery/src",
+    "recovery/MetadataInventory",
+    "recovery/catalog",
+    "recovery/decompiled",
+    "recovery/w3x"
+  ],
+  "genericNavigationPreserved": true,
+  "audioNavigation": "../RESUME_AUDIO.md",
+  "productionSdkReplaced": false,
+  "fullJointCompilerClaim": false,
+  "userExplicitMergeApprovalRequired": true,
+  "testsReusedWithOriginalSourceAndRun": true
+}
