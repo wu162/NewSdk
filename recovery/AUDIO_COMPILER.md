@@ -1,64 +1,46 @@
-> 本轮检查点：AIFF/AIFC NONE4/6 实现与6336项组件/SDK矩阵已接线，尚待 Windows 验证；以下旧验收锚点保持原范围，不代表本轮成功。
-
 # AudioCompiler 当前状态
 
-唯一工作与交付分支 `recovery/audio-compiler-source`；源码 `src/AudioCompiler`；仅 PC / Win32。
-2026-10-26（北京时间）。非 Win32 在元数据、初始化、直接编译和编码策略入口明确拒绝。
-生产源码不加载原 AudioCompiler；原 DLL 仅作测试 oracle。SDK/tools 原 DLL/config 未替换。
+2026-10-26。分支 `recovery/audio-compiler-source`；源码 `src/AudioCompiler`；仅PC/Win32。
+约定PC编译功能范围已完成，组件及真实SDK已验收，待PR审查。合入仍须用户明确批准。
+生产源码不加载原AudioCompiler；原DLL只作测试oracle。仓库SDK/tools/config未替换。
 
-## 本轮新增 WAVE4/6 已验收
+## 最终能力组
 
-源码 `ed1a7bcbec4a7a89d08369b9668129c8c554f8ec`，音频树 `a8e47a2e737ca7e35a486ec17e5eaaa913c8678e`；[运行40250750964](https://github.com/wu162/NewSdk/actions/runs/40250750964) attempt1 **success**，证据提交 `7eba9f108008ae424b18d10f56bdbcb6ff5487fd`。
-
-D/R各1728个WAVE多声道原版差分通过：4/6×8/16/24×WAVE/EXTENSIBLE×PCM/XAS×RAM/stream、127/128/129/4096帧、四采样率、无loop/start0/长intro；全部受影响旧组通过。每配置36拒绝、64个原版公开入口案例/128次直接比较、15个非法声道检查通过。真实SDK同1728组合全部实际回调，四产物、1728份CustomData及三缓冲区一致，恢复侧无原AudioCompiler DLL。仅临时SDK替换，仓库SDK/tools/config不变。
-
-WAVE重排实证：4ch取源[0,1,3,2]，6ch取源[0,2,1,4,5,3]，导入时只执行一次。AIFF/AIFC NONE仍仅1/2声道；其4/6原版探针192案例/384进程已通过并确认保持原序，留下一完整组。ADP4>2在原native也不支持，继续拒绝。
-
-成果已按用户要求集中回`recovery/audio-compiler-source`；原PR[#10](https://github.com/wu162/NewSdk/pull/10)关闭且未合入compiler-source。下面历史SDK保持原source/run，不冒充集中提交新跑。
-
-## 当前验收
-
-- **已通过**：`bb4a225` / [40243817293](https://github.com/wu162/NewSdk/actions/runs/40243817293)。Debug/Release 每配置：loop4224、optional3888、offset2704、MPEG676、旧插件2175、AIFC720、ADP42136、SSND1680；整工程构建通过。MPEG 原机器码32783 header /441 identifier /324 info另有15识别边界。
-- **已通过 SDK**：同源码、同运行的4488资产专用 PC 音频 MOD，原/恢复版实际三缓冲区、四产物及4488份CustomData一致，恢复侧删除原目标 DLL。该批不是完整 Upheaval。
-- **最终候选已通过**：`2d64684742f9b19808d8fd721fbe31a549907c37` / [40244825458](https://github.com/wu162/NewSdk/actions/runs/40244825458) attempt1 success。D/R loop4224、optional3888、COMM7776、offset2704、MPEG1084及旧受影响完整回归、整工程构建均通过；原机器码32783 header/441 identifier/324 info/72容器及15识别边界通过。
-- **新增SDK已通过**：同最终源码、同运行的1820资产专用PC MOD（COMM1728、MPEG44、ADP4 offset组合48），原/恢复版实际三缓冲区、四产物、1820份CustomData一致；恢复侧删除原目标DLL。前一4488保留原锚点，不冒充本次重跑。
-
-- **完整固定 Upheaval 音频替换已通过**：源码提交 `c078bce6e5e28866dfd3c25acabda731203b2556` / [40248486242](https://github.com/wu162/NewSdk/actions/runs/40248486242) attempt1 success；生产音频树仍为 `ee6074a096795aa66b682fcb363e360feabe4d2f`。固定输入 `068643219fded09a05fb7b75c6507b769c430316`，2738文件、194个.asset保留；原/恢复侧 case3/4/5 共10次BAB调用全部exit0，20份产物全部一致，各侧1293份CustomData、1289次音频回调，1281个required声明与1281个actual unique资产匹配，恢复侧原AudioCompiler缺席。收据 `evidence/audio/upheaval-sdk-validation/40248486242-1/validation.json`，提交 `ef87339d3f76848687b714a394a9e1ff00ad1923`。只替换AudioCompiler，其他插件仍为原SDK；该WAV mono语料不证明4/6声道，也不替代AIFF/AIFC专用SDK。
-
-精确收据、配置、源码树和历史锚点见[验收索引](evidence/audio/acceptance-current.json)。
+AIFF/AIFC NONE4/6：源码 `7abc0505f6340504f32767b86de7a34b04ac3367`，音频树 `8bbe47d084d879b38397bc45e4493965640731ec`；
+[运行40257973827](https://github.com/wu162/NewSdk/actions/runs/40257973827) attempt1 success，证据提交 `47823e9451018654e61237ef32cfde36d463f22e`。
+D/R各6336项完整三缓冲区/CustomData差分；独立源序/窗口/marker及安全拒绝检查、全部受影响回归和D/R工程构建通过。
+真实SDK同6336资产全部实际回调，四产物、CustomData及三缓冲区一致，恢复侧无原目标DLL。
+详细矩阵、边界与收据见[AIFF验收](audio/MultichannelAiffBoundary.md)；统一索引见[acceptance-current.json](evidence/audio/acceptance-current.json)。
 
 ## PC 能力与边界
 
-| 范围 | 当前实现 |
+| 范围 | 已实现 |
 |---|---|
-| 五个 BAB 路由 | PathMusicMap/Track/Event、AudioFileMP3Passthrough、AudioFile；三缓冲区和CustomData |
-| 输入 | WAVE1/2/4/6、AIFF1/2声道 PCM8/16/24；EXTENSIBLE按整数容器位宽；AIFC/NONE及EA raw ADP4（非Apple ima4） |
-| 编码 | NONE/PCM16、XAS v1；RAM/streamed SNR/SNS；filter120重采样，至少两个源帧 |
-| WAVE loop | 原无padding查找的首smpl/首条range；type等被忽略，仍是普通forward loop，非高级pingpong播放 |
-| AIFF/AIFC loop | 多INST/MARK、额外/重复marker；INST-only/空MARK/双端均不匹配为无loop；release忽略；mode0/2无forward loop |
-| COMM过滤 | 用最后COMM的signed声明帧数先筛marker，负值/超声明位置跳过，之后才按SSND长度修正actual frames |
-| SSND | 任意uint32 blockSize忽略；非零offset仅接受完整采样窗口在声明sound范围内，保留原raw-length帧数 |
-| MP3透传 | 原七帧识别、EOF终止、MPEG头信息与有界WAVE/AIFF/AIFC优先级；按原SIMEX_info仅查信息，不解PCM；原文件逐字节复制 |
+| BAB路由 |PathMusicMap/Track/Event、AudioFileMP3Passthrough、AudioFile|
+| 输入 |WAVE（含EXTENSIBLE）、AIFF/AIFC NONE：PCM8/16/24，1/2/4/6声道；EA raw ADP4仅1/2（非Apple ima4）|
+| 声道顺序 |WAVE4取源[0,1,3,2]、6取源[0,2,1,4,5,3]，仅一次；AIFF/AIFC NONE保持原序|
+| 编码 |NONE/PCM16、XAS v1；RAM/streamed SNR/SNS；filter120重采样至少两源帧|
+| Loop/COMM |WAVE首smpl/首range；AIFF/AIFC forward sustain、多INST/MARK与重复marker；最后COMM signed声明帧数先筛选marker，随后SSND修正actual frames|
+| SSND |blockSize忽略；offset完整采样窗口必须在声明payload内，保留raw-length帧数|
+| MP3透传 |七帧识别、EOF终止、MPEG头信息及有界容器优先级；原文件逐字节复制；原SIMEX_info不解PCM|
 
-原SIMEX_info不执行PCM解码，因此已删除错误增加的全流解码门槛及全部未引用NLayer源码；不再规划恢复一个透传流程不需要的RenderWare解码器。
-工程net472、无签名；Core仍引用SDK基线。构建：`dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release`。
-不承诺原C++指针helper二进制ABI。
+工程net472、无签名；Core仍引用SDK基线。
+`dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release`。
+不承诺原混合模式C++指针helper二进制ABI。最终EXE整合、重构和非PC平台不在本任务范围。
+约定范围内无剩余实现待办。
 
-## 尚未完成
+继续明确拒绝MARK-only未初始化mode、单端匹配、无效loop、结构损坏/marker超限、超SSND offset、单帧ADP4/import-resample。
+PCM32/IEEE-float、sowt、多声道ADP4等原路径拒绝格式不是待恢复功能。
+尚未审计的畸形容器不承诺普遍等价。
 
-1. 下一组为AIFF/AIFC NONE4/6：原版已确认原序，恢复版尚未启用。完整loop/COMM/SSND、重采样、流式分块差分和新SDK仍需完成；见[原生审计与原版实证](audio/MultichannelAiffNativeAudit.md)。多声道ADP4不是缺失功能，原native明确拒绝。
-2. 后续直接从本分支继续；下一组静态准备位于`recovery/preparation/audio-aiff-multichannel`，未编译未接线。未来合入其他分支必须另提PR并由用户明确批准；SDK及共享源码保留原样。
+## 保留的历史验收
 
-[音频合入审查](audio/AudioIntegrationReview.md)与[WAVE多声道验收](audio/MultichannelBoundary.md)记录范围和精确证据。
+- WAVE4/6：source`ed1a7bcb`/run40250750964，D/R1728项及同1728资产SDK通过，见[WAVE验收](audio/MultichannelBoundary.md)。
+- 完整固定Upheaval：source`c078bce6`/run40248486242，固定输入`068643219fded09a05fb7b75c6507b769c430316`，原/恢复共10次BAB调用，20产物、每侧1293份CustomData一致；1281唯一资产、1289回调。只替换音频，其他插件原SDK。语料mono WAV，未冒充本轮源码重跑。
+- PC边界：source`2d646847`/run40244825458，D/R loop4224、optional3888、COMM7776、offset2704、MPEG1084及同1820资产SDK通过；4488资产旧SDK保留source`bb4a225`/run40243817293。
+- AIFF原版源序：source`0d744a71`/run40251368891，192案例/384进程稳定，80496个PCM样本确认源序，见[原生审计](audio/MultichannelAiffNativeAudit.md)。
 
-继续明确拒绝：MARK-only原未初始化mode、单端匹配、无效loop范围、结构损坏/marker超限，以及超出SSND的offset。
-尚未界定的畸形容器识别组合不承诺普遍等价。PCM32/IEEE-float、sowt等原路径本就拒绝的格式不是待恢复能力；单帧ADP4/import-resample原未初始化行为保持安全拒绝。
-非PC编码器、分支与规划不属于待办。不要频繁触发完整SDK；完整能力组先组件差分，SDK按实际新增范围合批，未变范围保留原sourceCommit/runId。
+历史source/run不交叉套用；精确完整锚点与收据均保存在验收索引。原PR#10已按用户要求关闭，新的合入须新PR。
 
-## 按需阅读
-
-[Loop](audio/LoopMetadataBoundary.md) · [COMM](audio/AiffMarkerRangeBoundary.md) · [Offset](audio/SsndOffsetBoundary.md) · [MPEG](audio/MpegBoundary.md) · [SDK覆盖审计](audio/CommSdkCoverageAudit.md)
-
-[输入元数据](audio/InputMetadataBoundary.md) · [AIFC](audio/AifcNoneBoundary.md) · [ADP4](audio/Adp4Boundary.md) · [SSND blockSize](audio/SsndBlockSize.md)
-
-[重采样](audio/ResamplerKernelAudit.md) · [单帧安全](audio/SingleFrameImportBoundary.md) · [XAS精度](audio/XasPrecision.md)。原DLL SHA256：`a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139`。
+[Loop](audio/LoopMetadataBoundary.md) · [COMM](audio/AiffMarkerRangeBoundary.md) · [Offset](audio/SsndOffsetBoundary.md) · [MPEG](audio/MpegBoundary.md) · [重采样](audio/ResamplerKernelAudit.md) · [单帧安全](audio/SingleFrameImportBoundary.md)。
+原DLL SHA256：`a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139`。

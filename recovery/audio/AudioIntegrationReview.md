@@ -1,3 +1,5 @@
+> 最新状态：PC功能已完成，最终AIFF/AIFC4/6验收见[AIFF边界](MultichannelAiffBoundary.md)及[续接入口](../RESUME.md)。本页以下保留成果集中操作的历史记录；新PR等待用户明确批准后才能合入。
+
 # AudioCompiler 成果集中核对
 
 按用户2026-10-26指示，统一工作分支为`recovery/audio-compiler-source`；原PR[#10](https://github.com/wu162/NewSdk/pull/10)关闭，不合入`recovery/compiler-source`。此操作只集中已存在的源码、证据及下一组静态准备，保留全部来源提交历史，普通快进更新，禁止强推。

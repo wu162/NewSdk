@@ -1,3 +1,5 @@
+> 后续实现及组件/SDK验收已完成，见[AIFF最终验收](MultichannelAiffBoundary.md)。下文是保留原source/run的原版探针历史；其中“仍拒绝/next”描述仅适用于当时源码。
+
 # AIFF/AIFC multichannel native audit
 
 2026-10-26. Read-only target audit and original-only probe preparation. No

@@ -1,3 +1,5 @@
+> 已完成：本目录保留原始静态准备历史。正式生成器已接入 recovery/tests/AudioMultichannelAiffCases.cs；最终验收见[AIFF边界](../../audio/MultichannelAiffBoundary.md)，不再按下文待办继续。
+
 # 集中入口：下一组 AIFF/AIFC 准备（未编译、未接线）
 
 当前统一分支为`recovery/audio-compiler-source`，本目录已包含生成器和静态核对结果。直接从本分支当前HEAD继续，不需要再切回旧preparation分支。可按需要开临时验证分支，最终成果仍集中回本分支；未来合入其他分支必须另提PR并经用户明确批准。
