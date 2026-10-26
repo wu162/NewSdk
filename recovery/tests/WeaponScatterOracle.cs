@@ -472,20 +472,26 @@ unsafe partial class WeaponOracle
     static int directModelComparisons;
     static void DirectModel(Assembly original)
     {
+#if !WEAPON_TRANSCRIPT_PRODUCT
         MethodInfo parser = null;
         foreach (var method in original.GetModules()[0].GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
             if (method.Name == "Marshaler.Marshal<enum ModelConditionFlagType,456>") parser = method;
         if (parser == null) throw new Exception("Original ModelCondition inline parser missing");
+#endif
         var values = new List<string>(ModelNames);
         foreach (string name in ModelNames) { values.Add("-"+name); values.Add(name+" -"+name); }
         values.AddRange(new[] { "INVALID", "-INVALID", "+INVALID", "invalid", "", " ", "\v\f\t\r\n", "TOPPLED\vDAMAGED\fSUCKED_UP_HIGH", "TOPPLED\0DAMAGED", "\0ALL", "ALL", "all -TOPPLED", "-ALL unknown", "TOPPLED -ALL -DAMAGED", "+", "-", "unknown", "unknown -unknown", "TOPPLED,DAMAGED", "++TOPPLED", "--TOPPLED", "ＡＬＬ", "é", "状态", "TOPPLED\u00a0DAMAGED" });
         var pattern = new uint[15]; for(int i=0;i<15;++i) pattern[i]=unchecked(0x9e3779b9u*(uint)(i+1));
         foreach (var seed in new[] { new uint[15], pattern, ModelAll() }) foreach (string text in values) {
+#if WEAPON_TRANSCRIPT_ORACLE || WEAPON_TRANSCRIPT_PRODUCT
+            var expected = WeaponTranscript.ExpectedMask(original, "Marshaler.Marshal<enum ModelConditionFlagType,456>", text, seed);
+#else
             var expected=(uint[])seed.Clone(); IntPtr ansi=Marshal.StringToHGlobalAnsi(text);
             try { fixed(uint* target=expected) {
                 var types=parser.GetParameters();
                 parser.Invoke(null,new object[] { Pointer.Box(ansi.ToPointer(),types[0].ParameterType),Pointer.Box(target,types[1].ParameterType),Pointer.Box(null,types[2].ParameterType) });
             } } finally { Marshal.FreeHGlobal(ansi); }
+#endif
             var actual=WeaponCompiler.MarshalModelCondition(text,seed);
             for(int i=0;i<15;++i) if(expected[i]!=actual[i]) throw new Exception("Direct ModelCondition mismatch: "+text+" word="+i);
             ++directModelComparisons;
@@ -562,3 +568,4 @@ unsafe partial class WeaponOracle
         }
     }
 }
+
