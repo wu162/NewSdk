@@ -32,6 +32,28 @@ class CompilerRoutes
         }
         throw new Exception(label + " was accepted");
     }
+    static object[] Metadata(object info)
+    {
+        return new object[] { Read(info, "TypeId"), Read(info, "TypeName"), Read(info, "TypeHash"),
+            Read(info, "ProcessingHash"), Read(info, "HasCustomData"), Read(info, "Tokenized"), Read(info, "UseBuildCache") };
+    }
+    static void RequireSameMetadata(object[] expected, object info, string label)
+    {
+        object[] actual = Metadata(info);
+        for (int i = 0; i < expected.Length; ++i)
+            Require(Object.Equals(expected[i], actual[i]), label + " changed metadata field " + i);
+    }
+    static void RejectDisposed(MethodInfo method, object target, object[] args, string label)
+    {
+        try { method.Invoke(target, args); }
+        catch (TargetInvocationException error)
+        {
+            Require(error.InnerException is ObjectDisposedException,
+                label + " failed for an unrelated reason: " + error.InnerException);
+            return;
+        }
+        throw new Exception(label + " was accepted after disposal");
+    }
     static int Main(string[] args)
     {
         try
@@ -78,6 +100,41 @@ class CompilerRoutes
                     Require(Convert.ToUInt32(Read(info, "TypeId")) == id && (string)Read(info, "TypeName") == name &&
                         Convert.ToUInt32(Read(info, "TypeHash")) == Convert.ToUInt32(Read(route, "TypeHash")), "Runtime route metadata differs: " + name);
                 }
+                // Exercise the unified owner, descriptor reuse and registry cache as one
+                // chain. Per-component ReInitialize tests do not cover this integration.
+                var routePlugins = new Dictionary<uint, object>();
+                var routeMetadata = new Dictionary<uint, object[]>();
+                foreach (object route in routes)
+                {
+                    uint id = Convert.ToUInt32(Read(route, "TypeId"));
+                    routePlugins.Add(id, getPlugin.Invoke(registry, new object[] { id }));
+                    routeMetadata.Add(id, Metadata(getInfo.Invoke(registry, new object[] { id })));
+                }
+                MethodInfo reinitialize = factory.GetMethod("ReInitialize");
+                foreach (string unsupported in new[] { "Xbox360", "PlayStation3" })
+                    Reject(reinitialize, owner, new[] { Enum.Parse(platformType, unsupported) }, "Unsupported reinitialization " + unsupported);
+                Reject(reinitialize, owner, new[] { Enum.ToObject(platformType, 99) }, "Unknown reinitialization platform");
+                for (int round = 0; round < 3; ++round)
+                {
+                    reinitialize.Invoke(owner, new[] { win32 });
+                    Require(Object.ReferenceEquals(registry, Read(owner, "Registry")), "ReInitialize replaced the registry");
+                    var reusedPlugins = Items(Read(owner, "Plugins"));
+                    var reusedRoutes = Items(Read(owner, "Routes"));
+                    Require(reusedPlugins.Count == plugins.Count && reusedRoutes.Count == routes.Count,
+                        "ReInitialize changed the plugin or route inventory");
+                    for (int i = 0; i < plugins.Count; ++i)
+                        Require(Object.ReferenceEquals(plugins[i], reusedPlugins[i]), "ReInitialize recreated or reordered a plugin");
+                    for (int i = 0; i < routes.Count; ++i)
+                    {
+                        object route = routes[i];
+                        uint id = Convert.ToUInt32(Read(route, "TypeId"));
+                        Require(Object.ReferenceEquals(route, reusedRoutes[i]), "ReInitialize recreated or reordered a route");
+                        Require(Object.ReferenceEquals(routePlugins[id], getPlugin.Invoke(registry, new object[] { id })),
+                            "ReInitialize rebound a route to a different plugin");
+                        RequireSameMetadata(routeMetadata[id], getInfo.Invoke(registry, new object[] { id }),
+                            "ReInitialize round " + round + " route " + Read(route, "TypeName"));
+                    }
+                }
                 foreach (string required in new[] { "GameObject", "WeaponTemplate", "ArmorTemplate", "W3DAnimation", "W3DMesh" })
                     Require(actual.ContainsKey(required), "Required native family route absent: " + required);
                 var catalog = (Dictionary<string, object>)new JavaScriptSerializer().DeserializeObject(File.ReadAllText(args[1]));
@@ -109,9 +166,12 @@ class CompilerRoutes
                 Require(!ids.Contains(0u), "Unknown-route fixture collided");
                 object unknown = getPlugin.Invoke(registry, new object[] { 0u });
                 Reject(unknown.GetType().GetMethod("ProcessInstance"), unknown, new object[] { null }, "Unknown route");
-                Console.WriteLine("PASS production built-in registry: 299 routes, six EXE-owned factories, 289 XML declarations (267 global/22 non-global), missing/duplicate/unknown rejection; metadata only, no asset differential");
+                Console.WriteLine("PASS production built-in registry: 299 routes, six EXE-owned factories, 289 XML declarations (267 global/22 non-global), missing/duplicate/unknown rejection; three owner reinitializations preserve plugin/route identity and metadata; metadata only, no asset differential");
             }
             finally { ((IDisposable)owner).Dispose(); ((IDisposable)owner).Dispose(); }
+            RejectDisposed(factory.GetMethod("ReInitialize"), owner, new[] { win32 }, "ReInitialize");
+            RejectDisposed(factory.GetProperty("Registry").GetGetMethod(), owner, new object[0], "Registry access");
+            Console.WriteLine("PASS built-in owner disposal: repeated Dispose is safe; Registry and ReInitialize reject disposed owner");
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 string name = assembly.GetName().Name;

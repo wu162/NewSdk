@@ -25,6 +25,7 @@ try {
     $productExe=(Resolve-Path "$product/bin/NewModCompiler.exe").Path
     $productHash=Hash $productExe
     if($productHash -cne $receipt.exeSha256){throw 'Production EXE differs from build receipt'}
+    $runtimeFiles=@('NewModCompiler.exe.config','antlr.runtime.dll'|ForEach-Object{@{name=$_;sha256=(Hash (Join-Path "$product/bin" $_))}})
     $seen=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
     foreach($input in $recipe.inputs){
         if(!$seen.Add($input.path) -or (Hash $input.path) -cne $input.sha256){throw "Missing, duplicate or modified production link input: $($input.path)"}
@@ -57,13 +58,17 @@ try {
     Copy-Item "$product/bin/antlr.runtime.dll" $bin
     foreach($input in $recipe.inputs){if((Hash $input.path) -cne $input.sha256){throw 'Production link input changed while linking validation host'}}
     if((Hash $productExe) -cne $productHash){throw 'Validation linking changed the production executable'}
+    foreach($file in $runtimeFiles){
+        if((Hash (Join-Path "$product/bin" $file.name)) -cne $file.sha256 -or
+            (Hash (Join-Path $bin $file.name)) -cne $file.sha256){throw "Production/validation runtime input changed while building host: $($file.name)"}
+    }
     @{
-        schemaVersion=1;sourceCommit=$sourceCommit;configuration=$receipt.configuration
+        schemaVersion=2;sourceCommit=$sourceCommit;configuration=$receipt.configuration
         productExeSha256=$productHash;exeSha256=(Hash $exe);sameProductionObjects=$true
         entryPoint='NewModCompiler.Validation.ValidationEntry.Main';productionEntryPoint=$receipt.entryPoint
         inputs=@($recipe.inputs|Where-Object{$_.kind -cne 'entry'})
         entrySource=@{path='recovery/tests/CompilerValidationEntry.cpp';sha256=(Hash $hostSource)}
-        entryObjectSha256=(Hash $hostObject);linkRecipeSha256=(Hash "$product/link-inputs.json")
+        entryObjectSha256=(Hash $hostObject);linkRecipeSha256=(Hash "$product/link-inputs.json");runtimeFiles=$runtimeFiles
         status='linked test-only host; runtime validation required';productionExeUnchanged=$true
     }|ConvertTo-Json -Depth 8|Set-Content "$out/build.json"
     Write-Output $exe

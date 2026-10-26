@@ -26,8 +26,8 @@ try {
     $component=Get-Content "$captures/validation.json" -Raw|ConvertFrom-Json
     $pluginReceipt=Get-Content $pluginReceiptPath -Raw|ConvertFrom-Json
     if(!$component.succeeded -or !$component.completeAnimationBuffersValidated -or !$component.completeMeshBuffersValidated -or !$component.componentWithoutOriginalReplay){throw 'A successful complete W3X capture receipt is required'}
-    if(!$pluginReceipt.succeeded -or !$pluginReceipt.processInstanceOriginalDifferential -or !$pluginReceipt.withoutOriginalReplay -or $pluginReceipt.sourceCommit -cne $component.sourceCommit -or [string]$pluginReceipt.runId -cne [string]$component.runId){throw 'Plugin capture fingerprints require the matching successful original differential receipt'}
-    if($component.sourceCommit -notmatch '^[0-9a-f]{40}$' -or [string]$component.runId -notmatch '^\d+$'){throw 'Missing capture source/run identity'}
+    if(!$pluginReceipt.succeeded -or !$pluginReceipt.processInstanceOriginalDifferential -or !$pluginReceipt.withoutOriginalReplay -or $pluginReceipt.sourceCommit -cne $component.sourceCommit -or [string]$pluginReceipt.runId -cne [string]$component.runId -or [string]$pluginReceipt.runAttempt -cne [string]$component.runAttempt){throw 'Plugin capture fingerprints require the matching successful original differential receipt'}
+    if($component.sourceCommit -notmatch '^[0-9a-f]{40}$' -or [string]$component.runId -notmatch '^\d+$' -or [string]$component.runAttempt -notmatch '^[1-9]\d*$'){throw 'Missing capture source/run identity'}
     & git merge-base --is-ancestor $component.sourceCommit HEAD
     if($LASTEXITCODE -ne 0){throw 'Capture source is not an available ancestor of this checkout'}
     $oracleInputs=@('recovery/tests/W3xAnimationOracle.cs','recovery/tests/W3xMeshAssetOracle.cs','SDK/tools')
@@ -35,15 +35,17 @@ try {
     if($LASTEXITCODE -ne 0){throw 'Original capture fixture generators or SDK oracle inputs changed; existing capture cannot be reused'}
     $original=(Get-FileHash 'SDK/tools/BinaryAssetBuilder.W3XCompiler.dll').Hash.ToLowerInvariant()
     if($original -cne 'bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1' -or $component.originalSha256 -cne $original -or $pluginReceipt.originalSha256 -cne $original){throw 'W3X original identity mismatch'}
-    # Conservatively include the complete Native/Bridge trees so a transitive
-    # shared header edit or deletion cannot be hidden by W3X filename filtering.
-    $implementationInputs=@('recovery/src/Native','recovery/src/Bridge','recovery/src/Managed/W3x','recovery/src/Plugin/W3x',':(glob)recovery/tests/W3x*.cpp','recovery/tests/W3xManagedOracle.cs','recovery/tests/W3xManagedStandalone.cs')
-    & git diff --quiet $component.sourceCommit HEAD -- @implementationInputs
-    if($LASTEXITCODE -ne 0){throw 'W3X implementation/shared headers or independent matrix inputs changed; review component evidence before reusing captures'}
+    # Check the union of both revisions' local-include closures, including all
+    # shared native implementations. Unrelated XML/Tokenizer additions do not
+    # change W3X evidence, but changed/deleted transitive headers still reject it.
+    & python "$PSScriptRoot/CheckW3xCaptureInputs.py" $component.sourceCommit $state.sourceCommit *> "$out/reused-inputs.json"
+    if($LASTEXITCODE -ne 0){Get-Content "$out/reused-inputs.json" -Tail 80|Write-Host;throw 'W3X implementation/shared headers or independent matrix inputs changed; review component evidence before reusing captures'}
     $state.lowLevelNativeMatrixRerun=$false
     $state.lowLevelEvidenceScope='unchanged implementation and tests; historical component toolchain only, product build mode covered by new captured ProcessInstance replay'
     $state.reusedCaptureSourceCommit=$component.sourceCommit
     $state.reusedCaptureRunId=$component.runId
+    $state.reusedCaptureRunAttempt=$component.runAttempt
+    $state.reusedInputsSha256=(Get-FileHash "$out/reused-inputs.json").Hash.ToLowerInvariant()
     $state.componentReceiptSha256=(Get-FileHash "$captures/validation.json").Hash.ToLowerInvariant()
     $state.pluginReceiptSha256=(Get-FileHash $pluginReceiptPath).Hash.ToLowerInvariant()
     $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
