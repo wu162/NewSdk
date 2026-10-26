@@ -186,6 +186,11 @@ internal static class AudioPluginOracle
             string originalName = "BinaryAssetBuilder.AudioCompiler";
             if (!original && File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, originalName + ".dll"))) throw new Exception("Recovered host contains original target DLL");
             var assembly = Assembly.LoadFrom(Path.GetFullPath(args[0]));
+#if AUDIO_PRODUCT
+            if (original || assembly != Assembly.GetEntryAssembly() || typeof(AssetBuffer).Assembly != assembly ||
+                assembly.GetName().Name != "NewModCompiler" || assembly.GetModules().Length != 1)
+                throw new Exception("Audio business implementation must belong to the physical entry EXE");
+#endif
             plugin = (IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.AudioCompiler.Plugin", true));
             root = Path.GetFullPath(args[2]); Directory.CreateDirectory(root);
             using (writer = new StreamWriter(args[3], false, new UTF8Encoding(false)))

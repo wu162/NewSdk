@@ -26,8 +26,8 @@ function Invoke-XmlSmoke([string]$Executable,[string[]]$Arguments,[string]$Direc
     finally {Pop-Location}
     if($code -ne 0){Get-Content $Log -Tail 80|Out-Host;throw "XML route smoke host failed: $Executable ($code)"}
 }
-function Check-XmlSmoke([string]$Result,[string]$Transcript,[bool]$Production) {
-    $result=Get-Content $Result -Raw|ConvertFrom-Json
+function Check-XmlSmoke([string]$ResultPath,[string]$Transcript,[bool]$Production) {
+    $result=Get-Content $ResultPath -Raw|ConvertFrom-Json
     $metadata=if($Production){289}else{0}
     if(!$result.succeeded -or $result.fullMetadataRoutes -ne $metadata -or $result.types -ne 289 -or $result.testedTypes -ne 289 -or
         $result.fixtures -ne 1156 -or $result.comparisons -ne 3468 -or $result.completionFixtures -ne 208 -or $result.completionComparisons -ne 624 -or
