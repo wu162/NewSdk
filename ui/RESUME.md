@@ -26,6 +26,10 @@
 - `ui/fixtures/CoronaUIMain.swf`：原样例；SHA256 `b661542cf2c8b52ef846c348f817f523f5fba63ee4baa53c365aabde30af9fa7`。
 - `.github/workflows/ui-memory.yml`：只检查UI项目；不触发旧XmlCompiler全量差分或真实SDK回归。
 
+## 源码复用决定（2026-10-26 用户补充）
+
+后续直接把 `lanyizi/swf2apt` 项目源码拷入本仓库 `ui/` 下使用并改造，不继续以构建时临时 checkout 和字符串补丁作为正式实现方式。以已经验证的 `60b15a67a4cbd931f181af8c6c758bd7a8441ebc` 为导入起点，保留原目录结构、来源提交、版权和各组件许可证；转换器、SwfLib、flasm及所需原生依赖一起纳入本地构建。先原样导入并复用/核对基线，再直接修改源码暴露内存接口。当前只是记录后续实施决定，源码尚未拷入，不能标为导入完成。
+
 ## 下一阶段顺序
 
 1. **先做优化器内存化。** 原脚本使用 `--ra3 --optimize`。目前原优化结果APT=10121、CONST=9787，no-opt=25861/25179，二者确实不同，不能直接启用no-opt替代。保留flasm迭代、RA3字节码和错误语义，拿优化模式固定样例做差分。
