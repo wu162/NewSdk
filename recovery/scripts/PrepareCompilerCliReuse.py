@@ -146,7 +146,12 @@ def prepare(archive, expected_sha256, source_commit, candidate_commit, output, r
         with zipfile.ZipFile(stream) as z:
             names, folded = set(), set()
             for entry in z.infolist():
-                name = safe_name(entry.filename)
+                # ZipInfo preserves the decoded central-directory name here
+                # before platform separator normalization and NUL truncation.
+                # Inspect it first; filename alone can hide malicious bytes.
+                name = safe_name(entry.orig_filename)
+                require(entry.orig_filename == entry.filename,
+                        'Unsafe ZIP name normalization: ' + repr(entry.orig_filename))
                 require(name.casefold() not in folded, 'Duplicate ZIP path: ' + name)
                 require(not stat.S_ISLNK(entry.external_attr >> 16), 'ZIP symlink forbidden: ' + name)
                 require(not entry.flag_bits & 1, 'Encrypted ZIP entry forbidden')

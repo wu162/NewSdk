@@ -97,13 +97,23 @@ class CliReuseTests(unittest.TestCase):
         mutate(value)
         self.entries[path] = json.dumps(value).encode()
 
-    def run_prepare(self, expected=None, extra=()):
+    def run_prepare(self, expected=None, extra=(), raw_names=()):
         with warnings.catch_warnings():
             warnings.simplefilter('ignore', UserWarning)
             with zipfile.ZipFile(self.archive, 'w') as z:
                 for name, data in list(self.entries.items()) + list(extra):
                     z.writestr(name, data)
-        sha = expected or reuse.digest(self.archive.read_bytes())
+        # ZipInfo normalizes host separators at construction time (notably on
+        # Windows), so malicious path fixtures must patch the actual ZIP local
+        # and central header bytes after writing an otherwise valid archive.
+        raw = self.archive.read_bytes()
+        for before, after in raw_names:
+            before, after = before.encode('ascii'), after.encode('ascii')
+            self.assertEqual(len(before), len(after))
+            self.assertEqual(raw.count(before), 2, 'Expected local and central ZIP header names')
+            raw = raw.replace(before, after)
+        self.archive.write_bytes(raw)
+        sha = expected or reuse.digest(raw)
         return reuse.prepare(self.archive, sha, self.source, self.candidate, self.output, self.repo)
 
     def test_valid_preserves_history_extracts_only_six_files(self):
@@ -145,11 +155,23 @@ class CliReuseTests(unittest.TestCase):
     def test_zip_paths_and_duplicates_rejected(self):
         for path in ('../escape', '/absolute', 'C:/escape', 'a\\escape', 'a/../escape', 'a//b'):
             with self.subTest(path=path), self.assertRaisesRegex(ValueError, 'Unsafe ZIP'):
-                self.run_prepare(extra=[(path, b'bad')])
+                placeholder = 'Q' * len(path)
+                self.run_prepare(extra=[(placeholder, b'bad')], raw_names=[(placeholder, path)])
         original = next(iter(self.entries))
         for path in (original, original.upper()):
             with self.subTest(path=path), self.assertRaisesRegex(ValueError, 'Duplicate ZIP'):
-                self.run_prepare(extra=[(path, b'bad')])
+                placeholder = 'Q' * len(path)
+                self.run_prepare(extra=[(placeholder, b'bad')], raw_names=[(placeholder, path)])
+
+    def test_raw_nul_name_rejected_before_zipinfo_truncation_can_hide_it(self):
+        # Python's ZipInfo.filename truncates at NUL while orig_filename retains
+        # the full central-directory value. Exercise the archive bytes, not a
+        # ZipInfo constructor that would already have discarded the suffix.
+        path = 'safe\0hidden'
+        placeholder = 'Q' * len(path)
+        with self.assertRaisesRegex(ValueError, 'Unsafe ZIP'):
+            self.run_prepare(extra=[(placeholder, b'bad')], raw_names=[(placeholder, path)])
+        self.assertFalse(self.output.exists())
 
     def test_symlink_rejected(self):
         link = zipfile.ZipInfo('link')
