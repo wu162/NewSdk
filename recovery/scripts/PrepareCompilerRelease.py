@@ -11,13 +11,15 @@ from pathlib import Path
 import re
 import subprocess
 import zipfile
+import tempfile
+import ValidateCompilerBig as big_contract
 import PrepareCompilerCliReuse as guard
 
-SOURCE = '6bc790e91c92891088f3e1b0d671e3ce85050a08'
-RUN = 40411445532
+SOURCE = '828fead203f38a4599c98fb9fe93290acc271b96'
+RUN = 40415442552
 ATTEMPT = 1
-ARTIFACT = 12694930277
-SHA256 = '053f326828a7c9a5e45906899cbaa43f7c9884e7ee53831171132c512a77e07b'
+ARTIFACT = 12694779350
+SHA256 = '12c731a9a460ea57e7e0e18bcab29d03884796ec6874bcb5297a4bada0b66eac'
 REPOSITORY = 'wu162/NewSdk'
 WORKFLOW = '.github/workflows/refactor-core-lifecycle.yml'
 SDK_SOURCE = '9dcaac8212a5d5dfd690af0d1e69f58cc6c3cee6'
@@ -31,6 +33,12 @@ ALLOWED = {
     'recovery/REFACTOR_RESUME.md', 'recovery/P5_LIFECYCLE_AUDIT.md', 'recovery/COMPILER_RELEASE.md',
     'recovery/P7_PACKAGING.md',
     'recovery/scripts/PrepareCompilerSessionReplay.py',
+    # Independent preparations are outside the production object/link closure.
+    '.github/workflows/refactor-hashfix.yml', '.github/workflows/refactor-lod.yml',
+    'recovery/preparation/hashfix/HashFix.cs', 'recovery/preparation/hashfix/HashFixControl.cs',
+    'recovery/preparation/hashfix/TestCompilerHashFix.py',
+    'recovery/preparation/lod/LoDControl.cs', 'recovery/preparation/lod/LoDStreamBuilder.cs',
+    'recovery/preparation/lod/TestCompilerLoD.py',
 }
 SUCCESS_STEPS = {
     'Standalone P2 application contracts in Debug', 'Standalone P2 application contracts in Release',
@@ -115,6 +123,28 @@ def sdk_receipt(archive, repo, candidate):
                          'sdkInputsUnchanged':True,'reason':'P7 only adds explicit BIG apt/maps; current affected Core/CLI/cache/Texture/BIG groups must pass; historical full-mymod binary identity is retained'}
 
 
+def apt_marker_receipt(archive):
+    """Inspect accepted raw product/original BIGs, rather than trusting a success flag."""
+    prefix=f'evidence/refactor/big/{RUN}-{ATTEMPT}'
+    checked=[]
+    with tempfile.TemporaryDirectory(prefix='release-big-marker-') as work:
+        target=Path(work)/'accepted.big'
+        for mode in sorted(guard.MODES):
+            for selection in ('apt', 'apt-maps'):
+                for relative in (f'{selection}-big/artifacts/business_1.0.big',
+                                 f'{selection}-original-makebig/original.big'):
+                    path=f'{prefix}/{mode}/{relative}'
+                    data=archive.read(path);target.write_bytes(data)
+                    parsed=big_contract.read_archive(target)
+                    versions=[m for m in parsed['members'] if m['name'].endswith('.version')]
+                    require(len(versions)==2 and all(m['name'].startswith('data\\aptui\\') and
+                            m['data']==b' \r\n' for m in versions),
+                            'Accepted BIG does not contain exact original space+CRLF APT markers: '+path)
+                    checked.append({'path':path,'sha256':guard.digest(data),
+                                    'members':[m['name'] for m in versions]})
+    return {'expectedBytes':[32,13,10],'rawProductAndOriginalArchives':checked}
+
+
 def prepare(archive, sdk_archive, candidate, output, repo):
     changed=closure(repo,SOURCE,candidate)
     sdk_raw,sdk_scope=sdk_receipt(sdk_archive,repo,candidate)
@@ -129,6 +159,7 @@ def prepare(archive, sdk_archive, candidate, output, repo):
         guard.closure,guard.FIXTURES,guard.CLI_CASES=previous
     target=Path(output)
     with zipfile.ZipFile(archive) as z:
+        marker=apt_marker_receipt(z)
         def doc(path):return json.loads(z.read(path).decode('utf-8-sig'))
         def take(path,relative):
             data=z.read(path);p=target/relative;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)
@@ -157,7 +188,7 @@ def prepare(archive, sdk_archive, candidate, output, repo):
         take(cli_path,'accepted-cli.json')
     (target/'accepted-mymod.json').write_bytes(sdk_raw)
     receipt.update(binarySourceCommit=SOURCE,testSourceCommit=candidate,artifactId=ARTIFACT,productionSourcesUnchanged=True,
-                   reusedMymod=sdk_scope,requiredNextSteps=['Run P6 five-file ZIP deployment validation only'],
+                   aptVersionMarker=marker,reusedMymod=sdk_scope,requiredNextSteps=['Run P6 five-file ZIP deployment validation only'],
                    scope='Current P7 production/cache/session/BIG acceptance plus historical f2/9d complete mymod scope; packaging preparation only, no new business execution')
     (target/'release-preparation.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8');(target/'reuse.json').unlink()
     return receipt

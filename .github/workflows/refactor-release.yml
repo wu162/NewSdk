@@ -37,7 +37,7 @@ jobs:
           [IO.File]::WriteAllText((Join-Path $work 'aptui/probe.manifest'),'fixture')
           $legacy=Get-Content -LiteralPath SDK/defaultscript.cs -Raw
           $producer=Get-Content -LiteralPath recovery/src/App/Application/BigPackage.cs -Raw
-          if(!$legacy.Contains('(echo. >') -or !$producer.Contains('file.WriteByte(13);file.WriteByte(10);')){throw 'Version-byte probe no longer matches the exact reviewed SDK and production source'}
+          if(!$legacy.Contains('(echo. >') -or !$producer.Contains('file.WriteByte(32);file.WriteByte(13);file.WriteByte(10);')){throw 'Version-byte probe no longer matches the exact reviewed SDK and production source'}
           $command='(@echo off) & (for %I in ("'+$work+'\probe.xml") do ((if exist "'+$work+'\aptui\%~nI.manifest" (echo. >"'+$work+'\aptui\%~nI.version"))))'
           $start=[Diagnostics.ProcessStartInfo]::new()
           $start.FileName=Join-Path $env:windir 'System32/cmd.exe';$start.Arguments='/C '+$command
@@ -53,8 +53,8 @@ jobs:
             $version=Join-Path $work 'aptui/probe.version'
             [byte[]]$bytes=@();if(Test-Path -LiteralPath $version){$bytes=[IO.File]::ReadAllBytes($version)}
             [IO.File]::WriteAllBytes((Join-Path $out 'original.version'),[byte[]]$bytes)
-            $matches=($process.ExitCode -eq 0 -and $bytes.Length -eq 2 -and $bytes[0] -eq 13 -and $bytes[1] -eq 10)
-            @{schemaVersion=1;sourceCommit=(git rev-parse HEAD).Trim();binarySourceCommit='6bc790e91c92891088f3e1b0d671e3ce85050a08';runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;sourceScript='SDK/defaultscript.cs';sourceScriptSha256=(Get-FileHash SDK/defaultscript.cs -Algorithm SHA256).Hash.ToLowerInvariant();originalCommand=$command;originalExitCode=$process.ExitCode;actualBytes=@($bytes);actualHex=([Convert]::ToHexString([byte[]]$bytes)).ToLowerInvariant();expectedProductionBytes=@(13,10);matchesCurrentProduction=$matches;scope='Exact original SDK echo-dot space redirection command measured by Windows cmd, before any release preparation'}|ConvertTo-Json -Depth 5|Set-Content (Join-Path $out 'receipt.json')
+            $matches=($process.ExitCode -eq 0 -and $bytes.Length -eq 3 -and $bytes[0] -eq 32 -and $bytes[1] -eq 13 -and $bytes[2] -eq 10)
+            @{schemaVersion=1;sourceCommit=(git rev-parse HEAD).Trim();binarySourceCommit='828fead203f38a4599c98fb9fe93290acc271b96';runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;sourceScript='SDK/defaultscript.cs';sourceScriptSha256=(Get-FileHash SDK/defaultscript.cs -Algorithm SHA256).Hash.ToLowerInvariant();originalCommand=$command;originalExitCode=$process.ExitCode;actualBytes=@($bytes);actualHex=([Convert]::ToHexString([byte[]]$bytes)).ToLowerInvariant();expectedProductionBytes=@(32,13,10);matchesCurrentProduction=$matches;scope='Exact original SDK echo-dot space redirection command measured by Windows cmd, before any release preparation'}|ConvertTo-Json -Depth 5|Set-Content (Join-Path $out 'receipt.json')
             if(!$matches){throw 'Original SDK version marker bytes differ from the current production marker; release refresh blocked (see legacy-version-probe receipt)'}
           } finally {$process.Dispose();if(Test-Path -LiteralPath $work){Remove-Item -LiteralPath $work -Recurse -Force}}
       - uses: actions/setup-dotnet@v4
