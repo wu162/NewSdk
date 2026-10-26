@@ -11,6 +11,10 @@ on:
       - 'recovery/scripts/*SingleExeProbe.ps1'
       - 'recovery/scripts/*ManagedFoundation.ps1'
       - 'recovery/scripts/*App.ps1'
+      - 'recovery/scripts/BuildCompiler.ps1'
+      - 'recovery/scripts/TestCompiler.ps1'
+      - 'recovery/src/Hosting/**'
+      - 'recovery/tests/CompilerDeployment.cs'
       - 'recovery/scripts/TestTextureRedirect.ps1'
       - 'recovery/scripts/ConfirmRefactorBaseline.ps1'
   workflow_dispatch:
@@ -51,6 +55,9 @@ jobs:
       - name: Complete Foundation and real Armor in isolated final x86 EXE
         shell: pwsh
         run: ./recovery/scripts/TestSingleExeProbe.ps1 -OutputDirectory "recovery/evidence/refactor/g1-full/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -FoundationDirectory recovery/artifacts/refactor-foundation -BuildDirectory recovery/artifacts/refactor-link
+      - name: Separate production CLI with managed source in EXE and no probe code
+        shell: pwsh
+        run: ./recovery/scripts/TestCompiler.ps1 -OutputDirectory "recovery/evidence/refactor/product/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -FoundationDirectory recovery/artifacts/refactor-foundation -BuildDirectory recovery/artifacts/refactor-product
       - name: Texture original, roundtrip and EXE-bound processing
         shell: pwsh
         run: |
@@ -65,6 +72,7 @@ jobs:
             recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}
           if-no-files-found: error
   app-contract:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]') || contains(github.event.head_commit.message, '[refactor-app]')

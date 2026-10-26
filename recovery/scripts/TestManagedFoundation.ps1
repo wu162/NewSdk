@@ -1,6 +1,7 @@
 param([string]$OutputDirectory,[string]$FoundationDirectory)
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
+$manifest=Get-Content "$root/recovery/build/Managed.Foundation.json" -Raw|ConvertFrom-Json
 if(!$OutputDirectory){$OutputDirectory="$root/recovery/evidence/refactor/managed/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"}
 if(Test-Path $OutputDirectory){throw "Refusing to overwrite validation $OutputDirectory"}
 New-Item -ItemType Directory -Force $OutputDirectory|Out-Null
@@ -24,7 +25,9 @@ try {
         # proves the MSVC link consumes the physical modules into one executable.
         $main="$work/Main.cs"
         'class Program { static int Main() { NewSdk.BuildValidation.ManagedFoundationValidation.Run(false); return 0; } }'|Set-Content $main
-        $compilerArguments=@('/nologo','/codepage:65001','/noconfig','/target:exe','/platform:x86','/langversion:10.0',('/out:'+$hostPath),('/addmodule:'+$work+'/Managed.Foundation.netmodule'),('/reference:'+$framework+'/System.Core.dll'),('/reference:'+$framework+'/System.Xml.dll'),('/reference:'+$framework+'/System.Configuration.dll'))
+        $compilerArguments=@('/nologo','/codepage:65001','/noconfig','/nostdlib+','/target:exe','/platform:x86','/langversion:10.0',('/out:'+$hostPath),('/addmodule:'+$work+'/Managed.Foundation.netmodule'))
+        foreach($name in $manifest.frameworkReferences){$compilerArguments+=('/reference:'+(Join-Path $framework ($name+'.dll')))}
+        $compilerArguments+=('/reference:'+(Join-Path $root 'SDK/tools/antlr.runtime.dll'))
         foreach($resource in (Get-Content "$work/resources.json" -Raw|ConvertFrom-Json)){$compilerArguments+='/resource:'+$resource.path+','+$resource.logicalName}
         $compilerArguments+="$root/recovery/build/ManagedValidation/ManagedFoundationValidation.cs"
         $compilerArguments+=$main
