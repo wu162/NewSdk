@@ -70,6 +70,9 @@ def closure(repo, source, candidate):
         require(re.fullmatch('[0-9a-f]{40}', value), 'Use complete lowercase commit SHAs')
         guard.git(repo, 'cat-file', '-e', value + '^{commit}')
     guard.git(repo, 'merge-base', '--is-ancestor', source, candidate)
+    guard.git(repo, 'diff', '--exit-code', candidate, '--', 'recovery/src', 'SDK')
+    require(not guard.git(repo, 'ls-files', '--others', '--exclude-standard', '-z', '--', 'recovery/src', 'SDK'),
+            'Untracked production/SDK input is not covered by the candidate commit')
     # Complete changed-path closure also rejects removed dependencies and build
     # recipes outside src/SDK, rather than assuming their directory names.
     changed = sorted(p for p in guard.git(repo, 'diff', '--name-only', '--no-renames', '-z', source, candidate).decode().split('\0') if p)
@@ -166,6 +169,7 @@ def main():
     args = parser.parse_args()
     try:
         closure(args.repo, SOURCE, args.candidate_commit)
+        require(ARTIFACT > 0 and re.fullmatch('[0-9a-f]{64}', SHA256), 'Fixed archive has not yet been pinned')
         metadata(api(f'repos/{REPOSITORY}/actions/runs/{RUN}'), api(f'repos/{REPOSITORY}/actions/artifacts/{ARTIFACT}'),
                  api(f'repos/{REPOSITORY}/actions/runs/{RUN}/jobs?filter=latest&per_page=100'))
         with Path(args.archive).open('xb') as stream:
