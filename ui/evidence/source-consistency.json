@@ -1,0 +1,79 @@
+{
+  "sourceCommit": "a9adf26ed130f17b7ee18b5fa7efcda3efaea918",
+  "runId": "40288873546",
+  "upstreamCommit": "2b3cb662b7311616e462b884e5611750e5de88f4",
+  "method": "Portable PDB SHA256 source documents; PDB IDs checked against CodeView GUIDs in the assemblies extracted from the uploaded single-file EXE",
+  "sourceFiles": {
+    "eaf2apt": {
+      "matched": 33,
+      "total": 33,
+      "excludedGeneratedDocuments": 2
+    },
+    "SwfLib": {
+      "matched": 357,
+      "total": 357,
+      "excludedGeneratedDocuments": 2
+    }
+  },
+  "originalManagedAssemblyExecuted": true,
+  "sdkIntegration": false,
+  "directCliResults": [
+    {
+      "ra3": true,
+      "optimize": false,
+      "files": {
+        ".apt": {
+          "bytes": 25861,
+          "sha256": "2be204ef627584545ffef09407eff2eba3b70b20e636c5dab0b8a65eb2d14c5f"
+        },
+        ".const": {
+          "bytes": 25179,
+          "sha256": "497a05a12aef430b3ba644c676e19929ce270387804c32cbe91b8838bb5886c0"
+        },
+        ".dat": {
+          "bytes": 48,
+          "sha256": "20ec61c0bc15b513d846d01e54dba5f726742c647054a43ef20a59181d222707"
+        }
+      },
+      "allGeneratedFilesEqual": true,
+      "comparedFiles": [
+        "CoronaUIMain.apt",
+        "CoronaUIMain.const",
+        "CoronaUIMain.dat",
+        "CoronaUIMain.hash",
+        "CoronaUIMain.xml"
+      ]
+    },
+    {
+      "ra3": true,
+      "optimize": true,
+      "files": {
+        ".apt": {
+          "bytes": 10121,
+          "sha256": "9acab3c45b6d5933645aa7f59ed49d1476042350ad95c2d77d1ae4b9f6a33b0c"
+        },
+        ".const": {
+          "bytes": 9787,
+          "sha256": "2d22748442e66fc5128475637520c0048e9df6810f18f2a4ca6476e04ca0385d"
+        },
+        ".dat": {
+          "bytes": 48,
+          "sha256": "20ec61c0bc15b513d846d01e54dba5f726742c647054a43ef20a59181d222707"
+        }
+      },
+      "allGeneratedFilesEqual": true,
+      "comparedFiles": [
+        "CoronaUIMain.apt",
+        "CoronaUIMain.const",
+        "CoronaUIMain.dat",
+        "CoronaUIMain.eaf",
+        "CoronaUIMain.flm",
+        "CoronaUIMain.hash",
+        "CoronaUIMain.tac",
+        "CoronaUIMain.xml"
+      ]
+    }
+  ],
+  "outputBaseline": "unchanged assemblies and flasm extracted from uploaded tool; all generated files compared byte-for-byte at identical paths under same .NET8 x86 runtime",
+  "adoptSource": true
+}
