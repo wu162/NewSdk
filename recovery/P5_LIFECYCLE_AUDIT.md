@@ -1,7 +1,7 @@
 # P5 生命周期审计与最小实施组
 
-状态：2026-10-26 P4 已验收。文档/配置清理、Hash/Tracer 作用域及 Metrics/AssetReport 资源恢复已编写，首批生命周期与实验后端已通过两配置定向 Windows 验证；新增处理器作用域、真实 App/独立原版对照仍待验。
-本页保存设计依据；具体实现以源码及 Core lifecycle 作业为准，不代表生产 `build` 已接入或 SDK/G3 已通过。
+状态：2026-10-26 P4 已验收；Core 全7组、真实 App/独立原版、生产 CLI 及真实 APT 数据资产/MapMetaData 定向组已通过 Debug/Release，原始收据已核对。生产 `build` 已接入实验性 Win32 loose/no-cache 后端。
+本页保存历史设计依据，下面的“建议/待实现”按源码及当前 REFACTOR_RESUME.md 解释，不能当作仍未接入的状态。缓存、正式发布、完整 SDK/G3 尚未通过，真实 CommandListBox UI 的两配置生产 CLI/当前原版对照已过；另两份含纹理 UI 尚未验收。
 路径均相对 `recovery`；首版仅顺序执行，不能并行修改旧静态状态。
 
 ## 第一组：真实 Core 异常清理（可独立于后端实现）

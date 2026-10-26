@@ -1,6 +1,6 @@
 # 路径集中审计（2026-10-26 交接）
 
-本页为代码调用链审计；除已列 Windows 证据外，不把静态复现推导标成动态验证。本轮临时恢复 CLI 候选以取得完整 Windows 证据，未通过前不代表生产入口验收。当前候选的 App Debug/Release 路径矩阵已过；Core、扩展后的真实业务 CLI、原版对照和协议仍以作业终态及原始收据为准。
+本页为代码调用链审计；除已列 Windows 证据外，不把静态复现推导标成动态验证。本轮临时恢复 CLI 候选以取得完整 Windows 证据，未通过前不代表生产入口验收。已完整核对的候选 App/Core/真实业务 CLI/Texture 两配置均通过，包含原版逐字节对照和协议原始文件。CommandListBox 真实 UI 扩展也已取得两配置当前原版严格对照；另两份含纹理 CustomData 的 UI 尚未验收。
 
 ## 已修复并取得定向证据
 
@@ -8,9 +8,9 @@
 - Core 实际使用的 ShPath.PathCanonicalize/PathRemoveFileSpec 默认 ANSI 将中文转为问号：显式绑定 W 接口；两配置真实 Core/App 和 Unicode 回归通过。
 - 旧 Framework csc 误解混合斜杠源码参数：CLI helper 改 VS Roslyn、NET48 引用及 Resolve-Path。已实际运行 Debug 14 个生产 CLI case。
 
-## 已确认的代码缺陷（本轮修复已写入，待 Windows 动态验收）
+## 本轮已修复并取得 Windows 定向验收的缺陷
 
-| 位置 | 可复现输入与影响 | 下一步 |
+| 位置 | 可复现输入与影响 | 修复与定向验证 |
 | --- | --- | --- |
 | FileNameResolver.GetDataRoot | DataPaths=C:\SDK\Data 错匹配 C:\SDK\Data2\X.xml；调用方固定 root.Length+1 截断后可产生根相对 \X，输出拼接可能越出 staging | 按分隔符边界匹配；统一安全相对路径函数并拒绝 rooted/上跳输出 |
 | AssetDeclarationDocument.CurrentState / DocumentProcessor.GetExpectedOutputManifest | 根为 C:\ 或以反斜杠结束时固定 +1 多跳一字符，Mods 变 ods、Sub 变 ub | 规范根与尾部分隔符，再由共同函数取相对路径 |
@@ -39,8 +39,10 @@
 
 ## 当前生产入口证据与失败
 
-Debug 14 个实际生产进程 case 已过，含 OS 单进程 job/no-child、冷进程分组对照、内外 MOD、真实 CTRL_BREAK/exit6/retry。独立原 BAB 对照仍严格失败：bin/imp/relo 完全相同，manifest 源文件表旧版为 ANSI 损坏的 ?? MOD 绝对路径，新版为 DATA:mod.xml。不得改写/归一化字节掩盖差异；保留 Unicode case，另增内容相同的 ASCII 原版 companion 对照并核对两种新编译器逻辑路径语义。Release CLI/CLI 协议尚未完成。
+此前 Debug-only 独立原 BAB 对照失败：bin/imp/relo 相同，manifest 源文件表旧版为 ANSI 损坏的 ?? MOD 绝对路径。现保留 Unicode MOD，另用同内容 ASCII companion 做严格原版对照；两配置各22个真实 CLI 进程及两份协议均通过。Unicode/ASCII 四任务全输出一致且源表 DATA 别名逐字节断言通过，未改写/归一化任何产物。新增真实 APT12资产/MapMetaData3资产的组合、冷分组和独立当前原版四输出亦通过；CommandListBox 原始5文件UI闭包也通过当前生产 CLI/原版四输出对照；这仍不是完整 G3/SDK。
 
 ## 验证耗时优化
 
 已加入 CLI-only 严格 Git 输入闭包复用；生产/SDK/其他 fixture 变化会拒绝复用，旧结果保留原 sourceCommit。新增运行允许清单 bin 文件归档，供后续只改工具时核验复用，避免因缺二进制被迫重复链接；尚未实现自动下载/复用执行器。外部 CLI helper 已提取为共用构建脚本，并在 Native 长链接前廉价编译。生命周期作业稀疏检出仅排除历史 recovery/evidence（约 2GiB），隔离检出核对其余全部受跟踪文件存在；保留完整 Git 历史和全部验证步骤。不可用删断言、少平台或放宽差分来优化。
+
+独立 PrepareCompilerCliReuse.py 已通过16个闭包/篡改/ZIP/收据拒绝测试及两份真实成功归档核验，仅准备两配置各3文件并记录历史来源。它尚未接入工作流，不提供候选验收、不复制旧Texture部署，也不允许任意workflow steps/env/build变化通过闭包；后续必须重新绑定Texture并执行候选CLI/协议。

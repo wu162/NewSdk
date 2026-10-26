@@ -5,26 +5,26 @@
 
 ## 当前状态（先读这里即可）
 
-- **P4 已通过；P5 后端/真实 App 定向验收已过，生产 CLI 完整组未过。** 本轮已临时恢复候选用于 Windows 验收；未取得完整成功前不能宣称可用，失败交接须恢复默认 guard。
-- `62b7766` XML Debug/Release 各63组及原始 transcript/生产宿主身份已核对；`9cd2cb8` 的有效非XML组件证据按原输入/范围复用，不重复完整 SDK。
-- `817b127e` 两配置五 fixture、原 BAB 两 MOD 四流逐字节对照、真实 App 协议（每配置15 reports/489 events）、Texture与P2均通过并核对原始收据；不是完整 G3/SDK。
-- `6767870a` Debug 14个真实 CLI case 已过（14独立PID、单进程job/no-child、冷分组、内外MOD、实际CTRL_BREAK/exit6/retry）；独立原版对照失败：bin/imp/relo相同，manifest 源文件表旧ANSI为?? MOD绝对路径，新版为DATA:mod.xml。Release CLI/CLI协议未验，不能归一化字节掩盖差异。
-- 最后已将 Program/Help/后端doctor/负例部署探针/构建收据回退到已保存守卫基点，候选实现仍保留在上述 git 提交可恢复；Unicode W、Trace scope、状态隔离、日志桥与测试准备保留。
-- 已保存新候选检查点并启动 Windows：修复日志临时文件保持写句柄时 File.Replace 的共享冲突，补真实 XInclude 的 #/% 文件名、诊断文件/目录拒绝；CLI 以真实持锁文件验证输出故障，保留 ASCII 原版 companion 与 Unicode 逻辑路径断言。当前验证中，详见 PATH_AUDIT.md。
+- **P4 已通过；P5 真实后端、路径、生产 CLI 定向组已通过，完整 P5/G3/SDK 未完成。** 生产入口保留实验性 Win32 loose/no-cache 后端；不能宣称完整 MOD 编译器或正式发布流程可用。
+- 本轮完整 Windows 候选两配置均通过：App 各355断言、Core 全7组（含 Unicode/空格/#/% XInclude、根边界、空搜索路径）、原版后端对照、真实 App 协议、当前 EXE 绑定 Texture 部署/payload。
+- 真实 CLI 各22个独立 PID 已过：单进程 job/no-child、冷分组、内外 MOD、实际 CTRL_BREAK/exit6/retry、真实日志锁/exit7/同路径重试、参数拒绝与协议。每配置19 reports/609 events；独立原版严格比较原始四输出，未归一化字节。
+- 真实业务新增12个文件型 APT 资产、3个 MapMetaData 资产；组合与三组冷进程输出一致，APT/maps 独立当前原 BAB 对照已过。这不是 APT 格式解析或完整 UI/SDK 验收。
+- 真实 Upheaval CommandListBox UI 两配置均已通过：固定祖先按原 blob 导出 wrapper/子XML/APT/CONST/DAT 完整5文件、4依赖闭包，生产 apt-only 单流及当前原 BAB 原始四输出严格一致；另两份含纹理的 UI 未在此范围。
+- 根/路径、日志原子替换与活动文件保护、晚期失败撤销产物、.build junction 与既有 staging 所有权修复均已取得上述完整候选的原始收据；已核对归档 SHA、14份 fixture 的结果/日志/EXE 和两份协议原始文件哈希，详见 PATH_AUDIT.md。
+- `62b7766` XML 两配置各63组、`9cd2cb8` 非XML组件证据仅按原输入/范围复用，不将旧生产/宿主身份冒充当前重测；本轮未重复完整 SDK。
 
 ## 下一步（按顺序）
 
-1. 先读 PATH_AUDIT.md，集中修根边界/安全相对路径、XInclude Unicode、空/null搜索路径、日志物理别名和诊断文件冲突；保留中文/空格用例，先补必要 Windows 路径矩阵。
-2. 保留已有原始证据并按实际输入闭包复用。817的强前置与676的Debug部分CLI结果分开，不能把缺失的Release/CLI协议补成通过。
-3. 为原版严格对照新增同内容ASCII companion，继续验证Unicode新路径语义；不要删除Unicode测试或改写manifest。修复后恢复候选并跑真实生产入口两配置、原版/冷进程/取消/日志故障及协议；完整验收前保留guard。
-4. 缓存、正式输出发布、完整业务G3/SDK、P6/P7仍未完成。当前仅Win32无缓存loose隔离staging，旧不支持参数明确拒绝。
-5. 工具先轻量编译再长链接；运行允许清单二进制已加入未来产物归档，但自动下载复用尚未实现。CLI-only闭包守卫拒绝生产/SDK/其他fixture变化，不以跳过回归优化耗时。
+1. 继续下一完整能力组，复用本轮原始成功证据及实际输入闭包；本轮 UI 扩展已成功并核对原始归档，不能把历史 sourceCommit 的收据改标为新提交重测。
+2. 另两份真实 UI 含纹理 CustomData；先扩展精确输出允许清单及原版比较器，再接入，不能删除 Texture 迁就现有四流断言。原混合 Texture DLL 的完整 Unicode 路径仍未验。
+3. 缓存、正式输出发布、完整业务 G3/SDK、P6/P7 仍未完成；旧不支持参数继续明确拒绝，当前输出仅隔离 staging。
+4. CLI helper 已提前廉价编译；稀疏检出仅排除约2GiB历史 evidence，保留所有源码/SDK/Git历史与完整验证。新增 PrepareCompilerCliReuse.py 及16个负例/闭包测试，已用两份真实成功归档核验，只提取两配置各3运行文件，保留历史来源、candidateValidated=false；尚未接入 Actions 自动下载/执行。旧 CLI-only 锚点须更新且调用严格闭包，不允许任意 workflow/build/env 变更。
 
 ## 按任务读取，禁止启动时递归展开链接
 
 | 问题 | 对应入口（除工作流外相对 recovery） |
 | --- | --- |
-| 失败/工作流 | `.github/workflows/refactor-native.yml`、`refactor-xml-product.yml`、`refactor-guards.yml` + 对应脚本 |
+| 失败/工作流 | `.github/workflows/refactor-core-lifecycle.yml`、`refactor-native.yml`、`refactor-xml-product.yml`、`refactor-guards.yml` + 对应脚本 |
 | 宿主身份 | `scripts/BuildCompilerValidationHost.ps1`、`scripts/CompilerValidation.Common.ps1`、`tests/CompilerValidationEntry.cpp` |
 | 生产部署/管理行为 | `scripts/TestCompiler.ps1`、`scripts/TestCompilerFoundation.ps1` |
 | Tokenizer/音频 | `scripts/TestCompilerDifferential.ps1`、`TestCompilerGameObject.ps1`、`TestCompilerWeapon.ps1`、`TestCompilerAudio.ps1` |
