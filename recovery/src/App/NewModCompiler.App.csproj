@@ -1,0 +1,16 @@
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Platform Condition="'$(Platform)' == ''">x86</Platform>
+    <OutputType>Exe</OutputType><TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <AssemblyName>NewModCompiler</AssemblyName><RootNamespace>NewModCompiler</RootNamespace>
+    <PlatformTarget>x86</PlatformTarget><LangVersion>7.3</LangVersion>
+    <OutputPath>..\..\..\artifacts\app\$(Configuration)\</OutputPath>
+    <StartupObject>NewModCompiler.Cli.Program</StartupObject>
+    <DebugSymbols>true</DebugSymbols><Optimize Condition="'$(Configuration)' == 'Release'">true</Optimize>
+  </PropertyGroup>
+  <ItemGroup><Reference Include="System"/><Reference Include="System.Core"/><Reference Include="System.Web.Extensions"/></ItemGroup>
+  <ItemGroup><Compile Include="Cli\*.cs"/><Compile Include="Application\*.cs"/><Compile Include="Diagnostics\*.cs"/></ItemGroup>
+  <ItemGroup><None Include="App.config"/></ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+</Project>

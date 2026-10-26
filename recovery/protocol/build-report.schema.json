@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://newsdk.local/protocol/1.0/build-report.schema.json",
+  "title": "NewModCompiler BuildReport 1.0",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "buildId",
+    "status",
+    "exitCode",
+    "requestArguments",
+    "effectiveOptions",
+    "selectedContent",
+    "plan",
+    "stages",
+    "diagnostics",
+    "diagnosticCounts",
+    "loadedProviders",
+    "externalTools",
+    "cache",
+    "elapsedMs",
+    "artifacts",
+    "logPaths",
+    "executionMode",
+    "publicationStatus"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "buildId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "succeeded",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "exitCode": {
+      "enum": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "requestArguments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "effectiveOptions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "Value",
+          "Source"
+        ],
+        "properties": {
+          "Value": {
+            "type": "string"
+          },
+          "Source": {
+            "enum": [
+              "default",
+              "project",
+              "commandLine"
+            ]
+          }
+        }
+      }
+    },
+    "selectedContent": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "base",
+          "apt",
+          "maps"
+        ]
+      }
+    },
+    "plan": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "stages": {
+      "type": "array"
+    },
+    "diagnostics": {
+      "type": "array"
+    },
+    "diagnosticCounts": {
+      "type": "object"
+    },
+    "loadedProviders": {
+      "type": "array"
+    },
+    "externalTools": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "cache": {
+      "type": "object"
+    },
+    "elapsedMs": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "Path",
+          "Kind",
+          "Size",
+          "Sha256"
+        ],
+        "properties": {
+          "Path": {
+            "type": "string"
+          },
+          "Kind": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Size": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "Sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "logPaths": {
+      "type": "object",
+      "required": [
+        "events",
+        "report",
+        "text"
+      ]
+    },
+    "executionMode": {
+      "enum": [
+        "PlanOnly",
+        "InProcess"
+      ]
+    },
+    "publicationStatus": {
+      "enum": [
+        "NoCompilationRequested",
+        "IsolatedStagingOnly"
+      ]
+    }
+  }
+}

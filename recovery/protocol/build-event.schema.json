@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://newsdk.local/protocol/1.0/build-event.schema.json",
+  "title": "NewModCompiler BuildEvent 1.0",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "buildId",
+    "sequence",
+    "timestampUtc",
+    "elapsedMs",
+    "eventType",
+    "level"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "buildId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "timestampUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "elapsedMs": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "eventType": {
+      "enum": [
+        "BuildStarted",
+        "PlanResolved",
+        "StageStarted",
+        "StageCompleted",
+        "StreamStarted",
+        "StreamCompleted",
+        "Diagnostic",
+        "Progress",
+        "ArtifactProduced",
+        "BuildFinished"
+      ]
+    },
+    "level": {
+      "enum": [
+        "info",
+        "warning",
+        "error",
+        "debug"
+      ]
+    },
+    "stageId": {
+      "type": "string"
+    },
+    "streamId": {
+      "type": "string"
+    },
+    "assetId": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "diagnosticCode": {
+      "type": "string"
+    },
+    "source": {
+      "type": "object"
+    },
+    "progress": {
+      "type": "object"
+    },
+    "payload": {
+      "type": [
+        "object",
+        "array"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "const": "StageStarted"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "stageId"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "const": "StageCompleted"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "stageId"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "const": "StreamStarted"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "streamId",
+          "stageId",
+          "payload"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "const": "StreamCompleted"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "streamId",
+          "stageId",
+          "payload"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "const": "Diagnostic"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "diagnosticCode",
+          "message"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "const": "BuildFinished"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "payload"
+        ],
+        "properties": {
+          "payload": {
+            "type": "object",
+            "required": [
+              "status",
+              "exitCode",
+              "reportPath"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "succeeded",
+                  "failed",
+                  "cancelled"
+                ]
+              },
+              "exitCode": {
+                "enum": [
+                  0,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ]
+              },
+              "reportPath": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

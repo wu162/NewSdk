@@ -16,6 +16,23 @@ on:
 permissions:
   contents: read
 jobs:
+  app-contract:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]')
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: CLI plan, lifecycle and durable events in Debug and Release
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestApp.ps1 -Configuration Debug
+          ./recovery/scripts/TestApp.ps1 -Configuration Release
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-app-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/artifacts/app
+          if-no-files-found: error
   link-probe:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]')
     runs-on: windows-2022
