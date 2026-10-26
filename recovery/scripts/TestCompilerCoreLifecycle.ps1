@@ -10,11 +10,11 @@ $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerDirectory=(Resolve-Path $CompilerDirectory).Path
 if(Test-Path $OutputDirectory){throw "Refusing to overwrite Core lifecycle evidence: $OutputDirectory"}
 $out=(New-Item -ItemType Directory -Force $OutputDirectory).FullName
-$work=(New-Item -ItemType Directory (Join-Path ([IO.Path]::GetTempPath()) ('compiler-core-lifecycle-'+[Guid]::NewGuid().ToString('N')))).FullName
+$work=(New-Item -ItemType Directory (Join-Path ([IO.Path]::GetTempPath()) ('clr-'+[Guid]::NewGuid().ToString('N').Substring(0,12)))).FullName
 $oldPath=$env:PATH
 $state=[ordered]@{
     schemaVersion=1;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT
-    succeeded=$false;status='started';modes=@();sdkValidated=$false;g3Validated=$false;coldProcessValidated=$false
+    succeeded=$false;status='started';modes=@();sdkValidated=$false;g3Validated=$false;coldProcessValidated=$false;longPathsValidated=$false
     scope='P5 targeted real Core/backend/application pipeline and resource reuse in production-object validation fixtures using small Armor inputs; not production build CLI, APT business coverage, cold-process equivalence, complete MOD/SDK or G3 acceptance'
 }
 function Hash([string]$Path){(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
@@ -45,6 +45,7 @@ function Invoke-LifecycleFixture([string]$Executable,[string[]]$Arguments,[strin
 Push-Location $root
 try {
     $state.sourceCommit=(git rev-parse HEAD).Trim()
+    $state.workRoot=$work
     if(!$state.runId){$state.runId='local-'+[Guid]::NewGuid().ToString('N')}
     $state.runnerSha256=Hash $PSCommandPath
     $sdk=(Resolve-Path 'SDK').Path
@@ -114,9 +115,11 @@ try {
             textureDeployment=@{targetExeSha256=$run.validationHostSha256;patchedSha256=$textureHash;manifestSha256=$textureManifestHash;protectedPeAudit=$patch.protectedPeAudit;scope='Host-bound registration/lifecycle only; texture payload differential remains separate'}
         }
         $state.modes+=,$modeState
+        $fixtureIndex=0
         foreach($fixture in $fixtures) {
+            $fixtureIndex++
             $fixtureOut=(New-Item -ItemType Directory (Join-Path $modeOut $fixture.name)).FullName
-            $fixtureWork=(New-Item -ItemType Directory (Join-Path $work ($mode+'-'+$fixture.name))).FullName
+            $fixtureWork=(New-Item -ItemType Directory (Join-Path $work ($mode.Substring(0,1)+'-f'+$fixtureIndex))).FullName
             $source=(Resolve-Path ('recovery/tests/'+$fixture.name+'.cs')).Path
             $fixtureExe=Join-Path $clean ($fixture.name+'.exe')
             $arguments=@('/nologo','/noconfig','/nostdlib+','/target:exe','/langversion:7.3','/codepage:65001','/platform:x86',('/out:'+$fixtureExe),('/r:'+$run.exe),('/r:'+(Join-Path $clean 'antlr.runtime.dll')))
@@ -143,7 +146,7 @@ try {
                 if((Hash $texture) -cne $textureHash -or (Hash $textureManifest) -cne $textureManifestHash){throw 'Backend texture deployment changed while running'}
                 Complete-CompilerValidationRun $run
                 $modeState.fixtures+=,@{
-                    name=$fixture.name;passed=$true;processId=$processId;timeoutSeconds=$timeout
+                    name=$fixture.name;passed=$true;processId=$processId;timeoutSeconds=$timeout;workRoot=$fixtureWork
                     sourceSha256=(Hash $source);fixtureExeSha256=(Hash $fixtureExe)
                     resultSha256=(Hash $resultPath);runtimeLogSha256=(Hash "$fixtureOut/runtime.log")
                 }

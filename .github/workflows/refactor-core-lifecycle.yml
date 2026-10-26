@@ -10,6 +10,9 @@ on:
       - 'recovery/scripts/app-protocol-requirements.txt'
       - 'recovery/protocol/**'
       - 'recovery/scripts/TestCompilerTexture.ps1'
+      - 'recovery/scripts/TestApp.ps1'
+      - 'recovery/scripts/BuildApp.ps1'
+      - 'recovery/tests/App/**'
       - 'recovery/scripts/TestCompiler.ps1'
       - 'recovery/scripts/CompilerValidation.Common.ps1'
       - 'recovery/scripts/BuildCompiler*.ps1'
@@ -86,6 +89,34 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerTexture.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle-texture/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Standalone P2 application contracts in Debug
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: |
+          $directory='recovery/artifacts/lifecycle-app/Debug'
+          New-Item -ItemType Directory -Force $directory|Out-Null
+          try {
+            ./recovery/scripts/TestApp.ps1 -Configuration Debug -OutputDirectory $directory *> "$directory/test-app.log"
+            if($LASTEXITCODE -ne 0){throw 'Standalone Debug application contracts failed'}
+          } catch {
+            Get-Content "$directory/test-app.log" -Tail 80|Out-Host
+            throw
+          }
+          Get-Content "$directory/test-app.log" -Tail 30|Out-Host
+      - name: Standalone P2 application contracts in Release
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: |
+          $directory='recovery/artifacts/lifecycle-app/Release'
+          New-Item -ItemType Directory -Force $directory|Out-Null
+          try {
+            ./recovery/scripts/TestApp.ps1 -Configuration Release -OutputDirectory $directory *> "$directory/test-app.log"
+            if($LASTEXITCODE -ne 0){throw 'Standalone Release application contracts failed'}
+          } catch {
+            Get-Content "$directory/test-app.log" -Tail 80|Out-Host
+            throw
+          }
+          Get-Content "$directory/test-app.log" -Tail 30|Out-Host
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -100,4 +131,6 @@ jobs:
             recovery/artifacts/core-lifecycle-product/**/build.json
             recovery/artifacts/core-lifecycle-product/**/link-inputs.json
             recovery/artifacts/core-lifecycle-product/**/*.log
+            recovery/artifacts/lifecycle-app/**/test-work/**
+            recovery/artifacts/lifecycle-app/**/test-app.log
           if-no-files-found: error

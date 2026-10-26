@@ -12,7 +12,8 @@
 - 新增 `CheckCompilerXmlEvidence.py` 只读核对归档收据和原始日志，已对真实 XML artifact 通过；16 项临时 Git 合成证据回归通过。Windows 源码检出为 CRLF，仅已知源码接受 Git 原字节或纯 LF→CRLF 两种候选，原 DLL 仍严格固定原字节；不证明证据可复用到当前 HEAD。
 - `6bc692af` 完整新生产组合、Debug/Release 四类 lifecycle/backend fixture、当前 EXE 绑定贴图实际 payload/部署拒绝均通过并核对原始身份；原项目断言已证实是 fixture 混合斜杠缓存查询，保留成功断言并补独立流证明。
 - 实验后端已恢复原 XML 默认 hash/version 且未知路由仍拒绝，验证独立 manifest/Armor 字节布局；报告/Hash/Tracer/Settings、主错误及租约恢复已有定向证据。生产 `build` 仍禁用；不把小 Armor fixture 当完整 G3/SDK。
-- 第二批准备中：处理器 MissingReferences/静态栈/计时状态作用域；真实 App 七种内容选择、取消/日志故障重试；原版 BAB 两个小 MOD 四流对照及正式协议 Schema 验证。其最后代码需取得新的 Windows 证据，不能冒用首批 EXE 身份。
+- 第二批 Debug 前四 fixture 已通过（含处理器状态作用域），App 首例因测试 evidence 输出嵌套触发 MAX_PATH 失败，Release 生命周期/原 BAB 基线/协议未验；部署及贴图仍两配置通过。
+- 第三批缩短测试临时路径且保留中文/空格与全部断言，不宣称生产长路径支持；原 BAB 仅在短临时目录运行，归档不重复打包原 DLL。补 Core 日志桥、流/阶段归属、报告分级计数与原错误/清理错误导出，以及 P2 App 回归；正在集中取得新组合证据。
 
 ## 下一步（按顺序，先取证再修改）
 

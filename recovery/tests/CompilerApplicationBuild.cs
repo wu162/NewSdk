@@ -22,8 +22,8 @@ public static class CompilerApplicationBuild
     static readonly JavaScriptSerializer Json = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
     static readonly List<string> Tests = new List<string>();
     static readonly List<object> ProtocolCases = new List<object>();
-    static string work, sdk, evidence, probe;
-    static int checks;
+    static string work, sdk, evidence, probe, shortOutputRoot;
+    static int checks, buildNumber;
     static void Require(bool value, string message) { checks++; if (!value) throw new Exception(message); }
     static IDictionary<string, object> Map(object value) { return (IDictionary<string, object>)value; }
     static object[] Array(object value) { return ((IEnumerable)value).Cast<object>().ToArray(); }
@@ -37,11 +37,24 @@ public static class CompilerApplicationBuild
     {
         internal readonly List<IDictionary<string, object>> Events = new List<IDictionary<string, object>>();
         internal CancellationTokenSource Cancellation;
-        internal bool FailArtifact, Failed;
+        internal bool FailArtifact, FailCoreTrace, Failed, InjectBridgeMessages, Injected;
         public void Write(IDictionary<string, object> value)
         {
             Events.Add(Map(Json.DeserializeObject(Json.Serialize(value))));
             string kind = Text(value["eventType"]);
+            object diagnostic;
+            bool coreTrace = kind == "Diagnostic" && value.TryGetValue("diagnosticCode", out diagnostic) && Text(diagnostic).StartsWith("CORE_TRACE", StringComparison.Ordinal);
+            if (coreTrace && InjectBridgeMessages && !Injected)
+            {
+                Injected = true;
+                // Contract instrumentation, invoked only after an actual Core
+                // trace reaches the installed bridge. These are not claims of
+                // business warning/error coverage for the Armor fixture.
+                var tracer = Tracer.GetTracer("ApplicationBridgeContractFixture", "Fixture bridge contract injection");
+                tracer.TraceWarning("[bridge contract injection] warning");
+                tracer.TraceError("[bridge contract injection] error");
+            }
+            if (coreTrace && FailCoreTrace && !Failed) { Failed = true; throw new IOException("Injected first Core trace sink failure"); }
             if (kind == "StreamCompleted" && Cancellation != null) Cancellation.Cancel();
             if (kind == "ArtifactProduced" && FailArtifact && !Failed) { Failed = true; throw new IOException("Injected first artifact sink failure"); }
         }
@@ -72,25 +85,49 @@ public static class CompilerApplicationBuild
     }
     static RunResult Build(string name, string mod, string[] content, Observe observer = null)
     {
-        string output = Path.Combine(evidence, "protocol", name);
+        int number = ++buildNumber;
+        // Core still uses legacy MAX_PATH APIs for intermediate asset names.
+        // Keep the real compile workspace short, then archive unmodified logs;
+        // do not weaken Chinese/space MOD-path or production path validation.
+        string output = Path.Combine(shortOutputRoot, "b" + number);
         var request = Options.Parse(new[] { "build", "--mod", mod, "--sdk-root", sdk, "--out", output,
-            "--package-content", String.Join(",", content), "/sc:false", "/bc:false", "/pc:false", "/csc:false", "/tl:0" });
+            "--package-content", String.Join(",", content), "/sc:false", "/bc:false", "/pc:false", "/csc:false", "/tl:3" });
         Require(request.ModRoot == Path.GetFullPath(mod) && !Paths.Contains(sdk, request.ModRoot), "Expected external MOD directory from Options.Parse");
         BuildPlan expected = Planner.Resolve(request);
         observer = observer ?? new Observe();
-        string id = "application-" + name + "-" + Guid.NewGuid().ToString("N");
+        string id = "app-" + number + "-" + Guid.NewGuid().ToString("N").Substring(0, 8);
         Directory.CreateDirectory(output); string sentinel = Path.Combine(output, "existing-output.keep"); File.WriteAllText(sentinel, "leave existing output alone");
         Settings ambient = Settings.Current;
         var dispatcher = new EventDispatcher(id, new IBuildEventSink[] { new JsonLineSink(request.EventsPath), new TextLogSink(request.LogPath), observer });
-        var session = new BuildSession(request, new CoreStreamCompiler(), dispatcher);
-        ExitCode code = session.Run(observer.Cancellation == null ? CancellationToken.None : observer.Cancellation.Token);
+        BuildSession session = null;
+        var backend = new CoreStreamCompiler(delegate(string source, TraceEventType kind, string message) { session.RecordCoreTrace(source, kind, message); });
+        session = new BuildSession(request, backend, dispatcher);
+        ExitCode code;
+        string archive = Path.Combine(evidence, "protocol", name);
+        try { code = session.Run(observer.Cancellation == null ? CancellationToken.None : observer.Cancellation.Token); }
+        finally
+        {
+            Directory.CreateDirectory(archive);
+            foreach (string file in new[] { request.EventsPath, request.ReportPath, request.LogPath })
+                if (File.Exists(file)) File.Copy(file, Path.Combine(archive, Path.GetFileName(file)), true);
+        }
         Require(Object.ReferenceEquals(ambient, Settings.Current), "BuildSession did not restore ambient Core settings");
         Require(File.ReadAllText(sentinel) == "leave existing output alone", "BuildSession removed pre-existing unrelated output");
         var result = new RunResult { Request = request, Expected = expected, Code = code, BuildId = id, Observer = observer,
             Report = Map(Json.DeserializeObject(File.ReadAllText(request.ReportPath))) };
         Lifecycle(result);
-        ProtocolCases.Add(new { name = name, events = request.EventsPath, report = request.ReportPath, buildId = id,
-            selectedContent = content, expectedStreamCount = expected.Tasks.Length, exitCode = (int)code });
+        var copies = new List<object>(); int artifactNumber = 0;
+        foreach (var artifact in Array(result.Report["artifacts"]).Select(Map))
+        {
+            string source = Text(artifact["Path"]);
+            string destination = Path.Combine(evidence, "compiled", "b" + number, (++artifactNumber) + Path.GetExtension(source));
+            Directory.CreateDirectory(Path.GetDirectoryName(destination)); File.Copy(source, destination, true);
+            Require(Hash(destination) == Text(artifact["Sha256"]), "Archived application artifact differs from actual output");
+            copies.Add(new { originalPath = source, archivedPath = destination, sha256 = Text(artifact["Sha256"]) });
+        }
+        ProtocolCases.Add(new { name = name, events = Path.Combine(archive, "build.events.jsonl"), report = Path.Combine(archive, "build-report.json"),
+            originalEventsPath = request.EventsPath, originalReportPath = request.ReportPath, originalOutputRoot = output, buildId = id,
+            selectedContent = content, expectedStreamCount = expected.Tasks.Length, exitCode = (int)code, artifactCopies = copies.ToArray() });
         return result;
     }
     static IDictionary<string, object>[] Events(RunResult run, string kind)
@@ -117,6 +154,36 @@ public static class CompilerApplicationBuild
         string[] jsonLines = File.ReadAllLines(run.Request.EventsPath);
         Require(jsonLines.Length == events.Count && File.ReadAllBytes(run.Request.EventsPath).Last() == (byte)'\n', "Durable JSONL lost an event or final line");
         for (int i = 0; i < jsonLines.Length; i++) Require(Json.Serialize(Json.DeserializeObject(jsonLines[i])) == Json.Serialize(events[i]), "Durable JSONL differs from observed events");
+        CoreDiagnostics(run);
+    }
+    static bool CoreDiagnostic(IDictionary<string, object> value)
+    {
+        object code; return value.TryGetValue("diagnosticCode", out code) && Text(code).StartsWith("CORE_TRACE", StringComparison.Ordinal);
+    }
+    static void CoreDiagnostics(RunResult run)
+    {
+        var traced = Events(run, "Diagnostic").Where(CoreDiagnostic).ToArray();
+        var streamIds = new HashSet<string>(Events(run, "StreamStarted").Select(e => Text(e["streamId"])), StringComparer.Ordinal);
+        foreach (var value in traced)
+        {
+            Require(value.ContainsKey("streamId") && streamIds.Contains(Text(value["streamId"])) && Text(value["stageId"]) == "compile", "Core trace lost its active stream/stage correlation");
+            var payload = Map(value["payload"]);
+            Require(!String.IsNullOrEmpty(Text(payload["source"])) && !String.IsNullOrEmpty(Text(payload["traceEventType"])), "Core trace lost source/type metadata");
+            string traceType = Text(payload["traceEventType"]), level = Text(value["level"]);
+            Require((traceType == "Error" || traceType == "Critical") ? level == "error" : traceType == "Warning" ? level == "warning" : traceType == "Verbose" ? level == "debug" : level == "info", "Core trace severity mapping differs from bridge contract");
+        }
+        object[] diagnostics = Array(run.Report["diagnostics"]);
+        var counts = Map(run.Report["diagnosticCounts"]);
+        Require(Convert.ToInt32(counts["error"]) == diagnostics.Count(d => Text(Map(d)["level"]) == "error") &&
+                Convert.ToInt32(counts["warning"]) == diagnostics.Count(d => Text(Map(d)["level"]) == "warning"), "Report diagnostic severity counts disagree with records");
+        Require(!diagnostics.Any(d => Text(Map(d)["code"]) == "CORE_TRACE"), "Info/debug Core trace incorrectly accumulated as a report diagnostic");
+        foreach (var diagnostic in diagnostics.Select(Map).Where(d => Text(d["code"]).StartsWith("CORE_TRACE", StringComparison.Ordinal)))
+        {
+            Require(Text(diagnostic["level"]) == "warning" || Text(diagnostic["level"]) == "error", "Report retained a non-actionable Core trace");
+            Require(traced.Any(e => Text(e["diagnosticCode"]) == Text(diagnostic["code"]) && Text(e["message"]) == Text(diagnostic["message"]) &&
+                    Text(e["streamId"]) == Text(diagnostic["streamId"]) && Text(e["stageId"]) == Text(diagnostic["stageId"]) &&
+                    Text(Map(e["payload"])["source"]) == Text(diagnostic["source"])), "Reported Core warning/error lost its matching contextual event");
+        }
     }
     static void Success(RunResult run, string[] selected)
     {
@@ -124,6 +191,8 @@ public static class CompilerApplicationBuild
         Require(run.Expected.Tasks.Length == selected.Length && run.Expected.Tasks.Select(t => t.Content).SequenceEqual(selected), "Selection compiled an unrequested content group");
         Require(Events(run, "StreamStarted").Select(e => Text(e["streamId"])).SequenceEqual(run.Expected.Tasks.Select(t => t.Id)), "Stream events differ from ordered selection plan");
         Require(Events(run, "StreamCompleted").Length == selected.Length && Events(run, "StreamCompleted").All(e => Text(Map(e["payload"])["status"]) == "succeeded"), "Selected streams did not complete exactly once");
+        foreach (BuildTask task in run.Expected.Tasks)
+            Require(Events(run, "Diagnostic").Any(e => CoreDiagnostic(e) && Text(e["streamId"]) == task.Id && Text(Map(e["payload"])["source"]) != "ApplicationBridgeContractFixture"), "Selected real Core stream produced no bridged diagnostics");
         object[] artifacts = Array(run.Report["artifacts"]);
         Require(artifacts.Length == 4 * selected.Length && Events(run, "ArtifactProduced").Length == artifacts.Length, "Expected four artifacts per selected stream");
         string staging = Path.Combine(run.Request.OutputRoot, ".build", run.BuildId);
@@ -172,6 +241,19 @@ public static class CompilerApplicationBuild
         Require(sink.Failed && Events(failed, "ArtifactProduced").Length == 1 && Events(failed, "StreamStarted").Length == 1 && Events(failed, "Diagnostic").Any(e => Text(e["diagnosticCode"]) == "EVENT_WRITE_FAILED"), "First artifact sink failure did not exercise required output handling");
         Success(Build("retry-after-sink-failure", full, new[] { "base" }), new[] { "base" });
         Tests.Add("first-artifact-sink-write-failure-Output-exit-state-release-and-next-real-session-succeeds");
+        var bridge = new Observe { InjectBridgeMessages = true };
+        var bridgeRun = Build("core-diagnostic-bridge-contract", full, new[] { "base" }, bridge);
+        Success(bridgeRun, new[] { "base" });
+        Require(bridge.Injected, "Actual Core trace did not trigger bridge contract instrumentation");
+        var injected = Array(bridgeRun.Report["diagnostics"]).Select(Map).Where(d => d.ContainsKey("source") && Text(d["source"]) == "ApplicationBridgeContractFixture").ToArray();
+        Require(injected.Length == 2 && injected.Count(d => Text(d["level"]) == "warning") == 1 && injected.Count(d => Text(d["level"]) == "error") == 1, "Bridge contract injection did not retain one warning and one error with severity counts");
+        Tests.Add("real-Core-trace-bridge-stream-stage-correlation-plus-explicit-warning-error-contract-instrumentation");
+        var traceSink = new Observe { FailCoreTrace = true };
+        var traceFailed = Build("core-trace-sink-failure", full, new[] { "base" }, traceSink);
+        Failed(traceFailed, ExitCode.Output, "failed");
+        Require(traceSink.Failed && Events(traceFailed, "Diagnostic").Any(CoreDiagnostic) && Events(traceFailed, "Diagnostic").Any(e => Text(e["diagnosticCode"]) == "EVENT_WRITE_FAILED"), "Core trace sink failure did not retain Output semantics");
+        Success(Build("retry-after-core-trace-sink-failure", full, new[] { "base" }), new[] { "base" });
+        Tests.Add("real-Core-trace-sink-failure-Output-exit-clean-staging-and-next-session-success");
         var optional = Build("empty-optional-groups", Mod("空可选目录", new[] { "base" }, true), new[] { "apt", "maps" });
         Require(optional.Code == ExitCode.Success && optional.Expected.Tasks.Length == 0 && Events(optional, "StreamStarted").Length == 0 && Events(optional, "ArtifactProduced").Length == 0 && Array(optional.Report["artifacts"]).Length == 0, "Empty optional groups unexpectedly compiled assets");
         object[] skipped = Array(Map(optional.Report["plan"])["Skipped"]);
@@ -181,12 +263,16 @@ public static class CompilerApplicationBuild
     public static int Main(string[] args)
     {
         object result; int code = 0;
+        string priorTraceEnvironment = Environment.GetEnvironmentVariable("BabEnableTrace");
         try
         {
             Require(args.Length == 5 && IntPtr.Size == 4, "Expected work result commit run SDK in x86 host");
             work = Path.GetFullPath(args[0]); evidence = Path.GetDirectoryName(Path.GetFullPath(args[1])); sdk = Path.GetFullPath(args[4]);
+            shortOutputRoot = Path.Combine(Path.GetPathRoot(work), "nsa-" + Guid.NewGuid().ToString("N").Substring(0, 10));
+            Directory.CreateDirectory(shortOutputRoot);
             Require(typeof(CoreStreamCompiler).Assembly == Assembly.GetEntryAssembly() && typeof(BuildSession).Assembly == typeof(DocumentProcessor).Assembly, "Application fixture must use EXE-owned production implementations");
             probe = File.ReadAllText(Path.Combine(sdk, "Mods/mymod/Data/RecoveryArmorProbe.xml"));
+            Environment.SetEnvironmentVariable("BabEnableTrace", "False");
             Run();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks = checks, tests = Tests.ToArray(), protocolCases = ProtocolCases.ToArray(),
                 scope = "Real in-process experimental backend and application orchestration using small Armor inputs; APT business, production CLI, cold-process/G3/SDK and cache acceptance remain separate" };
@@ -197,6 +283,7 @@ public static class CompilerApplicationBuild
             code = 1; Console.Error.WriteLine(error);
             result = new { succeeded = false, sourceCommit = args.Length > 2 ? args[2] : null, runId = args.Length > 3 ? args[3] : null, checks = checks, tests = Tests.ToArray(), protocolCases = ProtocolCases.ToArray(), error = error.ToString() };
         }
+        Environment.SetEnvironmentVariable("BabEnableTrace", priorTraceEnvironment);
         File.WriteAllText(args[1], Json.Serialize(result)); return code;
     }
 }
