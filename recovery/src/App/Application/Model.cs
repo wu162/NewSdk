@@ -78,6 +78,16 @@ namespace NewModCompiler.Application
         void Initialize(BuildRequest request);
         IList<Artifact> Compile(StreamContext context, System.Threading.CancellationToken cancellation);
     }
+    // Optional participant owned by BuildSession after provider disposal. Commit
+    // must remain reversible until all required output channels have closed.
+    public interface IBuildCacheCompiler
+    {
+        object CacheReport { get; }
+        void CommitCache();
+        void RollbackCache();
+        // Cleanup only, idempotent and non-throwing. No new cache writes here.
+        void CompleteCache();
+    }
     public static class Paths
     {
         public static bool Contains(string root, string path)

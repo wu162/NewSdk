@@ -169,6 +169,7 @@ namespace NewModCompiler.Tests
                 Reject("CLI_STDOUT_EVENTS","--events","-"); Reject("CLI_LOG_COLLISION","--events",Path.Combine(root,"same"),"--report",Path.Combine(root,"same")); Reject("CLI_LOG_INPUT","--events",Path.Combine(mod,"input.log"));
                 DiagnosticPathTests.Run(root,mod,sdk);
                 assertions += SessionPublicationTests.Run(Path.Combine(root,"session-publication"),mod,sdk);
+                assertions += SessionCacheTransactionTests.Run(Path.Combine(root,"cache-transaction-tests"),mod,sdk);
                 string project=Path.Combine(mod,"newmodcompiler.json"); FileAt(project,"{\"package-content\":\"apt\",\"tp\":\"Win32\"}");
                 var preset=Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"preset")}); Check(preset.Content.SequenceEqual(new [] {"apt"}) && preset.Options["package-content"].Source=="project","Project preset");
                 Check(Request("base").Options["package-content"].Source=="commandLine","CLI overrides project"); File.Delete(project);

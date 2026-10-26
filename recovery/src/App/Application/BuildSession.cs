@@ -20,6 +20,7 @@ namespace NewModCompiler.Application
         {
             if (executed) throw new InvalidOperationException("BuildSession can only be executed once."); executed = true; acceptingCoreTrace = true;
             DiagnosticDirectory stagingParent = null, stagingGuard = null; bool stagingOwned = false;
+            IBuildCacheCompiler cacheCompiler = compiler as IBuildCacheCompiler;
             ArtifactPublication publication = null; string publicationStatus = request.Command == "plan" ? "NoCompilationRequested" : "NotPublished";
             string publicationDirectory = request.Command == "plan" ? null : Path.Combine(request.OutputRoot,"published");
             try {
@@ -126,12 +127,25 @@ namespace NewModCompiler.Application
                 if (code == ExitCode.Output) status="failed";
                 artifacts.Clear();
             }
+            // Cache installation is part of the same reversible outcome as
+            // loose publication. A late report or sink failure revokes both.
+            if (cacheCompiler != null) {
+                if (code == ExitCode.Success && request.Command == "build") {
+                    try { cacheCompiler.CommitCache(); }
+                    catch (Exception e) { code=ExitCode.Output; status="failed"; Diagnostic("CACHE_COMMIT_FAILED",e.ToString()); }
+                }
+                if (code != ExitCode.Success) {
+                    RevokeCache(cacheCompiler,ref code); status="failed";
+                    if (code == ExitCode.Cancelled) status="cancelled";
+                    RevokePublication(ref publication,ref publicationStatus,ref code); artifacts.Clear();
+                }
+            }
             var report = new Dictionary<string, object> {
                 {"schemaVersion","1.0"},{"buildId",events.BuildId},{"status",status},{"exitCode",(int)code},
                 {"requestArguments",request.Arguments},{"effectiveOptions",request.Options},{"selectedContent",request.Content},
                 {"plan",plan},{"stages",stages},{"diagnostics",diagnostics},{"diagnosticCounts",new {error=errorCount,warning=warningCount}},
                 {"loadedProviders",providerIdentity == null ? new string[0] : new [] {providerIdentity}},
-                {"externalTools",new string[0]},{"cache",new {status="NotImplemented",hits=0,misses=0}},
+                {"externalTools",new string[0]},{"cache",cacheCompiler == null ? (object)new {status="NotImplemented",hits=0,misses=0} : cacheCompiler.CacheReport},
                 {"elapsedMs",events.ElapsedMilliseconds},{"artifacts",artifacts},{"logPaths",new {events=request.EventsPath,report=request.ReportPath,text=request.LogPath}},
                 {"executionMode",request.Command == "plan" ? "PlanOnly" : "InProcess"},
                 {"publicationStatus",publicationStatus},{"publicationDirectory",publicationDirectory}
@@ -149,9 +163,11 @@ namespace NewModCompiler.Application
                 try { Console.Error.WriteLine("EVENT_CLOSE_FAILED: " + events.CloseFailureMessage); } catch (Exception) { }
             }
             if (code != ExitCode.Success) {
+                RevokeCache(cacheCompiler,ref code);
                 RevokePublication(ref publication,ref publicationStatus,ref code);
                 if (code == ExitCode.Output) status="failed";
                 artifacts.Clear();
+                if (cacheCompiler != null) report["cache"]=cacheCompiler.CacheReport;
             }
             // A terminal event already written cannot be retracted after close failure;
             // the final return value and durable report are the authoritative outcome.
@@ -171,12 +187,24 @@ namespace NewModCompiler.Application
                     try { Console.Error.WriteLine("PUBLICATION_PREVIOUS_RETAINED: " + publication.Result.RetainedPreviousDirectory); } catch (Exception) { }
                 }
             }
+            if (code == ExitCode.Success && cacheCompiler != null) cacheCompiler.CompleteCache();
             return code;
             } finally {
+                // Also cover unexpected exceptions during reporting. Participants
+                // ignore rollback after Complete and repeated rollback calls.
+                try { if (cacheCompiler != null) cacheCompiler.RollbackCache(); }
+                finally {
                 if (publication != null) publication.Dispose();
                 if (stagingGuard != null) stagingGuard.Dispose();
                 if (stagingParent != null) stagingParent.Dispose();
+                }
             }
+        }
+        void RevokeCache(IBuildCacheCompiler cacheCompiler,ref ExitCode code)
+        {
+            if (cacheCompiler == null) return;
+            try { cacheCompiler.RollbackCache(); }
+            catch (Exception e) { code=ExitCode.Output; Diagnostic("CACHE_ROLLBACK_FAILED",e.ToString()); }
         }
         void RevokePublication(ref ArtifactPublication publication,ref string publicationStatus,ref ExitCode code)
         {
