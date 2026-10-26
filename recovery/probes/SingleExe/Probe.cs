@@ -101,7 +101,11 @@ public static class SingleExeProbe
             plugin=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[1]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             plugin.Initialize(null,TargetPlatform.Win32);
 #else
+            #if EXTERNAL_PRODUCT
+            Assembly self=typeof(AssetBuffer).Assembly;
+#else
             Assembly self=Assembly.GetExecutingAssembly();
+#endif
             foreach(Type type in new Type[] {typeof(AssetBuffer),typeof(FastHash),typeof(ArmorCompiler)})
                 if(type.Assembly!=self)throw new Exception("business type outside EXE: "+type.FullName);
             if(self.GetModules().Length!=1)throw new Exception("multifile assembly remains");
