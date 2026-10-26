@@ -1,25 +1,24 @@
 # MOD 编译器重构：最小续接入口
 
 更新：2026-10-26。分支 `refactor/modcompiler-p0-p3`；草稿 PR #13 → `recovery/compiler-source`。
-只在当前分支普通提交；禁止强推、未经批准合入；默认单代理。本轮按用户授权最多 5 个子代理推进 P4，未合入其他分支。
+只在当前分支普通提交；禁止强推、未经批准合入；默认单代理。本轮按用户授权最多 5 个子代理推进；未合入其他分支。
 
 ## 当前状态（先读这里即可）
 
-- **P4 仍差 XML 完整矩阵，P5 未接入。** 生产 `build` 仍返回 `BACKEND_NOT_INTEGRATED`（退出码 3），不能宣称可构建真实 MOD。
-- `9cd2cb8` 原始收据已核对：生产部署、Foundation 行为、Armor/Hash、GameObject、Weapon、音频 13 组、W3X capture 重放、贴图旧探针及完整生产对象贴图、XML 联合 smoke，均为 Debug/Release 成功；sourceCommit、配置、两份 EXE、链接输入清单一致。该作业红状态来自后述已修复的测试工具问题，不代表这些组件失败。
-- 宿主 schema=2，绑定 config/ANTLR 哈希并拒绝陈旧目录。独立 Windows guard 已通过，编码修复后的后续 guard 也通过；W3X 仅在双端依赖闭包不变时复用历史 capture，未重跑 SDK。
-- `c603bcd` 已修 Framework csc transport 源路径。XML 专项实际通过 **Debug 29/63 组、Release 0/63**，在 Locomotor `PrefixNavigation` 的“原版未知 TypeId 应返回 null”用例中，测试 transport 未编码空结果导致 EOF；不是已证实的业务算法差异。
-- 本轮最后已补 nullable AssetBuffer 帧及空/非空/非法 tag 回归，并补异常时原版进程日志保存；两分支 Core stub 本地语义/往返测试通过，**Windows 全矩阵复验未完成**。transport 已变，29 组旧通过不得标成修复后版本通过，需全 63 组两配置复验。
-- XML 专项入口 `.github/workflows/refactor-xml-product.yml`，消息 `[refactor-xml-product]`；它构建完整生产组合，只验部署、XML smoke/全部 63 组，不重复其他组件或 SDK。XML job 90 分钟、单组 900 秒；全 Native job 120 分钟，避免完整矩阵被旧 60 分钟上限截断。结束时以最新实际运行状态为准，不把提交/启动当通过。
+- **P4 已通过，P5 正在实施生命周期基础组，生产后端尚未接入。** 生产 `build` 仍返回 `BACKEND_NOT_INTEGRATED`（退出码 3），不能宣称可构建真实 MOD。
+- `62b7766` XML 专项已终态成功并核对原始收据：Debug/Release 各完整 63 组、四平台 0/1/2/99、原有布局/拒绝及三缓冲契约全部通过；126 份原版 transcript 的摘要、序号、平台、终态与调用数均匹配。
+- 同次部署、XML 联合 smoke、生产/宿主两份 EXE、95 项非入口链接输入及配置/ANTLR 记录一致。标准 artifact 未含 EXE/object/runtime 原件，不将收据核对说成重新哈希这些二进制。
+- `9cd2cb8` 已核对的 Foundation、Armor/Hash、GameObject、Weapon、音频 13 组、W3X capture、贴图旧探针及完整生产对象贴图继续按原提交/范围复用；至 `62b7766` 生产/链接/宿主输入未变，未重复 SDK。
+- 新增 `CheckCompilerXmlEvidence.py` 只读核对归档收据和原始日志，已对真实 XML artifact 通过；16 项临时 Git 合成证据回归通过。Windows 源码检出为 CRLF，仅已知源码接受 Git 原字节或纯 LF→CRLF 两种候选，原 DLL 仍严格固定原字节；不证明证据可复用到当前 HEAD。
+- `P5_LIFECYCLE_AUDIT.md` 保存本轮只读调查和真实 Core 测试设计。正在处理文档/配置异常清理、Hash/Tracer 作用域、Metrics/AssetReport 资源恢复；在取得新生产组合验证前一律标实施中，不把工具回归当作 P5 完成。
 
 ## 下一步（按顺序，先取证再修改）
 
-1. 查本分支 `refactor-native.yml`、`refactor-xml-product.yml`、`refactor-guards.yml` 最近**实际执行**运行，匹配各自实现/修复提交；只输出 SHA、状态、失败步骤。未终结时不要重复相同输入；旧 Native 的 guard 编码/路径红状态须结合已修复专项证据判断，勿因此重复全矩阵。
-2. 优先只读最新 XML 的 `validation.json`、生产/宿主 `build.json`，核对 sourceCommit、配置、两份 EXE 身份和运行文件；失败只取相关组日志尾部。`9cd2cb8` 已核对成功项无相关变化时直接复用；工作流成功不自动代表 P4/G3/SDK 验收。
-3. 集中修实际失败；完整 XML 需全部 63 组、两配置、四平台及原有布局/拒绝矩阵，不以联合 smoke 替代。已知 Locomotor/FXParticle 为单三缓冲比较，按原组契约验收。
-4. 生产对象贴图 payload/部署拒绝已核对成功；保留固定原件及 PE 审计，验证宿主不得笼统放行业务 DLL。P4 门槛满足后才推进 P5。
-5. 复用匹配输入的原始证据；链接/宿主变化的新组合须验证，无需重复完整 SDK 基线。
-6. P5 只读定位已完成，未实现：`src/App/Application/Model.cs` 的 `IStreamCompiler` 接 `src/Managed/Core/BinaryAssetBuilder.Core/DocumentProcessor.cs` 的 `ProcessDocument`；旧初始化顺序见 `decompiled/BinaryAssetBuilder/BinaryAssetBuilder/BinaryAssetBuilder.cs` 的 `DoBuildData`。先处理 Settings/HashProvider 静态状态、异常后 document/stream 栈、配置恢复、Tracer 委托还原和 Metrics listener 累积，再做多流/失败后复用验收，不能只把 CLI 的 null 换成后端。
+1. 查当前分支最近**实际执行** guard 与 Core lifecycle 作业，核对各自 sourceCommit/失败步骤；未终结不重复相同输入。工作流成功不自动代表 G3/SDK 验收。
+2. 完成并验证生命周期基础组：真实 Core include/继承/项目配置失败后重试、递归早退与循环拒绝；Hash/Tracer 原状态恢复；listener 和报告 writer 故障后资源释放。每个测试通过生产对象宿主，不放回业务 DLL 或 stub Core。
+3. 接入 `src/App/Application/Model.cs` 的 `IStreamCompiler` → `src/Managed/Core/BinaryAssetBuilder.Core/DocumentProcessor.cs:ProcessDocument`。旧 `DoBuildData` 只参考初始化顺序，不复制进程退出假设；每流新 Settings/cache/processor，失败 cache 丢弃，顺序租约和全局状态恢复明确。
+4. 后端须显式配置内建 compiler/verifier、SDK schema/搜索根和隔离输出，错误/取消进入统一事件报告；不能只把 CLI 的 null 换成后端。完整 G3、多流与冷进程字节对照、缓存失效/取消后复用及 SDK 验收仍未完成。
+5. 复用匹配输入的原始证据；P5 改动后的生产组合须另行验证，不能把 `62b7766` 的 EXE 身份冒用给新组合。无需重复无变化的完整 SDK 基线。
 
 ## 按任务读取，禁止启动时递归展开链接
 
@@ -30,7 +29,8 @@
 | 生产部署/管理行为 | `scripts/TestCompiler.ps1`、`scripts/TestCompilerFoundation.ps1` |
 | Tokenizer/音频 | `scripts/TestCompilerDifferential.ps1`、`TestCompilerGameObject.ps1`、`TestCompilerWeapon.ps1`、`TestCompilerAudio.ps1` |
 | W3X/贴图 | `scripts/TestW3xProduct.ps1`、`scripts/CheckW3xCaptureInputs.py`、`scripts/TestCompilerTexture.ps1` |
-| XML 全矩阵/smoke | `scripts/TestCompilerXmlMatrices.ps1`、`scripts/PrepareCompilerXmlMatrices.py`、`scripts/TestCompilerXmlSmoke.ps1` |
+| XML 全矩阵/smoke/收据 | `scripts/TestCompilerXmlMatrices.ps1`、`scripts/PrepareCompilerXmlMatrices.py`、`scripts/CheckCompilerXmlEvidence.py`、`scripts/TestCompilerXmlSmoke.ps1` |
+| P5 生命周期 | `P5_LIFECYCLE_AUDIT.md`，完成情况以源码和实际作业为准 |
 | 阶段定义/历史/效率 | `NewSdk_ModCompiler_Refactor_Plan.md` P4/P5；`REFACTOR_HANDOFF_ARCHIVE_20261026.md` 按需；`EFFICIENCY.md` |
 
 ## 不可丢失的边界

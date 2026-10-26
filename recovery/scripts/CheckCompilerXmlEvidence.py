@@ -72,6 +72,18 @@ def revision_hash(repository, source, path):
     return hashlib.sha256(git_bytes(repository, 'show', source + ':' + path)).hexdigest()
 
 
+def revision_text_hashes(repository, source, path):
+    # GitHub's Windows checkout can materialize uniform LF text as CRLF.
+    # Compare exact candidate bytes for these known source files only; never
+    # normalize archived logs, transcripts, recipes, resources or DLLs.
+    require(path.endswith(('.cs', '.py', '.ps1')), 'Checkout conversion requires a known text source')
+    data = git_bytes(repository, 'show', source + ':' + path)
+    result = {hashlib.sha256(data).hexdigest(): 'git-blob'}
+    if b'\r' not in data and b'\n' in data:
+        result[hashlib.sha256(data.replace(b'\n', b'\r\n')).hexdigest()] = 'windows-crlf'
+    return result
+
+
 def repository_groups(repository, source):
     # Read the recorded revision, so later fixture edits cannot invalidate an
     # otherwise reusable receipt or bless a reduced historical group selection.
@@ -161,18 +173,28 @@ def check(root, repository, expected_source=None):
     run_id, attempt = matrix.get('runId'), matrix.get('runAttempt')
     require(type(run_id) in (str, int) and str(run_id).strip()
             and type(attempt) in (str, int) and str(attempt).isdigit() and int(attempt) > 0, 'Missing or invalid run identity')
+    checkout_forms = set()
     for field, path in [('adapterSha256', 'recovery/scripts/PrepareCompilerXmlMatrices.py'),
                         ('runnerSha256', 'recovery/scripts/TestCompilerXmlMatrices.ps1'),
                         ('transportSha256', 'recovery/tests/XmlProductOracleTransport.cs'),
                         ('originalDllSha256', 'SDK/tools/BinaryAssetBuilder.XmlCompiler.dll')]:
-        expected_hash = revision_hash(repository, source, path)
-        require(matrix.get(field) == expected_hash, field + ': differs from recorded sourceCommit')
+        if field == 'originalDllSha256':
+            require(matrix.get(field) == revision_hash(repository, source, path), field + ': differs from recorded sourceCommit')
+        else:
+            candidates = revision_text_hashes(repository, source, path)
+            require(matrix.get(field) in candidates, field + ': differs from recorded sourceCommit checkout bytes')
+            checkout_forms.add(candidates[matrix[field]])
     require(matrix['originalDllSha256'] == ORIGINAL_XML_SHA, 'Original XML DLL differs from pinned oracle')
     expected = repository_groups(repository, source)
     inventory = indexed(matrix.get('groups'), 'group', expected, 'XML group inventory')
     for name, row in inventory.items():
         hashes(row.get('inputs'), name)
-        require(row['inputs'] == expected[name], name + ': fixture input inventory differs from recorded revision')
+        require([i['path'] for i in row['inputs']] == [i['path'] for i in expected[name]], name + ': fixture input paths/order differ from recorded revision')
+        for item in row['inputs']:
+            require(set(item) == {'path', 'sha256'}, name + ': unexpected fixture input fields')
+            candidates = revision_text_hashes(repository, source, item['path'])
+            require(item['sha256'] in candidates, name + ': fixture input hash differs from recorded checkout bytes')
+            checkout_forms.add(candidates[item['sha256']])
 
     def receipt(kind, mode):
         matches = []
@@ -230,7 +252,7 @@ def check(root, repository, expected_source=None):
                     and group.get('transcriptSha256') == sha, mode + ' ' + name + ': raw evidence differs from receipt')
         summary.append(dict(configuration=mode, groups=len(groups), productExeSha256=product['exeSha256'], validationHostSha256=host['exeSha256']))
     return dict(sourceCommit=source, runId=matrix['runId'], runAttempt=matrix['runAttempt'], configurations=summary,
-                status='P4 XML archived receipts and raw matrices consistent',
+                status='P4 XML archived receipts and raw matrices consistent', sourceCheckoutHashForms=sorted(checkout_forms),
                 limitations=['EXE/object/runtime binary bytes are not present in standard evidence and were not independently rehashed',
                              'Runtime hashes are only recorded in the validation-host receipt; archived runtime bytes are unavailable for independent comparison',
                              'This checks the recorded revision only; it does not prove evidence is reusable at HEAD',

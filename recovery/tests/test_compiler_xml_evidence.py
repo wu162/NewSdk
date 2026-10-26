@@ -38,8 +38,8 @@ class XmlEvidenceTests(unittest.TestCase):
         names = ['Xmlpowers', 'Xmllocomotor', 'Xmlfxparticle', 'Xmlattributes', 'Xmlplayers', 'Xmlai', 'Xmlaudio']
         names += [f'Xmlgroup{i:02d}' for i in range(56)]
         for name in names:
-            (tests / (name + 'Oracle.cs')).write_text('synthetic oracle ' + name, encoding='utf-8')
-        (tests / 'Xmlgroup00Cases.cs').write_text('synthetic cases', encoding='utf-8')
+            (tests / (name + 'Oracle.cs')).write_text('synthetic oracle ' + name + '\n', encoding='utf-8')
+        (tests / 'Xmlgroup00Cases.cs').write_text('synthetic cases\n', encoding='utf-8')
         (tests / 'XmlNodeOracle.cs').write_text('excluded oracle', encoding='utf-8')
         for path, data in [('recovery/scripts/PrepareCompilerXmlMatrices.py', 'adapter'),
                            ('recovery/scripts/TestCompilerXmlMatrices.ps1', 'runner'),
@@ -47,7 +47,7 @@ class XmlEvidenceTests(unittest.TestCase):
                            ('SDK/tools/BinaryAssetBuilder.XmlCompiler.dll', 'synthetic original oracle')]:
             target = cls.repository / path
             target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(data, encoding='utf-8')
+            target.write_text(data if path.endswith('.dll') else data + '\n', encoding='utf-8')
         git('add', '.')
         git('-c', 'user.name=Evidence Test', '-c', 'user.email=evidence@example.invalid', 'commit', '-qm', 'synthetic evidence inputs')
         cls.source = git('rev-parse', 'HEAD').decode().strip()
@@ -265,6 +265,25 @@ class XmlEvidenceTests(unittest.TestCase):
                 path.write_bytes(data)
                 self.rejected()
                 path.write_bytes(original)
+
+    def test_exact_windows_crlf_source_checkout_accepted(self):
+        def windows_hash(path):
+            data = CHECK.git_bytes(self.repository, 'show', self.source + ':' + path)
+            self.assertNotIn(b'\r', data)
+            return hashlib.sha256(data.replace(b'\n', b'\r\n')).hexdigest()
+        def update(value):
+            for field, path in [('adapterSha256', 'recovery/scripts/PrepareCompilerXmlMatrices.py'),
+                                ('runnerSha256', 'recovery/scripts/TestCompilerXmlMatrices.ps1'),
+                                ('transportSha256', 'recovery/tests/XmlProductOracleTransport.cs')]:
+                value[field] = windows_hash(path)
+            for group in value['groups']:
+                for item in group['inputs']:
+                    item['sha256'] = windows_hash(item['path'])
+        self.mutate(self.matrix_path, update)
+        self.assertEqual(self.check()['sourceCheckoutHashForms'], ['windows-crlf'])
+        # Converting source text cannot excuse a changed implementation byte.
+        self.mutate(self.matrix_path, lambda x: x['groups'][0]['inputs'][0].update(sha256=sha('different source\r\n')))
+        self.rejected()
 
     def test_wrong_pinned_original_rejected(self):
         with mock.patch.object(CHECK, 'ORIGINAL_XML_SHA', sha('wrong pinned original')):
