@@ -5,31 +5,32 @@
 
 ## 当前状态
 
-- **P4 已通过；P5 未完成。** `/sc` 生产候选已接入，App 两配置已通过；当前完整生产构建与实际会话缓存矩阵仍待终态，不标通过。
-- `/bc:true` 既有资产缓存与 `/dr /data /art /audio` 输入根组已通过两配置；本轮生产输入变化后正在集中重建并复验受影响组，历史成功范围仍按原二进制/测试来源记录。
-- `/sc:true` 每流还原独立包的 session.xml/intermediate/cdata，以 fresh SessionCache.LoadCache→InitializeCache→新 processor 处理，重新生成四输出；不共享 Complete 文档。`/bc` 与 `/sc` 可独立启用，默认均关闭。
-- 会话包有完整清单/SHA256、布局/XML检查；坏包、结构或版本失效整包冷编译并可逆修复，失败恢复原条目。缓存与发布、必需报告/终态/日志共同确认，pending 遗留始终 miss，回滚失败保留位置。
-- 报告实际文档复用、XML解析、实例编译及会话包hit/miss，不能把目录命中当真实复用。三类混合 Texture 暂明确拒绝 `/sc`，`/sc:false` 保留编译；Texture 仍不授权资产缓存复用。
-- 首轮 App 两配置通过，但生产链接 MSVC C1001，未产生可复用 EXE；已等价移除 App 新增异常过滤器，修复是否有效以新生产构建终态为准，不能复用失败产物。
-- 实际 `/sc` CLI 组及链接前 fixture 预检已准备：Include/XInclude、定义/表达式、继承、同 mtime、多入口/双MOD、损坏修复、失败取消收尾重试、Audio CDATA/W3X、原BAB四输出和 `/sc+/bc` 独立计数。未执行范围不标完成。
-- 完整未精简 mymod 的原 BAB 先行及两配置生产对照已接入，缓存组成功后集中运行；当前 mymod apt/maps 无入口，明确记录空集合，不伪造完整 UI/runtime。
-- P6 最小五文件 ZIP 发布脚本已实现准备，独立解压后 doctor/真实小MOD/协议/原始四输出对照尚待 Windows；不把准备脚本当正式发行包验收。
-- 既有 Core/原 BAB、APT/MapMetaData 和三份真实 Upheaval UI 106文件/103依赖闭包证据仅按未变化范围复用。UI Texture 是内联 DDS，不是 cdata；中文纹理仍受旧混合 DLL LoadImageA/D3DX 限制，不重复无依据路径审查。
-- XML63组及非XML历史证据按原 sourceCommit/输入范围复用，不能冒充当前生产重测。完整 P5/G3、完整 SDK、完整 Unicode 纹理、BIG/skudef 与正式发行包均未宣称通过。
+- **P4 已通过；Win32 loose 核心 P5/G3 与 P6 最小发行包已验收，P7 未完成。** 阶段依据是已接受生产版本和明确输入范围，不代表后续候选已重验，也不泛称完整 UI/Unicode Texture/全部后处理已支持。
+- `/sc:true` 已真实接入并通过两配置：独立包 session.xml/intermediate/cdata → fresh LoadCache→InitializeCache→新 processor → 重建四输出。热样例实际文档复用且 XML解析/实例编译为零；未用目录命中代替实际复用。
+- `/bc`、`/sc` 默认关闭，可独立启用；命名空间覆盖输入/运行文件/参数/进程合同，实际解析边界限制根。`/dr /data /art /audio` 输入根已通过原版对照。压缩/部分/冻结 session、旧缓存目录覆盖及其他未实现选项仍明确拒绝。
+- 会话包有完整清单/SHA256、布局/XML检查；坏包/结构/版本失效整包冷编译并可逆修复。缓存与发布、必需报告/终态/日志共同确认，pending 遗留始终 miss，回滚失败保留位置。
+- 三类混合 Texture 暂明确拒绝 `/sc`，`/sc:false` 仍可编译；不授权未经证明的 Texture 缓存复用。中文纹理受旧混合 DLL LoadImageA/D3DX 限制，不能泛称完整 Unicode Texture 已支持。
+- 当前 `/sc` 两配置各55用例与协议、生产组合/路由、App、Core九组、Texture、真实CLI、`/bc`、输入根、Audio CDATA/W3X均有成功证据。原Core Unicode组因反射fixture没绑processor失败；修正owner并保留全部断言后，精确归档host定向重验及原BAB基线已通过，原失败终态保留。
+- 原Core App协议步骤曾被整体失败跳过，已对固定原归档60份原始报告/事件文件补做协议校验，两配置各15报告/511事件，零错误；只补协议，不重跑成功业务组。
+- 完整未精简 mymod 原 BAB 先行与两配置生产四输出/cdata对照已通过。mymod apt/maps无入口，明确记录空集合；另有既有真实APT/MapMetaData及三份Upheaval UI完整依赖闭包证据，仍不代替完整 UI/runtime。
+- P6 Debug/Release 正式 ZIP 已通过：精确五运行文件、独立解压后源bin/包bin doctor与真实小MOD、四输出逐字节及协议检查。系统仍需.NET4.8/x86 VC80/现有VC与DirectX；包证据不推断裸Windows无前置要求。
+- 本轮首次生产链接C1001已通过等价移除App新增异常过滤器解决；生产重建成功。其后仅测试/发布工具变更严格复用同一已接受EXE与host，分别记录二进制/测试来源，不冒充当前重编译。
+- P7 已开始内建 BIG/skudef 候选：先覆盖 apt/maps，按游戏 Data/AptUI、Data/AdditionalMaps 布局精确消费本次产物；base BIG 依赖尚未恢复的 LoDStreamBuilder，必须明确拒绝，loose不受影响。新候选未取得Windows结果前不标支持。
+- XML63组/非XML历史差分按原sourceCommit与未变化输入复用；不重复完整SDK或无依据路径排列。BIG完整base后处理、完整Unicode纹理、完整UI/runtime仍未完成。
 
 ## 下一步（按顺序）
 
-1. 跟进当前 Windows 生产组合至终态，集中修复实际失败；生产输入改变就重建受影响组，禁止盲重试或用旧二进制掩盖新代码。只改测试时须先验证完整生产闭包与归档身份，分别记录二进制/测试来源。
-2. 完成实际 `/sc` 冷/热、失效、事务和原始输出矩阵；缓存组稳定后取得完整 mymod 原版/生产 SDK 对照，再核对 P5/G3 完成条件。
-3. 依赖满足就运行 `PublishCompiler.ps1` 的正式最小包及独立目录验收，随后推进 P7 必要后处理/BIG/skudef。还有本轮时间则继续下一项，不因保存检查点提前结束。
-4. `PrepareCompilerSessionReplay.py` 与其工作流当前仅未启用准备，仍钉住没有生产产物的失败源并保持空归档pin；不能直接触发。若确需重放，必须先按实际成功生产范围重设完整source/run/archive/失败集并审阅输入闭包；否则清理该准备。
+1. 完成并验收当前 P7 apt/maps BIG/SKUDEF 生产整组：原MakeBig格式/成员/内容oracle、单选组合、精确清单、取消/发布失败回滚、两配置原始loose对照及单进程。生产输入变化后集中重建受影响组，既有未变化证据仍严格复用。
+2. 按原脚本必要顺序恢复/整合 base 所需 LoDStreamBuilder；需联合时保持 HashFix→ModAssetResolver→LoD。AssetMerge只在MOD自带预编译资产合并开启时执行；不能把raw BIG称为完整可用base包。
+3. 后续候选稳定后刷新P6正式包；已有包属于已验收版本，不自动包含后续候选。还有本轮时间就推进下一项依赖满足的能力，不因检查点提前结束。
+4. 固定归档重放入口已启用为精确partial-Core恢复，不再钉无产物源。只在实际测试修复需要时使用，校验完整生产闭包/原始归档/成功范围，保留原失败终态与二进制/测试双来源；不重复已过SC。
 
 ## 按任务读取
 
 | 事项 | 入口 |
 | --- | --- |
 | P5 缓存与事务 | `recovery/P5_LIFECYCLE_AUDIT.md`、`recovery/src/App/Application/CoreStreamCompiler.cs`、`SessionPackage.cs`、`BuildAssetCache.cs` |
-| Windows 受影响组 | `.github/workflows/refactor-core-lifecycle.yml`、`recovery/scripts/TestCompilerSessionCache.ps1`、`TestCompilerSdk.ps1` |
+| Windows 受影响组 | `.github/workflows/refactor-core-lifecycle.yml`、`recovery/scripts/TestCompilerSessionCache.ps1`、`TestCompilerSdk.ps1`、`TestCompilerUnicodeReplay.ps1` |
 | P6 正式最小包 | `recovery/scripts/PublishCompiler.ps1`、`recovery/COMPILER_RELEASE.md` |
 | 既有路径/阶段/效率 | `recovery/PATH_AUDIT.md`、`recovery/NewSdk_ModCompiler_Refactor_Plan.md` P5/G3/P6/P7、`recovery/EFFICIENCY.md` |
 

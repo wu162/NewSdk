@@ -41,6 +41,8 @@ ALLOWED = {
     'recovery/scripts/TestCompilerUnicodeReplay.ps1', 'recovery/tests/CompilerUnicodeSettings.cs',
     'recovery/scripts/PublishCompiler.ps1', 'recovery/COMPILER_RELEASE.md',
     'recovery/REFACTOR_RESUME.md', 'recovery/P5_LIFECYCLE_AUDIT.md',
+    'recovery/evidence/refactor/core-protocol-recovery/40406049617-1/protocol.json',
+    'recovery/evidence/refactor/core-protocol-recovery/40406049617-1/source.json',
 }
 # The exact failure set must be confirmed against the completed source run.
 FAILED_STEPS = {'Targeted real Core, backend and application pipeline in Debug and Release'}
@@ -164,6 +166,13 @@ def prepare(archive, candidate, output, repo):
                 path = base(section) + '/validation.json'; d = doc(path); identity(d)
                 take(path, 'original-evidence/' + section + '/validation.json'); receipts[section] = d
             take(base('core-cli')+'/validation.json','accepted-cli.json')
+            # The original overall Core failure gated its protocol step. Keep
+            # these raw inputs for a new protocol-only check without rerunning
+            # any of the nine successful fixture processes.
+            core_prefix = base('core-lifecycle')+'/'
+            for name in z.namelist():
+                if name.startswith(core_prefix) and name.rsplit('/',1)[-1] in ('build-report.json','build.events.jsonl'):
+                    take(name,'original-core-protocol-input/'+guard.safe_name(name[len(core_prefix):]))
             dep, core, texture, cli = [receipts[k] for k in ('core-lifecycle-deployment','core-lifecycle','core-lifecycle-texture','core-cli')]
             require(dep.get('status') == texture.get('status') == 'passed' and cli.get('succeeded') is True, 'Independent deployment/Texture/CLI scope failed')
             dep_modes, tex_modes, cli_modes = guard.modes(dep), guard.modes(texture,'configurations'), guard.modes(cli)
@@ -247,7 +256,7 @@ def prepare(archive, candidate, output, repo):
                'binarySourceCommit':SOURCE,'testSourceCommit':candidate,'runId':str(RUN),'runAttempt':str(ATTEMPT),'archiveSha256':SHA256,
                'artifactId':ARTIFACT,'productionSourcesUnchanged':True,'changedPaths':changed,'files':files,'validationFiles':validation_files,
                'sourceRunConclusion':'failure','sourceFailedSteps':sorted(FAILED_STEPS),'reusedScopes':reused,
-               'requiredNextSteps':['Run corrected Unicode fixture and fresh backend oracle input in both modes','Run skipped original BAB baseline','Run complete mymod SDK differential','Package and verify P6 runtime'],
+               'requiredNextSteps':['Validate original archived Core App protocol without rerunning successful fixtures','Run corrected Unicode fixture and fresh backend oracle input in both modes','Run skipped original BAB baseline','Run complete mymod SDK differential','Package and verify P6 runtime'],
                'scope':'Fixed production and validation-host bytes; original nine successful Core groups and complete SC/CLI/cache/Texture evidence reused; original failed Core terminal preserved; no repeated SC or Native relink'}
     target.parent.mkdir(parents=True,exist_ok=True)
     temporary = Path(tempfile.mkdtemp(prefix=target.name+'-',dir=target.parent))

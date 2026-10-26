@@ -1,6 +1,6 @@
 # P5 生命周期、缓存与输入根
 
-状态：P4 已验收；事务式 loose 发布及真实 CLI 发布整组已通过 Debug/Release。完整 P5/G3、正式发行包和完整 SDK 尚未验收。以 `REFACTOR_RESUME.md` 和当前分支 Actions 原始收据为准；历史设计及失败保留在 git，不将旧“待实现”当作当前状态。首版仅顺序执行，Windows x86 / .NET Framework 4.8。
+状态：P4 已验收；事务式 loose 发布及真实 CLI 发布整组已通过 Debug/Release。Win32 loose 核心 P5/G3、完整未精简 mymod 对照及 P6 最小发行包已验收；P7、完整 UI/runtime 和 Unicode Texture 仍未完成。以 `REFACTOR_RESUME.md` 和当前分支 Actions 原始收据为准；历史设计及失败保留在 git，不将旧“待实现”当作当前状态。首版仅顺序执行，Windows x86 / .NET Framework 4.8。
 
 ## 已通过的生命周期边界
 
@@ -14,7 +14,7 @@
 
 本节代码合同已取得两配置实际验收。生产/Core10组、App各667断言、Texture、真实CLI及输入根原版对照通过；最终缓存与Audio CDATA/W3X重放复用未变化的同一生产二进制，并分别记录二进制/测试来源。原组合运行的测试工具失败保留，修复后的定向重放成功不改写其终态。入口为 `CoreStreamCompiler`、`BuildAssetCache`、`CacheInputBoundary`；测试为 `BuildAssetCacheTests`、`SessionCacheTransactionTests`、`CompilerCacheContent`、`CompilerCacheBoundary` 和 `TestCompilerBuildCache.ps1`。
 
-- `/bc:true` 选择真实 Core build-asset cache；每流 SessionCache 仍冷建，不读取旧 BAB session/build 命名空间。`/sc:true` 现已接入独立会话包候选，尚待生产验收；压缩/部分/冻结 session cache 及显式旧缓存目录仍拒绝。
+- `/bc:true` 选择真实 Core build-asset cache；每流 SessionCache 仍冷建，不读取旧 BAB session/build 命名空间。`/sc:true` 已接入并通过独立会话包两配置验收；压缩/部分/冻结 session cache 及显式旧缓存目录仍拒绝。
 - 恢复的 audio/W3X 路由按 PluginRegistry 的真实 descriptor 使用缓存；混合 Texture 三路仍编译，不授权纹理缓存命中。报告统计实际资产 hit/miss，不能将恢复缓存目录或输入清单相同当作命中。
 - 新命名空间包含全 SDK/MOD/runtime 内容、任务和参数，以及进程解析合同；实现版本随 EXE 内容区分。输入清单本身不授权缓存复用：缓存模式另以解析边界约束 XML、XInclude、Schema 和文件引用，根外输入拒绝。
 - Audio 的 File 与 PathMusic header 均为 Schema FileReference；APT/test DataBlob 派生 FileReference。W3X 编译器直接消费预处理 XML，无输入旁读。混合 Texture 内部读取未证明完整闭包，故不复用其资产。
@@ -38,9 +38,9 @@
 2. 向报告输出每流最终生效 DataRoot、data/art/audio 数组及来源；原始字符串仍保留在 effectiveOptions，不把 invocation-relative 路径预先套到旧搜索串。
 3. 明确根外引用：无缓存模式按原解析契约处理；若缓存模式无法覆盖新增根，必须明确拒绝或将全部新根纳入内容合同，不能静默读取旧缓存。
 4. 使用最小合法外部引用 MOD 核对路径优先级、原 BAB 原始四输出、失败和重试；同时检查最终生效根及来源报告。本轮两配置已通过；会话缓存等后续完成后集中验收完整 P5/G3/SDK，再推进 P6/P7。
-5. 真实 session cache 已接入候选；App 两配置通过，生产 EXE 与真实 CLI 尚待实际结果，不能把 `/bc` 既有证据当成 `/sc` 验收。
+5. 真实 session cache 已接入并通过生产两配置冷/热与完整事务矩阵；其证据独立于 `/bc`，两者不能互相冒认。
 
-### 实际 `/sc` 候选：等待生产验收
+### 实际 `/sc`：两配置整组已通过
 
 - 每流独立 `SessionPackage`：私有 staging 还原 `hashes/session.xml`、完整 intermediate 资产和 streams/cdata；每次 fresh SessionCache 按 `LoadCache` → `InitializeCache` → 新 processor 顺序运行，四输出由 Core 重建。
 - 成功后 `SaveCache(false)`，只保存新的 session.xml、当前 intermediate/cdata，排除 `.old/.tmp` 和 linked 四输出；沿现有 Commit/Rollback/Complete 事务与发布、必需渠道共同确认。`/sc` 与 `/bc` 独立目录、锁和统计，可分别启用。
@@ -48,5 +48,6 @@
 - 报告 `sessionPackageHits/Misses` 与实际 `documentReuse/xmlParse/instanceCompile`；包存在或载入成功不代替文档与中间资产的实际复用。失败流也报告已发生的工作。
 - 三类混合 Texture 在实际处理类型检查后、保存包前明确拒绝 `/sc`，`/sc:false` 保持原编译能力；未证明完整闭包的纹理不授权会话或资产缓存复用。
 - `TestCompilerSessionCache.ps1` 整组覆盖 Include/XInclude、定义/表达式、继承、多入口、同 mtime 输入/Schema/配置/实现变化、双 MOD、坏包修复、失败/取消/发布失败重试、Audio CDATA/W3X 和原 BAB 四输出；链接前先验证 fixture XSD 与替换 token。
-- 首次 Windows App 两配置通过，但生产链接发生 MSVC C1001，未产生可复用 EXE。已将 App 新增异常过滤器改为等价普通 catch，实际修复结果待新完整构建；不将假设写成已解决。
-- 缓存组通过后集中运行完整未精简 mymod 的原 BAB 先行与两配置生产对照（`TestCompilerSdk.ps1`）；当前 mymod apt/maps 无入口，必须明确记录空集合，不能推断完整 UI/runtime。完整 P5/G3、SDK 与 P6/P7 仍未标通过。
+- 首次生产链接 MSVC C1001 已由等价普通 catch 替换 App 新过滤器解决，新完整生产两配置通过。其后唯一 Core 失败为旧 Unicode fixture 未绑定 processor；修正 owner 并验证解析计数后，精确归档 host 两配置定向重验与原 BAB 基线通过，原失败终态保留。
+- `/sc` 两配置各55用例/2184事件零协议错；完整未精简 mymod 原 BAB 先行与两配置生产对照（`TestCompilerSdk.ps1`）已通过。当前 mymod apt/maps 无入口，明确记录空集合；Win32 loose 核心P5/G3与P6最小包取得证据，完整UI/runtime、Unicode Texture和P7不由此推断。
+- 原 Core App 协议被旧整体失败跳过的范围已对固定归档原字节补验：两配置各15报告/511事件零错，原始归档SHA与逐文件SHA在 `recovery/evidence/refactor/core-protocol-recovery`，不改写原运行终态。

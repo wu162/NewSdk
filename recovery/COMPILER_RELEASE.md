@@ -1,6 +1,6 @@
 # 编译器最小发行包
 
-`recovery/scripts/PublishCompiler.ps1` 为 P6 的发布入口。它要求已有成功的 Debug/Release 真实生产 CLI 验收收据；构建成功本身不能发布。当前功能是否已取得 Windows 运行证据，以 `REFACTOR_RESUME.md` 和对应 Actions 为准。
+`recovery/scripts/PublishCompiler.ps1` 为 P6 的发布入口。它要求已有成功的 Debug/Release 真实生产 CLI 验收收据；构建成功本身不能发布。已取得 Debug/Release Windows 运行及独立解压证据；当前接受版本与后续候选以 `REFACTOR_RESUME.md` 和对应 Actions 区分。
 
 ```powershell
 ./recovery/scripts/PublishCompiler.ps1 `
