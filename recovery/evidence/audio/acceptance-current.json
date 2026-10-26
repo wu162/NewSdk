@@ -428,7 +428,7 @@
     "reviewBranch": "integration/audio-win32-sdk",
     "validationBranch": "validation/audio-upheaval-win32",
     "nextPreparationBranch": "preparation/audio-aiff-multichannel",
-    "nextPreparationCommit": "351cf2a1464c7d8b929b44fca14be4c3fb42f37a",
+    "nextPreparationCommit": "ccd0cc84ec27c2fee06ef189e4c47bc5723e5a7f",
     "nextPreparationStatus": "static-only-uncompiled; not included in accepted PR",
     "sourceBranchStillAt": "efbc6d825a7a5fb471740723486eb848e752e9b2",
     "targetBranchStillAt": "b122a54abe4405516b021e425b8fb9235d914a0e"
