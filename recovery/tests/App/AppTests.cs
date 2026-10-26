@@ -147,6 +147,7 @@ namespace NewModCompiler.Tests
                 assertions += ArtifactPublisherTests.Run(Path.Combine(root,"publisher-tests"));
                 assertions += CacheInputSnapshotTests.Run(Path.Combine(root,"cache-input-tests"));
                 assertions += BuildAssetCacheTests.Run(Path.Combine(root,"build-asset-cache"));
+                assertions += SessionPackageTests.Run(Path.Combine(root,"session-package"));
                 mod=Path.Combine(root,"external mods","中文 MOD"); sdk=Path.Combine(root,"SDK"); Directory.CreateDirectory(sdk);
                 FileAt(Path.Combine(mod,"Data","Mod.xml")); FileAt(Path.Combine(mod,"Data","AptUI","b.xml")); FileAt(Path.Combine(mod,"Data","AptUI","a.xml"));
                 FileAt(Path.Combine(mod,"Data","AdditionalMaps","MapMetaData_z.xml")); FileAt(Path.Combine(mod,"Data","AdditionalMaps","Ignored.xml"));
@@ -157,6 +158,13 @@ namespace NewModCompiler.Tests
                 var aliases=Request("base","/pc:false","/csc:true","/sc:false","/bc:true","/scp:"+Path.Combine(root,"cache"),"/scd:"+Path.Combine(root,"cache"));
                 Check(aliases.Options["pc"].Value=="false" && aliases.Options["csc"].Value=="true" && aliases.Options["sc"].Value=="false" && aliases.Options["bc"].Value=="true","Distinct legacy meanings");
                 Check(aliases.Options["session-cache-directory"].Source=="commandLine","Alias provenance");
+                foreach (string session in new [] {"true","false"}) foreach (string asset in new [] {"true","false"}) {
+                    var independent=Request("base","/sc:"+session,"/bc:"+asset);
+                    Check(independent.Options["sc"].Value==session && independent.Options["bc"].Value==asset,"Session and build-asset switches remain independent");
+                    Check(independent.Options["sc"].Source=="commandLine" && independent.Options["bc"].Source=="commandLine","Cache switches preserve provenance");
+                }
+                Check(!Request("base").Options.ContainsKey("sc") && !Request("base").Options.ContainsKey("bc"),"Cache opt-ins must not become parser defaults");
+                Reject("CLI_CONFLICT","/sc:true","/sc:false"); Reject("CLI_BOOLEAN","/sc:cached");
                 var paths=Request("base","/art:ART:shared;relative art","/audio:one;two","/data:relative;second","/dr:relative root","/oix:true","/mr:false");
                 Check(paths.Options["art"].Value=="ART:shared;relative art" && paths.Options["audio"].Value=="one;two" && paths.Options["data"].Value=="relative;second" && paths.Options["dr"].Value=="relative root","Legacy ordered paths and DataRoot preserved for Core");
                 Check(paths.Options["oix"].Value=="true" && paths.Options["mr"].Value=="false","oix and mr are booleans");

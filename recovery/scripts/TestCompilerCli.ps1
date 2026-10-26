@@ -233,8 +233,8 @@ try {
         [IO.File]::WriteAllText("$emptyMod/Data/Mod.xml",$probe)
         $empty=RunCli 'empty-optional' 'build' $emptyMod $sdk 'apt,maps' 0 0
         Need (@($empty.report.plan.Skipped).Count -eq 2) 'Empty optional groups were not explicitly skipped'
-        $unsupported=RunCli 'session-cache-rejected' 'build' $mod $sdk 'base' 2 0 $false @('--sc=true')
-        Need (@($unsupported.report.diagnostics|Where-Object{$_.code -ceq 'CORE_OPTION_UNSUPPORTED'}).Count -eq 1) 'Unsupported session cache was not explicitly refused'
+        $unsupported=RunCli 'compressed-session-cache-rejected' 'build' $mod $sdk 'base' 2 0 $false @('--csc=true')
+        Need (@($unsupported.report.diagnostics|Where-Object{$_.code -ceq 'CORE_OPTION_UNSUPPORTED'}).Count -eq 1) 'Unsupported compressed session cache was not explicitly refused'
         $badMod=Join-Path $modeWork '坏 XML MOD';New-Item -ItemType Directory -Path "$badMod/Data"|Out-Null
         [IO.File]::WriteAllText("$badMod/Data/Mod.xml",'<AssetDeclaration>broken')
         $bad=RunCli 'bad-xml' 'build' $badMod $sdk 'base' 4 1

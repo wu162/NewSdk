@@ -40,6 +40,7 @@ on:
       - 'recovery/scripts/TestCompilerInputRoots.ps1'
       - 'recovery/scripts/TestCompilerBuildCache.ps1'
       - 'recovery/scripts/TestCompilerBuildCachePayloads.ps1'
+      - 'recovery/scripts/TestCompilerSessionCache.ps1'
       - 'recovery/tests/CompilerCorePaths.cs'
       - 'recovery/tests/CompilerUnicodeSettings.cs'
       - 'recovery/tests/CompilerResourceLifecycle.cs'
@@ -131,7 +132,7 @@ jobs:
       - name: Validate CLI scripts and output contracts before long Native linking
         shell: pwsh
         run: |
-          foreach($path in @('recovery/scripts/CompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliOutputs.ps1','recovery/scripts/TestCompilerCli.ps1','recovery/scripts/TestCompilerBackendBaseline.ps1','recovery/scripts/TestCompilerBuildCache.ps1','recovery/scripts/TestCompilerInputRoots.ps1','recovery/scripts/TestCompilerBuildCachePayloads.ps1')) {
+          foreach($path in @('recovery/scripts/CompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliOutputs.ps1','recovery/scripts/TestCompilerCli.ps1','recovery/scripts/TestCompilerBackendBaseline.ps1','recovery/scripts/TestCompilerBuildCache.ps1','recovery/scripts/TestCompilerInputRoots.ps1','recovery/scripts/TestCompilerBuildCachePayloads.ps1','recovery/scripts/TestCompilerSessionCache.ps1')) {
             $tokens=$null;$errors=$null
             $null=[Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $path),[ref]$tokens,[ref]$errors)
             if($errors.Count -ne 0){$errors|Format-List|Out-Host;throw "PowerShell syntax errors: $path"}
@@ -212,6 +213,19 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerBuildCachePayloads.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/cache-payloads/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Actual session-cache documents intermediate and CDATA reuse matrix
+        id: session
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerSessionCache.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/session-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Validate actual session-cache protocol outputs
+        if: ${{ !cancelled() && steps.session.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $evidence="recovery/evidence/refactor/session-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Actual session-cache protocol validation failed'}
       - name: Validate actual cache and input-root protocol outputs
         if: ${{ !cancelled() && steps.cache.outcome == 'success' && steps.roots.outcome == 'success' && steps.payloads.outcome == 'success' }}
         shell: pwsh
@@ -226,6 +240,7 @@ jobs:
         with:
           name: refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}

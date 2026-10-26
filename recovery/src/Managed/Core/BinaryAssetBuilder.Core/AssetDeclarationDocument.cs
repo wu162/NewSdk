@@ -637,6 +637,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Document {0} attempted to load twice.", _Current.SourcePath);
 		}
+		_Current.DocumentProcessor.RecordXmlParse();
 		CacheInputBoundary.Validate(_Current.SourcePath);
 		FileNameXmlResolver xmlResolver = FileNameResolver.GetXmlResolver(SourceDirectory);
 		if (!File.Exists(_Current.SourcePath))
@@ -1108,6 +1109,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 		DateTime now = DateTime.Now;
 		IAssetBuilderPlugin plugin = _Current.DocumentProcessor.Plugins.GetPlugin(asset.Instance.Handle.TypeId);
+		_Current.DocumentProcessor.RecordInstanceCompile();
 		asset.Buffer = plugin.ProcessInstance(asset.Instance);
 		_Current.DocumentProcessor.AddCompileTime(asset.Instance.Handle, DateTime.Now - now);
 	}

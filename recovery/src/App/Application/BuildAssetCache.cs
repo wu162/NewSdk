@@ -12,7 +12,7 @@ namespace NewModCompiler.Application
     // stored bytes is necessary but cannot itself authorize an input cache hit.
     public sealed class BuildAssetCache : IDisposable
     {
-        const string Format = "NewModCompiler.BuildAssets.v2";
+        readonly string format;
         const string IndexName = "index.bin";
         const string PendingName = "pending";
         readonly string outputRoot, cacheRoot, candidateRoot, namespaceFingerprint, owner = Guid.NewGuid().ToString("N");
@@ -22,7 +22,10 @@ namespace NewModCompiler.Application
         PublicationLock cacheLock;
         sealed class Entry { public string Name, Storage; public long Size; public string Hash; }
 
-        public BuildAssetCache(string outputRoot, string namespaceFingerprint)
+        public BuildAssetCache(string outputRoot, string namespaceFingerprint) : this(outputRoot, namespaceFingerprint, false) { }
+        // Session packages use the same reversible integrity store, but never
+        // share its directory, format, locks or task entries with /bc assets.
+        internal BuildAssetCache(string outputRoot, string namespaceFingerprint, bool sessionPackage)
         {
             if (string.IsNullOrWhiteSpace(outputRoot)) throw new ArgumentException("An output root is required.");
             if (namespaceFingerprint == null || namespaceFingerprint.Length != 64) throw new ArgumentException("A SHA-256 namespace is required.");
@@ -30,7 +33,8 @@ namespace NewModCompiler.Application
             this.outputRoot = Path.GetFullPath(outputRoot);
             RejectAncestors(this.outputRoot);
             this.namespaceFingerprint = namespaceFingerprint;
-            cacheRoot = Path.Combine(this.outputRoot, ".cache", "build-assets-v2");
+            format = sessionPackage ? "NewModCompiler.SessionPackage.v1" : "NewModCompiler.BuildAssets.v2";
+            cacheRoot = Path.Combine(this.outputRoot, ".cache", sessionPackage ? "session-packages-v1" : "build-assets-v2");
             candidateRoot = Path.Combine(this.outputRoot, ".cache-candidate-" + owner);
             // Same namespace is held through the required-channel outcome.
             // Semaphore contention is an explicit failure, never a retry loop.
@@ -74,7 +78,7 @@ namespace NewModCompiler.Application
             }
             using (var writer = new BinaryWriter(File.Open(Path.Combine(target, IndexName), FileMode.CreateNew, FileAccess.Write, FileShare.None), Encoding.UTF8))
             {
-                writer.Write(Format); writer.Write(owner); writer.Write(entries.Count);
+                writer.Write(format); writer.Write(owner); writer.Write(entries.Count);
                 foreach (Entry entry in entries) { writer.Write(entry.Name); writer.Write(entry.Size); writer.Write(entry.Hash); }
             }
             File.WriteAllText(Path.Combine(target,PendingName),owner);
@@ -116,7 +120,7 @@ namespace NewModCompiler.Application
                 RejectAncestors(path);
                 if (!Directory.Exists(path)) continue;
                 using (var reader = new BinaryReader(File.OpenRead(Path.Combine(path, IndexName)), Encoding.UTF8))
-                    if (reader.ReadString() != Format || reader.ReadString() != owner) throw new IOException("Cache rollback no longer owns its installed entry.");
+                    if (reader.ReadString() != format || reader.ReadString() != owner) throw new IOException("Cache rollback no longer owns its installed entry.");
                 // Delete payload before its exclusion marker. A sharing violation
                 // must not expose an otherwise valid failed entry to readers.
                 string data = Path.Combine(path,"files");
@@ -195,7 +199,7 @@ namespace NewModCompiler.Application
                 else files.Add(path.Substring(root.TrimEnd(Path.DirectorySeparatorChar).Length+1));
             }
         }
-        static bool TryRead(string root,CancellationToken cancellation,out List<Entry> entries)
+        bool TryRead(string root,CancellationToken cancellation,out List<Entry> entries)
         {
             entries = new List<Entry>(); if (!Directory.Exists(root) || File.Exists(Path.Combine(root,PendingName))) return false;
             try
@@ -203,7 +207,7 @@ namespace NewModCompiler.Application
                 RejectAncestors(root); string index = Path.Combine(root,IndexName); RejectAncestors(index);
                 using (var reader = new BinaryReader(File.OpenRead(index),Encoding.UTF8))
                 {
-                    if (reader.ReadString() != Format) return false; reader.ReadString();
+                    if (reader.ReadString() != format) return false; reader.ReadString();
                     int count = reader.ReadInt32(); if (count <= 0 || count > 1000000) return false;
                     var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                     for (int i=0;i<count;i++)

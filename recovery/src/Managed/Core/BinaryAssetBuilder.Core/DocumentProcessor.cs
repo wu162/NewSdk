@@ -105,6 +105,15 @@ public class DocumentProcessor
 
 	// Per-processor actual persistent-asset-cache use; Local/intermediate reuse
 	// is deliberately excluded from these build-cache counters.
+	// Actual work counters, independent of package/asset directory availability.
+	public int DocumentReuseCount { get; private set; }
+	public int XmlParseCount { get; private set; }
+	public int InstanceCompileCount { get; private set; }
+	private readonly HashSet<uint> _ProcessedTypeIds = new HashSet<uint>();
+	public IEnumerable<uint> ProcessedTypeIds => _ProcessedTypeIds;
+	internal void RecordXmlParse() { XmlParseCount++; }
+	internal void RecordInstanceCompile() { InstanceCompileCount++; }
+
 	public int BuildCacheHits { get; private set; }
 
 	public int BuildCacheMisses { get; private set; }
@@ -533,6 +542,8 @@ public class DocumentProcessor
 			document.Validate();
 			_TotalValidateTime += DateTime.Now - now;
 		}
+		if (document.State != DocumentState.Loaded) DocumentReuseCount++;
+		foreach (InstanceDeclaration instance in document.SelfInstances) _ProcessedTypeIds.Add(instance.Handle.TypeId);
 		_InstancesProcessedCount += document.SelfInstances.Count;
 		document.RecordStringHashes();
 		document.MergeInstances();
