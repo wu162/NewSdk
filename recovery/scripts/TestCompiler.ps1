@@ -35,6 +35,7 @@ try {
         Move-Item "$build/obj" (Join-Path $work "$mode/quarantined-obj")
         $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')
         if(@(Get-ChildItem $clean -Recurse|Where-Object{$_.PSIsContainer -or $_.Name -notin $allowed}).Count -ne 0){throw 'Unexpected file or subdirectory in clean production directory'}
+        foreach($required in $allowed){if(!(Test-Path (Join-Path $clean $required) -PathType Leaf)){throw "Missing required production file: $required"}}
         $exe=Join-Path $clean 'NewModCompiler.exe'
         & $inspector $exe (Join-Path $FoundationDirectory "$mode/Foundation.types.txt") (Join-Path $FoundationDirectory "$mode/resources.json") *> "$modeOut/metadata-runtime.log"
         if($LASTEXITCODE -ne 0){Get-Content "$modeOut/metadata-runtime.log";throw 'Clean product metadata validation failed'}
