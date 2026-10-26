@@ -30,6 +30,21 @@ try
     byte[] apt = File.ReadAllBytes(Path.ChangeExtension(swf, ".apt"));
     byte[] constants = File.ReadAllBytes(Path.ChangeExtension(swf, ".const"));
     byte[] dat = File.ReadAllBytes(Path.ChangeExtension(swf, ".dat"));
+    // Exercise the original defaultscript flags separately from the memory prototype.
+    // These are intentionally not claimed byte-equivalent to optimize=false.
+    string optimized = Path.Combine(scratch, "optimized");
+    Directory.CreateDirectory(optimized);
+    string optSwf = Path.Combine(optimized, "CoronaUIMain.swf");
+    File.WriteAllBytes(optSwf, input);
+    Environment.CurrentDirectory = optimized;
+    new AptConverter().ConvertToApt(optSwf, optimize: true, isra3: true);
+    var optimizedFiles = new[] { ".apt", ".const", ".dat", ".xml" }.ToDictionary(
+        ext => ext,
+        ext => {
+            byte[] data = File.ReadAllBytes(Path.ChangeExtension(optSwf, ext));
+            if (data.Length == 0) throw new Exception("Empty original-tool output: " + ext);
+            return new { length = data.Length, sha256 = Convert.ToHexString(SHA256.HashData(data)).ToLowerInvariant() };
+        });
     string memoryDir = Path.Combine(scratch, "memory");
     Directory.CreateDirectory(memoryDir);
     Environment.CurrentDirectory = memoryDir;
@@ -78,6 +93,7 @@ try
         constSha256 = Convert.ToHexString(SHA256.HashData(constants)).ToLowerInvariant(),
         datSha256 = Convert.ToHexString(SHA256.HashData(dat)).ToLowerInvariant(),
         sdkIntegration = false, optimizerParity = false
+        , originalToolOptimizedRa3 = optimizedFiles
     };
     string json = JsonSerializer.Serialize(evidence, new JsonSerializerOptions { WriteIndented = true });
     File.WriteAllText(report, json);

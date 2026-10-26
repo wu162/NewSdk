@@ -9,7 +9,7 @@ import re
 from pathlib import Path
 
 UPSTREAM_COMMIT = '60b15a67a4cbd931f181af8c6c758bd7a8441ebc'
-CONVERTER_SHA256 = '635fca215a510eaa624a371c047576fb26ea1ea6a36ff88793d190007947a6b6'
+CONVERTER_SHA256 = '210987e8e621fe2e1f1133781b4b65da51c54e69378585f568012409a5a6e86e'
 
 
 def generate(source: str) -> str:

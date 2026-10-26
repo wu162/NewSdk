@@ -12,6 +12,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            ui
+            .github/workflows
       - uses: actions/checkout@v4
         with:
           repository: lanyizi/swf2apt
@@ -21,6 +25,17 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
+      - uses: microsoft/setup-msbuild@v2
+      - name: Build original RA3 optimizer
+        shell: pwsh
+        run: |
+          $root = (Resolve-Path ui/.work/upstream).Path.Replace('\', '/')
+          $buildArgs = @('/m', '/p:Configuration=Release', '/p:Platform=Win32', "/p:SolutionDir=$root/", "/p:OutDir=$root/Release/")
+          & msbuild "$root/zlib/zlib.vcxproj" @buildArgs
+          if ($LASTEXITCODE -ne 0) { throw 'zlib build failed' }
+          & msbuild "$root/flasm/flasm.vcxproj" @buildArgs
+          if ($LASTEXITCODE -ne 0) { throw 'flasm build failed' }
+          "$root/Release" >> $env:GITHUB_PATH
       - name: Generate pinned in-memory backend
         run: python ui/tools/prepare_memory_backend.py ui/.work/upstream ui/.work/MemoryAptConverter.cs
       - name: Build comparison host
