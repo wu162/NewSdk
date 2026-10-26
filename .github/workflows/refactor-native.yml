@@ -6,10 +6,8 @@ on:
       - '.github/workflows/refactor-native.yml'
       - 'recovery/build/**'
       - 'recovery/src/**'
-      - 'recovery/scripts/BuildCompiler.ps1'
-      - 'recovery/scripts/TestCompiler*.ps1'
-      - 'recovery/scripts/*Native*.ps1'
-      - 'recovery/tests/Compiler*'
+      - 'recovery/scripts/**'
+      - 'recovery/tests/**'
   workflow_dispatch:
 permissions:
   contents: read
@@ -20,7 +18,7 @@ jobs:
   production:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-native]')
     runs-on: windows-2022
-    timeout-minutes: 50
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
