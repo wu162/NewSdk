@@ -26,7 +26,7 @@ public static class TextureProbe
     }
     static string Xml(string type, string file, bool missing)
     {
-        string source = Escape(missing ? file + ".missing" : file);
+        string source = Escape(missing ? file + (type == "TerrainTextureAtlas" ? ".wrong-size.tga" : ".missing") : file);
         if (type == "TerrainTextureAtlas")
             return "<TerrainTextureAtlas xmlns='uri:ea.com:eala:asset' id='Probe' AtlasSize='2048' AllowLossyCompression='false'><Tile TextureID='1' BaseTexture='" + source + "' NormalTexture='" + source + "'><Cell IndexX='0' IndexY='0'/></Tile></TerrainTextureAtlas>";
         return "<" + type + " xmlns='uri:ea.com:eala:asset' id='Probe' File='" + source + "' Type='StandardTexture' GenerateMipMaps='false' OutputFormat='A8R8G8B8' AllowAutomaticResize='false'/>";
@@ -68,7 +68,7 @@ public static class TextureProbe
                             try
                             {
                                 AssetBuffer buffer = plugin.ProcessInstance(declaration);
-                                if (missing) throw new Exception("Expected missing-input error for " + type);
+                                if (missing) throw new Exception("Expected invalid-input error for " + type);
                                 if (buffer == null || buffer.InstanceData == null) throw new Exception("Missing output buffer: " + type);
                                 result = "BUFFER:" + Bytes(buffer.InstanceData) + ":" + Bytes(buffer.RelocationData) + ":" + Bytes(buffer.ImportsData);
                                 successes++;
@@ -77,7 +77,7 @@ public static class TextureProbe
                             {
                                 if (!missing) throw;
                                 // A normal return is not an accepted negative test.
-                                if (ex.Message.StartsWith("Expected missing-input error", StringComparison.Ordinal)) throw;
+                                if (ex.Message.StartsWith("Expected invalid-input error", StringComparison.Ordinal)) throw;
                                 result = "ERROR:" + ex.GetType().FullName + ":" + Convert.ToBase64String(Encoding.UTF8.GetBytes(ex.Message)); errors++;
                             }
                             result += ":CUSTOM:" + (File.Exists(custom) ? Bytes(File.ReadAllBytes(custom)) : "absent");
@@ -93,7 +93,7 @@ public static class TextureProbe
             using (var process = System.Diagnostics.Process.GetCurrentProcess())
                 File.WriteAllLines(args[2] + ".native.tsv", process.Modules.Cast<System.Diagnostics.ProcessModule>().Select(m => m.ModuleName + "\t" + m.FileName).OrderBy(s => s).ToArray());
             if (successes != 6 || errors != 3) throw new Exception("Incomplete three-route matrix");
-            Console.WriteLine("PASS Texture ProcessInstance: 6 successes, 3 missing-input errors, reuse after error; owner=" + owner.FullName);
+            Console.WriteLine("PASS Texture ProcessInstance: 6 successes, 3 invalid-input errors, reuse after error; owner=" + owner.FullName);
             return 0;
         }
         catch (Exception ex) { Console.Error.WriteLine(ex); return 1; }

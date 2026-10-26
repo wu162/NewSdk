@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][string]$OutputDirectory,[string]$FoundationDirectory,[switch]$Minimal)
+param([Parameter(Mandatory=$true)][string]$OutputDirectory,[string]$FoundationDirectory,[string]$BuildDirectory,[switch]$Minimal)
 $ErrorActionPreference = 'Stop'
 $root = (Resolve-Path "$PSScriptRoot/../..").Path
 if (Test-Path $OutputDirectory) { throw "Refusing to overwrite probe evidence: $OutputDirectory" }
@@ -6,6 +6,7 @@ New-Item -ItemType Directory -Force $OutputDirectory | Out-Null
 $out = (Resolve-Path $OutputDirectory).Path
 $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [IO.Path]::GetTempPath() }
 $work = Join-Path $tempRoot ('single-exe-' + [Guid]::NewGuid().ToString('N'))
+$buildRoot = if($BuildDirectory){[IO.Path]::GetFullPath($BuildDirectory)}else{$work}
 $oracle = Join-Path $work 'original'
 New-Item -ItemType Directory -Force $oracle | Out-Null
 $state = @{ sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';minimal=[bool]$Minimal;fullG1Passed=$false;configurations=@() }
@@ -26,10 +27,16 @@ try {
     if ($state.rows -ne 610) { throw "Unexpected baseline fixture row count: $($state.rows)" }
     $baseline = (Get-FileHash "$out/original.tsv" -Algorithm SHA256).Hash
     foreach ($mode in @('Debug','Release')) {
-        $build = Join-Path $work $mode
+        $build = Join-Path $buildRoot $mode
+        $modeFoundation = $FoundationDirectory
+        if (!$Minimal) {
+            if (Test-Path (Join-Path $FoundationDirectory "$mode/Managed.Foundation.netmodule")) { $modeFoundation = Join-Path $FoundationDirectory $mode }
+            $foundationReceipt = Get-Content (Join-Path $modeFoundation 'build.json') -Raw | ConvertFrom-Json
+            if ($foundationReceipt.configuration -cne $mode) { throw "Foundation configuration for $mode does not match; provide directory with Debug/Release child builds" }
+        }
         $modeEvidence = Join-Path $out $mode
         New-Item -ItemType Directory -Force $modeEvidence | Out-Null
-        try { & "$PSScriptRoot/BuildSingleExeProbe.ps1" -Configuration $mode -OutputDirectory $build -FoundationDirectory $FoundationDirectory -Minimal:$Minimal | Out-Null }
+        try { & "$PSScriptRoot/BuildSingleExeProbe.ps1" -Configuration $mode -OutputDirectory $build -FoundationDirectory $modeFoundation -Minimal:$Minimal | Out-Null }
         finally {
             Get-ChildItem $build -File -ErrorAction SilentlyContinue | Where-Object { $_.Extension -in @('.log','.json') } | Copy-Item -Destination $modeEvidence
         }
@@ -63,8 +70,9 @@ try {
             if($resourceHashes[$resource.logicalName] -cne $expected){throw "Embedded resource bytes differ: $($resource.logicalName)"}
         }
         Get-Content "$modeEvidence/runtime.log"
-        $state.configurations += @{configuration=$mode;passed=$true;transcriptSha256=$baseline.ToLowerInvariant();exeSha256=(Get-FileHash "$bin/NewModCompiler.exe" -Algorithm SHA256).Hash.ToLowerInvariant();moduleInputsQuarantined=$true;runtimeFiles=$allowedFiles}
+        $state.configurations += @{configuration=$mode;passed=$true;exePath=(Join-Path $bin 'NewModCompiler.exe');transcriptSha256=$baseline.ToLowerInvariant();exeSha256=(Get-FileHash "$bin/NewModCompiler.exe" -Algorithm SHA256).Hash.ToLowerInvariant();moduleInputsQuarantined=$true;runtimeFiles=$allowedFiles}
     }
+    $state.fullG1Passed = !$Minimal
     $state.status='passed'
     $state.scope=if($Minimal){'minimal unified-link G1 probe only; full Foundation metadata/resources, G2 and SDK gates remain'}else{'unified Foundation/Armor link and separate-process original differential; metadata acceptance is recorded separately'}
     Write-Output 'PASS isolated unified-link Debug/Release and original Armor/Hash transcript differential'

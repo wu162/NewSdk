@@ -132,7 +132,20 @@
     "Controlled executor emits synthetic test files solely to exercise host contracts; no asset compilation or SDK output equality is claimed.",
     "Successful host executions keep files in isolated staging only; release publication is not implemented.",
     "This is the app-contract job result; it does not assert that other jobs in the same workflow passed.",
-    "Protocol schema JSON syntax and declared required fields were checked locally; no external JSON Schema validator was installed.",
     "No performance, full SDK, texture ABI or unified-link acceptance is implied."
-  ]
+  ],
+  "protocolSchemaValidation": {
+    "status": "passed",
+    "receipt": "protocol-validation.json",
+    "reports": 16,
+    "events": 154,
+    "configurations": [
+      "Debug",
+      "Release"
+    ],
+    "schemaDialect": "2020-12",
+    "formatChecker": "RFC3339 enabled",
+    "artifactId": 12627827161,
+    "artifactSha256": "4a5744da14ae9f87126b1392e11e1be634d400ced3e7163ba4574b4878f1ff43"
+  }
 }

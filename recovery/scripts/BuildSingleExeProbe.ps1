@@ -19,13 +19,14 @@ function Invoke-Checked([string]$Command,[string[]]$Arguments,[string]$Log) {
 }
 Push-Location $root
 try {
+    $managedOpt = if ($Configuration -eq 'Release') { '/optimize+' } else { '/optimize-' }
     if ($Minimal) {
         # Syntax normalization only: same AssetBuffer class body, old framework
         # csc cannot parse its file-scoped namespace. No production source edit.
         $asset = Get-Content 'recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetBuffer.cs' -Raw
         if (!$asset.Contains('namespace BinaryAssetBuilder.Core;')) { throw 'AssetBuffer namespace changed; review generator' }
         $asset.Replace('namespace BinaryAssetBuilder.Core;',"namespace BinaryAssetBuilder.Core`n{") + "`n}" | Set-Content "$work/AssetBuffer.cs" -Encoding UTF8
-        Invoke-Checked $csc @('/nologo','/codepage:65001','/target:module','/platform:x86','/unsafe',"/out:$work/Managed.Foundation.netmodule",(Resolve-Path "$work/AssetBuffer.cs").Path,(Resolve-Path 'recovery/src/Managed/Hash/FastHash.cs').Path) "$out/foundation-build.log"
+        Invoke-Checked $csc @('/nologo','/codepage:65001','/target:module','/platform:anycpu','/unsafe',$managedOpt,"/out:$work/Managed.Foundation.netmodule",(Resolve-Path "$work/AssetBuffer.cs").Path,(Resolve-Path 'recovery/src/Managed/Hash/FastHash.cs').Path) "$out/foundation-build.log"
         $foundation = [IO.Path]::GetFullPath("$work/Managed.Foundation.netmodule")
         $resources = @(@{path=(Join-Path $root 'recovery/src/Managed/Core/BinaryAssetBuilderProject.xsd');logicalName='BinaryAssetBuilderProject.xsd'})
     } else {
@@ -53,7 +54,8 @@ try {
         $objects += $object
     }
     $module = Join-Path $work 'Managed.Application.netmodule'
-    $applicationArgs = @('/nologo','/codepage:65001','/target:module','/platform:x86',"/addmodule:$foundation,$($objects[-1])",'/r:System.Xml.dll','/r:System.Core.dll',"/out:$module",(Resolve-Path 'recovery/probes/SingleExe/Probe.cs').Path)
+    $modulePlatform = if($Minimal){'/platform:anycpu'}else{'/platform:x86'}
+    $applicationArgs = @('/nologo','/codepage:65001','/target:module',$modulePlatform,$managedOpt,"/addmodule:$foundation,$($objects[-1])",'/r:System.Xml.dll','/r:System.Core.dll',"/out:$module",(Resolve-Path 'recovery/probes/SingleExe/Probe.cs').Path)
     $applicationCsc = $csc
     if (!$Minimal) {
         $packageLine = (& dotnet nuget locals global-packages --list)
@@ -89,7 +91,7 @@ try {
     # Only EXE, configuration and full Foundation's declared ANTLR dependency enter the run directory.
     @{
         sourceCommit=(git rev-parse HEAD).Trim(); configuration=$Configuration
-        toolchain=@{clPath=(Get-Command cl.exe).Source;clVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command cl.exe).Source).FileVersion;linkPath=(Get-Command link.exe).Source;linkVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command link.exe).Source).FileVersion;applicationCscPath=$applicationCsc;cscPath=$csc;cscVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo($csc).FileVersion;vcToolsVersion=$env:VCToolsVersion;sdkVersion=$env:WindowsSDKVersion;fp='precise';platform='x86'}
+        toolchain=@{clPath=(Get-Command cl.exe).Source;clVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command cl.exe).Source).FileVersion;linkPath=(Get-Command link.exe).Source;linkVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command link.exe).Source).FileVersion;applicationCscPath=$applicationCsc;cscPath=$csc;cscVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo($csc).FileVersion;vcToolsVersion=$env:VCToolsVersion;sdkVersion=$env:WindowsSDKVersion;fp='precise';platform='x86';intermediateModulePlatform=if($Minimal){'AnyCPU'}else{'x86'}}
         sourceFiles=@(@('recovery/src/Native/Relocation.cpp','recovery/src/Native/Relocation.h','recovery/src/Native/ScalarParsing.cpp','recovery/src/Native/ScalarParsing.h','recovery/src/Native/ArmorTemplate.cpp','recovery/src/Native/ArmorTemplate.h','recovery/src/Bridge/ArmorCompiler.cpp','recovery/src/Bridge/XmlNodeAdapter.h','recovery/probes/SingleExe/Probe.cs') | ForEach-Object { @{path=$_;sha256=(Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant()} })
         scope=if($Minimal){'minimal link probe: real AssetBuffer, Hash, Armor CompileXml; not full G1'}else{'Foundation plus real Armor bridge unified-link probe'}
         foundationSha256=(Get-FileHash $foundation -Algorithm SHA256).Hash.ToLowerInvariant()

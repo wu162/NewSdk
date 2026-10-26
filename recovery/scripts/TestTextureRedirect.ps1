@@ -17,6 +17,8 @@ try {
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0"/></startup></configuration>' | Set-Content "$hostExe.config"
     & python recovery/probes/TextureRedirect/MakeFixture.py "$work/fixture.tga"
     if ($LASTEXITCODE -ne 0) { throw 'Texture fixture generation failed' }
+    & python recovery/probes/TextureRedirect/MakeFixture.py "$work/fixture.tga.wrong-size.tga" 512
+    if ($LASTEXITCODE -ne 0) { throw 'Wrong-size terrain fixture generation failed' }
     & $hostExe "$original/BinaryAssetBuilder.TextureCompiler.dll" "$work/fixture.tga" "$out/A.txt" original *> "$out/A.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/A.log"; throw 'G2 A original Texture baseline failed' }
     $receipt.A='passed'

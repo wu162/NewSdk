@@ -22,7 +22,7 @@ python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
 ./recovery/scripts/TestTextureRedirect.ps1 -TargetExe <isolated-final-exe> -RequireComplete
 ```
 
-A and B run three actual Win32 ProcessInstance routes, each success → missing
+A and B run three actual Win32 ProcessInstance routes, each success → invalid
 input → success in one plugin/process, comparing all three buffers and CustomData
 byte for byte. Native and managed load paths are recorded. An invalid original
 fixture fails A before any writer result can be accepted. Metadata lookup,
@@ -38,7 +38,9 @@ not independently disassembled; that remaining limit is explicit in the receipt.
 Any protected-range change fails. No automatic fallback patches or forwarding
 assemblies are generated.
 
-The initial fixture is a deterministic uncompressed 256² BGRA TGA. It must first
+The valid fixture is a deterministic uncompressed 256² BGRA TGA.
+Texture/OnDemand negatives use missing files; Terrain uses a known-invalid
+512² tile because the original DLL returns normally for a missing terrain tile. It must first
 be proven valid in A; it is not an existing SDK acceptance fixture. This component
 probe does not exercise XSD/preprocessing and cannot replace the real SDK input
 and routing portion of G2. G2 is complete only after all these requirements and
