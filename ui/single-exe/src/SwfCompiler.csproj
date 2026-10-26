@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>SwfCompiler</AssemblyName>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishAot>true</PublishAot>
+    <SelfContained>true</SelfContained>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <WarningsAsErrors>$(WarningsAsErrors);IL2026;IL3050</WarningsAsErrors>
+    <NativeBridgeLibrary Condition="'$(NativeBridgeLibrary)' == ''">$(MSBuildThisFileDirectory)../../.work/single-exe-native/SwfCompiler.Native.lib</NativeBridgeLibrary>
+  </PropertyGroup>
+  <ItemGroup>
+    <DirectPInvoke Include="swfc_native" />
+    <NativeLibrary Include="$(NativeBridgeLibrary)" />
+  </ItemGroup>
+  <Target Name="RequireNativeBridge" BeforeTargets="PrepareForBuild" Condition="'$(DesignTimeBuild)' != 'true'">
+    <Error Condition="!Exists('$(NativeBridgeLibrary)')" Text="Build the static native bridge first using ui/single-exe/Publish.ps1." />
+  </Target>
+</Project>

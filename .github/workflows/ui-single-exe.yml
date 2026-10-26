@@ -1,0 +1,39 @@
+name: UI single EXE framework
+on:
+  push:
+    branches: [feature/swf-direct-compiler]
+    paths:
+      - 'ui/single-exe/**'
+      - '!ui/single-exe/**/*.md'
+      - '.github/workflows/ui-single-exe.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-aot:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            ui/single-exe
+            ui/fixtures
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: microsoft/setup-msbuild@v2
+      - name: Link native static bridge into Native AOT EXE
+        run: ./ui/single-exe/Publish.ps1
+      - name: Test isolated single executable
+        run: python ui/single-exe/tests/smoke.py ui/.work/single-exe-publish/SwfCompiler.exe ui/fixtures/CoronaUIMain.swf ui/.work/single-exe-validation.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SwfCompiler-framework
+          path: ui/.work/single-exe-publish/SwfCompiler.exe
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ui-single-exe-evidence
+          path: ui/.work/single-exe-validation.json
+          if-no-files-found: error
