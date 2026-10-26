@@ -1,3 +1,5 @@
+> 当前工作入口：[single-exe/README.md](single-exe/README.md)。单EXE重构框架已通过Native AOT静态链接与隔离运行验证，转换算法尚未迁入；下文仍保留原源码CLI基线的构建说明。
+
 # SWF 编译项目
 
 源码已直接导入：[vendor/swf2apt](vendor/swf2apt)。交接：[RESUME.md](RESUME.md)。来源与验证：[VENDOR.md](VENDOR.md)。

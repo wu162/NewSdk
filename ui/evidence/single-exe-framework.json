@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "58a987b80beba690b3eb7cc0468abeae50c28158",
+  "runId": "40291703530",
+  "exeSha256": "2ffc705f50efa27fc94cfa41e69ab65c67b73e041a93f63e327601842ffbe8a2",
+  "exeBytes": 2536448,
+  "nativeAot": true,
+  "runtimeFilesRequired": [
+    "SwfCompiler.exe"
+  ],
+  "nativeAbi": 1,
+  "nativeFeatures": 0,
+  "standaloneInspectionPassed": true,
+  "cwsAndFwsPassed": true,
+  "compileExplicitlyUnavailable": true,
+  "conversionImplemented": false,
+  "sdkIntegration": false
+}
