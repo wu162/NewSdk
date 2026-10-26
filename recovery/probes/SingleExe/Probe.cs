@@ -135,7 +135,7 @@ public static class SingleExeProbe
             }
             using(StreamWriter audit=new StreamWriter(args[0]+".bindings")) {
                 foreach(Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
-                    audit.WriteLine(assembly.FullName+"\t"+assembly.Location);
+                    audit.WriteLine(assembly.FullName+"\t"+(assembly.IsDynamic ? "<dynamic; no physical file>" : assembly.Location));
                     if(assembly!=self && (assembly.GetName().Name.StartsWith("BinaryAssetBuilder.") || assembly.GetName().Name.StartsWith("Recovered.") || assembly.GetName().Name.StartsWith("EALA.")))throw new Exception("hidden business assembly loaded");
                 }
             }
