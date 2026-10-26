@@ -1,38 +1,36 @@
 # MOD 编译器重构：最小续接入口
 
 更新：2026-10-26。分支 `refactor/modcompiler-p0-p3`；草稿 PR #13 → `recovery/compiler-source`。
-只在当前分支普通提交；禁止强推、未经批准合入；默认单代理。本轮仅快速交接，未继续实现或触发验证。
+只在当前分支普通提交；禁止强推、未经批准合入；默认单代理。本轮按用户授权最多 5 个子代理推进 P4，未合入其他分支。
 
 ## 当前状态（先读这里即可）
 
 - **P4 验收未完成，P5 未接入。** 生产 `build` 仍返回 `BACKEND_NOT_INTEGRATED`（退出码 3），不能宣称可构建真实 MOD。
-- 本次核对的最新实现为 `0500d4a`；后续文档提交不代表重新验证业务代码。
-- `7ace438` 已实现独立验证宿主、生产链接输入清单及 Armor/Hash、GameObject、Weapon 接线。旧交接的“宿主尚未实现”已失效，**不要重复实现**。
-- `0500d4a` 已修复 GameObject 缺少 Base.xsd、Weapon 日志参数绑定、贴图预期拒绝退出码泄漏；W3X 历史 capture 下载/重放与 XML smoke 已接入工作流。
-- 该实现对应的 native integration 运行在本次交接检查时仍进行中：Foundation 步骤成功，Debug/Release 生产检查进行中，其余组件待执行。**这是时间点快照，续接必须刷新状态。**
-- 上一提交记录称生产部署及 Armor/Hash Debug/Release 已过；这里只核对了提交记录，未重新读取原始收据，不把它升级为当前提交通过。
+- 上轮实现 `0500d4a` 的原始收据已核对：生产部署、Armor/Hash、GameObject、Weapon、贴图适配均为 Debug/Release 成功；生产/宿主 SHA、sourceCommit、配置一致。GameObject 为每配置 1,382,468 fixture，Weapon 为 66,152 fixture。
+- 同轮 W3X 因全 Native/Bridge 目录比较误拒绝历史 capture；XML smoke 因 typed `$Result` 与 `$result` 同名导致 JSON 对象被强转字符串失败。已修复两项，并补依赖闭包和报告校验回归。
+- `3f1d90f` 绑定宿主 config/ANTLR 哈希，拒绝陈旧运行目录，补统一工厂复用/释放和最终链接 Foundation 行为测试。宿主收据 schema=2，旧成功不能冒充新宿主验收。
+- `9abdea5` 已接入最终组合音频 13 组既有 PC 差分和 XML 63 组完整矩阵；XML 原 DLL 在隔离测试进程中经无损 DOM 管道调用。生产不包含该测试 transport。
+- 上述批次 Windows 验证中，需查询原始终态。后续 XML 计数修复、完整组合贴图验证仍在准备，不能把本地回归当作 Windows 成功。
 
 ## 下一步（按顺序，先取证再修改）
 
-1. 查本分支 `.github/workflows/refactor-native.yml` 最近运行，匹配上述实现提交；仅输出 SHA、状态和失败步骤。不要因聊天中断另起重复运行。
-2. 读取该运行 artifact 中相关 `validation.json`、生产/宿主 `build.json`；失败时只取相关日志尾部。核对 sourceCommit、配置、生产与宿主身份。运行成功也不等于 P4 全部验收。
-3. 只修实际失败项；若全部已通过，再推进 XML 受影响组完整边界/拒绝差分。联合 smoke 不能替代各组完整矩阵；P4 门槛满足前不冒进 P5。
-4. 复用有效历史证据；链接变化的新组合须验。无需重复完整 SDK 基线，确有必要时集中验证。
+1. 查本分支 `.github/workflows/refactor-native.yml` 最近**实际执行**运行，匹配实现提交；只输出 SHA、状态、失败步骤。未终结时不要重复触发。
+2. 读取相关 `validation.json`、生产/宿主 `build.json`，核对 sourceCommit、配置、两份 EXE 身份和运行文件；失败只取相关日志尾部。工作流成功不自动代表 P4/G3/SDK 验收。
+3. 集中修实际失败；完整 XML 需全部 63 组、两配置、四平台及原有布局/拒绝矩阵，不以联合 smoke 替代。已知 Locomotor/FXParticle 为单三缓冲比较，按原组契约验收。
+4. 完整生产对象组合的贴图 payload/部署拒绝待接入；保留固定原件及 PE 审计，验证宿主不得笼统放行业务 DLL。P4 门槛满足后才推进 P5。
+5. 复用匹配输入的原始证据；链接/宿主变化的新组合须验证，无需重复完整 SDK 基线。
 
 ## 按任务读取，禁止启动时递归展开链接
 
-| 需要解决的问题 | 只读取对应入口 |
+| 问题 | 对应入口（除工作流外相对 recovery） |
 | --- | --- |
-| 当前失败/工作流接线 | `.github/workflows/refactor-native.yml` + 失败步骤对应脚本 |
-| 宿主身份或输入一致性 | `scripts/BuildCompilerValidationHost.ps1`、`scripts/CompilerValidation.Common.ps1` |
-| 生产部署 | `scripts/TestCompiler.ps1`、`tests/CompilerDeployment.cs` |
-| 组件失败 | `scripts/TestCompilerDifferential.ps1` / `TestCompilerGameObject.ps1` / `TestCompilerWeapon.ps1` / `TestW3xProduct.ps1` / `TestLegacyTextureAdapter.ps1` 中相关一项 |
-| XML 覆盖 | `scripts/TestCompilerXmlSmoke.ps1`、`scripts/PrepareCompilerXmlSmoke.py`；再定位具体组 |
-| 阶段验收定义 | `NewSdk_ModCompiler_Refactor_Plan.md` 中 P4/P5 相关段落 |
-| 历史实现背景与详细约束 | `REFACTOR_HANDOFF_ARCHIVE_20261026.md`（历史快照，非当前待办） |
-| 效率/保存检查点细则 | `EFFICIENCY.md` 对应章节 |
-
-表内路径相对 recovery，工作流路径相对仓库根。
+| 失败/工作流 | `.github/workflows/refactor-native.yml` + 对应失败脚本 |
+| 宿主身份 | `scripts/BuildCompilerValidationHost.ps1`、`scripts/CompilerValidation.Common.ps1`、`tests/CompilerValidationEntry.cpp` |
+| 生产部署/管理行为 | `scripts/TestCompiler.ps1`、`scripts/TestCompilerFoundation.ps1` |
+| Tokenizer/音频 | `scripts/TestCompilerDifferential.ps1`、`TestCompilerGameObject.ps1`、`TestCompilerWeapon.ps1`、`TestCompilerAudio.ps1` |
+| W3X/贴图 | `scripts/TestW3xProduct.ps1`、`scripts/CheckW3xCaptureInputs.py`、贴图对应失败脚本 |
+| XML 全矩阵/smoke | `scripts/TestCompilerXmlMatrices.ps1`、`scripts/PrepareCompilerXmlMatrices.py`、`scripts/TestCompilerXmlSmoke.ps1` |
+| 阶段定义/历史/效率 | `NewSdk_ModCompiler_Refactor_Plan.md` P4/P5；`REFACTOR_HANDOFF_ARCHIVE_20261026.md` 按需；`EFFICIENCY.md` |
 
 ## 不可丢失的边界
 

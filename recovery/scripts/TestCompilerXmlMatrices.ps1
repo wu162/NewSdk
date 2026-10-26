@@ -39,7 +39,7 @@ function Check-XmlMatrix([string]$Log,[string]$Transcript,[string]$Group) {
         if($line -match '^PASS platform=(\d+) fixtures=(\d+) arrayComparisons=(\d+) rejections=(\d+) layoutAssertions=(\d+)$' -or
            $line -match '^PASS platform=(\d+) fixtures=(\d+) comparisons=(\d+) rejections=(\d+) independent=(\d+)$') {
             $row=@{platform=[int]$Matches[1];fixtures=[int]$Matches[2];comparisons=[int]$Matches[3];rejections=[int]$Matches[4];layouts=[int]$Matches[5]}
-            if($Group -eq 'Xmlpowers'){if($row.comparisons -ne 3*$row.fixtures){throw 'XML powers three-buffer matrix incomplete'}}
+            if($Group -in @('Xmlpowers','Xmllocomotor','Xmlfxparticle')){if($row.comparisons -ne 3*$row.fixtures){throw 'XML single-path three-buffer matrix incomplete'}}
             elseif($Group -eq 'Xmlplayers'){if($row.comparisons -lt 3*$row.fixtures){throw 'XML players three-buffer matrix incomplete'}}
             elseif($Group -eq 'Xmlai'){if($row.fixtures -lt 1000 -or $row.comparisons -lt 6000 -or $row.rejections -lt 30 -or $row.layouts -lt 300){throw 'XML AI complete coverage missing'}}
             elseif($row.comparisons -ne 6*$row.fixtures){throw 'XML matrix lost direct or ProcessInstance comparisons'}

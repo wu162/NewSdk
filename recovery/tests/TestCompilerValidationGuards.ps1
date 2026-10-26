@@ -7,7 +7,7 @@ $ErrorActionPreference='Stop'
 $work=Join-Path ([IO.Path]::GetTempPath()) ('newsdk validation guards '+[guid]::NewGuid().ToString('N'))
 try {
     New-Item -ItemType Directory "$work/product/bin","$work/product/obj","$work/product/validation/bin" -Force|Out-Null
-    $product="$work/product"
+    $product=(Resolve-Path "$work/product").Path
     function Hash($Path){(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
     function WriteJson($Object,$Path){$Object|ConvertTo-Json -Depth 8|Set-Content $Path}
     $source=(git -C $Repo rev-parse HEAD).Trim()
@@ -15,8 +15,9 @@ try {
     'config'|Set-Content "$product/bin/NewModCompiler.exe.config"
     'antlr'|Set-Content "$product/bin/antlr.runtime.dll"
     foreach($name in @('foundation','application','entry','nativeOrBridge','resource')){$name|Set-Content "$product/obj/$name.obj"}
-    $inputs=@('foundation','application','entry','nativeOrBridge','resource'|ForEach-Object{@{kind=$_;path="$product/obj/$_.obj";sha256=(Hash "$product/obj/$_.obj")}})
-    $arguments=@('/nologo',"/OUT:$product/bin/NewModCompiler.exe",'/ENTRY:NewModCompiler.Hosting.CompilerEntry.Main')+@($inputs|ForEach-Object{$_.path})
+    $inputs=@('foundation','application','entry','nativeOrBridge','resource'|ForEach-Object{@{kind=$_;path=(Resolve-Path "$product/obj/$_.obj").Path;sha256=(Hash "$product/obj/$_.obj")}})
+    $productionExe=(Resolve-Path "$product/bin/NewModCompiler.exe").Path
+    $arguments=@('/nologo',('/OUT:'+$productionExe),'/ENTRY:NewModCompiler.Hosting.CompilerEntry.Main')+@($inputs|ForEach-Object{$_.path})
     $recipe=@{schemaVersion=1;sourceCommit=$source;configuration='Debug';inputs=$inputs;arguments=$arguments}
     WriteJson $recipe "$product/link-inputs.json"
     WriteJson @{sourceCommit=$source;configuration='Debug';exeSha256=(Hash "$product/bin/NewModCompiler.exe");foundationSha256=$inputs[0].sha256;applicationSha256=$inputs[1].sha256;entryPoint='NewModCompiler.Hosting.CompilerEntry.Main';nativeBuild=@{objects=@($inputs[3].path)}} "$product/build.json"
