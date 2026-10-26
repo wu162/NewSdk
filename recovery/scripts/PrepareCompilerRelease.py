@@ -16,8 +16,8 @@ import PrepareCompilerCliReuse as guard
 SOURCE = '6bc790e91c92891088f3e1b0d671e3ce85050a08'
 RUN = 40411445532
 ATTEMPT = 1
-ARTIFACT = 0
-SHA256 = ''  # Pin only after this exact source run has reached full success.
+ARTIFACT = 12694930277
+SHA256 = '053f326828a7c9a5e45906899cbaa43f7c9884e7ee53831171132c512a77e07b'
 REPOSITORY = 'wu162/NewSdk'
 WORKFLOW = '.github/workflows/refactor-core-lifecycle.yml'
 SDK_SOURCE = '9dcaac8212a5d5dfd690af0d1e69f58cc6c3cee6'
@@ -29,6 +29,7 @@ RUNTIME = guard.RUNTIME + ('BinaryAssetBuilder.TextureCompiler.dll','BinaryAsset
 ALLOWED = {
     'recovery/scripts/PrepareCompilerRelease.py', '.github/workflows/refactor-release.yml',
     'recovery/REFACTOR_RESUME.md', 'recovery/P5_LIFECYCLE_AUDIT.md', 'recovery/COMPILER_RELEASE.md',
+    'recovery/P7_PACKAGING.md',
     'recovery/scripts/PrepareCompilerSessionReplay.py',
 }
 SUCCESS_STEPS = {
@@ -104,6 +105,11 @@ def sdk_receipt(archive, repo, candidate):
             require(len(modes)==2 and {m.get('configuration') for m in modes}==guard.MODES and all(m.get('succeeded') is True for m in modes), 'Historical SDK modes incomplete')
             for mode in modes:
                 require(mode.get('comparisons') and all(c.get('outputs') and all(o.get('byteIdentical') is True and o['original']['sha256']==o['product']['sha256'] for o in c['outputs']) for c in mode['comparisons']), 'Historical raw SDK output comparison incomplete')
+            base=path.rsplit('/',1)[0];protocol=json.loads(z.read(base+'/protocol.json').decode('utf-8-sig'))
+            require(protocol.get('sourceCommit')==SDK_SOURCE and protocol.get('status')=='passed' and protocol.get('errorCount')==0 and
+                    len(protocol.get('matrix',[]))==2 and {m.get('configuration') for m in protocol['matrix']}==guard.MODES and protocol.get('validatedFiles'), 'Historical SDK protocol acceptance incomplete')
+            for row in protocol['validatedFiles']:
+                require(guard.digest(z.read(base+'/'+guard.safe_name(row['path'])))==row['sha256'], 'Historical SDK protocol raw input hash differs')
             return raw, {'sourceCommit':SDK_SOURCE,'binarySourceCommit':SDK_BINARY,'runId':SDK_RUN,'artifactId':SDK_ARTIFACT,'archiveSha256':SDK_SHA256,
                          'currentBinaryRetested':False,'scope':d['scope'],'emptyOptionalGroups':d.get('emptyOptionalGroups'),
                          'sdkInputsUnchanged':True,'reason':'P7 only adds explicit BIG apt/maps; current affected Core/CLI/cache/Texture/BIG groups must pass; historical full-mymod binary identity is retained'}

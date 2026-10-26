@@ -26,6 +26,37 @@ jobs:
           sparse-checkout: |
             /*
             !/recovery/evidence/
+      - name: Measure original SDK echo version bytes before release preparation
+        shell: pwsh
+        run: |
+          $out="recovery/artifacts/legacy-version-probe/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          New-Item -ItemType Directory -Path $out|Out-Null
+          $work=Join-Path $env:RUNNER_TEMP ('v'+[Guid]::NewGuid().ToString('N').Substring(0,8))
+          New-Item -ItemType Directory -Path (Join-Path $work 'aptui')|Out-Null
+          [IO.File]::WriteAllText((Join-Path $work 'probe.xml'),'fixture')
+          [IO.File]::WriteAllText((Join-Path $work 'aptui/probe.manifest'),'fixture')
+          $legacy=Get-Content -LiteralPath SDK/defaultscript.cs -Raw
+          $producer=Get-Content -LiteralPath recovery/src/App/Application/BigPackage.cs -Raw
+          if(!$legacy.Contains('(echo. >') -or !$producer.Contains('file.WriteByte(13);file.WriteByte(10);')){throw 'Version-byte probe no longer matches the exact reviewed SDK and production source'}
+          $command='(@echo off) & (for %I in ("'+$work+'\probe.xml") do ((if exist "'+$work+'\aptui\%~nI.manifest" (echo. >"'+$work+'\aptui\%~nI.version"))))'
+          $start=[Diagnostics.ProcessStartInfo]::new()
+          $start.FileName=Join-Path $env:windir 'System32/cmd.exe';$start.Arguments='/C '+$command
+          $start.WorkingDirectory=$work;$start.UseShellExecute=$false;$start.CreateNoWindow=$true
+          $start.RedirectStandardOutput=$true;$start.RedirectStandardError=$true
+          $process=[Diagnostics.Process]::new();$process.StartInfo=$start
+          try {
+            if(!$process.Start()){throw 'Original cmd version probe did not start'}
+            $stdout=$process.StandardOutput.ReadToEndAsync();$stderr=$process.StandardError.ReadToEndAsync()
+            if(!$process.WaitForExit(10000)){$process.Kill($true);throw 'Original cmd version probe timed out'}
+            [IO.File]::WriteAllText((Join-Path $out 'stdout.log'),$stdout.GetAwaiter().GetResult())
+            [IO.File]::WriteAllText((Join-Path $out 'stderr.log'),$stderr.GetAwaiter().GetResult())
+            $version=Join-Path $work 'aptui/probe.version'
+            [byte[]]$bytes=@();if(Test-Path -LiteralPath $version){$bytes=[IO.File]::ReadAllBytes($version)}
+            [IO.File]::WriteAllBytes((Join-Path $out 'original.version'),[byte[]]$bytes)
+            $matches=($process.ExitCode -eq 0 -and $bytes.Length -eq 2 -and $bytes[0] -eq 13 -and $bytes[1] -eq 10)
+            @{schemaVersion=1;sourceCommit=(git rev-parse HEAD).Trim();binarySourceCommit='6bc790e91c92891088f3e1b0d671e3ce85050a08';runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;sourceScript='SDK/defaultscript.cs';sourceScriptSha256=(Get-FileHash SDK/defaultscript.cs -Algorithm SHA256).Hash.ToLowerInvariant();originalCommand=$command;originalExitCode=$process.ExitCode;actualBytes=@($bytes);actualHex=([Convert]::ToHexString([byte[]]$bytes)).ToLowerInvariant();expectedProductionBytes=@(13,10);matchesCurrentProduction=$matches;scope='Exact original SDK echo-dot space redirection command measured by Windows cmd, before any release preparation'}|ConvertTo-Json -Depth 5|Set-Content (Join-Path $out 'receipt.json')
+            if(!$matches){throw 'Original SDK version marker bytes differ from the current production marker; release refresh blocked (see legacy-version-probe receipt)'}
+          } finally {$process.Dispose();if(Test-Path -LiteralPath $work){Remove-Item -LiteralPath $work -Recurse -Force}}
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -49,6 +80,7 @@ jobs:
         with:
           name: refactor-release-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
+            recovery/artifacts/legacy-version-probe/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/release-product/release-preparation.json
             recovery/artifacts/release-product/accepted-cli.json
