@@ -1,6 +1,6 @@
 # P7：内建 BIG/SKUDEF
 
-状态：apt/maps 主生产组已通过两配置：生产组合、Core全组、真实CLI、缓存、原MakeBig格式/成员内容oracle及协议均成功。正在补测旧SDK版本标记命令的精确Windows输出字节并刷新包含BIG的发行包；该收尾有独立门槛，未通过则不发布新包。完整base后处理仍未完成。
+状态：apt/maps 格式/成员/回滚主组已通过两配置，但收尾原Windows命令实证发现APT版本标记差异：旧脚本产生 `20 0d 0a`（空格+CRLF），旧候选只写 `0d 0a`。发行包刷新已被明确阻止。源码、App断言与CLI oracle已改为实测三字节，尚未重编译/验收；不能把旧主组成功冒认为这项修正版已通过。P5/P6已验收版本保持独立，base后处理仍未完成。
 
 ```powershell
 ./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --package-content apt,maps --package-format big
@@ -14,7 +14,7 @@
 | --- | --- |
 | APT四输出 | `data/aptui/<流名>.manifest/.bin/.imp/.relo` |
 | APT CustomData | `data/aptui/<流名>/cdata/<文件>.cdata` |
-| APT派生版本 | `data/aptui/<流名>.version`，精确两个字节CRLF |
+| APT派生版本 | `data/aptui/<流名>.version`，原Windows命令实测三个字节空格+CRLF（`20 0d 0a`） |
 | MapMetaData四输出 | `data/additionalmaps/<流名>.manifest/.bin/.imp/.relo` |
 | maps CustomData | `data/additionalmaps/<流名>/cdata/<文件>.cdata` |
 
@@ -24,4 +24,4 @@ BIG4遵循原MakeBig端序、NUL路径、`L219`目录尾和连续原始payload�
 
 验证入口为 `TestCompilerBig.ps1` 与 `ValidateCompilerBig.py`：真实单选/组合、完整CDATA、APT版本、SKUDEF原始字节、陈旧代替换、取消/发布失败重试，以及同清单原SDK MakeBig的结构/完整成员与内容对照。原工具的目录遍历顺序不稳定，不能错误要求两份archive整体字节顺序相同；每个成员内容仍逐字节核验。格式/路径/内容证据不等于实际启动游戏的运行验收。
 
-下一组优先恢复base必需LoD并核验旧脚本顺序，再扩展必要AssetMerge/额外文件及版本参数；不启动游戏、安装MOD或写CurrentMOD.ini。正式发行包必须在当前候选终验后刷新，旧P6包不自动包含本能力。
+下一组先重建并验收三字节版本修正，再按新的真实成功归档重新pin发布准备器及其原命令期望；旧二字节候选保持禁止刷新。然后优先恢复base必需LoD并核验旧脚本顺序，再扩展必要AssetMerge/额外文件及版本参数；不启动游戏、安装MOD或写CurrentMOD.ini。正式发行包必须在当前候选终验后刷新，旧P6包不自动包含本能力。

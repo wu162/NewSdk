@@ -65,7 +65,7 @@ namespace NewModCompiler.Tests
                     string text=Encoding.ASCII.GetString(name.ToArray());result.Add(text);
                     if(text.EndsWith(".version",StringComparison.Ordinal)) {
                         long position=reader.BaseStream.Position;reader.BaseStream.Position=offset;
-                        Check(size==2 && reader.ReadByte()==13 && reader.ReadByte()==10,"APT version does not preserve the old echo. CRLF bytes");reader.BaseStream.Position=position;
+                        Check(size==3 && reader.ReadByte()==32 && reader.ReadByte()==13 && reader.ReadByte()==10,"APT version does not preserve the measured old echo-dot space/CRLF bytes");reader.BaseStream.Position=position;
                     }
                 }
                 return result.ToArray();

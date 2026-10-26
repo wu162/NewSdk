@@ -1,0 +1,23 @@
+{
+  "actualHex": "200d0a",
+  "originalCommand": "(@echo off) & (for %I in (\"D:\\a\\_temp\\vce6d3069\\probe.xml\") do ((if exist \"D:\\a\\_temp\\vce6d3069\\aptui\\%~nI.manifest\" (echo. >\"D:\\a\\_temp\\vce6d3069\\aptui\\%~nI.version\"))))",
+  "sourceScript": "SDK/defaultscript.cs",
+  "scope": "Exact original SDK echo-dot space redirection command measured by Windows cmd, before any release preparation",
+  "binarySourceCommit": "6bc790e91c92891088f3e1b0d671e3ce85050a08",
+  "originalExitCode": 0,
+  "matchesCurrentProduction": false,
+  "sourceScriptSha256": "a4f41c72ea81319ad75e5251f40b10efa202c28f8021b0594af222321686426e",
+  "expectedProductionBytes": [
+    13,
+    10
+  ],
+  "runAttempt": "1",
+  "runId": "40414073144",
+  "schemaVersion": 1,
+  "actualBytes": [
+    32,
+    13,
+    10
+  ],
+  "sourceCommit": "124b5dba5ed3679a36ef959d6fff294f62a469ec"
+}

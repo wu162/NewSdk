@@ -111,12 +111,12 @@ function ExpectedInventory($Loose){
         $expected+=,@{name=$name;source=$source;bytes=$artifact.Size;sha256=$artifact.Sha256}
     }
     # The old SDK writes echo. after each successful APT stream, producing
-    # exactly CRLF in <stream>.version. Derive only from this current plan.
+    # exactly space + CRLF (Windows probe 200d0a) in <stream>.version. Derive only from this current plan.
     foreach($task in @($Loose.report.plan.Tasks|Where-Object{$_.Content -ceq 'apt'})){
         $stem=[IO.Path]::GetFileNameWithoutExtension($task.InputPath)
         $directory=Join-Path $Loose.caseOut 'versions';New-Item -ItemType Directory -Force -Path $directory|Out-Null
-        $source=Join-Path $directory ($stem+'.version');[IO.File]::WriteAllBytes($source,[byte[]](13,10))
-        $expected+=,@{name=('data\aptui\'+$stem.ToLowerInvariant()+'.version');source=$source;bytes=2;sha256=(Hash $source)}
+        $source=Join-Path $directory ($stem+'.version');[IO.File]::WriteAllBytes($source,[byte[]](32,13,10))
+        $expected+=,@{name=('data\aptui\'+$stem.ToLowerInvariant()+'.version');source=$source;bytes=3;sha256=(Hash $source)}
     }
     return $expected
 }

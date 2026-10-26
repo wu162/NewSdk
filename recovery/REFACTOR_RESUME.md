@@ -15,12 +15,12 @@
 - 完整未精简 mymod 原 BAB 先行与两配置生产四输出/cdata对照已通过。mymod apt/maps无入口，明确记录空集合；另有既有真实APT/MapMetaData及三份Upheaval UI完整依赖闭包证据，仍不代替完整 UI/runtime。
 - P6 Debug/Release 正式 ZIP 已通过：精确五运行文件、独立解压后源bin/包bin doctor与真实小MOD、四输出逐字节及协议检查。系统仍需.NET4.8/x86 VC80/现有VC与DirectX；包证据不推断裸Windows无前置要求。
 - 本轮首次生产链接C1001已通过等价移除App新增异常过滤器解决；生产重建成功。其后仅测试/发布工具变更严格复用同一已接受EXE与host，分别记录二进制/测试来源，不冒充当前重编译。
-- P7 内建 BIG/skudef 的 apt/maps 主生产组已通过两配置：按游戏 Data/AptUI、Data/AdditionalMaps 布局精确消费本次产物；base BIG 依赖尚未恢复的 LoDStreamBuilder，必须明确拒绝，loose不受影响。旧SDK版本标记原命令字节补测及含BIG发行包刷新正在收尾，单独记录，不由主组推断完成。
+- P7 内建 BIG/skudef 的 apt/maps 主生产组已通过两配置：按游戏 Data/AptUI、Data/AdditionalMaps 布局精确消费本次产物；base BIG 依赖尚未恢复的 LoDStreamBuilder，必须明确拒绝，loose不受影响。旧SDK原命令实证发现版本标记应为`20 0d 0a`，旧候选两字节不符，包刷新已阻止。源码/断言/oracle已修为三字节，尚未重建，不能标完成。
 - XML63组/非XML历史差分按原sourceCommit与未变化输入复用；不重复完整SDK或无依据路径排列。BIG完整base后处理、完整Unicode纹理、完整UI/runtime仍未完成。
 
 ## 下一步（按顺序）
 
-1. 跟进当前旧SDK版本标记命令的Windows精确字节补测与发行包刷新到终态；若与当前生产标记不一致，保留证据并阻止刷新，先修兼容再发布。P7 apt/maps主生产组已通过，不重复整组除非生产输入变化或实际缺口要求。
+1. **先重建/验收已写入源码的APT三字节版本修正**，保留原Windows `20 0d 0a` 实证与原主组成功范围。随后将发布准备器固定到修正后的真实成功source/run/archive，并同步旧命令期望为三字节，刷新含BIG发行包。旧二字节候选不得发布；本轮未再触发新重建。
 2. 按原脚本必要顺序恢复/整合 base 所需 LoDStreamBuilder；需联合时保持 HashFix→ModAssetResolver→LoD。AssetMerge只在MOD自带预编译资产合并开启时执行；不能把raw BIG称为完整可用base包。
 3. 后续候选稳定后刷新P6正式包；已有包属于已验收版本，不自动包含后续候选。还有本轮时间就推进下一项依赖满足的能力，不因检查点提前结束。
 4. 固定归档重放入口已启用为精确partial-Core恢复，不再钉无产物源。只在实际测试修复需要时使用，校验完整生产闭包/原始归档/成功范围，保留原失败终态与二进制/测试双来源；不重复已过SC。

@@ -57,15 +57,15 @@ namespace NewModCompiler.Application
                 entries.Add(new BigArchiveEntry {Name=name,SourcePath=artifact.Path});
             }
             foreach(var pair in owners) if(pair.Value.Count!=4) throw new IOException("BIG packaging requires all four linked files for every selected stream.");
-            // SDK/defaultscript.cs adds an empty CRLF .version only for each
-            // actual APT stream (echo. after successful manifest generation).
+            // SDK/defaultscript.cs uses echo-dot plus space redirection for each
+            // actual APT stream: measured Windows bytes are space + CRLF.
             // MapMetaData has no such rule. Derive these from current tasks only.
             int versionIndex=0;
             foreach(var task in plan.Tasks) if(task.Content=="apt") {
                 cancellation.ThrowIfCancellationRequested();
                 string directory=Path.Combine(staging,".package-versions");Directory.CreateDirectory(directory);
                 string source=Path.Combine(directory,(versionIndex++).ToString(System.Globalization.CultureInfo.InvariantCulture)+".version");
-                using(var file=new FileStream(source,FileMode.CreateNew,FileAccess.Write,FileShare.None)) {file.WriteByte(13);file.WriteByte(10);}
+                using(var file=new FileStream(source,FileMode.CreateNew,FileAccess.Write,FileShare.None)) {file.WriteByte(32);file.WriteByte(13);file.WriteByte(10);}
                 string name="Data\\AptUI\\"+Path.GetFileNameWithoutExtension(task.InputPath)+".version";
                 if(!names.Add(name)) throw new IOException("Case-insensitive APT version archive path collision.");
                 entries.Add(new BigArchiveEntry {Name=name,SourcePath=source});
