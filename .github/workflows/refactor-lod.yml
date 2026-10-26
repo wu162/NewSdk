@@ -1,0 +1,40 @@
+name: Prepared RA3 LoD original differential
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-lod.yml'
+      - 'recovery/preparation/lod/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lod:
+    runs-on: windows-2022
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            recovery/preparation/lod
+            SDK/tools
+      - name: Build prepared in-process LoD component in both configurations
+        shell: pwsh
+        run: |
+          $vs=& "${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
+          $csc=Join-Path $vs 'MSBuild/Current/Bin/Roslyn/csc.exe'
+          foreach($mode in @('Debug','Release')) {
+            $out="recovery/artifacts/lod/$mode";New-Item -ItemType Directory -Force $out|Out-Null
+            $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
+            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 $opt "/out:$out/LoDControl.exe" recovery/preparation/lod/LoDStreamBuilder.cs recovery/preparation/lod/LoDControl.cs
+            if($LASTEXITCODE -ne 0){throw 'Prepared LoD component compilation failed'}
+            python recovery/preparation/lod/TestCompilerLoD.py --original SDK/tools/LoDStreamBuilder.exe --candidate "$out/LoDControl.exe" --output "$out/evidence"
+            if($LASTEXITCODE -ne 0){throw 'Original LoD component differential failed'}
+          }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: prepared-lod-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/artifacts/lod/**
+          if-no-files-found: error
