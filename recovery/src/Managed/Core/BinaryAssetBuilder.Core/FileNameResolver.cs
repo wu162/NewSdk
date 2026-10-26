@@ -52,6 +52,10 @@ public class FileNameResolver
 				switch (text3)
 				{
 				case "art":
+					if (string.IsNullOrEmpty(text2) || (string.IsNullOrEmpty(Path.GetDirectoryName(text2)) && text2.Length < 2))
+					{
+						throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "An art alias must name a file with at least two characters or an explicit subdirectory: {0}.", targetPath);
+					}
 					if (string.IsNullOrEmpty(ShPath.RemoveFileSpec(text2)))
 					{
 						string[] artPaths = Settings.Current.ArtPaths;
@@ -97,19 +101,98 @@ public class FileNameResolver
 		return text;
 	}
 
+	// Windows paths are case-insensitive, but textual prefixes are not directory
+	// boundaries (Data must never match Data2). Keep the configured search order.
 	public static string GetDataRoot(string filename)
 	{
-		string result = "";
-		string[] dataPaths = Settings.Current.DataPaths;
-		foreach (string text in dataPaths)
+		string fullName = NormalizeAbsolutePath(filename);
+		foreach (string path in Settings.Current.DataPaths)
 		{
-			if (filename.StartsWith(text, StringComparison.InvariantCultureIgnoreCase))
+			if (path == "*")
 			{
-				result = text;
-				break;
+				continue;
+			}
+			string root = NormalizeDirectoryRoot(path);
+			string prefix = DirectoryPrefix(root);
+			if (fullName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) && fullName.Length > prefix.Length)
+			{
+				return root;
 			}
 		}
-		return result;
+		return "";
+	}
+
+	private static string NormalizeAbsolutePath(string path)
+	{
+		if (string.IsNullOrEmpty(path))
+		{
+			throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "A data root or source path cannot be null or empty.");
+		}
+		string normalized = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+		bool drivePath = normalized.Length >= 3 && char.IsLetter(normalized[0]) && normalized[1] == ':' && normalized[2] == Path.DirectorySeparatorChar;
+		bool uncPath = normalized.StartsWith(@"\\", StringComparison.Ordinal);
+		if (uncPath)
+		{
+			string[] parts = normalized.Substring(2).Split(Path.DirectorySeparatorChar);
+			uncPath = parts.Length >= 2 && parts[0].Length > 0 && parts[1].Length > 0;
+		}
+		// Device syntax has different normalization/alias rules and is outside the
+		// supported Win32/MAX_PATH contract. Never resolve drive-relative or
+		// root-relative inputs against mutable process state.
+		if ((!drivePath && !uncPath) || normalized.StartsWith(@"\\?\", StringComparison.Ordinal) || normalized.StartsWith(@"\\.\", StringComparison.Ordinal) || normalized.IndexOf(':', drivePath ? 2 : 0) >= 0)
+		{
+			throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "Path {0} must be an absolute drive or UNC path without device syntax or alternate data streams.", path);
+		}
+		try
+		{
+			return Path.GetFullPath(normalized);
+		}
+		catch (Exception error) when (error is ArgumentException || error is NotSupportedException || error is PathTooLongException)
+		{
+			throw new BinaryAssetBuilderException(error, ErrorCode.IllegalPath, "Path {0} is not a supported absolute path.", path);
+		}
+	}
+
+	private static string NormalizeDirectoryRoot(string root)
+	{
+		string fullRoot = NormalizeAbsolutePath(root);
+		int minimumLength = Path.GetPathRoot(fullRoot).Length;
+		while (fullRoot.Length > minimumLength && fullRoot[fullRoot.Length - 1] == Path.DirectorySeparatorChar)
+		{
+			fullRoot = fullRoot.Substring(0, fullRoot.Length - 1);
+		}
+		return fullRoot;
+	}
+
+	private static string DirectoryPrefix(string root)
+	{
+		return root[root.Length - 1] == Path.DirectorySeparatorChar ? root : root + Path.DirectorySeparatorChar;
+	}
+
+	// Both source logical names and output stems use the same boundary and offset.
+	// In particular, drive/UNC roots already end in a separator: adding one to
+	// their length would silently drop the first character of the relative path.
+	public static string GetSafeRelativePath(string root, string filename)
+	{
+		string prefix = DirectoryPrefix(NormalizeDirectoryRoot(root));
+		string fullName = NormalizeAbsolutePath(filename);
+		if (!fullName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) || fullName.Length <= prefix.Length)
+		{
+			throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "Path {0} is not a file below data root {1}.", filename, root);
+		}
+		string relative = fullName.Substring(prefix.Length);
+		if (Path.IsPathRooted(relative) || relative.IndexOf(':') >= 0)
+		{
+			throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "Path {0} does not produce a safe relative output path.", filename);
+		}
+		foreach (string component in relative.Split(Path.DirectorySeparatorChar))
+		{
+			if (component.Length == 0 || component == "." || component == "..")
+			{
+				throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "Path {0} does not produce a safe relative output path.", filename);
+			}
+		}
+		return relative;
 	}
 
 	private static string SearchPaths(string baseDirectory, string path, string[] includePaths)

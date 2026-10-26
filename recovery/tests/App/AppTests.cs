@@ -120,6 +120,7 @@ namespace NewModCompiler.Tests
                 Reject("CLI_UNKNOWN","--unknown","yes"); Reject("CLI_UNSUPPORTED","/gui:false"); Reject("CLI_UNSUPPORTED","/sh:true");
                 Reject("CLI_CAPABILITY","--package-format","big"); Reject("CLI_PLATFORM","/tp:Xbox360"); Reject("CLI_BOOLEAN","/csc:garbage"); Reject("CLI_RANGE","/tl:10"); Reject("CLI_RANGE","/el:2"); Reject("CLI_CONTENT","--package-content","bogus");
                 Reject("CLI_STDOUT_EVENTS","--events","-"); Reject("CLI_LOG_COLLISION","--events",Path.Combine(root,"same"),"--report",Path.Combine(root,"same")); Reject("CLI_LOG_INPUT","--events",Path.Combine(mod,"input.log"));
+                DiagnosticPathTests.Run(root,mod,sdk);
                 string project=Path.Combine(mod,"newmodcompiler.json"); FileAt(project,"{\"package-content\":\"apt\",\"tp\":\"Win32\"}");
                 var preset=Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"preset")}); Check(preset.Content.SequenceEqual(new [] {"apt"}) && preset.Options["package-content"].Source=="project","Project preset");
                 Check(Request("base").Options["package-content"].Source=="commandLine","CLI overrides project"); File.Delete(project);

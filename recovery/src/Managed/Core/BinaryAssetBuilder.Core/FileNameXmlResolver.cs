@@ -19,8 +19,9 @@ public class FileNameXmlResolver : XmlUrlResolver
 		_BaseDirectory = baseDirectory;
 	}
 
-	[DllImport("shlwapi.dll")]
-	private static extern bool PathRelativePathTo(StringBuilder result, string from, uint typeFrom, string to, uint typeTo);
+	[DllImport("shlwapi.dll", EntryPoint = "PathRelativePathToW", CharSet = CharSet.Unicode, ExactSpelling = true)]
+	[return: MarshalAs(UnmanagedType.Bool)]
+	private static extern bool PathRelativePathTo([Out] StringBuilder result, string from, uint typeFrom, string to, uint typeTo);
 
 	public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
 	{
@@ -37,7 +38,8 @@ public class FileNameXmlResolver : XmlUrlResolver
 			{
 				throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "Illegal URI scheme used in XInclude statement: {0}", absoluteUri.OriginalString);
 			}
-			StringBuilder stringBuilder = new StringBuilder(256);
+			// PathRelativePathToW requires a MAX_PATH output buffer, including its terminator.
+			StringBuilder stringBuilder = new StringBuilder(260);
 			if (!PathRelativePathTo(stringBuilder, _BaseDirectory, 16u, absoluteUri.LocalPath, 128u))
 			{
 				throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "Illegal absolute path used in XInclude statement: {0}", absoluteUri.AbsolutePath);

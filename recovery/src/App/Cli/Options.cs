@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Script.Serialization;
 using NewModCompiler.Application;
+using NewModCompiler.Diagnostics;
 
 namespace NewModCompiler.Cli
 {
@@ -101,10 +102,25 @@ namespace NewModCompiler.Cli
                 request.OutputRoot = FullPath(request.Options["out"].Value);
                 if (Paths.Contains(request.ModRoot, request.OutputRoot) || Paths.Contains(request.OutputRoot, request.ModRoot) || Paths.Contains(request.SdkRoot, request.OutputRoot) || Paths.Contains(request.OutputRoot, request.SdkRoot))
                     throw Bad("CLI_OUTPUT_OVERLAP", "Output must not overlap the MOD or SDK input directories.");
+                try {
+                    string output=DiagnosticDirectory.ResolveOutput(request.OutputRoot);
+                    string mod=DiagnosticDirectory.ResolveInputDirectory(request.ModRoot), sdk=DiagnosticDirectory.ResolveInputDirectory(request.SdkRoot);
+                    if (Paths.Contains(mod,output) || Paths.Contains(output,mod) || Paths.Contains(sdk,output) || Paths.Contains(output,sdk))
+                        throw Bad("CLI_OUTPUT_OVERLAP", "Output physically overlaps the MOD or SDK inputs.");
+                } catch (IOException e) { throw Bad("CLI_OUTPUT_PATH",e.Message); }
                 request.EventsPath = ResolveDiagnostic(request, "events", "build.events.jsonl");
                 request.ReportPath = ResolveDiagnostic(request, "report", "build-report.json");
                 request.LogPath = ResolveDiagnostic(request, "log", "build.log");
-                if (new [] { request.EventsPath, request.ReportPath, request.LogPath }.Distinct(StringComparer.OrdinalIgnoreCase).Count() != 3) throw Bad("CLI_LOG_COLLISION", "Event, report, and text log paths must be distinct.");
+                string[] diagnostics=new [] {request.EventsPath,request.ReportPath,request.LogPath};
+                string[] physical=diagnostics.Select(DiagnosticDirectory.ResolveOutput).ToArray();
+                string staging=DiagnosticDirectory.ResolveOutput(Path.Combine(request.OutputRoot,".build"));
+                for (int i=0;i<physical.Length;++i) {
+                    if (Paths.Contains(staging,physical[i]) || Paths.Contains(physical[i],staging))
+                        throw Bad("CLI_LOG_COLLISION","Diagnostic files must not overlap the staging directory.");
+                    for (int j=0;j<i;++j)
+                        if (Paths.Contains(physical[i],physical[j]) || Paths.Contains(physical[j],physical[i]))
+                            throw Bad("CLI_LOG_COLLISION","Diagnostic paths must be distinct files, without ancestor/descendant overlap.");
+                }
             }
             request.Content = request.Options["package-content"].Value.Split(','); request.PackageFormat = request.Options["package-format"].Value;
             return request;
@@ -117,6 +133,11 @@ namespace NewModCompiler.Cli
             if (path == "-") throw Bad("CLI_STDOUT_EVENTS", "Streaming to stdout is unavailable until native output isolation is verified.");
             path = FullPath(path);
             if (Paths.Contains(request.ModRoot, path) || Paths.Contains(request.SdkRoot, path)) throw Bad("CLI_LOG_INPUT", "Diagnostic output must not overwrite inputs.");
+            try {
+                string physical=DiagnosticDirectory.ResolveOutput(path);
+                if (Paths.Contains(DiagnosticDirectory.ResolveInputDirectory(request.ModRoot),physical) || Paths.Contains(DiagnosticDirectory.ResolveInputDirectory(request.SdkRoot),physical))
+                    throw Bad("CLI_LOG_INPUT","Diagnostic output physically overlaps inputs.");
+            } catch (IOException e) { throw Bad("CLI_LOG_PATH",e.Message); }
             return path;
         }
         static bool IsPath(string key) { return new [] {"mod","sdk-root","out","events","report","log"}.Contains(key); }

@@ -1,7 +1,7 @@
 # MOD 编译器重构：最小续接入口
 
 更新：2026-10-26。分支 `refactor/modcompiler-p0-p3`；草稿 PR #13 → `recovery/compiler-source`。
-只在当前分支普通提交；禁止强推、未经批准合入；默认单代理。本轮按用户授权最多 5 个子代理推进；未合入其他分支。
+只在当前分支普通提交；禁止强推、未经批准合入；默认单代理。本轮按用户授权最多 3 个子代理推进；未合入其他分支。
 
 ## 当前状态（先读这里即可）
 
@@ -10,7 +10,7 @@
 - `817b127e` 两配置五 fixture、原 BAB 两 MOD 四流逐字节对照、真实 App 协议（每配置15 reports/489 events）、Texture与P2均通过并核对原始收据；不是完整 G3/SDK。
 - `6767870a` Debug 14个真实 CLI case 已过（14独立PID、单进程job/no-child、冷分组、内外MOD、实际CTRL_BREAK/exit6/retry）；独立原版对照失败：bin/imp/relo相同，manifest 源文件表旧ANSI为?? MOD绝对路径，新版为DATA:mod.xml。Release CLI/CLI协议未验，不能归一化字节掩盖差异。
 - 最后已将 Program/Help/后端doctor/负例部署探针/构建收据回退到已保存守卫基点，候选实现仍保留在上述 git 提交可恢复；Unicode W、Trace scope、状态隔离、日志桥与测试准备保留。
-- 集中路径审计发现新的高影响缺陷（目录前缀/尾斜杠、另一个XInclude ANSI接口、日志junction/hardlink输入覆盖等），详见 PATH_AUDIT.md。尚未修完，因此即便部分CLI case通过也不能默认启用。
+- 本轮已写入根边界/安全相对路径、XInclude Unicode/搜索配置、诊断物理别名与原子新文件替换修复及Windows矩阵；当前为待Windows验证检查点，详见 PATH_AUDIT.md。默认build守卫保留；ASCII原版companion与Unicode逻辑路径断言已准备，未执行。
 
 ## 下一步（按顺序）
 

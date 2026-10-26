@@ -589,9 +589,9 @@ public class DocumentProcessor
 		string text;
 		if (!string.IsNullOrEmpty(dataRoot))
 		{
-			string path2 = path.Substring(dataRoot.Length + 1);
+			string path2 = FileNameResolver.GetSafeRelativePath(dataRoot, path);
 			string directoryName = Path.GetDirectoryName(path2);
-			text = Path.Combine(directoryName, Path.GetFileNameWithoutExtension(path));
+			text = Path.Combine(directoryName, Path.GetFileNameWithoutExtension(path2));
 		}
 		else
 		{

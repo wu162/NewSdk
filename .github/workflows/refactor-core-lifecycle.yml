@@ -21,6 +21,8 @@ on:
       - 'recovery/scripts/BuildManagedFoundation.ps1'
       - 'recovery/tests/CompilerValidationEntry.cpp'
       - 'recovery/tests/CompilerCoreLifecycle.cs'
+      - 'recovery/tests/CompilerCorePaths.cs'
+      - 'recovery/tests/CompilerUnicodeSettings.cs'
       - 'recovery/tests/CompilerResourceLifecycle.cs'
       - 'recovery/tests/CompilerStateLifecycle.cs'
       - 'recovery/tests/CompilerBackendLifecycle.cs'
@@ -67,6 +69,34 @@ jobs:
           $directory="recovery/evidence/refactor/core-cli-reuse/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           New-Item -ItemType Directory -Force $directory|Out-Null
           @{sourceCommit=$env:GITHUB_SHA;reusedSourceCommit=$verified;reusedRunId='40310605700';verifiedInputClosure=$true;changedFiles=$changed;scope='Reuse completed five lifecycle fixtures, independent original BAB/App protocol and standalone P2 results only at the recorded source; not newly executed. New production deployment, CLI/protocol and host-bound Texture run below.'}|ConvertTo-Json -Depth 5|Set-Content "$directory/validation.json"
+      - name: Standalone P2 application contracts in Debug
+        if: ${{ !cancelled() && !contains(github.event.head_commit.message, '[refactor-cli-product]') }}
+        shell: pwsh
+        run: |
+          $directory='recovery/artifacts/lifecycle-app/Debug'
+          New-Item -ItemType Directory -Force $directory|Out-Null
+          try {
+            ./recovery/scripts/TestApp.ps1 -Configuration Debug -OutputDirectory $directory *> "$directory/test-app.log"
+            if($LASTEXITCODE -ne 0){throw 'Standalone Debug application contracts failed'}
+          } catch {
+            Get-Content "$directory/test-app.log" -Tail 80|Out-Host
+            throw
+          }
+          Get-Content "$directory/test-app.log" -Tail 30|Out-Host
+      - name: Standalone P2 application contracts in Release
+        if: ${{ !cancelled() && !contains(github.event.head_commit.message, '[refactor-cli-product]') }}
+        shell: pwsh
+        run: |
+          $directory='recovery/artifacts/lifecycle-app/Release'
+          New-Item -ItemType Directory -Force $directory|Out-Null
+          try {
+            ./recovery/scripts/TestApp.ps1 -Configuration Release -OutputDirectory $directory *> "$directory/test-app.log"
+            if($LASTEXITCODE -ne 0){throw 'Standalone Release application contracts failed'}
+          } catch {
+            Get-Content "$directory/test-app.log" -Tail 80|Out-Host
+            throw
+          }
+          Get-Content "$directory/test-app.log" -Tail 30|Out-Host
       - name: Build managed Foundation inputs
         shell: pwsh
         run: |
@@ -119,34 +149,6 @@ jobs:
           $evidence="recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/cli-protocol.json"
           if($LASTEXITCODE -ne 0){throw 'Real production CLI protocol validation failed'}
-      - name: Standalone P2 application contracts in Debug
-        if: ${{ !cancelled() && !contains(github.event.head_commit.message, '[refactor-cli-product]') }}
-        shell: pwsh
-        run: |
-          $directory='recovery/artifacts/lifecycle-app/Debug'
-          New-Item -ItemType Directory -Force $directory|Out-Null
-          try {
-            ./recovery/scripts/TestApp.ps1 -Configuration Debug -OutputDirectory $directory *> "$directory/test-app.log"
-            if($LASTEXITCODE -ne 0){throw 'Standalone Debug application contracts failed'}
-          } catch {
-            Get-Content "$directory/test-app.log" -Tail 80|Out-Host
-            throw
-          }
-          Get-Content "$directory/test-app.log" -Tail 30|Out-Host
-      - name: Standalone P2 application contracts in Release
-        if: ${{ !cancelled() && !contains(github.event.head_commit.message, '[refactor-cli-product]') }}
-        shell: pwsh
-        run: |
-          $directory='recovery/artifacts/lifecycle-app/Release'
-          New-Item -ItemType Directory -Force $directory|Out-Null
-          try {
-            ./recovery/scripts/TestApp.ps1 -Configuration Release -OutputDirectory $directory *> "$directory/test-app.log"
-            if($LASTEXITCODE -ne 0){throw 'Standalone Release application contracts failed'}
-          } catch {
-            Get-Content "$directory/test-app.log" -Tail 80|Out-Host
-            throw
-          }
-          Get-Content "$directory/test-app.log" -Tail 30|Out-Host
       - uses: actions/upload-artifact@v4
         if: always()
         with:

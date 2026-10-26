@@ -147,8 +147,9 @@ public static class ShPath
 		[DllImport("shlwapi.dll")]
 		public static extern void PathQuoteSpaces(StringBuilder path);
 
-		[DllImport("shlwapi.dll")]
-		public static extern bool PathRelativePathTo(StringBuilder result, string from, FileAttributes fromAttributes, string to, FileAttributes toAttributes);
+		[DllImport("shlwapi.dll", EntryPoint = "PathRelativePathToW", CharSet = CharSet.Unicode, ExactSpelling = true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		public static extern bool PathRelativePathTo([Out] StringBuilder result, string from, FileAttributes fromAttributes, string to, FileAttributes toAttributes);
 
 		[DllImport("shlwapi.dll")]
 		public static extern void PathRemoveArgs(StringBuilder path);

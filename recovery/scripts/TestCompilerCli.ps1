@@ -98,6 +98,29 @@ function TaskOutputs($Case,$Task){
     $map=@{};foreach($artifact in $Case.report.artifacts){if(Within $prefix $artifact.Path){$map[$artifact.Path.Substring($prefix.Length)]=$artifact.Sha256}}
     Need ($map.Count -eq 4) 'Selected task does not own exactly four streams';$map
 }
+# These fixtures have no runtime/manifest references. Decode the real source
+# table without normalizing or rewriting any produced byte.
+function AssertLogicalSources($Case){
+    $records=@()
+    foreach($task in $Case.report.plan.Tasks){
+        $prefix=Join-Path $Case.destination ('.build/'+$Case.report.buildId+'/'+$task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath))
+        $files=@($Case.report.artifacts|Where-Object{(Within $prefix $_.Path) -and [IO.Path]::GetExtension($_.Path) -ceq '.manifest'})
+        Need ($files.Count -eq 1) 'Expected one manifest per source-path semantic case'
+        $bytes=[IO.File]::ReadAllBytes($files[0].Path)
+        Need ($bytes.Length -ge 48 -and $bytes[0] -eq 0 -and $bytes[1] -eq 1 -and $bytes[2] -eq 6 -and $bytes[3] -eq 0) 'Unexpected linked Win32 manifest header'
+        $count=[BitConverter]::ToUInt32($bytes,12);$names=[BitConverter]::ToUInt32($bytes,40);$sources=[BitConverter]::ToUInt32($bytes,44)
+        Need ($count -eq 3 -and [BitConverter]::ToUInt32($bytes,32) -eq 0 -and [BitConverter]::ToUInt32($bytes,36) -eq 0) 'Source-path fixture reference layout changed'
+        $start=48+48*$count+$names
+        Need ($sources -gt 0 -and $start+$sources -eq $bytes.Length) 'Manifest source table bounds invalid'
+        $expected='DATA:'+([IO.Path]::GetRelativePath((Join-Path $Case.mod 'Data'),$task.InputPath).Replace('\','/').ToLowerInvariant())
+        $expectedBytes=[Text.Encoding]::ASCII.GetBytes($expected+[char]0)
+        Need ($sources -eq $expectedBytes.Length) 'Manifest logical source table length differs'
+        for($i=0;$i -lt $expectedBytes.Length;$i++){Need ($bytes[$start+$i] -eq $expectedBytes[$i]) 'Manifest logical source table differs from DATA alias'}
+        for($i=0;$i -lt $count;$i++){Need ([BitConverter]::ToUInt32($bytes,(48+48*$i+28)) -eq 0) 'Armor source entry does not reference the inspected alias'}
+        $records+=,@{taskId=$task.Id;expectedSource=$expected;manifestSha256=(Hash $files[0].Path);byteTableVerified=$true}
+    }
+    return $records
+}
 function EqualTask($Combined,$Single,[string]$Group){
     foreach($task in @($Combined.report.plan.Tasks|Where-Object{$_.Content -ceq $Group})){
         $same=@($Single.report.plan.Tasks|Where-Object{$_.Id -ceq $task.Id});Need ($same.Count -eq 1) 'Single/combined selected task identity differs'
@@ -154,11 +177,18 @@ try {
         Copy-Item -LiteralPath (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config') -Destination "$sdk/tools"
         $mod=Join-Path $modeWork '外部 MOD';MakeMod $mod $probe
         $inside=Join-Path $sdk 'Mods/内部 MOD';MakeMod $inside $probe
-        $modSnapshot=Snapshot $mod;$sdkSnapshot=Snapshot $sdk
+        $asciiMod=Join-Path $modeWork 'ascii-mod';MakeMod $asciiMod $probe
+        $modSnapshot=Snapshot $mod;$asciiSnapshot=Snapshot $asciiMod;$sdkSnapshot=Snapshot $sdk
         $doctor=RunCli 'doctor' 'doctor' $null $sdk $null 0 0
         $plan=RunCli 'plan-all' 'plan' $mod $sdk 'base,apt,maps' 0 0
         Need (@($plan.report.plan.Tasks).Count -eq 4) 'Real CLI plan omitted base+two apt+map tasks'
         $combined=RunCli 'combined' 'build' $mod $sdk 'base,apt,maps' 0 4
+        # The old ANSI BAB cannot reliably open Unicode input paths. Keep those
+        # production cases and their exact DATA source-table checks, and give the
+        # independent old-tool oracle an identical ASCII-path companion.
+        $ascii=RunCli 'ascii-companion' 'build' $asciiMod $sdk 'base,apt,maps' 0 4
+        foreach($group in @('base','apt','maps')){EqualTask $combined $ascii $group}
+        $modeState.logicalSourceSemantics=@{unicode=@(AssertLogicalSources $combined);ascii=@(AssertLogicalSources $ascii);allFourStreamsByteIdentical=$true}
         $base=RunCli 'base-only' 'build' $mod $sdk 'base' 0 1;$apt=RunCli 'apt-only' 'build' $mod $sdk 'apt' 0 2;$maps=RunCli 'maps-only' 'build' $mod $sdk 'maps' 0 1
         EqualTask $combined $base 'base';EqualTask $combined $apt 'apt';EqualTask $combined $maps 'maps'
         $internal=RunCli 'sdk-internal' 'build' $inside $sdk 'base' 0 1
@@ -178,21 +208,21 @@ try {
         $cancelled=RunCli 'ctrl-break' 'build' $mod $sdk 'base,apt,maps' 6 1 $true
         Need ($cancelled.report.status -ceq 'cancelled' -and @($cancelled.report.artifacts).Count -eq 0) 'Actual cancellation report accepted output'
         $afterCancel=RunCli 'retry-after-cancel' 'build' $mod $sdk 'base' 0 1
-        foreach($selection in @(@{name='mod-a';task=@($combined.report.plan.Tasks|Where-Object{$_.Content -ceq 'base'})[0]},@{name='mod-b';task=@($combined.report.plan.Tasks|Where-Object{$_.Content -ceq 'apt'})[0]})){
-            $task=$selection.task;$prefix=Join-Path $combined.destination ('.build/'+$combined.report.buildId+'/'+$task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath));$outputs=@{}
-            foreach($artifact in $combined.report.artifacts){if(Within $prefix $artifact.Path){$outputs[[IO.Path]::GetExtension($artifact.Path).Substring(1)]=$artifact.Path}}
-            $modeState.baselineCases+=,@{name=$selection.name;modRoot=$mod;inputPath=$task.InputPath;sdkRoot=$sdk;originalToolsRoot=(Join-Path $sourceSdk 'tools');stagingDirectory=$prefix;outputs=$outputs;scope='One actual combined CLI base/first-APT stream; not the remaining two selected streams'}
+        foreach($selection in @(@{name='mod-a';task=@($ascii.report.plan.Tasks|Where-Object{$_.Content -ceq 'base'})[0]},@{name='mod-b';task=@($ascii.report.plan.Tasks|Where-Object{$_.Content -ceq 'apt'})[0]})){
+            $task=$selection.task;$prefix=Join-Path $ascii.destination ('.build/'+$ascii.report.buildId+'/'+$task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath));$outputs=@{}
+            foreach($artifact in $ascii.report.artifacts){if(Within $prefix $artifact.Path){$outputs[[IO.Path]::GetExtension($artifact.Path).Substring(1)]=$artifact.Path}}
+            $modeState.baselineCases+=,@{name=$selection.name;modRoot=$asciiMod;inputPath=$task.InputPath;sdkRoot=$sdk;originalToolsRoot=(Join-Path $sourceSdk 'tools');stagingDirectory=$prefix;outputs=$outputs;scope='Identical ASCII-path companion of Unicode combined CLI base/first-APT stream; strict byte comparison, no output normalization; not the remaining two selected streams'}
         }
         @{succeeded=$true;sourceCommit=$state.sourceCommit;runId=$state.runId;baselineCases=$modeState.baselineCases;scope='Real production CLI base plus first APT task only'}|ConvertTo-Json -Depth 8|Set-Content "$modeOut/cli-result.json"
         # Baseline comparison is an independent original-tool step, never a product child.
         & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult "$modeOut/cli-result.json" -OutputDirectory "$modeOut/original-baseline" -TimeoutSeconds $TimeoutSeconds
         Need ($LASTEXITCODE -eq 0) 'Independent original BAB CLI task baseline failed'
-        Unchanged $mod $modSnapshot;Unchanged $sdk $sdkSnapshot;Unchanged $runtime $runtimeSnapshot
+        Unchanged $mod $modSnapshot;Unchanged $asciiMod $asciiSnapshot;Unchanged $sdk $sdkSnapshot;Unchanged $runtime $runtimeSnapshot
         $modeState.passed=$true
     }
     Unchanged (Join-Path $sourceSdk 'Schemas/xsd') $schemaSnapshot
     Need ((Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config')) -ceq $configHash -and (Hash $probeFile) -ceq $probeHash) 'Original SDK inputs changed'
-    $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected original BAB baselines, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; full SDK/cache/publishing remain separate'
+    $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; full SDK/cache/publishing remain separate'
     $global:LASTEXITCODE=0
 } catch {$state.error=$_.Exception.ToString();throw}
 finally {

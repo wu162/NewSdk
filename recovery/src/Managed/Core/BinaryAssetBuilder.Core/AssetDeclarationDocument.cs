@@ -298,9 +298,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 			string dataRoot = FileNameResolver.GetDataRoot(SourcePath);
 			if (!string.IsNullOrEmpty(dataRoot))
 			{
-				string text = SourcePath.Substring(dataRoot.Length + 1);
+				string text = FileNameResolver.GetSafeRelativePath(dataRoot, SourcePath);
 				string directoryName = Path.GetDirectoryName(text);
-				SourcePathFromRoot = Path.Combine(directoryName, Path.GetFileNameWithoutExtension(SourcePath));
+				SourcePathFromRoot = Path.Combine(directoryName, Path.GetFileNameWithoutExtension(text));
 				LogicalSourcePath = "DATA:" + text.Replace('\\', '/');
 			}
 			else

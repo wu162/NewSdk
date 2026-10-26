@@ -66,16 +66,12 @@ public class SettingsLoader
 		{
 			text2 = settings.DefaultDataPaths;
 		}
-		if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(text2) || string.IsNullOrEmpty(text3))
-		{
-			throw new BinaryAssetBuilderException(ErrorCode.InvalidArgument, "No search paths for selected configuration specified.");
-		}
-		settings.ArtPaths = ProcessPaths(text);
-		settings.DataPaths = ProcessPaths(text2);
-		settings.AudioPaths = ProcessPaths(text3);
+		settings.ArtPaths = ProcessPaths(text, "ArtPaths");
+		settings.DataPaths = ProcessPaths(text2, "DataPaths");
+		settings.AudioPaths = ProcessPaths(text3, "AudioPaths");
 		if (settings.MonitorPaths != null)
 		{
-			settings.ProcessedMonitorPaths = ProcessPaths(settings.MonitorPaths);
+			settings.ProcessedMonitorPaths = ProcessPaths(settings.MonitorPaths, "MonitorPaths");
 		}
 	}
 
@@ -114,14 +110,41 @@ public class SettingsLoader
 		SetConfiguration(current, current.BuildConfigurationName);
 	}
 
-	private static string[] ProcessPaths(string combinedPaths)
+	private static string[] ProcessPaths(string combinedPaths, string settingName)
 	{
+		if (string.IsNullOrWhiteSpace(combinedPaths))
+		{
+			throw new BinaryAssetBuilderException(ErrorCode.InvalidArgument, "No search paths in {0}: '{1}'.", settingName, combinedPaths ?? "<null>");
+		}
 		string[] array = combinedPaths.Split(new char[1] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+		if (array.Length == 0)
+		{
+			throw new BinaryAssetBuilderException(ErrorCode.InvalidArgument, "No search paths in {0}: '{1}'.", settingName, combinedPaths);
+		}
 		for (int i = 0; i < array.Length; i++)
 		{
+			string originalPath = array[i];
+			if (string.IsNullOrWhiteSpace(originalPath))
+			{
+				throw new BinaryAssetBuilderException(ErrorCode.InvalidArgument, "Empty search path in {0}: '{1}'.", settingName, combinedPaths);
+			}
 			if (array[i] != "*")
 			{
-				array[i] = ShPath.Canonicalize(Path.Combine(Settings.Current.DataRoot, array[i]));
+				try
+				{
+					string path = Path.Combine(Settings.Current.DataRoot, originalPath);
+					// The retained shell canonicalizer has a MAX_PATH contract; reject
+					// unsupported inputs rather than leaking null into later resolvers.
+					array[i] = path.Length < 260 ? ShPath.Canonicalize(path) : null;
+				}
+				catch (Exception e) when (e is ArgumentException || e is NotSupportedException || e is PathTooLongException)
+				{
+					throw new BinaryAssetBuilderException(e, ErrorCode.InvalidArgument, "Invalid search path in {0}: '{1}'.", settingName, originalPath);
+				}
+				if (string.IsNullOrEmpty(array[i]))
+				{
+					throw new BinaryAssetBuilderException(ErrorCode.InvalidArgument, "Cannot canonicalize search path in {0}: '{1}'.", settingName, originalPath);
+				}
 			}
 		}
 		return array;

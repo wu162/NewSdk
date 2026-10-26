@@ -55,6 +55,8 @@ try {
     })
     if($state.schemaInputs.Count -eq 0){throw 'Real SDK schema input inventory is empty'}
     $fixtures=@(
+        @{name='CompilerCorePaths';marker='PASS CorePaths:'},
+        @{name='CompilerUnicodeSettings';marker='PASS UnicodeSettings:'},
         @{name='CompilerCoreLifecycle';marker='PASS CoreLifecycle:'},
         @{name='CompilerResourceLifecycle';marker='PASS resource lifecycle'},
         @{name='CompilerStateLifecycle';marker='PASS Hash/Tracer state lifecycle'},
