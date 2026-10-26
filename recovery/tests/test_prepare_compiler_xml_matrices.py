@@ -31,7 +31,7 @@ class PrepareXmlMatrixTests(unittest.TestCase):
                         self.assertEqual(after, before.replace('IAssetBuilderPlugin', 'XmlOriginalClient'))
                     self.assertNotIn('Assembly.LoadFrom', after)
                     self.assertNotIn('Activator.CreateInstance', after)
-                self.assertEqual(pathlib.Path(row['sources'][0]).read_text().count('XmlOriginalClient.Finish();'), 1)
+                self.assertEqual(pathlib.Path(row['sources'][0]).read_text(encoding='utf-8').count('XmlOriginalClient.Finish();'), 1)
             by_group = {r['group']: r for r in rows}
             self.assertEqual(by_group['Xmlai']['defines'], ['XMLAI_PERSONALITY_EXTENSION'])
             self.assertTrue(by_group['Xmlpowers']['repositoryArgument'])
