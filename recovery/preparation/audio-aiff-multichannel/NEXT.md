@@ -53,3 +53,9 @@ length arithmetic. C# compilation, full original matrix, candidate differential,
 schema and real SDK execution remain pending the next round.
 
 Remote checkpoint branch: `preparation/audio-aiff-multichannel`. This branch has no enabled AIFF4/6 production change or new CI result. For implementation, start from the latest reviewed target and import these preparation files; preserve concurrent source/navigation changes. Register the explicit new branch/marker before running a new workflow. All merges require a PR and explicit user approval.
+
+Additional integration checks found during final review:
+
+- AudioPluginOracle currently recognizes WAVE4 with the literal `MultichannelC4B`. The proposed AIFF labels use `MultichannelAiffAIFFC4B` / `MultichannelAiffAIFCC4B`; update this test-only classifier deliberately when wiring the new group, while preserving the already accepted WAVE metadata assertions. Otherwise every new4-channel case would be mistaken for6.
+- The1728 generator is the canonical baseline, not the entire COMM/SSND boundary inventory. Add4/6-channel cases around COMM declaration filtering/mismatch and channel-width-dependent SSND windows: frame sizes now extend to18 bytes. Preserve valid in-payload offset remainders, exact-bound/one-past refusals, blockSize behavior and existing partial-marker/single-frame refusals. Reuse audited native semantics; do not equate old1/2 evidence with new4/6 execution. Retain the1728 baseline intact if adding boundary assets, derive the exact larger count and register that exact SDK profile/count instead of a count range.
+- The full-Upheaval gate now distinguishes accepted `create-marker-range`/1820 and `create-multichannel`/1728 receipts and binds source tree, source/run/attempt and Debug/Release build. Register the new AIFF profile explicitly with its own exact count and successful receipts; never relabel the WAVE1728 profile as AIFF acceptance.
