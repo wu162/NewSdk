@@ -1,6 +1,6 @@
 # AudioCompiler 当前状态
 
-目标 `recovery/audio-compiler-source`；源码 `src/AudioCompiler`；仅 PC / Win32。
+审查分支 `integration/audio-win32-sdk`，PR#10目标 `recovery/compiler-source`（等待用户批准）；源码 `src/AudioCompiler`；仅 PC / Win32。
 2026-10-26（北京时间）。非 Win32 在元数据、初始化、直接编译和编码策略入口明确拒绝。
 生产源码不加载原 AudioCompiler；原 DLL 仅作测试 oracle。SDK/tools 原 DLL/config 未替换。
 

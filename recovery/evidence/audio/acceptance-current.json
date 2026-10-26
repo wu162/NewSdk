@@ -1,6 +1,6 @@
 {
   "status": "passed-with-explicit-scope",
-  "branch": "recovery/audio-compiler-source",
+  "branch": "integration/audio-win32-sdk",
   "sdkAndSourceTreeProof": {
     "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
     "checkedHead": "7429062aa4cdb8dbbaefe3e7a3c54b94d064d8b7",
@@ -424,7 +424,14 @@
     "runTerminalConfirmed": true,
     "upheavalPassed": true,
     "pr": 10,
-    "mergeRequiresExplicitUserApproval": true
+    "mergeRequiresExplicitUserApproval": true,
+    "reviewBranch": "integration/audio-win32-sdk",
+    "validationBranch": "validation/audio-upheaval-win32",
+    "nextPreparationBranch": "preparation/audio-aiff-multichannel",
+    "nextPreparationCommit": "351cf2a1464c7d8b929b44fca14be4c3fb42f37a",
+    "nextPreparationStatus": "static-only-uncompiled; not included in accepted PR",
+    "sourceBranchStillAt": "efbc6d825a7a5fb471740723486eb848e752e9b2",
+    "targetBranchStillAt": "b122a54abe4405516b021e425b8fb9235d914a0e"
   },
   "fullUpheavalValidation": {
     "status": "passed",
@@ -561,5 +568,6 @@
     "sdkStarted": false,
     "scope": "Whole project Debug/Release source build; SDK receipt separate"
   },
-  "fullUpheavalCurrentSourceRerun": false
+  "fullUpheavalCurrentSourceRerun": false,
+  "originAudioBranch": "recovery/audio-compiler-source"
 }
