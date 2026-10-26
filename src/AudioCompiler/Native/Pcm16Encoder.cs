@@ -18,7 +18,8 @@ namespace BinaryAssetBuilder.AudioCompiler
 
     // Managed replacement for the native P6B0 encoder and SIMEX format 39
     // container writer. This narrow entry point accepts PCM8/16 RIFF/WAVE;
-    // AIFF, loop metadata, channel remapping, and resampling are not inferred.
+    // AIFF, loop metadata and resampling are not inferred. WAVE 4/6-channel
+    // remapping follows the original importer and is applied exactly once.
     public static class Pcm16Encoder
     {
         public static PcmEncodingResult EncodeWave(byte[] wave, bool streamed)
@@ -63,8 +64,8 @@ namespace BinaryAssetBuilder.AudioCompiler
                 else if (tag == "smpl") throw new NotSupportedException("WAVE loop metadata is not supported by this entry point");
                 at = next + (size & 1);
             }
-            if (format != 1 || (bits != 8 && bits != 16) || (channels != 1 && channels != 2))
-                throw new NotSupportedException("Only mono/stereo PCM8/16 WAVE is supported by this entry point");
+            if (format != 1 || (bits != 8 && bits != 16) || (channels != 1 && channels != 2 && channels != 4 && channels != 6))
+                throw new NotSupportedException("Only 1/2/4/6-channel PCM8/16 WAVE is supported by this entry point");
             int bytesPerSample = bits / 8;
             if (rate <= 0 || rate > 0x3ffff || align != channels * bytesPerSample || dataOffset < 0 || dataLength % align != 0)
                 throw new InvalidDataException("Invalid PCM WAVE format");
@@ -85,15 +86,32 @@ namespace BinaryAssetBuilder.AudioCompiler
                     samples[i] = sample / 32768.0f;
                 }
             }
+            RemapWaveChannels(samples, channels);
             PcmWaveInput input = new PcmWaveInput();
             input.Samples = samples; input.Channels = channels; input.SampleRate = rate;
             return input;
         }
 
+        // Original ProcessInstance oracle40249960201 confirms output->input
+        // [0,1,3,2] and [0,2,1,4,5,3] for PCM8/16/24. SIMEX changes
+        // destination track pointers before import; these are inverse maps.
+        internal static void RemapWaveChannels(float[] samples, int channels)
+        {
+            if (channels != 4 && channels != 6) return;
+            int[] source = channels == 4 ? new int[] { 0, 1, 3, 2 } : new int[] { 0, 2, 1, 4, 5, 3 };
+            float[] frame = new float[channels];
+            for (int at = 0; at < samples.Length; at += channels)
+            {
+                Array.Copy(samples, at, frame, 0, channels);
+                for (int channel = 0; channel < channels; ++channel)
+                    samples[at + channel] = frame[source[channel]];
+            }
+        }
+
         public static PcmEncodingResult EncodeSamples(float[] interleaved, int channels, int sampleRate, bool streamed)
         {
             if (interleaved == null) throw new ArgumentNullException("interleaved");
-            if ((channels != 1 && channels != 2) || interleaved.Length % channels != 0)
+            if ((channels != 1 && channels != 2 && channels != 4 && channels != 6) || interleaved.Length % channels != 0)
                 throw new ArgumentOutOfRangeException("channels");
             if (sampleRate <= 0 || sampleRate > 0x3ffff) throw new ArgumentOutOfRangeException("sampleRate");
             int frames = interleaved.Length / channels;

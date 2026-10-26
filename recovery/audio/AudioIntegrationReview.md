@@ -1,80 +1,18 @@
-# AudioCompiler merge and SDK review
+# AudioCompiler 成果集中核对
 
-Reviewed on 2026-10-26. Scope: PC Audio recovery, original/restored audio SDK
-acceptance, the4/6-channel capability gap, and merge into compiler-source.
-Production Audio remains mono/stereo. No production code is changed by this
-review.
+按用户2026-10-26指示，统一工作分支为`recovery/audio-compiler-source`；原PR[#10](https://github.com/wu162/NewSdk/pull/10)关闭，不合入`recovery/compiler-source`。此操作只集中已存在的源码、证据及下一组静态准备，保留全部来源提交历史，普通快进更新，禁止强推。
 
-## Accepted audio SDK scopes
+## 保留的验收范围
 
-| Evidence | Source | Scope |
-|---|---|---|
-| run40243817293 attempt1 | bb4a225fc5cc8e070044a01a24f87e425c612ccb | Dedicated4488-asset PC audio MOD |
-| run40244825458 attempt1 | 2d64684742f9b19808d8fd721fbe31a549907c37 | Complete affected component group, whole source builds and dedicated1820-asset audio MOD |
-| run40248486242 attempt1 | c078bce6e5e28866dfd3c25acabda731203b2556 | Full pinned Upheaval/PublicCases, only AudioCompiler replaced |
+- WAVE4/6：source`ed1a7bcbec4a7a89d08369b9668129c8c554f8ec`，Audio tree`a8e47a2e737ca7e35a486ec17e5eaaa913c8678e`，run40250750964-1；D/R1728新组合和受影响回归通过，同1728资产真实SDK四产物、CustomData及三缓冲区一致，恢复侧原Audio DLL缺席。
+- 固定完整Upheaval音频替换：source`c078bce6e5e28866dfd3c25acabda731203b2556`，tree`ee6074a096795aa66b682fcb363e360feabe4d2f`，run40248486242-1；10次BAB调用exit0，20产物及各侧1293份CustomData一致，1281唯一资产/每侧1289音频回调。仅音频替换，其他插件原SDK；保留原源码与输入范围。
+- 旧1820/4488 SDK、WAVE原版探针及AIFF原版192案例/384进程保留原source/run，不改标为集中提交新跑。
+- 原音频分支独有run40250230722-1的FFT/PCM/plugin/XAS四个证据子树按原Git SHA完整保留，只作为其原源码的历史证据。
 
-All three runs retain their own immutable source/input scopes. Current accepted
-Audio production tree is `ee6074a096795aa66b682fcb363e360feabe4d2f`.
+## 树与续接入口
 
-Full Upheaval receipt:
-`recovery/evidence/audio/upheaval-sdk-validation/40248486242-1/validation.json`
-at `ef87339d3f76848687b714a394a9e1ff00ad1923`:
+原SDK树`1f2d71a20ce8bf7d9343c7a2246c10275abe28f9`、共享`recovery/src`树`c13c492885fc64bfac0f53562360d706252b6489`保持原样。生产源码、已验收测试和历史证据未改；两份多声道工作流增加原音频分支监听，仍由原有显式标记选择执行，不因集中重复跑SDK。
 
-- Input pin `068643219fded09a05fb7b75c6507b769c430316`,2738 files,
-  all194 precompiled.asset inputs preserved.
-- Ten Original/Recovered BAB case3/4/5 invocations all exit0; twenty output
-  products identical.
-- Each side has1293 CustomData files and1289 Audio calls;1281 required
-  declarations match1281 actual unique Audio assets.
-- The original side loads original AudioCompiler; the recovered side replaces
-  that plugin and has the original AudioCompiler DLL absent. Other plugins
-  remain original SDK components on both sides.
-- The measured corpus is mono WAV. It does not certify4/6-channel support or
-  replace the dedicated AIFF/AIFC boundary SDK evidence.
+直接阅读[RESUME.md](../RESUME.md)、[AUDIO_COMPILER.md](../AUDIO_COMPILER.md)及[验收索引](../evidence/audio/acceptance-current.json)。AIFF/AIFC NONE4/6下一组准备集中在[本分支preparation目录](../preparation/audio-aiff-multichannel/NEXT.md)，尚未编译、接线或启用；ADP4>2保持原生不支持的拒绝边界。
 
-## Fixed merge heads and shared tree identity
-
-| Branch | Reviewed head | Meaning |
-|---|---|---|
-| recovery/compiler-source | b122a54abe4405516b021e425b8fb9235d914a0e | Shared compiler merge target |
-| recovery/audio-compiler-source | 7545797e543147e4eb59b5d258e47281479f4ef8 | Earlier Audio handoff head |
-| validation/audio-upheaval-win32 | ef87339d3f76848687b714a394a9e1ff00ad1923 | Accepted full audio SDK evidence head |
-
-The reviewed compiler target is an ancestor of the accepted test branch.
-Their complete SDK trees match:
-`1f2d71a20ce8bf7d9343c7a2246c10275abe28f9`.
-SDK/tools remains `10a9b868c74db96976c9c306dc587ec5de62965f`;
-SDK/Schemas remains `62e1c5684ee0ea4407430f0a343a37431be6c03c`.
-Complete shared recovery/src trees match:
-`c13c492885fc64bfac0f53562360d706252b6489`.
-Original SDK tools/configuration are not replaced in the repository. Recheck
-actual remote heads immediately before merging and preserve concurrent work.
-Unchanged shared compilers do not require component reruns merely because
-Audio source/docs/evidence are merged.
-
-## Safe Audio merge
-
-1. Keep exact source/run/receipt links above. Mark only the measured audio
-   scopes complete; preserve original-versus-restored module distinctions.
-2. Read current compiler-source head and recheck tree identity if it moved.
-   Preserve all concurrent additions and never force push.
-3. Preserve compiler-source's complete generic RESUME navigation, then append
-   a short Win32 Audio section linking AUDIO_COMPILER.md and acceptance-current.
-   Do not overwrite shared GameObject/XML/W3X/Managed navigation with the
-   Audio-only resume. Reviewed generic RESUME blob is
-   `979fd0795cdd092953b50cf48128b2524510a0fa`.
-4. Keep production Audio at accepted treeee6074 for this merge. The new4/6
-   group needs its own implementation and full acceptance before it is enabled.
-
-## Remaining Audio recovery
-
-[MultichannelBoundary.md](MultichannelBoundary.md) records the newly confirmed
-PC4/6 capability gap, WAVE reader mapping, seven admission guards, the separate
-ADP4 stereo-only state limitation and the complete format/loop/resample/stream
-component/SDK matrix. Original probe CI evidence will be appended by its
-owner; no production4/6 implementation is included in this round.
-
-Undefined native sample reads, partial AIFF marker pairs, outside-SSND sample
-windows and unaudited malformed-container combinations remain explicit limits.
-Jonwil's related SIMEX/WAVE/XAS source is useful for focused audio cross-audits;
-original target DLL behavior and affected complete SDK gates remain decisive.
+完整来源头、证据子树与核对记录见[MERGE_VALIDATION.json](MERGE_VALIDATION.json)。旧辅助分支保留历史，不再作为必须的续接入口。未来合入其他分支仍必须先PR且由用户明确批准。

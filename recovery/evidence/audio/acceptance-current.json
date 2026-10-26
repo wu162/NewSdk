@@ -157,6 +157,19 @@
       "historicalEvidenceOnly": true,
       "receipt": "sdk-validation/40243817293-1/validation.json",
       "applicabilityAudit": "../../audio/CommSdkCoverageAudit.md"
+    },
+    {
+      "scope": "Additional original audio branch component evidence preserved intact during consolidation; not current-source re-execution",
+      "sourceCommit": "efbc6d825a7a5fb471740723486eb848e752e9b2",
+      "runId": "40250230722",
+      "attempt": 1,
+      "historicalEvidenceOnly": true,
+      "receipts": [
+        "fft-validation/40250230722-1/validation.json",
+        "pcm-validation/40250230722-1/validation.json",
+        "plugin-validation/40250230722-1/validation.json",
+        "xas-validation/40250230722-1/validation.json"
+      ]
     }
   ],
   "completeDllRecovered": false,
@@ -165,9 +178,9 @@
   "next": "../../AUDIO_COMPILER.md",
   "sdkPolicy": "Component and plugin differentials first; run real audio SDK only at explicit larger milestones. Dedicated MOD receipts and full pinned audio-only Upheaval receipt retain separate source/input scopes.",
   "remaining": [
-    "PC 4/6-channel complete capability group; current production supports mono/stereo only",
-    "Merge Audio into compiler-source, retaining shared subsystem navigation",
-    "Undefined native reads, partial AIFF marker pairs and unaudited malformed containers remain explicit limits"
+    "AIFF/AIFC NONE4/6 complete implementation and component/real-SDK acceptance; original ordering already proved",
+    "Undefined native reads, partial AIFF marker pairs and unaudited malformed containers remain explicit limits",
+    "Continue audio work on recovery/audio-compiler-source; any future merge into another branch needs a new PR and explicit user approval"
   ],
   "targetScope": "PC Win32 only; all other target platforms rejected",
   "scopeChange": {
@@ -274,60 +287,85 @@
   },
   "currentValidation": {
     "status": "passed",
-    "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
-    "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
-    "runId": "40244825458",
+    "sourceCommit": "ed1a7bcbec4a7a89d08369b9668129c8c554f8ec",
+    "sourceTree": "a8e47a2e737ca7e35a486ec17e5eaaa913c8678e",
+    "runId": "40250750964",
     "attempt": 1,
     "supportedPlatforms": [
       "Win32"
     ],
+    "scope": "WAVE4/6 complete capability group and affected regressions; AIFF/AIFC remains mono/stereo",
+    "configurations": [
+      "Debug",
+      "Release"
+    ],
+    "multichannelRecordsPerConfiguration": 1728,
+    "pluginMatchingRecordsPerConfiguration": 3826,
+    "singleFrameSafetyRefusalsPerConfiguration": 8,
+    "refusalsPerConfiguration": 36,
+    "directOriginalCasesPerConfiguration": 64,
+    "directEncoderComparisonsPerConfiguration": 128,
+    "directInvalidChannelRefusalsPerConfiguration": 15,
     "sdkStarted": true,
-    "observedSuccessfulSteps": [
-      "loop metadata and optional metadata and signed COMM marker range",
-      "bounded SSND offset",
-      "MPEG complete boundary group",
-      "complete affected PC plugin regressions and source build"
-    ],
     "sdkPassed": true,
-    "sdkAssets": 1820,
-    "sdkActualCalls": 1820,
+    "sdkProfile": "create-multichannel",
+    "sdkAssets": 1728,
+    "sdkActualCallsPerSide": 1728,
+    "sdkCustomFilesPerSide": 1728,
     "sdkProducts": 4,
-    "sdkCustomFiles": 1820,
     "originalDllAbsentFromRecoveredSdk": true,
-    "loopRecordsPerConfiguration": 4224,
-    "optionalLoopRecordsPerConfiguration": 3888,
-    "markerRangeRecordsPerConfiguration": 7776,
-    "offsetRecordsPerConfiguration": 2704,
-    "mpegRecordsPerConfiguration": 1084,
-    "receiptCommit": "3bf0cfb83fe59a9f5e012a40f5f431d9b87c1891",
+    "receiptCommit": "7eba9f108008ae424b18d10f56bdbcb6ff5487fd",
     "receipts": [
-      "loop-metadata-validation/40244825458-1/validation.json",
-      "loop-optional-validation/40244825458-1/validation.json",
-      "marker-range-validation/40244825458-1/validation.json",
-      "ssnd-offset-validation/40244825458-1/validation.json",
-      "mpeg-boundary-validation/40244825458-1/validation.json",
-      "plugin-validation/40244825458-1/validation.json",
-      "aifc-validation/40244825458-1/validation.json",
-      "adp4-plugin-validation/40244825458-1/validation.json",
-      "ssnd-block-validation/40244825458-1/validation.json",
-      "standalone-build-validation/40244825458-1/validation.json",
-      "sdk-validation/40244825458-1/validation.json"
+      "multichannel-validation/40250750964-1/validation.json",
+      "aifc-validation/40250750964-1/validation.json",
+      "adp4-plugin-validation/40250750964-1/validation.json",
+      "ssnd-block-validation/40250750964-1/validation.json",
+      "loop-metadata-validation/40250750964-1/validation.json",
+      "loop-optional-validation/40250750964-1/validation.json",
+      "marker-range-validation/40250750964-1/validation.json",
+      "ssnd-offset-validation/40250750964-1/validation.json",
+      "xas-precision-validation/40250750964-1/validation.json",
+      "pcm-validation/40250750964-1/validation.json",
+      "xas-validation/40250750964-1/validation.json",
+      "standalone-build-validation/40250750964-1/validation.json",
+      "sdk-validation/40250750964-1/validation.json"
     ],
-    "mpegNativeHeaderRecords": 32783,
-    "mpegNativeIdentifierRecords": 441,
-    "mpegNativeInfoRecords": 324,
-    "mpegNativeContainerRecords": 72,
-    "identificationBoundaryChecks": 15
+    "reusedUnchangedMpegEvidence": {
+      "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
+      "runId": "40244825458",
+      "reason": "MpegPassthrough and its tests unchanged; this group changes PCM channel admission/remapping only"
+    }
   },
   "wholeSourceBuild": {
     "status": "passed",
-    "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
-    "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
-    "runId": "40244825458",
-    "attempt": 1,
-    "receipt": "standalone-build-validation/40244825458-1/validation.json",
+    "sourceCommit": "ed1a7bcbec4a7a89d08369b9668129c8c554f8ec",
+    "runAttempt": "1",
+    "modCompiled": false,
+    "scope": "Whole recovered AudioCompiler source project builds only",
+    "sourceTree": "a8e47a2e737ca7e35a486ec17e5eaaa913c8678e",
+    "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+    "modes": [
+      {
+        "log": "Debug-build.log",
+        "configuration": "Debug",
+        "passed": true,
+        "libraryBytes": 60416,
+        "librarySha256": "c8bd7b6f21a7423133eb3f002911312e1e640e89fa308985353a24da7f62c452"
+      },
+      {
+        "log": "Release-build.log",
+        "configuration": "Release",
+        "passed": true,
+        "libraryBytes": 55296,
+        "librarySha256": "366eb6f6cbcb4587be49e4d1eb03eb0ea49274a55998499b0113ca5d72639f9f"
+      }
+    ],
     "sdkStarted": false,
-    "scope": "Whole project Debug/Release source build; SDK receipt separate"
+    "supportedPlatforms": [
+      "Win32"
+    ],
+    "runId": "40250750964",
+    "receipt": "standalone-build-validation/40250750964-1/validation.json"
   },
   "historicalPcOnlyValidation": {
     "status": "passed",
@@ -390,14 +428,24 @@
   "finalExeIntegrated": false,
   "handoff": {
     "requestedByUser": true,
-    "newRunsStopped": false,
+    "newRunsStopped": true,
     "existingRunContinues": false,
-    "firstAction": "Retain successful source2d6468/component run40244825458 and sourcec078bce6/full audio-only Upheaval run40248486242 scopes; investigate 4/6 channels with original probes before implementation and new acceptance; preserve compiler-source navigation on merge",
+    "firstAction": "Continue AIFF/AIFC NONE4/6 from this branch's recovery/preparation/audio-aiff-multichannel/NEXT.md; WAVE/MPEG and SDK acceptance retain their exact original source/run anchors.",
     "upheavalStarted": true,
     "compilerSourceMerged": false,
     "finalExeIntegrated": false,
     "runTerminalConfirmed": true,
-    "upheavalPassed": true
+    "upheavalPassed": true,
+    "pr": 10,
+    "mergeRequiresExplicitUserApproval": true,
+    "reviewBranch": null,
+    "validationBranch": "recovery/audio-compiler-source",
+    "nextPreparationBranch": "recovery/audio-compiler-source",
+    "nextPreparationCommit": "ccd0cc84ec27c2fee06ef189e4c47bc5723e5a7f",
+    "nextPreparationStatus": "static-only-uncompiled; collocated separately from src/AudioCompiler; not validated",
+    "prStatus": "closed-without-merge-at-user-request",
+    "nextPreparationPath": "recovery/preparation/audio-aiff-multichannel/NEXT.md",
+    "centralizedAtUserRequest": true
   },
   "fullUpheavalValidation": {
     "status": "passed",
@@ -422,25 +470,131 @@
     "actualUniqueAudioAssets": 1281,
     "originalDllAbsentFromRecoveredSdk": true,
     "jointRecoveredB0Validated": false,
-    "finalExeIntegrated": false
+    "finalExeIntegrated": false,
+    "scopeNote": "Exact old source/tree retained; not rerun or relabeled as new multichannel source. Current source has its separate1728-asset SDK receipt."
   },
   "currentChannelScope": {
-    "supported": [
+    "waveSupported": [
       1,
-      2
-    ],
-    "investigating": [
+      2,
       4,
       6
     ],
-    "multichannelImplemented": false,
-    "multichannelSdkValidated": false,
-    "otherCountsNotImplicitlySupported": [
+    "aiffAifcSupported": [
+      1,
+      2
+    ],
+    "adp4Supported": [
+      1,
+      2
+    ],
+    "multichannelImplemented": true,
+    "multichannelSdkValidated": true,
+    "rejectedChannelCounts": [
       3,
       5,
       8
     ],
-    "nextGroup": "../../audio/MultichannelBoundary.md",
-    "status": "Confirmed PC 4/6 missing capability group; isolated original probes pending; production unchanged"
+    "waveOutputToInputMaps": {
+      "4": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "6": [
+        0,
+        2,
+        1,
+        4,
+        5,
+        3
+      ]
+    },
+    "nextGroup": "../../audio/MultichannelAiffNativeAudit.md",
+    "nextOriginalProbe": {
+      "sourceCommit": "0d744a716df7b487816dc0fadf4f12dc82c5b66c",
+      "runId": "40251368891",
+      "attempt": 1,
+      "cases": 192,
+      "processes": 384,
+      "candidateValidated": false,
+      "sdkValidated": false,
+      "audit": "../../audio/multichannel-aiff-original-audit.json",
+      "aiffAifcOutputToInput": "identity",
+      "adp4AboveStereo": "Original native importer rejects; not missing recovery capability"
+    }
+  },
+  "previousPcBoundaryValidation": {
+    "status": "passed",
+    "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
+    "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
+    "runId": "40244825458",
+    "attempt": 1,
+    "supportedPlatforms": [
+      "Win32"
+    ],
+    "sdkStarted": true,
+    "observedSuccessfulSteps": [
+      "loop metadata and optional metadata and signed COMM marker range",
+      "bounded SSND offset",
+      "MPEG complete boundary group",
+      "complete affected PC plugin regressions and source build"
+    ],
+    "sdkPassed": true,
+    "sdkAssets": 1820,
+    "sdkActualCalls": 1820,
+    "sdkProducts": 4,
+    "sdkCustomFiles": 1820,
+    "originalDllAbsentFromRecoveredSdk": true,
+    "loopRecordsPerConfiguration": 4224,
+    "optionalLoopRecordsPerConfiguration": 3888,
+    "markerRangeRecordsPerConfiguration": 7776,
+    "offsetRecordsPerConfiguration": 2704,
+    "mpegRecordsPerConfiguration": 1084,
+    "receiptCommit": "3bf0cfb83fe59a9f5e012a40f5f431d9b87c1891",
+    "receipts": [
+      "loop-metadata-validation/40244825458-1/validation.json",
+      "loop-optional-validation/40244825458-1/validation.json",
+      "marker-range-validation/40244825458-1/validation.json",
+      "ssnd-offset-validation/40244825458-1/validation.json",
+      "mpeg-boundary-validation/40244825458-1/validation.json",
+      "plugin-validation/40244825458-1/validation.json",
+      "aifc-validation/40244825458-1/validation.json",
+      "adp4-plugin-validation/40244825458-1/validation.json",
+      "ssnd-block-validation/40244825458-1/validation.json",
+      "standalone-build-validation/40244825458-1/validation.json",
+      "sdk-validation/40244825458-1/validation.json"
+    ],
+    "mpegNativeHeaderRecords": 32783,
+    "mpegNativeIdentifierRecords": 441,
+    "mpegNativeInfoRecords": 324,
+    "mpegNativeContainerRecords": 72,
+    "identificationBoundaryChecks": 15
+  },
+  "previousWholeSourceBuild": {
+    "status": "passed",
+    "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
+    "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
+    "runId": "40244825458",
+    "attempt": 1,
+    "receipt": "standalone-build-validation/40244825458-1/validation.json",
+    "sdkStarted": false,
+    "scope": "Whole project Debug/Release source build; SDK receipt separate"
+  },
+  "fullUpheavalCurrentSourceRerun": false,
+  "originAudioBranch": "recovery/audio-compiler-source",
+  "centralization": {
+    "requestedByUser": true,
+    "destinationBranch": "recovery/audio-compiler-source",
+    "sourceHeads": {
+      "recovery/audio-compiler-source": "3a00bbc19171ad7c279707073603abf41770d785",
+      "integration/audio-win32-sdk": "4b61ebacf3d9ab6a771db76baaa7f7b7ea0a4034",
+      "validation/audio-upheaval-win32": "99acaa5f24bca8541ecae43d146ba0ef2428feb0",
+      "preparation/audio-aiff-multichannel": "ccd0cc84ec27c2fee06ef189e4c47bc5723e5a7f"
+    },
+    "additionalOriginalBranchEvidenceRun": "40250230722",
+    "codeAndTestsUnchangedFromAcceptedValidation": true,
+    "oldPrClosedWithoutMerge": true
   }
 }

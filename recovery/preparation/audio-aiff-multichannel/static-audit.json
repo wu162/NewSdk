@@ -1,0 +1,15 @@
+{
+  "status": "static-only-uncompiled",
+  "assetNames": 1728,
+  "fixtureNames": 108,
+  "perContainerChannels": {
+    "AIFF-4": 432,
+    "AIFF-6": 432,
+    "AIFC-4": 432,
+    "AIFC-6": 432
+  },
+  "maximumAbsoluteSigned16Sample": 14293,
+  "sourceSha256": "96311118d58f8683349cf49122ad10cee9a77ebfe93ff8f4a2f1081eccbd6e9a",
+  "candidateValidated": false,
+  "sdkValidated": false
+}

@@ -1,4 +1,4 @@
-param([string]$OutputDirectory, [switch]$OriginalOnly, [switch]$IncludeMp3, [ValidateSet('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops','resample','resample-full')][string[]]$Groups=@('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops'))
+param([string]$OutputDirectory, [switch]$OriginalOnly, [switch]$IncludeMp3, [ValidateSet('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops','resample','resample-full','multichannel')][string[]]$Groups=@('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops'))
 $ErrorActionPreference = 'Stop'
 if (!$OriginalOnly -and (@($Groups | Where-Object { $_ -in @('resample') }).Count -gt 0)) { throw 'Unrecovered native groups are original-only evidence, not candidate validation' }
 Set-Location (Resolve-Path "$PSScriptRoot/../..")
@@ -17,7 +17,7 @@ New-Item -ItemType Directory $original, $fixtures -Force | Out-Null
 Copy-Item SDK/tools/*.dll $original
 $core = Join-Path $original 'BinaryAssetBuilder.Core.dll'
 $hostExe = Join-Path $original 'AudioPluginOracle.exe'
-& $csc /nologo /unsafe /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$hostExe" (Resolve-Path 'recovery/tests/AudioPluginOracle.cs').Path (Resolve-Path 'recovery/tests/AudioMp3Fixtures.cs').Path (Resolve-Path 'recovery/tests/AudioInputFormatCases.cs').Path (Resolve-Path 'recovery/tests/AudioLoopProbeCases.cs').Path (Resolve-Path 'recovery/tests/AudioAiffLoopCases.cs').Path (Resolve-Path 'recovery/tests/AudioUnrecoveredProbeCases.cs').Path (Resolve-Path 'recovery/tests/AudioResampleCases.cs').Path *> "$out/oracle-build.log"
+& $csc /nologo /unsafe /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$hostExe" (Resolve-Path 'recovery/tests/AudioPluginOracle.cs').Path (Resolve-Path 'recovery/tests/AudioMp3Fixtures.cs').Path (Resolve-Path 'recovery/tests/AudioInputFormatCases.cs').Path (Resolve-Path 'recovery/tests/AudioLoopProbeCases.cs').Path (Resolve-Path 'recovery/tests/AudioAiffLoopCases.cs').Path (Resolve-Path 'recovery/tests/AudioUnrecoveredProbeCases.cs').Path (Resolve-Path 'recovery/tests/AudioResampleCases.cs').Path (Resolve-Path 'recovery/tests/AudioMultichannelCases.cs').Path *> "$out/oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'Audio plugin oracle build failed' }
 & $csc /nologo /platform:x86 /r:"$core" /out:"$original/AudioExcludedPlatformOracle.exe" (Resolve-Path 'recovery/tests/AudioExcludedPlatformOracle.cs').Path *> "$out/excluded-platform-oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/excluded-platform-oracle-build.log"; throw 'Excluded-platform oracle build failed' }
@@ -42,6 +42,7 @@ try {
         & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures $expectedFile $scope *> "$out/$group-original.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$group-original.log"; throw "Original $group probe failed" }
     }
+    if ($Groups -contains 'multichannel' -and @(Get-Content "$out/multichannel-original.txt").Count -ne 1728) { throw 'Expected all1728 original multichannel success records' }
     $receipt.selectedGroups = @($Groups)
     $receipt.scope = $(if ($OriginalOnly) { 'Original-only evidence: ' } else { 'Component differential: ' }) + ($Groups -join ',')
     $receipt.realMainProvenanceSha256=(Get-FileHash recovery/fixtures/audio/main/provenance.json).Hash.ToLowerInvariant()

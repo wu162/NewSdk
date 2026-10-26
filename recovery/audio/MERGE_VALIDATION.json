@@ -1,0 +1,88 @@
+{
+  "status": "centralized-on-original-audio-branch",
+  "destinationBranch": "recovery/audio-compiler-source",
+  "authorizedByCurrentUserRequest": true,
+  "sourceHeads": {
+    "recovery/audio-compiler-source": "3a00bbc19171ad7c279707073603abf41770d785",
+    "integration/audio-win32-sdk": "4b61ebacf3d9ab6a771db76baaa7f7b7ea0a4034",
+    "validation/audio-upheaval-win32": "99acaa5f24bca8541ecae43d146ba0ef2428feb0",
+    "preparation/audio-aiff-multichannel": "ccd0cc84ec27c2fee06ef189e4c47bc5723e5a7f"
+  },
+  "testedAudioTree": "a8e47a2e737ca7e35a486ec17e5eaaa913c8678e",
+  "testedSourceCommit": "ed1a7bcbec4a7a89d08369b9668129c8c554f8ec",
+  "runId": "40250750964",
+  "attempt": 1,
+  "sourceAndTestBytesPreserved": true,
+  "sourceSdkTree": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+  "sharedSourceTree": "c13c492885fc64bfac0f53562360d706252b6489",
+  "preservedAdditionalEvidenceTrees": [
+    {
+      "path": "recovery/evidence/audio/fft-validation/40250230722-1",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f0fe1fd4b040ed39a54440cd1114d107753772a9"
+    },
+    {
+      "path": "recovery/evidence/audio/pcm-validation/40250230722-1",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "98c9a729fcb2f9b277212defcf1374c1e842b094"
+    },
+    {
+      "path": "recovery/evidence/audio/plugin-validation/40250230722-1",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "27fc72f989921f887f95912510313710d920e073"
+    },
+    {
+      "path": "recovery/evidence/audio/xas-validation/40250230722-1",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "7703de8b68594030f4de81403af843719e27753a"
+    }
+  ],
+  "preparationTree": "7238733173407eed44d03b2f7b41c989de82a390",
+  "preparationStatus": "uncompiled-unwired; outside src/AudioCompiler",
+  "formerPr": {
+    "number": 10,
+    "status": "closed-without-merge-at-user-request"
+  },
+  "compilerSourceMerged": false,
+  "forcePush": false,
+  "workflowRoutingChanges": "Multichannel validation/original-AIFF workflows also accept original audio branch; existing explicit execution markers retained",
+  "validationReuse": "Exact accepted source/test/evidence trees retained. Consolidation marker uses existing batch routing to avoid redundant execution; no new SDK execution claimed.",
+  "historicalCompilerProposalReview": {
+    "historicalOnly": true,
+    "status": "reviewed-pending-user-explicit-merge-approval",
+    "pr": 10,
+    "targetBranch": "recovery/compiler-source",
+    "targetHead": "b122a54abe4405516b021e425b8fb9235d914a0e",
+    "importedValidationHead": "2e99eefd3150335e582d02f24508d024751676a0",
+    "testedSourceCommit": "ed1a7bcbec4a7a89d08369b9668129c8c554f8ec",
+    "testedAudioTree": "a8e47a2e737ca7e35a486ec17e5eaaa913c8678e",
+    "runId": "40250750964",
+    "attempt": 1,
+    "sdkProfile": "create-multichannel",
+    "sdkAssets": 1728,
+    "fullUpheaval": {
+      "sourceCommit": "c078bce6e5e28866dfd3c25acabda731203b2556",
+      "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
+      "runId": "40248486242",
+      "notRelabeledAsNewSource": true
+    },
+    "unchangedSdkTree": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+    "unchangedSharedSourceTree": "c13c492885fc64bfac0f53562360d706252b6489",
+    "genericNavigationBaseBlob": "979fd0795cdd092953b50cf48128b2524510a0fa",
+    "genericNavigationPreserved": true,
+    "overlappingExistingEdits": [
+      "AGENTS.md: explicit PR/user approval rule",
+      "recovery/RESUME.md: original navigation plus Audio section"
+    ],
+    "allOtherPreexistingBlobsPreserved": true,
+    "sourceTreeAndReceiptIdentityPreservedOnImport": true,
+    "originalSdkDllConfigReplaced": false,
+    "merged": false,
+    "userApprovalRequired": true,
+    "unverifiedNextGroupPreparationIncluded": false
+  }
+}
