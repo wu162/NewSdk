@@ -1,0 +1,50 @@
+{
+  "scope": "minimal unified-link G1 probe only; full Foundation metadata/resources, G2 and SDK gates remain",
+  "runId": "40269733403",
+  "minimal": true,
+  "configurations": [
+    {
+      "exeSha256": "398e8fd2f57801ad7d978cac406ae94317377c4c63b837b69843164fcf3fc300",
+      "exePath": "D:\\a\\_temp\\single-exe-33d1b83dd34347938e23764459cd5b0b\\Debug\\bin\\NewModCompiler.exe",
+      "configuration": "Debug",
+      "runtimeFiles": [
+        "NewModCompiler.exe",
+        "NewModCompiler.exe.config"
+      ],
+      "moduleInputsQuarantined": true,
+      "passed": true,
+      "transcriptSha256": "10b1a8a65721b9958b03b78a82212a6a5f40cb8b7bbf1bed95778f4f82b2bd47"
+    },
+    {
+      "exeSha256": "c810f7cff97220f7803f78e022bf72cce9e8cdd2061bf906019562d0696fadbf",
+      "exePath": "D:\\a\\_temp\\single-exe-33d1b83dd34347938e23764459cd5b0b\\Release\\bin\\NewModCompiler.exe",
+      "configuration": "Release",
+      "runtimeFiles": [
+        "NewModCompiler.exe",
+        "NewModCompiler.exe.config"
+      ],
+      "moduleInputsQuarantined": true,
+      "passed": true,
+      "transcriptSha256": "10b1a8a65721b9958b03b78a82212a6a5f40cb8b7bbf1bed95778f4f82b2bd47"
+    }
+  ],
+  "runAttempt": "1",
+  "fullG1Passed": false,
+  "status": "passed",
+  "originalInputs": [
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.Core.dll",
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47"
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.Tokenizer.dll",
+      "sha256": "ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603"
+    },
+    {
+      "path": "SDK/tools/EALA.Hash.dll",
+      "sha256": "b884317c4b322630d67c9e961edc475557945f86090ac9105c3977880d3dcece"
+    }
+  ],
+  "sourceCommit": "fafc306e64bc337042e74e6cf945a605339139e2",
+  "rows": 610
+}

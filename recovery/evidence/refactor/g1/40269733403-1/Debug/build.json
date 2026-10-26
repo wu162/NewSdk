@@ -1,0 +1,69 @@
+{
+  "sourceCommit": "fafc306e64bc337042e74e6cf945a605339139e2",
+  "minimal": true,
+  "configuration": "Debug",
+  "foundationSha256": "ee5e9dedc3dde3fc3551707807e081e306a77c4d2599a1262ebb7416eea5fc2e",
+  "toolchain": {
+    "intermediateModulePlatform": "AnyCPU",
+    "cscVersion": "4.8.9363.0 built by: NET481REL1LAST_25H2_B",
+    "linkVersion": "14.44.35229.0",
+    "platform": "x86",
+    "applicationCscPath": "C:\\Windows/Microsoft.NET/Framework/v4.0.30319/csc.exe",
+    "clVersion": "19.44.35229.0",
+    "cscPath": "C:\\Windows/Microsoft.NET/Framework/v4.0.30319/csc.exe",
+    "sdkVersion": "10.0.26100.0\\",
+    "clPath": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86\\cl.exe",
+    "linkPath": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX86\\x86\\link.exe",
+    "vcToolsVersion": "14.44.35207",
+    "fp": "precise"
+  },
+  "resources": [
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Managed\\Core\\BinaryAssetBuilderProject.xsd",
+      "logicalName": "BinaryAssetBuilderProject.xsd"
+    }
+  ],
+  "bridgeSourceSha256": "8487e79072e4d169da768735cc1a1fd274ae62e37a4a8b7b709198086e2aaaf9",
+  "sourceFiles": [
+    {
+      "path": "recovery/src/Native/Relocation.cpp",
+      "sha256": "1cf8c667ea71cf37ac16d21bdbe78179c4b9c3c28d93b917db5d5abbfa3731c9"
+    },
+    {
+      "path": "recovery/src/Native/Relocation.h",
+      "sha256": "a211f977d5e2a0e8f599703669b102aa09c261d00841e40752d399d3f6b1d094"
+    },
+    {
+      "path": "recovery/src/Native/ScalarParsing.cpp",
+      "sha256": "f9f31a6537e601936097e5a6b4b8f764a412f5d08f3b3b6ad77bb25a75b9fe79"
+    },
+    {
+      "path": "recovery/src/Native/ScalarParsing.h",
+      "sha256": "8b3ef29ba89d432434684278fd797fa0a4003da46ee9f967def3ff9e6b9fb3ca"
+    },
+    {
+      "path": "recovery/src/Native/ArmorTemplate.cpp",
+      "sha256": "7f7865240bd713a96dfede6c146e44b3744a52e01182354633394ce0852a1f6d"
+    },
+    {
+      "path": "recovery/src/Native/ArmorTemplate.h",
+      "sha256": "eb7addd32451e6adbf942fc42be47e63f0a7453721789a9859dc3efa2afee443"
+    },
+    {
+      "path": "recovery/src/Bridge/ArmorCompiler.cpp",
+      "sha256": "8487e79072e4d169da768735cc1a1fd274ae62e37a4a8b7b709198086e2aaaf9"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlNodeAdapter.h",
+      "sha256": "8fe082a209af33994defe36cdd0294b64fb3eef75069fd3228b2d56b5a34865f"
+    },
+    {
+      "path": "recovery/probes/SingleExe/Probe.cs",
+      "sha256": "4f046ac4752e4bf90ee4bfec31a61f98cf00a553176d7161450a31346d0832c3"
+    }
+  ],
+  "status": "built; runtime validation required",
+  "generatedBridgeSha256": "f85216ef1ea26d9ef6eac6d28747f9686e192f26ad58ddc089333cdb82830834",
+  "exeSha256": "398e8fd2f57801ad7d978cac406ae94317377c4c63b837b69843164fcf3fc300",
+  "scope": "minimal link probe: real AssetBuffer, Hash, Armor CompileXml; not full G1"
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "status": "AnyCPU intermediate modules passed isolated minimal Windows Debug/Release link and runtime differential",
+  "mainRouteValidated": false,
+  "fallbackSelected": false,
+  "runtimeTarget": "Windows x86 / .NET Framework 4.8",
+  "failedAttempt": {
+    "sourceCommit": "22c43c0575f04bcaf01dec515e7539310ba1398b",
+    "runId": 40269471485,
+    "jobId": 121398939514,
+    "url": "https://github.com/wu162/NewSdk/actions/runs/40269471485",
+    "result": "failed",
+    "stage": "MSVC unified link",
+    "foundationCompiler": "%WINDIR%/Microsoft.NET/Framework/v4.0.30319/csc.exe",
+    "foundationArguments": [
+      "/target:module",
+      "/platform:x86",
+      "/unsafe"
+    ],
+    "nativeArguments": [
+      "/c",
+      "/clr",
+      "/MD",
+      "/EHa",
+      "/fp:precise",
+      "/Od"
+    ],
+    "linkArguments": [
+      "/LTCG",
+      "/MACHINE:X86",
+      "/SUBSYSTEM:CONSOLE",
+      "/ENTRY:SingleExeProbe.Main"
+    ],
+    "diagnostic": "Managed.Foundation.netmodule : fatal error LNK1302: only support linking safe .netmodules; unable to link pure .netmodule",
+    "reached": [
+      "original ProcessInstance and Hash fixture transcript",
+      "Foundation netmodule",
+      "native and C++/CLI objects",
+      "Application netmodule"
+    ],
+    "notReached": [
+      "final EXE",
+      "isolated EXE runtime differential",
+      "G1 acceptance"
+    ]
+  },
+  "candidate": {
+    "change": "Compile the two build-time C# modules with /platform:anycpu; retain /MACHINE:X86 and the real x86 native objects for the final EXE",
+    "reason": "Distinguish intermediate module platform flags from unsupported IL/native input; this is an empirical candidate, not an established root cause",
+    "algorithmChanges": false,
+    "safetyAttributeChanges": false,
+    "ilFlagPatching": false,
+    "runtimePlatformChanged": false,
+    "result": {
+      "sourceCommit": "fafc306e64bc337042e74e6cf945a605339139e2",
+      "runId": 40269733403,
+      "jobId": 121399739722,
+      "conclusion": "success",
+      "receipt": "40269733403-1/validation.json",
+      "rowsPerConfiguration": 610
+    }
+  },
+  "fallbackIfCandidateFails": "Not selected: the AnyCPU intermediate-module candidate passed; retain the documented fallback only if a later full gate produces independent failure evidence.",
+  "references": [
+    "https://learn.microsoft.com/en-us/cpp/error-messages/tool-errors/linker-tools-error-lnk1302?view=msvc-170",
+    "https://learn.microsoft.com/en-us/cpp/build/reference/netmodule-files-as-linker-input?view=msvc-170"
+  ],
+  "minimalRouteValidated": true,
+  "remaining": "Full Foundation/metadata/resources and real Texture gates are not covered by the minimal probe"
+}
