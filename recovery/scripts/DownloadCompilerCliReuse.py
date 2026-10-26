@@ -12,11 +12,11 @@ import subprocess
 from PrepareCompilerCliReuse import closure, prepare, require
 
 REPOSITORY = 'wu162/NewSdk'
-SOURCE = '6dc7b5188733fb059f300f0278dac13842cfab30'
-RUN = 40323244067
+SOURCE = 'b8952e6f8813802de82eed363e168c05afc7f02e'
+RUN = 40333013142
 ATTEMPT = 1
-ARTIFACT = 12650686547
-SHA256 = 'f5208698ecb8b1e9836ce784f76d2b4463fe73ba11dd33c8e19d753885f149a3'
+ARTIFACT = 12657090511
+SHA256 = '5407c5ac65528a81eb16090aae5e4dde05ced165d4ffddc024d5ae8184870dc3'
 NAME = f'refactor-core-lifecycle-{RUN}-{ATTEMPT}'
 WORKFLOW = '.github/workflows/refactor-core-lifecycle.yml'
 

@@ -5,22 +5,20 @@
 
 ## 当前状态（先读这里即可）
 
-- **本轮检查点：产物收集器路径修复已过两配置各130断言，Core全7组及Texture通过；三份UI整组待验。** 收紧 manifest-stem/cdata 文件布局、修复同名目录误分类，补根/后代 junction 与拒绝回归；不能复用历史 EXE 冒充本次生产修复验证。24 个复用工具本地测试已过；新增输出合同已前置通过；完整CLI停在新测试误将Texture视为cdata，已按固定原DLL的正确类型ID/Hash与内联DDS语义修正，完整复验中，不能宣称三UI已通过。
-
 - **P4 已通过；P5 真实后端、路径、生产 CLI 定向组已通过，完整 P5/G3/SDK 未完成。** 生产入口保留实验性 Win32 loose/no-cache 后端；不能宣称完整 MOD 编译器或正式发布流程可用。
-- 本轮完整 Windows 候选两配置均通过：App 各355断言、Core 全7组（含 Unicode/空格/#/% XInclude、根边界、空搜索路径）、原版后端对照、真实 App 协议、当前 EXE 绑定 Texture 部署/payload。
-- 真实 CLI 各22个独立 PID 已过：单进程 job/no-child、冷分组、内外 MOD、实际 CTRL_BREAK/exit6/retry、真实日志锁/exit7/同路径重试、参数拒绝与协议。每配置19 reports/609 events；独立原版严格比较原始四输出，未归一化字节。
+- 本轮完整 Windows 候选两配置均通过：App 各355断言、Core 全7组（路径组各130断言，含产物收集根/后代 junction、精确 cdata 布局、同名目录、Unicode/空格/#/% XInclude）、原版后端对照、真实 App 协议、当前 EXE 绑定 Texture 部署/payload。
+- 真实 CLI 各25个独立 PID 已过：单进程 job/no-child、冷分组、内外 MOD、实际 CTRL_BREAK/exit6/retry、真实日志锁/exit7/同路径重试、参数拒绝与协议。每配置22 reports/912 events；独立原版严格比较原始四输出，未归一化字节。
 - 真实业务新增12个文件型 APT 资产、3个 MapMetaData 资产；组合与三组冷进程输出一致，APT/maps 独立当前原 BAB 对照已过。这不是 APT 格式解析或完整 UI/SDK 验收。
-- 真实 Upheaval CommandListBox UI 两配置均已通过：固定祖先按原 blob 导出 wrapper/子XML/APT/CONST/DAT 完整5文件、4依赖闭包，生产 apt-only 单流及当前原 BAB 原始四输出严格一致；另两份含纹理的 UI 未在此范围。
+- 三份真实 Upheaval UI 两配置均通过：固定祖先原 blob 的106文件/103依赖/100资产闭包，3流组合与各UI冷进程一致；当前原 BAB 逐流原始四输出严格相同。两份 Texture 按固定原DLL正确ID/Hash及内联DDS布局核验（不是cdata），未删纹理或归一化产物；不代表运行时UI/完整SDK。
 - 根/路径、日志原子替换与活动文件保护、晚期失败撤销产物、.build junction 与既有 staging 所有权修复均已取得上述完整候选的原始收据；已核对归档 SHA、14份 fixture 的结果/日志/EXE 和两份协议原始文件哈希，详见 PATH_AUDIT.md。
 - `62b7766` XML 两配置各63组、`9cd2cb8` 非XML组件证据仅按原输入/范围复用，不将旧生产/宿主身份冒充当前重测；本轮未重复完整 SDK。
 
 ## 下一步（按顺序）
 
-1. 继续下一完整能力组，复用本轮原始成功证据及实际输入闭包；本轮 UI 扩展已成功并核对原始归档，不能把历史 sourceCommit 的收据改标为新提交重测。
-2. 另两份真实 UI 含纹理 CustomData；先扩展精确输出允许清单及原版比较器，再接入，不能删除 Texture 迁就现有四流断言。原混合 Texture DLL 的完整 Unicode 路径仍未验。
+1. 三UI整组已通过并核对完整归档；独立 Unicode SDK/MOD/runtime/output 根路径探针准备完成、当前正在启动，不能提前宣称原混合 Texture DLL 全 Unicode 已支持。
+2. 产物收集器已按每个 manifest stem 绑定 cdata 直接子文件及四段8位hex命名，四流优先分类；这里只验布局，资产身份/内容由真实差分另验。继续下一完整P5能力组，不能改写历史证据的sourceCommit。
 3. 缓存、正式输出发布、完整业务 G3/SDK、P6/P7 仍未完成；旧不支持参数继续明确拒绝，当前输出仅隔离 staging。
-4. CLI helper 已提前廉价编译；稀疏检出仅排除约2GiB历史 evidence，保留所有源码/SDK/Git历史与完整验证。新增 PrepareCompilerCliReuse.py 及16个负例/闭包测试，独立轻量 CI 已通过，已用两份真实成功归档核验，只提取两配置各3运行文件，保留历史来源、candidateValidated=false；已接入显式 CLI-only 自动下载/执行及固定工作流迁移校验，保留历史二进制与当前测试来源；本轮生产修复使历史复用失效，须完整构建。Windows 自动下载路径尚未运行。
+4. CLI helper 已提前廉价编译；稀疏检出仅排除约2GiB历史 evidence，保留所有源码/SDK/Git历史与完整验证。新增严格历史运行文件下载/准备器及25个负例/闭包测试，独立轻量 CI 已通过，已用两份真实成功归档核验，只提取两配置各3运行文件，保留历史来源、candidateValidated=false；已接入显式 CLI-only 自动下载/执行及固定工作流迁移校验，保留历史二进制与当前测试来源；生产修复已重新完整构建；锚点已更新到本轮实际成功完整候选。Windows 自动下载路径仍待独立探针验收。
 
 ## 按任务读取，禁止启动时递归展开链接
 
