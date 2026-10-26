@@ -95,11 +95,18 @@ unsafe partial class WeaponOracle
     }
     static string Weapon(string attrs) { return "<WeaponTemplate xmlns='" + AssetNamespace + "' id='Oracle' " + attrs + "/>"; }
     static void Reject(string xmlText) {
+#if WEAPON_TRANSCRIPT_ORACLE
+        WeaponTranscript.Rejection(xmlText); ++rejections; return;
+#else
+#if WEAPON_TRANSCRIPT_PRODUCT
+        WeaponTranscript.Rejection(xmlText);
+#endif
         var xml = new XmlDocument(); xml.LoadXml(xmlText);
         var ns = new XmlNamespaceManager(xml.NameTable); ns.AddNamespace("ea", AssetNamespace);
         try { WeaponCompiler.CompileXml(xml.DocumentElement, ns, false); }
         catch (NotSupportedException) { ++rejections; return; }
         throw new Exception("Unsupported input was accepted: " + xmlText);
+#endif
     }
     static int fixtures, rejections;
     static void Check(IAssetBuilderPlugin plugin, string label, string attrs, TargetPlatform platform) {
@@ -871,15 +878,20 @@ unsafe partial class WeaponOracle
 
     static int directStatusComparisons;
     static void DirectStatus(Assembly original) {
+#if !WEAPON_TRANSCRIPT_PRODUCT
         MethodInfo parser = null;
         foreach (var method in original.GetModules()[0].GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
             if (method.Name == "Marshaler.Marshal<enum ObjectStatusType,223>") parser = method;
         if (parser == null) throw new Exception("Original ObjectStatus inline parser missing");
+#endif
         var values = new List<string>(StatusNames);
         foreach (string name in StatusNames) { values.Add("-"+name); values.Add(name+" -"+name); }
         values.AddRange(new[] { "", " ", "\v\f\t\r\n", "AFLAME\vATTACHED\fANTI_GARRISON", "AFLAME\0ATTACHED", "\0ALL", "ALL", "all -AFLAME", "-ALL unknown", "AFLAME -ALL -ATTACHED", "+", "-", "unknown", "unknown -unknown", "AFLAME,ATTACHED", "++AFLAME", "--AFLAME", "ＡＬＬ", "é", "状态", "AFLAME\u00a0ATTACHED" });
         uint[][] seeds = { new uint[7], new uint[] { 0x01234567,0x89abcdef,0x80000000,1,0xaaaaaaaa,0x55555555,0xffffffff }, new uint[] { 0xffffffff,0xffffffff,0xffffffff,0xffffffff,0xffffffff,0xffffffff,0xffffffff } };
         foreach (var seed in seeds) foreach (string text in values) {
+#if WEAPON_TRANSCRIPT_ORACLE || WEAPON_TRANSCRIPT_PRODUCT
+            var expected = WeaponTranscript.ExpectedMask(original, "Marshaler.Marshal<enum ObjectStatusType,223>", text, seed);
+#else
             var expected = (uint[])seed.Clone();
             IntPtr ansi = Marshal.StringToHGlobalAnsi(text);
             try {
@@ -888,6 +900,7 @@ unsafe partial class WeaponOracle
                     parser.Invoke(null, new object[] { Pointer.Box(ansi.ToPointer(), types[0].ParameterType), Pointer.Box(target, types[1].ParameterType), Pointer.Box(null, types[2].ParameterType) });
                 }
             } finally { Marshal.FreeHGlobal(ansi); }
+#endif
             var actual = WeaponCompiler.MarshalObjectStatus(text, seed);
             for (int i = 0; i < 7; ++i) if (expected[i] != actual[i]) throw new Exception("Direct ObjectStatus mismatch: "+text+" word="+i);
             ++directStatusComparisons;
@@ -898,11 +911,32 @@ unsafe partial class WeaponOracle
     static int Main(string[] args) {
         try {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
+#if WEAPON_TRANSCRIPT_ORACLE
+            if (args.Length != 2) throw new ArgumentException("Expected original Tokenizer path and transcript output.");
+            var assembly = Assembly.LoadFrom(args[0]);
+            WeaponTranscript.Open(args[1], true);
+            var originalPlugin = (IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.Tokenizer.Plugin", true));
+            WeaponCompiler.SetOriginal(originalPlugin, assembly);
+            formalPlugin = originalPlugin;
+#elif WEAPON_TRANSCRIPT_PRODUCT
+            if (args.Length != 1) throw new ArgumentException("Expected original transcript path.");
+            Assembly assembly = null;
+            WeaponTranscript.Open(args[0], false);
+            formalPlugin = new Recovered.Weapon.Plugin();
+            WeaponTranscript.VerifyProduct(typeof(InstanceDeclaration).Assembly, typeof(WeaponCompiler).Assembly, formalPlugin.GetType().Assembly);
+#else
             var assembly = Assembly.LoadFrom(args[0]);
             formalPlugin=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[1]).GetType("Recovered.Weapon.Plugin"));
+#endif
             DirectStatus(assembly);
             DirectModel(assembly);
+#if WEAPON_TRANSCRIPT_ORACLE
+            IAssetBuilderPlugin plugin = new WeaponTranscript.OriginalPlugin(originalPlugin);
+#elif WEAPON_TRANSCRIPT_PRODUCT
+            IAssetBuilderPlugin plugin = new WeaponTranscript.OriginalPlugin(null);
+#else
             var plugin = (IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
+#endif
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {
                 plugin.Initialize(null,platform);formalPlugin.Initialize(null,platform);
                 var expectedInfo=plugin.GetExtendedTypeInformation(2496977262u);
@@ -1709,10 +1743,20 @@ unsafe partial class WeaponOracle
                 Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><"+name+"><IncludeThing Unknown='1'/></"+name+"></WeaponTemplate>");
             }
             Console.WriteLine("PASS WeaponTemplate scalar/duration/resource/status subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections + " directStatusComparisons=" + directStatusComparisons + " directModelComparisons=" + directModelComparisons + " annotatedFixtures=" + annotatedFixtures);
+#if WEAPON_TRANSCRIPT_PRODUCT
+            WeaponTranscript.VerifyProduct(typeof(InstanceDeclaration).Assembly, typeof(WeaponCompiler).Assembly, formalPlugin.GetType().Assembly);
+#endif
+#if WEAPON_TRANSCRIPT_ORACLE || WEAPON_TRANSCRIPT_PRODUCT
+            WeaponTranscript.Complete(fixtures, comparisons, rejections, directStatusComparisons, directModelComparisons, annotatedFixtures);
+#endif
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
+#if WEAPON_TRANSCRIPT_ORACLE || WEAPON_TRANSCRIPT_PRODUCT
+        finally { WeaponTranscript.Close(); }
+#endif
     }
 }
+
 
 
 
