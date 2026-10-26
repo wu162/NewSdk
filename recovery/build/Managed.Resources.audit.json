@@ -1,0 +1,46 @@
+{
+  "sourceCommit": "87cf54e254dfb44a129da087316fd04806ed2b10",
+  "scope": "Read-only resource inventory; no runtime validation",
+  "resources": [
+    {
+      "name": "BinaryAssetBuilderProject.xsd",
+      "sourcePath": "recovery/src/Managed/Core/BinaryAssetBuilderProject.xsd",
+      "sourceSha256": "fdb51a774ef7d18d77deb9259f1725ec4a6997da09856b0554d13b3f8332ab7a",
+      "originalSha256": "3ffe9a0f876bc76deaf28d2e0302f32d63b0c842d719f3d9c428dc961b7616c1",
+      "byteIdentical": false,
+      "normalizedLfIdentical": true
+    },
+    {
+      "name": "Mvp.Xml.Common.SR.resources",
+      "sourcePath": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.SR.resources",
+      "sourceSha256": "65bc06e64351f384b3f8658d273a36d7dcb2af167e458adc0f9579bb2cf0a1cb",
+      "originalSha256": "65bc06e64351f384b3f8658d273a36d7dcb2af167e458adc0f9579bb2cf0a1cb",
+      "byteIdentical": true,
+      "normalizedLfIdentical": true
+    },
+    {
+      "name": "Mvp.Xml.XPointer.SR.resources",
+      "sourcePath": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer.SR.resources",
+      "sourceSha256": "fb2b9ea0745131e0ba26b9c7967a4f74885427d73dbeb6ad68114c8a3bacb1de",
+      "originalSha256": "fb2b9ea0745131e0ba26b9c7967a4f74885427d73dbeb6ad68114c8a3bacb1de",
+      "byteIdentical": true,
+      "normalizedLfIdentical": true
+    },
+    {
+      "name": "Mvp.Xml.XInclude.SR.resources",
+      "sourcePath": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude.SR.resources",
+      "sourceSha256": "0ef800084cbdf48a5a0b2de121f52737410aaa1356a6325fae779a8b56a77f6c",
+      "originalSha256": "0ef800084cbdf48a5a0b2de121f52737410aaa1356a6325fae779a8b56a77f6c",
+      "byteIdentical": true,
+      "normalizedLfIdentical": true
+    },
+    {
+      "name": "Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources",
+      "sourcePath": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources",
+      "sourceSha256": "a3237a994521c1904b0367691fdafc8b4b309371b845157bd149f27b53849d76",
+      "originalSha256": "a3237a994521c1904b0367691fdafc8b4b309371b845157bd149f27b53849d76",
+      "byteIdentical": true,
+      "normalizedLfIdentical": true
+    }
+  ]
+}

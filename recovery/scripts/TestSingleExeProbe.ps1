@@ -35,7 +35,7 @@ try {
         }
         $bin = Join-Path $build 'bin'
         $allowedFiles = @('NewModCompiler.exe','NewModCompiler.exe.config')
-        if (!$Minimal) { $allowedFiles += 'antlr.runtime.dll' }
+        if (!$Minimal) { $allowedFiles += @('antlr.runtime.dll','Foundation.types.txt') }
         $unexpected = @(Get-ChildItem $bin -File | Where-Object { $_.Name -notin $allowedFiles })
         if ($unexpected.Count -ne 0) { throw 'Unexpected file in isolated probe runtime directory' }
         # If a link retained module file dependencies, removing them must fail the test.

@@ -88,6 +88,8 @@ public static class SingleExeProbe
     {
         try {
 #if FULL_FOUNDATION
+            if(args.Length>0 && (args[0]=="build" || args[0]=="plan" || args[0]=="doctor" || args[0]=="--help" || args[0]=="-h"))
+                return NewModCompiler.Cli.Program.Main(args);
             if(args.Length>0 && args[0]=="--texture-probe") {
                 string[] textureArgs=new string[args.Length-1];
                 Array.Copy(args,1,textureArgs,0,textureArgs.Length);

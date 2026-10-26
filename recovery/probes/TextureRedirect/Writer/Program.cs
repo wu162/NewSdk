@@ -59,6 +59,7 @@ internal static class Program
             }
             var options = new NativeModuleWriterOptions(module, false) { KeepExtraPEData = true, KeepWin32Resources = true };
             options.MetadataOptions.Flags |= MetadataFlags.PreserveAll;
+            options.PEHeadersOptions.TimeDateStamp = module.Metadata.PEImage.ImageNTHeaders.FileHeader.TimeDateStamp;
             module.NativeWrite(output, options);
             using var rewritten = ModuleDefMD.Load(output);
             if (!originalTypes.SequenceEqual(rewritten.GetTypeRefs().Select(t => t.MDToken.Raw + ":" + t.FullName)))

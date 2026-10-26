@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0",
+  "gate": "P2 application skeleton contract tests",
+  "status": "passed",
+  "sourceCommit": "35f6112e1ae17fc8b5430457cd79072c170b53a0",
+  "runId": 40269181634,
+  "runAttempt": 1,
+  "jobId": 121398084580,
+  "jobConclusion": "success",
+  "reused": false,
+  "evidenceKind": "actual Windows job status and PASS summaries; source trees independently matched to remote commit",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/40269181634",
+  "jobLogsUrl": "https://github.com/wu162/NewSdk/actions/runs/40269181634/job/121398084580",
+  "inputGitObjects": {
+    "recovery/src/App": "18f87e733b52adc14ce822c0f217bdfc87d378fd",
+    "recovery/tests/App": "a84ca916b2556739c97a7ea54f98b2e95c511be6",
+    "recovery/protocol": "25354ccee5f549dcd8db04deab3f2f42c71153d8",
+    "recovery/scripts/BuildApp.ps1": "770283dec31071d4283c2070b0c6303e000f04db",
+    "recovery/scripts/TestApp.ps1": "db77d63ffb41d56215cef5f166adb363ac39e6f6",
+    ".github/workflows/refactor-probes.yml": "514773ba751d883019b1dde925beea602c7f4d67"
+  },
+  "inputFiles": [
+    {
+      "path": ".github/workflows/refactor-probes.yml",
+      "gitBlobSha": "514773ba751d883019b1dde925beea602c7f4d67",
+      "sha256": "6337c4d6b1c5131f14be9a607c969e53884dafd1b26f33254112af8a84f1490d"
+    },
+    {
+      "path": "recovery/protocol/README.md",
+      "gitBlobSha": "0a4cf1f94527108f27edf7bcd145ba5cbae5a349",
+      "sha256": "76dc0f395ca058afa530d749bfae6027ff57ee621be5ce4d204d052f7ea113d4"
+    },
+    {
+      "path": "recovery/protocol/build-event.schema.json",
+      "gitBlobSha": "f09a988eff30157bfdbb739358f0fcb4064bca42",
+      "sha256": "9ed098a7aa7eae217fbfd1df05a5a4674e2b4af6d375ab230d79c54e733ada07"
+    },
+    {
+      "path": "recovery/protocol/build-report.schema.json",
+      "gitBlobSha": "b3d44989b9b06da6288a68f01ce62e0cabd09518",
+      "sha256": "a3da3891102349869dc1932559db11425a5c0d00957e9361b884c9887032cd82"
+    },
+    {
+      "path": "recovery/scripts/BuildApp.ps1",
+      "gitBlobSha": "770283dec31071d4283c2070b0c6303e000f04db",
+      "sha256": "09adf2c4279f841372698dd756d44c9f0adba68f832fe0f850bb3ba5b902145d"
+    },
+    {
+      "path": "recovery/scripts/TestApp.ps1",
+      "gitBlobSha": "db77d63ffb41d56215cef5f166adb363ac39e6f6",
+      "sha256": "c3ec16db80db0e49fbfc4d6fe905c1839a8f8ad3fb4c830b5b6b19de924a71ae"
+    },
+    {
+      "path": "recovery/src/App/App.config",
+      "gitBlobSha": "3ade0142ee80d698912a1e27c4e03783c10b40df",
+      "sha256": "601e8aa2f94cb6f551b2a78b971130e48aa27c6616554467cd51bf20f97c94aa"
+    },
+    {
+      "path": "recovery/src/App/Application/BuildSession.cs",
+      "gitBlobSha": "bba8fc8020307dc80d37c23dc5e614014cece4f1",
+      "sha256": "8d942fbd968778834a3c8bc7e1304b27ed93f551c8ac315a686768f43764bac1"
+    },
+    {
+      "path": "recovery/src/App/Application/Model.cs",
+      "gitBlobSha": "d60e22e91da1d50a61e7fe307034a56ba1eef698",
+      "sha256": "57129d5b71ab2ee8c0d75426eb55081a61ddf428ddf09448524d3c7cffedc546"
+    },
+    {
+      "path": "recovery/src/App/Application/Planner.cs",
+      "gitBlobSha": "00595d23913dec08918bec272361dfbd00011247",
+      "sha256": "9de87c39a5b039219a57c9a99e7f763733b5f3bf8cb026ece3efddda4ba03726"
+    },
+    {
+      "path": "recovery/src/App/Cli/Options.cs",
+      "gitBlobSha": "22df64c4c94443c9a6fdd317b614594bcc5ef4e0",
+      "sha256": "9fa5132d84a2f7e28f12883d7e8e55e8fca0048466166e1a6074632ee8ab551a"
+    },
+    {
+      "path": "recovery/src/App/Cli/Program.cs",
+      "gitBlobSha": "c7ba6ea4be75d72360e17dfd345564aca330e4e2",
+      "sha256": "3c992e97ed0829a4a824eb54a5f0cb57cca7bda4c3cb6c0840eaad05d8778355"
+    },
+    {
+      "path": "recovery/src/App/Diagnostics/Events.cs",
+      "gitBlobSha": "8978333c023d5f1e9e5eea04dfac64f42a8e3bc4",
+      "sha256": "6f71d019a339228d0586a256c38d5944d1e0dc03e4e8894df07e038b9f6f247d"
+    },
+    {
+      "path": "recovery/src/App/NewModCompiler.App.csproj",
+      "gitBlobSha": "eabaa153a08ca5a0f7c0eb783cdd3585f699ea98",
+      "sha256": "943b440472e9ac50206e65cd1c949d2d0f03d522ee12e97682d0ae3413852c9a"
+    },
+    {
+      "path": "recovery/tests/App/AppTests.cs",
+      "gitBlobSha": "c28abcbb7a8984ed4e49103e371d206f84eef2a9",
+      "sha256": "8f943dce6ad61a4435ed2bd44b42e192c58f69a67949e416638b8917fb2d7c49"
+    }
+  ],
+  "matrix": [
+    {
+      "configuration": "Debug",
+      "platform": "x86",
+      "assertions": 305,
+      "result": "PASS"
+    },
+    {
+      "configuration": "Release",
+      "platform": "x86",
+      "assertions": 305,
+      "result": "PASS"
+    }
+  ],
+  "toolchain": {
+    "targetFramework": ".NET Framework 4.8",
+    "compiler": "VS hosted Roslyn selected by vswhere; exact compiler version not emitted by this standalone test script",
+    "packageDownloadsRequired": false
+  },
+  "coverage": [
+    "MOD directories inside and outside SDK, spaces and Chinese path names",
+    "base/apt/maps selection, deterministic discovery, optional empty sets and required missing base",
+    "legacy aliases and conflict rejection; pc/csc/sc/bc meanings; raw ordered legacy search paths; oix/mr booleans; tl/el bounds",
+    "project preset and command-line provenance/precedence; unsupported capabilities and options",
+    "explicit injected dependency graph expansion, exact-task deduplication, ordering, missing dependency and cycle rejection",
+    "sequential test-only executor lifecycle and per-stream workspace ownership",
+    "complete JSONL parsing, increasing sequence, shared buildId and exactly one terminal event",
+    "normal plan, missing production backend, controlled compilation failure, cancellation, required sink/report failure",
+    "stale report invalidation, failed/cancelled staging cleanup and successive MOD isolation"
+  ],
+  "limitations": [
+    "Production build has no integrated IStreamCompiler and explicitly fails BACKEND_NOT_INTEGRATED (exit 3).",
+    "Default plan is StreamDiscovery. Real Core Include/reference closure and backend lifecycle remain integration work.",
+    "Controlled executor emits synthetic test files solely to exercise host contracts; no asset compilation or SDK output equality is claimed.",
+    "Successful host executions keep files in isolated staging only; release publication is not implemented.",
+    "This is the app-contract job result; it does not assert that other jobs in the same workflow passed.",
+    "Protocol schema JSON syntax and declared required fields were checked locally; no external JSON Schema validator was installed.",
+    "No performance, full SDK, texture ABI or unified-link acceptance is implied."
+  ]
+}

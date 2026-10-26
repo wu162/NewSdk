@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "moduleName": "Managed.Foundation.netmodule",
+  "sourceRoots": [
+    "recovery/src/Managed/Core",
+    "recovery/src/Managed/Utility",
+    "recovery/src/Managed/Hash",
+    "recovery/src/Managed/Metrics",
+    "recovery/src/Managed/MvpXml",
+    "recovery/src/Managed/ExpressionEval",
+    "recovery/src/Managed/GameDataVerifier",
+    "src/AudioCompiler"
+  ],
+  "excludedFileNames": [
+    "AssemblyInfo.cs",
+    "GUIBuildOutput.cs",
+    "NoScrollRichTextBox.cs",
+    "ShMisc.cs"
+  ],
+  "frameworkReferences": [
+    "mscorlib",
+    "System",
+    "System.Core",
+    "System.Xml",
+    "System.Configuration",
+    "System.Data",
+    "System.Web",
+    "System.Configuration.Install"
+  ],
+  "allowedBusinessReferences": [
+    "antlr.runtime"
+  ],
+  "define": "NEWSdk_MONOLITHIC",
+  "resources": [
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilderProject.xsd",
+      "logicalName": "BinaryAssetBuilderProject.xsd",
+      "expectedSha256": "3ffe9a0f876bc76deaf28d2e0302f32d63b0c842d719f3d9c428dc961b7616c1",
+      "lineEndings": "CRLF"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.SR.resources",
+      "logicalName": "Mvp.Xml.Common.SR.resources",
+      "expectedSha256": "65bc06e64351f384b3f8658d273a36d7dcb2af167e458adc0f9579bb2cf0a1cb"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources",
+      "logicalName": "Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources",
+      "expectedSha256": "a3237a994521c1904b0367691fdafc8b4b309371b845157bd149f27b53849d76"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer.SR.resources",
+      "logicalName": "Mvp.Xml.XPointer.SR.resources",
+      "expectedSha256": "fb2b9ea0745131e0ba26b9c7967a4f74885427d73dbeb6ad68114c8a3bacb1de"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude.SR.resources",
+      "logicalName": "Mvp.Xml.XInclude.SR.resources",
+      "expectedSha256": "0ef800084cbdf48a5a0b2de121f52737410aaa1356a6325fae779a8b56a77f6c"
+    }
+  ]
+}

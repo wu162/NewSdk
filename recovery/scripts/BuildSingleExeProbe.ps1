@@ -54,23 +54,42 @@ try {
     }
     $module = Join-Path $work 'Managed.Application.netmodule'
     $applicationArgs = @('/nologo','/codepage:65001','/target:module','/platform:x86',"/addmodule:$foundation,$($objects[-1])",'/r:System.Xml.dll','/r:System.Core.dll',"/out:$module",(Resolve-Path 'recovery/probes/SingleExe/Probe.cs').Path)
+    $applicationCsc = $csc
     if (!$Minimal) {
+        $packageLine = (& dotnet nuget locals global-packages --list)
+        if($LASTEXITCODE -ne 0){throw 'Cannot locate pinned application compiler'}
+        $packageRoot = ($packageLine -replace '^global-packages:\s*','').Trim()
+        $applicationCsc = Join-Path $packageRoot 'microsoft.net.compilers.toolset/4.0.1/tasks/net472/csc.exe'
+        if(!(Test-Path $applicationCsc)){throw 'Roslyn 4.0.1 compiler is required for full application module'}
+        $framework = Join-Path ${env:ProgramFiles(x86)} 'Reference Assemblies/Microsoft/Framework/.NETFramework/v4.8'
+        $applicationArgs = @($applicationArgs | Where-Object { $_ -notin @('/r:System.Xml.dll','/r:System.Core.dll') })
+        $applicationArgs += @('/noconfig','/nostdlib+','/langversion:10.0')
+        foreach($name in @('mscorlib','System','System.Core','System.Xml','System.Configuration','System.Data','System.Web','System.Configuration.Install','System.Web.Extensions')) {
+            $applicationArgs += ('/r:' + (Join-Path $framework ($name+'.dll')))
+        }
+        $applicationArgs += ('/r:' + (Join-Path $root 'SDK/tools/antlr.runtime.dll'))
+        $applicationArgs += @(Get-ChildItem 'recovery/src/App' -Recurse -Filter *.cs -File | Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' } | Sort-Object FullName | ForEach-Object FullName)
         $applicationArgs += @('/define:FULL_FOUNDATION',(Resolve-Path 'recovery/build/ManagedValidation/ManagedFoundationValidation.cs').Path,(Resolve-Path 'recovery/probes/TextureRedirect/TextureProbe.cs').Path)
     }
-    Invoke-Checked $csc $applicationArgs "$out/application-build.log"
+    Invoke-Checked $applicationCsc $applicationArgs "$out/application-build.log"
     $linkArgs = @('/nologo','/LTCG','/MACHINE:X86','/SUBSYSTEM:CONSOLE','/ENTRY:SingleExeProbe.Main',"/OUT:$bin/NewModCompiler.exe") + $objects + @($foundation,$module)
     foreach ($resource in $resources) {
         $path = [string]$resource.path
         if (![IO.Path]::IsPathRooted($path)) { $path = Join-Path $FoundationDirectory $path }
-        $linkArgs += "/ASSEMBLYRESOURCE:$path,$($resource.logicalName),public"
+        $linkArgs += "/ASSEMBLYRESOURCE:$path,$($resource.logicalName)"
     }
     Invoke-Checked 'link.exe' $linkArgs "$out/link.log"
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8" /></startup></configuration>' | Set-Content "$bin/NewModCompiler.exe.config"
-    if (!$Minimal) { Copy-Item 'SDK/tools/antlr.runtime.dll' $bin }
+    if (!$Minimal) {
+        Copy-Item 'SDK/tools/antlr.runtime.dll' $bin
+        Copy-Item (Join-Path $FoundationDirectory 'Foundation.types.txt') $bin
+        $metadataTool=Join-Path $root 'recovery/build/ManagedMetadata/bin/Release/net8.0/ManagedMetadata.dll'
+        Invoke-Checked 'dotnet' @($metadataTool,'verify-linked',"$bin/NewModCompiler.exe",(Join-Path $root 'SDK/tools/BinaryAssetBuilder.Utility.dll')) "$out/linked-metadata.log"
+    }
     # Only EXE, configuration and full Foundation's declared ANTLR dependency enter the run directory.
     @{
         sourceCommit=(git rev-parse HEAD).Trim(); configuration=$Configuration
-        toolchain=@{clPath=(Get-Command cl.exe).Source;clVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command cl.exe).Source).FileVersion;linkPath=(Get-Command link.exe).Source;linkVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command link.exe).Source).FileVersion;cscPath=$csc;cscVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo($csc).FileVersion;vcToolsVersion=$env:VCToolsVersion;sdkVersion=$env:WindowsSDKVersion;fp='precise';platform='x86'}
+        toolchain=@{clPath=(Get-Command cl.exe).Source;clVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command cl.exe).Source).FileVersion;linkPath=(Get-Command link.exe).Source;linkVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command link.exe).Source).FileVersion;applicationCscPath=$applicationCsc;cscPath=$csc;cscVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo($csc).FileVersion;vcToolsVersion=$env:VCToolsVersion;sdkVersion=$env:WindowsSDKVersion;fp='precise';platform='x86'}
         sourceFiles=@(@('recovery/src/Native/Relocation.cpp','recovery/src/Native/Relocation.h','recovery/src/Native/ScalarParsing.cpp','recovery/src/Native/ScalarParsing.h','recovery/src/Native/ArmorTemplate.cpp','recovery/src/Native/ArmorTemplate.h','recovery/src/Bridge/ArmorCompiler.cpp','recovery/src/Bridge/XmlNodeAdapter.h','recovery/probes/SingleExe/Probe.cs') | ForEach-Object { @{path=$_;sha256=(Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant()} })
         scope=if($Minimal){'minimal link probe: real AssetBuffer, Hash, Armor CompileXml; not full G1'}else{'Foundation plus real Armor bridge unified-link probe'}
         foundationSha256=(Get-FileHash $foundation -Algorithm SHA256).Hash.ToLowerInvariant()

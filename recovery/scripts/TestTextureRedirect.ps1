@@ -28,6 +28,10 @@ try {
     & dotnet "$work/writer/TextureReferencePatch.dll" roundtrip "$original/BinaryAssetBuilder.TextureCompiler.dll" "$rewritten/BinaryAssetBuilder.TextureCompiler.dll" - *> "$out/B-write.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/B-write.log"; throw 'Native Texture roundtrip failed' }
     Copy-Item "$rewritten/BinaryAssetBuilder.TextureCompiler.dll.patch.json" "$out/B.patch.json"
+    & dotnet "$work/writer/TextureReferencePatch.dll" roundtrip "$original/BinaryAssetBuilder.TextureCompiler.dll" "$work/B-repeat.dll" - *> "$out/B-repeat-write.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/B-repeat-write.log"; throw 'Second native Texture roundtrip failed' }
+    $receipt.writerDeterministic = (Get-FileHash "$work/B-repeat.dll").Hash -eq (Get-FileHash "$rewritten/BinaryAssetBuilder.TextureCompiler.dll").Hash
+    if (!$receipt.writerDeterministic) { throw 'Native Texture writer output is not deterministic for identical inputs' }
     & python recovery/probes/TextureRedirect/AuditPe.py "$original/BinaryAssetBuilder.TextureCompiler.dll" "$rewritten/BinaryAssetBuilder.TextureCompiler.dll" "$out/B.pe.json"
     if ($LASTEXITCODE -ne 0) { throw 'G2 B protected PE/native range audit failed' }
     & "$rewritten/TextureProbe.exe" "$rewritten/BinaryAssetBuilder.TextureCompiler.dll" "$work/fixture.tga" "$out/B.txt" original *> "$out/B.log"

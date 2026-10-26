@@ -1,0 +1,17 @@
+{
+  "status": "failed",
+  "sourceCommit": "87cf54e254dfb44a129da087316fd04806ed2b10",
+  "harnessCommit": "fc5426d9268647ff5cb106357824ad1e660ee9e3",
+  "modSourceCommit": "068643219fded09a05fb7b75c6507b769c430316",
+  "runId": "40268595033",
+  "runAttempt": "1",
+  "jobId": "121396293432",
+  "artifactId": "12627144534",
+  "originalBaselinePassed": true,
+  "originalSuccessfulInvocations": 5,
+  "combinedRecoveredSdkExecuted": false,
+  "failure": "MSVC Platform=x86 environment changed nested MvpXmlMetadata output to bin/x86/Release/net48; fixed baseline MvpXml project invokes bin/Release/net48 and exits3 before Core build completes.",
+  "correction": "Harness invokes dotnet builds with explicit -p:Platform=AnyCPU -p:PlatformTarget=x86; baseline source remains untouched.",
+  "evidenceSource": "GitHub job log121396293432; full output/input fingerprints and raw logs retained in artifact12627144534.",
+  "g0Passed": false
+}

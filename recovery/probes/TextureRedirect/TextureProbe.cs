@@ -46,7 +46,7 @@ public static class TextureProbe
             var pluginAssembly = Assembly.LoadFrom(Path.GetFullPath(args[0]));
             object instance = Activator.CreateInstance(pluginAssembly.GetType("BinaryAssetBuilder.TextureCompiler.Plugin", true));
             var plugin = (IAssetBuilderPlugin)instance;
-            string custom = Path.GetFullPath(args[2] + ".custom");
+            string custom = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(args[1])), "texture-probe.custom");
             int successes = 0, errors = 0;
             try
             {

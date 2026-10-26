@@ -38,7 +38,7 @@ not independently disassembled; that remaining limit is explicit in the receipt.
 Any protected-range change fails. No automatic fallback patches or forwarding
 assemblies are generated.
 
-The initial fixture is a deterministic uncompressed 512² BGRA TGA. It must first
+The initial fixture is a deterministic uncompressed 256² BGRA TGA. It must first
 be proven valid in A; it is not an existing SDK acceptance fixture. This component
 probe does not exercise XSD/preprocessing and cannot replace the real SDK input
 and routing portion of G2. G2 is complete only after all these requirements and
