@@ -34,6 +34,8 @@ public static class CompilerCliControl
     [DllImport("kernel32.dll")] static extern uint WaitForSingleObject(IntPtr handle,uint ms);
     [DllImport("kernel32.dll")] static extern bool GetExitCodeProcess(IntPtr process,out uint code);
     [DllImport("kernel32.dll")] static extern bool CloseHandle(IntPtr handle);
+    [DllImport("kernel32.dll",SetLastError=true)] static extern IntPtr OpenProcess(uint access,bool inherit,uint pid);
+    [DllImport("kernel32.dll",SetLastError=true)] static extern bool GetProcessTimes(IntPtr process,out long created,out long exited,out long kernel,out long user);
     [DllImport("kernel32.dll",SetLastError=true)] static extern IntPtr CreateToolhelp32Snapshot(uint flags,uint pid);
     [DllImport("kernel32.dll",CharSet=CharSet.Unicode)] static extern bool Process32First(IntPtr snapshot,ref Entry entry);
     [DllImport("kernel32.dll",CharSet=CharSet.Unicode)] static extern bool Process32Next(IntPtr snapshot,ref Entry entry);
@@ -77,18 +79,64 @@ public static class CompilerCliControl
         }
         return null;
     }
-    static void Audit(uint parent,HashSet<uint> descendants,List<object> observed)
+    static long Created(IntPtr process)
+    {
+        long created,exited,kernel,user;
+        Check(GetProcessTimes(process,out created,out exited,out kernel,out user),"Cannot query process creation identity");
+        return created;
+    }
+    static bool ChildIdentity(long parentCreated,long childCreated) { return childCreated>=parentCreated; }
+    static int ParentIdentityTests()
+    {
+        if(ChildIdentity(200,100)) throw new Exception("A recycled parent PID attributed an older process");
+        if(!ChildIdentity(100,200)) throw new Exception("A real newer child was excluded");
+        if(!ChildIdentity(100,100)) throw new Exception("Equal-resolution creation times must retain a possible child");
+        if(ChildIdentity(300,200)) throw new Exception("A recursive recycled parent PID attributed an older grandchild");
+        if(!ChildIdentity(200,300)) throw new Exception("A recursive real child was excluded");
+        using(var current=Process.GetCurrentProcess()) if(Created(current.Handle)<=0) throw new Exception("Real process creation query failed");
+        Console.WriteLine("PASS parent process creation identity: 6 assertions"); return 0;
+    }
+    static void Audit(uint root,long rootCreated,Dictionary<uint,long> descendants,List<object> observed)
     {
         IntPtr snapshot=CreateToolhelp32Snapshot(2,0);
         if(snapshot==new IntPtr(-1)) throw new Exception("Cannot audit process tree");
         try {
-            var row=new Entry {Size=(uint)Marshal.SizeOf(typeof(Entry))};
+            var rows=new List<Entry>();var row=new Entry {Size=(uint)Marshal.SizeOf(typeof(Entry))};
             if(!Process32First(snapshot,ref row)) return;
-            do { if((row.Parent==parent || descendants.Contains(row.Parent)) && descendants.Add(row.Pid)) observed.Add(new {pid=row.Pid,parentPid=row.Parent,name=row.Name}); } while(Process32Next(snapshot,ref row));
+            do {rows.Add(row);} while(Process32Next(snapshot,ref row));
+            // Toolhelp parent PIDs survive parent exit and can point at a newly
+            // reused product PID. Creation identity gates every graph edge.
+            var current=new Dictionary<uint,long> {{root,rootCreated}};
+            bool added;
+            do {
+                added=false;
+                foreach(var item in rows) {
+                    long parentCreated;
+                    if(item.Pid==root || current.ContainsKey(item.Pid) || !current.TryGetValue(item.Parent,out parentCreated))continue;
+                    IntPtr process=OpenProcess(0x1000,false,item.Pid);
+                    if(process==IntPtr.Zero) {
+                        // A vanished process is absent; access/query failures
+                        // cannot silently authorize a suspected descendant.
+                        int error=Marshal.GetLastWin32Error();
+                        if(error==87)continue;
+                        throw new Exception("Cannot query candidate descendant identity: "+item.Pid+" Win32="+error);
+                    }
+                    long created;
+                    try {created=Created(process);} finally {CloseHandle(process);}
+                    if(!ChildIdentity(parentCreated,created))continue;
+                    current.Add(item.Pid,created);added=true;
+                    long previous;
+                    if(!descendants.TryGetValue(item.Pid,out previous) || previous!=created) {
+                        descendants[item.Pid]=created;
+                        observed.Add(new {pid=item.Pid,parentPid=item.Parent,name=item.Name,createdFileTime=created,parentCreatedFileTime=parentCreated});
+                    }
+                }
+            } while(added);
         } finally {CloseHandle(snapshot);}
     }
     public static int Main(string[] args)
     {
+        if(args.Length==1 && args[0]=="--test-parent-identity") return ParentIdentityTests();
         var state=new Dictionary<string,object> { {"succeeded",false},{"controllerPid",Process.GetCurrentProcess().Id},{"singleProcessJobLimit",1},{"signalRequested",false},{"signalSent",false},{"streamStartedObserved",false} };
         IntPtr job=IntPtr.Zero,output=IntPtr.Zero,error=IntPtr.Zero,input=IntPtr.Zero;var child=new ProcessInfo();bool allocated=false,finished=false;
         FileStream readLock=null;FileSystemWatcher eventWatcher=null;int freshEvents=0;
@@ -135,13 +183,14 @@ public static class CompilerCliControl
             var command=new StringBuilder(Quote(exe));foreach(object argument in (System.Collections.IEnumerable)request["arguments"])command.Append(' ').Append(Quote((string)argument));
             var startup=new Startup {Size=Marshal.SizeOf(typeof(Startup)),Flags=0x100,Input=input,Output=output,Error=error};
             Check(CreateProcess(exe,command,IntPtr.Zero,IntPtr.Zero,true,0x204,IntPtr.Zero,cwd,ref startup,out child),"Cannot create real production process group");
+            long childCreated=Created(child.Process);state["processCreatedFileTime"]=childCreated;
             state["processId"]=child.Pid;state["processGroupId"]=child.Pid;state["creationFlags"]=0x204;
             Check(AssignProcessToJobObject(job,child.Process),"Cannot assign production process to single-process job");
             Check(ResumeThread(child.Thread)!=uint.MaxValue,"Cannot resume production process");
-            var timer=Stopwatch.StartNew();var descendants=new HashSet<uint>();var observed=new List<object>();int polls=0;
+            var timer=Stopwatch.StartNew();var descendants=new Dictionary<uint,long>();var observed=new List<object>();int polls=0;
             while(WaitForSingleObject(child.Process,0)!=0)
             {
-                Audit(child.Pid,descendants,observed);polls++;
+                Audit(child.Pid,childCreated,descendants,observed);polls++;
                 if(cancel && !(bool)state["signalSent"] && Interlocked.CompareExchange(ref freshEvents,0,0)!=0) {
                     Dictionary<string,object> buildStarted;
                     var started=StreamStarted(events,child.Pid,previousBuilds,out buildStarted);
@@ -155,7 +204,7 @@ public static class CompilerCliControl
                 Thread.Sleep(10);
             }
             finished=true;uint exit;Check(GetExitCodeProcess(child.Process,out exit),"Cannot read production exit code");
-            Audit(child.Pid,descendants,observed);state["processExitCode"]=exit;state["elapsedMs"]=timer.ElapsedMilliseconds;state["auditPolls"]=polls;state["descendants"]=observed.ToArray();
+            Audit(child.Pid,childCreated,descendants,observed);state["processExitCode"]=exit;state["elapsedMs"]=timer.ElapsedMilliseconds;state["auditPolls"]=polls;state["descendants"]=observed.ToArray();
             if(observed.Count!=0) throw new Exception("Production process created descendants");
             if(cancel && (!(bool)state["signalSent"] || exit!=6)) throw new Exception("Real CtrlBreak cancellation was not verified");
             state["succeeded"]=true;code=0;

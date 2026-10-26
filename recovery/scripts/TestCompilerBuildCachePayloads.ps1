@@ -141,8 +141,31 @@ function W3xMod([string]$Path){
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production /bc asset-cache replay for AudioFile PCM WAVE including complete CDATA and one real W3DAnimation with hierarchy closure; disabled/cold/hot, same-length same-mtime input changes, exact four-stream and CDATA equality against independent no-cache processes; not a new original-DLL/SDK gate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
-    $state.testSourceCommit=$state.sourceCommit;$state.binarySourceCommit=$state.sourceCommit
     Need (!(Test-Path -LiteralPath (Join-Path $CompilerDirectory 'reuse.json'))) 'Payload cache acceptance requires current production EXE bytes'
+
+    $state.testSourceCommit=$state.sourceCommit;$state.binarySourceCommit=$state.sourceCommit
+    $replayFiles=@{};$replayPath=Join-Path $CompilerDirectory 'candidate-replay.json'
+    if(Test-Path -LiteralPath $replayPath){
+        $replay=Get-Content -LiteralPath $replayPath -Raw|ConvertFrom-Json
+        $fixedSource='fb6f67a0aaf5889bcd950485c41a883bc5807523'
+        Need ($replay.prepared -eq $true -and $replay.candidateValidated -eq $false -and $replay.productionSourcesUnchanged -eq $true -and $replay.sourceCommit -ceq $fixedSource -and $replay.binarySourceCommit -ceq $fixedSource -and $replay.candidateCommit -ceq $state.sourceCommit -and $replay.testSourceCommit -ceq $state.sourceCommit -and [string]$replay.runId -ceq '40360344360' -and [string]$replay.runAttempt -ceq '1' -and $replay.archiveSha256 -ceq 'd1308d63759466789eb657ac3389a78f2274c52d261b0e078144923af435d8de') 'Candidate replay identity or preparation contract differs'
+        # The fixed archive checker verifies API status, successful scopes and
+        # raw receipts. Independently re-evaluate unchanged production inputs.
+        $closureCode='import sys;sys.path.insert(0,sys.argv[1]);from PrepareCompilerReplay import closure;closure(sys.argv[2],sys.argv[3],sys.argv[4])'
+        & python -c $closureCode $PSScriptRoot $root $fixedSource $state.sourceCommit *> "$out/replay-closure.log"
+        Need ($LASTEXITCODE -eq 0) 'Candidate replay production-source closure rejected'
+        $expectedFiles=[Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+        foreach($configuration in @('Debug','Release')){foreach($fileName in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){$null=$expectedFiles.Add($configuration+'/bin/'+$fileName)}}
+        Need (@($replay.files).Count -eq 6) 'Candidate replay requires exactly six runtime identities'
+        foreach($identity in $replay.files){
+            Need ($expectedFiles.Remove([string]$identity.path) -and $identity.sha256 -cmatch '^[0-9a-f]{64}$') 'Duplicate or unexpected candidate replay runtime identity'
+            Need ((Hash (Join-Path $CompilerDirectory $identity.path)) -ceq $identity.sha256) 'Candidate replay runtime bytes differ from validated archive receipt'
+            $replayFiles[[string]$identity.path]=[string]$identity.sha256
+        }
+        Need ($expectedFiles.Count -eq 0) 'Candidate replay runtime set is incomplete'
+        $state.binarySourceCommit=$fixedSource;$state.candidateReplay=$replay
+        $state.scope+='; fixed binarySourceCommit replay with separately recorded current testSourceCommit and unchanged production inputs; this is not a current production rebuild'
+    }
     $script:control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
     $state.scriptSha256=Hash $PSCommandPath;$state.controllerSha256=Hash $control
     $state.sourceInputs=@('recovery/tests/AudioSdkSupport.cs','SDK/Mods/W3xRecovery/Data/Animations.xml','SDK/Mods/W3xRecovery/Data/Dependencies.xml')|ForEach-Object{@{path=$_;sha256=(Hash (Join-Path $root $_))}}
@@ -152,6 +175,7 @@ try{
         $script:runtime=(New-Item -ItemType Directory -Path (Join-Path $modeWork 'r')).FullName
         foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){
             Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$file") -Destination $runtime
+            if($replayFiles.Count -gt 0){Need ((Hash (Join-Path $runtime $file)) -ceq $replayFiles[$mode+'/bin/'+$file]) 'Copied candidate replay runtime differs from validated identity'}
         }
         $script:exe=Join-Path $runtime 'NewModCompiler.exe'
         & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log";Need ($LASTEXITCODE -eq 0) 'Payload runtime Texture deployment failed'

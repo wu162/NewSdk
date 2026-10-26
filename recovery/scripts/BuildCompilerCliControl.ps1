@@ -28,6 +28,9 @@ try {
     $state.controllerCompiler=@{path=$csc;sha256=(Hash $csc);version=([Diagnostics.FileVersionInfo]::GetVersionInfo($csc).FileVersion);languageVersion='7.3';target='net48/x86'}
     & $csc @compilerArguments *> "$out/controller-build.log"
     Need ($LASTEXITCODE -eq 0) 'External CLI control helper compilation failed'
+    & $script:control --test-parent-identity *> "$out/parent-identity-tests.log"
+    Need ($LASTEXITCODE -eq 0) 'Controller parent creation identity self-test failed'
+    $state.parentIdentitySelfTest=@{succeeded=$true;logSha256=(Hash "$out/parent-identity-tests.log");assertions=6}
     $state.controllerSha256=Hash $script:control
     $state.executable=$script:control;$state.succeeded=$true
     Write-Output $script:control

@@ -1,0 +1,66 @@
+name: MOD compiler fixed candidate cache replay
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-cache-replay.yml'
+      - 'recovery/scripts/PrepareCompilerReplay.py'
+      - 'recovery/scripts/TestCompilerBuildCache.ps1'
+      - 'recovery/scripts/TestCompilerBuildCachePayloads.ps1'
+      - 'recovery/scripts/BuildCompilerCliControl.ps1'
+      - 'recovery/tests/CompilerCliControl.cs'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: refactor-cache-replay-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  replay:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-cache-replay]')
+    runs-on: windows-2022
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Install pinned texture and protocol dependencies
+        shell: pwsh
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt
+      - name: Verify fixed failed-test source and prepare archived production bytes
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/scripts/PrepareCompilerReplay.py --repo . --candidate-commit $env:GITHUB_SHA --output recovery/artifacts/candidate-replay --archive "$env:RUNNER_TEMP/candidate-replay.zip"
+          if($LASTEXITCODE -ne 0){throw 'Fixed production candidate replay rejected'}
+      - name: Replay current build-cache and Audio CDATA W3X payload tests
+        shell: pwsh
+        run: |
+          ./recovery/scripts/BuildCompilerCliControl.ps1 -OutputDirectory recovery/artifacts/replay-controller
+          ./recovery/scripts/TestCompilerBuildCache.ps1 -CompilerDirectory recovery/artifacts/candidate-replay -OutputDirectory "recovery/evidence/refactor/build-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          ./recovery/scripts/TestCompilerBuildCachePayloads.ps1 -CompilerDirectory recovery/artifacts/candidate-replay -OutputDirectory "recovery/evidence/refactor/cache-payloads/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          foreach($scope in @('build-cache','cache-payloads')) {
+            $directory="recovery/evidence/refactor/$scope/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+            python recovery/scripts/ValidateAppProtocol.py $directory --source-commit $env:GITHUB_SHA --output "$directory/protocol.json"
+            if($LASTEXITCODE -ne 0){throw "Replay $scope protocol failed"}
+          }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-cache-replay-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/replay-controller/**
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/artifacts/candidate-replay/candidate-replay.json
+            recovery/artifacts/candidate-replay/original-input-roots-protocol.json
