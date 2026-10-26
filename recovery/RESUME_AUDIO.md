@@ -19,3 +19,5 @@ WAVE4/6源码 `ed1a7bcbec4a7a89d08369b9668129c8c554f8ec`，源码树 `a8e47a2e73
 3. 保留MARK-only未初始化mode、单端marker、越界loop/SSND offset、单帧ADP4/import-resample等安全拒绝。不重复触发未变已验收组；SDK继续按完整能力组集中运行。
 
 精确收据见[验收索引](evidence/audio/acceptance-current.json)；源码与运行锚点不得交叉套用。仓库SDK/tools/config未替换。所有已触发运行均已收取终态，没有未完成的验证作业。
+
+下一组静态准备已单独保存：[preparation/audio-aiff-multichannel](https://github.com/wu162/NewSdk/tree/preparation/audio-aiff-multichannel)，提交`351cf2a1464c7d8b929b44fca14be4c3fb42f37a`。1728用例生成器未编译、未接线、未启用生产支持，不在当前PR的已验收范围；从最新目标基线选择性取用，不能覆盖并行改动。
