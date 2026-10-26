@@ -40,6 +40,7 @@ public static class TextureProbe
             bool exe = args[3] == "exe";
             var owner = typeof(IAssetBuilderPlugin).Assembly;
             if (exe && owner != Assembly.GetEntryAssembly()) throw new Exception("Core types must belong to the current entry EXE");
+            if (exe && owner.GetModules().Length != 1) throw new Exception("EXE-bound Core still depends on build-time modules");
             if (exe)
                 foreach (string name in new[] { "BinaryAssetBuilder.Core", "BinaryAssetBuilder.Utility", "EALA.Hash", "EALA.Metrics" })
                     if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, name + ".dll"))) throw new Exception("Forbidden compatibility DLL present: " + name);

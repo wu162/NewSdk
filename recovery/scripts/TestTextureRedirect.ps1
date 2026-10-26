@@ -22,7 +22,7 @@ try {
     & $hostExe "$original/BinaryAssetBuilder.TextureCompiler.dll" "$work/fixture.tga" "$out/A.txt" original *> "$out/A.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/A.log"; throw 'G2 A original Texture baseline failed' }
     $receipt.A='passed'
-    & dotnet build recovery/probes/TextureRedirect/Writer/TextureReferencePatch.csproj -c Release -o "$work/writer" *> "$out/writer-build.log"
+    & dotnet build recovery/probes/TextureRedirect/Writer/TextureReferencePatch.csproj -c Release -p:Platform=AnyCPU -p:PlatformTarget=AnyCPU -o "$work/writer" *> "$out/writer-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/writer-build.log"; throw 'Native Texture writer build failed' }
     $rewritten = (New-Item -ItemType Directory "$work/roundtrip").FullName
     Copy-Item "$original/*" $rewritten
