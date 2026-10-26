@@ -410,6 +410,7 @@ namespace NewModCompiler.Application
             IDisposable hashes = null, tracing = null, report = null, processorState = null, inputBoundary = null;
             Exception failure = null;
             IList<Artifact> artifacts = null;
+            DocumentProcessor processor = null;
             compiling = true;
             try
             {
@@ -459,14 +460,21 @@ namespace NewModCompiler.Application
                     {
                         cache.LoadCache(sessionPath);
                         cache.InitializeCache(new List<string>());
+                        if (packageRestored && !cache.HasCachedState)
+                            throw new InvalidDataException("The restored session has an incompatible format.");
                     }
                     catch (OperationCanceledException) { throw; }
                     catch (Exception) when (packageRestored)
                     {
                         // Treat malformed serialized state as one cold miss. No
                         // intermediate/cdata bytes from the bad package survive.
+                        // Loading older document data can register strings before
+                        // a later malformed node fails. Recreate that scope too.
+                        sessionPackage.InvalidateStream(context.Task.Id);
+                        hashes.Dispose(); hashes = null;
                         foreach (string directory in new[] {settings.SessionCacheDirectory, settings.IntermediateOutputDirectory, settings.OutputDirectory})
                             if (Directory.Exists(directory)) Directory.Delete(directory, true);
+                        hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                         packageRestored = false;
                         cache = new SessionCache();
                         cache.LoadCache(sessionPath);
@@ -475,11 +483,10 @@ namespace NewModCompiler.Application
                     if (packageRestored) sessionPackageHits++; else sessionPackageMisses++;
                 }
                 else cache.InitializeCache(new List<string>());
-                var processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
+                processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
                 bool success;
                 processor.ProcessDocument(settings.InputPath, true, false, out success);
                 if (!success) throw new BuildFailure(ExitCode.Compilation, "CORE_COMPILE_FAILED", "Core did not complete the stream.");
-                documentReuse += processor.DocumentReuseCount; xmlParse += processor.XmlParseCount; instanceCompile += processor.InstanceCompileCount;
                 if (sessionCacheEnabled)
                 {
                     var rejected = new HashSet<uint>(new[] { "Texture", "OnDemandTexture", "TerrainTextureAtlas" }.Select(InstanceHandle.GetTypeId));
@@ -512,6 +519,12 @@ namespace NewModCompiler.Application
             }
             finally
             {
+                if (processor != null)
+                {
+                    documentReuse += processor.DocumentReuseCount;
+                    xmlParse += processor.XmlParseCount;
+                    instanceCompile += processor.InstanceCompileCount;
+                }
                 var cleanup = new List<Exception>();
                 try { if (report != null) report.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (hashes != null) hashes.Dispose(); } catch (Exception error) { cleanup.Add(error); }

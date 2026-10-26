@@ -13,6 +13,9 @@ namespace NewModCompiler.Application
     public sealed class BuildAssetCache : IDisposable
     {
         readonly string format;
+        readonly bool replaceInvalidEntries;
+        readonly HashSet<string> invalidEntries = new HashSet<string>(StringComparer.Ordinal);
+        readonly Dictionary<string,string> replaced = new Dictionary<string,string>(StringComparer.Ordinal);
         const string IndexName = "index.bin";
         const string PendingName = "pending";
         readonly string outputRoot, cacheRoot, candidateRoot, namespaceFingerprint, owner = Guid.NewGuid().ToString("N");
@@ -33,6 +36,7 @@ namespace NewModCompiler.Application
             this.outputRoot = Path.GetFullPath(outputRoot);
             RejectAncestors(this.outputRoot);
             this.namespaceFingerprint = namespaceFingerprint;
+            replaceInvalidEntries = sessionPackage;
             format = sessionPackage ? "NewModCompiler.SessionPackage.v1" : "NewModCompiler.BuildAssets.v2";
             cacheRoot = Path.Combine(this.outputRoot, ".cache", sessionPackage ? "session-packages-v1" : "build-assets-v2");
             candidateRoot = Path.Combine(this.outputRoot, ".cache-candidate-" + owner);
@@ -46,7 +50,11 @@ namespace NewModCompiler.Application
             string destination = Destination(stagingCache), source = Path.Combine(cacheRoot, TaskName(taskKey));
             cancellation.ThrowIfCancellationRequested(); RejectAncestors(source);
             List<Entry> entries;
-            if (!TryRead(source, cancellation, out entries)) return false;
+            if (!TryRead(source, cancellation, out entries))
+            {
+                if (replaceInvalidEntries && Directory.Exists(source)) invalidEntries.Add(TaskName(taskKey));
+                return false;
+            }
             if (Directory.Exists(destination) && Directory.GetFileSystemEntries(destination).Length != 0) throw new IOException("The staging asset cache must be empty.");
             Directory.CreateDirectory(destination);
             foreach (Entry entry in entries)
@@ -84,8 +92,17 @@ namespace NewModCompiler.Application
             File.WriteAllText(Path.Combine(target,PendingName),owner);
             staged.Add(name,target);
         }
-        // Install only immutable missing entries. Existing entries, including a
-        // corrupt entry (which remains a miss), are never overwritten implicitly.
+        // Session-specific XML/layout validation is performed by its wrapper
+        // after the generic byte manifest. Only a proven invalid session may be
+        // replaced, and its old directory remains recoverable until Complete.
+        internal void InvalidateStream(string taskKey)
+        {
+            Active(); EnsureLock();
+            if (!replaceInvalidEntries || committed) throw new InvalidOperationException("Only an uncommitted session package may be invalidated.");
+            invalidEntries.Add(TaskName(taskKey));
+        }
+        // Existing /bc assets and healthy sessions remain immutable. Invalid
+        // sessions are repaired transactionally after a successful cold build.
         public void Commit()
         {
             Active(); EnsureLock(); if (committed) return;
@@ -95,7 +112,13 @@ namespace NewModCompiler.Application
                 foreach (var pair in staged)
                 {
                     string destination = Path.Combine(cacheRoot, pair.Key); RejectAncestors(destination);
-                    if (Directory.Exists(destination) || File.Exists(destination)) continue;
+                    if (Directory.Exists(destination) || File.Exists(destination))
+                    {
+                        if (!replaceInvalidEntries || !invalidEntries.Contains(pair.Key) || !Directory.Exists(destination)) continue;
+                        string backup = Path.Combine(candidateRoot,"replaced",pair.Key);
+                        RejectAncestors(backup); Directory.CreateDirectory(Path.GetDirectoryName(backup));
+                        Directory.Move(destination,backup); replaced.Add(destination,backup);
+                    }
                     Directory.Move(pair.Value, destination); installed.Add(destination);
                 }
                 committed = true;
@@ -110,11 +133,11 @@ namespace NewModCompiler.Application
         {
             if (completed || disposed) return;
             try { RollbackCore(); }
-            catch (Exception error) { error.Data["RetainedCacheEntries"] = installed.ToArray(); throw; }
+            catch (Exception error) { error.Data["RetainedCacheEntries"] = RetainedEntries(); throw; }
         }
         void RollbackCore()
         {
-            if (installed.Count != 0) EnsureLock();
+            if (installed.Count != 0 || replaced.Count != 0) EnsureLock();
             foreach (string path in installed)
             {
                 RejectAncestors(path);
@@ -129,7 +152,13 @@ namespace NewModCompiler.Application
                 File.Delete(Path.Combine(path,PendingName));
                 Directory.Delete(path,false);
             }
-            installed.Clear(); committed = false; ReleaseLock();
+            installed.Clear();
+            foreach (var pair in new List<KeyValuePair<string,string>>(replaced))
+            {
+                RejectAncestors(pair.Key); RejectAncestors(pair.Value);
+                Directory.Move(pair.Value,pair.Key); replaced.Remove(pair.Key);
+            }
+            committed = false; ReleaseLock();
         }
         // Called only after required output channels have closed successfully.
         // There is no fallible installation here and cleanup cannot revoke success.
@@ -143,7 +172,7 @@ namespace NewModCompiler.Application
             foreach (string path in installed)
                 try { File.Delete(Path.Combine(path,PendingName)); }
                 catch (IOException) { } catch (UnauthorizedAccessException) { }
-            completed = true; installed.Clear(); TryDeleteCandidate(); ReleaseLock();
+            completed = true; installed.Clear(); replaced.Clear(); TryDeleteCandidate(); ReleaseLock();
         }
         public void Dispose()
         {
@@ -151,8 +180,12 @@ namespace NewModCompiler.Application
             // A failed rollback remains retryable. Keep exact installed paths in
             // the error and preserve durable pending markers against reuse.
             try { Rollback(); }
-            catch (Exception error) { error.Data["RetainedCacheEntries"] = installed.ToArray(); ReleaseLock(); throw; }
+            catch (Exception error) { error.Data["RetainedCacheEntries"] = RetainedEntries(); ReleaseLock(); throw; }
             TryDeleteCandidate(); disposed = true; ReleaseLock();
+        }
+        string[] RetainedEntries()
+        {
+            var paths = new List<string>(installed); paths.AddRange(replaced.Values); return paths.ToArray();
         }
         void ReleaseLock() { if (cacheLock != null) { cacheLock.Dispose(); cacheLock = null; } }
         void TryDeleteCandidate() { try { RejectAncestors(candidateRoot); if (Directory.Exists(candidateRoot)) Directory.Delete(candidateRoot,true); } catch (IOException) { } catch (UnauthorizedAccessException) { } }
@@ -205,6 +238,11 @@ namespace NewModCompiler.Application
             try
             {
                 RejectAncestors(root); string index = Path.Combine(root,IndexName); RejectAncestors(index);
+                foreach (string item in Directory.GetFileSystemEntries(root))
+                {
+                    string name = Path.GetFileName(item);
+                    if (name != IndexName && name != "files") return false;
+                }
                 using (var reader = new BinaryReader(File.OpenRead(index),Encoding.UTF8))
                 {
                     if (reader.ReadString() != format) return false; reader.ReadString();

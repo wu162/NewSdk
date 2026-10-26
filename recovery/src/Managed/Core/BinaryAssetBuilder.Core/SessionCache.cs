@@ -193,6 +193,9 @@ public class SessionCache : ISessionCache
 
 	public virtual string CacheFileName => _cacheFileName;
 
+	// Initialization can reject an obsolete serialized session without throwing.
+	public bool HasCachedState => _Last != null;
+
 	public virtual uint AssetCompilersVersion
 	{
 		get

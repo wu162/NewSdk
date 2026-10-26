@@ -81,6 +81,10 @@ namespace NewModCompiler.Tests
             File.WriteAllText(payload,saved);
             string extra=Path.Combine(durable,"files","unexpected"); Put(extra,"unindexed");
             Check(!Restore(output,"extra-file"),"Unindexed payload was accepted"); File.Delete(extra);
+            string rootExtra=Path.Combine(durable,"unexpected.txt"); Put(rootExtra,"unindexed root item");
+            Check(!Restore(output,"extra-root-file"),"Unindexed entry-root file was accepted"); File.Delete(rootExtra);
+            string rootDirectory=Path.Combine(durable,"unexpected-directory"); Directory.CreateDirectory(rootDirectory);
+            Check(!Restore(output,"extra-root-directory"),"Unindexed entry-root directory was accepted"); Directory.Delete(rootDirectory);
             string cdata=Payload(output,"custom data A"); saved=File.ReadAllText(cdata); File.Delete(cdata);
             Check(!Restore(output,"missing-cdata"),"Missing custom data did not invalidate entire package"); File.WriteAllText(cdata,saved);
             string pending=Path.Combine(durable,"pending"); Put(pending,"owner disappeared");
@@ -113,8 +117,25 @@ namespace NewModCompiler.Tests
             using(var raw=new BuildAssetCache(layoutOutput,Fingerprint,true)) { raw.StageStream("base/Mod",layoutSource,CancellationToken.None); raw.Commit(); raw.Complete(); }
             Check(!Restore(layoutOutput,"bad-layout"),"Well-indexed linked output was accepted in a session package");
             Check(!Directory.Exists(Stage(layoutOutput,"bad-layout")),"Invalid layout partly populated live staging");
+            // Corrupt entries can be repaired only through the same reversible
+            // outcome as publication. A failed replacement restores the old miss.
+            foreach(string damagedOutput in new[] {output,invalidOutput,layoutOutput}) {
+                if(damagedOutput==output) File.WriteAllText(Payload(output,"asset A"),"asset B");
+                string healthy=Stage(damagedOutput,"repair-source"); Fixture(healthy);
+                using(var repair=new SessionPackage(damagedOutput,Fingerprint)) {
+                    Check(!repair.PrepareStream("base/Mod",Stage(damagedOutput,"repair-miss"),CancellationToken.None),"Damaged package was not a cold miss before repair");
+                    repair.StageStream("base/Mod",healthy,CancellationToken.None); repair.Commit(); repair.Rollback();
+                }
+                Check(!Restore(damagedOutput,"rolled-back-repair"),"Rollback exposed the replacement instead of restoring the old damaged package");
+                using(var repair=new SessionPackage(damagedOutput,Fingerprint)) {
+                    Check(!repair.PrepareStream("base/Mod",Stage(damagedOutput,"confirmed-repair-miss"),CancellationToken.None),"Damaged package unexpectedly recovered before replacement confirmation");
+                    repair.StageStream("base/Mod",healthy,CancellationToken.None); repair.Commit(); repair.Complete();
+                }
+                Check(Restore(damagedOutput,"confirmed-repair"),"Confirmed package replacement remained a permanent miss");
+            }
             Check(!Directory.GetDirectories(output,".cache-candidate-*").Any(),"Package transaction candidates leaked");
             Check(!Directory.GetDirectories(source,".session-*",SearchOption.TopDirectoryOnly).Any(),"Temporary package staging leaked");
+            Check(!Directory.GetDirectories(output,".session-restore-*",SearchOption.TopDirectoryOnly).Any(),"Temporary restore packages leaked");
             return checks;
         }
     }

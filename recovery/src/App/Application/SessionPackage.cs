@@ -25,11 +25,12 @@ namespace NewModCompiler.Application
         public bool PrepareStream(string taskKey, string stagingRoot, CancellationToken cancellation)
         {
             Active(); string staging = Staging(stagingRoot);
-            string temporary = Path.Combine(staging, ".session-restore-" + Guid.NewGuid().ToString("N"));
+            string temporary = Path.Combine(outputRoot, ".session-restore-" + Guid.NewGuid().ToString("N"));
             try
             {
                 if (!storage.PrepareStream(taskKey, temporary, cancellation)) return false;
-                if (!ValidPackage(temporary, cancellation)) return false;
+                if (!ValidPackage(temporary, cancellation)) { storage.InvalidateStream(taskKey); return false; }
+                cancellation.ThrowIfCancellationRequested();
                 string session = Path.Combine(staging, "hashes", "session.xml");
                 if (File.Exists(session) || !Empty(Path.Combine(staging,"intermediate")) || !Empty(Path.Combine(staging,"streams")))
                     throw new IOException("The session restore destination must be fresh.");
@@ -74,6 +75,9 @@ namespace NewModCompiler.Application
             finally { Delete(temporary); }
         }
 
+        // Core can reject a well-formed XML document whose serialized state is
+        // incompatible. Mark that entire package for reversible cold repair.
+        public void InvalidateStream(string taskKey) { Active(); storage.InvalidateStream(taskKey); }
         public void Commit() { Active(); storage.Commit(); }
         public void Rollback() { if (!disposed) storage.Rollback(); }
         public void Complete() { if (!disposed) storage.Complete(); }
@@ -122,7 +126,7 @@ namespace NewModCompiler.Application
         {
             if(string.IsNullOrEmpty(path) || !Path.IsPathRooted(path)) throw new ArgumentException("An absolute stream staging directory is required.");
             string full=Path.GetFullPath(path), prefix=outputRoot.TrimEnd(Path.DirectorySeparatorChar)+Path.DirectorySeparatorChar;
-            if(!full.StartsWith(prefix,StringComparison.OrdinalIgnoreCase) || full.StartsWith(Path.Combine(outputRoot,".cache")+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase) || full==Path.Combine(outputRoot,".cache"))
+            if(!full.StartsWith(prefix,StringComparison.OrdinalIgnoreCase) || full.StartsWith(Path.Combine(outputRoot,".cache")+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase) || string.Equals(full,Path.Combine(outputRoot,".cache"),StringComparison.OrdinalIgnoreCase))
                 throw new IOException("Session staging must be isolated beneath output.");
             RejectLinks(full); return full;
         }

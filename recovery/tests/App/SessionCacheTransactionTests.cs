@@ -77,6 +77,15 @@ namespace NewModCompiler.Tests
                     string retryRoot=Path.Combine(request.OutputRoot,".build","retry");
                     Check(retry.PrepareStream("base/Mod",retryRoot,CancellationToken.None)==(mode==0),"Same-path retry reused an unconfirmed/failed session package");
                 }
+                if(mode!=0) {
+                    if(Directory.Exists(request.ReportPath)) Directory.Delete(request.ReportPath);
+                    var recovered=new Backend(); var healthySink=new Sink {Backend=recovered,Request=request};
+                    using(var events=new EventDispatcher(Guid.NewGuid().ToString("N"),new IBuildEventSink[] {healthySink}))
+                        Check(new BuildSession(request,recovered,events).Run(CancellationToken.None)==ExitCode.Success,"Same-path successful retry failed after cache/publication rollback");
+                    Check(recovered.Committed && recovered.Completed && !File.Exists(old),"Successful retry failed to confirm cache and replace prior publication");
+                    using(var confirmed=new SessionPackage(request.OutputRoot,new string('e',64)))
+                        Check(confirmed.PrepareStream("base/Mod",Path.Combine(request.OutputRoot,".build","retry-confirmed"),CancellationToken.None),"Successful retry package was not reusable");
+                }
                 cancellation.Dispose();
             }
             return count;

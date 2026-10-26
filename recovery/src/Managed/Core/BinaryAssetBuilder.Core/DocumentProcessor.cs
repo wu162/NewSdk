@@ -103,8 +103,6 @@ public class DocumentProcessor
 	[NonSerialized]
 	private IDictionary<string, AssetLocationInfo> _LastWrittenAssets = new SortedDictionary<string, AssetLocationInfo>();
 
-	// Per-processor actual persistent-asset-cache use; Local/intermediate reuse
-	// is deliberately excluded from these build-cache counters.
 	// Actual work counters, independent of package/asset directory availability.
 	public int DocumentReuseCount { get; private set; }
 	public int XmlParseCount { get; private set; }
@@ -114,6 +112,7 @@ public class DocumentProcessor
 	internal void RecordXmlParse() { XmlParseCount++; }
 	internal void RecordInstanceCompile() { InstanceCompileCount++; }
 
+	// Local/intermediate reuse is excluded from persistent asset-cache counters.
 	public int BuildCacheHits { get; private set; }
 
 	public int BuildCacheMisses { get; private set; }

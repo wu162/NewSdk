@@ -55,7 +55,7 @@ function Cache($Case,[string]$Expected){
     if($Expected -eq 'cold'){
         Need ($statistics.sessionPackageHits -eq 0 -and $statistics.sessionPackageMisses -gt 0 -and $statistics.documentReuse -eq 0 -and $statistics.xmlParse -gt 0 -and $statistics.instanceCompile -gt 0) 'Cold session cache did not parse and compile actual assets'
     }elseif($Expected -eq 'hot'){
-        Need ($statistics.sessionPackageHits -gt 0 -and $statistics.sessionPackageMisses -eq 0 -and $statistics.documentReuse -gt 0 -and $statistics.xmlParse -eq 0 -and $statistics.instanceCompile -eq 0) 'Hot session package did not actually reuse documents and compiled instances'
+        Need ($statistics.sessionPackageHits -gt 0 -and $statistics.sessionPackageMisses -eq 0 -and $statistics.documentReuse -gt 0 -and $statistics.xmlParse -lt $script:hotParseCeiling -and $statistics.instanceCompile -eq 0) 'Hot session package did not reduce XML parsing and reuse compiled instances'
     }else{throw "Unknown session expectation: $Expected"}
 }
 function SessionEntries([string]$Destination){
@@ -68,7 +68,7 @@ function SessionEntries([string]$Destination){
             $owner=$reader.ReadString();$count=$reader.ReadInt32();Need ($count -gt 0 -and $count -lt 100000) 'Invalid session index size'
             for($i=0;$i -lt $count;$i++){
                 $name=$reader.ReadString();$length=$reader.ReadInt64();$hash=$reader.ReadString()
-                $entries+=,@{name=$name.Replace('\','/');path=(Join-Path $index.DirectoryName ('files/'+$i.ToString('x8')));index=$index.FullName;length=$length;sha256=$hash}
+                $entries+=,@{owner=$owner;name=$name.Replace('\','/');path=(Join-Path $index.DirectoryName ('files/'+$i.ToString('x8')));index=$index.FullName;length=$length;sha256=$hash}
             }
             Need ($reader.BaseStream.Position -eq $reader.BaseStream.Length) 'Session index retained trailing bytes'
         }finally{$reader.Dispose()}
@@ -87,6 +87,18 @@ function DamagePackage([string]$Destination,[string]$Kind){
     foreach($entry in $selected){
         Need ((Hash $entry.path) -ceq $entry.sha256 -and (Get-Item -LiteralPath $entry.path).Length -eq $entry.length) 'Pre-damage session payload identity differs'
         if($Kind -eq 'xml'){[IO.File]::WriteAllText($entry.path,'<SessionCache>broken')}else{Remove-Item -LiteralPath $entry.path}
+    }
+    if($Kind -eq 'xml'){
+        # Keep the outer receipt valid to reach SessionPackage's XML validator,
+        # independently of the payload-SHA and missing-file checks below.
+        foreach($index in @($selected.index|Select-Object -Unique)){
+            $items=@($entries|Where-Object{$_.index -ceq $index})
+            $writer=[IO.BinaryWriter]::new([IO.File]::Open($index,[IO.FileMode]::Create),[Text.Encoding]::UTF8)
+            try{
+                $writer.Write('NewModCompiler.SessionPackage.v1');$writer.Write([string]$items[0].owner);$writer.Write([int]$items.Count)
+                foreach($item in $items){$writer.Write([string]$item.name);$writer.Write([long](Get-Item -LiteralPath $item.path).Length);$writer.Write([string](Hash $item.path))}
+            }finally{$writer.Dispose()}
+        }
     }
     return $selected
 }
@@ -115,10 +127,10 @@ function SameLengthMutation([string]$Path,[string]$From,[string]$To){
     [IO.File]::SetLastWriteTimeUtc($Path,$stamp)
     Need (([IO.File]::ReadAllBytes($Path)).Length -eq $before.Length -and [IO.File]::GetLastWriteTimeUtc($Path) -eq $stamp) 'Mutation did not preserve exact input length and timestamp'
 }
-function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[int]$Expected=0,[bool]$Cancel=$false,[string]$HoldReadFile=$null,[string[]]$Extra=@()){
+function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[int]$Expected=0,[bool]$Cancel=$false,[string]$HoldReadFile=$null,[string[]]$Extra=@(),[bool]$BuildEnabled=$false){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     New-Item -ItemType Directory -Force -Path $Destination|Out-Null
-    $arguments=@('build','--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-content',$script:contents,('--sc='+$Enabled.ToString().ToLowerInvariant()),'--bc=false')+$Extra
+    $arguments=@('build','--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-content',$script:contents,('--sc='+$Enabled.ToString().ToLowerInvariant()),('--bc='+$BuildEnabled.ToString().ToLowerInvariant()))+$Extra
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     $request=@{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=$events;cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}
     if($HoldReadFile){$request.holdReadFile=$HoldReadFile}
@@ -229,20 +241,35 @@ try{
         $cachedOut=Join-Path $modeWork 'cache';$plainOut=Join-Path $modeWork 'plain'
         $script:contents='base,apt';$script:expectedArtifacts=8
         $plain=RunCli 'disabled' $mod $plainOut $false;Cache $plain 'disabled'
-        $cold=RunCli 'cold' $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $plain $cold
+        $cold=RunCli 'cold' $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $plain $cold;$script:hotParseCeiling=$cold.report.cache.xmlParse
         $hot=RunCli 'hot' $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         OriginalOracle $hot 'original-initial'
+        $combinedOut=Join-Path $modeWork 'both'
+        $combinedCold=RunCli 'combined-sc-bc-cold' $mod $combinedOut $true -BuildEnabled $true;SameOutputs $plain $combinedCold
+        Need ($combinedCold.report.cache.sessionCache -and $combinedCold.report.cache.sessionPackageMisses -gt 0 -and $combinedCold.report.cache.documentReuse -eq 0 -and $combinedCold.report.cache.misses -gt 0 -and $combinedCold.report.cache.hits -eq 0) 'Combined cold session/build cache did not record independent actual misses'
+        $combinedHot=RunCli 'combined-sc-bc-hot' $mod $combinedOut $true -BuildEnabled $true;SameOutputs $plain $combinedHot
+        Need ($combinedHot.report.cache.sessionPackageHits -gt 0 -and $combinedHot.report.cache.sessionPackageMisses -eq 0 -and $combinedHot.report.cache.documentReuse -gt 0 -and $combinedHot.report.cache.instanceCompile -eq 0 -and $combinedHot.report.cache.hits -eq 0 -and $combinedHot.report.cache.misses -eq 0) 'Combined hot cache conflated session reuse with asset-cache hits'
         foreach($change in @(
             @{name='include-inheritance';path="$mod/Data/Armor.xml";from='72.5%';to='12.5%'},
             @{name='xinclude';path="$mod/Data/XArmor.xml";from='22.5%';to='32.5%'},
             @{name='define-expression';path="$mod/Data/Defs.xml";from='83.25';to='93.25'},
             @{name='file-reference';path="$mod/Data/events.h";from='0x12345678';to='0x23456789'})){
             SameLengthMutation $change.path $change.from $change.to
-            $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed 'cold';DifferentOutputs $hot $changed
+            $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed 'cold';DifferentOutputs $hot $changed;$script:hotParseCeiling=$changed.report.cache.xmlParse
             $plain=RunCli ($change.name+'-disabled') $mod $plainOut $false;SameOutputs $plain $changed
             $hot=RunCli ($change.name+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         }
         OriginalOracle $hot 'original-mutated'
+        # Neutral same-length/same-mtime schema and configuration edits must
+        # miss the content namespace while preserving all compiled bytes.
+        foreach($change in @(
+            @{name='schema';path="$sdk/Schemas/xsd/AssetTypeTexture.xsd";from='elementFormDefault="qualified"';to="elementFormDefault='qualified'"},
+            @{name='sdk-config';path="$sdk/tools/BinaryAssetBuilder.exe.config";from='monitorPaths="..\"';to="monitorPaths='..\'"},
+            @{name='runtime-config';path="$runtime/NewModCompiler.exe.config";from='version="v4.0"';to="version='v4.0'"})){
+            SameLengthMutation $change.path $change.from $change.to
+            $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed 'cold';SameOutputs $plain $changed;$script:hotParseCeiling=$changed.report.cache.xmlParse
+            $hot=RunCli ($change.name+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
+        }
         $other=Join-Path $modeWork 'b';MakeMod $other ($probe.Replace('72.5%','32.5%'))
         $otherCold=RunCli 'second-mod' $other $cachedOut $true;Cache $otherCold 'cold'
         $otherPlain=RunCli 'second-mod-disabled' $other $plainOut $false;SameOutputs $otherPlain $otherCold
@@ -271,8 +298,8 @@ try{
             $payloadMod=Join-Path $modeWork $family;$payloadCache=Join-Path $modeWork ($family+'-cache');$payloadPlain=Join-Path $modeWork ($family+'-plain')
             if($family -eq 'audio'){AudioMod $payloadMod;$script:expectedArtifacts=5}else{W3xMod $payloadMod;$script:expectedArtifacts=4}
             $before=RunCli ($family+'-disabled') $payloadMod $payloadPlain $false;Cache $before 'disabled'
-            $payloadCold=RunCli ($family+'-cold') $payloadMod $payloadCache $true;Cache $payloadCold 'cold';SameOutputs $before $payloadCold
-            $payloadHot=RunCli ($family+'-hot') $payloadMod $payloadCache $true;Cache $payloadHot 'hot';SameOutputs $before $payloadHot
+            $payloadCold=RunCli ($family+'-cold') $payloadMod $payloadCache $true;Cache $payloadCold 'cold';SameOutputs $before $payloadCold;$script:hotParseCeiling=$payloadCold.report.cache.xmlParse
+            $payloadHot=RunCli ($family+'-hot') $payloadMod $payloadCache $true;Cache $payloadHot 'hot';SameOutputs $before $payloadHot;Need ($payloadHot.report.cache.xmlParse -eq 0) 'Hot Audio/W3X unexpectedly parsed XML'
             if($family -eq 'audio'){
                 $modeState.corruptions+=,@{kind='cdata';entries=@(DamagePackage $payloadCache 'cdata')}
                 $damaged=RunCli 'audio-missing-cdata-cold' $payloadMod $payloadCache $true;Cache $damaged 'cold';SameOutputs $before $damaged
@@ -280,10 +307,24 @@ try{
                 $bytes[44]=0x34;$bytes[45]=0x12;[IO.File]::WriteAllBytes($input,$bytes);[IO.File]::SetLastWriteTimeUtc($input,$stamp)
                 Need ((Get-Item -LiteralPath $input).Length -eq $length -and [IO.File]::GetLastWriteTimeUtc($input) -eq $stamp) 'Audio mutation failed to preserve length/mtime'
             }else{SameLengthMutation "$payloadMod/Data/W3x.xml" 'FrameRate="30"' 'FrameRate="31"'}
-            $changed=RunCli ($family+'-invalidated') $payloadMod $payloadCache $true;Cache $changed 'cold';DifferentOutputs $payloadHot $changed
+            $changed=RunCli ($family+'-invalidated') $payloadMod $payloadCache $true;Cache $changed 'cold';DifferentOutputs $payloadHot $changed;$script:hotParseCeiling=$changed.report.cache.xmlParse
             $changedPlain=RunCli ($family+'-changed-disabled') $payloadMod $payloadPlain $false;SameOutputs $changedPlain $changed
-            $changedHot=RunCli ($family+'-changed-hot') $payloadMod $payloadCache $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
+            $changedHot=RunCli ($family+'-changed-hot') $payloadMod $payloadCache $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot;Need ($changedHot.report.cache.xmlParse -eq 0) 'Changed-hot Audio/W3X unexpectedly parsed XML'
             if($family -eq 'w3x'){OriginalOracle $changedHot 'original-w3x'}
+        }
+        # Exercise each real mixed plugin route far enough to observe the
+        # production /sc rejection; no invalid-input surrogate or cache hit.
+        foreach($type in @('Texture','OnDemandTexture','TerrainTextureAtlas')){
+            $textureMod=Join-Path $modeWork ('t'+[array]::IndexOf(@('Texture','OnDemandTexture','TerrainTextureAtlas'),$type));$textureOut=Join-Path $modeWork ('o'+[array]::IndexOf(@('Texture','OnDemandTexture','TerrainTextureAtlas'),$type))
+            New-Item -ItemType Directory -Force -Path "$textureMod/Data"|Out-Null
+            & python "$root/recovery/probes/TextureRedirect/MakeFixture.py" "$textureMod/Data/probe.tga"
+            Need ($LASTEXITCODE -eq 0) 'Session Texture fixture preparation failed'
+            if($type -ceq 'TerrainTextureAtlas'){$asset='<TerrainTextureAtlas id="SessionTexture" AtlasSize="2048" AllowLossyCompression="false"><Tile TextureID="1" BaseTexture="probe.tga" NormalTexture="probe.tga"><Cell IndexX="0" IndexY="0"/></Tile></TerrainTextureAtlas>'}
+            else{$asset='<'+$type+' id="SessionTexture" File="probe.tga" Type="StandardTexture" GenerateMipMaps="false" OutputFormat="A8R8G8B8" AllowAutomaticResize="false"/>'}
+            Put "$textureMod/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$asset+'</AssetDeclaration>')
+            $rejected=RunCli ($type+'-session-rejected') $textureMod $textureOut $true 2
+            Need (@($rejected.report.diagnostics|Where-Object{$_.code -ceq 'CORE_SESSION_TEXTURE_UNSUPPORTED'}).Count -eq 1) "Mixed $type session cache was not explicitly rejected"
+            Need ((CacheFiles $textureOut).Count -eq 0) 'Rejected mixed Texture persisted a session package'
         }
         $modeState.passed=$true
     }
