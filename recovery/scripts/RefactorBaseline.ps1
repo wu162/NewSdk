@@ -61,7 +61,7 @@ try {
  foreach($name in @('Core','Remote','EALABuild','ExpressionEval','GameDataVerifier')){
   $assembly=if($name -eq 'EALABuild'){$name}else{"BinaryAssetBuilder.$name"}
   $output="$work/managed-$name"
-  & dotnet build "recovery/src/Managed/$name/$assembly.csproj" -c Release -p:PlatformTarget=x86 -o $output --nologo *> "$report/$name-build.log"
+  & dotnet build "recovery/src/Managed/$name/$assembly.csproj" -c Release -p:Platform=AnyCPU -p:PlatformTarget=x86 -o $output --nologo *> "$report/$name-build.log"
   Check "$name-build"
   $result.builds+=@{assembly=$assembly;file="$output/$assembly.dll";sha256=(Get-FileHash "$output/$assembly.dll").Hash}
  }
@@ -72,7 +72,7 @@ try {
    $mvp="$work/managed-Core/Mvp.Xml.dll"
    if(!(Test-Path $mvp)){throw 'Recovered Core MvpXml dependency missing'}
    $result.builds+=@{assembly='Mvp.Xml';file=$mvp;sha256=(Get-FileHash $mvp).Hash}
-   & dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release -p:PlatformTarget=x86 -p:AssemblyName=Recovered.AudioCompiler -o "$work/audio" --nologo *> "$report/audio-build.log"
+   & dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release -p:Platform=AnyCPU -p:PlatformTarget=x86 -p:AssemblyName=Recovered.AudioCompiler -o "$work/audio" --nologo *> "$report/audio-build.log"
    Check 'audio-build'
    $audio="$work/audio/Recovered.AudioCompiler.dll"
    $result.builds+=@{assembly='Recovered.AudioCompiler';file=$audio;sha256=(Get-FileHash $audio).Hash}
