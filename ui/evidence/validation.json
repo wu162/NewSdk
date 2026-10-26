@@ -1,0 +1,36 @@
+{
+  "sourceCommit": "2568778f25db5826dcebb2b65a440315598d5d3f",
+  "runId": "40286231285",
+  "upstreamCommit": "60b15a67a4cbd931f181af8c6c758bd7a8441ebc",
+  "fixtureSha256": "b661542cf2c8b52ef846c348f817f523f5fba63ee4baa53c365aabde30af9fa7",
+  "baseline": "pinned lanyizi/swf2apt source, optimize=false, ra3=true; NOT uploaded binary or optimized script",
+  "comparisons": 4,
+  "rejected": 5,
+  "noOutputFiles": true,
+  "aptLength": 25861,
+  "constLength": 25179,
+  "datLength": 48,
+  "aptSha256": "2be204ef627584545ffef09407eff2eba3b70b20e636c5dab0b8a65eb2d14c5f",
+  "constSha256": "497a05a12aef430b3ba644c676e19929ce270387804c32cbe91b8838bb5886c0",
+  "datSha256": "20ec61c0bc15b513d846d01e54dba5f726742c647054a43ef20a59181d222707",
+  "sdkIntegration": false,
+  "optimizerParity": false,
+  "originalToolOptimizedRa3": {
+    ".apt": {
+      "length": 10121,
+      "sha256": "9acab3c45b6d5933645aa7f59ed49d1476042350ad95c2d77d1ae4b9f6a33b0c"
+    },
+    ".const": {
+      "length": 9787,
+      "sha256": "2d22748442e66fc5128475637520c0048e9df6810f18f2a4ca6476e04ca0385d"
+    },
+    ".dat": {
+      "length": 48,
+      "sha256": "20ec61c0bc15b513d846d01e54dba5f726742c647054a43ef20a59181d222707"
+    },
+    ".xml": {
+      "length": 651,
+      "sha256": "b96ecd262dcc4ea00c71358ce2080b6759401485fef051214987fa61bf23e093"
+    }
+  }
+}

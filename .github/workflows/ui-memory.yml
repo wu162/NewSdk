@@ -2,7 +2,12 @@ name: UI memory compiler prototype
 on:
   push:
     branches: [feature/swf-direct-compiler]
-    paths: ['ui/**', '.github/workflows/ui-memory.yml']
+    paths:
+      - 'ui/**/*.cs'
+      - 'ui/**/*.csproj'
+      - 'ui/tools/**/*.py'
+      - 'ui/fixtures/**'
+      - '.github/workflows/ui-memory.yml'
   workflow_dispatch:
 permissions:
   contents: read
