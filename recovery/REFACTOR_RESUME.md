@@ -10,15 +10,16 @@
 - 同轮 W3X 因全 Native/Bridge 目录比较误拒绝历史 capture；XML smoke 因 typed `$Result` 与 `$result` 同名导致 JSON 对象被强转字符串失败。已修复两项，并补依赖闭包和报告校验回归。
 - `3f1d90f` 绑定宿主 config/ANTLR 哈希，拒绝陈旧运行目录，补统一工厂复用/释放和最终链接 Foundation 行为测试。宿主收据 schema=2，旧成功不能冒充新宿主验收。
 - `9abdea5` 已接入最终组合音频 13 组既有 PC 差分和 XML 63 组完整矩阵；XML 原 DLL 在隔离测试进程中经无损 DOM 管道调用。生产不包含该测试 transport。
-- 上述批次 Windows 验证中，需查询原始终态。后续 XML 计数修复、完整组合贴图验证仍在准备，不能把本地回归当作 Windows 成功。
+- `9cd2cb8` 已接入完整生产对象组合贴图 payload/部署拒绝及精确纹理宿主隔离；XML 计数契约已修复。该候选 Native 矩阵验证中，需查询原始终态。独立 Windows guard 已在 `9994d63` 全过，修复的是测试读取 UTF-8；不能替代组件矩阵。
 
 ## 下一步（按顺序，先取证再修改）
 
 1. 查本分支 `.github/workflows/refactor-native.yml` 最近**实际执行**运行，匹配实现提交；只输出 SHA、状态、失败步骤。未终结时不要重复触发。
 2. 读取相关 `validation.json`、生产/宿主 `build.json`，核对 sourceCommit、配置、两份 EXE 身份和运行文件；失败只取相关日志尾部。工作流成功不自动代表 P4/G3/SDK 验收。
 3. 集中修实际失败；完整 XML 需全部 63 组、两配置、四平台及原有布局/拒绝矩阵，不以联合 smoke 替代。已知 Locomotor/FXParticle 为单三缓冲比较，按原组契约验收。
-4. 完整生产对象组合的贴图 payload/部署拒绝待接入；保留固定原件及 PE 审计，验证宿主不得笼统放行业务 DLL。P4 门槛满足后才推进 P5。
+4. 完整生产对象组合的贴图 payload/部署拒绝须核对新收据；保留固定原件及 PE 审计，验证宿主不得笼统放行业务 DLL。P4 门槛满足后才推进 P5。
 5. 复用匹配输入的原始证据；链接/宿主变化的新组合须验证，无需重复完整 SDK 基线。
+6. P5 只读定位已完成，未实现：`src/App/Application/Model.cs` 的 `IStreamCompiler` 接 `src/Managed/Core/BinaryAssetBuilder.Core/DocumentProcessor.cs` 的 `ProcessDocument`；旧初始化顺序见 `decompiled/BinaryAssetBuilder/BinaryAssetBuilder/BinaryAssetBuilder.cs` 的 `DoBuildData`。先处理 Settings/HashProvider 静态状态、异常后 document/stream 栈、配置恢复、Tracer 委托还原和 Metrics listener 累积，再做多流/失败后复用验收，不能只把 CLI 的 null 换成后端。
 
 ## 按任务读取，禁止启动时递归展开链接
 
@@ -28,7 +29,7 @@
 | 宿主身份 | `scripts/BuildCompilerValidationHost.ps1`、`scripts/CompilerValidation.Common.ps1`、`tests/CompilerValidationEntry.cpp` |
 | 生产部署/管理行为 | `scripts/TestCompiler.ps1`、`scripts/TestCompilerFoundation.ps1` |
 | Tokenizer/音频 | `scripts/TestCompilerDifferential.ps1`、`TestCompilerGameObject.ps1`、`TestCompilerWeapon.ps1`、`TestCompilerAudio.ps1` |
-| W3X/贴图 | `scripts/TestW3xProduct.ps1`、`scripts/CheckW3xCaptureInputs.py`、贴图对应失败脚本 |
+| W3X/贴图 | `scripts/TestW3xProduct.ps1`、`scripts/CheckW3xCaptureInputs.py`、`scripts/TestCompilerTexture.ps1` |
 | XML 全矩阵/smoke | `scripts/TestCompilerXmlMatrices.ps1`、`scripts/PrepareCompilerXmlMatrices.py`、`scripts/TestCompilerXmlSmoke.ps1` |
 | 阶段定义/历史/效率 | `NewSdk_ModCompiler_Refactor_Plan.md` P4/P5；`REFACTOR_HANDOFF_ARCHIVE_20261026.md` 按需；`EFFICIENCY.md` |
 
