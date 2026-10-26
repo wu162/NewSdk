@@ -1,0 +1,47 @@
+name: Recovered EALA Hash validation
+on:
+  push:
+    branches: [recovery/eala-hash-source]
+    paths:
+      - '.github/workflows/recovered-hash.yml'
+      - 'recovery/src/Managed/Hash/**'
+      - 'recovery/scripts/TestHash.ps1'
+      - 'recovery/tests/HashOracle.cs'
+      - 'SDK/tools/EALA.Hash.dll'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hash-validation-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Compare all FastHash overloads against original DLL
+        shell: pwsh
+        run: ./recovery/scripts/TestHash.ps1
+      - name: Upload validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hash-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/hash/validation/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save successful immutable validation
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "recovery/evidence/hash/validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "Preserve EALA.Hash validation $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent update needs resolution; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact retained' }
