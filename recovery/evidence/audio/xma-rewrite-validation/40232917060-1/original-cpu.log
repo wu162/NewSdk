@@ -1,0 +1,1 @@
+PASS original XMA output rewrite: 801 exact real-CPU cases; synthetic=793; rawBlocks=8; return length, complete writes, source/state immutability and guards; encoding not recovered

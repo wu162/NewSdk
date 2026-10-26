@@ -1,0 +1,11 @@
+{
+  "status": "original-evidence-only",
+  "runAttempt": "1",
+  "scope": "AIFC NONE integral PCM8/16/24; COMM names, FVER, chunk order; mono/stereo; PC NONE/XAS, Xenon NONE, PS3 XAS; RAM/streamed",
+  "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
+  "sdkValidated": false,
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "originalRecords": 1440,
+  "runId": "40232917060",
+  "configurations": []
+}

@@ -1,0 +1,16 @@
+{
+  "baselineSourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+  "runAttempt": "1",
+  "runId": "40234805270",
+  "stage": "native-execution",
+  "sourceCommit": "de20ba24dc6941c56ee27ade3c897ece6a22b17e",
+  "xmaEncodingRecovered": false,
+  "status": "started",
+  "callSiteRva": "0x97d97",
+  "baselineRunId": "40232525056",
+  "sdkValidated": false,
+  "tracedCases": 0,
+  "nativeHelperSha256": "484db73b807f05f1a1b2d92e355847a057b9f7624a65a3d24813bc6d9307a865",
+  "scope": "Real x86 CPU bounded original XMA window inputs",
+  "nativeExitCode": 0
+}

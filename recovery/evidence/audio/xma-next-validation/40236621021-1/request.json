@@ -1,0 +1,12 @@
+{
+  "xmaEncoderRecovered": false,
+  "requestedGroups": [
+    "signal",
+    "raw-packet-state"
+  ],
+  "runId": "40236621021",
+  "rawEvidenceIsOriginalOnly": true,
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "runAttempt": "1",
+  "sourceCommit": "93ba818ef53b6eb23a94a2f847409aadb31f4c44"
+}

@@ -1,0 +1,16 @@
+{
+  "sdkValidated": false,
+  "windowSourceValidated": false,
+  "runAttempt": "1",
+  "error": "Embedded window constants differ from actual original CPU; CPU evidence saved",
+  "sourceCommit": "3d160570e7533f766f27efaaf3a960ac8f6867a0",
+  "audioFileRouteEnabled": false,
+  "scope": "Isolated resampling kernel exact-byte differential, including original Windows x86 CPU cross-check",
+  "originalCpuOracleSha256": "5ac4819aef863657c0d7a47537dfa4b2ea46cd2a2e84627428e7b692b9fa6810",
+  "originalCpuCollected": true,
+  "referenceBackend": "original-windows-x86-cpu",
+  "nativeOracleSha256": "bc08b87ab82b9708ce977f15b1754f693b19ddab3c53f8bf15bc2ffeb31b71a7",
+  "status": "failed",
+  "runId": "40207591570",
+  "modes": []
+}

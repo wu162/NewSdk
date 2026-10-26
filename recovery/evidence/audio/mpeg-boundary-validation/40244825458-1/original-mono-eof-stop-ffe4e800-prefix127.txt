@@ -1,0 +1,4 @@
+mono-eof-stop-ffe4e800-prefix127:False:False:NULL:CUSTOM:<absent>
+mono-eof-stop-ffe4e800-prefix127:False:True:NULL:CUSTOM:<absent>
+mono-eof-stop-ffe4e800-prefix127:True:False:NULL:CUSTOM:<absent>
+mono-eof-stop-ffe4e800-prefix127:True:True:NULL:CUSTOM:<absent>

@@ -1,0 +1,36 @@
+{
+  "affectedAiffLoopRegressionRecordsPerConfiguration": 0,
+  "runAttempt": "1",
+  "loopRegressionProvidedByCaller": true,
+  "configurations": [
+    {
+      "safetyRefusals": 168,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "sampleBitInvariants": 168,
+      "passed": true,
+      "recoveredSha256": "79a7dd250fee5a33b4e293055b21be858388ec4206b9e4fb32ced2d687f43fe0",
+      "transcriptSha256": "6d17d5f2852843ab206d77f30956f802b00fdc446c87467f08ba2a4d7e676d3f",
+      "records": 1680
+    },
+    {
+      "safetyRefusals": 168,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "sampleBitInvariants": 168,
+      "passed": true,
+      "recoveredSha256": "71b663231b84af2e7050811d87d2c91a4f0ccae03273b781b4b4f85f9a0c7159",
+      "transcriptSha256": "6d17d5f2852843ab206d77f30956f802b00fdc446c87467f08ba2a4d7e676d3f",
+      "records": 1680
+    }
+  ],
+  "originalRecords": 1680,
+  "zeroBlockCanonicalRecordsPerConfiguration": 240,
+  "runId": "40243817293",
+  "sdkValidated": false,
+  "scope": "SSND ignored uint32 blockSize:AIFF/AIFC NONE/raw ADP4/AIFF sustain loops; canonical0 and six nonzero values; full plugin comparison, no SDK",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "nonzeroVsZeroComparisonsPerConfiguration": 1440,
+  "sourceCommit": "bb4a225fc5cc8e070044a01a24f87e425c612ccb",
+  "status": "passed"
+}

@@ -1,0 +1,32 @@
+{
+  "runAttempt": "1",
+  "configurations": [
+    {
+      "safetyRefusals": 12,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "sampleBitInvariants": 144,
+      "passed": true,
+      "recoveredSha256": "79a7dd250fee5a33b4e293055b21be858388ec4206b9e4fb32ced2d687f43fe0",
+      "transcriptSha256": "f9a805eff9d8ea3e4b5bc5ce94f1ea72653cb5c2bef1de4f71401f2701ebef4b",
+      "records": 2136
+    },
+    {
+      "safetyRefusals": 12,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "sampleBitInvariants": 144,
+      "passed": true,
+      "recoveredSha256": "71b663231b84af2e7050811d87d2c91a4f0ccae03273b781b4b4f85f9a0c7159",
+      "transcriptSha256": "f9a805eff9d8ea3e4b5bc5ce94f1ea72653cb5c2bef1de4f71401f2701ebef4b",
+      "records": 2136
+    }
+  ],
+  "originalRecords": 2136,
+  "runId": "40243817293",
+  "sdkValidated": false,
+  "scope": "Raw AIFC ADP4 input: container widths8/16/24, mono/stereo, frame count correction and partial SSND, PC NONE/XAS RAM/streamed, filter120 rate conversion; component/plugin only, no SDK",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sourceCommit": "bb4a225fc5cc8e070044a01a24f87e425c612ccb",
+  "status": "passed"
+}

@@ -1,0 +1,23 @@
+{
+  "originalEvidenceSha256": "dc8fb1691cae0d4264e88825c6d81a2760fe4a4a793bdd9a6caa872ce106b3c5",
+  "sourceCommit": "046734825aa84b8dbeda7343ecea3a66ba054342",
+  "pluginValidated": false,
+  "sdkValidated": false,
+  "modes": [
+    {
+      "records": 16,
+      "recoveredSha256": "fbf5e521be26dcc6591563f286025f661502cfbec88ba23b712f4b817c1a14f1",
+      "passed": true,
+      "configuration": "Debug"
+    },
+    {
+      "records": 16,
+      "recoveredSha256": "45d165366c1a2667e281f2b6b95c2530c480b9a3ed94a0822351b758cb4aec47",
+      "passed": true,
+      "configuration": "Release"
+    }
+  ],
+  "runAttempt": "1",
+  "scope": "PCM encoder component only, original AudioFile HeaderData/CustomData versus static encoder",
+  "runId": "40193438615"
+}

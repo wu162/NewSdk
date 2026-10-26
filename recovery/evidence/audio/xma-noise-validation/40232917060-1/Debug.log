@@ -1,0 +1,2 @@
+x87 physicalCW=0x027f originalPhysicalCW=0x027f CRTcontrolBefore=0x0009001f; 53-bit nearest
+PASS candidate XMA noise numeric helpers: 6360 exact state/output cases (200 PRNG sequences, 6160 fills); 22 finite gain patterns; x87 CW=0x027f; 8 separate safety refusals; original DLL absent; no XMA encoding acceptance

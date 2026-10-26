@@ -1,0 +1,34 @@
+{
+  "modes": [
+    {
+      "summary": "PASS candidate XMA packet integer helpers: 1025 exact fixtures (143 count, 680 accumulator, 104 frame, 98 scan); 8 real EA blocks; all return/out parameters, source immutability and guards; no codec encoding acceptance; six safety rejections",
+      "records": 1025,
+      "candidateSafetyRejections": 6,
+      "passed": true,
+      "originalAbsentFromRecoveredHost": true,
+      "recoveredSha256": "76a93a016d9f5b7b556eb8a76b6e363b0d52a1aea0c05a6af001257c97810f69",
+      "configuration": "Debug"
+    },
+    {
+      "summary": "PASS candidate XMA packet integer helpers: 1025 exact fixtures (143 count, 680 accumulator, 104 frame, 98 scan); 8 real EA blocks; all return/out parameters, source immutability and guards; no codec encoding acceptance; six safety rejections",
+      "records": 1025,
+      "candidateSafetyRejections": 6,
+      "passed": true,
+      "originalAbsentFromRecoveredHost": true,
+      "recoveredSha256": "feb7b575b38d112fffaa33d12f2c0ea7aa6462511937b33db6333121d6bb4a63",
+      "configuration": "Release"
+    }
+  ],
+  "scope": "Bounded integer XMA packet helpers only, original real CPU and candidate exact-byte comparison",
+  "audioFileXmaRouteEnabled": false,
+  "xmaEncoderRecovered": false,
+  "runAttempt": "1",
+  "originalCpuValidated": true,
+  "runId": "40209977895",
+  "sdkValidated": false,
+  "rawCodecPackets": 0,
+  "realEaBlocks": 8,
+  "status": "passed",
+  "oracleSha256": "8f64dfaf0c179e00613fd397c81122fb0cd78c6fb9eeac3e5d1b3005db01e0bf",
+  "sourceCommit": "96f72d037b840ad09590688e8d4ec1f998446d8d"
+}

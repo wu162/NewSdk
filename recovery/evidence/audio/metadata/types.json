@@ -1,0 +1,3841 @@
+[
+  {
+    "token": "0x02000001",
+    "name": "\u003CModule\u003E",
+    "attributes": "NotPublic",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "??_C@_0P@GHFPNOJB@bad?5allocation?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611108"
+      },
+      {
+        "name": "??_C@_0BB@CKDJFHMK@AudioFileRuntime?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061110C"
+      },
+      {
+        "name": "??_C@_0BE@MGAKKCNG@PathMusicMapRuntime?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611110"
+      },
+      {
+        "name": "??_C@_07PANJAJNG@Color3f?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611114"
+      },
+      {
+        "name": "??_C@_07PFJGBPFD@Color4f?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611114"
+      },
+      {
+        "name": "??_C@_09KFNFGFBK@TimeRange?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611118"
+      },
+      {
+        "name": "??_C@_09IMMILGNF@RealRange?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611118"
+      },
+      {
+        "name": "??_C@_08NNHOCNMK@IntRange?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061111C"
+      },
+      {
+        "name": "??_C@_0P@CKKGANJ@RandomVariable?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611108"
+      },
+      {
+        "name": "??_C@_0BE@BAEOEBCO@LogicRandomVariable?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611110"
+      },
+      {
+        "name": "??_C@_0BF@GINIFKAB@ClientRandomVariable?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611120"
+      },
+      {
+        "name": "??_C@_0P@NMEAADDN@ReplaceTexture?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611108"
+      },
+      {
+        "name": "??_C@_0BA@BNPMOACI@SoundOrEvaEvent?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611124"
+      },
+      {
+        "name": "??_C@_0BB@BEFBMPPK@MoneyTransaction?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061110C"
+      },
+      {
+        "name": "??_C@_0N@IFPEINBO@ObjectFilter?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611128"
+      },
+      {
+        "name": "??_C@_09KMMONPLD@AudioFile?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611118"
+      },
+      {
+        "name": "??_C@_0BM@CCAOJLPP@AudioVolumeSliderMultiplier?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061112C"
+      },
+      {
+        "name": "??_C@_0BF@LGGFMELN@AudioEventLimitGroup?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611120"
+      },
+      {
+        "name": "??_C@_0BD@MNILEEHF@BaseAudioEventInfo?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611130"
+      },
+      {
+        "name": "??_C@_0BA@IDFGKKFA@BaseSingleSound?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611124"
+      },
+      {
+        "name": "??_C@_0BH@DFKFDHCB@AudioFileRefWithWeight?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611134"
+      },
+      {
+        "name": "??_C@_0BG@KJHGCMIE@MultisoundSubsoundRef?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611138"
+      },
+      {
+        "name": "??_C@_0L@MOOECIN@AudioEvent?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061113C"
+      },
+      {
+        "name": "??_C@_0L@HOBPOIOC@MusicTrack?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061113C"
+      },
+      {
+        "name": "??_C@_0M@HDJLBDHJ@DialogEvent?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611140"
+      },
+      {
+        "name": "??_C@_0O@ELIKMGED@AmbientStream?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611144"
+      },
+      {
+        "name": "??_C@_0L@JMEKDHBP@Multisound?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061113C"
+      },
+      {
+        "name": "??_C@_0BC@DCGJAJJK@ObjectFilterAsset?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611148"
+      },
+      {
+        "name": "??_C@_0BP@EJFFBCFN@MusicScriptConditionNuggetBase?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061114C"
+      },
+      {
+        "name": "??_C@_0CI@GCFOLCIC@MusicScriptConditionExpensiveNug@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611150"
+      },
+      {
+        "name": "??_C@_0DB@HNBBAJKN@MusicScriptConditionNugget_Local@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611154"
+      },
+      {
+        "name": "??_C@_0CM@NFBBIPON@MusicScriptConditionNugget_Units@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611158"
+      },
+      {
+        "name": "??_C@_0DA@PGLNJJHJ@MusicScriptConditionNugget_TimeF@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061115C"
+      },
+      {
+        "name": "??_C@_0CM@MMDCIGFH@MusicScriptConditionNugget_Track@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611158"
+      },
+      {
+        "name": "??_C@_0DE@GFJIGHLN@MusicScriptConditionNugget_Speci@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611160"
+      },
+      {
+        "name": "??_C@_0CL@OLMGFMAD@MusicScriptConditionNugget_AnyTr@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611164"
+      },
+      {
+        "name": "??_C@_0CO@OFNFBHPC@MusicScriptConditionNugget_Objec@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611168"
+      },
+      {
+        "name": "??_C@_0DC@DAPOIAOL@MusicScriptConditionNugget_EvaEv@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061116C"
+      },
+      {
+        "name": "??_C@_0CP@IACHHJBG@MusicScriptConditionNugget_Objec@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611170"
+      },
+      {
+        "name": "??_C@_0CL@IMIJDMAL@MusicScriptConditionNugget_Score@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611164"
+      },
+      {
+        "name": "??_C@_0BP@GPJBIHAC@MusicScriptConditionNugget_Not?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061114C"
+      },
+      {
+        "name": "??_C@_0BO@IIDGFANI@MusicScriptConditionNugget_Or?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611174"
+      },
+      {
+        "name": "??_C@_0BP@HMPCOPDC@MusicScriptConditionNugget_And?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061114C"
+      },
+      {
+        "name": "??_C@_0DE@CAEMCIOP@MusicScriptConditionNugget_PathM@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611160"
+      },
+      {
+        "name": "??_C@_0DJ@KKBEMLPK@MusicScriptConditionNugget_PathM@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611178"
+      },
+      {
+        "name": "??_C@_0CL@GAHDNJFH@MusicScriptConditionNugget_Engag@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611164"
+      },
+      {
+        "name": "??_C@_0DA@EDMPCJON@MusicScriptConditionNugget_Local@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061115C"
+      },
+      {
+        "name": "??_C@_0CM@CGOOAFMH@MusicScriptConditionNugget_HitBy@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611158"
+      },
+      {
+        "name": "??_C@_0BM@PCIFAKEG@MusicScriptTimeoutSpecifier?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061112C"
+      },
+      {
+        "name": "??_C@_0BB@DFJDABIN@MusicScriptTrack?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061110C"
+      },
+      {
+        "name": "??_C@_0N@GADDPDEL@MusicPalette?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611128"
+      },
+      {
+        "name": "??_C@_0N@COONHBIC@PathMusicMap?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611128"
+      },
+      {
+        "name": "??_C@_0P@JBDNMGA@PathMusicTrack?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611108"
+      },
+      {
+        "name": "??_C@_0P@HOPJKBAE@PathMusicEvent?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611108"
+      },
+      {
+        "name": "??_C@_0BG@GBJPFPNB@PathMusicEventRuntime?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611138"
+      },
+      {
+        "name": "??_C@_0BC@KIIDHKMH@PathMusicEventSet?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611148"
+      },
+      {
+        "name": "??_C@_0BK@COPELJDH@PathMusicGameDynamicState?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061117C"
+      },
+      {
+        "name": "??_C@_0BN@HCAEMFLK@PathMusicGameDynamicStateSet?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118080"
+      },
+      {
+        "name": "??_C@_0BP@NKJDDMFF@PathMusicGameDynamicTransition?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061114C"
+      },
+      {
+        "name": "??_C@_0BI@DLAMEGDH@AudioFileMP3Passthrough?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118084"
+      },
+      {
+        "name": "??_C@_0BP@NPELLMAG@AudioFileMP3PassthroughRuntime?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061114C"
+      },
+      {
+        "name": "??_C@_0O@FIFNHEOG@MP3MusicTrack?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611144"
+      },
+      {
+        "name": "??_C@_0P@HENAJFPM@MP3DialogEvent?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611108"
+      },
+      {
+        "name": "??_C@_0BB@JKFILBD@MP3AmbientStream?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061110C"
+      },
+      {
+        "name": "??_C@_04LOAJBDKD@true?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_05JKPKJCFD@EASTL?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118090"
+      },
+      {
+        "name": "??_C@_0FB@ODGLLPF@C?3?2projects?2Ra3?2Production?2code?2@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111809C"
+      },
+      {
+        "name": "??_C@_02JDPG@rb?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180A0"
+      },
+      {
+        "name": "??_C@_04OKGDLNCL@NONE?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_08CNPBDDPF@EALAYER3?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061111C"
+      },
+      {
+        "name": "??_C@_03EBCCGHHJ@XMA?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180B4"
+      },
+      {
+        "name": "??_C@_03DAMMOOMO@XAS?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180B4"
+      },
+      {
+        "name": "??_C@_04KLKHHPIG@MAIN?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_09LEBBGDPH@OVERLAY_0?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611118"
+      },
+      {
+        "name": "??_C@_06HKBMKICC@Amount?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180B8"
+      },
+      {
+        "name": "??_C@_04KOACHJEN@Type?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_00CNPNBAHC@?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180C4"
+      },
+      {
+        "name": "??_C@_0BD@EHGLMLAN@SubtitleStringName?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611130"
+      },
+      {
+        "name": "??_C@_0L@EGJLDMJL@IsStreamed?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061113C"
+      },
+      {
+        "name": "??_C@_04PBAHLACE@File?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_0N@POONCDNP@PCSampleRate?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611128"
+      },
+      {
+        "name": "??_C@_0O@KDIHJJEJ@PCCompression?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611144"
+      },
+      {
+        "name": "??_C@_02IDKLBHEO@75?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180A0"
+      },
+      {
+        "name": "??_C@_09BBODNONO@PCQuality?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611118"
+      },
+      {
+        "name": "??_C@_0P@PMIILAPL@IsStreamedOnPC?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611108"
+      },
+      {
+        "name": "??_C@_0BA@DGAALKOO@XenonSampleRate?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611124"
+      },
+      {
+        "name": "??_C@_0BB@PCJBHEOK@XenonCompression?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061110C"
+      },
+      {
+        "name": "??_C@_0N@PGIBAOFB@XenonQuality?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611128"
+      },
+      {
+        "name": "??_C@_0BC@HPOJCLKK@IsStreamedOnXenon?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611148"
+      },
+      {
+        "name": "??_C@_0O@JOKJDKDN@PS3SampleRate?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611144"
+      },
+      {
+        "name": "??_C@_0P@ONODFOAE@PS3Compression?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611108"
+      },
+      {
+        "name": "??_C@_0L@PKMEKCLG@PS3Quality?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061113C"
+      },
+      {
+        "name": "??_C@_0BA@MCNOGFGE@IsStreamedOnPS3?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611124"
+      },
+      {
+        "name": "??_C@_09CGCMFBKE@GUIPreset?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611118"
+      },
+      {
+        "name": "??_C@_02EGCJHIOB@id?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180A0"
+      },
+      {
+        "name": "??_C@_09FBMAGD@Alignment?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611118"
+      },
+      {
+        "name": "??_C@_06IBDJIBGI@Filter?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180B8"
+      },
+      {
+        "name": "??_C@_04OKOFBOPB@Time?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_05KOHFLOFG@Level?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118090"
+      },
+      {
+        "name": "??_C@_0BG@PAIKECLF@PathfinderTrackHeader?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611138"
+      },
+      {
+        "name": "??_C@_06BNNOMDLO@Handle?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180B8"
+      },
+      {
+        "name": "??_C@_0BD@KELLHDOG@XferAlternateEvent?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611130"
+      },
+      {
+        "name": "??_C@_0L@IFDBOOL@IsXferable?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061113C"
+      },
+      {
+        "name": "??_C@_0BG@IKNBPEAO@PathfinderEventHeader?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611138"
+      },
+      {
+        "name": "??_C@_07MAHLPAJA@?$CDdefine?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611114"
+      },
+      {
+        "name": "??_C@_01CLKCMJKC@?5?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118098"
+      },
+      {
+        "name": "??_C@_02MDDDDAID@0x?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180A0"
+      },
+      {
+        "name": "??_C@_0M@MNCGACDM@PATH_TRACK_?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611140"
+      },
+      {
+        "name": "??_C@_0M@IHIOENAA@PATH_EVENT_?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611140"
+      },
+      {
+        "name": "?A0x65b208a5.?enumMap@?1??GetValue@?$EnumNameGetter@W4PCAudioCompressionSetting@SageBinaryData@@@@SA?BW4PCAudioCompressionSetting@SageBinaryData@@PBDPA_N@Z@4QBUEnumPair@?$EnumNameGetter@H@@B",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611181F0"
+      },
+      {
+        "name": "rw.audio.core.?A0x65b208a5.CPU_CLOCK_MULTIPLIER",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620610C"
+      },
+      {
+        "name": "rw.audio.core.?A0x65b208a5.DECIBEL_MIN",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620610C"
+      },
+      {
+        "name": "rw.audio.core.?A0x65b208a5.CENTS_MIN",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620610C"
+      },
+      {
+        "name": "rw.audio.core.?A0x65b208a5.PITCHLINEARTOCENTSCONST",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620610C"
+      },
+      {
+        "name": "rw.audio.core.?A0x65b208a5.PI",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620610C"
+      },
+      {
+        "name": "?A0x65b208a5.?enumMap@?1??GetValue@?$EnumNameGetter@W4PathMusicTrackType@SageBinaryData@@@@SA?BW4PathMusicTrackType@SageBinaryData@@PBDPA_N@Z@4QBUEnumPair@?$EnumNameGetter@H@@B",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118210"
+      },
+      {
+        "name": "??_B?1??ParsePathMusicHeaderLine@Plugin@AudioCompiler@BinaryAssetBuilder@@Q$AAM_NPBD00PAH@Z@51",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "??_7ICoreAllocator@Allocator@EA@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118214"
+      },
+      {
+        "name": "??_R1A@?0A@EA@CoreAllocatorWrapper@AudioCompiler@BinaryAssetBuilder@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111820C"
+      },
+      {
+        "name": "??_R0?AVCoreAllocatorWrapper@AudioCompiler@BinaryAssetBuilder@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118220"
+      },
+      {
+        "name": "??_R4ICoreAllocator@Allocator@EA@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611181F4"
+      },
+      {
+        "name": "?A0x65b208a5.?enumMap@?1??GetValue@?$EnumNameGetter@W4XenonAudioCompressionSetting@SageBinaryData@@@@SA?BW4XenonAudioCompressionSetting@SageBinaryData@@PBDPA_N@Z@4QBUEnumPair@?$EnumNameGetter@H@@B",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611181F0"
+      },
+      {
+        "name": "?A0x65b208a5.?enumMap@?1??GetValue@?$EnumNameGetter@W4PS3AudioCompressionSetting@SageBinaryData@@@@SA?BW4PS3AudioCompressionSetting@SageBinaryData@@PBDPA_N@Z@4QBUEnumPair@?$EnumNameGetter@H@@B",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118210"
+      },
+      {
+        "name": "DataInitializers.?A0x65b208a5.SECONDS_PER_LOGICFRAME_REAL",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620610C"
+      },
+      {
+        "name": "DataInitializers.?A0x65b208a5.MSEC_PER_SECOND",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620610C"
+      },
+      {
+        "name": "DataInitializers.?A0x65b208a5.RADS_PER_DEGREE",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620610C"
+      },
+      {
+        "name": "DataInitializers.?A0x65b208a5.LOGICFRAMES_PER_SECOND",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620610C"
+      },
+      {
+        "name": "DataInitializers.?A0x65b208a5.LOGICFRAMES_PER_SECONDS_REAL",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620610C"
+      },
+      {
+        "name": "DataInitializers.?A0x65b208a5.LOGICFRAMES_PER_MSEC_REAL",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620610C"
+      },
+      {
+        "name": "DataInitializers.?A0x65b208a5.PI",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620610C"
+      },
+      {
+        "name": "DataInitializers.?A0x65b208a5.SECONDS_PER_LOGICFRAME_REAL$initializer$",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?hexNumberPrefixString@?1??ParsePathMusicHeaderLine@Plugin@AudioCompiler@BinaryAssetBuilder@@Q$AAM_NPBD00PAH@Z@4V?$basic_string@DVallocator@eastl@@@eastl@@B",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118174"
+      },
+      {
+        "name": "?defineString@?1??ParsePathMusicHeaderLine@Plugin@AudioCompiler@BinaryAssetBuilder@@Q$AAM_NPBD00PAH@Z@4V?$basic_string@DVallocator@eastl@@@eastl@@B",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118174"
+      },
+      {
+        "name": "??_7CoreAllocatorWrapper@AudioCompiler@BinaryAssetBuilder@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118214"
+      },
+      {
+        "name": "??_R3ICoreAllocator@Allocator@EA@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118200"
+      },
+      {
+        "name": "??_R2CoreAllocatorWrapper@AudioCompiler@BinaryAssetBuilder@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118224"
+      },
+      {
+        "name": "??_R0?AVICoreAllocator@Allocator@EA@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118238"
+      },
+      {
+        "name": "??_R1A@?0A@EA@ICoreAllocator@Allocator@EA@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111820C"
+      },
+      {
+        "name": "??_R2ICoreAllocator@Allocator@EA@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118218"
+      },
+      {
+        "name": "?s_gaveMP3Warning@?CH@??ProcessAudioFileInstance@Plugin@AudioCompiler@BinaryAssetBuilder@@Q$AAMP$AAVAssetBuffer@Core@4@P$AAVInstanceDeclaration@64@@Z@4_NA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "??_R3CoreAllocatorWrapper@AudioCompiler@BinaryAssetBuilder@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118200"
+      },
+      {
+        "name": "?s_gaveMP3Warning@?BM@??ProcessAudioFileInstance@Plugin@AudioCompiler@BinaryAssetBuilder@@Q$AAMP$AAVAssetBuffer@Core@4@P$AAVInstanceDeclaration@64@@Z@4_NA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "?spaceString@?1??ParsePathMusicHeaderLine@Plugin@AudioCompiler@BinaryAssetBuilder@@Q$AAM_NPBD00PAH@Z@4V?$basic_string@DVallocator@eastl@@@eastl@@B",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118174"
+      },
+      {
+        "name": "??_R4CoreAllocatorWrapper@AudioCompiler@BinaryAssetBuilder@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611181F4"
+      },
+      {
+        "name": "?TypeName@AudioEventLimitGroup@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@AudioFileRuntime@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@Color4f@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@LogicRandomVariable@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicTrack@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_UnitsFarFromBase@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_EvaEventPlayedRecently@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_PathMusicStateCurrentlyActive@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@ObjectFilter@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@AudioVolumeSliderMultiplier@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@TimeRange@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@ClientRandomVariable@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@PathMusicTrack@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@DialogEvent@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@MultisoundSubsoundRef@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@PathMusicMapRuntime@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_LocalPlayerKillRatio@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@DialogEvent@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@Color3f@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_SpecificTrackTypePlaying@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_AnyTrackPlaying@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MoneyTransaction@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@AudioFileMP3Passthrough@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@AudioFileMP3PassthroughRuntime@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@PathMusicGameDynamicState@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@AudioEventLimitGroup@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@PathMusicEventSet@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_HitBySuperWeapon@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@AudioFile@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@Color4f@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_TimeFromStartOfLevel@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@MusicTrack@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_EvaEventPlayedRecently@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_PathMusicStateCurrentlyActive@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_LocalPlayerIsObserver@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@PathMusicMap@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@MusicPalette@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_EngagementCount@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_ScoredKillCount@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_LocalPlayerIsObserver@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_PathMusicStateLastActive@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_HitBySuperWeapon@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@PathMusicEventRuntime@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@ObjectFilterAsset@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MP3DialogEvent@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@RealRange@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@PathMusicTrack@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_Not@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_SpecificTrackTypePlaying@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@PathMusicGameDynamicStateSet@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_ObjectsOfTypeExist@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_PathMusicStateLastActive@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicPalette@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@PathMusicMap@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@RandomVariable@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@PathMusicEvent@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_LocalPlayerKillRatio@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@AudioFileMP3Passthrough@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MoneyTransaction@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_ObjectsNearEvaEvent@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_Not@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MP3AmbientStream@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_Or@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@AudioEvent@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@LogicRandomVariable@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MP3AmbientStream@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@Multisound@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@ReplaceTexture@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@BaseAudioEventInfo@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@ReplaceTexture@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@AudioEvent@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicScriptTrack@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNuggetBase@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_Or@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@PathMusicGameDynamicTransition@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@AudioFileMP3PassthroughRuntime@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@MP3MusicTrack@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@Multisound@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@PathMusicGameDynamicState@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionExpensiveNuggetBase@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@AmbientStream@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@AmbientStream@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@TimeRange@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_TimeFromStartOfLevel@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptTimeoutSpecifier@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_And@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@SoundOrEvaEvent@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@IntRange@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@RandomVariable@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@PathMusicEventSet@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MultisoundSubsoundRef@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_ScoredKillCount@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@ObjectFilter@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@BaseAudioEventInfo@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@ClientRandomVariable@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@AudioVolumeSliderMultiplier@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@AudioFileRefWithWeight@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@AudioFileRefWithWeight@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_ObjectsNearEvaEvent@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@BaseSingleSound@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@PathMusicMapRuntime@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@AudioFile@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@PathMusicGameDynamicTransition@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@MP3DialogEvent@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@SoundOrEvaEvent@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@RealRange@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@PathMusicEventRuntime@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_And@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicScriptTimeoutSpecifier@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@PathMusicEvent@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptTrack@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_UnitsFarFromBase@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_TrackPlayedCount@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@PathMusicGameDynamicStateSet@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNugget_ObjectsOfTypeExist@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MP3MusicTrack@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionNuggetBase@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeName@AudioFileRuntime@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_AnyTrackPlaying@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_EngagementCount@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@MusicScriptConditionExpensiveNuggetBase@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@MusicScriptConditionNugget_TrackPlayedCount@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeName@ObjectFilterAsset@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "?TypeHash@Color3f@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@IntRange@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?TypeHash@BaseSingleSound@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "?s_gaveMP3Warning@?M@??ProcessAudioFileInstance@Plugin@AudioCompiler@BinaryAssetBuilder@@Q$AAMP$AAVAssetBuffer@Core@4@P$AAVInstanceDeclaration@64@@Z@4_NA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "std.?A0x65b208a5._bad_alloc_Message",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "EA.Thread.?A0x65b208a5.kTimeoutNone",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206109"
+      },
+      {
+        "name": "__unep@?CharToLower@Utils@Marshaler@@$$FYADD@Z",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F0F08"
+      },
+      {
+        "name": "__unep@??$BookmarkCompare@U?$GenericBookmark@I@Tracker@Relo@@@Tracker@Relo@@$$FCA_NABU?$GenericBookmark@I@01@0@Z",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F0F08"
+      },
+      {
+        "name": "std.?A0x0aaeb331._bad_alloc_Message",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "??_C@_02DKCKIIND@?$CFs?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180A0"
+      },
+      {
+        "name": "??_C@_0CB@GANLGHBP@gwriteflush?5?9?5OUT?5OF?5DISK?5SPACE?6@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180BC"
+      },
+      {
+        "name": "??_C@_0DE@KIDLMJEG@galloc?5?9?5FAILED?4?5OUT?5OF?5MEMORY?4?5@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611160"
+      },
+      {
+        "name": "??_C@_04IJPGHCDI@GMEM?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_04JBNFAOHP@GEND?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_0CG@NCGJECCC@gfree?5?9?5ATTEMPT?5TO?5FREE?5NULL?5POI@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111824C"
+      },
+      {
+        "name": "??_C@_04IPEHMKME@GFRE?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_0CG@MJDOKNOD@gfree?5?9?5ATTEMPT?5TO?5FREE?5MEMORY?5T@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111824C"
+      },
+      {
+        "name": "??_C@_0DN@BAJDGDMF@gfree?5?9?5SENTINAL?5CORRUPTED?$DL?5PROB@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118250"
+      },
+      {
+        "name": "??_C@_04ODOKNKHJ@con?3?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_0DI@CIMFANBI@gopen?5?9?5UNABLE?5TO?5ALLOCATE?5MEMOR@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118254"
+      },
+      {
+        "name": "??_C@_0CC@MBJJOILM@gopen?5?9?5SEEK?5ON?5OPEN?5FAILED?5?$CI?$CFs?$CJ@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180C0"
+      },
+      {
+        "name": "??_C@_0DJ@HMENCKMP@gwopen?5?9?5ATTEMPT?5TO?5OPEN?5READONL@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611178"
+      },
+      {
+        "name": "??_C@_0DF@ILMFDHPD@gwopen?5?9?5ATTEMPT?5TO?5OPEN?5DIRECTO@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118258"
+      },
+      {
+        "name": "??_C@_04CFCDPBIN@?4tm1?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_0CN@LDDEILAH@gwopen?5?9?5UNABLE?5TO?5OPEN?5FILE?5FOR@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111825C"
+      },
+      {
+        "name": "??_C@_0DJ@FABBLEAH@gwopen?5?9?5UNABLE?5TO?5ALLOCATE?5MEMO@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611178"
+      },
+      {
+        "name": "??_C@_04OAOKCEO@?4tm2?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_04BJBPLFHE@?4bak?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118094"
+      },
+      {
+        "name": "??_C@_0CK@BMDNBCPF@gread?5?9?5ATTEMPT?5TO?5READ?5PAST?5END@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611180C8"
+      },
+      {
+        "name": "??_C@_0CP@HBDJGBPA@gwrite?5?9?5ATTEMPT?5TO?5WRITE?5TO?5A?5R@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611170"
+      },
+      {
+        "name": "??_C@_0BM@OIPMCHLF@gwrite?5?9?5OUT?5OF?5DISK?5SPACE?6?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061112C"
+      },
+      {
+        "name": "galloccount",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "gopenmethod",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "gprintf",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B01012059080F2061206504"
+      },
+      {
+        "name": "std.?A0xc5a70bfa._bad_alloc_Message",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "??_R3IList@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118200"
+      },
+      {
+        "name": "??_R2INode@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118218"
+      },
+      {
+        "name": "??_R4Value@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611181F4"
+      },
+      {
+        "name": "??_R2Value@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118224"
+      },
+      {
+        "name": "??_7List@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118248"
+      },
+      {
+        "name": "??_R0?AVValue@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118270"
+      },
+      {
+        "name": "??_R1A@?0A@EA@Node@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111820C"
+      },
+      {
+        "name": "??_R2List@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118224"
+      },
+      {
+        "name": "??_R3INode@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118200"
+      },
+      {
+        "name": "??_7Value@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118244"
+      },
+      {
+        "name": "??_R1A@?0A@EA@IList@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111820C"
+      },
+      {
+        "name": "??_7Node@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118230"
+      },
+      {
+        "name": "??_R4IList@Marshaler@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611181F4"
+      },
+      {
+        "name": "??_R3IValue@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118200"
+      },
+      {
+        "name": "??_R0?AVIValue@Marshaler@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061181F8"
+      },
+      {
+        "name": "??_R3List@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118200"
+      },
+      {
+        "name": "??_7INode@Marshaler@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118230"
+      },
+      {
+        "name": "??_R4IValue@Marshaler@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611181F4"
+      },
+      {
+        "name": "??_R1A@?0A@EA@Value@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111820C"
+      },
+      {
+        "name": "??_R4Node@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611181F4"
+      },
+      {
+        "name": "??_R3Value@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118200"
+      },
+      {
+        "name": "??_R0?AVNode@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118274"
+      },
+      {
+        "name": "??_R0?AVINode@Marshaler@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118228"
+      },
+      {
+        "name": "??_R0?AVIList@Marshaler@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118228"
+      },
+      {
+        "name": "??_R2IList@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118218"
+      },
+      {
+        "name": "??_R2IValue@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118218"
+      },
+      {
+        "name": "??_R1A@?0A@EA@List@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111820C"
+      },
+      {
+        "name": "??_R1A@?0A@EA@IValue@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111820C"
+      },
+      {
+        "name": "??_7IValue@Marshaler@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118244"
+      },
+      {
+        "name": "??_R2Node@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118224"
+      },
+      {
+        "name": "??_R3Node@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118200"
+      },
+      {
+        "name": "??_R4INode@Marshaler@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611181F4"
+      },
+      {
+        "name": "??_R4List@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611181F4"
+      },
+      {
+        "name": "std.?A0x9b63700f._bad_alloc_Message",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F2061206504"
+      },
+      {
+        "name": "??_R1A@?0A@EA@INode@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111820C"
+      },
+      {
+        "name": "??_R0?AVList@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118274"
+      },
+      {
+        "name": "??_7IList@Marshaler@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "062061118248"
+      },
+      {
+        "name": "?A0x176e81b8.__xc_mp_z",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111827C"
+      },
+      {
+        "name": "?Uninitialized@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2HA",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "?A0x176e81b8.?Uninitialized$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?A0x176e81b8.__xi_vt_a",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111827C"
+      },
+      {
+        "name": "?InitializedPerAppDomain@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2W4State@Progress@2@A",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "06118284"
+      },
+      {
+        "name": "?A0x176e81b8.?InitializedPerAppDomain$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?IsDefaultDomain@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2_NA",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "?A0x176e81b8.?IsDefaultDomain$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?A0x176e81b8.__xc_ma_a",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111827C"
+      },
+      {
+        "name": "?InitializedNative@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2W4State@Progress@2@A",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "06118284"
+      },
+      {
+        "name": "?A0x176e81b8.?InitializedNative$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?Initialized@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2HA",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "?A0x176e81b8.?Initialized$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?A0x176e81b8.__xc_ma_z",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111827C"
+      },
+      {
+        "name": "?InitializedVtables@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2W4State@Progress@2@A",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "06118284"
+      },
+      {
+        "name": "?A0x176e81b8.?InitializedVtables$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?A0x176e81b8.__xi_vt_z",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111827C"
+      },
+      {
+        "name": "?InitializedPerProcess@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2W4State@Progress@2@A",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "06118284"
+      },
+      {
+        "name": "?A0x176e81b8.?InitializedPerProcess$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?InitializedPerProcess@DefaultDomain@\u003CCrtImplementationDetails\u003E@@2_NA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "?Entered@DefaultDomain@\u003CCrtImplementationDetails\u003E@@2_NA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "?InitializedNative@DefaultDomain@\u003CCrtImplementationDetails\u003E@@2_NA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "?Count@AllDomains@\u003CCrtImplementationDetails\u003E@@2HA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "?hasNative@DefaultDomain@\u003CCrtImplementationDetails\u003E@@0W4State@TriBool@2@A",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118298"
+      },
+      {
+        "name": "?hasPerProcess@DefaultDomain@\u003CCrtImplementationDetails\u003E@@0W4State@TriBool@2@A",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118298"
+      },
+      {
+        "name": "?InitializedNativeFromCCTOR@DefaultDomain@\u003CCrtImplementationDetails\u003E@@2_NA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "?A0x176e81b8.__xc_mp_a",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06206111827C"
+      },
+      {
+        "name": "__unep@?DoNothing@DefaultDomain@\u003CCrtImplementationDetails\u003E@@$$FCGJPAX@Z",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F0F08"
+      },
+      {
+        "name": "__unep@?_UninitializeDefaultDomain@LanguageSupport@\u003CCrtImplementationDetails\u003E@@$$FCGJPAX@Z",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F0F08"
+      },
+      {
+        "name": "__exit_list_size_app_domain",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "?_lock@AtExitLock@\u003CCrtImplementationDetails\u003E@@$$Q0V?$Handle@P$AAVObject@System@@@2@A",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "061182A0"
+      },
+      {
+        "name": "?A0x23130d9f.?_lock$initializer$@AtExitLock@\u003CCrtImplementationDetails\u003E@@$$Q0P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "__onexitbegin_app_domain",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "060F1B000001"
+      },
+      {
+        "name": "?A0x23130d9f.__exit_list_size",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "__onexitend_app_domain",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "060F1B000001"
+      },
+      {
+        "name": "?A0x23130d9f.__onexitbegin_m",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F1B000001"
+      },
+      {
+        "name": "?A0x23130d9f.__onexitend_m",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F1B000001"
+      },
+      {
+        "name": "eastl.gEmptyString",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "??_7type_info@@6B@",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0620611181FC"
+      },
+      {
+        "name": "__xc_z",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118288"
+      },
+      {
+        "name": "__native_vcclrit_reason",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061F811D09"
+      },
+      {
+        "name": "__xc_a",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118288"
+      },
+      {
+        "name": "__xi_a",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0611828C"
+      },
+      {
+        "name": "__native_startup_state",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061F811D118290"
+      },
+      {
+        "name": "__xi_z",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0611828C"
+      },
+      {
+        "name": "__native_startup_lock",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F1F811D01"
+      },
+      {
+        "name": "__native_dllmain_reason",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061F811D09"
+      }
+    ]
+  },
+  {
+    "token": "0x02000002",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0P@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 15,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000003",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BB@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 17,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000004",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BE@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000005",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY07$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000006",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY09$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 10,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000007",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY08$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 9,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000008",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BF@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 21,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000009",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BA@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000A",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0N@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 13,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000B",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BM@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000C",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BD@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 19,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000D",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BH@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 23,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000E",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BG@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 22,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000F",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0L@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 11,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000010",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0M@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 12,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000011",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0O@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 14,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000012",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BC@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 18,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000013",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BP@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 31,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000014",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0CI@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 40,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000015",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0DB@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 49,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000016",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0CM@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 44,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000017",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0DA@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 48,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000018",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0DE@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 52,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000019",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0CL@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 43,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200001A",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0CO@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 46,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200001B",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0DC@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 50,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200001C",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0CP@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 47,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200001D",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BO@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 30,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200001E",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0DJ@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 57,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200001F",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BK@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 26,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000020",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BN@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 29,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000021",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BI@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000022",
+    "name": "BinaryAssetBuilder.AudioCompiler.AutoCleanUpTempFiles",
+    "attributes": "BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "m_baseTempFileName",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000023",
+    "name": "BinaryAssetBuilder.AudioCompiler.Plugin",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "m_Tracer",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061279"
+      },
+      {
+        "name": "m_HashCode",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "m_Platform",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06117D"
+      },
+      {
+        "name": "m_sndSystem",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060F1180E0"
+      },
+      {
+        "name": "m_allocator",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060F1180EC"
+      },
+      {
+        "name": "TempFilenameSuffix",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000024",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY05$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 6,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000025",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY04$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 5,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000026",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY01$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 2,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000027",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0FB@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 81,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000028",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY02$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 3,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000029",
+    "name": "SageBinaryData.XenonAudioCompressionSetting",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x0200002A",
+    "name": "SageBinaryData.PCAudioCompressionSetting",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x0200002B",
+    "name": "SageBinaryData.PS3AudioCompressionSetting",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x0200002C",
+    "name": "SageBinaryData.PathMusicTrackType",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x0200002D",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY03$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200002E",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY06$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 7,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200002F",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0CB@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 33,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000030",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0CC@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 34,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000031",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY00$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000032",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0CK@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 42,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000033",
+    "name": "Relo.Tracker",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 88,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000034",
+    "name": "ExternalReference",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 32,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000035",
+    "name": "Block",
+    "attributes": "NestedAssembly, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 12,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000036",
+    "name": "GenericBookmark\u003Cunsigned int\u003E",
+    "attributes": "NestedAssembly, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 12,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000037",
+    "name": "Endian.EndianHelper",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000038",
+    "name": "rw.audio.core.System",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 264,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000039",
+    "name": "DEBUGFEATURE",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x0200003A",
+    "name": "PhysicalMemoryFlags",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x0200003B",
+    "name": "BinaryAssetBuilder.AudioCompiler.CoreAllocatorWrapper",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1320,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003C",
+    "name": "eastl.integral_constant\u003Cbool,0\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003D",
+    "name": "eastl.generic_iterator\u003CRelo::Tracker::Block *,void\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003E",
+    "name": "eastl.generic_iterator\u003CRelo::Tracker::GenericBookmark\u003Cunsigned int\u003E *,void\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003F",
+    "name": "eastl.generic_iterator\u003Cunsigned int *,void\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000040",
+    "name": "EA.Allocator.ICoreAllocator",
+    "attributes": "SequentialLayout, Abstract, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000041",
+    "name": "EA.Allocator.GeneralAllocator",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1312,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000042",
+    "name": "AllocationFlags",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000043",
+    "name": "Alignment",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000044",
+    "name": "AssertionFailureInfo",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000045",
+    "name": "HookType",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000046",
+    "name": "HookSubType",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000047",
+    "name": "HookInfo",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 56,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000048",
+    "name": "Option",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000049",
+    "name": "InitCallbackNode",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 12,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200004A",
+    "name": "HeapValidationLevel",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x0200004B",
+    "name": "AddressType",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x0200004C",
+    "name": "BlockType",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x0200004D",
+    "name": "BlockInfo",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200004E",
+    "name": "SnapshotImage",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 256,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200004F",
+    "name": "std.ios_base",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 40,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000050",
+    "name": "event",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000051",
+    "name": "failure",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 40,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000052",
+    "name": "Init",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000053",
+    "name": "std.basic_istream\u003Cchar,std::char_traits\u003Cchar\u003E \u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 60,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000054",
+    "name": "_Sentry_base",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000055",
+    "name": "sentry",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000056",
+    "name": "_iobuf",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 32,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000057",
+    "name": "Marshaler.NodeHolder",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000058",
+    "name": "Marshaler.INode",
+    "attributes": "SequentialLayout, Abstract, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000059",
+    "name": "Marshaler.IValue",
+    "attributes": "SequentialLayout, Abstract, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005A",
+    "name": "Marshaler.IList",
+    "attributes": "SequentialLayout, Abstract, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005B",
+    "name": "Relo.Chunk",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005C",
+    "name": "eastl.stack\u003Cunsigned int,eastl::vector\u003Cunsigned int,eastl::allocator\u003E \u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005D",
+    "name": "eastl.basic_string\u003Cchar,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005E",
+    "name": "CtorDoNotInitialize",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005F",
+    "name": "CtorSprintf",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000060",
+    "name": "SageBinaryData.AudioFileRuntime",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 32,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000061",
+    "name": "SageBinaryData.AudioFileMP3PassthroughRuntime",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000062",
+    "name": "SageBinaryData.AudioFileMP3Passthrough",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000063",
+    "name": "SageBinaryData.AudioFile",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 68,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000064",
+    "name": "SageBinaryData.PathMusicMap",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 12,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000065",
+    "name": "SageBinaryData.PathMusicMapRuntime",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 12,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000066",
+    "name": "SageBinaryData.PathMusicTrack",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000067",
+    "name": "SageBinaryData.PathMusicEventRuntime",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000068",
+    "name": "SageBinaryData.PathMusicEvent",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000069",
+    "name": "AudioPhysicalRendererInternal.SNDAutoLock",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006A",
+    "name": "BinaryAssetBuilder.AudioCompiler.AutoGSTREAMCloser",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006B",
+    "name": "STDSTREAM",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 9252,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006C",
+    "name": "BinaryAssetBuilder.AudioCompiler.AutoSINSTANCECloser",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006D",
+    "name": "SINSTANCE",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1088,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006E",
+    "name": "BinaryAssetBuilder.AudioCompiler.AutoSINSTANCEWCloser",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006F",
+    "name": "BinaryAssetBuilder.AudioCompiler.AutoSINFOFreer",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000070",
+    "name": "SINFO",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 136,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000071",
+    "name": "gcroot\u003CSystem::Xml::XmlNamespaceManager ^\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000072",
+    "name": "gcroot\u003CSystem::Xml::XPath::XPathNavigator ^\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000073",
+    "name": "std.basic_fstream\u003Cchar,std::char_traits\u003Cchar\u003E \u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 144,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000074",
+    "name": "eastl.vector\u003CRelo::Tracker::Block,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000075",
+    "name": "eastl.vector\u003CRelo::Tracker::GenericBookmark\u003Cunsigned int\u003E,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000076",
+    "name": "eastl.vector\u003CRelo::Tracker::GenericBookmark\u003Cvoid *\u003E,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000077",
+    "name": "eastl.vector\u003Cunsigned int,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000078",
+    "name": "Relo.String\u003Cchar\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000079",
+    "name": "EnumNameGetter\u003Cint\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200007A",
+    "name": "EnumPair",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200007B",
+    "name": "TypedAssetId\u003CSageBinaryData::PathMusicEvent\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200007C",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY02$$CBUEnumPair@?$EnumNameGetter@H@@",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200007D",
+    "name": "_s__RTTICompleteObjectLocator",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200007E",
+    "name": "$_TypeDescriptor$_extraBytes_23",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 31,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200007F",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY01Q6AXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000080",
+    "name": "_s__RTTIClassHierarchyDescriptor",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000081",
+    "name": "rw.audio.core.DecoderRegistry",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000082",
+    "name": "rw.audio.core.EncoderRegistry",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000083",
+    "name": "_s__RTTIBaseClassDescriptor2",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000084",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY01$$CBUEnumPair@?$EnumNameGetter@H@@",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000085",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY04Q6AXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000086",
+    "name": "$_s__RTTIBaseClassArray$_extraBytes_4",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 5,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000087",
+    "name": "Node",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000088",
+    "name": "$_TypeDescriptor$_extraBytes_60",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 68,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000089",
+    "name": "$_s__RTTIBaseClassArray$_extraBytes_8",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 9,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200008A",
+    "name": "$_TypeDescriptor$_extraBytes_22",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 30,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200008B",
+    "name": "SIMEXFILTERPARAM",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 56,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200008C",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY06Q6AXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200008D",
+    "name": "SIMEXFILTERABOUT",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200008E",
+    "name": "$_TypeDescriptor$_extraBytes_34",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 42,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200008F",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0CAA@D",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 512,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000090",
+    "name": "SSOUND",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1440,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000091",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY03Q6AXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000092",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY05Q6AXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000093",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0CG@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 38,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000094",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0DN@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 61,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000095",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0DI@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 56,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000096",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0DF@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 53,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000097",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0CN@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 45,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000098",
+    "name": "gcroot\u003CSystem::String ^\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000099",
+    "name": "gcroot\u003CSystem::Xml::XPath::XPathNodeIterator ^\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200009A",
+    "name": "List",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200009B",
+    "name": "Value",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200009C",
+    "name": "$_TypeDescriptor$_extraBytes_12",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200009D",
+    "name": "$_TypeDescriptor$_extraBytes_11",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 19,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200009E",
+    "name": "\u003CCrtImplementationDetails\u003E.LanguageSupport",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200009F",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY00Q6MPBXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A0",
+    "name": "\u003CCrtImplementationDetails\u003E.Progress",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A1",
+    "name": "State",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x020000A2",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0A@P6AXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A3",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0A@P6AHXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A4",
+    "name": "__enative_startup_state",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x020000A5",
+    "name": "\u003CCrtImplementationDetails\u003E.TriBool",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A6",
+    "name": "State",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x020000A7",
+    "name": "_EXCEPTION_POINTERS",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A8",
+    "name": "\u003CCrtImplementationDetails\u003E.Handle\u003CSystem::Object ^\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A9",
+    "name": "\u003CCrtImplementationDetails\u003E.ThisModule",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  }
+]

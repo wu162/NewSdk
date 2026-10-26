@@ -1,0 +1,8 @@
+PHASE load pinned original
+PHASE install native journal trampoline
+PHASE native journal ready
+PHASE encode xma-1-4096-ram journalBefore=0
+PASS numerical dispatch xma-1-4096-ram hits=37 three allocations equal accepted uninstrumented original
+PHASE encode xma-2-4096-ram journalBefore=37
+PASS numerical dispatch xma-2-4096-ram hits=74 three allocations equal accepted uninstrumented original
+PASS original-only numerical XMA dispatch: 2 native encodes, 111 memory-indirect targets observed, three allocations per case equal accepted baseline

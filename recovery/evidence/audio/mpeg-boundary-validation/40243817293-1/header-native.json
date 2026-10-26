@@ -1,0 +1,15 @@
+{
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "nativeRva": "0x44d40",
+  "records": 32783,
+  "transcriptSha256": "046f8fc54eb9d00eb7e3398614c7b8b1de64fc6dbda6c934c3e5f923efe2a229",
+  "identifierRva": "0x2f6f0",
+  "identifierRecords": 441,
+  "identifierSha256": "898e364fff9b3b3a1852d7b13080114b52ed836ed6fcbd242017390b1dbfc728",
+  "infoDispatchRva": "0x25490",
+  "infoCallbackRva": "0x2f8c0",
+  "infoRecords": 324,
+  "infoSha256": "80afa85cb2f7a3c0589938581592c5d7c5b9b70025c50d96269003a17d528fe7",
+  "emulator": "Unicorn x86; initialized SINFO; x87 control 0x037f",
+  "scope": "MPEG header return/channel, raw identification and SIMEX_info payload independence; no PCM decoder path"
+}

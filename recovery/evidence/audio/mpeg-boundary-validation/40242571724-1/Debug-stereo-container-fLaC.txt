@@ -1,0 +1,4 @@
+stereo-container-fLaC:False:False:NULL:CUSTOM:<absent>
+stereo-container-fLaC:False:True:NULL:CUSTOM:<absent>
+stereo-container-fLaC:True:False:NULL:CUSTOM:<absent>
+stereo-container-fLaC:True:True:NULL:CUSTOM:<absent>

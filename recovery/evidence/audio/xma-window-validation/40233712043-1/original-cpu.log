@@ -1,0 +1,2 @@
+x87 physicalCW=0x027f originalPhysicalCW=0x027f CRTcontrolBefore=0x0009001f
+PASS original XMA integral PCM window/copy leaves: 6888 exact cases (6720 recurrence windows, 168 copies), 16/20/24-bit, all states/cursors/guards; actual original CPU; no outer window scheduler or XMA codec acceptance

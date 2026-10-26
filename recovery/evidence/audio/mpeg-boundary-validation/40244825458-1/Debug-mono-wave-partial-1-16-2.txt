@@ -1,0 +1,4 @@
+mono-wave-partial-1-16-2:False:False:NULL:CUSTOM:<absent>
+mono-wave-partial-1-16-2:False:True:NULL:CUSTOM:<absent>
+mono-wave-partial-1-16-2:True:False:NULL:CUSTOM:<absent>
+mono-wave-partial-1-16-2:True:True:NULL:CUSTOM:<absent>

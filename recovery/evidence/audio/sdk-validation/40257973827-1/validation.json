@@ -1,0 +1,75 @@
+{
+  "runs": [
+    {
+      "audioCalls": 6336,
+      "exitCode": 0,
+      "customFiles": 6336,
+      "originalTargetPresent": true,
+      "mode": "Original",
+      "outputs": [
+        {
+          "sha256": "768b95a9dc060b4c8bdf1b6e6f669f6b2d5eb09abb90d6877caecd043efb4de0",
+          "name": "mod.bin",
+          "bytes": 671492
+        },
+        {
+          "sha256": "d6c074ddad167de423c800903e07a70dc10fbaebfa3577efeab63ad702bdf6e4",
+          "name": "mod.manifest",
+          "bytes": 746012
+        },
+        {
+          "sha256": "0c124e5676b78fc337c2ac1a6564e38f270c48711f99cad1cffebbb8eff55534",
+          "name": "mod.imp",
+          "bytes": 4
+        },
+        {
+          "sha256": "76e3d6825045ca8cb8dc27b12be7791a0b704c82d60ec2c9317064df3dc989b7",
+          "name": "mod.relo",
+          "bytes": 63364
+        }
+      ]
+    },
+    {
+      "audioCalls": 6336,
+      "exitCode": 0,
+      "customFiles": 6336,
+      "originalTargetPresent": false,
+      "mode": "Recovered",
+      "outputs": [
+        {
+          "sha256": "768b95a9dc060b4c8bdf1b6e6f669f6b2d5eb09abb90d6877caecd043efb4de0",
+          "name": "mod.bin",
+          "bytes": 671492
+        },
+        {
+          "sha256": "d6c074ddad167de423c800903e07a70dc10fbaebfa3577efeab63ad702bdf6e4",
+          "name": "mod.manifest",
+          "bytes": 746012
+        },
+        {
+          "sha256": "0c124e5676b78fc337c2ac1a6564e38f270c48711f99cad1cffebbb8eff55534",
+          "name": "mod.imp",
+          "bytes": 4
+        },
+        {
+          "sha256": "76e3d6825045ca8cb8dc27b12be7791a0b704c82d60ec2c9317064df3dc989b7",
+          "name": "mod.relo",
+          "bytes": 63364
+        }
+      ]
+    }
+  ],
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sourceCommit": "7abc0505f6340504f32767b86de7a34b04ac3367",
+  "scope": "Fresh original and original-free recovered BAB case5 basic-data build; same temporary SDK root",
+  "runId": "40257973827",
+  "configSha256": "e2dac33ed877164fc75651137d5f7a04b49fe0a28fb9f59760ae209346904cc9",
+  "succeeded": true,
+  "runAttempt": "1",
+  "sdkStarted": true,
+  "babSha256": "f79c2fe743de251e59c9e1daee6930f4c58b1de3adf735f73aa7e9798c8c49af",
+  "profile": "create-multichannel-aiff",
+  "expectedAssets": 6336,
+  "status": "passed",
+  "recoveredSha256": "595941a31216547d0761adf87bc5bef33f564bd2864cc661dba5e9c79eb9c58c"
+}

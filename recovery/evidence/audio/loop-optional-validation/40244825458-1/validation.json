@@ -1,0 +1,32 @@
+{
+  "runAttempt": "1",
+  "scope": "Initialized optional AIFF/AIFC NONE/raw ADP4 loop metadata: INST-only/empty MARK modes0/1/2, neither selected ID, ignored out-of-range auxiliary positions; PCM8/16/24 mono/stereo PC NONE/XAS RAM/streamed, unchanged/downsample/upsample; canonical pair invariants",
+  "runId": "40244825458",
+  "sdkValidated": false,
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "originalRecords": 3888,
+  "status": "passed",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "readerAssertions": 328,
+      "passed": true,
+      "recoveredSha256": "7563942fe2a4243be4ade81dbf9b0ebb67717db3e715b25b095cbbb9d32f3c19",
+      "originalAbsentFromRecoveredHost": true,
+      "records": 3888,
+      "canonicalPairInvariants": 1944,
+      "transcriptSha256": "1842b6e4b6e981d40a7db5e48171204c8874d09ccaa5e47114a39fffb023ec31"
+    },
+    {
+      "configuration": "Release",
+      "readerAssertions": 328,
+      "passed": true,
+      "recoveredSha256": "fcdbefb74b561427c190009709c39bef4633e7b87b506f687e9b5a6f7de0a860",
+      "originalAbsentFromRecoveredHost": true,
+      "records": 3888,
+      "canonicalPairInvariants": 1944,
+      "transcriptSha256": "1842b6e4b6e981d40a7db5e48171204c8874d09ccaa5e47114a39fffb023ec31"
+    }
+  ],
+  "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37"
+}

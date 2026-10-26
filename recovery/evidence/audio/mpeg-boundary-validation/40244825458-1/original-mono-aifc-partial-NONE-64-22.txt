@@ -1,0 +1,4 @@
+mono-aifc-partial-NONE-64-22:False:False:NULL:CUSTOM:<absent>
+mono-aifc-partial-NONE-64-22:False:True:NULL:CUSTOM:<absent>
+mono-aifc-partial-NONE-64-22:True:False:NULL:CUSTOM:<absent>
+mono-aifc-partial-NONE-64-22:True:True:NULL:CUSTOM:<absent>

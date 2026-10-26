@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "scope": "Isolated original-machine-code FFT differential only; runtime resampling remains unimplemented",
+  "runId": "40199685628",
+  "modes": [
+    {
+      "records": 78,
+      "recoveredSha256": "b344b05e48d133dc08ccbdf0f83df01278c67d42331ac5c05182f1c7e4f24df8",
+      "passed": true,
+      "safetyChecks": 9,
+      "configuration": "Debug"
+    },
+    {
+      "records": 78,
+      "recoveredSha256": "3669ee9668c5727970e37bd1ebe13dc965e81804ccbc1d6f257552a86c529edf",
+      "passed": true,
+      "safetyChecks": 9,
+      "configuration": "Release"
+    }
+  ],
+  "runtimeResamplingValidated": false,
+  "sourceCommit": "69915484a322542ddf5a8041609b396e40c29a86",
+  "nativeOracleSha256": "f41ba608317f0f037e53a4e7204b378aa21639679f7d02f3418791fe5c20f5d0"
+}

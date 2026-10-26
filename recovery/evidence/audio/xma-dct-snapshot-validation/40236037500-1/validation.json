@@ -1,0 +1,20 @@
+{
+  "callSiteRva": "0x97bb0",
+  "nativeHelperSha256": "0eaf3512f6397c5b464a6a5980bde8f0f7695bc91fa316c5d7d69a225f23beea",
+  "snapshots": 111,
+  "stage": "native-execution",
+  "receiptSha256": "cef024594984548facc981e481af0a66ee3d82bd387b36cc14387a4ea75b8919",
+  "runAttempt": "1",
+  "receipt": "dct-snapshots.json",
+  "nativeExitCode": 0,
+  "sdkValidated": false,
+  "scope": "Real x86 CPU actual original XMA DCT entry/return pairs",
+  "runId": "40236037500",
+  "baselineRunId": "40232525056",
+  "tracedCases": 2,
+  "xmaEncodingRecovered": false,
+  "status": "original-evidence-only",
+  "sourceCommit": "d3f96009e64b44c4d9482421cc5922b3309320bc",
+  "acceptedRawCasesMatched": 2,
+  "baselineSourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499"
+}

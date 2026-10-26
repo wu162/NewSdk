@@ -1,0 +1,28 @@
+{
+  "originalCpuRecords": 78,
+  "runId": "40257973783",
+  "nativeOracleSha256": "f41ba608317f0f037e53a4e7204b378aa21639679f7d02f3418791fe5c20f5d0",
+  "sourceCommit": "7abc0505f6340504f32767b86de7a34b04ac3367",
+  "runtimeResamplingValidated": false,
+  "originalCpuValidated": true,
+  "scope": "Isolated original-machine-code FFT differential only; runtime resampling remains unimplemented",
+  "sdkValidated": false,
+  "modes": [
+    {
+      "passed": true,
+      "records": 78,
+      "recoveredSha256": "457da8c34ff766ebfb767d29bc5d04a68f097f6f9e524eb109c4ea1281507fe6",
+      "configuration": "Debug",
+      "safetyChecks": 9
+    },
+    {
+      "passed": true,
+      "records": 78,
+      "recoveredSha256": "c2762db1e5d8a164282660f605b49a209d3b0c096dedaf4954c0c4277dc2bb77",
+      "configuration": "Release",
+      "safetyChecks": 9
+    }
+  ],
+  "status": "passed",
+  "runAttempt": "1"
+}

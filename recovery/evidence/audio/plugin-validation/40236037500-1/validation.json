@@ -1,0 +1,39 @@
+{
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sdkValidated": false,
+  "realMainProvenanceSha256": "bea901cfcb21fb4f0792b8754bf55dd555f0b747dbb02e047d7803fb08137392",
+  "mp3Validated": false,
+  "sourceCommit": "d3f96009e64b44c4d9482421cc5922b3309320bc",
+  "configurations": [
+    {
+      "records": 200,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "9f4dedc8997d8c8d366454ae538f12f8c3337476f49522be737f49a50164f92e",
+      "configuration": "Debug",
+      "passed": true,
+      "originalUndefinedEvidenceRecords": 0,
+      "recoveredSha256": "8feb95ded6073360bc605746cb0e169611afd361225d4449b05e56d1f1f50fc4",
+      "originalAbsentFromRecoveredHost": true,
+      "group": "aiffloops"
+    },
+    {
+      "records": 200,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "9f4dedc8997d8c8d366454ae538f12f8c3337476f49522be737f49a50164f92e",
+      "configuration": "Release",
+      "passed": true,
+      "originalUndefinedEvidenceRecords": 0,
+      "recoveredSha256": "cb6d872aa20f8c6d34291dc1d4e2d0ba4b6b9deeeabe11dc180f828fa72d1b6f",
+      "originalAbsentFromRecoveredHost": true,
+      "group": "aiffloops"
+    }
+  ],
+  "scope": "Component differential: aiffloops",
+  "runAttempt": "1",
+  "runId": "40236037500",
+  "selectedGroups": [
+    "aiffloops"
+  ],
+  "nativeAudioFileValidated": false,
+  "status": "passed"
+}

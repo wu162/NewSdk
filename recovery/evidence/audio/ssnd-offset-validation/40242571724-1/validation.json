@@ -1,0 +1,34 @@
+{
+  "runAttempt": "1",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "safetyRefusals": 480,
+      "recoveredSha256": "c1fda07127203325bad7985306903cd326daefaa67828accce35af288eac520a",
+      "records": 2704,
+      "originalAbsentFromRecoveredHost": true,
+      "sampleBitInvariants": 338,
+      "transcriptSha256": "52986dd53edbdfa38ceb0d7d110a8e2f0335b33fa9d00f459a485d4c0602560a",
+      "passed": true
+    },
+    {
+      "configuration": "Release",
+      "safetyRefusals": 480,
+      "recoveredSha256": "e30e284632e4cc224c1765405b238ee684d6c7c3fc2bab5550822441756ecabc",
+      "records": 2704,
+      "originalAbsentFromRecoveredHost": true,
+      "sampleBitInvariants": 338,
+      "transcriptSha256": "52986dd53edbdfa38ceb0d7d110a8e2f0335b33fa9d00f459a485d4c0602560a",
+      "passed": true
+    }
+  ],
+  "affectedReaderRegressionProvidedByCaller": true,
+  "scope": "Bounded SSND offset:AIFF/AIFC NONE/raw ADP4/AIFF sustain loops; native raw-length frame count, in-chunk sample window; canonical0 exact full plugin comparison, no SDK",
+  "sdkValidated": false,
+  "status": "passed",
+  "offsetCanonicalComparisonsPerConfiguration": 1352,
+  "runId": "40242571724",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "originalRecords": 2704,
+  "sourceCommit": "40ebb67064c813649d9ae1b54ecc6fe1be2be839"
+}

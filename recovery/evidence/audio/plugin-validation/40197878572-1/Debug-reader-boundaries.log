@@ -1,0 +1,20 @@
+PASS reject null
+PASS reject truncated
+PASS reject IEEE-float
+PASS reject PCM32
+PASS reject truncated-extensible-format
+PASS reject three-channels
+PASS reject block-alignment
+PASS reject chunk-overrun
+PASS reject WAVE-loop
+PASS reject AIFC
+PASS reject AIFF-SSND-offset
+PASS reject AIFF-SSND-block-size
+PASS reject AIFF-loop
+PASS reject extensible-missing-extension
+PASS reject extensible-extra-extension
+PASS reject extensible-partial-validbits
+PASS reject extensible-float-GUID
+PASS reject extensible-unknown-GUID
+PASS reject extensible-nonstandard-mask
+PASS Audio input rejection boundaries: 19

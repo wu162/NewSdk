@@ -1,0 +1,37 @@
+{
+  "originalDllSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
+  "runAttempt": "1",
+  "recordsPerConfiguration": 6360,
+  "sdkValidated": false,
+  "prngSequences": 200,
+  "oracleSha256": "3a995868b823ec57f8d7794f4ef6192f5e9ce59e199fc2c01a57df4a10ab7d04",
+  "runId": "40232917060",
+  "status": "passed",
+  "physicalX87ControlWord": "0x027f",
+  "originalCpuValidated": true,
+  "audioFileXmaRouteEnabled": false,
+  "xmaEncoderRecovered": false,
+  "scope": "XMA numeric noise/state helper group 0x64cd5 and 0x65a0b only",
+  "modes": [
+    {
+      "summary": "PASS candidate XMA noise numeric helpers: 6360 exact state/output cases (200 PRNG sequences, 6160 fills); 22 finite gain patterns; x87 CW=0x027f; 8 separate safety refusals; original DLL absent; no XMA encoding acceptance",
+      "candidateSafetyRejections": 8,
+      "configuration": "Debug",
+      "originalAbsentFromRecoveredHost": true,
+      "records": 6360,
+      "passed": true,
+      "recoveredSha256": "a23a7a6a53606a6f8f037bf95fc31c61ef6e6cc14e5b26d58d0969407c1644cc"
+    },
+    {
+      "summary": "PASS candidate XMA noise numeric helpers: 6360 exact state/output cases (200 PRNG sequences, 6160 fills); 22 finite gain patterns; x87 CW=0x027f; 8 separate safety refusals; original DLL absent; no XMA encoding acceptance",
+      "candidateSafetyRejections": 8,
+      "configuration": "Release",
+      "originalAbsentFromRecoveredHost": true,
+      "records": 6360,
+      "passed": true,
+      "recoveredSha256": "26c15b6c0b9e13be4a30546a1fdbf64f137ab2195c12b3a6d47083ca1fd07496"
+    }
+  ],
+  "noiseFills": 6160
+}

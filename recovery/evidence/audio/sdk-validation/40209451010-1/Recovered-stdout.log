@@ -1,0 +1,87 @@
+Command Line: D:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\SDK\Mods\AudioRecoveryProbe\Data\Mod.xml /od:D:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\SDK\builtmods /iod:D:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\SDK\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\AudioRecoveryProbe\Art;.\Mods;.\Art /audio:.;.\Mods\AudioRecoveryProbe\Audio;.\Mods;.\Audio /data:.;.\Mods\AudioRecoveryProbe\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\SDK\Mods\AudioRecoveryProbe\Data\Mod.xml /od:D:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\SDK\builtmods /iod:D:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\SDK\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\AudioRecoveryProbe\Art;.\Mods;.\Art /audio:.;.\Mods\AudioRecoveryProbe\Audio;.\Mods;.\Audio /data:.;.\Mods\AudioRecoveryProbe\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.2501245] Loading previous string hash file from D:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\SDK\builtmods\StringHashes.xml
+[00:00:00.2501245] Cached session data not available.
+[00:00:00.2501245] Session caching enabled ('D:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\SDK\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.2501245] Network caching enabled ('D:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\SDK\builtmods\cache').
+[00:00:00.2657354] Loading 'file://d:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\sdk\mods\audiorecoveryprobe\data\mod.xml'.
+[00:00:00.2969893] Stream d:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\sdk\mods\audiorecoveryprobe\data\mod.xml references stream d:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\sdk\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.6254777] Stream d:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\sdk\mods\audiorecoveryprobe\data\mod.xml references stream d:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\sdk\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.9382808] Stream d:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\sdk\mods\audiorecoveryprobe\data\mod.xml references stream d:\a\_temp\audio-sdk-6d3735f034714d84aa359929caa0300f\sdk\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:01.2510848] mod.xml: Compiling PathMusicMap:AudioMap [95fe3c05:28a76724]
+[00:00:01.2510848] mod.xml: Compiling PathMusicTrack:AudioTrack [a70bc1d6:a0aebc5d]
+[00:00:01.2510848] mod.xml: Compiling PathMusicEvent:AudioEvent [9a651d89:d1639b07]
+[00:00:01.2510848] mod.xml: Compiling AudioFileMP3Passthrough:AudioMp3 [15bdbf02:a7ec20b2]
+[00:00:01.2979469] mod.xml: Compiling AudioFile:AudioNONEFalse [166b084d:f399c83b]
+[00:00:01.3135749] mod.xml: Compiling AudioFile:AudioNONETrue [166b084d:1430d753]
+[00:00:01.3135749] mod.xml: Compiling AudioFile:AudioXASFalse [166b084d:01cb1c3a]
+[00:00:01.3135749] mod.xml: Compiling AudioFile:AudioXASTrue [166b084d:c5a7f70c]
+[00:00:01.3135749] mod.xml: Compiling AudioFile:RealWave0NONE [166b084d:39cae584]
+[00:00:01.3291997] mod.xml: Compiling AudioFile:RealWave0XAS [166b084d:dd2934a4]
+[00:00:01.3291997] mod.xml: Compiling AudioFile:RealWave1NONE [166b084d:e0ccde59]
+[00:00:01.3291997] mod.xml: Compiling AudioFile:RealWave1XAS [166b084d:05ad1022]
+[00:00:01.4073264] mod.xml: Compiling AudioFile:FormatWave24NONEFalse [166b084d:0f7caa3f]
+[00:00:01.4073264] mod.xml: Compiling AudioFile:FormatWave24NONETrue [166b084d:9b8eee7c]
+[00:00:01.4073264] mod.xml: Compiling AudioFile:FormatWave24XASFalse [166b084d:71d36d9f]
+[00:00:01.4073264] mod.xml: Compiling AudioFile:FormatWave24XASTrue [166b084d:dd12cfe8]
+[00:00:01.4073264] mod.xml: Compiling AudioFile:FormatAiffNONEFalse [166b084d:aa83dd15]
+[00:00:01.4073264] mod.xml: Compiling AudioFile:FormatAiffNONETrue [166b084d:d76e00d8]
+[00:00:01.4073264] mod.xml: Compiling AudioFile:FormatAiffXASFalse [166b084d:c493efa1]
+[00:00:01.4073264] mod.xml: Compiling AudioFile:FormatAiffXASTrue [166b084d:e2c2de1f]
+[00:00:01.4229486] mod.xml: Compiling AudioFile:LoopNONEFalse [166b084d:2eb9e026]
+[00:00:01.4229486] mod.xml: Compiling AudioFile:LoopNONETrue [166b084d:56594e39]
+[00:00:01.4229486] mod.xml: Compiling AudioFile:LoopXASFalse [166b084d:a12e14c9]
+[00:00:01.4229486] mod.xml: Compiling AudioFile:LoopXASTrue [166b084d:84df496f]
+[00:00:01.4229486] mod.xml: Compiling AudioFile:ExtensibleNONE [166b084d:6fbf220a]
+[00:00:01.4229486] mod.xml: Compiling AudioFile:ExtensibleXAS [166b084d:f1a39e5a]
+[00:00:01.4229486] mod.xml: Compiling AudioFile:AiffLoopNONEFalse [166b084d:6c60719a]
+[00:00:01.4229486] mod.xml: Compiling AudioFile:AiffLoopNONETrue [166b084d:9c81d13b]
+[00:00:01.4229486] mod.xml: Compiling AudioFile:AiffLoopXASFalse [166b084d:f5fe05ef]
+[00:00:01.4385735] mod.xml: Compiling AudioFile:AiffLoopXASTrue [166b084d:88629fb7]
+[00:00:01.4385735] mod.xml: Compiling AudioFile:AudioResampleSdk0 [166b084d:809fd9b4]
+[00:00:01.4702879] mod.xml: Compiling AudioFile:AudioResampleSdk1 [166b084d:83738a9e]
+[00:00:01.4859536] mod.xml: Compiling AudioFile:AudioResampleSdk2 [166b084d:2ae2a04b]
+[00:00:01.5015766] mod.xml: Compiling AudioFile:AudioResampleSdk3 [166b084d:20085a5b]
+[00:00:01.5172008] mod.xml: Compiling AudioFile:AudioResampleSdk4 [166b084d:280eb361]
+[00:00:01.5328254] mod.xml: Compiling AudioFile:AudioResampleSdk5 [166b084d:2efb7e7d]
+[00:00:01.5640828] mod.xml: Compiling AudioFile:AudioDefaultSounds [166b084d:0e8a5f75]
+[00:00:01.5640828] mod.xml: Compiling AudioFile:AudioDefaultMusic [166b084d:7c3762f1]
+[00:00:01.5640828] Resolving references: mods\audiorecoveryprobe\data\mod
+[00:00:01.5640828] Stable sorting assets
+[00:00:01.5640828] Sorting by schema dependencies
+[00:00:01.5640828] Sorting by asset dependencies
+[00:00:01.5640828] Generating stream: mods\audiorecoveryprobe\data\mod
+[00:00:01.5796991] Slow asset clean-up (expected: 38, actual: 38, old: 0, current: 38)
+[00:00:01.5796991] Slow custom data clean-up (expected: 36, actual: 36, old asset count: 0)
+[00:00:01.5796991] mods\audiorecoveryprobe\data\mod Linking binary data
+[00:00:01.5796991] mods\audiorecoveryprobe\data\mod Linking import data
+[00:00:01.5953255] mods\audiorecoveryprobe\data\mod Linking relocation data
+[00:00:01.5953255] mods\audiorecoveryprobe\data\mod Stream complete
+[00:00:01.5953255] BinaryAssetBuilder complete
+[00:00:01.5953255] AudioFileMP3Passthrough:
+[00:00:01.5953255]       Instances Processed: 1
+[00:00:01.5953255]       Total Processing Time: 00:00:00.0468621
+[00:00:01.5953255]       Longest Processing Time: 00:00:00.0468621 (AudioMp3)
+[00:00:01.5953255]       Average Processing Time: 0.0468621 seconds
+[00:00:01.5953255] AudioFile:
+[00:00:01.5953255]       Instances Processed: 34
+[00:00:01.5953255]       Total Processing Time: 00:00:00.2505111
+[00:00:01.5953255]       Longest Processing Time: 00:00:00.0781267 (RealWave1XAS)
+[00:00:01.5953255]       Average Processing Time: 0.00736797352941176 seconds
+[00:00:01.5953255] PathMusicMap:
+[00:00:01.5953255]       Instances Processed: 1
+[00:00:01.5953255]       Total Processing Time: 00:00:00
+[00:00:01.5953255]       Longest Processing Time: 00:00:00 ()
+[00:00:01.5953255]       Average Processing Time: 0 seconds
+[00:00:01.5953255] PathMusicEvent:
+[00:00:01.5953255]       Instances Processed: 1
+[00:00:01.5953255]       Total Processing Time: 00:00:00
+[00:00:01.5953255]       Longest Processing Time: 00:00:00 ()
+[00:00:01.5953255]       Average Processing Time: 0 seconds
+[00:00:01.5953255] PathMusicTrack:
+[00:00:01.5953255]       Instances Processed: 1
+[00:00:01.5953255]       Total Processing Time: 00:00:00
+[00:00:01.5953255]       Longest Processing Time: 00:00:00 ()
+[00:00:01.5953255]       Average Processing Time: 0 seconds
+[00:00:01.5953255] Total Processing Time for All Types: 00:00:00.2973732

@@ -1,0 +1,34 @@
+{
+  "oracleSha256": "4cddeb7fbc8dccee3914b5898f3a9eec0261b20c22af39fe1f6b81a4fb08ba72",
+  "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
+  "originalDllSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "originalCpuValidated": true,
+  "recordsPerConfiguration": 124,
+  "runId": "40232917060",
+  "status": "passed",
+  "modes": [
+    {
+      "configuration": "Debug",
+      "originalAbsentFromRecoveredHost": true,
+      "records": 124,
+      "passed": true,
+      "safetyRefusals": 9,
+      "recoveredSha256": "9942a10c5a51ffeff61ccaec401f0b35c3903916249781f656abab2df641a20a",
+      "summary": "PASS XMA PCM preconversion: 124 cases, 142193 exact signed16 samples"
+    },
+    {
+      "configuration": "Release",
+      "originalAbsentFromRecoveredHost": true,
+      "records": 124,
+      "passed": true,
+      "safetyRefusals": 9,
+      "recoveredSha256": "6daf4e22aef3ec71f052810b0dfb9910fc2e46bb8e5c149559ee53b3c017990c",
+      "summary": "PASS XMA PCM preconversion: 124 cases, 142193 exact signed16 samples"
+    }
+  ],
+  "scope": "XMA PCM preprocessing RVA e9b0 only",
+  "exhaustiveSigned16InputValues": 65536,
+  "runAttempt": "1",
+  "xmaEncoderRecovered": false,
+  "sdkValidated": false
+}

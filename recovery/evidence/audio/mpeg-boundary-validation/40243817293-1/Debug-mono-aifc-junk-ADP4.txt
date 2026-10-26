@@ -1,0 +1,4 @@
+mono-aifc-junk-ADP4:False:False:NULL:CUSTOM:<absent>
+mono-aifc-junk-ADP4:False:True:NULL:CUSTOM:<absent>
+mono-aifc-junk-ADP4:True:False:NULL:CUSTOM:<absent>
+mono-aifc-junk-ADP4:True:True:NULL:CUSTOM:<absent>

@@ -1,0 +1,65 @@
+{
+  "scope": "Fresh original and original-free recovered BAB case5 basic-data build; all five routes, generated WAVE/AIFF and main real audio assets; same temporary SDK path avoids PathMusicTrack absolute-path differences",
+  "sourceCommit": "ad37841d5bf7fba3cbdede2bdae60da2b49d9639",
+  "status": "passed",
+  "succeeded": true,
+  "runAttempt": "1",
+  "sdkStarted": true,
+  "runId": "40197878572",
+  "runs": [
+    {
+      "exitCode": 0,
+      "customFiles": 26,
+      "outputs": [
+        {
+          "bytes": 1880,
+          "name": "mod.bin",
+          "sha256": "791c0c556963dfcecd65af6f439a042247b30f515b8d4b3b07f8cf7b4a79b488"
+        },
+        {
+          "bytes": 2219,
+          "name": "mod.manifest",
+          "sha256": "b24e8ed11e0d8005e4ab4cd40a53ac37a7c0e92a2d1558b7d4b88939e01de392"
+        },
+        {
+          "bytes": 4,
+          "name": "mod.imp",
+          "sha256": "573e7ca570d34c6246cafd615bc9ddd70889c379d3564016b7a3d0a20172615f"
+        },
+        {
+          "bytes": 260,
+          "name": "mod.relo",
+          "sha256": "a8e541a277582d607413c3b61156f969933f5bcc3c615536e33598ed4f8b5755"
+        }
+      ],
+      "mode": "Original"
+    },
+    {
+      "exitCode": 0,
+      "customFiles": 26,
+      "outputs": [
+        {
+          "bytes": 1880,
+          "name": "mod.bin",
+          "sha256": "791c0c556963dfcecd65af6f439a042247b30f515b8d4b3b07f8cf7b4a79b488"
+        },
+        {
+          "bytes": 2219,
+          "name": "mod.manifest",
+          "sha256": "b24e8ed11e0d8005e4ab4cd40a53ac37a7c0e92a2d1558b7d4b88939e01de392"
+        },
+        {
+          "bytes": 4,
+          "name": "mod.imp",
+          "sha256": "573e7ca570d34c6246cafd615bc9ddd70889c379d3564016b7a3d0a20172615f"
+        },
+        {
+          "bytes": 260,
+          "name": "mod.relo",
+          "sha256": "a8e541a277582d607413c3b61156f969933f5bcc3c615536e33598ed4f8b5755"
+        }
+      ],
+      "mode": "Recovered"
+    }
+  ]
+}

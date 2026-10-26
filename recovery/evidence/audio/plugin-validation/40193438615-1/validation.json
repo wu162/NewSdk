@@ -1,0 +1,12 @@
+{
+  "runId": "40193438615",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "mp3Validated": true,
+  "nativeAudioFileValidated": false,
+  "scope": "PathMusic map/track/event and MP3 passthrough ProcessInstance/direct-handler component differential",
+  "runAttempt": "1",
+  "configurations": [],
+  "sdkValidated": false,
+  "status": "started",
+  "sourceCommit": "046734825aa84b8dbeda7343ecea3a66ba054342"
+}

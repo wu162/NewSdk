@@ -1,0 +1,16 @@
+{
+  "nativeExitCode": 0,
+  "corpusSha256": "279065158435be5efae267ef7f8ce995dd36e08e3ba33a6d4d82463d4ef7b3ad",
+  "xmaEncoderRecovered": false,
+  "runAttempt": "1",
+  "runId": "40233712043",
+  "sdkValidated": false,
+  "multiPacketCases": 8,
+  "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
+  "scope": "Original-only longer non-impulse XMA corpus from pinned real main audio and seeded stereo",
+  "totalPackets": 121,
+  "nativeEncodeCalls": 16,
+  "cases": 8,
+  "status": "original-evidence-only",
+  "multiBlockCases": 4
+}

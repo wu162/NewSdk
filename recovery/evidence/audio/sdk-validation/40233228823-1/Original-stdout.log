@@ -1,0 +1,148 @@
+Command Line: D:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\SDK\Mods\AudioRecoveryProbe\Data\Mod.xml /od:D:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\SDK\builtmods /iod:D:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\SDK\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\AudioRecoveryProbe\Art;.\Mods;.\Art /audio:.;.\Mods\AudioRecoveryProbe\Audio;.\Mods;.\Audio /data:.;.\Mods\AudioRecoveryProbe\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\SDK\Mods\AudioRecoveryProbe\Data\Mod.xml /od:D:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\SDK\builtmods /iod:D:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\SDK\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\AudioRecoveryProbe\Art;.\Mods;.\Art /audio:.;.\Mods\AudioRecoveryProbe\Audio;.\Mods;.\Audio /data:.;.\Mods\AudioRecoveryProbe\Data;.\Mods;.\SageXml 
+[00:00:00.1562491] BinaryAssetBuilder started
+[00:00:01.0002346] Cached session data not available.
+[00:00:01.0158578] Session caching enabled ('D:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\SDK\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:01.0158578] Network caching enabled ('D:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\SDK\builtmods\cache').
+[00:00:01.0472214] Loading 'file://d:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\sdk\mods\audiorecoveryprobe\data\mod.xml'.
+[00:00:01.1564928] Stream d:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\sdk\mods\audiorecoveryprobe\data\mod.xml references stream d:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\sdk\static.xml which has not been compiled, attempting to use precompiled
+[00:00:01.3753568] Stream d:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\sdk\mods\audiorecoveryprobe\data\mod.xml references stream d:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\sdk\global.xml which has not been compiled, attempting to use precompiled
+[00:00:01.5786822] Stream d:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\sdk\mods\audiorecoveryprobe\data\mod.xml references stream d:\a\_temp\audio-sdk-4dbd631b1a494b15bb051b866ab18615\sdk\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:01.8612583] mod.xml: Compiling AudioFile:AifcNone8C1minimalNONEFalse [166b084d:bc33c155]
+[00:00:01.8728088] mod.xml: Compiling AudioFile:AifcNone8C1minimalNONETrue [166b084d:30df7993]
+[00:00:01.8779467] mod.xml: Compiling AudioFile:AifcNone8C1minimalXASFalse [166b084d:59514a21]
+[00:00:01.8779467] mod.xml: Compiling AudioFile:AifcNone8C1minimalXASTrue [166b084d:3fb0658a]
+[00:00:01.8779467] mod.xml: Compiling AudioFile:AifcNone8C1longnameNONEFalse [166b084d:c4aa45d3]
+[00:00:01.8779467] mod.xml: Compiling AudioFile:AifcNone8C1longnameNONETrue [166b084d:50450313]
+[00:00:01.8779467] mod.xml: Compiling AudioFile:AifcNone8C1longnameXASFalse [166b084d:b3496f11]
+[00:00:01.8779467] mod.xml: Compiling AudioFile:AifcNone8C1longnameXASTrue [166b084d:8ea530d0]
+[00:00:01.8934877] mod.xml: Compiling AudioFile:AifcNone8C1trailingnamedataNONEFalse [166b084d:a4d934a9]
+[00:00:01.8934877] mod.xml: Compiling AudioFile:AifcNone8C1trailingnamedataNONETrue [166b084d:f7b36f06]
+[00:00:01.8934877] mod.xml: Compiling AudioFile:AifcNone8C1trailingnamedataXASFalse [166b084d:06fb6623]
+[00:00:01.8934877] mod.xml: Compiling AudioFile:AifcNone8C1trailingnamedataXASTrue [166b084d:a22ec918]
+[00:00:01.8934877] mod.xml: Compiling AudioFile:AifcNone8C1fverunknownNONEFalse [166b084d:0e91f0bb]
+[00:00:01.8934877] mod.xml: Compiling AudioFile:AifcNone8C1fverunknownNONETrue [166b084d:64ba80ff]
+[00:00:01.8934877] mod.xml: Compiling AudioFile:AifcNone8C1fverunknownXASFalse [166b084d:cb5f566f]
+[00:00:01.8934877] mod.xml: Compiling AudioFile:AifcNone8C1fverunknownXASTrue [166b084d:413e9cb1]
+[00:00:01.9092208] mod.xml: Compiling AudioFile:AifcNone8C1ssndfirstNONEFalse [166b084d:38e90172]
+[00:00:01.9092208] mod.xml: Compiling AudioFile:AifcNone8C1ssndfirstNONETrue [166b084d:588001f0]
+[00:00:01.9092208] mod.xml: Compiling AudioFile:AifcNone8C1ssndfirstXASFalse [166b084d:34f9165e]
+[00:00:01.9092208] mod.xml: Compiling AudioFile:AifcNone8C1ssndfirstXASTrue [166b084d:f7e41411]
+[00:00:01.9092208] mod.xml: Compiling AudioFile:AifcNone8C2minimalNONEFalse [166b084d:7d5581e1]
+[00:00:01.9092208] mod.xml: Compiling AudioFile:AifcNone8C2minimalNONETrue [166b084d:449c2daf]
+[00:00:01.9247943] mod.xml: Compiling AudioFile:AifcNone8C2minimalXASFalse [166b084d:1861aaa8]
+[00:00:01.9247943] mod.xml: Compiling AudioFile:AifcNone8C2minimalXASTrue [166b084d:b81b4c9b]
+[00:00:01.9247943] mod.xml: Compiling AudioFile:AifcNone8C2longnameNONEFalse [166b084d:0f41254e]
+[00:00:01.9247943] mod.xml: Compiling AudioFile:AifcNone8C2longnameNONETrue [166b084d:41eaa243]
+[00:00:01.9247943] mod.xml: Compiling AudioFile:AifcNone8C2longnameXASFalse [166b084d:8433f403]
+[00:00:01.9247943] mod.xml: Compiling AudioFile:AifcNone8C2longnameXASTrue [166b084d:e426be80]
+[00:00:01.9247943] mod.xml: Compiling AudioFile:AifcNone8C2trailingnamedataNONEFalse [166b084d:05e0a67b]
+[00:00:01.9247943] mod.xml: Compiling AudioFile:AifcNone8C2trailingnamedataNONETrue [166b084d:f9c4e8d4]
+[00:00:01.9404200] mod.xml: Compiling AudioFile:AifcNone8C2trailingnamedataXASFalse [166b084d:ce89c1c1]
+[00:00:01.9404200] mod.xml: Compiling AudioFile:AifcNone8C2trailingnamedataXASTrue [166b084d:1070cd0b]
+[00:00:01.9404200] mod.xml: Compiling AudioFile:AifcNone8C2fverunknownNONEFalse [166b084d:190048e1]
+[00:00:01.9404200] mod.xml: Compiling AudioFile:AifcNone8C2fverunknownNONETrue [166b084d:dfa05b59]
+[00:00:01.9404200] mod.xml: Compiling AudioFile:AifcNone8C2fverunknownXASFalse [166b084d:3b577d95]
+[00:00:01.9404200] mod.xml: Compiling AudioFile:AifcNone8C2fverunknownXASTrue [166b084d:ec8794e5]
+[00:00:01.9404200] mod.xml: Compiling AudioFile:AifcNone8C2ssndfirstNONEFalse [166b084d:05433bc7]
+[00:00:01.9404200] mod.xml: Compiling AudioFile:AifcNone8C2ssndfirstNONETrue [166b084d:0317ddf2]
+[00:00:01.9560435] mod.xml: Compiling AudioFile:AifcNone8C2ssndfirstXASFalse [166b084d:c1a15978]
+[00:00:01.9560435] mod.xml: Compiling AudioFile:AifcNone8C2ssndfirstXASTrue [166b084d:9f5b5e72]
+[00:00:01.9560435] mod.xml: Compiling AudioFile:AifcNone16C1minimalNONEFalse [166b084d:cf6528c4]
+[00:00:01.9560435] mod.xml: Compiling AudioFile:AifcNone16C1minimalNONETrue [166b084d:05862772]
+[00:00:01.9560435] mod.xml: Compiling AudioFile:AifcNone16C1minimalXASFalse [166b084d:38d8fed3]
+[00:00:01.9560435] mod.xml: Compiling AudioFile:AifcNone16C1minimalXASTrue [166b084d:5e55836a]
+[00:00:01.9560435] mod.xml: Compiling AudioFile:AifcNone16C1longnameNONEFalse [166b084d:ae116bc4]
+[00:00:01.9560435] mod.xml: Compiling AudioFile:AifcNone16C1longnameNONETrue [166b084d:537fac4f]
+[00:00:01.9560435] mod.xml: Compiling AudioFile:AifcNone16C1longnameXASFalse [166b084d:5906f915]
+[00:00:01.9716700] mod.xml: Compiling AudioFile:AifcNone16C1longnameXASTrue [166b084d:268e03e7]
+[00:00:01.9716700] mod.xml: Compiling AudioFile:AifcNone16C1trailingnamedataNONEFalse [166b084d:823a63f2]
+[00:00:01.9716700] mod.xml: Compiling AudioFile:AifcNone16C1trailingnamedataNONETrue [166b084d:605de581]
+[00:00:01.9716700] mod.xml: Compiling AudioFile:AifcNone16C1trailingnamedataXASFalse [166b084d:1ad591ec]
+[00:00:01.9716700] mod.xml: Compiling AudioFile:AifcNone16C1trailingnamedataXASTrue [166b084d:d4c23bf0]
+[00:00:01.9716700] mod.xml: Compiling AudioFile:AifcNone16C1fverunknownNONEFalse [166b084d:94b0c7a7]
+[00:00:01.9716700] mod.xml: Compiling AudioFile:AifcNone16C1fverunknownNONETrue [166b084d:99f8a8bb]
+[00:00:01.9716700] mod.xml: Compiling AudioFile:AifcNone16C1fverunknownXASFalse [166b084d:667e2ed8]
+[00:00:01.9716700] mod.xml: Compiling AudioFile:AifcNone16C1fverunknownXASTrue [166b084d:badd1d87]
+[00:00:01.9872953] mod.xml: Compiling AudioFile:AifcNone16C1ssndfirstNONEFalse [166b084d:6040915d]
+[00:00:01.9872953] mod.xml: Compiling AudioFile:AifcNone16C1ssndfirstNONETrue [166b084d:9c1d73dc]
+[00:00:01.9872953] mod.xml: Compiling AudioFile:AifcNone16C1ssndfirstXASFalse [166b084d:897e460d]
+[00:00:01.9872953] mod.xml: Compiling AudioFile:AifcNone16C1ssndfirstXASTrue [166b084d:db1dbfce]
+[00:00:01.9872953] mod.xml: Compiling AudioFile:AifcNone16C2minimalNONEFalse [166b084d:58304ded]
+[00:00:01.9872953] mod.xml: Compiling AudioFile:AifcNone16C2minimalNONETrue [166b084d:bb08f3f8]
+[00:00:01.9872953] mod.xml: Compiling AudioFile:AifcNone16C2minimalXASFalse [166b084d:5b67a50a]
+[00:00:01.9872953] mod.xml: Compiling AudioFile:AifcNone16C2minimalXASTrue [166b084d:c0b098cb]
+[00:00:01.9872953] mod.xml: Compiling AudioFile:AifcNone16C2longnameNONEFalse [166b084d:bbbc71b6]
+[00:00:02.0029158] mod.xml: Compiling AudioFile:AifcNone16C2longnameNONETrue [166b084d:1e07e5ab]
+[00:00:02.0029158] mod.xml: Compiling AudioFile:AifcNone16C2longnameXASFalse [166b084d:236eb4a4]
+[00:00:02.0029158] mod.xml: Compiling AudioFile:AifcNone16C2longnameXASTrue [166b084d:16b35c17]
+[00:00:02.0029158] mod.xml: Compiling AudioFile:AifcNone16C2trailingnamedataNONEFalse [166b084d:5463c97d]
+[00:00:02.0029158] mod.xml: Compiling AudioFile:AifcNone16C2trailingnamedataNONETrue [166b084d:065eab24]
+[00:00:02.0029158] mod.xml: Compiling AudioFile:AifcNone16C2trailingnamedataXASFalse [166b084d:557dd226]
+[00:00:02.0029158] mod.xml: Compiling AudioFile:AifcNone16C2trailingnamedataXASTrue [166b084d:da00634f]
+[00:00:02.0029158] mod.xml: Compiling AudioFile:AifcNone16C2fverunknownNONEFalse [166b084d:1d287758]
+[00:00:02.0185450] mod.xml: Compiling AudioFile:AifcNone16C2fverunknownNONETrue [166b084d:9a39fa59]
+[00:00:02.0185450] mod.xml: Compiling AudioFile:AifcNone16C2fverunknownXASFalse [166b084d:886035ea]
+[00:00:02.0185450] mod.xml: Compiling AudioFile:AifcNone16C2fverunknownXASTrue [166b084d:bdaea008]
+[00:00:02.0185450] mod.xml: Compiling AudioFile:AifcNone16C2ssndfirstNONEFalse [166b084d:695645a0]
+[00:00:02.0185450] mod.xml: Compiling AudioFile:AifcNone16C2ssndfirstNONETrue [166b084d:9a1efdaf]
+[00:00:02.0185450] mod.xml: Compiling AudioFile:AifcNone16C2ssndfirstXASFalse [166b084d:36759727]
+[00:00:02.0185450] mod.xml: Compiling AudioFile:AifcNone16C2ssndfirstXASTrue [166b084d:db5a61f9]
+[00:00:02.0185450] mod.xml: Compiling AudioFile:AifcNone24C1minimalNONEFalse [166b084d:3a9b8da7]
+[00:00:02.0185450] mod.xml: Compiling AudioFile:AifcNone24C1minimalNONETrue [166b084d:6b2a7cf1]
+[00:00:02.0341731] mod.xml: Compiling AudioFile:AifcNone24C1minimalXASFalse [166b084d:77ff8b86]
+[00:00:02.0341731] mod.xml: Compiling AudioFile:AifcNone24C1minimalXASTrue [166b084d:081eec10]
+[00:00:02.0341731] mod.xml: Compiling AudioFile:AifcNone24C1longnameNONEFalse [166b084d:a809b270]
+[00:00:02.0341731] mod.xml: Compiling AudioFile:AifcNone24C1longnameNONETrue [166b084d:6437d430]
+[00:00:02.0341731] mod.xml: Compiling AudioFile:AifcNone24C1longnameXASFalse [166b084d:3e271a31]
+[00:00:02.0341731] mod.xml: Compiling AudioFile:AifcNone24C1longnameXASTrue [166b084d:892c52fa]
+[00:00:02.0341731] mod.xml: Compiling AudioFile:AifcNone24C1trailingnamedataNONEFalse [166b084d:8997a93e]
+[00:00:02.0341731] mod.xml: Compiling AudioFile:AifcNone24C1trailingnamedataNONETrue [166b084d:d89370ff]
+[00:00:02.0341731] mod.xml: Compiling AudioFile:AifcNone24C1trailingnamedataXASFalse [166b084d:376c2445]
+[00:00:02.0499009] mod.xml: Compiling AudioFile:AifcNone24C1trailingnamedataXASTrue [166b084d:9910cf97]
+[00:00:02.0499009] mod.xml: Compiling AudioFile:AifcNone24C1fverunknownNONEFalse [166b084d:d0c01055]
+[00:00:02.0499009] mod.xml: Compiling AudioFile:AifcNone24C1fverunknownNONETrue [166b084d:067c8083]
+[00:00:02.0499009] mod.xml: Compiling AudioFile:AifcNone24C1fverunknownXASFalse [166b084d:d83d9e60]
+[00:00:02.0499009] mod.xml: Compiling AudioFile:AifcNone24C1fverunknownXASTrue [166b084d:ad71a8df]
+[00:00:02.0499009] mod.xml: Compiling AudioFile:AifcNone24C1ssndfirstNONEFalse [166b084d:b2741e97]
+[00:00:02.0499009] mod.xml: Compiling AudioFile:AifcNone24C1ssndfirstNONETrue [166b084d:c96c331e]
+[00:00:02.0499009] mod.xml: Compiling AudioFile:AifcNone24C1ssndfirstXASFalse [166b084d:c2c59c61]
+[00:00:02.0499009] mod.xml: Compiling AudioFile:AifcNone24C1ssndfirstXASTrue [166b084d:35a8d944]
+[00:00:02.0654227] mod.xml: Compiling AudioFile:AifcNone24C2minimalNONEFalse [166b084d:58aa60e4]
+[00:00:02.0654227] mod.xml: Compiling AudioFile:AifcNone24C2minimalNONETrue [166b084d:92409eb7]
+[00:00:02.0654227] mod.xml: Compiling AudioFile:AifcNone24C2minimalXASFalse [166b084d:fd5ec5af]
+[00:00:02.0654227] mod.xml: Compiling AudioFile:AifcNone24C2minimalXASTrue [166b084d:207e3699]
+[00:00:02.0810439] mod.xml: Compiling AudioFile:AifcNone24C2longnameNONEFalse [166b084d:ca5607d9]
+[00:00:02.0810439] mod.xml: Compiling AudioFile:AifcNone24C2longnameNONETrue [166b084d:fdfd7a93]
+[00:00:02.0810439] mod.xml: Compiling AudioFile:AifcNone24C2longnameXASFalse [166b084d:4fc09c17]
+[00:00:02.0810439] mod.xml: Compiling AudioFile:AifcNone24C2longnameXASTrue [166b084d:4257f656]
+[00:00:02.0810439] mod.xml: Compiling AudioFile:AifcNone24C2trailingnamedataNONEFalse [166b084d:0fd9dddb]
+[00:00:02.0810439] mod.xml: Compiling AudioFile:AifcNone24C2trailingnamedataNONETrue [166b084d:ddf79c92]
+[00:00:02.0810439] mod.xml: Compiling AudioFile:AifcNone24C2trailingnamedataXASFalse [166b084d:4d2cdc55]
+[00:00:02.0810439] mod.xml: Compiling AudioFile:AifcNone24C2trailingnamedataXASTrue [166b084d:e4f8a8da]
+[00:00:02.0966730] mod.xml: Compiling AudioFile:AifcNone24C2fverunknownNONEFalse [166b084d:227202ce]
+[00:00:02.0966730] mod.xml: Compiling AudioFile:AifcNone24C2fverunknownNONETrue [166b084d:80dedd04]
+[00:00:02.0966730] mod.xml: Compiling AudioFile:AifcNone24C2fverunknownXASFalse [166b084d:96d41b2f]
+[00:00:02.0966730] mod.xml: Compiling AudioFile:AifcNone24C2fverunknownXASTrue [166b084d:6e4f763b]
+[00:00:02.0966730] mod.xml: Compiling AudioFile:AifcNone24C2ssndfirstNONEFalse [166b084d:d02e06a3]
+[00:00:02.0966730] mod.xml: Compiling AudioFile:AifcNone24C2ssndfirstNONETrue [166b084d:7f08e001]
+[00:00:02.0966730] mod.xml: Compiling AudioFile:AifcNone24C2ssndfirstXASFalse [166b084d:46d4afb4]
+[00:00:02.0966730] mod.xml: Compiling AudioFile:AifcNone24C2ssndfirstXASTrue [166b084d:b4b1accb]
+[00:00:02.1435240] Resolving references: mods\audiorecoveryprobe\data\mod
+[00:00:02.1435240] Stable sorting assets
+[00:00:02.1435240] Sorting by schema dependencies
+[00:00:02.1435240] Sorting by asset dependencies
+[00:00:02.1591704] Generating stream: mods\audiorecoveryprobe\data\mod
+[00:00:02.1591704] Slow asset clean-up (expected: 120, actual: 120, old: 0, current: 120)
+[00:00:02.1591704] Slow custom data clean-up (expected: 120, actual: 120, old asset count: 0)
+[00:00:02.1747955] mods\audiorecoveryprobe\data\mod Linking binary data
+[00:00:02.1747955] mods\audiorecoveryprobe\data\mod Linking import data
+[00:00:02.1747955] mods\audiorecoveryprobe\data\mod Linking relocation data
+[00:00:02.1747955] mods\audiorecoveryprobe\data\mod Stream complete
+[00:00:02.2216471] BinaryAssetBuilder complete
+[00:00:02.2216471] AudioFile:
+[00:00:02.2216471]       Instances Processed: 120
+[00:00:02.2216471]       Total Processing Time: 00:00:00.1729150
+[00:00:02.2216471]       Longest Processing Time: 00:00:00.0157331 (AifcNone8C1fverunknownXASTrue)
+[00:00:02.2216471]       Average Processing Time: 0.00144095833333333 seconds
+[00:00:02.2216471] Total Processing Time for All Types: 00:00:00.1729150

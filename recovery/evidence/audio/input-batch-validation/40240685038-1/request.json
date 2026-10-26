@@ -1,0 +1,8 @@
+{
+  "runAttempt": "1",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sourceCommit": "4f2c03c5f7510e71655987189a6b9ecd4a636d80",
+  "sdkRequested": false,
+  "scope": "console-removal",
+  "runId": "40240685038"
+}

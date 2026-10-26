@@ -1,0 +1,11 @@
+{
+  "status": "original-evidence-only",
+  "configurations": [],
+  "scope": "Bounded loop metadata: first WAVE smpl/record ignoring type; AIFF/AIFC NONE/raw ADP4 extra/duplicate markers, multiple MARK/INST, ignored release and nonforward sustain; PCM8/16/24 mono/stereo PC NONE/XAS RAM/streamed and resampling; canonical pair invariants",
+  "sourceCommit": "49b1842e85bef9f7b06c74df5dc4a32781a4413a",
+  "runAttempt": "1",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "originalRecords": 4224,
+  "sdkValidated": false,
+  "runId": "40242356374"
+}

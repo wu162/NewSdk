@@ -1,0 +1,62 @@
+{
+  "selectedGroups": [
+    "formats",
+    "aiffloops"
+  ],
+  "runAttempt": "1",
+  "scope": "Component differential: formats,aiffloops",
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "candidateSafetyRejections": 0,
+      "passed": true,
+      "originalUndefinedEvidenceRecords": 0,
+      "transcriptSha256": "cd361967fa500be89e89d387176483e6b0c5df1ffaad0ef136ecfc44bb8e8bd8",
+      "group": "formats",
+      "originalAbsentFromRecoveredHost": true,
+      "records": 2400,
+      "recoveredSha256": "0596c1868b3d7b2d432b4808a34b43599f93669e6aed83320c6d04ffa8cbfd4e",
+      "configuration": "Debug"
+    },
+    {
+      "candidateSafetyRejections": 0,
+      "passed": true,
+      "originalUndefinedEvidenceRecords": 0,
+      "transcriptSha256": "9f4dedc8997d8c8d366454ae538f12f8c3337476f49522be737f49a50164f92e",
+      "group": "aiffloops",
+      "originalAbsentFromRecoveredHost": true,
+      "records": 200,
+      "recoveredSha256": "0596c1868b3d7b2d432b4808a34b43599f93669e6aed83320c6d04ffa8cbfd4e",
+      "configuration": "Debug"
+    },
+    {
+      "candidateSafetyRejections": 0,
+      "passed": true,
+      "originalUndefinedEvidenceRecords": 0,
+      "transcriptSha256": "cd361967fa500be89e89d387176483e6b0c5df1ffaad0ef136ecfc44bb8e8bd8",
+      "group": "formats",
+      "originalAbsentFromRecoveredHost": true,
+      "records": 2400,
+      "recoveredSha256": "186b96441e75c63be10124d42f3cdaf38f946cced5383be0d631ea6eb3f08367",
+      "configuration": "Release"
+    },
+    {
+      "candidateSafetyRejections": 0,
+      "passed": true,
+      "originalUndefinedEvidenceRecords": 0,
+      "transcriptSha256": "9f4dedc8997d8c8d366454ae538f12f8c3337476f49522be737f49a50164f92e",
+      "group": "aiffloops",
+      "originalAbsentFromRecoveredHost": true,
+      "records": 200,
+      "recoveredSha256": "186b96441e75c63be10124d42f3cdaf38f946cced5383be0d631ea6eb3f08367",
+      "configuration": "Release"
+    }
+  ],
+  "runId": "40233228823",
+  "sourceCommit": "3863a632faac79ef586569e134b7eb46014fab94",
+  "realMainProvenanceSha256": "bea901cfcb21fb4f0792b8754bf55dd555f0b747dbb02e047d7803fb08137392",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "status": "passed",
+  "mp3Validated": false,
+  "nativeAudioFileValidated": false
+}

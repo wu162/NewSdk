@@ -1,0 +1,1 @@
+PASS candidate XMA packet integer helpers: 1025 exact fixtures (143 count, 680 accumulator, 104 frame, 98 scan); 8 real EA blocks; all return/out parameters, source immutability and guards; no codec encoding acceptance; six safety rejections

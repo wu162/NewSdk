@@ -1,0 +1,194 @@
+[
+  {
+    "bytes": 318,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "7918a8f4123a2e378c08c57cea6c3382578f5f7b55fdecc942a56bdffa21bac9",
+    "name": "adp4-1-129-0.aifc"
+  },
+  {
+    "bytes": 318,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "5e760fb19a319c189917f460cbb0dd66592676ced04a00f3e451e797cbddaf9e",
+    "name": "adp4-1-129-1.aifc"
+  },
+  {
+    "bytes": 318,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "067a9776311244e81c23ef0b3d6572a48672e7fd3e4e78f1b0914b3f4815546e",
+    "name": "adp4-1-129-2.aifc"
+  },
+  {
+    "bytes": 318,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "ebc9dcffbf26f0cedc2ac0624e6a307d76d24a734b182cc0d296ea3a1ddc3e25",
+    "name": "adp4-1-129-3.aifc"
+  },
+  {
+    "bytes": 4142,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "09adc42c1d778ad7769fb3f10ea30539ebe953d150e9011d45a8ab79b7d0437d",
+    "name": "adp4-1-2041-0.aifc"
+  },
+  {
+    "bytes": 4142,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "ebc5e134d047e48a5f30de389dab71f8b7f88940d1377ccb3cd4b04ddeaa2c48",
+    "name": "adp4-1-2041-1.aifc"
+  },
+  {
+    "bytes": 4142,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "d876a6b4cad0da12866d4d875d0c30da5e56471f97aa888bc36f7c38211e6ad0",
+    "name": "adp4-1-2041-2.aifc"
+  },
+  {
+    "bytes": 4142,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "fa423e97720774d946f633cdfdd8e23836550acca0e0531526b1e3784fe0c82e",
+    "name": "adp4-1-2041-3.aifc"
+  },
+  {
+    "bytes": 74,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "7d3250e0921694d8dcb1d1eff6fbb1acd01966d401d3ac09744a542bfdc2e747",
+    "name": "adp4-1-7-0.aifc"
+  },
+  {
+    "bytes": 74,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "3b4d3ced4214abb50db8e896c98695c434b709268524a66b2760b5cb79a4a4e5",
+    "name": "adp4-1-7-1.aifc"
+  },
+  {
+    "bytes": 74,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "dd32774adf91028c2bd7c46af756c0e8667055fbaa3a516846a720c732c46b22",
+    "name": "adp4-1-7-2.aifc"
+  },
+  {
+    "bytes": 74,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "b79ef2570e5b60fc18abb043b0043a39b0b5641247b4438aeada8d9e0565033f",
+    "name": "adp4-1-7-3.aifc"
+  },
+  {
+    "bytes": 576,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "e67b355d350f9c48c2056b6d81aa9f9d36f43fae5d8ada85336e4c6275672c5c",
+    "name": "adp4-2-129-0.aifc"
+  },
+  {
+    "bytes": 576,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "8dd9b9b92c1455bfa51ca01af9f6faa28752752ce71303e16d2e5f4465de26cd",
+    "name": "adp4-2-129-1.aifc"
+  },
+  {
+    "bytes": 576,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "9586ebdce765d0711dd58702350954355e0dfb90f99caa7a7beae6db3b7a78f6",
+    "name": "adp4-2-129-2.aifc"
+  },
+  {
+    "bytes": 576,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "8405fd45fe2e6f8fa5d10e04d78788358ccf4ffc666af8ae37dcabe83b2cc3f6",
+    "name": "adp4-2-129-3.aifc"
+  },
+  {
+    "bytes": 8224,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "c07e8b8e046f5bea8d0793db6ffeaa19f088140e7433c4c810b2d6354d545bcc",
+    "name": "adp4-2-2041-0.aifc"
+  },
+  {
+    "bytes": 8224,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "b4ddfd2a15b2b2dc7c86e35ecbcf30f47029a09a9325c478993d4e6ee4551bff",
+    "name": "adp4-2-2041-1.aifc"
+  },
+  {
+    "bytes": 8224,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "db6df52e299e222b943fd2f2dd95464b09baeee7ea54aa929f93d2e77e769106",
+    "name": "adp4-2-2041-2.aifc"
+  },
+  {
+    "bytes": 8224,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "f193f39388ac62b42505ea2bd9685e07e55288fe3746da822b73ec87b794662c",
+    "name": "adp4-2-2041-3.aifc"
+  },
+  {
+    "bytes": 88,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "255c29d488335c6942f851b2ab004e087f828e20c28e840b4e60cd3d776a81f7",
+    "name": "adp4-2-7-0.aifc"
+  },
+  {
+    "bytes": 88,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "93ceae6d2cb8f687de4ae2c0cb9999ba3968772ef2b777ae4f61726430082854",
+    "name": "adp4-2-7-1.aifc"
+  },
+  {
+    "bytes": 88,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "5a953f5da16b4f11c314e47deda785e849f1aad589d9786125ae21bb98634109",
+    "name": "adp4-2-7-2.aifc"
+  },
+  {
+    "bytes": 88,
+    "compression": "ADP4",
+    "declaredBits": 16,
+    "rawNibblePayloadOffset": 60,
+    "sha256": "d363e8efeaea220d1d3aa17f7975bb9c87b11058f4fd9e3b772f7907faaca709",
+    "name": "adp4-2-7-3.aifc"
+  }
+]

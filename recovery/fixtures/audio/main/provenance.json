@@ -1,0 +1,37 @@
+{
+  "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+  "sourceBranch": "main",
+  "formats": {
+    "(1, 1, 22050, 8, False)": 1289
+  },
+  "files": [
+    {
+      "path": "SDK/Mods/Upheaval/Audio/Units/Archer Maiden/JUArche_footstepF.wav",
+      "blob": "891a6beaac5ea0b5bd74e77905a1d2c68f4d4e40",
+      "bytes": 8922,
+      "format": [
+        1,
+        1,
+        22050,
+        8,
+        false
+      ],
+      "local": "recovery/fixtures/audio/main/real-0.wav",
+      "sha256": "3c3d422ab85c68cb8234bff926e89b13a31e885622e4a76f749b1e45bb3b7b80"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Audio/Specific/JUPearl_ambiLoopWatera.wav",
+      "blob": "2d52c8cad34c6d80d194a47afc5bda4af7570d5e",
+      "bytes": 169602,
+      "format": [
+        1,
+        1,
+        22050,
+        8,
+        false
+      ],
+      "local": "recovery/fixtures/audio/main/real-1.wav",
+      "sha256": "951882eebd5b20395a3e8fdfa6ea3d50c5f7e049db9746ff07f3171e92d5fe77"
+    }
+  ]
+}

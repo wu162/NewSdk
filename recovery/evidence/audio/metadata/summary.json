@@ -1,0 +1,89 @@
+{
+  "file": "BinaryAssetBuilder.AudioCompiler.dll",
+  "sha256": "A14D15ADDEF502C2DF6F6BA272D6098C4C131FBEA9C3ED0149C11C4556347139",
+  "assembly": "BinaryAssetBuilder.AudioCompiler",
+  "version": "1.0.3492.22474",
+  "runtime": "v2.0.50727",
+  "machine": "I386",
+  "imageBase": "0x10000000",
+  "corFlags": "NativeEntryPoint",
+  "types": 169,
+  "methods": 301,
+  "il": 228,
+  "native": 73,
+  "other": 0,
+  "references": [
+    {
+      "name": "mscorlib",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System.Data",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System.Xml",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "BinaryAssetBuilder.Core",
+      "version": "1.0.0.0"
+    },
+    {
+      "name": "EALA.Hash",
+      "version": "1.0.3344.32674"
+    },
+    {
+      "name": "EALA.ProcessUtility",
+      "version": "1.0.3152.32169"
+    },
+    {
+      "name": "EALA.Metrics",
+      "version": "1.0.0.0"
+    },
+    {
+      "name": "Microsoft.DirectX.AudioVideoPlayback",
+      "version": "1.0.2902.0"
+    },
+    {
+      "name": "Microsoft.DirectX.Diagnostics",
+      "version": "1.0.2902.0"
+    },
+    {
+      "name": "Microsoft.DirectX.Direct3D",
+      "version": "1.0.2902.0"
+    },
+    {
+      "name": "Microsoft.DirectX.DirectDraw",
+      "version": "1.0.2902.0"
+    },
+    {
+      "name": "Microsoft.DirectX.DirectInput",
+      "version": "1.0.2902.0"
+    },
+    {
+      "name": "Microsoft.DirectX.DirectPlay",
+      "version": "1.0.2902.0"
+    },
+    {
+      "name": "Microsoft.DirectX.DirectSound",
+      "version": "1.0.2902.0"
+    },
+    {
+      "name": "Microsoft.DirectX",
+      "version": "1.0.2902.0"
+    },
+    {
+      "name": "Microsoft.DirectX.Direct3DX",
+      "version": "1.0.2911.0"
+    },
+    {
+      "name": "Microsoft.VisualC",
+      "version": "8.0.0.0"
+    }
+  ]
+}

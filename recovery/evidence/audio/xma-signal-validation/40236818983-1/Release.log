@@ -1,0 +1,2 @@
+x87 physicalCW=0x027f originalPhysicalCW=0x027f
+PASS candidate XMA signal transform: 5760 synthetic complete spectrum/HRESULT/shift comparisons; realSnapshots=111; six sizes, four codec-version values, ten ratios around half ties, two tail policies, four gain-curve modes, three input patterns; thirteen separate safety refusals; recovered DCT/FFT; original DLL absent; no quantization/entropy/XMA-route/SDK acceptance

@@ -1,0 +1,32 @@
+{
+  "originalRecords": 1080,
+  "runId": "40240685038",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "sourceCommit": "4f2c03c5f7510e71655987189a6b9ecd4a636d80",
+  "scope": "AIFC NONE integral PCM8/16/24; COMM names, FVER, chunk order; mono/stereo; PC NONE/XAS, PS3 XAS; RAM/streamed",
+  "configurations": [
+    {
+      "records": 1080,
+      "configuration": "Debug",
+      "transcriptSha256": "eff0eb6cfec57f3ef2c9462aac82ab327eb417d717c7ec48a6c7b6ce0711417d",
+      "originalAbsentFromRecoveredHost": true,
+      "passed": true,
+      "sampleBitInvariants": 60,
+      "safetyRefusals": 10,
+      "recoveredSha256": "6c8b4c965382d8551daf0e006e80d9488c40dbf883cecb1e06cbdf9f6aa7a10a"
+    },
+    {
+      "records": 1080,
+      "configuration": "Release",
+      "transcriptSha256": "eff0eb6cfec57f3ef2c9462aac82ab327eb417d717c7ec48a6c7b6ce0711417d",
+      "originalAbsentFromRecoveredHost": true,
+      "passed": true,
+      "sampleBitInvariants": 60,
+      "safetyRefusals": 10,
+      "recoveredSha256": "54cfea80438a79d2c608f176e2ae15d080121e3f1ae63ea2983247536b703075"
+    }
+  ],
+  "status": "passed"
+}

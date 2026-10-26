@@ -1,0 +1,135 @@
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+10010390 <.text+0xf390>:
+10010390:	83 ec 0c             	sub    $0xc,%esp
+10010393:	53                   	push   %ebx
+10010394:	57                   	push   %edi
+10010395:	8b 7c 24 18          	mov    0x18(%esp),%edi
+10010399:	33 d2                	xor    %edx,%edx
+1001039b:	39 57 38             	cmp    %edx,0x38(%edi)
+1001039e:	7f 3d                	jg     0x100103dd
+100103a0:	0f b6 47 30          	movzbl 0x30(%edi),%eax
+100103a4:	8b 4f 24             	mov    0x24(%edi),%ecx
+100103a7:	8d 04 80             	lea    (%eax,%eax,4),%eax
+100103aa:	8d 04 81             	lea    (%ecx,%eax,4),%eax
+100103ad:	03 c7                	add    %edi,%eax
+100103af:	39 50 0c             	cmp    %edx,0xc(%eax)
+100103b2:	75 04                	jne    0x100103b8
+100103b4:	33 c0                	xor    %eax,%eax
+100103b6:	eb 0f                	jmp    0x100103c7
+100103b8:	80 47 30 01          	addb   $0x1,0x30(%edi)
+100103bc:	8a 4f 30             	mov    0x30(%edi),%cl
+100103bf:	3a 4f 32             	cmp    0x32(%edi),%cl
+100103c2:	72 03                	jb     0x100103c7
+100103c4:	88 57 30             	mov    %dl,0x30(%edi)
+100103c7:	38 50 10             	cmp    %dl,0x10(%eax)
+100103ca:	75 06                	jne    0x100103d2
+100103cc:	89 57 34             	mov    %edx,0x34(%edi)
+100103cf:	89 57 38             	mov    %edx,0x38(%edi)
+100103d2:	8b 08                	mov    (%eax),%ecx
+100103d4:	89 4f 34             	mov    %ecx,0x34(%edi)
+100103d7:	8b 40 0c             	mov    0xc(%eax),%eax
+100103da:	89 47 38             	mov    %eax,0x38(%edi)
+100103dd:	0f b6 5f 2e          	movzbl 0x2e(%edi),%ebx
+100103e1:	3b da                	cmp    %edx,%ebx
+100103e3:	8b 4f 34             	mov    0x34(%edi),%ecx
+100103e6:	8b 44 24 20          	mov    0x20(%esp),%eax
+100103ea:	89 5c 24 08          	mov    %ebx,0x8(%esp)
+100103ee:	89 4c 24 10          	mov    %ecx,0x10(%esp)
+100103f2:	89 54 24 0c          	mov    %edx,0xc(%esp)
+100103f6:	0f 86 0a 01 00 00    	jbe    0x10010506
+100103fc:	f3 0f 10 05 84 c9 0a 	movss  0x100ac984,%xmm0
+10010403:	10
+10010404:	55                   	push   %ebp
+10010405:	56                   	push   %esi
+10010406:	eb 08                	jmp    0x10010410
+10010408:	8d a4 24 00 00 00 00 	lea    0x0(%esp),%esp
+1001040f:	90                   	nop
+10010410:	8b 74 24 24          	mov    0x24(%esp),%esi
+10010414:	0f b7 6e 0e          	movzwl 0xe(%esi),%ebp
+10010418:	8b 76 04             	mov    0x4(%esi),%esi
+1001041b:	0f af ea             	imul   %edx,%ebp
+1001041e:	8b 4c 24 18          	mov    0x18(%esp),%ecx
+10010422:	8d 2c ae             	lea    (%esi,%ebp,4),%ebp
+10010425:	03 ca                	add    %edx,%ecx
+10010427:	33 f6                	xor    %esi,%esi
+10010429:	83 f8 04             	cmp    $0x4,%eax
+1001042c:	0f 8c 8f 00 00 00    	jl     0x100104c1
+10010432:	8d 78 fc             	lea    -0x4(%eax),%edi
+10010435:	c1 ef 02             	shr    $0x2,%edi
+10010438:	83 c7 01             	add    $0x1,%edi
+1001043b:	8d 55 08             	lea    0x8(%ebp),%edx
+1001043e:	8d 34 bd 00 00 00 00 	lea    0x0(,%edi,4),%esi
+10010445:	eb 09                	jmp    0x10010450
+10010447:	8d a4 24 00 00 00 00 	lea    0x0(%esp),%esp
+1001044e:	8b ff                	mov    %edi,%edi
+10010450:	0f b6 19             	movzbl (%ecx),%ebx
+10010453:	81 eb 80 00 00 00    	sub    $0x80,%ebx
+10010459:	f3 0f 2a cb          	cvtsi2ss %ebx,%xmm1
+1001045d:	f3 0f 59 c8          	mulss  %xmm0,%xmm1
+10010461:	f3 0f 11 4a f8       	movss  %xmm1,-0x8(%edx)
+10010466:	0f b6 59 01          	movzbl 0x1(%ecx),%ebx
+1001046a:	81 eb 80 00 00 00    	sub    $0x80,%ebx
+10010470:	f3 0f 2a cb          	cvtsi2ss %ebx,%xmm1
+10010474:	f3 0f 59 c8          	mulss  %xmm0,%xmm1
+10010478:	f3 0f 11 4a fc       	movss  %xmm1,-0x4(%edx)
+1001047d:	0f b6 59 02          	movzbl 0x2(%ecx),%ebx
+10010481:	81 eb 80 00 00 00    	sub    $0x80,%ebx
+10010487:	f3 0f 2a cb          	cvtsi2ss %ebx,%xmm1
+1001048b:	f3 0f 59 c8          	mulss  %xmm0,%xmm1
+1001048f:	f3 0f 11 0a          	movss  %xmm1,(%edx)
+10010493:	0f b6 59 03          	movzbl 0x3(%ecx),%ebx
+10010497:	81 eb 80 00 00 00    	sub    $0x80,%ebx
+1001049d:	f3 0f 2a cb          	cvtsi2ss %ebx,%xmm1
+100104a1:	f3 0f 59 c8          	mulss  %xmm0,%xmm1
+100104a5:	f3 0f 11 4a 04       	movss  %xmm1,0x4(%edx)
+100104aa:	83 c1 04             	add    $0x4,%ecx
+100104ad:	83 c2 10             	add    $0x10,%edx
+100104b0:	83 ef 01             	sub    $0x1,%edi
+100104b3:	75 9b                	jne    0x10010450
+100104b5:	8b 5c 24 10          	mov    0x10(%esp),%ebx
+100104b9:	8b 7c 24 20          	mov    0x20(%esp),%edi
+100104bd:	8b 54 24 14          	mov    0x14(%esp),%edx
+100104c1:	3b f0                	cmp    %eax,%esi
+100104c3:	73 30                	jae    0x100104f5
+100104c5:	eb 09                	jmp    0x100104d0
+100104c7:	8d a4 24 00 00 00 00 	lea    0x0(%esp),%esp
+100104ce:	8b ff                	mov    %edi,%edi
+100104d0:	0f b6 19             	movzbl (%ecx),%ebx
+100104d3:	81 eb 80 00 00 00    	sub    $0x80,%ebx
+100104d9:	f3 0f 2a cb          	cvtsi2ss %ebx,%xmm1
+100104dd:	f3 0f 59 c8          	mulss  %xmm0,%xmm1
+100104e1:	f3 0f 11 4c b5 00    	movss  %xmm1,0x0(%ebp,%esi,4)
+100104e7:	83 c6 01             	add    $0x1,%esi
+100104ea:	83 c1 01             	add    $0x1,%ecx
+100104ed:	3b f0                	cmp    %eax,%esi
+100104ef:	72 df                	jb     0x100104d0
+100104f1:	8b 5c 24 10          	mov    0x10(%esp),%ebx
+100104f5:	83 c2 01             	add    $0x1,%edx
+100104f8:	3b d3                	cmp    %ebx,%edx
+100104fa:	89 54 24 14          	mov    %edx,0x14(%esp)
+100104fe:	0f 82 0c ff ff ff    	jb     0x10010410
+10010504:	5e                   	pop    %esi
+10010505:	5d                   	pop    %ebp
+10010506:	0f af d8             	imul   %eax,%ebx
+10010509:	01 5f 34             	add    %ebx,0x34(%edi)
+1001050c:	29 47 38             	sub    %eax,0x38(%edi)
+1001050f:	5f                   	pop    %edi
+10010510:	5b                   	pop    %ebx
+10010511:	83 c4 0c             	add    $0xc,%esp
+10010514:	c3                   	ret
+10010515:	cc                   	int3
+10010516:	cc                   	int3
+10010517:	cc                   	int3
+10010518:	cc                   	int3
+10010519:	cc                   	int3
+1001051a:	cc                   	int3
+1001051b:	cc                   	int3
+1001051c:	cc                   	int3
+1001051d:	cc                   	int3
+1001051e:	cc                   	int3
+1001051f:	cc                   	int3

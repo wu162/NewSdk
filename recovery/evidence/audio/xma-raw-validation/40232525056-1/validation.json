@@ -1,0 +1,16 @@
+{
+  "scope": "Original real x86 CPU raw XMA codec before outer packet rewriting",
+  "rawCodecPacketsCaptured": true,
+  "status": "original-evidence-only",
+  "runId": "40232525056",
+  "rawCodecReceipt": "raw-codec.json",
+  "audioFileXmaRouteEnabled": false,
+  "rawCodecReceiptSha256": "3ee425fb3ad857154c8673d717268dc514435686301240469553cd3c2685841b",
+  "xmaEncodingRecovered": false,
+  "cases": 8,
+  "sourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "nativeEncodeCalls": 16,
+  "rawBeforeOuterRewriter": true
+}

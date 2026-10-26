@@ -1,0 +1,11 @@
+{
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "runId": "40237397076",
+  "requestedGroups": [
+    "standalone-build"
+  ],
+  "runAttempt": "1",
+  "rawEvidenceIsOriginalOnly": true,
+  "xmaEncoderRecovered": false,
+  "sourceCommit": "ec1e34657edb8395570d8e325fe81dc8ab762c71"
+}

@@ -1,0 +1,4 @@
+stereo-aifc-partial-NONE-64-23:False:False:NULL:CUSTOM:<absent>
+stereo-aifc-partial-NONE-64-23:False:True:NULL:CUSTOM:<absent>
+stereo-aifc-partial-NONE-64-23:True:False:NULL:CUSTOM:<absent>
+stereo-aifc-partial-NONE-64-23:True:True:NULL:CUSTOM:<absent>

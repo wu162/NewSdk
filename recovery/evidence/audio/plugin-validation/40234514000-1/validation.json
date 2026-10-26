@@ -1,0 +1,62 @@
+{
+  "selectedGroups": [
+    "formats",
+    "aiffloops"
+  ],
+  "status": "passed",
+  "runAttempt": "1",
+  "mp3Validated": false,
+  "realMainProvenanceSha256": "bea901cfcb21fb4f0792b8754bf55dd555f0b747dbb02e047d7803fb08137392",
+  "sourceCommit": "5495da2d703ca429434de369f5414cd45e4de819",
+  "nativeAudioFileValidated": false,
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sdkValidated": false,
+  "runId": "40234514000",
+  "configurations": [
+    {
+      "group": "formats",
+      "candidateSafetyRejections": 0,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "passed": true,
+      "recoveredSha256": "2cb74c66ecc8c73cf2c51765e1c21494f81ce866ac954b669607cdfb71be7b32",
+      "originalUndefinedEvidenceRecords": 0,
+      "records": 2400,
+      "transcriptSha256": "cd361967fa500be89e89d387176483e6b0c5df1ffaad0ef136ecfc44bb8e8bd8"
+    },
+    {
+      "group": "aiffloops",
+      "candidateSafetyRejections": 0,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "passed": true,
+      "recoveredSha256": "2cb74c66ecc8c73cf2c51765e1c21494f81ce866ac954b669607cdfb71be7b32",
+      "originalUndefinedEvidenceRecords": 0,
+      "records": 200,
+      "transcriptSha256": "9f4dedc8997d8c8d366454ae538f12f8c3337476f49522be737f49a50164f92e"
+    },
+    {
+      "group": "formats",
+      "candidateSafetyRejections": 0,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "passed": true,
+      "recoveredSha256": "3a35e8926f9c3d81eacddc4fa75778111ee577b0859600947365e3f2517c04dd",
+      "originalUndefinedEvidenceRecords": 0,
+      "records": 2400,
+      "transcriptSha256": "cd361967fa500be89e89d387176483e6b0c5df1ffaad0ef136ecfc44bb8e8bd8"
+    },
+    {
+      "group": "aiffloops",
+      "candidateSafetyRejections": 0,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "passed": true,
+      "recoveredSha256": "3a35e8926f9c3d81eacddc4fa75778111ee577b0859600947365e3f2517c04dd",
+      "originalUndefinedEvidenceRecords": 0,
+      "records": 200,
+      "transcriptSha256": "9f4dedc8997d8c8d366454ae538f12f8c3337476f49522be737f49a50164f92e"
+    }
+  ],
+  "scope": "Component differential: formats,aiffloops"
+}

@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "sdkValidated": false,
+  "physicalX87ControlWord": "0x027f",
+  "orders": 16,
+  "runAttempt": "1",
+  "scope": "Complete table-backed XMA complex FFT 0xa7de3 orders0..15 only",
+  "runId": "40235031462",
+  "originalDllSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "originalCpuValidated": true,
+  "recordsPerConfiguration": 192,
+  "modes": [
+    {
+      "configuration": "Debug",
+      "originalAbsentFromRecoveredHost": true,
+      "candidateSafetyRejections": 6,
+      "recoveredSha256": "19b7f128bb0220aa3e20351cfb24dce6119e2e7306f01411af8b4c7e87dea181",
+      "summary": "PASS candidate XMA complex FFT: 192 complete complex-bit comparisons; orders0..15, both directions, six patterns including denormals; six separate safety refusals; original DLL absent; no DCT/codec/SDK acceptance",
+      "passed": true,
+      "records": 192
+    },
+    {
+      "configuration": "Release",
+      "originalAbsentFromRecoveredHost": true,
+      "candidateSafetyRejections": 6,
+      "recoveredSha256": "1f258f0223018ff6d14c423349cafaf829d26fd962aba57aa0d8dc284cfd6172",
+      "summary": "PASS candidate XMA complex FFT: 192 complete complex-bit comparisons; orders0..15, both directions, six patterns including denormals; six separate safety refusals; original DLL absent; no DCT/codec/SDK acceptance",
+      "passed": true,
+      "records": 192
+    }
+  ],
+  "directions": 2,
+  "patterns": 6,
+  "oracleSha256": "084c2dc2c5586bd1387594c1fa72deee53c0a9393ad3f84ba423dd680b29954e",
+  "audioFileXmaRouteEnabled": false,
+  "sourceCommit": "03d98ce656c5df660befd4af5166cbe7f4ac453d",
+  "xmaEncoderRecovered": false
+}

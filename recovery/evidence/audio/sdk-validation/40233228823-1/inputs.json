@@ -1,0 +1,227 @@
+[
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-16-1-fver-unknown.aifc",
+    "bytes": 330,
+    "sha256": "7ad6c8554fe5886c7e7e5e4ac5bae613b31b5145e44e16d95108b820c7e3dfce"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-16-1-long-name.aifc",
+    "bytes": 572,
+    "sha256": "68d91338d3d69793604260bdf00bf52471e72a14a52d564e46d5928cc2d70394"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-16-1-minimal.aifc",
+    "bytes": 316,
+    "sha256": "1b39c6a410ffb2d92441c1163eb976b4a66f3877cbffbbe46aa56f9a1b31130f"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-16-1-ssnd-first.aifc",
+    "bytes": 318,
+    "sha256": "fc326240afbd2bd84d54afb33d54efe2c10663209a98cb3950bd7c9e14def623"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-16-1-trailing-name-data.aifc",
+    "bytes": 326,
+    "sha256": "3bca6952da3c57f71d5e12192d9ff6d15fb8ec4d11fca36d7260de8f7cafeee0"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-16-2-fver-unknown.aifc",
+    "bytes": 588,
+    "sha256": "0832b8e5311d6eadea538e42d9bfce3433b6b2c1f09a91429b3b808050a39d4b"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-16-2-long-name.aifc",
+    "bytes": 830,
+    "sha256": "fc30b934677ef5b161534a7c02a3bd2482763eb11a818ebf7de91c14a371c5fe"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-16-2-minimal.aifc",
+    "bytes": 574,
+    "sha256": "6df35c833c54ab428ae3c1287b05612416a794cc57d3302f9035bb6506a59d60"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-16-2-ssnd-first.aifc",
+    "bytes": 576,
+    "sha256": "44182a151fc9587f99326836df296006b5dbc20c07f29a4023bb05d2cffe8cdc"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-16-2-trailing-name-data.aifc",
+    "bytes": 584,
+    "sha256": "f136960462bde0c990aa8e4cfd563ec691a4b46cd23f4ff2b0685ea8f6d69adf"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-24-1-fver-unknown.aifc",
+    "bytes": 460,
+    "sha256": "e530dc97711e04963506540c61c1e07142e2c5efed9f57dabc698d2f699e02dd"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-24-1-long-name.aifc",
+    "bytes": 702,
+    "sha256": "cf41ed5a2a5e7d65e5efa1cea800c26963e41390b4c87f3fc8db3109a76a8fa6"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-24-1-minimal.aifc",
+    "bytes": 446,
+    "sha256": "9f1aa2a9ac9063d39e35f5ad3ba81596d4491a0a392e6240dc37f0a31b51545a"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-24-1-ssnd-first.aifc",
+    "bytes": 448,
+    "sha256": "ec5c0e3a71ffaf3ad3f96b67c8d6c9c9e51dcf7a33fc29dd981bd2e6057e24cb"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-24-1-trailing-name-data.aifc",
+    "bytes": 456,
+    "sha256": "3afff97a48e103748e68ffc37eca0a175604a8e0b4f7e159fb72595855cefd5a"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-24-2-fver-unknown.aifc",
+    "bytes": 846,
+    "sha256": "72ff2a4ed9f7459721b907bb6379e46d24da071e00c7fc4d515e11079769fc64"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-24-2-long-name.aifc",
+    "bytes": 1088,
+    "sha256": "e3bcfdf4d78c407ab499c2a1cb06fa71f0082f146b80bfaf89973bd9380ddb7e"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-24-2-minimal.aifc",
+    "bytes": 832,
+    "sha256": "bbdcc690e1a3da3a3f8df7e77515050c5d0cc410c5fec8a218e0e61d5889c4de"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-24-2-ssnd-first.aifc",
+    "bytes": 834,
+    "sha256": "b6a6d8ee595cf481bf1eb77df825e3d8b70298b62ac0c0d2649631e32659f506"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-24-2-trailing-name-data.aifc",
+    "bytes": 842,
+    "sha256": "9bb088f38f29c71a22a5f189523586106b1d0558ac84ab4acc92f94e33b04746"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-8-1-fver-unknown.aifc",
+    "bytes": 202,
+    "sha256": "206c9f464d739f30c60d6fce4de8ca8fd6edc45f7f6d36c3a2de298f320476d2"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-8-1-long-name.aifc",
+    "bytes": 444,
+    "sha256": "8446f0b2759d215211c14fc32a5166f369980649587c9a8b3e9520e8fa13e189"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-8-1-minimal.aifc",
+    "bytes": 188,
+    "sha256": "5989956106f815fcc2f49a7deb4789529b1547b469f69e68a3dcbc3d1f039191"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-8-1-ssnd-first.aifc",
+    "bytes": 190,
+    "sha256": "9306d6be3a5672fac2bf40b27c9e376a4878a0e1ded0706c41c54cd0ef7d818c"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-8-1-trailing-name-data.aifc",
+    "bytes": 198,
+    "sha256": "39e17411524c4014ee05b6dc40845ed46eb6a76cad309796794ad06e17c510c4"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-8-2-fver-unknown.aifc",
+    "bytes": 330,
+    "sha256": "750f0baceb4e65a99ff712ccf359187a8bc77a02a933bb7fb590ee718819a7fc"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-8-2-long-name.aifc",
+    "bytes": 572,
+    "sha256": "bf721723586ad7218c6013c2efb466c3185f12c3e7114d2ff9c309db89f49631"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-8-2-minimal.aifc",
+    "bytes": 316,
+    "sha256": "61a8ea5ffa69c6f83e07add3e51c4c06e6058b8a9bacc09b62df1274774be2f8"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-8-2-ssnd-first.aifc",
+    "bytes": 318,
+    "sha256": "b895d01b29787fecf949788c1fe89b868dee41cad62ce6510ea08ec04a7814a9"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aifc-8-2-trailing-name-data.aifc",
+    "bytes": 326,
+    "sha256": "05d4c860acb1102e61ba041e01e944259968f4063eabe0fbebb688eb0fa9c28d"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aiff-loop.aiff",
+    "bytes": 16494,
+    "sha256": "040ddca1bc32ea90a719c13590d244789548f71f3fd7c55254d96b3f3543ce88"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\extensible.wav",
+    "bytes": 12314,
+    "sha256": "92cb99680a4c53eed3421a1ef22bf5f5d4b49aa8410f231447e2ca72765b44d3"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\generated.aiff",
+    "bytes": 8218,
+    "sha256": "21999a2a44d448e13093e023d38f188536ffe0198d5bde0b57e18f7aaffc2437"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\generated24.wav",
+    "bytes": 12290,
+    "sha256": "545f598ed2418cad8ece1d61589b200e4ee9dac51cb76f4d46989d7d594e3fa8"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\headers.h",
+    "bytes": 84,
+    "sha256": "3e721343523bda2ba74c7580554a6e328d631a7ed39ef71df834e75577daa140"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\loop.wav",
+    "bytes": 8304,
+    "sha256": "e8abe02b9c47d03c2ccbe7d39c57d6695036fb9c5658f4367aa161f046ad6432"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\map.mpf",
+    "bytes": 7,
+    "sha256": "52f36400ab95737b023b64e728edf75d010c2cfb1a959392105a91b6d86742ab"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\probe.mp3",
+    "bytes": 1462,
+    "sha256": "9488860d6fea90bbcecabfad73d7578c72b4469d2c27a37b0b720e6c43003d26"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\probe.wav",
+    "bytes": 16428,
+    "sha256": "dfd0001cc6559c53469f867d2a6320a64ce4d72d1466c185bb4278f7295aa9d7"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\real-0.wav",
+    "bytes": 8922,
+    "sha256": "3c3d422ab85c68cb8234bff926e89b13a31e885622e4a76f749b1e45bb3b7b80"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\real-1.wav",
+    "bytes": 169602,
+    "sha256": "951882eebd5b20395a3e8fdfa6ea3d50c5f7e049db9746ff07f3171e92d5fe77"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\track.mus",
+    "bytes": 7,
+    "sha256": "ab249059a20423f52cb497742689208b98752c8f632a8f3fd9897e94d00c75da"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\music\\default.wav",
+    "bytes": 16428,
+    "sha256": "dfd0001cc6559c53469f867d2a6320a64ce4d72d1466c185bb4278f7295aa9d7"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\sounds\\default.wav",
+    "bytes": 16428,
+    "sha256": "dfd0001cc6559c53469f867d2a6320a64ce4d72d1466c185bb4278f7295aa9d7"
+  },
+  {
+    "path": "Mods\\AudioRecoveryProbe\\Data\\Mod.xml",
+    "bytes": 16422,
+    "sha256": "354062302349ce921fee48851df276097bbd2ccfcbd74663ea7061e00a6b119b"
+  }
+]

@@ -1,0 +1,1 @@
+PASS candidate actual raw packet states: 92 exact observations (header=63,next=29,padding=0); raw packets/scalars match original entry-return snapshots; no bitsplice-state or full encoder acceptance

@@ -1,0 +1,25 @@
+{
+  "runAttempt": "1",
+  "originalEvidenceSha256": "7680798b21f6c1225cdb783c6328c36a5c63b167e4e0780d640395f109df6845",
+  "scope": "XAS encoder component only, original AudioFile HeaderData/CustomData versus static encoder",
+  "runId": "40241451234",
+  "pluginValidated": false,
+  "sourceCommit": "376243310ad44a164c7ac29b100e5489c5d93928",
+  "modes": [
+    {
+      "records": 12,
+      "passed": true,
+      "configuration": "Debug",
+      "blockFrameRecords": 504,
+      "recoveredSha256": "7c8c1e314d27373f085cf8c2a5369c3b2d564ec721fa03eb0e8fe9f558903332"
+    },
+    {
+      "records": 12,
+      "passed": true,
+      "configuration": "Release",
+      "blockFrameRecords": 504,
+      "recoveredSha256": "f3b3794cca8727f10f7d64cb09e39bd0d8528b8a365ada6fc7d6809ba09ccd25"
+    }
+  ],
+  "sdkValidated": false
+}

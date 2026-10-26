@@ -1,0 +1,2 @@
+x87 physicalCW=0x027f originalPhysicalCW=0x027f
+PASS candidate XMA complex FFT: 192 complete complex-bit comparisons; orders0..15, both directions, six patterns including denormals; six separate safety refusals; original DLL absent; no DCT/codec/SDK acceptance

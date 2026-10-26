@@ -1,0 +1,30 @@
+
+Dump of file D:\a\_temp\audio-xma-window-snapshot-1ae315b0f176400a950f17a728e487e2\AudioXmaSnapshotNative.dll
+
+File Type: DLL
+
+  Section contains the following exports for AudioXmaSnapshotNative.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           6 number of functions
+           6 number of names
+
+    ordinal hint RVA      name
+
+          1    0 000014E0 SnapshotConfigure
+          2    1 000014F0 SnapshotCount
+          3    2 00001510 SnapshotHook
+          4    3 00001520 SnapshotRecord
+          5    4 00001550 SnapshotSetCase
+          6    5 00001560 SnapshotSize
+
+  Summary
+
+     200C000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        D000 .text

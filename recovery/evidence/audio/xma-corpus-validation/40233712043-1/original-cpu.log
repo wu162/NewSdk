@@ -1,0 +1,9 @@
+PASS corpus main-footstep-ram packets=3 blocks=1 repeated twice exact
+PASS corpus main-footstep-stream packets=3 blocks=3 repeated twice exact
+PASS corpus main-water-ram packets=9 blocks=1 repeated twice exact
+PASS corpus main-water-stream packets=10 blocks=10 repeated twice exact
+PASS corpus main-water-stereo-pairs-ram packets=16 blocks=1 repeated twice exact
+PASS corpus main-water-stereo-pairs-stream packets=17 blocks=17 repeated twice exact
+PASS corpus seeded-wide-stereo-ram packets=30 blocks=1 repeated twice exact
+PASS corpus seeded-wide-stereo-stream packets=33 blocks=33 repeated twice exact
+PASS original XMA long corpus: 8 cases,16 encodes, packets=121, multiPacketCases=8, multiBlockCases=4

@@ -1,0 +1,85 @@
+name: Audio complete Upheaval milestone
+on:
+  push:
+    branches: [recovery/audio-compiler-source, validation/audio-upheaval-win32]
+    paths:
+      - '.github/workflows/audio-upheaval-validation.yml'
+      - 'recovery/scripts/TestAudioUpheavalSdk.ps1'
+      - 'recovery/tests/AudioUpheavalClosure.cs'
+permissions:
+  contents: write
+concurrency:
+  group: audio-upheaval-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    if: contains(github.event.head_commit.message, '[audio-input-upheaval]')
+    runs-on: windows-2022
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: 068643219fded09a05fb7b75c6507b769c430316
+          path: upheaval-input
+          sparse-checkout: SDK/Mods/Upheaval
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Verify accepted AudioCompiler source tree
+        shell: pwsh
+        run: |
+          $acceptance = Get-Content recovery/evidence/audio/acceptance-current.json -Raw | ConvertFrom-Json
+          $current = $acceptance.currentValidation
+          if ($current.status -ne 'passed') { throw 'Current complete component milestone has not passed' }
+          $tree = (git rev-parse HEAD:src/AudioCompiler).Trim()
+          if ($LASTEXITCODE -ne 0 -or $tree -ne $current.sourceTree) { throw 'Audio source changed after component acceptance' }
+          $sdk = Get-Content "recovery/evidence/audio/sdk-validation/$($current.runId)-$($current.attempt)/validation.json" -Raw | ConvertFrom-Json
+          $profiles = @{'create-marker-range'=1820; 'create-multichannel'=1728; 'create-multichannel-aiff'=6336}
+          $profile = if ($current.sdkProfile) { $current.sdkProfile } else { 'create-marker-range' }
+          if (!$profiles.ContainsKey($profile)) { throw 'Unregistered accepted SDK profile' }
+          if (!$sdk.succeeded -or $sdk.status -ne 'passed' -or $sdk.sourceCommit -ne $current.sourceCommit -or $sdk.runId -ne $current.runId -or $sdk.runAttempt -ne $current.attempt -or $sdk.profile -ne $profile -or $sdk.expectedAssets -ne $profiles[$profile] -or $current.sdkAssets -ne $profiles[$profile]) { throw 'Exact accepted SDK milestone is missing or incomplete' }
+          $build = Get-Content "recovery/evidence/audio/standalone-build-validation/$($current.runId)-$($current.attempt)/validation.json" -Raw | ConvertFrom-Json
+          if ($build.status -ne 'passed' -or $build.sourceCommit -ne $current.sourceCommit -or $build.sourceTree -ne $tree -or $build.runId -ne $current.runId -or $build.runAttempt -ne $current.attempt -or @($build.modes).Count -ne 2 -or @($build.modes | Where-Object { !$_.passed }).Count -ne 0 -or @($build.modes.configuration | Sort-Object -Unique).Count -ne 2 -or $build.modes.configuration -notcontains 'Debug' -or $build.modes.configuration -notcontains 'Release') { throw 'Exact accepted Debug/Release source build is missing or incomplete' }
+          if ($profile -eq 'create-multichannel') {
+            $component = Get-Content "recovery/evidence/audio/multichannel-validation/$($current.runId)-$($current.attempt)/validation.json" -Raw | ConvertFrom-Json
+            if ($component.status -ne 'passed' -or $component.sourceCommit -ne $current.sourceCommit -or $component.runId -ne $current.runId -or $component.runAttempt -ne $current.attempt -or @($component.configurations).Count -ne 2 -or @($component.configurations | Where-Object { !$_.passed }).Count -ne 0 -or $component.configurations.configuration -notcontains 'Debug' -or $component.configurations.configuration -notcontains 'Release') { throw 'Exact multichannel component milestone is missing or incomplete' }
+          }
+          if ($profile -eq 'create-multichannel-aiff') {
+            $component = Get-Content "recovery/evidence/audio/multichannel-aiff-validation/$($current.runId)-$($current.attempt)/validation.json" -Raw | ConvertFrom-Json
+            if ($component.status -ne 'passed' -or $component.sourceCommit -ne $current.sourceCommit -or $component.sourceTree -ne $tree -or $component.runId -ne $current.runId -or $component.runAttempt -ne $current.attempt -or $component.expectedAssets -ne 6336 -or @($component.configurations).Count -ne 2 -or @($component.configurations | Where-Object { !$_.passed }).Count -ne 0 -or $component.configurations.configuration -notcontains 'Debug' -or $component.configurations.configuration -notcontains 'Release') { throw 'Exact AIFF multichannel milestone is missing or incomplete' }
+            $plugin = $component.plugin
+            $groups = @($plugin.configurations | Where-Object { $_.group -eq 'multichannel-aiff' })
+            if ($plugin.status -ne 'passed' -or $plugin.sourceCommit -ne $current.sourceCommit -or $plugin.runId -ne $current.runId -or $plugin.runAttempt -ne $current.attempt -or $groups.Count -ne 2 -or @($groups | Where-Object { !$_.passed -or $_.records -ne 6336 -or !$_.originalAbsentFromRecoveredHost }).Count -ne 0 -or $groups.configuration -notcontains 'Debug' -or $groups.configuration -notcontains 'Release') { throw 'Exact AIFF Debug/Release6336-record differential is incomplete' }
+          }
+          $originalHash = (Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant()
+          if ($originalHash -ne 'a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139') { throw 'Original AudioCompiler fingerprint changed' }
+          Write-Host "Reusing accepted source $($current.sourceCommit), tree $tree, component/SDK run $($current.runId); no repeated component execution"
+      - name: Complete pinned Upheaval original and audio replacement
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioUpheavalSdk.ps1 -ModSourcePath upheaval-input/SDK/Mods/Upheaval -TimeoutSeconds 600
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audio-upheaval-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/audio/upheaval-sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+      - name: Preserve exact milestone evidence
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          $path = "recovery/evidence/audio/upheaval-sdk-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if (!(Test-Path $path)) { throw 'No Upheaval receipt' }
+          git add -- $path
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { exit 0 }
+          if ($LASTEXITCODE -ne 1) { throw 'Evidence diff failed' }
+          git commit -m "audio: preserve complete Upheaval milestone evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent changes need resolution; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact retained' }

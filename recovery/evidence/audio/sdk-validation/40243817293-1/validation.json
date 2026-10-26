@@ -1,0 +1,66 @@
+{
+  "runId": "40243817293",
+  "scope": "Fresh original and original-free recovered BAB case5 basic-data build; same temporary SDK root",
+  "sourceCommit": "bb4a225fc5cc8e070044a01a24f87e425c612ccb",
+  "runs": [
+    {
+      "customFiles": 4488,
+      "exitCode": 0,
+      "mode": "Original",
+      "outputs": [
+        {
+          "sha256": "3ed6e862a66881cef0e805d003c6fbd60f7c4cd72106ee61b4a5290dc2ee9d39",
+          "name": "mod.bin",
+          "bytes": 295876
+        },
+        {
+          "sha256": "74ae853f0c1781cf5481b722d2a5b9f999e1cc6ba923447396fccdf9c996ca94",
+          "name": "mod.manifest",
+          "bytes": 480032
+        },
+        {
+          "sha256": "a699309566bbe2fa997f7da765ff23d0ecd91da84d4875a71d0df6dbf5d23449",
+          "name": "mod.imp",
+          "bytes": 4
+        },
+        {
+          "sha256": "f6f9b16f05898e5d83ce3e6a1a9b2e2ed3ffd98b2feaef4599e511c8dcfab82c",
+          "name": "mod.relo",
+          "bytes": 44884
+        }
+      ]
+    },
+    {
+      "customFiles": 4488,
+      "exitCode": 0,
+      "mode": "Recovered",
+      "outputs": [
+        {
+          "sha256": "3ed6e862a66881cef0e805d003c6fbd60f7c4cd72106ee61b4a5290dc2ee9d39",
+          "name": "mod.bin",
+          "bytes": 295876
+        },
+        {
+          "sha256": "74ae853f0c1781cf5481b722d2a5b9f999e1cc6ba923447396fccdf9c996ca94",
+          "name": "mod.manifest",
+          "bytes": 480032
+        },
+        {
+          "sha256": "a699309566bbe2fa997f7da765ff23d0ecd91da84d4875a71d0df6dbf5d23449",
+          "name": "mod.imp",
+          "bytes": 4
+        },
+        {
+          "sha256": "f6f9b16f05898e5d83ce3e6a1a9b2e2ed3ffd98b2feaef4599e511c8dcfab82c",
+          "name": "mod.relo",
+          "bytes": 44884
+        }
+      ]
+    }
+  ],
+  "profile": "create-pc-inputs",
+  "sdkStarted": true,
+  "status": "passed",
+  "runAttempt": "1",
+  "succeeded": true
+}

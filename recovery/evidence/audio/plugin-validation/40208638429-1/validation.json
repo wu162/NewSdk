@@ -1,0 +1,35 @@
+{
+  "status": "failed",
+  "nativeAudioFileValidated": false,
+  "realMainProvenanceSha256": "bea901cfcb21fb4f0792b8754bf55dd555f0b747dbb02e047d7803fb08137392",
+  "mp3Validated": false,
+  "scope": "Component differential: resample-full",
+  "selectedGroups": [
+    "resample-full"
+  ],
+  "sourceCommit": "fc36e7ca101d9154e9774b9aeeccdd850d8dc007",
+  "runAttempt": "1",
+  "configurations": [
+    {
+      "candidateSafetyRejections": 8,
+      "originalAbsentFromRecoveredHost": true,
+      "records": 448,
+      "passed": true,
+      "group": "resample-full",
+      "configuration": "Debug",
+      "originalUndefinedEvidenceRecords": 8,
+      "transcriptSha256": "ea379e8dc5a1f112014889c0a417f1942b2613f42f7b2f796cc3aa53a9999fb6",
+      "recoveredSha256": "8e0dab50325564a955e845940350faf9cc4ad9e72117ee8a3562a9ae6d2d9b78"
+    },
+    {
+      "configuration": "Release",
+      "passed": false,
+      "group": "resample-full",
+      "error": "transcript differs"
+    }
+  ],
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "error": "Audio plugin groups failed; see individual difference files",
+  "sdkValidated": false,
+  "runId": "40208638429"
+}

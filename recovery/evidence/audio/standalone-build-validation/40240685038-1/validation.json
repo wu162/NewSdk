@@ -1,0 +1,30 @@
+{
+  "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+  "excludedPlatforms": [
+    "Xbox360"
+  ],
+  "scope": "Whole recovered AudioCompiler source project builds only",
+  "runId": "40240685038",
+  "runAttempt": "1",
+  "sourceCommit": "4f2c03c5f7510e71655987189a6b9ecd4a636d80",
+  "sourceTree": "38a94a66e7cca464c465c5947fc428315d217ec9",
+  "sdkStarted": false,
+  "modCompiled": false,
+  "modes": [
+    {
+      "libraryBytes": 138240,
+      "passed": true,
+      "librarySha256": "ba6210f2de9e844dda61434741a8e1dfd195a4178dc3a8a5293aa4027f638132",
+      "log": "Debug-build.log",
+      "configuration": "Debug"
+    },
+    {
+      "libraryBytes": 124416,
+      "passed": true,
+      "librarySha256": "3ddc2de0605417523965631695adb5fd55c28494789680cb8c20f2531137e5ef",
+      "log": "Release-build.log",
+      "configuration": "Release"
+    }
+  ],
+  "status": "passed"
+}

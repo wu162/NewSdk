@@ -1,0 +1,137 @@
+PASS reject null
+PASS reject truncated
+PASS reject IEEE-float
+PASS reject PCM32
+PASS reject truncated-extensible-format
+PASS reject three-channels
+PASS reject block-alignment
+PASS reject chunk-overrun
+PASS reject WAVE-loop
+PASS reject truncated-AIFC-COMM
+PASS reject AIFF-SSND-offset
+PASS reject AIFF-SSND-block-size
+PASS reject AIFF-loop
+PASS reject extensible-short38
+PASS reject extensible-short39
+PASS ignored extension 8-1-cb0
+PASS ignored extension 8-1-cb1
+PASS ignored extension 8-1-cb21
+PASS ignored extension 8-1-cb23
+PASS ignored extension 8-1-cb65535
+PASS ignored extension 8-1-valid0
+PASS ignored extension 8-1-valid1
+PASS ignored extension 8-1-valid-minus1
+PASS ignored extension 8-1-valid-plus1
+PASS ignored extension 8-1-valid65535
+PASS ignored extension 8-1-mask1
+PASS ignored extension 8-1-mask4
+PASS ignored extension 8-1-maskffffffff
+PASS ignored extension 8-1-guid-float
+PASS ignored extension 8-1-guid-zero
+PASS ignored extension 8-1-guid-ones
+PASS ignored extension 8-1-guid-tail
+PASS ignored extension 8-1-all-garbage
+PASS ignored extension 8-1-fmt42
+PASS ignored extension 8-1-fmt64
+PASS ignored extension 8-2-cb0
+PASS ignored extension 8-2-cb1
+PASS ignored extension 8-2-cb21
+PASS ignored extension 8-2-cb23
+PASS ignored extension 8-2-cb65535
+PASS ignored extension 8-2-valid0
+PASS ignored extension 8-2-valid1
+PASS ignored extension 8-2-valid-minus1
+PASS ignored extension 8-2-valid-plus1
+PASS ignored extension 8-2-valid65535
+PASS ignored extension 8-2-mask1
+PASS ignored extension 8-2-mask4
+PASS ignored extension 8-2-maskffffffff
+PASS ignored extension 8-2-guid-float
+PASS ignored extension 8-2-guid-zero
+PASS ignored extension 8-2-guid-ones
+PASS ignored extension 8-2-guid-tail
+PASS ignored extension 8-2-all-garbage
+PASS ignored extension 8-2-fmt42
+PASS ignored extension 8-2-fmt64
+PASS ignored extension 16-1-cb0
+PASS ignored extension 16-1-cb1
+PASS ignored extension 16-1-cb21
+PASS ignored extension 16-1-cb23
+PASS ignored extension 16-1-cb65535
+PASS ignored extension 16-1-valid0
+PASS ignored extension 16-1-valid1
+PASS ignored extension 16-1-valid-minus1
+PASS ignored extension 16-1-valid-plus1
+PASS ignored extension 16-1-valid65535
+PASS ignored extension 16-1-mask1
+PASS ignored extension 16-1-mask4
+PASS ignored extension 16-1-maskffffffff
+PASS ignored extension 16-1-guid-float
+PASS ignored extension 16-1-guid-zero
+PASS ignored extension 16-1-guid-ones
+PASS ignored extension 16-1-guid-tail
+PASS ignored extension 16-1-all-garbage
+PASS ignored extension 16-1-fmt42
+PASS ignored extension 16-1-fmt64
+PASS ignored extension 16-2-cb0
+PASS ignored extension 16-2-cb1
+PASS ignored extension 16-2-cb21
+PASS ignored extension 16-2-cb23
+PASS ignored extension 16-2-cb65535
+PASS ignored extension 16-2-valid0
+PASS ignored extension 16-2-valid1
+PASS ignored extension 16-2-valid-minus1
+PASS ignored extension 16-2-valid-plus1
+PASS ignored extension 16-2-valid65535
+PASS ignored extension 16-2-mask1
+PASS ignored extension 16-2-mask4
+PASS ignored extension 16-2-maskffffffff
+PASS ignored extension 16-2-guid-float
+PASS ignored extension 16-2-guid-zero
+PASS ignored extension 16-2-guid-ones
+PASS ignored extension 16-2-guid-tail
+PASS ignored extension 16-2-all-garbage
+PASS ignored extension 16-2-fmt42
+PASS ignored extension 16-2-fmt64
+PASS ignored extension 24-1-cb0
+PASS ignored extension 24-1-cb1
+PASS ignored extension 24-1-cb21
+PASS ignored extension 24-1-cb23
+PASS ignored extension 24-1-cb65535
+PASS ignored extension 24-1-valid0
+PASS ignored extension 24-1-valid1
+PASS ignored extension 24-1-valid-minus1
+PASS ignored extension 24-1-valid-plus1
+PASS ignored extension 24-1-valid65535
+PASS ignored extension 24-1-mask1
+PASS ignored extension 24-1-mask4
+PASS ignored extension 24-1-maskffffffff
+PASS ignored extension 24-1-guid-float
+PASS ignored extension 24-1-guid-zero
+PASS ignored extension 24-1-guid-ones
+PASS ignored extension 24-1-guid-tail
+PASS ignored extension 24-1-all-garbage
+PASS ignored extension 24-1-fmt42
+PASS ignored extension 24-1-fmt64
+PASS ignored extension 24-2-cb0
+PASS ignored extension 24-2-cb1
+PASS ignored extension 24-2-cb21
+PASS ignored extension 24-2-cb23
+PASS ignored extension 24-2-cb65535
+PASS ignored extension 24-2-valid0
+PASS ignored extension 24-2-valid1
+PASS ignored extension 24-2-valid-minus1
+PASS ignored extension 24-2-valid-plus1
+PASS ignored extension 24-2-valid65535
+PASS ignored extension 24-2-mask1
+PASS ignored extension 24-2-mask4
+PASS ignored extension 24-2-maskffffffff
+PASS ignored extension 24-2-guid-float
+PASS ignored extension 24-2-guid-zero
+PASS ignored extension 24-2-guid-ones
+PASS ignored extension 24-2-guid-tail
+PASS ignored extension 24-2-all-garbage
+PASS ignored extension 24-2-fmt42
+PASS ignored extension 24-2-fmt64
+PASS Audio ignored-extension sample invariants: 120
+PASS Audio input rejection boundaries: 15

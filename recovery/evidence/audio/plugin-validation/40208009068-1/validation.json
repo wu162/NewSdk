@@ -1,0 +1,30 @@
+{
+  "scope": "Component differential: resample-full",
+  "sourceCommit": "601d9033391019c9ab50e2c57c855b6ce3cf8681",
+  "selectedGroups": [
+    "resample-full"
+  ],
+  "sdkValidated": false,
+  "error": "Audio plugin groups failed; see individual difference files",
+  "runId": "40208009068",
+  "status": "failed",
+  "nativeAudioFileValidated": false,
+  "mp3Validated": false,
+  "configurations": [
+    {
+      "group": "resample-full",
+      "passed": false,
+      "error": "transcript differs",
+      "configuration": "Debug"
+    },
+    {
+      "group": "resample-full",
+      "passed": false,
+      "error": "transcript differs",
+      "configuration": "Release"
+    }
+  ],
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "runAttempt": "1",
+  "realMainProvenanceSha256": "bea901cfcb21fb4f0792b8754bf55dd555f0b747dbb02e047d7803fb08137392"
+}

@@ -1,0 +1,12 @@
+{
+  "error": "Debug loop metadata transcript differs",
+  "sdkValidated": false,
+  "scope": "Bounded loop metadata: first WAVE smpl/record ignoring type; AIFF/AIFC NONE/raw ADP4 extra/duplicate markers, multiple MARK/INST, ignored release and nonforward sustain; PCM8/16/24 mono/stereo PC NONE/XAS RAM/streamed and resampling; canonical pair invariants",
+  "originalRecords": 4224,
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "status": "failed",
+  "sourceCommit": "40ebb67064c813649d9ae1b54ecc6fe1be2be839",
+  "runAttempt": "1",
+  "runId": "40242571724",
+  "configurations": []
+}

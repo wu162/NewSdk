@@ -1,0 +1,6 @@
+PHASE load original and native DCT helper
+PHASE capture xma-1-4096-ram before=0
+PASS xma-1-4096-ram snapshots=37 full original outputs unchanged
+PHASE capture xma-2-4096-ram before=37
+PASS xma-2-4096-ram snapshots=74 full original outputs unchanged
+PASS original-only real DCT snapshots: 2 encodes, 111 entry/return pairs; all complete outputs equal accepted uninstrumented original

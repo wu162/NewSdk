@@ -1,0 +1,176 @@
+{
+  "mp3Validated": true,
+  "nativeAudioFileValidated": true,
+  "sourceCommit": "ad37841d5bf7fba3cbdede2bdae60da2b49d9639",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "configurations": [
+    {
+      "records": 239,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "recoveredSha256": "07ce15ebc8a58b7d2b929b2169d974049ebe70158d5240dc69acca047d807cfe",
+      "passed": true,
+      "group": "business",
+      "transcriptSha256": "ded7c9411fa8dbdcf2fa877d57864065ccb22cf3bd0c29470989c24439283ef0"
+    },
+    {
+      "records": 16,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "recoveredSha256": "07ce15ebc8a58b7d2b929b2169d974049ebe70158d5240dc69acca047d807cfe",
+      "passed": true,
+      "group": "pcm",
+      "transcriptSha256": "dc8fb1691cae0d4264e88825c6d81a2760fe4a4a793bdd9a6caa872ce106b3c5"
+    },
+    {
+      "records": 12,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "recoveredSha256": "07ce15ebc8a58b7d2b929b2169d974049ebe70158d5240dc69acca047d807cfe",
+      "passed": true,
+      "group": "xas",
+      "transcriptSha256": "7680798b21f6c1225cdb783c6328c36a5c63b167e4e0780d640395f109df6845"
+    },
+    {
+      "records": 4,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "recoveredSha256": "07ce15ebc8a58b7d2b929b2169d974049ebe70158d5240dc69acca047d807cfe",
+      "passed": true,
+      "group": "defaults",
+      "transcriptSha256": "774576777407cb23d2617b19c9dca9aff1c78c130d3f112cc5128246bae7a7a4"
+    },
+    {
+      "records": 2,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "recoveredSha256": "07ce15ebc8a58b7d2b929b2169d974049ebe70158d5240dc69acca047d807cfe",
+      "passed": true,
+      "group": "rates",
+      "transcriptSha256": "eed85c4617265180feda4fdea090884953dc3fe5a176c4477432ff8d5f71ffed"
+    },
+    {
+      "records": 8,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "recoveredSha256": "07ce15ebc8a58b7d2b929b2169d974049ebe70158d5240dc69acca047d807cfe",
+      "passed": true,
+      "group": "main",
+      "transcriptSha256": "c0315e84383a5d536a155386c1a49fee3e6bd39fc64c63324423ac2c7b7d653e"
+    },
+    {
+      "records": 24,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "recoveredSha256": "07ce15ebc8a58b7d2b929b2169d974049ebe70158d5240dc69acca047d807cfe",
+      "passed": true,
+      "group": "pcm8",
+      "transcriptSha256": "f7efcc8b03d693721b94728b99883b5a301318930c09d20afd28afad43acfd2e"
+    },
+    {
+      "records": 480,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "recoveredSha256": "07ce15ebc8a58b7d2b929b2169d974049ebe70158d5240dc69acca047d807cfe",
+      "passed": true,
+      "group": "formats",
+      "transcriptSha256": "894cb414065ee841c8acf7bd2ec96efc1eb22cdde3b9ef6effcdaecd5238226a"
+    },
+    {
+      "records": 216,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "recoveredSha256": "07ce15ebc8a58b7d2b929b2169d974049ebe70158d5240dc69acca047d807cfe",
+      "passed": true,
+      "group": "loops",
+      "transcriptSha256": "ab2e2ac08a2f3ee92c33e7406e44059fb2cf2eed2eec9ad04ad26bf9278e13dc"
+    },
+    {
+      "records": 239,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "recoveredSha256": "8ef502db93342c1aaadbbb4e2badc2ef0d944723a35fb5c9bc77156ccd55f433",
+      "passed": true,
+      "group": "business",
+      "transcriptSha256": "ded7c9411fa8dbdcf2fa877d57864065ccb22cf3bd0c29470989c24439283ef0"
+    },
+    {
+      "records": 16,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "recoveredSha256": "8ef502db93342c1aaadbbb4e2badc2ef0d944723a35fb5c9bc77156ccd55f433",
+      "passed": true,
+      "group": "pcm",
+      "transcriptSha256": "dc8fb1691cae0d4264e88825c6d81a2760fe4a4a793bdd9a6caa872ce106b3c5"
+    },
+    {
+      "records": 12,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "recoveredSha256": "8ef502db93342c1aaadbbb4e2badc2ef0d944723a35fb5c9bc77156ccd55f433",
+      "passed": true,
+      "group": "xas",
+      "transcriptSha256": "7680798b21f6c1225cdb783c6328c36a5c63b167e4e0780d640395f109df6845"
+    },
+    {
+      "records": 4,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "recoveredSha256": "8ef502db93342c1aaadbbb4e2badc2ef0d944723a35fb5c9bc77156ccd55f433",
+      "passed": true,
+      "group": "defaults",
+      "transcriptSha256": "774576777407cb23d2617b19c9dca9aff1c78c130d3f112cc5128246bae7a7a4"
+    },
+    {
+      "records": 2,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "recoveredSha256": "8ef502db93342c1aaadbbb4e2badc2ef0d944723a35fb5c9bc77156ccd55f433",
+      "passed": true,
+      "group": "rates",
+      "transcriptSha256": "eed85c4617265180feda4fdea090884953dc3fe5a176c4477432ff8d5f71ffed"
+    },
+    {
+      "records": 8,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "recoveredSha256": "8ef502db93342c1aaadbbb4e2badc2ef0d944723a35fb5c9bc77156ccd55f433",
+      "passed": true,
+      "group": "main",
+      "transcriptSha256": "c0315e84383a5d536a155386c1a49fee3e6bd39fc64c63324423ac2c7b7d653e"
+    },
+    {
+      "records": 24,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "recoveredSha256": "8ef502db93342c1aaadbbb4e2badc2ef0d944723a35fb5c9bc77156ccd55f433",
+      "passed": true,
+      "group": "pcm8",
+      "transcriptSha256": "f7efcc8b03d693721b94728b99883b5a301318930c09d20afd28afad43acfd2e"
+    },
+    {
+      "records": 480,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "recoveredSha256": "8ef502db93342c1aaadbbb4e2badc2ef0d944723a35fb5c9bc77156ccd55f433",
+      "passed": true,
+      "group": "formats",
+      "transcriptSha256": "894cb414065ee841c8acf7bd2ec96efc1eb22cdde3b9ef6effcdaecd5238226a"
+    },
+    {
+      "records": 216,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "recoveredSha256": "8ef502db93342c1aaadbbb4e2badc2ef0d944723a35fb5c9bc77156ccd55f433",
+      "passed": true,
+      "group": "loops",
+      "transcriptSha256": "ab2e2ac08a2f3ee92c33e7406e44059fb2cf2eed2eec9ad04ad26bf9278e13dc"
+    }
+  ],
+  "scope": "PathMusic and AudioFile PCM8/16/24 WAVE, AIFF8/16/24 NONE/XAS component differential; MP3 passthrough ProcessInstance/direct-handler differential",
+  "realMainProvenanceSha256": "bea901cfcb21fb4f0792b8754bf55dd555f0b747dbb02e047d7803fb08137392",
+  "runId": "40197878572",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "status": "passed"
+}

@@ -1,0 +1,4 @@
+junk:False:False:NULL:CUSTOM:<absent>
+junk:False:True:NULL:CUSTOM:<absent>
+junk:True:False:NULL:CUSTOM:<absent>
+junk:True:True:NULL:CUSTOM:<absent>

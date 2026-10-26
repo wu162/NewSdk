@@ -1,0 +1,30 @@
+{
+  "windowSourceValidated": true,
+  "sourceCommit": "25aab8fe5a6b9e762293f9ace71c3edc59e36e36",
+  "scope": "Isolated resampling kernel exact-byte differential, including original Windows x86 CPU cross-check",
+  "nativeOracleSha256": "bc08b87ab82b9708ce977f15b1754f693b19ddab3c53f8bf15bc2ffeb31b71a7",
+  "status": "passed",
+  "originalCpuCollected": true,
+  "originalCpuOracleSha256": "5ac4819aef863657c0d7a47537dfa4b2ea46cd2a2e84627428e7b692b9fa6810",
+  "referenceBackend": "original-windows-x86-cpu",
+  "runId": "40207847717",
+  "modes": [
+    {
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "recoveredSha256": "a5a82afafc4964232d503c026d45ef8741977d8ca7d7d9e8561248fc4886cd75",
+      "passed": true,
+      "summary": "PASS candidate native resampler bit differential: 48 source, 16 complex filter, 96 derivative, 18 coefficient, 80 whole kernel fixtures; five safety rejections; original DLL not loaded"
+    },
+    {
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "recoveredSha256": "8ec22ba3a7c4b02bb116fb0d743e6cd39d9d09ee4574991e4c6551aaed8ae0c4",
+      "passed": true,
+      "summary": "PASS candidate native resampler bit differential: 48 source, 16 complex filter, 96 derivative, 18 coefficient, 80 whole kernel fixtures; five safety rejections; original DLL not loaded"
+    }
+  ],
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "audioFileRouteEnabled": false
+}

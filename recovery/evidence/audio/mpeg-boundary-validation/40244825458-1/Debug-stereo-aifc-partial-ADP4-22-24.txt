@@ -1,0 +1,4 @@
+stereo-aifc-partial-ADP4-22-24:False:False:NULL:CUSTOM:<absent>
+stereo-aifc-partial-ADP4-22-24:False:True:NULL:CUSTOM:<absent>
+stereo-aifc-partial-ADP4-22-24:True:False:NULL:CUSTOM:<absent>
+stereo-aifc-partial-ADP4-22-24:True:True:NULL:CUSTOM:<absent>

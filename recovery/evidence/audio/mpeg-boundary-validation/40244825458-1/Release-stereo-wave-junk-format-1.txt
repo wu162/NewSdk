@@ -1,0 +1,4 @@
+stereo-wave-junk-format-1:False:False:NULL:CUSTOM:<absent>
+stereo-wave-junk-format-1:False:True:NULL:CUSTOM:<absent>
+stereo-wave-junk-format-1:True:False:NULL:CUSTOM:<absent>
+stereo-wave-junk-format-1:True:True:NULL:CUSTOM:<absent>

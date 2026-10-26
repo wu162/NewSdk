@@ -1,0 +1,13 @@
+{
+  "sdkValidated": false,
+  "modes": [],
+  "sourceCommit": "eb68933006f54681f33b38baa196e9ff6273f938",
+  "runId": "40199843730",
+  "status": "original-cpu-passed",
+  "runtimeResamplingValidated": false,
+  "originalCpuValidated": true,
+  "originalCpuRecords": 78,
+  "runAttempt": "1",
+  "scope": "Isolated original-machine-code FFT differential only; runtime resampling remains unimplemented",
+  "nativeOracleSha256": "f41ba608317f0f037e53a4e7204b378aa21639679f7d02f3418791fe5c20f5d0"
+}

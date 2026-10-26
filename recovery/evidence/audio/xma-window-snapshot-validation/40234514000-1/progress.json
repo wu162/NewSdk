@@ -1,0 +1,14 @@
+{
+  "sourceCommit": "5495da2d703ca429434de369f5414cd45e4de819",
+  "stage": "compile",
+  "baselineRunId": "40232525056",
+  "sdkValidated": false,
+  "callSiteRva": "0x97d97",
+  "runAttempt": "1",
+  "scope": "Real x86 CPU bounded original XMA window inputs",
+  "xmaEncodingRecovered": false,
+  "tracedCases": 0,
+  "status": "started",
+  "baselineSourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+  "runId": "40234514000"
+}

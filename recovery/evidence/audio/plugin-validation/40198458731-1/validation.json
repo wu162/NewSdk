@@ -1,0 +1,54 @@
+{
+  "runAttempt": "1",
+  "realMainProvenanceSha256": "bea901cfcb21fb4f0792b8754bf55dd555f0b747dbb02e047d7803fb08137392",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "nativeAudioFileValidated": false,
+  "configurations": [
+    {
+      "recoveredSha256": "81c2bf5cc6c6db2548ab0b482cf6db58ee556e83e64617f506914b47494c0e52",
+      "transcriptSha256": "894cb414065ee841c8acf7bd2ec96efc1eb22cdde3b9ef6effcdaecd5238226a",
+      "records": 480,
+      "originalAbsentFromRecoveredHost": true,
+      "passed": true,
+      "group": "formats",
+      "configuration": "Debug"
+    },
+    {
+      "recoveredSha256": "81c2bf5cc6c6db2548ab0b482cf6db58ee556e83e64617f506914b47494c0e52",
+      "transcriptSha256": "9f4dedc8997d8c8d366454ae538f12f8c3337476f49522be737f49a50164f92e",
+      "records": 200,
+      "originalAbsentFromRecoveredHost": true,
+      "passed": true,
+      "group": "aiffloops",
+      "configuration": "Debug"
+    },
+    {
+      "recoveredSha256": "8e43845b6304440f034ece0d523c779566371793bb6c887442f971adde88baf1",
+      "transcriptSha256": "894cb414065ee841c8acf7bd2ec96efc1eb22cdde3b9ef6effcdaecd5238226a",
+      "records": 480,
+      "originalAbsentFromRecoveredHost": true,
+      "passed": true,
+      "group": "formats",
+      "configuration": "Release"
+    },
+    {
+      "recoveredSha256": "8e43845b6304440f034ece0d523c779566371793bb6c887442f971adde88baf1",
+      "transcriptSha256": "9f4dedc8997d8c8d366454ae538f12f8c3337476f49522be737f49a50164f92e",
+      "records": 200,
+      "originalAbsentFromRecoveredHost": true,
+      "passed": true,
+      "group": "aiffloops",
+      "configuration": "Release"
+    }
+  ],
+  "status": "passed",
+  "sourceCommit": "78f819c1f061a4ba27d1d58145839517da1b72a9",
+  "scope": "PathMusic and AudioFile PCM8/16/24 WAVE, AIFF8/16/24 NONE/XAS component differential",
+  "mp3Validated": false,
+  "runId": "40198458731",
+  "sdkValidated": false,
+  "selectedGroups": [
+    "formats",
+    "aiffloops"
+  ]
+}

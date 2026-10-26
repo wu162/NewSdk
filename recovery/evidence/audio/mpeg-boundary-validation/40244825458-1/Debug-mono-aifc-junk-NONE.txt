@@ -1,0 +1,4 @@
+mono-aifc-junk-NONE:False:False:NULL:CUSTOM:<absent>
+mono-aifc-junk-NONE:False:True:NULL:CUSTOM:<absent>
+mono-aifc-junk-NONE:True:False:NULL:CUSTOM:<absent>
+mono-aifc-junk-NONE:True:True:NULL:CUSTOM:<absent>

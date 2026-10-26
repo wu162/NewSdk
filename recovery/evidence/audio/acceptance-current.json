@@ -1,0 +1,701 @@
+{
+  "status": "passed-with-explicit-scope",
+  "branch": "recovery/audio-compiler-source",
+  "sdkAndSourceTreeProof": {
+    "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
+    "checkedHead": "7429062aa4cdb8dbbaefe3e7a3c54b94d064d8b7",
+    "srcUnchanged": true,
+    "sdkUnchanged": true,
+    "srcSha": "1347625bc33cfa93286af3a119ab070372b4b55f",
+    "sdkSha": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+    "historicalProofOnly": true,
+    "doesNotCertifyCurrentWholeTree": true
+  },
+  "components": [
+    {
+      "scope": "resampler kernel",
+      "sourceCommit": "25aab8fe5a6b9e762293f9ace71c3edc59e36e36",
+      "runId": "40207847717",
+      "attempt": 1,
+      "configurations": [
+        "Debug",
+        "Release"
+      ],
+      "recordsPerConfiguration": 258,
+      "safetyChecks": 5,
+      "originalCpuWindowBinary64Values": 512,
+      "receipt": "resampler-validation/40207847717-1/validation.json",
+      "historicalEvidenceOnly": true
+    },
+    {
+      "scope": "affected audio plugins and XAS precision",
+      "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
+      "runId": "40209451010",
+      "attempt": 1,
+      "configurations": [
+        "Debug",
+        "Release"
+      ],
+      "pluginEquivalenceRecordsPerConfiguration": 1392,
+      "resamplingEquivalenceRecordsPerConfiguration": 448,
+      "singleFrameSafetyRefusalsPerConfiguration": 8,
+      "xasBlockRecordsPerConfiguration": 264,
+      "receipts": [
+        "plugin-validation/40209451010-1/validation.json",
+        "xas-precision-validation/40209451010-1/validation.json"
+      ],
+      "historicalEvidenceOnly": true
+    },
+    {
+      "scope": "combined dedicated audio MOD via real BAB case5",
+      "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
+      "runId": "40209451010",
+      "attempt": 1,
+      "actualCalls": 38,
+      "productsCompared": 4,
+      "customFilesCompared": 36,
+      "originalDllAbsentFromRecoveredSdk": true,
+      "receipt": "sdk-validation/40209451010-1/validation.json",
+      "historicalEvidenceOnly": true
+    },
+    {
+      "scope": "WAVE extensible ignored extension metadata",
+      "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
+      "runId": "40232917060",
+      "attempt": 1,
+      "receipts": [
+        "plugin-validation/40232917060-1/validation.json",
+        "sdk-validation/40232917060-1/validation.json"
+      ],
+      "recordsPerConfiguration": 2400,
+      "sdkActualCalls": 120,
+      "sdkProducts": 4,
+      "sdkCustomFiles": 120,
+      "historicalEvidenceOnly": true
+    },
+    {
+      "scope": "AIFC NONE integral input",
+      "sourceCommit": "3863a632faac79ef586569e134b7eb46014fab94",
+      "runId": "40233228823",
+      "attempt": 1,
+      "receipts": [
+        "aifc-validation/40233228823-1/validation.json",
+        "plugin-validation/40233228823-1/validation.json",
+        "sdk-validation/40233228823-1/validation.json"
+      ],
+      "recordsPerConfiguration": 1440,
+      "sampleBitChecks": 60,
+      "safetyRefusals": 10,
+      "affectedOldPluginRecords": 2600,
+      "sdkActualCalls": 120,
+      "sdkProducts": 4,
+      "sdkCustomFiles": 120,
+      "historicalEvidenceOnly": true
+    },
+    {
+      "scope": "ADP4 raw nibble decoder component only",
+      "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
+      "runId": "40233712043",
+      "attempt": 1,
+      "receipts": [
+        "adp4-decoder-validation/40233712043-1/validation.json"
+      ],
+      "recordsPerConfiguration": 18243,
+      "scalarCases": 18067,
+      "initializedSequences": 176,
+      "safetyRefusals": 11,
+      "sdkValidated": false,
+      "historicalEvidenceOnly": true
+    },
+    {
+      "scope": "AIFC ADP4 file input component and plugin only",
+      "sourceCommit": "5495da2d703ca429434de369f5414cd45e4de819",
+      "runId": "40234514000",
+      "attempt": 1,
+      "receipts": [
+        "adp4-plugin-validation/40234514000-1/validation.json",
+        "plugin-validation/40234514000-1/validation.json",
+        "aifc-validation/40234514000-1/validation.json"
+      ],
+      "recordsPerConfiguration": 4224,
+      "sampleBitChecks": 144,
+      "safetyRefusals": 12,
+      "affectedOldPluginRecords": 4040,
+      "sdkValidated": false,
+      "overallRunConclusion": "failure in independent window snapshot export audit; this component passed",
+      "historicalEvidenceOnly": true
+    },
+    {
+      "scope": "SSND ignored blockSize input component and plugin only",
+      "sourceCommit": "d3f96009e64b44c4d9482421cc5922b3309320bc",
+      "runId": "40236037500",
+      "attempt": 1,
+      "receipts": [
+        "ssnd-block-validation/40236037500-1/validation.json"
+      ],
+      "recordsPerConfiguration": 3192,
+      "canonicalZeroCases": 456,
+      "nonzeroVsZeroComparisons": 2736,
+      "sampleBitChecks": 168,
+      "nonzeroOffsetRefusals": 168,
+      "affectedOldAiffLoopRecords": 200,
+      "sdkValidated": false,
+      "historicalEvidenceOnly": true
+    },
+    {
+      "scope": "PC bounded loop/offset/MPEG info and dedicated4488-asset SDK milestone",
+      "sourceCommit": "bb4a225fc5cc8e070044a01a24f87e425c612ccb",
+      "sourceTree": "4928109f17b3545cb0273f05def9198505371b33",
+      "runId": "40243817293",
+      "attempt": 1,
+      "status": "passed",
+      "sdkAssets": 4488,
+      "sdkActualCalls": 4488,
+      "sdkCustomFiles": 4488,
+      "sdkProducts": 4,
+      "originalDllAbsentFromRecoveredSdk": true,
+      "historicalEvidenceOnly": true,
+      "receipt": "sdk-validation/40243817293-1/validation.json",
+      "applicabilityAudit": "../../audio/CommSdkCoverageAudit.md"
+    },
+    {
+      "scope": "Additional original audio branch component evidence preserved intact during consolidation; not current-source re-execution",
+      "sourceCommit": "efbc6d825a7a5fb471740723486eb848e752e9b2",
+      "runId": "40250230722",
+      "attempt": 1,
+      "historicalEvidenceOnly": true,
+      "receipts": [
+        "fft-validation/40250230722-1/validation.json",
+        "pcm-validation/40250230722-1/validation.json",
+        "plugin-validation/40250230722-1/validation.json",
+        "xas-validation/40250230722-1/validation.json"
+      ]
+    }
+  ],
+  "completeDllRecovered": false,
+  "productionSdkReplaced": false,
+  "fullUpheavalValidated": true,
+  "next": "../../AUDIO_COMPILER.md",
+  "sdkPolicy": "Component and plugin differentials first; run real audio SDK only at explicit larger milestones. Dedicated MOD receipts and full pinned audio-only Upheaval receipt retain separate source/input scopes.",
+  "remaining": [],
+  "targetScope": "PC Win32 only; all other target platforms rejected",
+  "scopeChange": {
+    "removed": "All non-PC encoding policies, metadata/asset platform branches, platform-specific byte order and differential fixtures",
+    "historicalEvidence": "Prior receipts remain immutable historical records, not current platform support",
+    "currentSourceValidated": true,
+    "sdkStarted": false,
+    "sourceCommit": "376243310ad44a164c7ac29b100e5489c5d93928",
+    "runId": "40241451234"
+  },
+  "historicalWholeSourceBuild": {
+    "sourceCommit": "ec1e34657edb8395570d8e325fe81dc8ab762c71",
+    "runId": "40237397076",
+    "attempt": 1,
+    "sourceTree": "aaac794cc64e04b9f68e202a53d9ae245f5d6ace",
+    "configurations": [
+      "Debug",
+      "Release"
+    ],
+    "sdkStarted": false,
+    "modCompiled": false,
+    "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+    "receipt": "standalone-build-validation/40237397076-1/validation.json",
+    "historicalProofOnly": true,
+    "doesNotCertifyCurrentWholeTree": true
+  },
+  "historicalValidationBeforePcOnly": {
+    "sourceCommit": "4f2c03c5f7510e71655987189a6b9ecd4a636d80",
+    "runId": "40240685038",
+    "attempt": 1,
+    "status": "passed",
+    "sourceTree": "38a94a66e7cca464c465c5947fc428315d217ec9",
+    "sdkStarted": false,
+    "excludedPlatform": "Xbox360",
+    "excludedPlatformRejectionChecksPerConfiguration": 8,
+    "configurations": [
+      "Debug",
+      "Release"
+    ],
+    "metadataRecordsPerConfiguration": 73861,
+    "pluginRecordsPerConfiguration": 2899,
+    "resampleSafetyRefusalsPerConfiguration": 8,
+    "pluginGroups": [
+      "business",
+      "pcm",
+      "xas",
+      "defaults",
+      "rates",
+      "main",
+      "pcm8",
+      "formats",
+      "loops",
+      "aiffloops",
+      "resample-full"
+    ],
+    "aifcRecordsPerConfiguration": 1080,
+    "adp4RecordsPerConfiguration": 3180,
+    "ssndRecordsPerConfiguration": 2436,
+    "receipts": [
+      "metadata-validation/40240685038-1/validation.json",
+      "plugin-validation/40240685038-1/validation.json",
+      "pcm-validation/40240685038-1/validation.json",
+      "xas-validation/40240685038-1/validation.json",
+      "aifc-validation/40240685038-1/validation.json",
+      "adp4-plugin-validation/40240685038-1/validation.json",
+      "ssnd-block-validation/40240685038-1/validation.json",
+      "standalone-build-validation/40240685038-1/validation.json"
+    ],
+    "exclusionLogs": [
+      "plugin-validation/40240685038-1/Debug-excluded-platform.log",
+      "plugin-validation/40240685038-1/Release-excluded-platform.log"
+    ]
+  },
+  "historicalBuildBeforePcOnly": {
+    "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+    "excludedPlatforms": [
+      "Xbox360"
+    ],
+    "scope": "Whole recovered AudioCompiler source project builds only",
+    "runId": "40240685038",
+    "runAttempt": "1",
+    "sourceCommit": "4f2c03c5f7510e71655987189a6b9ecd4a636d80",
+    "sourceTree": "38a94a66e7cca464c465c5947fc428315d217ec9",
+    "sdkStarted": false,
+    "modCompiled": false,
+    "modes": [
+      {
+        "libraryBytes": 138240,
+        "passed": true,
+        "librarySha256": "ba6210f2de9e844dda61434741a8e1dfd195a4178dc3a8a5293aa4027f638132",
+        "log": "Debug-build.log",
+        "configuration": "Debug"
+      },
+      {
+        "libraryBytes": 124416,
+        "passed": true,
+        "librarySha256": "3ddc2de0605417523965631695adb5fd55c28494789680cb8c20f2531137e5ef",
+        "log": "Release-build.log",
+        "configuration": "Release"
+      }
+    ],
+    "status": "passed",
+    "receipt": "standalone-build-validation/40240685038-1/validation.json"
+  },
+  "currentValidation": {
+    "status": "passed",
+    "sourceCommit": "7abc0505f6340504f32767b86de7a34b04ac3367",
+    "sourceTree": "8bbe47d084d879b38397bc45e4493965640731ec",
+    "runId": "40257973827",
+    "attempt": 1,
+    "supportedPlatforms": [
+      "Win32"
+    ],
+    "scope": "AIFF/AIFC NONE4/6 complete capability group and affected regressions",
+    "configurations": [
+      "Debug",
+      "Release"
+    ],
+    "baselineRecordsPerConfiguration": 1728,
+    "commRecordsPerConfiguration": 3456,
+    "offsetRecordsPerConfiguration": 1152,
+    "aiffMultichannelRecordsPerConfiguration": 6336,
+    "independentSourceOrderSamplesPerConfiguration": 7740,
+    "windowInvariantsPerConfiguration": 72,
+    "markerExpectationsPerConfiguration": 432,
+    "aiffSafetyRefusalsPerConfiguration": 108,
+    "formatRefusalsPerConfiguration": 42,
+    "sdkStarted": true,
+    "sdkPassed": true,
+    "sdkProfile": "create-multichannel-aiff",
+    "sdkAssets": 6336,
+    "sdkActualCallsPerSide": 6336,
+    "sdkCustomFilesPerSide": 6336,
+    "sdkProducts": 4,
+    "originalDllAbsentFromRecoveredSdk": true,
+    "receiptCommit": "47823e9451018654e61237ef32cfde36d463f22e",
+    "receipts": [
+      "multichannel-aiff-validation/40257973827-1/validation.json",
+      "multichannel-validation/40257973827-1/validation.json",
+      "aifc-validation/40257973827-1/validation.json",
+      "adp4-plugin-validation/40257973827-1/validation.json",
+      "ssnd-block-validation/40257973827-1/validation.json",
+      "loop-metadata-validation/40257973827-1/validation.json",
+      "loop-optional-validation/40257973827-1/validation.json",
+      "marker-range-validation/40257973827-1/validation.json",
+      "ssnd-offset-validation/40257973827-1/validation.json",
+      "xas-precision-validation/40257973827-1/validation.json",
+      "standalone-build-validation/40257973827-1/validation.json",
+      "sdk-validation/40257973827-1/validation.json",
+      "multichannel-aiff-validation/40257973827-1/plugin/validation.json"
+    ]
+  },
+  "wholeSourceBuild": {
+    "status": "passed",
+    "sdkStarted": false,
+    "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+    "sourceCommit": "7abc0505f6340504f32767b86de7a34b04ac3367",
+    "runAttempt": "1",
+    "scope": "Whole recovered AudioCompiler source project builds only",
+    "modes": [
+      {
+        "passed": true,
+        "configuration": "Debug",
+        "librarySha256": "e25a96da3b748e93b362955e495aa463c293596013070f92445f0a56e8669559",
+        "log": "Debug-build.log",
+        "libraryBytes": 60416
+      },
+      {
+        "passed": true,
+        "configuration": "Release",
+        "librarySha256": "222a8294ced2718c5e71a998a8364919075a78e34ae773ec104a546e76279f5a",
+        "log": "Release-build.log",
+        "libraryBytes": 55808
+      }
+    ],
+    "supportedPlatforms": [
+      "Win32"
+    ],
+    "runId": "40257973827",
+    "sourceTree": "8bbe47d084d879b38397bc45e4493965640731ec",
+    "modCompiled": false,
+    "receipt": "standalone-build-validation/40257973827-1/validation.json"
+  },
+  "historicalPcOnlyValidation": {
+    "status": "passed",
+    "sourceCommit": "376243310ad44a164c7ac29b100e5489c5d93928",
+    "runId": "40241451234",
+    "attempt": 1,
+    "sourceTree": "44d8089ff03c9af29c6e6cb12245eff8ba0c25c2",
+    "sdkStarted": false,
+    "supportedPlatforms": [
+      "Win32"
+    ],
+    "rejectedPlatformValues": [
+      1,
+      2,
+      99,
+      -1,
+      -2147483648,
+      2147483647
+    ],
+    "rejectionChecksPerConfiguration": 48,
+    "configurations": [
+      "Debug",
+      "Release"
+    ],
+    "metadataRecordsPerConfiguration": 12311,
+    "pluginRecordsPerConfiguration": 2175,
+    "resampleSafetyRefusalsPerConfiguration": 8,
+    "pluginGroups": [
+      "business",
+      "pcm",
+      "xas",
+      "defaults",
+      "rates",
+      "main",
+      "pcm8",
+      "formats",
+      "loops",
+      "aiffloops",
+      "resample-full"
+    ],
+    "aifcRecordsPerConfiguration": 720,
+    "adp4RecordsPerConfiguration": 2136,
+    "ssndRecordsPerConfiguration": 1680,
+    "receipts": [
+      "metadata-validation/40241451234-1/validation.json",
+      "plugin-validation/40241451234-1/validation.json",
+      "pcm-validation/40241451234-1/validation.json",
+      "xas-validation/40241451234-1/validation.json",
+      "aifc-validation/40241451234-1/validation.json",
+      "adp4-plugin-validation/40241451234-1/validation.json",
+      "ssnd-block-validation/40241451234-1/validation.json",
+      "standalone-build-validation/40241451234-1/validation.json"
+    ],
+    "exclusionLogs": [
+      "plugin-validation/40241451234-1/Debug-excluded-platform.log",
+      "plugin-validation/40241451234-1/Release-excluded-platform.log"
+    ]
+  },
+  "mpegInfoPolicy": "Recovered original SIMEX_info header-only path, not PCM decoding; unused NLayer removed",
+  "finalExeIntegrated": false,
+  "handoff": {
+    "requestedByUser": true,
+    "newRunsStopped": true,
+    "existingRunContinues": false,
+    "firstAction": "Review the completed audio PR; merge only after explicit user approval.",
+    "upheavalStarted": true,
+    "compilerSourceMerged": false,
+    "finalExeIntegrated": false,
+    "runTerminalConfirmed": true,
+    "upheavalPassed": true,
+    "pr": 11,
+    "mergeRequiresExplicitUserApproval": true,
+    "reviewBranch": "recovery/audio-compiler-source",
+    "validationBranch": "recovery/audio-compiler-source",
+    "nextPreparationBranch": "recovery/audio-compiler-source",
+    "nextPreparationCommit": "ccd0cc84ec27c2fee06ef189e4c47bc5723e5a7f",
+    "nextPreparationStatus": "implemented-and-accepted",
+    "prStatus": "open-awaiting-explicit-user-merge-approval",
+    "nextPreparationPath": "recovery/audio/MultichannelAiffBoundary.md",
+    "centralizedAtUserRequest": true
+  },
+  "fullUpheavalValidation": {
+    "status": "passed",
+    "sourceCommit": "c078bce6e5e28866dfd3c25acabda731203b2556",
+    "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
+    "runId": "40248486242",
+    "attempt": 1,
+    "receiptCommit": "ef87339d3f76848687b714a394a9e1ff00ad1923",
+    "receipt": "upheaval-sdk-validation/40248486242-1/validation.json",
+    "inputCommit": "068643219fded09a05fb7b75c6507b769c430316",
+    "inputFiles": 2738,
+    "preservedAssetInputs": 194,
+    "scope": "Complete pinned Upheaval/PublicCases BAB case3/4/5; only AudioCompiler replaced; other plugins use original SDK",
+    "observedInputAudioScope": "WAV mono corpus; does not certify multichannel or replace dedicated AIFF/AIFC boundary SDK receipts",
+    "babInvocations": 10,
+    "allInvocationExitCodesZero": true,
+    "productsCompared": 20,
+    "allProductsIdentical": true,
+    "customFilesPerSide": 1293,
+    "audioCallbacksPerSide": 1289,
+    "requiredAudioDeclarations": 1281,
+    "actualUniqueAudioAssets": 1281,
+    "originalDllAbsentFromRecoveredSdk": true,
+    "jointRecoveredB0Validated": false,
+    "finalExeIntegrated": false,
+    "scopeNote": "Exact old source/tree retained. Current source has its separate6336-asset dedicated SDK receipt; full Upheaval was not repeated."
+  },
+  "currentChannelScope": {
+    "waveSupported": [
+      1,
+      2,
+      4,
+      6
+    ],
+    "aiffAifcSupported": [
+      1,
+      2,
+      4,
+      6
+    ],
+    "adp4Supported": [
+      1,
+      2
+    ],
+    "multichannelImplemented": true,
+    "multichannelSdkValidated": true,
+    "rejectedChannelCounts": [
+      3,
+      5,
+      8
+    ],
+    "waveOutputToInputMaps": {
+      "4": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "6": [
+        0,
+        2,
+        1,
+        4,
+        5,
+        3
+      ]
+    },
+    "nextGroup": null,
+    "nextOriginalProbe": {
+      "sourceCommit": "0d744a716df7b487816dc0fadf4f12dc82c5b66c",
+      "runId": "40251368891",
+      "attempt": 1,
+      "cases": 192,
+      "processes": 384,
+      "candidateValidated": false,
+      "sdkValidated": false,
+      "audit": "../../audio/multichannel-aiff-original-audit.json",
+      "aiffAifcOutputToInput": "identity",
+      "adp4AboveStereo": "Original native importer rejects; not missing recovery capability",
+      "historicalOriginalOnlyEvidence": true
+    },
+    "aiffAifcOutputToInputMaps": {
+      "4": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "6": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  "previousPcBoundaryValidation": {
+    "status": "passed",
+    "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
+    "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
+    "runId": "40244825458",
+    "attempt": 1,
+    "supportedPlatforms": [
+      "Win32"
+    ],
+    "sdkStarted": true,
+    "observedSuccessfulSteps": [
+      "loop metadata and optional metadata and signed COMM marker range",
+      "bounded SSND offset",
+      "MPEG complete boundary group",
+      "complete affected PC plugin regressions and source build"
+    ],
+    "sdkPassed": true,
+    "sdkAssets": 1820,
+    "sdkActualCalls": 1820,
+    "sdkProducts": 4,
+    "sdkCustomFiles": 1820,
+    "originalDllAbsentFromRecoveredSdk": true,
+    "loopRecordsPerConfiguration": 4224,
+    "optionalLoopRecordsPerConfiguration": 3888,
+    "markerRangeRecordsPerConfiguration": 7776,
+    "offsetRecordsPerConfiguration": 2704,
+    "mpegRecordsPerConfiguration": 1084,
+    "receiptCommit": "3bf0cfb83fe59a9f5e012a40f5f431d9b87c1891",
+    "receipts": [
+      "loop-metadata-validation/40244825458-1/validation.json",
+      "loop-optional-validation/40244825458-1/validation.json",
+      "marker-range-validation/40244825458-1/validation.json",
+      "ssnd-offset-validation/40244825458-1/validation.json",
+      "mpeg-boundary-validation/40244825458-1/validation.json",
+      "plugin-validation/40244825458-1/validation.json",
+      "aifc-validation/40244825458-1/validation.json",
+      "adp4-plugin-validation/40244825458-1/validation.json",
+      "ssnd-block-validation/40244825458-1/validation.json",
+      "standalone-build-validation/40244825458-1/validation.json",
+      "sdk-validation/40244825458-1/validation.json"
+    ],
+    "mpegNativeHeaderRecords": 32783,
+    "mpegNativeIdentifierRecords": 441,
+    "mpegNativeInfoRecords": 324,
+    "mpegNativeContainerRecords": 72,
+    "identificationBoundaryChecks": 15
+  },
+  "previousWholeSourceBuild": {
+    "status": "passed",
+    "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
+    "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
+    "runId": "40244825458",
+    "attempt": 1,
+    "receipt": "standalone-build-validation/40244825458-1/validation.json",
+    "sdkStarted": false,
+    "scope": "Whole project Debug/Release source build; SDK receipt separate"
+  },
+  "fullUpheavalCurrentSourceRerun": false,
+  "originAudioBranch": "recovery/audio-compiler-source",
+  "centralization": {
+    "requestedByUser": true,
+    "destinationBranch": "recovery/audio-compiler-source",
+    "sourceHeads": {
+      "recovery/audio-compiler-source": "3a00bbc19171ad7c279707073603abf41770d785",
+      "integration/audio-win32-sdk": "4b61ebacf3d9ab6a771db76baaa7f7b7ea0a4034",
+      "validation/audio-upheaval-win32": "99acaa5f24bca8541ecae43d146ba0ef2428feb0",
+      "preparation/audio-aiff-multichannel": "ccd0cc84ec27c2fee06ef189e4c47bc5723e5a7f"
+    },
+    "additionalOriginalBranchEvidenceRun": "40250230722",
+    "codeAndTestsUnchangedFromAcceptedValidation": true,
+    "oldPrClosedWithoutMerge": true
+  },
+  "previousWaveMultichannelValidation": {
+    "status": "passed",
+    "sourceCommit": "ed1a7bcbec4a7a89d08369b9668129c8c554f8ec",
+    "sourceTree": "a8e47a2e737ca7e35a486ec17e5eaaa913c8678e",
+    "runId": "40250750964",
+    "attempt": 1,
+    "supportedPlatforms": [
+      "Win32"
+    ],
+    "scope": "WAVE4/6 complete capability group and affected regressions; AIFF/AIFC remains mono/stereo",
+    "configurations": [
+      "Debug",
+      "Release"
+    ],
+    "multichannelRecordsPerConfiguration": 1728,
+    "pluginMatchingRecordsPerConfiguration": 3826,
+    "singleFrameSafetyRefusalsPerConfiguration": 8,
+    "refusalsPerConfiguration": 36,
+    "directOriginalCasesPerConfiguration": 64,
+    "directEncoderComparisonsPerConfiguration": 128,
+    "directInvalidChannelRefusalsPerConfiguration": 15,
+    "sdkStarted": true,
+    "sdkPassed": true,
+    "sdkProfile": "create-multichannel",
+    "sdkAssets": 1728,
+    "sdkActualCallsPerSide": 1728,
+    "sdkCustomFilesPerSide": 1728,
+    "sdkProducts": 4,
+    "originalDllAbsentFromRecoveredSdk": true,
+    "receiptCommit": "7eba9f108008ae424b18d10f56bdbcb6ff5487fd",
+    "receipts": [
+      "multichannel-validation/40250750964-1/validation.json",
+      "aifc-validation/40250750964-1/validation.json",
+      "adp4-plugin-validation/40250750964-1/validation.json",
+      "ssnd-block-validation/40250750964-1/validation.json",
+      "loop-metadata-validation/40250750964-1/validation.json",
+      "loop-optional-validation/40250750964-1/validation.json",
+      "marker-range-validation/40250750964-1/validation.json",
+      "ssnd-offset-validation/40250750964-1/validation.json",
+      "xas-precision-validation/40250750964-1/validation.json",
+      "pcm-validation/40250750964-1/validation.json",
+      "xas-validation/40250750964-1/validation.json",
+      "standalone-build-validation/40250750964-1/validation.json",
+      "sdk-validation/40250750964-1/validation.json"
+    ],
+    "reusedUnchangedMpegEvidence": {
+      "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
+      "runId": "40244825458",
+      "reason": "MpegPassthrough and its tests unchanged; this group changes PCM channel admission/remapping only"
+    }
+  },
+  "previousWaveWholeSourceBuild": {
+    "status": "passed",
+    "sourceCommit": "ed1a7bcbec4a7a89d08369b9668129c8c554f8ec",
+    "runAttempt": "1",
+    "modCompiled": false,
+    "scope": "Whole recovered AudioCompiler source project builds only",
+    "sourceTree": "a8e47a2e737ca7e35a486ec17e5eaaa913c8678e",
+    "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+    "modes": [
+      {
+        "log": "Debug-build.log",
+        "configuration": "Debug",
+        "passed": true,
+        "libraryBytes": 60416,
+        "librarySha256": "c8bd7b6f21a7423133eb3f002911312e1e640e89fa308985353a24da7f62c452"
+      },
+      {
+        "log": "Release-build.log",
+        "configuration": "Release",
+        "passed": true,
+        "libraryBytes": 55296,
+        "librarySha256": "366eb6f6cbcb4587be49e4d1eb03eb0ea49274a55998499b0113ca5d72639f9f"
+      }
+    ],
+    "sdkStarted": false,
+    "supportedPlatforms": [
+      "Win32"
+    ],
+    "runId": "40250750964",
+    "receipt": "standalone-build-validation/40250750964-1/validation.json"
+  },
+  "pcManagedCompilerRecoveryComplete": true,
+  "completeDllRecoveredNote": "PC managed compiler functionality accepted within documented input/safety boundaries; original mixed-mode native pointer-helper binary ABI is not a deliverable.",
+  "documentedLimits": [
+    "Original mixed-mode pointer-helper binary ABI is not promised",
+    "Undefined native reads, partial AIFF marker pairs and unaudited malformed containers remain explicit limits",
+    "Non-PC platforms and ADP4 above stereo are excluded; original native importer rejects the latter"
+  ]
+}

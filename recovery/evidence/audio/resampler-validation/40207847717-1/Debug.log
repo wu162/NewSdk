@@ -1,0 +1,1 @@
+PASS candidate native resampler bit differential: 48 source, 16 complex filter, 96 derivative, 18 coefficient, 80 whole kernel fixtures; five safety rejections; original DLL not loaded

@@ -1,0 +1,107 @@
+[
+  {
+    "sha256": "040ddca1bc32ea90a719c13590d244789548f71f3fd7c55254d96b3f3543ce88",
+    "bytes": 16494,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aiff-loop.aiff"
+  },
+  {
+    "sha256": "92cb99680a4c53eed3421a1ef22bf5f5d4b49aa8410f231447e2ca72765b44d3",
+    "bytes": 12314,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\extensible.wav"
+  },
+  {
+    "sha256": "21999a2a44d448e13093e023d38f188536ffe0198d5bde0b57e18f7aaffc2437",
+    "bytes": 8218,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\generated.aiff"
+  },
+  {
+    "sha256": "545f598ed2418cad8ece1d61589b200e4ee9dac51cb76f4d46989d7d594e3fa8",
+    "bytes": 12290,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\generated24.wav"
+  },
+  {
+    "sha256": "3e721343523bda2ba74c7580554a6e328d631a7ed39ef71df834e75577daa140",
+    "bytes": 84,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\headers.h"
+  },
+  {
+    "sha256": "e8abe02b9c47d03c2ccbe7d39c57d6695036fb9c5658f4367aa161f046ad6432",
+    "bytes": 8304,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\loop.wav"
+  },
+  {
+    "sha256": "52f36400ab95737b023b64e728edf75d010c2cfb1a959392105a91b6d86742ab",
+    "bytes": 7,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\map.mpf"
+  },
+  {
+    "sha256": "9488860d6fea90bbcecabfad73d7578c72b4469d2c27a37b0b720e6c43003d26",
+    "bytes": 1462,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\probe.mp3"
+  },
+  {
+    "sha256": "dfd0001cc6559c53469f867d2a6320a64ce4d72d1466c185bb4278f7295aa9d7",
+    "bytes": 16428,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\probe.wav"
+  },
+  {
+    "sha256": "3c3d422ab85c68cb8234bff926e89b13a31e885622e4a76f749b1e45bb3b7b80",
+    "bytes": 8922,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\real-0.wav"
+  },
+  {
+    "sha256": "951882eebd5b20395a3e8fdfa6ea3d50c5f7e049db9746ff07f3171e92d5fe77",
+    "bytes": 169602,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\real-1.wav"
+  },
+  {
+    "sha256": "f03c8efd8a76f42c3562dff6f8ac05eb70c261088c9df8a39ef3eee79eef27d5",
+    "bytes": 302,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\sdk-resample-0.wav"
+  },
+  {
+    "sha256": "749f06720909494ecc30311f427a27d92b34506c473c5d8874fd9848209673be",
+    "bytes": 16496,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\sdk-resample-1.wav"
+  },
+  {
+    "sha256": "271f7bd5154dbea04ed331ac5d7d91d914c04e87f4cce96b3c669058cb9ca611",
+    "bytes": 12400,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\sdk-resample-2.wav"
+  },
+  {
+    "sha256": "321dada6ded881967b4992fa7762b6e685ad4ec910520dabb4c16a20d20bab3e",
+    "bytes": 568,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\sdk-resample-3.aiff"
+  },
+  {
+    "sha256": "5da0dad727c29237de1492eeb397ad26e28044224485159ecf44f4f79ff7654a",
+    "bytes": 8302,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\sdk-resample-4.aiff"
+  },
+  {
+    "sha256": "7964c2ec8200016a8e213d9e81852a84f5491c218a25d7d76f4bc8da55a88ab6",
+    "bytes": 24686,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\sdk-resample-5.aiff"
+  },
+  {
+    "sha256": "ab249059a20423f52cb497742689208b98752c8f632a8f3fd9897e94d00c75da",
+    "bytes": 7,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\track.mus"
+  },
+  {
+    "sha256": "dfd0001cc6559c53469f867d2a6320a64ce4d72d1466c185bb4278f7295aa9d7",
+    "bytes": 16428,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\music\\default.wav"
+  },
+  {
+    "sha256": "dfd0001cc6559c53469f867d2a6320a64ce4d72d1466c185bb4278f7295aa9d7",
+    "bytes": 16428,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\sounds\\default.wav"
+  },
+  {
+    "sha256": "b25fe42dc078d0a185892e2abc3857ee3254548cabe8f638f17a9cd41041a589",
+    "bytes": 5017,
+    "path": "Mods\\AudioRecoveryProbe\\Data\\Mod.xml"
+  }
+]

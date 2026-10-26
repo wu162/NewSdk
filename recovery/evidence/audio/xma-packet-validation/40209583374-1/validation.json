@@ -1,0 +1,14 @@
+{
+  "modes": [],
+  "sourceCommit": "e1505719c669c91a7be5d2090bae5a1f85f23929",
+  "error": "Original bounded integer packet oracle generation failed",
+  "runAttempt": "1",
+  "rawCodecPackets": 0,
+  "scope": "Bounded integer XMA packet helpers only, original real CPU and candidate exact-byte comparison",
+  "audioFileXmaRouteEnabled": false,
+  "xmaEncoderRecovered": false,
+  "status": "failed",
+  "runId": "40209583374",
+  "sdkValidated": false,
+  "realEaBlocks": 8
+}

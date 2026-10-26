@@ -1,0 +1,40 @@
+{
+  "audioFileXmaRouteEnabled": false,
+  "actualEncoderStates": 92,
+  "originalCpuValidated": true,
+  "runId": "40236621021",
+  "oracleSha256": "433493687ce2d6e0f2fc9f0dfdf2c7de5ccff364e86b6ed2832b9389a36b8cc2",
+  "headerStates": 63,
+  "baselineRunId": "40233712043",
+  "syntheticStateRecords": 0,
+  "modes": [
+    {
+      "actualEncoderStates": 92,
+      "passed": true,
+      "recoveredSha256": "9dc31869563da27d4e47a230e6e164c9f732f722fb6bdeca2a7dbd1d77ca3524",
+      "configuration": "Debug",
+      "summary": "PASS candidate actual raw packet states: 92 exact observations (header=63,next=29,padding=0); raw packets/scalars match original entry-return snapshots; no bitsplice-state or full encoder acceptance",
+      "originalAbsentFromRecoveredHost": true
+    },
+    {
+      "actualEncoderStates": 92,
+      "passed": true,
+      "recoveredSha256": "64bc1740f9f75b9ae7645dc4f35f9c35bd45a3ab4578e1bf375c4583ca0fa4fc",
+      "configuration": "Release",
+      "summary": "PASS candidate actual raw packet states: 92 exact observations (header=63,next=29,padding=0); raw packets/scalars match original entry-return snapshots; no bitsplice-state or full encoder acceptance",
+      "originalAbsentFromRecoveredHost": true
+    }
+  ],
+  "originalCodecAllocationsUnchanged": true,
+  "sourceCommit": "93ba818ef53b6eb23a94a2f847409aadb31f4c44",
+  "xmaEncoderRecovered": false,
+  "runAttempt": "1",
+  "baselineSourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
+  "baselineRunAttempt": "1",
+  "sdkValidated": false,
+  "baselineCorpusSha256": "279065158435be5efae267ef7f8ce995dd36e08e3ba33a6d4d82463d4ef7b3ad",
+  "paddingStates": 0,
+  "scope": "Actual raw XMA packet helper entry-return states from two accepted long corpus encodes; isolated candidate replay",
+  "nextPacketStates": 29,
+  "status": "passed"
+}

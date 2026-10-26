@@ -1,0 +1,105 @@
+name: Audio PC boundary milestone
+on:
+  push:
+    branches: [recovery/audio-compiler-source]
+    paths:
+      - '.github/workflows/audio-boundary-validation.yml'
+      - 'src/AudioCompiler/**'
+      - 'recovery/scripts/TestAudio*.ps1'
+      - 'recovery/tests/Audio*.cs'
+permissions:
+  contents: write
+concurrency:
+  group: audio-boundary-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    if: contains(github.event.head_commit.message, '[audio-input-boundary]') || contains(github.event.head_commit.message, '[audio-input-loop-original]') || contains(github.event.head_commit.message, '[audio-input-offset-original]') || contains(github.event.head_commit.message, '[audio-input-mpeg-original]')
+    runs-on: windows-2022
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: actions/setup-python@v5
+        if: contains(github.event.head_commit.message, '[audio-input-boundary]')
+        with:
+          python-version: '3.12'
+      - name: Install original MPEG header oracle dependencies
+        if: contains(github.event.head_commit.message, '[audio-input-boundary]')
+        shell: pwsh
+        run: python -m pip install unicorn==2.1.4 pefile==2024.8.26
+      - name: Compare loop metadata or collect original evidence
+        if: always() && (contains(github.event.head_commit.message, '[audio-input-boundary]') || contains(github.event.head_commit.message, '[audio-input-loop-original]'))
+        shell: pwsh
+        run: |
+          if ('${{ contains(github.event.head_commit.message, '[audio-input-boundary]') }}' -eq 'true') {
+            ./recovery/scripts/TestAudioLoopMetadata.ps1
+            ./recovery/scripts/TestAudioLoopOptionalMetadata.ps1
+            ./recovery/scripts/TestAudioAiffMarkerRange.ps1
+          } else {
+            ./recovery/scripts/TestAudioLoopMetadata.ps1 -OriginalOnly
+          }
+      - name: Compare bounded SSND offset or collect original evidence
+        if: always() && (contains(github.event.head_commit.message, '[audio-input-boundary]') || contains(github.event.head_commit.message, '[audio-input-offset-original]'))
+        shell: pwsh
+        run: |
+          if ('${{ contains(github.event.head_commit.message, '[audio-input-boundary]') }}' -eq 'true') {
+            ./recovery/scripts/TestAudioAiffOffset.ps1
+          } else {
+            ./recovery/scripts/TestAudioAiffOffset.ps1 -OriginalOnly
+          }
+      - name: Compare MPEG boundary or collect original evidence
+        if: always() && (contains(github.event.head_commit.message, '[audio-input-boundary]') || contains(github.event.head_commit.message, '[audio-input-mpeg-original]'))
+        shell: pwsh
+        run: |
+          if ('${{ contains(github.event.head_commit.message, '[audio-input-boundary]') }}' -eq 'true') {
+            ./recovery/scripts/TestAudioMpegBoundary.ps1
+          } else {
+            ./recovery/scripts/TestAudioMpegBoundary.ps1 -OriginalOnly
+          }
+      - name: Complete affected PC plugin regressions
+        if: always() && contains(github.event.head_commit.message, '[audio-input-boundary]')
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestAudioPlugin.ps1 -IncludeMp3 -Groups @('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops','resample-full')
+          ./recovery/scripts/TestAudioAifc.ps1 -SkipSdk
+          ./recovery/scripts/TestAudioAdp4Plugin.ps1
+          ./recovery/scripts/TestAudioAiffSsnd.ps1 -SkipLoopRegression
+          ./recovery/scripts/BuildAudioSource.ps1
+      - name: Dedicated real SDK PC input milestone
+        if: success() && (contains(github.event.head_commit.message, '[audio-sdk-inputs]') || contains(github.event.head_commit.message, '[audio-sdk-markers]')) && contains(github.event.head_commit.message, '[audio-input-boundary]')
+        shell: pwsh
+        run: |
+          if ('${{ contains(github.event.head_commit.message, '[audio-sdk-markers]') }}' -eq 'true') {
+            ./recovery/scripts/TestAudioSdk.ps1 -MarkerRangeOnly
+          } else {
+            ./recovery/scripts/TestAudioSdk.ps1 -PcInputsOnly
+          }
+      - name: Upload exact batch evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audio-boundary-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          path: recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Preserve exact batch evidence
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          $paths = @(Get-ChildItem recovery/evidence/audio -Directory | ForEach-Object { Join-Path $_.FullName "$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" } | Where-Object { Test-Path $_ })
+          if ($paths.Count -eq 0) { throw 'No selected boundary evidence was produced' }
+          git add -- $paths
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { exit 0 }
+          if ($LASTEXITCODE -ne 1) { throw 'Evidence diff failed' }
+          git commit -m "audio: preserve PC boundary milestone evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent changes require resolution; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact retained' }

@@ -1,0 +1,30 @@
+{
+  "nativeHandlersValidated": false,
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "runId": "40241451234",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "scope": "AudioCatalog only: original plugin metadata functions versus recovered catalog",
+  "platforms": [
+    0
+  ],
+  "sourceCommit": "376243310ad44a164c7ac29b100e5489c5d93928",
+  "pluginLifecycleValidated": false,
+  "modes": [
+    {
+      "records": 12311,
+      "transcriptSha256": "8dc89b2004143001ac3141d60899bc09a75910b89371ce06816482c55feb9731",
+      "mode": "Debug",
+      "recoveredSha256": "784463ffe294fe576ccf8be7d039f48003bca125544210ba14a1f2f9f0196e77",
+      "succeeded": true
+    },
+    {
+      "records": 12311,
+      "transcriptSha256": "8dc89b2004143001ac3141d60899bc09a75910b89371ce06816482c55feb9731",
+      "mode": "Release",
+      "recoveredSha256": "ddb493253f7ef4fdb8a29a37cc58d424b2b14be05c9e9981c682a4c08d368a02",
+      "succeeded": true
+    }
+  ],
+  "originalAbsentFromRecoveredHost": true
+}

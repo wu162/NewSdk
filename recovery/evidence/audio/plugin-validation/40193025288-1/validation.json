@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "runId": "40193025288",
+  "scope": "PathMusic map/track/event ProcessInstance/direct-handler component differential; MP3 original evidence only",
+  "configurations": [
+    {
+      "records": 95,
+      "configuration": "Debug",
+      "recoveredSha256": "e6224a457de7a5db57b958ef8d292f6ad3741485ddc1b3fd5cf461739e70fa80",
+      "transcriptSha256": "7ee88830e136bfecba9c1be59a8ef937f0d2357c03ae97c7b00ad963577b49a0",
+      "originalAbsentFromRecoveredHost": true,
+      "passed": true
+    },
+    {
+      "records": 95,
+      "configuration": "Release",
+      "recoveredSha256": "73d09d3c46cdee9698328d5894688ad3055276454c962457c3ed29e9fdb10083",
+      "transcriptSha256": "7ee88830e136bfecba9c1be59a8ef937f0d2357c03ae97c7b00ad963577b49a0",
+      "originalAbsentFromRecoveredHost": true,
+      "passed": true
+    }
+  ],
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "sourceCommit": "ee7c278e7ede19675f5c9fabaa93166f53ae6959",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "nativeAudioFileValidated": false
+}

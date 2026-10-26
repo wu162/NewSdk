@@ -1,0 +1,15 @@
+{
+  "baselineSourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+  "error": "Missing exact x86 C export _SnapshotConfigure",
+  "runAttempt": "1",
+  "tracedCases": 0,
+  "sdkValidated": false,
+  "stage": "compile",
+  "sourceCommit": "5495da2d703ca429434de369f5414cd45e4de819",
+  "baselineRunId": "40232525056",
+  "runId": "40234514000",
+  "callSiteRva": "0x97d97",
+  "status": "failed",
+  "scope": "Real x86 CPU bounded original XMA window inputs",
+  "xmaEncodingRecovered": false
+}

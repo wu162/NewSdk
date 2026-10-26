@@ -1,0 +1,2 @@
+Original CPU window: 512 binary64 values; differences=0; sha256=605c69534025d105b254107d80806e5e6b07bd8feb36ae0de3cadfc6a9813d87
+PASS real original x86 window: 512 binary64 constants, support256 even-index identity, physical FPCW=0x027f

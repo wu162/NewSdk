@@ -1,0 +1,46 @@
+name: Recover AudioCompiler DLL
+on:
+  push:
+    branches: [recovery/audio-compiler-source]
+    paths:
+      - '.github/workflows/audio-compiler-evidence.yml'
+      - 'recovery/scripts/ExtractAudioCompiler.ps1'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: audio-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Extract original mixed-mode assembly evidence
+        shell: pwsh
+        run: ./recovery/scripts/ExtractAudioCompiler.ps1
+      - name: Preserve source and recovery evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audio-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/audio/decompiled
+            recovery/evidence/audio
+      - name: Commit original evidence
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- recovery/evidence/audio/decompiled recovery/evidence/audio
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "audio: preserve original decompilation evidence"
+          if ($LASTEXITCODE -ne 0) { throw 'Source commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent update needs resolution; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Source push failed; artifact retained' }

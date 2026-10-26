@@ -1,0 +1,28 @@
+{
+  "sourceTree": "aaac794cc64e04b9f68e202a53d9ae245f5d6ace",
+  "status": "passed",
+  "modes": [
+    {
+      "librarySha256": "95cacbd3100d2b74b6dd50cacf2b953976433410b4f3f49acfbc810860f5c5d3",
+      "log": "Debug-build.log",
+      "configuration": "Debug",
+      "libraryBytes": 157696,
+      "passed": true
+    },
+    {
+      "librarySha256": "92ba80acc9ba92880da60407481e6cd05a561aa784d2e3ae4b7c1a8329f77618",
+      "log": "Release-build.log",
+      "configuration": "Release",
+      "libraryBytes": 141824,
+      "passed": true
+    }
+  ],
+  "sdkStarted": false,
+  "scope": "Whole recovered AudioCompiler source project builds only",
+  "runAttempt": "1",
+  "xmaEncoderRecovered": false,
+  "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+  "runId": "40237397076",
+  "modCompiled": false,
+  "sourceCommit": "ec1e34657edb8395570d8e325fe81dc8ab762c71"
+}

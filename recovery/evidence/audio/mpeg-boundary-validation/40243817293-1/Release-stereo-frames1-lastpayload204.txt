@@ -1,0 +1,4 @@
+stereo-frames1-lastpayload204:False:False:NULL:CUSTOM:<absent>
+stereo-frames1-lastpayload204:False:True:NULL:CUSTOM:<absent>
+stereo-frames1-lastpayload204:True:False:NULL:CUSTOM:<absent>
+stereo-frames1-lastpayload204:True:True:NULL:CUSTOM:<absent>

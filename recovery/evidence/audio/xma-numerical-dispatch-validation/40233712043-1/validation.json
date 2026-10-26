@@ -1,0 +1,19 @@
+{
+  "actualCallObservations": 111,
+  "callSiteRva": "0x97d97",
+  "nativeExitCode": 0,
+  "acceptedRawCasesMatched": 2,
+  "xmaEncodingRecovered": false,
+  "runId": "40233712043",
+  "scope": "Real x86 CPU original numerical XMA memory-indirect dispatch",
+  "stage": "native-execution",
+  "receiptSha256": "65ce1e22fe3975c6e3414b5235a33d356b9c228294e22398d5765cf19c815e34",
+  "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
+  "status": "original-evidence-only",
+  "sdkValidated": false,
+  "receipt": "numerical-dispatch.json",
+  "runAttempt": "1",
+  "baselineSourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+  "tracedCases": 2,
+  "baselineRunId": "40232525056"
+}
