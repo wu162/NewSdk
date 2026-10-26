@@ -31,6 +31,7 @@ try {
         $resources = @(@{path=(Join-Path $root 'recovery/src/Managed/Core/BinaryAssetBuilderProject.xsd');logicalName='BinaryAssetBuilderProject.xsd'})
     } else {
         if (!$FoundationDirectory) { throw 'Supply -FoundationDirectory from BuildManagedFoundation.ps1, or explicitly select -Minimal' }
+        $FoundationDirectory = (Resolve-Path $FoundationDirectory).Path
         $foundation = (Resolve-Path "$FoundationDirectory/Managed.Foundation.netmodule").Path
         $resources = @(Get-Content "$FoundationDirectory/resources.json" -Raw | ConvertFrom-Json)
     }
@@ -49,12 +50,13 @@ try {
     $opt = if ($Configuration -eq 'Debug') { '/Od' } else { '/O2' }
     $objects = @()
     foreach ($source in @('recovery/src/Native/Relocation.cpp','recovery/src/Native/ScalarParsing.cpp','recovery/src/Native/ArmorTemplate.cpp',"$work/ArmorCompiler.cpp")) {
+        $source = (Resolve-Path $source).Path
         $object = Join-Path $work ([IO.Path]::GetFileNameWithoutExtension($source) + '.obj')
         Invoke-Checked 'cl.exe' @('/nologo','/c','/clr','/MD','/EHa',$opt,'/fp:precise',"/AI$([IO.Path]::GetDirectoryName($foundation))","/Fo$object",$source) "$out/$([IO.Path]::GetFileNameWithoutExtension($source))-build.log"
         $objects += $object
     }
     $module = Join-Path $work 'Managed.Application.netmodule'
-    $modulePlatform = if($Minimal){'/platform:anycpu'}else{'/platform:x86'}
+    $modulePlatform = '/platform:anycpu'
     $applicationArgs = @('/nologo','/codepage:65001','/target:module',$modulePlatform,$managedOpt,"/addmodule:$foundation,$($objects[-1])",'/r:System.Xml.dll','/r:System.Core.dll',"/out:$module",(Resolve-Path 'recovery/probes/SingleExe/Probe.cs').Path)
     $applicationCsc = $csc
     if (!$Minimal) {
@@ -63,6 +65,7 @@ try {
         $packageRoot = ($packageLine -replace '^global-packages:\s*','').Trim()
         $applicationCsc = Join-Path $packageRoot 'microsoft.net.compilers.toolset/4.0.1/tasks/net472/csc.exe'
         if(!(Test-Path $applicationCsc)){throw 'Roslyn 4.0.1 compiler is required for full application module'}
+        $applicationCsc = (Resolve-Path $applicationCsc).Path
         $framework = Join-Path ${env:ProgramFiles(x86)} 'Reference Assemblies/Microsoft/Framework/.NETFramework/v4.8'
         $applicationArgs = @($applicationArgs | Where-Object { $_ -notin @('/r:System.Xml.dll','/r:System.Core.dll') })
         $applicationArgs += @('/noconfig','/nostdlib+','/langversion:10.0')
@@ -86,13 +89,20 @@ try {
         Copy-Item 'SDK/tools/antlr.runtime.dll' $bin
         Copy-Item (Join-Path $FoundationDirectory 'Foundation.types.txt') $bin
         $metadataTool=Join-Path $root 'recovery/build/ManagedMetadata/bin/Release/net8.0/ManagedMetadata.dll'
+        $beforeMetadataAudit = (Get-FileHash "$bin/NewModCompiler.exe" -Algorithm SHA256).Hash
         Invoke-Checked 'dotnet' @($metadataTool,'verify-linked',"$bin/NewModCompiler.exe",(Join-Path $root 'SDK/tools/BinaryAssetBuilder.Utility.dll')) "$out/linked-metadata.log"
+        if((Get-FileHash "$bin/NewModCompiler.exe" -Algorithm SHA256).Hash -cne $beforeMetadataAudit){throw 'Read-only final metadata audit changed the mixed executable'}
     }
-    # Only EXE, configuration and full Foundation's declared ANTLR dependency enter the run directory.
+    $sourcePaths = @('recovery/src/Native/Relocation.cpp','recovery/src/Native/Relocation.h','recovery/src/Native/ScalarParsing.cpp','recovery/src/Native/ScalarParsing.h','recovery/src/Native/ArmorTemplate.cpp','recovery/src/Native/ArmorTemplate.h','recovery/src/Bridge/ArmorCompiler.cpp','recovery/src/Bridge/XmlNodeAdapter.h','recovery/probes/SingleExe/Probe.cs')
+    if (!$Minimal) {
+        $sourcePaths += @('recovery/build/ManagedValidation/ManagedFoundationValidation.cs','recovery/probes/TextureRedirect/TextureProbe.cs')
+        $sourcePaths += @(Get-ChildItem 'recovery/src/App' -Recurse -Filter *.cs -File | Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' } | ForEach-Object { [IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/') })
+    }
+    # Foundation.types.txt is test-only inventory, not a product runtime dependency.
     @{
         sourceCommit=(git rev-parse HEAD).Trim(); configuration=$Configuration
-        toolchain=@{clPath=(Get-Command cl.exe).Source;clVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command cl.exe).Source).FileVersion;linkPath=(Get-Command link.exe).Source;linkVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command link.exe).Source).FileVersion;applicationCscPath=$applicationCsc;cscPath=$csc;cscVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo($csc).FileVersion;vcToolsVersion=$env:VCToolsVersion;sdkVersion=$env:WindowsSDKVersion;fp='precise';platform='x86';intermediateModulePlatform=if($Minimal){'AnyCPU'}else{'x86'}}
-        sourceFiles=@(@('recovery/src/Native/Relocation.cpp','recovery/src/Native/Relocation.h','recovery/src/Native/ScalarParsing.cpp','recovery/src/Native/ScalarParsing.h','recovery/src/Native/ArmorTemplate.cpp','recovery/src/Native/ArmorTemplate.h','recovery/src/Bridge/ArmorCompiler.cpp','recovery/src/Bridge/XmlNodeAdapter.h','recovery/probes/SingleExe/Probe.cs') | ForEach-Object { @{path=$_;sha256=(Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant()} })
+        toolchain=@{clPath=(Get-Command cl.exe).Source;clVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command cl.exe).Source).FileVersion;linkPath=(Get-Command link.exe).Source;linkVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command link.exe).Source).FileVersion;applicationCscPath=$applicationCsc;applicationCscVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo($applicationCsc).FileVersion;cscPath=$csc;cscVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo($csc).FileVersion;vcToolsVersion=$env:VCToolsVersion;sdkVersion=$env:WindowsSDKVersion;fp='precise';platform='x86';intermediateModulePlatform='AnyCPU'}
+        sourceFiles=@($sourcePaths | Sort-Object -Unique | ForEach-Object { @{path=$_;sha256=(Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant()} })
         scope=if($Minimal){'minimal link probe: real AssetBuffer, Hash, Armor CompileXml; not full G1'}else{'Foundation plus real Armor bridge unified-link probe'}
         foundationSha256=(Get-FileHash $foundation -Algorithm SHA256).Hash.ToLowerInvariant()
         bridgeSourceSha256=(Get-FileHash 'recovery/src/Bridge/ArmorCompiler.cpp' -Algorithm SHA256).Hash.ToLowerInvariant()

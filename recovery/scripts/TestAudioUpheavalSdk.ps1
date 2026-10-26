@@ -57,7 +57,7 @@ try {
     $state.tentativeAudioDeclarations=$tentativeAudio.Count
     $state.audioCoverageBasis=$closure.semantics
     $state.inputClosure=$closure
-    dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release -o $build -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/library-build.log"
+    dotnet build recovery/src/Managed/Audio/BinaryAssetBuilder.AudioCompiler.csproj -c Release -o $build -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/library-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/library-build.log" -Tail 60; throw 'Recovered audio build failed' }
     Copy-Item "$build/Recovered.AudioCompiler.dll" "$sdk/tools"
     $state.recoveredSha256=(Get-FileHash "$sdk/tools/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant()

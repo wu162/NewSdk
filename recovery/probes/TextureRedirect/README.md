@@ -40,8 +40,8 @@ assemblies are generated.
 
 The valid fixture is a deterministic uncompressed 256² BGRA TGA.
 Texture/OnDemand negatives use missing files; Terrain uses a known-invalid
-512² tile because the original DLL returns normally for a missing terrain tile. It must first
-be proven valid in A; it is not an existing SDK acceptance fixture. This component
+512² tile because the original DLL returns normally for a missing terrain tile.
+All expected successes must first pass A; these are generated component fixtures. This component
 probe does not exercise XSD/preprocessing and cannot replace the real SDK input
 and routing portion of G2. G2 is complete only after all these requirements and
 C pass on the actual final EXE. `-RequireComplete` fails if C cannot run; the default

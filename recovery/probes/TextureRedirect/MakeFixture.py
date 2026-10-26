@@ -1,4 +1,4 @@
-"""Deterministic 256x256 uncompressed top-left BGRA TGA fixture, no SDK assets."""
+"""Deterministic 256/512-square uncompressed top-left BGRA TGA fixture, no SDK assets."""
 import pathlib
 import struct
 import sys

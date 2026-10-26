@@ -40,3 +40,18 @@ is added. Full managed metadata validation, G2 and SDK acceptance each retain
 separate evidence; a minimal-probe pass is never a full-G1 pass.
 
 Reference: Microsoft Learn, [`.netmodule` files as linker input](https://learn.microsoft.com/en-us/cpp/build/reference/netmodule-files-as-linker-input?view=msvc-170).
+
+The intermediate C# modules intentionally use `AnyCPU`; `link.exe /MACHINE:X86`
+still fixes the final executable to x86. On the recorded VS 2022 toolchain,
+`/platform:x86` module input fails with LNK1302, while the same real source using
+AnyCPU modules passes Debug/Release linking and all 610 transcript rows. No
+unsafe-code marker or IL safety flag is removed. See
+`recovery/evidence/refactor/g1/link-route-decision.json` and the fixed run receipt.
+
+To leave the tested EXEs available for the following G2 C step:
+
+```powershell
+./recovery/scripts/TestSingleExeProbe.ps1 -OutputDirectory recovery/evidence/refactor/g1/full-local -FoundationDirectory recovery/artifacts/refactor-foundation -BuildDirectory recovery/artifacts/refactor-link
+# Reuses already-built Debug/Release Foundation modules. The following path is fixed:
+# recovery/artifacts/refactor-link/Release/bin/NewModCompiler.exe
+```

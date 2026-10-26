@@ -1,6 +1,12 @@
 # AudioCompiler 当前状态
 
-2026-10-26。分支 `recovery/audio-compiler-source`；源码 `src/AudioCompiler`；仅PC/Win32。
+音频工作流使用 `contents: read`，保留全部构建、差分、真实 SDK 断言与产物上传。
+每次运行的证据保存在对应 Actions artifact；工作流不再自动提交或推送仓库。
+需要将证据长期登记到源码分支时，由主代理核对具体 run/sourceCommit 和文件后回收。
+音频目录迁移会因工程 HintPath 修正改变源码树哈希；历史验收指纹不改写。
+旧 Upheaval 里程碑的严格树匹配在新树尚未正式验收时会拒绝复用，不能作为新树通过证明。
+
+2026-10-26。分支 `recovery/audio-compiler-source`；源码 `recovery/src/Managed/Audio`；仅PC/Win32。
 约定PC编译功能范围已完成，组件及真实SDK已验收，待PR审查。合入仍须用户明确批准。
 生产源码不加载原AudioCompiler；原DLL只作测试oracle。仓库SDK/tools/config未替换。
 
@@ -25,7 +31,7 @@ D/R各6336项完整三缓冲区/CustomData差分；独立源序/窗口/marker及
 | MP3透传 |七帧识别、EOF终止、MPEG头信息及有界容器优先级；原文件逐字节复制；原SIMEX_info不解PCM|
 
 工程net472、无签名；Core仍引用SDK基线。
-`dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release`。
+`dotnet build recovery/src/Managed/Audio/BinaryAssetBuilder.AudioCompiler.csproj -c Release`。
 不承诺原混合模式C++指针helper二进制ABI。最终EXE整合、重构和非PC平台不在本任务范围。
 约定范围内无剩余实现待办。
 

@@ -15,9 +15,9 @@ if($LASTEXITCODE -ne 0){Get-Content "$out/oracle-build.log";throw 'PCM oracle bu
 if($LASTEXITCODE -ne 0){Get-Content "$out/block-frames-oracle-build.log";throw 'Block-size oracle build failed'}
 $modes=@()
 $evidenceFile = if ($Codec -eq 'XAS') { 'xas-original.txt' } else { 'pcm-original.txt' }
-$sources = @((Resolve-Path src/AudioCompiler/Native/Pcm16Encoder.cs).Path)
+$sources = @((Resolve-Path recovery/src/Managed/Audio/Native/Pcm16Encoder.cs).Path)
 if ($Codec -eq 'XAS') {
- $sources += (Resolve-Path src/AudioCompiler/Native/Xas1Encoder.cs).Path
+ $sources += (Resolve-Path recovery/src/Managed/Audio/Native/Xas1Encoder.cs).Path
  & $csc /nologo /platform:x86 /r:System.Core.dll /out:"$work/AudioXasBlockOracle.exe" (Resolve-Path recovery/tests/AudioXasBlockOracle.cs).Path *> "$out/block-oracle-build.log"
  if ($LASTEXITCODE -ne 0) { Get-Content "$out/block-oracle-build.log"; throw 'XAS block oracle build failed' }
 }

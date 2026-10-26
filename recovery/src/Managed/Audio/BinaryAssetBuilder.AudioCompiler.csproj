@@ -9,7 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BinaryAssetBuilder.Core">
-      <HintPath>../../SDK/tools/BinaryAssetBuilder.Core.dll</HintPath>
+      <HintPath>../../../../SDK/tools/BinaryAssetBuilder.Core.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

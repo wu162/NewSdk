@@ -20,7 +20,7 @@ try {
  foreach($mode in @('Debug','Release')) {
   $opt=if($mode -eq 'Release'){'/optimize+'}else{'/optimize-'}
   $library=Join-Path $work "Recovered.Audio.XasPrecision.$mode.dll"
-  & $csc /nologo /target:library /platform:x86 $opt /out:"$library" (Resolve-Path src/AudioCompiler/Native/Pcm16Encoder.cs).Path (Resolve-Path src/AudioCompiler/Native/Xas1Encoder.cs).Path *> "$out/$mode-build.log"
+  & $csc /nologo /target:library /platform:x86 $opt /out:"$library" (Resolve-Path recovery/src/Managed/Audio/Native/Pcm16Encoder.cs).Path (Resolve-Path recovery/src/Managed/Audio/Native/Xas1Encoder.cs).Path *> "$out/$mode-build.log"
   if($LASTEXITCODE -ne 0){Get-Content "$out/$mode-build.log";throw "$mode XAS precision build failed"}
   & "$work/AudioXasBlockOracle.exe" $library $oracleInput precision *> "$out/$mode.log"
   if($LASTEXITCODE -ne 0){Get-Content "$out/$mode.log";throw "$mode XAS precision differential failed"}

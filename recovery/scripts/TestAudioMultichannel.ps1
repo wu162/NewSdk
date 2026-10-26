@@ -22,7 +22,7 @@ try {
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/direct-build.log"; throw 'Direct multichannel oracle build failed' }
     foreach ($mode in @('Debug','Release')) {
         $build=Join-Path $env:RUNNER_TEMP ('audio-multichannel-boundary-'+$mode+'-'+[Guid]::NewGuid().ToString('N'))
-        dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c $mode -o $build -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/$mode-boundary-library.log"
+        dotnet build recovery/src/Managed/Audio/BinaryAssetBuilder.AudioCompiler.csproj -c $mode -o $build -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/$mode-boundary-library.log"
         if ($LASTEXITCODE -ne 0) { throw "$mode refusal library build failed" }
         & $hostExe "$build/Recovered.AudioCompiler.dll" "$out/boundary-inputs" *> "$out/$mode-boundaries.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-boundaries.log"; throw "$mode multichannel refusal boundaries failed" }

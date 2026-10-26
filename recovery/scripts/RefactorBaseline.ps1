@@ -218,4 +218,5 @@ finally{
  $env:RA3_RECOVERED_GAMEOBJECT_TRACE=$null
  $env:RECOVERED_W3X_TRACE_DIRECTORY=$null
  $result|ConvertTo-Json -Depth 12|Set-Content "$report/validation.json"
+ Set-Location $harnessRoot
 }

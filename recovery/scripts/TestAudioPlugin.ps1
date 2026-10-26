@@ -53,10 +53,10 @@ try {
         $candidate = Join-Path $work $mode; New-Item -ItemType Directory $candidate | Out-Null
         Get-ChildItem SDK/tools -Filter '*.dll' | Where-Object Name -ne 'BinaryAssetBuilder.AudioCompiler.dll' | Copy-Item -Destination $candidate
         $library = Join-Path $candidate 'Recovered.AudioCompiler.dll'
-        $sources = @(Get-ChildItem src/AudioCompiler -Filter '*.cs' -Recurse | Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' } | ForEach-Object FullName)
+        $sources = @(Get-ChildItem recovery/src/Managed/Audio -Filter '*.cs' -Recurse | Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' } | ForEach-Object FullName)
         if ($sources.Count -lt 2) { throw 'Recovered AudioCompiler implementation is missing' }
         $optimize = if ($mode -eq 'Release') { '/optimize+' } else { '/optimize-' }
-        & dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj --configuration $mode --output $candidate -p:AssemblyName=Recovered.AudioCompiler *> "$out/$mode-build.log"
+        & dotnet build recovery/src/Managed/Audio/BinaryAssetBuilder.AudioCompiler.csproj --configuration $mode --output $candidate -p:AssemblyName=Recovered.AudioCompiler *> "$out/$mode-build.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log"; throw "$mode AudioCompiler build failed" }
         Copy-Item "$original/AudioPluginOracle.exe*" $candidate
         Copy-Item "$original/AudioExcludedPlatformOracle.exe" $candidate

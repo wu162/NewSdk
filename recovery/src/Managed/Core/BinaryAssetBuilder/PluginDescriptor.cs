@@ -9,6 +9,17 @@ namespace BinaryAssetBuilder;
 public class PluginDescriptor
 {
 	private IAssetBuilderPluginBase _Plugin;
+#if NEWSdk_MONOLITHIC
+    private Func<IAssetBuilderPluginBase> _Factory;
+
+    // Factory injection is explicit: old targetType strings cannot load old
+    // compiler assemblies into the production process.
+    public static PluginDescriptor CreateBuiltin(string assetTypes, bool useBuildCache, Func<IAssetBuilderPluginBase> factory)
+    {
+        if(factory == null) throw new ArgumentNullException(nameof(factory));
+        return new PluginDescriptor { Enabled=true, AssetTypes=assetTypes, UseBuildCache=useBuildCache, _Factory=factory };
+    }
+#endif
 
 	private List<uint> _HandledTypes = new List<uint>();
 
@@ -99,12 +110,17 @@ public class PluginDescriptor
 		{
 			return;
 		}
+#if NEWSdk_MONOLITHIC
+        if (_Factory == null) throw new ApplicationException("A built-in factory is required for plugin '" + _TargetType + "'. Legacy targetType loading is unsupported.");
+        _Plugin = _Factory();
+#else
 		Type type = Type.GetType(_TargetType);
 		if (type == null)
 		{
 			throw new ApplicationException($"'{_TargetType}' not found");
 		}
 		_Plugin = Activator.CreateInstance(type) as IAssetBuilderPluginBase;
+#endif
 		if (_Plugin == null)
 		{
 			throw new ApplicationException($"'{_TargetType}' does not implement IAssetBuilderPluginBase");

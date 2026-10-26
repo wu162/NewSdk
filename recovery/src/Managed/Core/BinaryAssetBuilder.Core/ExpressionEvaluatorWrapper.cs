@@ -1,3 +1,17 @@
+#if NEWSdk_MONOLITHIC
+namespace BinaryAssetBuilder.Core;
+
+// Compatibility method name retained for DocumentProcessor; all production
+// binding is direct and cannot silently disable expressions on loader failure.
+public class ExpressionEvaluatorWrapper
+{
+    public static void LoadAssembly() { }
+    public static IExpressionEvaluator GetEvaluator(AssetDeclarationDocument document)
+    {
+        return new BinaryAssetBuilder.ExpressionEval.ExpressionEvaluator(document);
+    }
+}
+#else
 using System;
 using System.Reflection;
 
@@ -40,3 +54,5 @@ public class ExpressionEvaluatorWrapper
 		return null;
 	}
 }
+
+#endif

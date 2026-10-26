@@ -9,7 +9,7 @@
     "recovery/src/Managed/MvpXml",
     "recovery/src/Managed/ExpressionEval",
     "recovery/src/Managed/GameDataVerifier",
-    "src/AudioCompiler"
+    "recovery/src/Managed/Audio"
   ],
   "excludedFileNames": [
     "AssemblyInfo.cs",

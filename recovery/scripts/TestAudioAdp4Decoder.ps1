@@ -23,7 +23,7 @@ try {
     foreach ($mode in @('Debug','Release')) {
         $opt = if ($mode -eq 'Release') { '/optimize+' } else { '/optimize-' }
         $library = Join-Path $work "Recovered.Adp4.$mode.dll"
-        & $csc /nologo /target:library /platform:x86 $opt /out:"$library" (Resolve-Path src/AudioCompiler/Native/Adp4Decoder.cs).Path *> "$out/$mode-build.log"
+        & $csc /nologo /target:library /platform:x86 $opt /out:"$library" (Resolve-Path recovery/src/Managed/Audio/Native/Adp4Decoder.cs).Path *> "$out/$mode-build.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log"; throw "$mode ADP4 decoder build failed" }
         & "$work/AudioAdp4DecoderOracle.exe" candidate $library "$out/original.tsv.gz" *> "$out/$mode.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode.log"; throw "$mode ADP4 decoder differs" }

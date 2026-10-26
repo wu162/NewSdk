@@ -44,6 +44,22 @@ namespace NewSdk.BuildValidation
             var rm=new ResourceManager("Mvp.Xml.XInclude.SR",own);
             Require(!string.IsNullOrEmpty(rm.GetString("AttributeOrNamespaceInIncludeLocationError",CultureInfo.InvariantCulture)),"XInclude resource lookup failed");
             Require(own.GetTypes().Where(t=>t.Namespace=="Mvp.Xml.Exslt").SelectMany(t=>t.GetMethods(BindingFlags.Public|BindingFlags.Instance|BindingFlags.Static|BindingFlags.DeclaredOnly)).Count(m=>m.Name.Contains("-"))==51,"EXSLT alias count changed");
+            var exsltType=own.GetType("Mvp.Xml.Exslt.ExsltStrings",true);
+            var decode=exsltType.GetMethod("decode-uri",new[]{typeof(string)});
+            Require(decode!=null && (string)decode.Invoke(Activator.CreateInstance(exsltType),new object[]{"a%20b"})=="a b","Restored EXSLT CLR alias is not callable");
+            var includeDirectory=Path.Combine(Path.GetTempPath(),"NewSdk XInclude 中文 "+Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(includeDirectory);
+            try {
+                File.WriteAllText(Path.Combine(includeDirectory,"included.xml"),"<item>merged</item>");
+                var sourcePath=Path.Combine(includeDirectory,"source.xml");
+                File.WriteAllText(sourcePath,"<root xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='included.xml'/></root>");
+                var merged=new XmlDocument();
+                using(var reader=new Mvp.Xml.XInclude.XIncludingReader(sourcePath)) {
+                    reader.XmlResolver=new XmlUrlResolver();
+                    merged.Load(reader);
+                }
+                Require(merged.DocumentElement.InnerText=="merged","XInclude stopped resolving relative resource paths");
+            } finally {Directory.Delete(includeDirectory,true);}
             Require(own.GetType("BinaryAssetBuilder.Utility.StructWrapper<AssetStream::ManifestHeader>")!=null,"Utility C++ type name lost");
             var before=CultureInfo.CurrentCulture;
             try {

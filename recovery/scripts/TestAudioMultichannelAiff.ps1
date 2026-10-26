@@ -5,7 +5,7 @@ if (!$env:GITHUB_RUN_ID -or !$env:GITHUB_RUN_ATTEMPT) { throw 'AIFF milestone re
 $out="recovery/evidence/audio/multichannel-aiff-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 if (Test-Path $out) { throw 'Refusing to overwrite AIFF evidence' }
 New-Item -ItemType Directory $out -Force | Out-Null; $out=(Resolve-Path $out).Path
-$state=@{sourceCommit=(git rev-parse HEAD).Trim();sourceTree=(git rev-parse HEAD:src/AudioCompiler).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;baselineAssets=1728;commAssets=3456;offsetAssets=1152;expectedAssets=6336;configurations=@()}
+$state=@{sourceCommit=(git rev-parse HEAD).Trim();sourceTree=(git rev-parse HEAD:recovery/src/Managed/Audio).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;baselineAssets=1728;commAssets=3456;offsetAssets=1152;expectedAssets=6336;configurations=@()}
 try {
     & "$PSScriptRoot/TestAudioPlugin.ps1" -OutputDirectory "$out/plugin" -Groups @('multichannel-aiff')
     $plugin=Get-Content "$out/plugin/validation.json" -Raw | ConvertFrom-Json
@@ -17,7 +17,7 @@ try {
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/reader-build.log"; throw 'AIFF reader oracle build failed' }
     foreach ($mode in @('Debug','Release')) {
         $build=Join-Path $env:RUNNER_TEMP ('audio-multichannel-aiff-'+$mode+'-'+[Guid]::NewGuid().ToString('N'))
-        dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c $mode -o $build -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/$mode-library.log"
+        dotnet build recovery/src/Managed/Audio/BinaryAssetBuilder.AudioCompiler.csproj -c $mode -o $build -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/$mode-library.log"
         if ($LASTEXITCODE -ne 0) { throw "$mode AIFF reader library build failed" }
         & "$out/AudioMultichannelAiffReaderOracle.exe" "$build/Recovered.AudioCompiler.dll" "$out/reader-inputs" *> "$out/$mode-reader.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-reader.log"; throw "$mode AIFF reader boundaries failed" }

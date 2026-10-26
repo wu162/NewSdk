@@ -15,7 +15,11 @@ public class SerializedSectionHandler : IConfigurationSectionHandler
 			throw new ConfigurationErrorsException("Serialized type not specified.", section);
 		}
 		string value = xmlAttribute.Value;
-		Type type = Type.GetType(value, throwOnError: false);
+		#if NEWSdk_MONOLITHIC
+        Type type = ResolveBuiltInType(value);
+#else
+        Type type = Type.GetType(value, throwOnError: false);
+#endif
 		if (type == null)
 		{
 			throw new ConfigurationErrorsException("Serialized type not found or can not be instantiated");
@@ -44,4 +48,23 @@ public class SerializedSectionHandler : IConfigurationSectionHandler
 			throw new ConfigurationErrorsException("XML parsing error", inner);
 		}
 	}
+#if NEWSdk_MONOLITHIC
+    private static Type ResolveBuiltInType(string value)
+    {
+        // Existing SDK settings may name the former Core identity. Resolve this
+        // one known settings contract locally; never call Type.GetType(oldName).
+        var separator=value.IndexOf(',');
+        var typeName=(separator<0?value:value.Substring(0,separator)).Trim();
+        if(typeName != typeof(Settings).FullName) return null;
+        if(separator>=0) {
+            System.Reflection.AssemblyName identity;
+            try { identity=new System.Reflection.AssemblyName(value.Substring(separator+1).Trim()); }
+            catch(ArgumentException) { return null; }
+            catch(System.IO.FileLoadException) { return null; }
+            var name=identity.Name;
+            if(name != "BinaryAssetBuilder.Core" && name != typeof(Settings).Assembly.GetName().Name) return null;
+        }
+        return typeof(Settings);
+    }
+#endif
 }

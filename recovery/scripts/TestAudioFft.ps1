@@ -29,7 +29,7 @@ try {
  foreach($mode in @('Debug','Release')) {
   $opt=if($mode -eq 'Release'){'/optimize+'}else{'/optimize-'}
   $library=Join-Path $work "Recovered.Audio.Fft.$mode.dll"
-  & $csc /nologo /target:library /platform:x86 $opt /out:"$library" (Resolve-Path src/AudioCompiler/Native/ResamplerFft.cs).Path *> "$out/$mode-build.log"
+  & $csc /nologo /target:library /platform:x86 $opt /out:"$library" (Resolve-Path recovery/src/Managed/Audio/Native/ResamplerFft.cs).Path *> "$out/$mode-build.log"
   if($LASTEXITCODE -ne 0){Get-Content "$out/$mode-build.log";throw "$mode FFT source build failed"}
   & "$work/AudioResamplerFftOracle.exe" $library $oracleInput *> "$out/$mode.log"
   if($LASTEXITCODE -ne 0){Get-Content "$out/$mode.log";throw "$mode FFT differs from original machine code"}

@@ -1,0 +1,61 @@
+{
+  "scope": "Only seven audio workflows changed for source migration. All test/run commands, job names, and artifacts structurally compared to HEAD with migration path replacement; only repository writer steps removed.",
+  "workflows": [
+    {
+      "workflow": ".github/workflows/audio-boundary-validation.yml",
+      "validationRunStepsPreserved": 6,
+      "artifactUploadStepsPreserved": 1,
+      "removedRepositoryWriterSteps": 1,
+      "permissions": "contents:read",
+      "checkoutCredentialsPersisted": false
+    },
+    {
+      "workflow": ".github/workflows/audio-compiler-validation.yml",
+      "validationRunStepsPreserved": 7,
+      "artifactUploadStepsPreserved": 1,
+      "removedRepositoryWriterSteps": 1,
+      "permissions": "contents:read",
+      "checkoutCredentialsPersisted": false
+    },
+    {
+      "workflow": ".github/workflows/audio-input-validation.yml",
+      "validationRunStepsPreserved": 10,
+      "artifactUploadStepsPreserved": 1,
+      "removedRepositoryWriterSteps": 1,
+      "permissions": "contents:read",
+      "checkoutCredentialsPersisted": false
+    },
+    {
+      "workflow": ".github/workflows/audio-multichannel-aiff-validation.yml",
+      "validationRunStepsPreserved": 4,
+      "artifactUploadStepsPreserved": 1,
+      "removedRepositoryWriterSteps": 1,
+      "permissions": "contents:read",
+      "checkoutCredentialsPersisted": false
+    },
+    {
+      "workflow": ".github/workflows/audio-multichannel-validation.yml",
+      "validationRunStepsPreserved": 5,
+      "artifactUploadStepsPreserved": 2,
+      "removedRepositoryWriterSteps": 2,
+      "permissions": "contents:read",
+      "checkoutCredentialsPersisted": false
+    },
+    {
+      "workflow": ".github/workflows/audio-resampler-kernel.yml",
+      "validationRunStepsPreserved": 2,
+      "artifactUploadStepsPreserved": 2,
+      "removedRepositoryWriterSteps": 1,
+      "permissions": "contents:read",
+      "checkoutCredentialsPersisted": false
+    },
+    {
+      "workflow": ".github/workflows/audio-upheaval-validation.yml",
+      "validationRunStepsPreserved": 2,
+      "artifactUploadStepsPreserved": 1,
+      "removedRepositoryWriterSteps": 1,
+      "permissions": "contents:read",
+      "checkoutCredentialsPersisted": false
+    }
+  ]
+}

@@ -4,11 +4,11 @@ on:
     branches: [recovery/audio-compiler-source]
     paths:
       - '.github/workflows/audio-boundary-validation.yml'
-      - 'src/AudioCompiler/**'
+      - 'recovery/src/Managed/Audio/**'
       - 'recovery/scripts/TestAudio*.ps1'
       - 'recovery/tests/Audio*.cs'
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: audio-boundary-${{ github.ref }}
   cancel-in-progress: false
@@ -19,6 +19,8 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -84,22 +86,3 @@ jobs:
           name: audio-boundary-${{ github.run_id }}-${{ github.run_attempt }}
           if-no-files-found: error
           path: recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}
-      - name: Preserve exact batch evidence
-        if: always()
-        shell: pwsh
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          $paths = @(Get-ChildItem recovery/evidence/audio -Directory | ForEach-Object { Join-Path $_.FullName "$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" } | Where-Object { Test-Path $_ })
-          if ($paths.Count -eq 0) { throw 'No selected boundary evidence was produced' }
-          git add -- $paths
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
-          git diff --cached --quiet
-          if ($LASTEXITCODE -eq 0) { exit 0 }
-          if ($LASTEXITCODE -ne 1) { throw 'Evidence diff failed' }
-          git commit -m "audio: preserve PC boundary milestone evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
-          git pull --rebase origin $env:GITHUB_REF_NAME
-          if ($LASTEXITCODE -ne 0) { throw 'Concurrent changes require resolution; artifact retained' }
-          git push origin "HEAD:$env:GITHUB_REF_NAME"
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact retained' }

@@ -29,7 +29,7 @@ $files=@(foreach($sourceRoot in $manifest.sourceRoots){
 if($files.Count -lt 200){throw 'Foundation source inventory is unexpectedly incomplete'}
 $module=Join-Path $out $manifest.moduleName
 $opt=if($Configuration -eq 'Release'){'/optimize+'}else{'/optimize-'}
-$arguments=@('/nologo','/noconfig','/nostdlib+','/target:module','/platform:anycpu','/langversion:10.0','/unsafe+','/deterministic+', $opt, ('/define:'+$manifest.define), ('/out:"'+$module+'"'))
+$arguments=@('/nologo','/codepage:65001','/noconfig','/nostdlib+','/target:module','/platform:anycpu','/langversion:10.0','/unsafe+','/deterministic+', $opt, ('/define:'+$manifest.define), ('/out:"'+$module+'"'))
 $arguments+=@($manifest.frameworkReferences|ForEach-Object {'/reference:"'+(Join-Path $framework ($_+'.dll'))+'"'})
 $arguments+='/reference:"'+(Join-Path $root 'SDK/tools/antlr.runtime.dll')+'"'
 $arguments+=@($files|ForEach-Object {'"'+$_.FullName+'"'})

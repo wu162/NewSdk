@@ -1,13 +1,14 @@
 # Managed Foundation integration
 
-Prepared for P3; production source patch must only be applied after the pre-refactor G0 run passes.
-`Managed.SourceChanges.patch` applies conditional production bindings under `NEWSdk_MONOLITHIC`;
-existing library projects do not define it and remain available for the isolated legacy oracle.
+G0 run `40269297741` completed the SDK comparison before these production changes.
+Production bindings compile under `NEWSdk_MONOLITHIC`; existing library projects do not
+define it and remain available for the isolated legacy oracle. Windows full Foundation
+validation is tracked separately; do not infer success from the G0 baseline.
 
 `BuildManagedFoundation.ps1` compiles the manifest's full source closure with Roslyn 4.0.1, C# 10,
 .NET Framework 4.8 reference assemblies, AnyCPU build-time IL module, deterministic output, and only `antlr.runtime` as a
 business AssemblyRef. It excludes duplicate AssemblyInfo and old GUI classes. Core's ShPath UI
-helper is conditionally excluded in the production source patch. EALABuild/Remote are not inputs.
+helper is conditionally excluded in the production build. EALABuild/Remote are not inputs.
 No decompiled directory or original implementation DLL is compiled into the module. Final MSVC
 link and test host remain strictly x86. G1 minimal run `40269733403` at `fafc306` proved
 AnyCPU intermediate modules avoid LNK1302 without altering unsafe attributes or IL; Debug and
@@ -22,7 +23,7 @@ original public/family flags, signature modifiers, and 51 EXSLT CLR names. Origi
 as a contract oracle, never copied into the output. The tool rejects unexpected AssemblyRefs and
 never writes the final mixed executable.
 
-The conditional source patch directly constructs the expression evaluator, resolves the one known
+The conditional production source directly constructs the expression evaluator, resolves the one known
 Settings serializedType into the current assembly, and requires explicit factories for production
 PluginDescriptor initialization. `BuiltinManagedPlugins` exposes the recovered audio and verifier
 factories; native compiler registration belongs to P4. Legacy targetType strings cannot silently
@@ -42,6 +43,7 @@ Existing full component differentials remain separate required evidence for
 behavior affected by changed implementation, ABI or registration. A module test does not replace
 real SDK pipeline acceptance.
 
-Current audio source root is still `src/AudioCompiler`. Once G0 succeeds, move it to
-`recovery/src/Managed/Audio`, update the project HintPath and active script/workflow/source-tree
-references while preserving historical receipt paths and hashes, then update this manifest.
+Audio source is now `recovery/src/Managed/Audio`; its standalone project retains the isolated
+Core oracle reference at the corrected relative path. Active script inputs, workflow path
+filters and future source-tree receipts follow the new path. Historical sourceCommit/tree
+hashes and historical evidence files retain their old path and have not been rewritten.

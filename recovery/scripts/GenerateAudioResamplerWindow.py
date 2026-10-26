@@ -82,7 +82,7 @@ def extract(dll):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--dll', default='SDK/tools/BinaryAssetBuilder.AudioCompiler.dll')
-    parser.add_argument('--source', default='src/AudioCompiler/Native/ResamplerCoefficients.cs')
+    parser.add_argument('--source', default='recovery/src/Managed/Audio/Native/ResamplerCoefficients.cs')
     parser.add_argument('--output', help='Optional raw emulator little-endian binary64 output file; not a native CPU reference')
     args = parser.parse_args()
     result = extract(args.dll)

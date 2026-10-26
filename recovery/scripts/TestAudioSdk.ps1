@@ -10,8 +10,8 @@ $work=Join-Path $env:RUNNER_TEMP ('audio-sdk-'+[Guid]::NewGuid().ToString('N'));
 New-Item -ItemType Directory $build -Force|Out-Null
 Copy-Item SDK $sdk -Recurse
 $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe";$core=Join-Path $sdk 'tools/BinaryAssetBuilder.Core.dll'
-$sources=@(Get-ChildItem src/AudioCompiler -Recurse -Filter '*.cs'|Where-Object{$_.FullName -notmatch '[\\/](bin|obj)[\\/]'}|ForEach-Object FullName)
-dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release -o $build -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/library-build.log"
+$sources=@(Get-ChildItem recovery/src/Managed/Audio -Recurse -Filter '*.cs'|Where-Object{$_.FullName -notmatch '[\\/](bin|obj)[\\/]'}|ForEach-Object FullName)
+dotnet build recovery/src/Managed/Audio/BinaryAssetBuilder.AudioCompiler.csproj -c Release -o $build -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/library-build.log"
 if($LASTEXITCODE -ne 0){Get-Content "$out/library-build.log" -Tail 60;throw 'Recovered audio SDK library build failed'}
 & $csc /nologo /target:library /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$sdk/tools/AudioSdkProbe.dll" (Resolve-Path recovery/tests/AudioSdkTracingPlugin.cs).Path *> "$out/tracer-build.log"
 if($LASTEXITCODE -ne 0){Get-Content "$out/tracer-build.log";throw 'SDK tracing adapter build failed'}

@@ -12,10 +12,60 @@ on:
       - 'recovery/scripts/*ManagedFoundation.ps1'
       - 'recovery/scripts/*App.ps1'
       - 'recovery/scripts/TestTextureRedirect.ps1'
+      - 'recovery/scripts/ConfirmRefactorBaseline.ps1'
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 jobs:
+  baseline-receipt:
+    if: contains(github.event.head_commit.message, '[refactor-full]') || contains(github.event.head_commit.message, '[refactor-baseline-receipt]')
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: refactor-baseline-40269297741-1
+          run-id: 40269297741
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: baseline-receipt
+      - shell: pwsh
+        run: ./recovery/scripts/ConfirmRefactorBaseline.ps1 -EvidenceDirectory baseline-receipt
+  full-foundation:
+    if: contains(github.event.head_commit.message, '[refactor-full]')
+    needs: baseline-receipt
+    runs-on: windows-2022
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Managed implementations, resource bytes and IL metadata
+        shell: pwsh
+        run: ./recovery/scripts/TestManagedFoundation.ps1 -FoundationDirectory recovery/artifacts/refactor-foundation
+      - name: Complete Foundation and real Armor in isolated final x86 EXE
+        shell: pwsh
+        run: ./recovery/scripts/TestSingleExeProbe.ps1 -OutputDirectory "recovery/evidence/refactor/g1-full/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -FoundationDirectory recovery/artifacts/refactor-foundation -BuildDirectory recovery/artifacts/refactor-link
+      - name: Texture original, roundtrip and EXE-bound processing
+        shell: pwsh
+        run: |
+          python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
+          if($LASTEXITCODE -ne 0){throw 'PE audit dependencies failed'}
+          ./recovery/scripts/TestTextureRedirect.ps1 -OutputDirectory "recovery/evidence/refactor/g2-full/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TargetExe recovery/artifacts/refactor-link/Release/bin/NewModCompiler.exe -RequireComplete
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-full-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
   app-contract:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]') || contains(github.event.head_commit.message, '[refactor-app]')
     runs-on: windows-2022

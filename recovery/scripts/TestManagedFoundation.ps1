@@ -24,7 +24,7 @@ try {
         # proves the MSVC link consumes the physical modules into one executable.
         $main="$work/Main.cs"
         'class Program { static int Main() { NewSdk.BuildValidation.ManagedFoundationValidation.Run(false); return 0; } }'|Set-Content $main
-        $compilerArguments=@('/nologo','/noconfig','/target:exe','/platform:x86','/langversion:10.0',('/out:'+$hostPath),('/addmodule:'+$work+'/Managed.Foundation.netmodule'),('/reference:'+$framework+'/System.Core.dll'),('/reference:'+$framework+'/System.Xml.dll'),('/reference:'+$framework+'/System.Configuration.dll'))
+        $compilerArguments=@('/nologo','/codepage:65001','/noconfig','/target:exe','/platform:x86','/langversion:10.0',('/out:'+$hostPath),('/addmodule:'+$work+'/Managed.Foundation.netmodule'),('/reference:'+$framework+'/System.Core.dll'),('/reference:'+$framework+'/System.Xml.dll'),('/reference:'+$framework+'/System.Configuration.dll'))
         foreach($resource in (Get-Content "$work/resources.json" -Raw|ConvertFrom-Json)){$compilerArguments+='/resource:'+$resource.path+','+$resource.logicalName}
         $compilerArguments+="$root/recovery/build/ManagedValidation/ManagedFoundationValidation.cs"
         $compilerArguments+=$main

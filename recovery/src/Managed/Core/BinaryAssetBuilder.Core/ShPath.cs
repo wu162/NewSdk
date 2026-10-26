@@ -2,7 +2,9 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+#if !NEWSdk_MONOLITHIC
 using System.Windows.Forms;
+#endif
 
 namespace BinaryAssetBuilder.Core;
 
@@ -258,6 +260,7 @@ public static class ShPath
 		return Shlwapi.PathAppend(path, more);
 	}
 
+#if !NEWSdk_MONOLITHIC
 	public static bool SetControlText(Control control, string path)
 	{
 		StringBuilder stringBuilder = new StringBuilder(path, 260);
@@ -273,6 +276,8 @@ public static class ShPath
 		}
 		return flag;
 	}
+
+#endif
 
 	public static string CompactPath(string path, uint maxLength)
 	{

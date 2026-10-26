@@ -7,7 +7,7 @@ on:
       - 'recovery/scripts/TestAudioUpheavalSdk.ps1'
       - 'recovery/tests/AudioUpheavalClosure.cs'
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: audio-upheaval-${{ github.ref }}
   cancel-in-progress: false
@@ -18,8 +18,11 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           ref: 068643219fded09a05fb7b75c6507b769c430316
           path: upheaval-input
           sparse-checkout: SDK/Mods/Upheaval
@@ -32,7 +35,7 @@ jobs:
           $acceptance = Get-Content recovery/evidence/audio/acceptance-current.json -Raw | ConvertFrom-Json
           $current = $acceptance.currentValidation
           if ($current.status -ne 'passed') { throw 'Current complete component milestone has not passed' }
-          $tree = (git rev-parse HEAD:src/AudioCompiler).Trim()
+          $tree = (git rev-parse HEAD:recovery/src/Managed/Audio).Trim()
           if ($LASTEXITCODE -ne 0 -or $tree -ne $current.sourceTree) { throw 'Audio source changed after component acceptance' }
           $sdk = Get-Content "recovery/evidence/audio/sdk-validation/$($current.runId)-$($current.attempt)/validation.json" -Raw | ConvertFrom-Json
           $profiles = @{'create-marker-range'=1820; 'create-multichannel'=1728; 'create-multichannel-aiff'=6336}
@@ -64,22 +67,3 @@ jobs:
           name: audio-upheaval-${{ github.run_id }}-${{ github.run_attempt }}
           path: recovery/evidence/audio/upheaval-sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}
           if-no-files-found: error
-      - name: Preserve exact milestone evidence
-        if: always()
-        shell: pwsh
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          $path = "recovery/evidence/audio/upheaval-sdk-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          if (!(Test-Path $path)) { throw 'No Upheaval receipt' }
-          git add -- $path
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
-          git diff --cached --quiet
-          if ($LASTEXITCODE -eq 0) { exit 0 }
-          if ($LASTEXITCODE -ne 1) { throw 'Evidence diff failed' }
-          git commit -m "audio: preserve complete Upheaval milestone evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
-          git pull --rebase origin $env:GITHUB_REF_NAME
-          if ($LASTEXITCODE -ne 0) { throw 'Concurrent changes need resolution; artifact retained' }
-          git push origin "HEAD:$env:GITHUB_REF_NAME"
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact retained' }

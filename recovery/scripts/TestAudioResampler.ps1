@@ -29,7 +29,7 @@ try {
  & $csc /nologo /platform:x86 /r:System.Core.dll /out:"$original/AudioNativeWindowOracle.exe" (Resolve-Path recovery/tests/AudioNativeWindowOracle.cs).Path *> "$out/window-oracle-build.log"
  if($LASTEXITCODE -ne 0){Get-Content "$out/window-oracle-build.log";throw 'Original CPU window host build failed'}
  Copy-Item "$original/AudioNativeResamplerOracle.exe.config" "$original/AudioNativeWindowOracle.exe.config"
- & "$original/AudioNativeWindowOracle.exe" "$original/BinaryAssetBuilder.AudioCompiler.dll" (Resolve-Path src/AudioCompiler/Native/ResamplerCoefficients.cs).Path "$out/actual-window.bin" *> "$out/original-window.log"
+ & "$original/AudioNativeWindowOracle.exe" "$original/BinaryAssetBuilder.AudioCompiler.dll" (Resolve-Path recovery/src/Managed/Audio/Native/ResamplerCoefficients.cs).Path "$out/actual-window.bin" *> "$out/original-window.log"
  $windowExitCode=$LASTEXITCODE
  Get-Content "$out/original-window.log"
  $state.windowSourceValidated=($windowExitCode -eq 0)
@@ -46,7 +46,7 @@ try {
  foreach($mode in @('Debug','Release')) {
   $opt=if($mode -eq 'Release'){'/optimize+'}else{'/optimize-'}
   $library=Join-Path $work "Recovered.Audio.Resampler.$mode.dll"
-  $sources=@('ResamplerFft.cs','ResamplerFilter.cs','ResamplerCoefficients.cs','ResamplerScheduler.cs') | ForEach-Object {(Resolve-Path "src/AudioCompiler/Native/$_").Path}
+  $sources=@('ResamplerFft.cs','ResamplerFilter.cs','ResamplerCoefficients.cs','ResamplerScheduler.cs') | ForEach-Object {(Resolve-Path "recovery/src/Managed/Audio/Native/$_").Path}
   & $csc /nologo /target:library /platform:x86 $opt /out:"$library" $sources *> "$out/$mode-build.log"
   if($LASTEXITCODE -ne 0){Get-Content "$out/$mode-build.log";throw "$mode resampler source build failed"}
   & "$work/AudioResamplerKernelOracle.exe" $library $oracleInput *> "$out/$mode.log"

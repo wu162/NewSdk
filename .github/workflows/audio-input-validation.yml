@@ -4,7 +4,7 @@ on:
     branches: [recovery/audio-compiler-source]
     paths:
       - '.github/workflows/audio-input-validation.yml'
-      - 'src/AudioCompiler/**'
+      - 'recovery/src/Managed/Audio/**'
       - 'recovery/scripts/TestAudio*.ps1'
       - 'recovery/scripts/BuildAudioSource.ps1'
       - 'recovery/tests/Audio*.cs'
@@ -18,7 +18,7 @@ on:
         type: choice
         options: [standalone-build, pc-only, formats, formats-sdk, aifc, aifc-sdk, aifc-original, adp4-probe, adp4-decoder, adp4-plugin, ssnd-block]
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: audio-input-${{ github.ref }}
   cancel-in-progress: false
@@ -32,6 +32,8 @@ jobs:
       PUSH_MESSAGE: ${{ github.event_name == 'push' && github.event.head_commit.message || '' }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -138,22 +140,3 @@ jobs:
             recovery/evidence/audio/adp4-plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/ssnd-block-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}
-      - name: Preserve exact run evidence
-        if: always()
-        shell: pwsh
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          $paths = @('input-batch-validation','standalone-build-validation','metadata-validation','plugin-validation','pcm-validation','xas-validation','aifc-validation','adp4-probe','adp4-decoder-validation','adp4-plugin-validation','ssnd-block-validation','sdk-validation') | ForEach-Object { "recovery/evidence/audio/$_/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" } | Where-Object { Test-Path $_ }
-          if ($paths.Count -eq 0) { throw 'No selected run evidence was produced' }
-          git add -- $paths
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
-          git diff --cached --quiet
-          if ($LASTEXITCODE -eq 0) { exit 0 }
-          if ($LASTEXITCODE -ne 1) { throw 'Evidence diff failed' }
-          git commit -m "audio: preserve PC input validation evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
-          git pull --rebase origin $env:GITHUB_REF_NAME
-          if ($LASTEXITCODE -ne 0) { throw 'Concurrent changes require resolution' }
-          git push origin "HEAD:$env:GITHUB_REF_NAME"
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }

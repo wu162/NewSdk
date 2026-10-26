@@ -24,7 +24,7 @@ foreach ($mode in @('Debug', 'Release')) {
     $core = Join-Path $candidate 'BinaryAssetBuilder.Core.dll'
     $library = Join-Path $candidate 'Recovered.Audio.Metadata.dll'
     $optimize = if ($mode -eq 'Release') { '/optimize+' } else { '/optimize-' }
-    & $csc /nologo /target:library /platform:x86 $optimize /r:"$core" /out:"$library" (Resolve-Path 'src/AudioCompiler/AudioCatalog.cs').Path *> "$out/$mode-build.log"
+    & $csc /nologo /target:library /platform:x86 $optimize /r:"$core" /out:"$library" (Resolve-Path 'recovery/src/Managed/Audio/AudioCatalog.cs').Path *> "$out/$mode-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log"; throw "$mode catalog build failed" }
     foreach ($side in @('original', 'recovered')) {
         $directory = if ($side -eq 'original') { $baseline } else { $candidate }

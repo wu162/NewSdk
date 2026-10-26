@@ -4,7 +4,7 @@ on:
     branches: [recovery/audio-compiler-source]
     paths:
       - '.github/workflows/audio-resampler-kernel.yml'
-      - 'src/AudioCompiler/Native/Resampler*.cs'
+      - 'recovery/src/Managed/Audio/Native/Resampler*.cs'
       - 'recovery/scripts/TestAudioResampler.ps1'
       - 'recovery/scripts/GenerateAudioResampler*.py'
       - 'recovery/tests/Audio*Resampler*.cs'
@@ -12,7 +12,7 @@ on:
       - 'SDK/tools/BinaryAssetBuilder.AudioCompiler.dll'
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: audio-resampler-${{ github.ref }}
   cancel-in-progress: false
@@ -22,6 +22,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -40,6 +42,8 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/download-artifact@v4
         with:
           name: audio-resampler-oracle-${{ github.run_id }}-${{ github.run_attempt }}
@@ -52,20 +56,3 @@ jobs:
         with:
           name: audio-resampler-${{ github.run_id }}-${{ github.run_attempt }}
           path: recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}
-      - name: Preserve kernel evidence
-        if: always()
-        shell: pwsh
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- recovery/evidence/audio/resampler-validation
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
-          git diff --cached --quiet
-          if ($LASTEXITCODE -eq 0) { exit 0 }
-          if ($LASTEXITCODE -ne 1) { throw 'Evidence diff failed' }
-          git commit -m "audio: preserve resampler kernel evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
-          git pull --rebase origin $env:GITHUB_REF_NAME
-          if ($LASTEXITCODE -ne 0) { throw 'Concurrent changes require resolution' }
-          git push origin "HEAD:$env:GITHUB_REF_NAME"
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }

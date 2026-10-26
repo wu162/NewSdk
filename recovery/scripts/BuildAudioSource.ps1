@@ -8,11 +8,11 @@ New-Item -ItemType Directory $out -Force|Out-Null
 $out=(Resolve-Path $out).Path
 $work=Join-Path $env:RUNNER_TEMP ('audio-standalone-build-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory $work|Out-Null
-$state=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';scope='Whole recovered AudioCompiler source project builds only';sdkStarted=$false;modCompiled=$false;supportedPlatforms=@('Win32');sourceTree=(git rev-parse HEAD:src/AudioCompiler).Trim();coreReferenceSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.Core.dll).Hash.ToLowerInvariant();modes=@()}
+$state=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';scope='Whole recovered AudioCompiler source project builds only';sdkStarted=$false;modCompiled=$false;supportedPlatforms=@('Win32');sourceTree=(git rev-parse HEAD:recovery/src/Managed/Audio).Trim();coreReferenceSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.Core.dll).Hash.ToLowerInvariant();modes=@()}
 try{
  foreach($mode in @('Debug','Release')){
   $destination=Join-Path $work $mode
-  & dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj --configuration $mode --output $destination --nologo *> "$out/$mode-build.log"
+  & dotnet build recovery/src/Managed/Audio/BinaryAssetBuilder.AudioCompiler.csproj --configuration $mode --output $destination --nologo *> "$out/$mode-build.log"
   if($LASTEXITCODE -ne 0){Get-Content "$out/$mode-build.log" -Tail 80;throw "$mode whole source project build failed"}
   $library=Join-Path $destination 'BinaryAssetBuilder.AudioCompiler.dll'
   if(!(Test-Path $library)){throw "$mode output library missing"}

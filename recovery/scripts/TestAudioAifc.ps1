@@ -28,7 +28,7 @@ try {
     foreach ($mode in @('Debug','Release')) {
         $candidate = Join-Path $work $mode; New-Item -ItemType Directory $candidate | Out-Null
         Get-ChildItem SDK/tools -Filter '*.dll' | Where-Object Name -ne 'BinaryAssetBuilder.AudioCompiler.dll' | Copy-Item -Destination $candidate
-        dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c $mode -o $candidate -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/$mode-build.log"
+        dotnet build recovery/src/Managed/Audio/BinaryAssetBuilder.AudioCompiler.csproj -c $mode -o $candidate -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/$mode-build.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log" -Tail 60; throw "$mode AIFC build failed" }
         Copy-Item "$original/AudioAifcPluginOracle.exe*" $candidate
         Copy-Item "$original/AudioAifcReaderOracle.exe" $candidate
