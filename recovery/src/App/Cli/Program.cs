@@ -23,18 +23,25 @@ namespace NewModCompiler.Cli
                 // Invalidate a previous report before opening any required output channels.
                 Reports.RemoveStale(request.ReportPath);
                 sinks.Add(new JsonLineSink(request.EventsPath)); sinks.Add(new TextLogSink(request.LogPath));
-                using (var events = new EventDispatcher(Guid.NewGuid().ToString("N"),sinks))
-                using (var cancellation = new CancellationTokenSource()) {
-                    ConsoleCancelEventHandler handler = (sender,e) => { e.Cancel=true; cancellation.Cancel(); };
-                    Console.CancelKeyPress += handler;
-                    try { return (int)new BuildSession(request,null,events).Run(cancellation.Token); }
-                    finally { Console.CancelKeyPress -= handler; }
-                }
+                // Transfer ownership so partial-startup cleanup cannot close successful
+                // session sinks a second time after the exit code has been finalized.
+                var ownedSinks=sinks.ToArray(); sinks.Clear();
+                return RunSession(request,ownedSinks);
             } catch (BuildFailure e) { Console.Error.WriteLine(e.Code + ": " + e.Message); return (int)e.ExitCode; }
             catch (IOException e) { Console.Error.WriteLine("OUTPUT_FAILED: " + e.Message); return (int)ExitCode.Output; }
             catch (UnauthorizedAccessException e) { Console.Error.WriteLine("OUTPUT_FAILED: " + e.Message); return (int)ExitCode.Output; }
             catch (Exception e) { Console.Error.WriteLine("INTERNAL_ERROR: " + e); return (int)ExitCode.Internal; }
             finally { foreach (IBuildEventSink sink in sinks) { try { sink.Dispose(); } catch { } } }
+        }
+        internal static int RunSession(BuildRequest request,IEnumerable<IBuildEventSink> sinks)
+        {
+            using (var events = new EventDispatcher(Guid.NewGuid().ToString("N"),sinks))
+            using (var cancellation = new CancellationTokenSource()) {
+                ConsoleCancelEventHandler handler = (sender,e) => { e.Cancel=true; cancellation.Cancel(); };
+                Console.CancelKeyPress += handler;
+                try { return (int)new BuildSession(request,null,events).Run(cancellation.Token); }
+                finally { Console.CancelKeyPress -= handler; }
+            }
         }
     }
 }

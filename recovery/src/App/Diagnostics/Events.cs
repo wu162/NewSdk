@@ -26,13 +26,16 @@ namespace NewModCompiler.Diagnostics
     public sealed class EventDispatcher : IDisposable
     {
         readonly List<IBuildEventSink> sinks; readonly Stopwatch clock = Stopwatch.StartNew();
-        long sequence; bool finished; bool outputFailed;
+        long sequence; bool finished; bool outputFailed; bool disposed;
         public string BuildId { get; private set; }
         public bool OutputFailed { get { return outputFailed; } }
+        public bool CloseFailed { get; private set; }
+        public string CloseFailureMessage { get; private set; }
         public long ElapsedMilliseconds { get { return clock.ElapsedMilliseconds; } }
         public EventDispatcher(string buildId, IEnumerable<IBuildEventSink> sinks) { BuildId = buildId; this.sinks = new List<IBuildEventSink>(sinks); }
         public void Emit(string type, string level = "info", object payload = null, string message = null, string code = null, string streamId = null, string stageId = null)
         {
+            if (disposed) throw new ObjectDisposedException("EventDispatcher");
             if (finished) throw new InvalidOperationException("No event may follow BuildFinished.");
             if (type == "BuildFinished") finished = true;
             var value = new Dictionary<string, object> { {"schemaVersion","1.0"}, {"buildId",BuildId}, {"sequence",++sequence}, {"timestampUtc",DateTime.UtcNow.ToString("o")}, {"elapsedMs",clock.ElapsedMilliseconds}, {"eventType",type}, {"level",level} };
@@ -47,7 +50,15 @@ namespace NewModCompiler.Diagnostics
             try { if (type == "Diagnostic" || type == "BuildFinished") Console.Error.WriteLine("[{0}] {1} {2}",level,code ?? type,message ?? ""); } catch (IOException) { }
             if (failure != null) throw new BuildFailure(ExitCode.Output,"EVENT_WRITE_FAILED",failure.Message);
         }
-        public void Dispose() { foreach (var sink in sinks) { try { sink.Dispose(); } catch { outputFailed = true; } } }
+        public void Dispose()
+        {
+            if (disposed) return;
+            disposed=true;
+            foreach (var sink in sinks) {
+                try { sink.Dispose(); }
+                catch (Exception e) { outputFailed=true; CloseFailed=true; CloseFailureMessage=e.Message; }
+            }
+        }
     }
     public static class Reports
     {

@@ -77,8 +77,21 @@ namespace NewModCompiler.Application
             catch (Exception e) { code=ExitCode.Output; status="failed"; Diagnostic("REPORT_WRITE_FAILED",e.Message); }
             try { events.Emit("BuildFinished",code == ExitCode.Success ? "info" : "error",new {status=status,exitCode=(int)code,reportPath=request.ReportPath},"Build " + status); }
             catch { code=ExitCode.Output; status="failed"; }
-            // If the terminal event fails, keep the report/exit status consistent where storage permits.
-            if ((int)code != Convert.ToInt32(report["exitCode"])) { report["status"]=status; report["exitCode"]=(int)code; try { Reports.WriteAtomic(request.ReportPath,report); } catch { } }
+            // Closing required sinks is part of the controlled outcome, before the caller's
+            // return value is evaluated. A late failure cannot emit a second terminal event.
+            events.Dispose();
+            if (events.OutputFailed) { code=ExitCode.Output; status="failed"; }
+            if (events.CloseFailed) {
+                diagnostics.Add(new {code="EVENT_CLOSE_FAILED",message=events.CloseFailureMessage,level="error"});
+                try { Console.Error.WriteLine("EVENT_CLOSE_FAILED: " + events.CloseFailureMessage); } catch (Exception) { }
+            }
+            // The exit code and durable report must fail even if an earlier terminal event
+            // was written successfully before an unavoidable close/flush failure.
+            if (events.CloseFailed || (int)code != Convert.ToInt32(report["exitCode"])) {
+                report["status"]=status; report["exitCode"]=(int)code;
+                report["diagnosticCounts"]=new {error=diagnostics.Count}; report["elapsedMs"]=events.ElapsedMilliseconds;
+                try { Reports.WriteAtomic(request.ReportPath,report); } catch { code=ExitCode.Output; }
+            }
             return code;
         }
         void StartStage(string id)

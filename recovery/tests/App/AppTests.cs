@@ -44,6 +44,20 @@ namespace NewModCompiler.Tests
             public void Write(IDictionary<string,object> value) { throw new IOException("injected output failure"); }
             public void Dispose() { }
         }
+        sealed class CloseFailureSink : IBuildEventSink
+        {
+            readonly string countPath;
+            public CloseFailureSink(string countPath) { this.countPath=countPath; }
+            public void Write(IDictionary<string,object> value) { }
+            public void Dispose() { File.AppendAllText(countPath,"close\n"); throw new IOException("injected required close failure"); }
+        }
+        static int CloseFailureProcess()
+        {
+            string output=Environment.GetEnvironmentVariable("NEWSDK_APP_CLOSE_OUTPUT");
+            var request=Options.Parse(new [] {"plan","--mod",Environment.GetEnvironmentVariable("NEWSDK_APP_CLOSE_MOD"),"--sdk-root",Environment.GetEnvironmentVariable("NEWSDK_APP_CLOSE_SDK"),"--out",output,"--package-content","base"});
+            Directory.CreateDirectory(output);
+            return Program.RunSession(request,new IBuildEventSink[] {new CloseFailureSink(Path.Combine(output,"close-count.txt")),new JsonLineSink(request.EventsPath),new TextLogSink(request.LogPath)});
+        }
         sealed class Compiler : IStreamCompiler
         {
             public readonly List<string> Calls = new List<string>(); public bool Initialized,Disposed; public string BuildId;
@@ -82,6 +96,7 @@ namespace NewModCompiler.Tests
         public static int Main(string[] args)
         {
             try {
+                if (args.Length==1 && args[0]=="--close-failure-probe") return CloseFailureProcess();
                 root=Path.GetFullPath(args.Length==0 ? Path.Combine(Path.GetTempPath(),"NewModCompiler-App-"+Guid.NewGuid().ToString("N")) : args[0]);
                 if (Directory.Exists(root)) Directory.Delete(root,true); Directory.CreateDirectory(root);
                 mod=Path.Combine(root,"external mods","中文 MOD"); sdk=Path.Combine(root,"SDK"); Directory.CreateDirectory(sdk);
@@ -126,6 +141,20 @@ namespace NewModCompiler.Tests
                 request=Request("base,apt,maps"); Check(Planner.Resolve(request).Skipped.Length==2,"Empty optional sets explicit"); request.Command="build"; compiler=new Compiler(); record=new Recorder(); Check(Run(request,compiler,record)==ExitCode.Success && compiler.Calls.Count==1,"Second MOD no stale streams"); Protocol(request,record,ExitCode.Success);
                 File.Delete(Path.Combine(mod,"Data","Mod.xml")); try { Planner.Resolve(Request("base")); throw new Exception("Missing base accepted"); } catch (BuildFailure e) { Check(e.Code=="PLAN_BASE_MISSING","Missing selected input"); }
                 mod=saved;
+                // Run the same CLI session entry in a real child test process, so the
+                // operating-system exit code is checked after every using/finally closes.
+                string closeOutput=Path.Combine(root,"close-failure");
+                var start=new System.Diagnostics.ProcessStartInfo(System.Reflection.Assembly.GetExecutingAssembly().Location,"--close-failure-probe") {UseShellExecute=false};
+                start.EnvironmentVariables["NEWSDK_APP_CLOSE_MOD"]=mod; start.EnvironmentVariables["NEWSDK_APP_CLOSE_SDK"]=sdk; start.EnvironmentVariables["NEWSDK_APP_CLOSE_OUTPUT"]=closeOutput;
+                using (var process=System.Diagnostics.Process.Start(start)) {
+                    if (!process.WaitForExit(30000)) { process.Kill(); throw new Exception("Close failure probe timed out"); }
+                    Check(process.ExitCode==7,"Required close failure must return OS exit code 7 after CLI disposal");
+                }
+                var closeReport=new JavaScriptSerializer().Deserialize<Dictionary<string,object>>(File.ReadAllText(Path.Combine(closeOutput,"build-report.json")));
+                Check(Convert.ToInt32(closeReport["exitCode"])==7 && (string)closeReport["status"]=="failed","Required close failure rewrites durable report failed/7");
+                Check(new JavaScriptSerializer().Serialize(closeReport["diagnostics"]).Contains("EVENT_CLOSE_FAILED"),"Close failure diagnostic retained in report");
+                Check(File.ReadAllLines(Path.Combine(closeOutput,"build.events.jsonl")).Select(line=>new JavaScriptSerializer().Deserialize<Dictionary<string,object>>(line)).Count(value=>(string)value["eventType"]=="BuildFinished")==1,"Close failure does not emit a second terminal event");
+                Check(File.ReadAllLines(Path.Combine(closeOutput,"close-count.txt")).Length==1,"Dispatcher and CLI ownership dispose each sink once");
                 Console.WriteLine("PASS App contract assertions="+assertions+"; controlled test executor only; no asset compilation claimed."); return 0;
             } catch (Exception e) { Console.Error.WriteLine(e); return 1; }
         }
