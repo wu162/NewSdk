@@ -1,23 +1,12 @@
-> 当前工作入口：[single-exe/README.md](single-exe/README.md)。单EXE重构框架已通过Native AOT静态链接与隔离运行验证，转换算法尚未迁入；下文仍保留原源码CLI基线的构建说明。
+# SWF 编译插件
 
-# SWF 编译项目
+当前目标：将已采用的SWF转换源码实现为**类似XmlCompiler的新编译器插件**，由新编译器宿主加载和调用。宿主形态不受限制；**不再规划独立EXE、CLI或SWF专用测试EXE**。
 
-源码已直接导入：[vendor/swf2apt](vendor/swf2apt)。交接：[RESUME.md](RESUME.md)。来源与验证：[VENDOR.md](VENDOR.md)。
+- 当前交接：[RESUME.md](RESUME.md)
+- 已导入源码：[vendor/swf2apt](vendor/swf2apt)
+- 来源与一致性说明：[VENDOR.md](VENDOR.md)
+- 原工具差分证据：[evidence/source-consistency.json](evidence/source-consistency.json)
 
-已验证提供的CoronaUIMain.swf：普通RA3、RA3优化两种模式下，源码版与附件原始程序集的全部生成文件逐字节相同。当前仍是会生成APT相关文件的原转换器；直接接入MOD编译器、消除中间文件是下一阶段。
+后续先核对XmlCompiler的实际插件契约与宿主技术栈，再建立同级插件。内部整合SwfLib/AptConverter、flasm、triangle、jpeg、zlib，使用内存输入输出，并接入宿主的类型注册、多资产收集、依赖/缓存与AssetBuffer路径。
 
-Windows构建需要.NET8 SDK、.NET8 x86运行时、VS C++工具。无需再次克隆上游：
-
-```powershell
-New-Item -ItemType Directory -Force ui/.work | Out-Null
-Copy-Item ui/verification/DirectCli.xml ui/.work/DirectCli.csproj
-dotnet build ui/.work/DirectCli.csproj -c Release -o ui/.work/direct-cli
-```
-
-原生zlib/flasm构建命令见 `.github/workflows/ui-source-parity.yml` 的Build source optimizer步骤。把 `ui/vendor/swf2apt/Release` 加入PATH后，用.NET8 x86的dotnet执行：
-
-```powershell
-& 'C:/Program Files (x86)/dotnet/dotnet.exe' ui/.work/direct-cli/eaf2apt-source.dll <输入.swf> --ra3 --optimize
-```
-
-完整一致性复验按上述工作流运行，证据保存在 `ui/evidence/source-consistency.json`。正式内存接口后续直接改导入源码；旧memory原型仅保留作历史参考。
+目前原工具源码已导入并通过样例一致性验证；**新的SWF插件尚未实现或集成验证**。`single-exe/` 为已停止采用的历史实验，Native AOT/单文件/x64不再约束正式方案。已有原工具及历史测试材料仅作基线参考。
