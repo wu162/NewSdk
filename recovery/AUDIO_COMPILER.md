@@ -4,6 +4,16 @@
 2026-10-26（北京时间）。非 Win32 在元数据、初始化、直接编译和编码策略入口明确拒绝。
 生产源码不加载原 AudioCompiler；原 DLL 仅作测试 oracle。SDK/tools 原 DLL/config 未替换。
 
+## 本轮新增 WAVE4/6 已验收
+
+源码 `ed1a7bcbec4a7a89d08369b9668129c8c554f8ec`，音频树 `a8e47a2e737ca7e35a486ec17e5eaaa913c8678e`；[运行40250750964](https://github.com/wu162/NewSdk/actions/runs/40250750964) attempt1 **success**，证据提交 `7eba9f108008ae424b18d10f56bdbcb6ff5487fd`。
+
+D/R各1728个WAVE多声道原版差分通过：4/6×8/16/24×WAVE/EXTENSIBLE×PCM/XAS×RAM/stream、127/128/129/4096帧、四采样率、无loop/start0/长intro；全部受影响旧组通过。每配置36拒绝、64个原版公开入口案例/128次直接比较、15个非法声道检查通过。真实SDK同1728组合全部实际回调，四产物、1728份CustomData及三缓冲区一致，恢复侧无原AudioCompiler DLL。仅临时SDK替换，仓库SDK/tools/config不变。
+
+WAVE重排实证：4ch取源[0,1,3,2]，6ch取源[0,2,1,4,5,3]，导入时只执行一次。AIFF/AIFC NONE仍仅1/2声道；其4/6原版探针192案例/384进程已通过并确认保持原序，留下一完整组。ADP4>2在原native也不支持，继续拒绝。
+
+PR [#10](https://github.com/wu162/NewSdk/pull/10)供用户审查；未经用户明确批准不得合并。下面历史SDK保持原source/run，不冒充新源码重跑。
+
 ## 当前验收
 
 - **已通过**：`bb4a225` / [40243817293](https://github.com/wu162/NewSdk/actions/runs/40243817293)。Debug/Release 每配置：loop4224、optional3888、offset2704、MPEG676、旧插件2175、AIFC720、ADP42136、SSND1680；整工程构建通过。MPEG 原机器码32783 header /441 identifier /324 info另有15识别边界。
@@ -20,7 +30,7 @@
 | 范围 | 当前实现 |
 |---|---|
 | 五个 BAB 路由 | PathMusicMap/Track/Event、AudioFileMP3Passthrough、AudioFile；三缓冲区和CustomData |
-| 输入 | mono/stereo PCM8/16/24 WAVE/AIFF；EXTENSIBLE按整数容器位宽；AIFC/NONE及EA raw ADP4（非Apple ima4） |
+| 输入 | WAVE1/2/4/6、AIFF1/2声道 PCM8/16/24；EXTENSIBLE按整数容器位宽；AIFC/NONE及EA raw ADP4（非Apple ima4） |
 | 编码 | NONE/PCM16、XAS v1；RAM/streamed SNR/SNS；filter120重采样，至少两个源帧 |
 | WAVE loop | 原无padding查找的首smpl/首条range；type等被忽略，仍是普通forward loop，非高级pingpong播放 |
 | AIFF/AIFC loop | 多INST/MARK、额外/重复marker；INST-only/空MARK/双端均不匹配为无loop；release忽略；mode0/2无forward loop |
@@ -34,8 +44,10 @@
 
 ## 尚未完成
 
-1. 当前生产仍只支持mono/stereo。原DLL允许1/2/4/6声道的管理层证据已发现；4/6是新确认待恢复的完整能力组，正在隔离原版探针阶段，尚未实现、尚未验收。详见[多声道边界与完整矩阵](audio/MultichannelBoundary.md)。WAVE重排、PCM/XAS、RAM/stream、loop和重采样需按完整能力组验证；不能默认支持3/5/8或多声道ADP4。源码变化后另取新组件/SDK收据，不能复用旧成功冒充新代码通过。
-2. 合入`compiler-source`；合并时保留其通用续接导航。只读核对目标b122a54与已验收测试分支的SDK/shared recovery/src树相同；实际合并前重新读取目标头，保留并发提交。
+1. 下一组为AIFF/AIFC NONE4/6：原版已确认原序，恢复版尚未启用。完整loop/COMM/SSND、重采样、流式分块差分和新SDK仍需完成；见[原生审计与原版实证](audio/MultichannelAiffNativeAudit.md)。多声道ADP4不是缺失功能，原native明确拒绝。
+2. PR[#10](https://github.com/wu162/NewSdk/pull/10)尚未合并。保留compiler-source通用导航、SDK及共享源码；必须由用户明确批准后才能合并。
+
+[音频合入审查](audio/AudioIntegrationReview.md)与[WAVE多声道验收](audio/MultichannelBoundary.md)记录范围和精确证据。
 
 继续明确拒绝：MARK-only原未初始化mode、单端匹配、无效loop范围、结构损坏/marker超限，以及超出SSND的offset。
 尚未界定的畸形容器识别组合不承诺普遍等价。PCM32/IEEE-float、sowt等原路径本就拒绝的格式不是待恢复能力；单帧ADP4/import-resample原未初始化行为保持安全拒绝。

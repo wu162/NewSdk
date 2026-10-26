@@ -35,7 +35,16 @@ jobs:
           $tree = (git rev-parse HEAD:src/AudioCompiler).Trim()
           if ($LASTEXITCODE -ne 0 -or $tree -ne $current.sourceTree) { throw 'Audio source changed after component acceptance' }
           $sdk = Get-Content "recovery/evidence/audio/sdk-validation/$($current.runId)-$($current.attempt)/validation.json" -Raw | ConvertFrom-Json
-          if (!$sdk.succeeded -or $sdk.sourceCommit -ne $current.sourceCommit -or $sdk.profile -ne 'create-marker-range' -or $sdk.expectedAssets -ne 1820) { throw 'New COMM/MPEG SDK milestone is missing or incomplete' }
+          $profiles = @{'create-marker-range'=1820; 'create-multichannel'=1728}
+          $profile = if ($current.sdkProfile) { $current.sdkProfile } else { 'create-marker-range' }
+          if (!$profiles.ContainsKey($profile)) { throw 'Unregistered accepted SDK profile' }
+          if (!$sdk.succeeded -or $sdk.status -ne 'passed' -or $sdk.sourceCommit -ne $current.sourceCommit -or $sdk.runId -ne $current.runId -or $sdk.runAttempt -ne $current.attempt -or $sdk.profile -ne $profile -or $sdk.expectedAssets -ne $profiles[$profile] -or $current.sdkAssets -ne $profiles[$profile]) { throw 'Exact accepted SDK milestone is missing or incomplete' }
+          $build = Get-Content "recovery/evidence/audio/standalone-build-validation/$($current.runId)-$($current.attempt)/validation.json" -Raw | ConvertFrom-Json
+          if ($build.status -ne 'passed' -or $build.sourceCommit -ne $current.sourceCommit -or $build.sourceTree -ne $tree -or $build.runId -ne $current.runId -or $build.runAttempt -ne $current.attempt -or @($build.modes).Count -ne 2 -or @($build.modes | Where-Object { !$_.passed }).Count -ne 0 -or @($build.modes.configuration | Sort-Object -Unique).Count -ne 2 -or $build.modes.configuration -notcontains 'Debug' -or $build.modes.configuration -notcontains 'Release') { throw 'Exact accepted Debug/Release source build is missing or incomplete' }
+          if ($profile -eq 'create-multichannel') {
+            $component = Get-Content "recovery/evidence/audio/multichannel-validation/$($current.runId)-$($current.attempt)/validation.json" -Raw | ConvertFrom-Json
+            if ($component.status -ne 'passed' -or $component.sourceCommit -ne $current.sourceCommit -or $component.runId -ne $current.runId -or $component.runAttempt -ne $current.attempt -or @($component.configurations).Count -ne 2 -or @($component.configurations | Where-Object { !$_.passed }).Count -ne 0 -or $component.configurations.configuration -notcontains 'Debug' -or $component.configurations.configuration -notcontains 'Release') { throw 'Exact multichannel component milestone is missing or incomplete' }
+          }
           $originalHash = (Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant()
           if ($originalHash -ne 'a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139') { throw 'Original AudioCompiler fingerprint changed' }
           Write-Host "Reusing accepted source $($current.sourceCommit), tree $tree, component/SDK run $($current.runId); no repeated component execution"

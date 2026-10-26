@@ -2,19 +2,22 @@
 
 Reviewed on 2026-10-26. Scope: PC Audio recovery, original/restored audio SDK
 acceptance, the4/6-channel capability gap, and merge into compiler-source.
-Production Audio remains mono/stereo. No production code is changed by this
+Production Audio now accepts WAVE1/2/4/6; AIFF/AIFC remains mono/stereo. No production code is changed by this
 review.
 
 ## Accepted audio SDK scopes
 
 | Evidence | Source | Scope |
 |---|---|---|
+| run40250750964 attempt1 | ed1a7bcbec4a7a89d08369b9668129c8c554f8ec | Complete WAVE4/6 group plus affected components,1728-asset real SDK |
 | run40243817293 attempt1 | bb4a225fc5cc8e070044a01a24f87e425c612ccb | Dedicated4488-asset PC audio MOD |
 | run40244825458 attempt1 | 2d64684742f9b19808d8fd721fbe31a549907c37 | Complete affected component group, whole source builds and dedicated1820-asset audio MOD |
 | run40248486242 attempt1 | c078bce6e5e28866dfd3c25acabda731203b2556 | Full pinned Upheaval/PublicCases, only AudioCompiler replaced |
 
-All three runs retain their own immutable source/input scopes. Current accepted
-Audio production tree is `ee6074a096795aa66b682fcb363e360feabe4d2f`.
+All four runs retain their own immutable source/input scopes. The1820/full-Upheaval
+rows retain tree`ee6074a096795aa66b682fcb363e360feabe4d2f`; the4488 row
+retains tree`4928109f17b3545cb0273f05def9198505371b33`;
+current WAVE4/6 source is ed1a7bcb/treea8e47a with run40250750964.
 
 Full Upheaval receipt:
 `recovery/evidence/audio/upheaval-sdk-validation/40248486242-1/validation.json`
@@ -63,18 +66,14 @@ Audio source/docs/evidence are merged.
    Do not overwrite shared GameObject/XML/W3X/Managed navigation with the
    Audio-only resume. Reviewed generic RESUME blob is
    `979fd0795cdd092953b50cf48128b2524510a0fa`.
-4. Keep production Audio at accepted treeee6074 for this merge. The new4/6
-   group needs its own implementation and full acceptance before it is enabled.
+4. Current WAVE4/6 source treea8e47a is accepted by its own run40250750964.
+   Keep the full-Upheaval mono receipt at its old tree/source. Do not relabel it.
+5. PR#10 is prepared for review. Merge only after explicit user approval.
 
 ## Remaining Audio recovery
 
-[MultichannelBoundary.md](MultichannelBoundary.md) records the newly confirmed
-PC4/6 capability gap, WAVE reader mapping, seven admission guards, the separate
-ADP4 stereo-only state limitation and the complete format/loop/resample/stream
-component/SDK matrix. Original probe CI evidence will be appended by its
-owner; no production4/6 implementation is included in this round.
-
-Undefined native sample reads, partial AIFF marker pairs, outside-SSND sample
-windows and unaudited malformed-container combinations remain explicit limits.
-Jonwil's related SIMEX/WAVE/XAS source is useful for focused audio cross-audits;
-original target DLL behavior and affected complete SDK gates remain decisive.
+AIFF/AIFC NONE4/6 original ordering and stable outcomes are established by
+run40251368891; implementation, complete differences and real SDK acceptance
+remain next. ADP4>2 is an original unsupported format. Keep undefined native
+reads and explicit malformed-input boundaries. No source outside Audio or
+repository SDK tool/configuration is replaced.

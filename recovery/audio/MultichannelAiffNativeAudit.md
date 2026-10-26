@@ -85,3 +85,26 @@ must not be inferred as positive capability.
 
 No CI result is claimed at preparation time. The caller must append exact
 source/run/attempt and observed source-order results from the real receipt.
+
+## Original ProcessInstance confirmation
+
+Run [40251368891](https://github.com/wu162/NewSdk/actions/runs/40251368891),
+source `0d744a716df7b487816dc0fadf4f12dc82c5b66c`, attempt1 completed:
+192 cases /384 isolated processes all succeeded and repeated byte-identically.
+All192 fixture hashes and384 record hashes were checked. Decoding96 NONE
+cases twice compared80496 PCM samples exactly: both AIFF and AIFC/NONE keep
+source order,4ch [0,1,2,3],6ch [0,1,2,3,4,5], for8/16/24-bit,
+constant/impulse, RAM/streamed. XAS outcomes were successful and stable; this
+audit's independent sample decoder covers NONE only.
+
+Receipt at commit `5f2574fc7f60b5b63db4100f7b86e9e832efe15d`:
+`recovery/evidence/audio/multichannel-aiff-original/40251368891-1/validation.json`.
+See [mapping audit](multichannel-aiff-original-audit.json). Reproduce from
+repository root with
+`python recovery/scripts/AuditAudioAiffMultichannelOriginal.py recovery/evidence/audio/multichannel-aiff-original/40251368891-1 /tmp/aiff-mapping-audit.json`.
+
+This confirms original behavior only. The restored reader still refuses
+AIFF/AIFC channels4/6. The next complete implementation group must separately
+cover NONE/XAS, loop/COMM/SSND behavior, resampling, streaming boundaries,
+Debug/Release full buffers and a real SDK milestone. ADP4 greater than2
+remains an original unsupported format, not a missing recovery feature.

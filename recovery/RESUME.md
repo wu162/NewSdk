@@ -1,27 +1,21 @@
 # AudioCompiler 当前交接
 
-2026-10-26（北京时间）；目标 `recovery/audio-compiler-source`；仅 PC / Win32。先读 AGENTS.md、EFFICIENCY.md、[AUDIO_COMPILER.md](AUDIO_COMPILER.md)。禁止强推，非PC不再恢复。
+2026-10-26（北京时间）。仅PC/Win32；最终职责为Audio恢复及音频SDK验收。先读AGENTS.md、EFFICIENCY.md、[AUDIO_COMPILER.md](AUDIO_COMPILER.md)。禁止强推；合入必须先PR并经用户明确批准。
 
-## 当前验证分支候选（尚未验收）
+## 本轮新增已通过
 
-本分支新增WAVE4/6声道候选，5个生产文件及1728用例完整组正在准备统一CI；当前不得宣称已支持。稳定PR[#10](https://github.com/wu162/NewSdk/pull/10)仍保留下述已验收源码。AIFF/AIFC/ADP4超过2声道仍拒绝。合入必须先PR并经用户明确批准，不能自行合并。
+WAVE4/6源码 `ed1a7bcbec4a7a89d08369b9668129c8c554f8ec`，源码树 `a8e47a2e737ca7e35a486ec17e5eaaa913c8678e`，[运行40250750964](https://github.com/wu162/NewSdk/actions/runs/40250750964) attempt1 success；证据提交 `7eba9f108008ae424b18d10f56bdbcb6ff5487fd`。D/R各1728多声道三缓冲区/CustomData差分、全部受影响旧组、36拒绝边界、64公开入口原版案例/128直接比较、15非法声道检查及整工程构建通过。真实SDK同1728完整组合均实际编译，四产物和1728份CustomData一致，恢复侧原音频DLL缺席。WAVE4取源[0,1,3,2]、6取源[0,2,1,4,5,3]，仅导入时一次重排。
 
-## 本轮已完成并通过
+当前支持：WAVE PCM8/16/24含EXTENSIBLE的1/2/4/6声道；AIFF/AIFC NONE及raw ADP4仍1/2；PCM/XAS、RAM/stream、loop、filter120重采样及MPEG头信息/透传。非Win32、3/5/8、未定义原生输入等明确拒绝。
 
-最终源码 `2d64684742f9b19808d8fd721fbe31a549907c37`，源码树 `ee6074a096795aa66b682fcb363e360feabe4d2f`，运行 [40244825458](https://github.com/wu162/NewSdk/actions/runs/40244825458) attempt1 **success**：D/R loop4224、optional3888、COMM7776、offset2704、MPEG1084及旧受影响回归/整工程构建通过；新增1820资产SDK的实际三缓冲区、四产物及CustomData一致，恢复侧删除原AudioCompiler DLL。
+## 本轮完整 Upheaval 结果（保留旧源码锚点）
 
-前一完整批 `bb4a225` / [40243817293](https://github.com/wu162/NewSdk/actions/runs/40243817293) success：4488资产SDK已通过。其精确旧source/run保持不变；新COMM边界和offset组合由1820新批覆盖，未重复旧4488。详见[覆盖审计](audio/CommSdkCoverageAudit.md)和[验收索引](evidence/audio/acceptance-current.json)。
+源码`c078bce6e5e28866dfd3c25acabda731203b2556` / [40248486242](https://github.com/wu162/NewSdk/actions/runs/40248486242) success，音频树`ee6074a096795aa66b682fcb363e360feabe4d2f`。固定输入`068643219fded09a05fb7b75c6507b769c430316`保留194个.asset；原/恢复共10次BAB调用exit0，20份产物、各侧1293份CustomData一致；1281唯一音频资产全部覆盖、每侧1289回调三缓冲区一致。仅替换音频，其他插件原SDK；语料mono WAV。不重标为本轮a8e47a源码新跑成功，新源码另有上面的1728 SDK。旧组件/1820 SDK source2d6468/run40244825458、4488 SDK sourcebb4a225/run40243817293继续保留其精确范围。
 
-修复循环元数据、signed COMM过滤、SSND有界offset、WAVE无padding lookup、MPEG EOF/真实容器识别。原MP3透传SIMEX_info只查头信息，不解PCM；错误增加的NLayer解码门槛和19个未引用文件已删除。MARK-only原未初始化mode、单端匹配和越界输入继续明确拒绝。
+## 下一组与审批状态
 
-## 本轮完整 Upheaval 结果
+1. PR[#10](https://github.com/wu162/NewSdk/pull/10)等待用户明确批准，未合并。PR分支保留compiler-source通用RESUME，本音频入口为RESUME_AUDIO.md；共享源码及SDK树不变。不得自行点击或API合并。
+2. 下一实现组AIFF/AIFC NONE4/6：原版[40251368891](https://github.com/wu162/NewSdk/actions/runs/40251368891)的192案例/384进程全稳定成功；80496个PCM样本实证保持源序。恢复版仍拒绝，需完整格式/loop/COMM/SSND/resample/stream差分和新SDK；见[audit](audio/MultichannelAiffNativeAudit.md)。ADP4>2原native明确拒绝，不列缺失功能。
+3. 保留MARK-only未初始化mode、单端marker、越界loop/SSND offset、单帧ADP4/import-resample等安全拒绝。不重复触发未变已验收组；SDK继续按完整能力组集中运行。
 
-源码 `c078bce6e5e28866dfd3c25acabda731203b2556` / [40248486242](https://github.com/wu162/NewSdk/actions/runs/40248486242) attempt1 **success**，音频树仍为`ee6074a096795aa66b682fcb363e360feabe4d2f`。固定输入`068643219fded09a05fb7b75c6507b769c430316`保留194个.asset；case3/4/5原/恢复共10次BAB调用全部exit0，20份产物一致；各侧1293份CustomData、1289次音频回调，1281 required与1281 actual unique资产匹配，恢复侧原AudioCompiler缺席。收据`evidence/audio/upheaval-sdk-validation/40248486242-1/validation.json`（提交`ef87339d3f76848687b714a394a9e1ff00ad1923`）。其他插件使用原SDK；本WAV mono语料不能代替AIFF/AIFC边界SDK或多声道验收，仅证明上述音频替换范围。
-
-## 下一步与边界
-
-1. 生产当前仅mono/stereo；4/6声道是新确认待恢复的完整能力组，正在原DLL隔离探针阶段，尚未实现；见[多声道边界](audio/MultichannelBoundary.md)。完整组需覆盖WAVE重排、PCM/XAS、RAM/stream、loop和重采样；3/5/8与多声道ADP4不默认支持。变更源码后必须保留旧成功scope并取得新验收。
-2. 合入`compiler-source`前再读目标头。保留其通用子系统导航，不能用本Audio专用RESUME覆盖；已读b122a54与成功测试分支的SDK及shared recovery/src树相同，未变子系统不重复运行。
-3. [音频合入审查](audio/AudioIntegrationReview.md)记录固定SDK/共享树、原版与恢复版实际覆盖和通用导航保留要求。
-
-完整Upheaval音频门槛已通过；compiler-source尚未合入；SDK/tools原DLL/config未替换；任务尚未全部完成。范围及限制见[AUDIO_COMPILER.md](AUDIO_COMPILER.md)和[验收索引](evidence/audio/acceptance-current.json)。
+精确收据见[验收索引](evidence/audio/acceptance-current.json)；源码与运行锚点不得交叉套用。仓库SDK/tools/config未替换。所有已触发运行均已收取终态，没有未完成的验证作业。
