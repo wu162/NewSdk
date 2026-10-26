@@ -1,0 +1,59 @@
+name: MOD compiler native integration
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-native.yml'
+      - 'recovery/build/**'
+      - 'recovery/src/**'
+      - 'recovery/scripts/BuildCompiler.ps1'
+      - 'recovery/scripts/TestCompiler*.ps1'
+      - 'recovery/scripts/*Native*.ps1'
+      - 'recovery/tests/Compiler*'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: refactor-native-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  production:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-native]')
+    runs-on: windows-2022
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Build unchanged managed Foundation inputs
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/native-foundation/$mode"
+          }
+      - name: Production Native routes and clean deployment in Debug and Release
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/native-foundation -BuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Production Armor and Hash complete existing differential
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerDifferential.ps1 -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-differential/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-native-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/artifacts/native-foundation/**/*.log
+            recovery/artifacts/native-foundation/**/build.json
+            recovery/artifacts/native-product/**/*.log
+            recovery/artifacts/native-product/**/build.json
+          if-no-files-found: error
