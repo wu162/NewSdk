@@ -26,6 +26,9 @@ namespace NewModCompiler.Cli
                     return (int)ExitCode.Environment;
 #endif
                 }
+#if NEWSdk_MONOLITHIC
+                CoreStreamCompiler.PreflightInputRoots(request);
+#endif
                 // Invalidate a previous report before opening any required output channels.
                 Reports.RemoveStale(request.ReportPath);
                 sinks.Add(new JsonLineSink(request.EventsPath)); sinks.Add(new TextLogSink(request.LogPath));

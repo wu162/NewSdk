@@ -57,6 +57,7 @@ try {
     $fixtures=@(
         @{name='CompilerCacheContent';marker='PASS CacheContent:'},
         @{name='CompilerCacheBoundary';marker='PASS CacheBoundary:'},
+        @{name='CompilerInputRoots';marker='PASS InputRoots:'},
         @{name='CompilerCorePaths';marker='PASS CorePaths:'},
         @{name='CompilerUnicodeSettings';marker='PASS UnicodeSettings:'},
         @{name='CompilerCoreLifecycle';marker='PASS CoreLifecycle:'},

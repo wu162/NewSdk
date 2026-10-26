@@ -143,6 +143,7 @@ namespace NewModCompiler.Application
             var report = new Dictionary<string, object> {
                 {"schemaVersion","1.0"},{"buildId",events.BuildId},{"status",status},{"exitCode",(int)code},
                 {"requestArguments",request.Arguments},{"effectiveOptions",request.Options},{"selectedContent",request.Content},
+                {"inputRoots",compiler is IInputRootsCompiler ? ((IInputRootsCompiler)compiler).InputRootsReport : null},
                 {"plan",plan},{"stages",stages},{"diagnostics",diagnostics},{"diagnosticCounts",new {error=errorCount,warning=warningCount}},
                 {"loadedProviders",providerIdentity == null ? new string[0] : new [] {providerIdentity}},
                 {"externalTools",new string[0]},{"cache",cacheCompiler == null ? (object)new {status="NotImplemented",hits=0,misses=0} : cacheCompiler.CacheReport},

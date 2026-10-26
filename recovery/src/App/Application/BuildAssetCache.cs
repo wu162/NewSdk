@@ -12,15 +12,15 @@ namespace NewModCompiler.Application
     // stored bytes is necessary but cannot itself authorize an input cache hit.
     public sealed class BuildAssetCache : IDisposable
     {
-        const string Format = "NewModCompiler.BuildAssets.v1";
+        const string Format = "NewModCompiler.BuildAssets.v2";
         const string IndexName = "index.bin";
         const string PendingName = "pending";
-        readonly string outputRoot, cacheRoot, candidateRoot, owner = Guid.NewGuid().ToString("N");
+        readonly string outputRoot, cacheRoot, candidateRoot, namespaceFingerprint, owner = Guid.NewGuid().ToString("N");
         readonly Dictionary<string,string> staged = new Dictionary<string,string>(StringComparer.Ordinal);
         readonly List<string> installed = new List<string>();
         bool committed, completed, disposed;
         PublicationLock cacheLock;
-        sealed class Entry { public string Name; public long Size; public string Hash; }
+        sealed class Entry { public string Name, Storage; public long Size; public string Hash; }
 
         public BuildAssetCache(string outputRoot, string namespaceFingerprint)
         {
@@ -29,11 +29,12 @@ namespace NewModCompiler.Application
             foreach (char c in namespaceFingerprint) if (!(c >= '0' && c <= '9') && !(c >= 'a' && c <= 'f')) throw new ArgumentException("A lowercase SHA-256 namespace is required.");
             this.outputRoot = Path.GetFullPath(outputRoot);
             RejectAncestors(this.outputRoot);
-            cacheRoot = Path.Combine(this.outputRoot, ".cache", "build-assets-v1", namespaceFingerprint);
+            this.namespaceFingerprint = namespaceFingerprint;
+            cacheRoot = Path.Combine(this.outputRoot, ".cache", "build-assets-v2");
             candidateRoot = Path.Combine(this.outputRoot, ".cache-candidate-" + owner);
             // Same namespace is held through the required-channel outcome.
             // Semaphore contention is an explicit failure, never a retry loop.
-            cacheLock = PublicationLock.Acquire(cacheRoot);
+            cacheLock = PublicationLock.Acquire(Path.Combine(cacheRoot,"namespace-"+namespaceFingerprint));
         }
         public bool PrepareStream(string taskKey, string stagingCache, CancellationToken cancellation)
         {
@@ -48,7 +49,7 @@ namespace NewModCompiler.Application
             {
                 cancellation.ThrowIfCancellationRequested();
                 string target = Path.Combine(destination, entry.Name); Directory.CreateDirectory(Path.GetDirectoryName(target));
-                File.Copy(Path.Combine(source, "files", entry.Name), target, false);
+                File.Copy(Path.Combine(source, "files", entry.Storage), target, false);
                 if (new FileInfo(target).Length != entry.Size || Hash(target) != entry.Hash) throw new IOException("Cached asset changed while copying.");
             }
             return true;
@@ -66,10 +67,10 @@ namespace NewModCompiler.Application
             foreach (string relative in files)
             {
                 cancellation.ThrowIfCancellationRequested();
-                string input = Path.Combine(source, relative), copied = Path.Combine(data, relative);
-                Directory.CreateDirectory(Path.GetDirectoryName(copied));
+                string storage = entries.Count.ToString("x8",System.Globalization.CultureInfo.InvariantCulture);
+                string input = Path.Combine(source, relative), copied = Path.Combine(data, storage);
                 File.Copy(input, copied, false);
-                entries.Add(new Entry { Name = relative, Size = new FileInfo(copied).Length, Hash = Hash(copied) });
+                entries.Add(new Entry { Name = relative, Storage = storage, Size = new FileInfo(copied).Length, Hash = Hash(copied) });
             }
             using (var writer = new BinaryWriter(File.Open(Path.Combine(target, IndexName), FileMode.CreateNew, FileAccess.Write, FileShare.None), Encoding.UTF8))
             {
@@ -151,7 +152,7 @@ namespace NewModCompiler.Application
         }
         void ReleaseLock() { if (cacheLock != null) { cacheLock.Dispose(); cacheLock = null; } }
         void TryDeleteCandidate() { try { RejectAncestors(candidateRoot); if (Directory.Exists(candidateRoot)) Directory.Delete(candidateRoot,true); } catch (IOException) { } catch (UnauthorizedAccessException) { } }
-        void EnsureLock() { if (cacheLock == null) cacheLock = PublicationLock.Acquire(cacheRoot); }
+        void EnsureLock() { if (cacheLock == null) cacheLock = PublicationLock.Acquire(Path.Combine(cacheRoot,"namespace-"+namespaceFingerprint)); }
         void Active() { if (disposed || completed) throw new ObjectDisposedException("BuildAssetCache"); }
         string Destination(string path)
         {
@@ -161,10 +162,15 @@ namespace NewModCompiler.Application
             RejectAncestors(full); return full;
         }
         static bool Contains(string root,string path) { return string.Equals(root,path,StringComparison.OrdinalIgnoreCase) || path.StartsWith(root.TrimEnd(Path.DirectorySeparatorChar)+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase); }
-        static string TaskName(string taskKey)
+        string TaskName(string taskKey)
         {
             if (string.IsNullOrEmpty(taskKey)) throw new ArgumentException("A stream cache identity is required.");
-            using (var hash = SHA256.Create()) return Hex(hash.ComputeHash(Encoding.UTF8.GetBytes(taskKey)));
+            using (var bytes = new MemoryStream())
+            using (var writer = new BinaryWriter(bytes,Encoding.UTF8))
+            {
+                writer.Write(namespaceFingerprint); writer.Write(taskKey); writer.Flush();
+                using (var hash = SHA256.Create()) return Hex(hash.ComputeHash(bytes.ToArray()));
+            }
         }
         static string Hex(byte[] bytes) { return BitConverter.ToString(bytes).Replace("-", "").ToLowerInvariant(); }
         static string Hash(string path) { using (var hash = SHA256.Create()) using (var stream = File.OpenRead(path)) return Hex(hash.ComputeHash(stream)); }
@@ -203,10 +209,10 @@ namespace NewModCompiler.Application
                     for (int i=0;i<count;i++)
                     {
                         cancellation.ThrowIfCancellationRequested();
-                        var entry = new Entry {Name=reader.ReadString(),Size=reader.ReadInt64(),Hash=reader.ReadString()};
+                        var entry = new Entry {Name=reader.ReadString(),Size=reader.ReadInt64(),Hash=reader.ReadString(),Storage=i.ToString("x8",System.Globalization.CultureInfo.InvariantCulture)};
                         if (string.IsNullOrEmpty(entry.Name) || Path.IsPathRooted(entry.Name) || entry.Name.IndexOf(':') >= 0 || entry.Size < 0 || entry.Hash.Length != 64 || !names.Add(entry.Name)) return false;
                         foreach (string part in entry.Name.Split(new[] {'\\','/'})) if (part.Length == 0 || part == "." || part == "..") return false;
-                        string path = Path.Combine(root,"files",entry.Name); RejectAncestors(path);
+                        string path = Path.Combine(root,"files",entry.Storage); RejectAncestors(path);
                         if (!File.Exists(path) || new FileInfo(path).Length != entry.Size || Hash(path) != entry.Hash) return false;
                         entries.Add(entry);
                     }

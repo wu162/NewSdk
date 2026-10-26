@@ -13,7 +13,7 @@ namespace NewModCompiler.Tests
         static void Check(bool value,string message) { ++checks; if (!value) throw new Exception(message); }
         static void Reject<T>(Action action,string message) where T:Exception { try { action(); } catch(T) { ++checks; return; } throw new Exception(message); }
         static void Put(string file,string text) { Directory.CreateDirectory(Path.GetDirectoryName(file)); File.WriteAllText(file,text); }
-        static string Cache(string output) { return Path.Combine(output,".cache","build-assets-v1",Namespace); }
+        static string Cache(string output) { return Path.Combine(output,".cache","build-assets-v2"); }
         static string Staging(string output,string name) { return Path.Combine(output,".build",name,"cache"); }
         static int Entries(string output) { string root=Cache(output); return Directory.Exists(root)?Directory.GetDirectories(root).Length:0; }
         public static int Run(string root)
@@ -72,7 +72,7 @@ namespace NewModCompiler.Tests
             }
             Reject<ArgumentException>(()=>new BuildAssetCache(root,"../bad"),"Namespace traversal was accepted");
             // Validate both byte corruption and unexpected files before any copy.
-            string durable=Directory.GetDirectories(Cache(root)).Single(), asset=Directory.GetFiles(Path.Combine(durable,"files"),"*.asset",SearchOption.AllDirectories).Single();
+            string durable=Directory.GetDirectories(Cache(root)).Single(), asset=Directory.GetFiles(Path.Combine(durable,"files"),"*",SearchOption.AllDirectories).Single(path=>File.ReadAllText(path)=="asset A");
             string pending=Path.Combine(durable,"pending"); Put(pending,"abandoned transaction");
             using(var store=new BuildAssetCache(root,Namespace))
                 Check(!store.PrepareStream("base/Mod",Staging(root,"abandoned"),CancellationToken.None),"Unconfirmed durable entry was reused after owner disappeared");
@@ -101,7 +101,7 @@ namespace NewModCompiler.Tests
             using(var store=new BuildAssetCache(root,Namespace)) {
                 store.StageStream("locked-entry",source,CancellationToken.None); store.Commit();
                 string lockedEntry=Directory.GetDirectories(Cache(root)).Single(path=>File.Exists(Path.Combine(path,"pending")));
-                string lockedFile=Directory.GetFiles(Path.Combine(lockedEntry,"files"),"*.asset",SearchOption.AllDirectories).Single();
+                string lockedFile=Directory.GetFiles(Path.Combine(lockedEntry,"files"),"*",SearchOption.AllDirectories).Single(path=>File.ReadAllText(path)=="asset A");
                 using(var held=new FileStream(lockedFile,FileMode.Open,FileAccess.Read,FileShare.Read)) {
                     bool failed=false;
                     try { store.Rollback(); }

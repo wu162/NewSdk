@@ -177,6 +177,58 @@
         "string",
         "null"
       ]
+    },
+    "inputRoots": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "dataRoot",
+        "schemaPath",
+        "dataPaths",
+        "artPaths",
+        "audioPaths",
+        "sources"
+      ],
+      "properties": {
+        "dataRoot": {
+          "type": "string"
+        },
+        "schemaPath": {
+          "type": "string"
+        },
+        "dataPaths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "artPaths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "audioPaths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sources": {
+          "type": "object",
+          "required": [
+            "dataRoot",
+            "dataPaths",
+            "artPaths",
+            "audioPaths"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
     }
   }
 }

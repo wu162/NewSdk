@@ -88,6 +88,10 @@ namespace NewModCompiler.Application
         // Cleanup only, idempotent and non-throwing. No new cache writes here.
         void CompleteCache();
     }
+    public interface IInputRootsCompiler
+    {
+        object InputRootsReport { get; }
+    }
     public static class Paths
     {
         public static bool Contains(string root, string path)

@@ -143,8 +143,23 @@ try {
             $data=(Join-Path $mod 'Data')+';'+$section.GetAttribute('defaultDataPaths')
             $art=(Join-Path $mod 'Art')+';'+$section.GetAttribute('defaultArtPaths')
             $audio=(Join-Path $mod 'Audio')+';'+$section.GetAttribute('defaultAudioPaths')
+            $dataRoot=$sdk
+            # Optional explicit input-root acceptance fixture. Existing callers
+            # keep the historical MOD-prepended SDK contract above. Use the
+            # already resolved production roots verbatim, in their original order.
+            if($case.effectiveInputRoots){
+                $effective=$case.effectiveInputRoots
+                $dataRoot=[string]$effective.dataRoot
+                if(![IO.Path]::IsPathFullyQualified($dataRoot) -or !(Test-Path -LiteralPath $dataRoot -PathType Container)){throw 'Original oracle explicit dataRoot must be an existing absolute directory'}
+                foreach($name in @('dataPaths','artPaths','audioPaths')){
+                    $paths=@($effective.$name)
+                    if($paths.Count -eq 0){throw "Original oracle explicit $name cannot be empty"}
+                    foreach($path in $paths){if(![IO.Path]::IsPathFullyQualified([string]$path) -or !(Test-Path -LiteralPath $path -PathType Container)){throw "Original oracle explicit $name must contain existing absolute directories"}}
+                }
+                $data=@($effective.dataPaths) -join ';';$art=@($effective.artPaths) -join ';';$audio=@($effective.audioPaths) -join ';'
+            }
             $schema=Join-Path $schemas 'CnC3Types.xsd'
-            $section.SetAttribute('schema',$schema);$section.SetAttribute('dataRoot',$sdk)
+            $section.SetAttribute('schema',$schema);$section.SetAttribute('dataRoot',$dataRoot)
             $section.SetAttribute('defaultDataPaths',$data);$section.SetAttribute('defaultArtPaths',$art);$section.SetAttribute('defaultAudioPaths',$audio)
             $buildConfigurations=$section.SelectSingleNode('buildConfigurations')
             if($buildConfigurations){$buildConfigurations.RemoveAll()}
@@ -163,7 +178,7 @@ try {
             New-Item -ItemType Directory -Path $streams,$intermediate,$hashes,$cache|Out-Null
             # Match CoreStreamCompiler.StreamSettings. No resident server, precompiled
             # inputs, persistent caches, reports, GUI, postprocessing or extra streams.
-            $arguments=@($input,"/sp:$schema","/dr:$sdk","/od:$streams","/iod:$intermediate","/scd:$hashes","/bcp:$cache",
+            $arguments=@($input,"/sp:$schema","/dr:$dataRoot","/od:$streams","/iod:$intermediate","/scd:$hashes","/bcp:$cache",
                 '/tp:Win32','/sc:false','/bc:false','/psc:false','/fsc:false','/csc:false','/atc:false','/sh:false','/pc:false',
                 '/res:false','/gui:false','/poe:false','/mr:false','/oof:false','/sf:false','/ls:true','/ss:false','/oix:false','/vf:false',
                 '/osh:false','/oar:false','/slowclean:false','/tl:3','/el:0',"/art:$art","/audio:$audio","/data:$data")
@@ -172,7 +187,7 @@ try {
             $caseState.originalExeSha256=Hash $exe;$caseState.originalConfigSha256=Hash (Join-Path $tools 'BinaryAssetBuilder.exe.config')
             $caseState.effectiveConfigSha256=Hash $configPath
             $caseState.runtimeInputs=@(Inventory $oracle)
-            $caseState.effectiveSettings=@{schema=$schema;dataRoot=$sdk;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=$false;buildCache=$false;precompiled=$false;resident=$false;linked=$true;stableSort=$false;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected fixture stream; original built-in plugin routes retained'}
+            $caseState.effectiveSettings=@{schema=$schema;dataRoot=$dataRoot;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=$false;buildCache=$false;precompiled=$false;resident=$false;linked=$true;stableSort=$false;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected fixture stream; original built-in plugin routes retained'}
             $caseState.process=InvokeOriginal $exe $arguments $sdk $caseOut
             $actual=@(Get-ChildItem -LiteralPath $streams -File -Recurse)
             $expectedTextures=@($case.expectedTextures|Where-Object{$null -ne $_})

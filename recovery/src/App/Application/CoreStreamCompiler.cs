@@ -17,7 +17,7 @@ namespace NewModCompiler.Application
 {
     // Experimental in-process backend. CLI enablement and SDK/G3 acceptance are
     // separate gates; this type never launches BAB, a worker, or another EXE.
-    public sealed class CoreStreamCompiler : IStreamCompiler, IBuildCacheCompiler
+    public sealed class CoreStreamCompiler : IStreamCompiler, IBuildCacheCompiler, IInputRootsCompiler
     {
         static readonly object LeaseGate = new object();
         static CoreStreamCompiler leaseOwner;
@@ -28,6 +28,7 @@ namespace NewModCompiler.Application
         bool initialized, initializing, disposed, compiling, buildCacheEnabled, cacheCommitted, cacheCompleted;
         int buildCacheHits, buildCacheMisses;
         readonly List<BuildAssetCache> assetCaches = new List<BuildAssetCache>();
+        public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
         VerifierPluginRegistry verifiers;
         PluginDescriptor[] verifierDescriptors;
@@ -165,7 +166,7 @@ namespace NewModCompiler.Application
             traceLevel = 3; buildCacheEnabled = false;
             if (candidate.PackageFormat != null && candidate.PackageFormat != "loose")
                 throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Only loose output is available in the experimental backend.");
-            var ordinary = new HashSet<string>(new[] { "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format" }, StringComparer.OrdinalIgnoreCase);
+            var ordinary = new HashSet<string>(new[] { "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format", "dr", "data", "art", "audio" }, StringComparer.OrdinalIgnoreCase);
             var disabled = new HashSet<string>(new[] { "sc", "csc", "psc", "fsc", "atc", "pc", "oof", "vf", "oar", "osh", "oix", "mr", "slowclean" }, StringComparer.OrdinalIgnoreCase);
             foreach (var option in candidate.Options)
             {
@@ -181,7 +182,7 @@ namespace NewModCompiler.Application
                 if (key == "el" && value == "0") continue;
                 int level;
                 if (key == "tl" && int.TryParse(value, out level) && level >= 0 && level <= 9) { traceLevel = level; continue; }
-                throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Experimental Core backend does not support option " + key + "=" + value + ". Session cache, precompiled, alternate output, reporting, path/configuration overrides and postprocessing options are not enabled.");
+                throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Experimental Core backend does not support option " + key + "=" + value + ". Session cache, precompiled, alternate output, reporting, configuration overrides and postprocessing options are not enabled.");
             }
         }
 
@@ -202,14 +203,14 @@ namespace NewModCompiler.Application
             Settings settings = ReadSettings();
             settings.InputPath = Path.GetFullPath(context.Task.InputPath);
             settings.SchemaPath = Path.Combine(sdkRoot, "Schemas", "xsd", "CnC3Types.xsd");
-            settings.DataRoot = sdkRoot;
+            settings.DataRoot = RootOption("dr", sdkRoot);
             settings.OutputDirectory = Path.Combine(staging, "streams");
             settings.IntermediateOutputDirectory = Path.Combine(staging, "intermediate");
             settings.SessionCacheDirectory = Path.Combine(staging, "hashes");
             settings.BuildCacheDirectory = Path.Combine(staging, "cache");
-            settings.DefaultDataPaths = Prepend(Path.Combine(modRoot, "Data"), settings.DefaultDataPaths);
-            settings.DefaultArtPaths = Prepend(Path.Combine(modRoot, "Art"), settings.DefaultArtPaths);
-            settings.DefaultAudioPaths = Prepend(Path.Combine(modRoot, "Audio"), settings.DefaultAudioPaths);
+            settings.DefaultDataPaths = RootOption("data", () => Prepend(Path.Combine(modRoot, "Data"), settings.DefaultDataPaths));
+            settings.DefaultArtPaths = RootOption("art", () => Prepend(Path.Combine(modRoot, "Art"), settings.DefaultArtPaths));
+            settings.DefaultAudioPaths = RootOption("audio", () => Prepend(Path.Combine(modRoot, "Audio"), settings.DefaultAudioPaths));
             settings.BuildConfigurationName = null;
             settings.BuildConfigurations = new BuildConfiguration[0];
             settings.TargetPlatform = TargetPlatform.Win32;
@@ -226,8 +227,100 @@ namespace NewModCompiler.Application
             settings.TraceLevel = traceLevel; settings.ErrorLevel = 0;
             Settings.Current = settings;
             SettingsLoader.PostProcessSettings(Path.Combine(sdkRoot, "tools"));
+            ValidateInputSettings(settings);
             return settings;
         }
+        string RootOption(string name, string fallback) { return RootOption(name, () => fallback); }
+        string RootOption(string name, Func<string> fallback)
+        {
+            EffectiveOption option;
+            if (!request.Options.TryGetValue(name, out option)) return fallback();
+            if (option == null || string.IsNullOrWhiteSpace(option.Value))
+                throw new BuildFailure(ExitCode.Arguments, "CORE_INPUT_ROOT_INVALID", "Input root option has no effective value: " + name);
+            return option.Value;
+        }
+        string RootSource(string name, string fallback)
+        {
+            EffectiveOption option;
+            return request.Options.TryGetValue(name, out option) && option != null ? option.Source : fallback;
+        }
+        void ValidateInputSettings(Settings settings)
+        {
+            string[] data = (string[])settings.DataPaths.Clone(), art = (string[])settings.ArtPaths.Clone(), audio = (string[])settings.AudioPaths.Clone();
+            InputRootsReport = new {
+                dataRoot = settings.DataRoot, schemaPath = settings.SchemaPath,
+                dataPaths = data, artPaths = art, audioPaths = audio,
+                sources = new { dataRoot = RootSource("dr", "sdk-root"), dataPaths = RootSource("data", "mod-prepend+sdk-config"),
+                    artPaths = RootSource("art", "mod-prepend+sdk-config"), audioPaths = RootSource("audio", "mod-prepend+sdk-config") }
+            };
+            // An input override is another input boundary. Check it before any
+            // compiler output, including diagnostics, can replace its contents.
+            var roots = new List<string> { settings.DataRoot };
+            roots.AddRange(data); roots.AddRange(art); roots.AddRange(audio);
+            foreach (string root in roots)
+            {
+                if (root == "*") continue;
+                string input = ResolveInputRoot(root);
+                foreach (string target in new[] { request.OutputRoot, request.EventsPath, request.ReportPath, request.LogPath })
+                {
+                    if (string.IsNullOrEmpty(target)) continue;
+                    // Required log files can already have an active writer here.
+                    // Resolve their directory identity without reopening that file.
+                    string output = Directory.Exists(target) ? ResolveInputRoot(target) :
+                        Path.Combine(ResolveInputRoot(Path.GetDirectoryName(target)), Path.GetFileName(target));
+                    if (Paths.Contains(input, output) || Paths.Contains(output, input))
+                        throw new BuildFailure(ExitCode.Arguments, "CORE_INPUT_OUTPUT_OVERLAP", "Effective input root overlaps output or diagnostics: " + root);
+                }
+            }
+            if (buildCacheEnabled)
+            {
+                string runtime = Path.GetDirectoryName(typeof(CoreStreamCompiler).Assembly.Location);
+                try
+                {
+                    using (CacheInputBoundary.Begin(sdkRoot, modRoot, runtime))
+                        foreach (string root in roots) if (root != "*") CacheInputBoundary.Validate(root);
+                }
+                catch (IOException error) { throw new BuildFailure(ExitCode.Arguments, "CORE_CACHE_INPUT_ROOT_UNSUPPORTED", error.Message); }
+            }
+        }
+        static string ResolveInputRoot(string root)
+        {
+            string full = Path.GetFullPath(root);
+            var missing = new Stack<string>(); var current = new DirectoryInfo(full);
+            while (!current.Exists)
+            {
+                if (File.Exists(current.FullName)) throw new IOException("An effective input root is a file: " + current.FullName);
+                missing.Push(current.Name); current = current.Parent;
+                if (current == null) throw new IOException("An effective input root has no existing ancestor: " + full);
+            }
+            string physical = NewModCompiler.Diagnostics.DiagnosticDirectory.ResolveInputDirectory(current.FullName);
+            while (missing.Count != 0) physical = Path.Combine(physical, missing.Pop());
+            return physical;
+        }
+        // Pure read preflight before Program opens reports/events/logs. This
+        // uses the same settings loader as the actual stream and restores its
+        // caller's Settings.Current without initializing any native providers.
+        public static void PreflightInputRoots(BuildRequest candidate)
+        {
+            if (candidate == null) throw new ArgumentNullException("candidate");
+            if (!new[] { "dr", "data", "art", "audio" }.Any(candidate.Options.ContainsKey)) return;
+            Settings previous = Settings.Current;
+            try
+            {
+                var probe = new CoreStreamCompiler(); probe.request = candidate;
+                probe.sdkRoot = Path.GetFullPath(candidate.SdkRoot); probe.modRoot = Path.GetFullPath(candidate.ModRoot);
+                probe.outputRoot = Path.GetFullPath(candidate.OutputRoot);
+                // Preflight protects input bytes before output sinks open. Cache
+                // coverage rejection belongs to the backend/report lifecycle.
+                probe.buildCacheEnabled = false;
+                probe.LoadSdkConfiguration();
+                probe.StreamSettings(new StreamContext { Task = new BuildTask { InputPath = Path.Combine(probe.modRoot, "Data", "mod.xml") } }, Path.Combine(probe.outputRoot, ".input-preflight"));
+            }
+            catch (BuildFailure) { throw; }
+            catch (Exception error) { throw Failure(ExitCode.Arguments, "CORE_INPUT_ROOT_INVALID", error); }
+            finally { Settings.Current = previous; }
+        }
+
         static string Prepend(string path, string configured)
         {
             if (path.IndexOf(';') >= 0) throw new BuildFailure(ExitCode.Arguments, "CORE_PATH_UNSUPPORTED", "Semicolons in MOD paths cannot be represented by the legacy path resolver.");
