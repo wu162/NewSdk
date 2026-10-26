@@ -10,9 +10,9 @@
 - 三份真实 Upheaval UI 的固定 106 文件/103 依赖闭包、组合与独立冷进程及当前原 BAB 四输出已通过两配置。Texture 为内联 DDS，不是 cdata；这些证据不代替完整 UI/runtime 或 SDK 验收。
 - Unicode 纹理输入仍受原混合 DLL 的 LoadImageA/D3DX 限制；已有具体失败证据，不重复下载器或无依据路径排列审查。
 
-## 本轮实际 `/bc` 候选：已接入，Windows 验证中
+## 本轮实际 `/bc`：定向范围已通过两配置
 
-本节描述代码合同，不提前声明候选通过。入口为 `CoreStreamCompiler`、`BuildAssetCache`、`CacheInputBoundary`；测试为 `BuildAssetCacheTests`、`SessionCacheTransactionTests`、`CompilerCacheContent`、`CompilerCacheBoundary` 和 `TestCompilerBuildCache.ps1`。
+本节代码合同已取得两配置实际验收。生产/Core10组、App各667断言、Texture、真实CLI及输入根原版对照通过；最终缓存与Audio CDATA/W3X重放复用未变化的同一生产二进制，并分别记录二进制/测试来源。原组合运行的测试工具失败保留，修复后的定向重放成功不改写其终态。入口为 `CoreStreamCompiler`、`BuildAssetCache`、`CacheInputBoundary`；测试为 `BuildAssetCacheTests`、`SessionCacheTransactionTests`、`CompilerCacheContent`、`CompilerCacheBoundary` 和 `TestCompilerBuildCache.ps1`。
 
 - `/bc:true` 选择真实 Core build-asset cache；每流 SessionCache 仍冷建，不读取旧 BAB session/build 命名空间。`/sc:true`、压缩/部分/冻结 session cache 及显式旧缓存目录仍拒绝。
 - 恢复的 audio/W3X 路由按 PluginRegistry 的真实 descriptor 使用缓存；混合 Texture 三路仍编译，不授权纹理缓存命中。报告统计实际资产 hit/miss，不能将恢复缓存目录或输入清单相同当作命中。
@@ -32,12 +32,12 @@
 
 未变化的 XML/非 XML 组件证据不重复全量运行。实际失败先定位后统一复验；候选完成不自动等于完整 P5/G3 或完整 SDK。
 
-## 接着推进：必要输入根与最终集成
+## 已通过的输入根与接着推进的会话缓存
 
-1. `/dr`、`/data`、`/art`、`/audio` 按原 SettingsLoader 的 DataRoot 与分号搜索顺序解析；显式覆盖与 MOD 前置默认路径须区分，不能只让参数不再报错。输入根功能在本轮继续实现，尚未作为已验证能力。
+1. `/dr`、`/data`、`/art`、`/audio` 按原 SettingsLoader 的 DataRoot 与分号搜索顺序解析；显式覆盖与 MOD 前置默认路径须区分，不能只让参数不再报错。本轮真实 Core/CLI/原 BAB 对照已通过两配置。
 2. 向报告输出每流最终生效 DataRoot、data/art/audio 数组及来源；原始字符串仍保留在 effectiveOptions，不把 invocation-relative 路径预先套到旧搜索串。
 3. 明确根外引用：无缓存模式按原解析契约处理；若缓存模式无法覆盖新增根，必须明确拒绝或将全部新根纳入内容合同，不能静默读取旧缓存。
-4. 使用最小合法外部引用 MOD 核对路径优先级、原 BAB 原始四输出、失败和重试；同时检查最终生效根及来源报告。通过后再集中完成完整 P5/G3/SDK，并推进 P6/P7。
+4. 使用最小合法外部引用 MOD 核对路径优先级、原 BAB 原始四输出、失败和重试；同时检查最终生效根及来源报告。本轮两配置已通过；会话缓存等后续完成后集中验收完整 P5/G3/SDK，再推进 P6/P7。
 5. 真实 session cache 尚未接入，不能把 `/bc` 当成 `/sc` 完成。具体下一组如下。
 
 ### 下一组 `/sc` 的实际接入点
