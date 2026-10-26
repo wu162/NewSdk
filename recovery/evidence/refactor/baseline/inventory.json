@@ -1,0 +1,196 @@
+{
+  "status": "static-audit-complete-runtime-baseline-pending",
+  "sourceCommit": "87cf54e254dfb44a129da087316fd04806ed2b10",
+  "scope": "Fixed pre-refactor resources and managed project dependency inventory; not a new runtime acceptance",
+  "resources": {
+    "recovery/src/Managed/Core/BinaryAssetBuilderProject.xsd": {
+      "sha256": "fdb51a774ef7d18d77deb9259f1725ec4a6997da09856b0554d13b3f8332ab7a",
+      "bytes": 2196
+    },
+    "recovery/src/Managed/MvpXml/Mvp.Xml.Common.SR.resources": {
+      "sha256": "65bc06e64351f384b3f8658d273a36d7dcb2af167e458adc0f9579bb2cf0a1cb",
+      "bytes": 1164
+    },
+    "recovery/src/Managed/MvpXml/Mvp.Xml.Common.SR.resx": {
+      "sha256": "2bb2cb422e67b710fa3679a209764dbb3f068c90d52f31aaaf03087b78b56323",
+      "bytes": 2911
+    },
+    "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources": {
+      "sha256": "a3237a994521c1904b0367691fdafc8b4b309371b845157bd149f27b53849d76",
+      "bytes": 180
+    },
+    "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude.SR.resources": {
+      "sha256": "0ef800084cbdf48a5a0b2de121f52737410aaa1356a6325fae779a8b56a77f6c",
+      "bytes": 4119
+    },
+    "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude.SR.resx": {
+      "sha256": "e8299508ef6fa25e14fa1733ce54212ed1d63165fa0c654eba2fff7aa0ac156f",
+      "bytes": 6464
+    },
+    "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer.SR.resources": {
+      "sha256": "fb2b9ea0745131e0ba26b9c7967a4f74885427d73dbeb6ad68114c8a3bacb1de",
+      "bytes": 2166
+    },
+    "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer.SR.resx": {
+      "sha256": "8d8a6ed9333c99e71ea54b6e71ec71ddeb640dc15eec1236fbcb5d5ddc0295f8",
+      "bytes": 4084
+    }
+  },
+  "managedProjects": {
+    "recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj": {
+      "sha256": "78b5d073176c9a173d8acfbc7d5847dfa76cbc7f4a09464861895e2f56c69c7d",
+      "framework": [
+        "net20"
+      ],
+      "assemblyReferences": [
+        "System.Xml",
+        "BinaryAssetBuilder.Utility",
+        "EALA.Hash",
+        "EALA.Metrics",
+        "System.Configuration",
+        "System.Windows.Forms",
+        "System.Drawing"
+      ],
+      "projectReferences": [
+        "../MvpXml/Mvp.Xml.csproj"
+      ],
+      "embeddedResources": [
+        "BinaryAssetBuilderProject.xsd"
+      ]
+    },
+    "recovery/src/Managed/EALABuild/EALABuild.csproj": {
+      "sha256": "728d97c14c4b6f381703984e1b8d8a9503c8b9997c7efc48baa91447cb258bea",
+      "framework": [
+        "net20"
+      ],
+      "assemblyReferences": [
+        "System.Xml",
+        "System.Windows.Forms",
+        "System.Drawing"
+      ],
+      "projectReferences": [],
+      "embeddedResources": []
+    },
+    "recovery/src/Managed/ExpressionEval/BinaryAssetBuilder.ExpressionEval.csproj": {
+      "sha256": "2ad210ffc9eb0c93e6627f7c2c7cbf62f0fa9c92586e6c9b42b6cb4693231874",
+      "framework": [
+        "net20"
+      ],
+      "assemblyReferences": [
+        "BinaryAssetBuilder.Core",
+        "antlr.runtime"
+      ],
+      "projectReferences": [],
+      "embeddedResources": []
+    },
+    "recovery/src/Managed/GameDataVerifier/BinaryAssetBuilder.GameDataVerifier.csproj": {
+      "sha256": "1539cccc7d195b554e520abc19b72bc6223dc15245c428bf85ef83a24a8957d4",
+      "framework": [
+        "net20"
+      ],
+      "assemblyReferences": [
+        "BinaryAssetBuilder.Core",
+        "System.Xml"
+      ],
+      "projectReferences": [],
+      "embeddedResources": []
+    },
+    "recovery/src/Managed/Hash/EALA.Hash.csproj": {
+      "sha256": "b39efd110a7bbd11604770bd3144653a24232efb8901ddc129466ad54060590d",
+      "framework": [
+        "net20"
+      ],
+      "assemblyReferences": [],
+      "projectReferences": [],
+      "embeddedResources": []
+    },
+    "recovery/src/Managed/Metrics/EALA.Metrics.csproj": {
+      "sha256": "163b85abe947da76b46f70dcb1da3c02d188d7be81e45d311f8ea57f8605757a",
+      "framework": [
+        "net20"
+      ],
+      "assemblyReferences": [
+        "System.Configuration",
+        "System.Data"
+      ],
+      "projectReferences": [],
+      "embeddedResources": []
+    },
+    "recovery/src/Managed/MvpXml/Mvp.Xml.csproj": {
+      "sha256": "85e6271c44ac295f8ceb908ebe72025b4cd162e35fb7e6b65c9d77178a5a6249",
+      "framework": [
+        "net20"
+      ],
+      "assemblyReferences": [
+        "System.Xml",
+        "System.Configuration.Install",
+        "System.Web"
+      ],
+      "projectReferences": [],
+      "embeddedResources": [
+        "*.resources"
+      ]
+    },
+    "recovery/src/Managed/Remote/BinaryAssetBuilder.Remote.csproj": {
+      "sha256": "c3b017d7f5be972afc212ec1faa5f8bde493e74a939483fc3d0a6b5ac65e9a47",
+      "framework": [
+        "net20"
+      ],
+      "assemblyReferences": [],
+      "projectReferences": [],
+      "embeddedResources": []
+    },
+    "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility.csproj": {
+      "sha256": "91a443a3a0c76d24e337d0ff45e35612d95677d68b28ff247022bf1a9514b08f",
+      "framework": [
+        "net20"
+      ],
+      "assemblyReferences": [
+        "System.Xml"
+      ],
+      "projectReferences": [],
+      "embeddedResources": []
+    },
+    "src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj": {
+      "sha256": "38a0709ca178435b3301cc70774ab369d722f36366d1a055201bd580663fae23",
+      "framework": [
+        "net472"
+      ],
+      "assemblyReferences": [
+        "BinaryAssetBuilder.Core"
+      ],
+      "projectReferences": [],
+      "embeddedResources": []
+    }
+  },
+  "unrestoredRuntimeDependencies": [
+    "BinaryAssetBuilder.TextureCompiler.dll",
+    "antlr.runtime.dll"
+  ],
+  "currentJointDeploymentOriginalLibraries": [
+    "BinaryAssetBuilder.Utility.dll",
+    "EALA.Hash.dll",
+    "EALA.Metrics.dll"
+  ],
+  "currentJointDeploymentRestoredLibraries": [
+    "BinaryAssetBuilder.Core.dll",
+    "BinaryAssetBuilder.Remote.dll",
+    "EALABuild.dll",
+    "Mvp.Xml.dll",
+    "BinaryAssetBuilder.ExpressionEval.dll",
+    "BinaryAssetBuilder.GameDataVerifier.dll",
+    "Recovered.AudioCompiler.dll",
+    "Recovered.XmlCompilerPriority.dll",
+    "Recovered.XmlPriority.Plugin.dll",
+    "Recovered.GameObject.dll",
+    "Recovered.GameObjectPlugin.dll",
+    "Recovered.Weapon.dll",
+    "Recovered.WeaponPlugin.dll",
+    "Recovered.Armor.dll",
+    "Recovered.Compiler.dll",
+    "Recovered.W3x.Native.dll",
+    "Recovered.W3x.Mesh.dll",
+    "Recovered.W3x.Plugin.dll"
+  ],
+  "runtimeEvidence": "The workflow receipt records actual config targets and all installed DLL hashes; deployment does not prove every DLL was loaded or every route exercised."
+}

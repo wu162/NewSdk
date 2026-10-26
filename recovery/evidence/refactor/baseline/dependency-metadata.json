@@ -1,0 +1,1254 @@
+{
+  "sourceCommit": "87cf54e254dfb44a129da087316fd04806ed2b10",
+  "status": "static-original-binary-audit-only",
+  "binaries": [
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.exe",
+      "sha256": "f79c2fe743de251e59c9e1daee6930f4c58b1de3adf735f73aa7e9798c8c49af",
+      "bytes": 36864,
+      "machine": "0x14c",
+      "managed": true,
+      "corFlags": "0x3",
+      "identity": [
+        {
+          "name": "BinaryAssetBuilder",
+          "version": "1.0.3344.32798"
+        }
+      ],
+      "assemblyReferences": [
+        {
+          "name": "mscorlib",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "EALA.Metrics",
+          "version": "1.0.0.0"
+        },
+        {
+          "name": "BinaryAssetBuilder.Remote",
+          "version": "0.0.0.0"
+        },
+        {
+          "name": "System.Windows.Forms",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "BinaryAssetBuilder.Core",
+          "version": "1.0.0.0"
+        },
+        {
+          "name": "System",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Runtime.Remoting",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Configuration",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Drawing",
+          "version": "2.0.0.0"
+        }
+      ],
+      "resources": [
+        "BinaryAssetBuilder.SystemTrayForm.resources"
+      ],
+      "nativeImports": [
+        "mscoree.dll"
+      ],
+      "totalTypeReferenceCount": 100,
+      "projectTypeReferences": [
+        {
+          "namespace": "EALA.Metrics",
+          "name": "IMetricsListener",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Remote",
+          "name": "IServerCommand",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "Tracer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "PluginRegistry",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "VerifierPluginRegistry",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "ISessionCache",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "PathMonitor",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "EALA.Metrics",
+          "name": "MetricDescriptor",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "GUIBuildOutput",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "SchemaSet",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "EALA.Metrics",
+          "name": "Metric",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Remote",
+          "name": "ServerState",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "SessionCache",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder",
+          "name": "Settings",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder",
+          "name": "PluginDescriptor",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "TargetPlatform",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "EALA.Metrics",
+          "name": "MetricManager",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "HashProvider",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "DocumentProcessor",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "AssetReport",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder",
+          "name": "BinaryAssetBuilderException",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Remote",
+          "name": "IClientCommand",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "TraceWriteHandler",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder",
+          "name": "ErrorCode",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "EALA.Metrics",
+          "name": "MetricType",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "EALA.Metrics",
+          "name": "MetricApplicationData",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder",
+          "name": "CommandLineOptionProcessor",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "SettingsLoader",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        }
+      ]
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.Core.dll",
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+      "bytes": 212992,
+      "machine": "0x14c",
+      "managed": true,
+      "corFlags": "0x1",
+      "identity": [
+        {
+          "name": "BinaryAssetBuilder.Core",
+          "version": "1.0.0.0"
+        }
+      ],
+      "assemblyReferences": [
+        {
+          "name": "mscorlib",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Xml",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Windows.Forms",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "BinaryAssetBuilder.Utility",
+          "version": "1.0.3344.32795"
+        },
+        {
+          "name": "System.Drawing",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "EALA.Hash",
+          "version": "1.0.3344.32674"
+        },
+        {
+          "name": "EALA.Metrics",
+          "version": "1.0.0.0"
+        },
+        {
+          "name": "System.Configuration",
+          "version": "2.0.0.0"
+        }
+      ],
+      "resources": [
+        "BinaryAssetBuilderProject.xsd"
+      ],
+      "nativeImports": [
+        "mscoree.dll"
+      ],
+      "totalTypeReferenceCount": 295,
+      "projectTypeReferences": [
+        {
+          "namespace": "BinaryAssetBuilder.Utility",
+          "name": "Asset",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Utility",
+          "name": "AssetHeader",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Utility",
+          "name": "Manifest",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Utility",
+          "name": "ManifestHeader",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "EALA.Hash",
+          "name": "FastHash",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 7
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Utility",
+          "name": "StructWrapper<AssetStream::AssetHeader>",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "EALA.Metrics",
+          "name": "MetricManager",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 8
+        },
+        {
+          "namespace": "EALA.Metrics",
+          "name": "MetricTimer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 8
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Utility",
+          "name": "StructWrapper<AssetStream::ManifestHeader>",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Utility",
+          "name": "AssetEntry",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Utility",
+          "name": "NameBuffer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Utility",
+          "name": "ReferencedFileBuffer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Utility",
+          "name": "UInt32Buffer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Utility",
+          "name": "StructWrapper<AssetStream::AssetEntry>",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Utility",
+          "name": "FileSystemUtils",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        }
+      ]
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.Utility.dll",
+      "sha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b",
+      "bytes": 63488,
+      "machine": "0x14c",
+      "managed": true,
+      "corFlags": "0x10",
+      "identity": [
+        {
+          "name": "BinaryAssetBuilder.Utility",
+          "version": "1.0.3344.32795"
+        }
+      ],
+      "assemblyReferences": [
+        {
+          "name": "mscorlib",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Data",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Xml",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "Microsoft.VisualC",
+          "version": "8.0.0.0"
+        }
+      ],
+      "resources": [],
+      "nativeImports": [
+        "MSVCR80.dll",
+        "KERNEL32.dll",
+        "msvcm80.dll",
+        "MSVCP80.dll",
+        "mscoree.dll"
+      ],
+      "totalTypeReferenceCount": 80,
+      "projectTypeReferences": []
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll",
+      "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+      "bytes": 815104,
+      "machine": "0x14c",
+      "managed": true,
+      "corFlags": "0x10",
+      "identity": [
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler",
+          "version": "1.0.3492.22451"
+        }
+      ],
+      "assemblyReferences": [
+        {
+          "name": "mscorlib",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Data",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Xml",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "BinaryAssetBuilder.Core",
+          "version": "1.0.0.0"
+        },
+        {
+          "name": "EALA.Hash",
+          "version": "1.0.3344.32674"
+        },
+        {
+          "name": "EALA.ProcessUtility",
+          "version": "1.0.3152.32169"
+        },
+        {
+          "name": "EALA.Metrics",
+          "version": "1.0.0.0"
+        },
+        {
+          "name": "Microsoft.VisualC",
+          "version": "8.0.0.0"
+        }
+      ],
+      "resources": [],
+      "nativeImports": [
+        "KERNEL32.dll",
+        "MSVCR80.dll",
+        "MSVCP80.dll",
+        "USER32.dll",
+        "ADVAPI32.dll",
+        "msvcm80.dll",
+        "mscoree.dll"
+      ],
+      "totalTypeReferenceCount": 92,
+      "projectTypeReferences": [
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "IAssetBuilderPlugin",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "TargetPlatform",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "Tracer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "AssetBuffer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "InstanceDeclaration",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "ExtendedTypeInformation",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder",
+          "name": "BinaryAssetBuilderException",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder",
+          "name": "ErrorCode",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "HashProvider",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "InstanceHandle",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "AssetDeclarationDocument",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        }
+      ]
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.AudioCompiler.dll",
+      "sha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+      "bytes": 1232896,
+      "machine": "0x14c",
+      "managed": true,
+      "corFlags": "0x10",
+      "identity": [
+        {
+          "name": "BinaryAssetBuilder.AudioCompiler",
+          "version": "1.0.3492.22474"
+        }
+      ],
+      "assemblyReferences": [
+        {
+          "name": "mscorlib",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Data",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Xml",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "BinaryAssetBuilder.Core",
+          "version": "1.0.0.0"
+        },
+        {
+          "name": "EALA.Hash",
+          "version": "1.0.3344.32674"
+        },
+        {
+          "name": "EALA.ProcessUtility",
+          "version": "1.0.3152.32169"
+        },
+        {
+          "name": "EALA.Metrics",
+          "version": "1.0.0.0"
+        },
+        {
+          "name": "Microsoft.DirectX.AudioVideoPlayback",
+          "version": "1.0.2902.0"
+        },
+        {
+          "name": "Microsoft.DirectX.Diagnostics",
+          "version": "1.0.2902.0"
+        },
+        {
+          "name": "Microsoft.DirectX.Direct3D",
+          "version": "1.0.2902.0"
+        },
+        {
+          "name": "Microsoft.DirectX.DirectDraw",
+          "version": "1.0.2902.0"
+        },
+        {
+          "name": "Microsoft.DirectX.DirectInput",
+          "version": "1.0.2902.0"
+        },
+        {
+          "name": "Microsoft.DirectX.DirectPlay",
+          "version": "1.0.2902.0"
+        },
+        {
+          "name": "Microsoft.DirectX.DirectSound",
+          "version": "1.0.2902.0"
+        },
+        {
+          "name": "Microsoft.DirectX",
+          "version": "1.0.2902.0"
+        },
+        {
+          "name": "Microsoft.DirectX.Direct3DX",
+          "version": "1.0.2911.0"
+        },
+        {
+          "name": "Microsoft.VisualC",
+          "version": "8.0.0.0"
+        }
+      ],
+      "resources": [],
+      "nativeImports": [
+        "MSVCR80.dll",
+        "KERNEL32.dll",
+        "msvcm80.dll",
+        "MSVCP80.dll",
+        "ADVAPI32.dll",
+        "mscoree.dll"
+      ],
+      "totalTypeReferenceCount": 92,
+      "projectTypeReferences": [
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "IAssetBuilderPlugin",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "Tracer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "TargetPlatform",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "AssetBuffer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "InstanceDeclaration",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "ExtendedTypeInformation",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder",
+          "name": "BinaryAssetBuilderException",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder",
+          "name": "ErrorCode",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "HashProvider",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "InstanceHandle",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "AssetDeclarationDocument",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        }
+      ]
+    },
+    {
+      "path": "SDK/tools/EALA.Hash.dll",
+      "sha256": "b884317c4b322630d67c9e961edc475557945f86090ac9105c3977880d3dcece",
+      "bytes": 26624,
+      "machine": "0x14c",
+      "managed": true,
+      "corFlags": "0x10",
+      "identity": [
+        {
+          "name": "EALA.Hash",
+          "version": "1.0.3344.32674"
+        }
+      ],
+      "assemblyReferences": [
+        {
+          "name": "mscorlib",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Data",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Xml",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "Microsoft.VisualC",
+          "version": "8.0.0.0"
+        }
+      ],
+      "resources": [],
+      "nativeImports": [
+        "MSVCR80.dll",
+        "KERNEL32.dll",
+        "msvcm80.dll",
+        "mscoree.dll"
+      ],
+      "totalTypeReferenceCount": 60,
+      "projectTypeReferences": []
+    },
+    {
+      "path": "SDK/tools/EALA.Metrics.dll",
+      "sha256": "bcf488c809a052fe920de95ec10975693ffa27f8d3e892a1cff510c4a118fa1c",
+      "bytes": 16384,
+      "machine": "0x14c",
+      "managed": true,
+      "corFlags": "0x1",
+      "identity": [
+        {
+          "name": "EALA.Metrics",
+          "version": "1.0.0.0"
+        }
+      ],
+      "assemblyReferences": [
+        {
+          "name": "mscorlib",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Configuration",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Data",
+          "version": "2.0.0.0"
+        }
+      ],
+      "resources": [],
+      "nativeImports": [
+        "mscoree.dll"
+      ],
+      "totalTypeReferenceCount": 59,
+      "projectTypeReferences": []
+    },
+    {
+      "path": "SDK/tools/Mvp.Xml.dll",
+      "sha256": "75e86cde7ac2f4cdee06c1115550a6f44ccb22cbcfd4f57c5d5dd09c1fba78c9",
+      "bytes": 176256,
+      "machine": "0x14c",
+      "managed": true,
+      "corFlags": "0x9",
+      "identity": [
+        {
+          "name": "Mvp.Xml",
+          "version": "2.0.2158.1055"
+        }
+      ],
+      "assemblyReferences": [
+        {
+          "name": "mscorlib",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Xml",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Configuration.Install",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "System.Web",
+          "version": "2.0.0.0"
+        }
+      ],
+      "resources": [
+        "Mvp.Xml.Common.SR.resources",
+        "Mvp.Xml.XPointer.SR.resources",
+        "Mvp.Xml.XInclude.SR.resources",
+        "Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources"
+      ],
+      "nativeImports": [
+        "mscoree.dll"
+      ],
+      "totalTypeReferenceCount": 218,
+      "projectTypeReferences": []
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.ExpressionEval.dll",
+      "sha256": "c2c872619b4391f5987d483597116fb33e0cbf09f3cebeeda9d0105cce18b5ac",
+      "bytes": 32768,
+      "machine": "0x14c",
+      "managed": true,
+      "corFlags": "0x1",
+      "identity": [
+        {
+          "name": "BinaryAssetBuilder.ExpressionEval",
+          "version": "0.0.0.0"
+        }
+      ],
+      "assemblyReferences": [
+        {
+          "name": "mscorlib",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "BinaryAssetBuilder.Core",
+          "version": "1.0.0.0"
+        },
+        {
+          "name": "antlr.runtime",
+          "version": "2.7.5.2"
+        },
+        {
+          "name": "System",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "mscorlib",
+          "version": "1.0.5000.0"
+        }
+      ],
+      "resources": [],
+      "nativeImports": [
+        "mscoree.dll"
+      ],
+      "totalTypeReferenceCount": 57,
+      "projectTypeReferences": [
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "IExpressionEvaluator",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "antlr",
+          "name": "CharScanner",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "TokenStream",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "LLkParser",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "AssetDeclarationDocument",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "Definition",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "antlr",
+          "name": "InputBuffer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "LexerSharedInputState",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "IToken",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr.collections.impl",
+          "name": "BitSet",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "RecognitionException",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "TokenBuffer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "ParserSharedInputState",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "DefinitionSet",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder",
+          "name": "BinaryAssetBuilderException",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder",
+          "name": "ErrorCode",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "antlr",
+          "name": "ByteBuffer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "CharBuffer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "NoViableAltForCharException",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "TokenStreamRecognitionException",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "CharStreamIOException",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "TokenStreamIOException",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "TokenStreamException",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "CharStreamException",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "Token",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "Parser",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        },
+        {
+          "namespace": "antlr",
+          "name": "NoViableAltException",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 3
+        }
+      ]
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.GameDataVerifier.dll",
+      "sha256": "497f29052a32dca2002857a3dbc88232bb66a19e3dfcfecbdf048c73417847f0",
+      "bytes": 9728,
+      "machine": "0x14c",
+      "managed": true,
+      "corFlags": "0x1",
+      "identity": [
+        {
+          "name": "BinaryAssetBuilder.GameDataVerifier",
+          "version": "1.0.0.0"
+        }
+      ],
+      "assemblyReferences": [
+        {
+          "name": "mscorlib",
+          "version": "2.0.0.0"
+        },
+        {
+          "name": "BinaryAssetBuilder.Core",
+          "version": "1.0.0.0"
+        },
+        {
+          "name": "System.Xml",
+          "version": "2.0.0.0"
+        }
+      ],
+      "resources": [],
+      "nativeImports": [
+        "mscoree.dll"
+      ],
+      "totalTypeReferenceCount": 35,
+      "projectTypeReferences": [
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "IAssetBuilderVerifierPlugin",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder",
+          "name": "IAssetBuilderPluginBase",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "Tracer",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "TargetPlatform",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "InstanceDeclaration",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "AssetDeclarationDocument",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        },
+        {
+          "namespace": "BinaryAssetBuilder.Core",
+          "name": "Set`1",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 2
+        }
+      ]
+    },
+    {
+      "path": "SDK/tools/antlr.runtime.dll",
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "bytes": 99328,
+      "machine": "0x14c",
+      "managed": true,
+      "corFlags": "0x1",
+      "identity": [
+        {
+          "name": "antlr.runtime",
+          "version": "2.7.5.2"
+        }
+      ],
+      "assemblyReferences": [
+        {
+          "name": "mscorlib",
+          "version": "1.0.5000.0"
+        },
+        {
+          "name": "System",
+          "version": "1.0.5000.0"
+        }
+      ],
+      "resources": [],
+      "nativeImports": [
+        "mscoree.dll"
+      ],
+      "totalTypeReferenceCount": 61,
+      "projectTypeReferences": []
+    },
+    {
+      "path": "SDK/tools/antlr.astframe.dll",
+      "sha256": "f202b2befabb3b703b0389dceb4f542a606be4c1fb120fd267549a2bde7f34d4",
+      "bytes": 6656,
+      "machine": "0x14c",
+      "managed": true,
+      "corFlags": "0x1",
+      "identity": [
+        {
+          "name": "antlr.astframe",
+          "version": "0.0.0.0"
+        }
+      ],
+      "assemblyReferences": [
+        {
+          "name": "System.Windows.Forms",
+          "version": "1.0.5000.0"
+        },
+        {
+          "name": "System.Drawing",
+          "version": "1.0.5000.0"
+        },
+        {
+          "name": "mscorlib",
+          "version": "1.0.5000.0"
+        },
+        {
+          "name": "System",
+          "version": "1.0.5000.0"
+        },
+        {
+          "name": "antlr.runtime",
+          "version": "2.7.5.2"
+        }
+      ],
+      "resources": [],
+      "nativeImports": [
+        "mscoree.dll"
+      ],
+      "totalTypeReferenceCount": 29,
+      "projectTypeReferences": [
+        {
+          "namespace": "antlr",
+          "name": "ASTFactory",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "antlr.collections",
+          "name": "AST",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "antlr",
+          "name": "CommonAST",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        },
+        {
+          "namespace": "antlr",
+          "name": "BaseAST",
+          "scopeTable": "AssemblyRef",
+          "scopeRow": 5
+        }
+      ]
+    },
+    {
+      "path": "SDK/tools/CC3Tools.dll",
+      "sha256": "923e5c12f1b1f9c408c19cfbf3d6bc6e15175b69b504b2e72ec914d439077a35",
+      "bytes": 161792,
+      "machine": "0x14c",
+      "managed": false,
+      "nativeImports": [
+        "SHLWAPI.dll",
+        "KERNEL32.dll",
+        "USER32.dll",
+        "ADVAPI32.dll",
+        "SHELL32.dll"
+      ],
+      "totalTypeReferenceCount": 0,
+      "projectTypeReferences": []
+    }
+  ]
+}

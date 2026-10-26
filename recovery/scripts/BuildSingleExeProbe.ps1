@@ -15,7 +15,7 @@ New-Item -ItemType Directory -Force $work,$bin | Out-Null
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 function Invoke-Checked([string]$Command,[string[]]$Arguments,[string]$Log) {
     & $Command @Arguments *> $Log
-    if ($LASTEXITCODE -ne 0) { Get-Content $Log -Tail 100; throw "$Command failed: $Log" }
+    if ($LASTEXITCODE -ne 0) { Get-Content $Log -Tail 100 | ForEach-Object { Write-Host $_ }; throw "$Command failed: $Log" }
 }
 Push-Location $root
 try {
@@ -25,8 +25,8 @@ try {
         $asset = Get-Content 'recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetBuffer.cs' -Raw
         if (!$asset.Contains('namespace BinaryAssetBuilder.Core;')) { throw 'AssetBuffer namespace changed; review generator' }
         $asset.Replace('namespace BinaryAssetBuilder.Core;',"namespace BinaryAssetBuilder.Core`n{") + "`n}" | Set-Content "$work/AssetBuffer.cs" -Encoding UTF8
-        Invoke-Checked $csc @('/nologo','/codepage:65001','/target:module','/platform:x86','/unsafe',"/out:$work/Managed.Foundation.netmodule","$work/AssetBuffer.cs",(Resolve-Path 'recovery/src/Managed/Hash/FastHash.cs').Path) "$out/foundation-build.log"
-        $foundation = "$work/Managed.Foundation.netmodule"
+        Invoke-Checked $csc @('/nologo','/codepage:65001','/target:module','/platform:x86','/unsafe',"/out:$work/Managed.Foundation.netmodule",(Resolve-Path "$work/AssetBuffer.cs").Path,(Resolve-Path 'recovery/src/Managed/Hash/FastHash.cs').Path) "$out/foundation-build.log"
+        $foundation = [IO.Path]::GetFullPath("$work/Managed.Foundation.netmodule")
         $resources = @(@{path=(Join-Path $root 'recovery/src/Managed/Core/BinaryAssetBuilderProject.xsd');logicalName='BinaryAssetBuilderProject.xsd'})
     } else {
         if (!$FoundationDirectory) { throw 'Supply -FoundationDirectory from BuildManagedFoundation.ps1, or explicitly select -Minimal' }
@@ -55,7 +55,7 @@ try {
     $module = Join-Path $work 'Managed.Application.netmodule'
     $applicationArgs = @('/nologo','/codepage:65001','/target:module','/platform:x86',"/addmodule:$foundation,$($objects[-1])",'/r:System.Xml.dll','/r:System.Core.dll',"/out:$module",(Resolve-Path 'recovery/probes/SingleExe/Probe.cs').Path)
     if (!$Minimal) {
-        $applicationArgs += @('/define:FULL_FOUNDATION',(Resolve-Path 'recovery/build/ManagedValidation/ManagedFoundationValidation.cs').Path)
+        $applicationArgs += @('/define:FULL_FOUNDATION',(Resolve-Path 'recovery/build/ManagedValidation/ManagedFoundationValidation.cs').Path,(Resolve-Path 'recovery/probes/TextureRedirect/TextureProbe.cs').Path)
     }
     Invoke-Checked $csc $applicationArgs "$out/application-build.log"
     $linkArgs = @('/nologo','/LTCG','/MACHINE:X86','/SUBSYSTEM:CONSOLE','/ENTRY:SingleExeProbe.Main',"/OUT:$bin/NewModCompiler.exe") + $objects + @($foundation,$module)
@@ -70,6 +70,8 @@ try {
     # Only EXE, configuration and full Foundation's declared ANTLR dependency enter the run directory.
     @{
         sourceCommit=(git rev-parse HEAD).Trim(); configuration=$Configuration
+        toolchain=@{clPath=(Get-Command cl.exe).Source;clVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command cl.exe).Source).FileVersion;linkPath=(Get-Command link.exe).Source;linkVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo((Get-Command link.exe).Source).FileVersion;cscPath=$csc;cscVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo($csc).FileVersion;vcToolsVersion=$env:VCToolsVersion;sdkVersion=$env:WindowsSDKVersion;fp='precise';platform='x86'}
+        sourceFiles=@(@('recovery/src/Native/Relocation.cpp','recovery/src/Native/Relocation.h','recovery/src/Native/ScalarParsing.cpp','recovery/src/Native/ScalarParsing.h','recovery/src/Native/ArmorTemplate.cpp','recovery/src/Native/ArmorTemplate.h','recovery/src/Bridge/ArmorCompiler.cpp','recovery/src/Bridge/XmlNodeAdapter.h','recovery/probes/SingleExe/Probe.cs') | ForEach-Object { @{path=$_;sha256=(Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant()} })
         scope=if($Minimal){'minimal link probe: real AssetBuffer, Hash, Armor CompileXml; not full G1'}else{'Foundation plus real Armor bridge unified-link probe'}
         foundationSha256=(Get-FileHash $foundation -Algorithm SHA256).Hash.ToLowerInvariant()
         bridgeSourceSha256=(Get-FileHash 'recovery/src/Bridge/ArmorCompiler.cpp' -Algorithm SHA256).Hash.ToLowerInvariant()

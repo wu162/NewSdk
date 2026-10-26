@@ -26,6 +26,7 @@ internal static class Program
             string[] originalMembers = module.GetMemberRefs().Select(m => m.MDToken.Raw + ":" + m.FullName).ToArray();
             string[] targetTypes = Array.Empty<string>();
             string? targetHash = null;
+            string[] targetMembers = Array.Empty<string>();
             if (args[0] == "redirect")
             {
                 string targetPath = Path.GetFullPath(args[3]);
@@ -36,6 +37,16 @@ internal static class Program
                 var definitions = target.GetTypes().ToDictionary(t => t.FullName);
                 foreach (var t in needed)
                     if (!definitions.ContainsKey(t.FullName)) throw new InvalidDataException("EXE is missing compatible type: " + t.FullName);
+                var neededMembers = module.GetMemberRefs().Where(m => m.Class is TypeRef t && t.ResolutionScope == core).ToArray();
+                foreach (var member in neededMembers)
+                {
+                    var type = definitions[((TypeRef)member.Class).FullName];
+                    bool found = member.IsMethodRef
+                        ? type.Methods.Any(m => m.IsPublic && m.FullName == member.FullName)
+                        : type.Fields.Any(f => f.IsPublic && f.FullName == member.FullName);
+                    if (!found) throw new InvalidDataException("EXE lacks a public member with exact signature: " + member.FullName);
+                }
+                targetMembers = neededMembers.Select(m => m.FullName).OrderBy(n => n, StringComparer.Ordinal).ToArray();
                 targetTypes = needed.Select(t => t.FullName).OrderBy(t => t, StringComparer.Ordinal).ToArray();
                 targetHash = Hash(targetPath);
                 var identity = target.Assembly;
@@ -58,7 +69,7 @@ internal static class Program
             if (args[0] == "roundtrip" && newIdentity != oldIdentity) throw new InvalidDataException("Roundtrip changed Core identity");
             File.WriteAllText(output + ".patch.json", JsonSerializer.Serialize(new {
                 schemaVersion = 1, tool = "TextureReferencePatch", dnlib = "4.5.0", mode = args[0], originalSha256 = Hash(input), patchedSha256 = Hash(output), targetExeSha256 = targetHash,
-                assemblyRefToken = "0x23000005", originalIdentity = oldIdentity, targetIdentity = newIdentity, targetTypeNames = targetTypes,
+                assemblyRefToken = "0x23000005", originalIdentity = oldIdentity, targetIdentity = newIdentity, targetTypeNames = targetTypes, compatibleMemberSignatures = targetMembers, compatibleSignatureSha256 = Convert.ToHexString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(string.Join("\n", targetMembers)))).ToLowerInvariant(),
                 status = "written-not-runtime-validated", note = "Type existence is not ABI acceptance. Native PE audit and G2 A/B/C runtime receipt are mandatory."
             }, new JsonSerializerOptions { WriteIndented = true }));
             return 0;

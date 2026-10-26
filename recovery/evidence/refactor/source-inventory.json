@@ -1,0 +1,3346 @@
+{
+  "sourceCommit": "87cf54e254dfb44a129da087316fd04806ed2b10",
+  "kind": "read-only source inventory, not runtime acceptance",
+  "groups": {
+    "managed": {
+      "count": 252,
+      "files": [
+        {
+          "path": "recovery/src/Managed/CompilerCatalog.cs",
+          "bytes": 24666,
+          "sha256": "9d254777cc68046be08ed3757f54f26c9e955cfd5923dc2b3e5e5bcfc607b50c"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder/BinaryAssetBuilderException.cs",
+          "bytes": 2948,
+          "sha256": "1818cb0a8a2f6c58e47a0a9675bcbc9e04ea304dbbd679da357601866a4ac282"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder/BuildConfiguration.cs",
+          "bytes": 1405,
+          "sha256": "efb98c3b47715662ead8c176125b30dced1cc612fb4f297de3dc9114e6d70b34"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder/CommandLineOptionAttribute.cs",
+          "bytes": 598,
+          "sha256": "7b42274acac00c570ba49dab09d830151b714d075a4e6a1b85aefa3b640030e1"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder/CommandLineOptionProcessor.cs",
+          "bytes": 11941,
+          "sha256": "f5672e80ef92965540f8ef1f2e143ad5f073416123354b19c3576bf2ad251098"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder/ErrorCode.cs",
+          "bytes": 688,
+          "sha256": "c3b9bc9d3b2f8625628ec32b19746aca645dd6c041fd062256d835c0ae4f907d"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder/IAssetBuilderPluginBase.cs",
+          "bytes": 239,
+          "sha256": "93eda7ed2d4f8ba53c19210b6d5e4d606fd44fdb83007d7b2eb12abbad365d8a"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder/OptionalCommandLineOptionAttribute.cs",
+          "bytes": 526,
+          "sha256": "61b1d9b65c484a0d10c7c348067e678e949e380e057eb775a7aea024b7fa3181"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder/OrderedCommandLineOptionAttribute.cs",
+          "bytes": 531,
+          "sha256": "b27da195513305f01f9c0cec5c63e8c61d06f3e56bfda40fdad2120b94dfd8b8"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder/PluginDescriptor.cs",
+          "bytes": 2322,
+          "sha256": "73214a3701685abd3e54c87ea667681027f8116e3635099a94fbf05ad2d27072"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder/SerializedSectionHandler.cs",
+          "bytes": 1351,
+          "sha256": "e4e36f64ee066be177659768ab6ab7d5e071e36c34208193eb0832ff2e426a9a"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder/Settings.cs",
+          "bytes": 12882,
+          "sha256": "c19a6e18b5bc044c9145c033440dbda6c4a77805350e501e26280ef610c34945"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetBuffer.cs",
+          "bytes": 506,
+          "sha256": "e3802f52d3c899020d54c9ca7991a079d5ae92041d5b60caf10781e68571e929"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetDeclarationDocument.cs",
+          "bytes": 58130,
+          "sha256": "73ddf4e039422a83408d395e7d1254d0ef064189392ea7bc5e2cc725beacf04c"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetLocation.cs",
+          "bytes": 189,
+          "sha256": "a20be2edad0d6ed4131656e02803c429812df9f25d6f5886970886a5e08f5d07"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetLocationInfo.cs",
+          "bytes": 215,
+          "sha256": "a6be29a54df5ebace8cccaf0b4ff96a46b7494ba4503795edddfc20c9d1fbc16"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetLocationOption.cs",
+          "bytes": 139,
+          "sha256": "20102e1ce793642302c81b1c29f8585a6efcd7dbfc4004ef1037f509d095a369"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetReport.cs",
+          "bytes": 3499,
+          "sha256": "d5d6d01ea36b6753adf78a73ed005954e6aa1565a00ea60a4094732a31bf1555"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AsynchronousFileReader.cs",
+          "bytes": 1790,
+          "sha256": "cda50451495a57ff97d32764121897858aea737fe5cee35a9185896abf0351dd"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AutoComplete.cs",
+          "bytes": 384,
+          "sha256": "8143a99b82de1747fbf7f892eeb67ac80466708fb72acfabfc8843d6d0ad4828"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/BinaryAsset.cs",
+          "bytes": 19800,
+          "sha256": "1d7fdabf742fea89c40b662954f89baad9f920273c719583039bab844001709e"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/Chunk.cs",
+          "bytes": 815,
+          "sha256": "ed5b171d0b941b02377246570aecbe469052936023594277179db32963e7bf09"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/Collection2.cs",
+          "bytes": 5268,
+          "sha256": "44f80c15c29c7dd19abc032f96728c9666379ff51ebcb5a9839b09013ec4f917"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/Definition.cs",
+          "bytes": 996,
+          "sha256": "286fe4f20574a08fc43584791dbc9f2699c209c52172529693829dad7ff85bf4"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/DefinitionPair.cs",
+          "bytes": 682,
+          "sha256": "056192a659c441e66f16937bcfdfe8279f1b193dc70e3cee64cc4b5673311eb9"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/DefinitionSet.cs",
+          "bytes": 762,
+          "sha256": "5af2eae752d0819ec5b893bd54a3c5aa7ce2371184f3f4c9be1d34895b5f8b4d"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/DocumentProcessor.cs",
+          "bytes": 28230,
+          "sha256": "fa4906a1886ea3fa65ec65c0c17e4f834ed85f769dbdd047396fb1734c9ac9be"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/DocumentState.cs",
+          "bytes": 114,
+          "sha256": "99868b309262bee305ae74397e7b4ecd4a70c8b647ca32e68ad199dfb0b8207a"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/ExpressionEvaluatorWrapper.cs",
+          "bytes": 1181,
+          "sha256": "8138dd424eea02e39449685ad3c51c17d90af6923d44cd9181281ec63b862c6e"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/ExtendedTypeInformation.cs",
+          "bytes": 261,
+          "sha256": "d7fe5d958167daa23d4583baff385035f3a2bf26b7598870f87044d823d95406"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/FileHashItem.cs",
+          "bytes": 3094,
+          "sha256": "0c7e7a5bc7e9e07212d1e911c8d7744e58ccbd808153d43088b3860185396106"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/FileItem.cs",
+          "bytes": 996,
+          "sha256": "a1faf9f521098a34a84abc8d3ebe3962e2b5e86c478679cb7227aac82030f465"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/FileNameResolver.cs",
+          "bytes": 3794,
+          "sha256": "be299939003197094141128c68d3d92f98aa903b910498b2e3ec6b14385c062b"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/FileNameXmlResolver.cs",
+          "bytes": 1717,
+          "sha256": "a607f00631c5a66e0d36d5a626f8a68f73651a18e24133b93263deef4548d98d"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/FileState.cs",
+          "bytes": 114,
+          "sha256": "4f96f7daed88b408e1ee31d9df4325133763549b4035d018daf95192df09dcac"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/FindLocation.cs",
+          "bytes": 107,
+          "sha256": "d994bb33027162d2b57f33996a03d68c2f659d5a9e1b39634fcec862c1e2da46"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/GUIBuildOutput.cs",
+          "bytes": 8035,
+          "sha256": "68104af761f75cdedef5f568aaaed2cd096924f60b51ad1615b6458136da6f86"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/HashProvider.cs",
+          "bytes": 6883,
+          "sha256": "a8f6c1303478ad7c1f51a9567538b88ab30c0f07817790ef9cd7f2910dcddcdc"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/HashingWriter.cs",
+          "bytes": 1304,
+          "sha256": "e1bf1e5b64a0e7a2db3b9d0a1c9931b2e8e4e73dbe46f37f0334867299522566"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/IAssetBuilderPlugin.cs",
+          "bytes": 283,
+          "sha256": "8f3d5a2cc181ff03c36ef062ae2bdabe37defe4e60c41873005c87abb1883ff7"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/IAssetBuilderVerifierPlugin.cs",
+          "bytes": 163,
+          "sha256": "1b8f97ed363b9c65805c327861de924262b672b86043395e94b872cd791f8b90"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/IExpressionEvaluator.cs",
+          "bytes": 165,
+          "sha256": "34d1effb6b57c0c257367c8f55a5de54a4336b4d518382290b95b2827f3adde6"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/ISessionCache.cs",
+          "bytes": 727,
+          "sha256": "25c242a5f887e219ed460e216a1f6264ffb0e2f79cd0a635d629e44e524cef75"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/InclusionItem.cs",
+          "bytes": 1353,
+          "sha256": "06e922ecf2936e6d7b13bee7cf7235e5c646b91c955271485f78c1ee7e9bce31"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/InclusionType.cs",
+          "bytes": 94,
+          "sha256": "a60742197185128f4bddfea8f00cb408a7591d9d01a195fb13d48ed8346b88c9"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/InstanceDeclaration.cs",
+          "bytes": 9021,
+          "sha256": "2b1724df7f454ad3f44d42468f9588cc5b5f27826e5a09a72f7b5b7fd340612a"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/InstanceHandle.cs",
+          "bytes": 5185,
+          "sha256": "f6786859e1faf0637189701f17c27626bacddbd423a8231ab236b0f52789a98e"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/InstanceHandleSet.cs",
+          "bytes": 364,
+          "sha256": "7327fb8d54fb5ccec47adf26b6c35fab499ce73f51d4f884a937ce08b858411e"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/InstanceSet.cs",
+          "bytes": 1457,
+          "sha256": "321ed4cba6b6c86bd8119934bd517402d0a550e2b300b7ea8ae8fe08f4931338"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/KeyedCollection2.cs",
+          "bytes": 4627,
+          "sha256": "67e1394b542134c53f9e14d77e86cae6c3c4f5314809dbef28ba6172623e2c6b"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/List2.cs",
+          "bytes": 12522,
+          "sha256": "d114b01abc965986ca59e047405a2f5798051e874c700bf133382ddc4fa9c46d"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/NoScrollRichTextBox.cs",
+          "bytes": 1463,
+          "sha256": "c31eddd6f824458691272f3dc09820f8f5173a53c31b9580900e17cdb39ce136"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/NodeJoiner.cs",
+          "bytes": 14050,
+          "sha256": "441a1ade1a4b2bf9cb3aafd2a2304d1aae903a114a823c96e738ed356c68520c"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/OutputAsset.cs",
+          "bytes": 1251,
+          "sha256": "cc560c99cc72ade57ab599e9d2eb58bbea060bdb3a16a5a6db0a83b48d1e2e53"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/OutputManager.cs",
+          "bytes": 20515,
+          "sha256": "101afa8e09532a93ad7277cace7849122fffeaccc2ebc2015c7871845dacc3f1"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/PathCharType.cs",
+          "bytes": 189,
+          "sha256": "eda97e55a6524e046020d76e3c0f979a85578bff51301ddf4d41e6bf817e7676"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/PathMapItem.cs",
+          "bytes": 235,
+          "sha256": "b7689f5b5011cb7fe57edc14a2c1051da3c0d8f1e5b32bdc1204cc91bde28016"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/PathMonitor.cs",
+          "bytes": 2354,
+          "sha256": "396f56016aeb547b708aaa4713cf16c3f04d1708415df6e4dd69ffa23856dd4e"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/PluginRegistry.cs",
+          "bytes": 3866,
+          "sha256": "7bada6fc86d6fa1e286e22905bcd9320b4920f51b333b24d8ea2bec448c0a9d5"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/SchemaSet.cs",
+          "bytes": 13152,
+          "sha256": "18c64689aef44e38af103e142fc0060ce17153146272968716e91db198f2dc02"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/SessionCache.cs",
+          "bytes": 11474,
+          "sha256": "dd3ba7460f817f010d64332b18b0b42c5a368810372c09de399f1a408c317476"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/Set.cs",
+          "bytes": 2525,
+          "sha256": "45450ccdf3ed7b06ac64b427a26a613dec58a66e3820a2c32726c2b1b6d92b17"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/SettingsLoader.cs",
+          "bytes": 3931,
+          "sha256": "b1168fb435c6b560fdc30bcdfa58031170e514c000b36546e4d444fc58440760"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/ShMisc.cs",
+          "bytes": 1892,
+          "sha256": "5d4ef92254da317eae14cae058d952a4f5aa481a3acbfce3cbebbcef2182f056"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/ShPath.cs",
+          "bytes": 16184,
+          "sha256": "c62ebadd9bd07600feddccbc5a0c547d60e6e59f3a023000112c2428ebcd8670"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/StringHashBin.cs",
+          "bytes": 2051,
+          "sha256": "5bededfe2da009daa5f8754d97eae2568443b7264e3047cd79cf7dcd913619cb"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/StringHashBinDescriptor.cs",
+          "bytes": 643,
+          "sha256": "b6dd5630e240c812a146dbaf9f3f84d6c85393ecb455b24e207d5d88a4f98c5f"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/TargetPlatform.cs",
+          "bytes": 99,
+          "sha256": "f7563d70f1051d931c5c26f32ecd2ae4d535d170906f0dfac3ea07684528fac5"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/TraceKind.cs",
+          "bytes": 302,
+          "sha256": "b56d4588f934be4fa358392d5573ee8444cd809887fb6df06f62be805e066acf"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/TraceWriteHandler.cs",
+          "bytes": 160,
+          "sha256": "378290350cb1f8526c5d57e68e369c54533f332e2948fac3ea156298bb3a0480"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/Tracer.cs",
+          "bytes": 5363,
+          "sha256": "44081f8fffbc23b4beefebb322fbceefc233c4866de1a6e4d18aec80351953a4"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/VerifierPluginRegistry.cs",
+          "bytes": 2119,
+          "sha256": "ce16d575967387c093c8aef0de49ce59507baa39553ee8c8509666143d13bb03"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/XIncludingReaderWrapper.cs",
+          "bytes": 503,
+          "sha256": "b91b8be0d0ca4db023dcb1a9c43bf97decaeaed106e9558e9daa90081040c1c6"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/XmlHelper.cs",
+          "bytes": 1486,
+          "sha256": "657018e535ad079e547447d2803e7ef1ef1cb3c4f72e2ba2976192411400f8c7"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj",
+          "bytes": 1295,
+          "sha256": "78b5d073176c9a173d8acfbc7d5847dfa76cbc7f4a09464861895e2f56c69c7d"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Project/BinaryAssetBuilderProject.cs",
+          "bytes": 639,
+          "sha256": "106c657386ddc9de6447b7c63b721192f302e7ed0bf8e74b2ef043872fb7178a"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Project/BinaryStream.cs",
+          "bytes": 730,
+          "sha256": "9b4d8df026d1d44e48dd8dfca0434230aaf1b903a80dd3e9b85b051e81679b2c"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Project/StreamConfiguration.cs",
+          "bytes": 1595,
+          "sha256": "761c29ce7e687cc1a1edc719e97a6904908c53d4b08fef7208ddd0a34c44cc97"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Project/StreamReference.cs",
+          "bytes": 946,
+          "sha256": "8e6fe43b61d679f24f1fbae5af4cbfc66dda7fca5e71f3068cebc9971f9c74b8"
+        },
+        {
+          "path": "recovery/src/Managed/Core/BinaryAssetBuilderProject.xsd",
+          "bytes": 2196,
+          "sha256": "fdb51a774ef7d18d77deb9259f1725ec4a6997da09856b0554d13b3f8332ab7a"
+        },
+        {
+          "path": "recovery/src/Managed/Core/Properties/AssemblyInfo.cs",
+          "bytes": 580,
+          "sha256": "b739d32dc366e9fe3225bc03e91c773729a3232d2511cea6f4566b81acfd758b"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/BuildHelper.cs",
+          "bytes": 9528,
+          "sha256": "8c9ca0ad86599841198f53ab4c0c98847c1fe773316db4235e3113f4c06cafba"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/BuildType.cs",
+          "bytes": 58,
+          "sha256": "edc5081431f5cbaa868fdba7162229ed280c2b94d4c1970a78f6160dd73e1af3"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/CopyFileArguments.cs",
+          "bytes": 1002,
+          "sha256": "a74abc9fbbee6a641bc14bc6a2d9a997d4231c93932799f14755878c025057b1"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/CopyFileListArguments.cs",
+          "bytes": 325,
+          "sha256": "521db7ddaad48cef5d0f1906a59a09983b8f95a8e4beb349991e048a2d554d73"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/CreateDirectoryArguments.cs",
+          "bytes": 214,
+          "sha256": "981ec3a36e3cbcd6ccd627777490a7333df7a274ded471ca10c301729e1366cd"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/DeleteFileArguments.cs",
+          "bytes": 569,
+          "sha256": "169c0b4d78b12a68e876580e7e3fb4833400e132e22a0176ac1dffec883cd587"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/EALABuildScript.cs",
+          "bytes": 337,
+          "sha256": "7adadbec49030ea3f25fd77d3a3a8578de9589d59e6bc193bc3de07397a82670"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/GUIElementData.cs",
+          "bytes": 1368,
+          "sha256": "87d11345c015533e4eeb09dd280e6dbbf6667020c0b28f9e6f3bd17b61f7f84a"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/RunExecutableArguments.cs",
+          "bytes": 699,
+          "sha256": "bcfaf16c9db610030bd3d78849ddc834f57176b8c5d1204744626afb51f2a558"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/ScriptIndex.cs",
+          "bytes": 61,
+          "sha256": "9948f41a5c9b06dc895c202fb853b64156442f7594f5361ff0b9f72298ad32af"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/StaticPaths.cs",
+          "bytes": 5339,
+          "sha256": "40a639be652f4fdd5f6d64497564302c62f7909b93555a13dd184468b2531a49"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/StepType.cs",
+          "bytes": 132,
+          "sha256": "fdc97c9edf5bbd730dc990262f5dfb62a10505ad6a3ecfdcd1a2129532db8474"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild/WriteFileArguments.cs",
+          "bytes": 317,
+          "sha256": "53114df4f6c34a76cf2d2e9ebb23b69a26a414ccd4b23805403c50a09bcb466f"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALABuild.csproj",
+          "bytes": 571,
+          "sha256": "728d97c14c4b6f381703984e1b8d8a9503c8b9997c7efc48baa91447cb258bea"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/EALAModStudio/EALABuildGUI.cs",
+          "bytes": 351,
+          "sha256": "de7f2c8658db71f1bee314cb8e462253d8e98302f467c42c62a8aff9f5678947"
+        },
+        {
+          "path": "recovery/src/Managed/EALABuild/Properties/AssemblyInfo.cs",
+          "bytes": 632,
+          "sha256": "0be49a5f505871773535cb0e39e2408d6dcd8b57297aad2813fe9335254e3add"
+        },
+        {
+          "path": "recovery/src/Managed/ExpressionEval/BinaryAssetBuilder.ExpressionEval/ExpressionEvaluator.cs",
+          "bytes": 1597,
+          "sha256": "334f1e6ae6adab585d70140674160f5842ff1801f61fe4c19d10b4757a972c11"
+        },
+        {
+          "path": "recovery/src/Managed/ExpressionEval/BinaryAssetBuilder.ExpressionEval/ExpressionValue.cs",
+          "bytes": 8097,
+          "sha256": "3e11a3d96e675ab1c2a0bb532720ea7f317ca079451659833ff3b33406cfc7d1"
+        },
+        {
+          "path": "recovery/src/Managed/ExpressionEval/BinaryAssetBuilder.ExpressionEval.csproj",
+          "bytes": 798,
+          "sha256": "2ad210ffc9eb0c93e6627f7c2c7cbf62f0fa9c92586e6c9b42b6cb4693231874"
+        },
+        {
+          "path": "recovery/src/Managed/ExpressionEval/ExpressionLexer.cs",
+          "bytes": 16664,
+          "sha256": "3f2b559e25ed6803bcc6656cc405e96e9b47549852d00de2f3672fc687e1a053"
+        },
+        {
+          "path": "recovery/src/Managed/ExpressionEval/ExpressionParser.cs",
+          "bytes": 9371,
+          "sha256": "91a66cc6dc703fd38329224ce56725f97cc0dae15b550c6c83cb87091468e84b"
+        },
+        {
+          "path": "recovery/src/Managed/ExpressionEval/ExpressionParserTokenTypes.cs",
+          "bytes": 857,
+          "sha256": "eed68b9b9d77f4a5d68527ea5c2e6e7f3c97976c43a114266b0ff2bc000a9fb2"
+        },
+        {
+          "path": "recovery/src/Managed/ExpressionEval/Properties/AssemblyInfo.cs",
+          "bytes": 104,
+          "sha256": "345393879af4a9722fad0903197a1f173434cfa284ff43029ef1f2c9e5eff416"
+        },
+        {
+          "path": "recovery/src/Managed/GameDataVerifier/BinaryAssetBuilder.GameDataVerifier/Plugin.cs",
+          "bytes": 6737,
+          "sha256": "77c24edabcaae0cf3ce1e4cba85b5c6f61a9a1f014b78dfee344698c2ed053db"
+        },
+        {
+          "path": "recovery/src/Managed/GameDataVerifier/BinaryAssetBuilder.GameDataVerifier.csproj",
+          "bytes": 715,
+          "sha256": "1539cccc7d195b554e520abc19b72bc6223dc15245c428bf85ef83a24a8957d4"
+        },
+        {
+          "path": "recovery/src/Managed/GameDataVerifier/Properties/AssemblyInfo.cs",
+          "bytes": 652,
+          "sha256": "f5de2383c7a933b43d871f217d7fac51fa38d75be135dcf4ba028615401928a0"
+        },
+        {
+          "path": "recovery/src/Managed/Hash/EALA.Hash.csproj",
+          "bytes": 337,
+          "sha256": "b39efd110a7bbd11604770bd3144653a24232efb8901ddc129466ad54060590d"
+        },
+        {
+          "path": "recovery/src/Managed/Hash/FastHash.cs",
+          "bytes": 3335,
+          "sha256": "28fff81cea46fa05636b8c1011ef8a2b28366155a794899c67463708c43ed2db"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/.gitignore",
+          "bytes": 10,
+          "sha256": "6c5082c7e6de3e350189c67a1aacf757485ecc26e0a3cf96683528565f3e5f12"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics/ConsoleMetricsListener.cs",
+          "bytes": 604,
+          "sha256": "d8a4592fd132c1714eed37535e2f165b9c9f0c08fb4b41d559fb915a002943f0"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics/IMetricsListener.cs",
+          "bytes": 126,
+          "sha256": "6d062c684e71aeb1cf1eb76a06169bb67b29f12d3377d9b68e1a768701f9de91"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics/ListMetric.cs",
+          "bytes": 229,
+          "sha256": "99a46fe1eac0defece2eec64c2f48428abace098914ae974b253a140829138ee"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics/Metric.cs",
+          "bytes": 1656,
+          "sha256": "96ddc6549810206fa28b789ca872f0a648c4ec3db5f2621dcaa0de7cabccaf99"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricApplicationData.cs",
+          "bytes": 812,
+          "sha256": "793c6ebc81b81162ddcf9eb67d11f7fb52835cf1bcd0e3f2ae682e5116d09516"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricDescriptor.cs",
+          "bytes": 405,
+          "sha256": "9bff3201c576884c9a519994699257320fdba79fcab5942d4ded0495399abf21"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricManager.cs",
+          "bytes": 3031,
+          "sha256": "c73dcf2c5f53a5d5b4883faecf2826dc21e0bc0d008718aac1136e9c7b6fd236"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricTimer.cs",
+          "bytes": 862,
+          "sha256": "2736f50d46bea37a99391930bd385ee48eb527f270310e4764e98ed073c9fe2c"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricType.cs",
+          "bytes": 112,
+          "sha256": "b29c03f0ac445b3754a0344ef524c72408726d649615222f2c80693d7250f323"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics/ReportMetrics.cs",
+          "bytes": 145,
+          "sha256": "957e61c207ca3ec1127f6a372c93f3a940d8395dd4b4d870b21daaa4617a3be7"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics/SqlMetricsListener.cs",
+          "bytes": 1243,
+          "sha256": "a63f267fb17794100f665d4af5992db895564819d48aa1822abd35b3e46dffdd"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics/SqlMetricsWriter.cs",
+          "bytes": 10076,
+          "sha256": "2d9fd11d298400caccf69a5f9710114bb00f7f4f98e669eae66980ecce790b72"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/EALA.Metrics.csproj",
+          "bytes": 503,
+          "sha256": "163b85abe947da76b46f70dcb1da3c02d188d7be81e45d311f8ea57f8605757a"
+        },
+        {
+          "path": "recovery/src/Managed/Metrics/Properties/AssemblyInfo.cs",
+          "bytes": 596,
+          "sha256": "87ca9744b4cfd3a82bad738ed6fc0f60fafb6a6255bf0ee797116a64eba4f255"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/SR.cs",
+          "bytes": 1287,
+          "sha256": "41d40e96f2bdd4fc0b0c7c57abee7bed923bf393c5e446829668ae0e48dc96dd"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlBaseAwareXmlTextReader.cs",
+          "bytes": 2283,
+          "sha256": "8ffd37ad9435f319039720b094cd51331719110e139a86fb09f9a29e905534cf"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlBaseState.cs",
+          "bytes": 235,
+          "sha256": "01124ae7bb61179933cb7d5a520f599c0305d810b7454a86e67c4504ea1eb4b6"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlFirstLowerWriter.cs",
+          "bytes": 1234,
+          "sha256": "38b2e15d79c6bd7f36ec284219ceccedac79ddf1dc59149928d51ad4c1dc9682"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlFirstUpperReader.cs",
+          "bytes": 2795,
+          "sha256": "23f5b23117d499511abfe6d5c44ffa6e5078c3e10aedb8988d427e689bcb4797"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlFragmentStream.cs",
+          "bytes": 2483,
+          "sha256": "1d4d489be406b5618237fe80e0918f80d4ece07c66f87477e7ff3939505cd03f"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlNamespaces.cs",
+          "bytes": 377,
+          "sha256": "5c310e52299d0a848e232612657da1982e925b7b14dce7284f8cbb668fe23719"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlNodeFactory.cs",
+          "bytes": 7385,
+          "sha256": "9544968c8ae79ddbcdd70641f697a7c712fdc25fd6d6e634b899f3f0042a24ba"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlNodeListFactory.cs",
+          "bytes": 2308,
+          "sha256": "c3e2f4a54f053b376c91b51fbe401a1b5f3bc88528bc3e0b3850f4fbb32a5eb6"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlPrefix.cs",
+          "bytes": 412,
+          "sha256": "f20e8cf42700c17b04e794c3475a37ef3d570b400250dabfab293b824b3c2712"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.SR.resources",
+          "bytes": 1164,
+          "sha256": "65bc06e64351f384b3f8658d273a36d7dcb2af167e458adc0f9579bb2cf0a1cb"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.SR.resx",
+          "bytes": 2911,
+          "sha256": "2bb2cb422e67b710fa3679a209764dbb3f068c90d52f31aaaf03087b78b56323"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/CacheKeyFactory.cs",
+          "bytes": 847,
+          "sha256": "c43060a9103e20a862c1a9936f0b0da237a72d106c30f3cb17d9cbb4b46cb5c5"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/PerfCounterInstaller.cs",
+          "bytes": 1369,
+          "sha256": "7ae67dc68eba27169772e2962190043225dd54a89fee7d2d47addfde2fcc653f"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/PerfCounterManager.cs",
+          "bytes": 3452,
+          "sha256": "68373198efe3d426346b093fbe43227359387676879d82802d9f68856c0169f8"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/SerializerCacheDelegate.cs",
+          "bytes": 240,
+          "sha256": "91d508fec91b523fa2ae53dbb80b2cf0c06204fe8b60199aa5d087990e3e02ce"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/SignatureExtractor.cs",
+          "bytes": 1113,
+          "sha256": "b9de51f7539882ac20f21afe34d483ad9ce37a2953ea1b08a0d98abca7204164"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/StringSorter.cs",
+          "bytes": 292,
+          "sha256": "1fe99b2f53074a0b40aa895deb7e4483c1ad55efd3f8693b17a00ba47133a157"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/XmlAttributeOverridesThumbprinter.cs",
+          "bytes": 8135,
+          "sha256": "96570692fc51fb23bb2cd44c9c50b76cfc3fe4e57f18763a40d9327326fb4df4"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/XmlSerializerCache.cs",
+          "bytes": 2265,
+          "sha256": "3ea2cfe9c43e3a4b3dd2d71473c9bd0964070b1056e1b589f7d24beafdfddb6b"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources",
+          "bytes": 180,
+          "sha256": "a3237a994521c1904b0367691fdafc8b4b309371b845157bd149f27b53849d76"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/DynamicContext.cs",
+          "bytes": 3532,
+          "sha256": "3b180a55bb94264e128f9c112f346b2682add144d6f2869339e032318fa8cb58"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/EmptyXPathNodeIterator.cs",
+          "bytes": 487,
+          "sha256": "36bd8edeebc4381c789f48b56c65623a444894835b5d33fc7c92ea8b4946949b"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/IHasXPathNavigator.cs",
+          "bytes": 130,
+          "sha256": "9a67e39d8f7a5e766f07810d7bc01c9fc6ba3010cfbd672650cac14f718b4bad"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/IndexingXPathNavigator.cs",
+          "bytes": 9722,
+          "sha256": "64a73d4c960f172a57feda0c9f1e9f0f30a2d2811dfdf74f6675fa9e7343ea89"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/SingletonXPathNodeIterator.cs",
+          "bytes": 630,
+          "sha256": "ce13dbd2a6d956f741e932736ee403f85ab77107b96d12c7eb518d0c4bdbecf5"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/SubtreeXPathNavigator.cs",
+          "bytes": 5804,
+          "sha256": "6a14897fcae71d9c89093ab7b12df8ceb243b3fb7edbb5fadab9c54a5ceaa9ac"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/XPathCache.cs",
+          "bytes": 21008,
+          "sha256": "83c8a56eb7ac9bb47fd7e11609687e81d0290b8e8d71ff74ac2ed336dc5ec5c6"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/XPathIteratorReader.cs",
+          "bytes": 8271,
+          "sha256": "0920f4644e3893db31111696392fc06cae9ee3d275aaa050d4e55ee61033b9ce"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/XPathNavigatorIterator.cs",
+          "bytes": 2997,
+          "sha256": "466950fa45c290681bcfcf5f7e780dadbf014450337b4067e84b970ccc1df161"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/XPathVariable.cs",
+          "bytes": 719,
+          "sha256": "94be677cb81567cb885e985761e1ccd863de617f51ac03656eac578723c81f18"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Xsl/DefaultXmlResolver.cs",
+          "bytes": 105,
+          "sha256": "69746a38dead2d190e1edfd2c193f614fcd5093f04ce106dc4b14bd61c318073"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Xsl/IXmlTransform.cs",
+          "bytes": 234,
+          "sha256": "3ac9d12ccaf3f348233ab717de6629fe9c501046c18ad828679f9cc812bf385b"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Xsl/MvpXslTransform.cs",
+          "bytes": 9464,
+          "sha256": "0fc0c21e42459d2a2ee9cb10a64f94ea009c10f444cc2fdad29c457fd6ae4742"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Xsl/XmlInput.cs",
+          "bytes": 1133,
+          "sha256": "8826b77af64467460370fb6eb34ec25f74f5acfa79144c354d003f0fa10f4c4a"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Xsl/XmlOutput.cs",
+          "bytes": 381,
+          "sha256": "53fc18761a58cd01ba69b93990e9fbac248e9e9777c5ba1ee8e03375fdb37793"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Xsl/XslReader.cs",
+          "bytes": 24090,
+          "sha256": "9bf69c874f50e5dc804e1aab19012cfbdca526b4032eb5cf14f42c057d496333"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltContext.cs",
+          "bytes": 7794,
+          "sha256": "d330137038050ac4fbe44544d37b45a0ca77c7724abb9cc214892ac1a414c96f"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltContextFunction.cs",
+          "bytes": 775,
+          "sha256": "d230c57ba739a34095d789fab4acd8d78d3cc6c8a56a91b38e37822219c7058d"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltDatesAndTimes.cs",
+          "bytes": 38966,
+          "sha256": "8e2fd4393ac898965ebc1bb740025668a0b7cd21327d8aa3ffb90ed6992ed7dd"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltFunctionNamespace.cs",
+          "bytes": 366,
+          "sha256": "6e58a9387e23629c71f1ed66a02f28becea23a8afb11fe5a849f87179188561d"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltMath.cs",
+          "bytes": 3689,
+          "sha256": "5e1663988f996a1ac4b2e46efabd8529868de2a4b9ffd34984a21fdc0b47d252"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltNamespaces.cs",
+          "bytes": 911,
+          "sha256": "5c48b3f7803b717f2092ff5180cd3b10e60bdbac12d3949b7ef449a29ec94cdd"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltRandom.cs",
+          "bytes": 1446,
+          "sha256": "40df7fcc3c3c2446f646347860aa375f7fc6a0952900f890f930f148711cc8f7"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltRegularExpressions.cs",
+          "bytes": 2610,
+          "sha256": "a8866d5e4333c9003a3975c6fd7afe0fc3493cdc8154977ef2950f5fe7fd35c0"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltSets.cs",
+          "bytes": 6738,
+          "sha256": "88072f71c083d3ea7491ed688390c4f8855743f6e17511ab0a8e5d498b007ccd"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltStrings.cs",
+          "bytes": 8408,
+          "sha256": "20851708c43958ccc10181b418ccf81d1d4b9cffb55a2ddcde702ef1633ee0dc"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltTransform.cs",
+          "bytes": 9407,
+          "sha256": "b7abfe62b61f38710028d1302b3c2886533cb2b0f49dba945862b17822734bc6"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/GDNDatesAndTimes.cs",
+          "bytes": 4294,
+          "sha256": "65dcea8bf1b4f8fcc3d8bcbeb2df8a01f06b0a142fd86fed8dddc43d8e450be8"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/GDNDynamic.cs",
+          "bytes": 1669,
+          "sha256": "fd510dfb9bcd837053019167af5983e3dfa9822a528156f1e25a198f92172335"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/GDNMath.cs",
+          "bytes": 456,
+          "sha256": "a671e1ca06228ac1b269003da5c5d3074fceb9f4ecb2a2b97d0aa45ca7056d84"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/GDNRegularExpressions.cs",
+          "bytes": 1424,
+          "sha256": "b0cfd2e1ca0026d6a12483abc227490c307ba5f7d8e0d1447f6dee60b75631a5"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/GDNSets.cs",
+          "bytes": 1207,
+          "sha256": "3d55cfe8a0d17458b6d4cc830b18c7b756d716472731a0c11849637e0fc3ac77"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/GDNStrings.cs",
+          "bytes": 189,
+          "sha256": "352a6bc4d972a2d3750aa22a4ed4656cdd56226867cf6b73bc0e6b8a4ef6b492"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/MultiXmlTextWriter.cs",
+          "bytes": 6003,
+          "sha256": "fc8b54cfa21793e3f2c8ff0c6e59c47c466e2f53bdd563731df9569b81b5fc4f"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/OutputMethod.cs",
+          "bytes": 69,
+          "sha256": "16bf912ea8b8329e7961553d9ee194b1dfe460e7d7130a23d47042911ab7074d"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/OutputState.cs",
+          "bytes": 2515,
+          "sha256": "df89bedd311e63a29302719b002187c6d3d361b69365617b8d881717eb070b03"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/RedirectState.cs",
+          "bytes": 146,
+          "sha256": "561f986485643765a06f6d22032a82f53e48478d90a4bd287b10bd1ce36c18b7"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/auxEXSLT.cs",
+          "bytes": 1701,
+          "sha256": "4c24bbb84e6d096d04633652a5a410bb506f689ef54fb324e12452083439504c"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/AttributeOrNamespaceInIncludeLocationError.cs",
+          "bytes": 197,
+          "sha256": "c5f04869de620d95915fb06a472050bdf286007478725ae967796e6197033501"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/CircularInclusionException.cs",
+          "bytes": 405,
+          "sha256": "4b20e1431fc32ac507d166d6f79643d6536baaf966677af6197cec06b8d939d6"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/FallbackState.cs",
+          "bytes": 150,
+          "sha256": "66e62e233ed97bbd56681e669d752bb5f7f84956a3d2a45951ab264d3ea8cdec"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/FatalException.cs",
+          "bytes": 274,
+          "sha256": "ca8784e2fe43ad883cf71bdb38202961a137cb468aadf0f9af0b816406b36770"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/FatalResourceException.cs",
+          "bytes": 217,
+          "sha256": "390f75ee192d6a56ef12d2a0ecfedfac6df07bb6689ff46643e4a86ab9e4248f"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/InvalidAcceptHTTPHeaderValueError.cs",
+          "bytes": 225,
+          "sha256": "1d00329a77807897ceb63a935190b5179b1f28cedfd39b297ad09c45393fc067"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/MalformedXInclusionResultError.cs",
+          "bytes": 173,
+          "sha256": "c068e247385499e06bd419beb5ba505026b9f5627aec3edf76d8880c1c701b2f"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/NonXmlCharacterException.cs",
+          "bytes": 202,
+          "sha256": "8968b2e1cbbff9d512f467fa5860c683df09d565444a9efbc59501853d1f6436"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/ResourceException.cs",
+          "bytes": 276,
+          "sha256": "107fe7b2f3b301eb6c5c82cf3548d40b7e6f0a335b0b168b17789cfae1859e2d"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/SR.cs",
+          "bytes": 1112,
+          "sha256": "eed65f133cf4e6af442af74fbbe38b0b3730b66d6f490acf0bf09b8acfb7e1f7"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/TextIncludingReader.cs",
+          "bytes": 6018,
+          "sha256": "89d7c5c4c02ec311702b345b3d7812f9dd97f3bb152cf17e5d518be2bb114a45"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/TextUtils.cs",
+          "bytes": 731,
+          "sha256": "a1865d3cef0e00f806b159e8422f8231be8111b5744bdb541d7a97db7547a4c8"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/XIncludeException.cs",
+          "bytes": 275,
+          "sha256": "0c7c4a3b368e75ed2f7df0c6a422ee63a70a6342713f4c118b034dc47f422b47"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/XIncludeKeywords.cs",
+          "bytes": 3830,
+          "sha256": "ebb9dace66a3161f85c494e64e989de97d0da607228391a600884c04d7e98256"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/XIncludeSyntaxError.cs",
+          "bytes": 151,
+          "sha256": "e2096bbd8596d0e042b107e7cd2ca4b0c9448af7f91ed1577bbe18d4066b9f92"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/XIncludingReader.cs",
+          "bytes": 29167,
+          "sha256": "13138427a63933d8cf8e2b34a399fd7f5be2bcdc25bb7ae6c1364ec7d941a052"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/XIncludingReaderState.cs",
+          "bytes": 176,
+          "sha256": "464cb2a4e4b60baf4e846ed582ac4b8f96bf7cc2859e9bcd3502ed29557a2974"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude.SR.resources",
+          "bytes": 4119,
+          "sha256": "0ef800084cbdf48a5a0b2de121f52737410aaa1356a6325fae779a8b56a77f6c"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude.SR.resx",
+          "bytes": 6464,
+          "sha256": "e8299508ef6fa25e14fa1733ce54212ed1d63165fa0c654eba2fff7aa0ac156f"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/ElementSchemaPointerPart.cs",
+          "bytes": 1554,
+          "sha256": "f18c9a6b3433a50bfbe0dee2d5fb4488341b659ac2d87c6f0c7dd233e4d4ad76"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/LexUtils.cs",
+          "bytes": 7451,
+          "sha256": "48f6de212f92507b08bc23f7f7663278b4cd34a05748972dec76cc668473b706"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/NoSubresourcesIdentifiedException.cs",
+          "bytes": 322,
+          "sha256": "cec7958d18908aa780dd65093deff473fb747dc0685a8aa52056c9ed8314b74b"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/Pointer.cs",
+          "bytes": 257,
+          "sha256": "f5fa11e6a517754141622c7d6ab853a14a477b8adb4f6cd0db4c98bfd64ed26b"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/PointerPart.cs",
+          "bytes": 201,
+          "sha256": "cbbed9ba7ff10d122530723ad08ec4186039943af2719cdb75a2c1e9d3c66770"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/SR.cs",
+          "bytes": 1708,
+          "sha256": "ec1d9d699b195e2fc0c07a894ee1b8a7011a27dc32b9126cda7dce0d9a6ccd19"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/SchemaBasedPointer.cs",
+          "bytes": 851,
+          "sha256": "6cdea15f42f761702cd82dc3ee826fc0dc7421c39f9ae2bbe4d2b16967687dff"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/ShorthandPointer.cs",
+          "bytes": 624,
+          "sha256": "9e82f6944195e582ba128c7bedea51ce39d6614cfcdab610a7e2d6eeff77d64f"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPath1SchemaPointerPart.cs",
+          "bytes": 787,
+          "sha256": "3529f4c7d110194996f11861ad203bffbb25a6950e8d2a6f3555c572254faa1f"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerException.cs",
+          "bytes": 275,
+          "sha256": "5c48fc6c56e54f47649fa1e4d3ece343f14eca83ae2802358eff52c84d4e4e75"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerLexer.cs",
+          "bytes": 3519,
+          "sha256": "6fe10b5be8ad917e2a72e041e98821152a1a48cb416e6a281e21d072c44fff12"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerParser.cs",
+          "bytes": 3372,
+          "sha256": "e6646c9e1fda9db6048b53bf0218490720ce15d270b17404cef9e184f59905a0"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerReader.cs",
+          "bytes": 5651,
+          "sha256": "e6b34c1dc7bb4c32dc3dd4fd9bd57d7ebbdc436e97191a1e00267f535cada5d0"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerSchema.cs",
+          "bytes": 639,
+          "sha256": "dc148d20b42dee240082c7cf153511efb82075e9e71cdcc9a33140b6fdc69b2e"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerSchemaPointerPart.cs",
+          "bytes": 753,
+          "sha256": "2e9a1c1a80878ed5cce23cb8d3cfe623447f09db2655cc5d7b144e7d007581ff"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerSyntaxException.cs",
+          "bytes": 292,
+          "sha256": "20436abee1bdd871625a9a758d61d67c8d455fa4e8a6f7d7773d746e52ee67e8"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XmlnsSchemaPointerPart.cs",
+          "bytes": 1210,
+          "sha256": "9ea8f00b2b87e9eb950c477870ec527ca60e85807215cae9470da2ec07955658"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer.SR.resources",
+          "bytes": 2166,
+          "sha256": "fb2b9ea0745131e0ba26b9c7967a4f74885427d73dbeb6ad68114c8a3bacb1de"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer.SR.resx",
+          "bytes": 4084,
+          "sha256": "8d8a6ed9333c99e71ea54b6e71ec71ddeb640dc15eec1236fbcb5d5ddc0295f8"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Mvp.Xml.csproj",
+          "bytes": 1330,
+          "sha256": "85e6271c44ac295f8ceb908ebe72025b4cd162e35fb7e6b65c9d77178a5a6249"
+        },
+        {
+          "path": "recovery/src/Managed/MvpXml/Properties/AssemblyInfo.cs",
+          "bytes": 375,
+          "sha256": "52cba4f173467d09d80cb0607252066d28bf9b3eea80b21aef9975e9fa6dce93"
+        },
+        {
+          "path": "recovery/src/Managed/Remote/BinaryAssetBuilder.Remote/BinaryAssetBuilderRemoteSettings.cs",
+          "bytes": 172,
+          "sha256": "53f81503696d8ad23a09b18933e166d416057825bccc18b2d2e6d9e5d605720a"
+        },
+        {
+          "path": "recovery/src/Managed/Remote/BinaryAssetBuilder.Remote/IClientCommand.cs",
+          "bytes": 164,
+          "sha256": "38f2c1f292c53cd14c73f6c145717d4df003755a5aeb3a404d8c09141485a307"
+        },
+        {
+          "path": "recovery/src/Managed/Remote/BinaryAssetBuilder.Remote/IServerCommand.cs",
+          "bytes": 187,
+          "sha256": "355b6a46b6c09080de3f8f1bc06a79c766b99277ec8a06374c1d3a17f499981c"
+        },
+        {
+          "path": "recovery/src/Managed/Remote/BinaryAssetBuilder.Remote/ServerState.cs",
+          "bytes": 96,
+          "sha256": "0a4d0bf7bdd443f5b77387cb772212f6f83936d33cd7f45340d9df3d5818c9c5"
+        },
+        {
+          "path": "recovery/src/Managed/Remote/BinaryAssetBuilder.Remote.csproj",
+          "bytes": 413,
+          "sha256": "c3b017d7f5be972afc212ec1faa5f8bde493e74a939483fc3d0a6b5ac65e9a47"
+        },
+        {
+          "path": "recovery/src/Managed/Remote/Properties/AssemblyInfo.cs",
+          "bytes": 104,
+          "sha256": "345393879af4a9722fad0903197a1f173434cfa284ff43029ef1f2c9e5eff416"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/AssetStream/AssetEntry.cs",
+          "bytes": 199,
+          "sha256": "56dec8c76d476014cbc97f6d6a4297499fadce0f4d3900396be1d9e36204bc73"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/AssetStream/AssetHeader.cs",
+          "bytes": 200,
+          "sha256": "bfc7d151855bbcfa1d51e215e71cc9367994415cae7c5d2e86c82c8a2549e636"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/AssetStream/AssetId.cs",
+          "bytes": 195,
+          "sha256": "ccb36985d8049cbcb049fb68a74995ff79729e7c779698105f61e1c549aef186"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/AssetStream/ManifestHeader.cs",
+          "bytes": 203,
+          "sha256": "ae15a55d7b04fd4f91af245818dad1f1c8d910a7b3d3a3d1f4dd45ab482ce07d"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/Asset.cs",
+          "bytes": 3449,
+          "sha256": "2cf133198087752ea66a382026a5eba752a9fe5b36269bab6d37700f66918438"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/AssetEntry.cs",
+          "bytes": 4275,
+          "sha256": "16072af85effcf94766beddb8c0fd373ce347b84706f740cd62abe58e12d0bf2"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/AssetHandle.cs",
+          "bytes": 1343,
+          "sha256": "cdd2bbca56688617a8a67d99f0789dd6c9c4a728a47f36a74a3b7ee11390e0f7"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/AssetHeader.cs",
+          "bytes": 2858,
+          "sha256": "1202cd32e9b9c12781f6cff14f124bd5116f05caa5d901de46810317ab052631"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/FileSystemUtils.cs",
+          "bytes": 2609,
+          "sha256": "ad0cdb5182ef6b85384ead9ceab6bdfdd44301d8f59654bf9b52dfe5fb44382f"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/Manifest.cs",
+          "bytes": 16025,
+          "sha256": "d93d737e9f2d728b73d89e26ca04e82b0c3be15f2f086b150295193b09b328dd"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/ManifestHeader.cs",
+          "bytes": 5226,
+          "sha256": "15038ead8f8f0c4616af7147244572c06b39bb273be874c831e6dd34ad8d424e"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/NameBuffer.cs",
+          "bytes": 1483,
+          "sha256": "065ae043892a6835d5e1a233421c6200eda5d7719e97bb353c85fd788c8a0723"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/ReferenceHandle.cs",
+          "bytes": 207,
+          "sha256": "0db83341402960983ffae58d7d734cb1b40a70f8a4880797700988d672083653"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/ReferencedFileBuffer.cs",
+          "bytes": 1606,
+          "sha256": "4f0e232455af95bfd207205121ebda9fe0b7de90d8152bae6fe7ab82984d75cc"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/ReferencedManifest.cs",
+          "bytes": 431,
+          "sha256": "2e5b6a787df40db8f19d768f6d7617b3a783cb1e71a5cb5dffda51993a95c5c1"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/StructWrapper-AssetStream.cs",
+          "bytes": 4302,
+          "sha256": "4a143e1d7b7ae5440086c59c04e99aedee12e51a1f1c7b55030bc975efe8f9c2"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/UInt32Buffer.cs",
+          "bytes": 1196,
+          "sha256": "0549e96be2c2429a6a89d272d4ad048fd5c8760bb3e3de415e97698c8565a773"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/UtilityEndian.cs",
+          "bytes": 255,
+          "sha256": "a1cba6fb94d7031964589dedf695142a0fcf2268fc12c74ffd23756474abc945"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility.csproj",
+          "bytes": 1012,
+          "sha256": "91a443a3a0c76d24e337d0ff45e35612d95677d68b28ff247022bf1a9514b08f"
+        },
+        {
+          "path": "recovery/src/Managed/Utility/Properties/AssemblyInfo.cs",
+          "bytes": 688,
+          "sha256": "113ddec18879e41a8608b2858ba8d972d2e6758c37324f906db3ce51e227d202"
+        },
+        {
+          "path": "recovery/src/Managed/W3x/IW3xAssetCompiler.cs",
+          "bytes": 458,
+          "sha256": "7f7a020346ef13ed5286e7a04f700f500d89b182ff2dc3e5d0a5037fc0e188ce"
+        },
+        {
+          "path": "recovery/src/Managed/W3x/README.md",
+          "bytes": 396,
+          "sha256": "95a520a4385acbf5719b76849314d4e0a1a0e7642a1931bf706913a9559e3589"
+        },
+        {
+          "path": "recovery/src/Managed/W3x/W3xCatalog.cs",
+          "bytes": 1636,
+          "sha256": "913c3dfaab6331b22437b14032daeb15adce21e1c13e8368ddc98b4070540781"
+        }
+      ]
+    },
+    "audio": {
+      "count": 21,
+      "files": [
+        {
+          "path": "src/AudioCompiler/AssemblyInfo.cs",
+          "bytes": 183,
+          "sha256": "9b33dfd0006e85183fdb46bf5741f59a8d9405ee9c8001d93836fd3ed3d5e0da"
+        },
+        {
+          "path": "src/AudioCompiler/AudioAiffLoopReader.cs",
+          "bytes": 6711,
+          "sha256": "6c533a27869833525f45b38326944582f6dae7e2a2b9247cc5bfe081912d91b1"
+        },
+        {
+          "path": "src/AudioCompiler/AudioCatalog.cs",
+          "bytes": 3671,
+          "sha256": "7f7a1afb10f9fbc23d1ba5002e7ab91c774adbdb27f3ecd152e0b7ae05716937"
+        },
+        {
+          "path": "src/AudioCompiler/AudioPcmInputReader.cs",
+          "bytes": 9689,
+          "sha256": "fd4722a668d2f8f8a9691d882c1f9b407bd7387fb5d976d46c01c72ee799cede"
+        },
+        {
+          "path": "src/AudioCompiler/AudioResampling.cs",
+          "bytes": 5526,
+          "sha256": "d5cfd85d129f6e236ed59ef66970d1706d3c3afa8b8f883bb9f5b609d11510f0"
+        },
+        {
+          "path": "src/AudioCompiler/AutoCleanUpTempFiles.cs",
+          "bytes": 1487,
+          "sha256": "3766e783413e22915308c36043cbf795ed84f843cf7004b0ba45494d054df68c"
+        },
+        {
+          "path": "src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj",
+          "bytes": 599,
+          "sha256": "38a0709ca178435b3301cc70774ab369d722f36366d1a055201bd580663fae23"
+        },
+        {
+          "path": "src/AudioCompiler/MpegPassthrough.cs",
+          "bytes": 7409,
+          "sha256": "f0c8d3b85913e201902a230df387dc64d5aaf2b76c47dd6a6e03ce9c23b7e186"
+        },
+        {
+          "path": "src/AudioCompiler/Native/Adp4Decoder.cs",
+          "bytes": 3726,
+          "sha256": "17e1521762e5b3c01d770ff38d77b3ef9e15fd2c7ed924ac65a716af52961c90"
+        },
+        {
+          "path": "src/AudioCompiler/Native/AudioPolicy.cs",
+          "bytes": 2466,
+          "sha256": "735e93bbdf5caa24cd526414f8530f6bcda9c403ee0b51733c5ef1539eb1bfcd"
+        },
+        {
+          "path": "src/AudioCompiler/Native/LoopPcmEncoder.cs",
+          "bytes": 7454,
+          "sha256": "2665c2cc85123129255828c87d50aec1d596afff2cabb04dab5bcf7435ba6259"
+        },
+        {
+          "path": "src/AudioCompiler/Native/Pcm16Encoder.cs",
+          "bytes": 10091,
+          "sha256": "7baf664900176ef80d9b7cbb5e0dc06ebba9f0440cb99f9a8f5a30076f48ccec"
+        },
+        {
+          "path": "src/AudioCompiler/Native/ResamplerCoefficients.cs",
+          "bytes": 11411,
+          "sha256": "efede929c5950edbdff9b0bb3077563dbd88938299ac53872cd9607e625f801b"
+        },
+        {
+          "path": "src/AudioCompiler/Native/ResamplerFft.cs",
+          "bytes": 5200,
+          "sha256": "e215543bcf63e8c9e591fab336c08110da55a1fe83ff1c4da9fbb533b1e5357d"
+        },
+        {
+          "path": "src/AudioCompiler/Native/ResamplerFilter.cs",
+          "bytes": 3891,
+          "sha256": "37369a552906672e4df24d083be5b29fc2cb1d0020d41354b4241d86cadf6a04"
+        },
+        {
+          "path": "src/AudioCompiler/Native/ResamplerScheduler.cs",
+          "bytes": 8271,
+          "sha256": "07c0f9affe55d1f41765a50641e790b6d20055573399319849b789c9229a8aa4"
+        },
+        {
+          "path": "src/AudioCompiler/Native/Xas1Encoder.cs",
+          "bytes": 8551,
+          "sha256": "ccc7bbb1b429d1ba98af5b3c74584eff4ff2b0dfe3803fa3e5480be4cf46de2d"
+        },
+        {
+          "path": "src/AudioCompiler/PathMusicBuilder.cs",
+          "bytes": 2301,
+          "sha256": "13b9b5e1f8f9788fc647eabf41072a34e38b92a17e7676fe0818bf15dc6da7c8"
+        },
+        {
+          "path": "src/AudioCompiler/PathMusicHeader.cs",
+          "bytes": 4245,
+          "sha256": "c6d66c32a844768aaec361d2de673d2a9d2eb49506995d20b228e31f601b24f9"
+        },
+        {
+          "path": "src/AudioCompiler/PcmWaveAudioCompiler.cs",
+          "bytes": 5928,
+          "sha256": "6cb2866a61158db00c2c4035d711ebeacc5f9d8f1fea4d12629415c4247fedba"
+        },
+        {
+          "path": "src/AudioCompiler/Plugin.cs",
+          "bytes": 10710,
+          "sha256": "8beae1d7739460ea7dc45c069c7b4c91f3deec5ea576bb6c43cdf056f3bd8763"
+        }
+      ]
+    },
+    "native": {
+      "count": 309,
+      "files": [
+        {
+          "path": "recovery/src/Native/ArmorTemplate.cpp",
+          "bytes": 4740,
+          "sha256": "7c8940ab2df7170e0f0b78209185302f68f18806dd85e568e9e2476be6bed9f6"
+        },
+        {
+          "path": "recovery/src/Native/ArmorTemplate.h",
+          "bytes": 638,
+          "sha256": "e001f51b000517baa199739aa35c3df28a111f861fc0ef5ea9704669a2f04ac2"
+        },
+        {
+          "path": "recovery/src/Native/DataInitializers.cpp",
+          "bytes": 2105,
+          "sha256": "d8e1eab7f10c351197c58c027e6352780538d66d429795760c75e07097d78542"
+        },
+        {
+          "path": "recovery/src/Native/DataInitializers.h",
+          "bytes": 293,
+          "sha256": "e50ddc85f1ddb2cd958cc1fd8706f5b667d0c32eec13fc648c44865c1c1d14fe"
+        },
+        {
+          "path": "recovery/src/Native/EnumBitset.cpp",
+          "bytes": 24309,
+          "sha256": "953ea694f5cd48f6663567b0e5167e90d8fe4fc3792a8db839d5f66c7e4ba631"
+        },
+        {
+          "path": "recovery/src/Native/EnumBitset.h",
+          "bytes": 559,
+          "sha256": "d00e7db0625183144736e187a6499c1aab06fbf76222c380af82eeb550146139"
+        },
+        {
+          "path": "recovery/src/Native/GameObject.cpp",
+          "bytes": 69535,
+          "sha256": "43ea35e7e0364861330cd47f7415d3bd8fdfe0a4582bf37736ce91c31054a4ce"
+        },
+        {
+          "path": "recovery/src/Native/GameObject.h",
+          "bytes": 2041,
+          "sha256": "f4cf8c3eed088968e4da2b582df9f3f4a10f1d0b644d9487d93ffafe22400dc1"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAIUpdate.h",
+          "bytes": 13236,
+          "sha256": "a44bb68e8ca9dbc1277d3c39eea317d231ac95e866e97c6a960e1b388ea62374"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityFinish.h",
+          "bytes": 7845,
+          "sha256": "b8f5312b91836c073198a88680ea3cafdb18db5d32fd6066cf9b3db930f3c6d2"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityFinishRuntime.h",
+          "bytes": 2686,
+          "sha256": "b961d0d589e7856c1ab29041b482de984d02545008aea32e59fb693194768a7e"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityMovement.h",
+          "bytes": 6883,
+          "sha256": "53abd34dd27ce048d562aee096b0b2793940fd06e00118b86c71e63cb9823a40"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityMovementRuntime.h",
+          "bytes": 917,
+          "sha256": "a2194d21653dd0afe426bcc18069d25ccb7ebc215578816dd7cb2e17083923a8"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityResource.h",
+          "bytes": 1900,
+          "sha256": "c8fe47db41683d79ef6b0cbae18a05551ef61a676d275029a7beac41127caec9"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityResourceRuntime.h",
+          "bytes": 988,
+          "sha256": "1c759e55cc0e92713e639ebcfa207edb3e3385f9d9a55251ff19fca7e8f83896"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityRouting.h",
+          "bytes": 2655,
+          "sha256": "e9177611f02b40000a1e64d7eb9cd4b8066808255d150f4a1a460c553b264ce9"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityRoutingRuntime.h",
+          "bytes": 1476,
+          "sha256": "5788479caf9411527e75603f35991462cd0fc61e73d9b941d42755d54fe7312b"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityState.h",
+          "bytes": 7567,
+          "sha256": "5832ddc5d37a79ccba63326789b98dda66c82af2ead53374642da80e24b04e65"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityStateRuntime.h",
+          "bytes": 1014,
+          "sha256": "16a9e5869fca786972bb1fd47c2daa9e43c68ae8337f6dc7a1aeafa1760214b3"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityToggle.h",
+          "bytes": 13318,
+          "sha256": "447223f4b2902a80d5b05601f612b4273a55d920951975005a00a93a1ff110b3"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityToggleRuntime.h",
+          "bytes": 2822,
+          "sha256": "dd4cd8af1585b51a173bd01adb9955e8e015c2ce87b3e1ef995283e72d5f7ea6"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityWeapon.h",
+          "bytes": 5378,
+          "sha256": "47d4c975ee7c9866d6abb109e6755709e2a050830452c59fdedb6e4d7017fb98"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAbilityWeaponRuntime.h",
+          "bytes": 659,
+          "sha256": "ebccd40ab4b19532ec1e87edaacb9b7381bd6e690c5ebd37ab141312af64818d"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectArea.h",
+          "bytes": 14965,
+          "sha256": "5d03f569fbff6ebff2e0cddf4b8d4f3c2b8385c59050765d462c793d79c440a3"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAreaRuntime.h",
+          "bytes": 1926,
+          "sha256": "76c0ac0ff287e5f4ea24629fcbe782a2f4e27684e00c637870a8b980b4bd97ea"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAssist.h",
+          "bytes": 5525,
+          "sha256": "d2d9698c7bb1dda88c2e9cf317b6e242c57b02a8665c581c9382aa795e5d00cd"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAttach.h",
+          "bytes": 10867,
+          "sha256": "bb91f4ab05a317ec078f6864b2642dc43ade263d8f08e5e06106f05e61efbaae"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectAttachRuntime.h",
+          "bytes": 2040,
+          "sha256": "c96e153e842ebfcff2ce103b61a05fc17a313175d1e7b37474abfb19018b2174"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectBeamState.h",
+          "bytes": 3630,
+          "sha256": "eded22492963deaa6bced10e09c80310a82917f3b36b66ece8df10d6ed8c0986"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectBuildingStructure.h",
+          "bytes": 2860,
+          "sha256": "1659b4e0a584be6e9e7a2ce35e53ce143bd0fd112018c09fca93dd1ce885789e"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectCombatResponse.h",
+          "bytes": 4479,
+          "sha256": "b10c7f96a7f1ed60627e8ae4a6b43000691af877ac93236ffa4d6ea22aa8d2c7"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectCombatResponseRuntime.h",
+          "bytes": 1025,
+          "sha256": "9ad1ad77a27263419b4fffee024ff76a64e6c905a5088bdd4a1ffa25ce7ec710"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectContainCore.h",
+          "bytes": 18544,
+          "sha256": "4a6f1108e001d479ba22da12a769d14426e1accc80d3081ee722121b1715c5ba"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectContainCoreRuntime.h",
+          "bytes": 3924,
+          "sha256": "c1396ecf1a5f8cb04a40fa9f81990501a5feaf412a2a0c08b9da63a3206bf48d"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectContainRemaining.h",
+          "bytes": 41154,
+          "sha256": "b396b75be0dde80e8de4de9946e327585bc674fba8425d6b2bb5010e77d314e8"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectContainRemainingRuntime.h",
+          "bytes": 6671,
+          "sha256": "0bea48b04072121728d668f1862855d854c5b0b43985c789e3926630dcf45198"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectCrate.h",
+          "bytes": 18723,
+          "sha256": "d0ba44860b2f32f936acc3273384958b83a4d6e26e094888611da55f0630a77b"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectCreate.h",
+          "bytes": 2938,
+          "sha256": "f498a4c92d6e23d7f2ea34f3bebc0df269debc9f5df630454c9b48fc40522719"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectDie.h",
+          "bytes": 6095,
+          "sha256": "922fd713ffdc66d2c89ee6abb2a6c3b420151135b5e6de5d40b762335bbdaf72"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectDrawAnimation.h",
+          "bytes": 6484,
+          "sha256": "79ecd60f2641e8e2dc19f82f9bd1631ddc2a28ca79e7e6a32b1346a94a0158c6"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectDrawAnimationRuntime.h",
+          "bytes": 2765,
+          "sha256": "b1cb1593ad253bf19f0902ae5332cf730d78e7fff196aad9a29b1659730a0f1c"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectDrawBeam.h",
+          "bytes": 10795,
+          "sha256": "5fd57213b85df884f4408debe7bc9881bd79c604ed217c21d25b58cf1c334b1f"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectDrawBeamRuntime.h",
+          "bytes": 4001,
+          "sha256": "82fe7a6a3d608d5a041eab9093375d7cb20c84a4a4dd4f41d3732eb663f3e017"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectDrawDynamics.h",
+          "bytes": 14017,
+          "sha256": "182ff0bd35b6a025ad35db697df922c58cff90a0c046f786ee1b29133ea825d4"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectDrawDynamicsRuntime.h",
+          "bytes": 4183,
+          "sha256": "aa03c8dfa80efdb95bc584cf58978cfa0ce9e58d174e907f255690370e192ec3"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectDrawModel.h",
+          "bytes": 15361,
+          "sha256": "dcdde87f98e071b4bf8272063073c116db7ba6c51390e0aeb9af132cd79b49ae"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectDrawModelConditions.h",
+          "bytes": 10527,
+          "sha256": "670bfc50c18fb79cf2e0d296b5b73398ac454a9a285d8e24b2b0df84e38f5d80"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectDrawModelConditionsRuntime.h",
+          "bytes": 6058,
+          "sha256": "bbc14a97dd52540e37c4723f54c75db00f2827ccf4d5cfd000340adde9798c43"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectDrawModelRuntime.h",
+          "bytes": 4582,
+          "sha256": "f9c3979a5abae01225d73d60125b48b81b0432fe61df9657e86f579659b2fa78"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectDrawModelSupport.h",
+          "bytes": 1989,
+          "sha256": "f97e2f5917abb6a41372592e04b479c398ced56eac04c655d4c0d7f82528c02f"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectEconomy.h",
+          "bytes": 23825,
+          "sha256": "3a3d212f979d4d619c04dff49757b4614726092c58e1cca3dc7b72ea35e7e1a6"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectEconomyPower.h",
+          "bytes": 4741,
+          "sha256": "0209bcf6fd74a0a2014b76d43e12c9629620828262bf1ee60a18e0ba25d8e9de"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectEconomyPowerEnums.h",
+          "bytes": 1560,
+          "sha256": "6d7e698679edbf48901708ce80d3138295197a2d9a9b1f080de189e0779cfe5c"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectEconomyPowerRuntime.h",
+          "bytes": 1419,
+          "sha256": "80f237fcf127ddc8071aa70cd62f23c3919447ecf2ae0dfadb37fcc9cb49fbdc"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectFields.h",
+          "bytes": 177754,
+          "sha256": "8839bf4f0efd41e3578b76055cacc508558743add2900fdb1df7f8c04cedfa5a"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectFlight.h",
+          "bytes": 22761,
+          "sha256": "4e10df2fc6530b4dde889ce73937b951f7fd05958393af9668599610b407bb57"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectHealing.h",
+          "bytes": 33202,
+          "sha256": "e7d6308e927eecdee323243d3c64e4bf1690a9355355df0be73050b19bd30d5e"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectLifecycle.h",
+          "bytes": 8399,
+          "sha256": "659dc6d99b9838a17e855e4d71969ff76834fb7597c669969228239297f12ffa"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectModelCondition.h",
+          "bytes": 2852,
+          "sha256": "62f859db010079829bddfc0a01a8ecbf8f2a68d6aae40831922c09e594ee70a5"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectModelConditionEnums.h",
+          "bytes": 357,
+          "sha256": "fb21c3511ddc912e8ab64a3898932000f892b358956ec7c517a31dbbcf0acc3d"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectModuleDispatchRuntime.h",
+          "bytes": 22484,
+          "sha256": "a1203b10e68f3b5abb33c598d0189c617d8fb5d77315fef06bc8ea95f136aa91"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectModuleFamiliesRuntime.h",
+          "bytes": 43424,
+          "sha256": "dcee0f0601baa1db4f610530ff09c7330f5d997e0dcb55925250163582a53d6b"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectModuleFieldsRuntime.h",
+          "bytes": 15831,
+          "sha256": "97ca80fb134c60e0764c5a7f4adce223b8dc9e882c64c3c9339c98a79182f95f"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectModuleSupport.h",
+          "bytes": 54703,
+          "sha256": "5f7ee9eb540897eefc3cc7a7215c8a2346c358a316ee9de39f2b3e0fe5c625d5"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectMotion.h",
+          "bytes": 16646,
+          "sha256": "29c70b1d85e6f925c072d8bf40e96a7982998355be8d99a83c89fb116cfc6c6e"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectMotionCleanup.h",
+          "bytes": 3602,
+          "sha256": "b55df8d076ceea3f4a41235079cf96481f941158233eb27733cf2a5219bb41f9"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectMotionCleanupRuntime.h",
+          "bytes": 1281,
+          "sha256": "aff25da4bcc79fc24788e340e463677c6660cd8a059b7d21a20963dd8ff2d29e"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectObjectControl.h",
+          "bytes": 29694,
+          "sha256": "48e42291cee5c206ad205eca0cbc37038f54c4947bde7933a998d85f292ae595"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectObjectControlRuntime.h",
+          "bytes": 5484,
+          "sha256": "d051827fbe9ef54d17b4f5812f733faec3f0df255bb031ca379b5bfb98b1b9df"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectPowerCreation.h",
+          "bytes": 4722,
+          "sha256": "3c61eec9b1b9b757bffbe4298a47ad1d0958e31b82688ee75501d0b1af956e34"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectPowerCreationRuntime.h",
+          "bytes": 1623,
+          "sha256": "cc596722c0d61e13d30047444c64e78972aafed7346ff735889ef66cac6f4147"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectPowerRouting.h",
+          "bytes": 3779,
+          "sha256": "917af5f37792f6b1c58c7e600cbc17b421cf93c425cf592c0732d72f40cd59cf"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectPowerRoutingRuntime.h",
+          "bytes": 1887,
+          "sha256": "36915579a9e9805ae610fe31b876f27f7e26eb054272b4319bd78670565b03d1"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectProduction.h",
+          "bytes": 7843,
+          "sha256": "144e6105542d5c9621598310b8beab3c8bca9f93ef6bdf112e2f8380da1f5441"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectQueueParking.h",
+          "bytes": 3676,
+          "sha256": "48cc6c72928bc9ca556a201a23eadad747bf5435c57691a768935ece2e0417eb"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectReactive.h",
+          "bytes": 19155,
+          "sha256": "ab6237a4043b83add992cfd0126be8044b61b8bc666578e47f8b33655a148ac0"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectResourceAllies.h",
+          "bytes": 2447,
+          "sha256": "be3e7544bf0fe5ff8177db4b16866c480c6cc14246642eef9843097ea8f9f268"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectResourceAlliesRuntime.h",
+          "bytes": 681,
+          "sha256": "3c1d9d3342b549faf2a82d1501a5a2ec1fc580eb1561eb3c9df8733488b952ad"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSlaveWatcher.h",
+          "bytes": 1170,
+          "sha256": "cfbd9caffc61a50e44888b630a681c13993166330f048ac94941d80f302033f0"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSlaved.h",
+          "bytes": 5854,
+          "sha256": "8339f439d767309cb15b4fa80dcd6788b8d3808cc91a71b168a0707df1b04587"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSlowDeath.h",
+          "bytes": 14402,
+          "sha256": "f3a63289a9ea83e4bccd0d1b56e92a933550b6bc56c90c01403872cd4a085a95"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSlowDeathRuntime.h",
+          "bytes": 6325,
+          "sha256": "12bcae13b991b9b566f934d14673f0ba97cc99d1d2ea6400cdb0023a9f1e8409"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSoundSelectors.h",
+          "bytes": 6804,
+          "sha256": "77a7e0abc51f03231ad66e5e1fe15c98d3a32a6f82f8f963151cd201be3ec3c6"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSpawnEnums.h",
+          "bytes": 427,
+          "sha256": "cea5d0e0863c6b90ddb7da6cc129df9bc5300f513e0e6ef0453a5f8b59859875"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSpawnUpdate.h",
+          "bytes": 5465,
+          "sha256": "8748ca2c26de661c68216c00f9bc331d92bde2f80e71db92f3ed9572a5e2db50"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSpecialAbility.h",
+          "bytes": 8919,
+          "sha256": "68cec9be4f3f749fa863ce21073fb56cbaa5c59f5088609c94e36f704d35c187"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSpecialAbilityRuntime.h",
+          "bytes": 598,
+          "sha256": "283e84f1f53c2dc56f713116e875652a867d9fd75d29fb35ca61a4a63df50729"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSpecialPowerBase.h",
+          "bytes": 8431,
+          "sha256": "2d25d23f8caf298023ca96dabe2c7595f43f0692bcb63e7a5b78a5f8b360d4ef"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSpecialPowerBaseRuntime.h",
+          "bytes": 1470,
+          "sha256": "47a34f5ffe758c3b885930ee648fb83ffbbb6d52e0371a2d1c0283509be27f37"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSpecialPowerDerived.h",
+          "bytes": 15611,
+          "sha256": "822f1d66142501aad052b06d0f58692f58e38bd223280ed559ecb28c7820c70a"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSpecialPowerDerivedRuntime.h",
+          "bytes": 1521,
+          "sha256": "cc74c8c88a5f0b577dd8a2a873edc5372ffde9d46ac59cec9b4adb663be88073"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectStateEvent.h",
+          "bytes": 1477,
+          "sha256": "bc7f0c7814da284171cc9be7770a8ca7b8130fac2169e2903e635ba301d664a5"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectStatusEffects.h",
+          "bytes": 3268,
+          "sha256": "7637cd280a6a45e2bd69d397efaf8a86b59efcadf043c203b58487585f855abb"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectStatusEffectsRuntime.h",
+          "bytes": 1004,
+          "sha256": "4be463de1a0fe344580ea35f4ac9f751a4e8427a620592c6311a885b112d7a9c"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectStealthVision.h",
+          "bytes": 3941,
+          "sha256": "5855ea06ffe4884a68e7264522891a460eaa2c892054042c014a788e89bafd80"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectStealthVisionRuntime.h",
+          "bytes": 1209,
+          "sha256": "3fcd347b944967466ecbd16107c28da127c416ed1e68a5fffe5d6c201b659f42"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectStructureWall.h",
+          "bytes": 5660,
+          "sha256": "0f9785047d129ca5a16ecc949b7edc4cb809226859d090d48368f69ec14a4d20"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectStructureWallRuntime.h",
+          "bytes": 1382,
+          "sha256": "a2b8c4028ac320192693accbecea27676f47734a61e309c36256aa22ede97d12"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSupport.h",
+          "bytes": 16102,
+          "sha256": "1e649f74c0264b0129d9566acafc8b20b89eabd50d4a720e990f95eac551c592"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectSupportRuntime.h",
+          "bytes": 3957,
+          "sha256": "5b8d1a5fcb9fe27128d3138a284b65909c03ed76c8619f33f20898948c1777d5"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectTechReceiver.h",
+          "bytes": 1557,
+          "sha256": "00424dc9cbfddc6cb5aebb52cf462a1aea88ddc294c7a34c26dd30c5bdcdc7f7"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectTiberium.h",
+          "bytes": 4877,
+          "sha256": "cd564af27e478cabbc8a12831f0946c9ba78519c458fe047497a52bc60e2c6e6"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectTiberiumRuntime.h",
+          "bytes": 1279,
+          "sha256": "35dc697505721135ec5e1ffc342e31403ddfd6a810fa64737b8ac2a1b0edbbfa"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectUpgrade.h",
+          "bytes": 9602,
+          "sha256": "d5c9142e4370868f77b436c6f15fc9895ad6b31292702eb446c9d01e0a5e7600"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectUpgradeRemaining.h",
+          "bytes": 13249,
+          "sha256": "3d52a2f47aedbe05ceb84a9d738770931db3d5d10b0aed0ed3a7219f7de54e53"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectUtility.h",
+          "bytes": 10963,
+          "sha256": "d4da61a8f4d65f109dc6f197e2cd5472baf05ffb26f14d7adde07cfd23a4e045"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectVision.h",
+          "bytes": 7878,
+          "sha256": "11adcc7669205bec9113db6ed60bcb2cfe3be8e8222688fd0151ee3a632be688"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectWallEnclose.h",
+          "bytes": 2974,
+          "sha256": "4295a8294265ac8fdb8d600793652e41e95ce11b2d3f635b27a33c49f6cbcc22"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectWallEncloseRuntime.h",
+          "bytes": 773,
+          "sha256": "3be8bc9a2eeeab76f4e7a29c1c89c3520858d8175f40414a9fc48e5c093e3d0e"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectWeaponBehavior.h",
+          "bytes": 12419,
+          "sha256": "9adee76b12a0001740b051c06ee828f468171d93a5c89f1b670ce5dd1f94aca9"
+        },
+        {
+          "path": "recovery/src/Native/GameObjectWeaponSet.h",
+          "bytes": 11468,
+          "sha256": "62b9af2ed8673e99bc303e066e2f3a00d119578a00f4bda21c3113c2120fe5b2"
+        },
+        {
+          "path": "recovery/src/Native/ObjectFilter.cpp",
+          "bytes": 14487,
+          "sha256": "856765d81566eaa9ad44c18f509a15b73b03a385633986e3b4348394ec560e8c"
+        },
+        {
+          "path": "recovery/src/Native/ObjectFilter.h",
+          "bytes": 789,
+          "sha256": "70281419588587bdc17e4439871e3fb60a8aee4a06954204be24e68393a72bdd"
+        },
+        {
+          "path": "recovery/src/Native/Relocation.cpp",
+          "bytes": 7015,
+          "sha256": "534e49897301881380acc4e34b86de2f954a8e8e7ac2e6c94f9ad1849037aa13"
+        },
+        {
+          "path": "recovery/src/Native/Relocation.h",
+          "bytes": 1665,
+          "sha256": "9bfe2d202f04c5dbe903aa67362c8b6adf61e24345c1adff77302a350c84cf53"
+        },
+        {
+          "path": "recovery/src/Native/ResourceMarshaling.cpp",
+          "bytes": 2378,
+          "sha256": "0213e8b271fef11808226388b96527298e1eeb16018346c94b88f6db73175bff"
+        },
+        {
+          "path": "recovery/src/Native/ResourceMarshaling.h",
+          "bytes": 401,
+          "sha256": "7247a6cce3e68ab2d38a81005e30ca3ab75cc724d244b1a810c2c4658e192ab9"
+        },
+        {
+          "path": "recovery/src/Native/ScalarParsing.cpp",
+          "bytes": 2782,
+          "sha256": "5df0bd24667b7540b2feadfd82f6d9525d5d4096c54e8c0edb9a3e85cfb882e3"
+        },
+        {
+          "path": "recovery/src/Native/ScalarParsing.h",
+          "bytes": 334,
+          "sha256": "cf7747d7fc8420be362d10c04a15016762f2bb49f026b8337bfe9562e6785311"
+        },
+        {
+          "path": "recovery/src/Native/W3x/AdaptiveDelta.cpp",
+          "bytes": 10472,
+          "sha256": "7860e2f677c043c4b81cfc6e9de6a8ca63047898e1f9def6886bc5a268b4c749"
+        },
+        {
+          "path": "recovery/src/Native/W3x/AdaptiveDelta.h",
+          "bytes": 2045,
+          "sha256": "94b5a2bc76897d3be4d73463220a2a58478d4b3fbcf08e2582d0f39997a3a71f"
+        },
+        {
+          "path": "recovery/src/Native/W3x/AnimationCompiler.cpp",
+          "bytes": 5520,
+          "sha256": "abe53a4f7f5f0e95d7477a91548faebdbe7c537e47201c127fb7c249d401ad74"
+        },
+        {
+          "path": "recovery/src/Native/W3x/AnimationPipeline.cpp",
+          "bytes": 3708,
+          "sha256": "841789b328714f0b07688124b5584dc8f2fb4d3b19f5af57acc9aa499094524f"
+        },
+        {
+          "path": "recovery/src/Native/W3x/AnimationPipeline.h",
+          "bytes": 2017,
+          "sha256": "45e45f1bd9ecd0df9763365304a90bf36e7bed08d86e2b8ee42a00d4fe57404f"
+        },
+        {
+          "path": "recovery/src/Native/W3x/MeshAsset.cpp",
+          "bytes": 6316,
+          "sha256": "d24d15f25107a18f7e5303ffe1f3dc2116cd221cf51f87168373da9e1b2dc242"
+        },
+        {
+          "path": "recovery/src/Native/W3x/MeshAsset.h",
+          "bytes": 1467,
+          "sha256": "93f3cc4fc8507317c9862c00d9fb4ba3bf3716bb3ae2d265f52ec346054ab9df"
+        },
+        {
+          "path": "recovery/src/Native/W3x/MeshBuilder.cpp",
+          "bytes": 9854,
+          "sha256": "d877480c572e8831a5bab4ea034b1a0c88758d71ff2e8c52c03c5fca74115624"
+        },
+        {
+          "path": "recovery/src/Native/W3x/MeshBuilder.h",
+          "bytes": 1871,
+          "sha256": "826455f865aebe34a76672d2435247b8230e12829606a888b0bd318fa20f1212"
+        },
+        {
+          "path": "recovery/src/Native/W3x/MeshConverters.cpp",
+          "bytes": 6444,
+          "sha256": "ded03f2fa67a67497b5c8dbfbc081ed693082d33345d044acfd922f01d8de486"
+        },
+        {
+          "path": "recovery/src/Native/W3x/MeshConverters.h",
+          "bytes": 953,
+          "sha256": "ac6b6a6b31e479858d5bb171b2137a496aaeb655fe12ae67a75c0e30b9fbf6e1"
+        },
+        {
+          "path": "recovery/src/Native/W3x/MeshSerialization.cpp",
+          "bytes": 2400,
+          "sha256": "3efecee072d2c9bb5b747a2bcf668034f8115886d3f19c9505cd264c81f22113"
+        },
+        {
+          "path": "recovery/src/Native/W3x/MeshSerialization.h",
+          "bytes": 341,
+          "sha256": "b24852333a0b93dcc2042a155bdbcbb9d053027d4c124cf8406ce8dbb4becedc"
+        },
+        {
+          "path": "recovery/src/Native/W3x/README.md",
+          "bytes": 888,
+          "sha256": "a81ed114f2448d679ab38047c6684b1708892612bcabadad947d559c09e50005"
+        },
+        {
+          "path": "recovery/src/Native/W3x/Shader.cpp",
+          "bytes": 4317,
+          "sha256": "5925ca9cc35996036b6656c5c817c679ffa1b561c7ba9ef7de5d9ae9c0fa1666"
+        },
+        {
+          "path": "recovery/src/Native/W3x/Shader.h",
+          "bytes": 1411,
+          "sha256": "c5332e48079e5989571356725281a0b664275a201532e95f70193eac1d44302e"
+        },
+        {
+          "path": "recovery/src/Native/W3x/Timecoded.cpp",
+          "bytes": 9526,
+          "sha256": "a3c335290d6b01657b8f9b9a2b2f2d8f7db2248673ac5223226a8dd76cf0f695"
+        },
+        {
+          "path": "recovery/src/Native/W3x/Timecoded.h",
+          "bytes": 1251,
+          "sha256": "501a083f1f216e5c69740bd1930b1838bb63e08a9ffeb2096675095a557bff91"
+        },
+        {
+          "path": "recovery/src/Native/WeaponNugget.cpp",
+          "bytes": 52756,
+          "sha256": "713910b824f4fb5adba1de414a466c2e73b1726c49657e9ea6107ad46d419052"
+        },
+        {
+          "path": "recovery/src/Native/WeaponNugget.h",
+          "bytes": 1466,
+          "sha256": "2760f3a00a4351c633e5eefdb164aef76878542a9acbc64df00e4dfe4b73a140"
+        },
+        {
+          "path": "recovery/src/Native/WeaponSlotOrder.cpp",
+          "bytes": 3361,
+          "sha256": "aec03c228b14c4a3953b1bbf198d1fe852aa4ebc3874498f794bb1a54804f336"
+        },
+        {
+          "path": "recovery/src/Native/WeaponSlotOrder.h",
+          "bytes": 327,
+          "sha256": "5ea183bea6bdba5dbf4b294d8fa3359fa115d05a315cfb56dd2a7a707577b623"
+        },
+        {
+          "path": "recovery/src/Native/WeaponTemplate.cpp",
+          "bytes": 33314,
+          "sha256": "56efff010cf7fa526662586a57f53e2aa048f29ca41bf5bceec522f96d742b1b"
+        },
+        {
+          "path": "recovery/src/Native/WeaponTemplate.h",
+          "bytes": 1354,
+          "sha256": "70805520e8da2ac0ea8501ba84dfe5ed53ed63642c052351e41072eeecec159e"
+        },
+        {
+          "path": "recovery/src/Native/Xmlabilitybuttons.cpp",
+          "bytes": 6468,
+          "sha256": "64fd5080a5c21ef93c11394563687f6d830deac471b906c2f0b707d7360ee2fa"
+        },
+        {
+          "path": "recovery/src/Native/Xmlabilitybuttons.h",
+          "bytes": 429,
+          "sha256": "14bc0f54da98512abf2e23772a485139e7341f3c3fde6bd8c6621e01518bb56f"
+        },
+        {
+          "path": "recovery/src/Native/XmlabilitybuttonsLayouts.inc",
+          "bytes": 1500,
+          "sha256": "30aa5e642f80032c52c1bae0fab64b9b62abee12b6a85937800c988d9c5e1d00"
+        },
+        {
+          "path": "recovery/src/Native/Xmlai.cpp",
+          "bytes": 16145,
+          "sha256": "b2efc590486f27a3cd1dbba094c15434f25997b9f150302fcca241fe9981d3ca"
+        },
+        {
+          "path": "recovery/src/Native/Xmlai.h",
+          "bytes": 611,
+          "sha256": "6e9520c3b9c3072c0e795d22fa3569c6e4bdd410c8671cce131b3d32ee4be761"
+        },
+        {
+          "path": "recovery/src/Native/XmlaiLayouts.inc",
+          "bytes": 43683,
+          "sha256": "5bf5574a05ece2044463006f98a06cd769a62dc1333b85c72b335f0032361de9"
+        },
+        {
+          "path": "recovery/src/Native/XmlaiPersonality.inc",
+          "bytes": 8238,
+          "sha256": "c6a20d305a66111d0f44771ff8d5865f0fe17201f6f2385b577b0e98e4565797"
+        },
+        {
+          "path": "recovery/src/Native/XmlaiPersonalityEnums.inc",
+          "bytes": 1055,
+          "sha256": "d6d2045353f891225f893a23703ba5eafc3f5ec3c38b8d8bd22aeb9af4287681"
+        },
+        {
+          "path": "recovery/src/Native/Xmlaptdata.cpp",
+          "bytes": 2966,
+          "sha256": "ace33974f9e9991b55a461189568220819744ef8b56d38c6f87b3f4b40b238c1"
+        },
+        {
+          "path": "recovery/src/Native/Xmlaptdata.h",
+          "bytes": 394,
+          "sha256": "b22461c582fd4243d848035a735b6d1f54c2c3dc1b123c104e26cdb97e44b227"
+        },
+        {
+          "path": "recovery/src/Native/Xmlarmyopening.cpp",
+          "bytes": 4099,
+          "sha256": "b4f09f54d5360abfbfe38349f4b494df8555f689761a287b96a41e6e7add8309"
+        },
+        {
+          "path": "recovery/src/Native/Xmlarmyopening.h",
+          "bytes": 414,
+          "sha256": "2d31252dd8b807deeb5f791d4013175c509184cfe096f2d91975a349010558e3"
+        },
+        {
+          "path": "recovery/src/Native/Xmlassetindexes.cpp",
+          "bytes": 5517,
+          "sha256": "990d9d056cf0426665844e74821494779a72105a10344d02910cc745e337c2a3"
+        },
+        {
+          "path": "recovery/src/Native/Xmlassetindexes.h",
+          "bytes": 419,
+          "sha256": "1722b99afcbbf9d144affcd865fff34bdb5cd1335511dff041f06f7b53d5eae8"
+        },
+        {
+          "path": "recovery/src/Native/Xmlattributes.cpp",
+          "bytes": 10241,
+          "sha256": "bf7753f5224528ff01e27aa153c8c13041216a06a77e6a4b627debc96ed7e2f7"
+        },
+        {
+          "path": "recovery/src/Native/Xmlattributes.h",
+          "bytes": 838,
+          "sha256": "f2d936d8a03b691b6f2d07e5f68cb8651b490779250e75fcc88bb555b9aea7e7"
+        },
+        {
+          "path": "recovery/src/Native/XmlattributesEnums.h",
+          "bytes": 35224,
+          "sha256": "ad168855a9a75c1932ecfc1c37a2237b39f2e968f374789376baf4bc4615b559"
+        },
+        {
+          "path": "recovery/src/Native/Xmlaudio.cpp",
+          "bytes": 10864,
+          "sha256": "1b0ecb547b0f27d1cd05584bfb4270298a98db57d213f4d363af5629b0acf72c"
+        },
+        {
+          "path": "recovery/src/Native/Xmlaudio.h",
+          "bytes": 385,
+          "sha256": "1261242eedbc30d610e456c7261f6a7ec5ab60ab65b23910e32d983d30e9ccbf"
+        },
+        {
+          "path": "recovery/src/Native/XmlaudioEnums.inc",
+          "bytes": 651,
+          "sha256": "b4e89db5de1943fc8e3713e8229daf92d098a1982679a71e3d4e55fdd7e48f36"
+        },
+        {
+          "path": "recovery/src/Native/XmlaudioFields.inc",
+          "bytes": 3327,
+          "sha256": "066a8c3674929f6b984a45b143097eae7f130552ebbf489eaacecc4cf10e9872"
+        },
+        {
+          "path": "recovery/src/Native/Xmlbuildeconomy.cpp",
+          "bytes": 6350,
+          "sha256": "83e5c6d51d7a9f6f2bdda8522b4f876f4fd1d16be9a4a521ae8833b7074bd46e"
+        },
+        {
+          "path": "recovery/src/Native/Xmlbuildeconomy.h",
+          "bytes": 419,
+          "sha256": "1af45bbe8aaca7a1f6d61bf977ab5b06f624f7b6c6473b547a33fda81a96e2d8"
+        },
+        {
+          "path": "recovery/src/Native/Xmlcampaign.cpp",
+          "bytes": 7975,
+          "sha256": "63917f8c3a6cd96045f4819b6e8a631d80c93f37302983c968329e2256de910e"
+        },
+        {
+          "path": "recovery/src/Native/Xmlcampaign.h",
+          "bytes": 399,
+          "sha256": "1bf1745410b7be91500a275f03361397cc404b8ee157e8400eea496c96e66303"
+        },
+        {
+          "path": "recovery/src/Native/Xmlchatcolors.cpp",
+          "bytes": 4374,
+          "sha256": "47d79be6d6313f7b1989b96f6100a150eba983dc2647b3f9f50e4a8061989486"
+        },
+        {
+          "path": "recovery/src/Native/Xmlchatcolors.h",
+          "bytes": 409,
+          "sha256": "e4b237318fab3ed5ef53d08f553237e21eb450f69bc94972d3190e0e43d9f163"
+        },
+        {
+          "path": "recovery/src/Native/Xmlcommandset.cpp",
+          "bytes": 3539,
+          "sha256": "4d66f1f6e875d39e53d30e72b89edca08b8c75f4880963baffed04ceae7e3730"
+        },
+        {
+          "path": "recovery/src/Native/Xmlcommandset.h",
+          "bytes": 409,
+          "sha256": "6a1f17efb0778cad3e77799ef0c0fe3465df28d16e2aa4be218380b0ba278893"
+        },
+        {
+          "path": "recovery/src/Native/Xmlconditions.cpp",
+          "bytes": 6834,
+          "sha256": "b33b7a0043b19d8c410df0115ef296191037ab3fbbd7d353e4ab476a4090019b"
+        },
+        {
+          "path": "recovery/src/Native/Xmlconditions.h",
+          "bytes": 409,
+          "sha256": "99ab0a4bac7088f8b9e918155bb428f659a8e9124c423525dd1fa5d5da1c6894"
+        },
+        {
+          "path": "recovery/src/Native/XmlconditionsEnums.inc",
+          "bytes": 865,
+          "sha256": "b5039b1caef351fac958ad2880eae1e57492776c4b70996d46107354f0668484"
+        },
+        {
+          "path": "recovery/src/Native/Xmlconnections.cpp",
+          "bytes": 4231,
+          "sha256": "91d134109e93f7b625a0387709f43143aafdbaa6a45e0a202754cedc46781598"
+        },
+        {
+          "path": "recovery/src/Native/Xmlconnections.h",
+          "bytes": 414,
+          "sha256": "ca943794fb0fcf093fff4714d0eaf37f0a150e27508f18c06e3035221b33aecb"
+        },
+        {
+          "path": "recovery/src/Native/Xmlconquercards.cpp",
+          "bytes": 5633,
+          "sha256": "a21032f5a2a46e793530a65576cd2948fbca4fb0f1e0b3b3accd562de562eda9"
+        },
+        {
+          "path": "recovery/src/Native/Xmlconquercards.h",
+          "bytes": 419,
+          "sha256": "9311e8fff2966bbe7a4f9664a84a8252c0c7d93c15497b094fa6dd3c4db38307"
+        },
+        {
+          "path": "recovery/src/Native/Xmlcontent.cpp",
+          "bytes": 3908,
+          "sha256": "f011cde2b9d782b17c0e1031790ea94510cda6f64c5b3abeb199c90ba4f9beea"
+        },
+        {
+          "path": "recovery/src/Native/Xmlcontent.h",
+          "bytes": 394,
+          "sha256": "eef6befc42b7cbda1daf800bf11b0e195e0407de803f0d901d488c209eac2ec3"
+        },
+        {
+          "path": "recovery/src/Native/Xmlcrowd.cpp",
+          "bytes": 6795,
+          "sha256": "c9c4b753c04238ac04c46e4607c353958b2138821dcce3726eb49a94d5a67057"
+        },
+        {
+          "path": "recovery/src/Native/Xmlcrowd.h",
+          "bytes": 384,
+          "sha256": "cc6f0823ea9a9d96d2b928c71435b3858c318cccf6b1064e56147bbbcb1ab799"
+        },
+        {
+          "path": "recovery/src/Native/Xmldamagefx.cpp",
+          "bytes": 4028,
+          "sha256": "4ea0ec013b8f0cafc83a8f51a1dfb39103faea4c22ecacb55c3648436bba046a"
+        },
+        {
+          "path": "recovery/src/Native/Xmldamagefx.h",
+          "bytes": 415,
+          "sha256": "ec128dfe173875973c8c5bcb85bf2d7c8f2290d12548f928d1cbb8207ce5bd0f"
+        },
+        {
+          "path": "recovery/src/Native/XmldamagefxEnums.inc",
+          "bytes": 3062,
+          "sha256": "85ec5d0901aca723649004875b0397095740275ca4e81780bbefb40d2dfe3bf9"
+        },
+        {
+          "path": "recovery/src/Native/Xmldynamics.cpp",
+          "bytes": 2699,
+          "sha256": "f93ee621624e3c52571d2497ebfb3c351ef5d45a4e2c612ae7a1ba82f9498048"
+        },
+        {
+          "path": "recovery/src/Native/Xmldynamics.h",
+          "bytes": 399,
+          "sha256": "b5aafe4737245cfbb9f811a529f56c7670780a91630403b21aee6d4ad4af55f8"
+        },
+        {
+          "path": "recovery/src/Native/Xmleffects.cpp",
+          "bytes": 2358,
+          "sha256": "0674dd8cdbbd2d0fcdaa388bcbcfd0fddb8751971e0a6336cc968030e24a0896"
+        },
+        {
+          "path": "recovery/src/Native/Xmleffects.h",
+          "bytes": 1556,
+          "sha256": "5b64aadde847895fddfaec69015caa56d6ac482046ca99140db31ac476fb1ada"
+        },
+        {
+          "path": "recovery/src/Native/XmleffectsEnums.cpp",
+          "bytes": 27096,
+          "sha256": "314beda0291efbca35d05103d64e53a949e880ed137f80c35ec5e0e1c402ff63"
+        },
+        {
+          "path": "recovery/src/Native/XmleffectsEnums.h",
+          "bytes": 155,
+          "sha256": "8eb38d4dc7645ec67e06a4848c6a6c8bf78c2dae8ebff36cbca770e102b3da5d"
+        },
+        {
+          "path": "recovery/src/Native/XmleffectsNuggets.cpp",
+          "bytes": 6267,
+          "sha256": "ce460333d81cbe68e302b1eb3f220d2f405087cf2b421415a9c3b04e988871e1"
+        },
+        {
+          "path": "recovery/src/Native/Xmlemotions.cpp",
+          "bytes": 5502,
+          "sha256": "5ac942060cef7856633a5661e69f1ac41cc2f57d5906d21093992f4ed3288820"
+        },
+        {
+          "path": "recovery/src/Native/Xmlemotions.h",
+          "bytes": 399,
+          "sha256": "50af091d73a918cdf91f7b02b694cab75b58cba7d337f694dd44ebd99c54c242"
+        },
+        {
+          "path": "recovery/src/Native/XmlemotionsEnums.inc",
+          "bytes": 865,
+          "sha256": "811ccf8bb79dbce67ad141c896a15e0535c52d83efe0e8b11b65cf03539b49b6"
+        },
+        {
+          "path": "recovery/src/Native/Xmlenvironment.cpp",
+          "bytes": 7841,
+          "sha256": "a512084846f4010553051da14fab15ecf5084074c603a7e06636e7c83ca8b143"
+        },
+        {
+          "path": "recovery/src/Native/Xmlenvironment.h",
+          "bytes": 430,
+          "sha256": "fefdd917eb3069c69c1633df0dcd341053a40ded7afb80a9407c5426adba8883"
+        },
+        {
+          "path": "recovery/src/Native/XmlenvironmentEnums.inc",
+          "bytes": 2072,
+          "sha256": "7cce4d4da57633ff642e365319abeb6e495a2df9ec891abf3aa9e3e64ea1b8e6"
+        },
+        {
+          "path": "recovery/src/Native/XmlenvironmentLayouts.inc",
+          "bytes": 8498,
+          "sha256": "0220974a6bca14ba83e80237591152b2f01c3ccab9db593c7d35bd232639c432"
+        },
+        {
+          "path": "recovery/src/Native/Xmlevaachievement.cpp",
+          "bytes": 9607,
+          "sha256": "d110732d11fd8928cf5ee6469b9db7f13b68de5fbd24745f500f6dd355147a21"
+        },
+        {
+          "path": "recovery/src/Native/Xmlevaachievement.h",
+          "bytes": 429,
+          "sha256": "52ecd1b708704998801088c21576d25b5101ac80802e227b6a908be557b81a48"
+        },
+        {
+          "path": "recovery/src/Native/Xmlforcefeedback.cpp",
+          "bytes": 1921,
+          "sha256": "c6c726918f6c6f5eaf65ec272fe2f76126d9a787c78dba75a526635d74a019b2"
+        },
+        {
+          "path": "recovery/src/Native/Xmlforcefeedback.h",
+          "bytes": 424,
+          "sha256": "55e1718a556fa2285513d50c10e0919526b52251efc403ffcba45987a8e25e6a"
+        },
+        {
+          "path": "recovery/src/Native/Xmlfxparticle.cpp",
+          "bytes": 6872,
+          "sha256": "4e5c3eff13564e550500b4faa841c9a42884ca72d8e001208ae5ade1ee8fc4e2"
+        },
+        {
+          "path": "recovery/src/Native/Xmlfxparticle.h",
+          "bytes": 2543,
+          "sha256": "1044b07a5e2a480349c6948cfe31b69a47c66e6767e68e90b7f39243b3634ccc"
+        },
+        {
+          "path": "recovery/src/Native/XmlfxparticleEnums.h",
+          "bytes": 3141,
+          "sha256": "4bf7f5af4c846034b67fd351ee555323664900bf8e28880b5ef6865c16e18737"
+        },
+        {
+          "path": "recovery/src/Native/XmlfxparticleModuleLists.inc",
+          "bytes": 1465,
+          "sha256": "7df76745f13cf1fc26a3bba77feb7dea4b400dee76f2083d5ee310af3ccf37a5"
+        },
+        {
+          "path": "recovery/src/Native/Xmlgamemap.cpp",
+          "bytes": 7263,
+          "sha256": "e71d13c5113e24f8a95d849c62c55c720ed68b4567a2b95541290c8984b596bc"
+        },
+        {
+          "path": "recovery/src/Native/Xmlgamemap.h",
+          "bytes": 394,
+          "sha256": "399be49baa6c1ad43732bec7e5e1569194398fe11cfd20f6d7bd1b220c63300d"
+        },
+        {
+          "path": "recovery/src/Native/Xmlgamescripts.cpp",
+          "bytes": 5225,
+          "sha256": "29c4470af008028c4cb10fead005ac9d4b0c37d4db9abad73ade4debf9ef0312"
+        },
+        {
+          "path": "recovery/src/Native/Xmlgamescripts.h",
+          "bytes": 414,
+          "sha256": "216f5738da1ce395afa3f1d15bd97a386627de553ea3603554ecf919cc23dbec"
+        },
+        {
+          "path": "recovery/src/Native/Xmlhealthbars.cpp",
+          "bytes": 3825,
+          "sha256": "4363a743589c9de169ec1928e65a4047303cfa87861bb705f04de60b09f6bd79"
+        },
+        {
+          "path": "recovery/src/Native/Xmlhealthbars.h",
+          "bytes": 409,
+          "sha256": "f96f6a76691d434ecf088516ebdf0f22ade0b7c8b42f0d873922cf185f70b092"
+        },
+        {
+          "path": "recovery/src/Native/Xmlhotkeymaps.cpp",
+          "bytes": 3649,
+          "sha256": "537d22eaaafb9871aea0c012447c297ef319a54f03cbfef8b625a511e8f49466"
+        },
+        {
+          "path": "recovery/src/Native/Xmlhotkeymaps.h",
+          "bytes": 425,
+          "sha256": "36daaaa0b39d6fdfb00eec64a54dec957c31c95535289f1e044b0cc6ded0e459"
+        },
+        {
+          "path": "recovery/src/Native/Xmllocalization.cpp",
+          "bytes": 6207,
+          "sha256": "01639e01ba6d8ada8027a20d6a3b6baf441858aebb190dbacab144cd67e95d74"
+        },
+        {
+          "path": "recovery/src/Native/Xmllocalization.h",
+          "bytes": 419,
+          "sha256": "056d8bde7a09fc2856983f923d293559827e87816befa5405b58b69dfba556dc"
+        },
+        {
+          "path": "recovery/src/Native/Xmllocomotor.cpp",
+          "bytes": 6630,
+          "sha256": "fe00833084e547f2dd34c3353de15813c3974011eae9b77c030ef6c0b0433569"
+        },
+        {
+          "path": "recovery/src/Native/Xmllocomotor.h",
+          "bytes": 718,
+          "sha256": "74ea261b34975ee5f25e056265497c5b69318d01d5d0761fe2df6720f3f15f3f"
+        },
+        {
+          "path": "recovery/src/Native/XmllocomotorFields.inc",
+          "bytes": 7849,
+          "sha256": "e1f3a98e22df82fd66abe4cdf71267f7e74b4621942167725ddc9e2d1b7f07bb"
+        },
+        {
+          "path": "recovery/src/Native/Xmlmapmetadata.cpp",
+          "bytes": 3738,
+          "sha256": "996daa634a79737e61fd7a87f847508ba84b7eadbaef504ec8a2e69e5df0b457"
+        },
+        {
+          "path": "recovery/src/Native/Xmlmapmetadata.h",
+          "bytes": 414,
+          "sha256": "70a554e8749801747d4f522c34b730e19a53ad3b0f8ac357e42582a35d63043f"
+        },
+        {
+          "path": "recovery/src/Native/Xmlmaterialrules.cpp",
+          "bytes": 3548,
+          "sha256": "0ba477acc4afcf6fee4795c4f735d1c55ce073ba78352890a91b524cc484feeb"
+        },
+        {
+          "path": "recovery/src/Native/Xmlmaterialrules.h",
+          "bytes": 424,
+          "sha256": "a90b50459438373618f1e08bce3937709b027f0a5f32cb735110dd455c52bd4f"
+        },
+        {
+          "path": "recovery/src/Native/Xmlmouse.cpp",
+          "bytes": 1900,
+          "sha256": "736ebd1c9f93bfdfe9af6a34fdcefa7b3151fb99b64be2cb063fdb1c038d28de"
+        },
+        {
+          "path": "recovery/src/Native/Xmlmouse.h",
+          "bytes": 384,
+          "sha256": "c0597c5b89da2d5350677d1adea378266f4f21c61ad209ab008811b6fe940ca3"
+        },
+        {
+          "path": "recovery/src/Native/Xmlmoviearchive.cpp",
+          "bytes": 3436,
+          "sha256": "de5f302d72b315f0453f4743cb7b728070f7cc95ce7dfa85554a9362ef50f769"
+        },
+        {
+          "path": "recovery/src/Native/Xmlmoviearchive.h",
+          "bytes": 419,
+          "sha256": "d2d76f42f4af850ccc44f8177b80c8c2b76c9a4169cf99dc8ae675d03b133fbc"
+        },
+        {
+          "path": "recovery/src/Native/Xmlmusicscript.cpp",
+          "bytes": 8369,
+          "sha256": "5dced9b07dca36b4c377a17d5bfd0e857dbd987e433471785bc6fed925bddd79"
+        },
+        {
+          "path": "recovery/src/Native/Xmlmusicscript.h",
+          "bytes": 412,
+          "sha256": "45dfb320d92f37050e4f3a3998332a081e0617c0465394ab78d34bff8cc4154c"
+        },
+        {
+          "path": "recovery/src/Native/XmlmusicscriptEnums.inc",
+          "bytes": 416,
+          "sha256": "017902bed00158790a3e6ba0471cd08f94c620bf6bede623f63de4fed4a93df6"
+        },
+        {
+          "path": "recovery/src/Native/XmlmusicscriptFields.inc",
+          "bytes": 3606,
+          "sha256": "927a7253ec9dacff2a89ea7c2efa631f7a509c278285b2bc3fe95147090415c9"
+        },
+        {
+          "path": "recovery/src/Native/Xmlobjectsets.cpp",
+          "bytes": 5503,
+          "sha256": "048ee1bc03e204f2b361f8067c359adee743414b0d9c33cda517fb5807deec75"
+        },
+        {
+          "path": "recovery/src/Native/Xmlobjectsets.h",
+          "bytes": 409,
+          "sha256": "378b0cc684ca769871b5f19f60c9240d70ebeb9890532794fefa5d5df950e0bd"
+        },
+        {
+          "path": "recovery/src/Native/Xmlpathmusic.cpp",
+          "bytes": 5178,
+          "sha256": "3a43a766df9ba736015bacdfe1bb610715285a275433c99e8b14a1b143f94439"
+        },
+        {
+          "path": "recovery/src/Native/Xmlpathmusic.h",
+          "bytes": 402,
+          "sha256": "220ea09e6361dd6d0ee927079cd2bf611814c1b4b472636ee75a7661f325cbf8"
+        },
+        {
+          "path": "recovery/src/Native/Xmlplayers.cpp",
+          "bytes": 8785,
+          "sha256": "ad118a3ca893f522ecfbb524e3299f73128eca84b5d5a0d05c0213af3e206e96"
+        },
+        {
+          "path": "recovery/src/Native/Xmlplayers.h",
+          "bytes": 405,
+          "sha256": "32f08446d96bf96ae3bf8f3016461437a19328849a8294f7afb1e9d919518974"
+        },
+        {
+          "path": "recovery/src/Native/XmlplayersEnums.inc",
+          "bytes": 2038,
+          "sha256": "e9c618799b9f031d41a6fad99ac6bd9cb836a3ad7f6a0f506877b722cbff801e"
+        },
+        {
+          "path": "recovery/src/Native/XmlplayersFormations.inc",
+          "bytes": 2132,
+          "sha256": "042b9a62bc1f92db3f8c2f8474e35f860c086b089ee71dde9d5cac6dc4dbbe79"
+        },
+        {
+          "path": "recovery/src/Native/XmlplayersLayouts.inc",
+          "bytes": 13383,
+          "sha256": "f9157288253d40d30a30cee76abe0fb4695ab6e93a7d4ae65af7f822721d4ea8"
+        },
+        {
+          "path": "recovery/src/Native/XmlplayersSkirmish.inc",
+          "bytes": 722,
+          "sha256": "f34b4ab9827b487e2f2cd201843a76692c25b31ad1ba2ff395276e3e96cc9f2c"
+        },
+        {
+          "path": "recovery/src/Native/Xmlpowers.cpp",
+          "bytes": 15987,
+          "sha256": "6e8b8ab3a93af8fc20dfc721101b35d05c873de38269d781d4a9c6a947ffd092"
+        },
+        {
+          "path": "recovery/src/Native/Xmlpowers.h",
+          "bytes": 351,
+          "sha256": "17924d39e1ff90bd8e09a8e670f3f1f3f104db1d4b1929296dcc2538166f9076"
+        },
+        {
+          "path": "recovery/src/Native/XmlpowersEnums.h",
+          "bytes": 24363,
+          "sha256": "d968d023e0eb6ec79462f41510343ed72a763516dad1f250ceb5f5e48f548b9a"
+        },
+        {
+          "path": "recovery/src/Native/Xmlprogression.cpp",
+          "bytes": 15316,
+          "sha256": "8a1b16e7a4db6c0374b49cdce8a4d60d05ebbb82c945484e1d36436ddadbe479"
+        },
+        {
+          "path": "recovery/src/Native/Xmlprogression.h",
+          "bytes": 603,
+          "sha256": "d8d6c6e50a594074b9cbeb20f83ae0903177848f5831c207db053f32dab14aa7"
+        },
+        {
+          "path": "recovery/src/Native/XmlprogressionEnums.h",
+          "bytes": 9021,
+          "sha256": "8cd2e8e8cca443116b07755022176f990d67791eb45aa75968a29c8defcc717c"
+        },
+        {
+          "path": "recovery/src/Native/XmlprogressionFont.cpp",
+          "bytes": 3547,
+          "sha256": "355026df4873a1416b5952d16038ab40d1cbd1bf8770db39ca3faad05ff4cd4f"
+        },
+        {
+          "path": "recovery/src/Native/XmlprogressionUi.cpp",
+          "bytes": 2493,
+          "sha256": "18b3b8a27bf97ec01fb47ab16d4e7fea9bebc134519cd929101faf6f7c83fc00"
+        },
+        {
+          "path": "recovery/src/Native/Xmlprojectilepath.cpp",
+          "bytes": 2478,
+          "sha256": "b1dba660f5be3c2d72fa90bb177ecbdf0c83af5a45fff11e9821fdf4bb9febb3"
+        },
+        {
+          "path": "recovery/src/Native/Xmlprojectilepath.h",
+          "bytes": 429,
+          "sha256": "eb238cc746c94beb12daa4e8eea9858ff80be8e86ddd13007e9d49473147f425"
+        },
+        {
+          "path": "recovery/src/Native/Xmlradar.cpp",
+          "bytes": 4912,
+          "sha256": "57129a9294a997864ef19af7f0240725c1835c5348d4923aa6a98be59cda681b"
+        },
+        {
+          "path": "recovery/src/Native/Xmlradar.h",
+          "bytes": 384,
+          "sha256": "db31391366d61e1055edece1bd8f0d2c65d5bf1d12241190bddf0d5b09c193d6"
+        },
+        {
+          "path": "recovery/src/Native/Xmlredalert.cpp",
+          "bytes": 4705,
+          "sha256": "69dbb4a58882dd0c5bf00e0f4549e1e19d7e0797e346ac3071c3d22e1b27e246"
+        },
+        {
+          "path": "recovery/src/Native/Xmlredalert.h",
+          "bytes": 399,
+          "sha256": "102113eb91f5388bfe252c7ade53bedfaec2d6d8d9e749fd3917cc84c1c6d658"
+        },
+        {
+          "path": "recovery/src/Native/Xmlrenderassets.cpp",
+          "bytes": 3288,
+          "sha256": "ce3172dbb001e316777aa21adb16f43ba5814f073d9953406a35233d29422964"
+        },
+        {
+          "path": "recovery/src/Native/Xmlrenderassets.h",
+          "bytes": 419,
+          "sha256": "b6db655b7bc4a9dbf83584f62a635b2c9f94d1c81a46f66cc03a82b293e6ed20"
+        },
+        {
+          "path": "recovery/src/Native/Xmlrenderdevice.cpp",
+          "bytes": 6628,
+          "sha256": "f494c8a6dc0da4568430d968f0fa4df0c63b111d5d358b302782f06a8152538d"
+        },
+        {
+          "path": "recovery/src/Native/Xmlrenderdevice.h",
+          "bytes": 419,
+          "sha256": "e3666e0a4818b5b5174e6abb74695be3aa40a6e616f8a61e37474472a8975d7c"
+        },
+        {
+          "path": "recovery/src/Native/XmlrenderdeviceEnums.inc",
+          "bytes": 626,
+          "sha256": "a1da3daeb158063e2ae4a8a60392d67aa7ce9ad0291fb30f2c0ca9cef7145cfc"
+        },
+        {
+          "path": "recovery/src/Native/Xmlruntimeopaque.cpp",
+          "bytes": 2125,
+          "sha256": "956e4769bea46c12814411cc4bcdf6492b6ad98a5e5cfe0ea83be39ddbd6b636"
+        },
+        {
+          "path": "recovery/src/Native/Xmlruntimeopaque.h",
+          "bytes": 424,
+          "sha256": "33f2491976eef57bb360d416cd0ec8d7df5a56c0a6f5406c08b157883b203ac2"
+        },
+        {
+          "path": "recovery/src/Native/Xmlsinglesound.cpp",
+          "bytes": 8188,
+          "sha256": "1795cd116b3cd3ac3029b9f136459671243b777fa174cb76d3eb81c9e6b8ac0e"
+        },
+        {
+          "path": "recovery/src/Native/Xmlsinglesound.h",
+          "bytes": 412,
+          "sha256": "96b2142ae906048ae2618e4a99ce3ed6cbd9fdb26fdf0e9c88578eff7f36f504"
+        },
+        {
+          "path": "recovery/src/Native/XmlsinglesoundEnums.inc",
+          "bytes": 674,
+          "sha256": "1b3886a05e28a51453ea52d9cdc9ecb40199a8f463bac32611ed339256ec5f6a"
+        },
+        {
+          "path": "recovery/src/Native/XmlsinglesoundFields.inc",
+          "bytes": 709,
+          "sha256": "c3637e7cd4e0817821a3baaf82d2fd6cea7606ed79ad61346af3e4e6d52dc202"
+        },
+        {
+          "path": "recovery/src/Native/Xmlsoundmaps.cpp",
+          "bytes": 7568,
+          "sha256": "12350ba5e42c3c5007543bbdedab04a28baa08632e618c80beda5bd9aab75e5a"
+        },
+        {
+          "path": "recovery/src/Native/Xmlsoundmaps.h",
+          "bytes": 408,
+          "sha256": "063cb08dd8082177add850ac6abecf90927ed37132f08670b0a36529695d9f76"
+        },
+        {
+          "path": "recovery/src/Native/XmlsoundmapsFields.inc",
+          "bytes": 3931,
+          "sha256": "13cecfc76f1b9f540c14ec6de8a3b8d9f4a05f634a2570c5c2a23349569059b1"
+        },
+        {
+          "path": "recovery/src/Native/Xmlsystemsettings.cpp",
+          "bytes": 4039,
+          "sha256": "3f5b8ea88cdf476e402b362baddbf6f76dfc595a57849918143ba7e47afb1bd1"
+        },
+        {
+          "path": "recovery/src/Native/Xmlsystemsettings.h",
+          "bytes": 429,
+          "sha256": "0b3f9311c5896b951c2e9f1b14f3439d8e909560099dfcf0f1be1c036d1f37b6"
+        },
+        {
+          "path": "recovery/src/Native/XmlsystemsettingsEnums.inc",
+          "bytes": 812,
+          "sha256": "df62fea0c160ee07d5d295f3646f728fe07cc12f34b5299f6a81358271847c32"
+        },
+        {
+          "path": "recovery/src/Native/XmlsystemsettingsPathFields.inc",
+          "bytes": 581,
+          "sha256": "c662b92c7d3dcce5f61fcc61957fbf0f517f242ace5522c5e2905684dd3c5ed7"
+        },
+        {
+          "path": "recovery/src/Native/Xmltacticalhotkeys.cpp",
+          "bytes": 5420,
+          "sha256": "0e03b38cde9501cf9b0dcfb4ea9420b09d028c9616b8d21ff4a7b30997c2cb4a"
+        },
+        {
+          "path": "recovery/src/Native/Xmltacticalhotkeys.h",
+          "bytes": 434,
+          "sha256": "10a4d6e2bd839e0709473ef411d0b125fa40c304badc37d87728421afe0ba202"
+        },
+        {
+          "path": "recovery/src/Native/XmltacticalhotkeysFields.inc",
+          "bytes": 2845,
+          "sha256": "fb6c38fa319797e411a0df4f6ca546c3e0e168800c9d6e0e509666edd47ad1ff"
+        },
+        {
+          "path": "recovery/src/Native/Xmltargeting.cpp",
+          "bytes": 2479,
+          "sha256": "cdc7995772a36db718f087c50e3de05644d6e821c7eed17c52b8da177d2a0095"
+        },
+        {
+          "path": "recovery/src/Native/Xmltargeting.h",
+          "bytes": 404,
+          "sha256": "c69b20fe57f49537696a217df19724c36ce583da9e3f71d2c47f94bb0fa05153"
+        },
+        {
+          "path": "recovery/src/Native/Xmlterrain.cpp",
+          "bytes": 3553,
+          "sha256": "899e2e16a6c59d33763cba91edbfabd5e9b427c1fcb77ee1ff5377f02399971a"
+        },
+        {
+          "path": "recovery/src/Native/Xmlterrain.h",
+          "bytes": 394,
+          "sha256": "5056abf33cc9635c2b0e07d45d623e843a1e0518d48f6972dcadb95b12aa7451"
+        },
+        {
+          "path": "recovery/src/Native/Xmltesttextures.cpp",
+          "bytes": 2997,
+          "sha256": "95f13afac15b169e5f0e5e3915878b2ddb9701beb18161492f82269306ce8eb9"
+        },
+        {
+          "path": "recovery/src/Native/Xmltesttextures.h",
+          "bytes": 419,
+          "sha256": "0e1df85632dcff6283cba58af071abd93f08dedce4a058c8e5222c4bb70f8622"
+        },
+        {
+          "path": "recovery/src/Native/Xmluichat.cpp",
+          "bytes": 6509,
+          "sha256": "fa1dd2958632ad39fb6c6d411dc04b23644ef79b719ee75e7a41d3ddc1f96e8f"
+        },
+        {
+          "path": "recovery/src/Native/Xmluichat.h",
+          "bytes": 389,
+          "sha256": "d2071cd1ec63a4adfbd7140e5858e5669d362d92d50d64c5b3138b6252828ed9"
+        },
+        {
+          "path": "recovery/src/Native/XmluichatEnums.inc",
+          "bytes": 205,
+          "sha256": "306e9c7969a30c848b7b2feaaa06c220b0c0c246ed1d82eb01d6d99627f4206e"
+        },
+        {
+          "path": "recovery/src/Native/Xmluiconfig.cpp",
+          "bytes": 6325,
+          "sha256": "bcdb62b9f08306fa3194d40ae75eb5e3e56aa520f919cb8e05aabb87926aba27"
+        },
+        {
+          "path": "recovery/src/Native/Xmluiconfig.h",
+          "bytes": 399,
+          "sha256": "fe9aad8de5c4fd805fda989f462b625fabedafa27721c2d39da12cbfec28091f"
+        },
+        {
+          "path": "recovery/src/Native/XmluiconfigComponents.inc",
+          "bytes": 37531,
+          "sha256": "0c35f40cdca6483f09aa469f7896e10322a6843eedf91a054e180ffb3376e3b8"
+        },
+        {
+          "path": "recovery/src/Native/XmluiconfigNested.inc",
+          "bytes": 24754,
+          "sha256": "af7224e05f5692911047f9f24d2e10ed9f13d44146490464294d606ff6425346"
+        },
+        {
+          "path": "recovery/src/Native/Xmluidecals.cpp",
+          "bytes": 5320,
+          "sha256": "e4e38465a4c2ae61a2ec82ac70aa7d2ab5e46caac7eb26477623cbf0728e2a90"
+        },
+        {
+          "path": "recovery/src/Native/Xmluidecals.h",
+          "bytes": 399,
+          "sha256": "f7e7a483a76bf90a0f7fcf6125ca1c1644f8d631568ded99dafd6c1d895f8938"
+        },
+        {
+          "path": "recovery/src/Native/Xmluiimages.cpp",
+          "bytes": 4438,
+          "sha256": "842d4990534f5f3506dd23a1e76e8a7a4ebee9d8f13d101309dc2458b74d56fa"
+        },
+        {
+          "path": "recovery/src/Native/Xmluiimages.h",
+          "bytes": 399,
+          "sha256": "c8e3891bc84428f5a87376cb2a1a09694a6db150d1724ddb3d104b30f0e5c96b"
+        },
+        {
+          "path": "recovery/src/Native/Xmluisettings.cpp",
+          "bytes": 11776,
+          "sha256": "6cb2a93aa416ade7f0dc0d33b643e92cd68db1e9a1b4450418cf141e88bb2dc2"
+        },
+        {
+          "path": "recovery/src/Native/Xmluisettings.h",
+          "bytes": 426,
+          "sha256": "38fba36f3bb015bcdb12c6d652ebd15cc176f306a4457b23d9b0af7d2fab52dd"
+        },
+        {
+          "path": "recovery/src/Native/XmluisettingsLayouts.inc",
+          "bytes": 5452,
+          "sha256": "409fbf054a09aa5c7b1ec66dd411b83d32cde46e8bedd1a1d3c413fb1e189b26"
+        },
+        {
+          "path": "recovery/src/Native/Xmluitactical.cpp",
+          "bytes": 13543,
+          "sha256": "11a491ad2030f77e761ce15603e0bfab0de5112a6936c7b86c5b5553582136d9"
+        },
+        {
+          "path": "recovery/src/Native/Xmluitactical.h",
+          "bytes": 426,
+          "sha256": "630a173b689917436c10819407fe4dab410acca6382d6de9775213e3e7204b2e"
+        },
+        {
+          "path": "recovery/src/Native/XmluitacticalLayouts.inc",
+          "bytes": 9906,
+          "sha256": "cd1eb5d3a77defb3f9d9ddbc7a7bae8c12024e30f431780d421ca255911d2196"
+        },
+        {
+          "path": "recovery/src/Native/Xmlunitoverlay.cpp",
+          "bytes": 5353,
+          "sha256": "15beff0e86274d1422d590295596d638aac254f2b95ce77567fd6e2d862e459e"
+        },
+        {
+          "path": "recovery/src/Native/Xmlunitoverlay.h",
+          "bytes": 414,
+          "sha256": "9303c07e44419956dddf2a174b856e54f78151c395a75794692878475833c4e5"
+        },
+        {
+          "path": "recovery/src/Native/Xmlvisibility.cpp",
+          "bytes": 5397,
+          "sha256": "c866fbabb5d818b235c2a215f28e7df0c2b611168d2cfc52d59620ec3183af33"
+        },
+        {
+          "path": "recovery/src/Native/Xmlvisibility.h",
+          "bytes": 409,
+          "sha256": "52875d6534f117a8baf4bbbffa622a7840821c697af897dab64a0cc45db7adb1"
+        },
+        {
+          "path": "recovery/src/Native/Xmlvisualsystems.cpp",
+          "bytes": 4612,
+          "sha256": "de611e54fea56b7c901f20ce3e65d067f74270f0d1ef1684dc24665092b360f3"
+        },
+        {
+          "path": "recovery/src/Native/Xmlvisualsystems.h",
+          "bytes": 424,
+          "sha256": "77f672f01488675338acd4af912574ef8bcdc519cd57ee37e0ba3916054c85c4"
+        },
+        {
+          "path": "recovery/src/Native/Xmlw3d.cpp",
+          "bytes": 8012,
+          "sha256": "d12a1b96521a32878ea1f13f2dfbb63c18ef8c1b5b333679bb09645fc243531d"
+        },
+        {
+          "path": "recovery/src/Native/Xmlw3d.h",
+          "bytes": 374,
+          "sha256": "8ac89b3f036739167d4618804a2afd4c271b09a7d8fbccf831299a9d698dc44f"
+        }
+      ]
+    },
+    "bridge": {
+      "count": 74,
+      "files": [
+        {
+          "path": "recovery/src/Bridge/ArmorCompiler.cpp",
+          "bytes": 3279,
+          "sha256": "864ccdb6f30f60742b254020ed9d524505f8a6dd613aa3c89276895051e029d2"
+        },
+        {
+          "path": "recovery/src/Bridge/GameObjectCompiler.cpp",
+          "bytes": 42531,
+          "sha256": "faccb53b60d21f6adba46fa89516d91803d7a859827d1cfaf46144bf4fa3f2e0"
+        },
+        {
+          "path": "recovery/src/Bridge/PrimitiveInitializers.cpp",
+          "bytes": 738,
+          "sha256": "5449f1c99a8acd504a780195b12b12de477d14497a288fa7f993b8a56be5ff1f"
+        },
+        {
+          "path": "recovery/src/Bridge/RelocationBridge.cpp",
+          "bytes": 2126,
+          "sha256": "e63d40f8ab7d969e3eaafc344eaeee21a4b5f4e08b24dc2b28b69bd58de11822"
+        },
+        {
+          "path": "recovery/src/Bridge/W3x/AnimationCompiler.cpp",
+          "bytes": 6276,
+          "sha256": "5f9498c0261473cd9a670ed1ab0e31779c09a52de4911a2d1902d915f74b89ff"
+        },
+        {
+          "path": "recovery/src/Bridge/W3x/MeshCompiler.cpp",
+          "bytes": 11573,
+          "sha256": "6c8b5dc9eda965547194d29d2f2c6d14f7c7998fdf0dfacc91d0665325ead339"
+        },
+        {
+          "path": "recovery/src/Bridge/W3x/README.md",
+          "bytes": 549,
+          "sha256": "e71643500c11551024ded817e49e76592e4b227dbc3b79c95692b083a3c07ddc"
+        },
+        {
+          "path": "recovery/src/Bridge/WeaponCompiler.cpp",
+          "bytes": 19204,
+          "sha256": "09c968c6f2c3aa6ebf5a5f0cb8e16a42b2e37bd53aad0d1832853ee1c7db0009"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlNodeAdapter.h",
+          "bytes": 1636,
+          "sha256": "c9cc4a9986bbe780acf53b9825d57b2eaa1775b313b4577bc062e80073fb1603"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlabilitybuttonsCompiler.cpp",
+          "bytes": 5345,
+          "sha256": "a39c9ec405045196a782a5bab08f130879116769a93781ec46cb839f134ba527"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlaiCompiler.cpp",
+          "bytes": 3534,
+          "sha256": "e757329c339d7f32028eb4d63f6dcd57c0339fc09ffd068744de2a270987b4a4"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlaptdataCompiler.cpp",
+          "bytes": 6825,
+          "sha256": "3ee714dfdd9879deb90e6e40312a0f2f640e2f3d0661b461a901c152934cfd50"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlarmyopeningCompiler.cpp",
+          "bytes": 5235,
+          "sha256": "e661fa17c320336e149688aa4e4d414684623e1dc5cfff95a1032f2ae8490cf5"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlassetindexesCompiler.cpp",
+          "bytes": 6069,
+          "sha256": "2c4ec96279d66844e49323f618ad7c34deeb49e202e0e39771fe359b3e264b00"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlattributesCompiler.cpp",
+          "bytes": 11910,
+          "sha256": "ec5ac039b176dcea4a0dda2dc383ba3d8c409d7d59dad05cff1f9fbd6f6a4efe"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlaudioCompiler.cpp",
+          "bytes": 6771,
+          "sha256": "de1f099e619917a1977a07c36f04d15405a15bb1a4109c5f23ff322a7de3553a"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlbuildeconomyCompiler.cpp",
+          "bytes": 7001,
+          "sha256": "a5a0a47a1f4918ae9eff6c11dbfe832c7856ef64b0dd7857aa7544b5571a10c7"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlcampaignCompiler.cpp",
+          "bytes": 7791,
+          "sha256": "17f9d5a71793f29584e7c889d54ce323fdbd8519acc8566f17cb7d09bbe70ea6"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlchatcolorsCompiler.cpp",
+          "bytes": 4347,
+          "sha256": "cf9e792860517492b5acf3d87c2d365d34741fbbc2cde030ad00bff4eaea49f3"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlcommandsetCompiler.cpp",
+          "bytes": 4316,
+          "sha256": "4c67c037d0ce12d88c87262290e0f8eacd6f3e15c83baf4517461b050729614a"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlconditionsCompiler.cpp",
+          "bytes": 6987,
+          "sha256": "85a40f01957a6cb1500f2a27b7db70530cc6bf153d3d3362370dc53a38c341af"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlconnectionsCompiler.cpp",
+          "bytes": 4415,
+          "sha256": "bf49fb6ce8469c048208d42891567edad0904e260e1d9d3a3b6cd0a6c16612c3"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlconquercardsCompiler.cpp",
+          "bytes": 8036,
+          "sha256": "11a7bd413cc5e1c29bc58dca0d9c398d8cf3bc8c65756dc8b7db1d62824df4b7"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlcontentCompiler.cpp",
+          "bytes": 7723,
+          "sha256": "71b767c9d0e8037b3777096ee02ed44d8b46bc9358c7bd030a1ea29ce7aed045"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlcrowdCompiler.cpp",
+          "bytes": 4257,
+          "sha256": "e43aff538ed6430a92383b548f7b131bfaad1a5e619fcfe74b6987ca3e89dcd8"
+        },
+        {
+          "path": "recovery/src/Bridge/XmldamagefxCompiler.cpp",
+          "bytes": 5146,
+          "sha256": "b28211bdf0f38f09dd85e8711b39ea30c4dc6ece7692fa93770fc9c4611e7252"
+        },
+        {
+          "path": "recovery/src/Bridge/XmldynamicsCompiler.cpp",
+          "bytes": 4348,
+          "sha256": "7b9a710e42862af43c95945ee78a792212ff010ef0f3584132f0a84c57ccde29"
+        },
+        {
+          "path": "recovery/src/Bridge/XmleffectsCompiler.cpp",
+          "bytes": 23980,
+          "sha256": "8922b361d22fc8bafe9e17c36fa353267582bfb06dc566051bdbb7aad547c9d8"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlemotionsCompiler.cpp",
+          "bytes": 5164,
+          "sha256": "f7a2dc96de90e4cf4aeccbe4aedb2f2fec7f18d594aba1e0c8ac567fb13c7efe"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlenvironmentCompiler.cpp",
+          "bytes": 13906,
+          "sha256": "2b58173a1928190a5503776da94b798c0ce5c455092c7d1f5dbebe1c4ddefcd9"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlevaachievementCompiler.cpp",
+          "bytes": 9665,
+          "sha256": "63df336330a095d5fd7c71559d8553f32e1b257b8e95b59e6aaf64d5b7f6ce4b"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlforcefeedbackCompiler.cpp",
+          "bytes": 4396,
+          "sha256": "8234d78e5eaff84618fef5336a70821cc8e9df84c366ed8421916b20a55280e4"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp",
+          "bytes": 27438,
+          "sha256": "7d2d6225c887adfc1f150dfac93752c245f50f153d32b89f6b48071773cbe45f"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlfxparticleModuleCases.inc",
+          "bytes": 5534,
+          "sha256": "4d19a1c21f16b5d8c39ffd62dcb3e0f2acd999e7964900e3ef06a4bde8352e9e"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlfxparticleModuleHelpers.inc",
+          "bytes": 1404,
+          "sha256": "f32aa3b1e92db626f131ba0ddcce794c9d89e274c02533e7513bfa75f97edbed"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlgamemapCompiler.cpp",
+          "bytes": 4269,
+          "sha256": "f6b9d85b456d47b8600b240c84924403261500b1f2197ff94fc21be1487f870b"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlgamescriptsCompiler.cpp",
+          "bytes": 4353,
+          "sha256": "67e141ba6b3fe1968315fe3c89ffbf5de59436c5eff498973376d324f07e3cb9"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlhealthbarsCompiler.cpp",
+          "bytes": 5221,
+          "sha256": "961d0b99b63caea0b131138734ec76d13a5e85ef83dc039c77aa150fbda0d5d9"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlhotkeymapsCompiler.cpp",
+          "bytes": 6913,
+          "sha256": "2cbc1f52bd9849681fbd685860249f5d5a00c18d42e1a67fa0ca8ea869aaf689"
+        },
+        {
+          "path": "recovery/src/Bridge/XmllocalizationCompiler.cpp",
+          "bytes": 7728,
+          "sha256": "e9630bc3ec88c80a16cb6b8fad34f85f4387520be3068c9a361975d8513fe64c"
+        },
+        {
+          "path": "recovery/src/Bridge/XmllocomotorCompiler.cpp",
+          "bytes": 6059,
+          "sha256": "97f7f1d3c81bc8dd43a54192251f0ddc660b7c6d95054aa3c147eb87c7b5b513"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlmapmetadataCompiler.cpp",
+          "bytes": 4341,
+          "sha256": "2766bf08f2fbf2558e773225b00ec53c3f9e4db40f6eccd2a87598efa2dd63b7"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlmaterialrulesCompiler.cpp",
+          "bytes": 6076,
+          "sha256": "52bda9eec201c339dc83a431f27e0ecb86d6b43ce4ba5012e81b1692dac16ef6"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlmouseCompiler.cpp",
+          "bytes": 4226,
+          "sha256": "c9d59b58d679e4154104e25d0c805753f3d5f3999abb0add3cf07944a523b1b7"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlmoviearchiveCompiler.cpp",
+          "bytes": 5232,
+          "sha256": "d122b7c92606cc68a167a11666d7ca569efcb2f048ddba1aabe20504c5d5f194"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlmusicscriptCompiler.cpp",
+          "bytes": 17512,
+          "sha256": "3e7b73514e513f88304d7a195f855e47c2acfbed8786f822a44c2eb9bf3368b7"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlobjectsetsCompiler.cpp",
+          "bytes": 6106,
+          "sha256": "8261d6d7439e0bcd21dfdbc2431e9e933c5ab88637f188c85d966b82de81758d"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlpathmusicCompiler.cpp",
+          "bytes": 6989,
+          "sha256": "464a65a235528f40fdcc27ce6da6aae7d5e3cf104d442d80160638a2e30b75fe"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlplayersCompiler.cpp",
+          "bytes": 12031,
+          "sha256": "bbb488030262041efef36d3b581c33b95cc725f8594be7dd0ded0f6e0cb817f3"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlpowersCompiler.cpp",
+          "bytes": 3878,
+          "sha256": "d5ac6923191d9e2248de3d78c15f2bc66ee7d610b63716497ca8f59f0519fa97"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlprogressionCompiler.cpp",
+          "bytes": 10383,
+          "sha256": "b1d3407fc2affde494b84ab3f5165e24bee56cc1e0e16f44db52d2058746db70"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlprojectilepathCompiler.cpp",
+          "bytes": 4395,
+          "sha256": "7a876cc87bdd4e5d3e9a84c7ef84d2822ad22a8684e80b40322e041056cc7618"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlradarCompiler.cpp",
+          "bytes": 5147,
+          "sha256": "2459b5f5fbe1bb5f4f86314b8a4135fcdd7da84cfb8deb71d46917b046dc0af7"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlredalertCompiler.cpp",
+          "bytes": 4319,
+          "sha256": "02de83b8c378955b5bd548584f7d35d3fc01f02be5c8d3673f0b3f1c8d0db455"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlrenderassetsCompiler.cpp",
+          "bytes": 6143,
+          "sha256": "2d7eb67b57d12f340fabc1fc146d1bf85450c27134004f9aa010a11785c29484"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlrenderdeviceCompiler.cpp",
+          "bytes": 5255,
+          "sha256": "62f454ad2528597062c88ae2f33af05b8cbd6c3efc8600d6b03653ebc2143776"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlruntimeopaqueCompiler.cpp",
+          "bytes": 5269,
+          "sha256": "27011726f74262dbcb8df6267518ed2142eb618a42195fce670b89cac5166405"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlsinglesoundCompiler.cpp",
+          "bytes": 8744,
+          "sha256": "43b7505c9c39ea3e726c4c7ca8da6be76a000f9beaa0a292fecf73bd8c4b46d2"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlsoundmapsCompiler.cpp",
+          "bytes": 5859,
+          "sha256": "170fdbe7abc2068664ec4c3c7198cf27cb554fc592b31bf77734e56ebbbabe3e"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlsystemsettingsCompiler.cpp",
+          "bytes": 7008,
+          "sha256": "10b375e39fc9aa14bfa93793868e9df877d184431229357803ec5b44bf8b2ac6"
+        },
+        {
+          "path": "recovery/src/Bridge/XmltacticalhotkeysCompiler.cpp",
+          "bytes": 8245,
+          "sha256": "abe575ba2580b51f339b7a76bb63cc067ac48c84b5ded5bb33ec11e901097a1c"
+        },
+        {
+          "path": "recovery/src/Bridge/XmltargetingCompiler.cpp",
+          "bytes": 7936,
+          "sha256": "d5376c01a189e1b9bced8ebb448579e8cb86b689e08d83e3b5ad30a047641634"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlterrainCompiler.cpp",
+          "bytes": 5224,
+          "sha256": "8deb635ee00ccb8c51fb1e2cbda9e2a142d269926b5a2ccb227af6af5ee07e8e"
+        },
+        {
+          "path": "recovery/src/Bridge/XmltesttexturesCompiler.cpp",
+          "bytes": 5247,
+          "sha256": "c01b1788ef3efb19669cbce5d0440632dbda7e659fbd38d5fd0959ed4f5c2f94"
+        },
+        {
+          "path": "recovery/src/Bridge/XmluichatCompiler.cpp",
+          "bytes": 6083,
+          "sha256": "4c7fa79c649016958b322e06fe7004c56b8da0be6aca654ae6381454f9916847"
+        },
+        {
+          "path": "recovery/src/Bridge/XmluiconfigCompiler.cpp",
+          "bytes": 4352,
+          "sha256": "b65fc7f11b44d589fcfc51e1941d9d3899050dab1fe61f0ccea58db5b3814d88"
+        },
+        {
+          "path": "recovery/src/Bridge/XmluidecalsCompiler.cpp",
+          "bytes": 6935,
+          "sha256": "30689a6f243cfa474a70496ce9aaa4eb00b2cfd6e4a45cdc1fda4934d64f82e2"
+        },
+        {
+          "path": "recovery/src/Bridge/XmluiimagesCompiler.cpp",
+          "bytes": 5999,
+          "sha256": "73e73747bf2ac410d3e4d4a6519df96327a23e20c6d934e25b1778f1253afdde"
+        },
+        {
+          "path": "recovery/src/Bridge/XmluisettingsCompiler.cpp",
+          "bytes": 15619,
+          "sha256": "16b761ffeab3dbd3bd5622ccddbc061808891a97d39bd9dfb16ce34e0b6abe77"
+        },
+        {
+          "path": "recovery/src/Bridge/XmluitacticalCompiler.cpp",
+          "bytes": 51094,
+          "sha256": "7c2926ceba27027c5abae19af774e5928cd40dcdba809b98d2bbb551176270b5"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlunitoverlayCompiler.cpp",
+          "bytes": 4136,
+          "sha256": "da1282fd41e6336b7783e50189f7faaf78a6250893b878d6383a86892d568738"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlvisibilityCompiler.cpp",
+          "bytes": 5265,
+          "sha256": "fde7c2d9e2f988f91720a21c676911593af9ab50e6d8e35612fc5bb0fe591245"
+        },
+        {
+          "path": "recovery/src/Bridge/XmlvisualsystemsCompiler.cpp",
+          "bytes": 6141,
+          "sha256": "fd573fd092f1097714a7c17157b8f9891a054033f4a6d78084913132d54137ee"
+        },
+        {
+          "path": "recovery/src/Bridge/Xmlw3dCompiler.cpp",
+          "bytes": 6795,
+          "sha256": "90fd2464c589770c88022609a40365375263d5701e56561fd6b64ad5b0c7c500"
+        }
+      ]
+    },
+    "plugin": {
+      "count": 7,
+      "files": [
+        {
+          "path": "recovery/src/Plugin/ArmorPlugin.cs",
+          "bytes": 2528,
+          "sha256": "8042bd22775649d1a6d517fd4701815ea8ee9aaeb5757490a68989f0bafbb8da"
+        },
+        {
+          "path": "recovery/src/Plugin/GameObjectPlugin.cs",
+          "bytes": 2536,
+          "sha256": "4c48e0e826730a91ab3db8ab071018b30a38e46defe4fa78e5e6464ff0131594"
+        },
+        {
+          "path": "recovery/src/Plugin/W3x/NativePlugin.cs",
+          "bytes": 2711,
+          "sha256": "58b026a091b24087fb53dc6b111886458a77c9f9e7ac848b675eb0583ace5ba1"
+        },
+        {
+          "path": "recovery/src/Plugin/W3x/Plugin.cs",
+          "bytes": 3436,
+          "sha256": "a2fb5a87338bd52960780222c7906f36c7576a71aef1aa9bce20da4267465529"
+        },
+        {
+          "path": "recovery/src/Plugin/W3x/README.md",
+          "bytes": 576,
+          "sha256": "43c4b2167804710e9973830019bf8221ee08ebf2de7a73d9143c580ee12778d8"
+        },
+        {
+          "path": "recovery/src/Plugin/WeaponPlugin.cs",
+          "bytes": 2531,
+          "sha256": "95d25b2e65df191eac6d01cae579e94d2cf42da244732c56816387ffd49137f5"
+        },
+        {
+          "path": "recovery/src/Plugin/XmlPriorityPlugin.cs",
+          "bytes": 113006,
+          "sha256": "bb1b57d847fa763092123bb599c9e4b424052f93aaca8ee4b706e6a6beaa5288"
+        }
+      ]
+    }
+  }
+}

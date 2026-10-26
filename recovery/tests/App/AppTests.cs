@@ -30,6 +30,15 @@ namespace NewModCompiler.Tests
             public void Write(IDictionary<string,object> value) { Values.Add(value); }
             public void Dispose() { }
         }
+        sealed class Dependencies : IDependencyPlanner
+        {
+            public IEnumerable<BuildTask> Expand(BuildRequest request,IList<BuildTask> roots)
+            {
+                var extra = new BuildTask {Id="apt/dependency",Content="apt",InputPath=Path.Combine(request.ModRoot,"Data","AptUI","a.xml"),OutputName="apt/dependency",Reason="DependencyOf:"+roots[0].Id,Dependencies=new string[0]};
+                roots[0].Dependencies=new [] {extra.Id};
+                return roots.Concat(new [] {extra,extra});
+            }
+        }
         sealed class BrokenSink : IBuildEventSink
         {
             public void Write(IDictionary<string,object> value) { throw new IOException("injected output failure"); }
@@ -99,17 +108,18 @@ namespace NewModCompiler.Tests
                 string project=Path.Combine(mod,"newmodcompiler.json"); FileAt(project,"{\"package-content\":\"apt\",\"tp\":\"Win32\"}");
                 var preset=Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"preset")}); Check(preset.Content.SequenceEqual(new [] {"apt"}) && preset.Options["package-content"].Source=="project","Project preset");
                 Check(Request("base").Options["package-content"].Source=="commandLine","CLI overrides project"); File.Delete(project);
+                var dependencyPlan=Planner.Resolve(Request("base"),new Dependencies()); Check(dependencyPlan.PlanKind=="ExplicitDependencyGraph" && dependencyPlan.Tasks.Length==2 && dependencyPlan.Tasks[0].Id=="apt/dependency","Injected explicit dependency expansion");
                 var record=new Recorder(); Check(Run(request,null,record)==ExitCode.Success,"Plan success"); Protocol(request,record,ExitCode.Success); Check(!record.Values.Any(x=>(string)x["eventType"]=="StreamStarted"),"Plan does not compile");
                 request=Request(); request.Command="build"; record=new Recorder(); Check(Run(request,null,record)==ExitCode.Environment,"Production skeleton refuses missing backend"); Protocol(request,record,ExitCode.Environment);
                 request=Request(); request.Command="build"; var compiler=new Compiler(); record=new Recorder(); Check(Run(request,compiler,record)==ExitCode.Success,"Controlled executor success"); Protocol(request,record,ExitCode.Success);
                 Check(compiler.Calls.Count==4 && compiler.Disposed,"Single compiler initialized once and disposed"); Check(record.Values.Count(x=>(string)x["eventType"]=="ArtifactProduced")==4,"Exact produced manifest");
                 Check(!Report(request)["artifacts"].Equals(null),"Manifest available");
                 request=Request(); request.Command="build"; compiler=new Compiler {Fail=true}; record=new Recorder(); FileAt(request.ReportPath,"stale previous report");
-                Check(Run(request,compiler,record)==ExitCode.Compilation,"Compile failure"); Protocol(request,record,ExitCode.Compilation); Check(compiler.Disposed && compiler.Calls.Count==1,"Stop and cleanup after failure"); Check(!Directory.Exists(Path.Combine(request.OutputRoot,".build",compiler.BuildId)),"Failed staging removed");
+                Check(Run(request,compiler,record)==ExitCode.Compilation,"Compile failure"); Protocol(request,record,ExitCode.Compilation); Check(compiler.Disposed && compiler.Calls.Count==1,"Stop and cleanup after failure"); Check(record.Values.Any(x=>(string)x["eventType"]=="StageCompleted" && (string)x["stageId"]=="compile" && new JavaScriptSerializer().Serialize(x["payload"]).Contains("failed")),"Failed compile stage completed"); Check(!Directory.Exists(Path.Combine(request.OutputRoot,".build",compiler.BuildId)),"Failed staging removed");
                 request=Request(); request.Command="build"; compiler=new Compiler(); record=new Recorder(); var cancel=new CancellationTokenSource(); cancel.Cancel();
                 Check(Run(request,compiler,record,cancel.Token)==ExitCode.Cancelled,"Pre-start cancellation"); Protocol(request,record,ExitCode.Cancelled); Check(!compiler.Initialized && compiler.Disposed,"Cancelled ownership cleanup");
                 request=Request(); request.Command="build"; compiler=new Compiler(); record=new Recorder(); cancel=new CancellationTokenSource(); compiler.OnCompile=context=>cancel.Cancel();
-                Check(Run(request,compiler,record,cancel.Token)==ExitCode.Cancelled,"Cancellation after safe stream boundary"); Protocol(request,record,ExitCode.Cancelled); Check(!Directory.Exists(Path.Combine(request.OutputRoot,".build",compiler.BuildId)),"Cancelled staging removed");
+                Check(Run(request,compiler,record,cancel.Token)==ExitCode.Cancelled,"Cancellation after safe stream boundary"); Protocol(request,record,ExitCode.Cancelled); Check(record.Values.Any(x=>(string)x["eventType"]=="StageCompleted" && (string)x["stageId"]=="compile" && new JavaScriptSerializer().Serialize(x["payload"]).Contains("cancelled")),"Cancelled compile stage completed"); Check(!Directory.Exists(Path.Combine(request.OutputRoot,".build",compiler.BuildId)),"Cancelled staging removed");
                 request=Request(); request.Command="build"; compiler=new Compiler(); record=new Recorder(); Check(Run(request,compiler,record,broken:true)==ExitCode.Output,"Required sink failure is fatal"); Check(Convert.ToInt32(Report(request)["exitCode"])==7,"Sink failure report");
                 request=Request(); request.ReportPath=Path.Combine(root,"report-as-directory"); Directory.CreateDirectory(request.ReportPath); record=new Recorder(); Check(Run(request,null,record)==ExitCode.Output,"Report write failure fatal"); Check(record.Values.Count(x=>(string)x["eventType"]=="BuildFinished")==1,"Report failure terminal once");
                 string saved=mod; mod=Path.Combine(root,"SDK","Mods","second 中文"); FileAt(Path.Combine(mod,"Data","Mod.xml"));

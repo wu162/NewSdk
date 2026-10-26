@@ -12,6 +12,7 @@ $state = @{ sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_R
 Push-Location $root
 try {
     $state.sourceCommit=(git rev-parse HEAD).Trim()
+    $state.originalInputs = @(@('SDK/tools/BinaryAssetBuilder.Core.dll','SDK/tools/BinaryAssetBuilder.Tokenizer.dll','SDK/tools/EALA.Hash.dll') | ForEach-Object { @{path=$_;sha256=(Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant()} })
     Copy-Item SDK/tools/*.dll $oracle
     $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
     & $csc /nologo /codepage:65001 /platform:x86 /define:ORACLE /r:System.Xml.dll "/r:$oracle/BinaryAssetBuilder.Core.dll" "/r:$oracle/EALA.Hash.dll" "/out:$oracle/Original.exe" (Resolve-Path 'recovery/probes/SingleExe/Probe.cs').Path *> "$out/oracle-build.log"
@@ -21,6 +22,8 @@ try {
     try { & "$oracle/Original.exe" "$out/original.tsv" "$oracle/BinaryAssetBuilder.Tokenizer.dll" *> "$out/original.log"; $code=$LASTEXITCODE }
     finally { Pop-Location }
     if ($code -ne 0) { Get-Content "$out/original.log" -Tail 80; throw 'Original probe fixture failed' }
+    $state.rows = @(Get-Content "$out/original.tsv").Count
+    if ($state.rows -ne 610) { throw "Unexpected baseline fixture row count: $($state.rows)" }
     $baseline = (Get-FileHash "$out/original.tsv" -Algorithm SHA256).Hash
     foreach ($mode in @('Debug','Release')) {
         $build = Join-Path $work $mode

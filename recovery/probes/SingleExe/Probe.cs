@@ -87,6 +87,13 @@ public static class SingleExeProbe
     public static int Main(string[] args)
     {
         try {
+#if FULL_FOUNDATION
+            if(args.Length>0 && args[0]=="--texture-probe") {
+                string[] textureArgs=new string[args.Length-1];
+                Array.Copy(args,1,textureArgs,0,textureArgs.Length);
+                return TextureProbe.Run(textureArgs);
+            }
+#endif
             CultureInfo.CurrentCulture=CultureInfo.GetCultureInfo("de-DE");
 #if ORACLE
             plugin=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[1]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));

@@ -17,7 +17,7 @@ permissions:
   contents: read
 jobs:
   app-contract:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]') || contains(github.event.head_commit.message, '[refactor-app]')
     runs-on: windows-2022
     timeout-minutes: 15
     steps:
@@ -34,7 +34,7 @@ jobs:
           path: recovery/artifacts/app
           if-no-files-found: error
   link-probe:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]') || contains(github.event.head_commit.message, '[refactor-link]')
     runs-on: windows-2022
     timeout-minutes: 15
     steps:
@@ -52,7 +52,7 @@ jobs:
           path: recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}
           if-no-files-found: error
   texture-roundtrip:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]') || contains(github.event.head_commit.message, '[refactor-texture]')
     runs-on: windows-2022
     timeout-minutes: 15
     steps:

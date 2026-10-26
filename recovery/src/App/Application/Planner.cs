@@ -38,6 +38,7 @@ namespace NewModCompiler.Application
             foreach (BuildTask task in input) {
                 if (task == null || string.IsNullOrEmpty(task.Id) || string.IsNullOrEmpty(task.InputPath) || string.IsNullOrEmpty(task.OutputName) || task.Dependencies == null)
                     throw new BuildFailure(ExitCode.Arguments,"PLAN_DEPENDENCIES","Incomplete task in dependency graph.");
+                if (task.Content != "base" && task.Content != "apt" && task.Content != "maps") throw new BuildFailure(ExitCode.Arguments,"PLAN_CONTENT","Unsupported dependency content group: " + task.Content);
                 if (!File.Exists(task.InputPath)) throw new BuildFailure(ExitCode.Arguments,"PLAN_INPUT_MISSING","Dependency input does not exist: " + task.InputPath);
                 BuildTask old;
                 if (tasks.TryGetValue(task.Id,out old)) {
@@ -45,6 +46,8 @@ namespace NewModCompiler.Application
                         throw new BuildFailure(ExitCode.Arguments,"PLAN_COLLISION","Conflicting task contexts share an id: " + task.Id);
                     continue;
                 }
+                if (tasks.Values.Any(x=>string.Equals(x.OutputName,task.OutputName,StringComparison.OrdinalIgnoreCase) || (x.Content==task.Content && string.Equals(Path.GetFileNameWithoutExtension(x.InputPath),Path.GetFileNameWithoutExtension(task.InputPath),StringComparison.OrdinalIgnoreCase))))
+                    throw new BuildFailure(ExitCode.Arguments,"PLAN_COLLISION","Two task contexts would write the same stream workspace: " + task.OutputName);
                 tasks.Add(task.Id,task);
             }
             var ordered = new List<BuildTask>(); var pending = new HashSet<string>(tasks.Keys,StringComparer.OrdinalIgnoreCase);

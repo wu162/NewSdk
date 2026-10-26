@@ -12,26 +12,26 @@ try {
     Copy-Item SDK/tools/*.dll $original
     $hostExe = "$original/TextureProbe.exe"
     $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-    & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$original/BinaryAssetBuilder.Core.dll" /out:"$hostExe" recovery/probes/TextureRedirect/TextureProbe.cs *> "$out/host-build.log"
-    if ($LASTEXITCODE -ne 0) { throw 'Texture component host build failed' }
+    & $csc /nologo /codepage:65001 /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$original/BinaryAssetBuilder.Core.dll" /out:"$hostExe" (Resolve-Path recovery/probes/TextureRedirect/TextureProbe.cs).Path *> "$out/host-build.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/host-build.log"; throw 'Texture component host build failed' }
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0"/></startup></configuration>' | Set-Content "$hostExe.config"
     & python recovery/probes/TextureRedirect/MakeFixture.py "$work/fixture.tga"
     if ($LASTEXITCODE -ne 0) { throw 'Texture fixture generation failed' }
     & $hostExe "$original/BinaryAssetBuilder.TextureCompiler.dll" "$work/fixture.tga" "$out/A.txt" original *> "$out/A.log"
-    if ($LASTEXITCODE -ne 0) { throw 'G2 A original Texture baseline failed' }
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/A.log"; throw 'G2 A original Texture baseline failed' }
     $receipt.A='passed'
     & dotnet build recovery/probes/TextureRedirect/Writer/TextureReferencePatch.csproj -c Release -o "$work/writer" *> "$out/writer-build.log"
-    if ($LASTEXITCODE -ne 0) { throw 'Native Texture writer build failed' }
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/writer-build.log"; throw 'Native Texture writer build failed' }
     $rewritten = (New-Item -ItemType Directory "$work/roundtrip").FullName
     Copy-Item "$original/*" $rewritten
     Remove-Item "$rewritten/BinaryAssetBuilder.TextureCompiler.dll"
     & dotnet "$work/writer/TextureReferencePatch.dll" roundtrip "$original/BinaryAssetBuilder.TextureCompiler.dll" "$rewritten/BinaryAssetBuilder.TextureCompiler.dll" - *> "$out/B-write.log"
-    if ($LASTEXITCODE -ne 0) { throw 'Native Texture roundtrip failed' }
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/B-write.log"; throw 'Native Texture roundtrip failed' }
     Copy-Item "$rewritten/BinaryAssetBuilder.TextureCompiler.dll.patch.json" "$out/B.patch.json"
     & python recovery/probes/TextureRedirect/AuditPe.py "$original/BinaryAssetBuilder.TextureCompiler.dll" "$rewritten/BinaryAssetBuilder.TextureCompiler.dll" "$out/B.pe.json"
     if ($LASTEXITCODE -ne 0) { throw 'G2 B protected PE/native range audit failed' }
     & "$rewritten/TextureProbe.exe" "$rewritten/BinaryAssetBuilder.TextureCompiler.dll" "$work/fixture.tga" "$out/B.txt" original *> "$out/B.log"
-    if ($LASTEXITCODE -ne 0) { throw 'G2 B rewritten Texture failed' }
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/B.log"; throw 'G2 B rewritten Texture failed' }
     if ((Get-FileHash "$out/A.txt").Hash -ne (Get-FileHash "$out/B.txt").Hash) { throw 'G2 B three buffers/CustomData/errors differ from A' }
     $receipt.B='passed'
     if (!$TargetExe) {
@@ -49,12 +49,12 @@ try {
     $texture = "$candidate/BinaryAssetBuilder.TextureCompiler.dll"
     if (Test-Path $texture) { throw 'C output must start without a Texture DLL; patch from the pinned oracle' }
     & dotnet "$work/writer/TextureReferencePatch.dll" redirect "$original/BinaryAssetBuilder.TextureCompiler.dll" $texture $target *> "$out/C-write.log"
-    if ($LASTEXITCODE -ne 0) { throw 'Texture EXE reference redirect failed' }
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/C-write.log"; throw 'Texture EXE reference redirect failed' }
     Copy-Item "$texture.patch.json" "$out/C.patch.json"
     & python recovery/probes/TextureRedirect/AuditPe.py "$original/BinaryAssetBuilder.TextureCompiler.dll" $texture "$out/C.pe.json" --mode redirect
     if ($LASTEXITCODE -ne 0) { throw 'G2 C protected PE/native range audit failed' }
     & $target --texture-probe $texture "$work/fixture.tga" "$out/C.txt" exe *> "$out/C.log"
-    if ($LASTEXITCODE -ne 0) { throw 'G2 C EXE-bound Texture probe failed' }
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/C.log"; throw 'G2 C EXE-bound Texture probe failed' }
     if ((Get-FileHash "$out/A.txt").Hash -ne (Get-FileHash "$out/C.txt").Hash) { throw 'G2 C three buffers/CustomData/errors differ from A' }
     $receipt.C='passed'
     $receipt.status='component-A-B-C-and-protected-PE-audit-passed-real-SDK-pending'

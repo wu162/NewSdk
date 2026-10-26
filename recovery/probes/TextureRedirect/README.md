@@ -8,8 +8,9 @@ heap offsets as far as dnlib supports. It accepts only the audited original
 SHA-256. `roundtrip` changes no intended semantics; `redirect` changes only the
 Core AssemblyRef to a supplied EXE's actual assembly identity. The shared
 `BinaryAssetBuilder.Core` namespace string is never overwritten. The writer
-checks TypeRef/MemberRef token/name invariants; checking type existence in the
-EXE does **not** constitute a compatible signature or runtime acceptance.
+checks TypeRef/MemberRef token/name invariants and requires public EXE members
+with matching dnlib signature text for direct Core MemberRefs. This static check
+does **not** replace layout/enum/interface/runtime ABI acceptance.
 
 On Windows x86 with .NET Framework/VC80 CRT, .NET SDK 8 and Python:
 

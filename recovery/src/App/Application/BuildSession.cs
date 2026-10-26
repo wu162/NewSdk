@@ -12,7 +12,7 @@ namespace NewModCompiler.Application
         readonly BuildRequest request; readonly IStreamCompiler compiler; readonly EventDispatcher events; readonly IDependencyPlanner dependencyPlanner;
         readonly List<Artifact> artifacts = new List<Artifact>(); readonly List<object> stages = new List<object>();
         readonly List<object> diagnostics = new List<object>();
-        BuildPlan plan; bool executed; string activeStage; long stageStarted;
+        BuildPlan plan; bool executed; string activeStage; long stageStarted; string providerIdentity;
         public BuildSession(BuildRequest request, IStreamCompiler compiler, EventDispatcher events, IDependencyPlanner dependencyPlanner = null) { this.request = request; this.compiler = compiler; this.events = events; this.dependencyPlanner = dependencyPlanner; }
         public ExitCode Run(CancellationToken cancellation)
         {
@@ -27,9 +27,9 @@ namespace NewModCompiler.Application
                 CompleteStage("succeeded",0);
                 if (request.Command == "build") {
                     if (compiler == null) throw new BuildFailure(ExitCode.Environment,"BACKEND_NOT_INTEGRATED","This P2 application skeleton has no integrated compilation backend. No stream was compiled.");
-                    cancellation.ThrowIfCancellationRequested(); Directory.CreateDirectory(staging);
-                    compiler.Initialize(request);
-                    StartStage("compile"); int completed = 0;
+                    cancellation.ThrowIfCancellationRequested(); StartStage("compile"); Directory.CreateDirectory(staging);
+                    compiler.Initialize(request); providerIdentity=compiler.ProviderIdentity;
+                    int completed = 0;
                     foreach (BuildTask task in plan.Tasks) {
                         cancellation.ThrowIfCancellationRequested();
                         string streamDirectory = Path.Combine(staging,task.Content,Path.GetFileNameWithoutExtension(task.InputPath));
@@ -67,7 +67,7 @@ namespace NewModCompiler.Application
                 {"schemaVersion","1.0"},{"buildId",events.BuildId},{"status",status},{"exitCode",(int)code},
                 {"requestArguments",request.Arguments},{"effectiveOptions",request.Options},{"selectedContent",request.Content},
                 {"plan",plan},{"stages",stages},{"diagnostics",diagnostics},{"diagnosticCounts",new {error=diagnostics.Count}},
-                {"loadedProviders",compiler == null ? new string[0] : new [] {compiler.ProviderIdentity}},
+                {"loadedProviders",providerIdentity == null ? new string[0] : new [] {providerIdentity}},
                 {"externalTools",new string[0]},{"cache",new {status="NotImplemented",hits=0,misses=0}},
                 {"elapsedMs",events.ElapsedMilliseconds},{"artifacts",artifacts},{"logPaths",new {events=request.EventsPath,report=request.ReportPath,text=request.LogPath}},
                 {"executionMode",request.Command == "plan" ? "PlanOnly" : "InProcess"},
