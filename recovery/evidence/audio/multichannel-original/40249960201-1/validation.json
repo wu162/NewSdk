@@ -1,0 +1,3567 @@
+{
+  "sdkValidated": false,
+  "originalOnly": true,
+  "candidateValidated": false,
+  "runId": "40249960201",
+  "cases": [
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "26e904f244f7ebf14e7a67ac0ee4b47e9a1b8c5ab00e4ee0ea57553264a607a4",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "26e904f244f7ebf14e7a67ac0ee4b47e9a1b8c5ab00e4ee0ea57553264a607a4",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b8-f129-constant-NONE-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "f234a63f846cc621680d2f19df4f58920d9835451a3f79c32c8cad54fa3adbc5",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "f234a63f846cc621680d2f19df4f58920d9835451a3f79c32c8cad54fa3adbc5",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b8-f129-constant-NONE-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "596ee93edb89be818394485e5fff6154bc10f8b49ba35d9dd14a0328d274745d",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "596ee93edb89be818394485e5fff6154bc10f8b49ba35d9dd14a0328d274745d",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b8-f129-constant-XAS-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "8c816ba3beb000c6503dfb81db828019df1d6a02a86b1b8ceaabbe2b20ec0502",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "8c816ba3beb000c6503dfb81db828019df1d6a02a86b1b8ceaabbe2b20ec0502",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b8-f129-constant-XAS-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "8ce6a15c6e49933c4d0398e2757562a0b1c21908e89d48f31061a88d0031440f",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "8ce6a15c6e49933c4d0398e2757562a0b1c21908e89d48f31061a88d0031440f",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b8-f129-impulse-NONE-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "3cccea0f397c5ab77f726f813b028ba6005ce16d558aa97142f19bd17d9e5440",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "3cccea0f397c5ab77f726f813b028ba6005ce16d558aa97142f19bd17d9e5440",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b8-f129-impulse-NONE-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "0c9240d04174acb4c3daea1e963497bee3ee9bdcfa319a7a5e82c447b9fd0be3",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "0c9240d04174acb4c3daea1e963497bee3ee9bdcfa319a7a5e82c447b9fd0be3",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b8-f129-impulse-XAS-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "3603c723f72bf011ccac22466e97cc149ee2d5bd842adab3638fca9708fba424",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "3603c723f72bf011ccac22466e97cc149ee2d5bd842adab3638fca9708fba424",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b8-f129-impulse-XAS-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "437218ed31c7343e6eec0275f694eee73333bb60cc1d8a3279b5c1d053dbf1a7",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "437218ed31c7343e6eec0275f694eee73333bb60cc1d8a3279b5c1d053dbf1a7",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b16-f129-constant-NONE-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "9c09e6d78ac9f4dcbbdcc570195fbd6d7e3e657da0be898db78ff898c519cb9e",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "9c09e6d78ac9f4dcbbdcc570195fbd6d7e3e657da0be898db78ff898c519cb9e",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b16-f129-constant-NONE-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "7442ca8b50f1630e231cd6ae3d52129476dc7f2aa3ba16fd021dbf35f55b4e6a",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "7442ca8b50f1630e231cd6ae3d52129476dc7f2aa3ba16fd021dbf35f55b4e6a",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b16-f129-constant-XAS-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "6aa975aa9e14eeb0c5bf086f7e2ba34cf4bff28dd3f1919e682a7247f1bf33d8",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "6aa975aa9e14eeb0c5bf086f7e2ba34cf4bff28dd3f1919e682a7247f1bf33d8",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b16-f129-constant-XAS-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "5201cd1f85fca3894f83f99c0dd29c837c0633eee65609a49be7dcece42e512e",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "5201cd1f85fca3894f83f99c0dd29c837c0633eee65609a49be7dcece42e512e",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b16-f129-impulse-NONE-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "96ef8c7523d1a078e58c9d5a03ea72f63869981b1fb55cd93265d6840ee1de9a",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "96ef8c7523d1a078e58c9d5a03ea72f63869981b1fb55cd93265d6840ee1de9a",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b16-f129-impulse-NONE-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "57366ec38f0a11f9e898e2e0a43d28021205776410d77ef9f0fc8a7b57e3dc7f",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "57366ec38f0a11f9e898e2e0a43d28021205776410d77ef9f0fc8a7b57e3dc7f",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b16-f129-impulse-XAS-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "2acdf55117e9dc0a12467acffd2238326a56c21f1c694b966f8daaca0e3c025e",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "2acdf55117e9dc0a12467acffd2238326a56c21f1c694b966f8daaca0e3c025e",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b16-f129-impulse-XAS-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "8579815c600431b1051a2d02795f223b19e6e3dd48fb1d7763620059dfc74c4a",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "8579815c600431b1051a2d02795f223b19e6e3dd48fb1d7763620059dfc74c4a",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b24-f129-constant-NONE-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "f8663f033c6ac2af136be3200368b27c1ad86f937bc2dbb498c9214fb108de66",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "f8663f033c6ac2af136be3200368b27c1ad86f937bc2dbb498c9214fb108de66",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b24-f129-constant-NONE-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "3bebe2de082ebc3fb146eee997db78db449ca363bab93520cc55ad0ffcb178cc",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "3bebe2de082ebc3fb146eee997db78db449ca363bab93520cc55ad0ffcb178cc",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b24-f129-constant-XAS-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "bc34ae6fac5444e7002108baefa775f61f9bbd6fb61b92a35dd96cc9c5c5fdf0",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "bc34ae6fac5444e7002108baefa775f61f9bbd6fb61b92a35dd96cc9c5c5fdf0",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b24-f129-constant-XAS-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "58f5ae7a080fcf68250a67a1337ee119bc2338665554124f61e91eab0d42a4fb",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "58f5ae7a080fcf68250a67a1337ee119bc2338665554124f61e91eab0d42a4fb",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b24-f129-impulse-NONE-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "42a242f102483d5de3552e05e870a7c317e99adb3b0ee0c12694b60942680e6c",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "42a242f102483d5de3552e05e870a7c317e99adb3b0ee0c12694b60942680e6c",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b24-f129-impulse-NONE-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "5a0094c7dd25b58181e46d52f5ea82d28c6140a5fa3c48330bf9aafa3833041f",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "5a0094c7dd25b58181e46d52f5ea82d28c6140a5fa3c48330bf9aafa3833041f",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b24-f129-impulse-XAS-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "cd267380eeaf802bf24c0d6378ab4ec3fb880f8192a03ac709830475c99da72f",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 1,
+          "completeOutput": true,
+          "recordSha256": "cd267380eeaf802bf24c0d6378ab4ec3fb880f8192a03ac709830475c99da72f",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch1-b24-f129-impulse-XAS-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 1,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "673a45e7892c07c033bc58524df3bf6a94f93e59470ffe8e0b7abc3bd0743066",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "673a45e7892c07c033bc58524df3bf6a94f93e59470ffe8e0b7abc3bd0743066",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b8-f129-constant-NONE-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "e964471df284d0d848e55fa6b1672ca53676e00f4ee19e30541271eee4828718",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "e964471df284d0d848e55fa6b1672ca53676e00f4ee19e30541271eee4828718",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b8-f129-constant-NONE-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "abf7c8665d682569bee69a7741287699569a52ad94d898895e84abe2d61e3bcd",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "abf7c8665d682569bee69a7741287699569a52ad94d898895e84abe2d61e3bcd",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b8-f129-constant-XAS-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "c12eefc3de81c775cc8dc1328ed7f7240aecd8d543c303e1819625349ecf2b32",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "c12eefc3de81c775cc8dc1328ed7f7240aecd8d543c303e1819625349ecf2b32",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b8-f129-constant-XAS-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "3a261f81e6dc488d2d9492e84698cf2037dca70a62e4fa1b82e21c7279057771",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "3a261f81e6dc488d2d9492e84698cf2037dca70a62e4fa1b82e21c7279057771",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b8-f129-impulse-NONE-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "3fb722deada34694bfe82d8c95c2cc132345d4badd922041f9fa10a97369918a",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "3fb722deada34694bfe82d8c95c2cc132345d4badd922041f9fa10a97369918a",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b8-f129-impulse-NONE-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "6a880134433f173d2fd99fe1f953711e18f8bff1e875a008edd063820caa81cd",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "6a880134433f173d2fd99fe1f953711e18f8bff1e875a008edd063820caa81cd",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b8-f129-impulse-XAS-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "b82caf9b10a5132c11fec6d5adf589407bd6c48974034b16dcecd55bc589a229",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "b82caf9b10a5132c11fec6d5adf589407bd6c48974034b16dcecd55bc589a229",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b8-f129-impulse-XAS-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "66db46c84c68f7b0f6d6b39b74ef699be7002af58c86af8f94bdb52ce589eef6",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "66db46c84c68f7b0f6d6b39b74ef699be7002af58c86af8f94bdb52ce589eef6",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b16-f129-constant-NONE-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "fae105b72dfc6246118db7a18751aaf14c85fdb075f13d68c55601cd3fcdfd4b",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "fae105b72dfc6246118db7a18751aaf14c85fdb075f13d68c55601cd3fcdfd4b",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b16-f129-constant-NONE-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "d56362d89a8d4e392db2613e7710663e75d466c5dbdc4d5222d6b695c115ae69",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "d56362d89a8d4e392db2613e7710663e75d466c5dbdc4d5222d6b695c115ae69",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b16-f129-constant-XAS-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "23f589afc3d3aa29235d9ad6644f583b2bdfcc3f486327bf1c45cab1ec19828d",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "23f589afc3d3aa29235d9ad6644f583b2bdfcc3f486327bf1c45cab1ec19828d",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b16-f129-constant-XAS-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "ca961a8bafbeac47f1d84d089a850652934049742e407686f7324b4d1dd49008",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "ca961a8bafbeac47f1d84d089a850652934049742e407686f7324b4d1dd49008",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b16-f129-impulse-NONE-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "17dcbe655b0367f1987df758adbdd1a1344e3d5e08daf1d2a2cd46d523a121f5",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "17dcbe655b0367f1987df758adbdd1a1344e3d5e08daf1d2a2cd46d523a121f5",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b16-f129-impulse-NONE-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "c8644b0fe56ea707f53478dd5db8318e512c56c58d9e3752ee79f54bcbcc5cfe",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "c8644b0fe56ea707f53478dd5db8318e512c56c58d9e3752ee79f54bcbcc5cfe",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b16-f129-impulse-XAS-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "3edcef5f64798597b40494887ef5aef7358b5aaca2ff1c33669145b8cc87347a",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "3edcef5f64798597b40494887ef5aef7358b5aaca2ff1c33669145b8cc87347a",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b16-f129-impulse-XAS-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "f3d5819588699ee95e6dc9ffe296a01ad87a67f81abd560c2579c4fe80056f73",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "f3d5819588699ee95e6dc9ffe296a01ad87a67f81abd560c2579c4fe80056f73",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b24-f129-constant-NONE-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "82d5bcbd5424b37e431274a4cd5bb0d4873bdfba3873421bcfa93b256a0d1a33",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "82d5bcbd5424b37e431274a4cd5bb0d4873bdfba3873421bcfa93b256a0d1a33",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b24-f129-constant-NONE-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "0142966de35f36c48358da70be3c208532860078e096acd65cde509088d334d1",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "0142966de35f36c48358da70be3c208532860078e096acd65cde509088d334d1",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b24-f129-constant-XAS-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "9bf384b27ff66ee0c924148bd6115718ac88a85ad5a3ac4ef4da2f81ca8c9014",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "9bf384b27ff66ee0c924148bd6115718ac88a85ad5a3ac4ef4da2f81ca8c9014",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b24-f129-constant-XAS-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "fc44e95f1483286a17588f461518c2ab3547ace2d6c2416f6641cf3c7f8012ae",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "fc44e95f1483286a17588f461518c2ab3547ace2d6c2416f6641cf3c7f8012ae",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b24-f129-impulse-NONE-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "35448b9bf2b22d44980712a86c6bfe9a828b8114563c636009288fa5d85a74d6",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "35448b9bf2b22d44980712a86c6bfe9a828b8114563c636009288fa5d85a74d6",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b24-f129-impulse-NONE-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "ddb9999c38c640e94591c5aff937eae673abd956341310f59c732df1667c16a4",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "ddb9999c38c640e94591c5aff937eae673abd956341310f59c732df1667c16a4",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b24-f129-impulse-XAS-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "8c8f3793d0137a81ac177a07beddcc654a043241fa43997df2728d61985ec88d",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 2,
+          "completeOutput": true,
+          "recordSha256": "8c8f3793d0137a81ac177a07beddcc654a043241fa43997df2728d61985ec88d",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch2-b24-f129-impulse-XAS-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 2,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "a2eedaf87e92499f52137430eaa8e997e7634abec5c8bb4f7f9c8986413c5774",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "a2eedaf87e92499f52137430eaa8e997e7634abec5c8bb4f7f9c8986413c5774",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b8-f129-constant-NONE-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "e3998241ce262906f5084341eac78fabafd5a007208eb02c13ec39d3a6fc7ecc",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "e3998241ce262906f5084341eac78fabafd5a007208eb02c13ec39d3a6fc7ecc",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b8-f129-constant-NONE-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "bb08b45f36faf781e2fbd5879462c0c2c1c8c7e40dcc6be6e90915066cb8330c",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "bb08b45f36faf781e2fbd5879462c0c2c1c8c7e40dcc6be6e90915066cb8330c",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b8-f129-constant-XAS-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "956a1ec44edff07761c5ecbfd40985d3dd380cb00411a2f977e15d447af6d739",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "956a1ec44edff07761c5ecbfd40985d3dd380cb00411a2f977e15d447af6d739",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b8-f129-constant-XAS-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "506b99cd4918c48d8e3b55bb38309607083cc4f74a81de4ec1d69484aa3ee023",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "506b99cd4918c48d8e3b55bb38309607083cc4f74a81de4ec1d69484aa3ee023",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b8-f129-impulse-NONE-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "d2bfa0542cd53cf1cfb09b9c433149bc157d2c5f71c9aa082e11f35292537d90",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "d2bfa0542cd53cf1cfb09b9c433149bc157d2c5f71c9aa082e11f35292537d90",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b8-f129-impulse-NONE-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "f373be68649ba32259714422fc5e46d1e15607f9fbd7c3debe70fbcb0c6f85dc",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "f373be68649ba32259714422fc5e46d1e15607f9fbd7c3debe70fbcb0c6f85dc",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b8-f129-impulse-XAS-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "dfdc099e0bc957f4faac808c8cd229b5c762d0437827498e6019075477a04663",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "dfdc099e0bc957f4faac808c8cd229b5c762d0437827498e6019075477a04663",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b8-f129-impulse-XAS-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "6720fa8f6484491d05b93255fc8ae44e3597030a6e654e415fc71b30065bd0d0",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "6720fa8f6484491d05b93255fc8ae44e3597030a6e654e415fc71b30065bd0d0",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b16-f129-constant-NONE-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "f151f68034b6360bc691a9dec4b7a72a03520d5d0b42d6962ad2fbe6e86f66b7",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "f151f68034b6360bc691a9dec4b7a72a03520d5d0b42d6962ad2fbe6e86f66b7",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b16-f129-constant-NONE-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "3d30f517bcb4b975cfc5141930f303c60afcb95718c45c81d9cc5722cd813773",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "3d30f517bcb4b975cfc5141930f303c60afcb95718c45c81d9cc5722cd813773",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b16-f129-constant-XAS-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "fe28e566fe5263264898d0567fed922bf0ef15f26ce70a8eee2e1fc972f9ccfb",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "fe28e566fe5263264898d0567fed922bf0ef15f26ce70a8eee2e1fc972f9ccfb",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b16-f129-constant-XAS-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "83019ba3d0cef731b8a6baf83de5b62caaaf0f8e58fb7ec27c5804db842b957b",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "83019ba3d0cef731b8a6baf83de5b62caaaf0f8e58fb7ec27c5804db842b957b",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b16-f129-impulse-NONE-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "cd5888428a4a376e3a94d1d95b40e9ef37f17b9ad88b17c65b080e00c34c80b6",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "cd5888428a4a376e3a94d1d95b40e9ef37f17b9ad88b17c65b080e00c34c80b6",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b16-f129-impulse-NONE-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "4343e39a37f4d51850710929bc4e78f84ef06f49cea22fd7cd7ce9ba3edc34c1",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "4343e39a37f4d51850710929bc4e78f84ef06f49cea22fd7cd7ce9ba3edc34c1",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b16-f129-impulse-XAS-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "957a7f324ea097c0dae954e4dbb9f53ff2d508714ea56c5f97db077006de38bf",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "957a7f324ea097c0dae954e4dbb9f53ff2d508714ea56c5f97db077006de38bf",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b16-f129-impulse-XAS-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "68d37f736f3902e431d8286d792278101e7c2e5cc6a2798f5fc0cd6383316473",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "68d37f736f3902e431d8286d792278101e7c2e5cc6a2798f5fc0cd6383316473",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b24-f129-constant-NONE-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "065cb2173856d80333c4ac988bd7d11dc0911ad71cc505763432bc4fbf31de4d",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "065cb2173856d80333c4ac988bd7d11dc0911ad71cc505763432bc4fbf31de4d",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b24-f129-constant-NONE-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "f5542774d4adc37d28ef4ab6b3933ff151354773a0e3c5b160ca406ea42fad57",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "f5542774d4adc37d28ef4ab6b3933ff151354773a0e3c5b160ca406ea42fad57",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b24-f129-constant-XAS-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "fb325b7a1cd3ca88b12d75e9d546691472fea860d4fcdf7ed41256e7208b00ab",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "fb325b7a1cd3ca88b12d75e9d546691472fea860d4fcdf7ed41256e7208b00ab",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b24-f129-constant-XAS-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "8c030f348f84f24596a9983f38d4085ce6885697f6023ce5805893ed58544223",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "8c030f348f84f24596a9983f38d4085ce6885697f6023ce5805893ed58544223",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b24-f129-impulse-NONE-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "08326754fd8f3dae90400f50d8949dfad768f805b6227628e7aa9710a5566752",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "08326754fd8f3dae90400f50d8949dfad768f805b6227628e7aa9710a5566752",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b24-f129-impulse-NONE-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "cee003c9f6ec9b78a74af5c77ed3efeae139d0588cf06729bd7571d618453814",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "cee003c9f6ec9b78a74af5c77ed3efeae139d0588cf06729bd7571d618453814",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b24-f129-impulse-XAS-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "1b135750a737dd7b7cd1f2c2623a2cc2fd8f6735f907a79daffc26bdd1f85f45",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 4,
+          "completeOutput": true,
+          "recordSha256": "1b135750a737dd7b7cd1f2c2623a2cc2fd8f6735f907a79daffc26bdd1f85f45",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch4-b24-f129-impulse-XAS-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 4,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "94913eee157bbd0f74575f67bc28d8a0c819ae2216d995548941a7e087946444",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "94913eee157bbd0f74575f67bc28d8a0c819ae2216d995548941a7e087946444",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b8-f129-constant-NONE-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "148fdd13f70a17dd09b81302d8883c57b16ee970868e16c31ed6a66fa76a59af",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "148fdd13f70a17dd09b81302d8883c57b16ee970868e16c31ed6a66fa76a59af",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b8-f129-constant-NONE-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "9e7500466be4b5f149507d43fd02057bfb318eebd5f53a402fb96d8c64c78177",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "9e7500466be4b5f149507d43fd02057bfb318eebd5f53a402fb96d8c64c78177",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b8-f129-constant-XAS-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "e9948e9766fdeb6ee1a8e554fc092c046f93d4c089c582761dc15c072c68f16d",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "e9948e9766fdeb6ee1a8e554fc092c046f93d4c089c582761dc15c072c68f16d",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b8-f129-constant-XAS-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "aae275f2fb35c6ec39d1bb6d0dd0c88323c770b5b0ef2f2884373b1ce73dbcf9",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "aae275f2fb35c6ec39d1bb6d0dd0c88323c770b5b0ef2f2884373b1ce73dbcf9",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b8-f129-impulse-NONE-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "ab57e435b7fe9c3a565393dc557173153e01f1d5eff6401c5513adefe67ec440",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "ab57e435b7fe9c3a565393dc557173153e01f1d5eff6401c5513adefe67ec440",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b8-f129-impulse-NONE-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "1f3d45f9bc44f452ebe430a610cf76d725b153b107e99f5ae3ef8f7cfe2f44d8",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "1f3d45f9bc44f452ebe430a610cf76d725b153b107e99f5ae3ef8f7cfe2f44d8",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b8-f129-impulse-XAS-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "71c6c31decaa58b51d959e0f2ef432d64e3783b5b3d9c7853476c422503019ca",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "71c6c31decaa58b51d959e0f2ef432d64e3783b5b3d9c7853476c422503019ca",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b8-f129-impulse-XAS-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 8,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "381d99bcbbbf8b13ea671ef2beb4cf256b6408362a4fa957f4d90b7e6f4a85ec",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "381d99bcbbbf8b13ea671ef2beb4cf256b6408362a4fa957f4d90b7e6f4a85ec",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b16-f129-constant-NONE-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "1e81c0e1122bb613aa910a56c787b51564d38a23aeb8e2c23bb145d8513cceac",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "1e81c0e1122bb613aa910a56c787b51564d38a23aeb8e2c23bb145d8513cceac",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b16-f129-constant-NONE-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "81f19386ccbce5ec0a8d27ab2115d5442b00c5740456f1d629079402c5162a43",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "81f19386ccbce5ec0a8d27ab2115d5442b00c5740456f1d629079402c5162a43",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b16-f129-constant-XAS-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "a336cb736f626aeb0f00b3bf9a1c15be1ced50d2d038c7cb4756369a64bf3d97",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "a336cb736f626aeb0f00b3bf9a1c15be1ced50d2d038c7cb4756369a64bf3d97",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b16-f129-constant-XAS-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "46db5ad21a2704acfa9bef4b518e4501f652a8bd4cb3d532beed86a1ec66c3df",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "46db5ad21a2704acfa9bef4b518e4501f652a8bd4cb3d532beed86a1ec66c3df",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b16-f129-impulse-NONE-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "5a0a92113b63a6668e51cab22780064a69cc618b5656ad061d693ea57466a01b",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "5a0a92113b63a6668e51cab22780064a69cc618b5656ad061d693ea57466a01b",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b16-f129-impulse-NONE-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "e5fa1f00b0ac7d47476def3b438f9266008e5adf76bd293ee4389f3fc608cf8c",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "e5fa1f00b0ac7d47476def3b438f9266008e5adf76bd293ee4389f3fc608cf8c",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b16-f129-impulse-XAS-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "d50fef5af375767fddc4ff202444982d2a7df0a4daa24e9e3239aa0d070cb8c8",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "d50fef5af375767fddc4ff202444982d2a7df0a4daa24e9e3239aa0d070cb8c8",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b16-f129-impulse-XAS-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 16,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "13aa0b3f75b7e3663d07639f7bf2f290b61c86f303f9557ab04e9ec10204cf50",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "13aa0b3f75b7e3663d07639f7bf2f290b61c86f303f9557ab04e9ec10204cf50",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b24-f129-constant-NONE-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "166ae13c231518541a0e1bbe97fbb48d27f806e917c1fb4ba00ca2df85707834",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "166ae13c231518541a0e1bbe97fbb48d27f806e917c1fb4ba00ca2df85707834",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b24-f129-constant-NONE-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "fae6c7a70458b2d5b4c97e69b2282a152c401f62e8318e34e5b1c9a5d4145f8c",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "fae6c7a70458b2d5b4c97e69b2282a152c401f62e8318e34e5b1c9a5d4145f8c",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b24-f129-constant-XAS-False",
+      "streamed": false,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "01b7d272f969ed21f67c9aa3c2913789911398d433c53115f9e3d0ee1d67e20a",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "01b7d272f969ed21f67c9aa3c2913789911398d433c53115f9e3d0ee1d67e20a",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b24-f129-constant-XAS-True",
+      "streamed": true,
+      "signal": "constant",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "5df064f6912783a548ae7f2da169a65811902e5950b589d9e4c5ff91f2c739a3",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "5df064f6912783a548ae7f2da169a65811902e5950b589d9e4c5ff91f2c739a3",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b24-f129-impulse-NONE-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "25d7fec6e4a1893ca26928880b8199c76dd2e993e4163cbdce62621716575b5a",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "25d7fec6e4a1893ca26928880b8199c76dd2e993e4163cbdce62621716575b5a",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b24-f129-impulse-NONE-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "NONE",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "e37f6dd2b73cb15d28d41df7c691945a0fff3a5cf2ec18c3c0f43291e7027c79",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "e37f6dd2b73cb15d28d41df7c691945a0fff3a5cf2ec18c3c0f43291e7027c79",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b24-f129-impulse-XAS-False",
+      "streamed": false,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 6,
+      "allComplete": true
+    },
+    {
+      "frames": 129,
+      "attempts": [
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 1,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "68b525da4a95f0d3bc85d825464720d38f749dfacfc4331102885eda2750159c",
+          "status": "BUFFER",
+          "customPresent": true
+        },
+        {
+          "recordPresent": true,
+          "timedOut": false,
+          "outputFrames": 129,
+          "iteration": 2,
+          "exitCode": 0,
+          "outputChannels": 6,
+          "completeOutput": true,
+          "recordSha256": "68b525da4a95f0d3bc85d825464720d38f749dfacfc4331102885eda2750159c",
+          "status": "BUFFER",
+          "customPresent": true
+        }
+      ],
+      "label": "ch6-b24-f129-impulse-XAS-True",
+      "streamed": true,
+      "signal": "impulse",
+      "bits": 24,
+      "repeatedBytesIdentical": true,
+      "codec": "XAS",
+      "channels": 6,
+      "allComplete": true
+    }
+  ],
+  "caseCount": 96,
+  "scope": "Isolated original Win32 AudioFile PCM8/16/24 multichannel discovery, NONE/XAS RAM/streamed; not engine playback validation",
+  "sourceCommit": "48fa1f4d917e6cd6cdbcc10d942599d3ed379564",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "status": "completed-original-only",
+  "runAttempt": "1",
+  "completeCases": 96
+}
