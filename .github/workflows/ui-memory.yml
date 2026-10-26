@@ -1,0 +1,34 @@
+name: UI memory compiler prototype
+on:
+  push:
+    branches: [feature/swf-direct-compiler]
+    paths: ['ui/**', '.github/workflows/ui-memory.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  script-only:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: lanyizi/swf2apt
+          ref: 60b15a67a4cbd931f181af8c6c758bd7a8441ebc
+          path: ui/.work/upstream
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Generate pinned in-memory backend
+        run: python ui/tools/prepare_memory_backend.py ui/.work/upstream ui/.work/MemoryAptConverter.cs
+      - name: Build comparison host
+        run: dotnet build ui/tests/MemoryBackend.csproj -c Release -o ui/.work/bin
+      - name: Compare fixture and check zero conversion files
+        run: dotnet ui/.work/bin/MemoryBackend.dll ui/fixtures/CoronaUIMain.swf ui/.work/validation.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ui-memory-evidence
+          path: ui/.work/validation.json
+          if-no-files-found: error
