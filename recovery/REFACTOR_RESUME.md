@@ -12,7 +12,8 @@
 - 新增 `CheckCompilerXmlEvidence.py` 只读核对归档收据和原始日志，已对真实 XML artifact 通过；16 项临时 Git 合成证据回归通过。Windows 源码检出为 CRLF，仅已知源码接受 Git 原字节或纯 LF→CRLF 两种候选，原 DLL 仍严格固定原字节；不证明证据可复用到当前 HEAD。
 - `6bc692af` 完整新生产组合、Debug/Release 四类 lifecycle/backend fixture、当前 EXE 绑定贴图实际 payload/部署拒绝均通过并核对原始身份；原项目断言已证实是 fixture 混合斜杠缓存查询，保留成功断言并补独立流证明。
 - 实验后端已恢复原 XML 默认 hash/version 且未知路由仍拒绝，验证独立 manifest/Armor 字节布局；报告/Hash/Tracer/Settings、主错误及租约恢复已有定向证据。该首批未验生产入口；不把小 Armor fixture 当完整 G3/SDK。
-- 后续 Debug 前四 fixture 与两配置 P2（各 310 断言）、部署/贴图成功；App 路径测试先暴露过长测试 workspace，再暴露 ShPath 默认 ANSI 将中文流名变为 `?` 的生产缺陷，App/原 BAB/协议仍未完整通过。
+- `817b127e` 两配置五 fixture、原 BAB 两 MOD 四流逐字节对照、真实 App 协议（每配置 15 reports/489 events）、Texture/P2 均通过并核对原始收据；Unicode/日志桥/状态修复已取得定向证据。
+- 该次真实 CLI 专项为 0 case：仅外部控制 helper 的 Framework csc 混合分隔符路径解析失败。现只修 helper 的 Roslyn/NET48/规范路径编译并 CLI-only 复验；严格输入闭包守卫拒绝生产/SDK/其他 fixture 变更，旧成功按817原范围复用，不称新运行通过。
 - 已只修 Core 实际使用的 PathCanonicalizeW/PathRemoveFileSpecW，保留中文用例和 MAX_PATH 限制；显式 Trace scope 也不再受旧 BabEnableTrace 环境静默绕过。两修复须新组合验收。
 - 候选接入 monolithic build 与准确只读 doctor；原有日志桥/状态隔离/无缓存能力不变。专项将直接运行干净生产 EXE，核对冷进程/原 BAB 四流、SDK 内外中文 MOD、真实 CTRL_BREAK 及单进程 job 限制，不通过则回退入口。仅隔离 staging，缓存、发布、完整业务覆盖仍未验收。
 

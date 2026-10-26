@@ -114,9 +114,24 @@ try {
     $sourceSdk=Join-Path $root 'SDK';$schemaSnapshot=Snapshot (Join-Path $sourceSdk 'Schemas/xsd')
     $configHash=Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config');$probeFile=Join-Path $sourceSdk 'Mods/mymod/Data/RecoveryArmorProbe.xml';$probeHash=Hash $probeFile;$probe=[IO.File]::ReadAllText($probeFile)
     $state.sdkSchemaInputs=$schemaSnapshot;$state.sdkConfigSha256=$configHash;$state.sdkProbeSha256=$probeHash
-    $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
+    # Use the same modern NET48 toolchain as the application contracts and
+    # canonical Windows source paths; Framework csc misparses mixed separators.
+    $vswhere=Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
+    $vs=& $vswhere -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
+    Need ($LASTEXITCODE -eq 0 -and !!$vs) 'VS Roslyn compiler not found'
+    $csc=(Resolve-Path -LiteralPath (Join-Path $vs 'MSBuild/Current/Bin/Roslyn/csc.exe')).Path
+    $refs=Join-Path ${env:ProgramFiles(x86)} 'Reference Assemblies/Microsoft/Framework/.NETFramework/v4.8'
+    $controlSource=(Resolve-Path -LiteralPath (Join-Path $root 'recovery/tests/CompilerCliControl.cs')).Path
     $script:control=Join-Path $short 'ctrl.exe'
-    & $csc /nologo /platform:x86 /codepage:65001 /r:System.Core.dll /r:System.Web.Extensions.dll "/out:$script:control" "$root/recovery/tests/CompilerCliControl.cs" *> "$out/controller-build.log"
+    $compilerArguments=@('/nologo','/noconfig','/nostdlib+','/langversion:7.3','/platform:x86','/codepage:65001',('/out:'+$script:control))
+    $state.controllerReferences=@(foreach($name in @('mscorlib','System','System.Core','System.Web','System.Web.Extensions')){
+        $reference=(Resolve-Path -LiteralPath (Join-Path $refs ($name+'.dll'))).Path
+        $compilerArguments+=('/reference:'+$reference)
+        @{name=$name;sha256=(Hash $reference)}
+    })
+    $compilerArguments+=$controlSource
+    $state.controllerCompiler=@{path=$csc;sha256=(Hash $csc);version=([Diagnostics.FileVersionInfo]::GetVersionInfo($csc).FileVersion);languageVersion='7.3';target='net48/x86'}
+    & $csc @compilerArguments *> "$out/controller-build.log"
     Need ($LASTEXITCODE -eq 0) 'External CLI control helper compilation failed'
     $state.controllerSha256=Hash $script:control
     $env:PATH=(@($oldPath -split ';'|Where-Object{$_ -notmatch '[\\/]SDK[\\/]tools'}) -join ';')

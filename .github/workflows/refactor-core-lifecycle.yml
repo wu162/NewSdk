@@ -38,7 +38,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   lifecycle:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-core-lifecycle]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-core-lifecycle]') || contains(github.event.head_commit.message, '[refactor-cli-product]')
     runs-on: windows-2022
     timeout-minutes: 60
     steps:
@@ -55,6 +55,18 @@ jobs:
       - name: Install pinned mixed PE audit and App protocol dependencies
         shell: pwsh
         run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt
+      - name: Verify CLI-only reuse input closure
+        if: ${{ contains(github.event.head_commit.message, '[refactor-cli-product]') }}
+        shell: pwsh
+        run: |
+          $verified='817b127ee77d01ed2887dd7becc065eb03b8ad30'
+          $allowed=@('.github/workflows/refactor-core-lifecycle.yml','recovery/scripts/TestCompilerCli.ps1','recovery/tests/CompilerCliControl.cs','recovery/REFACTOR_RESUME.md','recovery/P5_LIFECYCLE_AUDIT.md')
+          $changed=@(git diff --name-only $verified HEAD)
+          if($LASTEXITCODE -ne 0){throw 'Cannot verify CLI-only reuse inputs'}
+          foreach($path in $changed){if($path -cnotin $allowed){throw "CLI-only evidence reuse invalidated by changed input: $path"}}
+          $directory="recovery/evidence/refactor/core-cli-reuse/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          New-Item -ItemType Directory -Force $directory|Out-Null
+          @{sourceCommit=$env:GITHUB_SHA;reusedSourceCommit=$verified;reusedRunId='40310605700';verifiedInputClosure=$true;changedFiles=$changed;scope='Reuse completed five lifecycle fixtures, independent original BAB/App protocol and standalone P2 results only at the recorded source; not newly executed. New production deployment, CLI/protocol and host-bound Texture run below.'}|ConvertTo-Json -Depth 5|Set-Content "$directory/validation.json"
       - name: Build managed Foundation inputs
         shell: pwsh
         run: |
@@ -68,7 +80,7 @@ jobs:
           ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/core-lifecycle-foundation -BuildDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle-deployment/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Targeted real Core, backend and application pipeline in Debug and Release
         id: lifecycle
-        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && !contains(github.event.head_commit.message, '[refactor-cli-product]') }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
@@ -105,7 +117,7 @@ jobs:
           python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/cli-protocol.json"
           if($LASTEXITCODE -ne 0){throw 'Real production CLI protocol validation failed'}
       - name: Standalone P2 application contracts in Debug
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && !contains(github.event.head_commit.message, '[refactor-cli-product]') }}
         shell: pwsh
         run: |
           $directory='recovery/artifacts/lifecycle-app/Debug'
@@ -119,7 +131,7 @@ jobs:
           }
           Get-Content "$directory/test-app.log" -Tail 30|Out-Host
       - name: Standalone P2 application contracts in Release
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && !contains(github.event.head_commit.message, '[refactor-cli-product]') }}
         shell: pwsh
         run: |
           $directory='recovery/artifacts/lifecycle-app/Release'
@@ -142,6 +154,7 @@ jobs:
             recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-cli-reuse/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/core-lifecycle-foundation/**/build.json
             recovery/artifacts/core-lifecycle-foundation/**/*.log
             recovery/artifacts/core-lifecycle-product/**/build.json
