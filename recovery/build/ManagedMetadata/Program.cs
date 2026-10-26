@@ -16,8 +16,12 @@ TypeReference ImportModifier(TypeReference source) {
     var own = module.GetTypes().SingleOrDefault(t => t.FullName == source.FullName);
     return own ?? module.ImportReference(source);
 }
+// The final linker adds its own global <Module> CRT helpers. Only restored
+// Utility business types participate in the legacy Utility contract; compiler
+// helpers such as DecodePointer are neither inputs nor API promises here.
+bool RecoveredUtilityType(TypeDefinition type) => type.Namespace == "BinaryAssetBuilder.Utility" || type.Namespace == "AssetStream";
 if (args[0] == "repair") {
-foreach (var type in module.Types) {
+foreach (var type in module.Types.Where(RecoveredUtilityType)) {
     if (type.Name.StartsWith("StructWrapper_003CAssetStream_003A_003A")) {
         string name = type.Name.Replace("StructWrapper_003CAssetStream_003A_003A", "").Replace("_003E", "");
         type.Name = original.Types.Single(t => t.Name == "StructWrapper<AssetStream::" + name + ">").Name;
@@ -40,7 +44,7 @@ TypeReference Modifiers(TypeReference source, TypeReference target) {
     if(source is ArrayType a && target is ArrayType ta) return new ArrayType(Modifiers(a.ElementType,ta.ElementType),a.Rank);
     return target;
 }
-foreach (var type in module.Types) {
+foreach (var type in module.Types.Where(RecoveredUtilityType)) {
     var match = original.Types.FirstOrDefault(t => t.FullName == type.FullName);
     if (match == null) continue;
     type.Attributes = match.Attributes;
@@ -57,7 +61,7 @@ foreach (var type in module.Types) {
 }
 
     int aliases = 0;
-    foreach (var type in module.GetTypes()) foreach (var method in type.Methods) {
+    foreach (var type in module.GetTypes().Where(t => t.Namespace == "Mvp.Xml.Exslt")) foreach (var method in type.Methods) {
         if (method.Name.Contains("_002D")) method.Name = method.Name.Replace("_002D", "-");
         if (method.Name.Contains("-")) aliases++;
     }
@@ -67,7 +71,7 @@ foreach (var type in module.Types) {
 // Verify the complete recovered Utility public/family surface against the
 // original contract, including non-C# custom modifiers, after all renames.
 int utilityMethods = 0;
-foreach (var type in module.Types) {
+foreach (var type in module.Types.Where(RecoveredUtilityType)) {
     var sourceType = original.Types.FirstOrDefault(t => t.FullName == type.FullName);
     if(sourceType == null) continue;
     if(type.Attributes != sourceType.Attributes) throw new InvalidOperationException("Utility type flags changed: " + type.FullName);
@@ -88,7 +92,7 @@ foreach(var reference in module.AssemblyReferences)
     if(!allowed.Contains(reference.Name)) throw new InvalidOperationException("Unexpected runtime AssemblyRef: " + reference.FullName);
 if(!linked && module.Resources.Count != 0) throw new InvalidOperationException("Resources must be embedded by the final linker");
 if(linked && module.Resources.Count < 5) throw new InvalidOperationException("Final linked resources are missing");
-var names = module.GetTypes().SelectMany(t => t.Methods).Count(m => m.Name.Contains("-"));
+var names = module.GetTypes().Where(t => t.Namespace == "Mvp.Xml.Exslt").SelectMany(t => t.Methods).Count(m => m.Name.Contains("-"));
 if(names != 51) throw new InvalidOperationException("Missing EXSLT aliases");
 foreach (var type in module.GetTypes().Where(t => t.FullName == "BinaryAssetBuilder.Core.ExpressionEvaluatorWrapper")) foreach (var method in type.Methods) {
     if (!method.HasBody) continue;
