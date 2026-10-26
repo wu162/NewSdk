@@ -49,6 +49,11 @@ internal static class AudioPluginOracle
                 buffer = (AssetBuffer)plugin.GetType().GetMethod(method).Invoke(plugin, new object[] { declaration });
             }
             else buffer = plugin.ProcessInstance(declaration);
+            if (label.StartsWith("multichannel-", StringComparison.Ordinal) && buffer != null) {
+                int expectedChannels = label.Contains("MultichannelC4B") ? 4 : 6;
+                if (buffer.InstanceData == null || buffer.InstanceData.Length < 29 || buffer.InstanceData[28] != expectedChannels || BitConverter.ToUInt32(buffer.InstanceData, 12) == 0)
+                    throw new Exception("Multichannel output metadata absent or truncated: " + label);
+            }
             result = buffer == null ? "NULL" : "BUFFER:" + Data(buffer.InstanceData) + ":" + Data(buffer.RelocationData) + ":" + Data(buffer.ImportsData);
         }
         catch (Exception ex)
@@ -65,7 +70,7 @@ internal static class AudioPluginOracle
             if (result != expectedError || File.Exists(custom))
                 throw new Exception("Single-frame import safety rejection differs: " + label + " result=" + result);
         }
-        if ((!undefinedSingleFrameImport || originalImplementation) && (label.StartsWith("pcm-") || label.StartsWith("xas-") || label.StartsWith("default-") || label.StartsWith("main-") || label.StartsWith("pcm8-") || label.StartsWith("loop-")) && (!result.StartsWith("BUFFER:") || !File.Exists(custom)))
+        if ((!undefinedSingleFrameImport || originalImplementation) && (label.StartsWith("multichannel-") || label.StartsWith("pcm-") || label.StartsWith("xas-") || label.StartsWith("default-") || label.StartsWith("main-") || label.StartsWith("pcm8-") || label.StartsWith("loop-")) && (!result.StartsWith("BUFFER:") || !File.Exists(custom)))
             throw new Exception("Required AudioFile fixture failed: " + label + " platform=" + platform + " result=" + result);
         bool validMp3 = label.StartsWith("mp3-mono.") || label.StartsWith("mp3-stereo.") || label.StartsWith("mp3-subtitle-");
         if (validMp3)
@@ -193,6 +198,7 @@ internal static class AudioPluginOracle
                 else if (args[4] == "formats") AudioInputFormatCases.Run(root, Run);
                 else if (args[4] == "loops") AudioLoopProbeCases.Run(root, Run);
                 else if (args[4] == "aiffloops") AudioAiffLoopCases.Run(root, Run);
+                else if (args[4] == "multichannel") AudioMultichannelCases.Run(root, Run);
                 else if (args[4] == "resample-full") AudioResampleCases.Run(root, Run);
                 else if (args[4] == "resample") AudioUnrecoveredProbeCases.Run(root, Run);
                 else

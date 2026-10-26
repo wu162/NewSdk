@@ -55,8 +55,10 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 
 ## AudioCompiler / Win32（2026-10-26）
 
-恢复业务源码位于 `src/AudioCompiler`，仅支持 Win32；当前确定范围为单/双声道 PCM8/16/24 WAVE、AIFF/AIFC NONE、原始 ADP4 导入、PCM/XAS 输出、循环、重采样和 MPEG 头信息/透传。源码树 `ee6074a096795aa66b682fcb363e360feabe4d2f`，组件及1820资产专用SDK验收沿用源码 `2d64684742f9b19808d8fd721fbe31a549907c37` / 运行 [40244825458](https://github.com/wu162/NewSdk/actions/runs/40244825458)。
+恢复业务源码位于 `src/AudioCompiler`。当前支持WAVE PCM8/16/24含EXTENSIBLE的1/2/4/6声道，AIFF/AIFC NONE及raw ADP4仍1/2声道；覆盖PCM/XAS、RAM/stream、loop、重采样与MPEG头信息/透传。WAVE4/6验收源码 `ed1a7bcbec4a7a89d08369b9668129c8c554f8ec`，源码树 `a8e47a2e737ca7e35a486ec17e5eaaa913c8678e`，[运行40250750964](https://github.com/wu162/NewSdk/actions/runs/40250750964)成功：Debug/Release各1728新插件差分、全部受影响旧组、直接入口及拒绝边界通过；同1728完整组合真实SDK全部实际回调，四产物、1728份CustomData及三缓冲区一致，恢复侧无原音频DLL。
 
-完整固定 Upheaval/PublicCases 真实 SDK 音频替换验收已通过：源码 `c078bce6e5e28866dfd3c25acabda731203b2556`，运行 [40248486242](https://github.com/wu162/NewSdk/actions/runs/40248486242) attempt1；原版/恢复版共10次BAB调用全部成功，20份编译产物、每侧1293份CustomData相同；1281个可达音频资产全部实际覆盖，每侧1289次音频回调的三缓冲区相同。恢复侧移除了原AudioCompiler DLL，其他插件仍使用原SDK。保留194份版本化.asset输入；固定输入提交 `068643219fded09a05fb7b75c6507b769c430316`。语料音频为单声道WAV，不扩大4/6声道或其他格式的专用验收范围。
+本轮先前完整固定Upheaval/PublicCases音频替换也已通过，保留其原验收源码 `c078bce6e5e28866dfd3c25acabda731203b2556`、音频树 `ee6074a096795aa66b682fcb363e360feabe4d2f` 与 [运行40248486242](https://github.com/wu162/NewSdk/actions/runs/40248486242)：原/恢复共10次BAB调用exit0，20产物及各侧1293份CustomData一致，1281唯一音频资产全部覆盖、每侧1289回调三缓冲区一致；194份.asset输入保留，其他插件使用原SDK。此mono WAV语料未重标为新a8e47a源码重跑；新源码有上面的专用SDK。旧1820/4488批亦各保留原source/run。
 
-本次未替换仓库SDK/tools/config，仅验收音频插件替换范围。4/6声道是新确认的待恢复能力组；原生未初始化读取及不完整AIFF marker配对仍明确拒绝。详见 [AUDIO_COMPILER.md](AUDIO_COMPILER.md)、[RESUME_AUDIO.md](RESUME_AUDIO.md)、[音频验收索引](evidence/audio/acceptance-current.json) 和 [合入核对](audio/MERGE_VALIDATION.json)。其他子系统导航及既有验收锚点保持原记录。
+下一实现组为AIFF/AIFC NONE4/6；原版探针192案例/384独立进程已通过，80496个PCM样本确认保持源序，但恢复版仍拒绝。ADP4>2原native也拒绝，不列缺失功能。原生未初始化读取及明确畸形边界继续拒绝。仓库SDK/tools/config及其他共享源码不变。
+
+PR [#10](https://github.com/wu162/NewSdk/pull/10)等待用户明确批准，尚未合并；不得自行合并。详见 [AUDIO_COMPILER.md](AUDIO_COMPILER.md)、[RESUME_AUDIO.md](RESUME_AUDIO.md)、[验收索引](evidence/audio/acceptance-current.json) 与 [合入核对](audio/MERGE_VALIDATION.json)。其他子系统导航及原有验收锚点保留。

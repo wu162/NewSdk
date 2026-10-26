@@ -1,0 +1,79 @@
+{
+  "scope": "Original-only AIFF/AIFC NONE ordering evidence; not candidate or SDK acceptance",
+  "sourceCommit": "0d744a716df7b487816dc0fadf4f12dc82c5b66c",
+  "runId": "40251368891",
+  "attempt": "1",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "caseCount": 192,
+  "processRecords": 384,
+  "completeCases": 192,
+  "stableCases": 192,
+  "noneCases": 96,
+  "noneRecordsDecoded": 192,
+  "expectedPcmQuantization": "truncate(binary32((signed16/32768)*32767)); PCM8 imports signed8<<8; PCM24 low byte discarded",
+  "noneExactSamplesCompared": 80496,
+  "outputToInputChannelMaps": {
+    "AIFF-1": [
+      0
+    ],
+    "AIFF-2": [
+      0,
+      1
+    ],
+    "AIFF-4": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "AIFF-6": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "AIFC-1": [
+      0
+    ],
+    "AIFC-2": [
+      0,
+      1
+    ],
+    "AIFC-4": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "AIFC-6": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "noneCasesPerContainerAndChannels": {
+    "AIFF-1": 12,
+    "AIFF-2": 12,
+    "AIFF-4": 12,
+    "AIFF-6": 12,
+    "AIFC-1": 12,
+    "AIFC-2": 12,
+    "AIFC-4": 12,
+    "AIFC-6": 12
+  },
+  "errors": [],
+  "candidateValidated": false,
+  "sdkValidated": false,
+  "receiptCommit": "5f2574fc7f60b5b63db4100f7b86e9e832efe15d",
+  "receipt": "recovery/evidence/audio/multichannel-aiff-original/40251368891-1/validation.json",
+  "receiptSha256": "6989e9668dcff0a4438db516b99fe01a4b78c066add1be0ae955416a8da6a18d",
+  "artifactId": 12620461433,
+  "artifactSha256": "50342ada48b370cbe19a2a30918935e8c5fc119eed44b32d10273f22398ab69b",
+  "inputFilesVerified": 192,
+  "auditScriptSha256": "22c7e2104536bbf30f752817f0097885542823131a439f092d030777956faa97"
+}

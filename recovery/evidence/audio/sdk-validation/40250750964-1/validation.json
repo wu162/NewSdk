@@ -1,0 +1,75 @@
+{
+  "scope": "Fresh original and original-free recovered BAB case5 basic-data build; same temporary SDK root",
+  "sdkStarted": true,
+  "configSha256": "e2dac33ed877164fc75651137d5f7a04b49fe0a28fb9f59760ae209346904cc9",
+  "sourceCommit": "ed1a7bcbec4a7a89d08369b9668129c8c554f8ec",
+  "expectedAssets": 1728,
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "recoveredSha256": "58ed98b37ac33eb353b834a4f658cb4323a99d9128957fea569f89fc9cd9316a",
+  "status": "passed",
+  "runs": [
+    {
+      "exitCode": 0,
+      "originalTargetPresent": true,
+      "outputs": [
+        {
+          "bytes": 154500,
+          "name": "mod.bin",
+          "sha256": "d90d3998b7208a173b1271eeae8856c22fa156917f0fc2ef362ad595c4da7b2c"
+        },
+        {
+          "bytes": 174332,
+          "name": "mod.manifest",
+          "sha256": "9934c523a1cf86a65c0461a1be29b48d8bc952c79045eb2fd0be0cb2583a51dc"
+        },
+        {
+          "bytes": 4,
+          "name": "mod.imp",
+          "sha256": "f1c762279d5dd5195c3a7d4ee1a9bc215ff10c2634658ae3ac65095dcdac2141"
+        },
+        {
+          "bytes": 17284,
+          "name": "mod.relo",
+          "sha256": "fbcff4d2b2b28ee895cbba421c58eca22728ea0b61b38bf5db1de6aaa621a3f8"
+        }
+      ],
+      "audioCalls": 1728,
+      "customFiles": 1728,
+      "mode": "Original"
+    },
+    {
+      "exitCode": 0,
+      "originalTargetPresent": false,
+      "outputs": [
+        {
+          "bytes": 154500,
+          "name": "mod.bin",
+          "sha256": "d90d3998b7208a173b1271eeae8856c22fa156917f0fc2ef362ad595c4da7b2c"
+        },
+        {
+          "bytes": 174332,
+          "name": "mod.manifest",
+          "sha256": "9934c523a1cf86a65c0461a1be29b48d8bc952c79045eb2fd0be0cb2583a51dc"
+        },
+        {
+          "bytes": 4,
+          "name": "mod.imp",
+          "sha256": "f1c762279d5dd5195c3a7d4ee1a9bc215ff10c2634658ae3ac65095dcdac2141"
+        },
+        {
+          "bytes": 17284,
+          "name": "mod.relo",
+          "sha256": "fbcff4d2b2b28ee895cbba421c58eca22728ea0b61b38bf5db1de6aaa621a3f8"
+        }
+      ],
+      "audioCalls": 1728,
+      "customFiles": 1728,
+      "mode": "Recovered"
+    }
+  ],
+  "succeeded": true,
+  "runId": "40250750964",
+  "profile": "create-multichannel",
+  "babSha256": "f79c2fe743de251e59c9e1daee6930f4c58b1de3adf735f73aa7e9798c8c49af",
+  "runAttempt": "1"
+}

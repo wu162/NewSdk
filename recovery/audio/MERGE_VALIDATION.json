@@ -1,31 +1,33 @@
 {
-  "status": "reviewed-pending-user-merge-approval",
+  "status": "reviewed-pending-user-explicit-merge-approval",
+  "pr": 10,
   "targetBranch": "recovery/compiler-source",
   "targetHead": "b122a54abe4405516b021e425b8fb9235d914a0e",
-  "audioHead": "efbc6d825a7a5fb471740723486eb848e752e9b2",
-  "audioSourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
-  "audioTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
-  "fullSdkSource": "c078bce6e5e28866dfd3c25acabda731203b2556",
-  "fullSdkRun": "40248486242",
-  "sdkTree": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
-  "sharedRecoverySourceTree": "c13c492885fc64bfac0f53562360d706252b6489",
-  "unchangedSharedTrees": [
-    "SDK",
-    "recovery/src",
-    "recovery/MetadataInventory",
-    "recovery/catalog",
-    "recovery/decompiled",
-    "recovery/w3x"
-  ],
+  "importedValidationHead": "2e99eefd3150335e582d02f24508d024751676a0",
+  "testedSourceCommit": "ed1a7bcbec4a7a89d08369b9668129c8c554f8ec",
+  "testedAudioTree": "a8e47a2e737ca7e35a486ec17e5eaaa913c8678e",
+  "runId": "40250750964",
+  "attempt": 1,
+  "sdkProfile": "create-multichannel",
+  "sdkAssets": 1728,
+  "fullUpheaval": {
+    "sourceCommit": "c078bce6e5e28866dfd3c25acabda731203b2556",
+    "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
+    "runId": "40248486242",
+    "notRelabeledAsNewSource": true
+  },
+  "unchangedSdkTree": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+  "unchangedSharedSourceTree": "c13c492885fc64bfac0f53562360d706252b6489",
+  "genericNavigationBaseBlob": "979fd0795cdd092953b50cf48128b2524510a0fa",
   "genericNavigationPreserved": true,
-  "audioNavigation": "../RESUME_AUDIO.md",
-  "productionSdkReplaced": false,
-  "fullJointCompilerClaim": false,
-  "userExplicitMergeApprovalRequired": true,
-  "testsReusedWithOriginalSourceAndRun": true,
   "overlappingExistingEdits": [
-    "AGENTS.md (latest explicit PR/user approval rule)",
-    "recovery/RESUME.md (original body preserved, Audio section appended)"
+    "AGENTS.md: explicit PR/user approval rule",
+    "recovery/RESUME.md: original navigation plus Audio section"
   ],
-  "allOtherExistingBlobsPreserved": true
+  "allOtherPreexistingBlobsPreserved": true,
+  "sourceTreeAndReceiptIdentityPreservedOnImport": true,
+  "originalSdkDllConfigReplaced": false,
+  "merged": false,
+  "userApprovalRequired": true,
+  "unverifiedNextGroupPreparationIncluded": false
 }
