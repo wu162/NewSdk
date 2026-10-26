@@ -1,7 +1,7 @@
 # P5 生命周期审计与最小实施组
 
 状态：2026-10-26 P4 已验收；Core 全7组、真实 App/独立原版、生产 CLI 及真实 APT 数据资产/MapMetaData 定向组已通过 Debug/Release，原始收据已核对。生产 `build` 已接入实验性 Win32 loose/no-cache 后端。
-本页保存历史设计依据，下面的“建议/待实现”按源码及当前 REFACTOR_RESUME.md 解释，不能当作仍未接入的状态。缓存、正式发布、完整 SDK/G3 尚未通过，三份真实UI完整106文件/103依赖闭包的两配置生产CLI/冷进程/当前原版四流对照已过；两份Texture为完整内联DDS，非cdata。产物收集器精确布局与重解析点回归已通过；Unicode混合纹理路径另行验收。
+本页保存历史设计依据，下面的“建议/待实现”按源码及当前 REFACTOR_RESUME.md 解释，不能当作仍未接入的状态。事务式loose发布已接入且App合同通过，真实CLI发布整组待最终复验；缓存、正式发行包、完整 SDK/G3 尚未通过，三份真实UI完整106文件/103依赖闭包的两配置生产CLI/冷进程/当前原版四流对照已过；两份Texture为完整内联DDS，非cdata。产物收集器精确布局与重解析点回归已通过；Unicode混合纹理路径另行验收。
 路径均相对 `recovery`；首版仅顺序执行，不能并行修改旧静态状态。
 
 ## 第一组：真实 Core 异常清理（可独立于后端实现）
@@ -72,3 +72,7 @@
   热复用还依赖 OutputManager 可访问的旧输出/中间资产/BuildCache；新隔离 staging 缺失这些内容会重新编译。
 - 整组验收保留无/冷/热、文档/XInclude/文件引用/Schema/配置/插件负载改变、两个 MOD、失败/取消后重试，
   对照独立冷进程与原 BAB 原始四输出；Schema 单独复用即使完成，也不能当成 `/sc` 或完整缓存验收。
+
+### 输入根契约的实际入口
+
+`CoreStreamCompiler.ValidateOptions` 仍拒绝显式路径/配置覆盖；`StreamSettings` 固定 SDK DataRoot/Schema，并把 MOD 的 Data/Art/Audio 前置到配置搜索路径。真正启用 `/data`、`/art`、`/audio`、`/dr` 等必要旧参数时，应按旧 SettingsLoader 顺序解析并向报告输出生效根及来源，再将全部根内/根外引用纳入缓存输入契约。先用最小合法外部引用 MOD 对照原 BAB 的路径优先级、原始四输出和失败/重试；不能只让参数不再报错或只扩快照API。

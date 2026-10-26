@@ -4,9 +4,8 @@ on:
     branches: [refactor/modcompiler-p0-p3]
     paths:
       - '.github/workflows/refactor-publisher.yml'
-      - 'recovery/src/App/Application/ArtifactPublisher.cs'
-      - 'recovery/tests/App/ArtifactPublisherTests.cs'
-      - 'recovery/tests/App/AppTests.cs'
+      - 'recovery/src/App/**'
+      - 'recovery/tests/App/**'
       - 'recovery/scripts/BuildApp.ps1'
       - 'recovery/scripts/TestApp.ps1'
   workflow_dispatch:

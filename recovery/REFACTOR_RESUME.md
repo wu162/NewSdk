@@ -6,18 +6,18 @@
 ## 当前状态（先读这里即可）
 
 - **P4 已通过；P5 事务式发布已接入，当前真实 CLI 发布整组仍在修复验证，完整 P5/G3/SDK 未完成。** 生产入口保留实验性 Win32 loose/no-cache 后端；不能宣称完整 MOD 编译器或正式发行包可用。
-- 发布采用 `OutputRoot/published` 整代替换，必需报告/终态/日志收尾失败回滚；空可选集合不替换上一代。Debug/Release App 各561断言已过；当前完整候选的 Core/原版对照/协议/Texture已过，真实CLI在同目录取消测试读旧事件处失败，控制器PID隔离修复待验。
+- 发布采用 `OutputRoot/published` 整代替换，必需报告/终态/日志收尾失败回滚；空可选集合不替换上一代。Debug/Release App 各569断言（发布生命周期147项）已过，含RollbackFailed备份保留。两配置 Core全7组/原版对照/协议/Texture已过；真实CLI的Debug整组已过，Release同目录取消在旧日志替换处失败，最终观察器修复正在Windows整组复验。
 - 新增未接入的 SDK/MOD/runtime 内容快照及27项合同断言，明确不能授权缓存复用；生产缓存仍关闭。旧缓存的 Complete 文档、资产来源、mtime失效和事务收尾接入仍待实现。
-- 本轮完整 Windows 候选两配置均通过：App 各355断言、Core 全7组（路径组各130断言，含产物收集根/后代 junction、精确 cdata 布局、同名目录、Unicode/空格/#/% XInclude）、原版后端对照、真实 App 协议、当前 EXE 绑定 Texture 部署/payload。
-- 真实 CLI 各25个独立 PID 已过：单进程 job/no-child、冷分组、内外 MOD、实际 CTRL_BREAK/exit6/retry、真实日志锁/exit7/同路径重试、参数拒绝与协议。每配置22 reports/912 events；独立原版严格比较原始四输出，未归一化字节。
+- 前次完整 Windows 候选两配置均通过：App 各355断言、Core 全7组（路径组各130断言，含产物收集根/后代 junction、精确 cdata 布局、同名目录、Unicode/空格/#/% XInclude）、原版后端对照、真实 App 协议、当前 EXE 绑定 Texture 部署/payload。
+- 前次真实 CLI 各25个独立 PID 已过：单进程 job/no-child、冷分组、内外 MOD、实际 CTRL_BREAK/exit6/retry、真实日志锁/exit7/同路径重试、参数拒绝与协议。每配置22 reports/912 events；独立原版严格比较原始四输出，未归一化字节。
 - 真实业务新增12个文件型 APT 资产、3个 MapMetaData 资产；组合与三组冷进程输出一致，APT/maps 独立当前原 BAB 对照已过。这不是 APT 格式解析或完整 UI/SDK 验收。
 - 三份真实 Upheaval UI 两配置均通过：固定祖先原 blob 的106文件/103依赖/100资产闭包，3流组合与各UI冷进程一致；当前原 BAB 逐流原始四输出严格相同。两份 Texture 按固定原DLL正确ID/Hash及内联DDS布局核验（不是cdata），未删纹理或归一化产物；不代表运行时UI/完整SDK。
 - 根/路径、日志原子替换与活动文件保护、晚期失败撤销产物、.build junction 与既有 staging 所有权修复均已取得上述完整候选的原始收据；已核对归档 SHA、14份 fixture 的结果/日志/EXE 和两份协议原始文件哈希，详见 PATH_AUDIT.md。
-- `62b7766` XML 两配置各63组、`9cd2cb8` 非XML组件证据仅按原输入/范围复用，不将旧生产/宿主身份冒充当前重测；本轮未重复完整 SDK。
+- `62b7766` XML 两配置各63组、`9cd2cb8` 非XML组件证据仅按原输入/范围复用，不将旧生产/宿主身份冒充当前重测；这些历史证据不冒充当前重测；本轮未重复完整 SDK。
 
 ## 下一步（按顺序；2026-10-26 用户纠偏）
 
-1. **先收尾本轮真实发布整组验证。** 当前控制器需只接收当前 PID 的 BuildStarted/StreamStarted，避免同目录重试读上一轮 JSONL 误发取消。首个候选失败保留；修复后完整能力组验证首次发布、替换、占用、取消、晚期失败、回滚及重试，核对返回码/日志/磁盘；不得把组件成功当成生产验收。
+1. **先收尾本轮真实发布整组验证。** 先查分支最新 Core lifecycle 作业终态；当前控制器已按PID/buildId/sequence隔离旧事件，且用Created/Renamed观察新日志发布后再读取，避免参与替换竞态。保留前两次失败，不盲重试；首次/替换/占用/取消/回滚/重试和CLI协议两配置均过才标为生产整组通过。晚期输出/回滚失败的注入仍是App受控组，不冒充真实CLI注入。
 2. **随后推进实际缓存能力。** 参见 P5_LIFECYCLE_AUDIT.md 的具体接入顺序；新命名空间、内容失效、缓存文档/资产来源和事务确认须一并处理。不得只跨流共享旧 SessionCache 或把输入快照当成可用缓存；保留无/冷/热、依赖变化、连续MOD、失败/取消后重试及原始四输出差分。
 3. **Unicode 已定位为旧混合 Texture DLL 的 ANSI 加载限制。** Windows 下载/准备已通过；Debug ASCII 三UI成功，中文组合根路径在 LoadImageA/D3DX 失败，exit4且空产物，输入未变；Release/协议未执行，未做单根归因。记录限制继续独立功能，不重复下载器审查，不宣称完整Unicode纹理支持。
 4. **路径审查保持现有回归。** 产物布局、junction、staging所有权和活动文件保护已有验证。仅新失败、相关实现变更或具体未覆盖风险才补定向调查；测试通过且无具体风险即收尾，不默认扩展路径排列或重审归档。
