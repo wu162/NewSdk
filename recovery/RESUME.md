@@ -13,6 +13,6 @@ D/R各6336项三缓冲区/CustomData差分、7740源序样本、72窗口、432ma
 WAVE4/6导入重排，AIFF/AIFC保持源序。PCM/XAS、RAM/stream、loop、filter120重采样、MPEG信息/透传及五个BAB路由已验收。
 多声道ADP4原native不支持；非PC、未定义原生读取、单端marker、越界loop/SSND及单帧ADP4/import-resample继续拒绝。
 
-约定PC功能范围内无剩余实现待办。下一步仅审查PR；未获用户明确批准不得合入。
+约定PC功能范围内无剩余实现待办。下一步审查[PR #11](https://github.com/wu162/NewSdk/pull/11)，目标 `recovery/compiler-source`；未获用户明确批准不得合入。
 SDK/tools/config未替换。完整固定Upheaval仍保留source`c078bce6`/run40248486242原锚点，
 不冒充本轮完整MOD重跑；本轮另有6336资产专用SDK。旧WAVE/1820/4488等证据保持原范围。
