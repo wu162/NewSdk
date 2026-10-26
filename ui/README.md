@@ -1,18 +1,21 @@
-# SWF 编译研究与原型
+# SWF 编译项目
 
-交接入口：[RESUME.md](RESUME.md)。源码调查和完整限制：[RESEARCH.md](RESEARCH.md)。
+源码已直接导入：[vendor/swf2apt](vendor/swf2apt)。交接：[RESUME.md](RESUME.md)。来源与验证：[VENDOR.md](VENDOR.md)。
 
-目标：MOD 编译器直接接受 SWF，内存生成既有 APT 资产，不落地转换中间文件。当前只是固定样例能力的转换组件，不是已启用的 BAB 插件。
+已验证提供的CoronaUIMain.swf：普通RA3、RA3优化两种模式下，源码版与附件原始程序集的全部生成文件逐字节相同。当前仍是会生成APT相关文件的原转换器；直接接入MOD编译器、消除中间文件是下一阶段。
 
-Windows 本地复现（需 .NET8、Python、VS2022 C++；上游固定提交）：
+Windows构建需要.NET8 SDK、.NET8 x86运行时、VS C++工具。无需再次克隆上游：
 
 ```powershell
-git clone https://github.com/lanyizi/swf2apt ui/.work/upstream
-git -C ui/.work/upstream checkout 60b15a67a4cbd931f181af8c6c758bd7a8441ebc
-python ui/tools/prepare_memory_backend.py ui/.work/upstream ui/.work/MemoryAptConverter.cs
-# 原生 zlib/flasm 的构建命令见 .github/workflows/ui-memory.yml；将 Release 加入PATH。
-dotnet build ui/tests/MemoryBackend.csproj -c Release -o ui/.work/bin
-dotnet ui/.work/bin/MemoryBackend.dll ui/fixtures/CoronaUIMain.swf ui/.work/validation.json
+New-Item -ItemType Directory -Force ui/.work | Out-Null
+Copy-Item ui/verification/DirectCli.xml ui/.work/DirectCli.csproj
+dotnet build ui/.work/DirectCli.csproj -c Release -o ui/.work/direct-cli
 ```
 
-验证原源码工具的RA3优化编译、受限内存组件的no-opt逐字节差分、CWS/FWS和两种文化设置、拒绝输入和无转换文件。没有把no-opt原型当成原脚本的优化模式。上传工具二进制与源码基线的关系见研究文档。
+原生zlib/flasm构建命令见 `.github/workflows/ui-source-parity.yml` 的Build source optimizer步骤。把 `ui/vendor/swf2apt/Release` 加入PATH后，用.NET8 x86的dotnet执行：
+
+```powershell
+& 'C:/Program Files (x86)/dotnet/dotnet.exe' ui/.work/direct-cli/eaf2apt-source.dll <输入.swf> --ra3 --optimize
+```
+
+完整一致性复验按上述工作流运行，证据保存在 `ui/evidence/source-consistency.json`。正式内存接口后续直接改导入源码；旧memory原型仅保留作历史参考。

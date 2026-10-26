@@ -1,3 +1,5 @@
+> 后续更新：已直接导入并采用 `ui/vendor/swf2apt`，固定在 `2b3cb662b7311616e462b884e5611750e5de88f4`。390个源码文件校验及原始程序集/源码版样例输出对照全部通过，见 `ui/RESUME.md`、`ui/VENDOR.md` 与 `ui/evidence/source-consistency.json`。以下保留第一轮调查历史，其“未验证/尚未导入”描述仅代表当时状态。
+
 # SWF 直接进入 MOD 编译链
 
 ## 结论和本轮边界
