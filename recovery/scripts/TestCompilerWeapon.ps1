@@ -42,7 +42,7 @@ try {
     Push-Location $oracle
     try {& $originalHost "$oracle/BinaryAssetBuilder.Tokenizer.dll" $transcript *> "$out/original-runtime.log"; $code=$LASTEXITCODE}
     finally {Pop-Location}
-    if($code -ne 0 -or !(Select-String "$out/original-runtime.log" -SimpleMatch 'PASS Weapon full transcript record:' -Quiet)){Get-Content "$out/original-runtime.log" -Tail 60;throw 'Original complete Weapon matrix failed'}
+    if($code -ne 0 -or !(Select-String -LiteralPath "$out/original-runtime.log" -SimpleMatch 'PASS Weapon full transcript record:' -Quiet)){Get-Content "$out/original-runtime.log" -Tail 60;throw 'Original complete Weapon matrix failed'}
     $state.originalTranscriptSha256=(Get-FileHash $transcript -Algorithm SHA256).Hash.ToLowerInvariant()
     foreach($mode in @('Debug','Release')) {
         $receipt=Get-Content "$CompilerBuildDirectory/$mode/build.json" -Raw|ConvertFrom-Json
@@ -63,9 +63,9 @@ try {
         Push-Location $clean
         try {& $validationRun.exe $replayHost $transcript *> "$out/$mode-runtime.log"; $code=$LASTEXITCODE}
         finally {Pop-Location; $env:PATH=$oldPath}
-        if($code -ne 0 -or !(Select-String "$out/$mode-runtime.log" -SimpleMatch 'PASS Weapon full transcript replay:' -Quiet)){Get-Content "$out/$mode-runtime.log" -Tail 60;throw "Complete product Weapon $mode matrix failed"}
+        if($code -ne 0 -or !(Select-String -LiteralPath "$out/$mode-runtime.log" -SimpleMatch 'PASS Weapon full transcript replay:' -Quiet)){Get-Content "$out/$mode-runtime.log" -Tail 60;throw "Complete product Weapon $mode matrix failed"}
         Complete-CompilerValidationRun $validationRun
-        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;configuration=$mode;passed=$true;exeSha256=$receipt.exeSha256;platforms=@(0,1,2,99);fullExistingFixtureSet=$true;originalBusinessDllsAbsent=$true;summary=@(Select-String "$out/$mode-runtime.log" -SimpleMatch 'PASS Weapon full transcript replay:'|ForEach-Object{$_.Line})}
+        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;configuration=$mode;passed=$true;exeSha256=$receipt.exeSha256;platforms=@(0,1,2,99);fullExistingFixtureSet=$true;originalBusinessDllsAbsent=$true;summary=@(Select-String -LiteralPath "$out/$mode-runtime.log" -SimpleMatch 'PASS Weapon full transcript replay:'|ForEach-Object{$_.Line})}
     }
     $state.status='passed';$global:LASTEXITCODE=0
 }catch{$state.status='failed';$state.error=$_.Exception.ToString();throw}

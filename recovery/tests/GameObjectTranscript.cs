@@ -20,6 +20,7 @@ static class GameObjectTranscript
     public static void VerifyProduct(Assembly foundation, Assembly bridge)
     {
         Require(foundation == bridge, "Bridge and Core types belong to different assemblies");
+        Require(foundation == Assembly.GetEntryAssembly(), "Business implementation is not the process entry assembly");
         Require(foundation.GetName().Name == "NewModCompiler" && foundation.GetModules().Length == 1,
             "Expected one physical production EXE module");
         string expected = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NewModCompiler.exe"));
@@ -145,3 +146,4 @@ static class GameObjectTranscript
     }
 }
 #endif
+

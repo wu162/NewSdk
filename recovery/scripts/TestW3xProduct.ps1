@@ -6,6 +6,7 @@ param(
     [Parameter(Mandatory=$true)][string]$OutputDirectory
 )
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/CompilerValidation.Common.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $captures=(Resolve-Path $CaptureDirectory).Path
 $pluginReceiptPath=(Resolve-Path $PluginValidation).Path
@@ -60,23 +61,22 @@ try {
         if($buildReceipt.sourceCommit -cne $state.sourceCommit -or $buildReceipt.configuration -cne $configuration -or $buildReceipt.exeSha256 -cne (Get-FileHash $sourceExe).Hash.ToLowerInvariant()){throw 'Product build does not match requested source/configuration'}
         $bin=(New-Item -ItemType Directory "$work/$configuration").FullName
         $evidence=(New-Item -ItemType Directory "$out/$configuration").FullName
-        Copy-Item $sourceExe $bin
-        Copy-Item "$sourceExe.config" $bin
-        Copy-Item "$build/bin/antlr.runtime.dll" $bin
+        $validationRun=Initialize-CompilerValidationRun $build $bin $configuration $state.sourceCommit
         # No original/recovered business DLL, build module, SDK directory, or resolver is available.
         $hostExe=Join-Path $bin 'W3xProductReplay.exe'
         $opt=if($configuration -eq 'Release'){'/optimize+'}else{'/optimize-'}
         Invoke-Checked $csc @('/nologo','/codepage:65001','/platform:x86',$opt,'/define:MONOLITHIC_REPLAY','/r:System.Xml.dll',("/r:"+$bin+'/NewModCompiler.exe'),("/out:"+$hostExe),(Join-Path $root 'recovery/tests/W3xPluginOracle.cs')) "$evidence/replay-build.log"
         Copy-Item "$sourceExe.config" "$hostExe.config"
-        Invoke-Checked $hostExe @('standalone',$animation,$mesh) "$evidence/replay.log"
+        Invoke-Checked $validationRun.exe @($hostExe,'standalone',$animation,$mesh) "$evidence/replay.log"
         Get-Content "$evidence/replay.log"|Where-Object{$_ -match '^PASS '}|Write-Host
         $metadataExe=Join-Path $bin 'W3xManagedStandalone.exe'
         Invoke-Checked $csc @('/nologo','/codepage:65001','/platform:x86',$opt,'/r:System.Core.dll',("/r:"+$bin+'/NewModCompiler.exe'),("/out:"+$metadataExe),(Join-Path $root 'recovery/tests/W3xManagedStandalone.cs')) "$evidence/metadata-build.log"
         Copy-Item "$sourceExe.config" "$metadataExe.config"
-        Invoke-Checked $metadataExe @() "$evidence/metadata.log"
-        if((Get-FileHash "$bin/NewModCompiler.exe").Hash.ToLowerInvariant() -cne $buildReceipt.exeSha256){throw 'Product EXE changed during replay'}
-        $state.configurations+=@{configuration=$configuration;passed=$true;animationFixtures=675;meshFixtures=666;threeBufferComparisons=4029;exeSha256=$buildReceipt.exeSha256;animationCaptureSha256=$modeReceipt[0].animationCaptureSha256;meshCaptureSha256=$modeReceipt[0].meshCaptureSha256;businessDllsAbsent=$true;productMetadataPlatforms=@(0,1,2,99)}
+        Invoke-Checked $validationRun.exe @($metadataExe) "$evidence/metadata.log"
+        Complete-CompilerValidationRun $validationRun
+        $state.configurations+=@{validationHostSha256=$validationRun.validationHostSha256;configuration=$configuration;passed=$true;animationFixtures=675;meshFixtures=666;threeBufferComparisons=4029;exeSha256=$buildReceipt.exeSha256;animationCaptureSha256=$modeReceipt[0].animationCaptureSha256;meshCaptureSha256=$modeReceipt[0].meshCaptureSha256;businessDllsAbsent=$true;productMetadataPlatforms=@(0,1,2,99)}
     }
     $state.status='passed'
 } catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally {$state|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json" -Encoding utf8;Pop-Location}
+

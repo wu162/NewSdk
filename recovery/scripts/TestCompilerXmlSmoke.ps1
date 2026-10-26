@@ -4,6 +4,7 @@ param(
     [Parameter(Mandatory=$true)][string]$OutputDirectory
 )
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/CompilerValidation.Common.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerDirectory=(Resolve-Path $CompilerDirectory).Path
 if(Test-Path $OutputDirectory){throw "Refusing to overwrite XML smoke evidence: $OutputDirectory"}
@@ -65,7 +66,7 @@ try {
         $modeOut=Join-Path $out $mode
         $clean=Join-Path $work $mode
         New-Item -ItemType Directory -Force $modeOut,$clean|Out-Null
-        Copy-Item "$CompilerDirectory/$mode/bin/*" $clean
+        $validationRun=Initialize-CompilerValidationRun (Join-Path $CompilerDirectory $mode) $clean $mode $state.sourceCommit
         $exe=Join-Path $clean 'NewModCompiler.exe'
         & $csc /nologo /codepage:65001 /platform:x86 /r:System.Xml.dll /r:System.Web.Extensions.dll "/r:$exe" "/out:$clean/XmlSmoke.exe" $source *> "$modeOut/host-build.log"
         if($LASTEXITCODE -ne 0){Get-Content "$modeOut/host-build.log" -Tail 80|Out-Host;throw "$mode production XML smoke host build failed"}
@@ -74,10 +75,11 @@ try {
             if(Test-Path (Join-Path $clean $forbidden)){throw "Forbidden runtime oracle/bridge DLL in product host: $forbidden"}
         }
         $env:XML_PRODUCT_TRANSCRIPT=Join-Path $modeOut 'recovered.tsv'
-        Invoke-XmlSmoke "$clean/XmlSmoke.exe" @('unused',$exe,"$modeOut/result.json",$manifest,$state.sourceCommit,$state.runId) $clean "$modeOut/host.log"
+        Invoke-XmlSmoke $validationRun.exe @("$clean/XmlSmoke.exe",'unused',$exe,"$modeOut/result.json",$manifest,$state.sourceCommit,$state.runId) $clean "$modeOut/host.log"
         Check-XmlSmoke "$modeOut/result.json" $env:XML_PRODUCT_TRANSCRIPT $true
         if((Get-FileHash $env:XML_PRODUCT_TRANSCRIPT -Algorithm SHA256).Hash -cne $baseline){throw "$mode XML original/product complete transcript mismatch"}
-        $state.modes+=@{configuration=$mode;passed=$true;routes=289;platforms=@(0,1,2,99);defaultFixtures=1156;completionFixtures=208;bufferComparisons=4092;transcriptSha256=$baseline.ToLowerInvariant();exeSha256=(Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant()}
+        Complete-CompilerValidationRun $validationRun
+        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;configuration=$mode;passed=$true;routes=289;platforms=@(0,1,2,99);defaultFixtures=1156;completionFixtures=208;bufferComparisons=4092;transcriptSha256=$baseline.ToLowerInvariant();exeSha256=$validationRun.productExeSha256}
     }
     $state.status='passed joint route smoke only; full per-group matrices and SDK acceptance remain separate'
 } catch {$state.status='failed';$state.error=$_.Exception.Message;throw}
@@ -87,4 +89,5 @@ finally {
     $state|ConvertTo-Json -Depth 8|Set-Content (Join-Path $out 'validation.json')
     Pop-Location
 }
+
 

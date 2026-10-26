@@ -24,10 +24,10 @@ class CompilerDeployment
             Require(own.GetModules().Length==1,"Product still depends on netmodule files");
             Require(own.EntryPoint.DeclaringType.FullName=="NewModCompiler.Hosting.CompilerEntry","Production entry did not use the CLI host");
             foreach(string name in File.ReadAllLines(args[1]))Require(own.GetType(name,true).Assembly==own,"Business type ownership differs: "+name);
-            foreach(string name in new[]{"SingleExeProbe","TextureProbe","CompilerDeployment","CompilerRoutes","NewSdk.BuildValidation.ManagedFoundationValidation","NewModCompiler.Tests.AppTests"})Require(own.GetType(name)==null,"Test/probe class entered product: "+name);
+            foreach(string name in new[]{"SingleExeProbe","TextureProbe","CompilerDeployment","CompilerRoutes","NewModCompiler.Validation.ValidationEntry","NewSdk.BuildValidation.ManagedFoundationValidation","NewModCompiler.Tests.AppTests"})Require(own.GetType(name)==null,"Test/probe class entered product: "+name);
             foreach(Type type in own.GetTypes()) {
                 Require(type.Assembly==own,"Type is owned by an external module: "+type.FullName);
-                Require(type.Namespace!="NewModCompiler.Tests" && type.Namespace!="NewSdk.BuildValidation","Test namespace entered product: "+type.FullName);
+                Require(type.Namespace!="NewModCompiler.Tests" && type.Namespace!="NewSdk.BuildValidation" && type.Namespace!="NewModCompiler.Validation","Test namespace entered product: "+type.FullName);
             }
             var json=new JavaScriptSerializer();
             var resources=(object[])json.DeserializeObject(File.ReadAllText(args[2]));
@@ -44,4 +44,5 @@ class CompilerDeployment
         } catch(Exception error){Console.Error.WriteLine(error);return 1;}
     }
 }
+
 

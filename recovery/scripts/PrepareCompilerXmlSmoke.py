@@ -55,7 +55,11 @@ replace_once('''            Assembly recovered = Assembly.LoadFrom(args[1]);
             // inspected the production image.
             foreach (Root root in Roots) Methods.Add(root.Name, null);
 #else
-            Assembly recovered = Assembly.LoadFrom(args[1]);
+            Assembly recovered = Assembly.GetEntryAssembly();
+            if (recovered.GetName().Name != "NewModCompiler" || recovered.GetModules().Length != 1 ||
+                typeof(AssetBuffer).Assembly != recovered ||
+                !String.Equals(Path.GetFullPath(recovered.Location), Path.GetFullPath(args[1]), StringComparison.OrdinalIgnoreCase))
+                throw new Exception("XML fixture must execute in the isolated entry EXE with EXE-owned Core types");
             Preflight(recovered);
 #endif''')
 replace_once('''            if (SelectedRoots.Count != 0) {
@@ -85,4 +89,5 @@ replace_once('''        text.Append(",\\"fullMetadataRoutes\\":").Append(Methods
 #endif''')
 args.output.write_text(source, encoding="utf-8")
 print("Prepared 289-route XML smoke binding; complete per-group matrices remain separate")
+
 

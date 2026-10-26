@@ -80,6 +80,9 @@ try {
         $state.configurations+=@{configuration=$mode;passed=$true;successes=6;invalidInputErrors=3;deploymentRejections=$rejects;singleDispose=$true;moduleInputsQuarantined=$true;transcriptSha256=$baseline.ToLowerInvariant();exeSha256=(Get-FileHash $exe).Hash.ToLowerInvariant()}
     }
     $state.status='passed'
+    # Expected rejection probes return nonzero; the complete harness passed.
+    $global:LASTEXITCODE=0
     Write-Host 'PASS Texture adapter Debug/Release: original outputs/errors, reuse, single-close and deployment rejection.'
 } catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally {$state|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json" -Encoding utf8;Pop-Location}
+

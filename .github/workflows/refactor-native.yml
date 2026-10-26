@@ -11,6 +11,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 concurrency:
   group: refactor-native-${{ github.ref }}
   cancel-in-progress: false
@@ -23,6 +24,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -63,6 +65,24 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerWeapon.ps1 -CompilerBuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-weapon/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Download verified historical W3X captures (no SDK rerun)
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          run-id: 40169489711
+          name: w3x-sdk-40169489711-1
+          path: recovery/artifacts/w3x-original-capture
+      - name: W3X complete captured product replay
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestW3xProduct.ps1 -CaptureDirectory recovery/artifacts/w3x-original-capture/native-components -PluginValidation recovery/artifacts/w3x-original-capture/plugin-validation/plugin-validation.json -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-w3x/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: XML complete joint route smoke (not full group acceptance)
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerXmlSmoke.ps1 -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-xml-smoke/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -73,6 +93,8 @@ jobs:
             recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/native-foundation/**/*.log
             recovery/artifacts/native-foundation/**/build.json
             recovery/artifacts/native-product/**/*.log

@@ -67,6 +67,12 @@ try {
     $sources=@($fixturePaths|ForEach-Object{(Resolve-Path $_).Path})
     $sources+=(Resolve-Path 'recovery/tests/GameObjectTranscript.cs').Path
     $state.fixtureInputs=@($sources|ForEach-Object{@{path=([IO.Path]::GetFullPath($_).Substring($root.Length+1).Replace('\','/'));sha256=(Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant()}})
+    # PointerStringLists reads schema data. Keep this separate from both DLL
+    # directories so fixture data cannot introduce a business assembly search path.
+    $fixtureData=Join-Path $work 'fixture-data'
+    New-Item -ItemType Directory -Force "$fixtureData/SDK/Schemas/xsd/Includes"|Out-Null
+    Copy-Item SDK/Schemas/xsd/Includes/Base.xsd "$fixtureData/SDK/Schemas/xsd/Includes/Base.xsd"
+    $state.schemaInput=@{path='SDK/Schemas/xsd/Includes/Base.xsd';sha256=(Get-FileHash SDK/Schemas/xsd/Includes/Base.xsd -Algorithm SHA256).Hash.ToLowerInvariant()}
     Copy-Item SDK/tools/*.dll $oracle
     $state.originalInputs=@(Get-ChildItem $oracle -Filter *.dll -File|Sort-Object Name|ForEach-Object{@{name=$_.Name;sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
     $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
@@ -76,10 +82,10 @@ try {
     if($LASTEXITCODE -ne 0){Get-Content "$out/original-build.log";throw 'Original full GameObject transcript host compilation failed'}
     $config|Set-Content "$originalHost.config"
     $transcript=Join-Path $out 'original-gameobject.bin.gz'
-    Push-Location $oracle
+    Push-Location $fixtureData
     try {& $originalHost "$oracle/BinaryAssetBuilder.Tokenizer.dll" $transcript *> "$out/original-runtime.log"; $code=$LASTEXITCODE}
     finally {Pop-Location}
-    if($code -ne 0 -or !(Select-String "$out/original-runtime.log" -SimpleMatch 'PASS GameObject full transcript record:' -Quiet)){Get-Content "$out/original-runtime.log" -Tail 60;throw 'Original complete GameObject matrix failed'}
+    if($code -ne 0 -or !(Select-String -LiteralPath "$out/original-runtime.log" -SimpleMatch 'PASS GameObject full transcript record:' -Quiet)){Get-Content "$out/original-runtime.log" -Tail 60;throw 'Original complete GameObject matrix failed'}
     $state.originalTranscriptSha256=(Get-FileHash $transcript -Algorithm SHA256).Hash.ToLowerInvariant()
     foreach($mode in @('Debug','Release')) {
         $clean=Join-Path $work $mode
@@ -97,12 +103,12 @@ try {
         $config|Set-Content "$replayHost.config"
         $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','GameObjectProductReplay.exe','GameObjectProductReplay.exe.config')
         if(@(Get-ChildItem $clean -Recurse|Where-Object{$_.PSIsContainer -or $_.Name -notin $allowed}).Count -ne 0){throw 'Unexpected file in isolated GameObject product replay directory'}
-        Push-Location $clean
+        Push-Location $fixtureData
         try {& $validationRun.exe $replayHost $transcript *> "$out/$mode-runtime.log"; $code=$LASTEXITCODE}
         finally {Pop-Location}
-        if($code -ne 0 -or !(Select-String "$out/$mode-runtime.log" -SimpleMatch 'PASS GameObject full transcript replay:' -Quiet)){Get-Content "$out/$mode-runtime.log" -Tail 60;throw "Complete product GameObject $mode matrix failed"}
+        if($code -ne 0 -or !(Select-String -LiteralPath "$out/$mode-runtime.log" -SimpleMatch 'PASS GameObject full transcript replay:' -Quiet)){Get-Content "$out/$mode-runtime.log" -Tail 60;throw "Complete product GameObject $mode matrix failed"}
         Complete-CompilerValidationRun $validationRun
-        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;configuration=$mode;passed=$true;exeSha256=$validationRun.productExeSha256;platforms=@(0,1,2,99);fullExistingFixtureSet=$true;originalBusinessDllsAbsent=$true;summary=@(Select-String "$out/$mode-runtime.log" -SimpleMatch 'PASS GameObject full transcript replay:'|ForEach-Object{$_.Line})}
+        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;configuration=$mode;passed=$true;exeSha256=$validationRun.productExeSha256;platforms=@(0,1,2,99);fullExistingFixtureSet=$true;originalBusinessDllsAbsent=$true;summary=@(Select-String -LiteralPath "$out/$mode-runtime.log" -SimpleMatch 'PASS GameObject full transcript replay:'|ForEach-Object{$_.Line})}
     }
     $state.status='passed';$global:LASTEXITCODE=0
 }catch{$state.status='failed';$state.error=$_.Exception.ToString();throw}

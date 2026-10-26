@@ -103,6 +103,7 @@ public static class SingleExeProbe
 #else
             #if EXTERNAL_PRODUCT
             Assembly self=typeof(AssetBuffer).Assembly;
+            if(self!=Assembly.GetEntryAssembly())throw new Exception("business types are not owned by the validation process entry EXE");
 #else
             Assembly self=Assembly.GetExecutingAssembly();
 #endif
@@ -148,3 +149,4 @@ public static class SingleExeProbe
         }catch(Exception error){Console.Error.WriteLine(error);return 1;}
     }
 }
+
