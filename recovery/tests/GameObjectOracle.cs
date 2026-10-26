@@ -18,11 +18,29 @@ partial class GameObjectOracle {
     static uint Word(byte[] b,int at,bool big) {return big?((uint)b[at]<<24)|((uint)b[at+1]<<16)|((uint)b[at+2]<<8)|b[at+3]:BitConverter.ToUInt32(b,at);}
     static void Equal(byte[] a,byte[] b,string label,bool bufferComparison=true) {if(bufferComparison)++comparisons;else ++invarianceComparisons;if(a.Length!=b.Length)throw new Exception(label+" length "+a.Length+" != "+b.Length);for(int i=0;i<a.Length;++i)if(a[i]!=b[i])throw new Exception(label+" byte "+i+": "+a[i]+" != "+b[i]);}
     static AssetBuffer Check(IAssetBuilderPlugin original,TargetPlatform platform,string attrs,string children="") {
-        var input=Declaration(attrs,children);AssetBuffer expected,actual;try {expected=original.ProcessInstance(input);actual=Recovered.GameObjectCompiler.ProcessInstance(input,platform);}catch(Exception error){throw new Exception("Fixture "+attrs+children,error);}
+        var input=Declaration(attrs,children);AssetBuffer expected,actual;try {
+#if GO_TRANSCRIPT_ORACLE
+            expected=original.ProcessInstance(input); actual=expected;
+            GameObjectTranscript.Write(platform,attrs,children,expected);
+#elif GO_TRANSCRIPT_PRODUCT
+            expected=GameObjectTranscript.Read(platform,attrs,children);
+            actual=Recovered.GameObjectCompiler.ProcessInstance(input,platform);
+#else
+            expected=original.ProcessInstance(input);actual=Recovered.GameObjectCompiler.ProcessInstance(input,platform);
+#endif
+        }catch(Exception error){throw new Exception("Fixture "+attrs+children,error);}
         Equal(expected.InstanceData,actual.InstanceData,attrs+children+" instance");Equal(expected.RelocationData,actual.RelocationData,attrs+children+" relocation");Equal(expected.ImportsData,actual.ImportsData,attrs+children+" imports");++fixtures;return actual;
     }
     static void Reject(TargetPlatform p,string attrs,string children) {
+#if GO_TRANSCRIPT_ORACLE
+        // These are recovered-contract refusals, not original-DLL rejection claims.
+        GameObjectTranscript.Rejection(p,attrs,children); ++refusals; return;
+#else
+#if GO_TRANSCRIPT_PRODUCT
+        GameObjectTranscript.Rejection(p,attrs,children);
+#endif
         try {Recovered.GameObjectCompiler.ProcessInstance(Declaration(attrs,children),p);}catch(NotSupportedException){++refusals;return;}
+#endif
         throw new Exception("Unsupported GameObject accepted: "+attrs+children);
     }
     static string Escape(string value) {return value.Replace("&","&amp;").Replace("'","&apos;").Replace("<","&lt;").Replace("\"","&quot;");}
@@ -348,7 +366,15 @@ partial class GameObjectOracle {
             // This element-child representation violates StringList XSD and is
             // deliberately refused by the recovered public component.
             string synthetic="<"+name+"><Item>a</Item><Item>bb</Item></"+name+">";
-            var observed=original.ProcessInstance(Declaration("",synthetic));var od=observed.InstanceData;
+#if GO_TRANSCRIPT_PRODUCT
+            var observed=GameObjectTranscript.ReadObservation(p,"",synthetic);
+#else
+            var observed=original.ProcessInstance(Declaration("",synthetic));
+#if GO_TRANSCRIPT_ORACLE
+            GameObjectTranscript.WriteObservation(p,"",synthetic,observed);
+#endif
+#endif
+            var od=observed.InstanceData;
             int oroot=(int)Word(od,8,big)-4,optr=(int)Word(od,oroot+offset,big),items=(int)Word(od,optr+4,big);
             if(Word(od,optr,big)!=2 || Word(od,items,big)!=1 || Word(od,items+8,big)!=2)throw new Exception("Original pointer list must enumerate element children");
             Reject(p,"",synthetic);
@@ -830,8 +856,17 @@ partial class GameObjectOracle {
         foreach(string value in new[]{"","0","-0","0.001","17","2147483647","1e39","nan","inf","text"})Check(original,p,"",SoundXML("AnimationSoundClientBehavior","670005533","MaxUpdateRangeCap='"+value+"'"));
         foreach(string value in new[]{"-1","-0.001","-2147483648","-1e39"}) {
             string xml=SoundXML("AnimationSoundClientBehavior","670005533","MaxUpdateRangeCap='"+value+"'");Exception expectedError=null,actualError=null;
-            try{original.ProcessInstance(Declaration("",xml));}catch(Exception error){if(error.Message.IndexOf("Value should be >= 0",StringComparison.Ordinal)<0)throw;expectedError=error;}
+#if GO_TRANSCRIPT_PRODUCT
             try{Recovered.GameObjectCompiler.ProcessInstance(Declaration("",xml),p);}catch(Exception error){actualError=error;}
+            GameObjectTranscript.CheckException(p,"",xml,actualError); expectedError=actualError;
+#else
+            try{original.ProcessInstance(Declaration("",xml));}catch(Exception error){if(error.Message.IndexOf("Value should be >= 0",StringComparison.Ordinal)<0)throw;expectedError=error;}
+#if GO_TRANSCRIPT_ORACLE
+            GameObjectTranscript.CheckException(p,"",xml,expectedError); actualError=expectedError;
+#else
+            try{Recovered.GameObjectCompiler.ProcessInstance(Declaration("",xml),p);}catch(Exception error){actualError=error;}
+#endif
+#endif
             if(expectedError==null || actualError==null || expectedError.GetType()!=actualError.GetType() || expectedError.Message!=actualError.Message)throw new Exception("Positive-range exception type/message differs from original");
             foreach(var property in expectedError.GetType().GetProperties(BindingFlags.Public|BindingFlags.Instance))if(property.Name=="ErrorCode" || property.Name=="Code")if(!object.Equals(property.GetValue(expectedError,null),property.GetValue(actualError,null)))throw new Exception("Positive-range error code differs from original");
             ++refusals;
@@ -2056,9 +2091,18 @@ partial class GameObjectOracle {
 
     static int Main(string[] args) {
         try {
+#if GO_TRANSCRIPT_PRODUCT
+            GameObjectTranscript.VerifyProduct(typeof(AssetBuffer).Assembly,typeof(Recovered.GameObjectCompiler).Assembly);
+            GameObjectTranscript.Open(args[0],false);
+            IAssetBuilderPlugin original=null;
+#elif GO_TRANSCRIPT_ORACLE
+            GameObjectTranscript.Open(args[1],true);
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
+#else
+            var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
+#endif
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);
+                if(original!=null)original.Initialize(null,p);
                 if(args.Length>1 && args[1]=="locomotor-sets") {
                     ArmorAndLocomotorSets(original,p);
                     Console.WriteLine("PASS locomotor-sets platform="+(int)p+" fixtures="+fixtures+" comparisons="+comparisons+" rejections="+refusals);
@@ -2092,10 +2136,20 @@ partial class GameObjectOracle {
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
+#if GO_TRANSCRIPT_PRODUCT || GO_TRANSCRIPT_ORACLE
+            GameObjectTranscript.Complete(fixtures,refusals,comparisons,invarianceComparisons);
+#endif
+#if GO_TRANSCRIPT_PRODUCT
+            GameObjectTranscript.VerifyProduct(typeof(AssetBuffer).Assembly,typeof(Recovered.GameObjectCompiler).Assembly);
+#endif
             Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, complete seven-type shared Die family, complete twenty-two-type named Upgrade group and three-type Production Update/exit family and four remaining Create modules and complete SlavedUpdate and TechUpgradeReceiver and complete radar/visibility/Capture group and seven new firing/tracking modules and full three-type beam states, complete four-type Projectile Dynamics Freefall group and Physics Bezier Missile group, complete WeaponSetUpdate, healing/repair, crate and complete eight-type AI Update and seven-type Dock/Ore/gathering and complete four-type assistance/placement groups, complete SpecialPower/Ability, ToggleStatus AI and object-control/shield and complete five-type Attach and thirteen utility and six area damage/targeting and eight effect/locomotor support and thirteen object-control and five SlowDeath/destruction and complete thirteen Contain classes and three Laser/Tracer/Stream Draw classes with polymorphic shader constants, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
+#if GO_TRANSCRIPT_PRODUCT || GO_TRANSCRIPT_ORACLE
+        finally { GameObjectTranscript.Close(); }
+#endif
     }
 }
+
 
 
 
