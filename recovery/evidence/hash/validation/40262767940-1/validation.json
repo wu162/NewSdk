@@ -1,0 +1,56 @@
+{
+  "scope": "EALA.Hash six public overloads; original/Debug/Release isolated differential; unsafe out-of-range inputs rejected only on recovered side",
+  "cultures": [
+    "en-US",
+    "de-DE",
+    "tr-TR"
+  ],
+  "sdkValidated": false,
+  "casesPerConfiguration": 84380,
+  "inputs": [
+    {
+      "sha256": "b884317c4b322630d67c9e961edc475557945f86090ac9105c3977880d3dcece",
+      "path": "SDK/tools/EALA.Hash.dll"
+    }
+  ],
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "libraries": [
+        {
+          "assembly": "Hash",
+          "sha256": "8debbe0b095e528217046f111675379b9097400bd3ca7dfd8beacd2c893defba"
+        }
+      ],
+      "succeeded": true,
+      "withoutOriginalTargetDlls": true,
+      "transcriptSha256": "e5ac90b6bca3beccc0ff3ac73c33b239d98c1dae56d232345d62cae4174d7b47"
+    },
+    {
+      "configuration": "Release",
+      "libraries": [
+        {
+          "assembly": "Hash",
+          "sha256": "a00c5c352da72df42c51cf331482413fccc975005be474f975ffe66e33f46026"
+        }
+      ],
+      "succeeded": true,
+      "withoutOriginalTargetDlls": true,
+      "transcriptSha256": "e5ac90b6bca3beccc0ff3ac73c33b239d98c1dae56d232345d62cae4174d7b47"
+    }
+  ],
+  "runAttempt": "1",
+  "sourceFiles": [
+    {
+      "sha256": "5ad6a413a8b2a9bc9b4c013ae43bddac6279807a264ba6f0bc68f7cb1a176f76",
+      "path": "recovery/src/Managed/Hash/EALA.Hash.csproj"
+    },
+    {
+      "sha256": "21736a7603157490c2ef1e8da7b085be877867d8d8256b003df1024a9199bdd1",
+      "path": "recovery/src/Managed/Hash/FastHash.cs"
+    }
+  ],
+  "runId": "40262767940",
+  "unsafeOriginalReadsTested": false,
+  "sourceCommit": "e300225c6bd0b204fc54b78b4cef36a8e31d0413"
+}

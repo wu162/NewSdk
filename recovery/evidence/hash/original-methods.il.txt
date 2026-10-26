@@ -1,0 +1,245 @@
+Original: SDK/tools/EALA.Hash.dll
+SHA256: b884317c4b322630d67c9e961edc475557945f86090ac9105c3977880d3dcece
+Decoded with dnfile/dncil; offsets are relative to method body; metadata tokens retained.
+
+<Module>::FastHashInternal.FastHashFn RVA=0x1000 signature=0003204109090f204d20510409
+000C    04                  ldarg.2        
+000D    16                  ldc.i4.0       
+000E    43 ba 00 00 00      ble.un         205
+0013    03                  ldarg.1        
+0014    39 b4 00 00 00      brfalse        205
+0019    04                  ldarg.2        
+001A    19                  ldc.i4.3       
+001B    5f                  and            
+001C    0a                  stloc.0        
+001D    04                  ldarg.2        
+001E    18                  ldc.i4.2       
+001F    64                  shr.un         
+0020    10 02               starg.s        argument(0x0002)
+0022    04                  ldarg.2        
+0023    16                  ldc.i4.0       
+0024    36 2b               ble.un.s       81
+0026    03                  ldarg.1        
+0027    49                  ldind.u2       
+0028    02                  ldarg.0        
+0029    58                  add            
+002A    10 00               starg.s        argument(0x0000)
+002C    02                  ldarg.0        
+002D    03                  ldarg.1        
+002E    18                  ldc.i4.2       
+002F    58                  add            
+0030    49                  ldind.u2       
+0031    02                  ldarg.0        
+0032    1b                  ldc.i4.5       
+0033    62                  shl            
+0034    61                  xor            
+0035    1f 0b               ldc.i4.s       11
+0037    62                  shl            
+0038    61                  xor            
+0039    10 00               starg.s        argument(0x0000)
+003B    03                  ldarg.1        
+003C    1a                  ldc.i4.4       
+003D    58                  add            
+003E    10 01               starg.s        argument(0x0001)
+0040    02                  ldarg.0        
+0041    1f 0b               ldc.i4.s       11
+0043    64                  shr.un         
+0044    02                  ldarg.0        
+0045    58                  add            
+0046    10 00               starg.s        argument(0x0000)
+0048    04                  ldarg.2        
+0049    17                  ldc.i4.1       
+004A    59                  sub            
+004B    10 02               starg.s        argument(0x0002)
+004D    04                  ldarg.2        
+004E    16                  ldc.i4.0       
+004F    35 d5               bgt.un.s       38
+0051    06                  ldloc.0        
+0052    17                  ldc.i4.1       
+0053    2e 3f               beq.s          148
+0055    06                  ldloc.0        
+0056    18                  ldc.i4.2       
+0057    2e 23               beq.s          124
+0059    06                  ldloc.0        
+005A    19                  ldc.i4.3       
+005B    33 4c               bne.un.s       169
+005D    03                  ldarg.1        
+005E    49                  ldind.u2       
+005F    02                  ldarg.0        
+0060    58                  add            
+0061    10 00               starg.s        argument(0x0000)
+0063    02                  ldarg.0        
+0064    03                  ldarg.1        
+0065    18                  ldc.i4.2       
+0066    58                  add            
+0067    46                  ldind.i1       
+0068    18                  ldc.i4.2       
+0069    62                  shl            
+006A    02                  ldarg.0        
+006B    61                  xor            
+006C    1f 10               ldc.i4.s       16
+006E    62                  shl            
+006F    61                  xor            
+0070    10 00               starg.s        argument(0x0000)
+0072    02                  ldarg.0        
+0073    1f 0b               ldc.i4.s       11
+0075    64                  shr.un         
+0076    02                  ldarg.0        
+0077    58                  add            
+0078    10 00               starg.s        argument(0x0000)
+007A    2b 2d               br.s           169
+007C    03                  ldarg.1        
+007D    49                  ldind.u2       
+007E    02                  ldarg.0        
+007F    58                  add            
+0080    10 00               starg.s        argument(0x0000)
+0082    02                  ldarg.0        
+0083    25                  dup            
+0084    1f 0b               ldc.i4.s       11
+0086    62                  shl            
+0087    61                  xor            
+0088    10 00               starg.s        argument(0x0000)
+008A    02                  ldarg.0        
+008B    1f 11               ldc.i4.s       17
+008D    64                  shr.un         
+008E    02                  ldarg.0        
+008F    58                  add            
+0090    10 00               starg.s        argument(0x0000)
+0092    2b 15               br.s           169
+0094    03                  ldarg.1        
+0095    46                  ldind.i1       
+0096    02                  ldarg.0        
+0097    58                  add            
+0098    10 00               starg.s        argument(0x0000)
+009A    02                  ldarg.0        
+009B    25                  dup            
+009C    1f 0a               ldc.i4.s       10
+009E    62                  shl            
+009F    61                  xor            
+00A0    10 00               starg.s        argument(0x0000)
+00A2    02                  ldarg.0        
+00A3    17                  ldc.i4.1       
+00A4    64                  shr.un         
+00A5    02                  ldarg.0        
+00A6    58                  add            
+00A7    10 00               starg.s        argument(0x0000)
+00A9    02                  ldarg.0        
+00AA    25                  dup            
+00AB    19                  ldc.i4.3       
+00AC    62                  shl            
+00AD    61                  xor            
+00AE    10 00               starg.s        argument(0x0000)
+00B0    02                  ldarg.0        
+00B1    1b                  ldc.i4.5       
+00B2    64                  shr.un         
+00B3    02                  ldarg.0        
+00B4    58                  add            
+00B5    10 00               starg.s        argument(0x0000)
+00B7    02                  ldarg.0        
+00B8    25                  dup            
+00B9    18                  ldc.i4.2       
+00BA    62                  shl            
+00BB    61                  xor            
+00BC    10 00               starg.s        argument(0x0000)
+00BE    02                  ldarg.0        
+00BF    1f 0f               ldc.i4.s       15
+00C1    64                  shr.un         
+00C2    02                  ldarg.0        
+00C3    58                  add            
+00C4    10 00               starg.s        argument(0x0000)
+00C6    02                  ldarg.0        
+00C7    1f 0a               ldc.i4.s       10
+00C9    62                  shl            
+00CA    02                  ldarg.0        
+00CB    61                  xor            
+00CC    2a                  ret            
+00CD    16                  ldc.i4.0       
+00CE    2a                  ret            
+
+FastHash::GetHashCode RVA=0x1194 signature=000309091d0508
+000C    03                  ldarg.1        
+000D    16                  ldc.i4.0       
+000E    8f 15 00 00 01      ldelema        token(0x01000015)
+0013    0a                  stloc.0        
+0014    02                  ldarg.0        
+0015    06                  ldloc.0        
+0016    04                  ldarg.2        
+0017    28 01 00 00 06      call           token(0x06000001)
+001C    2a                  ret            
+
+FastHash::GetHashCode RVA=0x1174 signature=000209091d05
+000C    03                  ldarg.1        
+000D    16                  ldc.i4.0       
+000E    8f 15 00 00 01      ldelema        token(0x01000015)
+0013    0a                  stloc.0        
+0014    02                  ldarg.0        
+0015    06                  ldloc.0        
+0016    03                  ldarg.1        
+0017    8e                  ldlen          
+0018    28 01 00 00 06      call           token(0x06000001)
+001D    2a                  ret            
+
+FastHash::GetHashCode RVA=0x1154 signature=0002091d0508
+000C    02                  ldarg.0        
+000D    16                  ldc.i4.0       
+000E    8f 15 00 00 01      ldelema        token(0x01000015)
+0013    0a                  stloc.0        
+0014    02                  ldarg.0        
+0015    8e                  ldlen          
+0016    06                  ldloc.0        
+0017    03                  ldarg.1        
+0018    28 01 00 00 06      call           token(0x06000001)
+001D    2a                  ret            
+
+FastHash::GetHashCode RVA=0x1134 signature=0001091d05
+000C    02                  ldarg.0        
+000D    16                  ldc.i4.0       
+000E    8f 15 00 00 01      ldelema        token(0x01000015)
+0013    0a                  stloc.0        
+0014    02                  ldarg.0        
+0015    8e                  ldlen          
+0016    06                  ldloc.0        
+0017    02                  ldarg.0        
+0018    8e                  ldlen          
+0019    28 01 00 00 06      call           token(0x06000001)
+001E    2a                  ret            
+
+FastHash::GetHashCode RVA=0x1104 signature=000209090e
+000C    03                  ldarg.1        
+000D    28 11 00 00 0a      call           token(0x0A000011)
+0012    0a                  stloc.0        
+0013    02                  ldarg.0        
+0014    12 00               ldloca.s       local(0x0000)
+0016    28 0e 00 00 0a      call           token(0x0A00000E)
+001B    03                  ldarg.1        
+001C    28 12 00 00 0a      call           token(0x0A000012)
+0021    28 01 00 00 06      call           token(0x06000001)
+0026    06                  ldloc.0        
+0027    28 10 00 00 0a      call           token(0x0A000010)
+002C    2a                  ret            
+
+FastHash::GetHashCode RVA=0x10d0 signature=0001090e
+000C    02                  ldarg.0        
+000D    28 11 00 00 0a      call           token(0x0A000011)
+0012    0a                  stloc.0        
+0013    02                  ldarg.0        
+0014    28 12 00 00 0a      call           token(0x0A000012)
+0019    12 00               ldloca.s       local(0x0000)
+001B    28 0e 00 00 0a      call           token(0x0A00000E)
+0020    02                  ldarg.0        
+0021    28 12 00 00 0a      call           token(0x0A000012)
+0026    28 01 00 00 06      call           token(0x06000001)
+002B    06                  ldloc.0        
+002C    28 10 00 00 0a      call           token(0x0A000010)
+0031    2a                  ret            
+
+FastHash::.ctor RVA=0x11b4 signature=200001
+000C    02                  ldarg.0        
+000D    28 0f 00 00 0a      call           token(0x0A00000F)
+0012    2a                  ret            
+
+MemberRef 0A00000E: IntPtr.ToPointer
+MemberRef 0A00000F: Object..ctor
+MemberRef 0A000010: Marshal.FreeHGlobal
+MemberRef 0A000011: Marshal.StringToHGlobalAnsi
+MemberRef 0A000012: String.get_Length

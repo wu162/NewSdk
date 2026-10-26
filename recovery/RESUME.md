@@ -1,3 +1,13 @@
+# EALA.Hash 交接：源码恢复与原版差分完成
+
+2026-10-26。工作分支 `recovery/eala-hash-source`，目标 `recovery/compiler-source`，PR #12 等用户批准后合入。
+纯 C# 源码 `recovery/src/Managed/Hash`，全部六个公开重载和可构造类恢复。
+源码 `e300225c`；Windows run `40262767940` attempt1 success，D/R各84380行转录与原版一致。
+非法越界长度恢复侧明确拒绝，原版该输入是未定义内存读取。详细行为、原IL与公开实现对比见 [HASH.md](HASH.md)。
+未替换SDK/tools或改变Core引用，未做真实SDK集成验收。本任务没有剩余源码实现待办。
+
+---
+
 # AudioCompiler 交接：PC 功能已验收，等待 PR 审查
 
 2026-10-26（北京时间）。唯一工作与交付分支 `recovery/audio-compiler-source`。
