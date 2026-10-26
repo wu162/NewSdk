@@ -65,7 +65,7 @@ def invoke(exe, args, cwd, output, completion=None):
 
 
 def snapshot(directory):
-    return {f.name: sha(f) for f in directory.iterdir() if f.is_file()}
+    return {f.relative_to(directory).as_posix(): sha(f) for f in directory.rglob('*') if f.is_file()}
 
 
 def compare(case, stage, stems):
@@ -124,6 +124,12 @@ def main():
                 stream(work / 'mod', mod)
                 for stem, assets in (('Worldbuilder', wb), ('Static', static), ('Global', global_), ('Audio', audio)):
                     stream(built / stem, assets)
+                # Actual HashFix.exe reads BuiltMods/SageXml; Resolver.exe
+                # reads the BuiltMods root. Preserve the SAME WB manifest bytes
+                # in both explicit layouts; neither stage may mutate either.
+                sage = built / 'SageXml'; sage.mkdir()
+                shutil.copyfile(built / 'Worldbuilder.manifest', sage / 'Worldbuilder.manifest')
+                assert (built / 'Worldbuilder.manifest').read_bytes() == (sage / 'Worldbuilder.manifest').read_bytes()
                 (built / 'StringHashes.xml').write_text('<AssetDeclaration/>', encoding='utf-8')
                 # The original uses its isolated relative ../BuiltMods fallback.
                 # No machine registry or SDK input files are changed.
@@ -141,7 +147,7 @@ def main():
                                       'resolver': f'Assets prepended: {inserted}'.encode(), 'lod': None}[stage]
                         invoke(work / 'tools' / originals[stage].name, [manifest], work / 'tools', work / stage, completion)
                     else:
-                        extra = [built / 'Worldbuilder.manifest'] if stage == 'hashfix' else ([built] if stage == 'resolver' else [])
+                        extra = [built / 'SageXml' / 'Worldbuilder.manifest'] if stage == 'hashfix' else ([built] if stage == 'resolver' else [])
                         result = invoke(candidate, [stage, manifest, *extra], work / 'tools', work / stage)
                         if stage == 'resolver':
                             assert result.strip() == str(inserted).encode(), ('Candidate insertion count differs', result)
