@@ -86,8 +86,8 @@ try {
         hostingSource=@{path='recovery/src/Hosting/CompilerEntry.cpp';sha256=(Get-FileHash $hostingSource -Algorithm SHA256).Hash.ToLowerInvariant()}
         nativeBuild=$nativeBuild
         resources=$resources;runtimeFiles=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')
-        scope='Unified Native/Bridge, built-in compilers and managed Foundation in one EXE; experimental in-process no-cache CLI backend, with P5/G3/SDK acceptance tracked separately'
-        containsProbeOrTestSources=$false;backendIntegrated=$true;modCompilationSupported=$false;modCompilationAcceptance='Not established by a build receipt; require actual CLI and P5/G3/SDK evidence';status='built; clean deployment and runtime validation required'
+        scope='P4 unified Native/Bridge, built-in plugin wrappers and managed Foundation in one physical EXE; real MOD compilation remains P5'
+        containsProbeOrTestSources=$false;modCompilationSupported=$false;status='built; clean deployment validation required'
     }|ConvertTo-Json -Depth 8|Set-Content (Join-Path $out 'build.json')
     Write-Output $exe
 } finally {Pop-Location}

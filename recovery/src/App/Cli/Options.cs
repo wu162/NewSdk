@@ -132,11 +132,6 @@ namespace NewModCompiler.Cli
                 }
             } catch (BuildFailure) { throw; } catch (Exception e) { throw Bad("PROJECT_INVALID", "Invalid project preset: " + e.Message); }
         }
-#if NEWSdk_MONOLITHIC
-        const string RuntimeHelp = "Experimental Win32 in-process backend: no persistent caches, loose output only, artifacts remain in isolated per-build staging. Unsupported legacy/cache/precompiled/output options are explicitly rejected. Plan performs discovery only. Doctor checks the environment without compiling a stream. Packaging and publication are unavailable.";
-#else
-        const string RuntimeHelp = "Standalone application skeleton: plan is available; build requires an integrated in-process backend. Legacy options are retained for backend validation, not proof of integrated capability.";
-#endif
-        public const string Help = "NewModCompiler build|plan --mod <directory> --sdk-root <directory> --out <directory> [--package-content base,apt,maps] [--package-format loose] [--events <file>] [--report <file>]\nNewModCompiler doctor --sdk-root <directory>\n" + RuntimeHelp;
+        public const string Help = "NewModCompiler build|plan --mod <directory> --sdk-root <directory> --out <directory> [--package-content base,apt,maps] [--package-format loose] [--events <file>] [--report <file>]\nNewModCompiler doctor --sdk-root <directory>\nP2 skeleton: plan is available; build requires an integrated in-process backend. No BAB or worker process is started. Legacy options are preserved in the request for backend validation, not proof that those features are integrated.";
     }
 }

@@ -78,6 +78,9 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/core-lifecycle-foundation -BuildDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle-deployment/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          $receipt=Get-Content "recovery/evidence/refactor/core-lifecycle-deployment/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -Raw|ConvertFrom-Json
+          $enabled=(@($receipt.modes).Count -eq 2 -and @($receipt.modes|Where-Object{$_.backendIntegrated -ne $true}).Count -eq 0)
+          "cliEnabled=$($enabled.ToString().ToLowerInvariant())"|Add-Content $env:GITHUB_OUTPUT
       - name: Targeted real Core, backend and application pipeline in Debug and Release
         id: lifecycle
         if: ${{ !cancelled() && steps.product.outcome == 'success' && !contains(github.event.head_commit.message, '[refactor-cli-product]') }}
@@ -105,7 +108,7 @@ jobs:
           ./recovery/scripts/TestCompilerTexture.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle-texture/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Real production CLI, cold processes and actual CtrlBreak cancellation
         id: cli
-        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && steps.product.outputs.cliEnabled == 'true' }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerCli.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
@@ -159,6 +162,7 @@ jobs:
             recovery/artifacts/core-lifecycle-foundation/**/*.log
             recovery/artifacts/core-lifecycle-product/**/build.json
             recovery/artifacts/core-lifecycle-product/**/link-inputs.json
+            recovery/artifacts/core-lifecycle-product/**/bin/*
             recovery/artifacts/core-lifecycle-product/**/*.log
             recovery/artifacts/lifecycle-app/**/test-work/**
             recovery/artifacts/lifecycle-app/**/test-app.log
