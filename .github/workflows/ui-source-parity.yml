@@ -1,0 +1,90 @@
+name: UI upstream source consistency
+on:
+  push:
+    branches: [feature/swf-direct-compiler]
+    paths:
+      - 'ui/verification/**'
+      - 'ui/reference/**'
+      - '.github/workflows/ui-source-parity.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  verify-and-adopt:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            ui
+            .github/workflows
+      - uses: actions/checkout@v4
+        with:
+          repository: lanyizi/swf2apt
+          ref: 60b15a67a4cbd931f181af8c6c758bd7a8441ebc
+          path: ui/.work/upstream
+          persist-credentials: false
+      - name: Prepare exact source copy
+        shell: pwsh
+        run: |
+          if (-not (Test-Path ui/vendor/swf2apt/eaf2apt/Program.cs)) {
+            New-Item -ItemType Directory -Force ui/vendor/swf2apt | Out-Null
+            git -C ui/.work/upstream archive --format=tar --output=../source.tar HEAD
+            if ($LASTEXITCODE -ne 0) { throw 'git archive failed' }
+            tar -xf ui/.work/source.tar -C ui/vendor/swf2apt
+            if ($LASTEXITCODE -ne 0) { throw 'source extraction failed' }
+            # Do not vendor the unused prebuilt object; all tools are built from source.
+            Remove-Item ui/vendor/swf2apt/zlib/crc_i386.obj -ErrorAction SilentlyContinue
+          }
+          git add --force ui/vendor/swf2apt
+      - name: Check uploaded tool PDB source fingerprints
+        run: python ui/verification/verify_source.py --vendor ui/vendor/swf2apt --report ui/.work/source-check.json
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Prepare original tool and shared x86 runtime
+        shell: pwsh
+        run: |
+          Expand-Archive ui/reference/original-managed-tools.zip ui/.work/original
+          $install = "$env:RUNNER_TEMP/dotnet-install.ps1"
+          Invoke-WebRequest https://dot.net/v1/dotnet-install.ps1 -OutFile $install
+          $runtime = "$env:RUNNER_TEMP/dotnet-ui-x86"
+          & $install -Channel 8.0 -Runtime dotnet -Architecture x86 -InstallDir $runtime
+          if ($LASTEXITCODE -ne 0) { throw 'x86 runtime installation failed' }
+          "DOTNET_X86=$runtime/dotnet.exe" >> $env:GITHUB_ENV
+      - uses: microsoft/setup-msbuild@v2
+      - name: Build source optimizer
+        shell: pwsh
+        run: |
+          $root = (Resolve-Path ui/vendor/swf2apt).Path.Replace('\', '/')
+          $buildArgs = @('/m', '/p:Configuration=Release', '/p:Platform=Win32', "/p:SolutionDir=$root/", "/p:OutDir=$root/Release/")
+          & msbuild "$root/zlib/zlib.vcxproj" @buildArgs
+          if ($LASTEXITCODE -ne 0) { throw 'zlib build failed' }
+          & msbuild "$root/flasm/flasm.vcxproj" @buildArgs
+          if ($LASTEXITCODE -ne 0) { throw 'flasm build failed' }
+          "$root/Release" >> $env:GITHUB_PATH
+      - name: Build original CLI entry point from copied source
+        shell: pwsh
+        run: |
+          Copy-Item ui/verification/DirectCli.xml ui/.work/DirectCli.csproj
+          dotnet build ui/.work/DirectCli.csproj -c Release -o ui/.work/direct-cli
+          if ($LASTEXITCODE -ne 0) { throw 'CLI build failed' }
+      - name: Compile fixture and check output fingerprints
+        run: python ui/verification/verify_source.py --vendor ui/vendor/swf2apt --cli ui/.work/direct-cli/eaf2apt-source.dll --original ui/.work/original --report ui/.work/source-consistency.json
+      - name: Adopt source only after both checks pass
+        shell: pwsh
+        run: |
+          Copy-Item ui/.work/source-consistency.json ui/evidence/source-consistency.json
+          git add ui/evidence/source-consistency.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'ui: adopt upstream source after linked-PDB and CLI consistency checks'
+          if ($LASTEXITCODE -ne 0) { throw 'source adoption commit failed' }
+          git push origin HEAD:feature/swf-direct-compiler
+          if ($LASTEXITCODE -ne 0) { throw 'ordinary push failed; preserve concurrent changes before retrying' }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ui-source-consistency
+          path: ui/.work/source-consistency.json
+          if-no-files-found: error

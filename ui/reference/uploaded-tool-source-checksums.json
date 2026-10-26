@@ -1,0 +1,1585 @@
+{
+  "upstreamCommit": "60b15a67a4cbd931f181af8c6c758bd7a8441ebc",
+  "method": "Portable PDB SHA256 source documents; PDB IDs checked against CodeView GUIDs in the assemblies extracted from the uploaded single-file EXE",
+  "originalExeSha256": "08cb72bf389e2ae5220084e9d712ece9da02267856ff7dff8e68914206c29197",
+  "projects": {
+    "eaf2apt": {
+      "pdbGuidMatchesBundledAssembly": true,
+      "pdbGuid": "3042daa4ece16e4cb9ba88029734f442",
+      "pdbSha256": "33c2ce5bd08a586951feb2691e0206c415e2bb98868c5a51316a01b72f478d9b",
+      "assemblySha256": "d278571cb92d1b5a8299b2fc3bf4b1b4f601f5eb6f0a9d322fb249308d189feb",
+      "excludedGeneratedDocuments": 2,
+      "sourceFiles": [
+        {
+          "path": "eaf2apt/ActionWriter.cs",
+          "sha256": "86a2a7535012afe54dacde2b053e7d814fe28973e7054e40daa695ed567bf655"
+        },
+        {
+          "path": "eaf2apt/AptConverter.cs",
+          "sha256": "064606600e9514c4e7ea1f1b76f82bcc25ba8472ffaf311c7a46a23f8731f0ab"
+        },
+        {
+          "path": "eaf2apt/AptExport.cs",
+          "sha256": "8539471ec206761bb3924c95b44b673d4b582381f01aaec68105a0e22fe72f50"
+        },
+        {
+          "path": "eaf2apt/AptFrame.cs",
+          "sha256": "5abb2d5add4dc1270e75fd2a700a75d69f0387812b78e0ef9512d417bfe92246"
+        },
+        {
+          "path": "eaf2apt/AptImport.cs",
+          "sha256": "8a89c1f8e5de5ef73670c8b28e1a71077467a38cdac159800c1e7d3d962c9583"
+        },
+        {
+          "path": "eaf2apt/AptMovie.cs",
+          "sha256": "8fe49601819bf77b9d75b174c496d67a6198988dce205a921557370aa6bd1013"
+        },
+        {
+          "path": "eaf2apt/AptOutput.cs",
+          "sha256": "d86c1e4a88e3be91b5dc9e5892a8d39aff790468c4cb5a7d13f643893509c384"
+        },
+        {
+          "path": "eaf2apt/AptStruct.cs",
+          "sha256": "fec5cf61b51c5dc7401806356caf086045f9384e572af322674a5ae7da39bff0"
+        },
+        {
+          "path": "eaf2apt/Characters/AptCharacter.cs",
+          "sha256": "a01c52ac7616b317ec51572a3cce318b9b9fa818d7da08ffffd58824b493f453"
+        },
+        {
+          "path": "eaf2apt/Characters/AptCharacterAnimation.cs",
+          "sha256": "c59718ca5f9cc3fe5ac1a21efcdf9c235d2aabe412e2c87be097d2db8a026335"
+        },
+        {
+          "path": "eaf2apt/Characters/AptCharacterBitmap.cs",
+          "sha256": "dd8f509f7cdc23ecbc0e54c8f41ffacd025ace54f3c5c7608d4fbbcc8d358a04"
+        },
+        {
+          "path": "eaf2apt/Characters/AptCharacterButton.cs",
+          "sha256": "cb331124ba640ba9ce156c5418047dc437e8a8fb79f6dd6dabbf063e84750d8a"
+        },
+        {
+          "path": "eaf2apt/Characters/AptCharacterFont.cs",
+          "sha256": "cc00ce0edeb6b1d3077222ba4af52954ab002374e93792925712d71c25b0eaa1"
+        },
+        {
+          "path": "eaf2apt/Characters/AptCharacterMorph.cs",
+          "sha256": "5cec140b344ecf54ff2129176353625bc94d5f22d00e2bdd0881c29fca04913c"
+        },
+        {
+          "path": "eaf2apt/Characters/AptCharacterShape.cs",
+          "sha256": "15e03bf2d826a1c7bb908d33fb20b47a9bb1be815248545dade0bafa21be7d5e"
+        },
+        {
+          "path": "eaf2apt/Characters/AptCharacterSound.cs",
+          "sha256": "f39477bdc7eb96e1c279aca4d4e56c4d00135c9fdf220c58dd9427c17066f192"
+        },
+        {
+          "path": "eaf2apt/Characters/AptCharacterSprite.cs",
+          "sha256": "c588dd99dafe7de561d49b15f1fe6ac2d752dfb44d3f5e35beafc2b2a2b8dd08"
+        },
+        {
+          "path": "eaf2apt/Characters/AptCharacterStaticText.cs",
+          "sha256": "7115d40cf16b80f8274d60e87932403c34c5161e43f78444786f54439348b0c4"
+        },
+        {
+          "path": "eaf2apt/Characters/AptCharacterText.cs",
+          "sha256": "b01ab3492ad2ca37983e7597e302bc59edb7ddc1c5ce9b28502857784cc94869"
+        },
+        {
+          "path": "eaf2apt/Characters/AptCharacterVideo.cs",
+          "sha256": "77d76045a078e6d0bdf47d8bf1ab163d9a5ad4f3001da0a945a5cbb63f9bedd4"
+        },
+        {
+          "path": "eaf2apt/Controls/AptControl.cs",
+          "sha256": "fa3664a0716a8f0c5b724d6e7d5f5c86c2f048ec0310528aceae1172d0da20b8"
+        },
+        {
+          "path": "eaf2apt/Controls/AptControlBackgroundColor.cs",
+          "sha256": "a06fc865126edd91361a422b266e4bc64d2856c7448e52e4d20ed623fbdeba12"
+        },
+        {
+          "path": "eaf2apt/Controls/AptControlDoAction.cs",
+          "sha256": "b80f552c789660ffdcacc2c7af9465408cce6ebfb12b9e9c4da8d2013ea16f8b"
+        },
+        {
+          "path": "eaf2apt/Controls/AptControlDoInitAction.cs",
+          "sha256": "aadbc3f6361cca669011ef21b7b38cbafdfa38d52657e48f51059153fb91aa35"
+        },
+        {
+          "path": "eaf2apt/Controls/AptControlFrameLabel.cs",
+          "sha256": "beeafc7048830281c5697f0463e0c614b84f54e9cc14dfd45884eddc6d728e3c"
+        },
+        {
+          "path": "eaf2apt/Controls/AptControlPlaceObject2.cs",
+          "sha256": "2808b1817ce60c5e21b906bb2059dd8303ce050707a13ca4e62a31c5a0039274"
+        },
+        {
+          "path": "eaf2apt/Controls/AptControlRemoveObject2.cs",
+          "sha256": "0bbe1d05d92f6ff6711ec5a9ca26d8f0e9de6f1471bae794006b845054e6b8ad"
+        },
+        {
+          "path": "eaf2apt/Controls/AptControlStartSound.cs",
+          "sha256": "96c25684fa664ae81c9c15e874d83fc8f04eedc49a7e434bcb48d16aff80f8b3"
+        },
+        {
+          "path": "eaf2apt/Controls/AptControlStartSoundStream.cs",
+          "sha256": "9bd76a162c4c9ba387879138ebe2a59f4247b5f0e22e674e2155cfc260faa93b"
+        },
+        {
+          "path": "eaf2apt/Globals.cs",
+          "sha256": "555afa981110b1409d2c8253c2bf24eb7fccf26b6647be2f85fe2436fce83984"
+        },
+        {
+          "path": "eaf2apt/HashReader.cs",
+          "sha256": "8ecb94ffa3088f0a9905ebe93fa15bcec0450f53e3e6b60f0fb0f90df7f25302"
+        },
+        {
+          "path": "eaf2apt/Program.cs",
+          "sha256": "e8c16e1609efaaddcccd2c2c8514bb333923d32ea7a3b0b50a218df5cefb793a"
+        },
+        {
+          "path": "eaf2apt/TGASharpLib.cs",
+          "sha256": "81120f0b37dfaf29650ef53509a1fcc1e134ae885a8d12f68f0fd35e0a1d72f8"
+        }
+      ]
+    },
+    "SwfLib": {
+      "pdbGuidMatchesBundledAssembly": true,
+      "pdbGuid": "8afbbbf59f3de748beee216279fabd30",
+      "pdbSha256": "e405b250b0add6e4ca6a290a627fefb642d9ead63420a9bf636b14b6e8e9aed5",
+      "assemblySha256": "ef44d7dec9f46a1a3aee4c840532ceb9601a3aa6ec5a5daefd87b4ff32bba803",
+      "excludedGeneratedDocuments": 2,
+      "sourceFiles": [
+        {
+          "path": "SwfLib/Actions/ActionAdd.cs",
+          "sha256": "fbff0e065e2f118ac04345839d1680974e2f8aa51b82a889ec2639c4baca4650"
+        },
+        {
+          "path": "SwfLib/Actions/ActionAdd2.cs",
+          "sha256": "8c2abb148e242cb95c8b17edaaf233a24dd40544e272d2e9a7f17a70f3aa5a41"
+        },
+        {
+          "path": "SwfLib/Actions/ActionAnd.cs",
+          "sha256": "a9a2d4fe80a438021955ed4e0665557a2c60101f929007862d19e5feeaadc3c9"
+        },
+        {
+          "path": "SwfLib/Actions/ActionAsciiToChar.cs",
+          "sha256": "121748d5322ff20aff4020891dcb4b555d88ffe3c4f63997d9d24ec6d5a4573c"
+        },
+        {
+          "path": "SwfLib/Actions/ActionBase.cs",
+          "sha256": "6a0b0a3652d02245774fbb3bde66f6ad1374d98850a0a1a5fef6410b9581d00a"
+        },
+        {
+          "path": "SwfLib/Actions/ActionBitAnd.cs",
+          "sha256": "54194850fe7d8fc0e094dd58751900329467084a727c8298468c3dcfd29f512d"
+        },
+        {
+          "path": "SwfLib/Actions/ActionBitLShift.cs",
+          "sha256": "db73b1d413f4c742a67f59bc35aa021cb8ed1dc5154e395e0d227791583b8050"
+        },
+        {
+          "path": "SwfLib/Actions/ActionBitOr.cs",
+          "sha256": "2936cf468efe41bb4577c89af136e6b0c762edff9988ec67004bee30cb1a2572"
+        },
+        {
+          "path": "SwfLib/Actions/ActionBitRShift.cs",
+          "sha256": "a4b8d5da54085eea886ad0b45181800ccd77700ea65c48882d17796bf2659e96"
+        },
+        {
+          "path": "SwfLib/Actions/ActionBitURShift.cs",
+          "sha256": "4636836c37b045312e9ce76a6fca3ba3a186f72c6893559e980a0e44a90aa588"
+        },
+        {
+          "path": "SwfLib/Actions/ActionBitXor.cs",
+          "sha256": "3f2e32b17a92eb5a750316d36ad918582546ce4c50b2a72578ede7531f0d8b08"
+        },
+        {
+          "path": "SwfLib/Actions/ActionCall.cs",
+          "sha256": "65e17b668817dbbc95cecf61cccee7b16c7b42e3276bef2949d98780621c18f6"
+        },
+        {
+          "path": "SwfLib/Actions/ActionCallFuncAndPop.cs",
+          "sha256": "a945d64a227e6558ea476fe75c1bf5856f23af86598ab83f72dc7236a88fb741"
+        },
+        {
+          "path": "SwfLib/Actions/ActionCallFuncSetVariable.cs",
+          "sha256": "5ef6aaa35ead12562107629b70227015bc4d66fbb7a9e558816c90503a77f2fc"
+        },
+        {
+          "path": "SwfLib/Actions/ActionCallFunction.cs",
+          "sha256": "3b309571b937021db56572091472ec7d654fb0a30a4f61657f51bacd353d2df4"
+        },
+        {
+          "path": "SwfLib/Actions/ActionCallMethod.cs",
+          "sha256": "1499a2cf75b7216570c341c1d8173ab731375da7ccde38db2eb8bfc3aeb8043f"
+        },
+        {
+          "path": "SwfLib/Actions/ActionCallMethodAndPop.cs",
+          "sha256": "7988775c208f91bc1d44548ad357d24917987517571ccb92d39ec98cac985f39"
+        },
+        {
+          "path": "SwfLib/Actions/ActionCallMethodSetVariable.cs",
+          "sha256": "d65acc9cae4f9b23d017d1034f864295fee89eb3cc2449a5dc010f9d441d847a"
+        },
+        {
+          "path": "SwfLib/Actions/ActionCastOp.cs",
+          "sha256": "08e4377764b2b23448dc2ce1b7448156ac45acb573c0df506c4ef7fe11f2d762"
+        },
+        {
+          "path": "SwfLib/Actions/ActionCharToAscii.cs",
+          "sha256": "69b917e74782861a02323c8cec0366d2838b6e3b0ecb8f7bcb4d70b915f91637"
+        },
+        {
+          "path": "SwfLib/Actions/ActionCloneSprite.cs",
+          "sha256": "18e881aa8e0ede5df94304cbe8b55b7ddcfa8cb3d9c6a1d5ea39e352fffd5cdb"
+        },
+        {
+          "path": "SwfLib/Actions/ActionCode.cs",
+          "sha256": "af5dec21f80af96325210350cd2019abd633a67c9938e094a86c0da6b343f8cc"
+        },
+        {
+          "path": "SwfLib/Actions/ActionConstantPool.cs",
+          "sha256": "cf60aff35b8445a6afe09488c65f91f899179a7a2a1c5c53979a030ddf01d7f1"
+        },
+        {
+          "path": "SwfLib/Actions/ActionDecrement.cs",
+          "sha256": "f7186568196ef79f2f0e909f07e816ee43129effa9160c4f3e16edfa6a3e211b"
+        },
+        {
+          "path": "SwfLib/Actions/ActionDefineFunction.cs",
+          "sha256": "6c3c176147bdff3fbcdfd10f18a8dddd8b7adbb40a8d270b5b64ebf4cbc3b676"
+        },
+        {
+          "path": "SwfLib/Actions/ActionDefineFunction2.cs",
+          "sha256": "a46a5d3ced1ec5a8f4cc0c77fddfdbab7d2511a27ade57617d97acf2db2d6df4"
+        },
+        {
+          "path": "SwfLib/Actions/ActionDefineLocal.cs",
+          "sha256": "2d2da2461b085e905183a7c5a031463378e15aaf23900fab2aa2e115e08d961e"
+        },
+        {
+          "path": "SwfLib/Actions/ActionDefineLocal2.cs",
+          "sha256": "d4efcbd2b6a1b545c552f1d81f270d1d75525b36842414d5f9e30a562745b5a2"
+        },
+        {
+          "path": "SwfLib/Actions/ActionDelete.cs",
+          "sha256": "9a4eb4845a8a3a3012c2b806d8c91fb1d1faa80448e75c773e707a0452f42324"
+        },
+        {
+          "path": "SwfLib/Actions/ActionDelete2.cs",
+          "sha256": "ec5ad6c965450189ebfb05756288308b2f4e298073457b20dd4f8077ce683e51"
+        },
+        {
+          "path": "SwfLib/Actions/ActionDictCallFuncAndPop.cs",
+          "sha256": "29966519005eb1b2aff2da5e85ea5cf7c8c9e01f27d8e2b3c958aa854ba23626"
+        },
+        {
+          "path": "SwfLib/Actions/ActionDictCallFuncSetVariable.cs",
+          "sha256": "40278105d9633dfb619b6dc642a1825ed98be75eb598bc6fa7b47fc48be36209"
+        },
+        {
+          "path": "SwfLib/Actions/ActionDictCallMethodAndPop.cs",
+          "sha256": "f2fdf7b49142073a198537d8e1f8dd625a6f9032be1a4553ebe519abd5055a14"
+        },
+        {
+          "path": "SwfLib/Actions/ActionDictCallMethodSetVariable.cs",
+          "sha256": "898ed778c23cca290c3fdebeb60959677cd50ebd61db1cc3e6d130c31936da09"
+        },
+        {
+          "path": "SwfLib/Actions/ActionDivide.cs",
+          "sha256": "1dbd87c20de3da26362676df4d20467025b725682b96accbadf9e3ec7c31c185"
+        },
+        {
+          "path": "SwfLib/Actions/ActionEnd.cs",
+          "sha256": "11c0d315697e956207807fc8abe24dac6b233270d5ee520e2c583f06d75c6ca2"
+        },
+        {
+          "path": "SwfLib/Actions/ActionEndDrag.cs",
+          "sha256": "b9c36c0b69d8f24d4c220289b9a69707e1f8a6e345e302660f7dae892e8993d9"
+        },
+        {
+          "path": "SwfLib/Actions/ActionEnumerate.cs",
+          "sha256": "6a061b40815a5a551cfddd82aa727046441731cef800e49319553621e99ee487"
+        },
+        {
+          "path": "SwfLib/Actions/ActionEnumerate2.cs",
+          "sha256": "9a14701766a18d75c2c81c46d0477247e4ecb3d14c0e57d23c34eec428349b96"
+        },
+        {
+          "path": "SwfLib/Actions/ActionEquals.cs",
+          "sha256": "db3e1311a13b18c7e50a9291c2f8d13c03e3edf07b26fe5bde54c1077eea0ecd"
+        },
+        {
+          "path": "SwfLib/Actions/ActionEquals2.cs",
+          "sha256": "40e7659cda94730278b9a167bc94310f4a65fd1414aa38608cca7450a94fd4ec"
+        },
+        {
+          "path": "SwfLib/Actions/ActionExtends.cs",
+          "sha256": "b288a9d3848bb8c7652abe1c822d108297e2aebf3eed5d7d0822fe830673ed56"
+        },
+        {
+          "path": "SwfLib/Actions/ActionGetMember.cs",
+          "sha256": "f04c7fcea4b48f6a637e31e96d7deb921b5f57b5fd5f636459e8fcb9576a2cec"
+        },
+        {
+          "path": "SwfLib/Actions/ActionGetProperty.cs",
+          "sha256": "a609f7db9e6ab25978a8d8b100266671fbdb0a73ee0c1c21d626fd111c6732d8"
+        },
+        {
+          "path": "SwfLib/Actions/ActionGetTime.cs",
+          "sha256": "d9fbe582e412080836578f47aee45bdd2c0b473f6f9e067e817db695934d6939"
+        },
+        {
+          "path": "SwfLib/Actions/ActionGetURL.cs",
+          "sha256": "9928993b92d0c9d5a1b3aa140e64407cc449432c63017d109c6f7f12d22097dd"
+        },
+        {
+          "path": "SwfLib/Actions/ActionGetURL2.cs",
+          "sha256": "82b1464f51c4b9d6951e352c569e5f04edb6e352668e8b5a43f00c4b52a79b56"
+        },
+        {
+          "path": "SwfLib/Actions/ActionGetVariable.cs",
+          "sha256": "4a896247b2e689da55e74ebfa4cccb0ee44c9549c9b6ae41c0d02609ad803fb5"
+        },
+        {
+          "path": "SwfLib/Actions/ActionGotoFrame.cs",
+          "sha256": "ab3daa9fb2ec17f9bedba4bbdb4ee801ef79012e7407e909ea83d99ce7d0988a"
+        },
+        {
+          "path": "SwfLib/Actions/ActionGotoFrame2.cs",
+          "sha256": "7344562cb7bf3a06afa491ffac00b5d204f4c20791a10745ee3c2d8bd0446d9f"
+        },
+        {
+          "path": "SwfLib/Actions/ActionGoToLabel.cs",
+          "sha256": "32890d416465bca3fe4aa5d509e9f70fb151156c0c2f3e0284b3a0e928fcc4ee"
+        },
+        {
+          "path": "SwfLib/Actions/ActionGreater.cs",
+          "sha256": "0f16711deaa8f239f2af6c5adbc1d9e74421caf28c8211bd54794ba3440cb6ba"
+        },
+        {
+          "path": "SwfLib/Actions/ActionIf.cs",
+          "sha256": "8ea935ca6067f91221ed223c042e3643ae5a62f032d5523f2e7c2edb6a00cda9"
+        },
+        {
+          "path": "SwfLib/Actions/ActionIfFalse.cs",
+          "sha256": "cb8dc0ec45daca1cb28dc675a67699d541846ee4c5b3070787ea3df29c4b91fa"
+        },
+        {
+          "path": "SwfLib/Actions/ActionImplementsOp.cs",
+          "sha256": "7339a9d0a21abfdef079c2bc15d0d295533286e789ca230c4270d93cd2743a2f"
+        },
+        {
+          "path": "SwfLib/Actions/ActionIncrement.cs",
+          "sha256": "841863d9748eb8364bf82cc7f359467535a66edae236ea7ecb7c652eb1ad37ac"
+        },
+        {
+          "path": "SwfLib/Actions/ActionInitArray.cs",
+          "sha256": "156c9681d9fd028567bc0fa3fcda591d72fb614515fc8b64e0eaae7b061f93bb"
+        },
+        {
+          "path": "SwfLib/Actions/ActionInitObject.cs",
+          "sha256": "0a9ac0c596cefe14144d8e34d2e5adee8d01e2f399f18d803acbceef3df0dd8e"
+        },
+        {
+          "path": "SwfLib/Actions/ActionInstanceOf.cs",
+          "sha256": "20f1edeebb98991dcc4c9afabaa3edcf4f93b0646ce580dd2962ce21ebd4d659"
+        },
+        {
+          "path": "SwfLib/Actions/ActionJump.cs",
+          "sha256": "e3bc123066db7d5a6652af925ead53aa8704573ce1af4456d7e55a7705fb6382"
+        },
+        {
+          "path": "SwfLib/Actions/ActionLess.cs",
+          "sha256": "1f89ecc8d2bc58820af0f7ec922c8081cc4efc7861c9c338836e052589b4bf73"
+        },
+        {
+          "path": "SwfLib/Actions/ActionLess2.cs",
+          "sha256": "cf09d33e13b470479316ba80c061ee494168a51f66ebc5e619618c0c208c11ab"
+        },
+        {
+          "path": "SwfLib/Actions/ActionMBAsciiToChar.cs",
+          "sha256": "037919fce0a00e15e41fa991cfae8836162a73cf3fb073faffb5b1fc6c2912a1"
+        },
+        {
+          "path": "SwfLib/Actions/ActionMBCharToAscii.cs",
+          "sha256": "e3df49e12f9802d543625c1610f070c7835fe1ffc51ce47a3dae7c141fcecd22"
+        },
+        {
+          "path": "SwfLib/Actions/ActionMBStringExtract.cs",
+          "sha256": "9d6b6687eab3ef90528a61cca839ed1f99bf64c4b817af2699056c78d92eaa66"
+        },
+        {
+          "path": "SwfLib/Actions/ActionMBStringLength.cs",
+          "sha256": "6733dca11328af05d31b810528f9f5b93028bdd33b642ec9a5555938e1bc51a6"
+        },
+        {
+          "path": "SwfLib/Actions/ActionModulo.cs",
+          "sha256": "4a1d9166bd89bea8171a7a02b3a5c1f22ba7cce6c8bfba695588a2178cf922e4"
+        },
+        {
+          "path": "SwfLib/Actions/ActionMultiply.cs",
+          "sha256": "6c6ae947f4ed5295a750f425fa748d88321b40287e02d9eab3bbcb7fbf701fa6"
+        },
+        {
+          "path": "SwfLib/Actions/ActionNewMethod.cs",
+          "sha256": "c921526a19bb22b6e416560e875ae80431304095d6794355a4c365beb8a78220"
+        },
+        {
+          "path": "SwfLib/Actions/ActionNewObject.cs",
+          "sha256": "49d722163dcf63ad346dae1c4f9727c6cfa5ee1894e8a42cc597c3efdfadd9e1"
+        },
+        {
+          "path": "SwfLib/Actions/ActionNextFrame.cs",
+          "sha256": "f05492d4437456c5b5d0f3ae1b0dddf247648857005b7ab04c9d580dc1c4abfb"
+        },
+        {
+          "path": "SwfLib/Actions/ActionNot.cs",
+          "sha256": "0fed2e3ffeb649789100d4ba51ddbfa4686c05e218aadbc924687c9c6ad571d8"
+        },
+        {
+          "path": "SwfLib/Actions/ActionOr.cs",
+          "sha256": "e14011594a014211ac0d0562bcb94f42623d247cfdeb170493748e41e6da9174"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPlay.cs",
+          "sha256": "d3abb05ae93318042e03fffaadf6012c52e62ded62e21a5da5b3e272c6fd2e73"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPop.cs",
+          "sha256": "20cd22fc3300a810885db971ec7b3961a73747815ea1ed8280a5c4203a1addde"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPreviousFrame.cs",
+          "sha256": "01c6552bd2605d765f09506c1a8ef0e5559e7b110b2aa2bf809b403a2afcefb0"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPush.cs",
+          "sha256": "a2e1da614b5a33824a07071405db91e72f7b4dd66cbb295cc64cda4d5b6eafeb"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushByte.cs",
+          "sha256": "2c3de44fe07054ce744760b4a2daca89bf15a786149d03c3ec83a9a74a0cc015"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushDuplicate.cs",
+          "sha256": "dd847ac24d17ce181d1a920d6ce58d46014447a2025dd3fe470fd8d6e825c4a7"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushDWord.cs",
+          "sha256": "b2e5f43a272c9bb0a4fae77185fdd67819986dd0a46f7ae64019d4922f348052"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushFalse.cs",
+          "sha256": "f5d09e339cc022b6c5d3ab4837ece5f56d03e88439f6ee78595b27cee6f53df3"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushFloat.cs",
+          "sha256": "f2089522efd552007341f50a18043b18be0c2e3127815642564a51b8f0d1943e"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushGlobal.cs",
+          "sha256": "84477d935131bef58a5e70d70b130425866e125faa8331cc14041ff015777bcb"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushGlobalVariable.cs",
+          "sha256": "15748144ae2e4ac9d4ee33f754eb90ca341d5d538c5c7f090a01c6aab023ec35"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushItem.cs",
+          "sha256": "148cb0a19b85302aaa53e778d07fcffbef1414e17ef3b918c3861fd086bcfaae"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushItemType.cs",
+          "sha256": "585f8bdc5fa873ad797b66dcceb420c03b630b6ea44df662c3a69fa4e8763d10"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushNULL.cs",
+          "sha256": "4363a68cc74108ca317d1ad682977c696ce7389dea1ddc54df266925ee8398c3"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushOne.cs",
+          "sha256": "96815af045e4f3e7ca7549287d3212a411f007ca0b9a4c3d61adb9adfe1a606e"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushRegister.cs",
+          "sha256": "f7b827f35ef433fc5d133027c2e904f461fd16afe80d03fd4b9179b08242bbe9"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushString.cs",
+          "sha256": "ef02d19a0f3d13fc0430f0467d9bca7afc9e8887de7267dd6c73ccd5f35e7abf"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushStringDictByte.cs",
+          "sha256": "b80fbf33b529e7eb0fd513775e206318eac7fc8584757de12143dcd3e3fa83f3"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushStringDictWord.cs",
+          "sha256": "4fef40e9aad482d95049cfe45c3f44f0d6f4d964a274db0b7d90b4c7651a6edf"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushStringGetMember.cs",
+          "sha256": "a9046d07212048c4f07fdd77afd568d5c86b318a0beb5406848ac2ed4db9bad3"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushStringGetVariable.cs",
+          "sha256": "cf943724b3b663fe6e29c0c34975422643c49e637bb774d1404535a51f2d74ab"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushStringSetMember.cs",
+          "sha256": "77a1122aca3e867430d75aeb3349852f5e736e651c83d2402facb0a71049b8f8"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushStringSetVariable.cs",
+          "sha256": "10c99a3422128b2bcdaff10e5cb7a32a1fe2fd09b22f983039e29c00a49296cc"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushThis.cs",
+          "sha256": "b9443caf66e63911590b0f0e6c91fef97f77df4806926851217f74373351cf84"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushThisVariable.cs",
+          "sha256": "6cb0ed6a582f4b89e91839128defa70ea79bd7c4788b10a517e6abe05e014692"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushTrue.cs",
+          "sha256": "021c587fb12f27fdb65d2dcdb1a6b9154646796a1fba912208bcbaf46b0095bc"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushUndefined.cs",
+          "sha256": "95a22c1d2836b3608d33e8c9a3047a1dbe2320a43acddb4674d3e5637b43275b"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushWord.cs",
+          "sha256": "5475a5287d1425ffec91ca2282842a31bb724876b2eb733f47643f928f3f3887"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushZero.cs",
+          "sha256": "9c2984582f142af64481f188cca6c1243bffb7ed250247f54c68480254de0305"
+        },
+        {
+          "path": "SwfLib/Actions/ActionPushZeroSetVar.cs",
+          "sha256": "bdf41f72ce55aabc6730a3f142cf0cda2d9fc0783ed86b87ef6753444d9e1f06"
+        },
+        {
+          "path": "SwfLib/Actions/ActionRandomNumber.cs",
+          "sha256": "2b181b0dcdb5eb2324ad98650f91a796cb5da1b282d93fae10044c068eb414e0"
+        },
+        {
+          "path": "SwfLib/Actions/ActionReader.cs",
+          "sha256": "4933fcd7bdb363f8d13a7cad2ca87d5d12f2b066c4a3149bec8d5b4c9c2cb967"
+        },
+        {
+          "path": "SwfLib/Actions/ActionRemoveSprite.cs",
+          "sha256": "0700408d04260148ef23ac7b6a58398f8f86d4408f9d66c25c04a14dda3befef"
+        },
+        {
+          "path": "SwfLib/Actions/ActionReturn.cs",
+          "sha256": "307f6e84b4e02ec0d33c90415bd06187bd3aeafe7e494e2a2b3f60a16af3a467"
+        },
+        {
+          "path": "SwfLib/Actions/ActionSetMember.cs",
+          "sha256": "053ef29870764e8e0509e629de3c85fd09c11cb6dadc661091ff5180f2452e86"
+        },
+        {
+          "path": "SwfLib/Actions/ActionSetProperty.cs",
+          "sha256": "8bacad8214980168ba5b00b60eb4b9421300a2b0c3816d3ad48a1895e71d3253"
+        },
+        {
+          "path": "SwfLib/Actions/ActionSetTarget.cs",
+          "sha256": "be4e13dc5ca9fb49ff1e003312a393c8c228a34959adafecd73593afdd0dcf7a"
+        },
+        {
+          "path": "SwfLib/Actions/ActionSetTarget2.cs",
+          "sha256": "46e93f92ecbc0cc3079f746e068888945e4392d32c16ab0d281203398c787334"
+        },
+        {
+          "path": "SwfLib/Actions/ActionSetVariable.cs",
+          "sha256": "e10e5d09f5cc8c7882c5d099529172954b0412121c8226389689cb097b6a0b6f"
+        },
+        {
+          "path": "SwfLib/Actions/ActionsFactory.cs",
+          "sha256": "68f5d37a1cc653ea4b01ccd475e7597e994478f6463b4f7b886c5c0857b19ff0"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStackSwap.cs",
+          "sha256": "af0258f8916064325cb360a2801eae4f25af71c985b22d36a2748a750c072947"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStartDrag.cs",
+          "sha256": "03e43d1680d22ee3e64a1373823ad431e3988b4fdb424386b57235848c16c209"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStop.cs",
+          "sha256": "f9d67b7849ef622bd590a06623794d9f63bafb8bff04b8eca96e4b443280d48c"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStopSounds.cs",
+          "sha256": "c9316fa99ae6a90685b270307bada4d20605eaf7517c8dd28f8defa7361f805a"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStoreRegister.cs",
+          "sha256": "d7e7c575423280fb2fbf4dac474571cbb88bfe8c8c4b86c1b6322c3a1faf59af"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStrictEquals.cs",
+          "sha256": "8c4d792061c627ab8c524fe45d8f32567bedd07065fb65cd63073cd4d33a4a31"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStringAdd.cs",
+          "sha256": "b7a99541c616b951d1900c0af80aae32d6b1503573094515264c418dda0aa4e4"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStringDictByteGetMember.cs",
+          "sha256": "52703449f2c279e4eaf84eb6ae3c26ba5970697c02fe419580733ae328de2326"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStringDictByteGetVariable.cs",
+          "sha256": "d98900fb4fc62e02719a131cb173487469f60d7bc388ca2cc92d70358a029f5f"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStringEquals.cs",
+          "sha256": "980eaa7e6c6476853af4006a601eec4667ba88c0f970f222dbd6b61fe9e5a9bb"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStringExtract.cs",
+          "sha256": "9a7491ac178d0dbbda5ddaaade5555b496af8082786141989e3e6bee2f1caee0"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStringGreater.cs",
+          "sha256": "8ed74290bbd2d493d8ff337cfb72037f5615f94bdde81de31d1c9cbf43b81d54"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStringLength.cs",
+          "sha256": "80057020a3efee5ea6af07fd7252c8101d07cb7f582c7abdb2a9b76cd92c50bd"
+        },
+        {
+          "path": "SwfLib/Actions/ActionStringLess.cs",
+          "sha256": "44c9dcfb17ed80fa045e72270678c12581dda91092895523760d782dfdf17bd1"
+        },
+        {
+          "path": "SwfLib/Actions/ActionSubtract.cs",
+          "sha256": "fc1809ad7f4586e6254628144741f5e249be0bbfc2bdeff56142a0836409456f"
+        },
+        {
+          "path": "SwfLib/Actions/ActionTargetPath.cs",
+          "sha256": "61154b96f243922444ce84cc57f19c1ae4812075b8c490dbdca110146acb3a75"
+        },
+        {
+          "path": "SwfLib/Actions/ActionThrow.cs",
+          "sha256": "86368a84fa183c191e79efad2f5b3a3bf41bdae0db9c5827c3a65c980014e688"
+        },
+        {
+          "path": "SwfLib/Actions/ActionToggleQuality.cs",
+          "sha256": "06320bc289de4da93ba177718d5b5a1c3e3480bd56069b592d9d3a6e1511eb6f"
+        },
+        {
+          "path": "SwfLib/Actions/ActionToInteger.cs",
+          "sha256": "372848970381843dd5978e750ad2c66abdd93b8767b6f3fbbfb43bc2e6ecfdc2"
+        },
+        {
+          "path": "SwfLib/Actions/ActionToNumber.cs",
+          "sha256": "f61f109eb2efb3f87dc6bf0b8f569e4ee49e2985d5e1338b6527fbb3ee4c06e6"
+        },
+        {
+          "path": "SwfLib/Actions/ActionToString.cs",
+          "sha256": "b74d4a8c328fa2c43a3dc6e41a3cc290086dae5ed41b0d5d99540e58fac5e9bf"
+        },
+        {
+          "path": "SwfLib/Actions/ActionTrace.cs",
+          "sha256": "79062e17484e09607ea1e8baa139b1563e379d989952753bb657a91fbcc25300"
+        },
+        {
+          "path": "SwfLib/Actions/ActionTraceStart.cs",
+          "sha256": "be242750377add689e35ae39b70eb8991086a1b68c4073cd8026a7d18d547a2c"
+        },
+        {
+          "path": "SwfLib/Actions/ActionTry.cs",
+          "sha256": "bdbff3d99278881f873ff2d2b1ccae3fd122795c39fcfcab146654b9e3cc6c78"
+        },
+        {
+          "path": "SwfLib/Actions/ActionTypeOf.cs",
+          "sha256": "b55cce5c4f27bb8b5d92e2100c787fed3f3c0c93c71b2e38bcbfdb6ccea60545"
+        },
+        {
+          "path": "SwfLib/Actions/ActionUnknown.cs",
+          "sha256": "e88b6d05d02a2e8b7240cc34e9c56b00fd4128e30e99f58d5b74de733180c8a2"
+        },
+        {
+          "path": "SwfLib/Actions/ActionWaitForFrame.cs",
+          "sha256": "8fdde70dd3d21bfcd69bf364e60aa359a2315e3de60893cf3cd9ed5a6e3bbb86"
+        },
+        {
+          "path": "SwfLib/Actions/ActionWaitForFrame2.cs",
+          "sha256": "57d52ca174b1ad4a54d4f266176efdac8890a5eaac0bcc1a445fe10d87429a8e"
+        },
+        {
+          "path": "SwfLib/Actions/ActionWith.cs",
+          "sha256": "77a7ad025cc582bad6351f44aa9eb90b0b43a253da38da59effc287c5dabefa5"
+        },
+        {
+          "path": "SwfLib/Actions/IActionVisitor.cs",
+          "sha256": "3ecab9a80bbd722ee2ad41727923b96c1f5cbf3983eeaed673711e51c38f55e0"
+        },
+        {
+          "path": "SwfLib/Actions/RegisterParam.cs",
+          "sha256": "a999ca4f2ff808e22a2f334bc21e39f36e79dbb7530010916a27501af6d6f5e4"
+        },
+        {
+          "path": "SwfLib/Buttons/ButtonCondition.cs",
+          "sha256": "1ac7bcbffb95c88477bca9e1f0c2c4acc1ccfb830c26dc6b858ad5cccc0d3c6a"
+        },
+        {
+          "path": "SwfLib/Buttons/ButtonRecord.cs",
+          "sha256": "f1af24d4b357a805b2ec30ea47cc2ecfb82e6997ddd15941c0cae2f1ea418443"
+        },
+        {
+          "path": "SwfLib/Buttons/ButtonRecordEx.cs",
+          "sha256": "a3c1f17ba069ffa12aee8b40cb8d8fbe78a8403d0a493fbb6c9477f0f4335971"
+        },
+        {
+          "path": "SwfLib/Buttons/ButtonStreamExt.cs",
+          "sha256": "415b507d76b7173615ccfc73cfcaa67dd174b3c206497ba36539b9bef9fa4918"
+        },
+        {
+          "path": "SwfLib/ClipActions/ClipActionRecord.cs",
+          "sha256": "cd1c20ba60b4fc1717d41ffdd390b0d30255489621bcb87e590591c5b45ed056"
+        },
+        {
+          "path": "SwfLib/ClipActions/ClipActionsList.cs",
+          "sha256": "71599e0b80ab438830806de583ee73e0f9c38c2b343ac7b8e15385c7695ed935"
+        },
+        {
+          "path": "SwfLib/ClipActions/ClipActionsStreamExt.cs",
+          "sha256": "e4392f63f2459e713b97ddd6813f8500c82274b1c3a86c7d2dd24e24c52f3eba"
+        },
+        {
+          "path": "SwfLib/ClipActions/ClipEventFlags.cs",
+          "sha256": "848e3753d1e1aba7bdfba154d606be4b09c2a6fcbfc228ce4e972639ec3ab777"
+        },
+        {
+          "path": "SwfLib/Data/BlendMode.cs",
+          "sha256": "eed44533c6b8e612d08c2a1c470f79191a3073270e84afb71cb8846c23a4020a"
+        },
+        {
+          "path": "SwfLib/Data/ColorStreamExt.cs",
+          "sha256": "7526bcc9dea8069aa4176aab7e07861e3bec37c9d1d7b97831504ff838afdeb7"
+        },
+        {
+          "path": "SwfLib/Data/ColorTransformRGB.cs",
+          "sha256": "1c7bdd7ea002dc6510091b6f02cbec9cfddbdf4e8baa397c069871b4e5ce055c"
+        },
+        {
+          "path": "SwfLib/Data/ColorTransformRGBA.cs",
+          "sha256": "d2a90d2dc3f533198296a4663e940be68840b9171e66c26de92efb346efec3c4"
+        },
+        {
+          "path": "SwfLib/Data/ColorTransformStreamExt.cs",
+          "sha256": "3f42bff7487a87768749e49ef06ce0ee0cc6870ade8275b1495b7b46beb11de9"
+        },
+        {
+          "path": "SwfLib/Data/FrameLabelData.cs",
+          "sha256": "c208f33474cfd21067da6d649db515824532d65dd4fedae431c0c9f099e6fe68"
+        },
+        {
+          "path": "SwfLib/Data/SceneOffsetData.cs",
+          "sha256": "921dd28ccf5e120bdab53aea4486af2eb1037aa18c053b05ee6eb90696929065"
+        },
+        {
+          "path": "SwfLib/Data/SwfHeader.cs",
+          "sha256": "d1bcaf4cbed911c652680d277337e6a3f0216702c7487392f2907a6ade3a5967"
+        },
+        {
+          "path": "SwfLib/Data/SwfMatrix.cs",
+          "sha256": "f10b54861d594b6cbd116117963299f1b92da674b730ecf2681540f2a5a217b4"
+        },
+        {
+          "path": "SwfLib/Data/SwfRect.cs",
+          "sha256": "1b1d01439ad448a2fc5dd43491a12b5082cadcc7f7a2e748b4ad486a382032b7"
+        },
+        {
+          "path": "SwfLib/Data/SwfRGB.cs",
+          "sha256": "8ec8cb12b8f3a0ef08ad8875c84fad2b9171e4bb8c263258fdc0185874a55f9b"
+        },
+        {
+          "path": "SwfLib/Data/SwfRGBA.cs",
+          "sha256": "7a7385cd74245fb862e39316d3edee6f0bda0657f194debe92be3c59aa2ad462"
+        },
+        {
+          "path": "SwfLib/Data/SwfSymbolReference.cs",
+          "sha256": "b4bb1d812aa80ed20ebd60838be378bfad73327a67b89b4b96737be4d64759f6"
+        },
+        {
+          "path": "SwfLib/Data/SwfVector.cs",
+          "sha256": "4b85244fdfe01906e7125479e25afe6fb4013ae6210206732d5aaa31e08f1427"
+        },
+        {
+          "path": "SwfLib/Filters/BaseFilter.cs",
+          "sha256": "46bb7eab9db74f97db18774da16fc594bf211ba40ea486340fee9c2a8fba371f"
+        },
+        {
+          "path": "SwfLib/Filters/BevelFilter.cs",
+          "sha256": "bd14bc00e482b6a3cb3205b09b21cc87c8ba8fb7b3e4b3aebc41cac7e90d5ddd"
+        },
+        {
+          "path": "SwfLib/Filters/BlurFilter.cs",
+          "sha256": "5c67072a8ac0796863d2f376609e0f2c87e881dcd185a5cc94a1195a78081298"
+        },
+        {
+          "path": "SwfLib/Filters/ColorMatrixFilter.cs",
+          "sha256": "7a001722d4bd477c3e524fae213cda5b9ce12b334c913fab74a0e7455b4e156f"
+        },
+        {
+          "path": "SwfLib/Filters/ConvolutionFilter.cs",
+          "sha256": "d708dca06ba85103a19da34ded2d7554d8096152ae8b88808992e2bef671ac93"
+        },
+        {
+          "path": "SwfLib/Filters/DropShadowFilter.cs",
+          "sha256": "4762a2ce1442ecb0fbc8d071b2d8c16e2996b0cabd45b92d2ab13c5e41274e9e"
+        },
+        {
+          "path": "SwfLib/Filters/FilterFactory.cs",
+          "sha256": "90f246102cc049ac7a523949ad40e109e33b6ebc3ed1816cb231921a6118ef48"
+        },
+        {
+          "path": "SwfLib/Filters/FilterReader.cs",
+          "sha256": "591f7c0d16ccb4a529460cb9193277c8aa4f574772c7637ccc60eaf6be5f0058"
+        },
+        {
+          "path": "SwfLib/Filters/FilterStreamEx.cs",
+          "sha256": "36982fe81a508d8e392103f8fb796ebdf76903e4534ce0b0cc1dcef30de9ee29"
+        },
+        {
+          "path": "SwfLib/Filters/FilterType.cs",
+          "sha256": "a9bd1fd821b67ae73315c2f4a45539a6bd8f949d2783cf4592263350042bb003"
+        },
+        {
+          "path": "SwfLib/Filters/GlowFilter.cs",
+          "sha256": "e3bf11e09942d704b8666d0a7b42fb80dbdb8b6a71cc149ccd62f985336a6f6e"
+        },
+        {
+          "path": "SwfLib/Filters/GradientBevelFilter.cs",
+          "sha256": "d31605f15d36006c237d3a25ee430df688a0d5c5bb1b1e2f881d19fbf1657051"
+        },
+        {
+          "path": "SwfLib/Filters/GradientGlowFilter.cs",
+          "sha256": "e5e155fa9bd8c0445ee12fd609067003fee151dcbb06876204b76f51897f953f"
+        },
+        {
+          "path": "SwfLib/Filters/IFilterVisitor.cs",
+          "sha256": "13d769e1b00fa05bf5efcdeac645c4999bd540c59dd862f2dd3698283cf40e9a"
+        },
+        {
+          "path": "SwfLib/FlashLzipStream.cs",
+          "sha256": "8a14ae5602c4db3cd56d399cdf99c987dab9947349f29ec357d6ec3cdca6f339"
+        },
+        {
+          "path": "SwfLib/Fonts/CSMTableHint.cs",
+          "sha256": "414344f6301402de18f6f5c0136df631ea7a9a5dadebf0227bcaa2350867fa39"
+        },
+        {
+          "path": "SwfLib/Fonts/FontStreamExt.cs",
+          "sha256": "eb645aa67fd76113011c65d5a06f1fba9762f80f1fe347dcae62c5a61ea3344f"
+        },
+        {
+          "path": "SwfLib/Fonts/Glyph.cs",
+          "sha256": "5a44dd9165cffc00f8b077059e564bc739f335e430e89db2a698bcef8779e789"
+        },
+        {
+          "path": "SwfLib/Fonts/KerningRecord.cs",
+          "sha256": "921abf35f6b89110567f66be79c9272b2cbf5d12e57b3b49a74e38248bb9beef"
+        },
+        {
+          "path": "SwfLib/Fonts/ZoneData.cs",
+          "sha256": "69b2a68e7d82814569aec56356116521d4bc1ad45cf84d53d283041a6fe34a96"
+        },
+        {
+          "path": "SwfLib/Fonts/ZoneRecord.cs",
+          "sha256": "d5009ba2d8792483089a640d1ff9ab7c7a71e390bd66cccff8483fc0d583cd22"
+        },
+        {
+          "path": "SwfLib/GlobalSuppressions.cs",
+          "sha256": "80e5116bf5ec8a509aa31bd2fc3b21dfe63efc7c023d75a3f08b255704ed92c0"
+        },
+        {
+          "path": "SwfLib/Gradients/BaseGradientRGB.cs",
+          "sha256": "ed395bfe106835cf8bb72947188fe4e01ea1d616cf9b4d21d13da666fea85e8e"
+        },
+        {
+          "path": "SwfLib/Gradients/BaseGradientRGBA.cs",
+          "sha256": "d8fe85d5f68f9ef5740c918c19cd876d6342a0ac88c35c7145e73e57b4cb30f6"
+        },
+        {
+          "path": "SwfLib/Gradients/GradientRecordRGB.cs",
+          "sha256": "807d1e05c5f80fcef85c7453c6048d86064f36b878b54beb3a4604d88905979f"
+        },
+        {
+          "path": "SwfLib/Gradients/GradientRecordRGBA.cs",
+          "sha256": "357c2ea287256d0933a31e90caf2d875e9b48d398479f07e3a03e8b9b4ade51d"
+        },
+        {
+          "path": "SwfLib/Gradients/GradientRGB.cs",
+          "sha256": "27278bb9170920534e5c590ab4ae7a38951d68a2cb2258c45531fab2eef9bedd"
+        },
+        {
+          "path": "SwfLib/Gradients/GradientRGBA.cs",
+          "sha256": "81e15c7f36d66f4db04f61a4d3864b0a5e60c4639e36dba8b5fc4dcf68dd7947"
+        },
+        {
+          "path": "SwfLib/Gradients/GradientStreamExt.cs",
+          "sha256": "e853576cf2050b91cf81de0bac2fa57ce83001e9692acc91af45618257740c5f"
+        },
+        {
+          "path": "SwfLib/Gradients/InterpolationMode.cs",
+          "sha256": "f4b1d0eb020352cf56f9f67cabf4b32d9d4cdfc8c0b2af39c2be95b7c995e66d"
+        },
+        {
+          "path": "SwfLib/Gradients/SpreadMode.cs",
+          "sha256": "061e1ed0fa205b5f974b956f1af94d16c482ab65e77f3ae547476b85cb961580"
+        },
+        {
+          "path": "SwfLib/ISwfStreamReader.cs",
+          "sha256": "b3d15c7b38b9c23d24570c1eed2c15cfb7835d4d666cd143d5dbd3de9b9afa02"
+        },
+        {
+          "path": "SwfLib/ISwfStreamWriter.cs",
+          "sha256": "35a7238e0e61244a3fc195418c14918ff679d856b48e8c51af906af282764e24"
+        },
+        {
+          "path": "SwfLib/Properties/AssemblyInfo.cs",
+          "sha256": "2d330c926a8d768c5fac85b0a15aa1ddcef99e9a1f865d4da58aa04e9c40912f"
+        },
+        {
+          "path": "SwfLib/ShapeRecordStreamExt.cs",
+          "sha256": "c6fe6e51bf0dba3119ac052f31556f1db5cf73872d1600858da6b60773267b70"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyleStreamExt.cs",
+          "sha256": "c4511e6fc1d71416bab2ef32e1dc8fd3200b31d9777fe3f09f8a6d7724b4c358"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/BitmapFillStyleRGB.cs",
+          "sha256": "63914bd04f784bf2707ba787b3f2eb9fe7e4aaea2f373a523eca88d25cff6106"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/BitmapFillStyleRGBA.cs",
+          "sha256": "9530eb7276f0a6037972546c6dbcbd841b96e4c166d6cb6c60b4070b864b05ca"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/BitmapMode.cs",
+          "sha256": "3d164fbbae965c0f2985bd7670e87981b9ed55d2d98f817d6b02ec3125f39d26"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/BitmapMorphFillStyleRGBA.cs",
+          "sha256": "fa8482a7eb0a32b7153f106acbd61c409b1550341adda648b4001b8f4e914978"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/FillStyleFactory.cs",
+          "sha256": "1f7668e6a3f888e6156d737cbd6ea741f78c89e0717ec4313c8f118b65bb8fd8"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/FillStyleRGB.cs",
+          "sha256": "bf93237e56345ca8a55ea15323576bd2e478ed497434956677045295a1521786"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/FillStyleRGBA.cs",
+          "sha256": "16492374cb5f6b0962b8a0bd7e20b5cd9272ff5c3c3f9fa3ac0f1f6267453e6e"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/FillStyleRGBAReader.cs",
+          "sha256": "a4ed970dd47200d76fc5ebec015e88df817228980f28137536bbea99ecafc16f"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/FillStyleRGBReader.cs",
+          "sha256": "020c67fe5acf95728f1b812eee210f5ddf30b627ec5c2e9b38d3d8fb88eab87d"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/FillStyleType.cs",
+          "sha256": "63fff6d8caf26906582cd45b4412c7c498eeacc82209309dbf946242e8b0cd76"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/IFillStyle.cs",
+          "sha256": "26015e0e984198f5735ec6b5c16f5b1ec229e72ad956298eb0b0af1df467545f"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/IFillStyleRGBAVisitor.cs",
+          "sha256": "39ff597078683f8c4aacf6fe8a44157efdf3686cb0260a6949c159501049afdd"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/IFillStyleRGBVisitor.cs",
+          "sha256": "7dde3cf58a27d59bb767ea56e4b5b3a6d5d3a4ef0c262ab2d857b5404d74c7f1"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/LinearGradientFillStyleRGB.cs",
+          "sha256": "01145636720e62def982e38b79558a677a141fea3660852f927e3d0bbe08e4f9"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/LinearGradientFillStyleRGBA.cs",
+          "sha256": "2aed62d274bc88dd344142a2a67f6b6baf102beb9581597f2dc720ca25835d75"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/RadialGradientFillStyleRGB.cs",
+          "sha256": "b9eb23d99125ae7e2f3d372884fb93a293de143b33b88502f121a151b6f60d90"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/RadialGradientFillStyleRGBA.cs",
+          "sha256": "d95e7677af9b18f605f2e22877adca368a1647733a26a85fb7574d3fc147e309"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/SolidFillStyleRGB.cs",
+          "sha256": "21ca9ca4d7d179359555b0a61ac3b56ff732a033ca7a9ff978db94816cf0ed3d"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/SolidFillStyleRGBA.cs",
+          "sha256": "6f5d44e56e6d06ab7faa53b6a6dc0c5a531e9f71d27c30fd6f300c9e98bf93da"
+        },
+        {
+          "path": "SwfLib/Shapes/FillStyles/SolidMorphFillStyleRGBA.cs",
+          "sha256": "c8e495193f0d25a3ffff9075a1c4ee827cb84b02071a4833e9f1ae819aa93a8a"
+        },
+        {
+          "path": "SwfLib/Shapes/LineStyleStreamExt.cs",
+          "sha256": "2ef9e8a995ef053946057212b6a1b1a5490d944688c975c0f3cfe47fcf406387"
+        },
+        {
+          "path": "SwfLib/Shapes/LineStyles/CapStyle.cs",
+          "sha256": "34a16c34871bb190d19cf042a96eb3713c88b2648ec9133df003c314f27ceffa"
+        },
+        {
+          "path": "SwfLib/Shapes/LineStyles/ILineStyle.cs",
+          "sha256": "32164b8c41053debd0283571f921c0074fbbbb9b455c25ba4828f3717cb188af"
+        },
+        {
+          "path": "SwfLib/Shapes/LineStyles/JoinStyle.cs",
+          "sha256": "a41f05e8a6efda1bd776064a026d39658288066bd818176cb495f6888737aa19"
+        },
+        {
+          "path": "SwfLib/Shapes/LineStyles/LineStyleEx.cs",
+          "sha256": "04d8cfc7e3dac697666888e894518bef8fd8596d3298b0734381b20fd5afc0b4"
+        },
+        {
+          "path": "SwfLib/Shapes/LineStyles/LineStyleRGB.cs",
+          "sha256": "01a6739f42e58ca3e0b29b9f866e11ffec6eef4ad192a7ae81970d10235801e8"
+        },
+        {
+          "path": "SwfLib/Shapes/LineStyles/LineStyleRGBA.cs",
+          "sha256": "b56c080d67edb8fe07590d3db3ff635268727394d364b8a40a95f86686b1c0e1"
+        },
+        {
+          "path": "SwfLib/Shapes/LineStyles/MorphLineStyleRGBA.cs",
+          "sha256": "40e1fcb0360ca06d192730b6ae67d94092f607e0651fab5e9bbc780988cb341d"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/CurvedEdgeShapeRecord.cs",
+          "sha256": "fc9e32a323dc62b73adf5e6754ddd4ec408c2244f730df83c14e009dc2a1f3d0"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/EndShapeRecord.cs",
+          "sha256": "c961ca19ba1925410aa859eea716b39bc7db35790af86891e2acf75b7f197132"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/IShapeRecord.cs",
+          "sha256": "c56f3e6cd5a2602f0ff5896f3faa24df14ec094e6354c023369e7d4e672a1387"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/IShapeRecordEx.cs",
+          "sha256": "adfc1a060b458da57e8547c347548e008028902b101dd576cb4e8d20f665f1d3"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/IShapeRecordRGB.cs",
+          "sha256": "13e3d3dccef6c75451db52346b7dded5cbffe228398529e9fda12bd0aa176d9a"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/IShapeRecordRGBA.cs",
+          "sha256": "2ab5b41b9cc11f542fbdc655c61b52f019719202c8d5fd5fdff1dce6dcecc896"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/IShapeRecordVisitor.cs",
+          "sha256": "397d56597b5f5c42cfad9a32d66ebc4d53edb5e63dd6a601333211386a38581b"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/ShapeRecordFactory.cs",
+          "sha256": "7eb656ab1a28069f4308fbbc0808405db313b73f738209fbc9a2a956a68c8815"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/ShapeRecordType.cs",
+          "sha256": "2eccea1da0da84148e2e1340a108f42b570ac86eb789b587ab519216b126e452"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/StraightEdgeShapeRecord.cs",
+          "sha256": "8578aaeda1cb0c7f4aa21b7e67c911b8e90b02aac52906eba52173f5a1f461a2"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/StyleChangeShapeRecord.cs",
+          "sha256": "390c41648a53f2f19cca651c3b97026718bafe9b7f8aaba986b00ad4efb61abb"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/StyleChangeShapeRecordEx.cs",
+          "sha256": "3a4f1c50b975234b3fe0b71f16c42f163c4d85ad5bcba9c96fae326f78d8264a"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/StyleChangeShapeRecordRGB.cs",
+          "sha256": "32b943686692ed0739253df4b0714b0c7bcb158759ce0270ab87674239cf4f7f"
+        },
+        {
+          "path": "SwfLib/Shapes/Records/StyleChangeShapeRecordRGBA.cs",
+          "sha256": "4646f086db8b2091187d7a6f7b9550a7c8e954ccab3cf2e89d23f0784d710a60"
+        },
+        {
+          "path": "SwfLib/Shapes/ShapeRecordExReader.cs",
+          "sha256": "48e304b39ffb9b039ffe1976b43ecb3b9bc01d426bf79173573710a4680a6199"
+        },
+        {
+          "path": "SwfLib/Shapes/ShapeRecordReader.cs",
+          "sha256": "196ed2188fe7fbc703d079bbca7bd6f67f877e31065e63282d95a403d67fb414"
+        },
+        {
+          "path": "SwfLib/Shapes/ShapeRecordRGBAReader.cs",
+          "sha256": "e617092cb48688bd1203322084b9ba01b48eaeb9704ee05edbe0ce3acb89c50b"
+        },
+        {
+          "path": "SwfLib/Shapes/ShapeRecordRGBReader.cs",
+          "sha256": "89c5a1c2cd616fd094e0dce7d2304e22abb25281b062810684fcee321c14c7e4"
+        },
+        {
+          "path": "SwfLib/SwfFile.cs",
+          "sha256": "6b8003591c883ef9b7298df3ddf6fa930d0c7faeb6a2df9f15b2633cf55422e6"
+        },
+        {
+          "path": "SwfLib/SwfFileInfo.cs",
+          "sha256": "235a55468f4d5961b4a257d35696530daefbb12fa4a69a61b109fc7343e39d0d"
+        },
+        {
+          "path": "SwfLib/SwfFormat.cs",
+          "sha256": "bf41d9a76154677f96b1fb2403d652d50b069b3f2b44db2a16ac218987fed6ee"
+        },
+        {
+          "path": "SwfLib/SwfStreamReader.cs",
+          "sha256": "438ada22c0f329248ec561962dbda1159fe34c72bb29719fb3c4351faf20ae79"
+        },
+        {
+          "path": "SwfLib/SwfStreamReaderExt.cs",
+          "sha256": "81abc83b83ec36128ea0b52d5c1684336f8421be700b7549238a54e6985698b1"
+        },
+        {
+          "path": "SwfLib/SwfStreamWriter.cs",
+          "sha256": "d6e75977237e6962c201246a1453c3bd94325f960289ec16a8fa924236678367"
+        },
+        {
+          "path": "SwfLib/SwfStreamWriterExt.cs",
+          "sha256": "28f2e31b88dd6e787b88bf156fe47a584067dba14d00188ee26fd8c41ebacb51"
+        },
+        {
+          "path": "SwfLib/SwfTagDeserializer.cs",
+          "sha256": "a9f3f13841760a0f12dd32a1a2a7d375a5350d563f0581604c97e529b14f24c7"
+        },
+        {
+          "path": "SwfLib/SwfZip.cs",
+          "sha256": "6ae2cb11009c8df0f2454953a6e8de85a53239c43c7ab884ee4b7d7fef1b3846"
+        },
+        {
+          "path": "SwfLib/Tags/ActionsTags/ActionsBaseTag.cs",
+          "sha256": "cf5393c0a6f195f351c98a15680d962963b2e5a7087f25583ac23fdb0e225fa8"
+        },
+        {
+          "path": "SwfLib/Tags/ActionsTags/DoABCDefineTag.cs",
+          "sha256": "0374b1ad1e82da97e46dbe1d2aa64a89bf1ccdadb7bbc85da17e18bf0712fcf6"
+        },
+        {
+          "path": "SwfLib/Tags/ActionsTags/DoABCTag.cs",
+          "sha256": "c4bcfe0368364529e1bc2ecea186ba777aaff744dcd806435d76bda13975eff0"
+        },
+        {
+          "path": "SwfLib/Tags/ActionsTags/DoActionTag.cs",
+          "sha256": "09c31a3235ea439b179631519d73def84da78d49d2c603b8ea431c76051a455a"
+        },
+        {
+          "path": "SwfLib/Tags/ActionsTags/DoInitActionTag.cs",
+          "sha256": "534c7ebecf2eb61753dc963137794cbe8d55d8173b478bd738196429e4bde8fd"
+        },
+        {
+          "path": "SwfLib/Tags/BitmapTags/BitmapBaseTag.cs",
+          "sha256": "2431d6dee4390c9acc9c2fb9e7e135d61d0bf2a842536d23ab5c3bf3d871b2f5"
+        },
+        {
+          "path": "SwfLib/Tags/BitmapTags/DefineBitsJPEG2Tag.cs",
+          "sha256": "64b0f41e17d45edeb6699252d3bd54b0aa9b947ec7669c0f2d7e59940231dfcc"
+        },
+        {
+          "path": "SwfLib/Tags/BitmapTags/DefineBitsJPEG3Tag.cs",
+          "sha256": "f6ce8e52bcfd090e6d8666e3bf760eff5011f55345f640ce38b6ae390489d0e3"
+        },
+        {
+          "path": "SwfLib/Tags/BitmapTags/DefineBitsJPEG4Tag.cs",
+          "sha256": "ced5e48105efab472d3938f1c1a0b929146fadff2c7748b28ae22064163627fc"
+        },
+        {
+          "path": "SwfLib/Tags/BitmapTags/DefineBitsJpegAlphaBase.cs",
+          "sha256": "12402978ddbc8f8973305a809b7e5c2a95c91665dfaf010b5e22ed7b8290656d"
+        },
+        {
+          "path": "SwfLib/Tags/BitmapTags/DefineBitsJpegTagBase.cs",
+          "sha256": "32e3f57c533405e649dd0a6cc9e161bcc7f0cb47ae107ca49d47b7f4d040331b"
+        },
+        {
+          "path": "SwfLib/Tags/BitmapTags/DefineBitsLossless2Tag.cs",
+          "sha256": "48987363dda67525396f4c6c058e89cf1d724edd7455d4ad3a3134a3bca7bc26"
+        },
+        {
+          "path": "SwfLib/Tags/BitmapTags/DefineBitsLosslessTag.cs",
+          "sha256": "7bd17c7a6fbf113cc03642ce27a23069a6ea2348fc68a627b4ae1a71ccd9ed2e"
+        },
+        {
+          "path": "SwfLib/Tags/BitmapTags/DefineBitsTag.cs",
+          "sha256": "010d064528c001d9b76b525cd7d9177d4ebc0d753d9896c402843ca0fbdca94a"
+        },
+        {
+          "path": "SwfLib/Tags/BitmapTags/JPEGTablesTag.cs",
+          "sha256": "63ab04457977a633f10d5124ea60c8934e78e9368ad723835434b9f5f17d23dc"
+        },
+        {
+          "path": "SwfLib/Tags/ButtonTags/DefineButton2Tag.cs",
+          "sha256": "689987cc635d32f8f46d2a5c4c5f70a87f02551e6701e8eb5483aa093c4c7e23"
+        },
+        {
+          "path": "SwfLib/Tags/ButtonTags/DefineButtonBaseTag.cs",
+          "sha256": "f7ff2390afe9f20ae13a2014803e0c43fb38f1539fecb9338b4cb20f7a5d51b7"
+        },
+        {
+          "path": "SwfLib/Tags/ButtonTags/DefineButtonCxformTag.cs",
+          "sha256": "c0bfc5e55558b369ceddc82cc6c69f38337a4c22640e5ede23a8614a8e33bb1e"
+        },
+        {
+          "path": "SwfLib/Tags/ButtonTags/DefineButtonSoundTag.cs",
+          "sha256": "064844c36561bda01710e7462442495d74448639495044f615bdab84c49ae4a0"
+        },
+        {
+          "path": "SwfLib/Tags/ButtonTags/DefineButtonTag.cs",
+          "sha256": "a342e2d877a9ad8f3dab8f0a7b3f16b06ff5ece5f94ef12172411f0a5950f885"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/ControlBaseTag.cs",
+          "sha256": "872af9a04d69195e2f2786904e7beadbe9c865d21ad0e13023796a3a1c23158b"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/DefineScalingGridTag.cs",
+          "sha256": "9203cb028454f2a6627e8360b1f8ead62a2b2950e712551f0771f5a2c3a3c9e5"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/DefineSceneAndFrameLabelDataTag.cs",
+          "sha256": "930313caadd2555b4e8a68ead2142cdb1cdaf2c980e678925f20ad058ebefae1"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/EnableDebugger2Tag.cs",
+          "sha256": "3cefc02070b84b67c17e2af3489d001a28ba543f1922aa5a5942710ae8fb8dc0"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/EnableDebuggerTag.cs",
+          "sha256": "eb2d0fec0c4f3036e0ef296588e9de9c85a6c5787c720a0b2d387ded77ebe1f3"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/EndTag.cs",
+          "sha256": "02a90848a76bece38fa63a09437b7cdf4a272fc4f9653987f2a0688c7da8e48f"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/ExportAssetsTag.cs",
+          "sha256": "e970172d36fcc511dbeae726ba40ad013c594e87d5a6caaceb38ec34271431cf"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/FileAttributesTag.cs",
+          "sha256": "c3df20d2f1d905e95adf6a1943f2b02e2915670706622f7456f8f4c082a5f20e"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/FrameLabelTag.cs",
+          "sha256": "7b1d5eb67ef90bec66feef50768ab25ba85d5ba771d7a1f947c1d1cc4a352f15"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/ImportAssets2Tag.cs",
+          "sha256": "e23b9ffcaf85b1197027a7b0550febd178740d904324086e2e304a759734ab28"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/ImportAssetsBase.cs",
+          "sha256": "93211275d5393e905e3f12384cecaf898de53fdb18ea8df6a0f47a8325ed8a8f"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/ImportAssetsTag.cs",
+          "sha256": "809615c2474e9424a6a8a2a484c6877b11412125b80d252079d80c2f5657bf74"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/MetadataTag.cs",
+          "sha256": "6241e96ceadbba1b1da8722b0023b4047915b3f8fb14e7450145d66a8f424d04"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/ProtectTag.cs",
+          "sha256": "f03ace85a7e70e189c09057d482e803dd1929a36a129a91ba58cd03b4aaaa76a"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/ScriptLimitsTag.cs",
+          "sha256": "8d2a6477042adc7762f2cb0c33a0ee722dcadb51dc931d31b332c0ba221fbcfe"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/SetBackgroundColorTag.cs",
+          "sha256": "d511fceb5ed10d393a9cb2f94550ba2adfc47d0e011bd435192047bbc523f05f"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/SetTabIndexTag.cs",
+          "sha256": "93e080f2af73f515590cba3da86972bccff843bbabd4fb8e0b3c45e1da0f7613"
+        },
+        {
+          "path": "SwfLib/Tags/ControlTags/SymbolClassTag.cs",
+          "sha256": "63f64e74f74bdc26877d2e8223e0f1e2d667bbb849c844409c6f7d4aaaec724a"
+        },
+        {
+          "path": "SwfLib/Tags/DebugIDTag.cs",
+          "sha256": "c7bd1af499bbfee00813d7034afbb7a0845e54382ff686fba53efd8ab2b8a9cf"
+        },
+        {
+          "path": "SwfLib/Tags/DefineBinaryDataTag.cs",
+          "sha256": "927c5efc4197ebcf6b93454e519394e3ed9369d69e2230c5ea6fc616038b372b"
+        },
+        {
+          "path": "SwfLib/Tags/DefineSpriteTag.cs",
+          "sha256": "1109eb446ca0ec298df1bd0a78ce66081c743eb8b4fb0c7f0c169be8e0ac96c7"
+        },
+        {
+          "path": "SwfLib/Tags/DisplayListTags/DisplayListBaseTag.cs",
+          "sha256": "82dd3d78f4db05b3a6db88a5339de78513b7e61671461dde98cab4c7744315d5"
+        },
+        {
+          "path": "SwfLib/Tags/DisplayListTags/PlaceObject2Flags.cs",
+          "sha256": "120da2cafe5ef71fe0f480ae8a77b6bd9419b8ea353014322f48b3f373e96d70"
+        },
+        {
+          "path": "SwfLib/Tags/DisplayListTags/PlaceObject2Tag.cs",
+          "sha256": "abde11d982df53b34938809e794685628d33671198d37ab120207066c0f962e7"
+        },
+        {
+          "path": "SwfLib/Tags/DisplayListTags/PlaceObject3Flags.cs",
+          "sha256": "8836dbdf88ca980f3ec6874008d80df1da6e17436769d90d10211548cd588bb1"
+        },
+        {
+          "path": "SwfLib/Tags/DisplayListTags/PlaceObject3Tag.cs",
+          "sha256": "e2c81930a15a409ddee0dbe226dcb1e59338cbd559e5a89ab209b8b7c02c9bcd"
+        },
+        {
+          "path": "SwfLib/Tags/DisplayListTags/PlaceObjectBaseTag.cs",
+          "sha256": "e8bc835fa573385eb3b1bbdbe697a1c2e9bdc505d4f69cec8fe7a3ea2bd1e183"
+        },
+        {
+          "path": "SwfLib/Tags/DisplayListTags/PlaceObjectTag.cs",
+          "sha256": "dbbb93f0841de6a1649e0f9a6d10b3f3cb69813f80b5f05343e240c6b38865d8"
+        },
+        {
+          "path": "SwfLib/Tags/DisplayListTags/RemoveObject2Tag.cs",
+          "sha256": "975526140a9d0ced2f2ea8a7d7a189c0e1e8507b9c5856f10a415607a943c50e"
+        },
+        {
+          "path": "SwfLib/Tags/DisplayListTags/RemoveObjectTag.cs",
+          "sha256": "1d089d4f51705934ab449cb808105beb82d446b43086a4544907f5f2a0b9a962"
+        },
+        {
+          "path": "SwfLib/Tags/DisplayListTags/ShowFrameTag.cs",
+          "sha256": "92af01360e887e4090f795b075611cedaa338ea5d5613dd5ee2ce164af1fc735"
+        },
+        {
+          "path": "SwfLib/Tags/FontTags/DefineFont2BaseTag.cs",
+          "sha256": "95f8d83348567d7c7791690c3904fba4ca4f8b745a0610ec93393d1fa45e1c20"
+        },
+        {
+          "path": "SwfLib/Tags/FontTags/DefineFont2Tag.cs",
+          "sha256": "78a80e893e7d65a2174f539cb71e219f039a0d534507ae41cfef761820b10615"
+        },
+        {
+          "path": "SwfLib/Tags/FontTags/DefineFont3Tag.cs",
+          "sha256": "725026d9803be01a176bb843ed266ec884ccb856e7f77ad2416678c1c2472f3f"
+        },
+        {
+          "path": "SwfLib/Tags/FontTags/DefineFont4Tag.cs",
+          "sha256": "3f919a3a4bae12e3f8f5e82ed9aaeb69a8538773aa98a7b5056c5d2c55ef631d"
+        },
+        {
+          "path": "SwfLib/Tags/FontTags/DefineFontAlignZonesTag.cs",
+          "sha256": "5dcf45e9258d3c0cfe378681dc26712d23ee90b5d21ee0a5f370ebdec95e71e6"
+        },
+        {
+          "path": "SwfLib/Tags/FontTags/DefineFontBaseTag.cs",
+          "sha256": "e5229c6101d8708be73fb81562ee5c14ee98a92077760e9c3dd5913589fa817a"
+        },
+        {
+          "path": "SwfLib/Tags/FontTags/DefineFontInfo2Tag.cs",
+          "sha256": "fe90ba6a9b37be4c5eeb635c7633db8f7d32eeb3ff41c6ead0440e30af47835e"
+        },
+        {
+          "path": "SwfLib/Tags/FontTags/DefineFontInfoBaseTag.cs",
+          "sha256": "81e2141852f01767186474bdfdd84f4b314eeb077fe9309a7ff74a5a513ffe68"
+        },
+        {
+          "path": "SwfLib/Tags/FontTags/DefineFontInfoTag.cs",
+          "sha256": "9dc984f5cbfd064cab81f58f511436ba0119408b5c838e8d27a3425ec12b49a2"
+        },
+        {
+          "path": "SwfLib/Tags/FontTags/DefineFontNameTag.cs",
+          "sha256": "3dc4c89df43cc7cb3c786f1e32722f60544d0cbde4b8da7a218c4d7f0ae072b7"
+        },
+        {
+          "path": "SwfLib/Tags/FontTags/DefineFontTag.cs",
+          "sha256": "82a119cf925ac2f0466adf78c6a9a83e31cd0158a2e52ebbf733043aad98dc35"
+        },
+        {
+          "path": "SwfLib/Tags/FontTags/FontBaseTag.cs",
+          "sha256": "a3f6a71313321e832665a17724b85e8033c4f9fd7eafca643826db01063f5fbc"
+        },
+        {
+          "path": "SwfLib/Tags/ISwfTagVisitor.cs",
+          "sha256": "b85117b5c4779b5358d55058f37195c2bf275f0ddd061dc5d27bf61f57721adb"
+        },
+        {
+          "path": "SwfLib/Tags/ProductInfoTag.cs",
+          "sha256": "6b7b6558fe32a17155ca7b0309f57ad9dd461bc4108d7ab8fd34bd3a420b2f9c"
+        },
+        {
+          "path": "SwfLib/Tags/ShapeMorphingTags/DefineMorphShape2Tag.cs",
+          "sha256": "c390d495f645889af5b33b7de00822941b8ef463ea885bf8c3b1589187b58bf9"
+        },
+        {
+          "path": "SwfLib/Tags/ShapeMorphingTags/DefineMorphShapeTag.cs",
+          "sha256": "eed0c4f90c8b38a945664c6225e681362aad1b340fdf1380f4808e56ccc2d462"
+        },
+        {
+          "path": "SwfLib/Tags/ShapeMorphingTags/ShapeMorphingBaseTag.cs",
+          "sha256": "8d431c0eae032feed8525d5656ecb5811dce87152a3927023538a6fe5231bb44"
+        },
+        {
+          "path": "SwfLib/Tags/ShapeTags/DefineShape2Tag.cs",
+          "sha256": "529aaf660bb98756678a0f2101be4f9ea4bd271448169597e34f78ec528ce9db"
+        },
+        {
+          "path": "SwfLib/Tags/ShapeTags/DefineShape3Tag.cs",
+          "sha256": "397119ebdb15e538425a9d28698678fc2533244c763dc3151b92035f5a61bb47"
+        },
+        {
+          "path": "SwfLib/Tags/ShapeTags/DefineShape4Tag.cs",
+          "sha256": "9b466b94fc0fb3260db9716ae3eb66540f6604b8074aa143f48ec4fa9728cbb1"
+        },
+        {
+          "path": "SwfLib/Tags/ShapeTags/DefineShapeTag.cs",
+          "sha256": "f131ad16ed22208af4010eb0694a1c0e8e1bf60eb9910cf182472ec85b59db8a"
+        },
+        {
+          "path": "SwfLib/Tags/ShapeTags/ShapeBaseTag.cs",
+          "sha256": "02d16749c03a0ab50d862a23ce289b8a9688aa797343aac868fc1d01d0ad420d"
+        },
+        {
+          "path": "SwfLib/Tags/SoundTags/DefineSoundTag.cs",
+          "sha256": "cf65c6a2663aa0015acd441c05bf874f724ad6a9227c1c07eb0f63811278ede6"
+        },
+        {
+          "path": "SwfLib/Tags/SoundTags/SoundStreamBlockTag.cs",
+          "sha256": "c5e4d815b3fd23e7cec75a050f1091b52e2f34143e9726bd745466d63a7e5b19"
+        },
+        {
+          "path": "SwfLib/Tags/SoundTags/SoundStreamHead2Tag.cs",
+          "sha256": "4860b5e863eb9bc2f9f534ec83a67ed0b0310446b167f4a80d3df7b8f9c972af"
+        },
+        {
+          "path": "SwfLib/Tags/SoundTags/SoundStreamHeadTag.cs",
+          "sha256": "c8c5c0a1adf4bea7e9e913d2db995a9bff84ab2014fec6d42dc6e4a3abd0191c"
+        },
+        {
+          "path": "SwfLib/Tags/SoundTags/StartSound2Tag.cs",
+          "sha256": "e6c7214400d647a0d658a53dd39333b3d8880868a1e21dcbac306a3393950efa"
+        },
+        {
+          "path": "SwfLib/Tags/SoundTags/StartSoundTag.cs",
+          "sha256": "5d29e8eb1d7694c8a6bd85d2148feec0c990d391f0bf2d17b8650f1ace77e66d"
+        },
+        {
+          "path": "SwfLib/Tags/SwfTagBase.cs",
+          "sha256": "0b1df75808653c90e86184b208274b2df501f727574e979c98b41767c863abc8"
+        },
+        {
+          "path": "SwfLib/Tags/SwfTagData.cs",
+          "sha256": "a0fa6dc7a56a12b4ced3c6a28d00f205b263c0933f1ab58bef126417f7459c03"
+        },
+        {
+          "path": "SwfLib/Tags/SwfTagsFactory.cs",
+          "sha256": "eea5903f66251fb784f435efc07896f9b7d0edbc8c031981d2fc245a6c8bfd36"
+        },
+        {
+          "path": "SwfLib/Tags/SwfTagType.cs",
+          "sha256": "dc6d65bf428ec0d74b0265bb47cf57dd6f7a2df4af61bb9edfdc7acf7dace3c7"
+        },
+        {
+          "path": "SwfLib/Tags/TagStreamExt.cs",
+          "sha256": "84fff43537e37bcf31d0a30f62511a081b6d9911900a00b5f52cad7b5e870cce"
+        },
+        {
+          "path": "SwfLib/Tags/TextTags/CSMTextSettingsTag.cs",
+          "sha256": "46ab7e19b7d1f19c66e15f64c8e76722662e736ddd0cd9b6a2114ab9da7a33c0"
+        },
+        {
+          "path": "SwfLib/Tags/TextTags/DefineEditTextTag.cs",
+          "sha256": "91fc844df773e023416edc52b85cc0fbbb07024f58cd07b3a32b0dafc4e9b7f8"
+        },
+        {
+          "path": "SwfLib/Tags/TextTags/DefineText2Tag.cs",
+          "sha256": "6be92929e6ecd9d0deefb2db4a998a045c84cc9ba2cf4c4de24d522c84294851"
+        },
+        {
+          "path": "SwfLib/Tags/TextTags/DefineTextBaseTag.cs",
+          "sha256": "9cf0202f505c47757380c3927ea80feed355654622ef704fb9e721f7b67e6b88"
+        },
+        {
+          "path": "SwfLib/Tags/TextTags/DefineTextTag.cs",
+          "sha256": "78d4684e9edba208300e9e9b23ea7a953296ac2660b72dd8893cdfdb2ca051ab"
+        },
+        {
+          "path": "SwfLib/Tags/TextTags/TextBaseTag.cs",
+          "sha256": "1d6cef946bcdadcd7b3ab86a120867cec8fd331b2454cc152c4e52cf05822e39"
+        },
+        {
+          "path": "SwfLib/Tags/UnknownTag.cs",
+          "sha256": "22f21e81fd4fcd9cb7079aba3e40fcc3842d5c0eed17b85ba8923151d3ec286c"
+        },
+        {
+          "path": "SwfLib/Tags/VideoTags/DefineVideoStreamTag.cs",
+          "sha256": "67b88d36c24d1161f78386fe744e5fca0b6b111b5eaeb5f71f915ed59020e1bc"
+        },
+        {
+          "path": "SwfLib/Tags/VideoTags/VideoFrameTag.cs",
+          "sha256": "8c9b999b8632c9d5cd442bfb39c686440f951e7c4fbd1e41802ac0ff893d93cc"
+        },
+        {
+          "path": "SwfLib/Text/GlyphEntry.cs",
+          "sha256": "90bbb288e9ef3460ee5bfc629739d96d411e7a75d73411b19e0e16076af7fdb8"
+        },
+        {
+          "path": "SwfLib/Text/TextRecordBase.cs",
+          "sha256": "99aeb25c8daae73fcdf65fa933451316f15b6fc26a41eec3033391d2ee1a8647"
+        },
+        {
+          "path": "SwfLib/Text/TextRecordRGB.cs",
+          "sha256": "a70122b7afe792c9686bcd0db158f3917052b262c24e35d7b62e706afa3af0b0"
+        },
+        {
+          "path": "SwfLib/Text/TextRecordRGBA.cs",
+          "sha256": "cbadf2a840bc00fbb6432f0fab0c4e5e6ae29ba17203c372f0a9bc1dd6979d2f"
+        },
+        {
+          "path": "SwfLib/Text/TextStreamExt.cs",
+          "sha256": "4ee9d368c3abba663abee49556f750117d1af6276ed92e234a34e6fda641ffc3"
+        },
+        {
+          "path": "SwfLib/Utils/SignedBitsCount.cs",
+          "sha256": "435e61505be85e9922a5aad7117525c1f66c355365a2b7d6212bfbcc17565e11"
+        },
+        {
+          "path": "SwfLib/Utils/UnsignedBitsCount.cs",
+          "sha256": "d066b781ea7c4c3c2c66ce7b44f6326e9f34851e7d3291d78d7f0cc83e7e3a60"
+        }
+      ]
+    }
+  }
+}

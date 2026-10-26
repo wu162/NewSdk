@@ -1,0 +1,18 @@
+<!-- Build adapter only: upstream .cs files are compiled without algorithm patches. -->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>eaf2apt-source</AssemblyName>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <PlatformTarget>x86</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Vendor>$(MSBuildThisFileDirectory)../vendor/swf2apt</Vendor>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageReference Include="SharpCompress" Version="0.26.0" />
+    <Compile Include="$(Vendor)/SwfLib/**/*.cs" Exclude="$(Vendor)/SwfLib/obj/**;$(Vendor)/SwfLib/bin/**" />
+    <Compile Include="$(Vendor)/eaf2apt/**/*.cs" Exclude="$(Vendor)/eaf2apt/obj/**;$(Vendor)/eaf2apt/bin/**" />
+  </ItemGroup>
+</Project>
