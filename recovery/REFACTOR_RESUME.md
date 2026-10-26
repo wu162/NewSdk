@@ -11,10 +11,11 @@
 - `3f1d90f` 绑定宿主 config/ANTLR 哈希，拒绝陈旧运行目录，补统一工厂复用/释放和最终链接 Foundation 行为测试。宿主收据 schema=2，旧成功不能冒充新宿主验收。
 - `9abdea5` 已接入最终组合音频 13 组既有 PC 差分和 XML 63 组完整矩阵；XML 原 DLL 在隔离测试进程中经无损 DOM 管道调用。生产不包含该测试 transport。
 - `9cd2cb8` 已接入完整生产对象组合贴图 payload/部署拒绝及精确纹理宿主隔离；XML 计数契约已修复。该候选 Native 矩阵验证中，需查询原始终态。独立 Windows guard 已在 `9994d63` 全过，修复的是测试读取 UTF-8；不能替代组件矩阵。
+- `c603bcd` 修复 XML 原版测试宿主的 Framework csc 相对源路径失败（CS1504），以绝对路径传入 transport。新增 `.github/workflows/refactor-xml-product.yml`，消息 `[refactor-xml-product]` 只跑完整生产组合部署和 XML smoke/全部 63 组，不重复其他组件或 SDK；该专项验证中。
 
 ## 下一步（按顺序，先取证再修改）
 
-1. 查本分支 `.github/workflows/refactor-native.yml` 最近**实际执行**运行，匹配实现提交；只输出 SHA、状态、失败步骤。未终结时不要重复触发。
+1. 查本分支 `refactor-native.yml`、`refactor-xml-product.yml`、`refactor-guards.yml` 最近**实际执行**运行，匹配各自实现/修复提交；只输出 SHA、状态、失败步骤。未终结时不要重复相同输入；旧 Native 的 guard 编码/路径红状态须结合已修复专项证据判断，勿因此重复全矩阵。
 2. 读取相关 `validation.json`、生产/宿主 `build.json`，核对 sourceCommit、配置、两份 EXE 身份和运行文件；失败只取相关日志尾部。工作流成功不自动代表 P4/G3/SDK 验收。
 3. 集中修实际失败；完整 XML 需全部 63 组、两配置、四平台及原有布局/拒绝矩阵，不以联合 smoke 替代。已知 Locomotor/FXParticle 为单三缓冲比较，按原组契约验收。
 4. 完整生产对象组合的贴图 payload/部署拒绝须核对新收据；保留固定原件及 PE 审计，验证宿主不得笼统放行业务 DLL。P4 门槛满足后才推进 P5。
@@ -25,7 +26,7 @@
 
 | 问题 | 对应入口（除工作流外相对 recovery） |
 | --- | --- |
-| 失败/工作流 | `.github/workflows/refactor-native.yml` + 对应失败脚本 |
+| 失败/工作流 | `.github/workflows/refactor-native.yml`、`refactor-xml-product.yml`、`refactor-guards.yml` + 对应脚本 |
 | 宿主身份 | `scripts/BuildCompilerValidationHost.ps1`、`scripts/CompilerValidation.Common.ps1`、`tests/CompilerValidationEntry.cpp` |
 | 生产部署/管理行为 | `scripts/TestCompiler.ps1`、`scripts/TestCompilerFoundation.ps1` |
 | Tokenizer/音频 | `scripts/TestCompilerDifferential.ps1`、`TestCompilerGameObject.ps1`、`TestCompilerWeapon.ps1`、`TestCompilerAudio.ps1` |
