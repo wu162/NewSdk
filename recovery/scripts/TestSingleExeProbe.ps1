@@ -14,7 +14,7 @@ try {
     $state.sourceCommit=(git rev-parse HEAD).Trim()
     Copy-Item SDK/tools/*.dll $oracle
     $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-    & $csc /nologo /platform:x86 /define:ORACLE /r:System.Xml.dll "/r:$oracle/BinaryAssetBuilder.Core.dll" "/r:$oracle/EALA.Hash.dll" "/out:$oracle/Original.exe" recovery/probes/SingleExe/Probe.cs *> "$out/oracle-build.log"
+    & $csc /nologo /codepage:65001 /platform:x86 /define:ORACLE /r:System.Xml.dll "/r:$oracle/BinaryAssetBuilder.Core.dll" "/r:$oracle/EALA.Hash.dll" "/out:$oracle/Original.exe" (Resolve-Path 'recovery/probes/SingleExe/Probe.cs').Path *> "$out/oracle-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log" -Tail 80; throw 'Original probe build failed' }
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$oracle/Original.exe.config"
     Push-Location $oracle
@@ -24,13 +24,16 @@ try {
     $baseline = (Get-FileHash "$out/original.tsv" -Algorithm SHA256).Hash
     foreach ($mode in @('Debug','Release')) {
         $build = Join-Path $work $mode
-        & "$PSScriptRoot/BuildSingleExeProbe.ps1" -Configuration $mode -OutputDirectory $build -FoundationDirectory $FoundationDirectory -Minimal:$Minimal | Out-Null
-        # Preserve each mode's logs in its own evidence directory.
         $modeEvidence = Join-Path $out $mode
         New-Item -ItemType Directory -Force $modeEvidence | Out-Null
-        Copy-Item "$build/*.log","$build/build.json" -Destination $modeEvidence
+        try { & "$PSScriptRoot/BuildSingleExeProbe.ps1" -Configuration $mode -OutputDirectory $build -FoundationDirectory $FoundationDirectory -Minimal:$Minimal | Out-Null }
+        finally {
+            Get-ChildItem $build -File -ErrorAction SilentlyContinue | Where-Object { $_.Extension -in @('.log','.json') } | Copy-Item -Destination $modeEvidence
+        }
         $bin = Join-Path $build 'bin'
-        $unexpected = @(Get-ChildItem $bin -File | Where-Object { $_.Name -notin @('NewModCompiler.exe','NewModCompiler.exe.config') })
+        $allowedFiles = @('NewModCompiler.exe','NewModCompiler.exe.config')
+        if (!$Minimal) { $allowedFiles += 'antlr.runtime.dll' }
+        $unexpected = @(Get-ChildItem $bin -File | Where-Object { $_.Name -notin $allowedFiles })
         if ($unexpected.Count -ne 0) { throw 'Unexpected file in isolated probe runtime directory' }
         # If a link retained module file dependencies, removing them must fail the test.
         $quarantine = Join-Path $work "quarantined-$mode"
@@ -44,8 +47,20 @@ try {
             for($i=0;$i -lt [Math]::Max($a.Count,$b.Count);$i++){if($a[$i] -cne $b[$i]){Write-Output "Difference row $i";break}}
             throw "$mode original/unified-link transcript mismatch"
         }
+        $resourceHashes = @{}
+        foreach($line in (Get-Content "$modeEvidence/recovered.tsv.resources")) {
+            $parts=$line -split "`t",2
+            if($parts.Length -ne 2 -or $resourceHashes.ContainsKey($parts[0])){throw 'Invalid/duplicate resource audit row'}
+            $resourceHashes[$parts[0]]=$parts[1]
+        }
+        $buildReceipt=Get-Content "$build/build.json" -Raw | ConvertFrom-Json
+        if($resourceHashes.Count -ne @($buildReceipt.resources).Count){throw 'Resource count differs from manifest'}
+        foreach($resource in $buildReceipt.resources){
+            $expected=(Get-FileHash $resource.path -Algorithm SHA256).Hash.ToLowerInvariant()
+            if($resourceHashes[$resource.logicalName] -cne $expected){throw "Embedded resource bytes differ: $($resource.logicalName)"}
+        }
         Get-Content "$modeEvidence/runtime.log"
-        $state.configurations += @{configuration=$mode;passed=$true;transcriptSha256=$baseline.ToLowerInvariant();exeSha256=(Get-FileHash "$bin/NewModCompiler.exe" -Algorithm SHA256).Hash.ToLowerInvariant();moduleInputsQuarantined=$true;runtimeFiles=@('NewModCompiler.exe','NewModCompiler.exe.config')}
+        $state.configurations += @{configuration=$mode;passed=$true;transcriptSha256=$baseline.ToLowerInvariant();exeSha256=(Get-FileHash "$bin/NewModCompiler.exe" -Algorithm SHA256).Hash.ToLowerInvariant();moduleInputsQuarantined=$true;runtimeFiles=$allowedFiles}
     }
     $state.status='passed'
     $state.scope=if($Minimal){'minimal unified-link G1 probe only; full Foundation metadata/resources, G2 and SDK gates remain'}else{'unified Foundation/Armor link and separate-process original differential; metadata acceptance is recorded separately'}

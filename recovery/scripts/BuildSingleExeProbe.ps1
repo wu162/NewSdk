@@ -25,7 +25,7 @@ try {
         $asset = Get-Content 'recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetBuffer.cs' -Raw
         if (!$asset.Contains('namespace BinaryAssetBuilder.Core;')) { throw 'AssetBuffer namespace changed; review generator' }
         $asset.Replace('namespace BinaryAssetBuilder.Core;',"namespace BinaryAssetBuilder.Core`n{") + "`n}" | Set-Content "$work/AssetBuffer.cs" -Encoding UTF8
-        Invoke-Checked $csc @('/nologo','/target:module','/platform:x86','/unsafe',"/out:$work/Managed.Foundation.netmodule","$work/AssetBuffer.cs",'recovery/src/Managed/Hash/FastHash.cs') "$out/foundation-build.log"
+        Invoke-Checked $csc @('/nologo','/codepage:65001','/target:module','/platform:x86','/unsafe',"/out:$work/Managed.Foundation.netmodule","$work/AssetBuffer.cs",(Resolve-Path 'recovery/src/Managed/Hash/FastHash.cs').Path) "$out/foundation-build.log"
         $foundation = "$work/Managed.Foundation.netmodule"
         $resources = @(@{path=(Join-Path $root 'recovery/src/Managed/Core/BinaryAssetBuilderProject.xsd');logicalName='BinaryAssetBuilderProject.xsd'})
     } else {
@@ -53,9 +53,9 @@ try {
         $objects += $object
     }
     $module = Join-Path $work 'Managed.Application.netmodule'
-    $applicationArgs = @('/nologo','/target:module','/platform:x86',"/addmodule:$foundation,$($objects[-1])",'/r:System.Xml.dll',"/out:$module",'recovery/probes/SingleExe/Probe.cs')
+    $applicationArgs = @('/nologo','/codepage:65001','/target:module','/platform:x86',"/addmodule:$foundation,$($objects[-1])",'/r:System.Xml.dll','/r:System.Core.dll',"/out:$module",(Resolve-Path 'recovery/probes/SingleExe/Probe.cs').Path)
     if (!$Minimal) {
-        $applicationArgs += @('/define:FULL_FOUNDATION','recovery/build/ManagedValidation/ManagedFoundationValidation.cs')
+        $applicationArgs += @('/define:FULL_FOUNDATION',(Resolve-Path 'recovery/build/ManagedValidation/ManagedFoundationValidation.cs').Path)
     }
     Invoke-Checked $csc $applicationArgs "$out/application-build.log"
     $linkArgs = @('/nologo','/LTCG','/MACHINE:X86','/SUBSYSTEM:CONSOLE','/ENTRY:SingleExeProbe.Main',"/OUT:$bin/NewModCompiler.exe") + $objects + @($foundation,$module)
@@ -66,7 +66,8 @@ try {
     }
     Invoke-Checked 'link.exe' $linkArgs "$out/link.log"
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8" /></startup></configuration>' | Set-Content "$bin/NewModCompiler.exe.config"
-    # Only EXE and configuration enter the run directory. obj stays outside.
+    if (!$Minimal) { Copy-Item 'SDK/tools/antlr.runtime.dll' $bin }
+    # Only EXE, configuration and full Foundation's declared ANTLR dependency enter the run directory.
     @{
         sourceCommit=(git rev-parse HEAD).Trim(); configuration=$Configuration
         scope=if($Minimal){'minimal link probe: real AssetBuffer, Hash, Armor CompileXml; not full G1'}else{'Foundation plus real Armor bridge unified-link probe'}

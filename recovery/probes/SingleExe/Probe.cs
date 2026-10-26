@@ -113,6 +113,13 @@ public static class SingleExeProbe
             Fixtures();
             File.WriteAllLines(args[0],rows.ToArray());
 #if !ORACLE
+            using(StreamWriter resources=new StreamWriter(args[0]+".resources")) {
+                foreach(string name in self.GetManifestResourceNames()) {
+                    using(Stream resource=self.GetManifestResourceStream(name))
+                    using(SHA256 hash=SHA256.Create())
+                        resources.WriteLine(name+"\t"+BitConverter.ToString(hash.ComputeHash(resource)).Replace("-", "").ToLowerInvariant());
+                }
+            }
             using(StreamWriter audit=new StreamWriter(args[0]+".bindings")) {
                 foreach(Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
                     audit.WriteLine(assembly.FullName+"\t"+assembly.Location);

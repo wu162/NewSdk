@@ -34,3 +34,24 @@ jobs:
           name: refactor-link-${{ github.run_id }}-${{ github.run_attempt }}
           path: recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}
           if-no-files-found: error
+  texture-roundtrip:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]')
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Texture original and native-writer roundtrip
+        shell: pwsh
+        run: |
+          python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
+          if($LASTEXITCODE -ne 0){throw 'PE audit dependencies failed'}
+          ./recovery/scripts/TestTextureRedirect.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-texture-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
