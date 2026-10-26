@@ -1,0 +1,66 @@
+name: MOD compiler validation guard regressions
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-guards.yml'
+      - 'recovery/scripts/BuildCompilerValidationHost.ps1'
+      - 'recovery/scripts/CompilerValidation.Common.ps1'
+      - 'recovery/scripts/TestCompilerXmlSmoke.ps1'
+      - 'recovery/scripts/TestCompilerXmlMatrices.ps1'
+      - 'recovery/scripts/PrepareCompilerXmlMatrices.py'
+      - 'recovery/scripts/CheckW3xCaptureInputs.py'
+      - 'recovery/tests/TestCompiler*Guards.ps1'
+      - 'recovery/tests/TestCompilerXmlSmokeReport.ps1'
+      - 'recovery/tests/TestXmlProductOracleTransport.ps1'
+      - 'recovery/tests/XmlProductOracleTransport.cs'
+      - 'recovery/tests/test_prepare_compiler_xml_matrices.py'
+      - 'recovery/tests/test_w3x_capture_inputs.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: refactor-guards-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  guards:
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            recovery/scripts
+            recovery/tests
+      - name: Mock receipt transport and clean-directory rejection (not ABI)
+        shell: pwsh
+        run: ./recovery/tests/TestCompilerValidationGuards.ps1
+      - name: XML smoke evidence reports
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: ./recovery/tests/TestCompilerXmlSmokeReport.ps1
+      - name: All 63 XML matrix count contracts
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: ./recovery/tests/TestCompilerXmlMatrixGuards.ps1
+      - name: XML client wire semantics (Core stub only)
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: ./recovery/tests/TestXmlProductOracleTransport.ps1
+      - name: XML server wire semantics (Core stub only)
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: ./recovery/tests/TestXmlProductOracleTransport.ps1 -OriginalServer
+      - name: W3X historical input dependency guards
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: |
+          python -m unittest discover -s recovery/tests -p test_w3x_capture_inputs.py
+          if ($LASTEXITCODE -ne 0) { throw 'W3X dependency guard regression failed' }
+      - name: Complete XML fixture adaptation contracts
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: |
+          python -m unittest discover -s recovery/tests -p test_prepare_compiler_xml_matrices.py
+          if ($LASTEXITCODE -ne 0) { throw 'XML fixture adaptation regression failed' }
