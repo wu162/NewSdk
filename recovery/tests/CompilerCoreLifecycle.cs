@@ -10,6 +10,7 @@ using System.Xml;
 using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 using NewModCompiler.Application;
+using EALA.Metrics;
 
 // Runs inside the independently linked production-object validation host.
 // This fixture uses real SDK schemas, Core, recovered Armor and verifier code.
@@ -169,6 +170,86 @@ internal static class CompilerCoreLifecycle
         Run(p, input); Clean(p, null, input);
         Tests.Add("real-cache-save-fault-propagates-cleans-frames-then-same-processor-fresh-cache-success");
     }
+    sealed class CompletionMetricFault : IMetricsListener
+    {
+        internal bool FailFinal, FailTimer;
+        internal readonly Exception FinalFailure = new IOException("Injected final BuildSuccessful metric failure");
+        internal readonly Exception TimerFailure = new IOException("Injected ProcessingTime Dispose metric failure");
+        internal int FinalCalls, TimerCalls;
+        public void Open() { }
+        public void Close() { }
+        public void SubmitMetrics(Metric metric)
+        {
+            if (metric.Name == "BAB.BuildSuccessful")
+            {
+                FinalCalls++;
+                if (FailFinal) throw FinalFailure;
+            }
+            if (metric.Name == "BAB.ProcessingTime")
+            {
+                TimerCalls++;
+                if (FailTimer) throw TimerFailure;
+            }
+        }
+    }
+    static void MetricsFailureCase(BuiltinCompilers plugins, bool failFinal, bool failTimer)
+    {
+        const string finalKey = "BinaryAssetBuilder.ProcessDocument.FinalMetricsFailure";
+        const string timerKey = "BinaryAssetBuilder.ProcessDocument.ProcessingTimeFailure";
+        string name = "metrics-failure-" + failFinal + "-" + failTimer;
+        Configure(name); var p = Processor(plugins);
+        string bad = Write(name + "/bad.xml", Asset("<ArmorTemplate id='BadMetrics' inheritFrom='MissingParent'/>"));
+        string good = Write(name + "/good.xml", probe);
+        MetricManager.GetDescriptor("BAB.BuildSuccessful", MetricType.Success, "Build successful");
+        MetricManager.GetDescriptor("BAB.ProcessingTime", MetricType.Duration, "Processing time");
+        var listener = new CompletionMetricFault { FailFinal = failFinal, FailTimer = failTimer };
+        bool oldEnabled = MetricManager.Enabled, opened = false;
+        MetricManager.AddListener(listener);
+        try
+        {
+            MetricManager.OpenSession(); opened = true;
+            BinaryAssetBuilderException primary = null;
+            bool success = false;
+            try { p.ProcessDocument(bad, true, false, out success); }
+            catch (BinaryAssetBuilderException error) { primary = error; }
+            Require(primary != null && primary.ErrorCode == ErrorCode.InheritFromError && !success,
+                "Completion metrics replaced the real inheritance failure");
+            Require(primary.StackTrace != null && primary.StackTrace.Contains("ProcessDocumentInternal"),
+                "Original real Core compilation stack was not preserved");
+            Require(primary.Data.Contains(finalKey) == failFinal && primary.Data.Contains(timerKey) == failTimer,
+                "Secondary metrics error attachments are missing or unexpected");
+            if (failFinal) Require(Object.ReferenceEquals(primary.Data[finalKey], listener.FinalFailure),
+                "Final metrics secondary exception identity was lost");
+            if (failTimer) Require(Object.ReferenceEquals(primary.Data[timerKey], listener.TimerFailure),
+                "MetricTimer.Dispose secondary exception identity was lost");
+            Clean(p, null, bad);
+
+            // Without a compilation failure, keep the metrics exception as the
+            // primary error. A later Dispose error must not replace it either.
+            Exception metricFailure = null; success = false;
+            try { p.ProcessDocument(good, true, false, out success); }
+            catch (Exception error) { metricFailure = error; }
+            Require(success && Object.ReferenceEquals(metricFailure, failFinal ? listener.FinalFailure : listener.TimerFailure),
+                "Successful compilation swallowed or replaced its metrics failure");
+            if (failFinal && failTimer)
+                Require(Object.ReferenceEquals(metricFailure.Data[timerKey], listener.TimerFailure),
+                    "Timer failure replaced the first successful-build metrics error");
+            Require(listener.FinalCalls == 2 && listener.TimerCalls == 2, "Completion metric fault paths were not both reached");
+            Clean(p, null, bad, good);
+        }
+        finally
+        {
+            try { if (opened) MetricManager.CloseSession(); }
+            finally
+            {
+                Require(MetricManager.RemoveListener(listener), "Fault listener was not removable after completion failure");
+                MetricManager.Enabled = oldEnabled;
+            }
+        }
+        string retry = Write(name + "/retry.xml", probe);
+        Run(p, retry); Clean(p, null, bad, good, retry);
+        Tests.Add(name + ":real-inheritance-primary-and-stack-preserved-secondary-errors-attached-metrics-primary-on-success-listener-removed-retry-success");
+    }
     static void ProjectCase(BuiltinCompilers plugins)
     {
         Settings s = Configure("project");
@@ -208,6 +289,8 @@ internal static class CompilerCoreLifecycle
             {
                 RetryCase(plugins, "include", false); RetryCase(plugins, "inheritance", true);
                 CycleCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins);
+                MetricsFailureCase(plugins, true, false); MetricsFailureCase(plugins, false, true);
+                MetricsFailureCase(plugins, true, true);
             }
             result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), scope="Real Core lifecycle only; production CLI backend, other global scopes, SDK/G3 and persistent cache not accepted" };
             Console.WriteLine("PASS CoreLifecycle: " + Tests.Count + " groups; " + checks + " checks");

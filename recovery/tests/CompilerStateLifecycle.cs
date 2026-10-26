@@ -93,6 +93,29 @@ public static class CompilerStateLifecycle
                 catch (System.Xml.XmlException) { rejected = true; }
                 Require(rejected, "Malformed hash file was accepted"); SameHashState(expected);
 
+                // Invalid XML content forces a write failure after the file is open.
+                // The handle must close immediately, without waiting for a finalizer.
+                string writeFailure = Path.Combine(output, "writer-failure");
+                using (HashProvider.BeginStringHashScope(writeFailure))
+                {
+                    HashProvider.RecordHash("POID", "invalid\u0000xml");
+                    rejected = false;
+                    try { HashProvider.FinalizeStringHashes(); }
+                    catch (ArgumentException) { rejected = true; }
+                    Require(rejected, "Invalid XML hash text did not exercise a write failure");
+                    using (File.Open(Path.Combine(writeFailure, "StringHashes.xml"), FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
+                }
+                SameHashState(expected);
+                File.Delete(Path.Combine(writeFailure, "StringHashes.xml"));
+                using (HashProvider.BeginStringHashScope(writeFailure))
+                {
+                    HashProvider.RecordHash("POID", "RecoveredAfterWriteFailure");
+                    HashProvider.FinalizeStringHashes();
+                    var valid = new System.Xml.XmlDocument(); valid.Load(Path.Combine(writeFailure, "StringHashes.xml"));
+                    Require(valid.OuterXml.Contains("RecoveredAfterWriteFailure"), "Hash output did not recover after write failure");
+                }
+                SameHashState(expected);
+
                 var outer = HashProvider.BeginStringHashScope(Path.Combine(output, "nested-outer"));
                 object[] outerState = HashState();
                 var innerScope = HashProvider.BeginStringHashScope(Path.Combine(output, "nested-inner"));
@@ -204,7 +227,7 @@ public static class CompilerStateLifecycle
         try
         {
             Run(args[0]);
-            File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks = new[] { "hash-scope-restoration", "atomic-hash-initialization", "hash-callback-worker-no-deadlock", "hash-lifo-and-thread-rejection", "trace-scope-restoration", "trace-no-duplicate-callbacks", "trace-lifo-and-thread-rejection" } }));
+            File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks = new[] { "hash-scope-restoration", "atomic-hash-initialization", "hash-write-failure-releases-file", "hash-callback-worker-no-deadlock", "hash-lifo-and-thread-rejection", "trace-scope-restoration", "trace-no-duplicate-callbacks", "trace-lifo-and-thread-rejection" } }));
             return 0;
         }
         catch (Exception error) { Console.Error.WriteLine(error); return 1; }

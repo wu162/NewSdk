@@ -201,22 +201,38 @@ public static class HashProvider
 		XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
 		xmlWriterSettings.CloseOutput = true;
 		xmlWriterSettings.Indent = true;
-		XmlWriter xmlWriter = XmlWriter.Create(outputFileName, xmlWriterSettings);
-		xmlWriter.WriteStartElement("AssetDeclaration", "uri:ea.com:eala:asset");
-		if (Settings.Current.OutputAssetReport)
+		Stream output = null;
+		XmlWriter xmlWriter = null;
+		Exception failure = null;
+		try
 		{
-			AssetReport.WriteAssetReportInclude(xmlWriter);
-		}
-		foreach (KeyValuePair<string, StringHashBin> stringHashBin in _StringHashBins)
-		{
-			xmlWriter.WriteStartElement(StringTableAssetName);
-			xmlWriter.WriteAttributeString("Version", HashProviderVersion.ToString());
-			stringHashBin.Value.WriteStringHashTable(xmlWriter);
+			// Own the stream separately so a failing writer Close cannot retain its handle.
+			output = new FileStream(outputFileName, FileMode.Create, FileAccess.Write, FileShare.Read);
+			xmlWriter = XmlWriter.Create(output, xmlWriterSettings);
+			xmlWriter.WriteStartElement("AssetDeclaration", "uri:ea.com:eala:asset");
+			if (Settings.Current.OutputAssetReport)
+			{
+				AssetReport.WriteAssetReportInclude(xmlWriter);
+			}
+			foreach (KeyValuePair<string, StringHashBin> stringHashBin in _StringHashBins)
+			{
+				xmlWriter.WriteStartElement(StringTableAssetName);
+				xmlWriter.WriteAttributeString("Version", HashProviderVersion.ToString());
+				stringHashBin.Value.WriteStringHashTable(xmlWriter);
+				xmlWriter.WriteEndElement();
+			}
 			xmlWriter.WriteEndElement();
+			xmlWriter.Flush();
 		}
-		xmlWriter.WriteEndElement();
-		xmlWriter.Flush();
-		xmlWriter.Close();
+		catch (Exception error) { failure = error; }
+		finally
+		{
+			try { if (xmlWriter != null) xmlWriter.Close(); }
+			catch (Exception error) { if (failure == null) failure = error; }
+			try { if (output != null) output.Dispose(); }
+			catch (Exception error) { if (failure == null) failure = error; }
+		}
+		if (failure != null) System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(failure).Throw();
 	}
 
 	public static uint GetTypeHash(Type type)

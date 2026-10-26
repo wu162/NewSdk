@@ -1,6 +1,6 @@
 # P5 生命周期审计与最小实施组
 
-状态：2026-10-26 P4 已验收。文档/配置清理、Hash/Tracer 作用域及 Metrics/AssetReport 资源恢复已编写，Windows 验证待完成。
+状态：2026-10-26 P4 已验收。文档/配置清理、Hash/Tracer 作用域及 Metrics/AssetReport 资源恢复已编写，Windows 首轮在项目配置成功证明断言处失败，最后修复与实验后端仍未验证。
 本页保存设计依据；具体实现以源码及 Core lifecycle 作业为准，不代表生产 `build` 已接入或 SDK/G3 已通过。
 路径均相对 `recovery`；首版仅顺序执行，不能并行修改旧静态状态。
 

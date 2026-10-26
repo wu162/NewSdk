@@ -168,7 +168,9 @@ public class DocumentProcessor
 	{
 		ExpressionEvaluatorWrapper.LoadAssembly();
 		DateTime now = DateTime.Now;
-		using (new MetricTimer("BAB.ProcessingTime"))
+		MetricTimer timer = new MetricTimer("BAB.ProcessingTime");
+		Exception failure = null;
+		try
 		{
 			if (!File.Exists(fileName))
 			{
@@ -194,24 +196,51 @@ public class DocumentProcessor
 				}
 				success = true;
 			}
+			catch (Exception exception)
+			{
+				failure = exception;
+				throw;
+			}
 			finally
 			{
-				MetricManager.Submit("BAB.PrepSourceTime", _TotalPrepareSourceTime);
-				MetricManager.Submit("BAB.ProcIncludesTime", _TotalPostProcTime);
-				MetricManager.Submit("BAB.ValidateTime", _TotalValidateTime);
-				MetricManager.Submit("BAB.InstanceProcessingTime", _TotalProcInstancesTime);
-				MetricManager.Submit("BAB.OutputPrepTime", _TotalPrepareOutputTime);
-				MetricManager.Submit("BAB.DocumentProcessingTime", DateTime.Now - now);
-				now = DateTime.Now;
-				MetricManager.Submit("BAB.LinkedStreamsEnabled", Settings.Current.LinkedStreams);
-				MetricManager.Submit("BAB.MaxMemorySize", _MaxTotalMemory);
-				MetricManager.Submit("BAB.FilesProcessedCount", _FilesProcessedCount);
-				MetricManager.Submit("BAB.FilesParsedCount", _FilesParsedCount);
-				MetricManager.Submit("BAB.InstancesProcessedCount", _InstancesProcessedCount);
-				MetricManager.Submit("BAB.InstancesCompiledCount", _InstancesCompiledCount);
-				MetricManager.Submit("BAB.InstancesCopiedFromCacheCount", _InstancesCopiedFromCacheCount);
-				MetricManager.Submit("BAB.ShutdownTime", DateTime.Now - now);
-				MetricManager.Submit("BAB.BuildSuccessful", success);
+				try
+				{
+					MetricManager.Submit("BAB.PrepSourceTime", _TotalPrepareSourceTime);
+					MetricManager.Submit("BAB.ProcIncludesTime", _TotalPostProcTime);
+					MetricManager.Submit("BAB.ValidateTime", _TotalValidateTime);
+					MetricManager.Submit("BAB.InstanceProcessingTime", _TotalProcInstancesTime);
+					MetricManager.Submit("BAB.OutputPrepTime", _TotalPrepareOutputTime);
+					MetricManager.Submit("BAB.DocumentProcessingTime", DateTime.Now - now);
+					now = DateTime.Now;
+					MetricManager.Submit("BAB.LinkedStreamsEnabled", Settings.Current.LinkedStreams);
+					MetricManager.Submit("BAB.MaxMemorySize", _MaxTotalMemory);
+					MetricManager.Submit("BAB.FilesProcessedCount", _FilesProcessedCount);
+					MetricManager.Submit("BAB.FilesParsedCount", _FilesParsedCount);
+					MetricManager.Submit("BAB.InstancesProcessedCount", _InstancesProcessedCount);
+					MetricManager.Submit("BAB.InstancesCompiledCount", _InstancesCompiledCount);
+					MetricManager.Submit("BAB.InstancesCopiedFromCacheCount", _InstancesCopiedFromCacheCount);
+					MetricManager.Submit("BAB.ShutdownTime", DateTime.Now - now);
+					MetricManager.Submit("BAB.BuildSuccessful", success);
+				}
+				catch (Exception metricFailure)
+				{
+					if (failure == null) throw;
+					failure.Data["BinaryAssetBuilder.ProcessDocument.FinalMetricsFailure"] = metricFailure;
+				}
+			}
+		}
+		catch (Exception exception)
+		{
+			failure = exception;
+			throw;
+		}
+		finally
+		{
+			try { timer.Dispose(); }
+			catch (Exception metricFailure)
+			{
+				if (failure == null) throw;
+				failure.Data["BinaryAssetBuilder.ProcessDocument.ProcessingTimeFailure"] = metricFailure;
 			}
 		}
 	}
