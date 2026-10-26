@@ -30,6 +30,45 @@ internal static class AudioUpheavalClosure
         if (!path.StartsWith(sdk + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) throw new Exception("Include escapes SDK: " + path);
         return path;
     }
+    private static void InventoryRoots()
+    {
+        // Raw XML inventory only: XInclude fragments are valid inventory rows,
+        // not independent compile inputs. The actual closure below still uses
+        // the original XInclude reader and applies its own strict root gate.
+        var files = new List<string>();
+        foreach (string directory in new[] { Path.Combine(sdk, "Art"), Path.Combine(sdk, "Mods/Upheaval") })
+            files.AddRange(Directory.GetFiles(directory, "*", SearchOption.AllDirectories).Where(p =>
+                String.Equals(Path.GetExtension(p), ".xml", StringComparison.OrdinalIgnoreCase) ||
+                String.Equals(Path.GetExtension(p), ".w3x", StringComparison.OrdinalIgnoreCase)));
+        var rows = new List<object>(); var errors = new List<object>(); var unusual = new List<object>();
+        var counts = new Dictionary<string, int>(StringComparer.Ordinal);
+        foreach (string file in files.OrderBy(p => p, StringComparer.Ordinal)) {
+            string name = null, ns = null, parseError = null; int audio = 0, includes = 0;
+            try {
+                using (XmlReader reader = XmlReader.Create(file)) while (reader.Read()) {
+                    if (reader.NodeType != XmlNodeType.Element) continue;
+                    if (reader.Depth == 0) { name = reader.LocalName; ns = reader.NamespaceURI; }
+                    if (AudioTypes.Contains(reader.LocalName)) audio++;
+                    if (reader.LocalName == "Include" || reader.LocalName == "include") includes++;
+                }
+                if (name == null) throw new Exception("No root element");
+            } catch (Exception error) { parseError = error.Message; }
+            var row = new { path = Relative(file), root = name, namespaceUri = ns, audioElements = audio, includeElements = includes, parseError = parseError };
+            rows.Add(row);
+            if (parseError != null) errors.Add(row);
+            else {
+                string key = ns + "\t" + name; int count; counts.TryGetValue(key, out count); counts[key] = count + 1;
+                if (name != "AssetDeclaration" || (ns.Length != 0 && ns != Ns)) unusual.Add(row);
+            }
+        }
+        var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
+        File.WriteAllText(Path.Combine(output, "xml-root-inventory.json"), serializer.Serialize(rows));
+        File.WriteAllText(Path.Combine(output, "xml-root-inventory-summary.json"), serializer.Serialize(new {
+            files = rows.Count, rootsByNamespaceAndName = counts, otherRoots = unusual, parseErrors = errors,
+            semantics = "Raw SDK Art and complete pinned MOD XML/W3X inventory; fragment roots and unreferenced parse errors do not determine compile closure"
+        }));
+        Console.WriteLine("XML inventory: " + rows.Count + " files, " + counts.Count + " root/namespace shapes, " + errors.Count + " parse errors");
+    }
     private static void Configure()
     {
         // Same no-configuration case3/4/5 command paths. SettingsLoader applies
@@ -58,6 +97,7 @@ internal static class AudioUpheavalClosure
             sdk = Path.GetFullPath(args[0]).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
             output = Path.GetFullPath(args[1]); Directory.CreateDirectory(output);
             Configure();
+            InventoryRoots();
             string data = Path.Combine(sdk, "Mods/Upheaval/Data");
             var roots = new List<string>();
             roots.AddRange(Directory.GetFiles(Path.Combine(data, "AptUI"), "*.xml").OrderBy(x => x, StringComparer.Ordinal));
@@ -69,6 +109,7 @@ internal static class AudioUpheavalClosure
             var documents = new Dictionary<string, XmlDocument>(StringComparer.OrdinalIgnoreCase);
             var assets = new Dictionary<string, Audio>(StringComparer.Ordinal);
             var edges = new List<object>(); var xincludes = new List<object>();
+            var emptyDeclarations = new List<string>();
             var kindCounts = new Dictionary<string, int>(); var aliasCounts = new Dictionary<string, int>();
             int unsupportedAudioDeclarations = 0;
             while (queue.Count > 0) {
@@ -82,8 +123,19 @@ internal static class AudioUpheavalClosure
                     FileNameXmlResolver resolver = FileNameResolver.GetXmlResolver(Path.GetDirectoryName(path));
                     using (XmlReader source = XmlReader.Create(path))
                     using (XmlReader expanded = XIncludingReaderWrapper.GetReader(source, resolver)) doc.Load(expanded);
-                    if (doc.DocumentElement == null || doc.DocumentElement.LocalName != "AssetDeclaration" || doc.DocumentElement.NamespaceURI != Ns)
-                        throw new Exception("Included XML is not AssetDeclaration: " + Relative(path));
+                    // The pinned SDK contains empty, namespace-free AssetDeclaration
+                    // placeholders (principally W3D art). Original Core gathers
+                    // only /ea:AssetDeclaration/* and gives these zero instances;
+                    // it does not inject an asset namespace. Accept only the
+                    // exact empty shape, never discard an unknown populated root.
+                    XmlElement documentRoot = doc.DocumentElement;
+                    bool emptyPlaceholder = documentRoot != null && documentRoot.Name == "AssetDeclaration" &&
+                        documentRoot.NamespaceURI.Length == 0 && documentRoot.Attributes.Count == 0 && !documentRoot.HasChildNodes;
+                    bool assetDeclaration = documentRoot != null && documentRoot.LocalName == "AssetDeclaration" && documentRoot.NamespaceURI == Ns;
+                    if (!assetDeclaration && !emptyPlaceholder)
+                        throw new Exception("Included XML root requires explicit audit: " + Relative(path) + " root=" +
+                            (documentRoot == null ? "<absent>" : documentRoot.Name + " namespace=" + documentRoot.NamespaceURI));
+                    if (emptyPlaceholder) emptyDeclarations.Add(Relative(path));
                     foreach (PathMapItem map in resolver.Paths)
                         xincludes.Add(new { document = Relative(path), source = map.SourceUri, physical = Relative(map.TargetPath) });
                     documents.Add(path, doc);
@@ -129,10 +181,11 @@ internal static class AudioUpheavalClosure
             File.WriteAllText(Path.Combine(output, "tentative-audio.json"), serializer.Serialize(tentative));
             File.WriteAllText(Path.Combine(output, "include-graph.json"), serializer.Serialize(edges));
             File.WriteAllText(Path.Combine(output, "xinclude-graph.json"), serializer.Serialize(xincludes));
+            File.WriteAllText(Path.Combine(output, "empty-asset-placeholders.json"), serializer.Serialize(emptyDeclarations.OrderBy(x => x, StringComparer.Ordinal).ToArray()));
             File.WriteAllLines(Path.Combine(output, "compiled-xml-closure.txt"), documents.Keys.Select(Relative).OrderBy(x => x, StringComparer.Ordinal));
             File.WriteAllText(Path.Combine(output, "closure-summary.json"), serializer.Serialize(new {
                 requiredAudio = expected.Length, tentativeAudio = tentative.Length, roots = roots.Select(Relative).ToArray(),
-                parsedDocuments = documents.Count, includes = kindCounts, aliases = aliasCounts, xincludePaths = xincludes.Count,
+                parsedDocuments = documents.Count, emptyNamespaceAssetPlaceholders = emptyDeclarations.Count, includes = kindCounts, aliases = aliasCounts, xincludePaths = xincludes.Count,
                 unsupportedAudioDeclarations = unsupportedAudioDeclarations, settingsData = Settings.Current.DataPaths,
                 settingsArt = Settings.Current.ArtPaths, settingsAudio = Settings.Current.AudioPaths,
                 semantics = "Original Core resolver/XInclude; all+Self required, instance tentative, reference external; path mode promotion allowed"
