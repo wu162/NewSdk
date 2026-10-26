@@ -39,17 +39,25 @@ jobs:
             ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/native-foundation/$mode"
           }
       - name: Production Native routes and clean deployment in Debug and Release
+        id: product
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/native-foundation -BuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Production Armor and Hash complete existing differential
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerDifferential.ps1 -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-differential/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Texture adapter differential and invalid deployment rejection
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestLegacyTextureAdapter.ps1 -FoundationDirectory recovery/artifacts/native-foundation -OutputDirectory "recovery/evidence/refactor/native-texture/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Production GameObject complete existing differential
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerGameObject.ps1 -CompilerBuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-gameobject/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -58,6 +66,7 @@ jobs:
             recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/native-foundation/**/*.log
             recovery/artifacts/native-foundation/**/build.json
             recovery/artifacts/native-product/**/*.log
