@@ -46,6 +46,10 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerDifferential.ps1 -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-differential/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Texture adapter differential and invalid deployment rejection
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestLegacyTextureAdapter.ps1 -FoundationDirectory recovery/artifacts/native-foundation -OutputDirectory "recovery/evidence/refactor/native-texture/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -53,6 +57,7 @@ jobs:
           path: |
             recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/native-foundation/**/*.log
             recovery/artifacts/native-foundation/**/build.json
             recovery/artifacts/native-product/**/*.log
