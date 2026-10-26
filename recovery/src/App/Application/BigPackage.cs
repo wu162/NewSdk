@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
+using NewModCompiler.Diagnostics;
 
 namespace NewModCompiler.Application
 {

@@ -147,8 +147,8 @@ function CompareBig($Big,$Loose,[string]$Name){
     $bigFiles=@($Big.report.artifacts|Where-Object{$_.Kind -ceq 'package.big'});$skuFiles=@($Big.report.artifacts|Where-Object{$_.Kind -ceq 'package.skudef'})
     Need ($bigFiles.Count -eq 1 -and $skuFiles.Count -eq 1) 'BIG report omitted exact package identities'
     Need ([IO.Path]::GetFileName($bigFiles[0].Path) -ceq 'business_1.0.big' -and [IO.Path]::GetFileName($skuFiles[0].Path) -ceq 'business_1.0.skudef') 'BIG/skudef filenames differ from production contract'
-    $skudef=[IO.File]::ReadAllText($skuFiles[0].Path)
-    Need ($skudef.Replace("`r`n","`n") -ceq "mod-game 1.12`nadd-big business_1.0.big`n") 'Game skudef commands/version differ from old SDK script'
+    $skudef=[IO.File]::ReadAllBytes($skuFiles[0].Path)
+    Need ([Convert]::ToBase64String($skudef) -ceq [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("mod-game 1.12`r`nadd-big business_1.0.big`r`n"))) 'Game skudef raw ASCII/CRLF commands/version differ from old SDK script'
     & python "$PSScriptRoot/ValidateCompilerBig.py" --archive $bigFiles[0].Path --oracle $archive --expected "$caseOut/expected.json" --output "$caseOut/comparison.json"
     Need ($LASTEXITCODE -eq 0) 'BIG/original MakeBig format, member inventory or raw contents differ'
     Copy-Item -LiteralPath $archive -Destination (Join-Path $caseOut 'original.big')
