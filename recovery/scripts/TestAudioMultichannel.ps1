@@ -28,7 +28,7 @@ try {
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-boundaries.log"; throw "$mode multichannel refusal boundaries failed" }
         & $directExe "$build/Recovered.AudioCompiler.dll" "$out/plugin/multichannel-original.txt" "$out/plugin" *> "$out/$mode-direct.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-direct.log"; throw "$mode multichannel direct-entry differential failed" }
-        $state.configurations+=@{configuration=$mode;refusals=36;directOriginalCases=64;directEncoderComparisons=128;directInvalidChannelRefusals=15;passed=$true}
+        $state.configurations+=@{configuration=$mode;refusals=42;directOriginalCases=64;directEncoderComparisons=128;directInvalidChannelRefusals=15;passed=$true}
     }
     $state.status='passed'
 } catch { $state.status='failed';$state.error=$_.Exception.ToString();throw }

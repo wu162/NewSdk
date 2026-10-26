@@ -1,3 +1,5 @@
+> 本轮检查点：AIFF/AIFC NONE4/6 实现与6336项组件/SDK矩阵已接线，尚待 Windows 验证；以下旧验收锚点保持原范围，不代表本轮成功。
+
 # AudioCompiler 当前状态
 
 唯一工作与交付分支 `recovery/audio-compiler-source`；源码 `src/AudioCompiler`；仅 PC / Win32。

@@ -1,3 +1,5 @@
+> 本轮检查点：AIFF/AIFC NONE4/6 实现与6336项组件/SDK矩阵已接线，尚待 Windows 验证；以下旧验收锚点保持原范围，不代表本轮成功。
+
 # AudioCompiler 当前交接
 
 2026-10-26（北京时间）。仅PC/Win32；最终职责为Audio恢复及音频SDK验收。先读AGENTS.md、EFFICIENCY.md、[AUDIO_COMPILER.md](AUDIO_COMPILER.md)。禁止强推；合入必须先PR并经用户明确批准。

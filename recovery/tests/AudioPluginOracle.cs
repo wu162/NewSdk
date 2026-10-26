@@ -50,7 +50,7 @@ internal static class AudioPluginOracle
             }
             else buffer = plugin.ProcessInstance(declaration);
             if (label.StartsWith("multichannel-", StringComparison.Ordinal) && buffer != null) {
-                int expectedChannels = label.Contains("MultichannelC4B") ? 4 : 6;
+                int expectedChannels = label.Contains("C4B") ? 4 : 6;
                 if (buffer.InstanceData == null || buffer.InstanceData.Length < 29 || buffer.InstanceData[28] != expectedChannels || BitConverter.ToUInt32(buffer.InstanceData, 12) == 0)
                     throw new Exception("Multichannel output metadata absent or truncated: " + label);
             }
@@ -198,6 +198,7 @@ internal static class AudioPluginOracle
                 else if (args[4] == "formats") AudioInputFormatCases.Run(root, Run);
                 else if (args[4] == "loops") AudioLoopProbeCases.Run(root, Run);
                 else if (args[4] == "aiffloops") AudioAiffLoopCases.Run(root, Run);
+                else if (args[4] == "multichannel-aiff") AudioMultichannelAiffCases.Run(root, Run);
                 else if (args[4] == "multichannel") AudioMultichannelCases.Run(root, Run);
                 else if (args[4] == "resample-full") AudioResampleCases.Run(root, Run);
                 else if (args[4] == "resample") AudioUnrecoveredProbeCases.Run(root, Run);

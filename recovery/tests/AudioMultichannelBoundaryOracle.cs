@@ -25,13 +25,15 @@ internal static class AudioMultichannelBoundaryOracle
             foreach (int channels in new[] { 3, 5, 8 }) foreach (int bits in new[] { 8, 16, 24 }) foreach (bool ext in new[] { false, true }) {
                 AudioMultichannelCases.Write(path, bits, channels, 129, ext, -1); Reject("WAVE" + channels + ":" + bits + ":" + ext, path);
             }
-            foreach (int channels in new[] { 4, 6 }) foreach (int bits in new[] { 8, 16, 24 }) {
+            foreach (int channels in new[] { 3,5,8 }) foreach (int bits in new[] { 8,16,24 }) {
                 AudioInputFormatCases.Write(path, true, bits, channels, 129); Reject("AIFF" + channels + ":" + bits, path);
                 AudioAifcInputCases.Write(path, bits, channels, 129, "empty", "NONE"); Reject("AIFC/NONE" + channels + ":" + bits, path);
+            }
+            foreach (int channels in new[] { 4,6 }) foreach (int bits in new[] { 8,16,24 }) {
                 AudioAdp4InputCases.Write(path, bits, channels, 129, 3, 129); Reject("ADP4" + channels + ":" + bits, path);
             }
-            if (count != 36) throw new Exception("Incomplete multichannel refusal set: " + count);
-            Console.WriteLine("PASS 36 multichannel boundaries: WAVE3/5/8 and AIFF/AIFC NONE/ADP4 above stereo remain unsupported"); return 0;
+            if (count != 42) throw new Exception("Incomplete multichannel refusal set: " + count);
+            Console.WriteLine("PASS 42 multichannel boundaries: WAVE3/5/8 and AIFF/AIFC NONE3/5/8 and ADP4 above stereo remain unsupported"); return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }
 }
