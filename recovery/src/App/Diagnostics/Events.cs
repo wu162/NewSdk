@@ -34,11 +34,13 @@ namespace NewModCompiler.Diagnostics
         static IOException Error(string path) { return new IOException("Cannot secure diagnostic directory " + path, new Win32Exception(Marshal.GetLastWin32Error())); }
         internal static void ValidateSyntax(string path)
         {
-            path=Path.GetFullPath(path);
-            if (path.StartsWith(@"\\?\",StringComparison.Ordinal) || path.StartsWith(@"\\.\",StringComparison.Ordinal)) throw new IOException("Device paths are unavailable for diagnostic output: " + path);
-            string root=Path.GetPathRoot(path);
-            foreach (string part in path.Substring(root.Length).Split(new [] {'\\','/'})) {
-                if (part.Length==0) continue;
+            if (string.IsNullOrWhiteSpace(path)) throw new IOException("Diagnostic path is empty.");
+            string separators=path.Replace('/','\\');
+            if (separators.StartsWith(@"\\?\",StringComparison.Ordinal) || separators.StartsWith(@"\\.\",StringComparison.Ordinal)) throw new IOException("Device paths are unavailable for diagnostic output: " + path);
+            int start=path.Length>=2 && char.IsLetter(path[0]) && path[1]==':' ? 2 : 0;
+            if (start==2 && (path.Length==2 || (path[2]!='\\' && path[2]!='/'))) throw new IOException("Drive-relative diagnostic paths are unavailable: " + path);
+            foreach (string part in path.Substring(start).Split(new [] {'\\','/'})) {
+                if (part.Length==0 || part=="." || part=="..") continue;
                 string name=part.Split('.')[0];
                 if (part.EndsWith(".",StringComparison.Ordinal) || part.EndsWith(" ",StringComparison.Ordinal) || part.IndexOf(':')>=0 ||
                     string.Equals(name,"CON",StringComparison.OrdinalIgnoreCase) || string.Equals(name,"PRN",StringComparison.OrdinalIgnoreCase) ||
@@ -72,14 +74,18 @@ namespace NewModCompiler.Diagnostics
         // This also catches DOS short-name aliases during read-only CLI parsing.
         internal static string ResolveOutput(string path)
         {
-            ValidateSyntax(path); path=Path.GetFullPath(path);
+            ValidateSyntax(path); path=Path.GetFullPath(path); ValidateSyntax(path);
             if (Directory.Exists(path)) {
                 using (var existing=Acquire(path,false)) return Physical(existing.handles[existing.handles.Count-1]);
             }
             string directory=Path.GetDirectoryName(path), suffix=Path.GetFileName(path);
             while (!Directory.Exists(directory)) {
+                if (string.IsNullOrEmpty(directory)) throw new IOException("Diagnostic path has no accessible existing directory ancestor: " + path);
                 if (File.Exists(directory)) throw new IOException("Diagnostic ancestor is a file: " + directory);
-                suffix=Path.Combine(Path.GetFileName(directory),suffix); directory=Path.GetDirectoryName(directory);
+                string parent=Path.GetDirectoryName(directory);
+                if (string.IsNullOrEmpty(parent) || string.Equals(parent,directory,StringComparison.OrdinalIgnoreCase))
+                    throw new IOException("Diagnostic volume or directory root is unavailable: " + path);
+                suffix=Path.Combine(Path.GetFileName(directory),suffix); directory=parent;
             }
             using (var guard=Acquire(directory,false)) {
                 if (File.Exists(path)) return Physical(guard.Open(path,false,false));
@@ -88,7 +94,7 @@ namespace NewModCompiler.Diagnostics
         }
         internal static DiagnosticDirectory Acquire(string directory,bool create)
         {
-            ValidateSyntax(directory); directory=Path.GetFullPath(directory);
+            ValidateSyntax(directory); directory=Path.GetFullPath(directory); ValidateSyntax(directory);
             var guard=new DiagnosticDirectory();
             try {
                 string current=Path.GetPathRoot(directory); guard.Open(current,false);

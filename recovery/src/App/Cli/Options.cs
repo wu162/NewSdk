@@ -82,7 +82,13 @@ namespace NewModCompiler.Cli
                 if (string.IsNullOrWhiteSpace(value)) throw Bad("CLI_VALUE", "Missing value for " + key);
                 value = NormalizeValue(key, value);
                 // Resolve equivalent path aliases before conflict checking.
-                if (IsPath(key) && value != "-") value = FullPath(value);
+                if (IsPath(key) && value != "-") {
+                    if (key=="out" || key=="events" || key=="report" || key=="log") {
+                        try { DiagnosticDirectory.ValidateSyntax(value); }
+                        catch (IOException e) { throw Bad(key=="out" ? "CLI_OUTPUT_PATH" : "CLI_LOG_PATH",e.Message); }
+                    }
+                    value = FullPath(value);
+                }
                 Set(commandLine, key, value, "commandLine");
             }
             if (request.Command != "doctor" && !commandLine.ContainsKey("mod")) throw Bad("CLI_MOD", "--mod must name an existing MOD directory.");

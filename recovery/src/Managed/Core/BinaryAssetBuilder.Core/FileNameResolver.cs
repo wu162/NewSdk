@@ -52,15 +52,21 @@ public class FileNameResolver
 				switch (text3)
 				{
 				case "art":
-					if (string.IsNullOrEmpty(text2) || (string.IsNullOrEmpty(Path.GetDirectoryName(text2)) && text2.Length < 2))
+					if (string.IsNullOrEmpty(text2))
 					{
-						throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "An art alias must name a file with at least two characters or an explicit subdirectory: {0}.", targetPath);
+						throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "An art alias cannot have an empty filename: {0}.", targetPath);
 					}
 					if (string.IsNullOrEmpty(ShPath.RemoveFileSpec(text2)))
 					{
 						string[] artPaths = Settings.Current.ArtPaths;
 						foreach (string text4 in artPaths)
 						{
+							// Only non-wildcard entries use the two-character art bucket.
+							// A preceding wildcard may already have resolved a short name.
+							if (text4 != "*" && text2.Length < 2)
+							{
+								throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "Art alias {0} is too short for the two-character bucket search in {1}.", targetPath, text4);
+							}
 							string path = ((text4 == "*") ? baseDirectory : Path.Combine(text4, text2.Substring(0, 2)));
 							if (!string.IsNullOrEmpty(Settings.Current.Postfix))
 							{

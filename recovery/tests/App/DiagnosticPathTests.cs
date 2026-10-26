@@ -44,7 +44,22 @@ namespace NewModCompiler.Tests
             Reject(mod,sdk,output,"CLI_LOG_COLLISION","--report",a,"--log",descendant);
             Reject(mod,sdk,output,"CLI_LOG_COLLISION","--events",Path.Combine(output,".build","x.jsonl"));
             Reject(mod,sdk,output,"CLI_LOG_COLLISION","--report",output);
-            Reject(mod,sdk,output,"CLI_LOG_PATH","--events",Path.Combine(work,"a:stream"));
+            Reject(mod,sdk,output,"CLI_LOG_PATH","--events",Path.Combine(work,"asset:stream"));
+            Reject(mod,sdk,output,"CLI_LOG_PATH","--events","A:drive-relative.log");
+            Reject(mod,sdk,output,"CLI_LOG_PATH","--events",Path.Combine(work,"trailing-space ","events.jsonl"));
+            // A missing volume used to walk past its root and pass null to
+            // Path.Combine. Check both the path helper and public CLI contract.
+            string unavailable=null;
+            for (char drive='Z';drive>='A';--drive) {
+                string candidate=drive+@":\";
+                if (!Directory.Exists(candidate)) { unavailable=candidate; break; }
+            }
+            Require(unavailable!=null,"test requires an unavailable drive letter");
+            string missing=Path.Combine(unavailable,"diagnostic","events.jsonl");
+            try { DiagnosticDirectory.ResolveOutput(missing); throw new Exception("Missing volume accepted"); }
+            catch (IOException error) { Require(error.Message.Contains("unavailable"),"missing volume did not produce an explicit root failure"); }
+            Reject(mod,sdk,output,"CLI_LOG_PATH","--events",missing);
+            Require(Paths.Contains(Path.GetPathRoot(work),DiagnosticDirectory.ResolveOutput(Path.GetPathRoot(work))),"existing volume root resolution");
             string input=Path.Combine(mod,"Data","Mod.xml"), original=File.ReadAllText(input);
             string json=Path.Combine(work,"events.jsonl"), text=Path.Combine(work,"text.log"), report=Path.Combine(work,"report.json");
             Link(json,input); Write(new JsonLineSink(json)); Require(File.ReadAllText(input)==original,"JSONL hard link truncated input");

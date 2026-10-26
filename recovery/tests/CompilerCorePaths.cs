@@ -17,7 +17,7 @@ public static class CompilerCorePaths
     static void Reject(Action action, string name)
     {
         bool rejected = false;
-        try { action(); } catch (BinaryAssetBuilderException) { rejected = true; }
+        try { action(); } catch (BinaryAssetBuilderException error) { Require(error.ErrorCode == ErrorCode.IllegalPath, name + " returned the wrong error code"); rejected = true; }
         Require(rejected, name + " was not rejected as an illegal path");
     }
     static void Equal(string actual, string expected, string name)
@@ -98,10 +98,22 @@ public static class CompilerCorePaths
             Reject(delegate { FileNameResolver.GetSafeRelativePath(@"\\server-only", file); }, "incomplete UNC data root");
             tests.Add("safe-relative-output-rejections-and-canonicalization");
 
+            Directory.CreateDirectory(work);
+            string shortArt = Path.Combine(work, "a");
+            File.WriteAllText(shortArt, "one-character art input");
             Reject(delegate { FileNameResolver.ResolvePath(work, "art:"); }, "empty art alias");
-            Reject(delegate { FileNameResolver.ResolvePath(work, "art:a"); }, "short art alias");
+            Reject(delegate { FileNameResolver.ResolvePath(work, "art:a"); }, "short non-wildcard art alias");
             Settings.Current.ArtPaths = new[] { "*" };
-            Reject(delegate { FileNameResolver.ResolvePath(work, "art:a"); }, "short wildcard art alias");
+            Reject(delegate { FileNameResolver.ResolvePath(work, "art:"); }, "empty wildcard art alias");
+            Equal(FileNameResolver.ResolvePath(work, "art:a"), shortArt, "wildcard resolves an existing one-character file");
+            Equal(FileNameResolver.ResolvePath(work, "art:b"), Path.Combine(work, "b"), "missing wildcard-only short name keeps last probe path");
+            Settings.Current.ArtPaths = new[] { "*", work };
+            Equal(FileNameResolver.ResolvePath(work, "art:a"), shortArt, "successful wildcard stops before non-wildcard bucket search");
+            Reject(delegate { FileNameResolver.ResolvePath(work, "art:b"); }, "missing wildcard short name reaches non-wildcard bucket");
+            Settings.Current.ArtPaths = new[] { work, "*" };
+            Reject(delegate { FileNameResolver.ResolvePath(work, "art:a"); }, "non-wildcard first preserves search order even with a later existing wildcard file");
+            Reject(delegate { FileNameResolver.ResolvePath(work, "art:b"); }, "non-wildcard first rejects a missing short name");
+            tests.Add("one-character-art-wildcard-existing-missing-and-ordered-mixed-searches");
             Settings.Current.ArtPaths = new[] { work };
             Equal(FileNameResolver.ResolvePath(work, "art:ab"), Path.Combine(work, "ab", "ab"), "two-character art filename keeps legacy prefix search");
             Equal(FileNameResolver.ResolvePath(work, "art:sub/a"), Path.Combine(work, "sub", "a"), "explicit art subdirectory keeps legacy search");
