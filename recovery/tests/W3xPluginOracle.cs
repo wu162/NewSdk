@@ -17,15 +17,47 @@ internal static class W3xPluginOracle
     static bool standalone;
     static IAssetBuilderPlugin original;
 
+#if MONOLITHIC_REPLAY
+    static bool ForbiddenAssembly(Assembly assembly)
+    {
+        string name = assembly.GetName().Name;
+        return name.StartsWith("Recovered.", StringComparison.OrdinalIgnoreCase) ||
+            name.StartsWith("BinaryAssetBuilder.", StringComparison.OrdinalIgnoreCase) ||
+            name == "EALA.Hash" || name == "EALA.Metrics";
+    }
+    static void ProductIdentity()
+    {
+        Assembly product = typeof(NativePlugin).Assembly;
+        if (product.GetName().Name != "NewModCompiler" ||
+            !String.Equals(Path.GetExtension(product.Location), ".exe", StringComparison.OrdinalIgnoreCase) ||
+            product.GetModules().Length != 1 ||
+            typeof(IAssetBuilderPlugin).Assembly != product ||
+            typeof(Recovered.W3x.AnimationCompiler).Assembly != product ||
+            typeof(Recovered.W3x.MeshCompiler).Assembly != product)
+            throw new Exception("W3X/Core/Bridge implementations must belong to the same physical product EXE.");
+    }
+#endif
     static void NoOriginal()
     {
         foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-            if (String.Equals(assembly.GetName().Name,OriginalName,StringComparison.OrdinalIgnoreCase))
+            if (
+#if MONOLITHIC_REPLAY
+                ForbiddenAssembly(assembly)
+#else
+                String.Equals(assembly.GetName().Name,OriginalName,StringComparison.OrdinalIgnoreCase)
+#endif
+            )
                 throw new Exception("Original W3X compiler loaded during standalone plugin validation: " + assembly.FullName);
     }
     static void Loaded(object sender, AssemblyLoadEventArgs args)
     {
-        if (String.Equals(args.LoadedAssembly.GetName().Name,OriginalName,StringComparison.OrdinalIgnoreCase))
+        if (
+#if MONOLITHIC_REPLAY
+            ForbiddenAssembly(args.LoadedAssembly)
+#else
+            String.Equals(args.LoadedAssembly.GetName().Name,OriginalName,StringComparison.OrdinalIgnoreCase)
+#endif
+        )
             throw new Exception("Original W3X compiler assembly load is forbidden in standalone plugin validation.");
     }
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
@@ -86,7 +118,11 @@ internal static class W3xPluginOracle
                 XmlNamespaceManager namespaces = new XmlNamespaceManager(xml.NameTable); namespaces.AddNamespace("ea",Ns);
                 InstanceDeclaration declaration = Declaration(xml,namespaces);
                 // Resolve the exact configuration identity and its public ctor.
+#if MONOLITHIC_REPLAY
+                Type pluginType = typeof(NativePlugin);
+#else
                 Type pluginType = Type.GetType("Recovered.Compiler.W3x.NativePlugin, Recovered.W3x.Plugin",true);
+#endif
                 NativePlugin plugin = (NativePlugin)Activator.CreateInstance(pluginType);
                 IAssetBuilderPlugin dispatch = plugin;
                 dispatch.Initialize(null,(TargetPlatform)platform);
@@ -118,6 +154,18 @@ internal static class W3xPluginOracle
             if (args.Length < 3 || (args[0] != "original" && args[0] != "standalone"))
                 throw new Exception("Usage: W3xPluginOracle original|standalone animationCapture meshCapture [originalDll]");
             standalone = args[0] == "standalone";
+#if MONOLITHIC_REPLAY
+            if (!standalone) throw new Exception("Product EXE replay only consumes independently captured original buffers.");
+            ProductIdentity();
+            foreach (string file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll"))
+            {
+                string name = Path.GetFileNameWithoutExtension(file);
+                if (name.StartsWith("Recovered.", StringComparison.OrdinalIgnoreCase) ||
+                    name.StartsWith("BinaryAssetBuilder.", StringComparison.OrdinalIgnoreCase) ||
+                    name.StartsWith("EALA.", StringComparison.OrdinalIgnoreCase))
+                    throw new Exception("Business DLL is forbidden in product replay directory: " + file);
+            }
+#endif
             if (args.Length != (standalone ? 3 : 4)) throw new Exception("Wrong plugin oracle argument count");
             // Verification must not create trace artifacts or depend on the
             // invoking shell's SDK tracing preference.
