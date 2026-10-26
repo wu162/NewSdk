@@ -75,12 +75,13 @@ try {
     $state.adapterSha256=(Get-FileHash recovery/scripts/PrepareCompilerXmlMatrices.py -Algorithm SHA256).Hash.ToLowerInvariant()
     $state.runnerSha256=(Get-FileHash $PSCommandPath -Algorithm SHA256).Hash.ToLowerInvariant()
     $state.transportSha256=(Get-FileHash recovery/tests/XmlProductOracleTransport.cs -Algorithm SHA256).Hash.ToLowerInvariant()
+    $transport=(Resolve-Path 'recovery/tests/XmlProductOracleTransport.cs').Path
     Copy-Item SDK/tools/*.dll $oracle
     $original=Join-Path $oracle 'BinaryAssetBuilder.XmlCompiler.dll'
     $state.originalDllSha256=(Get-FileHash $original -Algorithm SHA256).Hash.ToLowerInvariant()
     if($state.originalDllSha256 -cne 'd4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6'){throw 'Original XML fingerprint mismatch'}
     $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-    & $csc /nologo /platform:x86 /define:XML_ORIGINAL_SERVER /r:System.Xml.dll /r:System.Core.dll "/r:$oracle/BinaryAssetBuilder.Core.dll" "/out:$oracle/XmlOriginal.exe" recovery/tests/XmlProductOracleTransport.cs *> "$out/original-build.log"
+    & $csc /nologo /platform:x86 /define:XML_ORIGINAL_SERVER /r:System.Xml.dll /r:System.Core.dll "/r:$oracle/BinaryAssetBuilder.Core.dll" "/out:$oracle/XmlOriginal.exe" $transport *> "$out/original-build.log"
     if($LASTEXITCODE -ne 0){Get-Content "$out/original-build.log" -Tail 80|Out-Host;throw 'XML original server build failed'}
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$oracle/XmlOriginal.exe.config"
     $env:PATH=(@($oldPath -split ';'|Where-Object{$_ -notmatch '[\\/]SDK[\\/]tools'}) -join ';')
@@ -94,7 +95,7 @@ try {
             $name=$group.group;$groupOut=Join-Path $modeOut $name;New-Item -ItemType Directory $groupOut|Out-Null
             $hostExe=Join-Path $clean ($name+'.exe')
             $defines=@($group.defines|ForEach-Object{'/define:'+$_})
-            & $csc /nologo /codepage:65001 /platform:x86 /r:System.Xml.dll /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$exe" "/out:$hostExe" @defines @($group.sources) recovery/tests/XmlProductOracleTransport.cs *> "$groupOut/host-build.log"
+            & $csc /nologo /codepage:65001 /platform:x86 /r:System.Xml.dll /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$exe" "/out:$hostExe" @defines @($group.sources) $transport *> "$groupOut/host-build.log"
             if($LASTEXITCODE -ne 0){Get-Content "$groupOut/host-build.log" -Tail 80|Out-Host;throw "$mode $name matrix host build failed"}
             Copy-Item "$exe.config" "$hostExe.config"
             $env:XML_ORIGINAL_PIPE='newsdk-xml-'+[Guid]::NewGuid().ToString('N')

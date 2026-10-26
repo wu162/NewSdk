@@ -1,0 +1,67 @@
+name: MOD compiler linked XML matrices
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-xml-product.yml'
+      - 'recovery/scripts/TestCompilerXmlMatrices.ps1'
+      - 'recovery/scripts/PrepareCompilerXmlMatrices.py'
+      - 'recovery/tests/XmlProductOracleTransport.cs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: refactor-xml-product-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  xml:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-xml-product]')
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Install pinned mixed PE audit dependencies
+        shell: pwsh
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
+      - name: Build unchanged managed Foundation inputs
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/native-foundation/$mode"
+          }
+      - name: Build and inspect the full production combination
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/native-foundation -BuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Complete XML joint route smoke
+        if: ${{ !cancelled() && success() }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerXmlSmoke.ps1 -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-xml-smoke/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: All 63 complete XML group differential matrices
+        if: ${{ !cancelled() && success() }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerXmlMatrices.ps1 -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-xml-matrices/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-xml-product-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/artifacts/native-foundation/**/build.json
+            recovery/artifacts/native-product/**/build.json
+            recovery/artifacts/native-product/**/link-inputs.json
+            recovery/artifacts/native-product/**/*.log
+          if-no-files-found: error
