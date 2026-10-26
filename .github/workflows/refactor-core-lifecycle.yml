@@ -43,6 +43,7 @@ on:
       - 'recovery/scripts/TestCompilerSessionCache.ps1'
       - 'recovery/scripts/TestCompilerBig.ps1'
       - 'recovery/scripts/ValidateCompilerBig.py'
+      - 'recovery/scripts/ValidateCompilerLoD.py'
       - 'recovery/scripts/TestCompilerSdk.ps1'
       - 'recovery/tests/CompilerCorePaths.cs'
       - 'recovery/tests/CompilerUnicodeSettings.cs'

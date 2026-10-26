@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/refactor-hashfix.yml'
       - 'recovery/preparation/hashfix/**'
+      - 'recovery/src/App/Application/HashFix.cs'
   workflow_dispatch:
 permissions:
   contents: read
@@ -18,6 +19,7 @@ jobs:
           persist-credentials: false
           sparse-checkout: |
             recovery/preparation/hashfix
+            recovery/src/App/Application
             SDK/tools
       - name: Build prepared HashFix and compare original raw manifests
         shell: pwsh
@@ -27,7 +29,7 @@ jobs:
           foreach($mode in @('Debug','Release')) {
             $out="recovery/artifacts/hashfix/$mode";New-Item -ItemType Directory -Force $out|Out-Null
             $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
-            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 $opt "/out:$out/HashFixControl.exe" recovery/preparation/hashfix/HashFix.cs recovery/preparation/hashfix/HashFixControl.cs
+            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 $opt "/out:$out/HashFixControl.exe" recovery/src/App/Application/HashFix.cs recovery/preparation/hashfix/HashFixControl.cs
             if($LASTEXITCODE -ne 0){throw 'Prepared HashFix component compilation failed'}
             python recovery/preparation/hashfix/TestCompilerHashFix.py --original SDK/tools/HashFix.exe --candidate "$out/HashFixControl.exe" --output "$out/evidence"
             if($LASTEXITCODE -ne 0){throw 'Original HashFix differential failed'}

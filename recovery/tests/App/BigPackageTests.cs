@@ -28,7 +28,16 @@ namespace NewModCompiler.Tests
                 string prefix=Path.Combine(context.StagingDirectory,"streams","mods","fixture","data",context.Task.Content,stem);
                 var result=new List<Artifact>();
                 foreach(string extension in new[]{".manifest",".bin",".imp",".relo"}) {
-                    string path=prefix+extension;Put(path,context.Task.Content+extension);result.Add(new Artifact{Path=path,Kind="stream"+extension});
+                    string path=prefix+extension;
+                    if(context.Task.Content=="base") {
+                        Directory.CreateDirectory(Path.GetDirectoryName(path));
+                        byte[] bytes=new byte[extension==".manifest"?48:4];
+                        if(extension==".manifest") {bytes[1]=1;bytes[2]=6;}
+                        // The original stream checksum is copied to LoD payloads.
+                        int checksum=extension==".manifest"?4:0;bytes[checksum]=17;bytes[checksum+1]=34;bytes[checksum+2]=51;bytes[checksum+3]=68;
+                        File.WriteAllBytes(path,bytes);
+                    } else Put(path,context.Task.Content+extension);
+                    result.Add(new Artifact{Path=path,Kind="stream"+extension});
                 }
                 if(context.Task.Content=="apt") {
                     string path=Path.Combine(prefix,"cdata","00000000.11111111.22222222.33333333.cdata");Put(path,"custom");result.Add(new Artifact{Path=path,Kind="custom-data"});
@@ -63,6 +72,14 @@ namespace NewModCompiler.Tests
                 for(uint i=0;i<count;i++){
                     uint offset=BigEndian(reader),size=BigEndian(reader);var name=new List<byte>();byte b;while((b=reader.ReadByte())!=0)name.Add(b);
                     string text=Encoding.ASCII.GetString(name.ToArray());result.Add(text);
+                    if(text.StartsWith("data\\mod_",StringComparison.Ordinal)) {
+                        long position=reader.BaseStream.Position;reader.BaseStream.Position=offset;
+                        byte[] payload=reader.ReadBytes(checked((int)size));
+                        if(text.EndsWith(".manifest",StringComparison.Ordinal)) {
+                            Check(payload.Length==62 && payload[36]==14 && Encoding.ASCII.GetString(payload,48,14)=="\x02mod.manifest\0","Base LoD embedded dependency must preserve the original lowercase script argument");
+                        } else Check(payload.SequenceEqual(new byte[]{17,34,51,68}),"Base LoD payload did not preserve the source checksum");
+                        reader.BaseStream.Position=position;
+                    }
                     if(text.EndsWith(".version",StringComparison.Ordinal)) {
                         long position=reader.BaseStream.Position;reader.BaseStream.Position=offset;
                         Check(size==3 && reader.ReadByte()==32 && reader.ReadByte()==13 && reader.ReadByte()==10,"APT version does not preserve the measured old echo-dot space/CRLF bytes");reader.BaseStream.Position=position;
@@ -100,6 +117,16 @@ namespace NewModCompiler.Tests
                 Check(File.ReadAllText(sku)=="mod-game 1.12\r\nadd-big package-mod_1.0.big\r\n","skudef does not reference the current BIG");
                 var report=new JavaScriptSerializer().Deserialize<Dictionary<string,object>>(File.ReadAllText(request.ReportPath));
                 Check(new JavaScriptSerializer().Serialize(report["artifacts"]).Contains("package.big") && ((System.Collections.ICollection)report["artifacts"]).Count==2,"Report did not switch to the final package allowlist");
+            }
+            Put(Path.Combine(mod,"Data","Mod.xml"),"<AssetDeclaration/>");
+            foreach(string selection in new[]{"base","base,apt,maps"}) {
+                var request=Options.Parse(new[]{"build","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"lod-"+selection.Replace(',','-')),"--package-content",selection,"--package-format","big"});
+                using(var cancellation=new CancellationTokenSource())Check(Run(request,"success",cancellation)==ExitCode.Success,"Base LoD packaging failed");
+                string[] names=Names(Path.Combine(request.OutputRoot,"published","package-mod_1.0.big"));
+                Check(names.Length==(selection=="base"?12:22),"Base LoD archive has an incomplete or stale member set");
+                foreach(string suffix in new[]{"","_l","_m"})foreach(string extension in new[]{".manifest",".bin",".imp",".relo"})
+                    Check(names.Contains("data\\mod"+suffix+extension),"Base/LoD member layout differs");
+                Check(!names.Contains("data\\mod.version"),"Base acquired an unsupported APT-only version marker");
             }
             string unicode=Path.Combine(root,"中文MOD");Directory.CreateDirectory(unicode);
             try {Options.Parse(new[]{"build","--mod",unicode,"--sdk-root",sdk,"--out",Path.Combine(root,"unicode-big"),"--package-content","apt","--package-format","big"});throw new Exception("Unicode BIG filename accepted without game evidence");}

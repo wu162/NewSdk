@@ -27,6 +27,10 @@
 
 这个门槛证明五文件包的基本部署与构建能力。完整 P5/G3/SDK、完整 UI/runtime、Unicode Texture、BIG/skudef 和 P7 均需各自证据，不能由本脚本的小型 MOD 推断完成。
 
+`PrepareCompilerRelease.py` 固定复用已成功的三字节 APT 版本修正生产归档；重新核对完整生命周期的成功步骤、归档 SHA256、两配置收据、协议原始文件与五文件运行身份。它还直接解析 Debug/Release 的 APT、APT+maps 生产 BIG 和原 MakeBig BIG，共八份原始归档，要求所有 APT `.version` 精确为 `20 0d 0a`；两字节旧候选不能通过。独立 HashFix/LoD 准备文件不属于生产链接输入，允许保留；生产源码、SDK、构建脚本或依赖改变仍拒绝复用。准备成功仅表示可运行 ZIP 部署验收，正式包仍必须通过后续发布步骤。
+
+完整 mymod 证据继续保留原二进制及测试来源；本次候选只对已声明的受影响组取得新验收，不能把历史完整 MOD 结果改标为当前二进制重测。后续 base 后处理候选需要自己的生产验收与重新固定来源；不得使用该 APT/maps 归档发布未验证的 base 能力。
+
 解压后的典型调用（SDK 与 MOD 单独提供）：
 
 ```powershell

@@ -57,11 +57,6 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[string]$Selecti
         Need ($exit -eq 0 -and $audit.succeeded -and $audit.processExitCode -eq $Expected) "BIG CLI failed: $Name"
         Need ($audit.singleProcessJobEnforced -and $audit.singleProcessJobLimit -eq 1 -and @($audit.descendants).Count -eq 0) 'Asset cache introduced a product child process'
         if($Cancel){Need ($audit.signalSent -and $audit.freshEventsPathObserved -and $audit.streamStartedObserved -and $Expected -eq 6) 'Cache cancellation did not receive actual CtrlBreak'}
-        if($Expected -eq 2){
-            Need (!(Test-Path -LiteralPath $report) -and !(Test-Path -LiteralPath $events)) 'Unsupported BIG option started a build'
-            Need ((Get-Content -LiteralPath (Join-Path $caseOut 'stderr.log') -Raw).Contains('PACKAGE_BASE_UNSUPPORTED')) 'Base BIG rejection did not explain missing LoD backend'
-            $entry.passed=$true;return @{name=$Name;destination=$Destination;caseOut=$caseOut}
-        }
         $body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json
         Need ($body.exitCode -eq $Expected) 'Cache process/report exit differs'
         $rows=@(Get-Content -LiteralPath $events|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})
@@ -100,8 +95,9 @@ function ExpectedInventory($Loose){
         $task=@($Loose.report.plan.Tasks|Where-Object{$relative.StartsWith($_.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($_.InputPath)+'/',[StringComparison]::Ordinal)})
         Need ($task.Count -eq 1) 'Loose BIG oracle artifact has ambiguous task owner'
         $stem=[IO.Path]::GetFileNameWithoutExtension($task[0].InputPath)
-        $prefix=if($task[0].Content -ceq 'apt'){'Data/AptUI/'}elseif($task[0].Content -ceq 'maps'){'Data/AdditionalMaps/'}else{throw 'Base artifact reached BIG oracle'}
+        $prefix=if($task[0].Content -ceq 'apt'){'Data/AptUI/'}elseif($task[0].Content -ceq 'maps'){'Data/AdditionalMaps/'}elseif($task[0].Content -ceq 'base'){'Data/'}else{throw 'Unknown artifact reached BIG oracle'}
         $tail=[IO.Path]::GetFileName($artifact.Path)
+        if($task[0].Content -ceq 'base'){$stem='mod';if($artifact.Kind -cne 'custom-data'){$tail=$stem+[IO.Path]::GetExtension($artifact.Path)}}
         # Strip private Core streams/category directories. Game archive names
         # use four linked basenames and manifest-bound stem/cdata children.
         if($artifact.Kind -ceq 'custom-data'){$tail=$stem+'/cdata/'+$tail}
@@ -118,12 +114,26 @@ function ExpectedInventory($Loose){
         $source=Join-Path $directory ($stem+'.version');[IO.File]::WriteAllBytes($source,[byte[]](32,13,10))
         $expected+=,@{name=('data\aptui\'+$stem.ToLowerInvariant()+'.version');source=$source;bytes=3;sha256=(Hash $source)}
     }
+    # Default SDK step 5 derives low/medium streams from fixed mod.manifest.
+    # Run the original tool against a private copy of current loose bytes.
+    $baseTasks=@($Loose.report.plan.Tasks|Where-Object{$_.Content -ceq 'base'})
+    foreach($task in $baseTasks){
+        $manifest=@($Loose.report.artifacts|Where-Object{$_.Kind -cne 'custom-data' -and [IO.Path]::GetExtension($_.Path) -ieq '.manifest' -and (Within (Join-Path $published ('base/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath))) $_.Path)})
+        Need ($manifest.Count -eq 1) 'Base LoD oracle requires exactly one current manifest'
+        $source=$Loose.files[[IO.Path]::GetRelativePath($published,$manifest[0].Path)]
+        $lodOut=Join-Path $Loose.caseOut ('original-lod-'+[Guid]::NewGuid().ToString('N'))
+        & python "$PSScriptRoot/ValidateCompilerLoD.py" --manifest $source --original "$root/SDK/tools/LoDStreamBuilder.exe" --output $lodOut
+        Need ($LASTEXITCODE -eq 0) 'Original LoD failed for current production base stream'
+        $lod=Get-Content -LiteralPath (Join-Path $lodOut 'inventory.json') -Raw|ConvertFrom-Json
+        Need ($lod.succeeded -and @($lod.files).Count -eq 8) 'Original LoD did not produce exact eight-file inventory'
+        foreach($item in $lod.files){$expected+=,@{name=('data\'+$item.name.ToLowerInvariant());source=$item.source;bytes=$item.bytes;sha256=$item.sha256}}
+    }
     return $expected
 }
 function CompareBig($Big,$Loose,[string]$Name){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     $expected=@(ExpectedInventory $Loose)
-    Need ($expected.Count -eq ($Loose.files.Count+@($Loose.report.plan.Tasks|Where-Object{$_.Content -ceq 'apt'}).Count) -and @($expected.name|Select-Object -Unique).Count -eq $expected.Count) 'BIG oracle inventory duplicates or omits current artifacts'
+    Need ($expected.Count -eq ($Loose.files.Count+@($Loose.report.plan.Tasks|Where-Object{$_.Content -ceq 'apt'}).Count+8*@($Loose.report.plan.Tasks|Where-Object{$_.Content -ceq 'base'}).Count) -and @($expected.name|Select-Object -Unique).Count -eq $expected.Count) 'BIG oracle inventory duplicates or omits current artifacts'
     $expected|ConvertTo-Json -Depth 6 -AsArray|Set-Content "$caseOut/expected.json"
     $oracleWork=(New-Item -ItemType Directory -Path (Join-Path $short ('o'+[Guid]::NewGuid().ToString('N').Substring(0,8)))).FullName
     $tools=(New-Item -ItemType Directory -Path (Join-Path $oracleWork 't')).FullName
@@ -159,11 +169,12 @@ function PrepareFixture([string]$Path,[string]$Log){
     & python "$PSScriptRoot/PrepareCompilerCliBusiness.py" $Path *> $Log;Need ($LASTEXITCODE -eq 0) 'BIG business fixture generation failed'
     [IO.File]::WriteAllText("$Path/Data/AptUI/OnDemand.xml",'<AssetDeclaration xmlns="uri:ea.com:eala:asset"><OnDemandTexture id="BigCdata" File="probe.tga" Type="StandardTexture" GenerateMipMaps="false" OutputFormat="A8R8G8B8" AllowAutomaticResize="false"/></AssetDeclaration>')
     & python "$root/recovery/probes/TextureRedirect/MakeFixture.py" "$Path/Data/AptUI/probe.tga";Need ($LASTEXITCODE -eq 0) 'BIG CDATA fixture generation failed'
-    $check='import pathlib,runpy,sys;from lxml import etree as E;r=pathlib.Path(sys.argv[1]);p=pathlib.Path(sys.argv[2]);s=runpy.run_path(str(r/"recovery/scripts/GenerateXmlSdkModA.py"),run_name="big_fixture_schema")["aggregate_schema"]();s.assertValid(E.parse(str(p/"Data/AptUI/OnDemand.xml")));assert len((p/"Data/AptUI/probe.tga").read_bytes())==18+256*256*4;assert b"mod-game" in (r/"SDK/defaultscript.cs").read_bytes();assert (r/"SDK/tools/MakeBig.exe").read_bytes()[:2]==b"MZ"'
+    Copy-Item -LiteralPath "$Path/Data/AptUI/probe.tga" -Destination "$Path/Data/probe.tga"
+    $check='import pathlib,runpy,sys;from lxml import etree as E;r=pathlib.Path(sys.argv[1]);p=pathlib.Path(sys.argv[2]);s=runpy.run_path(str(r/"recovery/scripts/GenerateXmlSdkModA.py"),run_name="big_fixture_schema")["aggregate_schema"]();s.assertValid(E.parse(str(p/"Data/AptUI/OnDemand.xml")));d=E.parse(str(p/"Data/Mod.xml"));n=E.parse(str(p/"Data/AptUI/OnDemand.xml")).getroot()[0];n.set("id","BigBaseCdata");d.getroot().append(n);s.assertValid(d);d.write(str(p/"Data/Mod.xml"),encoding="utf-8",xml_declaration=True);assert (p/"Data/probe.tga").read_bytes()==(p/"Data/AptUI/probe.tga").read_bytes();assert len((p/"Data/AptUI/probe.tga").read_bytes())==18+256*256*4;assert b"mod-game" in (r/"SDK/defaultscript.cs").read_bytes();assert (r/"SDK/tools/MakeBig.exe").read_bytes()[:2]==b"MZ"'
     & python -c $check $root $Path *>> $Log;Need ($LASTEXITCODE -eq 0) 'BIG OnDemand/CDATAs fixture source-XSD preflight failed'
     [IO.File]::WriteAllText("$Path/Data/AptUI/not-listed.asset",'Must never be included by directory globbing')
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production P7 BIG apt/maps selected and combined, exact current loose member bytes and independent original MakeBig format/content oracle, skudef, CDATA, cancellation/failure/publication rollback; base BIG explicitly unsupported; not a base LoD backend or final distribution acceptance'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production P7 BIG apt/maps selected and combined, exact current loose member bytes and independent original MakeBig format/content oracle, skudef, CDATA, cancellation/failure/publication rollback; default base LoD and apt/maps BIG; optional neutral-asset repair/AssetMerge and final distribution acceptance excluded'}
 try{
     & python "$PSScriptRoot/ValidateCompilerBig.py" --self-test *> "$out/parser-preflight.json";Need ($LASTEXITCODE -eq 0) 'Independent BIG parser preflight failed'
     $fixture=Join-Path $short 'preflight-business'
@@ -186,28 +197,27 @@ try{
         $mod=Join-Path $modeWork 'business'
         PrepareFixture $mod "$modeOut/fixture.log"
         $combined=$null;$plain=$null
-        foreach($selection in @('apt','maps','apt,maps')){
-            $name=$selection.Replace(',','-');$script:expectedArtifacts=if($selection -ceq 'apt'){9}elseif($selection -ceq 'maps'){4}else{13}
+        foreach($selection in @('apt','maps','apt,maps','base','base,apt,maps')){
+            $name=$selection.Replace(',','-');$script:expectedArtifacts=if($selection -ceq 'apt'){9}elseif($selection -ceq 'maps'){4}elseif($selection -ceq 'base'){5}elseif($selection -ceq 'apt,maps'){13}else{18}
             $loose=RunCli ($name+'-loose') $mod (Join-Path $modeWork ($name+'-loose')) $selection 'loose'
             $big=RunCli ($name+'-big') $mod (Join-Path $modeWork ($name+'-big')) $selection 'big'
             CompareBig $big $loose ($name+'-original-makebig')
-            if($selection -ceq 'apt,maps'){$combined=$big;$plain=$loose}
+            if($selection -ceq 'base,apt,maps'){$combined=$big;$plain=$loose}
         }
-        Need (@($plain.report.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq 1) 'BIG fixture did not exercise exactly one actual complete CDATA'
+        Need (@($plain.report.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq 2) 'BIG fixture did not exercise actual complete base and APT CDATAs'
         $destination=$combined.destination;$published=Join-Path $destination 'published'
         [IO.File]::WriteAllText((Join-Path $published 'stale.asset'),'Stale generation file must not survive')
-        $rebuilt=RunCli 'replace-stale-generation' $mod $destination 'apt,maps' 'big'
+        $rebuilt=RunCli 'replace-stale-generation' $mod $destination 'base,apt,maps' 'big'
         Need (@(Get-ChildItem -LiteralPath $published -File -Recurse).Count -eq 2) 'BIG publication retained stale generation files'
         CompareBig $rebuilt $plain 'replacement-original-makebig'
         $before=CacheFiles $destination;$publishedBefore=@{};Get-ChildItem -LiteralPath $published -File|ForEach-Object{$publishedBefore[$_.Name]=Hash $_.FullName}
         $held=@($rebuilt.report.artifacts|Where-Object{$_.Kind -ceq 'package.big'})[0].Path
-        $failed=RunCli 'publication-fault' $mod $destination 'apt,maps' 'big' 7 $false $held
+        $failed=RunCli 'publication-fault' $mod $destination 'base,apt,maps' 'big' 7 $false $held
         foreach($name in $publishedBefore.Keys){Need ((Hash (Join-Path $published $name)) -ceq $publishedBefore[$name]) 'Failed BIG publication changed the previous generation'}
-        $retry=RunCli 'retry-after-publication-fault' $mod $destination 'apt,maps' 'big';CompareBig $retry $plain 'publication-retry-original'
-        $cancelled=RunCli 'actual-cancel' $mod $destination 'apt,maps' 'big' 6 $true
+        $retry=RunCli 'retry-after-publication-fault' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'publication-retry-original'
+        $cancelled=RunCli 'actual-cancel' $mod $destination 'base,apt,maps' 'big' 6 $true
         foreach($name in $publishedBefore.Keys){Need ((Hash (Join-Path $published $name)) -ceq $publishedBefore[$name]) 'Cancelled BIG build changed the previous generation'}
-        $retry=RunCli 'retry-after-cancel' $mod $destination 'apt,maps' 'big';CompareBig $retry $plain 'cancel-retry-original'
-        $base=RunCli 'base-explicitly-unsupported' $mod (Join-Path $modeWork 'base') 'base' 'big' 2
+        $retry=RunCli 'retry-after-cancel' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'cancel-retry-original'
         $modeState.passed=$true
     }
     $state.succeeded=$true;$global:LASTEXITCODE=0

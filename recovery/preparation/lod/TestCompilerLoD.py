@@ -1,4 +1,4 @@
-"""Isolated original-tool differential for a prepared RA3 v6 LoD stage.
+"""Isolated original-tool differential for the production RA3 v6 LoD stage.
 
 Not a production CLI/base-package acceptance receipt. Raw inputs and all eight
 outputs from both implementations are retained; the original exit code alone
@@ -16,13 +16,13 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def fixture(count, linked=True):
+def fixture(count, linked=True, streams=None, checksum=0xf1234567):
     assets=b''.join(struct.pack('<12I',*(0x1000*(i+1)+j for j in range(12))) for i in range(count))
     refs=b'\x10\x20\x30\x40\x50\x60\x70\x80' if count else b''
-    streams=b'\x02old.manifest\0\x01other.manifest\0'
+    if streams is None:streams=b'\x02old.manifest\0\x01other.manifest\0'
     names=b'Test:one\0Test:two\0' if count else b''
     sources=b'Data/test.xml\0' if count else b''
-    header=struct.pack('<BBH11I',0,int(linked),6,0xf1234567,0x12345678,count,1234,456,88,99,len(refs),len(streams),len(names),len(sources))
+    header=struct.pack('<BBH11I',0,int(linked),6,checksum,0x12345678,count,1234,456,88,99,len(refs),len(streams),len(names),len(sources))
     return header+assets+refs+streams+names+sources
 
 
@@ -40,25 +40,33 @@ def main():
     a=p.parse_args();out=Path(a.output).resolve();out.mkdir(parents=True,exist_ok=False)
     original=Path(a.original).resolve();candidate=Path(a.candidate).resolve()
     state={'schemaVersion':1,'sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
-           'originalSha256':sha(original),'candidateSha256':sha(candidate),'succeeded':False,'cases':[],
-           'scope':'Prepared RA3 PC v6 LoD component; original eight-output byte differential and rejection tests; production base BIG remains disabled'}
+           'originalSha256':sha(original),'candidateSha256':sha(candidate),
+           'productionSource':{'path':'recovery/src/App/Application/LoDStreamBuilder.cs',
+                               'sha256':sha(Path(__file__).resolve().parents[2]/'src/App/Application/LoDStreamBuilder.cs')},
+           'succeeded':False,'cases':[],
+           'scope':'RA3 PC v6 LoD component only; original eight-output byte differential and rejection tests; complete production base packaging acceptance is separate'}
     try:
-        inputs=[(f'assets-{count}',fixture(count)) for count in (0,1,3,128)]
-        inputs += [('sdk-'+Path(file).stem,Path(file).read_bytes()) for file in a.real_manifest]
-        for name,data in inputs:
+        inputs=[(f'assets-{count}',fixture(count),'mod.test.manifest') for count in (0,1,3,128)]
+        inputs += [
+            ('no-old-dependencies',fixture(3,streams=b''),'mod.test.manifest'),
+            ('zero-checksum',fixture(1,checksum=0),'mod.test.manifest'),
+            ('full-checksum',fixture(1,checksum=0xffffffff),'Mod Space.TEST.MANIFEST'),
+        ]
+        inputs += [('sdk-'+Path(file).stem,Path(file).read_bytes(),'mod.test.manifest') for file in a.real_manifest]
+        for name,data,basename in inputs:
             case=out/name;case.mkdir()
             for name in ('original','candidate'):
-                work=case/name;work.mkdir();(work/'mod.test.manifest').write_bytes(data)
+                work=case/name;work.mkdir();(work/basename).write_bytes(data)
             expected=[]
             for suffix in ('_l','_m'):
-                for ext in ('.manifest','.bin','.imp','.relo'):expected.append('mod.test'+suffix+ext)
+                for ext in ('.manifest','.bin','.imp','.relo'):expected.append(Path(basename).stem+suffix+ext)
             row={'name':case.name,'inputSha256':hashlib.sha256(data).hexdigest(),'files':[]};state['cases'].append(row)
             for name,exe in (('original',original),('candidate',candidate)):
-                work=case/name;before=sha(work/'mod.test.manifest')
-                code=run(exe,work/'mod.test.manifest',work)
+                work=case/name;before=sha(work/basename)
+                code=run(exe,work/basename,work)
                 assert code==0,(name,code,(work/'stderr.log').read_bytes())
-                assert sha(work/'mod.test.manifest')==before,'Input manifest changed'
-                assert {f.name for f in work.iterdir()}==set(expected+['mod.test.manifest','stdout.log','stderr.log']),'Output inventory differs'
+                assert sha(work/basename)==before,'Input manifest changed'
+                assert {f.name for f in work.iterdir()}==set(expected+[basename,'stdout.log','stderr.log']),'Output inventory differs'
             for file in expected:
                 left=case/'original'/file;right=case/'candidate'/file
                 assert left.read_bytes()==right.read_bytes(),f'Original/candidate raw bytes differ: {case.name}/{file}'

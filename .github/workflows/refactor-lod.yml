@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/refactor-lod.yml'
       - 'recovery/preparation/lod/**'
+      - 'recovery/src/App/Application/LoDStreamBuilder.cs'
   workflow_dispatch:
 permissions:
   contents: read
@@ -18,6 +19,7 @@ jobs:
           persist-credentials: false
           sparse-checkout: |
             recovery/preparation/lod
+            recovery/src/App/Application
             SDK/tools
             SDK/builtmods
       - name: Build prepared in-process LoD component in both configurations
@@ -28,7 +30,7 @@ jobs:
           foreach($mode in @('Debug','Release')) {
             $out="recovery/artifacts/lod/$mode";New-Item -ItemType Directory -Force $out|Out-Null
             $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
-            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 $opt "/out:$out/LoDControl.exe" recovery/preparation/lod/LoDStreamBuilder.cs recovery/preparation/lod/LoDControl.cs
+            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 $opt "/out:$out/LoDControl.exe" recovery/src/App/Application/LoDStreamBuilder.cs recovery/preparation/lod/LoDControl.cs
             if($LASTEXITCODE -ne 0){throw 'Prepared LoD component compilation failed'}
             python recovery/preparation/lod/TestCompilerLoD.py --original SDK/tools/LoDStreamBuilder.exe --candidate "$out/LoDControl.exe" --output "$out/evidence" --real-manifest SDK/builtmods/Static.manifest --real-manifest SDK/builtmods/sagexml/Worldbuilder.manifest
             if($LASTEXITCODE -ne 0){throw 'Original LoD component differential failed'}

@@ -16,8 +16,6 @@ namespace NewModCompiler.Application
         {
             if(request.PackageFormat==null || request.PackageFormat=="loose") return;
             if(request.PackageFormat!="big") throw new BuildFailure(ExitCode.Arguments,"CLI_CAPABILITY","Package format must be loose or big.");
-            if(request.Content==null || request.Content.Any(value=>value=="base"))
-                throw new BuildFailure(ExitCode.Arguments,"PACKAGE_BASE_UNSUPPORTED","BIG packaging currently supports only apt/maps; base requires the unrecovered LoDStreamBuilder stage.");
             string name=Path.GetFileName(Path.GetFullPath(request.ModRoot).TrimEnd(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar));
             if(string.IsNullOrWhiteSpace(name) || name.Any(value=>value<32 || value>126 || value=='"' || value=='\r' || value=='\n'))
                 throw new BuildFailure(ExitCode.Arguments,"PACKAGE_NAME_UNSUPPORTED","BIG packaging requires an ASCII MOD directory basename for the game skudef.");
@@ -30,7 +28,7 @@ namespace NewModCompiler.Application
             var entries=new List<BigArchiveEntry>();var names=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var owners=new Dictionary<BuildTask,HashSet<string>>();
             foreach(var task in plan.Tasks) {
-                if(task.Content!="apt" && task.Content!="maps") throw new BuildFailure(ExitCode.Arguments,"PACKAGE_BASE_UNSUPPORTED","BIG packaging requires only apt/maps streams.");
+                if(task.Content!="base" && task.Content!="apt" && task.Content!="maps") throw new BuildFailure(ExitCode.Arguments,"PACKAGE_CONTENT_UNSUPPORTED","BIG packaging requires base/apt/maps streams.");
                 owners.Add(task,new HashSet<string>(StringComparer.OrdinalIgnoreCase));
             }
             foreach(var artifact in artifacts) {
@@ -52,11 +50,26 @@ namespace NewModCompiler.Application
                     if(artifact.Kind!="custom-data" || !string.Equals(extension,".cdata",StringComparison.OrdinalIgnoreCase) || !string.Equals(directory.Name,"cdata",StringComparison.OrdinalIgnoreCase) || directory.Parent==null || !string.Equals(directory.Parent.Name,stem,StringComparison.OrdinalIgnoreCase)) throw new IOException("Unexpected BIG custom-data artifact layout.");
                     relative=stem+"\\cdata\\"+leaf;
                 }
-                string name="Data\\"+(owner.Content=="apt" ? "AptUI" : "AdditionalMaps")+"\\"+relative;
+                string name="Data\\"+(owner.Content=="base" ? "" : (owner.Content=="apt" ? "AptUI" : "AdditionalMaps")+"\\")+relative;
                 if(!names.Add(name)) throw new IOException("Case-insensitive BIG archive path collision.");
                 entries.Add(new BigArchiveEntry {Name=name,SourcePath=artifact.Path});
             }
             foreach(var pair in owners) if(pair.Value.Count!=4) throw new IOException("BIG packaging requires all four linked files for every selected stream.");
+            // SDK/defaultscript.cs step 5 runs LoD directly when optional asset
+            // merge and neutral-asset repair are disabled. Those options remain
+            // unsupported; do not silently run HashFix/Resolver here.
+            foreach(var task in plan.Tasks) if(task.Content=="base") {
+                cancellation.ThrowIfCancellationRequested();
+                string manifest=artifacts.Single(value=>string.Equals(Path.GetExtension(value.Path),".manifest",StringComparison.OrdinalIgnoreCase) && Paths.Contains(Path.Combine(staging,task.Content,Path.GetFileNameWithoutExtension(task.InputPath)),value.Path)).Path;
+                // Win32 resolves the existing Mod.manifest case-insensitively; the
+                // original script passes lowercase mod.manifest, which is also
+                // the exact embedded dependency name in both LoD manifests.
+                foreach(string source in LoDStreamBuilder.Create(Path.Combine(Path.GetDirectoryName(manifest),"mod.manifest"),cancellation)) {
+                    string name="Data\\"+Path.GetFileName(source);
+                    if(!names.Add(name)) throw new IOException("Case-insensitive LoD archive path collision.");
+                    entries.Add(new BigArchiveEntry {Name=name,SourcePath=source});
+                }
+            }
             // SDK/defaultscript.cs uses echo-dot plus space redirection for each
             // actual APT stream: measured Windows bytes are space + CRLF.
             // MapMetaData has no such rule. Derive these from current tasks only.

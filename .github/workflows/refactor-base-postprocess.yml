@@ -1,0 +1,44 @@
+name: RA3 base postprocess original differential
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-base-postprocess.yml'
+      - 'recovery/preparation/base-postprocess/**'
+      - 'recovery/src/App/Application/HashFix.cs'
+      - 'recovery/src/App/Application/ModAssetResolver.cs'
+      - 'recovery/src/App/Application/LoDStreamBuilder.cs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  differential:
+    runs-on: windows-2022
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            recovery/preparation/base-postprocess
+            recovery/src/App/Application
+            SDK/tools
+      - name: Compare original HashFix resolver and LoD raw stage outputs
+        shell: pwsh
+        run: |
+          $vs=& "${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
+          $csc=Join-Path $vs 'MSBuild/Current/Bin/Roslyn/csc.exe'
+          foreach($mode in @('Debug','Release')) {
+            $out="recovery/artifacts/base-postprocess/$mode";New-Item -ItemType Directory -Force $out|Out-Null
+            $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
+            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 $opt "/out:$out/BasePostprocessControl.exe" recovery/src/App/Application/HashFix.cs recovery/src/App/Application/ModAssetResolver.cs recovery/src/App/Application/LoDStreamBuilder.cs recovery/preparation/base-postprocess/BasePostprocessControl.cs
+            if($LASTEXITCODE -ne 0){throw 'Base postprocess validation host compilation failed'}
+            python recovery/preparation/base-postprocess/TestCompilerBasePostprocess.py --tools SDK/tools --candidate "$out/BasePostprocessControl.exe" --output "$out/evidence"
+            if($LASTEXITCODE -ne 0){throw 'Original base postprocess raw differential failed'}
+          }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: base-postprocess-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/artifacts/base-postprocess/**
+          if-no-files-found: error
