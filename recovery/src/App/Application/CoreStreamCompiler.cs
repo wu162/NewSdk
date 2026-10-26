@@ -464,8 +464,11 @@ namespace NewModCompiler.Application
                             throw new InvalidDataException("The restored session has an incompatible format.");
                     }
                     catch (OperationCanceledException) { throw; }
-                    catch (Exception) when (packageRestored)
+                    catch (Exception)
                     {
+                        // Preserve conditional recovery while avoiding exception-
+                        // filter IL in the mixed C++/CLI link input.
+                        if (!packageRestored) throw;
                         // Treat malformed serialized state as one cold miss. No
                         // intermediate/cdata bytes from the bad package survive.
                         // Loading older document data can register strings before

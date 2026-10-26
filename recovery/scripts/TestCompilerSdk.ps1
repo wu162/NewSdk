@@ -124,7 +124,7 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
     Need ($controlReceipt.succeeded -and $controlReceipt.sourceCommit -ceq $state.sourceCommit -and $controlReceipt.controllerSha256 -ceq (Hash $script:control)) 'SDK controller identity mismatch'
     $state.controller=$controlReceipt
     $env:PATH=(@($oldPath -split ';'|Where-Object{$_ -notmatch '[\\/]SDK[\\/]tools'}) -join ';')
-    foreach($item in Get-ChildItem Env:|Where-Object{$_.Name -like 'RA3_RECOVERED_*' -or $_.Name -eq 'RECOVERED_W3X_TRACE_DIRECTORY'}){$removedEnvironment[$item.Name]=$item.Value;[Environment]::SetEnvironmentVariable($item.Name,$null,'Process')}
+    foreach($item in @(Get-ChildItem Env:|Where-Object{$_.Name -like 'RA3_RECOVERED_*' -or $_.Name -eq 'RECOVERED_W3X_TRACE_DIRECTORY'})){$removedEnvironment[$item.Name]=$item.Value;[Environment]::SetEnvironmentVariable($item.Name,$null,'Process')}
     # The original oracle runs first with untouched original plugin routes.
     $oracleTools=(New-Item -ItemType Directory -Path (Join-Path $short 't')).FullName
     Copy-Item -Path (Join-Path $sdk 'tools/*') -Destination $oracleTools -Recurse
