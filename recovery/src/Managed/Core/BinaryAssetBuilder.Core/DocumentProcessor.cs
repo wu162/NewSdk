@@ -137,6 +137,77 @@ public class DocumentProcessor
 
 	public static string CurrentDocument => _CurrentDocumentStack.Peek();
 
+    private static readonly object StateScopeGate = new object();
+    private static ProcessorStateScope _CurrentStateScope;
+
+    // Own the legacy process-wide traversal/diagnostic state sequentially.
+    // This guards scope ownership, not arbitrary concurrent legacy Core calls.
+    public static IDisposable BeginStateScope()
+    {
+        // Prepare every allocation before changing shared state so allocation
+        // failure cannot partially replace the caller's traversal frames.
+        var missing = new InstanceHandleSet();
+        var documents = new Stack<string>();
+        var streams = new Stack<string>();
+        var timings = new Dictionary<uint, TypeCompileData>();
+        lock (StateScopeGate)
+        {
+            if (_CurrentStateScope != null && _CurrentStateScope.ThreadId != System.Threading.Thread.CurrentThread.ManagedThreadId)
+                throw new InvalidOperationException("Document processor state scopes may only be used on their owning thread.");
+            var scope = new ProcessorStateScope();
+            _MissingReferences = missing;
+            _CurrentDocumentStack = documents;
+            _CurrentStreamStack = streams;
+            _TotalProcInstancesTime = TimeSpan.Zero;
+            _TotalPrepareOutputTime = TimeSpan.Zero;
+            _TotalPrepareSourceTime = TimeSpan.Zero;
+            _TotalPostProcTime = TimeSpan.Zero;
+            _TotalValidateTime = TimeSpan.Zero;
+            _TypeProcessingTime = timings;
+            _CurrentStateScope = scope;
+            return scope;
+        }
+    }
+
+    private sealed class ProcessorStateScope : IDisposable
+    {
+        internal readonly int ThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
+        private readonly ProcessorStateScope parent = _CurrentStateScope;
+        private readonly InstanceHandleSet missing = _MissingReferences;
+        private readonly Stack<string> documents = _CurrentDocumentStack;
+        private readonly Stack<string> streams = _CurrentStreamStack;
+        private readonly TimeSpan instances = _TotalProcInstancesTime;
+        private readonly TimeSpan output = _TotalPrepareOutputTime;
+        private readonly TimeSpan source = _TotalPrepareSourceTime;
+        private readonly TimeSpan post = _TotalPostProcTime;
+        private readonly TimeSpan validate = _TotalValidateTime;
+        private readonly IDictionary<uint, TypeCompileData> timings = _TypeProcessingTime;
+        private bool disposed;
+
+        public void Dispose()
+        {
+            lock (StateScopeGate)
+            {
+                if (disposed) return;
+                if (ThreadId != System.Threading.Thread.CurrentThread.ManagedThreadId)
+                    throw new InvalidOperationException("Document processor state scopes may only be disposed on their owning thread.");
+                if (!Object.ReferenceEquals(_CurrentStateScope, this))
+                    throw new InvalidOperationException("Document processor state scopes must be disposed in reverse creation order.");
+                _MissingReferences = missing;
+                _CurrentDocumentStack = documents;
+                _CurrentStreamStack = streams;
+                _TotalProcInstancesTime = instances;
+                _TotalPrepareOutputTime = output;
+                _TotalPrepareSourceTime = source;
+                _TotalPostProcTime = post;
+                _TotalValidateTime = validate;
+                _TypeProcessingTime = timings;
+                _CurrentStateScope = parent;
+                disposed = true;
+            }
+        }
+    }
+
 	public static void ResetTimers()
 	{
 		_TotalProcInstancesTime = new TimeSpan(0L);

@@ -17,6 +17,7 @@ using NewModCompiler.Application;
 public static class CompilerBackendLifecycle
 {
     static readonly List<string> Tests = new List<string>();
+    static readonly List<object> BaselineCases = new List<object>();
     static readonly BindingFlags PrivateStatic = BindingFlags.Static | BindingFlags.NonPublic;
     static string work, sdk, probe;
     static int checks, traceCalls;
@@ -153,6 +154,7 @@ public static class CompilerBackendLifecycle
         Require(Word(manifest,24)==8 && Word(manifest,28)==0,"Armor relocation/import maxima changed");
         Require(Word(manifest,32)==0 && Word(manifest,36)==0,"Unexpected Armor runtime or manifest references");
         int names=(int)Word(manifest,40), sources=(int)Word(manifest,44), nameStart=48+3*48, sourceStart=nameStart+names;
+        Require(names==129 && sources==Encoding.ASCII.GetByteCount(source)+1,"Unexpected Armor name/source buffer sizes");
         Require(manifest.Length==sourceStart+sources,"Manifest table/buffer lengths do not exactly consume file");
         uint checksum=Word(manifest,4);
         Require(bin.Length==836 && imports.Length==4 && relocations.Length==20,"Linked stream sizes do not match independent Armor sizes");
@@ -210,7 +212,16 @@ public static class CompilerBackendLifecycle
         var artifacts=backend.Compile(Context(request,Task(request.ModRoot,name),staging),CancellationToken.None);
         var result=Four(artifacts,staging);
         IndependentArmorOracle(artifacts,request.ModRoot.EndsWith("mod-b",StringComparison.Ordinal),name=="Mod"?"DATA:armor.xml":"DATA:extra.xml");
-        DefaultMetadata(backend); ambient.Unchanged(slot); return result;
+        DefaultMetadata(backend); ambient.Unchanged(slot);
+        if(name=="Mod" && slot=="first")
+        {
+            var outputs=new Dictionary<string,string>();
+            foreach(var artifact in artifacts) if(new[] {".manifest",".bin",".imp",".relo"}.Contains(Path.GetExtension(artifact.Path)))
+                outputs.Add(Path.GetExtension(artifact.Path).Substring(1),artifact.Path);
+            BaselineCases.Add(new { name=Path.GetFileName(request.ModRoot),modRoot=request.ModRoot,inputPath=Task(request.ModRoot,name).InputPath,
+                sdkRoot=request.SdkRoot,stagingDirectory=staging,outputs=outputs });
+        }
+        return result;
     }
     static void Equal(Dictionary<string,string> left, Dictionary<string,string> right, string label)
     {
@@ -324,12 +335,12 @@ public static class CompilerBackendLifecycle
                 Require(baseline.Contains("BackendFixtureBaselineOnly") && !baseline.Contains("RecoveryArmorProbe"),"Backend polluted caller hash table contents");
             }
             Settings.Current=previous; original.Unchanged("Fixture scopes restored");
-            result=new {succeeded=true,sourceCommit=args[2],runId=args[3],checks=checks,tests=Tests.ToArray(),scope="Real in-process backend only; cold comparisons are same-process new-backend contexts; production CLI, cold-process/G3/SDK and persistent-cache acceptance pending"};
+            result=new {succeeded=true,sourceCommit=args[2],runId=args[3],checks=checks,tests=Tests.ToArray(),baselineCases=BaselineCases.ToArray(),fixtureWorkRoot=work,scope="Real in-process backend only; cold comparisons are same-process new-backend contexts; production CLI, cold-process/G3/SDK and persistent-cache acceptance pending"};
             Console.WriteLine("PASS BackendLifecycle: "+Tests.Count+" groups; "+checks+" checks");
         }
         catch(Exception e)
         {
-            code=1; result=new {succeeded=false,sourceCommit=args.Length>2?args[2]:null,runId=args.Length>3?args[3]:null,checks=checks,tests=Tests.ToArray(),error=e.ToString()}; Console.Error.WriteLine(e);
+            code=1; result=new {succeeded=false,sourceCommit=args.Length>2?args[2]:null,runId=args.Length>3?args[3]:null,checks=checks,tests=Tests.ToArray(),baselineCases=BaselineCases.ToArray(),fixtureWorkRoot=work,error=e.ToString()}; Console.Error.WriteLine(e);
         }
         finally { Settings.Current=previous; }
         if(args.Length>1) File.WriteAllText(args[1],new JavaScriptSerializer().Serialize(result));

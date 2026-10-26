@@ -5,6 +5,10 @@ on:
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
+      - 'recovery/scripts/TestCompilerBackendBaseline.ps1'
+      - 'recovery/scripts/ValidateAppProtocol.py'
+      - 'recovery/scripts/app-protocol-requirements.txt'
+      - 'recovery/protocol/**'
       - 'recovery/scripts/TestCompilerTexture.ps1'
       - 'recovery/scripts/TestCompiler.ps1'
       - 'recovery/scripts/CompilerValidation.Common.ps1'
@@ -15,7 +19,8 @@ on:
       - 'recovery/tests/CompilerResourceLifecycle.cs'
       - 'recovery/tests/CompilerStateLifecycle.cs'
       - 'recovery/tests/CompilerBackendLifecycle.cs'
-      - 'recovery/src/App/Application/CoreStreamCompiler.cs'
+      - 'recovery/tests/CompilerApplicationBuild.cs'
+      - 'recovery/src/App/**'
       - 'recovery/src/Managed/Core/**'
       - 'recovery/src/Managed/Metrics/**'
       - 'recovery/scripts/PrepareLegacyTexture.ps1'
@@ -42,9 +47,9 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x86
-      - name: Install pinned mixed PE audit dependencies
+      - name: Install pinned mixed PE audit and App protocol dependencies
         shell: pwsh
-        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt
       - name: Build managed Foundation inputs
         shell: pwsh
         run: |
@@ -56,11 +61,26 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/core-lifecycle-foundation -BuildDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle-deployment/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-      - name: Targeted real Core and backend lifecycle in Debug and Release
+      - name: Targeted real Core, backend and application pipeline in Debug and Release
+        id: lifecycle
         if: ${{ !cancelled() && steps.product.outcome == 'success' }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Isolated original BAB baseline for the two targeted backend cases
+        if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerBackendLifecycle/result.json" -OutputDirectory "recovery/evidence/refactor/core-backend-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180
+          }
+      - name: Validate actual application JSONL and reports against protocol schemas
+        if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $evidence="recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/app-protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Actual application protocol validation failed'}
       - name: Host-bound Texture payload and deployment rejection in Debug and Release
         if: ${{ !cancelled() && steps.product.outcome == 'success' }}
         shell: pwsh
@@ -74,6 +94,7 @@ jobs:
             recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/core-lifecycle-foundation/**/build.json
             recovery/artifacts/core-lifecycle-foundation/**/*.log
             recovery/artifacts/core-lifecycle-product/**/build.json

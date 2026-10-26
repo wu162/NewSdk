@@ -15,10 +15,10 @@ $oldPath=$env:PATH
 $state=[ordered]@{
     schemaVersion=1;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT
     succeeded=$false;status='started';modes=@();sdkValidated=$false;g3Validated=$false;coldProcessValidated=$false
-    scope='P5 targeted real Core/backend cleanup and resource reuse in production-object validation fixtures; not production build CLI, cold-process equivalence, complete MOD/SDK or G3 acceptance'
+    scope='P5 targeted real Core/backend/application pipeline and resource reuse in production-object validation fixtures using small Armor inputs; not production build CLI, APT business coverage, cold-process equivalence, complete MOD/SDK or G3 acceptance'
 }
 function Hash([string]$Path){(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
-function Invoke-LifecycleFixture([string]$Executable,[string[]]$Arguments,[string]$Directory,[string]$Log) {
+function Invoke-LifecycleFixture([string]$Executable,[string[]]$Arguments,[string]$Directory,[string]$Log,[int]$Timeout) {
     $info=[Diagnostics.ProcessStartInfo]::new($Executable)
     $info.WorkingDirectory=$Directory;$info.UseShellExecute=$false
     $info.RedirectStandardOutput=$true;$info.RedirectStandardError=$true
@@ -29,7 +29,7 @@ function Invoke-LifecycleFixture([string]$Executable,[string[]]$Arguments,[strin
         if(!$process.Start()){throw 'Unable to start Core lifecycle fixture'}
         $processId=$process.Id
         $stdout=$process.StandardOutput.ReadToEndAsync();$stderr=$process.StandardError.ReadToEndAsync()
-        $timedOut=!$process.WaitForExit($FixtureTimeoutSeconds*1000)
+        $timedOut=!$process.WaitForExit($Timeout*1000)
         if($timedOut){$process.Kill($true);$process.WaitForExit()}
         [IO.File]::WriteAllText($Log,($stdout.GetAwaiter().GetResult()+$stderr.GetAwaiter().GetResult()))
         if($timedOut -or $process.ExitCode -ne 0){
@@ -57,7 +57,8 @@ try {
         @{name='CompilerCoreLifecycle';marker='PASS CoreLifecycle:'},
         @{name='CompilerResourceLifecycle';marker='PASS resource lifecycle'},
         @{name='CompilerStateLifecycle';marker='PASS Hash/Tracer state lifecycle'},
-        @{name='CompilerBackendLifecycle';marker='PASS BackendLifecycle:'}
+        @{name='CompilerBackendLifecycle';marker='PASS BackendLifecycle:'},
+        @{name='CompilerApplicationBuild';marker='PASS ApplicationBuild:';timeoutSeconds=600}
     )
     $state.fixtures=@($fixtures|ForEach-Object{
         @{name=$_.name;path=('recovery/tests/'+$_.name+'.cs');sha256=(Hash ('recovery/tests/'+$_.name+'.cs'))}
@@ -128,20 +129,21 @@ try {
             Copy-Item $fixtureExe "$fixtureOut/fixture.exe"
             Copy-Item "$fixtureExe.config" "$fixtureOut/fixture.exe.config"
             $fixtureHash=Hash $fixtureExe
+            $timeout=if($fixture.timeoutSeconds){[int]$fixture.timeoutSeconds}else{$FixtureTimeoutSeconds}
             $resultPath=Join-Path $fixtureOut 'result.json'
             try {
-                $processId=Invoke-LifecycleFixture $run.exe @($fixtureExe,$fixtureWork,$resultPath,$state.sourceCommit,$state.runId,$sdk) $clean "$fixtureOut/runtime.log"
+                $processId=Invoke-LifecycleFixture $run.exe @($fixtureExe,$fixtureWork,$resultPath,$state.sourceCommit,$state.runId,$sdk) $clean "$fixtureOut/runtime.log" $timeout
                 if(!(Select-String -LiteralPath "$fixtureOut/runtime.log" -SimpleMatch $fixture.marker -Quiet)){throw 'Core lifecycle success marker missing'}
                 $result=Get-Content -LiteralPath $resultPath -Raw|ConvertFrom-Json
                 if(!$result.succeeded -or $result.sourceCommit -cne $state.sourceCommit -or $result.runId -cne $state.runId){throw 'Core lifecycle result identity or success mismatch'}
                 if(@($result.checks).Count -eq 0 -or ($result.checks -is [ValueType] -and $result.checks -le 0)){throw 'Lifecycle fixture assertion coverage missing'}
                 if($fixture.name -eq 'CompilerCoreLifecycle' -and @($result.tests).Count -lt 4){throw 'Real Core lifecycle case groups missing'}
-                if($fixture.name -eq 'CompilerBackendLifecycle' -and @($result.tests).Count -eq 0){throw 'Targeted backend lifecycle case groups missing'}
+                if($fixture.name -in @('CompilerBackendLifecycle','CompilerApplicationBuild') -and @($result.tests).Count -eq 0){throw 'Targeted backend/application case groups missing'}
                 if((Hash $fixtureExe) -cne $fixtureHash -or (Hash $source) -cne ($state.fixtures|Where-Object{$_.name -ceq $fixture.name}).sha256){throw 'Lifecycle fixture input changed while running'}
                 if((Hash $texture) -cne $textureHash -or (Hash $textureManifest) -cne $textureManifestHash){throw 'Backend texture deployment changed while running'}
                 Complete-CompilerValidationRun $run
                 $modeState.fixtures+=,@{
-                    name=$fixture.name;passed=$true;processId=$processId
+                    name=$fixture.name;passed=$true;processId=$processId;timeoutSeconds=$timeout
                     sourceSha256=(Hash $source);fixtureExeSha256=(Hash $fixtureExe)
                     resultSha256=(Hash $resultPath);runtimeLogSha256=(Hash "$fixtureOut/runtime.log")
                 }
@@ -160,7 +162,7 @@ try {
     foreach($input in $state.schemaInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK schema input changed during lifecycle validation'}}
     foreach($input in $state.sdkFixtureInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK fixture/config input changed during lifecycle validation'}}
     if((Hash $originalTexture) -cne $state.originalTextureSha256){throw 'Pinned original texture changed during backend lifecycle validation'}
-    $state.succeeded=$true;$state.status='passed targeted Core/backend/resource lifecycle fixtures in Debug and Release; production CLI, cold-process equivalence, SDK and G3 acceptance remain separate'
+    $state.succeeded=$true;$state.status='passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate'
     $global:LASTEXITCODE=0
 } catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally {

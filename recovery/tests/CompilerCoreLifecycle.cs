@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Web.Script.Serialization;
 using System.Xml;
 using BinaryAssetBuilder;
@@ -282,6 +283,102 @@ internal static class CompilerCoreLifecycle
             }
         }
     }
+    static readonly string[] ProcessorStateFields = {
+        "_MissingReferences", "_CurrentDocumentStack", "_CurrentStreamStack", "_TypeProcessingTime",
+        "_TotalProcInstancesTime", "_TotalPrepareOutputTime", "_TotalPrepareSourceTime", "_TotalPostProcTime", "_TotalValidateTime"
+    };
+    static object[] ProcessorState() { return ProcessorStateFields.Select(name => Field(null, name)).ToArray(); }
+    static void SameProcessorState(object[] expected)
+    {
+        object[] actual = ProcessorState();
+        for (int i = 0; i < actual.Length; i++)
+            Require(i < 4 ? Object.ReferenceEquals(actual[i], expected[i]) : Object.Equals(actual[i], expected[i]),
+                "Processor state did not restore " + ProcessorStateFields[i]);
+    }
+    static void EmptyProcessorState(object[] parent)
+    {
+        object[] actual = ProcessorState();
+        for (int i = 0; i < 4; i++) Require(!Object.ReferenceEquals(actual[i], parent[i]), "Processor child state reused " + ProcessorStateFields[i]);
+        Require(((InstanceHandleSet)actual[0]).Count == 0 && Documents.Count == 0 && Streams.Count == 0 &&
+            ((IDictionary)actual[3]).Count == 0, "Processor scope did not isolate reference/traversal/type tables");
+        for (int i = 4; i < actual.Length; i++) Require((TimeSpan)actual[i] == TimeSpan.Zero, "Processor scope inherited a parent timer");
+    }
+    static void RejectProcessorState(Action action, string message)
+    {
+        bool rejected = false; try { action(); } catch (InvalidOperationException) { rejected = true; }
+        Require(rejected, message);
+    }
+    static void RejectProcessorStateWorker(Action action, string message)
+    {
+        Exception failure = null;
+        var thread = new Thread(delegate() { try { action(); } catch (Exception error) { failure = error; } });
+        thread.IsBackground = true; thread.Start();
+        Require(thread.Join(5000), message + " (worker blocked)");
+        Require(failure is InvalidOperationException, message);
+    }
+    static void ProcessorStateCase(BuiltinCompilers plugins)
+    {
+        Settings oldSettings = Settings.Current;
+        Configure("processor-state-parent"); var parentProcessor = Processor(plugins);
+        object[] original = ProcessorState();
+        try
+        {
+            using (DocumentProcessor.BeginStateScope())
+            {
+                var missing = new InstanceHandle("ArmorTemplate", "SameMissingReferenceAcrossBuilds");
+                Require(parentProcessor.MissingReferences.TryAdd(missing), "Parent missing-reference sentinel duplicate");
+                Documents.Push("state-parent-document"); Streams.Push("state-parent-stream");
+                for (int i = 4; i < ProcessorStateFields.Length; i++)
+                    typeof(DocumentProcessor).GetField(ProcessorStateFields[i], Private).SetValue(null, TimeSpan.FromTicks(100 + i));
+                parentProcessor.AddCompileTime(missing, TimeSpan.FromTicks(9876));
+                var parentTypes = (IDictionary)Field(null, "_TypeProcessingTime");
+                object parentType = parentTypes[missing.TypeId];
+                object[] parent = ProcessorState();
+                for (int round = 0; round < 2; round++)
+                {
+                    using (var child = DocumentProcessor.BeginStateScope())
+                    {
+                        EmptyProcessorState(parent);
+                        string name = "processor-state-child-" + round;
+                        Configure(name); var processor = Processor(plugins);
+                        Require(processor.MissingReferences.TryAdd(new InstanceHandle(missing)) &&
+                            !processor.MissingReferences.TryAdd(new InstanceHandle(missing)),
+                            "Missing-reference warning deduplication leaked across processor scopes");
+                        string bad = Write(name + "/bad.xml", Asset("<ArmorTemplate id='StateBad' inheritFrom='MissingParent'/>"));
+                        string good = Write(name + "/good.xml", probe);
+                        Failure(processor, bad, ErrorCode.InheritFromError); Clean(processor, null, bad);
+                        Run(processor, good); Clean(processor, null, bad, good);
+                        object[] childState = ProcessorState();
+                        var nested = DocumentProcessor.BeginStateScope();
+                        try
+                        {
+                            EmptyProcessorState(childState);
+                            Require(processor.MissingReferences.TryAdd(new InstanceHandle(missing)), "Nested scope retained missing-reference deduplication");
+                            RejectProcessorState(child.Dispose, "Out-of-order processor scope disposal accepted");
+                            RejectProcessorStateWorker(nested.Dispose, "Foreign thread disposed processor scope");
+                            RejectProcessorStateWorker(delegate { using (DocumentProcessor.BeginStateScope()) { } }, "Foreign thread entered processor scope");
+                        }
+                        finally { nested.Dispose(); }
+                        nested.Dispose(); SameProcessorState(childState);
+                        Require(processor.MissingReferences.Count == 1 && !processor.MissingReferences.TryAdd(new InstanceHandle(missing)),
+                            "Nested processor scope did not restore its parent's warning set");
+                    }
+                    SameProcessorState(parent);
+                    Require(Documents.Count == 1 && Documents.Peek() == "state-parent-document" &&
+                        Streams.Count == 1 && Streams.Peek() == "state-parent-stream", "Child processor consumed parent traversal sentinels");
+                    Require(parentProcessor.MissingReferences.Count == 1 && !parentProcessor.MissingReferences.TryAdd(new InstanceHandle(missing)),
+                        "Child processor changed the parent missing-reference set");
+                    Require(parentTypes.Count == 1 && Object.ReferenceEquals(parentTypes[missing.TypeId], parentType) &&
+                        (uint)parentType.GetType().GetField("InstancesProcessed").GetValue(parentType) == 1 &&
+                        (TimeSpan)parentType.GetType().GetField("TotalProcessTime").GetValue(parentType) == TimeSpan.FromTicks(9876),
+                        "Child compile times mutated the parent's existing type entry");
+                }
+            }
+            SameProcessorState(original);
+            Tests.Add("processor-scopes:real-core-failure-success-warning-dedup-fresh-per-build-parent-reference-stack-five-timers-type-entries-restored-nested-thread-lifo-guards");
+        }
+        finally { Settings.Current = oldSettings; }
+    }
     static void ProjectCase(BuiltinCompilers plugins)
     {
         Settings s = Configure("project");
@@ -327,7 +424,7 @@ internal static class CompilerCoreLifecycle
                 RetryCase(plugins, "include", false); RetryCase(plugins, "inheritance", true);
                 CycleCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins);
                 MetricsFailureCase(plugins, true, false); MetricsFailureCase(plugins, false, true);
-                MetricsFailureCase(plugins, true, true);
+                MetricsFailureCase(plugins, true, true); ProcessorStateCase(plugins);
             }
             result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), scope="Real Core lifecycle only; production CLI backend, other global scopes, SDK/G3 and persistent cache not accepted" };
             Console.WriteLine("PASS CoreLifecycle: " + Tests.Count + " groups; " + checks + " checks");

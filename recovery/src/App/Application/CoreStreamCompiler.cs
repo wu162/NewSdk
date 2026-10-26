@@ -126,7 +126,10 @@ namespace NewModCompiler.Application
             settings.BuildConfigurationName = null;
             settings.BuildConfigurations = new BuildConfiguration[0];
             settings.TargetPlatform = TargetPlatform.Win32;
-            settings.SessionCache = settings.BuildCache = settings.PartialSessionCache = settings.FreezeSessionCache = false;
+            // The experimental backend has no persistent cache implementation;
+            // keep compression disabled too, matching the independent /csc:false
+            // baseline without suggesting that compressed-cache reuse is supported.
+            settings.SessionCache = settings.BuildCache = settings.PartialSessionCache = settings.FreezeSessionCache = settings.CompressedSessionCache = false;
             settings.AlwaysTouchCache = settings.StreamHints = settings.UsePrecompiled = false;
             settings.GuiMode = settings.Resident = settings.PauseOnError = settings.MetricsReporting = false;
             settings.OldOutputFormat = settings.VersionFiles = settings.OutputAssetReport = settings.OutputStringHashes = settings.OutputIntermediateXml = false;
@@ -221,7 +224,7 @@ namespace NewModCompiler.Application
                 throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "The experimental backend requires an existing XML stream entry.");
             Settings previousSettings = Settings.Current;
             bool previousMetrics = MetricManager.Enabled;
-            IDisposable hashes = null, tracing = null, report = null;
+            IDisposable hashes = null, tracing = null, report = null, processorState = null;
             Exception failure = null;
             IList<Artifact> artifacts = null;
             compiling = true;
@@ -231,12 +234,12 @@ namespace NewModCompiler.Application
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
                 Settings settings = StreamSettings(context, staging);
+                processorState = DocumentProcessor.BeginStateScope();
                 report = AssetReport.BeginScope();
                 EnsureProviders();
                 var schemas = new SchemaSet(settings.StableSort);
                 hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                 var cache = new SessionCache(); cache.InitializeCache(new List<string>());
-                DocumentProcessor.ResetTimers();
                 var processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
                 bool success;
                 processor.ProcessDocument(settings.InputPath, true, false, out success);
@@ -255,6 +258,7 @@ namespace NewModCompiler.Application
                 var cleanup = new List<Exception>();
                 try { if (report != null) report.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (hashes != null) hashes.Dispose(); } catch (Exception error) { cleanup.Add(error); }
+                try { if (processorState != null) processorState.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (tracing != null) tracing.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 Settings.Current = previousSettings;
                 MetricManager.Enabled = previousMetrics;
