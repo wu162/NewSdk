@@ -58,6 +58,11 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerGameObject.ps1 -CompilerBuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-gameobject/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Production Weapon complete existing differential
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerWeapon.ps1 -CompilerBuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-weapon/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -67,8 +72,11 @@ jobs:
             recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/native-foundation/**/*.log
             recovery/artifacts/native-foundation/**/build.json
             recovery/artifacts/native-product/**/*.log
             recovery/artifacts/native-product/**/build.json
+            recovery/artifacts/native-product/**/link-inputs.json
           if-no-files-found: error
+

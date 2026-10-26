@@ -1,5 +1,6 @@
 param([Parameter(Mandatory=$true)][string]$FoundationDirectory,[Parameter(Mandatory=$true)][string]$OutputDirectory,[string]$BuildDirectory)
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/CompilerValidation.Common.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 if(Test-Path $OutputDirectory){throw "Refusing to overwrite product validation $OutputDirectory"}
 New-Item -ItemType Directory -Force $OutputDirectory|Out-Null
@@ -26,6 +27,11 @@ try {
         $build=Join-Path $buildRoot $mode
         try {& "$PSScriptRoot/BuildCompiler.ps1" -Configuration $mode -FoundationDirectory $FoundationDirectory -OutputDirectory $build|Out-Host}
         finally {Get-ChildItem $build -File -ErrorAction SilentlyContinue|Where-Object{$_.Extension -in @('.log','.json')}|Copy-Item -Destination $modeOut}
+        & "$PSScriptRoot/BuildCompilerValidationHost.ps1" -ProductBuildDirectory $build -OutputDirectory "$build/validation"|Out-Host
+        Copy-Item "$build/validation/build.json" "$modeOut/validation-host-build.json"
+        Copy-Item "$build/link-inputs.json" "$modeOut/link-inputs.json"
+        $routeClean=Join-Path $work "$mode/route-validation"
+        $validationRun=Initialize-CompilerValidationRun $build $routeClean $mode $state.sourceCommit
         $clean=Join-Path $work "$mode/clean"
         New-Item -ItemType Directory -Force $clean|Out-Null
         Copy-Item "$build/bin/*" $clean
@@ -39,8 +45,8 @@ try {
         $exe=Join-Path $clean 'NewModCompiler.exe'
         & $inspector $exe (Join-Path $FoundationDirectory "$mode/Foundation.types.txt") (Join-Path $FoundationDirectory "$mode/resources.json") *> "$modeOut/metadata-runtime.log"
         if($LASTEXITCODE -ne 0){Get-Content "$modeOut/metadata-runtime.log";throw 'Clean product metadata validation failed'}
-        Push-Location $clean
-        try { & $routeInspector $exe (Join-Path $root 'recovery/catalog/XmlSdkTypes.json') *> "$modeOut/routes-runtime.log"; $routeCode=$LASTEXITCODE }
+        Push-Location $routeClean
+        try { & $validationRun.exe $routeInspector $validationRun.exe (Join-Path $root 'recovery/catalog/XmlSdkTypes.json') *> "$modeOut/routes-runtime.log"; $routeCode=$LASTEXITCODE }
         finally { Pop-Location }
         if($routeCode -ne 0){Get-Content "$modeOut/routes-runtime.log";throw 'Clean production built-in route validation failed'}
         & $exe --help *> "$modeOut/help.log"
@@ -67,7 +73,8 @@ try {
             Copy-Item "$destination/build-report.json" "$modeOut/$command-report.json"
             Copy-Item "$destination/build.events.jsonl" "$modeOut/$command-events.jsonl"
         }
-        $state.modes+=@{configuration=$mode;passed=$true;exeSha256=(Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant();runtimeFiles=$allowed;typeInventoryVerified=$true;exactResourcesVerified=$true;productContainsTests=$false;moduleInputsQuarantined=$true;builtinRouteCount=299;builtinPluginCount=6;routeMetadataVerified=$true;componentDifferentialPassed=$false;planExit=0;doctorExit=3;buildExit=3;modCompilationSupported=$false}
+        Complete-CompilerValidationRun $validationRun
+        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;componentExecution='test-only host using identical production inputs';configuration=$mode;passed=$true;exeSha256=(Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant();runtimeFiles=$allowed;typeInventoryVerified=$true;exactResourcesVerified=$true;productContainsTests=$false;moduleInputsQuarantined=$true;builtinRouteCount=299;builtinPluginCount=6;routeMetadataVerified=$true;componentDifferentialPassed=$false;planExit=0;doctorExit=3;buildExit=3;modCompilationSupported=$false}
         Write-Host "PASS production $mode clean directory: metadata/types/resources, all built-in routes/rejections, help, plan/events/report, explicit unavailable Core backend"
     }
     $state.status='passed'
@@ -75,4 +82,5 @@ try {
     $global:LASTEXITCODE=0
 } catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally {$state|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json";Pop-Location}
+
 

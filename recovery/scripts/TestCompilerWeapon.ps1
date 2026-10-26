@@ -1,5 +1,6 @@
 param([Parameter(Mandatory=$true)][string]$CompilerBuildDirectory,[Parameter(Mandatory=$true)][string]$OutputDirectory)
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/CompilerValidation.Common.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerBuildDirectory=(Resolve-Path $CompilerBuildDirectory).Path
 if(Test-Path $OutputDirectory){throw "Refusing to overwrite Weapon transcript evidence $OutputDirectory"}
@@ -49,9 +50,9 @@ try {
         $clean=Join-Path $work $mode
         New-Item -ItemType Directory -Force $clean|Out-Null
         $bin=Join-Path $CompilerBuildDirectory "$mode/bin"
-        foreach($name in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){Copy-Item (Join-Path $bin $name) $clean}
+        $validationRun=Initialize-CompilerValidationRun (Join-Path $CompilerBuildDirectory $mode) $clean $mode $state.sourceCommit
         $exe=Join-Path $clean 'NewModCompiler.exe'
-        if((Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant() -cne $receipt.exeSha256){throw 'Product executable differs from build receipt'}
+        # The helper verifies the distinct production and validation executable hashes.
         $replayHost=Join-Path $clean 'WeaponProductReplay.exe'
         & $csc /nologo /unsafe /codepage:65001 /platform:x86 /define:WEAPON_TRANSCRIPT_PRODUCT /r:System.Xml.dll "/r:$exe" "/out:$replayHost" $sources *> "$out/$mode-build.log"
         if($LASTEXITCODE -ne 0){Get-Content "$out/$mode-build.log";throw "Product Weapon $mode replay host compilation failed"}
@@ -60,11 +61,13 @@ try {
         if(@(Get-ChildItem $clean -Recurse|Where-Object{$_.PSIsContainer -or $_.Name -notin $allowed}).Count -ne 0){throw 'Unexpected file in isolated Weapon product replay directory'}
         $env:PATH="$env:WINDIR/System32;$env:WINDIR;$env:WINDIR/Microsoft.NET/Framework/v4.0.30319"
         Push-Location $clean
-        try {& $replayHost $transcript *> "$out/$mode-runtime.log"; $code=$LASTEXITCODE}
+        try {& $validationRun.exe $replayHost $transcript *> "$out/$mode-runtime.log"; $code=$LASTEXITCODE}
         finally {Pop-Location; $env:PATH=$oldPath}
         if($code -ne 0 -or !(Select-String "$out/$mode-runtime.log" -SimpleMatch 'PASS Weapon full transcript replay:' -Quiet)){Get-Content "$out/$mode-runtime.log" -Tail 60;throw "Complete product Weapon $mode matrix failed"}
-        $state.modes+=@{configuration=$mode;passed=$true;exeSha256=$receipt.exeSha256;platforms=@(0,1,2,99);fullExistingFixtureSet=$true;originalBusinessDllsAbsent=$true;summary=@(Select-String "$out/$mode-runtime.log" -SimpleMatch 'PASS Weapon full transcript replay:'|ForEach-Object{$_.Line})}
+        Complete-CompilerValidationRun $validationRun
+        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;configuration=$mode;passed=$true;exeSha256=$receipt.exeSha256;platforms=@(0,1,2,99);fullExistingFixtureSet=$true;originalBusinessDllsAbsent=$true;summary=@(Select-String "$out/$mode-runtime.log" -SimpleMatch 'PASS Weapon full transcript replay:'|ForEach-Object{$_.Line})}
     }
     $state.status='passed';$global:LASTEXITCODE=0
 }catch{$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally{$env:PATH=$oldPath;$state|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json";Pop-Location}
+

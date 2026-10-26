@@ -61,6 +61,14 @@ try {
     foreach($resource in $resources){$linkArguments+=('/ASSEMBLYRESOURCE:'+$resource.path+','+$resource.logicalName)}
     $linkResponse=Join-Path $obj 'Link.rsp'
     [IO.File]::WriteAllLines($linkResponse,[string[]]@($linkArguments|ForEach-Object{'"'+$_+'"'}),[Text.UTF8Encoding]::new($false))
+    # Freeze the exact production link inputs before the linker runs. The
+    # validation host may replace only the entry object, entry symbol and output.
+    $linkInputs=@(@{kind='foundation';path=$foundation},@{kind='application';path=$application},@{kind='entry';path=$hostObject})
+    $linkInputs+=@($nativeBuild.objects|ForEach-Object{@{kind='nativeOrBridge';path=$_}})
+    $linkInputs+=@($resources|ForEach-Object{@{kind='resource';path=$_.path}})
+    foreach($input in $linkInputs){$input.sha256=(Get-FileHash $input.path -Algorithm SHA256).Hash.ToLowerInvariant()}
+    @{schemaVersion=1;sourceCommit=(git rev-parse HEAD).Trim();configuration=$Configuration;arguments=$linkArguments;inputs=$linkInputs}|
+        ConvertTo-Json -Depth 8|Set-Content (Join-Path $out 'link-inputs.json')
     Invoke-CompilerTool 'link.exe' @('@'+$linkResponse) (Join-Path $out 'link.log')
     Copy-Item 'recovery/src/App/App.config' "$exe.config"
     Copy-Item 'SDK/tools/antlr.runtime.dll' $bin
@@ -83,3 +91,4 @@ try {
     }|ConvertTo-Json -Depth 8|Set-Content (Join-Path $out 'build.json')
     Write-Output $exe
 } finally {Pop-Location}
+

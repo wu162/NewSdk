@@ -44,7 +44,10 @@ class CompilerRoutes
                 if (name == "antlr.runtime") return Assembly.LoadFrom(Path.Combine(bin, "antlr.runtime.dll"));
                 throw new Exception("Unexpected runtime assembly resolution: " + e.Name);
             };
-            Assembly own = Assembly.LoadFrom(exe);
+            Assembly own = Assembly.GetEntryAssembly();
+            Require(own.GetName().Name == "NewModCompiler" && own.GetModules().Length == 1 &&
+                String.Equals(Path.GetFullPath(own.Location), exe, StringComparison.OrdinalIgnoreCase),
+                "Route fixture must run inside the isolated validation entry EXE");
             Type factory = own.GetType("NewModCompiler.Application.BuiltinCompilers", true);
             Type platformType = own.GetType("BinaryAssetBuilder.Core.TargetPlatform", true);
             foreach (string unsupported in new[] { "Xbox360", "PlayStation3" })
@@ -121,3 +124,4 @@ class CompilerRoutes
         catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }
 }
+

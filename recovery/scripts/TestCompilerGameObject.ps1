@@ -1,5 +1,6 @@
 param([Parameter(Mandatory=$true)][string]$CompilerBuildDirectory,[Parameter(Mandatory=$true)][string]$OutputDirectory)
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/CompilerValidation.Common.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerBuildDirectory=(Resolve-Path $CompilerBuildDirectory).Path
 if(Test-Path $OutputDirectory){throw "Refusing to overwrite GameObject transcript evidence $OutputDirectory"}
@@ -88,7 +89,7 @@ try {
         if($buildReceipt.sourceCommit -cne $state.sourceCommit -or $buildReceipt.configuration -cne $mode){throw "Product $mode receipt source/configuration does not match this validation"}
         $builtExe=Join-Path $bin 'NewModCompiler.exe'
         if((Get-FileHash $builtExe -Algorithm SHA256).Hash.ToLowerInvariant() -cne $buildReceipt.exeSha256){throw "Product $mode executable differs from its build receipt"}
-        foreach($name in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){Copy-Item (Join-Path $bin $name) $clean}
+        $validationRun=Initialize-CompilerValidationRun (Join-Path $CompilerBuildDirectory $mode) $clean $mode $state.sourceCommit
         $exe=Join-Path $clean 'NewModCompiler.exe'
         $replayHost=Join-Path $clean 'GameObjectProductReplay.exe'
         & $csc /nologo /codepage:65001 /platform:x86 /define:GO_TRANSCRIPT_PRODUCT /r:System.Xml.dll "/r:$exe" "/out:$replayHost" $sources *> "$out/$mode-build.log"
@@ -97,11 +98,13 @@ try {
         $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','GameObjectProductReplay.exe','GameObjectProductReplay.exe.config')
         if(@(Get-ChildItem $clean -Recurse|Where-Object{$_.PSIsContainer -or $_.Name -notin $allowed}).Count -ne 0){throw 'Unexpected file in isolated GameObject product replay directory'}
         Push-Location $clean
-        try {& $replayHost $transcript *> "$out/$mode-runtime.log"; $code=$LASTEXITCODE}
+        try {& $validationRun.exe $replayHost $transcript *> "$out/$mode-runtime.log"; $code=$LASTEXITCODE}
         finally {Pop-Location}
         if($code -ne 0 -or !(Select-String "$out/$mode-runtime.log" -SimpleMatch 'PASS GameObject full transcript replay:' -Quiet)){Get-Content "$out/$mode-runtime.log" -Tail 60;throw "Complete product GameObject $mode matrix failed"}
-        $state.modes+=@{configuration=$mode;passed=$true;exeSha256=(Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant();platforms=@(0,1,2,99);fullExistingFixtureSet=$true;originalBusinessDllsAbsent=$true;summary=@(Select-String "$out/$mode-runtime.log" -SimpleMatch 'PASS GameObject full transcript replay:'|ForEach-Object{$_.Line})}
+        Complete-CompilerValidationRun $validationRun
+        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;configuration=$mode;passed=$true;exeSha256=$validationRun.productExeSha256;platforms=@(0,1,2,99);fullExistingFixtureSet=$true;originalBusinessDllsAbsent=$true;summary=@(Select-String "$out/$mode-runtime.log" -SimpleMatch 'PASS GameObject full transcript replay:'|ForEach-Object{$_.Line})}
     }
     $state.status='passed';$global:LASTEXITCODE=0
 }catch{$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally{$state|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json";Pop-Location}
+

@@ -3,6 +3,7 @@ param(
     [Parameter(Mandatory=$true)][string]$OutputDirectory
 )
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/CompilerValidation.Common.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerDirectory=(Resolve-Path $CompilerDirectory).Path
 if(Test-Path $OutputDirectory){throw "Refusing to overwrite differential evidence: $OutputDirectory"}
@@ -43,18 +44,20 @@ try{
         $clean=Join-Path $work $mode
         $evidence=Join-Path $out $mode
         New-Item -ItemType Directory -Force $clean,$evidence|Out-Null
-        foreach($name in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){Copy-Item "$build/bin/$name" $clean}
+        $validationRun=Initialize-CompilerValidationRun $build $clean $mode $state.sourceCommit
         & $csc /nologo /codepage:65001 /platform:x86 /define:EXTERNAL_PRODUCT /r:System.Xml.dll "/r:$clean/NewModCompiler.exe" "/out:$clean/ProductFixture.exe" $source *> "$evidence/fixture-build.log"
         if($LASTEXITCODE -ne 0){Get-Content "$evidence/fixture-build.log" -Tail 80|Out-Host;throw "$mode product fixture build failed"}
         Copy-Item "$clean/NewModCompiler.exe.config" "$clean/ProductFixture.exe.config"
         # Only system runtime locations remain; no SDK/tools or build search path.
         $env:PATH="$env:WINDIR/System32;$env:WINDIR;$env:WINDIR/Microsoft.NET/Framework/v4.0.30319"
-        try{Invoke-Fixture "$clean/ProductFixture.exe" @("$evidence/recovered.tsv") $clean "$evidence/runtime.log"}
+        try{Invoke-Fixture $validationRun.exe @("$clean/ProductFixture.exe","$evidence/recovered.tsv") $clean "$evidence/runtime.log"}
         finally{$env:PATH=$oldPath}
         if(@(Get-Content "$evidence/recovered.tsv").Count -ne 610 -or (Get-FileHash "$evidence/recovered.tsv" -Algorithm SHA256).Hash -cne $baseline){throw "$mode original/product transcript mismatch"}
-        $state.configurations+=@{configuration=$mode;passed=$true;rows=610;exeSha256=$receipt.exeSha256;transcriptSha256=$baseline.ToLowerInvariant();businessTypesOwnedByProduct=$true;separateOracleProcess=$true}
+        Complete-CompilerValidationRun $validationRun
+        $state.configurations+=@{validationHostSha256=$validationRun.validationHostSha256;configuration=$mode;passed=$true;rows=610;exeSha256=$receipt.exeSha256;transcriptSha256=$baseline.ToLowerInvariant();businessTypesOwnedByProduct=$true;separateOracleProcess=$true}
     }
     $state.status='passed'
     Write-Output 'PASS production EXE Armor/Hash Debug/Release: 610 rows each, four platforms, three buffers, independent Armor layout and rejection checks'
 }catch{$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally{$env:PATH=$oldPath;$state|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json";Pop-Location}
+
