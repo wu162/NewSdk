@@ -1,0 +1,40 @@
+name: Prepared RA3 HashFix original differential
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-hashfix.yml'
+      - 'recovery/preparation/hashfix/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hashfix:
+    runs-on: windows-2022
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            recovery/preparation/hashfix
+            SDK/tools
+      - name: Build prepared HashFix and compare original raw manifests
+        shell: pwsh
+        run: |
+          $vs=& "${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
+          $csc=Join-Path $vs 'MSBuild/Current/Bin/Roslyn/csc.exe'
+          foreach($mode in @('Debug','Release')) {
+            $out="recovery/artifacts/hashfix/$mode";New-Item -ItemType Directory -Force $out|Out-Null
+            $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
+            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 $opt "/out:$out/HashFixControl.exe" recovery/preparation/hashfix/HashFix.cs recovery/preparation/hashfix/HashFixControl.cs
+            if($LASTEXITCODE -ne 0){throw 'Prepared HashFix component compilation failed'}
+            python recovery/preparation/hashfix/TestCompilerHashFix.py --original SDK/tools/HashFix.exe --candidate "$out/HashFixControl.exe" --output "$out/evidence"
+            if($LASTEXITCODE -ne 0){throw 'Original HashFix differential failed'}
+          }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: prepared-hashfix-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/artifacts/hashfix/**
+          if-no-files-found: error
