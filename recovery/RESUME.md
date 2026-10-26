@@ -10,12 +10,14 @@
 
 修复循环元数据、signed COMM过滤、SSND有界offset、WAVE无padding lookup、MPEG EOF/真实容器识别。原MP3透传SIMEX_info只查头信息，不解PCM；错误增加的NLayer解码门槛和19个未引用文件已删除。MARK-only原未初始化mode、单端匹配和越界输入继续明确拒绝。
 
-## 下一轮
+## 本轮完整 Upheaval 结果
 
-用户要求先交接，本轮不再启动新实现/新验证。无需重跑上述成功组。
+源码 `c078bce6e5e28866dfd3c25acabda731203b2556` / [40248486242](https://github.com/wu162/NewSdk/actions/runs/40248486242) attempt1 **success**，音频树仍为`ee6074a096795aa66b682fcb363e360feabe4d2f`。固定输入`068643219fded09a05fb7b75c6507b769c430316`保留194个.asset；case3/4/5原/恢复共10次BAB调用全部exit0，20份产物一致；各侧1293份CustomData、1289次音频回调，1281 required与1281 actual unique资产匹配，恢复侧原AudioCompiler缺席。收据`evidence/audio/upheaval-sdk-validation/40248486242-1/validation.json`（提交`ef87339d3f76848687b714a394a9e1ff00ad1923`）。其他插件使用原SDK；本WAV mono语料不能代替AIFF/AIFC边界SDK或多声道验收，仅证明上述音频替换范围。
 
-1. 启动一次完整固定Upheaval音频替换门槛：`audio-upheaval-validation.yml`（提交标记`[audio-input-upheaval]`，监听该工作流/专属脚本变更）；`TestAudioUpheavalSdk.ps1`。工作流已核对当前源码树与1820 SDK收据后才允许运行。保留194个.asset输入，核对实际AudioFile调用。全部Upheaval为WAV，不能代替已独立通过的AIFF SDK。
-2. 通过后合入`compiler-source`。合并时保留其各子系统导航，不能简单把Audio专用RESUME覆盖通用导航；SDK及shared recovery/src/Native/Core/W3X树与目标b122a54完全相同，不重跑未变子系统。
-3. 最终exe集成尚未完成，属于后续重构；已查`refactor/compiler-exe-integration`的46b8785仅有联合SDK基线准备，尚无最终exe工程。
+## 下一步与边界
 
-完整Upheaval未启动；compiler-source未合入；SDK/tools原DLL/config未替换；不冒充最终exe集成。详细当前范围、拒绝边界和分组证据只维护在AUDIO_COMPILER及其链接。
+1. 生产当前仅mono/stereo；4/6声道是新确认待恢复的完整能力组，正在原DLL隔离探针阶段，尚未实现；见[多声道边界](audio/MultichannelBoundary.md)。完整组需覆盖WAVE重排、PCM/XAS、RAM/stream、loop和重采样；3/5/8与多声道ADP4不默认支持。变更源码后必须保留旧成功scope并取得新验收。
+2. 合入`compiler-source`前再读目标头。保留其通用子系统导航，不能用本Audio专用RESUME覆盖；已读b122a54与成功测试分支的SDK及shared recovery/src树相同，未变子系统不重复运行。
+3. [音频合入审查](audio/AudioIntegrationReview.md)记录固定SDK/共享树、原版与恢复版实际覆盖和通用导航保留要求。
+
+完整Upheaval音频门槛已通过；compiler-source尚未合入；SDK/tools原DLL/config未替换；任务尚未全部完成。范围及限制见[AUDIO_COMPILER.md](AUDIO_COMPILER.md)和[验收索引](evidence/audio/acceptance-current.json)。

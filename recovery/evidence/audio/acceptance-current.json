@@ -161,13 +161,12 @@
   ],
   "completeDllRecovered": false,
   "productionSdkReplaced": false,
-  "fullUpheavalValidated": false,
+  "fullUpheavalValidated": true,
   "next": "../../AUDIO_COMPILER.md",
-  "sdkPolicy": "Component and plugin differentials first; run real SDK only at explicit larger milestones. Existing SDK receipts use dedicated minimal audio MODs and do not certify full Upheaval.",
+  "sdkPolicy": "Component and plugin differentials first; run real audio SDK only at explicit larger milestones. Dedicated MOD receipts and full pinned audio-only Upheaval receipt retain separate source/input scopes.",
   "remaining": [
-    "Complete pinned Upheaval audio replacement acceptance; other plugins use original SDK",
-    "Merge into compiler-source, retaining its shared subsystem navigation",
-    "Final exe integration in later compiler refactor",
+    "PC 4/6-channel complete capability group; current production supports mono/stereo only",
+    "Merge Audio into compiler-source, retaining shared subsystem navigation",
     "Undefined native reads, partial AIFF marker pairs and unaudited malformed containers remain explicit limits"
   ],
   "targetScope": "PC Win32 only; all other target platforms rejected",
@@ -391,12 +390,57 @@
   "finalExeIntegrated": false,
   "handoff": {
     "requestedByUser": true,
-    "newRunsStopped": true,
+    "newRunsStopped": false,
     "existingRunContinues": false,
-    "firstAction": "Do not rerun passed components/SDKs; next milestone is complete pinned Upheaval audio replacement using the prepared gated workflow",
-    "upheavalStarted": false,
+    "firstAction": "Retain successful source2d6468/component run40244825458 and sourcec078bce6/full audio-only Upheaval run40248486242 scopes; investigate 4/6 channels with original probes before implementation and new acceptance; preserve compiler-source navigation on merge",
+    "upheavalStarted": true,
     "compilerSourceMerged": false,
     "finalExeIntegrated": false,
-    "runTerminalConfirmed": true
+    "runTerminalConfirmed": true,
+    "upheavalPassed": true
+  },
+  "fullUpheavalValidation": {
+    "status": "passed",
+    "sourceCommit": "c078bce6e5e28866dfd3c25acabda731203b2556",
+    "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
+    "runId": "40248486242",
+    "attempt": 1,
+    "receiptCommit": "ef87339d3f76848687b714a394a9e1ff00ad1923",
+    "receipt": "upheaval-sdk-validation/40248486242-1/validation.json",
+    "inputCommit": "068643219fded09a05fb7b75c6507b769c430316",
+    "inputFiles": 2738,
+    "preservedAssetInputs": 194,
+    "scope": "Complete pinned Upheaval/PublicCases BAB case3/4/5; only AudioCompiler replaced; other plugins use original SDK",
+    "observedInputAudioScope": "WAV mono corpus; does not certify multichannel or replace dedicated AIFF/AIFC boundary SDK receipts",
+    "babInvocations": 10,
+    "allInvocationExitCodesZero": true,
+    "productsCompared": 20,
+    "allProductsIdentical": true,
+    "customFilesPerSide": 1293,
+    "audioCallbacksPerSide": 1289,
+    "requiredAudioDeclarations": 1281,
+    "actualUniqueAudioAssets": 1281,
+    "originalDllAbsentFromRecoveredSdk": true,
+    "jointRecoveredB0Validated": false,
+    "finalExeIntegrated": false
+  },
+  "currentChannelScope": {
+    "supported": [
+      1,
+      2
+    ],
+    "investigating": [
+      4,
+      6
+    ],
+    "multichannelImplemented": false,
+    "multichannelSdkValidated": false,
+    "otherCountsNotImplicitlySupported": [
+      3,
+      5,
+      8
+    ],
+    "nextGroup": "../../audio/MultichannelBoundary.md",
+    "status": "Confirmed PC 4/6 missing capability group; isolated original probes pending; production unchanged"
   }
 }

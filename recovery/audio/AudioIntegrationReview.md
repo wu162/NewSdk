@@ -1,163 +1,80 @@
-# AudioCompiler integration review
+# AudioCompiler merge and SDK review
 
-Read-only repository review on2026-10-26, before the current full-Upheaval
-result. This document and the static inventory do not certify an SDK run,
-combined recovered B0, R0, or final EXE integration.
+Reviewed on 2026-10-26. Scope: PC Audio recovery, original/restored audio SDK
+acceptance, the4/6-channel capability gap, and merge into compiler-source.
+Production Audio remains mono/stereo. No production code is changed by this
+review.
 
-## Fixed heads and tree identity
+## Accepted audio SDK scopes
+
+| Evidence | Source | Scope |
+|---|---|---|
+| run40243817293 attempt1 | bb4a225fc5cc8e070044a01a24f87e425c612ccb | Dedicated4488-asset PC audio MOD |
+| run40244825458 attempt1 | 2d64684742f9b19808d8fd721fbe31a549907c37 | Complete affected component group, whole source builds and dedicated1820-asset audio MOD |
+| run40248486242 attempt1 | c078bce6e5e28866dfd3c25acabda731203b2556 | Full pinned Upheaval/PublicCases, only AudioCompiler replaced |
+
+All three runs retain their own immutable source/input scopes. Current accepted
+Audio production tree is `ee6074a096795aa66b682fcb363e360feabe4d2f`.
+
+Full Upheaval receipt:
+`recovery/evidence/audio/upheaval-sdk-validation/40248486242-1/validation.json`
+at `ef87339d3f76848687b714a394a9e1ff00ad1923`:
+
+- Input pin `068643219fded09a05fb7b75c6507b769c430316`,2738 files,
+  all194 precompiled.asset inputs preserved.
+- Ten Original/Recovered BAB case3/4/5 invocations all exit0; twenty output
+  products identical.
+- Each side has1293 CustomData files and1289 Audio calls;1281 required
+  declarations match1281 actual unique Audio assets.
+- The original side loads original AudioCompiler; the recovered side replaces
+  that plugin and has the original AudioCompiler DLL absent. Other plugins
+  remain original SDK components on both sides.
+- The measured corpus is mono WAV. It does not certify4/6-channel support or
+  replace the dedicated AIFF/AIFC boundary SDK evidence.
+
+## Fixed merge heads and shared tree identity
 
 | Branch | Reviewed head | Meaning |
 |---|---|---|
-| recovery/compiler-source | b122a54abe4405516b021e425b8fb9235d914a0e | Common restored compiler baseline |
-| recovery/audio-compiler-source | 7545797e543147e4eb59b5d258e47281479f4ef8 | Audio handoff; validated business source2d6468 |
-| refactor/compiler-exe-integration | 46b878558c933bd87d320b63ae17658172166f33 | Joint B0 preparation and failed original gate |
+| recovery/compiler-source | b122a54abe4405516b021e425b8fb9235d914a0e | Shared compiler merge target |
+| recovery/audio-compiler-source | 7545797e543147e4eb59b5d258e47281479f4ef8 | Earlier Audio handoff head |
+| validation/audio-upheaval-win32 | ef87339d3f76848687b714a394a9e1ff00ad1923 | Accepted full audio SDK evidence head |
 
-The audio source tree is `ee6074a096795aa66b682fcb363e360feabe4d2f`.
-Its validated implementation source is
-`2d64684742f9b19808d8fd721fbe31a549907c37`; component/new SDK run40244825458
-and preceding4488-asset SDK run40243817293 retain their original source scope.
-
-Audio and compiler-source have identical complete SDK trees:
+The reviewed compiler target is an ancestor of the accepted test branch.
+Their complete SDK trees match:
 `1f2d71a20ce8bf7d9343c7a2246c10275abe28f9`.
-Their complete `recovery/src` trees are also identical:
+SDK/tools remains `10a9b868c74db96976c9c306dc587ec5de62965f`;
+SDK/Schemas remains `62e1c5684ee0ea4407430f0a343a37431be6c03c`.
+Complete shared recovery/src trees match:
 `c13c492885fc64bfac0f53562360d706252b6489`.
-MetadataInventory/catalog/decompiled/w3x trees were separately checked and
-match. No unchanged shared compiler needs a new component execution merely
-because audio source/docs/evidence are merged.
+Original SDK tools/configuration are not replaced in the repository. Recheck
+actual remote heads immediately before merging and preserve concurrent work.
+Unchanged shared compilers do not require component reruns merely because
+Audio source/docs/evidence are merged.
 
-The refactor branch has a different shared source tree,
-`937a7129322ae086bff8b63cf83cb026f6e099f6`: it adds environment-gated Core
-tracing. Do not claim that branch is the exact source accepted above.
+## Safe Audio merge
 
-## Actual EXE state and hard prerequisite
+1. Keep exact source/run/receipt links above. Mark only the measured audio
+   scopes complete; preserve original-versus-restored module distinctions.
+2. Read current compiler-source head and recheck tree identity if it moved.
+   Preserve all concurrent additions and never force push.
+3. Preserve compiler-source's complete generic RESUME navigation, then append
+   a short Win32 Audio section linking AUDIO_COMPILER.md and acceptance-current.
+   Do not overwrite shared GameObject/XML/W3X/Managed navigation with the
+   Audio-only resume. Reviewed generic RESUME blob is
+   `979fd0795cdd092953b50cf48128b2524510a0fa`.
+4. Keep production Audio at accepted treeee6074 for this merge. The new4/6
+   group needs its own implementation and full acceptance before it is enabled.
 
-At46b8785 the root has no`src` directory; recursive`recovery/src` inspection
-finds the existing Managed library projects, no final EXE project/CLI entry.
-EXE_REFACTOR_STATUS explicitly says R0/R1/R2/R3/R4 have not started.
+## Remaining Audio recovery
 
-The only joint B0 receipt is
-`recovery/evidence/joint-baseline/40191603240-1/validation.json` at46b8785:
+[MultichannelBoundary.md](MultichannelBoundary.md) records the newly confirmed
+PC4/6 capability gap, WAVE reader mapping, seven admission guards, the separate
+ADP4 stereo-only state limitation and the complete format/loop/resample/stream
+component/SDK matrix. Original probe CI evidence will be appended by its
+owner; no production4/6 implementation is included in this round.
 
-- source2bde81cad5faaacd5475167a121484b6a2be13ac;
-- `succeeded=false`, `originalBaselinePassed=false`;
-- first Original case3 TacticalHUDBuildQueuePage invocation exits-1;
-- restored builds/output comparisons are empty.
-
-The recorded command includes`/bc:false /sc:false /ss:false`, unlike the
-Studio-derived successful flow's`/ss:true`. The stored receipt proves the
-failure stage, not which individual switch caused it. No current audio-only
-Upheaval success may be relabeled as this joint B0 passing.
-
-The hard order remains: latest joint B0 success -> R0 same-EXE/linking and
-legacy Texture compatibility -> migration/full EXE/CLI -> clean publication
-and real-MOD acceptance. Audio now has restored C# business source, so the
-final host does not need to keep the original mixed AudioCompiler as its
-production codec backend; the unresolved original Texture plugin's Core type
-identity remains a separate R0 problem.
-
-## Safe Audio merge after its full-Upheaval gate
-
-1. Collect terminal audio-only Upheaval evidence with exact source, input,
-   runId/attempt, actual audio coverage, four outputs and CustomData. Other
-   original plugins in that test remain explicitly original.
-2. Re-read compiler-source head before merging. Recheck SDK/shared-source
-   equality if it moved; preserve all concurrent additions, never force.
-3. Preserve compiler-source's generic RESUME body and add a short Audio/Win32
-   section linking AUDIO_COMPILER.md and the immutable receipts. Keep the
-   Audio-only resume as a separate scoped entry if useful; do not replace the
-   shared GameObject/XML/W3X/Managed navigation with an Audio-only document.
-4. A temporary integration branch from the audio head can change only this
-   generic navigation, then PR into compiler-source. Because the reviewed
-   target is an ancestor of audio, business source conflict is not currently
-   expected; actual current target/mergeability must still be checked.
-5. Mark only Audio's measured gate complete. Keep production SDK/config
-   replacement and final EXE flags false until their own operations pass.
-
-Suggested added navigation content: AudioCompiler is Win32-only; use
-`src/AudioCompiler`; source2d6468/treeee6074, component/new SDK40244825458 and
-older SDK40243817293 retain exact scopes; current full-Upheaval result must be
-filled from its real receipt. Link AUDIO_COMPILER.md for restrictions and next
-EXE gate. Do not import the stale refactor B0 failure as a success.
-
-## Small next executable preparation: latest joint B0
-
-No directory migration or Core architecture rewrite is required to prepare it.
-Use a fresh branch from the post-Audio compiler-source, not an old tree that
-omits restored Audio. Selectively port the existing refactor preparation:
-
-- `.github/workflows/joint-sdk-baseline.yml`;
-- `TestJointSdkBaseline.ps1`, `BuildJointManagedBaseline.ps1`,
-  `AssertJointSdkEvidence.ps1`;
-- the`BuildW3xPlugin.ps1 -DependencyDirectory` support;
-- `JointBaselineTrace.cs` and the three environment-gated call sites in
-  Core's AssetDeclarationDocument. This is tracing, not an EXE migration.
-
-Before running, repair/audit the entire batch together:
-
-- keep fixed full input068643219fded09a05fb7b75c6507b769c430316 and its194
-  versioned.asset files; preserve original-first gating;
-- use the measured Studio command semantics, notably`/ss:true`; do not keep
-  extra`/bc /sc` switches without verifying their intended behavior;
-- require Windows/x86 VS C++/CLI (`cl.exe /clr /MD /EHa /std:c++17 /O2
-  /fp:precise`), SDK8, .NET2/net472 references, and existing metadata repair
-  tools for Utility/MvpXml;
-- after original passes, build the eight managed targets Utility/Metrics/
-  ExpressionEval/GameDataVerifier/MvpXml/Core/Remote/EALABuild and the recovered
-  XML/GameObject/Weapon/Armor/W3X bridges against the same recovered Core;
-- add current Audio source. A temporary generated audio project can retain the
-  same source/compiler settings while referencing this batch's recovered Core,
-  rather than the standalone project's original-SDK HintPath. Record that
-  temporary build definition and input file hashes; do not silently overwrite
-  the published standalone project or claim an EXE exists;
-- install the recovered Audio route and remove the original target DLL in the
-  recovered test SDK. Update AssertJoint's current AudioFile expectation from
-  BinaryAssetBuilder.AudioCompiler to the actually built recovered assembly;
-  require path/hash and actual calls. Preserve all existing other-module,
-  MvpXml/XInclude and actual XML/root coverage assertions;
-- compare the20 four-output products plus all relevant CustomData and actual
-  Audio buffers; retain the audio adapter if Core's general trace does not
-  record those three buffers. Preserve input/config/tool fingerprints and
-  original-first failure evidence.
-
-Canonical launch once the repaired complete batch is reviewable:
-`./recovery/scripts/TestJointSdkBaseline.ps1 -TimeoutSeconds 1200` under the
-x86 developer environment.
-This remains unexecuted preparation here. R0 must not begin on the old failed
-receipt. A full joint build/run may exceed the time left after this round's
-Audio acceptance; saving a concrete preparation is preferable to claiming R0.
-
-## Audio source input inventory for R0
-
-[exe-inputs-current.json](exe-inputs-current.json), generated by
-`recovery/scripts/InspectAudioExeInputs.py`, checks all21 tracked Audio source
-/project blobs and recomputes their Git tree. It inventories20 C# files:
-19 business files plus one assembly-attribute source. Their bytes match the
-reviewed remote tree exactly. The current standalone project is net472,
-LangVersion10, unsafe enabled, and explicitly references only the original
-SDK Core; it is still a validation library, not the final host.
-
-Manual source review finds nine Core type names at the integration boundary:
-IAssetBuilderPlugin, InstanceDeclaration, AssetBuffer, TargetPlatform,
-ExtendedTypeInformation, Tracer, HashProvider, BinaryAssetBuilderException,
-ErrorCode. Pattern scanning finds no native codec imports, Assembly.Load, or
-embedded resource lookup in these20 files. This is a static observation, not
-compiled metadata/native import/runtime-load certification.
-
-AssemblyInfo's title/version attributes must be consolidated with host-owned
-assembly metadata. They cannot all be blindly compiled beside the host's
-attributes; that metadata handling does not justify dropping business source.
-The manifest records proposed destinations only. No source was moved, no
-`.props` facade was added, and no recovery DLL/worker was presented as an EXE.
-
-## Jonwil source relevance to this stage
-
-`sagetools` supplies closely related SIMEX/MPEG/WAVE/resampler and XAS codec
-source; the reviewed XAS predictor constants/interleave and header-only MPEG
-info shape match the recovered algorithm family. It is useful for focused
-cross-audits and new feature investigation. It cannot supply a NewSdk Core
-identity/CLI/linker architecture or replace the original-DLL/SDK gate.
-`ealayer3compilerplugin` itself references Core and P/Invokes audio.dll, so
-adopting that architecture would not satisfy the no-restored-business-DLL
-EXE requirement. Do not replace already accepted C# solely to consume these
-repositories; any proposed change needs actual original behavior evidence and
-its affected complete test group.
+Undefined native sample reads, partial AIFF marker pairs, outside-SSND sample
+windows and unaudited malformed-container combinations remain explicit limits.
+Jonwil's related SIMEX/WAVE/XAS source is useful for focused audio cross-audits;
+original target DLL behavior and affected complete SDK gates remain decisive.

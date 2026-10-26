@@ -11,6 +11,8 @@
 - **最终候选已通过**：`2d64684742f9b19808d8fd721fbe31a549907c37` / [40244825458](https://github.com/wu162/NewSdk/actions/runs/40244825458) attempt1 success。D/R loop4224、optional3888、COMM7776、offset2704、MPEG1084及旧受影响完整回归、整工程构建均通过；原机器码32783 header/441 identifier/324 info/72容器及15识别边界通过。
 - **新增SDK已通过**：同最终源码、同运行的1820资产专用PC MOD（COMM1728、MPEG44、ADP4 offset组合48），原/恢复版实际三缓冲区、四产物、1820份CustomData一致；恢复侧删除原目标DLL。前一4488保留原锚点，不冒充本次重跑。
 
+- **完整固定 Upheaval 音频替换已通过**：源码提交 `c078bce6e5e28866dfd3c25acabda731203b2556` / [40248486242](https://github.com/wu162/NewSdk/actions/runs/40248486242) attempt1 success；生产音频树仍为 `ee6074a096795aa66b682fcb363e360feabe4d2f`。固定输入 `068643219fded09a05fb7b75c6507b769c430316`，2738文件、194个.asset保留；原/恢复侧 case3/4/5 共10次BAB调用全部exit0，20份产物全部一致，各侧1293份CustomData、1289次音频回调，1281个required声明与1281个actual unique资产匹配，恢复侧原AudioCompiler缺席。收据 `evidence/audio/upheaval-sdk-validation/40248486242-1/validation.json`，提交 `ef87339d3f76848687b714a394a9e1ff00ad1923`。只替换AudioCompiler，其他插件仍为原SDK；该WAV mono语料不证明4/6声道，也不替代AIFF/AIFC专用SDK。
+
 精确收据、配置、源码树和历史锚点见[验收索引](evidence/audio/acceptance-current.json)。
 
 ## PC 能力与边界
@@ -32,11 +34,8 @@
 
 ## 尚未完成
 
-用户要求先交接，本轮停止新运行。既有两个SDK批次及最终组件均已终态成功，不重复触发。
-
-1. 完整固定Upheaval/PublicCases的音频替换验收（AptUI/全局/基础数据，其他插件用原SDK）。入口 `TestAudioUpheavalSdk.ps1`，工作流已准备源码树/SDK收据门槛，保留194个预编译.asset输入并检查真实AudioFile调用。完整Upheaval全部WAV，不替代AIFF声明边界SDK。
-2. 合入`compiler-source`；合并时保留其通用续接导航。SDK及shared recovery/src源码树均与目标b122a54相同，不重跑未变编译器。
-3. 最终exe集成。已查`refactor/compiler-exe-integration`的46b8785仅有联合基线准备，尚无可接入的最终exe工程。
+1. 当前生产仍只支持mono/stereo。原DLL允许1/2/4/6声道的管理层证据已发现；4/6是新确认待恢复的完整能力组，正在隔离原版探针阶段，尚未实现、尚未验收。详见[多声道边界与完整矩阵](audio/MultichannelBoundary.md)。WAVE重排、PCM/XAS、RAM/stream、loop和重采样需按完整能力组验证；不能默认支持3/5/8或多声道ADP4。源码变化后另取新组件/SDK收据，不能复用旧成功冒充新代码通过。
+2. 合入`compiler-source`；合并时保留其通用续接导航。只读核对目标b122a54与已验收测试分支的SDK/shared recovery/src树相同；实际合并前重新读取目标头，保留并发提交。
 
 继续明确拒绝：MARK-only原未初始化mode、单端匹配、无效loop范围、结构损坏/marker超限，以及超出SSND的offset。
 尚未界定的畸形容器识别组合不承诺普遍等价。PCM32/IEEE-float、sowt等原路径本就拒绝的格式不是待恢复能力；单帧ADP4/import-resample原未初始化行为保持安全拒绝。
