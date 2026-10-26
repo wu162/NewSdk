@@ -26,6 +26,7 @@ namespace NewModCompiler.Application
         public string LogPath { get; set; }
         public string[] Content { get; set; }
         public string PackageFormat { get; set; }
+        public bool IncludeAdditional { get; set; }
         public string[] Arguments { get; set; }
         public IDictionary<string, EffectiveOption> Options { get; private set; }
         public BuildRequest() { Options = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal); }

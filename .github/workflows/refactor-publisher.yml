@@ -27,6 +27,14 @@ jobs:
           sparse-checkout: |
             /*
             !/recovery/evidence/
+      - name: Preflight packaging scripts
+        shell: pwsh
+        run: |
+          foreach($path in @('recovery/scripts/PublishCompiler.ps1','recovery/scripts/TestCompilerBig.ps1')) {
+            $tokens=$null;$errors=$null
+            $null=[Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $path),[ref]$tokens,[ref]$errors)
+            if($errors.Count -ne 0){$errors|Format-List|Out-Host;throw "Packaging PowerShell syntax errors: $path"}
+          }
       - name: Build and verify transactional publisher and all App contracts
         shell: pwsh
         run: |

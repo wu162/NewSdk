@@ -4,7 +4,8 @@ param(
     [Parameter(Mandatory=$true)][string]$CompilerDirectory,
     [Parameter(Mandatory=$true)][string]$AcceptanceReceipt,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
-    [ValidateRange(15,600)][int]$TimeoutSeconds=180
+    [ValidateRange(15,600)][int]$TimeoutSeconds=180,
+    [switch]$VerifyBigDeployment
 )
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
@@ -87,8 +88,14 @@ try {
     Need ($binarySource -cmatch '^[0-9a-f]{40}$') 'CLI acceptance has no exact binary source commit'
     $state.binarySourceCommit=$binarySource
     $state.acceptance=@{path=$AcceptanceReceipt;sha256=(Hash $AcceptanceReceipt);sourceCommit=$accept.sourceCommit;binarySourceCommit=$binarySource;runId=$accept.runId;runAttempt=$accept.runAttempt;scope=$accept.scope}
+    $preparation=Join-Path $CompilerDirectory 'release-preparation.json'
+    if(Test-Path -LiteralPath $preparation){
+        $prepared=Get-Content -LiteralPath $preparation -Raw|ConvertFrom-Json
+        if($prepared.baseBigAcceptance.succeeded -eq $true){Need ([bool]$VerifyBigDeployment) 'Accepted base BIG preparation requires -VerifyBigDeployment before publication'}
+    }
     $temporaryRoot=if($env:RUNNER_TEMP){$env:RUNNER_TEMP}else{[IO.Path]::GetTempPath()}
     $short=(New-Item -ItemType Directory -Path (Join-Path $temporaryRoot ('p'+[Guid]::NewGuid().ToString('N').Substring(0,8)))).FullName
+    $deployedProduct=(New-Item -ItemType Directory -Path (Join-Path $short 'deployed-product')).FullName
     $sdk=(New-Item -ItemType Directory -Path (Join-Path $short 's')).FullName
     New-Item -ItemType Directory -Path (Join-Path $sdk 'Schemas'),(Join-Path $sdk 'tools')|Out-Null
     Copy-Item -LiteralPath (Join-Path $root 'SDK/Schemas/xsd') -Destination (Join-Path $sdk 'Schemas') -Recurse
@@ -119,7 +126,7 @@ try {
         Need ($patch.mode -ceq 'redirect' -and $patch.targetExeSha256 -ceq $build.exeSha256 -and $patch.targetIdentity -ceq ([Reflection.AssemblyName]::GetAssemblyName((Join-Path $sourceBin 'NewModCompiler.exe')).FullName) -and $patch.originalSha256 -ceq '4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e' -and $patch.patchedSha256 -ceq $inventory[3].sha256 -and $patch.protectedPeAudit.status -ceq 'passed' -and $patch.protectedPeAudit.mode -ceq 'redirect' -and $patch.protectedPeAudit.originalSha256 -ceq $patch.originalSha256 -and $patch.protectedPeAudit.outputSha256 -ceq $patch.patchedSha256) "$mode Texture patch is not bound to the production EXE and audited payload"
         $package=Join-Path $out ('NewModCompiler-Win32-'+$mode+'.candidate.zip')
         Compress-Archive -LiteralPath @($allowed|ForEach-Object{Join-Path $sourceBin $_}) -DestinationPath $package
-        $runtime=Join-Path $short $mode.Substring(0,1)
+        $runtime=Join-Path $deployedProduct ($mode+'/bin')
         Expand-Archive -LiteralPath $package -DestinationPath $runtime
         AssertInventory $runtime $inventory
         $evidence=Join-Path $out ('evidence/'+$mode);New-Item -ItemType Directory -Path $evidence|Out-Null
@@ -138,6 +145,22 @@ try {
         AssertInventory $sourceBin $inventory;AssertInventory $runtime $inventory
         $state.configurations+=,@{configuration=$mode;succeeded=$true;candidateZip=$package;zipSha256=(Hash $package);runtimeFiles=$inventory;buildReceiptSha256=(Hash (Join-Path $buildRoot 'build.json'));linkRecipeSha256=(Hash (Join-Path $buildRoot 'link-inputs.json'));toolchain=@{compiler=$build.compiler;vcToolsVersion=$build.vcToolsVersion;windowsSdkVersion=$build.windowsSdkVersion};texturePatch=$patch;doctor=$doctor;sourceDoctor=$baselineDoctor;baseline=$baseline;deployed=$deployed;rawOutputEquality=$true;runtimeUnchanged=$true}
     }
+    if($VerifyBigDeployment){
+        $bigEvidence=Join-Path $out 'evidence/big-deployment'
+        & "$PSScriptRoot/TestCompilerBig.ps1" -CompilerDirectory $deployedProduct -OutputDirectory $bigEvidence -TimeoutSeconds $TimeoutSeconds -UsePackagedRuntime
+        Need ($LASTEXITCODE -eq 0) 'ZIP-deployed base/APT/maps and original LoD/MakeBig acceptance failed'
+        $big=Get-Content -LiteralPath (Join-Path $bigEvidence 'validation.json') -Raw|ConvertFrom-Json
+        Need ($big.succeeded -eq $true -and $big.usePackagedRuntime -eq $true -and @($big.modes).Count -eq 2) 'ZIP BIG gate lacks complete packaged-runtime acceptance'
+        foreach($configuration in $state.configurations){
+            $rows=@($big.modes|Where-Object{$_.configuration -ceq $configuration.configuration})
+            Need ($rows.Count -eq 1 -and $rows[0].passed -eq $true -and $rows[0].packagedRuntimeUnchanged -eq $true -and $rows[0].exeSha256 -ceq $configuration.runtimeFiles[0].sha256) 'ZIP BIG acceptance used a different production EXE'
+            foreach($name in @('base-big','base-loose','base-apt-maps-big','base-apt-maps-loose')){Need (@($rows[0].cases|Where-Object{$_.name -ceq $name -and $_.passed -eq $true}).Count -eq 1) "ZIP BIG acceptance omitted $name"}
+            AssertInventory (Join-Path $deployedProduct ($configuration.configuration+'/bin')) $configuration.runtimeFiles
+            AssertInventory (Join-Path $CompilerDirectory ($configuration.configuration+'/bin')) $configuration.runtimeFiles
+        }
+        $state.bigDeployment=@{succeeded=$true;receiptSha256=(Hash (Join-Path $bigEvidence 'validation.json'));sourceCommit=$big.sourceCommit;scope=$big.scope;packagedRuntime=$true}
+        $state.scope+='; independently extracted exact runtime additionally passed real base/APT/maps BIG builds, original LoD and MakeBig raw member differential, CDATA and rollback/cancellation matrices'
+    }
     Need ((Hash (Join-Path $mod 'Data/Mod.xml')) -ceq $state.probe.sha256 -and (Hash (Join-Path $sdk 'tools/BinaryAssetBuilder.exe.config')) -ceq $state.probe.sdkConfigSha256) 'Release validation modified its MOD or SDK config inputs'
     foreach($schema in $state.probe.schemaInputs){Need ((Hash (Join-Path $sdk $schema.path)) -ceq $schema.sha256) 'Release validation modified an SDK schema input'}
     & python "$PSScriptRoot/ValidateAppProtocol.py" (Join-Path $out 'evidence') --source-commit $state.sourceCommit --output (Join-Path $out 'evidence/protocol.json')
@@ -146,7 +169,7 @@ try {
     foreach($configuration in $state.configurations){
         $stem='NewModCompiler-Win32-'+$configuration.configuration
         $zip=Join-Path $out ($stem+'.zip');Move-Item -LiteralPath $configuration.candidateZip -Destination $zip
-        $manifest=[ordered]@{schemaVersion=1;status='verified-small-mod-deployment';platform='Win32';runtime='.NET Framework 4.8';configuration=$configuration.configuration;binarySourceCommit=$state.binarySourceCommit;packagingSourceCommit=$state.sourceCommit;runId=$state.runId;runAttempt=$state.runAttempt;acceptance=$state.acceptance;toolchain=$configuration.toolchain;buildReceiptSha256=$configuration.buildReceiptSha256;linkRecipeSha256=$configuration.linkRecipeSha256;files=$configuration.runtimeFiles;archive=@{name=($stem+'.zip');bytes=(Get-Item -LiteralPath $zip).Length;sha256=$configuration.zipSha256};texturePatch=$configuration.texturePatch;dependencies=@{compatibilityReference='recovery/probes/TextureRedirect/README.md';textureProtectedPeAudit='reused from exact EXE-bound patch manifest';systemRequirements=@('Windows x86-compatible process','NET Framework 4.8','x86 VC80 CRT for original mixed Texture','x86 VC runtime matching recorded production VCToolsVersion','existing DirectX 9/D3DX runtime required by original Texture');limitations='Uses existing G2 runtime and protected-import evidence; no new dependency audit or system DLL redistribution'};validation=@{productionDoctor=$true;sourceRuntimeRawOutputEquality=$true;schemaProtocolSha256=$state.protocolSha256;scope=$state.scope}}
+        $manifest=[ordered]@{schemaVersion=1;status='verified-small-mod-deployment';platform='Win32';runtime='.NET Framework 4.8';configuration=$configuration.configuration;binarySourceCommit=$state.binarySourceCommit;packagingSourceCommit=$state.sourceCommit;runId=$state.runId;runAttempt=$state.runAttempt;acceptance=$state.acceptance;toolchain=$configuration.toolchain;buildReceiptSha256=$configuration.buildReceiptSha256;linkRecipeSha256=$configuration.linkRecipeSha256;files=$configuration.runtimeFiles;archive=@{name=($stem+'.zip');bytes=(Get-Item -LiteralPath $zip).Length;sha256=$configuration.zipSha256};texturePatch=$configuration.texturePatch;dependencies=@{compatibilityReference='recovery/probes/TextureRedirect/README.md';textureProtectedPeAudit='reused from exact EXE-bound patch manifest';systemRequirements=@('Windows x86-compatible process','NET Framework 4.8','x86 VC80 CRT for original mixed Texture','x86 VC runtime matching recorded production VCToolsVersion','existing DirectX 9/D3DX runtime required by original Texture');limitations='Uses existing G2 runtime and protected-import evidence; no new dependency audit or system DLL redistribution'};validation=@{productionDoctor=$true;sourceRuntimeRawOutputEquality=$true;bigDeployment=$(if($VerifyBigDeployment){$state.bigDeployment}else{$null});schemaProtocolSha256=$state.protocolSha256;scope=$state.scope}}
         $manifest|ConvertTo-Json -Depth 20|Set-Content -LiteralPath (Join-Path $out ($stem+'.manifest.json'))
         $configuration.zip=$zip;$null=$configuration.Remove('candidateZip')
     }

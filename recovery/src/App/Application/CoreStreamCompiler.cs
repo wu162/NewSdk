@@ -166,14 +166,14 @@ namespace NewModCompiler.Application
         {
             traceLevel = 3; buildCacheEnabled = sessionCacheEnabled = false;
             BigPackage.ValidateRequest(candidate);
-            var ordinary = new HashSet<string>(new[] { "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format", "dr", "data", "art", "audio" }, StringComparer.OrdinalIgnoreCase);
+            var ordinary = new HashSet<string>(new[] { "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format", "include-additional", "dr", "data", "art", "audio" }, StringComparer.OrdinalIgnoreCase);
             var disabled = new HashSet<string>(new[] { "csc", "psc", "fsc", "atc", "pc", "oof", "vf", "oar", "osh", "oix", "mr", "slowclean" }, StringComparer.OrdinalIgnoreCase);
             foreach (var option in candidate.Options)
             {
                 if (option.Value == null) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", "A Core option has no effective value: " + option.Key);
                 string key = option.Key, value = option.Value.Value;
                 if (key == "package-format" && !string.Equals(value, "loose", StringComparison.OrdinalIgnoreCase) && !string.Equals(value,"big",StringComparison.OrdinalIgnoreCase))
-                    throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Package format must be loose or big; BIG supports apt/maps only.");
+                    throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Package format must be loose or big; BIG supports base/apt/maps.");
                 if (ordinary.Contains(key)) continue;
                 if (key == "bc" && (string.Equals(value, "true", StringComparison.OrdinalIgnoreCase) || string.Equals(value, "false", StringComparison.OrdinalIgnoreCase))) { buildCacheEnabled = string.Equals(value, "true", StringComparison.OrdinalIgnoreCase); continue; }
                 if (key == "sc" && (string.Equals(value, "true", StringComparison.OrdinalIgnoreCase) || string.Equals(value, "false", StringComparison.OrdinalIgnoreCase))) { sessionCacheEnabled = string.Equals(value, "true", StringComparison.OrdinalIgnoreCase); continue; }

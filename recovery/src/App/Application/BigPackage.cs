@@ -14,6 +14,7 @@ namespace NewModCompiler.Application
     {
         public static void ValidateRequest(BuildRequest request)
         {
+            if(request.IncludeAdditional && request.PackageFormat!="big") throw new BuildFailure(ExitCode.Arguments,"PACKAGE_ADDITIONAL_FORMAT","Additional files require --package-format big.");
             if(request.PackageFormat==null || request.PackageFormat=="loose") return;
             if(request.PackageFormat!="big") throw new BuildFailure(ExitCode.Arguments,"CLI_CAPABILITY","Package format must be loose or big.");
             string name=Path.GetFileName(Path.GetFullPath(request.ModRoot).TrimEnd(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar));
@@ -85,6 +86,7 @@ namespace NewModCompiler.Application
             }
             string mod=Path.GetFileName(request.ModRoot.TrimEnd(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar));
             string big=Path.Combine(staging,mod+"_1.0.big"),skudef=Path.Combine(staging,mod+"_1.0.skudef");
+            if(request.IncludeAdditional) AdditionalFiles.Merge(request.SdkRoot,request.ModRoot,staging,entries,cancellation);
             BigArchiveWriter.Write(big,entries,cancellation);
             BigArchiveWriter.WriteSkudef(skudef,Path.GetFileName(big),cancellation);
             foreach(var artifact in artifacts) Verify(artifact,staging);

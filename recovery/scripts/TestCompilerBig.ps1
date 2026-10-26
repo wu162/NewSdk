@@ -4,7 +4,8 @@ param(
     [string]$CompilerDirectory,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
     [ValidateRange(15,600)][int]$TimeoutSeconds=180,
-    [switch]$Preflight
+    [switch]$Preflight,
+    [switch]$UsePackagedRuntime
 )
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
@@ -32,6 +33,13 @@ function DifferentOutputs($Left,$Right){
     $changed=$false
     foreach($key in $Left.files.Keys){if(!$Right.files.ContainsKey($key)){$changed=$true}elseif((Hash $Left.files[$key]) -cne (Hash $Right.files[$key])){$changed=$true}}
     Need $changed 'Input mutation did not exercise any observable compiled output change'
+}
+function RuntimeSnapshot([string]$Directory){
+    $result=@{};foreach($file in @(Get-ChildItem -LiteralPath $Directory -File)){$result[$file.Name]=Hash $file.FullName};return $result
+}
+function RuntimeUnchanged([string]$Directory,$Before){
+    $after=RuntimeSnapshot $Directory;Need ($after.Count -eq $Before.Count) 'BIG test changed packaged runtime file count'
+    foreach($name in $Before.Keys){Need ($after.ContainsKey($name) -and $after[$name] -ceq $Before[$name]) "BIG test changed packaged runtime bytes: $name"}
 }
 function CacheFiles([string]$Destination){
     $files=@{};$cache=Join-Path $Destination '.cache'
@@ -130,11 +138,23 @@ function ExpectedInventory($Loose){
     }
     return $expected
 }
-function CompareBig($Big,$Loose,[string]$Name){
+function CompareBig($Big,$Loose,[string]$Name,[bool]$Additional=$false){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     $expected=@(ExpectedInventory $Loose)
     Need ($expected.Count -eq ($Loose.files.Count+@($Loose.report.plan.Tasks|Where-Object{$_.Content -ceq 'apt'}).Count+8*@($Loose.report.plan.Tasks|Where-Object{$_.Content -ceq 'base'}).Count) -and @($expected.name|Select-Object -Unique).Count -eq $expected.Count) 'BIG oracle inventory duplicates or omits current artifacts'
     $expected|ConvertTo-Json -Depth 6 -AsArray|Set-Content "$caseOut/expected.json"
+    if($Additional){
+        $additionalOut=Join-Path $short ('a'+[Guid]::NewGuid().ToString('N').Substring(0,8))
+        & python "$PSScriptRoot/PrepareCompilerAdditional.py" oracle --sdk-root $script:sdk --mod-root $Loose.mod --expected "$caseOut/expected.json" --control $script:additionalControl --output $additionalOut
+        Need ($LASTEXITCODE -eq 0) 'Original SDK Additional copy oracle failed'
+        $additional=Get-Content -LiteralPath (Join-Path $additionalOut 'inventory.json') -Raw|ConvertFrom-Json
+        Need $additional.succeeded 'Original Additional overlay did not finish'
+        $expected=@($additional.files)
+        Need (@($expected.name|Select-Object -Unique).Count -eq $expected.Count -and @($expected|Where-Object{$_.name -imatch '\.asset$'}).Count -eq 0) 'Additional oracle retained asset/duplicate members'
+        $additionalArchive=Join-Path $caseOut 'additional-original';Copy-Item -LiteralPath $additionalOut -Destination $additionalArchive -Recurse
+        foreach($item in $expected){$item.source=Join-Path $additionalArchive ([IO.Path]::GetRelativePath($additionalOut,$item.source))}
+        $expected|ConvertTo-Json -Depth 6 -AsArray|Set-Content "$caseOut/expected.json"
+    }
     $oracleWork=(New-Item -ItemType Directory -Path (Join-Path $short ('o'+[Guid]::NewGuid().ToString('N').Substring(0,8)))).FullName
     $tools=(New-Item -ItemType Directory -Path (Join-Path $oracleWork 't')).FullName
     $inputs=(New-Item -ItemType Directory -Path (Join-Path $oracleWork 'i')).FullName
@@ -182,20 +202,34 @@ try{
     if($Preflight){$state.succeeded=$true;$state.preflight=$true;$state.scope='Source-XSD business fixture and independent BIG parser preflight only';$global:LASTEXITCODE=0;return}
     Need (!(Test-Path -LiteralPath (Join-Path $CompilerDirectory 'reuse.json')) -and !(Test-Path -LiteralPath (Join-Path $CompilerDirectory 'session-replay.json'))) 'New BIG production inputs require a current production build'
     $script:control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
-    $state.scriptSha256=Hash $PSCommandPath;$state.parserSha256=Hash "$PSScriptRoot/ValidateCompilerBig.py"
+    $script:additionalControl=Join-Path $out 'AdditionalControl.exe'
+    $csc=Join-Path $env:WINDIR 'Microsoft.NET/Framework/v4.0.30319/csc.exe'
+    & $csc /nologo /target:exe /platform:x86 "/out:$script:additionalControl" "$root/recovery/preparation/additional/AdditionalControl.cs" *> "$out/build-additional-control.log"
+    Need ($LASTEXITCODE -eq 0) 'Original SDK Additional copy helper compilation failed'
+    $state.usePackagedRuntime=[bool]$UsePackagedRuntime;$state.scriptSha256=Hash $PSCommandPath;$state.parserSha256=Hash "$PSScriptRoot/ValidateCompilerBig.py"
     foreach($mode in @('Debug','Release')){
         $script:modeOut=(New-Item -ItemType Directory -Path (Join-Path $out $mode)).FullName
         $modeWork=(New-Item -ItemType Directory -Path (Join-Path $short $mode.Substring(0,1))).FullName
         $script:runtime=(New-Item -ItemType Directory -Path (Join-Path $modeWork 'r')).FullName
-        foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$file") -Destination $runtime}
+        $sourceBin=Join-Path $CompilerDirectory "$mode/bin"
+        $runtimeFiles=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
+        if($UsePackagedRuntime){
+            $runtimeFiles+=@('BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')
+            $sourceBefore=RuntimeSnapshot $sourceBin
+            Need ($sourceBefore.Count -eq 5 -and @($sourceBefore.Keys|Where-Object{$_ -cnotin $runtimeFiles}).Count -eq 0) 'Packaged BIG runtime must contain exact five runtime files'
+        }
+        foreach($file in $runtimeFiles){Copy-Item -LiteralPath (Join-Path $sourceBin $file) -Destination $runtime}
+        if($UsePackagedRuntime){$runtimeBefore=RuntimeSnapshot $runtime;RuntimeUnchanged $runtime $sourceBefore}
         $script:exe=Join-Path $runtime 'NewModCompiler.exe'
-        & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log";Need ($LASTEXITCODE -eq 0) 'BIG runtime Texture deployment failed'
+        if(!$UsePackagedRuntime){& "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log";Need ($LASTEXITCODE -eq 0) 'BIG runtime Texture deployment failed'}
         $script:modeState=@{configuration=$mode;passed=$false;exeSha256=(Hash $exe);cases=@();comparisons=@()};$state.modes+=,$modeState
         $script:sdk=(New-Item -ItemType Directory -Path (Join-Path $modeWork 's')).FullName
         New-Item -ItemType Directory -Path "$sdk/tools","$sdk/Schemas"|Out-Null
         Copy-Item -LiteralPath "$root/SDK/Schemas/xsd" -Destination "$sdk/Schemas" -Recurse;Copy-Item -LiteralPath "$root/SDK/tools/BinaryAssetBuilder.exe.config" -Destination "$sdk/tools"
         $mod=Join-Path $modeWork 'business'
         PrepareFixture $mod "$modeOut/fixture.log"
+        & python "$PSScriptRoot/PrepareCompilerAdditional.py" prepare --sdk-root $script:sdk --mod-root $mod --output "$modeOut/additional-fixture"
+        Need ($LASTEXITCODE -eq 0) 'Additional SDK/MOD fixture preparation failed'
         $combined=$null;$plain=$null
         foreach($selection in @('apt','maps','apt,maps','base','base,apt,maps')){
             $name=$selection.Replace(',','-');$script:expectedArtifacts=if($selection -ceq 'apt'){9}elseif($selection -ceq 'maps'){4}elseif($selection -ceq 'base'){5}elseif($selection -ceq 'apt,maps'){13}else{18}
@@ -218,6 +252,9 @@ try{
         $cancelled=RunCli 'actual-cancel' $mod $destination 'base,apt,maps' 'big' 6 $true
         foreach($name in $publishedBefore.Keys){Need ((Hash (Join-Path $published $name)) -ceq $publishedBefore[$name]) 'Cancelled BIG build changed the previous generation'}
         $retry=RunCli 'retry-after-cancel' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'cancel-retry-original'
+        $additionalBig=RunCli 'all-with-additional' $mod (Join-Path $modeWork 'all-additional') 'base,apt,maps' 'big' 0 $false $null @('--include-additional','true')
+        CompareBig $additionalBig $plain 'additional-original-copy-makebig' $true
+        if($UsePackagedRuntime){RuntimeUnchanged $sourceBin $sourceBefore;RuntimeUnchanged $runtime $runtimeBefore;$modeState.packagedRuntimeUnchanged=$true;$modeState.runtimeFiles=$runtimeBefore}
         $modeState.passed=$true
     }
     $state.succeeded=$true;$global:LASTEXITCODE=0

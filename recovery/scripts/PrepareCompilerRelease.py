@@ -20,6 +20,8 @@ RUN = 40415442552
 ATTEMPT = 1
 ARTIFACT = 12694779350
 SHA256 = '12c731a9a460ea57e7e0e18bcab29d03884796ec6874bcb5297a4bada0b66eac'
+# Set only together with a new fully successful base-capable production pin.
+REQUIRE_BASE_BIG = False
 REPOSITORY = 'wu162/NewSdk'
 WORKFLOW = '.github/workflows/refactor-core-lifecycle.yml'
 SDK_SOURCE = '9dcaac8212a5d5dfd690af0d1e69f58cc6c3cee6'
@@ -31,7 +33,9 @@ RUNTIME = guard.RUNTIME + ('BinaryAssetBuilder.TextureCompiler.dll','BinaryAsset
 ALLOWED = {
     'recovery/scripts/PrepareCompilerRelease.py', '.github/workflows/refactor-release.yml',
     'recovery/REFACTOR_RESUME.md', 'recovery/P5_LIFECYCLE_AUDIT.md', 'recovery/COMPILER_RELEASE.md',
-    'recovery/P7_PACKAGING.md',
+    'recovery/P7_PACKAGING.md', 'recovery/scripts/PublishCompiler.ps1',
+    'recovery/scripts/TestCompilerBig.ps1', 'recovery/scripts/ValidateCompilerBig.py',
+    'recovery/scripts/ValidateCompilerLoD.py',
     'recovery/scripts/PrepareCompilerSessionReplay.py',
     # Independent preparations are outside the production object/link closure.
     '.github/workflows/refactor-hashfix.yml', '.github/workflows/refactor-lod.yml',
@@ -145,6 +149,73 @@ def apt_marker_receipt(archive):
     return {'expectedBytes':[32,13,10],'rawProductAndOriginalArchives':checked}
 
 
+def base_big_receipt(archive, cli, repo):
+    """Require raw base/combined archives and their original LoD evidence."""
+    prefix=f'evidence/refactor/big/{RUN}-{ATTEMPT}'
+    validation=json.loads(archive.read(prefix+'/validation.json').decode('utf-8-sig'))
+    guard.modes(validation)
+    checked=[]
+    original_lod=guard.digest((Path(repo)/'SDK/tools/LoDStreamBuilder.exe').read_bytes())
+    original_makebig=guard.digest((Path(repo)/'SDK/tools/MakeBig.exe').read_bytes())
+    lod_names={f'data\\mod{suffix}{extension}' for suffix in ('_l','_m')
+               for extension in ('.manifest','.bin','.imp','.relo')}
+    with tempfile.TemporaryDirectory(prefix='release-base-big-') as work:
+        path=Path(work)/'accepted.big'
+        for mode in sorted(guard.MODES):
+            row=next(m for m in validation['modes'] if m['configuration']==mode)
+            accepted=next(m for m in cli['modes'] if m['configuration']==mode)
+            require(row.get('exeSha256')==accepted.get('exeSha256'), 'Base BIG used another production EXE')
+            for selection in ('base','base-apt-maps'):
+                for case in (selection+'-loose',selection+'-big'):
+                    require([c.get('passed') for c in row['cases'] if c.get('name')==case]==[True],
+                            'Required base BIG case failed/missing: '+case)
+                comparison_path=f'{prefix}/{mode}/{selection}-original-makebig'
+                comparison=json.loads(archive.read(comparison_path+'/comparison.json').decode('utf-8-sig'))
+                expected=json.loads(archive.read(comparison_path+'/expected.json').decode('utf-8-sig'))
+                accepted_comparison=[c for c in row['comparisons'] if c['name']==selection+'-original-makebig']
+                require(len(accepted_comparison)==1 and accepted_comparison[0]['originalExeSha256']==original_makebig, 'Base BIG used another MakeBig oracle')
+                require(comparison.get('succeeded') is True and comparison.get('exactMemberNamesAndRawContents') is True,
+                        'Base BIG original comparison did not succeed')
+                parsed=[]
+                for name,kind in ((f'{prefix}/{mode}/{selection}-big/artifacts/business_1.0.big','product'),
+                                  (comparison_path+'/original.big','originalMakeBig')):
+                    data=archive.read(name);path.write_bytes(data)
+                    actual=big_contract.read_archive(path)
+                    require(actual['sha256']==comparison[kind]['sha256'], 'Base BIG comparison archive identity differs')
+                    members={m['name']:m for m in actual['members']}
+                    require(len(expected)==len(members) and {e['name'] for e in expected}==set(members), 'Base BIG inventory differs')
+                    require(all(members[e['name']]['bytes']==e['bytes'] and members[e['name']]['sha256']==e['sha256'] for e in expected),
+                            'Base BIG raw member differs from accepted original oracle')
+                    require(lod_names <= set(members), 'Base BIG omitted original low/medium outputs')
+                    parsed.append(members)
+                require(all(parsed[0][name]['data']==parsed[1][name]['data'] for name in parsed[0]),
+                        'Product/original base BIG raw contents differ')
+                # An exit-zero legacy process alone is insufficient. Its fresh
+                # eight output files, complete inventory and main inputs are retained.
+                loose_prefix=f'{prefix}/{mode}/{selection}-loose/'
+                inventories=[n for n in archive.namelist() if n.startswith(loose_prefix+'original-lod-') and n.endswith('/inventory.json')]
+                require(inventories, 'Original LoD raw evidence missing')
+                for inventory_path in inventories:
+                    directory=inventory_path.rsplit('/',1)[0]
+                    inventory=json.loads(archive.read(inventory_path).decode('utf-8-sig'))
+                    receipt=json.loads(archive.read(directory+'/validation.json').decode('utf-8-sig'))
+                    require(receipt.get('originalExeSha256')==original_lod and guard.digest(archive.read(directory+'/tools/LoDStreamBuilder.exe'))==original_lod, 'Original LoD oracle executable differs')
+                    require(inventory.get('succeeded') is True and receipt.get('succeeded') is True and receipt.get('processExitCode')==0 and
+                            len(inventory.get('files',[]))==8 and {f'data\\'+e['name'].lower() for e in inventory['files']}==lod_names,
+                            'Original LoD eight-file acceptance incomplete')
+                    require(len(receipt.get('inputs',[]))==4 and {e['name'] for e in receipt['inputs']}=={'mod'+extension for extension in ('.manifest','.bin','.imp','.relo')}, 'Original LoD main input inventory incomplete')
+                    for entry in receipt['inputs']:
+                        raw=archive.read(directory+'/stream/'+entry['name'])
+                        require(len(raw)==entry['bytes'] and guard.digest(raw)==entry['sha256'] and raw==parsed[0]['data\\'+entry['name'].lower()]['data'], 'Original LoD current main input differs from packaged main stream')
+                    for entry in inventory['files']:
+                        raw=archive.read(directory+'/stream/'+entry['name'])
+                        require(len(raw)==entry['bytes'] and guard.digest(raw)==entry['sha256'] and
+                                raw==parsed[0]['data\\'+entry['name'].lower()]['data'], 'Original LoD raw output differs from packaged member')
+                checked.append({'configuration':mode,'selection':selection,'productSha256':comparison['product']['sha256'],
+                                'originalMakeBigSha256':comparison['originalMakeBig']['sha256'],'originalLoDInventories':inventories})
+    return {'succeeded':True,'rawBaseAndCombinedArchives':checked,'requiredZipDeploymentGroups':['base','apt','maps']}
+
+
 def prepare(archive, sdk_archive, candidate, output, repo):
     changed=closure(repo,SOURCE,candidate)
     sdk_raw,sdk_scope=sdk_receipt(sdk_archive,repo,candidate)
@@ -165,6 +236,7 @@ def prepare(archive, sdk_archive, candidate, output, repo):
             data=z.read(path);p=target/relative;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)
             receipt['files'].append({'path':relative,'sha256':guard.digest(data)})
         cli_path=f'evidence/refactor/core-cli/{RUN}-{ATTEMPT}/validation.json';cli=doc(cli_path)
+        base_big=base_big_receipt(z,cli,repo) if REQUIRE_BASE_BIG else None
         for section in ('build-cache','input-roots','cache-payloads','session-cache','big'):
             base=f'evidence/refactor/{section}/{RUN}-{ATTEMPT}';d=doc(base+'/validation.json')
             require(d.get('succeeded') is True and d.get('sourceCommit')==SOURCE and str(d.get('runId'))==str(RUN) and str(d.get('runAttempt'))==str(ATTEMPT), 'P7 affected receipt failed: '+section)
@@ -188,7 +260,8 @@ def prepare(archive, sdk_archive, candidate, output, repo):
         take(cli_path,'accepted-cli.json')
     (target/'accepted-mymod.json').write_bytes(sdk_raw)
     receipt.update(binarySourceCommit=SOURCE,testSourceCommit=candidate,artifactId=ARTIFACT,productionSourcesUnchanged=True,
-                   aptVersionMarker=marker,reusedMymod=sdk_scope,requiredNextSteps=['Run P6 five-file ZIP deployment validation only'],
+                   aptVersionMarker=marker,baseBigAcceptance=base_big,reusedMymod=sdk_scope,
+                   requiredNextSteps=['Run P6 five-file ZIP deployment validation'+(' with -VerifyBigDeployment' if REQUIRE_BASE_BIG else ' only')],
                    scope='Current P7 production/cache/session/BIG acceptance plus historical f2/9d complete mymod scope; packaging preparation only, no new business execution')
     (target/'release-preparation.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8');(target/'reuse.json').unlink()
     return receipt

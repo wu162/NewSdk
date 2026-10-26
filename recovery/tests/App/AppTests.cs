@@ -149,6 +149,7 @@ namespace NewModCompiler.Tests
                 assertions += BuildAssetCacheTests.Run(Path.Combine(root,"build-asset-cache"));
                 assertions += SessionPackageTests.Run(Path.Combine(root,"session-package"));
                 assertions += BigArchiveWriterTests.Run(Path.Combine(root,"big-writer"));
+                assertions += AdditionalFilesTests.Run(Path.Combine(root,"additional-files"));
                 mod=Path.Combine(root,"external mods","中文 MOD"); sdk=Path.Combine(root,"SDK"); Directory.CreateDirectory(sdk);
                 FileAt(Path.Combine(mod,"Data","Mod.xml")); FileAt(Path.Combine(mod,"Data","AptUI","b.xml")); FileAt(Path.Combine(mod,"Data","AptUI","a.xml"));
                 FileAt(Path.Combine(mod,"Data","AdditionalMaps","MapMetaData_z.xml")); FileAt(Path.Combine(mod,"Data","AdditionalMaps","Ignored.xml"));
