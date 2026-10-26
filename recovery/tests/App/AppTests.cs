@@ -51,7 +51,7 @@ namespace NewModCompiler.Tests
         }
         sealed class ProbeFailureSink : IBuildEventSink
         {
-            public void Write(IDictionary<string,object> value) { if ((string)value["eventType"]=="BackendProbe") throw new IOException("injected backend output failure"); }
+            public void Write(IDictionary<string,object> value) { if ((string)value["eventType"]=="Diagnostic" && value.ContainsKey("diagnosticCode") && (string)value["diagnosticCode"]=="TEST_SWALLOWED_OUTPUT") throw new IOException("injected backend output failure"); }
             public void Dispose() { }
         }
         sealed class CloseFailureSink : IBuildEventSink
@@ -101,7 +101,7 @@ namespace NewModCompiler.Tests
                     // A backend can catch a listener exception and still return
                     // successfully. Required sink failure remains session-fatal.
                     if(failure=="swallowed") compiler.OnCompile=context=>{
-                        try { events.Emit("BackendProbe"); }
+                        try { events.Emit("Diagnostic", "error", message:"controlled backend output failure", code:"TEST_SWALLOWED_OUTPUT"); }
                         catch(BuildFailure e) { Check(e.ExitCode==ExitCode.Output,"Backend probe failure classification"); swallowed=true; }
                     };
                     Check(new BuildSession(request,compiler,events).Run(CancellationToken.None)==ExitCode.Output,"Late "+failure+" failure must fail output");

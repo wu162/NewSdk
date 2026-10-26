@@ -7,6 +7,13 @@ on:
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
       - 'recovery/scripts/TestCompilerBackendBaseline.ps1'
       - 'recovery/scripts/TestCompilerCli.ps1'
+      - 'recovery/scripts/PrepareCompilerCliBusiness.py'
+      - 'recovery/scripts/GenerateXmlSdkModA.py'
+      - 'SDK/Mods/XmlCompilerRecoveryApt/Data/**'
+      - 'SDK/Mods/XmlCompilerRecoveryA/Data/FixturesA.xml'
+      - 'SDK/Mods/mymod/Data/RecoveryArmorProbe.xml'
+      - 'SDK/Schemas/**'
+      - 'SDK/tools/**'
       - 'recovery/tests/CompilerCliControl.cs'
       - 'recovery/scripts/BuildCompilerCliControl.ps1'
       - 'recovery/scripts/ValidateAppProtocol.py'
@@ -57,7 +64,7 @@ jobs:
           arch: x86
       - name: Install pinned mixed PE audit and App protocol dependencies
         shell: pwsh
-        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
       - name: Verify CLI-only reuse input closure
         if: ${{ contains(github.event.head_commit.message, '[refactor-cli-product]') }}
         shell: pwsh

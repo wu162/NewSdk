@@ -36,6 +36,41 @@ namespace NewModCompiler.Tests
         {
             using (var events=new EventDispatcher("diagnostic-path-tests",new [] {sink})) events.Emit("Diagnostic",message:"fresh inode");
         }
+        sealed class StagingCompiler : IStreamCompiler
+        {
+            internal bool Initialized;
+            public string ProviderIdentity { get { return "STAGING_PATH_REJECTION_FIXTURE"; } }
+            public void Initialize(BuildRequest request) { Initialized=true; throw new BuildFailure(ExitCode.Compilation,"TEST_UNSAFE_STAGING_REACHED","Unsafe staging reached the backend."); }
+            public IList<Artifact> Compile(StreamContext context,System.Threading.CancellationToken cancellation) { throw new Exception("Unsafe staging compilation reached"); }
+            public void Dispose() { }
+        }
+        static void StagingJunction(string work,string mod,string sdk,string target,string suffix)
+        {
+            string output=Path.Combine(work,"staging-out-"+suffix), id="staging-junction-"+suffix;
+            var request=Options.Parse(new [] {"build","--mod",mod,"--sdk-root",sdk,"--out",output,"--package-content","base"});
+            string inputDirectory=Path.Combine(target,id), sentinel=Path.Combine(inputDirectory,"sentinel.keep");
+            Directory.CreateDirectory(inputDirectory); File.WriteAllText(sentinel,"preserve staging alias input");
+            Directory.CreateDirectory(output); string junction=Path.Combine(output,".build"); Junction(junction,target);
+            try {
+                var compiler=new StagingCompiler(); ExitCode code;
+                using (var events=new EventDispatcher(id,new IBuildEventSink[0])) code=new BuildSession(request,compiler,events).Run(System.Threading.CancellationToken.None);
+                Require(code==ExitCode.Output && !compiler.Initialized,"post-parse staging junction reached backend or had wrong exit code");
+                Require(File.Exists(sentinel) && File.ReadAllText(sentinel)=="preserve staging alias input","staging cleanup deleted input through junction ancestor");
+                Require(!Directory.Exists(Path.Combine(inputDirectory,"base")),"staging setup created stream directories inside input");
+            } finally { Directory.Delete(junction); }
+        }
+        static void ExistingStaging(string work,string mod,string sdk)
+        {
+            string output=Path.Combine(work,"existing-staging-out"), id="staging-already-exists";
+            var request=Options.Parse(new [] {"build","--mod",mod,"--sdk-root",sdk,"--out",output,"--package-content","base"});
+            string existing=Path.Combine(output,".build",id), sentinel=Path.Combine(existing,"sentinel.keep");
+            Directory.CreateDirectory(existing); File.WriteAllText(sentinel,"pre-existing staging belongs to another build");
+            var compiler=new StagingCompiler(); ExitCode code;
+            using (var events=new EventDispatcher(id,new IBuildEventSink[0])) code=new BuildSession(request,compiler,events).Run(System.Threading.CancellationToken.None);
+            Require(code==ExitCode.Output && !compiler.Initialized,"existing staging was adopted by backend");
+            Require(File.Exists(sentinel) && File.ReadAllText(sentinel)=="pre-existing staging belongs to another build","existing staging was cleaned without ownership");
+            Directory.Move(Path.Combine(output,".build"),Path.Combine(output,"moved-build"));
+        }
         internal static void Run(string root,string mod,string sdk)
         {
             string work=Path.Combine(root,"diagnostic 中文 paths"), output=Path.Combine(work,"out"); Directory.CreateDirectory(work);
@@ -116,6 +151,8 @@ namespace NewModCompiler.Tests
                 Require(rejected,"active sink allowed ancestor rename");
             }
             Directory.Move(pinned,moved); Require(Directory.Exists(moved),"directory handles leaked after sink disposal");
+            StagingJunction(work,mod,sdk,mod,"mod"); StagingJunction(work,mod,sdk,sdk,"sdk");
+            ExistingStaging(work,mod,sdk);
             Require(File.ReadAllText(input)==original,"input changed across diagnostic matrix");
             Console.WriteLine("PASS Diagnostic path matrix: ancestor/staging collisions, Unicode, ADS rejection, JSONL/text/report hard links, MOD/SDK junctions, post-parse junction and pinned-parent rename");
         }

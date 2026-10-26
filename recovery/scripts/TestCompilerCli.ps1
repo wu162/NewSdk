@@ -232,12 +232,50 @@ try {
         # Baseline comparison is an independent original-tool step, never a product child.
         & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult "$modeOut/cli-result.json" -OutputDirectory "$modeOut/original-baseline" -TimeoutSeconds $TimeoutSeconds
         Need ($LASTEXITCODE -eq 0) 'Independent original BAB CLI task baseline failed'
+        # Exercise actual business roots in the same production process, then
+        # compare every selected stream against a fresh single-group process.
+        $businessMod=Join-Path $modeWork 'business'
+        $businessReceipt=@{succeeded=$false;sourceCommit=$state.sourceCommit;runId=$state.runId;configuration=$mode;baselineCases=@();scope='Three CLI tasks: Armor base, 12 file-backed APT DataBlob assets and three MapMetaData assets; strict current-original APT/maps oracle, not executable UI/APT parser, full SDK, cache or publication acceptance'}
+        $modeState.business=$businessReceipt
+        try {
+            & python "$PSScriptRoot/PrepareCompilerCliBusiness.py" $businessMod *> "$modeOut/business-prepare.log"
+            Need ($LASTEXITCODE -eq 0) 'Source-XSD-valid CLI business fixture preparation failed'
+            $businessManifest=Join-Path $businessMod 'fixture-manifest.json'
+            Copy-Item -LiteralPath $businessManifest -Destination "$modeOut/business-fixture.json"
+            $prepared=Get-Content -LiteralPath $businessManifest -Raw|ConvertFrom-Json
+            Need ($prepared.prepared -and $prepared.xsdValidated -and !$prepared.executed -and @($prepared.expectedTasks).Count -eq 3) 'Business fixture preparation receipt invalid'
+            $businessReceipt.fixtureManifestSha256=Hash $businessManifest
+            $businessReceipt.generatorSha256=Hash "$PSScriptRoot/PrepareCompilerCliBusiness.py"
+            $businessSnapshot=Snapshot $businessMod
+            $businessCombined=RunCli 'business-combined' 'build' $businessMod $sdk 'base,apt,maps' 0 3
+            Need (@($businessCombined.report.plan.Tasks).Count -eq 3) 'Business plan must contain base, real APT and real map metadata tasks'
+            foreach($group in @('base','apt','maps')){
+                $businessSingle=RunCli ('business-'+$group+'-only') 'build' $businessMod $sdk $group 0 1
+                EqualTask $businessCombined $businessSingle $group
+            }
+            foreach($selection in @(@{name='mod-a';group='apt';types='AptAptData,AptConstData,AptDatData,AptGeometryData'},@{name='mod-b';group='maps';types='MapMetaData'})){
+                $tasks=@($businessCombined.report.plan.Tasks|Where-Object{$_.Content -ceq $selection.group})
+                Need ($tasks.Count -eq 1) 'Business original oracle requires exactly one task for its selected group'
+                $task=$tasks[0]
+                $prefix=Join-Path $businessCombined.destination ('.build/'+$businessCombined.report.buildId+'/'+$task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath));$outputs=@{}
+                foreach($artifact in $businessCombined.report.artifacts){if(Within $prefix $artifact.Path){$outputs[[IO.Path]::GetExtension($artifact.Path).Substring(1)]=$artifact.Path}}
+                Need ($outputs.Count -eq 4) 'Business original oracle requires four current CLI outputs'
+                $businessReceipt.baselineCases+=,@{name=$selection.name;modRoot=$businessMod;inputPath=$task.InputPath;sdkRoot=$sdk;originalToolsRoot=(Join-Path $sourceSdk 'tools');stagingDirectory=$prefix;outputs=$outputs;scope=('Actual '+$selection.types+' business task, current original BAB strict four-stream comparison; no historical output reuse or byte normalization')}
+            }
+            # This is a request for the independent oracle, not its success claim.
+            @{succeeded=$true;sourceCommit=$state.sourceCommit;runId=$state.runId;baselineCases=$businessReceipt.baselineCases;scope=$businessReceipt.scope}|ConvertTo-Json -Depth 8|Set-Content "$modeOut/business-result.json"
+            & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult "$modeOut/business-result.json" -OutputDirectory "$modeOut/business-original-baseline" -TimeoutSeconds $TimeoutSeconds
+            Need ($LASTEXITCODE -eq 0) 'Independent original BAB real APT/MapMetaData baseline failed'
+            Unchanged $businessMod $businessSnapshot
+            foreach($inputFile in $prepared.sourceInputs){Need ((Hash (Join-Path $root $inputFile.path)) -ceq $inputFile.sha256) 'Business fixture source input changed'}
+            $businessReceipt.inputsUnchanged=$true;$businessReceipt.coldGroupOutputsIdentical=$true;$businessReceipt.originalFourOutputsIdentical=$true;$businessReceipt.succeeded=$true
+        } finally {$businessReceipt|ConvertTo-Json -Depth 12|Set-Content "$modeOut/business-validation.json"}
         Unchanged $mod $modSnapshot;Unchanged $asciiMod $asciiSnapshot;Unchanged $sdk $sdkSnapshot;Unchanged $runtime $runtimeSnapshot
         $modeState.passed=$true
     }
     Unchanged (Join-Path $sourceSdk 'Schemas/xsd') $schemaSnapshot
     Need ((Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config')) -ceq $configHash -and (Hash $probeFile) -ceq $probeHash) 'Original SDK inputs changed'
-    $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; full SDK/cache/publishing remain separate'
+    $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles; full SDK/cache/publishing remain separate'
     $global:LASTEXITCODE=0
 } catch {$state.error=$_.Exception.ToString();throw}
 finally {

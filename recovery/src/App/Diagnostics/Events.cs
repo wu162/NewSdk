@@ -51,7 +51,10 @@ namespace NewModCompiler.Diagnostics
         }
         SafeFileHandle Open(string path,bool allowReparse,bool requireDirectory=true,uint share=1)
         {
-            var handle=CreateFile(path,0,share,IntPtr.Zero,3,BackupSemantics | (allowReparse ? 0 : OpenReparsePoint),IntPtr.Zero);
+            // Metadata-only (access=0) opens do not establish the sharing
+            // exclusion needed here. FILE_READ_DATA / FILE_LIST_DIRECTORY makes
+            // the no-WRITE/DELETE share policy effective for files and parents.
+            var handle=CreateFile(path,1,share,IntPtr.Zero,3,BackupSemantics | (allowReparse ? 0 : OpenReparsePoint),IntPtr.Zero);
             if (handle.IsInvalid) { handle.Dispose(); throw Error(path); }
             FileInformation information;
             if (!GetFileInformationByHandle(handle,out information)) { handle.Dispose(); throw Error(path); }
@@ -118,6 +121,13 @@ namespace NewModCompiler.Diagnostics
                 }
                 return guard;
             } catch { guard.Dispose(); throw; }
+        }
+        internal static void CreateNewDirectory(string path)
+        {
+            ValidateSyntax(path); path=Path.GetFullPath(path); ValidateSyntax(path);
+            // The caller pins the parent first. Existing files, directories and
+            // junctions are never adopted as this build's cleanup workspace.
+            if (!CreateDirectoryNative(path,IntPtr.Zero)) throw Error(path);
         }
         public void Dispose() { for (int i=handles.Count-1;i>=0;--i) handles[i].Dispose(); handles.Clear(); }
     }

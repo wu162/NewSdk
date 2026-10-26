@@ -19,6 +19,8 @@ namespace NewModCompiler.Application
         public ExitCode Run(CancellationToken cancellation)
         {
             if (executed) throw new InvalidOperationException("BuildSession can only be executed once."); executed = true; acceptingCoreTrace = true;
+            DiagnosticDirectory stagingParent = null, stagingGuard = null; bool stagingOwned = false;
+            try {
             ExitCode code = ExitCode.Success; string status = "succeeded"; string staging = Path.Combine(request.OutputRoot,".build",events.BuildId);
             try {
                 Reports.RemoveStale(request.ReportPath);
@@ -29,7 +31,16 @@ namespace NewModCompiler.Application
                 CompleteStage("succeeded",0);
                 if (request.Command == "build") {
                     if (compiler == null) throw new BuildFailure(ExitCode.Environment,"BACKEND_NOT_INTEGRATED","This P2 application skeleton has no integrated compilation backend. No stream was compiled.");
-                    cancellation.ThrowIfCancellationRequested(); StartStage("compile"); Directory.CreateDirectory(staging);
+                    cancellation.ThrowIfCancellationRequested(); StartStage("compile");
+                    try {
+                        // Secure the actual parent before any write or cleanup.
+                        // Never take ownership of a pre-existing build directory.
+                        stagingParent=DiagnosticDirectory.Acquire(Path.GetDirectoryName(staging),true);
+                        DiagnosticDirectory.CreateNewDirectory(staging);
+                        stagingGuard=DiagnosticDirectory.Acquire(staging,false);
+                        stagingOwned=true;
+                    } catch (IOException e) { throw new BuildFailure(ExitCode.Output,"STAGING_PATH",e.Message); }
+                    catch (UnauthorizedAccessException e) { throw new BuildFailure(ExitCode.Output,"STAGING_PATH",e.Message); }
                     compiler.Initialize(request); providerIdentity=compiler.ProviderIdentity;
                     int completed = 0;
                     foreach (BuildTask task in plan.Tasks) {
@@ -71,7 +82,8 @@ namespace NewModCompiler.Application
                         Diagnostic("BACKEND_DISPOSE_FAILED",e.ToString()); ExportExceptionDetails(e);
                     }
                 }
-                if (code != ExitCode.Success) {
+                if (stagingGuard != null) { stagingGuard.Dispose(); stagingGuard=null; }
+                if (code != ExitCode.Success && stagingOwned) {
                     // Only this build's isolated workspace may be removed. Never sweep existing output.
                     try { if (Directory.Exists(staging)) Directory.Delete(staging,true); }
                     catch (Exception e) { Diagnostic("STAGING_CLEANUP_FAILED",e.ToString()); ExportExceptionDetails(e); }
@@ -79,7 +91,7 @@ namespace NewModCompiler.Application
                 }
                 acceptingCoreTrace = false;
             }
-            bool retainedStaging = code == ExitCode.Success && request.Command == "build";
+            bool retainedStaging = code == ExitCode.Success && stagingOwned;
             if (events.OutputFailed) { code=ExitCode.Output; status="failed"; }
             var report = new Dictionary<string, object> {
                 {"schemaVersion","1.0"},{"buildId",events.BuildId},{"status",status},{"exitCode",(int)code},
@@ -119,6 +131,10 @@ namespace NewModCompiler.Application
                 try { Reports.WriteAtomic(request.ReportPath,report); } catch { code=ExitCode.Output; }
             }
             return code;
+            } finally {
+                if (stagingGuard != null) stagingGuard.Dispose();
+                if (stagingParent != null) stagingParent.Dispose();
+            }
         }
         void StartStage(string id)
         {

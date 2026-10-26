@@ -83,14 +83,15 @@ function ArchiveStreams([string]$Directory,[string]$CaseOut,[string]$Prefix){
     $archived
 }
 $temporaryRoot=$null
-$state=@{schemaVersion=1;succeeded=$false;status='started';sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;fixtureResultSha256=(Hash $FixtureResult);cases=@();scope='Small independent original BAB process oracle for two Armor MOD inputs; exact four-stream comparison; not full SDK, production CLI or complete G3 acceptance'}
+$state=@{schemaVersion=1;succeeded=$false;status='started';sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;fixtureResultSha256=(Hash $FixtureResult);cases=@();scope='Small independent original BAB process oracle for two selected fixture stream inputs; exact four-stream comparison; not full SDK, production CLI or complete G3 acceptance'}
 try {
     $source=(& git -C $root rev-parse HEAD).Trim()
     if($LASTEXITCODE -ne 0){throw 'Cannot determine current source commit'}
     $fixture=Get-Content -LiteralPath $FixtureResult -Raw|ConvertFrom-Json
     if(!$fixture.succeeded -or $fixture.sourceCommit -cne $source -or $fixture.runId -cne $state.runId){throw 'Backend fixture success/source/run identity mismatch'}
-    if(@($fixture.baselineCases).Count -ne 2){throw 'Expected the two successful MOD A/B backend oracle cases'}
+    if(@($fixture.baselineCases).Count -ne 2){throw 'Expected two successful selected fixture stream oracle cases'}
     $state.sourceCommit=$source
+    $state.fixtureScope=$fixture.scope
     $state.scriptSha256=Hash $PSCommandPath
     $state.backendSourceSha256=Hash (Join-Path $root 'recovery/src/App/Application/CoreStreamCompiler.cs')
     $state.fixtureSourceSha256=Hash (Join-Path $root 'recovery/tests/CompilerBackendLifecycle.cs')
@@ -116,7 +117,7 @@ try {
         }
         $schemas=(Resolve-Path -LiteralPath (Join-Path $sdk 'Schemas/xsd')).Path
         $inputInventory=@(Inventory $mod);$toolInventory=@(Inventory $tools);$schemaInventory=@(Inventory $schemas)
-        $caseState=@{name=$case.name;passed=$false;inputPath=$input;modRoot=$mod;sdkRoot=$sdk;originalToolsRoot=$tools;inputs=$inputInventory;originalTools=$toolInventory;schemaInputs=$schemaInventory;outputs=@()}
+        $caseState=@{name=$case.name;scope=$case.scope;passed=$false;inputPath=$input;modRoot=$mod;sdkRoot=$sdk;originalToolsRoot=$tools;inputs=$inputInventory;originalTools=$toolInventory;schemaInputs=$schemaInventory;outputs=@()}
         $state.cases+=,$caseState
         # CLR2/Framework mixed-mode tools still use MAX_PATH internally. Keep all
         # writable native build paths short; retain the exact source MOD paths,
@@ -169,7 +170,7 @@ try {
             $caseState.originalExeSha256=Hash $exe;$caseState.originalConfigSha256=Hash (Join-Path $tools 'BinaryAssetBuilder.exe.config')
             $caseState.effectiveConfigSha256=Hash $configPath
             $caseState.runtimeInputs=@(Inventory $oracle)
-            $caseState.effectiveSettings=@{schema=$schema;dataRoot=$sdk;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=$false;buildCache=$false;precompiled=$false;resident=$false;linked=$true;stableSort=$false;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected Armor stream; original built-in plugin routes retained'}
+            $caseState.effectiveSettings=@{schema=$schema;dataRoot=$sdk;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=$false;buildCache=$false;precompiled=$false;resident=$false;linked=$true;stableSort=$false;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected fixture stream; original built-in plugin routes retained'}
             $caseState.process=InvokeOriginal $exe $arguments $sdk $caseOut
             $actual=@(Get-ChildItem -LiteralPath $streams -File -Recurse)
             if($actual.Count -ne 4){throw 'Original BAB did not emit exactly the four selected linked stream files'}
@@ -219,7 +220,7 @@ try {
         if($caseState.passed){Write-Host "PASS IndependentBackendBaseline $($case.name): original BAB process, manifest/bin/imp/relo byte-identical"}
     }
     if((Hash $FixtureResult) -cne $state.fixtureResultSha256){throw 'Backend fixture result changed during independent baseline'}
-    $state.succeeded=$true;$state.status='passed two original BAB independent-process Armor baselines; all four files byte-identical in each case; full SDK/G3/production CLI remain separate'
+    $state.succeeded=$true;$state.status='passed two original BAB independent-process selected fixture baselines; all four files byte-identical in each case; full SDK/G3/production CLI remain separate'
     $global:LASTEXITCODE=0
 } catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally {
