@@ -33,11 +33,52 @@ def run(exe, manifest, directory, extra=()):
     return p.returncode
 
 
+
+def probe_original(original, out):
+    """Retain three independent original invocations for an aligned table.
+
+    This is diagnostic evidence, never a replacement for the raw differential.
+    The old Delphi code allocates Length bytes then passes array+1 to BlockRead
+    and BlockWrite (0040fb23 / 0040fcc2), touching one byte past the array.
+    """
+    original=Path(original).resolve();out=Path(out).resolve();out.mkdir(parents=True,exist_ok=False)
+    assets=struct.pack('<12I',1,1,0x12345678,3,0,0,0,0,2,8,4,0)
+    dependencies=b'\x02Static.manifest\0\x02Global.manifest\0\x02Audio.manifest\0'
+    names=b'Test:asset1\0';results=[]
+    for padding in (0,1,2,3,4):
+        sources=b'Data/asset1'+b'x'*padding+b'.xml\0'
+        header=struct.pack('<BBH11I',0,1,6,0xf1234567,0x12345678,1,2,2,8,4,0,len(dependencies),len(names),len(sources))
+        data=header+assets+dependencies+names+sources
+        for repeat in range(3):
+            work=out/('names-sources-'+str(len(names)+len(sources))+'-repeat-'+str(repeat));work.mkdir()
+            manifest=work/'mod.manifest';manifest.write_bytes(data)
+            code=run(original,manifest,work)
+            expected=bytearray(data[:96]);expected[80:92]=b'\0'*12
+            dependency=b'\x02mod.manifest\0';struct.pack_into('<I',expected,36,len(dependency));expected+=dependency+names+sources
+            row={'namesAndSourcesBytes':len(names)+len(sources),'repeat':repeat,'processExitCode':code,
+                 'inputSha256':sha(manifest),'mainInputUnchanged':manifest.read_bytes()==data,'outputs':[]}
+            for suffix in ('_l','_m'):
+                target=work/('mod'+suffix+'.manifest');actual=target.read_bytes()
+                row['outputs'].append({'name':target.name,'sha256':sha(target),'bytes':len(actual),
+                    'differencesFromLogicalTableCopy':[{'offset':i,'logical':a,'original':b} for i,(a,b) in enumerate(zip(expected,actual)) if a!=b],
+                    'lengthDifference':len(actual)-len(expected),'sourceTableFinalByte':actual[-1]})
+            results.append(row)
+    (out/'probe.json').write_text(json.dumps({'schemaVersion':1,'diagnosticOnly':True,'originalSha256':sha(original),
+        'scope':'Original Delphi array+1 boundary investigation; no component/production acceptance claim','cases':results},indent=2)+'\n')
+    print(json.dumps({'diagnosticOnly':True,'invocations':len(results),'differences':sum(bool(output['differencesFromLogicalTableCopy'] or output['lengthDifference']) for row in results for output in row['outputs'])}))
+
+
 def main():
     p=argparse.ArgumentParser()
-    for n in ('original','candidate','output'):p.add_argument('--'+n,required=True)
+    for n in ('original','output'):p.add_argument('--'+n,required=True)
+    p.add_argument('--candidate')
+    p.add_argument('--probe-original',action='store_true')
     p.add_argument('--real-manifest',action='append',default=[])
-    a=p.parse_args();out=Path(a.output).resolve();out.mkdir(parents=True,exist_ok=False)
+    a=p.parse_args()
+    if a.probe_original:
+        probe_original(a.original,a.output);return
+    if not a.candidate:p.error('--candidate is required for differential validation')
+    out=Path(a.output).resolve();out.mkdir(parents=True,exist_ok=False)
     original=Path(a.original).resolve();candidate=Path(a.candidate).resolve()
     state={'schemaVersion':1,'sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
            'originalSha256':sha(original),'candidateSha256':sha(candidate),

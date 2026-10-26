@@ -18,8 +18,13 @@ def linked(stem,rows):
         name=f'Type:old{index}'.encode();source=r['source'];reference=b''.join(struct.pack('<II',*x) for x in r['refs']);size=r['size']
         table+=struct.pack('<12I',r['type'],r['id'],0x12345678,0x87654321,len(refs),len(r['refs']),len(names),len(sources),size,4,4,0)
         refs+=reference;names+=name+b'\0';sources+=source+b'\0';data+=bytes([index+17])*size;imp+=b'\xff'*4;relo+=b'\xff'*4
-    header=struct.pack('<BBH11I',0,1,6,0x44332211,0x54ee1e64,len(rows),len(data),max([r['size'] for r in rows] or [0]),4,4,len(refs),0,len(names),len(sources))
-    stem.with_suffix('.manifest').write_bytes(header+table+refs+names+sources)
+    # Original CC3Tools only allocates ReferencedManifests[0] when this
+    # table is nonempty, while AssetMerge unconditionally indexes it. A
+    # complete ordinary MOD stream contains a base reference; an empty
+    # table crashes the legacy vector access before merge/no-assets logic.
+    streams=b'\x01base.manifest\0'
+    header=struct.pack('<BBH11I',0,1,6,0x44332211,0x54ee1e64,len(rows),len(data),max([r['size'] for r in rows] or [0]),4,4,len(refs),len(streams),len(names),len(sources))
+    stem.with_suffix('.manifest').write_bytes(header+table+refs+streams+names+sources)
     for ext,payload in [('.bin',data),('.imp',imp),('.relo',relo)]:stem.with_suffix(ext).write_bytes(struct.pack('<I',0x44332211)+payload)
 
 def precompiled(path,r,index):
@@ -52,7 +57,7 @@ def main():
                 (assets/'00000000.11111111.22222222.33333333.cdata').write_bytes(b'new-cdata')
                 cdata=stem/'cdata';cdata.mkdir(parents=True);(cdata/'existing.cdata').write_bytes(b'existing');(cdata/'00000000.11111111.22222222.33333333.cdata').write_bytes(b'old-cdata')
                 before={p.name:sha(p) for p in assets.iterdir()};result=invoke(exe,stem,assets,work)
-                assert result.returncode==0,(kind,name,result.returncode,result.stderr)
+                record.setdefault('invocations',[]).append(dict(kind=kind,arguments=[str(exe),str(stem),str(assets)],cwd=str(exe.parent),exitCode=result.returncode,streamTableBytes=struct.unpack_from('<I',stem.with_suffix('.manifest').read_bytes(),36)[0]));assert result.returncode==0,(kind,name,result.returncode,result.stderr)
                 assert before=={p.name:sha(p) for p in assets.iterdir()},'input assets modified'
                 if kind=='candidate':assert result.stdout.strip()==str(len(incoming)).encode(),result.stdout
             left=case/'original';right=case/'candidate'

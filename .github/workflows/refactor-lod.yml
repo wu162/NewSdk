@@ -22,6 +22,11 @@ jobs:
             recovery/src/App/Application
             SDK/tools
             SDK/builtmods
+      - name: Preserve repeated original LoD tail-byte diagnostic
+        shell: pwsh
+        run: |
+          python recovery/preparation/lod/TestCompilerLoD.py --probe-original --original SDK/tools/LoDStreamBuilder.exe --output recovery/artifacts/lod/original-tail-probe
+          if($LASTEXITCODE -ne 0){throw 'Original LoD diagnostic execution failed'}
       - name: Build prepared in-process LoD component in both configurations
         shell: pwsh
         run: |
