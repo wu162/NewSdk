@@ -24,7 +24,7 @@ namespace NewModCompiler.Application
         BuildRequest request;
         string sdkRoot, modRoot, outputRoot, configurationXml;
         int threadId, traceLevel = 3;
-        bool initialized, disposed, compiling;
+        bool initialized, initializing, disposed, compiling;
         BuiltinCompilers compilers;
         VerifierPluginRegistry verifiers;
         PluginDescriptor[] verifierDescriptors;
@@ -38,8 +38,11 @@ namespace NewModCompiler.Application
             if (request == null) throw new ArgumentNullException("request");
             lock (LeaseGate)
             {
+                if (disposed) throw new ObjectDisposedException("CoreStreamCompiler");
+                if (initialized || initializing) throw new InvalidOperationException("The backend is already initialized or initializing.");
                 if (leaseOwner != null) throw new BuildFailure(ExitCode.Environment, "CORE_SESSION_BUSY", "Only one in-process Core session may own the process state.");
                 leaseOwner = this;
+                initializing = true;
                 threadId = Thread.CurrentThread.ManagedThreadId;
             }
             try
@@ -61,13 +64,13 @@ namespace NewModCompiler.Application
                 if (!File.Exists(Path.Combine(sdkRoot, "Schemas", "xsd", "CnC3Types.xsd")))
                     throw new BuildFailure(ExitCode.Environment, "CORE_SCHEMA_MISSING", "The SDK CnC3Types schema is missing.");
                 this.request = request;
-                initialized = true;
+                lock (LeaseGate) { initialized = true; initializing = false; }
             }
             catch (Exception error)
             {
-                ReleaseLease();
+                lock (LeaseGate) { initializing = false; ReleaseLease(); }
                 if (error is BuildFailure || error is OperationCanceledException) throw;
-                throw new BuildFailure(ExitCode.Environment, "CORE_INITIALIZE_FAILED", error.Message);
+                throw Failure(ExitCode.Environment, "CORE_INITIALIZE_FAILED", error);
             }
         }
 
@@ -80,7 +83,10 @@ namespace NewModCompiler.Application
             var disabled = new HashSet<string>(new[] { "sc", "bc", "csc", "psc", "fsc", "atc", "pc", "oof", "vf", "oar", "osh", "oix", "mr", "slowclean" }, StringComparer.OrdinalIgnoreCase);
             foreach (var option in candidate.Options)
             {
+                if (option.Value == null) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", "A Core option has no effective value: " + option.Key);
                 string key = option.Key, value = option.Value.Value;
+                if (key == "package-format" && !string.Equals(value, "loose", StringComparison.OrdinalIgnoreCase))
+                    throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Only loose output is available in the experimental backend.");
                 if (ordinary.Contains(key)) continue;
                 if (disabled.Contains(key) && string.Equals(value, "false", StringComparison.OrdinalIgnoreCase)) continue;
                 if (key == "tp" && string.Equals(value, "Win32", StringComparison.OrdinalIgnoreCase)) continue;
@@ -141,7 +147,30 @@ namespace NewModCompiler.Application
         {
             try
             {
-                if (compilers == null) compilers = BuiltinCompilers.CreateWithTexture(TargetPlatform.Win32);
+                if (compilers == null)
+                {
+                    BuiltinCompilers candidate = BuiltinCompilers.CreateWithTexture(TargetPlatform.Win32);
+                    try
+                    {
+                        // The old SDK XML handler was #all, so Core reads its global
+                        // hash/version via DefaultPlugin, not via a type route. Keep
+                        // those exact metadata semantics without reopening fallback
+                        // compilation for unknown types in the new explicit registry.
+                        // Original XmlCompiler/Plugin.cs:GetAllTypesHash returns
+                        // 1424942948; GetVersionNumber returns 4 for Win32. DoBuildData
+                        // uses the registry initialized from the SDK #all descriptor.
+                        IAssetBuilderPlugin xml = candidate.Registry.GetPlugin(InstanceHandle.GetTypeId("AttributeModifier"));
+                        candidate.Registry.DefaultPlugin = new DefaultMetadataPlugin(candidate.Registry.DefaultPlugin, xml);
+                        compilers = candidate;
+                    }
+                    catch (Exception primary)
+                    {
+                        Exception failure = primary;
+                        try { candidate.Dispose(); } catch (Exception cleanup) { AddCleanupFailure(ref failure, cleanup, ExitCode.Internal, "CORE_PROVIDER_CLEANUP_FAILED"); }
+                        ExceptionDispatchInfo.Capture(failure).Throw();
+                        throw;
+                    }
+                }
                 else compilers.ReInitialize(TargetPlatform.Win32);
                 if (verifiers == null)
                 {
@@ -152,7 +181,25 @@ namespace NewModCompiler.Application
             }
             catch (BuildFailure) { throw; }
             catch (OperationCanceledException) { throw; }
-            catch (Exception error) { throw new BuildFailure(ExitCode.Environment, "CORE_PROVIDER_INITIALIZE_FAILED", error.Message); }
+            catch (Exception error) { throw Failure(ExitCode.Environment, "CORE_PROVIDER_INITIALIZE_FAILED", error); }
+        }
+
+        sealed class DefaultMetadataPlugin : IAssetBuilderPlugin
+        {
+            readonly IAssetBuilderPlugin rejection, metadata;
+            public DefaultMetadataPlugin(IAssetBuilderPlugin rejection, IAssetBuilderPlugin metadata)
+            {
+                if (!(metadata is Recovered.XmlPriority.Plugin)) throw new InvalidOperationException("The default metadata provider must be the built-in XML compiler.");
+                this.rejection = rejection; this.metadata = metadata;
+            }
+            // BuiltinCompilers owns initialization and disposal of the actual
+            // XML instance. This view must not initialize it a second time.
+            public void Initialize(object configuration, TargetPlatform platform) { }
+            public void ReInitialize(object configuration, TargetPlatform platform) { }
+            public uint GetAllTypesHash() { return metadata.GetAllTypesHash(); }
+            public uint GetVersionNumber() { return metadata.GetVersionNumber(); }
+            public ExtendedTypeInformation GetExtendedTypeInformation(uint typeId) { return rejection.GetExtendedTypeInformation(typeId); }
+            public AssetBuffer ProcessInstance(InstanceDeclaration instance) { return rejection.ProcessInstance(instance); }
         }
 
         public IList<Artifact> Compile(StreamContext context, CancellationToken cancellation)
@@ -174,7 +221,7 @@ namespace NewModCompiler.Application
                 throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "The experimental backend requires an existing XML stream entry.");
             Settings previousSettings = Settings.Current;
             bool previousMetrics = MetricManager.Enabled;
-            IDisposable hashes = null, tracing = null;
+            IDisposable hashes = null, tracing = null, report = null;
             Exception failure = null;
             IList<Artifact> artifacts = null;
             compiling = true;
@@ -184,6 +231,7 @@ namespace NewModCompiler.Application
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
                 Settings settings = StreamSettings(context, staging);
+                report = AssetReport.BeginScope();
                 EnsureProviders();
                 var schemas = new SchemaSet(settings.StableSort);
                 hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
@@ -195,31 +243,47 @@ namespace NewModCompiler.Application
                 if (!success) throw new BuildFailure(ExitCode.Compilation, "CORE_COMPILE_FAILED", "Core did not complete the stream.");
                 cancellation.ThrowIfCancellationRequested(); // Cancellation is cooperative at complete stream boundaries.
                 artifacts = CollectArtifacts(settings.OutputDirectory);
+                cancellation.ThrowIfCancellationRequested();
             }
             catch (Exception error)
             {
                 failure = error is BuildFailure || error is OperationCanceledException ? error :
-                    new BuildFailure(ExitCode.Compilation, "CORE_COMPILE_FAILED", error.ToString());
+                    Failure(ExitCode.Compilation, "CORE_COMPILE_FAILED", error);
             }
             finally
             {
                 var cleanup = new List<Exception>();
-                try { AssetReport.Close(); } catch (Exception error) { cleanup.Add(error); }
+                try { if (report != null) report.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (hashes != null) hashes.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (tracing != null) tracing.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 Settings.Current = previousSettings;
                 MetricManager.Enabled = previousMetrics;
                 compiling = false;
-                if (cleanup.Count != 0)
-                    failure = new BuildFailure(ExitCode.Internal, "CORE_CLEANUP_FAILED", (failure == null ? "" : failure.ToString() + "\n") + new AggregateException(cleanup));
+                foreach (Exception error in cleanup) AddCleanupFailure(ref failure, error, ExitCode.Internal, "CORE_CLEANUP_FAILED");
                 if (failure != null)
                 {
                     try { if (Directory.Exists(staging)) Directory.Delete(staging, true); }
-                    catch (Exception error) { failure = new BuildFailure(ExitCode.Output, "CORE_STAGING_CLEANUP_FAILED", failure + "\n" + error); }
+                    catch (Exception error) { AddCleanupFailure(ref failure, error, ExitCode.Output, "CORE_STAGING_CLEANUP_FAILED"); }
                 }
             }
             if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
             return artifacts;
+        }
+
+        static BuildFailure Failure(ExitCode exitCode, string code, Exception error)
+        {
+            var failure = new BuildFailure(exitCode, code, error.ToString());
+            failure.Data["OriginalException"] = error;
+            return failure;
+        }
+        static void AddCleanupFailure(ref Exception primary, Exception secondary, ExitCode exitCode, string code)
+        {
+            if (primary == null) { primary = Failure(exitCode, code, secondary); return; }
+            // Preserve cancellation, the original diagnostic code and its stack.
+            // The caller can report secondary failures without losing the cause.
+            var failures = primary.Data["CoreCleanupExceptions"] as List<Exception>;
+            if (failures == null) { failures = new List<Exception>(); primary.Data["CoreCleanupExceptions"] = failures; }
+            failures.Add(secondary);
         }
 
         static void RejectReparseAncestors(string path)
@@ -257,7 +321,8 @@ namespace NewModCompiler.Application
             }
             foreach (string file in files)
             {
-                bool custom = file.IndexOf(Path.DirectorySeparatorChar + "cdata" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) >= 0;
+                string relative = file.Substring(output.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                bool custom = relative.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Any(part => string.Equals(part, "cdata", StringComparison.OrdinalIgnoreCase));
                 if (!accepted.Contains(file) && !custom) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_UNEXPECTED", "Unexpected file in completed stream output: " + file);
                 string sha;
                 using (var algorithm = SHA256.Create()) using (var input = File.OpenRead(file)) sha = BitConverter.ToString(algorithm.ComputeHash(input)).Replace("-", "").ToLowerInvariant();
@@ -268,19 +333,25 @@ namespace NewModCompiler.Application
 
         void CheckOwner()
         {
-            if (disposed) throw new ObjectDisposedException("CoreStreamCompiler");
-            if (!initialized) throw new InvalidOperationException("The backend has not been initialized.");
             lock (LeaseGate)
+            {
+                if (disposed) throw new ObjectDisposedException("CoreStreamCompiler");
+                if (!initialized) throw new InvalidOperationException("The backend has not been initialized.");
                 if (!Object.ReferenceEquals(leaseOwner, this) || threadId != Thread.CurrentThread.ManagedThreadId)
                     throw new InvalidOperationException("The Core session must be used by its owning thread.");
+            }
         }
         void ReleaseLease() { lock (LeaseGate) { if (Object.ReferenceEquals(leaseOwner, this)) leaseOwner = null; } }
         public void Dispose()
         {
-            if (disposed) return;
-            if (initialized) CheckOwner();
-            if (compiling) throw new InvalidOperationException("Cannot dispose a running Core stream.");
-            disposed = true;
+            lock (LeaseGate)
+            {
+                if (disposed) return;
+                if ((initialized || initializing) && threadId != Thread.CurrentThread.ManagedThreadId)
+                    throw new InvalidOperationException("The Core session must be disposed by its owning thread.");
+                if (compiling || initializing) throw new InvalidOperationException("Cannot dispose a running or initializing Core session.");
+                disposed = true;
+            }
             var failures = new List<Exception>();
             try
             {

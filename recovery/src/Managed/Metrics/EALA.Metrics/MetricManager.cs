@@ -61,10 +61,15 @@ public class MetricManager
 		lock (SessionLock)
 		{
 			CheckListenerMutation();
-			int index = m_Listeners.IndexOf(listener);
-			if (index < 0) return false;
-			m_Listeners.RemoveAt(index);
-			return true;
+			// Registration ownership is by instance. Equality is user code and
+			// must not run while the listener-state lock is held.
+			for (int index = 0; index < m_Listeners.Count; index++)
+			{
+				if (!Object.ReferenceEquals(m_Listeners[index], listener)) continue;
+				m_Listeners.RemoveAt(index);
+				return true;
+			}
+			return false;
 		}
 	}
 

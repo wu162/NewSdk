@@ -28,7 +28,7 @@ internal static class CompilerCoreLifecycle
     static IList Inclusions(DocumentProcessor p) { return (IList)Field(p, "_DocumentStack"); }
     static string Write(string relative, string contents)
     {
-        string path = Path.Combine(work, relative); Directory.CreateDirectory(Path.GetDirectoryName(path));
+        string path = Path.GetFullPath(Path.Combine(work, relative)); Directory.CreateDirectory(Path.GetDirectoryName(path));
         File.WriteAllText(path, contents); return path;
     }
     static string Asset(string body) { return "<AssetDeclaration xmlns='" + Ns + "'>" + body + "</AssetDeclaration>"; }
@@ -80,7 +80,7 @@ internal static class CompilerCoreLifecycle
         foreach (string path in paths)
         {
             AssetDeclarationDocument document;
-            p.Cache.TryGetDocument(path, configuration, TargetPlatform.Win32, false, out document);
+            p.Cache.TryGetDocument(Path.GetFullPath(path), configuration, TargetPlatform.Win32, false, out document);
             if (document != null) Require(!document.Processing, "Processing flag leaked: " + path);
         }
     }
@@ -250,6 +250,38 @@ internal static class CompilerCoreLifecycle
         Run(p, retry); Clean(p, null, bad, good, retry);
         Tests.Add(name + ":real-inheritance-primary-and-stack-preserved-secondary-errors-attached-metrics-primary-on-success-listener-removed-retry-success");
     }
+    static void VerifyProjectOutput(Settings settings)
+    {
+        string prefix = Path.Combine(settings.OutputDirectory, "project", "root_G");
+        var expected = new HashSet<uint>();
+        var source = new XmlDocument(); source.LoadXml(probe);
+        foreach (XmlNode child in source.DocumentElement.ChildNodes)
+            if (child is XmlElement) expected.Add(InstanceHandle.GetInstanceId(((XmlElement)child).GetAttribute("id")));
+        using (var manifest = new BinaryAssetBuilder.Utility.Manifest())
+        {
+            // Linked payloads are the three stream files, not loose .asset files.
+            Require(manifest.Load(prefix + ".manifest", new[] { settings.OutputDirectory }, false), "Good project manifest did not load");
+            Require(manifest.Assets.Length == expected.Count && expected.Count == 3, "Good project manifest asset set incomplete");
+            int instance = 4, relocation = 4, imports = 4;
+            foreach (var asset in manifest.Assets)
+            {
+                Require(asset.TypeId == InstanceHandle.GetTypeId("ArmorTemplate") && expected.Remove(asset.InstanceId),
+                    "Good project manifest contains an unexpected/duplicate asset");
+                Require(asset.InstanceDataSize > 0 && asset.LinkedInstanceOffset == instance &&
+                    asset.LinkedRelocationOffset == relocation && asset.LinkedImportsOffset == imports,
+                    "Good project manifest has invalid linked payload sizes/offsets");
+                instance += asset.InstanceDataSize; relocation += asset.RelocationDataSize; imports += asset.ImportsDataSize;
+            }
+            Require(expected.Count == 0 && manifest.TotalInstanceDataSize == instance - 4, "Good project manifest omitted probe payloads");
+            string[] extensions = { ".bin", ".relo", ".imp" }; int[] sizes = { instance, relocation, imports };
+            for (int i = 0; i < extensions.Length; i++)
+            {
+                byte[] bytes = File.ReadAllBytes(prefix + extensions[i]);
+                Require(bytes.Length == sizes[i] && BitConverter.ToUInt32(bytes, 0) == manifest.StreamChecksum,
+                    "Good project linked stream size/checksum does not match its manifest: " + extensions[i]);
+            }
+        }
+    }
     static void ProjectCase(BuiltinCompilers plugins)
     {
         Settings s = Configure("project");
@@ -268,11 +300,16 @@ internal static class CompilerCoreLifecycle
         Require(s.BuildConfigurationName == null && s.Postfix == null && s.StreamPostfix == null, "Original Settings values mutated");
         Clean(p, "Good", root, Path.Combine(good, "leaf.xml"));
         Clean(p, "Bad", root, Path.Combine(bad, "leaf.xml"));
+        // The project normalizes Source through GetFullPath, while SessionCache
+        // keys only lowercase paths. Write returns the same canonical form;
+        // a mixed '/' query otherwise misses an existing '\\' Windows cache key.
         AssetDeclarationDocument first; p.Cache.TryGetDocument(root, "Good", TargetPlatform.Win32, false, out first);
-        Require(first != null && first.State == DocumentState.Complete, "First project configuration did not actually compile");
+        Require(first != null && first.State == DocumentState.Complete,
+            "First project configuration cache state incorrect: " + root + " state=" + (first == null ? "missing" : first.State.ToString()));
+        VerifyProjectOutput(s);
         using (File.Open(project, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
         string normal = Write("project/normal.xml", probe); Run(p, normal); Clean(p, null, normal);
-        Tests.Add("real-project-first-config-success-second-inheritance-failure-restores-settings-reader-then-plain-xml-success");
+        Tests.Add("real-project-first-config-complete-three-assets-four-linked-streams-second-inheritance-failure-restores-settings-reader-then-plain-xml-success");
     }
     public static int Main(string[] args)
     {

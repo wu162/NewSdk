@@ -5,6 +5,12 @@ on:
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
+      - 'recovery/scripts/TestCompilerTexture.ps1'
+      - 'recovery/scripts/TestCompiler.ps1'
+      - 'recovery/scripts/CompilerValidation.Common.ps1'
+      - 'recovery/scripts/BuildCompiler*.ps1'
+      - 'recovery/scripts/BuildManagedFoundation.ps1'
+      - 'recovery/tests/CompilerValidationEntry.cpp'
       - 'recovery/tests/CompilerCoreLifecycle.cs'
       - 'recovery/tests/CompilerResourceLifecycle.cs'
       - 'recovery/tests/CompilerStateLifecycle.cs'
@@ -46,13 +52,20 @@ jobs:
             ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/core-lifecycle-foundation/$mode"
           }
       - name: Build full production combination and verify deployment and route metadata
+        id: product
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/core-lifecycle-foundation -BuildDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle-deployment/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Targeted real Core and backend lifecycle in Debug and Release
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Host-bound Texture payload and deployment rejection in Debug and Release
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerTexture.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle-texture/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -60,6 +73,7 @@ jobs:
           path: |
             recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/core-lifecycle-foundation/**/build.json
             recovery/artifacts/core-lifecycle-foundation/**/*.log
             recovery/artifacts/core-lifecycle-product/**/build.json

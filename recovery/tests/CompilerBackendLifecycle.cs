@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading;
+using System.Text;
 using System.Web.Script.Serialization;
 using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
@@ -87,11 +88,129 @@ public static class CompilerBackendLifecycle
             Require(result.Keys.Count(path=>Path.GetExtension(path)==extension)==1,"Missing linked artifact "+extension);
         return result;
     }
+    // Independent byte oracle: no production ManifestHeader/AssetEntry readers,
+    // hash helpers, serializer or recovered plugin is called by these checks.
+    // Original layout: recovery/evidence/utility/ilspy-source/{AssetStream,
+    // BinaryAssetBuilder.Utility}/{ManifestHeader,AssetEntry}.cs; original XML
+    // Plugin.GetAllTypesHash=1424942948, Win32 version=4. Manifest format=6.
+    // Armor byte contract is also independently asserted by ArmorOracle.cs,
+    // whose original-DLL differential receipts predate this backend.
+    static uint Word(byte[] data, int offset)
+    {
+        Require(offset >= 0 && offset + 4 <= data.Length,"Truncated byte oracle word");
+        return (uint)(data[offset] | data[offset+1]<<8 | data[offset+2]<<16 | data[offset+3]<<24);
+    }
+    static void Put(byte[] data,int offset,uint word)
+    {
+        for(int i=0;i<4;i++) data[offset+i]=(byte)(word>>(8*i));
+    }
+    static string CString(byte[] data,int start,int length,int offset)
+    {
+        Require(offset>=0 && offset<length && start>=0 && start+length<=data.Length,"Invalid manifest string offset");
+        int end=start+offset;
+        while(end<start+length && data[end]!=0) end++;
+        Require(end<start+length,"Unterminated manifest string");
+        return Encoding.ASCII.GetString(data,start+offset,end-start-offset);
+    }
+    static byte[] ExpectedArmor(string name,bool variant)
+    {
+        bool defaults=name=="RecoveryArmorProbe_Defaults", inherited=name=="RecoveryArmorProbe_Inherited";
+        int count=defaults?0:4, tokens=96+count*48;
+        var bytes=new byte[128+56*count];
+        uint[] fieldNames={unchecked((uint)-1538240),unchecked((uint)-899026358),81996879u,unchecked((uint)-2003558244),unchecked((uint)-1429821187)};
+        for(int i=0;i<5;i++) { Put(bytes,12*i,fieldNames[i]); Put(bytes,12*i+4,1683514611u); Put(bytes,12*i+8,(uint)(tokens+4+4*i)); }
+        Put(bytes,60,735930353u); Put(bytes,64,617967919u); Put(bytes,68,84u);
+        Put(bytes,84,1820487795u); Put(bytes,88,1564774360u); Put(bytes,92,(uint)(tokens+24));
+        // IEEE-754 constants from original single-precision percentage parsing,
+        // including 0.01f's exact representation; do not use decimal shortcuts.
+        uint[] scalars=defaults?new uint[] {0x3f800000,0x3f800000,0x3f800000,0x3f800000,0x3f800000}:
+            new uint[] {inherited?0x3f1ccccdu:(variant?0x3e000000u:0x3f399999u),0x3f551eb8,0x3f966666,0x3faf0a3d,0x3ed7ae14};
+        for(int i=0;i<5;i++) Put(bytes,tokens+4+4*i,scalars[i]);
+        Put(bytes,tokens+24,(uint)count);
+        if(count>0) Put(bytes,tokens+28,(uint)(tokens+32));
+        uint[] damage={22u,35u,21u,38u}, percent={0x3eb5c28fu,0x3f20a3d7u,0x3f9d9999u,0x3f699999u};
+        for(int i=0;i<count;i++)
+        {
+            int table=84+12*(count+1)+36*i;
+            Put(bytes,96+12*i,unchecked((uint)-1320050453)); Put(bytes,104+12*i,(uint)table);
+            Put(bytes,table,2083775721u); Put(bytes,table+4,1179152369u); Put(bytes,table+8,(uint)(tokens+32+8*i));
+            Put(bytes,table+12,unchecked((uint)-1382012893)); Put(bytes,table+16,1683514611u); Put(bytes,table+20,(uint)(tokens+36+8*i));
+            Put(bytes,tokens+32+8*i,damage[i]); Put(bytes,tokens+36+8*i,percent[i]);
+        }
+        return bytes;
+    }
+    static void SliceEquals(byte[] actual,int offset,int length,byte[] expected,string label)
+    {
+        Require(length==expected.Length && offset>=0 && offset+length<=actual.Length,label+": chunk size/range mismatch");
+        for(int i=0;i<length;i++) Require(actual[offset+i]==expected[i],label+": byte mismatch at "+i);
+    }
+    static void InspectArmorStreams(byte[] manifest,byte[] bin,byte[] imports,byte[] relocations,bool variant,string source)
+    {
+        Require(manifest.Length>=48,"Truncated manifest header");
+        Require(manifest[0]==0 && manifest[1]==1 && manifest[2]==6 && manifest[3]==0,"Wrong Win32 linked manifest format/version");
+        Require(Word(manifest,8)==1424942948u,"Manifest all-types hash differs from original XML default plugin");
+        Require(Word(manifest,12)==3 && Word(manifest,16)==832 && Word(manifest,20)==352,"Armor manifest count/instance size maxima changed");
+        Require(Word(manifest,24)==8 && Word(manifest,28)==0,"Armor relocation/import maxima changed");
+        Require(Word(manifest,32)==0 && Word(manifest,36)==0,"Unexpected Armor runtime or manifest references");
+        int names=(int)Word(manifest,40), sources=(int)Word(manifest,44), nameStart=48+3*48, sourceStart=nameStart+names;
+        Require(manifest.Length==sourceStart+sources,"Manifest table/buffer lengths do not exactly consume file");
+        uint checksum=Word(manifest,4);
+        Require(bin.Length==836 && imports.Length==4 && relocations.Length==20,"Linked stream sizes do not match independent Armor sizes");
+        Require(Word(bin,0)==checksum && Word(imports,0)==checksum && Word(relocations,0)==checksum,"Four stream checksums disagree");
+        var ids=new Dictionary<string,uint> { {"RecoveryArmorProbe_Defaults",1847731836u}, {"RecoveryArmorProbe_NonDefault",2276198084u}, {"RecoveryArmorProbe_Inherited",450363424u} };
+        var seen=new HashSet<string>(); int dataOffset=4,reloOffset=4;
+        for(int i=0;i<3;i++)
+        {
+            int entry=48+i*48;
+            Require(Word(manifest,entry)==980180622u && Word(manifest,entry+8)==1679479598u && Word(manifest,entry+44)==1,"Armor type ID/hash/tokenized metadata changed");
+            Require(Word(manifest,entry+12)!=0 && Word(manifest,entry+16)==0 && Word(manifest,entry+20)==0,"Armor instance hash/references invalid");
+            string fullName=CString(manifest,nameStart,names,(int)Word(manifest,entry+24));
+            Require(fullName.StartsWith("ArmorTemplate:",StringComparison.Ordinal),"Unexpected manifest asset type name");
+            string name=fullName.Substring("ArmorTemplate:".Length);
+            Require(ids.ContainsKey(name) && seen.Add(name) && Word(manifest,entry+4)==ids[name],"Unexpected/duplicate Armor name or independent instance ID");
+            Require(CString(manifest,sourceStart,sources,(int)Word(manifest,entry+28))==source,"Unexpected manifest logical source path");
+            int dataSize=(int)Word(manifest,entry+32),reloSize=(int)Word(manifest,entry+36),importSize=(int)Word(manifest,entry+40);
+            byte[] expected=ExpectedArmor(name,variant);
+            SliceEquals(bin,dataOffset,dataSize,expected,name+" flattened Armor payload");
+            bool defaults=name=="RecoveryArmorProbe_Defaults";
+            var expectedRelo=new byte[defaults?0:8];
+            if(!defaults) { Put(expectedRelo,0,316u); Put(expectedRelo,4,uint.MaxValue); }
+            SliceEquals(relocations,reloOffset,reloSize,expectedRelo,name+" relocation contract");
+            Require(importSize==0,"Armor introduced an import chunk");
+            dataOffset+=dataSize; reloOffset+=reloSize;
+        }
+        Require(seen.Count==3 && dataOffset==bin.Length && reloOffset==relocations.Length,"Asset chunks do not exactly consume streams");
+    }
+    static bool oracleMutationChecked;
+    static void IndependentArmorOracle(IList<Artifact> artifacts,bool variant,string source)
+    {
+        Func<string,byte[]> read=extension=>File.ReadAllBytes(artifacts.Single(a=>Path.GetExtension(a.Path)==extension).Path);
+        byte[] manifest=read(".manifest"),bin=read(".bin"),imports=read(".imp"),relo=read(".relo");
+        InspectArmorStreams(manifest,bin,imports,relo,variant,source);
+        if(oracleMutationChecked) return;
+        Action<byte[],byte[],string> reject=delegate(byte[] changedManifest,byte[] changedBin,string label)
+        {
+            bool rejected=false; try { InspectArmorStreams(changedManifest,changedBin,imports,relo,variant,source); } catch(Exception) { rejected=true; }
+            Require(rejected,"Independent byte oracle accepted "+label);
+        };
+        byte[] wrong=(byte[])manifest.Clone(); Put(wrong,8,0); reject(wrong,bin,"zero all-types hash");
+        wrong=(byte[])manifest.Clone(); wrong[2]=0; reject(wrong,bin,"wrong manifest version");
+        wrong=(byte[])bin.Clone(); wrong[4]^=1; reject(manifest,wrong,"corrupt Armor token/payload");
+        wrong=(byte[])bin.Clone(); wrong[0]^=1; reject(manifest,wrong,"mismatched linked checksum");
+        oracleMutationChecked=true; Tests.Add("independent-raw-manifest-original-metadata-Armor-token-scalar-layout-relocations-and-corruption-rejections");
+    }
+    static void DefaultMetadata(CoreStreamCompiler backend)
+    {
+        var providers=(BuiltinCompilers)typeof(CoreStreamCompiler).GetField("compilers",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(backend);
+        Require(providers.Registry.DefaultPlugin.GetAllTypesHash()==1424942948u && providers.Registry.DefaultPlugin.GetVersionNumber()==4u,"Backend default metadata is not the original Win32 XML contract");
+    }
     static Dictionary<string,string> Compile(CoreStreamCompiler backend, BuildRequest request, string name, string slot, Ambient ambient)
     {
         string staging=Path.Combine(request.OutputRoot,slot);
-        var result=Four(backend.Compile(Context(request,Task(request.ModRoot,name),staging),CancellationToken.None),staging);
-        ambient.Unchanged(slot); return result;
+        var artifacts=backend.Compile(Context(request,Task(request.ModRoot,name),staging),CancellationToken.None);
+        var result=Four(artifacts,staging);
+        IndependentArmorOracle(artifacts,request.ModRoot.EndsWith("mod-b",StringComparison.Ordinal),name=="Mod"?"DATA:armor.xml":"DATA:extra.xml");
+        DefaultMetadata(backend); ambient.Unchanged(slot); return result;
     }
     static void Equal(Dictionary<string,string> left, Dictionary<string,string> right, string label)
     {

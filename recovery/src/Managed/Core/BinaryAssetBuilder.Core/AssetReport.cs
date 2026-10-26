@@ -8,7 +8,9 @@ namespace BinaryAssetBuilder.Core;
 
 public static class AssetReport
 {
-	public static string FileName = "AssetReport.xml";
+	private const string DefaultFileName = "AssetReport.xml";
+
+	public static string FileName = DefaultFileName;
 
 	public static string FileNameFullyQualified = null;
 
@@ -19,6 +21,90 @@ public static class AssetReport
 	private static Stream AssetRecordStream = null;
 
 	private static IDictionary<string, bool> RecordedAssets = null;
+
+	private static readonly object ScopeGate = new object();
+
+	private static ReportScope CurrentScope;
+
+	private static bool Closing;
+
+	// Scopes own sequential stream state. This does not make RecordAsset or
+	// the legacy public fields generally safe for concurrent use.
+	public static IDisposable BeginScope()
+	{
+		lock (ScopeGate)
+		{
+			EnsureScopeThread();
+			if (Closing) throw new InvalidOperationException("Cannot enter an asset report scope during Close.");
+			var scope = new ReportScope();
+			AssetRecordWriter = null;
+			AssetRecordStream = null;
+			RecordedAssets = null;
+			FileNameFullyQualified = null;
+			FileName = DefaultFileName;
+			CurrentScope = scope;
+			return scope;
+		}
+	}
+
+	private static void EnsureScopeThread()
+	{
+		if (CurrentScope != null && CurrentScope.ThreadId != System.Threading.Thread.CurrentThread.ManagedThreadId)
+			throw new InvalidOperationException("Asset report scopes may only be used on their owning thread.");
+	}
+
+	private sealed class ReportScope : IDisposable
+	{
+		internal readonly int ThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
+		private readonly ReportScope parent = CurrentScope;
+		private readonly XmlWriter writer = AssetRecordWriter;
+		private readonly Stream stream = AssetRecordStream;
+		private readonly IDictionary<string, bool> assets = RecordedAssets;
+		private readonly string fileName = FileName;
+		private readonly string path = FileNameFullyQualified;
+		private bool disposed;
+
+		public void Dispose()
+		{
+			XmlWriter childWriter;
+			Stream childStream;
+			lock (ScopeGate)
+			{
+				if (disposed) return;
+				EnsureScopeThread();
+				if (Closing) throw new InvalidOperationException("Cannot dispose an asset report scope during Close.");
+				if (!Object.ReferenceEquals(CurrentScope, this))
+					throw new InvalidOperationException("Asset report scopes must be disposed in reverse creation order.");
+				Closing = true;
+				childWriter = AssetRecordWriter;
+				childStream = AssetRecordStream;
+				ClearWriterState();
+			}
+			try { CloseWriter(childWriter, childStream); }
+			finally
+			{
+				lock (ScopeGate)
+				{
+					AssetRecordWriter = writer;
+					AssetRecordStream = stream;
+					RecordedAssets = assets;
+					FileName = fileName;
+					FileNameFullyQualified = path;
+					CurrentScope = parent;
+					disposed = true;
+					Closing = false;
+				}
+			}
+		}
+	}
+
+	private static void ClearWriterState()
+	{
+		AssetRecordWriter = null;
+		AssetRecordStream = null;
+		FileNameFullyQualified = null;
+		RecordedAssets = null;
+	}
 
 	public static void RecordAsset(InstanceDeclaration instance, BinaryAsset asset)
 	{
@@ -102,12 +188,23 @@ public static class AssetReport
 
 	public static void Close()
 	{
-		XmlWriter writer = AssetRecordWriter;
-		Stream stream = AssetRecordStream;
-		AssetRecordWriter = null;
-		AssetRecordStream = null;
-		FileNameFullyQualified = null;
-		RecordedAssets = null;
+		XmlWriter writer;
+		Stream stream;
+		lock (ScopeGate)
+		{
+			EnsureScopeThread();
+			if (Closing) throw new InvalidOperationException("Asset report Close cannot be reentered.");
+			Closing = true;
+			writer = AssetRecordWriter;
+			stream = AssetRecordStream;
+			ClearWriterState();
+		}
+		try { CloseWriter(writer, stream); }
+		finally { lock (ScopeGate) { Closing = false; } }
+	}
+
+	private static void CloseWriter(XmlWriter writer, Stream stream)
+	{
 		Exception failure = null;
 		try
 		{

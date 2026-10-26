@@ -36,6 +36,8 @@ static class CompilerResourceLifecycle
         public void Open() { Opens++; ResourceAcquired = true; Log.Add("open:" + Name); if (OnOpen != null) OnOpen(); if (OpenFailure != null) throw OpenFailure; }
         public void Close() { Closes++; ResourceAcquired = false; Log.Add("close:" + Name); if (OnClose != null) OnClose(); if (CloseFailure != null) throw CloseFailure; }
         public void SubmitMetrics(Metric value) { Submits++; if (OnSubmit != null) OnSubmit(); if (SubmitFailure != null) throw SubmitFailure; }
+        public override bool Equals(object value) { throw new Exception("Listener equality must not run while removing a registration"); }
+        public override int GetHashCode() { return 0; }
     }
     static Listener NewListener(string name, List<string> log) { return new Listener { Name = name, Log = log }; }
     static void WorkerMutation(Action action, string name)
@@ -88,6 +90,10 @@ static class CompilerResourceLifecycle
         MetricManager.CloseSession();
         Check(MetricManager.RemoveListener(a) && MetricManager.RemoveListener(b), "metrics listeners removable after retry");
         Check(!MetricManager.RemoveListener(a), "metrics missing listener removal is false");
+        var equalByReferenceOnly = NewListener("identity", log);
+        MetricManager.AddListener(equalByReferenceOnly);
+        Check(!MetricManager.RemoveListener(NewListener("other-instance", log)), "metrics removal does not invoke listener equality");
+        Check(MetricManager.RemoveListener(equalByReferenceOnly), "metrics removal finds registered reference without equality");
         for (int i = 0; i < 3; i++) { MetricManager.AddListener(c); c.OpenFailure = null; MetricManager.OpenSession(); MetricManager.CloseSession(); Check(MetricManager.RemoveListener(c), "metrics repeated registration released " + i); }
         Check(c.Opens == 4 && c.Closes == 4, "metrics registrations do not accumulate");
 
@@ -130,12 +136,13 @@ static class CompilerResourceLifecycle
     {
         readonly XmlWriter inner;
         internal Exception EndFailure, FlushFailure, CloseFailure;
+        internal Action OnClose;
         internal bool CloseCalled;
         internal FaultWriter(XmlWriter value) { inner = value; }
         public override WriteState WriteState { get { return inner.WriteState; } }
         public override string LookupPrefix(string ns) { return inner.LookupPrefix(ns); }
         public override void Flush() { if (FlushFailure != null) throw FlushFailure; inner.Flush(); }
-        public override void Close() { CloseCalled = true; if (CloseFailure != null) throw CloseFailure; inner.Close(); }
+        public override void Close() { CloseCalled = true; if (OnClose != null) OnClose(); if (CloseFailure != null) throw CloseFailure; inner.Close(); }
         public override void WriteEndDocument() { if (EndFailure != null) throw EndFailure; inner.WriteEndDocument(); }
         public override void WriteStartDocument() { inner.WriteStartDocument(); }
         public override void WriteStartDocument(bool standalone) { inner.WriteStartDocument(standalone); }
@@ -194,6 +201,88 @@ static class CompilerResourceLifecycle
         }
         finally { AssetReport.Close(); Settings.Current = old; AssetReport.FileName = oldName; }
     }
+    static void ScopeRejected(Action action, string name)
+    {
+        bool rejected = false; try { action(); } catch (InvalidOperationException) { rejected = true; }
+        Check(rejected, name);
+    }
+    static void ScopeWorkerRejected(Action action, string name)
+    {
+        Exception failure = null;
+        var worker = new Thread(delegate() { try { action(); } catch (Exception error) { failure = error; } });
+        worker.IsBackground = true; worker.Start();
+        Check(worker.Join(5000), name + " worker completes without callback lock deadlock");
+        Check(failure is InvalidOperationException, name + " worker rejected");
+    }
+    static object[] ReportState()
+    {
+        return new[] { ReportField("AssetRecordWriter").GetValue(null), ReportField("AssetRecordStream").GetValue(null),
+            ReportField("RecordedAssets").GetValue(null), AssetReport.FileName, AssetReport.FileNameFullyQualified };
+    }
+    static void SameReportState(object[] expected, string name)
+    {
+        object[] actual = ReportState();
+        Check(Object.ReferenceEquals(expected[0], actual[0]) && Object.ReferenceEquals(expected[1], actual[1]) && Object.ReferenceEquals(expected[2], actual[2]) &&
+              Object.Equals(expected[3], actual[3]) && Object.Equals(expected[4], actual[4]), name);
+    }
+    static void TestReportScopes(string root)
+    {
+        Settings previous = Settings.Current; string previousName = AssetReport.FileName;
+        try
+        {
+            AssetReport.Close();
+            Settings parentSettings = new Settings { SessionCacheDirectory = Path.Combine(root, "parent") };
+            Settings.Current = parentSettings; AssetReport.FileName = "parent-custom.xml"; InitReport();
+            object[] parent = ReportState();
+            var parentWriter = (XmlWriter)parent[0]; parentWriter.WriteComment("parent-before");
+            Settings.Current = new Settings { SessionCacheDirectory = Path.Combine(root, "child-success") };
+            using (AssetReport.BeginScope())
+            {
+                Check(AssetReport.FileName == "AssetReport.xml", "asset report child gets default filename");
+                ReportCleared("asset report child begins with empty state");
+                AssetReport.FileName = "child-custom.xml"; InitReport();
+                ((XmlWriter)ReportField("AssetRecordWriter").GetValue(null)).WriteComment("child-success");
+            }
+            SameReportState(parent, "asset report successful child restores exact parent state");
+            Check(File.ReadAllText(Path.Combine(root, "child-success/child-custom.xml")).Contains("child-success"), "asset report child output completed");
+            parentWriter.WriteComment("parent-after-success");
+
+            Settings.Current = new Settings { SessionCacheDirectory = Path.Combine(root, "child-failure") };
+            var failedScope = AssetReport.BeginScope(); InitReport();
+            var child = (XmlWriter)ReportField("AssetRecordWriter").GetValue(null);
+            var primary = new IOException("child EndDocument failure");
+            var fault = new FaultWriter(child) { EndFailure = primary, CloseFailure = new IOException("child Close secondary") };
+            fault.OnClose = delegate {
+                ScopeRejected(delegate { AssetReport.BeginScope(); }, "asset report scope creation rejected during writer Close");
+                ScopeRejected(failedScope.Dispose, "asset report scope disposal reentry rejected during writer Close");
+                ScopeRejected(AssetReport.Close, "asset report Close reentry rejected");
+                ScopeWorkerRejected(delegate { AssetReport.BeginScope(); }, "asset report callback scope creation");
+                ScopeWorkerRejected(failedScope.Dispose, "asset report callback scope disposal");
+            };
+            ReportField("AssetRecordWriter").SetValue(null, fault);
+            SameFailure(failedScope.Dispose, primary, "asset report child Dispose preserves original Close error");
+            SameReportState(parent, "asset report failed child restores exact parent state");
+            failedScope.Dispose(); SameReportState(parent, "asset report child Dispose is idempotent");
+            using (File.Open(Path.Combine(root, "child-failure/AssetReport.xml"), FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
+            Check(fault.CloseCalled, "asset report failed child closes writer and releases file");
+            parentWriter.WriteComment("parent-after-failure");
+
+            var outer = AssetReport.BeginScope(); object[] outerState = ReportState();
+            var inner = AssetReport.BeginScope(); object[] innerState = ReportState();
+            ScopeRejected(outer.Dispose, "asset report out-of-order Dispose rejected"); SameReportState(innerState, "asset report rejected Dispose preserves child");
+            ScopeWorkerRejected(inner.Dispose, "asset report foreign Dispose");
+            ScopeWorkerRejected(delegate { AssetReport.BeginScope(); }, "asset report concurrent BeginScope");
+            inner.Dispose(); SameReportState(outerState, "asset report nested child restores outer");
+            outer.Dispose(); SameReportState(parent, "asset report nested scopes restore live parent");
+            Settings.Current = parentSettings; parentWriter.WriteComment("parent-after-nested"); AssetReport.Close();
+            string parentText = File.ReadAllText(Path.Combine(root, "parent/parent-custom.xml"));
+            Check(parentText.Contains("parent-before") && parentText.Contains("parent-after-success") && parentText.Contains("parent-after-failure") &&
+                  parentText.Contains("parent-after-nested") && !parentText.Contains("child-success"), "asset report live parent remains writable after child success failure and nesting");
+            var document = new XmlDocument(); document.Load(Path.Combine(root, "parent/parent-custom.xml"));
+            ReportCleared("asset report scoped parent closes successfully");
+        }
+        finally { AssetReport.Close(); Settings.Current = previous; AssetReport.FileName = previousName; }
+    }
     static int Main(string[] args)
     {
         string root = args.Length > 0 ? args[0] : Path.Combine(Path.GetTempPath(), "compiler-resource-" + Guid.NewGuid().ToString("N"));
@@ -204,7 +293,7 @@ static class CompilerResourceLifecycle
         {
             Assembly own = Assembly.GetEntryAssembly();
             Check(own.GetName().Name == "NewModCompiler" && typeof(MetricManager).Assembly == own && typeof(AssetReport).Assembly == own, "resource fixture uses EXE-owned production types");
-            TestMetrics(); TestReports(Path.Combine(root, "reports"));
+            TestMetrics(); TestReports(Path.Combine(root, "reports")); TestReportScopes(Path.Combine(root, "report-scopes"));
             receipt["succeeded"] = true;
             Console.WriteLine("PASS resource lifecycle checks=" + Checks.Count);
             return 0;

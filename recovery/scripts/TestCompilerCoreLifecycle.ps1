@@ -101,7 +101,8 @@ try {
         $patch=Get-Content $textureManifest -Raw|ConvertFrom-Json
         $textureHash=Hash $texture;$textureManifestHash=Hash $textureManifest
         if($patch.targetExeSha256 -cne $run.validationHostSha256 -or $patch.originalSha256 -cne $state.originalTextureSha256 -or
-            $patch.patchedSha256 -cne $textureHash -or $patch.protectedPeAudit.status -cne 'passed' -or $patch.protectedPeAudit.mode -cne 'redirect'){
+            $patch.patchedSha256 -cne $textureHash -or $patch.protectedPeAudit.status -cne 'passed' -or $patch.protectedPeAudit.mode -cne 'redirect' -or
+            $patch.protectedPeAudit.originalSha256 -cne $state.originalTextureSha256 -or $patch.protectedPeAudit.outputSha256 -cne $textureHash){
             throw 'Backend texture patch is not the audited validation-host deployment'
         }
         Copy-Item $textureManifest (Join-Path $runtimeOut 'texture.patch.json')

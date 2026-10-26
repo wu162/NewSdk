@@ -10,13 +10,13 @@
 - 同次部署、XML 联合 smoke、生产/宿主两份 EXE、95 项非入口链接输入及配置/ANTLR 记录一致。标准 artifact 未含 EXE/object/runtime 原件，不将收据核对说成重新哈希这些二进制。
 - `9cd2cb8` 已核对的 Foundation、Armor/Hash、GameObject、Weapon、音频 13 组、W3X capture、贴图旧探针及完整生产对象贴图继续按原提交/范围复用；至 `62b7766` 生产/链接/宿主输入未变，未重复 SDK。
 - 新增 `CheckCompilerXmlEvidence.py` 只读核对归档收据和原始日志，已对真实 XML artifact 通过；16 项临时 Git 合成证据回归通过。Windows 源码检出为 CRLF，仅已知源码接受 Git 原字节或纯 LF→CRLF 两种候选，原 DLL 仍严格固定原字节；不证明证据可复用到当前 HEAD。
-- P5 首轮实际构建/部署通过；Core fixture 在项目 Good 配置的缓存状态成功断言处失败（原始工作树已有 `root_G` 四件套），后续 Resource/State 及 Release 尚未验收，不能宣称基础组完成。
+- P5 首轮实际构建/部署通过；Core fixture 在项目 Good 配置的缓存状态成功断言处失败（原始工作树已有 `root_G` 四件套，已定位为 fixture 混合斜杠查询缓存漏配，路径规范化及独立资产/流证明修复待新组合验证），后续 Resource/State 及 Release 尚未验收，不能宣称基础组完成。
 - 最后检查点补 Hash 输出失败释放句柄、Core metrics 次级异常保留主错误及回归；新增实验 `CoreStreamCompiler.cs`、backend fixture 和绑定新宿主的贴图验证入口，均未取得 Windows 成功证据。CLI 仍传 null。
-- 实验后端已知待审：默认拒绝插件的 all-types/version 元数据为零，必须先与真实 XML 默认插件/原 manifest 核对，不能以同实现冷对照掩盖错误 header；完整参数、缓存、日志和 G3/SDK 仍未验收。
+- 实验后端已补真实 XML 默认插件的 all-types/version 元数据视图，未知路由仍拒绝；新增独立 manifest/Armor 字节及破坏拒绝断言、调用者 AssetReport 作用域恢复、主异常优先和租约修复，均待 Windows。原版 BAB 小型四流基线正在准备；完整参数、缓存、日志和 G3/SDK 未验收。
 
 ## 下一步（按顺序，先取证再修改）
 
-1. 先查当前分支最近**实际执行** guard/Core lifecycle，定位项目配置成功证明的失败根因；原始四流已输出，不直接删除断言。最后检查点未触发完整新组合验收；审完实验后端元数据后显式 `[refactor-core-lifecycle]` 集中运行。
+1. 先查当前分支最近**实际执行** guard/Core lifecycle，定位项目配置成功证明的失败根因；原始四流已输出，不直接删除断言。新组合已准备显式 `[refactor-core-lifecycle]` 集中运行，必须核对实际终态，不把提交/启动算通过。
 2. 最后检查点仅静态 diff 检查通过，未编译新增后端。完成并验证生命周期基础组：真实 Core include/继承/项目配置失败后重试、递归早退与循环拒绝；Hash/Tracer 原状态恢复；listener 和报告 writer 故障后资源释放。每个测试通过生产对象宿主，不放回业务 DLL 或 stub Core。
 3. 接入 `src/App/Application/Model.cs` 的 `IStreamCompiler` → `src/Managed/Core/BinaryAssetBuilder.Core/DocumentProcessor.cs:ProcessDocument`。旧 `DoBuildData` 只参考初始化顺序，不复制进程退出假设；每流新 Settings/cache/processor，失败 cache 丢弃，顺序租约和全局状态恢复明确。
 4. 后端须显式配置内建 compiler/verifier、SDK schema/搜索根和隔离输出，错误/取消进入统一事件报告；不能只把 CLI 的 null 换成后端。完整 G3、多流与冷进程字节对照、缓存失效/取消后复用及 SDK 验收仍未完成。
