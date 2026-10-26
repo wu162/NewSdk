@@ -47,6 +47,12 @@ namespace NewModCompiler.Tests
             Reject(mod,sdk,output,"CLI_LOG_PATH","--events",Path.Combine(work,"asset:stream"));
             Reject(mod,sdk,output,"CLI_LOG_PATH","--events","A:drive-relative.log");
             Reject(mod,sdk,output,"CLI_LOG_PATH","--events",Path.Combine(work,"trailing-space ","events.jsonl"));
+            string existingDirectory=Path.Combine(work,"existing-directory"), existingFile=Path.Combine(work,"existing-file");
+            Directory.CreateDirectory(existingDirectory); File.WriteAllText(existingFile,"preserve existing output file");
+            Reject(mod,sdk,existingFile,"CLI_OUTPUT_PATH");
+            foreach (string option in new [] {"--events","--report","--log"})
+                Reject(mod,sdk,output,"CLI_LOG_PATH",option,existingDirectory);
+            Require(File.ReadAllText(existingFile)=="preserve existing output file" && Directory.Exists(existingDirectory),"file/directory rejection modified paths");
             // A missing volume used to walk past its root and pass null to
             // Path.Combine. Check both the path helper and public CLI contract.
             string unavailable=null;
@@ -68,6 +74,13 @@ namespace NewModCompiler.Tests
             Link(report,input); Reports.RemoveStale(report); Require(!File.Exists(report) && File.ReadAllText(input)==original,"stale report hard link modified input");
             Link(report,input); Reports.WriteAtomic(report,new Dictionary<string,object> {{"test","atomic"}}); Require(File.ReadAllText(input)==original,"atomic report hard link modified input");
             Require(File.ReadAllText(json).Contains("fresh inode") && File.ReadAllText(text).Contains("fresh inode") && File.ReadAllText(report).Contains("atomic"),"fresh outputs missing");
+            // A destination can become a directory after parsing. Failed atomic
+            // publication must leave it intact and release every pinned parent.
+            string failedParent=Path.Combine(work,"failed-publish"), failedTarget=Path.Combine(failedParent,"events.jsonl"), failedMoved=Path.Combine(work,"failed-publish-moved");
+            Directory.CreateDirectory(failedTarget);
+            try { using (var sink=new JsonLineSink(failedTarget)) { } throw new Exception("Directory destination accepted"); } catch (IOException) { }
+            Require(Directory.Exists(failedTarget) && Directory.GetFiles(failedParent).Length==0,"failed publication changed directory or leaked temporary file");
+            Directory.Move(failedParent,failedMoved); Require(Directory.Exists(failedMoved),"failed publication leaked directory handles");
             foreach (string target in new [] {mod,sdk}) {
                 string junction=Path.Combine(work,"junction"), child=Path.Combine(junction,"forbidden.log"); Junction(junction,target);
                 try {

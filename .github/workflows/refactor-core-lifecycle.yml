@@ -8,6 +8,7 @@ on:
       - 'recovery/scripts/TestCompilerBackendBaseline.ps1'
       - 'recovery/scripts/TestCompilerCli.ps1'
       - 'recovery/tests/CompilerCliControl.cs'
+      - 'recovery/scripts/BuildCompilerCliControl.ps1'
       - 'recovery/scripts/ValidateAppProtocol.py'
       - 'recovery/scripts/app-protocol-requirements.txt'
       - 'recovery/protocol/**'
@@ -97,6 +98,9 @@ jobs:
             throw
           }
           Get-Content "$directory/test-app.log" -Tail 30|Out-Host
+      - name: Compile CLI process controller before long Native linking
+        shell: pwsh
+        run: ./recovery/scripts/BuildCompilerCliControl.ps1 -OutputDirectory recovery/artifacts/cli-controller-preflight
       - name: Build managed Foundation inputs
         shell: pwsh
         run: |
@@ -160,6 +164,7 @@ jobs:
             recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-cli-reuse/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/artifacts/cli-controller-preflight/**
             recovery/artifacts/core-lifecycle-foundation/**/build.json
             recovery/artifacts/core-lifecycle-foundation/**/*.log
             recovery/artifacts/core-lifecycle-product/**/build.json

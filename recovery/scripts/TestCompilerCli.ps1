@@ -28,7 +28,7 @@ function MakeMod([string]$Path,[string]$Probe){
     [IO.File]::WriteAllText((Join-Path $Path 'Data/AptUI/Two.xml'),$Probe.Replace('Default="72.5%"','Default="32.5%"'))
     [IO.File]::WriteAllText((Join-Path $Path 'Data/AdditionalMaps/MapMetaData_One.xml'),$Probe.Replace('Default="72.5%"','Default="42.5%"'))
 }
-function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string]$Selection,[int]$Expected,[int]$StreamCount,[bool]$Cancel=$false,[string[]]$Extra=@()){
+function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string]$Selection,[int]$Expected,[int]$StreamCount,[bool]$Cancel=$false,[string[]]$Extra=@(),[string]$HoldReadFile=$null){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     $destination=Join-Path $script:modeWork ('o'+$script:caseIndex);$script:caseIndex++
     New-Item -ItemType Directory -Path $destination|Out-Null
@@ -37,6 +37,7 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
     $arguments+=@($Extra)
     $events=Join-Path $destination 'build.events.jsonl';$report=Join-Path $destination 'build-report.json'
     $request=@{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=$events;cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}
+    if($HoldReadFile){$request.holdReadFile=$HoldReadFile}
     $requestFile=Join-Path $caseOut 'request.json';$controlFile=Join-Path $caseOut 'control.json'
     $request|ConvertTo-Json -Depth 5|Set-Content $requestFile
     & $script:control $requestFile $controlFile *> (Join-Path $caseOut 'controller.log')
@@ -54,7 +55,11 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
         if(Test-Path -LiteralPath $report){$body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json}
         if($Command -eq 'doctor'){
             Need ((Get-Content (Join-Path $caseOut 'stdout.log') -Raw).Contains('CORE_ENVIRONMENT_OK')) 'Doctor did not verify actual environment'
+        } elseif($Name -eq 'log-directory-rejected') {
+            Need ($Expected -eq 2 -and (Get-Content (Join-Path $caseOut 'stderr.log') -Raw).Contains('CLI_LOG_PATH')) 'Diagnostic directory must be refused during argument parsing'
+            Need ($null -eq $body -and $rows.Count -eq 0) 'Invalid diagnostic path started a build'
         } elseif($Name -eq 'required-log-fault') {
+            Need ($audit.readLockHeld -and $audit.readLockPath -ceq $HoldReadFile) 'External controller did not hold the real required-output file against replacement'
             Need ($Expected -eq 7 -and (Get-Content (Join-Path $caseOut 'stderr.log') -Raw).Contains('OUTPUT_FAILED')) 'Required output channel failure must explicitly fail output with exit7'
         } else {
             Need ($null -ne $body -and $rows.Count -gt 0) 'CLI durable report/events missing'
@@ -137,26 +142,13 @@ try {
     $sourceSdk=Join-Path $root 'SDK';$schemaSnapshot=Snapshot (Join-Path $sourceSdk 'Schemas/xsd')
     $configHash=Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config');$probeFile=Join-Path $sourceSdk 'Mods/mymod/Data/RecoveryArmorProbe.xml';$probeHash=Hash $probeFile;$probe=[IO.File]::ReadAllText($probeFile)
     $state.sdkSchemaInputs=$schemaSnapshot;$state.sdkConfigSha256=$configHash;$state.sdkProbeSha256=$probeHash
-    # Use the same modern NET48 toolchain as the application contracts and
-    # canonical Windows source paths; Framework csc misparses mixed separators.
-    $vswhere=Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
-    $vs=& $vswhere -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
-    Need ($LASTEXITCODE -eq 0 -and !!$vs) 'VS Roslyn compiler not found'
-    $csc=(Resolve-Path -LiteralPath (Join-Path $vs 'MSBuild/Current/Bin/Roslyn/csc.exe')).Path
-    $refs=Join-Path ${env:ProgramFiles(x86)} 'Reference Assemblies/Microsoft/Framework/.NETFramework/v4.8'
-    $controlSource=(Resolve-Path -LiteralPath (Join-Path $root 'recovery/tests/CompilerCliControl.cs')).Path
-    $script:control=Join-Path $short 'ctrl.exe'
-    $compilerArguments=@('/nologo','/noconfig','/nostdlib+','/langversion:7.3','/platform:x86','/codepage:65001',('/out:'+$script:control))
-    $state.controllerReferences=@(foreach($name in @('mscorlib','System','System.Core','System.Web','System.Web.Extensions')){
-        $reference=(Resolve-Path -LiteralPath (Join-Path $refs ($name+'.dll'))).Path
-        $compilerArguments+=('/reference:'+$reference)
-        @{name=$name;sha256=(Hash $reference)}
-    })
-    $compilerArguments+=$controlSource
-    $state.controllerCompiler=@{path=$csc;sha256=(Hash $csc);version=([Diagnostics.FileVersionInfo]::GetVersionInfo($csc).FileVersion);languageVersion='7.3';target='net48/x86'}
-    & $csc @compilerArguments *> "$out/controller-build.log"
-    Need ($LASTEXITCODE -eq 0) 'External CLI control helper compilation failed'
+    $controllerDirectory=Join-Path $out 'controller'
+    $script:control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory $controllerDirectory
+    $controllerBuild=Get-Content (Join-Path $controllerDirectory 'build.json') -Raw|ConvertFrom-Json
+    Need ($controllerBuild.succeeded -and $controllerBuild.sourceCommit -ceq $state.sourceCommit -and $controllerBuild.sourceSha256 -ceq $state.controllerSourceSha256) 'CLI controller build identity differs'
+    $state.controllerCompiler=$controllerBuild.controllerCompiler;$state.controllerReferences=$controllerBuild.controllerReferences
     $state.controllerSha256=Hash $script:control
+    Need ($state.controllerSha256 -ceq $controllerBuild.controllerSha256) 'CLI controller binary identity differs'
     $env:PATH=(@($oldPath -split ';'|Where-Object{$_ -notmatch '[\\/]SDK[\\/]tools'}) -join ';')
     foreach($mode in @('Debug','Release')){
         $script:modeOut=(New-Item -ItemType Directory -Path (Join-Path $out $mode)).FullName
@@ -203,8 +195,13 @@ try {
         $bad=RunCli 'bad-xml' 'build' $badMod $sdk 'base' 4 1
         [IO.File]::WriteAllText("$badMod/Data/Mod.xml",$probe)
         $retry=RunCli 'retry-after-bad' 'build' $badMod $sdk 'base' 0 1
-        $fault=Join-Path $modeWork 'blocked-log';New-Item -ItemType Directory -Path $fault|Out-Null
-        $logFault=RunCli 'required-log-fault' 'build' $mod $sdk 'base' 7 0 $false @('--log',$fault)
+        $blockedDirectory=Join-Path $modeWork 'log-directory';New-Item -ItemType Directory -Path $blockedDirectory|Out-Null
+        $directoryRejected=RunCli 'log-directory-rejected' 'build' $mod $sdk 'base' 2 0 $false @('--log',$blockedDirectory)
+        # A read handle permits read-only parsing/physical-path inspection, but
+        # withholds FILE_SHARE_DELETE so the real sink cannot replace its file.
+        $fault=Join-Path $modeWork 'blocked-log.txt';[IO.File]::WriteAllText($fault,'held output')
+        $logFault=RunCli 'required-log-fault' 'build' $mod $sdk 'base' 7 0 $false @('--log',$fault) $fault
+        Need ([IO.File]::ReadAllText($fault) -ceq 'held output') 'Required-log fault truncated or replaced the held file'
         $cancelled=RunCli 'ctrl-break' 'build' $mod $sdk 'base,apt,maps' 6 1 $true
         Need ($cancelled.report.status -ceq 'cancelled' -and @($cancelled.report.artifacts).Count -eq 0) 'Actual cancellation report accepted output'
         $afterCancel=RunCli 'retry-after-cancel' 'build' $mod $sdk 'base' 0 1

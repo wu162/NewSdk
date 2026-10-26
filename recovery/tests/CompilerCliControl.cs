@@ -72,6 +72,7 @@ public static class CompilerCliControl
     {
         var state=new Dictionary<string,object> { {"succeeded",false},{"controllerPid",Process.GetCurrentProcess().Id},{"singleProcessJobLimit",1},{"signalRequested",false},{"signalSent",false},{"streamStartedObserved",false} };
         IntPtr job=IntPtr.Zero,output=IntPtr.Zero,error=IntPtr.Zero,input=IntPtr.Zero;var child=new ProcessInfo();bool allocated=false,finished=false;
+        FileStream readLock=null;
         string resultPath=args.Length>1?args[1]:null;int code=1;
         try {
             if(args.Length!=2) throw new Exception("Expected request.json result.json");
@@ -79,6 +80,11 @@ public static class CompilerCliControl
             string exe=(string)request["exe"],cwd=(string)request["cwd"],events=(string)request["events"];
             bool cancel=Convert.ToBoolean(request["cancel"]);int timeout=Convert.ToInt32(request["timeoutSeconds"]);
             if(timeout<5 || timeout>600) throw new Exception("Invalid strict process timeout");
+            if(request.ContainsKey("holdReadFile")) {
+                string path=(string)request["holdReadFile"];
+                readLock=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read);
+                state["readLockHeld"]=true;state["readLockPath"]=path;
+            }
             state["exe"]=exe;state["signalRequested"]=cancel;state["consoleInitiallyAttached"]=GetConsoleCP()!=0;
             if(GetConsoleCP()==0) { Check(AllocConsole(),"Cannot allocate a console; CtrlBreak remains unverified"); allocated=true; }
             state["allocatedConsole"]=allocated;
@@ -121,6 +127,7 @@ public static class CompilerCliControl
         finally {
             if(!finished && child.Process!=IntPtr.Zero) {if(job!=IntPtr.Zero)TerminateJobObject(job,252);TerminateProcess(child.Process,252);WaitForSingleObject(child.Process,5000);}
             foreach(IntPtr handle in new[] {child.Thread,child.Process,job,output,error,input})if(handle!=IntPtr.Zero && handle!=new IntPtr(-1))CloseHandle(handle);
+            if(readLock!=null)readLock.Dispose();
             if(allocated)FreeConsole();
             if(resultPath!=null)File.WriteAllText(resultPath,new JavaScriptSerializer {MaxJsonLength=Int32.MaxValue}.Serialize(state));
         }

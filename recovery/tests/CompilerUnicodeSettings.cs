@@ -87,24 +87,29 @@ internal static class CompilerUnicodeSettings
         Require(settings.ProcessedMonitorPaths==null,"Absent optional monitor setting must remain optional");
         Tests.Add("valid-unicode-relative-wildcard-and-semicolon-search-paths-preserved");
     }
-    static void XInclude(string name)
+    static void XInclude(string name, string alias = null)
     {
         string root=Path.Combine(work,name); string includeDirectory=Path.Combine(root,"资源 目录");
         Directory.CreateDirectory(includeDirectory);
         string main=Path.Combine(root,"根 文件.xml"), included=Path.Combine(includeDirectory,"定义 文件.xml");
-        File.WriteAllText(main,"<AssetDeclaration xmlns='"+Ns+"' xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='资源 目录/定义 文件.xml'/></AssetDeclaration>");
+        string href=(alias==null ? "" : alias+":")+"资源 目录/定义 文件.xml";
+        Settings.Current.DataPaths=new[] { root };
+        Settings.Current.ArtPaths=new[] { root };
+        Settings.Current.AudioPaths=new[] { root };
+        File.WriteAllText(main,"<AssetDeclaration xmlns='"+Ns+"' xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='"+href+"'/></AssetDeclaration>");
         File.WriteAllText(included,"<Defines xmlns='"+Ns+"'><Define name='UNICODE_INCLUDE' value='42'/></Defines>");
         var resolver=new FileNameXmlResolver(root);
-        using (var stream=(Stream)resolver.GetEntity(new Uri(included),null,typeof(Stream)))
+        using (var stream=(Stream)resolver.GetEntity(new Uri(alias==null ? included : href,UriKind.Absolute),null,typeof(Stream)))
         using (var reader=new StreamReader(stream))
             Require(reader.ReadToEnd().Contains("UNICODE_INCLUDE"),"Real resolver did not read the included file");
         Require(resolver.Paths.Count==1,"Resolver path map count incorrect");
-        string relative=".\\资源 目录\\定义 文件.xml";
+        string fileRelative=".\\资源 目录\\定义 文件.xml";
+        string relative=alias==null ? fileRelative : href;
         Require(resolver.Paths[0].SourceUri==relative,"Unicode relative SourceUri corrupted: "+resolver.Paths[0].SourceUri);
         Require(resolver.Paths[0].TargetPath==included,"Resolver target path corrupted");
         // No production caller currently uses this second shell wrapper. Exercise
         // its Unicode contract directly without claiming production-call coverage.
-        Require(ShPath.RelativePathTo(root,true,included,false)==relative,"Standalone shell relative path wrapper lost Unicode");
+        Require(ShPath.RelativePathTo(root,true,included,false)==fileRelative,"Standalone shell relative path wrapper lost Unicode");
         Require(ShPath.RelativePathTo("C:\\one",true,"D:\\two.xml",false)==null,"Standalone shell cross-drive failure contract changed");
 
         // Construct only the loader's state; the real LoadXml creates and runs the
@@ -141,6 +146,10 @@ internal static class CompilerUnicodeSettings
             work=Path.GetFullPath(args[0]); Directory.CreateDirectory(work);
             Require(typeof(AssetDeclarationDocument).Assembly==typeof(BuiltinCompilers).Assembly,"Core is outside the production object assembly");
             InvalidPaths(); ValidPaths(); XInclude("ascii-root"); XInclude("中文 根");
+            // Alias hrefs do not contain URI metacharacters. Their resolved local
+            // search roots do: URI construction must preserve the literal name.
+            foreach(string alias in new[] { "data", "art", "audio" })
+                XInclude("别名 # %23 根-"+alias,alias);
             result=new { succeeded=true,sourceCommit=args[2],runId=args[3],checks=checks,tests=Tests.ToArray(),longPathsValidated=false,
                 scope="Targeted production Core Unicode XInclude and search configuration paths; no full SDK or CLI acceptance" };
             Console.WriteLine("PASS UnicodeSettings: "+Tests.Count+" groups; "+checks+" checks");

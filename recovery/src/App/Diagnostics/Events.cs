@@ -112,6 +112,8 @@ namespace NewModCompiler.Diagnostics
     }
     internal static class DiagnosticFiles
     {
+        [DllImport("kernel32.dll",EntryPoint="MoveFileExW",CharSet=CharSet.Unicode,SetLastError=true)]
+        static extern bool MoveFileEx(string existing,string replacement,uint flags);
         internal static void RejectReparseFile(string path)
         {
             try { if ((File.GetAttributes(path) & FileAttributes.ReparsePoint)!=0) throw new IOException("Diagnostic file is a reparse point: " + path); }
@@ -126,9 +128,17 @@ namespace NewModCompiler.Diagnostics
                 // Never truncate an existing inode: it may be a hard link to a
                 // source file. Keep writing the newly created inode after rename.
                 stream=new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.Read|FileShare.Delete);
-                if (File.Exists(path)) File.Replace(temporary,path,null); else File.Move(temporary,path);
+                // ReplaceFile reopens the replacement with sharing requirements
+                // that conflict with this live writer. A same-directory rename
+                // can replace the destination while retaining our already-open
+                // inode (FILE_SHARE_DELETE above); never close and reopen path.
+                if (!MoveFileEx(temporary,path,1)) throw new IOException("Cannot publish fresh diagnostic file: " + path,new Win32Exception(Marshal.GetLastWin32Error()));
                 return stream;
-            } catch { if (stream!=null) stream.Dispose(); if (File.Exists(temporary)) File.Delete(temporary); guard.Dispose(); throw; }
+            } catch {
+                try { if (stream!=null) stream.Dispose(); }
+                finally { try { if (File.Exists(temporary)) File.Delete(temporary); } finally { guard.Dispose(); } }
+                throw;
+            }
         }
     }
     public interface IBuildEventSink : IDisposable { void Write(IDictionary<string, object> value); }

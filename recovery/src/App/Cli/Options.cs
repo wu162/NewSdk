@@ -109,6 +109,7 @@ namespace NewModCompiler.Cli
                 if (Paths.Contains(request.ModRoot, request.OutputRoot) || Paths.Contains(request.OutputRoot, request.ModRoot) || Paths.Contains(request.SdkRoot, request.OutputRoot) || Paths.Contains(request.OutputRoot, request.SdkRoot))
                     throw Bad("CLI_OUTPUT_OVERLAP", "Output must not overlap the MOD or SDK input directories.");
                 try {
+                    if (File.Exists(request.OutputRoot)) throw Bad("CLI_OUTPUT_PATH", "Output must name a directory, not an existing file.");
                     string output=DiagnosticDirectory.ResolveOutput(request.OutputRoot);
                     string mod=DiagnosticDirectory.ResolveInputDirectory(request.ModRoot), sdk=DiagnosticDirectory.ResolveInputDirectory(request.SdkRoot);
                     if (Paths.Contains(mod,output) || Paths.Contains(output,mod) || Paths.Contains(sdk,output) || Paths.Contains(output,sdk))
@@ -140,6 +141,7 @@ namespace NewModCompiler.Cli
             path = FullPath(path);
             if (Paths.Contains(request.ModRoot, path) || Paths.Contains(request.SdkRoot, path)) throw Bad("CLI_LOG_INPUT", "Diagnostic output must not overwrite inputs.");
             try {
+                if (Directory.Exists(path)) throw Bad("CLI_LOG_PATH", "Diagnostic output must name a file, not an existing directory.");
                 string physical=DiagnosticDirectory.ResolveOutput(path);
                 if (Paths.Contains(DiagnosticDirectory.ResolveInputDirectory(request.ModRoot),physical) || Paths.Contains(DiagnosticDirectory.ResolveInputDirectory(request.SdkRoot),physical))
                     throw Bad("CLI_LOG_INPUT","Diagnostic output physically overlaps inputs.");
@@ -159,6 +161,11 @@ namespace NewModCompiler.Cli
                 }
             } catch (BuildFailure) { throw; } catch (Exception e) { throw Bad("PROJECT_INVALID", "Invalid project preset: " + e.Message); }
         }
-        public const string Help = "NewModCompiler build|plan --mod <directory> --sdk-root <directory> --out <directory> [--package-content base,apt,maps] [--package-format loose] [--events <file>] [--report <file>]\nNewModCompiler doctor --sdk-root <directory>\nP2 skeleton: plan is available; build requires an integrated in-process backend. No BAB or worker process is started. Legacy options are preserved in the request for backend validation, not proof that those features are integrated.";
+#if NEWSdk_MONOLITHIC
+        const string RuntimeHelp = "Experimental Win32 in-process backend: no persistent caches, loose output only, artifacts remain in isolated per-build staging. Unsupported legacy/cache/precompiled/output options are explicitly rejected. Plan performs discovery only. Doctor checks the environment without compiling a stream. Packaging and publication are unavailable.";
+#else
+        const string RuntimeHelp = "Standalone application skeleton: plan is available; build requires an integrated in-process backend. Legacy options are retained for backend validation, not proof of integrated capability.";
+#endif
+        public const string Help = "NewModCompiler build|plan --mod <directory> --sdk-root <directory> --out <directory> [--package-content base,apt,maps] [--package-format loose] [--events <file>] [--report <file>]\nNewModCompiler doctor --sdk-root <directory>\n" + RuntimeHelp;
     }
 }

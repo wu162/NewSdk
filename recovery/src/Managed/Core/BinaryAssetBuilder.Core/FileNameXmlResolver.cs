@@ -30,7 +30,10 @@ public class FileNameXmlResolver : XmlUrlResolver
 		if (absoluteUri.Scheme == "data" || absoluteUri.Scheme == "art" || absoluteUri.Scheme == "audio")
 		{
 			empty = FileNameResolver.ResolvePath(_BaseDirectory, absoluteUri.OriginalString);
-			absoluteUri = new Uri($"file://{empty}");
+			// This is a resolved Windows filename, not an already escaped URI.
+			// Adding file:// would interpret literal # and % sequences in any
+			// directory name as URI fragments/escapes and open a different file.
+			absoluteUri = new Uri(empty, UriKind.Absolute);
 		}
 		else
 		{
