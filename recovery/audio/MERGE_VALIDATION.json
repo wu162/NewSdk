@@ -22,5 +22,10 @@
   "productionSdkReplaced": false,
   "fullJointCompilerClaim": false,
   "userExplicitMergeApprovalRequired": true,
-  "testsReusedWithOriginalSourceAndRun": true
+  "testsReusedWithOriginalSourceAndRun": true,
+  "overlappingExistingEdits": [
+    "AGENTS.md (latest explicit PR/user approval rule)",
+    "recovery/RESUME.md (original body preserved, Audio section appended)"
+  ],
+  "allOtherExistingBlobsPreserved": true
 }
