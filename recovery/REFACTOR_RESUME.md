@@ -15,13 +15,13 @@
 - 完整未精简 mymod 原 BAB 先行与两配置生产四输出/cdata对照已通过。mymod apt/maps无入口，明确记录空集合；另有既有真实APT/MapMetaData及三份Upheaval UI完整依赖闭包证据，仍不代替完整 UI/runtime。
 - P6 Debug/Release 正式 ZIP 已通过：精确五运行文件、独立解压后源bin/包bin doctor与真实小MOD、四输出逐字节及协议检查。系统仍需.NET4.8/x86 VC80/现有VC与DirectX；包证据不推断裸Windows无前置要求。
 - 本轮首次生产链接C1001已通过等价移除App新增异常过滤器解决；生产重建成功。其后仅测试/发布工具变更严格复用同一已接受EXE与host，分别记录二进制/测试来源，不冒充当前重编译。
-- P7 APT/maps 三字节修正已真实重建且五文件ZIP刷新通过两配置。新候选已接入默认base LoD、显式SDK→MOD Additional、可选中立修复和原纯C# MakeBig恢复代码，尚待集中生产/ZIP验收。特定来源表长度的原LoD末字节差异保留，见P7文档；不冒称完整修复链通过。
+- P7 APT/maps 三字节修正已真实重建且五文件ZIP刷新通过两配置。新候选已接入默认base LoD、显式SDK→MOD Additional、可选中立修复和原纯C# MakeBig恢复代码，生产构建、App/Core/CLI/全部缓存已过；原测试宿主编译、换行哈希、布尔调用与PowerShell参数同名问题修复后，正固定同一生产二进制定向验收P7/ZIP，原失败终态保留。特定来源表长度的原LoD末字节差异保留，见P7文档；不冒称完整修复链通过。
 - XML63组/非XML历史差分按原sourceCommit与未变化输入复用；不重复完整SDK或无依据路径排列。BIG完整base后处理、完整Unicode纹理、完整UI/runtime仍未完成。
 
 ## 下一步（按顺序）
 
-1. 完成当前 MakeBig 原工具组件、默认base/Additional/显式中立修复生产组集中验收；失败按实际受影响范围修复，不重复已过且输入未变的组。生产打包必须实际调用恢复的MakeBig源码。
-2. 成功后固定真实归档，刷新五文件发行包并从独立解压目录重验base/Additional BIG。旧包只代表其已接受版本，不自动包含候选。
+1. 先确认固定生产P7/ZIP重放终态并核其原始收据；MakeBig组件两配置15组、生产构建/Core/CLI/缓存已有成功，不再重复。纯测试修复继续严格复用同一五文件；生产输入变化才重新构建。
+2. 布尔选项写 `--include-additional=true` / `--fix-neutral-assets=true`。下次生产批次顺带修help空格歧义；当前通过固定归档重放的新包与旧APT包分开记录，不用旧标签冒认。
 3. 用户确认无需AssetMerge，不再集成或列为P7必做。默认base仅需LoD；中立修复所需WBData提取/完整游戏输入、原LoD异常输入、版本参数和完整UI/runtime分别记录，不泛化成功范围。还有时间就继续依赖满足的下一项。
 4. 固定归档重放入口已启用为精确partial-Core恢复，不再钉无产物源。只在实际测试修复需要时使用，校验完整生产闭包/原始归档/成功范围，保留原失败终态与二进制/测试双来源；不重复已过SC。
 

@@ -1,6 +1,6 @@
 # P7：内建 BIG/SKUDEF
 
-状态：APT/maps 的三字节版本标记修正与五文件发行包已通过两配置验收。当前新候选已接入默认 base LoD、显式 Additional、可选中立资产修复和从原 C# MakeBig 恢复的代码，正在集中重建；这些候选尚不能当作已通过版本。P5/P6 既有验收保持独立。
+状态：APT/maps 的三字节版本标记修正与五文件发行包已通过两配置验收。当前新候选已接入默认 base LoD、显式 Additional、可选中立资产修复和从原 C# MakeBig 恢复的代码，生产构建、Core/CLI及全部缓存已通过；新P7/ZIP定向验收仍在收尾，尚不能当作已通过版本。P5/P6 既有验收保持独立。
 
 ```powershell
 ./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --package-content base,apt,maps --package-format big
@@ -20,9 +20,9 @@
 
 默认成员仅来自本次已确认的流产物清单；不扫描陈旧输出、中间文件或缓存。base 不派生 `.version`。空可选集合保持上一代，不生成空 BIG。
 
-`--include-additional true` 默认关闭，且只允许 BIG：按原 step8 先 SDK/Additional、后 MOD/Additional 递归覆盖；相对路径进入 BIG 根，`.asset` 按原 MakeBig 规则排除。同名文件可覆盖本次编译结果或 APT 版本，这是原脚本的显式行为。所有输入先快照到本次 staging 并核对 SHA256，不改原 SDK/MOD/流文件；之后仍走已有发布事务。项目配置可使用布尔 `include-additional`。
+`--include-additional=true` 默认关闭，且只允许 BIG：按原 step8 先 SDK/Additional、后 MOD/Additional 递归覆盖；相对路径进入 BIG 根，`.asset` 按原 MakeBig 规则排除。同名文件可覆盖本次编译结果或 APT 版本，这是原脚本的显式行为。所有输入先快照到本次 staging 并核对 SHA256，不改原 SDK/MOD/流文件；之后仍走已有发布事务。项目配置可使用布尔 `include-additional`。
 
-`--fix-neutral-assets true` 默认关闭，只允许选中 base 的 BIG 构建。先在独立包工作区复制主流四输出及 CDATA，再执行恢复的 HashFix→ModAssetResolver，最后派生 LoD；原 Core/缓存及 SDK 输入不变。编译前预检必须的参考文件，缺失时以 `PACKAGE_NEUTRAL_REFERENCE_MISSING` 拒绝并保留上一代。HashFix 使用 SageXml Worldbuilder manifest；Resolver 优先完整 builtmods 根四件，根完全不存在时才使用完整 SageXml 四件，不拼接两代。当前不访问游戏安装注册表，也未实现从游戏 `WBData_12.big` 提取；需要已有完整 Worldbuilder 四输出。实际 CLI 验收用自包含参考验证哈希确实修正、零插入链、缺失/恢复；真正插入由独立组件原始差分验证，不扩大为完整游戏中立资产验收。
+`--fix-neutral-assets=true` 默认关闭，只允许选中 base 的 BIG 构建。先在独立包工作区复制主流四输出及 CDATA，再执行恢复的 HashFix→ModAssetResolver，最后派生 LoD；原 Core/缓存及 SDK 输入不变。编译前预检必须的参考文件，缺失时以 `PACKAGE_NEUTRAL_REFERENCE_MISSING` 拒绝并保留上一代。HashFix 使用 SageXml Worldbuilder manifest；Resolver 优先完整 builtmods 根四件，根完全不存在时才使用完整 SageXml 四件，不拼接两代。当前不访问游戏安装注册表，也未实现从游戏 `WBData_12.big` 提取；需要已有完整 Worldbuilder 四输出。实际 CLI 验收用自包含参考验证哈希确实修正、零插入链、缺失/恢复；真正插入由独立组件原始差分验证，不扩大为完整游戏中立资产验收。
 
 生产路径为 `BigPackage → Application.MakeBig → BigArchiveWriter` 严格清单/边界/原子保护 → **恢复的原 MakeBig.Lumpy/FixupBinaryWriter**。保持 BIG4、原端序、NUL 路径、L219 尾和连续 payload；不启动 MakeBig 或编译 worker。原目录发现/参数解析保留在恢复源码供差分，但生产只消费明确清单。
 
@@ -31,3 +31,5 @@
 原 LoD 在特定来源表长度上有已复现的末字节差异，详见 `P7_LOD_ORIGINAL_TAIL.md`：原始失败及重复探针保留，不能把其他输入的成功范围泛称完整 LoD/修复链通过。生产正确表复制未按异常样本盲改，也未放宽原始字节断言。
 
 候选真实主组通过后，按成功 source/run/archive 重 pin 发行准备器；独立解压五文件 ZIP 必须再通过 base/Additional BIG 和协议验收。先前已验收的包不会自动包含本候选。版本参数、可选中立资产修复与完整 UI/runtime 分别记录范围，不启动游戏、安装 MOD 或写 CurrentMOD.ini。
+
+布尔选项的 CLI 写法是 `--include-additional=true`、`--fix-neutral-assets=true`（也支持单独裸开关启用），不是空格后另传 `true`。当前 EXE help 的新布尔示例尚有空格歧义，下次生产变更时一并修正，不为帮助字符串重复完整构建。

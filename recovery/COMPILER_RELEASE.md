@@ -38,10 +38,12 @@
 ./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --package-content base,apt,maps
 ```
 
-新版 base BIG 发行使用 `PublishCompiler.ps1 -VerifyBigDeployment`。该开关在正式 ZIP 命名前，把两配置候选解压到独立的精确五文件目录，再调用 `TestCompilerBig.ps1 -UsePackagedRuntime`。测试直接复制包内五文件执行，不重新生成 Texture 补丁；运行 base、apt、maps 单选及组合，对照当前 loose 输入上的原 LoD 八输出和原 MakeBig 全成员字节，并覆盖 CDATA、取消、发布失败及重试。还必须通过显式 `--include-additional true` 组，逐字节对照原 `CopyFolders` 的 SDK→MOD 覆盖和原 MakeBig，保留原始覆盖目录与完整清单；仅 base 组通过不足以验收新候选。全部通过且源目录、解压目录和执行目录五文件哈希不变后才发布；发布清单记录这份独立 ZIP BIG 验收收据。
+新版 base BIG 发行使用 `PublishCompiler.ps1 -VerifyBigDeployment`。该开关在正式 ZIP 命名前，把两配置候选解压到独立的精确五文件目录，再调用 `TestCompilerBig.ps1 -UsePackagedRuntime`。测试直接复制包内五文件执行，不重新生成 Texture 补丁；运行 base、apt、maps 单选及组合，对照当前 loose 输入上的原 LoD 八输出和原 MakeBig 全成员字节，并覆盖 CDATA、取消、发布失败及重试。还必须通过显式 `--include-additional=true` 组，逐字节对照原 `CopyFolders` 的 SDK→MOD 覆盖和原 MakeBig，保留原始覆盖目录与完整清单；仅 base 组通过不足以验收新候选。全部通过且源目录、解压目录和执行目录五文件哈希不变后才发布；发布清单记录这份独立 ZIP BIG 验收收据。
 
 `PrepareCompilerRelease.py` 中 `REQUIRE_BASE_BIG` 必须与新的完整成功生产 source/run/archive 一起启用；不能仅改变开关使旧 APT/maps 归档变成 base 证据。启用后额外核查 base 与 base+apt+maps 两配置真实 CLI 用例、原始产品/原 MakeBig BIG 的完整清单与字节、原 LoD 新鲜八输出及其原始库存，同时强制核查 `all-with-additional`、原 CopyFolders 源码/运行身份、覆盖后的原始文件，以及产品/原 MakeBig BIG 的完整字节。此前已验收的 ZIP 保留原范围，后续候选不得沿用其验收标签。
 
 MakeBig 的恢复实现直接并入生产 EXE；原 SDK MakeBig 只在隔离验收中充当 oracle。AssetMerge 不在本次需求与发行必做项中。
 
-包含可选中立修复的新候选还必须通过显式 `--fix-neutral-assets true` 的真实 ZIP CLI、缺失参考拒绝及恢复重试。准备器核对原 HashFix→ModAssetResolver→LoD 工具与参考输入、实际非零哈希修正、零资产插入范围、原始输出及最终 MakeBig 全成员字节；不开启新候选的发行标签，除非该组同样成功。此验收仅涵盖已证明的零插入修复范围，不自动读取游戏目录，也不代表完整资产插入已支持。
+包含可选中立修复的新候选还必须通过显式 `--fix-neutral-assets=true` 的真实 ZIP CLI、缺失参考拒绝及恢复重试。准备器核对原 HashFix→ModAssetResolver→LoD 工具与参考输入、实际非零哈希修正、零资产插入范围、原始输出及最终 MakeBig 全成员字节；不开启新候选的发行标签，除非该组同样成功。此验收仅涵盖已证明的零插入修复范围，不自动读取游戏目录，也不代表完整资产插入已支持。
+
+当前含 MakeBig/Additional/中立修复候选使用 `.github/workflows/refactor-p7-replay.yml`：`PrepareCompilerP7Replay.py` 固定已通过生产构建、App/Core/CLI/Texture/全部缓存的原始运行，保留其 BIG 测试宿主编译失败终态。精确原始归档/运行文件哈希、源代码与构建闭包必须不变；测试脚本同时记录 Git blob 与 Windows 实际读取字节哈希。它直接运行 `PublishCompiler -VerifyBigDeployment`，候选 ZIP 必须从独立目录通过完整新 P7/协议门槛后才取得正式名称，不重复编译未变化生产代码。原整体失败不会被改写为通过，新接受范围来自独立重放结果；二进制与测试来源分别记录。旧 `PrepareCompilerRelease` 入口仍只固定旧 APT/maps 范围。
