@@ -161,8 +161,9 @@ public static class CompilerApplicationBuild
             Require(Convert.ToInt64(item["calls"]) > 0 && Convert.ToInt64(item["failedCalls"]) >= 0 &&
                     Convert.ToInt64(item["failedCalls"]) <= Convert.ToInt64(item["calls"]) && Convert.ToDouble(item["elapsedMs"]) >= 0,
                     "Application operation work counters invalid");
-        Require(measured.Single(item => Text(item["stage"]) == "backendCompile")["calls"].ToString() == Events(run, "StreamStarted").Length.ToString(),
-            "Application work did not count actual stream compile attempts");
+        var compileWork = measured.Where(item => Text(item["stage"]) == "backendCompile").ToArray();
+        Require(compileWork.Length <= 1 && compileWork.Sum(item => Convert.ToInt64(item["calls"])) == Events(run, "StreamStarted").Length,
+            "Application work did not count actual stream compile attempts, including zero-input optional groups");
         Require(Convert.ToInt64(measured.Single(item => Text(item["stage"]) == "backendDispose")["calls"]) == 1,
             "Application work did not count backend disposal");
         CoreDiagnostics(run);
