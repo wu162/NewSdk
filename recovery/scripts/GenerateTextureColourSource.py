@@ -52,6 +52,10 @@ def generate():
                 if ins.mnemonic=='jmp':break
             if ins.mnemonic in ('int','int3'):raise ValueError('Reachable trap in original')
             r+=ins.size
+    cursor=0x61460
+    for addr,size in sorted(round_ins.values()):
+        if addr!=cursor:raise ValueError('Overlapping or missing RoundMult instructions')
+        cursor+=size
     if sum(n for _,n in round_ins.values())!=0x7a3f4-0x61460:raise ValueError('RoundMult instruction coverage incomplete')
     helpers={0x4e746,0x4e80a,0x4e81c,0x4ed94,0x4e830}
     rows={}

@@ -516,6 +516,19 @@
       "manual_only": true,
       "evidence_only": true,
       "sdk": false
+    },
+    "dxt-colour-state": {
+      "script": "recovery/scripts/TestTextureColourState.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Colour/**",
+        "recovery/scripts/TestTextureColourState.ps1",
+        "recovery/tests/TextureColourStateDifferential.cs",
+        "recovery/tests/TextureColourStateNoOriginal.cs",
+        "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll"
+      ],
+      "evidence": "recovery/evidence/texture/colour-state/*/validation.json",
+      "sdk": false
     }
   },
   "targetPlatform": "Win32"
