@@ -42,6 +42,8 @@ on:
       - 'recovery/tests/CompilerExpressionPrograms.cs'
       - 'recovery/tests/CompilerTransferBuffers.cs'
       - 'recovery/tests/CompilerDeclarationSnapshots.cs'
+      - 'recovery/tests/CompilerDocumentSnapshots.cs'
+      - 'recovery/tests/CompilerDocumentMetadata.cs'
       - 'recovery/tests/CompilerDependencyObservations.cs'
       - 'recovery/tests/CompilerBaseManifestIndex.cs'
       - 'recovery/tests/CompilerNodeJoiner.cs'

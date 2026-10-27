@@ -74,6 +74,8 @@ try {
         @{name='CompilerStreamBindings';marker='PASS StreamBindings:';timeoutSeconds=600},
         @{name='CompilerTransferBuffers';marker='PASS TransferBuffers:';timeoutSeconds=600},
         @{name='CompilerDeclarationSnapshots';marker='PASS DeclarationSnapshots:';timeoutSeconds=600},
+        @{name='CompilerDocumentSnapshots';marker='PASS DocumentSnapshots:';timeoutSeconds=600},
+        @{name='CompilerDocumentMetadata';marker='PASS DocumentMetadata:';timeoutSeconds=600},
         @{name='CompilerExpressionPrograms';marker='PASS ExpressionPrograms:';timeoutSeconds=600},
         @{name='CompilerDependencyObservations';marker='PASS DependencyObservations:'},
         @{name='CompilerBaseManifestIndex';marker='PASS BaseManifestIndex:'},
