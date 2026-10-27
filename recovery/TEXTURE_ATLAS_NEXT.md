@@ -1,0 +1,19 @@
+# PC TerrainTextureAtlas 后续入口
+
+本组尚未恢复，生产SDK未替换。已验收的TexturePacker仅为内存packer；不能据此声明完整atlas加载、压缩、二进制输出或SDK验收。继续同一recovery/texturecompiler-source分支，禁止强推，所有构建与测试只在GitHub Actions。
+
+## 静态原版依据与当前缺口
+
+不可变原DLL SHA256为4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e。原始IL的Plugin.HandleTerrainTextureAtlas在RVA 0x69f4，1475字节；Atlas marshaler在RVA 0x696c，124字节；TexturePacker构造入口在RVA 0x4a70，120字节。原始取证来自既有raw-listings，不以现代格式惯例代替原始调用链。
+
+- XSD为SDK/Schemas/xsd/AssetTypeTerrainTextureAtlas.xsd，Tile含TextureID、BaseTexture、NormalTexture及可选Cell列表；AtlasSize默认2048、AllowLossyCompression默认true。原marshal源结构16字节：tile列表在+4、AtlasSize在+12的ushort、AllowLossyCompression在+14。是否实际影响PC输出须按业务读值/原版差分核对，不能仅依据XSD名字设计行为。
+- 原packer会加载256×256基础图，根据有效tile数选atlas尺寸，复制periodic padding后排序。现有TexturePacker已恢复内存路径和部分文件边界；完整插件需接TextureImageLoader并对原版完整buffer、路径、缺失图与错误边界核对。
+- PC分支明确新建原nvCompressionOptions，再写+476格式与+104过滤选项：基础atlas分别为3和5；有normal atlas时分别为9和5。原IL在IL_0338..0391。现有标准纹理的默认triangle/filter0验收不能替代filter5，格式9也没有当前完整输出契约。不要先猜测格式9等于哪一现代格式，按DDS头/mask/原生写出代码确认。
+- 原TerrainTextureAtlasRuntime声明28字节；输出tile为12字节，TextureID及四个ushort坐标按原排序填入；两个TextureFileData位于runtime +12/+20。必须取得实际原buffer与relocation收据后再实现Tracker分配/对齐/顺序，不能仅按静态声明宣称ABI已验收。
+- 原PC分支使用原默认mip生成设置配合filter5；不是已验证的二维默认triangle/filter0。恢复时保留float精度、tap/归一化/最近tap校正与pass次序，不能以最终raw byte相同代替压缩链相同。PS3/Xbox专属分支均不属于当前任务。
+
+## 已准备的原版前置探针（待Actions）
+
+TextureAtlasPrerequisitesProbe.cs / InspectTextureAtlasPrerequisites.ps1为manual_only、evidence_only的atlas-prerequisites组：10种POT形状（含1/2小边与长条）×8图案×格式3/7/9×过滤0/5=480样本，每份原调用两次核对完整DDS、callback与options确定性，记录RGBA、完整DDS、1644字节选项、DDS字段、header格式跳转表和相关静态数据。7/0是原raw/默认过滤对照；3/9和5来自上述真实PC atlas调用。该probe不调用恢复编码器，不冒充完整atlas或SDK。
+
+集中workflow标记[texture-next-probes]与较大尺寸NPOT存储探针一起执行；普通检查点不启动Windows。完整当前NPOT批次收据产生后再运行，避免再次选中同一组尚未收取的成功回归。后续门槛是完整filter5浮点mip与格式9输出、实际atlas原插件全buffer差分/NoOriginal、适用专用MOD三模式SDK；默认DXT1/1A与生产部署保持独立边界。

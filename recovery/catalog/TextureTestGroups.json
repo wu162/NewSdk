@@ -986,10 +986,17 @@
       "dependencies": [
         "recovery/scripts/TestTextureNpotStorage.ps1",
         "recovery/tests/TextureNpotStorageReplay.cs",
-        "src/TextureCompiler/Managed/*.cs",
         "src/TextureCompiler/Managed/*.csproj",
         "SDK/tools/*.dll",
-        "recovery/evidence/texture/npot-storage/40592911746-1/**"
+        "recovery/evidence/texture/npot-storage/40592911746-1/**",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TexturePngDecoder.cs",
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
+        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs"
       ],
       "evidence": "recovery/evidence/texture/npot-storage-replay/*/validation.json",
       "sdk": false
@@ -1042,6 +1049,37 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-npot-storage/*/validation.json",
       "sdk": true
+    },
+    "npot-storage-stress": {
+      "script": "recovery/scripts/InspectTextureNpotStorageStress.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureNpotStorageStress.ps1",
+        "recovery/tests/TextureNpotStorageStressProbe.cs",
+        "recovery/tests/TextureTgaFormatsOracle.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TextureBmpOracle.cs",
+        "src/TextureCompiler/Managed/*.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/npot-storage-stress/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
+    },
+    "atlas-prerequisites": {
+      "script": "recovery/scripts/InspectTextureAtlasPrerequisites.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureAtlasPrerequisites.ps1",
+        "recovery/tests/TextureAtlasPrerequisitesProbe.cs",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/atlas-prerequisites/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"
