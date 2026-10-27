@@ -15,6 +15,7 @@ public static class CompilerDocumentSnapshots
     const string Disable = "NewSdk.Compiler.DisableDocumentSnapshots", Ns = "uri:ea.com:eala:asset";
     const BindingFlags Hidden = BindingFlags.Instance | BindingFlags.NonPublic;
     static string work, sdk;
+    static IDictionary<string, object> originalOracle;
     static int checks;
     static readonly List<string> tests = new List<string>();
     static readonly List<object> evidence = new List<object>();
@@ -67,6 +68,7 @@ public static class CompilerDocumentSnapshots
         copy.MakeCacheable();
         string after = Xml(source);
         Require((before == after) == !disabled, "MakeComplete/reserialize cache ownership mismatch: " + path);
+        if (disabled) Require((bool)originalOracle["sourceXmlChanged"] == (before != after) && (bool)originalOracle["sameDeclaration"] == Object.ReferenceEquals(copy.SelfInstances[0], source.SelfInstances[0]), "Fallback no longer reproduces independent original DLL oracle");
         Require(Xml(copy) != before, "Receiver did not serialize its completed mutation: " + path);
         Require((Xml(first) == before) == !disabled, "Intermediate cached-only document was mutated: " + path);
         var roundtrip = Read(Xml(copy)); roundtrip.FromLastHack();
@@ -208,8 +210,12 @@ public static class CompilerDocumentSnapshots
         object result; int code = 0; Settings previous = Settings.Current; bool previousSwitch; AppContext.TryGetSwitch(Disable, out previousSwitch);
         try
         {
-            Require(args.Length == 5 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work result source run SDK");
+            Require(args.Length == 6 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work result source run SDK originalOracleJson");
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work); AppContext.SetSwitch(Disable, false);
+            originalOracle = Json.DeserializeObject(File.ReadAllText(args[5])) as IDictionary<string, object>;
+            Require(originalOracle != null && (bool)originalOracle["succeeded"] && (string)originalOracle["mode"] == "original" &&
+                (bool)originalOracle["sameDeclaration"] && (bool)originalOracle["sourceXmlChanged"], "Independent original SDK oracle did not reproduce shared declaration lifecycle");
+            evidence.Add(new { id = "independent-original-SDK-DLL-oracle", oracle = originalOracle });
             PublicCacheBoundaries(); UnsupportedFallbacks(); RealCore();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), evidence = evidence.ToArray(),
                 scope = "Document declaration cache ownership across save/copy/restore/complete/recapture; derived graphs and opt-out remain legacy; not immutable DOM/SchemaInfo or a confirmed CLI fault" };

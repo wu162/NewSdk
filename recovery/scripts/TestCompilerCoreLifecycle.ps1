@@ -142,6 +142,42 @@ try {
         runtimeInputs=@(Get-ChildItem $expressionOracleRuntime -Filter '*.dll' -File|Sort-Object Name|ForEach-Object{@{name=$_.Name;sha256=(Hash $_.FullName)}})
         scope='Original SDK expression corpus in a separate original-only directory and process; no original Core/ExpressionEval assembly enters a production host'
     }
+    # Keep the document ownership oracle in the same original-only runtime,
+    # with independent source, process, work tree and evidence identity.
+    $documentOracleOut=(New-Item -ItemType Directory (Join-Path $out 'document-original')).FullName
+    $documentOracleWork=(New-Item -ItemType Directory (Join-Path $work 'document-original-work')).FullName
+    $documentOracleSource=(Resolve-Path 'recovery/tests/CompilerDocumentSnapshotOracle.cs').Path
+    $documentOracleExe=Join-Path $expressionOracleRuntime 'CompilerDocumentSnapshotOriginal.exe'
+    $documentOracleArguments=@('/nologo','/noconfig','/nostdlib+','/target:exe','/langversion:7.3','/codepage:65001','/platform:x86',('/out:'+$documentOracleExe))
+    foreach($name in $frameworkReferences){$documentOracleArguments+=('/r:'+(Join-Path $refs ($name+'.dll')))}
+    foreach($name in @('BinaryAssetBuilder.Core.dll','BinaryAssetBuilder.ExpressionEval.dll','BinaryAssetBuilder.Utility.dll','antlr.runtime.dll')){
+        $documentOracleArguments+=('/r:'+(Join-Path $expressionOracleRuntime $name))
+    }
+    $documentOracleArguments+=$documentOracleSource
+    & $csc @documentOracleArguments *> "$documentOracleOut/oracle-build.log"
+    if($LASTEXITCODE -ne 0){Get-Content "$documentOracleOut/oracle-build.log" -Tail 100|Out-Host;throw 'Original document ownership oracle compilation failed'}
+    Copy-Item "$expressionOracleExe.config" "$documentOracleExe.config"
+    Copy-Item $documentOracleExe "$documentOracleOut/oracle.exe"
+    Copy-Item "$documentOracleExe.config" "$documentOracleOut/oracle.exe.config"
+    $documentOriginalJson=Join-Path $documentOracleOut 'transcript.json'
+    $documentOracleProcess=Invoke-LifecycleFixture $documentOracleExe @($documentOracleWork,$documentOriginalJson,$state.sourceCommit,$state.runId,'original') $expressionOracleRuntime "$documentOracleOut/oracle-runtime.log" 180
+    if(!(Select-String -LiteralPath "$documentOracleOut/oracle-runtime.log" -SimpleMatch 'PASS DocumentSnapshotOracle: original' -Quiet)){throw 'Original document oracle success marker missing'}
+    $documentOriginal=Get-Content $documentOriginalJson -Raw|ConvertFrom-Json
+    $documentOriginalCore=Join-Path $expressionOracleRuntime 'BinaryAssetBuilder.Core.dll'
+    if($documentOriginal.succeeded -ne $true -or $documentOriginal.mode -cne 'original' -or
+       $documentOriginal.sourceCommit -cne $state.sourceCommit -or [string]$documentOriginal.runId -cne [string]$state.runId -or
+       $documentOriginal.sameDeclaration -ne $true -or $documentOriginal.sourceXmlChanged -ne $true -or
+       $documentOriginal.assemblySha256Base64 -cne [Convert]::ToBase64String([Convert]::FromHexString((Hash $documentOriginalCore)))){
+        throw 'Original document oracle identity or historical shared-state outcome mismatch'
+    }
+    $state.documentOriginal=@{
+        sourceCommit=$state.sourceCommit;runId=$state.runId;runAttempt=$state.runAttempt;sourcePath='recovery/tests/CompilerDocumentSnapshotOracle.cs'
+        sourceSha256=(Hash $documentOracleSource);compilerSha256=(Hash $csc);executableSha256=(Hash $documentOracleExe);configSha256=(Hash "$documentOracleExe.config")
+        processId=$documentOracleProcess;transcriptSha256=(Hash $documentOriginalJson);coreSha256=(Hash $documentOriginalCore)
+        sameDeclaration=$documentOriginal.sameDeclaration;sourceXmlChanged=$documentOriginal.sourceXmlChanged
+        runtimeInputs=$state.expressionOriginal.runtimeInputs
+        scope='Original SDK public Core document cache lifecycle in a separate original-only process; direct reproducer does not establish a production CLI fault'
+    }
     foreach($mode in @('Debug','Release')) {
         $modeOut=(New-Item -ItemType Directory (Join-Path $out $mode)).FullName
         $clean=Join-Path $work $mode
@@ -195,6 +231,7 @@ try {
             $resultPath=Join-Path $fixtureOut 'result.json'
                 $fixtureArguments=@($fixtureExe,$fixtureWork,$resultPath,$state.sourceCommit,$state.runId,$sdk)
                 if($fixture.name -eq 'CompilerExpressionPrograms'){$fixtureArguments+=$expressionOriginalJson}
+                if($fixture.name -eq 'CompilerDocumentSnapshots'){$fixtureArguments+=$documentOriginalJson}
                 $processId=Invoke-LifecycleFixture $run.exe $fixtureArguments $clean "$fixtureOut/runtime.log" $timeout
                 if(!(Select-String -LiteralPath "$fixtureOut/runtime.log" -SimpleMatch $fixture.marker -Quiet)){throw 'Core lifecycle success marker missing'}
                 $result=Get-Content -LiteralPath $resultPath -Raw|ConvertFrom-Json
@@ -234,6 +271,9 @@ try {
     foreach($input in $state.schemaInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK schema input changed during lifecycle validation'}}
     foreach($input in $state.sdkFixtureInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK fixture/config input changed during lifecycle validation'}}
     if((Hash $originalTexture) -cne $state.originalTextureSha256){throw 'Pinned original texture changed during backend lifecycle validation'}
+    if((Hash $documentOracleSource) -cne $state.documentOriginal.sourceSha256 -or
+       (Hash $documentOriginalJson) -cne $state.documentOriginal.transcriptSha256 -or
+       (Hash $documentOriginalCore) -cne $state.documentOriginal.coreSha256){throw 'Original document oracle evidence changed during validation'}
     if($fixtureFailures.Count -ne 0){throw ($fixtureFailures -join "`n")}
     $state.succeeded=$true;$state.status='passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate'
     $global:LASTEXITCODE=0

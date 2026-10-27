@@ -408,7 +408,7 @@ public class AssetDeclarationDocument : IXmlSerializable
                 ? SnapshotDeclarations(last.SelfInstances) : last.SelfInstances;
             SelfInstances = declarations != null ? new InstanceSet(document, declarations) : new InstanceSet();
 			Changed = last.DocumentHash != DocumentHash;
-            LastOutputAssets = metadata.Outputs;
+            LastOutputAssets = metadata.Legacy ? last.OutputAssets : metadata.Outputs;
 			LastDocumentHash = last.DocumentHash;
 			LastIncludePathHash = last.IncludePathHash;
 			LastDependentFileHash = last.DependentFileHash;

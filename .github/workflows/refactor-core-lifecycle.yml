@@ -43,6 +43,7 @@ on:
       - 'recovery/tests/CompilerTransferBuffers.cs'
       - 'recovery/tests/CompilerDeclarationSnapshots.cs'
       - 'recovery/tests/CompilerDocumentSnapshots.cs'
+      - 'recovery/tests/CompilerDocumentSnapshotOracle.cs'
       - 'recovery/tests/CompilerDocumentMetadata.cs'
       - 'recovery/tests/CompilerDependencyObservations.cs'
       - 'recovery/tests/CompilerBaseManifestIndex.cs'
@@ -200,6 +201,7 @@ jobs:
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/fixture-build.log
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/runtime.log
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/expression-original/**
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/document-original/**
           if-no-files-found: warn
       - name: Isolated original BAB baseline for the two targeted backend cases
         if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
