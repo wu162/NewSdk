@@ -84,3 +84,13 @@ NodeJoiner当前仅对重复子节点的id匹配建立索引；按Name匹配始�
 第五轮已验收的StableSort membership索引只替代本次排序已有依赖集合的Contains查询，不改变闭包构造、原int XOR键碰撞错误、schema初次排序或插入顺序。仅根私有StreamBindings、exact声明/list/set/Handle、标准schema字典及默认比较器、普通CultureInfo/CompareInfo可进入；最后一次trace后在同步区域使用完整(TypeId,InstanceId)键。小集合(<16)、1024集合/65536依赖项/4096声明预算、派生/custom/legacy路径保守回退，任何TraceWrite版本变化永久legacy；不开放并行。DisableStableSortMembershipIndex恢复原Contains路径。`coreWork[].stableSortMembership`记录实际builds/entries/indexQueries/linearQueries与回退原因，scope不逃逸，文档/DP只保留标量快照；不是整个StableSort复杂度或CLI提速承诺。
 
 真实补充样例保持有界：4份完整Upheaval原文件与3份明确synthetic Include/Define/继承适配器（7资产、无Art/Texture/Audio闭包），另有96项Experience强依赖链及2项weak拉入Upgrade。原字节/输入闭包预检先于长编译，Core冷/暖/持久会话、回退、原DLL和独立原BAB门槛均保留。样例及反射供图的组件计量不替代完整mymod、全游戏数据或游戏内验收。
+
+## 本轮优化的诊断回退
+
+在用于诊断的解压副本中，可给`NewModCompiler.exe.config`已有的`<runtime>`加入下面这一项；保留原runtime设置，不重复创建`AppContextSwitchOverrides`，已有该项时将开关合并进其`value`。这是.NET配置，不是CLI参数，修改后重新启动进程。
+
+```xml
+<AppContextSwitchOverrides value="NewSdk.Compiler.DisableSharedDocumentDeclarations=true;NewSdk.Compiler.DisableStableSortMembershipIndex=true" />
+```
+
+这两个开关分别使用深复制saved声明和旧线性membership查询，仍保留本轮文档生命周期隔离。对NodeJoiner可独立加入`NewSdk.Compiler.DisableNodeJoinerIndex=true`关闭id索引。对比相同输入的四输出与报告计量；`DisableDocumentSnapshots`用于复现旧共享生命周期，与只关闭上述性能优化不同，不能把旧共享错误当作应保留的性能行为。
