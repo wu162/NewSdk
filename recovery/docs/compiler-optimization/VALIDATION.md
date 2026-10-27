@@ -26,12 +26,17 @@
 | `15bcd14c97c475d6922cb367989a4fc04d8ba7bb` | [40596715818](https://github.com/wu162/NewSdk/actions/runs/40596715818) | **success**；Texture/Builtin owner-thread、保留原Texture transcript、24次live错误线程拒绝和关闭后合同 |
 | `71b5a0a4f55e530eccc9703eff2f3c3a397dd910` | [40598874896](https://github.com/wu162/NewSdk/actions/runs/40598874896) | **success**；实际注册路由immutable能力标量，缓存只否决、session拒绝与opaque跟踪消费；6行独立原reader/digest语料 |
 | `e4169602d875d213e5763a6b8fdc83973409fd61` | [40600682680](https://github.com/wu162/NewSdk/actions/runs/40600682680) | **Core失败，整批不接受**；双配置各28组成功，PhysicalInputs失败DOM根空引用、ExpressionPrograms未真正arm修改事件；修复进入下组，保留原运行 |
-
-| `6db109aff316e21258485f49eaf361d96c790467` | [40602153873](https://github.com/wu162/NewSdk/actions/runs/40602153873) | **验证中**；修复真实NodeChanged/NodeInserted事件arm、失败DOM探针，text资源所有权、3行typed DOM原语；原DLL运行前置预检 |
+| `6db109aff316e21258485f49eaf361d96c790467` | [40602153873](https://github.com/wu162/NewSdk/actions/runs/40602153873) | **Core失败，整批不接受**；双配置29/30成功，唯一Metadata错误期待要求恢复后Validity丢失；其余独立组交接时仍运行，须查最终终态 |
 
 前五组完整通过。第六组保留失败小证据`12778733006`，604072字节，SHA256 `f017f07615d3466a4fbd7b3f35a69f5e3838bef929303b7833fd4eee369e2e30`本地/官方一致；摘要取消/Chunk池及其余28组成功不等于整批接受。失败DOM的三文件立即exclusive、原XmlFormatting包装与同document修复重读在NRE之前已执行成功，失败发生在旧探针对已被Framework清空的DocumentElement解引用。
 
-Define失败暴露的是未arm的fixture：原DLL52行changed=false，标准单text属性改值实际发NodeChanged。旧40 traversal中16个live-sibling修改行也未arm；它们此前不能作为回调修改覆盖证据。第七组同时监听两种事件，并在原/恢复两端强制修改实际发生，保留全量严格差分和EOF版本断言。不能把修正fixture当作放宽生产门槛；新证明待Actions。
+Define失败暴露的是未arm的fixture：原DLL52行changed=false，标准单text属性改值实际发NodeChanged。旧40 traversal中16个live-sibling修改行也未arm；它们此前不能作为回调修改覆盖证据。第七组同时监听两种事件，并在原/恢复两端强制修改实际发生，保留全量严格差分和EOF版本断言。不能把修正fixture当作放宽生产门槛；第七组实证52/52 changed=true、16/16 live-sibling mutated=true，恢复版严格比较与全部ExpressionPrograms通过。
+
+第七组共享小证据artifact`12778904826`，SHA256`0ed021507a6310e8cc1adde1879c6b981c16de3c8d627d6046bae9adc9aaf94e`官方/本地一致，下载`work/core-probes-40602153873.zip`。PhysicalInputs双配置各214 checks成功；InputDigests/ExpressionPrograms均成功。Metadata严格原/恢复逐行JSON比较已过，失败在约317行要求restored没有Valid节点的额外错误期待。原DLL实测Validated-Core 9→9 Valid、processed-Core 0→0、prefix/entity 4→4；sameXml/DOM编辑隔离/BaseURI/schemaTypeAlias及共享IsMixed突变均保留，Schemas815→0/815→0/1→0。实际Clone也保留默认Specified=false且本语料legacy hash相同，撤回此前必丢Validity/必改hash推导。下一轮改正正向断言，保留严格原对照及真实环境缺失/别名限制，Actions重验。
+
+Define组件实际ProcessExpressions七轮4096读wall中位数：Debug默认4.8930/回退7.9456ms；Release4.8171/7.8925ms。组件收益不等于完整CLI收益，原始样本在ExpressionPrograms result.json observations。
+
+用户于交接时要求暂停；没有再修改测试/生产代码或启动新run，现有`40602153873`保持运行且已知Core失败。以该运行最终终态补齐记录，不能发布为完整接受。
 
 严格复用仍pin第六轮对象；最终接受点形成后更新。运行中/失败对象不作为完整接受源。
 

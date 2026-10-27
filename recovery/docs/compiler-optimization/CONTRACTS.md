@@ -2,7 +2,7 @@
 
 本页说明实现边界；验收状态以 [HANDOFF](HANDOFF.md) 和 [VALIDATION](VALIDATION.md) 的准确 sourceCommit/runId 为准。[PLAN](PLAN.md) 是设计材料，未完成提案不能用来授权强缓存命中或并行。
 
-2026-10-28：当前完整接受 `71b5a0a4 / 40598874896`；`e4169602`两fixture失败，修正真实事件arm及text/typed DOM证据的`6db109af / 40602153873`正在验证。来源与终态集中于 VALIDATION。
+2026-10-28：当前完整接受 `71b5a0a4 / 40598874896`；`e4169602`两fixture失败已修；`6db109af / 40602153873`双配置29/30成功，唯一Metadata错误期待待纠正，整批未接受。来源与终态集中于 VALIDATION。
 
 ## 工作计量
 
@@ -154,4 +154,4 @@ HashingWriter 保持原生产实现：每个 512 UTF-16 字符块和最后不足
 
 parse=text资源组只补GetResource→raw stream→reader→response的确定释放、坏encoding/fallback和主异常保留，仍按原GetResource路由读取，绕过Core FileNameXmlResolver.Paths/PhysicalInputSnapshot。外部file/http text输入的legacy /bc、/sc whole-root覆盖尚未实证；非Texture的LegacyAllowed不是完整闭包证明。后续须真实CLI差分和保守拒绝/跟踪决策，不据此开放强缓存。
 
-完整ASR恢复还有具体门槛：XmlNodeReader→XmlDocument.Load能带入部分PSVI及默认Specified，但新doc的有效性报告状态/Schema环境未完整恢复，XmlSchema对象仍可能别名；saved FromLast也没有DOM阶段和完整Define输入。现有PrevalidatedLoad重新Gather/evaluate/whole Validate及引用/FileReference改写，不能直接以processed DOM绕过。三行原DLL恢复原语用例只解除调查阻塞，生产没有接入半成品ASR，也不授权复用。
+完整ASR恢复还有具体门槛：原DLL/Framework实际验证XmlNodeReader→XmlDocument.Load保留本语料的PSVI、Validity、默认Specified/BaseURI，Clone也保留本语料Specified与legacy hash，先前相反推导撤回；完整Schema环境未恢复，XmlSchema对象存在实证别名；saved FromLast也没有DOM阶段和完整Define输入。现有PrevalidatedLoad重新Gather/evaluate/whole Validate及引用/FileReference改写，不能直接以processed DOM绕过。三行原DLL恢复原语用例只解除调查阻塞，生产没有接入半成品ASR，也不授权复用。

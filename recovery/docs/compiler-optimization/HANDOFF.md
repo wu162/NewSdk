@@ -1,31 +1,33 @@
 # 编译器优化：当前短交接
 
-更新：2026-10-28（北京时间）。成果集中 `feature/compiler-optimization`；[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，不强推、不自行合并。通常2个子代理、最多3个；所有编译/测试/微基准只用Actions。导航：[README](README.md)、[CONTRACTS](CONTRACTS.md)、[VALIDATION](VALIDATION.md)。
+更新：2026-10-28（北京时间）。用户要求先交接，已停止新增实现/验证。成果集中`feature/compiler-optimization`；[PR #15](https://github.com/wu162/NewSdk/pull/15)保持草稿，不自行合并、不强推。通常2个子代理、最多3个；所有编译/测试/微基准只用Actions。[合同](CONTRACTS.md)、[详细证据](VALIDATION.md)。
 
-## 最新接受点与候选
+## 接受点与当前源码
 
-- **完整接受：`71b5a0a4f55e530eccc9703eff2f3c3a397dd910` / [40598874896](https://github.com/wu162/NewSdk/actions/runs/40598874896)，整体 success。** Debug/Release 各30组、原DLL/独立原BAB、协议、Texture、实际CLI/cache/输入根、完整mymod/BIG及五文件ZIP通过。此前`5727b05b`、`c3ef5344`、`07ff6a3b`三组完整运行也全部success。
-- **后续未接受：`e4169602 / 40600682680`**，Core两fixture失败（未arm的DOM事件、失败DOM根空引用），其余28组成功不构成整批接受。
-- **当前验证中：`6db109af / 40602153873`**，修复两fixture、保留严格差分；加text资源所有权、3行typed DOM恢复原语与原DLL实际运行前置预检。Define、XML/text、Chunk池、摘要回退取消均须此批完整接受后才更新结论。
-- 历史`15bcd14c`独立Release包已下载核对官方transport/原ZIP/五成员/Texture绑定；当前`71b5a0a4`包只有官方身份，不混用。完整下载身份见VALIDATION。严格复用仍pin`64bf/40524897974`，最后完整接受后再集中更新。
+- **最新完整接受：`71b5a0a4f55e530eccc9703eff2f3c3a397dd910` / [40598874896](https://github.com/wu162/NewSdk/actions/runs/40598874896)，整体success。** 双配置各30组、原DLL/独立原BAB、协议/Texture/真实CLI、全部cache/输入根、完整mymod/BIG和五文件ZIP通过。本轮此前四组完整运行也success。
+- **后续生产候选：`6db109aff316e21258485f49eaf361d96c790467` / [40602153873](https://github.com/wu162/NewSdk/actions/runs/40602153873)。** Core双配置各29/30通过，唯一失败为Metadata新增恢复原语探针的错误期待；整个候选不能标完整接受。交接时其独立CLI/cache/SDK组仍在运行，未取消，后续先查终态。
+- 上一候选`e4169602 / 40600682680`已整体failure：DOM事件未arm、失败DOM空根两个fixture错误。本候选已实证修好这两项；历史失败保留。
+- 严格targeted/CLI复用工具仍pin`64bf/40524897974`，不能覆盖当前生产差异；当前候选失败，**不要repin到它或用旧对象跳过新生产验证**。包的官方身份、已核Core小证据与历史Release下载见VALIDATION。
 
-## 本轮新增
+## 下一轮先做
 
-| 能力 | 实际边界 |
+1. 读AGENTS、本页及VALIDATION，查`40602153873`终态；原/恢复证据已下载到`work/core-probes-40602153873.zip`（artifact`12778904826`，SHA256`0ed021507a6310e8cc1adde1879c6b981c16de3c8d627d6046bae9adc9aaf94e`，官方/本地一致）。
+2. 修`recovery/tests/CompilerDocumentMetadata.cs`约317行的错误期待。现在要求Reader恢复后没有Valid节点，实测validated-Core为9→9、processed-Core为0→0、prefix/entity为4→4。改成守住实际保留行为的正断言，保留严格原DLL逐行比较、默认Specified/BaseURI/DOM隔离和schema别名/环境缺失门槛；不要只删失败断言。
+3. 仅修测试后用Actions集中重验。当前生产仍缺完整接受；现有复用控制器只接受完整success来源，不能把29项成功冒充整批接受。最终success后再更新targeted pin及runner对应literal、核原ZIP身份、同步PR/短交接，不合并。
+
+## 本轮能力与实际证明
+
+| 范围 | 状态 |
 | --- | --- |
-| 继承阶段 | 显式 DFS、按引用 active 集与 live DOM readiness，拒环且支持4096前向链；原 lookup/merge/hash、重复调用、schema 默认值/SchemaInfo/来源和主错误顺序保留。readiness 不从 legacy hash 推断、不从 saved 声明恢复，不授权语义缓存。 |
-| 外部 Cache | 恢复 header 复用已封存来源；原坏长度删除/拒绝保留。记录实际存在查询并终验，成功自身写删推进预期；可选写失败撤销对应证明并 incomplete，已有冲突保留。真实 cold→warm→warm 四输出与取消通过。 |
-| Cache别名 | 已接受组使用同 leaf 有界桶、case/junction 保守证明撤销；native parent 查询每次16/每代256，失败或预算不足 incomplete，不把路径直接大小写合并。 |
-| 摘要读取器 | 已接受组为构造/读取/消费者异常及提前退出确定收尾；pending I/O 未完成的 buffer 不归池。保留同 Chunk、实际短块、活 FileSize 与 EOF 形态；不宣称正常 APM 事件泄漏或底层 OS read 可取消。 |
-| 插件生命周期 | 已接受组在 Texture 活跃入口和 Builtin 聚合 Registry/ReInitialize/Dispose 检查 owner，拒绝发生在 native/聚合终态之前。不是所有插件已可重入，也未开放并行。 |
+| live继承/DFS | 已完整接受：按引用visiting/complete、4096前向链、拒环/修复重试、legacy顺序与schema默认来源；不从零hash判断阶段，不授权语义缓存。 |
+| 外部Cache | 已完整接受：header封存游标、实际存在查询/终验、自身写删及失败修复、case/junction有界别名撤销；已有冲突保留，Local/Output/staging原角色不变。 |
+| 读取器/插件 | 已完整接受：APM reader确定收尾、真实SHA故障/同item重试、Texture/Builtin所属Thread门禁；保留原字节及关闭错误。 |
+| 能力声明 | 已完整接受：实际路由immutable标量，消费于legacy缓存只否决、session拒绝与opaque输入原因；未知不增长map，强bundle/并行始终false。 |
+| Define/资源候选 | 当前双配置已通过：52/52 Define回调真实changed、40 traversal中16 live-sibling真实mutated及严格原差分；有界final-expression索引、成功/失败finally释放；XML/text获取/关闭、三文件立即exclusive/修复重读/事件退订、摘要回退取消、8MiB idle Chunk池。仍受整批接受门槛约束。 |
 
-既有 exact DOM/表达式程序、符号/NodeJoiner/manifest/StableSort 局部索引、schema 自有元数据及 saved 声明隔离保持；详细边界集中于 CONTRACTS，不把历史组件收益当完整 CLI 收益。`CacheFromDocument` 元数据共享仍无生产调用收益证据。
+Define组件7轮4096读的wall中位数：Release默认4.8171/回退7.8925ms（Debug4.8930/7.9456ms），只代表组件。此前实际三流小CLI成对计量没有可靠端到端提速证据，不外推完整MOD收益。
 
-## 计量与未完成
+## 明确剩余边界
 
-第一次实际 CLI 同 Release EXE/三流小输入、各一次 warmup 后交错7对，全部十二输出逐次字节相同。默认/诊断回退的 wall 中位数 **1255.3308/1234.7419ms**，CPU **1218.75/1187.5ms**；未观察到这份小用例端到端提速，不宣称显著回归或完整 MOD 收益，原样本/CPU粒度/计时边界见 VALIDATION。
-
-1. 完整 AssetSemanticResult、processed XML/default/type/source 冻结与 Define 环境仍未完成；不要用 CloneNode、旧 XML hash 或部分轨迹放行强缓存。
-2. Texture隐藏资源和parse=text绕过resolver Paths/physical snapshot的外部file/http输入缓存覆盖仍未闭合；BinaryAsset Local/Output 可变角色和 App staging 排除继续保留，`completeClosure=false`。原字段只证明本代内容，不证明旧 cache 编码语义。
-3. 新强键 bundle 缓存、完整插件资源/状态合同和并行仍未完成。继续保留原字节、拒绝、冷热/持久缓存、失败取消/事务、完整 mymod/BIG、独立 ZIP 门槛。
-4. 跟完当前修复/资源候选Actions，再更新最终source/run及严格复用pin。新生产输入必须完整重建；测试/工具仅在闭包不变且严格校验后复用。普通推送本分支，合入须用户批准。
+- 完整ASR/Define环境仍未冻结。三行原DLL实证推翻了“Reader必丢Validity”“Clone必改变默认Specified/legacy hash”的先前推导；当前实际Reader/Clone保留这些项目。仍实证存在XmlSchema对象别名与IsMixed共享突变、Schemas数量815→0/815→0/1→0；saved恢复也缺DOM阶段/完整Define输入，不能跳过PrevalidatedLoad重算门槛。
+- parse=text仍走原GetResource，绕过Core resolver Paths/PhysicalInputSnapshot；外部file/http文本的legacy缓存覆盖尚未证明。Texture隐藏闭包、新强键bundle与并行未完成，`completeClosure=false`，不由LegacyAllowed或部分轨迹放行强缓存。

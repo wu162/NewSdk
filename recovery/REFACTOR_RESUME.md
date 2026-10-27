@@ -8,11 +8,11 @@
 2. 按 [优化索引](docs/compiler-optimization/README.md) 选择源码和方案章节；当前实现边界查 [CONTRACTS](docs/compiler-optimization/CONTRACTS.md)，完整用户方案仅保留 [PLAN](docs/compiler-optimization/PLAN.md) 一份。
 3. 按 [EFFICIENCY](EFFICIENCY.md) 推进完整能力组。通常 2 个子代理、最多 3 个；编译、测试和微基准全部使用 GitHub Actions。每约 10–15 分钟检查并普通推送有意义的检查点，未验证成果明确标记。
 
-最新完整接受的生产、首次测试及打包来源为 **`71b5a0a4f55e530eccc9703eff2f3c3a397dd910` / [40598874896](https://github.com/wu162/NewSdk/actions/runs/40598874896)**，整体 success。双配置各30组、原DLL/独立原BAB、协议、Texture、CLI/cache/输入根、完整mymod/BIG和五文件ZIP通过。本轮前五组完整success；第六组Core有两fixture失败，修复与text/原语证据集中`6db109af / 40602153873`验证中，不能继承旧生产结论。精确来源、产物身份和下一组范围见[短交接](docs/compiler-optimization/HANDOFF.md)与[验证记录](docs/compiler-optimization/VALIDATION.md)。
+最新完整接受的生产、首次测试及打包来源为 **`71b5a0a4f55e530eccc9703eff2f3c3a397dd910` / [40598874896](https://github.com/wu162/NewSdk/actions/runs/40598874896)**，整体success。双配置各30组、原DLL/BAB、完整CLI/cache/SDK/mymod/BIG及五文件ZIP通过。
 
-本轮新增live继承阶段/栈安全、外部Cache查询/自身写删与case/junction别名、摘要读取确定收尾、Texture/Builtin所属线程门禁。能力声明下一组实际收紧缓存资格，没有授权强缓存或并行。实际三流小CLI默认/回退成对计量未观察到端到端提速；局部组件收益不能替代完整构建对照。
+用户要求先交接，已暂停新增实现/运行。后续生产候选`6db109af / 40602153873`的Core双配置各29/30成功，唯一失败是Metadata探针错误要求Reader恢复丢失Validity；实测原版/恢复版保留，严格原DLL比较已过。交接时其独立CLI/cache/SDK仍在运行，未取消；下一轮先查终态并按[短交接](docs/compiler-optimization/HANDOFF.md)纠正期待、用Actions重验，不能把候选标完整接受或repin到失败来源。
 
-下一步仍以完整语义结果与 Define 环境为主线；Texture 隐藏闭包、新强键 bundle 缓存和并行尚未完成。Local/Output 的可变修复和 App staging 排除继续保留；不能靠旧 XML hash 或部分依赖放行强缓存命中。
+本轮已接受live继承/栈安全、外部Cache查询/自身写删/别名、摘要读取器收尾、Texture/Builtin owner门禁及实际消费的能力声明。候选的Define索引、真实DOM回调/原DLL差分、XML/text资源、摘要回退取消和Chunk池已通过组件门槛，等待整批接受。完整ASR/Define环境、Texture及parse=text外部输入闭包、新bundle和并行仍未完成。精确来源、失败原因、已核证据与下一步见[HANDOFF](docs/compiler-optimization/HANDOFF.md)、[VALIDATION](docs/compiler-optimization/VALIDATION.md)。没有可靠完整CLI提速结论。
 
 ## 已交付产品与边界
 
