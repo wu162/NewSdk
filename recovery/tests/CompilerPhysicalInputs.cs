@@ -232,7 +232,7 @@ public static class CompilerPhysicalInputs
         using (var snapshot = new PhysicalInputSnapshot(Path.Combine(root, "scratch")))
         using (snapshot.BeginReadScope())
         {
-            PhysicalInputSnapshot.Entry first, caseAlias, hardAlias, distinct;
+            PhysicalInputSnapshot.Entry first = null, caseAlias = null, hardAlias = null, distinct = null;
             Require(PhysicalInputSnapshot.TryCapture(path, out first) && PhysicalInputSnapshot.TryCapture(path.ToUpperInvariant(), out caseAlias) && PhysicalInputSnapshot.TryCapture(link, out hardAlias),
                 "Positive aliases could not establish their actual file identities");
             Require(Object.ReferenceEquals(first, caseAlias) && Object.ReferenceEquals(first, hardAlias) &&

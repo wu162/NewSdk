@@ -290,13 +290,13 @@ public static class CompilerBaseManifestIndex
         {
             var derived = Case("derived-Equals-" + mutation, 32, 8); derived.equalityMutation = mutation;
             derived.bases = new[] { 8, 9999, 9999, 9999, 9999, 9999, 9999, 9999 };
-            var result = Compare(derived); var metrics = Metrics(result);
+            var result = Compare(derived); var derivedMetrics = Metrics(result);
             var state = Json.Deserialize<Dictionary<string, object>>(result.outcome);
-            Require(Number(metrics, "indexedCalls") == 0 && Number(metrics, "unsafeFallbacks") == 1 && Number(metrics, "linearCalls") == 1,
+            Require(Number(derivedMetrics, "indexedCalls") == 0 && Number(derivedMetrics, "unsafeFallbacks") == 1 && Number(derivedMetrics, "linearCalls") == 1,
                 "A derived Equals implementation was incorrectly authorized for indexed removal");
             if (mutation == 1)
                 Require(state["error"] == null && Items(state["remaining"]).Length == 33 && Items(state["final"]).Length == 1 &&
-                    Convert.ToString(Items(state["remaining"])[32]).StartsWith("32:", StringComparison.Ordinal) && Number(metrics, "linearRemovalChecks") == 32,
+                    Convert.ToString(Items(state["remaining"])[32]).StartsWith("32:", StringComparison.Ordinal) && Number(derivedMetrics, "linearRemovalChecks") == 32,
                     "Legacy Remove did not preserve its entry count after Equals changed the list and appended a new matching candidate");
             else
                 Require(Convert.ToString(state["error"]).Contains("injected derived Equals failure") && Items(state["remaining"]).Length == 32 && Items(state["final"]).Length == 1,
