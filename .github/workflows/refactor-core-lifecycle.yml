@@ -224,6 +224,23 @@ jobs:
           foreach($mode in @('Debug','Release')) {
             ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerUpheavalSamples/result.json" -OutputDirectory "recovery/evidence/refactor/core-upheaval-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180 -ExpectedCaseCount 1
           }
+      - name: Stable sort prerequisite chain original BAB differential in Debug and Release
+        if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerStableSortStreams/result.json" -OutputDirectory "recovery/evidence/refactor/core-stablesort-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180 -ExpectedCaseCount 1
+          }
+      - name: Upload early independent original BAB comparison evidence
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: compiler-original-baselines-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-upheaval-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-stablesort-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: warn
       - name: Validate actual application JSONL and reports against protocol schemas
         if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
         shell: pwsh
@@ -348,6 +365,7 @@ jobs:
             recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-upheaval-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-stablesort-baseline/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/core-cli-reuse-product/reuse.json
             recovery/artifacts/cli-controller-preflight/**
