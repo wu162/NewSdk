@@ -160,9 +160,9 @@ function CompareBig($Big,$Loose,[string]$Name,[bool]$Additional=$false,[string]$
         $additionalOut=Join-Path $short ('a'+[Guid]::NewGuid().ToString('N').Substring(0,8))
         & python "$PSScriptRoot/PrepareCompilerAdditional.py" oracle --sdk-root $script:sdk --mod-root $Loose.mod --expected "$caseOut/expected.json" --control $script:additionalControl --output $additionalOut
         Need ($LASTEXITCODE -eq 0) 'Original SDK Additional copy oracle failed'
-        $additional=Get-Content -LiteralPath (Join-Path $additionalOut 'inventory.json') -Raw|ConvertFrom-Json
-        Need $additional.succeeded 'Original Additional overlay did not finish'
-        $expected=@($additional.files)
+        $additionalInventory=Get-Content -LiteralPath (Join-Path $additionalOut 'inventory.json') -Raw|ConvertFrom-Json
+        Need ($additionalInventory.succeeded -eq $true) 'Original Additional overlay did not finish'
+        $expected=@($additionalInventory.files)
         Need (@($expected.name|Select-Object -Unique).Count -eq $expected.Count -and @($expected|Where-Object{$_.name -imatch '\.asset$'}).Count -eq 0) 'Additional oracle retained asset/duplicate members'
         $additionalArchive=Join-Path $caseOut 'additional-original';Copy-Item -LiteralPath $additionalOut -Destination $additionalArchive -Recurse
         foreach($item in $expected){$item.source=Join-Path $additionalArchive ([IO.Path]::GetRelativePath($additionalOut,$item.source))}
