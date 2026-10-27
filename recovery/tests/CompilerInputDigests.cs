@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
+using System.Reflection;
+using System.Threading;
 using System.Text;
 using System.Web.Script.Serialization;
 using System.Xml;
@@ -113,6 +115,54 @@ public static class CompilerInputDigests
             scope = "Public reader/Chunk lifecycle only; Dispose waits for pending APM completion, not cancellation of OS I/O" });
     }
     static readonly IOException DigestFault = new IOException("Injected actual SHA256 HashCore failure");
+    static void BoundedChunkPool()
+    {
+        var field = typeof(Chunk).GetField("_BufferStack", BindingFlags.Static | BindingFlags.NonPublic);
+        var pool = (Stack<byte[]>)field.GetValue(null);
+        var owners = new List<Chunk>();
+        try
+        {
+            // Drain the idle pool and create a real high-water mark. No pool
+            // replacement, fabricated buffer or collection forcing is used.
+            for (int i = 0; i < 32; i++) owners.Add(new Chunk());
+            var arrays = new HashSet<byte[]>();
+            foreach (Chunk owner in owners) Require(owner.Data.Length == 1048576 && arrays.Add(owner.Data), "Live chunks shared a pooled array");
+            foreach (Chunk owner in owners) { owner.BytesRead = 37; owner.Dispose(); owner.Dispose(); }
+            lock (pool)
+            {
+                Require(pool.Count == 8, "Chunk pool retained its high-water mark instead of the bounded eight idle MiB");
+                Require(new HashSet<byte[]>(pool).Count == pool.Count, "Duplicate disposal returned an array twice");
+            }
+            foreach (Chunk owner in owners) Require(owner.Data == null && owner.BytesRead == 37, "Pool bounding changed public disposed Chunk state");
+            owners.Clear();
+            for (int round = 0; round < 16; round++)
+            {
+                var target = new Chunk(); target.BytesRead = round;
+                using (var start = new ManualResetEvent(false))
+                {
+                    var threads = new Thread[8];
+                    for (int i = 0; i < threads.Length; i++)
+                    {
+                        threads[i] = new Thread(() => { start.WaitOne(); target.Dispose(); }); threads[i].Start();
+                    }
+                    start.Set(); foreach (Thread thread in threads) Require(thread.Join(10000), "Concurrent standalone Chunk disposal did not complete");
+                }
+                Require(target.Data == null && target.BytesRead == round, "Concurrent cleanup changed the Chunk contract");
+                arrays.Clear();
+                for (int i = 0; i < 12; i++)
+                {
+                    var owner = new Chunk(); owners.Add(owner);
+                    Require(arrays.Add(owner.Data), "Concurrent cleanup handed the same array to two live consumers");
+                }
+                foreach (Chunk owner in owners) owner.Dispose(); owners.Clear();
+                lock (pool) Require(pool.Count == 8 && new HashSet<byte[]>(pool).Count == 8, "Concurrent cleanup broke bounded, unique pool retention");
+            }
+        }
+        finally { foreach (Chunk owner in owners) owner.Dispose(); }
+        measurements.Add(new { scenario = "bounded-idle-chunk-pool", chunkBytes = 1048576, maxIdleArrays = 8,
+            liveHighWater = 32, concurrentDisposals = 8, rounds = 16,
+            scope = "Idle retention and at-most-once standalone Chunk cleanup; live buffers and total process memory remain unbounded by this pool, Core remains serial" });
+    }
     public sealed class FailingSha256 : SHA256
     {
         public FailingSha256() { HashSizeValue = 256; }
@@ -280,9 +330,9 @@ public static class CompilerInputDigests
             if (args.Length != 6 || IntPtr.Size != 4) throw new ArgumentException("Expected x86 work result source run SDK originalOracleJson");
             Directory.CreateDirectory(args[0]);
             object originalReaders = ReaderOriginalDifferential(args[5], args[0], args[2], args[3]);
-            Cases(args[0]); ReaderOwnership(args[0]); FailedDigestOwnership(args[0]); Benchmark(args[0]);
+            Cases(args[0]); ReaderOwnership(args[0]); FailedDigestOwnership(args[0]); BoundedChunkPool(); Benchmark(args[0]);
             var result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, originalReaders,
-                tests = new[] { "independent-original-SDK-async-reader-chunk-SHA-identity-repeat-Begin-End-EOF-and-FileHashItem-hash-differential", "single-pass-legacy-and-SHA256-boundaries-roundtrip-reset-content-invalidation-delete-recreate", "public-async-reader-pending-active-requeued-EOF-consumer-failure-dispose-and-no-double-pool-return", "actual-FileHashItem-SHA256-consumer-fault-immediate-source-release-primary-error-and-same-item-retry", "interleaved-cold-and-warm-digest-cost" }, measurements };
+                tests = new[] { "independent-original-SDK-async-reader-chunk-SHA-identity-repeat-Begin-End-EOF-and-FileHashItem-hash-differential", "single-pass-legacy-and-SHA256-boundaries-roundtrip-reset-content-invalidation-delete-recreate", "public-async-reader-pending-active-requeued-EOF-consumer-failure-dispose-and-no-double-pool-return", "actual-FileHashItem-SHA256-consumer-fault-immediate-source-release-primary-error-and-same-item-retry", "bounded-idle-Chunk-pool-high-water-and-concurrent-dispose-at-most-once-with-distinct-live-consumers", "interleaved-cold-and-warm-digest-cost" }, measurements };
             string json = new JavaScriptSerializer().Serialize(result);
             File.WriteAllText(args[1], json); Console.WriteLine(json);
             Console.WriteLine("PASS InputDigests: " + checks + " assertions"); return 0;

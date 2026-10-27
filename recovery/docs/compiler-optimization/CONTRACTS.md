@@ -2,7 +2,7 @@
 
 本页说明实现边界；验收状态以 [HANDOFF](HANDOFF.md) 和 [VALIDATION](VALIDATION.md) 的准确 sourceCommit/runId 为准。[PLAN](PLAN.md) 是设计材料，未完成提案不能用来授权强缓存命中或并行。
 
-2026-10-28 新候选 `5727b05b` 正在 Actions 验证，以下新增合同尚不属于已接受的 `64bfcc80` 生产对象。
+2026-10-28：当前完整接受 `15bcd14c / 40596715818`；后续能力声明候选 `71b5a0a4 / 40598874896` 仍在验证。来源与终态集中于 VALIDATION。
 
 ## 工作计量
 
@@ -47,7 +47,15 @@ BinaryAsset 新封存仅用于有效的外部 legacy Cache 来源。Local 属于
 | cacheHeaderReadHits | 恢复 header 已打开封存游标的次数；不代表另一次完整物化或新 capture |
 | 顶层 captures / capturedBytes | 当前保留的 snapshot entries；回滚恢复规模，不能当全部读取量 |
 
-新候选的恢复 header 只复用已经封存的 Cache 来源，不为尚未验证的坏缓存新建 pin；坏长度删除、Local/Output 的可变修复路径继续执行原逻辑。网络 cache 存在查询在原调用之后记录，保留原 `&&` 短路，使用独立的 8192 路径/1 Mi UTF-16 字符预算并在 VerifyUnchanged 终验。成功的本进程 File.Copy/File.Delete 推进对应预期状态，已有外部冲突不被清除。实际开始而失败的可选 cache 写可能留下部分目标，因此撤销该路径的查询证明并永久报告本代 incomplete；后续真实查询可重建存在基线，不能因此授权强缓存。内容封存、预算回退、输出根排除及 Texture 未闭合边界不变。新增取消点在可选 cache 发布和 keepalive 路径继续传播，不落入原 best-effort catch。
+恢复 header 只复用已经封存的 Cache 来源，不为尚未验证的坏缓存新建 pin；坏长度删除、Local/Output 的可变修复路径继续执行原逻辑。网络 cache 存在查询在原调用之后记录，保留原 `&&` 短路，使用独立的 8192 路径/1 Mi UTF-16 字符预算并在 VerifyUnchanged 终验。成功的本进程 File.Copy/File.Delete 推进对应预期状态，已有外部冲突不被清除。实际开始而失败的可选 cache 写可能留下部分目标，因此撤销该路径的查询证明并永久报告本代 incomplete；后续真实查询可重建存在基线，不能因此授权强缓存。内容封存、预算回退、输出根排除及 Texture 未闭合边界不变。新增取消点在可选 cache 发布和 keepalive 路径继续传播，不落入原 best-effort catch。
+
+## 摘要读取与插件所属线程
+
+AsynchronousFileReader拥有排队、已出队待完成和当前Chunk；正常EOF及提前Dispose/构造读取消费者故障均收尾，EndRead最多一次，只有完成已证实的buffer才能归池，不确定BeginRead失败的数组放弃归池。Dispose可等待pending I/O，不承诺取消OS读取；清理错误不替换消费者主异常。保留原同Chunk复用、实际短块、live FileSize、EOF非null但Data=null/BytesRead=0形态。正常Framework EndRead本来关闭内部等待事件，不能称为修复正常路径事件泄漏。
+
+Texture活跃方法在native前检查创建它的Thread对象；live Dispose先检查owner再关闭，关闭后保持ODE优先及重复Dispose无害。Builtin聚合Registry/ReInitialize/活跃Dispose同样先检查owner；错误线程Dispose不能先置终态而使owner无法回收native provider。这不是所有插件可重入或允许并行的证明。
+
+能力声明候选为实际注册路由保存独立immutable标量，不保存plugin、metadata、schema或native引用；未知查询不增长字典。当前消费仅为legacy build-cache否决、session复用拒绝和opaque输入原因。已允许的非Texture类型仍须原whole-root验证，不能把原UseBuildCache=false改为true。ConservativeCoreBoundary不是exact闭包；Texture/未知输入跟踪为Unknown，StrongBundleAllowed/ParallelAllowed始终false，环境仅记录已知最低host并明确不完整。此组仍待其完整Actions终态。
 
 ## 构建内 schema 元数据
 
@@ -63,7 +71,7 @@ BinaryAsset 新封存仅用于有效的外部 legacy Cache 来源。Local 属于
 
 只有实际 exact 值复制或 XML 新建提供 positive ownership 时，私有 saved 声明/元数据可共享；Current 恢复仍复制。未知 BinaryFormatter 来源无共享证明；动态启用旧生命周期时先 detach，再暴露给可变 Current 并撤销证明。`CacheFromDocument` 的 saved-to-saved 共享已通过公共 API 合同，但当前无生产调用，不报告 CLI 收益。DOM、SchemaInfo、完整 Define 环境和 AssetSemanticResult 尚未冻结。
 
-## 继承阶段执行（新候选待验收）
+## 继承阶段执行
 
 PrevalidationReady 属于 InstanceDeclaration 当前 live DOM 的非序列化阶段状态，不从 legacy hash 推断，也不随 saved 声明恢复。每次 XmlNode 赋值含 null 都撤销它并递增 revision；实际 hash 成功且 revision 未变时才发布，保留 custom WriteTo 的异常及赋值回调。它不证明 DOM 不可变、不代表完整验证成功，也不授权语义缓存。
 

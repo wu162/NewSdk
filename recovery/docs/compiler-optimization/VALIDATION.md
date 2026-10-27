@@ -6,31 +6,35 @@
 
 | 身份 | 值 |
 | --- | --- |
-| 生产 / 首次测试 / 打包源码 | `5727b05b234c130a5c26e5c465a31f8ff42baf22` |
-| 完整运行 | [40593235622](https://github.com/wu162/NewSdk/actions/runs/40593235622)，attempt 1，整体 success |
+| 生产 / 首次测试 / 打包源码 | `15bcd14c97c475d6922cb367989a4fc04d8ba7bb` |
+| 完整运行 | [40596715818](https://github.com/wu162/NewSdk/actions/runs/40596715818)，attempt 1，整体 success |
 | 范围 | Debug/Release 各 30 组 Core、原 DLL、三组独立原 BAB、协议、Texture、实际 CLI 与取消、全部缓存/输入根、完整 mymod、BIG 和独立五文件 ZIP |
-| 完整 archive | [12776875507](https://github.com/wu162/NewSdk/actions/runs/40593235622/artifacts/12776875507)，111911680 字节，官方 SHA256 `608c56d261d27bb625bd7578b828b3e091a04609b4ddb7e5850250819276663d`；未本地下载 |
-| 已核验早期 Core evidence | artifact `12774869020`，554000 字节，SHA256 `83d80d109d1a371d6006d2917b3b63684976fc9fd9727d2795d4c8115bb9ffdd`，本地下载与官方一致，source/run 及双配置各30组成功收据已读 |
-| 已核验 CLI evidence | artifact `12775488351`，512168 字节，SHA256 `7b0c3fd23876534b5b256757ef2ecc2dfed8fac95bf0f8052f93215ed063ea40`，本地下载与官方一致，实际成对计量已读 |
+| 完整 archive | [12777543040](https://github.com/wu162/NewSdk/actions/runs/40596715818/artifacts/12777543040)，112086540 字节，官方 SHA256 `8f8bcf5b8ddd4db0082873ba76ba50ce4db3ad332b2f260116003dcfa332b4bd`；未本地下载 |
+| Release 独立包 transport | [12777830711](https://github.com/wu162/NewSdk/actions/runs/40596715818/artifacts/12777830711)，1835400 字节，SHA256 `29b346247ad7a524f119f48053efbe17155e0d00636ed1268f3e92cff90ace81`，本地与官方一致 |
+| 原 Release ZIP | 1790608 字节，SHA256 `9959a408be687dd0d2bc7441b07e901c862ff5fb691d1209c02bece98a580961`；原 archive 字节、精确五成员/大小/SHA、Texture→EXE绑定均已从下载证据核验 |
+| Debug 独立包 transport | [12777730962](https://github.com/wu162/NewSdk/actions/runs/40596715818/artifacts/12777730962)，2290911 字节，官方 SHA256 `5b2229b35ac3e5fbd8dfbefd22f27e200bde714b7dc3a0c520d7a6984f9ce45b`；未本地下载 |
 
-此接受点覆盖继承阶段状态/栈安全、外部 Cache header 复用、网络 Cache 查询与本进程可修复写删、可选写失败回退和实际 CLI 成对计量；不覆盖下面的后续生产变化。构建和测试没有用旧二进制替代新生产。
+此接受点覆盖下表前四组生产变化，构建和测试没有用旧二进制替代新生产。独立包 artifact 内保存原 ZIP、manifest 和 release.json，没有重打包内层运行包。
 
-## 后续候选（仍在验证）
+## 本轮完整能力组
 
-| 生产 / 测试源码 | Actions | 范围与当前状态 |
+| 生产 / 首次测试源码 | Actions | 终态与范围 |
 | --- | --- | --- |
-| `c3ef5344115eaeafc15979c70857cc4557e89acf` | [40594750754](https://github.com/wu162/NewSdk/actions/runs/40594750754) | cache case/junction 别名证明撤销与9行独立原 DLL 继承差分；双配置 Core、原 DLL/BAB、Texture、CLI 已通过，完整运行尚未终态 |
-| `07ff6a3b13b813af8d2985569e16e89e045e0e1c` | [40595750142](https://github.com/wu162/NewSdk/actions/runs/40595750142) | APM 摘要读取器资源所有权；Foundation 和前置探针编译通过，完整运行尚未终态 |
+| `5727b05b234c130a5c26e5c465a31f8ff42baf22` | [40593235622](https://github.com/wu162/NewSdk/actions/runs/40593235622) | **success**；live继承状态/栈安全、cache header与实际网络cache查询/自身写删、真实CLI成对计量 |
+| `c3ef5344115eaeafc15979c70857cc4557e89acf` | [40594750754](https://github.com/wu162/NewSdk/actions/runs/40594750754) | **success**；case/junction别名证明撤销、9行独立原DLL继承差分 |
+| `07ff6a3b13b813af8d2985569e16e89e045e0e1c` | [40595750142](https://github.com/wu162/NewSdk/actions/runs/40595750142) | **success**；APM摘要读取所有权、实际SHA256消费者故障/同item重试 |
+| `15bcd14c97c475d6922cb367989a4fc04d8ba7bb` | [40596715818](https://github.com/wu162/NewSdk/actions/runs/40596715818) | **success**；Texture/Builtin owner-thread、保留原Texture transcript、24次live错误线程拒绝和关闭后合同 |
+| `71b5a0a4f55e530eccc9703eff2f3c3a397dd910` | [40598874896](https://github.com/wu162/NewSdk/actions/runs/40598874896) | **验证中**；实际注册路由immutable能力标量，缓存只否决、session拒绝与opaque跟踪消费；6行独立原reader/digest语料 |
 
-Texture/Builtin 活跃入口 owner-thread 合同组待提交/验证。任何运行中对象不标为完整接受，不把后续工具/文档提交写成二进制来源。旧严格复用控制器仍 pin 第六轮对象；它不能覆盖本轮生产变化，待最终接受点形成后集中更新 pin。
+前四组均完整通过双配置各30组、原DLL/BAB及全部CLI/cache/SDK/BIG/ZIP门槛。最后一组仍在运行，不继承此前接受结论。旧严格复用控制器仍pin第六轮对象，不能覆盖本轮生产变化；最后接受点形成后集中更新。
 
 ## 新生产能力和证据边界
 
 - 继承：显式 DFS、reference active 集与 live DOM readiness，拒绝环、避免合法深链消耗 CLR 栈；同文档 prevalidation 与跨文档 processed 来源仍按原顺序消费。4096 前向链、零 digest 注入、同处理器修复重试、SchemaInfo/default provenance、重复调用和 custom WriteTo 主错误均通过。完整不可变 AssetSemanticResult 与 Define 环境冻结尚未完成。
 - Cache：实际存在查询有独立预算与终验；成功本进程写删推进预期，已有外部冲突不清除；实际开始而失败的可选写撤销该路径查询证明并报告 incomplete。真实 native DataBlob 同代 cold→warm→warm 的四输出及封存生命周期通过。Local/Output/staging 仍保持原角色。
 - Header：只复用已经成功封存的 Cache 来源，不提前 pin 坏文件；无效长度仍删除并拒绝。取消继续经过真实 Commit 传播。
-- 后续 alias 组不把大小写路径直接合并；相同 leaf 的候选采用有界 native parent 查询或保守证明撤销。失败/预算回退明确 incomplete，不授权强缓存；需要后续完整成功才能覆盖。
-- 后续 reader 组为提前退出/摘要异常收尾，不是正常路径 APM 事件泄漏修复。Framework EndRead 原本已关闭内部等待事件；public Dispose 等待 pending read，不承诺取消 OS 读取。新增真实 SHA256 HashCore 故障与同 item 重试待 Actions。
+- 已接受 alias 组不把大小写路径直接合并；相同 leaf 的候选采用有界 native parent 查询或保守证明撤销。失败/预算回退明确 incomplete，不授权强缓存；完整生产验收已通过。
+- 已接受 reader 组为提前退出/摘要异常收尾，不是正常路径 APM 事件泄漏修复。Framework EndRead 原本已关闭内部等待事件；public Dispose 等待 pending read，不承诺取消 OS 读取。真实 SHA256 HashCore 故障与同 item 重试已通过双配置完整 Actions。
 
 ## 实际 CLI 成对计量
 

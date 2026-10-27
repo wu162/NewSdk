@@ -1,11 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace BinaryAssetBuilder.Core;
 
 public class Chunk : IDisposable
 {
 	private const int BufferSize = 1048576;
+
+    // Bound idle retention only. Live readers still own their arrays and this
+    // does not establish a process-wide memory budget or enable parallel Core.
+    private const int MaxRetainedBuffers = 8;
 
 	private static Stack<byte[]> _BufferStack = new Stack<byte[]>();
 
@@ -43,24 +48,21 @@ public class Chunk : IDisposable
 	{
 		lock (_BufferStack)
 		{
-			_BufferStack.Push(buff);
+            if (_BufferStack.Count < MaxRetainedBuffers) _BufferStack.Push(buff);
 		}
 	}
 
 	public void Dispose()
 	{
-		if (_Data != null)
-		{
-			ReleaseBuffer(_Data);
-			_Data = null;
-		}
+        byte[] data = Interlocked.Exchange(ref _Data, null);
+        if (data != null) ReleaseBuffer(data);
 	}
 
     // An uncertain APM read may still own this array. Drop this owner's
-    // reference without returning that array to the shared pool. Public Dispose
-    // and the global pool policy remain unchanged.
+    // reference without returning that array to the shared pool. This method
+    // never establishes read completion; the reader must prove it separately.
     internal void AbandonBuffer()
     {
-        _Data = null;
+        Interlocked.Exchange(ref _Data, null);
     }
 }
