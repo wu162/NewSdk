@@ -3,6 +3,10 @@
 更新：2026-10-27（北京时间）。用户指定 `compiler-main` 为重构结果及今后开发主线。旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 已关闭且未合并，不再合回旧主线。开发主线约定不代表已修改 GitHub 网页默认分支。
 禁止强推；今后其他合并仍须用户批准；子代理数量由当轮用户指定。
 
+## 最新严格旧脚本验证（2026-10-27）
+
+用户要求关闭缓存、其余按旧脚本重跑；[运行40439297653](https://github.com/wu162/NewSdk/actions/runs/40439297653) 已结束，**差分失败**。旧 BAB 与新版 Debug/Release 均成功编译，但 MOD 四文件均不同，新版另多出 static/global/audio 共12文件。源码/日志显示旧脚本启用 ss/pc，而新版关闭；尚未分别隔离两个开关的因果。完整说明与原始证据入口见 [SDK_SCRIPT_VALIDATION.md](docs/SDK_SCRIPT_VALIDATION.md)。此前验收保留原范围，不能推论与默认旧脚本逐字节相同；本轮未改生产实现。下一步若要求默认兼容，先处理稳定排序/引用流策略，再重跑严格差分和最终打包。
+
 ## 已完成的发行范围
 
 - Win32 单进程核心编译、MOD目录入口、base/apt/maps 计划、日志/JSONL/报告、默认 BIG/SKUDEF 与五文件发行包已验收。恢复业务代码进入 EXE；纯 C# MakeBig 已内建，不启动 BAB/MakeBig worker。

@@ -1,0 +1,552 @@
+{
+  "schemaVersion": 1,
+  "succeeded": false,
+  "sourceCommit": "c700bc4a870252e6b23bcd2d580c66711e92d466",
+  "testSourceCommit": "c700bc4a870252e6b23bcd2d580c66711e92d466",
+  "binarySourceCommit": "c700bc4a870252e6b23bcd2d580c66711e92d466",
+  "runId": "40439297653",
+  "runAttempt": "1",
+  "sdkGitTree": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+  "modGitTree": "7d6f0192069e357c1b1508faf9fa9f0647468678",
+  "scriptSha256": "10570c66d86171f20de3b139c6c12ccc79fd23167715dffe29e3342c29fe60a9",
+  "originalBaselineSucceeded": true,
+  "inputsUnchanged": true,
+  "emptyOptionalGroups": [
+    "apt",
+    "maps"
+  ],
+  "legacyParameterContract": {
+    "script": "SDK/defaultscript.cs",
+    "originalBuildConfigurationsPreserved": true,
+    "matchingCalls": 3,
+    "outputIsolation": "Fresh separate output/intermediate/hash/cache directories; no input SDK changes",
+    "enabled": [
+      "/ls:true",
+      "/pc:true",
+      "/res:true",
+      "/slowclean:true",
+      "/ss:true"
+    ],
+    "sha256": "a4f41c72ea81319ad75e5251f40b10efa202c28f8021b0594af222321686426e",
+    "cacheException": [
+      "/bc:false",
+      "/sc:false",
+      "/psc:false",
+      "/csc:false",
+      "/fsc:false",
+      "/atc:false"
+    ],
+    "searchPaths": {
+      "audio": "D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Audio;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Audio",
+      "art": "D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Art;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Art",
+      "data": "D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Data;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\SageXml"
+    }
+  },
+  "error": "System.Management.Automation.RuntimeException: Complete SDK differential failed; see per-file raw comparisons in validation.json",
+  "artifact": {
+    "id": 12705393039,
+    "sha256": "101826990703f53fc21b4bb3c15a2beb650e3fc2020bd3bcd91512041df7a7ee",
+    "url": "https://github.com/wu162/NewSdk/actions/runs/40439297653/artifacts/12705393039",
+    "rawReceipt": "evidence/refactor/sdk-script/40439297653-1/validation.json"
+  },
+  "scope": "Complete unchanged repository mymod base source, original script flags except caches disabled; raw loose linked outputs, not full game SDK corpus, BIG, UI, APT/maps or game runtime acceptance. APT/maps have no inputs. Original precompiled references were absent in the fresh workspace and fallback warnings are preserved.",
+  "processes": [
+    {
+      "name": "original/base/Mod",
+      "passed": true,
+      "exitCode": 0,
+      "arguments": [
+        "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Data\\Mod.xml",
+        "/sp:D:\\a\\NewSdk\\NewSdk\\SDK\\Schemas\\xsd\\CnC3Types.xsd",
+        "/dr:D:\\a\\NewSdk\\NewSdk\\SDK",
+        "/od:D:\\a\\_temp\\g3b786c3b\\o0\\s",
+        "/iod:D:\\a\\_temp\\g3b786c3b\\o0\\i",
+        "/scd:D:\\a\\_temp\\g3b786c3b\\o0\\h",
+        "/bcp:D:\\a\\_temp\\g3b786c3b\\o0\\c",
+        "/tp:Win32",
+        "/sc:false",
+        "/bc:false",
+        "/psc:false",
+        "/fsc:false",
+        "/csc:false",
+        "/atc:false",
+        "/sh:false",
+        "/pc:true",
+        "/res:true",
+        "/gui:false",
+        "/poe:false",
+        "/mr:false",
+        "/oof:false",
+        "/sf:false",
+        "/ls:true",
+        "/ss:true",
+        "/oix:false",
+        "/vf:false",
+        "/osh:false",
+        "/oar:false",
+        "/slowclean:true",
+        "/tl:3",
+        "/el:0",
+        "/art:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Art;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Art",
+        "/audio:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Audio;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Audio",
+        "/data:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Data;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\SageXml"
+      ]
+    },
+    {
+      "name": "Debug",
+      "passed": true,
+      "exitCode": 0,
+      "arguments": [
+        "build",
+        "--mod",
+        "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--out",
+        "D:\\a\\_temp\\g3b786c3b\\Dout",
+        "--package-content",
+        "base,apt,maps",
+        "--package-format",
+        "loose",
+        "/sc:false",
+        "/bc:false",
+        "/data:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Data;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\SageXml",
+        "/art:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Art;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Art",
+        "/audio:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Audio;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+      ]
+    },
+    {
+      "name": "Release",
+      "passed": true,
+      "exitCode": 0,
+      "arguments": [
+        "build",
+        "--mod",
+        "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--out",
+        "D:\\a\\_temp\\g3b786c3b\\Rout",
+        "--package-content",
+        "base,apt,maps",
+        "--package-format",
+        "loose",
+        "/sc:false",
+        "/bc:false",
+        "/data:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Data;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\SageXml",
+        "/art:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Art;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Art",
+        "/audio:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Audio;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+      ]
+    }
+  ],
+  "modes": [
+    {
+      "configuration": "Debug",
+      "succeeded": false,
+      "exeSha256": "c88a43dbb45c2f7bf231a3534349e98e431c97dc94f5b7a3eda6499eba4fd38a",
+      "comparisons": [
+        {
+          "outputs": [
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\audio.bin",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "audio.bin",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\audio.imp",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "audio.imp",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\audio.manifest",
+                "bytes": 48,
+                "sha256": "13b1b8a1643bdef61e28f387285d03eaad6b3acbfbc3dcc627bd7e6d1c63c117"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "audio.manifest",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\audio.relo",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "audio.relo",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\global.bin",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "global.bin",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\global.imp",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "global.imp",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\global.manifest",
+                "bytes": 48,
+                "sha256": "13b1b8a1643bdef61e28f387285d03eaad6b3acbfbc3dcc627bd7e6d1c63c117"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "global.manifest",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\global.relo",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "global.relo",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.bin",
+                "bytes": 209548,
+                "sha256": "25c8e1d55d2ecc1c10baacc292cd8f06d3563ec9358a52181c8e537f77ee37d4"
+              },
+              "firstDifference": 0,
+              "byteIdentical": false,
+              "relativePath": "mods/mymod/data/mod.bin",
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-script\\40439297653-1\\original-0\\streams\\mods\\mymod\\data\\mod.bin",
+                "bytes": 209548,
+                "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+              }
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.imp",
+                "bytes": 64,
+                "sha256": "b0fb3b7525d2e5548a8d4291016ddb0da0fa977bf40a8428ed1767d956ce1a5d"
+              },
+              "firstDifference": 0,
+              "byteIdentical": false,
+              "relativePath": "mods/mymod/data/mod.imp",
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-script\\40439297653-1\\original-0\\streams\\mods\\mymod\\data\\mod.imp",
+                "bytes": 64,
+                "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+              }
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.manifest",
+                "bytes": 4995,
+                "sha256": "0179bda5241a89f2b705271f090675878c99146fe049da227117262dfc6a24b9"
+              },
+              "firstDifference": 4,
+              "byteIdentical": false,
+              "relativePath": "mods/mymod/data/mod.manifest",
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-script\\40439297653-1\\original-0\\streams\\mods\\mymod\\data\\mod.manifest",
+                "bytes": 4995,
+                "sha256": "ad37d83f6a74cc51efa5e579a543d69fb18569cbf0d00884bebbf18f9666eee9"
+              }
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.relo",
+                "bytes": 4656,
+                "sha256": "7260f49c1a57350caedeb1dd532d440b0c85caf21775d4f388559874cfc86297"
+              },
+              "firstDifference": 0,
+              "byteIdentical": false,
+              "relativePath": "mods/mymod/data/mod.relo",
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-script\\40439297653-1\\original-0\\streams\\mods\\mymod\\data\\mod.relo",
+                "bytes": 4656,
+                "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+              }
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\static.bin",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "static.bin",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\static.imp",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "static.imp",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\static.manifest",
+                "bytes": 48,
+                "sha256": "13b1b8a1643bdef61e28f387285d03eaad6b3acbfbc3dcc627bd7e6d1c63c117"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "static.manifest",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Dout\\published\\base\\Mod\\streams\\static.relo",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "static.relo",
+              "original": null
+            }
+          ],
+          "taskId": "base/Mod"
+        }
+      ]
+    },
+    {
+      "configuration": "Release",
+      "succeeded": false,
+      "exeSha256": "eaa859b930d944a285e0681829e05f961398883c0dcc6ee2f195a48165196344",
+      "comparisons": [
+        {
+          "outputs": [
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\audio.bin",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "audio.bin",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\audio.imp",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "audio.imp",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\audio.manifest",
+                "bytes": 48,
+                "sha256": "13b1b8a1643bdef61e28f387285d03eaad6b3acbfbc3dcc627bd7e6d1c63c117"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "audio.manifest",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\audio.relo",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "audio.relo",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\global.bin",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "global.bin",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\global.imp",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "global.imp",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\global.manifest",
+                "bytes": 48,
+                "sha256": "13b1b8a1643bdef61e28f387285d03eaad6b3acbfbc3dcc627bd7e6d1c63c117"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "global.manifest",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\global.relo",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "global.relo",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.bin",
+                "bytes": 209548,
+                "sha256": "25c8e1d55d2ecc1c10baacc292cd8f06d3563ec9358a52181c8e537f77ee37d4"
+              },
+              "firstDifference": 0,
+              "byteIdentical": false,
+              "relativePath": "mods/mymod/data/mod.bin",
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-script\\40439297653-1\\original-0\\streams\\mods\\mymod\\data\\mod.bin",
+                "bytes": 209548,
+                "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+              }
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.imp",
+                "bytes": 64,
+                "sha256": "b0fb3b7525d2e5548a8d4291016ddb0da0fa977bf40a8428ed1767d956ce1a5d"
+              },
+              "firstDifference": 0,
+              "byteIdentical": false,
+              "relativePath": "mods/mymod/data/mod.imp",
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-script\\40439297653-1\\original-0\\streams\\mods\\mymod\\data\\mod.imp",
+                "bytes": 64,
+                "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+              }
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.manifest",
+                "bytes": 4995,
+                "sha256": "0179bda5241a89f2b705271f090675878c99146fe049da227117262dfc6a24b9"
+              },
+              "firstDifference": 4,
+              "byteIdentical": false,
+              "relativePath": "mods/mymod/data/mod.manifest",
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-script\\40439297653-1\\original-0\\streams\\mods\\mymod\\data\\mod.manifest",
+                "bytes": 4995,
+                "sha256": "ad37d83f6a74cc51efa5e579a543d69fb18569cbf0d00884bebbf18f9666eee9"
+              }
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.relo",
+                "bytes": 4656,
+                "sha256": "7260f49c1a57350caedeb1dd532d440b0c85caf21775d4f388559874cfc86297"
+              },
+              "firstDifference": 0,
+              "byteIdentical": false,
+              "relativePath": "mods/mymod/data/mod.relo",
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-script\\40439297653-1\\original-0\\streams\\mods\\mymod\\data\\mod.relo",
+                "bytes": 4656,
+                "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+              }
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\static.bin",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "static.bin",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\static.imp",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "static.imp",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\static.manifest",
+                "bytes": 48,
+                "sha256": "13b1b8a1643bdef61e28f387285d03eaad6b3acbfbc3dcc627bd7e6d1c63c117"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "static.manifest",
+              "original": null
+            },
+            {
+              "product": {
+                "path": "D:\\a\\_temp\\g3b786c3b\\Rout\\published\\base\\Mod\\streams\\static.relo",
+                "bytes": 4,
+                "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+              },
+              "firstDifference": null,
+              "byteIdentical": false,
+              "relativePath": "static.relo",
+              "original": null
+            }
+          ],
+          "taskId": "base/Mod"
+        }
+      ]
+    }
+  ]
+}
