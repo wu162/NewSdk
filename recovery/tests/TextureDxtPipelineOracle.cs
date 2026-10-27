@@ -10,7 +10,9 @@ using BinaryAssetBuilder.Core;
 // Original ProcessInstance capture + complete recovered comparison, then isolated replay.
 internal static class TextureDxtPipelineOracle
 {
+    const int ExpectedFixtures=19404;
     static int fixtures, rejected, errors; static long compared;
+    static void Isolated(){if(File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"BinaryAssetBuilder.TextureCompiler.dll")))throw new Exception("Original present during replay");foreach(Assembly a in AppDomain.CurrentDomain.GetAssemblies())if(a.GetName().Name=="BinaryAssetBuilder.TextureCompiler")throw new Exception("Original loaded during replay");}
     static InstanceDeclaration Declaration(string root,string file,string format,string cdata,bool mipmaps,string kind)
     {
         var xml=new XmlDocument();var node=xml.CreateElement(root,"uri:ea.com:eala:asset");xml.AppendChild(node);
@@ -101,12 +103,12 @@ internal static class TextureDxtPipelineOracle
             recovered=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(rd).GetType("Recovered.Compiler.Texture.Plugin",true));recovered.Initialize(null,TargetPlatform.Win32);
             RejectBoundaries(recovered,work);
             if(isolated){
-                using(var r=new BinaryReader(File.OpenRead(replay))){int count=r.ReadInt32();if(count!=14256)throw new Exception("Incomplete corpus");
+                using(var r=new BinaryReader(File.OpenRead(replay))){int count=r.ReadInt32();if(count!=ExpectedFixtures)throw new Exception("Incomplete corpus");
                     while(r.BaseStream.Position<r.BaseStream.Length){string ext=r.ReadString();byte[] image=Bytes(r);string root=r.ReadString(),format=r.ReadString();bool stale=r.ReadBoolean(),mipmaps=r.ReadBoolean();string kind=r.ReadString();
                         string expectedError=r.ReadString();byte[] instance=Bytes(r),relo=Bytes(r),imports=Bytes(r),cdata=Bytes(r);
                         string file=Path.Combine(work,"generated."+ext),path=Path.Combine(work,"recovered.cdata");File.WriteAllBytes(file,image);Seed(path,stale);
                         AssetBuffer actual=null;Exception error=null;
-                        try{actual=recovered.ProcessInstance(Declaration(root,file,format,path,mipmaps,kind));}catch(Exception e){error=e;}
+                        Isolated();try{actual=recovered.ProcessInstance(Declaration(root,file,format,path,mipmaps,kind));}catch(Exception e){error=e;}Isolated();
                         if(expectedError!=Error(error))throw new Exception("Replay error "+fixtures+" expected="+expectedError+" actual="+Error(error));
                         if(error!=null)errors++;
                         if(expectedError==""){if(actual==null)throw new Exception("Missing replay buffer");Equal(instance,actual.InstanceData,"replay instance "+fixtures);Equal(relo,actual.RelocationData,"replay relo");Equal(imports,actual.ImportsData,"replay imports");}
@@ -163,6 +165,7 @@ internal static class TextureDxtPipelineOracle
                         Case(original,recovered,work,"tga",Tga16(3,4),root,format,false,false,w);
                     foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool mips in new[]{false,true})foreach(string family in new[]{"png16","bmp16"})
                         Case(original,recovered,work,family=="png16"?"png":"bmp",family=="png16"?TexturePngOracle.Fixture(3,2,16,2,0,5,0,0):TextureBmpOracle.Fixture(3,2,16,false,0,0,7),root,format,false,mips,w);
+                    if(fixtures!=ExpectedFixtures)throw new Exception("Incomplete generated corpus: "+fixtures);
                     w.BaseStream.Position=0;w.Write(fixtures);
                 }
             }
