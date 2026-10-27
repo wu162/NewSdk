@@ -431,9 +431,14 @@ public class InstanceDeclaration : IXmlSerializable
                 // values. First detach this owner from any previously shared
                 // sealed result; keep the old per-owner shallow restore contract.
                 bool disabled; AppContext.TryGetSwitch("NewSdk.Compiler.DisableDeclarationHandleSnapshots", out disabled);
-                if (disabled) DetachSharedSavedValues();
+                if (disabled)
+                {
+                    DetachSharedSavedValues();
+                    // Revoke before exposing any values, including a partially
+                    // restored Current if a later collection allocation fails.
+                    _Last.OwnedValues = false;
+                }
                 _Current.FromLast(_Last, _Last.SharedSaved);
-                if (disabled) _Last.OwnedValues = false;
 			}
 			else
 			{
