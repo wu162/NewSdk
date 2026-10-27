@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace BinaryAssetBuilder.TextureCompiler
 {
@@ -43,9 +44,31 @@ namespace BinaryAssetBuilder.TextureCompiler
             };
         }
 
+        [DllImport("Recovered.TextureDxtAlpha.dll", CallingConvention = CallingConvention.StdCall,
+            EntryPoint = "TextureQuantizeAlpha")]
+        private static extern double NativeQuantize(int levels, int count,
+            [In] double[] values, [In, Out] int[] endpoints, [In, Out] int[] indices);
+
+        public static double Quantize(int levels, double[] values, int[] endpoints, int[] indices)
+        {
+            if (levels != 6 && levels != 8) throw new ArgumentOutOfRangeException("levels");
+            if (values == null) throw new ArgumentNullException("values");
+            if (values.Length > 512) throw new ArgumentException("At most 512 alpha values are supported.", "values");
+            if (endpoints == null || endpoints.Length != 2) throw new ArgumentException("Two endpoints are required.", "endpoints");
+            if (indices == null || indices.Length != values.Length) throw new ArgumentException("One index per alpha is required.", "indices");
+            for (int i = 0; i < values.Length; i++)
+                if (Double.IsNaN(values[i]) || values[i] < 0 || values[i] > 1)
+                    throw new ArgumentException("Finite alpha values in [0,1] are required.", "values");
+            if (values.Length == 0) return 0;
+            Array.Clear(indices, 0, indices.Length);
+            return NativeQuantize(levels, values.Length, values, endpoints, indices);
+        }
+
+        // Readable algorithm reference only. Not used by the production path:
+        // managed rounding currently differs at the symmetric five-point tie.
         // Returns the native error in byte-alpha units, not normalized units.
         // Endpoints and indices follow QuantizeAlpha's internal ordering.
-        public static double Quantize(int levels, double[] values, int[] endpoints, int[] indices)
+        private static double QuantizeManagedReference(int levels, double[] values, int[] endpoints, int[] indices)
         {
             if (levels != 6 && levels != 8) throw new ArgumentOutOfRangeException("levels");
             if (values == null) throw new ArgumentNullException("values");
