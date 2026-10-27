@@ -1295,7 +1295,7 @@ PUBLIC _ColorErrorAsm
 PUBLIC _memset
 PUBLIC _memcpy
 ; Owned Cdecl runtime helpers. No CRT startup, imports, or original DLL calls.
-Q_1004e746:
+Q_1004E746:
 _memcpy LABEL NEAR
     push edi
     push esi
@@ -1308,7 +1308,7 @@ _memcpy LABEL NEAR
     pop esi
     pop edi
     ret
-Q_1004e80a:
+Q_1004E80A:
 _memset LABEL NEAR
     push edi
     mov edi,[esp+8]
@@ -1319,7 +1319,7 @@ _memset LABEL NEAR
     mov eax,[esp+8]
     pop edi
     ret
-Q_1004e81c:
+Q_1004E81C:
     sub esp,16
     fnstcw word ptr [esp]
     mov ax,word ptr [esp]
@@ -1345,11 +1345,11 @@ ColorCeil:
     fldcw word ptr [esp]
     add esp,16
     ret
-Q_1004ed94:
+Q_1004ED94:
     fsqrt
     ret
 ; Win32 SSE2 integer conversion, retaining EDX/ECX as in the original fast helper.
-Q_1004e830:
+Q_1004E830:
     push ebp
     mov ebp,esp
     sub esp,8
@@ -1360,12 +1360,12 @@ Q_1004e830:
     ret
 ; The safe exported bridge rejects all non-71 quality requests before dispatch.
 ; Reaching this target means a violated internal invariant, never a fake result.
-Q_100833f0:
+Q_100833F0:
     ud2
 
 ALIGN 16
 ; Original function RVA 0004E7C0
-C_0004E7C0 PROC
+C_0004E7C0 LABEL NEAR
 Q_1004E7C0:
     push ecx
 Q_1004E7C1:
@@ -1404,10 +1404,9 @@ Q_1004E7E7:
     test dword ptr [eax], eax
 Q_1004E7E9:
     jmp Q_1004E7D4
-C_0004E7C0 ENDP
 ALIGN 16
 ; Original function RVA 0005F5D0
-C_0005F5D0 PROC
+C_0005F5D0 LABEL NEAR
 Q_1005F5D0:
     push ebp
 Q_1005F5D1:
@@ -2948,10 +2947,9 @@ Q_1005FDF6:
     pop ebp
 Q_1005FDF7:
     ret 0Ch
-C_0005F5D0 ENDP
 ALIGN 16
 ; Original function RVA 0005FE00
-C_0005FE00 PROC
+C_0005FE00 LABEL NEAR
 Q_1005FE00:
     push ecx
 Q_1005FE01:
@@ -3318,10 +3316,9 @@ Q_1005FFC3:
     pop ecx
 Q_1005FFC4:
     ret 0Ch
-C_0005FE00 ENDP
 ALIGN 16
 ; Original function RVA 0005FFD0
-C_0005FFD0 PROC
+C_0005FFD0 LABEL NEAR
 Q_1005FFD0:
     push ebp
 Q_1005FFD1:
@@ -3832,10 +3829,9 @@ Q_10060343:
     pop ebp
 Q_10060344:
     ret 014h
-C_0005FFD0 ENDP
 ALIGN 16
 ; Original function RVA 00060350
-C_00060350 PROC
+C_00060350 LABEL NEAR
 Q_10060350:
     mov ecx, dword ptr [esp + 4]
 Q_10060354:
@@ -3938,10 +3934,9 @@ Q_100603BC:
     mov eax, edx
 Q_100603BE:
     ret 0Ch
-C_00060350 ENDP
 ALIGN 16
 ; Original function RVA 000603D0
-C_000603D0 PROC
+C_000603D0 LABEL NEAR
 Q_100603D0:
     push ebp
 Q_100603D1:
@@ -4758,10 +4753,9 @@ Q_100608A3:
     pop ebp
 Q_100608A4:
     ret 01Ch
-C_000603D0 ENDP
 ALIGN 16
 ; Original function RVA 000608B0
-C_000608B0 PROC
+C_000608B0 LABEL NEAR
 Q_100608B0:
     push ebp
 Q_100608B1:
@@ -6574,10 +6568,9 @@ Q_10061456:
     pop ebp
 Q_10061457:
     ret 020h
-C_000608B0 ENDP
 ALIGN 16
 ; Original function RVA 00061460
-C_00061460 PROC
+C_00061460 LABEL NEAR
 Q_10061460:
     push ebp
 Q_10061461:
@@ -65374,10 +65367,9 @@ Q_1007A3F0:
     pop ebp
 Q_1007A3F1:
     ret 028h
-C_00061460 ENDP
 ALIGN 16
 ; Original function RVA 0007B3F0
-C_0007B3F0 PROC
+C_0007B3F0 LABEL NEAR
 Q_1007B3F0:
     push ebp
 Q_1007B3F1:
@@ -66524,10 +66516,9 @@ Q_1007BB78:
     pop ebp
 Q_1007BB79:
     ret 018h
-C_0007B3F0 ENDP
 ALIGN 16
 ; Original function RVA 0007BB80
-C_0007BB80 PROC
+C_0007BB80 LABEL NEAR
 Q_1007BB80:
     push ebp
 Q_1007BB81:
@@ -66918,10 +66909,9 @@ Q_1007BDDD:
     pop ebp
 Q_1007BDDE:
     ret 02Ch
-C_0007BB80 ENDP
 ALIGN 16
 ; Original function RVA 0007BDF0
-C_0007BDF0 PROC
+C_0007BDF0 LABEL NEAR
 Q_1007BDF0:
     mov ecx, dword ptr [esp + 4]
 Q_1007BDF4:
@@ -66964,10 +66954,9 @@ Q_1007BE32:
     pop ecx
 Q_1007BE33:
     ret 8
-C_0007BDF0 ENDP
 ALIGN 16
 ; Original function RVA 0007BE60
-C_0007BE60 PROC
+C_0007BE60 LABEL NEAR
 _ColorErrorAsm LABEL NEAR
 Q_1007BE60:
     push ebp
@@ -67967,10 +67956,9 @@ Q_1007C415:
     pop ebp
 Q_1007C416:
     ret 4
-C_0007BE60 ENDP
 ALIGN 16
 ; Original function RVA 0007C420
-C_0007C420 PROC
+C_0007C420 LABEL NEAR
 _ColorCoreAsm LABEL NEAR
 Q_1007C420:
     push ebp
@@ -70456,10 +70444,9 @@ Q_1007D4EF:
     pop ebp
 Q_1007D4F0:
     ret 8
-C_0007C420 ENDP
 ALIGN 16
 ; Original function RVA 00083CD0
-C_00083CD0 PROC
+C_00083CD0 LABEL NEAR
 _ColorNoModeAsm LABEL NEAR
 Q_10083CD0:
     push ebp
@@ -71137,10 +71124,9 @@ Q_100840BB:
     pop ebp
 Q_100840BC:
     ret 4
-C_00083CD0 ENDP
 ALIGN 16
 ; Original function RVA 0008B1C0
-C_0008B1C0 PROC
+C_0008B1C0 LABEL NEAR
 Q_1008B1C0:
     mov eax, dword ptr [esp + 4]
 Q_1008B1C4:
@@ -71277,10 +71263,9 @@ Q_1008B264:
     fstp dword ptr [ecx + 020h]
 Q_1008B267:
     ret 
-C_0008B1C0 ENDP
 ALIGN 16
 ; Original function RVA 0008B270
-C_0008B270 PROC
+C_0008B270 LABEL NEAR
 Q_1008B270:
     mov eax, dword ptr [esp + 4]
 Q_1008B274:
@@ -71339,10 +71324,9 @@ Q_1008B2C7:
     fstp dword ptr [ecx + 0Ch]
 Q_1008B2CA:
     ret 
-C_0008B270 ENDP
 ALIGN 16
 ; Original function RVA 0008B2D0
-C_0008B2D0 PROC
+C_0008B2D0 LABEL NEAR
 Q_1008B2D0:
     fld dword ptr [esp + 4]
 Q_1008B2D4:
@@ -71443,10 +71427,9 @@ Q_1008B377:
     pop esi
 Q_1008B378:
     ret 
-C_0008B2D0 ENDP
 ALIGN 16
 ; Original function RVA 0008B380
-C_0008B380 PROC
+C_0008B380 LABEL NEAR
 Q_1008B380:
     push ebx
 Q_1008B381:
@@ -71529,10 +71512,9 @@ Q_1008B413:
     pop ebx
 Q_1008B414:
     ret 
-C_0008B380 ENDP
 ALIGN 16
 ; Original function RVA 0008B420
-C_0008B420 PROC
+C_0008B420 LABEL NEAR
 Q_1008B420:
     mov edx, dword ptr [esp + 8]
 Q_1008B424:
@@ -71799,10 +71781,9 @@ Q_1008B56E:
     pop ebx
 Q_1008B56F:
     ret 
-C_0008B420 ENDP
 ALIGN 16
 ; Original function RVA 0008B710
-C_0008B710 PROC
+C_0008B710 LABEL NEAR
 Q_1008B710:
     fldz 
 Q_1008B712:
@@ -72169,10 +72150,9 @@ Q_1008B920:
     add esp, 028h
 Q_1008B923:
     ret 
-C_0008B710 ENDP
 ALIGN 16
 ; Original function RVA 0008B930
-C_0008B930 PROC
+C_0008B930 LABEL NEAR
 Q_1008B930:
     fld1 
 Q_1008B932:
@@ -72397,10 +72377,9 @@ Q_1008BA95:
     pop ebx
 Q_1008BA96:
     ret 
-C_0008B930 ENDP
 ALIGN 16
 ; Original function RVA 0008BAA0
-C_0008BAA0 PROC
+C_0008BAA0 LABEL NEAR
 Q_1008BAA0:
     push ebp
 Q_1008BAA1:
@@ -73597,10 +73576,9 @@ Q_1008C1EB:
     pop ebp
 Q_1008C1EC:
     ret 
-C_0008BAA0 ENDP
 ALIGN 16
 ; Original function RVA 0008C1F0
-C_0008C1F0 PROC
+C_0008C1F0 LABEL NEAR
 Q_1008C1F0:
     push ebp
 Q_1008C1F1:
@@ -74691,10 +74669,9 @@ Q_1008C89E:
     pop ebp
 Q_1008C89F:
     ret 
-C_0008C1F0 ENDP
 ALIGN 16
 ; Original function RVA 0008C8A0
-C_0008C8A0 PROC
+C_0008C8A0 LABEL NEAR
 Q_1008C8A0:
     cmp dword ptr [esp + 8], 3
 Q_1008C8A5:
@@ -74719,5 +74696,4 @@ Q_1008C8BF:
     pop ecx
 Q_1008C8C0:
     ret 
-C_0008C8A0 ENDP
 END

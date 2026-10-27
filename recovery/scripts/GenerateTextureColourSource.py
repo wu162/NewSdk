@@ -162,10 +162,10 @@ def generate():
     lines.append(helper_text)
     aliases={0x7c420:'_ColorCoreAsm',0x83cd0:'_ColorNoModeAsm',0x7be60:'_ColorErrorAsm'}
     for f,seq in sorted(rows.items()):
-        lines+=['ALIGN 16','; Original function RVA %08X'%f,'C_%08X PROC'%f]
+        lines+=['ALIGN 16','; Original function RVA %08X'%f,'C_%08X LABEL NEAR'%f]
         if f in aliases:lines.append(aliases[f]+' LABEL NEAR')
         for ins in seq:lines+=['Q_%08X:'%ins.address,'    '+asm(ins)]
-        lines+=['C_%08X ENDP'%f]
+
     lines+=['END']
     out=ROOT/'src/TextureCompiler/Colour';out.mkdir(exist_ok=True)
     (out/'TextureColour.asm').write_text('\n'.join(lines)+'\n')

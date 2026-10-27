@@ -11,6 +11,8 @@ extern "C" int __stdcall TextureColorState(unsigned char* block,int bytes,int mo
     int* header=(int*)block;
     if(header[0]<0 || header[0]>3 || header[1]<0 || header[1]>2 || header[2]<1 || header[2]>512)return 2;
     if(*(int*)(block+0x3030)!=71)return 3;
+    double area=*(double*)(block+0x3010);
+    if(area!=area || area<=0 || area>512)return 6;
     double* samples=(double*)(block+0x10);
     for(int i=0;i<header[2]*3;i++) if(samples[i]!=samples[i] || samples[i]<0 || samples[i]>1)return 4;
     double* weights=(double*)(block+0x3018);

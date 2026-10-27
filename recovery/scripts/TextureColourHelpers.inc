@@ -1,5 +1,5 @@
 ; Owned Cdecl runtime helpers. No CRT startup, imports, or original DLL calls.
-Q_1004e746:
+Q_1004E746:
 _memcpy LABEL NEAR
     push edi
     push esi
@@ -12,7 +12,7 @@ _memcpy LABEL NEAR
     pop esi
     pop edi
     ret
-Q_1004e80a:
+Q_1004E80A:
 _memset LABEL NEAR
     push edi
     mov edi,[esp+8]
@@ -23,7 +23,7 @@ _memset LABEL NEAR
     mov eax,[esp+8]
     pop edi
     ret
-Q_1004e81c:
+Q_1004E81C:
     sub esp,16
     fnstcw word ptr [esp]
     mov ax,word ptr [esp]
@@ -49,11 +49,11 @@ ColorCeil:
     fldcw word ptr [esp]
     add esp,16
     ret
-Q_1004ed94:
+Q_1004ED94:
     fsqrt
     ret
 ; Win32 SSE2 integer conversion, retaining EDX/ECX as in the original fast helper.
-Q_1004e830:
+Q_1004E830:
     push ebp
     mov ebp,esp
     sub esp,8
@@ -64,5 +64,5 @@ Q_1004e830:
     ret
 ; The safe exported bridge rejects all non-71 quality requests before dispatch.
 ; Reaching this target means a violated internal invariant, never a fake result.
-Q_100833f0:
+Q_100833F0:
     ud2

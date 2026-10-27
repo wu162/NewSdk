@@ -34,6 +34,7 @@ internal static unsafe class TextureColourStateDifferential
                 }
                 rgb[i*3+c]=(double)(float)value;
             }
+            *(double*)(p+0x3010)=16.0;
             double* weights=(double*)(p+0x3018);
             weights[0]=(double)0.3086f;weights[1]=(double)0.6094f;weights[2]=(double)0.082f;
             if((pattern&1)!=0)weights[0]=weights[1]=weights[2]=1;
