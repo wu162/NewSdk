@@ -1,0 +1,16 @@
+{
+  "rejectedCount": 6,
+  "originalCalls": 50,
+  "fixtureCount": 25,
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "decodedCount": 19,
+  "sdkValidated": false,
+  "sourceCommit": "056937b13fa39431ec9171b0d990e6a5c15a013c",
+  "runId": "40599993769",
+  "status": "probe-only",
+  "runAttempt": "1",
+  "evidenceOnly": true,
+  "samplesSha256": "644f33f05f16d2e304d65d732b04bdefcabbfa091dbb274c2b60a1a46cb106e2",
+  "probeOnly": true,
+  "scope": "original-only PC TerrainTextureAtlas ProcessInstance full runtime buffers, embedded base/normal DDS, input XML/images, repeated determinism, size-count boundaries 0..49/50, normals and defined file errors; no recovered or SDK acceptance"
+}
