@@ -8,6 +8,9 @@ internal static unsafe class TextureDxt5QuantizerDifferential
 {
     [UnmanagedFunctionPointer(CallingConvention.StdCall)]
     private delegate double Quantizer(int levels,int count,IntPtr values,IntPtr endpoints,IntPtr indices);
+    [DllImport("kernel32.dll",CharSet=CharSet.Ansi)] private static extern IntPtr GetModuleHandle(string name);
+    [DllImport("kernel32.dll",CharSet=CharSet.Ansi)] private static extern IntPtr GetProcAddress(IntPtr module,string name);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint Control(uint value,uint mask);
     private static int fixtures, checks;
     private static void Check(bool value,string message){checks++;if(!value)throw new Exception(message);}
     private static string Hash(byte[] bytes){using(var h=SHA256.Create())return BitConverter.ToString(h.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();}
@@ -21,6 +24,8 @@ internal static unsafe class TextureDxt5QuantizerDifferential
             Assembly original=Assembly.LoadFrom(input), recovered=Assembly.LoadFrom(Path.GetFullPath(args[2]));
             IntPtr module=Marshal.GetHINSTANCE(original.ManifestModule);
             Check(module!=IntPtr.Zero&&module!=new IntPtr(-1),"Native module");
+            IntPtr controlAddress=GetProcAddress(GetModuleHandle("MSVCR80.dll"),"_controlfp");
+            if(controlAddress!=IntPtr.Zero) Console.WriteLine("INFO x87 control=0x"+((Control)Marshal.GetDelegateForFunctionPointer(controlAddress,typeof(Control)))(0,0).ToString("X"));
             Quantizer native=(Quantizer)Marshal.GetDelegateForFunctionPointer(IntPtr.Add(module,0x7d500),typeof(Quantizer));
             MethodInfo quantize=recovered.GetType("BinaryAssetBuilder.TextureCompiler.TextureDxt5AlphaEncoder",true).GetMethod("Quantize");
             int[] sizes={0,1,2,3,4,5,7,8,15,16,17,32,64,127,256,511,512};
@@ -53,6 +58,7 @@ internal static unsafe class TextureDxt5QuantizerDifferential
                     double error=(double)quantize.Invoke(null,new object[]{levels,actualInput,endpoints,indices});
                     string label="levels="+levels+" count="+count+" pattern="+pattern;
                     if(endpoints[0]!=expectedEndpoints[0]||endpoints[1]!=expectedEndpoints[1]||BitConverter.DoubleToInt64Bits(error)!=BitConverter.DoubleToInt64Bits(expectedError)) {
+                        Console.Error.WriteLine("expected indices="+String.Join(",",expectedIndices)+" actual indices="+String.Join(",",indices)+" expected error="+expectedError.ToString("R")+" actual error="+error.ToString("R"));
                         Console.Error.WriteLine(label+" input="+String.Join(",",Array.ConvertAll(actualInput,delegate(double x){return x.ToString("R",System.Globalization.CultureInfo.InvariantCulture);}))); 
                     }
                     Check(endpoints[0]==expectedEndpoints[0]&&endpoints[1]==expectedEndpoints[1],label+" endpoints expected="+String.Join(",",expectedEndpoints)+" actual="+String.Join(",",endpoints));
