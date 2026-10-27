@@ -49,3 +49,7 @@ PC DXT5 默认 Production alpha 已独立还原：字节 RGBA 与归一化 float
 最终验收源码 `4bf0ca8c` / [40493971846](https://github.com/wu162/NewSdk/actions/runs/40493971846) success。Debug/Release 各：量化器2176例/408835检查（含误差位模式）；实际原DDS alpha 78144例/1172168检查；float alpha 12288例/516108检查；NoOriginal隔离重放78144例/625152比较；native x86/零入口/零导入检查通过。只选新组，18个未变组复用，未跑SDK。边界、失败反例、独立native构建和后续颜色恢复入口见 [TEXTURE_DXT_ALPHA.md](TEXTURE_DXT_ALPHA.md)。
 
 quality68快速路径仅接受低层state子组件；原版未初始化levels，完整DDS入口失败证据保留，不作为Production验收替代。颜色源码取证在RoundMult超时处取得部分结果，不能标成完整提取成功。
+
+## 2026-10-27 第三阶段交接
+
+默认PC颜色状态与完整DXT3/5块已分别验收（2cee3446/40500150864、b0278705/40500898688，Debug/Release与NoOriginal）。整图无mip DDS新实现 a9cc0daf / 40501793638 尚在验证。最新范围、源码构建与后续顺序见 [TEXTURE_DXT_COLOUR.md](TEXTURE_DXT_COLOUR.md)。不再将已验收默认71颜色核心写作完全未恢复，但完整整图/插件/SDK、DXT1默认路径、mip与volume仍无完成声明。

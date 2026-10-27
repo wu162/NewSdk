@@ -1,3 +1,9 @@
+# TextureCompiler 当前续接（2026-10-27，本分支）
+
+`recovery/texturecompiler-source`：当前主入口 [TEXTURE_DXT_COLOUR.md](TEXTURE_DXT_COLOUR.md)。Production=71 颜色状态 `2cee3446` / 40500150864 和完整DXT3/5块 `b0278705` / 40500898688 已通过Debug/Release与NoOriginal。二维无mip整图 `a9cc0daf` / 40501793638 交接时验证中，先收取结果。插件DXT路由与生产SDK未改；小尺寸/mip/volume/DXT1默认整块尚未验收。用户要求“先交接”，本轮不再新增实现。
+
+以下保留历史子系统与阶段记录，不以旧的“下一轮”覆盖上述当前入口。
+
 # GameObject、XmlCompiler 与 W3X 当前续接入口
 
 2026-10-25（北京时间）。目标分支 `recovery/compiler-source`。本文件保留PR [#2](https://github.com/wu162/NewSdk/pull/2) 的GameObject/XmlCompiler状态，并加入W3X还原成果；禁止强推。先读AGENTS.md与EFFICIENCY.md，再按子系统读取详细交接。
