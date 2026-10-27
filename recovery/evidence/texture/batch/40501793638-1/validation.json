@@ -1,0 +1,40 @@
+{
+  "status": "failed",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete"
+  ],
+  "runAttempt": "1",
+  "runId": "40501793638",
+  "sourceCommit": "a9cc0daf82fa83ffd09468a8457251190491ff0f",
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "error": "Debug-oracle failed",
+      "group": "dxt-dds2d"
+    }
+  ],
+  "selected": [
+    "dxt-dds2d"
+  ]
+}

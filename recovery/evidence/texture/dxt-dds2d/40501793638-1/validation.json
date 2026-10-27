@@ -1,0 +1,34 @@
+{
+  "sourceFiles": [
+    {
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66",
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json"
+    },
+    {
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9",
+      "path": "src/TextureCompiler/Colour/TextureColour.asm"
+    },
+    {
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281",
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp"
+    }
+  ],
+  "sourceCommit": "a9cc0daf82fa83ffd09468a8457251190491ff0f",
+  "runId": "40501793638",
+  "sdkValidated": false,
+  "configurations": [],
+  "probeOnly": false,
+  "nativeBinaries": [
+    {
+      "importDirectory": 0,
+      "entryPoint": 0,
+      "sha256": "56fda424fa788d04a196839070ee1b23ff0180b5c4a0f191b44d0398e4a5cc2b",
+      "machine": "I386",
+      "configuration": "Debug"
+    }
+  ],
+  "scope": "PC quality71 DXT3/DXT5 aligned 2D no-mip DDS; no plugin/SDK acceptance",
+  "runAttempt": "1",
+  "status": "failed",
+  "error": "Debug-oracle failed"
+}
