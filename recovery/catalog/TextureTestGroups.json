@@ -486,6 +486,21 @@
       ],
       "evidence": "recovery/evidence/texture/dxt5-alpha/*/validation.json",
       "sdk": false
+    },
+    "dxt-colour-functions": {
+      "script": "recovery/scripts/InspectTextureDxtDecompile.ps1",
+      "arguments": {
+        "Group": "ColourRemaining"
+      },
+      "dependencies": [
+        "recovery/scripts/InspectTextureDxtDecompile.ps1",
+        "recovery/scripts/ghidra/ExportTextureDxt.java",
+        "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll"
+      ],
+      "evidence": "recovery/evidence/texture/dxt-decompile/*/validation.json",
+      "manual_only": true,
+      "evidence_only": true,
+      "sdk": false
     }
   },
   "targetPlatform": "Win32"

@@ -1,9 +1,10 @@
+param([ValidateSet('All','ColourRemaining')][string]$Group='All')
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/dxt-decompile/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('dxt-decompile-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$true;evidenceOnly=$true;sdkValidated=$false;scope='Original native decompilation evidence only; not recovery acceptance'}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$true;evidenceOnly=$true;sdkValidated=$false;scope='Original native decompilation evidence only; not recovery acceptance';requestedGroup=$Group}
 try {
  $r.originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.TextureCompiler.dll).Hash.ToLowerInvariant()
  if($r.originalSha256 -ne '4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e'){throw 'Original DLL mismatch'}
@@ -16,10 +17,11 @@ try {
  $env:JAVA_HOME=$env:JAVA_HOME_21_X64
  New-Item -ItemType Directory -Force "$work/project"|Out-Null
  $headless=Join-Path $work 'ghidra_11.4.2_PUBLIC/support/analyzeHeadless.bat'
- & $headless "$work/project" Texture -import "$root/SDK/tools/BinaryAssetBuilder.TextureCompiler.dll" -processor 'x86:LE:32:default' -analysisTimeoutPerFile 240 -scriptPath "$root/recovery/scripts/ghidra" -postScript ExportTextureDxt.java "$out" -deleteProject *> "$out/ghidra.log"
+ & $headless "$work/project" Texture -import "$root/SDK/tools/BinaryAssetBuilder.TextureCompiler.dll" -processor 'x86:LE:32:default' -analysisTimeoutPerFile 240 -scriptPath "$root/recovery/scripts/ghidra" -postScript ExportTextureDxt.java "$out" $Group -deleteProject *> "$out/ghidra.log"
  if($LASTEXITCODE -ne 0){Get-Content "$out/ghidra.log" -Tail 40;throw 'Ghidra export failed'}
  $files=@(Get-ChildItem "$out/*.c")
- if($files.Count -ne 18){Get-Content "$out/ghidra.log" -Tail 40;throw 'Missing native function exports'}
+ $expected=if($Group -eq 'ColourRemaining'){4}else{18}
+ if($files.Count -ne $expected){Get-Content "$out/ghidra.log" -Tail 40;throw 'Missing native function exports'}
  $r.exports=@($files|ForEach-Object{@{name=$_.Name;bytes=$_.Length;sha256=(Get-FileHash $_.FullName).Hash.ToLowerInvariant()}})
  $r.status='probe-only'
 }catch{$r.status='failed';$r.error=$_.Exception.Message;throw}finally{$r|ConvertTo-Json -Depth 10|Set-Content "$out/validation.json"}
