@@ -7,6 +7,7 @@ using System.Text;
 using System.Web.Script.Serialization;
 using System.Xml;
 using System.Xml.Schema;
+using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 
 // The original SDK DLL runs only in a disposable AppDomain. No original business
