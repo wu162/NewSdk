@@ -112,6 +112,7 @@ namespace NewModCompiler.Application
             catch (Exception error)
             {
                 ReleaseInputs(); // Initialization cannot publish a result; release even for direct callers.
+                configurationIdentity = null; // A failed Initialize has not accepted a configuration contract.
                 lock (LeaseGate) { initializing = false; ReleaseLease(); }
                 if (error is BuildFailure || error is OperationCanceledException) throw;
                 throw Failure(ExitCode.Environment, "CORE_INITIALIZE_FAILED", error);
@@ -619,6 +620,7 @@ namespace NewModCompiler.Application
                 foreach (Exception error in cleanup) AddCleanupFailure(ref failure, error, ExitCode.Internal, "CORE_CLEANUP_FAILED");
                 var measuredSession = processor == null ? null : processor.Cache as SessionCache;
                 coreWork.Add(new { taskId = context.Task.Id, stages = processor == null ? null : processor.GetWorkMetrics(),
+                    baseManifest = processor == null ? null : processor.GetBaseManifestWorkMetrics(),
                     outerStages = outerWork.Snapshot(), inputDigests = measuredSession == null ? null : measuredSession.GetDigestReadMetrics(),
                     schemaPreparation = schemas == null ? null : schemas.GetPreparationMetrics(),
                     schemaMetadata = schemas == null ? null : new { enabled = schemas.SharedMetadataEnabled, builds = schemas.MetadataBuildCount, hits = schemas.MetadataHitCount },

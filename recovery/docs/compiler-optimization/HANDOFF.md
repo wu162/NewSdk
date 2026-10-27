@@ -14,7 +14,7 @@
 
 W03已接入有界PhysicalInputSnapshot：首次正内容单遍封存SHA256+原1MiB FastHash；文件只读pin与父目录防替换pin保留到发布/cache/必需输出完成，发布前强内容和身份复核；XML/XInclude/schema读同内容，跨流/配置共享。预算、不支持路径、输出工作区及opaque Texture单独bypass，保留/bc /sc全根复核；预编译reference manifest与隐藏读取未证明完整闭包，不宣称W03全部完成。
 源码 `0df7c92f4fb54d238b3dae588787f56bdb9cc230` / [40472198342](https://github.com/wu162/NewSdk/actions/runs/40472198342) 完整验证中。首次checkpoint21cd74f9的CLI测试收据重复PowerShell属性已普通修复，原预检失败[40472165263](https://github.com/wu162/NewSdk/actions/runs/40472165263)保留。
-W05 resolver候选正/负观察日志正在开发：只记录原查询，不复用或跳过工作。后续源码会继续集中此分支并另取准确Actions证据。
+W05 resolver候选影子日志源码b88240bc；专用fixture在40472999771双配置独立通过（204检查/6组），不授权缓存。W03原run同时发现取消包装、旧逐流计量假设、same-backend修复重试pin和新增fixture漏XML using；dd6745f8已保存取消/重试/仪表修复检查点，尚需新验收。W08基准manifest有序索引及原DLL三方用例正在集成，所有未验收项不标完成。
 
 ## 最新验证身份
 

@@ -38,6 +38,7 @@ on:
       - 'recovery/tests/CompilerInputDigests.cs'
       - 'recovery/tests/CompilerPhysicalInputs.cs'
       - 'recovery/tests/CompilerDependencyObservations.cs'
+      - 'recovery/tests/CompilerBaseManifestIndex.cs'
       - 'recovery/tests/CompilerNodeJoiner.cs'
       - 'recovery/tests/CompilerSchemaDescriptors.cs'
       - 'recovery/tests/CompilerSchemaMetadata.cs'

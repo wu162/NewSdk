@@ -1563,7 +1563,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 		if (outputManager.BasePatchStreamManifest != null)
 		{
 			_Tracer.TraceInfo("Merging base stream assets from {0}", outputManager.BasePatchStream);
-			StableSort_InitializeFromBaseManifest(ref outputManager, ref _Current.OutputInstances, ref finalList);
+            DocumentProcessor metricOwner = _Current.DocumentProcessor; string metricSource = _Current.SourcePath;
+            try { StableSort_InitializeFromBaseManifest(ref outputManager, ref _Current.OutputInstances, ref finalList); }
+            finally { if (metricOwner != null) metricOwner.RecordBaseManifestWork(this, metricSource); }
 		}
 		_Tracer.TraceInfo("Sorting by schema dependencies");
 		TypeDepCompare typeDepCompare = new TypeDepCompare(_Current.DocumentProcessor.SchemaSet.AssetDependencies);
@@ -1577,40 +1579,156 @@ public class AssetDeclarationDocument : IXmlSerializable
 		_Current.OutputInstances = finalList;
 	}
 
-	private static void StableSort_InitializeFromBaseManifest(ref OutputManager outputManager, ref List2<InstanceDeclaration> outputInstances, ref List2<InstanceDeclaration> finalList)
-	{
-		Manifest basePatchStreamManifest = outputManager.BasePatchStreamManifest;
-		Asset[] assets = basePatchStreamManifest.Assets;
-		foreach (Asset baseAsset in assets)
-		{
-			InstanceDeclaration instanceDeclaration = FindInstance(baseAsset, outputInstances);
-			if (instanceDeclaration != null)
-			{
-				if (outputManager.GetBinaryAsset(instanceDeclaration, isOutputAsset: false).GetLocation(AssetLocation.BasePatchStream, AssetLocationOption.None) == AssetLocation.BasePatchStream)
-				{
-					_Tracer.TraceInfo("Using base stream instance {0}:{1}", instanceDeclaration.Handle.TypeName, instanceDeclaration.Handle.InstanceName);
-					finalList.Add(instanceDeclaration);
-					outputInstances.Remove(instanceDeclaration);
-				}
-				else
-				{
-					_Tracer.TraceInfo("Using patched instance {0}:{1}", instanceDeclaration.Handle.TypeName, instanceDeclaration.Handle.InstanceName);
-				}
-			}
-		}
-	}
-
-	private static InstanceDeclaration FindInstance(Asset baseAsset, List2<InstanceDeclaration> instances)
-	{
-		foreach (InstanceDeclaration instance in instances)
-		{
-			if (baseAsset.TypeId == instance.Handle.TypeId && baseAsset.InstanceId == instance.Handle.InstanceId)
-			{
-				return instance;
-			}
-		}
-		return null;
-	}
+    private sealed class BaseManifestWork
+    {
+        internal long Calls, IndexedCalls, LinearCalls, SmallGroupCalls, IndexEntries, BaseLookups, LinearCandidateChecks,
+            LinearRemovalChecks, IndexLookups, RankSteps, Reused, Patched, Misses, CallbackFallbacks, MutationFallbacks, UnsafeFallbacks;
+    }
+    [NonSerialized] private BaseManifestWork _BaseManifestWork;
+    public object GetBaseManifestWorkMetrics()
+    {
+        var work = _BaseManifestWork ?? new BaseManifestWork();
+        return new { calls = work.Calls, indexedCalls = work.IndexedCalls, linearCalls = work.LinearCalls, smallGroupCalls = work.SmallGroupCalls,
+            indexEntries = work.IndexEntries, baseLookups = work.BaseLookups, linearCandidateChecks = work.LinearCandidateChecks,
+            linearRemovalChecks = work.LinearRemovalChecks, indexLookups = work.IndexLookups, rankSteps = work.RankSteps,
+            reused = work.Reused, patched = work.Patched, misses = work.Misses, callbackFallbacks = work.CallbackFallbacks,
+            mutationFallbacks = work.MutationFallbacks, unsafeFallbacks = work.UnsafeFallbacks };
+    }
+    private struct BaseManifestCandidate
+    {
+        internal readonly InstanceDeclaration Instance;
+        internal readonly int Slot;
+        internal BaseManifestCandidate(InstanceDeclaration instance, int slot) { Instance = instance; Slot = slot; }
+    }
+    private sealed class BaseManifestIndex
+    {
+        internal readonly Dictionary<ulong, Queue<BaseManifestCandidate>> Candidates = new Dictionary<ulong, Queue<BaseManifestCandidate>>();
+        internal readonly int[] Alive;
+        internal int ExpectedVersion, ExpectedCount;
+        internal readonly List2<InstanceDeclaration> Source;
+        internal readonly long CallbackVersion;
+        private BaseManifestIndex(List2<InstanceDeclaration> source)
+        {
+            Source = source; ExpectedCount = source.Count;
+            Alive = new int[source.Count + 1]; ExpectedVersion = source.MutationVersion; CallbackVersion = Tracer.CallbackVersion;
+            for (int index = 1; index < Alive.Length; index++) Alive[index] = index & -index;
+        }
+        internal static BaseManifestIndex Create(List2<InstanceDeclaration> instances, BaseManifestWork work)
+        {
+            var result = new BaseManifestIndex(instances);
+            for (int index = 0; index < instances.Count; index++)
+            {
+                InstanceDeclaration instance = instances[index];
+                // Equals is virtual. Only the ordinary declaration's known key
+                // equality permits RemoveAt to replace the old Remove search.
+                if (instance == null || instance.GetType() != typeof(InstanceDeclaration)) return null;
+                InstanceHandle handle;
+                try { handle = instance.Handle; }
+                catch (NullReferenceException) { return null; }
+                if (handle == null) return null;
+                ulong key = Key(handle.TypeId, handle.InstanceId);
+                Queue<BaseManifestCandidate> candidates;
+                if (!result.Candidates.TryGetValue(key, out candidates)) result.Candidates.Add(key, candidates = new Queue<BaseManifestCandidate>());
+                candidates.Enqueue(new BaseManifestCandidate(instance, index)); work.IndexEntries++;
+            }
+            return result;
+        }
+        internal int Position(int slot, BaseManifestWork work)
+        {
+            int result = 0;
+            for (int index = slot + 1; index > 0; index -= index & -index) { result += Alive[index]; work.RankSteps++; }
+            return result - 1;
+        }
+        internal void Removed(int slot, int version, int count, BaseManifestWork work)
+        {
+            for (int index = slot + 1; index < Alive.Length; index += index & -index) { Alive[index]--; work.RankSteps++; }
+            ExpectedVersion = version; ExpectedCount = count;
+        }
+    }
+    private static ulong Key(uint typeId, uint instanceId) { return ((ulong)typeId << 32) | instanceId; }
+    private static bool IndexStillValid(BaseManifestIndex index, List2<InstanceDeclaration> instances, BaseManifestWork work)
+    {
+        bool callback = Tracer.CallbackVersion != index.CallbackVersion;
+        bool mutation = !Object.ReferenceEquals(instances, index.Source) || instances.Count != index.ExpectedCount || instances.MutationVersion != index.ExpectedVersion;
+        if (callback) work.CallbackFallbacks++;
+        if (mutation) work.MutationFallbacks++;
+        return !callback && !mutation;
+    }
+    private void StableSort_InitializeFromBaseManifest(ref OutputManager outputManager, ref List2<InstanceDeclaration> outputInstances, ref List2<InstanceDeclaration> finalList)
+    {
+        BaseManifestWork work = _BaseManifestWork ?? (_BaseManifestWork = new BaseManifestWork()); work.Calls++;
+        Manifest basePatchStreamManifest = outputManager.BasePatchStreamManifest;
+        Asset[] assets = basePatchStreamManifest.Assets;
+        if (assets.Length == 0) return; // Legacy never touches either list here.
+        bool disabled; AppContext.TryGetSwitch("NewSdk.Compiler.DisableBaseManifestIndex", out disabled);
+        bool small = outputInstances == null || outputInstances.Count < 16 || assets.Length < 8;
+        BaseManifestIndex index = null;
+        if (!disabled && !small && !Object.ReferenceEquals(outputInstances, finalList) && outputInstances.Count <= 262144)
+        {
+            index = BaseManifestIndex.Create(outputInstances, work);
+            if (index == null) work.UnsafeFallbacks++;
+        }
+        if (index == null) { work.LinearCalls++; if (small) work.SmallGroupCalls++; }
+        else work.IndexedCalls++;
+        foreach (Asset baseAsset in assets)
+        {
+            work.BaseLookups++;
+            if (index != null && !IndexStillValid(index, outputInstances, work)) index = null;
+            InstanceDeclaration instanceDeclaration; Queue<BaseManifestCandidate> candidates = null; int slot = -1;
+            if (index == null) instanceDeclaration = FindInstance(baseAsset, outputInstances, work);
+            else if (outputInstances.Count == 0) instanceDeclaration = null;
+            else
+            {
+                work.IndexLookups++;
+                if (index.Candidates.TryGetValue(Key(baseAsset.TypeId, baseAsset.InstanceId), out candidates) && candidates.Count != 0)
+                {
+                    BaseManifestCandidate candidate = candidates.Peek(); slot = candidate.Slot; instanceDeclaration = candidate.Instance;
+                }
+                else instanceDeclaration = null;
+            }
+            if (instanceDeclaration == null) { work.Misses++; continue; }
+            if (outputManager.GetBinaryAsset(instanceDeclaration, isOutputAsset: false).GetLocation(AssetLocation.BasePatchStream, AssetLocationOption.None) == AssetLocation.BasePatchStream)
+            {
+                _Tracer.TraceInfo("Using base stream instance {0}:{1}", instanceDeclaration.Handle.TypeName, instanceDeclaration.Handle.InstanceName);
+                // A callback can change any handle, even without touching the
+                // list version. Permanently return to the old path after one.
+                if (index != null && !IndexStillValid(index, outputInstances, work)) index = null;
+                finalList.Add(instanceDeclaration);
+                if (index == null) RemoveInstanceLegacy(outputInstances, instanceDeclaration, work);
+                else
+                {
+                    int position = index.Position(slot, work);
+                    outputInstances.RemoveAt(position); candidates.Dequeue();
+                    index.Removed(slot, outputInstances.MutationVersion, outputInstances.Count, work);
+                }
+                work.Reused++;
+            }
+            else
+            {
+                _Tracer.TraceInfo("Using patched instance {0}:{1}", instanceDeclaration.Handle.TypeName, instanceDeclaration.Handle.InstanceName);
+                if (index != null && !IndexStillValid(index, outputInstances, work)) index = null;
+                work.Patched++;
+            }
+        }
+    }
+    private static InstanceDeclaration FindInstance(Asset baseAsset, List2<InstanceDeclaration> instances, BaseManifestWork work)
+    {
+        foreach (InstanceDeclaration instance in instances)
+        {
+            work.LinearCandidateChecks++;
+            if (baseAsset.TypeId == instance.Handle.TypeId && baseAsset.InstanceId == instance.Handle.InstanceId) return instance;
+        }
+        return null;
+    }
+    private static void RemoveInstanceLegacy(List2<InstanceDeclaration> instances, InstanceDeclaration instance, BaseManifestWork work)
+    {
+        int count = instances.Count;
+        for (int index = 0; index < count; index++)
+        {
+            work.LinearRemovalChecks++;
+            if (instances[index].Equals(instance)) { instances.RemoveAt(index); return; }
+        }
+    }
 
 	private static int StableSort_CalcInsertPosition(List2<InstanceDeclaration> finalList, InstanceDeclaration instance, TypeDepCompare depCompare)
 	{

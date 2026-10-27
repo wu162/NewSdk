@@ -35,7 +35,7 @@
 
 顶层 `applicationWork` 记录规划、backend 初始化/逐流编译/释放、artifact 校验、BIG 包装、发布 Prepare/Commit 及缓存 Commit。`captureBoundary=beforeInitialReport` 明确快照在初次写报告之前；未覆盖初次报告写入、终态事件/日志关闭及最后 Complete/回滚成本，不把差额全部归因给 schema。嵌套区间重叠，不能相加求总 wall time；旧顶层 elapsedMs 与 stages 合同保留。
 
-FileHashItem 的 DigestReadCount / DigestBytesRead 是每项成功完成的逻辑摘要读取计数，不是操作系统物理磁盘 I/O。新文件、已知时间戳变化使用单遍双摘要；可能未变的输入保留 SHA-only 检查，同时间戳内容变化走保守重算。首轮试验中全量双摘要的暖路径有额外 CPU 成本，因此没有保留该策略。当前没有跨流共享 PhysicalInputSnapshot，不以 mtime/size 代替内容复核。
+FileHashItem 的 DigestReadCount / DigestBytesRead 是每项成功完成的逻辑摘要读取计数，不是操作系统物理磁盘 I/O。新文件、已知时间戳变化使用单遍双摘要；可能未变的输入保留 SHA-only 检查，同时间戳内容变化走保守重算。首轮试验中全量双摘要的暖路径有额外 CPU 成本，因此没有保留该策略。已接入跨流正内容 PhysicalInputSnapshot；是否验收通过以短交接的准确source/run为准，不能以mtime/size代替内容复核。
 
 `coreWork[].inputDigests` 汇总本流 SessionCache 已登记 FileHashItem 的成功摘要 reads / bytes，items 为去除对象重复后的项数；包含会话初始化内容复核，同一路径不同配置可以重复计数。不含 schema 专用摘要、插件绕开 FileHashItem 的读取和外层输入快照/发布校验。
 
@@ -46,3 +46,17 @@ CoreStreamCompiler 持有每次构建独立、单 entry 的 MetadataCache，Disp
 键包含实现版本、规范根路径、读取顺序中的实际路径及每文件内容 SHA256、countDependencies、当前文化/比较文化与 StringHashBinDescriptors。仅成功构建表后发布快照；不同根、内容（含同大小/同时间戳）、模式、文化或描述符保守失效。`coreWork[].schemaMetadata` 的 enabled/builds/hits 是本 SchemaSet 生命周期计数。此为 W04 子组，不代表共享整个 SchemaSnapshot，也未完成 W03 输入封存或 W05 影子依赖。
 
 真实多流入口仍为现有 CLI business-combined 与三个独立单组；`business-work-metrics.json` 分别记录源码/二进制来源、实际 schema 读/编译/表构建及恢复次数和区间，保留原 BAB 与四输出字节比较。生效与验收状态以 HANDOFF/VALIDATION 的准确 sourceCommit/runId 为准。
+
+## 正内容封存、影子查询与基准匹配边界
+
+`PhysicalInputSnapshot`仅封存实际接入的正内容，文件只读句柄和祖先目录防替换句柄保证原路径消费者期间内容不变，XML/XInclude/schema消费封存流。默认预算为32MiB内存、512MiB私有磁盘、4096文件路径与4096目录pin；预算、不支持路径、generated output及opaque Texture等回退有独立reason计数。大文件副本保持独占handle，读取只暴露独立只读游标；只清理自己创建的空scratch，不递归删未知目录。
+
+`cache.physicalInputs`按snapshotId记录captures/hits、capturedBytes、memory/diskBytes、verificationReads/Bytes、active pins与bypassReasons。它是当前generation的逻辑原文件读取/共享计量，不是物理磁盘I/O；beforeInitialReport快照中pins仍活跃，真实Run返回后应全部释放。封存文件同目录中的其它未消费文件仍可编辑；不长锁整个SDK内容。
+
+BuildSession在provider Dispose后、发布前强复核捕获文件内容与身份，pins保留至publication/cache确认、必需报告/事件sink关闭后才释放。直接Core失败尝试结束整个封存generation，允许原同backend修复重试；下一次Compile新建snapshot并强比较Initialize配置原始SHA，配置改动须重新Initialize新backend。失败generation先前产生但未发布的所有结果失效，BuildSession原合同会丢弃其全部artifacts；直接Core调用方也应丢弃失败代结果。不能在已成功且仍可发布的同代中解pin后继续消费修改内容。
+
+该子组覆盖source、XInclude、schema及已登记FileReference的原路径资源（含APT DataBlob/Audio/header）；Texture隐藏读取与precompiled/reference manifest等尚未全封闭。`positiveInputsOnly=true`不代表所有正依赖都已接入；保留/bc /sc全根复核、Texture缓存拒绝及原字节/失败门槛。回退开关为`NewSdk.Compiler.DisablePhysicalInputSnapshot`。取消在schema及XInclude包装边界保持OperationCanceledException及原token，不作为ReadingSchema/xi:fallback处理。
+
+`cache.dependencyObservations`为W05 resolver候选影子证据，scope=ResolverCandidatesOnly、canAuthorizeReuse=false。记录原始有序File.Exists结果与resolve选择/错误，保留task/query/sequence和重复检查；不新增存在性探测、不缓存结果、不跳工作。默认上限8192条和1,048,576个UTF-16字符（不是RAM或UTF8字节预算）；整条丢弃后查询与总计数仍继续，truncated/dropped明确。DisableDependencyObservations关闭观测；Define/继承/符号消费等其它边仍未实现。
+
+W08基准manifest索引仅替代既有候选查找与Remove的查找阶段：有序重复队列+Fenwick定位当前秩，保留原base顺序、patched首项及即时List2.RemoveAt。小组、派生/非法候选及别名列表走原路径；实际外部TraceWrite回调后永久退回原查找/移除，以保留回调修改任意Handle或集合的行为。DisableBaseManifestIndex可关闭；`coreWork[].baseManifest`记录doc工作量，不含List2内部数据搬移，不能称整排序O(N+B)或完整CLI提速。默认/tl3有回调时放行范围保守。

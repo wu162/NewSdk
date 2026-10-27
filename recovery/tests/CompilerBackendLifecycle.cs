@@ -229,7 +229,13 @@ public static class CompilerBackendLifecycle
         if (Convert.ToBoolean(physical["enabled"]))
         {
             long captures = Convert.ToInt64(physical["captures"]), capturedBytes = Convert.ToInt64(physical["capturedBytes"]), hits = Convert.ToInt64(physical["hits"]);
-            long beforeCaptures = Convert.ToInt64(beforePhysical["captures"]), beforeBytes = Convert.ToInt64(beforePhysical["capturedBytes"]), beforeHits = Convert.ToInt64(beforePhysical["hits"]);
+            string snapshotId = Convert.ToString(physical["snapshotId"]);
+            bool sameGeneration = Convert.ToBoolean(beforePhysical["enabled"]) && Convert.ToString(beforePhysical["snapshotId"]) == snapshotId;
+            long beforeCaptures = sameGeneration ? Convert.ToInt64(beforePhysical["captures"]) : 0;
+            long beforeBytes = sameGeneration ? Convert.ToInt64(beforePhysical["capturedBytes"]) : 0;
+            long beforeHits = sameGeneration ? Convert.ToInt64(beforePhysical["hits"]) : 0;
+            Require(!String.IsNullOrEmpty(snapshotId), "Physical work omitted its build input generation identity");
+            if (slot == "after-failure") Require(!sameGeneration, "A failed Core stream retained its sealed input generation for retry");
             Require(captures > 0 && capturedBytes > 0 && captures >= beforeCaptures && capturedBytes >= beforeBytes && hits >= beforeHits &&
                 Convert.ToInt64(physical["activeFilePins"]) == captures && Convert.ToBoolean(physical["positiveInputsOnly"]),
                 "Build-level physical work lost captured positive bytes, active pins or monotonic accounting");

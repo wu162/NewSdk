@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
@@ -125,6 +126,22 @@ public class DocumentProcessor
 		internal WorkMeasurement(string name) { stage = name; }
 	}
 	private readonly Dictionary<string, WorkMeasurement> _Work = new Dictionary<string, WorkMeasurement>(StringComparer.Ordinal);
+    private sealed class DocumentReferenceComparer : IEqualityComparer<AssetDeclarationDocument>
+    {
+        public bool Equals(AssetDeclarationDocument left, AssetDeclarationDocument right) => Object.ReferenceEquals(left, right);
+        public int GetHashCode(AssetDeclarationDocument document) => RuntimeHelpers.GetHashCode(document);
+    }
+    private readonly Dictionary<AssetDeclarationDocument, object> _BaseManifestWorkSnapshots = new Dictionary<AssetDeclarationDocument, object>(new DocumentReferenceComparer());
+    internal void RecordBaseManifestWork(AssetDeclarationDocument document, string sourcePath)
+    {
+        _BaseManifestWorkSnapshots[document] = new { sourcePath, work = document.GetBaseManifestWorkMetrics() };
+    }
+    public object[] GetBaseManifestWorkMetrics()
+    {
+        var result = new object[_BaseManifestWorkSnapshots.Count];
+        _BaseManifestWorkSnapshots.Values.CopyTo(result, 0); return result;
+    }
+
 	public WorkMeasurement[] GetWorkMetrics()
 	{
 		var result = new WorkMeasurement[_Work.Count];
