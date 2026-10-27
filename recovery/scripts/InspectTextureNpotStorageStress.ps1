@@ -3,7 +3,7 @@ $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/npot-storage-stress/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('texture-npot-storage-stress-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$true;evidenceOnly=$true;sdkValidated=$false;scope='original-only larger-ratio PC NPOT/POT-control PNG low/high-depth, TGA additional and BMP16 storage/quantization plus original rejection domains; descriptors, raw locked rows and final RGBA; not recovered acceptance'}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$true;evidenceOnly=$true;sdkValidated=$false;scope='original-only larger-ratio PC NPOT/POT-control PNG low/high-depth, TGA additional and BMP16 storage/quantization plus original rejection domains; descriptors, bounded first-row-sized native byte prefix without inferred pitch or padding and final RGBA; not recovered acceptance'}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 45;throw "$name failed"};Get-Content "$out/$name.log"|Where-Object{$_ -match '^PROBE '}}
 try{
  Copy-Item SDK/tools/*.dll $work
@@ -21,4 +21,12 @@ try{
  $r.storageLayouts=@($rows|Select-Object profile,metadata,nativeFormat,pitch,nativeWidth,nativeHeight,loadedWidth,loadedHeight,hasAlpha,error -Unique)
  Compress-Archive -Path "$work/samples/*" -DestinationPath "$out/samples.zip"
  $r.samplesSha256=(Get-FileHash "$out/samples.zip").Hash.ToLowerInvariant();$r.status='probe-only'
-}catch{$r.status='failed';$r.error=$_.Exception.Message;throw}finally{$r|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"}
+ }catch{$r.status='failed';$r.error=$_.Exception.Message;throw}finally{
+ if(Test-Path "$work/samples/current.txt"){Copy-Item "$work/samples/current.txt" "$out/current.txt" -Force}
+ if($r.status -ne 'probe-only' -and (Test-Path "$work/samples")){
+  Compress-Archive -Path "$work/samples/*" -DestinationPath "$out/partial-samples.zip" -Force
+  $r.partialSamplesSha256=(Get-FileHash "$out/partial-samples.zip").Hash.ToLowerInvariant()
+ }
+ $r|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"
+}
+
