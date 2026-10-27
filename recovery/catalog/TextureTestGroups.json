@@ -466,6 +466,22 @@
       ],
       "evidence": "recovery/evidence/texture/dxt5-fast-alpha/*/validation.json",
       "sdk": false
+    },
+    "dxt5-alpha": {
+      "script": "recovery/scripts/TestTextureDxt5Alpha.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "global.json",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs",
+        "recovery/scripts/TestTextureDxt5Alpha.ps1",
+        "recovery/tests/TextureDxt5AlphaDifferential.cs"
+      ],
+      "evidence": "recovery/evidence/texture/dxt5-alpha/*/validation.json",
+      "sdk": false
     }
   },
   "targetPlatform": "Win32"
