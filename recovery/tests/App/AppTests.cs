@@ -156,6 +156,11 @@ namespace NewModCompiler.Tests
                 FileAt(Path.Combine(mod,"Data","Mod.xml")); FileAt(Path.Combine(mod,"Data","AptUI","b.xml")); FileAt(Path.Combine(mod,"Data","AptUI","a.xml"));
                 FileAt(Path.Combine(mod,"Data","AdditionalMaps","MapMetaData_z.xml")); FileAt(Path.Combine(mod,"Data","AdditionalMaps","Ignored.xml"));
                 var request=Request(); var plan=Planner.Resolve(request);
+                foreach (string key in new[] {"ss","pc","slowclean"}) {
+                    Check(request.Options[key].Value=="true" && request.Options[key].Source=="default","Legacy script default "+key);
+                    var disabled=Request("base","/"+key+":false");
+                    Check(disabled.Options[key].Value=="false" && disabled.Options[key].Source=="commandLine","Explicit legacy override "+key);
+                }
                 Check(plan.Tasks.Select(x=>x.Id).SequenceEqual(new [] {"base/Mod","apt/a","apt/b","maps/MapMetaData_z"}),"Deterministic selected stream discovery");
                 Check(Planner.Resolve(Request("base")).Tasks.Length==1,"base does not compile apt/maps"); Check(Planner.Resolve(Request("apt")).Tasks.Length==2,"apt only"); Check(Planner.Resolve(Request("maps")).Tasks.Length==1,"maps only");
                 Check(Request("maps,base,base").Content.SequenceEqual(new [] {"base","maps"}),"Selection normalization and deduplication");

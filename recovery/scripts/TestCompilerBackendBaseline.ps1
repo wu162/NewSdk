@@ -176,18 +176,18 @@ try {
             $configuration.Save($configPath)
             Copy-Item -LiteralPath $configPath -Destination (Join-Path $caseOut 'original-effective.config')
             New-Item -ItemType Directory -Path $streams,$intermediate,$hashes,$cache|Out-Null
-            # Match CoreStreamCompiler.StreamSettings. No resident server, precompiled
-            # inputs, persistent caches, reports, GUI, postprocessing or extra streams.
+            # Match the current Core defaults: legacy stable sorting, reference policy
+            # and slow cleanup; caches and the resident/GUI hosts remain disabled.
             $arguments=@($input,"/sp:$schema","/dr:$dataRoot","/od:$streams","/iod:$intermediate","/scd:$hashes","/bcp:$cache",
-                '/tp:Win32','/sc:false','/bc:false','/psc:false','/fsc:false','/csc:false','/atc:false','/sh:false','/pc:false',
-                '/res:false','/gui:false','/poe:false','/mr:false','/oof:false','/sf:false','/ls:true','/ss:false','/oix:false','/vf:false',
-                '/osh:false','/oar:false','/slowclean:false','/tl:3','/el:0',"/art:$art","/audio:$audio","/data:$data")
+                '/tp:Win32','/sc:false','/bc:false','/psc:false','/fsc:false','/csc:false','/atc:false','/sh:false','/pc:true',
+                '/res:false','/gui:false','/poe:false','/mr:false','/oof:false','/sf:false','/ls:true','/ss:true','/oix:false','/vf:false',
+                '/osh:false','/oar:false','/slowclean:true','/tl:3','/el:0',"/art:$art","/audio:$audio","/data:$data")
             $caseState.arguments=$arguments;$caseState.workingDirectory=$sdk
             @{exe=$exe;arguments=$arguments;workingDirectory=$sdk}|ConvertTo-Json -Depth 4|Set-Content (Join-Path $caseOut 'invocation.json')
             $caseState.originalExeSha256=Hash $exe;$caseState.originalConfigSha256=Hash (Join-Path $tools 'BinaryAssetBuilder.exe.config')
             $caseState.effectiveConfigSha256=Hash $configPath
             $caseState.runtimeInputs=@(Inventory $oracle)
-            $caseState.effectiveSettings=@{schema=$schema;dataRoot=$dataRoot;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=$false;buildCache=$false;precompiled=$false;resident=$false;linked=$true;stableSort=$false;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected fixture stream; original built-in plugin routes retained'}
+            $caseState.effectiveSettings=@{schema=$schema;dataRoot=$dataRoot;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=$false;buildCache=$false;precompiled=$true;resident=$false;linked=$true;stableSort=$true;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected fixture stream; original built-in plugin routes retained'}
             $caseState.process=InvokeOriginal $exe $arguments $sdk $caseOut
             $actual=@(Get-ChildItem -LiteralPath $streams -File -Recurse)
             $expectedTextures=@($case.expectedTextures|Where-Object{$null -ne $_})

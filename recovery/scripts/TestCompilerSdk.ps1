@@ -79,7 +79,72 @@ function CompareOutputs($Original,$Product,[string]$TaskId){
     }
     return $rows
 }
-$script:state=@{schemaVersion=1;succeeded=$false;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;processes=@();modes=@();originalCases=@();originalBaselineSucceeded=$false;scope='Complete unchanged repository SDK/Mods/mymod source, base/apt/maps discovery, one production build process per Debug/Release configuration, original BAB raw four-stream and exact CDATA output comparison. Empty optional groups remain empty; no synthetic APT/map coverage or complete P5/G3 acceptance is inferred.'}
+
+function VerifySdkBig([string]$Mode,$Runtime,$ModeOut,$Sdk,$Mod,$Tasks,$Originals,$Data,$Art,$Audio){
+    $bigOut=Join-Path $ModeOut 'big';New-Item -ItemType Directory -Path $bigOut|Out-Null
+    $destination=Join-Path $script:short ($Mode.Substring(0,1)+'big')
+    New-Item -ItemType Directory -Path $destination|Out-Null
+    $arguments=@('build','--mod',$Mod,'--sdk-root',$Sdk,'--out',$destination,'--package-content','base,apt,maps','--package-format','big','/sc:false','/bc:false',"/data:$Data","/art:$Art","/audio:$Audio")
+    $audit=InvokeControlled ($Mode+'/big') (Join-Path $Runtime 'NewModCompiler.exe') $arguments $Runtime (Join-Path $destination 'build.events.jsonl') (Join-Path $bigOut 'process')
+    Copy-Item -LiteralPath $destination -Destination (Join-Path $bigOut 'output') -Recurse
+    $report=Get-Content (Join-Path $destination 'build-report.json') -Raw|ConvertFrom-Json
+    Need ($report.exitCode -eq 0 -and $report.status -ceq 'succeeded' -and $report.executionMode -ceq 'InProcess' -and @($report.externalTools).Count -eq 0 -and @($report.artifacts).Count -eq 2) 'SDK BIG production report failed'
+    $inputs=(New-Item -ItemType Directory -Path (Join-Path $bigOut 'original-inputs')).FullName
+    $expected=@()
+    foreach($task in $Tasks){
+        $prefix=if($task.content -ceq 'base'){'data'}elseif($task.content -ceq 'apt'){'data/aptui'}else{'data/additionalmaps'}
+        foreach($key in $Originals[$task.id].Keys){
+            $source=$Originals[$task.id][$key].path
+            $leaf=[IO.Path]::GetFileName($source).ToLowerInvariant()
+            $relative=$prefix+'/'+$leaf
+            if($leaf.EndsWith('.cdata')){$relative=$prefix+'/'+[IO.Path]::GetFileNameWithoutExtension($task.inputPath).ToLowerInvariant()+'/cdata/'+$leaf}
+            $target=Join-Path $inputs $relative;New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($target))|Out-Null
+            Copy-Item -LiteralPath $source -Destination $target
+            $expected+=,@{name=$relative.Replace('/','\');source=$target;bytes=(Get-Item $target).Length;sha256=(Hash $target)}
+        }
+        if($task.content -ceq 'apt'){
+            $relative=$prefix+'/'+[IO.Path]::GetFileNameWithoutExtension($task.inputPath).ToLowerInvariant()+'.version'
+            $target=Join-Path $inputs $relative;[IO.File]::WriteAllBytes($target,[byte[]](32,13,10))
+            $expected+=,@{name=$relative.Replace('/','\');source=$target;bytes=3;sha256=(Hash $target)}
+        }
+        if($task.content -ceq 'base'){
+            $manifest=Join-Path $inputs 'data/mod.manifest'
+            & python "$PSScriptRoot/ValidateCompilerLoD.py" --manifest $manifest --original (Join-Path $Sdk 'tools/LoDStreamBuilder.exe') --output (Join-Path $bigOut 'original-lod') *> (Join-Path $bigOut 'original-lod.log')
+            Need ($LASTEXITCODE -eq 0) 'Complete SDK original LoD failed'
+            $lod=Get-Content (Join-Path $bigOut 'original-lod/inventory.json') -Raw|ConvertFrom-Json
+            Need ($lod.succeeded -and @($lod.files).Count -eq 8) 'Complete SDK LoD inventory incomplete'
+            foreach($file in $lod.files){
+                $target=Join-Path $inputs ('data/'+$file.name);Copy-Item -LiteralPath $file.source -Destination $target
+                $expected+=,@{name=('data\'+$file.name);source=$target;bytes=$file.bytes;sha256=$file.sha256}
+            }
+        }
+    }
+    $original=Join-Path $bigOut 'MakeBig.exe';Copy-Item -LiteralPath (Join-Path $Sdk 'tools/MakeBig.exe') -Destination $original
+    [IO.File]::WriteAllText(($original+'.config'),'<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0"/></startup></configuration>')
+    $archive=Join-Path $bigOut 'original.big'
+    $start=[Diagnostics.ProcessStartInfo]::new();$start.FileName=$original;$start.WorkingDirectory=$bigOut;$start.UseShellExecute=$false;$start.CreateNoWindow=$true;$start.RedirectStandardOutput=$true;$start.RedirectStandardError=$true
+    foreach($arg in @('-f',$inputs,'-x:*.asset',('-o:'+$archive))){$start.ArgumentList.Add($arg)}
+    $process=[Diagnostics.Process]::new();$process.StartInfo=$start
+    try{
+        Need ($process.Start()) 'Original MakeBig failed to start'
+        $stdout=$process.StandardOutput.ReadToEndAsync();$stderr=$process.StandardError.ReadToEndAsync()
+        if(!$process.WaitForExit($TimeoutSeconds*1000)){$process.Kill($true);throw 'Original MakeBig timed out'}
+        [IO.File]::WriteAllText((Join-Path $bigOut 'original.stdout.log'),$stdout.GetAwaiter().GetResult())
+        [IO.File]::WriteAllText((Join-Path $bigOut 'original.stderr.log'),$stderr.GetAwaiter().GetResult())
+        Need ($process.ExitCode -eq 0) 'Original MakeBig failed'
+    }finally{$process.Dispose()}
+    $expected|ConvertTo-Json -Depth 6|Set-Content (Join-Path $bigOut 'expected.json')
+    $big=@($report.artifacts|Where-Object{$_.Kind -ceq 'package.big'});$sku=@($report.artifacts|Where-Object{$_.Kind -ceq 'package.skudef'})
+    Need ($big.Count -eq 1 -and $sku.Count -eq 1) 'SDK BIG/SKUDEF identity missing'
+    & python "$PSScriptRoot/ValidateCompilerBig.py" --archive $big[0].Path --oracle $archive --expected (Join-Path $bigOut 'expected.json') --output (Join-Path $bigOut 'comparison.json')
+    Need ($LASTEXITCODE -eq 0) 'SDK BIG/original LoD/MakeBig raw member differential failed'
+    $name=[IO.Path]::GetFileName($Mod)
+    Need ([IO.Path]::GetFileName($big[0].Path) -ceq ($name+'_1.0.big') -and [IO.Path]::GetFileName($sku[0].Path) -ceq ($name+'_1.0.skudef')) 'SDK package names differ from old script defaults'
+    Need ([Convert]::ToBase64String([IO.File]::ReadAllBytes($sku[0].Path)) -ceq [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("mod-game 1.12`r`nadd-big ${name}_1.0.big`r`n"))) 'SDK SKUDEF differs from original ASCII/CRLF commands'
+    return @{succeeded=$true;control=$audit;report=$report;originalMakeBigSha256=(Hash $original);comparison=(Get-Content (Join-Path $bigOut 'comparison.json') -Raw|ConvertFrom-Json)}
+}
+
+$script:state=@{schemaVersion=1;succeeded=$false;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;processes=@();modes=@();originalCases=@();originalBaselineSucceeded=$false;scope='Complete unchanged repository SDK/Mods/mymod source, base/apt/maps discovery, one production build process per Debug/Release configuration, original BAB raw four-stream and exact CDATA output comparison. BIG/SKUDEF is additionally compared to original LoD and MakeBig using this unchanged MOD; empty optional groups remain empty and no synthetic APT/map coverage or complete game runtime acceptance is inferred.'}
 try {
     Need (!!$env:RUNNER_TEMP) 'A Windows runner temporary directory is required'
     $state.sourceCommit=(git -C $root rev-parse HEAD).Trim();Need ($LASTEXITCODE -eq 0) 'Cannot identify SDK source'
@@ -123,7 +188,7 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
         foreach($entry in $entries){$tasks+=@{id=($selection.content+'/'+$entry.BaseName);content=$selection.content;inputPath=$entry.FullName}}
     }
     $state.selectedTasks=$tasks;$state.emptyOptionalGroups=$skipped
-    $short=(New-Item -ItemType Directory -Path (Join-Path $env:RUNNER_TEMP ('g'+[Guid]::NewGuid().ToString('N').Substring(0,8)))).FullName
+    $script:short=(New-Item -ItemType Directory -Path (Join-Path $env:RUNNER_TEMP ('g'+[Guid]::NewGuid().ToString('N').Substring(0,8)))).FullName
     $script:control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
     $controlReceipt=Get-Content (Join-Path $out 'controller/build.json') -Raw|ConvertFrom-Json
     Need ($controlReceipt.succeeded -and $controlReceipt.sourceCommit -ceq $state.sourceCommit -and $controlReceipt.controllerSha256 -ceq (Hash $script:control)) 'SDK controller identity mismatch'
@@ -205,7 +270,9 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
         foreach($artifact in $report.artifacts){Need ($accepted.Remove([string]$artifact.Path) -and (Within (Join-Path $destination 'published') $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'SDK reported artifact path/identity differs'}
         Need ($accepted.Count -eq 0 -and !(Test-Path -LiteralPath (Join-Path $destination ('.build/'+$report.buildId)))) 'SDK publication retained staging or omitted output'
         Unchanged $runtime $runtimeBefore
-        $modeState.succeeded=@($modeState.comparisons.outputs|Where-Object{!$_.byteIdentical}).Count -eq 0
+        $modeState.looseSucceeded=@($modeState.comparisons.outputs|Where-Object{!$_.byteIdentical}).Count -eq 0
+        if($modeState.looseSucceeded){$modeState.big=VerifySdkBig $mode $runtime $modeOut $sdk $mod $tasks $originals $data $art $audio;$modeState.succeeded=$true}
+        Unchanged $runtime $runtimeBefore
     }
     Unchanged $oracleTools $state.originalRuntime;Unchanged $sdk $sdkBefore;$state.inputsUnchanged=$true
     Need (@($state.modes).Count -eq 2 -and @($state.modes|Where-Object{!$_.succeeded}).Count -eq 0) 'Complete SDK differential failed; see per-file raw comparisons in validation.json'
@@ -220,5 +287,6 @@ finally {
     $env:PATH=$oldPath;foreach($key in $removedEnvironment.Keys){[Environment]::SetEnvironmentVariable($key,$removedEnvironment[$key],'Process')}
     if($short -and (Test-Path -LiteralPath $short)){try{Remove-Item -LiteralPath $short -Recurse -Force;$state.temporaryRootRemoved=$true}catch{$state.temporaryRootRemoved=$false;$state.temporaryCleanupError=$_.Exception.ToString()}}
     $state|ConvertTo-Json -Depth 20|Set-Content (Join-Path $out 'validation.json')
+    Write-Host ('SDK_RESULT '+(@{succeeded=$state.succeeded;sourceCommit=$state.sourceCommit;error=$state.error;modes=@($state.modes|ForEach-Object{@{configuration=$_.configuration;succeeded=$_.succeeded;bigSucceeded=$_.big.succeeded;differences=@($_.comparisons.outputs|Where-Object{!$_.byteIdentical}).Count}})}|ConvertTo-Json -Compress -Depth 5))
     if($verificationFailure){throw $verificationFailure}
 }

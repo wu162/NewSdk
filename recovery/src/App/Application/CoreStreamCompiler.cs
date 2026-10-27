@@ -26,6 +26,7 @@ namespace NewModCompiler.Application
         string sdkRoot, modRoot, outputRoot, configurationXml;
         int threadId, traceLevel = 3;
         bool initialized, initializing, disposed, compiling, buildCacheEnabled, sessionCacheEnabled, cacheCommitted, cacheCompleted;
+        bool stableSortEnabled = true, usePrecompiled = true, forceSlowCleanup = true;
         int buildCacheHits, buildCacheMisses, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile;
         readonly List<BuildAssetCache> assetCaches = new List<BuildAssetCache>();
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
@@ -165,10 +166,11 @@ namespace NewModCompiler.Application
         void ValidateOptions(BuildRequest candidate)
         {
             traceLevel = 3; buildCacheEnabled = sessionCacheEnabled = false;
+            stableSortEnabled = usePrecompiled = forceSlowCleanup = true;
             BigPackage.ValidateRequest(candidate);
             if(candidate.Command=="build" && candidate.FixNeutralAssets) BasePostProcessor.ValidateReferences(candidate.SdkRoot);
             var ordinary = new HashSet<string>(new[] { "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format", "mod-version", "game-version", "skudef-name", "include-additional", "fix-neutral-assets", "dr", "data", "art", "audio" }, StringComparer.OrdinalIgnoreCase);
-            var disabled = new HashSet<string>(new[] { "csc", "psc", "fsc", "atc", "pc", "oof", "vf", "oar", "osh", "oix", "mr", "slowclean" }, StringComparer.OrdinalIgnoreCase);
+            var disabled = new HashSet<string>(new[] { "csc", "psc", "fsc", "atc", "oof", "vf", "oar", "osh", "oix", "mr" }, StringComparer.OrdinalIgnoreCase);
             foreach (var option in candidate.Options)
             {
                 if (option.Value == null) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", "A Core option has no effective value: " + option.Key);
@@ -178,6 +180,15 @@ namespace NewModCompiler.Application
                 if (ordinary.Contains(key)) continue;
                 if (key == "bc" && (string.Equals(value, "true", StringComparison.OrdinalIgnoreCase) || string.Equals(value, "false", StringComparison.OrdinalIgnoreCase))) { buildCacheEnabled = string.Equals(value, "true", StringComparison.OrdinalIgnoreCase); continue; }
                 if (key == "sc" && (string.Equals(value, "true", StringComparison.OrdinalIgnoreCase) || string.Equals(value, "false", StringComparison.OrdinalIgnoreCase))) { sessionCacheEnabled = string.Equals(value, "true", StringComparison.OrdinalIgnoreCase); continue; }
+                if (key == "ss" || key == "pc" || key == "slowclean")
+                {
+                    bool enabled;
+                    if (!bool.TryParse(value, out enabled)) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", key + " expects true or false.");
+                    if (key == "ss") stableSortEnabled = enabled;
+                    else if (key == "pc") usePrecompiled = enabled;
+                    else forceSlowCleanup = enabled;
+                    continue;
+                }
                 if (disabled.Contains(key) && string.Equals(value, "false", StringComparison.OrdinalIgnoreCase)) continue;
                 if (key == "tp" && string.Equals(value, "Win32", StringComparison.OrdinalIgnoreCase)) continue;
                 if (key == "ls" && string.Equals(value, "true", StringComparison.OrdinalIgnoreCase)) continue;
@@ -221,7 +232,12 @@ namespace NewModCompiler.Application
             settings.SessionCache = sessionCacheEnabled;
             settings.PartialSessionCache = settings.FreezeSessionCache = settings.CompressedSessionCache = false;
             settings.BuildCache = buildCacheEnabled;
-            settings.AlwaysTouchCache = settings.StreamHints = settings.UsePrecompiled = false;
+            settings.AlwaysTouchCache = settings.StreamHints = false;
+            // SDK/defaultscript.cs steps 3/4/5 enable these independently of caching.
+            // In particular /pc changes whether referenced streams emit output.
+            settings.StableSort = stableSortEnabled;
+            settings.UsePrecompiled = usePrecompiled;
+            settings.ForceSlowCleanup = forceSlowCleanup;
             settings.GuiMode = settings.Resident = settings.PauseOnError = settings.MetricsReporting = false;
             settings.OldOutputFormat = settings.VersionFiles = settings.OutputAssetReport = settings.OutputStringHashes = settings.OutputIntermediateXml = false;
             settings.SingleFile = false; settings.LinkedStreams = true;
