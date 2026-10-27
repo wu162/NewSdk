@@ -169,7 +169,7 @@ try {
     Copy-Item $documentOracleExe "$documentOracleOut/oracle.exe"
     Copy-Item "$documentOracleExe.config" "$documentOracleOut/oracle.exe.config"
     $documentOriginalJson=Join-Path $documentOracleOut 'transcript.json'
-    $documentOracleProcess=Invoke-LifecycleFixture $documentOracleExe @($documentOracleWork,$documentOriginalJson,$state.sourceCommit,$state.runId,'original') $expressionOracleRuntime "$documentOracleOut/oracle-runtime.log" 180
+    $documentOracleProcess=Invoke-LifecycleFixture $documentOracleExe @($documentOracleWork,$documentOriginalJson,$state.sourceCommit,$state.runId,'original',$sdk) $expressionOracleRuntime "$documentOracleOut/oracle-runtime.log" 180
     if(!(Select-String -LiteralPath "$documentOracleOut/oracle-runtime.log" -SimpleMatch 'PASS DocumentSnapshotOracle: original' -Quiet)){throw 'Original document oracle success marker missing'}
     $documentOriginal=Get-Content $documentOriginalJson -Raw|ConvertFrom-Json
     $documentOriginalCore=Join-Path $expressionOracleRuntime 'BinaryAssetBuilder.Core.dll'
@@ -258,6 +258,13 @@ try {
             $arguments+=$(if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'})
             foreach($name in $frameworkReferences){$arguments+=('/r:'+(Join-Path $refs ($name+'.dll')))}
             $arguments+=$source
+            $additionalSourceInputs=@()
+            if($fixture.name -eq 'CompilerCoreLifecycle'){
+                # Run the identical inheritance corpus against the independent
+                # original SDK and this production host; suppress only its Main.
+                $arguments+=@('/define:DOCUMENT_ORACLE_SHARED',$documentOracleSource)
+                $additionalSourceInputs+=,@{path='recovery/tests/CompilerDocumentSnapshotOracle.cs';sha256=(Hash $documentOracleSource);define='DOCUMENT_ORACLE_SHARED'}
+            }
             try {
             & $csc @arguments *> "$fixtureOut/fixture-build.log"
             if($LASTEXITCODE -ne 0){Get-Content "$fixtureOut/fixture-build.log" -Tail 100|Out-Host;throw "$mode $($fixture.name) fixture compilation failed"}
@@ -270,7 +277,7 @@ try {
                 $fixtureArguments=@($fixtureExe,$fixtureWork,$resultPath,$state.sourceCommit,$state.runId,$sdk)
                 if($fixture.name -eq 'CompilerExpressionPrograms'){$fixtureArguments+=@($expressionOriginalJson,$documentOriginalJson)}
                 if($fixture.name -eq 'CompilerHashingWriter'){$fixtureArguments+=$hashingOriginalJson}
-                if($fixture.name -in @('CompilerDocumentSnapshots','CompilerDocumentMetadata')){$fixtureArguments+=$documentOriginalJson}
+                if($fixture.name -in @('CompilerDocumentSnapshots','CompilerDocumentMetadata','CompilerCoreLifecycle')){$fixtureArguments+=$documentOriginalJson}
                 $processId=Invoke-LifecycleFixture $run.exe $fixtureArguments $clean "$fixtureOut/runtime.log" $timeout
                 if(!(Select-String -LiteralPath "$fixtureOut/runtime.log" -SimpleMatch $fixture.marker -Quiet)){throw 'Core lifecycle success marker missing'}
                 $result=Get-Content -LiteralPath $resultPath -Raw|ConvertFrom-Json
@@ -279,11 +286,12 @@ try {
                 if($fixture.name -eq 'CompilerCoreLifecycle' -and @($result.tests).Count -lt 4){throw 'Real Core lifecycle case groups missing'}
                 if($fixture.name -in @('CompilerBackendLifecycle','CompilerApplicationBuild') -and @($result.tests).Count -eq 0){throw 'Targeted backend/application case groups missing'}
                 if((Hash $fixtureExe) -cne $fixtureHash -or (Hash $source) -cne ($state.fixtures|Where-Object{$_.name -ceq $fixture.name}).sha256){throw 'Lifecycle fixture input changed while running'}
+                foreach($input in $additionalSourceInputs){if((Hash (Join-Path $root $input.path)) -cne $input.sha256){throw 'Lifecycle shared corpus input changed while running'}}
                 if((Hash $texture) -cne $textureHash -or (Hash $textureManifest) -cne $textureManifestHash){throw 'Backend texture deployment changed while running'}
                 Complete-CompilerValidationRun $run
                 $modeState.fixtures+=,@{
                     name=$fixture.name;passed=$true;processId=$processId;timeoutSeconds=$timeout;workRoot=$fixtureWork
-                    sourceSha256=(Hash $source);fixtureExeSha256=(Hash $fixtureExe)
+                    sourceSha256=(Hash $source);additionalSourceInputs=$additionalSourceInputs;fixtureExeSha256=(Hash $fixtureExe)
                     resultSha256=(Hash $resultPath);runtimeLogSha256=(Hash "$fixtureOut/runtime.log")
                 }
                 $state|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"

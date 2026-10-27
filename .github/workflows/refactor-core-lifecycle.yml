@@ -209,7 +209,18 @@ jobs:
             $checks+=@{name=$name;passed=$passed;sourceSha256=(Get-FileHash $source -Algorithm SHA256).Hash.ToLowerInvariant()}
             if(!$passed){Get-Content "$out/$name.log"|Out-Host;$failures+=$name}
           }
-          @{sourceCommit=$env:GITHUB_SHA;runId=$env:GITHUB_RUN_ID;foundationSha256=(Get-FileHash $module -Algorithm SHA256).Hash.ToLowerInvariant();checks=$checks;scope='Compile only against actual current Foundation; does not replace production-host runtime acceptance'}|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json"
+          # This same inheritance corpus also targets the independent legacy
+          # DLL. Check its real API surface before the long product link too.
+          $source='recovery/tests/CompilerDocumentSnapshotOracle.cs'
+          $arguments=@('/nologo','/noconfig','/nostdlib+','/target:library','/langversion:7.3','/codepage:65001','/platform:x86',('/out:'+(Join-Path $out 'CompilerDocumentSnapshotOriginalSdk.dll')))
+          foreach($reference in @($manifest.frameworkReferences)+@('System.Web.Extensions')){$arguments+=('/r:'+(Join-Path $refs ($reference+'.dll')))}
+          foreach($reference in @('BinaryAssetBuilder.Core.dll','BinaryAssetBuilder.ExpressionEval.dll','BinaryAssetBuilder.Utility.dll','antlr.runtime.dll')){$arguments+=('/r:'+(Join-Path $PWD ('SDK/tools/'+$reference)))}
+          $arguments+=$source
+          & $csc @arguments *> "$out/CompilerDocumentSnapshotOriginalSdk.log"
+          $passed=$LASTEXITCODE -eq 0
+          $checks+=@{name='CompilerDocumentSnapshotOriginalSdk';passed=$passed;sourceSha256=(Get-FileHash $source -Algorithm SHA256).Hash.ToLowerInvariant();referenceKind='Original SDK DLLs, no recovered Foundation module'}
+          if(!$passed){Get-Content "$out/CompilerDocumentSnapshotOriginalSdk.log"|Out-Host;$failures+='CompilerDocumentSnapshotOriginalSdk'}
+          @{sourceCommit=$env:GITHUB_SHA;runId=$env:GITHUB_RUN_ID;foundationSha256=(Get-FileHash $module -Algorithm SHA256).Hash.ToLowerInvariant();checks=$checks;scope='Compile only against actual current Foundation and explicitly identified original SDK DLLs; does not replace independent original-process or production-host runtime acceptance'}|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json"
           if($failures.Count -ne 0){throw ('Core fixture preflight failed: '+($failures -join ', '))}
       - name: Build full production combination and verify deployment and route metadata
         id: product

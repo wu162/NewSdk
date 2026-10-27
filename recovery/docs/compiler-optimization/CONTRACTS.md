@@ -2,6 +2,8 @@
 
 本页说明实现边界；验收状态以 [HANDOFF](HANDOFF.md) 和 [VALIDATION](VALIDATION.md) 的准确 sourceCommit/runId 为准。[PLAN](PLAN.md) 是设计材料，未完成提案不能用来授权强缓存命中或并行。
 
+2026-10-28 新候选 `5727b05b` 正在 Actions 验证，以下新增合同尚不属于已接受的 `64bfcc80` 生产对象。
+
 ## 工作计量
 
 `coreWork` 保存实际调用次数、抛异常次数和单调时钟区间：rawParse、definitions、expressions、inheritance、validation、assetProcessing、referenceBinding、manifest、link。rawParse 包含 resolver/reader 初始化和 XInclude；assetProcessing 包含准备与缓存工作；返回失败状态而未抛异常不计 failedCalls。嵌套区间不可相加求总 wall time。
@@ -42,7 +44,10 @@ BinaryAsset 新封存仅用于有效的外部 legacy Cache 来源。Local 属于
 | captureReadsStarted / captureReadsCompleted / captureReadBytes | 额外封存读取的累计工作，含回滚；同流 `.asset` 首遍不再额外读取 |
 | teeStarted / teeCompleted / teeBytes | 实际接收到的成功原 copy chunks，累计值包含后续回滚 |
 | copyReadHits | 已打开封存游标的次数，不保证后续 copy 成功 |
+| cacheHeaderReadHits | 恢复 header 已打开封存游标的次数；不代表另一次完整物化或新 capture |
 | 顶层 captures / capturedBytes | 当前保留的 snapshot entries；回滚恢复规模，不能当全部读取量 |
+
+新候选的恢复 header 只复用已经封存的 Cache 来源，不为尚未验证的坏缓存新建 pin；坏长度删除、Local/Output 的可变修复路径继续执行原逻辑。网络 cache 存在查询在原调用之后记录，保留原 `&&` 短路，使用独立的 8192 路径/1 Mi UTF-16 字符预算并在 VerifyUnchanged 终验。成功的本进程 File.Copy/File.Delete 推进对应预期状态，已有外部冲突不被清除。实际开始而失败的可选 cache 写可能留下部分目标，因此撤销该路径的查询证明并永久报告本代 incomplete；后续真实查询可重建存在基线，不能因此授权强缓存。内容封存、预算回退、输出根排除及 Texture 未闭合边界不变。新增取消点在可选 cache 发布和 keepalive 路径继续传播，不落入原 best-effort catch。
 
 ## 构建内 schema 元数据
 
@@ -57,6 +62,12 @@ BinaryAsset 新封存仅用于有效的外部 legacy Cache 来源。Local 属于
 声明快照按 reference identity 复制 exact-base Handle 图，直接保留 32-bit ids/hash、重复顺序和跨 own/inherit/strong/weak 的别名。派生 Handle/list 整图回退；null 只保留 in-memory 行为，不新增 null XML roundtrip。文档快照隔离声明 wrapper、Define/include/output/UsedDefine 记录，保留路径、顺序、别名与来源引用；恢复 Define.Document 不写穿其它文档。派生声明/InstanceSet 和派生 metadata 分别保守回退。
 
 只有实际 exact 值复制或 XML 新建提供 positive ownership 时，私有 saved 声明/元数据可共享；Current 恢复仍复制。未知 BinaryFormatter 来源无共享证明；动态启用旧生命周期时先 detach，再暴露给可变 Current 并撤销证明。`CacheFromDocument` 的 saved-to-saved 共享已通过公共 API 合同，但当前无生产调用，不报告 CLI 收益。DOM、SchemaInfo、完整 Define 环境和 AssetSemanticResult 尚未冻结。
+
+## 继承阶段执行（新候选待验收）
+
+PrevalidationReady 属于 InstanceDeclaration 当前 live DOM 的非序列化阶段状态，不从 legacy hash 推断，也不随 saved 声明恢复。每次 XmlNode 赋值含 null 都撤销它并递增 revision；实际 hash 成功且 revision 未变时才发布，保留 custom WriteTo 的异常及赋值回调。它不证明 DOM 不可变、不代表完整验证成功，也不授权语义缓存。
+
+同文档继承使用显式 DFS frame 与按引用身份的 active visiting 集，空间随当前深度增长，拒绝环且不消耗 CLR 递归栈。查找、source 返回边界、merge/hash、顶层重复处理和错误顺序继续执行；无继承的顶层路径不分配图或 frame。跨文档仍直接消费原 processed DOM 的 SchemaInfo、默认值与来源，没有用 CloneNode/OuterXml 替代完整结果。完整 AssetSemanticResult 与 Define 环境冻结仍未完成。
 
 ## 影子语义轨迹
 

@@ -7,6 +7,7 @@ using System.Text;
 using System.Web.Script.Serialization;
 using System.Xml;
 using BinaryAssetBuilder.Core;
+using BinaryAssetBuilder;
 
 // Compile this exact source independently against the original SDK Core and the
 // recovered Core. The probe exercises public lifecycle calls; reflection only
@@ -126,12 +127,111 @@ public static class CompilerDocumentSnapshotOracle
         }
         return results.ToArray();
     }
+    const string AssetNamespace = "uri:ea.com:eala:asset";
+    static AssetDeclarationDocument InheritanceDocument(DocumentProcessor processor, string name, string body)
+    {
+        var document = Document(Path.GetTempPath()); document.SelfInstances.Clear();
+        object current = typeof(AssetDeclarationDocument).GetField("_Current", Hidden).GetValue(document);
+        Type type = current.GetType();
+        // Stable logical sources keep independent original/recovered processes
+        // comparable without erasing provider identity or error ordering.
+        type.GetField("SourcePath").SetValue(current, name + ".xml");
+        type.GetField("LogicalSourcePath").SetValue(current, name + ".xml");
+        type.GetField("DocumentProcessor").SetValue(current, processor);
+        var xml = new XmlDocument(); xml.LoadXml("<AssetDeclaration xmlns='" + AssetNamespace + "'>" + body + "</AssetDeclaration>");
+        type.GetField("XmlDocument").SetValue(current, xml);
+        type.GetField("NodeSourceInfoSet").SetValue(current, Activator.CreateInstance(type.GetField("NodeSourceInfoSet").FieldType));
+        foreach (XmlNode node in xml.DocumentElement.ChildNodes)
+            document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = node });
+        return document;
+    }
+    static object[] InheritanceProjection(AssetDeclarationDocument document)
+    {
+        var rows = new List<object>();
+        foreach (InstanceDeclaration instance in document.SelfInstances)
+        {
+            XmlNode node = instance.XmlNode; var schema = node == null ? null : node.SchemaInfo;
+            XmlAttribute defaults = node == null ? null : node.Attributes["Default"];
+            rows.Add(new { id = instance.Handle.InstanceName, xml = node == null ? null : node.OuterXml,
+                prevalidationHash = instance.PrevalidationXmlHash, inheritedHash = instance.InheritFromXmlHash,
+                schemaType = schema == null || schema.SchemaType == null ? null : schema.SchemaType.QualifiedName.ToString(),
+                validity = schema == null ? null : schema.Validity.ToString(),
+                defaultValue = defaults == null ? null : defaults.Value,
+                defaultSpecified = defaults == null ? (bool?)null : defaults.Specified,
+                providerDocument = instance.Document == null ? null : instance.Document.SourcePath });
+        }
+        return rows.ToArray();
+    }
+    public static object[] InheritanceCases(string work, string sdk)
+    {
+        Settings previous = Settings.Current;
+        var priorCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
+        try
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            var config = new XmlDocument(); config.Load(Path.Combine(sdk, "tools/BinaryAssetBuilder.exe.config"));
+            var settings = (Settings)new SerializedSectionHandler().Create(null, null, config.SelectSingleNode("/configuration/assetbuilder"));
+            settings.SchemaPath = Path.Combine(sdk, "Schemas/xsd/CnC3Types.xsd"); settings.TargetPlatform = TargetPlatform.Win32;
+            settings.DataRoot = work; settings.SessionCacheDirectory = Path.Combine(work, "inheritance-hashes");
+            settings.OutputIntermediateXml = false; Settings.Current = settings;
+            Directory.CreateDirectory(settings.SessionCacheDirectory); HashProvider.InitializeStringHashes(settings.SessionCacheDirectory);
+            var schemas = new SchemaSet(false);
+            var processor = new DocumentProcessor(settings, new PluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32), null) { SchemaSet = schemas };
+            string[] names = { "forward", "backward", "diamond", "first-depth-error", "first-sibling-error" };
+            string[] inputs = {
+                "<ArmorTemplate id='First' inheritFrom='Middle'/><ArmorTemplate id='Middle' inheritFrom='Last'/><ArmorTemplate id='Last' Default='10'/>",
+                "<ArmorTemplate id='Last' Default='10'/><ArmorTemplate id='Middle' inheritFrom='Last'/><ArmorTemplate id='First' inheritFrom='Middle'/>",
+                "<ArmorTemplate id='Left' inheritFrom='Root'/><ArmorTemplate id='Right' inheritFrom='Root'/><ArmorTemplate id='Leaf' inheritFrom='Left'/><ArmorTemplate id='Root' Default='10'/>",
+                "<ArmorTemplate id='First' inheritFrom='Middle'/><ArmorTemplate id='Middle' inheritFrom='MissingDeep'/><ArmorTemplate id='Later' inheritFrom='MissingSibling'/>",
+                "<ArmorTemplate id='First' inheritFrom='MissingSibling'/><ArmorTemplate id='Later' inheritFrom='MissingDeep'/>"
+            };
+            var results = new List<object>();
+            for (int index = 0; index < names.Length; index++)
+            {
+                var document = InheritanceDocument(processor, "inheritance-" + names[index], inputs[index]);
+                var events = new List<string>();
+                document.XmlDocument.NodeInserted += (sender, change) => {
+                    if (change.NewParent == document.XmlDocument.DocumentElement && change.Node.Attributes != null && change.Node.Attributes["id"] != null)
+                        events.Add(change.Node.Attributes["id"].Value);
+                };
+                int passes = index < 3 ? 2 : 1;
+                for (int pass = 0; pass < passes; pass++)
+                {
+                    events.Clear(); string outcome = "OK";
+                    try { document.ProcessOverrides(); }
+                    catch (BinaryAssetBuilderException error) { outcome = "ERR:" + error.ErrorCode + ":" + error.Message; }
+                    results.Add(new { name = names[index], pass, inputXml = inputs[index], outcome,
+                        documentXml = document.XmlDocument.OuterXml, events = String.Join(",", events), instances = InheritanceProjection(document) });
+                }
+            }
+            // Actual public Validate produces default attributes, SchemaInfo,
+            // TypeId and legacy per-instance metadata in the original provider.
+            var provider = InheritanceDocument(processor, "inheritance-processed-provider", "<ArmorTemplate id='Provider'/>");
+            provider.ProcessOverrides(); provider.Validate();
+            object[] providerBefore = InheritanceProjection(provider);
+            var consumer = InheritanceDocument(processor, "inheritance-processed-consumer", "<ArmorTemplate id='Consumer' inheritFrom='Provider'/>");
+            consumer.TentativeInstances.Add(provider.SelfInstances[0]);
+            consumer.InclusionItems.Add(new InclusionItem("provider.xml", "provider.xml", InclusionType.Instance) { Document = provider });
+            consumer.ProcessOverrides();
+            object[] merged = InheritanceProjection(consumer);
+            consumer.XmlDocument.Schemas.Add(schemas.Schemas);
+            consumer.XmlDocument.Validate((sender, error) => { throw error.Exception; });
+            results.Add(new { name = "included-processed", pass = 0, providerBefore,
+                providerAfter = InheritanceProjection(provider), merged, validated = InheritanceProjection(consumer),
+                providerType = provider.SelfInstances[0].XmlNode.SchemaInfo.SchemaType.QualifiedName.ToString(),
+                providerDocument = provider.SelfInstances[0].Document.SourcePath,
+                providerStillTyped = provider.SelfInstances[0].XmlNode.SchemaInfo.SchemaType != null });
+            return results.ToArray();
+        }
+        finally { Settings.Current = previous; System.Threading.Thread.CurrentThread.CurrentCulture = priorCulture; }
+    }
+#if !DOCUMENT_ORACLE_SHARED
     public static int Main(string[] args)
     {
         var json = new JavaScriptSerializer(); object result; int code = 0;
         try
         {
-            if (args.Length != 5 || IntPtr.Size != 4) throw new Exception("Expected x86 work result source run original|fallback|owned");
+            if (args.Length != 6 || IntPtr.Size != 4) throw new Exception("Expected x86 work result source run original|fallback|owned SDK");
             string mode = args[4];
             if (mode != "original" && mode != "fallback" && mode != "owned") throw new Exception("Unknown oracle mode");
             AppContext.SetSwitch("NewSdk.Compiler.DisableDocumentSnapshots", mode == "fallback");
@@ -148,12 +248,13 @@ public static class CompilerDocumentSnapshotOracle
                 throw new Exception("Unexpected public document cache lifecycle outcome for " + mode);
             object metadata = Metadata(args[0], expectedShared);
             object[] expressionTraversal = ExpressionTraversal(args[0]);
+            object[] inheritance = InheritanceCases(args[0], args[5]);
             string assemblySha;
             using (var sha = SHA256.Create()) assemblySha = Convert.ToBase64String(sha.ComputeHash(File.ReadAllBytes(typeof(AssetDeclarationDocument).Assembly.Location)));
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], mode, sameDeclaration, sourceXmlChanged,
                 savedHash, receiverHash = receiver.SelfInstances[0].ProcessingHash, metadata, expressionTraversal,
-                assembly = typeof(AssetDeclarationDocument).Assembly.FullName, assemblySha256Base64 = assemblySha,
-                scope = "Direct public Core cache-copy/restore/complete/reserialize metadata lifecycle and 40 expression-DOM traversal cases; no production CLI failure is claimed" };
+                inheritance, assembly = typeof(AssetDeclarationDocument).Assembly.FullName, assemblySha256Base64 = assemblySha,
+                scope = "Direct public Core metadata lifecycle, 40 expression-DOM traversal cases and nine real-schema inheritance-stage rows; no production CLI failure is claimed" };
             Console.WriteLine("PASS DocumentSnapshotOracle: " + mode);
         }
         catch (Exception error)
@@ -164,4 +265,5 @@ public static class CompilerDocumentSnapshotOracle
         if (args.Length > 1) File.WriteAllText(args[1], json.Serialize(result));
         return code;
     }
+#endif
 }

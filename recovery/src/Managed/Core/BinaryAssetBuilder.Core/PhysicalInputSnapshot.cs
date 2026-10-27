@@ -41,9 +41,15 @@ public sealed class PhysicalInputSnapshot : IDisposable
     // These observations never authorize a cache hit or freeze mutable output.
     private readonly Dictionary<string, bool> _CacheCandidates = new Dictionary<string, bool>(StringComparer.Ordinal);
     private readonly HashSet<string> _UnverifiedCacheWrites = new HashSet<string>(StringComparer.Ordinal);
+    private readonly HashSet<string> _UnverifiedCacheAliases = new HashSet<string>(StringComparer.Ordinal);
+    // Reuse the bounded candidate path strings; do not scan every cache asset
+    // or assume case-insensitive directories when reconciling an own mutation.
+    private readonly Dictionary<string, List<string>> _CacheCandidatesByLeaf = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
     private long _CacheCandidateTextChars, _CacheCandidateObservations, _CacheCandidateUniquePaths, _CacheCandidateDropped;
     private long _CacheCandidateVerificationChecks, _CacheCandidateConflicts, _CacheCandidateOwnChanges;
     private long _CacheFailedOwnWrites, _CacheCandidateReobservations;
+    private long _CacheAliasFallbacks, _CacheAliasReobservations, _CacheAliasIdentityChecks, _CacheAliasIdentityFailures, _CacheAliasIdentityBudgetFallbacks;
+    private const int CacheAliasIdentityChecksPerMutation = 16, CacheAliasIdentityChecksPerGeneration = 256;
     private string _RetainedScratch;
     private CancellationToken _Cancellation;
     private MaterializationCapture _Materialization;
@@ -537,14 +543,24 @@ public sealed class PhysicalInputSnapshot : IDisposable
             // A failed optional File.Copy may have left a partial destination.
             // The next real query starts a new existence baseline; it cannot
             // erase conflicts seen before that failed own mutation.
-            if (owner._UnverifiedCacheWrites.Remove(full))
-            { owner._CacheCandidates[full] = found; owner._CacheCandidateReobservations++; return; }
+            bool failedWrite = owner._UnverifiedCacheWrites.Remove(full), uncertainAlias = owner._UnverifiedCacheAliases.Remove(full);
+            if (failedWrite || uncertainAlias)
+            {
+                owner._CacheCandidates[full] = found;
+                if (failedWrite) owner._CacheCandidateReobservations++;
+                if (uncertainAlias) owner._CacheAliasReobservations++;
+                return;
+            }
             if (previous != found) owner._CacheCandidateConflicts++;
             return;
         }
         if (owner._CacheCandidates.Count >= owner._CandidateLimit || full.Length > owner._CandidateTextBudget - owner._CacheCandidateTextChars)
         { owner._CacheCandidateDropped++; return; }
         owner._CacheCandidates.Add(full, found); owner._CacheCandidateUniquePaths++; owner._CacheCandidateTextChars += full.Length;
+        string leaf = Path.GetFileName(full); List<string> aliases;
+        if (!owner._CacheCandidatesByLeaf.TryGetValue(leaf, out aliases))
+            owner._CacheCandidatesByLeaf.Add(leaf, aliases = new List<string>());
+        aliases.Add(full);
     }
     internal static void CacheFileChangedByCurrentBuild(string path, bool exists)
     {
@@ -554,8 +570,13 @@ public sealed class PhysicalInputSnapshot : IDisposable
         // Call only after the original File.Copy/File.Delete succeeded. A
         // failed write, a timestamp touch or a third party's publication cannot
         // explain away an earlier observed change. Prior conflicts survive.
-        if (owner.CacheCandidatePath(path, out full) && owner._CacheCandidates.ContainsKey(full))
-        { owner._CacheCandidates[full] = exists; owner._UnverifiedCacheWrites.Remove(full); owner._CacheCandidateOwnChanges++; }
+        if (!owner.CacheCandidatePath(path, out full)) return;
+        if (owner._CacheCandidates.ContainsKey(full))
+        {
+            owner._CacheCandidates[full] = exists; owner._UnverifiedCacheWrites.Remove(full);
+            owner._UnverifiedCacheAliases.Remove(full); owner._CacheCandidateOwnChanges++;
+        }
+        owner.InvalidatePossibleCacheAliases(full);
     }
     internal static void CacheFileWriteFailedByCurrentBuild(string path)
     {
@@ -568,6 +589,52 @@ public sealed class PhysicalInputSnapshot : IDisposable
         // effort behavior, even if File.Copy created a partial destination.
         // Revoke only this query proof; sealed content and prior conflicts stay.
         if (owner._CacheCandidates.ContainsKey(full)) owner._UnverifiedCacheWrites.Add(full);
+        owner.InvalidatePossibleCacheAliases(full);
+    }
+    private void InvalidatePossibleCacheAliases(string changedPath)
+    {
+        List<string> aliases;
+        if (!_CacheCandidatesByLeaf.TryGetValue(Path.GetFileName(changedPath), out aliases) ||
+            (aliases.Count == 1 && string.Equals(aliases[0], changedPath, StringComparison.Ordinal))) return;
+        int checks = 0; string changedParent = Path.GetDirectoryName(changedPath);
+        var parents = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (string alias in aliases)
+        {
+            _Cancellation.ThrowIfCancellationRequested();
+            if (string.Equals(alias, changedPath, StringComparison.Ordinal)) continue;
+            bool uncertain = string.Equals(alias, changedPath, StringComparison.OrdinalIgnoreCase);
+            if (!uncertain)
+            {
+                // Follow junctions with a share-all, attribute-only metadata
+                // handle. It is immediately closed and never becomes a pin.
+                string first = CacheParentIdentity(changedParent, parents, ref checks);
+                string second = CacheParentIdentity(Path.GetDirectoryName(alias), parents, ref checks);
+                uncertain = first == null || second == null || string.Equals(first, second, StringComparison.Ordinal);
+            }
+            // No equality claim is made for case-sensitive directories or an
+            // uncertain native identity. Revoke only the alias query proof;
+            // sealed content checks and already observed conflicts survive.
+            if (uncertain && _UnverifiedCacheAliases.Add(alias)) _CacheAliasFallbacks++;
+        }
+    }
+    private string CacheParentIdentity(string directory, Dictionary<string, string> parents, ref int checks)
+    {
+        string identity;
+        if (parents.TryGetValue(directory, out identity)) return identity;
+        // Do not memoize unperformed queries: this temporary dictionary has at
+        // most 16 actual attempts. Budget fallback counts logical requests,
+        // including repeated requests for a directory that could not be checked.
+        if (checks >= CacheAliasIdentityChecksPerMutation || _CacheAliasIdentityChecks >= CacheAliasIdentityChecksPerGeneration)
+        { _CacheAliasIdentityBudgetFallbacks++; return null; }
+        _Cancellation.ThrowIfCancellationRequested(); checks++; _CacheAliasIdentityChecks++;
+        using (SafeFileHandle handle = CreateFile(directory, 0x80, 7, IntPtr.Zero, 3, BackupSemantics, IntPtr.Zero))
+        {
+            FileInformation info;
+            if (handle.IsInvalid || !GetFileInformationByHandle(handle, out info) || (info.Attributes & 0x10) == 0 || (info.IndexHigh == 0 && info.IndexLow == 0))
+            { _CacheAliasIdentityFailures++; identity = null; }
+            else identity = info.Volume.ToString("x8") + ":" + info.IndexHigh.ToString("x8") + info.IndexLow.ToString("x8");
+        }
+        _Cancellation.ThrowIfCancellationRequested(); parents.Add(directory, identity); return identity;
     }
     private bool CacheCandidatePath(string path, out string full)
     {
@@ -800,7 +867,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
         foreach (var candidate in _CacheCandidates)
         {
             cancellation.ThrowIfCancellationRequested();
-            if (_UnverifiedCacheWrites.Contains(candidate.Key)) continue;
+            if (_UnverifiedCacheWrites.Contains(candidate.Key) || _UnverifiedCacheAliases.Contains(candidate.Key)) continue;
             bool found = File.Exists(candidate.Key); _CacheCandidateVerificationChecks++;
             if (found != candidate.Value) throw new IOException("Build cache candidate existence changed: " + candidate.Key);
         }
@@ -830,10 +897,16 @@ public sealed class PhysicalInputSnapshot : IDisposable
             binaryCacheCandidates = new { scope = "ExecutedNetworkCacheFileExistsOnly", canAuthorizeReuse = false, completeClosure = false,
                 verificationPoint = "VerifyUnchanged", observations = _CacheCandidateObservations, uniquePaths = _CacheCandidateUniquePaths,
                 recordedTextChars = _CacheCandidateTextChars, limit = _CandidateLimit, textBudget = _CandidateTextBudget,
-                dropped = _CacheCandidateDropped, incomplete = _CacheCandidateDropped != 0 || _CacheFailedOwnWrites != 0,
+                dropped = _CacheCandidateDropped, incomplete = _CacheCandidateDropped != 0 || _CacheFailedOwnWrites != 0 || _CacheAliasFallbacks != 0,
                 conflictingObservations = _CacheCandidateConflicts, verificationChecks = _CacheCandidateVerificationChecks,
                 successfulOwnChanges = _CacheCandidateOwnChanges, failedOwnWrites = _CacheFailedOwnWrites,
                 unverifiedWritePaths = _UnverifiedCacheWrites.Count, realQueriesAfterFailedWrite = _CacheCandidateReobservations,
+                aliasQueryFallbacks = _CacheAliasFallbacks, unverifiedAliasPaths = _UnverifiedCacheAliases.Count,
+                realQueriesAfterAliasFallback = _CacheAliasReobservations, aliasParentIdentityChecks = _CacheAliasIdentityChecks,
+                aliasParentIdentityFailures = _CacheAliasIdentityFailures, aliasParentIdentityBudgetFallbacks = _CacheAliasIdentityBudgetFallbacks,
+                aliasParentIdentityChecksPerMutation = CacheAliasIdentityChecksPerMutation,
+                aliasParentIdentityChecksPerGeneration = CacheAliasIdentityChecksPerGeneration,
+                aliasCounters = "LogicalMetadataQueriesNotPhysicalIO",
                 budgetScope = "SeparateFromResolverCandidates" },
             bypassReasons = new Dictionary<string, long>(_BypassReasons, StringComparer.Ordinal), cleanupFailures = _CleanupFailures, retainedScratch = _RetainedScratch };
     }
@@ -857,6 +930,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
         _Candidates.Clear();
         _CacheCandidates.Clear();
         _UnverifiedCacheWrites.Clear();
+        _UnverifiedCacheAliases.Clear(); _CacheCandidatesByLeaf.Clear();
         if (_OwnsScratch)
             try { if (Directory.Exists(_Scratch)) Directory.Delete(_Scratch, false); }
             catch { _CleanupFailures++; _RetainedScratch = _Scratch; }

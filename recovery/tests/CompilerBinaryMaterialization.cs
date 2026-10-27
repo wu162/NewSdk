@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -48,9 +49,9 @@ public static class CompilerBinaryMaterialization
             finally { Require(documents.Pop() == name && documents.Count == 0, "Cache query fixture changed diagnostic stack ownership"); }
         }
     }
-    static BinaryAsset Asset(string name, bool custom)
+    static BinaryAsset Asset(string name, bool custom, PluginRegistry registry = null)
     {
-        var processor = new DocumentProcessor(Settings.Current, new PluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32), null);
+        var processor = new DocumentProcessor(Settings.Current, registry ?? new PluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32), null);
         var document = new AssetDeclarationDocument();
         var type = typeof(AssetDeclarationDocument).GetNestedType("CurrentState", BindingFlags.NonPublic);
         object current = Activator.CreateInstance(type, true); type.GetMethod("FromScratch").Invoke(current, new object[0]);
@@ -491,6 +492,161 @@ public static class CompilerBinaryMaterialization
         }
         tests.Add("public-Commit-memory-optional-cdata-File.Copy-exclusive-source-failure-retains-success-revokes-only-failed-query-proof-and-real-requery-reestablishes-baseline-explicit-partial-fixture");
     }
+    static void Junction(string link, string target)
+    {
+        Directory.CreateDirectory(target);
+        using (var process = Process.Start(new ProcessStartInfo("cmd.exe", "/d /c mklink /J \"" + link + "\" \"" + target + "\"")
+            { UseShellExecute = false, CreateNoWindow = true, RedirectStandardOutput = true, RedirectStandardError = true }))
+        {
+            string output = process.StandardOutput.ReadToEnd(), error = process.StandardError.ReadToEnd();
+            Require(process.WaitForExit(30000) && process.ExitCode == 0 && Directory.Exists(link), "Cannot establish actual test junction: " + output + error);
+        }
+    }
+    static string CachePath(BinaryAsset asset)
+    { return Path.Combine((string)typeof(BinaryAsset).GetField("_CacheDirectory", Hidden).GetValue(asset), asset.AssetFileName); }
+    static void WriteCacheHeader(BinaryAsset asset, string path, bool payload)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(path));
+        var header = new AssetHeader { TypeId = asset.Instance.Handle.TypeId, InstanceId = asset.Instance.Handle.InstanceId,
+            TypeHash = asset.Instance.Handle.TypeHash, InstanceHash = asset.Instance.Handle.InstanceHash,
+            InstanceDataSize = 64, RelocationDataSize = 0, ImportsDataSize = 0 };
+        using (var output = File.Create(path)) { header.SaveToStream(output, false); if (payload) output.Write(new byte[64], 0, 64); }
+    }
+    static void OwnCacheAliases()
+    {
+        bool buildCache = Settings.Current.BuildCache; string buildCacheDirectory = Settings.Current.BuildCacheDirectory;
+        try
+        {
+            Settings.Current.BuildCache = true;
+            using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
+            {
+                var information = plugins.Registry.GetExtendedTypeInformation(InstanceHandle.GetTypeId("ArmorTemplate"));
+                bool useCache = information.UseBuildCache; information.UseBuildCache = true;
+                try
+                {
+                    foreach (string mode in new[] { "case", "junction", "case-delete", "junction-delete", "case-conflict", "different-parent", "missing-parent", "case-failed-copy", "junction-failed-copy" })
+                    {
+                        string name = "own-cache-alias-" + mode, root = Path.Combine(work, name + "-cache");
+                        bool junction = mode.StartsWith("junction", StringComparison.Ordinal), deleting = mode.EndsWith("-delete", StringComparison.Ordinal);
+                        bool conflict = mode == "case-conflict", independent = mode == "different-parent", missingParent = mode == "missing-parent";
+                        bool failedCopy = mode.EndsWith("-failed-copy", StringComparison.Ordinal);
+                        string alias = junction || independent || missingParent ? Path.Combine(work, name + "-alias") : root.ToUpperInvariant();
+                        if (junction) Junction(alias, root);
+                        // Construct the managers outside the snapshot only for
+                        // deletion, so its first real query sees the bad member
+                        // already present rather than a fixture-created change.
+                        BinaryAsset first = null, second = null;
+                        if (deleting || failedCopy)
+                        {
+                            Settings.Current.BuildCacheDirectory = root; first = Asset(name + "-first", failedCopy, plugins.Registry);
+                            Settings.Current.BuildCacheDirectory = alias; second = Asset(name + "-second", failedCopy, plugins.Registry);
+                            WriteCacheHeader(first, CachePath(first), failedCopy);
+                            if (deleting) WriteCacheHeader(first, Destination(first), false);
+                        }
+                        using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, name + "-snapshot")))
+                        using (snapshot.BeginReadScope())
+                        {
+                            if (!deleting && !failedCopy)
+                            {
+                                Settings.Current.BuildCacheDirectory = root; first = Asset(name + "-first", false, plugins.Registry);
+                                Settings.Current.BuildCacheDirectory = alias; second = Asset(name + "-second", false, plugins.Registry);
+                            }
+                            if (independent) Directory.CreateDirectory(Path.GetDirectoryName(CachePath(second)));
+                            Require(first.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == (deleting ? AssetLocation.Cache : AssetLocation.None) &&
+                                second.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == (deleting ? AssetLocation.Cache : AssetLocation.None),
+                                "Actual OutputManagers did not register both cache spellings before their own mutation: " + mode);
+                            if (conflict)
+                            {
+                                WriteCacheHeader(first, CachePath(first), true);
+                                Require(second.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == AssetLocation.Cache, "Alias conflict fixture did not observe its independent external publication");
+                                File.Delete(CachePath(first));
+                            }
+                            if (failedCopy)
+                            {
+                                first.Buffer = new AssetBuffer { InstanceData = new byte[64], RelocationData = new byte[0], ImportsData = new byte[0] };
+                                Directory.CreateDirectory(first.CustomDataOutputDirectory);
+                                string custom = Path.Combine(first.CustomDataOutputDirectory, first.Instance.Handle.FileBase + ".cdata");
+                                File.WriteAllBytes(custom, new byte[] { 5, 7 });
+                                using (File.Open(custom, FileMode.Open, FileAccess.Read, FileShare.None))
+                                    WithDocument(name, () => Require(first.Commit() == AssetLocation.Memory, "Failed alias cdata cache copy changed successful memory commit"));
+                                // Deliberately synthesize a partial member after
+                                // the deterministic locked-source copy failure.
+                                // This is not evidence that File.Copy left it.
+                                File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(CachePath(first)), first.Instance.Handle.FileBase + ".cdata"), new byte[] { 0 });
+                            }
+                            else if (deleting)
+                            {
+                                Require(first.GetLocation(AssetLocation.Output, AssetLocationOption.ForceUpdate) == AssetLocation.Output, "Alias deletion fixture did not refresh its invalid output");
+                                bool rejected = false;
+                                WithDocument(name, () => {
+                                    try { int ignored = first.InstanceFileSize; }
+                                    catch (BinaryAssetBuilderException error) { if (error.ErrorCode != ErrorCode.UnexpectedSize) throw; rejected = true; }
+                                });
+                                Require(rejected && !File.Exists(CachePath(first)), "Bad cache alias lost its original delete/UnexpectedSize lifecycle");
+                            }
+                            else
+                            {
+                                first.Buffer = new AssetBuffer { InstanceData = new byte[64], RelocationData = new byte[0], ImportsData = new byte[0] };
+                                WithDocument(name, () => Require(first.Commit() == AssetLocation.Memory, "Alias fixture failed its actual memory-to-cache publication"));
+                                Require(File.Exists(CachePath(first)), "Alias fixture did not publish a real cache asset");
+                            }
+                            var after = Metrics(snapshot);
+                            Require(CacheQuery(after, "uniquePaths") == (failedCopy ? 4 : 2) && CacheQuery(after, "successfulOwnChanges") == (failedCopy ? 0 : 1) &&
+                                CacheQuery(after, "aliasQueryFallbacks") == (independent ? 0 : 1) && CacheQuery(after, "conflictingObservations") == (conflict ? 1 : 0),
+                                "Own cache mutation incorrectly merged case-sensitive candidates, lost conflict or failed to revoke a possible alias: " + mode);
+                            Require(CacheQuery(after, "aliasParentIdentityChecks") == (junction || independent || missingParent ? 2 : 0) &&
+                                Number(after, "activeReadHandles") == 0 && Number(after, "activeDirectoryPins") == 0,
+                                "Alias reconciliation added source/directory pins or unexpected native metadata queries: " + mode);
+                            Require(CacheQuery(after, "aliasParentIdentityFailures") == (missingParent ? 1 : 0) &&
+                                CacheQuery(after, "failedOwnWrites") == (failedCopy ? 1 : 0), "Alias identity failure or failed-copy origin was misreported: " + mode);
+                            if (conflict) RejectedChange(snapshot, "Own alias publication erased a previously observed external conflict");
+                            else
+                            {
+                                snapshot.VerifyUnchanged();
+                                Require(second.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == (deleting || independent || missingParent ? AssetLocation.None : AssetLocation.Cache),
+                                    "The subsequent original alias lookup was skipped or used a fabricated existence answer: " + mode);
+                                if (!independent) Require(CacheQuery(Metrics(snapshot), "realQueriesAfterAliasFallback") == 1, "Actual alias requery did not reestablish its baseline");
+                                snapshot.VerifyUnchanged();
+                                if (!deleting && !independent && !missingParent && !failedCopy)
+                                {
+                                    WithDocument(name, () => Require(second.Commit() == AssetLocation.Cache, "Published alias could not perform its actual later cache materialization"));
+                                    Require(File.ReadAllBytes(Destination(first)).SequenceEqual(File.ReadAllBytes(Destination(second))), "Alias cache materialization changed actual output bytes");
+                                    snapshot.VerifyUnchanged();
+                                }
+                            }
+                            observations.Add(new { id = name, afterMutation = after, final = Metrics(snapshot), junctionSetup = junction ? "mklink /J test setup only" : null,
+                                partialDestinationOrigin = failedCopy ? "explicit test mutation after locked-source copy failure; not observed File.Copy partial output" : null });
+                        }
+                        if (junction) Directory.Delete(alias);
+                    }
+                    string budgetName = "cache-alias-parent-budget";
+                    using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, budgetName + "-snapshot")))
+                    using (snapshot.BeginReadScope())
+                    {
+                        var assets = new List<BinaryAsset>();
+                        for (int i = 0; i < 21; i++)
+                        {
+                            Settings.Current.BuildCacheDirectory = Path.Combine(work, budgetName + "-" + i);
+                            var asset = Asset(budgetName + "-asset-" + i, false, plugins.Registry); assets.Add(asset);
+                            Directory.CreateDirectory(Path.GetDirectoryName(CachePath(asset)));
+                            Require(asset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == AssetLocation.None, "Alias budget fixture did not begin with independent real cache misses");
+                        }
+                        assets[0].Buffer = new AssetBuffer { InstanceData = new byte[64], RelocationData = new byte[0], ImportsData = new byte[0] };
+                        WithDocument(budgetName, () => Require(assets[0].Commit() == AssetLocation.Memory, "Alias identity budget changed original optional publication"));
+                        var metrics = Metrics(snapshot);
+                        Require(CacheQuery(metrics, "uniquePaths") == 21 && CacheQuery(metrics, "aliasParentIdentityChecks") == 16 &&
+                            CacheQuery(metrics, "aliasParentIdentityBudgetFallbacks") > 0 && CacheQuery(metrics, "aliasQueryFallbacks") > 0 &&
+                            Number(metrics, "activeReadHandles") == 0 && Number(metrics, "activeDirectoryPins") == 0,
+                            "Alias parent work exceeded its logical budget or did not conservatively revoke uncertain proofs");
+                        snapshot.VerifyUnchanged(); observations.Add(new { id = budgetName, metrics = Metrics(snapshot) });
+                    }
+                }
+                finally { information.UseBuildCache = useCache; }
+            }
+        }
+        finally { Settings.Current.BuildCache = buildCache; Settings.Current.BuildCacheDirectory = buildCacheDirectory; }
+        tests.Add("actual-OutputManagers-case-and-junction-cache-miss-own-publication-warm-materialization-and-invalid-member-delete-alias-fallback-no-pins-different-parent-isolation-prior-conflict-retained");
+    }
     static uint Legacy(byte[] bytes)
     {
         uint value = (uint)bytes.Length; var block = new byte[1048576];
@@ -841,7 +997,7 @@ public static class CompilerBinaryMaterialization
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
             Settings.Current = new Settings { BuildCache = false, SessionCache = false, LinkedStreams = true, CustomPostfix = "", TargetPlatform = TargetPlatform.Win32 };
             AppContext.SetSwitch(Disable, false);
-            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); CachedCommitCancellation(); CapturedCacheKeepalive(); NetworkCacheQueries(); OwnCachePublication(); CacheHeaderRecovery(); CacheQueryCancellation(); FailedOptionalCacheCopy(); ArbitraryTeeChunks(); ActiveSnapshotCopyTailContracts(); LateFallbackClosesSpool(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs(); PublicCoreColdToWarmGeneration();
+            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); CachedCommitCancellation(); CapturedCacheKeepalive(); NetworkCacheQueries(); OwnCachePublication(); CacheHeaderRecovery(); CacheQueryCancellation(); FailedOptionalCacheCopy(); OwnCacheAliases(); ArbitraryTeeChunks(); ActiveSnapshotCopyTailContracts(); LateFallbackClosesSpool(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs(); PublicCoreColdToWarmGeneration();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
                 scope = "Actual CopyAsset validated sources, header recovery and network-cache executed existence queries with own publication/deletion; mutable Output/Local and hidden Texture closure remain separate" };
             Console.WriteLine("PASS BinaryMaterialization: " + tests.Count + " groups; " + checks + " checks");

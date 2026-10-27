@@ -21,6 +21,7 @@ internal static class CompilerCoreLifecycle
     static readonly List<string> Tests = new List<string>();
     static readonly List<object> OptimizationRisks = new List<object>();
     static readonly List<object> WorkMetrics = new List<object>();
+    static object InheritanceOriginal;
     static string sdk, work, probe;
     static int checks;
     static readonly BindingFlags Private = BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
@@ -802,15 +803,34 @@ internal static class CompilerCoreLifecycle
         foreach (var pair in original) File.WriteAllBytes(pair.Key, pair.Value);
         Tests.Add("risk-linked-side-files:real-Core-valid-bin-independent-imp-relo-deletion-header-and-payload-truncation-four-output-equality");
     }
+    static void InheritanceOriginalDifferential(string baseline, string sourceCommit, string runId)
+    {
+        var json = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
+        var original = json.Deserialize<Dictionary<string, object>>(File.ReadAllText(baseline));
+        Require((bool)original["succeeded"] && (string)original["mode"] == "original" &&
+            (string)original["sourceCommit"] == sourceCommit && (string)original["runId"] == runId,
+            "Independent original inheritance oracle source/run mismatch");
+        var expected = (System.Collections.IEnumerable)original["inheritance"];
+        object[] actual = CompilerDocumentSnapshotOracle.InheritanceCases(Path.Combine(work, "inheritance-original-differential"), sdk);
+        var expectedRows = new List<object>(); foreach (object row in expected) expectedRows.Add(row);
+        Require(expectedRows.Count == 9 && actual.Length == expectedRows.Count, "Expected nine independent original inheritance stage cases");
+        for (int i = 0; i < actual.Length; i++)
+            Require(json.Serialize(expectedRows[i]) == json.Serialize(actual[i]),
+                "Independent original inheritance mismatch at case " + i + ": " + json.Serialize(expectedRows[i]) + " != " + json.Serialize(actual[i]));
+        InheritanceOriginal = new { rows = actual.Length, cases = actual,
+            scope = "Same-source independent original SDK DLL public ProcessOverrides/Validate corpus; no illegal cycles or deliberate zero-digest semantic change in this oracle" };
+        Tests.Add("independent-original-SDK-DLL-inheritance-forward-backward-diamond-repeat-event-order-depth-first-error-and-processed-provider-default-SchemaInfo-source-differential");
+    }
     public static int Main(string[] args)
     {
         object result; int code = 0; Settings original = Settings.Current;
         try
         {
-            if (args.Length != 5 || IntPtr.Size != 4) throw new Exception("Expected work result sourceCommit runId sdk (x86)");
+            if (args.Length != 6 || IntPtr.Size != 4) throw new Exception("Expected work result sourceCommit runId sdk originalOracleJson (x86)");
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
             probe = File.ReadAllText(Path.Combine(sdk, "Mods/mymod/Data/RecoveryArmorProbe.xml"));
             UnicodePathCase();
+            InheritanceOriginalDifferential(args[5], args[2], args[3]);
             Require(typeof(DocumentProcessor).Assembly == typeof(BuiltinCompilers).Assembly, "Core is outside product assembly");
             // Configuration precedes built-in initialization, just as a real build requires.
             Configure("initialize");
@@ -825,7 +845,7 @@ internal static class CompilerCoreLifecycle
                 CrossStreamBindingProbe(plugins); LinkedSideFileProbe(plugins); WorkMetricsProbe(plugins);
                 Console.WriteLine("W01_PROBES " + new JavaScriptSerializer().Serialize(OptimizationRisks));
             }
-            result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), optimizationRisks=OptimizationRisks.ToArray(), workMetrics=WorkMetrics.ToArray(), optimizationRisksAccepted=true, longPathsValidated=false, scope="Real Core lifecycle and targeted persisted-session regression probes only; production CLI backend, SDK/G3 and general persistent-cache acceptance are separate" };
+            result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), optimizationRisks=OptimizationRisks.ToArray(), inheritanceOriginal=InheritanceOriginal, workMetrics=WorkMetrics.ToArray(), optimizationRisksAccepted=true, longPathsValidated=false, scope="Real Core lifecycle and targeted persisted-session regression probes only; production CLI backend, SDK/G3 and general persistent-cache acceptance are separate" };
             Console.WriteLine("PASS CoreLifecycle: " + Tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception e)
