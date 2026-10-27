@@ -163,8 +163,10 @@ def run(args):
         write(out / 'sdk-inputs.json', sdk_before)
         state['runtimeInputs'] = runtime_before
         state['sdkGitTree'] = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', 'HEAD:SDK']).decode().strip()
-        subprocess.run(['git', '-C', str(repo), 'merge-base', '--is-ancestor', MOD_SOURCE,
-                        state['testSourceCommit']], check=True)
+        # The original SDK import and recovered compiler use separate histories.
+        # This is a pinned workload, not a reused compiler binary; ancestry is
+        # required for the binary source in prepare.py, not for the MOD dataset.
+        subprocess.run(['git', '-C', str(repo), 'cat-file', '-e', MOD_SOURCE + '^{commit}'], check=True)
         mod_tree = subprocess.check_output(['git', '-C', str(repo), 'rev-parse',
                     MOD_SOURCE + ':SDK/Mods/Upheaval']).decode().strip()
         if mod_tree != MOD_TREE:
