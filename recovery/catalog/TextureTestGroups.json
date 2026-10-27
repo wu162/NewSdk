@@ -939,6 +939,19 @@
       "sdk": false,
       "manual_only": true,
       "evidence_only": true
+    },
+    "npot-formats": {
+      "script": "recovery/scripts/InspectTextureNpotFormats.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureNpotFormats.ps1",
+        "recovery/tests/TextureNpotFormatProbe.cs",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/npot-formats/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"
