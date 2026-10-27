@@ -1,0 +1,1 @@
+bmp-d16-topTrue-64x32-p2.bmp	LoadImageA

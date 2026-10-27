@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "runId": "40598190231",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "sdk-PcDxtNoMip",
+    "dxt-samples",
+    "sdk-PcDxtMips",
+    "dxt-volume-dds",
+    "sdk-PcDxtVolumes",
+    "npot-rgba8",
+    "sdk-PcNpotRgba8",
+    "npot-storage-replay",
+    "sdk-PcNpotStorage"
+  ],
+  "sourceCommit": "abdffd9724ddab6a9c71e0e92d132aea7241dc8b",
+  "groups": [
+    {
+      "passed": true,
+      "evidenceOnly": true,
+      "group": "npot-storage-stress"
+    }
+  ],
+  "runAttempt": "1",
+  "selected": [
+    "npot-storage-stress"
+  ]
+}

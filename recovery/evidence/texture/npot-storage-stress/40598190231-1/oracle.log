@@ -1,0 +1,1 @@
+PROBE Texture NPOT storage larger-ratio fixtures=4432 decoded=3952 rejected=480; source/texture descriptor/full locked data and final RGBA; original-only, not recovered acceptance
