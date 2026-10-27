@@ -21,9 +21,12 @@ internal static class TextureNpotRgba8Replay
         if(profile.StartsWith("png-")){
             for(int y=0;y<height;y++)for(int x=0;x<width;x++)pixels[y*width+x]=(uint)PngValue(x,y,0,pattern)|(uint)PngValue(x,y,1,pattern)<<8|(uint)PngValue(x,y,2,pattern)<<16|(uint)(alpha?PngValue(x,y,3,pattern):255)<<24;
         }else{
-            // BI_RGB fixture storage: BMP24/BMP32 is BGR(X), with opaque X.
-            byte[] file=File.ReadAllBytes(path);int start=BitConverter.ToInt32(file,10),signedHeight=BitConverter.ToInt32(file,22),depth=BitConverter.ToUInt16(file,28),stride=((width*depth+31)/32)*4;
-            for(int y=0;y<height;y++)for(int x=0;x<width;x++){int p=start+(signedHeight<0?y:height-1-y)*stride+x*(depth/8);pixels[y*width+x]=(uint)file[p+2]|(uint)file[p+1]<<8|(uint)file[p]<<16|0xff000000u;}
+            // Preserve the already accepted legacy BMP contract: D3DX ignores
+            // bfOffBits, consumes gap bytes as pixels and reports BMP24 alpha.
+            byte[] file=File.ReadAllBytes(path);int start=54,signedHeight=BitConverter.ToInt32(file,22),depth=BitConverter.ToUInt16(file,28),stride=((width*depth+31)/32)*4;
+            alpha=depth==24;
+            if(depth==32)for(int y=0;y<height;y++)for(int x=0;x<width;x++)if(file[start+y*stride+x*4+3]!=0)alpha=true;
+            for(int y=0;y<height;y++)for(int x=0;x<width;x++){int p=start+(signedHeight<0?y:height-1-y)*stride+x*(depth/8);pixels[y*width+x]=(uint)file[p+2]|(uint)file[p+1]<<8|(uint)file[p]<<16|(uint)(depth==32&&alpha?file[p+3]:255)<<24;}
         }
         return new TexturePacker.Image(width,height,pixels,alpha);
     }
