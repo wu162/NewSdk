@@ -1,7 +1,7 @@
 name: Prepared RA3 AssetMerge original differential
 on:
   push:
-    branches: [compiler-main, refactor/modcompiler-p0-p3]
+    branches: [refactor/modcompiler-p0-p3]
     paths:
       - '.github/workflows/refactor-assetmerge.yml'
       - 'recovery/preparation/assetmerge/**'

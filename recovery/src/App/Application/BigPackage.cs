@@ -16,6 +16,7 @@ namespace NewModCompiler.Application
         {
             if(request.FixNeutralAssets && (request.PackageFormat!="big" || request.Content==null || !request.Content.Contains("base"))) throw new BuildFailure(ExitCode.Arguments,"PACKAGE_NEUTRAL_CONTENT","Neutral-asset repair requires BIG packaging with base content selected.");
             if(request.IncludeAdditional && request.PackageFormat!="big") throw new BuildFailure(ExitCode.Arguments,"PACKAGE_ADDITIONAL_FORMAT","Additional files require --package-format big.");
+            PackageIdentity.Validate(request);
             if(request.PackageFormat==null || request.PackageFormat=="loose") return;
             if(request.PackageFormat!="big") throw new BuildFailure(ExitCode.Arguments,"CLI_CAPABILITY","Package format must be loose or big.");
             string name=Path.GetFileName(Path.GetFullPath(request.ModRoot).TrimEnd(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar));
@@ -96,10 +97,10 @@ namespace NewModCompiler.Application
                 entries.Add(new BigArchiveEntry {Name=name,SourcePath=source});
             }
             string mod=Path.GetFileName(request.ModRoot.TrimEnd(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar));
-            string big=Path.Combine(staging,mod+"_1.0.big"),skudef=Path.Combine(staging,mod+"_1.0.skudef");
+            string big=Path.Combine(staging,mod+"_"+request.ModVersion+".big"),skudef=Path.Combine(staging,(request.SkudefName ?? mod)+"_"+request.ModVersion+".skudef");
             if(request.IncludeAdditional) AdditionalFiles.Merge(request.SdkRoot,request.ModRoot,staging,entries,cancellation);
             MakeBig.Write(big,entries,cancellation);
-            BigArchiveWriter.WriteSkudef(skudef,Path.GetFileName(big),cancellation);
+            BigArchiveWriter.WriteSkudef(skudef,Path.GetFileName(big),cancellation,request.GameVersion);
             foreach(var artifact in artifacts) Verify(artifact,staging);
             cancellation.ThrowIfCancellationRequested();
             return new[] {Describe(big,"package.big"),Describe(skudef,"package.skudef")};

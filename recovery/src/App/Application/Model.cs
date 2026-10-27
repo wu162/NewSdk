@@ -26,11 +26,14 @@ namespace NewModCompiler.Application
         public string LogPath { get; set; }
         public string[] Content { get; set; }
         public string PackageFormat { get; set; }
+        public string ModVersion { get; set; }
+        public string GameVersion { get; set; }
+        public string SkudefName { get; set; }
         public bool IncludeAdditional { get; set; }
         public bool FixNeutralAssets { get; set; }
         public string[] Arguments { get; set; }
         public IDictionary<string, EffectiveOption> Options { get; private set; }
-        public BuildRequest() { Options = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal); }
+        public BuildRequest() { ModVersion="1.0"; GameVersion="1.12"; Options = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal); }
     }
     public sealed class BuildTask
     {

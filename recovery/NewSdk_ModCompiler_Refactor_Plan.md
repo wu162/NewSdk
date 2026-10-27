@@ -1,4 +1,4 @@
-> 2026-10-27 当前结果说明：用户指定 `compiler-main` 为重构成果及后续开发主线，不再合回旧分支，旧 PR #13 关闭且不合并。本文为历史设计，勾选及“待实现”文字不是当前状态；当前能力以根 README、REFACTOR_RESUME 和 COMPILER_RELEASE 为准。WBData 相关规划已取消。后续待办为版本/必要旧参数与 LoD 边界策略，UI/runtime、Unicode Texture、混合 Texture 会话缓存另列范围。
+> 2026-10-27 当前结果说明：用户指定 `compiler-main` 为重构成果及后续开发主线，不再合回旧分支，旧 PR #13 关闭且不合并。本文为历史设计，勾选及“待实现”文字不是当前状态；当前能力以根 README、REFACTOR_RESUME 和 COMPILER_RELEASE 为准。WBData 相关规划已取消。版本/包名参数、必要旧参数合同与 LoD 确定性修复策略已准备，最终生产/ZIP验收中；UI/runtime、Unicode Texture、混合 Texture 会话缓存另列范围。
 
 # NewSdk 恢复源码整合与新 MOD 编译器重构方案
 

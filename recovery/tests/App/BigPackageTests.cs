@@ -128,6 +128,22 @@ namespace NewModCompiler.Tests
                     Check(names.Contains("data\\mod"+suffix+extension),"Base/LoD member layout differs");
                 Check(!names.Contains("data\\mod.version"),"Base acquired an unsupported APT-only version marker");
             }
+            var versioned=Options.Parse(new[]{"build","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"versioned"),"--package-content","apt,maps","--package-format","big","--mod-version","2.7-beta","--game-version","1.13","--skudef-name","Launcher"});
+            using(var cancellation=new CancellationTokenSource())Check(Run(versioned,"success",cancellation)==ExitCode.Success,"Custom package identity failed");
+            string vp=Path.Combine(versioned.OutputRoot,"published");
+            Check(Directory.GetFiles(vp).Length==2 && File.Exists(Path.Combine(vp,"package-mod_2.7-beta.big")),"MOD version did not name the exact BIG");
+            Check(File.ReadAllText(Path.Combine(vp,"Launcher_2.7-beta.skudef"))=="mod-game 1.13\r\nadd-big package-mod_2.7-beta.big\r\n","Custom SKUDEF name/game version/BIG reference differs");
+            string project=Path.Combine(mod,"newmodcompiler.json");
+            File.WriteAllText(project,"{\"package-format\":\"big\",\"mod-version\":\"3.0\",\"game-version\":\"1.12\",\"skudef-name\":\"PresetLauncher\"}");
+            var preset=Options.Parse(new[]{"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"version-preset"),"--mod-version","4.0"});
+            Check(preset.ModVersion=="4.0" && preset.Options["mod-version"].Source=="commandLine" && preset.SkudefName=="PresetLauncher" && preset.Options["skudef-name"].Source=="project","Identity preset/CLI precedence differs");
+            File.Delete(project);
+            foreach(var pair in new[]{new[]{"--mod-version","../escape"},new[]{"--game-version","1.12\r\nadd-big evil.big"},new[]{"--skudef-name","../escape"}}) {
+                try {Options.Parse(new[]{"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"identity-invalid"),"--package-format","big"}.Concat(pair).ToArray());throw new Exception("Invalid identity accepted");}
+                catch(BuildFailure failure){Check(failure.Code=="PACKAGE_IDENTITY_INVALID","Invalid identity diagnostic differs");}
+            }
+            try {Options.Parse(new[]{"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"identity-loose"),"--mod-version","2.0"});throw new Exception("Loose package identity silently ignored");}
+            catch(BuildFailure failure){Check(failure.Code=="PACKAGE_IDENTITY_FORMAT","Loose identity diagnostic differs");}
             string unicode=Path.Combine(root,"中文MOD");Directory.CreateDirectory(unicode);
             try {Options.Parse(new[]{"build","--mod",unicode,"--sdk-root",sdk,"--out",Path.Combine(root,"unicode-big"),"--package-content","apt","--package-format","big"});throw new Exception("Unicode BIG filename accepted without game evidence");}
             catch(BuildFailure failure){Check(failure.Code=="PACKAGE_NAME_UNSUPPORTED","BIG ASCII filename boundary lost its explicit diagnostic");}

@@ -36,6 +36,9 @@ namespace NewModCompiler.Application
             }
             Write(output,36,(uint)dependency.Length);
             Buffer.BlockCopy(dependency,0,output,(int)refsEnd,dependency.Length);
+            // Deliberate original-tool bug fix: copy exactly the logical tables,
+            // preserving the final NUL. Never reproduce the Delphi array+1
+            // overrun (documented in P7_LOD_ORIGINAL_TAIL.md).
             Buffer.BlockCopy(data,(int)namesStart,output,(int)refsEnd+dependency.Length,checked((int)(names+sources)));
             // v6 emits precisely the original stream checksum, FOUR bytes.
             // v7's additional zero word must not leak into RA3 v6 payloads.

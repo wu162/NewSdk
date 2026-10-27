@@ -184,6 +184,7 @@ namespace NewModCompiler.Tests
                 assertions += SessionPublicationTests.Run(Path.Combine(root,"session-publication"),mod,sdk);
                 assertions += SessionCacheTransactionTests.Run(Path.Combine(root,"cache-transaction-tests"),mod,sdk);
                 assertions += InputRootsReportTests.Run(Path.Combine(root,"input-roots-report"),mod,sdk);
+                assertions += LoDCanonicalTests.Run(Path.Combine(root,"lod-canonical"));
                 assertions += BigPackageTests.Run(Path.Combine(root,"big-package-tests"),sdk);
                 string project=Path.Combine(mod,"newmodcompiler.json"); FileAt(project,"{\"package-content\":\"apt\",\"tp\":\"Win32\"}");
                 var preset=Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"preset")}); Check(preset.Content.SequenceEqual(new [] {"apt"}) && preset.Options["package-content"].Source=="project","Project preset");

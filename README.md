@@ -18,6 +18,7 @@
 
 `--mod` 指向 MOD 文件夹。默认选择 `base,apt,maps`，默认 `--package-format loose`；BIG 为显式选择。成功构建的最终文件位于输出根下 `published`，默认 BIG/SKUDEF 名称为 `<MOD目录名>_1.0`。构建同时输出日志、JSONL 事件及最终报告，适合后续界面调用；不启动旧 GUI 或 BAB 子进程。
 
+- `--mod-version 2.7-beta`、`--game-version 1.12`、`--skudef-name ExampleLauncher`：设置 BIG/SKUDEF 身份，默认值保持旧脚本行为。
 - `/bc:true`：启用构建资产缓存，默认关闭。
 - `/sc:true`：启用会话缓存，默认关闭；含混合 Texture 的流明确拒绝此选项。
 - `--include-additional=true`：BIG 中先复制 SDK/Additional，再由 MOD/Additional 覆盖；默认关闭，排除 `.asset`。
@@ -31,4 +32,4 @@
 
 AssetMerge 已按用户要求排除。WBData 下载、提取、读取器与依赖真实 WBData 的验收已取消，均不作为本次重构完成条件。完整 UI/runtime、中文纹理路径、混合纹理会话缓存仍有未覆盖范围。
 
-后续优先核对版本与必要旧参数、确定 LoD 异常输入策略，再更新相应发行证据；不把这些未完成项目表述为全功能兼容。当前不支持的参数明确拒绝。开发续接见 [REFACTOR_RESUME](recovery/REFACTOR_RESUME.md)，历史实施设计见 [重构方案](recovery/NewSdk_ModCompiler_Refactor_Plan.md)。
+版本与必要旧参数已形成[明确合同](recovery/CLI_COMPATIBILITY.md)，LoD 对原工具越界采用完整表复制的确定性修复，专项与最终生产验收正在准备；不把这些未完成项目表述为全功能兼容。当前不支持的参数明确拒绝。压缩/部分/冻结会话缓存、旧缓存目录覆盖、预编译及替代输出/资产报告等选项尚未开放；并非每个旧 BAB 参数都已支持。开发续接见 [REFACTOR_RESUME](recovery/REFACTOR_RESUME.md)，历史实施设计见 [重构方案](recovery/NewSdk_ModCompiler_Refactor_Plan.md)。

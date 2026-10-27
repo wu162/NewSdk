@@ -145,7 +145,7 @@ function ExpectedInventory($Loose){
     }
     return $expected
 }
-function CompareBig($Big,$Loose,[string]$Name,[bool]$Additional=$false,[string]$NeutralOracle=$null){
+function CompareBig($Big,$Loose,[string]$Name,[bool]$Additional=$false,[string]$NeutralOracle=$null,[string]$ModVersion="1.0",[string]$GameVersion="1.12",[string]$SkudefName="business"){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     if($NeutralOracle){
         $neutral=Get-Content -LiteralPath (Join-Path $NeutralOracle 'inventory.json') -Raw|ConvertFrom-Json
@@ -189,9 +189,9 @@ function CompareBig($Big,$Loose,[string]$Name,[bool]$Additional=$false,[string]$
     }finally{$process.Dispose()}
     $bigFiles=@($Big.report.artifacts|Where-Object{$_.Kind -ceq 'package.big'});$skuFiles=@($Big.report.artifacts|Where-Object{$_.Kind -ceq 'package.skudef'})
     Need ($bigFiles.Count -eq 1 -and $skuFiles.Count -eq 1) 'BIG report omitted exact package identities'
-    Need ([IO.Path]::GetFileName($bigFiles[0].Path) -ceq 'business_1.0.big' -and [IO.Path]::GetFileName($skuFiles[0].Path) -ceq 'business_1.0.skudef') 'BIG/skudef filenames differ from production contract'
+    Need ([IO.Path]::GetFileName($bigFiles[0].Path) -ceq ("business_"+$ModVersion+".big") -and [IO.Path]::GetFileName($skuFiles[0].Path) -ceq ($SkudefName+"_"+$ModVersion+".skudef")) 'BIG/skudef filenames differ from production contract'
     $skudef=[IO.File]::ReadAllBytes($skuFiles[0].Path)
-    Need ([Convert]::ToBase64String($skudef) -ceq [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("mod-game 1.12`r`nadd-big business_1.0.big`r`n"))) 'Game skudef raw ASCII/CRLF commands/version differ from old SDK script'
+    Need ([Convert]::ToBase64String($skudef) -ceq [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("mod-game "+$GameVersion+"`r`nadd-big business_"+$ModVersion+".big`r`n")))) 'Game skudef raw ASCII/CRLF commands/version differ from old SDK script'
     & python "$PSScriptRoot/ValidateCompilerBig.py" --archive $bigFiles[0].Path --oracle $archive --expected "$caseOut/expected.json" --output "$caseOut/comparison.json"
     Need ($LASTEXITCODE -eq 0) 'BIG/original MakeBig format, member inventory or raw contents differ'
     Copy-Item -LiteralPath $archive -Destination (Join-Path $caseOut 'original.big')
@@ -266,6 +266,8 @@ try{
             if($selection -ceq 'base,apt,maps'){$combined=$big;$plain=$loose}
             if($selection -ceq 'base'){$baseLoose=$loose}
         }
+        $versioned=RunCli 'custom-package-identity' $mod (Join-Path $modeWork 'versioned') 'base,apt,maps' 'big' 0 $false $null @('--mod-version','2.7-beta','--game-version','1.12','--skudef-name','ExampleLauncher')
+        CompareBig $versioned $plain 'versioned-original-makebig' $false $null '2.7-beta' '1.12' 'ExampleLauncher'
         Need (@($plain.report.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq 2) 'BIG fixture did not exercise actual complete base and APT CDATAs'
         $destination=$combined.destination;$published=Join-Path $destination 'published'
         [IO.File]::WriteAllText((Join-Path $published 'stale.asset'),'Stale generation file must not survive')
