@@ -235,6 +235,42 @@ public static class CompilerBinaryMaterialization
         }
         tests.Add("public-BinaryAsset-Commit-real-external-cache-materialization-cancellation-propagates-after-one-attempt-without-sleep-retry-error-conversion-pins-or-output");
     }
+    static void CapturedCacheKeepalive()
+    {
+        var asset = Asset("captured-cache-keepalive", true); string source = Source(asset, "captured-cache-keepalive");
+        string custom = Path.Combine(Path.GetDirectoryName(source), asset.Instance.Handle.FileBase + ".cdata");
+        File.WriteAllBytes(custom, new byte[] { 5, 8, 13 });
+        var oldWrite = new DateTime(2001, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        File.SetLastWriteTimeUtc(source, oldWrite); File.SetLastWriteTimeUtc(custom, oldWrite);
+        typeof(BinaryAsset).GetField("_CacheDirectory", Hidden).SetValue(asset, Path.GetDirectoryName(source));
+        Require(asset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == AssetLocation.Cache,
+            "Keepalive fixture did not establish an available asset/cdata cache pair");
+        using (DocumentProcessor.BeginStateScope())
+        {
+            var documents = (Stack<string>)typeof(DocumentProcessor).GetField("_CurrentDocumentStack", Hidden).GetValue(null);
+            documents.Push("captured-cache-keepalive:");
+            try
+            {
+                using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, "captured-cache-keepalive-snapshot")))
+                using (snapshot.BeginReadScope())
+                {
+                    Require(asset.Commit() == AssetLocation.Cache, "Public asset/cdata commit did not use the real cache materialization path");
+                    Require(File.GetLastWriteTimeUtc(source) > oldWrite && File.GetLastWriteTimeUtc(custom) > oldWrite,
+                        "Retained source pins blocked the original asset/cdata cache keepalive timestamp updates");
+                    Blocked(() => File.WriteAllBytes(source, new byte[] { 1 }), "Cache keepalive relaxed the asset content-write pin");
+                    Blocked(() => File.WriteAllBytes(custom, new byte[] { 1 }), "Cache keepalive relaxed the cdata content-write pin");
+                    Blocked(() => File.Delete(source), "Cache keepalive relaxed the original source delete pin");
+                    var metrics = Metrics(snapshot);
+                    Require(Attempt(metrics, "cacheAttributeTouches") == 2 && Attempt(metrics, "cacheAttributeTouchFailures") == 0 && Number(metrics, "captures") == 2,
+                        "Captured asset/cdata keepalive did not complete two identity-checked metadata-only updates");
+                    snapshot.VerifyUnchanged(); observations.Add(new { id = "public-Commit-captured-asset-cdata-keepalive-retains-content-and-delete-pins", metrics });
+                }
+            }
+            finally { Require(documents.Pop() == "captured-cache-keepalive:" && documents.Count == 0, "Keepalive commit changed diagnostic stack ownership"); }
+        }
+        Writable(source); Writable(custom);
+        tests.Add("public-BinaryAsset-Commit-captured-asset-and-cdata-keepalive-metadata-updates-preserve-content-write-delete-pins-and-final-content-verification");
+    }
     static uint Legacy(byte[] bytes)
     {
         uint value = (uint)bytes.Length; var block = new byte[1048576];
@@ -453,6 +489,8 @@ public static class CompilerBinaryMaterialization
                         Require(Attempt(metrics, "copyReadHits") == (mode == "enabled" ? 2 : 0), "Public Core three-stream cache reads did not use the expected sealed/fallback paths");
                         Require(Attempt(metrics, "captureReadsCompleted") == 0 && Attempt(metrics, "teeCompleted") == (mode == "enabled" ? 1 : 0),
                             "Public Core external asset was reread or not spooled exactly once from its original copy stream");
+                        Require(Attempt(metrics, "cacheAttributeTouches") == (mode == "enabled" ? 3 : 0) && Attempt(metrics, "cacheAttributeTouchFailures") == 0,
+                            "Captured cache keepalive did not use successful metadata-only identity-checked updates");
                         if (mode == "enabled") Blocked(() => File.Delete(assets[0]), "Public Core successfully consumed external cache source was not pinned");
                         else Writable(assets[0]);
                         snapshot.VerifyUnchanged(); observations.Add(new { id = "public-Core-external-build-cache-" + mode, metrics, outputs = expected });
@@ -529,7 +567,7 @@ public static class CompilerBinaryMaterialization
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
             Settings.Current = new Settings { BuildCache = false, SessionCache = false, LinkedStreams = true, CustomPostfix = "", TargetPlatform = TargetPlatform.Win32 };
             AppContext.SetSwitch(Disable, false);
-            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); CachedCommitCancellation(); ArbitraryTeeChunks(); ActiveSnapshotCopyTailContracts(); LateFallbackClosesSpool(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs();
+            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); CachedCommitCancellation(); CapturedCacheKeepalive(); ArbitraryTeeChunks(); ActiveSnapshotCopyTailContracts(); LateFallbackClosesSpool(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
                 scope = "Actual CopyAsset successful validated sources and failure rollback only; invalid-header/length repair retains separate existing fixture coverage; not all BinaryAsset reads or hidden Texture closure" };
             Console.WriteLine("PASS BinaryMaterialization: " + tests.Count + " groups; " + checks + " checks");

@@ -664,22 +664,14 @@ public class BinaryAsset
 			FileInfo fileInfo = new FileInfo(Path.Combine(_CacheDirectory, _AssetFileName));
 			if (fileInfo.Exists)
 			{
-				FileInfo fileInfo2 = fileInfo;
-				FileInfo fileInfo3 = fileInfo;
-				DateTime dateTime = (fileInfo.LastAccessTime = DateTime.Now);
-				DateTime creationTime = (fileInfo3.LastWriteTime = dateTime);
-				fileInfo2.CreationTime = creationTime;
+                TouchCacheFile(fileInfo);
 			}
 			if (Instance.HasCustomData)
 			{
 				fileInfo = new FileInfo(Path.Combine(_CacheDirectory, _CustomDataFileName));
 				if (fileInfo.Exists)
 				{
-					FileInfo fileInfo4 = fileInfo;
-					FileInfo fileInfo5 = fileInfo;
-					DateTime dateTime3 = (fileInfo.LastAccessTime = DateTime.Now);
-					DateTime creationTime2 = (fileInfo5.LastWriteTime = dateTime3);
-					fileInfo4.CreationTime = creationTime2;
+                    TouchCacheFile(fileInfo);
 				}
 			}
 		}
@@ -687,6 +679,15 @@ public class BinaryAsset
 		{
 		}
 	}
+
+    private static void TouchCacheFile(FileInfo file)
+    {
+        DateTime now = DateTime.Now;
+        if (PhysicalInputSnapshot.TryTouchCapturedCache(file.FullName, now)) return;
+        file.LastAccessTime = now;
+        file.LastWriteTime = now;
+        file.CreationTime = now;
+    }
 
 	private void CopyToCache()
 	{
@@ -713,11 +714,7 @@ public class BinaryAsset
 			}
 			else
 			{
-				FileInfo fileInfo2 = fileInfo;
-				FileInfo fileInfo3 = fileInfo;
-				DateTime dateTime = (fileInfo.LastAccessTime = DateTime.Now);
-				DateTime creationTime = (fileInfo3.LastWriteTime = dateTime);
-				fileInfo2.CreationTime = creationTime;
+                TouchCacheFile(fileInfo);
 			}
 			if (Instance.HasCustomData)
 			{
@@ -728,11 +725,7 @@ public class BinaryAsset
 					File.Copy(Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName), text);
 					return;
 				}
-				FileInfo fileInfo4 = fileInfo;
-				FileInfo fileInfo5 = fileInfo;
-				DateTime dateTime3 = (fileInfo.LastAccessTime = DateTime.Now);
-				DateTime creationTime2 = (fileInfo5.LastWriteTime = dateTime3);
-				fileInfo4.CreationTime = creationTime2;
+                TouchCacheFile(fileInfo);
 			}
 		}
 		catch (Exception)

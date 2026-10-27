@@ -113,6 +113,19 @@ public static class CompilerHashingWriter
         Step(rows, "surrogate-pair-split-across-write-overloads", 3, fragmentedPair, () => fragmentedPair.Write(new string('B', 511).ToCharArray(), 0, 511));
         var singlePair = Writer(19);
         Step(rows, "single-surrogate-pair-with-native-NUL-boundary", 0, singlePair, () => singlePair.Write("\uD83D\uDE80"));
+        string ascii = new string(Enumerable.Range(0, 128).Select(value => (char)value).ToArray());
+        foreach (uint seed in new[] { 0u, 1u, 0x87654321u, UInt32.MaxValue })
+        {
+            string text = String.Concat(Enumerable.Repeat(ascii, 9)); var writer = Writer(seed);
+            string name = "all-128-ASCII-code-units-" + seed.ToString(CultureInfo.InvariantCulture);
+            Step(rows, name, 0, writer, () => writer.Write(text.ToCharArray(), 0, 511));
+            Step(rows, name, 1, writer, () => writer.Write(text[511]));
+            Step(rows, name, 2, writer, () => writer.Write(text.Substring(512, 513)));
+            Step(rows, name, 3, writer, () => writer.Write('\u00e9'));
+            Step(rows, name, 4, writer, () => writer.Write(text.ToCharArray(), 31, 1025));
+            Step(rows, name, 5, writer, () => writer.Write(new string('A', 511) + "中" + new string('B', 513)));
+            Step(rows, name, 6, writer, () => writer.Write("after-ASCII-and-native-fallback"));
+        }
         // Public production entry serializes actual XML through XmlWriter into
         // the internal writer; include escaping, metadata and large flushes.
         foreach (uint seed in new[] { 0u, UInt32.MaxValue })
@@ -129,9 +142,9 @@ public static class CompilerHashingWriter
         rows.Add(new[] { "public-XML-single-surrogate-pair", "0", "OK", pairHash.ToString(CultureInfo.InvariantCulture), pairAgain.ToString(CultureInfo.InvariantCulture), Encoding.Default.CodePage.ToString(CultureInfo.InvariantCulture) });
         return rows;
     }
-    static XmlNode Xml(int length)
+    static XmlNode Xml(int length, bool ascii = false)
     {
-        const string valid = "abc&<>\"'é中\t\r\n";
+        string valid = ascii ? "abc&<>\"'Az09\t\r\n" : "abc&<>\"'é中\t\r\n";
         var document = new XmlDocument(); document.LoadXml("<AssetDeclaration xmlns='uri:ea.com:eala:asset'><ArmorTemplate id='HashProbe'/></AssetDeclaration>");
         var body = new StringBuilder(); while (body.Length < length) body.Append(valid);
         // Public XML uses legal characters; direct writer cases above preserve
@@ -140,7 +153,7 @@ public static class CompilerHashingWriter
         document.DocumentElement.FirstChild.Attributes.Append(document.CreateAttribute("Value")).Value = value;
         document.DocumentElement.FirstChild.AppendChild(document.CreateTextNode(value));
         document.DocumentElement.AppendChild(document.CreateComment("comment"));
-        document.DocumentElement.AppendChild(document.CreateCDataSection("raw<>&é中"));
+        document.DocumentElement.AppendChild(document.CreateCDataSection(ascii ? "raw<>&ASCII" : "raw<>&é中"));
         return document.DocumentElement;
     }
 #if HASHING_ORIGINAL
@@ -176,24 +189,30 @@ public static class CompilerHashingWriter
     static void BoundedScratch()
     {
         FieldInfo pending = WriterType.GetField("m_pending", BindingFlags.Instance | BindingFlags.NonPublic);
+        FieldInfo ascii = WriterType.GetField("m_ascii", BindingFlags.Instance | BindingFlags.NonPublic);
         AppContext.SetSwitch(Disable, false); var writer = Writer(0); writer.Write("small");
         Require(pending.GetValue(writer) == null, "A single small string allocated a 512-character scratch");
         var arrayWriter = Writer(0); arrayWriter.Write("small".ToCharArray(), 0, 5);
         Require(pending.GetValue(arrayWriter) == null, "A single small char-array write allocated scratch");
+        uint first = Final(arrayWriter), second = Final(arrayWriter);
+        Require(first == second && ((byte[])ascii.GetValue(arrayWriter)).Length == 5 && pending.GetValue(arrayWriter) == null,
+            "ASCII Final did not lazily use a tail-sized byte scratch without mutating character pending state");
         writer.Write("second"); var buffer = (char[])pending.GetValue(writer);
         Require(buffer != null && buffer.Length == 512, "Fragmented pending text did not lazily allocate bounded scratch");
         for (int index = 0; index < 2048; index++) writer.Write('a');
         Require(Object.ReferenceEquals(buffer, pending.GetValue(writer)), "A writer did not reuse its own bounded scratch");
+        Require(((byte[])ascii.GetValue(writer)).Length <= 512, "ASCII hashing scratch exceeded exact chunk bound");
         AppContext.SetSwitch(Disable, true); var legacy = Writer(0); legacy.Write("small"); legacy.Write("second");
-        Require(pending.GetValue(legacy) == null, "Legacy diagnostic path allocated buffered scratch");
+        Final(legacy); Require(pending.GetValue(legacy) == null && ascii.GetValue(legacy) == null, "Legacy diagnostic path allocated buffered scratch");
         AppContext.SetSwitch(Disable, false);
         tests.Add("single-small-write-keeps-original-string-path-fragmented-pending-lazily-owns-one-512-char-buffer-and-legacy-never-allocates-it");
     }
     static void Measurement()
     {
+        foreach (bool ascii in new[] { true, false })
         foreach (int size in new[] { 16, 512, 32768 })
         {
-            XmlNode node = Xml(size); uint expected = HashProvider.GetXmlHash(27, ref node); int iterations = size > 1000 ? 32 : 512;
+            XmlNode node = Xml(size, ascii); uint expected = HashProvider.GetXmlHash(27, ref node); int iterations = size > 1000 ? 32 : 512;
             foreach (bool disabled in new[] { false, true }) { AppContext.SetSwitch(Disable, disabled); for (int index = 0; index < 4; index++) Require(HashProvider.GetXmlHash(27, ref node) == expected, "XML hashing warmup mismatch"); }
             var samples = new List<object>(); var buffered = new List<long>(); var legacy = new List<long>();
             for (int round = 0; round < 7; round++)
@@ -207,7 +226,7 @@ public static class CompilerHashingWriter
                 samples.Add(new { round, disabled, elapsedMs = elapsed * 1000.0 / Stopwatch.Frequency });
             }
             buffered.Sort(); legacy.Sort();
-            evidence.Add(new { id = "public-XML-hash-component-measurement", requestedContentChars = size, actualSerializedChars = node.OuterXml.Length, iterations, rounds = 7,
+            evidence.Add(new { id = "public-XML-hash-component-measurement", ascii, requestedContentChars = size, nodeOuterXmlChars = node.OuterXml.Length, iterations, rounds = 7,
                 bufferedMedianMs = buffered[3] * 1000.0 / Stopwatch.Frequency, legacyMedianMs = legacy[3] * 1000.0 / Stopwatch.Frequency, samples = samples.ToArray(),
                 scope = "Actual public HashProvider.GetXmlHash including XmlWriter serialization and legacy ANSI native hash calls; excludes DOM creation/reflection/identity checks. No forced GC, speed assertion, allocation-byte or full-CLI speedup claim" });
         }

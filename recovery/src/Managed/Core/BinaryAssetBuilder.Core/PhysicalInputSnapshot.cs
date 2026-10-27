@@ -42,6 +42,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
     private long _MaterializationCaptureReadsStarted, _MaterializationCaptureReadsCompleted, _MaterializationCaptureReadBytes;
     private long _MaterializationCopyReadHits;
     private long _MaterializationTeeStarted, _MaterializationTeeCompleted, _MaterializationTeeBytes;
+    private long _MaterializationCacheTouches, _MaterializationCacheTouchFailures;
 
     private const int BlockSize = 1048576;
     private const uint BackupSemantics = 0x02000000, OpenReparsePoint = 0x00200000;
@@ -56,6 +57,12 @@ public sealed class PhysicalInputSnapshot : IDisposable
     private static extern bool CreateDirectoryNative(string path, IntPtr security);
     [DllImport("kernel32.dll", SetLastError = true)]
     private static extern bool GetFileInformationByHandle(SafeFileHandle handle, out FileInformation information);
+    [DllImport("kernel32.dll", EntryPoint = "SetFileTime", SetLastError = true)]
+    private static extern bool SetCreationTime(SafeFileHandle handle, ref System.Runtime.InteropServices.ComTypes.FILETIME created, IntPtr accessed, IntPtr written);
+    [DllImport("kernel32.dll", EntryPoint = "SetFileTime", SetLastError = true)]
+    private static extern bool SetAccessTime(SafeFileHandle handle, IntPtr created, ref System.Runtime.InteropServices.ComTypes.FILETIME accessed, IntPtr written);
+    [DllImport("kernel32.dll", EntryPoint = "SetFileTime", SetLastError = true)]
+    private static extern bool SetWriteTime(SafeFileHandle handle, IntPtr created, IntPtr accessed, ref System.Runtime.InteropServices.ComTypes.FILETIME written);
 
     public PhysicalInputSnapshot(string privateScratchDirectory) : this(privateScratchDirectory, 32L * 1024 * 1024, 512L * 1024 * 1024, 4096, 4096) { }
     public PhysicalInputSnapshot(string privateScratchDirectory, long memoryBudget, long diskBudget, int fileLimit, int directoryLimit,
@@ -184,6 +191,34 @@ public sealed class PhysicalInputSnapshot : IDisposable
             return entry.OpenRead();
         }
         return File.OpenRead(path);
+    }
+    internal static bool TryTouchCapturedCache(string path, DateTime timestamp)
+    {
+        PhysicalInputSnapshot owner = _Current;
+        if (owner == null) return false;
+        owner.Check(); string full; Entry entry;
+        if (!Normal(path, out full) || !owner._Paths.TryGetValue(full, out entry)) return false;
+        // Keep the original best-effort path for readonly files. Do not grant
+        // data-write or delete sharing just to keep a cache entry alive.
+        if ((File.GetAttributes(full) & FileAttributes.ReadOnly) != 0) return false;
+        try
+        {
+            using (SafeFileHandle handle = CreateFile(full, 0x180, 7, IntPtr.Zero, 3, OpenReparsePoint, IntPtr.Zero))
+            {
+                if (handle.IsInvalid) throw new IOException("Cannot open captured cache attributes: " + full, new Win32Exception(Marshal.GetLastWin32Error()));
+                if (Identity(handle, full) != entry.Identity) throw new IOException("Captured cache identity changed while touching attributes: " + full);
+                long ticks = timestamp.ToFileTimeUtc();
+                var time = new System.Runtime.InteropServices.ComTypes.FILETIME { dwLowDateTime = unchecked((int)ticks), dwHighDateTime = unchecked((int)(ticks >> 32)) };
+                // Preserve the legacy access/write/creation ordering and its
+                // one shared DateTime value, using attributes-only access.
+                if (!SetAccessTime(handle, IntPtr.Zero, ref time, IntPtr.Zero) ||
+                    !SetWriteTime(handle, IntPtr.Zero, IntPtr.Zero, ref time) ||
+                    !SetCreationTime(handle, ref time, IntPtr.Zero, IntPtr.Zero))
+                    throw new IOException("Cannot touch captured cache attributes: " + full, new Win32Exception(Marshal.GetLastWin32Error()));
+            }
+            owner._MaterializationCacheTouches++; return true;
+        }
+        catch { owner._MaterializationCacheTouchFailures++; throw; }
     }
     internal static MaterializationContent BeginMaterializationContent(string path, Stream consumed)
     {
@@ -475,9 +510,11 @@ public sealed class PhysicalInputSnapshot : IDisposable
     private bool Bypass(out Entry entry, out bool captured, string reason = "unsupported-path")
     { RegisterBypass(reason); entry = null; captured = false; return false; }
     private static string Identity(FileStream file, string path)
+    { return Identity(file.SafeFileHandle, path); }
+    private static string Identity(SafeFileHandle handle, string path)
     {
         FileInformation value;
-        if (!GetFileInformationByHandle(file.SafeFileHandle, out value)) throw new IOException("Cannot identify an input file.", new Win32Exception(Marshal.GetLastWin32Error()));
+        if (!GetFileInformationByHandle(handle, out value)) throw new IOException("Cannot identify an input file.", new Win32Exception(Marshal.GetLastWin32Error()));
         if ((value.Attributes & 0x400) != 0) throw new IOException("Captured input is a reparse point.");
         if (value.IndexHigh == 0 && value.IndexLow == 0) return null;
         return Path.GetPathRoot(Path.GetFullPath(path)).ToUpperInvariant() + ":" + value.Volume.ToString("x8") + value.IndexHigh.ToString("x8") + value.IndexLow.ToString("x8");
@@ -693,6 +730,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
                 copyReadHits = _MaterializationCopyReadHits,
                 teeStarted = _MaterializationTeeStarted, teeCompleted = _MaterializationTeeCompleted, teeBytes = _MaterializationTeeBytes,
                 teeScope = "SuccessfulOriginalCopyChunks", teeCountersIncludeRolledBackChunks = true,
+                cacheAttributeTouches = _MaterializationCacheTouches, cacheAttributeTouchFailures = _MaterializationCacheTouchFailures,
                 captureCounters = "RetainedSnapshotEntries", scope = "ValidatedCacheCopySourcesOnly", completeClosure = false },
             resolverCandidates = new { scope = "ExecutedFileExistsOnly", canAuthorizeReuse = false, verificationPoint = "VerifyUnchanged",
                 observations = _CandidateObservations, uniquePaths = _CandidateUniquePaths, recordedTextChars = _CandidateTextChars,
