@@ -34,25 +34,33 @@ namespace Recovered.Compiler.Texture
             for (int level = 1; level < levels; level++)
             {
                 int nw = Math.Max(cw / 2, 1), nh = Math.Max(ch / 2, 1), nd = Math.Max(cd / 2, 1);
-                float[] next = new float[checked(nw * nh * nd * 4)];
-                int oldSlice = checked(cw * ch * 4), newSlice = checked(nw * nh * 4);
-                for (int z = 0; z < nd; z++)
-                {
-                    float[] averaged = new float[oldSlice];
-                    if (cd == 1) Array.Copy(current, averaged, oldSlice);
-                    else for (int i = 0; i < oldSlice; i++)
-                        averaged[i] = (float)(((double)current[(z * 2) * oldSlice + i] + (double)current[(z * 2 + 1) * oldSlice + i]) * 0.5);
-                    float[] filtered;
-                    if ((long)nw * ch < (long)cw * nh)
-                        filtered = Vertical(Horizontal(averaged, cw, ch, nw), nw, ch, nh);
-                    else filtered = Horizontal(Vertical(averaged, cw, ch, nh), cw, nh, nw);
-                    Array.Copy(filtered, 0, next, z * newSlice, newSlice);
-                }
+                float[] next = NextLevel(current, cw, ch, cd);
                 offset = WriteLevel(output, offset, next, format);
                 current = next; cw = nw; ch = nh; cd = nd;
             }
             if (offset != output.Length) throw new InvalidOperationException("Volume mip output size mismatch.");
             return output;
+        }
+        // Volume mip filtering is recursive, unlike the base-relative 2D path.
+        // Keep the original Z average and float stores before the XY passes.
+        internal static float[] NextLevel(float[] current, int cw, int ch, int cd)
+        {
+            int nw = Math.Max(cw / 2, 1), nh = Math.Max(ch / 2, 1), nd = Math.Max(cd / 2, 1);
+            float[] next = new float[checked(nw * nh * nd * 4)];
+            int oldSlice = checked(cw * ch * 4), newSlice = checked(nw * nh * 4);
+            for (int z = 0; z < nd; z++)
+            {
+                float[] averaged = new float[oldSlice];
+                if (cd == 1) Array.Copy(current, averaged, oldSlice);
+                else for (int i = 0; i < oldSlice; i++)
+                    averaged[i] = (float)(((double)current[(z * 2) * oldSlice + i] + (double)current[(z * 2 + 1) * oldSlice + i]) * 0.5);
+                float[] filtered;
+                if ((long)nw * ch < (long)cw * nh)
+                    filtered = Vertical(Horizontal(averaged, cw, ch, nw), nw, ch, nh);
+                else filtered = Horizontal(Vertical(averaged, cw, ch, nh), cw, nh, nw);
+                Array.Copy(filtered, 0, next, z * newSlice, newSlice);
+            }
+            return next;
         }
         public static byte[] EncodeStrip(uint width, uint height, byte[] rgba, string format)
         {
@@ -184,5 +192,6 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+
 
 

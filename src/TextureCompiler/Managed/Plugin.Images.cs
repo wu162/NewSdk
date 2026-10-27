@@ -57,11 +57,14 @@ namespace Recovered.Compiler.Texture
                         throw new BinaryAssetBuilderException(null, ErrorCode.InvalidArgument,
                             "CubeTexture is not currently supported.  Create the cube texture as a DDS with the D3D Texture tool in the meantime.", new object[0]);
                     case "VolumeTexture":
-                        byte[] volumeDds = mipmaps
-                            ? TextureVolumeMipEncoder.EncodeStrip((uint)image.Width, (uint)image.Height,
-                                rgba, format)
-                            : TextureVolumeRawDdsEncoder.EncodeStrip((uint)image.Width,
-                                (uint)image.Height, rgba, format, false);
+                        byte[] volumeDds;
+                        if (format == "D3DFMT_DXT3" || format == "D3DFMT_DXT5")
+                            volumeDds = BinaryAssetBuilder.TextureCompiler.TextureDxtVolumeDdsEncoder.EncodeStrip(
+                                (uint)image.Width, (uint)image.Height, rgba, format, mipmaps);
+                        else
+                            volumeDds = mipmaps
+                                ? TextureVolumeMipEncoder.EncodeStrip((uint)image.Width, (uint)image.Height, rgba, format)
+                                : TextureVolumeRawDdsEncoder.EncodeStrip((uint)image.Width, (uint)image.Height, rgba, format, false);
                         result = EmbedDds(volumeDds, !onDemand, _Platform);
                         break;
                     case "StandardTexture":
@@ -93,6 +96,7 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+
 
 
 

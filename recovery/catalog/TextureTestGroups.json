@@ -602,7 +602,8 @@
         "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs",
         "recovery/scripts/TestTextureDxtImages.ps1",
         "recovery/tests/TextureDxtPipelineOracle.cs",
-        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs"
+        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs"
       ],
       "evidence": "recovery/evidence/texture/dxt-images/*/validation.json",
       "sdk": false
@@ -643,7 +644,8 @@
         "SDK/tools/**",
         "SDK/Schemas/**",
         "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
-        "recovery/tests/TextureDxtSdkTracePlugin.cs"
+        "recovery/tests/TextureDxtSdkTracePlugin.cs",
+        "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs"
       ],
       "evidence": "recovery/evidence/texture/sdk-dxt/*/validation.json",
       "sdk": true
@@ -718,7 +720,8 @@
         "SDK/tools/**",
         "SDK/Schemas/**",
         "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
-        "recovery/tests/TextureDxtSdkTracePlugin.cs"
+        "recovery/tests/TextureDxtSdkTracePlugin.cs",
+        "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs"
       ],
       "evidence": "recovery/evidence/texture/sdk-dxt-mips/*/validation.json",
       "sdk": true
@@ -735,6 +738,72 @@
       "sdk": false,
       "manual_only": true,
       "evidence_only": true
+    },
+    "dxt-volume-dds": {
+      "script": "recovery/scripts/TestTextureDxtVolumeDds.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Colour/**",
+        "src/TextureCompiler/Dxt/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs",
+        "recovery/tests/TextureDxtVolumeDdsDifferential.cs",
+        "recovery/tests/TextureDxtVolumeDdsNoOriginal.cs",
+        "recovery/scripts/TestTextureDxtVolumeDds.ps1",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolume.cs"
+      ],
+      "evidence": "recovery/evidence/texture/dxt-volume-dds/*/validation.json",
+      "sdk": false
+    },
+    "sdk-PcDxtVolumes": {
+      "script": "recovery/scripts/TestTextureDxtSdk.ps1",
+      "arguments": {
+        "Profile": "PcDxtVolumes"
+      },
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/tests/TextureBmpOracle.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TexturePngDecoder.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
+        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolume.cs",
+        "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs",
+        "src/TextureCompiler/Colour/**",
+        "src/TextureCompiler/Dxt/**",
+        "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs",
+        "recovery/scripts/TestTextureDxtSdk.ps1",
+        "recovery/tests/TextureDxtSdkFixtures.cs",
+        "SDK/tools/**",
+        "SDK/Schemas/**",
+        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
+        "recovery/tests/TextureDxtSdkTracePlugin.cs",
+        "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/sdk-dxt-volumes/*/validation.json",
+      "sdk": true
     }
   },
   "targetPlatform": "Win32"

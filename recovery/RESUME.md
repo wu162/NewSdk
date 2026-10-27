@@ -6,7 +6,9 @@
 
 float/小块组件仍沿用 `9d487859` / 40506678502；颜色/alpha/native源码本轮未改，不重复重测这些成功组。416原版二维header/mip边界样本 `3319f50c` / 40507887013保持probe-only。源码与runId不得交叉冒充。
 
-下一完整能力组为PC DXT3/5压缩volume（无mip与递归float mip），先收取 `dxt-volume-boundaries` 原版定向取证，再核对header、XY-only mipCount与完整XYZ payload/callback语义，按 [TEXTURE_DXT_VOLUME_NEXT.md](TEXTURE_DXT_VOLUME_NEXT.md) 推进。当前volume、NPOT与默认DXT1/1A整块仍明确拒绝。生产SDK DLL/config未改；专用MOD不能冒充完整mymod/全TextureCompiler完成。
+本轮第二组检查点：压缩volume边界源码 `6d065a9edb5101d8a1387f7b508649e9d851adc7` / [40525480986](https://github.com/wu162/NewSdk/actions/runs/40525480986) success，416样本，probe-only。已据原版header/逐slice callback实现PC DXT3/5无mip与递归float mip volume及插件路由，**待完整Actions验收，不宣称支持**。计划Debug/Release各5568完整DDS、7856标准/volume入口及NoOriginal；新PcDxtVolumes SDK186输入/1488资产，统一包含有/无mip。共享raw volume消费者同步回归。详情 [TEXTURE_DXT_VOLUME_NEXT.md](TEXTURE_DXT_VOLUME_NEXT.md)。
+
+已验收的二维mip保持上述锚点；新volume检查点不得替代它。NPOT和默认DXT1/1A仍明确拒绝。生产SDK DLL/config未改，专用MOD不能冒充完整mymod/全TextureCompiler完成。
 
 以下保留历史子系统与阶段记录，不以旧的“下一轮”覆盖上述当前入口。
 

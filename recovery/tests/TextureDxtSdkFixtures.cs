@@ -12,7 +12,11 @@ internal static class TextureDxtSdkFixtures
     {
         try{
             string dir=Path.GetFullPath(args[0]);Directory.CreateDirectory(dir);int count=0;
-            foreach(int[] size in new[]{new[]{1,1},new[]{1,2},new[]{2,1},new[]{2,2},new[]{1,8},new[]{8,1},new[]{2,16},new[]{16,2},new[]{4,4},new[]{4,8},new[]{8,4},new[]{8,8},new[]{8,16},new[]{16,8},new[]{32,32}})foreach(int pattern in new[]{0,1,2,3,4,5,6,7}){
+            bool volume=args.Length>1&&args[1]=="volume";
+            int[][] sizes=volume
+                ? new[]{new[]{1,1},new[]{2,1},new[]{4,1},new[]{8,1},new[]{2,2},new[]{4,2},new[]{8,2},new[]{16,2},new[]{4,4},new[]{8,4},new[]{16,4},new[]{32,4},new[]{8,8},new[]{16,8},new[]{32,8},new[]{64,8}}
+                : new[]{new[]{1,1},new[]{1,2},new[]{2,1},new[]{2,2},new[]{1,8},new[]{8,1},new[]{2,16},new[]{16,2},new[]{4,4},new[]{4,8},new[]{8,4},new[]{8,8},new[]{8,16},new[]{16,8},new[]{32,32}};
+            foreach(int[] size in sizes)foreach(int pattern in new[]{0,1,2,3,4,5,6,7}){
                 File.WriteAllBytes(Path.Combine(dir,"tga-"+size[0]+"x"+size[1]+"-p"+pattern+".tga"),Tga(size[0],size[1],pattern));count++;
             }
             foreach(int color in new[]{0,2,4,6})foreach(int depth in new[]{1,2,4,8,16}){
@@ -25,8 +29,9 @@ internal static class TextureDxtSdkFixtures
             foreach(int depth in new[]{16,24,32})foreach(bool top in new[]{false,true})foreach(int pattern in new[]{0,1,2}){
                 File.WriteAllBytes(Path.Combine(dir,"bmp-d"+depth+"-top"+top+"-p"+pattern+".bmp"),TextureBmpOracle.Fixture(8,4,depth,top,pattern,0,7));count++;
             }
-            if(count!=178)throw new Exception("Fixture count mismatch "+count);
-            Console.WriteLine("PASS Texture DXT SDK fixtures="+count+"; deterministic POT including partial-block PC TGA/PNG/BMP");return 0;
+            if(count!=(volume?186:178))throw new Exception("Fixture count mismatch "+count);
+            Console.WriteLine("PASS Texture DXT SDK fixtures="+count+"; deterministic POT including partial-block PC TGA/PNG/BMP; volume="+volume);return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
+
