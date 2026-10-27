@@ -1,0 +1,37 @@
+{
+  "runId": "40500150864",
+  "status": "passed",
+  "selected": [
+    "dxt-colour-state"
+  ],
+  "runAttempt": "1",
+  "sourceCommit": "2cee34462377beca4b16926eaf25d093daa02c2a",
+  "groups": [
+    {
+      "group": "dxt-colour-state",
+      "passed": true,
+      "evidenceOnly": false
+    }
+  ],
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha"
+  ]
+}

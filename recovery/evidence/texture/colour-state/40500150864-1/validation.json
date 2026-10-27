@@ -1,0 +1,59 @@
+{
+  "runAttempt": "1",
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281"
+    }
+  ],
+  "sdkValidated": false,
+  "runId": "40500150864",
+  "probeOnly": false,
+  "nativeBinaries": [
+    {
+      "machine": "I386",
+      "importDirectory": 0,
+      "sha256": "4e335172fce5816ecf4a040816a4af13b57f11fcd7d1376da895320d87370556",
+      "configuration": "Debug",
+      "entryPoint": 0
+    },
+    {
+      "machine": "I386",
+      "importDirectory": 0,
+      "sha256": "d1116cc41e3bb6379c8bb7fd28d82f28f72620ffbd09317f9dbf085916b70164",
+      "configuration": "Release",
+      "entryPoint": 0
+    }
+  ],
+  "sourceCommit": "2cee34462377beca4b16926eaf25d093daa02c2a",
+  "scope": "PC quality71 colour working state only; no full DDS/plugin/SDK acceptance",
+  "configurations": [
+    {
+      "passed": true,
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Debug",
+      "summary": [
+        "PASS Texture Production colour state fixtures=2019 checks=29107932; complete initialized working blocks; not full DDS/plugin/SDK acceptance",
+        "PASS Texture Production colour NoOriginal fixtures=2019 checks=29105904; original DLL absent and not loaded"
+      ]
+    },
+    {
+      "passed": true,
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Release",
+      "summary": [
+        "PASS Texture Production colour state fixtures=2019 checks=29107932; complete initialized working blocks; not full DDS/plugin/SDK acceptance",
+        "PASS Texture Production colour NoOriginal fixtures=2019 checks=29105904; original DLL absent and not loaded"
+      ]
+    }
+  ],
+  "status": "passed"
+}
