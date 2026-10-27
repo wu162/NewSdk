@@ -1,0 +1,4 @@
+levels=8 count=5 pattern=6 input=0,0.25,0.5,0.75,1
+System.Exception: levels=8 count=5 pattern=6 endpoints expected=0,252 actual=3,255
+   at TextureDxt5QuantizerDifferential.Check(Boolean value, String message)
+   at TextureDxt5QuantizerDifferential.Main(String[] args)

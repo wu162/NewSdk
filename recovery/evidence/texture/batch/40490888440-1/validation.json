@@ -1,0 +1,49 @@
+{
+  "runAttempt": "1",
+  "runId": "40490888440",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha"
+  ],
+  "groups": [
+    {
+      "group": "dxt-decompile",
+      "evidenceOnly": true,
+      "error": "Missing native function exports",
+      "passed": false
+    },
+    {
+      "group": "dxt5-fast-alpha",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "dxt5-alpha",
+      "evidenceOnly": false,
+      "error": "Debug-quantizer failed",
+      "passed": false
+    }
+  ],
+  "status": "failed",
+  "sourceCommit": "82422508cad2ad15b551be06596f8666791422c9",
+  "selected": [
+    "dxt-decompile",
+    "dxt5-fast-alpha",
+    "dxt5-alpha"
+  ]
+}

@@ -1,0 +1,339 @@
+INFO  Using log config file: jar:file:/D:/a/_temp/dxt-decompile-523e402d0a7e4d3aaa90b09385948491/ghidra_11.4.2_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: C:\Users\runneradmin\AppData\Roaming\ghidra\ghidra_11.4.2_PUBLIC\application.log (LoggingInitialization)  
+INFO  Loading user preferences: C:\Users\runneradmin\AppData\Roaming\ghidra\ghidra_11.4.2_PUBLIC\preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (689 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (SSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: SHA1PRNG (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (ApplicationTrustManagerFactory)  
+INFO  Starting cache cleanup: C:\Users\runneradmin\AppData\Local\ghidra\fscache2 (FileCacheMaintenanceDaemon)  
+INFO  Finished cache cleanup, estimated storage used: 0 (FileCacheMaintenanceDaemon)  
+INFO  Headless startup complete (5179 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 58 extension points (18 false positives) (ClassSearcher)  
+INFO  HEADLESS Script Paths:
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\GnuDemangler\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Debug\Debugger-rmi-trace\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\PyGhidra\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\VersionTracking\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Processors\JVM\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\FunctionID\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\DecompilerDependent\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\FileFormats\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\Decompiler\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\BytePatterns\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Processors\PIC\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\SwiftDemangler\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\Base\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\MicrosoftCodeAnalyzer\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\SystemEmulation\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\WildcardAssembler\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\Jython\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Processors\Atmel\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Processors\DATA\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Processors\8051\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\BSim\ghidra_scripts
+    D:\a\NewSdk\NewSdk\recovery\scripts\ghidra
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Debug\Debugger\ghidra_scripts
+    D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\ghidra_11.4.2_PUBLIC\Ghidra\Features\PDB\ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Creating temporary project: D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\project\Texture (HeadlessAnalyzer)  
+INFO  Creating project: D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\project\Texture (DefaultProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: D:\a\_temp\dxt-decompile-523e402d0a7e4d3aaa90b09385948491\project\Texture (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///D:/a/NewSdk/NewSdk/SDK/tools/BinaryAssetBuilder.TextureCompiler.dll (HeadlessAnalyzer)  
+INFO  Using Loader: Portable Executable (PE) (AutoImporter)  
+INFO  Using Language/Compiler: x86:LE:32:default:windows (AutoImporter)  
+INFO  Using Library Search Path: [., C:\Windows\SysWOW64, C:\hostedtoolcache\windows\Java_Temurin-Hotspot_jdk\21.0.12-101.0\x64\bin, C:\Windows\Sun\Java\bin, C:\Windows\system32, C:\Windows, C:\Program Files\PowerShell\7, C:\Program Files\dotnet, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\bin\HostX86\x86, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\VC\VCPackages, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TestWindow, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\bin\Roslyn, C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\, C:\Program Files (x86)\HTML Help Workshop, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\FSharp\Tools, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Team Tools\DiagnosticsHub\Collector, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\Extensions\Microsoft\CodeCoverage.Console, C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\\x86, C:\Program Files (x86)\Windows Kits\10\bin\\x86, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\\MSBuild\Current\Bin\amd64, C:\Windows\Microsoft.NET\Framework\v4.0.30319, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\, C:\Program Files\MongoDB\Server\7.0\bin, C:\aliyun-cli, C:\vcpkg, C:\Program Files (x86)\NSIS\, C:\tools\zstd, C:\Program Files\Mercurial\, C:\hostedtoolcache\windows\stack\3.11.1\x64, C:\cabal\bin, C:\\ghcup\bin, C:\mingw64\bin, C:\Program Files\MySQL\MySQL Server 8.4\bin, C:\Program Files\R\R-4.6.1\bin\x64, C:\SeleniumWebDrivers\GeckoDriver, C:\SeleniumWebDrivers\EdgeDriver\, C:\SeleniumWebDrivers\ChromeDriver, C:\Program Files (x86)\sbt\bin, C:\Program Files (x86)\GitHub CLI, C:\Program Files\Git\bin, C:\Program Files (x86)\pipx_bin, C:\npm\prefix, C:\hostedtoolcache\windows\go\1.24.13\x64\bin, C:\hostedtoolcache\windows\Python\3.12.10\x64\Scripts, C:\hostedtoolcache\windows\Python\3.12.10\x64, C:\hostedtoolcache\windows\Ruby\3.3.12\x64\bin, C:\Program Files\OpenSSL\bin, C:\tools\kotlinc\bin, C:\hostedtoolcache\windows\Java_Temurin-Hotspot_jdk\8.0.504-1\x64\bin, C:\Program Files\ImageMagick-7.1.2-Q16-HDRI, C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin, C:\ProgramData\kind, C:\ProgramData\Chocolatey\bin, C:\Windows\System32\Wbem, C:\Windows\System32\WindowsPowerShell\v1.0\, C:\Windows\System32\OpenSSH\, C:\Program Files\dotnet\, C:\Program Files\PowerShell\7\, C:\Program Files\Microsoft\Web Platform Installer\, C:\Program Files\TortoiseSVN\bin, C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\, C:\Program Files\Microsoft SQL Server\150\Tools\Binn\, C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\, C:\Program Files (x86)\WiX Toolset v3.14\bin, C:\Program Files\Microsoft SQL Server\130\DTS\Binn\, C:\Program Files\Microsoft SQL Server\140\DTS\Binn\, C:\Program Files\Microsoft SQL Server\150\DTS\Binn\, C:\Program Files\Microsoft SQL Server\160\DTS\Binn\, C:\Program Files\Microsoft SQL Server\170\DTS\Binn\, C:\Strawberry\c\bin, C:\Strawberry\perl\site\bin, C:\Strawberry\perl\bin, C:\ProgramData\chocolatey\lib\pulumi\tools\Pulumi\bin, C:\Program Files\CMake\bin, C:\ProgramData\chocolatey\lib\maven\apache-maven-3.9.16\bin, C:\Program Files\Microsoft Service Fabric\bin\Fabric\Fabric.Code, C:\Program Files\Microsoft SDKs\Service Fabric\Tools\ServiceFabricLocalClusterManager, C:\Program Files\nodejs\, C:\Program Files\Git\cmd, C:\Program Files\Git\ucrt64\bin, C:\Program Files\Git\usr\bin, C:\Program Files\GitHub CLI\, c:\tools\php, C:\Program Files\Amazon\AWSCLIV2\, C:\Program Files\Amazon\SessionManagerPlugin\bin\, C:\Program Files\Amazon\AWSSAMCLI\bin\, C:\Program Files\Microsoft SQL Server\130\Tools\Binn\, C:\Program Files\mongosh\, C:\Program Files\LLVM\bin, C:\Program Files (x86)\LLVM\bin, C:\Users\runneradmin\.dotnet\tools, C:\Users\runneradmin\.cargo\bin, C:\Users\runneradmin\AppData\Local\Microsoft\WindowsApps, C:\Program Files (x86)\Microsoft Visual Studio\Installer, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\Llvm\bin, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\VC\Linux\bin\ConnectionManagerExe, C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\vcpkg] (AutoImporter)  
+WARN  Error processing function "Node.GetChildNode" (114): Duplicate parameter name (Node0, name, name, defaultValue) (CliTableMethodDef)  
+WARN  Error processing function "ReverseEndianness" (191): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "?A0x749b4e39.Direct3DCreate9" (192): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "Direct3D.CreateDevice" (194): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "getErrorString" (204): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "new" (205): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "__CxxDetectRethrow" (207): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "strtoul" (211): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "realloc" (212): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "__CxxUnregisterExceptionObject" (214): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "delete" (215): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "__CxxExceptionFilter" (216): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "fread" (217): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "delete[]" (218): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "__CxxRegisterExceptionObject" (221): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "malloc" (222): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "calloc" (223): Bad parameters provided (CliTableMethodDef)  
+WARN  Error processing function "free" (224): Bad parameters provided (CliTableMethodDef)  
+ERROR Cannot replace existing blob at address 100b4ce9 with CustomAttrib_9785 because they have different sizes (Old: 6, New: 5). (CliStreamBlob)  
+ERROR Cannot replace existing blob at address 100b4ce9 with CustomAttrib_9785 because they have different sizes (Old: 6, New: 5). (CliStreamBlob)  
+ERROR Cannot replace existing blob at address 100b4ce9 with CustomAttrib_9785 because they have different sizes (Old: 6, New: 5). (CliStreamBlob)  
+ERROR Cannot replace existing blob at address 100b4ce9 with CustomAttrib_9785 because they have different sizes (Old: 6, New: 5). (CliStreamBlob)  
+ERROR Cannot replace existing blob at address 100b4ce9 with CustomAttrib_9785 because they have different sizes (Old: 6, New: 5). (CliStreamBlob)  
+ERROR Cannot replace existing blob at address 100b4ce9 with CustomAttrib_9785 because they have different sizes (Old: 6, New: 5). (CliStreamBlob)  
+ERROR Cannot replace existing blob at address 100b4ce9 with CustomAttrib_9785 because they have different sizes (Old: 6, New: 5). (CliStreamBlob)  
+WARN  Invalid or missing function at 100482b8 (ExportDataDirectory)  
+WARN  Invalid or missing function at 69ea76ec (ExportDataDirectory)  
+INFO  Removing 91 unused filesystems from cache (FileSystemInstanceManager)  
+INFO  Additional info:
+Loading file:///D:/a/NewSdk/NewSdk/SDK/tools/BinaryAssetBuilder.TextureCompiler.dll?MD5=21c107f82aee7e1983c1153ebf6a3840...
+[BinaryAssetBuilder.TextureCompiler.dll]: failed to create dword at 100ca000: Conflicting data exists at address 100c9058 to 100ca000
+------------------------------------------------
+
+Searching 93 paths for library ADVAPI32.DLL...
+Loading file:///C:/Windows/SysWOW64/advapi32.dll?MD5=60612501a2dbadf4302839c248d5908a...
+Created exports file: C:\Users\runneradmin\AppData\Roaming\ghidra\ghidra_11.4.2_PUBLIC\symbols\win32\advapi32.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 93 paths for library KERNEL32.DLL...
+Loading file:///C:/Windows/SysWOW64/kernel32.dll?MD5=7040a8706e34e06beb2e1ea90f7e854e...
+Created exports file: C:\Users\runneradmin\AppData\Roaming\ghidra\ghidra_11.4.2_PUBLIC\symbols\win32\kernel32.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 93 paths for library MSCOREE.DLL...
+Loading file:///C:/Windows/SysWOW64/mscoree.dll?MD5=b4f17a2ee68aa016491782d7338d77ce...
+Created exports file: C:\Users\runneradmin\AppData\Roaming\ghidra\ghidra_11.4.2_PUBLIC\symbols\win32\mscoree.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 93 paths for library MSVCM80.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 93 paths for library MSVCP80.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 93 paths for library MSVCR80.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 93 paths for library USER32.DLL...
+Loading file:///C:/Windows/SysWOW64/user32.dll?MD5=729afbcd39495247aa1d60b7402e11f1...
+[user32.dll]: failed to create WEVTResource at 69ebea70: Failed to resolve data length for WEVTResource
+Created exports file: C:\Users\runneradmin\AppData\Roaming\ghidra\ghidra_11.4.2_PUBLIC\symbols\win32\user32.exports
+Library not saved to project.
+------------------------------------------------
+
+Applying cached symbols from KERNEL32.DLL
+Applying cached symbols from USER32.DLL
+Applying cached symbols from ADVAPI32.DLL
+Applying cached symbols from MSCOREE.DLL
+Linking the External Programs of 'BinaryAssetBuilder.TextureCompiler.dll' to imported libraries...
+  [KERNEL32.DLL] -> not found in project
+  [MSVCR80.DLL] -> not found in project
+  [MSVCP80.DLL] -> not found in project
+  [USER32.DLL] -> not found in project
+  [ADVAPI32.DLL] -> not found in project
+  [MSVCM80.DLL] -> not found in project
+  [MSCOREE.DLL] -> not found in project
+------------------------------------------------
+
+ (AutoImporter)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: file:///D:/a/NewSdk/NewSdk/SDK/tools/BinaryAssetBuilder.TextureCompiler.dll (HeadlessAnalyzer)  
+INFO  Skipping PDB processing: failed to locate PDB file in configured locations (PdbUniversalAnalyzer)  
+INFO  Use a script to set the PDB file location. I.e.,
+    PdbAnalyzer.setPdbFileOption(currentProgram, new File("/path/to/pdb/file.pdb")); or
+    PdbUniversalAnalyzer.setPdbFileOption(currentProgram, new File("/path/to/pdb/file.pdb"));
+Or set the symbol server search configuration using:    PdbPlugin.saveSymbolServerServiceConfig(...);
+ This must be done using a pre-script (prior to analysis). (PdbUniversalAnalyzer)  
+INFO  Packed database cache: C:\Users\runneradmin\AppData\Local\ghidra\packed-db-cache (PackedDatabaseCache)  
+ERROR Invalid PNG data at 1009a020 (PngDataType)  
+ERROR Invalid PNG data at 1009d950 (PngDataType)  
+INFO  hit non-returning function, restarting decompiler switch analyzer later (DecompilerSwitchAnalyzer)  
+INFO  hit non-returning function, restarting decompiler switch analyzer later (DecompilerSwitchAnalyzer)  
+INFO  Unprocessed TypeDescriptor: char * (TypeDescriptorModel)  
+INFO  Unprocessed TypeDescriptor: void * (TypeDescriptorModel)  
+INFO  Unprocessed TypeDescriptor: char * (TypeDescriptorModel)  
+INFO  Unprocessed TypeDescriptor: void * (TypeDescriptorModel)  
+INFO  hit non-returning function, restarting decompiler switch analyzer later (DecompilerSwitchAnalyzer)  
+INFO  Applied data type archive: windows_vs12_32 (ApplyDataArchiveAnalyzer)  
+WARN  Decompiling 10005610, pcode error at 10005c4a: Unable to resolve constructor at 10005c4a (DecompileCallback)  
+WARN  Decompiling 10004110, pcode error at 100041e7: Unable to resolve constructor at 100041e7 (DecompileCallback)  
+WARN  Decompiling 10004408, pcode error at 1000442e: Unable to resolve constructor at 1000442e (DecompileCallback)  
+WARN  Decompiling 10004408, pcode error at 100044e2: Unable to resolve constructor at 100044e2 (DecompileCallback)  
+WARN  Decompiling 10007604, pcode error at 100076bf: Unable to resolve constructor at 100076bf (DecompileCallback)  
+WARN  Decompiling 1004fb30, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 1004fb30, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 10006a00, pcode error at 10006cc8: Unable to resolve constructor at 10006cc8 (DecompileCallback)  
+WARN  Decompiling 10003220, pcode error at 1000325a: Unable to resolve constructor at 1000325a (DecompileCallback)  
+WARN  Decompiling 10003220, pcode error at 1000325b: Unable to resolve constructor at 1000325b (DecompileCallback)  
+WARN  Decompiling 10004920, pcode error at 10004967: Unable to resolve constructor at 10004967 (DecompileCallback)  
+WARN  Decompiling 10003520, pcode error at 100036c8: Unable to resolve constructor at 100036c8 (DecompileCallback)  
+WARN  Decompiling 10007f54, pcode error at 10007f9f: Unable to resolve constructor at 10007f9f (DecompileCallback)  
+WARN  Decompiling 10003520, pcode error at 100036c8: Unable to resolve constructor at 100036c8 (DecompileCallback)  
+WARN  Decompiling 10006978, pcode error at 10006cc8: Unable to resolve constructor at 10006cc8 (DecompileCallback)  
+WARN  Decompiling 1004f474, pcode error at 1004f476: Unable to resolve constructor at 1004f476 (DecompileCallback)  
+WARN  Decompiling 10004664, pcode error at 10004967: Unable to resolve constructor at 10004967 (DecompileCallback)  
+WARN  Decompiling 1004fb94, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 10007b84, pcode error at 10007c5f: Unable to resolve constructor at 10007c5f (DecompileCallback)  
+WARN  Decompiling 10007b84, pcode error at 10007c5f: Unable to resolve constructor at 10007c5f (DecompileCallback)  
+WARN  Decompiling 10001cbc, pcode error at 10001e55: Unable to resolve constructor at 10001e55 (DecompileCallback)  
+WARN  Decompiling 10001cbc, pcode error at 267dbd16: Could not follow disassembly flow into non-existing memory at 267dbd16 (DecompileCallback)  
+WARN  Decompiling 100027b8, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 100068bc, pcode error at 10006cc8: Unable to resolve constructor at 10006cc8 (DecompileCallback)  
+WARN  Decompiling 100061b4, pcode error at 100067cd: Unable to resolve constructor at 100067cd (DecompileCallback)  
+WARN  Decompiling 100077a0, pcode error at 10007843: Unable to resolve constructor at 10007843 (DecompileCallback)  
+WARN  Decompiling 100057dc, pcode error at 10005c4a: Unable to resolve constructor at 10005c4a (DecompileCallback)  
+WARN  Decompiling 100061b4, pcode error at 100067cd: Unable to resolve constructor at 100067cd (DecompileCallback)  
+WARN  Decompiling 100056c4, pcode error at 10005c4a: Unable to resolve constructor at 10005c4a (DecompileCallback)  
+WARN  Decompiling 100041f8, pcode error at 1000429e: Unable to resolve constructor at 1000429e (DecompileCallback)  
+WARN  Decompiling 100026f4, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 100026f4, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 1004fbe8, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 10004814, pcode error at 10004967: Unable to resolve constructor at 10004967 (DecompileCallback)  
+WARN  Decompiling 10004408, pcode error at 1000442e: Unable to resolve constructor at 1000442e (DecompileCallback)  
+WARN  Decompiling 10004408, pcode error at 100044e2: Unable to resolve constructor at 100044e2 (DecompileCallback)  
+WARN  Decompiling 1004f834, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 1004f834, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 1004f474, pcode error at 1004f476: Unable to resolve constructor at 1004f476 (DecompileCallback)  
+WARN  Decompiling 1004f874, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 1004f874, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 1004f498, pcode error at 1004f4c1: Unable to resolve constructor at 1004f4c1 (DecompileCallback)  
+WARN  Decompiling 10001c8c, pcode error at 10001e55: Unable to resolve constructor at 10001e55 (DecompileCallback)  
+WARN  Decompiling 10001c8c, pcode error at 267dbd16: Could not follow disassembly flow into non-existing memory at 267dbd16 (DecompileCallback)  
+WARN  Decompiling 10001cbc, pcode error at 10001e55: Unable to resolve constructor at 10001e55 (DecompileCallback)  
+WARN  Decompiling 10001cbc, pcode error at 267dbd16: Could not follow disassembly flow into non-existing memory at 267dbd16 (DecompileCallback)  
+WARN  Decompiling 100068bc, pcode error at 10006cc8: Unable to resolve constructor at 10006cc8 (DecompileCallback)  
+WARN  Decompiling 1004f8b0, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 1004f8b0, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 1004f8dc, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 1004f8dc, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 1004f4ec, pcode error at 1004f515: Unable to resolve constructor at 1004f515 (DecompileCallback)  
+WARN  Decompiling 1004f4ec, pcode error at 1004f541: Unable to resolve constructor at 1004f541 (DecompileCallback)  
+WARN  Decompiling 100044f4, pcode error at 10004967: Unable to resolve constructor at 10004967 (DecompileCallback)  
+WARN  Decompiling 10004110, pcode error at 100041e7: Unable to resolve constructor at 100041e7 (DecompileCallback)  
+WARN  Decompiling 100044f4, pcode error at 10004967: Unable to resolve constructor at 10004967 (DecompileCallback)  
+WARN  Decompiling 10004920, pcode error at 10004967: Unable to resolve constructor at 10004967 (DecompileCallback)  
+WARN  Decompiling 10003520, pcode error at 100036c8: Unable to resolve constructor at 100036c8 (DecompileCallback)  
+WARN  Decompiling 10003520, pcode error at 100036c8: Unable to resolve constructor at 100036c8 (DecompileCallback)  
+WARN  Decompiling 10006978, pcode error at 10006cc8: Unable to resolve constructor at 10006cc8 (DecompileCallback)  
+WARN  Decompiling 10007584, pcode error at 100076bf: Unable to resolve constructor at 100076bf (DecompileCallback)  
+WARN  Decompiling 100041f8, pcode error at 1000429e: Unable to resolve constructor at 1000429e (DecompileCallback)  
+WARN  Decompiling 100061b4, pcode error at 100067cd: Unable to resolve constructor at 100067cd (DecompileCallback)  
+WARN  Decompiling 1004f9f0, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 1004f9f0, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 10001e18, pcode error at 10001e55: Unable to resolve constructor at 10001e55 (DecompileCallback)  
+WARN  Decompiling 100075e0, pcode error at 100076bf: Unable to resolve constructor at 100076bf (DecompileCallback)  
+WARN  Decompiling 10001e04, pcode error at 10001e55: Unable to resolve constructor at 10001e55 (DecompileCallback)  
+WARN  Decompiling 10007604, pcode error at 100076bf: Unable to resolve constructor at 100076bf (DecompileCallback)  
+WARN  Decompiling 10005610, pcode error at 10005c4a: Unable to resolve constructor at 10005c4a (DecompileCallback)  
+WARN  Decompiling 10006a00, pcode error at 10006cc8: Unable to resolve constructor at 10006cc8 (DecompileCallback)  
+WARN  Decompiling 10003220, pcode error at 1000325a: Unable to resolve constructor at 1000325a (DecompileCallback)  
+WARN  Decompiling 10003220, pcode error at 1000325b: Unable to resolve constructor at 1000325b (DecompileCallback)  
+WARN  Decompiling 100061b4, pcode error at 100067cd: Unable to resolve constructor at 100067cd (DecompileCallback)  
+WARN  Decompiling 10004664, pcode error at 10004967: Unable to resolve constructor at 10004967 (DecompileCallback)  
+WARN  Decompiling 1004faac, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 1004faac, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 1004fac8, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 1004fac8, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 100026f4, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 100056c4, pcode error at 10005c4a: Unable to resolve constructor at 10005c4a (DecompileCallback)  
+WARN  Decompiling 100026f4, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 1004fae0, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 1004fae0, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 100026e0, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 100026e0, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 10002738, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 1004fb30, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 1004fb30, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 10002738, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 10007f54, pcode error at 10007f9f: Unable to resolve constructor at 10007f9f (DecompileCallback)  
+WARN  Decompiling 1000274c, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 1000274c, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 1004f744, pcode error at fe060000: Could not follow disassembly flow into non-existing memory at fe060000 (DecompileCallback)  
+WARN  Decompiling 1004f778, pcode error at fe060000: Could not follow disassembly flow into non-existing memory at fe060000 (DecompileCallback)  
+WARN  Decompiling 1004f744, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 10002774, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 1004f744, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 1004fb74, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 1004fb74, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+WARN  Decompiling 1004f798, pcode error at fe060000: Could not follow disassembly flow into non-existing memory at fe060000 (DecompileCallback)  
+WARN  Decompiling 1004f798, pcode error at 2b060000: Could not follow disassembly flow into non-existing memory at 2b060000 (DecompileCallback)  
+WARN  Decompiling 1004fb94, pcode error at 382b0c8d: Could not follow disassembly flow into non-existing memory at 382b0c8d (DecompileCallback)  
+WARN  Decompiling 10007b84, pcode error at 10007c5f: Unable to resolve constructor at 10007c5f (DecompileCallback)  
+WARN  Decompiling 10007b84, pcode error at 10007c5f: Unable to resolve constructor at 10007c5f (DecompileCallback)  
+WARN  Decompiling 100027b8, pcode error at 10002838: Unable to resolve constructor at 10002838 (DecompileCallback)  
+WARN  Decompiling 100077a0, pcode error at 10007843: Unable to resolve constructor at 10007843 (DecompileCallback)  
+WARN  Decompiling 100057dc, pcode error at 10005c4a: Unable to resolve constructor at 10005c4a (DecompileCallback)  
+WARN  Decompiling 1004fbe8, pcode error at 1de30623: Could not follow disassembly flow into non-existing memory at 1de30623 (DecompileCallback)  
+INFO  -----------------------------------------------------
+    ASCII Strings                              0.300 secs
+    Apply Data Archives                        0.136 secs
+    Call Convention ID                         4.042 secs
+    Call-Fixup Installer                       0.050 secs
+    Create Address Tables                      0.115 secs
+    Create Address Tables - One Time           7.471 secs
+    Create Function                            0.377 secs
+    Data Reference                             5.522 secs
+    Decompiler Parameter ID                   72.288 secs
+    Decompiler Switch Analysis                 3.775 secs
+    Decompiler Switch Analysis - One Time     64.312 secs
+    Demangler Microsoft                        0.061 secs
+    Disassemble                                0.422 secs
+    Disassemble Entry Points                   0.821 secs
+    Embedded Media                             0.030 secs
+    External Entry References                  0.000 secs
+    Function ID                                0.747 secs
+    Function Start Pre Search                  0.056 secs
+    Function Start Search                      0.209 secs
+    Function Start Search After Code           0.081 secs
+    Function Start Search After Data           0.051 secs
+    Function Start Search delayed - One Time   0.005 secs
+    Non-Returning Functions - Discovered       0.125 secs
+    Non-Returning Functions - Known            0.003 secs
+    PDB Universal                              0.013 secs
+    Reference                                  5.541 secs
+    Scalar Operand References                  0.850 secs
+    Shared Return Calls                        0.181 secs
+    Stack                                      5.707 secs
+    Subroutine References                      0.252 secs
+    Subroutine References - One Time           0.003 secs
+    Windows x86 PE Exception Handling          1.602 secs
+    Windows x86 PE RTTI Analyzer               0.285 secs
+    Windows x86 Thread Environment Block (TEB) Analyzer     0.016 secs
+    WindowsResourceReference                   4.005 secs
+    X86 Function Callee Purge                  0.079 secs
+    x86 Constant Reference Analyzer            4.001 secs
+-----------------------------------------------------
+     Total Time   183 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///D:/a/NewSdk/NewSdk/SDK/tools/BinaryAssetBuilder.TextureCompiler.dll (HeadlessAnalyzer)  
+INFO  SCRIPT: D:\a\NewSdk\NewSdk\recovery\scripts\ghidra\ExportTextureDxt.java (HeadlessAnalyzer)  
+INFO  ExportTextureDxt.java> EXPORTED EncodeDXT3 10057f00 (GhidraScript)  
+INFO  ExportTextureDxt.java> EXPORTED EncodeDXT5 10057ff0 (GhidraScript)  
+INFO  ExportTextureDxt.java> EXPORTED CompressDispatch 1005c790 (GhidraScript)  
+INFO  ExportTextureDxt.java> EXPORTED QuantizeAlpha 1007d500 (GhidraScript)  
+INFO  ExportTextureDxt.java> EXPORTED CodeAlphaBlock 1007e8f0 (GhidraScript)  
+INFO  ExportTextureDxt.java> EXPORTED FastEncodeDXT5 1008b570 (GhidraScript)  
+INFO  ExportTextureDxt.java> EXPORTED FastEncodeDXT1AllPixelsSame 1008b380 (GhidraScript)  
+INFO  ExportTextureDxt.java> EXPORTED AlphaDdsWriter 1005c310 (GhidraScript)  
+INFO  ExportTextureDxt.java> EXPORTED CodeRGBBlock 1007c420 (GhidraScript)  
+INFO  ExportTextureDxt.java> EXPORTED CodeRGBBlockQuick 1007bdf0 (GhidraScript)  
+INFO  ExportTextureDxt.java> EXPORTED AllSame 1007b3f0 (GhidraScript)  
+INFO  ExportTextureDxt.java> EXPORTED MapAndRoundMult 1007bb80 (GhidraScript)  
+INFO  ExportTextureDxt.java> EXPORTED Search43Mult 100603d0 (GhidraScript)  
+ERROR REPORT SCRIPT ERROR:  (HeadlessAnalyzer) java.io.IOException: RoundMult: Exception while decompiling 10061460: process: timeout
+
+	at ExportTextureDxt.run(ExportTextureDxt.java:24)
+	at ghidra.app.script.GhidraScript.executeNormal(GhidraScript.java:405)
+	at ghidra.app.script.GhidraScript.doExecute(GhidraScript.java:260)
+	at ghidra.app.script.GhidraScript.execute(GhidraScript.java:238)
+	at ghidra.app.util.headless.HeadlessAnalyzer.runScript(HeadlessAnalyzer.java:588)
+	at ghidra.app.util.headless.HeadlessAnalyzer.runScriptsList(HeadlessAnalyzer.java:926)
+	at ghidra.app.util.headless.HeadlessAnalyzer.analyzeProgram(HeadlessAnalyzer.java:1074)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processFileWithImport(HeadlessAnalyzer.java:1563)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithLoader(HeadlessAnalyzer.java:1745)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1686)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1770)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processLocal(HeadlessAnalyzer.java:457)
+	at ghidra.app.util.headless.AnalyzeHeadless.launch(AnalyzeHeadless.java:198)
+	at ghidra.GhidraLauncher.launch(GhidraLauncher.java:81)
+	at ghidra.Ghidra.main(Ghidra.java:54)
+ 
+INFO  ANALYZING changes made by post scripts: file:///D:/a/NewSdk/NewSdk/SDK/tools/BinaryAssetBuilder.TextureCompiler.dll (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: file:///D:/a/NewSdk/NewSdk/SDK/tools/BinaryAssetBuilder.TextureCompiler.dll (HeadlessAnalyzer)  
+INFO  REPORT: Save succeeded for: /BinaryAssetBuilder.TextureCompiler.dll (Texture:/BinaryAssetBuilder.TextureCompiler.dll) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  

@@ -1,0 +1,14 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runAttempt": "1",
+  "scope": "Original native decompilation evidence only; not recovery acceptance",
+  "probeOnly": true,
+  "runId": "40490888440",
+  "sourceCommit": "82422508cad2ad15b551be06596f8666791422c9",
+  "toolSha256": "795a02076af16257bd6f3f4736c4fc152ce9ff1f95df35cd47e2adc086e037a6",
+  "evidenceOnly": true,
+  "status": "failed",
+  "sdkValidated": false,
+  "error": "Missing native function exports",
+  "ghidraVersion": "11.4.2"
+}
