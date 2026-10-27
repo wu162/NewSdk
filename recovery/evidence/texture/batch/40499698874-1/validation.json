@@ -1,0 +1,38 @@
+{
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "error": "Debug-asm failed",
+      "group": "dxt-colour-state",
+      "passed": false
+    }
+  ],
+  "runId": "40499698874",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha"
+  ],
+  "selected": [
+    "dxt-colour-state"
+  ],
+  "runAttempt": "1",
+  "sourceCommit": "f5472177f8717c2b0889d58e30dc2390575b660b",
+  "status": "failed"
+}

@@ -1,0 +1,26 @@
+{
+  "status": "failed",
+  "scope": "PC quality71 colour working state only; no full DDS/plugin/SDK acceptance",
+  "configurations": [],
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "31dbcf958efb1284eb0b8a40dad655f617a61d1edb63b4f482e1d4c8761f80df"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "f6974ed378c0d1e3574b7db5e5bdd4f576e4ff8e0ae21ece7733074244e65d5e"
+    }
+  ],
+  "runId": "40499698874",
+  "runAttempt": "1",
+  "sourceCommit": "f5472177f8717c2b0889d58e30dc2390575b660b",
+  "sdkValidated": false,
+  "nativeBinaries": [],
+  "error": "Debug-asm failed",
+  "probeOnly": false
+}
