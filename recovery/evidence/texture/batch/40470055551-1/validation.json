@@ -1,0 +1,34 @@
+{
+  "runId": "40470055551",
+  "runAttempt": "1",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges"
+  ],
+  "status": "passed",
+  "sourceCommit": "9f8b1361148a6b76fec1b5564b3d055ba4ee62e7",
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "group": "dxt3-alpha",
+      "passed": true
+    }
+  ],
+  "selected": [
+    "dxt3-alpha"
+  ]
+}

@@ -1,0 +1,1 @@
+PASS Texture DXT3 explicit alpha fixtures=4352 checks=65288; alpha subcomponent only; colour compression not implemented
