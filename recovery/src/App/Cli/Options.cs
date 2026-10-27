@@ -176,7 +176,7 @@ namespace NewModCompiler.Cli
                 foreach (var pair in values) {
                     string key = Canonical(pair.Key);
                     if (!new [] {"profile","sdk-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
-                    if (!(pair.Value is string) && !(pair.Value is bool)) throw Bad("PROJECT_OPTION", "Project values must be strings or booleans: " + pair.Key);
+                    if (!(pair.Value is IConvertible)) throw Bad("PROJECT_OPTION", "Project values must be scalar values: " + pair.Key);
                     string raw = Convert.ToString(pair.Value, System.Globalization.CultureInfo.InvariantCulture);
                     if (string.IsNullOrWhiteSpace(raw)) throw Bad("PROJECT_OPTION", "Project value must not be empty: " + pair.Key);
                     string value = NormalizeValue(key, raw);

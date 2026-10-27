@@ -60,6 +60,8 @@ namespace NewModCompiler.Tests
             Check(saved.Options["pc"].Value=="false" && saved.Options["pc"].Source=="project","Advanced compatibility setting in project");
             var overridden=Options.Parse(new[]{"plan","--mod",mod,"--profile","standard","--out",output,"/pc:true"});
             Check(overridden.PackageFormat=="big" && overridden.OutputRoot==output && overridden.Options["pc"].Source=="commandLine","CLI overrides project");
+            File.WriteAllText(project,"{\"mod-version\":2.7,\"game-version\":1.12}");
+            Check(parse(new string[0]).ModVersion=="2.7", "Existing numeric project versions remain accepted");
             File.WriteAllText(project,"null");Reject("PROJECT_INVALID",()=>parse(new string[0]));
             File.WriteAllText(project,"{\"out\":null}");Reject("PROJECT_OPTION",()=>parse(new string[0]));
             File.Delete(project);
