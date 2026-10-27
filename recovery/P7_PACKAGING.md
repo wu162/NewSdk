@@ -34,4 +34,4 @@
 
 候选真实主组通过后，按成功 source/run/archive 重 pin 发行准备器；独立解压五文件 ZIP 必须再通过 base/Additional BIG 和协议验收。先前已验收的包不会自动包含本候选。版本参数、可选中立资产修复与完整 UI/runtime 分别记录范围，不启动游戏、安装 MOD 或写 CurrentMOD.ini。
 
-布尔选项的 CLI 写法是 `--include-additional=true`、`--fix-neutral-assets=true`（也支持单独裸开关启用），不是空格后另传 `true`。当前 EXE help 的新布尔示例尚有空格歧义，下次生产变更时一并修正，不为帮助字符串重复完整构建。
+布尔选项的 CLI 写法是 `--include-additional=true`、`--fix-neutral-assets=true`（也支持单独裸开关启用），不是空格后另传 `true`。结果主线 `compiler-main` 已修正新布尔选项的 help 示例；最终新源发行构建与验收以 `COMPILER_RELEASE.md` 记录为准。

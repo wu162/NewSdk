@@ -1,7 +1,7 @@
 name: MOD compiler Core lifecycle integration
 on:
   push:
-    branches: [refactor/modcompiler-p0-p3]
+    branches: [compiler-main, refactor/modcompiler-p0-p3]
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
@@ -264,11 +264,18 @@ jobs:
         run: |
           ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/sdk-mymod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TimeoutSeconds 600
           if($LASTEXITCODE -ne 0){throw 'Complete mymod SDK differential failed'}
+      - name: Publish final five-file packages after complete production acceptance
+        if: ${{ success() && steps.big.outcome == 'success' && steps.cli.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -AcceptanceReceipt "recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -VerifyBigDeployment -OutputDirectory "recovery/artifacts/final-release/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if($LASTEXITCODE -ne 0){throw 'Final five-file ZIP deployment validation failed'}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
+            recovery/artifacts/final-release/**
             recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/big-fixture-preflight/**
             recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}

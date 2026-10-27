@@ -1,7 +1,7 @@
 name: MOD compiler isolated probes
 on:
   push:
-    branches: [refactor/modcompiler-p0-p3]
+    branches: [compiler-main, refactor/modcompiler-p0-p3]
     paths:
       - '.github/workflows/refactor-probes.yml'
       - 'recovery/probes/**'

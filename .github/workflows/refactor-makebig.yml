@@ -1,7 +1,7 @@
 name: Recovered managed MakeBig original differential
 on:
   push:
-    branches: [refactor/modcompiler-p0-p3]
+    branches: [compiler-main, refactor/modcompiler-p0-p3]
     paths:
       - '.github/workflows/refactor-makebig.yml'
       - 'recovery/src/App/Application/MakeBig.cs'

@@ -1,7 +1,7 @@
 name: Accepted P7 runtime P6 release refresh
 on:
   push:
-    branches: [refactor/modcompiler-p0-p3]
+    branches: [compiler-main, refactor/modcompiler-p0-p3]
     paths:
       - '.github/workflows/refactor-release.yml'
       - 'recovery/scripts/PrepareCompilerRelease.py'

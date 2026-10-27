@@ -1,7 +1,7 @@
 name: MOD compiler fixed Core recovery SDK and release milestone
 on:
   push:
-    branches: [refactor/modcompiler-p0-p3]
+    branches: [compiler-main, refactor/modcompiler-p0-p3]
     paths:
       - '.github/workflows/refactor-session-replay.yml'
       - 'recovery/scripts/PrepareCompilerSessionReplay.py'

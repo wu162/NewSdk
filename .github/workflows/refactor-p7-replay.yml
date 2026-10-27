@@ -1,7 +1,7 @@
 name: Fixed production P7 and ZIP deployment recovery
 on:
   push:
-    branches: [refactor/modcompiler-p0-p3]
+    branches: [compiler-main, refactor/modcompiler-p0-p3]
     paths:
       - '.github/workflows/refactor-p7-replay.yml'
       - 'recovery/scripts/PrepareCompilerP7Replay.py'

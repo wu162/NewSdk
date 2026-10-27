@@ -1,5 +1,13 @@
 # 编译器最小发行包
 
+## 结果主线与最终工具（2026-10-27）
+
+用户指定 `compiler-main` 为重构结果及今后开发主线，不合入旧分支，旧 PR #13 关闭且不合并。当前新源最终构建准备中：主工作流将重新构建 Debug/Release、执行生产验收，再用 `PublishCompiler.ps1 -VerifyBigDeployment` 生成并独立解压验证精确五文件 ZIP；全组成功才发布正式名称。旧成功包和二进制/测试双来源记录保留，不能冒称本次新源重编译。
+
+WBData 下载/提取/读取器及其真实数据验收已取消，不作为发行阻塞；已有可选修复和缺输入拒绝保留。后续工作为版本/必要旧参数及原 LoD 异常边界策略；完整 UI/runtime、Unicode Texture、混合 Texture 会话缓存为另列未覆盖范围。
+
+## 发布与验收机制
+
 `recovery/scripts/PublishCompiler.ps1` 为 P6 的发布入口。它要求已有成功的 Debug/Release 真实生产 CLI 验收收据；构建成功本身不能发布。已取得 Debug/Release Windows 运行及独立解压证据；当前接受版本与后续候选以 `REFACTOR_RESUME.md` 和对应 Actions 区分。
 
 ```powershell
