@@ -19,6 +19,7 @@ public static class CompilerNodeJoiner
     static int checks, cases;
     static long originalAttributeReads, indexedAttributeReads, disabledAttributeReads;
     static readonly List<string> tests = new List<string>();
+    static readonly List<object> observations = new List<object>();
     static LegacyNodeJoinerDomain original;
     internal static XmlSchemaSet schemas;
     static void Require(bool condition, string message) { checks++; if (!condition) throw new Exception(message); }
@@ -45,10 +46,17 @@ public static class CompilerNodeJoiner
             "<xs:complexType name='Asset'><xs:sequence><xs:element name='Item' type='a:ItemType' minOccurs='0' maxOccurs='unbounded'/><xs:element name='Other' type='a:ItemType' minOccurs='0' maxOccurs='unbounded'/><xs:element name='Tail' type='xs:string' minOccurs='0'/></xs:sequence><xs:attribute name='id' type='xs:string'/><xs:anyAttribute processContents='skip'/></xs:complexType>" +
             "<xs:complexType name='Choice'><xs:choice minOccurs='0'><xs:element name='Item' type='a:ItemType'/><xs:element name='Other' type='a:ItemType'/></xs:choice><xs:anyAttribute processContents='skip'/></xs:complexType>" +
             "<xs:complexType name='Many'><xs:choice minOccurs='0' maxOccurs='unbounded'><xs:element name='Item' type='a:ItemType'/><xs:element name='Other' type='a:ItemType'/></xs:choice><xs:anyAttribute processContents='skip'/></xs:complexType>" +
-            "<xs:element name='Asset' type='a:Asset'/><xs:element name='Choice' type='a:Choice'/><xs:element name='Many' type='a:Many'/></xs:schema>";
+            "<xs:complexType name='Singles'><xs:sequence>" + SingletonElements() + "</xs:sequence><xs:anyAttribute processContents='skip'/></xs:complexType>" +
+            "<xs:element name='Asset' type='a:Asset'/><xs:element name='Choice' type='a:Choice'/><xs:element name='Many' type='a:Many'/><xs:element name='Singles' type='a:Singles'/></xs:schema>";
         var result = new XmlSchemaSet();
         using (var reader = XmlReader.Create(new StringReader(text))) result.Add(Ns, reader);
         result.Compile(); return result;
+    }
+    static string SingletonElements()
+    {
+        var result = new StringBuilder();
+        for (int index = 0; index < 12; index++) result.Append("<xs:element name='A").Append(index).Append("' type='a:ItemType'/>");
+        return result.ToString();
     }
     internal static XmlDocument Document(string root, string body, string rootAttributes = "")
     {
@@ -151,6 +159,14 @@ public static class CompilerNodeJoiner
         select("<A/>", true, false);
         select("<p:A xmlns:p='urn:other'/>", false, false);
         select("<r:A xmlns:r='urn:p'/>", false, false);
+        XmlNode prefixed = parent.ChildNodes[4];
+        Require(prefixed.Name == "p:A", "Prefix fixture selected the wrong node");
+        int prefixEvents = 0; XmlNodeChangedEventHandler prefixEvent = (sender, change) => { prefixEvents++; };
+        destination.NodeInserted += prefixEvent; destination.NodeRemoved += prefixEvent; destination.NodeChanged += prefixEvent;
+        prefixed.Prefix = "q";
+        destination.NodeInserted -= prefixEvent; destination.NodeRemoved -= prefixEvent; destination.NodeChanged -= prefixEvent;
+        select("<p:A xmlns:p='urn:p'/>", false, false); select("<q:A xmlns:q='urn:q'/>", false, false);
+        observations.Add(new { id = "private-selector-prefix-mutation-with-existing-id-index", prefixEvents, resultingName = prefixed.Name });
         Type indexType = index.GetType();
         MethodInfo remove = indexType.GetMethod("Remove", BindingFlags.Instance | BindingFlags.NonPublic);
         MethodInfo refresh = indexType.GetMethod("Refresh", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -178,6 +194,8 @@ public static class CompilerNodeJoiner
         readonly string scenario;
         internal int Calls;
         internal bool IndexedWhenCalled;
+        internal int PrefixEvents;
+        bool changingPrefix;
         internal DomMutation(XmlDocument document, string scenario)
         {
             this.document = document; this.scenario = scenario;
@@ -185,6 +203,7 @@ public static class CompilerNodeJoiner
         }
         void Changed(object sender, XmlNodeChangedEventArgs change)
         {
+            if (changingPrefix) PrefixEvents++;
             if (Calls != 0) return;
             XmlNode parent = null;
             if (scenario.StartsWith("inserted:", StringComparison.Ordinal))
@@ -203,12 +222,18 @@ public static class CompilerNodeJoiner
                 if (change.Action == XmlNodeChangedAction.Change && attribute != null && attribute.Name == "mark" && attribute.Value == "trigger")
                     parent = attribute.OwnerElement.ParentNode;
             }
-            if (parent == null || parent.Name != "Asset" || parent.ChildNodes.Count < 8) return;
+            if (parent == null || (parent.Name != "Asset" && parent.Name != "Singles") || parent.ChildNodes.Count < 8) return;
             Calls++; IndexedWhenCalled = ChildIndexSubscriptions(document) > 0;
             string action = scenario.Substring(scenario.IndexOf(':') + 1);
             XmlElement first = (XmlElement)parent.SelectSingleNode("*[@id='target']"), last = (XmlElement)parent.LastChild;
             XmlElement earlier = (XmlElement)parent.SelectSingleNode("*[@id='k10']");
-            if (action == "changed-id" || action == "throw") earlier.SetAttribute("id", "target");
+            if (action == "prefix")
+            {
+                changingPrefix = true;
+                try { earlier.Prefix = "p"; }
+                finally { changingPrefix = false; }
+            }
+            else if (action == "changed-id" || action == "throw") earlier.SetAttribute("id", "target");
             else if (action == "added-id") { earlier.RemoveAttribute("id"); earlier.SetAttribute("id", "target"); }
             else if (action == "removed-id") first.RemoveAttribute("id");
             else if (action == "reorder") parent.PrependChild(last);
@@ -273,6 +298,27 @@ public static class CompilerNodeJoiner
         Require(ChildIndexSubscriptions(document) == 0, "ChildIndex.Dispose did not detach all document events");
         tests.Add("original-DLL-dynamic-DOM-callback-sibling-id-add-remove-value-duplicate-order-structural-move-and-exception-differential-with-verified-event-unsubscription");
     }
+    static void PrefixNameMatching()
+    {
+        var before = new StringBuilder();
+        for (int index = 0; index < 12; index++) before.Append("<A").Append(index).Append(" id='k").Append(index).Append("' mark='base'/>");
+        const string after = "<A0 mark='trigger'/><A10 mark='selected'/><A10 mark='selected-again'/>";
+        LegacyNodeJoinerResult baseline = original.Run("Singles", before.ToString(), after, "", "changed:prefix");
+        Require(baseline.MutationCalls == 1 && baseline.Outcome.StartsWith("XML:", StringComparison.Ordinal), "Original DLL singleton prefix callback did not execute above the index threshold");
+        foreach (bool disabled in new[] { false, true })
+        {
+            var destination = new CountingDocument();
+            using (var mutation = new DomMutation(destination, "changed:prefix"))
+            {
+                string actual = Outcome(Document("Singles", before.ToString()), Document("Singles", after), destination, disabled);
+                Require(mutation.Calls == 1 && actual == baseline.Outcome, "Wide singleton name matching did not observe a callback Prefix mutation: disabled=" + disabled + "\nexpected: " + baseline.Outcome + "\nactual: " + actual);
+                Require(!mutation.IndexedWhenCalled && ChildIndexSubscriptions(destination) == 0, "Name-only matching created or retained an unsafe Prefix-sensitive index");
+                observations.Add(new { id = "original-DLL-wide-singleton-prefix-callback", disabled, originalPrefixEvents = baseline.PrefixEvents, prefixEvents = mutation.PrefixEvents });
+            }
+        }
+        cases++;
+        tests.Add("original-DLL-wide-maxOccurs-one-name-matching-Prefix-callback-keeps-linear-selection-without-DOM-event-assumptions");
+    }
     static void WorkReduction()
     {
         const int count = 512;
@@ -304,14 +350,14 @@ public static class CompilerNodeJoiner
             original = (LegacyNodeJoinerDomain)baselineDomain.CreateInstanceFromAndUnwrap(typeof(LegacyNodeJoinerDomain).Assembly.Location, typeof(LegacyNodeJoinerDomain).FullName);
             string baselineAssembly = original.Initialize(library);
             Require(baselineAssembly.StartsWith("BinaryAssetBuilder.Core,", StringComparison.Ordinal), "Isolated original SDK assembly identity mismatch");
-            schemas = Schema(); Semantics(); DuplicateIndexSemantics(); DynamicCallbacks(); WorkReduction();
+            schemas = Schema(); Semantics(); DuplicateIndexSemantics(); DynamicCallbacks(); PrefixNameMatching(); WorkReduction();
             AppDomain.Unload(baselineDomain); baselineDomain = null; original = null;
             foreach (Assembly loaded in AppDomain.CurrentDomain.GetAssemblies())
                 Require(!loaded.GetName().Name.Equals("BinaryAssetBuilder.Core", StringComparison.Ordinal), "Original Core escaped the disposable baseline AppDomain");
             tests.Add("original-Core-isolated-in-unloaded-AppDomain-production-host-ownership-preserved");
             string sha256;
             using (var sha = SHA256.Create()) sha256 = BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(library))).Replace("-", "").ToLowerInvariant();
-            result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks = checks, tests = tests.ToArray(), cases = cases,
+            result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks = checks, tests = tests.ToArray(), observations = observations.ToArray(), cases = cases,
                 originalDllSha256 = sha256, originalDllAssembly = baselineAssembly, originalDestinationAttributeReads = originalAttributeReads,
                 indexedDestinationAttributeReads = indexedAttributeReads, disabledDestinationAttributeReads = disabledAttributeReads, scope = "Real original DLL NodeJoiner XML/rejection differential and matching work; no end-to-end performance claim" };
             Console.WriteLine("PASS NodeJoiner: " + cases + " original DLL differential cases; destination attribute reads original=" + originalAttributeReads + " indexed=" + indexedAttributeReads);
@@ -320,7 +366,7 @@ public static class CompilerNodeJoiner
         {
             code = 1; Console.Error.WriteLine(error);
             result = new { succeeded = false, sourceCommit = args.Length > 2 ? args[2] : null, runId = args.Length > 3 ? args[3] : null,
-                checks = checks, tests = tests.ToArray(), cases = cases, error = error.ToString() };
+                checks = checks, tests = tests.ToArray(), observations = observations.ToArray(), cases = cases, error = error.ToString() };
         }
         finally { if (baselineDomain != null) AppDomain.Unload(baselineDomain); }
         if (args.Length > 1) File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(result));
@@ -336,6 +382,7 @@ public sealed class LegacyNodeJoinerResult
     public string Outcome;
     public long AttributeReads;
     public int MutationCalls;
+    public int PrefixEvents;
 }
 
 public sealed class LegacyNodeJoinerDomain : MarshalByRefObject
@@ -374,7 +421,7 @@ public sealed class LegacyNodeJoinerDomain : MarshalByRefObject
             outcome = "ERROR:" + error.GetType().Name + ":" + (code == null ? "" : Convert.ToString(code.GetValue(error, null))) + ":" + error.Message;
         }
         if (mutation != null) mutation.Dispose();
-        return new LegacyNodeJoinerResult { Outcome = outcome, AttributeReads = destination.AttributeReads, MutationCalls = mutation == null ? 0 : mutation.Calls };
+        return new LegacyNodeJoinerResult { Outcome = outcome, AttributeReads = destination.AttributeReads, MutationCalls = mutation == null ? 0 : mutation.Calls, PrefixEvents = mutation == null ? 0 : mutation.PrefixEvents };
     }
     public int Select(string parentXml, string sourceXml, bool byId, bool replaceAny)
     {

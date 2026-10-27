@@ -51,8 +51,9 @@ public class NodeJoiner
 	}
 
 	// One parent's children, owned by one recursive merge call. Keys deliberately
-	// preserve the legacy rules: Name includes its prefix; id ignores node name
-	// and namespace. Buckets retain duplicates in document order.
+	// preserve legacy id rules independent of node name and namespace. Public
+    // Prefix setters need not emit DOM events, so name matching stays linear.
+    // Buckets retain duplicates in document order.
 	private sealed class ChildIndex : IDisposable
 	{
 		private sealed class Entry
@@ -217,8 +218,8 @@ public class NodeJoiner
 		// Small parents keep the allocation-free legacy scan. Once constructed,
 		// maintain the index even if removals shrink the parent below this size.
 		if (replaceAny && !idMatchRequired && destParent.ChildNodes.Count == 1) return destParent.ChildNodes[0];
-		if (m_useChildIndex && index == null && destParent.ChildNodes.Count >= 8) index = new ChildIndex(destParent);
-		if (index != null && index.IsValid) return index.Select(srcChild, idMatchRequired);
+		if (m_useChildIndex && idMatchRequired && index == null && destParent.ChildNodes.Count >= 8) index = new ChildIndex(destParent);
+		if (idMatchRequired && index != null && index.IsValid) return index.Select(srcChild, true);
 		if (idMatchRequired)
 		{
 			foreach (XmlNode childNode in destParent.ChildNodes)
