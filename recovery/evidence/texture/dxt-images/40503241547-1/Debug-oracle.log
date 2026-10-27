@@ -1,0 +1,3 @@
+System.Exception: tga/Texture/DXT3/stale=True/1 independent Texture DDS layout
+   at TextureDxtPipelineOracle.Case(IAssetBuilderPlugin original, IAssetBuilderPlugin recovered, String work, String extension, Byte[] image, String root, String format, Boolean stale, BinaryWriter replay)
+   at TextureDxtPipelineOracle.Main(String[] args)

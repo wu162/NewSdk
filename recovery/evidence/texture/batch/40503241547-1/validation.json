@@ -1,0 +1,71 @@
+{
+  "status": "failed",
+  "reused": [
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "png",
+    "bmp",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d"
+  ],
+  "runAttempt": "1",
+  "groups": [
+    {
+      "group": "base",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "images",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "mip-images",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "volume-images",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "volume-mip-images",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "raster-images",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "dxt-images",
+      "passed": false,
+      "evidenceOnly": false,
+      "error": "Debug-oracle failed"
+    }
+  ],
+  "runId": "40503241547",
+  "sourceCommit": "1c2160ec3f43bf3077a87ed31eabddaa80937a02",
+  "selected": [
+    "base",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "raster-images",
+    "dxt-images"
+  ]
+}
