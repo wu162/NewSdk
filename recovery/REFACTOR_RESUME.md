@@ -8,7 +8,7 @@
 2. 按 [优化索引](docs/compiler-optimization/README.md) 选择源码和方案章节；当前实现边界查 [CONTRACTS](docs/compiler-optimization/CONTRACTS.md)，完整用户方案仅保留 [PLAN](docs/compiler-optimization/PLAN.md) 一份。
 3. 按 [EFFICIENCY](EFFICIENCY.md) 推进完整能力组。通常 2 个子代理、最多 3 个；编译、测试和微基准全部使用 GitHub Actions。每约 10–15 分钟检查并普通推送有意义的检查点，未验证成果明确标记。
 
-最新完整接受的生产、首次测试及打包来源为 **`15bcd14c97c475d6922cb367989a4fc04d8ba7bb` / [40596715818](https://github.com/wu162/NewSdk/actions/runs/40596715818)**，整体 success。双配置各30组、原DLL/独立原BAB、协议、Texture、CLI/cache/输入根、完整mymod/BIG和五文件ZIP通过。本轮此前三组完整运行也success；能力声明候选`71b5a0a4 / 40598874896`仍验证中，后续Chunk池检查点尚未验证。精确来源、产物身份和下一组范围见[短交接](docs/compiler-optimization/HANDOFF.md)与[验证记录](docs/compiler-optimization/VALIDATION.md)。
+最新完整接受的生产、首次测试及打包来源为 **`71b5a0a4f55e530eccc9703eff2f3c3a397dd910` / [40598874896](https://github.com/wu162/NewSdk/actions/runs/40598874896)**，整体 success。双配置各30组、原DLL/独立原BAB、协议、Texture、CLI/cache/输入根、完整mymod/BIG和五文件ZIP通过。本轮前五组完整success；第六组Core有两fixture失败，修复与text/原语证据集中`6db109af / 40602153873`验证中，不能继承旧生产结论。精确来源、产物身份和下一组范围见[短交接](docs/compiler-optimization/HANDOFF.md)与[验证记录](docs/compiler-optimization/VALIDATION.md)。
 
 本轮新增live继承阶段/栈安全、外部Cache查询/自身写删与case/junction别名、摘要读取确定收尾、Texture/Builtin所属线程门禁。能力声明下一组实际收紧缓存资格，没有授权强缓存或并行。实际三流小CLI默认/回退成对计量未观察到端到端提速；局部组件收益不能替代完整构建对照。
 

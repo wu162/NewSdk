@@ -6,15 +6,15 @@
 
 | 身份 | 值 |
 | --- | --- |
-| 生产 / 首次测试 / 打包源码 | `15bcd14c97c475d6922cb367989a4fc04d8ba7bb` |
-| 完整运行 | [40596715818](https://github.com/wu162/NewSdk/actions/runs/40596715818)，attempt 1，整体 success |
-| 范围 | Debug/Release 各 30 组 Core、原 DLL、三组独立原 BAB、协议、Texture、实际 CLI 与取消、全部缓存/输入根、完整 mymod、BIG 和独立五文件 ZIP |
-| 完整 archive | [12777543040](https://github.com/wu162/NewSdk/actions/runs/40596715818/artifacts/12777543040)，112086540 字节，官方 SHA256 `8f8bcf5b8ddd4db0082873ba76ba50ce4db3ad332b2f260116003dcfa332b4bd`；未本地下载 |
-| Release 独立包 transport | [12777830711](https://github.com/wu162/NewSdk/actions/runs/40596715818/artifacts/12777830711)，1835400 字节，SHA256 `29b346247ad7a524f119f48053efbe17155e0d00636ed1268f3e92cff90ace81`，本地与官方一致 |
-| 原 Release ZIP | 1790608 字节，SHA256 `9959a408be687dd0d2bc7441b07e901c862ff5fb691d1209c02bece98a580961`；原 archive 字节、精确五成员/大小/SHA、Texture→EXE绑定均已从下载证据核验 |
-| Debug 独立包 transport | [12777730962](https://github.com/wu162/NewSdk/actions/runs/40596715818/artifacts/12777730962)，2290911 字节，官方 SHA256 `5b2229b35ac3e5fbd8dfbefd22f27e200bde714b7dc3a0c520d7a6984f9ce45b`；未本地下载 |
+| 生产 / 首次测试 / 打包源码 | `71b5a0a4f55e530eccc9703eff2f3c3a397dd910` |
+| 完整运行 | [40598874896](https://github.com/wu162/NewSdk/actions/runs/40598874896)，attempt 1，整体 success |
+| 范围 | Debug/Release各30组、原DLL/独立原BAB、协议、Texture、实际CLI/cache/输入根、完整mymod/BIG与五文件ZIP |
+| 完整 archive | [12777973896](https://github.com/wu162/NewSdk/actions/runs/40598874896/artifacts/12777973896)，112309278字节，官方SHA256 `23bc26828a430609fa27ca1555d63c11376b72ff082239707515eac5f172f569`；未本地下载 |
+| 已核Core小证据 | `12777902114`，592789字节，SHA256 `07a6c485be53aec60a682dbd0486bd3ff8d08771bb21ce2eadb9424bd7bcd8e5`，本地/官方一致；双配置30/30、9继承与6reader原DLL行已读 |
+| Release独立transport | [12778163405](https://github.com/wu162/NewSdk/actions/runs/40598874896/artifacts/12778163405)，1846541字节，官方SHA256 `1cbd6bb9df5d3f83c2430187f09acc5d77e1beab4d535949626265bfe5d76d12`；未本地下载 |
+| Debug独立transport | [12778053643](https://github.com/wu162/NewSdk/actions/runs/40598874896/artifacts/12778053643)，2301728字节，官方SHA256 `a11d87e2656666063b5a5435d2a87b1c5a44fb7c0fa0b5af723cda058d510619`；未本地下载 |
 
-此接受点覆盖下表前四组生产变化，构建和测试没有用旧二进制替代新生产。独立包 artifact 内保存原 ZIP、manifest 和 release.json，没有重打包内层运行包。
+独立artifact保存原ZIP、manifest和release.json，没有重打包内层运行包。此前`15bcd14c/40596715818` Release下载已核官方transport SHA `29b346247ad7a524f119f48053efbe17155e0d00636ed1268f3e92cff90ace81`、原ZIP1790608字节/SHA `9959a408be687dd0d2bc7441b07e901c862ff5fb691d1209c02bece98a580961`、精确五成员及Texture→EXE绑定；该历史下载不能冒充当前包本地核验。
 
 ## 本轮完整能力组
 
@@ -24,9 +24,16 @@
 | `c3ef5344115eaeafc15979c70857cc4557e89acf` | [40594750754](https://github.com/wu162/NewSdk/actions/runs/40594750754) | **success**；case/junction别名证明撤销、9行独立原DLL继承差分 |
 | `07ff6a3b13b813af8d2985569e16e89e045e0e1c` | [40595750142](https://github.com/wu162/NewSdk/actions/runs/40595750142) | **success**；APM摘要读取所有权、实际SHA256消费者故障/同item重试 |
 | `15bcd14c97c475d6922cb367989a4fc04d8ba7bb` | [40596715818](https://github.com/wu162/NewSdk/actions/runs/40596715818) | **success**；Texture/Builtin owner-thread、保留原Texture transcript、24次live错误线程拒绝和关闭后合同 |
-| `71b5a0a4f55e530eccc9703eff2f3c3a397dd910` | [40598874896](https://github.com/wu162/NewSdk/actions/runs/40598874896) | **验证中**；实际注册路由immutable能力标量，缓存只否决、session拒绝与opaque跟踪消费；6行独立原reader/digest语料 |
+| `71b5a0a4f55e530eccc9703eff2f3c3a397dd910` | [40598874896](https://github.com/wu162/NewSdk/actions/runs/40598874896) | **success**；实际注册路由immutable能力标量，缓存只否决、session拒绝与opaque跟踪消费；6行独立原reader/digest语料 |
+| `e4169602d875d213e5763a6b8fdc83973409fd61` | [40600682680](https://github.com/wu162/NewSdk/actions/runs/40600682680) | **Core失败，整批不接受**；双配置各28组成功，PhysicalInputs失败DOM根空引用、ExpressionPrograms未真正arm修改事件；修复进入下组，保留原运行 |
 
-前四组均完整通过双配置各30组、原DLL/BAB及全部CLI/cache/SDK/BIG/ZIP门槛。最后一组仍在运行，不继承此前接受结论。旧严格复用控制器仍pin第六轮对象，不能覆盖本轮生产变化；最后接受点形成后集中更新。
+| `6db109aff316e21258485f49eaf361d96c790467` | [40602153873](https://github.com/wu162/NewSdk/actions/runs/40602153873) | **验证中**；修复真实NodeChanged/NodeInserted事件arm、失败DOM探针，text资源所有权、3行typed DOM原语；原DLL运行前置预检 |
+
+前五组完整通过。第六组保留失败小证据`12778733006`，604072字节，SHA256 `f017f07615d3466a4fbd7b3f35a69f5e3838bef929303b7833fd4eee369e2e30`本地/官方一致；摘要取消/Chunk池及其余28组成功不等于整批接受。失败DOM的三文件立即exclusive、原XmlFormatting包装与同document修复重读在NRE之前已执行成功，失败发生在旧探针对已被Framework清空的DocumentElement解引用。
+
+Define失败暴露的是未arm的fixture：原DLL52行changed=false，标准单text属性改值实际发NodeChanged。旧40 traversal中16个live-sibling修改行也未arm；它们此前不能作为回调修改覆盖证据。第七组同时监听两种事件，并在原/恢复两端强制修改实际发生，保留全量严格差分和EOF版本断言。不能把修正fixture当作放宽生产门槛；新证明待Actions。
+
+严格复用仍pin第六轮对象；最终接受点形成后更新。运行中/失败对象不作为完整接受源。
 
 ## 新生产能力和证据边界
 

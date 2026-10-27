@@ -4,10 +4,10 @@
 
 ## 最新接受点与候选
 
-- **完整接受：`15bcd14c97c475d6922cb367989a4fc04d8ba7bb` / [40596715818](https://github.com/wu162/NewSdk/actions/runs/40596715818)，整体 success。** Debug/Release 各30组、原DLL/独立原BAB、协议、Texture、实际CLI/cache/输入根、完整mymod/BIG及五文件ZIP通过。此前`5727b05b`、`c3ef5344`、`07ff6a3b`三组完整运行也全部success。
-- **后续验证中：`71b5a0a4 / 40598874896`**，路由能力声明实际消费于legacy缓存否决、会话拒绝与输入跟踪；追加6行独立原reader/digest语料。不能继承旧生产结论。
-- **后续未验证：** `b7fe0363`保存Chunk idle池8MiB上限/原子归还，等待与下组统一验证。完整语义结果/Define环境仍未冻结；下一组只在依赖满足时推进。
-- 独立Release包已下载核对官方transport SHA、原ZIP、精确五成员及Texture→EXE绑定；Debug当前只有官方身份。完整下载身份见VALIDATION。严格复用仍pin`64bf/40524897974`，最后完整接受后再集中更新。
+- **完整接受：`71b5a0a4f55e530eccc9703eff2f3c3a397dd910` / [40598874896](https://github.com/wu162/NewSdk/actions/runs/40598874896)，整体 success。** Debug/Release 各30组、原DLL/独立原BAB、协议、Texture、实际CLI/cache/输入根、完整mymod/BIG及五文件ZIP通过。此前`5727b05b`、`c3ef5344`、`07ff6a3b`三组完整运行也全部success。
+- **后续未接受：`e4169602 / 40600682680`**，Core两fixture失败（未arm的DOM事件、失败DOM根空引用），其余28组成功不构成整批接受。
+- **当前验证中：`6db109af / 40602153873`**，修复两fixture、保留严格差分；加text资源所有权、3行typed DOM恢复原语与原DLL实际运行前置预检。Define、XML/text、Chunk池、摘要回退取消均须此批完整接受后才更新结论。
+- 历史`15bcd14c`独立Release包已下载核对官方transport/原ZIP/五成员/Texture绑定；当前`71b5a0a4`包只有官方身份，不混用。完整下载身份见VALIDATION。严格复用仍pin`64bf/40524897974`，最后完整接受后再集中更新。
 
 ## 本轮新增
 
@@ -26,6 +26,6 @@
 第一次实际 CLI 同 Release EXE/三流小输入、各一次 warmup 后交错7对，全部十二输出逐次字节相同。默认/诊断回退的 wall 中位数 **1255.3308/1234.7419ms**，CPU **1218.75/1187.5ms**；未观察到这份小用例端到端提速，不宣称显著回归或完整 MOD 收益，原样本/CPU粒度/计时边界见 VALIDATION。
 
 1. 完整 AssetSemanticResult、processed XML/default/type/source 冻结与 Define 环境仍未完成；不要用 CloneNode、旧 XML hash 或部分轨迹放行强缓存。
-2. Texture 隐藏资源仍未闭合；BinaryAsset Local/Output 可变角色和 App staging 排除继续保留，`completeClosure=false`。原字段只证明本代内容，不证明旧 cache 编码语义。
+2. Texture隐藏资源和parse=text绕过resolver Paths/physical snapshot的外部file/http输入缓存覆盖仍未闭合；BinaryAsset Local/Output 可变角色和 App staging 排除继续保留，`completeClosure=false`。原字段只证明本代内容，不证明旧 cache 编码语义。
 3. 新强键 bundle 缓存、完整插件资源/状态合同和并行仍未完成。继续保留原字节、拒绝、冷热/持久缓存、失败取消/事务、完整 mymod/BIG、独立 ZIP 门槛。
-4. 跟完能力声明候选及下一组Actions，再更新最终source/run及严格复用pin。新生产输入必须完整重建；测试/工具仅在闭包不变且严格校验后复用。普通推送本分支，合入须用户批准。
+4. 跟完当前修复/资源候选Actions，再更新最终source/run及严格复用pin。新生产输入必须完整重建；测试/工具仅在闭包不变且严格校验后复用。普通推送本分支，合入须用户批准。

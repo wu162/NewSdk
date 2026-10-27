@@ -2,7 +2,7 @@
 
 本页说明实现边界；验收状态以 [HANDOFF](HANDOFF.md) 和 [VALIDATION](VALIDATION.md) 的准确 sourceCommit/runId 为准。[PLAN](PLAN.md) 是设计材料，未完成提案不能用来授权强缓存命中或并行。
 
-2026-10-28：当前完整接受 `15bcd14c / 40596715818`；后续能力声明候选 `71b5a0a4 / 40598874896` 仍在验证。来源与终态集中于 VALIDATION。
+2026-10-28：当前完整接受 `71b5a0a4 / 40598874896`；`e4169602`两fixture失败，修正真实事件arm及text/typed DOM证据的`6db109af / 40602153873`正在验证。来源与终态集中于 VALIDATION。
 
 ## 工作计量
 
@@ -55,7 +55,19 @@ AsynchronousFileReader拥有排队、已出队待完成和当前Chunk；正常EO
 
 Texture活跃方法在native前检查创建它的Thread对象；live Dispose先检查owner再关闭，关闭后保持ODE优先及重复Dispose无害。Builtin聚合Registry/ReInitialize/活跃Dispose同样先检查owner；错误线程Dispose不能先置终态而使owner无法回收native provider。这不是所有插件可重入或允许并行的证明。
 
-能力声明候选为实际注册路由保存独立immutable标量，不保存plugin、metadata、schema或native引用；未知查询不增长字典。当前消费仅为legacy build-cache否决、session复用拒绝和opaque输入原因。已允许的非Texture类型仍须原whole-root验证，不能把原UseBuildCache=false改为true。ConservativeCoreBoundary不是exact闭包；Texture/未知输入跟踪为Unknown，StrongBundleAllowed/ParallelAllowed始终false，环境仅记录已知最低host并明确不完整。此组仍待其完整Actions终态。
+能力声明候选为实际注册路由保存独立immutable标量，不保存plugin、metadata、schema或native引用；未知查询不增长字典。当前消费仅为legacy build-cache否决、session复用拒绝和opaque输入原因。已允许的非Texture类型仍须原whole-root验证，不能把原UseBuildCache=false改为true。ConservativeCoreBoundary不是exact闭包；Texture/未知输入跟踪为Unknown，StrongBundleAllowed/ParallelAllowed始终false，环境仅记录已知最低host并明确不完整。能力声明组完整Actions已success。
+
+后续资源组（随`6db109af`重验）把Chunk空闲池限制为8个1MiB数组，Dispose原子取走数组并最多归还一次；这是idle保留量，不是live buffer/进程RAM上限，也不是开放Core并行。摘要预算/禁用snapshot/暖SHA/诊断回退路径在实际块边界检查当前input scope的token；取消不发布部分SHA或成功计量，同item仍可重试。同步read与pending APM收尾仍可能等待OS，不承诺abort底层读取。
+
+同组Core XML加载拥有外层XIncludingReader与base reader局部引用，失败后退订原DOM事件，保留解析阶段原XmlFormatting/SchemaValidation包装和主异常。Mvp.Close按current→父stack顺序尽量全部关闭、保留首close错误与closed root NameTable；custom resolver获取后未转交的Stream/TextReader/XmlReader及构造/infoset/XPointer失败也有确定所有权，失败撤回自己的parent frame，保留fallback行为。实际资源探针不冒充SDK输出oracle；整组仍须完整四输出/CLI/SDK验收。
+
+## Define最终表达式查找（后续候选）
+
+只在一次ProcessExpressions中对实际DefinitionSet建立有界key→live Definition索引，值/Document继续实时读取；EvaluateDefinitions安装顺序不变。默认16—65536条目，key合计1048576 UTF-16字符，实际读取达到max(32,entryCount/4)才建索引；不是RAM峰值预算。
+
+仅exact DefinitionSet、默认string comparer、标准CultureInfo/CompareInfo可入场。持有原SortedDictionary enumerator作版本哨兵，EOF后也继续MoveNext检查版本；base-cast赋值、删重加同count、Current/table/culture身份变化、重入均永久legacy。建索引前验证当前文化下实际key严格有序，不修复旧文化构建的树所给出的legacy查询结果。scope在成功/异常finally释放，DP只保存标量工作快照；`canAuthorizeReuse=false`，没有冻结Define环境或完整AssetSemanticResult。
+
+52行原DLL同源语料、4文化等价/Unicode键、变更/重绑/重入/错误、预算和真实XML四输出矩阵随`6db109af`重验，强制NodeChanged/NodeInserted回调实际发生。`DisableDefineLookupIndex`进入真实CLI成对fallback；组件计量与完整CLI计量分别报告。
 
 ## 构建内 schema 元数据
 
@@ -123,6 +135,7 @@ HashingWriter 保持原生产实现：每个 512 UTF-16 字符块和最后不足
 | DisableStreamBindingResults | 旧跨流可变绑定算法 |
 | DisableExpressionPrograms / DisableSharedExpressionCulture | 原 parser / 每 Value 文化对象 |
 | DisableExpressionTraversal | 旧 Value 读取和 ChildNodes 遍历 |
+| DisableDefineLookupIndex | 最终表达式阶段使用原DefinitionSet查找；不改变Define安装/值读取顺序 |
 | DisableNodeJoinerIndex / DisableNodeJoinerPredecessors | id 线性匹配 / schema 前序线性查询 |
 | DisableBaseManifestIndex / DisableStableSortMembershipIndex / DisableSymbolLookupIndex | 对应局部查找走原算法 |
 | DisableOwnedTransferBuffers | 历史静态传输 buffer |
@@ -136,3 +149,9 @@ HashingWriter 保持原生产实现：每个 512 UTF-16 字符块和最后不足
 ```
 
 对比同输入的四输出、原始错误和报告工作量；所有编译、测试与微基准仍只由 Actions 取得。
+
+## 明确剩余的输入与语义边界
+
+parse=text资源组只补GetResource→raw stream→reader→response的确定释放、坏encoding/fallback和主异常保留，仍按原GetResource路由读取，绕过Core FileNameXmlResolver.Paths/PhysicalInputSnapshot。外部file/http text输入的legacy /bc、/sc whole-root覆盖尚未实证；非Texture的LegacyAllowed不是完整闭包证明。后续须真实CLI差分和保守拒绝/跟踪决策，不据此开放强缓存。
+
+完整ASR恢复还有具体门槛：XmlNodeReader→XmlDocument.Load能带入部分PSVI及默认Specified，但新doc的有效性报告状态/Schema环境未完整恢复，XmlSchema对象仍可能别名；saved FromLast也没有DOM阶段和完整Define输入。现有PrevalidatedLoad重新Gather/evaluate/whole Validate及引用/FileReference改写，不能直接以processed DOM绕过。三行原DLL恢复原语用例只解除调查阻塞，生产没有接入半成品ASR，也不授权复用。
