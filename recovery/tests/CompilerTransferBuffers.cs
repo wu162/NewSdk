@@ -190,16 +190,19 @@ public static class CompilerTransferBuffers
                     Require(rejected && !File.Exists(destination) && !File.Exists(source),
                         "Original invalid-output/cache deletion and UnexpectedSize recovery was blocked or changed");
                 }
+                var invalidMetrics = Json.Deserialize<Dictionary<string, object>>(Json.Serialize(snapshot.GetMetrics()));
+                Require(Number(invalidMetrics, "captures") == 0 && Number(invalidMetrics, "activeReadHandles") == 0,
+                    "Invalid BinaryAsset inputs were pinned before the original repair path completed");
                 File.WriteAllBytes(source, valid);
                 Require(Copy(asset, source) && File.ReadAllBytes(destination).SequenceEqual(valid) && !File.Exists(temporary),
                     "External cache could not be repaired and recopied within the same active snapshot scope");
                 Require(asset.InstanceFileSize == 64, "Repaired asset retained stale malformed header state");
                 snapshot.VerifyUnchanged();
                 var metrics = Json.Deserialize<Dictionary<string, object>>(Json.Serialize(snapshot.GetMetrics()));
-                Require(Number(metrics, "captures") == 0 && Number(metrics, "activeReadHandles") == 0,
-                    "Mutable BinaryAsset cache inputs were prematurely pinned as immutable physical inputs");
+                Require(Number(metrics, "captures") == 1 && Number(metrics, "activeReadHandles") == 1,
+                    "Successfully repaired and validated BinaryAsset input was not sealed after materialization");
                 observations.Add(new { id = "active-snapshot-default-mutable-cache-repair", condition, metrics,
-                    scope = "Original CopyAsset and UpdateAssetHeader repair contract; BinaryAsset immutable input capture remains deliberately unimplemented" });
+                    scope = "Original bad-input CopyAsset and UpdateAssetHeader repair contract retained; only the successful validated retry is sealed" });
             }
         }
         tests.Add("active-snapshot-default-BinaryAsset-wrong-identity-false-empty-temp-and-deferred-length-invalid-cache-deletion-remain-mutable-repair-and-retry");

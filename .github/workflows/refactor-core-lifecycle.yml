@@ -42,6 +42,7 @@ on:
       - 'recovery/tests/CompilerStreamBindings.cs'
       - 'recovery/tests/CompilerExpressionPrograms.cs'
       - 'recovery/tests/CompilerTransferBuffers.cs'
+      - 'recovery/tests/CompilerBinaryMaterialization.cs'
       - 'recovery/tests/CompilerDeclarationSnapshots.cs'
       - 'recovery/tests/CompilerDocumentSnapshots.cs'
       - 'recovery/tests/CompilerDocumentSnapshotOracle.cs'
@@ -182,6 +183,30 @@ jobs:
           foreach($mode in @('Debug','Release')) {
             ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/core-lifecycle-foundation/$mode"
           }
+      - name: Compile changed Core fixtures against the actual Foundation before Native linking
+        if: ${{ env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          $out='recovery/artifacts/core-fixture-preflight'
+          New-Item -ItemType Directory -Force $out|Out-Null
+          $manifest=Get-Content recovery/build/Managed.Foundation.json -Raw|ConvertFrom-Json
+          $refs=Join-Path ${env:ProgramFiles(x86)} 'Reference Assemblies/Microsoft/Framework/.NETFramework/v4.8'
+          $packages=((& dotnet nuget locals global-packages --list) -replace '^global-packages:\s*','').Trim()
+          $csc=Join-Path $packages 'microsoft.net.compilers.toolset/4.0.1/tasks/net472/csc.exe'
+          $module=(Resolve-Path 'recovery/artifacts/core-lifecycle-foundation/Debug/Managed.Foundation.netmodule').Path
+          $failures=@();$checks=@()
+          foreach($name in @('CompilerNodeJoiner','CompilerDocumentMetadata','CompilerTransferBuffers','CompilerBinaryMaterialization')) {
+            $source="recovery/tests/$name.cs"
+            $arguments=@('/nologo','/noconfig','/nostdlib+','/target:library','/langversion:7.3','/codepage:65001','/platform:x86',('/out:'+(Join-Path $out ($name+'.dll'))),('/addmodule:'+$module),('/r:'+(Join-Path $PWD 'SDK/tools/antlr.runtime.dll')))
+            foreach($reference in @($manifest.frameworkReferences)+@('System.Web.Extensions')){$arguments+=('/r:'+(Join-Path $refs ($reference+'.dll')))}
+            $arguments+=$source
+            & $csc @arguments *> "$out/$name.log"
+            $passed=$LASTEXITCODE -eq 0
+            $checks+=@{name=$name;passed=$passed;sourceSha256=(Get-FileHash $source -Algorithm SHA256).Hash.ToLowerInvariant()}
+            if(!$passed){Get-Content "$out/$name.log"|Out-Host;$failures+=$name}
+          }
+          @{sourceCommit=$env:GITHUB_SHA;runId=$env:GITHUB_RUN_ID;foundationSha256=(Get-FileHash $module -Algorithm SHA256).Hash.ToLowerInvariant();checks=$checks;scope='Compile only against actual current Foundation; does not replace production-host runtime acceptance'}|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json"
+          if($failures.Count -ne 0){throw ('Core fixture preflight failed: '+($failures -join ', '))}
       - name: Build full production combination and verify deployment and route metadata
         id: product
         if: ${{ env.CLI_REUSE != 'true' }}
@@ -369,6 +394,7 @@ jobs:
             recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/big-fixture-preflight/**
             recovery/artifacts/upheaval-small-preflight/**
+            recovery/artifacts/core-fixture-preflight/**
             recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}

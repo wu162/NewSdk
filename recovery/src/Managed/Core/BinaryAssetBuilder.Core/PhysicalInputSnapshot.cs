@@ -37,6 +37,10 @@ public sealed class PhysicalInputSnapshot : IDisposable
     private long _CandidateTextChars, _CandidateObservations, _CandidateUniquePaths, _CandidateDropped, _CandidateVerificationChecks, _CandidateConflicts;
     private string _RetainedScratch;
     private CancellationToken _Cancellation;
+    private MaterializationCapture _Materialization;
+    private long _MaterializationAttempts, _MaterializationCommits, _MaterializationRollbacks;
+    private long _MaterializationCaptureReadsStarted, _MaterializationCaptureReadsCompleted, _MaterializationCaptureReadBytes;
+    private long _MaterializationCopyReadHits;
 
     private const int BlockSize = 1048576;
     private const uint BackupSemantics = 0x02000000, OpenReparsePoint = 0x00200000;
@@ -152,6 +156,89 @@ public sealed class PhysicalInputSnapshot : IDisposable
     {
         Entry entry; return TryCapture(path, out entry) ? entry.OpenRead() : File.OpenRead(path);
     }
+    // Repairable caches are not trusted on discovery. A consumer can acquire
+    // new pins only after validating its source, and keep them only if the
+    // entire materialization succeeds. Failed attempts must release those pins
+    // before the legacy delete/repair/retry path runs.
+    internal static MaterializationCapture BeginMaterializationCapture()
+    {
+        bool disabled;
+        if (_Current == null || (AppContext.TryGetSwitch("NewSdk.Compiler.DisableBinaryMaterializationCapture", out disabled) && disabled)) return null;
+        PhysicalInputSnapshot owner = _Current; owner.Check();
+        if (owner._Materialization != null) throw new InvalidOperationException("A materialization capture is already active.");
+        owner._MaterializationAttempts++;
+        return owner._Materialization = new MaterializationCapture(owner);
+    }
+    internal static Stream OpenCapturedMaterializationRead(string path)
+    {
+        PhysicalInputSnapshot owner = _Current;
+        if (owner == null) return File.OpenRead(path);
+        owner.Check(); owner._Cancellation.ThrowIfCancellationRequested();
+        string full; Entry entry;
+        // Lookup only: an unvalidated repairable input must not acquire a pin
+        // merely because CopyAsset is about to inspect it.
+        if (Normal(path, out full) && owner._Paths.TryGetValue(full, out entry))
+        {
+            owner._MaterializationCopyReadHits++;
+            return entry.OpenRead();
+        }
+        return File.OpenRead(path);
+    }
+    internal sealed class MaterializationCapture : IDisposable
+    {
+        private PhysicalInputSnapshot owner;
+        private bool committed;
+        internal readonly List<string> Paths = new List<string>(), Directories = new List<string>();
+        internal readonly List<Entry> Entries = new List<Entry>();
+        internal readonly List<FileStream> Aliases = new List<FileStream>();
+        private readonly long captures, hits, bytes, memory, disk;
+        internal MaterializationCapture(PhysicalInputSnapshot owner)
+        {
+            this.owner = owner; captures = owner._Captures; hits = owner._Hits;
+            bytes = owner._CapturedBytes; memory = owner._MemoryBytes; disk = owner._DiskBytes;
+        }
+        internal void Commit()
+        {
+            owner.Check();
+            if (!Object.ReferenceEquals(owner._Materialization, this)) throw new InvalidOperationException("Materialization capture ownership changed.");
+            committed = true;
+        }
+        public void Dispose()
+        {
+            if (owner == null) return;
+            PhysicalInputSnapshot value = owner; owner = null;
+            if (value._Disposed) return;
+            value.Check();
+            value._Materialization = null;
+            if (committed) { value._MaterializationCommits++; return; }
+            value._MaterializationRollbacks++;
+            foreach (string path in Paths)
+            {
+                Entry entry;
+                if (value._Paths.TryGetValue(path, out entry)) { entry.Paths.Remove(path); value._Paths.Remove(path); }
+            }
+            foreach (Entry entry in Entries)
+            {
+                value._Identities.Remove(entry.Identity);
+                try { entry.CloseStorage(); } catch { value._CleanupFailures++; }
+                try { entry.Pin.Dispose(); } catch { value._CleanupFailures++; }
+            }
+            foreach (FileStream alias in Aliases)
+            {
+                value._AliasPins.Remove(alias);
+                try { alias.Dispose(); } catch { value._CleanupFailures++; }
+            }
+            foreach (string path in Directories)
+            {
+                SafeFileHandle directory;
+                if (!value._Directories.TryGetValue(path, out directory)) continue;
+                value._Directories.Remove(path);
+                try { directory.Dispose(); } catch { value._CleanupFailures++; }
+            }
+            value._Captures = captures; value._Hits = hits; value._CapturedBytes = bytes;
+            value._MemoryBytes = memory; value._DiskBytes = disk;
+        }
+    }
     public static byte[] ReadAllBytes(string path)
     {
         Entry entry;
@@ -233,6 +320,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
             if (!GetFileInformationByHandle(handle, out information) || (information.Attributes & 0x410) != 0x10)
             { handle.Dispose(); return false; }
             _Directories.Add(directory, handle);
+            if (_Materialization != null) _Materialization.Directories.Add(directory);
         }
         return true;
     }
@@ -278,6 +366,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
                 // handle opened through another name. Keep this path's handle,
                 // while sharing only its immutable content/digest entry.
                 entry.Paths.Add(full); _Paths.Add(full, entry); _AliasPins.Add(pin);
+                if (_Materialization != null) { _Materialization.Paths.Add(full); _Materialization.Aliases.Add(pin); }
                 _Hits++; keepDirectories = true; pin = null; return true;
             }
             long length = pin.Length;
@@ -296,6 +385,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
                 storage = new FileStream(scratchFile, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None, 4096, FileOptions.DeleteOnClose);
             }
             string strong; uint legacy = unchecked((uint)length); long readBytes = 0;
+            if (_Materialization != null) _MaterializationCaptureReadsStarted++;
             using (var algorithm = SHA256.Create())
             {
                 byte[] buffer = new byte[(int)Math.Min(Math.Max(length, 1), BlockSize)];
@@ -303,7 +393,11 @@ public sealed class PhysicalInputSnapshot : IDisposable
                 {
                     _Cancellation.ThrowIfCancellationRequested();
                     int count = 0, next;
-                    while (count < buffer.Length && (next = pin.Read(buffer, count, buffer.Length - count)) != 0) count += next;
+                    while (count < buffer.Length && (next = pin.Read(buffer, count, buffer.Length - count)) != 0)
+                    {
+                        count += next;
+                        if (_Materialization != null) _MaterializationCaptureReadBytes += next;
+                    }
                     if (count == 0) break;
                     legacy = FastHash.GetHashCode(legacy, buffer, count);
                     algorithm.TransformBlock(buffer, 0, count, buffer, 0);
@@ -317,7 +411,9 @@ public sealed class PhysicalInputSnapshot : IDisposable
             entry = new Entry(full, pin, identity, length, strong, legacy, File.GetLastWriteTime(full), inMemory ? memory.ToArray() : null, storage);
             pin = null; storage = null;
             _Paths.Add(full, entry); _Identities.Add(identity, entry);
+            if (_Materialization != null) { _Materialization.Paths.Add(full); _Materialization.Entries.Add(entry); }
             _Captures++; _CapturedBytes += length; if (inMemory) _MemoryBytes += length; else _DiskBytes += length;
+            if (_Materialization != null) _MaterializationCaptureReadsCompleted++;
             keepDirectories = true; captured = true; return true;
         }
         finally
@@ -398,6 +494,11 @@ public sealed class PhysicalInputSnapshot : IDisposable
             activeAliasPins = _Disposed ? 0 : _AliasPins.Count,
             activeReadHandles = _Disposed ? 0 : _Identities.Count + _AliasPins.Count,
             activeDirectoryPins = _Disposed ? 0 : _Directories.Count,
+            binaryMaterialization = new { attempts = _MaterializationAttempts, commits = _MaterializationCommits, rollbacks = _MaterializationRollbacks,
+                captureReadsStarted = _MaterializationCaptureReadsStarted, captureReadsCompleted = _MaterializationCaptureReadsCompleted,
+                captureReadBytes = _MaterializationCaptureReadBytes, countersIncludeRolledBackReads = true,
+                copyReadHits = _MaterializationCopyReadHits,
+                captureCounters = "RetainedSnapshotEntries", scope = "ValidatedCopyAssetSourcesOnly", completeClosure = false },
             resolverCandidates = new { scope = "ExecutedFileExistsOnly", canAuthorizeReuse = false, verificationPoint = "VerifyUnchanged",
                 observations = _CandidateObservations, uniquePaths = _CandidateUniquePaths, recordedTextChars = _CandidateTextChars,
                 limit = _CandidateLimit, textBudget = _CandidateTextBudget, dropped = _CandidateDropped, incomplete = _CandidateDropped != 0,

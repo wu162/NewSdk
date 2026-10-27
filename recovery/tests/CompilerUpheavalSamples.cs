@@ -13,6 +13,7 @@ using NewModCompiler.Application;
 public static class CompilerUpheavalSamples
 {
     const string Disable = "NewSdk.Compiler.DisableDocumentSnapshots";
+    const string MetadataDisable = "NewSdk.Compiler.DisableSharedDocumentMetadata";
     static string work, sdk, mod;
     static int checks;
     static readonly List<string> tests = new List<string>();
@@ -112,9 +113,11 @@ public static class CompilerUpheavalSamples
             plugins.Registry.DefaultPlugin, plugins.Registry.GetPlugin(InstanceHandle.GetTypeId("AttributeModifier")) });
         Require(plugins.Registry.DefaultPlugin.GetAllTypesHash() == 1424942948u && plugins.Registry.DefaultPlugin.GetVersionNumber() == 4u,
             "Sample registry does not use the actual production XML default metadata contract");
+        foreach (bool metadataCopy in new[] { false, true })
         foreach (bool disabled in new[] { false, true })
         {
-            AppContext.SetSwitch(Disable, disabled); string mode = disabled ? "fallback" : "owned"; var settings = Configure(mode);
+            AppContext.SetSwitch(Disable, disabled); AppContext.SetSwitch(MetadataDisable, metadataCopy);
+            string mode = (metadataCopy ? "metadata-copy-" : "metadata-shared-") + (disabled ? "fallback" : "owned"); var settings = Configure(mode);
             using (HashProvider.BeginStringHashScope(settings.SessionCacheDirectory))
             using (DocumentProcessor.BeginStateScope())
             {
@@ -124,7 +127,7 @@ public static class CompilerUpheavalSamples
                 {
                     Run(processor, settings.InputPath); coldParse = processor.XmlParseCount;
                     var output = Four(settings.OutputDirectory); if (expected == null) expected = Bytes(output); else Equal(expected, output, mode + "-cold");
-                    if (!disabled) baselines.Add(new { name = "upheaval-small", modRoot = mod, sdkRoot = sdk, inputPath = settings.InputPath,
+                    if (!disabled && !metadataCopy) baselines.Add(new { name = "upheaval-small", modRoot = mod, sdkRoot = sdk, inputPath = settings.InputPath,
                         stagingDirectory = Path.Combine(work, mode), outputs = output,
                         scope = "Four whole original Upheaval files (three Armor, two Upgrade assets) plus explicitly synthetic include/Define/inheritance adapter; not complete Upheaval" });
                     // Reinitialize the same in-memory session generation, so this
@@ -165,7 +168,7 @@ public static class CompilerUpheavalSamples
                         declarations.Any(item => item.name == "RecoveryUpheaval_ArcherDerived" && item.inheritFrom == "JapanArcherInfantryArmor"),
                         "Restored adapter child/base inheritance identities differ: " + Json.Serialize(lookup));
                     Require(coldParse >= 7 && warmParse - coldParse < coldParse && restored.XmlParseCount < coldParse, "Expected cold/warm/persisted-session parse evidence");
-                    evidence.Add(new { id = mode, legacyFallback = disabled, coldParse, warmParse, warmAdditionalParse = warmParse - coldParse, restoredParse = restored.XmlParseCount,
+                    evidence.Add(new { id = mode, legacyFallback = disabled, metadataDeepCopyFallback = metadataCopy, coldParse, warmParse, warmAdditionalParse = warmParse - coldParse, restoredParse = restored.XmlParseCount,
                         fourOutputs = Four(settings.OutputDirectory).ToDictionary(pair => pair.Key, pair => Hash(pair.Value)), actualAssetCount = 7 });
                 }
             }
@@ -175,7 +178,8 @@ public static class CompilerUpheavalSamples
     }
     public static int Main(string[] args)
     {
-        object result; int code = 0; Settings previous = Settings.Current; bool previousSwitch; AppContext.TryGetSwitch(Disable, out previousSwitch);
+        object result; int code = 0; Settings previous = Settings.Current; bool previousSwitch, previousMetadata;
+        AppContext.TryGetSwitch(Disable, out previousSwitch); AppContext.TryGetSwitch(MetadataDisable, out previousMetadata);
         try
         {
             Require(args.Length == 5 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work result source run SDK");
@@ -193,7 +197,7 @@ public static class CompilerUpheavalSamples
             code = 1; Console.Error.WriteLine(error); result = new { succeeded = false, sourceCommit = args.Length > 2 ? args[2] : null, runId = args.Length > 3 ? args[3] : null,
                 checks, tests = tests.ToArray(), evidence = evidence.ToArray(), baselineCases = baselines.ToArray(), error = error.ToString() };
         }
-        finally { Settings.Current = previous; AppContext.SetSwitch(Disable, previousSwitch); }
+        finally { Settings.Current = previous; AppContext.SetSwitch(Disable, previousSwitch); AppContext.SetSwitch(MetadataDisable, previousMetadata); }
         if (args.Length > 1) File.WriteAllText(args[1], Json.Serialize(result)); return code;
     }
 }

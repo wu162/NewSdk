@@ -46,11 +46,11 @@ internal sealed class CompilerDocumentMetadataSnapshot
     }
 
     internal static CompilerDocumentMetadataSnapshot Capture(List2<InclusionItem> inclusions,
-        List2<OutputAsset> outputs, List2<Definition> definitions, List2<DefinitionPair> used, bool forceLegacy = false)
+        List2<OutputAsset> outputs, List2<Definition> definitions, List2<DefinitionPair> used, bool forceLegacy = false, bool forceValueCopy = false)
     {
         bool disabled;
         AppContext.TryGetSwitch("NewSdk.Compiler.DisableDocumentSnapshots", out disabled);
-        bool legacy = forceLegacy || disabled || !Exact(inclusions) || !Exact(outputs) || !Exact(definitions) || !Exact(used);
+        bool legacy = forceLegacy || (disabled && !forceValueCopy) || !Exact(inclusions) || !Exact(outputs) || !Exact(definitions) || !Exact(used);
         if (!legacy && outputs != null)
             foreach (OutputAsset output in outputs)
                 if (output != null && (object)output.Handle != null && output.Handle.GetType() != typeof(InstanceHandle))

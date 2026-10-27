@@ -127,6 +127,10 @@ public class AssetDeclarationDocument : IXmlSerializable
         // across a restore/recapture, rather than silently slicing custom types.
         [NonSerialized] internal bool LegacyDeclarations;
         [NonSerialized] internal bool LegacyMetadata;
+        // Positive runtime provenance only: copied exact values or XML-created
+        // records. Unknown BinaryFormatter state never authorizes sharing.
+        [NonSerialized] internal bool OwnedMetadata;
+        [NonSerialized] internal bool SharedMetadata;
 
 		public uint DocumentHash;
 
@@ -174,6 +178,7 @@ public class AssetDeclarationDocument : IXmlSerializable
                 current.OutputAssets.Count > 0 ? current.OutputAssets : null,
                 current.SelfDefines.Count > 0 ? current.SelfDefines : null, UsedDefines, current.LegacyMetadata);
             LegacyMetadata = metadata.Legacy;
+            OwnedMetadata = !metadata.Legacy;
             InclusionItems = metadata.Inclusions; OutputAssets = metadata.Outputs;
             SelfDefines = metadata.Definitions; UsedDefines = metadata.Used;
 		}
@@ -187,11 +192,42 @@ public class AssetDeclarationDocument : IXmlSerializable
             StreamHints = last.StreamHints == null ? null : new List2<string>(last.StreamHints);
             LegacyDeclarations = last.LegacyDeclarations || !CanSnapshotDeclarations(last.SelfInstances);
             SelfInstances = LegacyDeclarations ? last.SelfInstances : SnapshotDeclarations(last.SelfInstances);
+            bool deepCopy;
+            AppContext.TryGetSwitch("NewSdk.Compiler.DisableSharedDocumentMetadata", out deepCopy);
+            if (!deepCopy && last.OwnedMetadata && !last.LegacyMetadata)
+            {
+                // Only private saved records are shared. FromLast still clones
+                // every mutable record before binding it to a live document.
+                last.SharedMetadata = SharedMetadata = true;
+                OwnedMetadata = true;
+                InclusionItems = last.InclusionItems; OutputAssets = last.OutputAssets;
+                SelfDefines = last.SelfDefines; UsedDefines = last.UsedDefines;
+            }
+            else
+            {
+                CompilerDocumentMetadataSnapshot metadata = CompilerDocumentMetadataSnapshot.Capture(
+                    last.InclusionItems, last.OutputAssets, last.SelfDefines, last.UsedDefines, last.LegacyMetadata);
+                LegacyMetadata = metadata.Legacy;
+                OwnedMetadata = !metadata.Legacy;
+                InclusionItems = metadata.Inclusions; OutputAssets = metadata.Outputs;
+                SelfDefines = metadata.Definitions; UsedDefines = metadata.Used;
+            }
+        }
+
+        internal LastState DetachMetadata()
+        {
+            // Leave declaration and non-metadata lifecycle behavior untouched.
+            // This owner is detached before a dynamic legacy restore can expose
+            // its formerly private saved records to public Current collections.
+            var result = (LastState)MemberwiseClone();
             CompilerDocumentMetadataSnapshot metadata = CompilerDocumentMetadataSnapshot.Capture(
-                last.InclusionItems, last.OutputAssets, last.SelfDefines, last.UsedDefines, last.LegacyMetadata);
-            LegacyMetadata = metadata.Legacy;
-            InclusionItems = metadata.Inclusions; OutputAssets = metadata.Outputs;
-            SelfDefines = metadata.Definitions; UsedDefines = metadata.Used;
+                InclusionItems, OutputAssets, SelfDefines, UsedDefines, false, true);
+            result.InclusionItems = metadata.Inclusions; result.OutputAssets = metadata.Outputs;
+            result.SelfDefines = metadata.Definitions; result.UsedDefines = metadata.Used;
+            result.LegacyMetadata = metadata.Legacy;
+            result.SharedMetadata = false;
+            result.OwnedMetadata = !metadata.Legacy;
+            return result;
         }
 
 		public LastState(XmlReader reader)
@@ -221,6 +257,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 				UsedDefines = ((obj == null) ? null : new List2<DefinitionPair>(obj as DefinitionPair[]));
 				reader.Read();
 			}
+            OwnedMetadata = true;
 		}
 
 		private void ReadOldStrings(XmlReader reader)
@@ -848,6 +885,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 	{
 		if (_Current == null)
 		{
+			PrepareMetadataForLegacyExposure();
 			_Current = new CurrentState();
 			_Current.FromLast(this, _Last);
 		}
@@ -860,6 +898,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			_Current = new CurrentState(documentProcessor, hashItem, logicalPath, configuration);
 			if (_Last != null)
 			{
+				PrepareMetadataForLegacyExposure();
 				_Current.FromLast(this, _Last);
 			}
 			else
@@ -2089,10 +2128,19 @@ public class AssetDeclarationDocument : IXmlSerializable
 		_Current.OutputInstanceSet = null;
 	}
 
+    private void PrepareMetadataForLegacyExposure()
+    {
+        if (_Last == null || DocumentSnapshotsEnabled() || !_Last.OwnedMetadata) return;
+        if (_Last.SharedMetadata) _Last = _Last.DetachMetadata();
+        // Revoke before exposing any values, including partial restores.
+        _Last.OwnedMetadata = false;
+    }
+
 	public void CacheFromDocument(AssetDeclarationDocument other)
 	{
 		if (other._Last != null)
 		{
+            other.PrepareMetadataForLegacyExposure();
             _Last = DocumentSnapshotsEnabled() ? new LastState(other._Last) : other._Last;
 		}
 		else

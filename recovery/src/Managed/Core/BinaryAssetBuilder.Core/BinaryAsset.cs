@@ -456,6 +456,9 @@ public class BinaryAsset
 		_AssetHeader = null;
 		try
 		{
+			using (PhysicalInputSnapshot.MaterializationCapture capture = PhysicalInputSnapshot.BeginMaterializationCapture())
+			{
+			bool trustedSource = false;
 			if (!Directory.Exists(_AssetOutputDirectory))
 			{
 				Directory.CreateDirectory(_AssetOutputDirectory);
@@ -464,7 +467,7 @@ public class BinaryAsset
             byte[] copyBuffer = processor == null ? GetLegacyCopyBuffer() : processor.TransferBuffers.GetCopyBuffer(_LegacyCopyBufferFactory);
             lock (copyBuffer)
 			{
-				using FileStream fileStream = File.OpenRead(sourceAssetPath);
+				using Stream fileStream = capture == null ? File.OpenRead(sourceAssetPath) : PhysicalInputSnapshot.OpenCapturedMaterializationRead(sourceAssetPath);
 				using (FileStream fileStream2 = File.Open(text2, FileMode.Create, FileAccess.Write))
 				{
 					long num = fileStream.Length;
@@ -489,6 +492,18 @@ public class BinaryAsset
 					}
 					fileStream2.Flush();
 				}
+                // Do not change the original deferred length-error contract.
+                // Invalid copies can still be deleted/repaired below; only a
+                // valid source is eligible to outlive this materialization.
+                trustedSource = _AssetHeader != null && _AssetHeader.IsValidFileLength(fileStream.Length);
+                if (capture != null && trustedSource)
+                {
+                    PhysicalInputSnapshot.Entry ignored;
+                    // The original read handle is still open (no write/delete
+                    // sharing), or an existing pinned snapshot supplies this
+                    // read. Capture cannot seal different source bytes.
+                    PhysicalInputSnapshot.TryCapture(sourceAssetPath, out ignored);
+                }
 				if (File.Exists(text))
 				{
 					File.Delete(text);
@@ -501,10 +516,17 @@ public class BinaryAsset
 				{
 					Directory.CreateDirectory(_CustomDataOutputDirectory);
 				}
+                if (capture != null && trustedSource)
+                {
+                    PhysicalInputSnapshot.Entry ignored;
+                    PhysicalInputSnapshot.TryCapture(sourceCustomDataPath, out ignored);
+                }
 				File.Copy(sourceCustomDataPath, text3, overwrite: true);
 			}
+            if (capture != null) capture.Commit();
+			}
 		}
-		catch (Exception)
+		catch (Exception error)
 		{
 			if (File.Exists(text))
 			{
@@ -514,6 +536,7 @@ public class BinaryAsset
 			{
 				File.Delete(text3);
 			}
+            if (error is OperationCanceledException) throw;
 			return false;
 		}
 		return true;
