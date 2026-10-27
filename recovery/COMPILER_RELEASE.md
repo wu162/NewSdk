@@ -47,3 +47,5 @@ MakeBig 的恢复实现直接并入生产 EXE；原 SDK MakeBig 只在隔离验�
 包含可选中立修复的新候选还必须通过显式 `--fix-neutral-assets=true` 的真实 ZIP CLI、缺失参考拒绝及恢复重试。准备器核对原 HashFix→ModAssetResolver→LoD 工具与参考输入、实际非零哈希修正、零资产插入范围、原始输出及最终 MakeBig 全成员字节；不开启新候选的发行标签，除非该组同样成功。此验收仅涵盖已证明的零插入修复范围，不自动读取游戏目录，也不代表完整资产插入已支持。
 
 当前含 MakeBig/Additional/中立修复候选使用 `.github/workflows/refactor-p7-replay.yml`：`PrepareCompilerP7Replay.py` 固定已通过生产构建、App/Core/CLI/Texture/全部缓存的原始运行，保留其 BIG 测试宿主编译失败终态。精确原始归档/运行文件哈希、源代码与构建闭包必须不变；测试脚本同时记录 Git blob 与 Windows 实际读取字节哈希。它直接运行 `PublishCompiler -VerifyBigDeployment`，候选 ZIP 必须从独立目录通过完整新 P7/协议门槛后才取得正式名称，不重复编译未变化生产代码。原整体失败不会被改写为通过，新接受范围来自独立重放结果；二进制与测试来源分别记录。旧 `PrepareCompilerRelease` 入口仍只固定旧 APT/maps 范围。
+
+本轮新正式包已通过：[P7与独立ZIP验收](https://github.com/wu162/NewSdk/actions/runs/40425186743)。二进制来源 `5f81f664f4970176d104b1aaa725501beffac410`；测试/发行来源 `7e933d7b9ace36ebd3bad906d037666322cf194f`。两配置包含base/apt/maps完整成员、Additional原CopyFolders覆盖、可选中立哈希修复零插入链、原LoD/MakeBig全内容差分、CDATA、回滚/取消/重试及协议。原主运行的测试宿主失败保持failure，新的独立成功收据补齐P7/ZIP范围，不改写历史终态。

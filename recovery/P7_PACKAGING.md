@@ -1,6 +1,6 @@
 # P7：内建 BIG/SKUDEF
 
-状态：APT/maps 的三字节版本标记修正与五文件发行包已通过两配置验收。当前新候选已接入默认 base LoD、显式 Additional、可选中立资产修复和从原 C# MakeBig 恢复的代码，生产构建、Core/CLI及全部缓存已通过；新P7/ZIP定向验收仍在收尾，尚不能当作已通过版本。P5/P6 既有验收保持独立。
+状态：APT/maps 的三字节版本标记修正与五文件发行包已通过两配置验收。当前新候选已接入默认 base LoD、显式 Additional、可选中立资产修复和从原 C# MakeBig 恢复的代码，生产构建、Core/CLI及全部缓存独立通过；固定同一生产五文件的P7/ZIP定向验收已在Debug/Release全部通过。新范围为默认base/apt/maps、显式Additional及中立修复零插入链，不泛称完整游戏后处理。P5/P6 既有验收保持独立。
 
 ```powershell
 ./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --package-content base,apt,maps --package-format big
