@@ -1,0 +1,26 @@
+{
+  "status": "probe-only",
+  "sdkValidated": false,
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runAttempt": "1",
+  "ghidraVersion": "11.4.2",
+  "evidenceOnly": true,
+  "scope": "Original native decompilation evidence only; not recovery acceptance",
+  "runId": "40496512115",
+  "toolSha256": "795a02076af16257bd6f3f4736c4fc152ce9ff1f95df35cd47e2adc086e037a6",
+  "probeOnly": true,
+  "exports": [
+    {
+      "bytes": 3174178,
+      "sha256": "f425348c4488bdf62cc698d1f7334ffe2b4c40e9dba6d2ce1cd073c0931cbf34",
+      "name": "graph.json"
+    },
+    {
+      "bytes": 432967,
+      "sha256": "90540f9df9faa1ae498d14489191452e825a6f01123e4f96ef7612cee7e5bdf7",
+      "name": "graph.asm"
+    }
+  ],
+  "requestedGroup": "ColourGraph",
+  "sourceCommit": "7367b839f2a7fa780b2bf5040dbe3d059c674940"
+}
