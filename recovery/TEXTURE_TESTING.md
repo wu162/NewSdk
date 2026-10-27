@@ -28,4 +28,4 @@ PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平�
 `dxt5-alpha` 的完整门槛包括 Debug/Release 自有 native x87 helper 构建与 PE 检查、原量化器端点/索引/误差位模式、实际 DDS 的8字节alpha、归一化float组件及独立 NoOriginal重放。新增消费者必须登记 `src/TextureCompiler/Dxt/**` 及托管alpha入口依赖，并复制自有native DLL；当前已由完整块、对齐DDS和插件入口消费，sdk-PcDxtNoMip包含自有native构建/复制与三模式验收；子组件证据不能替代消费者或SDK验收。`dxt5-fast-alpha` 只接受质量68低层state；`-InspectDdsEntry` 保留原版未初始化levels的失败探针，不作成功验收。`dxt-decompile`/`dxt-colour-functions` 是手动取证组，部分导出或超时不充当业务验收。
 
 
-`dxt-images` 验证真实Texture/OnDemandTexture的TGA/PNG/BMP无mip压缩入口、三缓冲区/完整cdata/旧文件尾及NoOriginal，1280输入明确区分912成功输出与368原版拒绝。`dxt-samples` 独立验证归一化float与1/2/4小块，不能升级插件/mip范围。`sdk-PcDxtNoMip` 仅在显式SDK请求时运行：114张原版可成功解码的输入、456个DXT3/5标准纹理资产，Original/Recovered/NoOriginal实际Core调用、四产物及完整轨迹比较。拒绝样例保留组件矩阵，不纳入SDK成功输入。
+`dxt-images` 验证真实Texture/OnDemandTexture的TGA/PNG/BMP无mip压缩入口、三缓冲区/完整cdata/旧文件尾及NoOriginal，1792输入明确区分1424成功输出与368原版拒绝。`dxt-samples` 独立验证归一化float与1/2/4小块，小尺寸无mip消费者另由dxt-dds2d/dxt-images/SDK取得完整验收，不能升级mip范围。`sdk-PcDxtNoMip` 仅在显式SDK请求时运行：178张原版可成功解码的输入、712个DXT3/5标准纹理资产，Original/Recovered/NoOriginal实际Core调用、四产物及完整轨迹比较。拒绝样例保留组件矩阵，不纳入SDK成功输入。

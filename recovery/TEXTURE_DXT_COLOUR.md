@@ -1,6 +1,6 @@
-# PC TextureCompiler 颜色恢复交接（2026-10-27 20:11 北京时间）
+# PC TextureCompiler DXT恢复交接（2026-10-27）
 
-分支 `recovery/texturecompiler-source`，用户本轮要求继续两小时，现按“先交接”停止新增实现。禁止强推；编译/测试全部只在 GitHub Actions。生产 SDK DLL/config 与插件 DXT 拒绝路由尚未修改。
+分支 `recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。当前默认71颜色/alpha、完整块、归一化float/小块、POT无mip整图与两个插件入口已恢复；最新小尺寸与SDK验收见本页末段 `81e3e76d` / 40508857046。生产SDK DLL/config未替换。以下按阶段保留原sourceCommit/runId，不把历史子集与原版取证冒充当前全部验收。下一批压缩mip见 [TEXTURE_DXT_MIPS_NEXT.md](TEXTURE_DXT_MIPS_NEXT.md)。
 
 ## 已验收：默认 Production=71 颜色状态
 
@@ -40,7 +40,7 @@ Alpha原锚点保留：`4bf0ca8c` / 40493971846，包括字节/float量化器及
 - `TestTextureDxtDds.ps1` / `TextureDxtDdsDifferential.cs` / `TextureDxtDdsNoOriginal.cs`：目标每配置768整图（两格式×12尺寸×32图案），包括4×8、8×4等非正方形图与32×32多块，完整DDS逐字节及NoOriginal重放。
 - 依赖表已登记 `dxt-dds2d`；此次运行只选该组，未重跑未变的颜色状态/块/alpha成功组。未触发SDK。
 
-## 当前推进：插件 DXT3/5 无 mip 入口
+## 对齐插件入口与浮点/小尺寸块验收
 
 `Plugin.Images.cs` 的 StandardTexture 分支接入自有 DXT DDS 编码器；覆盖显式DXT3/5及原 GuessProperFormat 将带alpha的DXT1转换为DXT3/5的路径。原始DXT1/1A、压缩mip、volume与小于4尺寸仍明确拒绝。生产SDK未替换。
 
@@ -54,18 +54,23 @@ SDK集中运行 `40507166585`（源码 `3e884145`）的原两个raw profile三�
 
 ## 下一轮顺序
 
-1. fetch当前远程头，核实最新dxt-images运行的head_sha、conclusion及收据，保留机器人提交，再继续源码。不要假设文档提交是新的验收源码。
-2. 完成实际 Texture/OnDemandTexture 插件入口差分；收取dxt-images及因Plugin.Images修改失效的现有入口组完整回归。新组包含native DLL构建/复制和独立重放。
-3. 在更大里程碑集中做 Original / Recovered / NoOriginal 真SDK。现阶段不能替换生产SDK或声称压缩图像SDK通过。
-4. 小于4的尾级块、浮点RGB块、triangle压缩mip、volume压缩与DXT1/1A是后续独立能力组。原包装层对小尺寸颜色索引有复制规则，而alpha越界像素不是直接复制边缘；勿直接把普通4×4块复制填充当作已恢复mip。
+1. fetch远程头并保留机器人证据；业务验收81e3e76d/40508857046与SDK宿主补强73cae641/40510009285均成功，未变输入不重复运行。不要将文档提交冒充新业务验收源码。
+2. 按 [压缩mip入口](TEXTURE_DXT_MIPS_NEXT.md) 推进完整二维DXT3/5 float mip能力组，复用已验收小块与triangle契约，仍需完整DDS差分，不能用raw byte相同替代float精度证明。
+3. 路由接入后集中Original / Recovered / NoOriginal真实SDK。未变成功组件复用原sourceCommit/runId，不为说明文档重跑。
+4. 压缩volume、默认DXT1/1A、NPOT重采样、完整atlas及生产部署仍待恢复/验收。已验收的float/小块与无mip不能冒充这些范围完成。
 
 后续正常构建：x86 MSVC shell 中先 `ml /c /coff /safeseh` 编译 Colour ASM，再以 `/LD /MT /fp:strict /GS-` 编译bridge，链接 `/NODEFAULTLIB /NOENTRY`，与自有Alpha helper及托管DLL放在同目录。实际测试调用仓库相应Actions组，勿在本地编译测试。
 
 
-## 2026-10-27 本轮末段：小尺寸整图/插件批次（待验收）
+## 2026-10-27 本轮末段：小尺寸整图/插件验收（完成）
 
 对齐纹理SDK验收：源码 `3319f50c1cbc227efe6f68d7470249f9576c49d3` / [40507887013](https://github.com/wu162/NewSdk/actions/runs/40507887013) success；Original/Recovered/NoOriginal各456资产与实际Core调用，四产物及完整三缓冲区/cdata轨迹一致。前次40507166585两个原raw profile三模式各600资产成功，压缩profile失败于原版BMP bitfields解码；6个拒绝输入保留组件矩阵。40507672026为并发发布未落地前误启动的plan-only失败（未知新取证组），未运行Windows，不作业务失败或验收。
 
 同批 `dxt-image-boundaries` 416原版样本取证完成，证明small无mip header flags=0x81007、mipCount=0、caps=0x1000，linearSize/payload为ceil(width/4)*ceil(height/4)*16。完整DDS/RGBA/options/callback留在samples.zip；有mip样本flags=0xa1007，mipCount包含1x1尾级，不能以取证宣称已恢复mip。
 
-`TextureDxtDdsEncoder` 新批次据此支持宽或高1/2的POT无mip图像，部分块使用已验收SampleBlockEncoder；插件通过原路由消费。组件矩阵扩为每配置1280整图、1792插件输入与独立NoOriginal；SDK扩为178合法图像/712资产（三模式），与两个受影响raw profile统一验证。消费者依赖均增加SampleBlockEncoder。源码待Actions验收，压缩mip/volume、NPOT、默认DXT1/1A仍拒绝，生产SDK未替换。
+`TextureDxtDdsEncoder` 新批次据此支持宽或高1/2的POT无mip图像，部分块使用已验收SampleBlockEncoder；插件通过原路由消费。组件矩阵扩为每配置1280整图、1792插件输入与独立NoOriginal；SDK扩为178合法图像/712资产（三模式），与两个受影响raw profile统一验证。消费者依赖均增加SampleBlockEncoder。最终源码 `81e3e76d69634b7e934937ea23206792b5c9c039` / [40508857046](https://github.com/wu162/NewSdk/actions/runs/40508857046) attempt1 completed/success。Debug/Release各1280整图/335126检查及1280 NoOriginal/328704字节比较；1792插件输入含1424成功输出、368原版拒绝匹配与22明确拒绝，各8220864字节比较，同量NoOriginal通过。SDK Original/Recovered/NoOriginal各712资产和实际Core调用，四产物及所有buffer/cdata轨迹一致；两个受影响raw profile三模式各600资产也通过。压缩mip/volume、NPOT、默认DXT1/1A仍拒绝，生产SDK未替换。
+
+
+## SDK隔离补强（已验收）
+
+`73cae641` 只增加独立 `TextureDxtSdkTracePlugin.cs` 与NoOriginal编译标记：每次真实Core ProcessInstance前后验证原TextureCompiler DLL不存在、原程序集未加载；不修改业务源码与既有raw trace宿主。最终源码 `73cae6417889fd5fe9cb7fbce64229fb271c8c25` / [40510009285](https://github.com/wu162/NewSdk/actions/runs/40510009285) attempt1 completed/success：Original/Recovered/NoOriginal各712资产和实际调用，四产物及完整轨迹相同；NoOriginal收据明确 `assertedOriginalNotLoadedDuringEveryCall=true`。仅运行sdk-PcDxtNoMip，保留81e3e76d的组件与两个raw SDK精确证据，不冒充新跑组件。

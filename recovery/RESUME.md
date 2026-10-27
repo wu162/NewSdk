@@ -2,9 +2,11 @@
 
 `recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。主入口 [TEXTURE_DXT_COLOUR.md](TEXTURE_DXT_COLOUR.md)。颜色状态 `2cee3446` / 40500150864、完整DXT3/5块 `b0278705` / 40500898688、二维无mip整图 `1a260825` / 40502726713 均已通过Debug/Release与NoOriginal。
 
-插件DXT3/5无mip整图/入口与float/小尺寸块组件在 `9d487859` / 40506678502 全部通过。对齐DXT3/5真实SDK `3319f50c` / 40507887013 三模式各456资产/实际调用、四产物与完整轨迹相同；两个原raw SDK profile `3e884145` / 40507166585 三模式各600资产成功，原失败记录保留。
+最新业务验收源码 `81e3e76d69634b7e934937ea23206792b5c9c039` / [40508857046](https://github.com/wu162/NewSdk/actions/runs/40508857046) success：PC DXT3/5 POT无mip整图与Texture/OnDemandTexture入口（包括1/2像素边）Debug/Release各1280完整DDS、1792插件输入（1424输出/368匹配原版拒绝）、22明确拒绝及NoOriginal通过；SDK三模式各178图像/712资产与实际调用，四产物和完整轨迹一致。同批两个raw SDK profile各600资产三模式通过。
 
-当前正在将1/2像素边小块接入整图/插件：原版416例边界取证已完成（3319f50c / 40507887013，probe-only），DDS线性大小按ceil(width/4)*ceil(height/4)*16。待统一验收目标：Debug/Release各1280整图、1792实际插件输入及NoOriginal；新SDK178图像/712资产三模式。先收取最新批次，失败则修复，不把待验收写为完成。生产SDK DLL/config未改；压缩mip/volume与DXT1/1A默认整块仍明确拒绝。
+float/小尺寸块组件沿用 `9d487859` / 40506678502（各4608 float原版对照、2304实际byte DDS交叉核对及NoOriginal）；416原版header/mip边界样本 `3319f50c` / 40507887013 为probe-only。SDK隔离补强源码 `73cae6417889fd5fe9cb7fbce64229fb271c8c25` / [40510009285](https://github.com/wu162/NewSdk/actions/runs/40510009285) success：三模式各712资产/调用、四产物与完整轨迹一致；NoOriginal每次Core调用前后断言原DLL不存在、原程序集未加载。只重跑该SDK组，业务源码未改。
+
+下一批是PC DXT3/5压缩mip完整能力组，按 [TEXTURE_DXT_MIPS_NEXT.md](TEXTURE_DXT_MIPS_NEXT.md) 使用归一化float层，禁止中途量化回byte。生产SDK DLL/config未改；压缩mip/volume、NPOT与默认DXT1/1A整块仍明确拒绝，完整mymod/全TextureCompiler未宣称完成。
 
 以下保留历史子系统与阶段记录，不以旧的“下一轮”覆盖上述当前入口。
 
