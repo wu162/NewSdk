@@ -82,7 +82,7 @@ public static class CompilerManifestInputs
         }
         Require(open(main) == null, "Reader outside a snapshot changed Utility fallback");
         var previous = Settings.Current;
-        Settings.Current = new Settings { OutputDirectory = Path.Combine(work, "generated"), TargetPlatform = TargetPlatform.Win32, LinkedStreams = true, CustomPostfix = "" };
+        Settings.Current = new Settings { OutputDirectory = Path.Combine(work, "generated"), TargetPlatform = TargetPlatform.Win32, LinkedStreams = true, CustomPostfix = "", BuildCache = false, SessionCache = false };
         try
         {
             var processor = new DocumentProcessor(Settings.Current, new PluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32), null);
