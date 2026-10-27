@@ -16,7 +16,7 @@ public sealed class StableMembershipCase
 {
     public string name, culture = "en-US";
     public int count = 40, extraBindings;
-    public bool legacyBindings, customComparer, customCulture, derivedHandle, derivedDeclaration, derivedSet, derivedList, duplicateOutput, traceMutation, collision;
+    public bool legacyBindings, customComparer, customDictionary, customCulture, derivedHandle, derivedDeclaration, derivedSet, derivedList, duplicateOutput, traceMutation, collision;
 }
 [Serializable]
 public sealed class StableMembershipResult
@@ -84,6 +84,7 @@ public sealed class StableMembershipRunner
         var builder = assembly.DefineDynamicModule("Probe").DefineType("Derived" + plainDerived.Count, TypeAttributes.Public, parent);
         builder.DefineDefaultConstructor(MethodAttributes.Public); type = builder.CreateType(); plainDerived.Add(parent, type); return type;
     }
+    sealed class WrappedDictionary : Dictionary<uint, int> { }
     sealed class ReverseUInt : IComparer<uint> { public int Compare(uint left, uint right) { return right.CompareTo(left); } }
     sealed class WrappedCulture : CultureInfo
     {
@@ -110,7 +111,8 @@ public sealed class StableMembershipRunner
         oldSettings = settingsType.GetField("Current", All).GetValue(null);
         settings = Activator.CreateInstance(settingsType); settingsType.GetProperty("BuildCache").SetValue(settings, false, null);
         settingsType.GetField("Current", All).SetValue(null, settings);
-        counts = spec.customComparer ? new SortedDictionary<uint, int>(new ReverseUInt()) : new SortedDictionary<uint, int>();
+        counts = spec.customDictionary ? (IDictionary<uint, int>)new WrappedDictionary() :
+            spec.customComparer ? new SortedDictionary<uint, int>(new ReverseUInt()) : new SortedDictionary<uint, int>();
         document = Activator.CreateInstance(docType); current = Activator.CreateInstance(docType.GetNestedType("CurrentState", BindingFlags.NonPublic), true);
         Field(docType, "_Current").SetValue(document, current); Set(current, "SourcePath", "reflection-graph://" + spec.name);
         object processor = processorType.GetMethod("RecordStableSortMembershipWork", All) == null ? FormatterServices.GetUninitializedObject(processorType)
@@ -256,7 +258,12 @@ public static class CompilerStableSortMembership
             domain = AppDomain.CreateDomain("stable-membership-original-" + Guid.NewGuid().ToString("N"), null,
                 new AppDomainSetup { ApplicationBase = Path.GetDirectoryName(typeof(CompilerStableSortMembership).Assembly.Location), ConfigurationFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile });
             var original = (LegacyStableMembershipDomain)domain.CreateInstanceFromAndUnwrap(typeof(LegacyStableMembershipDomain).Assembly.Location, typeof(LegacyStableMembershipDomain).FullName);
-            string originalIdentity = original.Initialize(Path.Combine(args[4], "tools/BinaryAssetBuilder.Core.dll"));
+            string originalLibrary = Path.Combine(args[4], "tools/BinaryAssetBuilder.Core.dll");
+            string originalIdentity = original.Initialize(originalLibrary);
+            Require(originalIdentity.StartsWith("BinaryAssetBuilder.Core,", StringComparison.Ordinal), "Original SDK Core identity mismatch");
+            string originalSha256;
+            using (var sha = System.Security.Cryptography.SHA256.Create())
+                originalSha256 = String.Concat(sha.ComputeHash(File.ReadAllBytes(originalLibrary)).Select(value => value.ToString("x2")));
             AppContext.SetSwitch("NewSdk.Compiler.DisableStreamBindingResults", false);
             var current = new StableMembershipRunner(typeof(AssetDeclarationDocument).Assembly);
             var cases = new List<StableMembershipCase>();
@@ -264,6 +271,7 @@ public static class CompilerStableSortMembership
                 foreach (int count in new[] { 1, 15, 16, 17, 40 }) cases.Add(new StableMembershipCase { name = culture + "-" + count, culture = culture, count = count });
             cases.Add(new StableMembershipCase { name = "legacy-bindings", legacyBindings = true });
             cases.Add(new StableMembershipCase { name = "custom-schema-comparer", customComparer = true });
+            cases.Add(new StableMembershipCase { name = "custom-schema-dictionary", customDictionary = true });
             cases.Add(new StableMembershipCase { name = "custom-culture", customCulture = true });
             cases.Add(new StableMembershipCase { name = "derived-Equals-untraced-mutation", derivedHandle = true });
             cases.Add(new StableMembershipCase { name = "derived-declaration", derivedDeclaration = true });
@@ -284,7 +292,7 @@ public static class CompilerStableSortMembership
                 }
                 var metrics = Work(actual);
                 if (item.name == "en-US-40") Require(metrics != null && Convert.ToInt64(metrics["builds"]) > 0 && Convert.ToInt64(metrics["indexQueries"]) > 0, "Actual StableSort did not use admitted membership indexes");
-                if (item.legacyBindings || item.customComparer || item.customCulture || item.derivedHandle || item.derivedDeclaration || item.derivedSet || item.derivedList || item.extraBindings > 0)
+                if (item.legacyBindings || item.customComparer || item.customDictionary || item.customCulture || item.derivedHandle || item.derivedDeclaration || item.derivedSet || item.derivedList || item.extraBindings > 0)
                     Require(metrics != null && Convert.ToInt64(metrics["indexQueries"]) == 0 && Convert.ToInt64(metrics["builds"]) == 0, "Unsafe scope was indexed: " + item.name);
                 if (item.collision) Require(expected.outcome.Contains("ArgumentException"), "Original XOR-key collision construction rejection was not retained");
                 evidence.Add(new { id = item.name, outcome = actual.outcome, work = metrics });
@@ -314,7 +322,7 @@ public static class CompilerStableSortMembership
                 scope = "Actual public StableSort on reflection-supplied fixed dependency graphs; includes scope preparation/index builds and reflection invoke; no speed assertion, CLI speedup or memory-peak claim" });
             AppDomain.Unload(domain); domain = null;
             Require(!AppDomain.CurrentDomain.GetAssemblies().Any(assembly => assembly.GetName().Name == "BinaryAssetBuilder.Core"), "Original Core leaked into production host AppDomain");
-            result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = new[] { "isolated-original-private-insert-position-and-actual-StableSort-differential", "exact-culture-legacy-derived-budget-collision-contracts", "bounded-interleaved-actual-StableSort-measurement" }, originalIdentity, evidence = evidence.ToArray(),
+            result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = new[] { "isolated-original-private-insert-position-and-actual-StableSort-differential", "exact-culture-legacy-derived-budget-collision-contracts", "bounded-interleaved-actual-StableSort-measurement" }, originalIdentity, originalSha256, evidence = evidence.ToArray(),
                 scope = "Reflection-supplied graph component differential against original Core plus real public StableSort; independent real streams are a separate fixture" };
             Console.WriteLine("PASS StableSortMembership: " + checks + " checks");
         }
