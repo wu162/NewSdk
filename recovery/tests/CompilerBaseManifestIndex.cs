@@ -18,6 +18,7 @@ public sealed class BaseManifestCase
     public string name;
     public int[] candidates, bases, patched = new int[0];
     public uint[] candidateTypes, baseTypes;
+    public int equalityMutation;
     public int callback, nullCandidate = -1, uninitializedCandidate = -1, zeroTypeHash = -1, nullBase = -1;
     public bool sameLists, nullOutput, nullFinal;
 }
@@ -39,7 +40,7 @@ public sealed class BaseManifestReflectionRunner
     readonly Func<IntPtr, Type, object> pointer;
     readonly List<IntPtr> allocations = new List<IntPtr>();
     object manager, document; IList inputs, final; object[] instances; BaseManifestCase spec;
-    int callbacks; bool acted;
+    int callbacks; bool acted; Type derivedInstanceType;
     public BaseManifestReflectionRunner(Assembly core, Assembly utility)
     {
         this.core = core; this.utility = utility;
@@ -70,9 +71,26 @@ public sealed class BaseManifestReflectionRunner
         Set(handle, "_TypeName", "FixtureType" + type); Set(handle, "_InstanceName", "Fixture" + id);
         handleType.GetProperty("TypeHash").SetValue(handle, 1u, null); handleType.GetProperty("InstanceHash").SetValue(handle, 1u, null); return handle;
     }
-    object Instance(int id, uint type)
+    Type DerivedInstanceType()
     {
-        object instance = Activator.CreateInstance(instanceType);
+        if (derivedInstanceType != null) return derivedInstanceType;
+        var assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName("BaseManifestEqualsProbe" + Guid.NewGuid().ToString("N")), AssemblyBuilderAccess.Run);
+        var builder = assembly.DefineDynamicModule("Probe").DefineType("MutatingInstanceDeclaration", TypeAttributes.Public | TypeAttributes.Class, instanceType);
+        builder.DefineDefaultConstructor(MethodAttributes.Public);
+        var hook = builder.DefineField("OnEquals", typeof(Action), FieldAttributes.Public);
+        var method = builder.DefineMethod("Equals", MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig, typeof(bool), new[] { typeof(object) });
+        var il = method.GetILGenerator(); var action = il.DeclareLocal(typeof(Action)); var noAction = il.DefineLabel();
+        il.Emit(OpCodes.Ldarg_0); il.Emit(OpCodes.Ldfld, hook); il.Emit(OpCodes.Stloc, action);
+        il.Emit(OpCodes.Ldarg_0); il.Emit(OpCodes.Ldnull); il.Emit(OpCodes.Stfld, hook);
+        il.Emit(OpCodes.Ldloc, action); il.Emit(OpCodes.Brfalse_S, noAction); il.Emit(OpCodes.Ldloc, action); il.Emit(OpCodes.Callvirt, typeof(Action).GetMethod("Invoke"));
+        il.MarkLabel(noAction); il.Emit(OpCodes.Ldarg_0); il.Emit(OpCodes.Ldarg_1);
+        MethodInfo baseEquals = instanceType.GetMethod("Equals", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(object) }, null);
+        il.Emit(OpCodes.Call, baseEquals); il.Emit(OpCodes.Ret); builder.DefineMethodOverride(method, baseEquals);
+        derivedInstanceType = builder.CreateType(); return derivedInstanceType;
+    }
+    object Instance(int id, uint type, bool derived = false)
+    {
+        object instance = Activator.CreateInstance(derived ? DerivedInstanceType() : instanceType);
         FieldInfo current = Field(instanceType, "_Current"); object state = FormatterServices.GetUninitializedObject(current.FieldType);
         Set(state, "Handle", Handle(id, type)); current.SetValue(instance, state); return instance;
     }
@@ -147,7 +165,7 @@ public sealed class BaseManifestReflectionRunner
             instances = new object[value.candidates.Length + 1];
             for (int index = 0; index < value.candidates.Length; index++)
             {
-                object instance = index == value.nullCandidate ? null : index == value.uninitializedCandidate ? Activator.CreateInstance(instanceType) : Instance(value.candidates[index], value.candidateTypes == null ? 7u : value.candidateTypes[index]);
+                object instance = index == value.nullCandidate ? null : index == value.uninitializedCandidate ? Activator.CreateInstance(instanceType) : Instance(value.candidates[index], value.candidateTypes == null ? 7u : value.candidateTypes[index], value.equalityMutation != 0 && index == 0);
                 if (instance != null && index == value.zeroTypeHash) handleType.GetProperty("TypeHash").SetValue(Get(Get(instance, "_Current"), "Handle"), 0u, null);
                 instances[index] = instance; if (inputs != null) inputs.Add(instance);
             }
@@ -158,6 +176,19 @@ public sealed class BaseManifestReflectionRunner
             Set(manager, "_OldOutputInstances", Activator.CreateInstance(typeof(Dictionary<,>).MakeGenericType(typeof(string), oldOutputValue)));
             for (int index = 0; index < value.candidates.Length; index++) Binary(binaryAssets, instances[index], !value.patched.Contains(value.candidates[index]));
             Binary(binaryAssets, instances[instances.Length - 1], value.bases.Length == 0 || !value.patched.Contains(value.bases[0]));
+            if (value.equalityMutation != 0)
+            {
+                Action mutation = () => {
+                    if (value.equalityMutation == 2) throw new InvalidOperationException("injected derived Equals failure");
+                    object selected = instances[value.bases[0]];
+                    for (int index = 0; index < inputs.Count; index++)
+                        if (Object.ReferenceEquals(inputs[index], selected)) { inputs.RemoveAt(index); break; }
+                    // The new equal entry is deliberately beyond the count at
+                    // entry to legacy Remove/IndexOf; it must not be searched.
+                    inputs.Add(instances[instances.Length - 2]); inputs.Add(instances[instances.Length - 1]);
+                };
+                instances[0].GetType().GetField("OnEquals").SetValue(instances[0], mutation);
+            }
             writerField = tracerType.GetField("TraceWrite", Fields); maskField = tracerType.GetField("_TraceMask", Fields);
             oldWriter = writerField.GetValue(null); oldMask = maskField.GetValue(null);
             tracerType.GetMethod("SetTraceLevel").Invoke(null, new object[] { 9 });
@@ -209,6 +240,7 @@ public static class CompilerBaseManifestIndex
     static void Require(bool value, string message) { checks++; if (!value) throw new Exception(message); }
     static IDictionary<string, object> Metrics(BaseManifestResult result) { return Json.Deserialize<Dictionary<string, object>>(result.metrics); }
     static long Number(IDictionary<string, object> value, string key) { return Convert.ToInt64(value[key]); }
+    static object[] Items(object value) { return ((IEnumerable)value).Cast<object>().ToArray(); }
     static BaseManifestResult Compare(BaseManifestCase spec)
     {
         BaseManifestResult baseline = original.Run(spec), indexed = recovered.Run(spec, false), fallback = recovered.Run(spec, true);
@@ -242,7 +274,10 @@ public static class CompilerBaseManifestIndex
         var zeroHash = Case("zero-typehash-null-binary-partial-state", 32, 8); zeroHash.zeroTypeHash = 2; Compare(zeroHash);
         var same = Case("aliased-output-and-final-lists", 32, 8); same.sameLists = true; Compare(same);
         var empty = Case("empty-manifest-does-not-touch-null-lists", 0, 0); empty.nullOutput = empty.nullFinal = true; Compare(empty);
-        var finalNullPatched = Case("null-final-all-patched-no-add", 32, 8); finalNullPatched.nullFinal = true; finalNullPatched.patched = Enumerable.Range(0, 32).ToArray(); Compare(finalNullPatched);
+        var finalNullPatched = Case("null-final-all-patched-no-add", 32, 8); finalNullPatched.nullFinal = true; finalNullPatched.patched = Enumerable.Range(0, 32).ToArray();
+        var patchedOutcome = Json.Deserialize<Dictionary<string, object>>(Compare(finalNullPatched).outcome);
+        Require(patchedOutcome["error"] == null && patchedOutcome["final"] == null && Items(patchedOutcome["remaining"]).Length == 32,
+            "All patched entries with a null final list must succeed without adding or removing any candidate");
         var finalNull = Case("null-final-first-reuse-error", 32, 8); finalNull.nullFinal = true; Compare(finalNull);
         for (int action = 1; action <= 8; action++)
         {
@@ -251,6 +286,23 @@ public static class CompilerBaseManifestIndex
             if (action == 2 || action == 3) { callback.candidates[1] = 0; callback.bases[1] = 0; }
             Compare(callback);
         }
+        foreach (int mutation in new[] { 1, 2 })
+        {
+            var derived = Case("derived-Equals-" + mutation, 32, 8); derived.equalityMutation = mutation;
+            derived.bases = new[] { 8, 9999, 9999, 9999, 9999, 9999, 9999, 9999 };
+            var result = Compare(derived); var metrics = Metrics(result);
+            var state = Json.Deserialize<Dictionary<string, object>>(result.outcome);
+            Require(Number(metrics, "indexedCalls") == 0 && Number(metrics, "unsafeFallbacks") == 1 && Number(metrics, "linearCalls") == 1,
+                "A derived Equals implementation was incorrectly authorized for indexed removal");
+            if (mutation == 1)
+                Require(state["error"] == null && Items(state["remaining"]).Length == 33 && Items(state["final"]).Length == 1 &&
+                    Convert.ToString(Items(state["remaining"])[32]).StartsWith("32:", StringComparison.Ordinal) && Number(metrics, "linearRemovalChecks") == 32,
+                    "Legacy Remove did not preserve its entry count after Equals changed the list and appended a new matching candidate");
+            else
+                Require(Convert.ToString(state["error"]).Contains("injected derived Equals failure") && Items(state["remaining"]).Length == 32 && Items(state["final"]).Length == 1,
+                    "Derived Equals failure lost original exception or final-add-before-remove partial state");
+        }
+        tests.Add("derived-Equals-mutation-and-exception-force-unsafe-fallback-preserve-entry-count-and-original-partial-state");
         tests.Add("original-SDK-three-way-exact-candidate-final-order-duplicates-patched-missing-partial-failure-null-and-list-alias-differential");
         tests.Add("real-trace-callback-list-remove-insert-clear-swap-handle-replacement-and-thrown-error-force-compatible-legacy-removal");
         var work = Case("work-reduction-reverse-512", 512, 512); System.Array.Reverse(work.bases);

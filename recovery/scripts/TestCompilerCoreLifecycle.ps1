@@ -2,7 +2,8 @@
 param(
     [Parameter(Mandatory=$true)][string]$CompilerDirectory,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
-    [ValidateRange(30,900)][int]$FixtureTimeoutSeconds=180
+    [ValidateRange(30,900)][int]$FixtureTimeoutSeconds=180,
+    [string]$ReuseReceipt
 )
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/CompilerValidation.Common.ps1"
@@ -45,6 +46,17 @@ function Invoke-LifecycleFixture([string]$Executable,[string[]]$Arguments,[strin
 Push-Location $root
 try {
     $state.sourceCommit=(git rev-parse HEAD).Trim()
+    $state.binarySourceCommit=$state.sourceCommit
+    if($ReuseReceipt){
+        $reuse=Get-Content -LiteralPath $ReuseReceipt -Raw|ConvertFrom-Json
+        if($reuse.prepared -ne $true -or $reuse.binarySourceCommit -cne '68f38abb1ff649857ff786aa8a6bcf657553b8da' -or
+           $reuse.testSourceCommit -cne $state.sourceCommit -or [string]$reuse.sourceRunId -cne '40476134103'){
+            throw 'Targeted runtime reuse receipt identity mismatch'
+        }
+        $state.binarySourceCommit=$reuse.binarySourceCommit
+        $state.sourceRunId=$reuse.sourceRunId
+        $state.reuseReceiptSha256=Hash $ReuseReceipt
+    }
     $state.workRoot=$work
     if(!$state.runId){$state.runId='local-'+[Guid]::NewGuid().ToString('N')}
     $state.runnerSha256=Hash $PSCommandPath
@@ -100,7 +112,7 @@ try {
     foreach($mode in @('Debug','Release')) {
         $modeOut=(New-Item -ItemType Directory (Join-Path $out $mode)).FullName
         $clean=Join-Path $work $mode
-        $run=Initialize-CompilerValidationRun (Join-Path $CompilerDirectory $mode) $clean $mode $state.sourceCommit
+        $run=Initialize-CompilerValidationRun (Join-Path $CompilerDirectory $mode) $clean $mode $state.binarySourceCommit
         $productBuild=Join-Path $CompilerDirectory $mode
         Copy-Item "$productBuild/build.json" "$modeOut/product-build.json"
         Copy-Item "$productBuild/validation/build.json" "$modeOut/validation-host-build.json"

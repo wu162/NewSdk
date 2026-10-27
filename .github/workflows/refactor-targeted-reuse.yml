@@ -1,0 +1,61 @@
+name: Strict targeted runtime reuse
+on:
+  push:
+    branches: ['feature/compiler-optimization']
+    paths:
+      - '.github/workflows/refactor-targeted-reuse.yml'
+      - 'recovery/scripts/DownloadCompilerTargetedReuse.py'
+      - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
+      - 'recovery/tests/CompilerPhysicalInputs.cs'
+      - 'recovery/tests/CompilerBaseManifestIndex.cs'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: targeted-runtime-reuse-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  targeted:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[compiler-targeted-reuse]')
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Install pinned evidence and runtime audit dependencies
+        shell: pwsh
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+      - name: Verify accepted source closure and stage exact runtime bytes
+        id: reuse
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/scripts/DownloadCompilerTargetedReuse.py --repo . --candidate-commit $env:GITHUB_SHA --output recovery/artifacts/targeted-reuse-product --archive "$env:RUNNER_TEMP/targeted-reuse.zip"
+          if($LASTEXITCODE -ne 0){throw 'Strict targeted runtime reuse rejected'}
+      - name: Run current targeted fixtures against verified production objects
+        if: ${{ !cancelled() && steps.reuse.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/targeted-reuse-product -ReuseReceipt recovery/artifacts/targeted-reuse-product/reuse.json -OutputDirectory "recovery/evidence/refactor/targeted-reuse/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compiler-targeted-reuse-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/targeted-reuse-product/reuse.json
+            recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/validation.json
+            recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/**/result.json
+            recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/**/fixture-build.log
+            recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/**/runtime.log
+          if-no-files-found: warn

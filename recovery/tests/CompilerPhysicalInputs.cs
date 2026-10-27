@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -217,6 +218,44 @@ public static class CompilerPhysicalInputs
         }
         tests.Add("schema-and-real-XInclude-cancellation-retain-token-and-bypass-resource-fallback-wrappers-without-pin-leaks");
     }
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true, EntryPoint = "CreateHardLinkW")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    static extern bool CreateHardLink(string link, string existing, IntPtr security);
+    static void AliasCases(string work)
+    {
+        string root = Path.Combine(work, "physical-alias"), other = Path.Combine(work, "distinct-identity");
+        Directory.CreateDirectory(root); Directory.CreateDirectory(other);
+        string path = Path.Combine(root, "mixed-case.bin"), link = Path.Combine(root, "same-volume-hardlink.bin"), copy = Path.Combine(other, "same-content.bin");
+        byte[] bytes = Enumerable.Range(0, 64).Select(index => (byte)(index * 17 + 3)).ToArray(); File.WriteAllBytes(path, bytes); File.WriteAllBytes(copy, bytes);
+        Require(Path.GetPathRoot(path) == Path.GetPathRoot(link) && CreateHardLink(link, path, IntPtr.Zero),
+            "Unable to create a same-volume hard link: Win32 " + Marshal.GetLastWin32Error());
+        using (var snapshot = new PhysicalInputSnapshot(Path.Combine(root, "scratch")))
+        using (snapshot.BeginReadScope())
+        {
+            PhysicalInputSnapshot.Entry first, caseAlias, hardAlias, distinct;
+            Require(PhysicalInputSnapshot.TryCapture(path, out first) && PhysicalInputSnapshot.TryCapture(path.ToUpperInvariant(), out caseAlias) && PhysicalInputSnapshot.TryCapture(link, out hardAlias),
+                "Positive aliases could not establish their actual file identities");
+            Require(Object.ReferenceEquals(first, caseAlias) && Object.ReferenceEquals(first, hardAlias) &&
+                PhysicalInputSnapshot.ReadAllBytes(link).SequenceEqual(bytes), "Case/hard-link aliases did not share the same sealed entry");
+            var aliases = Metrics(snapshot);
+            Require(Number(aliases, "captures") == 1 && Number(aliases, "hits") >= 3 && Number(aliases, "capturedBytes") == bytes.Length && Number(aliases, "activeFilePins") == 1,
+                "Same-volume aliases duplicated physical capture or file pins");
+            Blocked(() => File.WriteAllBytes(path, bytes), "Original hard-linked pathname accepted a writer");
+            Blocked(() => File.WriteAllBytes(link, bytes), "Second hard-linked pathname bypassed the physical file pin");
+            Blocked(() => File.Delete(link), "A hard-linked alias could be removed while its content was sealed");
+            Require(PhysicalInputSnapshot.TryCapture(copy, out distinct) && !Object.ReferenceEquals(first, distinct) && distinct.Sha256 == first.Sha256,
+                "Distinct same-content files were conflated instead of respecting physical file identity");
+            Require(Number(Metrics(snapshot), "captures") == 2 && Number(Metrics(snapshot), "activeFilePins") == 2,
+                "Physical identity deduplication crossed distinct file identities");
+            snapshot.VerifyUnchanged();
+            Require(Number(Metrics(snapshot), "verificationReads") == 2 && Number(Metrics(snapshot), "verificationBytes") == 2 * bytes.Length,
+                "Strong verification did not separate unique identities from their aliases");
+            observations.Add(new { id = "same-volume-case-and-hard-link-aliases", aliases, verified = Metrics(snapshot) });
+        }
+        Writable(path); Writable(link); Writable(copy); File.Delete(link);
+        Require(File.Exists(path) && File.ReadAllBytes(path).SequenceEqual(bytes), "Released hard-link cleanup changed original content");
+        tests.Add("same-volume-hard-link-and-case-aliases-share-one-file-identity-distinct-same-bytes-remain-separate-and-pins-release");
+    }
     static void BudgetCases(string work)
     {
         string root = Path.Combine(work, "budgets"); Directory.CreateDirectory(root);
@@ -284,7 +323,7 @@ public static class CompilerPhysicalInputs
         {
             Require(args.Length == 5 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work result source run SDK");
             string work = Path.GetFullPath(args[0]); Directory.CreateDirectory(work);
-            DigestCases(work); ReaderCases(work); CancellationCases(work); BudgetCases(work);
+            DigestCases(work); ReaderCases(work); CancellationCases(work); AliasCases(work); BudgetCases(work);
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
                 scope = "Positive physical content snapshot, exact legacy digests, XML/XInclude/schema readers, finite budgets and Windows pin lifecycle only; negative queries and hidden plugin reads remain separate" };
             Console.WriteLine("PASS PhysicalInputs: " + tests.Count + " groups; " + checks + " checks");
