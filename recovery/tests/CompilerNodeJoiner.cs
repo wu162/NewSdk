@@ -41,7 +41,7 @@ public static class CompilerNodeJoiner
     }
     internal static XmlSchemaSet Schema()
     {
-        const string text = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:a='uri:ea.com:eala:asset' targetNamespace='uri:ea.com:eala:asset' elementFormDefault='qualified'>" +
+        string text = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:a='uri:ea.com:eala:asset' targetNamespace='uri:ea.com:eala:asset' elementFormDefault='qualified'>" +
             "<xs:complexType name='ItemType'><xs:sequence><xs:element name='Value' type='xs:string' minOccurs='0' maxOccurs='unbounded'/></xs:sequence><xs:attribute name='id' type='xs:string'/><xs:attribute name='mark' type='xs:string'/><xs:anyAttribute processContents='skip'/></xs:complexType>" +
             "<xs:complexType name='Asset'><xs:sequence><xs:element name='Item' type='a:ItemType' minOccurs='0' maxOccurs='unbounded'/><xs:element name='Other' type='a:ItemType' minOccurs='0' maxOccurs='unbounded'/><xs:element name='Tail' type='xs:string' minOccurs='0'/></xs:sequence><xs:attribute name='id' type='xs:string'/><xs:anyAttribute processContents='skip'/></xs:complexType>" +
             "<xs:complexType name='Choice'><xs:choice minOccurs='0'><xs:element name='Item' type='a:ItemType'/><xs:element name='Other' type='a:ItemType'/></xs:choice><xs:anyAttribute processContents='skip'/></xs:complexType>" +
