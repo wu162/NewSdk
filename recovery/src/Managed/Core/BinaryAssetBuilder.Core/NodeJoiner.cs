@@ -59,11 +59,9 @@ public class NodeJoiner
 		private sealed class Entry
 		{
 			internal string Id;
-			internal LinkedListNode<XmlNode> NameNode;
 			internal LinkedListNode<XmlNode> IdNode;
 		}
 
-		private readonly Dictionary<string, LinkedList<XmlNode>> names = new Dictionary<string, LinkedList<XmlNode>>(StringComparer.Ordinal);
 		private readonly Dictionary<string, LinkedList<XmlNode>> ids = new Dictionary<string, LinkedList<XmlNode>>(StringComparer.Ordinal);
 		private readonly Dictionary<XmlNode, Entry> entries = new Dictionary<XmlNode, Entry>();
 
@@ -141,7 +139,7 @@ public class NodeJoiner
 			return attribute?.Value;
 		}
 
-		private LinkedListNode<XmlNode> AddKey(Dictionary<string, LinkedList<XmlNode>> map, string key, XmlNode child, bool atEnd, bool byId)
+		private LinkedListNode<XmlNode> AddKey(Dictionary<string, LinkedList<XmlNode>> map, string key, XmlNode child, bool atEnd)
 		{
 			if (!map.TryGetValue(key, out LinkedList<XmlNode> bucket))
 			{
@@ -154,7 +152,7 @@ public class NodeJoiner
 				{
 					if (entries.TryGetValue(next, out Entry entry))
 					{
-						LinkedListNode<XmlNode> following = byId ? entry.IdNode : entry.NameNode;
+						LinkedListNode<XmlNode> following = entry.IdNode;
 						if (following != null && following.List == bucket) return bucket.AddBefore(following, child);
 					}
 				}
@@ -165,8 +163,7 @@ public class NodeJoiner
 		private void Add(XmlNode child, bool atEnd)
 		{
 			var entry = new Entry { Id = Id(child) };
-			entry.NameNode = AddKey(names, child.Name, child, atEnd, false);
-			if (entry.Id != null) entry.IdNode = AddKey(ids, entry.Id, child, atEnd, true);
+			if (entry.Id != null) entry.IdNode = AddKey(ids, entry.Id, child, atEnd);
 			entries.Add(child, entry);
 		}
 
@@ -182,7 +179,7 @@ public class NodeJoiner
 			if (entry.Id == id) return;
 			if (entry.IdNode != null) RemoveKey(ids, entry.Id, entry.IdNode);
 			entry.Id = id;
-			entry.IdNode = id == null ? null : AddKey(ids, id, child, child.NextSibling == null, true);
+			entry.IdNode = id == null ? null : AddKey(ids, id, child, child.NextSibling == null);
 		}
 
 		private static void RemoveKey(Dictionary<string, LinkedList<XmlNode>> map, string key, LinkedListNode<XmlNode> item)
@@ -196,16 +193,14 @@ public class NodeJoiner
 		{
             if (!valid) return;
 			Entry entry = entries[child];
-			RemoveKey(names, child.Name, entry.NameNode);
 			if (entry.IdNode != null) RemoveKey(ids, entry.Id, entry.IdNode);
 			entries.Remove(child);
 		}
 
-		internal XmlNode Select(XmlNode child, bool byId)
+		internal XmlNode Select(XmlNode child)
 		{
-			string key = byId ? Id(child) : child.Name;
-			Dictionary<string, LinkedList<XmlNode>> map = byId ? ids : names;
-			return key != null && map.TryGetValue(key, out LinkedList<XmlNode> bucket) ? bucket.First.Value : null;
+			string key = Id(child);
+			return key != null && ids.TryGetValue(key, out LinkedList<XmlNode> bucket) ? bucket.First.Value : null;
 		}
 	}
 
@@ -219,7 +214,7 @@ public class NodeJoiner
 		// maintain the index even if removals shrink the parent below this size.
 		if (replaceAny && !idMatchRequired && destParent.ChildNodes.Count == 1) return destParent.ChildNodes[0];
 		if (m_useChildIndex && idMatchRequired && index == null && destParent.ChildNodes.Count >= 8) index = new ChildIndex(destParent);
-		if (idMatchRequired && index != null && index.IsValid) return index.Select(srcChild, true);
+		if (idMatchRequired && index != null && index.IsValid) return index.Select(srcChild);
 		if (idMatchRequired)
 		{
 			foreach (XmlNode childNode in destParent.ChildNodes)
