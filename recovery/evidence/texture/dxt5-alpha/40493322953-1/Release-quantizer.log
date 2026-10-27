@@ -1,0 +1,1 @@
+PASS Texture DXT5 production quantizer fixtures=2176 checks=408835; exact endpoints, indices and native error bits
