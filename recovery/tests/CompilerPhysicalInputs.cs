@@ -155,6 +155,201 @@ public static class CompilerPhysicalInputs
         finally { Settings.Current = previous; }
         tests.Add("real-XInclude-relative-escaped-base-URI-and-schema-include-consumers-share-bytes-with-private-Framework-state");
     }
+    sealed class TrackedXmlInput : MemoryStream
+    {
+        readonly string name;
+        readonly IList<string> closes;
+        internal Exception CloseFailure;
+        internal bool Closed;
+        internal TrackedXmlInput(string name, string xml, IList<string> closes) : base(Encoding.UTF8.GetBytes(xml))
+        { this.name = name; this.closes = closes; }
+        protected override void Dispose(bool disposing)
+        {
+            bool first = !Closed; Closed = true;
+            base.Dispose(disposing);
+            if (disposing && first)
+            {
+                closes.Add(name);
+                if (CloseFailure != null) throw CloseFailure;
+            }
+        }
+    }
+    sealed class TrackedXmlResolver : XmlUrlResolver
+    {
+        internal readonly Dictionary<string, TrackedXmlInput> Inputs = new Dictionary<string, TrackedXmlInput>(StringComparer.Ordinal);
+        public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
+        { return Inputs[Path.GetFileName(absoluteUri.LocalPath)]; }
+    }
+    sealed class UnreadableResolverStream : MemoryStream
+    {
+        internal readonly IOException Primary = new IOException("Resolver stream CanRead failure");
+        internal readonly IOException Cleanup = new IOException("Resolver stream close failure");
+        internal int CloseCalls;
+        public override bool CanRead { get { throw Primary; } }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) CloseCalls++;
+            base.Dispose(disposing);
+            if (disposing && CloseCalls == 1) throw Cleanup;
+        }
+    }
+    sealed class AcquiredTextReader : StringReader
+    {
+        internal int CloseCalls;
+        internal AcquiredTextReader() : base("<included/>") { }
+        public override void Close() { CloseCalls++; base.Close(); }
+    }
+    sealed class UnreadableBaseReader : XmlTextReader
+    {
+        internal readonly IOException Primary = new IOException("Resolver reader BaseURI failure");
+        internal int CloseCalls;
+        internal UnreadableBaseReader() : base(new StringReader("<included/>")) { }
+        public override string BaseURI { get { throw Primary; } }
+        public override void Close() { CloseCalls++; base.Close(); }
+    }
+    sealed class CountingRootReader : XmlTextReader
+    {
+        internal int CloseCalls;
+        internal CountingRootReader(string uri, string xml) : base(uri, new StringReader(xml)) { }
+        public override void Close() { CloseCalls++; base.Close(); }
+    }
+    sealed class ObjectXmlResolver : XmlUrlResolver
+    {
+        internal object Input;
+        public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn) { return Input; }
+    }
+    static bool CausedBy(Exception observed, Exception expected)
+    {
+        for (Exception current = observed; current != null; current = current.InnerException)
+            if (Object.ReferenceEquals(current, expected)) return true;
+        return false;
+    }
+    static void AcquiredReaderFailureCases(string work)
+    {
+        foreach (string mode in new[] { "stream", "stream-fallback", "reader", "xpointer" })
+        {
+            object input; Exception primary = null;
+            if (mode.StartsWith("stream", StringComparison.Ordinal))
+            { var stream = new UnreadableResolverStream(); input = stream; primary = stream.Primary; }
+            else if (mode == "reader") { var reader = new UnreadableBaseReader(); input = reader; primary = reader.Primary; }
+            else input = new AcquiredTextReader();
+            bool fallback = mode.EndsWith("fallback", StringComparison.Ordinal), pointer = mode == "reader" || mode == "xpointer";
+            string xml = "<root xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='acquired.xml'" +
+                (pointer ? " xpointer='xpointer('" : "") + ">" +
+                (fallback ? "<xi:fallback><fallback-selected/></xi:fallback>" : "") + "</xi:include></root>";
+            var root = new CountingRootReader(new Uri(Path.Combine(work, "acquire-" + mode + ".xml"), UriKind.Absolute).AbsoluteUri, xml);
+            var including = new Mvp.Xml.XInclude.XIncludingReader(root) { XmlResolver = new ObjectXmlResolver { Input = input } };
+            Exception observed = null; bool selected = false;
+            try
+            {
+                try { while (including.Read()) if (including.LocalName == "fallback-selected") selected = true; }
+                catch (Exception error) { observed = error; }
+                Require(fallback ? observed == null && selected : observed != null && !selected,
+                    "Acquisition failure changed the real xi:fallback versus fatal-resource boundary: " + mode);
+                if (primary != null)
+                {
+                    if (!fallback) Require(CausedBy(observed, primary), "Acquired-input cleanup replaced the original constructor/property error");
+                    if (input is UnreadableResolverStream)
+                    {
+                        var stream = (UnreadableResolverStream)input;
+                        Require(stream.CloseCalls == 1 && Object.ReferenceEquals(primary.Data["MvpXml.AcquisitionCleanupFailure"], stream.Cleanup),
+                            "Failed StreamReader construction leaked its acquired source or replaced its primary error with close failure");
+                    }
+                    else Require(((UnreadableBaseReader)input).CloseCalls == 1, "A failed BaseURI getter leaked its untransferred acquired XmlReader");
+                }
+                else
+                {
+                    Require(((AcquiredTextReader)input).CloseCalls == 1 && observed.ToString().Contains("XPointer"),
+                        "Bad XPointer construction did not preserve its error or closed the already-consumed infoset source twice");
+                }
+                including.Close();
+                Require(root.CloseCalls == 1 && including.NameTable != null, "Failed acquired-input transfer left its parent duplicated on the reader stack");
+                observations.Add(new { id = "XInclude-acquisition-transfer-" + mode, primaryPreserved = primary == null || fallback || CausedBy(observed, primary),
+                    fallbackSelected = selected, acquiredCloseCalls = input is UnreadableResolverStream ? ((UnreadableResolverStream)input).CloseCalls :
+                        input is UnreadableBaseReader ? ((UnreadableBaseReader)input).CloseCalls : ((AcquiredTextReader)input).CloseCalls,
+                    rootCloseCalls = root.CloseCalls,
+                    scope = "Actual custom resolver result and StreamReader/BaseURI/XPointer construction failure; no fabricated reader stack" });
+            }
+            finally { if (root.ReadState != ReadState.Closed) including.Close(); }
+        }
+        tests.Add("real-custom-XInclude-resolver-acquired-stream-reader-and-text-reader-construction-failures-close-before-transfer-preserve-primary-fallback-parent-state-and-no-double-infoset-close");
+    }
+    static void NestedReaderCloseCases(string work)
+    {
+        var closes = new List<string>();
+        var root = new TrackedXmlInput("root", "<root xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='outer.xml'/></root>", closes);
+        var outer = new TrackedXmlInput("outer", "<outer xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='inner.xml'/></outer>", closes);
+        var inner = new TrackedXmlInput("inner", "<inner/>", closes);
+        IOException first = new IOException("First nested reader close failure"), second = new IOException("Second nested reader close failure");
+        inner.CloseFailure = first; outer.CloseFailure = second;
+        var resolver = new TrackedXmlResolver(); resolver.Inputs.Add("outer.xml", outer); resolver.Inputs.Add("inner.xml", inner);
+        var source = new XmlTextReader(new Uri(Path.Combine(work, "close-root.xml"), UriKind.Absolute).AbsoluteUri, root);
+        var including = new Mvp.Xml.XInclude.XIncludingReader(source) { XmlResolver = resolver };
+        bool entered = false, primary = false;
+        try
+        {
+            while (including.Read())
+                if (including.NodeType == XmlNodeType.Element && including.LocalName == "inner") { entered = true; break; }
+            Require(entered && !root.Closed && !outer.Closed && !inner.Closed, "Real XInclude did not hold all three active nested input readers");
+            try { including.Close(); } catch (IOException error) { primary = Object.ReferenceEquals(error, first); }
+            Require(primary && root.Closed && outer.Closed && inner.Closed && String.Join(",", closes) == "inner,outer,root",
+                "Nested Close stopped at an error, reordered owner cleanup or replaced the first close error");
+            Require(including.NameTable != null && source.ReadState == ReadState.Closed, "Nested Close lost the legacy closed root NameTable");
+            including.Close();
+            Require(String.Join(",", closes) == "inner,outer,root", "Repeated closed-reader cleanup reopened or reclosed an input stream");
+        }
+        finally
+        {
+            inner.CloseFailure = outer.CloseFailure = null;
+            including.Close(); root.Dispose(); outer.Dispose(); inner.Dispose();
+        }
+        observations.Add(new { id = "nested-XInclude-close-error-order", primaryPreserved = primary, closeOrder = closes.ToArray(),
+            scope = "Actual nested XIncludingReader with tracked owned streams; deterministic Close failures after each underlying stream was closed" });
+        tests.Add("real-XInclude-early-close-drains-current-and-parent-readers-in-original-order-retains-first-error-and-closed-root-name-table");
+    }
+    static void CoreXmlReaderFailureCases(string work)
+    {
+        string root = Path.Combine(work, "core-xml-reader-failure"); Directory.CreateDirectory(root);
+        string source = Path.Combine(root, "root.xml"), outer = Path.Combine(root, "outer.xml"), inner = Path.Combine(root, "inner.xml");
+        File.WriteAllText(source, "<AssetDeclaration xmlns='" + Ns + "' xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='outer.xml'/></AssetDeclaration>");
+        File.WriteAllText(outer, "<container xmlns='" + Ns + "' xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='inner.xml'/></container>");
+        File.WriteAllText(inner, "<ArmorTemplate xmlns='" + Ns + "' id='Broken'>" + new string(' ', 8192) + "<Unclosed></ArmorTemplate>");
+        Settings previous = Settings.Current;
+        try
+        {
+            Settings.Current = new Settings { BuildCache = false, SessionCache = false, TargetPlatform = TargetPlatform.Win32 };
+            var processor = new DocumentProcessor(Settings.Current, new PluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32), null);
+            var document = new AssetDeclarationDocument();
+            var stateType = typeof(AssetDeclarationDocument).GetNestedType("CurrentState", BindingFlags.NonPublic);
+            object state = Activator.CreateInstance(stateType, true); stateType.GetMethod("FromScratch").Invoke(state, new object[0]);
+            stateType.GetField("SourcePath").SetValue(state, source); stateType.GetField("SourceDirectory").SetValue(state, root);
+            stateType.GetField("LogicalSourcePath").SetValue(state, "root.xml"); stateType.GetField("DocumentProcessor").SetValue(state, processor);
+            typeof(AssetDeclarationDocument).GetField("_Current", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(document, state);
+            bool rejected = false;
+            try { document.LoadXml(false); }
+            catch (BinaryAssetBuilderException error) { rejected = error.ErrorCode == ErrorCode.XmlFormattingError && error.InnerException is XmlException; }
+            Require(rejected, "Malformed nested include changed Core's original XmlFormattingError/XmlException boundary");
+            XmlDocument failedDom = document.XmlDocument;
+            // This scope deliberately has no PhysicalInputSnapshot: the
+            // supported direct/budget fallback must release its real file
+            // readers immediately, without a GC/finalizer or an input pin.
+            Writable(source); Writable(outer); Writable(inner);
+            File.WriteAllText(inner, "<ArmorTemplate xmlns='" + Ns + "' id='Repaired' Default='10'/>");
+            document.Reset(); document.LoadXml(false);
+            Require(document.XmlDocument.GetElementsByTagName("ArmorTemplate", Ns).Count == 1 &&
+                ((XmlElement)document.XmlDocument.GetElementsByTagName("ArmorTemplate", Ns)[0]).GetAttribute("id") == "Repaired",
+                "The same actual Core document could not reload a repaired nested include");
+            var sourceInfo = (System.Collections.ICollection)stateType.GetField("NodeSourceInfoSet").GetValue(state); int before = sourceInfo.Count;
+            failedDom.DocumentElement.AppendChild(failedDom.CreateElement("detached-failure-dom"));
+            Require(sourceInfo.Count == before, "A failed DOM retained the Core NodeInserted subscription and wrote into the next load's source metadata");
+            Writable(source); Writable(outer); Writable(inner);
+            observations.Add(new { id = "actual-Core-nested-parse-failure-repair", originalErrorCode = ErrorCode.XmlFormattingError.ToString(),
+                immediateExclusiveSources = 3, sameDocumentReload = true, failedDomSubscriptionDetached = true,
+                scope = "Actual public Core LoadXml with initialized parse state and real file fallback; not an asset compiler or SDK output oracle" });
+        }
+        finally { Settings.Current = previous; }
+        tests.Add("actual-Core-LoadXml-nested-malformed-XInclude-preserves-primary-closes-three-file-readers-before-repair-detaches-failed-DOM-handler-and-same-document-reload");
+    }
     sealed class CancellingResolver : FileNameXmlResolver
     {
         readonly CancellationTokenSource cancellation;
@@ -523,7 +718,7 @@ public static class CompilerPhysicalInputs
         {
             Require(args.Length == 5 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work result source run SDK");
             string work = Path.GetFullPath(args[0]); Directory.CreateDirectory(work);
-            DigestCases(work); ReaderCases(work); CancellationCases(work); VerificationCancellationCases(work); AliasCases(work); BudgetCases(work); CandidateCases(work);
+            DigestCases(work); ReaderCases(work); NestedReaderCloseCases(work); AcquiredReaderFailureCases(work); CoreXmlReaderFailureCases(work); CancellationCases(work); VerificationCancellationCases(work); AliasCases(work); BudgetCases(work); CandidateCases(work);
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
                 scope = "Positive physical content snapshot, exact legacy digests, XML/XInclude/schema readers, finite budgets, Windows pin lifecycle and executed resolver existence consistency at verification; hidden plugin reads and complete query closure remain separate" };
             Console.WriteLine("PASS PhysicalInputs: " + tests.Count + " groups; " + checks + " checks");

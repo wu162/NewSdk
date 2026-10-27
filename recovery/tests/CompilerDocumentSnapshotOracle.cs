@@ -225,6 +225,91 @@ public static class CompilerDocumentSnapshotOracle
         }
         finally { Settings.Current = previous; System.Threading.Thread.CurrentThread.CurrentCulture = priorCulture; }
     }
+    sealed class DerivedDefinitions : DefinitionSet { }
+    static object[] defineLookupMetrics;
+    public static object[] GetDefineLookupCaseMetrics() { return defineLookupMetrics; }
+    static DefinitionSet OrdinalDefinitions()
+    {
+        // Fixture-only base-state construction: DefinitionSet exposes no custom
+        // comparer constructor. Preserve an actual nondefault SortedDictionary
+        // comparer without adding any production API for this test.
+        var result = new DefinitionSet(); var source = new SortedDictionary<string, Definition>(StringComparer.Ordinal);
+        foreach (FieldInfo field in typeof(SortedDictionary<string, Definition>).GetFields(BindingFlags.Instance | BindingFlags.NonPublic))
+            field.SetValue(result, field.GetValue(source));
+        if (!Object.ReferenceEquals(result.Comparer, StringComparer.Ordinal)) throw new Exception("Nondefault comparer fixture was not installed");
+        return result;
+    }
+    public static object[] DefineLookupCases(string work)
+    {
+        ExpressionEvaluatorWrapper.LoadAssembly();
+        var previousCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
+        var results = new List<object>(); var metrics = new List<object>();
+        string[] unicode = { "I", "i", "İ", "ı", "é", "e\u0301", "ab", "a\u00adb", "a\0b", "Å", "A\u030a" };
+        try
+        {
+            foreach (string culture in new[] { "en-US", "de-DE", "tr-TR", "zh-CN" })
+            foreach (string mode in new[] { "stable", "value-field", "replace", "remove-readd", "base-indexer", "culture-change", "reenter", "failure", "derived", "comparer", "current-rebind", "table-rebind", "prebuilt-culture" })
+            {
+                System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(mode == "prebuilt-culture" ? "en-US" : culture);
+                var document = Document(work); document.SelfInstances.Clear();
+                object current = typeof(AssetDeclarationDocument).GetField("_Current", Hidden).GetValue(document);
+                current.GetType().GetField("SourcePath").SetValue(current, "define-lookup-root.xml");
+                var imported = Document(work);
+                object importedCurrent = typeof(AssetDeclarationDocument).GetField("_Current", Hidden).GetValue(imported);
+                importedCurrent.GetType().GetField("SourcePath").SetValue(importedCurrent, "define-lookup-provider.xml");
+                if (mode == "derived") current.GetType().GetField("AllDefines").SetValue(current, new DerivedDefinitions());
+                if (mode == "comparer") current.GetType().GetField("AllDefines").SetValue(current, OrdinalDefinitions());
+                for (int i = 0; i < 128; i++) document.AllDefines["D" + i.ToString("D3")] = new Definition { Name = "D" + i.ToString("D3"), EvaluatedValue = "1", Document = imported };
+                document.AllDefines["Target"] = new Definition { Name = "Target", EvaluatedValue = "1", Document = imported };
+                for (int i = 0; i < unicode.Length; i++) document.AllDefines[unicode[i]] = new Definition { Name = unicode[i], EvaluatedValue = (100 + i).ToString(System.Globalization.CultureInfo.InvariantCulture), Document = imported };
+                if (mode == "prebuilt-culture") System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("tr-TR");
+                bool ordered = true, first = true; string previous = null;
+                foreach (var pair in document.AllDefines) { if (!first && document.AllDefines.Comparer.Compare(previous, pair.Key) >= 0) ordered = false; first = false; previous = pair.Key; }
+                var xml = new XmlDocument(); xml.LoadXml("<ArmorTemplate id='Lookup'/>");
+                for (int i = 0; i < 192; i++) xml.DocumentElement.SetAttribute("P" + i.ToString("D3"), "=$Target");
+                document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = xml.DocumentElement });
+                bool changed = false; var direct = new List<string>();
+                xml.NodeInserted += (sender, change) => {
+                    if (changed || change.NewParent == null || change.NewParent.NodeType != XmlNodeType.Attribute || change.NewParent.Name != "P180") return;
+                    changed = true;
+                    var replacement = new Definition { Name = "Target", EvaluatedValue = "2", Document = imported };
+                    if (mode == "value-field") document.AllDefines["Target"].EvaluatedValue = "2";
+                    if (mode == "replace") document.AllDefines["Target"] = replacement;
+                    if (mode == "remove-readd") { document.AllDefines.Remove("Target"); document.AllDefines.Add("Target", replacement); }
+                    if (mode == "base-indexer") ((SortedDictionary<string, Definition>)document.AllDefines)["Target"] = replacement;
+                    if (mode == "culture-change") System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("tr-TR");
+                    if (mode == "reenter") document.ProcessExpressions();
+                    if (mode == "failure") document.AllDefines.Remove("Target");
+                    if (mode == "current-rebind")
+                    {
+                        object clone = typeof(object).GetMethod("MemberwiseClone", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(current, null);
+                        typeof(AssetDeclarationDocument).GetField("_Current", Hidden).SetValue(document, clone);
+                    }
+                    if (mode == "table-rebind")
+                    {
+                        var table = new DefinitionSet(); foreach (var pair in document.AllDefines) table.Add(pair.Key, pair.Value);
+                        table["Target"] = replacement; current.GetType().GetField("AllDefines").SetValue(current, table);
+                    }
+                    var evaluator = new BinaryAssetBuilder.ExpressionEval.ExpressionEvaluator(document);
+                    foreach (string key in unicode)
+                    {
+                        try { direct.Add(key + "=" + evaluator.LookupDefine("$" + key)); }
+                        catch (BinaryAssetBuilderException error) { direct.Add(key + "=ERR:" + error.ErrorCode + ":" + error.Message); }
+                    }
+                };
+                string outcome = "OK";
+                try { document.ProcessExpressions(); }
+                catch (BinaryAssetBuilderException error) { outcome = "ERR:" + error.ErrorCode + ":" + error.Message; }
+                var used = new List<string>(); foreach (var pair in document.UsedDefines) used.Add(pair.Key + "=" + pair.Value);
+                results.Add(new { culture, mode, ordered, outcome, xml = xml.OuterXml, changed,
+                    direct = direct.ToArray(), used = used.ToArray(), target = document.AllDefines.GetEvaluatedValue("Target") });
+                MethodInfo getMetrics = typeof(AssetDeclarationDocument).GetMethod("GetDefineLookupMetrics");
+                metrics.Add(new { culture, mode, work = getMetrics == null ? null : getMetrics.Invoke(document, null) });
+            }
+            defineLookupMetrics = metrics.ToArray(); return results.ToArray();
+        }
+        finally { System.Threading.Thread.CurrentThread.CurrentCulture = previousCulture; }
+    }
     public static object[] InputReaderCases(string work)
     {
         string directory = Path.Combine(work, "input-reader-corpus"); Directory.CreateDirectory(directory);
@@ -294,11 +379,12 @@ public static class CompilerDocumentSnapshotOracle
             object[] expressionTraversal = ExpressionTraversal(args[0]);
             object[] inheritance = InheritanceCases(args[0], args[5]);
             object[] inputReaders = InputReaderCases(args[0]);
+            object[] defineLookups = DefineLookupCases(args[0]);
             string assemblySha;
             using (var sha = SHA256.Create()) assemblySha = Convert.ToBase64String(sha.ComputeHash(File.ReadAllBytes(typeof(AssetDeclarationDocument).Assembly.Location)));
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], mode, sameDeclaration, sourceXmlChanged,
                 savedHash, receiverHash = receiver.SelfInstances[0].ProcessingHash, metadata, expressionTraversal,
-                inheritance, inputReaders, assembly = typeof(AssetDeclarationDocument).Assembly.FullName, assemblySha256Base64 = assemblySha,
+                inheritance, inputReaders, defineLookups, assembly = typeof(AssetDeclarationDocument).Assembly.FullName, assemblySha256Base64 = assemblySha,
                 scope = "Direct public Core metadata lifecycle, 40 expression-DOM traversal cases and nine real-schema inheritance-stage rows and six original async-reader/digest rows; no production CLI failure is claimed" };
             Console.WriteLine("PASS DocumentSnapshotOracle: " + mode);
         }

@@ -400,18 +400,22 @@ public class XIncludingReader : XmlReader
 
 	public override void Close()
 	{
+        Exception failure = null;
 		if (_reader != null)
 		{
-			_reader.Close();
+            try { _reader.Close(); } catch (Exception error) { failure = error; }
 		}
 		while (_readers.Count > 0)
 		{
 			_reader = _readers.Pop();
 			if (_reader != null)
 			{
-				_reader.Close();
+                try { _reader.Close(); } catch (Exception error) { if (failure == null) failure = error; }
 			}
 		}
+        // Keep the final (root) reader for legacy closed-state/NameTable
+        // properties, while attempting every owned nested close in old order.
+        if (failure != null) System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(failure).Throw();
 	}
 
 	public override string GetAttribute(int i)
@@ -1067,29 +1071,61 @@ public class XIncludingReader : XmlReader
 
 	private string CreateAcquiredInfoset(Uri includeLocation, TextReader reader)
 	{
-		return CreateAcquiredInfoset(new XmlBaseAwareXmlTextReader(includeLocation.AbsoluteUri, reader, _nameTable));
+        XmlReader input;
+        try { input = new XmlBaseAwareXmlTextReader(includeLocation.AbsoluteUri, reader, _nameTable); }
+        catch (Exception primary) { CloseUntransferredInput(reader, primary); throw; }
+        return CreateAcquiredInfoset(input);
 	}
 
 	private string CreateAcquiredInfoset(XmlReader reader)
 	{
-		XIncludingReader xIncludingReader = new XIncludingReader(reader);
-		xIncludingReader.XmlResolver = _xmlResolver;
-		StringWriter stringWriter = new StringWriter();
-		XmlTextWriter xmlTextWriter = new XmlTextWriter(stringWriter);
+        XIncludingReader xIncludingReader = null;
+        StringWriter stringWriter = null;
+        XmlTextWriter xmlTextWriter = null;
+        Exception primary = null;
 		try
 		{
+            xIncludingReader = new XIncludingReader(reader) { XmlResolver = _xmlResolver };
+            stringWriter = new StringWriter();
+            xmlTextWriter = new XmlTextWriter(stringWriter);
 			while (xIncludingReader.Read())
 			{
 				xmlTextWriter.WriteNode(xIncludingReader, defattr: false);
 			}
 		}
+        catch (Exception error) { primary = error; throw; }
 		finally
 		{
-			xIncludingReader?.Close();
-			xmlTextWriter?.Close();
+            Exception cleanup = null;
+            try { if (xIncludingReader != null) xIncludingReader.Close(); else reader.Close(); }
+            catch (Exception error) { cleanup = error; }
+            try { if (xmlTextWriter != null) xmlTextWriter.Close(); else if (stringWriter != null) stringWriter.Close(); }
+            catch (Exception error) { if (cleanup == null) cleanup = error; }
+            if (cleanup != null)
+            {
+                if (primary == null) System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(cleanup).Throw();
+                else AttachAcquisitionCleanup(primary, cleanup);
+            }
 		}
 		return stringWriter.ToString();
 	}
+
+    private static void AttachAcquisitionCleanup(Exception primary, Exception cleanup)
+    {
+        try { primary.Data["MvpXml.AcquisitionCleanupFailure"] = cleanup; } catch { }
+    }
+
+    private static void CloseUntransferredInput(object input, Exception primary)
+    {
+        try
+        {
+            if (input is XmlReader) ((XmlReader)input).Close();
+            else if (input is TextReader) ((TextReader)input).Close();
+            else if (input is Stream) ((Stream)input).Close();
+            else if (input is IDisposable) ((IDisposable)input).Dispose();
+        }
+        catch (Exception cleanup) { AttachAcquisitionCleanup(primary, cleanup); }
+    }
 
 	private bool ProcessInterDocXMLInclusion(string href, string xpointer)
 	{
@@ -1132,40 +1168,59 @@ public class XIncludingReader : XmlReader
 		{
 			throw new ResourceException(SR.CustomXmlResolverReturnedNull);
 		}
-		_readers.Push(_reader);
-		if (obj is Stream)
-		{
-			obj = new StreamReader((Stream)obj);
-		}
-		if (xpointer != null)
-		{
-			if (obj is TextReader)
-			{
-				_reader = new XPointerReader(uri.AbsoluteUri, CreateAcquiredInfoset(uri, (TextReader)obj), xpointer);
-			}
-			else
-			{
-				if (!(obj is XmlReader))
-				{
-					throw new ResourceException(SR.GetString("CustomXmlResolverReturnedUnsupportedType", obj.GetType().ToString()));
-				}
-				XmlReader xmlReader = (XmlReader)obj;
-				_reader = new XPointerReader(xmlReader.BaseURI, CreateAcquiredInfoset(xmlReader), xpointer);
-			}
-		}
-		else if (obj is TextReader)
-		{
-			_reader = new XmlBaseAwareXmlTextReader(uri.AbsoluteUri, (TextReader)obj, _nameTable);
-		}
-		else
-		{
-			if (!(obj is XmlReader))
-			{
-				throw new ResourceException(SR.GetString("CustomXmlResolverReturnedUnsupportedType", obj.GetType().ToString()));
-			}
-			_reader = (XmlReader)obj;
-		}
-		return Read();
+        object acquired = obj;
+        XmlReader parent = _reader;
+        int priorDepth = _readers.Count;
+        bool pushed = false;
+        try
+        {
+            _readers.Push(parent); pushed = true;
+            if (obj is Stream)
+            {
+                obj = new StreamReader((Stream)obj);
+                acquired = obj;
+            }
+            if (xpointer != null)
+            {
+                if (obj is TextReader)
+                {
+                    // The infoset helper takes ownership before any reader or
+                    // writer construction. It closes the consumed input even
+                    // if the subsequent XPointer constructor fails.
+                    acquired = null;
+                    string content = CreateAcquiredInfoset(uri, (TextReader)obj);
+                    _reader = new XPointerReader(uri.AbsoluteUri, content, xpointer);
+                }
+                else
+                {
+                    if (!(obj is XmlReader))
+                        throw new ResourceException(SR.GetString("CustomXmlResolverReturnedUnsupportedType", obj.GetType().ToString()));
+                    XmlReader input = (XmlReader)obj;
+                    string baseUri = input.BaseURI;
+                    acquired = null;
+                    string content = CreateAcquiredInfoset(input);
+                    _reader = new XPointerReader(baseUri, content, xpointer);
+                }
+            }
+            else if (obj is TextReader) _reader = new XmlBaseAwareXmlTextReader(uri.AbsoluteUri, (TextReader)obj, _nameTable);
+            else
+            {
+                if (!(obj is XmlReader))
+                    throw new ResourceException(SR.GetString("CustomXmlResolverReturnedUnsupportedType", obj.GetType().ToString()));
+                _reader = (XmlReader)obj;
+            }
+            acquired = null; // _reader now owns the input or acquired infoset.
+        }
+        catch (Exception primary)
+        {
+            CloseUntransferredInput(acquired, primary);
+            // Remove only this failed transfer's own parent push. Do not leave
+            // the current parent duplicated on its stack during xi:fallback.
+            if (pushed && Object.ReferenceEquals(_reader, parent) && _readers.Count == priorDepth + 1 && Object.ReferenceEquals(_readers.Peek(), parent))
+                _readers.Pop();
+            throw;
+        }
+        return Read();
 	}
 
 	private bool ProcessInterDocTextInclusion(string href)

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Web.Script.Serialization;
 using System.Xml;
@@ -411,19 +412,25 @@ public static class CompilerExpressionPrograms
         Settings.Current = settings; SettingsLoader.PostProcessSettings(work);
         Directory.CreateDirectory(settings.OutputDirectory); Directory.CreateDirectory(settings.IntermediateOutputDirectory); Directory.CreateDirectory(settings.SessionCacheDirectory);
         string provider = Path.Combine(work, "provider.xml");
-        File.WriteAllText(settings.InputPath, "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><Includes><Include type='all' source='provider.xml'/></Includes><Defines><Define name='B' value='=$A+1'/><Define name='C' value='=$A+1'/></Defines><ArmorTemplate id='ExpressionA' Default='=$B'/><ArmorTemplate id='ExpressionB' Default='=$C'/></AssetDeclaration>");
+        var extraAssets = new StringBuilder();
+        for (int i = 0; i < 64; i++) extraAssets.Append("<ArmorTemplate id='Lookup" + i + "' Default='=$A'/>");
+        var extraDefines = new StringBuilder();
+        for (int i = 0; i < 128; i++) extraDefines.Append("<Define name='D" + i.ToString("D3") + "' value='1'/>");
+        File.WriteAllText(settings.InputPath, "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><Includes><Include type='all' source='provider.xml'/></Includes><Defines><Define name='B' value='=$A+1'/><Define name='C' value='=$A+1'/></Defines><ArmorTemplate id='ExpressionA' Default='=$B'/><ArmorTemplate id='ExpressionB' Default='=$C'/>" + extraAssets + "</AssetDeclaration>");
         using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
         {
             var schemas = new SchemaSet(false);
             foreach (int value in new[] { 10, 20 })
             {
-                File.WriteAllText(provider, "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><Defines><Define name='A' value='" + value + "'/></Defines></AssetDeclaration>");
+                File.WriteAllText(provider, "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><Defines><Define name='A' value='" + value + "'/>" + extraDefines + "</Defines></AssetDeclaration>");
                 Dictionary<string, string> expected = null;
                 foreach (bool traversalFallback in new[] { false, true })
                 foreach (bool fallback in new[] { false, true })
+                foreach (bool defineFallback in new[] { false, true })
                 {
+                    AppContext.SetSwitch("NewSdk.Compiler.DisableDefineLookupIndex", defineFallback);
                     AppContext.SetSwitch(DisableTraversal, traversalFallback);
-                    AppContext.SetSwitch(Disable, fallback); string label = value + (traversalFallback ? "-legacy-traversal" : "-optimized-traversal") + (fallback ? "-fallback" : "-program");
+                    AppContext.SetSwitch(Disable, fallback); string label = value + (traversalFallback ? "-legacy-traversal" : "-optimized-traversal") + (fallback ? "-fallback" : "-program") + (defineFallback ? "-define-legacy" : "-define-index");
                     settings.OutputDirectory = Path.Combine(work, label, "output"); settings.IntermediateOutputDirectory = Path.Combine(work, label, "intermediate"); settings.SessionCacheDirectory = Path.Combine(work, label, "cache");
                     Directory.CreateDirectory(settings.OutputDirectory); Directory.CreateDirectory(settings.IntermediateOutputDirectory); Directory.CreateDirectory(settings.SessionCacheDirectory);
                     HashProvider.InitializeStringHashes(settings.SessionCacheDirectory); var cache = new SessionCache(); cache.InitializeCache(new List<string>());
@@ -435,26 +442,121 @@ public static class CompilerExpressionPrograms
                     if (expected == null) expected = outputs;
                     Require(expected.All(pair => outputs.ContainsKey(pair.Key) && outputs[pair.Key] == pair.Value), "Real XML expression four outputs differ across traversal/parser paths");
                     Require(fallback ? Number(metrics, "builds") == 0 : Number(metrics, "builds") > 0 && Number(metrics, "hits") > 0, "Actual XML/Define pipeline did not use selected expression program path");
-                    observations.Add(new { id = "real-XML-" + label, metrics, traversal = processor.GetExpressionTraversalMetrics(), outputs });
+                    var defineRows = (IEnumerable)Json.DeserializeObject(Json.Serialize(processor.GetDefineLookupMetrics()));
+                    bool sawRoot = false;
+                    foreach (IDictionary<string, object> row in defineRows)
+                    {
+                        if (!((string)row["sourcePath"]).EndsWith("expressions.xml", StringComparison.OrdinalIgnoreCase)) continue;
+                        sawRoot = true; var scope = (IDictionary<string, object>)row["work"];
+                        Require((bool)scope["scopeDisposed"] && Number(scope, "retainedIndexEntries") == 0 &&
+                            (defineFallback ? Number(scope, "builds") == 0 : Number(scope, "builds") == 1 && Number(scope, "indexQueries") > 0), "Real Core did not use/dispose selected Define lookup scope");
+                    }
+                    Require(sawRoot, "Real Core Define lookup receipt omitted the root");
+                    observations.Add(new { id = "real-XML-" + label, metrics, defineLookup = processor.GetDefineLookupMetrics(), traversal = processor.GetExpressionTraversalMetrics(), outputs });
                 }
             }
         }
-        AppContext.SetSwitch(Disable, false); AppContext.SetSwitch(DisableTraversal, false);
+        AppContext.SetSwitch(Disable, false); AppContext.SetSwitch(DisableTraversal, false); AppContext.SetSwitch("NewSdk.Compiler.DisableDefineLookupIndex", false);
         tests.Add("real-SDK-schema-Armor-XML-imported-Define-change-and-repeat-expression-programs-vs-parser-fallback-four-output-byte-equality");
+    }
+    static void DefineLookupBudgetsAndMeasurement()
+    {
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+        AppContext.SetSwitch("NewSdk.Compiler.DisableDefineLookupIndex", false);
+        foreach (string mode in new[] { "small", "entries", "text", "warmup" })
+        {
+            var document = Bare(Owner(), "define-budget.xml");
+            int count = mode == "entries" ? 65537 : mode == "small" ? 1 : 17;
+            for (int i = 1; i < count; i++)
+            {
+                string key = mode == "text" ? new string('K', 65536) + i : "D" + i.ToString("D6");
+                document.AllDefines[key] = new Definition { Name = key, EvaluatedValue = "1", Document = document };
+            }
+            document.AllDefines["Target"] = new Definition { Name = "Target", EvaluatedValue = "1", Document = document };
+            var xml = new XmlDocument(); xml.LoadXml("<ArmorTemplate id='Budget'/>");
+            for (int i = 0; i < (mode == "warmup" ? 1 : 64); i++) xml.DocumentElement.SetAttribute("P" + i, "=$Target");
+            document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = xml.DocumentElement }); document.ProcessExpressions();
+            var metric = (IDictionary<string, object>)Json.DeserializeObject(Json.Serialize(document.GetDefineLookupMetrics()));
+            string reason = mode == "text" ? "text-budget" : mode == "warmup" ? "query-warmup" : "entry-budget-or-small-scope";
+            Require(Number(metric, "builds") == 0 && Number(metric, "indexQueries") == 0 && (string)metric["scopeReason"] == reason &&
+                (bool)metric["scopeDisposed"] && Number(metric, "retainedIndexEntries") == 0, "Define lookup admission fallback changed: " + mode);
+            observations.Add(new { id = "Define-lookup-budget-" + mode, metric });
+        }
+        var content = new System.Text.StringBuilder("<ArmorTemplate id='Measure'>");
+        for (int i = 0; i < 512; i++) content.Append("<Part A='=$Target' B='=$Target' C='=$Target' D='=$Target' E='=$Target' F='=$Target' G='=$Target' H='=$Target'/>");
+        content.Append("</ArmorTemplate>");
+        var defaultTimes = new List<double>(); var fallbackTimes = new List<double>(); string expected = null;
+        for (int round = 0; round < 7; round++)
+        foreach (bool fallback in round % 2 == 0 ? new[] { false, true } : new[] { true, false })
+        {
+            AppContext.SetSwitch("NewSdk.Compiler.DisableDefineLookupIndex", fallback);
+            var document = Bare(Owner(), "define-measure.xml");
+            for (int i = 0; i < 128; i++) document.AllDefines["D" + i.ToString("D3")] = new Definition { Name = "D" + i.ToString("D3"), EvaluatedValue = "1", Document = document };
+            document.AllDefines["Target"] = new Definition { Name = "Target", EvaluatedValue = "1", Document = document };
+            var xml = new XmlDocument(); xml.LoadXml(content.ToString()); document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = xml.DocumentElement });
+            var timer = Stopwatch.StartNew(); document.ProcessExpressions(); timer.Stop();
+            if (expected == null) expected = xml.OuterXml; Require(expected == xml.OuterXml, "Define lookup measured public traversal changed actual values");
+            var metric = (IDictionary<string, object>)Json.DeserializeObject(Json.Serialize(document.GetDefineLookupMetrics()));
+            Require(fallback ? Number(metric, "indexQueries") == 0 : Number(metric, "builds") == 1 && Number(metric, "indexQueries") > 4000,
+                "Define lookup measurement did not use the requested path");
+            (fallback ? fallbackTimes : defaultTimes).Add(timer.Elapsed.TotalMilliseconds);
+        }
+        AppContext.SetSwitch("NewSdk.Compiler.DisableDefineLookupIndex", false);
+        observations.Add(new { id = "Define-lookup-public-expression-traversal", rounds = 7, reads = 4096, defaultMs = defaultTimes, fallbackMs = fallbackTimes,
+            scope = "Interleaved same-process complete public ProcessExpressions; DOM construction excluded, parser/program behavior held equal; component measurement only, no complete CLI speedup claim" });
+        tests.Add("Define-lookup-entry-text-small-query-budgets-and-seven-interleaved-real-expression-traversal-measurements");
+    }
+    static void DefineLookupDifferential(string baseline, string work, string sourceCommit, string runId)
+    {
+        var original = Json.Deserialize<Dictionary<string, object>>(File.ReadAllText(baseline));
+        Require((bool)original["succeeded"] && (string)original["mode"] == "original" &&
+            (string)original["sourceCommit"] == sourceCommit && (string)original["runId"] == runId, "Original Define lookup identity mismatch");
+        var expected = new List<object>(); foreach (object row in (IEnumerable)original["defineLookups"]) expected.Add(row);
+        Type helper = typeof(CompilerExpressionPrograms).Assembly.GetType("CompilerDocumentSnapshotOracle", true);
+        foreach (bool disabled in new[] { false, true })
+        {
+            AppContext.SetSwitch("NewSdk.Compiler.DisableDefineLookupIndex", disabled);
+            var actual = (object[])helper.GetMethod("DefineLookupCases").Invoke(null, new object[] { work });
+            var measured = (object[])helper.GetMethod("GetDefineLookupCaseMetrics").Invoke(null, null);
+            Require(actual.Length == 52 && expected.Count == actual.Length && measured.Length == actual.Length, "Expected 52 original Define/culture cases");
+            for (int i = 0; i < actual.Length; i++)
+            {
+                Require(Json.Serialize(expected[i]) == Json.Serialize(actual[i]), "Original Define lookup mismatch: " + i + ": " + Json.Serialize(expected[i]) + " != " + Json.Serialize(actual[i]));
+                var row = (IDictionary<string, object>)Json.DeserializeObject(Json.Serialize(actual[i]));
+                var record = (IDictionary<string, object>)Json.DeserializeObject(Json.Serialize(measured[i]));
+                var metric = (IDictionary<string, object>)record["work"];
+                Require((bool)metric["scopeDisposed"] && Number(metric, "retainedIndexEntries") == 0 && !(bool)metric["canAuthorizeReuse"], "Define scope escaped or claimed cache authority");
+                string mode = (string)row["mode"], reason = (string)metric["scopeReason"];
+                if (disabled) Require(Number(metric, "builds") == 0 && Number(metric, "indexQueries") == 0 && reason == "disabled", "Define fallback switch was ignored");
+                else if (mode == "derived" || mode == "comparer") Require(Number(metric, "builds") == 0 && reason == "custom-definition-table-or-comparer", "Custom Define table/comparer was indexed");
+                else if (mode == "prebuilt-culture" && !(bool)row["ordered"]) Require(Number(metric, "builds") == 0 && reason == "definition-key-order-changed", "Old-culture tree lookup was repaired by an index");
+                else
+                {
+                    Require(Number(metric, "builds") == 1 && Number(metric, "indexQueries") > 0, "Actual final-expression Define lookup index was not used: " + mode);
+                    if (mode == "replace" || mode == "remove-readd" || mode == "base-indexer" || mode == "failure")
+                        Require(reason == "definition-table-version-changed" && Number(metric, "versionChecks") > Number(metric, "entries"), "Define mutation after guard EOF was missed: " + mode);
+                    if (mode == "current-rebind" || mode == "table-rebind" || mode == "culture-change") Require(reason == "environment-or-culture-changed", "Changed Define environment retained its index: " + mode);
+                    if (mode == "reenter") Require(reason == "reentrant-scope", "Reentrant Define traversal retained its index");
+                }
+            }
+            observations.Add(new { id = "original-Define-lookup-scope", fallback = disabled, rows = actual.Length, metrics = measured });
+        }
+        AppContext.SetSwitch("NewSdk.Compiler.DisableDefineLookupIndex", false);
+        tests.Add("original-Define-final-expression-scope-52-four-culture-key-equivalence-live-values-base-mutation-EOF-version-current-table-rebind-reentry-error-and-budget-fallback");
     }
     public static int Main(string[] args)
     {
-        object result; int code = 0; var culture = Thread.CurrentThread.CurrentCulture; var settings = Settings.Current; bool disabled, cultureDisabled, traversalDisabled; AppContext.TryGetSwitch(Disable, out disabled); AppContext.TryGetSwitch(DisableCulture, out cultureDisabled); AppContext.TryGetSwitch(DisableTraversal, out traversalDisabled);
+        object result; int code = 0; var culture = Thread.CurrentThread.CurrentCulture; var settings = Settings.Current; bool disabled, cultureDisabled, traversalDisabled; AppContext.TryGetSwitch(Disable, out disabled); AppContext.TryGetSwitch(DisableCulture, out cultureDisabled); AppContext.TryGetSwitch(DisableTraversal, out traversalDisabled); bool defineDisabled; AppContext.TryGetSwitch("NewSdk.Compiler.DisableDefineLookupIndex", out defineDisabled);
         try
         {
             Require(args.Length == 7, "Expected work result sourceCommit runId sdk originalTranscript originalDocumentTranscript"); Settings.Current = new Settings { BuildCache = false, SessionCache = false };
-            Differential(args[5]); TraversalDifferential(args[6], args[2], args[3]); TraversalMeasurement(); ReadAndBudgetCases(); TotalBudgetCases(); WarmFailures(); CultureOwnership(); InterleavedMicrobenchmark(); XmlDifferential(args[0], args[4]);
+            Differential(args[5]); TraversalDifferential(args[6], args[2], args[3]); DefineLookupDifferential(args[6], args[0], args[2], args[3]); DefineLookupBudgetsAndMeasurement(); TraversalMeasurement(); ReadAndBudgetCases(); TotalBudgetCases(); WarmFailures(); CultureOwnership(); InterleavedMicrobenchmark(); XmlDifferential(args[0], args[4]);
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(), scope = "Exact immutable expression programs, original DLL differential and actual semantic read replay; actual SDK-schema XML four-output differentials; synthetic expression contexts do not replace full MOD/SDK acceptance" };
             Console.WriteLine("PASS ExpressionPrograms: " + tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception error)
         { code = 1; Console.Error.WriteLine(error); result = new { succeeded = false, sourceCommit = args.Length > 2 ? args[2] : null, runId = args.Length > 3 ? args[3] : null, checks, tests = tests.ToArray(), observations = observations.ToArray(), error = error.ToString() }; }
-        finally { Settings.Current = settings; Thread.CurrentThread.CurrentCulture = culture; AppContext.SetSwitch(Disable, disabled); AppContext.SetSwitch(DisableCulture, cultureDisabled); AppContext.SetSwitch(DisableTraversal, traversalDisabled); }
+        finally { Settings.Current = settings; Thread.CurrentThread.CurrentCulture = culture; AppContext.SetSwitch(Disable, disabled); AppContext.SetSwitch(DisableCulture, cultureDisabled); AppContext.SetSwitch(DisableTraversal, traversalDisabled); AppContext.SetSwitch("NewSdk.Compiler.DisableDefineLookupIndex", defineDisabled); }
         if (args.Length > 1) File.WriteAllText(args[1], Json.Serialize(result)); return code;
     }
 #endif

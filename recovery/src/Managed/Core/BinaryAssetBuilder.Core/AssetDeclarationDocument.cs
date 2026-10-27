@@ -483,6 +483,15 @@ public class AssetDeclarationDocument : IXmlSerializable
 	private bool _processing;
 
     [NonSerialized] private CompilerSymbolLookup _SymbolLookup;
+    internal object DefineLookupOwner => _Current;
+    [NonSerialized] private CompilerDefineLookup _DefineLookup;
+    [NonSerialized] private CompilerDefineLookup.Work _DefineLookupWork;
+    public object GetDefineLookupMetrics() => _DefineLookupWork == null ? null : _DefineLookupWork.Snapshot();
+    public bool TryGetDefinition(string name, out Definition definition)
+    {
+        return _DefineLookup == null ? AllDefines.TryGetValue(name, out definition) : _DefineLookup.TryGetValue(name, out definition);
+    }
+
     [NonSerialized] private CompilerSymbolLookup.Work _SymbolLookupWork;
     public object GetSymbolLookupMetrics() => _SymbolLookupWork == null ? null : _SymbolLookupWork.Snapshot();
 
@@ -771,49 +780,72 @@ public class AssetDeclarationDocument : IXmlSerializable
 	{
 		CacheInputBoundary.Validate(_Current.SourcePath);
 		FileNameXmlResolver xmlResolver = FileNameResolver.GetXmlResolver(SourceDirectory);
-		if (!File.Exists(_Current.SourcePath))
-		{
-			string s = "<?xml version='1.0' encoding='UTF-8'?>\n<AssetDeclaration xmlns=\"uri:ea.com:eala:asset\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n</AssetDeclaration>";
-			_Current.XmlReader = XmlReader.Create(new StringReader(s));
-		}
-		else
-		{
-            PhysicalInputSnapshot.Entry sealedSource;
-            if (PhysicalInputSnapshot.TryCapture(_Current.SourcePath, out sealedSource))
-                _Current.XmlReader = XmlReader.Create(sealedSource.OpenRead(), new XmlReaderSettings { CloseInput = true }, new Uri(_Current.SourcePath, UriKind.Absolute).AbsoluteUri);
-            else
-				_Current.XmlReader = XmlReader.Create(_Current.SourcePath);
-		}
-		_Current.XmlDocument = new XmlDocument();
-		XmlReader xmlReader = new Mvp.Xml.XInclude.XIncludingReader(_Current.XmlReader)
-		{
-			XmlResolver = xmlResolver
-		};
-		_Current.NodeSourceInfoSet = new LinkedList<XmlNodeWithMetaData>();
+		XmlReader sourceReader = null, xmlReader = null;
+        XmlDocument document = null;
+        bool subscribed = false;
+        Exception primary = null;
 		try
 		{
-			bool flag = _Current.LogicalSourcePath.EndsWith(".xml");
-			if (flag)
+            if (!File.Exists(_Current.SourcePath))
+            {
+                string s = "<?xml version='1.0' encoding='UTF-8'?>\n<AssetDeclaration xmlns=\"uri:ea.com:eala:asset\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n</AssetDeclaration>";
+                sourceReader = XmlReader.Create(new StringReader(s));
+            }
+            else
+            {
+                PhysicalInputSnapshot.Entry sealedSource;
+                if (PhysicalInputSnapshot.TryCapture(_Current.SourcePath, out sealedSource))
+                {
+                    Stream input = sealedSource.OpenRead();
+                    try { sourceReader = XmlReader.Create(input, new XmlReaderSettings { CloseInput = true }, new Uri(_Current.SourcePath, UriKind.Absolute).AbsoluteUri); }
+                    catch (Exception creationFailure)
+                    {
+                        try { input.Dispose(); }
+                        catch (Exception cleanup) { try { creationFailure.Data["Core.XmlReaderCleanupFailure"] = cleanup; } catch { } }
+                        throw;
+                    }
+                }
+                else sourceReader = XmlReader.Create(_Current.SourcePath);
+            }
+            _Current.XmlReader = sourceReader;
+            document = _Current.XmlDocument = new XmlDocument();
+            xmlReader = new Mvp.Xml.XInclude.XIncludingReader(sourceReader) { XmlResolver = xmlResolver };
+            _Current.NodeSourceInfoSet = new LinkedList<XmlNodeWithMetaData>();
+            // Keep the original parsing-only error wrappers. Reader creation
+            // failures retain their existing exception type and ordering.
+            try
 			{
-				_Current.XmlDocument.NodeInserted += NodeInsertedHandler;
+                if (_Current.LogicalSourcePath.EndsWith(".xml"))
+                {
+                    document.NodeInserted += NodeInsertedHandler;
+                    subscribed = true;
+                }
+                document.Load(xmlReader);
 			}
-			_Current.XmlDocument.Load(xmlReader);
-			if (flag)
+            catch (XmlSchemaValidationException innerException)
 			{
-				_Current.XmlDocument.NodeInserted -= NodeInsertedHandler;
+				throw new BinaryAssetBuilderException(innerException, ErrorCode.SchemaValidation);
 			}
+            catch (XmlException innerException)
+            {
+                throw new BinaryAssetBuilderException(innerException, ErrorCode.XmlFormattingError);
+            }
 		}
-		catch (XmlSchemaValidationException innerException)
-		{
-			throw new BinaryAssetBuilderException(innerException, ErrorCode.SchemaValidation);
-		}
-		catch (XmlException innerException2)
-		{
-			throw new BinaryAssetBuilderException(innerException2, ErrorCode.XmlFormattingError);
-		}
+        catch (Exception error) { primary = error; throw; }
 		finally
 		{
-			_Current.XmlReader.Close();
+            // Retain local owners: callbacks can replace _Current or its DOM.
+            // Closing the base alone cannot close an active nested include.
+            if (subscribed) document.NodeInserted -= NodeInsertedHandler;
+            Exception cleanup = null;
+            try { if (xmlReader != null) xmlReader.Close(); } catch (Exception error) { cleanup = error; }
+            try { if (sourceReader != null && sourceReader.ReadState != ReadState.Closed) sourceReader.Close(); }
+            catch (Exception error) { if (cleanup == null) cleanup = error; }
+            if (cleanup != null)
+            {
+                if (primary == null) System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(cleanup).Throw();
+                else try { primary.Data["Core.XmlReaderCleanupFailure"] = cleanup; } catch { }
+            }
 		}
 		if (updateDependentFiles)
 		{
@@ -1098,6 +1130,12 @@ public class AssetDeclarationDocument : IXmlSerializable
         DocumentProcessor workOwner = _Current.DocumentProcessor;
         var work = new DocumentProcessor.ExpressionTraversalWork();
         bool succeeded = false;
+        CompilerDefineLookup previousLookup = _DefineLookup;
+        string defineSource = ObservationSourcePath;
+        if (previousLookup != null) previousLookup.Reentered();
+        var defineWork = new CompilerDefineLookup.Work();
+        var defineLookup = new CompilerDefineLookup(this, AllDefines, defineWork, previousLookup != null);
+        _DefineLookup = defineLookup;
         try
         {
             foreach (InstanceDeclaration selfInstance in SelfInstances)
@@ -1112,7 +1150,13 @@ public class AssetDeclarationDocument : IXmlSerializable
             }
             succeeded = true;
         }
-        finally { workOwner?.RecordExpressionTraversal(work, succeeded); }
+        finally
+        {
+            _DefineLookup = previousLookup;
+            defineLookup.Dispose(); _DefineLookupWork = defineWork;
+            workOwner?.RecordDefineLookupWork(this, defineSource);
+            workOwner?.RecordExpressionTraversal(work, succeeded);
+        }
 	}
 
     private static bool StandardExpressionNode(XmlNode node)

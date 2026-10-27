@@ -16,7 +16,7 @@ public class ExpressionEvaluator : IExpressionEvaluator
 	{
 		name = name.Remove(0, 1);
 		Definition value = null;
-		if (_Document.AllDefines.TryGetValue(name, out value) && value.EvaluatedValue != null)
+		if (_Document.TryGetDefinition(name, out value) && value.EvaluatedValue != null)
 		{
 			if (value.Document != _Document)
 			{

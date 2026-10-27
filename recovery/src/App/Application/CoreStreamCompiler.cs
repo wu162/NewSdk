@@ -662,6 +662,7 @@ namespace NewModCompiler.Application
                     baseManifest = processor == null ? null : processor.GetBaseManifestWorkMetrics(),
                     stableSortMembership = processor == null ? null : processor.GetStableSortMembershipMetrics(),
                     symbolLookup = processor == null ? null : processor.GetSymbolLookupMetrics(),
+                    defineLookup = processor == null ? null : processor.GetDefineLookupMetrics(),
                     nodeJoinerPredecessors = processor == null ? null : processor.GetNodeJoinerPredecessorMetrics(),
                     expressionPrograms = processor == null ? null : processor.GetExpressionProgramMetrics(),
                     expressionTraversal = processor == null ? null : processor.GetExpressionTraversalMetrics(),

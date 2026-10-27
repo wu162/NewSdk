@@ -199,7 +199,7 @@ jobs:
           $failures=@();$checks=@()
           # Only Core-only probes can bind to this module. App-dependent probes
           # keep their full production-host compilation/runtime gate below.
-          foreach($name in @('CompilerNodeJoiner','CompilerDocumentMetadata','CompilerDocumentSnapshotOracle','CompilerSymbolLookup','CompilerHashingWriter','CompilerInputDigests')) {
+          foreach($name in @('CompilerNodeJoiner','CompilerDocumentMetadata','CompilerDocumentSnapshotOracle','CompilerSymbolLookup','CompilerHashingWriter','CompilerInputDigests','CompilerPhysicalInputs')) {
             $source="recovery/tests/$name.cs"
             $arguments=@('/nologo','/noconfig','/nostdlib+','/target:library','/langversion:7.3','/codepage:65001','/platform:x86',('/out:'+(Join-Path $out ($name+'.dll'))),('/addmodule:'+$module),('/r:'+(Join-Path $PWD 'SDK/tools/antlr.runtime.dll')))
             foreach($reference in @($manifest.frameworkReferences)+@('System.Web.Extensions')){$arguments+=('/r:'+(Join-Path $refs ($reference+'.dll')))}

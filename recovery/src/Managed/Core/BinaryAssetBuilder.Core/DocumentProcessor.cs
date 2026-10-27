@@ -164,6 +164,17 @@ public class DocumentProcessor
         _SymbolLookupSnapshots.Values.CopyTo(result, 0); return result;
     }
 
+    private readonly Dictionary<AssetDeclarationDocument, object> _DefineLookupSnapshots = new Dictionary<AssetDeclarationDocument, object>(new DocumentReferenceComparer());
+    internal void RecordDefineLookupWork(AssetDeclarationDocument document, string sourcePath)
+    {
+        _DefineLookupSnapshots[document] = new { sourcePath, work = document.GetDefineLookupMetrics() };
+    }
+    public object[] GetDefineLookupMetrics()
+    {
+        var result = new object[_DefineLookupSnapshots.Count];
+        _DefineLookupSnapshots.Values.CopyTo(result, 0); return result;
+    }
+
     private long _NodeJoinerCalls, _NodeJoinerIndexedCalls, _NodeJoinerBuilds, _NodeJoinerEntries, _NodeJoinerQueries, _NodeJoinerLinearQueries;
     internal void RecordNodeJoinerPredecessors(bool enabled, long builds, long entries, long queries, long linearQueries)
     {
