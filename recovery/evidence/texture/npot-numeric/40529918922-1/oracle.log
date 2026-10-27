@@ -1,0 +1,1 @@
+PROBE Texture D3DX numeric tables=15 taps=1851 checks=2481; original-only weights/constants/vtables/dither; process-heap ownership preserved; no recovered acceptance

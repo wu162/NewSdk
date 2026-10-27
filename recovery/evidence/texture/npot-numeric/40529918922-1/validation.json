@@ -1,0 +1,123 @@
+{
+  "tableFiles": [
+    {
+      "name": "rva-98080.bin",
+      "sha256": "6c61d9fc8dd5eca3c18db8abeec5e119e0147bf766bce28d8fcaedb22fd1a929",
+      "bytes": 64
+    },
+    {
+      "name": "rva-98080.tsv",
+      "sha256": "d4e0c477546dbba8fe0c5405dc908f8faaec184481643bdf8b2f56b256b8bd41",
+      "bytes": 565
+    },
+    {
+      "name": "rva-99280.bin",
+      "sha256": "28c282ba0a660fbd0cfff97efc59e8bdeccb424ee5f106496c997e0f4f95e871",
+      "bytes": 3456
+    },
+    {
+      "name": "rva-99280.tsv",
+      "sha256": "42237f989d31ee8d6273066d6284c4427945c840b21665f6fa7b74741f6058ca",
+      "bytes": 35227
+    },
+    {
+      "name": "rva-b8fc8.bin",
+      "sha256": "bc2a0662dcc0fe1ed22293c8219dd0301fea4d41999b8b35cb69b714863ce7c2",
+      "bytes": 256
+    },
+    {
+      "name": "rva-b8fc8.tsv",
+      "sha256": "d6832d74c825099785f25b1364a859771384f43e34bd8c6c58d2a1f9cd190875",
+      "bytes": 2266
+    },
+    {
+      "name": "weights-1-1.bin",
+      "sha256": "b92899dc2394d951cf0084b147359ffee83551651317423ca393fcf4503bc26a",
+      "bytes": 16
+    },
+    {
+      "name": "weights-127-128.bin",
+      "sha256": "ceff70a22c4f710f37522d33efc8a648cdd187004f20e4f3d6f859f4d5b84fd9",
+      "bytes": 3568
+    },
+    {
+      "name": "weights-15-16.bin",
+      "sha256": "aaa2b16fee9d5fcb56980c679b54641937f69158c15e83f76283cae31ceaa365",
+      "bytes": 432
+    },
+    {
+      "name": "weights-17-32.bin",
+      "sha256": "bca82be25c61a486b1491b2d4a8db05612bef2f8c34456138d578cbd553ed1b2",
+      "bytes": 712
+    },
+    {
+      "name": "weights-2-2.bin",
+      "sha256": "fb8e758b0a56cbae657a19af06861ba9b3bc47019ad982a63142e10a680d5a52",
+      "bytes": 60
+    },
+    {
+      "name": "weights-255-256.bin",
+      "sha256": "06c6d4f0e245c81d7ddb5db089ded3931a7f0d08e7a69677dc79a8a629503fe0",
+      "bytes": 7136
+    },
+    {
+      "name": "weights-3-4.bin",
+      "sha256": "73c17d00c44c1621b1822765c7a804d0e91335358ba588f6b197eb41ccf76467",
+      "bytes": 96
+    },
+    {
+      "name": "weights-31-32.bin",
+      "sha256": "335f2c509d01b5482ba8ae1ae028c1a7345cedfa9c271ffa2f1f99771db720dc",
+      "bytes": 880
+    },
+    {
+      "name": "weights-33-64.bin",
+      "sha256": "21d44d43ea792c8160f0a640fce048a8e2076f93792093792b5030294586ea42",
+      "bytes": 1416
+    },
+    {
+      "name": "weights-4-4.bin",
+      "sha256": "b2825bc4780dbd1276a3f96788898b4733213b9be3aa260b4938748e4c2125f3",
+      "bytes": 116
+    },
+    {
+      "name": "weights-5-8.bin",
+      "sha256": "dc8d956ed89763ad42780f7a7631f43542d07c3307660f92f26c8fc0265a3130",
+      "bytes": 184
+    },
+    {
+      "name": "weights-63-64.bin",
+      "sha256": "28f35e80ecaf6da63321cd4e74caacb27570172937e51b2d20c63c04129e19e2",
+      "bytes": 1776
+    },
+    {
+      "name": "weights-7-8.bin",
+      "sha256": "0ffbf3d2028aaff2141a9976de4582fc8c15340f86cba1b9a496dbb6213a81ec",
+      "bytes": 208
+    },
+    {
+      "name": "weights-8-8.bin",
+      "sha256": "ea31fbd7a1189ac570672a9bb3bbdc02241f1dcd68f84702d8e2f5add39ec352",
+      "bytes": 228
+    },
+    {
+      "name": "weights-9-16.bin",
+      "sha256": "b8a54eaf052a77f04b4960fcab8417ca0658263216c21cca3e192353ac9dbc07",
+      "bytes": 360
+    },
+    {
+      "name": "weights.tsv",
+      "sha256": "b56e290c73b2240648793c0aa8cf13ccb61c4fbbe6b52ea7cee90768651dd717",
+      "bytes": 63906
+    }
+  ],
+  "probeOnly": true,
+  "runId": "40529918922",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "evidenceOnly": true,
+  "sourceCommit": "678db0127a2ea3620700b44e46093dd6dc2050d1",
+  "status": "probe-only",
+  "scope": "original-only PC D3DX contribution bit patterns, numeric constants, format vtables and initialized dither tables; no recovered acceptance"
+}
