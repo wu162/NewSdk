@@ -1,5 +1,19 @@
 # 编译器优化：当前交接
 
+## 第五轮进行中（2026-10-27 19:39，北京时间）
+
+本轮用户要求尽量持续推进110分钟、通常2个子代理、全部编译/测试仅Actions，不自行合并；新增要求允许取Upheaval小样例但控制编译成本。
+当前候选 `00fe3e7b` 已推送完整验收，**未标通过**；此前正式接受点及严格复用pin仍为下文60/40491888271。
+
+- W06新增文档LastState/声明wrapper及Define/include/output可变元数据隔离；原DLL公共缓存生命周期独立复现，派生图与旧开关回退保留。另只共享有positive ownership证明的私有saved声明值，恢复Current仍复制，动态旧Handle开关先detach；新开关`DisableSharedDocumentDeclarations`回退deep-copy。
+- 原SDK DOM事件可改兄弟id/顺序；NodeJoiner候选修复在相关外部变化后永久回退legacy并解绑，保留自己的增删更新及原属性读取门槛。未放开并行。
+- 4份完整Upheaval原文件+3份明确synthetic Include/Define/继承适配器，7资产、无Art/Texture/Audio依赖；新增cold/warm/persisted/fallback与独立原BAB门槛，原字节/闭包预检位于长编译之前。
+- 三流precompiled/patch/StringHashes候选变化事务组使用显式fixture-only Core配置/consumer注入，未增加CLI选项。早期失败为重复`tl`及原事件payload对象被测试直接转字典，均已修测试，保留生产重复参数拒绝。
+- `.asset/.cdata`直接封存尝试`4723489b`因会阻断坏缓存修复/删除/重试，已由`ebb3d48d`完整撤回；仅保留active snapshot下原坏缓存可修复的真实回归，不能称BinaryAsset读取闭包已完成。
+- `40498587962`、`40499175807`定向组两配置的文档/metadata已通过但整组失败；`40499706053`新增Upheaval输出已走过cold/warm/persisted比较，后因fixture混合路径查询键失败，已改为resolver同一Canonicalize并保留/加强确切继承断言。准确失败与artifact哈希后续写VALIDATION。
+
+以下是上一轮已接受身份；本轮最终交接将替换此进行中小节。
+
 更新：2026-10-27，北京时间；第四轮17:39开始，用户要求每轮最多120分钟、尽量跑满持续推进，通常2个子代理（本轮2个）；效率优先，正确性是底线。
 成果集中`feature/compiler-optimization`；不强推、不自行合并，[PR #15](https://github.com/wu162/NewSdk/pull/15)保持草稿。全部编译/测试/微基准仅用GitHub Actions。
 方案与边界：[README.md](README.md)；准确哈希、计量与保留失败：[VALIDATION.md](VALIDATION.md)。
