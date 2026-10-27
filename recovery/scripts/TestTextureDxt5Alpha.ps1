@@ -7,6 +7,8 @@ New-Item -ItemType Directory -Force $out,$work | Out-Null
 $out=(Resolve-Path $out).Path
 $r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;group='dxt5-alpha';probeOnly=$false;scope='DXT5 production alpha subcomponent only; no colour/plugin/SDK acceptance';status='started';sdkValidated=$false;configurations=@();originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.TextureCompiler.dll -Algorithm SHA256).Hash.ToLowerInvariant()}
 $r.sourceFiles=@(Get-ChildItem src/TextureCompiler/Managed -File | Where-Object {$_.Extension -in '.cs','.csproj'} | Sort-Object FullName | ForEach-Object {@{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/');sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
+$r.nativeSourceFiles=@(Get-ChildItem src/TextureCompiler/Dxt -File | Sort-Object FullName | ForEach-Object {@{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/');sha256=(Get-FileHash $_.FullName).Hash.ToLowerInvariant()}})
+$r.nativeBinaries=@()
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 35;throw "$name failed"};Get-Content "$out/$name.log" | Where-Object {$_ -match '^(PASS|PROBE) '}}
 try{
  Copy-Item SDK/tools/*.dll $work
@@ -16,6 +18,12 @@ try{
   Checked "$mode-build" {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c $mode -o "$work/build-$mode" --nologo}
   $nativeOpt=if($mode -eq 'Release'){'/O2'}else{'/Od'}
   Checked "$mode-native-build" {& cl /nologo /LD /MT /fp:strict /GS- $nativeOpt /Fo"$work/quantizer-$mode.obj" (Resolve-Path src/TextureCompiler/Dxt/TextureAlphaQuantizer.cpp).Path /link /NODEFAULTLIB /NOENTRY /OUT:"$work/Recovered.TextureDxtAlpha.dll" /IMPLIB:"$work/quantizer-$mode.lib"}
+  $nativeBytes=[IO.File]::ReadAllBytes("$work/Recovered.TextureDxtAlpha.dll")
+  $pe=[BitConverter]::ToInt32($nativeBytes,0x3c)
+  if([BitConverter]::ToUInt16($nativeBytes,$pe+4) -ne 0x14c){throw 'Native helper must be x86'}
+  if([BitConverter]::ToUInt32($nativeBytes,$pe+40) -ne 0){throw 'Native helper must have no CRT/DllMain entry point'}
+  if([BitConverter]::ToUInt32($nativeBytes,$pe+128) -ne 0){throw 'Native helper must not import external functions'}
+  $r.nativeBinaries+=@{configuration=$mode;sha256=(Get-FileHash "$work/Recovered.TextureDxtAlpha.dll").Hash.ToLowerInvariant();machine='I386';entryPoint=0;importDirectory=0}
   Copy-Item "$work/build-$mode/Recovered.BinaryAssetBuilder.TextureCompiler.dll" $work -Force
   $dll="$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll"
   $opt=if($mode -eq 'Release'){'/optimize+'}else{'/optimize-'}
