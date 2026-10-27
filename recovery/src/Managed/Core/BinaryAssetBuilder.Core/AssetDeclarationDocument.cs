@@ -1755,7 +1755,11 @@ public class AssetDeclarationDocument : IXmlSerializable
             finally { if (metricOwner != null) metricOwner.RecordBaseManifestWork(this, metricSource); }
 		}
 		_Tracer.TraceInfo("Sorting by schema dependencies");
-		TypeDepCompare typeDepCompare = new TypeDepCompare(_Current.DocumentProcessor.SchemaSet.AssetDependencies);
+        // The last trace may replace the processor's SchemaSet. Admission must
+        // inspect the exact map already captured by this comparer, not a later
+        // property value that the insertion loop will never consult.
+        IDictionary<uint, int> typeDependencies = _Current.DocumentProcessor.SchemaSet.AssetDependencies;
+		TypeDepCompare typeDepCompare = new TypeDepCompare(typeDependencies);
 		_Current.OutputInstances.Sort(typeDepCompare);
 		_Tracer.TraceInfo("Sorting by asset dependencies");
         DocumentProcessor membershipMetricOwner = _Current.DocumentProcessor; string membershipMetricSource = _Current.SourcePath;
@@ -1765,7 +1769,7 @@ public class AssetDeclarationDocument : IXmlSerializable
             bool safeOwner = GetType() == typeof(AssetDeclarationDocument) && _Current.UseStreamBindingResults &&
                 _Current.StreamBindings != null && _Current.StreamBindings.Comparer.GetType() == typeof(DeclarationReferenceComparer);
             CompilerStableSortMembership membership = CompilerStableSortMembership.Create(safeOwner, _Current.StreamBindings,
-                _Current.OutputInstances, finalList, _Current.DocumentProcessor.SchemaSet.AssetDependencies, _StableSortMembershipWork);
+                _Current.OutputInstances, finalList, typeDependencies, _StableSortMembershipWork);
             foreach (InstanceDeclaration outputInstance in _Current.OutputInstances)
             {
                 int index = StableSort_CalcInsertPositionCore(finalList, outputInstance, typeDepCompare, this, membership);
