@@ -198,6 +198,89 @@ public static class CompilerDocumentSnapshots
         Require(Xml(unknown) == unknownBefore, "Unknown serialized source was mutated through a copied declaration");
         tests.Add("sealed-private-saved-transfer-sharing-deep-copy-fallback-current-mutation-recapture-and-dynamic-Handle-switch-isolation");
     }
+    static List<AssetDeclarationDocument> TransferChain(AssetDeclarationDocument source, int count)
+    {
+        var documents = new List<AssetDeclarationDocument>(count);
+        AssetDeclarationDocument previous = source;
+        for (int index = 0; index < count; index++)
+        {
+            var next = new AssetDeclarationDocument(); next.CacheFromDocument(previous);
+            documents.Add(next); previous = next;
+        }
+        return documents;
+    }
+    static int DistinctSavedGraphs(IEnumerable<AssetDeclarationDocument> documents)
+    {
+        var graphs = new HashSet<object>();
+        foreach (var document in documents)
+        {
+            object last = typeof(AssetDeclarationDocument).GetField("_Last", Hidden).GetValue(document);
+            foreach (var declaration in (List2<InstanceDeclaration>)last.GetType().GetField("SelfInstances").GetValue(last))
+                graphs.Add(Saved(declaration));
+        }
+        return graphs.Count;
+    }
+    static void BoundedTransferMeasurement()
+    {
+        const int declarations = 32, transfers = 20, rounds = 7;
+        AppContext.SetSwitch(Disable, false); AppContext.SetSwitch(HandleDisable, false); AppContext.SetSwitch(ShareDisable, false);
+        var source = BareDocument("bounded-component-transfer");
+        for (int index = 0; index < declarations; index++)
+        {
+            var instance = Instance(source, "Owner" + index.ToString("D2"));
+            instance.ReferencedInstances.Add(instance.ReferencedInstances[0]);
+            instance.WeakReferencedInstances.Add(instance.ReferencedInstances[0]);
+            instance.ReferencedInstances.Add(new InstanceHandle("UpgradeTemplate", "Extra" + index));
+        }
+        source.MakeCacheable(); string before = Xml(source), changed = null;
+        // Verify both paths before taking any timings. Include serialization,
+        // Current restore/aliases, completion, mutation and a new saved result.
+        foreach (bool deepCopy in new[] { false, true })
+        {
+            AppContext.SetSwitch(ShareDisable, deepCopy); var chain = TransferChain(source, 3);
+            Require(chain.All(document => Xml(document) == before), "Measurement precheck changed saved XML");
+            var receiver = chain[2]; receiver.FromLastHack();
+            Require(receiver.SelfInstances.Count == declarations &&
+                Object.ReferenceEquals(receiver.SelfInstances[0].ReferencedInstances[0], receiver.SelfInstances[0].ReferencedInstances[1]) &&
+                Object.ReferenceEquals(receiver.SelfInstances[0].ReferencedInstances[0], receiver.SelfInstances[0].WeakReferencedInstances[0]),
+                "Measurement precheck lost restored declaration count or Handle aliases");
+            receiver.SelfInstances[0].ReferencedInstances[0].TypeHash ^= 0x24681357;
+            receiver.MakeComplete(); receiver.SelfInstances[0].ProcessingHash = 123456; receiver.MakeCacheable();
+            string actual = Xml(receiver); if (changed == null) changed = actual;
+            Require(actual == changed && actual != before && Xml(source) == before && Xml(chain[0]) == before && Xml(chain[1]) == before,
+                "Measurement paths disagree on mutable Current/recapture isolation");
+        }
+        var samples = new List<object>(); var sharedTicks = new List<long>(); var deepTicks = new List<long>();
+        for (int round = 0; round < rounds; round++)
+        {
+            bool[] order = round % 2 == 0 ? new[] { false, true } : new[] { true, false };
+            for (int position = 0; position < order.Length; position++)
+            {
+                bool deepCopy = order[position]; AppContext.SetSwitch(ShareDisable, deepCopy);
+                // The timed operation consists only of public cache transfers;
+                // reflection, XML, identity enumeration and assertions stay out.
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                var chain = TransferChain(source, transfers);
+                watch.Stop();
+                int graphs = DistinctSavedGraphs(new[] { source }.Concat(chain));
+                Require(graphs == (deepCopy ? declarations * (transfers + 1) : declarations), "Measured saved graph work did not match the selected algorithm");
+                Require(Xml(chain[transfers - 1]) == before && Xml(source) == before, "Measured transfer changed saved XML");
+                (deepCopy ? deepTicks : sharedTicks).Add(watch.ElapsedTicks);
+                samples.Add(new { round, position, deepCopyFallback = deepCopy, elapsedTicks = watch.ElapsedTicks,
+                    elapsedMs = watch.ElapsedTicks * 1000.0 / System.Diagnostics.Stopwatch.Frequency,
+                    retainedDocumentCount = transfers + 1, observedDistinctPrivateSavedGraphs = graphs });
+            }
+        }
+        sharedTicks.Sort(); deepTicks.Sort();
+        evidence.Add(new { id = "bounded-public-document-transfer-component-measurement", declarations, transfersPerSample = transfers, rounds,
+            stopwatchFrequency = System.Diagnostics.Stopwatch.Frequency, stopwatchIsHighResolution = System.Diagnostics.Stopwatch.IsHighResolution,
+            medianSharedTicks = sharedTicks[rounds / 2], medianDeepCopyTicks = deepTicks[rounds / 2],
+            medianSharedMs = sharedTicks[rounds / 2] * 1000.0 / System.Diagnostics.Stopwatch.Frequency,
+            medianDeepCopyMs = deepTicks[rounds / 2] * 1000.0 / System.Diagnostics.Stopwatch.Frequency, samples = samples.ToArray(),
+            scope = "32 fixed declarations; 20 public saved-cache transfers per sample; seven alternating-order rounds. Distinct graphs count only reachable private saved results in retained source/transfer documents. Timings include transfer wrappers and containers, exclude XML, restore and reflection; no forced GC, speed assertion, CLI speedup or memory-peak claim" });
+        AppContext.SetSwitch(ShareDisable, false);
+        tests.Add("bounded-interleaved-public-cache-transfer-component-work-and-raw-timing-samples-after-lifecycle-equivalence");
+    }
     static Settings Configure()
     {
         var config = new XmlDocument(); config.Load(Path.Combine(sdk, "tools/BinaryAssetBuilder.exe.config"));
@@ -283,6 +366,7 @@ public static class CompilerDocumentSnapshots
             SharedSavedBoundaries();
             foreach (bool deepCopy in new[] { false, true }) { AppContext.SetSwitch(ShareDisable, deepCopy); PublicCacheBoundaries(); UnsupportedFallbacks(); }
             RealCore();
+            BoundedTransferMeasurement();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), evidence = evidence.ToArray(),
                 scope = "Document declaration cache ownership across save/copy/restore/complete/recapture; derived graphs and opt-out remain legacy; not immutable DOM/SchemaInfo or a confirmed CLI fault" };
             Console.WriteLine("PASS DocumentSnapshots: " + tests.Count + " groups; " + checks + " checks");
