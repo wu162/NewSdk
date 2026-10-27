@@ -446,6 +446,33 @@ public static class CompilerNodeJoiner
             samples = samples.ToArray(), scope = "Complete public NodeJoiner merge only; excludes source parse/validation/XML comparison, no CLI speed or significance claim" });
         tests.Add("interleaved-seven-round-wide-predecessor-public-merge-timing-with-exact-original-XML-and-no-speed-assertion");
     }
+    static void PredecessorOwnerMetrics()
+    {
+        var before = new StringBuilder();
+        for (int index = 0; index < 64; index++) before.Append("<W").Append(index).Append(" id='b").Append(index).Append("'/>");
+        const string after = "<W32 id='new'/><W0 id='first'/>";
+        string expected = original.Run("Wide", before.ToString(), after, "").Outcome;
+        bool previous; AppContext.TryGetSwitch("NewSdk.Compiler.DisableNodeJoinerPredecessors", out previous);
+        try
+        {
+            foreach (bool disabled in new[] { false, true })
+            {
+                AppContext.SetSwitch("NewSdk.Compiler.DisableNodeJoinerPredecessors", disabled);
+                var owner = new DocumentProcessor(new Settings(), new PluginRegistry(new PluginDescriptor[0], BinaryAssetBuilder.TargetPlatform.Win32), null);
+                XmlNode result = (XmlNode)typeof(NodeJoiner).GetMethod("OverrideWithWork", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null,
+                    new object[] { schemas, new XmlDocument(), Document("Wide", before.ToString()).DocumentElement, Document("Wide", after).DocumentElement, owner });
+                var serializer = new JavaScriptSerializer();
+                var metrics = serializer.Deserialize<Dictionary<string, object>>(serializer.Serialize(owner.GetNodeJoinerPredecessorMetrics()));
+                Require("XML:" + result.OuterXml == expected && Convert.ToInt64(metrics["calls"]) == 1 &&
+                    Convert.ToInt64(metrics["optimizationEnabledCalls"]) == (disabled ? 0 : 1), "Owned predecessor call/output diagnostics mismatch");
+                Require(Convert.ToInt64(metrics[disabled ? "linearQueries" : "indexQueries"]) > 0 &&
+                    (!disabled || Convert.ToInt64(metrics["indexQueries"]) == 0), "Owned predecessor actual query work missing");
+                observations.Add(new { id = "owner-predecessor-actual-query-work", disabled, metrics });
+            }
+        }
+        finally { AppContext.SetSwitch("NewSdk.Compiler.DisableNodeJoinerPredecessors", previous); }
+        tests.Add("actual-owner-NodeJoiner-merge-scalar-report-counter-and-disabled-legacy-query-path");
+    }
     public static int Main(string[] args)
     {
         int code = 0; object result; AppDomain baselineDomain = null;
@@ -461,7 +488,7 @@ public static class CompilerNodeJoiner
             original = (LegacyNodeJoinerDomain)baselineDomain.CreateInstanceFromAndUnwrap(typeof(LegacyNodeJoinerDomain).Assembly.Location, typeof(LegacyNodeJoinerDomain).FullName);
             string baselineAssembly = original.Initialize(library);
             Require(baselineAssembly.StartsWith("BinaryAssetBuilder.Core,", StringComparison.Ordinal), "Isolated original SDK assembly identity mismatch");
-            schemas = Schema(); Semantics(); DuplicateIndexSemantics(); DynamicCallbacks(); PrefixNameMatching(); WorkReduction(); PredecessorPlans(); PredecessorMeasurement();
+            schemas = Schema(); Semantics(); DuplicateIndexSemantics(); DynamicCallbacks(); PrefixNameMatching(); WorkReduction(); PredecessorPlans(); PredecessorMeasurement(); PredecessorOwnerMetrics();
             AppDomain.Unload(baselineDomain); baselineDomain = null; original = null;
             foreach (Assembly loaded in AppDomain.CurrentDomain.GetAssemblies())
                 Require(!loaded.GetName().Name.Equals("BinaryAssetBuilder.Core", StringComparison.Ordinal), "Original Core escaped the disposable baseline AppDomain");

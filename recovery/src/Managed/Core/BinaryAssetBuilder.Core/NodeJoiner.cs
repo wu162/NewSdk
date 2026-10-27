@@ -30,12 +30,18 @@ public class NodeJoiner
 	private readonly bool m_useChildIndex;
 
     private readonly bool m_usePredecessorNames;
-    private long m_predecessorBuilds, m_predecessorEntries, m_predecessorQueries;
+    private long m_predecessorBuilds, m_predecessorEntries, m_predecessorQueries, m_predecessorLinearQueries;
 
-	public static XmlNode Override(XmlSchemaSet docSchema, XmlDocument document, XmlNode baseNode, XmlNode overrideNode)
-	{
+    public static XmlNode Override(XmlSchemaSet docSchema, XmlDocument document, XmlNode baseNode, XmlNode overrideNode)
+    {
+        return OverrideWithWork(docSchema, document, baseNode, overrideNode, null);
+    }
+    internal static XmlNode OverrideWithWork(XmlSchemaSet docSchema, XmlDocument document, XmlNode baseNode, XmlNode overrideNode, DocumentProcessor owner)
+    {
 		XmlNode xmlNode = document.CreateNode(baseNode.NodeType, baseNode.Name, baseNode.NamespaceURI);
 		NodeJoiner nodeJoiner = new NodeJoiner(docSchema, document);
+        try
+        {
 		JoinAction joinAction = JoinAction.Append;
 		nodeJoiner.GetJoinAction(overrideNode, ref joinAction);
 		switch (joinAction)
@@ -51,6 +57,12 @@ public class NodeJoiner
 		}
 		nodeJoiner.ReplaceXmlNode(xmlNode, overrideNode, null, parentsMatch: false, joinAction);
 		return xmlNode;
+        }
+        finally
+        {
+            owner?.RecordNodeJoinerPredecessors(nodeJoiner.m_usePredecessorNames, nodeJoiner.m_predecessorBuilds,
+                nodeJoiner.m_predecessorEntries, nodeJoiner.m_predecessorQueries, nodeJoiner.m_predecessorLinearQueries);
+        }
 	}
 
 	// One parent's children, owned by one recursive merge call. Keys deliberately
@@ -383,8 +395,9 @@ public class NodeJoiner
         return names;
     }
 
-    private bool IsPredecessor(HashSet<string> names, XmlNode child)
+    private bool IsPredecessor(XmlSchemaComplexType type, XmlNode child, XmlSchemaElement target, HashSet<string> names)
     {
+        if (names == null) { m_predecessorLinearQueries++; return FindPrevNode(type, child, target); }
         m_predecessorQueries++;
         return names.Contains(child.Name);
     }
@@ -440,7 +453,7 @@ public class NodeJoiner
 					{
 						break;
 					}
-					if (parentType != null && (predecessorNames != null ? IsPredecessor(predecessorNames, childNode) : FindPrevNode(parentType, childNode, element)))
+					if (parentType != null && IsPredecessor(parentType, childNode, element, predecessorNames))
 					{
 						refChild = childNode;
 					}

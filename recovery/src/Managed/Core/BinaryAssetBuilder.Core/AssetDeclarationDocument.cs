@@ -1247,7 +1247,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			}
             DependencyObservationLog.RecordInheritance(this, instance, instanceDeclaration, location,
                 location == FindLocation.Self ? "SameDocumentPrevalidation" : "IncludedDocumentProcessed");
-			XmlNode xmlNode2 = NodeJoiner.Override(_Current.DocumentProcessor.SchemaSet.Schemas, XmlDocument, xmlNode, instance.XmlNode);
+			XmlNode xmlNode2 = NodeJoiner.OverrideWithWork(_Current.DocumentProcessor.SchemaSet.Schemas, XmlDocument, xmlNode, instance.XmlNode, _Current.DocumentProcessor);
 			XmlNode parentNode = instance.XmlNode.ParentNode;
 			parentNode.RemoveChild(instance.XmlNode);
 			parentNode.AppendChild(xmlNode2);

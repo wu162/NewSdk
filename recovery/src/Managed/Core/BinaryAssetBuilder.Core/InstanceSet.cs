@@ -26,7 +26,7 @@ public class InstanceSet : KeyedCollection2<InstanceHandle, InstanceDeclaration>
     internal bool TryGetSymbolTable(out SortedDictionary<InstanceHandle, InstanceDeclaration> table)
     {
         table = null;
-        if (GetType() != typeof(InstanceSet) || Items.GetType() != typeof(List2<InstanceDeclaration>)) return false;
+        if (GetType() != typeof(InstanceSet) || Items == null || Items.GetType() != typeof(List2<InstanceDeclaration>)) return false;
         if (Dictionary == null) return Count == 0;
         table = Dictionary as SortedDictionary<InstanceHandle, InstanceDeclaration>;
         return table != null && table.GetType() == typeof(SortedDictionary<InstanceHandle, InstanceDeclaration>) &&

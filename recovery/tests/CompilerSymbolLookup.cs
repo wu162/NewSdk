@@ -167,12 +167,76 @@ public static class CompilerSymbolLookup
         Require(Number(Metrics(work), "callbackFallbacks") == 1 && Number(Metrics(work), "legacyQueries") > 0, "Callback version did not permanently deactivate symbol scope");
         tests.Add("public-tracer-callback-version-change-permanently-deactivates-local-symbol-index");
     }
+    static void ObservationParity()
+    {
+        string directExpected = null, bindingExpected = null;
+        foreach (bool disabled in new[] { false, true })
+        {
+            AppContext.SetSwitch(Disable, disabled);
+            var document = Bare(); Populate(document, 32);
+            foreach (InstanceSet set in new[] { document.SelfInstances, document.AllInstances, document.TentativeInstances, document.ReferenceInstances })
+                set.Add(Declaration(document, "Shared"));
+            object work = Scope(document); var direct = new DependencyObservationLog();
+            using (direct.BeginScope("symbol-observation-parity"))
+            foreach (string name in new[] { "S0", "A31", "T5", "R9", "Shared", "Missing" })
+            foreach (FindLocation skip in new[] { FindLocation.None, FindLocation.Self, FindLocation.All, FindLocation.Tentative, FindLocation.External })
+            {
+                FindLocation location; document.FindInstance(new InstanceHandle("ArmorTemplate", name), skip, out location);
+            }
+            string directReport = Json.Serialize(direct.GetReport());
+            if (directExpected == null) directExpected = directReport;
+            Require(directExpected == directReport, "Direct indexed/legacy lookup changed actual query/candidate/selection order or source evidence");
+            Require(Number(Metrics(work), disabled ? "legacyQueries" : "indexQueries") > 0, "Shadow parity did not consume selected public lookup path");
+
+            var root = Bare(); var provider = Bare(); Set(provider, "SourcePath", "symbol-provider.xml");
+            var owner = Declaration(root, "Owner"); root.SelfInstances.Add(owner);
+            var target = Declaration(provider, "Target"); root.AllInstances.Add(target);
+            var target2 = Declaration(provider, "Target2"); root.AllInstances.Add(target2);
+            var weak = Declaration(provider, "Weak"); root.TentativeInstances.Add(weak);
+            var external = Declaration(provider, "External"); root.ReferenceInstances.Add(external);
+            for (int index = 0; index < 16; index++) root.SelfInstances.Add(Declaration(root, "Padding" + index));
+            foreach (InstanceDeclaration declaration in root.SelfInstances.Concat(root.AllInstances).Concat(root.TentativeInstances).Concat(root.ReferenceInstances)) declaration.Handle.TypeHash = 1;
+            owner.ReferencedInstances.Add(new InstanceHandle(target.Handle)); owner.ReferencedInstances.Add(new InstanceHandle(target.Handle));
+            owner.ReferencedInstances.Add(new InstanceHandle(external.Handle)); owner.WeakReferencedInstances.Add(new InstanceHandle(weak.Handle));
+            target.ReferencedInstances.Add(new InstanceHandle(target2.Handle));
+            root.Instances.Add(root.SelfInstances); root.Instances.Add(root.AllInstances);
+            var binding = new DependencyObservationLog(); bool expectedCollectionFailure = false;
+            using (binding.BeginScope("binding-observation-parity"))
+            {
+                // The public call executes its real binding scope first. A null
+                // OutputManager intentionally stops artifact collection after
+                // all strong/weak/recursive/external resolution has completed.
+                try { root.PrepareOutputInstances(null); }
+                catch (NullReferenceException error)
+                {
+                    expectedCollectionFailure = error.StackTrace != null && error.StackTrace.Contains("PrepareOutputInstancesCore");
+                }
+            }
+            Require(expectedCollectionFailure && root.GetStreamBindings() == null,
+                "Binding shadow probe did not stop at expected post-binding collection boundary");
+            var report = Json.Deserialize<Dictionary<string, object>>(Json.Serialize(binding.GetReport()));
+            Require(Number(report, "symbolSelections") == 5 && Number(report, "symbolLookups") == 5 && Number(report, "symbolCandidateChecks") > 5,
+                "Actual public binding strong/repeated/recursive/weak/external query coverage missing");
+            string bindingReport = Json.Serialize(binding.GetReport());
+            if (bindingExpected == null) bindingExpected = bindingReport;
+            Require(bindingExpected == bindingReport, "Indexed/legacy public binding changed shadow task/query/parentQuery/order/provider/selection evidence");
+            var bindingMetrics = Json.Deserialize<Dictionary<string, object>>(Json.Serialize(root.GetSymbolLookupMetrics()));
+            Require(Number(bindingMetrics, disabled ? "legacyQueries" : "indexQueries") > 0,
+                "Binding shadow parity did not consume selected production scope");
+            Require(typeof(AssetDeclarationDocument).GetField("_SymbolLookup", Hidden).GetValue(root) == null,
+                "Expected artifact-collection failure leaked temporary symbol scope");
+            evidence.Add(new { id = "actual-shadow-observation-parity", disabled, direct = direct.GetReport(), binding = binding.GetReport(), bindingMetrics,
+                scope = "Public FindInstance and successful binding phase of PrepareOutputInstances; intentional null OutputManager stops later collection, no artifact acceptance is claimed" });
+        }
+        AppContext.SetSwitch(Disable, false);
+        tests.Add("actual-default-legacy-shadow-query-order-parentQuery-source-choice-and-repeated-strong-recursive-weak-external-binding-parity");
+    }
     public static int Main(string[] args)
     {
         object result; int code = 0; bool previous; AppContext.TryGetSwitch(Disable, out previous);
         try
         {
-            Directory.CreateDirectory(args[0]); Differential(); FullKeyCollisions(); Fallbacks(); CallbackInvalidation(); Measurement();
+            Directory.CreateDirectory(args[0]); Differential(); FullKeyCollisions(); Fallbacks(); CallbackInvalidation(); ObservationParity(); Measurement();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), evidence = evidence.ToArray(),
                 scope = "Actual production symbol scope and public FindInstance lookup; full Core outputs and independent original BAB remain separate" };
             Console.WriteLine("PASS SymbolLookup: " + checks + " checks");

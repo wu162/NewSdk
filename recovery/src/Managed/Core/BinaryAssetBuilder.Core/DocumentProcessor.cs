@@ -164,6 +164,16 @@ public class DocumentProcessor
         _SymbolLookupSnapshots.Values.CopyTo(result, 0); return result;
     }
 
+    private long _NodeJoinerCalls, _NodeJoinerIndexedCalls, _NodeJoinerBuilds, _NodeJoinerEntries, _NodeJoinerQueries, _NodeJoinerLinearQueries;
+    internal void RecordNodeJoinerPredecessors(bool enabled, long builds, long entries, long queries, long linearQueries)
+    {
+        _NodeJoinerCalls++; if (enabled) _NodeJoinerIndexedCalls++;
+        _NodeJoinerBuilds += builds; _NodeJoinerEntries += entries; _NodeJoinerQueries += queries; _NodeJoinerLinearQueries += linearQueries;
+    }
+    public object GetNodeJoinerPredecessorMetrics() => new { calls = _NodeJoinerCalls, optimizationEnabledCalls = _NodeJoinerIndexedCalls,
+        builds = _NodeJoinerBuilds, entries = _NodeJoinerEntries, indexQueries = _NodeJoinerQueries, linearQueries = _NodeJoinerLinearQueries,
+        scope = "Per-insertion scalar predecessor plans only; mutable schema is never cached across insertions" };
+
     private readonly CoreTransferBuffers _TransferBuffers = new CoreTransferBuffers();
     internal CoreTransferBuffers TransferBuffers => _TransferBuffers;
     public object GetTransferBufferMetrics()
