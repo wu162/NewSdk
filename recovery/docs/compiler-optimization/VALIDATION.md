@@ -274,3 +274,20 @@ Export再次实时确认完整接受metadata，从同一校验过的原archive�
 最终生产/首次完整测试/打包候选 `b934445adb4ae900215ff980cb902f67407e2d5e` / [40507039217](https://github.com/wu162/NewSdk/actions/runs/40507039217) 正在统一重建/验收，待终态，不提前标通过。包含W06文档记录隔离与受控private saved共享、NodeJoiner仅id索引/外部DOM变动回退、W08局部StableSort membership索引、7资产Upheaval小组及98资产依赖链。严格接受pin仍保留60/40491888271，待完整新success后才更新；后续仅测试/工具/文档变化仍须严格核对闭包与当前测试，不把文档头冒充binarySource。
 
 独立原BAB步骤现按各自成功fixture receipt进行严格验证，不再因其它不相干probe失败而全部阻塞；Debug/Release集中收集失败，任一失败仍使整组拒绝。新增提前小artifact保存原/新四输出、原配置与收据，最终发行门槛未降低。
+
+### 最终候选的已核验独立证据与组件计量
+
+40507039217早期27-fixture artifact `12734969954` 已下载核验SHA256 `eaac7e30b93e56c926342e6c108c8429b0bcdf188af40f2b671498137d68d2a0`，binary/test source均b934、双配置27/27成功。原BAB artifact `12736365897` 已下载核验SHA256 `c27dc9e86b7350fd03330222c31d7621af6f519abe9f24bc804f553d3f7149c5`，六份Debug/Release收据的source/run、输入未变及四输出逐字节门槛均一致：mod-a/mod-b、upheaval-small、stable-sort-chain共8次独立进程比较。最终整run/ZIP状态仍见下方接受点，不用独立组成功替代整组终态。
+
+| 组件 | Debug中位 | Release中位 | 原始工作边界 |
+| --- | --- | --- | --- |
+| 32声明×20公开缓存传递，private saved共享 | 0.1055ms | 0.1052ms | 7轮交错，保留21文档时实际private saved图32个 |
+| 同一输入，关闭共享走深复制 | 0.6153ms | 0.6211ms | 实际private saved图672个；不计XML/反射检查，不作RAM峰值推算 |
+| 64声明的实际public StableSort，membership开启 | 0.4455ms | 0.4318ms | 7轮交错；含入场检查、建索引及反射invoke，图构造在计时外 |
+| 同一排序图，membership关闭 | 0.4708ms | 0.4604ms | 不设速度断言，不报告完整CLI提速/P95/统计显著性 |
+
+实际98资产链两配置/两文化每根为80次索引构建、4440个索引项、4600次indexed查询+346次小集合linear查询；关闭后0 builds/0 indexed、4946次linear，四输出与独立原BAB相同。该计量不包括原闭包构造和List2内部搬移，不宣称整个StableSort变为O(NlogN)。
+
+NodeJoiner两配置各365检查，保留512项热点属性读取门槛及原DLL动态回调对照。Prefix专项在原/新DLL实测均0个DOM事件；因此Name匹配始终线性，不能把事件订阅当成Name索引完整失效保护。新声明probe各199、metadata各52、Upheaval各104、实际StableSort流各615、三流应用各7363检查；数字只用于定位准确组，不替代能力范围。
+
+工具源码 `9005452bac1409d7f8843e419170d3880bf8bc43` / [40508384421](https://github.com/wu162/NewSdk/actions/runs/40508384421) 仅运行Ubuntu控制器合同，整体success；27 fixture精确白名单及包导出拒绝/传输共26项通过，未请求runtime job，未提前更新接受pin。
