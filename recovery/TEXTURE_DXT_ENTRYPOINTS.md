@@ -90,3 +90,11 @@ PC 清理后取证 harness 已只生成四格式×八图案=32例；修正 `Insp
 CodeAlphaBlockQuick（14字节，未达到16字节锚点门槛）、FastEncodeDXT1ForceAlphaOne、RmsError 未匹配；不能视为原 DLL 中不存在。匹配尚未核对重定位的目标地址与调用可达性，不断言整个库版本相同。
 
 下一轮可直接从上述 RVA 定向反汇编，先核对 EncodeDXT3/5 到 alpha block 的实际调用链与对象布局，再还原 QuantizeAlpha/CodeAlphaBlock 的端点搜索、误差度量和索引打包。颜色端点搜索沿 CodeRGBBlock/AllSame 路径推进。保留完整 DXT 拒绝边界；新子组件接入插件之前必须补颜色、alpha、尺寸、mip、volume 与真实 SDK 验收，不以19个静态节匹配替代行为差分。
+
+## 2026-10-27 第二阶段检查点（验证中）
+
+新增 `TextureDxt5FastAlphaEncoder`，仅原 nvFastDXT 质量值68的alpha路径：端点float量化、比值显式float落地及索引映射。未接插件，不代替默认Production=71的QuantizeAlpha搜索。低层原生差分源码 `ef2d69f5fd14561ab960f3d78fd7607da5abd3a6` / Actions `40488693788` success：Debug/Release 各71,168例、1,921,543检查，覆盖全部65,536对alpha值、逐位置256值、渐变与随机块。后加实际原DDS入口4352例差分仍在验证；不能用本次低层验收替代新入口结果。
+
+定向原版反编译入口 `dxt-decompile` 使用官方Ghidra11.4.2，SHA256 `795a02076af16257bd6f3f4736c4fc152ce9ff1f95df35cd47e2adc086e037a6`。首轮40488564968因临时项目目录未建立失败，原日志保留；修复后重跑中。仅取证，不加载进业务DLL。
+
+原DLL实际调用依据：RVA 0x5C50C / 0x8A77F 调用 CodeAlphaBlock@0x7E8F0；其入口检查 block+0x818==68 时调用 FastEncodeDXT5@0x8B570，其他质量在0x7EBB1调用QuantizeAlpha@0x7D500。block布局：count@0、float alpha[512]@4、保留zero/one@0x804/0x808、levels@0x80c、endpoints@0x810/0x814、indices@0x81c。包装层随后按levels与端点顺序做规范化与索引重映射，不能把低层输出布局未经核对直接当作DDS。
