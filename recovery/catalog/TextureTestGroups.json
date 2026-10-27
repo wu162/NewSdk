@@ -643,6 +643,25 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-dxt/*/validation.json",
       "sdk": true
+    },
+    "dxt-samples": {
+      "script": "recovery/scripts/TestTextureDxtSamples.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Colour/**",
+        "src/TextureCompiler/Dxt/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
+        "recovery/scripts/TestTextureDxtSamples.ps1",
+        "recovery/tests/TextureDxtSampleDifferential.cs",
+        "recovery/tests/TextureDxtSampleNoOriginal.cs"
+      ],
+      "evidence": "recovery/evidence/texture/dxt-samples/*/validation.json",
+      "sdk": false
     }
   },
   "targetPlatform": "Win32"

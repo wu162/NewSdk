@@ -44,7 +44,11 @@ Alpha原锚点保留：`4bf0ca8c` / 40493971846，包括字节/float量化器及
 
 `Plugin.Images.cs` 的 StandardTexture 分支接入自有 DXT DDS 编码器；覆盖显式DXT3/5及原 GuessProperFormat 将带alpha的DXT1转换为DXT3/5的路径。原始DXT1/1A、压缩mip、volume与小于4尺寸仍明确拒绝。生产SDK未替换。
 
-新 `dxt-images` 组件组：Debug/Release各1280输入，含TGA七种尺寸与八类图案、PNG完整已声明格式/位深/交错/元数据组合、BMP位深/方向/bitfields，两个实际ProcessInstance入口与新旧cdata文件；逐字节比较三缓冲区与完整cdata，另做独立NoOriginal重放和未支持输入拒绝。当前待Actions验收，不能宣称通过；真实SDK仍待更大里程碑。
+新 `dxt-images` 组件组：Debug/Release各1280输入，含TGA七种尺寸与八类图案、PNG完整已声明格式/位深/交错/元数据组合、BMP位深/方向/bitfields，两个实际ProcessInstance入口与新旧cdata文件；逐字节比较三缓冲区与完整cdata，另做独立NoOriginal重放和未支持输入拒绝。源码 `6d9197ae3013bf046496e928fbf1c84939d8b16c` / [40505763208](https://github.com/wu162/NewSdk/actions/runs/40505763208) attempt1 success。Debug/Release各1280输入（912成功输出、368原版拒绝行为匹配），22明确拒绝检查，6,016,960字节比较；同量NoOriginal成功。此前40503241547及40503774342分别发现旧cdata测试断言与全零TGA alpha被D3DX转为不透明后的DXT1测试域错误，均保留失败记录；未改写已验收解码规则。
+
+`dxt-samples` 新组待验证：独立 `TextureDxtSampleBlockEncoder` 接受1/2/4×1/2/4字节或归一化float块，直接复用自有颜色核心与alpha量化器；按原0x5c790包装层的字面映射处理颜色索引空洞，DXT5越界alpha索引为0、DXT3越界nibble为0，绝不以统一复制边缘近似。原4×4编码器仅将内部ColourLock开放给同程序集新组件，仍共用同一把锁。每配置4608原版float dispatcher对照、2304实际原byte DDS交叉对照及NoOriginal重放，未接插件/压缩mip。实际拒绝、输出与ABI须以Actions结果为准。
+
+SDK新组 `sdk-PcDxtNoMip` 已准备120合法图像/480资产，组件通过后集中显式运行；生产SDK仍未替换。
 
 ## 下一轮顺序
 

@@ -6,7 +6,7 @@ namespace BinaryAssetBuilder.TextureCompiler
     // Complete 4x4 PC Production=71 DXT3/DXT5 blocks. No DDS/image/plugin routing.
     public static class TextureDxtBlockEncoder
     {
-        private static readonly object ColourLock = new object();
+        internal static readonly object ColourLock = new object();
         [DllImport("Recovered.TextureDxtColour.dll", CallingConvention = CallingConvention.StdCall,
             EntryPoint = "TextureColorState")]
         private static extern int EncodeColourState([In, Out] byte[] block, int bytes, int mode);

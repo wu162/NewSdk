@@ -2,7 +2,7 @@
 
 `recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。主入口 [TEXTURE_DXT_COLOUR.md](TEXTURE_DXT_COLOUR.md)。颜色状态 `2cee3446` / 40500150864、完整DXT3/5块 `b0278705` / 40500898688、二维无mip整图 `1a260825` / 40502726713 均已通过Debug/Release与NoOriginal。
 
-当前插件DXT3/5无mip路由源码 `1c2160ec` / 40503241547 六个既有入口组通过，新组失败于预置旧cdata的独立断言，现已修正待复验；包含TGA/PNG/BMP两个真实ProcessInstance入口、完整cdata、未支持边界及1280输入NoOriginal重放。先收取结果，失败则修复，保留机器人证据。新的 `sdk-PcDxtNoMip` 脚本已准备，组件通过后再显式运行：120图像/480资产，三模式SDK对照。生产SDK DLL/config未改；小尺寸/mip/volume/DXT1默认整块尚未验收。不要把待验收写为完成。
+插件DXT3/5无mip路由源码 `6d9197ae` / 40505763208 已通过：Debug/Release各1280输入，912输出/368匹配拒绝，22未支持边界及NoOriginal完整重放；此前六个原入口组 `1c2160ec` / 40503241547 通过。新 `dxt-samples` 浮点/小尺寸块组当前待验收，尚未接入插件或mip。先收取新批次，修复任何失败，再集中运行已准备的 `sdk-PcDxtNoMip`（120图像/480资产、三模式）；SDK尚未验收。生产SDK DLL/config未改，插件小尺寸/mip/volume/DXT1默认整块尚未支持。
 
 以下保留历史子系统与阶段记录，不以旧的“下一轮”覆盖上述当前入口。
 
