@@ -29,3 +29,5 @@ TextureAtlasPrerequisitesProbe.cs / InspectTextureAtlasPrerequisites.ps1为manua
 源码daf4a749752786d5aea56b8de62fc47f1e77383d / 40598863269已completed/success，atlas-dds完整Debug/Release通过（精确检查数见收据），原DLL逐次不存在且未加载；公共TerrainTextureAtlas仍拒绝。旧NPOT4986与新较大比例4432隔离回放同批通过，未扩大atlas业务入口。
 
 准备atlas-load original-only组：25个完整ProcessInstance用例，每个两次，共50调用；12个0/1/2/3/4/7/8/9/10/21/22/49 tile阈值、AtlasSize/AllowLossy变体、256/128 normal与缺失normal、重复TextureID及Cell输入、base文件缺失/扩展名/尺寸/原解码拒绝、NPOT和24-bit源、50 tile上限。读取完整Runtime/两DDS/三buffer、XML与原输入，核对重复确定性、source/XML/cdata不变；19预期成功、6既有原错误。此probe仍不调用恢复atlas插件，不冒充SDK。临时目录使用可移植相对图像名，不把运行器绝对路径嵌入记录。
+
+完整atlas探针首轮dfbeaee3/40599421956整体failure只在probe宿主误假定count=0必有Runtime数据，两个受影响raw SDK profile三模式各600调用已通过、保留收据。current.txt与原IL_00f3..00ff已证实：声明Tile列表为空时，原HandleTerrainTextureAtlas直接跳过packer与FinalizeTracker，返回InstanceData/RelocationData/ImportsData均null；不能把这一行为等同于声明非空但所有基础文件不存在。宿主现明确核对该null契约，仍保留全部25×2原调用和完整非空Runtime/DDS断言，只补此probe，不重跑已通过SDK。
