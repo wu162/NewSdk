@@ -133,8 +133,27 @@ public static class CompilerUpheavalSamples
                 {
                     Run(restored, settings.InputPath); Equal(expected, Four(settings.OutputDirectory), mode + "-persisted-session");
                     AssetDeclarationDocument document;
-                    restored.Cache.TryGetDocument(Path.Combine(mod, "Data/Derived.xml"), null, TargetPlatform.Win32, false, out document);
-                    Require(document != null && document.SelfInstances.Count == 2 && document.SelfInstances.All(instance => instance.InheritFromHandle != null), "Cross-document inherited adapter declarations were not restored");
+                    string mixedSeparatorPath = Path.Combine(mod, "Data/Derived.xml");
+                    // Include discovery stores ShPath-canonical keys. SessionCache
+                    // lowercases keys but intentionally does not normalize '/'.
+                    // Query the actual resolver key instead of creating a distinct
+                    // file-only cache entry with an equivalent filesystem path.
+                    string canonicalPath = ShPath.Canonicalize(Path.Combine(mod, "Data", "Derived.xml"));
+                    bool fileExists = restored.Cache.TryGetDocument(canonicalPath, null, TargetPlatform.Win32, false, out document);
+                    var declarations = document != null && document.State != DocumentState.None
+                        ? document.SelfInstances.Select(instance => new { name = instance.Handle.InstanceName,
+                            inheritFrom = instance.InheritFromHandle == null ? null : instance.InheritFromHandle.InstanceName,
+                            processingHash = instance.ProcessingHash, prevalidationXmlHash = instance.PrevalidationXmlHash,
+                            inheritFromXmlHash = instance.InheritFromXmlHash }).ToArray() : null;
+                    var lookup = new { id = mode + "-persisted-declaration-lookup", mixedSeparatorPath, canonicalPath,
+                        configuration = (string)null, fileExists, documentPresent = document != null,
+                        state = document == null ? "missing" : document.State.ToString(), declarations };
+                    evidence.Add(lookup);
+                    Require(fileExists && document != null && declarations != null && declarations.Length == 2,
+                        "Cross-document inherited adapter declarations were not restored: " + Json.Serialize(lookup));
+                    Require(declarations.Any(item => item.name == "RecoveryUpheaval_FutureDerived" && item.inheritFrom == "AlliedFutureTankArmor") &&
+                        declarations.Any(item => item.name == "RecoveryUpheaval_ArcherDerived" && item.inheritFrom == "JapanArcherInfantryArmor"),
+                        "Restored adapter child/base inheritance identities differ: " + Json.Serialize(lookup));
                     Require(coldParse >= 7 && warmParse - coldParse < coldParse && restored.XmlParseCount < coldParse, "Expected cold/warm/persisted-session parse evidence");
                     evidence.Add(new { id = mode, legacyFallback = disabled, coldParse, warmParse, warmAdditionalParse = warmParse - coldParse, restoredParse = restored.XmlParseCount,
                         fourOutputs = Four(settings.OutputDirectory).ToDictionary(pair => pair.Key, pair => Hash(pair.Value)), actualAssetCount = 7 });
