@@ -156,6 +156,13 @@ public class BinaryAsset
 		}
 	}
 
+    private static bool CacheInputExists(string path)
+    {
+        bool found = File.Exists(path);
+        PhysicalInputSnapshot.ObserveCandidate(path, found);
+        return found;
+    }
+
 	private void UpdateCacheAvailability(bool forceUpdate)
 	{
 		if (_CacheAvailability != Availability.Invalid && !forceUpdate)
@@ -169,7 +176,7 @@ public class BinaryAsset
 		}
 		string path = Path.Combine(_CacheDirectory, _AssetFileName);
 		string path2 = Path.Combine(_CacheDirectory, _CustomDataFileName);
-		if (File.Exists(path) && (!_Instance.HasCustomData || File.Exists(path2)))
+		if (CacheInputExists(path) && (!_Instance.HasCustomData || CacheInputExists(path2)))
 		{
 			_CacheAvailability = Availability.Present;
 		}
@@ -464,7 +471,7 @@ public class BinaryAsset
             byte[] copyBuffer = processor == null ? GetLegacyCopyBuffer() : processor.TransferBuffers.GetCopyBuffer(_LegacyCopyBufferFactory);
             lock (copyBuffer)
 			{
-				using FileStream fileStream = File.OpenRead(sourceAssetPath);
+				using Stream fileStream = PhysicalInputSnapshot.OpenRead(sourceAssetPath);
 				using (FileStream fileStream2 = File.Open(text2, FileMode.Create, FileAccess.Write))
 				{
 					long num = fileStream.Length;
@@ -501,10 +508,15 @@ public class BinaryAsset
 				{
 					Directory.CreateDirectory(_CustomDataOutputDirectory);
 				}
+                // Preserve File.Copy's overwrite/metadata contract. Capture and
+                // retain the source path pins before its original-path consumer;
+                // unsupported/generated/budget fallback stays the legacy copy.
+                PhysicalInputSnapshot.Entry customData;
+                PhysicalInputSnapshot.TryCapture(sourceCustomDataPath, out customData);
 				File.Copy(sourceCustomDataPath, text3, overwrite: true);
 			}
 		}
-		catch (Exception)
+		catch (Exception error)
 		{
 			if (File.Exists(text))
 			{
@@ -514,6 +526,7 @@ public class BinaryAsset
 			{
 				File.Delete(text3);
 			}
+            if (error is OperationCanceledException) throw;
 			return false;
 		}
 		return true;
@@ -558,6 +571,7 @@ public class BinaryAsset
 					break;
 				}
 			}
+            catch (OperationCanceledException) { throw; }
 			catch (Exception ex)
 			{
 				_Tracer.Message("{0} in use ({1}), re-attempting grab: {2}", DocumentProcessor.CurrentDocument, ex.Message, Instance);

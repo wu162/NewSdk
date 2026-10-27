@@ -145,6 +145,143 @@ public static class CompilerTransferBuffers
         AppContext.SetSwitch(Disable, false);
         tests.Add("actual-CopyAsset-and-LinkStream-lazy-per-processor-ownership-no-alias-reuse-captured-fallback-mode-header-tail-and-temporary-contracts");
     }
+    static IDictionary<string, object> Inputs(PhysicalInputSnapshot snapshot)
+    { return Json.Deserialize<Dictionary<string, object>>(Json.Serialize(snapshot.GetMetrics())); }
+    static void Writable(string path) { using (var stream = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { } }
+    static void Blocked(string path)
+    {
+        bool blocked = false;
+        try { Writable(path); } catch (IOException) { blocked = true; } catch (UnauthorizedAccessException) { blocked = true; }
+        Require(blocked, "External copy input was not pinned: " + path);
+    }
+    static void SnapshotCopyInputs()
+    {
+        Settings.Current = new Settings { BuildCache = false, SessionCache = false, LinkedStreams = true, CustomPostfix = "", TargetPlatform = TargetPlatform.Win32 };
+        AppContext.SetSwitch(Disable, false); var owner = Owner();
+        var template = Instance(Document(owner, "snapshot-copy-source"));
+        string source = Source(template, "snapshot-copy-source", Payload(64), new byte[0], new byte[0]), custom = source + ".cdata";
+        File.WriteAllBytes(custom, Payload(129)); File.SetLastWriteTimeUtc(custom, new DateTime(2020, 1, 2, 3, 4, 6, DateTimeKind.Utc));
+        string expectedAsset = Hash(source), expectedCustom = Hash(custom);
+        foreach (string mode in new[] { "memory", "disk", "zero-budget", "excluded-output", "legacy-no-scope" })
+        {
+            var instance = Instance(Document(owner, "snapshot-copy-" + mode)); instance.HasCustomData = true;
+            var asset = Manager(owner, "snapshot-copy-" + mode).GetBinaryAsset(instance, true);
+            PhysicalInputSnapshot snapshot = mode == "legacy-no-scope" ? null : new PhysicalInputSnapshot(Path.Combine(work, "snapshot-" + mode),
+                mode == "disk" ? 0 : 1024, 1024, mode == "zero-budget" ? 0 : 8, 64);
+            if (mode == "excluded-output") snapshot.ExcludeRoot(work);
+            bool captured = mode == "memory" || mode == "disk";
+            try
+            {
+                using (snapshot == null ? null : snapshot.BeginReadScope())
+                {
+                    Require(Copy(asset, source), "Snapshot-backed .asset/.cdata pair failed: " + mode);
+                    string output = Path.Combine(asset.AssetOutputDirectory, asset.AssetFileName), outputCustom = Path.Combine(asset.CustomDataOutputDirectory, instance.Handle.FileBase + ".cdata");
+                    Require(Hash(output) == expectedAsset && Hash(outputCustom) == expectedCustom && File.GetLastWriteTimeUtc(outputCustom) == File.GetLastWriteTimeUtc(custom),
+                        "Snapshot pair changed bytes or File.Copy custom-data timestamp metadata: " + mode);
+                    // Repeat against the exact same source owner to exercise two
+                    // independent sealed cursors and original cdata path pins.
+                    Require(Copy(asset, source) && Hash(output) == expectedAsset && Hash(outputCustom) == expectedCustom, "Repeated snapshot copy changed output");
+                    if (captured) { Blocked(source); Blocked(custom); } else { Writable(source); Writable(custom); }
+                    if (snapshot != null)
+                    {
+                        var metrics = Inputs(snapshot);
+                        Require(Number(metrics, "captures") == (captured ? 2 : 0) && Number(metrics, "hits") == (captured ? 2 : 0), "Copy pair did not share exactly two positive inputs: " + mode);
+                        if (mode == "disk") Require(Number(metrics, "diskBytes") == new FileInfo(source).Length + new FileInfo(custom).Length, "Disk snapshot omitted one copy input");
+                        snapshot.VerifyUnchanged();
+                        observations.Add(new { id = "copy-pair-positive-inputs", mode, metrics = Inputs(snapshot), assetSha256 = expectedAsset, cdataSha256 = expectedCustom });
+                    }
+                }
+            }
+            finally { if (snapshot != null) snapshot.Dispose(); }
+            Writable(source); Writable(custom);
+            if (snapshot != null) Require(Number(Inputs(snapshot), "activeReadHandles") == 0, "Copy pair retained pins after snapshot disposal");
+        }
+        foreach (string mode in new[] { "memory", "disk" })
+        {
+            using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, "snapshot-copy-errors-" + mode), mode == "disk" ? 0 : 16777216, 16777216, 16, 64))
+            using (snapshot.BeginReadScope())
+            {
+                foreach (int tail in new[] { 0, 1, 15, 16, 17 }) CopyCase(owner, "snapshot-" + mode + "-tail-" + tail, tail);
+                CopyCase(owner, "snapshot-" + mode + "-wrong-header", 16, true);
+                CopyCase(owner, "snapshot-" + mode + "-blocked-temp", 16, false, true);
+                snapshot.VerifyUnchanged();
+                observations.Add(new { id = "sealed-copy-header-tail-and-temp-contract", mode, metrics = Inputs(snapshot) });
+            }
+        }
+        foreach (bool sealedInputs in new[] { false, true })
+        {
+            string label = "missing-copy-cdata-" + sealedInputs;
+            var instance = Instance(Document(owner, label)); instance.HasCustomData = true;
+            var asset = Manager(owner, label).GetBinaryAsset(instance, true);
+            string missingSource = Source(instance, label, Payload(64), new byte[0], new byte[0]);
+            PhysicalInputSnapshot snapshot = sealedInputs ? new PhysicalInputSnapshot(Path.Combine(work, label + "-snapshot")) : null;
+            try
+            {
+                using (snapshot == null ? null : snapshot.BeginReadScope())
+                {
+                    Require(!Copy(asset, missingSource) && !File.Exists(Path.Combine(asset.AssetOutputDirectory, asset.AssetFileName)) &&
+                        !File.Exists(Path.Combine(asset.AssetOutputDirectory, asset.AssetFileName) + ".tmp"), "Missing .cdata changed original false/final/temp contract");
+                    if (snapshot != null) Require(Number(Inputs(snapshot), "captures") == 1, "Missing .cdata must not become a captured positive input");
+                }
+            }
+            finally { if (snapshot != null) snapshot.Dispose(); }
+            Writable(missingSource);
+        }
+        // Cache availability must preserve each original short circuit, while
+        // retaining the real .cdata negative result for final verification.
+        foreach (string condition in new[] { "missing-custom", "missing-asset", "no-custom-required" })
+        {
+            var instance = Instance(Document(owner, "candidate-" + condition)); instance.HasCustomData = condition != "no-custom-required";
+            var asset = Manager(owner, "candidate-" + condition).GetBinaryAsset(instance, true);
+            string cache = Path.Combine(work, "external-cache-" + condition); Directory.CreateDirectory(cache);
+            string cacheAsset = Path.Combine(cache, asset.AssetFileName), cacheCustom = Path.Combine(cache, instance.Handle.FileBase + ".cdata");
+            if (condition != "missing-asset") File.Copy(source, cacheAsset);
+            typeof(BinaryAsset).GetField("_CacheDirectory", Hidden).SetValue(asset, cache);
+            using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, "candidate-snapshot-" + condition)))
+            using (snapshot.BeginReadScope())
+            {
+                var location = asset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate);
+                Require((location == AssetLocation.Cache) == (condition == "no-custom-required"), "Cache presence selection changed: " + condition);
+                var candidates = (IDictionary<string, object>)Inputs(snapshot)["resolverCandidates"];
+                Require(Number(candidates, "observations") == (condition == "missing-custom" ? 2 : 1), "Cache availability added/omitted original short-circuit queries");
+                if (condition == "missing-custom")
+                {
+                    File.WriteAllBytes(cacheCustom, Payload(129)); bool rejected = false;
+                    try { snapshot.VerifyUnchanged(); } catch (IOException) { rejected = true; }
+                    Require(rejected, "A missing cache .cdata appearing after availability query was accepted");
+                }
+                else snapshot.VerifyUnchanged();
+                observations.Add(new { id = "cache-pair-availability-candidates", condition, metrics = Inputs(snapshot) });
+            }
+        }
+        // Pre-cancel after availability is warm, so the actual CopyAsset input
+        // capture (not an earlier candidate query) must propagate the same token
+        // through CommitFromCache without the legacy retry/sleep loop.
+        var cancelledInstance = Instance(Document(owner, "cancelled-cache-pair")); cancelledInstance.HasCustomData = true;
+        var cancelledAsset = Manager(owner, "cancelled-cache-pair").GetBinaryAsset(cancelledInstance, true);
+        string cancelledCache = Path.Combine(work, "cancelled-external-cache"); Directory.CreateDirectory(cancelledCache);
+        File.Copy(source, Path.Combine(cancelledCache, cancelledAsset.AssetFileName));
+        File.Copy(custom, Path.Combine(cancelledCache, cancelledInstance.Handle.FileBase + ".cdata"));
+        typeof(BinaryAsset).GetField("_CacheDirectory", Hidden).SetValue(cancelledAsset, cancelledCache);
+        Require(cancelledAsset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == AssetLocation.Cache, "Cancellation fixture did not warm cache availability");
+        using (var cancellation = new CancellationTokenSource())
+        using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, "cancelled-copy-snapshot")))
+        {
+            cancellation.Cancel(); bool rejected = false; var elapsed = System.Diagnostics.Stopwatch.StartNew();
+            using (snapshot.BeginReadScope(cancellation.Token))
+                try { typeof(BinaryAsset).GetMethod("CommitFromCache", Hidden).Invoke(cancelledAsset, new object[0]); }
+                catch (TargetInvocationException error)
+                {
+                    var cancelled = error.InnerException as OperationCanceledException;
+                    rejected = cancelled != null && cancelled.CancellationToken == cancellation.Token;
+                    if (cancelled == null) throw error.InnerException;
+                }
+            Require(rejected && elapsed.ElapsedMilliseconds < 4000 && Number(Inputs(snapshot), "captures") == 0,
+                "Copy/cache retry swallowed or replaced the original snapshot cancellation token");
+        }
+        tests.Add("external-BinaryAsset-asset-cdata-materialization-pair-sealed-memory-disk-original-copy-metadata-repeated-inputs-budgets-generated-exclusion-and-pin-release");
+        tests.Add("real-cache-asset-cdata-existence-short-circuits-final-negative-candidate-refusal-and-original-cancellation-token-without-cache-retry");
+    }
     static Settings Configure(string name)
     {
         var config = new XmlDocument(); config.Load(Path.Combine(sdk, "tools/BinaryAssetBuilder.exe.config"));
@@ -215,8 +352,8 @@ public static class CompilerTransferBuffers
         try
         {
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
-            OwnershipAndBoundaries(); RealCore();
-            result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(), scope = "Serial per-DocumentProcessor copy/link scratch ownership and actual consumers only; new direct-Core input cancellation and existing backend single-lease/cancellation matrices retain their separate scopes; this is not complete W09 state isolation or parallel execution" };
+            OwnershipAndBoundaries(); SnapshotCopyInputs(); RealCore();
+            result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(), scope = "Serial per-DocumentProcessor copy/link buffers and external BinaryAsset copy-pair input capture/cache candidates; generated roots and mutable invalid-header recovery remain legacy, Texture closure and full BinaryAsset closure are not established; no parallel execution" };
             Console.WriteLine("PASS TransferBuffers: " + tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception error) { code = 1; Console.Error.WriteLine(error); result = new { succeeded = false, sourceCommit = args.Length > 2 ? args[2] : null, runId = args.Length > 3 ? args[3] : null, checks, tests = tests.ToArray(), observations = observations.ToArray(), error = error.ToString() }; }
