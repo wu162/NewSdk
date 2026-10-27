@@ -461,7 +461,8 @@
         "src/TextureCompiler/Managed/*.csproj",
         "src/TextureCompiler/Managed/TextureDxt5FastAlphaEncoder.cs",
         "recovery/scripts/TestTextureDxt5FastAlpha.ps1",
-        "recovery/tests/TextureDxt5FastAlphaDifferential.cs"
+        "recovery/tests/TextureDxt5FastAlphaDifferential.cs",
+        "recovery/tests/TextureDxt5FastAlphaEntryDifferential.cs"
       ],
       "evidence": "recovery/evidence/texture/dxt5-fast-alpha/*/validation.json",
       "sdk": false

@@ -20,7 +20,11 @@ try{
   Checked "$mode-oracle-build" {& $csc /nologo /unsafe /platform:x86 $opt /r:$dll /out:"$work/$oracle.exe" (Resolve-Path "recovery/tests/$oracle.cs").Path}
   '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$work/$oracle.exe.config"
   Checked "$mode-oracle" {& "$work/$oracle.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-transcript.txt" $dll}
-  $r.configurations+=@{configuration=$mode;passed=$true;summary=@(Get-Content "$out/$mode-oracle.log" | Where-Object {$_ -match '^(PASS|PROBE) '})}
+  $entry='TextureDxt5FastAlphaEntryDifferential'
+  Checked "$mode-entry-build" {& $csc /nologo /unsafe /platform:x86 $opt /r:$dll /out:"$work/$entry.exe" (Resolve-Path "recovery/tests/$entry.cs").Path}
+  Copy-Item "$work/$oracle.exe.config" "$work/$entry.exe.config"
+  Checked "$mode-entry" {& "$work/$entry.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-entry-transcript.txt" $dll}
+  $r.configurations+=@{configuration=$mode;passed=$true;summary=@(Get-Content "$out/$mode-oracle.log","$out/$mode-entry.log" | Where-Object {$_ -match '^(PASS|PROBE) '})}
  }
  $files=@(Get-ChildItem "$out/*-transcript.txt")
  if($files.Count -gt 0){Compress-Archive -Path $files.FullName -DestinationPath "$out/transcripts.zip";$files|Remove-Item}
