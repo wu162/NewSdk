@@ -27,6 +27,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
     private long _Captures, _Hits, _Bypasses, _CapturedBytes, _MemoryBytes, _DiskBytes, _VerificationReads, _VerificationBytes, _CleanupFailures;
     private bool _Disposed, _OwnsScratch, _ReadStarted;
     private readonly List<string> _ExcludedRoots = new List<string>();
+    private readonly List<FileStream> _AliasPins = new List<FileStream>();
     private readonly Dictionary<string, long> _BypassReasons = new Dictionary<string, long>(StringComparer.Ordinal);
     private string _RetainedScratch;
     private CancellationToken _Cancellation;
@@ -240,7 +241,11 @@ public sealed class PhysicalInputSnapshot : IDisposable
             if (identity == null) return Bypass(out entry, out captured);
             if (_Identities.TryGetValue(identity, out entry))
             {
-                entry.Paths.Add(full); _Paths.Add(full, entry); _Hits++; keepDirectories = true; pin.Dispose(); pin = null; return true;
+                // NTFS may unlink one hard-link name despite a no-delete
+                // handle opened through another name. Keep this path's handle,
+                // while sharing only its immutable content/digest entry.
+                entry.Paths.Add(full); _Paths.Add(full, entry); _AliasPins.Add(pin);
+                _Hits++; keepDirectories = true; pin = null; return true;
             }
             long length = pin.Length;
             bool inMemory = length <= BlockSize && length <= _MemoryBudget - _MemoryBytes;
@@ -327,7 +332,10 @@ public sealed class PhysicalInputSnapshot : IDisposable
     {
         return new { enabled = true, snapshotId = _SnapshotId, positiveInputsOnly = true, captures = _Captures, hits = _Hits, bypasses = _Bypasses, capturedBytes = _CapturedBytes,
             memoryBytes = _MemoryBytes, diskBytes = _DiskBytes, verificationReads = _VerificationReads, verificationBytes = _VerificationBytes,
-            activeFilePins = _Disposed ? 0 : _Identities.Count, activeDirectoryPins = _Disposed ? 0 : _Directories.Count,
+            activeFilePins = _Disposed ? 0 : _Identities.Count,
+            activeAliasPins = _Disposed ? 0 : _AliasPins.Count,
+            activeReadHandles = _Disposed ? 0 : _Identities.Count + _AliasPins.Count,
+            activeDirectoryPins = _Disposed ? 0 : _Directories.Count,
             bypassReasons = new Dictionary<string, long>(_BypassReasons, StringComparer.Ordinal), cleanupFailures = _CleanupFailures, retainedScratch = _RetainedScratch };
     }
     public void Dispose()
@@ -340,6 +348,9 @@ public sealed class PhysicalInputSnapshot : IDisposable
             try { entry.CloseStorage(); } catch { _CleanupFailures++; }
             try { entry.Pin.Dispose(); } catch { _CleanupFailures++; }
         }
+        foreach (FileStream alias in _AliasPins)
+            try { alias.Dispose(); } catch { _CleanupFailures++; }
+        _AliasPins.Clear();
         foreach (SafeFileHandle directory in _Directories.Values)
             try { directory.Dispose(); } catch { _CleanupFailures++; }
         _Directories.Clear(); _Identities.Clear(); _Paths.Clear();
