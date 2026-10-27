@@ -2,7 +2,7 @@
 
 2026-10-28（北京时间）。分支`recovery/texturecompiler-source`，源码根`src/TextureCompiler`。最新入口 [RESUME.md](RESUME.md)。
 
-DXT3/5默认71颜色/alpha、完整块、POT二维和volume无mip/完整float mip、两实际插件入口已验收。限定RGBA8存储的NPOT（true-color TGA24/32、PNG RGB/RGBA8、BI_RGB BMP24/32）也已完成公共加载、两入口raw/DXT/标准/volume/有无mip和3200资产三模式SDK验收，当前闭环`d012da8a` / 40536063863 success，复用业务a945c18c/40533831752的17个通过组。各历史锚点保留，40533831752整轮failure不得改写；详见 [DXT](TEXTURE_DXT_COLOUR.md)、[二维mip](TEXTURE_DXT_MIPS_NEXT.md)、[volume](TEXTURE_DXT_VOLUME_NEXT.md)、[NPOT](TEXTURE_NPOT_NEXT.md)。生产SDK DLL/config未替换。
+DXT3/5默认71颜色/alpha、完整块、POT二维/volume无mip与完整float mip、两插件入口已验收。NPOT已扩至PNG灰度/GA8/RGB/RGBA8/16、Additional TGA16/灰度8/index8调色板及BI_RGB BMP16/24/32，保留原错误与量化/通道布局。业务e9292a26/40595382578的18组及7个SDK profile通过，插件隔离宿主修复9e7d671e/40597016969完成19404输入D/R/NoOriginal；两run各自总体失败原因和精确成功组保持原记录。后续abdffd97/40598190231与daf4a749/40598863269均success，前者闭环原探针并复用34组，后者完成9418存储语料D/R回放及独立atlas指定五层DDS组件。详见[当前续接](RESUME.md)、[NPOT](TEXTURE_NPOT_NEXT.md)、[atlas](TEXTURE_ATLAS_NEXT.md)。生产SDK DLL/config未替换，完整atlas公共入口尚未接入。
 
 ## 唯一目标：Win32 / PC
 
@@ -21,9 +21,9 @@ DXT3/5默认71颜色/alpha、完整块、POT二维和volume无mip/完整float mi
 ## 仍需完成（仅 PC）
 
 1. DXT1 / DXT1A默认完整路径、完整压缩器和生产集成。默认71颜色核心与DXT3/5完整块、对齐整图和无mip插件路由已取得组件验收；小尺寸/float块与小尺寸无mip消费者已通过组件和SDK门槛，压缩volume现也已通过组件及专用SDK完整验收。不再调查跨平台一致性。
-2. NPOT剩余源存储/量化路径（PNG灰度/GA/16位、Additional TGA灰度/调色板/16位、BMP16等），当前仍拒绝；RGBA8限定子集已按上文完成。原版拒绝格式仍保留原拒绝。
+2. NPOT已声明源存储路径已按上文验收；未声明格式/metadata按实际输入需求独立取证，原版拒绝格式继续保留原拒绝。
 3. JPEG、尚未声明支持的 PNG ICC/APNG、TGA metadata/RLE 边界和其他 BMP 组合，按实际 PC 输入需求独立取证。
-4. 完整 TerrainTextureAtlas 解码、处理、压缩及输出入口；目前只有内存 packer。
+4. 完整TerrainTextureAtlas插件和SDK；已具备内存packer及独立DXT5/RGB555指定五层DDS组件，接下来消费完整原插件gold恢复Marshal/加载/输出与relocation。
 5. 审计 PC 实际需要的原 native 初始化/释放及公共图像依赖。保留共享 helper，不为已排除平台补实现。
 6. 最终合入并接入新编译器。生产 SDK DLL/config 仍未替换，完整 DLL 尚未还原。
 

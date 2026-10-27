@@ -1,6 +1,6 @@
 # PC NPOT 当前调查入口
 
-仅PC，recovery/texturecompiler-source，禁止强推，编译测试只在GitHub Actions。当前true-color TGA24/32、PNG RGB/RGBA8、BI_RGB BMP24/32的NPOT加载及标准/volume raw+DXT、无mip/完整mip已完成下述组件/入口/专用SDK验收。生产SDK未替换；其他存储/量化路径仍拒绝。下文按阶段保留取证与失败来源，当前状态以此入口及末段完整验收为准。
+仅PC，recovery/texturecompiler-source，禁止强推，编译测试只在GitHub Actions。已声明的TGA真色16/24/32、灰度8/index8调色板、PNG灰度/GA8/RGB/RGBA8/16、BI_RGB BMP16/24/32的NPOT存储路径已完成完整原版对照、19404入口D/R/NoOriginal与新2560资产专用SDK。业务e9292a26/40595382578、入口宿主修复9e7d671e/40597016969及9418存储语料最终daf4a749/40598863269各自精确收据与总体失败原因保留；后两份存储回放每配置分别188999与4893795检查。原版拒绝格式保持原错误，源各轴<=8192且rounded pixels<16M，直接DDS API仍POT。生产SDK未替换；当前下一组是完整atlas插件，详见[最新续接](RESUME.md)与[atlas](TEXTURE_ATLAS_NEXT.md)。下文保留历史调查/失败与分阶段来源，不用早期“仍拒绝”覆盖当前结论。
 
 原Plugin.ProcessTexture@0x06000106在PC无独立缩放分支，先调用LoadImageA@0x06000017（IL RVA0x3214），再IsValidTexture/GuessProperFormat和二维或volume压缩。LoadImageA调用D3DXCreateTextureFromFileA@0x060000E8（native RVA0x13C82），读取XGGetTextureDesc、LockRect，再以XGCopySurface目标0x1A200006/pitch=width*4转RGBA。静态来源：evidence/texture/runs/40191971356-1/{methods.json,decompiled/BinaryAssetBuilder.TextureCompiler/Plugin.cs}，原DLL SHA256固定4f559428...e9d9e。不能假定压缩器负责全部NPOT处理。
 
@@ -72,3 +72,7 @@ SDK收据的通用scope字符串沿用复用脚本的旧POT/DXT措辞；实际Pc
 abdffd97/40598190231 completed/success：只运行npot-storage-stress、复用34完整成功组。新原语料4432（3952解码/480拒绝）已probe-only完整捕获，首行大小前缀不再按pitch推断分配范围，全部最终RGBA仍完整；恢复版尚待这份较大比例语料回放。下一批新增4432独立D/R回放，保留原4986全回归，并独立验证atlas DDS格式3/9指定五层组件；atlas公共入口/SDK未启用，既有NPOT与SDK业务源码不改。原atlas探针+104的filter列名解释错误已在独立SCOPE.md更正为指定mip层数，不改写原始收据/样本。新候选组件依赖登记后只运行受影响完整组，不重跑未改SDK入口。
 
 daf4a749/40598863269 completed/success：4986旧语料回归和4432较大比例原语料的公共decoder Debug/Release完整RGBA/原拒绝/源不变/逐次无原DLL隔离回放均通过；同批atlas-dds独立固定五层组件通过。原NPOT业务e9292a26、19404入口隔离9e7d671e以及7个SDK profile各自精确收据继续保留。接下来仅采集完整atlas原入口gold，并由选择器核实新独立DDS程序集文件对SDK依赖的实际影响；不接入未验收的公共atlas实现。
+
+## 本轮最终状态
+
+056937b1/40599993769 completed/success，完整复用36成功组/全部7个SDK profile。9418存储回放、19404插件矩阵及2560资产新SDK的精确来源按上文保留；原两个raw SDK在dfbeaee3/40599421956因新独立DDS程序集输入变化补验，各三模式600资产/调用通过，其唯一probe宿主错误另行修复不重跑SDK。完整atlas original-only 25例已收齐（19成功/6错误、50调用/468检查），固定五层DDS独立组件已通过，完整atlas恢复路由与SDK为下一整组。生产SDK未替换，本轮没有force push或本地构建/测试。

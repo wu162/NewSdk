@@ -1,6 +1,6 @@
 # PC TerrainTextureAtlas 后续入口
 
-本组尚未恢复，生产SDK未替换。已验收的TexturePacker仅为内存packer；不能据此声明完整atlas加载、压缩、二进制输出或SDK验收。继续同一recovery/texturecompiler-source分支，禁止强推，所有构建与测试只在GitHub Actions。
+公共TerrainTextureAtlas恢复入口尚未接入，生产SDK未替换。现已具备验收过的内存TexturePacker、独立DXT5/RGB555固定五层DDS组件，以及完整原插件25例gold；这些不冒充完整atlas恢复版或SDK验收。继续同一recovery/texturecompiler-source分支，禁止强推，所有构建与测试只在GitHub Actions。
 
 ## 静态原版依据与当前缺口
 
@@ -31,3 +31,18 @@ TextureAtlasPrerequisitesProbe.cs / InspectTextureAtlasPrerequisites.ps1为manua
 准备atlas-load original-only组：25个完整ProcessInstance用例，每个两次，共50调用；12个0/1/2/3/4/7/8/9/10/21/22/49 tile阈值、AtlasSize/AllowLossy变体、256/128 normal与缺失normal、重复TextureID及Cell输入、base文件缺失/扩展名/尺寸/原解码拒绝、NPOT和24-bit源、50 tile上限。读取完整Runtime/两DDS/三buffer、XML与原输入，核对重复确定性、source/XML/cdata不变；19预期成功、6既有原错误。此probe仍不调用恢复atlas插件，不冒充SDK。临时目录使用可移植相对图像名，不把运行器绝对路径嵌入记录。
 
 完整atlas探针首轮dfbeaee3/40599421956整体failure只在probe宿主误假定count=0必有Runtime数据，两个受影响raw SDK profile三模式各600调用已通过、保留收据。current.txt与原IL_00f3..00ff已证实：声明Tile列表为空时，原HandleTerrainTextureAtlas直接跳过packer与FinalizeTracker，返回InstanceData/RelocationData/ImportsData均null；不能把这一行为等同于声明非空但所有基础文件不存在。宿主现明确核对该null契约，仍保留全部25×2原调用和完整非空Runtime/DDS断言，只补此probe，不重跑已通过SDK。
+
+## 最终原插件gold与下一组的精确布局
+
+源码056937b13fa39431ec9171b0d990e6a5c15a013c / [40599993769](https://github.com/wu162/NewSdk/actions/runs/40599993769) attempt1 completed/success：atlas-load为25例、19成功/6原错误、50实际原调用、468检查，重复三buffer确定性、源图像/XML/cdata不变。samples.zip含可移植input XML、原图像及input-files.tsv、完整instance/relo/imports；这是probe-only，尚未对恢复atlas入口差分。该轮只跑atlas-load，36个完整成功组（含7个SDK profile）按原sourceCommit/runId复用。
+
+静态读取这份Actions产物所得布局（后续实现必须全量gold差分）：
+
+- 声明Tile列表为空：三个AssetBuffer字段均null。声明非空但所有base缺失：仍生成512×512基础DDS，runtime effective count=0，ImportsData为空数组；不能统一返回null或空数组。
+- Runtime首部28字节：+0为0，+4有效tile数，+8 tile数组指针，+12/+16 base DDS指针/长度，+20/+24 normal DDS指针/长度。块顺序为root、base DDS、有normal时的normal DDS、最后12字节×有效tile数的数组；每块沿用4字节对齐。
+- 有normal的relocations顺序是12、20、8、0xffffffff；无normal为12、8、0xffffffff。即便有效tile数0，+8仍指向最终buffer末尾（一越界末指针），并保留relocation 8，不能改成null。missing-base例：root=(0,0,349340,28,349312,0,0)，relo=(12,8,0xffffffff)。
+- count-1（有normal）root=(0,1,1047836,28,349312,349340,698496)，两个DDS都是512×512；count-49两个DDS均2048×2048。normal-128被原入口接受，仍拷入完整atlas canvas。非空成功的ImportsData为空数组。
+- count-1与AtlasSize=0/65535、AllowLossyCompression=false的三个metadata变体完整buffer哈希相同；不按XSD名称发明原版没有的输出变化。输入含重复ID和Cell，排序与坐标应复用已验收packer，再按实际gold核对。
+- six errors均为BadTextureFile：base/normal扩展名必须含tga；base加载后须256×256；原拒绝的gray16用于base/normal时仍为D3DX cannot load；50 tile报Maximum number of textures exceeded (50). Limit is 49. 缺失base先跳过，缺失normal的错误扩展名先报targa要求。NPOT 255×255 base先被LoadImageA取整到256×256后可接受，24位base也已捕获。
+
+下一轮直接在此gold上完成Plugin.Atlas路由/Marshal及Runtime序列化，恢复版全25例原buffer/cdata、源/错误/空字段对照与NoOriginal；扩展真实文件/边界矩阵并取得专用atlas MOD三模式SDK。原DDS组件的小形状160例不代替512..2048实际atlas图谱的最终差分。保留所有失败与probe-only来源，不重新执行已完成原取证。

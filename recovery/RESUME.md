@@ -1,20 +1,23 @@
 # TextureCompiler 当前续接（2026-10-28，北京时间）
 
-`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions；每轮尽量约70分钟，按STAGE_DURATION.md。主入口 [TEXTURECOMPILER.md](TEXTURECOMPILER.md)。本轮从远程`d0ab7450038056d35678d34c23fe7f6334426a75`续接，已核对既有40508857046/40510009285成功证据并保留。
+`recovery/texturecompiler-source`，仅Win32/PC，禁止强推，编译测试只在GitHub Actions；每轮尽量约70分钟，按STAGE_DURATION.md。Git身份wu162 <2997261975@qq.com>。主入口[TEXTURECOMPILER.md](TEXTURECOMPILER.md)。本轮从4857ff70续接，先核对远程头与40536063863及其复用收据；所有源码、取证、验收继续集中本分支。
 
-**本轮三组已完成：DXT3/5二维完整float mip、压缩volume无mip/递归float mip、限定RGBA8存储的NPOT加载及标准/volume raw+DXT入口。** 生产SDK DLL/config未替换，专用MOD不冒充完整mymod/全TextureCompiler。
+**本轮已恢复余下已声明的NPOT源存储路径，并通过公共解码、完整插件矩阵与专用SDK；atlas仅完成独立固定五层DDS组件，公共atlas入口仍未接入。** 生产SDK DLL/config未替换，专用MOD不冒充完整mymod/完整TextureCompiler。
 
-- 二维mip：源码`7ae4af3769842084cd19cbff87c651c945f45888` / [40524039917](https://github.com/wu162/NewSdk/actions/runs/40524039917) success，Debug/Release各3072完整DDS及NoOriginal。二维每层从base生成，禁止float中途回写byte。
-- volume：源码`aaacb3d25fdb99eddaa8ed4ab23701437e840ec2` / [40526443463](https://github.com/wu162/NewSdk/actions/runs/40526443463) success，各配置5568完整DDS/NoOriginal；递归先Z后XY，XY-only头层数与完整XYZ尾链保留。详见 [二维mip](TEXTURE_DXT_MIPS_NEXT.md) / [volume](TEXTURE_DXT_VOLUME_NEXT.md)。
-- 8位NPOT：业务源码`a945c18c8ea02b6ad03f8a4b6172be10ba7dffa2` / [40533831752](https://github.com/wu162/NewSdk/actions/runs/40533831752) 的17组通过，包含各配置14256插件输入（12736输出/1520匹配原版拒绝）、34明确拒绝、66,334,496字节比较与完整NoOriginal；全部6个SDK profile三模式通过。此run整体failure仅因回放宿主漏TGA全零alpha规则，不能写为整轮success。
+- NPOT业务源码`e9292a26149bf8add555a883cb95739a65fc69a9` / [40595382578](https://github.com/wu162/NewSdk/actions/runs/40595382578)有18组通过，包括全部7个SDK profile；整run因dxt-images隔离宿主仍检查旧14256条而failure，保留。Debug原版差分19404已全部相同后才触发旧条数断言，业务源码无需修复。
+- 宿主修复`9e7d671e46b3abb41e3e8ab22abd1c759e77b9c9` / [40597016969](https://github.com/wu162/NewSdk/actions/runs/40597016969)：dxt-images Debug/Release各19404（17884输出/1520匹配原拒绝）、6个默认DXT1/1A明确拒绝、88,895,384字节比较及同量NoOriginal，逐次原DLL不存在且未加载。该run整体failure仅因新original-only stress快照探针误把Pitch*Height当可读分配范围，不能写整run success。
+- stress快照改为有界首行大小原始前缀后，`abdffd9724ddab6a9c71e0e92d132aea7241dc8b` / [40598190231](https://github.com/wu162/NewSdk/actions/runs/40598190231) completed/success：只补该probe，复用34个完整成功组。原4986基线不可变，padding从不作为恢复比较契约。
+- 最终较大比例回放与独立atlas DDS源码`daf4a749752786d5aea56b8de62fc47f1e77383d` / [40598863269](https://github.com/wu162/NewSdk/actions/runs/40598863269) completed/success。旧4986（4446解码/540拒绝）各配置188999检查；新4432（3952解码/480拒绝）各配置4893795检查，两份完整原RGBA、旧语料原错误域及新语料原异常type/message/ErrorCode、源不变及逐次无原DLL隔离；不把probe-only当恢复验收。
 
-最终宿主修复源码`d012da8ae55c094220d9c506b5263b277a49042b` / [40536063863](https://github.com/wu162/NewSdk/actions/runs/40536063863) attempt1 completed/success：Debug/Release各1012原RGBA与公共加载器完整比较、1851原系数tap位模式、1,361,709检查，逐次原DLL不存在且未加载。仅补npot-rgba8，选择器复用其余31组完整成功证据，保留各原sourceCommit/runId。SDK业务源码未在宿主修复中改变。
+NPOT现支持PNG灰度1/2/4/8及16（16+tRNS仍原拒绝）、GA8、RGB/RGBA8/16；TGA既有24/32及Additional真色16、灰度8、index8配palette15/16/24/32（已声明RLE/方向）；BI_RGB BMP16/24/32。保留原alpha规则、PNG RGB16旧行布局和RGBA16通道排列。源各轴1..8192，向上取2幂后<16M像素；仅图像加载层重采样，直接DDS编码API仍要求POT。PNG索引/GA16/gray16+tRNS、BMP索引/bitfields、TGA gray16/index16保持原错误，不作为缺失支持。
 
-NPOT支持true-color TGA24/32、PNG RGB/RGBA8、BI_RGB BMP24/32，源各轴<=8192且向上取2幂后<16M像素；只在加载层重采样，直接DDS API仍要求POT。PcNpotRgba8专用SDK同80输入/3200资产，Original/Recovered/NoOriginal各3200实际Core调用，四产物与完整buffer/cdata轨迹一致；NoOriginal每次调用前后检查原DLL不存在且未加载。同轮两个raw profile各600、二维DXT两个profile各712、volume profile1488资产/调用的三模式也通过。范围及SDK通用scope文字补充见 [NPOT当前交接](TEXTURE_NPOT_NEXT.md)。
+新PcNpotStorage专用SDK为64输入×两根×raw3/DXT3/5×标准/volume×有无mip=2560资产；Original/Recovered/NoOriginal各2560真实Core调用，四产物哈希与完整buffer/cdata轨迹相同，NoOriginal逐次检查原DLL不存在且未加载。原PcNoMip/PcMips各600、PcDxtNoMip/PcDxtMips各712、PcDxtVolumes1488、PcNpotRgba8 3200三模式同批通过。各收据保留原sourceCommit/runId，不因总体宿主失败重跑成功SDK。
 
-**下一组**：NPOT剩余存储/量化路径（PNG灰度/GA及16位、Additional TGA灰度/调色板/16位、BMP16），先核对原D3DX源/目标像素格式、row converter与最终XGCopySurface，不能把16/5位量化简化为先解码到RGBA8再缩放。原版拒绝的PNG索引/部分GA16、BMP索引/bitfields等保持原拒绝，不把它们列成必须支持。默认DXT1/1A整块、完整TerrainTextureAtlas、生产替换/完整mymod仍待恢复或验收；未知域明确拒绝。详见 [TEXTURE_NPOT_NEXT.md](TEXTURE_NPOT_NEXT.md)。
+atlas DDS独立组件Debug/Release各160完整DXT5/RGB555原DDS、12个拒绝、57984检查/54304字节对照通过，逐次无原DLL。原+104=5是指定五层，不是过滤核；短自然链重复1×1 payload，header mipCount仍min(自然层数,5)。原格式9为RGB555；原probe误名filter的不可变记录由SCOPE.md解释，不重写。此组件没有接入公共TerrainTextureAtlas，也未作为该入口SDK验收。详见[atlas后续](TEXTURE_ATLAS_NEXT.md)。
 
-原版取证a19bb879/40528237009（1012加载记录）和678db012/40529918922（权重/常量/抖动）仍probe-only，作为不可变基线复用，不再重跑。826ff73e/40531802530与a945c18c/40533831752的宿主失败记录保留；新功能完成由上述精确成功/复用收据组成，不篡改旧运行。
+最新完整核对源码`056937b13fa39431ec9171b0d990e6a5c15a013c` / [40599993769](https://github.com/wu162/NewSdk/actions/runs/40599993769) completed/success：只采atlas原入口25例（19成功/6错误）、50调用、468检查，复用36个完整成功组/7个SDK profile；该原入口仍probe-only。新增独立DDS程序集后，两个raw SDK profile已在`dfbeaee30c482816a927d4f42229a0ceafd598e8` /40599421956三模式各600调用补验通过，其整run因gold宿主对空声明列表误读而failure，后续仅修复probe；不重复SDK。原gold证实空声明列表返回三字段null，而声明非空但全base缺失仍产生DDS与count=0/末指针relocation；布局与可移植原输入见[atlas后续](TEXTURE_ATLAS_NEXT.md)。
+
+**下一整组**：在完整原atlas入口gold上实现Tile/File Marshal、已恢复TexturePacker与独立DDS组件消费、Runtime tracker/relocation，再跑完整原版差分/NoOriginal和专用MOD三模式SDK。默认DXT1/1A的未初始化状态、JPEG/未声明metadata、完整生产部署/mymod保持独立门槛；不恢复PS3/Xbox路径。既有二维DXT mip `7ae4af37` /40524039917与volume `aaacb3d2` /40526443463成功锚点继续复用，算法分别base-relative与递归Z后XY，不能混用。详细原始/失败记录与范围见[NPOT当前交接](TEXTURE_NPOT_NEXT.md)。
 
 以下保留历史子系统与阶段记录，不以旧的“下一轮”覆盖上述当前入口。
 

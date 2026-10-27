@@ -1,6 +1,6 @@
 # PC TextureCompiler DXT恢复交接（2026-10-27）
 
-分支`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。默认71颜色/alpha、完整块、float/小块、二维和volume无mip/完整float mip已验收；RGBA8限定NPOT也已取得公共加载/两入口raw+DXT及3200资产三模式SDK闭环，最终d012da8a/40536063863 success（只补npot-rgba8，复用31成功组）。业务a945c18c/40533831752的17组通过、整轮因宿主失败仍保留failure。当前 [RESUME](RESUME.md)、[二维mip](TEXTURE_DXT_MIPS_NEXT.md)、[volume](TEXTURE_DXT_VOLUME_NEXT.md)、[NPOT](TEXTURE_NPOT_NEXT.md)。生产SDK未替换。下文旧限制仅属相应历史阶段。
+分支`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。默认71颜色/alpha、完整块、float/小块、二维和volume无mip/完整float mip已验收；NPOT已从RGBA8扩至已声明5/16位及灰度/调色板存储路径，当前业务e9292a26/40595382578、19404入口D/R/NoOriginal修复9e7d671e/40597016969及9418存储回放daf4a749/40598863269各自精确收据见[RESUME](RESUME.md)/[NPOT](TEXTURE_NPOT_NEXT.md)。全部7个SDK profile在实际三模式通过，各总体失败原因不改写；成功组按原sourceCommit/runId保留。新增atlas DXT5/RGB555指定五层DDS仅独立组件，完整atlas入口及其SDK尚未接入。默认DXT1/1A继续明确拒绝，生产SDK未替换。下文旧限制仅属相应历史阶段。
 
 ## 已验收：默认 Production=71 颜色状态
 

@@ -1,6 +1,6 @@
 # TextureCompiler 第五轮：PNG/BMP 与集中验证
 
-当前更新（2026-10-28，北京时间）：PNG RGB/RGBA8与BI_RGB BMP24/32的限定NPOT已由d012da8a/40536063863闭环，公共加载及两入口/专用3200资产三模式SDK通过；PNG其他位深/颜色与BMP16等NPOT仍拒绝。 详细精确锚点与边界见[NPOT当前交接](TEXTURE_NPOT_NEXT.md)。下文保留历史阶段范围。
+当前更新（2026-10-28，北京时间）：PNG灰度1/2/4/8/16、GA8、RGB/RGBA8/16及BI_RGB BMP16/24/32的已声明NPOT存储路径已完成公共加载、两入口/标准/volume/raw+DXT/有无mip与新2560资产三模式SDK；原版拒绝域保持原错误，PNG16量化/旧布局保留。 业务e9292a26/40595382578、完整入口隔离9e7d671e/40597016969及最终存储回放daf4a749/40598863269的精确收据与总体失败说明见[NPOT当前交接](TEXTURE_NPOT_NEXT.md)。下文保留历史阶段范围。
 
 > **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
 
