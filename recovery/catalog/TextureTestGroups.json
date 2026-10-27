@@ -1123,6 +1123,19 @@
       ],
       "evidence": "recovery/evidence/texture/atlas-dds/*/validation.json",
       "sdk": false
+    },
+    "atlas-load": {
+      "script": "recovery/scripts/InspectTextureAtlasLoad.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureAtlasLoad.ps1",
+        "recovery/tests/TextureAtlasLoadProbe.cs",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/atlas-load/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"

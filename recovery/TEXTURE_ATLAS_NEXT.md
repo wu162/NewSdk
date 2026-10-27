@@ -23,3 +23,9 @@ TextureAtlasPrerequisitesProbe.cs / InspectTextureAtlasPrerequisites.ps1为manua
 480样本/960次原调用通过，原始收据仍probe-only。旧探针把+104变量、TSV列名和文件后缀命名为filter，这是解释错误；实际写入值没有错误，原DDS/options/callback记录保持不可变。+104=0生成完整自然链，+104=5恰好写出五个payload。DDS mipCount是min(自然层数,5)，自然链不足五层仍重复写1×1尾层；例如1×1的mipCount=1却有五个payload，32×16则mipCount=5、五个payload。原格式9是RGB555（16bpp、PF flags0x40、mask7c00/03e0/001f、无alpha），并非压缩或signed normal格式。补充范围见该原证据目录SCOPE.md，不改写原JSON/TSV。
 
 候选TextureAtlasDdsEncoder仅提供PC DXT5/RGB555指定五层的独立DDS组件，直接消费已验收triangle float与SampleBlockEncoder；公共atlas插件路由未接入。新隔离回放选完整160条格式3/9、+104=5记录，Debug/Release对完整DDS、五级布局/原callback、12个不安全输入拒绝及每次原DLL缺席/未加载核对；其余320条原控制记录不冒充新组件样本。现待Actions；完整512..2048图谱、文件/Tile Marshal、最终Runtime buffer/relo与SDK仍是下一整组。
+
+## 独立DDS组件已通过，完整入口取证准备
+
+源码daf4a749752786d5aea56b8de62fc47f1e77383d / 40598863269已completed/success，atlas-dds完整Debug/Release通过（精确检查数见收据），原DLL逐次不存在且未加载；公共TerrainTextureAtlas仍拒绝。旧NPOT4986与新较大比例4432隔离回放同批通过，未扩大atlas业务入口。
+
+准备atlas-load original-only组：25个完整ProcessInstance用例，每个两次，共50调用；12个0/1/2/3/4/7/8/9/10/21/22/49 tile阈值、AtlasSize/AllowLossy变体、256/128 normal与缺失normal、重复TextureID及Cell输入、base文件缺失/扩展名/尺寸/原解码拒绝、NPOT和24-bit源、50 tile上限。读取完整Runtime/两DDS/三buffer、XML与原输入，核对重复确定性、source/XML/cdata不变；19预期成功、6既有原错误。此probe仍不调用恢复atlas插件，不冒充SDK。临时目录使用可移植相对图像名，不把运行器绝对路径嵌入记录。

@@ -70,3 +70,5 @@ SDK收据的通用scope字符串沿用复用脚本的旧POT/DXT措辞；实际Pc
 9e7d671e/40597016969整体failure仅在新npot-storage-stress探针，dxt-images完整闭环：Debug/Release各19404（17884成功输出/1520匹配原错误）、6明确拒绝、88,895,384字节对照及同量NoOriginal，逐次原DLL缺席/未加载。atlas-prerequisites的480样本/960原调用/2885检查已probe-only通过，不能当完整atlas验收。补充stress失败栈在探针自己的Marshal.CopyToManaged读取raw storage，并非恢复加载器；此前按Pitch*Height推断可读内存包含未定义布局/尾padding，不是已证明的分配大小契约。后续stress只读取首行大小的有界native字节前缀，保留format/pitch/尺寸作取证，全部逻辑像素仍由独立原LoadImageA完整捕获；新增当前输入/阶段记录与失败partial archive。旧原始4986取证不可变，不重写padding，不把它当恢复比较契约。接下来仅重跑该manual probe，已经通过的组件和7个SDK profile复用各自精确收据。
 
 abdffd97/40598190231 completed/success：只运行npot-storage-stress、复用34完整成功组。新原语料4432（3952解码/480拒绝）已probe-only完整捕获，首行大小前缀不再按pitch推断分配范围，全部最终RGBA仍完整；恢复版尚待这份较大比例语料回放。下一批新增4432独立D/R回放，保留原4986全回归，并独立验证atlas DDS格式3/9指定五层组件；atlas公共入口/SDK未启用，既有NPOT与SDK业务源码不改。原atlas探针+104的filter列名解释错误已在独立SCOPE.md更正为指定mip层数，不改写原始收据/样本。新候选组件依赖登记后只运行受影响完整组，不重跑未改SDK入口。
+
+daf4a749/40598863269 completed/success：4986旧语料回归和4432较大比例原语料的公共decoder Debug/Release完整RGBA/原拒绝/源不变/逐次无原DLL隔离回放均通过；同批atlas-dds独立固定五层组件通过。原NPOT业务e9292a26、19404入口隔离9e7d671e以及7个SDK profile各自精确收据继续保留。接下来仅采集完整atlas原入口gold，并由选择器核实新独立DDS程序集文件对SDK依赖的实际影响；不接入未验收的公共atlas实现。
