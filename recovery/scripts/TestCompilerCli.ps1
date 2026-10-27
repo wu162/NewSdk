@@ -161,6 +161,76 @@ function EqualTask($Combined,$Single,[string]$Group){
         foreach($key in $left.Keys){Need ($right.ContainsKey($key) -and $left[$key] -ceq $right[$key]) 'Fresh production CLI single/combined bytes differ'}
     }
 }
+# Measure the actual CLI, including schema preparation, compilation, linking and
+# publication. Keep correctness lifecycle fixes enabled in both configurations.
+# Timing is evidence, never a pass/fail speed threshold on shared Actions hosts.
+function MeasureBusinessCli($Reference,[string]$Mod,[string]$Sdk){
+    $configPath=Join-Path $script:runtime 'NewModCompiler.exe.config'
+    $saved=[IO.File]::ReadAllBytes($configPath)
+    $switches=@('DisableSinglePassDigest','DisableSharedSchemaMetadata','DisableSchemaReferenceDescriptors',
+        'DisableExpressionPrograms','DisableSharedExpressionCulture','DisableExpressionTraversal',
+        'DisableNodeJoinerIndex','DisableNodeJoinerPredecessors','DisableBaseManifestIndex',
+        'DisableStableSortMembershipIndex','DisableSymbolLookupIndex','DisableOwnedTransferBuffers')
+    $receipt=@{schemaVersion=1;succeeded=$false;sourceCommit=$script:state.sourceCommit;binarySourceCommit=$script:state.binarySourceCommit;
+        runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;configuration='Release';exeSha256=(Hash $script:exe);
+        fixtureManifestSha256=(Hash (Join-Path $Mod 'fixture-manifest.json'));osPageCache='unknown';rounds=7;
+        fallbackSwitches=$switches;cases=@();scope='Same Release EXE, identical three-task business inputs, caches disabled, fresh process per sample; one unmeasured warmup per mode, alternating pair order. Includes full CLI publication and required outputs. Diagnostic performance fallbacks retain snapshot/binding correctness fixes. Small fixture, shared runner, no full-MOD or general speedup claim.'}
+    try {
+        [xml]$fallback=[Text.Encoding]::UTF8.GetString($saved)
+        $runtimeElement=$fallback.configuration.SelectSingleNode('runtime')
+        if(!$runtimeElement){$runtimeElement=$fallback.CreateElement('runtime');$null=$fallback.configuration.AppendChild($runtimeElement)}
+        $overrides=$runtimeElement.SelectSingleNode('AppContextSwitchOverrides')
+        if(!$overrides){$overrides=$fallback.CreateElement('AppContextSwitchOverrides');$null=$runtimeElement.AppendChild($overrides)}
+        $values=@{}
+        foreach($setting in ($overrides.GetAttribute('value') -split ';')){
+            if($setting){$pair=$setting -split '=',2;Need ($pair.Count -eq 2) 'Invalid existing benchmark AppContext setting';$values[$pair[0]]=$pair[1]}
+        }
+        foreach($name in $switches){$values['NewSdk.Compiler.'+$name]='true'}
+        $overrides.SetAttribute('value',(($values.Keys|Sort-Object|ForEach-Object{$_+'='+$values[$_]}) -join ';'))
+        for($round=0;$round -le 7;$round++){
+            $order=if($round%2 -eq 0){@('default','fallback')}else{@('fallback','default')}
+            foreach($variant in $order){
+                if($variant -ceq 'default'){[IO.File]::WriteAllBytes($configPath,$saved)}else{$fallback.Save($configPath)}
+                $configHash=Hash $configPath
+                $sample=RunCli ('business-pair-'+$round+'-'+$variant) 'build' $Mod $Sdk 'base,apt,maps' 0 3
+                foreach($group in @('base','apt','maps')){EqualTask $Reference $sample $group}
+                Need ($sample.report.cache.status -ceq 'Disabled' -and !$sample.report.cache.sessionCache) 'CLI measurement unexpectedly used a compiler cache'
+                foreach($field in @('elapsedMs','processWallMs','processCpuMs','processKernelMs','processUserMs')){
+                    $value=$sample.control.$field
+                    Need ($null -ne $value -and [double]$value -ge 0 -and ![double]::IsNaN([double]$value) -and ![double]::IsInfinity([double]$value)) "Missing CLI process measurement: $field"
+                }
+                $work=@($sample.report.cache.coreWork)
+                Need ($work.Count -eq 3) 'CLI paired measurement omitted a selected stream'
+                foreach($item in $work){
+                    Need ($null -ne $item.expressionPrograms -and $item.expressionPrograms.enabled -eq ($variant -ceq 'default')) 'CLI paired expression-program switch was not applied'
+                    Need ($null -ne $item.transferBuffers -and $item.transferBuffers.enabled -eq ($variant -ceq 'default')) 'CLI paired transfer-buffer switch was not applied'
+                    Need ($null -ne $item.schemaMetadata -and $item.schemaMetadata.enabled -eq ($variant -ceq 'default')) 'CLI paired schema-metadata switch was not applied'
+                }
+                $receipt.cases+=,@{round=$round;warmup=($round -eq 0);variant=$variant;configSha256=$configHash;
+                    case=$sample.name;allTwelveOutputsByteIdentical=$true;processId=$sample.control.processId;
+                    controllerElapsedMs=$sample.control.elapsedMs;processWallMs=$sample.control.processWallMs;
+                    processCpuMs=$sample.control.processCpuMs;processKernelMs=$sample.control.processKernelMs;processUserMs=$sample.control.processUserMs;
+                    reportElapsedMs=$sample.report.elapsedMs;applicationWork=$sample.report.applicationWork;coreWork=$work}
+                Need ((Hash $configPath) -ceq $configHash) 'CLI measurement changed runtime configuration'
+            }
+        }
+        $receipt.medians=@()
+        foreach($variant in @('default','fallback')){
+            $samples=@($receipt.cases|Where-Object{!$_.warmup -and $_.variant -ceq $variant})
+            Need ($samples.Count -eq 7) 'CLI paired sample count changed'
+            $summary=@{variant=$variant;samples=7}
+            foreach($field in @('controllerElapsedMs','processWallMs','processCpuMs','reportElapsedMs')){
+                $ordered=@($samples|ForEach-Object{[double]$_.$field}|Sort-Object)
+                $summary[$field]=$ordered[3]
+            }
+            $receipt.medians+=,$summary
+        }
+        $receipt.succeeded=$true
+    } finally {
+        [IO.File]::WriteAllBytes($configPath,$saved)
+        $receipt|ConvertTo-Json -Depth 24|Set-Content (Join-Path $script:modeOut 'business-cli-paired.json')
+    }
+}
 # These are overlapping named work intervals, not additive build wall time.
 # Validate actual production reports, then preserve per-task observations so a
 # later sharing optimization has a concrete same-input preparation baseline.
@@ -385,6 +455,7 @@ try {
             $businessSnapshot=Snapshot $businessMod
             $businessCombined=RunCli 'business-combined' 'build' $businessMod $sdk 'base,apt,maps' 0 3
             Need (@($businessCombined.report.plan.Tasks).Count -eq 3) 'Business plan must contain base, real APT and real map metadata tasks'
+            if($mode -ceq 'Release' -and !$reuse){MeasureBusinessCli $businessCombined $businessMod $sdk}
             if(!$reuse){$workReceipt.cases+=,(BusinessWorkMetrics $businessCombined $true)}
             foreach($group in @('base','apt','maps')){
                 $businessSingle=RunCli ('business-'+$group+'-only') 'build' $businessMod $sdk $group 0 1
