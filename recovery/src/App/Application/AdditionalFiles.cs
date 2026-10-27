@@ -14,7 +14,7 @@ namespace NewModCompiler.Application
     public static class AdditionalFiles
     {
         sealed class Input { public string Name, Path; }
-        public static void Merge(string sdkRoot,string modRoot,string staging,IList<BigArchiveEntry> entries,CancellationToken cancellation)
+        public static void Merge(string sdkRoot,string modRoot,string staging,IList<BigArchiveEntry> entries,CancellationToken cancellation,Action<string> warning = null)
         {
             if(entries==null) throw new ArgumentNullException("entries");
             cancellation.ThrowIfCancellationRequested();
@@ -22,7 +22,7 @@ namespace NewModCompiler.Application
             var directories=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach(string root in new[]{sdkRoot,modRoot}) {
                 string additional=Path.Combine(Path.GetFullPath(root),"Additional");
-                if(Directory.Exists(additional)) Discover(additional,"",files,directories,cancellation);
+                if(Directory.Exists(additional)) Discover(additional,"",files,directories,cancellation,warning);
                 else if(File.Exists(additional)) throw new IOException("Additional input must be a directory.");
             }
             if(files.Count==0 && directories.Count==0) return;
@@ -67,11 +67,11 @@ namespace NewModCompiler.Application
             for(int i=0;i<entries.Count;i++) {
                 BigArchiveEntry replacement;
                 string name=Canonical(entries[i].Name);
-                if(replacements.TryGetValue(name,out replacement)) {entries[i]=replacement;replacements.Remove(name);}
+                if(replacements.TryGetValue(name,out replacement)) {if(warning!=null) warning("Additional overwrites compiled package member: "+name);entries[i]=replacement;replacements.Remove(name);}
             }
             foreach(var item in replacements.OrderBy(pair=>pair.Key,StringComparer.Ordinal)) entries.Add(item.Value);
         }
-        static void Discover(string directory,string relative,IDictionary<string,Input> files,ISet<string> directories,CancellationToken cancellation)
+        static void Discover(string directory,string relative,IDictionary<string,Input> files,ISet<string> directories,CancellationToken cancellation,Action<string> warning)
         {
             cancellation.ThrowIfCancellationRequested();
             using(var guard=DiagnosticDirectory.Acquire(directory,false)) {
@@ -79,10 +79,14 @@ namespace NewModCompiler.Application
                 foreach(string file in Directory.GetFiles(directory).OrderBy(value=>value,StringComparer.Ordinal)) {
                     cancellation.ThrowIfCancellationRequested();
                     if((File.GetAttributes(file)&FileAttributes.ReparsePoint)!=0) throw new IOException("Additional input cannot be a reparse point.");
-                    string name=Canonical(relative+Path.GetFileName(file));files[name]=new Input{Name=name,Path=file};
+                    string name=Canonical(relative+Path.GetFileName(file));
+                    Input old;
+                    if(warning!=null && files.TryGetValue(name,out old) && !string.Equals(Path.GetExtension(name),".asset",StringComparison.OrdinalIgnoreCase))
+                        warning("Additional overwrite: " + name + " (" + old.Path + " -> " + file + ")");
+                    files[name]=new Input{Name=name,Path=file};
                 }
                 foreach(string child in Directory.GetDirectories(directory).OrderBy(value=>value,StringComparer.Ordinal))
-                    Discover(child,relative+Path.GetFileName(child)+"\\",files,directories,cancellation);
+                    Discover(child,relative+Path.GetFileName(child)+"\\",files,directories,cancellation,warning);
             }
         }
         static string Canonical(string name) { return name.Replace('/','\\').TrimEnd('\\').ToLowerInvariant(); }

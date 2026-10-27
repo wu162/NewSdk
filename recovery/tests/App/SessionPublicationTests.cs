@@ -39,7 +39,7 @@ namespace NewModCompiler.Tests
             public void Dispose() { if (Closing!=null) Closing(); if (FailClose) throw new IOException("injected required close failure"); }
         }
         static BuildRequest Request(string work,string mod,string sdk)
-        { return Options.Parse(new[] {"build","--mod",mod,"--sdk-root",sdk,"--out",work,"--package-content","base"}); }
+        { return Options.Parse(new[] {"build","--mod",mod,"--sdk-root",sdk,"--out",work,"--package-format","loose","--package-content","base"}); }
         static Dictionary<string,object> Report(BuildRequest request)
         { return new JavaScriptSerializer().Deserialize<Dictionary<string,object>>(File.ReadAllText(request.ReportPath)); }
         static ExitCode Run(BuildRequest request,Compiler compiler,Sink sink,CancellationToken cancellation=default(CancellationToken))
@@ -127,7 +127,7 @@ namespace NewModCompiler.Tests
             }
             // With no selected streams, success must preserve the last generation.
             string emptyMod=Path.Combine(work,"empty-mod"); Put(Path.Combine(emptyMod,"Data","Mod.xml"),"<AssetDeclaration/>");
-            request=Options.Parse(new[] {"build","--mod",emptyMod,"--sdk-root",sdk,"--out",Path.Combine(work,"empty"),"--package-content","apt,maps"});
+            request=Options.Parse(new[] {"build","--mod",emptyMod,"--sdk-root",sdk,"--out",Path.Combine(work,"empty"),"--package-format","loose","--package-content","apt,maps"});
             string retained=Path.Combine(request.OutputRoot,"published","previous.bin"); Put(retained,"retain empty selection");
             compiler=new Compiler(); Check(Run(request,compiler,new Sink())==ExitCode.Success,"empty optional selection failed");
             Check(File.ReadAllText(retained)=="retain empty selection" && (string)Report(request)["publicationStatus"]=="NotPublished","empty selection changed publication");

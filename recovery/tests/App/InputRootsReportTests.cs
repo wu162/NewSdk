@@ -31,7 +31,7 @@ namespace NewModCompiler.Tests
         }
         static BuildRequest Request(string command,string output,string mod,string sdk,string[] extra)
         {
-            var args=new List<string> {command,"--mod",mod,"--sdk-root",sdk,"--out",output,"--package-content","base"};
+            var args=new List<string> {command,"--mod",mod,"--sdk-root",sdk,"--out",output,"--package-format","loose","--package-content","base"};
             args.AddRange(extra); return Options.Parse(args.ToArray());
         }
         static ExitCode Run(BuildRequest request,Backend backend)

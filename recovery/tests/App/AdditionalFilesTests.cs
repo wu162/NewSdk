@@ -33,7 +33,9 @@ namespace NewModCompiler.Tests
             Put(Path.Combine(mod,"Additional","Shaders","nested","arbitrary.bin"),"arbitrary mod bytes");
             Put(Path.Combine(mod,"Additional","ignored.asset"),"precompiled asset must not enter MakeBig");
             Put(Path.Combine(mod,"Additional","ignored.ASSET"),"same MakeBig exclusion ignoring Windows case");
-            AdditionalFiles.Merge(sdk,mod,staging,entries,CancellationToken.None);
+            var warnings=new List<string>();
+            AdditionalFiles.Merge(sdk,mod,staging,entries,CancellationToken.None,warnings.Add);
+            Check(warnings.Count==3 && warnings.Any(x=>x.Contains("compiled package member")) && warnings.Any(x=>x.Contains("shared.ini")),"Overwrite warnings must include SDK/MOD and compiled-member conflicts, excluding .asset");
             Check(entries.Count==4,"Additional merge omitted SDK-only input or retained excluded/overwritten members");
             var actual=entries.ToDictionary(entry=>entry.Name.Replace('/','\\').ToLowerInvariant(),entry=>File.ReadAllText(entry.SourcePath));
             Check(actual["data\\mod.manifest"]=="MOD overlay","MOD did not overwrite SDK and current compiled content in old step-8 order");

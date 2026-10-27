@@ -91,14 +91,16 @@ namespace NewModCompiler.Tests
         public static int Run(string root,string sdk) {
             checks=0;string mod=Path.Combine(root,"package-mod");
             Put(Path.Combine(mod,"Data","AptUI","One.xml"),"<AssetDeclaration/>");Put(Path.Combine(mod,"Data","AdditionalMaps","MapMetaData_One.xml"),"<AssetDeclaration/>");
-            foreach(string mode in new[]{"success","terminal","close","report","cancel","unexpected"}) {
+            foreach(string mode in new[]{"success","automatic","terminal","close","report","cancel","unexpected"}) {
                 string output=Path.Combine(root,mode);var request=Options.Parse(new[]{"build","--mod",mod,"--sdk-root",sdk,"--out",output,"--package-content","apt,maps","--package-format","big"});
+                bool success=mode=="success" || mode=="automatic";
+                if(mode=="automatic") request=Options.Parse(new[]{"build","--mod",mod,"--sdk-root",sdk,"--out",output});
                 string previous=Path.Combine(output,"published","previous.txt");Put(previous,"previous");
                 using(var cancellation=new CancellationTokenSource()) {
-                    ExitCode code=Run(request,mode,cancellation);
-                    Check(code==(mode=="success"?ExitCode.Success:mode=="cancel"?ExitCode.Cancelled:ExitCode.Output),"Wrong packaging/finalization outcome for "+mode);
+                    ExitCode code=Run(request,mode=="automatic"?"success":mode,cancellation);
+                    Check(code==(success?ExitCode.Success:mode=="cancel"?ExitCode.Cancelled:ExitCode.Output),"Wrong packaging/finalization outcome for "+mode);
                 }
-                if(mode!="success") {
+                if(!success) {
                     Check(File.ReadAllText(previous)=="previous","Failed BIG build replaced previous publication");
                     if(Directory.Exists(request.ReportPath))Directory.Delete(request.ReportPath);
                     using(var retry=new CancellationTokenSource())Check(Run(request,"success",retry)==ExitCode.Success,"Same-path BIG retry failed after "+mode);
@@ -142,7 +144,7 @@ namespace NewModCompiler.Tests
                 try {Options.Parse(new[]{"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"identity-invalid"),"--package-format","big"}.Concat(pair).ToArray());throw new Exception("Invalid identity accepted");}
                 catch(BuildFailure failure){Check(failure.Code=="PACKAGE_IDENTITY_INVALID","Invalid identity diagnostic differs");}
             }
-            try {Options.Parse(new[]{"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"identity-loose"),"--mod-version","2.0"});throw new Exception("Loose package identity silently ignored");}
+            try {Options.Parse(new[]{"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"identity-loose"),"--package-format","loose","--mod-version","2.0"});throw new Exception("Loose package identity silently ignored");}
             catch(BuildFailure failure){Check(failure.Code=="PACKAGE_IDENTITY_FORMAT","Loose identity diagnostic differs");}
             string unicode=Path.Combine(root,"中文MOD");Directory.CreateDirectory(unicode);
             try {Options.Parse(new[]{"build","--mod",unicode,"--sdk-root",sdk,"--out",Path.Combine(root,"unicode-big"),"--package-content","apt","--package-format","big"});throw new Exception("Unicode BIG filename accepted without game evidence");}

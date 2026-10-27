@@ -91,7 +91,7 @@ public static class CompilerApplicationBuild
         // do not weaken Chinese/space MOD-path or production path validation.
         string output = Path.Combine(shortOutputRoot, "b" + number);
         var request = Options.Parse(new[] { "build", "--mod", mod, "--sdk-root", sdk, "--out", output,
-            "--package-content", String.Join(",", content), "/sc:false", "/bc:false", "/pc:false", "/csc:false", "/tl:3" });
+            "--package-format", "loose", "--package-content", String.Join(",", content), "/sc:false", "/bc:false", "/pc:false", "/csc:false", "/tl:3" });
         Require(request.ModRoot == Path.GetFullPath(mod) && !Paths.Contains(sdk, request.ModRoot), "Expected external MOD directory from Options.Parse");
         BuildPlan expected = Planner.Resolve(request);
         observer = observer ?? new Observe();

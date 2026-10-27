@@ -88,7 +88,7 @@ try {
             Need ($patch.targetExeSha256 -ceq (Hash $exe) -and $patch.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll')) -and $patch.protectedPeAudit.status -ceq 'passed') 'Unicode runtime Texture deployment does not bind actual EXE'
             Need (@(Get-ChildItem -LiteralPath $runtime -File).Count -eq 5) 'Unexpected production runtime files'
             $modBefore=Inventory $mod;$sdkBefore=Inventory $sdk;$runtimeBefore=Inventory $runtime
-            $request=@{exe=$exe;cwd=$runtime;arguments=@('build','--sdk-root',$sdk,'--mod',$mod,'--out',$destination,'--package-content','apt');stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=(Join-Path $destination 'build.events.jsonl');cancel=$false;timeoutSeconds=$TimeoutSeconds}
+            $request=@{exe=$exe;cwd=$runtime;arguments=@('build','--sdk-root',$sdk,'--mod',$mod,'--out',$destination,'--package-format','loose','--package-content','apt');stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=(Join-Path $destination 'build.events.jsonl');cancel=$false;timeoutSeconds=$TimeoutSeconds}
             $requestPath=Join-Path $caseOut 'request.json';$controlPath=Join-Path $caseOut 'control.json'
             $caseState=@{variant=$variant;succeeded=$false;sdkRoot=$sdk;modRoot=$mod;runtimeRoot=$runtime;outputRoot=$destination;exeSha256=(Hash $exe);textureDeployment=$patch;modInputs=$modBefore;sdkInputs=$sdkBefore;runtimeInputs=$runtimeBefore;artifacts=@();inlineTextures=@()};$modeState.cases+=,$caseState
             try {

@@ -61,7 +61,7 @@ try {
         if($LASTEXITCODE -ne 3 -or !(Select-String -Path "$modeOut/doctor.log" -SimpleMatch 'CORE_CONFIG_MISSING' -Quiet)){throw 'Doctor must reject missing SDK configuration with exit 3'}
         foreach($command in @('plan','build')) {
             $destination=Join-Path $work "$mode/$command-output"
-            & $exe $command --mod $fixture --sdk-root $sdk --out $destination --package-content base,apt,maps *> "$modeOut/$command.log"
+            & $exe $command --mod $fixture --sdk-root $sdk --out $destination --package-format loose --package-content base,apt,maps *> "$modeOut/$command.log"
             $code=$LASTEXITCODE;$expected=if($command -eq 'plan'){0}else{3}
             if($code -ne $expected){Get-Content "$modeOut/$command.log";throw "$mode $command exit $code differs from $expected"}
             $report=Get-Content "$destination/build-report.json" -Raw|ConvertFrom-Json

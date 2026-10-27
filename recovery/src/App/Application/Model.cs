@@ -24,6 +24,7 @@ namespace NewModCompiler.Application
         public string EventsPath { get; set; }
         public string ReportPath { get; set; }
         public string LogPath { get; set; }
+        public bool AutoDetectContent { get; set; }
         public string[] Content { get; set; }
         public string PackageFormat { get; set; }
         public string ModVersion { get; set; }

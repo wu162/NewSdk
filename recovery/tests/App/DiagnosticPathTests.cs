@@ -47,7 +47,7 @@ namespace NewModCompiler.Tests
         static void StagingJunction(string work,string mod,string sdk,string target,string suffix)
         {
             string output=Path.Combine(work,"staging-out-"+suffix), id="staging-junction-"+suffix;
-            var request=Options.Parse(new [] {"build","--mod",mod,"--sdk-root",sdk,"--out",output,"--package-content","base"});
+            var request=Options.Parse(new [] {"build","--mod",mod,"--sdk-root",sdk,"--out",output,"--package-format","loose","--package-content","base"});
             string inputDirectory=Path.Combine(target,id), sentinel=Path.Combine(inputDirectory,"sentinel.keep");
             Directory.CreateDirectory(inputDirectory); File.WriteAllText(sentinel,"preserve staging alias input");
             Directory.CreateDirectory(output); string junction=Path.Combine(output,".build"); Junction(junction,target);
@@ -62,7 +62,7 @@ namespace NewModCompiler.Tests
         static void ExistingStaging(string work,string mod,string sdk)
         {
             string output=Path.Combine(work,"existing-staging-out"), id="staging-already-exists";
-            var request=Options.Parse(new [] {"build","--mod",mod,"--sdk-root",sdk,"--out",output,"--package-content","base"});
+            var request=Options.Parse(new [] {"build","--mod",mod,"--sdk-root",sdk,"--out",output,"--package-format","loose","--package-content","base"});
             string existing=Path.Combine(output,".build",id), sentinel=Path.Combine(existing,"sentinel.keep");
             Directory.CreateDirectory(existing); File.WriteAllText(sentinel,"pre-existing staging belongs to another build");
             var compiler=new StagingCompiler(); ExitCode code;
@@ -140,7 +140,7 @@ namespace NewModCompiler.Tests
                 } finally { Directory.Delete(junction); }
             }
             string late=Path.Combine(work,"late"), lateOutput=Path.Combine(work,"late-out");
-            Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--out",lateOutput,"--events",Path.Combine(late,"events.jsonl")});
+            Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--out",lateOutput,"--package-format","loose","--events",Path.Combine(late,"events.jsonl")});
             Junction(late,mod);
             try { try { using (var sink=new JsonLineSink(Path.Combine(late,"events.jsonl"))) { } throw new Exception("Post-parse junction accepted"); } catch (IOException) { } }
             finally { Directory.Delete(late); }

@@ -23,7 +23,12 @@ namespace NewModCompiler.Application
             string name=request.SkudefName;
             if(name!=null && (string.IsNullOrWhiteSpace(name) || name=="." || name==".." || name!=name.Trim() || name.EndsWith(".",StringComparison.Ordinal) || name.Any(c=>c<32 || c>126 || "\\/:*?\"<>|".IndexOf(c)>=0)))
                 throw Bad("skudef-name must be one ASCII file basename without an extension, directories or trailing dot/space.");
-            if(request.Command!="doctor" && request.PackageFormat!="big") foreach(string key in new[]{"mod-version","game-version","skudef-name"}) {
+            // Development derives loose output without discarding the project's normal
+            // package identity. Explicit loose requests retain the existing guard.
+            EffectiveOption profile,format;
+            bool development = request.Options.TryGetValue("profile",out profile) && profile.Value=="development"
+                && request.Options.TryGetValue("package-format",out format) && format.Source=="default";
+            if(request.Command!="doctor" && request.PackageFormat!="big" && !development) foreach(string key in new[]{"mod-version","game-version","skudef-name"}) {
                 EffectiveOption option;
                 if(request.Options.TryGetValue(key,out option) && option.Source!="default")
                     throw new BuildFailure(ExitCode.Arguments,"PACKAGE_IDENTITY_FORMAT","Package version/name options require --package-format big.");

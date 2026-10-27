@@ -98,7 +98,7 @@ namespace NewModCompiler.Application
             if(code==ExitCode.Success && request.Command=="build" && request.PackageFormat=="big" && artifacts.Count!=0) {
                 try {
                     StartStage("package");
-                    var packaged=BigPackage.Create(request,plan,staging,artifacts,cancellation);
+                    var packaged=BigPackage.Create(request,plan,staging,artifacts,cancellation,message=>Diagnostic("ADDITIONAL_OVERWRITE",message,"warning",stageId:"package"));
                     artifacts.Clear();artifacts.AddRange(packaged);
                     foreach(var artifact in artifacts) events.Emit("ArtifactProduced",payload:artifact,stageId:"package");
                     CompleteStage("succeeded",artifacts.Count);

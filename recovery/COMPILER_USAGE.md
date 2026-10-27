@@ -19,13 +19,13 @@
 
 ## 2. 准备 MOD 文件夹
 
-`--mod` 必须指向 MOD 目录，不是单个 XML、manifest 或 babproj。编译入口按所选内容发现：
+`--mod` 必须指向 MOD 目录，不是单个 XML、manifest 或 babproj。默认自动识别以下入口：
 
 | 内容 | MOD 内入口 | 行为 |
 | --- | --- | --- |
-| `base` | `Data/Mod.xml` | 选中后必须存在 |
+| `base` | `Data/Mod.xml` | 自动模式下存在才编译；显式选择后必须存在 |
 | `apt` | `Data/AptUI/*.xml` | 只发现该目录直接子文件，按稳定顺序逐流编译 |
-| `maps` | `Data/AdditionalMaps/MapMetaData_*.xml` | 只发现该目录直接子文件 |
+| `global-metadata`（兼容旧名 `maps`） | `Data/AdditionalMaps/MapMetaData_*.xml` | 只发现该目录直接子文件 |
 
 被入口引用的数据、贴图、模型、音频等资源仍须完整；选择内容不会自动修复缺失的资产依赖。APT XML 是现有 UI 编译入口，本工具不会直接将 FLA、HTML 或脚本工程转换成 APT。
 
@@ -36,13 +36,13 @@
 先看计划（只发现流，不实际编译）：
 
 ```powershell
-./NewModCompiler.exe plan --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --package-content base,apt,maps --package-format big
+./NewModCompiler.exe plan --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example"
 ```
 
 编译成 BIG：
 
 ```powershell
-./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --package-content base,apt,maps --package-format big
+./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example"
 ```
 
 仅编译基础数据并输出松散流：
@@ -51,7 +51,17 @@
 ./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\ExampleLoose" --package-content base --package-format loose
 ```
 
-默认内容为 `base,apt,maps`，默认格式为 `loose`。若目录中只有 APT，应显式选 `--package-content apt`，否则默认 base 会要求 `Data/Mod.xml`。可选内容没有入口时会记录空集合；全部所选内容都为空时保留上一代，不生成空 BIG。
+默认使用标准构建：`--package-content auto`，格式 `big`，自动包含 Additional。只有 APT 或全局元数据的 MOD 也能直接编译，无需创建空的 Mod.xml。自动发现没有任何有效编译入口时以 `PLAN_NO_INPUTS` 报错；仅有 Additional 不算编译入口。
+
+| 构建方式 | 用法 | 默认输出 / 用途 |
+| --- | --- | --- |
+| 标准构建 | `build`（或 `--profile standard`） | 自动识别内容，BIG + SKUDEF，自动包含 Additional |
+| 开发构建 | `--profile development` | 自动识别内容，输出 loose 流文件，便于迭代 |
+| 高级构建 | `--profile advanced`、`--help-advanced` | 标准默认值，按需使用兼容开关与显式内容选择 |
+
+模式只提供默认值，显式参数和项目设置优先；三个模式均不改变任何缓存选项。开发模式派生的 loose 输出允许保留项目的包版本/名称设置，这些设置只在以后标准打包时使用；显式 `--package-format loose` 的原有校验继续保留。
+
+`--package-content base|apt|global-metadata` 或逗号组合仍提供原有的部分编译，旧名 `maps` 完全兼容。显式选择为空的可选组时继续保留上一代，不生成空 BIG；没有改变部分编译和完整打包机制。
 
 成功产物位于输出根的 `published` 目录；具体流文件路径和 SHA256 从 `build-report.json` 的 `artifacts` 获取。成功非空构建替换整个已发布目录，请勿手动放入需要长期保留的文件。受控失败、取消或发布故障会回滚上一代。
 
@@ -64,13 +74,13 @@
 | 选项 | 默认值 / 效果 |
 | --- | --- |
 | `--mod-version` | `1.0`，生成 `<MOD目录名>_<版本>.big` |
-| `--game-version` | `1.12`，写入 SKUDEF 的 `mod-game` 字段 |
+| `--game-version`（高级） | 默认固定 `1.12`，仅需兼容其他版本时手动设置 |
 | `--skudef-name` | MOD 目录名，生成 `<基名>_<版本>.skudef`，其中 add-big 引用真实 BIG 文件名 |
-| `--include-additional=true` | 默认关闭；先取 `SDK/Additional`，后由 `MOD/Additional` 同名文件覆盖，排除 `.asset` |
+| `--include-additional=false` | BIG 默认自动包含，手动关闭时使用 false；先取 `SDK/Additional`，后由 `MOD/Additional` 同名文件覆盖，排除 `.asset` |
 
 以上示例发布 `Example_2.7-beta.big` 和 `ExampleLauncher_2.7-beta.skudef`。版本/名称选项仅用于 BIG；MOD 版本使用 ASCII 字母/数字/点/下划线/连字符，SKUDEF 名称为单个 ASCII 文件基名。当前 BIG 也要求 MOD 目录基名为 ASCII。游戏版本字段可配置，不代表已验证其他游戏版本的实际运行。
 
-Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT 版本文件，这是显式启用后保留的旧脚本行为。默认 base BIG 包含 `data/mod.*` 与低/中 LoD 流；APT、maps 和 CDATA 布局见 [打包说明](P7_PACKAGING.md)。APT 的 `.version` 空格/CRLF 标记与 MOD 包版本是两件事。
+Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT 版本文件，这是保留的旧脚本行为。发生 SDK/MOD 同名覆盖或 Additional 覆盖已编译包成员时，日志、JSONL 和报告记录 `ADDITIONAL_OVERWRITE` 警告；仍按旧顺序继续打包。中立资产修复 `--fix-neutral-assets` 继续默认关闭。默认 base BIG 包含 `data/mod.*` 与低/中 LoD 流；APT、maps 和 CDATA 布局见 [打包说明](P7_PACKAGING.md)。APT 的 `.version` 空格/CRLF 标记与 MOD 包版本是两件事。
 
 布尔值使用 `--include-additional=true`、`--include-additional=false`，或单独裸开关启用；不要写成 `--include-additional true`。
 
@@ -80,24 +90,19 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 
 ```json
 {
-  "package-content": "base,apt,maps",
-  "package-format": "big",
-  "mod-version": "2.7-beta",
-  "game-version": "1.12",
-  "skudef-name": "ExampleLauncher",
-  "include-additional": false,
-  "fix-neutral-assets": false,
-  "tp": "Win32"
+  "sdk-root": "C:/NewSdk/SDK",
+  "out": "C:/Build/Example",
+  "mod-version": "2.7-beta"
 }
 ```
 
-随后仍显式传入 SDK、MOD 和输出目录：
+保存后通常只传 MOD 路径（需要时再覆盖版本号）：
 
 ```powershell
-./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example"
+./NewModCompiler.exe build --mod "C:\Mods\Example" --mod-version 2.8
 ```
 
-命令行覆盖项目预设，预设覆盖默认值；同一来源的冲突参数会报错。不要将任意旧 BAB 参数写入 JSON，目前仅接受上例这些键。
+命令行覆盖项目预设，预设覆盖默认值；同一来源的冲突参数会报错。SDK 与输出路径可保存到项目，JSON 中相对路径以 MOD 目录为基准；命令行路径仍以调用目录为基准。还可保存 `profile`、内容选择、BIG 设置以及 `ss`、`pc`、`slowclean`（完整列表见 [参数兼容表](CLI_COMPATIBILITY.md)）；后三者默认 true，可用 false 覆盖。Win32 与链接流属于固定行为，旧 `/tp:Win32`、`/ls:true` 调用仍接受。不要将其他旧 BAB 参数写入 JSON。
 
 ## 6. 缓存与资源根
 

@@ -53,7 +53,7 @@ namespace NewModCompiler.Tests
         {
             for (int mode=0;mode<9;mode++) {
                 var cancellation=new CancellationTokenSource();
-                var request=Options.Parse(new [] {"build","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(work,"case"+mode),"--package-content","base"});
+                var request=Options.Parse(new [] {"build","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(work,"case"+mode),"--package-format","loose","--package-content","base"});
                 string old=Path.Combine(request.OutputRoot,"published","old.txt"); Directory.CreateDirectory(Path.GetDirectoryName(old)); File.WriteAllText(old,"previous");
                 var backend=new Backend {FailCommit=mode==1 || mode==7,FailCompile=mode==5,FailDispose=mode==6,FailRollback=mode==7,CancelAfterStage=mode==8 ? cancellation : null};
                 var sink=new Sink {Backend=backend,Request=request,FailClose=mode==2,FailTerminal=mode==3,BlockReport=mode==4};

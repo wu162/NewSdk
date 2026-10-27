@@ -84,7 +84,7 @@ function VerifySdkBig([string]$Mode,$Runtime,$ModeOut,$Sdk,$Mod,$Tasks,$Original
     $bigOut=Join-Path $ModeOut 'big';New-Item -ItemType Directory -Path $bigOut|Out-Null
     $destination=Join-Path $script:short ($Mode.Substring(0,1)+'big')
     New-Item -ItemType Directory -Path $destination|Out-Null
-    $arguments=@('build','--mod',$Mod,'--sdk-root',$Sdk,'--out',$destination,'--package-content','base,apt,maps','--package-format','big','/sc:false','/bc:false',"/data:$Data","/art:$Art","/audio:$Audio")
+    $arguments=@('build','--mod',$Mod,'--sdk-root',$Sdk,'--out',$destination,'/sc:false','/bc:false',"/data:$Data","/art:$Art","/audio:$Audio")
     $audit=InvokeControlled ($Mode+'/big') (Join-Path $Runtime 'NewModCompiler.exe') $arguments $Runtime (Join-Path $destination 'build.events.jsonl') (Join-Path $bigOut 'process')
     Copy-Item -LiteralPath $destination -Destination (Join-Path $bigOut 'output') -Recurse
     $report=Get-Content (Join-Path $destination 'build-report.json') -Raw|ConvertFrom-Json
@@ -119,6 +119,14 @@ function VerifySdkBig([string]$Mode,$Runtime,$ModeOut,$Sdk,$Mod,$Tasks,$Original
             }
         }
     }
+    # Reuse the exact legacy CopyFolders methods before MakeBig, including SDK-then-MOD precedence.
+    $preAdditional=Join-Path $bigOut 'pre-additional.json'
+    $expected|ConvertTo-Json -Depth 6 -AsArray|Set-Content $preAdditional
+    $additionalOut=Join-Path $bigOut 'original-additional'
+    & python "$PSScriptRoot/PrepareCompilerAdditional.py" oracle --sdk-root $Sdk --mod-root $Mod --expected $preAdditional --control $script:additionalControl --output $additionalOut
+    Need ($LASTEXITCODE -eq 0) 'Complete SDK original CopyFolders overlay failed'
+    $expected=@((Get-Content (Join-Path $additionalOut 'inventory.json') -Raw|ConvertFrom-Json).files)
+    $inputs=Join-Path $additionalOut 'input'
     $original=Join-Path $bigOut 'MakeBig.exe';Copy-Item -LiteralPath (Join-Path $Sdk 'tools/MakeBig.exe') -Destination $original
     [IO.File]::WriteAllText(($original+'.config'),'<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0"/></startup></configuration>')
     $archive=Join-Path $bigOut 'original.big'
@@ -193,6 +201,15 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
     $controlReceipt=Get-Content (Join-Path $out 'controller/build.json') -Raw|ConvertFrom-Json
     Need ($controlReceipt.succeeded -and $controlReceipt.sourceCommit -ceq $state.sourceCommit -and $controlReceipt.controllerSha256 -ceq (Hash $script:control)) 'SDK controller identity mismatch'
     $state.controller=$controlReceipt
+    $script:additionalControl=Join-Path $out 'AdditionalControl.exe'
+    $additionalSource=(Resolve-Path -LiteralPath (Join-Path $root 'recovery/preparation/additional/AdditionalControl.cs')).Path
+    $refs=Join-Path ${env:ProgramFiles(x86)} 'Reference Assemblies/Microsoft/Framework/.NETFramework/v4.8'
+    $additionalArguments=@('/nologo','/noconfig','/nostdlib+','/langversion:7.3','/target:exe','/platform:x86',('/out:'+$script:additionalControl))
+    foreach($reference in @('mscorlib','System')){$additionalArguments+=('/reference:'+(Join-Path $refs ($reference+'.dll')))}
+    $additionalArguments+=$additionalSource
+    & $controlReceipt.controllerCompiler.path @additionalArguments *> (Join-Path $out 'build-additional-control.log')
+    Need ($LASTEXITCODE -eq 0) 'SDK original CopyFolders controller compilation failed'
+
     $env:PATH=(@($oldPath -split ';'|Where-Object{$_ -notmatch '[\\/]SDK[\\/]tools'}) -join ';')
     foreach($item in @(Get-ChildItem Env:|Where-Object{$_.Name -like 'RA3_RECOVERED_*' -or $_.Name -eq 'RECOVERED_W3X_TRACE_DIRECTORY'})){$removedEnvironment[$item.Name]=$item.Value;[Environment]::SetEnvironmentVariable($item.Name,$null,'Process')}
     # The original oracle runs first with untouched original plugin routes.

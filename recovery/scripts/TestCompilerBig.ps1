@@ -57,10 +57,16 @@ function CacheUnchanged([string]$Destination,$Before){
     $after=CacheFiles $Destination;Need ($after.Count -eq $Before.Count) 'Failed/cancelled build persisted additional session-cache files'
     foreach($key in $Before.Keys){Need ($after.ContainsKey($key) -and $after[$key] -ceq $Before[$key]) 'Failed/cancelled build changed previously confirmed session-cache bytes'}
 }
-function RunCli([string]$Name,[string]$Mod,[string]$Destination,[string]$Selection,[string]$Format,[int]$Expected=0,[bool]$Cancel=$false,[string]$HoldReadFile=$null,[string[]]$Extra=@()){
+function RunCli([string]$Name,[string]$Mod,[string]$Destination,[string]$Selection,[string]$Format,[int]$Expected=0,[bool]$Cancel=$false,[string]$HoldReadFile=$null,[string[]]$Extra=@(),[switch]$Defaults){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     New-Item -ItemType Directory -Force -Path $Destination|Out-Null
-    $arguments=@('build','--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-content',$Selection,'--package-format',$Format)+$Extra
+    $arguments=@('build','--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination)
+    if(!$Defaults){
+        $arguments+=@('--package-content',$Selection,'--package-format',$Format)
+        # Keep the original no-overlay differential; default overlays are verified separately below.
+        if($Format -eq 'big' -and !@($Extra|Where-Object{$_ -like '--include-additional*'}).Count){$arguments+='--include-additional=false'}
+    }
+    $arguments+=$Extra
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     $request=@{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=$events;cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}
     if($HoldReadFile){$request.holdReadFile=$HoldReadFile}
@@ -284,6 +290,17 @@ try{
         $retry=RunCli 'retry-after-cancel' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'cancel-retry-original'
         $additionalBig=RunCli 'all-with-additional' $mod (Join-Path $modeWork 'all-additional') 'base,apt,maps' 'big' 0 $false $null @('--include-additional=true')
         CompareBig $additionalBig $plain 'additional-original-copy-makebig' $true
+        $automatic=RunCli 'standard-defaults' $mod (Join-Path $modeWork 'standard-defaults') 'base,apt,maps' 'big' -Defaults
+        Need ($automatic.report.effectiveOptions.'package-content'.Value -ceq 'auto' -and $automatic.report.effectiveOptions.'include-additional'.Value -ceq 'true') 'Standard build did not discover content and Additional automatically'
+        Need (@($automatic.report.diagnostics|Where-Object{$_.code -ceq 'ADDITIONAL_OVERWRITE' -and $_.level -ceq 'warning'}).Count -ge 3) 'Default Additional overwrites were not reported as warnings'
+        CompareBig $automatic $plain 'standard-defaults-original-copy-makebig' $true
+        $script:expectedArtifacts=18
+        $development=RunCli 'development-defaults' $mod (Join-Path $modeWork 'development-defaults') 'base,apt,maps' 'loose' -Extra @('--profile','development','--mod-version','2.7-beta') -Defaults
+        Need ($development.report.effectiveOptions.'package-content'.Value -ceq 'auto' -and $development.report.effectiveOptions.'include-additional'.Value -ceq 'false') 'Development did not default to automatic loose streams'
+        Need ($development.files.Count -eq $plain.files.Count) 'Development loose inventory differs'
+        foreach($name in $plain.files.Keys){Need ($development.files.ContainsKey($name) -and (Hash $development.files[$name]) -ceq (Hash $plain.files[$name])) "Development default stream bytes differ: $name"}
+
+
         $baseManifest=@($baseLoose.report.artifacts|Where-Object{[IO.Path]::GetExtension($_.Path) -ieq '.manifest'})
         Need ($baseManifest.Count -eq 1) 'Neutral fixture requires one current base manifest'
         $basePublished=Join-Path $baseLoose.destination 'published'

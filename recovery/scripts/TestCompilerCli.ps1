@@ -34,7 +34,7 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
     $destination=if($ReuseDestination){$ReuseDestination}else{Join-Path $script:modeWork ('o'+$script:caseIndex)};$script:caseIndex++
     New-Item -ItemType Directory -Force -Path $destination|Out-Null
     $arguments=@($Command,'--sdk-root',$Sdk)
-    if($Command -ne 'doctor'){$arguments+=@('--mod',$Mod,'--out',$destination,'--package-content',$Selection)}
+    if($Command -ne 'doctor'){$arguments+=@('--package-format','loose','--mod',$Mod,'--out',$destination,'--package-content',$Selection)}
     $arguments+=@($Extra)
     $events=Join-Path $destination 'build.events.jsonl';$report=Join-Path $destination 'build-report.json'
     $request=@{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=$events;cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}

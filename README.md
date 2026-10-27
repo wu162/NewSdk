@@ -14,16 +14,16 @@
 
 ```powershell
 ./NewModCompiler.exe doctor --sdk-root C:\NewSdk\SDK
-./NewModCompiler.exe plan --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --package-content base,apt,maps --package-format big
-./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --package-content base,apt,maps --package-format big
+./NewModCompiler.exe plan --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example
+./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example
 ```
 
-`--mod` 指向 MOD 文件夹。默认选择 `base,apt,maps`，默认 `--package-format loose`；BIG 为显式选择。成功构建的最终文件位于输出根下 `published`，默认 BIG/SKUDEF 名称为 `<MOD目录名>_1.0`。构建同时输出日志、JSONL 事件及最终报告，适合后续界面调用；不启动旧 GUI 或 BAB 子进程。
+`--mod` 指向 MOD 文件夹。默认自动发现 base、APT UI、全局元数据，输出 BIG + SKUDEF；开发模式 `--profile development` 默认 loose。`--package-content global-metadata` 兼容旧名 `maps`。成功构建的最终文件位于输出根下 `published`，默认 BIG/SKUDEF 名称为 `<MOD目录名>_1.0`。构建同时输出日志、JSONL 事件及最终报告，适合后续界面调用；不启动旧 GUI 或 BAB 子进程。
 
 - `--mod-version 2.7-beta`、`--game-version 1.12`、`--skudef-name ExampleLauncher`：设置 BIG/SKUDEF 身份，默认值保持旧脚本行为。
 - `/bc:true`：启用构建资产缓存，默认关闭。
 - `/sc:true`：启用会话缓存，默认关闭；含混合 Texture 的流明确拒绝此选项。
-- `--include-additional=true`：BIG 中先复制 SDK/Additional，再由 MOD/Additional 覆盖；默认关闭，排除 `.asset`。
+- `--include-additional=false`：BIG 默认自动包含 SDK/Additional，再由 MOD/Additional 覆盖；使用 false 可关闭，排除 `.asset`，覆盖冲突记录警告。
 - `--fix-neutral-assets=true`：仅 base BIG 可用的显式中立修复；默认关闭，要求已有完整 Worldbuilder 参考四文件，缺失时报错。
 
 布尔值使用等号，或单独裸开关启用；不要写成 `--include-additional true`。详细包布局见 [P7 打包合同](recovery/P7_PACKAGING.md)。

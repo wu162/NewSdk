@@ -20,7 +20,7 @@
 
 默认成员仅来自本次已确认的流产物清单；不扫描陈旧输出、中间文件或缓存。base 不派生 `.version`。空可选集合保持上一代，不生成空 BIG。
 
-`--include-additional=true` 默认关闭，且只允许 BIG：按原 step8 先 SDK/Additional、后 MOD/Additional 递归覆盖；相对路径进入 BIG 根，`.asset` 按原 MakeBig 规则排除。同名文件可覆盖本次编译结果或 APT 版本，这是原脚本的显式行为。所有输入先快照到本次 staging 并核对 SHA256，不改原 SDK/MOD/流文件；之后仍走已有发布事务。项目配置可使用布尔 `include-additional`。
+BIG 默认自动包含 Additional，可用 `--include-additional=false` 关闭；显式 loose 不自动包含，`--include-additional=true` 仍只允许 BIG：按原 step8 先 SDK/Additional、后 MOD/Additional 递归覆盖；相对路径进入 BIG 根，`.asset` 按原 MakeBig 规则排除。同名文件可覆盖本次编译结果或 APT 版本，这是原脚本的覆盖行为，记录 `ADDITIONAL_OVERWRITE` 警告。所有输入先快照到本次 staging 并核对 SHA256，不改原 SDK/MOD/流文件；之后仍走已有发布事务。项目配置可使用布尔 `include-additional`。
 
 `--fix-neutral-assets=true` 默认关闭，只允许选中 base 的 BIG 构建。先在独立包工作区复制主流四输出及 CDATA，再执行恢复的 HashFix→ModAssetResolver，最后派生 LoD；原 Core/缓存及 SDK 输入不变。编译前预检必须的参考文件，缺失时以 `PACKAGE_NEUTRAL_REFERENCE_MISSING` 拒绝并保留上一代。HashFix 使用 SageXml Worldbuilder manifest；Resolver 优先完整 builtmods 根四件，根完全不存在时才使用完整 SageXml 四件，不拼接两代。当前不访问游戏安装注册表，也未实现从游戏 `WBData_12.big` 提取；需要已有完整 Worldbuilder 四输出。实际 CLI 验收用自包含参考验证哈希确实修正、零插入链、缺失/恢复；真正插入由独立组件原始差分验证，不扩大为完整游戏中立资产验收。
 
