@@ -567,7 +567,7 @@ public static class CompilerApplicationBuild
             Environment.SetEnvironmentVariable("BabEnableTrace", "False");
             Run();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks = checks, tests = Tests.ToArray(), protocolCases = ProtocolCases.ToArray(),
-                scope = "Real in-process experimental backend and application orchestration using small Armor inputs; APT business, production CLI, cold-process/G3/SDK and cache acceptance remain separate" };
+                scope = "Real in-process backend and application orchestration using small Armor inputs, plus explicitly fixture-only patch settings/precompiled consumer injection for three-stream final-input transaction acceptance; no new CLI patch/precompiled option support, APT business, cold-process/G3/SDK or cache acceptance" };
             Console.WriteLine("PASS ApplicationBuild: " + Tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception error)
