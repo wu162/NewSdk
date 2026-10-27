@@ -662,6 +662,19 @@
       ],
       "evidence": "recovery/evidence/texture/dxt-samples/*/validation.json",
       "sdk": false
+    },
+    "dxt-image-boundaries": {
+      "script": "recovery/scripts/InspectTextureDxtImageBoundaries.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureDxtImageBoundaries.ps1",
+        "recovery/tests/TextureDxtImageBoundaries.cs",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/dxt-image-boundaries/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"

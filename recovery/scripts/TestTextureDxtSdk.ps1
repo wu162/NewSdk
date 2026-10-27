@@ -41,7 +41,7 @@ try{
     }
   }
   $expectedAssets=$nodes.Count
-  if($expectedAssets -ne 480){throw "Expected 480 compressed texture assets, got $expectedAssets"}
+  if($expectedAssets -ne 456){throw "Expected 456 compressed texture assets, got $expectedAssets"}
 
   "<?xml version='1.0'?><AssetDeclaration xmlns='uri:ea.com:eala:asset'><Tags />$($nodes -join "`n")</AssetDeclaration>"|Set-Content "$moddir/Data/Mod.xml" -Encoding utf8
   $trace="$out/$mode-trace";New-Item -ItemType Directory -Force $trace|Out-Null

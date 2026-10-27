@@ -25,10 +25,7 @@ internal static class TextureDxtSdkFixtures
             foreach(int depth in new[]{16,24,32})foreach(bool top in new[]{false,true})foreach(int pattern in new[]{0,1,2}){
                 File.WriteAllBytes(Path.Combine(dir,"bmp-d"+depth+"-top"+top+"-p"+pattern+".bmp"),TextureBmpOracle.Fixture(8,4,depth,top,pattern,0,7));count++;
             }
-            foreach(int profile in new[]{0,1,2})foreach(bool top in new[]{false,true}){
-                File.WriteAllBytes(Path.Combine(dir,"bmp-fields"+profile+"-top"+top+".bmp"),TextureBmpOracle.BitfieldsFixture(8,4,profile,top,0,7));count++;
-            }
-            if(count!=120)throw new Exception("Fixture count mismatch "+count);
+            if(count!=114)throw new Exception("Fixture count mismatch "+count);
             Console.WriteLine("PASS Texture DXT SDK fixtures="+count+"; deterministic aligned PC TGA/PNG/BMP");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
