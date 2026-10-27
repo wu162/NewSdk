@@ -29,6 +29,9 @@ public class NodeJoiner
 
 	private readonly bool m_useChildIndex;
 
+    private readonly bool m_usePredecessorNames;
+    private long m_predecessorBuilds, m_predecessorEntries, m_predecessorQueries;
+
 	public static XmlNode Override(XmlSchemaSet docSchema, XmlDocument document, XmlNode baseNode, XmlNode overrideNode)
 	{
 		XmlNode xmlNode = document.CreateNode(baseNode.NodeType, baseNode.Name, baseNode.NamespaceURI);
@@ -249,6 +252,8 @@ public class NodeJoiner
 		m_document = document;
 		AppContext.TryGetSwitch("NewSdk.Compiler.DisableNodeJoinerIndex", out bool disableIndex);
 		m_useChildIndex = !disableIndex;
+        AppContext.TryGetSwitch("NewSdk.Compiler.DisableNodeJoinerPredecessors", out bool disablePredecessors);
+        m_usePredecessorNames = !disablePredecessors;
 	}
 
 	private XmlNode SelectMatchingKey(XmlNode destNode, XmlNode srcNode)
@@ -330,6 +335,60 @@ public class NodeJoiner
 		return false;
 	}
 
+    // This plan lives only across the following insertion scan, before any
+    // destination mutation can invoke DOM callbacks. Rebuild for every insert:
+    // a previous insert's callback may have changed the public schema graph.
+    // Exact destination elements exclude virtual Name/LocalName callbacks while
+    // consuming the set. Never retain mutable schema objects in a cached plan.
+    private HashSet<string> PredecessorNames(XmlNode parent, XmlSchemaComplexType type, XmlSchemaElement target)
+    {
+        if (!m_usePredecessorNames || parent.GetType() != typeof(XmlElement) || type == null ||
+            !(type.ContentTypeParticle is XmlSchemaSequence rootSequence) || rootSequence.Items.Count < 16) return null;
+        int children = 0;
+        foreach (XmlNode child in parent.ChildNodes)
+        {
+            if (child.GetType() != typeof(XmlElement)) return null;
+            children++;
+        }
+        if (children < 8) return null;
+        var types = new List<XmlSchemaComplexType>();
+        var seen = new HashSet<XmlSchemaComplexType>();
+        int budget = 4096;
+        for (XmlSchemaComplexType current = type; current != null; current = current.BaseXmlSchemaType as XmlSchemaComplexType)
+        {
+            if (--budget < 0 || current.GetType() != typeof(XmlSchemaComplexType) || !seen.Add(current)) return null;
+            types.Add(current);
+        }
+        var names = new HashSet<string>(StringComparer.Ordinal);
+        long entries = 0;
+        // Match the base-first recursion, including the target's own Name:
+        // legacy checks a name before testing target particle identity.
+        for (int i = types.Count - 1; i >= 0; i--)
+        {
+            XmlSchemaParticle particle = types[i].ContentTypeParticle;
+            if (!(particle is XmlSchemaSequence sequence)) continue;
+            if (sequence.GetType() != typeof(XmlSchemaSequence)) return null;
+            foreach (XmlSchemaObject item in sequence.Items)
+            {
+                if (--budget < 0 || !(item is XmlSchemaParticle)) return null;
+                if (item is XmlSchemaElement element)
+                {
+                    if (element.GetType() != typeof(XmlSchemaElement)) return null;
+                    names.Add(element.Name); entries++;
+                }
+                if (Object.ReferenceEquals(target, item)) break;
+            }
+        }
+        m_predecessorBuilds++; m_predecessorEntries += entries;
+        return names;
+    }
+
+    private bool IsPredecessor(HashSet<string> names, XmlNode child)
+    {
+        m_predecessorQueries++;
+        return names.Contains(child.Name);
+    }
+
 	private XmlSchemaElement FindInBase(XmlSchemaComplexType complexType, XmlQualifiedName childQualName)
 	{
 		if (complexType.BaseXmlSchemaType != null && complexType.BaseXmlSchemaType is XmlSchemaComplexType complexType2)
@@ -362,6 +421,7 @@ public class NodeJoiner
 			_ = (XmlSchemaSequence)element.Parent;
 			XmlNode refChild = null;
 			bool flag = false;
+            HashSet<string> predecessorNames = PredecessorNames(XmlParentNode, parentType, element);
 			foreach (XmlNode childNode in XmlParentNode.ChildNodes)
 			{
 				if (childNode.LocalName == element.Name)
@@ -380,7 +440,7 @@ public class NodeJoiner
 					{
 						break;
 					}
-					if (parentType != null && FindPrevNode(parentType, childNode, element))
+					if (parentType != null && (predecessorNames != null ? IsPredecessor(predecessorNames, childNode) : FindPrevNode(parentType, childNode, element)))
 					{
 						refChild = childNode;
 					}

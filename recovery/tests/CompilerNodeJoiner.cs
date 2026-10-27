@@ -47,10 +47,17 @@ public static class CompilerNodeJoiner
             "<xs:complexType name='Choice'><xs:choice minOccurs='0'><xs:element name='Item' type='a:ItemType'/><xs:element name='Other' type='a:ItemType'/></xs:choice><xs:anyAttribute processContents='skip'/></xs:complexType>" +
             "<xs:complexType name='Many'><xs:choice minOccurs='0' maxOccurs='unbounded'><xs:element name='Item' type='a:ItemType'/><xs:element name='Other' type='a:ItemType'/></xs:choice><xs:anyAttribute processContents='skip'/></xs:complexType>" +
             "<xs:complexType name='Singles'><xs:sequence>" + SingletonElements() + "</xs:sequence><xs:anyAttribute processContents='skip'/></xs:complexType>" +
-            "<xs:element name='Asset' type='a:Asset'/><xs:element name='Choice' type='a:Choice'/><xs:element name='Many' type='a:Many'/><xs:element name='Singles' type='a:Singles'/></xs:schema>";
+            "<xs:complexType name='Wide'><xs:sequence>" + WideElements() + "</xs:sequence><xs:anyAttribute processContents='skip'/></xs:complexType>" +
+            "<xs:element name='Wide' type='a:Wide'/><xs:element name='Asset' type='a:Asset'/><xs:element name='Choice' type='a:Choice'/><xs:element name='Many' type='a:Many'/><xs:element name='Singles' type='a:Singles'/></xs:schema>";
         var result = new XmlSchemaSet();
         using (var reader = XmlReader.Create(new StringReader(text))) result.Add(Ns, reader);
         result.Compile(); return result;
+    }
+    static string WideElements()
+    {
+        var result = new StringBuilder();
+        for (int index = 0; index < 64; index++) result.Append("<xs:element name='W").Append(index).Append("' type='a:ItemType' minOccurs='0' maxOccurs='unbounded'/>");
+        return result.ToString();
     }
     static string SingletonElements()
     {
@@ -335,6 +342,69 @@ public static class CompilerNodeJoiner
         Require(disabledAttributeReads >= originalAttributeReads, "Disabled index did not preserve legacy destination attribute access work");
         tests.Add("512-reversed-overrides-original-output-equality-and-linear-destination-attribute-access-bound-with-legacy-fallback");
     }
+    static string PredecessorOutcome(string before, string after, bool disabled, bool derived, out long builds, out long entries, out long queries)
+    {
+        const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+        const string name = "NewSdk.Compiler.DisableNodeJoinerPredecessors";
+        bool previous; AppContext.TryGetSwitch(name, out previous); AppContext.SetSwitch(name, disabled);
+        var destination = derived ? (XmlDocument)new CountingDocument() : new XmlDocument();
+        var joiner = new NodeJoiner(schemas, destination);
+        try
+        {
+            XmlNode src = Document("Wide", before).DocumentElement;
+            XmlNode result = destination.CreateNode(src.NodeType, src.Name, src.NamespaceURI);
+            MethodInfo replace = typeof(NodeJoiner).GetMethod("ReplaceXmlNode", flags);
+            object append = Enum.ToObject(replace.GetParameters()[4].ParameterType, 0);
+            replace.Invoke(joiner, new object[] { result, src, null, false, append });
+            replace.Invoke(joiner, new object[] { result, Document("Wide", after).DocumentElement, null, false, append });
+            return "XML:" + result.OuterXml;
+        }
+        finally
+        {
+            builds = (long)typeof(NodeJoiner).GetField("m_predecessorBuilds", flags).GetValue(joiner);
+            entries = (long)typeof(NodeJoiner).GetField("m_predecessorEntries", flags).GetValue(joiner);
+            queries = (long)typeof(NodeJoiner).GetField("m_predecessorQueries", flags).GetValue(joiner);
+            AppContext.SetSwitch(name, previous);
+        }
+    }
+    static void PredecessorPlans()
+    {
+        var before = new StringBuilder();
+        for (int index = 0; index < 64; index++) before.Append("<W").Append(index).Append(" id='base").Append(index).Append("'/>");
+        foreach (string after in new[] {
+            "<W0 id='new0'/><W31 id='new31'/><W63 id='new63'/>",
+            "<W32 id='top' i:insertPosition='Top'/><W32 id='bottom'/><W16 id='middle'/>",
+            "<W33 id='base33' i:joinAction='Remove'/><W33 id='replacement'/><W0 id='base0' i:joinAction='Replace'/>" })
+        {
+            string expected = original.Run("Wide", before.ToString(), after, "").Outcome;
+            long builds, entries, queries;
+            string actual = PredecessorOutcome(before.ToString(), after, false, false, out builds, out entries, out queries);
+            Require(actual == expected && expected.StartsWith("XML:", StringComparison.Ordinal), "Wide predecessor original DLL XML differential");
+            Require(builds > 0 && entries > 0 && queries > 0, "Wide exact-element insertion did not consume predecessor plans");
+            observations.Add(new { id = "wide-predecessor-plan", builds, entries, queries });
+            string disabled = PredecessorOutcome(before.ToString(), after, true, false, out builds, out entries, out queries);
+            Require(disabled == expected && builds == 0 && queries == 0, "Predecessor switch did not restore legacy traversal");
+            string derived = PredecessorOutcome(before.ToString(), after, false, true, out builds, out entries, out queries);
+            Require(derived == expected && builds == 0 && queries == 0, "Virtual destination element did not conservatively retain legacy traversal");
+            cases++;
+        }
+        // The private scalar set must exactly match the original base-first
+        // helper for every candidate, including own target and unknown names.
+        var type = (XmlSchemaComplexType)schemas.GlobalTypes[new XmlQualifiedName("Wide", Ns)];
+        var sequence = (XmlSchemaSequence)type.ContentTypeParticle;
+        var parent = new XmlDocument(); parent.LoadXml("<Parent>" + Items(12) + "</Parent>");
+        var owner = new NodeJoiner(schemas, parent);
+        MethodInfo plan = typeof(NodeJoiner).GetMethod("PredecessorNames", BindingFlags.Instance | BindingFlags.NonPublic);
+        foreach (int targetIndex in new[] { 0, 1, 31, 63 })
+        {
+            var target = (XmlSchemaElement)sequence.Items[targetIndex];
+            var names = (HashSet<string>)plan.Invoke(owner, new object[] { parent.DocumentElement, type, target });
+            Require(names != null, "Predecessor plan unexpectedly absent");
+            foreach (string candidate in new[] { "W0", "W1", "W31", "W32", "W63", "Unknown", "p:W0" })
+                Require(names.Contains(candidate) == original.Predecessor(targetIndex, candidate), "Original predecessor helper mismatch " + targetIndex + ":" + candidate);
+        }
+        tests.Add("original-DLL-wide-schema-insertion-and-predecessor-helper-differential-local-bounded-set-with-switch-and-virtual-node-fallback");
+    }
     public static int Main(string[] args)
     {
         int code = 0; object result; AppDomain baselineDomain = null;
@@ -350,7 +420,7 @@ public static class CompilerNodeJoiner
             original = (LegacyNodeJoinerDomain)baselineDomain.CreateInstanceFromAndUnwrap(typeof(LegacyNodeJoinerDomain).Assembly.Location, typeof(LegacyNodeJoinerDomain).FullName);
             string baselineAssembly = original.Initialize(library);
             Require(baselineAssembly.StartsWith("BinaryAssetBuilder.Core,", StringComparison.Ordinal), "Isolated original SDK assembly identity mismatch");
-            schemas = Schema(); Semantics(); DuplicateIndexSemantics(); DynamicCallbacks(); PrefixNameMatching(); WorkReduction();
+            schemas = Schema(); Semantics(); DuplicateIndexSemantics(); DynamicCallbacks(); PrefixNameMatching(); WorkReduction(); PredecessorPlans();
             AppDomain.Unload(baselineDomain); baselineDomain = null; original = null;
             foreach (Assembly loaded in AppDomain.CurrentDomain.GetAssemblies())
                 Require(!loaded.GetName().Name.Equals("BinaryAssetBuilder.Core", StringComparison.Ordinal), "Original Core escaped the disposable baseline AppDomain");
@@ -422,6 +492,14 @@ public sealed class LegacyNodeJoinerDomain : MarshalByRefObject
         }
         if (mutation != null) mutation.Dispose();
         return new LegacyNodeJoinerResult { Outcome = outcome, AttributeReads = destination.AttributeReads, MutationCalls = mutation == null ? 0 : mutation.Calls, PrefixEvents = mutation == null ? 0 : mutation.PrefixEvents };
+    }
+    public bool Predecessor(int targetIndex, string candidate)
+    {
+        var type = (XmlSchemaComplexType)CompilerNodeJoiner.schemas.GlobalTypes[new XmlQualifiedName("Wide", "uri:ea.com:eala:asset")];
+        var sequence = (XmlSchemaSequence)type.ContentTypeParticle;
+        var document = new XmlDocument(); document.LoadXml("<" + candidate + (candidate.StartsWith("p:", StringComparison.Ordinal) ? " xmlns:p='urn:p'" : "") + "/>");
+        object joiner = Activator.CreateInstance(original.DeclaringType, new object[] { CompilerNodeJoiner.schemas, document });
+        return (bool)original.DeclaringType.GetMethod("FindPrevNode", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(joiner, new object[] { type, document.DocumentElement, sequence.Items[targetIndex] });
     }
     public int Select(string parentXml, string sourceXml, bool byId, bool replaceAny)
     {
