@@ -6,7 +6,7 @@
 
 40526443463中PcDxtNoMip、PcDxtMips各三模式每模式712资产/实际调用；新PcDxtVolumes用186条带输入、有/无mip共1488资产/实际调用，各三模式四产物和完整buffer/cdata轨迹一致。NoOriginal每次Core调用前后断言原DLL不存在且未加载。两个受影响raw SDK各600资产三模式，以及共享raw volume/图像/元数据回归通过。整批14组执行、16成功组复用；二维DDS/triangle、颜色、alpha、float小块等未变子组保留各原sourceCommit/runId，未重复测试。
 
-原版volume边界 `6d065a9e` / 40525480986，416样本probe-only；不冒充恢复验收。下一组NPOT：先收取 `npot-load` 原LoadImageA定向取证，1012个TGA24/32、PNG RGB/RGBA8、BMP24/32记录含POT对照，核实D3DX加载后的真实尺寸和完整RGBA，再恢复定义明确的行为。见 [TEXTURE_NPOT_NEXT.md](TEXTURE_NPOT_NEXT.md)。当前NPOT和默认DXT1/1A仍明确拒绝。生产SDK DLL/config未改；专用MOD不能冒充完整mymod/全TextureCompiler完成。
+原版volume边界 `6d065a9e` / 40525480986，416样本probe-only；不冒充恢复验收。下一组NPOT：`a19bb879` / 40528237009原LoadImageA取证已success，1012记录全部解码，probe-only。已确认向上取2幂及回绕面积积分triangle，不能采用clamp线性插值。下一步先收取`npot-numeric`权重/常量/抖动定向取证，再严格恢复float存储和量化；不重复1012加载样本。见 [TEXTURE_NPOT_NEXT.md](TEXTURE_NPOT_NEXT.md)。当前NPOT和默认DXT1/1A仍明确拒绝。生产SDK DLL/config未改；专用MOD不能冒充完整mymod/全TextureCompiler完成。
 
 以下保留历史子系统与阶段记录，不以旧的“下一轮”覆盖上述当前入口。
 

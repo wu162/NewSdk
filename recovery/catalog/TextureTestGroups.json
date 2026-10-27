@@ -821,6 +821,19 @@
       "sdk": false,
       "manual_only": true,
       "evidence_only": true
+    },
+    "npot-numeric": {
+      "script": "recovery/scripts/InspectTextureNpotNumeric.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureNpotNumeric.ps1",
+        "recovery/tests/TextureNpotNumericProbe.cs",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/npot-numeric/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"
