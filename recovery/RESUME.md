@@ -6,7 +6,9 @@
 
 40526443463中PcDxtNoMip、PcDxtMips各三模式每模式712资产/实际调用；新PcDxtVolumes用186条带输入、有/无mip共1488资产/实际调用，各三模式四产物和完整buffer/cdata轨迹一致。NoOriginal每次Core调用前后断言原DLL不存在且未加载。两个受影响raw SDK各600资产三模式，以及共享raw volume/图像/元数据回归通过。整批14组执行、16成功组复用；二维DDS/triangle、颜色、alpha、float小块等未变子组保留各原sourceCommit/runId，未重复测试。
 
-原版volume边界 `6d065a9e` / 40525480986，416样本probe-only；不冒充恢复验收。下一组NPOT：`a19bb879` / 40528237009原LoadImageA取证已success，1012记录全部解码，probe-only。已确认向上取2幂及回绕面积积分triangle，不能采用clamp线性插值。numeric `678db012` / 40529918922亦已success/probe-only，权重/常量/抖动已收取。新增隔离RGBA8组件与严格回放测试待Actions验收，不接插件/解码器；原1012加载与native权重基线按原sourceCommit/runId复用，不重跑原版探针。见 [TEXTURE_NPOT_NEXT.md](TEXTURE_NPOT_NEXT.md)。当前NPOT和默认DXT1/1A仍明确拒绝。生产SDK DLL/config未改；专用MOD不能冒充完整mymod/全TextureCompiler完成。
+原版volume边界 `6d065a9e` / 40525480986，416样本probe-only；不冒充恢复验收。NPOT隔离RGBA8组件已由 `e267d829b781681d4c846ced9bbfa872d8ee3ef5` / [40532546015](https://github.com/wu162/NewSdk/actions/runs/40532546015) success验收：Debug/Release各1012完整RGBA、1851原系数tap位模式、814468检查，无原DLL逐次隔离。原加载基线a19bb879/40528237009与numeric678db012/40529918922仍probe-only，未重跑。
+
+本轮第三完整组检查点：已接入TGA24/32、PNG RGB/RGBA8、BI_RGB BMP24/32的NPOT加载，**待完整Actions/SDK验收，不宣称集成完成**。PNG其他位深/颜色、BMP16和Additional TGA16等NPOT仍拒绝，不能直接套用8位量化。原raw NPOT拒绝样本转为严格buffer/cdata对照；两入口全矩阵扩为14256（新增80 NPOT输入×五输出格式×有无mip×标准/volume×新旧cdata），完整NoOriginal；新PcNpotRgba8 SDK80图像/3200资产三模式。所有新增实际helper消费者同步登记依赖。见 [TEXTURE_NPOT_NEXT.md](TEXTURE_NPOT_NEXT.md)。当前未验收NPOT集成不得写为完成；默认DXT1/1A仍明确拒绝。生产SDK DLL/config未改；专用MOD不能冒充完整mymod/全TextureCompiler完成。
 
 以下保留历史子系统与阶段记录，不以旧的“下一轮”覆盖上述当前入口。
 

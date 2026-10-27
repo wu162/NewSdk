@@ -23,3 +23,11 @@ numeric源码`678db0127a2ea3620700b44e46093dd6dc2050d1` / 40529918922 completed/
 完整组件门槛：Debug/Release逐位比较numeric原表全部tap与1012个不可变原LoadImageA完整RGBA，原输入不变、POT对照、每次调用前后原DLL不存在且未加载。原样本ZIP、权重TSV及收据sourceCommit/runId/祖先/hash均检查；探针仍是原版基线，只有新组件全部比较通过才算组件验收，不能据此宣称插件/SDK NPOT支持。
 
 首轮隔离组件源码826ff73e/40531802530失败于回放宿主BMP元数据，未完成全矩阵，不作验收。宿主错误使用bfOffBits并假定BMP24无alpha；现按既有已验收TextureBmpDecoder的D3DX契约（强制offset54、BMP24 HasAlpha=true、BMP32按实际alpha字节检测）修复，保持所有原尺寸/alpha/完整RGBA断言，原样本与native表不变，待完整Debug/Release复验。恢复滤波源码未因此变更。
+
+## RGBA8组件已验收，8位入口集中验证中
+
+最终组件源码`e267d829b781681d4c846ced9bbfa872d8ee3ef5` / [40532546015](https://github.com/wu162/NewSdk/actions/runs/40532546015) completed/success。Debug/Release各1012完整原RGBA、1851系数tap精确位模式、814468检查通过，每次调用前后原DLL不存在且未加载。原826ff73e/40531802530失败保留，未放宽alpha或像素断言；修复的是BMP回放宿主，滤波源码未变。
+
+下一整组已准备：TGA24/32、PNG RGB/RGBA8、BI_RGB BMP24/32的NPOT解码接入同一helper；只有原始8位存储/目标8位量化域，PNG其他位深/颜色和BMP16/Additional TGA16等NPOT仍拒绝，POT原能力不变。公共解码分派加入同1012不可变原RGBA全量对照；隔离回放手工读取原TGA fixture，避免启用后的TGA Decode预先重采样而遮蔽组件测试。
+
+原Image/Mip/Volume/VolumeMip TGA入口中NPOT“拒绝后跳过”改成实际原版三缓冲区/full cdata对照，不减少样本。dxt-images保留旧7856并新增6400：80个已捕获NPOT源输入（四种合法加载后volume形状×十个存储/方向profile×两图案），两根/五输出raw+DXT/有无mip/标准+volume/新旧cdata，完整NoOriginal重放；34明确拒绝保留低位深NPOT和默认DXT1/1A。新PcNpotRgba8专用SDK同80输入、3200资产三模式与逐次隔离；选择器同步全部实际8位decoder/helper消费者，包括PNG/BMP/TGA组件及raw/DXT/volume/SDK回归。所有新集成仍待本轮完整Actions终态。

@@ -36,6 +36,11 @@ internal static class TextureDxtPipelineOracle
         if(pattern>=5){byte[] pixels=new byte[width*height*4];new Random(7919*pattern+width*31+height).NextBytes(pixels);Buffer.BlockCopy(pixels,0,b,18,pixels.Length);}
         return b;
     }
+    static byte[] Tga16(int width,int height)
+    {
+        byte[] b=new byte[18+width*height*2];b[2]=2;b[12]=(byte)width;b[13]=(byte)(width>>8);b[14]=(byte)height;b[15]=(byte)(height>>8);b[16]=16;b[17]=33;
+        for(int i=0;i<width*height;i++){ushort v=(ushort)(0x8000|((i*713)&0x7fff));b[18+i*2]=(byte)v;b[19+i*2]=(byte)(v>>8);}return b;
+    }
     static void Equal(byte[] expected,byte[] actual,string label)
     {
         if(expected==null||actual==null){if(expected!=actual)throw new Exception(label+" null presence");return;}
@@ -62,9 +67,9 @@ internal static class TextureDxtPipelineOracle
         if(ea==null){Equal(expected.InstanceData,actual.InstanceData,label+" instance");Equal(expected.RelocationData,actual.RelocationData,label+" relo");Equal(expected.ImportsData,actual.ImportsData,label+" imports");}
         byte[] cdata=Cdata(oa);Equal(cdata,Cdata(ra),label+" cdata");Equal(image,File.ReadAllBytes(file),label+" source");
         if(ea==null&&root=="Texture"){
-            if((cdata!=null)!=stale||(cdata!=null&&cdata.Length!=8192)||actual.InstanceData.Length<156||BitConverter.ToUInt32(actual.InstanceData,4)!=12||BitConverter.ToUInt32(actual.InstanceData,12)!=0x20534444)throw new Exception(label+" independent Texture DDS layout");
+            if((cdata!=null)!=stale||(cdata!=null&&cdata.Length!=8192)||actual.InstanceData.Length<(format=="R5G6B5"?142:format=="A8R8G8B8"||format=="X8R8G8B8"?144:156)||BitConverter.ToUInt32(actual.InstanceData,4)!=12||BitConverter.ToUInt32(actual.InstanceData,12)!=0x20534444)throw new Exception(label+" independent Texture DDS layout");
         }else if(ea==null){
-            if(cdata==null||actual.InstanceData.Length!=8||cdata.Length<184||BitConverter.ToUInt32(cdata,32)!=8||BitConverter.ToUInt32(cdata,40)!=0x20534444)throw new Exception(label+" independent OnDemand DDS layout");
+            if(cdata==null||actual.InstanceData.Length!=8||cdata.Length<(format=="R5G6B5"?170:format=="A8R8G8B8"||format=="X8R8G8B8"?172:184)||BitConverter.ToUInt32(cdata,32)!=8||BitConverter.ToUInt32(cdata,40)!=0x20534444)throw new Exception(label+" independent OnDemand DDS layout");
         }
         replay.Write(extension);Bytes(replay,image);replay.Write(root);replay.Write(format);replay.Write(stale);replay.Write(mipmaps);replay.Write(kind);
         replay.Write(Error(ea));Bytes(replay,expected==null?null:expected.InstanceData);Bytes(replay,expected==null?null:expected.RelocationData);Bytes(replay,expected==null?null:expected.ImportsData);Bytes(replay,cdata);fixtures++;
@@ -74,9 +79,9 @@ internal static class TextureDxtPipelineOracle
         foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})
         foreach(string kind in new[]{"StandardTexture","VolumeTexture"})foreach(bool mips in new[]{false,true}){
             if(kind=="StandardTexture")continue;
-            string file=Path.Combine(work,"unsupported.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,Tga(6,2,4));Seed(cdata,false);
+            string file=Path.Combine(work,"unsupported.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,Tga16(6,2));Seed(cdata,false);
             bool failed=false;try{recovered.ProcessInstance(Declaration(root,file,format,cdata,mips,kind));}catch(NotSupportedException){failed=true;}
-            if(!failed||File.Exists(cdata))throw new Exception("NPOT compressed volume must reject before cdata write");rejected++;
+            if(!failed||File.Exists(cdata))throw new Exception("NPOT low-bit-depth compressed volume must reject before cdata write");rejected++;
         }
         // D3DX canonicalizes all-zero TGA alpha to opaque, so DXT1 remains DXT1.
         foreach(string root in new[]{"Texture","OnDemandTexture"}){
@@ -85,9 +90,15 @@ internal static class TextureDxtPipelineOracle
             if(!failed||File.Exists(cdata))throw new Exception("All-zero TGA alpha becomes opaque and must retain DXT1 rejection");rejected++;
         }
         foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT1","DXT1A","DXT3","DXT5"}){
-            string file=Path.Combine(work,"unsupported.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,Tga(format=="DXT3"||format=="DXT5"?3:4,4,1));Seed(cdata,false);
+            string file=Path.Combine(work,"unsupported.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,format=="DXT3"||format=="DXT5"?Tga16(3,4):Tga(4,4,1));Seed(cdata,false);
             bool failed=false;try{recovered.ProcessInstance(Declaration(root,file,format,cdata,false,"StandardTexture"));}catch(NotSupportedException){failed=true;}
-            if(!failed||File.Exists(cdata))throw new Exception("Unsupported DXT1/1A or NPOT must reject");rejected++;
+            if(!failed||File.Exists(cdata))throw new Exception("Unsupported DXT1/1A or low-bit-depth NPOT must reject");rejected++;
+        }
+        foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool mips in new[]{false,true})foreach(string family in new[]{"png16","bmp16"}){
+            string file=Path.Combine(work,"unsupported."+(family=="png16"?"png":"bmp")),cdata=Path.Combine(work,"reject.cdata");
+            File.WriteAllBytes(file,family=="png16"?TexturePngOracle.Fixture(3,2,16,2,0,5,0,0):TextureBmpOracle.Fixture(3,2,16,false,0,0,7));Seed(cdata,false);
+            bool failed=false;try{recovered.ProcessInstance(Declaration(root,file,format,cdata,mips,"StandardTexture"));}catch(NotSupportedException){failed=true;}
+            if(!failed||File.Exists(cdata))throw new Exception("Unrecovered 16-bit NPOT must reject before output");rejected++;
         }
     }
     static int Main(string[] args)
@@ -103,7 +114,7 @@ internal static class TextureDxtPipelineOracle
             recovered=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(rd).GetType("Recovered.Compiler.Texture.Plugin",true));recovered.Initialize(null,TargetPlatform.Win32);
             RejectBoundaries(recovered,work);
             if(isolated){
-                using(var r=new BinaryReader(File.OpenRead(replay))){int count=r.ReadInt32();if(count!=7856)throw new Exception("Incomplete corpus");
+                using(var r=new BinaryReader(File.OpenRead(replay))){int count=r.ReadInt32();if(count!=14256)throw new Exception("Incomplete corpus");
                     while(r.BaseStream.Position<r.BaseStream.Length){string ext=r.ReadString();byte[] image=Bytes(r);string root=r.ReadString(),format=r.ReadString();bool stale=r.ReadBoolean(),mipmaps=r.ReadBoolean();string kind=r.ReadString();
                         string expectedError=r.ReadString();byte[] instance=Bytes(r),relo=Bytes(r),imports=Bytes(r),cdata=Bytes(r);
                         string file=Path.Combine(work,"generated."+ext),path=Path.Combine(work,"recovered.cdata");File.WriteAllBytes(file,image);Seed(path,stale);
@@ -151,10 +162,13 @@ internal static class TextureDxtPipelineOracle
                         foreach(string kind in new[]{"StandardTexture","VolumeTexture"})foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool stale in new[]{false,true})Case(original,recovered,work,"bmp",bmp,root,format,stale,mipmaps,w,kind);
                     }
                     }
+                    string npotDirectory=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"npot-fixtures");string[] npotFiles=Directory.GetFiles(npotDirectory);Array.Sort(npotFiles,StringComparer.Ordinal);if(npotFiles.Length!=80)throw new Exception("Incomplete NPOT integration corpus");
+                    foreach(string path in npotFiles)foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"A8R8G8B8","X8R8G8B8","R5G6B5","DXT3","DXT5"})foreach(bool mips in new[]{false,true})foreach(string kind in new[]{"StandardTexture","VolumeTexture"})foreach(bool stale in new[]{false,true})
+                        Case(original,recovered,work,Path.GetExtension(path).Substring(1),File.ReadAllBytes(path),root,format,stale,mips,w,kind);
                     w.BaseStream.Position=0;w.Write(fixtures);
                 }
             }
-            Console.WriteLine("PASS Texture DXT ProcessInstance "+(isolated?"NoOriginal":"differential")+" fixtures="+fixtures+" rejected="+rejected+" errors="+errors+" comparedBytes="+compared+"; PC DXT3/5 POT including partial-block standard/volume no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending");return 0;
+            Console.WriteLine("PASS Texture DXT ProcessInstance "+(isolated?"NoOriginal":"differential")+" fixtures="+fixtures+" rejected="+rejected+" errors="+errors+" comparedBytes="+compared+"; PC DXT3/5 POT including partial-block and evidenced RGBA8 NPOT standard/volume no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}finally{if(original!=null)((IDisposable)original).Dispose();if(recovered!=null)((IDisposable)recovered).Dispose();}
     }
 }

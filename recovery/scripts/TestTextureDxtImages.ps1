@@ -3,10 +3,22 @@ $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/dxt-images/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('texture-colour-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$false;sdkValidated=$false;scope='actual Texture/OnDemandTexture DXT3/5 ProcessInstance; PC POT/partial-block standard/volume no-mip/complete float mip TGA/PNG/BMP; three buffers/full cdata and NoOriginal; SDK pending';configurations=@();nativeBinaries=@()}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$false;sdkValidated=$false;scope='actual Texture/OnDemandTexture DXT3/5 ProcessInstance; PC POT/partial-block and supported RGBA8 NPOT standard/volume raw+DXT no-mip/complete float mip TGA/PNG/BMP; three buffers/full cdata and NoOriginal; SDK pending';configurations=@();nativeBinaries=@()}
 $r.sourceFiles=@(Get-ChildItem src/TextureCompiler/Colour -File|Sort-Object FullName|ForEach-Object{@{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/');sha256=(Get-FileHash $_.FullName).Hash.ToLowerInvariant()}})
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 40;throw "$name failed"};Get-Content "$out/$name.log"|Where-Object{$_ -match '^PASS '}}
 try {
+ $npotEvidence='recovery/evidence/texture/npot-load/40528237009-1'
+ $npotReceipt=Get-Content "$npotEvidence/validation.json" -Raw|ConvertFrom-Json
+ if($npotReceipt.status -ne 'probe-only' -or $npotReceipt.sourceCommit -ne 'a19bb879704cd80ad55202760a160c8af57bbe2d' -or (Get-FileHash "$npotEvidence/samples.zip").Hash.ToLowerInvariant() -ne $npotReceipt.samplesSha256){throw 'NPOT source corpus mismatch'}
+ Expand-Archive "$npotEvidence/samples.zip" "$work/npot-source"
+ New-Item -ItemType Directory -Force "$work/npot-fixtures"|Out-Null
+ foreach($row in Import-Csv "$work/npot-source/transcript.tsv" -Delimiter "`t"){
+  if(("$($row.sourceWidth)x$($row.sourceHeight)" -in @('3x1','3x2','5x3','7x5')) -and ($row.pattern -in @('0','2'))){
+   $ext=if($row.profile.StartsWith('tga-')){'tga'}elseif($row.profile.StartsWith('png-')){'png'}else{'bmp'}
+   Copy-Item "$work/npot-source/$($row.label).$ext" "$work/npot-fixtures"
+  }
+ }
+ if(@(Get-ChildItem "$work/npot-fixtures" -File).Count -ne 80){throw 'Expected 80 focused NPOT inputs'}
  Copy-Item SDK/tools/*.dll $work
  $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
  foreach($mode in @('Debug','Release')) {

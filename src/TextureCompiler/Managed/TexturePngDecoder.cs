@@ -103,8 +103,9 @@ namespace Recovered.Compiler.Texture
                 }
                 if (!ended) throw Invalid();
                 // NPOT decoding is coupled to D3DX texture creation and resampling.
-                if ((width & (width - 1)) != 0 || (height & (height - 1)) != 0)
-                    throw new NotSupportedException("Original D3DX power-of-two PNG resampling has not been recovered.");
+                bool npot = (width & (width - 1)) != 0 || (height & (height - 1)) != 0;
+                if (npot && (depth != 8 || (color != 2 && color != 6)))
+                    throw new NotSupportedException("NPOT PNG currently requires RGB8 or RGBA8; other original storage/quantization paths remain unrecovered.");
                 if(color==3||(color==4&&depth==16)||(color==0&&depth==16&&transparency!=null))
                     throw new BinaryAssetBuilder.BinaryAssetBuilderException(null,BinaryAssetBuilder.ErrorCode.BadTextureFile,"D3DX cannot load the texture from disk.",new object[0]);
                 byte[] z = compressed.ToArray();
@@ -193,7 +194,8 @@ namespace Recovered.Compiler.Texture
                     }
                     if (inflate.ReadByte() != -1 || (adlerB << 16 | adlerA) != Big(z, z.Length - 4)) throw Invalid();
                 }
-                return new TexturePacker.Image(width, height, pixels, color == 6);
+                TexturePacker.Image image = new TexturePacker.Image(width, height, pixels, color == 6);
+                return npot ? TextureNpotRgba8Resampler.Resize(image) : image;
             }
         }
         private static double GammaProduct(uint gamma)
@@ -224,3 +226,4 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+

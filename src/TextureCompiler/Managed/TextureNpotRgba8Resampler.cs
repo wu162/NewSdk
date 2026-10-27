@@ -4,8 +4,8 @@ using System.Runtime.InteropServices;
 
 namespace Recovered.Compiler.Texture
 {
-    // Isolated PC D3DX RGBA8 resampling component. Not connected to ImageLoader
-    // or plugin NPOT routes until the independent component/SDK gates pass.
+    // PC D3DX RGBA8 resampling for true-color TGA24/32, PNG RGB/RGBA8
+    // and BI_RGB BMP24/32. Other source quantization paths remain rejected.
     public static class TextureNpotRgba8Resampler
     {
         internal sealed class Tap { public int Target; public float Weight; }

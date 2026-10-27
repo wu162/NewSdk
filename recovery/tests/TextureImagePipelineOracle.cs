@@ -42,12 +42,6 @@ internal static class TextureImagePipelineOracle
         AssetBuffer a=null,b=null;Exception ea=null,eb=null;
         try{a=original.ProcessInstance(Declaration(root,file,kind,format,oa));}catch(Exception e){ea=e;}
         try{b=recovered.ProcessInstance(Declaration(root,file,kind,format,ra));}catch(Exception e){eb=e;}
-        if(label.EndsWith("/3"))
-        {
-            if(!(eb is NotSupportedException) || eb.Message!="Original D3DX power-of-two image resampling has not been recovered.")
-                throw new Exception(label+" NPOT resampling must be explicitly rejected rather than emitting different pixels");
-            unsupportedResampling++; fixtures++; return;
-        }
         if(Error(ea)!=Error(eb))throw new Exception(label+" errors original="+Error(ea)+" recovered="+Error(eb));
         if(ea!=null)errors++;
         if(a!=null||b!=null){if(a==null||b==null)throw new Exception(label+" buffer presence");Equal(a.InstanceData,b.InstanceData,label+" instance");Equal(a.RelocationData,b.RelocationData,label+" relo");Equal(a.ImportsData,b.ImportsData,label+" imports");}
@@ -84,4 +78,5 @@ internal static class TextureImagePipelineOracle
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
+
 

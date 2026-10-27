@@ -72,7 +72,9 @@ namespace Recovered.Compiler.Texture
                     hasAlpha = false;
                 }
             }
-            return new TexturePacker.Image(width, height, pixels, hasAlpha);
+            TexturePacker.Image image = new TexturePacker.Image(width, height, pixels, hasAlpha);
+            return ((width & (width - 1)) != 0 || (height & (height - 1)) != 0)
+                ? TextureNpotRgba8Resampler.Resize(image) : image;
         }
         private static bool BytesZero(byte[] source, int start, int count)
         {
@@ -135,3 +137,4 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+

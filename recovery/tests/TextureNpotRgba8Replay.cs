@@ -16,7 +16,11 @@ internal static class TextureNpotRgba8Replay
     static int PngValue(int x,int y,int channel,int pattern){return pattern==1?0:pattern==2?255:pattern==3?((x+y+channel)&1)*255:(x*1271+y*395+channel*739+17)&255;}
     static TexturePacker.Image Source(string path,string profile,int pattern,int width,int height)
     {
-        if(profile.StartsWith("tga-"))return TextureTgaDecoder.Load(path);
+        if(profile.StartsWith("tga-")){
+            byte[] tga=File.ReadAllBytes(path);int depth=tga[16],stride=depth/8;Check(tga[2]==2&&tga[17]==(depth==32?40:32),"Immutable TGA fixture profile");
+            uint[] raw=new uint[width*height];for(int i=0;i<raw.Length;i++){int p=18+i*stride;raw[i]=(uint)tga[p+2]|(uint)tga[p+1]<<8|(uint)tga[p]<<16|(uint)(depth==32?tga[p+3]:255)<<24;}
+            return new TexturePacker.Image(width,height,raw,depth==32);
+        }
         uint[] pixels=new uint[width*height];bool alpha=profile.StartsWith("png-c6");
         if(profile.StartsWith("png-")){
             for(int y=0;y<height;y++)for(int x=0;x<width;x++)pixels[y*width+x]=(uint)PngValue(x,y,0,pattern)|(uint)PngValue(x,y,1,pattern)<<8|(uint)PngValue(x,y,2,pattern)<<16|(uint)(alpha?PngValue(x,y,3,pattern):255)<<24;
@@ -51,10 +55,14 @@ internal static class TextureNpotRgba8Replay
                 Check(actual.Width==targetWidth&&actual.Height==targetHeight&&actual.HasAlpha==bool.Parse(f[7]),"Dimensions/alpha "+label);
                 byte[] expected=File.ReadAllBytes(Path.Combine(directory,label+".loaded.rgba"));Check(expected.Length==actual.Pixels.Length*4,"Pixel length "+label);
                 for(int i=0;i<actual.Pixels.Length;i++){uint value=BitConverter.ToUInt32(expected,i*4);Check(value==actual.Pixels[i],label+" pixel="+i+" x="+(i%targetWidth)+" y="+(i/targetWidth)+" original="+value.ToString("X8")+" recovered="+actual.Pixels[i].ToString("X8"));}
+                Isolated();TexturePacker.Image decoded=TextureImageLoader.Load(Path.Combine(directory,label+"."+extension));Isolated();
+                Check(decoded.Width==targetWidth&&decoded.Height==targetHeight&&decoded.HasAlpha==bool.Parse(f[7]),"Public loader dimensions/alpha "+label);
+                Check(decoded.Pixels.Length==actual.Pixels.Length,"Public loader length "+label);
+                for(int i=0;i<decoded.Pixels.Length;i++)Check(decoded.Pixels[i]==BitConverter.ToUInt32(expected,i*4),"Public loader pixel "+label+"/"+i);
                 for(int i=0;i<before.Length;i++)Check(source.Pixels[i]==before[i],"Source modified "+label);fixtures++;
             }
             Check(fixtures==1012,"Full replay count");bool rejected=false;try{TextureNpotRgba8Resampler.Resize(null);}catch(ArgumentNullException){rejected=true;}Check(rejected,"Null input rejection");
-            Console.WriteLine("PASS Texture NPOT RGBA8 isolated component fixtures="+fixtures+" coefficientTaps="+taps+" checks="+checks+"; complete original LoadImageA RGBA and exact native coefficients; original absent/unloaded per call; plugin/SDK NPOT remains rejected");return 0;
+            Console.WriteLine("PASS Texture NPOT RGBA8 isolated component fixtures="+fixtures+" coefficientTaps="+taps+" checks="+checks+"; complete original LoadImageA RGBA and exact native coefficients; original absent/unloaded per call; 8-bit public decoder dispatch also compared; plugin/SDK acceptance is separate");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
