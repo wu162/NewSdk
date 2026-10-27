@@ -10,6 +10,8 @@
 - 最新工具/探针源码 `443dc88152606a5a41475ff0a5820fc958e1a003` / [40494473681](https://github.com/wu162/NewSdk/actions/runs/40494473681) 整体success：仅允许的测试/工具/文档变更，精确复用上述60的production/validation对象，双配置22 fixtures及26组控制器合同通过。binarySource=60，testSource=443，sourceRun=40491888271；后续文档头不冒充二进制来源。
 - 已下载核验本轮targeted/CLI/复用证据，以及原Debug/Release ZIP的outer/inner SHA、source/run、manifest和精确五运行文件。小包原ZIP字节不重打包：[Release artifact](https://github.com/wu162/NewSdk/actions/runs/40494473681/artifacts/12730207255) / [Debug artifact](https://github.com/wu162/NewSdk/actions/runs/40494473681/artifacts/12730631821)。完整原archive `12729367281` 已由Actions严格校验，不冒称本地下载了该106MB包。
 
+- 最终补测源码 `2d77667ee581d9080d6474149e129efd3822836d` / [40496809491](https://github.com/wu162/NewSdk/actions/runs/40496809491) 整体success，binarySource仍60：保留单流候选变化测试，新增base/APT/maps三流全部完成后整次发布拒绝、清理及新代重试；两配置各22 fixtures和26项工具合同通过。三流用Armor验证应用事务编排，不冒称APT业务或precompiled/patch/StringHashes完整事务覆盖。
+
 ## 本轮可用增量
 
 - W03：两个Core入口及Utility的root/递归patch manifest、StringHashes消费封存字节；FileReference原路径pins保留。原实际resolver/manifest发现/asset存在查询的布尔结果登记并在内容复核后复查，代内冲突或终验变化拒绝发布。8192路径/1Mi字符预算、unsupported/output根incomplete保留，不作原子快照或完整查询闭包承诺。终验SHA共用64KiB buffer，每个read/EOF保留原取消token；成功完整文件才计reads/bytes。

@@ -13,6 +13,8 @@
 
 工具/探针源码 `443dc881` / [40494473681](https://github.com/wu162/NewSdk/actions/runs/40494473681) 严格复用60的原生产对象，26组控制器合同、双配置22 fixtures及原ZIP导出整体success。原Debug/Release ZIP及五成员已下载核验source/run/哈希；小包链接、计量、保留失败和下一轮完整组见短交接。生产变化必须重建，不把后续文档提交冒充binarySource，PR #15仍草稿且未合并。
 
+最终补测源码 `2d77667ee581d9080d6474149e129efd3822836d` / [40496809491](https://github.com/wu162/NewSdk/actions/runs/40496809491) 整体success，binarySource仍60：保留单流候选变化测试，新增base/APT/maps三流全部完成后整次发布拒绝、清理及新代重试；两配置各22 fixtures和26项工具合同通过。三流用Armor验证应用事务编排，不冒称APT业务或precompiled/patch/StringHashes完整事务覆盖。
+
 ## 默认构建与参数改进（PR #14，已合入）
 
 本轮从 `compiler-main` 的 `933cf4a2` 创建 `feature/compiler-build-defaults`，PR [#14](https://github.com/wu162/NewSdk/pull/14)，已于2026-10-27合入 `compiler-main@e7396d3`。生产/测试源码 `8b3e146cb5220e830ff6a0ce4718f47af052f166`；[验收运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 的完整 mymod 原 BAB 流、含 Additional 的默认 BIG 与 SKUDEF 差分、全部受影响回归及独立五文件 ZIP 验收均已通过，运行整体 success。

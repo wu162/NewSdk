@@ -234,3 +234,9 @@ Export再次实时确认完整接受metadata，从同一校验过的原archive�
 两份导出小artifact均已本地下载复核外层SHA（Debug `c1895d09e11ea4fa8467a41ffd2b154bfaefab2ffcdbc169a236b750b2792eb0`，Release `18d18a83624f58e9b9a3d828b23f68c08bd6334c1ab263413aa4cc308f823fad`）、原内层ZIP、manifest及五个成员的长度/SHA、binary/test/sourceRun身份。这里只读取已生成字节和收据；实际EXE doctor、输出、BIG与事务运行仍全部来自Actions验收。
 
 本轮未完成整个不可变AssetSemanticResult、AssetDeclarationDocument.LastState/SelfInstances生命周期、所有隐藏文件读取/集合查询、W07完整bundle缓存或W09—10并行合同。绑定Prepare快照不是事务接受凭据；null未新增XML roundtrip支持。缓存默认、/bc /sc全根保护、Texture限制、Win32/.NET4.8与前置运行条件未改变。完整mymod仍一流，不外推全游戏/G3/中文Texture/游戏内新验收。
+
+### 本轮最后的三流发布边界补测
+
+最终补测源码 `2d77667ee581d9080d6474149e129efd3822836d` / [40496809491](https://github.com/wu162/NewSdk/actions/runs/40496809491) 整体success，binarySource仍60：保留单流候选变化测试，新增base/APT/maps三流全部完成后整次发布拒绝、清理及新代重试；两配置各22 fixtures和26项工具合同通过。三流用Armor验证应用事务编排，不冒称APT业务或precompiled/patch/StringHashes完整事务覆盖。
+
+本run严格复用同一完整成功来源40491888271，无生产重编译；current test source为2d77667e，打包/二进制来源仍60。小证据artifact `12731251359` 已下载校验SHA256 `90cd5a871494d1343e21be00683d31597b0ae37cb6232360f88bc870cc246618`；Debug/Release应用测试各5007检查，含原单流和新增combined用例，收据与日志均确认低优先级读取、三流完成后的CORE_INPUT_CHANGED及新代读取高优先级文件成功。后续文档提交不是新二进制来源。
