@@ -1758,13 +1758,32 @@ public class AssetDeclarationDocument : IXmlSerializable
 		TypeDepCompare typeDepCompare = new TypeDepCompare(_Current.DocumentProcessor.SchemaSet.AssetDependencies);
 		_Current.OutputInstances.Sort(typeDepCompare);
 		_Tracer.TraceInfo("Sorting by asset dependencies");
-		foreach (InstanceDeclaration outputInstance in _Current.OutputInstances)
-		{
-			int index = StableSort_CalcInsertPositionCore(finalList, outputInstance, typeDepCompare, this);
-			finalList.Insert(index, outputInstance);
-		}
-		_Current.OutputInstances = finalList;
+        DocumentProcessor membershipMetricOwner = _Current.DocumentProcessor; string membershipMetricSource = _Current.SourcePath;
+        _StableSortMembershipWork = new CompilerStableSortMembership.Work();
+        try
+        {
+            bool safeOwner = GetType() == typeof(AssetDeclarationDocument) && _Current.UseStreamBindingResults &&
+                _Current.StreamBindings != null && _Current.StreamBindings.Comparer.GetType() == typeof(DeclarationReferenceComparer);
+            CompilerStableSortMembership membership = CompilerStableSortMembership.Create(safeOwner, _Current.StreamBindings,
+                _Current.OutputInstances, finalList, _Current.DocumentProcessor.SchemaSet.AssetDependencies, _StableSortMembershipWork);
+            foreach (InstanceDeclaration outputInstance in _Current.OutputInstances)
+            {
+                int index = StableSort_CalcInsertPositionCore(finalList, outputInstance, typeDepCompare, this, membership);
+                finalList.Insert(index, outputInstance);
+            }
+            _Current.OutputInstances = finalList;
+        }
+        finally
+        {
+            if (membershipMetricOwner != null) membershipMetricOwner.RecordStableSortMembershipWork(this, membershipMetricSource);
+        }
 	}
+
+    [NonSerialized] private CompilerStableSortMembership.Work _StableSortMembershipWork;
+    public object GetStableSortMembershipMetrics()
+    {
+        return _StableSortMembershipWork == null ? null : _StableSortMembershipWork.Snapshot();
+    }
 
     private sealed class BaseManifestWork
     {
@@ -1921,7 +1940,7 @@ public class AssetDeclarationDocument : IXmlSerializable
     {
         return StableSort_CalcInsertPositionCore(finalList, instance, depCompare, null);
     }
-    private static int StableSort_CalcInsertPositionCore(List2<InstanceDeclaration> finalList, InstanceDeclaration instance, TypeDepCompare depCompare, AssetDeclarationDocument owner)
+    private static int StableSort_CalcInsertPositionCore(List2<InstanceDeclaration> finalList, InstanceDeclaration instance, TypeDepCompare depCompare, AssetDeclarationDocument owner, CompilerStableSortMembership membership = null)
     {
 		int num = 0;
 		int num2 = 0;
@@ -1939,7 +1958,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			}
             InstanceHandleSet instanceDependencies = owner == null ? instance.AllDependentInstances : owner.GetDependentInstances(instance);
             InstanceHandleSet finalDependencies = owner == null ? final.AllDependentInstances : owner.GetDependentInstances(final);
-            if (instanceDependencies != null && instanceDependencies.Contains(final.Handle))
+            if (instanceDependencies != null && (membership == null ? instanceDependencies.Contains(final.Handle) : membership.Contains(instanceDependencies, final.Handle)))
 			{
 				num = num2 + 1;
 				num4 = num;
@@ -1951,7 +1970,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			}
 			else
 			{
-				if (finalDependencies != null && finalDependencies.Contains(instance.Handle))
+				if (finalDependencies != null && (membership == null ? finalDependencies.Contains(instance.Handle) : membership.Contains(finalDependencies, instance.Handle)))
 				{
 					if (num3 > num4 && instance.Handle.TypeId != final.Handle.TypeId)
 					{
