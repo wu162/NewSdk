@@ -106,7 +106,17 @@ public class FileHashItem : IXmlSerializable
 				{
 					_CurrentDate = File.GetLastWriteTime(_Path);
 					bool disabled;
-					if ((AppContext.TryGetSwitch("NewSdk.Compiler.DisableSinglePassDigest", out disabled) && disabled) ||
+                    PhysicalInputSnapshot.Entry sealedInput; bool captured;
+                    bool legacyDigest = AppContext.TryGetSwitch("NewSdk.Compiler.DisableSinglePassDigest", out disabled) && disabled;
+                    if (!legacyDigest && PhysicalInputSnapshot.TryCapture(_Path, out sealedInput, out captured))
+                    {
+                        _CurrentDate = sealedInput.LastWriteTime;
+                        _CurrentContentHash = sealedInput.Sha256;
+                        _CurrentLegacyHash = sealedInput.LegacyHash;
+                        _CurrentLegacyHashAvailable = true;
+                        if (captured) { DigestReadCount++; DigestBytesRead += sealedInput.Length; }
+                    }
+					else if (legacyDigest ||
 						(_ContentHash != null && _LastDate == _CurrentDate))
 					{
 						// Preserve the cheaper SHA-only check for likely warm inputs.

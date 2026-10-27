@@ -94,6 +94,16 @@ namespace NewModCompiler.Application
         // Cleanup only, idempotent and non-throwing. No new cache writes here.
         void CompleteCache();
     }
+    // Positive-input pins outlive provider disposal and remain owned by the
+    // build transaction until required outputs and cache/publication Complete.
+    public interface IInputSnapshotCompiler
+    {
+        object InputSnapshotReport { get; }
+        void RetainInputsUntilCompletion();
+        void VerifyInputs(System.Threading.CancellationToken cancellation);
+        // Idempotent cleanup only; never installs inputs or cached results.
+        void ReleaseInputs();
+    }
     public interface IInputRootsCompiler
     {
         object InputRootsReport { get; }

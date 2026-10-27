@@ -37,11 +37,13 @@ public static class CompilerApplicationBuild
     {
         internal readonly List<IDictionary<string, object>> Events = new List<IDictionary<string, object>>();
         internal CancellationTokenSource Cancellation;
+        internal Action<IDictionary<string, object>> InputProbe;
         internal bool FailArtifact, FailCoreTrace, Failed, InjectBridgeMessages, Injected;
         public void Write(IDictionary<string, object> value)
         {
             Events.Add(Map(Json.DeserializeObject(Json.Serialize(value))));
             string kind = Text(value["eventType"]);
+            if (InputProbe != null) InputProbe(value);
             object diagnostic;
             bool coreTrace = kind == "Diagnostic" && value.TryGetValue("diagnosticCode", out diagnostic) && Text(diagnostic).StartsWith("CORE_TRACE", StringComparison.Ordinal);
             if (coreTrace && InjectBridgeMessages && !Injected)
@@ -231,6 +233,127 @@ public static class CompilerApplicationBuild
         Require(run.Code == expected && Text(run.Report["status"]) == status, "Controlled application failure returned wrong status");
         Require(Array(run.Report["artifacts"]).Length == 0 && !Directory.Exists(Path.Combine(run.Request.OutputRoot, ".build", run.BuildId)), "Failed build retained its own staging or published artifacts");
     }
+    static void RequireBlocked(Action operation, string message)
+    {
+        bool blocked = false;
+        try { operation(); }
+        catch (IOException) { blocked = true; }
+        catch (UnauthorizedAccessException) { blocked = true; }
+        Require(blocked, message);
+    }
+    static void RequireWritable(string path)
+    {
+        using (var input = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
+    }
+    static string[] ArtifactHashes(RunResult run)
+    {
+        return Array(run.Report["artifacts"]).Select(Map).OrderBy(item => Text(item["Path"]), StringComparer.Ordinal)
+            .Select(item => Text(item["Sha256"])).ToArray();
+    }
+    static bool ContainsBytes(byte[] bytes, byte[] expected)
+    {
+        for (int offset = 0; offset <= bytes.Length - expected.Length; offset++)
+        {
+            int index = 0; while (index < expected.Length && bytes[offset + index] == expected[index]) index++;
+            if (index == expected.Length) return true;
+        }
+        return false;
+    }
+    static void NativePhysicalPayloadCase()
+    {
+        const string disable = "NewSdk.Compiler.DisablePhysicalInputSnapshot";
+        string mod = Path.Combine(shortOutputRoot, "native-positive-input"), data = Path.Combine(mod, "Data"); Directory.CreateDirectory(data);
+        string payload = Path.Combine(data, "payload.bin"); byte[] bytes = Enumerable.Range(0, 64).Select(index => (byte)(index * 37 + 11)).ToArray();
+        File.WriteAllBytes(payload, bytes);
+        File.WriteAllText(Path.Combine(data, "Mod.xml"), "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><AptAptData id='SealedNativeApt' File='payload.bin'/></AssetDeclaration>");
+        bool beforeNative = false;
+        var observed = new Observe { InputProbe = row => {
+            object message;
+            if (!beforeNative && Text(row["eventType"]) == "Diagnostic" && row.TryGetValue("message", out message) && Text(message).Contains("Compiling AptAptData"))
+            {
+                beforeNative = true;
+                RequireBlocked(() => File.WriteAllBytes(payload, bytes), "Declared DataBlob was not pinned before native ProcessInstance");
+            }
+        } };
+        var sealedRun = Build("physical-native-payload", mod, new[] { "base" }, observed); Success(sealedRun, new[] { "base" });
+        Require(beforeNative, "Native DataBlob pin probe did not observe actual Core compile trace");
+        var bin = Array(sealedRun.Report["artifacts"]).Select(Map).Single(item => Path.GetExtension(Text(item["Path"])) == ".bin");
+        Require(ContainsBytes(File.ReadAllBytes(Text(bin["Path"])), bytes), "Native DataBlob did not consume the declared positive input bytes");
+        RequireWritable(payload);
+        RunResult fallback; AppContext.SetSwitch(disable, true);
+        try { fallback = Build("physical-native-fallback", mod, new[] { "base" }); Success(fallback, new[] { "base" }); }
+        finally { AppContext.SetSwitch(disable, false); }
+        Require(ArtifactHashes(sealedRun).SequenceEqual(ArtifactHashes(fallback)), "Positive input pins changed native DataBlob four-file output");
+        RequireWritable(payload);
+        Tests.Add("actual-native-APT-DataBlob-positive-input-pinned-before-plugin-and-fallback-four-output-equivalence");
+    }
+    static void PhysicalInputCases()
+    {
+        const string disable = "NewSdk.Compiler.DisablePhysicalInputSnapshot";
+        string[] groups = { "base", "apt", "maps" };
+        string mod = Mod("封存 成功", groups), data = Path.Combine(mod, "Data");
+        string source = Path.Combine(data, "Mod.xml"), child = Path.Combine(data, "sealed-child.xml"), moved = data + "-moved";
+        File.WriteAllText(child, probe, new System.Text.UTF8Encoding(false));
+        File.WriteAllText(source, "<xi:include xmlns:xi='http://www.w3.org/2001/XInclude' href='sealed-child.xml'/>", new System.Text.UTF8Encoding(false));
+        byte[] original = File.ReadAllBytes(child); bool atStream = false, atPublish = false;
+        var observer = new Observe { InputProbe = row => {
+            string kind = Text(row["eventType"]); object stage;
+            if (kind == "StreamCompleted" && !atStream)
+            {
+                atStream = true;
+                RequireBlocked(() => File.WriteAllBytes(child, original), "A stream-completed input accepted an external writer");
+                RequireBlocked(() => Directory.Move(data, moved), "A stream-completed parent accepted replacement/rename");
+            }
+            if (kind == "StageStarted" && row.TryGetValue("stageId", out stage) && Text(stage) == "publish")
+            {
+                atPublish = true;
+                RequireBlocked(() => File.WriteAllBytes(child, original), "Provider disposal released an input before publication");
+            }
+        } };
+        var sealedRun = Build("physical-inputs-shared", mod, groups, observer); Success(sealedRun, groups);
+        Require(atStream && atPublish && File.ReadAllBytes(child).SequenceEqual(original), "Input pin probes did not exercise real stream and publication boundaries");
+        var physical = Map(Map(sealedRun.Report["cache"])["physicalInputs"]);
+        Require(Convert.ToBoolean(physical["enabled"]) && Convert.ToInt64(physical["captures"]) > 0 && Convert.ToInt64(physical["hits"]) > 0 &&
+            Convert.ToInt64(physical["verificationReads"]) > 0 && Convert.ToInt64(physical["activeFilePins"]) > 0,
+            "Successful application report lost positive-input sharing/final verification or its beforeInitialReport pin boundary");
+        Require(Array(Map(sealedRun.Report["applicationWork"])["stages"]).Select(Map).Any(item => Text(item["stage"]) == "inputVerification" && Convert.ToInt64(item["calls"]) == 1),
+            "Application did not record its final input-verification operation");
+        RequireWritable(child); Directory.Move(data, moved); Directory.Move(moved, data);
+        Require(!Directory.EnumerateDirectories(sealedRun.Request.OutputRoot, ".input-snapshot-*").Any(), "Successful finalization retained input-snapshot scratch");
+        AppContext.SetSwitch(disable, true);
+        RunResult fallback;
+        try { fallback = Build("physical-inputs-fallback", mod, groups); Success(fallback, groups); }
+        finally { AppContext.SetSwitch(disable, false); }
+        Require(!Convert.ToBoolean(Map(Map(fallback.Report["cache"])["physicalInputs"])["enabled"]), "Physical snapshot fallback remained enabled");
+        Require(ArtifactHashes(sealedRun).SequenceEqual(ArtifactHashes(fallback)), "Snapshot default/fallback changed real four-file output bytes");
+        RequireWritable(child);
+        DateTime timestamp = File.GetLastWriteTimeUtc(child);
+        var document = new XmlDocument(); document.LoadXml(probe);
+        var instance = document.DocumentElement.ChildNodes.Cast<XmlNode>().OfType<XmlElement>().First(item => item.HasAttribute("id"));
+        string id = instance.GetAttribute("id"); Require(id.Length > 0, "Physical change probe needs a real asset id");
+        string changedId = (id[0] == 'Q' ? "R" : "Q") + id.Substring(1);
+        string changed = probe.Replace("id=\"" + id + "\"", "id=\"" + changedId + "\"");
+        Require(changed != probe && System.Text.Encoding.UTF8.GetByteCount(changed) == original.Length, "Real equal-size mutation must alter one serialized asset id");
+        File.WriteAllText(child, changed, new System.Text.UTF8Encoding(false)); File.SetLastWriteTimeUtc(child, timestamp);
+        Require(new FileInfo(child).Length == original.Length && File.GetLastWriteTimeUtc(child) == timestamp, "Changed build input did not preserve exact size/time");
+        var changedRun = Build("physical-inputs-new-generation", mod, new[] { "base" }); Success(changedRun, new[] { "base" });
+        string[] originalBase = Array(sealedRun.Report["artifacts"]).Select(Map).Where(item => Text(item["Path"]).IndexOf(Path.DirectorySeparatorChar + "base" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) >= 0)
+            .OrderBy(item => Text(item["Path"]), StringComparer.Ordinal).Select(item => Text(item["Sha256"])).ToArray();
+        Require(originalBase.Length == 4 && !originalBase.SequenceEqual(ArtifactHashes(changedRun)), "New build reused an equal-time equal-size stale XML generation");
+        using (var cancellation = new CancellationTokenSource())
+        {
+            var cancelled = Build("physical-inputs-cancel", mod, groups, new Observe { Cancellation = cancellation });
+            Failed(cancelled, ExitCode.Cancelled, "cancelled"); RequireWritable(child);
+            Require(!Directory.EnumerateDirectories(cancelled.Request.OutputRoot, ".input-snapshot-*").Any(), "Cancellation retained input-snapshot scratch");
+        }
+        var failed = Build("physical-inputs-output-failure", mod, new[] { "base" }, new Observe { FailArtifact = true });
+        Failed(failed, ExitCode.Output, "failed"); RequireWritable(child);
+        Require(!Directory.EnumerateDirectories(failed.Request.OutputRoot, ".input-snapshot-*").Any(), "Output failure retained input-snapshot scratch");
+        Success(Build("physical-inputs-retry", mod, new[] { "base" }), new[] { "base" }); RequireWritable(child);
+        Tests.Add("positive-input-sharing-default-fallback-exact-output-XInclude-pins-through-provider-disposal-and-publication");
+        Tests.Add("new-build-equal-mtime-size-change-cancel-output-failure-final-release-and-retry");
+        NativePhysicalPayloadCase();
+    }
     static void Run()
     {
         string[] groups = { "base", "apt", "maps" };
@@ -273,6 +396,7 @@ public static class CompilerApplicationBuild
         object[] skipped = Array(Map(optional.Report["plan"])["Skipped"]);
         Require(skipped.Length == 2 && skipped.Select(s => Text(Map(s)["Content"])).SequenceEqual(new[] { "apt", "maps" }) && skipped.All(s => Text(Map(s)["Status"]) == "SkippedNoInputs"), "Empty optional groups lost explicit SkippedNoInputs outcome");
         Tests.Add("empty-selected-optional-groups-explicit-SkippedNoInputs-without-stream-compilation");
+        PhysicalInputCases();
     }
     public static int Main(string[] args)
     {

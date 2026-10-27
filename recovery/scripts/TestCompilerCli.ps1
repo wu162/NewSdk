@@ -206,10 +206,16 @@ function BusinessWorkMetrics($Case,[bool]$SharedMetadata=$false){
         Need ($null -ne $item.inputDigests -and $item.inputDigests.reads -ge 0 -and $item.inputDigests.bytes -ge 0) 'Business digest logical-read counters missing or invalid'
         $taskMetrics+=,@{taskId=$task.Id;content=$task.Content;inputPath=$task.InputPath;stages=$core;schemaPreparation=$schema;schemaMetadata=$item.schemaMetadata;schemaInputs=$item.schemaInputs;outerStages=$outer;inputDigests=$item.inputDigests;schemaReferences=$item.schemaReferences}
     }
+    $physical=$Case.report.cache.physicalInputs
+    Need ($null -ne $physical -and $physical.enabled -eq $true -and $physical.positiveInputsOnly -eq $true) 'Business positive-input snapshot coverage missing'
+    Need ($physical.captures -gt 0 -and $physical.activeFilePins -eq $physical.captures -and $physical.activeDirectoryPins -gt 0 -and $physical.cleanupFailures -eq 0) 'Business captured input pins were not retained through report capture'
+    Need ($physical.verificationReads -eq $physical.captures -and $physical.verificationBytes -eq $physical.capturedBytes) 'Business final strong verification did not cover every unique captured input'
+    $schemaLogicalReads=0L;foreach($taskWork in $taskMetrics){$schemaLogicalReads+=$taskWork.schemaInputs.filesRead}
+    if($SharedMetadata){Need ($physical.hits -gt 0 -and $physical.captures -lt $schemaLogicalReads) 'Combined business input snapshot did not remove repeated schema captures'}
     Need ($Case.report.applicationWork.captureBoundary -ceq 'beforeInitialReport') 'Application work snapshot boundary changed'
-    $application=@(WorkMeasurements $Case.report.applicationWork.stages @('planning','backendInitialize','backendCompile','artifactValidation','backendDispose','publicationPrepare','publicationCommit','cacheCommit') ($Case.name+'/application'))
+    $application=@(WorkMeasurements $Case.report.applicationWork.stages @('planning','backendInitialize','backendCompile','artifactValidation','backendDispose','inputVerification','publicationPrepare','publicationCommit','cacheCommit') ($Case.name+'/application'))
     Need ($Case.control.elapsedMs -ge 0) 'Business CLI controller duration missing or invalid'
-    return @{case=$Case.name;buildId=$Case.report.buildId;taskCount=$tasks.Count;reportElapsedMs=$Case.report.elapsedMs;controllerElapsedMs=$Case.control.elapsedMs;applicationWork=@{captureBoundary=$Case.report.applicationWork.captureBoundary;stages=$application};tasks=$taskMetrics}
+    return @{case=$Case.name;buildId=$Case.report.buildId;taskCount=$tasks.Count;reportElapsedMs=$Case.report.elapsedMs;physicalInputs=$physical;controllerElapsedMs=$Case.control.elapsedMs;physicalInputs=$physical;applicationWork=@{captureBoundary=$Case.report.applicationWork.captureBoundary;stages=$application};tasks=$taskMetrics}
 }
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Real clean production EXE processes only: selected multi-stream CLI, independent fresh-process group comparisons and actual CtrlBreak; original BAB oracle comparison remains separately reported'}
 try {

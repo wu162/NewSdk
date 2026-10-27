@@ -17,7 +17,7 @@ namespace NewModCompiler.Application
 {
     // Experimental in-process backend. CLI enablement and SDK/G3 acceptance are
     // separate gates; this type never launches BAB, a worker, or another EXE.
-    public sealed class CoreStreamCompiler : IStreamCompiler, IBuildCacheCompiler, IInputRootsCompiler
+    public sealed class CoreStreamCompiler : IStreamCompiler, IBuildCacheCompiler, IInputRootsCompiler, IInputSnapshotCompiler
     {
         static readonly object LeaseGate = new object();
         static CoreStreamCompiler leaseOwner;
@@ -32,13 +32,37 @@ namespace NewModCompiler.Application
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
         readonly List<object> coreWork = new List<object>();
         readonly SchemaSet.MetadataCache schemaMetadata = new SchemaSet.MetadataCache();
+        PhysicalInputSnapshot physicalInputs;
+        bool retainInputs;
+        object releasedInputMetrics;
+        public object InputSnapshotReport { get { return physicalInputs == null ? releasedInputMetrics ?? (object)new { enabled = false } : physicalInputs.GetMetrics(); } }
+        public void RetainInputsUntilCompletion()
+        {
+            if (disposed || initialized || initializing) throw new InvalidOperationException("Input retention must be selected before backend initialization.");
+            retainInputs = true;
+        }
+        public void VerifyInputs(CancellationToken cancellation)
+        {
+            cancellation.ThrowIfCancellationRequested();
+            try { if (physicalInputs != null) physicalInputs.VerifyUnchanged(cancellation); }
+            catch (IOException error) { throw new BuildFailure(ExitCode.Compilation, "CORE_INPUT_CHANGED", error.Message); }
+            cancellation.ThrowIfCancellationRequested();
+        }
+        public void ReleaseInputs()
+        {
+            PhysicalInputSnapshot owned = physicalInputs;
+            if (owned == null) return;
+            physicalInputs = null;
+            try { owned.Dispose(); }
+            finally { releasedInputMetrics = owned.GetMetrics(); }
+        }
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
         VerifierPluginRegistry verifiers;
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
         public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.SessionPackage" : buildCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.BuildAssetCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
-        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false, coreWork }; } }
+        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false, physicalInputs = InputSnapshotReport, coreWork }; } }
 
         public void Initialize(BuildRequest request)
         {
@@ -64,13 +88,23 @@ namespace NewModCompiler.Application
                     throw new BuildFailure(ExitCode.Environment, "CORE_INPUT_ROOT_MISSING", "The SDK and MOD directories must exist.");
                 if (Paths.Contains(sdkRoot, outputRoot) || Paths.Contains(outputRoot, sdkRoot) || Paths.Contains(modRoot, outputRoot) || Paths.Contains(outputRoot, modRoot))
                     throw new BuildFailure(ExitCode.Arguments, "CORE_OUTPUT_OVERLAP", "Core output must be separate from SDK and MOD inputs.");
-                LoadSdkConfiguration();
-                ReadSettings(); // Validate the real serialized contract before accepting the session.
+                bool snapshotDisabled;
+                if (!(AppContext.TryGetSwitch("NewSdk.Compiler.DisablePhysicalInputSnapshot", out snapshotDisabled) && snapshotDisabled))
+                {
+                    physicalInputs = new PhysicalInputSnapshot(Path.Combine(outputRoot, ".input-snapshot-" + Guid.NewGuid().ToString("N")));
+                    physicalInputs.ExcludeRoot(outputRoot);
+                }
+                using (physicalInputs == null ? null : physicalInputs.BeginReadScope())
+                {
+                    LoadSdkConfiguration();
+                    ReadSettings(); // Validate the real serialized contract before accepting the session.
+                }
                 this.request = request;
                 lock (LeaseGate) { initialized = true; initializing = false; }
             }
             catch (Exception error)
             {
+                ReleaseInputs(); // Initialization cannot publish a result; release even for direct callers.
                 lock (LeaseGate) { initializing = false; ReleaseLease(); }
                 if (error is BuildFailure || error is OperationCanceledException) throw;
                 throw Failure(ExitCode.Environment, "CORE_INITIALIZE_FAILED", error);
@@ -83,7 +117,7 @@ namespace NewModCompiler.Application
             string path = Path.Combine(sdkRoot, "tools", "BinaryAssetBuilder.exe.config");
             if (!File.Exists(path)) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_MISSING", "The SDK BinaryAssetBuilder configuration is missing: " + path);
             var configuration = new XmlDocument { XmlResolver = null };
-            configuration.Load(path);
+            using (var input = PhysicalInputSnapshot.OpenRead(path)) configuration.Load(input);
             XmlNode section = configuration.SelectSingleNode("/configuration/assetbuilder");
             if (section == null) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_MISSING", "The SDK configuration has no assetbuilder section.");
             configurationXml = section.OuterXml;
@@ -425,7 +459,7 @@ namespace NewModCompiler.Application
                 throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "The experimental backend requires an existing XML stream entry.");
             Settings previousSettings = Settings.Current;
             bool previousMetrics = MetricManager.Enabled;
-            IDisposable hashes = null, tracing = null, report = null, processorState = null, inputBoundary = null;
+            IDisposable hashes = null, tracing = null, report = null, processorState = null, inputBoundary = null, physicalReadScope = null;
             Exception failure = null;
             IList<Artifact> artifacts = null;
             DocumentProcessor processor = null;
@@ -434,6 +468,7 @@ namespace NewModCompiler.Application
             compiling = true;
             try
             {
+                physicalReadScope = physicalInputs == null ? null : physicalInputs.BeginReadScope(cancellation);
                 Directory.CreateDirectory(staging);
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
@@ -514,6 +549,8 @@ namespace NewModCompiler.Application
                 bool success = false;
                 outerWork.Measure("processDocument", () => processor.ProcessDocument(settings.InputPath, true, false, out success));
                 if (!success) throw new BuildFailure(ExitCode.Compilation, "CORE_COMPILE_FAILED", "Core did not complete the stream.");
+                if (physicalInputs != null && processor.ProcessedTypeIds.Any(new HashSet<uint>(new[] { "Texture", "OnDemandTexture", "TerrainTextureAtlas" }.Select(InstanceHandle.GetTypeId)).Contains))
+                    physicalInputs.RegisterBypass("opaque-texture-closure");
                 if (sessionCacheEnabled)
                 {
                     var rejected = new HashSet<uint>(new[] { "Texture", "OnDemandTexture", "TerrainTextureAtlas" }.Select(InstanceHandle.GetTypeId));
@@ -558,6 +595,7 @@ namespace NewModCompiler.Application
                 try { if (processorState != null) outerWork.Measure("cleanup", processorState.Dispose); } catch (Exception error) { cleanup.Add(error); }
                 try { if (tracing != null) outerWork.Measure("cleanup", tracing.Dispose); } catch (Exception error) { cleanup.Add(error); }
                 try { if (inputBoundary != null) outerWork.Measure("cleanup", inputBoundary.Dispose); } catch (Exception error) { cleanup.Add(error); }
+                try { if (physicalReadScope != null) outerWork.Measure("cleanup", physicalReadScope.Dispose); } catch (Exception error) { cleanup.Add(error); }
                 Settings.Current = previousSettings;
                 MetricManager.Enabled = previousMetrics;
                 compiling = false;
@@ -746,7 +784,7 @@ namespace NewModCompiler.Application
                 disposed = true;
             }
             try { DisposeProviders(); }
-            finally { schemaMetadata.Clear(); ReleaseLease(); }
+            finally { try { if (!retainInputs) ReleaseInputs(); } finally { schemaMetadata.Clear(); ReleaseLease(); } }
         }
         void DisposeProviders()
         {

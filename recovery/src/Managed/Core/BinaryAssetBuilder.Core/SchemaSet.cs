@@ -298,13 +298,23 @@ public class SchemaSet
 		CacheInputBoundary.Validate(schemaFile);
 		_CurrentSchema = schemaFile;
 		if (_SchemaPaths.ContainsKey(schemaFile)) return;
-		byte[] contents = File.ReadAllBytes(schemaFile);
+        PhysicalInputSnapshot.Entry sealedSchema;
+        byte[] contents; string strong = null;
+        if (PhysicalInputSnapshot.TryCapture(schemaFile, out sealedSchema))
+        {
+            using (var input = sealedSchema.OpenRead()) using (var bytes = new MemoryStream()) { input.CopyTo(bytes); contents = bytes.ToArray(); }
+            strong = sealedSchema.Sha256;
+        }
+        else
+        {
+            contents = File.ReadAllBytes(schemaFile);
+        }
 		SchemaFileReadCount++;
 		SchemaContentBytesRead += contents.LongLength;
 		_SchemaPaths.Add(schemaFile, File.GetLastWriteTime(schemaFile));
 		_SchemaReadOrder.Add(schemaFile);
-		using (var algorithm = SHA256.Create())
-			_SchemaContentHashes.Add(schemaFile, Convert.ToBase64String(algorithm.ComputeHash(contents)));
+        if (strong == null) using (var algorithm = SHA256.Create()) strong = Convert.ToBase64String(algorithm.ComputeHash(contents));
+        _SchemaContentHashes.Add(schemaFile, strong);
 		XmlSchema xmlSchema;
 		using (var input = new MemoryStream(contents, false))
 		using (var reader = new StreamReader(input))

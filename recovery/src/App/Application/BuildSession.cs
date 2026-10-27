@@ -22,6 +22,7 @@ namespace NewModCompiler.Application
             if (executed) throw new InvalidOperationException("BuildSession can only be executed once."); executed = true; acceptingCoreTrace = true;
             DiagnosticDirectory stagingParent = null, stagingGuard = null; bool stagingOwned = false;
             IBuildCacheCompiler cacheCompiler = compiler as IBuildCacheCompiler;
+            IInputSnapshotCompiler inputCompiler = compiler as IInputSnapshotCompiler;
             ArtifactPublication publication = null; string publicationStatus = request.Command == "plan" ? "NoCompilationRequested" : "NotPublished";
             string publicationDirectory = request.Command == "plan" ? null : Path.Combine(request.OutputRoot,"published");
             try {
@@ -45,6 +46,7 @@ namespace NewModCompiler.Application
                         stagingOwned=true;
                     } catch (IOException e) { throw new BuildFailure(ExitCode.Output,"STAGING_PATH",e.Message); }
                     catch (UnauthorizedAccessException e) { throw new BuildFailure(ExitCode.Output,"STAGING_PATH",e.Message); }
+                    if (inputCompiler != null) inputCompiler.RetainInputsUntilCompletion();
                     applicationWork.Measure("backendInitialize", () => compiler.Initialize(request)); providerIdentity=compiler.ProviderIdentity;
                     int completed = 0;
                     foreach (BuildTask task in plan.Tasks) {
@@ -105,6 +107,15 @@ namespace NewModCompiler.Application
                     CompleteStage("succeeded",artifacts.Count);
                 } catch(OperationCanceledException e) {code=ExitCode.Cancelled;status="cancelled";Fail(e,status,"BUILD_CANCELLED","Build cancelled while packaging.");}
                 catch(Exception e) {code=ExitCode.Output;status="failed";Fail(e,status,"PACKAGE_FAILED",e.ToString());}
+            }
+            // Provider disposal does not end the positive-input transaction.
+            // Recheck actual captured content after packaging and retain its pins
+            // through publication, cache commit and every required output close.
+            if (code == ExitCode.Success && request.Command == "build" && inputCompiler != null) {
+                try { applicationWork.Measure("inputVerification", () => inputCompiler.VerifyInputs(cancellation)); }
+                catch (OperationCanceledException e) { code=ExitCode.Cancelled; status="cancelled"; Fail(e,status,"BUILD_CANCELLED","Build cancelled while verifying inputs."); }
+                catch (BuildFailure e) { code=e.ExitCode; status="failed"; Fail(e,status,e.Code,e.Message); }
+                catch (Exception e) { code=ExitCode.Compilation; status="failed"; Fail(e,status,"INPUT_VERIFICATION_FAILED",e.ToString()); }
             }
             // The compiler must release every stream and provider before publication.
             // Keep the previous generation until all required output channels close.
@@ -212,9 +223,17 @@ namespace NewModCompiler.Application
                     try { Console.Error.WriteLine("CACHE_FINAL_CLEANUP_FAILED: " + e); } catch (Exception) { }
                 }
                 finally {
-                if (publication != null) publication.Dispose();
-                if (stagingGuard != null) stagingGuard.Dispose();
-                if (stagingParent != null) stagingParent.Dispose();
+                    try {
+                        if (publication != null) publication.Dispose();
+                        if (stagingGuard != null) stagingGuard.Dispose();
+                        if (stagingParent != null) stagingParent.Dispose();
+                    }
+                    finally {
+                        if (inputCompiler != null) {
+                            try { inputCompiler.ReleaseInputs(); }
+                            catch (Exception e) { try { Console.Error.WriteLine("INPUT_FINAL_CLEANUP_FAILED: " + e); } catch (Exception) { } }
+                        }
+                    }
                 }
             }
         }

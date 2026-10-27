@@ -57,6 +57,7 @@ try {
     $fixtureFailures=@()
     $fixtures=@(
         @{name='CompilerInputDigests';marker='PASS InputDigests:'},
+        @{name='CompilerPhysicalInputs';marker='PASS PhysicalInputs:'},
         @{name='CompilerNodeJoiner';marker='PASS NodeJoiner:'},
         @{name='CompilerSchemaDescriptors';marker='PASS SchemaDescriptors:'},
         @{name='CompilerSchemaMetadata';marker='PASS SchemaMetadata:'},

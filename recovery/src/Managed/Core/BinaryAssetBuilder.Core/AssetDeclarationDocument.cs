@@ -657,7 +657,11 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 		else
 		{
-			_Current.XmlReader = XmlReader.Create(_Current.SourcePath);
+            PhysicalInputSnapshot.Entry sealedSource;
+            if (PhysicalInputSnapshot.TryCapture(_Current.SourcePath, out sealedSource))
+                _Current.XmlReader = XmlReader.Create(sealedSource.OpenRead(), new XmlReaderSettings { CloseInput = true }, new Uri(_Current.SourcePath, UriKind.Absolute).AbsoluteUri);
+            else
+				_Current.XmlReader = XmlReader.Create(_Current.SourcePath);
 		}
 		_Current.XmlDocument = new XmlDocument();
 		XmlReader xmlReader = new Mvp.Xml.XInclude.XIncludingReader(_Current.XmlReader)
