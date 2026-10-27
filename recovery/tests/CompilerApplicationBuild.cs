@@ -235,7 +235,9 @@ public static class CompilerApplicationBuild
     }
     static void Failed(RunResult run, ExitCode expected, string status)
     {
-        Require(run.Code == expected && Text(run.Report["status"]) == status, "Controlled application failure returned wrong status");
+        Require(run.Code == expected && Text(run.Report["status"]) == status,
+            "Controlled application failure returned wrong status: expected=" + expected + "/" + status +
+            " actual=" + run.Code + "/" + Text(run.Report["status"]) + " diagnostics=" + Json.Serialize(run.Report["diagnostics"]));
         Require(Array(run.Report["artifacts"]).Length == 0 && !Directory.Exists(Path.Combine(run.Request.OutputRoot, ".build", run.BuildId)), "Failed build retained its own staging or published artifacts");
     }
     static void RequireBlocked(Action operation, string message)
@@ -454,7 +456,7 @@ public static class CompilerApplicationBuild
             Func<bool, Observe> observer = mutate => new Observe { InputProbe = row => {
                 string kind = Text(row["eventType"]);
                 if (!inFixture && kind == "Diagnostic" && row.ContainsKey("diagnosticCode") && Text(row["diagnosticCode"]).StartsWith("CORE_TRACE", StringComparison.Ordinal) &&
-                    Text(Map(row["payload"])["source"]) == "DocumentProcessor" && Text(row["message"]).StartsWith("Build Cache Status:", StringComparison.Ordinal))
+                    Text(Map(Json.DeserializeObject(Json.Serialize(row["payload"])))["source"]) == "DocumentProcessor" && Text(row["message"]).StartsWith("Build Cache Status:", StringComparison.Ordinal))
                 {
                     string input = Settings.Current.InputPath;
                     Require(configured.Add(input), "Manifest instrumentation ran more than once for an application stream");

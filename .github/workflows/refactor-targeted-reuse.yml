@@ -64,6 +64,8 @@ jobs:
       - name: Check strict reuse closure and original release export contracts
         shell: pwsh
         run: |
+          python recovery/scripts/ValidateCompilerUpheavalSamples.py --output recovery/artifacts/upheaval-small-preflight/validation.json
+          if($LASTEXITCODE -ne 0){throw 'Bounded Upheaval source-byte/input-closure preflight failed'}
           python recovery/scripts/TestCompilerTargetedReuse.py --output recovery/artifacts/targeted-reuse-controller/validation.json
           if($LASTEXITCODE -ne 0){throw 'Strict reuse controller contracts failed'}
           python recovery/scripts/TestCompilerAcceptedRelease.py --output recovery/artifacts/accepted-release-controller/validation.json
@@ -88,10 +90,19 @@ jobs:
           python recovery/scripts/ExportCompilerAcceptedRelease.py --archive "$env:RUNNER_TEMP/targeted-reuse.zip" --reuse-receipt recovery/artifacts/targeted-reuse-product/reuse.json --compiler-directory recovery/artifacts/targeted-reuse-product --output recovery/artifacts/accepted-release
           if($LASTEXITCODE -ne 0){throw 'Original accepted release export rejected'}
       - name: Run current targeted fixtures against verified production objects
+        id: lifecycle
         if: ${{ !cancelled() && steps.reuse.outcome == 'success' }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/targeted-reuse-product -ReuseReceipt recovery/artifacts/targeted-reuse-product/reuse.json -OutputDirectory "recovery/evidence/refactor/targeted-reuse/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Compare current selected inputs with independent original BAB processes
+        if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/targeted-reuse/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerBackendLifecycle/result.json" -OutputDirectory "recovery/evidence/refactor/reuse-backend-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180
+            ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/targeted-reuse/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerUpheavalSamples/result.json" -OutputDirectory "recovery/evidence/refactor/reuse-upheaval-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -ExpectedCaseCount 1 -TimeoutSeconds 180
+          }
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -101,11 +112,17 @@ jobs:
             recovery/artifacts/accepted-release-controller/validation.json
             recovery/artifacts/targeted-reuse-product/reuse.json
             recovery/artifacts/accepted-release/export-receipt.json
+            recovery/artifacts/upheaval-small-preflight/validation.json
             recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/validation.json
             recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/**/result.json
             recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/**/fixture-build.log
             recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/**/runtime.log
+            recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/**/protocol/*/build-report.json
             recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/expression-original/**
+            recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/document-original/**
+            recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/upheaval-small-inputs/**
+            recovery/evidence/refactor/reuse-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/validation.json
+            recovery/evidence/refactor/reuse-upheaval-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/validation.json
           if-no-files-found: warn
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && steps.release.outcome == 'success' }}

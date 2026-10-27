@@ -43,6 +43,7 @@ TARGETED_FIXTURES = (
 ALLOWED = {REUSE_WORKFLOW, 'recovery/scripts/DownloadCompilerTargetedReuse.py',
            'recovery/scripts/TestCompilerTargetedReuse.py', 'recovery/scripts/TestCompilerCoreLifecycle.ps1',
            'recovery/scripts/TestCompilerBackendBaseline.ps1',
+           'recovery/scripts/ValidateCompilerUpheavalSamples.py',
            'recovery/tests/CompilerDocumentSnapshotOracle.cs',
            'recovery/scripts/ExportCompilerAcceptedRelease.py', 'recovery/scripts/TestCompilerAcceptedRelease.py'}
 ALLOWED.update('recovery/tests/' + name + '.cs' for name in TARGETED_FIXTURES)

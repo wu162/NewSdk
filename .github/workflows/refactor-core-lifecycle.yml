@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
+      - 'recovery/scripts/ValidateCompilerUpheavalSamples.py'
       - 'recovery/scripts/TestCompilerBackendBaseline.ps1'
       - 'recovery/scripts/TestCompilerCli.ps1'
       - 'recovery/scripts/CompilerCliOutputs.ps1'
@@ -156,6 +157,8 @@ jobs:
       - name: Validate CLI scripts and output contracts before long Native linking
         shell: pwsh
         run: |
+          python recovery/scripts/ValidateCompilerUpheavalSamples.py --output recovery/artifacts/upheaval-small-preflight/validation.json
+          if($LASTEXITCODE -ne 0){throw 'Bounded Upheaval source-byte/input-closure preflight failed'}
           foreach($path in @('recovery/scripts/TestCompilerCoreLifecycle.ps1','recovery/scripts/CompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliOutputs.ps1','recovery/scripts/TestCompilerCli.ps1','recovery/scripts/TestCompilerBackendBaseline.ps1','recovery/scripts/TestCompilerBuildCache.ps1','recovery/scripts/TestCompilerInputRoots.ps1','recovery/scripts/TestCompilerBuildCachePayloads.ps1','recovery/scripts/TestCompilerSessionCache.ps1','recovery/scripts/TestCompilerSdk.ps1','recovery/scripts/TestCompilerBig.ps1')) {
             $tokens=$null;$errors=$null
             $null=[Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $path),[ref]$tokens,[ref]$errors)
@@ -202,6 +205,7 @@ jobs:
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/result.json
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/fixture-build.log
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/runtime.log
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/protocol/*/build-report.json
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/expression-original/**
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/document-original/**
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/CompilerUpheavalSamples/work/upheaval-small/**
@@ -333,6 +337,7 @@ jobs:
             recovery/artifacts/final-release/**
             recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/big-fixture-preflight/**
+            recovery/artifacts/upheaval-small-preflight/**
             recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}
