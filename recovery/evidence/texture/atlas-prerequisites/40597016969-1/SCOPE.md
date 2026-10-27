@@ -1,0 +1,5 @@
+# Original option-field interpretation
+
+The immutable 480 DDS/options/callback captures and receipt are original-only evidence from source 9e7d671e46b3abb41e3e8ab22abd1c759e77b9c9, Actions 40597016969. The probe's `filterOption`, `filter0/filter5` labels and receipt wording misname native options offset +104. It is the specified mip count override, not a filter-kernel selection. Offset +104=0 produces the natural full chain; +104=5 writes exactly five payload levels. The header mipCount is min(natural count, 5), so short chains repeat 1x1 payloads even when the header advertises fewer levels. Offset +476=9 produces uncompressed RGB555: 16 bits, pixel-format flags 0x40, masks 0x7c00/0x03e0/0x001f, no alpha.
+
+The exact options bytes were written as intended and correspond to the original PC HandleTerrainTextureAtlas overrides. No original JSON, TSV, DDS, options or callback record was rewritten. This clarification corrects interpretation only. Full atlas ProcessInstance and SDK acceptance remain separate.
