@@ -1,0 +1,295 @@
+name: Build and publish NewModCompiler GitHub Release
+on:
+  push:
+    branches: [release/compiler-20261027]
+    paths: ['.github/workflows/compiler-github-release.yml']
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: refactor-core-lifecycle-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  lifecycle:
+    if: contains(github.event.head_commit.message, '[refactor-core-lifecycle]')
+    runs-on: windows-2022
+    env:
+      # An explicit full-candidate marker wins if a push contains both tags.
+      CLI_REUSE: ${{ (github.event_name == 'workflow_dispatch' && inputs.cli_only == true) || (github.event_name == 'push' && !contains(github.event.head_commit.message, '[refactor-core-lifecycle]') && contains(github.event.head_commit.message, '[refactor-cli-product]')) }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          # Keep all runtime/source inputs, omit only 2 GiB of historical outputs.
+          # Git history remains available for strict reuse-closure checks.
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Install pinned mixed PE audit and App protocol dependencies
+        shell: pwsh
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+      - name: Download and strictly verify accepted historical CLI runtimes
+        id: reuse
+        if: ${{ env.CLI_REUSE == 'true' }}
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/scripts/DownloadCompilerCliReuse.py --repo . --candidate-commit $env:GITHUB_SHA --output recovery/artifacts/core-cli-reuse-product --archive "$env:RUNNER_TEMP/compiler-cli-reuse.zip"
+          if($LASTEXITCODE -ne 0){throw 'Historical CLI runtime reuse rejected'}
+      - name: Standalone P2 application contracts in Debug
+        if: ${{ !cancelled() && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          $directory='recovery/artifacts/lifecycle-app/Debug'
+          New-Item -ItemType Directory -Force $directory|Out-Null
+          try {
+            ./recovery/scripts/TestApp.ps1 -Configuration Debug -OutputDirectory $directory *> "$directory/test-app.log"
+            if($LASTEXITCODE -ne 0){throw 'Standalone Debug application contracts failed'}
+          } catch {
+            Get-Content "$directory/test-app.log" -Tail 80|Out-Host
+            throw
+          }
+          Get-Content "$directory/test-app.log" -Tail 30|Out-Host
+      - name: Standalone P2 application contracts in Release
+        if: ${{ !cancelled() && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          $directory='recovery/artifacts/lifecycle-app/Release'
+          New-Item -ItemType Directory -Force $directory|Out-Null
+          try {
+            ./recovery/scripts/TestApp.ps1 -Configuration Release -OutputDirectory $directory *> "$directory/test-app.log"
+            if($LASTEXITCODE -ne 0){throw 'Standalone Release application contracts failed'}
+          } catch {
+            Get-Content "$directory/test-app.log" -Tail 80|Out-Host
+            throw
+          }
+          Get-Content "$directory/test-app.log" -Tail 30|Out-Host
+      - name: Validate CLI scripts and output contracts before long Native linking
+        shell: pwsh
+        run: |
+          foreach($path in @('recovery/scripts/CompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliOutputs.ps1','recovery/scripts/TestCompilerCli.ps1','recovery/scripts/TestCompilerBackendBaseline.ps1','recovery/scripts/TestCompilerBuildCache.ps1','recovery/scripts/TestCompilerInputRoots.ps1','recovery/scripts/TestCompilerBuildCachePayloads.ps1','recovery/scripts/TestCompilerSessionCache.ps1','recovery/scripts/TestCompilerSdk.ps1','recovery/scripts/TestCompilerBig.ps1')) {
+            $tokens=$null;$errors=$null
+            $null=[Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $path),[ref]$tokens,[ref]$errors)
+            if($errors.Count -ne 0){$errors|Format-List|Out-Host;throw "PowerShell syntax errors: $path"}
+          }
+          ./recovery/scripts/TestCompilerBig.ps1 -Preflight -OutputDirectory recovery/artifacts/big-fixture-preflight
+          if($LASTEXITCODE -ne 0){throw 'BIG fixture/parser preflight failed'}
+          ./recovery/scripts/TestCompilerSessionCache.ps1 -Preflight -OutputDirectory recovery/artifacts/session-fixture-preflight
+          if($LASTEXITCODE -ne 0){throw 'Session-cache fixture preflight failed'}
+          ./recovery/scripts/TestCompilerCliOutputs.ps1 -OutputDirectory recovery/artifacts/cli-output-preflight
+          if($LASTEXITCODE -ne 0){throw 'CLI output contract preflight failed'}
+          ./recovery/scripts/BuildCompilerCliControl.ps1 -OutputDirectory recovery/artifacts/cli-controller-preflight
+      - name: Build managed Foundation inputs
+        if: ${{ env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/core-lifecycle-foundation/$mode"
+          }
+      - name: Build full production combination and verify deployment and route metadata
+        id: product
+        if: ${{ env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/core-lifecycle-foundation -BuildDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle-deployment/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          $receipt=Get-Content "recovery/evidence/refactor/core-lifecycle-deployment/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -Raw|ConvertFrom-Json
+          $enabled=(@($receipt.modes).Count -eq 2 -and @($receipt.modes|Where-Object{$_.backendIntegrated -ne $true}).Count -eq 0)
+          "cliEnabled=$($enabled.ToString().ToLowerInvariant())"|Add-Content $env:GITHUB_OUTPUT
+      - name: Targeted real Core, backend and application pipeline in Debug and Release
+        id: lifecycle
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Isolated original BAB baseline for the two targeted backend cases
+        if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerBackendLifecycle/result.json" -OutputDirectory "recovery/evidence/refactor/core-backend-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180
+          }
+      - name: Validate actual application JSONL and reports against protocol schemas
+        if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $evidence="recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/app-protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Actual application protocol validation failed'}
+      - name: Host-bound Texture payload and deployment rejection in Debug and Release
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerTexture.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle-texture/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Real production CLI, cold processes and actual CtrlBreak cancellation
+        id: cli
+        if: ${{ !cancelled() && (steps.reuse.outcome == 'success' || (steps.product.outcome == 'success' && steps.product.outputs.cliEnabled == 'true')) }}
+        shell: pwsh
+        run: |
+          $compilerDirectory=if($env:CLI_REUSE -eq 'true'){'recovery/artifacts/core-cli-reuse-product'}else{'recovery/artifacts/core-lifecycle-product'}
+          ./recovery/scripts/TestCompilerCli.ps1 -CompilerDirectory $compilerDirectory -OutputDirectory "recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Validate real production CLI protocol outputs
+        if: ${{ !cancelled() && steps.cli.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $evidence="recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/cli-protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Real production CLI protocol validation failed'}
+      - name: Actual build-cache cold hot invalidation and retry matrix
+        id: cache
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerBuildCache.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/build-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Effective input roots and original BAB output differential
+        id: roots
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerInputRoots.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/input-roots/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Actual Audio CDATA and W3X build-cache payload replay
+        id: payloads
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerBuildCachePayloads.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/cache-payloads/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Actual session-cache documents intermediate and CDATA reuse matrix
+        id: session
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerSessionCache.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/session-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Validate actual session-cache protocol outputs
+        if: ${{ !cancelled() && steps.session.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $evidence="recovery/evidence/refactor/session-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Actual session-cache protocol validation failed'}
+      - name: Production BIG apt maps selection and original MakeBig differential
+        id: big
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerBig.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/big/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Validate actual BIG production protocol outputs
+        if: ${{ !cancelled() && steps.big.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $evidence="recovery/evidence/refactor/big/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Actual BIG production protocol validation failed'}
+      - name: Validate actual cache and input-root protocol outputs
+        if: ${{ !cancelled() && steps.cache.outcome == 'success' && steps.roots.outcome == 'success' && steps.payloads.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          foreach($scope in @('build-cache','input-roots','cache-payloads')) {
+            $evidence="recovery/evidence/refactor/$scope/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+            python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
+            if($LASTEXITCODE -ne 0){throw "Actual $scope protocol validation failed"}
+          }
+      # P7 only adds the explicit BIG apt/maps path; accepted P5/P6 full-mymod
+      # loose evidence is reused while all affected product/cache/CLI groups run.
+      - name: Complete mymod original BAB and production SDK differential
+        if: ${{ success() && steps.session.outcome == 'success' && env.CLI_REUSE != 'true' && !contains(github.event.head_commit.message, '[refactor-p7-big]') }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/sdk-mymod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TimeoutSeconds 600
+          if($LASTEXITCODE -ne 0){throw 'Complete mymod SDK differential failed'}
+      - name: Publish final five-file packages after complete production acceptance
+        if: ${{ success() && steps.big.outcome == 'success' && steps.cli.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -AcceptanceReceipt "recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -VerifyBigDeployment -OutputDirectory "recovery/artifacts/final-release/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if($LASTEXITCODE -ne 0){throw 'Final five-file ZIP deployment validation failed'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/final-release/**
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/artifacts/big-fixture-preflight/**
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/artifacts/core-cli-reuse-product/reuse.json
+            recovery/artifacts/cli-controller-preflight/**
+            recovery/artifacts/cli-output-preflight/**
+            recovery/artifacts/session-fixture-preflight/**
+            recovery/artifacts/core-lifecycle-foundation/**/build.json
+            recovery/artifacts/core-lifecycle-foundation/**/*.log
+            recovery/artifacts/core-lifecycle-product/**/build.json
+            recovery/artifacts/core-lifecycle-product/**/link-inputs.json
+            recovery/artifacts/core-lifecycle-product/**/bin/*
+            recovery/artifacts/core-lifecycle-product/**/*.log
+            recovery/artifacts/lifecycle-app/**/test-work/**
+            recovery/artifacts/lifecycle-app/**/test-app.log
+          include-hidden-files: true
+          if-no-files-found: error
+      - name: Publish accepted runtime ZIPs to GitHub Releases
+        if: ${{ success() }}
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference='Stop'
+          $directory="recovery/artifacts/final-release/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          $receipt=Get-Content "$directory/release.json" -Raw|ConvertFrom-Json
+          if($receipt.succeeded -ne $true -or $receipt.bigDeployment.succeeded -ne $true){throw 'Release acceptance is incomplete'}
+          $assets=@()
+          $checksums=@()
+          foreach($mode in @('Release','Debug')) {
+            $stem="NewModCompiler-Win32-$mode"
+            $zip=Join-Path $directory "$stem.zip"
+            $manifest=Join-Path $directory "$stem.manifest.json"
+            $identity=Get-Content $manifest -Raw|ConvertFrom-Json
+            $hash=(Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant()
+            if($hash -cne $identity.archive.sha256 -or $identity.binarySourceCommit -cne $env:GITHUB_SHA){throw "Published archive identity differs: $mode"}
+            $checksums+="$hash  $stem.zip"
+            $assets+=$zip,$manifest
+          }
+          $checksum=Join-Path $directory 'SHA256SUMS.txt'
+          [IO.File]::WriteAllLines($checksum,$checksums,[Text.UTF8Encoding]::new($false))
+          Copy-Item recovery/COMPILER_USAGE.md "$directory/COMPILER_USAGE.md"
+          $assets+=$checksum,"$directory/release.json","$directory/COMPILER_USAGE.md"
+          $tag='compiler-2026.10.27'
+          $notes=@"
+          ## NewModCompiler Windows / Win32
+
+          基于 compiler-main 的 e7396d3b6fb302682d3610ebbc6e99ce87eb867f；发行分支仅添加构建发布工作流，生产代码未改。
+          二进制/验收提交：$env:GITHUB_SHA
+          构建与完整验收：https://github.com/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID
+
+          **普通使用请下载 NewModCompiler-Win32-Release.zip**，完整解压五个文件到同一目录。Debug 包供调试使用。SHA256SUMS.txt 和 manifest.json 用于校验。
+
+          - 默认生成完整 BIG + SKUDEF，自动识别 base、APT UI、全局元数据。
+          - 默认包含 SDK/MOD Additional，保留覆盖顺序与 .asset 排除规则，并报告覆盖冲突。
+          - /ss、/pc、/slowclean 默认开启；/bc、/sc 缓存默认关闭。
+          - 单进程编译、内建 MakeBig，附使用说明 COMPILER_USAGE.md。
+
+          本次重新构建 Debug/Release，并通过应用/Core/CLI/Texture/缓存、完整 mymod 新旧编译差分、BIG 与独立解压 ZIP 验收。
+
+          运行要求：Windows x86 兼容环境、.NET Framework 4.8、x86 VC80 CRT、与构建工具链相符的 x86 VC 运行库及 DirectX 9/D3DX。SDK 和 MOD 源码需单独准备。
+          未新增完整游戏内运行、完整 UI/runtime、中文纹理路径和混合纹理会话缓存验收。中立修复保留已有零插入验证范围；WBData 不包含在包中。
+          "@
+          $notesPath=Join-Path $env:RUNNER_TEMP 'compiler-release-notes.md'
+          [IO.File]::WriteAllText($notesPath,$notes,[Text.UTF8Encoding]::new($false))
+          gh release create $tag @assets --repo $env:GITHUB_REPOSITORY --target $env:GITHUB_SHA --title 'NewModCompiler 2026.10.27 (Win32)' --notes-file $notesPath --latest
+          if($LASTEXITCODE -ne 0){throw 'GitHub Release publication failed'}
