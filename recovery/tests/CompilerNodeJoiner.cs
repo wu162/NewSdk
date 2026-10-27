@@ -169,7 +169,109 @@ public static class CompilerNodeJoiner
             XmlNode last = parent.LastChild; remove.Invoke(index, new object[] { last }); parent.RemoveChild(last);
         }
         select("<Unrelated/>", false, true);
+        ((IDisposable)index).Dispose();
         tests.Add("original-private-selector-duplicate-first-key-name-prefix-insert-remove-key-refresh-and-shrink-to-single-choice");
+    }
+    internal sealed class DomMutation : IDisposable
+    {
+        readonly XmlDocument document;
+        readonly string scenario;
+        internal int Calls;
+        internal bool IndexedWhenCalled;
+        internal DomMutation(XmlDocument document, string scenario)
+        {
+            this.document = document; this.scenario = scenario;
+            document.NodeInserted += Changed; document.NodeRemoved += Changed; document.NodeChanged += Changed;
+        }
+        void Changed(object sender, XmlNodeChangedEventArgs change)
+        {
+            if (Calls != 0) return;
+            XmlNode parent = null;
+            if (scenario.StartsWith("inserted:", StringComparison.Ordinal))
+            {
+                if (change.Action == XmlNodeChangedAction.Insert && change.Node is XmlText && change.Node.Value == "fire" && change.NewParent.Name == "Value")
+                    parent = change.NewParent.ParentNode.ParentNode;
+            }
+            else if (scenario.StartsWith("removed:", StringComparison.Ordinal))
+            {
+                var element = change.Node as XmlElement;
+                if (change.Action == XmlNodeChangedAction.Remove && element != null && element.GetAttribute("id") == "k0") parent = change.OldParent;
+            }
+            else
+            {
+                var attribute = change.NewParent as XmlAttribute;
+                if (change.Action == XmlNodeChangedAction.Change && attribute != null && attribute.Name == "mark" && attribute.Value == "trigger")
+                    parent = attribute.OwnerElement.ParentNode;
+            }
+            if (parent == null || parent.Name != "Asset" || parent.ChildNodes.Count < 8) return;
+            Calls++; IndexedWhenCalled = ChildIndexSubscriptions(document) > 0;
+            string action = scenario.Substring(scenario.IndexOf(':') + 1);
+            XmlElement first = (XmlElement)parent.SelectSingleNode("*[@id='target']"), last = (XmlElement)parent.LastChild;
+            XmlElement earlier = (XmlElement)parent.SelectSingleNode("*[@id='k10']");
+            if (action == "changed-id" || action == "throw") earlier.SetAttribute("id", "target");
+            else if (action == "added-id") { earlier.RemoveAttribute("id"); earlier.SetAttribute("id", "target"); }
+            else if (action == "removed-id") first.RemoveAttribute("id");
+            else if (action == "reorder") parent.PrependChild(last);
+            else if (action == "remove-child") parent.RemoveChild(first);
+            else if (action == "move-out") document.CreateElement("Elsewhere").AppendChild(first);
+            else if (action == "insert-child" || action == "move-in")
+            {
+                XmlElement inserted = document.CreateElement("Item", Ns); inserted.SetAttribute("id", "target"); inserted.SetAttribute("mark", "callback");
+                if (action == "move-in") document.CreateElement("Elsewhere").AppendChild(inserted);
+                parent.PrependChild(inserted);
+            }
+            if (action == "throw") throw new InvalidOperationException("Injected DOM callback failure");
+        }
+        public void Dispose() { document.NodeInserted -= Changed; document.NodeRemoved -= Changed; document.NodeChanged -= Changed; }
+    }
+    internal static int ChildIndexSubscriptions(XmlDocument document)
+    {
+        int count = 0;
+        foreach (FieldInfo field in typeof(XmlDocument).GetFields(BindingFlags.Instance | BindingFlags.NonPublic))
+        {
+            if (!typeof(Delegate).IsAssignableFrom(field.FieldType)) continue;
+            var callbacks = field.GetValue(document) as Delegate;
+            if (callbacks == null) continue;
+            foreach (Delegate callback in callbacks.GetInvocationList())
+                if (callback.Target != null && callback.Target.GetType().FullName == "BinaryAssetBuilder.Core.NodeJoiner+ChildIndex") count++;
+        }
+        return count;
+    }
+    static void DynamicCallbacks()
+    {
+        string before = Items(12) + "<Item id='target' mark='first'/><Item id='target' mark='second'/>";
+        foreach (string scenario in new[] { "changed:changed-id", "changed:added-id", "changed:removed-id", "changed:reorder", "changed:insert-child", "changed:remove-child",
+            "changed:move-out", "changed:move-in", "inserted:changed-id", "removed:changed-id", "changed:throw" })
+        {
+            string after = scenario.StartsWith("inserted:", StringComparison.Ordinal) ? "<Item id='k0'><Value>fire</Value></Item>" :
+                scenario.StartsWith("removed:", StringComparison.Ordinal) ? "<Item id='k0' i:joinAction='Remove'/>" : "<Item id='k0' mark='trigger'/>";
+            after += "<Item id='target' mark='selected'/><Item id='target' mark='selected-again'/>";
+            LegacyNodeJoinerResult baseline = original.Run("Asset", before, after, "", scenario);
+            Require(baseline.MutationCalls == 1, "Original DLL dynamic callback did not execute above the index threshold: " + scenario);
+            foreach (bool disabled in new[] { false, true })
+            {
+                var destination = new CountingDocument();
+                using (var mutation = new DomMutation(destination, scenario))
+                {
+                    string actual = Outcome(Document("Asset", before), Document("Asset", after), destination, disabled);
+                    Require(mutation.Calls == 1 && actual == baseline.Outcome, "Dynamic DOM callback original DLL differential failed: " + scenario + " disabled=" + disabled + "\nexpected: " + baseline.Outcome + "\nactual: " + actual);
+                    Require(mutation.IndexedWhenCalled == !disabled, "Dynamic callback did not run with the expected live index: " + scenario + " disabled=" + disabled);
+                    Require(ChildIndexSubscriptions(destination) == 0, "NodeJoiner retained document subscriptions after merge/failure: " + scenario);
+                }
+            }
+            Require(baseline.Outcome.StartsWith(scenario.EndsWith(":throw", StringComparison.Ordinal) ? "ERROR:" : "XML:", StringComparison.Ordinal), "Dynamic callback did not exercise its intended success/failure");
+            cases++;
+        }
+        // Confirm the lifecycle inspection sees the real three subscriptions,
+        // rather than passing because the runtime hides its delegate storage.
+        var document = new XmlDocument(); document.LoadXml("<Parent>" + Items(12) + "</Parent>");
+        var source = new XmlDocument(); source.LoadXml("<Item id='k0'/>");
+        object[] arguments = { document.DocumentElement, source.DocumentElement, true, false, null };
+        typeof(NodeJoiner).GetMethod("SelectSame", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(new NodeJoiner(schemas, document), arguments);
+        Require(arguments[4] != null && ChildIndexSubscriptions(document) == 3, "Wide selector did not expose its three live DOM event subscriptions");
+        ((IDisposable)arguments[4]).Dispose();
+        Require(ChildIndexSubscriptions(document) == 0, "ChildIndex.Dispose did not detach all document events");
+        tests.Add("original-DLL-dynamic-DOM-callback-sibling-id-add-remove-value-duplicate-order-structural-move-and-exception-differential-with-verified-event-unsubscription");
     }
     static void WorkReduction()
     {
@@ -202,7 +304,7 @@ public static class CompilerNodeJoiner
             original = (LegacyNodeJoinerDomain)baselineDomain.CreateInstanceFromAndUnwrap(typeof(LegacyNodeJoinerDomain).Assembly.Location, typeof(LegacyNodeJoinerDomain).FullName);
             string baselineAssembly = original.Initialize(library);
             Require(baselineAssembly.StartsWith("BinaryAssetBuilder.Core,", StringComparison.Ordinal), "Isolated original SDK assembly identity mismatch");
-            schemas = Schema(); Semantics(); DuplicateIndexSemantics(); WorkReduction();
+            schemas = Schema(); Semantics(); DuplicateIndexSemantics(); DynamicCallbacks(); WorkReduction();
             AppDomain.Unload(baselineDomain); baselineDomain = null; original = null;
             foreach (Assembly loaded in AppDomain.CurrentDomain.GetAssemblies())
                 Require(!loaded.GetName().Name.Equals("BinaryAssetBuilder.Core", StringComparison.Ordinal), "Original Core escaped the disposable baseline AppDomain");
@@ -233,6 +335,7 @@ public sealed class LegacyNodeJoinerResult
 {
     public string Outcome;
     public long AttributeReads;
+    public int MutationCalls;
 }
 
 public sealed class LegacyNodeJoinerDomain : MarshalByRefObject
@@ -249,10 +352,11 @@ public sealed class LegacyNodeJoinerDomain : MarshalByRefObject
         CompilerNodeJoiner.schemas = CompilerNodeJoiner.Schema();
         return baseline.FullName;
     }
-    public LegacyNodeJoinerResult Run(string root, string before, string after, string attributes)
+    public LegacyNodeJoinerResult Run(string root, string before, string after, string attributes, string mutationScenario = null)
     {
         var destination = new CompilerNodeJoiner.CountingDocument();
         string outcome;
+        CompilerNodeJoiner.DomMutation mutation = mutationScenario == null ? null : new CompilerNodeJoiner.DomMutation(destination, mutationScenario);
         try
         {
             XmlNode result = (XmlNode)original.Invoke(null, new object[] {
@@ -269,7 +373,8 @@ public sealed class LegacyNodeJoinerDomain : MarshalByRefObject
             PropertyInfo code = error.GetType().GetProperty("ErrorCode");
             outcome = "ERROR:" + error.GetType().Name + ":" + (code == null ? "" : Convert.ToString(code.GetValue(error, null))) + ":" + error.Message;
         }
-        return new LegacyNodeJoinerResult { Outcome = outcome, AttributeReads = destination.AttributeReads };
+        if (mutation != null) mutation.Dispose();
+        return new LegacyNodeJoinerResult { Outcome = outcome, AttributeReads = destination.AttributeReads, MutationCalls = mutation == null ? 0 : mutation.Calls };
     }
     public int Select(string parentXml, string sourceXml, bool byId, bool replaceAny)
     {
