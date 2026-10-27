@@ -13,3 +13,11 @@
 源码 `a19bb879704cd80ad55202760a160c8af57bbe2d` / [40528237009](https://github.com/wu162/NewSdk/actions/runs/40528237009) completed/success，1012全部解码，probe-only。POT对照尺寸不变，NPOT各轴向上取2幂。TGA3×1灰阶[0,127,255]加载为4×1 [48,79,175,207]，不能用clamp线性插值。native原清单40191971356 artifact已核对：D3DXCreateTextureFromFileA@0x13c82→0x13b53→0x13a9b→0x134b8；0x1359e/0x135c9分别向上取2幂，0x1360d默认filter=0x80004。默认0x19b3a调度到0x194fc（2D triangle），0x18ad8生成带回绕的面积积分权重；0x19704将X/Y float权重相乘存float，再每输入像素RGBA乘加存float，不能换成两pass量化近似。
 
 定向npot-numeric继续采原0x18ad8贡献表位模式、常量/格式vtable和初始化后dither表，不重复1012加载样本。注意D3DX table allocator@0x12074/free@0x1208a使用进程堆，与nvImage的VC8 CRT malloc/free不同，不可混用。当前仍不启用恢复NPOT；量化与float精度必须完整对照后才能声明支持。
+
+## numeric已收取，隔离RGBA8组件验证中
+
+numeric源码`678db0127a2ea3620700b44e46093dd6dc2050d1` / 40529918922 completed/success、probe-only。固定权重阈值float=1e-5；字节归一化用double存储的float倒数0.0039215688593685627。原RGBA8行读取@0x20bb4，写出@0x1cfd0（vtable@0x99df8）；写出设置x87 RC=toward-zero，先sample*255存float，再加抖动存float，最后截断整数，恢复调用者CW。抖动4×4取(2k+1)/32、每行蛇形遍历；动态表@0xb9048与无抖动表@0xb8fc8已收取。
+
+新增独立TextureNpotRgba8Resampler与npot-rgba8组件组，**待验证，不接ImageLoader或插件**。按原0x18ad8 float存储、回绕积分权重和0x194fc source y/x、dest y/x顺序恢复，量化用float位模式前驱模拟正值向零存储，不改调用者FPU状态。初步域为RGBA8、正尺寸<=8192、向上取2幂后<16M像素；PNG16、BMP16/TGA16等源/目标低位深格式不可直接套用此8位量化。
+
+完整组件门槛：Debug/Release逐位比较numeric原表全部tap与1012个不可变原LoadImageA完整RGBA，原输入不变、POT对照、每次调用前后原DLL不存在且未加载。原样本ZIP、权重TSV及收据sourceCommit/runId/祖先/hash均检查；探针仍是原版基线，只有新组件全部比较通过才算组件验收，不能据此宣称插件/SDK NPOT支持。

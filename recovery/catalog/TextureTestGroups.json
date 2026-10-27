@@ -834,6 +834,23 @@
       "sdk": false,
       "manual_only": true,
       "evidence_only": true
+    },
+    "npot-rgba8": {
+      "script": "recovery/scripts/TestTextureNpotRgba8.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/TestTextureNpotRgba8.ps1",
+        "recovery/tests/TextureNpotRgba8Replay.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "SDK/tools/*.dll",
+        "recovery/evidence/texture/npot-load/40528237009-1/**",
+        "recovery/evidence/texture/npot-numeric/40529918922-1/**"
+      ],
+      "evidence": "recovery/evidence/texture/npot-rgba8/*/validation.json",
+      "sdk": false
     }
   },
   "targetPlatform": "Win32"
