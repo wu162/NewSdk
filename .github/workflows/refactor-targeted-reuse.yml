@@ -5,9 +5,11 @@ on:
     paths:
       - '.github/workflows/refactor-targeted-reuse.yml'
       - 'recovery/scripts/DownloadCompilerTargetedReuse.py'
+      - 'recovery/scripts/TestCompilerTargetedReuse.py'
+      - 'recovery/scripts/ExportCompilerAcceptedRelease.py'
+      - 'recovery/scripts/TestCompilerAcceptedRelease.py'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
-      - 'recovery/tests/CompilerPhysicalInputs.cs'
-      - 'recovery/tests/CompilerBaseManifestIndex.cs'
+      - 'recovery/tests/Compiler*.cs'
   workflow_dispatch:
 permissions:
   contents: read
@@ -16,7 +18,31 @@ concurrency:
   group: targeted-runtime-reuse-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: false
 jobs:
+  controller-contracts:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[compiler-targeted-reuse]') || contains(github.event.head_commit.message, '[targeted-reuse-contracts]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /recovery/scripts/*.py
+      - name: Check source-closure and unchanged-package transport contracts
+        run: |
+          python recovery/scripts/TestCompilerTargetedReuse.py --output recovery/artifacts/targeted-reuse-controller/validation.json
+          python recovery/scripts/TestCompilerAcceptedRelease.py --output recovery/artifacts/accepted-release-controller/validation.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compiler-reuse-contracts-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/targeted-reuse-controller/validation.json
+            recovery/artifacts/accepted-release-controller/validation.json
+          if-no-files-found: error
   targeted:
+    needs: controller-contracts
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[compiler-targeted-reuse]')
     runs-on: windows-2022
     timeout-minutes: 20
@@ -35,6 +61,13 @@ jobs:
       - name: Install pinned evidence and runtime audit dependencies
         shell: pwsh
         run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+      - name: Check strict reuse closure and original release export contracts
+        shell: pwsh
+        run: |
+          python recovery/scripts/TestCompilerTargetedReuse.py --output recovery/artifacts/targeted-reuse-controller/validation.json
+          if($LASTEXITCODE -ne 0){throw 'Strict reuse controller contracts failed'}
+          python recovery/scripts/TestCompilerAcceptedRelease.py --output recovery/artifacts/accepted-release-controller/validation.json
+          if($LASTEXITCODE -ne 0){throw 'Accepted release transport contracts failed'}
       - name: Verify accepted source closure and stage exact runtime bytes
         id: reuse
         shell: pwsh
@@ -43,6 +76,17 @@ jobs:
         run: |
           python recovery/scripts/DownloadCompilerTargetedReuse.py --repo . --candidate-commit $env:GITHUB_SHA --output recovery/artifacts/targeted-reuse-product --archive "$env:RUNNER_TEMP/targeted-reuse.zip"
           if($LASTEXITCODE -ne 0){throw 'Strict targeted runtime reuse rejected'}
+          $receipt=Get-Content recovery/artifacts/targeted-reuse-product/reuse.json -Raw|ConvertFrom-Json
+          "sourceRunId=$($receipt.sourceRunId)"|Add-Content $env:GITHUB_OUTPUT
+      - name: Export the unchanged accepted five-file ZIP packages
+        id: release
+        if: ${{ !cancelled() && steps.reuse.outcome == 'success' }}
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/scripts/ExportCompilerAcceptedRelease.py --archive "$env:RUNNER_TEMP/targeted-reuse.zip" --reuse-receipt recovery/artifacts/targeted-reuse-product/reuse.json --compiler-directory recovery/artifacts/targeted-reuse-product --output recovery/artifacts/accepted-release
+          if($LASTEXITCODE -ne 0){throw 'Original accepted release export rejected'}
       - name: Run current targeted fixtures against verified production objects
         if: ${{ !cancelled() && steps.reuse.outcome == 'success' }}
         shell: pwsh
@@ -53,9 +97,31 @@ jobs:
         with:
           name: compiler-targeted-reuse-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
+            recovery/artifacts/targeted-reuse-controller/validation.json
+            recovery/artifacts/accepted-release-controller/validation.json
             recovery/artifacts/targeted-reuse-product/reuse.json
+            recovery/artifacts/accepted-release/export-receipt.json
             recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/validation.json
             recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/**/result.json
             recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/**/fixture-build.log
             recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/**/runtime.log
+            recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/expression-original/**
           if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() && steps.release.outcome == 'success' }}
+        with:
+          name: compiler-accepted-release-Debug-${{ steps.reuse.outputs.sourceRunId }}-${{ github.run_id }}
+          path: |
+            recovery/artifacts/accepted-release/NewModCompiler-Win32-Debug.zip
+            recovery/artifacts/accepted-release/NewModCompiler-Win32-Debug.manifest.json
+            recovery/artifacts/accepted-release/export-receipt.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() && steps.release.outcome == 'success' }}
+        with:
+          name: compiler-accepted-release-Release-${{ steps.reuse.outputs.sourceRunId }}-${{ github.run_id }}
+          path: |
+            recovery/artifacts/accepted-release/NewModCompiler-Win32-Release.zip
+            recovery/artifacts/accepted-release/NewModCompiler-Win32-Release.manifest.json
+            recovery/artifacts/accepted-release/export-receipt.json
+          if-no-files-found: error

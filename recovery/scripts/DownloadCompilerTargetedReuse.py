@@ -27,11 +27,25 @@ REUSE_WORKFLOW = '.github/workflows/refactor-targeted-reuse.yml'
 RUNTIME = ('NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll',
            'BinaryAssetBuilder.TextureCompiler.dll', 'BinaryAssetBuilder.TextureCompiler.dll.patch.json')
 VALIDATION_RUNTIME = ('NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll')
+# Exact current targeted suite only. Adding a different test or changing a
+# production build driver still requires fresh production acceptance.
+TARGETED_FIXTURES = (
+    'CompilerInputDigests', 'CompilerPhysicalInputs', 'CompilerManifestInputs',
+    'CompilerStreamBindings', 'CompilerTransferBuffers', 'CompilerDeclarationSnapshots',
+    'CompilerExpressionPrograms', 'CompilerDependencyObservations', 'CompilerBaseManifestIndex',
+    'CompilerNodeJoiner', 'CompilerSchemaDescriptors', 'CompilerSchemaMetadata',
+    'CompilerCacheContent', 'CompilerCacheBoundary', 'CompilerInputRoots',
+    'CompilerCorePaths', 'CompilerUnicodeSettings', 'CompilerCoreLifecycle',
+    'CompilerResourceLifecycle', 'CompilerStateLifecycle', 'CompilerBackendLifecycle',
+    'CompilerApplicationBuild',
+)
 ALLOWED = {REUSE_WORKFLOW, 'recovery/scripts/DownloadCompilerTargetedReuse.py',
-           'recovery/scripts/TestCompilerCoreLifecycle.ps1',
-           'recovery/tests/CompilerPhysicalInputs.cs', 'recovery/tests/CompilerBaseManifestIndex.cs'}
+           'recovery/scripts/TestCompilerTargetedReuse.py', 'recovery/scripts/TestCompilerCoreLifecycle.ps1',
+           'recovery/scripts/ExportCompilerAcceptedRelease.py', 'recovery/scripts/TestCompilerAcceptedRelease.py'}
+ALLOWED.update('recovery/tests/' + name + '.cs' for name in TARGETED_FIXTURES)
 ROOT_DOCS = {'AGENTS.md', 'README.md', 'recovery/README.md', 'recovery/REFACTOR_RESUME.md',
-             'recovery/EFFICIENCY.md', 'recovery/RESUME.md'}
+             'recovery/EFFICIENCY.md', 'recovery/RESUME.md', 'recovery/STAGE_DURATION.md'}
+PRODUCTION_ROOTS = ('recovery/src', 'SDK', 'recovery/build')
 
 
 def closure(repo, candidate):
@@ -42,9 +56,22 @@ def closure(repo, candidate):
     require(git(repo, 'rev-parse', 'HEAD').decode().strip() == candidate, 'Checkout differs from test source')
     git(repo, 'diff', '--quiet')
     git(repo, 'diff', '--cached', '--quiet')
-    paths = sorted(p for p in git(repo, 'diff', '--name-only', '--no-renames', '-z', SOURCE, candidate).decode().split('\0') if p)
+    # Name-only diffs would silently admit deletions/renames between two
+    # allowlisted files. Only additive or modified reviewed test/doc paths qualify.
+    changes = [part for part in git(repo, 'diff', '--name-status', '--no-renames', '-z', SOURCE, candidate).decode().split('\0') if part]
+    require(len(changes) % 2 == 0, 'Unexpected changed-path record shape')
+    rows = list(zip(changes[::2], changes[1::2]))
+    require(all(status in ('A', 'M') for status, path in rows), 'Deleted, renamed or type-changed input cannot reuse production')
+    paths = sorted(path for status, path in rows)
     forbidden = [p for p in paths if not (p in ALLOWED or p in ROOT_DOCS or (p.startswith('recovery/docs/') and p.endswith('.md')))]
     require(not forbidden, 'Production or unrelated test inputs changed: ' + ', '.join(forbidden))
+    # Deliberately omit --exclude-standard: ignored untracked files can still
+    # enter recursive production source, SDK, or build-recipe discovery. Scan
+    # only production roots so importing this controller's scripts/__pycache__
+    # cannot create a false rejection. Do not exempt such names inside a source
+    # root: a .cs file there is still a potential production input.
+    untracked = [p for p in git(repo, 'ls-files', '--others', '-z', '--', *PRODUCTION_ROOTS).decode().split('\0') if p]
+    require(not untracked, 'Untracked production inputs present (including ignored): ' + ', '.join(sorted(untracked)))
     return paths
 
 
@@ -174,7 +201,9 @@ def prepare(archive, artifact, candidate, output, changed):
                'binarySourceCommit': SOURCE, 'testSourceCommit': candidate, 'sourceCommit': SOURCE, 'candidateCommit': candidate,
                'runId': str(RUN), 'runAttempt': str(ATTEMPT), 'sourceRunId': str(RUN), 'sourceRunAttempt': str(ATTEMPT),
                'artifactId': artifact['id'], 'artifactName': artifact['name'], 'artifactSha256': expected_digest,
-               'archiveSha256': expected_digest, 'changedPaths': changed, 'changedFiles': changed, 'files': files,
+               'archiveSha256': expected_digest, 'archiveBytes': artifact['size_in_bytes'],
+               'repository': REPOSITORY, 'sourceWorkflow': WORKFLOW, 'originalRunConclusion': 'success',
+               'changedPaths': changed, 'changedFiles': changed, 'files': files,
                'scope': 'Strict pinned binary preparation only; current targeted fixtures must be compiled/executed; original receipts remain unchanged'}
     output = Path(output)
     require(not output.exists() and not output.is_symlink(), 'Refusing to replace an existing output')
