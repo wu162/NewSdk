@@ -3,13 +3,9 @@
 更新：2026-10-27（北京时间）。用户指定 `compiler-main` 为重构结果及今后开发主线。旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 已关闭且未合并，不再合回旧主线。开发主线约定不代表已修改 GitHub 网页默认分支。
 禁止强推；今后其他合并仍须用户批准；子代理数量由当轮用户指定。
 
-## 默认旧参数兼容修复（验证中）
+## 最新旧参数兼容验收（2026-10-27）
 
-`57354fbc013369eac1ad4c6e3346134d81a68a6c` 已将 ss/pc/slowclean 默认设为 true，并支持独立 true/false；原 BAB 组件 oracle 同步参数。新增完整 mymod BIG/SKUDEF 对照原 LoD/MakeBig，保留原始差分。完整生产/缓存/CLI/P7/SDK/发行正在 [运行40440661815](https://github.com/wu162/NewSdk/actions/runs/40440661815)；未到终态不得标通过。此前失败如下，保留原范围。
-
-## 上轮严格旧脚本验证（2026-10-27）
-
-用户要求关闭缓存、其余按旧脚本重跑；[运行40439297653](https://github.com/wu162/NewSdk/actions/runs/40439297653) 已结束，**差分失败**。旧 BAB 与新版 Debug/Release 均成功编译，但 MOD 四文件均不同，新版另多出 static/global/audio 共12文件。源码/日志显示旧脚本启用 ss/pc，而新版关闭；尚未分别隔离两个开关的因果。完整说明与原始证据入口见 [SDK_SCRIPT_VALIDATION.md](docs/SDK_SCRIPT_VALIDATION.md)。此前验收保留原范围，不能推论与默认旧脚本逐字节相同；本轮未改生产实现。下一步若要求默认兼容，先处理稳定排序/引用流策略，再重跑严格差分和最终打包。
+`57354fbc013369eac1ad4c6e3346134d81a68a6c` 已恢复 ss/pc/slowclean 默认 true，并支持独立 true/false；缓存仍默认关闭。[运行40440661815](https://github.com/wu162/NewSdk/actions/runs/40440661815) 整体 success：完整未精简 mymod 的两配置 MOD 四文件逐字节相同、无额外引用流；真实 MOD 的 BIG 12成员与原 LoD/MakeBig 内容一致，SKUDEF 对照通过。应用/Core/原BAB/Texture/CLI/全部缓存/P7及五文件ZIP独立运行也均通过。发行下载见 COMPILER_RELEASE.md，失败历史和新收据见 [SDK_SCRIPT_VALIDATION.md](docs/SDK_SCRIPT_VALIDATION.md)。原失败40439297653不改写，本轮未降低断言；没有完整游戏数据或游戏内运行的新验收。
 
 ## 已完成的发行范围
 
@@ -21,7 +17,7 @@
 - 可选中立修复默认关闭；已集成HashFix→Resolver→LoD，在私有包工作区处理，缺完整参考明确拒绝。验收范围为组件差分及生产零插入链，未泛称完整游戏中立资产插入。
 - 原LoD已知越界明确采用确定性修复合同：完整逻辑表复制并保留NUL，不复刻越界内存。28–32字节边界专项重复验证通过；原工具异常差分/失败证据保留，不能改称原始字节相等。
 - Debug/Release正式包精确五运行文件，独立解压后doctor、小MOD、版本/包名、BIG、Additional、中立零插入、CDATA、回滚/取消/重试和协议全部通过。依赖.NET4.8、x86 VC80/VC与DirectX，不能推断裸Windows无前置要求。
-- 完整未精简mymod、历史XML/非XML差分保留原source/run范围；本次不重复未变化业务的完整SDK编译，不改标历史证据为当前二进制重跑。
+- 本轮完整未精简 mymod 已按旧脚本非缓存参数在新 Debug/Release 构建上重跑并通过严格四文件与真实 BIG 验收；历史 XML/非 XML 差分仍保留原 source/run 范围。
 
 ## 已取消与未覆盖范围
 

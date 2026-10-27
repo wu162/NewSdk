@@ -1,26 +1,21 @@
 # 编译器最小发行包
 
-## 最新验证补充（2026-10-27）
+## 当前修复版工具（2026-10-27）
 
-按用户要求恢复旧脚本非缓存参数后，[本轮完整 mymod 差分失败](docs/SDK_SCRIPT_VALIDATION.md)：旧 BAB 和新 Debug/Release 都能编译，但原始输出不一致。下文发行包仍是此前范围的已发布结果，不代表已通过新的默认旧脚本兼容门槛；本轮没有发布新正式包。
+默认 `/ss:true /pc:true /slowclean:true` 已恢复，并支持逐项关闭；缓存默认关闭。本轮 [运行40440661815](https://github.com/wu162/NewSdk/actions/runs/40440661815) 整体成功，二进制、测试和发行源码均为 `57354fbc013369eac1ad4c6e3346134d81a68a6c`。后续文档提交不冒充新的二进制构建。
 
-## 结果主线与最终工具（2026-10-27）
+完整未精简仓库 mymod 的新旧 MOD 四文件逐字节一致，此前12个额外引用流文件已消除；两配置真实 MOD BIG 的12成员与原 BAB→LoD→MakeBig 原始内容一致，SKUDEF也通过。完整应用/Core/CLI/Texture/全部缓存/P7及最终五文件ZIP独立运行均通过。[详细证据和保留的原失败](docs/SDK_SCRIPT_VALIDATION.md)。
 
-用户指定 `compiler-main` 为重构结果及今后开发主线，不合入旧分支，旧 PR #13 关闭且不合并。最终新源构建与发行已通过 [运行40429363386](https://github.com/wu162/NewSdk/actions/runs/40429363386)，二进制与测试/发行源码均为 `ecd5643df87246e8f1ff0b637fec8491732219a9`。其后的分类整理和说明更新仅改变文档，不冒称另一次二进制构建。
+[下载本轮工具和完整验收产物](https://github.com/wu162/NewSdk/actions/runs/40440661815/artifacts/12707135831)。解压外层归档后，取 `artifacts/final-release/40440661815-1/NewModCompiler-Win32-Release.zip`；Debug ZIP也在同处。运行ZIP内部仍严格五文件，外层归档包含测试/构建证据。Actions产物可能要求GitHub登录，当前保留至2027-01-25。
 
-[下载完整验收产物](https://github.com/wu162/NewSdk/actions/runs/40429363386/artifacts/12701857538)（GitHub可能要求登录；Actions产物当前保留至2027-01-25）。解压外层归档后，在 `artifacts/final-release/40429363386-1/` 中选择 `NewModCompiler-Win32-Release.zip`；Debug ZIP与两配置manifest亦在同处。运行ZIP内部严格五个文件；外层是构建/验收证据，不要把它直接当作安装目录。使用方法见 [COMPILER_USAGE.md](COMPILER_USAGE.md)。
-
-| 正式ZIP | 字节数 | SHA256 |
+| 正式 ZIP | 字节数 | SHA256 |
 | --- | ---: | --- |
-| NewModCompiler-Win32-Release.zip | 1721111 | `32491881d15273bf6823ae1f1e477eed86a016a39090cf08fbdea8eaf1de978b` |
-| NewModCompiler-Win32-Debug.zip | 2223747 | `e3248b4241a59b8db4374fd3dd122e3bbacb1edb933bc5cdc59e527db176bc8b` |
+| NewModCompiler-Win32-Debug.zip | 2223949 | `580bded497b05dd04fbba9e5ea7e3e1abe049d1855b71d1a23daac2013926017` |
+| NewModCompiler-Win32-Release.zip | 1721549 | `e88e9368e7fbcd158fc29e00f0c588ae625b5a6435c9a9a3f69d4e7e1b6e96ff` |
 
-本次先补齐包版本/名称参数、项目配置和必要旧参数合同，并明确LoD完整逻辑表复制的确定性修复，再统一重编译和验证。两配置应用（含28–32字节LoD重复专项）、Core九组、原BAB基线、EXE绑定Texture、实际CLI/取消、输入根、构建缓存、Audio CDATA/W3X缓存、55组会话缓存、BIG/原LoD/MakeBig对照均通过；最后从精确五文件ZIP独立解压，再通过doctor、小MOD、版本/包名、Additional、中立零插入、事务/重试及协议。
+外层归档 SHA256：`511afe2ebb3117b5c79e0c9adad34bc0a735b4f16c3386a08dd754ba131d61dd`。使用方法见 [COMPILER_USAGE.md](COMPILER_USAGE.md)。
 
-完整mymod继续沿用原有范围及来源，本轮没有把历史结果改标为新二进制完整SDK重跑。先前主运行失败和原LoD异常差分保持原终态；最终成功来自本次新源的完整主工作流，不依赖旧partial-Core重放器。
-
-WBData下载/提取/读取器及其真实数据验收已取消，不作为发行阻塞；已有可选修复和缺输入拒绝保留。完整UI/runtime、Unicode Texture、混合Texture会话缓存及CLI表中未开放的旧功能仍另列未覆盖范围。本轮不再以PR合回旧分支为交付条件。
-
+本轮只证明声明的 MOD/组件范围；完整游戏数据、WBData和游戏内运行未新增验收。原LoD已知越界仍采用保留逻辑表末尾NUL的确定性修复合同，不复制越界内存。历史失败和旧发行来源保留在详细证据及git历史中，不改标为本轮成功。
 
 ## 发布与验收机制
 

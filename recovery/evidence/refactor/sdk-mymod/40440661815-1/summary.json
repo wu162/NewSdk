@@ -1,0 +1,670 @@
+{
+  "schemaVersion": 1,
+  "succeeded": true,
+  "sourceCommit": "57354fbc013369eac1ad4c6e3346134d81a68a6c",
+  "testSourceCommit": "57354fbc013369eac1ad4c6e3346134d81a68a6c",
+  "binarySourceCommit": "57354fbc013369eac1ad4c6e3346134d81a68a6c",
+  "runId": "40440661815",
+  "runAttempt": "1",
+  "sdkGitTree": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+  "modGitTree": "7d6f0192069e357c1b1508faf9fa9f0647468678",
+  "scriptSha256": "ed6782f3f70e5b7ac651c4434a249ae760e029c3085b1e8ce27d7dbed5a746f0",
+  "originalBaselineSucceeded": true,
+  "inputsUnchanged": true,
+  "emptyOptionalGroups": [
+    "apt",
+    "maps"
+  ],
+  "legacyParameterContract": {
+    "originalBuildConfigurationsPreserved": true,
+    "outputIsolation": "Fresh separate output/intermediate/hash/cache directories; no input SDK changes",
+    "script": "SDK/defaultscript.cs",
+    "enabled": [
+      "/ls:true",
+      "/pc:true",
+      "/res:true",
+      "/slowclean:true",
+      "/ss:true"
+    ],
+    "cacheException": [
+      "/bc:false",
+      "/sc:false",
+      "/psc:false",
+      "/csc:false",
+      "/fsc:false",
+      "/atc:false"
+    ],
+    "searchPaths": {
+      "audio": "D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Audio;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Audio",
+      "art": "D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Art;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Art",
+      "data": "D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Data;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\SageXml"
+    },
+    "matchingCalls": 3,
+    "sha256": "a4f41c72ea81319ad75e5251f40b10efa202c28f8021b0594af222321686426e"
+  },
+  "error": null,
+  "artifact": {
+    "id": 12707135831,
+    "sha256": "511afe2ebb3117b5c79e0c9adad34bc0a735b4f16c3386a08dd754ba131d61dd",
+    "rawReceipt": "evidence/refactor/sdk-mymod/40440661815-1/validation.json"
+  },
+  "processes": [
+    {
+      "name": "original/base/Mod",
+      "passed": true,
+      "exitCode": 0,
+      "arguments": [
+        "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Data\\Mod.xml",
+        "/sp:D:\\a\\NewSdk\\NewSdk\\SDK\\Schemas\\xsd\\CnC3Types.xsd",
+        "/dr:D:\\a\\NewSdk\\NewSdk\\SDK",
+        "/od:D:\\a\\_temp\\g2273b637\\o0\\s",
+        "/iod:D:\\a\\_temp\\g2273b637\\o0\\i",
+        "/scd:D:\\a\\_temp\\g2273b637\\o0\\h",
+        "/bcp:D:\\a\\_temp\\g2273b637\\o0\\c",
+        "/tp:Win32",
+        "/sc:false",
+        "/bc:false",
+        "/psc:false",
+        "/fsc:false",
+        "/csc:false",
+        "/atc:false",
+        "/sh:false",
+        "/pc:true",
+        "/res:true",
+        "/gui:false",
+        "/poe:false",
+        "/mr:false",
+        "/oof:false",
+        "/sf:false",
+        "/ls:true",
+        "/ss:true",
+        "/oix:false",
+        "/vf:false",
+        "/osh:false",
+        "/oar:false",
+        "/slowclean:true",
+        "/tl:3",
+        "/el:0",
+        "/art:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Art;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Art",
+        "/audio:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Audio;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Audio",
+        "/data:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Data;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\SageXml"
+      ]
+    },
+    {
+      "name": "Debug",
+      "passed": true,
+      "exitCode": 0,
+      "arguments": [
+        "build",
+        "--mod",
+        "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--out",
+        "D:\\a\\_temp\\g2273b637\\Dout",
+        "--package-content",
+        "base,apt,maps",
+        "--package-format",
+        "loose",
+        "/sc:false",
+        "/bc:false",
+        "/data:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Data;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\SageXml",
+        "/art:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Art;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Art",
+        "/audio:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Audio;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+      ]
+    },
+    {
+      "name": "Debug/big",
+      "passed": true,
+      "exitCode": 0,
+      "arguments": [
+        "build",
+        "--mod",
+        "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--out",
+        "D:\\a\\_temp\\g2273b637\\Dbig",
+        "--package-content",
+        "base,apt,maps",
+        "--package-format",
+        "big",
+        "/sc:false",
+        "/bc:false",
+        "/data:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Data;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\SageXml",
+        "/art:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Art;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Art",
+        "/audio:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Audio;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+      ]
+    },
+    {
+      "name": "Release",
+      "passed": true,
+      "exitCode": 0,
+      "arguments": [
+        "build",
+        "--mod",
+        "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--out",
+        "D:\\a\\_temp\\g2273b637\\Rout",
+        "--package-content",
+        "base,apt,maps",
+        "--package-format",
+        "loose",
+        "/sc:false",
+        "/bc:false",
+        "/data:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Data;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\SageXml",
+        "/art:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Art;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Art",
+        "/audio:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Audio;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+      ]
+    },
+    {
+      "name": "Release/big",
+      "passed": true,
+      "exitCode": 0,
+      "arguments": [
+        "build",
+        "--mod",
+        "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--out",
+        "D:\\a\\_temp\\g2273b637\\Rbig",
+        "--package-content",
+        "base,apt,maps",
+        "--package-format",
+        "big",
+        "/sc:false",
+        "/bc:false",
+        "/data:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Data;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\SageXml",
+        "/art:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Art;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Art",
+        "/audio:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\mymod\\Audio;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+      ]
+    }
+  ],
+  "modes": [
+    {
+      "configuration": "Debug",
+      "succeeded": true,
+      "exeSha256": "9670b57822a5a9695c96dbf3096452f687b810ea8c66491cb68199fd379853f8",
+      "comparisons": [
+        {
+          "taskId": "base/Mod",
+          "outputs": [
+            {
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-mymod\\40440661815-1\\original-0\\streams\\mods\\mymod\\data\\mod.bin",
+                "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012",
+                "bytes": 209548
+              },
+              "product": {
+                "path": "D:\\a\\_temp\\g2273b637\\Dout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.bin",
+                "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012",
+                "bytes": 209548
+              },
+              "byteIdentical": true,
+              "firstDifference": null,
+              "relativePath": "mods/mymod/data/mod.bin"
+            },
+            {
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-mymod\\40440661815-1\\original-0\\streams\\mods\\mymod\\data\\mod.imp",
+                "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c",
+                "bytes": 64
+              },
+              "product": {
+                "path": "D:\\a\\_temp\\g2273b637\\Dout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.imp",
+                "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c",
+                "bytes": 64
+              },
+              "byteIdentical": true,
+              "firstDifference": null,
+              "relativePath": "mods/mymod/data/mod.imp"
+            },
+            {
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-mymod\\40440661815-1\\original-0\\streams\\mods\\mymod\\data\\mod.manifest",
+                "sha256": "ad37d83f6a74cc51efa5e579a543d69fb18569cbf0d00884bebbf18f9666eee9",
+                "bytes": 4995
+              },
+              "product": {
+                "path": "D:\\a\\_temp\\g2273b637\\Dout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.manifest",
+                "sha256": "ad37d83f6a74cc51efa5e579a543d69fb18569cbf0d00884bebbf18f9666eee9",
+                "bytes": 4995
+              },
+              "byteIdentical": true,
+              "firstDifference": null,
+              "relativePath": "mods/mymod/data/mod.manifest"
+            },
+            {
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-mymod\\40440661815-1\\original-0\\streams\\mods\\mymod\\data\\mod.relo",
+                "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648",
+                "bytes": 4656
+              },
+              "product": {
+                "path": "D:\\a\\_temp\\g2273b637\\Dout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.relo",
+                "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648",
+                "bytes": 4656
+              },
+              "byteIdentical": true,
+              "firstDifference": null,
+              "relativePath": "mods/mymod/data/mod.relo"
+            }
+          ]
+        }
+      ],
+      "big": {
+        "succeeded": true,
+        "originalMakeBigSha256": "2eaa2dfa8473ed5a74b5901c65ab133ddea26f70c8cb2747a0d8725c6c5a7cf9",
+        "comparison": {
+          "succeeded": true,
+          "product": {
+            "magic": "BIG4",
+            "bytes": 229515,
+            "headerBytes": 310,
+            "members": [
+              {
+                "name": "data\\mod.bin",
+                "offset": 310,
+                "bytes": 209548,
+                "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+              },
+              {
+                "name": "data\\mod.imp",
+                "offset": 209858,
+                "bytes": 64,
+                "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+              },
+              {
+                "name": "data\\mod.manifest",
+                "offset": 209922,
+                "bytes": 4995,
+                "sha256": "ad37d83f6a74cc51efa5e579a543d69fb18569cbf0d00884bebbf18f9666eee9"
+              },
+              {
+                "name": "data\\mod.relo",
+                "offset": 214917,
+                "bytes": 4656,
+                "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+              },
+              {
+                "name": "data\\mod_l.bin",
+                "offset": 219573,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_l.imp",
+                "offset": 219577,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_l.manifest",
+                "offset": 219581,
+                "bytes": 4959,
+                "sha256": "ac4578eefeee23726dfaef470dd9d53d96d6830b5535742c59adafa8ca936c74"
+              },
+              {
+                "name": "data\\mod_l.relo",
+                "offset": 224540,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_m.bin",
+                "offset": 224544,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_m.imp",
+                "offset": 224548,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_m.manifest",
+                "offset": 224552,
+                "bytes": 4959,
+                "sha256": "ac4578eefeee23726dfaef470dd9d53d96d6830b5535742c59adafa8ca936c74"
+              },
+              {
+                "name": "data\\mod_m.relo",
+                "offset": 229511,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              }
+            ],
+            "sha256": "2d5304cb85173f1149d528dad916fe7755ea1f745caf2ebdb9d4e3e9e5c7450e"
+          },
+          "originalMakeBig": {
+            "magic": "BIG4",
+            "bytes": 229515,
+            "headerBytes": 310,
+            "members": [
+              {
+                "name": "data\\mod.bin",
+                "offset": 310,
+                "bytes": 209548,
+                "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+              },
+              {
+                "name": "data\\mod.imp",
+                "offset": 209858,
+                "bytes": 64,
+                "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+              },
+              {
+                "name": "data\\mod.manifest",
+                "offset": 209922,
+                "bytes": 4995,
+                "sha256": "ad37d83f6a74cc51efa5e579a543d69fb18569cbf0d00884bebbf18f9666eee9"
+              },
+              {
+                "name": "data\\mod.relo",
+                "offset": 214917,
+                "bytes": 4656,
+                "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+              },
+              {
+                "name": "data\\mod_l.bin",
+                "offset": 219573,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_l.imp",
+                "offset": 219577,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_l.manifest",
+                "offset": 219581,
+                "bytes": 4959,
+                "sha256": "ac4578eefeee23726dfaef470dd9d53d96d6830b5535742c59adafa8ca936c74"
+              },
+              {
+                "name": "data\\mod_l.relo",
+                "offset": 224540,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_m.bin",
+                "offset": 224544,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_m.imp",
+                "offset": 224548,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_m.manifest",
+                "offset": 224552,
+                "bytes": 4959,
+                "sha256": "ac4578eefeee23726dfaef470dd9d53d96d6830b5535742c59adafa8ca936c74"
+              },
+              {
+                "name": "data\\mod_m.relo",
+                "offset": 229511,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              }
+            ],
+            "sha256": "2d5304cb85173f1149d528dad916fe7755ea1f745caf2ebdb9d4e3e9e5c7450e"
+          },
+          "exactMemberNamesAndRawContents": true,
+          "scope": "Original MakeBig format and exact raw member comparison; original traversal order may differ"
+        }
+      }
+    },
+    {
+      "configuration": "Release",
+      "succeeded": true,
+      "exeSha256": "d57b7b98396d2c91ee4ccbd91598a2cd0b856f28b3f36b3320bb03df66ccebe1",
+      "comparisons": [
+        {
+          "taskId": "base/Mod",
+          "outputs": [
+            {
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-mymod\\40440661815-1\\original-0\\streams\\mods\\mymod\\data\\mod.bin",
+                "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012",
+                "bytes": 209548
+              },
+              "product": {
+                "path": "D:\\a\\_temp\\g2273b637\\Rout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.bin",
+                "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012",
+                "bytes": 209548
+              },
+              "byteIdentical": true,
+              "firstDifference": null,
+              "relativePath": "mods/mymod/data/mod.bin"
+            },
+            {
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-mymod\\40440661815-1\\original-0\\streams\\mods\\mymod\\data\\mod.imp",
+                "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c",
+                "bytes": 64
+              },
+              "product": {
+                "path": "D:\\a\\_temp\\g2273b637\\Rout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.imp",
+                "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c",
+                "bytes": 64
+              },
+              "byteIdentical": true,
+              "firstDifference": null,
+              "relativePath": "mods/mymod/data/mod.imp"
+            },
+            {
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-mymod\\40440661815-1\\original-0\\streams\\mods\\mymod\\data\\mod.manifest",
+                "sha256": "ad37d83f6a74cc51efa5e579a543d69fb18569cbf0d00884bebbf18f9666eee9",
+                "bytes": 4995
+              },
+              "product": {
+                "path": "D:\\a\\_temp\\g2273b637\\Rout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.manifest",
+                "sha256": "ad37d83f6a74cc51efa5e579a543d69fb18569cbf0d00884bebbf18f9666eee9",
+                "bytes": 4995
+              },
+              "byteIdentical": true,
+              "firstDifference": null,
+              "relativePath": "mods/mymod/data/mod.manifest"
+            },
+            {
+              "original": {
+                "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\sdk-mymod\\40440661815-1\\original-0\\streams\\mods\\mymod\\data\\mod.relo",
+                "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648",
+                "bytes": 4656
+              },
+              "product": {
+                "path": "D:\\a\\_temp\\g2273b637\\Rout\\published\\base\\Mod\\streams\\mods\\mymod\\data\\mod.relo",
+                "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648",
+                "bytes": 4656
+              },
+              "byteIdentical": true,
+              "firstDifference": null,
+              "relativePath": "mods/mymod/data/mod.relo"
+            }
+          ]
+        }
+      ],
+      "big": {
+        "succeeded": true,
+        "originalMakeBigSha256": "2eaa2dfa8473ed5a74b5901c65ab133ddea26f70c8cb2747a0d8725c6c5a7cf9",
+        "comparison": {
+          "succeeded": true,
+          "product": {
+            "magic": "BIG4",
+            "bytes": 229515,
+            "headerBytes": 310,
+            "members": [
+              {
+                "name": "data\\mod.bin",
+                "offset": 310,
+                "bytes": 209548,
+                "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+              },
+              {
+                "name": "data\\mod.imp",
+                "offset": 209858,
+                "bytes": 64,
+                "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+              },
+              {
+                "name": "data\\mod.manifest",
+                "offset": 209922,
+                "bytes": 4995,
+                "sha256": "ad37d83f6a74cc51efa5e579a543d69fb18569cbf0d00884bebbf18f9666eee9"
+              },
+              {
+                "name": "data\\mod.relo",
+                "offset": 214917,
+                "bytes": 4656,
+                "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+              },
+              {
+                "name": "data\\mod_l.bin",
+                "offset": 219573,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_l.imp",
+                "offset": 219577,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_l.manifest",
+                "offset": 219581,
+                "bytes": 4959,
+                "sha256": "ac4578eefeee23726dfaef470dd9d53d96d6830b5535742c59adafa8ca936c74"
+              },
+              {
+                "name": "data\\mod_l.relo",
+                "offset": 224540,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_m.bin",
+                "offset": 224544,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_m.imp",
+                "offset": 224548,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_m.manifest",
+                "offset": 224552,
+                "bytes": 4959,
+                "sha256": "ac4578eefeee23726dfaef470dd9d53d96d6830b5535742c59adafa8ca936c74"
+              },
+              {
+                "name": "data\\mod_m.relo",
+                "offset": 229511,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              }
+            ],
+            "sha256": "2d5304cb85173f1149d528dad916fe7755ea1f745caf2ebdb9d4e3e9e5c7450e"
+          },
+          "originalMakeBig": {
+            "magic": "BIG4",
+            "bytes": 229515,
+            "headerBytes": 310,
+            "members": [
+              {
+                "name": "data\\mod.bin",
+                "offset": 310,
+                "bytes": 209548,
+                "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+              },
+              {
+                "name": "data\\mod.imp",
+                "offset": 209858,
+                "bytes": 64,
+                "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+              },
+              {
+                "name": "data\\mod.manifest",
+                "offset": 209922,
+                "bytes": 4995,
+                "sha256": "ad37d83f6a74cc51efa5e579a543d69fb18569cbf0d00884bebbf18f9666eee9"
+              },
+              {
+                "name": "data\\mod.relo",
+                "offset": 214917,
+                "bytes": 4656,
+                "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+              },
+              {
+                "name": "data\\mod_l.bin",
+                "offset": 219573,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_l.imp",
+                "offset": 219577,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_l.manifest",
+                "offset": 219581,
+                "bytes": 4959,
+                "sha256": "ac4578eefeee23726dfaef470dd9d53d96d6830b5535742c59adafa8ca936c74"
+              },
+              {
+                "name": "data\\mod_l.relo",
+                "offset": 224540,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_m.bin",
+                "offset": 224544,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_m.imp",
+                "offset": 224548,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              },
+              {
+                "name": "data\\mod_m.manifest",
+                "offset": 224552,
+                "bytes": 4959,
+                "sha256": "ac4578eefeee23726dfaef470dd9d53d96d6830b5535742c59adafa8ca936c74"
+              },
+              {
+                "name": "data\\mod_m.relo",
+                "offset": 229511,
+                "bytes": 4,
+                "sha256": "06e2a1b55fc00c91aa965660995b103aa5538b092e3813aa4a069fb11b5374b4"
+              }
+            ],
+            "sha256": "2d5304cb85173f1149d528dad916fe7755ea1f745caf2ebdb9d4e3e9e5c7450e"
+          },
+          "exactMemberNamesAndRawContents": true,
+          "scope": "Original MakeBig format and exact raw member comparison; original traversal order may differ"
+        }
+      }
+    }
+  ]
+}
