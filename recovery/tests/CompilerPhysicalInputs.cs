@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -274,6 +275,101 @@ public static class CompilerPhysicalInputs
         }
         tests.Add("real-custom-XInclude-resolver-acquired-stream-reader-and-text-reader-construction-failures-close-before-transfer-preserve-primary-fallback-parent-state-and-no-double-infoset-close");
     }
+    sealed class TextReadFailureStream : MemoryStream
+    {
+        internal readonly IOException Primary = new IOException("Text resource Read failure");
+        internal bool FailConstructor;
+        internal bool Closed;
+        public override bool CanRead { get { if (FailConstructor) throw Primary; return base.CanRead; } }
+        public override int Read(byte[] buffer, int offset, int count) { throw Primary; }
+        protected override void Dispose(bool disposing) { Closed = true; base.Dispose(disposing); }
+    }
+    sealed class TextResourceResponse : WebResponse
+    {
+        internal readonly TextReadFailureStream Input = new TextReadFailureStream();
+        internal readonly IOException Acquisition = new IOException("Text response GetResponseStream failure");
+        internal readonly IOException Cleanup = new IOException("Text response Close failure");
+        internal bool FailAcquisition;
+        internal int CloseCalls;
+        public override string ContentType { get { return "text/plain"; } set { throw new NotSupportedException(); } }
+        public override Stream GetResponseStream() { if (FailAcquisition) throw Acquisition; return Input; }
+        public override void Close() { CloseCalls++; Input.Close(); throw Cleanup; }
+    }
+    sealed class TextResourceRequest : WebRequest
+    {
+        readonly TextResourceResponse response;
+        internal TextResourceRequest(TextResourceResponse response) { this.response = response; }
+        public override WebResponse GetResponse() { return response; }
+    }
+    sealed class TextResourceCreator : IWebRequestCreate
+    {
+        internal readonly Dictionary<string, TextResourceResponse> Responses = new Dictionary<string, TextResourceResponse>();
+        public WebRequest Create(Uri uri) { return new TextResourceRequest(Responses[uri.AbsolutePath]); }
+    }
+    static void TextReaderOwnershipCases(string work)
+    {
+        string root = Path.Combine(work, "text-include-ownership"); Directory.CreateDirectory(root);
+        string payload = Path.Combine(root, "payload.txt"); string expected = "Original & text\r\nUnicode: \u00e9";
+        File.WriteAllText(payload, expected, new UTF8Encoding(false));
+        foreach (string mode in new[] { "bad-encoding", "bad-encoding-fallback", "early-close" })
+        {
+            bool bad = mode.StartsWith("bad", StringComparison.Ordinal), fallback = mode.EndsWith("fallback", StringComparison.Ordinal);
+            string xml = "<root xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='payload.txt' parse='text'" +
+                (bad ? " encoding='x-new-sdk-no-such-encoding'" : "") + ">" +
+                (fallback ? "<xi:fallback><fallback-selected/></xi:fallback>" : "") + "</xi:include></root>";
+            using (var source = XmlReader.Create(new StringReader(xml), new XmlReaderSettings(), new Uri(Path.Combine(root, mode + ".xml"), UriKind.Absolute).AbsoluteUri))
+            using (var including = new Mvp.Xml.XInclude.XIncludingReader(source) { XmlResolver = new FileNameXmlResolver(root) })
+            {
+                Exception observed = null; bool selected = false, text = false;
+                try
+                {
+                    while (including.Read())
+                    {
+                        if (including.LocalName == "fallback-selected") selected = true;
+                        if (including.NodeType == XmlNodeType.Text)
+                        { Require(including.Value == expected, "Text ownership cleanup changed the original decoded value"); text = true; break; }
+                    }
+                }
+                catch (Exception error) { observed = error; }
+                Require(mode == "bad-encoding" ? observed != null && observed.ToString().Contains("x-new-sdk-no-such-encoding") : observed == null,
+                    "Text bad encoding changed its original resource error/fallback contract");
+                Require(selected == fallback && text == !bad, "Text encoding failure selected a different fallback or exposed partial text");
+                // Core's custom resolver is supplied, but parse=text retains
+                // its original GetResource route. The payload must be unlocked
+                // before the outer reader is closed or any finalizer runs.
+                Writable(payload); including.Close(); Writable(payload);
+                observations.Add(new { id = "real-file-text-include-" + mode, decodedValuePreserved = !bad, fallbackSelected = selected,
+                    sourceImmediatelyExclusiveBeforeOuterClose = true, scope = "Actual file WebResponse/GetResource path, including when Core FileNameXmlResolver is supplied" });
+            }
+        }
+        var creator = new TextResourceCreator();
+        creator.Responses.Add("/read-error", new TextResourceResponse());
+        creator.Responses.Add("/acquisition-error", new TextResourceResponse { FailAcquisition = true });
+        var constructorError = new TextResourceResponse(); constructorError.Input.FailConstructor = true;
+        creator.Responses.Add("/constructor-error", constructorError);
+        Require(WebRequest.RegisterPrefix("xincludeownership:", creator), "Could not register isolated text resource fixture prefix");
+        foreach (var entry in creator.Responses)
+        {
+            string xml = "<root xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='xincludeownership://fixture" + entry.Key + "' parse='text'/></root>";
+            using (var source = XmlReader.Create(new StringReader(xml)))
+            using (var including = new Mvp.Xml.XInclude.XIncludingReader(source))
+            {
+                Exception observed = null;
+                try { while (including.Read()) { } } catch (Exception error) { observed = error; }
+                Exception primary = entry.Value.FailAcquisition ? entry.Value.Acquisition : entry.Value.Input.Primary;
+                Require(observed != null && CausedBy(observed, primary) && entry.Value.CloseCalls == 1 && entry.Value.Input.Closed,
+                    "Text resource/response cleanup leaked ownership or replaced the actual read/acquisition primary");
+                bool cleanupRecorded = false;
+                for (Exception current = observed; current != null; current = current.InnerException)
+                    if (Object.ReferenceEquals(current.Data["MvpXml.TextResourceCleanupFailure"], entry.Value.Cleanup) ||
+                        Object.ReferenceEquals(current.Data["MvpXml.AcquisitionCleanupFailure"], entry.Value.Cleanup)) cleanupRecorded = true;
+                Require(cleanupRecorded, "Text cleanup failure was not retained beside the original primary");
+                observations.Add(new { id = "text-resource-" + entry.Key, primaryPreserved = true, responseCloseCalls = entry.Value.CloseCalls,
+                    scope = "Actual WebRequest/GetResponse/Read path through an isolated in-process test URI prefix; no external network" });
+            }
+        }
+        tests.Add("real-parse-text-bad-encoding-fallback-and-early-close-release-file-before-outer-dispose-preserve-value-and-resource-read-acquisition-primary-with-response-close-faults");
+    }
     static void NestedReaderCloseCases(string work)
     {
         var closes = new List<string>();
@@ -340,8 +436,18 @@ public static class CompilerPhysicalInputs
                 ((XmlElement)document.XmlDocument.GetElementsByTagName("ArmorTemplate", Ns)[0]).GetAttribute("id") == "Repaired",
                 "The same actual Core document could not reload a repaired nested include");
             var sourceInfo = (System.Collections.ICollection)stateType.GetField("NodeSourceInfoSet").GetValue(state); int before = sourceInfo.Count;
-            failedDom.DocumentElement.AppendChild(failedDom.CreateElement("detached-failure-dom"));
-            Require(sourceInfo.Count == before, "A failed DOM retained the Core NodeInserted subscription and wrote into the next load's source metadata");
+            // Framework Load clears a failed document's root. Exercise a real
+            // insertion on that retained DOM even when DocumentElement is null.
+            XmlElement detached = failedDom.CreateElement("detached-failure-dom"); int insertions = 0;
+            XmlNodeChangedEventHandler observedInsertion = (sender, change) => { if (Object.ReferenceEquals(change.Node, detached)) insertions++; };
+            failedDom.NodeInserted += observedInsertion;
+            try
+            {
+                if (failedDom.DocumentElement == null) failedDom.AppendChild(detached);
+                else failedDom.DocumentElement.AppendChild(detached);
+            }
+            finally { failedDom.NodeInserted -= observedInsertion; }
+            Require(insertions == 1 && sourceInfo.Count == before, "A failed DOM retained the Core NodeInserted subscription and wrote into the next load's source metadata");
             Writable(source); Writable(outer); Writable(inner);
             observations.Add(new { id = "actual-Core-nested-parse-failure-repair", originalErrorCode = ErrorCode.XmlFormattingError.ToString(),
                 immediateExclusiveSources = 3, sameDocumentReload = true, failedDomSubscriptionDetached = true,
@@ -718,7 +824,7 @@ public static class CompilerPhysicalInputs
         {
             Require(args.Length == 5 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work result source run SDK");
             string work = Path.GetFullPath(args[0]); Directory.CreateDirectory(work);
-            DigestCases(work); ReaderCases(work); NestedReaderCloseCases(work); AcquiredReaderFailureCases(work); CoreXmlReaderFailureCases(work); CancellationCases(work); VerificationCancellationCases(work); AliasCases(work); BudgetCases(work); CandidateCases(work);
+            DigestCases(work); ReaderCases(work); NestedReaderCloseCases(work); AcquiredReaderFailureCases(work); TextReaderOwnershipCases(work); CoreXmlReaderFailureCases(work); CancellationCases(work); VerificationCancellationCases(work); AliasCases(work); BudgetCases(work); CandidateCases(work);
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
                 scope = "Positive physical content snapshot, exact legacy digests, XML/XInclude/schema readers, finite budgets, Windows pin lifecycle and executed resolver existence consistency at verification; hidden plugin reads and complete query closure remain separate" };
             Console.WriteLine("PASS PhysicalInputs: " + tests.Count + " groups; " + checks + " checks");

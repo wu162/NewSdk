@@ -846,7 +846,15 @@ public class XIncludingReader : XmlReader
 		{
 			throw new ResourceException(SR.GetString("ResourceError", includeLocation), innerException3);
 		}
-		return response.GetResponseStream();
+        try { return response.GetResponseStream(); }
+        catch (Exception primary)
+        {
+            // GetResponse succeeded but ownership of its stream was not handed
+            // to the caller. Keep the acquisition error and release the owner.
+            try { if (response != null) response.Close(); }
+            catch (Exception cleanup) { AttachAcquisitionCleanup(primary, cleanup); }
+            throw;
+        }
 	}
 
 	private bool ProcessIncludeElement()

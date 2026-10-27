@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web.Script.Serialization;
 using System.Xml;
+using System.Xml.Schema;
 using BinaryAssetBuilder.Core;
 using BinaryAssetBuilder;
 
@@ -108,18 +109,22 @@ public static class CompilerDocumentSnapshotOracle
             if (name == "custom-element") { customElement = new CountingElement(xml); customElement.SetAttribute("Value", "=$I+2"); customElement.AppendChild(xml.CreateCDataSection("=3+4")); xml.DocumentElement.AppendChild(customElement); }
             document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = xml.DocumentElement });
             bool mutated = false;
-            xml.NodeInserted += (sender, change) => {
-                if (mutated || change.NewParent == null || change.NewParent.NodeType != XmlNodeType.Attribute || change.NewParent.Name != "Trigger") return;
+            XmlNodeChangedEventHandler mutation = (sender, change) => {
+                XmlNode parent = change.Node.NodeType == XmlNodeType.Attribute ? change.Node : (change.NewParent ?? change.Node.ParentNode);
+                if (mutated || parent == null || parent.NodeType != XmlNodeType.Attribute || parent.Name != "Trigger") return;
                 mutated = true; XmlNode part = xml.DocumentElement.FirstChild, tail = part.NextSibling;
                 if (name == "remove-current") xml.DocumentElement.RemoveChild(part);
                 if (name == "move-current") xml.DocumentElement.AppendChild(part);
                 if (name == "remove-next") xml.DocumentElement.RemoveChild(tail);
                 if (name == "append-sibling") { var added = xml.CreateElement("Added"); added.SetAttribute("Value", "=6+7"); xml.DocumentElement.AppendChild(added); }
             };
+            xml.NodeInserted += mutation; xml.NodeChanged += mutation;
             string outcome = "OK"; var prior = Console.Error; var diagnostics = new StringWriter(System.Globalization.CultureInfo.InvariantCulture);
             try { Console.SetError(diagnostics); try { document.ProcessExpressions(); } catch (Exception error) {
                 var code = error.GetType().GetProperty("ErrorCode"); outcome = "ERR:" + error.GetType().FullName + ":" + (code == null ? "" : Convert.ToString(code.GetValue(error, null), System.Globalization.CultureInfo.InvariantCulture)) + ":" + error.Message;
             } } finally { Console.SetError(prior); }
+            if ((name == "remove-current" || name == "append-sibling" || name == "move-current" || name == "remove-next") && !mutated)
+                throw new Exception("Traversal mutation fixture never reached Trigger: " + culture + "/" + name);
             int customReads = custom == null ? 0 : custom.Reads;
             int customElementReads = customElement == null ? 0 : customElement.ValueReads, customChildLists = customElement == null ? 0 : customElement.ChildLists;
             var used = new List<string>(); foreach (var pair in document.UsedDefines) used.Add(pair.Key + "=" + pair.Value);
@@ -269,8 +274,9 @@ public static class CompilerDocumentSnapshotOracle
                 for (int i = 0; i < 192; i++) xml.DocumentElement.SetAttribute("P" + i.ToString("D3"), "=$Target");
                 document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = xml.DocumentElement });
                 bool changed = false; var direct = new List<string>();
-                xml.NodeInserted += (sender, change) => {
-                    if (changed || change.NewParent == null || change.NewParent.NodeType != XmlNodeType.Attribute || change.NewParent.Name != "P180") return;
+                XmlNodeChangedEventHandler mutation = (sender, change) => {
+                    XmlNode parent = change.Node.NodeType == XmlNodeType.Attribute ? change.Node : (change.NewParent ?? change.Node.ParentNode);
+                    if (changed || parent == null || parent.NodeType != XmlNodeType.Attribute || parent.Name != "P180") return;
                     changed = true;
                     var replacement = new Definition { Name = "Target", EvaluatedValue = "2", Document = imported };
                     if (mode == "value-field") document.AllDefines["Target"].EvaluatedValue = "2";
@@ -297,9 +303,12 @@ public static class CompilerDocumentSnapshotOracle
                         catch (BinaryAssetBuilderException error) { direct.Add(key + "=ERR:" + error.ErrorCode + ":" + error.Message); }
                     }
                 };
+                xml.NodeInserted += mutation;
+                xml.NodeChanged += mutation;
                 string outcome = "OK";
                 try { document.ProcessExpressions(); }
                 catch (BinaryAssetBuilderException error) { outcome = "ERR:" + error.ErrorCode + ":" + error.Message; }
+                if (!changed) throw new Exception("Define mutation fixture never reached P180: " + culture + "/" + mode);
                 var used = new List<string>(); foreach (var pair in document.UsedDefines) used.Add(pair.Key + "=" + pair.Value);
                 results.Add(new { culture, mode, ordered, outcome, xml = xml.OuterXml, changed,
                     direct = direct.ToArray(), used = used.ToArray(), target = document.AllDefines.GetEvaluatedValue("Target") });
@@ -309,6 +318,98 @@ public static class CompilerDocumentSnapshotOracle
             defineLookupMetrics = metrics.ToArray(); return results.ToArray();
         }
         finally { System.Threading.Thread.CurrentThread.CurrentCulture = previousCulture; }
+    }
+    static void SemanticDomProjection(XmlNode node, List<object> result)
+    {
+        var info = node.SchemaInfo; XmlAttribute attribute = node as XmlAttribute;
+        result.Add(new { kind = node.NodeType.ToString(), name = node.Name, prefix = node.Prefix, ns = node.NamespaceURI,
+            value = node.Value, baseUri = node.BaseURI, specified = attribute == null ? (bool?)null : attribute.Specified,
+            schemaType = info == null || info.SchemaType == null ? null : info.SchemaType.QualifiedName.ToString(),
+            schemaSource = info == null || info.SchemaType == null ? null : info.SchemaType.SourceUri,
+            memberType = info == null || info.MemberType == null ? null : info.MemberType.QualifiedName.ToString(),
+            schemaElement = info == null || info.SchemaElement == null ? null : info.SchemaElement.QualifiedName.ToString(),
+            schemaAttribute = info == null || info.SchemaAttribute == null ? null : info.SchemaAttribute.QualifiedName.ToString(),
+            validity = info == null ? null : info.Validity.ToString(),
+            isDefault = info == null ? (bool?)null : info.IsDefault, isNil = info == null ? (bool?)null : info.IsNil });
+        if (node.Attributes != null) foreach (XmlAttribute item in node.Attributes) SemanticDomProjection(item, result);
+        foreach (XmlNode child in node.ChildNodes) SemanticDomProjection(child, result);
+    }
+    public static object[] SemanticDomRestoreCases(string work, string sdk)
+    {
+        Settings previous = Settings.Current;
+        var priorCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
+        try
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            var config = new XmlDocument(); config.Load(Path.Combine(sdk, "tools/BinaryAssetBuilder.exe.config"));
+            var settings = (Settings)new SerializedSectionHandler().Create(null, null, config.SelectSingleNode("/configuration/assetbuilder"));
+            settings.SchemaPath = Path.Combine(sdk, "Schemas/xsd/CnC3Types.xsd"); settings.TargetPlatform = TargetPlatform.Win32;
+            settings.DataRoot = work; settings.SessionCacheDirectory = Path.Combine(work, "semantic-restore-hashes");
+            settings.OutputIntermediateXml = false; Settings.Current = settings;
+            Directory.CreateDirectory(settings.SessionCacheDirectory); HashProvider.InitializeStringHashes(settings.SessionCacheDirectory);
+            var schemas = new SchemaSet(false);
+            var processor = new DocumentProcessor(settings, new PluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32), null) { SchemaSet = schemas };
+            var results = new List<object>();
+            foreach (string mode in new[] { "validated-Core-DOM", "processed-Core-DOM", "Framework-prefix-entity" })
+            {
+                string uri = "file:///semantic-restore/" + mode + ".xml";
+                XmlDocument source; XmlElement target;
+                if (mode == "Framework-prefix-entity")
+                {
+                    source = new XmlDocument { PreserveWhitespace = true, XmlResolver = null };
+                    string xml = "<!DOCTYPE p:Root [<!ENTITY word 'entity-value'>]><p:Root xmlns:p='urn:semantic-restore' xmlns:q='urn:semantic-aux' q:note='kept'> <p:Child>&word;</p:Child> </p:Root>";
+                    using (var reader = new XmlTextReader(uri, new StringReader(xml)))
+                    { reader.DtdProcessing = DtdProcessing.Parse; reader.EntityHandling = EntityHandling.ExpandCharEntities; reader.XmlResolver = null; source.Load(reader); }
+                    string xsd = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' targetNamespace='urn:semantic-restore' elementFormDefault='qualified'><xs:element name='Root'><xs:complexType><xs:sequence><xs:element name='Child' type='xs:string'/></xs:sequence><xs:attribute name='Default' type='xs:string' default='default-value'/><xs:anyAttribute processContents='skip'/></xs:complexType></xs:element></xs:schema>";
+                    using (var reader = XmlReader.Create(new StringReader(xsd), new XmlReaderSettings(), "file:///semantic-restore/schema.xsd")) source.Schemas.Add(null, reader);
+                    source.Validate((sender, error) => { throw error.Exception; }); target = source.DocumentElement;
+                }
+                else
+                {
+                    var document = InheritanceDocument(processor, "semantic-restore-provider", "<ArmorTemplate id='Provider'/>");
+                    source = document.XmlDocument; string xml = source.OuterXml;
+                    using (var reader = XmlReader.Create(new StringReader(xml), new XmlReaderSettings(), uri)) source.Load(reader);
+                    document.SelfInstances.Clear();
+                    foreach (XmlNode child in source.DocumentElement.ChildNodes) document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = child });
+                    document.ProcessOverrides();
+                    if (mode == "processed-Core-DOM") document.Validate();
+                    else { source.Schemas.Add(schemas.Schemas); source.Validate((sender, error) => { throw error.Exception; }); }
+                    target = (XmlElement)source.DocumentElement.FirstChild;
+                }
+                var sourceProjection = new List<object>(); SemanticDomProjection(source, sourceProjection);
+                var restored = new XmlDocument { PreserveWhitespace = source.PreserveWhitespace, XmlResolver = null };
+                using (var reader = new XmlNodeReader(source)) restored.Load(reader);
+                XmlElement restoredTarget = mode == "Framework-prefix-entity" ? restored.DocumentElement : (XmlElement)restored.DocumentElement.FirstChild;
+                var restoredProjection = new List<object>(); SemanticDomProjection(restored, restoredProjection);
+                string sourceXml = source.OuterXml, restoredXml = restored.OuterXml;
+                XmlNode sourceTarget = target, legacyClone = target.CloneNode(true);
+                var cloneProjection = new List<object>(); SemanticDomProjection(legacyClone, cloneProjection);
+                string sourceTargetXml = target.OuterXml, cloneXml = legacyClone.OuterXml;
+                uint sourceTargetHash = HashProvider.GetXmlHash(ref sourceTarget), cloneHash = HashProvider.GetXmlHash(ref legacyClone);
+                bool schemaTypeAliases = Object.ReferenceEquals(target.SchemaInfo.SchemaType, restoredTarget.SchemaInfo.SchemaType);
+                bool schemaElementAliases = Object.ReferenceEquals(target.SchemaInfo.SchemaElement, restoredTarget.SchemaInfo.SchemaElement);
+                XmlSchemaComplexType mutableType = target.SchemaInfo.SchemaType as XmlSchemaComplexType;
+                bool observedSchemaMutation = false;
+                if (mutableType != null)
+                {
+                    bool old = mutableType.IsMixed;
+                    try { mutableType.IsMixed = !old; observedSchemaMutation = ((XmlSchemaComplexType)restoredTarget.SchemaInfo.SchemaType).IsMixed == !old; }
+                    finally { mutableType.IsMixed = old; }
+                }
+                target.SetAttribute("probe-source-edit", "source"); bool sourceEditIsolated = restored.OuterXml == restoredXml;
+                string sourceAfterEdit = source.OuterXml;
+                restoredTarget.SetAttribute("probe-copy-edit", "copy"); bool copyEditIsolated = source.OuterXml == sourceAfterEdit;
+                results.Add(new { mode, expectedBaseUri = uri, sourceBaseUri = source.BaseURI, restoredBaseUri = restored.BaseURI,
+                    sourceProjection = sourceProjection.ToArray(), restoredProjection = restoredProjection.ToArray(), sourceXml, restoredXml,
+                    cloneProjection = cloneProjection.ToArray(), sourceTargetXml, cloneXml, sourceTargetHash, cloneHash,
+                    sameXml = sourceXml == restoredXml, schemaTypeAliases, schemaElementAliases, observedSchemaMutation,
+                    sourceSchemaCount = source.Schemas.Count, restoredSchemaCount = restored.Schemas.Count,
+                    sourceEditIsolated, copyEditIsolated,
+                    scope = "Actual Framework XmlNodeReader to XmlDocument.Load; preserves a typed DOM projection but shares mutable schema references and does not establish saved-result reuse or immutable ASR" });
+            }
+            return results.ToArray();
+        }
+        finally { Settings.Current = previous; System.Threading.Thread.CurrentThread.CurrentCulture = priorCulture; }
     }
     public static object[] InputReaderCases(string work)
     {
@@ -380,11 +481,12 @@ public static class CompilerDocumentSnapshotOracle
             object[] inheritance = InheritanceCases(args[0], args[5]);
             object[] inputReaders = InputReaderCases(args[0]);
             object[] defineLookups = DefineLookupCases(args[0]);
+            object[] semanticDomRestores = SemanticDomRestoreCases(args[0], args[5]);
             string assemblySha;
             using (var sha = SHA256.Create()) assemblySha = Convert.ToBase64String(sha.ComputeHash(File.ReadAllBytes(typeof(AssetDeclarationDocument).Assembly.Location)));
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], mode, sameDeclaration, sourceXmlChanged,
                 savedHash, receiverHash = receiver.SelfInstances[0].ProcessingHash, metadata, expressionTraversal,
-                inheritance, inputReaders, defineLookups, assembly = typeof(AssetDeclarationDocument).Assembly.FullName, assemblySha256Base64 = assemblySha,
+                inheritance, inputReaders, defineLookups, semanticDomRestores, assembly = typeof(AssetDeclarationDocument).Assembly.FullName, assemblySha256Base64 = assemblySha,
                 scope = "Direct public Core metadata lifecycle, 40 expression-DOM traversal cases and nine real-schema inheritance-stage rows and six original async-reader/digest rows; no production CLI failure is claimed" };
             Console.WriteLine("PASS DocumentSnapshotOracle: " + mode);
         }

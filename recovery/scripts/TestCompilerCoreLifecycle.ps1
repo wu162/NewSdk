@@ -178,7 +178,7 @@ try {
        $documentOriginal.sameDeclaration -ne $true -or $documentOriginal.sourceXmlChanged -ne $true -or
        @($documentOriginal.expressionTraversal).Count -ne 40 -or
        @($documentOriginal.inheritance).Count -ne 9 -or @($documentOriginal.inputReaders).Count -ne 6 -or
-       @($documentOriginal.defineLookups).Count -ne 52 -or
+       @($documentOriginal.defineLookups).Count -ne 52 -or @($documentOriginal.semanticDomRestores).Count -ne 3 -or
        $documentOriginal.assemblySha256Base64 -cne [Convert]::ToBase64String([Convert]::FromHexString((Hash $documentOriginalCore)))){
         throw 'Original document oracle identity or historical shared-state outcome mismatch'
     }
@@ -188,7 +188,7 @@ try {
         processId=$documentOracleProcess;transcriptSha256=(Hash $documentOriginalJson);coreSha256=(Hash $documentOriginalCore)
         sameDeclaration=$documentOriginal.sameDeclaration;sourceXmlChanged=$documentOriginal.sourceXmlChanged
         metadata=$documentOriginal.metadata;expressionTraversalRows=@($documentOriginal.expressionTraversal).Count
-        inheritanceRows=@($documentOriginal.inheritance).Count;inputReaderRows=@($documentOriginal.inputReaders).Count;defineLookupRows=@($documentOriginal.defineLookups).Count
+        inheritanceRows=@($documentOriginal.inheritance).Count;inputReaderRows=@($documentOriginal.inputReaders).Count;defineLookupRows=@($documentOriginal.defineLookups).Count;semanticDomRestoreRows=@($documentOriginal.semanticDomRestores).Count
         runtimeInputs=$state.expressionOriginal.runtimeInputs
         scope='Original SDK public document metadata, expression-DOM traversal, inheritance stages and APM/file-hash boundary corpora in a separate original-only process; direct reproducer does not establish a production CLI fault'
     }
@@ -262,7 +262,7 @@ try {
             foreach($name in $frameworkReferences){$arguments+=('/r:'+(Join-Path $refs ($name+'.dll')))}
             $arguments+=$source
             $additionalSourceInputs=@()
-            if($fixture.name -in @('CompilerCoreLifecycle','CompilerInputDigests','CompilerExpressionPrograms')){
+            if($fixture.name -in @('CompilerCoreLifecycle','CompilerInputDigests','CompilerExpressionPrograms','CompilerDocumentMetadata')){
                 # Run identical inheritance/reader corpora against independent
                 # original SDK and this production host; suppress only its Main.
                 $arguments+=@('/define:DOCUMENT_ORACLE_SHARED',$documentOracleSource)

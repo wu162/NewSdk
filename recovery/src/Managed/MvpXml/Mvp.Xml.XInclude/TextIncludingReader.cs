@@ -237,10 +237,11 @@ internal class TextIncludingReader : XmlReader
 			{
 				WebResponse response;
 				Stream resource = XIncludingReader.GetResource(_includeLocation.AbsoluteUri, _accept, _acceptLanguage, out response);
+                StreamReader streamReader = null;
+                Exception primary = null;
 				try
 				{
 					string text = response.ContentType.ToLower();
-					StreamReader streamReader;
 					if (text == "text/xml" || text == "application/xml" || (text.StartsWith("text/") && text.EndsWith("+xml")) || (text.StartsWith("application/") && text.EndsWith("+xml")))
 					{
 						streamReader = new StreamReader(resource, GetEncodingFromXMLDecl(_href));
@@ -267,16 +268,45 @@ internal class TextIncludingReader : XmlReader
 				}
 				catch (ResourceException ex)
 				{
-					throw ex;
+                    primary = ex; throw;
 				}
 				catch (OutOfMemoryException innerException2)
 				{
-					throw new ResourceException(SR.GetString("OutOfMemoryWhileFetchingResource", _href), innerException2);
+                    var failure = new ResourceException(SR.GetString("OutOfMemoryWhileFetchingResource", _href), innerException2);
+                    primary = failure; throw failure;
 				}
 				catch (IOException innerException3)
 				{
-					throw new ResourceException(SR.GetString("IOErrorWhileFetchingResource", _href), innerException3);
+                    var failure = new ResourceException(SR.GetString("IOErrorWhileFetchingResource", _href), innerException3);
+                    primary = failure; throw failure;
 				}
+                catch (Exception error) { primary = error; throw; }
+                finally
+                {
+                    Exception cleanup = null;
+                    bool closeRaw = streamReader == null;
+                    if (streamReader != null)
+                    {
+                        try { streamReader.Close(); }
+                        catch (Exception error) { cleanup = error; closeRaw = true; }
+                    }
+                    // Bad encoding or reader construction can fail before the
+                    // raw resource is transferred. A failed reader close also
+                    // warrants a best-effort direct close before the response.
+                    if (closeRaw && resource != null)
+                    {
+                        try { resource.Close(); } catch (Exception error) { if (cleanup == null) cleanup = error; }
+                    }
+                    if (response != null)
+                    {
+                        try { response.Close(); } catch (Exception error) { if (cleanup == null) cleanup = error; }
+                    }
+                    if (cleanup != null)
+                    {
+                        if (primary == null) System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(cleanup).Throw();
+                        else try { primary.Data["MvpXml.TextResourceCleanupFailure"] = cleanup; } catch { }
+                    }
+                }
 			}
 			_state = ReadState.Interactive;
 			return true;

@@ -293,6 +293,37 @@ public static class CompilerDocumentMetadata
             scope = "32 records of each of four metadata kinds; 20 public saved-cache transfers; seven alternating-order rounds. Timings include wrapper/container copies, exclude XML/Current/identity enumeration. No forced GC, speed assertion, CLI speedup or memory-peak claim" });
         tests.Add("bounded-public-metadata-transfer-measurement-with-saved-record-work-count");
     }
+    static void SemanticRestoreDifferential(IDictionary<string, object> oracle, string work, string sdk)
+    {
+        var json = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
+        Type helper = typeof(CompilerDocumentMetadata).Assembly.GetType("CompilerDocumentSnapshotOracle", true);
+        var actual = (object[])helper.GetMethod("SemanticDomRestoreCases").Invoke(null, new object[] { work, sdk });
+        var expected = new List<object>(); foreach (object row in (System.Collections.IEnumerable)oracle["semanticDomRestores"]) expected.Add(row);
+        Require(actual.Length == 3 && expected.Count == actual.Length, "Expected three independent original Framework DOM restore cases");
+        for (int i = 0; i < actual.Length; i++)
+        {
+            Require(json.Serialize(expected[i]) == json.Serialize(actual[i]), "Original typed DOM reader restore mismatch at case " + i + ": " + json.Serialize(expected[i]) + " != " + json.Serialize(actual[i]));
+            var row = (IDictionary<string, object>)json.DeserializeObject(json.Serialize(actual[i]));
+            Require((string)row["sourceBaseUri"] == (string)row["expectedBaseUri"] && (string)row["restoredBaseUri"] == (string)row["expectedBaseUri"], "Typed DOM restore lost the actual fixed source BaseURI");
+            Require((bool)row["sameXml"] && (bool)row["sourceEditIsolated"] && (bool)row["copyEditIsolated"], "Reader DOM reconstruction changed XML or retained mutable DOM aliases");
+            Require((bool)row["schemaTypeAliases"] && (bool)row["observedSchemaMutation"] && Convert.ToInt32(row["restoredSchemaCount"]) == 0,
+                "Reader reconstruction unexpectedly claimed schema ownership/complete environment");
+            var sourceRows = new List<IDictionary<string, object>>(); var restoredRows = new List<IDictionary<string, object>>();
+            foreach (IDictionary<string, object> item in (System.Collections.IEnumerable)row["sourceProjection"]) sourceRows.Add(item);
+            foreach (IDictionary<string, object> item in (System.Collections.IEnumerable)row["restoredProjection"]) restoredRows.Add(item);
+            Require(sourceRows.Any(item => (string)item["name"] == "Default" && item["specified"] != null && !(bool)item["specified"]) &&
+                restoredRows.Any(item => (string)item["name"] == "Default" && item["specified"] != null && !(bool)item["specified"]), "Reader reconstruction lost actual schema-default Specified=false");
+            if ((string)row["mode"] != "processed-Core-DOM")
+                Require(sourceRows.Any(item => (string)item["validity"] == "Valid") && !restoredRows.Any(item => (string)item["validity"] == "Valid"),
+                    "Reader restore no longer demonstrates the document validity gate");
+            if ((string)row["mode"] == "Framework-prefix-entity")
+                Require(sourceRows.Any(item => (string)item["kind"] == "EntityReference") && restoredRows.Any(item => (string)item["kind"] == "EntityReference") &&
+                    restoredRows.Any(item => (string)item["prefix"] == "p" && (string)item["ns"] == "urn:semantic-restore"), "Reader reconstruction lost prefix/namespace/entity structure");
+        }
+        evidence.Add(new { id = "independent-original-Framework-typed-DOM-reader-restore", cases = actual,
+            boundary = "DOM nodes are independent; mutable schema objects remain shared; validity/environment and saved-source revalidation are not restored" });
+        tests.Add("original-XmlNodeReader-Load-PSVI-default-Specified-prefix-entity-source-and-schema-alias-limit");
+    }
     public static int Main(string[] args)
     {
         object result; int code = 0; bool previous, previousShare; AppContext.TryGetSwitch(Disable, out previous); AppContext.TryGetSwitch(ShareDisable, out previousShare);
@@ -306,6 +337,7 @@ public static class CompilerDocumentMetadata
             Require(originalMetadata != null && new[] { "sameDefinition", "definitionSourceRebound", "sameInclusion", "sameOutput", "sameOutputHandle", "sourceXmlChanged", "usedValuesIndependent" }
                 .All(name => (bool)originalMetadata[name]), "Original SDK did not establish expected legacy metadata ownership");
             evidence.Add(new { id = "independent-original-SDK-DLL-metadata-oracle", oracle = originalMetadata });
+            SemanticRestoreDifferential(oracle, args[0], args[4]);
             AppContext.SetSwitch(Disable, false);
             foreach (bool deepCopy in new[] { false, true }) { AppContext.SetSwitch(ShareDisable, deepCopy); PublicLifecycle(); Aliases(); Fallbacks(); }
             SavedOwnership(); TransferMeasurement();

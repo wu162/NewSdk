@@ -128,17 +128,21 @@ public static class CompilerExpressionPrograms
         if (name == "custom-element") { customElement = new CountingElement(xml); customElement.SetAttribute("Value", "=$I+2"); customElement.AppendChild(xml.CreateCDataSection("=3+4")); xml.DocumentElement.AppendChild(customElement); }
         document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = xml.DocumentElement });
         bool mutated = false;
-        xml.NodeInserted += (sender, change) => {
-            if (mutated || change.NewParent == null || change.NewParent.NodeType != XmlNodeType.Attribute || change.NewParent.Name != "Trigger") return;
+        XmlNodeChangedEventHandler mutation = (sender, change) => {
+            XmlNode parent = change.Node.NodeType == XmlNodeType.Attribute ? change.Node : (change.NewParent ?? change.Node.ParentNode);
+            if (mutated || parent == null || parent.NodeType != XmlNodeType.Attribute || parent.Name != "Trigger") return;
             mutated = true; XmlNode part = xml.DocumentElement.FirstChild, tail = part.NextSibling;
             if (name == "remove-current") xml.DocumentElement.RemoveChild(part);
             if (name == "move-current") xml.DocumentElement.AppendChild(part);
             if (name == "remove-next") xml.DocumentElement.RemoveChild(tail);
             if (name == "append-sibling") { var added = xml.CreateElement("Added"); added.SetAttribute("Value", "=6+7"); xml.DocumentElement.AppendChild(added); }
         };
+        xml.NodeInserted += mutation; xml.NodeChanged += mutation;
         string outcome = "OK"; var prior = Console.Error; var diagnostics = new StringWriter(CultureInfo.InvariantCulture);
         try { Console.SetError(diagnostics); try { document.ProcessExpressions(); } catch (Exception error) { outcome = "ERR:" + Error(error); } }
         finally { Console.SetError(prior); }
+        Require((name != "remove-current" && name != "append-sibling" && name != "move-current" && name != "remove-next") || mutated,
+            "Traversal mutation fixture never reached Trigger: " + name);
         int customReads = custom == null ? 0 : custom.Reads;
         int customElementReads = customElement == null ? 0 : customElement.ValueReads, customChildLists = customElement == null ? 0 : customElement.ChildLists;
         return new Dictionary<string, object> { { "outcome", outcome }, { "resultXml", xml.OuterXml }, { "customReads", customReads }, { "mutated", mutated },
@@ -523,6 +527,7 @@ public static class CompilerExpressionPrograms
             {
                 Require(Json.Serialize(expected[i]) == Json.Serialize(actual[i]), "Original Define lookup mismatch: " + i + ": " + Json.Serialize(expected[i]) + " != " + Json.Serialize(actual[i]));
                 var row = (IDictionary<string, object>)Json.DeserializeObject(Json.Serialize(actual[i]));
+                Require((bool)row["changed"], "Define mutation fixture did not execute its actual DOM event: " + row["culture"] + "/" + row["mode"]);
                 var record = (IDictionary<string, object>)Json.DeserializeObject(Json.Serialize(measured[i]));
                 var metric = (IDictionary<string, object>)record["work"];
                 Require((bool)metric["scopeDisposed"] && Number(metric, "retainedIndexEntries") == 0 && !(bool)metric["canAuthorizeReuse"], "Define scope escaped or claimed cache authority");
@@ -534,7 +539,7 @@ public static class CompilerExpressionPrograms
                 {
                     Require(Number(metric, "builds") == 1 && Number(metric, "indexQueries") > 0, "Actual final-expression Define lookup index was not used: " + mode);
                     if (mode == "replace" || mode == "remove-readd" || mode == "base-indexer" || mode == "failure")
-                        Require(reason == "definition-table-version-changed" && Number(metric, "versionChecks") > Number(metric, "entries"), "Define mutation after guard EOF was missed: " + mode);
+                        Require(reason == "definition-table-version-changed" && Number(metric, "versionChecks") > Number(metric, "entries"), "Define mutation after guard EOF was missed: " + row["culture"] + "/" + mode + ": " + Json.Serialize(metric));
                     if (mode == "current-rebind" || mode == "table-rebind" || mode == "culture-change") Require(reason == "environment-or-culture-changed", "Changed Define environment retained its index: " + mode);
                     if (mode == "reenter") Require(reason == "reentrant-scope", "Reentrant Define traversal retained its index");
                 }
