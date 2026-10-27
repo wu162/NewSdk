@@ -43,7 +43,7 @@ FileHashItem 的 DigestReadCount / DigestBytesRead 是每项成功完成的逻�
 
 CoreStreamCompiler 持有每次构建独立、单 entry 的 MetadataCache，Dispose 时释放。共享值只有自有的有序继承类型名和资产依赖计数，保存与恢复均复制；调用方仍拥有可变 StringCollection/IDictionary，不会把一流的修改泄漏到下一流。每流仍完整读取 schema 闭包、SHA256、编译自己的 XmlSchemaSet 并绑定本流 helper/hashable 类型。引用描述仍属于本流 Framework 对象，不跨流复用。
 
-键包含实现版本、规范根路径、读取顺序中的实际路径及每文件内容 SHA256、countDependencies、当前文化/比较文化与 StringHashBinDescriptors。仅成功构建表后发布快照；不同根、内容（含同大小/同时间戳）、模式、文化或描述符保守失效。`coreWork[].schemaMetadata` 的 enabled/builds/hits 是本 SchemaSet 生命周期计数。此为 W04 子组，不代表共享整个 SchemaSnapshot，也未完成 W03 输入封存或 W05 影子依赖。
+键包含实现版本、规范根路径、读取顺序中的实际路径及每文件内容 SHA256、countDependencies、当前文化/比较文化与 StringHashBinDescriptors。仅成功构建表后发布快照；不同根、内容（含同大小/同时间戳）、模式、文化或描述符保守失效。`coreWork[].schemaMetadata` 的 enabled/builds/hits 是本 SchemaSet 生命周期计数。此为W04子组，不代表共享整个SchemaSnapshot；W03/W05当前接入范围及验收见后文与HANDOFF，尚未满足新精确缓存的完整合同。
 
 真实多流入口仍为现有 CLI business-combined 与三个独立单组；`business-work-metrics.json` 分别记录源码/二进制来源、实际 schema 读/编译/表构建及恢复次数和区间，保留原 BAB 与四输出字节比较。生效与验收状态以 HANDOFF/VALIDATION 的准确 sourceCommit/runId 为准。
 
@@ -65,9 +65,9 @@ BuildSession在provider Dispose后、发布前强复核捕获文件内容与身�
 
 ## 每流绑定与精确表达式准备
 
-W06子组以每根文档私有map保存强引用每次出现/顺序、weak规则和依赖闭包，manifest、排序及资产报告消费当前root结果。成功PrepareOutputInstances后GetStreamBindings发布只读标量快照，失败不发布；执行期仍保留legacy live Handle语义。DisableStreamBindingResults恢复旧共享字段算法。尚未拆出完整不可变AssetSemanticResult，不代表并行安全。
+W06子组以每根文档私有map保存强引用每次出现/顺序、weak规则和依赖闭包，manifest、排序及资产报告消费当前root结果。成功PrepareOutputInstances后GetStreamBindings发布只读标量快照，Prepare失败不发布；它只说明绑定准备完成，后续manifest/link/事务失败仍可能保留诊断快照，不能当已提交产物。执行期仍保留legacy live Handle语义。DisableStreamBindingResults恢复旧共享字段算法。尚未拆出完整不可变AssetSemanticResult，不代表并行安全。
 
-声明缓存的另一个子组在InstanceDeclaration保存/恢复两侧按reference identity复制exact-base Handle值图，直接复制存储32bit ids/hash，保留重复顺序、null及跨own/inherit/strong/weak字段的Handle别名。任一派生Handle/派生List2或DisableDeclarationHandleSnapshots整图回退原浅共享；不改变XML格式。只隔离这层Handle值，AssetDeclarationDocument.LastState/SelfInstances的更大生命周期、DOM与Define仍未全冻结，不称完整不可变语义结果或已确认CLI故障。
+声明缓存的另一个子组在单个InstanceDeclaration保存/恢复两侧按reference identity复制exact-base Handle值图，直接复制存储32bit ids/hash，保留重复顺序及跨own/inherit/strong/weak字段的Handle别名；null只保留原in-memory行为，不新增null XML roundtrip支持。任一派生Handle/派生List2或DisableDeclarationHandleSnapshots整图回退原浅共享；不改变XML格式。只隔离这层Handle值，AssetDeclarationDocument.LastState/SelfInstances的更大生命周期、DOM与Define仍未全冻结，不称完整不可变语义结果或已确认CLI故障。
 
 W08 exact程序以DocumentProcessor弱生命周期拥有有界LRU：首遍原ANTLR parser仍按原序实际求值，在成功leaf/运算后观察不可变语法节点，整expr及AsString成功才发布。命中后重做原Value工厂/运算、当前Define读取和文化转换，不缓存值/绑定、不提前吞错或短路。默认128 entry、262144 UTF-16字符（key+leaf文本）、32768节点；单表达式16384字符/4096节点/depth128，超限继续原parser且不入缓存。DisableExpressionPrograms关闭；coreWork[].expressionPrograms记录实际parserCalls/builds/hits/evictions/fallbacks/失败与预算，hits不等于完整构建提速。
 

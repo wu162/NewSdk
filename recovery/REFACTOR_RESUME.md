@@ -9,7 +9,9 @@
 
 首批优化与三项真实 Core 风险修复已通过[完整运行40461583024](https://github.com/wu162/NewSdk/actions/runs/40461583024)，生产源码 `75601909`。第二轮的 schema/解析/外层区间与构建内自有继承/依赖元数据共享已由源码 `4a128696` / [完整运行40466010643](https://github.com/wu162/NewSdk/actions/runs/40466010643) 整体成功验收，含全部缓存、完整mymod/BIG与独立五文件ZIP；三流元数据表1次构建+2次恢复，每流读取/Compile仍保留，不报告完整构建提速。范围、失败记录、计量与下一步见短交接和[验证记录](docs/compiler-optimization/VALIDATION.md)。[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，后续成果继续集中原优化分支。
 
-第三轮硬链接热修 `c65761fe` / [40479845571](https://github.com/wu162/NewSdk/actions/runs/40479845571) 已整体success，含双配置17个Core fixtures、CLI/全部缓存、完整mymod/BIG和独立五文件ZIP。第四轮接入manifest封存/已消费查询复核、Define/继承/符号轨迹、每流私有绑定及exact表达式程序；`25dde80d` / [40486677963](https://github.com/wu162/NewSdk/actions/runs/40486677963) 双配置20个组件通过，但随后应用协议测试失败已修，尚非整体验收。追加只读文化复用与每DP传输缓冲正在统一验证；准确source/run和未完边界见短交接，不用旧成功接受新源。
+第四轮生产/首次验收测试/打包源码 `60abfeff415e8b1c5bc0b26bf1457f13754c6d75` / [完整运行40491888271](https://github.com/wu162/NewSdk/actions/runs/40491888271) 已整体success：双配置各22个Core fixtures、原DLL/原BAB、协议、Texture、实际CLI、全部缓存/输入根、完整mymod/BIG与独立五文件ZIP全部通过。新增manifest封存与查询复核、实际语义轨迹、每流绑定/声明Handle值图、exact表达式准备/文化复用、每DP传输缓冲及终验取消；完整语义结果/Texture闭包/并行尚未完成。
+
+工具/探针源码 `443dc881` / [40494473681](https://github.com/wu162/NewSdk/actions/runs/40494473681) 严格复用60的原生产对象，26组控制器合同、双配置22 fixtures及原ZIP导出整体success。原Debug/Release ZIP及五成员已下载核验source/run/哈希；小包链接、计量、保留失败和下一轮完整组见短交接。生产变化必须重建，不把后续文档提交冒充binarySource，PR #15仍草稿且未合并。
 
 ## 默认构建与参数改进（PR #14，已合入）
 

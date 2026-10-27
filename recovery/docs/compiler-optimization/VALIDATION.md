@@ -203,3 +203,34 @@ W08 exact程序只在完整原parser求值与AsString成功后发布，暖路重
 每program batch实际parserCalls=0/hits=500，parser batch为500/0，测量不包含报告序列化；只是重复表达式组件的工作与耗时，不报告完整CLI提速、P95、物理I/O或统计显著性。25d真实三流业务输入当时无表达式，记录parser/build/hit全0；后续业务fixture加入三个相同Define求值，仍先做原XSD预检和原BAB四输出对照，验证真实CLI中1次parse/build+2次语义重放，不能把原0次称作已优化的业务收益。
 
 当前追加批次还包括：64KiB复用buffer的终验SHA及确定性read/EOF取消、强内容复核后才复核候选存在性；声明Handle保存/恢复两侧值图隔离（无DOM/Define或整个LastState不可变承诺）。这些新源须完整重建，未取得新source/run整体成功前不标验收完成。
+
+### 第四轮最终完整生产验收
+
+`eb7ed6d07679be91c768fb145d4ca85e29720f65` / [40490423682](https://github.com/wu162/NewSdk/actions/runs/40490423682) 保留failure：双配置22 fixtures仅DeclarationSnapshots的derived-list回退检查失败，其他21成功。保存时派生列表回退被复制为base List2，恢复时二次分类误判为可clone；生产修复为LastState/Current运行时legacy来源标记，跨保存/恢复/再次保存传播，XML不新增字段，强断言及recapture检查保留。该失败targeted artifact `12728742768` 已下载核验SHA256 `9527721e05f82a9c3df7927cbcda3a7fa1977b025bb175a7440dbb2877358f0d`。
+
+最终生产/首次测试/打包源码 **`60abfeff415e8b1c5bc0b26bf1457f13754c6d75` / [40491888271](https://github.com/wu162/NewSdk/actions/runs/40491888271) 整体success**：Debug/Release各22个Core fixtures、原SDK DLL/原BAB、协议、Texture、真实CLI、build/session cache和输入根矩阵、完整mymod、BIG及独立五文件ZIP全部通过。原异常/失败记录保留，没有删除样本、关闭回归或放宽断言。
+
+已下载核验targeted artifact `12727804602` / SHA256 `85d8ae1f8975192f010295385d8fc2ff465ebe35b154dcf2907abfe52eaa030c`，收据source/run均为本成功身份，双配置22/22；PhysicalInputs各179检查、TransferBuffers各189、DeclarationSnapshots各46、ExpressionPrograms各12421。取消mid-read/EOF是在实际private SHA helper上的确定性stream用例，真实Snapshot整体采用预取消+有效token重试，不冒称向真实磁盘读中注入取消。
+
+CLI artifact `12729275483` / SHA256 `132359b543b49e1212cdf41fbfc2062039aa6b8f57487f4d55dea0f463c07b2c` 已下载核验。两配置business-work-metrics均succeeded=true且binary/source=60：base三次相同Define为parserCalls1/builds1/hits2，APT/maps无表达式均0，原BAB与独立冷组四输出相等。三流copyRequests/allocations均0，linkRequests依次5/24/6、各linkAllocations1/65536字节、legacy请求0；只说明当前owner分配，不报告完整内存峰值或端到端提速。原schema逐流读/Compile与构建内元数据共享门槛保留。
+
+完整生产artifact `12729367281`（106,765,851字节），GitHub SHA256 `3300f351b4dfff1d89a4d86d7dcb349ad1d2f7566c932fa01ff11e8b384f65c9`。该完整archive随后由严格复用/导出Actions下载并按digest/size逐字节核对；本地只下载其小证据包和导出原ZIP，不冒称本地下载过106MB原archive。
+
+### 当前接受点的严格复用与原包导出
+
+工具源码 `b549357fa32d2f73d51ae8f0d24c8035abf53681` / [40492634684](https://github.com/wu162/NewSdk/actions/runs/40492634684) 先仅运行控制器合同：12项真实临时git闭包测试+14项导出拒绝/传输测试成功，runtime job未请求；当时未更新旧68 pin。小证据 `12727624888` 已下载核验SHA256 `0078f4bd0017fb4c517dbefecca9914136685a4a5d5bb7af9fddee9f2a0f51ab`。
+
+确认60完整终态success后，工具/当前探针源码 **`443dc88152606a5a41475ff0a5820fc958e1a003` / [40494473681](https://github.com/wu162/NewSdk/actions/runs/40494473681) 整体success**。Ubuntu及Windows控制器合同通过，原SOURCE/RUN固定接受点更新为60/40491888271，仓库/分支/workflow/attempt、完整archive身份、production/validation共同对象、EXE/Texture绑定与实际依赖闭包全部严格核对。精确22 fixture及指定工具/Markdown白名单之外、生产/SDK/recipe、删除/rename/typechange、非祖先、staged/unstaged及含ignored的未跟踪生产输入拒绝。
+
+该run未重新编译生产：binarySourceCommit=60、testSourceCommit=443、sourceRunId=40491888271；当前22个fixtures在原生产对象上重新编译运行，双配置22/22。复用证据artifact `12730467093` 已下载核验SHA256 `1a424fcd046905a83141dcbf2a5d8676cc2df79d35b4f3c6999f9025c726d07c`，工具/测试身份和12+14项合同结果一致。
+
+Export再次实时确认完整接受metadata，从同一校验过的原archive读取发布receipt/manifest/ZIP，与staged product runtime的精确五文件逐字节核对，只复制原ZIP与manifest；rebuildPerformed=false、zipBytesRepacked=false。原发布manifest的binarySource与packagingSource仍为60，443只记在export/targeted测试收据，candidateValidated=false不表示重新验收候选生产代码。
+
+| 模式 | 原ZIP字节数 | 原ZIP SHA256 | 导出artifact |
+| --- | --- | --- | --- |
+| Debug | 2,269,828 | `cd30de97f6e38f33f278fc8a77ecc5ca61226d2ee32e1a51015d16e6aeb00b99` | [12730631821](https://github.com/wu162/NewSdk/actions/runs/40494473681/artifacts/12730631821) |
+| Release | 1,767,446 | `651084b2296449b99027ef59e126152bb48b42f2609be0012266bb850a6713f1` | [12730207255](https://github.com/wu162/NewSdk/actions/runs/40494473681/artifacts/12730207255) |
+
+两份导出小artifact均已本地下载复核外层SHA（Debug `c1895d09e11ea4fa8467a41ffd2b154bfaefab2ffcdbc169a236b750b2792eb0`，Release `18d18a83624f58e9b9a3d828b23f68c08bd6334c1ab263413aa4cc308f823fad`）、原内层ZIP、manifest及五个成员的长度/SHA、binary/test/sourceRun身份。这里只读取已生成字节和收据；实际EXE doctor、输出、BIG与事务运行仍全部来自Actions验收。
+
+本轮未完成整个不可变AssetSemanticResult、AssetDeclarationDocument.LastState/SelfInstances生命周期、所有隐藏文件读取/集合查询、W07完整bundle缓存或W09—10并行合同。绑定Prepare快照不是事务接受凭据；null未新增XML roundtrip支持。缓存默认、/bc /sc全根保护、Texture限制、Win32/.NET4.8与前置运行条件未改变。完整mymod仍一流，不外推全游戏/G3/中文Texture/游戏内新验收。

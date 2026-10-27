@@ -1,31 +1,30 @@
 # 编译器优化：当前交接
 
-更新：2026-10-27，北京时间；第四轮17:39开始，用户要求每轮最多120分钟并尽量跑满持续推进，2个子代理；效率优先，正确性是底线。
-成果集中`feature/compiler-optimization`，不强推、不自行合并，PR #15保持草稿。编译/测试/微基准仅用Actions。
-方案与边界：[README.md](README.md)；准确来源、失败与计量：[VALIDATION.md](VALIDATION.md)。
+更新：2026-10-27，北京时间；第四轮17:39开始，用户要求每轮最多120分钟、尽量跑满持续推进，通常2个子代理（本轮2个）；效率优先，正确性是底线。
+成果集中`feature/compiler-optimization`；不强推、不自行合并，[PR #15](https://github.com/wu162/NewSdk/pull/15)保持草稿。全部编译/测试/微基准仅用GitHub Actions。
+方案与边界：[README.md](README.md)；准确哈希、计量与保留失败：[VALIDATION.md](VALIDATION.md)。
 
-## 已验收基线
+## 最新：全部生产验收、严格复用及原ZIP导出成功
 
-生产/测试/打包 `c65761fed6eed5ad71512e1cea2271eb49a4163f` / [40479845571](https://github.com/wu162/NewSdk/actions/runs/40479845571) 整体success：双配置各17个Core fixtures、原DLL/原BAB、协议、Texture、实际CLI、全部缓存/输入根、完整mymod/BIG与独立五文件ZIP通过。硬链接alias unlink已阻断，不以68旧成功代替。
-本轮下载校验targeted artifact `12722102881` / SHA256 `dc4f5d4fc3a76ffc7aafe569ca136e881fe1eca1ca38cfecd28956225d56eae8`，source/run匹配。完整artifact `12723670985` 的GitHub digest见VALIDATION，本轮未独立下载校验其ZIP。
+- 生产/首次验收测试/打包源码 `60abfeff415e8b1c5bc0b26bf1457f13754c6d75` / [完整运行40491888271](https://github.com/wu162/NewSdk/actions/runs/40491888271) 整体success。双配置各22个Core fixtures、原DLL/原BAB、协议、Texture、实际CLI、全部缓存/输入根、完整mymod/BIG及独立五文件ZIP全部通过。
+- 最新工具/探针源码 `443dc88152606a5a41475ff0a5820fc958e1a003` / [40494473681](https://github.com/wu162/NewSdk/actions/runs/40494473681) 整体success：仅允许的测试/工具/文档变更，精确复用上述60的production/validation对象，双配置22 fixtures及26组控制器合同通过。binarySource=60，testSource=443，sourceRun=40491888271；后续文档头不冒充二进制来源。
+- 已下载核验本轮targeted/CLI/复用证据，以及原Debug/Release ZIP的outer/inner SHA、source/run、manifest和精确五运行文件。小包原ZIP字节不重打包：[Release artifact](https://github.com/wu162/NewSdk/actions/runs/40494473681/artifacts/12730207255) / [Debug artifact](https://github.com/wu162/NewSdk/actions/runs/40494473681/artifacts/12730631821)。完整原archive `12729367281` 已由Actions严格校验，不冒称本地下载了该106MB包。
 
-## 第四轮已接入组：组件通过，整体验收未完成
+## 本轮可用增量
 
-- W03：precompiled/base patch两个Core入口及Utility递归patch manifest/发现的StringHashes.xml消费封存流；保留旧API、共享fallback及取消传播。仅登记原实际File.Exists结果，发布前复核候选布尔存在性，冲突/终验变化拒绝本代；预算/输出根等incomplete明确，不声称原子快照或完整查询闭包，不关闭原缓存全根门槛。
-- W05：有界scalar/string轨迹记录实际Define绑定/值/源/epoch/read-site、继承消费阶段、精确/派生候选及选择/歧义；canAuthorizeReuse=false，不反推依赖、不额外查询、不缓存值。
-- W06子组：root私有map持有有序重复强引用与weak/闭包，manifest/排序/资产报告消费本流结果，成功Prepare发布不可变标量快照，失败不发布。执行期保留legacy live Handle，不泛称完整AssetSemanticResult/并行安全。
-- W08：每DP弱生命周期有界exact程序；首遍原parser按原序求值，完整成功后保存语法树；暖路重做原运算、当前Define及文化转换。失败/超限不入缓存，128entry/262144字符/32768nodes与单表达式depth128等门槛保留，DisableExpressionPrograms可回退。
+- W03：两个Core入口及Utility的root/递归patch manifest、StringHashes消费封存字节；FileReference原路径pins保留。原实际resolver/manifest发现/asset存在查询的布尔结果登记并在内容复核后复查，代内冲突或终验变化拒绝发布。8192路径/1Mi字符预算、unsupported/output根incomplete保留，不作原子快照或完整查询闭包承诺。终验SHA共用64KiB buffer，每个read/EOF保留原取消token；成功完整文件才计reads/bytes。
+- W05：有界scalar/string轨迹保存实际Define绑定/值/来源/epoch/read-site、同文档prevalidation或跨文档processed继承、精确/派生符号候选和选择/歧义。canAuthorizeReuse=false，不额外查询、不缓存绑定/值，不以legacy XML hash放行强缓存。
+- W06子组：root私有有序绑定/闭包供manifest、排序和资产报告消费，成功Prepare才发布只读标量快照。声明Handle保存/恢复两侧复制exact-base值图，保留存储32bit ids、重复顺序、null及跨字段Handle别名；派生Handle/list整图legacy，并保留运行时provenance跨恢复/再次保存，XML不改。DisableStreamBindingResults/DisableDeclarationHandleSnapshots可回退；未冻结整个LastState/SelfInstances/DOM/Define。
+- W08：每DP弱生命周期有界exact表达式程序；首遍原parser实际求值，完整成功后缓存语法，暖路重新读取当前Define和执行原Value/文化转换；失败/超限不缓存。固定en-US只读文化复用可独立回退。264行原SDK DLL、四文化五开关组合、失败前缀、所有预算及真实XML四输出通过。
+- W09子组：每DP懒分配并复用copy 1MiB/link 64KiB，原copy锁/短尾块/错误与临时文件合同不变，legacy静态fallback也按需分配。Source相同的default/fallback严格字节差分及大DataBlob三流/session/失败取消重试通过；backend单租约仍在，没有开放并行。
 
-组件来源 `25dde80d4c9355fa67e64679bf1dedd47e5ee65c` / [40486677963](https://github.com/wu162/NewSdk/actions/runs/40486677963)：双配置20个fixtures全部通过，含Expr各1279检查/原SDK DLL264行四文化cold/warm/fallback与真实XML四输出。targeted artifact `12724659580`，下载SHA256 `97a7199e613fb94ac2518ba59fa3318cdbde1f8424c6f5c62154422b0f38e60d` 匹配source/run。
-该run随后应用协议失败：新增测试给effectiveOptions.Source写临时标签，已改走实际Options.Parse的/data参数，schema严格枚举保持。生产源码已继续变化，不能用25d组件成功接受当前新组。
-保留失败：88e114bc/40483925423缺新增Utility精确签名审计；cff/40484533010与6e54/40485040370仅manifest测试默认缓存配置缺失，f001修复不改断言。6e的W06双配置42检查/3组独立通过，原失败不改写。
+实际业务三流两配置：base三次相同Define为parse1/build1/hit2，APT/maps无表达式仍0；原BAB及独立冷组四输出相等。各流copyAlloc0/linkAlloc1（64KiB），只记owner分配，不外推完整内存峰值。schema仍逐流读取/Compile，构建内自有元数据仍1 build+2 restore。
+7轮交错组件微基准见VALIDATION：每500次program共享文化中位约1.05ms、parser共享文化约40ms；只是组件样本，不报告完整CLI提速/P95/统计显著性。
 
-## 当前追加检查点：文化复用与transfer buffers，尚未整体验收
+## 下一轮优先与约束
 
-- 共享只读en-US CultureInfo，DisableSharedExpressionCulture恢复每Value独立对象；原DLL矩阵扩展五种开关组合。7轮×每路径500次同进程交错微基准分别记录program共享文化、parser共享文化、program独立文化的原始耗时及实际parser/hit差，不报告CLI提速。
-- W09仅copy/link scratch归每DP懒分配复用（1MiB/64KiB），保留原copy锁、短尾块拒绝与临时文件错误合同；静态fallback也懒分配，DisableOwnedTransferBuffers可回退。计量自有allocations/bytes与legacy请求分开，不放开backend租约，不声称整个W09/并行就绪。
-- 新TransferBuffers fixture实际消费边界、大DataBlob三流、session恢复、失败/取消后重试及四输出fallback；App协议测试来源修复也在统一重验范围。新源必须完整重建与全部SDK/ZIP门槛，不能沿固定68归档复用。
+1. W06下一完整组优先处理AssetDeclarationDocument.CacheFromDocument在other._Last存在时仍共享LastState/SelfInstances的生命周期，尤其后续MakeComplete/再次序列化；先用公共Core最小探针确认，不把当前Handle子组外推为完整不可变AssetSemanticResult。保持默认值/SchemaInfo、顺序、错误及冷热/持久session四输出。Prepare只读快照不是事务接受凭据，后续manifest/link失败仍可保留诊断快照；null仅保留原in-memory行为。
+2. 补完整BuildSession真实多流precompiled/patch/StringHashes候选变化→整次发布拒绝/回滚/pins释放用例（当前manifest以真实Core/直接Verify为主）。BinaryAsset缓存/物化读取、Texture隐藏资源与其它集合查询仍保守；保留/bc /sc全根校验、Texture缓存拒绝和原字节/失败门槛。W07完整bundle缓存与整个W09—10状态/插件/内存并行合同未完成，不提前放开worker或精确缓存跳过。
+3. 严格targeted复用现固定60abfeff/40491888271，精确22个探针与工具/Markdown白名单；源码/SDK/recipe、删除/rename、脏/含ignored的未跟踪生产输入拒绝。新生产变化必须完整重建，新成功后再更新pin；旧68不再是当前复用入口。
 
-下一步先跟进追加完整Actions终态并集中修复；成功前不标完整验收。继续有价值的输入一致性/状态隔离子组时保留中断检查点和来源区分。Texture隐藏读取、新完整bundle缓存、不可变语义结果与整个并行合同仍未完成；完整mymod仍1流，不外推全游戏/G3/中文Texture验收。
-
-17:39起约一小时检查点再追加：终验SHA复用64KiB buffer并在read/EOF检查原取消token，候选复核移到内容之后；InstanceDeclaration保存/恢复两侧exact Handle值图独立复制，派生Handle/list整图legacy（DisableDeclarationHandleSnapshots），未冻整个LastState/DOM/Define。实际CLI业务新增三个相同Define求值并要求1次parse/build+2次重放，保留原XSD预检及BAB四输出对照。TransferBuffers失败已改用同一原始source字节重验。全部追加新源未编译通过，下一完整run需覆盖这些点，不能用组件结果冒称成功。
+本轮失败与修复留在VALIDATION：新增Utility精确签名审计、manifest测试配置、协议Source标签、不同AssetHeader padding输入，以及derived-list恢复后回退来源丢失。未删断言换通过。完整mymod仍仅1流，不泛称全游戏/G3/中文Texture或游戏内新验收。
