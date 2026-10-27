@@ -233,7 +233,7 @@ public class FileHashItem : IXmlSerializable
 
 	private void ReadContentIdentity()
 	{
-		AsynchronousFileReader asynchronousFileReader = new AsynchronousFileReader(_Path);
+		using AsynchronousFileReader asynchronousFileReader = new AsynchronousFileReader(_Path);
 		uint hash = asynchronousFileReader.FileSize;
 		long bytesRead = 0;
 		using (var algorithm = SHA256.Create())

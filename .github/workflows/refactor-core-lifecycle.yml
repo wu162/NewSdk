@@ -199,7 +199,7 @@ jobs:
           $failures=@();$checks=@()
           # Only Core-only probes can bind to this module. App-dependent probes
           # keep their full production-host compilation/runtime gate below.
-          foreach($name in @('CompilerNodeJoiner','CompilerDocumentMetadata','CompilerDocumentSnapshotOracle','CompilerSymbolLookup','CompilerHashingWriter')) {
+          foreach($name in @('CompilerNodeJoiner','CompilerDocumentMetadata','CompilerDocumentSnapshotOracle','CompilerSymbolLookup','CompilerHashingWriter','CompilerInputDigests')) {
             $source="recovery/tests/$name.cs"
             $arguments=@('/nologo','/noconfig','/nostdlib+','/target:library','/langversion:7.3','/codepage:65001','/platform:x86',('/out:'+(Join-Path $out ($name+'.dll'))),('/addmodule:'+$module),('/r:'+(Join-Path $PWD 'SDK/tools/antlr.runtime.dll')))
             foreach($reference in @($manifest.frameworkReferences)+@('System.Web.Extensions')){$arguments+=('/r:'+(Join-Path $refs ($reference+'.dll')))}
@@ -396,11 +396,32 @@ jobs:
           ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/sdk-mymod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TimeoutSeconds 600
           if($LASTEXITCODE -ne 0){throw 'Complete mymod SDK differential failed'}
       - name: Publish final five-file packages after complete production acceptance
+        id: publish
         if: ${{ success() && steps.big.outcome == 'success' && steps.cli.outcome == 'success' && env.CLI_REUSE != 'true' }}
         shell: pwsh
         run: |
           ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -AcceptanceReceipt "recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -VerifyBigDeployment -OutputDirectory "recovery/artifacts/final-release/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           if($LASTEXITCODE -ne 0){throw 'Final five-file ZIP deployment validation failed'}
+      - name: Upload unchanged accepted Release ZIP and identity manifest
+        if: ${{ !cancelled() && steps.publish.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiler-package-Release-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Release.zip
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Release.manifest.json
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/release.json
+          if-no-files-found: error
+      - name: Upload unchanged accepted Debug ZIP and identity manifest
+        if: ${{ !cancelled() && steps.publish.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiler-package-Debug-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Debug.zip
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Debug.manifest.json
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/release.json
+          if-no-files-found: error
       - uses: actions/upload-artifact@v4
         if: always()
         with:

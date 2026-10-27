@@ -59,6 +59,94 @@ public static class CompilerInputDigests
         using (var reader = XmlReader.Create(new StringReader(text.ToString()))) { reader.MoveToContent(); restored.ReadXml(reader); }
         return restored;
     }
+    static void ReaderOwnership(string work)
+    {
+        string path = Path.Combine(work, "reader-ownership.bin");
+        File.WriteAllBytes(path, new byte[1048607]);
+        foreach (string phase in new[] { "pending", "active", "requeued", "eof", "consumer-fault" })
+        {
+            Chunk held = null, eof = null;
+            using (var reader = new AsynchronousFileReader(path))
+            {
+                Require(reader.FileSize == 1048607 && reader.CurrentChunk == null, "Reader construction changed its public initial state");
+                if (phase == "active" || phase == "requeued" || phase == "consumer-fault")
+                {
+                    Require(reader.BeginRead(), "Reader did not return its first complete chunk");
+                    held = reader.CurrentChunk;
+                    Require(held.BytesRead == 1048576 && !reader.BeginRead() && Object.ReferenceEquals(held, reader.CurrentChunk),
+                        "Reader changed one-MiB chunks or repeated BeginRead while a chunk is owned");
+                    using (var another = new Chunk()) Require(!Object.ReferenceEquals(held.Data, another.Data), "An active reader buffer was returned to the global pool");
+                    if (phase == "requeued")
+                    {
+                        reader.EndRead();
+                        Require(reader.CurrentChunk == null && held.BytesRead == 0, "EndRead did not transfer the chunk to its pending job");
+                    }
+                    if (phase == "consumer-fault")
+                    {
+                        held.Dispose(); bool rejected = false;
+                        try { reader.EndRead(); } catch (NullReferenceException) { rejected = true; }
+                        Require(rejected, "Disposing the public chunk before EndRead changed its original primary failure");
+                    }
+                }
+                else if (phase == "eof")
+                {
+                    long bytes = 0;
+                    while (reader.BeginRead()) { bytes += reader.CurrentChunk.BytesRead; reader.EndRead(); }
+                    eof = reader.CurrentChunk;
+                    Require(bytes == 1048607 && eof != null && eof.Data == null && eof.BytesRead == 0 && reader.FileSize == 0,
+                        "Natural EOF changed its disposed CurrentChunk or closed FileSize contract");
+                }
+                reader.Dispose(); reader.Dispose();
+                Require(reader.FileSize == 0 && !reader.BeginRead(), "Disposed reader retained a source or accepted a new read");
+                reader.EndRead();
+                if (held != null) Require(held.Data == null, "An early exit retained its pending/active buffer");
+                if (eof != null) Require(Object.ReferenceEquals(eof, reader.CurrentChunk), "EOF disposal changed the public CurrentChunk object");
+                using (File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
+            }
+            // A duplicate pool return would hand the same array to simultaneous
+            // consumers. No GC/finalizer is needed to unlock the source above.
+            using (var first = new Chunk()) using (var second = new Chunk())
+                Require(!Object.ReferenceEquals(first.Data, second.Data), "Reader cleanup returned its buffer to the pool twice");
+        }
+        measurements.Add(new { scenario = "async-reader-owned-lifecycle", phases = 5,
+            sourceImmediatelyExclusive = true, eofObjectPreserved = true,
+            scope = "Public reader/Chunk lifecycle only; Dispose waits for pending APM completion, not cancellation of OS I/O" });
+    }
+    static readonly IOException DigestFault = new IOException("Injected actual SHA256 HashCore failure");
+    public sealed class FailingSha256 : SHA256
+    {
+        public FailingSha256() { HashSizeValue = 256; }
+        public override void Initialize() { }
+        protected override void HashCore(byte[] data, int start, int size) { throw DigestFault; }
+        protected override byte[] HashFinal() { throw DigestFault; }
+    }
+    static void FailedDigestOwnership(string work)
+    {
+        string path = Path.Combine(work, "failed-digest-ownership.bin");
+        File.WriteAllBytes(path, new byte[1048607]);
+        uint expected = Legacy(path); Type originalProvider;
+        using (var original = SHA256.Create()) originalProvider = original.GetType();
+        var item = new FileHashItem(path, "failed-digest", TargetPlatform.Win32);
+        bool rejected = false;
+        try
+        {
+            // Only this isolated test process changes CryptoConfig. Production
+            // calls the real SHA256 factory and consumes the real reader chunk.
+            CryptoConfig.AddAlgorithm(typeof(FailingSha256), "System.Security.Cryptography.SHA256");
+            try { bool dirty = item.IsDirty; } catch (IOException error) { rejected = Object.ReferenceEquals(error, DigestFault); }
+        }
+        finally { CryptoConfig.AddAlgorithm(originalProvider, "System.Security.Cryptography.SHA256"); }
+        Require(rejected, "Digest cleanup replaced or swallowed the actual consumer's primary exception");
+        using (File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
+        Require(item.DigestReadCount == 0 && item.DigestBytesRead == 0, "A failed digest published successful read accounting");
+        Require(item.IsDirty && item.Hash == expected && item.DigestReadCount == 1 && item.DigestBytesRead == 1048607,
+            "The same FileHashItem could not retry after its failed digest");
+        string strong; Roundtrip(item, out strong);
+        Require(strong == Strong(path), "Retried digest committed a partial strong identity");
+        measurements.Add(new { scenario = "actual-file-hash-SHA256-consumer-failure", primaryExceptionPreserved = true,
+            sourceImmediatelyExclusive = true, sameItemRetry = true, cryptoProviderRestored = originalProvider.FullName,
+            scope = "Actual SHA256.Create/HashCore fault in isolated fixture process; no fabricated digest or native I/O error" });
+    }
     static void Cases(string work)
     {
         string path = Path.Combine(work, "digest.bin");
@@ -161,9 +249,9 @@ public static class CompilerInputDigests
     {
         try
         {
-            Directory.CreateDirectory(args[0]); Cases(args[0]); Benchmark(args[0]);
+            Directory.CreateDirectory(args[0]); Cases(args[0]); ReaderOwnership(args[0]); FailedDigestOwnership(args[0]); Benchmark(args[0]);
             var result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks,
-                tests = new[] { "single-pass-legacy-and-SHA256-boundaries-roundtrip-reset-content-invalidation-delete-recreate", "interleaved-cold-and-warm-digest-cost" }, measurements };
+                tests = new[] { "single-pass-legacy-and-SHA256-boundaries-roundtrip-reset-content-invalidation-delete-recreate", "public-async-reader-pending-active-requeued-EOF-consumer-failure-dispose-and-no-double-pool-return", "actual-FileHashItem-SHA256-consumer-fault-immediate-source-release-primary-error-and-same-item-retry", "interleaved-cold-and-warm-digest-cost" }, measurements };
             string json = new JavaScriptSerializer().Serialize(result);
             File.WriteAllText(args[1], json); Console.WriteLine(json);
             Console.WriteLine("PASS InputDigests: " + checks + " assertions"); return 0;

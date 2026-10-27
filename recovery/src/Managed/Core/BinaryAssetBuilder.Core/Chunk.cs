@@ -55,4 +55,12 @@ public class Chunk : IDisposable
 			_Data = null;
 		}
 	}
+
+    // An uncertain APM read may still own this array. Drop this owner's
+    // reference without returning that array to the shared pool. Public Dispose
+    // and the global pool policy remain unchanged.
+    internal void AbandonBuffer()
+    {
+        _Data = null;
+    }
 }
