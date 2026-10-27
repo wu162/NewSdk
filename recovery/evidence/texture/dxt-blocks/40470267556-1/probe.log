@@ -1,0 +1,1 @@
+PROBE Texture DXT native blocks fixtures=32 checks=132; original only; no recovered DXT implementation

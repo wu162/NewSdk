@@ -1,0 +1,287 @@
+{
+  "evidenceOnly": true,
+  "probeOnly": true,
+  "scope": "Relocation-masked code matches only; not reachability, same-version or compression acceptance",
+  "functions": [
+    {
+      "archiveOffset": 887652,
+      "symbols": [
+        "?EncodeDXT1@nvDXTCompression@@QAE?AW4NV_ERROR_CODE@@AAV?$nvMatrix@VfpPixel@@@@AAIAAPAE@Z"
+      ],
+      "bytes": 219,
+      "comparedBytes": 199,
+      "anchorBytes": 99,
+      "originalRvas": [
+        "0x00057D30"
+      ],
+      "codeSha256": "aaf34ec5641e746045ccb1443df69225652fd0296078f94e8b44dac82aebbb59"
+    },
+    {
+      "archiveOffset": 887652,
+      "symbols": [
+        "?EncodeDXT1a@nvDXTCompression@@QAE?AW4NV_ERROR_CODE@@AAV?$nvMatrix@VfpPixel@@@@AAIAAPAE@Z"
+      ],
+      "bytes": 230,
+      "comparedBytes": 210,
+      "anchorBytes": 110,
+      "originalRvas": [
+        "0x00057E10"
+      ],
+      "codeSha256": "199f32a6b9106fb50790cf945393ddf9f68156c4431e4c4a385bd3a396cb3453"
+    },
+    {
+      "archiveOffset": 887652,
+      "symbols": [
+        "?EncodeDXT3@nvDXTCompression@@QAE?AW4NV_ERROR_CODE@@AAV?$nvMatrix@VfpPixel@@@@AAIAAPAE@Z"
+      ],
+      "bytes": 230,
+      "comparedBytes": 210,
+      "anchorBytes": 110,
+      "originalRvas": [
+        "0x00057F00"
+      ],
+      "codeSha256": "93a57a836c9186a4341cdc5b830fbc5f3fe7268b488a50abce0ae8ec3b33c55c"
+    },
+    {
+      "archiveOffset": 887652,
+      "symbols": [
+        "?EncodeDXT5@nvDXTCompression@@QAE?AW4NV_ERROR_CODE@@AAV?$nvMatrix@VfpPixel@@@@AAIAAPAE@Z"
+      ],
+      "bytes": 230,
+      "comparedBytes": 210,
+      "anchorBytes": 110,
+      "originalRvas": [
+        "0x00057FF0"
+      ],
+      "codeSha256": "fc4d2c098938a2a701ad5d8c98a254101b7bf12393fc18a6061f79f2f92884fb"
+    },
+    {
+      "archiveOffset": 887652,
+      "symbols": [
+        "?EncodeDXT5_NM@nvDXTCompression@@QAE?AW4NV_ERROR_CODE@@AAV?$nvMatrix@VfpPixel@@@@AAIAAPAE@Z"
+      ],
+      "bytes": 230,
+      "comparedBytes": 210,
+      "anchorBytes": 110,
+      "originalRvas": [
+        "0x000580E0"
+      ],
+      "codeSha256": "c29d7f3c8a1d9865869a1a69c26b9bd58da65001d66174b507fbc58e84525ada"
+    },
+    {
+      "archiveOffset": 956134,
+      "symbols": [
+        "?FastEncodeDXT1AllPixelsSame@nvFastDXT@@SAXPAVnvRGBBlock@@@Z"
+      ],
+      "bytes": 149,
+      "comparedBytes": 125,
+      "anchorBytes": 74,
+      "originalRvas": [
+        "0x0008B380"
+      ],
+      "codeSha256": "582916d9e3859c6af8e05638b6ccc8fb52db8bf569c81e676e9d00eadfcb9c55"
+    },
+    {
+      "archiveOffset": 956134,
+      "symbols": [
+        "?FastEncodeDXT5@nvFastDXT@@SAXPAVnvAlphaBlock@@@Z"
+      ],
+      "bytes": 407,
+      "comparedBytes": 379,
+      "anchorBytes": 142,
+      "originalRvas": [
+        "0x0008B570"
+      ],
+      "codeSha256": "79c8558ef90a648e07178c838ca9048e841e585a65fcee93222d9584ca12bdf1"
+    },
+    {
+      "archiveOffset": 956134,
+      "symbols": [
+        "?FastEncodeDXT1_3@nvFastDXT@@SAXPAVnvRGBBlock@@@Z"
+      ],
+      "bytes": 1869,
+      "comparedBytes": 1793,
+      "anchorBytes": 345,
+      "originalRvas": [
+        "0x0008BAA0"
+      ],
+      "codeSha256": "62eea3b25eed75775dce54f4fd0d0e16b2402b15ea41a067847b0918aebb8dcc"
+    },
+    {
+      "archiveOffset": 956134,
+      "symbols": [
+        "?FastEncodeDXT1_4@nvFastDXT@@SAXPAVnvRGBBlock@@@Z"
+      ],
+      "bytes": 1712,
+      "comparedBytes": 1644,
+      "anchorBytes": 395,
+      "originalRvas": [
+        "0x0008C1F0"
+      ],
+      "codeSha256": "f1036e3c2851f9440c42f31d1185d1f851c75867732e69b780b62d2457b4425e"
+    },
+    {
+      "archiveOffset": 956134,
+      "symbols": [
+        "?FastEncodeDXT1ForceAlphaOne@nvFastDXT@@SAXPAVnvRGBBlock@@H@Z"
+      ],
+      "bytes": 33,
+      "comparedBytes": 25,
+      "anchorBytes": 13,
+      "originalRvas": [],
+      "codeSha256": "bbd7c9baf3fb636d7c41f22e56f4ecb2f2ca8ecf3f91de827525260a3ba3781f"
+    },
+    {
+      "archiveOffset": 1096542,
+      "symbols": [
+        "?Search43Mult@nvDXTCompression@@QAENPAHHPAY02NPANQAHQAY02NQAN@Z"
+      ],
+      "bytes": 1239,
+      "comparedBytes": 1219,
+      "anchorBytes": 777,
+      "originalRvas": [
+        "0x000603D0"
+      ],
+      "codeSha256": "428f8c80f65b10b9331b577434bdc59da144a0b5cdbd1cbcb11d6989987918a6"
+    },
+    {
+      "archiveOffset": 1096542,
+      "symbols": [
+        "?RoundMult@nvDXTCompression@@QAENHHPAY02NPANQANQAY02NQAY02HQAHN@Z"
+      ],
+      "bytes": 106380,
+      "comparedBytes": 102244,
+      "anchorBytes": 100675,
+      "originalRvas": [
+        "0x00061460"
+      ],
+      "codeSha256": "bc670b2b8802346fde6b5a1ce93a862b20c28afcf4630205329dfb6836ddf3a9"
+    },
+    {
+      "archiveOffset": 1096542,
+      "symbols": [
+        "?AllSame@nvDXTCompression@@QAENPAVnvRGBBlock@@PAHHPAY02NQAY02HQAH@Z"
+      ],
+      "bytes": 1932,
+      "comparedBytes": 1732,
+      "anchorBytes": 613,
+      "originalRvas": [
+        "0x0007B3F0"
+      ],
+      "codeSha256": "1ecfa80b68ce667ef3d6152dd3815baad3b90147e45efdef9e8e5febf129cd02"
+    },
+    {
+      "archiveOffset": 1096542,
+      "symbols": [
+        "?MapAndRoundMult@nvDXTCompression@@QAENPAHHHPAY02NPANQANQAY02NQAY02HQAHN@Z"
+      ],
+      "bytes": 609,
+      "comparedBytes": 573,
+      "anchorBytes": 145,
+      "originalRvas": [
+        "0x0007BB80"
+      ],
+      "codeSha256": "b072676363b29f98bf40ab4dffe0f00224bf41b24f71cb8e621c2c8cf1e34b04"
+    },
+    {
+      "archiveOffset": 1096542,
+      "symbols": [
+        "?CodeRGBBlockQuick@nvDXTCompression@@QAEXPAVnvRGBBlock@@H@Z"
+      ],
+      "bytes": 109,
+      "comparedBytes": 77,
+      "anchorBytes": 25,
+      "originalRvas": [
+        "0x0007BDF0"
+      ],
+      "codeSha256": "f13a8509564e02f339a3b587407abdaddc4c6da4f85efa300d0377e8cfcc87cd"
+    },
+    {
+      "archiveOffset": 1096542,
+      "symbols": [
+        "?CodeAlphaBlockQuick@nvDXTCompression@@QAEXPAVnvAlphaBlock@@@Z"
+      ],
+      "bytes": 14,
+      "comparedBytes": 10,
+      "anchorBytes": 6,
+      "originalRvas": [],
+      "codeSha256": "4f883c44af3cd7e04adc3137a7037ecfb78f16ac042001db3dab1dee4f86ad1f"
+    },
+    {
+      "archiveOffset": 1096542,
+      "symbols": [
+        "?RmsError@nvDXTCompression@@QAENPAVnvRGBBlock@@@Z"
+      ],
+      "bytes": 1000,
+      "comparedBytes": 984,
+      "anchorBytes": 450,
+      "originalRvas": [],
+      "codeSha256": "5e976192f60ee63ad4e66e6e42f439e91ef18dc3dfff6051700ba80ad05e2f5c"
+    },
+    {
+      "archiveOffset": 1096542,
+      "symbols": [
+        "?CodeRGBBlock@nvDXTCompression@@QAEXPAVnvRGBBlock@@H@Z"
+      ],
+      "bytes": 4307,
+      "comparedBytes": 4203,
+      "anchorBytes": 1392,
+      "originalRvas": [
+        "0x0007C420"
+      ],
+      "codeSha256": "653ed479e226c54210fa4a8cbc59e972655e24e94519c0f1137146d186ab865d"
+    },
+    {
+      "archiveOffset": 1096542,
+      "symbols": [
+        "?QuantizeAlpha@nvDXTCompression@@QAENHHQANQAH1@Z"
+      ],
+      "bytes": 3792,
+      "comparedBytes": 3716,
+      "anchorBytes": 738,
+      "originalRvas": [
+        "0x0007D500"
+      ],
+      "codeSha256": "55f62b35b1f699708c82f29a2b5c5e727a55536efe89354ac2b0c8c11bb16682"
+    },
+    {
+      "archiveOffset": 1096542,
+      "symbols": [
+        "?CodeAlphaBlock@nvDXTCompression@@QAEXPAVnvAlphaBlock@@@Z"
+      ],
+      "bytes": 1272,
+      "comparedBytes": 1252,
+      "anchorBytes": 562,
+      "originalRvas": [
+        "0x0007E8F0"
+      ],
+      "codeSha256": "9e5d253cf464e0db24d72199b317c7f5b28b51efcfde6a5b941ee14498690ab3"
+    },
+    {
+      "archiveOffset": 1096542,
+      "symbols": [
+        "?CodeRGBBlockExhaustive@nvDXTCompression@@QAENPAVnvRGBBlock@@N@Z"
+      ],
+      "bytes": 2266,
+      "comparedBytes": 2102,
+      "anchorBytes": 196,
+      "originalRvas": [
+        "0x000833F0"
+      ],
+      "codeSha256": "d615c2834b83de907aae77414e79e99c4124c7f0509b3cc3f47ea7d5fbbd04ee"
+    },
+    {
+      "archiveOffset": 1096542,
+      "symbols": [
+        "?CodeRGBBlock@nvDXTCompression@@QAEXPAVnvRGBBlock@@@Z"
+      ],
+      "bytes": 1125,
+      "comparedBytes": 909,
+      "anchorBytes": 68,
+      "originalRvas": [
+        "0x00083CD0"
+      ],
+      "codeSha256": "0ce446d44691f3cb2c7777d2cb4a7a6522173cb223d1f053be6029dbd2eeebde"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "evidenceOnly": true,
+  "probeOnly": true,
+  "status": "probe-only",
+  "scope": "Original-only PC 4x4 no-mip DXT1/DXT1A/DXT3/DXT5 samples; not recovery acceptance",
+  "fixtures": 32,
+  "runId": "40470267556",
+  "sdkValidated": false,
+  "sourceCommit": "70aded868821631a4bfc1e633b717d03da0c3529",
+  "sampleArchiveSha256": "65ff2b4b93ce933c98aa7f4e4a6de2991dcef395ebd7d7bb7dcf1aacde3deee9",
+  "summary": [
+    "PROBE Texture DXT native blocks fixtures=32 checks=132; original only; no recovered DXT implementation"
+  ],
+  "runAttempt": "1"
+}

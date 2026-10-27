@@ -1,0 +1,57 @@
+{
+  "referenceGitBlob": "48d8c74d9ca04798246242c4be3bf459ddcbbdfc",
+  "evidenceOnly": true,
+  "probeOnly": true,
+  "referenceSha256": "572aa5d1d3ff26050bdc101fddacf0a4f5af360bb5e2bbe1b6bc95a615d2524b",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "originalEntrypoints": [
+    {
+      "token": "0x060000DB",
+      "name": "nvDDS.nvDXTcompress",
+      "rva": "0x00052950",
+      "kind": "Native",
+      "signature": "0004205911502080850F20611180D40F1180881B0104205911500F206101090F20611181240F010F20611108"
+    },
+    {
+      "token": "0x060000DC",
+      "name": "nvDDS.nvDXTcompress",
+      "rva": "0x00052B60",
+      "kind": "Native",
+      "signature": "0004205911502080850F20611180840F1180881B0104205911500F206101090F20611181240F010F20611108"
+    },
+    {
+      "token": "0x060000FB",
+      "name": "GetNVCompressionOptions",
+      "rva": "0x000025F0",
+      "kind": "IL",
+      "signature": "20031F80890F1180880F1180880E02"
+    },
+    {
+      "token": "0x06000101",
+      "name": "CompressAndEmbed",
+      "rva": "0x00005604",
+      "kind": "IL",
+      "signature": "2004012080850F11808C2080850F1180A02080850F1180842080850F118088"
+    },
+    {
+      "token": "0x06000102",
+      "name": "CompressAndEmbed3D",
+      "rva": "0x000056B8",
+      "kind": "IL",
+      "signature": "2004012080850F11808C2080850F1180A02080850F1180842080850F118088"
+    }
+  ],
+  "scope": "Reference static-library COFF symbol inventory only; no DXT recovery/equivalence claim",
+  "dumpbinVersion": "14.44.35229.0",
+  "status": "probe-only",
+  "referenceCommit": "f0467589621354150acf2c623cb5cad44c8f35c1",
+  "selectedSymbolLines": 223,
+  "referenceBytes": 1376370,
+  "referencePath": "LIBS/lib/release/nvDXTlibMT.vc8.lib",
+  "symbolArchiveSha256": "8f9b7423d15d086e9ba24e703c9256f0a81488fbd2ac838e011f9dc7e51f358e",
+  "runAttempt": "1",
+  "runId": "40470267556",
+  "referenceRepository": "Stehfyn/Legacy_DDS_Utilities",
+  "sourceCommit": "70aded868821631a4bfc1e633b717d03da0c3529",
+  "sdkValidated": false
+}
