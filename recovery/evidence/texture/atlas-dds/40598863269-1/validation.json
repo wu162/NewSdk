@@ -1,0 +1,64 @@
+{
+  "scope": "isolated PC atlas DDS prerequisites format3 DXT5/format9 RGB555 and specified five mip levels (option +104), complete immutable original DDS; full atlas ProcessInstance/SDK separate",
+  "probeOnly": false,
+  "sourceCommit": "daf4a749752786d5aea56b8de62fc47f1e77383d",
+  "runId": "40598863269",
+  "status": "passed",
+  "originalBaseline": {
+    "samplesSha256": "506dd29951bae05e688f4c5474ffdbb594d43790d5834bf73a480b575bb7cb00",
+    "sourceCommit": "9e7d671e46b3abb41e3e8ab22abd1c759e77b9c9",
+    "runId": "40597016969"
+  },
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "summary": [
+        "PASS Texture PC atlas DDS prerequisite fixtures=160 rejected=12 checks=57984 comparedBytes=54304; complete original DXT5/RGB555 DDS with exactly five levels and repeated 1x1 tails; original absent/unloaded per call; source unchanged; full atlas/plugin/SDK separate"
+      ],
+      "passed": true,
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Debug"
+    },
+    {
+      "summary": [
+        "PASS Texture PC atlas DDS prerequisite fixtures=160 rejected=12 checks=57984 comparedBytes=54304; complete original DXT5/RGB555 DDS with exactly five levels and repeated 1x1 tails; original absent/unloaded per call; source unchanged; full atlas/plugin/SDK separate"
+      ],
+      "passed": true,
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Release"
+    }
+  ],
+  "nativeBinaries": [
+    {
+      "importDirectory": 0,
+      "machine": "I386",
+      "configuration": "Debug",
+      "sha256": "d4b6cf2f2f5ec3b3b7be1bf25c60734962e7c339e3706c00eb74f38c4b05a5e4",
+      "entryPoint": 0
+    },
+    {
+      "sha256": "4274e199623392a096f04baf613a6815c9ada001037327002da1caa62bb0d4fc",
+      "entryPoint": 0,
+      "configuration": "Debug",
+      "importDirectory": 0,
+      "machine": "I386",
+      "name": "Recovered.TextureDxtAlpha.dll"
+    },
+    {
+      "importDirectory": 0,
+      "machine": "I386",
+      "configuration": "Release",
+      "sha256": "bfd764665fe124b11cb2ccb4e1437010d6ab85c45acac5169c2d7d418db8ab1d",
+      "entryPoint": 0
+    },
+    {
+      "sha256": "90e6ededb6e0864da2955591b9d4696031cd986e79d4eccc9abcf665b10cc04d",
+      "entryPoint": 0,
+      "configuration": "Release",
+      "importDirectory": 0,
+      "machine": "I386",
+      "name": "Recovered.TextureDxtAlpha.dll"
+    }
+  ],
+  "runAttempt": "1"
+}
