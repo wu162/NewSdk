@@ -47,6 +47,8 @@ on:
       - 'recovery/tests/CompilerDocumentSnapshotOracle.cs'
       - 'recovery/tests/CompilerDocumentMetadata.cs'
       - 'recovery/tests/CompilerUpheavalSamples.cs'
+      - 'recovery/tests/CompilerStableSortMembership.cs'
+      - 'recovery/tests/CompilerStableSortStreams.cs'
       - 'recovery/tests/fixtures/UpheavalSmall/**'
       - 'recovery/tests/CompilerDependencyObservations.cs'
       - 'recovery/tests/CompilerBaseManifestIndex.cs'

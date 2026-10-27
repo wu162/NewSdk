@@ -77,6 +77,8 @@ try {
         @{name='CompilerDocumentSnapshots';marker='PASS DocumentSnapshots:';timeoutSeconds=600},
         @{name='CompilerDocumentMetadata';marker='PASS DocumentMetadata:';timeoutSeconds=600},
         @{name='CompilerUpheavalSamples';marker='PASS UpheavalSamples:';timeoutSeconds=600},
+        @{name='CompilerStableSortMembership';marker='PASS StableSortMembership:';timeoutSeconds=600},
+        @{name='CompilerStableSortStreams';marker='PASS StableSortStreams:';timeoutSeconds=600},
         @{name='CompilerExpressionPrograms';marker='PASS ExpressionPrograms:';timeoutSeconds=600},
         @{name='CompilerDependencyObservations';marker='PASS DependencyObservations:'},
         @{name='CompilerBaseManifestIndex';marker='PASS BaseManifestIndex:'},
