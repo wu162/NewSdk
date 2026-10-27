@@ -1,0 +1,42 @@
+{
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha"
+  ],
+  "selected": [
+    "dxt5-fast-alpha",
+    "dxt5-alpha"
+  ],
+  "status": "failed",
+  "runAttempt": "1",
+  "sourceCommit": "dc6ef1ea747c3ffc5d15729772079a73c66c4e03",
+  "runId": "40490402314",
+  "groups": [
+    {
+      "group": "dxt5-fast-alpha",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "dxt5-alpha",
+      "error": "Debug-quantizer failed",
+      "evidenceOnly": false,
+      "passed": false
+    }
+  ]
+}
