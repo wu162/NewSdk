@@ -722,6 +722,19 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-dxt-mips/*/validation.json",
       "sdk": true
+    },
+    "dxt-volume-boundaries": {
+      "script": "recovery/scripts/InspectTextureDxtVolumeBoundaries.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureDxtVolumeBoundaries.ps1",
+        "recovery/tests/TextureDxtVolumeBoundaries.cs",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/dxt-volume-boundaries/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"

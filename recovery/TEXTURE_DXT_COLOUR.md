@@ -1,6 +1,6 @@
 # PC TextureCompiler DXT恢复交接（2026-10-27）
 
-分支 `recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。当前默认71颜色/alpha、完整块、归一化float/小块、POT无mip整图与两个插件入口已恢复；最新小尺寸与SDK验收见本页末段 `81e3e76d` / 40508857046。生产SDK DLL/config未替换。以下按阶段保留原sourceCommit/runId，不把历史子集与原版取证冒充当前全部验收。下一批压缩mip见 [TEXTURE_DXT_MIPS_NEXT.md](TEXTURE_DXT_MIPS_NEXT.md)。
+分支 `recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。默认71颜色/alpha、完整块、float/小块、POT二维无mip与完整float mip、Texture/OnDemandTexture入口已验收。最新源码 `7ae4af37` / 40524039917 success，Debug/Release各3072整图/3584入口及NoOriginal；两个压缩SDK profile各712资产三模式通过。详细 [二维mip验收](TEXTURE_DXT_MIPS_NEXT.md)，下一组 [压缩volume](TEXTURE_DXT_VOLUME_NEXT.md)。生产SDK DLL/config未替换。下文保留各阶段原sourceCommit/runId，不把历史子集或原版取证冒充当前全部验收。
 
 ## 已验收：默认 Production=71 颜色状态
 
@@ -74,3 +74,8 @@ SDK集中运行 `40507166585`（源码 `3e884145`）的原两个raw profile三�
 ## SDK隔离补强（已验收）
 
 `73cae641` 只增加独立 `TextureDxtSdkTracePlugin.cs` 与NoOriginal编译标记：每次真实Core ProcessInstance前后验证原TextureCompiler DLL不存在、原程序集未加载；不修改业务源码与既有raw trace宿主。最终源码 `73cae6417889fd5fe9cb7fbce64229fb271c8c25` / [40510009285](https://github.com/wu162/NewSdk/actions/runs/40510009285) attempt1 completed/success：Original/Recovered/NoOriginal各712资产和实际调用，四产物及完整轨迹相同；NoOriginal收据明确 `assertedOriginalNotLoadedDuringEveryCall=true`。仅运行sdk-PcDxtNoMip，保留81e3e76d的组件与两个raw SDK精确证据，不冒充新跑组件。
+
+
+## PC二维完整压缩mip已验收
+
+源码 `7ae4af3769842084cd19cbff87c651c945f45888` / [40524039917](https://github.com/wu162/NewSdk/actions/runs/40524039917) success。完整float链和两实际入口、Debug/Release与NoOriginal、两个压缩SDK profile三模式各712资产/调用均通过，四产物与完整轨迹一致；共享triangle影响的raw回归和两个raw SDK profile也通过。详见 [完整范围与收据](TEXTURE_DXT_MIPS_NEXT.md)。此前“压缩mip待做”属于旧阶段限制；当前仍拒绝volume、NPOT与默认DXT1/1A。

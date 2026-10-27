@@ -29,3 +29,8 @@ PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平�
 
 
 `dxt-images` 验证真实Texture/OnDemandTexture的TGA/PNG/BMP无mip压缩入口、三缓冲区/完整cdata/旧文件尾及NoOriginal，1792输入明确区分1424成功输出与368原版拒绝。`dxt-samples` 独立验证归一化float与1/2/4小块，小尺寸无mip消费者另由dxt-dds2d/dxt-images/SDK取得完整验收，不能升级mip范围。`sdk-PcDxtNoMip` 仅在显式SDK请求时运行：178张原版可成功解码的输入、712个DXT3/5标准纹理资产，Original/Recovered/NoOriginal实际Core调用、四产物及完整轨迹比较。拒绝样例保留组件矩阵，不纳入SDK成功输入。
+
+
+`dxt-dds2d` / `dxt-images`现含完整PC POT二维float mip；新增显式SDK组`sdk-PcDxtMips`。共享triangle变化必须使其raw和压缩消费者共同失效。源码7ae4af37/40524039917已通过整批9组，复用19个未变成功组。
+
+`[texture-dxt-volume-boundaries]`显式选择`dxt-volume-boundaries`，同一集中入口采集416原版压缩volume样本（无mip/完整mip、header、完整DDS/RGBA/options/callback），manual_only/evidence_only、probe-only，不作为恢复或SDK验收。普通组件/SDK不会自动启动该探针。

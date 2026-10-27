@@ -1,6 +1,6 @@
-# PC DXT3/5 压缩 mip 下一批
+# PC DXT3/5 压缩 mip（已验收）
 
-此文是实现入口，不是完成声明。当前生产 SDK 未替换；压缩 mip / volume / NPOT / 默认 DXT1/1A 仍拒绝。最新组件、无 mip 插件与 SDK 状态以 [当前 DXT 交接](TEXTURE_DXT_COLOUR.md) 为准。继续在 `recovery/texturecompiler-source`，禁止强推，编译测试只用 GitHub Actions。
+PC POT 完整二维压缩 mip 已完成组件及专用MOD SDK验收，见末段精确锚点。当前生产 SDK 未替换；压缩 volume / NPOT / 默认 DXT1/1A 仍拒绝。最新组件、无 mip 插件与 SDK 状态以 [当前 DXT 交接](TEXTURE_DXT_COLOUR.md) 为准。继续在 `recovery/texturecompiler-source`，禁止强推，编译测试只用 GitHub Actions。
 
 ## 已可复用的实现与证据
 
@@ -29,6 +29,13 @@
 无签名托管程序集与自有NativeColour/NativeAlpha DLL须一同部署在临时SDK tools目录；原TextureCompiler DLL在NoOriginal模式必须不存在且未加载。正式生产替换、完整mymod或全TextureCompiler完成仍是后续门槛，本批专用MOD不能冒充完整生产验收。
 
 
-## 2026-10-27 实现检查点（待验证）
+## 2026-10-27 完整能力组验收
 
-已提取 TextureTriangleMipEncoder.Normalize/ResizeLevel 内部 float 层；raw 保留原计算次序，压缩第0级与每个目标级均直接送 EncodeFloatBlock。DXT DDS 保留无mip路径，新增完整float链、POT/存储/安全上限校验及逐级布局；原插件已传递 GenerateMipMaps，未另改路由。完整DDS矩阵3072、入口矩阵3584（含原版拒绝）、Debug/Release与完整NoOriginal重放；SDK新增PcDxtMips，沿用178输入/712资产与逐次隔离断言。全部待GitHub Actions，不能将检查点写作已支持。
+源码 `7ae4af3769842084cd19cbff87c651c945f45888` / [40524039917](https://github.com/wu162/NewSdk/actions/runs/40524039917) attempt1 completed/success。依赖选择执行9组、复用19组成功证据，不重测未变颜色/alpha/小块。实现为 TextureTriangleMipEncoder.Normalize/ResizeLevel 内部float层、TextureDxtDdsEncoder完整float链；raw计算次序不变。插件原先已传递GenerateMipMaps，现消费完整能力，不另改路由。
+
+- Debug/Release各3072整图，1,023,327检查；完整DDS头/payload逐字节、每层callback/布局、源输入不变及26个明确拒绝输入通过。24尺寸包含1/2小边、1×32、32×1、2×64、64×2、非方图与多块尾链，32图案覆盖均匀、双色、渐变、半步alpha与随机。相同3072完整链NoOriginal重放，各974,848字节比较通过。
+- 两实际入口各配置3584输入（2848成功输出/736原版拒绝匹配），18明确拒绝，16,506,816字节比较；包含TGA/PNG/BMP、显式DXT3/5与原DXT1 alpha推断、三缓冲区和新旧完整cdata；同量NoOriginal通过。
+- PcDxtNoMip与新PcDxtMips各三模式、每模式178输入图像/712资产和实际Core调用，四产物及完整轨迹一致。NoOriginal每次Core调用前后断言原DLL不存在且未加载，自有NativeColour/NativeAlpha一起部署并检查PE边界。
+- 共享triangle影响的mips、mip-images、raster-images全部通过；PcNoMip/PcMips raw SDK各600资产三模式通过。原版与恢复版使用相同专用MOD输入，生产SDK未替换。
+
+收据：`evidence/texture/{dxt-dds2d,dxt-images,sdk-dxt,sdk-dxt-mips,batch}/40524039917-1/validation.json`。原float小块等未变子组件保留原sourceCommit/runId。下一组压缩volume见 [TEXTURE_DXT_VOLUME_NEXT.md](TEXTURE_DXT_VOLUME_NEXT.md)，其递归Z后XY策略不能套用本二维base-relative策略。

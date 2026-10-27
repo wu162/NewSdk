@@ -1,14 +1,12 @@
 # TextureCompiler 当前续接（2026-10-27，本分支）
 
-本轮检查点（2026-10-27）：PC DXT3/5 POT 完整二维 mip 已写实现与完整测试，**待 Actions 验收，不宣称支持**。共享 triangle 浮点层，压缩链无 byte 中转；DDS 3072样本、入口3584样本、NoOriginal及新 PcDxtMips SDK profile 统一准备，依赖变化的 raw mip/SDK 消费者同步选择。volume/NPOT/DXT1/1A 仍拒绝。下方旧成功锚点保持原范围，后续先收取本轮实际 Actions 终态。
+`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。主入口 [TEXTURE_DXT_COLOUR.md](TEXTURE_DXT_COLOUR.md)。本轮起点远程头 `d0ab7450038056d35678d34c23fe7f6334426a75`；此前81e3e76d/40508857046与73cae641/40510009285已核实success并保留。
 
-`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。主入口 [TEXTURE_DXT_COLOUR.md](TEXTURE_DXT_COLOUR.md)。颜色状态 `2cee3446` / 40500150864、完整DXT3/5块 `b0278705` / 40500898688、二维无mip整图 `1a260825` / 40502726713 均已通过Debug/Release与NoOriginal。
+**PC DXT3/5 POT 完整二维 float mip 已验收并接入 Texture/OnDemandTexture。** 源码 `7ae4af3769842084cd19cbff87c651c945f45888` / [40524039917](https://github.com/wu162/NewSdk/actions/runs/40524039917) attempt1 completed/success。Debug/Release各3072完整DDS、3584入口（2848输出/736匹配原版拒绝）、18明确拒绝和同量NoOriginal通过；每层保持float，不量化回byte。PcDxtNoMip与新PcDxtMips SDK各Original/Recovered/NoOriginal三模式，每模式712资产/实际调用，四产物和完整buffer/cdata轨迹一致；NoOriginal每次Core调用前后确认原DLL不存在且未加载。两个受影响raw SDK profile各600资产三模式通过。共享triangle的raw mip/入口回归也通过，整批9组执行、19成功组复用。细节见 [TEXTURE_DXT_MIPS_NEXT.md](TEXTURE_DXT_MIPS_NEXT.md)。
 
-最新业务验收源码 `81e3e76d69634b7e934937ea23206792b5c9c039` / [40508857046](https://github.com/wu162/NewSdk/actions/runs/40508857046) success：PC DXT3/5 POT无mip整图与Texture/OnDemandTexture入口（包括1/2像素边）Debug/Release各1280完整DDS、1792插件输入（1424输出/368匹配原版拒绝）、22明确拒绝及NoOriginal通过；SDK三模式各178图像/712资产与实际调用，四产物和完整轨迹一致。同批两个raw SDK profile各600资产三模式通过。
+float/小块组件仍沿用 `9d487859` / 40506678502；颜色/alpha/native源码本轮未改，不重复重测这些成功组。416原版二维header/mip边界样本 `3319f50c` / 40507887013保持probe-only。源码与runId不得交叉冒充。
 
-float/小尺寸块组件沿用 `9d487859` / 40506678502（各4608 float原版对照、2304实际byte DDS交叉核对及NoOriginal）；416原版header/mip边界样本 `3319f50c` / 40507887013 为probe-only。SDK隔离补强源码 `73cae6417889fd5fe9cb7fbce64229fb271c8c25` / [40510009285](https://github.com/wu162/NewSdk/actions/runs/40510009285) success：三模式各712资产/调用、四产物与完整轨迹一致；NoOriginal每次Core调用前后断言原DLL不存在、原程序集未加载。只重跑该SDK组，业务源码未改。
-
-下一批是PC DXT3/5压缩mip完整能力组，按 [TEXTURE_DXT_MIPS_NEXT.md](TEXTURE_DXT_MIPS_NEXT.md) 使用归一化float层，禁止中途量化回byte。生产SDK DLL/config未改；压缩mip/volume、NPOT与默认DXT1/1A整块仍明确拒绝，完整mymod/全TextureCompiler未宣称完成。
+下一完整能力组为PC DXT3/5压缩volume（无mip与递归float mip），先收取 `dxt-volume-boundaries` 原版定向取证，再核对header、XY-only mipCount与完整XYZ payload/callback语义，按 [TEXTURE_DXT_VOLUME_NEXT.md](TEXTURE_DXT_VOLUME_NEXT.md) 推进。当前volume、NPOT与默认DXT1/1A整块仍明确拒绝。生产SDK DLL/config未改；专用MOD不能冒充完整mymod/全TextureCompiler完成。
 
 以下保留历史子系统与阶段记录，不以旧的“下一轮”覆盖上述当前入口。
 

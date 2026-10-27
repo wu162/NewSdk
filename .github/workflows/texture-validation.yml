@@ -34,7 +34,7 @@ permissions:
   contents: write
 jobs:
   plan:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[texture-test]') || contains(github.event.head_commit.message, '[texture-sdk]') || contains(github.event.head_commit.message, '[texture-plan]') || contains(github.event.head_commit.message, '[texture-dxt-evidence]') || contains(github.event.head_commit.message, '[texture-dxt-blocks]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[texture-test]') || contains(github.event.head_commit.message, '[texture-sdk]') || contains(github.event.head_commit.message, '[texture-plan]') || contains(github.event.head_commit.message, '[texture-dxt-evidence]') || contains(github.event.head_commit.message, '[texture-dxt-blocks]') || contains(github.event.head_commit.message, '[texture-dxt-volume-boundaries]')
     runs-on: ubuntu-latest
     outputs:
       has_work: ${{ steps.select.outputs.has_work }}
@@ -47,7 +47,7 @@ jobs:
       - name: Select affected groups and preserve original acceptance anchors
         id: select
         env:
-          FORCE_GROUPS: ${{ inputs.force_groups || (contains(github.event.head_commit.message, '[texture-dxt-blocks]') && 'dxt-blocks') || (contains(github.event.head_commit.message, '[texture-dxt-evidence]') && 'dxt-symbols') || 'auto' }}
+          FORCE_GROUPS: ${{ inputs.force_groups || (contains(github.event.head_commit.message, '[texture-dxt-volume-boundaries]') && 'dxt-volume-boundaries') || (contains(github.event.head_commit.message, '[texture-dxt-blocks]') && 'dxt-blocks') || (contains(github.event.head_commit.message, '[texture-dxt-evidence]') && 'dxt-symbols') || 'auto' }}
           REQUEST_SDK: ${{ inputs.run_sdk || contains(github.event.head_commit.message, '[texture-sdk]') }}
           ONLY_PLAN: ${{ inputs.plan_only || contains(github.event.head_commit.message, '[texture-plan]') }}
         run: |
@@ -98,4 +98,5 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path recovery/evidence/texture -Message "texture: record batch $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+
 
