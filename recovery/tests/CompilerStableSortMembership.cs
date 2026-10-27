@@ -16,7 +16,7 @@ public sealed class StableMembershipCase
 {
     public string name, culture = "en-US";
     public int count = 40, extraBindings;
-    public bool legacyBindings, customComparer, customDictionary, customCulture, derivedHandle, derivedDeclaration, derivedSet, derivedList, duplicateOutput, traceMutation, collision, xorQuery, entryBudget;
+    public bool legacyBindings, customComparer, customDictionary, customCulture, derivedHandle, derivedDeclaration, derivedSet, derivedList, duplicateOutput, traceMutation, swapSchemaAfterTypeSort, collision, xorQuery, entryBudget;
 }
 [Serializable]
 public sealed class StableMembershipResult
@@ -32,7 +32,7 @@ public sealed class StableMembershipRunner
     readonly Assembly core;
     readonly Type docType, instanceType, handleType, setType, processorType, settingsType, schemaType, tracerType;
     readonly JavaScriptSerializer json = new JavaScriptSerializer();
-    object document, current, manager, settings, oldSettings, tracer;
+    object document, current, manager, processor, settings, oldSettings, tracer;
     object[] instances;
     IList outputs;
     IDictionary<uint, int> counts;
@@ -40,6 +40,7 @@ public sealed class StableMembershipRunner
     object oldWriter, oldMask, oldTraceEnabled;
     FieldInfo writerField, maskField;
     int callbacks;
+    bool schemaMapReplaced;
     Type derivedHandleType;
     readonly Dictionary<Type, Type> plainDerived = new Dictionary<Type, Type>();
     public StableMembershipRunner(Assembly assembly)
@@ -108,7 +109,7 @@ public sealed class StableMembershipRunner
     }
     void Prepare(StableMembershipCase value)
     {
-        spec = value; callbacks = 0;
+        spec = value; callbacks = 0; schemaMapReplaced = false;
         oldSettings = settingsType.GetField("Current", All).GetValue(null);
         settings = Activator.CreateInstance(settingsType); settingsType.GetProperty("BuildCache").SetValue(settings, false, null);
         settingsType.GetField("Current", All).SetValue(null, settings);
@@ -116,7 +117,7 @@ public sealed class StableMembershipRunner
             spec.customComparer ? new SortedDictionary<uint, int>(new ReverseUInt()) : new SortedDictionary<uint, int>();
         document = Activator.CreateInstance(docType); current = Activator.CreateInstance(docType.GetNestedType("CurrentState", BindingFlags.NonPublic), true);
         Field(docType, "_Current").SetValue(document, current); Set(current, "SourcePath", "reflection-graph://" + spec.name);
-        object processor = processorType.GetMethod("RecordStableSortMembershipWork", All) == null ? FormatterServices.GetUninitializedObject(processorType)
+        processor = processorType.GetMethod("RecordStableSortMembershipWork", All) == null ? FormatterServices.GetUninitializedObject(processorType)
             : Activator.CreateInstance(processorType, new[] { settings, null, null });
         object schemas = FormatterServices.GetUninitializedObject(schemaType); Set(schemas, "_AssetDependencies", counts);
         processorType.GetProperty("SchemaSet").SetValue(processor, schemas, null); Set(current, "DocumentProcessor", processor);
@@ -153,11 +154,22 @@ public sealed class StableMembershipRunner
         oldWriter = writerField.GetValue(null); oldMask = maskField.GetValue(null);
         tracer = Field(docType, "_Tracer").GetValue(null); oldTraceEnabled = Get(tracer, "_TraceEnabled");
         Set(tracer, "_TraceEnabled", false); tracerType.GetMethod("SetTraceLevel").Invoke(null, new object[] { 9 });
-        writerField.SetValue(null, spec.traceMutation ? Delegate.CreateDelegate(writerField.FieldType, this, GetType().GetMethod("Trace")) : null);
+        writerField.SetValue(null, spec.traceMutation || spec.swapSchemaAfterTypeSort ? Delegate.CreateDelegate(writerField.FieldType, this, GetType().GetMethod("Trace")) : null);
     }
     public void Trace(string source, TraceEventType kind, string message)
     {
-        if (message == "Sorting by asset dependencies" && callbacks == 0) { callbacks++; Set(Handle(instances[0]), "_InstanceId", 0x60000001u); }
+        if (message == "Sorting by asset dependencies" && callbacks == 0)
+        {
+            callbacks++;
+            if (spec.traceMutation) Set(Handle(instances[0]), "_InstanceId", 0x60000001u);
+            if (spec.swapSchemaAfterTypeSort)
+            {
+                object replacement = FormatterServices.GetUninitializedObject(schemaType);
+                Set(replacement, "_AssetDependencies", new SortedDictionary<uint, int>(counts));
+                processorType.GetProperty("SchemaSet").SetValue(processor, replacement, null);
+                schemaMapReplaced = true;
+            }
+        }
     }
     object Order(IList list)
     {
@@ -232,7 +244,7 @@ public sealed class StableMembershipRunner
             error = failure.GetType().Name + ":" + failure.Message;
         }
         finally { Restore(); CultureInfo.CurrentCulture = oldCulture; AppContext.SetSwitch("NewSdk.Compiler.DisableStableSortMembershipIndex", oldSwitch); }
-        return new StableMembershipResult { outcome = json.Serialize(new { error, positions = positions.ToArray(), order, callbacks }), metrics = metrics, elapsedTicks = ticks };
+        return new StableMembershipResult { outcome = json.Serialize(new { error, positions = positions.ToArray(), order, callbacks, schemaMapReplaced }), metrics = metrics, elapsedTicks = ticks };
     }
 }
 public sealed class LegacyStableMembershipDomain : MarshalByRefObject
@@ -278,6 +290,7 @@ public static class CompilerStableSortMembership
             cases.Add(new StableMembershipCase { name = "legacy-bindings", legacyBindings = true });
             cases.Add(new StableMembershipCase { name = "custom-schema-comparer", customComparer = true });
             cases.Add(new StableMembershipCase { name = "custom-schema-dictionary", customDictionary = true });
+            cases.Add(new StableMembershipCase { name = "captured-custom-map-followed-by-trace-schema-swap", customDictionary = true, swapSchemaAfterTypeSort = true });
             cases.Add(new StableMembershipCase { name = "custom-culture", customCulture = true });
             cases.Add(new StableMembershipCase { name = "derived-Equals-untraced-mutation", derivedHandle = true });
             cases.Add(new StableMembershipCase { name = "derived-declaration", derivedDeclaration = true });
@@ -307,6 +320,13 @@ public static class CompilerStableSortMembership
                 if (item.name == "en-US-40") Require(metrics != null && Convert.ToInt64(metrics["builds"]) > 0 && Convert.ToInt64(metrics["indexQueries"]) > 0, "Actual StableSort did not use admitted membership indexes");
                 if (item.legacyBindings || item.customComparer || item.customDictionary || item.customCulture || item.derivedHandle || item.derivedDeclaration || item.derivedSet || item.derivedList || item.extraBindings > 0)
                     Require(metrics != null && Convert.ToInt64(metrics["indexQueries"]) == 0 && Convert.ToInt64(metrics["builds"]) == 0, "Unsafe scope was indexed: " + item.name);
+                if (item.swapSchemaAfterTypeSort)
+                {
+                    var actualRow = Json.Deserialize<Dictionary<string, object>>(actual.outcome);
+                    Require((bool)actualRow["schemaMapReplaced"] && Convert.ToInt64(actualRow["callbacks"]) == 1 && metrics != null &&
+                        (string)metrics["scopeReason"] == "custom-schema-dependency-dictionary-or-comparer",
+                        "Eligibility guard did not follow the custom map captured by the actual TypeDepCompare across final-trace schema replacement");
+                }
                 if (item.entryBudget) Require(metrics != null && (string)metrics["scopeReason"] == "entry-budget" && Convert.ToInt64(metrics["budgetBypasses"]) > 0,
                     "Cumulative entry budget did not reject the actual aliased-binding scope");
                 if (item.xorQuery) Require(metrics != null && Convert.ToInt64(metrics["indexQueries"]) > 0, "Full-identity differential never used indexed membership");
