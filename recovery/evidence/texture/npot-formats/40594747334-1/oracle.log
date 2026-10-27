@@ -1,0 +1,1 @@
+PROBE Texture NPOT D3DX format cases=16 checks=53; getter float bits/setter stored bytes with dither and row parity; original-only, no recovered acceptance

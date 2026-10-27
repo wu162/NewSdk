@@ -1,0 +1,278 @@
+{
+  "probeOnly": true,
+  "evidenceOnly": true,
+  "runId": "40594747334",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "sdkValidated": false,
+  "sourceCommit": "a46b14bd30311b9ffb5202562af952ed94f9561c",
+  "runAttempt": "1",
+  "files": [
+    {
+      "sha256": "2b18a21319b1af087f2b028e77819bc07b20ce38bd6c30322097067e017f21c5",
+      "bytes": 64,
+      "name": "0800004A-dither0.getter.float"
+    },
+    {
+      "sha256": "1fcda717b0e24f134f1c232bf58b0db180cc318cff0b43f08d5ff5c908015f12",
+      "bytes": 8,
+      "name": "0800004A-dither0.setter-y0.bin"
+    },
+    {
+      "sha256": "1fcda717b0e24f134f1c232bf58b0db180cc318cff0b43f08d5ff5c908015f12",
+      "bytes": 8,
+      "name": "0800004A-dither0.setter-y1.bin"
+    },
+    {
+      "sha256": "2b18a21319b1af087f2b028e77819bc07b20ce38bd6c30322097067e017f21c5",
+      "bytes": 64,
+      "name": "0800004A-dither1.getter.float"
+    },
+    {
+      "sha256": "c46f49fa292c13eb28807887fd80306ef17436e8143e9c5a716559e44b8ba489",
+      "bytes": 8,
+      "name": "0800004A-dither1.setter-y0.bin"
+    },
+    {
+      "sha256": "c46f49fa292c13eb28807887fd80306ef17436e8143e9c5a716559e44b8ba489",
+      "bytes": 8,
+      "name": "0800004A-dither1.setter-y1.bin"
+    },
+    {
+      "sha256": "eb422cac5667b9629dc3c0c7a7edeee2febc1dee8fde15a4c40a85059fa86689",
+      "bytes": 64,
+      "name": "18280043-dither0.getter.float"
+    },
+    {
+      "sha256": "423f74dadb0c9a216c9063075a26ceadb289b63892c11e856f1d98c4f886ff8e",
+      "bytes": 8,
+      "name": "18280043-dither0.setter-y0.bin"
+    },
+    {
+      "sha256": "423f74dadb0c9a216c9063075a26ceadb289b63892c11e856f1d98c4f886ff8e",
+      "bytes": 8,
+      "name": "18280043-dither0.setter-y1.bin"
+    },
+    {
+      "sha256": "eb422cac5667b9629dc3c0c7a7edeee2febc1dee8fde15a4c40a85059fa86689",
+      "bytes": 64,
+      "name": "18280043-dither1.getter.float"
+    },
+    {
+      "sha256": "2131c3b398bd0aa40e2ef5dfbbf624e608f7c53426769f27a74f2bc7f9871778",
+      "bytes": 8,
+      "name": "18280043-dither1.setter-y0.bin"
+    },
+    {
+      "sha256": "a087725c97c81f6bf957f93af18ffa0dc377468bb412c8cc8d1bbb7fab34b30a",
+      "bytes": 8,
+      "name": "18280043-dither1.setter-y1.bin"
+    },
+    {
+      "sha256": "025452967855a1d9e7dfa89b3aaeb75066a5fc746e49b2816b6e43500fa627f9",
+      "bytes": 64,
+      "name": "18280086-dither0.getter.float"
+    },
+    {
+      "sha256": "95a33aaec3d3206770fa68e0d017983d4e444366b1b695f8b79c1f9fbad7d6ac",
+      "bytes": 16,
+      "name": "18280086-dither0.setter-y0.bin"
+    },
+    {
+      "sha256": "95a33aaec3d3206770fa68e0d017983d4e444366b1b695f8b79c1f9fbad7d6ac",
+      "bytes": 16,
+      "name": "18280086-dither0.setter-y1.bin"
+    },
+    {
+      "sha256": "025452967855a1d9e7dfa89b3aaeb75066a5fc746e49b2816b6e43500fa627f9",
+      "bytes": 64,
+      "name": "18280086-dither1.getter.float"
+    },
+    {
+      "sha256": "d07345313f50cf46b3288ccaada34f619fb00b8501472cf886b705e8a97c6b69",
+      "bytes": 16,
+      "name": "18280086-dither1.setter-y0.bin"
+    },
+    {
+      "sha256": "95a33aaec3d3206770fa68e0d017983d4e444366b1b695f8b79c1f9fbad7d6ac",
+      "bytes": 16,
+      "name": "18280086-dither1.setter-y1.bin"
+    },
+    {
+      "sha256": "61bada59f724e1cc9d024dd15ca343959d9c35c648b3a4b907c64f4920fb0f0a",
+      "bytes": 64,
+      "name": "1A20005A-dither0.getter.float"
+    },
+    {
+      "sha256": "2812b0d24e1a8577de23d4a57ffd937c8dfeea4f4642111652658b85a0227395",
+      "bytes": 32,
+      "name": "1A20005A-dither0.setter-y0.bin"
+    },
+    {
+      "sha256": "2812b0d24e1a8577de23d4a57ffd937c8dfeea4f4642111652658b85a0227395",
+      "bytes": 32,
+      "name": "1A20005A-dither0.setter-y1.bin"
+    },
+    {
+      "sha256": "61bada59f724e1cc9d024dd15ca343959d9c35c648b3a4b907c64f4920fb0f0a",
+      "bytes": 64,
+      "name": "1A20005A-dither1.getter.float"
+    },
+    {
+      "sha256": "5f4a1fd96e438e50fba365621b0be174561ed64a4610e6d5c87903e80d8b0c8e",
+      "bytes": 32,
+      "name": "1A20005A-dither1.setter-y0.bin"
+    },
+    {
+      "sha256": "4357a868445d2415682776dd37d39581dd34291806f68621eb3ea22e9816c387",
+      "bytes": 32,
+      "name": "1A20005A-dither1.setter-y1.bin"
+    },
+    {
+      "sha256": "2ecc4e57969ec215d95e2dfb05b3c983953e6d19626fee0cf919bfecd3c77b32",
+      "bytes": 64,
+      "name": "28000002-dither0.getter.float"
+    },
+    {
+      "sha256": "f2f00e1075b73f64a9d990286a457e0450363d67f74fcc7bfff18a1a38aa74b7",
+      "bytes": 4,
+      "name": "28000002-dither0.setter-y0.bin"
+    },
+    {
+      "sha256": "f2f00e1075b73f64a9d990286a457e0450363d67f74fcc7bfff18a1a38aa74b7",
+      "bytes": 4,
+      "name": "28000002-dither0.setter-y1.bin"
+    },
+    {
+      "sha256": "2ecc4e57969ec215d95e2dfb05b3c983953e6d19626fee0cf919bfecd3c77b32",
+      "bytes": 64,
+      "name": "28000002-dither1.getter.float"
+    },
+    {
+      "sha256": "c860de8344a7cd50c1ab5689738a3ed5a51122d7de1eddcbb86138979bece940",
+      "bytes": 4,
+      "name": "28000002-dither1.setter-y0.bin"
+    },
+    {
+      "sha256": "c860de8344a7cd50c1ab5689738a3ed5a51122d7de1eddcbb86138979bece940",
+      "bytes": 4,
+      "name": "28000002-dither1.setter-y1.bin"
+    },
+    {
+      "sha256": "b64b6c9f1697a53fda6e0c671647a57435b797db98b862b72eb70048ca800364",
+      "bytes": 64,
+      "name": "28000058-dither0.getter.float"
+    },
+    {
+      "sha256": "35385c1ef7adb2458d4c37d6d941e42d8dd8bd72d910298e7040a14cb1743c84",
+      "bytes": 8,
+      "name": "28000058-dither0.setter-y0.bin"
+    },
+    {
+      "sha256": "35385c1ef7adb2458d4c37d6d941e42d8dd8bd72d910298e7040a14cb1743c84",
+      "bytes": 8,
+      "name": "28000058-dither0.setter-y1.bin"
+    },
+    {
+      "sha256": "b64b6c9f1697a53fda6e0c671647a57435b797db98b862b72eb70048ca800364",
+      "bytes": 64,
+      "name": "28000058-dither1.getter.float"
+    },
+    {
+      "sha256": "35385c1ef7adb2458d4c37d6d941e42d8dd8bd72d910298e7040a14cb1743c84",
+      "bytes": 8,
+      "name": "28000058-dither1.setter-y0.bin"
+    },
+    {
+      "sha256": "35385c1ef7adb2458d4c37d6d941e42d8dd8bd72d910298e7040a14cb1743c84",
+      "bytes": 8,
+      "name": "28000058-dither1.setter-y1.bin"
+    },
+    {
+      "sha256": "16e713639551d26dd9d2ce3c9e254ba4a50d422a11c49cfe0b1da53c3295bc58",
+      "bytes": 64,
+      "name": "28280043-dither0.getter.float"
+    },
+    {
+      "sha256": "2279b7bae62f9c80bbe2d8a8e19c6bd348ba5e3f9b7b7ce589d8165010a272a4",
+      "bytes": 8,
+      "name": "28280043-dither0.setter-y0.bin"
+    },
+    {
+      "sha256": "2279b7bae62f9c80bbe2d8a8e19c6bd348ba5e3f9b7b7ce589d8165010a272a4",
+      "bytes": 8,
+      "name": "28280043-dither0.setter-y1.bin"
+    },
+    {
+      "sha256": "16e713639551d26dd9d2ce3c9e254ba4a50d422a11c49cfe0b1da53c3295bc58",
+      "bytes": 64,
+      "name": "28280043-dither1.getter.float"
+    },
+    {
+      "sha256": "d5828c0e5a250509224a8e5febbfe3544f076c04e119e31fc82fc34fe75b53b8",
+      "bytes": 8,
+      "name": "28280043-dither1.setter-y0.bin"
+    },
+    {
+      "sha256": "b8dd9f1cdb3c4350ee68e4149566cbcebc398e64b12c345f783ea6fbfd3f6509",
+      "bytes": 8,
+      "name": "28280043-dither1.setter-y1.bin"
+    },
+    {
+      "sha256": "b50515e664dc8eb148c97eb2476007c0e5846ea122759a0b827a6cb8d52fcf7c",
+      "bytes": 64,
+      "name": "28280086-dither0.getter.float"
+    },
+    {
+      "sha256": "7d05a7d95a011cf632a2fd6e1949091cc05ed3d3af622b17cae3830dba0a46fe",
+      "bytes": 16,
+      "name": "28280086-dither0.setter-y0.bin"
+    },
+    {
+      "sha256": "7d05a7d95a011cf632a2fd6e1949091cc05ed3d3af622b17cae3830dba0a46fe",
+      "bytes": 16,
+      "name": "28280086-dither0.setter-y1.bin"
+    },
+    {
+      "sha256": "b50515e664dc8eb148c97eb2476007c0e5846ea122759a0b827a6cb8d52fcf7c",
+      "bytes": 64,
+      "name": "28280086-dither1.getter.float"
+    },
+    {
+      "sha256": "266217b25ee849dfa5eacc67d5f62df1119067d2524d63bf45936959dd4136f2",
+      "bytes": 16,
+      "name": "28280086-dither1.setter-y0.bin"
+    },
+    {
+      "sha256": "7d05a7d95a011cf632a2fd6e1949091cc05ed3d3af622b17cae3830dba0a46fe",
+      "bytes": 16,
+      "name": "28280086-dither1.setter-y1.bin"
+    },
+    {
+      "sha256": "842d0a3b3d59e4f6ace7e4c036074c3655d1ab516fa9ad82974748dded55aee1",
+      "bytes": 1024,
+      "name": "constants-98000.bin"
+    },
+    {
+      "sha256": "b94232a1c7e0b31eecc6a6cd865a5babbea359fea5407ff5de51d26e0bb746b6",
+      "bytes": 9524,
+      "name": "constants-98000.tsv"
+    },
+    {
+      "sha256": "91826f97b5fdfbfe3df6158769168eb61a477e45ded71c2ff6c40419ed1a4c71",
+      "bytes": 1536,
+      "name": "constants-99a00.bin"
+    },
+    {
+      "sha256": "6e9299251fa1dc6f0e89dfb89995d43445f64acd5e09880206a48cc4104eafa4",
+      "bytes": 14856,
+      "name": "constants-99a00.tsv"
+    },
+    {
+      "sha256": "5ae389a7d617c98190e67ff0cbfbadcb65d6df4a1dd0bfd873e9379035301b3d",
+      "bytes": 9768,
+      "name": "transcript.tsv"
+    }
+  ],
+  "status": "probe-only",
+  "scope": "original-only PC D3DX eight format getter/setter float bits, dither/row parity and constants; external data ownership and original converter destruction preserved; no recovered acceptance"
+}
