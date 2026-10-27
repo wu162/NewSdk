@@ -37,7 +37,7 @@ internal sealed class CompilerStableSortMembership
     private CompilerStableSortMembership(Work work) { this.work = work; callbackVersion = Tracer.CallbackVersion; }
     private void Reject(string reason, bool budget = false)
     {
-        active = false; work.Reason = reason;
+        active = false; work.Enabled = false; work.Reason = reason;
         if (budget) work.BudgetBypasses++; else work.UnsafeScopeBypasses++;
     }
     private static bool ExactHandle(InstanceHandle handle) { return (object)handle != null && handle.GetType() == typeof(InstanceHandle); }
@@ -94,7 +94,7 @@ internal sealed class CompilerStableSortMembership
     {
         if (active && Tracer.CallbackVersion != callbackVersion)
         {
-            active = false; work.CallbackFallbacks++; work.Reason = "callback-version-changed";
+            active = false; work.Enabled = false; work.CallbackFallbacks++; work.Reason = "callback-version-changed";
         }
         if (active && (!allowed.Contains(dependencies) || !ExactHandle(handle))) Reject("changed-or-unsafe-query-graph");
         if (!active) { work.LinearQueries++; return dependencies.Contains(handle); }
