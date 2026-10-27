@@ -400,7 +400,8 @@
       "arguments": {},
       "dependencies": [
         "recovery/scripts/InspectTextureDxtLibrary.ps1",
-        "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll"
+        "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll",
+        "recovery/scripts/MatchTextureDxtCode.py"
       ],
       "evidence": "recovery/evidence/texture/dxt-library/*/validation.json",
       "manual_only": true,

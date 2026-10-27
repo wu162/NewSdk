@@ -37,6 +37,9 @@ try{
  Compress-Archive -Path "$out/linker-members.txt","$out/object-symbols.txt" -DestinationPath "$out/coff-symbols.zip"
  $r.symbolArchiveSha256=(Get-FileHash "$out/coff-symbols.zip").Hash.ToLowerInvariant()
  Remove-Item "$out/linker-members.txt","$out/object-symbols.txt"
+ & python recovery/scripts/MatchTextureDxtCode.py SDK/tools/BinaryAssetBuilder.TextureCompiler.dll $lib "$out/code-matches.json" *> "$out/code-matches.log"
+ if($LASTEXITCODE -ne 0){Get-Content "$out/code-matches.log";throw 'COFF/PE code matching failed'}
+ Get-Content "$out/code-matches.log"
  $r.status='probe-only'
  Write-Output "PROBE Texture DXT reference symbols=$($selected.Count) bytes=$($r.referenceBytes); no original/reference binary equivalence established"
 }finally{$r|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"}
