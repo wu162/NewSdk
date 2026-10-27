@@ -145,6 +145,65 @@ public static class CompilerTransferBuffers
         AppContext.SetSwitch(Disable, false);
         tests.Add("actual-CopyAsset-and-LinkStream-lazy-per-processor-ownership-no-alias-reuse-captured-fallback-mode-header-tail-and-temporary-contracts");
     }
+    static void MutableCacheRepairContracts()
+    {
+        Settings.Current = new Settings { BuildCache = false, SessionCache = false, LinkedStreams = true, CustomPostfix = "", TargetPlatform = TargetPlatform.Win32 };
+        AppContext.SetSwitch(Disable, false); var owner = Owner();
+        foreach (string condition in new[] { "wrong-identity", "invalid-declared-length" })
+        {
+            string label = "mutable-cache-repair-" + condition;
+            var instance = Instance(Document(owner, label)); var asset = Manager(owner, label).GetBinaryAsset(instance, true);
+            byte[] valid = File.ReadAllBytes(Source(instance, label + "-valid", Payload(64), new byte[0], new byte[0]));
+            byte[] invalid = (byte[])valid.Clone();
+            byte[] changed = BitConverter.GetBytes(condition == "wrong-identity" ? instance.Handle.InstanceHash + 1 : 65u);
+            System.Buffer.BlockCopy(changed, 0, invalid, condition == "wrong-identity" ? 12 : 16, changed.Length);
+            string cache = Path.Combine(work, label + "-external-cache"); Directory.CreateDirectory(cache);
+            string source = Path.Combine(cache, asset.AssetFileName), destination = Path.Combine(asset.AssetOutputDirectory, asset.AssetFileName), temporary = destination + ".tmp";
+            File.WriteAllBytes(source, invalid); typeof(BinaryAsset).GetField("_CacheDirectory", Hidden).SetValue(asset, cache);
+            Require(asset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == AssetLocation.Cache, "Repair fixture did not establish an available external cache asset");
+            using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, label + "-snapshot")))
+            using (snapshot.BeginReadScope())
+            {
+                // No manual capture here: this is the actual default consumer
+                // under an active snapshot. Eagerly pinning its repairable cache
+                // source would break the legacy delete/fix/retry contract.
+                bool copied = Copy(asset, source);
+                if (condition == "wrong-identity")
+                {
+                    Require(!copied && !File.Exists(destination) && File.Exists(temporary) && new FileInfo(temporary).Length == 0,
+                        "Wrong identity changed the original false/final/empty-temporary contract");
+                    using (var writable = File.Open(source, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
+                }
+                else
+                {
+                    Require(copied && File.ReadAllBytes(destination).SequenceEqual(invalid) && !File.Exists(temporary),
+                        "CopyAsset must retain its original deferred declared-length validation");
+                    Require(asset.GetLocation(AssetLocation.Output, AssetLocationOption.ForceUpdate) == AssetLocation.Output, "Malformed output was not available for the original repair path");
+                    bool rejected = false;
+                    try { typeof(BinaryAsset).GetMethod("UpdateAssetHeader", Hidden).Invoke(asset, new object[] { true }); }
+                    catch (TargetInvocationException error)
+                    {
+                        var original = error.InnerException as BinaryAssetBuilderException;
+                        rejected = original != null && original.ErrorCode == ErrorCode.UnexpectedSize;
+                        if (!rejected) throw error.InnerException;
+                    }
+                    Require(rejected && !File.Exists(destination) && !File.Exists(source),
+                        "Original invalid-output/cache deletion and UnexpectedSize recovery was blocked or changed");
+                }
+                File.WriteAllBytes(source, valid);
+                Require(Copy(asset, source) && File.ReadAllBytes(destination).SequenceEqual(valid) && !File.Exists(temporary),
+                    "External cache could not be repaired and recopied within the same active snapshot scope");
+                Require(asset.InstanceFileSize == 64, "Repaired asset retained stale malformed header state");
+                snapshot.VerifyUnchanged();
+                var metrics = Json.Deserialize<Dictionary<string, object>>(Json.Serialize(snapshot.GetMetrics()));
+                Require(Number(metrics, "captures") == 0 && Number(metrics, "activeReadHandles") == 0,
+                    "Mutable BinaryAsset cache inputs were prematurely pinned as immutable physical inputs");
+                observations.Add(new { id = "active-snapshot-default-mutable-cache-repair", condition, metrics,
+                    scope = "Original CopyAsset and UpdateAssetHeader repair contract; BinaryAsset immutable input capture remains deliberately unimplemented" });
+            }
+        }
+        tests.Add("active-snapshot-default-BinaryAsset-wrong-identity-false-empty-temp-and-deferred-length-invalid-cache-deletion-remain-mutable-repair-and-retry");
+    }
     static Settings Configure(string name)
     {
         var config = new XmlDocument(); config.Load(Path.Combine(sdk, "tools/BinaryAssetBuilder.exe.config"));
@@ -215,7 +274,7 @@ public static class CompilerTransferBuffers
         try
         {
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
-            OwnershipAndBoundaries(); RealCore();
+            OwnershipAndBoundaries(); MutableCacheRepairContracts(); RealCore();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(), scope = "Serial per-DocumentProcessor copy/link scratch ownership and actual consumers only; new direct-Core input cancellation and existing backend single-lease/cancellation matrices retain their separate scopes; this is not complete W09 state isolation or parallel execution" };
             Console.WriteLine("PASS TransferBuffers: " + tests.Count + " groups; " + checks + " checks");
         }
