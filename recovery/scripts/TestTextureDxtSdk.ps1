@@ -6,7 +6,7 @@ $out="recovery/evidence/texture/sdk-dxt/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEM
 $work=Join-Path $env:RUNNER_TEMP ('texture-sdk-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work | Out-Null
 $out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='EALAModStudio case5 BAB build of dedicated aligned no-mip PC DXT3/5 TGA/PNG/BMP standard texture MOD';profile='PcDxtNoMip';targetPlatform='Win32';modes=@()}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='EALAModStudio case5 BAB build of dedicated POT including partial-block no-mip PC DXT3/5 TGA/PNG/BMP standard texture MOD';profile='PcDxtNoMip';targetPlatform='Win32';modes=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 60;throw "$name failed"}}
 try{
  Checked recovered-build {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c Release -o "$work/build" --nologo}
@@ -41,7 +41,7 @@ try{
     }
   }
   $expectedAssets=$nodes.Count
-  if($expectedAssets -ne 456){throw "Expected 456 compressed texture assets, got $expectedAssets"}
+  if($expectedAssets -ne 712){throw "Expected 712 compressed texture assets, got $expectedAssets"}
 
   "<?xml version='1.0'?><AssetDeclaration xmlns='uri:ea.com:eala:asset'><Tags />$($nodes -join "`n")</AssetDeclaration>"|Set-Content "$moddir/Data/Mod.xml" -Encoding utf8
   $trace="$out/$mode-trace";New-Item -ItemType Directory -Force $trace|Out-Null

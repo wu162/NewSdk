@@ -93,9 +93,9 @@ internal static unsafe class TextureDxtDdsDifferential
             }
             object[][] rejectedInputs = {
                 new object[]{0u,4u,new byte[0],"D3DFMT_DXT3",false},
-                new object[]{1u,4u,new byte[16],"D3DFMT_DXT3",false},
-                new object[]{2u,4u,new byte[32],"D3DFMT_DXT3",false},
-                new object[]{4u,2u,new byte[32],"D3DFMT_DXT5",false},
+                new object[]{1u,4u,new byte[15],"D3DFMT_DXT3",false},
+                new object[]{2u,4u,new byte[31],"D3DFMT_DXT3",false},
+                new object[]{4u,2u,new byte[31],"D3DFMT_DXT5",false},
                 new object[]{6u,4u,new byte[96],"D3DFMT_DXT3",false},
                 new object[]{4u,6u,new byte[96],"D3DFMT_DXT5",false},
                 new object[]{4096u,4096u,new byte[0],"D3DFMT_DXT3",false},
@@ -122,10 +122,10 @@ internal static unsafe class TextureDxtDdsDifferential
             Check(original.ManifestModule.ResolveMethod(0x060000DC).Name=="nvDDS.nvDXTcompress","Native token");
             IntPtr module=Marshal.GetHINSTANCE(original.ManifestModule);Check(module!=IntPtr.Zero&&module!=new IntPtr(-1),"Native base");
             Compressor compressor=(Compressor)Marshal.GetDelegateForFunctionPointer(IntPtr.Add(module,0x52b60),typeof(Compressor));
-            int[][] sizes={new[]{4,4},new[]{4,8},new[]{8,4},new[]{8,8},new[]{4,16},new[]{16,4},new[]{8,16},new[]{16,8},new[]{16,16},new[]{8,32},new[]{32,8},new[]{32,32}};
+            int[][] sizes={new[]{1,1},new[]{1,2},new[]{2,1},new[]{2,2},new[]{1,8},new[]{8,1},new[]{2,16},new[]{16,2},new[]{4,4},new[]{4,8},new[]{8,4},new[]{8,8},new[]{4,16},new[]{16,4},new[]{8,16},new[]{16,8},new[]{16,16},new[]{8,32},new[]{32,8},new[]{32,32}};
             using(var replay=new BinaryWriter(File.Create(output+".replay")))
             using(var transcript=new StreamWriter(output)) {
-                replay.Write(768);
+                replay.Write(1280);
                 transcript.WriteLine("format\twidth\theight\tpattern\tbytes\tsha256");
                 foreach(string format in new[]{"D3DFMT_DXT3","D3DFMT_DXT5"})foreach(int[] size in sizes)for(int pattern=0;pattern<32;pattern++) {
                     uint width=(uint)size[0],height=(uint)size[1];byte[] pixels=Pixels(width,height,pattern%8);
@@ -141,7 +141,7 @@ internal static unsafe class TextureDxtDdsDifferential
                     transcript.WriteLine(format+"\t"+width+"\t"+height+"\t"+pattern+"\t"+actual.Length+"\t"+Hash(actual));fixtures++;
                 }
             }
-            Console.WriteLine("PASS Texture complete DXT3/DXT5 2D DDS fixtures="+fixtures+" checks="+checks+"; PC Production=71; full header and payload; aligned POT no-mip only; no plugin/SDK acceptance");return 0;
+            Console.WriteLine("PASS Texture complete DXT3/DXT5 2D DDS fixtures="+fixtures+" checks="+checks+"; PC Production=71; full header and payload; POT including partial-block no-mip only; no plugin/SDK acceptance");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}finally{if(owner!=null)owner.Dispose();}
     }
 }

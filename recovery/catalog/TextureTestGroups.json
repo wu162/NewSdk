@@ -562,7 +562,8 @@
         "recovery/tests/TextureDxtDdsNoOriginal.cs",
         "recovery/scripts/TestTextureDxtDds.ps1",
         "SDK/tools/*.dll",
-        "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs"
+        "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs"
       ],
       "evidence": "recovery/evidence/texture/dxt-dds2d/*/validation.json",
       "sdk": false
@@ -599,7 +600,8 @@
         "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs",
         "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs",
         "recovery/scripts/TestTextureDxtImages.ps1",
-        "recovery/tests/TextureDxtPipelineOracle.cs"
+        "recovery/tests/TextureDxtPipelineOracle.cs",
+        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs"
       ],
       "evidence": "recovery/evidence/texture/dxt-images/*/validation.json",
       "sdk": false
@@ -639,7 +641,8 @@
         "recovery/tests/TextureDxtSdkFixtures.cs",
         "recovery/tests/TextureSdkTracePlugin.cs",
         "SDK/tools/**",
-        "SDK/Schemas/**"
+        "SDK/Schemas/**",
+        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs"
       ],
       "evidence": "recovery/evidence/texture/sdk-dxt/*/validation.json",
       "sdk": true

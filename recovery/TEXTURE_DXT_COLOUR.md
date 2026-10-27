@@ -60,3 +60,12 @@ SDK集中运行 `40507166585`（源码 `3e884145`）的原两个raw profile三�
 4. 小于4的尾级块、浮点RGB块、triangle压缩mip、volume压缩与DXT1/1A是后续独立能力组。原包装层对小尺寸颜色索引有复制规则，而alpha越界像素不是直接复制边缘；勿直接把普通4×4块复制填充当作已恢复mip。
 
 后续正常构建：x86 MSVC shell 中先 `ml /c /coff /safeseh` 编译 Colour ASM，再以 `/LD /MT /fp:strict /GS-` 编译bridge，链接 `/NODEFAULTLIB /NOENTRY`，与自有Alpha helper及托管DLL放在同目录。实际测试调用仓库相应Actions组，勿在本地编译测试。
+
+
+## 2026-10-27 本轮末段：小尺寸整图/插件批次（待验收）
+
+对齐纹理SDK验收：源码 `3319f50c1cbc227efe6f68d7470249f9576c49d3` / [40507887013](https://github.com/wu162/NewSdk/actions/runs/40507887013) success；Original/Recovered/NoOriginal各456资产与实际Core调用，四产物及完整三缓冲区/cdata轨迹一致。前次40507166585两个原raw profile三模式各600资产成功，压缩profile失败于原版BMP bitfields解码；6个拒绝输入保留组件矩阵。40507672026为并发发布未落地前误启动的plan-only失败（未知新取证组），未运行Windows，不作业务失败或验收。
+
+同批 `dxt-image-boundaries` 416原版样本取证完成，证明small无mip header flags=0x81007、mipCount=0、caps=0x1000，linearSize/payload为ceil(width/4)*ceil(height/4)*16。完整DDS/RGBA/options/callback留在samples.zip；有mip样本flags=0xa1007，mipCount包含1x1尾级，不能以取证宣称已恢复mip。
+
+`TextureDxtDdsEncoder` 新批次据此支持宽或高1/2的POT无mip图像，部分块使用已验收SampleBlockEncoder；插件通过原路由消费。组件矩阵扩为每配置1280整图、1792插件输入与独立NoOriginal；SDK扩为178合法图像/712资产（三模式），与两个受影响raw profile统一验证。消费者依赖均增加SampleBlockEncoder。源码待Actions验收，压缩mip/volume、NPOT、默认DXT1/1A仍拒绝，生产SDK未替换。

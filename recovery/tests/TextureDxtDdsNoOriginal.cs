@@ -6,7 +6,7 @@ internal static class TextureDxtDdsNoOriginal {
     private static int Main(string[] args){try{
         if(File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"BinaryAssetBuilder.TextureCompiler.dll")))throw new Exception("Original present");
         int fixtures=0,checks=0;
-        using(var r=new BinaryReader(File.OpenRead(args[0]))){int count=r.ReadInt32();if(count!=768)throw new Exception("Wrong corpus count");
+        using(var r=new BinaryReader(File.OpenRead(args[0]))){int count=r.ReadInt32();if(count!=1280)throw new Exception("Wrong corpus count");
             while(r.BaseStream.Position<r.BaseStream.Length){string format=r.ReadString();uint width=r.ReadUInt32(),height=r.ReadUInt32();int bytes=r.ReadInt32();byte[] rgba=r.ReadBytes(bytes);int outputBytes=r.ReadInt32();byte[] expected=r.ReadBytes(outputBytes);if(rgba.Length!=bytes||expected.Length!=outputBytes)throw new Exception("Truncated replay");
                 byte[] actual=TextureDxtDdsEncoder.Encode(width,height,rgba,format,false);
                 if(actual.Length!=expected.Length)throw new Exception("DDS size");

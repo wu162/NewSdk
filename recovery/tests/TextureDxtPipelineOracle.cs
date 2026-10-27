@@ -85,9 +85,9 @@ internal static class TextureDxtPipelineOracle
             if(!failed||File.Exists(cdata))throw new Exception("All-zero TGA alpha becomes opaque and must retain DXT1 rejection");rejected++;
         }
         foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT1","DXT1A","DXT3","DXT5"}){
-            string file=Path.Combine(work,"unsupported.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,Tga(format=="DXT3"||format=="DXT5"?2:4,4,1));Seed(cdata,false);
+            string file=Path.Combine(work,"unsupported.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,Tga(format=="DXT3"||format=="DXT5"?3:4,4,1));Seed(cdata,false);
             bool failed=false;try{recovered.ProcessInstance(Declaration(root,file,format,cdata,false,"StandardTexture"));}catch(NotSupportedException){failed=true;}
-            if(!failed||File.Exists(cdata))throw new Exception("Unsupported DXT1/1A or partial blocks must reject");rejected++;
+            if(!failed||File.Exists(cdata))throw new Exception("Unsupported DXT1/1A or NPOT must reject");rejected++;
         }
     }
     static int Main(string[] args)
@@ -103,7 +103,7 @@ internal static class TextureDxtPipelineOracle
             recovered=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(rd).GetType("Recovered.Compiler.Texture.Plugin",true));recovered.Initialize(null,TargetPlatform.Win32);
             RejectBoundaries(recovered,work);
             if(isolated){
-                using(var r=new BinaryReader(File.OpenRead(replay))){int count=r.ReadInt32();if(count!=1280)throw new Exception("Incomplete corpus");
+                using(var r=new BinaryReader(File.OpenRead(replay))){int count=r.ReadInt32();if(count!=1792)throw new Exception("Incomplete corpus");
                     while(r.BaseStream.Position<r.BaseStream.Length){string ext=r.ReadString();byte[] image=Bytes(r);string root=r.ReadString(),format=r.ReadString();bool stale=r.ReadBoolean();
                         string expectedError=r.ReadString();byte[] instance=Bytes(r),relo=Bytes(r),imports=Bytes(r),cdata=Bytes(r);
                         string file=Path.Combine(work,"generated."+ext),path=Path.Combine(work,"recovered.cdata");File.WriteAllBytes(file,image);Seed(path,stale);
@@ -120,7 +120,7 @@ internal static class TextureDxtPipelineOracle
                 string od=Path.GetFullPath(args[0]);using(var sha=SHA256.Create())if(BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(od))).Replace("-","").ToLowerInvariant()!="4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e")throw new Exception("Original hash");
                 original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(od).GetType("BinaryAssetBuilder.TextureCompiler.Plugin",true));original.Initialize(null,TargetPlatform.Win32);
                 using(var w=new BinaryWriter(File.Create(replay))){w.Write(0);
-                    foreach(int[] size in new[]{new[]{4,4},new[]{4,8},new[]{8,4},new[]{8,8},new[]{8,16},new[]{16,8},new[]{32,32}})foreach(int pattern in new[]{0,1,2,3,4,5,6,7})
+                    foreach(int[] size in new[]{new[]{1,1},new[]{1,2},new[]{2,1},new[]{2,2},new[]{1,8},new[]{8,1},new[]{2,16},new[]{16,2},new[]{4,4},new[]{4,8},new[]{8,4},new[]{8,8},new[]{8,16},new[]{16,8},new[]{32,32}})foreach(int pattern in new[]{0,1,2,3,4,5,6,7})
                     foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool stale in new[]{false,true})
                         Case(original,recovered,work,"tga",Tga(size[0],size[1],pattern),root,format,stale,w);
                     // Inferred DXT1 alpha formats take the same accepted DXT3/5 route.
@@ -144,7 +144,7 @@ internal static class TextureDxtPipelineOracle
                     w.BaseStream.Position=0;w.Write(fixtures);
                 }
             }
-            Console.WriteLine("PASS Texture DXT ProcessInstance "+(isolated?"NoOriginal":"differential")+" fixtures="+fixtures+" rejected="+rejected+" errors="+errors+" comparedBytes="+compared+"; PC DXT3/5 aligned no-mip TGA/PNG/BMP; three buffers/full cdata; SDK pending");return 0;
+            Console.WriteLine("PASS Texture DXT ProcessInstance "+(isolated?"NoOriginal":"differential")+" fixtures="+fixtures+" rejected="+rejected+" errors="+errors+" comparedBytes="+compared+"; PC DXT3/5 POT including partial-block no-mip TGA/PNG/BMP; three buffers/full cdata; SDK pending");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}finally{if(original!=null)((IDisposable)original).Dispose();if(recovered!=null)((IDisposable)recovered).Dispose();}
     }
 }
