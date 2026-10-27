@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Script.Serialization;
@@ -102,6 +103,15 @@ public static class CompilerUpheavalSamples
     {
         Dictionary<string, byte[]> expected = null;
         using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
+        {
+        // Use the same default metadata view as the production backend. The
+        // bare explicit registry rejects unknown types and intentionally has a
+        // zero global hash; it is not the production manifest metadata view.
+        var metadata = typeof(CoreStreamCompiler).GetNestedType("DefaultMetadataPlugin", BindingFlags.NonPublic);
+        plugins.Registry.DefaultPlugin = (IAssetBuilderPlugin)Activator.CreateInstance(metadata, new object[] {
+            plugins.Registry.DefaultPlugin, plugins.Registry.GetPlugin(InstanceHandle.GetTypeId("AttributeModifier")) });
+        Require(plugins.Registry.DefaultPlugin.GetAllTypesHash() == 1424942948u && plugins.Registry.DefaultPlugin.GetVersionNumber() == 4u,
+            "Sample registry does not use the actual production XML default metadata contract");
         foreach (bool disabled in new[] { false, true })
         {
             AppContext.SetSwitch(Disable, disabled); string mode = disabled ? "fallback" : "owned"; var settings = Configure(mode);
@@ -159,6 +169,7 @@ public static class CompilerUpheavalSamples
                         fourOutputs = Four(settings.OutputDirectory).ToDictionary(pair => pair.Key, pair => Hash(pair.Value)), actualAssetCount = 7 });
                 }
             }
+        }
         }
         tests.Add("real-Upheaval-whole-source-files-and-synthetic-cross-document-Define-inheritance-adapters-owned-fallback-cold-warm-persisted-four-stream-equality");
     }

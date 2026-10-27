@@ -133,6 +133,11 @@ public static class CompilerStableSortStreams
                 using (var hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory))
                 using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
                 {
+                    var metadata = typeof(CoreStreamCompiler).GetNestedType("DefaultMetadataPlugin", BindingFlags.NonPublic);
+                    plugins.Registry.DefaultPlugin = (IAssetBuilderPlugin)Activator.CreateInstance(metadata, new object[] {
+                        plugins.Registry.DefaultPlugin, plugins.Registry.GetPlugin(InstanceHandle.GetTypeId("AttributeModifier")) });
+                    Require(plugins.Registry.DefaultPlugin.GetAllTypesHash() == 1424942948u && plugins.Registry.DefaultPlugin.GetVersionNumber() == 4u,
+                        "StableSort fixture must use the actual production default metadata view");
                     var processor = Processor(plugins, new SchemaSet(true)); var first = Run(processor, input); var firstMetrics = Metrics(first); Work(firstMetrics, disabled); ScalarWorkOnly(first);
                     var binding = first.GetStreamBindings();
                     Require(binding != null && binding.enabled && binding.assets.Count == 98 && binding.assets.Count(row => row.identity.typeName == "ExperienceLevelTemplate") == 96 &&
