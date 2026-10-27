@@ -458,7 +458,7 @@ public static class CompilerNodeJoiner
             foreach (bool disabled in new[] { false, true })
             {
                 AppContext.SetSwitch("NewSdk.Compiler.DisableNodeJoinerPredecessors", disabled);
-                var owner = new DocumentProcessor(new Settings(), new PluginRegistry(new PluginDescriptor[0], BinaryAssetBuilder.TargetPlatform.Win32), null);
+                var owner = new DocumentProcessor(new Settings(), new PluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32), null);
                 XmlNode result = (XmlNode)typeof(NodeJoiner).GetMethod("OverrideWithWork", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null,
                     new object[] { schemas, new XmlDocument(), Document("Wide", before.ToString()).DocumentElement, Document("Wide", after).DocumentElement, owner });
                 var serializer = new JavaScriptSerializer();

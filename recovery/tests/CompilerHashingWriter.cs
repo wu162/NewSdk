@@ -106,6 +106,11 @@ public static class CompilerHashingWriter
         string splitPair = new string('A', 511) + "\uD83D\uDE80" + new string('B', 511);
         Step(rows, "surrogate-pair-split-exactly-between-512-chunks", 0, pair, () => pair.Write(splitPair));
         Step(rows, "surrogate-pair-split-exactly-between-512-chunks", 1, pair, () => pair.Write("after"));
+        var fragmentedPair = Writer(91);
+        Step(rows, "surrogate-pair-split-across-write-overloads", 0, fragmentedPair, () => fragmentedPair.Write(new string('A', 511)));
+        Step(rows, "surrogate-pair-split-across-write-overloads", 1, fragmentedPair, () => fragmentedPair.Write('\uD83D'));
+        Step(rows, "surrogate-pair-split-across-write-overloads", 2, fragmentedPair, () => fragmentedPair.Write('\uDE80'));
+        Step(rows, "surrogate-pair-split-across-write-overloads", 3, fragmentedPair, () => fragmentedPair.Write(new string('B', 511).ToCharArray(), 0, 511));
         var singlePair = Writer(19);
         Step(rows, "single-surrogate-pair-with-native-NUL-boundary", 0, singlePair, () => singlePair.Write("\uD83D\uDE80"));
         // Public production entry serializes actual XML through XmlWriter into
