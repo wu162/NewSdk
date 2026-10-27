@@ -58,3 +58,15 @@ Xbox360/Xenon 专属路径不在本任务内。此次精确函数名搜索未找
 **历史跨平台观察（不再调查、不构成 PC 完成阻塞）**：32个同输入/格式的PC与PS3配对中，31对完整DDS相同；D3DFMT_DXT1、pattern5 的8色不透明棋盘不同，源RGBA相同。PC SHA256为745bbfb70f3f7f73f20ea10e59d5ed2e9a2c753a48bfb68934fca8c6fb4c710a，PS3为3c550f55d4e16973bfacb60b5368fc8f9f45baa8780cdf08727111044bf70d7a。尚未将差异归因于平台、options或内部状态；不能擅自视为允许像素近似。
 
 后续仅还原 Win32 压缩器。优先使用已有 PC 样本及其 options、DDS 头和压缩块；若需新取证，仅运行 PC。上述跨平台差异作为历史观察保留，不再是完成阻塞或验证任务。64 例仍只是原版资料，不是恢复版差分通过。
+
+## 2026-10-27：PC DXT3 显式 alpha 子组件
+
+`src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs` 独立实现 4×4 RGBA → 8 字节显式 alpha：每通道 `(a * 15 + 127) / 255`，按行、低 nibble 在前打包。严格拒绝 null 与非 64 字节输入，不改写源数组。未实现颜色块、DXT1/1A/5，也未接入 Plugin 的压缩路由；现有 raw 对 DXT 的拒绝保持不变。
+
+验收源码 `9f8b1361148a6b76fec1b5564b3d055ba4ee62e7`，集中 Actions [40470055551](https://github.com/wu162/NewSdk/actions/runs/40470055551) attempt1 success。Debug/Release 各 4,352 例、65,288 检查：全部 256 个均匀 alpha，以及每个像素位置的全部 256 值与混合相邻 alpha；非均匀 RGB。每例调用原 GetNVCompressionOptions 与 Win32 原生 DXT3 压缩，对完整 DDS 的前 8 字节 payload 逐字节比较，并检查输入未修改。8 字节颜色块只保留完整 DDS hash，不作为已恢复内容。
+
+收据 `evidence/texture/dxt3-alpha/40470055551-1/validation.json` 与压缩转录。选择器 13 项检查通过，只运行 dxt3-alpha，16 个原成功组沿用各自 sourceCommit/runId；未执行 SDK。此证据仅证明 alpha 子组件，不升级为完整 DXT3/DXT 压缩器验收。
+
+PC 清理后取证 harness 已只生成四格式×八图案=32例；修正 `InspectTextureDxtBlocks.ps1` 遗留的 64 例期望。历史 64 例收据不变。
+
+新增 `MatchTextureDxtCode.py`，由显式 dxt-symbols 入口在 Actions 执行。核对固定原 DLL/参考库 SHA256，解析 x86 COFF archive 的目标函数，屏蔽 DIR32/REL32 操作数字节，以至少16字节无重定位锚点定位，再比较剩余全部代码字节；输出符号、COFF成员偏移、长度、mask 后比较字节数及候选原 DLL RVA。短锚点不匹配，未知重定位明确报错。匹配不能证明引用目标、实际可达路径、库版本或压缩输出等价；零匹配也不证明函数不存在。

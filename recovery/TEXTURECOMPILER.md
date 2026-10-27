@@ -35,3 +35,7 @@
 精确收据：`evidence/texture/batch/40241188546-1/validation.json`、`evidence/texture/validation/40241581283-1/validation.json`、`evidence/texture/sdk-rasters/{PcNoMip,PcMips}/40241188546-1/validation.json`。文档收尾提交没有修改业务代码，沿用以上源码锚点，不冒充新跑验收。本轮清理已完成，剩余 PC 能力仍按上节推进。
 
 历史格式/数值边界：[PNG/BMP](TEXTURE_PNG_BMP.md)、[TGA](TEXTURE_TGA.md)、[raw DDS](TEXTURE_RAW_DDS.md)、[triangle mip](TEXTURE_TRIANGLE_MIPS.md)、[volume](TEXTURE_VOLUME.md)。历史 PS3 文档仅留作证据索引，不产生后续工作。
+
+## 2026-10-27 续接：DXT3 alpha 子组件
+
+新增 PC `TextureDxt3AlphaEncoder`，仅 4×4 RGBA 的 8 字节显式 alpha，不接入尚未完整实现的 DXT3 插件路由。源码 `9f8b1361` / [40470055551](https://github.com/wu162/NewSdk/actions/runs/40470055551) success：Debug/Release 各 4,352 例、65,288 检查，与原 DLL alpha 块逐字节相同；仅运行新组、复用16组，未重跑 SDK。完整 DXT 颜色端点搜索、DXT1/1A/5 仍待恢复。细节及参考库函数映射工具见 [DXT 续接](TEXTURE_DXT_ENTRYPOINTS.md)。

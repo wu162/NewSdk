@@ -22,3 +22,5 @@
 ## PC 唯一目标
 
 PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平台不进入业务差分。非 PC Initialize/ReInitialize 的明确拒绝由 metadata 组检查。历史 PC/PS3 收据原样保留，但选择器须对实际变更重新验收 PC 消费组。修改仅平台专属文件时不扩展到其他编译器；公共 PC 依赖按原规则选组。
+
+`dxt3-alpha` 是自动组件组，只验证 DXT3 显式 alpha 子组件，不能作为完整 DXT 压缩器或 SDK 验收。其实现尚无业务消费者，依赖仅登记本组；后续接入任何压缩入口时，必须同时扩展对应消费者依赖及完整差分。
