@@ -176,7 +176,7 @@ function MeasureBusinessCli($Reference,[string]$Mod,[string]$Sdk){
         fixtureManifestSha256=(Hash (Join-Path $Mod 'fixture-manifest.json'));osPageCache='unknown';rounds=7;
         fallbackSwitches=$switches;cases=@();scope='Same Release EXE, identical three-task business inputs, caches disabled, fresh process per sample; one unmeasured warmup per mode, alternating pair order. Includes full CLI publication and required outputs. Diagnostic performance fallbacks retain snapshot/binding correctness fixes. Small fixture, shared runner, no full-MOD or general speedup claim.'}
     try {
-        [xml]$fallback=[Text.Encoding]::UTF8.GetString($saved)
+        $fallback=[xml]::new();$fallback.PreserveWhitespace=$true;$fallback.Load($configPath)
         $runtimeElement=$fallback.configuration.SelectSingleNode('runtime')
         if(!$runtimeElement){$runtimeElement=$fallback.CreateElement('runtime');$null=$fallback.configuration.AppendChild($runtimeElement)}
         $overrides=$runtimeElement.SelectSingleNode('AppContextSwitchOverrides')

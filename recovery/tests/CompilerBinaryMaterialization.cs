@@ -30,6 +30,24 @@ public static class CompilerBinaryMaterialization
     static long Number(IDictionary<string, object> metrics, string key) { return Convert.ToInt64(metrics[key]); }
     static long Attempt(IDictionary<string, object> metrics, string key)
     { return Number((IDictionary<string, object>)metrics["binaryMaterialization"], key); }
+    static long CacheQuery(IDictionary<string, object> metrics, string key)
+    { return Number((IDictionary<string, object>)metrics["binaryCacheCandidates"], key); }
+    static void RejectedChange(PhysicalInputSnapshot snapshot, string message)
+    {
+        bool rejected = false;
+        try { snapshot.VerifyUnchanged(); } catch (IOException) { rejected = true; }
+        Require(rejected, message);
+    }
+    static void WithDocument(string name, Action action)
+    {
+        using (DocumentProcessor.BeginStateScope())
+        {
+            var documents = (Stack<string>)typeof(DocumentProcessor).GetField("_CurrentDocumentStack", Hidden).GetValue(null);
+            documents.Push(name);
+            try { action(); }
+            finally { Require(documents.Pop() == name && documents.Count == 0, "Cache query fixture changed diagnostic stack ownership"); }
+        }
+    }
     static BinaryAsset Asset(string name, bool custom)
     {
         var processor = new DocumentProcessor(Settings.Current, new PluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32), null);
@@ -270,6 +288,173 @@ public static class CompilerBinaryMaterialization
         }
         Writable(source); Writable(custom);
         tests.Add("public-BinaryAsset-Commit-captured-asset-and-cdata-keepalive-metadata-updates-preserve-content-write-delete-pins-and-final-content-verification");
+    }
+    static void NetworkCacheQueries()
+    {
+        foreach (string mode in new[] { "missing-appears", "custom-disappears", "short-circuit", "excluded", "budget" })
+        {
+            var asset = Asset("cache-query-" + mode, true); string source = Source(asset, "cache-query-" + mode, 64);
+            string custom = Path.Combine(Path.GetDirectoryName(source), asset.Instance.Handle.FileBase + ".cdata");
+            File.WriteAllBytes(custom, new byte[] { 4, 2 });
+            if (mode != "custom-disappears") File.Delete(source);
+            typeof(BinaryAsset).GetField("_CacheDirectory", Hidden).SetValue(asset, Path.GetDirectoryName(source));
+            using (var snapshot = mode == "budget"
+                ? new PhysicalInputSnapshot(Path.Combine(work, "query-snapshot-" + mode), 1048576, 1048576, 10, 10, 0, 0)
+                : new PhysicalInputSnapshot(Path.Combine(work, "query-snapshot-" + mode)))
+            {
+                if (mode == "excluded") snapshot.ExcludeRoot(Path.GetDirectoryName(source));
+                using (snapshot.BeginReadScope())
+                {
+                    var location = asset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate);
+                    Require((location == AssetLocation.Cache) == (mode == "custom-disappears"), "Cache query changed legacy presence result: " + mode);
+                    var before = Metrics(snapshot);
+                    long expectedQueries = mode == "custom-disappears" ? 2 : 1;
+                    Require(CacheQuery(before, "observations") == expectedQueries && Number(before, "activeReadHandles") == 0,
+                        "Cache existence observation added a short-circuited cdata query or pinned an unvalidated source: " + mode);
+                    if (mode == "custom-disappears" || mode == "short-circuit") File.Delete(custom);
+                    else Source(asset, "cache-query-" + mode, 64);
+                    if (mode == "missing-appears" || mode == "custom-disappears")
+                        RejectedChange(snapshot, "Changed executed cache candidate was accepted: " + mode);
+                    else snapshot.VerifyUnchanged();
+                    var metrics = Metrics(snapshot);
+                    Require(CacheQuery(metrics, "uniquePaths") == ((mode == "excluded" || mode == "budget") ? 0 : expectedQueries),
+                        "Cache query exclusion/budget/short-circuit candidate count changed: " + mode);
+                    if (mode == "excluded" || mode == "budget") Require(CacheQuery(metrics, "dropped") == 1, "Cache query fallback did not report incomplete observation");
+                    observations.Add(new { id = "network-cache-executed-query-" + mode, metrics });
+                }
+            }
+        }
+        tests.Add("network-cache-actual-GetLocation-executed-positive-negative-queries-short-circuit-no-unvalidated-pin-exclusion-budget-and-publication-recheck");
+    }
+    static void OwnCachePublication()
+    {
+        foreach (string mode in new[] { "asset", "custom", "conflict", "failed-write" })
+        {
+            bool previousConflict = mode == "conflict", custom = mode == "custom", failedWrite = mode == "failed-write";
+            string name = "own-publication-" + mode;
+            var asset = Asset(name, custom); string source = Source(asset, name, 64); File.Delete(source);
+            if (failedWrite) { Directory.Delete(Path.GetDirectoryName(source)); File.WriteAllBytes(Path.GetDirectoryName(source), new byte[] { 9 }); }
+            typeof(BinaryAsset).GetField("_CacheDirectory", Hidden).SetValue(asset, Path.GetDirectoryName(source));
+            using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, name + "-snapshot")))
+            using (snapshot.BeginReadScope())
+            {
+                Require(asset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == AssetLocation.None, "Own publication did not start from a real cache miss");
+                if (previousConflict)
+                {
+                    Source(asset, name, 64);
+                    Require(asset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == AssetLocation.Cache, "Conflict fixture did not observe an external publication");
+                    File.Delete(source);
+                }
+                asset.Buffer = new AssetBuffer { InstanceData = new byte[64], RelocationData = new byte[0], ImportsData = new byte[0] };
+                if (custom)
+                {
+                    Directory.CreateDirectory(asset.CustomDataOutputDirectory);
+                    File.WriteAllBytes(Path.Combine(asset.CustomDataOutputDirectory, asset.Instance.Handle.FileBase + ".cdata"), new byte[] { 6, 3, 1 });
+                }
+                WithDocument(name, () => Require(asset.Commit() == AssetLocation.Memory, "Real memory commit did not publish its own cache file"));
+                Require(File.Exists(source) == !failedWrite && (failedWrite || File.ReadAllBytes(source).SequenceEqual(File.ReadAllBytes(Destination(asset)))),
+                    "Own publication changed cache/output bytes or a failed optional cache write changed commit behavior");
+                Require(asset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == (failedWrite ? AssetLocation.None : AssetLocation.Cache),
+                    "Own publication result was not visible to the legacy lookup");
+                if (custom) Require(File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(source), asset.Instance.Handle.FileBase + ".cdata")).SequenceEqual(new byte[] { 6, 3, 1 }),
+                    "Own custom-data cache publication changed bytes");
+                if (previousConflict) RejectedChange(snapshot, "Own publication erased an earlier independent conflicting cache observation");
+                else snapshot.VerifyUnchanged();
+                var metrics = Metrics(snapshot);
+                Require(CacheQuery(metrics, "successfulOwnChanges") == (failedWrite ? 0 : custom ? 2 : 1) && CacheQuery(metrics, "conflictingObservations") == (previousConflict ? 1 : 0),
+                    "Own cache write did not advance only its expected existence state while retaining prior conflicts");
+                Require(Number(metrics, "activeReadHandles") == 0, "Own mutable cache output was pinned as an external input");
+                if (!failedWrite) Writable(source); observations.Add(new { id = name, metrics });
+            }
+        }
+        tests.Add("actual-public-Commit-memory-to-network-cache-miss-publication-advances-only-successful-own-write-and-never-clears-prior-external-conflict");
+    }
+    static void CacheHeaderRecovery()
+    {
+        foreach (bool invalidCache in new[] { false, true })
+        {
+            string name = invalidCache ? "invalid-cache-header-delete" : "sealed-cache-header-recovery";
+            var first = Asset(name + "-first", false); string source = Source(first, name, 64);
+            byte[] expected = File.ReadAllBytes(source);
+            if (invalidCache) File.WriteAllBytes(source, expected.Take(32).ToArray());
+            using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, name + "-snapshot")))
+            using (snapshot.BeginReadScope())
+            {
+                if (!invalidCache) Require(Copy(first, source), "Header recovery fixture did not seal its first valid cache copy");
+                var asset = Asset(name + "-recover", false);
+                typeof(BinaryAsset).GetField("_CacheDirectory", Hidden).SetValue(asset, Path.GetDirectoryName(source));
+                Directory.CreateDirectory(asset.AssetOutputDirectory); File.WriteAllBytes(Destination(asset), expected.Take(32).ToArray());
+                Require(asset.GetLocation(AssetLocation.Output, AssetLocationOption.ForceUpdate) == AssetLocation.Output &&
+                    asset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == AssetLocation.Cache,
+                    "Header recovery fixture did not refresh the real output/cache availability after setup");
+                bool rejected = false;
+                WithDocument(name, () =>
+                {
+                    try { Require(asset.InstanceFileSize == 64, "Recovered cache header instance size changed"); }
+                    catch (BinaryAssetBuilderException error)
+                    { if (!invalidCache || error.ErrorCode != ErrorCode.UnexpectedSize) throw; rejected = true; }
+                });
+                Require(rejected == invalidCache, "Invalid cache header lost its original UnexpectedSize rejection");
+                var metrics = Metrics(snapshot);
+                if (invalidCache)
+                {
+                    Require(!File.Exists(source) && Number(metrics, "captures") == 0 && CacheQuery(metrics, "successfulOwnChanges") == 1,
+                        "Invalid cache recovery failed to delete its unpinned bad source and record the successful own deletion");
+                }
+                else
+                {
+                    Require(File.ReadAllBytes(Destination(asset)).SequenceEqual(expected), "Sealed header recovery changed materialized source bytes");
+                    Require(Attempt(metrics, "cacheHeaderReadHits") == 1 && Attempt(metrics, "copyReadHits") == 1 && Number(metrics, "captures") == 1,
+                        "Header repair did not reuse the previously sealed source for both header and subsequent copy");
+                }
+                snapshot.VerifyUnchanged(); observations.Add(new { id = name, metrics });
+            }
+            if (File.Exists(source)) Writable(source);
+        }
+        tests.Add("actual-InstanceFileSize-output-header-repair-reuses-sealed-cache-header-and-copy-while-invalid-unsealed-cache-retains-delete-UnexpectedSize-lifecycle");
+    }
+    static void CacheQueryCancellation()
+    {
+        bool touch = Settings.Current.AlwaysTouchCache;
+        try
+        {
+            foreach (bool keepalive in new[] { false, true })
+            {
+                string name = keepalive ? "cancelled-cache-keepalive-query" : "cancelled-cache-publication-query";
+                var asset = Asset(name, false); string source = Source(asset, name, 64);
+                typeof(BinaryAsset).GetField("_CacheDirectory", Hidden).SetValue(asset, Path.GetDirectoryName(source));
+                DateTime oldWrite = new DateTime(2001, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                if (keepalive)
+                {
+                    Require(Copy(asset, source), "Cancelled keepalive fixture did not establish its real committed output");
+                    Require(asset.GetLocation(AssetLocation.Output, AssetLocationOption.ForceUpdate) == AssetLocation.Output,
+                        "Cancelled keepalive fixture did not refresh its output availability");
+                    File.SetLastWriteTimeUtc(source, oldWrite);
+                }
+                else
+                {
+                    File.Delete(source);
+                    asset.Buffer = new AssetBuffer { InstanceData = new byte[64], RelocationData = new byte[0], ImportsData = new byte[0] };
+                }
+                Settings.Current.AlwaysTouchCache = keepalive;
+                using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, name + "-snapshot")))
+                using (snapshot.BeginReadScope(new CancellationToken(true)))
+                {
+                    bool cancelled = false;
+                    WithDocument(name, () => { try { asset.Commit(); } catch (OperationCanceledException) { cancelled = true; } });
+                    Require(cancelled, "Real public Commit swallowed cancellation from an executed optional cache query: " + name);
+                    Require(keepalive ? File.GetLastWriteTimeUtc(source) == oldWrite : !File.Exists(source),
+                        "Cancelled cache query still performed its keepalive or publication side effect");
+                    var metrics = Metrics(snapshot);
+                    Require(Number(metrics, "activeReadHandles") == 0 && CacheQuery(metrics, "successfulOwnChanges") == 0,
+                        "Cancelled optional cache query retained ownership or advanced the cache write state");
+                    observations.Add(new { id = name, metrics });
+                }
+                if (File.Exists(source)) Writable(source);
+            }
+        }
+        finally { Settings.Current.AlwaysTouchCache = touch; }
+        tests.Add("public-Commit-optional-cache-publication-and-output-keepalive-query-cancellation-propagates-without-write-touch-pin-or-own-change");
     }
     static uint Legacy(byte[] bytes)
     {
@@ -567,9 +752,9 @@ public static class CompilerBinaryMaterialization
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
             Settings.Current = new Settings { BuildCache = false, SessionCache = false, LinkedStreams = true, CustomPostfix = "", TargetPlatform = TargetPlatform.Win32 };
             AppContext.SetSwitch(Disable, false);
-            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); CachedCommitCancellation(); CapturedCacheKeepalive(); ArbitraryTeeChunks(); ActiveSnapshotCopyTailContracts(); LateFallbackClosesSpool(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs();
+            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); CachedCommitCancellation(); CapturedCacheKeepalive(); NetworkCacheQueries(); OwnCachePublication(); CacheHeaderRecovery(); CacheQueryCancellation(); ArbitraryTeeChunks(); ActiveSnapshotCopyTailContracts(); LateFallbackClosesSpool(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
-                scope = "Actual CopyAsset successful validated sources and failure rollback only; invalid-header/length repair retains separate existing fixture coverage; not all BinaryAsset reads or hidden Texture closure" };
+                scope = "Actual CopyAsset validated sources, header recovery and network-cache executed existence queries with own publication/deletion; mutable Output/Local and hidden Texture closure remain separate" };
             Console.WriteLine("PASS BinaryMaterialization: " + tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception error)

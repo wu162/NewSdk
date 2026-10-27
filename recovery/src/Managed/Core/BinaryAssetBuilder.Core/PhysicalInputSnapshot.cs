@@ -35,12 +35,20 @@ public sealed class PhysicalInputSnapshot : IDisposable
     private readonly int _CandidateLimit;
     private readonly long _CandidateTextBudget;
     private long _CandidateTextChars, _CandidateObservations, _CandidateUniquePaths, _CandidateDropped, _CandidateVerificationChecks, _CandidateConflicts;
+    // Repairable network caches are a separate query domain. Their original
+    // executed existence answers are rechecked, but successful writes/deletes
+    // by this BinaryAsset lifecycle explicitly advance the expected state.
+    // These observations never authorize a cache hit or freeze mutable output.
+    private readonly Dictionary<string, bool> _CacheCandidates = new Dictionary<string, bool>(StringComparer.Ordinal);
+    private long _CacheCandidateTextChars, _CacheCandidateObservations, _CacheCandidateUniquePaths, _CacheCandidateDropped;
+    private long _CacheCandidateVerificationChecks, _CacheCandidateConflicts, _CacheCandidateOwnChanges;
     private string _RetainedScratch;
     private CancellationToken _Cancellation;
     private MaterializationCapture _Materialization;
     private long _MaterializationAttempts, _MaterializationCommits, _MaterializationRollbacks;
     private long _MaterializationCaptureReadsStarted, _MaterializationCaptureReadsCompleted, _MaterializationCaptureReadBytes;
     private long _MaterializationCopyReadHits;
+    private long _MaterializationHeaderReadHits;
     private long _MaterializationTeeStarted, _MaterializationTeeCompleted, _MaterializationTeeBytes;
     private long _MaterializationCacheTouches, _MaterializationCacheTouchFailures;
 
@@ -188,6 +196,23 @@ public sealed class PhysicalInputSnapshot : IDisposable
         if (Normal(path, out full) && owner._Paths.TryGetValue(full, out entry))
         {
             owner._MaterializationCopyReadHits++;
+            return entry.OpenRead();
+        }
+        return File.OpenRead(path);
+    }
+    internal static Stream OpenCapturedCacheHeaderRead(string path)
+    {
+        PhysicalInputSnapshot owner = _Current;
+        bool disabled;
+        if (owner == null || (AppContext.TryGetSwitch("NewSdk.Compiler.DisableBinaryMaterializationCapture", out disabled) && disabled))
+            return File.OpenRead(path);
+        owner.Check(); owner._Cancellation.ThrowIfCancellationRequested();
+        string full; Entry entry;
+        // Header repair must never pin an unvalidated cache file: the original
+        // invalid-length branch is still allowed to delete it and retry.
+        if (Normal(path, out full) && owner._Paths.TryGetValue(full, out entry))
+        {
+            owner._MaterializationHeaderReadHits++;
             return entry.OpenRead();
         }
         return File.OpenRead(path);
@@ -496,6 +521,44 @@ public sealed class PhysicalInputSnapshot : IDisposable
         { owner._CandidateDropped++; return; }
         owner._Candidates.Add(full, found); owner._CandidateUniquePaths++; owner._CandidateTextChars += full.Length;
     }
+    internal static void ObserveCacheCandidate(string path, bool found)
+    {
+        PhysicalInputSnapshot owner = _Current;
+        if (owner == null) return;
+        owner.Check(); owner._Cancellation.ThrowIfCancellationRequested(); owner._ReadStarted = true;
+        owner._CacheCandidateObservations++;
+        string full;
+        if (!owner.CacheCandidatePath(path, out full)) { owner._CacheCandidateDropped++; return; }
+        bool previous;
+        if (owner._CacheCandidates.TryGetValue(full, out previous))
+        {
+            if (previous != found) owner._CacheCandidateConflicts++;
+            return;
+        }
+        if (owner._CacheCandidates.Count >= owner._CandidateLimit || full.Length > owner._CandidateTextBudget - owner._CacheCandidateTextChars)
+        { owner._CacheCandidateDropped++; return; }
+        owner._CacheCandidates.Add(full, found); owner._CacheCandidateUniquePaths++; owner._CacheCandidateTextChars += full.Length;
+    }
+    internal static void CacheFileChangedByCurrentBuild(string path, bool exists)
+    {
+        PhysicalInputSnapshot owner = _Current;
+        if (owner == null) return;
+        owner.Check(); string full;
+        // Call only after the original File.Copy/File.Delete succeeded. A
+        // failed write, a timestamp touch or a third party's publication cannot
+        // explain away an earlier observed change. Prior conflicts survive.
+        if (owner.CacheCandidatePath(path, out full) && owner._CacheCandidates.ContainsKey(full))
+        { owner._CacheCandidates[full] = exists; owner._CacheCandidateOwnChanges++; }
+    }
+    private bool CacheCandidatePath(string path, out string full)
+    {
+        if (!Normal(path, out full)) return false;
+        foreach (string excluded in _ExcludedRoots)
+            if (string.Equals(full, excluded, StringComparison.OrdinalIgnoreCase) || full.StartsWith(excluded + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+                return false;
+        return !string.Equals(full, _Scratch, StringComparison.OrdinalIgnoreCase) &&
+            !full.StartsWith(_Scratch.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
+    }
     public void RegisterBypass(string reason)
     {
         Check();
@@ -687,6 +750,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
         Check();
         cancellation.ThrowIfCancellationRequested();
         if (_CandidateConflicts != 0) throw new IOException("Resolver candidate existence changed during this input generation.");
+        if (_CacheCandidateConflicts != 0) throw new IOException("Build cache candidate existence changed during this input generation.");
         byte[] verificationBuffer = _Identities.Count == 0 ? null : new byte[65536];
         foreach (Entry entry in _Identities.Values)
         {
@@ -714,6 +778,12 @@ public sealed class PhysicalInputSnapshot : IDisposable
             bool found = File.Exists(candidate.Key); _CandidateVerificationChecks++;
             if (found != candidate.Value) throw new IOException("Resolver candidate existence changed: " + candidate.Key);
         }
+        foreach (var candidate in _CacheCandidates)
+        {
+            cancellation.ThrowIfCancellationRequested();
+            bool found = File.Exists(candidate.Key); _CacheCandidateVerificationChecks++;
+            if (found != candidate.Value) throw new IOException("Build cache candidate existence changed: " + candidate.Key);
+        }
         cancellation.ThrowIfCancellationRequested();
     }
     public object GetMetrics()
@@ -728,6 +798,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
                 captureReadsStarted = _MaterializationCaptureReadsStarted, captureReadsCompleted = _MaterializationCaptureReadsCompleted,
                 captureReadBytes = _MaterializationCaptureReadBytes, countersIncludeRolledBackReads = true,
                 copyReadHits = _MaterializationCopyReadHits,
+                cacheHeaderReadHits = _MaterializationHeaderReadHits,
                 teeStarted = _MaterializationTeeStarted, teeCompleted = _MaterializationTeeCompleted, teeBytes = _MaterializationTeeBytes,
                 teeScope = "SuccessfulOriginalCopyChunks", teeCountersIncludeRolledBackChunks = true,
                 cacheAttributeTouches = _MaterializationCacheTouches, cacheAttributeTouchFailures = _MaterializationCacheTouchFailures,
@@ -736,6 +807,12 @@ public sealed class PhysicalInputSnapshot : IDisposable
                 observations = _CandidateObservations, uniquePaths = _CandidateUniquePaths, recordedTextChars = _CandidateTextChars,
                 limit = _CandidateLimit, textBudget = _CandidateTextBudget, dropped = _CandidateDropped, incomplete = _CandidateDropped != 0,
                 conflictingObservations = _CandidateConflicts, verificationChecks = _CandidateVerificationChecks },
+            binaryCacheCandidates = new { scope = "ExecutedNetworkCacheFileExistsOnly", canAuthorizeReuse = false, completeClosure = false,
+                verificationPoint = "VerifyUnchanged", observations = _CacheCandidateObservations, uniquePaths = _CacheCandidateUniquePaths,
+                recordedTextChars = _CacheCandidateTextChars, limit = _CandidateLimit, textBudget = _CandidateTextBudget,
+                dropped = _CacheCandidateDropped, incomplete = _CacheCandidateDropped != 0,
+                conflictingObservations = _CacheCandidateConflicts, verificationChecks = _CacheCandidateVerificationChecks,
+                successfulOwnChanges = _CacheCandidateOwnChanges, budgetScope = "SeparateFromResolverCandidates" },
             bypassReasons = new Dictionary<string, long>(_BypassReasons, StringComparer.Ordinal), cleanupFailures = _CleanupFailures, retainedScratch = _RetainedScratch };
     }
     public void Dispose()
@@ -756,6 +833,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
             try { directory.Dispose(); } catch { _CleanupFailures++; }
         _Directories.Clear(); _Identities.Clear(); _Paths.Clear();
         _Candidates.Clear();
+        _CacheCandidates.Clear();
         if (_OwnsScratch)
             try { if (Directory.Exists(_Scratch)) Directory.Delete(_Scratch, false); }
             catch { _CleanupFailures++; _RetainedScratch = _Scratch; }

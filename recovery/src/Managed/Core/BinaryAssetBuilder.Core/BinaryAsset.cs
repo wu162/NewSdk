@@ -169,7 +169,7 @@ public class BinaryAsset
 		}
 		string path = Path.Combine(_CacheDirectory, _AssetFileName);
 		string path2 = Path.Combine(_CacheDirectory, _CustomDataFileName);
-		if (File.Exists(path) && (!_Instance.HasCustomData || File.Exists(path2)))
+		if (CacheFileExists(path) && (!_Instance.HasCustomData || CacheFileExists(path2)))
 		{
 			_CacheAvailability = Availability.Present;
 		}
@@ -178,6 +178,20 @@ public class BinaryAsset
 			_CacheAvailability = Availability.Missing;
 		}
 	}
+
+    private static bool CacheFileExists(string path)
+    {
+        bool exists = File.Exists(path);
+        PhysicalInputSnapshot.ObserveCacheCandidate(path, exists);
+        return exists;
+    }
+
+    private static bool CacheFileExists(FileInfo file)
+    {
+        bool exists = file.Exists;
+        PhysicalInputSnapshot.ObserveCacheCandidate(file.FullName, exists);
+        return exists;
+    }
 
 	private void UpdateOutputAvailability(bool forceUpdate)
 	{
@@ -338,7 +352,7 @@ public class BinaryAsset
 				}
 				_Tracer.TraceInfo("Checking build cache copy of asset.");
 				string text2 = Path.Combine(_CacheDirectory, _AssetFileName);
-				using (FileStream fileStream2 = File.OpenRead(text2))
+				using (Stream fileStream2 = PhysicalInputSnapshot.OpenCapturedCacheHeaderRead(text2))
 				{
 					_AssetHeader = new AssetHeader();
 					_AssetHeader.LoadFromStream(fileStream2, Settings.Current.BigEndian);
@@ -348,6 +362,7 @@ public class BinaryAsset
 				{
 					_Tracer.TraceError("Invalid cached asset file detected. Deleting {0}.", text2);
 					File.Delete(text2);
+                    PhysicalInputSnapshot.CacheFileChangedByCurrentBuild(text2, false);
 					throw new BinaryAssetBuilderException(ErrorCode.UnexpectedSize, "Can't recover from last error. Please restart to rebuild asset.");
 				}
 				CommitFromCache();
@@ -662,19 +677,20 @@ public class BinaryAsset
 		try
 		{
 			FileInfo fileInfo = new FileInfo(Path.Combine(_CacheDirectory, _AssetFileName));
-			if (fileInfo.Exists)
+			if (CacheFileExists(fileInfo))
 			{
                 TouchCacheFile(fileInfo);
 			}
 			if (Instance.HasCustomData)
 			{
 				fileInfo = new FileInfo(Path.Combine(_CacheDirectory, _CustomDataFileName));
-				if (fileInfo.Exists)
+				if (CacheFileExists(fileInfo))
 				{
                     TouchCacheFile(fileInfo);
 				}
 			}
 		}
+		catch (OperationCanceledException) { throw; }
 		catch (Exception)
 		{
 		}
@@ -708,9 +724,10 @@ public class BinaryAsset
 			}
 			string text = Path.Combine(_CacheDirectory, _AssetFileName);
 			FileInfo fileInfo = new FileInfo(text);
-			if (!fileInfo.Exists)
+			if (!CacheFileExists(fileInfo))
 			{
 				File.Copy(Path.Combine(_AssetOutputDirectory, _AssetFileName), text);
+                PhysicalInputSnapshot.CacheFileChangedByCurrentBuild(text, true);
 			}
 			else
 			{
@@ -720,14 +737,16 @@ public class BinaryAsset
 			{
 				text = Path.Combine(_CacheDirectory, _CustomDataFileName);
 				fileInfo = new FileInfo(text);
-				if (!fileInfo.Exists)
+				if (!CacheFileExists(fileInfo))
 				{
 					File.Copy(Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName), text);
+                    PhysicalInputSnapshot.CacheFileChangedByCurrentBuild(text, true);
 					return;
 				}
                 TouchCacheFile(fileInfo);
 			}
 		}
+		catch (OperationCanceledException) { throw; }
 		catch (Exception)
 		{
 			_Tracer.Message("Failed to copy asset {0} to network", _Instance);
