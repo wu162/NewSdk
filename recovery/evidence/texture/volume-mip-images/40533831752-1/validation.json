@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "summary": [
+        "PASS Texture mip ProcessInstance differential fixtures=870 errors=2 unsupportedResampling=0 comparedBytes=4450536; PC volume complete mips; generated horizontal strips; three buffers and full cdata; no SDK acceptance"
+      ],
+      "passed": true
+    },
+    {
+      "configuration": "Release",
+      "summary": [
+        "PASS Texture mip ProcessInstance differential fixtures=870 errors=2 unsupportedResampling=0 comparedBytes=4450536; PC volume complete mips; generated horizontal strips; three buffers and full cdata; no SDK acceptance"
+      ],
+      "passed": true
+    }
+  ],
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "scope": "actual ProcessInstance image entry; supported TGA to raw volume mip DDS (PC); three buffers/full cdata",
+  "status": "passed",
+  "runId": "40533831752",
+  "sourceCommit": "a945c18c8ea02b6ad03f8a4b6172be10ba7dffa2"
+}

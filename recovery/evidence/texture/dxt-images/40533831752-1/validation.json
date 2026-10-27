@@ -1,0 +1,59 @@
+{
+  "sdkValidated": false,
+  "sourceFiles": [
+    {
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66",
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json"
+    },
+    {
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9",
+      "path": "src/TextureCompiler/Colour/TextureColour.asm"
+    },
+    {
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281",
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp"
+    }
+  ],
+  "scope": "actual Texture/OnDemandTexture DXT3/5 ProcessInstance; PC POT/partial-block and supported RGBA8 NPOT standard/volume raw+DXT no-mip/complete float mip TGA/PNG/BMP; three buffers/full cdata and NoOriginal; SDK pending",
+  "status": "passed",
+  "probeOnly": false,
+  "runId": "40533831752",
+  "runAttempt": "1",
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Debug",
+      "summary": [
+        "PASS Texture DXT ProcessInstance differential fixtures=14256 rejected=34 errors=1520 comparedBytes=66334496; PC DXT3/5 POT including partial-block and evidenced RGBA8 NPOT standard/volume no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending",
+        "PASS Texture DXT ProcessInstance NoOriginal fixtures=14256 rejected=34 errors=1520 comparedBytes=66334496; PC DXT3/5 POT including partial-block and evidenced RGBA8 NPOT standard/volume no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending"
+      ],
+      "passed": true
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Release",
+      "summary": [
+        "PASS Texture DXT ProcessInstance differential fixtures=14256 rejected=34 errors=1520 comparedBytes=66334496; PC DXT3/5 POT including partial-block and evidenced RGBA8 NPOT standard/volume no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending",
+        "PASS Texture DXT ProcessInstance NoOriginal fixtures=14256 rejected=34 errors=1520 comparedBytes=66334496; PC DXT3/5 POT including partial-block and evidenced RGBA8 NPOT standard/volume no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending"
+      ],
+      "passed": true
+    }
+  ],
+  "sourceCommit": "a945c18c8ea02b6ad03f8a4b6172be10ba7dffa2",
+  "nativeBinaries": [
+    {
+      "machine": "I386",
+      "configuration": "Debug",
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "sha256": "ff16ac9417f1e9074e17be8a5fe22cd5737a7ad55001ed787ea18ea6730f9923"
+    },
+    {
+      "machine": "I386",
+      "configuration": "Release",
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "sha256": "f474aa925eff377850a8c76f1a0eec5f802665cebf6d073fb997ec74218611bb"
+    }
+  ]
+}

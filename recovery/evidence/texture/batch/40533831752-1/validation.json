@@ -1,0 +1,135 @@
+{
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "group": "tga",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "formats",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "mip-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "volume-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "volume-mip-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "png",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "bmp",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "raster-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcNoMip",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcMips",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "png-ranges",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "dxt-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcDxtNoMip",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcDxtMips",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcDxtVolumes",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "error": "Debug-replay failed",
+      "group": "npot-rgba8",
+      "passed": false
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcNpotRgba8",
+      "passed": true
+    }
+  ],
+  "runAttempt": "1",
+  "reused": [
+    "base",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-samples",
+    "dxt-volume-dds"
+  ],
+  "status": "failed",
+  "runId": "40533831752",
+  "selected": [
+    "tga",
+    "formats",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "png-ranges",
+    "dxt-images",
+    "sdk-PcDxtNoMip",
+    "sdk-PcDxtMips",
+    "sdk-PcDxtVolumes",
+    "npot-rgba8",
+    "sdk-PcNpotRgba8"
+  ],
+  "sourceCommit": "a945c18c8ea02b6ad03f8a4b6172be10ba7dffa2"
+}

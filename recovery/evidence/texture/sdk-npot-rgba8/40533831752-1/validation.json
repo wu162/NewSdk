@@ -1,0 +1,649 @@
+{
+  "status": "passed",
+  "fixtureFiles": [
+    {
+      "sha256": "2e8b4e2c0e0391d971d533293bb187a3b35e0138e99b8b2e760cdd4f27441238",
+      "name": "bmp-d24-topFalse-3x1-p0.bmp",
+      "bytes": 73
+    },
+    {
+      "sha256": "2e8b4e2c0e0391d971d533293bb187a3b35e0138e99b8b2e760cdd4f27441238",
+      "name": "bmp-d24-topFalse-3x1-p2.bmp",
+      "bytes": 73
+    },
+    {
+      "sha256": "935fcb5a4f51998f4693d9d03c196b143a5527cf37716388b2e52374b381ba41",
+      "name": "bmp-d24-topFalse-3x2-p0.bmp",
+      "bytes": 85
+    },
+    {
+      "sha256": "935fcb5a4f51998f4693d9d03c196b143a5527cf37716388b2e52374b381ba41",
+      "name": "bmp-d24-topFalse-3x2-p2.bmp",
+      "bytes": 85
+    },
+    {
+      "sha256": "88bf1c6846ca840a5d970256327878aefe3f299d9b54e63e0578ed86e364ddd4",
+      "name": "bmp-d24-topFalse-5x3-p0.bmp",
+      "bytes": 109
+    },
+    {
+      "sha256": "88bf1c6846ca840a5d970256327878aefe3f299d9b54e63e0578ed86e364ddd4",
+      "name": "bmp-d24-topFalse-5x3-p2.bmp",
+      "bytes": 109
+    },
+    {
+      "sha256": "1b70f5b059697f6c9d9a20d8845ae2f1b6bfe12b1df930001cce356ee5fba942",
+      "name": "bmp-d24-topFalse-7x5-p0.bmp",
+      "bytes": 181
+    },
+    {
+      "sha256": "1b70f5b059697f6c9d9a20d8845ae2f1b6bfe12b1df930001cce356ee5fba942",
+      "name": "bmp-d24-topFalse-7x5-p2.bmp",
+      "bytes": 181
+    },
+    {
+      "sha256": "bb44a4b53490a5e56b50fcbcd7627f407f63225706dd2149e645b9a423a4794c",
+      "name": "bmp-d24-topTrue-3x1-p0.bmp",
+      "bytes": 73
+    },
+    {
+      "sha256": "bb44a4b53490a5e56b50fcbcd7627f407f63225706dd2149e645b9a423a4794c",
+      "name": "bmp-d24-topTrue-3x1-p2.bmp",
+      "bytes": 73
+    },
+    {
+      "sha256": "51a723cb90cd2c8d907919d9b34c689ecb9f2ae2e1c072f0a9c454688327b370",
+      "name": "bmp-d24-topTrue-3x2-p0.bmp",
+      "bytes": 85
+    },
+    {
+      "sha256": "51a723cb90cd2c8d907919d9b34c689ecb9f2ae2e1c072f0a9c454688327b370",
+      "name": "bmp-d24-topTrue-3x2-p2.bmp",
+      "bytes": 85
+    },
+    {
+      "sha256": "efd1440924ced4a65935e3605ada7637fadfc839873e12d60dc755a1ce701a62",
+      "name": "bmp-d24-topTrue-5x3-p0.bmp",
+      "bytes": 109
+    },
+    {
+      "sha256": "efd1440924ced4a65935e3605ada7637fadfc839873e12d60dc755a1ce701a62",
+      "name": "bmp-d24-topTrue-5x3-p2.bmp",
+      "bytes": 109
+    },
+    {
+      "sha256": "a3b199b2ec1ea0b62f17b35b42b7a8545d8755bb837aae37f1218d7bfe56154f",
+      "name": "bmp-d24-topTrue-7x5-p0.bmp",
+      "bytes": 181
+    },
+    {
+      "sha256": "a3b199b2ec1ea0b62f17b35b42b7a8545d8755bb837aae37f1218d7bfe56154f",
+      "name": "bmp-d24-topTrue-7x5-p2.bmp",
+      "bytes": 181
+    },
+    {
+      "sha256": "8fe98564f79eb4bbbcb0b4acad810330c7de5cd2410a807c9900462a059ae541",
+      "name": "bmp-d32-topFalse-3x1-p0.bmp",
+      "bytes": 73
+    },
+    {
+      "sha256": "e1bbd6ae8c53ee4019577774636983cb74b612b84ed3b2f155e8160e6a3104e6",
+      "name": "bmp-d32-topFalse-3x1-p2.bmp",
+      "bytes": 73
+    },
+    {
+      "sha256": "9d9c73020c9605625fb9ca1c69e7045f210aa9b654ec1a2e877e3e041b95df5c",
+      "name": "bmp-d32-topFalse-3x2-p0.bmp",
+      "bytes": 85
+    },
+    {
+      "sha256": "2b98aaed979ab91f5e80a6962014d369ac71bfa250462da7c29cebb3e0b9419a",
+      "name": "bmp-d32-topFalse-3x2-p2.bmp",
+      "bytes": 85
+    },
+    {
+      "sha256": "b036f9f72047d20f450e9b725f75913d3a736ff0015d5cc1745ddab2c3d036fd",
+      "name": "bmp-d32-topFalse-5x3-p0.bmp",
+      "bytes": 121
+    },
+    {
+      "sha256": "6ca8a0ee6e3a95d884a7890ba3f6026a98c01277918a9c638acaed7538c148e0",
+      "name": "bmp-d32-topFalse-5x3-p2.bmp",
+      "bytes": 121
+    },
+    {
+      "sha256": "cd7faec59dbc6d0d427e85e2dfe8b61d14eb6e1a59794531ee31ed86ceed19fd",
+      "name": "bmp-d32-topFalse-7x5-p0.bmp",
+      "bytes": 201
+    },
+    {
+      "sha256": "da58d85159038cd21b5d9feadc943d265511408c5892e094ea883385aedf8329",
+      "name": "bmp-d32-topFalse-7x5-p2.bmp",
+      "bytes": 201
+    },
+    {
+      "sha256": "5b88a3343a7d486fc2255d8c0d850ac48370d914087cccbb655b2de374b0b10a",
+      "name": "bmp-d32-topTrue-3x1-p0.bmp",
+      "bytes": 73
+    },
+    {
+      "sha256": "05f79e3cbd6b182d39a447d0f5deed2e499407c04d398e61c411cac4e198fcf0",
+      "name": "bmp-d32-topTrue-3x1-p2.bmp",
+      "bytes": 73
+    },
+    {
+      "sha256": "3667af4cd1199227558e8ac1fe3c31661d70e632d4396052a5ad6ffd117c417f",
+      "name": "bmp-d32-topTrue-3x2-p0.bmp",
+      "bytes": 85
+    },
+    {
+      "sha256": "874331fedc4c267b5bd944985405d7f77b865c3a5a3d8ab3176d7cbb6067952f",
+      "name": "bmp-d32-topTrue-3x2-p2.bmp",
+      "bytes": 85
+    },
+    {
+      "sha256": "a2995f3104fd8da345e0b6b2e2c0d265653afd027df66e4dd4ef6406df45dd51",
+      "name": "bmp-d32-topTrue-5x3-p0.bmp",
+      "bytes": 121
+    },
+    {
+      "sha256": "c8d6283850a32a236adfd1b1c9b8033c90d80a4c9d5fb1610ae32dae87ac46de",
+      "name": "bmp-d32-topTrue-5x3-p2.bmp",
+      "bytes": 121
+    },
+    {
+      "sha256": "c53b4b1604384f357b129376939e2661cadd35bdb7d0665aca6ed4e7e71adda1",
+      "name": "bmp-d32-topTrue-7x5-p0.bmp",
+      "bytes": 201
+    },
+    {
+      "sha256": "b0b365a0e5424fc5ef7886edb4fe42c9ed714232ae9e54c65641fbc24fbffeaf",
+      "name": "bmp-d32-topTrue-7x5-p2.bmp",
+      "bytes": 201
+    },
+    {
+      "sha256": "290412cd2874bb4e503d4c3ac02836c46f0e9090f854160b42b63672f9bb03c4",
+      "name": "png-c2-i0-3x1-p0.png",
+      "bytes": 102
+    },
+    {
+      "sha256": "c7c75815bd71b016e89e53aae4adce8817631b8ce760d4a5c689e8fea3f7e815",
+      "name": "png-c2-i0-3x1-p2.png",
+      "bytes": 102
+    },
+    {
+      "sha256": "274f602a5ece49a1f31657608fc072412e8e7c8e123b581c614c6f20abb40084",
+      "name": "png-c2-i0-3x2-p0.png",
+      "bytes": 112
+    },
+    {
+      "sha256": "fdc39d9e2a898e1ce2eef8a7bb3a5b3d634089fca0a2179766ecac0e99122359",
+      "name": "png-c2-i0-3x2-p2.png",
+      "bytes": 112
+    },
+    {
+      "sha256": "0c7b6e8d0a141b3be92b5db313407c50b9e958b04d3d46e89ad6ba308ec05f09",
+      "name": "png-c2-i0-5x3-p0.png",
+      "bytes": 140
+    },
+    {
+      "sha256": "be6590e31926ac0c4e5d21648e58769923218c0a4aec569947cf0221013b1a30",
+      "name": "png-c2-i0-5x3-p2.png",
+      "bytes": 140
+    },
+    {
+      "sha256": "1afff00815c6672ee13cab39a14e5433d1cfcea167e270d11b75bf35ee8502f2",
+      "name": "png-c2-i0-7x5-p0.png",
+      "bytes": 202
+    },
+    {
+      "sha256": "59764f96be5d74030db98a56c6463a0d643a575d6fe8dbaea46a443930c89cb4",
+      "name": "png-c2-i0-7x5-p2.png",
+      "bytes": 202
+    },
+    {
+      "sha256": "03f1f802fa54dab9880e660c498550bb03fd22bcf0def6d3b0733ac35fbd17ba",
+      "name": "png-c2-i1-3x1-p0.png",
+      "bytes": 104
+    },
+    {
+      "sha256": "7bc933f2d2fd6e215a9f34e92e39fa30574bdabdc9caf9fa4a70c14a2d2bd51b",
+      "name": "png-c2-i1-3x1-p2.png",
+      "bytes": 104
+    },
+    {
+      "sha256": "959358020be1cc78f084d01b335b459f28f06a660786b35ddb1bdc16a8152283",
+      "name": "png-c2-i1-3x2-p0.png",
+      "bytes": 114
+    },
+    {
+      "sha256": "32fc13a0f6b3c450b04e7382d24c4aff1eab6fe7b0e442fd26dc668b94981cc1",
+      "name": "png-c2-i1-3x2-p2.png",
+      "bytes": 114
+    },
+    {
+      "sha256": "5941954e0e93feb7476c6963ce26d3129f0404ba0df9cc2b72675db904ae8a04",
+      "name": "png-c2-i1-5x3-p0.png",
+      "bytes": 144
+    },
+    {
+      "sha256": "bf41bf7bbc412169f983cee71c0a8032deede11483a2e06564bc324765b4d126",
+      "name": "png-c2-i1-5x3-p2.png",
+      "bytes": 144
+    },
+    {
+      "sha256": "6e2b7d9535e3e8145ad3d6ba29dcf165306b426b2af4c521de3c930d1f025d89",
+      "name": "png-c2-i1-7x5-p0.png",
+      "bytes": 208
+    },
+    {
+      "sha256": "7364f169caaae44b2c2890cf2a12fd353f49e11e97d2476dab6f82219bb889a5",
+      "name": "png-c2-i1-7x5-p2.png",
+      "bytes": 208
+    },
+    {
+      "sha256": "d3de6582b1a73430a9686d1155e98821ddffe87e4ed7d2e847bb1c1a7b40560e",
+      "name": "png-c6-i0-3x1-p0.png",
+      "bytes": 105
+    },
+    {
+      "sha256": "0dd03875d25d7494f3218c08d3fe3c08bcc5014fe1ccbca94e8f7ca46ca62d3c",
+      "name": "png-c6-i0-3x1-p2.png",
+      "bytes": 105
+    },
+    {
+      "sha256": "d074192bc4f16d6110c2fc1d43267b61ddb231abb13329a2b0dd07389d66ba66",
+      "name": "png-c6-i0-3x2-p0.png",
+      "bytes": 118
+    },
+    {
+      "sha256": "562686ef0efa5017e09a85af2e755f20c34ed9a1889b2cb50189c41fa00ca672",
+      "name": "png-c6-i0-3x2-p2.png",
+      "bytes": 118
+    },
+    {
+      "sha256": "3906557dd96c5528be6154a5e428d1e569c9182b650682a4ba5ae58a3fb38f6e",
+      "name": "png-c6-i0-5x3-p0.png",
+      "bytes": 155
+    },
+    {
+      "sha256": "caf872236cb4bff2f96939ba3f96c95efd1697928b2edac4b94e70bf940ba1fe",
+      "name": "png-c6-i0-5x3-p2.png",
+      "bytes": 155
+    },
+    {
+      "sha256": "8e55fabc25b5947b5bfa797af2b30b11c0de7e70b9c43446e42a46365334d439",
+      "name": "png-c6-i0-7x5-p0.png",
+      "bytes": 237
+    },
+    {
+      "sha256": "0d4b8ca1ccfc05fd802f311b7200d798af96e27ce7cb91a92172935a5a67af6f",
+      "name": "png-c6-i0-7x5-p2.png",
+      "bytes": 237
+    },
+    {
+      "sha256": "af8fe13851427a3b9452fd445f76815b1b8469b9c4f06922b126a9d0259b39b6",
+      "name": "png-c6-i1-3x1-p0.png",
+      "bytes": 107
+    },
+    {
+      "sha256": "c0296ab4140040a127452519408ca2841526311abce2f989f5bb74747d73881a",
+      "name": "png-c6-i1-3x1-p2.png",
+      "bytes": 107
+    },
+    {
+      "sha256": "ca1f69e3ffd1f34acbc3272bbfe2051f5c720cc0e09680142e25d3d7a0a1f7e3",
+      "name": "png-c6-i1-3x2-p0.png",
+      "bytes": 120
+    },
+    {
+      "sha256": "78b2545a3ee7bdfa497c61be9f15a5813d1893f468727acf664d15a942d33b48",
+      "name": "png-c6-i1-3x2-p2.png",
+      "bytes": 120
+    },
+    {
+      "sha256": "57a2cd5dc3006fd85194a2ea350bd3f74dd962a71a01151645f96366f007bf88",
+      "name": "png-c6-i1-5x3-p0.png",
+      "bytes": 159
+    },
+    {
+      "sha256": "e53e0f6fb58d3d2323ff909af6e54e8a463c959959a6645dcc4d33bc009f39a9",
+      "name": "png-c6-i1-5x3-p2.png",
+      "bytes": 159
+    },
+    {
+      "sha256": "204fb0073f120ce0a9bc4dc463a099393ecb99e3b07619dd514c45b5485d35ec",
+      "name": "png-c6-i1-7x5-p0.png",
+      "bytes": 243
+    },
+    {
+      "sha256": "2dfacb18260abcd85d064a374408f5875ea72c1ed2e57131db71ecfb30b67f81",
+      "name": "png-c6-i1-7x5-p2.png",
+      "bytes": 243
+    },
+    {
+      "sha256": "166bfc1bb84f90470ea3f8fba42576c4045e81cd9ebe37c6f5487a2d0eb295b5",
+      "name": "tga-d24-3x1-p0.tga",
+      "bytes": 27
+    },
+    {
+      "sha256": "09977e1047b25799b6530cc4041dfdf27f8aa2caaeed2d9fdfa36919d487c523",
+      "name": "tga-d24-3x1-p2.tga",
+      "bytes": 27
+    },
+    {
+      "sha256": "d35e40ae83b6ade654350c4313e6b90e773072703d276cbea73f462cca317b36",
+      "name": "tga-d24-3x2-p0.tga",
+      "bytes": 36
+    },
+    {
+      "sha256": "b9a59b6fb736b03c93d5c1bd4125767c1389dd1347b1088885833714651b71c1",
+      "name": "tga-d24-3x2-p2.tga",
+      "bytes": 36
+    },
+    {
+      "sha256": "754dc0df875ec099b166323de8a58b7fc4626e0ece180067e6b58d153fdcc7a6",
+      "name": "tga-d24-5x3-p0.tga",
+      "bytes": 63
+    },
+    {
+      "sha256": "e43f3817813b210e60ba1e1f14545a7db90169d1a0b51c616104e84ac757c198",
+      "name": "tga-d24-5x3-p2.tga",
+      "bytes": 63
+    },
+    {
+      "sha256": "b20faf447721b94def49381b498cc705e0f01fbd426764ceefaf3e3580b7bb4a",
+      "name": "tga-d24-7x5-p0.tga",
+      "bytes": 123
+    },
+    {
+      "sha256": "ab0b181ee02b4f2e0bf9736e2421e72cdb0e9cf13fe5d3099999c209b54cbedf",
+      "name": "tga-d24-7x5-p2.tga",
+      "bytes": 123
+    },
+    {
+      "sha256": "21674ce8c73dec2390126dabcbaecf9c7675bb19f96c856a32672b7d34df65fe",
+      "name": "tga-d32-3x1-p0.tga",
+      "bytes": 30
+    },
+    {
+      "sha256": "47c057dac62b597523a86baaa7600ea3555c8a39b31dcda873cffa2bf71366b3",
+      "name": "tga-d32-3x1-p2.tga",
+      "bytes": 30
+    },
+    {
+      "sha256": "3e8d9a02db923d89799a6516274be6985266b47ce96ab3ad13c93e176f8a76c4",
+      "name": "tga-d32-3x2-p0.tga",
+      "bytes": 42
+    },
+    {
+      "sha256": "705e095e8602792d61972ab44506f7fe6789c816a7284d87551d319e61e590fb",
+      "name": "tga-d32-3x2-p2.tga",
+      "bytes": 42
+    },
+    {
+      "sha256": "b140ba95463cc6cb97d3fae4caedae4130890fb7615e28ea74eb46473b7cf45d",
+      "name": "tga-d32-5x3-p0.tga",
+      "bytes": 78
+    },
+    {
+      "sha256": "4c7aed02e92f382dd69f5e51ba7d5b58ce3bfad766b205a22b792f2d434005ae",
+      "name": "tga-d32-5x3-p2.tga",
+      "bytes": 78
+    },
+    {
+      "sha256": "5d75ff83073350873f205151d9700d941c0692aadffd8cafeff81d45af18c667",
+      "name": "tga-d32-7x5-p0.tga",
+      "bytes": 158
+    },
+    {
+      "sha256": "3790b2c8fe1a50245546d45c6d59641f6018e0613ba8a950721be8f2ad71bd2a",
+      "name": "tga-d32-7x5-p2.tga",
+      "bytes": 158
+    }
+  ],
+  "scope": "EALAModStudio case5 BAB build of dedicated POT including partial-block PC DXT3/5 TGA/PNG/BMP texture MOD: PcNpotRgba8",
+  "originalNpotBaseline": {
+    "sourceCommit": "a19bb879704cd80ad55202760a160c8af57bbe2d",
+    "samplesSha256": "dca86c4ed1b16c8e118d9e4535317343ddf80866a4eb6bd2f490fc1f0a32c26d",
+    "runId": "40528237009"
+  },
+  "runId": "40533831752",
+  "sdkValidated": true,
+  "profile": "PcNpotRgba8",
+  "sourceCommit": "a945c18c8ea02b6ad03f8a4b6172be10ba7dffa2",
+  "traceArchiveSha256": "529ed81c393079e5643dcc16b7749f9e5dccc2f47a1259e68b391d2e1740cd32",
+  "expectedAssets": 3200,
+  "sourceFiles": [
+    {
+      "sha256": "7191ecde22771f2f261531773e3c1e22f11b6c4d09c30571d481621058f1e23a",
+      "path": "src/TextureCompiler/Managed/Plugin.Dds.cs"
+    },
+    {
+      "sha256": "38ff72c3b5b221b8778c3dee51e324fd7d94a7da90b445a2e135d73d945f4d78",
+      "path": "src/TextureCompiler/Managed/Plugin.Images.cs"
+    },
+    {
+      "sha256": "cf65743de09274651b516c0cdf137169fd58b204a0ffeaf85a9f197db2e2476f",
+      "path": "src/TextureCompiler/Managed/Plugin.Metadata.cs"
+    },
+    {
+      "sha256": "ab32e023e8b8673f484cee52af9cda38fa15a02fc70daae15356edc8bcf4604b",
+      "path": "src/TextureCompiler/Dxt/README.md"
+    },
+    {
+      "sha256": "4a9bb8990084335f2e1f2a51c05dbd0dfd3cbf3d86e87712c8dc4e5f7899c455",
+      "path": "src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj"
+    },
+    {
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66",
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json"
+    },
+    {
+      "sha256": "e00f17c387de53110e8f78e023c524f277db2b8172aad193ab5993b959e3c5ba",
+      "path": "src/TextureCompiler/Dxt/TextureAlphaQuantizer.cpp"
+    },
+    {
+      "sha256": "454c3176387f1e318b3134b745799080ef297e6589ae72e5f6b935fe4bd0d247",
+      "path": "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+    },
+    {
+      "sha256": "20993978972f37c771c44f15dfe4bbd7d446157b823bcdc412cc321ec048891f",
+      "path": "src/TextureCompiler/Managed/TextureCatalog.cs"
+    },
+    {
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9",
+      "path": "src/TextureCompiler/Colour/TextureColour.asm"
+    },
+    {
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281",
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp"
+    },
+    {
+      "sha256": "5c0148c0297e16db3a593ee6aed6180eb2e5ad208eabf9257de557cbe47edbb1",
+      "path": "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs"
+    },
+    {
+      "sha256": "21ac8c4b7a0ca1da47f9b030468a127b5dac26d8c8577de23a8baef7db8bb570",
+      "path": "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs"
+    },
+    {
+      "sha256": "d187a663098b9cee0ad5bed2e80d9619f37097a33243d99b9148b764a94a4b6e",
+      "path": "src/TextureCompiler/Managed/TextureDxt5FastAlphaEncoder.cs"
+    },
+    {
+      "sha256": "050500fa4d38db31b94fafec2c8d2421058a986b6c1b79ee6ba2da787dc8a3a2",
+      "path": "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs"
+    },
+    {
+      "sha256": "1328e392626f4317d47af3c59716a5ecf6a5c7ae4b9d59eaab4ac6b67ab64cd2",
+      "path": "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs"
+    },
+    {
+      "sha256": "449ff8a4e0b87d4c82a45b5f2c0c4784af66ad62dc833a36e0d5ff87d5ad1d94",
+      "path": "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs"
+    },
+    {
+      "sha256": "bd99d0b0cb22fe9994b6dd4bda7e1bcac3998129a47df79580778b382834fda5",
+      "path": "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs"
+    },
+    {
+      "sha256": "3c15c5f9cc536398704b99d9fe5e532c2a3f5f51bc0f90e3739274fdf81f4e99",
+      "path": "src/TextureCompiler/Managed/TextureImageLoader.cs"
+    },
+    {
+      "sha256": "3072b97d55478e3e5836a4fa9237702be5c59a491e30f75dc7f7fa2b6b2b7408",
+      "path": "src/TextureCompiler/Managed/TextureImageRules.cs"
+    },
+    {
+      "sha256": "9c9251ac5b11478e951468f0ad51b160f72652be8ce960f45a95247fdc562de0",
+      "path": "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs"
+    },
+    {
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176",
+      "path": "src/TextureCompiler/Managed/TexturePacker.cs"
+    },
+    {
+      "sha256": "f46d367bba07367f7bb307f0c864b58689fef693c5ba7f6796388527f6a9a118",
+      "path": "src/TextureCompiler/Managed/TexturePngDecoder.cs"
+    },
+    {
+      "sha256": "44807a0dddbc6e9287187496572cbd6eea9519de20758773cba2ea6f0a07e49a",
+      "path": "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs"
+    },
+    {
+      "sha256": "25ced37ba13bfdb71dea0e2308502da992d0395e8a778599457da1c010202174",
+      "path": "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs"
+    },
+    {
+      "sha256": "31fe55228b799364a54be283228105c5c1d05af12a68f779fad9825f0da2e00e",
+      "path": "src/TextureCompiler/Managed/TextureTgaDecoder.cs"
+    },
+    {
+      "sha256": "8209f4b9e8e55ef34cf08e8a44a5f77612319f5eb1a0dccb341f59718b995239",
+      "path": "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
+    },
+    {
+      "sha256": "4d203e1fa3cddef9094c7452c3ff4ae9c971eb26b1f104e7fa8914d21cd0d85b",
+      "path": "src/TextureCompiler/Managed/TextureVolume.cs"
+    },
+    {
+      "sha256": "f6b1cf28db0f1cf49e47c2f46aef953052618cc3f51ff5414ccac2db32a8f9ba",
+      "path": "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    {
+      "sha256": "d3e2f8f6894ba1f40a8662c59602c7b91e54e9d16b7457c6b58290e4267e4e6b",
+      "path": "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs"
+    }
+  ],
+  "runAttempt": "1",
+  "modes": [
+    {
+      "actualCalls": 3200,
+      "withoutOriginalTextureCompiler": false,
+      "passed": true,
+      "mode": "Original",
+      "assertedOriginalNotLoadedDuringEveryCall": false,
+      "uniqueAssets": 3200,
+      "files": [
+        {
+          "file": "mod.bin",
+          "sha256": "0db115caf1021838b5e29c050715765518ed2e545a003b7c03c974e40a404d6d",
+          "bytes": 374884
+        },
+        {
+          "file": "mod.manifest",
+          "sha256": "c2be9458d0d75d9f4fdd5c22ac403d12e81572add21c984d5ca9db09f6676266",
+          "bytes": 258177
+        },
+        {
+          "file": "mod.imp",
+          "sha256": "33883a0668d2b6f974ce11a5e792215e72dbf27b31b54323ced89fa2255ce2e9",
+          "bytes": 4
+        },
+        {
+          "file": "mod.relo",
+          "sha256": "eec234d5ee08275ac5308add5b956d9b94cdb4db6c2fe35de80c703dfa74da9d",
+          "bytes": 12804
+        }
+      ]
+    },
+    {
+      "actualCalls": 3200,
+      "withoutOriginalTextureCompiler": false,
+      "passed": true,
+      "mode": "Recovered",
+      "assertedOriginalNotLoadedDuringEveryCall": false,
+      "uniqueAssets": 3200,
+      "files": [
+        {
+          "file": "mod.bin",
+          "sha256": "0db115caf1021838b5e29c050715765518ed2e545a003b7c03c974e40a404d6d",
+          "bytes": 374884
+        },
+        {
+          "file": "mod.manifest",
+          "sha256": "c2be9458d0d75d9f4fdd5c22ac403d12e81572add21c984d5ca9db09f6676266",
+          "bytes": 258177
+        },
+        {
+          "file": "mod.imp",
+          "sha256": "33883a0668d2b6f974ce11a5e792215e72dbf27b31b54323ced89fa2255ce2e9",
+          "bytes": 4
+        },
+        {
+          "file": "mod.relo",
+          "sha256": "eec234d5ee08275ac5308add5b956d9b94cdb4db6c2fe35de80c703dfa74da9d",
+          "bytes": 12804
+        }
+      ]
+    },
+    {
+      "actualCalls": 3200,
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "mode": "NoOriginal",
+      "assertedOriginalNotLoadedDuringEveryCall": true,
+      "uniqueAssets": 3200,
+      "files": [
+        {
+          "file": "mod.bin",
+          "sha256": "0db115caf1021838b5e29c050715765518ed2e545a003b7c03c974e40a404d6d",
+          "bytes": 374884
+        },
+        {
+          "file": "mod.manifest",
+          "sha256": "c2be9458d0d75d9f4fdd5c22ac403d12e81572add21c984d5ca9db09f6676266",
+          "bytes": 258177
+        },
+        {
+          "file": "mod.imp",
+          "sha256": "33883a0668d2b6f974ce11a5e792215e72dbf27b31b54323ced89fa2255ce2e9",
+          "bytes": 4
+        },
+        {
+          "file": "mod.relo",
+          "sha256": "eec234d5ee08275ac5308add5b956d9b94cdb4db6c2fe35de80c703dfa74da9d",
+          "bytes": 12804
+        }
+      ]
+    }
+  ],
+  "targetPlatform": "Win32",
+  "nativeBinaries": [
+    {
+      "machine": "I386",
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "name": "Recovered.TextureDxtColour.dll",
+      "sha256": "bb24c50536ae00ec989cbef2b90c426b619fb27c7d17c5f372d0eafd1026cb61"
+    },
+    {
+      "machine": "I386",
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "name": "Recovered.TextureDxtAlpha.dll",
+      "sha256": "1c0674bbbc1b7129f5e157d8f883d0e9d658434a49d8fc7023ba4a62df4440bf"
+    }
+  ]
+}
