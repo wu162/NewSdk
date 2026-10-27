@@ -59,6 +59,7 @@ try {
         @{name='CompilerInputDigests';marker='PASS InputDigests:'},
         @{name='CompilerNodeJoiner';marker='PASS NodeJoiner:'},
         @{name='CompilerSchemaDescriptors';marker='PASS SchemaDescriptors:'},
+        @{name='CompilerSchemaMetadata';marker='PASS SchemaMetadata:'},
         @{name='CompilerCacheContent';marker='PASS CacheContent:'},
         @{name='CompilerCacheBoundary';marker='PASS CacheBoundary:'},
         @{name='CompilerInputRoots';marker='PASS InputRoots:'},

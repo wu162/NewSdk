@@ -31,6 +31,7 @@ namespace NewModCompiler.Application
         readonly List<BuildAssetCache> assetCaches = new List<BuildAssetCache>();
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
         readonly List<object> coreWork = new List<object>();
+        readonly SchemaSet.MetadataCache schemaMetadata = new SchemaSet.MetadataCache();
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
         VerifierPluginRegistry verifiers;
@@ -471,7 +472,7 @@ namespace NewModCompiler.Application
                     }
                 }
                 });
-                schemas = outerWork.Measure("schemaPreparation", () => new SchemaSet(settings.StableSort));
+                schemas = outerWork.Measure("schemaPreparation", () => new SchemaSet(settings.StableSort, schemaMetadata));
                 hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                 var cache = new SessionCache();
                 outerWork.Measure("sessionPreparation", () => {
@@ -565,6 +566,7 @@ namespace NewModCompiler.Application
                 coreWork.Add(new { taskId = context.Task.Id, stages = processor == null ? null : processor.GetWorkMetrics(),
                     outerStages = outerWork.Snapshot(), inputDigests = measuredSession == null ? null : measuredSession.GetDigestReadMetrics(),
                     schemaPreparation = schemas == null ? null : schemas.GetPreparationMetrics(),
+                    schemaMetadata = schemas == null ? null : new { enabled = schemas.SharedMetadataEnabled, builds = schemas.MetadataBuildCount, hits = schemas.MetadataHitCount },
                     schemaInputs = schemas == null ? null : new { filesRead = schemas.SchemaFileReadCount, bytesRead = schemas.SchemaContentBytesRead, contentChecks = schemas.SchemaContentCheckCount },
                     schemaReferences = schemas == null ? null : new { builds = schemas.ReferenceDescriptorBuildCount, hits = schemas.ReferenceDescriptorHitCount } });
                 if (failure != null)
@@ -744,7 +746,7 @@ namespace NewModCompiler.Application
                 disposed = true;
             }
             try { DisposeProviders(); }
-            finally { ReleaseLease(); }
+            finally { schemaMetadata.Clear(); ReleaseLease(); }
         }
         void DisposeProviders()
         {

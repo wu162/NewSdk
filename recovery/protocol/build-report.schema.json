@@ -229,6 +229,50 @@
           }
         }
       }
+    },
+    "applicationWork": {
+      "type": "object",
+      "required": [
+        "captureBoundary",
+        "stages"
+      ],
+      "properties": {
+        "captureBoundary": {
+          "const": "beforeInitialReport"
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "stage",
+              "calls",
+              "failedCalls",
+              "elapsedMs"
+            ],
+            "properties": {
+              "stage": {
+                "type": "string",
+                "minLength": 1
+              },
+              "calls": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "failedCalls": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "elapsedMs": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
     }
   }
 }

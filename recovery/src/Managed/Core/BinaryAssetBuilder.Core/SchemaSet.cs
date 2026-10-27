@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -35,6 +36,112 @@ public class SchemaSet
 		try { operation(); }
 		catch { work.failedCalls++; throw; }
 		finally { work.ticks += Stopwatch.GetTimestamp() - start; }
+	}
+
+	// One build owns this bounded cache. It stores only our immutable values;
+	// every SchemaSet still owns, reads and compiles its own Framework schema.
+	public sealed class MetadataCache
+	{
+		private readonly object gate = new object();
+		private string key;
+		private MetadataSnapshot snapshot;
+		internal bool TryRestore(string candidate, SchemaSet target)
+		{
+			MetadataSnapshot saved;
+			lock (gate) saved = string.Equals(key, candidate, StringComparison.Ordinal) ? snapshot : null;
+			if (saved == null) return false;
+			target.MeasurePreparation("schemaMetadataRestore", () => saved.Restore(target));
+			return true;
+		}
+		internal void Store(string candidate, SchemaSet source)
+		{
+			var saved = new MetadataSnapshot(source);
+			lock (gate) { key = candidate; snapshot = saved; }
+		}
+		public void Clear() { lock (gate) { key = null; snapshot = null; } }
+	}
+
+	private sealed class MetadataSnapshot
+	{
+		private readonly KeyValuePair<string, string[]>[] inheritance;
+		private readonly KeyValuePair<uint, int>[] dependencies;
+		internal MetadataSnapshot(SchemaSet source)
+		{
+			inheritance = new KeyValuePair<string, string[]>[source._InheritanceMap.Count];
+			int index = 0;
+			foreach (var item in source._InheritanceMap)
+			{
+				var names = new string[item.Value.Count]; item.Value.CopyTo(names, 0);
+				inheritance[index++] = new KeyValuePair<string, string[]>(item.Key, names);
+			}
+			if (source._AssetDependencies != null)
+			{
+				dependencies = new KeyValuePair<uint, int>[source._AssetDependencies.Count];
+				index = 0;
+				foreach (var item in source._AssetDependencies) dependencies[index++] = item;
+			}
+		}
+		internal void Restore(SchemaSet target)
+		{
+			var inherited = new SortedDictionary<string, StringCollection>();
+			foreach (var item in inheritance)
+			{
+				var names = new StringCollection(); names.AddRange(item.Value); inherited.Add(item.Key, names);
+			}
+			IDictionary<uint, int> counts = null;
+			if (dependencies != null)
+			{
+				counts = new SortedDictionary<uint, int>();
+				foreach (var item in dependencies) counts.Add(item.Key, item.Value);
+			}
+			target._InheritanceMap = inherited;
+			target._AssetDependencies = counts;
+			target._DependencyTree = null;
+		}
+	}
+
+	private readonly MetadataCache _MetadataCache;
+	private readonly bool _UseSharedMetadata;
+	private List<string> _SchemaReadOrder;
+	public long MetadataBuildCount { get; private set; }
+	public long MetadataHitCount { get; private set; }
+	public bool SharedMetadataEnabled => _UseSharedMetadata;
+
+	private string MetadataKey(bool countDependencies)
+	{
+		using (var bytes = new MemoryStream())
+		using (var writer = new BinaryWriter(bytes))
+		{
+			writer.Write("SchemaMetadata.v1");
+			writer.Write(Path.GetFullPath(Settings.Current.SchemaPath));
+			writer.Write(countDependencies);
+			writer.Write(CultureInfo.CurrentCulture.Name);
+			writer.Write(CultureInfo.CurrentCulture.CompareInfo.Name);
+			writer.Write(_SchemaReadOrder.Count);
+			foreach (string path in _SchemaReadOrder) { writer.Write(path); writer.Write(_SchemaContentHashes[path]); }
+			var descriptors = Settings.Current.StringHashBinDescriptors;
+			writer.Write(descriptors.Length);
+			foreach (var descriptor in descriptors)
+			{
+				writer.Write(descriptor.SchemaTypeName ?? ""); writer.Write(descriptor.BinName ?? ""); writer.Write(descriptor.CaseSensitivity);
+			}
+			writer.Flush();
+			using (var algorithm = SHA256.Create()) return Convert.ToBase64String(algorithm.ComputeHash(bytes.ToArray()));
+		}
+	}
+
+	private void PrepareSchemaMetadata(bool countDependencies)
+	{
+		// Hashable/helper types contain Framework objects and always remain local.
+		MeasurePreparation("schemaHelpers", SetupHelperSchemaTypes);
+		string key = _UseSharedMetadata ? MetadataKey(countDependencies) : null;
+		bool restored = false;
+		if (_UseSharedMetadata)
+			restored = _MetadataCache.TryRestore(key, this);
+		if (restored) { MetadataHitCount++; return; }
+		MeasurePreparation("schemaMetadataBuild", () => BuildSchemaMetadata(countDependencies));
+		MetadataBuildCount++;
+		if (_UseSharedMetadata) _MetadataCache.Store(key, this);
 	}
 
 	private class SchemaHashTable : SortedDictionary<XmlSchema, uint>
@@ -195,6 +302,7 @@ public class SchemaSet
 		SchemaFileReadCount++;
 		SchemaContentBytesRead += contents.LongLength;
 		_SchemaPaths.Add(schemaFile, File.GetLastWriteTime(schemaFile));
+		_SchemaReadOrder.Add(schemaFile);
 		using (var algorithm = SHA256.Create())
 			_SchemaContentHashes.Add(schemaFile, Convert.ToBase64String(algorithm.ComputeHash(contents)));
 		XmlSchema xmlSchema;
@@ -423,6 +531,7 @@ public class SchemaSet
 		_CircularCheck = new Set<uint>();
 		_SchemaPaths = new SortedDictionary<string, DateTime>(StringComparer.OrdinalIgnoreCase);
 		_SchemaContentHashes = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+		_SchemaReadOrder = new List<string>();
 		_Schemas = new XmlSchemaSet();
 		_InheritanceMap = new SortedDictionary<string, StringCollection>();
 		_DependencyTree = new SortedDictionary<uint, DependencyList>();
@@ -436,13 +545,12 @@ public class SchemaSet
 			throw new BinaryAssetBuilderException(innerException, ErrorCode.ReadingSchema, "Error encountered in schema '{0}'", _CurrentSchema);
 		}
 		MeasurePreparation("schemaCompile", _Schemas.Compile);
-		MeasurePreparation("schemaMetadata", () => BuildSchemaMetadata(countDependencies));
+		MeasurePreparation("schemaMetadata", () => PrepareSchemaMetadata(countDependencies));
 		_LoadedSchemaPath = Path.GetFullPath(Settings.Current.SchemaPath);
 	}
 
 	private void BuildSchemaMetadata(bool countDependencies)
 	{
-		SetupHelperSchemaTypes();
 		IDictionary<string, StringCollection> dictionary = new SortedDictionary<string, StringCollection>();
 		dictionary.Add("BaseAssetType", new StringCollection());
 		foreach (XmlSchemaType value2 in Schemas.GlobalTypes.Values)
@@ -504,8 +612,13 @@ public class SchemaSet
 		}
 	}
 
-	public SchemaSet(bool countDependencies)
+	public SchemaSet(bool countDependencies) : this(countDependencies, null) { }
+
+	public SchemaSet(bool countDependencies, MetadataCache metadataCache)
 	{
+		AppContext.TryGetSwitch("NewSdk.Compiler.DisableSharedSchemaMetadata", out bool sharedDisabled);
+		_MetadataCache = metadataCache;
+		_UseSharedMetadata = metadataCache != null && !sharedDisabled;
 		AppContext.TryGetSwitch("NewSdk.Compiler.DisableSchemaReferenceDescriptors", out bool disabled);
 		_UseReferenceDescriptors = !disabled;
 		LoadSchemas(countDependencies);

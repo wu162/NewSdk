@@ -179,7 +179,7 @@ function WorkMeasurements($Rows,[string[]]$Required,[string]$Scope){
     foreach($stage in $Required){Need (@($measurements|Where-Object{$_.stage -ceq $stage -and $_.calls -gt 0}).Count -eq 1) "$Scope required work was not measured: $stage"}
     return $measurements
 }
-function BusinessWorkMetrics($Case){
+function BusinessWorkMetrics($Case,[bool]$SharedMetadata=$false){
     $tasks=@($Case.report.plan.Tasks);$work=@($Case.report.cache.coreWork)
     Need ($Case.report.cache.status -ceq 'Disabled' -and !$Case.report.cache.sessionCache) 'Business work baseline must run with compiler caches disabled'
     Need ($work.Count -eq $tasks.Count) 'Business work must have one snapshot per selected task'
@@ -189,11 +189,22 @@ function BusinessWorkMetrics($Case){
         Need ($matching.Count -eq 1) 'Business work snapshot task identity missing or duplicated'
         $item=$matching[0]
         $core=@(WorkMeasurements $item.stages @('rawParse','definitions','expressions','inheritance','validation','assetProcessing','referenceBinding','manifest','link') ($Case.name+'/'+$task.Id+'/Core'))
-        $schema=@(WorkMeasurements $item.schemaPreparation @('schemaRead','schemaCompile','schemaMetadata') ($Case.name+'/'+$task.Id+'/schema'))
+        $schema=@(WorkMeasurements $item.schemaPreparation @('schemaRead','schemaCompile','schemaMetadata','schemaHelpers') ($Case.name+'/'+$task.Id+'/schema'))
         $outer=@(WorkMeasurements $item.outerStages @('settings','providerPreparation','schemaPreparation','sessionPreparation','processDocument','artifactCollection','cleanup') ($Case.name+'/'+$task.Id+'/outer'))
+        Need ($null -ne $item.schemaMetadata -and $item.schemaMetadata.enabled -eq $true) 'Business schema metadata sharing must be enabled in the rebuilt production runtime'
+        $expectHit=$SharedMetadata -and $taskMetrics.Count -gt 0
+        Need ($item.schemaMetadata.builds -eq $(if($expectHit){0}else{1}) -and $item.schemaMetadata.hits -eq $(if($expectHit){1}else{0})) 'Business schema metadata cold/hit counts differ from the ordered build-scoped sharing contract'
+        if($expectHit){
+            Need (@($schema|Where-Object{$_.stage -ceq 'schemaMetadataRestore' -and $_.calls -eq 1}).Count -eq 1) 'Business schema metadata hit must measure the isolated-table restore'
+            Need (@($schema|Where-Object{$_.stage -ceq 'schemaMetadataBuild'}).Count -eq 0) 'Business schema metadata hit unexpectedly rebuilt the compiler-owned tables'
+        }
+        else{
+            Need (@($schema|Where-Object{$_.stage -ceq 'schemaMetadataRestore'}).Count -eq 0) 'Cold business schema preparation unexpectedly restored shared metadata'
+            Need (@($schema|Where-Object{$_.stage -ceq 'schemaMetadataBuild' -and $_.calls -eq 1}).Count -eq 1) 'Cold business schema preparation must measure the compiler-owned metadata build'
+        }
         Need ($null -ne $item.schemaInputs -and $item.schemaInputs.filesRead -gt 0 -and $item.schemaInputs.bytesRead -gt 0 -and $item.schemaInputs.contentChecks -ge 0) 'Business schema input read counters missing or invalid'
         Need ($null -ne $item.inputDigests -and $item.inputDigests.reads -ge 0 -and $item.inputDigests.bytes -ge 0) 'Business digest logical-read counters missing or invalid'
-        $taskMetrics+=,@{taskId=$task.Id;content=$task.Content;inputPath=$task.InputPath;stages=$core;schemaPreparation=$schema;schemaInputs=$item.schemaInputs;outerStages=$outer;inputDigests=$item.inputDigests;schemaReferences=$item.schemaReferences}
+        $taskMetrics+=,@{taskId=$task.Id;content=$task.Content;inputPath=$task.InputPath;stages=$core;schemaPreparation=$schema;schemaMetadata=$item.schemaMetadata;schemaInputs=$item.schemaInputs;outerStages=$outer;inputDigests=$item.inputDigests;schemaReferences=$item.schemaReferences}
     }
     Need ($Case.report.applicationWork.captureBoundary -ceq 'beforeInitialReport') 'Application work snapshot boundary changed'
     $application=@(WorkMeasurements $Case.report.applicationWork.stages @('planning','backendInitialize','backendCompile','artifactValidation','backendDispose','publicationPrepare','publicationCommit','cacheCommit') ($Case.name+'/application'))
@@ -347,7 +358,7 @@ try {
             $businessSnapshot=Snapshot $businessMod
             $businessCombined=RunCli 'business-combined' 'build' $businessMod $sdk 'base,apt,maps' 0 3
             Need (@($businessCombined.report.plan.Tasks).Count -eq 3) 'Business plan must contain base, real APT and real map metadata tasks'
-            if(!$reuse){$workReceipt.cases+=,(BusinessWorkMetrics $businessCombined)}
+            if(!$reuse){$workReceipt.cases+=,(BusinessWorkMetrics $businessCombined $true)}
             foreach($group in @('base','apt','maps')){
                 $businessSingle=RunCli ('business-'+$group+'-only') 'build' $businessMod $sdk $group 0 1
                 EqualTask $businessCombined $businessSingle $group
@@ -355,15 +366,17 @@ try {
             }
             if($reuse){$workReceipt.availability='unavailable: explicitly reused historical runtime does not provide the current work measurement contract'}
             else{
-                $combinedWork=$workReceipt.cases[0];$schemaReadCalls=0L;$schemaCompileCalls=0L;$schemaFilesRead=0L;$schemaBytesRead=0L;$rawParseCalls=0L
+                $combinedWork=$workReceipt.cases[0];$schemaReadCalls=0L;$schemaCompileCalls=0L;$schemaFilesRead=0L;$schemaBytesRead=0L;$rawParseCalls=0L;$metadataBuilds=0L;$metadataHits=0L
                 foreach($taskWork in $combinedWork.tasks){
                     $schemaReadCalls+=@($taskWork.schemaPreparation|Where-Object{$_.stage -ceq 'schemaRead'})[0].calls
                     $schemaCompileCalls+=@($taskWork.schemaPreparation|Where-Object{$_.stage -ceq 'schemaCompile'})[0].calls
                     $rawParseCalls+=@($taskWork.stages|Where-Object{$_.stage -ceq 'rawParse'})[0].calls
                     $schemaFilesRead+=$taskWork.schemaInputs.filesRead;$schemaBytesRead+=$taskWork.schemaInputs.bytesRead
+                    $metadataBuilds+=$taskWork.schemaMetadata.builds;$metadataHits+=$taskWork.schemaMetadata.hits
                 }
                 Need ($combinedWork.taskCount -eq 3 -and $schemaReadCalls -ge 3 -and $schemaCompileCalls -ge 3 -and $rawParseCalls -ge 3) 'Combined business run did not measure preparation and parsing for all three streams'
-                $workReceipt.combinedPreparation=@{tasks=3;schemaReadCalls=$schemaReadCalls;schemaCompileCalls=$schemaCompileCalls;schemaFilesRead=$schemaFilesRead;schemaBytesRead=$schemaBytesRead;rawParseCalls=$rawParseCalls;scope='Per-task schema preparation remains repeated in this measured serial baseline; these aggregate counts do not measure unique files or physical disk reads.'}
+                Need ($metadataBuilds -eq 1 -and $metadataHits -eq 2) 'Combined business run must build schema metadata once and restore it for its two later streams'
+                $workReceipt.combinedPreparation=@{tasks=3;schemaReadCalls=$schemaReadCalls;schemaCompileCalls=$schemaCompileCalls;schemaFilesRead=$schemaFilesRead;schemaBytesRead=$schemaBytesRead;rawParseCalls=$rawParseCalls;schemaMetadataBuilds=$metadataBuilds;schemaMetadataHits=$metadataHits;scope='Each task retains complete schema read/Compile and isolated helpers; only compiler-owned metadata tables are restored across later streams. Aggregate read counts do not measure unique files or physical disk reads, and metadata hits do not establish full-build speedup.'}
             }
             foreach($selection in @(@{name='mod-a';group='apt';types='AptAptData,AptConstData,AptDatData,AptGeometryData'},@{name='mod-b';group='maps';types='MapMetaData'})){
                 $tasks=@($businessCombined.report.plan.Tasks|Where-Object{$_.Content -ceq $selection.group})
