@@ -102,6 +102,7 @@ jobs:
           foreach($mode in @('Debug','Release')) {
             ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/targeted-reuse/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerBackendLifecycle/result.json" -OutputDirectory "recovery/evidence/refactor/reuse-backend-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180
             ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/targeted-reuse/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerUpheavalSamples/result.json" -OutputDirectory "recovery/evidence/refactor/reuse-upheaval-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -ExpectedCaseCount 1 -TimeoutSeconds 180
+            ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/targeted-reuse/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerStableSortStreams/result.json" -OutputDirectory "recovery/evidence/refactor/reuse-stablesort-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -ExpectedCaseCount 1 -TimeoutSeconds 180
           }
       - uses: actions/upload-artifact@v4
         if: always()
@@ -123,6 +124,7 @@ jobs:
             recovery/evidence/refactor/targeted-reuse/${{ github.run_id }}-${{ github.run_attempt }}/upheaval-small-inputs/**
             recovery/evidence/refactor/reuse-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/validation.json
             recovery/evidence/refactor/reuse-upheaval-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/validation.json
+            recovery/evidence/refactor/reuse-stablesort-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/validation.json
           if-no-files-found: warn
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && steps.release.outcome == 'success' }}
