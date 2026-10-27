@@ -19,8 +19,12 @@ try{
   $opt=if($mode -eq 'Release'){'/optimize+'}else{'/optimize-'}
   Checked "$mode-oracle-build" {& $csc /nologo /unsafe /platform:x86 $opt /r:$dll /out:"$work/$oracle.exe" (Resolve-Path "recovery/tests/$oracle.cs").Path}
   '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$work/$oracle.exe.config"
+  $quantizer='TextureDxt5QuantizerDifferential'
+  Checked "$mode-quantizer-build" {& $csc /nologo /unsafe /platform:x86 $opt /r:$dll /out:"$work/$quantizer.exe" (Resolve-Path "recovery/tests/$quantizer.cs").Path}
+  Copy-Item "$work/$oracle.exe.config" "$work/$quantizer.exe.config"
+  Checked "$mode-quantizer" {& "$work/$quantizer.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-quantizer-transcript.txt" $dll}
   Checked "$mode-oracle" {& "$work/$oracle.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-transcript.txt" $dll}
-  $r.configurations+=@{configuration=$mode;passed=$true;summary=@(Get-Content "$out/$mode-oracle.log" | Where-Object {$_ -match '^(PASS|PROBE) '})}
+  $r.configurations+=@{configuration=$mode;passed=$true;summary=@(Get-Content "$out/$mode-oracle.log","$out/$mode-quantizer.log" | Where-Object {$_ -match '^(PASS|PROBE) '})}
  }
  $files=@(Get-ChildItem "$out/*-transcript.txt")
  if($files.Count -gt 0){Compress-Archive -Path $files.FullName -DestinationPath "$out/transcripts.zip";$files|Remove-Item}
