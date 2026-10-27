@@ -262,7 +262,7 @@ public class OutputManager
 			BinaryAsset binaryAsset = GetBinaryAsset(outputInstance, isOutputAsset: true);
 			num++;
 			int length = uInt32Buffer.Length;
-			foreach (InstanceHandle validatedReferencedInstance in outputInstance.ValidatedReferencedInstances)
+			foreach (InstanceHandle validatedReferencedInstance in document.GetValidatedReferences(outputInstance))
 			{
 				uInt32Buffer.AddValue(validatedReferencedInstance.TypeId);
 				uInt32Buffer.AddValue(validatedReferencedInstance.InstanceId);

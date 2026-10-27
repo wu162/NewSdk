@@ -121,7 +121,7 @@ public sealed class DependencyObservationLog
     {
         DependencyObservationLog owner = _Current; if (owner == null) return;
         owner._InheritanceTemplates++;
-        owner.AddSemantic("inheritanceTemplate", ++owner._QueryId, document.ObservationSourcePath, "inheritance", consumer.Handle.Name,
+        owner.AddSemantic("inheritanceTemplate", ++owner._QueryId, document.ObservationSourcePath, "inheritance", consumer.Handle.TypeName + ":" + consumer.Handle.InstanceName,
             null, consumer.InheritFromHandle.TypeName, consumer.InheritFromHandle.InstanceName,
             provider.ObservationDocument == null ? null : provider.ObservationDocument.ObservationSourcePath, provider.Handle.TypeName, provider.Handle.InstanceName,
             location.ToString(), provider.PrevalidationXmlHash.ToString(System.Globalization.CultureInfo.InvariantCulture), true, 0, stage, null);

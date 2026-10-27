@@ -71,6 +71,7 @@ try {
         @{name='CompilerInputDigests';marker='PASS InputDigests:'},
         @{name='CompilerPhysicalInputs';marker='PASS PhysicalInputs:'},
         @{name='CompilerManifestInputs';marker='PASS ManifestInputs:'},
+        @{name='CompilerStreamBindings';marker='PASS StreamBindings:';timeoutSeconds=600},
         @{name='CompilerDependencyObservations';marker='PASS DependencyObservations:'},
         @{name='CompilerBaseManifestIndex';marker='PASS BaseManifestIndex:'},
         @{name='CompilerNodeJoiner';marker='PASS NodeJoiner:'},

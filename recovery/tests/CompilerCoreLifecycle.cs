@@ -512,7 +512,7 @@ internal static class CompilerCoreLifecycle
             Require(snapshot.Any(item => item.stage == stage && item.calls > 0 && item.failedCalls == 0 && item.elapsedMs >= 0 && !Double.IsInfinity(item.elapsedMs)),
                 "Cold Core work metric missing/invalid: " + stage);
         var before = CachedDocument(processor, shared).SelfInstances[0];
-        Require(before.WeakReferencedInstances.Count == 1 && before.ValidatedReferencedInstances.Count == 0,
+        Require(before.WeakReferencedInstances.Count == 1 && CachedDocument(processor, first).GetStreamBindings().assets.Single(row => row.identity.instanceName == "BindingOwner").references.Count == 0,
             "First stream must leave the weak Upgrade reference unresolved");
         Run(processor, second);
         foreach (var item in snapshot)
@@ -535,7 +535,7 @@ internal static class CompilerCoreLifecycle
         OptimizationRisks.Add(new { id = name, boundary = "public-Core-two-streams-one-processor", sharedInstanceRetained = Object.ReferenceEquals(before, after),
             warmContainsUpgrade, warmAssets = warmDocument.OutputInstances.Count, coldAssets = coldDocument.OutputInstances.Count,
             equivalent = SameOutputs(expected, warm), reproduced = !SameOutputs(expected, warm), cliFailureEstablished = false });
-        Require(warmContainsUpgrade && SameOutputs(expected, warm),
+        Require(warmContainsUpgrade && warmDocument.GetStreamBindings().assets.Single(row => row.identity.instanceName == "BindingOwner").references.Single().instanceName == "BindingUpgrade" && SameOutputs(expected, warm),
             "Each stream must rebind the declaration's weak references in its own symbol view");
         Tests.Add("risk-stream-binding:real-Core-two-symbol-views-weak-missing-to-Tentative-cold-warm-equality");
     }
