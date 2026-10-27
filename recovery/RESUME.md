@@ -57,3 +57,5 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 用户要求移除非 PC 代码和规划。当前范围、剩余任务及本轮验证状态统一见 [TEXTURECOMPILER.md](TEXTURECOMPILER.md)，测试策略见 [TEXTURE_TESTING.md](TEXTURE_TESTING.md)。PS3/Xbox360 不再是实现或验收目标；历史锚点保留，不冒充清理后验收。源码在根 `src/TextureCompiler`，生产 SDK DLL/config 未替换，禁止强推。
 
 PC 清理验证已完成：源码 0ae0efdb / 40241188546 的其余 10 组件组及两个 PC SDK profile 通过，每 SDK 模式 600 资产/调用；该 workflow 因 base 缺少 MSVC failure。补齐工具链后 7786834f / 40241581283 的 base Debug/Release/native 通过，整轮 success，只复验 base、未重跑 SDK。完整锚点与收据见当前 Texture 交接。
+
+Texture 2026-10-27 续接：`recovery/texturecompiler-source` 已新增 DXT3 显式 alpha 子组件（未接插件），`9f8b1361` / 40470055551 Debug/Release 各4352例、65288检查成功；`70aded86` / 40470267556 的参考库代码映射与32个PC块取证成功（probe-only，19/22目标代码节匹配）。下一步按 TEXTURE_DXT_ENTRYPOINTS.md 的候选 RVA 核对实际调用链并恢复 DXT5 alpha/颜色搜索，不重复旧探针、不把子组件或静态匹配写为完整DXT验收。生产 SDK 未替换。

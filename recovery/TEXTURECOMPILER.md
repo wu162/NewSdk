@@ -39,3 +39,5 @@
 ## 2026-10-27 续接：DXT3 alpha 子组件
 
 新增 PC `TextureDxt3AlphaEncoder`，仅 4×4 RGBA 的 8 字节显式 alpha，不接入尚未完整实现的 DXT3 插件路由。源码 `9f8b1361` / [40470055551](https://github.com/wu162/NewSdk/actions/runs/40470055551) success：Debug/Release 各 4,352 例、65,288 检查，与原 DLL alpha 块逐字节相同；仅运行新组、复用16组，未重跑 SDK。完整 DXT 颜色端点搜索、DXT1/1A/5 仍待恢复。细节及参考库函数映射工具见 [DXT 续接](TEXTURE_DXT_ENTRYPOINTS.md)。
+
+同轮参考库映射及 PC 块取证源码 `70aded86` / [40470267556](https://github.com/wu162/NewSdk/actions/runs/40470267556) success：32个PC原版块样本、22个目标代码节中19个重定位屏蔽后匹配；仍为 probe-only，不能作为完整压缩器验收。候选 RVA 和下一轮调用链核对入口见 DXT 文档。

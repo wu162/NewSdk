@@ -70,3 +70,23 @@ Xbox360/Xenon 专属路径不在本任务内。此次精确函数名搜索未找
 PC 清理后取证 harness 已只生成四格式×八图案=32例；修正 `InspectTextureDxtBlocks.ps1` 遗留的 64 例期望。历史 64 例收据不变。
 
 新增 `MatchTextureDxtCode.py`，由显式 dxt-symbols 入口在 Actions 执行。核对固定原 DLL/参考库 SHA256，解析 x86 COFF archive 的目标函数，屏蔽 DIR32/REL32 操作数字节，以至少16字节无重定位锚点定位，再比较剩余全部代码字节；输出符号、COFF成员偏移、长度、mask 后比较字节数及候选原 DLL RVA。短锚点不匹配，未知重定位明确报错。匹配不能证明引用目标、实际可达路径、库版本或压缩输出等价；零匹配也不证明函数不存在。
+
+### 参考库与原 DLL 映射实测
+
+源码 `70aded868821631a4bfc1e633b717d03da0c3529` / [40470267556](https://github.com/wu162/NewSdk/actions/runs/40470267556) attempt1 success，仅选择 dxt-symbols、dxt-blocks，17 个组件组复用。PC 32例/132检查成功；参考库22个目标代码节有19个 relocation-masked 匹配。完整结果在 `evidence/texture/dxt-library/40470267556-1/code-matches.json`，每节记录实际比较长度。COFF 节可大于单个函数（例如 RoundMult 所在节106380字节），不要把节长当作函数体长度。
+
+| 候选符号 | 原 DLL RVA |
+| --- | --- |
+| EncodeDXT1 / EncodeDXT1a / EncodeDXT3 / EncodeDXT5 | 0x57D30 / 0x57E10 / 0x57F00 / 0x57FF0 |
+| Search43Mult / RoundMult | 0x603D0 / 0x61460 |
+| AllSame / MapAndRoundMult | 0x7B3F0 / 0x7BB80 |
+| CodeRGBBlockQuick | 0x7BDF0 |
+| CodeRGBBlock（带 int 参数） | 0x7C420 |
+| QuantizeAlpha / CodeAlphaBlock | 0x7D500 / 0x7E8F0 |
+| CodeRGBBlockExhaustive / CodeRGBBlock（无 int 参数） | 0x833F0 / 0x83CD0 |
+| FastEncodeDXT1AllPixelsSame / FastEncodeDXT5 | 0x8B380 / 0x8B570 |
+| FastEncodeDXT1_3 / FastEncodeDXT1_4 | 0x8BAA0 / 0x8C1F0 |
+
+CodeAlphaBlockQuick（14字节，未达到16字节锚点门槛）、FastEncodeDXT1ForceAlphaOne、RmsError 未匹配；不能视为原 DLL 中不存在。匹配尚未核对重定位的目标地址与调用可达性，不断言整个库版本相同。
+
+下一轮可直接从上述 RVA 定向反汇编，先核对 EncodeDXT3/5 到 alpha block 的实际调用链与对象布局，再还原 QuantizeAlpha/CodeAlphaBlock 的端点搜索、误差度量和索引打包。颜色端点搜索沿 CodeRGBBlock/AllSame 路径推进。保留完整 DXT 拒绝边界；新子组件接入插件之前必须补颜色、alpha、尺寸、mip、volume 与真实 SDK 验收，不以19个静态节匹配替代行为差分。
