@@ -450,13 +450,18 @@ public class BinaryAsset
 
 	private bool CopyAsset(string sourceAssetPath, string sourceCustomDataPath)
 	{
+        return CopyAssetCore(sourceAssetPath, sourceCustomDataPath, true);
+	}
+
+    private bool CopyAssetCore(string sourceAssetPath, string sourceCustomDataPath, bool captureSources)
+	{
 		string text = Path.Combine(_AssetOutputDirectory, _AssetFileName);
 		string text2 = text + ".tmp";
 		string text3 = Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName);
 		_AssetHeader = null;
 		try
 		{
-			using (PhysicalInputSnapshot.MaterializationCapture capture = PhysicalInputSnapshot.BeginMaterializationCapture())
+			using (PhysicalInputSnapshot.MaterializationCapture capture = captureSources ? PhysicalInputSnapshot.BeginMaterializationCapture() : null)
 			{
 			bool trustedSource = false;
 			if (!Directory.Exists(_AssetOutputDirectory))
@@ -551,7 +556,10 @@ public class BinaryAsset
 		}
 		string sourceAssetPath = Path.Combine(_LastLocationInfo.AssetOutputDirectory, _AssetFileName);
 		string sourceCustomDataPath = Path.Combine(_LastLocationInfo.CustomDataOutputDirectory, _CustomDataFileName);
-		if (CopyAsset(sourceAssetPath, sourceCustomDataPath))
+        // Local outputs belong to this mutable Core run. They can be repaired,
+        // rewritten or cleaned later in the same generation; never turn them
+        // into pinned external inputs, even without caller exclusions.
+		if (CopyAssetCore(sourceAssetPath, sourceCustomDataPath, false))
 		{
 			_Tracer.Message("{0} copied from previous output: {1}", DocumentProcessor.CurrentDocument, Instance);
 			return;

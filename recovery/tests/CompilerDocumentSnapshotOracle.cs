@@ -64,6 +64,68 @@ public static class CompilerDocumentSnapshotOracle
         return new { sameDefinition, definitionSourceRebound, sameInclusion, sameOutput, sameOutputHandle, sourceXmlChanged, usedValuesIndependent,
             scope = "Independent original public Core cache-copy/restore metadata records; reflection supplies Current output fixture only; no production CLI fault claimed" };
     }
+    sealed class ChangingText : XmlText
+    {
+        internal int Reads;
+        internal ChangingText(XmlDocument owner) : base("seed", owner) { }
+        public override string Value { get { return ++Reads == 1 ? "plain" : Reads == 2 ? "=1+2" : "=3+4"; } set { base.Value = value; } }
+    }
+    sealed class CountingElement : XmlElement
+    {
+        internal int ValueReads, ChildLists;
+        internal CountingElement(XmlDocument owner) : base("", "Custom", "", owner) { }
+        public override string Value { get { ValueReads++; return base.Value; } set { base.Value = value; } }
+        public override XmlNodeList ChildNodes { get { ChildLists++; return base.ChildNodes; } }
+    }
+    static object[] ExpressionTraversal(string work)
+    {
+        ExpressionEvaluatorWrapper.LoadAssembly();
+        var results = new List<object>();
+        string[] names = { "mixed", "entities", "attribute-error", "text-error", "custom-attribute", "remove-current", "append-sibling", "move-current", "remove-next", "custom-element" };
+        string[] inputs = {
+            "<ArmorTemplate id='Tree' Empty='' Literal='x' Sum='=$I+2'><Part Label='=$S+&quot;!&quot;'>=1+2</Part><![CDATA[=$I*2]]><!--=4+5--><?calc =3+4?><Blank>  </Blank></ArmorTemplate>",
+            "<!DOCTYPE ArmorTemplate [<!ENTITY plus '1+2'>]><ArmorTemplate id='Tree' Split='=&plus;'><Part>=2+3</Part></ArmorTemplate>",
+            "<ArmorTemplate id='Tree' First='=1+2' Broken='=' Later='=9'/>",
+            "<ArmorTemplate id='Tree' First='=$I'><Part>=$MISSING</Part><Later Value='=9'/></ArmorTemplate>",
+            "<ArmorTemplate id='Tree'/>",
+            "<ArmorTemplate id='Tree'><Part Trigger='=1+2'/><Tail Value='=4+5'/></ArmorTemplate>",
+            "<ArmorTemplate id='Tree'><Part Trigger='=1+2'/><Tail Value='=4+5'/></ArmorTemplate>",
+            "<ArmorTemplate id='Tree'><Part Trigger='=1+2'/><Tail Value='=4+5'/></ArmorTemplate>",
+            "<ArmorTemplate id='Tree'><Part Trigger='=1+2'/><Tail Value='=4+5'/></ArmorTemplate>",
+            "<ArmorTemplate id='Tree'/>"
+        };
+        foreach (string culture in new[] { "en-US", "de-DE", "tr-TR", "zh-CN" })
+        for (int index = 0; index < names.Length; index++)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(culture);
+            string name = names[index]; var document = Document(work); document.SelfInstances.Clear();
+            object current = typeof(AssetDeclarationDocument).GetField("_Current", Hidden).GetValue(document);
+            current.GetType().GetField("SourcePath").SetValue(current, "expression-tree.xml");
+            foreach (string key in new[] { "I", "S" }) document.AllDefines[key] = new Definition { Name = key, EvaluatedValue = key == "I" ? "7" : "hello", Document = document };
+            var xml = new XmlDocument { PreserveWhitespace = true }; xml.LoadXml(inputs[index]); ChangingText custom = null; CountingElement customElement = null;
+            if (name == "custom-attribute") { var attribute = xml.CreateAttribute("Dynamic"); custom = new ChangingText(xml); attribute.AppendChild(custom); xml.DocumentElement.Attributes.Append(attribute); }
+            if (name == "custom-element") { customElement = new CountingElement(xml); customElement.SetAttribute("Value", "=$I+2"); customElement.AppendChild(xml.CreateCDataSection("=3+4")); xml.DocumentElement.AppendChild(customElement); }
+            document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = xml.DocumentElement });
+            bool mutated = false;
+            xml.NodeInserted += (sender, change) => {
+                if (mutated || change.NewParent == null || change.NewParent.NodeType != XmlNodeType.Attribute || change.NewParent.Name != "Trigger") return;
+                mutated = true; XmlNode part = xml.DocumentElement.FirstChild, tail = part.NextSibling;
+                if (name == "remove-current") xml.DocumentElement.RemoveChild(part);
+                if (name == "move-current") xml.DocumentElement.AppendChild(part);
+                if (name == "remove-next") xml.DocumentElement.RemoveChild(tail);
+                if (name == "append-sibling") { var added = xml.CreateElement("Added"); added.SetAttribute("Value", "=6+7"); xml.DocumentElement.AppendChild(added); }
+            };
+            string outcome = "OK"; var prior = Console.Error; var diagnostics = new StringWriter(System.Globalization.CultureInfo.InvariantCulture);
+            try { Console.SetError(diagnostics); try { document.ProcessExpressions(); } catch (Exception error) {
+                var code = error.GetType().GetProperty("ErrorCode"); outcome = "ERR:" + error.GetType().FullName + ":" + (code == null ? "" : Convert.ToString(code.GetValue(error, null), System.Globalization.CultureInfo.InvariantCulture)) + ":" + error.Message;
+            } } finally { Console.SetError(prior); }
+            int customReads = custom == null ? 0 : custom.Reads;
+            int customElementReads = customElement == null ? 0 : customElement.ValueReads, customChildLists = customElement == null ? 0 : customElement.ChildLists;
+            var used = new List<string>(); foreach (var pair in document.UsedDefines) used.Add(pair.Key + "=" + pair.Value);
+            results.Add(new { name, culture, inputXml = inputs[index], outcome, resultXml = xml.OuterXml, customReads, customElementReads, customChildLists, mutated, used = String.Join(";", used), diagnostics = diagnostics.ToString() });
+        }
+        return results.ToArray();
+    }
     public static int Main(string[] args)
     {
         var json = new JavaScriptSerializer(); object result; int code = 0;
@@ -85,10 +147,11 @@ public static class CompilerDocumentSnapshotOracle
             if (sameDeclaration != expectedShared || sourceXmlChanged != expectedShared || savedHash != 29 || receiver.SelfInstances[0].ProcessingHash != 47)
                 throw new Exception("Unexpected public document cache lifecycle outcome for " + mode);
             object metadata = Metadata(args[0], expectedShared);
+            object[] expressionTraversal = ExpressionTraversal(args[0]);
             string assemblySha;
             using (var sha = SHA256.Create()) assemblySha = Convert.ToBase64String(sha.ComputeHash(File.ReadAllBytes(typeof(AssetDeclarationDocument).Assembly.Location)));
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], mode, sameDeclaration, sourceXmlChanged,
-                savedHash, receiverHash = receiver.SelfInstances[0].ProcessingHash, metadata,
+                savedHash, receiverHash = receiver.SelfInstances[0].ProcessingHash, metadata, expressionTraversal,
                 assembly = typeof(AssetDeclarationDocument).Assembly.FullName, assemblySha256Base64 = assemblySha,
                 scope = "Direct public Core cache-copy/restore/complete/reserialize lifecycle; no production CLI failure is claimed" };
             Console.WriteLine("PASS DocumentSnapshotOracle: " + mode);

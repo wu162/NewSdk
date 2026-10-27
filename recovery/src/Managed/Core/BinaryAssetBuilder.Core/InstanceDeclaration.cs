@@ -278,6 +278,22 @@ public class InstanceDeclaration : IXmlSerializable
 
     internal InstanceHandle ObservationHandle => _Current == null ? null : _Current.Handle;
 
+    internal bool IsPlainSymbolCandidate(ref int referenceBudget)
+    {
+        if (GetType() != typeof(InstanceDeclaration) || _Current == null ||
+            (object)_Current.Handle == null || _Current.Handle.GetType() != typeof(InstanceHandle)) return false;
+        if (!PlainSymbolHandles(_Current.ReferencedInstances, ref referenceBudget) || !PlainSymbolHandles(_Current.WeakReferencedInstances, ref referenceBudget)) return false;
+        return _Current.ReferencedFiles != null && _Current.ReferencedFiles.GetType() == typeof(List2<string>);
+    }
+    private static bool PlainSymbolHandles(List2<InstanceHandle> handles, ref int referenceBudget)
+    {
+        if (handles == null || handles.GetType() != typeof(List2<InstanceHandle>) || handles.Count > referenceBudget) return false;
+        referenceBudget -= handles.Count;
+        foreach (InstanceHandle handle in handles)
+            if ((object)handle == null || handle.GetType() != typeof(InstanceHandle)) return false;
+        return true;
+    }
+
     internal AssetDeclarationDocument ObservationDocument => _Current == null ? null : _Current.Document;
 
 	public uint ProcessingHash

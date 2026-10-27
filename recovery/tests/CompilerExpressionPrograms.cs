@@ -23,6 +23,7 @@ using NewModCompiler.Application;
 public static class CompilerExpressionPrograms
 {
     const string Disable = "NewSdk.Compiler.DisableExpressionPrograms", DisableCulture = "NewSdk.Compiler.DisableSharedExpressionCulture";
+    const string DisableTraversal = "NewSdk.Compiler.DisableExpressionTraversal";
     const BindingFlags Hidden = BindingFlags.NonPublic | BindingFlags.Instance;
     static readonly JavaScriptSerializer Json = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
     static int checks;
@@ -103,6 +104,116 @@ public static class CompilerExpressionPrograms
         catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }
 #else
+    sealed class ChangingText : XmlText
+    {
+        internal int Reads;
+        internal ChangingText(XmlDocument owner) : base("seed", owner) { }
+        public override string Value { get { return ++Reads == 1 ? "plain" : Reads == 2 ? "=1+2" : "=3+4"; } set { base.Value = value; } }
+    }
+    sealed class CountingElement : XmlElement
+    {
+        internal int ValueReads, ChildLists;
+        internal CountingElement(XmlDocument owner) : base("", "Custom", "", owner) { }
+        public override string Value { get { ValueReads++; return base.Value; } set { base.Value = value; } }
+        public override XmlNodeList ChildNodes { get { ChildLists++; return base.ChildNodes; } }
+    }
+    static IDictionary<string, object> TraversalOutcome(IDictionary<string, object> spec, DocumentProcessor owner)
+    {
+        string name = (string)spec["name"];
+        var document = Bare(owner, "expression-tree.xml");
+        foreach (string key in new[] { "I", "S" }) document.AllDefines[key] = new Definition { Name = key, EvaluatedValue = key == "I" ? "7" : "hello", Document = document };
+        var xml = new XmlDocument { PreserveWhitespace = true }; xml.LoadXml((string)spec["inputXml"]); ChangingText custom = null; CountingElement customElement = null;
+        if (name == "custom-attribute") { var attribute = xml.CreateAttribute("Dynamic"); custom = new ChangingText(xml); attribute.AppendChild(custom); xml.DocumentElement.Attributes.Append(attribute); }
+        if (name == "custom-element") { customElement = new CountingElement(xml); customElement.SetAttribute("Value", "=$I+2"); customElement.AppendChild(xml.CreateCDataSection("=3+4")); xml.DocumentElement.AppendChild(customElement); }
+        document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = xml.DocumentElement });
+        bool mutated = false;
+        xml.NodeInserted += (sender, change) => {
+            if (mutated || change.NewParent == null || change.NewParent.NodeType != XmlNodeType.Attribute || change.NewParent.Name != "Trigger") return;
+            mutated = true; XmlNode part = xml.DocumentElement.FirstChild, tail = part.NextSibling;
+            if (name == "remove-current") xml.DocumentElement.RemoveChild(part);
+            if (name == "move-current") xml.DocumentElement.AppendChild(part);
+            if (name == "remove-next") xml.DocumentElement.RemoveChild(tail);
+            if (name == "append-sibling") { var added = xml.CreateElement("Added"); added.SetAttribute("Value", "=6+7"); xml.DocumentElement.AppendChild(added); }
+        };
+        string outcome = "OK"; var prior = Console.Error; var diagnostics = new StringWriter(CultureInfo.InvariantCulture);
+        try { Console.SetError(diagnostics); try { document.ProcessExpressions(); } catch (Exception error) { outcome = "ERR:" + Error(error); } }
+        finally { Console.SetError(prior); }
+        int customReads = custom == null ? 0 : custom.Reads;
+        int customElementReads = customElement == null ? 0 : customElement.ValueReads, customChildLists = customElement == null ? 0 : customElement.ChildLists;
+        return new Dictionary<string, object> { { "outcome", outcome }, { "resultXml", xml.OuterXml }, { "customReads", customReads }, { "mutated", mutated },
+            { "customElementReads", customElementReads }, { "customChildLists", customChildLists },
+            { "used", String.Join(";", document.UsedDefines.Select(pair => pair.Key + "=" + pair.Value)) }, { "diagnostics", diagnostics.ToString() } };
+    }
+    static void TraversalDifferential(string baseline, string sourceCommit, string runId)
+    {
+        var oracle = Json.Deserialize<Dictionary<string, object>>(File.ReadAllText(baseline));
+        Require((bool)oracle["succeeded"] && (string)oracle["mode"] == "original" &&
+            (string)oracle["sourceCommit"] == sourceCommit && (string)oracle["runId"] == runId, "Original traversal oracle source/run mismatch");
+        var rows = (IEnumerable)oracle["expressionTraversal"]; int count = 0;
+        foreach (IDictionary<string, object> row in rows)
+        {
+            count++; Thread.CurrentThread.CurrentCulture = new CultureInfo((string)row["culture"]);
+            foreach (bool fallback in new[] { false, true })
+            {
+                AppContext.SetSwitch(DisableTraversal, fallback); var owner = Owner(); var actual = TraversalOutcome(row, owner);
+                foreach (string field in actual.Keys)
+                    Require(Convert.ToString(actual[field], CultureInfo.InvariantCulture) == Convert.ToString(row[field], CultureInfo.InvariantCulture),
+                        "Original/" + (fallback ? "legacy" : "optimized") + " traversal mismatch: " + row["name"] + "/" + row["culture"] + "/" + field + ": " + Json.Serialize(actual) + " != " + Json.Serialize(row));
+                var metrics = Json.Deserialize<Dictionary<string, object>>(Json.Serialize(owner.GetExpressionTraversalMetrics()));
+                Require(Number(metrics, "calls") == 1 && Number(metrics, "nodes") > 0,
+                    "Actual public expression traversal metrics missing");
+                Require(fallback ? Number(metrics, "siblingTraversals") == 0 && Number(metrics, "singleReadAttributes") == 0 : Number(metrics, "singleReadAttributes") > 0,
+                    "Traversal did not use selected child enumeration path");
+                Require(Number(metrics, "failedCalls") == (((string)row["outcome"]).StartsWith("ERR:", StringComparison.Ordinal) ? 1 : 0),
+                    "Traversal failure metric does not reflect actual failed public call");
+                if ((string)row["name"] == "custom-attribute") Require(Number(metrics, "legacyAttributes") > 0,
+                    "Exact attribute containing custom XmlText bypassed virtual Value fallback");
+                if ((string)row["name"] == "custom-element") Require(Number(metrics, "legacyTraversals") > 0,
+                    "Derived element bypassed custom ChildNodes enumeration");
+                observations.Add(new { id = "public-expression-traversal-original-differential", name = row["name"], culture = row["culture"], fallback, actual, metrics });
+            }
+        }
+        Require(count == 40, "Expected ten original public traversal cases in four cultures");
+        AppContext.SetSwitch(DisableTraversal, false);
+        tests.Add("public-expression-traversal-original-DLL-vs-default-fallback-mixed-DOM-errors-entity-custom-text-and-live-sibling-mutations-four-cultures");
+    }
+    static void TraversalMeasurement()
+    {
+        const int parts = 256, iterations = 100, rounds = 7;
+        string body = String.Concat(Enumerable.Repeat("<Part A='plain-value-123456789' B='plain' C='x' D='' E='literal'><Text>literal-text</Text></Part>", parts));
+        string input = "<ArmorTemplate id='Measure'>" + body + "</ArmorTemplate>";
+        var owners = new[] { Owner(), Owner() }; var documents = new AssetDeclarationDocument[2];
+        for (int mode = 0; mode < 2; mode++)
+        {
+            documents[mode] = Bare(owners[mode], "traversal-measurement.xml");
+            var xml = new XmlDocument(); xml.LoadXml(input);
+            documents[mode].SelfInstances.Add(new InstanceDeclaration(documents[mode]) { XmlNode = xml.DocumentElement });
+            AppContext.SetSwitch(DisableTraversal, mode == 1);
+            for (int warm = 0; warm < 5; warm++) documents[mode].ProcessExpressions();
+            Require(xml.OuterXml == input.Replace("'", "\""), "Traversal measurement changed non-expression input");
+        }
+        var samples = new List<object>(); var optimized = new List<long>(); var legacy = new List<long>();
+        for (int round = 0; round < rounds; round++)
+        for (int position = 0; position < 2; position++)
+        {
+            int mode = (round + position) % 2; AppContext.SetSwitch(DisableTraversal, mode == 1);
+            var before = Json.Deserialize<Dictionary<string, object>>(Json.Serialize(owners[mode].GetExpressionTraversalMetrics()));
+            var timer = Stopwatch.StartNew();
+            for (int iteration = 0; iteration < iterations; iteration++) documents[mode].ProcessExpressions();
+            timer.Stop();
+            var after = Json.Deserialize<Dictionary<string, object>>(Json.Serialize(owners[mode].GetExpressionTraversalMetrics()));
+            long nodes = Number(after, "nodes") - Number(before, "nodes"), siblings = Number(after, "siblingTraversals") - Number(before, "siblingTraversals");
+            Require(nodes == iterations * (1 + parts * 3) && (mode == 1 ? siblings == 0 : siblings == nodes), "Measured public traversal work/path mismatch");
+            (mode == 1 ? legacy : optimized).Add(timer.ElapsedTicks);
+            samples.Add(new { round, position, legacyFallback = mode == 1, iterations, elapsedTicks = timer.ElapsedTicks, elapsedMs = timer.Elapsed.TotalMilliseconds, nodes, siblingTraversals = siblings });
+        }
+        optimized.Sort(); legacy.Sort(); AppContext.SetSwitch(DisableTraversal, false);
+        observations.Add(new { id = "bounded-public-expression-traversal-component-measurement", parts, iterations, rounds,
+            medianOptimizedMs = optimized[rounds / 2] * 1000.0 / Stopwatch.Frequency, medianLegacyMs = legacy[rounds / 2] * 1000.0 / Stopwatch.Frequency,
+            stopwatchFrequency = Stopwatch.Frequency, samples = samples.ToArray(),
+            scope = "Same public ProcessExpressions on 769 standard DOM nodes and 1281 attributes with no expressions; two warmed independent contexts, seven alternating-order rounds. Includes evaluator creation and actual metrics recording; excludes DOM creation/reflection/serialization. No forced GC, speed assertion, allocation-byte or full CLI speedup claim" });
+        tests.Add("bounded-public-expression-traversal-interleaved-component-timing-with-actual-node-path-counts");
+    }
     static IDictionary<string, object> Metrics(DocumentProcessor owner)
     { return Json.Deserialize<Dictionary<string, object>>(Json.Serialize(ExpressionEvaluator.GetProgramMetrics(owner))); }
     static long Number(IDictionary<string, object> value, string key) { return Convert.ToInt64(value[key], CultureInfo.InvariantCulture); }
@@ -308,9 +419,11 @@ public static class CompilerExpressionPrograms
             {
                 File.WriteAllText(provider, "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><Defines><Define name='A' value='" + value + "'/></Defines></AssetDeclaration>");
                 Dictionary<string, string> expected = null;
+                foreach (bool traversalFallback in new[] { false, true })
                 foreach (bool fallback in new[] { false, true })
                 {
-                    AppContext.SetSwitch(Disable, fallback); string label = value + (fallback ? "-fallback" : "-program");
+                    AppContext.SetSwitch(DisableTraversal, traversalFallback);
+                    AppContext.SetSwitch(Disable, fallback); string label = value + (traversalFallback ? "-legacy-traversal" : "-optimized-traversal") + (fallback ? "-fallback" : "-program");
                     settings.OutputDirectory = Path.Combine(work, label, "output"); settings.IntermediateOutputDirectory = Path.Combine(work, label, "intermediate"); settings.SessionCacheDirectory = Path.Combine(work, label, "cache");
                     Directory.CreateDirectory(settings.OutputDirectory); Directory.CreateDirectory(settings.IntermediateOutputDirectory); Directory.CreateDirectory(settings.SessionCacheDirectory);
                     HashProvider.InitializeStringHashes(settings.SessionCacheDirectory); var cache = new SessionCache(); cache.InitializeCache(new List<string>());
@@ -319,28 +432,29 @@ public static class CompilerExpressionPrograms
                     var processor = new DocumentProcessor(settings, plugins.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
                     bool succeeded; processor.ProcessDocument(settings.InputPath, true, false, out succeeded); Require(succeeded, "Real XML expression stream failed");
                     var outputs = Four(settings.OutputDirectory); var metrics = Metrics(processor);
-                    if (!fallback) { expected = outputs; Require(Number(metrics, "builds") > 0 && Number(metrics, "hits") > 0, "Actual XML/Define pipeline did not use exact expression programs"); }
-                    else Require(expected.All(pair => outputs.ContainsKey(pair.Key) && outputs[pair.Key] == pair.Value) && Number(metrics, "builds") == 0, "Real XML expression four outputs differ from parser fallback");
-                    observations.Add(new { id = "real-XML-" + label, metrics, outputs });
+                    if (expected == null) expected = outputs;
+                    Require(expected.All(pair => outputs.ContainsKey(pair.Key) && outputs[pair.Key] == pair.Value), "Real XML expression four outputs differ across traversal/parser paths");
+                    Require(fallback ? Number(metrics, "builds") == 0 : Number(metrics, "builds") > 0 && Number(metrics, "hits") > 0, "Actual XML/Define pipeline did not use selected expression program path");
+                    observations.Add(new { id = "real-XML-" + label, metrics, traversal = processor.GetExpressionTraversalMetrics(), outputs });
                 }
             }
         }
-        AppContext.SetSwitch(Disable, false);
+        AppContext.SetSwitch(Disable, false); AppContext.SetSwitch(DisableTraversal, false);
         tests.Add("real-SDK-schema-Armor-XML-imported-Define-change-and-repeat-expression-programs-vs-parser-fallback-four-output-byte-equality");
     }
     public static int Main(string[] args)
     {
-        object result; int code = 0; var culture = Thread.CurrentThread.CurrentCulture; var settings = Settings.Current; bool disabled, cultureDisabled; AppContext.TryGetSwitch(Disable, out disabled); AppContext.TryGetSwitch(DisableCulture, out cultureDisabled);
+        object result; int code = 0; var culture = Thread.CurrentThread.CurrentCulture; var settings = Settings.Current; bool disabled, cultureDisabled, traversalDisabled; AppContext.TryGetSwitch(Disable, out disabled); AppContext.TryGetSwitch(DisableCulture, out cultureDisabled); AppContext.TryGetSwitch(DisableTraversal, out traversalDisabled);
         try
         {
-            Require(args.Length == 6, "Expected work result sourceCommit runId sdk originalTranscript"); Settings.Current = new Settings { BuildCache = false, SessionCache = false };
-            Differential(args[5]); ReadAndBudgetCases(); TotalBudgetCases(); WarmFailures(); CultureOwnership(); InterleavedMicrobenchmark(); XmlDifferential(args[0], args[4]);
+            Require(args.Length == 7, "Expected work result sourceCommit runId sdk originalTranscript originalDocumentTranscript"); Settings.Current = new Settings { BuildCache = false, SessionCache = false };
+            Differential(args[5]); TraversalDifferential(args[6], args[2], args[3]); TraversalMeasurement(); ReadAndBudgetCases(); TotalBudgetCases(); WarmFailures(); CultureOwnership(); InterleavedMicrobenchmark(); XmlDifferential(args[0], args[4]);
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(), scope = "Exact immutable expression programs, original DLL differential and actual semantic read replay; actual SDK-schema XML four-output differentials; synthetic expression contexts do not replace full MOD/SDK acceptance" };
             Console.WriteLine("PASS ExpressionPrograms: " + tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception error)
         { code = 1; Console.Error.WriteLine(error); result = new { succeeded = false, sourceCommit = args.Length > 2 ? args[2] : null, runId = args.Length > 3 ? args[3] : null, checks, tests = tests.ToArray(), observations = observations.ToArray(), error = error.ToString() }; }
-        finally { Settings.Current = settings; Thread.CurrentThread.CurrentCulture = culture; AppContext.SetSwitch(Disable, disabled); AppContext.SetSwitch(DisableCulture, cultureDisabled); }
+        finally { Settings.Current = settings; Thread.CurrentThread.CurrentCulture = culture; AppContext.SetSwitch(Disable, disabled); AppContext.SetSwitch(DisableCulture, cultureDisabled); AppContext.SetSwitch(DisableTraversal, traversalDisabled); }
         if (args.Length > 1) File.WriteAllText(args[1], Json.Serialize(result)); return code;
     }
 #endif

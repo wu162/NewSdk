@@ -510,7 +510,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
                 captureReadsStarted = _MaterializationCaptureReadsStarted, captureReadsCompleted = _MaterializationCaptureReadsCompleted,
                 captureReadBytes = _MaterializationCaptureReadBytes, countersIncludeRolledBackReads = true,
                 copyReadHits = _MaterializationCopyReadHits,
-                captureCounters = "RetainedSnapshotEntries", scope = "ValidatedCopyAssetSourcesOnly", completeClosure = false },
+                captureCounters = "RetainedSnapshotEntries", scope = "ValidatedCacheCopySourcesOnly", completeClosure = false },
             resolverCandidates = new { scope = "ExecutedFileExistsOnly", canAuthorizeReuse = false, verificationPoint = "VerifyUnchanged",
                 observations = _CandidateObservations, uniquePaths = _CandidateUniquePaths, recordedTextChars = _CandidateTextChars,
                 limit = _CandidateLimit, textBudget = _CandidateTextBudget, dropped = _CandidateDropped, incomplete = _CandidateDropped != 0,

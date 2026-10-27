@@ -17,6 +17,7 @@ using NewModCompiler.Application;
 // The independent original BAB process consumes the same en-US input below.
 public static class CompilerStableSortStreams
 {
+    const string SymbolDisable = "NewSdk.Compiler.DisableSymbolLookupIndex";
     const string Disable = "NewSdk.Compiler.DisableStableSortMembershipIndex";
     static readonly JavaScriptSerializer Json = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
     static readonly List<object> observations = new List<object>(), baselines = new List<object>();
@@ -126,9 +127,11 @@ public static class CompilerStableSortStreams
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(culture); Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(culture);
             Dictionary<string, string> expected = null;
+            foreach (bool symbolDisabled in new[] { false, true })
             foreach (bool disabled in new[] { false, true })
             {
-                AppContext.SetSwitch(Disable, disabled); string name = culture + (disabled ? "-disabled" : "-indexed"); var settings = Configure(name);
+                AppContext.SetSwitch(Disable, disabled); AppContext.SetSwitch(SymbolDisable, symbolDisabled);
+                string name = culture + (symbolDisabled ? "-symbol-legacy" : "-symbol-indexed") + (disabled ? "-disabled" : "-indexed"); var settings = Configure(name);
                 using (DocumentProcessor.BeginStateScope())
                 using (var hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory))
                 using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
@@ -139,6 +142,11 @@ public static class CompilerStableSortStreams
                     Require(plugins.Registry.DefaultPlugin.GetAllTypesHash() == 1424942948u && plugins.Registry.DefaultPlugin.GetVersionNumber() == 4u,
                         "StableSort fixture must use the actual production default metadata view");
                     var processor = Processor(plugins, new SchemaSet(true)); var first = Run(processor, input); var firstMetrics = Metrics(first); Work(firstMetrics, disabled); ScalarWorkOnly(first);
+                    var symbolMetrics = Json.Deserialize<Dictionary<string, object>>(Json.Serialize(first.GetSymbolLookupMetrics()));
+                    Require(Convert.ToBoolean(symbolMetrics["disabled"]) == symbolDisabled, "Real Core symbol lookup switch not recorded");
+                    Require(Number(symbolMetrics, symbolDisabled ? "legacyQueries" : "indexQueries") > 0, "Real prerequisite chain did not consume symbol lookup path: " + Json.Serialize(symbolMetrics));
+                    Require(typeof(AssetDeclarationDocument).GetField("_SymbolLookup", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(first) == null,
+                        "Temporary symbol index escaped root binding scope");
                     var binding = first.GetStreamBindings();
                     Require(binding != null && binding.enabled && binding.assets.Count == 98 && binding.assets.Count(row => row.identity.typeName == "ExperienceLevelTemplate") == 96 &&
                         binding.assets.Count(row => row.identity.typeName == "UpgradeTemplate") == 2, "StableSort fixture did not bind both asset types and pull its two weak Upgrade candidates");
@@ -153,9 +161,9 @@ public static class CompilerStableSortStreams
                         Object.ReferenceEquals(firstDeclaration, semantic.SelfInstances[0]), "Two root sorts did not reuse one actual semantic graph");
                     Require(Json.Serialize(Metrics(first)) == frozenWork && Json.Serialize(first.GetStreamBindings()) == frozenBindings,
                         "A later root sort changed the earlier root membership work/binding snapshot");
-                    observations.Add(new { id = name, inputSha256 = Hash(input), firstMetrics, secondMetrics,
+                    observations.Add(new { id = name, inputSha256 = Hash(input), firstMetrics, secondMetrics, symbolMetrics,
                         fourOutputs = outputs.ToDictionary(pair => pair.Key, pair => Hash(pair.Value)), firstBindingsRemainImmutable = true });
-                    if (culture == "en-US" && !disabled)
+                    if (culture == "en-US" && !disabled && !symbolDisabled)
                         baselines.Add(new { name = "stable-sort-chain", sdkRoot = sdk, modRoot = mod, inputPath = input,
                             stagingDirectory = settings.OutputDirectory, outputs, expectedTextures = new object[0], customOutputs = new object[0],
                             effectiveInputRoots = new { dataRoot = work, dataPaths = new[] { Path.Combine(mod, "Data") }, artPaths = new[] { work }, audioPaths = new[] { work } },
@@ -169,7 +177,7 @@ public static class CompilerStableSortStreams
     public static int Main(string[] args)
     {
         object result; int code = 0; var previous = Settings.Current; var culture = Thread.CurrentThread.CurrentCulture; var ui = Thread.CurrentThread.CurrentUICulture;
-        bool disabled; AppContext.TryGetSwitch(Disable, out disabled);
+        bool disabled, symbolDisabled; AppContext.TryGetSwitch(Disable, out disabled); AppContext.TryGetSwitch(SymbolDisable, out symbolDisabled);
         try
         {
             Require(args.Length == 5 && IntPtr.Size == 4, "Expected work result source run SDK in x86 host");
@@ -181,7 +189,7 @@ public static class CompilerStableSortStreams
         }
         catch (Exception error)
         { code = 1; Console.Error.WriteLine(error); result = new { succeeded = false, sourceCommit = args.Length > 2 ? args[2] : null, runId = args.Length > 3 ? args[3] : null, checks, tests = tests.ToArray(), observations = observations.ToArray(), error = error.ToString() }; }
-        finally { Settings.Current = previous; AppContext.SetSwitch(Disable, disabled); Thread.CurrentThread.CurrentCulture = culture; Thread.CurrentThread.CurrentUICulture = ui; }
+        finally { Settings.Current = previous; AppContext.SetSwitch(Disable, disabled); AppContext.SetSwitch(SymbolDisable, symbolDisabled); Thread.CurrentThread.CurrentCulture = culture; Thread.CurrentThread.CurrentUICulture = ui; }
         if (args.Length > 1) File.WriteAllText(args[1], Json.Serialize(result)); return code;
     }
 }

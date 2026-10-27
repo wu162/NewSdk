@@ -84,6 +84,7 @@ try {
         @{name='CompilerDependencyObservations';marker='PASS DependencyObservations:'},
         @{name='CompilerBaseManifestIndex';marker='PASS BaseManifestIndex:'},
         @{name='CompilerNodeJoiner';marker='PASS NodeJoiner:'},
+        @{name='CompilerSymbolLookup';marker='PASS SymbolLookup:'},
         @{name='CompilerSchemaDescriptors';marker='PASS SchemaDescriptors:'},
         @{name='CompilerSchemaMetadata';marker='PASS SchemaMetadata:'},
         @{name='CompilerCacheContent';marker='PASS CacheContent:'},
@@ -237,7 +238,7 @@ try {
             $timeout=if($fixture.timeoutSeconds){[int]$fixture.timeoutSeconds}else{$FixtureTimeoutSeconds}
             $resultPath=Join-Path $fixtureOut 'result.json'
                 $fixtureArguments=@($fixtureExe,$fixtureWork,$resultPath,$state.sourceCommit,$state.runId,$sdk)
-                if($fixture.name -eq 'CompilerExpressionPrograms'){$fixtureArguments+=$expressionOriginalJson}
+                if($fixture.name -eq 'CompilerExpressionPrograms'){$fixtureArguments+=@($expressionOriginalJson,$documentOriginalJson)}
                 if($fixture.name -in @('CompilerDocumentSnapshots','CompilerDocumentMetadata')){$fixtureArguments+=$documentOriginalJson}
                 $processId=Invoke-LifecycleFixture $run.exe $fixtureArguments $clean "$fixtureOut/runtime.log" $timeout
                 if(!(Select-String -LiteralPath "$fixtureOut/runtime.log" -SimpleMatch $fixture.marker -Quiet)){throw 'Core lifecycle success marker missing'}

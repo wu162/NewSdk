@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Web.Script.Serialization;
 using System.Xml;
 using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 using BinaryAssetBuilder.Utility;
+using NewModCompiler.Application;
 
 // Actual CopyAsset sources, not manually substituted streams or fabricated
 // output bytes. The full CLI/SDK matrix remains a separate acceptance gate.
@@ -16,7 +18,7 @@ public static class CompilerBinaryMaterialization
 {
     const BindingFlags Hidden = BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
     const string Disable = "NewSdk.Compiler.DisableBinaryMaterializationCapture";
-    static string work;
+    static string work, sdk;
     static int checks;
     static readonly List<string> tests = new List<string>();
     static readonly List<object> observations = new List<object>();
@@ -197,15 +199,164 @@ public static class CompilerBinaryMaterialization
         Writable(original); Writable(replacement);
         tests.Add("post-copy-native-handle-identity-check-rejects-equal-length-equal-content-distinct-file-and-releases-provisional-pins");
     }
+    static Settings PublicSettings(string name, string input)
+    {
+        var config = new XmlDocument(); config.Load(Path.Combine(sdk, "tools/BinaryAssetBuilder.exe.config"));
+        var settings = (Settings)new SerializedSectionHandler().Create(null, null, config.SelectSingleNode("/configuration/assetbuilder"));
+        settings.DataRoot = Path.GetDirectoryName(input); settings.InputPath = input;
+        settings.SchemaPath = Path.Combine(sdk, "Schemas/xsd/CnC3Types.xsd");
+        settings.OutputDirectory = Path.Combine(work, "public-generated", name, "output");
+        settings.IntermediateOutputDirectory = Path.Combine(work, "public-generated", name, "intermediate");
+        settings.SessionCacheDirectory = Path.Combine(work, "public-generated", name, "hashes");
+        settings.BuildCacheDirectory = Path.Combine(work, "public-external-cache", name.Split('-')[0]);
+        settings.DefaultDataPaths = settings.DefaultArtPaths = settings.DefaultAudioPaths = Path.GetDirectoryName(input);
+        settings.TargetPlatform = TargetPlatform.Win32; settings.BuildCache = true; settings.SessionCache = false;
+        settings.LinkedStreams = true; settings.OutputAssetReport = settings.OutputStringHashes = false;
+        settings.ErrorLevel = 1; settings.UsePrecompiled = settings.StreamHints = settings.StableSort = false;
+        Settings.Current = settings; SettingsLoader.PostProcessSettings(settings.DataRoot);
+        Directory.CreateDirectory(settings.OutputDirectory); Directory.CreateDirectory(settings.IntermediateOutputDirectory);
+        Directory.CreateDirectory(settings.SessionCacheDirectory); Directory.CreateDirectory(settings.BuildCacheDirectory);
+        return settings;
+    }
+    static Dictionary<string, string> Four(string output, string name = "root")
+    {
+        var result = new Dictionary<string, string>();
+        foreach (string path in Directory.GetFiles(output, "*", SearchOption.AllDirectories))
+            if (Path.GetFileNameWithoutExtension(path) == name && new[] { ".manifest", ".bin", ".imp", ".relo" }.Contains(Path.GetExtension(path)))
+                using (var hash = SHA256.Create()) result.Add(Path.GetExtension(path), Convert.ToBase64String(hash.ComputeHash(File.ReadAllBytes(path))));
+        Require(result.Count == 4, "Public Core did not produce exactly four stream outputs"); return result;
+    }
+    static DocumentProcessor PublicProcessor(BuiltinCompilers plugins, SchemaSet schema)
+    {
+        HashProvider.InitializeStringHashes(Settings.Current.SessionCacheDirectory);
+        var cache = new SessionCache(); cache.InitializeCache(new List<string>());
+        var verifiers = new VerifierPluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32);
+        verifiers.DefaultPlugin = (IAssetBuilderVerifierPlugin)Activator.CreateInstance(typeof(DocumentProcessor).Assembly.GetType("BinaryAssetBuilder.GameDataVerifier.Plugin", true), true);
+        verifiers.DefaultPlugin.Initialize(null, TargetPlatform.Win32);
+        return new DocumentProcessor(Settings.Current, plugins.Registry, verifiers) { Cache = cache, SchemaSet = schema };
+    }
+    static void PublicCoreExternalCache()
+    {
+        string inputDirectory = Path.Combine(work, "public-input"); Directory.CreateDirectory(inputDirectory);
+        string input = Path.Combine(inputDirectory, "root.xml");
+        File.WriteAllText(input, "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><AptAptData id='MaterializedBlob' File='payload.bin'/></AssetDeclaration>");
+        byte[] payload = new byte[1048576 + 64]; for (int i = 0; i < payload.Length; i++) payload[i] = (byte)(i % 251);
+        File.WriteAllBytes(Path.Combine(inputDirectory, "payload.bin"), payload);
+        Dictionary<string, string> expected = null;
+        PublicSettings("enabled-initialize", input);
+        using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
+        {
+            // Match the public legacy Core contract with cache explicitly
+            // enabled for this real native DataBlob route. App /bc copies its
+            // own cache into excluded staging and remains a distinct scope.
+            plugins.Registry.GetExtendedTypeInformation(InstanceHandle.GetTypeId("AptAptData")).UseBuildCache = true;
+            foreach (string mode in new[] { "enabled", "fallback" })
+            {
+                AppContext.SetSwitch(Disable, mode == "fallback");
+                PublicSettings(mode + "-cold", input);
+                var schema = new SchemaSet(false); var cold = PublicProcessor(plugins, schema);
+                bool success; cold.ProcessDocument(input, true, false, out success); Require(success, "Public Core cold compile failed");
+                Require(cold.BuildCacheMisses >= 1 && cold.BuildCacheHits == 0, "Public Core cold stream did not populate its fresh external cache");
+                var coldOutputs = Four(Settings.Current.OutputDirectory);
+                if (expected == null) expected = coldOutputs;
+                Require(expected.All(pair => coldOutputs[pair.Key] == pair.Value), "Cold public Core four outputs differ between capture modes");
+                string cacheRoot = Settings.Current.BuildCacheDirectory;
+                string[] assets = Directory.GetFiles(cacheRoot, "*.asset", SearchOption.AllDirectories);
+                Require(assets.Length == 1, "Real native DataBlob did not populate exactly one legacy cache asset");
+                using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, mode + "-public-snapshot")))
+                {
+                    snapshot.ExcludeRoot(Path.Combine(work, "public-generated"));
+                    using (snapshot.BeginReadScope())
+                    {
+                        for (int stream = 0; stream < 3; stream++)
+                        {
+                            var settings = PublicSettings(mode + "-warm-" + stream, input);
+                            var processor = PublicProcessor(plugins, schema);
+                            processor.ProcessDocument(input, true, false, out success); Require(success, "Public Core warm stream failed");
+                            Require(processor.BuildCacheHits >= 1 && processor.BuildCacheMisses == 0, "Public Core warm stream did not consume the external build cache");
+                            var outputs = Four(settings.OutputDirectory);
+                            Require(expected.All(pair => outputs[pair.Key] == pair.Value), "Public Core warm/cold capture/fallback four outputs differ");
+                        }
+                        var metrics = Metrics(snapshot);
+                        Require(Attempt(metrics, "copyReadHits") == (mode == "enabled" ? 2 : 0), "Public Core three-stream cache reads did not use the expected sealed/fallback paths");
+                        Require(Attempt(metrics, "captureReadsCompleted") == (mode == "enabled" ? 1 : 0), "Public Core external asset was not captured exactly once in its generation");
+                        if (mode == "enabled") Blocked(() => File.Delete(assets[0]), "Public Core successfully consumed external cache source was not pinned");
+                        else Writable(assets[0]);
+                        snapshot.VerifyUnchanged(); observations.Add(new { id = "public-Core-external-build-cache-" + mode, metrics, outputs = expected });
+                    }
+                }
+                Writable(assets[0]);
+            }
+        }
+        AppContext.SetSwitch(Disable, false);
+        tests.Add("public-DocumentProcessor-native-DataBlob-external-build-cache-cold-and-three-warm-streams-four-output-fallback-equality-sealed-read-reuse-final-verification-and-generation-release");
+    }
+    static void PublicCoreMutableLocalOutputs()
+    {
+        string inputDirectory = Path.Combine(work, "local-input"); Directory.CreateDirectory(inputDirectory);
+        string shared = Path.Combine(inputDirectory, "shared.xml");
+        File.WriteAllText(shared, "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><AptAptData id='LocalBlob' File='payload.bin'/></AssetDeclaration>");
+        File.WriteAllBytes(Path.Combine(inputDirectory, "payload.bin"), new byte[1048576 + 64]);
+        var inputs = new List<string>();
+        foreach (string name in new[] { "first", "second", "bad", "retry" })
+        {
+            string path = Path.Combine(inputDirectory, name + ".xml"); inputs.Add(path);
+            File.WriteAllText(path, "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><Includes><Include type='all' source='shared.xml'/></Includes></AssetDeclaration>");
+        }
+        Dictionary<string, string> expected = null;
+        PublicSettings("local-initialize", inputs[0]);
+        using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
+        {
+            foreach (bool disabled in new[] { false, true })
+            {
+                AppContext.SetSwitch(Disable, disabled);
+                var settings = PublicSettings(disabled ? "local-fallback" : "local-enabled", inputs[0]); settings.BuildCache = false;
+                var processor = PublicProcessor(plugins, new SchemaSet(false));
+                using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, disabled ? "local-fallback-snapshot" : "local-enabled-snapshot")))
+                using (snapshot.BeginReadScope())
+                {
+                    // Deliberately register no output exclusions: the Local
+                    // source role itself must preserve generated-file repair.
+                    bool success; processor.ProcessDocument(inputs[0], true, false, out success); Require(success, "Public Core first Local stream failed");
+                    var initial = Four(settings.OutputDirectory, "first");
+                    if (expected == null) expected = initial;
+                    Require(expected.All(pair => initial[pair.Key] == pair.Value), "Local source baseline differs by capture mode");
+                    string[] sources = Directory.GetFiles(settings.IntermediateOutputDirectory, "*.asset", SearchOption.AllDirectories);
+                    Require(sources.Length == 1, "Initial Local stream must produce exactly one asset source");
+                    string source = sources[0]; byte[] valid = File.ReadAllBytes(source);
+                    processor.ProcessDocument(inputs[1], true, false, out success); Require(success, "Public Core second Local stream failed");
+                    var second = Four(settings.OutputDirectory, "second");
+                    Require(expected.All(pair => second[pair.Key] == pair.Value), "Local source copy changed four outputs");
+                    Writable(source); File.Delete(source); File.WriteAllBytes(source, new byte[] { 1 });
+                    bool rejected = false;
+                    try { processor.ProcessDocument(inputs[2], true, false, out success); }
+                    catch (BinaryAssetBuilderException error) { if (error.ErrorCode != ErrorCode.InternalError) throw; rejected = true; }
+                    Require(rejected, "Malformed Local source must retain its original failed-copy contract");
+                    File.Delete(source); File.WriteAllBytes(source, valid);
+                    processor.ProcessDocument(inputs[3], true, false, out success); Require(success, "Local source delete/repair/new-stream retry failed");
+                    var retry = Four(settings.OutputDirectory, "retry");
+                    Require(expected.All(pair => retry[pair.Key] == pair.Value), "Repaired Local source changed four outputs");
+                    var metrics = Metrics(snapshot);
+                    Require(Attempt(metrics, "attempts") == 0 && Attempt(metrics, "copyReadHits") == 0,
+                        "Mutable Local source was routed through external-cache capture");
+                    Require(processor.BuildCacheHits == 0 && processor.BuildCacheMisses == 0, "Local copies were counted as external cache activity");
+                    snapshot.VerifyUnchanged(); Writable(source);
+                    observations.Add(new { id = disabled ? "public-Core-mutable-Local-fallback" : "public-Core-mutable-Local-enabled", metrics, outputs = retry });
+                }
+            }
+        }
+        AppContext.SetSwitch(Disable, false);
+        tests.Add("public-DocumentProcessor-same-backend-Local-multistream-without-exclusions-remains-writable-deletable-invalid-copy-rejects-repair-retry-and-four-output-equality");
+    }
     public static int Main(string[] args)
     {
         object result; int code = 0; var settings = Settings.Current; bool disabled; AppContext.TryGetSwitch(Disable, out disabled);
         try
         {
-            work = Path.GetFullPath(args[0]); Directory.CreateDirectory(work);
+            work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
             Settings.Current = new Settings { BuildCache = false, SessionCache = false, LinkedStreams = true, CustomPostfix = "", TargetPlatform = TargetPlatform.Win32 };
             AppContext.SetSwitch(Disable, false);
-            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity();
+            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
                 scope = "Actual CopyAsset successful validated sources and failure rollback only; invalid-header/length repair retains separate existing fixture coverage; not all BinaryAsset reads or hidden Texture closure" };
             Console.WriteLine("PASS BinaryMaterialization: " + tests.Count + " groups; " + checks + " checks");

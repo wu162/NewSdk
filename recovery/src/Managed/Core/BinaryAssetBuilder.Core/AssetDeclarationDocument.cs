@@ -481,6 +481,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 	[NonSerialized]
 	private bool _processing;
 
+    [NonSerialized] private CompilerSymbolLookup _SymbolLookup;
+    [NonSerialized] private CompilerSymbolLookup.Work _SymbolLookupWork;
+    public object GetSymbolLookupMetrics() => _SymbolLookupWork == null ? null : _SymbolLookupWork.Snapshot();
+
 	[NonSerialized]
 	public bool ReloadedForInheritance;
 
@@ -1089,27 +1093,68 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			return;
 		}
-		foreach (InstanceDeclaration selfInstance in SelfInstances)
-		{
-            string oldStage = _Current.DefineReadStage, oldSite = _Current.DefineReadSite;
-            _Current.DefineReadStage = "expressions";
-            string consumer = ObservationHandleName(selfInstance.Handle);
-            _Current.DefineReadSite = consumer;
-            int ordinal = 0;
-            try { ProcessExpressionsInNode(evaluator, selfInstance.XmlNode, consumer, ref ordinal); }
-            finally { _Current.DefineReadStage = oldStage; _Current.DefineReadSite = oldSite; }
-		}
+        bool disabled; AppContext.TryGetSwitch("NewSdk.Compiler.DisableExpressionTraversal", out disabled);
+        DocumentProcessor workOwner = _Current.DocumentProcessor;
+        var work = new DocumentProcessor.ExpressionTraversalWork();
+        bool succeeded = false;
+        try
+        {
+            foreach (InstanceDeclaration selfInstance in SelfInstances)
+            {
+                string oldStage = _Current.DefineReadStage, oldSite = _Current.DefineReadSite;
+                _Current.DefineReadStage = "expressions";
+                string consumer = ObservationHandleName(selfInstance.Handle);
+                _Current.DefineReadSite = consumer;
+                int ordinal = 0;
+                try { ProcessExpressionsInNode(evaluator, selfInstance.XmlNode, consumer, ref ordinal, !disabled, work); }
+                finally { _Current.DefineReadStage = oldStage; _Current.DefineReadSite = oldSite; }
+            }
+            succeeded = true;
+        }
+        finally { workOwner?.RecordExpressionTraversal(work, succeeded); }
 	}
 
-	private void ProcessExpressionsInNode(IExpressionEvaluator eval, XmlNode node, string consumer, ref int ordinal)
+    private static bool StandardExpressionNode(XmlNode node)
+    {
+        Type type = node.GetType();
+        return type == typeof(XmlElement) || type == typeof(XmlText) || type == typeof(XmlCDataSection) ||
+            type == typeof(XmlComment) || type == typeof(XmlWhitespace) || type == typeof(XmlSignificantWhitespace) ||
+            type == typeof(XmlProcessingInstruction) || type == typeof(XmlEntityReference);
+    }
+
+    private static bool SingleTextAttribute(XmlAttribute attribute)
+    {
+        if (attribute.GetType() != typeof(XmlAttribute)) return false;
+        // An exact attribute may still aggregate a caller's derived XmlText or
+        // EntityReference graph with observable virtual Value getters.
+        XmlNode child = attribute.FirstChild;
+        return child == null || (child.GetType() == typeof(XmlText) && child.NextSibling == null);
+    }
+
+	private void ProcessExpressionsInNode(IExpressionEvaluator eval, XmlNode node, string consumer, ref int ordinal,
+        bool optimize, DocumentProcessor.ExpressionTraversalWork work)
 	{
         // Compact preorder position identifies the actual read site without
         // allocating a full ancestor path at every node (or when disabled).
         int nodeOrdinal = ordinal++;
+        work.nodes++;
 		if (node.Attributes != null)
 		{
 			foreach (XmlAttribute attribute in node.Attributes)
 			{
+                if (optimize && SingleTextAttribute(attribute))
+                {
+                    work.singleReadAttributes++;
+                    string value = attribute.Value;
+                    if (value.Length > 0 && value[0] == '=')
+                    {
+                        if (DependencyObservationLog.IsActive)
+                            _Current.DefineReadSite = consumer + "/" + node.Name + "[" + nodeOrdinal + "]/@" + attribute.Name;
+                        attribute.Value = eval.Evaluate(value);
+                    }
+                    continue;
+                }
+                work.legacyAttributes++;
 				if (attribute.Value.Length > 0 && attribute.Value[0] == '=')
 				{
                     if (DependencyObservationLog.IsActive)
@@ -1118,19 +1163,42 @@ public class AssetDeclarationDocument : IXmlSerializable
 				}
 			}
 		}
-		if (node.Value != null && node.Value.Length > 0 && node.Value[0] == '=')
+        bool standard = optimize && StandardExpressionNode(node);
+        if (standard)
+        {
+            work.singleReadNodes++;
+            string value = node.Value;
+            if (value != null && value.Length > 0 && value[0] == '=')
+            {
+                if (DependencyObservationLog.IsActive)
+                    _Current.DefineReadSite = consumer + "/" + node.Name + "[" + nodeOrdinal + "]";
+                node.Value = eval.Evaluate(value);
+            }
+        }
+		else if (node.Value != null && node.Value.Length > 0 && node.Value[0] == '=')
 		{
             if (DependencyObservationLog.IsActive)
                 _Current.DefineReadSite = consumer + "/" + node.Name + "[" + nodeOrdinal + "]";
             node.Value = eval.Evaluate(node.Value);
 		}
+        if (standard)
+        {
+            work.siblingTraversals++;
+            // XmlChildEnumerator.MoveNext reads FirstChild once and then the
+            // current node's NextSibling after each body. Keep those live reads,
+            // including removal/reorder behavior; never prefetch a successor.
+            for (XmlNode child = node.FirstChild; child != null; child = child.NextSibling)
+                ProcessExpressionsInNode(eval, child, consumer, ref ordinal, optimize, work);
+            return;
+        }
+        work.legacyTraversals++;
 		if (node.ChildNodes == null)
 		{
 			return;
 		}
         foreach (XmlNode childNode in node.ChildNodes)
         {
-            ProcessExpressionsInNode(eval, childNode, consumer, ref ordinal);
+            ProcessExpressionsInNode(eval, childNode, consumer, ref ordinal, optimize, work);
         }
 	}
 
@@ -1567,7 +1635,7 @@ public class AssetDeclarationDocument : IXmlSerializable
     private bool TryFindObserved(InstanceSet instances, InstanceHandle handle, FindLocation candidateLocation,
         long query, long parentQuery, string stage, string site, out InstanceDeclaration value)
     {
-        bool found = instances.TryGetValue(handle, out value);
+        bool found = _SymbolLookup == null ? instances.TryGetValue(handle, out value) : _SymbolLookup.TryGetValue(instances, handle, out value);
         DependencyObservationLog.RecordSymbol("symbolCandidate", query, this, stage, site, handle, candidateLocation, value, found, null, parentQuery);
         return found;
     }
@@ -1610,7 +1678,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 		if (instanceDeclaration == null)
 		{
 			InstanceHandle instanceHandle = new InstanceHandle(referenceHandle.TypeName, referenceHandle.InstanceName);
-			StringCollection derivedTypes = _Current.DocumentProcessor.SchemaSet.GetDerivedTypes(referenceHandle.TypeName);
+			// Schema's public derived-name view and its culture comparisons
+            // remain legacy. A miss crossing that boundary ends this index.
+            _SymbolLookup?.ExternalBoundary();
+            StringCollection derivedTypes = _Current.DocumentProcessor.SchemaSet.GetDerivedTypes(referenceHandle.TypeName);
 			if (derivedTypes != null)
 			{
 				StringBuilder stringBuilder = new StringBuilder();
@@ -1751,7 +1822,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 				{
 					throw new BinaryAssetBuilderException(ErrorCode.UnknownReference, "Unknown referenced asset: {0}", referencedInstance);
 				}
-				if (_Current.DocumentProcessor.MissingReferences.TryAdd(referencedInstance))
+				_SymbolLookup?.ExternalBoundary();
+                if (_Current.DocumentProcessor.MissingReferences.TryAdd(referencedInstance))
 				{
 					_Tracer.TraceWarning("Unknown asset '{0}' referenced from '{1}' in 'file://{2}'", referencedInstance.Name, instance.Handle.Name, instance.Document.SourcePath);
 				}
@@ -1771,7 +1843,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 		foreach (string referencedFile in instance.ReferencedFiles)
 		{
 			FileHashItem item = null;
-			if (!instance.Document.TryGetFileHashItem(referencedFile, out item))
+			// A public ISessionCache can execute arbitrary consumer code.
+            _SymbolLookup?.ExternalBoundary();
+            if (!instance.Document.TryGetFileHashItem(referencedFile, out item))
 			{
 				if (Settings.Current.ErrorLevel > 0)
 				{
@@ -2070,10 +2144,19 @@ public class AssetDeclarationDocument : IXmlSerializable
     {
 		_Current.OutputInstanceSet = new SortedDictionary<InstanceHandle, InstanceDeclaration>();
         _Current.OutputInstances.Clear();
-		foreach (InstanceDeclaration instance in Instances)
-		{
-			AddOutputInstance(instance);
-		}
+        _SymbolLookupWork = new CompilerSymbolLookup.Work();
+        _SymbolLookup = CompilerSymbolLookup.Create(GetType() == typeof(AssetDeclarationDocument) && _Current.UseStreamBindingResults,
+            new[] { Instances, SelfInstances, AllInstances, TentativeInstances, ReferenceInstances }, _SymbolLookupWork);
+        try
+        {
+            foreach (InstanceDeclaration instance in Instances) AddOutputInstance(instance);
+        }
+        finally
+        {
+            // Mutable declarations/tables cannot escape through diagnostics.
+            _SymbolLookup = null;
+            if (_Current.DocumentProcessor != null) _Current.DocumentProcessor.RecordSymbolLookupWork(this, _Current.SourcePath);
+        }
 		foreach (InstanceDeclaration value in _Current.OutputInstanceSet.Values)
 		{
 			BinaryAsset binaryAsset = outputManager.GetBinaryAsset(value, isOutputAsset: true);

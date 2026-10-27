@@ -153,6 +153,17 @@ public class DocumentProcessor
         _StableSortMembershipSnapshots.Values.CopyTo(result, 0); return result;
     }
 
+    private readonly Dictionary<AssetDeclarationDocument, object> _SymbolLookupSnapshots = new Dictionary<AssetDeclarationDocument, object>(new DocumentReferenceComparer());
+    internal void RecordSymbolLookupWork(AssetDeclarationDocument document, string sourcePath)
+    {
+        _SymbolLookupSnapshots[document] = new { sourcePath, work = document.GetSymbolLookupMetrics() };
+    }
+    public object[] GetSymbolLookupMetrics()
+    {
+        var result = new object[_SymbolLookupSnapshots.Count];
+        _SymbolLookupSnapshots.Values.CopyTo(result, 0); return result;
+    }
+
     private readonly CoreTransferBuffers _TransferBuffers = new CoreTransferBuffers();
     internal CoreTransferBuffers TransferBuffers => _TransferBuffers;
     public object GetTransferBufferMetrics()
@@ -163,6 +174,30 @@ public class DocumentProcessor
     public object GetExpressionProgramMetrics()
     {
         return ExpressionEvaluatorWrapper.GetProgramMetrics(this);
+    }
+
+    internal sealed class ExpressionTraversalWork
+    {
+        internal long nodes, singleReadAttributes, legacyAttributes, singleReadNodes, siblingTraversals, legacyTraversals;
+    }
+    private readonly ExpressionTraversalWork _ExpressionTraversal = new ExpressionTraversalWork();
+    private long _ExpressionTraversalCalls, _ExpressionTraversalFailures;
+    internal void RecordExpressionTraversal(ExpressionTraversalWork work, bool succeeded)
+    {
+        _ExpressionTraversalCalls++; if (!succeeded) _ExpressionTraversalFailures++;
+        _ExpressionTraversal.nodes += work.nodes;
+        _ExpressionTraversal.singleReadAttributes += work.singleReadAttributes;
+        _ExpressionTraversal.legacyAttributes += work.legacyAttributes;
+        _ExpressionTraversal.singleReadNodes += work.singleReadNodes;
+        _ExpressionTraversal.siblingTraversals += work.siblingTraversals;
+        _ExpressionTraversal.legacyTraversals += work.legacyTraversals;
+    }
+    public object GetExpressionTraversalMetrics()
+    {
+        return new { calls = _ExpressionTraversalCalls, failedCalls = _ExpressionTraversalFailures,
+            nodes = _ExpressionTraversal.nodes, singleReadAttributes = _ExpressionTraversal.singleReadAttributes,
+            legacyAttributes = _ExpressionTraversal.legacyAttributes, singleReadNodes = _ExpressionTraversal.singleReadNodes,
+            siblingTraversals = _ExpressionTraversal.siblingTraversals, legacyTraversals = _ExpressionTraversal.legacyTraversals };
     }
 
 	public WorkMeasurement[] GetWorkMetrics()
