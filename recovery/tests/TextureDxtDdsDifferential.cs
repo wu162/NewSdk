@@ -47,6 +47,8 @@ internal static unsafe class TextureDxtDdsDifferential
                 case 1: result[i*4]=255;result[i*4+1]=255;result[i*4+2]=255;result[i*4+3]=255;break;
                 case 2: result[i*4]=(byte)(i*37+17);result[i*4+1]=(byte)(i*71+33);result[i*4+2]=(byte)(i*113+129);result[i*4+3]=(byte)(i*19+7);break;
                 case 3: result[i*4]=255;result[i*4+1]=1;result[i*4+2]=128;result[i*4+3]=63;break;
+                case 5: result[i*4]=(byte)((i%2)*255);result[i*4+1]=(byte)(255-result[i*4]);result[i*4+2]=128;result[i*4+3]=(byte)((i%2)*255);break;
+                case 6: result[i*4]=(byte)(i*3);result[i*4+1]=(byte)(i*7);result[i*4+2]=(byte)(i*13);result[i*4+3]=(byte)(8+(i%15)*17);break;
                 default: result[i*4]=(byte)(i&255);result[i*4+1]=(byte)((i*3+4)&255);result[i*4+2]=(byte)((i*7+3)&255);result[i*4+3]=(byte)(255-(i&255));break;
             }
         }
@@ -73,6 +75,32 @@ internal static unsafe class TextureDxtDdsDifferential
             Check(output[0]==68 && output[1]==68 && output[2]==83 && output[3]==32, "DDS magic missing");
             return output;
         }
+    }
+
+    private static string Location(int offset,uint width,uint height)
+    {
+        if(offset<128)return "header";
+        int start=128,level=0;
+        while(true){int size=checked((int)(((width+3)/4)*((height+3)/4)*16));if(offset<start+size)return "level="+level+" block="+((offset-start)/16)+" byte="+((offset-start)%16);start+=size;level++;width=Math.Max(1u,width/2);height=Math.Max(1u,height/2);if(level>32)return "overflow";}
+    }
+    private static void ValidateLayout(byte[] dds,uint width,uint height,string format,bool mips,string label)
+    {
+        uint w=width,h=height;int levels=0,total=128;
+        Check(BitConverter.ToUInt32(dds,8)==(mips?0xa1007u:0x81007u),label+" independent flags");
+        Check(BitConverter.ToUInt32(dds,12)==height&&BitConverter.ToUInt32(dds,16)==width,label+" dimensions");
+        Check(BitConverter.ToUInt32(dds,20)==((width+3)/4)*((height+3)/4)*16,label+" level-zero linear size");
+        Check(BitConverter.ToUInt32(dds,84)==(format=="D3DFMT_DXT3"?0x33545844u:0x35545844u),label+" FourCC");
+        Check(BitConverter.ToUInt32(dds,108)==(mips?0x401008u:0x1000u)&&BitConverter.ToUInt32(dds,112)==0,label+" caps");
+        Check(calls.Count>=3&&calls[0]=="4:null"&&calls[1]=="124:null",label+" header callback");
+        do{
+            int bytes=checked((int)(((w+3)/4)*((h+3)/4)*16));total+=bytes;
+            Check(calls.Count>levels+2&&calls[levels+2]==bytes+":"+levels+","+w+","+h+",0,1",label+" level callback "+levels);
+            levels++;
+            if(!mips||(w==1&&h==1))break;
+            w=Math.Max(1u,w/2);h=Math.Max(1u,h/2);
+        }while(true);
+        Check(dds.Length==total&&calls.Count==levels+2,label+" full level layout");
+        Check(BitConverter.ToUInt32(dds,28)==(mips?(uint)levels:0),label+" mip count");
     }
 
     private static int Main(string[] args)
@@ -102,11 +130,10 @@ internal static unsafe class TextureDxtDdsDifferential
                 new object[]{4u,4u,new byte[64],"D3DFMT_DXT1",false},
                 new object[]{4u,4u,new byte[64],"D3DFMT_DXT1A",false},
                 new object[]{4u,4u,new byte[64],"unknown",false},
-                new object[]{4u,4u,new byte[64],null,false},
-                new object[]{4u,4u,new byte[64],"D3DFMT_DXT3",true},
-                new object[]{4u,4u,new byte[64],"D3DFMT_DXT5",true}
+                new object[]{4u,4u,new byte[64],null,false}
             };
-            foreach(object[] invalid in rejectedInputs) {
+            foreach(bool mips in new[]{false,true}) foreach(object[] invalid in rejectedInputs) {
+                invalid[4]=mips;
                 bool rejected=false;
                 try { encode.Invoke(null,invalid); }
                 catch(TargetInvocationException e) { rejected=e.InnerException is ArgumentException || e.InnerException is NotSupportedException; }
@@ -122,27 +149,33 @@ internal static unsafe class TextureDxtDdsDifferential
             Check(original.ManifestModule.ResolveMethod(0x060000DC).Name=="nvDDS.nvDXTcompress","Native token");
             IntPtr module=Marshal.GetHINSTANCE(original.ManifestModule);Check(module!=IntPtr.Zero&&module!=new IntPtr(-1),"Native base");
             Compressor compressor=(Compressor)Marshal.GetDelegateForFunctionPointer(IntPtr.Add(module,0x52b60),typeof(Compressor));
-            int[][] sizes={new[]{1,1},new[]{1,2},new[]{2,1},new[]{2,2},new[]{1,8},new[]{8,1},new[]{2,16},new[]{16,2},new[]{4,4},new[]{4,8},new[]{8,4},new[]{8,8},new[]{4,16},new[]{16,4},new[]{8,16},new[]{16,8},new[]{16,16},new[]{8,32},new[]{32,8},new[]{32,32}};
+            int[][] sizes={new[]{1,1},new[]{1,2},new[]{2,1},new[]{2,2},new[]{1,8},new[]{8,1},new[]{2,16},new[]{16,2},new[]{4,4},new[]{4,8},new[]{8,4},new[]{8,8},new[]{4,16},new[]{16,4},new[]{8,16},new[]{16,8},new[]{16,16},new[]{8,32},new[]{32,8},new[]{32,32},new[]{1,32},new[]{32,1},new[]{2,64},new[]{64,2}};
             using(var replay=new BinaryWriter(File.Create(output+".replay")))
             using(var transcript=new StreamWriter(output)) {
-                replay.Write(1280);
-                transcript.WriteLine("format\twidth\theight\tpattern\tbytes\tsha256");
-                foreach(string format in new[]{"D3DFMT_DXT3","D3DFMT_DXT5"})foreach(int[] size in sizes)for(int pattern=0;pattern<32;pattern++) {
+                replay.Write(3072);
+                transcript.WriteLine("format\tmips\twidth\theight\tpattern\tbytes\tsha256");
+                foreach(string format in new[]{"D3DFMT_DXT3","D3DFMT_DXT5"})foreach(bool mipmaps in new[]{false,true})foreach(int[] size in sizes)for(int pattern=0;pattern<32;pattern++) {
                     uint width=(uint)size[0],height=(uint)size[1];byte[] pixels=Pixels(width,height,pattern%8);
                     if(pattern>=8)new Random(pattern*7919+size[0]*31+size[1]).NextBytes(pixels);
                     byte[] before=(byte[])pixels.Clone();
-                    byte[] expected=Original(compressor,plugin,optionsMethod,width,height,pixels,format,false);
-                    byte[] actual=(byte[])encode.Invoke(null,new object[]{width,height,pixels,format,false});
-                    string label=format+" "+width+"x"+height+" pattern="+pattern;
+                    byte[] expected=Original(compressor,plugin,optionsMethod,width,height,pixels,format,mipmaps);
+                    byte[] actual=(byte[])encode.Invoke(null,new object[]{width,height,pixels,format,mipmaps});
+                    string label=format+" "+width+"x"+height+" pattern="+pattern+" mips="+mipmaps;
+                    if(Hash(actual)!=Hash(expected)) {
+                        File.WriteAllBytes(output+".expected.dds",expected);File.WriteAllBytes(output+".actual.dds",actual);File.WriteAllBytes(output+".rgba",pixels);
+                        File.WriteAllText(output+".failure.txt",label);
+                    }
+                    ValidateLayout(expected, width, height, format, mipmaps, label);
                     Check(actual.Length==expected.Length,label+" size");
-                    for(int i=0;i<expected.Length;i++)Check(actual[i]==expected[i],label+" DDS mismatch offset="+i+" expected="+expected[i]+" actual="+actual[i]);
+                    for(int i=0;i<expected.Length;i++)Check(actual[i]==expected[i],label+" DDS mismatch "+Location(i,width,height)+" offset="+i+" expected="+expected[i]+" actual="+actual[i]);
                     Check(Hash(pixels)==Hash(before),"Input modified");
-                    replay.Write(format);replay.Write(width);replay.Write(height);replay.Write(pixels.Length);replay.Write(pixels);replay.Write(expected.Length);replay.Write(expected);
-                    transcript.WriteLine(format+"\t"+width+"\t"+height+"\t"+pattern+"\t"+actual.Length+"\t"+Hash(actual));fixtures++;
+                    replay.Write(format);replay.Write(mipmaps);replay.Write(width);replay.Write(height);replay.Write(pixels.Length);replay.Write(pixels);replay.Write(expected.Length);replay.Write(expected);
+                    transcript.WriteLine(format+"\t"+mipmaps+"\t"+width+"\t"+height+"\t"+pattern+"\t"+actual.Length+"\t"+Hash(actual));fixtures++;
                 }
             }
-            Console.WriteLine("PASS Texture complete DXT3/DXT5 2D DDS fixtures="+fixtures+" checks="+checks+"; PC Production=71; full header and payload; POT including partial-block no-mip only; no plugin/SDK acceptance");return 0;
+            Console.WriteLine("PASS Texture complete DXT3/DXT5 2D DDS fixtures="+fixtures+" checks="+checks+"; PC Production=71; full header and payload; POT including partial blocks; no-mip and complete float mip chains; no plugin/SDK acceptance");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}finally{if(owner!=null)owner.Dispose();}
     }
 }
+
 

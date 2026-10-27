@@ -1,12 +1,13 @@
-param([int]$TimeoutSeconds=300)
+param([int]$TimeoutSeconds=300,[ValidateSet('PcDxtNoMip','PcDxtMips')][string]$Profile='PcDxtNoMip')
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 Set-Location $root
-$out="recovery/evidence/texture/sdk-dxt/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+$evidenceFolder=if($Profile -eq 'PcDxtMips'){'sdk-dxt-mips'}else{'sdk-dxt'}
+$out="recovery/evidence/texture/$evidenceFolder/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('texture-sdk-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work | Out-Null
 $out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='EALAModStudio case5 BAB build of dedicated POT including partial-block no-mip PC DXT3/5 TGA/PNG/BMP standard texture MOD';profile='PcDxtNoMip';targetPlatform='Win32';modes=@()}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope="EALAModStudio case5 BAB build of dedicated POT including partial-block PC DXT3/5 TGA/PNG/BMP standard texture MOD: $Profile";profile=$Profile;targetPlatform='Win32';modes=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 60;throw "$name failed"}}
 try{
  Checked recovered-build {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c Release -o "$work/build" --nologo}
@@ -33,7 +34,7 @@ try{
   $nodes=@();$index=0
   foreach($fixture in Get-ChildItem "$work/fixtures" -File|Sort-Object Name){
     Copy-Item $fixture.FullName "$moddir/Art/$($fixture.Name)"
-    $name=$fixture.Name;$generate='false'
+    $name=$fixture.Name;$generate=if($Profile -eq 'PcDxtMips'){'true'}else{'false'}
     foreach($kind in @('StandardTexture')){
      foreach($type in @('Texture','OnDemandTexture')){foreach($format in @('DXT3','DXT5')){
       $nodes+="<$type id='RecoveredRaster_$index' File='..\Art\$name' Type='$kind' OutputFormat='$format' GenerateMipMaps='$generate' AllowAutomaticResize='false' />";$index++
@@ -101,6 +102,7 @@ try{
  }
  $r|ConvertTo-Json -Depth 14|Set-Content "$out/validation.json"
 }
+
 
 
 

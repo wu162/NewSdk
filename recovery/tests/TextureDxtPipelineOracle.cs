@@ -48,14 +48,14 @@ internal static class TextureDxtPipelineOracle
     static void Bytes(BinaryWriter w,byte[] b){w.Write(b==null?-1:b.Length);if(b!=null)w.Write(b);}
     static byte[] Bytes(BinaryReader r){int n=r.ReadInt32();if(n==-1)return null;if(n<0||n>1048576)throw new Exception("Invalid replay length");byte[] b=r.ReadBytes(n);if(b.Length!=n)throw new Exception("Truncated replay");return b;}
     static string Error(Exception e){if(e==null)return "";var b=e as BinaryAssetBuilderException;return e.GetType().FullName+"/"+(b==null?"":b.ErrorCode.ToString())+"/"+e.Message;}
-    static void Case(IAssetBuilderPlugin original,IAssetBuilderPlugin recovered,string work,string extension,byte[] image,string root,string format,bool stale,BinaryWriter replay)
+    static void Case(IAssetBuilderPlugin original,IAssetBuilderPlugin recovered,string work,string extension,byte[] image,string root,string format,bool stale,bool mipmaps,BinaryWriter replay)
     {
         string file=Path.Combine(work,"generated."+extension),oa=Path.Combine(work,"original.cdata"),ra=Path.Combine(work,"recovered.cdata");
         File.WriteAllBytes(file,image);Seed(oa,stale);Seed(ra,stale);
         AssetBuffer expected=null,actual=null;Exception ea=null,eb=null;
-        try{expected=original.ProcessInstance(Declaration(root,file,format,oa,false,"StandardTexture"));}catch(Exception e){ea=e;}
-        try{actual=recovered.ProcessInstance(Declaration(root,file,format,ra,false,"StandardTexture"));}catch(Exception e){eb=e;}
-        string label=extension+"/"+root+"/"+format+"/stale="+stale+"/"+fixtures;
+        try{expected=original.ProcessInstance(Declaration(root,file,format,oa,mipmaps,"StandardTexture"));}catch(Exception e){ea=e;}
+        try{actual=recovered.ProcessInstance(Declaration(root,file,format,ra,mipmaps,"StandardTexture"));}catch(Exception e){eb=e;}
+        string label=extension+"/"+root+"/"+format+"/stale="+stale+"/mips="+mipmaps+"/"+fixtures;
         if(Error(ea)!=Error(eb))throw new Exception(label+" errors original="+Error(ea)+" recovered="+Error(eb));
         if(ea!=null)errors++;
         if(ea==null&&(expected==null||actual==null))throw new Exception(label+" missing buffer");
@@ -66,17 +66,17 @@ internal static class TextureDxtPipelineOracle
         }else if(ea==null){
             if(cdata==null||actual.InstanceData.Length!=8||cdata.Length<184||BitConverter.ToUInt32(cdata,32)!=8||BitConverter.ToUInt32(cdata,40)!=0x20534444)throw new Exception(label+" independent OnDemand DDS layout");
         }
-        replay.Write(extension);Bytes(replay,image);replay.Write(root);replay.Write(format);replay.Write(stale);
+        replay.Write(extension);Bytes(replay,image);replay.Write(root);replay.Write(format);replay.Write(stale);replay.Write(mipmaps);
         replay.Write(Error(ea));Bytes(replay,expected==null?null:expected.InstanceData);Bytes(replay,expected==null?null:expected.RelocationData);Bytes(replay,expected==null?null:expected.ImportsData);Bytes(replay,cdata);fixtures++;
     }
     static void RejectBoundaries(IAssetBuilderPlugin recovered,string work)
     {
         foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})
         foreach(string kind in new[]{"StandardTexture","VolumeTexture"})foreach(bool mips in new[]{false,true}){
-            if(kind=="StandardTexture"&&!mips)continue;
+            if(kind=="StandardTexture")continue;
             string file=Path.Combine(work,"unsupported.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,Tga(8,4,4));Seed(cdata,false);
             bool failed=false;try{recovered.ProcessInstance(Declaration(root,file,format,cdata,mips,kind));}catch(NotSupportedException){failed=true;}
-            if(!failed||File.Exists(cdata))throw new Exception("Unsupported compressed mip/volume must reject before cdata write");rejected++;
+            if(!failed||File.Exists(cdata))throw new Exception("Unsupported compressed volume must reject before cdata write");rejected++;
         }
         // D3DX canonicalizes all-zero TGA alpha to opaque, so DXT1 remains DXT1.
         foreach(string root in new[]{"Texture","OnDemandTexture"}){
@@ -103,12 +103,12 @@ internal static class TextureDxtPipelineOracle
             recovered=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(rd).GetType("Recovered.Compiler.Texture.Plugin",true));recovered.Initialize(null,TargetPlatform.Win32);
             RejectBoundaries(recovered,work);
             if(isolated){
-                using(var r=new BinaryReader(File.OpenRead(replay))){int count=r.ReadInt32();if(count!=1792)throw new Exception("Incomplete corpus");
-                    while(r.BaseStream.Position<r.BaseStream.Length){string ext=r.ReadString();byte[] image=Bytes(r);string root=r.ReadString(),format=r.ReadString();bool stale=r.ReadBoolean();
+                using(var r=new BinaryReader(File.OpenRead(replay))){int count=r.ReadInt32();if(count!=3584)throw new Exception("Incomplete corpus");
+                    while(r.BaseStream.Position<r.BaseStream.Length){string ext=r.ReadString();byte[] image=Bytes(r);string root=r.ReadString(),format=r.ReadString();bool stale=r.ReadBoolean(),mipmaps=r.ReadBoolean();
                         string expectedError=r.ReadString();byte[] instance=Bytes(r),relo=Bytes(r),imports=Bytes(r),cdata=Bytes(r);
                         string file=Path.Combine(work,"generated."+ext),path=Path.Combine(work,"recovered.cdata");File.WriteAllBytes(file,image);Seed(path,stale);
                         AssetBuffer actual=null;Exception error=null;
-                        try{actual=recovered.ProcessInstance(Declaration(root,file,format,path,false,"StandardTexture"));}catch(Exception e){error=e;}
+                        try{actual=recovered.ProcessInstance(Declaration(root,file,format,path,mipmaps,"StandardTexture"));}catch(Exception e){error=e;}
                         if(expectedError!=Error(error))throw new Exception("Replay error "+fixtures+" expected="+expectedError+" actual="+Error(error));
                         if(error!=null)errors++;
                         if(expectedError==""){if(actual==null)throw new Exception("Missing replay buffer");Equal(instance,actual.InstanceData,"replay instance "+fixtures);Equal(relo,actual.RelocationData,"replay relo");Equal(imports,actual.ImportsData,"replay imports");}
@@ -120,31 +120,34 @@ internal static class TextureDxtPipelineOracle
                 string od=Path.GetFullPath(args[0]);using(var sha=SHA256.Create())if(BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(od))).Replace("-","").ToLowerInvariant()!="4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e")throw new Exception("Original hash");
                 original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(od).GetType("BinaryAssetBuilder.TextureCompiler.Plugin",true));original.Initialize(null,TargetPlatform.Win32);
                 using(var w=new BinaryWriter(File.Create(replay))){w.Write(0);
+                    foreach(bool mipmaps in new[]{false,true}) {
                     foreach(int[] size in new[]{new[]{1,1},new[]{1,2},new[]{2,1},new[]{2,2},new[]{1,8},new[]{8,1},new[]{2,16},new[]{16,2},new[]{4,4},new[]{4,8},new[]{8,4},new[]{8,8},new[]{8,16},new[]{16,8},new[]{32,32}})foreach(int pattern in new[]{0,1,2,3,4,5,6,7})
                     foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool stale in new[]{false,true})
-                        Case(original,recovered,work,"tga",Tga(size[0],size[1],pattern),root,format,stale,w);
+                        Case(original,recovered,work,"tga",Tga(size[0],size[1],pattern),root,format,stale,mipmaps,w);
                     // Inferred DXT1 alpha formats take the same accepted DXT3/5 route.
                     foreach(int pattern in new[]{2,3,4,5})foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(bool stale in new[]{false,true})
-                        Case(original,recovered,work,"tga",Tga(8,4,pattern),root,"DXT1",stale,w);
+                        Case(original,recovered,work,"tga",Tga(8,4,pattern),root,"DXT1",stale,mipmaps,w);
                     foreach(int color in new[]{0,2,3,4,6})foreach(int depth in new[]{1,2,4,8,16}){
                         if(color==3?depth==16:color!=0&&depth<8)continue;
                         foreach(int interlace in new[]{0,1})foreach(int metadata in new[]{0,1}){
                             byte[] png=TexturePngOracle.Fixture(8,4,depth,color,interlace,5,metadata,0);
-                            foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool stale in new[]{false,true})Case(original,recovered,work,"png",png,root,format,stale,w);
+                            foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool stale in new[]{false,true})Case(original,recovered,work,"png",png,root,format,stale,mipmaps,w);
                         }
                     }
                     foreach(int depth in new[]{1,4,8,16,24,32})foreach(bool top in new[]{false,true})foreach(int pattern in new[]{0,1,2}){
                         byte[] bmp=TextureBmpOracle.Fixture(8,4,depth,top,pattern,0,7);
-                        foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool stale in new[]{false,true})Case(original,recovered,work,"bmp",bmp,root,format,stale,w);
+                        foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool stale in new[]{false,true})Case(original,recovered,work,"bmp",bmp,root,format,stale,mipmaps,w);
                     }
                     foreach(int profile in new[]{0,1,2})foreach(bool top in new[]{false,true}){
                         byte[] bmp=TextureBmpOracle.BitfieldsFixture(8,4,profile,top,0,7);
-                        foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool stale in new[]{false,true})Case(original,recovered,work,"bmp",bmp,root,format,stale,w);
+                        foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool stale in new[]{false,true})Case(original,recovered,work,"bmp",bmp,root,format,stale,mipmaps,w);
+                    }
                     }
                     w.BaseStream.Position=0;w.Write(fixtures);
                 }
             }
-            Console.WriteLine("PASS Texture DXT ProcessInstance "+(isolated?"NoOriginal":"differential")+" fixtures="+fixtures+" rejected="+rejected+" errors="+errors+" comparedBytes="+compared+"; PC DXT3/5 POT including partial-block no-mip TGA/PNG/BMP; three buffers/full cdata; SDK pending");return 0;
+            Console.WriteLine("PASS Texture DXT ProcessInstance "+(isolated?"NoOriginal":"differential")+" fixtures="+fixtures+" rejected="+rejected+" errors="+errors+" comparedBytes="+compared+"; PC DXT3/5 POT including partial-block no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}finally{if(original!=null)((IDisposable)original).Dispose();if(recovered!=null)((IDisposable)recovered).Dispose();}
     }
 }
+

@@ -1,5 +1,7 @@
 # TextureCompiler 当前续接（2026-10-27，本分支）
 
+本轮检查点（2026-10-27）：PC DXT3/5 POT 完整二维 mip 已写实现与完整测试，**待 Actions 验收，不宣称支持**。共享 triangle 浮点层，压缩链无 byte 中转；DDS 3072样本、入口3584样本、NoOriginal及新 PcDxtMips SDK profile 统一准备，依赖变化的 raw mip/SDK 消费者同步选择。volume/NPOT/DXT1/1A 仍拒绝。下方旧成功锚点保持原范围，后续先收取本轮实际 Actions 终态。
+
 `recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。主入口 [TEXTURE_DXT_COLOUR.md](TEXTURE_DXT_COLOUR.md)。颜色状态 `2cee3446` / 40500150864、完整DXT3/5块 `b0278705` / 40500898688、二维无mip整图 `1a260825` / 40502726713 均已通过Debug/Release与NoOriginal。
 
 最新业务验收源码 `81e3e76d69634b7e934937ea23206792b5c9c039` / [40508857046](https://github.com/wu162/NewSdk/actions/runs/40508857046) success：PC DXT3/5 POT无mip整图与Texture/OnDemandTexture入口（包括1/2像素边）Debug/Release各1280完整DDS、1792插件输入（1424输出/368匹配原版拒绝）、22明确拒绝及NoOriginal通过；SDK三模式各178图像/712资产与实际调用，四产物和完整轨迹一致。同批两个raw SDK profile各600资产三模式通过。
@@ -83,3 +85,4 @@ Texture 2026-10-27 第二阶段当前入口：[TEXTURE_DXT_ALPHA.md](TEXTURE_DXT
 唯一待收取：源码 `c4bb4db72440bf23827656a643022ea67c7bbb1d` / Actions `40494632567`，显式 `dxt-colour-functions`，只补取 CodeRGBBlockExhaustive@0x833F0、CodeRGBBlockNoMode@0x83CD0、FastEncodeDXT1_3@0x8BAA0、FastEncodeDXT1_4@0x8C1F0。最后可读状态为运行中；当前最终状态与远端是否已自动回写未知，不标作成功、不重复启动。预期输出在 `evidence/texture/dxt-decompile/40494632567-1`。此前All取证40490888440在RoundMult超时、只收取13函数，仍为failed/partial；本次补取即使成功也不意味着RoundMult已完成。
 
 上节认证中断已解决：已保留远端 Actions 证据提交351880d4，将本地交接rebase后普通推送。40494632567现核实completed/success，四份颜色函数导出已回写并拉取，收据status=probe-only；不属于颜色实现验收。剩余RoundMult导出/颜色恢复继续按TEXTURE_DXT_ALPHA.md推进，勿重复补取这四函数。
+

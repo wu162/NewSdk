@@ -27,3 +27,8 @@
 5. 插件 `GenerateMipMaps=true` 路由接入时更新全部实际消费者依赖、自有native构建/复制及SDK矩阵。集中 Original / Recovered / NoOriginal 实际Core调用，四产物、三缓冲区和完整cdata比较；同输入的未变成功组沿用原sourceCommit/runId，未通过或依赖变化组不得跳过。
 
 无签名托管程序集与自有NativeColour/NativeAlpha DLL须一同部署在临时SDK tools目录；原TextureCompiler DLL在NoOriginal模式必须不存在且未加载。正式生产替换、完整mymod或全TextureCompiler完成仍是后续门槛，本批专用MOD不能冒充完整生产验收。
+
+
+## 2026-10-27 实现检查点（待验证）
+
+已提取 TextureTriangleMipEncoder.Normalize/ResizeLevel 内部 float 层；raw 保留原计算次序，压缩第0级与每个目标级均直接送 EncodeFloatBlock。DXT DDS 保留无mip路径，新增完整float链、POT/存储/安全上限校验及逐级布局；原插件已传递 GenerateMipMaps，未另改路由。完整DDS矩阵3072、入口矩阵3584（含原版拒绝）、Debug/Release与完整NoOriginal重放；SDK新增PcDxtMips，沿用178输入/712资产与逐次隔离断言。全部待GitHub Actions，不能将检查点写作已支持。

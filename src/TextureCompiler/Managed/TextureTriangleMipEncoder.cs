@@ -29,30 +29,44 @@ namespace Recovered.Compiler.Texture
             Buffer.BlockCopy(levelZero, 0, output, 0, levelZero.Length);
             Put(output, 8, 0x000a1007u); Put(output, 28, (uint)mipCount); Put(output, 108, 0x00401008u);
             if (mipCount == 1) return output;
-            float[] original = new float[rgba.Length];
-            for (int i = 0; i < rgba.Length; i++) original[i] = (float)((double)rgba[i] / 255.0);
+            float[] original = Normalize(rgba);
             targetWidth = sourceWidth; targetHeight = sourceHeight;
             int offset = levelZero.Length;
             while (targetWidth != 1 || targetHeight != 1)
             {
                 targetWidth = Math.Max(1, targetWidth / 2); targetHeight = Math.Max(1, targetHeight / 2);
-                float[] filtered;
-                // First pass minimizes intermediate pixel count; equal ratios
-                // take the vertical pass first in the original resampler.
-                if ((long)targetWidth * sourceHeight < (long)sourceWidth * targetHeight)
-                {
-                    float[] horizontal = Horizontal(original, sourceWidth, sourceHeight, targetWidth);
-                    filtered = Vertical(horizontal, targetWidth, sourceHeight, targetHeight);
-                }
-                else
-                {
-                    float[] vertical = Vertical(original, sourceWidth, sourceHeight, targetHeight);
-                    filtered = Horizontal(vertical, sourceWidth, targetHeight, targetWidth);
-                }
+                float[] filtered = ResizeLevel(original, sourceWidth, sourceHeight, targetWidth, targetHeight);
                 offset = WriteLevel(output, offset, filtered, format);
             }
             if (offset != output.Length) throw new InvalidOperationException("Raw mipmap output size mismatch.");
             return output;
+        }
+        // Each 2D mip is filtered from the original normalized image. Both raw
+        // and compressed consumers retain these float32 pass/tap stores; callers
+        // must not quantize the result before feeding a compressed block.
+        internal static float[] Normalize(byte[] rgba)
+        {
+            float[] original = new float[rgba.Length];
+            for (int i = 0; i < rgba.Length; i++) original[i] = (float)((double)rgba[i] / 255.0);
+            return original;
+        }
+        internal static float[] ResizeLevel(float[] original, int sourceWidth, int sourceHeight, int targetWidth, int targetHeight)
+        {
+            if (targetWidth == sourceWidth && targetHeight == sourceHeight) return original;
+            float[] filtered;
+            // First pass minimizes intermediate pixel count; equal ratios
+            // take the vertical pass first in the original resampler.
+            if ((long)targetWidth * sourceHeight < (long)sourceWidth * targetHeight)
+            {
+                float[] horizontal = Horizontal(original, sourceWidth, sourceHeight, targetWidth);
+                filtered = Vertical(horizontal, targetWidth, sourceHeight, targetHeight);
+            }
+            else
+            {
+                float[] vertical = Vertical(original, sourceWidth, sourceHeight, targetHeight);
+                filtered = Horizontal(vertical, sourceWidth, targetHeight, targetWidth);
+            }
+            return filtered;
         }
         private static Contribution[] Contributions(int source, int target)
         {
@@ -167,4 +181,5 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+
 
