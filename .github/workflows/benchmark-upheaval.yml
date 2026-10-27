@@ -1,0 +1,65 @@
+name: Upheaval compiler speed benchmark
+on:
+  push:
+    branches: [benchmark/upheaval-compiler-speed]
+    paths:
+      - 'recovery/benchmarks/upheaval/**'
+      - '.github/workflows/benchmark-upheaval.yml'
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: 'Measured old/new pairs (3-30; warmups excluded)'
+        default: '10'
+        required: true
+      warmups:
+        description: 'Warmup old/new pairs (1-5)'
+        default: '1'
+        required: true
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: benchmark-upheaval-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  benchmark:
+    runs-on: windows-2022
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Check harness before downloading runtime
+        shell: pwsh
+        run: |
+          python -m unittest discover -s recovery/benchmarks/upheaval -p 'test_*.py' -v
+          if($LASTEXITCODE -ne 0){throw 'Benchmark preflight failed'}
+      - name: Verify and stage accepted Release runtime without relinking
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/benchmarks/upheaval/prepare.py recovery/artifacts/upheaval-runtime
+          if($LASTEXITCODE -ne 0){throw 'Runtime origin or source closure rejected'}
+      - name: Full Upheaval clean compilation paired benchmark
+        shell: pwsh
+        env:
+          BENCH_RUNS: ${{ inputs.runs || '10' }}
+          BENCH_WARMUPS: ${{ inputs.warmups || '1' }}
+        run: |
+          python recovery/benchmarks/upheaval/benchmark.py --runtime recovery/artifacts/upheaval-runtime/bin --output recovery/artifacts/upheaval-benchmark --runs $env:BENCH_RUNS --warmups $env:BENCH_WARMUPS
+          if($LASTEXITCODE -ne 0){throw 'Upheaval benchmark failed; no accepted performance result'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-benchmark-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/upheaval-runtime/reuse.json
+            recovery/artifacts/upheaval-benchmark/**
+          if-no-files-found: error
+          retention-days: 30
