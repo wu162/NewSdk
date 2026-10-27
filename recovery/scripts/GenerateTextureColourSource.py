@@ -114,6 +114,19 @@ def generate():
         symbol=dsym(value-BASE)
         return symbol if memory else 'OFFSET '+symbol
     def asm(ins):
+        raw=bytes(ins.bytes)
+        # Capstone shortens x87 register arithmetic to an implicit operand;
+        # MASM requires both. Decode the destination from the opcode byte.
+        if len(raw)==2 and raw[0] in (0xd8,0xdc,0xde) and raw[1]>=0xc0:
+            group=raw[1]&0xf8;reg=raw[1]&7
+            names={0xd8:{0xc0:'fadd',0xc8:'fmul',0xe0:'fsub',0xe8:'fsubr',0xf0:'fdiv',0xf8:'fdivr'},
+                   0xdc:{0xc0:'fadd',0xc8:'fmul',0xe0:'fsubr',0xe8:'fsub',0xf0:'fdivr',0xf8:'fdiv'},
+                   0xde:{0xc0:'faddp',0xc8:'fmulp',0xe0:'fsubrp',0xe8:'fsubp',0xf0:'fdivrp',0xf8:'fdivp'}}
+            if group in names[raw[0]]:
+                operands=('st(0),st(%d)'%reg) if raw[0]==0xd8 else ('st(%d),st(0)'%reg)
+                return names[raw[0]][group]+' '+operands
+        if ins.mnemonic in ('fcomi','fcomip','fucomi','fucomip') and ',' not in ins.op_str:
+            return ins.mnemonic+' st(0),'+ins.op_str
         if ins.mnemonic=='rep stosd':return 'rep stosd'
         if ins.mnemonic=='rep movsd':return 'rep movsd'
         if ins.address==BASE+0x8b342:return 'call ColorCeil'

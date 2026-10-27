@@ -10,7 +10,7 @@ try {
  Copy-Item SDK/tools/*.dll $work
  $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
  foreach($mode in @('Debug','Release')) {
-  Checked "$mode-asm" {& ml /nologo /c /coff /Fo"$work/colour-$mode.obj" (Resolve-Path src/TextureCompiler/Colour/TextureColour.asm).Path}
+  Checked "$mode-asm" {& ml /nologo /c /coff /safeseh /Fo"$work/colour-$mode.obj" (Resolve-Path src/TextureCompiler/Colour/TextureColour.asm).Path}
   $nativeOpt=if($mode -eq 'Release'){'/O2'}else{'/Od'}
   Checked "$mode-native" {& cl /nologo /LD /MT /fp:strict /GS- $nativeOpt /Fo"$work/bridge-$mode.obj" (Resolve-Path src/TextureCompiler/Colour/TextureColourBridge.cpp).Path "$work/colour-$mode.obj" /link /NODEFAULTLIB /NOENTRY /OUT:"$work/Recovered.TextureDxtColour.dll" /IMPLIB:"$work/colour-$mode.lib"}
   $bytes=[IO.File]::ReadAllBytes("$work/Recovered.TextureDxtColour.dll");$pe=[BitConverter]::ToInt32($bytes,0x3c)
