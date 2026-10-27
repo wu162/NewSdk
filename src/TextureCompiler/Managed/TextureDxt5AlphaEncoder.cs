@@ -182,8 +182,22 @@ namespace BinaryAssetBuilder.TextureCompiler
         {
             if (rgba == null) throw new ArgumentNullException("rgba");
             if (rgba.Length != 64) throw new ArgumentException("A 4x4 RGBA block is required.", "rgba");
+            float[] alpha = new float[16];
+            for (int i = 0; i < 16; i++) alpha[i] = (float)(rgba[i*4+3] / 255.0);
+            return EncodeAlphaBlock(alpha);
+        }
+
+        // Preserve filtered/mip alpha floats without a byte round-trip.
+        public static byte[] EncodeAlphaBlock(float[] values)
+        {
+            if (values == null) throw new ArgumentNullException("values");
+            if (values.Length != 16) throw new ArgumentException("A 4x4 alpha block is required.", "values");
             double[] alpha = new double[16];
-            for (int i = 0; i < 16; i++) alpha[i] = (double)(float)(rgba[i*4+3] / 255.0);
+            for (int i = 0; i < 16; i++) {
+                if (Single.IsNaN(values[i]) || values[i] < 0 || values[i] > 1)
+                    throw new ArgumentException("Finite normalized alpha values are required.", "values");
+                alpha[i] = values[i];
+            }
             int[] levels = {8,6,6,6,6};
             bool[] excludeZero = {false,false,true,false,true};
             bool[] excludeOne = {false,false,false,true,true};
