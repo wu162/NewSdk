@@ -3,7 +3,7 @@ $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/dxt-images/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('texture-colour-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$false;sdkValidated=$false;scope='actual Texture/OnDemandTexture DXT3/5 ProcessInstance; PC POT/partial-block and supported RGBA8 NPOT standard/volume raw+DXT no-mip/complete float mip TGA/PNG/BMP; three buffers/full cdata and NoOriginal; SDK pending';configurations=@();nativeBinaries=@()}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$false;sdkValidated=$false;scope='actual Texture/OnDemandTexture DXT3/5 ProcessInstance; PC POT/partial-block and supported byte/5-bit/16-bit storage NPOT standard/volume raw+DXT no-mip/complete float mip TGA/PNG/BMP; three buffers/full cdata and NoOriginal; SDK pending';configurations=@();nativeBinaries=@()}
 $r.sourceFiles=@(Get-ChildItem src/TextureCompiler/Colour -File|Sort-Object FullName|ForEach-Object{@{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/');sha256=(Get-FileHash $_.FullName).Hash.ToLowerInvariant()}})
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 40;throw "$name failed"};Get-Content "$out/$name.log"|Where-Object{$_ -match '^PASS '}}
 try {
@@ -19,6 +19,7 @@ try {
   }
  }
  if(@(Get-ChildItem "$work/npot-fixtures" -File).Count -ne 80){throw 'Expected 80 focused NPOT inputs'}
+ & "$PSScriptRoot/SelectTextureNpotStorageFixtures.ps1" -Destination "$work/npot-storage-fixtures" -Extraction "$work/npot-storage-source"
  Copy-Item SDK/tools/*.dll $work
  $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
  foreach($mode in @('Debug','Release')) {

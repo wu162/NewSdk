@@ -76,29 +76,16 @@ internal static class TextureDxtPipelineOracle
     }
     static void RejectBoundaries(IAssetBuilderPlugin recovered,string work)
     {
-        foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})
-        foreach(string kind in new[]{"StandardTexture","VolumeTexture"})foreach(bool mips in new[]{false,true}){
-            if(kind=="StandardTexture")continue;
-            string file=Path.Combine(work,"unsupported.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,Tga16(6,2));Seed(cdata,false);
-            bool failed=false;try{recovered.ProcessInstance(Declaration(root,file,format,cdata,mips,kind));}catch(NotSupportedException){failed=true;}
-            if(!failed||File.Exists(cdata))throw new Exception("NPOT low-bit-depth compressed volume must reject before cdata write");rejected++;
-        }
         // D3DX canonicalizes all-zero TGA alpha to opaque, so DXT1 remains DXT1.
         foreach(string root in new[]{"Texture","OnDemandTexture"}){
             string file=Path.Combine(work,"opaque-zero-alpha.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,Tga(8,4,0));Seed(cdata,false);
             bool failed=false;try{recovered.ProcessInstance(Declaration(root,file,"DXT1",cdata,false,"StandardTexture"));}catch(NotSupportedException){failed=true;}
             if(!failed||File.Exists(cdata))throw new Exception("All-zero TGA alpha becomes opaque and must retain DXT1 rejection");rejected++;
         }
-        foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT1","DXT1A","DXT3","DXT5"}){
-            string file=Path.Combine(work,"unsupported.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,format=="DXT3"||format=="DXT5"?Tga16(3,4):Tga(4,4,1));Seed(cdata,false);
+        foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT1","DXT1A"}){
+            string file=Path.Combine(work,"unsupported.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,Tga(4,4,1));Seed(cdata,false);
             bool failed=false;try{recovered.ProcessInstance(Declaration(root,file,format,cdata,false,"StandardTexture"));}catch(NotSupportedException){failed=true;}
-            if(!failed||File.Exists(cdata))throw new Exception("Unsupported DXT1/1A or low-bit-depth NPOT must reject");rejected++;
-        }
-        foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool mips in new[]{false,true})foreach(string family in new[]{"png16","bmp16"}){
-            string file=Path.Combine(work,"unsupported."+(family=="png16"?"png":"bmp")),cdata=Path.Combine(work,"reject.cdata");
-            File.WriteAllBytes(file,family=="png16"?TexturePngOracle.Fixture(3,2,16,2,0,5,0,0):TextureBmpOracle.Fixture(3,2,16,false,0,0,7));Seed(cdata,false);
-            bool failed=false;try{recovered.ProcessInstance(Declaration(root,file,format,cdata,mips,"StandardTexture"));}catch(NotSupportedException){failed=true;}
-            if(!failed||File.Exists(cdata))throw new Exception("Unrecovered 16-bit NPOT must reject before output");rejected++;
+            if(!failed||File.Exists(cdata))throw new Exception("Unsupported DXT1/1A must reject");rejected++;
         }
     }
     static int Main(string[] args)
@@ -165,10 +152,21 @@ internal static class TextureDxtPipelineOracle
                     string npotDirectory=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"npot-fixtures");string[] npotFiles=Directory.GetFiles(npotDirectory);Array.Sort(npotFiles,StringComparer.Ordinal);if(npotFiles.Length!=80)throw new Exception("Incomplete NPOT integration corpus");
                     foreach(string path in npotFiles)foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"A8R8G8B8","X8R8G8B8","R5G6B5","DXT3","DXT5"})foreach(bool mips in new[]{false,true})foreach(string kind in new[]{"StandardTexture","VolumeTexture"})foreach(bool stale in new[]{false,true})
                         Case(original,recovered,work,Path.GetExtension(path).Substring(1),File.ReadAllBytes(path),root,format,stale,mips,w,kind);
+                    string storageDirectory=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"npot-storage-fixtures");string[] storageFiles=Directory.GetFiles(storageDirectory);Array.Sort(storageFiles,StringComparer.Ordinal);if(storageFiles.Length!=64)throw new Exception("Incomplete NPOT storage integration corpus");
+                    foreach(string path in storageFiles)foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"A8R8G8B8","X8R8G8B8","R5G6B5","DXT3","DXT5"})foreach(bool mips in new[]{false,true})foreach(string kind in new[]{"StandardTexture","VolumeTexture"})foreach(bool stale in new[]{false,true})
+                        Case(original,recovered,work,Path.GetExtension(path).Substring(1),File.ReadAllBytes(path),root,format,stale,mips,w,kind);
+                    // Former NPOT rejection boundaries now receive full original
+                    // buffer/cdata differential and the same isolated replay.
+                    foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool mips in new[]{false,true})
+                        Case(original,recovered,work,"tga",Tga16(6,2),root,format,false,mips,w,"VolumeTexture");
+                    foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})
+                        Case(original,recovered,work,"tga",Tga16(3,4),root,format,false,false,w);
+                    foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool mips in new[]{false,true})foreach(string family in new[]{"png16","bmp16"})
+                        Case(original,recovered,work,family=="png16"?"png":"bmp",family=="png16"?TexturePngOracle.Fixture(3,2,16,2,0,5,0,0):TextureBmpOracle.Fixture(3,2,16,false,0,0,7),root,format,false,mips,w);
                     w.BaseStream.Position=0;w.Write(fixtures);
                 }
             }
-            Console.WriteLine("PASS Texture DXT ProcessInstance "+(isolated?"NoOriginal":"differential")+" fixtures="+fixtures+" rejected="+rejected+" errors="+errors+" comparedBytes="+compared+"; PC DXT3/5 POT including partial-block and evidenced RGBA8 NPOT standard/volume no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending");return 0;
+            Console.WriteLine("PASS Texture DXT ProcessInstance "+(isolated?"NoOriginal":"differential")+" fixtures="+fixtures+" rejected="+rejected+" errors="+errors+" comparedBytes="+compared+"; PC DXT3/5 POT including partial-block and evidenced byte/5-bit/16-bit storage NPOT standard/volume no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}finally{if(original!=null)((IDisposable)original).Dispose();if(recovered!=null)((IDisposable)recovered).Dispose();}
     }
 }

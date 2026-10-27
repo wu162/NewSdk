@@ -58,3 +58,7 @@ SDK收据的通用scope字符串沿用复用脚本的旧POT/DXT措辞；实际Pc
 上一轮已闭环并在4857ff70保存交接。本轮新npot-storage原版定向取证共4986输入：PNG低/高位深与灰度/GA/RGB/RGBA、Additional TGA16/灰度/调色板、BMP16及既有原版拒绝域，9种NPOT/POT对照形状、PNG交错/metadata/图案和TGA RLE/方向/alpha。除最终LoadImageA RGBA外，记录原D3DX创建后的format/width/height、LockRect pitch及完整原存储。锁定行可能含未定义padding，只作取证，不把raw padding当恢复契约。两次创建/加载的成功/拒绝须一致，原输入不变；probe-only，不重复上一轮RGBA8/颜色/压缩/SDK成功组。
 
 存储取证c6459c7f/40592911746已success、probe-only：4986输入，4446解码/540原拒绝，未作为恢复验收。已见L8 28000002、A8L8 0800004A、L16 28000058、X1/A1RGB555 28280043/18280043、ARGB8/XRGB8 18280086/28280086、RGBA16 1A20005A。锁定pitch统一有对齐padding，恢复只比较定义的逻辑像素。继续npot-formats定向取八格式row getter/setter浮点位模式、抖动/行奇偶与常量，不重复4986图像加载。原factory232b9的进程堆converter经其删除析构释放，外部pixel/descriptor/sample存储由调用者管理，不混用VC8 CRT。
+
+格式probe首轮539089df/40594424267因自建descriptor把RECT right/bottom当BOX位置而extents断言失败，尚未读写pixel；修正为left/top/right/bottom/front/back后a46b14bd/40594747334 completed/success，16格式×dither用例（53检查），仍probe-only。原RGBA16 getter/setter及最终LoadImage确有通道排列，须保持，不按现代格式定义修正。
+
+下一整组候选：新增精度保留的L8/A8L8/L16/555/1555/RGBA16重采样，8位palette与RGB16旧布局复用已验收RGBA8；PNG/BMP/Additional TGA公共入口统一接入。4986输入独立全量RGBA/拒绝回放（Debug/Release、原DLL逐次不存在且未加载、源不变）；64覆盖源输入扩展两入口raw3/DXT3/5×标准/volume×有无mip×新旧cdata；28旧NPOT拒绝转完整差分/NoOriginal，不删边界；6个默认DXT1/1A拒绝保留。新增PcNpotStorage SDK专用MOD为64输入、2560资产，三模式完整buffer/cdata/四产物，旧SDK全回归。此候选待Actions，不宣称验收。

@@ -1,13 +1,13 @@
-param([int]$TimeoutSeconds=300,[ValidateSet('PcDxtNoMip','PcDxtMips','PcDxtVolumes','PcNpotRgba8')][string]$Profile='PcDxtNoMip')
+param([int]$TimeoutSeconds=300,[ValidateSet('PcDxtNoMip','PcDxtMips','PcDxtVolumes','PcNpotRgba8','PcNpotStorage')][string]$Profile='PcDxtNoMip')
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 Set-Location $root
-$evidenceFolder=if($Profile -eq 'PcNpotRgba8'){'sdk-npot-rgba8'}elseif($Profile -eq 'PcDxtVolumes'){'sdk-dxt-volumes'}elseif($Profile -eq 'PcDxtMips'){'sdk-dxt-mips'}else{'sdk-dxt'}
+$evidenceFolder=if($Profile -eq 'PcNpotStorage'){'sdk-npot-storage'}elseif($Profile -eq 'PcNpotRgba8'){'sdk-npot-rgba8'}elseif($Profile -eq 'PcDxtVolumes'){'sdk-dxt-volumes'}elseif($Profile -eq 'PcDxtMips'){'sdk-dxt-mips'}else{'sdk-dxt'}
 $out="recovery/evidence/texture/$evidenceFolder/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('texture-sdk-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work | Out-Null
 $out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope="EALAModStudio case5 BAB build of dedicated POT including partial-block PC DXT3/5 TGA/PNG/BMP texture MOD: $Profile";profile=$Profile;targetPlatform='Win32';modes=@()}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope="EALAModStudio case5 BAB build of dedicated PC standard/volume raw+DXT3/5 POT/NPOT TGA/PNG/BMP texture MOD: $Profile";profile=$Profile;targetPlatform='Win32';modes=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 60;throw "$name failed"}}
 try{
  Checked recovered-build {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c Release -o "$work/build" --nologo}
@@ -26,7 +26,10 @@ try{
  $generatorSources=@('recovery/tests/TexturePngOracle.cs','recovery/tests/TextureBmpOracle.cs','recovery/tests/TextureDxtSdkFixtures.cs')|ForEach-Object{(Resolve-Path $_).Path}
  Checked fixture-writer-build {& $csc /nologo /unsafe /platform:x86 /main:TextureDxtSdkFixtures /r:System.Drawing.dll /r:"$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll" /out:"$work/TextureDxtSdkFixtures.exe" $generatorSources}
  $fixtureArgs=@();if($Profile -eq 'PcDxtVolumes'){$fixtureArgs=@('volume')}
- if($Profile -eq 'PcNpotRgba8'){
+ if($Profile -eq 'PcNpotStorage'){
+  & "$PSScriptRoot/SelectTextureNpotStorageFixtures.ps1" -Destination "$work/fixtures" -Extraction "$work/npot-storage-source"
+  $r.originalNpotStorageBaseline=@{sourceCommit='c6459c7f0d2a88d3680e882bb0713bc95cb985a5';runId='40592911746';fixtures=64}
+ }elseif($Profile -eq 'PcNpotRgba8'){
  $npotEvidence='recovery/evidence/texture/npot-load/40528237009-1'
  $npotReceipt=Get-Content "$npotEvidence/validation.json" -Raw|ConvertFrom-Json
  if($npotReceipt.status -ne 'probe-only' -or $npotReceipt.sourceCommit -ne 'a19bb879704cd80ad55202760a160c8af57bbe2d' -or (Get-FileHash "$npotEvidence/samples.zip").Hash.ToLowerInvariant() -ne $npotReceipt.samplesSha256){throw 'NPOT source corpus mismatch'}
@@ -51,16 +54,16 @@ try{
   foreach($fixture in Get-ChildItem "$work/fixtures" -File|Sort-Object Name){
     Copy-Item $fixture.FullName "$moddir/Art/$($fixture.Name)"
     $name=$fixture.Name;$generate=if($Profile -eq 'PcDxtMips'){'true'}else{'false'}
-    $kinds=if($Profile -eq 'PcNpotRgba8'){@('StandardTexture','VolumeTexture')}elseif($Profile -eq 'PcDxtVolumes'){@('VolumeTexture')}else{@('StandardTexture')}
-    $mipmapOptions=if($Profile -in @('PcDxtVolumes','PcNpotRgba8')){@('false','true')}else{@($generate)}
+    $kinds=if($Profile -in @('PcNpotRgba8','PcNpotStorage')){@('StandardTexture','VolumeTexture')}elseif($Profile -eq 'PcDxtVolumes'){@('VolumeTexture')}else{@('StandardTexture')}
+    $mipmapOptions=if($Profile -in @('PcDxtVolumes','PcNpotRgba8','PcNpotStorage')){@('false','true')}else{@($generate)}
     foreach($kind in $kinds){foreach($generate in $mipmapOptions){
-     foreach($type in @('Texture','OnDemandTexture')){foreach($format in $(if($Profile -eq 'PcNpotRgba8'){@('A8R8G8B8','X8R8G8B8','R5G6B5','DXT3','DXT5')}else{@('DXT3','DXT5')})){
+     foreach($type in @('Texture','OnDemandTexture')){foreach($format in $(if($Profile -in @('PcNpotRgba8','PcNpotStorage')){@('A8R8G8B8','X8R8G8B8','R5G6B5','DXT3','DXT5')}else{@('DXT3','DXT5')})){
       $nodes+="<$type id='RecoveredRaster_$index' File='..\Art\$name' Type='$kind' OutputFormat='$format' GenerateMipMaps='$generate' AllowAutomaticResize='false' />";$index++
      }}
     }}
   }
   $expectedAssets=$nodes.Count
-  $requiredAssets=if($Profile -eq 'PcNpotRgba8'){3200}elseif($Profile -eq 'PcDxtVolumes'){1488}else{712}
+  $requiredAssets=if($Profile -eq 'PcNpotStorage'){2560}elseif($Profile -eq 'PcNpotRgba8'){3200}elseif($Profile -eq 'PcDxtVolumes'){1488}else{712}
   if($expectedAssets -ne $requiredAssets){throw "Expected $requiredAssets compressed texture assets, got $expectedAssets"}
 
   "<?xml version='1.0'?><AssetDeclaration xmlns='uri:ea.com:eala:asset'><Tags />$($nodes -join "`n")</AssetDeclaration>"|Set-Content "$moddir/Data/Mod.xml" -Encoding utf8

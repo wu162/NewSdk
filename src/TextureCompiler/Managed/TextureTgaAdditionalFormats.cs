@@ -123,7 +123,11 @@ namespace Recovered.Compiler.Texture
                     hasAlpha = false;
                 }
             }
-            return new TexturePacker.Image(width, height, pixels, hasAlpha);
+            var image=new TexturePacker.Image(width,height,pixels,hasAlpha);
+            if((width&(width-1))==0&&(height&(height-1))==0)return image;
+            if(mapped)return TextureNpotRgba8Resampler.Resize(image);
+            return TextureNpotStorageResampler.Resize(image,gray?TextureNpotStorageResampler.Format.L8:hasAlpha?TextureNpotStorageResampler.Format.Argb1555:TextureNpotStorageResampler.Format.Rgb555);
         }
     }
 }
+

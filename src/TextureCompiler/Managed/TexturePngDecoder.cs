@@ -104,8 +104,6 @@ namespace Recovered.Compiler.Texture
                 if (!ended) throw Invalid();
                 // NPOT decoding is coupled to D3DX texture creation and resampling.
                 bool npot = (width & (width - 1)) != 0 || (height & (height - 1)) != 0;
-                if (npot && (depth != 8 || (color != 2 && color != 6)))
-                    throw new NotSupportedException("NPOT PNG currently requires RGB8 or RGBA8; other original storage/quantization paths remain unrecovered.");
                 if(color==3||(color==4&&depth==16)||(color==0&&depth==16&&transparency!=null))
                     throw new BinaryAssetBuilder.BinaryAssetBuilderException(null,BinaryAssetBuilder.ErrorCode.BadTextureFile,"D3DX cannot load the texture from disk.",new object[0]);
                 byte[] z = compressed.ToArray();
@@ -113,6 +111,7 @@ namespace Recovered.Compiler.Texture
                 int channels = color == 0 || color == 3 ? 1 : color == 2 ? 3 : color == 4 ? 2 : 4;
                 int bpp = Math.Max(1, (channels * depth + 7) / 8);
                 uint[] pixels = new uint[checked(width * height)];
+                ushort[] precise = npot && depth==16 && color!=2 ? new ushort[checked(width*height*4)] : null;
                 uint adlerA = 1, adlerB = 0;
                 using (MemoryStream packed = new MemoryStream(z, 2, z.Length - 6))
                 using (DeflateStream inflate = new DeflateStream(packed, CompressionMode.Decompress))
@@ -176,6 +175,11 @@ namespace Recovered.Compiler.Texture
                                         }
                                         continue;
                                     }
+                                    if(precise!=null)
+                                    {
+                                        int target=((sy[pass]+y*dy[pass])*width+sx[pass]+x*dx[pass])*4;
+                                        precise[target]=(ushort)Gamma16(r,gamma);precise[target+1]=(ushort)Gamma16(g,gamma);precise[target+2]=(ushort)Gamma16(b,gamma);precise[target+3]=(ushort)(color==6?a:65535);
+                                    }
                                     if(depth==16)
                                     {
                                         r=ConvertSample(r,65535,gamma);g=ConvertSample(g,65535,gamma);b=ConvertSample(b,65535,gamma);
@@ -195,7 +199,10 @@ namespace Recovered.Compiler.Texture
                     if (inflate.ReadByte() != -1 || (adlerB << 16 | adlerA) != Big(z, z.Length - 4)) throw Invalid();
                 }
                 TexturePacker.Image image = new TexturePacker.Image(width, height, pixels, color == 6);
-                return npot ? TextureNpotRgba8Resampler.Resize(image) : image;
+                if(!npot)return image;
+                if(precise!=null)return TextureNpotStorageResampler.Resize(width,height,precise,color==6,color==0?TextureNpotStorageResampler.Format.L16:TextureNpotStorageResampler.Format.Rgba16);
+                if(color==0||color==4)return TextureNpotStorageResampler.Resize(image,color==4||transparency!=null?TextureNpotStorageResampler.Format.A8L8:TextureNpotStorageResampler.Format.L8);
+                return TextureNpotRgba8Resampler.Resize(image);
             }
         }
         private static double GammaProduct(uint gamma)

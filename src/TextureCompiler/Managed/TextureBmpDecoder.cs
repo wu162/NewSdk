@@ -23,7 +23,6 @@ namespace Recovered.Compiler.Texture
             if((long)width*height>16777216)throw Invalid();
             if(depth!=1&&depth!=4&&depth!=8&&depth!=16&&depth!=24&&depth!=32)throw Invalid();
             bool npot=(width&(width-1))!=0||(height&(height-1))!=0;
-            if(npot&&depth!=24&&depth!=32)throw new NotSupportedException("NPOT BMP currently requires BI_RGB 24-bit or 32-bit storage.");
             if(depth<=8)throw new BinaryAssetBuilder.BinaryAssetBuilderException(null,BinaryAssetBuilder.ErrorCode.BadTextureFile,"D3DX cannot load the texture from disk.",new object[0]);
             int stride=checked(((width*depth+31)/32)*4);
             int paletteEntries=depth<=8?(colors==0?1<<depth:checked((int)colors)):0;
@@ -55,7 +54,7 @@ namespace Recovered.Compiler.Texture
                 pixels[y*width+x]=r|g<<8|b<<16|a<<24;
             }
             TexturePacker.Image image=new TexturePacker.Image(width,height,pixels,hasAlpha);
-            return npot?TextureNpotRgba8Resampler.Resize(image):image;
+            return !npot?image:depth==16?TextureNpotStorageResampler.Resize(image,TextureNpotStorageResampler.Format.Rgb555):TextureNpotRgba8Resampler.Resize(image);
         }
     }
 }
