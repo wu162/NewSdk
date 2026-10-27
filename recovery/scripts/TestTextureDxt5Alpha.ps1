@@ -15,7 +15,7 @@ try{
  foreach($mode in @('Debug','Release')){
   Checked "$mode-build" {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c $mode -o "$work/build-$mode" --nologo}
   $nativeOpt=if($mode -eq 'Release'){'/O2'}else{'/Od'}
-  Checked "$mode-native-build" {& cl /nologo /LD /MT /fp:strict /GS- $nativeOpt /Fo"$work/quantizer-$mode.obj" (Resolve-Path src/TextureCompiler/Dxt/TextureAlphaQuantizer.cpp).Path /link /OUT:"$work/Recovered.TextureDxtAlpha.dll" /IMPLIB:"$work/quantizer-$mode.lib"}
+  Checked "$mode-native-build" {& cl /nologo /LD /MT /fp:strict /GS- $nativeOpt /Fo"$work/quantizer-$mode.obj" (Resolve-Path src/TextureCompiler/Dxt/TextureAlphaQuantizer.cpp).Path /link /NODEFAULTLIB /NOENTRY /OUT:"$work/Recovered.TextureDxtAlpha.dll" /IMPLIB:"$work/quantizer-$mode.lib"}
   Copy-Item "$work/build-$mode/Recovered.BinaryAssetBuilder.TextureCompiler.dll" $work -Force
   $dll="$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll"
   $opt=if($mode -eq 'Release'){'/optimize+'}else{'/optimize-'}

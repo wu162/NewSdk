@@ -3,7 +3,22 @@
 // managed expressions can choose different endpoints on strict error ties.
 // All constants and helper bodies below belong to this implementation.
 // No original DLL or original function address is called.
-#include <cstring>
+// No CRT entry point: loading this helper must not reset the caller's x87 state.
+#pragma comment(linker,"/NOENTRY")
+extern "C" int _fltused = 0;
+__declspec(naked) static void AlphaClear() {
+    __asm {
+        push edi
+        mov edi,dword ptr [esp+8]
+        mov eax,dword ptr [esp+12]
+        mov ecx,dword ptr [esp+16]
+        cld
+        rep stosb
+        mov eax,dword ptr [esp+8]
+        pop edi
+        ret
+    }
+}
 static const double kHalf=0.5, kOne=1.0, kByteScale=255.0, kMinusOne=-1.0;
 
 // Cdecl floor(double): retain the caller's precision and exception masks.
@@ -73,7 +88,7 @@ Q_1007d51c:
 Q_1007d51e:
         push   eax
 Q_1007d51f:
-        call memset
+        call AlphaClear
 Q_1007d524:
         push   0x1000
 Q_1007d529:
@@ -83,7 +98,7 @@ Q_1007d530:
 Q_1007d532:
         push   ecx
 Q_1007d533:
-        call memset
+        call AlphaClear
 Q_1007d538:
         xor    eax,eax
 Q_1007d53a:
@@ -119,7 +134,7 @@ Q_1007d58b:
 Q_1007d592:
         mov    DWORD PTR [esp+0x138],eax
 Q_1007d599:
-        call memset
+        call AlphaClear
 Q_1007d59e:
         xor    eax,eax
 Q_1007d5a0:
