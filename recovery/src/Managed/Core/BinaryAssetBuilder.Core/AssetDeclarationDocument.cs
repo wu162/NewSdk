@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
@@ -35,18 +36,26 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	private class DependencyComparer : IComparer<InstanceDeclaration>
 	{
+        private readonly AssetDeclarationDocument _Owner;
+        public DependencyComparer() { }
+        public DependencyComparer(AssetDeclarationDocument owner) { _Owner = owner; }
+        private InstanceHandleSet Dependencies(InstanceDeclaration instance)
+        {
+            return _Owner == null ? instance.AllDependentInstances : _Owner.GetDependentInstances(instance);
+        }
 		public int Compare(InstanceDeclaration left, InstanceDeclaration right)
 		{
 			if (left == null || right == null)
 			{
 				throw new ArgumentNullException();
 			}
-			if (right.AllDependentInstances.Count != left.AllDependentInstances.Count)
-			{
-				return left.AllDependentInstances.Count.CompareTo(right.AllDependentInstances.Count);
-			}
-			bool flag = right.AllDependentInstances != null && right.AllDependentInstances.Contains(left.Handle);
-			bool flag2 = left.AllDependentInstances != null && left.AllDependentInstances.Contains(right.Handle);
+            InstanceHandleSet rightDependencies = Dependencies(right), leftDependencies = Dependencies(left);
+            if (rightDependencies.Count != leftDependencies.Count)
+            {
+                return leftDependencies.Count.CompareTo(rightDependencies.Count);
+            }
+            bool flag = rightDependencies != null && rightDependencies.Contains(left.Handle);
+            bool flag2 = leftDependencies != null && leftDependencies.Contains(right.Handle);
 			if (flag)
 			{
 				if (flag2)
@@ -88,9 +97,42 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 
+    private static bool DocumentSnapshotsEnabled()
+    {
+        bool disabled;
+        AppContext.TryGetSwitch("NewSdk.Compiler.DisableDocumentSnapshots", out disabled);
+        return !disabled;
+    }
+
+    private static bool CanSnapshotDeclarations(List2<InstanceDeclaration> instances)
+    {
+        if (instances == null) return true;
+        if (instances.GetType() != typeof(List2<InstanceDeclaration>)) return false;
+        foreach (InstanceDeclaration instance in instances)
+            if (instance == null || instance.GetType() != typeof(InstanceDeclaration)) return false;
+        return true;
+    }
+
+    private static List2<InstanceDeclaration> SnapshotDeclarations(List2<InstanceDeclaration> instances, bool fromCurrent = false)
+    {
+        if (instances == null) return null;
+        var copies = new List2<InstanceDeclaration>();
+        foreach (InstanceDeclaration instance in instances) copies.Add(instance.SnapshotCachedDeclaration(fromCurrent));
+        return copies;
+    }
+
 	[Serializable]
 	private class LastState
 	{
+        // Runtime provenance: derived declaration/list behavior remains legacy
+        // across a restore/recapture, rather than silently slicing custom types.
+        [NonSerialized] internal bool LegacyDeclarations;
+        [NonSerialized] internal bool LegacyMetadata;
+        // Positive runtime provenance only: copied exact values or XML-created
+        // records. Unknown BinaryFormatter state never authorizes sharing.
+        [NonSerialized] internal bool OwnedMetadata;
+        [NonSerialized] internal bool SharedMetadata;
+
 		public uint DocumentHash;
 
 		public uint DependentFileHash;
@@ -111,16 +153,16 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public List2<string> StreamHints;
 
-		public LastState(CurrentState current)
+		public LastState(CurrentState current, bool fromCurrent = false)
 		{
 			DocumentHash = current.DocumentHash;
 			IncludePathHash = current.IncludePathHash;
-			InclusionItems = ((current.InclusionItems.Count > 0) ? new List2<InclusionItem>(current.InclusionItems) : null);
 			DependentFileHash = current.DependentFileHash;
 			DependentFiles = ((current.DependentFiles.Count > 0) ? new List2<string>(current.DependentFiles) : null);
-			OutputAssets = ((current.OutputAssets.Count > 0) ? new List2<OutputAsset>(current.OutputAssets) : null);
-			SelfDefines = ((current.SelfDefines.Count > 0) ? new List2<Definition>(current.SelfDefines) : null);
 			SelfInstances = ((current.SelfInstances.Count > 0) ? new List2<InstanceDeclaration>(current.SelfInstances) : null);
+            LegacyDeclarations = !DocumentSnapshotsEnabled() || current.LegacyDeclarations ||
+                current.SelfInstances.GetType() != typeof(InstanceSet) || !CanSnapshotDeclarations(SelfInstances);
+            if (!LegacyDeclarations) SelfInstances = SnapshotDeclarations(SelfInstances, fromCurrent);
 			List2<DefinitionPair> list = new List2<DefinitionPair>();
 			foreach (KeyValuePair<string, string> usedDefine in current.UsedDefines)
 			{
@@ -129,10 +171,65 @@ public class AssetDeclarationDocument : IXmlSerializable
 					Name = usedDefine.Key,
 					EvaluatedValue = usedDefine.Value
 				});
-				UsedDefines = new List2<DefinitionPair>(list);
 			}
+            UsedDefines = list.Count > 0 ? list : null;
 			StreamHints = ((current.StreamHints.Count > 0) ? new List2<string>(current.StreamHints) : null);
+            CompilerDocumentMetadataSnapshot metadata = CompilerDocumentMetadataSnapshot.Capture(
+                current.InclusionItems.Count > 0 ? current.InclusionItems : null,
+                current.OutputAssets.Count > 0 ? current.OutputAssets : null,
+                current.SelfDefines.Count > 0 ? current.SelfDefines : null, UsedDefines, current.LegacyMetadata);
+            LegacyMetadata = metadata.Legacy;
+            OwnedMetadata = !metadata.Legacy;
+            InclusionItems = metadata.Inclusions; OutputAssets = metadata.Outputs;
+            SelfDefines = metadata.Definitions; UsedDefines = metadata.Used;
 		}
+
+        internal LastState(LastState last)
+        {
+            DocumentHash = last.DocumentHash;
+            DependentFileHash = last.DependentFileHash;
+            IncludePathHash = last.IncludePathHash;
+            DependentFiles = last.DependentFiles == null ? null : new List2<string>(last.DependentFiles);
+            StreamHints = last.StreamHints == null ? null : new List2<string>(last.StreamHints);
+            LegacyDeclarations = last.LegacyDeclarations || !CanSnapshotDeclarations(last.SelfInstances);
+            SelfInstances = LegacyDeclarations ? last.SelfInstances : SnapshotDeclarations(last.SelfInstances);
+            bool deepCopy;
+            AppContext.TryGetSwitch("NewSdk.Compiler.DisableSharedDocumentMetadata", out deepCopy);
+            if (!deepCopy && last.OwnedMetadata && !last.LegacyMetadata)
+            {
+                // Only private saved records are shared. FromLast still clones
+                // every mutable record before binding it to a live document.
+                last.SharedMetadata = SharedMetadata = true;
+                OwnedMetadata = true;
+                InclusionItems = last.InclusionItems; OutputAssets = last.OutputAssets;
+                SelfDefines = last.SelfDefines; UsedDefines = last.UsedDefines;
+            }
+            else
+            {
+                CompilerDocumentMetadataSnapshot metadata = CompilerDocumentMetadataSnapshot.Capture(
+                    last.InclusionItems, last.OutputAssets, last.SelfDefines, last.UsedDefines, last.LegacyMetadata);
+                LegacyMetadata = metadata.Legacy;
+                OwnedMetadata = !metadata.Legacy;
+                InclusionItems = metadata.Inclusions; OutputAssets = metadata.Outputs;
+                SelfDefines = metadata.Definitions; UsedDefines = metadata.Used;
+            }
+        }
+
+        internal LastState DetachMetadata()
+        {
+            // Leave declaration and non-metadata lifecycle behavior untouched.
+            // This owner is detached before a dynamic legacy restore can expose
+            // its formerly private saved records to public Current collections.
+            var result = (LastState)MemberwiseClone();
+            CompilerDocumentMetadataSnapshot metadata = CompilerDocumentMetadataSnapshot.Capture(
+                InclusionItems, OutputAssets, SelfDefines, UsedDefines, false, true);
+            result.InclusionItems = metadata.Inclusions; result.OutputAssets = metadata.Outputs;
+            result.SelfDefines = metadata.Definitions; result.UsedDefines = metadata.Used;
+            result.LegacyMetadata = metadata.Legacy;
+            result.SharedMetadata = false;
+            result.OwnedMetadata = !metadata.Legacy;
+            return result;
+        }
 
 		public LastState(XmlReader reader)
 		{
@@ -161,6 +258,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 				UsedDefines = ((obj == null) ? null : new List2<DefinitionPair>(obj as DefinitionPair[]));
 				reader.Read();
 			}
+            OwnedMetadata = true;
 		}
 
 		private void ReadOldStrings(XmlReader reader)
@@ -202,6 +300,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	private class CurrentState
 	{
+        internal bool LegacyDeclarations;
+        internal bool LegacyMetadata;
 		public uint DocumentHash;
 
 		public string SourcePath;
@@ -238,6 +338,14 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public IDictionary<string, string> UsedDefines;
 
+        // Values visible before local overrides are installed in this pass.
+        // Only previous external reads are needed when validating a restored document.
+        public IDictionary<string, string> CachedDefineInputs;
+        public long DefineScopeEpoch;
+        public string DefineReadStage;
+        public string DefineReadSite;
+
+
 		public bool VerificationErrors;
 
 		public FileHashItem HashItem;
@@ -269,6 +377,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 		public LinkedList<XmlNodeWithMetaData> NodeSourceInfoSet;
 
 		public IDictionary<InstanceHandle, InstanceDeclaration> OutputInstanceSet;
+        public bool UseStreamBindingResults;
+        public Dictionary<InstanceDeclaration, StreamBindingState> StreamBindings;
+        public StreamBindingResult BindingSnapshot;
 
 		public XmlReader XmlReader;
 
@@ -311,25 +422,31 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public void FromLast(AssetDeclarationDocument document, LastState last)
 		{
-			InclusionItems = ((last.InclusionItems != null) ? new List2<InclusionItem>(last.InclusionItems) : new List2<InclusionItem>());
+            CompilerDocumentMetadataSnapshot metadata = CompilerDocumentMetadataSnapshot.Capture(
+                last.InclusionItems, last.OutputAssets, last.SelfDefines, last.UsedDefines, last.LegacyMetadata);
+            LegacyMetadata = metadata.Legacy;
+            InclusionItems = metadata.Inclusions ?? new List2<InclusionItem>();
 			DependentFiles = ((last.DependentFiles != null) ? new List2<string>(last.DependentFiles) : new List2<string>());
 			StreamHints = ((last.StreamHints != null) ? new List2<string>(last.StreamHints) : new List2<string>());
 			UsedDefines = new SortedDictionary<string, string>();
-			if (last.UsedDefines != null)
+			if (metadata.Used != null)
 			{
-				foreach (DefinitionPair usedDefine in last.UsedDefines)
+				foreach (DefinitionPair usedDefine in metadata.Used)
 				{
 					UsedDefines[usedDefine.Name] = usedDefine.EvaluatedValue;
 				}
 			}
-			SelfDefines = ((last.SelfDefines != null) ? new List2<Definition>(last.SelfDefines) : new List2<Definition>());
+            SelfDefines = metadata.Definitions ?? new List2<Definition>();
 			foreach (Definition selfDefine in SelfDefines)
 			{
 				selfDefine.Document = document;
 			}
-			SelfInstances = ((last.SelfInstances != null) ? new InstanceSet(document, last.SelfInstances) : new InstanceSet());
+            LegacyDeclarations = last.LegacyDeclarations || !CanSnapshotDeclarations(last.SelfInstances);
+            List2<InstanceDeclaration> declarations = DocumentSnapshotsEnabled() && !LegacyDeclarations
+                ? SnapshotDeclarations(last.SelfInstances) : last.SelfInstances;
+            SelfInstances = declarations != null ? new InstanceSet(document, declarations) : new InstanceSet();
 			Changed = last.DocumentHash != DocumentHash;
-			LastOutputAssets = last.OutputAssets;
+            LastOutputAssets = metadata.Legacy ? last.OutputAssets : metadata.Outputs;
 			LastDocumentHash = last.DocumentHash;
 			LastIncludePathHash = last.IncludePathHash;
 			LastDependentFileHash = last.DependentFileHash;
@@ -338,6 +455,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public void FromScratch()
 		{
+            LegacyDeclarations = false; LegacyMetadata = false;
 			InclusionItems = new List2<InclusionItem>();
 			DependentFiles = new List2<string>();
 			UsedDefines = new SortedDictionary<string, string>();
@@ -364,6 +482,19 @@ public class AssetDeclarationDocument : IXmlSerializable
 	[NonSerialized]
 	private bool _processing;
 
+    [NonSerialized] private CompilerSymbolLookup _SymbolLookup;
+    internal object DefineLookupOwner => _Current;
+    [NonSerialized] private CompilerDefineLookup _DefineLookup;
+    [NonSerialized] private CompilerDefineLookup.Work _DefineLookupWork;
+    public object GetDefineLookupMetrics() => _DefineLookupWork == null ? null : _DefineLookupWork.Snapshot();
+    public bool TryGetDefinition(string name, out Definition definition)
+    {
+        return _DefineLookup == null ? AllDefines.TryGetValue(name, out definition) : _DefineLookup.TryGetValue(name, out definition);
+    }
+
+    [NonSerialized] private CompilerSymbolLookup.Work _SymbolLookupWork;
+    public object GetSymbolLookupMetrics() => _SymbolLookupWork == null ? null : _SymbolLookupWork.Snapshot();
+
 	[NonSerialized]
 	public bool ReloadedForInheritance;
 
@@ -374,6 +505,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 	public string SourcePathFromRoot => _Current.SourcePathFromRoot;
 
 	public string SourcePath => _Current.SourcePath;
+
+    internal string ObservationSourcePath => _Current == null ? null : _Current.SourcePath;
+
+    public DocumentProcessor ExpressionProgramOwner => _Current == null ? null : _Current.DocumentProcessor;
 
 	public InstanceSet SelfInstances => _Current.SelfInstances;
 
@@ -638,47 +773,79 @@ public class AssetDeclarationDocument : IXmlSerializable
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Document {0} attempted to load twice.", _Current.SourcePath);
 		}
 		_Current.DocumentProcessor.RecordXmlParse();
+		_Current.DocumentProcessor.MeasureWork("rawParse", () => LoadXmlCore(updateDependentFiles));
+	}
+
+	private void LoadXmlCore(bool updateDependentFiles)
+	{
 		CacheInputBoundary.Validate(_Current.SourcePath);
 		FileNameXmlResolver xmlResolver = FileNameResolver.GetXmlResolver(SourceDirectory);
-		if (!File.Exists(_Current.SourcePath))
-		{
-			string s = "<?xml version='1.0' encoding='UTF-8'?>\n<AssetDeclaration xmlns=\"uri:ea.com:eala:asset\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n</AssetDeclaration>";
-			_Current.XmlReader = XmlReader.Create(new StringReader(s));
-		}
-		else
-		{
-			_Current.XmlReader = XmlReader.Create(_Current.SourcePath);
-		}
-		_Current.XmlDocument = new XmlDocument();
-		XmlReader xmlReader = new Mvp.Xml.XInclude.XIncludingReader(_Current.XmlReader)
-		{
-			XmlResolver = xmlResolver
-		};
-		_Current.NodeSourceInfoSet = new LinkedList<XmlNodeWithMetaData>();
+		XmlReader sourceReader = null, xmlReader = null;
+        XmlDocument document = null;
+        bool subscribed = false;
+        Exception primary = null;
 		try
 		{
-			bool flag = _Current.LogicalSourcePath.EndsWith(".xml");
-			if (flag)
+            if (!File.Exists(_Current.SourcePath))
+            {
+                string s = "<?xml version='1.0' encoding='UTF-8'?>\n<AssetDeclaration xmlns=\"uri:ea.com:eala:asset\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n</AssetDeclaration>";
+                sourceReader = XmlReader.Create(new StringReader(s));
+            }
+            else
+            {
+                PhysicalInputSnapshot.Entry sealedSource;
+                if (PhysicalInputSnapshot.TryCapture(_Current.SourcePath, out sealedSource))
+                {
+                    Stream input = sealedSource.OpenRead();
+                    try { sourceReader = XmlReader.Create(input, new XmlReaderSettings { CloseInput = true }, new Uri(_Current.SourcePath, UriKind.Absolute).AbsoluteUri); }
+                    catch (Exception creationFailure)
+                    {
+                        try { input.Dispose(); }
+                        catch (Exception cleanup) { try { creationFailure.Data["Core.XmlReaderCleanupFailure"] = cleanup; } catch { } }
+                        throw;
+                    }
+                }
+                else sourceReader = XmlReader.Create(_Current.SourcePath);
+            }
+            _Current.XmlReader = sourceReader;
+            document = _Current.XmlDocument = new XmlDocument();
+            xmlReader = new Mvp.Xml.XInclude.XIncludingReader(sourceReader) { XmlResolver = xmlResolver };
+            _Current.NodeSourceInfoSet = new LinkedList<XmlNodeWithMetaData>();
+            // Keep the original parsing-only error wrappers. Reader creation
+            // failures retain their existing exception type and ordering.
+            try
 			{
-				_Current.XmlDocument.NodeInserted += NodeInsertedHandler;
+                if (_Current.LogicalSourcePath.EndsWith(".xml"))
+                {
+                    document.NodeInserted += NodeInsertedHandler;
+                    subscribed = true;
+                }
+                document.Load(xmlReader);
 			}
-			_Current.XmlDocument.Load(xmlReader);
-			if (flag)
+            catch (XmlSchemaValidationException innerException)
 			{
-				_Current.XmlDocument.NodeInserted -= NodeInsertedHandler;
+				throw new BinaryAssetBuilderException(innerException, ErrorCode.SchemaValidation);
 			}
+            catch (XmlException innerException)
+            {
+                throw new BinaryAssetBuilderException(innerException, ErrorCode.XmlFormattingError);
+            }
 		}
-		catch (XmlSchemaValidationException innerException)
-		{
-			throw new BinaryAssetBuilderException(innerException, ErrorCode.SchemaValidation);
-		}
-		catch (XmlException innerException2)
-		{
-			throw new BinaryAssetBuilderException(innerException2, ErrorCode.XmlFormattingError);
-		}
+        catch (Exception error) { primary = error; throw; }
 		finally
 		{
-			_Current.XmlReader.Close();
+            // Retain local owners: callbacks can replace _Current or its DOM.
+            // Closing the base alone cannot close an active nested include.
+            if (subscribed) document.NodeInserted -= NodeInsertedHandler;
+            Exception cleanup = null;
+            try { if (xmlReader != null) xmlReader.Close(); } catch (Exception error) { cleanup = error; }
+            try { if (sourceReader != null && sourceReader.ReadState != ReadState.Closed) sourceReader.Close(); }
+            catch (Exception error) { if (cleanup == null) cleanup = error; }
+            if (cleanup != null)
+            {
+                if (primary == null) System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(cleanup).Throw();
+                else try { primary.Data["Core.XmlReaderCleanupFailure"] = cleanup; } catch { }
+            }
 		}
 		if (updateDependentFiles)
 		{
@@ -755,6 +922,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 	{
 		if (_Current == null)
 		{
+			PrepareMetadataForLegacyExposure();
 			_Current = new CurrentState();
 			_Current.FromLast(this, _Last);
 		}
@@ -767,6 +935,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			_Current = new CurrentState(documentProcessor, hashItem, logicalPath, configuration);
 			if (_Last != null)
 			{
+				PrepareMetadataForLegacyExposure();
 				_Current.FromLast(this, _Last);
 			}
 			else
@@ -852,13 +1021,20 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void EvaluateDefinitions()
 	{
+        _Current.CachedDefineInputs = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (var used in UsedDefines)
+            _Current.CachedDefineInputs[used.Key] = AllDefines.GetEvaluatedValue(used.Key);
 		IExpressionEvaluator evaluator = ExpressionEvaluatorWrapper.GetEvaluator(this);
 		foreach (Definition selfDefine in SelfDefines)
 		{
 			if (selfDefine.OriginalValue != null)
 			{
 				selfDefine.EvaluatedValue = null;
-				evaluator.EvaluateDefinition(selfDefine);
+                string oldStage = _Current.DefineReadStage, oldSite = _Current.DefineReadSite;
+                _Current.DefineReadStage = "definitions";
+                _Current.DefineReadSite = DependencyObservationLog.IsActive ? "Define:" + selfDefine.Name : null;
+                try { evaluator.EvaluateDefinition(selfDefine); }
+                finally { _Current.DefineReadStage = oldStage; _Current.DefineReadSite = oldSite; }
 			}
 			Definition value = null;
 			if (AllDefines.TryGetValue(selfDefine.Name, out value) && selfDefine.Document != value.Document && !selfDefine.IsOverride)
@@ -866,14 +1042,30 @@ public class AssetDeclarationDocument : IXmlSerializable
 				throw new BinaryAssetBuilderException(ErrorCode.DuplicateDefine, "Definition {0} defined in {1} is already defined in {2}", selfDefine.Name, selfDefine.Document.SourcePath, value.Document.SourcePath);
 			}
 			AllDefines[selfDefine.Name] = selfDefine;
+            _Current.DefineScopeEpoch++;
 		}
 	}
+
+    private static string ObservationHandleName(InstanceHandle handle)
+    {
+        return !DependencyObservationLog.IsActive || handle == null ? null : handle.TypeName + ":" + handle.InstanceName;
+    }
+
+    // Called at LookupDefine's actual result boundary; do not query AllDefines again.
+    public void ObserveDefineRead(string name, Definition definition, string value, bool succeeded)
+    {
+        DependencyObservationLog.RecordDefineRead(this, _Current.DefineReadStage ?? "directExpression",
+            _Current.DefineReadSite, _Current.DefineScopeEpoch, name, definition, value, succeeded);
+    }
 
 	public bool ValidateCachedDefines()
 	{
 		foreach (KeyValuePair<string, string> usedDefine in UsedDefines)
 		{
-			if (usedDefine.Value != AllDefines.GetEvaluatedValue(usedDefine.Key))
+            string currentValue;
+            if (_Current.CachedDefineInputs == null || !_Current.CachedDefineInputs.TryGetValue(usedDefine.Key, out currentValue))
+                currentValue = AllDefines.GetEvaluatedValue(usedDefine.Key);
+            if (usedDefine.Value != currentValue)
 			{
 				return false;
 			}
@@ -890,7 +1082,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 				continue;
 			}
 			FindLocation location = FindLocation.None;
-			InstanceDeclaration instanceDeclaration = FindInstance(selfInstance.InheritFromHandle, (selfInstance.InheritFromHandle == selfInstance.Handle) ? FindLocation.Self : FindLocation.None, out location);
+			InstanceDeclaration instanceDeclaration = FindInstanceObserved(selfInstance.InheritFromHandle, (selfInstance.InheritFromHandle == selfInstance.Handle) ? FindLocation.Self : FindLocation.None, out location, "inheritanceValidation", ObservationHandleName(selfInstance.Handle));
 			if (instanceDeclaration == null)
 			{
 				throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0} attempts to inherit from non-existing instance {1}.", selfInstance, selfInstance.InheritFromHandle);
@@ -934,91 +1126,237 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			return;
 		}
-		foreach (InstanceDeclaration selfInstance in SelfInstances)
-		{
-			ProcessExpressionsInNode(evaluator, selfInstance.XmlNode);
-		}
+        bool disabled; AppContext.TryGetSwitch("NewSdk.Compiler.DisableExpressionTraversal", out disabled);
+        DocumentProcessor workOwner = _Current.DocumentProcessor;
+        var work = new DocumentProcessor.ExpressionTraversalWork();
+        bool succeeded = false;
+        CompilerDefineLookup previousLookup = _DefineLookup;
+        string defineSource = ObservationSourcePath;
+        if (previousLookup != null) previousLookup.Reentered();
+        var defineWork = new CompilerDefineLookup.Work();
+        var defineLookup = new CompilerDefineLookup(this, AllDefines, defineWork, previousLookup != null);
+        _DefineLookup = defineLookup;
+        try
+        {
+            foreach (InstanceDeclaration selfInstance in SelfInstances)
+            {
+                string oldStage = _Current.DefineReadStage, oldSite = _Current.DefineReadSite;
+                _Current.DefineReadStage = "expressions";
+                string consumer = ObservationHandleName(selfInstance.Handle);
+                _Current.DefineReadSite = consumer;
+                int ordinal = 0;
+                try { ProcessExpressionsInNode(evaluator, selfInstance.XmlNode, consumer, ref ordinal, !disabled, work); }
+                finally { _Current.DefineReadStage = oldStage; _Current.DefineReadSite = oldSite; }
+            }
+            succeeded = true;
+        }
+        finally
+        {
+            _DefineLookup = previousLookup;
+            defineLookup.Dispose(); _DefineLookupWork = defineWork;
+            workOwner?.RecordDefineLookupWork(this, defineSource);
+            workOwner?.RecordExpressionTraversal(work, succeeded);
+        }
 	}
 
-	private void ProcessExpressionsInNode(IExpressionEvaluator eval, XmlNode node)
+    private static bool StandardExpressionNode(XmlNode node)
+    {
+        Type type = node.GetType();
+        return type == typeof(XmlElement) || type == typeof(XmlText) || type == typeof(XmlCDataSection) ||
+            type == typeof(XmlComment) || type == typeof(XmlWhitespace) || type == typeof(XmlSignificantWhitespace) ||
+            type == typeof(XmlProcessingInstruction) || type == typeof(XmlEntityReference);
+    }
+
+    private static bool SingleTextAttribute(XmlAttribute attribute)
+    {
+        if (attribute.GetType() != typeof(XmlAttribute)) return false;
+        // An exact attribute may still aggregate a caller's derived XmlText or
+        // EntityReference graph with observable virtual Value getters.
+        XmlNode child = attribute.FirstChild;
+        return child == null || (child.GetType() == typeof(XmlText) && child.NextSibling == null);
+    }
+
+	private void ProcessExpressionsInNode(IExpressionEvaluator eval, XmlNode node, string consumer, ref int ordinal,
+        bool optimize, DocumentProcessor.ExpressionTraversalWork work)
 	{
+        // Compact preorder position identifies the actual read site without
+        // allocating a full ancestor path at every node (or when disabled).
+        int nodeOrdinal = ordinal++;
+        work.nodes++;
 		if (node.Attributes != null)
 		{
 			foreach (XmlAttribute attribute in node.Attributes)
 			{
+                if (optimize && SingleTextAttribute(attribute))
+                {
+                    work.singleReadAttributes++;
+                    string value = attribute.Value;
+                    if (value.Length > 0 && value[0] == '=')
+                    {
+                        if (DependencyObservationLog.IsActive)
+                            _Current.DefineReadSite = consumer + "/" + node.Name + "[" + nodeOrdinal + "]/@" + attribute.Name;
+                        attribute.Value = eval.Evaluate(value);
+                    }
+                    continue;
+                }
+                work.legacyAttributes++;
 				if (attribute.Value.Length > 0 && attribute.Value[0] == '=')
 				{
-					attribute.Value = eval.Evaluate(attribute.Value);
+                    if (DependencyObservationLog.IsActive)
+                        _Current.DefineReadSite = consumer + "/" + node.Name + "[" + nodeOrdinal + "]/@" + attribute.Name;
+                    attribute.Value = eval.Evaluate(attribute.Value);
 				}
 			}
 		}
-		if (node.Value != null && node.Value.Length > 0 && node.Value[0] == '=')
+        bool standard = optimize && StandardExpressionNode(node);
+        if (standard)
+        {
+            work.singleReadNodes++;
+            string value = node.Value;
+            if (value != null && value.Length > 0 && value[0] == '=')
+            {
+                if (DependencyObservationLog.IsActive)
+                    _Current.DefineReadSite = consumer + "/" + node.Name + "[" + nodeOrdinal + "]";
+                node.Value = eval.Evaluate(value);
+            }
+        }
+		else if (node.Value != null && node.Value.Length > 0 && node.Value[0] == '=')
 		{
-			node.Value = eval.Evaluate(node.Value);
+            if (DependencyObservationLog.IsActive)
+                _Current.DefineReadSite = consumer + "/" + node.Name + "[" + nodeOrdinal + "]";
+            node.Value = eval.Evaluate(node.Value);
 		}
+        if (standard)
+        {
+            work.siblingTraversals++;
+            // XmlChildEnumerator.MoveNext reads FirstChild once and then the
+            // current node's NextSibling after each body. Keep those live reads,
+            // including removal/reorder behavior; never prefetch a successor.
+            for (XmlNode child = node.FirstChild; child != null; child = child.NextSibling)
+                ProcessExpressionsInNode(eval, child, consumer, ref ordinal, optimize, work);
+            return;
+        }
+        work.legacyTraversals++;
 		if (node.ChildNodes == null)
 		{
 			return;
 		}
-		foreach (XmlNode childNode in node.ChildNodes)
-		{
-			ProcessExpressionsInNode(eval, childNode);
-		}
+        foreach (XmlNode childNode in node.ChildNodes)
+        {
+            ProcessExpressionsInNode(eval, childNode, consumer, ref ordinal, optimize, work);
+        }
 	}
 
-	private void OverrideInstance(InstanceDeclaration instance)
-	{
-		if (instance.InheritFromHandle != null)
-		{
-			XmlNode xmlNode = null;
-			FindLocation location = FindLocation.None;
-			InstanceDeclaration instanceDeclaration = FindInstance(instance.InheritFromHandle, (instance.InheritFromHandle == instance.Handle) ? FindLocation.Self : FindLocation.None, out location);
-			if (instanceDeclaration == null)
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0} attempts to inherit from or override non-existing instance {1}", instance.Handle, instance.InheritFromHandle);
-			}
-			if (!instanceDeclaration.IsInheritable && location != FindLocation.Self)
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {1} cannot be overriden because it is not of type BaseInheritableAsset", instance.Handle, instance.InheritFromHandle);
-			}
-			switch (location)
-			{
-			case FindLocation.Tentative:
-				foreach (InclusionItem inclusionItem in _Current.InclusionItems)
-				{
-					if (inclusionItem.Document == instanceDeclaration.Document)
-					{
-						xmlNode = instanceDeclaration.XmlNode;
-						break;
-					}
-				}
-				break;
-			case FindLocation.Self:
-				if (instanceDeclaration.PrevalidationXmlHash == 0)
-				{
-					OverrideInstance(instanceDeclaration);
-				}
-				xmlNode = instanceDeclaration.XmlNode;
-				break;
-			case FindLocation.None:
-				throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0} attempts to inherit from an instance {1} which could not be found.", instance.Handle, instance.InheritFromHandle);
-			default:
-				throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0}\n  in document '{1}'\n  attempts to inherit from instance {2}\n  from document '{3}'\n  which does not appear to be included by 'instance'.", instance.Handle, instance.Document.SourcePath, instanceDeclaration, instanceDeclaration.Document.SourcePath);
-			}
-			if (xmlNode == null)
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Instance {0} attempts to inherit from instance {1} but source XML is missing.", instance.Handle, instance.InheritFromHandle);
-			}
-			XmlNode xmlNode2 = NodeJoiner.Override(_Current.DocumentProcessor.SchemaSet.Schemas, XmlDocument, xmlNode, instance.XmlNode);
-			XmlNode parentNode = instance.XmlNode.ParentNode;
-			parentNode.RemoveChild(instance.XmlNode);
-			parentNode.AppendChild(xmlNode2);
-			instance.XmlNode = xmlNode2;
-			instance.InheritFromXmlHash = instanceDeclaration.PrevalidationXmlHash;
-		}
-		XmlNode node = instance.XmlNode;
-		instance.PrevalidationXmlHash = HashProvider.GetXmlHash(ref node);
-	}
+    // One invocation owns the execution graph. A legacy XML digest is content
+    // metadata, not a visiting/completion flag (zero is a valid digest).
+    private sealed class InheritanceExecution
+    {
+        private sealed class IdentityComparer : IEqualityComparer<InstanceDeclaration>
+        {
+            public bool Equals(InstanceDeclaration left, InstanceDeclaration right) => Object.ReferenceEquals(left, right);
+            public int GetHashCode(InstanceDeclaration value) => RuntimeHelpers.GetHashCode(value);
+        }
+        internal readonly HashSet<InstanceDeclaration> Active = new HashSet<InstanceDeclaration>(new IdentityComparer());
+    }
+
+    private sealed class InheritanceFrame
+    {
+        internal readonly InstanceDeclaration Instance;
+        internal InstanceDeclaration Source;
+        internal FindLocation Location;
+        internal XmlNode IncludedSource;
+        internal bool Entered;
+        internal InheritanceFrame(InstanceDeclaration instance) { Instance = instance; }
+    }
+
+    private void OverrideInstance(InstanceDeclaration root, InheritanceExecution execution)
+    {
+        var pending = new Stack<InheritanceFrame>();
+        pending.Push(new InheritanceFrame(root));
+        try
+        {
+            while (pending.Count != 0)
+            {
+                InheritanceFrame frame = pending.Peek();
+                InstanceDeclaration instance = frame.Instance;
+                if (!frame.Entered)
+                {
+                    if (!execution.Active.Add(instance))
+                        throw new BinaryAssetBuilderException(ErrorCode.CircularDependency,
+                            "Illegal circular inheritance dependency found at {0} in document '{1}'.", instance.Handle, SourcePath);
+                    instance.BeginPrevalidation();
+                    frame.Entered = true;
+                    if (instance.InheritFromHandle != null)
+                    {
+                        frame.Source = FindInstanceObserved(instance.InheritFromHandle,
+                            (instance.InheritFromHandle == instance.Handle) ? FindLocation.Self : FindLocation.None,
+                            out frame.Location, "inheritance", ObservationHandleName(instance.Handle));
+                        InstanceDeclaration source = frame.Source;
+                        if (source == null)
+                            throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0} attempts to inherit from or override non-existing instance {1}", instance.Handle, instance.InheritFromHandle);
+                        if (!source.IsInheritable && frame.Location != FindLocation.Self)
+                            throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {1} cannot be overriden because it is not of type BaseInheritableAsset", instance.Handle, instance.InheritFromHandle);
+                        switch (frame.Location)
+                        {
+                            case FindLocation.Tentative:
+                                foreach (InclusionItem inclusion in _Current.InclusionItems)
+                                {
+                                    if (inclusion.Document == source.Document)
+                                    {
+                                        frame.IncludedSource = source.XmlNode;
+                                        break;
+                                    }
+                                }
+                                break;
+                            case FindLocation.Self:
+                                if (execution.Active.Contains(source) || !source.HasPrevalidationResult)
+                                {
+                                    // Resume this exact lookup after its source, without
+                                    // pre-resolving siblings or changing error order.
+                                    pending.Push(new InheritanceFrame(source));
+                                    continue;
+                                }
+                                break;
+                            case FindLocation.None:
+                                throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0} attempts to inherit from an instance {1} which could not be found.", instance.Handle, instance.InheritFromHandle);
+                            default:
+                                throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0}\n  in document '{1}'\n  attempts to inherit from instance {2}\n  from document '{3}'\n  which does not appear to be included by 'instance'.", instance.Handle, instance.Document.SourcePath, source, source.Document.SourcePath);
+                        }
+                    }
+                }
+                if (frame.Source != null)
+                {
+                    // Same-document sources are read after DFS, at precisely the
+                    // old recursive return boundary. Included processed DOM is
+                    // retained with its original SchemaInfo/defaults/source.
+                    XmlNode sourceNode = frame.Location == FindLocation.Self ? frame.Source.XmlNode : frame.IncludedSource;
+                    if (sourceNode == null)
+                        throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Instance {0} attempts to inherit from instance {1} but source XML is missing.", instance.Handle, instance.InheritFromHandle);
+                    DependencyObservationLog.RecordInheritance(this, instance, frame.Source, frame.Location,
+                        frame.Location == FindLocation.Self ? "SameDocumentPrevalidation" : "IncludedDocumentProcessed");
+                    XmlNode merged = NodeJoiner.OverrideWithWork(_Current.DocumentProcessor.SchemaSet.Schemas,
+                        XmlDocument, sourceNode, instance.XmlNode, _Current.DocumentProcessor);
+                    XmlNode parent = instance.XmlNode.ParentNode;
+                    parent.RemoveChild(instance.XmlNode);
+                    parent.AppendChild(merged);
+                    instance.XmlNode = merged;
+                    instance.InheritFromXmlHash = frame.Source.PrevalidationXmlHash;
+                }
+                XmlNode node = instance.XmlNode;
+                long revision = instance.PrevalidationRevision;
+                instance.PrevalidationXmlHash = HashProvider.GetXmlHash(ref node);
+                instance.CompletePrevalidation(revision);
+                execution.Active.Remove(instance);
+                pending.Pop();
+            }
+        }
+        catch
+        {
+            // A failed or reentrant partial merge is never a completed result.
+            foreach (InheritanceFrame frame in pending) execution.Active.Remove(frame.Instance);
+            throw;
+        }
+    }
 
 	public void MergeInstances()
 	{
@@ -1114,13 +1452,29 @@ public class AssetDeclarationDocument : IXmlSerializable
 		_Current.DocumentProcessor.AddCompileTime(asset.Instance.Handle, DateTime.Now - now);
 	}
 
-	public void ProcessOverrides()
-	{
-		foreach (InstanceDeclaration selfInstance in SelfInstances)
-		{
-			OverrideInstance(selfInstance);
-		}
-	}
+    public void ProcessOverrides()
+    {
+        InheritanceExecution execution = null;
+        foreach (InstanceDeclaration selfInstance in SelfInstances)
+        {
+            if (selfInstance.InheritFromHandle == null)
+            {
+                // The common non-inheriting path needs neither a graph nor DFS
+                // frames. It still hashes on every legacy top-level visit.
+                selfInstance.BeginPrevalidation();
+                XmlNode node = selfInstance.XmlNode;
+                long revision = selfInstance.PrevalidationRevision;
+                selfInstance.PrevalidationXmlHash = HashProvider.GetXmlHash(ref node);
+                selfInstance.CompletePrevalidation(revision);
+                continue;
+            }
+            // Preserve the legacy top-level merge/hash/DOM event order, even
+            // when this declaration was recursively completed by an earlier
+            // sibling. Only recursive source readiness uses execution states.
+            if (execution == null) execution = new InheritanceExecution();
+            OverrideInstance(selfInstance, execution);
+        }
+    }
 
 	private void GatherUnvalidatedTags()
 	{
@@ -1311,39 +1665,22 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 
-	private string GetRefTypeName(XmlAttribute[] unhandledAttributes)
-	{
-		if (unhandledAttributes != null)
-		{
-			foreach (XmlAttribute xmlAttribute in unhandledAttributes)
-			{
-				string localName;
-				if (xmlAttribute.NamespaceURI == "uri:ea.com:eala:asset:schema" && (localName = xmlAttribute.LocalName) != null && localName == "refType")
-				{
-					return xmlAttribute.Value;
-				}
-			}
-		}
-		return null;
-	}
-
 	private void HandleReferenceType(InstanceDeclaration instance, XPathNavigator navigator, BinaryWriter refTypeIds)
 	{
 		if (navigator.SchemaInfo == null || navigator.SchemaInfo.SchemaType == null)
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Element {0} in instance {1} doesn't have a schema type.", navigator.Name, instance);
 		}
-		bool flag = XmlSchemaType.IsDerivedFrom(navigator.SchemaInfo.SchemaType, _Current.DocumentProcessor.SchemaSet.XmlWeakReferenceType, XmlSchemaDerivationMethod.None);
-		bool flag2 = !flag && XmlSchemaType.IsDerivedFrom(navigator.SchemaInfo.SchemaType, _Current.DocumentProcessor.SchemaSet.XmlAssetReferenceType, XmlSchemaDerivationMethod.None);
-		if (flag || flag2)
+		SchemaSet.ReferenceDescriptor descriptor = _Current.DocumentProcessor.SchemaSet.GetReferenceDescriptor(navigator.SchemaInfo);
+		if (descriptor.Kind == SchemaSet.ReferenceKind.Weak || descriptor.Kind == SchemaSet.ReferenceKind.Strong)
 		{
-			HandleAssetReferenceType(navigator, ref instance, refTypeIds, flag2);
+			HandleAssetReferenceType(navigator, ref instance, refTypeIds, descriptor.Kind == SchemaSet.ReferenceKind.Strong, descriptor.RefType);
 		}
-		else if (XmlSchemaType.IsDerivedFrom(navigator.SchemaInfo.SchemaType, _Current.DocumentProcessor.SchemaSet.XmlFileReferenceType, XmlSchemaDerivationMethod.None))
+		else if (descriptor.Kind == SchemaSet.ReferenceKind.File)
 		{
 			HandleFileReferenceType(navigator, ref instance);
 		}
-		else if (_Current.DocumentProcessor.SchemaSet.IsHashableType(navigator.SchemaInfo.SchemaType))
+		else if (descriptor.Kind == SchemaSet.ReferenceKind.Hashable)
 		{
 			HashProvider.RecordHash(navigator.SchemaInfo.SchemaType, navigator.Value);
 		}
@@ -1360,7 +1697,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		instance.ReferencedFiles.Add(text);
 	}
 
-	private void HandleAssetReferenceType(XPathNavigator navigator, ref InstanceDeclaration instance, BinaryWriter refTypeIds, bool isAssetRef)
+	private void HandleAssetReferenceType(XPathNavigator navigator, ref InstanceDeclaration instance, BinaryWriter refTypeIds, bool isAssetRef, string refType)
 	{
 		string[] array = navigator.Value.Trim().Split('\\');
 		string text = array[0];
@@ -1369,23 +1706,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			return;
 		}
 		InstanceHandle instanceHandle = new InstanceHandle(text);
-		string text2 = null;
-		if (navigator.SchemaInfo.SchemaElement != null)
-		{
-			text2 = GetRefTypeName(navigator.SchemaInfo.SchemaElement.UnhandledAttributes);
-		}
-		else if (navigator.SchemaInfo.SchemaAttribute != null)
-		{
-			text2 = GetRefTypeName(navigator.SchemaInfo.SchemaAttribute.UnhandledAttributes);
-		}
-		if (text2 == null && navigator.SchemaInfo.SchemaType != null)
-		{
-			text2 = GetRefTypeName(navigator.SchemaInfo.SchemaType.UnhandledAttributes);
-			if (text2 == null && navigator.SchemaInfo.SchemaType.DerivedBy == XmlSchemaDerivationMethod.Extension)
-			{
-				text2 = GetRefTypeName(navigator.SchemaInfo.SchemaType.BaseXmlSchemaType.UnhandledAttributes);
-			}
-		}
+		string text2 = refType;
 		if (text2 == null)
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.ReferencingError, "Asset reference to '{0}' in '{1}' does not have type (xas:refType missing in schema).", text, instance);
@@ -1423,40 +1744,60 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 
-	public InstanceDeclaration FindInstance(InstanceHandle handle, FindLocation skipLocation, out FindLocation location)
-	{
-		location = FindLocation.None;
-		InstanceDeclaration value = null;
-		if (_Current.SelfInstances != null && skipLocation != FindLocation.Self && _Current.SelfInstances.TryGetValue(handle, out value))
-		{
-			location = FindLocation.Self;
-			return value;
-		}
-		if (_Current.AllInstances != null && skipLocation != FindLocation.All && _Current.AllInstances.TryGetValue(handle, out value))
-		{
-			location = FindLocation.All;
-			return value;
-		}
-		if (_Current.TentativeInstances != null && skipLocation != FindLocation.Tentative && _Current.TentativeInstances.TryGetValue(handle, out value))
-		{
-			location = FindLocation.Tentative;
-			return value;
-		}
-		if (_Current.ReferenceInstances != null && skipLocation != FindLocation.External && _Current.ReferenceInstances.TryGetValue(handle, out value))
-		{
-			location = FindLocation.External;
-			return value;
-		}
-		return null;
-	}
+    public InstanceDeclaration FindInstance(InstanceHandle handle, FindLocation skipLocation, out FindLocation location)
+    {
+        return FindInstanceObserved(handle, skipLocation, out location, "directSymbolLookup", null);
+    }
+    private bool TryFindObserved(InstanceSet instances, InstanceHandle handle, FindLocation candidateLocation,
+        long query, long parentQuery, string stage, string site, out InstanceDeclaration value)
+    {
+        bool found = _SymbolLookup == null ? instances.TryGetValue(handle, out value) : _SymbolLookup.TryGetValue(instances, handle, out value);
+        DependencyObservationLog.RecordSymbol("symbolCandidate", query, this, stage, site, handle, candidateLocation, value, found, null, parentQuery);
+        return found;
+    }
+    private InstanceDeclaration FindInstanceObserved(InstanceHandle handle, FindLocation skipLocation, out FindLocation location, string stage, string site, long parentQuery = 0)
+    {
+        long query = DependencyObservationLog.BeginSymbolLookup();
+        location = FindLocation.None;
+        InstanceDeclaration value = null;
+        try
+        {
+            if (_Current.SelfInstances != null && skipLocation != FindLocation.Self && TryFindObserved(_Current.SelfInstances, handle, FindLocation.Self, query, parentQuery, stage, site, out value))
+                location = FindLocation.Self;
+            else if (_Current.AllInstances != null && skipLocation != FindLocation.All && TryFindObserved(_Current.AllInstances, handle, FindLocation.All, query, parentQuery, stage, site, out value))
+                location = FindLocation.All;
+            else if (_Current.TentativeInstances != null && skipLocation != FindLocation.Tentative && TryFindObserved(_Current.TentativeInstances, handle, FindLocation.Tentative, query, parentQuery, stage, site, out value))
+                location = FindLocation.Tentative;
+            else if (_Current.ReferenceInstances != null && skipLocation != FindLocation.External && TryFindObserved(_Current.ReferenceInstances, handle, FindLocation.External, query, parentQuery, stage, site, out value))
+                location = FindLocation.External;
+            DependencyObservationLog.RecordSymbol("symbolLookup", query, this, stage, site, handle, location, value, location != FindLocation.None, null, parentQuery);
+            return location == FindLocation.None ? null : value;
+        }
+        catch (Exception error)
+        {
+            var buildError = error as BinaryAssetBuilderException;
+            DependencyObservationLog.RecordSymbol("symbolLookup", query, this, stage, site, handle, location, null, false,
+                buildError == null ? error.GetType().FullName : buildError.ErrorCode.ToString(), parentQuery);
+            throw;
+        }
+    }
 
-	private InstanceDeclaration ResolveReference(InstanceDeclaration parentInstance, InstanceHandle referenceHandle, out FindLocation location)
+	private InstanceDeclaration ResolveReference(InstanceDeclaration parentInstance, InstanceHandle referenceHandle, out FindLocation location, bool weak)
 	{
-		InstanceDeclaration instanceDeclaration = FindInstance(referenceHandle, FindLocation.None, out location);
+        string stage = weak ? "weakReference" : "strongReference", site = ObservationHandleName(parentInstance.Handle);
+        long query = DependencyObservationLog.BeginSymbolSelection();
+        location = FindLocation.None;
+        InstanceDeclaration instanceDeclaration = null;
+        try
+        {
+        instanceDeclaration = FindInstanceObserved(referenceHandle, FindLocation.None, out location, stage + ":exact", site, query);
 		if (instanceDeclaration == null)
 		{
 			InstanceHandle instanceHandle = new InstanceHandle(referenceHandle.TypeName, referenceHandle.InstanceName);
-			StringCollection derivedTypes = _Current.DocumentProcessor.SchemaSet.GetDerivedTypes(referenceHandle.TypeName);
+			// Schema's public derived-name view and its culture comparisons
+            // remain legacy. A miss crossing that boundary ends this index.
+            _SymbolLookup?.ExternalBoundary();
+            StringCollection derivedTypes = _Current.DocumentProcessor.SchemaSet.GetDerivedTypes(referenceHandle.TypeName);
 			if (derivedTypes != null)
 			{
 				StringBuilder stringBuilder = new StringBuilder();
@@ -1469,7 +1810,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 						string current = enumerator.Current;
 						instanceHandle.TypeName = current;
 						FindLocation location2;
-						InstanceDeclaration instanceDeclaration2 = FindInstance(instanceHandle, FindLocation.None, out location2);
+						InstanceDeclaration instanceDeclaration2 = FindInstanceObserved(instanceHandle, FindLocation.None, out location2, stage + ":derived", site, query);
 						if (instanceDeclaration2 != null)
 						{
 							instanceDeclaration = instanceDeclaration2;
@@ -1496,8 +1837,58 @@ public class AssetDeclarationDocument : IXmlSerializable
 				}
 			}
 		}
-		return instanceDeclaration;
-	}
+        DependencyObservationLog.RecordSymbol("symbolSelection", query, this, stage, site, referenceHandle, location, instanceDeclaration, instanceDeclaration != null);
+        return instanceDeclaration;
+        }
+        catch (Exception error)
+        {
+            var buildError = error as BinaryAssetBuilderException;
+            DependencyObservationLog.RecordSymbol("symbolSelection", query, this, stage, site, referenceHandle, location, instanceDeclaration, false,
+                buildError == null ? error.GetType().FullName : buildError.ErrorCode.ToString());
+            throw;
+        }
+    }
+
+    private sealed class DeclarationReferenceComparer : IEqualityComparer<InstanceDeclaration>
+    {
+        public bool Equals(InstanceDeclaration left, InstanceDeclaration right) { return Object.ReferenceEquals(left, right); }
+        public int GetHashCode(InstanceDeclaration value) { return System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(value); }
+    }
+    private void BeginStreamBindings()
+    {
+        bool disabled; AppContext.TryGetSwitch("NewSdk.Compiler.DisableStreamBindingResults", out disabled);
+        _Current.UseStreamBindingResults = !disabled;
+        _Current.BindingSnapshot = null;
+        _Current.StreamBindings = disabled ? null : new Dictionary<InstanceDeclaration, StreamBindingState>(new DeclarationReferenceComparer());
+    }
+    private StreamBindingState GetBindingState(InstanceDeclaration instance)
+    {
+        StreamBindingState result;
+        return _Current.StreamBindings != null && _Current.StreamBindings.TryGetValue(instance, out result) ? result : null;
+    }
+    internal IEnumerable<InstanceHandle> GetValidatedReferences(InstanceDeclaration instance)
+    {
+        if (!_Current.UseStreamBindingResults) return instance.ValidatedReferencedInstances;
+        StreamBindingState binding = GetBindingState(instance);
+        return binding == null ? null : binding.References;
+    }
+    internal InstanceHandleSet GetDependentInstances(InstanceDeclaration instance)
+    {
+        if (!_Current.UseStreamBindingResults) return instance.AllDependentInstances;
+        StreamBindingState binding = GetBindingState(instance);
+        return binding == null ? null : binding.Dependencies;
+    }
+    public StreamBindingResult GetStreamBindings()
+    {
+        return _Current == null ? null : _Current.BindingSnapshot;
+    }
+    private void PublishStreamBindings()
+    {
+        var assets = new List<StreamBindingResult.AssetBinding>();
+        foreach (InstanceDeclaration instance in _Current.OutputInstances)
+            assets.Add(new StreamBindingResult.AssetBinding(instance, GetValidatedReferences(instance), GetDependentInstances(instance)));
+        _Current.BindingSnapshot = new StreamBindingResult(_Current.UseStreamBindingResults, _Current.SourcePath, assets);
+    }
 
 	private void AddOutputInstance(InstanceDeclaration instance)
 	{
@@ -1506,40 +1897,40 @@ public class AssetDeclarationDocument : IXmlSerializable
 			return;
 		}
 		_Current.OutputInstanceSet.Add(instance.Handle, instance);
-		if (instance.ValidatedReferencedInstances != null)
-		{
-			foreach (InstanceHandle validatedReferencedInstance in instance.ValidatedReferencedInstances)
-			{
-				FindLocation location = FindLocation.None;
-				InstanceDeclaration instanceDeclaration = ResolveReference(instance, validatedReferencedInstance, out location);
-				if (instanceDeclaration != null && location != FindLocation.External)
-				{
-					AddOutputInstance(instanceDeclaration);
-				}
-			}
-			return;
-		}
-		instance.ValidatedReferencedInstances = new List2<InstanceHandle>();
-		instance.AllDependentInstances = new InstanceHandleSet();
+        // OutputInstanceSet still handles cycles and the canonical first
+        // declaration. All mutable binding work now belongs to this root.
+        List2<InstanceHandle> references;
+        InstanceHandleSet dependencies;
+        if (_Current.UseStreamBindingResults)
+        {
+            var binding = new StreamBindingState(); _Current.StreamBindings.Add(instance, binding);
+            references = binding.References; dependencies = binding.Dependencies;
+        }
+        else
+        {
+            references = instance.ValidatedReferencedInstances = new List2<InstanceHandle>();
+            dependencies = instance.AllDependentInstances = new InstanceHandleSet();
+        }
 		foreach (InstanceHandle referencedInstance in instance.ReferencedInstances)
 		{
 			FindLocation location2 = FindLocation.None;
-			InstanceDeclaration instanceDeclaration2 = ResolveReference(instance, referencedInstance, out location2);
+			InstanceDeclaration instanceDeclaration2 = ResolveReference(instance, referencedInstance, out location2, false);
 			if (instanceDeclaration2 != null)
 			{
 				if (location2 != FindLocation.External)
 				{
-					instance.AllDependentInstances.TryAdd(instanceDeclaration2.Handle);
+					dependencies.TryAdd(instanceDeclaration2.Handle);
 					AddOutputInstance(instanceDeclaration2);
-					if (instanceDeclaration2.AllDependentInstances != null)
-					{
-						foreach (InstanceHandle allDependentInstance in instanceDeclaration2.AllDependentInstances)
+                    InstanceHandleSet targetDependencies = GetDependentInstances(instanceDeclaration2);
+                    if (targetDependencies != null)
+                    {
+                        foreach (InstanceHandle allDependentInstance in targetDependencies)
 						{
-							instance.AllDependentInstances.TryAdd(allDependentInstance);
+							dependencies.TryAdd(allDependentInstance);
 						}
 					}
 				}
-				instance.ValidatedReferencedInstances.Add(instanceDeclaration2.Handle);
+				references.Add(instanceDeclaration2.Handle);
 			}
 			else
 			{
@@ -1547,27 +1938,30 @@ public class AssetDeclarationDocument : IXmlSerializable
 				{
 					throw new BinaryAssetBuilderException(ErrorCode.UnknownReference, "Unknown referenced asset: {0}", referencedInstance);
 				}
-				if (_Current.DocumentProcessor.MissingReferences.TryAdd(referencedInstance))
+				_SymbolLookup?.ExternalBoundary();
+                if (_Current.DocumentProcessor.MissingReferences.TryAdd(referencedInstance))
 				{
 					_Tracer.TraceWarning("Unknown asset '{0}' referenced from '{1}' in 'file://{2}'", referencedInstance.Name, instance.Handle.Name, instance.Document.SourcePath);
 				}
-				instance.ValidatedReferencedInstances.Add(referencedInstance);
+				references.Add(referencedInstance);
 			}
 		}
 		foreach (InstanceHandle weakReferencedInstance in instance.WeakReferencedInstances)
 		{
 			FindLocation location3 = FindLocation.None;
-			InstanceDeclaration instanceDeclaration3 = ResolveReference(instance, weakReferencedInstance, out location3);
+			InstanceDeclaration instanceDeclaration3 = ResolveReference(instance, weakReferencedInstance, out location3, true);
 			if (instanceDeclaration3 != null && location3 == FindLocation.Tentative)
 			{
 				AddOutputInstance(instanceDeclaration3);
-				instance.ValidatedReferencedInstances.Add(instanceDeclaration3.Handle);
+				references.Add(instanceDeclaration3.Handle);
 			}
 		}
 		foreach (string referencedFile in instance.ReferencedFiles)
 		{
 			FileHashItem item = null;
-			if (!instance.Document.TryGetFileHashItem(referencedFile, out item))
+			// A public ISessionCache can execute arbitrary consumer code.
+            _SymbolLookup?.ExternalBoundary();
+            if (!instance.Document.TryGetFileHashItem(referencedFile, out item))
 			{
 				if (Settings.Current.ErrorLevel > 0)
 				{
@@ -1585,57 +1979,202 @@ public class AssetDeclarationDocument : IXmlSerializable
 		if (outputManager.BasePatchStreamManifest != null)
 		{
 			_Tracer.TraceInfo("Merging base stream assets from {0}", outputManager.BasePatchStream);
-			StableSort_InitializeFromBaseManifest(ref outputManager, ref _Current.OutputInstances, ref finalList);
+            DocumentProcessor metricOwner = _Current.DocumentProcessor; string metricSource = _Current.SourcePath;
+            try { StableSort_InitializeFromBaseManifest(ref outputManager, ref _Current.OutputInstances, ref finalList); }
+            finally { if (metricOwner != null) metricOwner.RecordBaseManifestWork(this, metricSource); }
 		}
 		_Tracer.TraceInfo("Sorting by schema dependencies");
-		TypeDepCompare typeDepCompare = new TypeDepCompare(_Current.DocumentProcessor.SchemaSet.AssetDependencies);
+        // The last trace may replace the processor's SchemaSet. Admission must
+        // inspect the exact map already captured by this comparer, not a later
+        // property value that the insertion loop will never consult.
+        IDictionary<uint, int> typeDependencies = _Current.DocumentProcessor.SchemaSet.AssetDependencies;
+		TypeDepCompare typeDepCompare = new TypeDepCompare(typeDependencies);
 		_Current.OutputInstances.Sort(typeDepCompare);
 		_Tracer.TraceInfo("Sorting by asset dependencies");
-		foreach (InstanceDeclaration outputInstance in _Current.OutputInstances)
-		{
-			int index = StableSort_CalcInsertPosition(finalList, outputInstance, typeDepCompare);
-			finalList.Insert(index, outputInstance);
-		}
-		_Current.OutputInstances = finalList;
+        DocumentProcessor membershipMetricOwner = _Current.DocumentProcessor; string membershipMetricSource = _Current.SourcePath;
+        _StableSortMembershipWork = new CompilerStableSortMembership.Work();
+        try
+        {
+            bool safeOwner = GetType() == typeof(AssetDeclarationDocument) && _Current.UseStreamBindingResults &&
+                _Current.StreamBindings != null && _Current.StreamBindings.Comparer.GetType() == typeof(DeclarationReferenceComparer);
+            CompilerStableSortMembership membership = CompilerStableSortMembership.Create(safeOwner, _Current.StreamBindings,
+                _Current.OutputInstances, finalList, typeDependencies, _StableSortMembershipWork);
+            foreach (InstanceDeclaration outputInstance in _Current.OutputInstances)
+            {
+                int index = StableSort_CalcInsertPositionCore(finalList, outputInstance, typeDepCompare, this, membership);
+                finalList.Insert(index, outputInstance);
+            }
+            _Current.OutputInstances = finalList;
+        }
+        finally
+        {
+            if (membershipMetricOwner != null) membershipMetricOwner.RecordStableSortMembershipWork(this, membershipMetricSource);
+        }
 	}
 
-	private static void StableSort_InitializeFromBaseManifest(ref OutputManager outputManager, ref List2<InstanceDeclaration> outputInstances, ref List2<InstanceDeclaration> finalList)
-	{
-		Manifest basePatchStreamManifest = outputManager.BasePatchStreamManifest;
-		Asset[] assets = basePatchStreamManifest.Assets;
-		foreach (Asset baseAsset in assets)
-		{
-			InstanceDeclaration instanceDeclaration = FindInstance(baseAsset, outputInstances);
-			if (instanceDeclaration != null)
-			{
-				if (outputManager.GetBinaryAsset(instanceDeclaration, isOutputAsset: false).GetLocation(AssetLocation.BasePatchStream, AssetLocationOption.None) == AssetLocation.BasePatchStream)
-				{
-					_Tracer.TraceInfo("Using base stream instance {0}:{1}", instanceDeclaration.Handle.TypeName, instanceDeclaration.Handle.InstanceName);
-					finalList.Add(instanceDeclaration);
-					outputInstances.Remove(instanceDeclaration);
-				}
-				else
-				{
-					_Tracer.TraceInfo("Using patched instance {0}:{1}", instanceDeclaration.Handle.TypeName, instanceDeclaration.Handle.InstanceName);
-				}
-			}
-		}
-	}
+    [NonSerialized] private CompilerStableSortMembership.Work _StableSortMembershipWork;
+    public object GetStableSortMembershipMetrics()
+    {
+        return _StableSortMembershipWork == null ? null : _StableSortMembershipWork.Snapshot();
+    }
 
-	private static InstanceDeclaration FindInstance(Asset baseAsset, List2<InstanceDeclaration> instances)
-	{
-		foreach (InstanceDeclaration instance in instances)
-		{
-			if (baseAsset.TypeId == instance.Handle.TypeId && baseAsset.InstanceId == instance.Handle.InstanceId)
-			{
-				return instance;
-			}
-		}
-		return null;
-	}
+    private sealed class BaseManifestWork
+    {
+        internal long Calls, IndexedCalls, LinearCalls, SmallGroupCalls, IndexEntries, BaseLookups, LinearCandidateChecks,
+            LinearRemovalChecks, IndexLookups, RankSteps, Reused, Patched, Misses, CallbackFallbacks, MutationFallbacks, UnsafeFallbacks;
+    }
+    [NonSerialized] private BaseManifestWork _BaseManifestWork;
+    public object GetBaseManifestWorkMetrics()
+    {
+        var work = _BaseManifestWork ?? new BaseManifestWork();
+        return new { calls = work.Calls, indexedCalls = work.IndexedCalls, linearCalls = work.LinearCalls, smallGroupCalls = work.SmallGroupCalls,
+            indexEntries = work.IndexEntries, baseLookups = work.BaseLookups, linearCandidateChecks = work.LinearCandidateChecks,
+            linearRemovalChecks = work.LinearRemovalChecks, indexLookups = work.IndexLookups, rankSteps = work.RankSteps,
+            reused = work.Reused, patched = work.Patched, misses = work.Misses, callbackFallbacks = work.CallbackFallbacks,
+            mutationFallbacks = work.MutationFallbacks, unsafeFallbacks = work.UnsafeFallbacks };
+    }
+    private struct BaseManifestCandidate
+    {
+        internal readonly InstanceDeclaration Instance;
+        internal readonly int Slot;
+        internal BaseManifestCandidate(InstanceDeclaration instance, int slot) { Instance = instance; Slot = slot; }
+    }
+    private sealed class BaseManifestIndex
+    {
+        internal readonly Dictionary<ulong, Queue<BaseManifestCandidate>> Candidates = new Dictionary<ulong, Queue<BaseManifestCandidate>>();
+        internal readonly int[] Alive;
+        internal int ExpectedVersion, ExpectedCount;
+        internal readonly List2<InstanceDeclaration> Source;
+        internal readonly long CallbackVersion;
+        private BaseManifestIndex(List2<InstanceDeclaration> source)
+        {
+            Source = source; ExpectedCount = source.Count;
+            Alive = new int[source.Count + 1]; ExpectedVersion = source.MutationVersion; CallbackVersion = Tracer.CallbackVersion;
+            for (int index = 1; index < Alive.Length; index++) Alive[index] = index & -index;
+        }
+        internal static BaseManifestIndex Create(List2<InstanceDeclaration> instances, BaseManifestWork work)
+        {
+            var result = new BaseManifestIndex(instances);
+            for (int index = 0; index < instances.Count; index++)
+            {
+                InstanceDeclaration instance = instances[index];
+                // Equals is virtual. Only the ordinary declaration's known key
+                // equality permits RemoveAt to replace the old Remove search.
+                if (instance == null || instance.GetType() != typeof(InstanceDeclaration)) return null;
+                InstanceHandle handle;
+                try { handle = instance.Handle; }
+                catch (NullReferenceException) { return null; }
+                if (handle == null) return null;
+                ulong key = Key(handle.TypeId, handle.InstanceId);
+                Queue<BaseManifestCandidate> candidates;
+                if (!result.Candidates.TryGetValue(key, out candidates)) result.Candidates.Add(key, candidates = new Queue<BaseManifestCandidate>());
+                candidates.Enqueue(new BaseManifestCandidate(instance, index)); work.IndexEntries++;
+            }
+            return result;
+        }
+        internal int Position(int slot, BaseManifestWork work)
+        {
+            int result = 0;
+            for (int index = slot + 1; index > 0; index -= index & -index) { result += Alive[index]; work.RankSteps++; }
+            return result - 1;
+        }
+        internal void Removed(int slot, int version, int count, BaseManifestWork work)
+        {
+            for (int index = slot + 1; index < Alive.Length; index += index & -index) { Alive[index]--; work.RankSteps++; }
+            ExpectedVersion = version; ExpectedCount = count;
+        }
+    }
+    private static ulong Key(uint typeId, uint instanceId) { return ((ulong)typeId << 32) | instanceId; }
+    private static bool IndexStillValid(BaseManifestIndex index, List2<InstanceDeclaration> instances, BaseManifestWork work)
+    {
+        bool callback = Tracer.CallbackVersion != index.CallbackVersion;
+        bool mutation = !Object.ReferenceEquals(instances, index.Source) || instances.Count != index.ExpectedCount || instances.MutationVersion != index.ExpectedVersion;
+        if (callback) work.CallbackFallbacks++;
+        if (mutation) work.MutationFallbacks++;
+        return !callback && !mutation;
+    }
+    private void StableSort_InitializeFromBaseManifest(ref OutputManager outputManager, ref List2<InstanceDeclaration> outputInstances, ref List2<InstanceDeclaration> finalList)
+    {
+        BaseManifestWork work = _BaseManifestWork ?? (_BaseManifestWork = new BaseManifestWork()); work.Calls++;
+        Manifest basePatchStreamManifest = outputManager.BasePatchStreamManifest;
+        Asset[] assets = basePatchStreamManifest.Assets;
+        if (assets.Length == 0) return; // Legacy never touches either list here.
+        bool disabled; AppContext.TryGetSwitch("NewSdk.Compiler.DisableBaseManifestIndex", out disabled);
+        bool small = outputInstances == null || outputInstances.Count < 16 || assets.Length < 8;
+        BaseManifestIndex index = null;
+        if (!disabled && !small && !Object.ReferenceEquals(outputInstances, finalList) && outputInstances.Count <= 262144)
+        {
+            index = BaseManifestIndex.Create(outputInstances, work);
+            if (index == null) work.UnsafeFallbacks++;
+        }
+        if (index == null) { work.LinearCalls++; if (small) work.SmallGroupCalls++; }
+        else work.IndexedCalls++;
+        foreach (Asset baseAsset in assets)
+        {
+            work.BaseLookups++;
+            if (index != null && !IndexStillValid(index, outputInstances, work)) index = null;
+            InstanceDeclaration instanceDeclaration; Queue<BaseManifestCandidate> candidates = null; int slot = -1;
+            if (index == null) instanceDeclaration = FindInstance(baseAsset, outputInstances, work);
+            else if (outputInstances.Count == 0) instanceDeclaration = null;
+            else
+            {
+                work.IndexLookups++;
+                if (index.Candidates.TryGetValue(Key(baseAsset.TypeId, baseAsset.InstanceId), out candidates) && candidates.Count != 0)
+                {
+                    BaseManifestCandidate candidate = candidates.Peek(); slot = candidate.Slot; instanceDeclaration = candidate.Instance;
+                }
+                else instanceDeclaration = null;
+            }
+            if (instanceDeclaration == null) { work.Misses++; continue; }
+            if (outputManager.GetBinaryAsset(instanceDeclaration, isOutputAsset: false).GetLocation(AssetLocation.BasePatchStream, AssetLocationOption.None) == AssetLocation.BasePatchStream)
+            {
+                _Tracer.TraceInfo("Using base stream instance {0}:{1}", instanceDeclaration.Handle.TypeName, instanceDeclaration.Handle.InstanceName);
+                // A callback can change any handle, even without touching the
+                // list version. Permanently return to the old path after one.
+                if (index != null && !IndexStillValid(index, outputInstances, work)) index = null;
+                finalList.Add(instanceDeclaration);
+                if (index == null) RemoveInstanceLegacy(outputInstances, instanceDeclaration, work);
+                else
+                {
+                    int position = index.Position(slot, work);
+                    outputInstances.RemoveAt(position); candidates.Dequeue();
+                    index.Removed(slot, outputInstances.MutationVersion, outputInstances.Count, work);
+                }
+                work.Reused++;
+            }
+            else
+            {
+                _Tracer.TraceInfo("Using patched instance {0}:{1}", instanceDeclaration.Handle.TypeName, instanceDeclaration.Handle.InstanceName);
+                if (index != null && !IndexStillValid(index, outputInstances, work)) index = null;
+                work.Patched++;
+            }
+        }
+    }
+    private static InstanceDeclaration FindInstance(Asset baseAsset, List2<InstanceDeclaration> instances, BaseManifestWork work)
+    {
+        foreach (InstanceDeclaration instance in instances)
+        {
+            work.LinearCandidateChecks++;
+            if (baseAsset.TypeId == instance.Handle.TypeId && baseAsset.InstanceId == instance.Handle.InstanceId) return instance;
+        }
+        return null;
+    }
+    private static void RemoveInstanceLegacy(List2<InstanceDeclaration> instances, InstanceDeclaration instance, BaseManifestWork work)
+    {
+        int count = instances.Count;
+        for (int index = 0; index < count; index++)
+        {
+            work.LinearRemovalChecks++;
+            if (instances[index].Equals(instance)) { instances.RemoveAt(index); return; }
+        }
+    }
 
-	private static int StableSort_CalcInsertPosition(List2<InstanceDeclaration> finalList, InstanceDeclaration instance, TypeDepCompare depCompare)
-	{
+    private static int StableSort_CalcInsertPosition(List2<InstanceDeclaration> finalList, InstanceDeclaration instance, TypeDepCompare depCompare)
+    {
+        return StableSort_CalcInsertPositionCore(finalList, instance, depCompare, null);
+    }
+    private static int StableSort_CalcInsertPositionCore(List2<InstanceDeclaration> finalList, InstanceDeclaration instance, TypeDepCompare depCompare, AssetDeclarationDocument owner, CompilerStableSortMembership membership = null)
+    {
 		int num = 0;
 		int num2 = 0;
 		int num3 = 0;
@@ -1650,7 +2189,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 				num3 = num2;
 				num6 = final.Handle.TypeId;
 			}
-			if (instance.AllDependentInstances != null && instance.AllDependentInstances.Contains(final.Handle))
+            InstanceHandleSet instanceDependencies = owner == null ? instance.AllDependentInstances : owner.GetDependentInstances(instance);
+            InstanceHandleSet finalDependencies = owner == null ? final.AllDependentInstances : owner.GetDependentInstances(final);
+            if (instanceDependencies != null && (membership == null ? instanceDependencies.Contains(final.Handle) : membership.Contains(instanceDependencies, final.Handle)))
 			{
 				num = num2 + 1;
 				num4 = num;
@@ -1662,7 +2203,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			}
 			else
 			{
-				if (final.AllDependentInstances != null && final.AllDependentInstances.Contains(instance.Handle))
+				if (finalDependencies != null && (membership == null ? finalDependencies.Contains(instance.Handle) : membership.Contains(finalDependencies, instance.Handle)))
 				{
 					if (num3 > num4 && instance.Handle.TypeId != final.Handle.TypeId)
 					{
@@ -1700,13 +2241,39 @@ public class AssetDeclarationDocument : IXmlSerializable
 		return num;
 	}
 
-	public void PrepareOutputInstances(OutputManager outputManager)
-	{
+    public void PrepareOutputInstances(OutputManager outputManager)
+    {
+        BeginStreamBindings();
+        try
+        {
+            PrepareOutputInstancesCore(outputManager);
+            PublishStreamBindings();
+        }
+        catch
+        {
+            // No partial result can masquerade as a successful binding view.
+            _Current.BindingSnapshot = null; _Current.StreamBindings = null;
+            throw;
+        }
+    }
+    private void PrepareOutputInstancesCore(OutputManager outputManager)
+    {
 		_Current.OutputInstanceSet = new SortedDictionary<InstanceHandle, InstanceDeclaration>();
-		foreach (InstanceDeclaration instance in Instances)
-		{
-			AddOutputInstance(instance);
-		}
+        _Current.OutputInstances.Clear();
+        DocumentProcessor symbolOwner = _Current.DocumentProcessor; string symbolSource = _Current.SourcePath;
+        _SymbolLookupWork = new CompilerSymbolLookup.Work();
+        _SymbolLookup = CompilerSymbolLookup.Create(GetType() == typeof(AssetDeclarationDocument) && _Current.UseStreamBindingResults,
+            new[] { Instances, SelfInstances, AllInstances, TentativeInstances, ReferenceInstances }, _SymbolLookupWork);
+        try
+        {
+            foreach (InstanceDeclaration instance in Instances) AddOutputInstance(instance);
+        }
+        finally
+        {
+            // Mutable declarations/tables cannot escape through diagnostics.
+            _SymbolLookup = null;
+            if (symbolOwner != null) symbolOwner.RecordSymbolLookupWork(this, symbolSource);
+        }
 		foreach (InstanceDeclaration value in _Current.OutputInstanceSet.Values)
 		{
 			BinaryAsset binaryAsset = outputManager.GetBinaryAsset(value, isOutputAsset: true);
@@ -1728,7 +2295,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 				_Current.OutputInstances.Add(value);
 				if (Settings.Current.OutputAssetReport)
 				{
-					AssetReport.RecordAsset(value, binaryAsset);
+					AssetReport.RecordAsset(value, binaryAsset, GetValidatedReferences(value));
 				}
 			}
 		}
@@ -1738,7 +2305,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 		else
 		{
-			_Current.OutputInstances.Sort(new DependencyComparer());
+			_Current.OutputInstances.Sort(new DependencyComparer(this));
 		}
 		MemoryStream memoryStream = new MemoryStream();
 		BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
@@ -1761,11 +2328,20 @@ public class AssetDeclarationDocument : IXmlSerializable
 		_Current.OutputInstanceSet = null;
 	}
 
+    private void PrepareMetadataForLegacyExposure()
+    {
+        if (_Last == null || DocumentSnapshotsEnabled() || !_Last.OwnedMetadata) return;
+        if (_Last.SharedMetadata) _Last = _Last.DetachMetadata();
+        // Revoke before exposing any values, including partial restores.
+        _Last.OwnedMetadata = false;
+    }
+
 	public void CacheFromDocument(AssetDeclarationDocument other)
 	{
 		if (other._Last != null)
 		{
-			_Last = other._Last;
+            other.PrepareMetadataForLegacyExposure();
+            _Last = DocumentSnapshotsEnabled() ? new LastState(other._Last) : other._Last;
 		}
 		else
 		{
@@ -1773,8 +2349,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 			{
 				return;
 			}
-			_Last = new LastState(other._Current);
-			List2<InstanceDeclaration> list = new List2<InstanceDeclaration>();
+            _Last = new LastState(other._Current, true);
+            if (DocumentSnapshotsEnabled() && !_Last.LegacyDeclarations) return;
+            List2<InstanceDeclaration> list = new List2<InstanceDeclaration>();
 			foreach (InstanceDeclaration selfInstance in other._Current.SelfInstances)
 			{
 				InstanceDeclaration instanceDeclaration = new InstanceDeclaration();

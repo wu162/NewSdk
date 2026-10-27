@@ -1,0 +1,4 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Synthetic semantic adapter; original business inputs remain unchanged. -->
+  <Defines><Define name="UPHEAVAL_SCALAR" value="100" /></Defines>
+</AssetDeclaration>

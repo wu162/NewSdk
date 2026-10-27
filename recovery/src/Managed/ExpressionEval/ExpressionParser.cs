@@ -61,6 +61,9 @@ public class ExpressionParser : LLkParser
 
 	private ExpressionEvaluator _Eval;
 
+    private ExpressionProgramBuilder _ProgramRecorder;
+    internal void SetProgramRecorder(ExpressionProgramBuilder recorder) { _ProgramRecorder = recorder; }
+
 	public static readonly string[] tokenNames_ = new string[29]
 	{
 		"\"<0>\"", "\"EOF\"", "\"<2>\"", "\"NULL_TREE_LOOKAHEAD\"", "\"EQ\"", "\"OR\"", "\"AND\"", "\"NE\"", "\"LS\"", "\"GT\"",
@@ -155,6 +158,7 @@ public class ExpressionParser : LLkParser
 				match(5);
 				ExpressionValue rhs = andExpr();
 				expressionValue.LogicalOr(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.LogicalOr);
 			}
 		}
 		catch (RecognitionException ex)
@@ -176,6 +180,7 @@ public class ExpressionParser : LLkParser
 				match(6);
 				ExpressionValue rhs = eqExpr();
 				expressionValue.LogicalAnd(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.LogicalAnd);
 			}
 		}
 		catch (RecognitionException ex)
@@ -201,6 +206,7 @@ public class ExpressionParser : LLkParser
 					match(4);
 					ExpressionValue rhs = relExpr();
 					expressionValue.IsEqual(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.IsEqual);
 					continue;
 				}
 				case 7:
@@ -208,7 +214,9 @@ public class ExpressionParser : LLkParser
 					match(7);
 					ExpressionValue rhs = relExpr();
 					expressionValue.IsEqual(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.IsEqual);
 					expressionValue.Not();
+                    if (_ProgramRecorder != null) _ProgramRecorder.Unary(expressionValue, ExpressionProgram.Op.Not);
 					continue;
 				}
 				}
@@ -238,6 +246,7 @@ public class ExpressionParser : LLkParser
 					match(8);
 					ExpressionValue rhs = addExpr();
 					expressionValue.IsLessThan(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.IsLessThan);
 					continue;
 				}
 				case 9:
@@ -245,6 +254,7 @@ public class ExpressionParser : LLkParser
 					match(9);
 					ExpressionValue rhs = addExpr();
 					expressionValue.IsGreaterThan(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.IsGreaterThan);
 					continue;
 				}
 				case 10:
@@ -252,7 +262,9 @@ public class ExpressionParser : LLkParser
 					match(10);
 					ExpressionValue rhs = addExpr();
 					expressionValue.IsGreaterThan(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.IsGreaterThan);
 					expressionValue.Not();
+                    if (_ProgramRecorder != null) _ProgramRecorder.Unary(expressionValue, ExpressionProgram.Op.Not);
 					continue;
 				}
 				case 11:
@@ -260,7 +272,9 @@ public class ExpressionParser : LLkParser
 					match(11);
 					ExpressionValue rhs = addExpr();
 					expressionValue.IsLessThan(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.IsLessThan);
 					expressionValue.Not();
+                    if (_ProgramRecorder != null) _ProgramRecorder.Unary(expressionValue, ExpressionProgram.Op.Not);
 					continue;
 				}
 				}
@@ -290,6 +304,7 @@ public class ExpressionParser : LLkParser
 					match(12);
 					ExpressionValue rhs = mulExpr();
 					expressionValue.Add(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.Add);
 					continue;
 				}
 				case 13:
@@ -297,6 +312,7 @@ public class ExpressionParser : LLkParser
 					match(13);
 					ExpressionValue rhs = mulExpr();
 					expressionValue.Subtract(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.Subtract);
 					continue;
 				}
 				}
@@ -326,6 +342,7 @@ public class ExpressionParser : LLkParser
 					match(14);
 					ExpressionValue rhs = unaryExpr();
 					expressionValue.Multiply(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.Multiply);
 					continue;
 				}
 				case 15:
@@ -333,6 +350,7 @@ public class ExpressionParser : LLkParser
 					match(15);
 					ExpressionValue rhs = unaryExpr();
 					expressionValue.Divide(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.Divide);
 					continue;
 				}
 				case 16:
@@ -340,6 +358,7 @@ public class ExpressionParser : LLkParser
 					match(16);
 					ExpressionValue rhs = unaryExpr();
 					expressionValue.Modulo(rhs);
+                    if (_ProgramRecorder != null) _ProgramRecorder.Binary(expressionValue, rhs, ExpressionProgram.Op.Modulo);
 					continue;
 				}
 				}
@@ -369,6 +388,7 @@ public class ExpressionParser : LLkParser
 				match(13);
 				expressionValue = unaryExpr();
 				expressionValue.Negate();
+                    if (_ProgramRecorder != null) _ProgramRecorder.Unary(expressionValue, ExpressionProgram.Op.Negate);
 				break;
 			case 17:
 			case 19:
@@ -412,26 +432,31 @@ public class ExpressionParser : LLkParser
 				token = LT(1);
 				match(19);
 				result = ExpressionValue.NewInteger(token.getText());
+                if (_ProgramRecorder != null) _ProgramRecorder.Leaf(result, ExpressionProgram.Op.Integer, token.getText());
 				break;
 			case 20:
 				token2 = LT(1);
 				match(20);
 				result = ExpressionValue.NewFloat(token2.getText());
+                if (_ProgramRecorder != null) _ProgramRecorder.Leaf(result, ExpressionProgram.Op.Float, token2.getText());
 				break;
 			case 21:
 				token3 = LT(1);
 				match(21);
 				result = ExpressionValue.NewQuotedString(token3.getText());
+                if (_ProgramRecorder != null) _ProgramRecorder.Leaf(result, ExpressionProgram.Op.QuotedString, token3.getText());
 				break;
 			case 22:
 				token4 = LT(1);
 				match(22);
 				result = ExpressionValue.NewQuotedString(token4.getText());
+                if (_ProgramRecorder != null) _ProgramRecorder.Leaf(result, ExpressionProgram.Op.QuotedString, token4.getText());
 				break;
 			case 23:
 				token5 = LT(1);
 				match(23);
 				result = ExpressionValue.NewFromLookup(_Eval.LookupDefine(token5.getText()));
+                if (_ProgramRecorder != null) _ProgramRecorder.Leaf(result, ExpressionProgram.Op.Define, token5.getText());
 				break;
 			case 24:
 				result = regularFunction();
@@ -458,6 +483,7 @@ public class ExpressionParser : LLkParser
 			expressionValue = orExpr();
 			match(18);
 			expressionValue.FuncRound();
+                    if (_ProgramRecorder != null) _ProgramRecorder.Unary(expressionValue, ExpressionProgram.Op.FuncRound);
 		}
 		catch (RecognitionException ex)
 		{

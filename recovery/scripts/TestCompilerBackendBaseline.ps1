@@ -96,12 +96,18 @@ try {
     $state.fixtureScope=$fixture.scope;$state.expectedCaseCount=$ExpectedCaseCount
     $state.scriptSha256=Hash $PSCommandPath
     $state.backendSourceSha256=Hash (Join-Path $root 'recovery/src/App/Application/CoreStreamCompiler.cs')
-    $state.fixtureSourceSha256=Hash (Join-Path $root 'recovery/tests/CompilerBackendLifecycle.cs')
+    $fixtureSource='recovery/tests/CompilerBackendLifecycle.cs'
+    if($fixture.fixtureSource){
+        if($fixture.fixtureSource -cnotin @('recovery/tests/CompilerUpheavalSamples.cs','recovery/tests/CompilerStableSortStreams.cs')){throw 'Unexpected explicit independent baseline fixture source'}
+        $fixtureSource=[string]$fixture.fixtureSource
+    }
+    $state.fixtureSourcePath=$fixtureSource
+    $state.fixtureSourceSha256=Hash (Join-Path $root $fixtureSource)
     $temporaryRoot=(New-Item -ItemType Directory -Path (Join-Path $env:RUNNER_TEMP ('b'+[Guid]::NewGuid().ToString('N').Substring(0,8)))).FullName
     $state.temporaryRoot=$temporaryRoot
     $names=@{};$caseIndex=0
     foreach($case in $fixture.baselineCases){
-        if($case.name -notin @('mod-a','mod-b','TacticalHUDBuildQueuePage','TacticalHUDCommandListBox','TacticalHUDMainCommandBar') -or $names.ContainsKey($case.name)){throw 'Duplicate or unexpected independent baseline case'}
+        if($case.name -notin @('mod-a','mod-b','TacticalHUDBuildQueuePage','TacticalHUDCommandListBox','TacticalHUDMainCommandBar','upheaval-small','stable-sort-chain') -or $names.ContainsKey($case.name)){throw 'Duplicate or unexpected independent baseline case'}
         $names[$case.name]=$true
         $caseOut=(New-Item -ItemType Directory -Path (Join-Path $out $case.name)).FullName
         $sdk=(Resolve-Path -LiteralPath $case.sdkRoot).Path

@@ -1,0 +1,12 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Synthetic cross-document inheritance/Define adapter, not original MOD data. -->
+  <Includes>
+    <Include type="instance" source="FutureTankArmor.xml" />
+    <Include type="instance" source="ArcherMaidenArmor.xml" />
+    <Include type="all" source="Defines.xml" />
+  </Includes>
+  <ArmorTemplate id="RecoveryUpheaval_FutureDerived" inheritFrom="AlliedFutureTankArmor"
+    Default="=$UPHEAVAL_SCALAR" SideDamageScalar="=$UPHEAVAL_SCALAR+5" RearDamageScalar="=$UPHEAVAL_SCALAR+10" />
+  <ArmorTemplate id="RecoveryUpheaval_ArcherDerived" inheritFrom="JapanArcherInfantryArmor"
+    Default="=$UPHEAVAL_SCALAR" SideDamageScalar="=$UPHEAVAL_SCALAR+5" />
+</AssetDeclaration>

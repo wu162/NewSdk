@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Web.Script.Serialization;
+using System.Threading;
 using BinaryAssetBuilder.Core;
 
 namespace NewModCompiler.Compatibility
@@ -24,6 +25,7 @@ namespace NewModCompiler.Compatibility
         };
         readonly IAssetBuilderPlugin plugin;
         readonly IDisposable lifetime;
+        readonly Thread ownerThread;
         bool initialized;
         bool disposed;
 
@@ -31,6 +33,7 @@ namespace NewModCompiler.Compatibility
         {
             this.plugin = plugin;
             this.lifetime = lifetime;
+            ownerThread = Thread.CurrentThread;
         }
 
         static string Hash(string path)
@@ -103,9 +106,18 @@ namespace NewModCompiler.Compatibility
             return new LegacyTextureAdapter((IAssetBuilderPlugin)instance, (IDisposable)instance);
         }
 
+        void OnOwnerThread()
+        {
+            if (!Object.ReferenceEquals(Thread.CurrentThread, ownerThread))
+                throw new InvalidOperationException("Texture plugin must be used on its owning thread.");
+        }
         void Alive()
         {
+            // A closed adapter retains its historical ObjectDisposedException
+            // even when inspected by a different thread. A live adapter never
+            // crosses into the mixed plugin from a foreign thread.
             if (disposed) throw new ObjectDisposedException(nameof(LegacyTextureAdapter));
+            OnOwnerThread();
         }
         static void Platform(TargetPlatform platform)
         {
@@ -149,6 +161,7 @@ namespace NewModCompiler.Compatibility
         public void Dispose()
         {
             if (disposed) return;
+            OnOwnerThread();
             disposed = true;
             lifetime.Dispose();
         }

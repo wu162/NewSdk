@@ -20,7 +20,18 @@ public class ExpressionValue
 
 	private string _String;
 
-	private CultureInfo _CultureInfo = new CultureInfo("en-US", useUserOverride: false);
+    private static readonly CultureInfo SharedCulture = CultureInfo.ReadOnly(new CultureInfo("en-US", useUserOverride: false));
+
+    // Formatting always uses the same explicit English format. Retain the
+    // per-value field and an opt-out while sharing only immutable culture data.
+    private CultureInfo _CultureInfo = CreateCulture();
+
+    private static CultureInfo CreateCulture()
+    {
+        bool disabled;
+        return AppContext.TryGetSwitch("NewSdk.Compiler.DisableSharedExpressionCulture", out disabled) && disabled
+            ? new CultureInfo("en-US", useUserOverride: false) : SharedCulture;
+    }
 
 	private ExpressionValue()
 	{

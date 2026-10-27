@@ -20,6 +20,24 @@ TypeReference ImportModifier(TypeReference source) {
 // Utility business types participate in the legacy Utility contract; compiler
 // helpers such as DecodePointer are neither inputs nor API promises here.
 bool RecoveredUtilityType(TypeDefinition type) => type.Namespace == "BinaryAssetBuilder.Utility" || type.Namespace == "AssetStream";
+// Deliberately additive managed callbacks used by the compiler's input snapshot.
+// Keep the legacy Utility surface exact; unknown public/family members still
+// fail. Each supplemental member has a fixed CLR signature and ordinary managed
+// instance-method flags, and must remain separate from the original overloads.
+var supplementalUtilityMethods = new HashSet<string>(StringComparer.Ordinal) {
+    "System.Void BinaryAssetBuilder.Utility.Asset::Update(System.Func`2<System.String,System.Boolean>)",
+    "System.Boolean BinaryAssetBuilder.Utility.Manifest::Load(System.String,System.String[],System.Boolean,System.Func`2<System.String,System.IO.Stream>)",
+    "System.Boolean BinaryAssetBuilder.Utility.Manifest::Load(System.String,System.String[],System.Boolean,System.Func`2<System.String,System.IO.Stream>,System.Func`2<System.String,System.Boolean>)"
+};
+bool SupplementalUtilityMethod(MethodDefinition method) {
+    if (!supplementalUtilityMethods.Contains(method.FullName)) return false;
+    if (method.Attributes != (MethodAttributes.Public | MethodAttributes.HideBySig) ||
+        method.CallingConvention != MethodCallingConvention.Default || !method.HasThis || method.ExplicitThis ||
+        method.HasGenericParameters || method.HasOverrides)
+        throw new InvalidOperationException("Supplemental Utility member contract changed: " + method.FullName);
+    return true;
+}
+
 if (args[0] == "repair") {
 foreach (var type in module.Types.Where(RecoveredUtilityType)) {
     if (type.Name.StartsWith("StructWrapper_003CAssetStream_003A_003A")) {
@@ -52,7 +70,10 @@ foreach (var type in module.Types.Where(RecoveredUtilityType)) {
         var source = match.Methods.SingleOrDefault(m => m.Name == method.Name && m.Parameters.Count == method.Parameters.Count
             && Plain(m.ReturnType)==Plain(method.ReturnType)
             && m.Parameters.Select(p=>Plain(p.ParameterType)).SequenceEqual(method.Parameters.Select(p=>Plain(p.ParameterType))));
-        if(source==null) throw new Exception("No original contract for "+method.FullName);
+        if(source==null) {
+            if(SupplementalUtilityMethod(method)) continue;
+            throw new Exception("No original contract for "+method.FullName);
+        }
         method.Attributes=source.Attributes;
         method.CallingConvention=source.CallingConvention;
         method.ReturnType=Modifiers(source.ReturnType,method.ReturnType);
@@ -70,7 +91,7 @@ foreach (var type in module.Types.Where(RecoveredUtilityType)) {
 }
 // Verify the complete recovered Utility public/family surface against the
 // original contract, including non-C# custom modifiers, after all renames.
-int utilityMethods = 0;
+int utilityMethods = 0, supplementalMethods = 0;
 foreach (var type in module.Types.Where(RecoveredUtilityType)) {
     var sourceType = original.Types.FirstOrDefault(t => t.FullName == type.FullName);
     if(sourceType == null) continue;
@@ -79,13 +100,16 @@ foreach (var type in module.Types.Where(RecoveredUtilityType)) {
         var source = sourceType.Methods.SingleOrDefault(m => m.Name == method.Name && m.Parameters.Count == method.Parameters.Count
             && m.ReturnType.FullName == method.ReturnType.FullName
             && m.Parameters.Select(p=>p.ParameterType.FullName).SequenceEqual(method.Parameters.Select(p=>p.ParameterType.FullName)));
+        if(source == null && SupplementalUtilityMethod(method)) { supplementalMethods++; continue; }
         if(source == null || source.Attributes != method.Attributes || source.CallingConvention != method.CallingConvention)
             throw new InvalidOperationException("Utility member contract changed: " + method.FullName);
         utilityMethods++;
     }
 }
 if(utilityMethods == 0) throw new InvalidOperationException("No Utility contracts were verified");
-Console.WriteLine("PASS Utility exact public/family flags and custom signature contracts: " + utilityMethods);
+if(supplementalMethods != supplementalUtilityMethods.Count)
+    throw new InvalidOperationException("Supplemental Utility snapshot callback contracts are incomplete: " + supplementalMethods);
+Console.WriteLine("PASS Utility exact public/family flags and custom signature contracts: " + utilityMethods + "; explicit supplemental snapshot callbacks: " + supplementalMethods);
 var allowed = new HashSet<string>(StringComparer.Ordinal) { "mscorlib", "System", "System.Core", "System.Xml", "System.Configuration", "System.Data", "System.Web", "System.Configuration.Install", "antlr.runtime" };
 if(linked) allowed.Add("System.Web.Extensions");
 foreach(var reference in module.AssemblyReferences)

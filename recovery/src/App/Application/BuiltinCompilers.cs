@@ -1,6 +1,7 @@
 #if NEWSdk_MONOLITHIC
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 
@@ -28,7 +29,9 @@ namespace NewModCompiler.Application
         private readonly List<IAssetBuilderPlugin> plugins = new List<IAssetBuilderPlugin>();
         private readonly List<PluginDescriptor> descriptors = new List<PluginDescriptor>();
         private readonly List<BuiltinCompilerRoute> routes = new List<BuiltinCompilerRoute>();
+        private readonly Thread ownerThread = Thread.CurrentThread;
         private PluginRegistry registry;
+        private BuiltinCompilerCapabilityCatalog capabilities;
         private bool disposed;
         public static IList<BuiltinCompilerRoute> ExpectedRoutes { get { return expected; } }
         public IList<BuiltinCompilerRoute> Routes { get { return routes.AsReadOnly(); } }
@@ -36,6 +39,14 @@ namespace NewModCompiler.Application
         public PluginRegistry Registry
         {
             get { ThrowIfDisposed(); return registry; }
+        }
+        public IReadOnlyDictionary<uint, BuiltinCompilerCapabilities> Capabilities
+        {
+            get { ThrowIfDisposed(); return capabilities.Entries; }
+        }
+        public BuiltinCompilerCapabilities GetCapabilities(uint typeId)
+        {
+            ThrowIfDisposed(); return capabilities.GetCapabilities(typeId);
         }
         private BuiltinCompilers() { }
 
@@ -96,6 +107,7 @@ namespace NewModCompiler.Application
                         result.routes.Add(new BuiltinCompilerRoute(id, name, info.TypeHash, "texture", true));
                     }
                 }
+                result.capabilities = new BuiltinCompilerCapabilityCatalog(result.routes);
                 return result;
             }
             catch (Exception failure)
@@ -167,11 +179,21 @@ namespace NewModCompiler.Application
         private void ThrowIfDisposed()
         {
             if (disposed) throw new ObjectDisposedException("BuiltinCompilers");
+            CheckOwner();
+        }
+
+        private void CheckOwner()
+        {
+            if (!Object.ReferenceEquals(ownerThread, Thread.CurrentThread))
+                throw new InvalidOperationException("The built-in compilers must be used by their owning thread.");
         }
 
         public void Dispose()
         {
             if (disposed) return;
+            // Reject before committing the aggregate's disposed state: an
+            // owner-thread plugin must remain closable by its actual owner.
+            CheckOwner();
             disposed = true;
             List<Exception> failures = new List<Exception>();
             for (int i = plugins.Count - 1; i >= 0; --i)

@@ -101,7 +101,7 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
             }
         }
         $entry.passed=$true;$entry.report=$body;$entry.eventCount=$rows.Count
-        return @{report=$body;events=$rows;destination=$destination;caseOut=$caseOut;mod=$Mod;sdk=$Sdk;name=$Name}
+        return @{report=$body;events=$rows;destination=$destination;caseOut=$caseOut;mod=$Mod;sdk=$Sdk;name=$Name;control=$audit}
     } catch {
         # Surface bounded child-process diagnostics in Actions while retaining
         # the full files and original failing assertion in the evidence archive.
@@ -160,6 +160,153 @@ function EqualTask($Combined,$Single,[string]$Group){
         Need ($left.Count -eq $right.Count) 'Single/combined file count differs'
         foreach($key in $left.Keys){Need ($right.ContainsKey($key) -and $left[$key] -ceq $right[$key]) 'Fresh production CLI single/combined bytes differ'}
     }
+}
+# Measure the actual CLI, including schema preparation, compilation, linking and
+# publication. Keep correctness lifecycle fixes enabled in both configurations.
+# Timing is evidence, never a pass/fail speed threshold on shared Actions hosts.
+function MeasureBusinessCli($Reference,[string]$Mod,[string]$Sdk){
+    $configPath=Join-Path $script:runtime 'NewModCompiler.exe.config'
+    $saved=[IO.File]::ReadAllBytes($configPath)
+    $switches=@('DisableSinglePassDigest','DisableSharedSchemaMetadata','DisableSchemaReferenceDescriptors',
+        'DisableExpressionPrograms','DisableSharedExpressionCulture','DisableExpressionTraversal',
+        'DisableNodeJoinerIndex','DisableNodeJoinerPredecessors','DisableBaseManifestIndex',
+        'DisableStableSortMembershipIndex','DisableSymbolLookupIndex','DisableDefineLookupIndex','DisableOwnedTransferBuffers')
+    $receipt=@{schemaVersion=1;succeeded=$false;sourceCommit=$script:state.sourceCommit;binarySourceCommit=$script:state.binarySourceCommit;
+        runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;configuration='Release';exeSha256=(Hash $script:exe);
+        fixtureManifestSha256=(Hash (Join-Path $Mod 'fixture-manifest.json'));osPageCache='unknown';rounds=7;
+        fallbackSwitches=$switches;cases=@();scope='Same Release EXE, identical three-task business inputs, caches disabled, fresh process per sample; one unmeasured warmup per mode, alternating pair order. Includes full CLI publication and required outputs. Diagnostic performance fallbacks retain snapshot/binding correctness fixes. Small fixture, shared runner, no full-MOD or general speedup claim.'}
+    try {
+        $fallback=[xml]::new();$fallback.PreserveWhitespace=$true;$fallback.Load($configPath)
+        $runtimeElement=$fallback.configuration.SelectSingleNode('runtime')
+        if(!$runtimeElement){$runtimeElement=$fallback.CreateElement('runtime');$null=$fallback.configuration.AppendChild($runtimeElement)}
+        $overrides=$runtimeElement.SelectSingleNode('AppContextSwitchOverrides')
+        if(!$overrides){$overrides=$fallback.CreateElement('AppContextSwitchOverrides');$null=$runtimeElement.AppendChild($overrides)}
+        $values=@{}
+        foreach($setting in ($overrides.GetAttribute('value') -split ';')){
+            if($setting){$pair=$setting -split '=',2;Need ($pair.Count -eq 2) 'Invalid existing benchmark AppContext setting';$values[$pair[0]]=$pair[1]}
+        }
+        foreach($name in $switches){$values['NewSdk.Compiler.'+$name]='true'}
+        $overrides.SetAttribute('value',(($values.Keys|Sort-Object|ForEach-Object{$_+'='+$values[$_]}) -join ';'))
+        for($round=0;$round -le 7;$round++){
+            $order=if($round%2 -eq 0){@('default','fallback')}else{@('fallback','default')}
+            foreach($variant in $order){
+                if($variant -ceq 'default'){[IO.File]::WriteAllBytes($configPath,$saved)}else{$fallback.Save($configPath)}
+                $configHash=Hash $configPath
+                $sample=RunCli ('business-pair-'+$round+'-'+$variant) 'build' $Mod $Sdk 'base,apt,maps' 0 3
+                foreach($group in @('base','apt','maps')){EqualTask $Reference $sample $group}
+                Need ($sample.report.cache.status -ceq 'Disabled' -and !$sample.report.cache.sessionCache) 'CLI measurement unexpectedly used a compiler cache'
+                foreach($field in @('elapsedMs','processWallMs','processCpuMs','processKernelMs','processUserMs')){
+                    $value=$sample.control.$field
+                    Need ($null -ne $value -and [double]$value -ge 0 -and ![double]::IsNaN([double]$value) -and ![double]::IsInfinity([double]$value)) "Missing CLI process measurement: $field"
+                }
+                $work=@($sample.report.cache.coreWork)
+                Need ($work.Count -eq 3) 'CLI paired measurement omitted a selected stream'
+                foreach($item in $work){
+                    Need ($null -ne $item.expressionPrograms -and $item.expressionPrograms.enabled -eq ($variant -ceq 'default')) 'CLI paired expression-program switch was not applied'
+                    Need ($null -ne $item.transferBuffers -and $item.transferBuffers.enabled -eq ($variant -ceq 'default')) 'CLI paired transfer-buffer switch was not applied'
+                    Need ($null -ne $item.schemaMetadata -and $item.schemaMetadata.enabled -eq ($variant -ceq 'default')) 'CLI paired schema-metadata switch was not applied'
+                }
+                $receipt.cases+=,@{round=$round;warmup=($round -eq 0);variant=$variant;configSha256=$configHash;
+                    case=$sample.name;allTwelveOutputsByteIdentical=$true;processId=$sample.control.processId;
+                    controllerElapsedMs=$sample.control.elapsedMs;processWallMs=$sample.control.processWallMs;
+                    processCpuMs=$sample.control.processCpuMs;processKernelMs=$sample.control.processKernelMs;processUserMs=$sample.control.processUserMs;
+                    reportElapsedMs=$sample.report.elapsedMs;applicationWork=$sample.report.applicationWork;coreWork=$work}
+                Need ((Hash $configPath) -ceq $configHash) 'CLI measurement changed runtime configuration'
+            }
+        }
+        $receipt.medians=@()
+        foreach($variant in @('default','fallback')){
+            $samples=@($receipt.cases|Where-Object{!$_.warmup -and $_.variant -ceq $variant})
+            Need ($samples.Count -eq 7) 'CLI paired sample count changed'
+            $summary=@{variant=$variant;samples=7}
+            foreach($field in @('controllerElapsedMs','processWallMs','processCpuMs','reportElapsedMs')){
+                $ordered=@($samples|ForEach-Object{[double]$_.$field}|Sort-Object)
+                $summary[$field]=$ordered[3]
+            }
+            $receipt.medians+=,$summary
+        }
+        $receipt.succeeded=$true
+    } finally {
+        [IO.File]::WriteAllBytes($configPath,$saved)
+        $receipt|ConvertTo-Json -Depth 24|Set-Content (Join-Path $script:modeOut 'business-cli-paired.json')
+    }
+}
+# These are overlapping named work intervals, not additive build wall time.
+# Validate actual production reports, then preserve per-task observations so a
+# later sharing optimization has a concrete same-input preparation baseline.
+function WorkMeasurements($Rows,[string[]]$Required,[string]$Scope){
+    $measurements=@($Rows)
+    Need ($null -ne $Rows -and $measurements.Count -gt 0) "$Scope work measurements missing"
+    $seen=@{}
+    foreach($row in $measurements){
+        foreach($field in @('stage','calls','failedCalls','elapsedMs')){Need ($null -ne $row.PSObject.Properties[$field]) "$Scope measurement field missing: $field"}
+        Need ($row.stage -is [string] -and $row.stage.Length -gt 0 -and !$seen.ContainsKey($row.stage)) "$Scope stage missing or duplicated"
+        $seen[$row.stage]=$true
+        Need ($row.calls -ge 0 -and $row.failedCalls -ge 0 -and $row.failedCalls -le $row.calls -and $row.failedCalls -eq 0) "$Scope successful case has invalid/failed call counts"
+        $elapsed=[double]$row.elapsedMs
+        Need (!([double]::IsNaN($elapsed)) -and !([double]::IsInfinity($elapsed)) -and $elapsed -ge 0) "$Scope duration is not finite/nonnegative"
+    }
+    foreach($stage in $Required){Need (@($measurements|Where-Object{$_.stage -ceq $stage -and $_.calls -gt 0}).Count -eq 1) "$Scope required work was not measured: $stage"}
+    return $measurements
+}
+function BusinessWorkMetrics($Case,[bool]$SharedMetadata=$false){
+    $tasks=@($Case.report.plan.Tasks);$work=@($Case.report.cache.coreWork)
+    Need ($Case.report.cache.status -ceq 'Disabled' -and !$Case.report.cache.sessionCache) 'Business work baseline must run with compiler caches disabled'
+    Need ($work.Count -eq $tasks.Count) 'Business work must have one snapshot per selected task'
+    $taskMetrics=@()
+    foreach($task in $tasks){
+        $matching=@($work|Where-Object{$_.taskId -ceq $task.Id})
+        Need ($matching.Count -eq 1) 'Business work snapshot task identity missing or duplicated'
+        $item=$matching[0]
+        $core=@(WorkMeasurements $item.stages @('rawParse','definitions','expressions','inheritance','validation','assetProcessing','referenceBinding','manifest','link') ($Case.name+'/'+$task.Id+'/Core'))
+        $schema=@(WorkMeasurements $item.schemaPreparation @('schemaRead','schemaCompile','schemaMetadata','schemaHelpers') ($Case.name+'/'+$task.Id+'/schema'))
+        $outer=@(WorkMeasurements $item.outerStages @('settings','providerPreparation','schemaPreparation','sessionPreparation','processDocument','artifactCollection','cleanup') ($Case.name+'/'+$task.Id+'/outer'))
+        Need ($null -ne $item.schemaMetadata -and $item.schemaMetadata.enabled -eq $true) 'Business schema metadata sharing must be enabled in the rebuilt production runtime'
+        $expectHit=$SharedMetadata -and $taskMetrics.Count -gt 0
+        Need ($item.schemaMetadata.builds -eq $(if($expectHit){0}else{1}) -and $item.schemaMetadata.hits -eq $(if($expectHit){1}else{0})) 'Business schema metadata cold/hit counts differ from the ordered build-scoped sharing contract'
+        if($expectHit){
+            Need (@($schema|Where-Object{$_.stage -ceq 'schemaMetadataRestore' -and $_.calls -eq 1}).Count -eq 1) 'Business schema metadata hit must measure the isolated-table restore'
+            Need (@($schema|Where-Object{$_.stage -ceq 'schemaMetadataBuild'}).Count -eq 0) 'Business schema metadata hit unexpectedly rebuilt the compiler-owned tables'
+        }
+        else{
+            Need (@($schema|Where-Object{$_.stage -ceq 'schemaMetadataRestore'}).Count -eq 0) 'Cold business schema preparation unexpectedly restored shared metadata'
+            Need (@($schema|Where-Object{$_.stage -ceq 'schemaMetadataBuild' -and $_.calls -eq 1}).Count -eq 1) 'Cold business schema preparation must measure the compiler-owned metadata build'
+        }
+        Need ($null -ne $item.schemaInputs -and $item.schemaInputs.filesRead -gt 0 -and $item.schemaInputs.bytesRead -gt 0 -and $item.schemaInputs.contentChecks -ge 0) 'Business schema input read counters missing or invalid'
+        Need ($null -ne $item.inputDigests -and $item.inputDigests.reads -ge 0 -and $item.inputDigests.bytes -ge 0) 'Business digest logical-read counters missing or invalid'
+        $programs=$item.expressionPrograms
+        Need ($null -ne $programs -and $programs.enabled -eq $true -and $programs.scope -ceq 'ExactExpressionProgramsPerDocumentProcessor') 'Business exact expression-program metrics missing'
+        Need ($programs.parserCalls -ge 0 -and $programs.builds -ge 0 -and $programs.hits -ge 0 -and $programs.builds -le $programs.parserCalls -and $programs.parserFailures -le $programs.parserCalls -and $programs.replayFailures -le $programs.hits) 'Business expression work counts are inconsistent'
+        Need ($programs.entries -le $programs.entryLimit -and $programs.retainedTextChars -le $programs.textBudget -and $programs.retainedNodes -le $programs.nodeBudget) 'Business expression programs exceeded their bounded ownership'
+        if($task.Content -ceq 'base'){
+            Need ($programs.parserCalls -eq 1 -and $programs.builds -eq 1 -and $programs.hits -eq 2 -and $programs.parserFailures -eq 0 -and $programs.replayFailures -eq 0) 'Actual base Define pipeline did not replace two repeated exact parses with current semantic replay'
+        }
+        $buffers=$item.transferBuffers
+        Need ($null -ne $buffers -and $buffers.enabled -eq $true -and $buffers.capturedOwnerMode -ceq 'Owned' -and $buffers.parallelExecutionEnabled -eq $false -and $buffers.allocationScope -ceq 'OwnedBuffersOnly') 'Business transfer buffer ownership contract missing'
+        Need ($buffers.copyRequests -ge 0 -and $buffers.linkRequests -ge 0 -and $buffers.copyAllocations -eq $(if($buffers.copyRequests -eq 0){0}else{1}) -and $buffers.linkAllocations -eq $(if($buffers.linkRequests -eq 0){0}else{1})) 'Business transfer buffers were not lazy and reused within the processor'
+        Need ($buffers.allocatedBytes -eq $buffers.copyAllocations*$buffers.copyBufferBytes+$buffers.linkAllocations*$buffers.linkBufferBytes -and $buffers.legacyCopyRequests -eq 0 -and $buffers.legacyLinkRequests -eq 0) 'Business owned/fallback buffer allocation accounting is inconsistent'
+        $taskMetrics+=,@{taskId=$task.Id;content=$task.Content;inputPath=$task.InputPath;stages=$core;schemaPreparation=$schema;schemaMetadata=$item.schemaMetadata;schemaInputs=$item.schemaInputs;outerStages=$outer;inputDigests=$item.inputDigests;schemaReferences=$item.schemaReferences;expressionPrograms=$programs;transferBuffers=$buffers}
+    }
+    $physical=$Case.report.cache.physicalInputs
+    Need ($null -ne $physical -and $physical.enabled -eq $true -and $physical.positiveInputsOnly -eq $true) 'Business positive-input snapshot coverage missing'
+    Need ($physical.captures -gt 0 -and $physical.activeFilePins -eq $physical.captures -and $physical.activeDirectoryPins -gt 0 -and $physical.cleanupFailures -eq 0) 'Business captured input pins were not retained through report capture'
+    Need ($physical.verificationReads -eq $physical.captures -and $physical.verificationBytes -eq $physical.capturedBytes) 'Business final strong verification did not cover every unique captured input'
+    $schemaLogicalReads=0L;foreach($taskWork in $taskMetrics){$schemaLogicalReads+=$taskWork.schemaInputs.filesRead}
+    if($SharedMetadata){Need ($physical.hits -gt 0 -and $physical.captures -lt $schemaLogicalReads) 'Combined business input snapshot did not remove repeated schema captures'}
+    $dependencies=$Case.report.cache.dependencyObservations
+    Need ($null -ne $dependencies -and $dependencies.enabled -eq $true -and $dependencies.scope -ceq 'ResolverCandidatesAndSemanticReads' -and $dependencies.canAuthorizeReuse -eq $false) 'Dependency shadow observation scope/reuse boundary changed'
+    Need ($dependencies.candidateChecks -eq $dependencies.foundChecks+$dependencies.missingChecks -and $dependencies.resolutionCalls -eq $dependencies.resolutionsSucceeded+$dependencies.resolutionsFailed) 'Resolver observation totals differ from actual query outcomes'
+    Need (@($dependencies.observations).Count -eq $dependencies.recorded -and $dependencies.recorded -le $dependencies.limit -and $dependencies.recordedTextChars -le $dependencies.textBudget) 'Resolver observations exceeded their evidence budget'
+    $previousSequence=0L;$taskIds=@($tasks|ForEach-Object{$_.Id})
+    foreach($observation in @($dependencies.observations)){
+        Need ($observation.sequence -gt $previousSequence -and $taskIds -ccontains $observation.taskId) 'Resolver shadow evidence lost ordering or stream identity'
+        $previousSequence=$observation.sequence
+    }
+    if(@($tasks|Where-Object{$_.Content -ceq 'apt'}).Count -gt 0){Need ($dependencies.resolutionCalls -gt 0 -and @($dependencies.observations|Where-Object{$_.kind -ceq 'resolve'}).Count -gt 0) 'Actual APT payload resolution was not observed'}
+    Need ($Case.report.applicationWork.captureBoundary -ceq 'beforeInitialReport') 'Application work snapshot boundary changed'
+    $application=@(WorkMeasurements $Case.report.applicationWork.stages @('planning','backendInitialize','backendCompile','artifactValidation','backendDispose','inputVerification','publicationPrepare','publicationCommit','cacheCommit') ($Case.name+'/application'))
+    Need ($Case.control.elapsedMs -ge 0) 'Business CLI controller duration missing or invalid'
+    return @{case=$Case.name;buildId=$Case.report.buildId;taskCount=$tasks.Count;reportElapsedMs=$Case.report.elapsedMs;physicalInputs=$physical;dependencyObservations=$dependencies;controllerElapsedMs=$Case.control.elapsedMs;applicationWork=@{captureBoundary=$Case.report.applicationWork.captureBoundary;stages=$application};tasks=$taskMetrics}
 }
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Real clean production EXE processes only: selected multi-stream CLI, independent fresh-process group comparisons and actual CtrlBreak; original BAB oracle comparison remains separately reported'}
 try {
@@ -294,6 +441,8 @@ try {
         $businessMod=Join-Path $modeWork 'business'
         $businessReceipt=@{succeeded=$false;sourceCommit=$state.sourceCommit;runId=$state.runId;configuration=$mode;baselineCases=@();scope='Three CLI tasks: Armor base, 12 file-backed APT DataBlob assets and three MapMetaData assets; strict current-original APT/maps oracle, not executable UI/APT parser, full SDK, cache or publication acceptance'}
         $modeState.business=$businessReceipt
+        $workReceipt=@{schemaVersion=1;succeeded=$false;sourceCommit=$state.sourceCommit;binarySourceCommit=$state.binarySourceCommit;runId=$state.runId;runAttempt=$state.runAttempt;configuration=$mode;exeSha256=$exeHash;osPageCache='unknown';cases=@();scope='Same-input cache-disabled production business CLI per-task work baseline. Named nested intervals overlap and must not be summed; logical schema/digest reads are not physical disk I/O. Controller elapsed time includes process audit overhead; report elapsed time stops before required output completion. Fresh-process single groups retain strict output equality; no speedup or cross-stream sharing claim.'}
+        $businessReceipt.workMetrics='business-work-metrics.json'
         try {
             & python "$PSScriptRoot/PrepareCompilerCliBusiness.py" $businessMod *> "$modeOut/business-prepare.log"
             Need ($LASTEXITCODE -eq 0) 'Source-XSD-valid CLI business fixture preparation failed'
@@ -306,9 +455,26 @@ try {
             $businessSnapshot=Snapshot $businessMod
             $businessCombined=RunCli 'business-combined' 'build' $businessMod $sdk 'base,apt,maps' 0 3
             Need (@($businessCombined.report.plan.Tasks).Count -eq 3) 'Business plan must contain base, real APT and real map metadata tasks'
+            if($mode -ceq 'Release' -and !$reuse){MeasureBusinessCli $businessCombined $businessMod $sdk}
+            if(!$reuse){$workReceipt.cases+=,(BusinessWorkMetrics $businessCombined $true)}
             foreach($group in @('base','apt','maps')){
                 $businessSingle=RunCli ('business-'+$group+'-only') 'build' $businessMod $sdk $group 0 1
                 EqualTask $businessCombined $businessSingle $group
+                if(!$reuse){$workReceipt.cases+=,(BusinessWorkMetrics $businessSingle)}
+            }
+            if($reuse){$workReceipt.availability='unavailable: explicitly reused historical runtime does not provide the current work measurement contract'}
+            else{
+                $combinedWork=$workReceipt.cases[0];$schemaReadCalls=0L;$schemaCompileCalls=0L;$schemaFilesRead=0L;$schemaBytesRead=0L;$rawParseCalls=0L;$metadataBuilds=0L;$metadataHits=0L
+                foreach($taskWork in $combinedWork.tasks){
+                    $schemaReadCalls+=@($taskWork.schemaPreparation|Where-Object{$_.stage -ceq 'schemaRead'})[0].calls
+                    $schemaCompileCalls+=@($taskWork.schemaPreparation|Where-Object{$_.stage -ceq 'schemaCompile'})[0].calls
+                    $rawParseCalls+=@($taskWork.stages|Where-Object{$_.stage -ceq 'rawParse'})[0].calls
+                    $schemaFilesRead+=$taskWork.schemaInputs.filesRead;$schemaBytesRead+=$taskWork.schemaInputs.bytesRead
+                    $metadataBuilds+=$taskWork.schemaMetadata.builds;$metadataHits+=$taskWork.schemaMetadata.hits
+                }
+                Need ($combinedWork.taskCount -eq 3 -and $schemaReadCalls -ge 3 -and $schemaCompileCalls -ge 3 -and $rawParseCalls -ge 3) 'Combined business run did not measure preparation and parsing for all three streams'
+                Need ($metadataBuilds -eq 1 -and $metadataHits -eq 2) 'Combined business run must build schema metadata once and restore it for its two later streams'
+                $workReceipt.combinedPreparation=@{tasks=3;schemaReadCalls=$schemaReadCalls;schemaCompileCalls=$schemaCompileCalls;schemaFilesRead=$schemaFilesRead;schemaBytesRead=$schemaBytesRead;rawParseCalls=$rawParseCalls;schemaMetadataBuilds=$metadataBuilds;schemaMetadataHits=$metadataHits;scope='Each task retains complete schema read/Compile and isolated helpers; only compiler-owned metadata tables are restored across later streams. Aggregate read counts do not measure unique files or physical disk reads, and metadata hits do not establish full-build speedup.'}
             }
             foreach($selection in @(@{name='mod-a';group='apt';types='AptAptData,AptConstData,AptDatData,AptGeometryData'},@{name='mod-b';group='maps';types='MapMetaData'})){
                 $tasks=@($businessCombined.report.plan.Tasks|Where-Object{$_.Content -ceq $selection.group})
@@ -326,7 +492,13 @@ try {
             Unchanged $businessMod $businessSnapshot
             foreach($inputFile in $prepared.sourceInputs){Need ((Hash (Join-Path $root $inputFile.path)) -ceq $inputFile.sha256) 'Business fixture source input changed'}
             $businessReceipt.inputsUnchanged=$true;$businessReceipt.coldGroupOutputsIdentical=$true;$businessReceipt.originalFourOutputsIdentical=$true;$businessReceipt.succeeded=$true
-        } finally {$businessReceipt|ConvertTo-Json -Depth 12|Set-Content "$modeOut/business-validation.json"}
+            if(!$reuse){$workReceipt.succeeded=$true;$workReceipt.coldGroupOutputsIdentical=$true;$workReceipt.originalFourOutputsIdentical=$true;$businessReceipt.workMetricsPassed=$true}
+        } catch {
+            $workReceipt.error=$_.Exception.ToString();throw
+        } finally {
+            $businessReceipt|ConvertTo-Json -Depth 12|Set-Content "$modeOut/business-validation.json"
+            $workReceipt|ConvertTo-Json -Depth 14|Set-Content "$modeOut/business-work-metrics.json"
+        }
         # Complete fixed original UI source closure. Keep both original TGA
         # textures and compare all bytes at the identical absolute input paths.
         $uiMod=Join-Path $modeWork 'real-ui'

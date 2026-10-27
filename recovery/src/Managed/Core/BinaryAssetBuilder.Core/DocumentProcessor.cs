@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
@@ -111,6 +113,132 @@ public class DocumentProcessor
 	public IEnumerable<uint> ProcessedTypeIds => _ProcessedTypeIds;
 	internal void RecordXmlParse() { XmlParseCount++; }
 	internal void RecordInstanceCompile() { InstanceCompileCount++; }
+
+	// Per-processor work, independent of legacy metrics/listeners and process state.
+	// Intervals cover the named operation only; they are not total build wall time.
+	public sealed class WorkMeasurement
+	{
+		public string stage { get; private set; }
+		public long calls { get; internal set; }
+		public long failedCalls { get; internal set; }
+		internal long ticks;
+		public double elapsedMs => ticks * 1000.0 / Stopwatch.Frequency;
+		internal WorkMeasurement(string name) { stage = name; }
+	}
+	private readonly Dictionary<string, WorkMeasurement> _Work = new Dictionary<string, WorkMeasurement>(StringComparer.Ordinal);
+    private sealed class DocumentReferenceComparer : IEqualityComparer<AssetDeclarationDocument>
+    {
+        public bool Equals(AssetDeclarationDocument left, AssetDeclarationDocument right) => Object.ReferenceEquals(left, right);
+        public int GetHashCode(AssetDeclarationDocument document) => RuntimeHelpers.GetHashCode(document);
+    }
+    private readonly Dictionary<AssetDeclarationDocument, object> _BaseManifestWorkSnapshots = new Dictionary<AssetDeclarationDocument, object>(new DocumentReferenceComparer());
+    internal void RecordBaseManifestWork(AssetDeclarationDocument document, string sourcePath)
+    {
+        _BaseManifestWorkSnapshots[document] = new { sourcePath, work = document.GetBaseManifestWorkMetrics() };
+    }
+    public object[] GetBaseManifestWorkMetrics()
+    {
+        var result = new object[_BaseManifestWorkSnapshots.Count];
+        _BaseManifestWorkSnapshots.Values.CopyTo(result, 0); return result;
+    }
+
+    private readonly Dictionary<AssetDeclarationDocument, object> _StableSortMembershipSnapshots = new Dictionary<AssetDeclarationDocument, object>(new DocumentReferenceComparer());
+    internal void RecordStableSortMembershipWork(AssetDeclarationDocument document, string sourcePath)
+    {
+        _StableSortMembershipSnapshots[document] = new { sourcePath, work = document.GetStableSortMembershipMetrics() };
+    }
+    public object[] GetStableSortMembershipMetrics()
+    {
+        var result = new object[_StableSortMembershipSnapshots.Count];
+        _StableSortMembershipSnapshots.Values.CopyTo(result, 0); return result;
+    }
+
+    private readonly Dictionary<AssetDeclarationDocument, object> _SymbolLookupSnapshots = new Dictionary<AssetDeclarationDocument, object>(new DocumentReferenceComparer());
+    internal void RecordSymbolLookupWork(AssetDeclarationDocument document, string sourcePath)
+    {
+        _SymbolLookupSnapshots[document] = new { sourcePath, work = document.GetSymbolLookupMetrics() };
+    }
+    public object[] GetSymbolLookupMetrics()
+    {
+        var result = new object[_SymbolLookupSnapshots.Count];
+        _SymbolLookupSnapshots.Values.CopyTo(result, 0); return result;
+    }
+
+    private readonly Dictionary<AssetDeclarationDocument, object> _DefineLookupSnapshots = new Dictionary<AssetDeclarationDocument, object>(new DocumentReferenceComparer());
+    internal void RecordDefineLookupWork(AssetDeclarationDocument document, string sourcePath)
+    {
+        _DefineLookupSnapshots[document] = new { sourcePath, work = document.GetDefineLookupMetrics() };
+    }
+    public object[] GetDefineLookupMetrics()
+    {
+        var result = new object[_DefineLookupSnapshots.Count];
+        _DefineLookupSnapshots.Values.CopyTo(result, 0); return result;
+    }
+
+    private long _NodeJoinerCalls, _NodeJoinerIndexedCalls, _NodeJoinerBuilds, _NodeJoinerEntries, _NodeJoinerQueries, _NodeJoinerLinearQueries;
+    internal void RecordNodeJoinerPredecessors(bool enabled, long builds, long entries, long queries, long linearQueries)
+    {
+        _NodeJoinerCalls++; if (enabled) _NodeJoinerIndexedCalls++;
+        _NodeJoinerBuilds += builds; _NodeJoinerEntries += entries; _NodeJoinerQueries += queries; _NodeJoinerLinearQueries += linearQueries;
+    }
+    public object GetNodeJoinerPredecessorMetrics() => new { calls = _NodeJoinerCalls, optimizationEnabledCalls = _NodeJoinerIndexedCalls,
+        builds = _NodeJoinerBuilds, entries = _NodeJoinerEntries, indexQueries = _NodeJoinerQueries, linearQueries = _NodeJoinerLinearQueries,
+        scope = "Per-insertion scalar predecessor plans only; mutable schema is never cached across insertions" };
+
+    private readonly CoreTransferBuffers _TransferBuffers = new CoreTransferBuffers();
+    internal CoreTransferBuffers TransferBuffers => _TransferBuffers;
+    public object GetTransferBufferMetrics()
+    {
+        return _TransferBuffers.GetMetrics();
+    }
+
+    public object GetExpressionProgramMetrics()
+    {
+        return ExpressionEvaluatorWrapper.GetProgramMetrics(this);
+    }
+
+    internal sealed class ExpressionTraversalWork
+    {
+        internal long nodes, singleReadAttributes, legacyAttributes, singleReadNodes, siblingTraversals, legacyTraversals;
+    }
+    private readonly ExpressionTraversalWork _ExpressionTraversal = new ExpressionTraversalWork();
+    private long _ExpressionTraversalCalls, _ExpressionTraversalFailures;
+    internal void RecordExpressionTraversal(ExpressionTraversalWork work, bool succeeded)
+    {
+        _ExpressionTraversalCalls++; if (!succeeded) _ExpressionTraversalFailures++;
+        _ExpressionTraversal.nodes += work.nodes;
+        _ExpressionTraversal.singleReadAttributes += work.singleReadAttributes;
+        _ExpressionTraversal.legacyAttributes += work.legacyAttributes;
+        _ExpressionTraversal.singleReadNodes += work.singleReadNodes;
+        _ExpressionTraversal.siblingTraversals += work.siblingTraversals;
+        _ExpressionTraversal.legacyTraversals += work.legacyTraversals;
+    }
+    public object GetExpressionTraversalMetrics()
+    {
+        return new { calls = _ExpressionTraversalCalls, failedCalls = _ExpressionTraversalFailures,
+            nodes = _ExpressionTraversal.nodes, singleReadAttributes = _ExpressionTraversal.singleReadAttributes,
+            legacyAttributes = _ExpressionTraversal.legacyAttributes, singleReadNodes = _ExpressionTraversal.singleReadNodes,
+            siblingTraversals = _ExpressionTraversal.siblingTraversals, legacyTraversals = _ExpressionTraversal.legacyTraversals };
+    }
+
+	public WorkMeasurement[] GetWorkMetrics()
+	{
+		var result = new WorkMeasurement[_Work.Count];
+		int index = 0;
+		foreach (var item in _Work.Values)
+			result[index++] = new WorkMeasurement(item.stage) { calls = item.calls, failedCalls = item.failedCalls, ticks = item.ticks };
+		Array.Sort(result, (left, right) => StringComparer.Ordinal.Compare(left.stage, right.stage));
+		return result;
+	}
+	internal void MeasureWork(string stage, Action operation)
+	{
+		if (!_Work.TryGetValue(stage, out var work)) _Work.Add(stage, work = new WorkMeasurement(stage));
+		work.calls++;
+		long start = Stopwatch.GetTimestamp();
+		try { operation(); }
+		catch { work.failedCalls++; throw; }
+		finally { work.ticks += Stopwatch.GetTimestamp() - start; }
+	}
 
 	// Local/intermediate reuse is excluded from persistent asset-cache counters.
 	public int BuildCacheHits { get; private set; }
@@ -536,9 +664,9 @@ public class DocumentProcessor
 		{
 			DateTime now = DateTime.Now;
 			_FilesParsedCount++;
-			document.ProcessExpressions();
-			document.ProcessOverrides();
-			document.Validate();
+			MeasureWork("expressions", document.ProcessExpressions);
+			MeasureWork("inheritance", document.ProcessOverrides);
+			MeasureWork("validation", document.Validate);
 			_TotalValidateTime += DateTime.Now - now;
 		}
 		if (document.State != DocumentState.Loaded) DocumentReuseCount++;
@@ -549,7 +677,7 @@ public class DocumentProcessor
 		if (outputManager != null)
 		{
 			DateTime now2 = DateTime.Now;
-			document.ProcessInstances(outputManager, ref _InstancesCompiledCount, ref _InstancesCopiedFromCacheCount);
+			MeasureWork("assetProcessing", () => document.ProcessInstances(outputManager, ref _InstancesCompiledCount, ref _InstancesCopiedFromCacheCount));
 			_TotalProcInstancesTime += DateTime.Now - now2;
 		}
 		document.AddStreamsHints(_CurrentStreamStack.ToArray());
@@ -557,14 +685,16 @@ public class DocumentProcessor
 		{
 			DateTime now3 = DateTime.Now;
 			_Tracer.Message("Resolving references: {0}", document.SourcePathFromRoot);
-			document.PrepareOutputInstances(outputManager);
+			MeasureWork("referenceBinding", () => document.PrepareOutputInstances(outputManager));
 			_Tracer.Message("Generating stream: {0}", document.SourcePathFromRoot);
-			outputManager.CommitManifest(document);
-			outputManager.CleanOutput();
-			document.UpdateOutputAssets(outputManager);
+			MeasureWork("manifest", () => {
+				outputManager.CommitManifest(document);
+				outputManager.CleanOutput();
+				document.UpdateOutputAssets(outputManager);
+			});
 			if (Settings.Current.LinkedStreams)
 			{
-				outputManager.LinkStream(document);
+				MeasureWork("link", () => outputManager.LinkStream(document));
 			}
 			if (Settings.Current.VersionFiles)
 			{
@@ -625,7 +755,7 @@ public class DocumentProcessor
 	private bool LoadPrecompiledReference(AssetDeclarationDocument parentDoc, string sourcePathFromRoot, string[] baseStreamSearchPaths)
 	{
 		string text = ShPath.Canonicalize(Path.Combine(Settings.Current.OutputDirectory, sourcePathFromRoot));
-		if (File.Exists(text))
+		if (ManifestInputReader.Exists(text))
 		{
 			Manifest manifest = new Manifest();
 			List<string> list = new List<string>();
@@ -636,8 +766,9 @@ public class DocumentProcessor
 			list.Add(Settings.Current.OutputDirectory);
 			try
 			{
-				manifest.Load(text, list.ToArray());
+				manifest.Load(text, list.ToArray(), true, ManifestInputReader.OpenRead, ManifestInputReader.Exists);
 			}
+			catch (System.OperationCanceledException) { throw; }
 			catch (Exception ex)
 			{
 				_Tracer.TraceError("Could not load {0}: {1}\n\r{2}", text, ex.Message, ex.StackTrace);
@@ -646,7 +777,7 @@ public class DocumentProcessor
 			try
 			{
 				ManifestHeader manifestHeader = new ManifestHeader();
-				using (FileStream input = File.OpenRead(text))
+				using (Stream input = PhysicalInputSnapshot.OpenRead(text))
 				{
 					manifestHeader.LoadFromStream(input, Settings.Current.BigEndian);
 				}
@@ -656,6 +787,7 @@ public class DocumentProcessor
 					return false;
 				}
 			}
+			catch (System.OperationCanceledException) { throw; }
 			catch (Exception innerException)
 			{
 				throw new BinaryAssetBuilderException(innerException, ErrorCode.LockedFile, "Unable to open '{0}'. Make sure no other application is writing to or reading from this file while the data build is running.", text);
@@ -822,7 +954,7 @@ public class DocumentProcessor
 				document.TentativeInstances.Remove(value2);
 			}
 		}
-		document.EvaluateDefinitions();
+		MeasureWork("definitions", document.EvaluateDefinitions);
 	}
 
 	private void TryDeleteFile(string filePath)

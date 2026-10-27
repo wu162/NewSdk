@@ -38,6 +38,19 @@ public class FileHashItem : IXmlSerializable
 	private string _CurrentContentHash;
 
 	[NonSerialized]
+	private uint _CurrentLegacyHash;
+
+	[NonSerialized]
+	private bool _CurrentLegacyHashAvailable;
+
+	// Logical successful digest reads, scoped to this item (not physical disk I/O).
+	[field: NonSerialized]
+	public long DigestReadCount { get; private set; }
+
+	[field: NonSerialized]
+	public long DigestBytesRead { get; private set; }
+
+	[NonSerialized]
 	private bool _Dirty;
 
 	[NonSerialized]
@@ -92,9 +105,31 @@ public class FileHashItem : IXmlSerializable
 				if (Exists)
 				{
 					_CurrentDate = File.GetLastWriteTime(_Path);
-					using (var algorithm = SHA256.Create())
-					using (var input = File.OpenRead(_Path))
-						_CurrentContentHash = Convert.ToBase64String(algorithm.ComputeHash(input));
+					bool disabled;
+                    PhysicalInputSnapshot.Entry sealedInput; bool captured;
+                    bool legacyDigest = AppContext.TryGetSwitch("NewSdk.Compiler.DisableSinglePassDigest", out disabled) && disabled;
+                    if (!legacyDigest && PhysicalInputSnapshot.TryCapture(_Path, out sealedInput, out captured))
+                    {
+                        _CurrentDate = sealedInput.LastWriteTime;
+                        _CurrentContentHash = sealedInput.Sha256;
+                        _CurrentLegacyHash = sealedInput.LegacyHash;
+                        _CurrentLegacyHashAvailable = true;
+                        if (captured) { DigestReadCount++; DigestBytesRead += sealedInput.Length; }
+                    }
+					else if (legacyDigest ||
+						(_ContentHash != null && _LastDate == _CurrentDate))
+					{
+						// Preserve the cheaper SHA-only check for likely warm inputs.
+						// Equal-time content changes still force a full legacy rehash.
+						using (var algorithm = SHA256.Create())
+						using (var input = File.OpenRead(_Path))
+						{
+                            _CurrentContentHash = ComputeContentHash(input, algorithm);
+							DigestReadCount++;
+							DigestBytesRead += input.Position;
+						}
+					}
+					else ReadContentIdentity();
 				}
 				_Dirty = !Exists || _LastDate != _CurrentDate || _ContentHash == null ||
 					!string.Equals(_ContentHash, _CurrentContentHash, StringComparison.Ordinal);
@@ -136,6 +171,8 @@ public class FileHashItem : IXmlSerializable
 		_ContentHash = reader.GetAttribute("sha256");
 		_State = FileState.AllInvalid;
 		_CurrentContentHash = null;
+		_CurrentLegacyHash = 0;
+		_CurrentLegacyHashAvailable = false;
 		reader.MoveToAttribute("d");
 		string[] array = reader.Value.Split(';');
 		_Path = array[0];
@@ -178,29 +215,68 @@ public class FileHashItem : IXmlSerializable
 		_State = FileState.AllInvalid;
 		_CurrentDate = DateTime.MaxValue;
 		_CurrentContentHash = null;
+		_CurrentLegacyHash = 0;
+		_CurrentLegacyHashAvailable = false;
 		_Dirty = false;
 	}
 
 	private void UpdateHash()
 	{
-		AsynchronousFileReader asynchronousFileReader = new AsynchronousFileReader(_Path);
+		// New inputs and timestamp changes already have both identities. A
+		// same-time content change detected by the warm SHA-only check rehashes.
+		if (!_CurrentLegacyHashAvailable) ReadContentIdentity();
+		_Hash = _CurrentLegacyHash;
+		_ContentHash = _CurrentContentHash;
+		_LastDate = _CurrentDate;
+		_Dirty = false;
+	}
+
+	private void ReadContentIdentity()
+	{
+        PhysicalInputSnapshot.CheckReadCancellation();
+		using AsynchronousFileReader asynchronousFileReader = new AsynchronousFileReader(_Path);
 		uint hash = asynchronousFileReader.FileSize;
+		long bytesRead = 0;
 		using (var algorithm = SHA256.Create())
 		{
 			while (asynchronousFileReader.BeginRead())
 			{
+                PhysicalInputSnapshot.CheckReadCancellation();
 				byte[] data = asynchronousFileReader.CurrentChunk.Data;
 				int count = asynchronousFileReader.CurrentChunk.BytesRead;
+				bytesRead += count;
 				hash = FastHash.GetHashCode(hash, data, count);
 				algorithm.TransformBlock(data, 0, count, data, 0);
+                PhysicalInputSnapshot.CheckReadCancellation();
 				asynchronousFileReader.EndRead();
+				PhysicalInputSnapshot.CheckReadCancellation();
 			}
+            PhysicalInputSnapshot.CheckReadCancellation();
 			algorithm.TransformFinalBlock(new byte[0], 0, 0);
-			_ContentHash = Convert.ToBase64String(algorithm.Hash);
+            PhysicalInputSnapshot.CheckReadCancellation();
+			_CurrentContentHash = Convert.ToBase64String(algorithm.Hash);
 		}
-		_Hash = hash;
-		_LastDate = _CurrentDate;
-		_CurrentContentHash = _ContentHash;
-		_Dirty = false;
+		_CurrentLegacyHash = hash;
+		_CurrentLegacyHashAvailable = true;
+		DigestReadCount++;
+		DigestBytesRead += bytesRead;
 	}
+
+    private static string ComputeContentHash(Stream input, SHA256 algorithm)
+    {
+        // The warm/diagnostic SHA-only path used ComputeHash(Stream), whose
+        // internal read loop cannot observe the build's cancellation token.
+        byte[] buffer = new byte[65536];
+        while (true)
+        {
+            PhysicalInputSnapshot.CheckReadCancellation();
+            int count = input.Read(buffer, 0, buffer.Length);
+            PhysicalInputSnapshot.CheckReadCancellation();
+            if (count == 0) break;
+            algorithm.TransformBlock(buffer, 0, count, buffer, 0);
+        }
+        algorithm.TransformFinalBlock(new byte[0], 0, 0);
+        PhysicalInputSnapshot.CheckReadCancellation();
+        return Convert.ToBase64String(algorithm.Hash);
+    }
 }

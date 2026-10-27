@@ -1,0 +1,382 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography;
+using System.Web.Script.Serialization;
+using System.Xml;
+using BinaryAssetBuilder;
+using BinaryAssetBuilder.Core;
+using NewModCompiler.Application;
+
+public static class CompilerDocumentSnapshots
+{
+    const string ShareDisable = "NewSdk.Compiler.DisableSharedDocumentDeclarations";
+    const string HandleDisable = "NewSdk.Compiler.DisableDeclarationHandleSnapshots";
+    const string Disable = "NewSdk.Compiler.DisableDocumentSnapshots", Ns = "uri:ea.com:eala:asset";
+    const BindingFlags Hidden = BindingFlags.Instance | BindingFlags.NonPublic;
+    static string work, sdk;
+    static IDictionary<string, object> originalOracle;
+    static int checks;
+    static readonly List<string> tests = new List<string>();
+    static readonly List<object> evidence = new List<object>();
+    static readonly JavaScriptSerializer Json = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
+    static void Require(bool value, string message) { checks++; if (!value) throw new Exception(message); }
+    static object Current(InstanceDeclaration instance) { return typeof(InstanceDeclaration).GetField("_Current", Hidden).GetValue(instance); }
+    static void Field(InstanceDeclaration instance, string name, object value) { object current = Current(instance); current.GetType().GetField(name).SetValue(current, value); }
+    static AssetDeclarationDocument BareDocument(string name)
+    {
+        var document = new AssetDeclarationDocument(); var type = typeof(AssetDeclarationDocument).GetNestedType("CurrentState", BindingFlags.NonPublic);
+        object current = Activator.CreateInstance(type, true); type.GetMethod("FromScratch").Invoke(current, new object[0]);
+        type.GetField("SourcePath").SetValue(current, Path.Combine(work, name + ".xml"));
+        type.GetField("SourceDirectory").SetValue(current, work); typeof(AssetDeclarationDocument).GetField("_Current", Hidden).SetValue(document, current);
+        return document;
+    }
+    static InstanceDeclaration Instance(AssetDeclarationDocument document, string name)
+    {
+        var xml = new XmlDocument(); xml.LoadXml("<ArmorTemplate id='" + name + "' inheritFrom='Base'/>");
+        var instance = new InstanceDeclaration(document) { XmlNode = xml.DocumentElement };
+        instance.ProcessingHash = 29; instance.InheritFromXmlHash = 31; instance.PrevalidationXmlHash = 37;
+        instance.ReferencedInstances.Add(new InstanceHandle("ArmorTemplate", "Strong"));
+        document.SelfInstances.Add(instance); return instance;
+    }
+    static string Xml(AssetDeclarationDocument document)
+    {
+        var text = new System.Text.StringBuilder();
+        using (var writer = XmlWriter.Create(text, new XmlWriterSettings { OmitXmlDeclaration = true })) document.WriteXml(writer);
+        return text.ToString();
+    }
+    static AssetDeclarationDocument Read(string xml)
+    {
+        var document = new AssetDeclarationDocument();
+        using (var reader = XmlReader.Create(new StringReader(xml))) { reader.MoveToContent(); document.ReadXml(reader); }
+        return document;
+    }
+    static void Transfer(AssetDeclarationDocument source, bool disabled, string path)
+    {
+        string before = Xml(source);
+        var first = new AssetDeclarationDocument(); first.CacheFromDocument(source);
+        // This second copy has no Current state. It must consume the saved
+        // declaration rather than attempting CacheFromInstance(Current=null).
+        var copy = new AssetDeclarationDocument(); copy.CacheFromDocument(first);
+        Require(Xml(first) == before && Xml(copy) == before, "Copy changed persisted declaration XML: " + path);
+        copy.FromLastHack(); source.FromLastHack();
+        Require(copy.SelfInstances.Count == source.SelfInstances.Count, "Declaration count/order lost: " + path);
+        Require(Object.ReferenceEquals(copy.SelfInstances[0], source.SelfInstances[0]) == disabled, "Unexpected declaration ownership: " + path);
+        Require(disabled ? Object.ReferenceEquals(copy.SelfInstances[0].Document, source.SelfInstances[0].Document) : Object.ReferenceEquals(copy.SelfInstances[0].Document, copy), "Restored declaration bound to wrong document: " + path);
+        copy.MakeComplete(); copy.SelfInstances[0].ProcessingHash ^= 0x31415926;
+        copy.SelfInstances[0].ReferencedInstances[0].TypeHash ^= 0x27182818;
+        copy.MakeCacheable();
+        string after = Xml(source);
+        Require((before == after) == !disabled, "MakeComplete/reserialize cache ownership mismatch: " + path);
+        if (disabled) Require((bool)originalOracle["sourceXmlChanged"] == (before != after) && (bool)originalOracle["sameDeclaration"] == Object.ReferenceEquals(copy.SelfInstances[0], source.SelfInstances[0]), "Fallback no longer reproduces independent original DLL oracle");
+        Require(Xml(copy) != before, "Receiver did not serialize its completed mutation: " + path);
+        Require((Xml(first) == before) == !disabled, "Intermediate cached-only document was mutated: " + path);
+        var roundtrip = Read(Xml(copy)); roundtrip.FromLastHack();
+        Require(roundtrip.SelfInstances[0].ProcessingHash == copy.SelfInstances[0].ProcessingHash &&
+            roundtrip.SelfInstances[0].InheritFromXmlHash == 31 && roundtrip.SelfInstances[0].PrevalidationXmlHash == 37,
+            "Recaptured document lost saved scalar/inheritance metadata: " + path);
+        evidence.Add(new { id = path, legacyFallback = disabled, sourceXmlChanged = before != after,
+            scope = "Public Core cache-copy/restore/complete/serialize lifecycle; not a confirmed production CLI failure" });
+    }
+    static void PublicCacheBoundaries()
+    {
+        foreach (bool disabled in new[] { false, true })
+        {
+            AppContext.SetSwitch(Disable, disabled);
+            var source = BareDocument("public"); Instance(source, "Owner"); Instance(source, "Second"); source.MakeCacheable();
+            Transfer(source, disabled, "source-with-Last-and-Current");
+            var saved = BareDocument("save-boundary"); Instance(saved, "Owner"); saved.MakeCacheable();
+            string savedBefore = Xml(saved);
+            saved.SelfInstances[0].MakeComplete(); saved.SelfInstances[0].ProcessingHash ^= 0x12345678;
+            Require((savedBefore == Xml(saved)) == !disabled, "MakeCacheable retained mutable live declaration objects");
+            saved.ResetState(); saved.FromLastHack();
+            Require(saved.SelfInstances[0].Document == saved, "ResetState restore bound declaration to wrong document");
+            var persisted = Read(Xml(source));
+            Transfer(persisted, disabled, "XML-source-without-Current");
+            var current = BareDocument("only-current"); Instance(current, "Owner");
+            var captured = new AssetDeclarationDocument(); captured.CacheFromDocument(current);
+            Require(Xml(captured).Length > 0, "CacheFromDocument failed with only Current");
+            captured.FromLastHack(); Require(!Object.ReferenceEquals(current.SelfInstances[0], captured.SelfInstances[0]), "Current-only source unexpectedly shared declaration object");
+            Require(captured.SelfInstances[0].Document == captured, "Current-only declaration did not bind to receiver");
+        }
+        AppContext.SetSwitch(Disable, false);
+        var empty = new AssetDeclarationDocument(); empty.CacheFromDocument(new AssetDeclarationDocument());
+        Require(Xml(empty) == "", "Empty source cache copy unexpectedly created state");
+        var firstState = BareDocument("guard-one"); Instance(firstState, "Owner"); firstState.MakeCacheable();
+        var target = new AssetDeclarationDocument(); target.CacheFromDocument(firstState); string original = Xml(target);
+        var secondState = BareDocument("guard-two"); Instance(secondState, "Different"); target.CacheFromDocument(secondState);
+        Require(Xml(target) == original, "Existing-target Current-only copy guard changed");
+        tests.Add("public-Core-current-and-cached-only-document-copy-complete-serialize-lifecycle-with-legacy-reproduction");
+    }
+    sealed class DerivedInstance : InstanceDeclaration
+    {
+        public DerivedInstance(AssetDeclarationDocument document) : base(document) { }
+    }
+    sealed class DerivedInstanceSet : InstanceSet { }
+    static void UnsupportedFallbacks()
+    {
+        foreach (bool derivedSet in new[] { false, true })
+        {
+            var source = BareDocument("derived");
+            if (derivedSet)
+            {
+                object state = typeof(AssetDeclarationDocument).GetField("_Current", Hidden).GetValue(source);
+                state.GetType().GetField("SelfInstances").SetValue(state, new DerivedInstanceSet());
+                Instance(source, "Owner");
+            }
+            else
+            {
+                var xml = new XmlDocument(); xml.LoadXml("<ArmorTemplate id='Owner'/>");
+                source.SelfInstances.Add(new DerivedInstance(source) { XmlNode = xml.DocumentElement });
+            }
+            source.MakeCacheable(); var copy = new AssetDeclarationDocument(); copy.CacheFromDocument(source); copy.FromLastHack();
+            Require(Object.ReferenceEquals(copy.SelfInstances[0], source.SelfInstances[0]), "Derived declaration graph was sliced");
+            copy.MakeComplete(); copy.MakeCacheable();
+            var recopy = new AssetDeclarationDocument(); recopy.CacheFromDocument(copy); recopy.FromLastHack();
+            Require(Object.ReferenceEquals(recopy.SelfInstances[0], source.SelfInstances[0]), "Derived runtime provenance lost after restore/recapture");
+        }
+        tests.Add("derived-declaration-and-instance-set-preserve-whole-legacy-graph-through-recapture");
+    }
+    static InstanceDeclaration SavedDeclaration(AssetDeclarationDocument document)
+    {
+        object last = typeof(AssetDeclarationDocument).GetField("_Last", Hidden).GetValue(document);
+        return ((List2<InstanceDeclaration>)last.GetType().GetField("SelfInstances").GetValue(last))[0];
+    }
+    static object Saved(InstanceDeclaration declaration) { return typeof(InstanceDeclaration).GetField("_Last", Hidden).GetValue(declaration); }
+    static void SharedSavedBoundaries()
+    {
+        foreach (bool deepCopy in new[] { false, true })
+        {
+            AppContext.SetSwitch(Disable, false); AppContext.SetSwitch(HandleDisable, false); AppContext.SetSwitch(ShareDisable, deepCopy);
+            var source = BareDocument("shared-save"); Instance(source, "Owner"); source.MakeCacheable(); string before = Xml(source);
+            var first = new AssetDeclarationDocument(); first.CacheFromDocument(source);
+            var second = new AssetDeclarationDocument(); second.CacheFromDocument(first);
+            Require(!Object.ReferenceEquals(SavedDeclaration(source), SavedDeclaration(first)), "Public declaration wrappers unexpectedly shared");
+            Require(Object.ReferenceEquals(Saved(SavedDeclaration(source)), Saved(SavedDeclaration(first))) == !deepCopy &&
+                Object.ReferenceEquals(Saved(SavedDeclaration(first)), Saved(SavedDeclaration(second))) == !deepCopy,
+                "Saved-only private graph sharing/deep-copy fallback did not execute");
+            first.FromLastHack(); second.FromLastHack();
+            first.SelfInstances[0].Handle.TypeHash ^= 0x11223344;
+            first.SelfInstances[0].ReferencedInstances[0].TypeHash ^= 0x55667788;
+            first.MakeComplete(); first.SelfInstances[0].ProcessingHash = 123; first.MakeCacheable();
+            Require(Xml(source) == before && Xml(second) == before && Xml(first) != before, "Private saved sharing exposed a mutable Current or recapture");
+            // Switch transitions must preserve the prior deep-copy algorithm's
+            // legacy per-owner saved/current alias, without leaking to siblings.
+            foreach (bool transferAfterDisable in new[] { false, true })
+            {
+                AppContext.SetSwitch(HandleDisable, false);
+                var fresh = BareDocument("switch-transition"); Instance(fresh, "Owner"); fresh.MakeCacheable(); string savedBefore = Xml(fresh);
+                var a = new AssetDeclarationDocument(); a.CacheFromDocument(fresh);
+                var b = new AssetDeclarationDocument(); b.CacheFromDocument(fresh);
+                AppContext.SetSwitch(HandleDisable, true);
+                var receiver = a;
+                if (transferAfterDisable) { receiver = new AssetDeclarationDocument(); receiver.CacheFromDocument(a); }
+                receiver.FromLastHack(); receiver.SelfInstances[0].Handle.TypeHash ^= 0x12345678;
+                Require(Xml(fresh) == savedBefore && Xml(b) == savedBefore, "Dynamic legacy Handle restore/transfer mutated a previously independent sibling");
+                Require(Xml(receiver) != savedBefore, "Dynamic legacy Handle fallback lost its per-owner saved/current alias");
+            }
+            AppContext.SetSwitch(HandleDisable, false);
+            int savedGraphObjects = new[] { Saved(SavedDeclaration(source)), Saved(SavedDeclaration(second)) }.Distinct().Count();
+            evidence.Add(new { id = "sealed-private-saved-graph", deepCopyFallback = deepCopy, privateTransferSharesSavedGraph = !deepCopy, observedDistinctSavedGraphsAfterReceiverRecapture = savedGraphObjects,
+                scope = "Private saved declaration sharing only; wrappers, mutable Current, document containers and metadata remain independently owned" });
+        }
+        AppContext.SetSwitch(ShareDisable, false);
+        var binarySource = BareDocument("unknown-binary-provenance"); Instance(binarySource, "Owner"); binarySource.MakeCacheable();
+        AssetDeclarationDocument unknown;
+        using (var memory = new MemoryStream())
+        {
+            var formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            formatter.Serialize(memory, binarySource); memory.Position = 0;
+            unknown = (AssetDeclarationDocument)formatter.Deserialize(memory);
+        }
+        string unknownBefore = Xml(unknown);
+        var fromUnknown = new AssetDeclarationDocument(); fromUnknown.CacheFromDocument(unknown);
+        Require(!Object.ReferenceEquals(Saved(SavedDeclaration(unknown)), Saved(SavedDeclaration(fromUnknown))), "Unknown binary provenance incorrectly authorized saved graph sharing");
+        fromUnknown.FromLastHack(); fromUnknown.MakeComplete(); fromUnknown.SelfInstances[0].ProcessingHash = 987; fromUnknown.MakeCacheable();
+        Require(Xml(unknown) == unknownBefore, "Unknown serialized source was mutated through a copied declaration");
+        tests.Add("sealed-private-saved-transfer-sharing-deep-copy-fallback-current-mutation-recapture-and-dynamic-Handle-switch-isolation");
+    }
+    static List<AssetDeclarationDocument> TransferChain(AssetDeclarationDocument source, int count)
+    {
+        var documents = new List<AssetDeclarationDocument>(count);
+        AssetDeclarationDocument previous = source;
+        for (int index = 0; index < count; index++)
+        {
+            var next = new AssetDeclarationDocument(); next.CacheFromDocument(previous);
+            documents.Add(next); previous = next;
+        }
+        return documents;
+    }
+    static int DistinctSavedGraphs(IEnumerable<AssetDeclarationDocument> documents)
+    {
+        var graphs = new HashSet<object>();
+        foreach (var document in documents)
+        {
+            object last = typeof(AssetDeclarationDocument).GetField("_Last", Hidden).GetValue(document);
+            foreach (var declaration in (List2<InstanceDeclaration>)last.GetType().GetField("SelfInstances").GetValue(last))
+                graphs.Add(Saved(declaration));
+        }
+        return graphs.Count;
+    }
+    static void BoundedTransferMeasurement()
+    {
+        const int declarations = 32, transfers = 20, rounds = 7;
+        AppContext.SetSwitch(Disable, false); AppContext.SetSwitch(HandleDisable, false); AppContext.SetSwitch(ShareDisable, false);
+        var source = BareDocument("bounded-component-transfer");
+        for (int index = 0; index < declarations; index++)
+        {
+            var instance = Instance(source, "Owner" + index.ToString("D2"));
+            instance.ReferencedInstances.Add(instance.ReferencedInstances[0]);
+            instance.WeakReferencedInstances.Add(instance.ReferencedInstances[0]);
+            instance.ReferencedInstances.Add(new InstanceHandle("UpgradeTemplate", "Extra" + index));
+        }
+        source.MakeCacheable(); string before = Xml(source), changed = null;
+        // Verify both paths before taking any timings. Include serialization,
+        // Current restore/aliases, completion, mutation and a new saved result.
+        foreach (bool deepCopy in new[] { false, true })
+        {
+            AppContext.SetSwitch(ShareDisable, deepCopy); var chain = TransferChain(source, 3);
+            Require(chain.All(document => Xml(document) == before), "Measurement precheck changed saved XML");
+            var receiver = chain[2]; receiver.FromLastHack();
+            Require(receiver.SelfInstances.Count == declarations &&
+                Object.ReferenceEquals(receiver.SelfInstances[0].ReferencedInstances[0], receiver.SelfInstances[0].ReferencedInstances[1]) &&
+                Object.ReferenceEquals(receiver.SelfInstances[0].ReferencedInstances[0], receiver.SelfInstances[0].WeakReferencedInstances[0]),
+                "Measurement precheck lost restored declaration count or Handle aliases");
+            receiver.SelfInstances[0].ReferencedInstances[0].TypeHash ^= 0x24681357;
+            receiver.MakeComplete(); receiver.SelfInstances[0].ProcessingHash = 123456; receiver.MakeCacheable();
+            string actual = Xml(receiver); if (changed == null) changed = actual;
+            Require(actual == changed && actual != before && Xml(source) == before && Xml(chain[0]) == before && Xml(chain[1]) == before,
+                "Measurement paths disagree on mutable Current/recapture isolation");
+        }
+        var samples = new List<object>(); var sharedTicks = new List<long>(); var deepTicks = new List<long>();
+        for (int round = 0; round < rounds; round++)
+        {
+            bool[] order = round % 2 == 0 ? new[] { false, true } : new[] { true, false };
+            for (int position = 0; position < order.Length; position++)
+            {
+                bool deepCopy = order[position]; AppContext.SetSwitch(ShareDisable, deepCopy);
+                // The timed operation consists only of public cache transfers;
+                // reflection, XML, identity enumeration and assertions stay out.
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                var chain = TransferChain(source, transfers);
+                watch.Stop();
+                int graphs = DistinctSavedGraphs(new[] { source }.Concat(chain));
+                Require(graphs == (deepCopy ? declarations * (transfers + 1) : declarations), "Measured saved graph work did not match the selected algorithm");
+                Require(Xml(chain[transfers - 1]) == before && Xml(source) == before, "Measured transfer changed saved XML");
+                (deepCopy ? deepTicks : sharedTicks).Add(watch.ElapsedTicks);
+                samples.Add(new { round, position, deepCopyFallback = deepCopy, elapsedTicks = watch.ElapsedTicks,
+                    elapsedMs = watch.ElapsedTicks * 1000.0 / System.Diagnostics.Stopwatch.Frequency,
+                    retainedDocumentCount = transfers + 1, observedDistinctPrivateSavedGraphs = graphs });
+            }
+        }
+        sharedTicks.Sort(); deepTicks.Sort();
+        evidence.Add(new { id = "bounded-public-document-transfer-component-measurement", declarations, transfersPerSample = transfers, rounds,
+            stopwatchFrequency = System.Diagnostics.Stopwatch.Frequency, stopwatchIsHighResolution = System.Diagnostics.Stopwatch.IsHighResolution,
+            medianSharedTicks = sharedTicks[rounds / 2], medianDeepCopyTicks = deepTicks[rounds / 2],
+            medianSharedMs = sharedTicks[rounds / 2] * 1000.0 / System.Diagnostics.Stopwatch.Frequency,
+            medianDeepCopyMs = deepTicks[rounds / 2] * 1000.0 / System.Diagnostics.Stopwatch.Frequency, samples = samples.ToArray(),
+            scope = "32 fixed declarations; 20 public saved-cache transfers per sample; seven alternating-order rounds. Distinct graphs count only reachable private saved results in retained source/transfer documents. Timings include transfer wrappers and containers, exclude XML, restore and reflection; no forced GC, speed assertion, CLI speedup or memory-peak claim" });
+        AppContext.SetSwitch(ShareDisable, false);
+        tests.Add("bounded-interleaved-public-cache-transfer-component-work-and-raw-timing-samples-after-lifecycle-equivalence");
+    }
+    static Settings Configure()
+    {
+        var config = new XmlDocument(); config.Load(Path.Combine(sdk, "tools/BinaryAssetBuilder.exe.config"));
+        var settings = (Settings)new SerializedSectionHandler().Create(null, null, config.SelectSingleNode("/configuration/assetbuilder"));
+        settings.DataRoot = work; settings.SchemaPath = Path.Combine(sdk, "Schemas/xsd/CnC3Types.xsd"); settings.InputPath = Path.Combine(work, "real", "root.xml");
+        settings.OutputDirectory = Path.Combine(work, "real", "output"); settings.IntermediateOutputDirectory = Path.Combine(work, "real", "intermediate");
+        settings.SessionCacheDirectory = Path.Combine(work, "real", "cache"); settings.DefaultDataPaths = work; settings.DefaultArtPaths = work; settings.DefaultAudioPaths = work;
+        settings.TargetPlatform = TargetPlatform.Win32; settings.BuildCache = false; settings.SessionCache = false; settings.LinkedStreams = true;
+        settings.OutputAssetReport = false; settings.OutputStringHashes = false; settings.ErrorLevel = 1; settings.UsePrecompiled = false; settings.StreamHints = false; settings.StableSort = false;
+        Settings.Current = settings; SettingsLoader.PostProcessSettings(work); Directory.CreateDirectory(settings.OutputDirectory);
+        Directory.CreateDirectory(settings.IntermediateOutputDirectory); Directory.CreateDirectory(settings.SessionCacheDirectory); return settings;
+    }
+    static DocumentProcessor Processor(BuiltinCompilers plugins, SchemaSet schemas, bool restore)
+    {
+        HashProvider.InitializeStringHashes(Settings.Current.SessionCacheDirectory);
+        var cache = new SessionCache();
+        cache.LoadCache(Path.Combine(Settings.Current.SessionCacheDirectory, "declarations.xml"));
+        cache.InitializeCache(new List<string>());
+        var verifiers = new VerifierPluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32);
+        verifiers.DefaultPlugin = (IAssetBuilderVerifierPlugin)Activator.CreateInstance(typeof(DocumentProcessor).Assembly.GetType("BinaryAssetBuilder.GameDataVerifier.Plugin", true), true);
+        verifiers.DefaultPlugin.Initialize(null, TargetPlatform.Win32);
+        return new DocumentProcessor(Settings.Current, plugins.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
+    }
+    static void Run(DocumentProcessor processor, string path) { bool success; processor.ProcessDocument(path, true, false, out success); Require(success, "Real Core declaration run failed"); }
+    static Dictionary<string, string> Four(string root)
+    {
+        var result = new Dictionary<string, string>();
+        foreach (string path in Directory.GetFiles(root, "*", SearchOption.AllDirectories))
+            if (new[] { ".manifest", ".bin", ".imp", ".relo" }.Contains(Path.GetExtension(path)))
+                using (var sha = SHA256.Create()) result.Add(Path.GetExtension(path), Convert.ToBase64String(sha.ComputeHash(File.ReadAllBytes(path))));
+        Require(result.Count == 4, "Expected four actual Core outputs"); return result;
+    }
+    static void Equal(Dictionary<string, string> expected, Dictionary<string, string> actual)
+    { Require(expected.Count == actual.Count && expected.All(pair => actual.ContainsKey(pair.Key) && actual[pair.Key] == pair.Value), "Declaration ownership changed actual Core four outputs"); }
+    static void RealCore()
+    {
+        var settings = Configure(); Directory.CreateDirectory(Path.GetDirectoryName(settings.InputPath));
+        File.Copy(Path.Combine(sdk, "Mods/mymod/Data/RecoveryArmorProbe.xml"), settings.InputPath);
+        using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
+        {
+            Dictionary<string, string> expected = null;
+            foreach (bool deepCopy in new[] { false, true })
+            foreach (bool disabled in new[] { false, true })
+            {
+                AppContext.SetSwitch(Disable, disabled); AppContext.SetSwitch(ShareDisable, deepCopy);
+                string mode = (deepCopy ? "deep-" : "shared-") + (disabled ? "legacy" : "owned");
+                settings.OutputDirectory = Path.Combine(work, "real", mode + "-output"); settings.IntermediateOutputDirectory = Path.Combine(work, "real", mode + "-intermediate");
+                settings.SessionCacheDirectory = Path.Combine(work, "real", mode + "-cache"); Directory.CreateDirectory(settings.SessionCacheDirectory);
+                var schemas = new SchemaSet(false);
+                var cold = Processor(plugins, schemas, false); Run(cold, settings.InputPath); var output = Four(settings.OutputDirectory);
+                if (expected == null) expected = output; else Equal(expected, output);
+                Run(cold, settings.InputPath); Equal(expected, Four(settings.OutputDirectory));
+                ((SessionCache)cold.Cache).SaveCache(false);
+                settings.OutputDirectory = Path.Combine(work, "real", mode + "-restored-output"); settings.IntermediateOutputDirectory = Path.Combine(work, "real", mode + "-restored-intermediate");
+                var restored = Processor(plugins, schemas, true); Run(restored, settings.InputPath); Equal(expected, Four(settings.OutputDirectory));
+                AssetDeclarationDocument document; restored.Cache.TryGetDocument(settings.InputPath, null, TargetPlatform.Win32, false, out document);
+                Require(document != null && document.SelfInstances.Count == 3 && document.SelfInstances.Any(instance => instance.InheritFromHandle != null), "Actual persisted inheritance declarations were not restored");
+                document.MakeCacheable(); string before = Xml(document);
+                var copy = new AssetDeclarationDocument(); copy.CacheFromDocument(document); copy.FromLastHack();
+                Require(copy.SelfInstances.Count == 3 && copy.SelfInstances[0].Handle.Equals(document.SelfInstances[0].Handle), "Real Core cache copy lost declaration order");
+                copy.MakeComplete(); copy.SelfInstances[0].ProcessingHash ^= 0x12345678; copy.MakeCacheable();
+                Require((before == Xml(document)) == !disabled, "Real Core cached document lifecycle did not isolate declarations");
+                evidence.Add(new { id = "real-Core-session", legacyFallback = disabled, deepCopySavedFallback = deepCopy, coldParse = cold.XmlParseCount, restoredParse = restored.XmlParseCount, fourOutputs = output,
+                    mutationScope = "After successful compilation, direct public cache-copy/complete/reserialize probe" });
+            }
+        }
+        AppContext.SetSwitch(Disable, false);
+        tests.Add("real-SDK-Armor-inheritance-cold-warm-persisted-session-and-legacy-fallback-four-output-equality");
+    }
+    public static int Main(string[] args)
+    {
+        object result; int code = 0; Settings previous = Settings.Current;
+        bool previousSwitch, previousShare, previousHandle;
+        AppContext.TryGetSwitch(Disable, out previousSwitch); AppContext.TryGetSwitch(ShareDisable, out previousShare); AppContext.TryGetSwitch(HandleDisable, out previousHandle);
+        try
+        {
+            Require(args.Length == 6 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work result source run SDK originalOracleJson");
+            work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work); AppContext.SetSwitch(Disable, false);
+            originalOracle = Json.DeserializeObject(File.ReadAllText(args[5])) as IDictionary<string, object>;
+            Require(originalOracle != null && (bool)originalOracle["succeeded"] && (string)originalOracle["mode"] == "original" &&
+                (bool)originalOracle["sameDeclaration"] && (bool)originalOracle["sourceXmlChanged"], "Independent original SDK oracle did not reproduce shared declaration lifecycle");
+            evidence.Add(new { id = "independent-original-SDK-DLL-oracle", oracle = originalOracle });
+            SharedSavedBoundaries();
+            foreach (bool deepCopy in new[] { false, true }) { AppContext.SetSwitch(ShareDisable, deepCopy); PublicCacheBoundaries(); UnsupportedFallbacks(); }
+            RealCore();
+            BoundedTransferMeasurement();
+            result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), evidence = evidence.ToArray(),
+                scope = "Document declaration cache ownership across save/copy/restore/complete/recapture; derived graphs and opt-out remain legacy; not immutable DOM/SchemaInfo or a confirmed CLI fault" };
+            Console.WriteLine("PASS DocumentSnapshots: " + tests.Count + " groups; " + checks + " checks");
+        }
+        catch (Exception error)
+        {
+            code = 1; Console.Error.WriteLine(error); result = new { succeeded = false, sourceCommit = args.Length > 2 ? args[2] : null, runId = args.Length > 3 ? args[3] : null,
+                checks, tests = tests.ToArray(), evidence = evidence.ToArray(), error = error.ToString() };
+        }
+        finally { Settings.Current = previous; AppContext.SetSwitch(Disable, previousSwitch); AppContext.SetSwitch(ShareDisable, previousShare); AppContext.SetSwitch(HandleDisable, previousHandle); }
+        if (args.Length > 1) File.WriteAllText(args[1], Json.Serialize(result)); return code;
+    }
+}

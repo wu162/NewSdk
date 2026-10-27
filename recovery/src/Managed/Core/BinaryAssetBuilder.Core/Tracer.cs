@@ -49,6 +49,11 @@ public class Tracer
 
 	public static TraceWriteHandler TraceWrite;
 
+    // A guard for call-local indexes, not a work metric. Every actual external
+    // callback may mutate objects without mutating their containing list.
+    [ThreadStatic] private static long _CallbackVersion;
+    internal static long CallbackVersion => _CallbackVersion;
+
 	private static LocalDataStoreSlot _IndentLevelStore;
 
 	private static TraceKind _TraceMask;
@@ -186,6 +191,7 @@ public class Tracer
 	{
 		if (TraceWrite != null)
 		{
+            unchecked { _CallbackVersion++; }
 			TraceWrite(source, type, message);
 		}
 	}

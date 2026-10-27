@@ -13,6 +13,7 @@ namespace NewModCompiler.Application
         readonly BuildRequest request; readonly IStreamCompiler compiler; readonly EventDispatcher events; readonly IDependencyPlanner dependencyPlanner;
         readonly List<Artifact> artifacts = new List<Artifact>(); readonly List<object> stages = new List<object>();
         readonly List<object> diagnostics = new List<object>();
+        readonly WorkMetrics applicationWork = new WorkMetrics();
         BuildPlan plan; bool executed, acceptingCoreTrace; string activeStage, activeStream; long stageStarted; string providerIdentity;
         int errorCount, warningCount;
         public BuildSession(BuildRequest request, IStreamCompiler compiler, EventDispatcher events, IDependencyPlanner dependencyPlanner = null) { this.request = request; this.compiler = compiler; this.events = events; this.dependencyPlanner = dependencyPlanner; }
@@ -21,6 +22,7 @@ namespace NewModCompiler.Application
             if (executed) throw new InvalidOperationException("BuildSession can only be executed once."); executed = true; acceptingCoreTrace = true;
             DiagnosticDirectory stagingParent = null, stagingGuard = null; bool stagingOwned = false;
             IBuildCacheCompiler cacheCompiler = compiler as IBuildCacheCompiler;
+            IInputSnapshotCompiler inputCompiler = compiler as IInputSnapshotCompiler;
             ArtifactPublication publication = null; string publicationStatus = request.Command == "plan" ? "NoCompilationRequested" : "NotPublished";
             string publicationDirectory = request.Command == "plan" ? null : Path.Combine(request.OutputRoot,"published");
             try {
@@ -30,7 +32,7 @@ namespace NewModCompiler.Application
                 events.Emit("BuildStarted",payload:new { request = request, toolVersion = typeof(BuildSession).Assembly.GetName().Version.ToString(), processId = System.Diagnostics.Process.GetCurrentProcess().Id });
                 cancellation.ThrowIfCancellationRequested();
                 StartStage("plan");
-                plan = Planner.Resolve(request,dependencyPlanner); events.Emit("PlanResolved",payload:plan);
+                plan = applicationWork.Measure("planning", () => Planner.Resolve(request,dependencyPlanner)); events.Emit("PlanResolved",payload:plan);
                 CompleteStage("succeeded",0);
                 if (request.Command == "build") {
                     if (compiler == null) throw new BuildFailure(ExitCode.Environment,"BACKEND_NOT_INTEGRATED","This P2 application skeleton has no integrated compilation backend. No stream was compiled.");
@@ -44,7 +46,8 @@ namespace NewModCompiler.Application
                         stagingOwned=true;
                     } catch (IOException e) { throw new BuildFailure(ExitCode.Output,"STAGING_PATH",e.Message); }
                     catch (UnauthorizedAccessException e) { throw new BuildFailure(ExitCode.Output,"STAGING_PATH",e.Message); }
-                    compiler.Initialize(request); providerIdentity=compiler.ProviderIdentity;
+                    if (inputCompiler != null) inputCompiler.RetainInputsUntilCompletion();
+                    applicationWork.Measure("backendInitialize", () => compiler.Initialize(request)); providerIdentity=compiler.ProviderIdentity;
                     int completed = 0;
                     foreach (BuildTask task in plan.Tasks) {
                         cancellation.ThrowIfCancellationRequested();
@@ -53,11 +56,11 @@ namespace NewModCompiler.Application
                         activeStream = task.Id;
                         events.Emit("StreamStarted",payload:new {input=task.InputPath,effectiveOptions=request.Options},streamId:task.Id,stageId:"compile");
                         try {
-                            var produced = compiler.Compile(new StreamContext {BuildId=events.BuildId,Task=task,Request=request,StagingDirectory=streamDirectory},cancellation);
+                            var produced = applicationWork.Measure("backendCompile", () => compiler.Compile(new StreamContext {BuildId=events.BuildId,Task=task,Request=request,StagingDirectory=streamDirectory},cancellation));
                             cancellation.ThrowIfCancellationRequested();
                             if (produced == null) throw new InvalidOperationException("Backend returned no artifact list.");
                             foreach (Artifact artifact in produced) {
-                                ValidateArtifact(artifact,streamDirectory); artifacts.Add(artifact); events.Emit("ArtifactProduced",payload:artifact,streamId:task.Id,stageId:"compile");
+                                applicationWork.Measure("artifactValidation", () => ValidateArtifact(artifact,streamDirectory)); artifacts.Add(artifact); events.Emit("ArtifactProduced",payload:artifact,streamId:task.Id,stageId:"compile");
                             }
                             
                         } catch (Exception e) {
@@ -77,7 +80,7 @@ namespace NewModCompiler.Application
             finally {
                 activeStream = null;
                 if (compiler != null) {
-                    try { compiler.Dispose(); }
+                    try { applicationWork.Measure("backendDispose", compiler.Dispose); }
                     catch (Exception e) {
                         // Cleanup must not hide the original compilation failure
                         // or cancellation. A previously successful build must fail.
@@ -98,12 +101,21 @@ namespace NewModCompiler.Application
             if(code==ExitCode.Success && request.Command=="build" && request.PackageFormat=="big" && artifacts.Count!=0) {
                 try {
                     StartStage("package");
-                    var packaged=BigPackage.Create(request,plan,staging,artifacts,cancellation,message=>Diagnostic("ADDITIONAL_OVERWRITE",message,"warning",stageId:"package"));
+                    var packaged=applicationWork.Measure("packaging", () => BigPackage.Create(request,plan,staging,artifacts,cancellation,message=>Diagnostic("ADDITIONAL_OVERWRITE",message,"warning",stageId:"package")));
                     artifacts.Clear();artifacts.AddRange(packaged);
                     foreach(var artifact in artifacts) events.Emit("ArtifactProduced",payload:artifact,stageId:"package");
                     CompleteStage("succeeded",artifacts.Count);
                 } catch(OperationCanceledException e) {code=ExitCode.Cancelled;status="cancelled";Fail(e,status,"BUILD_CANCELLED","Build cancelled while packaging.");}
                 catch(Exception e) {code=ExitCode.Output;status="failed";Fail(e,status,"PACKAGE_FAILED",e.ToString());}
+            }
+            // Provider disposal does not end the positive-input transaction.
+            // Recheck actual captured content after packaging and retain its pins
+            // through publication, cache commit and every required output close.
+            if (code == ExitCode.Success && request.Command == "build" && inputCompiler != null) {
+                try { applicationWork.Measure("inputVerification", () => inputCompiler.VerifyInputs(cancellation)); }
+                catch (OperationCanceledException e) { code=ExitCode.Cancelled; status="cancelled"; Fail(e,status,"BUILD_CANCELLED","Build cancelled while verifying inputs."); }
+                catch (BuildFailure e) { code=e.ExitCode; status="failed"; Fail(e,status,e.Code,e.Message); }
+                catch (Exception e) { code=ExitCode.Compilation; status="failed"; Fail(e,status,"INPUT_VERIFICATION_FAILED",e.ToString()); }
             }
             // The compiler must release every stream and provider before publication.
             // Keep the previous generation until all required output channels close.
@@ -111,9 +123,9 @@ namespace NewModCompiler.Application
                 try {
                     StartStage("publish");
                     cancellation.ThrowIfCancellationRequested();
-                    publication = new ArtifactPublisher().Prepare(request,staging,"published",artifacts,cancellation);
+                    publication = applicationWork.Measure("publicationPrepare", () => new ArtifactPublisher().Prepare(request,staging,"published",artifacts,cancellation));
                     cancellation.ThrowIfCancellationRequested();
-                    publication.Commit();
+                    applicationWork.Measure("publicationCommit", publication.Commit);
                     artifacts.Clear(); artifacts.AddRange(publication.Result.Artifacts);
                     CompleteStage("succeeded",artifacts.Count);
                     cancellation.ThrowIfCancellationRequested();
@@ -141,7 +153,7 @@ namespace NewModCompiler.Application
             // loose publication. A late report or sink failure revokes both.
             if (cacheCompiler != null) {
                 if (code == ExitCode.Success && request.Command == "build") {
-                    try { cacheCompiler.CommitCache(); }
+                    try { applicationWork.Measure("cacheCommit", cacheCompiler.CommitCache); }
                     catch (Exception e) { code=ExitCode.Output; status="failed"; Diagnostic("CACHE_COMMIT_FAILED",e.ToString()); }
                 }
                 if (code != ExitCode.Success) {
@@ -157,6 +169,7 @@ namespace NewModCompiler.Application
                 {"plan",plan},{"stages",stages},{"diagnostics",diagnostics},{"diagnosticCounts",new {error=errorCount,warning=warningCount}},
                 {"loadedProviders",providerIdentity == null ? new string[0] : new [] {providerIdentity}},
                 {"externalTools",new string[0]},{"cache",cacheCompiler == null ? (object)new {status="NotImplemented",hits=0,misses=0} : cacheCompiler.CacheReport},
+                {"applicationWork",new { captureBoundary="beforeInitialReport", stages=applicationWork.Snapshot() }},
                 {"elapsedMs",events.ElapsedMilliseconds},{"artifacts",artifacts},{"logPaths",new {events=request.EventsPath,report=request.ReportPath,text=request.LogPath}},
                 {"executionMode",request.Command == "plan" ? "PlanOnly" : "InProcess"},
                 {"publicationStatus",publicationStatus},{"publicationDirectory",publicationDirectory}
@@ -210,9 +223,17 @@ namespace NewModCompiler.Application
                     try { Console.Error.WriteLine("CACHE_FINAL_CLEANUP_FAILED: " + e); } catch (Exception) { }
                 }
                 finally {
-                if (publication != null) publication.Dispose();
-                if (stagingGuard != null) stagingGuard.Dispose();
-                if (stagingParent != null) stagingParent.Dispose();
+                    try {
+                        if (publication != null) publication.Dispose();
+                        if (stagingGuard != null) stagingGuard.Dispose();
+                        if (stagingParent != null) stagingParent.Dispose();
+                    }
+                    finally {
+                        if (inputCompiler != null) {
+                            try { inputCompiler.ReleaseInputs(); }
+                            catch (Exception e) { try { Console.Error.WriteLine("INPUT_FINAL_CLEANUP_FAILED: " + e); } catch (Exception) { } }
+                        }
+                    }
                 }
             }
         }

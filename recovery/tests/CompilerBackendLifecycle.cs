@@ -18,6 +18,7 @@ public static class CompilerBackendLifecycle
 {
     static readonly List<string> Tests = new List<string>();
     static readonly List<object> BaselineCases = new List<object>();
+    static readonly List<object> DigestWork = new List<object>();
     static readonly BindingFlags PrivateStatic = BindingFlags.Static | BindingFlags.NonPublic;
     static string work, sdk, probe;
     static int checks, traceCalls;
@@ -183,7 +184,7 @@ public static class CompilerBackendLifecycle
         }
         Require(seen.Count==3 && dataOffset==bin.Length && reloOffset==relocations.Length,"Asset chunks do not exactly consume streams");
     }
-    static bool oracleMutationChecked;
+    static bool oracleMutationChecked, providerOwnershipChecked, capabilityPolicyChecked;
     static void IndependentArmorOracle(IList<Artifact> artifacts,bool variant,string source)
     {
         Func<string,byte[]> read=extension=>File.ReadAllBytes(artifacts.Single(a=>Path.GetExtension(a.Path)==extension).Path);
@@ -205,11 +206,171 @@ public static class CompilerBackendLifecycle
     {
         var providers=(BuiltinCompilers)typeof(CoreStreamCompiler).GetField("compilers",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(backend);
         Require(providers.Registry.DefaultPlugin.GetAllTypesHash()==1424942948u && providers.Registry.DefaultPlugin.GetVersionNumber()==4u,"Backend default metadata is not the original Win32 XML contract");
+        if (!providerOwnershipChecked)
+        {
+            PluginRegistry registry = providers.Registry;
+            Action[] attempts = {
+                () => { PluginRegistry ignored = providers.Registry; },
+                () => providers.ReInitialize(TargetPlatform.Win32),
+                () => providers.Dispose()
+            };
+            foreach (Action attempt in attempts)
+            {
+                Exception observed = null;
+                var worker = new Thread(() => { try { attempt(); } catch (Exception error) { observed = error; } }) { IsBackground = true };
+                worker.Start(); Require(worker.Join(10000), "Wrong-thread provider call did not finish before reaching native code");
+                Require(observed is InvalidOperationException && observed.Message == "The built-in compilers must be used by their owning thread.",
+                    "Live provider lifecycle was not rejected at its aggregate owner boundary");
+                Require(Object.ReferenceEquals(providers.Registry, registry), "Rejected provider operation disposed or replaced the owner's registry");
+            }
+            providerOwnershipChecked = true;
+            Tests.Add("actual-live-backend-providers-wrong-thread-registry-reinitialize-dispose-rejected-before-native-or-terminal-state-owner-next-stream-and-dispose-remain-valid");
+        }
+        if (!capabilityPolicyChecked)
+        {
+            CapabilityPolicy(backend, providers); capabilityPolicyChecked = true;
+        }
+    }
+    static void CachePolicy(string consumer, IEnumerable<BuiltinCompilerCapabilities> policies, string expectedCode, string expectedMessage)
+    {
+        var method = typeof(CoreStreamCompiler).GetMethod(consumer, PrivateStatic);
+        try
+        {
+            method.Invoke(null, new object[] { policies });
+            Require(expectedCode == null, "Cache capability consumer accepted a denied route");
+        }
+        catch (TargetInvocationException error)
+        {
+            var failure = error.InnerException as BuildFailure;
+            Require(failure != null && failure.ExitCode == ExitCode.Arguments && failure.Code == expectedCode && failure.Message == expectedMessage,
+                "Cache capability consumer changed its type-specific refusal contract");
+        }
+    }
+    static void CapabilityPolicy(CoreStreamCompiler backend, BuiltinCompilers providers)
+    {
+        var serializer = new JavaScriptSerializer(); var map = providers.Capabilities;
+        Require(map.Count == providers.Routes.Count && map.Count > 3, "Capability catalog does not match actual registered type routes");
+        foreach (var route in providers.Routes)
+        {
+            var value = providers.GetCapabilities(route.TypeId); bool texture = route.Family == "texture";
+            Require(map.ContainsKey(route.TypeId) && Object.ReferenceEquals(map[route.TypeId], value) &&
+                value.TypeId == route.TypeId && value.TypeName == route.TypeName && value.Family == route.Family,
+                "Capability entry drifted from its actual provider registration");
+            Require(value.ThreadPolicy == "OwnerThreadSerial" && !value.StrongBundleAllowed && !value.ParallelAllowed &&
+                value.MemoryClass == "Unknown" && !value.RequiredEnvironmentComplete &&
+                value.InputTracking == (texture ? "Unknown" : "ConservativeCoreBoundary") &&
+                value.LegacyBuildCacheAllowed == !texture && value.LegacySessionCacheAllowed == !texture,
+                "A conservative plugin declaration claimed exact closure, environment completeness, new cache or parallel eligibility");
+        }
+        Require(typeof(BuiltinCompilerCapabilities).GetProperties().All(value => value.GetSetMethod(true) == null),
+            "Capability values expose a mutable setter");
+        var mutable = map as IDictionary<uint, BuiltinCompilerCapabilities>;
+        if (mutable != null)
+        {
+            bool rejected = false; try { mutable.Remove(providers.Routes[0].TypeId); } catch (NotSupportedException) { rejected = true; }
+            Require(rejected && map.Count == providers.Routes.Count, "Capability map exposes mutable registrations");
+        }
+        uint unknownId = UInt32.MaxValue; while (map.ContainsKey(unknownId)) unknownId--;
+        var unknown = providers.GetCapabilities(unknownId); int count = map.Count;
+        Require(unknown.TypeId == unknownId && unknown.TypeName == null && unknown.Family == "unknown" &&
+            unknown.InputTracking == "Unknown" && unknown.PhysicalInputBypassReason == "unknown-compiler-closure" &&
+            !unknown.LegacyBuildCacheAllowed && !unknown.LegacySessionCacheAllowed && !unknown.StrongBundleAllowed && !unknown.ParallelAllowed,
+            "Unknown compiler capability was eligible for cache, reuse or parallel execution");
+        for (uint i = 1; i <= 32; i++) providers.GetCapabilities(unknownId - i);
+        Require(map.Count == count, "Unknown capability requests grew the registered catalog");
+        uint armorId = InstanceHandle.GetTypeId("ArmorTemplate"), xmlId = InstanceHandle.GetTypeId("AttributeModifier");
+        var armor = providers.Registry.GetExtendedTypeInformation(armorId); var xml = providers.Registry.GetExtendedTypeInformation(xmlId);
+        Require(!armor.UseBuildCache && !xml.UseBuildCache, "Fixture no longer starts with the original Armor/XML descriptor cache defaults");
+        string saved = serializer.Serialize(providers.GetCapabilities(armorId)), name = armor.TypeName;
+        bool armorCache = armor.UseBuildCache;
+        try
+        {
+            armor.TypeName = "MutableMetadataOnly"; armor.UseBuildCache = !armorCache;
+            Require(serializer.Serialize(providers.GetCapabilities(armorId)) == saved, "Mutable plugin metadata changed a captured capability scalar");
+        }
+        finally { armor.TypeName = name; armor.UseBuildCache = armorCache; }
+        var texturePolicies = providers.Routes.Where(route => route.Family == "texture").Select(route => providers.GetCapabilities(route.TypeId)).ToArray();
+        Require(texturePolicies.Length == 3, "Capability consumer omitted a registered Texture route");
+        var textureMetadata = texturePolicies.Select(value => providers.Registry.GetExtendedTypeInformation(value.TypeId)).ToArray();
+        bool[] prior = textureMetadata.Select(value => value.UseBuildCache).ToArray();
+        try
+        {
+            foreach (var metadata in textureMetadata) metadata.UseBuildCache = true;
+            int vetoes = (int)typeof(CoreStreamCompiler).GetMethod("ApplyLegacyBuildCacheCapabilities", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(backend, new object[0]);
+            Require(vetoes == 3 && textureMetadata.All(value => !value.UseBuildCache), "Actual build-cache policy consumer failed to veto the three opaque Texture routes");
+            Require(!armor.UseBuildCache && !xml.UseBuildCache, "Allowed capability incorrectly enabled an originally disabled Armor/XML build cache");
+        }
+        finally { for (int i = 0; i < textureMetadata.Length; i++) textureMetadata[i].UseBuildCache = prior[i]; }
+        CachePolicy("RejectUnsupportedSessionCapabilities", new[] { providers.GetCapabilities(armorId), providers.GetCapabilities(xmlId) }, null, null);
+        foreach (var texture in texturePolicies)
+            CachePolicy("RejectUnsupportedSessionCapabilities", new[] { texture }, "CORE_SESSION_TEXTURE_UNSUPPORTED", "Session cache cannot reuse mixed Texture, OnDemandTexture or TerrainTextureAtlas assets; use /sc:false.");
+        CachePolicy("RejectUnsupportedSessionCapabilities", new[] { unknown }, "CORE_SESSION_PLUGIN_UNSUPPORTED", "Session cache cannot reuse assets without a supported compiler capability; use /sc:false.");
+        CachePolicy("RejectUnsupportedSessionCapabilities", new[] { unknown, texturePolicies[0] }, "CORE_SESSION_TEXTURE_UNSUPPORTED", "Session cache cannot reuse mixed Texture, OnDemandTexture or TerrainTextureAtlas assets; use /sc:false.");
+        CachePolicy("RejectUnknownBuildCacheCapabilities", texturePolicies.Concat(new[] { providers.GetCapabilities(armorId), providers.GetCapabilities(xmlId) }), null, null);
+        CachePolicy("RejectUnknownBuildCacheCapabilities", new[] { unknown }, "CORE_BUILD_CACHE_PLUGIN_UNSUPPORTED", "Build cache cannot reuse assets without a supported compiler capability; use /bc:false.");
+        Tests.Add("actual-registered-capability-map-immutable-scalars-metadata-isolation-unknown-reject-no-unbounded-growth-policy-veto-only-Armor-XML-defaults-and-production-build-session-refusal-consumers");
+    }
+    static object LatestCapabilitySummary(CoreStreamCompiler backend)
+    {
+        object report = backend.CacheReport;
+        var work = (IEnumerable<object>)report.GetType().GetProperty("coreWork").GetValue(report, null);
+        object entry = work.Last();
+        return entry.GetType().GetProperty("pluginCapabilities").GetValue(entry, null);
     }
     static Dictionary<string,string> Compile(CoreStreamCompiler backend, BuildRequest request, string name, string slot, Ambient ambient)
     {
         string staging=Path.Combine(request.OutputRoot,slot);
+        var serializer = new JavaScriptSerializer();
+        object priorCache = backend.CacheReport;
+        object priorPhysical = priorCache.GetType().GetProperty("physicalInputs").GetValue(priorCache, null);
+        string priorPhysicalJson = serializer.Serialize(priorPhysical);
+        var beforePhysical = (Dictionary<string, object>)serializer.DeserializeObject(priorPhysicalJson);
         var artifacts=backend.Compile(Context(request,Task(request.ModRoot,name),staging),CancellationToken.None);
+        var report=(Dictionary<string,object>)new JavaScriptSerializer().DeserializeObject(new JavaScriptSerializer().Serialize(backend.CacheReport));
+        var work=(object[])report["coreWork"];
+        Require(work.Length>0,"Production cache report omitted its stream work measurements");
+        var latest=(Dictionary<string,object>)work[work.Length-1];
+        Require((string)latest["taskId"]==Task(request.ModRoot,name).Id,"Work measurements belong to a different stream");
+        var capabilities = (Dictionary<string, object>)latest["pluginCapabilities"];
+        Require(Convert.ToInt32(capabilities["processedTypes"]) > 0 && Convert.ToInt32(capabilities["conservativeCoreBoundaryTypes"]) > 0 &&
+            Convert.ToInt32(capabilities["unknownTrackingTypes"]) == 0 && !(bool)capabilities["exactClosureProven"] &&
+            !(bool)capabilities["strongBundleEnabled"] && !(bool)capabilities["parallelEnabled"],
+            "Actual backend capability summary misreported conservative input tracking as exact closure or enabled an unfinished execution mode");
+        var digests=(Dictionary<string,object>)latest["inputDigests"];
+        long digestReads = Convert.ToInt64(digests["reads"]), digestBytes = Convert.ToInt64(digests["bytes"]);
+        Require(digestReads >= 0 && digestBytes >= 0 && Convert.ToInt32(digests["items"]) > 0 && (digestReads != 0 || digestBytes == 0),
+            "Per-stream FileHashItem reads must describe actual work, including zero reads for sealed positive-input hits");
+        var physical = (Dictionary<string, object>)report["physicalInputs"];
+        if (Convert.ToBoolean(physical["enabled"]))
+        {
+            long captures = Convert.ToInt64(physical["captures"]), capturedBytes = Convert.ToInt64(physical["capturedBytes"]), hits = Convert.ToInt64(physical["hits"]);
+            string snapshotId = Convert.ToString(physical["snapshotId"]);
+            bool sameGeneration = Convert.ToBoolean(beforePhysical["enabled"]) && Convert.ToString(beforePhysical["snapshotId"]) == snapshotId;
+            long beforeCaptures = sameGeneration ? Convert.ToInt64(beforePhysical["captures"]) : 0;
+            long beforeBytes = sameGeneration ? Convert.ToInt64(beforePhysical["capturedBytes"]) : 0;
+            long beforeHits = sameGeneration ? Convert.ToInt64(beforePhysical["hits"]) : 0;
+            Require(!String.IsNullOrEmpty(snapshotId), "Physical work omitted its build input generation identity");
+            if (slot == "after-failure") Require(!sameGeneration, "A failed Core stream retained its sealed input generation for retry");
+            Require(captures > 0 && capturedBytes > 0 && captures >= beforeCaptures && capturedBytes >= beforeBytes && hits >= beforeHits &&
+                Convert.ToInt64(physical["activeFilePins"]) == captures && Convert.ToBoolean(physical["positiveInputsOnly"]),
+                "Build-level physical work lost captured positive bytes, active pins or monotonic accounting");
+            Require(captures > beforeCaptures || hits > beforeHits,
+                "A successful real stream neither captured content nor used any proven sealed positive input");
+            if (digestReads == 0)
+                Require(hits > beforeHits, "Zero FileHashItem reads require actual build-level sealed-content hits, not omitted work");
+        }
+        else
+            Require(digestReads > 0 && digestBytes > 0, "Unsealed fallback must retain its actual per-stream digest reads");
+        Require(serializer.Serialize(priorPhysical) == priorPhysicalJson,
+            "A previously returned physical-work snapshot changed after a later stream");
+        DigestWork.Add(new { taskId = Task(request.ModRoot,name).Id, slot, fileHashItems = digests, physicalBefore = beforePhysical, physicalAfter = physical });
+        var stages=((object[])latest["stages"]).Cast<Dictionary<string,object>>().ToArray();
+        Require(stages.Any(item=>(string)item["stage"]=="link" && Convert.ToInt64(item["calls"])>0),"Successful production stream omitted link work");
+        Require(stages.All(item=>Convert.ToInt64(item["calls"])>=Convert.ToInt64(item["failedCalls"]) && Convert.ToDouble(item["elapsedMs"])>=0),
+            "Serialized production work measurements are inconsistent");
+        var descriptors=(Dictionary<string,object>)latest["schemaReferences"];
+        Require(Convert.ToInt64(descriptors["builds"])>0 && Convert.ToInt64(descriptors["hits"])>=0,
+            "Production report must include work from the current schema descriptor generation");
         var result=Four(artifacts,staging);
         IndependentArmorOracle(artifacts,request.ModRoot.EndsWith("mod-b",StringComparison.Ordinal),name=="Mod"?"DATA:armor.xml":"DATA:extra.xml");
         DefaultMetadata(backend); ambient.Unchanged(slot);
@@ -292,6 +453,8 @@ public static class CompilerBackendLifecycle
             Tests.Add("cancel-before-core-then-same-backend-legal-stream-byte-equality");
         }
         finally { backend.Dispose(); backend.Dispose(); }
+        string afterDisposeSummary = new JavaScriptSerializer().Serialize(LatestCapabilitySummary(backend));
+        Require(afterDisposeSummary.Contains("LegacyCacheVetoAndInputTracking"), "Capability report consulted a disposed provider instead of retaining its scalar snapshot");
         ambient.Unchanged("Dispose twice");
         using(var other=Backend()) { other.Initialize(requestB); second=Compile(other,requestB,"Mod","first",ambient); }
         ambient.Unchanged("Second MOD Dispose");
@@ -335,12 +498,12 @@ public static class CompilerBackendLifecycle
                 Require(baseline.Contains("BackendFixtureBaselineOnly") && !baseline.Contains("RecoveryArmorProbe"),"Backend polluted caller hash table contents");
             }
             Settings.Current=previous; original.Unchanged("Fixture scopes restored");
-            result=new {succeeded=true,sourceCommit=args[2],runId=args[3],checks=checks,tests=Tests.ToArray(),baselineCases=BaselineCases.ToArray(),fixtureWorkRoot=work,scope="Real in-process backend only; cold comparisons are same-process new-backend contexts; production CLI, cold-process/G3/SDK and persistent-cache acceptance pending"};
+            result=new {succeeded=true,sourceCommit=args[2],runId=args[3],checks=checks,tests=Tests.ToArray(),baselineCases=BaselineCases.ToArray(),digestWork=DigestWork.ToArray(),fixtureWorkRoot=work,scope="Real in-process backend only; cold comparisons are same-process new-backend contexts; production CLI, cold-process/G3/SDK and persistent-cache acceptance pending"};
             Console.WriteLine("PASS BackendLifecycle: "+Tests.Count+" groups; "+checks+" checks");
         }
         catch(Exception e)
         {
-            code=1; result=new {succeeded=false,sourceCommit=args.Length>2?args[2]:null,runId=args.Length>3?args[3]:null,checks=checks,tests=Tests.ToArray(),baselineCases=BaselineCases.ToArray(),fixtureWorkRoot=work,error=e.ToString()}; Console.Error.WriteLine(e);
+            code=1; result=new {succeeded=false,sourceCommit=args.Length>2?args[2]:null,runId=args.Length>3?args[3]:null,checks=checks,tests=Tests.ToArray(),baselineCases=BaselineCases.ToArray(),digestWork=DigestWork.ToArray(),fixtureWorkRoot=work,error=e.ToString()}; Console.Error.WriteLine(e);
         }
         finally { Settings.Current=previous; }
         if(args.Length>1) File.WriteAllText(args[1],new JavaScriptSerializer().Serialize(result));

@@ -205,6 +205,13 @@ public static class CompilerCliControl
             }
             finished=true;uint exit;Check(GetExitCodeProcess(child.Process,out exit),"Cannot read production exit code");
             Audit(child.Pid,childCreated,descendants,observed);state["processExitCode"]=exit;state["elapsedMs"]=timer.ElapsedMilliseconds;state["auditPolls"]=polls;state["descendants"]=observed.ToArray();
+            long createdTime,exitedTime,kernelTime,userTime;
+            Check(GetProcessTimes(child.Process,out createdTime,out exitedTime,out kernelTime,out userTime),"Cannot measure completed production process");
+            if(createdTime!=childCreated || exitedTime<createdTime || kernelTime<0 || userTime<0)
+                throw new Exception("Invalid completed production process timing identity");
+            state["processWallMs"]=(exitedTime-createdTime)/10000.0;
+            state["processKernelMs"]=kernelTime/10000.0;state["processUserMs"]=userTime/10000.0;
+            state["processCpuMs"]=(kernelTime+userTime)/10000.0;
             if(observed.Count!=0) throw new Exception("Production process created descendants");
             if(cancel && (!(bool)state["signalSent"] || exit!=6)) throw new Exception("Real CtrlBreak cancellation was not verified");
             state["succeeded"]=true;code=0;

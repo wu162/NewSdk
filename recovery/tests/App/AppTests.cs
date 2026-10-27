@@ -189,6 +189,8 @@ namespace NewModCompiler.Tests
                 DiagnosticPathTests.Run(root,mod,sdk);
                 assertions += SessionPublicationTests.Run(Path.Combine(root,"session-publication"),mod,sdk);
                 assertions += SessionCacheTransactionTests.Run(Path.Combine(root,"cache-transaction-tests"),mod,sdk);
+                assertions += WorkMetricsTests.Run();
+                assertions += InputSnapshotTransactionTests.Run(Path.Combine(root,"input-transactions"),mod,sdk);
                 assertions += InputRootsReportTests.Run(Path.Combine(root,"input-roots-report"),mod,sdk);
                 assertions += LoDCanonicalTests.Run(Path.Combine(root,"lod-canonical"));
                 assertions += BigPackageTests.Run(Path.Combine(root,"big-package-tests"),sdk);

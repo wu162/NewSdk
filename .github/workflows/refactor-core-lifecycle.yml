@@ -1,10 +1,11 @@
 name: MOD compiler Core lifecycle integration
 on:
   push:
-    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults]
+    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, feature/compiler-optimization]
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
+      - 'recovery/scripts/ValidateCompilerUpheavalSamples.py'
       - 'recovery/scripts/TestCompilerBackendBaseline.ps1'
       - 'recovery/scripts/TestCompilerCli.ps1'
       - 'recovery/scripts/CompilerCliOutputs.ps1'
@@ -35,6 +36,28 @@ on:
       - 'recovery/tests/CompilerValidationEntry.cpp'
       - 'recovery/tests/CompilerCoreLifecycle.cs'
       - 'recovery/tests/CompilerCacheContent.cs'
+      - 'recovery/tests/CompilerInputDigests.cs'
+      - 'recovery/tests/CompilerHashingWriter.cs'
+      - 'recovery/tests/CompilerPhysicalInputs.cs'
+      - 'recovery/tests/CompilerManifestInputs.cs'
+      - 'recovery/tests/CompilerStreamBindings.cs'
+      - 'recovery/tests/CompilerExpressionPrograms.cs'
+      - 'recovery/tests/CompilerTransferBuffers.cs'
+      - 'recovery/tests/CompilerBinaryMaterialization.cs'
+      - 'recovery/tests/CompilerDeclarationSnapshots.cs'
+      - 'recovery/tests/CompilerDocumentSnapshots.cs'
+      - 'recovery/tests/CompilerDocumentSnapshotOracle.cs'
+      - 'recovery/tests/CompilerDocumentMetadata.cs'
+      - 'recovery/tests/CompilerUpheavalSamples.cs'
+      - 'recovery/tests/CompilerStableSortMembership.cs'
+      - 'recovery/tests/CompilerStableSortStreams.cs'
+      - 'recovery/tests/fixtures/UpheavalSmall/**'
+      - 'recovery/tests/CompilerDependencyObservations.cs'
+      - 'recovery/tests/CompilerBaseManifestIndex.cs'
+      - 'recovery/tests/CompilerNodeJoiner.cs'
+      - 'recovery/tests/CompilerSymbolLookup.cs'
+      - 'recovery/tests/CompilerSchemaDescriptors.cs'
+      - 'recovery/tests/CompilerSchemaMetadata.cs'
       - 'recovery/tests/CompilerCacheBoundary.cs'
       - 'recovery/tests/CompilerInputRoots.cs'
       - 'recovery/scripts/TestCompilerInputRoots.ps1'
@@ -53,6 +76,9 @@ on:
       - 'recovery/tests/CompilerApplicationBuild.cs'
       - 'recovery/src/App/**'
       - 'recovery/src/Managed/Core/**'
+      - 'recovery/src/Managed/Utility/**'
+      - 'recovery/src/Managed/ExpressionEval/**'
+      - 'recovery/build/ManagedMetadata/**'
       - 'recovery/src/Managed/Metrics/**'
       - 'recovery/scripts/PrepareLegacyTexture.ps1'
       - 'recovery/probes/TextureRedirect/**'
@@ -136,7 +162,9 @@ jobs:
       - name: Validate CLI scripts and output contracts before long Native linking
         shell: pwsh
         run: |
-          foreach($path in @('recovery/scripts/CompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliOutputs.ps1','recovery/scripts/TestCompilerCli.ps1','recovery/scripts/TestCompilerBackendBaseline.ps1','recovery/scripts/TestCompilerBuildCache.ps1','recovery/scripts/TestCompilerInputRoots.ps1','recovery/scripts/TestCompilerBuildCachePayloads.ps1','recovery/scripts/TestCompilerSessionCache.ps1','recovery/scripts/TestCompilerSdk.ps1','recovery/scripts/TestCompilerBig.ps1')) {
+          python recovery/scripts/ValidateCompilerUpheavalSamples.py --output recovery/artifacts/upheaval-small-preflight/validation.json
+          if($LASTEXITCODE -ne 0){throw 'Bounded Upheaval source-byte/input-closure preflight failed'}
+          foreach($path in @('recovery/scripts/TestCompilerCoreLifecycle.ps1','recovery/scripts/CompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliOutputs.ps1','recovery/scripts/TestCompilerCli.ps1','recovery/scripts/TestCompilerBackendBaseline.ps1','recovery/scripts/TestCompilerBuildCache.ps1','recovery/scripts/TestCompilerInputRoots.ps1','recovery/scripts/TestCompilerBuildCachePayloads.ps1','recovery/scripts/TestCompilerSessionCache.ps1','recovery/scripts/TestCompilerSdk.ps1','recovery/scripts/TestCompilerBig.ps1')) {
             $tokens=$null;$errors=$null
             $null=[Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $path),[ref]$tokens,[ref]$errors)
             if($errors.Count -ne 0){$errors|Format-List|Out-Host;throw "PowerShell syntax errors: $path"}
@@ -147,6 +175,8 @@ jobs:
           if($LASTEXITCODE -ne 0){throw 'Session-cache fixture preflight failed'}
           ./recovery/scripts/TestCompilerCliOutputs.ps1 -OutputDirectory recovery/artifacts/cli-output-preflight
           if($LASTEXITCODE -ne 0){throw 'CLI output contract preflight failed'}
+          python recovery/scripts/PrepareCompilerCliBusiness.py recovery/artifacts/business-fixture-preflight
+          if($LASTEXITCODE -ne 0){throw 'Business fixture XSD/Define preflight failed'}
           ./recovery/scripts/BuildCompilerCliControl.ps1 -OutputDirectory recovery/artifacts/cli-controller-preflight
       - name: Build managed Foundation inputs
         if: ${{ env.CLI_REUSE != 'true' }}
@@ -155,6 +185,64 @@ jobs:
           foreach($mode in @('Debug','Release')) {
             ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/core-lifecycle-foundation/$mode"
           }
+      - name: Compile changed Core fixtures against the actual Foundation before Native linking
+        if: ${{ env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          $out='recovery/artifacts/core-fixture-preflight'
+          New-Item -ItemType Directory -Force $out|Out-Null
+          $manifest=Get-Content recovery/build/Managed.Foundation.json -Raw|ConvertFrom-Json
+          $refs=Join-Path ${env:ProgramFiles(x86)} 'Reference Assemblies/Microsoft/Framework/.NETFramework/v4.8'
+          $packages=((& dotnet nuget locals global-packages --list) -replace '^global-packages:\s*','').Trim()
+          $csc=Join-Path $packages 'microsoft.net.compilers.toolset/4.0.1/tasks/net472/csc.exe'
+          $module=(Resolve-Path 'recovery/artifacts/core-lifecycle-foundation/Debug/Managed.Foundation.netmodule').Path
+          $failures=@();$checks=@()
+          # Only Core-only probes can bind to this module. App-dependent probes
+          # keep their full production-host compilation/runtime gate below.
+          foreach($name in @('CompilerNodeJoiner','CompilerDocumentMetadata','CompilerDocumentSnapshotOracle','CompilerSymbolLookup','CompilerHashingWriter','CompilerInputDigests','CompilerPhysicalInputs')) {
+            $source="recovery/tests/$name.cs"
+            $arguments=@('/nologo','/noconfig','/nostdlib+','/target:library','/langversion:7.3','/codepage:65001','/platform:x86',('/out:'+(Join-Path $out ($name+'.dll'))),('/addmodule:'+$module),('/r:'+(Join-Path $PWD 'SDK/tools/antlr.runtime.dll')))
+            foreach($reference in @($manifest.frameworkReferences)+@('System.Web.Extensions')){$arguments+=('/r:'+(Join-Path $refs ($reference+'.dll')))}
+            $arguments+=$source
+            & $csc @arguments *> "$out/$name.log"
+            $passed=$LASTEXITCODE -eq 0
+            $checks+=@{name=$name;passed=$passed;sourceSha256=(Get-FileHash $source -Algorithm SHA256).Hash.ToLowerInvariant()}
+            if(!$passed){Get-Content "$out/$name.log"|Out-Host;$failures+=$name}
+          }
+          # This same inheritance corpus also targets the independent legacy
+          # DLL. Check its real API surface before the long product link too.
+          $source='recovery/tests/CompilerDocumentSnapshotOracle.cs'
+          $arguments=@('/nologo','/noconfig','/nostdlib+','/target:library','/langversion:7.3','/codepage:65001','/platform:x86',('/out:'+(Join-Path $out 'CompilerDocumentSnapshotOriginalSdk.dll')))
+          foreach($reference in @($manifest.frameworkReferences)+@('System.Web.Extensions')){$arguments+=('/r:'+(Join-Path $refs ($reference+'.dll')))}
+          foreach($reference in @('BinaryAssetBuilder.Core.dll','BinaryAssetBuilder.ExpressionEval.dll','BinaryAssetBuilder.Utility.dll','antlr.runtime.dll')){$arguments+=('/r:'+(Join-Path $PWD ('SDK/tools/'+$reference)))}
+          $arguments+=$source
+          & $csc @arguments *> "$out/CompilerDocumentSnapshotOriginalSdk.log"
+          $passed=$LASTEXITCODE -eq 0
+          $checks+=@{name='CompilerDocumentSnapshotOriginalSdk';passed=$passed;sourceSha256=(Get-FileHash $source -Algorithm SHA256).Hash.ToLowerInvariant();referenceKind='Original SDK DLLs, no recovered Foundation module'}
+          if(!$passed){Get-Content "$out/CompilerDocumentSnapshotOriginalSdk.log"|Out-Host;$failures+='CompilerDocumentSnapshotOriginalSdk'}
+          @{sourceCommit=$env:GITHUB_SHA;runId=$env:GITHUB_RUN_ID;foundationSha256=(Get-FileHash $module -Algorithm SHA256).Hash.ToLowerInvariant();checks=$checks;scope='Compile only against actual current Foundation and explicitly identified original SDK DLLs; does not replace independent original-process or production-host runtime acceptance'}|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json"
+          if($failures.Count -ne 0){throw ('Core fixture preflight failed: '+($failures -join ', '))}
+          # Run the changed shared corpus against the independent SDK before
+          # Native linking, so unarmed events/runtime setup fail cheaply too.
+          $runtime=Join-Path $env:RUNNER_TEMP 'original-oracle-preflight'
+          New-Item -ItemType Directory -Force $runtime|Out-Null
+          Get-ChildItem SDK/tools -Filter '*.dll' -File|Copy-Item -Destination $runtime
+          $oracle=Join-Path $runtime 'CompilerDocumentOriginal.exe'
+          $arguments=@($arguments|Where-Object{$_ -notlike '/target:*' -and $_ -notlike '/out:*'})+@('/target:exe',('/out:'+$oracle))
+          & $csc @arguments *> "$out/original-runtime-build.log"
+          if($LASTEXITCODE -ne 0){Get-Content "$out/original-runtime-build.log"|Out-Host;throw 'Original corpus runtime preflight compilation failed'}
+          '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$oracle.config"
+          $info=[Diagnostics.ProcessStartInfo]::new($oracle)
+          $info.WorkingDirectory=$runtime;$info.UseShellExecute=$false;$info.RedirectStandardOutput=$true;$info.RedirectStandardError=$true
+          foreach($argument in @((Join-Path $runtime 'work'),(Join-Path $PWD "$out/original-transcript.json"),$env:GITHUB_SHA,$env:GITHUB_RUN_ID,'original',(Join-Path $PWD 'SDK'))){$info.ArgumentList.Add($argument)}
+          $process=[Diagnostics.Process]::new();$process.StartInfo=$info
+          try {
+            if(!$process.Start()){throw 'Original corpus runtime preflight did not start'}
+            $stdout=$process.StandardOutput.ReadToEndAsync();$stderr=$process.StandardError.ReadToEndAsync()
+            if(!$process.WaitForExit(180000)){$process.Kill($true);$process.WaitForExit();throw 'Original corpus runtime preflight timed out'}
+            ($stdout.GetAwaiter().GetResult()+$stderr.GetAwaiter().GetResult())|Set-Content "$out/original-runtime.log"
+            if($process.ExitCode -ne 0){Get-Content "$out/original-runtime.log"|Out-Host;throw 'Original corpus runtime preflight failed'}
+          } finally {$process.Dispose()}
       - name: Build full production combination and verify deployment and route metadata
         id: product
         if: ${{ env.CLI_REUSE != 'true' }}
@@ -170,13 +258,65 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Upload targeted probe evidence before the remaining acceptance groups
+        if: ${{ !cancelled() && steps.lifecycle.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiler-targeted-probes-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/validation.json
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/result.json
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/fixture-build.log
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/runtime.log
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/protocol/*/build-report.json
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/expression-original/**
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/document-original/**
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/hashing-original/**
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/CompilerUpheavalSamples/work/upheaval-small/**
+          if-no-files-found: warn
       - name: Isolated original BAB baseline for the two targeted backend cases
-        if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && steps.lifecycle.outcome != 'skipped' }}
         shell: pwsh
         run: |
+          $failures=@()
           foreach($mode in @('Debug','Release')) {
+            try {
             ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerBackendLifecycle/result.json" -OutputDirectory "recovery/evidence/refactor/core-backend-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180
+            } catch { $failures+=,"${mode}: $($_.Exception.Message)" }
           }
+          if($failures.Count){throw ($failures -join "`n")}
+      - name: Bounded Upheaval sample original BAB differential in Debug and Release
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && steps.lifecycle.outcome != 'skipped' }}
+        shell: pwsh
+        run: |
+          $failures=@()
+          foreach($mode in @('Debug','Release')) {
+            try {
+            ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerUpheavalSamples/result.json" -OutputDirectory "recovery/evidence/refactor/core-upheaval-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180 -ExpectedCaseCount 1
+            } catch { $failures+=,"${mode}: $($_.Exception.Message)" }
+          }
+          if($failures.Count){throw ($failures -join "`n")}
+      - name: Stable sort prerequisite chain original BAB differential in Debug and Release
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && steps.lifecycle.outcome != 'skipped' }}
+        shell: pwsh
+        run: |
+          $failures=@()
+          foreach($mode in @('Debug','Release')) {
+            try {
+            ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerStableSortStreams/result.json" -OutputDirectory "recovery/evidence/refactor/core-stablesort-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180 -ExpectedCaseCount 1
+            } catch { $failures+=,"${mode}: $($_.Exception.Message)" }
+          }
+          if($failures.Count){throw ($failures -join "`n")}
+      - name: Upload early independent original BAB comparison evidence
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: compiler-original-baselines-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-upheaval-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-stablesort-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: warn
       - name: Validate actual application JSONL and reports against protocol schemas
         if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
         shell: pwsh
@@ -196,6 +336,18 @@ jobs:
         run: |
           $compilerDirectory=if($env:CLI_REUSE -eq 'true'){'recovery/artifacts/core-cli-reuse-product'}else{'recovery/artifacts/core-lifecycle-product'}
           ./recovery/scripts/TestCompilerCli.ps1 -CompilerDirectory $compilerDirectory -OutputDirectory "recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Upload CLI failure and work-metric evidence before cache matrices
+        if: ${{ !cancelled() && steps.cli.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiler-cli-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/validation.json
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/business-*.json
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/stderr.log
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/stdout.log
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/controller.log
+          if-no-files-found: warn
       - name: Validate real production CLI protocol outputs
         if: ${{ !cancelled() && steps.cli.outcome == 'success' }}
         shell: pwsh
@@ -265,11 +417,32 @@ jobs:
           ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/sdk-mymod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TimeoutSeconds 600
           if($LASTEXITCODE -ne 0){throw 'Complete mymod SDK differential failed'}
       - name: Publish final five-file packages after complete production acceptance
+        id: publish
         if: ${{ success() && steps.big.outcome == 'success' && steps.cli.outcome == 'success' && env.CLI_REUSE != 'true' }}
         shell: pwsh
         run: |
           ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -AcceptanceReceipt "recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -VerifyBigDeployment -OutputDirectory "recovery/artifacts/final-release/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           if($LASTEXITCODE -ne 0){throw 'Final five-file ZIP deployment validation failed'}
+      - name: Upload unchanged accepted Release ZIP and identity manifest
+        if: ${{ !cancelled() && steps.publish.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiler-package-Release-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Release.zip
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Release.manifest.json
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/release.json
+          if-no-files-found: error
+      - name: Upload unchanged accepted Debug ZIP and identity manifest
+        if: ${{ !cancelled() && steps.publish.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiler-package-Debug-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Debug.zip
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Debug.manifest.json
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/release.json
+          if-no-files-found: error
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -278,6 +451,8 @@ jobs:
             recovery/artifacts/final-release/**
             recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/big-fixture-preflight/**
+            recovery/artifacts/upheaval-small-preflight/**
+            recovery/artifacts/core-fixture-preflight/**
             recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}
@@ -287,10 +462,13 @@ jobs:
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-upheaval-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-stablesort-baseline/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/core-cli-reuse-product/reuse.json
             recovery/artifacts/cli-controller-preflight/**
             recovery/artifacts/cli-output-preflight/**
+            recovery/artifacts/business-fixture-preflight/fixture-manifest.json
             recovery/artifacts/session-fixture-preflight/**
             recovery/artifacts/core-lifecycle-foundation/**/build.json
             recovery/artifacts/core-lifecycle-foundation/**/*.log

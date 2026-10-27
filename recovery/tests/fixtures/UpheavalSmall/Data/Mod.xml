@@ -1,0 +1,10 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Synthetic entry includes four whole original files and a semantic adapter. -->
+  <Includes>
+    <Include type="all" source="ArcherMaidenArmor.xml" />
+    <Include type="all" source="FutureTankArmor.xml" />
+    <Include type="all" source="GrinderArmor.xml" />
+    <Include type="all" source="GigaFortressUpgrades.xml" />
+    <Include type="all" source="Derived.xml" />
+  </Includes>
+</AssetDeclaration>

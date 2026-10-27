@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -31,6 +33,39 @@ public static class TextureProbe
             return "<TerrainTextureAtlas xmlns='uri:ea.com:eala:asset' id='Probe' AtlasSize='2048' AllowLossyCompression='false'><Tile TextureID='1' BaseTexture='" + source + "' NormalTexture='" + source + "'><Cell IndexX='0' IndexY='0'/></Tile></TerrainTextureAtlas>";
         return "<" + type + " xmlns='uri:ea.com:eala:asset' id='Probe' File='" + source + "' Type='StandardTexture' GenerateMipMaps='false' OutputFormat='A8R8G8B8' AllowAutomaticResize='false'/>";
     }
+#if TEXTURE_ADAPTER_PROBE
+    static void OtherThread(string name, Action action, Type expected, List<string> evidence)
+    {
+        Exception observed = null;
+        var thread = new Thread(delegate() { try { action(); } catch (Exception error) { observed = error; } });
+        thread.IsBackground = true; thread.Start();
+        if (!thread.Join(10000)) throw new Exception("Texture ownership thread timed out: " + name);
+        if (expected == null)
+        {
+            if (observed != null) throw new Exception("Texture closed duplicate Dispose failed: " + name, observed);
+            evidence.Add(name + "\treturned"); return;
+        }
+        if (observed == null || observed.GetType() != expected)
+            throw new Exception("Texture ownership refusal mismatch: " + name, observed);
+        if (expected == typeof(InvalidOperationException) && observed.Message != "Texture plugin must be used on its owning thread.")
+            throw new Exception("Texture entry reached a different lifecycle check before owner refusal: " + name, observed);
+        evidence.Add(name + "\t" + expected.Name);
+    }
+    static void OwnerThreadChecks(IAssetBuilderPlugin plugin, IDisposable lifetime, string fixture, string custom,
+        string phase, bool closed, List<string> evidence)
+    {
+        var declaration = Declare(Xml("Texture", Path.GetFullPath(fixture), false), custom);
+        Type refusal = closed ? typeof(ObjectDisposedException) : typeof(InvalidOperationException);
+        OtherThread(phase + ".Initialize", delegate() { plugin.Initialize(null, TargetPlatform.Win32); }, refusal, evidence);
+        OtherThread(phase + ".ReInitialize", delegate() { plugin.ReInitialize(null, TargetPlatform.Win32); }, refusal, evidence);
+        OtherThread(phase + ".ProcessInstance", delegate() { plugin.ProcessInstance(declaration); }, refusal, evidence);
+        OtherThread(phase + ".GetAllTypesHash", delegate() { plugin.GetAllTypesHash(); }, refusal, evidence);
+        OtherThread(phase + ".GetVersionNumber", delegate() { plugin.GetVersionNumber(); }, refusal, evidence);
+        OtherThread(phase + ".GetExtendedTypeInformation", delegate() { plugin.GetExtendedTypeInformation(declaration.Handle.TypeId); }, refusal, evidence);
+        OtherThread(phase + ".GetUnsupportedTypeInformation", delegate() { plugin.GetExtendedTypeInformation(0); }, refusal, evidence);
+        OtherThread(phase + ".Dispose", delegate() { lifetime.Dispose(); }, closed ? null : refusal, evidence);
+    }
+#endif
     public static int Run(string[] args)
     {
         try
@@ -53,9 +88,18 @@ public static class TextureProbe
             var plugin = (IAssetBuilderPlugin)instance;
             string custom = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(args[1])), "texture-probe.custom");
             int successes = 0, errors = 0;
+#if TEXTURE_ADAPTER_PROBE
+            var ownership = new List<string>();
+#endif
             try
             {
+#if TEXTURE_ADAPTER_PROBE
+                OwnerThreadChecks(plugin, (IDisposable)instance, args[1], custom, "loaded", false, ownership);
+#endif
                 plugin.Initialize(null, TargetPlatform.Win32);
+#if TEXTURE_ADAPTER_PROBE
+                OwnerThreadChecks(plugin, (IDisposable)instance, args[1], custom, "initialized", false, ownership);
+#endif
                 using (var writer = new StreamWriter(args[2], false, new UTF8Encoding(false)))
                 {
                     writer.WriteLine("metadata:" + plugin.GetAllTypesHash() + ":" + plugin.GetVersionNumber());
@@ -90,13 +134,25 @@ public static class TextureProbe
                         }
                     }
                 }
+#if TEXTURE_ADAPTER_PROBE
+                string beforeForeignCalls = File.Exists(custom) ? Bytes(File.ReadAllBytes(custom)) : "absent";
+                OwnerThreadChecks(plugin, (IDisposable)instance, args[1], custom, "after-errors", false, ownership);
+                if ((File.Exists(custom) ? Bytes(File.ReadAllBytes(custom)) : "absent") != beforeForeignCalls)
+                    throw new Exception("Foreign texture calls changed the owner output");
+#endif
             }
             finally { ((IDisposable)instance).Dispose(); }
 #if TEXTURE_ADAPTER_PROBE
+            ownership.Add("owner.Dispose\treturned");
             ((IDisposable)instance).Dispose(); // single-close contract: a second close is harmless
             bool closed = false;
             try { plugin.GetVersionNumber(); } catch (ObjectDisposedException) { closed = true; }
             if (!closed) throw new Exception("Texture adapter remains callable after Dispose");
+            ownership.Add("owner.DuplicateDispose\treturned");
+            OwnerThreadChecks(plugin, (IDisposable)instance, args[1], custom, "closed", true, ownership);
+            if (ownership.Count != 34) throw new Exception("Texture owner-thread matrix omitted an entry");
+            ownership.Insert(0, "TextureOwnerThreadSerial\tpassed");
+            File.WriteAllLines(args[2] + ".ownership.tsv", ownership.ToArray());
 #endif
             string trace = args[2] + ".assemblies.tsv";
             File.WriteAllLines(trace, AppDomain.CurrentDomain.GetAssemblies().OrderBy(a => a.FullName).Select(a => a.FullName + "\t" + (a.IsDynamic ? "dynamic" : a.Location)).ToArray());

@@ -277,7 +277,20 @@ public class Manifest : IDisposable
 	}
 
 	[return: MarshalAs(UnmanagedType.U1)]
-	public unsafe bool Load(string fileName, string[] patchSearchPaths, [MarshalAs(UnmanagedType.U1)] bool validateAssets)
+	public bool Load(string fileName, string[] patchSearchPaths, [MarshalAs(UnmanagedType.U1)] bool validateAssets)
+	{
+        return Load(fileName, patchSearchPaths, validateAssets, null);
+    }
+
+    // A consumer may supply a sealed positive-input stream. Returning null keeps
+    // the original CRT-compatible read sharing; existing callers are unchanged.
+    // The callback follows recursive patch manifests and discovered hash tables.
+    public bool Load(string fileName, string[] patchSearchPaths, [MarshalAs(UnmanagedType.U1)] bool validateAssets, Func<string, Stream> openInput)
+    {
+        return Load(fileName, patchSearchPaths, validateAssets, openInput, null);
+    }
+
+    public unsafe bool Load(string fileName, string[] patchSearchPaths, [MarshalAs(UnmanagedType.U1)] bool validateAssets, Func<string, Stream> openInput, Func<string, bool> existsInput)
 	{
 		Asset asset = null;
 		Free();
@@ -285,7 +298,7 @@ public class Manifest : IDisposable
         byte[] bytes;
         try {
             // CRT _wfopen uses _SH_DENYNO: a concurrent writer may retain a handle.
-            using (FileStream file = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
+            using (Stream file = (openInput == null ? null : openInput(fileName)) ?? new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
                 bytes = new byte[file.Length];
                 int position=0, read;
                 while(position<bytes.Length && (read=file.Read(bytes,position,bytes.Length-position))!=0) position+=read;
@@ -297,7 +310,7 @@ public class Manifest : IDisposable
         Marshal.Copy(bytes, 0, (IntPtr)m_pBuffer, bytes.Length);
         {
 			string basePath = Path.Combine(Path.GetDirectoryName(m_FileName), Path.GetFileNameWithoutExtension(m_FileName));
-			LoadStringHashes(basePath);
+			LoadStringHashes(basePath, openInput, existsInput);
 			sbyte* ptr3 = (sbyte*)(m_pHeader = (AssetStream.ManifestHeader*)m_pBuffer) + 48;
 			AssetStream.ManifestHeader* pHeader = m_pHeader;
 			if (*(bool*)pHeader)
@@ -415,7 +428,7 @@ public class Manifest : IDisposable
 					assets[num19] = new Asset((int)num19, basePath, (AssetStream.AssetEntry*)((byte*)ptr8 - 12), ((int*)ptr8)[3] + ptr3, ((int*)ptr8)[4] + ptr7, array, this, num13, num14, num15);
 					if (validateAssets)
 					{
-						m_Assets[num16].Update();
+						m_Assets[num16].Update(existsInput);
 					}
 					num13 = ((int*)ptr8)[5] + num13;
 					num14 = ((int*)ptr8)[6] + num14;
@@ -457,10 +470,10 @@ public class Manifest : IDisposable
 							do
 							{
 								string text2 = Path.Combine(enumerator.Current, referencedManifest.Path);
-								if (File.Exists(text2))
+								if (InputExists(text2, existsInput))
 								{
 									manifest = new Manifest();
-									manifest.Load(text2, patchSearchPaths);
+									manifest.Load(text2, patchSearchPaths, true, openInput, existsInput);
 									break;
 								}
 							}
@@ -534,6 +547,16 @@ public class Manifest : IDisposable
 
 	public void LoadStringHashes(string basePath)
 	{
+        LoadStringHashes(basePath, null, null);
+    }
+
+    private static bool InputExists(string path, Func<string, bool> existsInput)
+    {
+        return existsInput == null ? File.Exists(path) : existsInput(path);
+    }
+
+    private void LoadStringHashes(string basePath, Func<string, Stream> openInput, Func<string, bool> existsInput)
+	{
 		string text = null;
 		m_StringHashes.Clear();
 		string text2 = string.Empty;
@@ -542,7 +565,7 @@ public class Manifest : IDisposable
 			while (basePath.Length > 3)
 			{
 				string text3 = Path.Combine(basePath, "StringHashes.xml");
-				if (!File.Exists(text3))
+				if (!InputExists(text3, existsInput))
 				{
 					basePath = Path.GetDirectoryName(basePath);
 					if (basePath == null)
@@ -555,11 +578,14 @@ public class Manifest : IDisposable
 				break;
 			}
 		}
-		if (text2 == string.Empty || !File.Exists(text2))
+		if (text2 == string.Empty || !InputExists(text2, existsInput))
 		{
 			return;
 		}
-		XmlReader xmlReader = XmlReader.Create(text2);
+		using (Stream sealedInput = openInput == null ? null : openInput(text2))
+        {
+        XmlReader xmlReader = sealedInput == null ? XmlReader.Create(text2) :
+            XmlReader.Create(sealedInput, new XmlReaderSettings(), new Uri(Path.GetFullPath(text2), UriKind.Absolute).AbsoluteUri);
 		try
 		{
 			while (xmlReader.Read())
@@ -580,6 +606,7 @@ public class Manifest : IDisposable
 			m_StringHashes.Clear();
 		}
 		xmlReader.Close();
+        }
 	}
 
 	public int GetBaseStreamPosition(AssetEntry assetEntry)
@@ -659,4 +686,3 @@ public class Manifest : IDisposable
 		GC.SuppressFinalize(this);
 	}
 }
-

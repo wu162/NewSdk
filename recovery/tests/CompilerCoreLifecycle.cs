@@ -19,6 +19,9 @@ internal static class CompilerCoreLifecycle
 {
     const string Ns = "uri:ea.com:eala:asset";
     static readonly List<string> Tests = new List<string>();
+    static readonly List<object> OptimizationRisks = new List<object>();
+    static readonly List<object> WorkMetrics = new List<object>();
+    static object InheritanceOriginal;
     static string sdk, work, probe;
     static int checks;
     static readonly BindingFlags Private = BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
@@ -145,6 +148,182 @@ internal static class CompilerCoreLifecycle
         Failure(p, a, ErrorCode.CircularDependency); Clean(p, null, a, b);
         Write("cycle/b.xml", probe); Run(p, a); Clean(p, null, a, b);
         Tests.Add("real-core-circular-include-rejected-then-fixed-same-processor-cache");
+    }
+    static void InheritanceExecutionCase(BuiltinCompilers plugins, int length)
+    {
+        string name = "inheritance-cycle-" + length;
+        var settings = Configure(name); var processor = Processor(plugins);
+        var body = new System.Text.StringBuilder();
+        for (int i = 0; i < length; i++)
+            body.Append("<ArmorTemplate id='Node" + i + "' inheritFrom='Node" + ((i + 1) % length) + "'/>");
+        string input = Write(name + "/root.xml", Asset(body.ToString()));
+        Failure(processor, input, ErrorCode.CircularDependency);
+        Clean(processor, null, input);
+        Require(CachedDocument(processor, input).State != DocumentState.Complete,
+            "Circular inheritance published a successful document");
+        // Repair the same source and reuse the processor after the failed
+        // partial DFS. Its visiting state must belong to that invocation only.
+        string chain = "<ArmorTemplate id='First' inheritFrom='Middle'/>" +
+            "<ArmorTemplate id='Middle' inheritFrom='Last'/>" +
+            "<ArmorTemplate id='Last' Default='10'/>";
+        Write(name + "/root.xml", Asset(chain)); Run(processor, input); Clean(processor, null, input);
+        var inherited = Outputs(settings.OutputDirectory);
+        Require(CachedDocument(processor, input).SelfInstances.Count == 3, "Repaired forward inheritance chain lost a declaration");
+        // The fully expanded declaration is an independent semantic oracle for
+        // these four actual production outputs; no digest is used as readiness.
+        settings.OutputDirectory = Path.Combine(work, name, "expanded-output");
+        settings.IntermediateOutputDirectory = Path.Combine(work, name, "expanded-intermediate");
+        Write(name + "/root.xml", Asset("<ArmorTemplate id='First' Default='10'/>" +
+            "<ArmorTemplate id='Middle' Default='10'/><ArmorTemplate id='Last' Default='10'/>"));
+        var expanded = Processor(plugins); Run(expanded, input); Clean(expanded, null, input);
+        Equal(inherited, Outputs(settings.OutputDirectory));
+        Tests.Add(name + ":bounded-cycle-error-no-completion-same-processor-repair-forward-chain-expanded-four-output-equality");
+    }
+    static void ZeroInheritanceDigestCase(BuiltinCompilers plugins)
+    {
+        Configure("inheritance-zero-digest"); var processor = Processor(plugins);
+        var document = new AssetDeclarationDocument();
+        var type = typeof(AssetDeclarationDocument).GetNestedType("CurrentState", BindingFlags.NonPublic);
+        object current = Activator.CreateInstance(type, true); type.GetMethod("FromScratch").Invoke(current, new object[0]);
+        type.GetField("SourcePath").SetValue(current, Path.Combine(work, "inheritance-zero-digest/root.xml"));
+        type.GetField("DocumentProcessor").SetValue(current, processor);
+        var xml = new XmlDocument(); xml.LoadXml(Asset("<ArmorTemplate id='First' inheritFrom='Last'/>" +
+            "<ArmorTemplate id='Second' inheritFrom='Last'/><ArmorTemplate id='Last' Default='10'/>"));
+        type.GetField("XmlDocument").SetValue(current, xml);
+        typeof(AssetDeclarationDocument).GetField("_Current", Private).SetValue(document, current);
+        foreach (XmlNode node in xml.DocumentElement.ChildNodes)
+            document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = node });
+        InstanceDeclaration source = document.SelfInstances[2], consumer = document.SelfInstances[1];
+        bool injected = false;
+        xml.NodeInserted += (sender, change) => {
+            if (change.NewParent != xml.DocumentElement || change.Node.Attributes == null ||
+                change.Node.Attributes["id"] == null || change.Node.Attributes["id"].Value != "First") return;
+            // Supply a zero-valued completed digest at the actual boundary. This
+            // tests readiness independently of the hash algorithm; it does not
+            // claim to have found a real XML FastHash collision/preimage.
+            source.PrevalidationXmlHash = 0; injected = true;
+        };
+        document.ProcessOverrides();
+        Require(injected && consumer.InheritFromXmlHash == 0,
+            "A completed zero digest was treated as an unfinished inheritance source");
+        Require(consumer.XmlNode.Attributes["Default"].Value == "10", "Zero digest source payload was not consumed");
+        Require(source.PrevalidationXmlHash != 0, "Legacy top-level source hash/event order was skipped");
+        Tests.Add("inheritance-zero-digest:actual-merge-boundary-injection-source-ready-with-zero-legacy-hash-root-order-preserved");
+    }
+    static AssetDeclarationDocument BareInheritanceDocument(DocumentProcessor processor, string name, string body, out XmlDocument xml)
+    {
+        var document = new AssetDeclarationDocument();
+        var type = typeof(AssetDeclarationDocument).GetNestedType("CurrentState", BindingFlags.NonPublic);
+        object current = Activator.CreateInstance(type, true); type.GetMethod("FromScratch").Invoke(current, new object[0]);
+        type.GetField("SourcePath").SetValue(current, Path.Combine(work, name + "/root.xml"));
+        type.GetField("DocumentProcessor").SetValue(current, processor);
+        xml = new XmlDocument(); xml.LoadXml(Asset(body)); type.GetField("XmlDocument").SetValue(current, xml);
+        typeof(AssetDeclarationDocument).GetField("_Current", Private).SetValue(document, current);
+        foreach (XmlNode node in xml.DocumentElement.ChildNodes)
+            document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = node });
+        return document;
+    }
+    static void DeepInheritanceCase(BuiltinCompilers plugins)
+    {
+        Configure("inheritance-deep"); var processor = Processor(plugins);
+        const int length = 4096;
+        var body = new System.Text.StringBuilder();
+        for (int i = 0; i < length; i++)
+            body.Append("<ArmorTemplate id='Depth" + i + "'" + (i + 1 == length ? "" : " inheritFrom='Depth" + (i + 1) + "'") + "/>");
+        XmlDocument xml;
+        var document = BareInheritanceDocument(processor, "inheritance-deep", body.ToString(), out xml);
+        document.ProcessOverrides();
+        Require(document.SelfInstances.Count == length, "Deep forward inheritance lost declarations");
+        foreach (InstanceDeclaration instance in document.SelfInstances)
+            Require(instance.XmlNode.Attributes["Default"] == null, "Prevalidation prematurely inserted schema defaults");
+        // Whole-document Framework validation retains actual type/default
+        // augmentation on this original merged DOM, rather than a CloneNode or
+        // serialized approximation of its processed-stage result.
+        xml.Schemas.Add(processor.SchemaSet.Schemas);
+        xml.Validate((sender, error) => { throw error.Exception; });
+        foreach (InstanceDeclaration instance in document.SelfInstances)
+        {
+            Require(instance.XmlNode.SchemaInfo != null && instance.XmlNode.SchemaInfo.SchemaType != null &&
+                instance.XmlNode.SchemaInfo.SchemaType.Name == "ArmorTemplate", "Deep inherited DOM lost SchemaInfo");
+            Require(instance.XmlNode.Attributes["Default"] != null && instance.XmlNode.Attributes["Default"].Value == "100" &&
+                !instance.XmlNode.Attributes["Default"].Specified, "Schema default value/provenance was lost");
+        }
+        XmlDocument failedXml;
+        var failed = BareInheritanceDocument(processor, "inheritance-error-order",
+            "<ArmorTemplate id='First' inheritFrom='Middle'/><ArmorTemplate id='Middle' inheritFrom='MissingDeep'/>" +
+            "<ArmorTemplate id='Later' inheritFrom='MissingSibling'/>", out failedXml);
+        try { failed.ProcessOverrides(); throw new Exception("Missing inheritance sources accepted"); }
+        catch (BinaryAssetBuilderException error)
+        {
+            Require(error.ErrorCode == ErrorCode.InheritFromError && error.Message.Contains("MissingDeep") && !error.Message.Contains("MissingSibling"),
+                "Iterative DFS changed first inherited-source failure order");
+        }
+        Tests.Add("inheritance-explicit-DFS:4096-forward-sources-no-recursive-stack-actual-SchemaInfo-default-provenance-and-first-depth-error-order");
+    }
+    sealed class AssigningHashElement : XmlElement
+    {
+        internal Action DuringWrite;
+        internal AssigningHashElement(XmlDocument owner) : base("", "ArmorTemplate", Ns, owner) { }
+        public override void WriteTo(XmlWriter writer)
+        {
+            Action callback = DuringWrite; DuringWrite = null;
+            if (callback != null) callback();
+            base.WriteTo(writer);
+        }
+    }
+    static void HashCallbackReadinessCase(BuiltinCompilers plugins)
+    {
+        Configure("inheritance-hash-callback"); var processor = Processor(plugins); XmlDocument xml;
+        var document = BareInheritanceDocument(processor, "inheritance-hash-callback", "<ArmorTemplate id='Callback'/>", out xml);
+        InstanceDeclaration instance = document.SelfInstances[0];
+        var custom = new AssigningHashElement(xml); custom.SetAttribute("id", "Callback");
+        xml.DocumentElement.ReplaceChild(custom, instance.XmlNode); instance.XmlNode = custom;
+        custom.DuringWrite = () => { instance.XmlNode = instance.XmlNode; };
+        document.ProcessOverrides();
+        Require(!PrevalidationReady(instance), "WriteTo callback reassignment incorrectly published readiness for another DOM assignment");
+        document.ProcessOverrides();
+        Require(PrevalidationReady(instance), "Stable custom DOM could not publish its actual completed stage");
+        var injected = new IOException("Injected hash writer callback failure");
+        custom.DuringWrite = () => { throw injected; };
+        bool rejected = false;
+        try { document.ProcessOverrides(); }
+        catch (IOException error) { rejected = Object.ReferenceEquals(error, injected); }
+        Require(rejected && !PrevalidationReady(instance), "Failed hash stage changed primary error or retained readiness");
+        Tests.Add("inheritance-ready:custom-WriteTo-same-node-assignment-revision-stable-retry-and-primary-hash-error");
+    }
+    static bool PrevalidationReady(InstanceDeclaration instance)
+    {
+        return (bool)typeof(InstanceDeclaration).GetProperty("HasPrevalidationResult", Private).GetValue(instance, null);
+    }
+    static void RepeatedInheritanceCase(BuiltinCompilers plugins)
+    {
+        Configure("inheritance-repeat"); var processor = Processor(plugins); XmlDocument xml;
+        var document = BareInheritanceDocument(processor, "inheritance-repeat",
+            "<ArmorTemplate id='First' inheritFrom='Middle'/><ArmorTemplate id='Middle' inheritFrom='Last'/>" +
+            "<ArmorTemplate id='Last' Default='10'/>", out xml);
+        document.ProcessOverrides();
+        var inserted = new List<string>();
+        xml.NodeInserted += (sender, change) => {
+            if (change.NewParent == xml.DocumentElement && change.Node.Attributes != null && change.Node.Attributes["id"] != null)
+                inserted.Add(change.Node.Attributes["id"].Value);
+        };
+        InstanceDeclaration middle = document.SelfInstances[1];
+        middle.PrevalidationXmlHash = 0;
+        Require(PrevalidationReady(middle), "Changing legacy digest revoked actual live DOM readiness");
+        document.ProcessOverrides();
+        Require(String.Join(",", inserted) == "First,Middle" && document.SelfInstances[0].InheritFromXmlHash == 0,
+            "Repeated public ProcessOverrides changed legacy top-level DOM event order or zero-result readiness");
+        inserted.Clear(); middle.XmlNode = middle.XmlNode;
+        Require(!PrevalidationReady(middle), "Public XmlNode assignment retained stale prevalidation readiness");
+        document.ProcessOverrides();
+        Require(String.Join(",", inserted) == "Middle,First,Middle", "Reassigned source did not execute its live DOM stage again");
+        document.MakeCacheable();
+        var saved = new AssetDeclarationDocument(); saved.CacheFromDocument(document); saved.FromLastHack();
+        Require(!PrevalidationReady(saved.SelfInstances[0]) && saved.SelfInstances[0].XmlNode == null,
+            "Saved declarations incorrectly restored runtime-only live DOM readiness");
+        middle.XmlNode = null;
+        Require(!PrevalidationReady(middle), "Null DOM retained prevalidation readiness");
+        Tests.Add("inheritance-ready:repeat-call-zero-digest-event-order-node-assignment-null-and-saved-declaration-boundaries");
     }
     sealed class SaveFaultCache : SessionCache
     {
@@ -424,31 +603,254 @@ internal static class CompilerCoreLifecycle
         string normal = Write("project/normal.xml", probe); Run(p, normal); Clean(p, null, normal);
         Tests.Add("real-project-first-config-complete-three-assets-four-linked-streams-second-inheritance-failure-restores-settings-reader-then-plain-xml-success");
     }
+    // W01 records the actual public Core boundary before changing cache or
+    // binding semantics. A reproduced candidate is evidence, not acceptance of
+    // a production CLI bug: the CLI has its own staging/cache protections.
+    static bool SameOutputs(Dictionary<string, string> expected, Dictionary<string, string> actual)
+    {
+        return expected.Count == actual.Count && expected.All(pair => actual.ContainsKey(pair.Key) && actual[pair.Key] == pair.Value);
+    }
+    static AssetDeclarationDocument CachedDocument(DocumentProcessor processor, string path)
+    {
+        AssetDeclarationDocument document;
+        Require(processor.Cache.TryGetDocument(path, null, TargetPlatform.Win32, false, out document) && document != null,
+            "Probe document missing from real Core cache: " + path);
+        return document;
+    }
+    static DocumentProcessor PersistentProcessor(BuiltinCompilers plugins, string cachePath)
+    {
+        var processor = Processor(plugins);
+        var cache = new SessionCache(); cache.LoadCache(cachePath); cache.InitializeCache(new List<string>());
+        processor.Cache = cache;
+        return processor;
+    }
+    static void DefineOverrideProbe(BuiltinCompilers plugins, bool increment)
+    {
+        string name = "risk-define-" + (increment ? "increment" : "identity");
+        var settings = Configure(name);
+        string input = Write(name + "/root.xml", Asset(Include("external.xml") +
+            "<Defines><Define name='A' value='=$A" + (increment ? "+1" : "") + "' override='true'/></Defines>" +
+            "<ArmorTemplate id='OverrideProbe' Default='=$A'/>"));
+        string external = Write(name + "/external.xml", Asset("<Defines><Define name='A' value='10'/></Defines>"));
+        string cachePath = Path.Combine(settings.SessionCacheDirectory, "probe.xml");
+        var first = PersistentProcessor(plugins, cachePath); Run(first, input);
+        Require(CachedDocument(first, input).AllDefines.GetEvaluatedValue("A") == (increment ? "11" : "10"),
+            "Cold Define override did not read the external pre-override value");
+        var expectedInitial = Outputs(settings.OutputDirectory); first.Cache.SaveCache(false);
+        var warm = PersistentProcessor(plugins, cachePath); Run(warm, input);
+        var unmodified = Outputs(settings.OutputDirectory);
+        int unmodifiedParsed = (int)Field(warm, "_FilesParsedCount");
+        string unmodifiedValue = CachedDocument(warm, input).AllDefines.GetEvaluatedValue("A");
+        // Keep the original persisted generation: the root source stays byte
+        // identical, and only the included definition changes from 10 to 20.
+        byte[] rootBefore = File.ReadAllBytes(input);
+        File.WriteAllText(external, Asset("<Defines><Define name='A' value='20'/></Defines>"));
+        var changed = PersistentProcessor(plugins, cachePath); Run(changed, input);
+        string restoredValue = CachedDocument(changed, input).AllDefines.GetEvaluatedValue("A");
+        var restored = Outputs(settings.OutputDirectory);
+        Require(rootBefore.SequenceEqual(File.ReadAllBytes(input)), "Define probe changed the parent source");
+        settings.OutputDirectory = Path.Combine(work, name, "cold-output");
+        settings.IntermediateOutputDirectory = Path.Combine(work, name, "cold-intermediate");
+        var cold = Processor(plugins); Run(cold, input);
+        string coldValue = CachedDocument(cold, input).AllDefines.GetEvaluatedValue("A");
+        Require(coldValue == (increment ? "21" : "20"), "Changed cold Define override value incorrect");
+        OptimizationRisks.Add(new { id = name, boundary = "public-Core-persisted-session", initialValue = increment ? "11" : "10",
+            unmodifiedValue, unmodifiedEquivalent = SameOutputs(expectedInitial, unmodified), unmodifiedParsed, unmodifiedWork = warm.GetWorkMetrics(),
+            restoredValue, coldValue, changedEquivalent = SameOutputs(restored, Outputs(settings.OutputDirectory)),
+            correctnessMismatch = restoredValue != coldValue || !SameOutputs(restored, Outputs(settings.OutputDirectory)),
+            repeatedInvalidation = unmodifiedParsed > 0,
+            reproduced = restoredValue != coldValue || !SameOutputs(restored, Outputs(settings.OutputDirectory)) || unmodifiedParsed > 0,
+            cliFailureEstablished = false });
+        Require(SameOutputs(expectedInitial, unmodified) && unmodifiedValue == (increment ? "11" : "10"),
+            "Unmodified persisted override must preserve its original value and four outputs");
+        Require(unmodifiedParsed == 0, "Unmodified persisted override reparsed a document unnecessarily");
+        Require(restoredValue == coldValue && SameOutputs(restored, Outputs(settings.OutputDirectory)),
+            "External Define change must match the fresh cold value and four outputs");
+        Tests.Add(name + ":real-Core-persisted-cache-unchanged-no-reparse-external-change-cold-warm-equality");
+    }
+    static string Experience(string id, string prerequisite, bool upgrade)
+    {
+        return "<ExperienceLevelTemplate id='" + id + "'" + (prerequisite == null ? "" : " Prerequisite='" + prerequisite + "'") +
+            "><LevelUpTintColor r='1.0' g='1.0' b='1.0'/>" + (upgrade ? "<Upgrade>BindingUpgrade</Upgrade>" : "") + "</ExperienceLevelTemplate>";
+    }
+    static void CrossStreamBindingProbe(BuiltinCompilers plugins)
+    {
+        const string name = "risk-stream-binding";
+        var settings = Configure(name); var processor = Processor(plugins);
+        string shared = Write(name + "/shared.xml", Asset(Experience("BindingOwner", null, true)));
+        Write(name + "/candidate.xml", Asset("<UpgradeTemplate id='BindingUpgrade'/>"));
+        string first = Write(name + "/first.xml", Asset(Include("shared.xml")));
+        string second = Write(name + "/second.xml", Asset("<Includes><Include type='all' source='shared.xml'/>" +
+            "<Include type='instance' source='candidate.xml'/></Includes>"));
+        Run(processor, first);
+        var snapshot = processor.GetWorkMetrics();
+        var snapshotValues = snapshot.ToDictionary(item => item.stage, item => new[] { (double)item.calls, (double)item.failedCalls, item.elapsedMs });
+        foreach (string stage in new[] { "rawParse", "definitions", "expressions", "inheritance", "validation", "assetProcessing", "referenceBinding", "manifest", "link" })
+            Require(snapshot.Any(item => item.stage == stage && item.calls > 0 && item.failedCalls == 0 && item.elapsedMs >= 0 && !Double.IsInfinity(item.elapsedMs)),
+                "Cold Core work metric missing/invalid: " + stage);
+        var before = CachedDocument(processor, shared).SelfInstances[0];
+        Require(before.WeakReferencedInstances.Count == 1 && CachedDocument(processor, first).GetStreamBindings().assets.Single(row => row.identity.instanceName == "BindingOwner").references.Count == 0,
+            "First stream must leave the weak Upgrade reference unresolved");
+        Run(processor, second);
+        foreach (var item in snapshot)
+            Require(item.calls == snapshotValues[item.stage][0] && item.failedCalls == snapshotValues[item.stage][1] && item.elapsedMs == snapshotValues[item.stage][2],
+                "A previously returned work-metric snapshot changed after another stream");
+        Require(processor.GetWorkMetrics().Single(item => item.stage == "link").calls > snapshot.Single(item => item.stage == "link").calls,
+            "The next stream must record its own additional link work");
+        var after = CachedDocument(processor, shared).SelfInstances[0];
+        var warmDocument = CachedDocument(processor, second);
+        var warm = Outputs(settings.OutputDirectory).Where(pair => pair.Key.Contains("second")).ToDictionary(pair => pair.Key, pair => pair.Value);
+        Require(warm.Count == 4, "Second binding stream did not produce four files");
+        bool warmContainsUpgrade = warmDocument.OutputInstances.Any(instance => instance.Handle.InstanceName == "BindingUpgrade");
+        settings.OutputDirectory = Path.Combine(work, name, "cold-output");
+        settings.IntermediateOutputDirectory = Path.Combine(work, name, "cold-intermediate");
+        var cold = Processor(plugins); Run(cold, second);
+        var coldDocument = CachedDocument(cold, second);
+        Require(coldDocument.OutputInstances.Any(instance => instance.Handle.InstanceName == "BindingUpgrade"),
+            "Cold stream must pull the weakly referenced Tentative upgrade into its closure");
+        var expected = Outputs(settings.OutputDirectory);
+        OptimizationRisks.Add(new { id = name, boundary = "public-Core-two-streams-one-processor", sharedInstanceRetained = Object.ReferenceEquals(before, after),
+            warmContainsUpgrade, warmAssets = warmDocument.OutputInstances.Count, coldAssets = coldDocument.OutputInstances.Count,
+            equivalent = SameOutputs(expected, warm), reproduced = !SameOutputs(expected, warm), cliFailureEstablished = false });
+        Require(warmContainsUpgrade && warmDocument.GetStreamBindings().assets.Single(row => row.identity.instanceName == "BindingOwner").references.Single().instanceName == "BindingUpgrade" && SameOutputs(expected, warm),
+            "Each stream must rebind the declaration's weak references in its own symbol view");
+        Tests.Add("risk-stream-binding:real-Core-two-symbol-views-weak-missing-to-Tentative-cold-warm-equality");
+    }
+    static void WorkMetricsProbe(BuiltinCompilers plugins)
+    {
+        const string name = "work-metrics";
+        var settings = Configure(name); var processor = Processor(plugins); var schemas = processor.SchemaSet;
+        var preparation = schemas.GetPreparationMetrics();
+        var values = preparation.ToDictionary(item => item.stage, item => new[] { (double)item.calls, (double)item.failedCalls, item.elapsedMs });
+        foreach (string stage in new[] { "schemaRead", "schemaCompile", "schemaMetadata" })
+            Require(preparation.Any(item => item.stage == stage && item.calls == 1 && item.failedCalls == 0 && item.elapsedMs >= 0 && !Double.IsInfinity(item.elapsedMs)),
+                "Schema preparation metric missing/invalid: " + stage);
+        long filesRead = schemas.SchemaFileReadCount, bytesRead = schemas.SchemaContentBytesRead;
+        Require(filesRead > 0 && bytesRead > 0 && schemas.SchemaContentCheckCount == 0,
+            "Initial schema preparation must report its actual input reads");
+        schemas.ReloadIfChanged(settings.StableSort);
+        var checkedPreparation = schemas.GetPreparationMetrics();
+        Require(checkedPreparation.Single(item => item.stage == "schemaContentCheck").calls == 1 &&
+            checkedPreparation.Single(item => item.stage == "schemaContentCheck").failedCalls == 0,
+            "Unchanged schema reload must record a content-check interval");
+        Require(schemas.SchemaFileReadCount == filesRead && schemas.SchemaContentCheckCount == filesRead && schemas.SchemaContentBytesRead == 2 * bytesRead,
+            "Unchanged schema reload must recheck the whole closure without reparsing");
+        Require(checkedPreparation.Single(item => item.stage == "schemaRead").calls == 1,
+            "Unchanged schema reload must not rebuild schema metadata");
+        foreach (var item in preparation)
+            Require(item.calls == values[item.stage][0] && item.failedCalls == values[item.stage][1] && item.elapsedMs == values[item.stage][2],
+                "A previously returned schema-preparation snapshot changed");
+        string valid = Write(name + "/valid.xml", Asset(Experience("WorkMetricOwner", null, false)));
+        Run(processor, valid);
+        var parsed = processor.GetWorkMetrics().Single(item => item.stage == "rawParse");
+        Require(parsed.calls == processor.XmlParseCount && parsed.calls == 1 && parsed.failedCalls == 0,
+            "Raw parse intervals must count the actual parser invocations");
+        long parseCalls = parsed.calls; double parseElapsed = parsed.elapsedMs;
+        string invalid = Write(name + "/invalid.xml", "<AssetDeclaration");
+        Failure(processor, invalid, ErrorCode.XmlFormattingError);
+        var failed = processor.GetWorkMetrics().Single(item => item.stage == "rawParse");
+        Require(failed.calls == processor.XmlParseCount && failed.calls == parseCalls + 1 && failed.failedCalls == 1 && failed.elapsedMs >= parseElapsed,
+            "Failed parsing must retain its call, failure and elapsed work");
+        Require(parsed.calls == parseCalls && parsed.failedCalls == 0 && parsed.elapsedMs == parseElapsed,
+            "A previous parse metric snapshot changed after failure");
+        string originalSchema = settings.SchemaPath;
+        try
+        {
+            settings.SchemaPath = Path.Combine(work, name, "missing-schema.xsd");
+            bool rejected = false;
+            try { schemas.ReloadIfChanged(settings.StableSort); }
+            catch (BinaryAssetBuilderException error) { rejected = error.ErrorCode == ErrorCode.ReadingSchema; }
+            Require(rejected, "Missing schema reload must retain its original reading error");
+            var readFailure = schemas.GetPreparationMetrics().Single(item => item.stage == "schemaRead");
+            Require(readFailure.calls == 2 && readFailure.failedCalls == 1 && readFailure.elapsedMs >= preparation.Single(item => item.stage == "schemaRead").elapsedMs,
+                "Failed schema loading must retain its call, failure and elapsed work");
+        }
+        finally { settings.SchemaPath = originalSchema; }
+        WorkMetrics.Add(new { id = name, preparation, checkedPreparation, finalPreparation = schemas.GetPreparationMetrics(),
+            initialFilesRead = filesRead, initialBytesRead = bytesRead, finalBytesRead = schemas.SchemaContentBytesRead,
+            contentChecks = schemas.SchemaContentCheckCount, successfulParse = parsed, finalStages = processor.GetWorkMetrics() });
+        Tests.Add("work-metrics:schema-closure-content-checks-parse-failure-and-immutable-snapshots");
+    }
+    static void LinkedSideFileProbe(BuiltinCompilers plugins)
+    {
+        const string name = "risk-linked-side-files";
+        var settings = Configure(name);
+        string input = Write(name + "/root.xml", Asset(Experience("ImportParent", null, false) + Experience("ImportChild", "ImportParent", false)));
+        var first = Processor(plugins); Run(first, input);
+        var expected = Outputs(settings.OutputDirectory);
+        var original = Directory.GetFiles(settings.OutputDirectory, "*", SearchOption.AllDirectories)
+            .Where(path => new[] { ".manifest", ".bin", ".imp", ".relo" }.Contains(Path.GetExtension(path)))
+            .ToDictionary(path => path, File.ReadAllBytes);
+        foreach (string extension in new[] { ".imp", ".relo" })
+        {
+            string side = original.Keys.Single(path => Path.GetExtension(path) == extension);
+            Require(original[side].Length > 4, "Side-file recovery probe requires a nonempty payload: " + extension);
+            foreach (string damage in new[] { "deleted", "truncated-header", "truncated-payload" })
+            {
+                foreach (var pair in original) File.WriteAllBytes(pair.Key, pair.Value);
+                if (damage == "deleted") File.Delete(side);
+                else File.WriteAllBytes(side, original[side].Take(damage == "truncated-header" ? 2 : 4).ToArray());
+                var bin = original.Keys.Single(path => Path.GetExtension(path) == ".bin");
+                Require(File.ReadAllBytes(bin).SequenceEqual(original[bin]), "Probe must retain valid .bin bytes");
+                var repeat = Processor(plugins); Run(repeat, input);
+                bool equivalent = SameOutputs(expected, Outputs(settings.OutputDirectory));
+                OptimizationRisks.Add(new { id = name, extension, damage, boundary = "public-Core-existing-linked-stream-fresh-processor",
+                    equivalent, reproduced = !equivalent, originalPayloadBytes = original[side].Length - 4,
+                    restoredPayloadBytes = new FileInfo(side).Length - 4, cliFailureEstablished = false });
+                Require(equivalent, "Complete linked stream must recover " + extension + " " + damage + " with a valid retained .bin");
+            }
+        }
+        foreach (var pair in original) File.WriteAllBytes(pair.Key, pair.Value);
+        Tests.Add("risk-linked-side-files:real-Core-valid-bin-independent-imp-relo-deletion-header-and-payload-truncation-four-output-equality");
+    }
+    static void InheritanceOriginalDifferential(string baseline, string sourceCommit, string runId)
+    {
+        var json = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
+        var original = json.Deserialize<Dictionary<string, object>>(File.ReadAllText(baseline));
+        Require((bool)original["succeeded"] && (string)original["mode"] == "original" &&
+            (string)original["sourceCommit"] == sourceCommit && (string)original["runId"] == runId,
+            "Independent original inheritance oracle source/run mismatch");
+        var expected = (System.Collections.IEnumerable)original["inheritance"];
+        object[] actual = CompilerDocumentSnapshotOracle.InheritanceCases(Path.Combine(work, "inheritance-original-differential"), sdk);
+        var expectedRows = new List<object>(); foreach (object row in expected) expectedRows.Add(row);
+        Require(expectedRows.Count == 9 && actual.Length == expectedRows.Count, "Expected nine independent original inheritance stage cases");
+        for (int i = 0; i < actual.Length; i++)
+            Require(json.Serialize(expectedRows[i]) == json.Serialize(actual[i]),
+                "Independent original inheritance mismatch at case " + i + ": " + json.Serialize(expectedRows[i]) + " != " + json.Serialize(actual[i]));
+        InheritanceOriginal = new { rows = actual.Length, cases = actual,
+            scope = "Same-source independent original SDK DLL public ProcessOverrides/Validate corpus; no illegal cycles or deliberate zero-digest semantic change in this oracle" };
+        Tests.Add("independent-original-SDK-DLL-inheritance-forward-backward-diamond-repeat-event-order-depth-first-error-and-processed-provider-default-SchemaInfo-source-differential");
+    }
     public static int Main(string[] args)
     {
         object result; int code = 0; Settings original = Settings.Current;
         try
         {
-            if (args.Length != 5 || IntPtr.Size != 4) throw new Exception("Expected work result sourceCommit runId sdk (x86)");
+            if (args.Length != 6 || IntPtr.Size != 4) throw new Exception("Expected work result sourceCommit runId sdk originalOracleJson (x86)");
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
             probe = File.ReadAllText(Path.Combine(sdk, "Mods/mymod/Data/RecoveryArmorProbe.xml"));
             UnicodePathCase();
+            InheritanceOriginalDifferential(args[5], args[2], args[3]);
             Require(typeof(DocumentProcessor).Assembly == typeof(BuiltinCompilers).Assembly, "Core is outside product assembly");
             // Configuration precedes built-in initialization, just as a real build requires.
             Configure("initialize");
             using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
             {
                 RetryCase(plugins, "include", false); RetryCase(plugins, "inheritance", true);
-                CycleCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins);
+                CycleCase(plugins); InheritanceExecutionCase(plugins, 2); InheritanceExecutionCase(plugins, 3); ZeroInheritanceDigestCase(plugins); DeepInheritanceCase(plugins); RepeatedInheritanceCase(plugins); HashCallbackReadinessCase(plugins);
+                ProjectCase(plugins); SaveFailureCase(plugins);
                 MetricsFailureCase(plugins, true, false); MetricsFailureCase(plugins, false, true);
                 MetricsFailureCase(plugins, true, true); ProcessorStateCase(plugins);
+                DefineOverrideProbe(plugins, false); DefineOverrideProbe(plugins, true);
+                CrossStreamBindingProbe(plugins); LinkedSideFileProbe(plugins); WorkMetricsProbe(plugins);
+                Console.WriteLine("W01_PROBES " + new JavaScriptSerializer().Serialize(OptimizationRisks));
             }
-            result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), longPathsValidated=false, scope="Real Core lifecycle only; production CLI backend, other global scopes, SDK/G3 and persistent cache not accepted" };
+            result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), optimizationRisks=OptimizationRisks.ToArray(), inheritanceOriginal=InheritanceOriginal, workMetrics=WorkMetrics.ToArray(), optimizationRisksAccepted=true, longPathsValidated=false, scope="Real Core lifecycle and targeted persisted-session regression probes only; production CLI backend, SDK/G3 and general persistent-cache acceptance are separate" };
             Console.WriteLine("PASS CoreLifecycle: " + Tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception e)
         {
-            code=1; result = new { succeeded=false, sourceCommit=args.Length>2?args[2]:null, runId=args.Length>3?args[3]:null, checks=checks, tests=Tests.ToArray(), longPathsValidated=false, error=e.ToString() };
+            code=1; result = new { succeeded=false, sourceCommit=args.Length>2?args[2]:null, runId=args.Length>3?args[3]:null, checks=checks, tests=Tests.ToArray(), optimizationRisks=OptimizationRisks.ToArray(), workMetrics=WorkMetrics.ToArray(), optimizationRisksAccepted=false, longPathsValidated=false, error=e.ToString() };
             Console.Error.WriteLine(e);
         }
         finally { Settings.Current = original; }

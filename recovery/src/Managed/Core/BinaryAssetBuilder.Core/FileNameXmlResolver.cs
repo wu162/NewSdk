@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml;
@@ -52,6 +53,9 @@ public class FileNameXmlResolver : XmlUrlResolver
 		}
 		CacheInputBoundary.Validate(empty);
 		_Paths.Add(new PathMapItem(sourceUri, empty));
+        PhysicalInputSnapshot.Entry sealedEntity;
+        if ((ofObjectToReturn == null || ofObjectToReturn == typeof(Stream)) && PhysicalInputSnapshot.TryCapture(empty, out sealedEntity))
+            return sealedEntity.OpenRead();
 		return base.GetEntity(absoluteUri, role, ofObjectToReturn);
 	}
 }

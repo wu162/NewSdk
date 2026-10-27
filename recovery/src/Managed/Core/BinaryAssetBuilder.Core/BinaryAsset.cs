@@ -48,7 +48,17 @@ public class BinaryAsset
 
 	private OutputManager _Parent;
 
-	private static byte[] _CopyBuffer = new byte[1048576];
+    private static byte[] _CopyBuffer;
+    private static readonly object _CopyBufferGate = new object();
+    private static readonly Func<byte[]> _LegacyCopyBufferFactory = GetLegacyCopyBuffer;
+    private static byte[] GetLegacyCopyBuffer()
+    {
+        lock (_CopyBufferGate)
+        {
+            if (_CopyBuffer == null) _CopyBuffer = new byte[1048576];
+            return _CopyBuffer;
+        }
+    }
 
 	public AssetBuffer Buffer
 	{
@@ -159,7 +169,7 @@ public class BinaryAsset
 		}
 		string path = Path.Combine(_CacheDirectory, _AssetFileName);
 		string path2 = Path.Combine(_CacheDirectory, _CustomDataFileName);
-		if (File.Exists(path) && (!_Instance.HasCustomData || File.Exists(path2)))
+		if (CacheFileExists(path) && (!_Instance.HasCustomData || CacheFileExists(path2)))
 		{
 			_CacheAvailability = Availability.Present;
 		}
@@ -168,6 +178,20 @@ public class BinaryAsset
 			_CacheAvailability = Availability.Missing;
 		}
 	}
+
+    private static bool CacheFileExists(string path)
+    {
+        bool exists = File.Exists(path);
+        PhysicalInputSnapshot.ObserveCacheCandidate(path, exists);
+        return exists;
+    }
+
+    private static bool CacheFileExists(FileInfo file)
+    {
+        bool exists = file.Exists;
+        PhysicalInputSnapshot.ObserveCacheCandidate(file.FullName, exists);
+        return exists;
+    }
 
 	private void UpdateOutputAvailability(bool forceUpdate)
 	{
@@ -328,7 +352,7 @@ public class BinaryAsset
 				}
 				_Tracer.TraceInfo("Checking build cache copy of asset.");
 				string text2 = Path.Combine(_CacheDirectory, _AssetFileName);
-				using (FileStream fileStream2 = File.OpenRead(text2))
+				using (Stream fileStream2 = PhysicalInputSnapshot.OpenCapturedCacheHeaderRead(text2))
 				{
 					_AssetHeader = new AssetHeader();
 					_AssetHeader.LoadFromStream(fileStream2, Settings.Current.BigEndian);
@@ -338,6 +362,7 @@ public class BinaryAsset
 				{
 					_Tracer.TraceError("Invalid cached asset file detected. Deleting {0}.", text2);
 					File.Delete(text2);
+                    PhysicalInputSnapshot.CacheFileChangedByCurrentBuild(text2, false);
 					throw new BinaryAssetBuilderException(ErrorCode.UnexpectedSize, "Can't recover from last error. Please restart to rebuild asset.");
 				}
 				CommitFromCache();
@@ -440,25 +465,36 @@ public class BinaryAsset
 
 	private bool CopyAsset(string sourceAssetPath, string sourceCustomDataPath)
 	{
+        return CopyAssetCore(sourceAssetPath, sourceCustomDataPath, true);
+	}
+
+    private bool CopyAssetCore(string sourceAssetPath, string sourceCustomDataPath, bool captureSources)
+	{
 		string text = Path.Combine(_AssetOutputDirectory, _AssetFileName);
 		string text2 = text + ".tmp";
 		string text3 = Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName);
 		_AssetHeader = null;
 		try
 		{
+			using (PhysicalInputSnapshot.MaterializationCapture capture = captureSources ? PhysicalInputSnapshot.BeginMaterializationCapture() : null)
+			{
+			bool trustedSource = false;
 			if (!Directory.Exists(_AssetOutputDirectory))
 			{
 				Directory.CreateDirectory(_AssetOutputDirectory);
 			}
-			lock (_CopyBuffer)
+            DocumentProcessor processor = _Parent == null ? null : _Parent.DocumentProcessor;
+            byte[] copyBuffer = processor == null ? GetLegacyCopyBuffer() : processor.TransferBuffers.GetCopyBuffer(_LegacyCopyBufferFactory);
+            lock (copyBuffer)
 			{
-				using FileStream fileStream = File.OpenRead(sourceAssetPath);
+				using Stream fileStream = capture == null ? File.OpenRead(sourceAssetPath) : PhysicalInputSnapshot.OpenCapturedMaterializationRead(sourceAssetPath);
+                PhysicalInputSnapshot.MaterializationContent content = null;
 				using (FileStream fileStream2 = File.Open(text2, FileMode.Create, FileAccess.Write))
 				{
 					long num = fileStream.Length;
 					while (num > 0)
 					{
-						int num2 = fileStream.Read(_CopyBuffer, 0, _CopyBuffer.Length);
+						int num2 = fileStream.Read(copyBuffer, 0, copyBuffer.Length);
 						if (num2 < 16)
 						{
 							throw new Exception();
@@ -466,17 +502,27 @@ public class BinaryAsset
 						if (_AssetHeader == null)
 						{
 							_AssetHeader = new AssetHeader();
-							_AssetHeader.LoadFromBuffer(_CopyBuffer, Settings.Current.BigEndian);
+							_AssetHeader.LoadFromBuffer(copyBuffer, Settings.Current.BigEndian);
 							if (_AssetHeader.InstanceId != Instance.Handle.InstanceId || _AssetHeader.TypeId != Instance.Handle.TypeId || _AssetHeader.InstanceHash != Instance.Handle.InstanceHash || _AssetHeader.TypeHash != Instance.Handle.TypeHash)
 							{
 								throw new Exception();
 							}
+                            // Keep the original deferred length rejection: a
+                            // malformed source is copied but never spooled or
+                            // pinned. No source pin is acquired at this point.
+                            trustedSource = capture != null && num2 >= 32 && fileStream.Length >= 32 && _AssetHeader.IsValidFileLength(fileStream.Length);
+                            if (trustedSource) content = PhysicalInputSnapshot.BeginMaterializationContent(sourceAssetPath, fileStream);
 						}
-						fileStream2.Write(_CopyBuffer, 0, num2);
+						fileStream2.Write(copyBuffer, 0, num2);
+                        if (content != null) content.Append(copyBuffer, 0, num2);
 						num -= num2;
 					}
 					fileStream2.Flush();
 				}
+                // The original source handle is still open. Publish the bytes
+                // actually copied only after the full copy/flush succeeded and
+                // the current pathname's pinned identity matches that handle.
+                if (content != null) content.Complete(fileStream);
 				if (File.Exists(text))
 				{
 					File.Delete(text);
@@ -489,10 +535,17 @@ public class BinaryAsset
 				{
 					Directory.CreateDirectory(_CustomDataOutputDirectory);
 				}
+                if (capture != null && trustedSource)
+                {
+                    PhysicalInputSnapshot.Entry ignored;
+                    PhysicalInputSnapshot.TryCapture(sourceCustomDataPath, out ignored);
+                }
 				File.Copy(sourceCustomDataPath, text3, overwrite: true);
 			}
+            if (capture != null) capture.Commit();
+			}
 		}
-		catch (Exception)
+		catch (Exception error)
 		{
 			if (File.Exists(text))
 			{
@@ -502,6 +555,7 @@ public class BinaryAsset
 			{
 				File.Delete(text3);
 			}
+            if (error is OperationCanceledException) throw;
 			return false;
 		}
 		return true;
@@ -516,7 +570,10 @@ public class BinaryAsset
 		}
 		string sourceAssetPath = Path.Combine(_LastLocationInfo.AssetOutputDirectory, _AssetFileName);
 		string sourceCustomDataPath = Path.Combine(_LastLocationInfo.CustomDataOutputDirectory, _CustomDataFileName);
-		if (CopyAsset(sourceAssetPath, sourceCustomDataPath))
+        // Local outputs belong to this mutable Core run. They can be repaired,
+        // rewritten or cleaned later in the same generation; never turn them
+        // into pinned external inputs, even without caller exclusions.
+		if (CopyAssetCore(sourceAssetPath, sourceCustomDataPath, false))
 		{
 			_Tracer.Message("{0} copied from previous output: {1}", DocumentProcessor.CurrentDocument, Instance);
 			return;
@@ -546,6 +603,7 @@ public class BinaryAsset
 					break;
 				}
 			}
+			catch (OperationCanceledException) { throw; }
 			catch (Exception ex)
 			{
 				_Tracer.Message("{0} in use ({1}), re-attempting grab: {2}", DocumentProcessor.CurrentDocument, ex.Message, Instance);
@@ -619,31 +677,33 @@ public class BinaryAsset
 		try
 		{
 			FileInfo fileInfo = new FileInfo(Path.Combine(_CacheDirectory, _AssetFileName));
-			if (fileInfo.Exists)
+			if (CacheFileExists(fileInfo))
 			{
-				FileInfo fileInfo2 = fileInfo;
-				FileInfo fileInfo3 = fileInfo;
-				DateTime dateTime = (fileInfo.LastAccessTime = DateTime.Now);
-				DateTime creationTime = (fileInfo3.LastWriteTime = dateTime);
-				fileInfo2.CreationTime = creationTime;
+                TouchCacheFile(fileInfo);
 			}
 			if (Instance.HasCustomData)
 			{
 				fileInfo = new FileInfo(Path.Combine(_CacheDirectory, _CustomDataFileName));
-				if (fileInfo.Exists)
+				if (CacheFileExists(fileInfo))
 				{
-					FileInfo fileInfo4 = fileInfo;
-					FileInfo fileInfo5 = fileInfo;
-					DateTime dateTime3 = (fileInfo.LastAccessTime = DateTime.Now);
-					DateTime creationTime2 = (fileInfo5.LastWriteTime = dateTime3);
-					fileInfo4.CreationTime = creationTime2;
+                    TouchCacheFile(fileInfo);
 				}
 			}
 		}
+		catch (OperationCanceledException) { throw; }
 		catch (Exception)
 		{
 		}
 	}
+
+    private static void TouchCacheFile(FileInfo file)
+    {
+        DateTime now = DateTime.Now;
+        if (PhysicalInputSnapshot.TryTouchCapturedCache(file.FullName, now)) return;
+        file.LastAccessTime = now;
+        file.LastWriteTime = now;
+        file.CreationTime = now;
+    }
 
 	private void CopyToCache()
 	{
@@ -656,6 +716,7 @@ public class BinaryAsset
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to copy asset {0} to network", _Instance);
 		}
 		_Tracer.Message("{0} Submitting to cache {1}", DocumentProcessor.CurrentDocument, Instance);
+		string attemptedCacheWrite = null;
 		try
 		{
 			if (!Directory.Exists(_CacheDirectory))
@@ -664,36 +725,36 @@ public class BinaryAsset
 			}
 			string text = Path.Combine(_CacheDirectory, _AssetFileName);
 			FileInfo fileInfo = new FileInfo(text);
-			if (!fileInfo.Exists)
+			if (!CacheFileExists(fileInfo))
 			{
+				attemptedCacheWrite = text;
 				File.Copy(Path.Combine(_AssetOutputDirectory, _AssetFileName), text);
+                PhysicalInputSnapshot.CacheFileChangedByCurrentBuild(text, true);
+				attemptedCacheWrite = null;
 			}
 			else
 			{
-				FileInfo fileInfo2 = fileInfo;
-				FileInfo fileInfo3 = fileInfo;
-				DateTime dateTime = (fileInfo.LastAccessTime = DateTime.Now);
-				DateTime creationTime = (fileInfo3.LastWriteTime = dateTime);
-				fileInfo2.CreationTime = creationTime;
+                TouchCacheFile(fileInfo);
 			}
 			if (Instance.HasCustomData)
 			{
 				text = Path.Combine(_CacheDirectory, _CustomDataFileName);
 				fileInfo = new FileInfo(text);
-				if (!fileInfo.Exists)
+				if (!CacheFileExists(fileInfo))
 				{
+					attemptedCacheWrite = text;
 					File.Copy(Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName), text);
+                    PhysicalInputSnapshot.CacheFileChangedByCurrentBuild(text, true);
+					attemptedCacheWrite = null;
 					return;
 				}
-				FileInfo fileInfo4 = fileInfo;
-				FileInfo fileInfo5 = fileInfo;
-				DateTime dateTime3 = (fileInfo.LastAccessTime = DateTime.Now);
-				DateTime creationTime2 = (fileInfo5.LastWriteTime = dateTime3);
-				fileInfo4.CreationTime = creationTime2;
+                TouchCacheFile(fileInfo);
 			}
 		}
+		catch (OperationCanceledException) { throw; }
 		catch (Exception)
 		{
+            if (attemptedCacheWrite != null) PhysicalInputSnapshot.CacheFileWriteFailedByCurrentBuild(attemptedCacheWrite);
 			_Tracer.Message("Failed to copy asset {0} to network", _Instance);
 		}
 	}

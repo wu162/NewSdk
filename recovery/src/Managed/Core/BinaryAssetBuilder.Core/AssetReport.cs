@@ -108,6 +108,11 @@ public static class AssetReport
 
 	public static void RecordAsset(InstanceDeclaration instance, BinaryAsset asset)
 	{
+        RecordAsset(instance, asset, instance.ValidatedReferencedInstances);
+    }
+
+    internal static void RecordAsset(InstanceDeclaration instance, BinaryAsset asset, IEnumerable<InstanceHandle> references)
+	{
 		if (instance.Handle == null)
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Asset report failure");
@@ -118,11 +123,16 @@ public static class AssetReport
 			{
 				InitAssetRecordWriter();
 			}
-			RecordAsset(instance.Handle.InstanceName, instance.Handle.TypeName, asset.InstanceFileSize, instance.ValidatedReferencedInstances);
+			RecordAsset(instance.Handle.InstanceName, instance.Handle.TypeName, asset.InstanceFileSize, references);
 		}
 	}
 
 	private static void RecordAsset(string id, string type, int size, IList<InstanceHandle> references)
+	{
+        RecordAsset(id, type, size, (IEnumerable<InstanceHandle>)references);
+    }
+
+    private static void RecordAsset(string id, string type, int size, IEnumerable<InstanceHandle> references)
 	{
 		string key = MakeAssetReportId(type, id);
 		if (RecordedAssets.ContainsKey(key))

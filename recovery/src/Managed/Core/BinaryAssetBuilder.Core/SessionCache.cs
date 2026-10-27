@@ -196,6 +196,30 @@ public class SessionCache : ISessionCache
 	// Initialization can reject an obsolete serialized session without throwing.
 	public bool HasCachedState => _Last != null;
 
+	public sealed class DigestReadMeasurement
+	{
+		public long reads { get; private set; }
+		public long bytes { get; private set; }
+		public int items { get; private set; }
+		internal DigestReadMeasurement(long count, long size, int itemCount) { reads = count; bytes = size; items = itemCount; }
+	}
+
+	// Counts successful logical digest reads, including initialization checks.
+	// A physical file may have several configuration-specific FileHashItems.
+	public DigestReadMeasurement GetDigestReadMetrics()
+	{
+		long reads = 0, bytes = 0;
+		var items = new HashSet<FileHashItem>();
+		if (_Current != null && _Current.Files != null)
+			foreach (var file in _Current.Files.Values)
+				if (file.HashItem != null && items.Add(file.HashItem))
+				{
+					reads += file.HashItem.DigestReadCount;
+					bytes += file.HashItem.DigestBytesRead;
+				}
+		return new DigestReadMeasurement(reads, bytes, items.Count);
+	}
+
 	public virtual uint AssetCompilersVersion
 	{
 		get

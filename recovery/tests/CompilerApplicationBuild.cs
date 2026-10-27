@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Web.Script.Serialization;
+using System.Xml;
 using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 using NewModCompiler.Application;
@@ -37,11 +38,13 @@ public static class CompilerApplicationBuild
     {
         internal readonly List<IDictionary<string, object>> Events = new List<IDictionary<string, object>>();
         internal CancellationTokenSource Cancellation;
+        internal Action<IDictionary<string, object>> InputProbe;
         internal bool FailArtifact, FailCoreTrace, Failed, InjectBridgeMessages, Injected;
         public void Write(IDictionary<string, object> value)
         {
             Events.Add(Map(Json.DeserializeObject(Json.Serialize(value))));
             string kind = Text(value["eventType"]);
+            if (InputProbe != null) InputProbe(value);
             object diagnostic;
             bool coreTrace = kind == "Diagnostic" && value.TryGetValue("diagnosticCode", out diagnostic) && Text(diagnostic).StartsWith("CORE_TRACE", StringComparison.Ordinal);
             if (coreTrace && InjectBridgeMessages && !Injected)
@@ -68,6 +71,7 @@ public static class CompilerApplicationBuild
         internal string BuildId;
         internal Observe Observer;
         internal IDictionary<string, object> Report;
+        internal IDictionary<string, object> ReleasedInputs;
     }
     static string Mod(string name, string[] valid, bool emptyOptional = false)
     {
@@ -83,15 +87,17 @@ public static class CompilerApplicationBuild
         }
         return root;
     }
-    static RunResult Build(string name, string mod, string[] content, Observe observer = null)
+    static RunResult Build(string name, string mod, string[] content, Observe observer = null, string[] extraArguments = null, int traceLevel = 3)
     {
         int number = ++buildNumber;
         // Core still uses legacy MAX_PATH APIs for intermediate asset names.
         // Keep the real compile workspace short, then archive unmodified logs;
         // do not weaken Chinese/space MOD-path or production path validation.
         string output = Path.Combine(shortOutputRoot, "b" + number);
-        var request = Options.Parse(new[] { "build", "--mod", mod, "--sdk-root", sdk, "--out", output,
-            "--package-format", "loose", "--package-content", String.Join(",", content), "/sc:false", "/bc:false", "/pc:false", "/csc:false", "/tl:3" });
+        var arguments = new List<string> { "build", "--mod", mod, "--sdk-root", sdk, "--out", output,
+            "--package-format", "loose", "--package-content", String.Join(",", content), "/sc:false", "/bc:false", "/pc:false", "/csc:false", "/tl:" + traceLevel.ToString(System.Globalization.CultureInfo.InvariantCulture) };
+        if (extraArguments != null) arguments.AddRange(extraArguments);
+        var request = Options.Parse(arguments.ToArray());
         Require(request.ModRoot == Path.GetFullPath(mod) && !Paths.Contains(sdk, request.ModRoot), "Expected external MOD directory from Options.Parse");
         BuildPlan expected = Planner.Resolve(request);
         observer = observer ?? new Observe();
@@ -114,7 +120,8 @@ public static class CompilerApplicationBuild
         Require(Object.ReferenceEquals(ambient, Settings.Current), "BuildSession did not restore ambient Core settings");
         Require(File.ReadAllText(sentinel) == "leave existing output alone", "BuildSession removed pre-existing unrelated output");
         var result = new RunResult { Request = request, Expected = expected, Code = code, BuildId = id, Observer = observer,
-            Report = Map(Json.DeserializeObject(File.ReadAllText(request.ReportPath))) };
+            Report = Map(Json.DeserializeObject(File.ReadAllText(request.ReportPath))),
+            ReleasedInputs = Map(Json.DeserializeObject(Json.Serialize(backend.InputSnapshotReport))) };
         Lifecycle(result);
         var copies = new List<object>(); int artifactNumber = 0;
         foreach (var artifact in Array(result.Report["artifacts"]).Select(Map))
@@ -127,7 +134,7 @@ public static class CompilerApplicationBuild
         }
         ProtocolCases.Add(new { name = name, events = Path.Combine(archive, "build.events.jsonl"), report = Path.Combine(archive, "build-report.json"),
             originalEventsPath = request.EventsPath, originalReportPath = request.ReportPath, originalOutputRoot = output, buildId = id,
-            selectedContent = content, expectedStreamCount = expected.Tasks.Length, exitCode = (int)code, artifactCopies = copies.ToArray() });
+            selectedContent = content, expectedStreamCount = expected.Tasks.Length, exitCode = (int)code, artifactCopies = copies.ToArray(), releasedPhysicalInputs = result.ReleasedInputs });
         return result;
     }
     static IDictionary<string, object>[] Events(RunResult run, string kind)
@@ -154,6 +161,18 @@ public static class CompilerApplicationBuild
         string[] jsonLines = File.ReadAllLines(run.Request.EventsPath);
         Require(jsonLines.Length == events.Count && File.ReadAllBytes(run.Request.EventsPath).Last() == (byte)'\n', "Durable JSONL lost an event or final line");
         for (int i = 0; i < jsonLines.Length; i++) Require(Json.Serialize(Json.DeserializeObject(jsonLines[i])) == Json.Serialize(events[i]), "Durable JSONL differs from observed events");
+        var applicationWork = Map(run.Report["applicationWork"]);
+        Require(Text(applicationWork["captureBoundary"]) == "beforeInitialReport", "Application work lost its capture boundary");
+        var measured = Array(applicationWork["stages"]).Select(Map).ToArray();
+        foreach (var item in measured)
+            Require(Convert.ToInt64(item["calls"]) > 0 && Convert.ToInt64(item["failedCalls"]) >= 0 &&
+                    Convert.ToInt64(item["failedCalls"]) <= Convert.ToInt64(item["calls"]) && Convert.ToDouble(item["elapsedMs"]) >= 0,
+                    "Application operation work counters invalid");
+        var compileWork = measured.Where(item => Text(item["stage"]) == "backendCompile").ToArray();
+        Require(compileWork.Length <= 1 && compileWork.Sum(item => Convert.ToInt64(item["calls"])) == Events(run, "StreamStarted").Length,
+            "Application work did not count actual stream compile attempts, including zero-input optional groups");
+        Require(Convert.ToInt64(measured.Single(item => Text(item["stage"]) == "backendDispose")["calls"]) == 1,
+            "Application work did not count backend disposal");
         CoreDiagnostics(run);
     }
     static bool CoreDiagnostic(IDictionary<string, object> value)
@@ -216,8 +235,277 @@ public static class CompilerApplicationBuild
     }
     static void Failed(RunResult run, ExitCode expected, string status)
     {
-        Require(run.Code == expected && Text(run.Report["status"]) == status, "Controlled application failure returned wrong status");
+        Require(run.Code == expected && Text(run.Report["status"]) == status,
+            "Controlled application failure returned wrong status: expected=" + expected + "/" + status +
+            " actual=" + run.Code + "/" + Text(run.Report["status"]) + " diagnostics=" + Json.Serialize(run.Report["diagnostics"]));
         Require(Array(run.Report["artifacts"]).Length == 0 && !Directory.Exists(Path.Combine(run.Request.OutputRoot, ".build", run.BuildId)), "Failed build retained its own staging or published artifacts");
+    }
+    static void RequireBlocked(Action operation, string message)
+    {
+        bool blocked = false;
+        try { operation(); }
+        catch (IOException) { blocked = true; }
+        catch (UnauthorizedAccessException) { blocked = true; }
+        Require(blocked, message);
+    }
+    static void RequireWritable(string path)
+    {
+        using (var input = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
+    }
+    static string[] ArtifactHashes(RunResult run)
+    {
+        return Array(run.Report["artifacts"]).Select(Map).OrderBy(item => Text(item["Path"]), StringComparer.Ordinal)
+            .Select(item => Text(item["Sha256"])).ToArray();
+    }
+    static bool ContainsBytes(byte[] bytes, byte[] expected)
+    {
+        for (int offset = 0; offset <= bytes.Length - expected.Length; offset++)
+        {
+            int index = 0; while (index < expected.Length && bytes[offset + index] == expected[index]) index++;
+            if (index == expected.Length) return true;
+        }
+        return false;
+    }
+    static void NativePhysicalPayloadCase()
+    {
+        const string disable = "NewSdk.Compiler.DisablePhysicalInputSnapshot";
+        string mod = Path.Combine(shortOutputRoot, "native-positive-input"), data = Path.Combine(mod, "Data"); Directory.CreateDirectory(data);
+        string payload = Path.Combine(data, "payload.bin"); byte[] bytes = Enumerable.Range(0, 64).Select(index => (byte)(index * 37 + 11)).ToArray();
+        File.WriteAllBytes(payload, bytes);
+        File.WriteAllText(Path.Combine(data, "Mod.xml"), "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><AptAptData id='SealedNativeApt' File='payload.bin'/></AssetDeclaration>");
+        bool beforeNative = false;
+        var observed = new Observe { InputProbe = row => {
+            object message;
+            if (!beforeNative && Text(row["eventType"]) == "Diagnostic" && row.TryGetValue("message", out message) && Text(message).Contains("Compiling AptAptData"))
+            {
+                beforeNative = true;
+                RequireBlocked(() => File.WriteAllBytes(payload, bytes), "Declared DataBlob was not pinned before native ProcessInstance");
+            }
+        } };
+        var sealedRun = Build("physical-native-payload", mod, new[] { "base" }, observed); Success(sealedRun, new[] { "base" });
+        Require(beforeNative, "Native DataBlob pin probe did not observe actual Core compile trace");
+        var bin = Array(sealedRun.Report["artifacts"]).Select(Map).Single(item => Path.GetExtension(Text(item["Path"])) == ".bin");
+        Require(ContainsBytes(File.ReadAllBytes(Text(bin["Path"])), bytes), "Native DataBlob did not consume the declared positive input bytes");
+        RequireWritable(payload);
+        RunResult fallback; AppContext.SetSwitch(disable, true);
+        try { fallback = Build("physical-native-fallback", mod, new[] { "base" }); Success(fallback, new[] { "base" }); }
+        finally { AppContext.SetSwitch(disable, false); }
+        Require(ArtifactHashes(sealedRun).SequenceEqual(ArtifactHashes(fallback)), "Positive input pins changed native DataBlob four-file output");
+        RequireWritable(payload);
+        Tests.Add("actual-native-APT-DataBlob-positive-input-pinned-before-plugin-and-fallback-four-output-equivalence");
+    }
+    static void PhysicalInputCases()
+    {
+        const string disable = "NewSdk.Compiler.DisablePhysicalInputSnapshot";
+        string[] groups = { "base", "apt", "maps" };
+        string mod = Mod("封存 成功", groups), data = Path.Combine(mod, "Data");
+        string source = Path.Combine(data, "Mod.xml"), child = Path.Combine(data, "sealed-child.xml"), moved = data + "-moved";
+        File.WriteAllText(child, probe, new System.Text.UTF8Encoding(false));
+        File.WriteAllText(source, "<xi:include xmlns:xi='http://www.w3.org/2001/XInclude' href='sealed-child.xml'/>", new System.Text.UTF8Encoding(false));
+        byte[] original = File.ReadAllBytes(child); bool atStream = false, atPublish = false;
+        var observer = new Observe { InputProbe = row => {
+            string kind = Text(row["eventType"]); object stage;
+            if (kind == "StreamCompleted" && !atStream)
+            {
+                atStream = true;
+                RequireBlocked(() => File.WriteAllBytes(child, original), "A stream-completed input accepted an external writer");
+                RequireBlocked(() => Directory.Move(data, moved), "A stream-completed parent accepted replacement/rename");
+            }
+            if (kind == "StageStarted" && row.TryGetValue("stageId", out stage) && Text(stage) == "publish")
+            {
+                atPublish = true;
+                RequireBlocked(() => File.WriteAllBytes(child, original), "Provider disposal released an input before publication");
+            }
+        } };
+        var sealedRun = Build("physical-inputs-shared", mod, groups, observer); Success(sealedRun, groups);
+        Require(atStream && atPublish && File.ReadAllBytes(child).SequenceEqual(original), "Input pin probes did not exercise real stream and publication boundaries");
+        var physical = Map(Map(sealedRun.Report["cache"])["physicalInputs"]);
+        Require(Convert.ToBoolean(physical["enabled"]) && Convert.ToInt64(physical["captures"]) > 0 && Convert.ToInt64(physical["hits"]) > 0 &&
+            Convert.ToInt64(physical["verificationReads"]) > 0 && Convert.ToInt64(physical["activeFilePins"]) > 0,
+            "Successful application report lost positive-input sharing/final verification or its beforeInitialReport pin boundary");
+        Require(Array(Map(sealedRun.Report["applicationWork"])["stages"]).Select(Map).Any(item => Text(item["stage"]) == "inputVerification" && Convert.ToInt64(item["calls"]) == 1),
+            "Application did not record its final input-verification operation");
+        RequireWritable(child); Directory.Move(data, moved); Directory.Move(moved, data);
+        Require(!Directory.EnumerateDirectories(sealedRun.Request.OutputRoot, ".input-snapshot-*").Any(), "Successful finalization retained input-snapshot scratch");
+        AppContext.SetSwitch(disable, true);
+        RunResult fallback;
+        try { fallback = Build("physical-inputs-fallback", mod, groups); Success(fallback, groups); }
+        finally { AppContext.SetSwitch(disable, false); }
+        Require(!Convert.ToBoolean(Map(Map(fallback.Report["cache"])["physicalInputs"])["enabled"]), "Physical snapshot fallback remained enabled");
+        Require(ArtifactHashes(sealedRun).SequenceEqual(ArtifactHashes(fallback)), "Snapshot default/fallback changed real four-file output bytes");
+        RequireWritable(child);
+        DateTime timestamp = File.GetLastWriteTimeUtc(child);
+        var document = new XmlDocument(); document.LoadXml(probe);
+        var instance = document.DocumentElement.ChildNodes.Cast<XmlNode>().OfType<XmlElement>().First(item => item.HasAttribute("id"));
+        string id = instance.GetAttribute("id"); Require(id.Length > 0, "Physical change probe needs a real asset id");
+        string changedId = (id[0] == 'Q' ? "R" : "Q") + id.Substring(1);
+        string changed = probe.Replace("id=\"" + id + "\"", "id=\"" + changedId + "\"");
+        Require(changed != probe && System.Text.Encoding.UTF8.GetByteCount(changed) == original.Length, "Real equal-size mutation must alter one serialized asset id");
+        File.WriteAllText(child, changed, new System.Text.UTF8Encoding(false)); File.SetLastWriteTimeUtc(child, timestamp);
+        Require(new FileInfo(child).Length == original.Length && File.GetLastWriteTimeUtc(child) == timestamp, "Changed build input did not preserve exact size/time");
+        var changedRun = Build("physical-inputs-new-generation", mod, new[] { "base" }); Success(changedRun, new[] { "base" });
+        string[] originalBase = Array(sealedRun.Report["artifacts"]).Select(Map).Where(item => Text(item["Path"]).IndexOf(Path.DirectorySeparatorChar + "base" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) >= 0)
+            .OrderBy(item => Text(item["Path"]), StringComparer.Ordinal).Select(item => Text(item["Sha256"])).ToArray();
+        Require(originalBase.Length == 4 && !originalBase.SequenceEqual(ArtifactHashes(changedRun)), "New build reused an equal-time equal-size stale XML generation");
+        using (var cancellation = new CancellationTokenSource())
+        {
+            var cancelled = Build("physical-inputs-cancel", mod, groups, new Observe { Cancellation = cancellation });
+            Failed(cancelled, ExitCode.Cancelled, "cancelled"); RequireWritable(child);
+            Require(!Directory.EnumerateDirectories(cancelled.Request.OutputRoot, ".input-snapshot-*").Any(), "Cancellation retained input-snapshot scratch");
+        }
+        var failed = Build("physical-inputs-output-failure", mod, new[] { "base" }, new Observe { FailArtifact = true });
+        Failed(failed, ExitCode.Output, "failed"); RequireWritable(child);
+        Require(!Directory.EnumerateDirectories(failed.Request.OutputRoot, ".input-snapshot-*").Any(), "Output failure retained input-snapshot scratch");
+        Success(Build("physical-inputs-retry", mod, new[] { "base" }), new[] { "base" }); RequireWritable(child);
+        Tests.Add("positive-input-sharing-default-fallback-exact-output-XInclude-pins-through-provider-disposal-and-publication");
+        Tests.Add("new-build-equal-mtime-size-change-cancel-output-failure-final-release-and-retry");
+        NativePhysicalPayloadCase();
+    }
+    static void CandidatePublicationCase(bool combined = false)
+    {
+        string suffix = combined ? "-combined" : "";
+        string[] groups = combined ? new[] { "base", "apt", "maps" } : new[] { "base" };
+        string mod = Mod("候选 一致性" + suffix, groups), data = Path.Combine(mod, "Data");
+        string high = Path.Combine(work, "resolver-high" + suffix), low = Path.Combine(work, "resolver-low" + suffix);
+        Directory.CreateDirectory(high); Directory.CreateDirectory(low);
+        string candidate = "candidate-input.xml", first = Path.Combine(high, candidate), second = Path.Combine(low, candidate);
+        File.WriteAllText(second, probe);
+        File.WriteAllText(Path.Combine(data, "Mod.xml"), "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><Includes><Include type='all' source='data:" + candidate + "'/></Includes></AssetDeclaration>");
+        string[] dataArguments = { "/data:" + high + ";" + low };
+        bool injected = false;
+        var observer = new Observe { InputProbe = row => {
+            if (!injected && Text(row["eventType"]) == "StreamCompleted")
+            {
+                injected = true; File.WriteAllText(first, probe);
+            }
+        } };
+        var failed = Build("resolver-candidate-changed-before-publish" + suffix, mod, groups, observer, dataArguments);
+        Failed(failed, ExitCode.Compilation, "failed");
+        Require(Events(failed, "StreamCompleted").Length == groups.Length && Events(failed, "StreamCompleted").All(row => Text(Map(row["payload"])["status"]) == "succeeded"),
+            "Candidate publication refusal did not follow all selected successful stream compilations");
+        Require(injected && Events(failed, "Diagnostic").Any(row => Text(row["diagnosticCode"]) == "CORE_INPUT_CHANGED"),
+            "New higher-priority candidate did not reach final application input refusal");
+        Require(Events(failed, "StageStarted").All(row => !row.ContainsKey("stageId") || Text(row["stageId"]) != "publish"),
+            "Changed resolver generation entered publication");
+        RequireWritable(first); RequireWritable(second);
+        var retry = Build("resolver-candidate-next-generation" + suffix, mod, groups, null, dataArguments);
+        Require(retry.Code == ExitCode.Success && Array(retry.Report["artifacts"]).Length == 4 * groups.Length,
+            "New generation did not compile the newly selected input after refusal");
+        var candidates = Map(Map(Map(retry.Report["cache"])["physicalInputs"])["resolverCandidates"]);
+        Require(Convert.ToInt64(candidates["observations"]) > 0 && Convert.ToInt64(candidates["verificationChecks"]) > 0 &&
+            !Convert.ToBoolean(candidates["canAuthorizeReuse"]), "Application did not expose final candidate verification boundaries");
+        RequireWritable(first); RequireWritable(second);
+        Tests.Add("actual-no-cache-application-higher-priority-resolver-candidate-added-after-stream-refuses-before-publication-and-new-generation-retries" + suffix);
+    }
+    // Fixture-only Core configuration instrumentation. The supported CLI still
+    // clears BasePatchStream/configuration overrides. Each real application
+    // stream consumes the patch via its ordinary OutputManager; the additional
+    // precompiled consumer runs inside that same live physical-input scope.
+    // This tests BuildSession acceptance, not a newly supported CLI option.
+    static void ManifestFixture(string path, string patch)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(path));
+        byte[] references = patch == null ? new byte[0] : new byte[] { 2 }.Concat(System.Text.Encoding.ASCII.GetBytes(patch + "\0")).ToArray();
+        byte[] names = System.Text.Encoding.ASCII.GetBytes("Armor:Sealed\0"), source = System.Text.Encoding.ASCII.GetBytes("source.xml\0");
+        using (var output = new BinaryWriter(File.Create(path)))
+        {
+            output.Write((byte)0); output.Write((byte)1); output.Write((ushort)6);
+            foreach (uint value in new uint[] { 1234, 0, 1, 0, 0, 0, 0, 8, (uint)references.Length, (uint)names.Length, (uint)source.Length }) output.Write(value);
+            foreach (uint value in new uint[] { 99, 77, 11, 22, 0, 1, 0, 0, 0, 0, 0, 0 }) output.Write(value);
+            output.Write((uint)99); output.Write((uint)77);
+            output.Write(references); output.Write(names); output.Write(source);
+        }
+    }
+    static void PrecompiledFixtureConsumer(string manifest, string[] search)
+    {
+        const BindingFlags hidden = BindingFlags.NonPublic | BindingFlags.Instance;
+        var parent = new AssetDeclarationDocument();
+        var current = typeof(AssetDeclarationDocument).GetNestedType("CurrentState", BindingFlags.NonPublic);
+        typeof(AssetDeclarationDocument).GetField("_Current", hidden).SetValue(parent, Activator.CreateInstance(current, true));
+        var processor = new DocumentProcessor(Settings.Current, new PluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32), null);
+        try
+        {
+            Require((bool)typeof(DocumentProcessor).GetMethod("LoadPrecompiledReference", hidden).Invoke(processor, new object[] { parent, manifest, search }),
+                "Fixture precompiled consumer did not accept the external manifest");
+        }
+        catch (TargetInvocationException error) { throw error.InnerException; }
+        Require(parent.ReferenceInstances.Count == 1 && parent.ReferenceInstances.First().Handle.InstanceName == "Sealed",
+            "Fixture precompiled consumer did not restore the sealed symbols");
+    }
+    static void ManifestPublicationCases()
+    {
+        string[] groups = { "base", "apt", "maps" };
+        foreach (string change in new[] { "earlier-patch", "nearer-hashes", "patch-asset-presence" })
+        {
+            string mod = Mod("清单 事务 " + change, groups);
+            string root = Path.Combine(shortOutputRoot, "manifest-" + change), referenceRoot = Path.Combine(root, "reference"), search = Path.Combine(root, "search");
+            string patch = Path.Combine(search, "base.manifest"), reference = Path.Combine(referenceRoot, "main.manifest"), basePatch = Path.Combine(root, "patch.manifest");
+            ManifestFixture(patch, null); ManifestFixture(reference, "base.manifest"); ManifestFixture(basePatch, patch);
+            string hashes = Path.Combine(root, "StringHashes.xml");
+            File.WriteAllText(hashes, "<StringHashes><StringAndHash Hash='99' Text='Armor'/><StringAndHash Hash='77' Text='Sealed'/></StringHashes>");
+            string added = change == "earlier-patch" ? Path.Combine(referenceRoot, "base.manifest") :
+                change == "nearer-hashes" ? Path.Combine(referenceRoot, "main", "StringHashes.xml") : null;
+            if (added == null)
+                using (var manifest = new BinaryAssetBuilder.Utility.Manifest())
+                {
+                    Require(manifest.Load(patch, new[] { search }), "Patch asset candidate precondition failed");
+                    added = manifest.Assets[0].FileBasePath + ".asset";
+                }
+            var configured = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            bool inFixture = false, injected = false; int completed = 0;
+            Func<bool, Observe> observer = mutate => new Observe { InputProbe = row => {
+                string kind = Text(row["eventType"]);
+                if (!inFixture && kind == "Diagnostic" && row.ContainsKey("diagnosticCode") && Text(row["diagnosticCode"]).StartsWith("CORE_TRACE", StringComparison.Ordinal) &&
+                    Text(Map(Json.DeserializeObject(Json.Serialize(row["payload"])))["source"]) == "DocumentProcessor" && Text(row["message"]).StartsWith("Build Cache Status:", StringComparison.Ordinal))
+                {
+                    string input = Settings.Current.InputPath;
+                    Require(configured.Add(input), "Manifest instrumentation ran more than once for an application stream");
+                    // The real processor has not yet copied these settings into
+                    // ProcessOptions. Keep input/output paths untouched.
+                    Settings.Current.BasePatchStream = basePatch;
+                    inFixture = true;
+                    try { PrecompiledFixtureConsumer(reference, new[] { search }); }
+                    finally { inFixture = false; }
+                }
+                if (kind != "StreamCompleted") return;
+                completed++;
+                foreach (string path in new[] { reference, basePatch, patch, hashes })
+                {
+                    RequireBlocked(() => File.Delete(path), "Manifest input was not pinned through completed application stream: " + path);
+                    RequireBlocked(() => File.WriteAllText(path, "changed"), "Manifest input allowed a write through completed application stream: " + path);
+                }
+                if (!mutate || completed != groups.Length) return;
+                Require(!injected && !File.Exists(added), "Manifest candidate injection was not a single negative-to-positive transition");
+                injected = true; Directory.CreateDirectory(Path.GetDirectoryName(added));
+                if (change == "earlier-patch") ManifestFixture(added, null);
+                else if (change == "nearer-hashes") File.WriteAllText(added, File.ReadAllText(hashes));
+                else File.WriteAllBytes(added, new byte[0]);
+            } };
+            var failed = Build("manifest-publication-" + change, mod, groups, observer(true), null, 9);
+            Failed(failed, ExitCode.Compilation, "failed");
+            Require(injected && configured.Count == groups.Length && completed == groups.Length && Events(failed, "StreamCompleted").All(row => Text(Map(row["payload"])["status"]) == "succeeded"),
+                "Manifest candidate refusal did not follow three successful configured real Core streams");
+            Require(Events(failed, "Diagnostic").Any(row => Text(row["diagnosticCode"]) == "CORE_INPUT_CHANGED") &&
+                !Events(failed, "StageStarted").Any(row => row.ContainsKey("stageId") && Text(row["stageId"]) == "publish"),
+                "Manifest candidate change was not refused before whole-build publication");
+            Require(!Directory.Exists(Path.Combine(failed.Request.OutputRoot, "published")) &&
+                !Directory.EnumerateDirectories(failed.Request.OutputRoot, ".input-snapshot-*").Any(), "Refused manifest generation retained published output or snapshot scratch");
+            foreach (string path in new[] { reference, basePatch, patch, hashes, added }) RequireWritable(path);
+            var failedInputs = failed.ReleasedInputs;
+            Require(Convert.ToInt64(failedInputs["activeFilePins"]) == 0 && Convert.ToInt64(failedInputs["activeReadHandles"]) == 0,
+                "Refused manifest generation retained input pins");
+            configured.Clear(); completed = 0;
+            var retry = Build("manifest-new-generation-" + change, mod, groups, observer(false), null, 9);
+            Success(retry, groups);
+            Require(configured.Count == groups.Length && completed == groups.Length, "Manifest retry omitted one configured application stream");
+            var retryInputs = retry.ReleasedInputs;
+            var candidates = Map(retryInputs["resolverCandidates"]);
+            Require(Text(failedInputs["snapshotId"]) != Text(retryInputs["snapshotId"]) && Convert.ToInt64(candidates["verificationChecks"]) > 0,
+                "Manifest retry reused the rejected snapshot generation or omitted final query verification");
+            Require(Convert.ToInt64(retryInputs["activeFilePins"]) == 0 && Convert.ToInt64(retryInputs["activeReadHandles"]) == 0, "Successful manifest retry retained input pins");
+            foreach (string path in new[] { reference, basePatch, patch, hashes, added }) RequireWritable(path);
+            Tests.Add("fixture-only-Core-patch-setting-and-precompiled-consumer-three-real-application-streams-" + change + "-whole-build-refusal-release-and-new-generation-success");
+        }
     }
     static void Run()
     {
@@ -261,6 +549,10 @@ public static class CompilerApplicationBuild
         object[] skipped = Array(Map(optional.Report["plan"])["Skipped"]);
         Require(skipped.Length == 2 && skipped.Select(s => Text(Map(s)["Content"])).SequenceEqual(new[] { "apt", "maps" }) && skipped.All(s => Text(Map(s)["Status"]) == "SkippedNoInputs"), "Empty optional groups lost explicit SkippedNoInputs outcome");
         Tests.Add("empty-selected-optional-groups-explicit-SkippedNoInputs-without-stream-compilation");
+        PhysicalInputCases();
+        CandidatePublicationCase();
+        CandidatePublicationCase(true);
+        ManifestPublicationCases();
     }
     public static int Main(string[] args)
     {
@@ -277,7 +569,7 @@ public static class CompilerApplicationBuild
             Environment.SetEnvironmentVariable("BabEnableTrace", "False");
             Run();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks = checks, tests = Tests.ToArray(), protocolCases = ProtocolCases.ToArray(),
-                scope = "Real in-process experimental backend and application orchestration using small Armor inputs; APT business, production CLI, cold-process/G3/SDK and cache acceptance remain separate" };
+                scope = "Real in-process backend and application orchestration using small Armor inputs, plus explicitly fixture-only patch settings/precompiled consumer injection for three-stream final-input transaction acceptance; no new CLI patch/precompiled option support, APT business, cold-process/G3/SDK or cache acceptance" };
             Console.WriteLine("PASS ApplicationBuild: " + Tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception error)

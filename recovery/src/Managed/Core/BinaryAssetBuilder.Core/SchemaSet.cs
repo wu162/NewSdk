@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Xml;
 using System.Xml.Schema;
@@ -10,6 +13,137 @@ namespace BinaryAssetBuilder.Core;
 
 public class SchemaSet
 {
+	// Lifetime metrics for this SchemaSet, including reloads. These intervals nest
+	// inside the application's schema preparation interval and must not be added to it.
+	private readonly Dictionary<string, DocumentProcessor.WorkMeasurement> _PreparationWork = new Dictionary<string, DocumentProcessor.WorkMeasurement>(StringComparer.Ordinal);
+	public long SchemaFileReadCount { get; private set; }
+	public long SchemaContentBytesRead { get; private set; }
+	public long SchemaContentCheckCount { get; private set; }
+	public DocumentProcessor.WorkMeasurement[] GetPreparationMetrics()
+	{
+		var result = new DocumentProcessor.WorkMeasurement[_PreparationWork.Count];
+		int index = 0;
+		foreach (var item in _PreparationWork.Values)
+			result[index++] = new DocumentProcessor.WorkMeasurement(item.stage) { calls = item.calls, failedCalls = item.failedCalls, ticks = item.ticks };
+		Array.Sort(result, (left, right) => StringComparer.Ordinal.Compare(left.stage, right.stage));
+		return result;
+	}
+	private void MeasurePreparation(string stage, Action operation)
+	{
+		if (!_PreparationWork.TryGetValue(stage, out var work)) _PreparationWork.Add(stage, work = new DocumentProcessor.WorkMeasurement(stage));
+		work.calls++;
+		long start = Stopwatch.GetTimestamp();
+		try { operation(); }
+		catch { work.failedCalls++; throw; }
+		finally { work.ticks += Stopwatch.GetTimestamp() - start; }
+	}
+
+	// One build owns this bounded cache. It stores only our immutable values;
+	// every SchemaSet still owns, reads and compiles its own Framework schema.
+	public sealed class MetadataCache
+	{
+		private readonly object gate = new object();
+		private string key;
+		private MetadataSnapshot snapshot;
+		internal bool TryRestore(string candidate, SchemaSet target)
+		{
+			MetadataSnapshot saved;
+			lock (gate) saved = string.Equals(key, candidate, StringComparison.Ordinal) ? snapshot : null;
+			if (saved == null) return false;
+			target.MeasurePreparation("schemaMetadataRestore", () => saved.Restore(target));
+			return true;
+		}
+		internal void Store(string candidate, SchemaSet source)
+		{
+			var saved = new MetadataSnapshot(source);
+			lock (gate) { key = candidate; snapshot = saved; }
+		}
+		public void Clear() { lock (gate) { key = null; snapshot = null; } }
+	}
+
+	private sealed class MetadataSnapshot
+	{
+		private readonly KeyValuePair<string, string[]>[] inheritance;
+		private readonly KeyValuePair<uint, int>[] dependencies;
+		internal MetadataSnapshot(SchemaSet source)
+		{
+			inheritance = new KeyValuePair<string, string[]>[source._InheritanceMap.Count];
+			int index = 0;
+			foreach (var item in source._InheritanceMap)
+			{
+				var names = new string[item.Value.Count]; item.Value.CopyTo(names, 0);
+				inheritance[index++] = new KeyValuePair<string, string[]>(item.Key, names);
+			}
+			if (source._AssetDependencies != null)
+			{
+				dependencies = new KeyValuePair<uint, int>[source._AssetDependencies.Count];
+				index = 0;
+				foreach (var item in source._AssetDependencies) dependencies[index++] = item;
+			}
+		}
+		internal void Restore(SchemaSet target)
+		{
+			var inherited = new SortedDictionary<string, StringCollection>();
+			foreach (var item in inheritance)
+			{
+				var names = new StringCollection(); names.AddRange(item.Value); inherited.Add(item.Key, names);
+			}
+			IDictionary<uint, int> counts = null;
+			if (dependencies != null)
+			{
+				counts = new SortedDictionary<uint, int>();
+				foreach (var item in dependencies) counts.Add(item.Key, item.Value);
+			}
+			target._InheritanceMap = inherited;
+			target._AssetDependencies = counts;
+			target._DependencyTree = null;
+		}
+	}
+
+	private readonly MetadataCache _MetadataCache;
+	private readonly bool _UseSharedMetadata;
+	private List<string> _SchemaReadOrder;
+	public long MetadataBuildCount { get; private set; }
+	public long MetadataHitCount { get; private set; }
+	public bool SharedMetadataEnabled => _UseSharedMetadata;
+
+	private string MetadataKey(bool countDependencies)
+	{
+		using (var bytes = new MemoryStream())
+		using (var writer = new BinaryWriter(bytes))
+		{
+			writer.Write("SchemaMetadata.v1");
+			writer.Write(Path.GetFullPath(Settings.Current.SchemaPath));
+			writer.Write(countDependencies);
+			writer.Write(CultureInfo.CurrentCulture.Name);
+			writer.Write(CultureInfo.CurrentCulture.CompareInfo.Name);
+			writer.Write(_SchemaReadOrder.Count);
+			foreach (string path in _SchemaReadOrder) { writer.Write(path); writer.Write(_SchemaContentHashes[path]); }
+			var descriptors = Settings.Current.StringHashBinDescriptors;
+			writer.Write(descriptors.Length);
+			foreach (var descriptor in descriptors)
+			{
+				writer.Write(descriptor.SchemaTypeName ?? ""); writer.Write(descriptor.BinName ?? ""); writer.Write(descriptor.CaseSensitivity);
+			}
+			writer.Flush();
+			using (var algorithm = SHA256.Create()) return Convert.ToBase64String(algorithm.ComputeHash(bytes.ToArray()));
+		}
+	}
+
+	private void PrepareSchemaMetadata(bool countDependencies)
+	{
+		// Hashable/helper types contain Framework objects and always remain local.
+		MeasurePreparation("schemaHelpers", SetupHelperSchemaTypes);
+		string key = _UseSharedMetadata ? MetadataKey(countDependencies) : null;
+		bool restored = false;
+		if (_UseSharedMetadata)
+			restored = _MetadataCache.TryRestore(key, this);
+		if (restored) { MetadataHitCount++; return; }
+		MeasurePreparation("schemaMetadataBuild", () => BuildSchemaMetadata(countDependencies));
+		MetadataBuildCount++;
+		if (_UseSharedMetadata) _MetadataCache.Store(key, this);
+	}
+
 	private class SchemaHashTable : SortedDictionary<XmlSchema, uint>
 	{
 	}
@@ -28,6 +162,83 @@ public class SchemaSet
 		{
 			TypeName = typeName;
 		}
+	}
+
+	internal enum ReferenceKind { None, Weak, Strong, File, Hashable }
+
+	// Values contain only our own immutable facts, not navigator/DOM state or a
+	// previously resolved asset. Keys belong to this one loaded schema generation.
+	internal sealed class ReferenceDescriptor
+	{
+		internal readonly ReferenceKind Kind;
+		internal readonly string RefType;
+		internal ReferenceDescriptor(ReferenceKind kind, string refType) { Kind = kind; RefType = refType; }
+	}
+
+	private struct ReferenceKey : IEquatable<ReferenceKey>
+	{
+		private readonly XmlSchemaElement element;
+		private readonly XmlSchemaAttribute attribute;
+		private readonly XmlSchemaType type;
+		internal ReferenceKey(IXmlSchemaInfo info) { element = info.SchemaElement; attribute = info.SchemaAttribute; type = info.SchemaType; }
+		public bool Equals(ReferenceKey other) => ReferenceEquals(element, other.element) && ReferenceEquals(attribute, other.attribute) && ReferenceEquals(type, other.type);
+		public override bool Equals(object value) => value is ReferenceKey other && Equals(other);
+		public override int GetHashCode() => (element == null ? 0 : RuntimeHelpers.GetHashCode(element)) ^ (attribute == null ? 0 : RuntimeHelpers.GetHashCode(attribute)) ^ (type == null ? 0 : RuntimeHelpers.GetHashCode(type));
+	}
+
+	private readonly bool _UseReferenceDescriptors;
+	private Dictionary<ReferenceKey, ReferenceDescriptor> _ReferenceDescriptors;
+	private long _ReferenceDescriptorBuildCount;
+	private long _ReferenceDescriptorHitCount;
+
+	public long ReferenceDescriptorBuildCount => _ReferenceDescriptorBuildCount;
+	public long ReferenceDescriptorHitCount => _ReferenceDescriptorHitCount;
+
+	private static string GetRefTypeName(XmlAttribute[] attributes)
+	{
+		if (attributes != null)
+			foreach (XmlAttribute attribute in attributes)
+				if (attribute.NamespaceURI == "uri:ea.com:eala:asset:schema" && attribute.LocalName == "refType") return attribute.Value;
+		return null;
+	}
+
+	private ReferenceDescriptor DescribeReference(IXmlSchemaInfo info)
+	{
+		XmlSchemaType type = info.SchemaType;
+		ReferenceKind kind;
+		if (XmlSchemaType.IsDerivedFrom(type, _XmlWeakReferenceType, XmlSchemaDerivationMethod.None)) kind = ReferenceKind.Weak;
+		else if (XmlSchemaType.IsDerivedFrom(type, _XmlAssetReferenceType, XmlSchemaDerivationMethod.None)) kind = ReferenceKind.Strong;
+		else if (XmlSchemaType.IsDerivedFrom(type, _XmlFileReferenceType, XmlSchemaDerivationMethod.None)) kind = ReferenceKind.File;
+		else if (IsHashableType(type)) kind = ReferenceKind.Hashable;
+		else kind = ReferenceKind.None;
+		string refType = null;
+		if (kind == ReferenceKind.Weak || kind == ReferenceKind.Strong)
+		{
+			if (info.SchemaElement != null) refType = GetRefTypeName(info.SchemaElement.UnhandledAttributes);
+			else if (info.SchemaAttribute != null) refType = GetRefTypeName(info.SchemaAttribute.UnhandledAttributes);
+			if (refType == null)
+			{
+				refType = GetRefTypeName(type.UnhandledAttributes);
+				if (refType == null && type.DerivedBy == XmlSchemaDerivationMethod.Extension)
+					refType = GetRefTypeName(type.BaseXmlSchemaType.UnhandledAttributes);
+			}
+		}
+		return new ReferenceDescriptor(kind, refType);
+	}
+
+	internal ReferenceDescriptor GetReferenceDescriptor(IXmlSchemaInfo info)
+	{
+		if (_LoadedSchemaPath == null) throw new InvalidOperationException("Schema reference descriptions require a successfully loaded schema generation.");
+		var key = new ReferenceKey(info);
+		if (_UseReferenceDescriptors && _ReferenceDescriptors.TryGetValue(key, out ReferenceDescriptor descriptor))
+		{
+			_ReferenceDescriptorHitCount++;
+			return descriptor;
+		}
+		descriptor = DescribeReference(info);
+		_ReferenceDescriptorBuildCount++;
+		if (_UseReferenceDescriptors) _ReferenceDescriptors.Add(key, descriptor);
+		return descriptor;
 	}
 
 	public const string XmlNamespace = "uri:ea.com:eala:asset";
@@ -87,10 +298,23 @@ public class SchemaSet
 		CacheInputBoundary.Validate(schemaFile);
 		_CurrentSchema = schemaFile;
 		if (_SchemaPaths.ContainsKey(schemaFile)) return;
-		byte[] contents = File.ReadAllBytes(schemaFile);
+        PhysicalInputSnapshot.Entry sealedSchema;
+        byte[] contents; string strong = null;
+        if (PhysicalInputSnapshot.TryCapture(schemaFile, out sealedSchema))
+        {
+            using (var input = sealedSchema.OpenRead()) using (var bytes = new MemoryStream()) { input.CopyTo(bytes); contents = bytes.ToArray(); }
+            strong = sealedSchema.Sha256;
+        }
+        else
+        {
+            contents = File.ReadAllBytes(schemaFile);
+        }
+		SchemaFileReadCount++;
+		SchemaContentBytesRead += contents.LongLength;
 		_SchemaPaths.Add(schemaFile, File.GetLastWriteTime(schemaFile));
-		using (var algorithm = SHA256.Create())
-			_SchemaContentHashes.Add(schemaFile, Convert.ToBase64String(algorithm.ComputeHash(contents)));
+		_SchemaReadOrder.Add(schemaFile);
+        if (strong == null) using (var algorithm = SHA256.Create()) strong = Convert.ToBase64String(algorithm.ComputeHash(contents));
+        _SchemaContentHashes.Add(schemaFile, strong);
 		XmlSchema xmlSchema;
 		using (var input = new MemoryStream(contents, false))
 		using (var reader = new StreamReader(input))
@@ -311,24 +535,33 @@ public class SchemaSet
 	{
 		// A failed load must not make its partially read inputs appear reusable.
 		_LoadedSchemaPath = null;
+		_ReferenceDescriptors = new Dictionary<ReferenceKey, ReferenceDescriptor>();
+		_ReferenceDescriptorBuildCount = _ReferenceDescriptorHitCount = 0;
 		_AssetDependencies = null;
 		_CircularCheck = new Set<uint>();
 		_SchemaPaths = new SortedDictionary<string, DateTime>(StringComparer.OrdinalIgnoreCase);
 		_SchemaContentHashes = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+		_SchemaReadOrder = new List<string>();
 		_Schemas = new XmlSchemaSet();
 		_InheritanceMap = new SortedDictionary<string, StringCollection>();
 		_DependencyTree = new SortedDictionary<uint, DependencyList>();
 		_HashableTypes = new Dictionary<XmlSchemaType, bool>();
 		try
 		{
-			ReadSchema(Directory.GetCurrentDirectory(), Settings.Current.SchemaPath);
+			MeasurePreparation("schemaRead", () => ReadSchema(Directory.GetCurrentDirectory(), Settings.Current.SchemaPath));
 		}
+        catch (OperationCanceledException) { throw; }
 		catch (Exception innerException)
 		{
 			throw new BinaryAssetBuilderException(innerException, ErrorCode.ReadingSchema, "Error encountered in schema '{0}'", _CurrentSchema);
 		}
-		_Schemas.Compile();
-		SetupHelperSchemaTypes();
+		MeasurePreparation("schemaCompile", _Schemas.Compile);
+		MeasurePreparation("schemaMetadata", () => PrepareSchemaMetadata(countDependencies));
+		_LoadedSchemaPath = Path.GetFullPath(Settings.Current.SchemaPath);
+	}
+
+	private void BuildSchemaMetadata(bool countDependencies)
+	{
 		IDictionary<string, StringCollection> dictionary = new SortedDictionary<string, StringCollection>();
 		dictionary.Add("BaseAssetType", new StringCollection());
 		foreach (XmlSchemaType value2 in Schemas.GlobalTypes.Values)
@@ -369,7 +602,6 @@ public class SchemaSet
 		{
 			FlattenInheritanceTree(key, dictionary);
 		}
-		_LoadedSchemaPath = Path.GetFullPath(Settings.Current.SchemaPath);
 	}
 
 	private void SetupHelperSchemaTypes()
@@ -391,12 +623,26 @@ public class SchemaSet
 		}
 	}
 
-	public SchemaSet(bool countDependencies)
+	public SchemaSet(bool countDependencies) : this(countDependencies, null) { }
+
+	public SchemaSet(bool countDependencies, MetadataCache metadataCache)
 	{
+		AppContext.TryGetSwitch("NewSdk.Compiler.DisableSharedSchemaMetadata", out bool sharedDisabled);
+		_MetadataCache = metadataCache;
+		_UseSharedMetadata = metadataCache != null && !sharedDisabled;
+		AppContext.TryGetSwitch("NewSdk.Compiler.DisableSchemaReferenceDescriptors", out bool disabled);
+		_UseReferenceDescriptors = !disabled;
 		LoadSchemas(countDependencies);
 	}
 
 	public void ReloadIfChanged(bool countDependencies)
+	{
+		bool changed = false;
+		MeasurePreparation("schemaContentCheck", () => changed = CheckSchemaChanged(countDependencies));
+		if (changed) LoadSchemas(countDependencies);
+	}
+
+	private bool CheckSchemaChanged(bool countDependencies)
 	{
 		bool changed = countDependencies && _AssetDependencies == null;
 		string requested = Path.GetFullPath(Settings.Current.SchemaPath);
@@ -416,6 +662,8 @@ public class SchemaSet
 				using (var input = File.OpenRead(schemaPath.Key))
 				{
 					string content = Convert.ToBase64String(algorithm.ComputeHash(input));
+					SchemaContentCheckCount++;
+					SchemaContentBytesRead += input.Position;
 					if (!string.Equals(content, _SchemaContentHashes[schemaPath.Key], StringComparison.Ordinal))
 					{
 						changed = true;
@@ -424,7 +672,7 @@ public class SchemaSet
 				}
 			}
 		}
-		if (changed) LoadSchemas(countDependencies);
+		return changed;
 	}
 
 	public StringCollection GetDerivedTypes(string typeName)

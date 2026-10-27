@@ -102,6 +102,9 @@ public class List2<T> : IList<T>, ICollection<T>, IEnumerable<T>, IList, ICollec
 
 	private int _version;
 
+    // Local indexes can observe mutations without changing this list's contract.
+    internal int MutationVersion => _version;
+
 	public int Capacity
 	{
 		get
