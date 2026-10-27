@@ -1,0 +1,11 @@
+  Determining projects to restore...
+  Restored D:\a\NewSdk\NewSdk\src\TextureCompiler\Managed\Recovered.TextureCompiler.csproj (in 126 ms).
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Managed\TextureDxt5AlphaEncoder.cs(208,30): error CS0136: A local or parameter named 'values' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter [D:\a\NewSdk\NewSdk\src\TextureCompiler\Managed\Recovered.TextureCompiler.csproj]
+
+Build FAILED.
+
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Managed\TextureDxt5AlphaEncoder.cs(208,30): error CS0136: A local or parameter named 'values' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter [D:\a\NewSdk\NewSdk\src\TextureCompiler\Managed\Recovered.TextureCompiler.csproj]
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:09.05
