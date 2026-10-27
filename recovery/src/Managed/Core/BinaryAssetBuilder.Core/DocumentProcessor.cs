@@ -142,6 +142,17 @@ public class DocumentProcessor
         _BaseManifestWorkSnapshots.Values.CopyTo(result, 0); return result;
     }
 
+    private readonly Dictionary<AssetDeclarationDocument, object> _StableSortMembershipSnapshots = new Dictionary<AssetDeclarationDocument, object>(new DocumentReferenceComparer());
+    internal void RecordStableSortMembershipWork(AssetDeclarationDocument document, string sourcePath)
+    {
+        _StableSortMembershipSnapshots[document] = new { sourcePath, work = document.GetStableSortMembershipMetrics() };
+    }
+    public object[] GetStableSortMembershipMetrics()
+    {
+        var result = new object[_StableSortMembershipSnapshots.Count];
+        _StableSortMembershipSnapshots.Values.CopyTo(result, 0); return result;
+    }
+
     private readonly CoreTransferBuffers _TransferBuffers = new CoreTransferBuffers();
     internal CoreTransferBuffers TransferBuffers => _TransferBuffers;
     public object GetTransferBufferMetrics()

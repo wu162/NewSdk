@@ -33,6 +33,7 @@ TARGETED_FIXTURES = (
     'CompilerInputDigests', 'CompilerPhysicalInputs', 'CompilerManifestInputs',
     'CompilerStreamBindings', 'CompilerTransferBuffers', 'CompilerDeclarationSnapshots',
     'CompilerDocumentSnapshots', 'CompilerDocumentMetadata', 'CompilerUpheavalSamples',
+    'CompilerStableSortMembership', 'CompilerStableSortStreams',
     'CompilerExpressionPrograms', 'CompilerDependencyObservations', 'CompilerBaseManifestIndex',
     'CompilerNodeJoiner', 'CompilerSchemaDescriptors', 'CompilerSchemaMetadata',
     'CompilerCacheContent', 'CompilerCacheBoundary', 'CompilerInputRoots',

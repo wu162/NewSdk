@@ -621,6 +621,7 @@ namespace NewModCompiler.Application
                 var measuredSession = processor == null ? null : processor.Cache as SessionCache;
                 coreWork.Add(new { taskId = context.Task.Id, stages = processor == null ? null : processor.GetWorkMetrics(),
                     baseManifest = processor == null ? null : processor.GetBaseManifestWorkMetrics(),
+                    stableSortMembership = processor == null ? null : processor.GetStableSortMembershipMetrics(),
                     expressionPrograms = processor == null ? null : processor.GetExpressionProgramMetrics(),
                     transferBuffers = processor == null ? null : processor.GetTransferBufferMetrics(),
                     outerStages = outerWork.Snapshot(), inputDigests = measuredSession == null ? null : measuredSession.GetDigestReadMetrics(),
