@@ -100,6 +100,7 @@ internal static unsafe class TextureDxt5AlphaDifferential
             Check(original.ManifestModule.ResolveMethod(0x060000DC).Name=="nvDDS.nvDXTcompress","Native token");
             IntPtr module=Marshal.GetHINSTANCE(original.ManifestModule);Check(module!=IntPtr.Zero&&module!=new IntPtr(-1),"Native base");
             Compressor compressor=(Compressor)Marshal.GetDelegateForFunctionPointer(IntPtr.Add(module,0x52b60),typeof(Compressor));
+            using(var replay=new BinaryWriter(File.Create(output+".replay")))
             using(var transcript=new StreamWriter(output)) {
                 transcript.WriteLine("fixture\toriginalAlpha\trecoveredAlpha\tddsSha256");
                 // Exhaust every alpha value, then every value at every pixel position
@@ -122,6 +123,8 @@ internal static unsafe class TextureDxt5AlphaDifferential
                     byte[] expected=Original(compressor,plugin,optionsMethod,4,4,pixels,"D3DFMT_DXT5",false);
                     Check(expected.Length==144,"DXT5 complete DDS size");
                     Check(Hash(before)==Hash(pixels),"original modified input");
+                    replay.Write(pixels);
+                    replay.Write(expected,128,8);
                     byte[] actual=(byte[])encode.Invoke(null,new object[]{pixels});
                     Check(actual.Length==8,"alpha block length");
                     for(int i=0;i<8;i++) Check(actual[i]==expected[128+i],"alpha mismatch fixture="+fixture+" byte="+i+" expected="+expected[128+i]+" actual="+actual[i]);

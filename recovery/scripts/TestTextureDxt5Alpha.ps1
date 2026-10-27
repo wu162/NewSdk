@@ -26,7 +26,15 @@ try{
   Copy-Item "$work/$oracle.exe.config" "$work/$quantizer.exe.config"
   Checked "$mode-quantizer" {& "$work/$quantizer.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-quantizer-transcript.txt" $dll}
   Checked "$mode-oracle" {& "$work/$oracle.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-transcript.txt" $dll}
-  $r.configurations+=@{configuration=$mode;passed=$true;summary=@(Get-Content "$out/$mode-oracle.log","$out/$mode-quantizer.log" | Where-Object {$_ -match '^(PASS|PROBE) '})}
+  $isolated=Join-Path $work "no-original-$mode"
+  New-Item -ItemType Directory -Force $isolated|Out-Null
+  Get-ChildItem "$work/*.dll"|Where-Object{$_.Name -ne 'BinaryAssetBuilder.TextureCompiler.dll'}|Copy-Item -Destination $isolated
+  $noOriginal='TextureDxt5AlphaNoOriginal'
+  Checked "$mode-no-original-build" {& $csc /nologo /platform:x86 $opt /r:$dll /out:"$isolated/$noOriginal.exe" (Resolve-Path "recovery/tests/$noOriginal.cs").Path}
+  Copy-Item "$work/$oracle.exe.config" "$isolated/$noOriginal.exe.config"
+  Checked "$mode-no-original" {& "$isolated/$noOriginal.exe" "$out/$mode-transcript.txt.replay" 78144}
+  Remove-Item "$out/$mode-transcript.txt.replay"
+  $r.configurations+=@{configuration=$mode;passed=$true;withoutOriginalTextureCompiler=$true;summary=@(Get-Content "$out/$mode-oracle.log","$out/$mode-quantizer.log","$out/$mode-no-original.log" | Where-Object {$_ -match '^(PASS|PROBE) '})}
  }
  $files=@(Get-ChildItem "$out/*-transcript.txt")
  if($files.Count -gt 0){Compress-Archive -Path $files.FullName -DestinationPath "$out/transcripts.zip";$files|Remove-Item}

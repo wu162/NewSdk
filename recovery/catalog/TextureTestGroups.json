@@ -480,7 +480,8 @@
         "recovery/scripts/TestTextureDxt5Alpha.ps1",
         "recovery/tests/TextureDxt5AlphaDifferential.cs",
         "recovery/tests/TextureDxt5QuantizerDifferential.cs",
-        "src/TextureCompiler/Dxt/**"
+        "src/TextureCompiler/Dxt/**",
+        "recovery/tests/TextureDxt5AlphaNoOriginal.cs"
       ],
       "evidence": "recovery/evidence/texture/dxt5-alpha/*/validation.json",
       "sdk": false
