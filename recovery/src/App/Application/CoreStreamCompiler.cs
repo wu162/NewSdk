@@ -544,7 +544,9 @@ namespace NewModCompiler.Application
                     documentReuse += processor.DocumentReuseCount;
                     xmlParse += processor.XmlParseCount;
                     instanceCompile += processor.InstanceCompileCount;
-                    coreWork.Add(new { taskId = context.Task.Id, stages = processor.GetWorkMetrics() });
+                    var session = processor.Cache as SessionCache;
+                    coreWork.Add(new { taskId = context.Task.Id, stages = processor.GetWorkMetrics(), inputDigests = session == null ? null : session.GetDigestReadMetrics(),
+                        schemaReferences = new { builds = processor.SchemaSet.ReferenceDescriptorBuildCount, hits = processor.SchemaSet.ReferenceDescriptorHitCount } });
                 }
                 var cleanup = new List<Exception>();
                 try { if (report != null) report.Dispose(); } catch (Exception error) { cleanup.Add(error); }

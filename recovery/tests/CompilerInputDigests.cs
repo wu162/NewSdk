@@ -31,6 +31,24 @@ public static class CompilerInputDigests
         using (var algorithm = SHA256.Create()) using (var input = File.OpenRead(path))
             return Convert.ToBase64String(algorithm.ComputeHash(input));
     }
+    static uint HistoricalUpdate(string path, out string strong)
+    {
+        var input = new AsynchronousFileReader(path);
+        uint result = input.FileSize;
+        using (var algorithm = SHA256.Create())
+        {
+            while (input.BeginRead())
+            {
+                byte[] data = input.CurrentChunk.Data; int count = input.CurrentChunk.BytesRead;
+                result = FastHash.GetHashCode(result, data, count);
+                algorithm.TransformBlock(data, 0, count, data, 0);
+                input.EndRead();
+            }
+            algorithm.TransformFinalBlock(new byte[0], 0, 0);
+            strong = Convert.ToBase64String(algorithm.Hash);
+        }
+        return result;
+    }
     static FileHashItem Roundtrip(FileHashItem item, out string strong)
     {
         var text = new StringBuilder();
@@ -91,6 +109,14 @@ public static class CompilerInputDigests
                 "Rollback warm check must remain SHA-only");
         }
         finally { AppContext.SetSwitch("NewSdk.Compiler.DisableSinglePassDigest", false); }
+        var cache = new SessionCache(); cache.InitializeCache(new List<string>());
+        FileHashItem cached;
+        Require(cache.TryGetFile(path, "one", TargetPlatform.Win32, out cached), "Digest counter fixture must find its input");
+        uint hash = cached.Hash;
+        var snapshot = cache.GetDigestReadMetrics();
+        Require(snapshot.reads == 1 && snapshot.bytes == new FileInfo(path).Length && snapshot.items == 1, "Session report must include the observed digest work");
+        cached.Reset(); Require(cached.Hash == hash, "Session digest reset changed stable legacy bytes");
+        Require(cache.GetDigestReadMetrics().reads == 2 && snapshot.reads == 1, "Session digest snapshots must be detached from subsequent work");
     }
     static void Benchmark(string work)
     {
@@ -106,9 +132,9 @@ public static class CompilerInputDigests
         {
             Action baseline = () => {
                 var timer = Stopwatch.StartNew();
-                string sha = Strong(path); uint legacy = Legacy(path); timer.Stop();
+                string sha = Strong(path), secondSha; uint legacy = HistoricalUpdate(path, out secondSha); timer.Stop();
                 oldCold.Add(timer.Elapsed.TotalMilliseconds);
-                Require(sha == expectedStrong && legacy == expected, "Historical two-pass baseline changed");
+                Require(sha == expectedStrong && secondSha == expectedStrong && legacy == expected, "Historical two-pass baseline changed");
                 timer.Restart(); sha = Strong(path); timer.Stop(); oldWarm.Add(timer.Elapsed.TotalMilliseconds);
                 Require(sha == expectedStrong, "Historical warm SHA-only check changed");
             };

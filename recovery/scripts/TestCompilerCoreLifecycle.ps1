@@ -58,6 +58,7 @@ try {
     $fixtures=@(
         @{name='CompilerInputDigests';marker='PASS InputDigests:'},
         @{name='CompilerNodeJoiner';marker='PASS NodeJoiner:'},
+        @{name='CompilerSchemaDescriptors';marker='PASS SchemaDescriptors:'},
         @{name='CompilerCacheContent';marker='PASS CacheContent:'},
         @{name='CompilerCacheBoundary';marker='PASS CacheBoundary:'},
         @{name='CompilerInputRoots';marker='PASS InputRoots:'},

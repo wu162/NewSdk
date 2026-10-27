@@ -210,6 +210,18 @@ public static class CompilerBackendLifecycle
     {
         string staging=Path.Combine(request.OutputRoot,slot);
         var artifacts=backend.Compile(Context(request,Task(request.ModRoot,name),staging),CancellationToken.None);
+        var report=(Dictionary<string,object>)new JavaScriptSerializer().DeserializeObject(new JavaScriptSerializer().Serialize(backend.CacheReport));
+        var work=(object[])report["coreWork"];
+        Require(work.Length>0,"Production cache report omitted its stream work measurements");
+        var latest=(Dictionary<string,object>)work[work.Length-1];
+        Require((string)latest["taskId"]==Task(request.ModRoot,name).Id,"Work measurements belong to a different stream");
+        var digests=(Dictionary<string,object>)latest["inputDigests"];
+        Require(Convert.ToInt64(digests["reads"])>0 && Convert.ToInt64(digests["bytes"])>0 && Convert.ToInt32(digests["items"])>0,
+            "Production report must include actual logical input digest work");
+        var stages=((object[])latest["stages"]).Cast<Dictionary<string,object>>().ToArray();
+        Require(stages.Any(item=>(string)item["stage"]=="link" && Convert.ToInt64(item["calls"])>0),"Successful production stream omitted link work");
+        Require(stages.All(item=>Convert.ToInt64(item["calls"])>=Convert.ToInt64(item["failedCalls"]) && Convert.ToDouble(item["elapsedMs"])>=0),
+            "Serialized production work measurements are inconsistent");
         var result=Four(artifacts,staging);
         IndependentArmorOracle(artifacts,request.ModRoot.EndsWith("mod-b",StringComparison.Ordinal),name=="Mod"?"DATA:armor.xml":"DATA:extra.xml");
         DefaultMetadata(backend); ambient.Unchanged(slot);

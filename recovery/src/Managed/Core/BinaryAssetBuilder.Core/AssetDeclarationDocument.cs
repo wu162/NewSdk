@@ -1311,39 +1311,22 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 
-	private string GetRefTypeName(XmlAttribute[] unhandledAttributes)
-	{
-		if (unhandledAttributes != null)
-		{
-			foreach (XmlAttribute xmlAttribute in unhandledAttributes)
-			{
-				string localName;
-				if (xmlAttribute.NamespaceURI == "uri:ea.com:eala:asset:schema" && (localName = xmlAttribute.LocalName) != null && localName == "refType")
-				{
-					return xmlAttribute.Value;
-				}
-			}
-		}
-		return null;
-	}
-
 	private void HandleReferenceType(InstanceDeclaration instance, XPathNavigator navigator, BinaryWriter refTypeIds)
 	{
 		if (navigator.SchemaInfo == null || navigator.SchemaInfo.SchemaType == null)
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Element {0} in instance {1} doesn't have a schema type.", navigator.Name, instance);
 		}
-		bool flag = XmlSchemaType.IsDerivedFrom(navigator.SchemaInfo.SchemaType, _Current.DocumentProcessor.SchemaSet.XmlWeakReferenceType, XmlSchemaDerivationMethod.None);
-		bool flag2 = !flag && XmlSchemaType.IsDerivedFrom(navigator.SchemaInfo.SchemaType, _Current.DocumentProcessor.SchemaSet.XmlAssetReferenceType, XmlSchemaDerivationMethod.None);
-		if (flag || flag2)
+		SchemaSet.ReferenceDescriptor descriptor = _Current.DocumentProcessor.SchemaSet.GetReferenceDescriptor(navigator.SchemaInfo);
+		if (descriptor.Kind == SchemaSet.ReferenceKind.Weak || descriptor.Kind == SchemaSet.ReferenceKind.Strong)
 		{
-			HandleAssetReferenceType(navigator, ref instance, refTypeIds, flag2);
+			HandleAssetReferenceType(navigator, ref instance, refTypeIds, descriptor.Kind == SchemaSet.ReferenceKind.Strong, descriptor.RefType);
 		}
-		else if (XmlSchemaType.IsDerivedFrom(navigator.SchemaInfo.SchemaType, _Current.DocumentProcessor.SchemaSet.XmlFileReferenceType, XmlSchemaDerivationMethod.None))
+		else if (descriptor.Kind == SchemaSet.ReferenceKind.File)
 		{
 			HandleFileReferenceType(navigator, ref instance);
 		}
-		else if (_Current.DocumentProcessor.SchemaSet.IsHashableType(navigator.SchemaInfo.SchemaType))
+		else if (descriptor.Kind == SchemaSet.ReferenceKind.Hashable)
 		{
 			HashProvider.RecordHash(navigator.SchemaInfo.SchemaType, navigator.Value);
 		}
@@ -1360,7 +1343,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		instance.ReferencedFiles.Add(text);
 	}
 
-	private void HandleAssetReferenceType(XPathNavigator navigator, ref InstanceDeclaration instance, BinaryWriter refTypeIds, bool isAssetRef)
+	private void HandleAssetReferenceType(XPathNavigator navigator, ref InstanceDeclaration instance, BinaryWriter refTypeIds, bool isAssetRef, string refType)
 	{
 		string[] array = navigator.Value.Trim().Split('\\');
 		string text = array[0];
@@ -1369,23 +1352,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			return;
 		}
 		InstanceHandle instanceHandle = new InstanceHandle(text);
-		string text2 = null;
-		if (navigator.SchemaInfo.SchemaElement != null)
-		{
-			text2 = GetRefTypeName(navigator.SchemaInfo.SchemaElement.UnhandledAttributes);
-		}
-		else if (navigator.SchemaInfo.SchemaAttribute != null)
-		{
-			text2 = GetRefTypeName(navigator.SchemaInfo.SchemaAttribute.UnhandledAttributes);
-		}
-		if (text2 == null && navigator.SchemaInfo.SchemaType != null)
-		{
-			text2 = GetRefTypeName(navigator.SchemaInfo.SchemaType.UnhandledAttributes);
-			if (text2 == null && navigator.SchemaInfo.SchemaType.DerivedBy == XmlSchemaDerivationMethod.Extension)
-			{
-				text2 = GetRefTypeName(navigator.SchemaInfo.SchemaType.BaseXmlSchemaType.UnhandledAttributes);
-			}
-		}
+		string text2 = refType;
 		if (text2 == null)
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.ReferencingError, "Asset reference to '{0}' in '{1}' does not have type (xas:refType missing in schema).", text, instance);

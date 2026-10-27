@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Xml;
 using System.Xml.Schema;
@@ -28,6 +29,83 @@ public class SchemaSet
 		{
 			TypeName = typeName;
 		}
+	}
+
+	internal enum ReferenceKind { None, Weak, Strong, File, Hashable }
+
+	// Values contain only our own immutable facts, not navigator/DOM state or a
+	// previously resolved asset. Keys belong to this one loaded schema generation.
+	internal sealed class ReferenceDescriptor
+	{
+		internal readonly ReferenceKind Kind;
+		internal readonly string RefType;
+		internal ReferenceDescriptor(ReferenceKind kind, string refType) { Kind = kind; RefType = refType; }
+	}
+
+	private struct ReferenceKey : IEquatable<ReferenceKey>
+	{
+		private readonly XmlSchemaElement element;
+		private readonly XmlSchemaAttribute attribute;
+		private readonly XmlSchemaType type;
+		internal ReferenceKey(IXmlSchemaInfo info) { element = info.SchemaElement; attribute = info.SchemaAttribute; type = info.SchemaType; }
+		public bool Equals(ReferenceKey other) => ReferenceEquals(element, other.element) && ReferenceEquals(attribute, other.attribute) && ReferenceEquals(type, other.type);
+		public override bool Equals(object value) => value is ReferenceKey other && Equals(other);
+		public override int GetHashCode() => (element == null ? 0 : RuntimeHelpers.GetHashCode(element)) ^ (attribute == null ? 0 : RuntimeHelpers.GetHashCode(attribute)) ^ (type == null ? 0 : RuntimeHelpers.GetHashCode(type));
+	}
+
+	private readonly bool _UseReferenceDescriptors;
+	private Dictionary<ReferenceKey, ReferenceDescriptor> _ReferenceDescriptors;
+	private long _ReferenceDescriptorBuildCount;
+	private long _ReferenceDescriptorHitCount;
+
+	public long ReferenceDescriptorBuildCount => _ReferenceDescriptorBuildCount;
+	public long ReferenceDescriptorHitCount => _ReferenceDescriptorHitCount;
+
+	private static string GetRefTypeName(XmlAttribute[] attributes)
+	{
+		if (attributes != null)
+			foreach (XmlAttribute attribute in attributes)
+				if (attribute.NamespaceURI == "uri:ea.com:eala:asset:schema" && attribute.LocalName == "refType") return attribute.Value;
+		return null;
+	}
+
+	private ReferenceDescriptor DescribeReference(IXmlSchemaInfo info)
+	{
+		XmlSchemaType type = info.SchemaType;
+		ReferenceKind kind;
+		if (XmlSchemaType.IsDerivedFrom(type, _XmlWeakReferenceType, XmlSchemaDerivationMethod.None)) kind = ReferenceKind.Weak;
+		else if (XmlSchemaType.IsDerivedFrom(type, _XmlAssetReferenceType, XmlSchemaDerivationMethod.None)) kind = ReferenceKind.Strong;
+		else if (XmlSchemaType.IsDerivedFrom(type, _XmlFileReferenceType, XmlSchemaDerivationMethod.None)) kind = ReferenceKind.File;
+		else if (IsHashableType(type)) kind = ReferenceKind.Hashable;
+		else kind = ReferenceKind.None;
+		string refType = null;
+		if (kind == ReferenceKind.Weak || kind == ReferenceKind.Strong)
+		{
+			if (info.SchemaElement != null) refType = GetRefTypeName(info.SchemaElement.UnhandledAttributes);
+			else if (info.SchemaAttribute != null) refType = GetRefTypeName(info.SchemaAttribute.UnhandledAttributes);
+			if (refType == null)
+			{
+				refType = GetRefTypeName(type.UnhandledAttributes);
+				if (refType == null && type.DerivedBy == XmlSchemaDerivationMethod.Extension)
+					refType = GetRefTypeName(type.BaseXmlSchemaType.UnhandledAttributes);
+			}
+		}
+		return new ReferenceDescriptor(kind, refType);
+	}
+
+	internal ReferenceDescriptor GetReferenceDescriptor(IXmlSchemaInfo info)
+	{
+		if (_LoadedSchemaPath == null) throw new InvalidOperationException("Schema reference descriptions require a successfully loaded schema generation.");
+		var key = new ReferenceKey(info);
+		if (_UseReferenceDescriptors && _ReferenceDescriptors.TryGetValue(key, out ReferenceDescriptor descriptor))
+		{
+			_ReferenceDescriptorHitCount++;
+			return descriptor;
+		}
+		descriptor = DescribeReference(info);
+		_ReferenceDescriptorBuildCount++;
+		if (_UseReferenceDescriptors) _ReferenceDescriptors.Add(key, descriptor);
+		return descriptor;
 	}
 
 	public const string XmlNamespace = "uri:ea.com:eala:asset";
@@ -311,6 +389,8 @@ public class SchemaSet
 	{
 		// A failed load must not make its partially read inputs appear reusable.
 		_LoadedSchemaPath = null;
+		_ReferenceDescriptors = new Dictionary<ReferenceKey, ReferenceDescriptor>();
+		_ReferenceDescriptorBuildCount = _ReferenceDescriptorHitCount = 0;
 		_AssetDependencies = null;
 		_CircularCheck = new Set<uint>();
 		_SchemaPaths = new SortedDictionary<string, DateTime>(StringComparer.OrdinalIgnoreCase);
@@ -393,6 +473,8 @@ public class SchemaSet
 
 	public SchemaSet(bool countDependencies)
 	{
+		AppContext.TryGetSwitch("NewSdk.Compiler.DisableSchemaReferenceDescriptors", out bool disabled);
+		_UseReferenceDescriptors = !disabled;
 		LoadSchemas(countDependencies);
 	}
 

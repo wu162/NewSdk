@@ -25,10 +25,12 @@
 - 每轮执行 60 分钟后交接；通常 2 个子代理，最多 3 个。所有成果普通提交到本页指定的新分支；不强推、不自行合入主线。
 - HANDOFF 只保留当前结果、准确 sourceCommit/runId、未决事项和下一步，目标不超过 120 行；替换旧状态，历史由 git 保留。原方案只保存一份，不往交接里复制章节和运行日志。
 - 不改变 Win32/.NET4.8、插件 ABI、legacy 摘要/输出顺序、缓存默认关闭和 Texture 缓存边界。不将微基准当作完整构建提速。
-- 试验能力提供 AppContext 回退开关：`NewSdk.Compiler.DisableSinglePassDigest`、`NewSdk.Compiler.DisableNodeJoinerIndex` 为 true 时分别恢复历史双遍摘要和线性子节点匹配。可在 EXE.config 的 `runtime/AppContextSwitchOverrides` 配置；不新增 CLI 参数。
+- 试验能力提供 AppContext 回退开关：`NewSdk.Compiler.DisableSinglePassDigest`、`NewSdk.Compiler.DisableNodeJoinerIndex`、`NewSdk.Compiler.DisableSchemaReferenceDescriptors` 为 true 时分别恢复历史双遍摘要、线性子节点匹配和每次重算 schema 引用描述。可在 EXE.config 的 `runtime/AppContextSwitchOverrides` 配置；不新增 CLI 参数。
 
 ## 当前计量边界
 
 `coreWork` 按任务保存各阶段的调用次数、失败次数和单调时钟区间：definitions、expressions、inheritance、validation、assetProcessing、referenceBinding、manifest、link。assetProcessing 包含资产准备/缓存等工作，不等于纯插件编码；这些区间不代表全构建成本，未计入解析、schema 准备、I/O 排队及发布成本的独立区间。
 
 FileHashItem 的 DigestReadCount / DigestBytesRead 是每项成功完成的逻辑摘要读取计数，不是操作系统物理磁盘 I/O。当前只合并单项同次观察的双摘要，不等于完成跨流共享 PhysicalInputSnapshot。暖内容验证同时计算 FastHash 的 CPU 成本须在微基准中与原 SHA-only 暖路径一起报告。
+
+`coreWork[].inputDigests` 汇总本流 SessionCache 已登记 FileHashItem 的成功摘要 reads / bytes，items 为去除对象重复后的项数；包含会话初始化内容复核，同一路径不同配置可以重复计数。不含 schema 专用摘要、插件绕开 FileHashItem 的读取和外层输入快照/发布校验。
