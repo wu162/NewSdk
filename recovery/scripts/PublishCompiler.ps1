@@ -88,6 +88,13 @@ try {
     Need ($binarySource -cmatch '^[0-9a-f]{40}$') 'CLI acceptance has no exact binary source commit'
     $state.binarySourceCommit=$binarySource
     $state.acceptance=@{path=$AcceptanceReceipt;sha256=(Hash $AcceptanceReceipt);sourceCommit=$accept.sourceCommit;binarySourceCommit=$binarySource;runId=$accept.runId;runAttempt=$accept.runAttempt;scope=$accept.scope}
+    $p7Replay=Join-Path $CompilerDirectory 'p7-replay.json'
+    if(Test-Path -LiteralPath $p7Replay){
+        $replay=Get-Content -LiteralPath $p7Replay -Raw|ConvertFrom-Json
+        Need ($replay.prepared -eq $true -and $replay.candidateValidated -eq $false -and $replay.requiresBigDeployment -eq $true -and $replay.binarySourceCommit -ceq $binarySource -and $replay.testSourceCommit -ceq $state.sourceCommit -and $replay.testScriptSha256 -ceq (Hash (Join-Path $PSScriptRoot 'TestCompilerBig.ps1'))) 'P7 replay preparation identity or current test script differs'
+        Need ([bool]$VerifyBigDeployment) 'P7 partial replay requires -VerifyBigDeployment before publication'
+        $state.partialAcceptance=@{path=$p7Replay;sha256=(Hash $p7Replay);binarySourceCommit=$replay.binarySourceCommit;testSourceCommit=$replay.testSourceCommit;originalRunConclusion=$replay.originalRunConclusion;scope=$replay.scope}
+    }
     $preparation=Join-Path $CompilerDirectory 'release-preparation.json'
     if(Test-Path -LiteralPath $preparation){
         $prepared=Get-Content -LiteralPath $preparation -Raw|ConvertFrom-Json
@@ -146,6 +153,7 @@ try {
         $state.configurations+=,@{configuration=$mode;succeeded=$true;candidateZip=$package;zipSha256=(Hash $package);runtimeFiles=$inventory;buildReceiptSha256=(Hash (Join-Path $buildRoot 'build.json'));linkRecipeSha256=(Hash (Join-Path $buildRoot 'link-inputs.json'));toolchain=@{compiler=$build.compiler;vcToolsVersion=$build.vcToolsVersion;windowsSdkVersion=$build.windowsSdkVersion};texturePatch=$patch;doctor=$doctor;sourceDoctor=$baselineDoctor;baseline=$baseline;deployed=$deployed;rawOutputEquality=$true;runtimeUnchanged=$true}
     }
     if($VerifyBigDeployment){
+        if(Test-Path -LiteralPath $p7Replay){Copy-Item -LiteralPath $p7Replay -Destination (Join-Path $deployedProduct 'p7-replay.json')}
         $bigEvidence=Join-Path $out 'evidence/big-deployment'
         & "$PSScriptRoot/TestCompilerBig.ps1" -CompilerDirectory $deployedProduct -OutputDirectory $bigEvidence -TimeoutSeconds $TimeoutSeconds -UsePackagedRuntime
         Need ($LASTEXITCODE -eq 0) 'ZIP-deployed base/APT/maps and original LoD/MakeBig acceptance failed'

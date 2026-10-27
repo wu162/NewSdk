@@ -207,17 +207,30 @@ function PrepareFixture([string]$Path,[string]$Log){
     & python -c $check $root $Path *>> $Log;Need ($LASTEXITCODE -eq 0) 'BIG OnDemand/CDATAs fixture source-XSD preflight failed'
     [IO.File]::WriteAllText("$Path/Data/AptUI/not-listed.asset",'Must never be included by directory globbing')
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production P7 BIG apt/maps selected and combined, exact current loose member bytes and independent original MakeBig format/content oracle, skudef, CDATA, cancellation/failure/publication rollback; default base LoD and apt/maps BIG; optional neutral-asset repair/AssetMerge and final distribution acceptance excluded'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production P7 BIG apt/maps selected and combined, exact current loose member bytes and independent original MakeBig format/content oracle, skudef, CDATA, cancellation/failure/publication rollback; default base LoD, explicit SDK-then-MOD Additional overlays, and optional neutral actual hash repair with no-insertion original oracle; component insertion evidence remains separate; final distribution and game runtime acceptance excluded'}
 try{
     & python "$PSScriptRoot/ValidateCompilerBig.py" --self-test *> "$out/parser-preflight.json";Need ($LASTEXITCODE -eq 0) 'Independent BIG parser preflight failed'
     $fixture=Join-Path $short 'preflight-business'
     PrepareFixture $fixture "$out/fixture-preflight.log"
     if($Preflight){$state.succeeded=$true;$state.preflight=$true;$state.scope='Source-XSD business fixture and independent BIG parser preflight only';$global:LASTEXITCODE=0;return}
     Need (!(Test-Path -LiteralPath (Join-Path $CompilerDirectory 'reuse.json')) -and !(Test-Path -LiteralPath (Join-Path $CompilerDirectory 'session-replay.json'))) 'New BIG production inputs require a current production build'
+    $p7Replay=Join-Path $CompilerDirectory 'p7-replay.json'
+    if(Test-Path -LiteralPath $p7Replay){
+        $replay=Get-Content -LiteralPath $p7Replay -Raw|ConvertFrom-Json
+        Need ($UsePackagedRuntime -and $replay.prepared -eq $true -and $replay.candidateValidated -eq $false -and $replay.requiresBigDeployment -eq $true -and $replay.originalRunConclusion -ceq 'failure' -and $replay.binarySourceCommit -ceq '5f81f664f4970176d104b1aaa725501beffac410' -and $replay.testSourceCommit -ceq $state.sourceCommit -and $replay.testScriptSha256 -ceq (Hash $PSCommandPath)) 'P7 partial replay identity/current test mismatch'
+    }
     $script:control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
     $script:additionalControl=Join-Path $out 'AdditionalControl.exe'
-    $csc=Join-Path $env:WINDIR 'Microsoft.NET/Framework/v4.0.30319/csc.exe'
-    & $csc /nologo /target:exe /platform:x86 "/out:$script:additionalControl" "$root/recovery/preparation/additional/AdditionalControl.cs" *> "$out/build-additional-control.log"
+    # Reuse the proven NET48 controller toolchain. Framework csc misparses
+    # mixed-separator source paths (CS1504); always pass canonical Windows paths.
+    $controllerBuild=Get-Content -LiteralPath (Join-Path $out 'controller/build.json') -Raw|ConvertFrom-Json
+    $csc=$controllerBuild.controllerCompiler.path
+    $additionalSource=(Resolve-Path -LiteralPath (Join-Path $root 'recovery/preparation/additional/AdditionalControl.cs')).Path
+    $refs=Join-Path ${env:ProgramFiles(x86)} 'Reference Assemblies/Microsoft/Framework/.NETFramework/v4.8'
+    $additionalArguments=@('/nologo','/noconfig','/nostdlib+','/langversion:7.3','/target:exe','/platform:x86',('/out:'+$script:additionalControl))
+    foreach($name in @('mscorlib','System','System.Core')){$additionalArguments+=('/reference:'+(Resolve-Path -LiteralPath (Join-Path $refs ($name+'.dll'))).Path)}
+    $additionalArguments+=$additionalSource
+    & $csc @additionalArguments *> "$out/build-additional-control.log"
     Need ($LASTEXITCODE -eq 0) 'Original SDK Additional copy helper compilation failed'
     $state.usePackagedRuntime=[bool]$UsePackagedRuntime;$state.scriptSha256=Hash $PSCommandPath;$state.parserSha256=Hash "$PSScriptRoot/ValidateCompilerBig.py"
     foreach($mode in @('Debug','Release')){
@@ -225,6 +238,7 @@ try{
         $modeWork=(New-Item -ItemType Directory -Path (Join-Path $short $mode.Substring(0,1))).FullName
         $script:runtime=(New-Item -ItemType Directory -Path (Join-Path $modeWork 'r')).FullName
         $sourceBin=Join-Path $CompilerDirectory "$mode/bin"
+        if(Test-Path -LiteralPath $p7Replay){Need ($replay.modeExeSha256.$mode -ceq (Hash (Join-Path $sourceBin 'NewModCompiler.exe'))) 'P7 replay mode EXE differs from independently accepted original bytes'}
         $runtimeFiles=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
         if($UsePackagedRuntime){
             $runtimeFiles+=@('BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')

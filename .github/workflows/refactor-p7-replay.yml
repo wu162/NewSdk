@@ -1,0 +1,62 @@
+name: Fixed production P7 and ZIP deployment recovery
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-p7-replay.yml'
+      - 'recovery/scripts/PrepareCompilerP7Replay.py'
+      - 'recovery/scripts/TestCompilerBig.ps1'
+      - 'recovery/scripts/PublishCompiler.ps1'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  p7:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-p7-replay]')
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Preflight fixed runtime packaging scripts
+        shell: pwsh
+        run: |
+          python -m pip install -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+          foreach($path in @('recovery/scripts/PublishCompiler.ps1','recovery/scripts/TestCompilerBig.ps1')) {
+            $tokens=$null;$errors=$null
+            $null=[Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $path),[ref]$tokens,[ref]$errors)
+            if($errors.Count -ne 0){$errors|Format-List|Out-Host;throw "Packaging PowerShell syntax errors: $path"}
+          }
+      - name: Verify independently successful exact production scope and original failed terminal
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/scripts/PrepareCompilerP7Replay.py --repo . --candidate-commit $env:GITHUB_SHA --output recovery/artifacts/p7-fixed-product --archive "$env:RUNNER_TEMP/p7-fixed.zip"
+          if($LASTEXITCODE -ne 0){throw 'Fixed production partial acceptance rejected'}
+      - name: Validate candidate ZIP through actual base Additional neutral and original tools
+        shell: pwsh
+        run: |
+          ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/p7-fixed-product -AcceptanceReceipt recovery/artifacts/p7-fixed-product/accepted-cli.json -VerifyBigDeployment -OutputDirectory "recovery/artifacts/p7-release/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if($LASTEXITCODE -ne 0){throw 'P7 or ZIP recovery acceptance failed'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-p7-release-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/p7-fixed-product/p7-replay.json
+            recovery/artifacts/p7-fixed-product/accepted-cli.json
+            recovery/artifacts/p7-fixed-product/original-failed-big.json
+            recovery/artifacts/p7-fixed-product/acceptance/**
+            recovery/artifacts/p7-release/**
+          if-no-files-found: error
