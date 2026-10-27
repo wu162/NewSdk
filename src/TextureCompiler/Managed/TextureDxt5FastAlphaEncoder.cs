@@ -21,13 +21,10 @@ namespace BinaryAssetBuilder.TextureCompiler
             byte[] result = new byte[8];
             result[0] = Quantize(high);
             result[1] = Quantize(low);
-            if (result[0] == result[1])
-            {
-                // The DDS writer canonicalizes equal endpoints to six-level mode.
-                // All pixels keep index zero; the second endpoint increments then clamps.
-                result[1] = (byte)Math.Min(255, result[1] + 1);
-                return result;
-            }
+            // This is the low-level native state packed into eight bytes, not
+            // the DDS wrapper. The original fast path leaves its level count
+            // uninitialized; no deterministic DDS equivalence is promised here.
+            if (result[0] == result[1]) return result;
             int[] map = { 0, 2, 3, 4, 5, 6, 7, 1 };
             ulong indices = 0;
             for (int i = 0; i < 16; i++)
