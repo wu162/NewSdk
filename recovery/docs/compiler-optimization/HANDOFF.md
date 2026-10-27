@@ -6,9 +6,9 @@
 ## 最新接受点
 
 - 生产/首次完整测试/打包源码 **`b934445adb4ae900215ff980cb902f67407e2d5e` / [40507039217](https://github.com/wu162/NewSdk/actions/runs/40507039217) 整体success**。双配置各27个Core fixtures、原DLL、三组独立原BAB、协议、Texture、实际CLI、全部缓存/输入根、完整mymod/BIG与独立五文件ZIP全部通过。
-- 当前严格复用pin已更新为上述b934/40507039217；测试/工具源码`e4a3adc3823c20a4a3858440702b3e9cfbf06b22`已推送严格复用/原ZIP导出验收，**仍待该run终态**。追加最后trace将SchemaSet置null的公共排序局部合同；生产未变，不重建生产。只允许精确27 fixture、明确工具/小样例/Markdown路径，生产/SDK/recipe变化仍必须完整重建。
+- 当前严格复用pin已更新为上述b934/40507039217；测试/工具源码`e4a3adc3823c20a4a3858440702b3e9cfbf06b22` / [40510206136](https://github.com/wu162/NewSdk/actions/runs/40510206136) 严格复用/原ZIP导出验收已整体success，双配置27/27与Ubuntu/Windows各26项工具合同通过。追加最后trace将SchemaSet置null的公共排序局部合同；生产未变，不重建生产。只允许精确27 fixture、明确工具/小样例/Markdown路径，生产/SDK/recipe变化仍必须完整重建。
 - 已下载核验本轮27组targeted artifact `12734969954` 与原BAB小证据 `12736365897` 的outer SHA/source/run。六份原BAB收据确认Debug/Release下mod-a/mod-b、Upheaval、98资产链共8次独立进程比较，四输出逐字节相同且输入未变。
-- 完整生产archive `12736019142`（108739539字节、GitHub SHA256 `416e58b56c3b377adc5380f671e55f6558bde0c24e921506502a41cca3786dd9`）将由严格复用Actions下载核验；本地尚未下载此完整成功包，不冒称已独立核验其ZIP字节。原包小artifact身份待导出终态后补齐。
+- 完整生产archive `12736019142`（108739539字节、GitHub SHA256 `416e58b56c3b377adc5380f671e55f6558bde0c24e921506502a41cca3786dd9`）已由严格复用Actions按digest/size下载核验；本地未下载此完整成功archive，只下载核验原ZIP小artifact的outer/inner SHA、精确五成员及source/run。小包：[Release](https://github.com/wu162/NewSdk/actions/runs/40510206136/artifacts/12736174698) / [Debug](https://github.com/wu162/NewSdk/actions/runs/40510206136/artifacts/12737615880)，不重打包，身份详见VALIDATION。
 
 ## 本轮新增可用组
 

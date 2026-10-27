@@ -293,3 +293,18 @@ Export再次实时确认完整接受metadata，从同一校验过的原archive�
 NodeJoiner两配置各365检查，保留512项热点属性读取门槛及原DLL动态回调对照。Prefix专项在原/新DLL实测均0个DOM事件；因此Name匹配始终线性，不能把事件订阅当成Name索引完整失效保护。新声明probe各199、metadata各52、Upheaval各104、实际StableSort流各615、三流应用各7363检查；数字只用于定位准确组，不替代能力范围。
 
 工具源码 `9005452bac1409d7f8843e419170d3880bf8bc43` / [40508384421](https://github.com/wu162/NewSdk/actions/runs/40508384421) 仅运行Ubuntu控制器合同，整体success；27 fixture精确白名单及包导出拒绝/传输共26项通过，未请求runtime job，未提前更新接受pin。
+
+### 最终严格复用、补测与原ZIP导出
+
+工具/测试源码 **`e4a3adc3823c20a4a3858440702b3e9cfbf06b22` / [40510206136](https://github.com/wu162/NewSdk/actions/runs/40510206136) 整体success**。Ubuntu及Windows各26项控制器合同通过；严格验证b934完整success来源、production/validation同源对象、实际依赖闭包及原archive digest/size后，当前27 fixtures在精确原生产对象上重编译运行，两配置27/27。生产未重建，binarySourceCommit=b934、testSourceCommit=e4a3、sourceRunId=40507039217。
+
+最后补测将DP.SchemaSet在真实末次trace置null：原DLL/current/default/disabled排序结果一致，实际schemaSetNull=true、callbacks=1；默认仍对已捕获的标准map正确索引。StableSortMembership两配置各107检查；范围是公共StableSort局部合同，不代表整个processor后续可使用null SchemaSet。独立原BAB的backend/Upheaval/98资产链再次通过。
+
+复用证据artifact `12737136681` 已下载核验SHA256 `354f047621e1e6fc71f045347b7a8204cb1af7be69c6dfd3cbce76843101286f`，实际JSON收据binary/test/sourceRun和27组结果一致。Exporter从同一原archive读取发布receipt/manifest/ZIP，重新核验完整接受身份与五个成员，只复制原ZIP；rebuildPerformed=false、zipBytesRepacked=false。打包和二进制来源仍为b934，后续文档头不冒充binarySource。
+
+| 模式 | 原ZIP字节数 | 原ZIP SHA256 | 原包导出artifact |
+| --- | --- | --- | --- |
+| Debug | 2,276,390 | `4a8c20cb8670e8836c1c764bcfbccfd628e7c7297d853ce6236b8d1511d86aca` | [12737615880](https://github.com/wu162/NewSdk/actions/runs/40510206136/artifacts/12737615880) |
+| Release | 1,773,136 | `cacba1ccea28242613aca36fba50e3bf063e89aeb0d9dbe060d271d30e1ed738` | [12736174698](https://github.com/wu162/NewSdk/actions/runs/40510206136/artifacts/12736174698) |
+
+两份小artifact均已本地下载核验outer SHA（Debug `7015aef12d52cfed7dfade6af4feae19208734caf0e29c39c888eb6344718981`、Release `c09ed713342386943914ae051e98664ade39cbda6d35027a0518720e5e682a77`）、原inner ZIP及精确五运行成员的字节数/SHA、source/run/export身份。本地只读取已有产物，实际EXE执行、独立ZIP部署与事务门槛全部由Actions取得。

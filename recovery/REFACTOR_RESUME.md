@@ -15,7 +15,7 @@
 
 最终补测源码 `2d77667ee581d9080d6474149e129efd3822836d` / [40496809491](https://github.com/wu162/NewSdk/actions/runs/40496809491) 整体success，binarySource仍60：保留单流候选变化测试，新增base/APT/maps三流全部完成后整次发布拒绝、清理及新代重试；两配置各22 fixtures和26项工具合同通过。三流用Armor验证应用事务编排，不冒称APT业务或precompiled/patch/StringHashes完整事务覆盖。
 
-第五轮生产/完整测试/打包源码 **`b934445adb4ae900215ff980cb902f67407e2d5e` / [40507039217](https://github.com/wu162/NewSdk/actions/runs/40507039217) 整体success**：两配置各27 fixtures、原DLL与三组独立原BAB、全部CLI/Texture/缓存/输入根、完整mymod/BIG及独立五文件ZIP通过。新增文档缓存生命周期隔离与私有saved值共享、NodeJoiner动态DOM/Prefix安全回退、有界StableSort完整ID membership索引、7资产Upheaval原文件小组和98资产依赖链；严格复用pin已更新为b934，最终仅测试补测/原ZIP导出终态见[当前短交接](docs/compiler-optimization/HANDOFF.md)。BinaryAsset提前pin尝试已撤回，完整语义结果/闭包缓存与并行未完成，不自行合并。
+第五轮生产/完整测试/打包源码 **`b934445adb4ae900215ff980cb902f67407e2d5e` / [40507039217](https://github.com/wu162/NewSdk/actions/runs/40507039217) 整体success**：两配置各27 fixtures、原DLL与三组独立原BAB、全部CLI/Texture/缓存/输入根、完整mymod/BIG及独立五文件ZIP通过。新增文档缓存生命周期隔离与私有saved值共享、NodeJoiner动态DOM/Prefix安全回退、有界StableSort完整ID membership索引、7资产Upheaval原文件小组和98资产依赖链；严格复用pin已更新为b934，最终仅测试补测/原ZIP导出[40510206136](https://github.com/wu162/NewSdk/actions/runs/40510206136)也整体success，双配置27探针、独立原BAB与原五文件ZIP传输均通过，身份见[当前短交接](docs/compiler-optimization/HANDOFF.md)。BinaryAsset提前pin尝试已撤回，完整语义结果/闭包缓存与并行未完成，不自行合并。
 
 ## 默认构建与参数改进（PR #14，已合入）
 
