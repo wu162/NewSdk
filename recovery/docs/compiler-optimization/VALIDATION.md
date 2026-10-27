@@ -240,3 +240,35 @@ Export再次实时确认完整接受metadata，从同一校验过的原archive�
 最终补测源码 `2d77667ee581d9080d6474149e129efd3822836d` / [40496809491](https://github.com/wu162/NewSdk/actions/runs/40496809491) 整体success，binarySource仍60：保留单流候选变化测试，新增base/APT/maps三流全部完成后整次发布拒绝、清理及新代重试；两配置各22 fixtures和26项工具合同通过。三流用Armor验证应用事务编排，不冒称APT业务或precompiled/patch/StringHashes完整事务覆盖。
 
 本run严格复用同一完整成功来源40491888271，无生产重编译；current test source为2d77667e，打包/二进制来源仍60。小证据artifact `12731251359` 已下载校验SHA256 `90cd5a871494d1343e21be00683d31597b0ae37cb6232360f88bc870cc246618`；Debug/Release应用测试各5007检查，含原单流和新增combined用例，收据与日志均确认低优先级读取、三流完成后的CORE_INPUT_CHANGED及新代读取高优先级文件成功。后续文档提交不是新二进制来源。
+
+## 第五轮：文档生命周期、有界排序与真实小样例
+
+北京时间19:39开始，目标按用户要求持续推进约110分钟，通常2个子代理；全部编译、测试、微基准仅Actions。本地只编辑、静态差异检查及下载后读取已有证据。成果仍在feature/compiler-optimization，PR #15保持草稿、不自行合并。
+
+### 保留失败及修复
+
+| 源码 / 完整运行 | 实际结果与修复 |
+| --- | --- |
+| `b287028544c560998a771cd5a824b06f5d728593` / [40498587962](https://github.com/wu162/NewSdk/actions/runs/40498587962) | failure：新三流fixture同时传tl:3/tl:9，Options.Parse按原合同拒绝，尚未到事务断言；改测试只生成一个trace参数。两配置文档72/metadata44检查已独立成功，非整组验收。 |
+| `7e23acb16f5ef2fc41160038e14d170b460d93e9` / [40499175807](https://github.com/wu162/NewSdk/actions/runs/40499175807) | failure：同一旧fixture参数问题；两配置原DLL文档复现与文档75/metadata52独立通过。该候选的BinaryAsset封存组未获接受，随后因会阻断原坏缓存修复/删除/重试，由ebb3d48d完整撤回；保留active snapshot下原修复合同回归，不报读取闭包完成。 |
+| `16fcfdfcfc5afec3ea67923ae5fbc8f306671a8e` / [40499706053](https://github.com/wu162/NewSdk/actions/runs/40499706053) | failure：fixture直接将实时匿名payload转字典，事件sink拒绝；另Upheaval查询用了混合分隔符，而SessionCache键只转小写。已规范payload及使用resolver相同Canonicalize键，保留并加强确切继承断言。前者没有到预期事务拒绝，后者默认组已经过cold/warm/persisted四输出比较，不冒称fallback或原BAB通过。 |
+| `00fe3e7b80ffc0c517390a4e5dda6ad251360290` / [40500892490](https://github.com/wu162/NewSdk/actions/runs/40500892490) | failure：两配置25 fixtures、原DLL、既有原BAB、CLI/Texture/全部缓存/输入根/完整mymod/BIG均成功；新增Upheaval原BAB首次Debug比较在manifest byte8失败，Release该步未执行、最终ZIP跳过。归档证明bin/imp/relo相同，manifest仅8—11字节不同：原hash1424942948、裸fixture registry hash0。修复测试初始化为实际生产DefaultMetadataPlugin，未patch输出或放宽比较。 |
+| `d48be3c5ddfa4de7d2f4696f2ba0c0de216669cd` / [40504062764](https://github.com/wu162/NewSdk/actions/runs/40504062764) | 新增27组中的NodeJoiner探针编译失败：动态schema仍声明const string（CS0133）；改普通局部string，schema及断言未变。其余26探针已独立成功（含StableSort原DLL/真实链与组件计量）；该run最终状态另以Actions为准，不作整组接受点。 |
+
+以上早期targeted artifact均已下载核验outer SHA/source/run：
+
+| artifact | SHA256 |
+| --- | --- |
+| `12732287660`（40498587962） | `cea55dff258cb3272f2991094d62d114da70d424f434e618d24f82f692854cfe` |
+| `12732485666`（40499175807） | `b4db7e79b06cb0335cf7b4198fa088d55a98c87b96c1f49b85cff3a25cd8a389` |
+| `12732790726`（40499706053） | `e2721661e6b7ebf5da1437c25d8514acde974c6a5c31b7e3d7b522e4689765fb` |
+| `12733351540`（40500892490） | `404e29f583bdb72a4537eaf8a19a3b98b44a87e65b9ff6f73446e303132244f1` |
+| `12734098250`（40504062764） | `0f70c993e0657b33a1d10774e4fd390632d54b27a9a7540fc4294c1c63e513a2` |
+
+40500892490完整失败archive `12733572988`（71,703,463字节）也已本地下载核验SHA256 `a221f97141862e9a6d27f14f76b7ecc4f26cb355a1cda65d227543d612208786`，仅解出相关原BAB证据读取；Debug manifest两侧均790字节、差异正好8—11；bin4564、imp4、relo44字节逐字节相同。该失败不能作为完整发行/复用接受点。
+
+### 当前统一候选
+
+`4c9ac8ad` 已推送完整重建/验收，尚待终态。包含W06文档记录隔离与受控private saved共享、NodeJoiner仅id索引/外部DOM变动回退、W08局部StableSort membership索引、7资产Upheaval小组及98资产依赖链。当前接受pin仍保留60/40491888271，待完整新success后才更新；后续仅测试/工具/文档变化仍须严格核对闭包与当前测试，不把文档头冒充binarySource。
+
+独立原BAB步骤现按各自成功fixture receipt进行严格验证，不再因其它不相干probe失败而全部阻塞；Debug/Release集中收集失败，任一失败仍使整组拒绝。新增提前小artifact保存原/新四输出、原配置与收据，最终发行门槛未降低。
