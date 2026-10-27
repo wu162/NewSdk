@@ -921,6 +921,24 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-npot-rgba8/*/validation.json",
       "sdk": true
+    },
+    "npot-storage": {
+      "script": "recovery/scripts/InspectTextureNpotStorage.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureNpotStorage.ps1",
+        "recovery/tests/TextureNpotStorageProbe.cs",
+        "recovery/tests/TextureTgaFormatsOracle.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TextureBmpOracle.cs",
+        "src/TextureCompiler/Managed/*.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/npot-storage/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"

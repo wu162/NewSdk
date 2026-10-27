@@ -52,3 +52,7 @@ SDK收据的通用scope字符串沿用复用脚本的旧POT/DXT措辞；实际Pc
 恢复余下NPOT源存储/目标量化：先读取原D3DX格式descriptor/格式vtable与row getter/setter，再核对过滤前的原始样本精度、向零存储/抖动以及XGCopySurface最终RGBA转换。RGBA8的已验收贡献表/遍历契约可复用，但PNG RGB16存在旧descriptor/行布局异常，BMP/TGA16可能先按5/6/1位量化，不能用解码后8位值近似。源格式变化应按连贯量化组统一完整原版差分、拒绝、公共加载器与两入口、NoOriginal以及适用SDK；不要拆成反复小批触发。
 
 已拒绝的原版PNG索引/部分GA16、BMP索引/bitfields等保留原错误，不把原版拒绝误列成缺失支持；ICC/APNG及未声明TGA/BMP metadata仍按既有边界。优先实际PC能力，默认DXT1/1A未初始化字段、完整atlas和生产集成为其他独立门槛。
+
+## 2026-10-28 下一轮存储完整组调查中
+
+上一轮已闭环并在4857ff70保存交接。本轮新npot-storage原版定向取证共4986输入：PNG低/高位深与灰度/GA/RGB/RGBA、Additional TGA16/灰度/调色板、BMP16及既有原版拒绝域，9种NPOT/POT对照形状、PNG交错/metadata/图案和TGA RLE/方向/alpha。除最终LoadImageA RGBA外，记录原D3DX创建后的format/width/height、LockRect pitch及完整原存储。锁定行可能含未定义padding，只作取证，不把raw padding当恢复契约。两次创建/加载的成功/拒绝须一致，原输入不变；probe-only，不重复上一轮RGBA8/颜色/压缩/SDK成功组。

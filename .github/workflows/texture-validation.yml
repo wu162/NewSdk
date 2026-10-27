@@ -34,7 +34,7 @@ permissions:
   contents: write
 jobs:
   plan:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[texture-test]') || contains(github.event.head_commit.message, '[texture-sdk]') || contains(github.event.head_commit.message, '[texture-plan]') || contains(github.event.head_commit.message, '[texture-dxt-evidence]') || contains(github.event.head_commit.message, '[texture-dxt-blocks]') || contains(github.event.head_commit.message, '[texture-dxt-volume-boundaries]') || contains(github.event.head_commit.message, '[texture-npot-load]') || contains(github.event.head_commit.message, '[texture-npot-numeric]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[texture-test]') || contains(github.event.head_commit.message, '[texture-sdk]') || contains(github.event.head_commit.message, '[texture-plan]') || contains(github.event.head_commit.message, '[texture-dxt-evidence]') || contains(github.event.head_commit.message, '[texture-dxt-blocks]') || contains(github.event.head_commit.message, '[texture-dxt-volume-boundaries]') || contains(github.event.head_commit.message, '[texture-npot-load]') || contains(github.event.head_commit.message, '[texture-npot-numeric]') || contains(github.event.head_commit.message, '[texture-npot-storage]')
     runs-on: ubuntu-latest
     outputs:
       has_work: ${{ steps.select.outputs.has_work }}
@@ -47,7 +47,7 @@ jobs:
       - name: Select affected groups and preserve original acceptance anchors
         id: select
         env:
-          FORCE_GROUPS: ${{ inputs.force_groups || (contains(github.event.head_commit.message, '[texture-npot-numeric]') && 'npot-numeric') || (contains(github.event.head_commit.message, '[texture-npot-load]') && 'npot-load') || (contains(github.event.head_commit.message, '[texture-dxt-volume-boundaries]') && 'dxt-volume-boundaries') || (contains(github.event.head_commit.message, '[texture-dxt-blocks]') && 'dxt-blocks') || (contains(github.event.head_commit.message, '[texture-dxt-evidence]') && 'dxt-symbols') || 'auto' }}
+          FORCE_GROUPS: ${{ inputs.force_groups || (contains(github.event.head_commit.message, '[texture-npot-storage]') && 'npot-storage') || (contains(github.event.head_commit.message, '[texture-npot-numeric]') && 'npot-numeric') || (contains(github.event.head_commit.message, '[texture-npot-load]') && 'npot-load') || (contains(github.event.head_commit.message, '[texture-dxt-volume-boundaries]') && 'dxt-volume-boundaries') || (contains(github.event.head_commit.message, '[texture-dxt-blocks]') && 'dxt-blocks') || (contains(github.event.head_commit.message, '[texture-dxt-evidence]') && 'dxt-symbols') || 'auto' }}
           REQUEST_SDK: ${{ inputs.run_sdk || contains(github.event.head_commit.message, '[texture-sdk]') }}
           ONLY_PLAN: ${{ inputs.plan_only || contains(github.event.head_commit.message, '[texture-plan]') }}
         run: |
