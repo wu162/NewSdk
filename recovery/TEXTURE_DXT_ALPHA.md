@@ -152,3 +152,14 @@ The decompiler reports misleading calling conventions/extraout registers in some
 AllSame/rounding output. Use the COFF signature and original assembly for ABI and
 floating-point evaluation order. This stage's five-point quantizer failure shows
 why a mathematically equivalent decompiler expression is insufficient evidence.
+
+### Remaining four colour exports collected
+
+After authentication recovered, Actions
+[40494632567](https://github.com/wu162/NewSdk/actions/runs/40494632567) was confirmed
+completed/success for source `c4bb4db72440bf23827656a643022ea67c7bbb1d`.
+All four requested C exports and their hashes are in
+`evidence/texture/dxt-decompile/40494632567-1`; receipt status is probe-only.
+Combined with the earlier 13 exports, this provides 17 of the 18 requested
+functions. RoundMult remains unresolved; no colour implementation acceptance is
+claimed. Do not rerun the four-function extraction unchanged.

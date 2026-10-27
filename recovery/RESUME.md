@@ -69,3 +69,5 @@ Texture 2026-10-27 第二阶段当前入口：[TEXTURE_DXT_ALPHA.md](TEXTURE_DXT
 已验证成果：Production DXT5 alpha最终源码 `4bf0ca8ccb74a6f670cd7ecb954483dc795fae9f` / Actions `40493971846` completed/success，Debug/Release量化器、78144实际DDS alpha、12288 float、78144 NoOriginal及native ABI全部通过。源码/测试输入后续未变，SDK未修改，完整颜色压缩器未完成。详细范围见 TEXTURE_DXT_ALPHA.md，不重跑未变成功组。
 
 唯一待收取：源码 `c4bb4db72440bf23827656a643022ea67c7bbb1d` / Actions `40494632567`，显式 `dxt-colour-functions`，只补取 CodeRGBBlockExhaustive@0x833F0、CodeRGBBlockNoMode@0x83CD0、FastEncodeDXT1_3@0x8BAA0、FastEncodeDXT1_4@0x8C1F0。最后可读状态为运行中；当前最终状态与远端是否已自动回写未知，不标作成功、不重复启动。预期输出在 `evidence/texture/dxt-decompile/40494632567-1`。此前All取证40490888440在RoundMult超时、只收取13函数，仍为failed/partial；本次补取即使成功也不意味着RoundMult已完成。
+
+上节认证中断已解决：已保留远端 Actions 证据提交351880d4，将本地交接rebase后普通推送。40494632567现核实completed/success，四份颜色函数导出已回写并拉取，收据status=probe-only；不属于颜色实现验收。剩余RoundMult导出/颜色恢复继续按TEXTURE_DXT_ALPHA.md推进，勿重复补取这四函数。
