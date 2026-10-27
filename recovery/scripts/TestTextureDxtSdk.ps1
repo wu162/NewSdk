@@ -25,7 +25,7 @@ try{
  $generatorSources=@('recovery/tests/TexturePngOracle.cs','recovery/tests/TextureBmpOracle.cs','recovery/tests/TextureDxtSdkFixtures.cs')|ForEach-Object{(Resolve-Path $_).Path}
  Checked fixture-writer-build {& $csc /nologo /unsafe /platform:x86 /main:TextureDxtSdkFixtures /r:System.Drawing.dll /r:"$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll" /out:"$work/TextureDxtSdkFixtures.exe" $generatorSources}
  Checked fixture-write {& "$work/TextureDxtSdkFixtures.exe" "$work/fixtures"}
- $wrapper=(Resolve-Path recovery/tests/TextureSdkTracePlugin.cs).Path
+ $wrapper=(Resolve-Path recovery/tests/TextureDxtSdkTracePlugin.cs).Path
  foreach($mode in @('Original','Recovered','NoOriginal')){
   $sdk=Join-Path $work $mode;Copy-Item SDK $sdk -Recurse
   Remove-Item "$sdk/builtmods" -Recurse -Force -ErrorAction SilentlyContinue
@@ -51,8 +51,9 @@ try{
   if($mode -eq 'Original'){
    Checked "$mode-wrapper-build" {& $csc /nologo /target:library /platform:x86 /define:ORIGINAL /r:"$sdk/tools/BinaryAssetBuilder.Core.dll" /r:"$sdk/tools/BinaryAssetBuilder.Utility.dll" /r:"$sdk/tools/BinaryAssetBuilder.TextureCompiler.dll" /out:"$sdk/tools/TextureSdkTrace.dll" $wrapper}
   }else{
+   $wrapperDefines=@();if($mode -eq 'NoOriginal'){$wrapperDefines=@('/define:NO_ORIGINAL')}
    Copy-Item "$work/build/Recovered.BinaryAssetBuilder.TextureCompiler.dll","$work/Recovered.TextureDxtColour.dll","$work/Recovered.TextureDxtAlpha.dll" "$sdk/tools"
-   Checked "$mode-wrapper-build" {& $csc /nologo /target:library /platform:x86 /r:"$sdk/tools/BinaryAssetBuilder.Core.dll" /r:"$sdk/tools/BinaryAssetBuilder.Utility.dll" /r:"$sdk/tools/Recovered.BinaryAssetBuilder.TextureCompiler.dll" /out:"$sdk/tools/TextureSdkTrace.dll" $wrapper}
+   Checked "$mode-wrapper-build" {& $csc /nologo /target:library /platform:x86 $wrapperDefines /r:"$sdk/tools/BinaryAssetBuilder.Core.dll" /r:"$sdk/tools/BinaryAssetBuilder.Utility.dll" /r:"$sdk/tools/Recovered.BinaryAssetBuilder.TextureCompiler.dll" /out:"$sdk/tools/TextureSdkTrace.dll" $wrapper}
    if($mode -eq 'NoOriginal'){Remove-Item "$sdk/tools/BinaryAssetBuilder.TextureCompiler.dll" -Force}
   }
   $plugin[0].SetAttribute('targetType','TextureSdkTracePlugin, TextureSdkTrace');$plugin[0].SetAttribute('useBuildCache','false')
@@ -77,7 +78,7 @@ try{
   if(@($calls|Where-Object Stage -eq 'failure').Count -ne 0){throw "$mode plugin failure trace"}
   $success=@($calls|Where-Object Stage -eq 'success');$unique=@($success|ForEach-Object {"$($_.TypeId):$($_.InstanceId)"}|Sort-Object -Unique)
   if($unique.Count -ne $expectedAssets -or $success.Count -lt $expectedAssets){throw "$mode expected $expectedAssets unique actual Core texture calls; found $($unique.Count)"}
-  $r.modes+=@{mode=$mode;passed=$true;uniqueAssets=$unique.Count;actualCalls=$success.Count;withoutOriginalTextureCompiler=($mode -eq 'NoOriginal');files=$files}
+  $r.modes+=@{mode=$mode;passed=$true;uniqueAssets=$unique.Count;actualCalls=$success.Count;withoutOriginalTextureCompiler=($mode -eq 'NoOriginal');assertedOriginalNotLoadedDuringEveryCall=($mode -eq 'NoOriginal');files=$files}
   Write-Output "PASS $mode real SDK: assets=$($unique.Count) calls=$($success.Count)"
  }
  foreach($mode in @('Recovered','NoOriginal')){

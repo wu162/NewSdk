@@ -639,10 +639,10 @@
         "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs",
         "recovery/scripts/TestTextureDxtSdk.ps1",
         "recovery/tests/TextureDxtSdkFixtures.cs",
-        "recovery/tests/TextureSdkTracePlugin.cs",
         "SDK/tools/**",
         "SDK/Schemas/**",
-        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs"
+        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
+        "recovery/tests/TextureDxtSdkTracePlugin.cs"
       ],
       "evidence": "recovery/evidence/texture/sdk-dxt/*/validation.json",
       "sdk": true
