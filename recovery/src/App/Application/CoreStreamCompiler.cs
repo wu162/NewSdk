@@ -428,16 +428,18 @@ namespace NewModCompiler.Application
             Exception failure = null;
             IList<Artifact> artifacts = null;
             DocumentProcessor processor = null;
+            SchemaSet schemas = null;
+            var outerWork = new WorkMetrics();
             compiling = true;
             try
             {
                 Directory.CreateDirectory(staging);
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
-                Settings settings = StreamSettings(context, staging);
+                Settings settings = outerWork.Measure("settings", () => StreamSettings(context, staging));
                 processorState = DocumentProcessor.BeginStateScope();
                 report = AssetReport.BeginScope();
-                EnsureProviders();
+                outerWork.Measure("providerPreparation", EnsureProviders);
                 // The mixed texture implementation cannot yet prove that every
                 // D3DX payload read uses Core's FileReference closure. Preserve
                 // its compilation behavior, but never authorize a texture hit.
@@ -448,6 +450,7 @@ namespace NewModCompiler.Application
                 BuildPlan cachePlan = null; CacheInputSnapshot cacheInputs = null;
                 string processContract = null; BuildAssetCache assetCache = null; SessionPackage sessionPackage = null;
                 bool packageRestored = false;
+                outerWork.Measure("cachePreparation", () => {
                 if (buildCacheEnabled || sessionCacheEnabled)
                 {
                     inputBoundary = CacheInputBoundary.Begin(sdkRoot, modRoot, runtime);
@@ -467,9 +470,11 @@ namespace NewModCompiler.Application
                         packageRestored = sessionPackage.PrepareStream(context.Task.Id, staging, cancellation);
                     }
                 }
-                var schemas = new SchemaSet(settings.StableSort);
+                });
+                schemas = outerWork.Measure("schemaPreparation", () => new SchemaSet(settings.StableSort));
                 hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                 var cache = new SessionCache();
+                outerWork.Measure("sessionPreparation", () => {
                 if (sessionCacheEnabled)
                 {
                     string sessionPath = Path.Combine(settings.SessionCacheDirectory, "session.xml");
@@ -503,9 +508,10 @@ namespace NewModCompiler.Application
                     if (packageRestored) sessionPackageHits++; else sessionPackageMisses++;
                 }
                 else cache.InitializeCache(new List<string>());
+                });
                 processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
-                bool success;
-                processor.ProcessDocument(settings.InputPath, true, false, out success);
+                bool success = false;
+                outerWork.Measure("processDocument", () => processor.ProcessDocument(settings.InputPath, true, false, out success));
                 if (!success) throw new BuildFailure(ExitCode.Compilation, "CORE_COMPILE_FAILED", "Core did not complete the stream.");
                 if (sessionCacheEnabled)
                 {
@@ -514,20 +520,20 @@ namespace NewModCompiler.Application
                         throw new BuildFailure(ExitCode.Arguments, "CORE_SESSION_TEXTURE_UNSUPPORTED", "Session cache cannot reuse mixed Texture, OnDemandTexture or TerrainTextureAtlas assets; use /sc:false.");
                 }
                 cancellation.ThrowIfCancellationRequested(); // Cancellation is cooperative at complete stream boundaries.
-                artifacts = CollectArtifacts(settings.OutputDirectory);
+                artifacts = outerWork.Measure("artifactCollection", () => CollectArtifacts(settings.OutputDirectory));
                 cancellation.ThrowIfCancellationRequested();
                 if (buildCacheEnabled || sessionCacheEnabled)
                 {
-                    if (!cacheInputs.MatchesCurrent(request, cachePlan, runtime, cancellation) || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal))
+                    if (!outerWork.Measure("cacheValidation", () => cacheInputs.MatchesCurrent(request, cachePlan, runtime, cancellation) && string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal)))
                         throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Build-cache inputs or process resolution contract changed during compilation.");
                     if (sessionCacheEnabled)
                     {
-                        cache.SaveCache(false);
-                        sessionPackage.StageStream(context.Task.Id, staging, cancellation);
+                        outerWork.Measure("cacheStage", () => { cache.SaveCache(false);
+                        sessionPackage.StageStream(context.Task.Id, staging, cancellation); });
                     }
                     if (buildCacheEnabled)
                     {
-                        assetCache.StageStream(context.Task.Id, settings.BuildCacheDirectory, cancellation);
+                        outerWork.Measure("cacheStage", () => assetCache.StageStream(context.Task.Id, settings.BuildCacheDirectory, cancellation));
                         buildCacheHits += processor.BuildCacheHits; buildCacheMisses += processor.BuildCacheMisses;
                     }
                 }
@@ -544,20 +550,23 @@ namespace NewModCompiler.Application
                     documentReuse += processor.DocumentReuseCount;
                     xmlParse += processor.XmlParseCount;
                     instanceCompile += processor.InstanceCompileCount;
-                    var session = processor.Cache as SessionCache;
-                    coreWork.Add(new { taskId = context.Task.Id, stages = processor.GetWorkMetrics(), inputDigests = session == null ? null : session.GetDigestReadMetrics(),
-                        schemaReferences = new { builds = processor.SchemaSet.ReferenceDescriptorBuildCount, hits = processor.SchemaSet.ReferenceDescriptorHitCount } });
                 }
                 var cleanup = new List<Exception>();
-                try { if (report != null) report.Dispose(); } catch (Exception error) { cleanup.Add(error); }
-                try { if (hashes != null) hashes.Dispose(); } catch (Exception error) { cleanup.Add(error); }
-                try { if (processorState != null) processorState.Dispose(); } catch (Exception error) { cleanup.Add(error); }
-                try { if (tracing != null) tracing.Dispose(); } catch (Exception error) { cleanup.Add(error); }
-                try { if (inputBoundary != null) inputBoundary.Dispose(); } catch (Exception error) { cleanup.Add(error); }
+                try { if (report != null) outerWork.Measure("cleanup", report.Dispose); } catch (Exception error) { cleanup.Add(error); }
+                try { if (hashes != null) outerWork.Measure("cleanup", hashes.Dispose); } catch (Exception error) { cleanup.Add(error); }
+                try { if (processorState != null) outerWork.Measure("cleanup", processorState.Dispose); } catch (Exception error) { cleanup.Add(error); }
+                try { if (tracing != null) outerWork.Measure("cleanup", tracing.Dispose); } catch (Exception error) { cleanup.Add(error); }
+                try { if (inputBoundary != null) outerWork.Measure("cleanup", inputBoundary.Dispose); } catch (Exception error) { cleanup.Add(error); }
                 Settings.Current = previousSettings;
                 MetricManager.Enabled = previousMetrics;
                 compiling = false;
                 foreach (Exception error in cleanup) AddCleanupFailure(ref failure, error, ExitCode.Internal, "CORE_CLEANUP_FAILED");
+                var measuredSession = processor == null ? null : processor.Cache as SessionCache;
+                coreWork.Add(new { taskId = context.Task.Id, stages = processor == null ? null : processor.GetWorkMetrics(),
+                    outerStages = outerWork.Snapshot(), inputDigests = measuredSession == null ? null : measuredSession.GetDigestReadMetrics(),
+                    schemaPreparation = schemas == null ? null : schemas.GetPreparationMetrics(),
+                    schemaInputs = schemas == null ? null : new { filesRead = schemas.SchemaFileReadCount, bytesRead = schemas.SchemaContentBytesRead, contentChecks = schemas.SchemaContentCheckCount },
+                    schemaReferences = schemas == null ? null : new { builds = schemas.ReferenceDescriptorBuildCount, hits = schemas.ReferenceDescriptorHitCount } });
                 if (failure != null)
                 {
                     try { if (Directory.Exists(staging)) Directory.Delete(staging, true); }

@@ -101,7 +101,7 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
             }
         }
         $entry.passed=$true;$entry.report=$body;$entry.eventCount=$rows.Count
-        return @{report=$body;events=$rows;destination=$destination;caseOut=$caseOut;mod=$Mod;sdk=$Sdk;name=$Name}
+        return @{report=$body;events=$rows;destination=$destination;caseOut=$caseOut;mod=$Mod;sdk=$Sdk;name=$Name;control=$audit}
     } catch {
         # Surface bounded child-process diagnostics in Actions while retaining
         # the full files and original failing assertion in the evidence archive.
@@ -160,6 +160,45 @@ function EqualTask($Combined,$Single,[string]$Group){
         Need ($left.Count -eq $right.Count) 'Single/combined file count differs'
         foreach($key in $left.Keys){Need ($right.ContainsKey($key) -and $left[$key] -ceq $right[$key]) 'Fresh production CLI single/combined bytes differ'}
     }
+}
+# These are overlapping named work intervals, not additive build wall time.
+# Validate actual production reports, then preserve per-task observations so a
+# later sharing optimization has a concrete same-input preparation baseline.
+function WorkMeasurements($Rows,[string[]]$Required,[string]$Scope){
+    $measurements=@($Rows)
+    Need ($null -ne $Rows -and $measurements.Count -gt 0) "$Scope work measurements missing"
+    $seen=@{}
+    foreach($row in $measurements){
+        foreach($field in @('stage','calls','failedCalls','elapsedMs')){Need ($null -ne $row.PSObject.Properties[$field]) "$Scope measurement field missing: $field"}
+        Need ($row.stage -is [string] -and $row.stage.Length -gt 0 -and !$seen.ContainsKey($row.stage)) "$Scope stage missing or duplicated"
+        $seen[$row.stage]=$true
+        Need ($row.calls -ge 0 -and $row.failedCalls -ge 0 -and $row.failedCalls -le $row.calls -and $row.failedCalls -eq 0) "$Scope successful case has invalid/failed call counts"
+        $elapsed=[double]$row.elapsedMs
+        Need (!([double]::IsNaN($elapsed)) -and !([double]::IsInfinity($elapsed)) -and $elapsed -ge 0) "$Scope duration is not finite/nonnegative"
+    }
+    foreach($stage in $Required){Need (@($measurements|Where-Object{$_.stage -ceq $stage -and $_.calls -gt 0}).Count -eq 1) "$Scope required work was not measured: $stage"}
+    return $measurements
+}
+function BusinessWorkMetrics($Case){
+    $tasks=@($Case.report.plan.Tasks);$work=@($Case.report.cache.coreWork)
+    Need ($Case.report.cache.status -ceq 'Disabled' -and !$Case.report.cache.sessionCache) 'Business work baseline must run with compiler caches disabled'
+    Need ($work.Count -eq $tasks.Count) 'Business work must have one snapshot per selected task'
+    $taskMetrics=@()
+    foreach($task in $tasks){
+        $matching=@($work|Where-Object{$_.taskId -ceq $task.Id})
+        Need ($matching.Count -eq 1) 'Business work snapshot task identity missing or duplicated'
+        $item=$matching[0]
+        $core=@(WorkMeasurements $item.stages @('rawParse','definitions','expressions','inheritance','validation','assetProcessing','referenceBinding','manifest','link') ($Case.name+'/'+$task.Id+'/Core'))
+        $schema=@(WorkMeasurements $item.schemaPreparation @('schemaRead','schemaCompile','schemaMetadata') ($Case.name+'/'+$task.Id+'/schema'))
+        $outer=@(WorkMeasurements $item.outerStages @('settings','providerPreparation','schemaPreparation','sessionPreparation','processDocument','artifactCollection','cleanup') ($Case.name+'/'+$task.Id+'/outer'))
+        Need ($null -ne $item.schemaInputs -and $item.schemaInputs.filesRead -gt 0 -and $item.schemaInputs.bytesRead -gt 0 -and $item.schemaInputs.contentChecks -ge 0) 'Business schema input read counters missing or invalid'
+        Need ($null -ne $item.inputDigests -and $item.inputDigests.reads -ge 0 -and $item.inputDigests.bytes -ge 0) 'Business digest logical-read counters missing or invalid'
+        $taskMetrics+=,@{taskId=$task.Id;content=$task.Content;inputPath=$task.InputPath;stages=$core;schemaPreparation=$schema;schemaInputs=$item.schemaInputs;outerStages=$outer;inputDigests=$item.inputDigests;schemaReferences=$item.schemaReferences}
+    }
+    Need ($Case.report.applicationWork.captureBoundary -ceq 'beforeInitialReport') 'Application work snapshot boundary changed'
+    $application=@(WorkMeasurements $Case.report.applicationWork.stages @('planning','backendInitialize','backendCompile','artifactValidation','backendDispose','publicationPrepare','publicationCommit','cacheCommit') ($Case.name+'/application'))
+    Need ($Case.control.elapsedMs -ge 0) 'Business CLI controller duration missing or invalid'
+    return @{case=$Case.name;buildId=$Case.report.buildId;taskCount=$tasks.Count;reportElapsedMs=$Case.report.elapsedMs;controllerElapsedMs=$Case.control.elapsedMs;applicationWork=@{captureBoundary=$Case.report.applicationWork.captureBoundary;stages=$application};tasks=$taskMetrics}
 }
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Real clean production EXE processes only: selected multi-stream CLI, independent fresh-process group comparisons and actual CtrlBreak; original BAB oracle comparison remains separately reported'}
 try {
@@ -294,6 +333,8 @@ try {
         $businessMod=Join-Path $modeWork 'business'
         $businessReceipt=@{succeeded=$false;sourceCommit=$state.sourceCommit;runId=$state.runId;configuration=$mode;baselineCases=@();scope='Three CLI tasks: Armor base, 12 file-backed APT DataBlob assets and three MapMetaData assets; strict current-original APT/maps oracle, not executable UI/APT parser, full SDK, cache or publication acceptance'}
         $modeState.business=$businessReceipt
+        $workReceipt=@{schemaVersion=1;succeeded=$false;sourceCommit=$state.sourceCommit;binarySourceCommit=$state.binarySourceCommit;runId=$state.runId;runAttempt=$state.runAttempt;configuration=$mode;exeSha256=$exeHash;osPageCache='unknown';cases=@();scope='Same-input cache-disabled production business CLI per-task work baseline. Named nested intervals overlap and must not be summed; logical schema/digest reads are not physical disk I/O. Controller elapsed time includes process audit overhead; report elapsed time stops before required output completion. Fresh-process single groups retain strict output equality; no speedup or cross-stream sharing claim.'}
+        $businessReceipt.workMetrics='business-work-metrics.json'
         try {
             & python "$PSScriptRoot/PrepareCompilerCliBusiness.py" $businessMod *> "$modeOut/business-prepare.log"
             Need ($LASTEXITCODE -eq 0) 'Source-XSD-valid CLI business fixture preparation failed'
@@ -306,9 +347,23 @@ try {
             $businessSnapshot=Snapshot $businessMod
             $businessCombined=RunCli 'business-combined' 'build' $businessMod $sdk 'base,apt,maps' 0 3
             Need (@($businessCombined.report.plan.Tasks).Count -eq 3) 'Business plan must contain base, real APT and real map metadata tasks'
+            if(!$reuse){$workReceipt.cases+=,(BusinessWorkMetrics $businessCombined)}
             foreach($group in @('base','apt','maps')){
                 $businessSingle=RunCli ('business-'+$group+'-only') 'build' $businessMod $sdk $group 0 1
                 EqualTask $businessCombined $businessSingle $group
+                if(!$reuse){$workReceipt.cases+=,(BusinessWorkMetrics $businessSingle)}
+            }
+            if($reuse){$workReceipt.availability='unavailable: explicitly reused historical runtime does not provide the current work measurement contract'}
+            else{
+                $combinedWork=$workReceipt.cases[0];$schemaReadCalls=0L;$schemaCompileCalls=0L;$schemaFilesRead=0L;$schemaBytesRead=0L;$rawParseCalls=0L
+                foreach($taskWork in $combinedWork.tasks){
+                    $schemaReadCalls+=@($taskWork.schemaPreparation|Where-Object{$_.stage -ceq 'schemaRead'})[0].calls
+                    $schemaCompileCalls+=@($taskWork.schemaPreparation|Where-Object{$_.stage -ceq 'schemaCompile'})[0].calls
+                    $rawParseCalls+=@($taskWork.stages|Where-Object{$_.stage -ceq 'rawParse'})[0].calls
+                    $schemaFilesRead+=$taskWork.schemaInputs.filesRead;$schemaBytesRead+=$taskWork.schemaInputs.bytesRead
+                }
+                Need ($combinedWork.taskCount -eq 3 -and $schemaReadCalls -ge 3 -and $schemaCompileCalls -ge 3 -and $rawParseCalls -ge 3) 'Combined business run did not measure preparation and parsing for all three streams'
+                $workReceipt.combinedPreparation=@{tasks=3;schemaReadCalls=$schemaReadCalls;schemaCompileCalls=$schemaCompileCalls;schemaFilesRead=$schemaFilesRead;schemaBytesRead=$schemaBytesRead;rawParseCalls=$rawParseCalls;scope='Per-task schema preparation remains repeated in this measured serial baseline; these aggregate counts do not measure unique files or physical disk reads.'}
             }
             foreach($selection in @(@{name='mod-a';group='apt';types='AptAptData,AptConstData,AptDatData,AptGeometryData'},@{name='mod-b';group='maps';types='MapMetaData'})){
                 $tasks=@($businessCombined.report.plan.Tasks|Where-Object{$_.Content -ceq $selection.group})
@@ -326,7 +381,13 @@ try {
             Unchanged $businessMod $businessSnapshot
             foreach($inputFile in $prepared.sourceInputs){Need ((Hash (Join-Path $root $inputFile.path)) -ceq $inputFile.sha256) 'Business fixture source input changed'}
             $businessReceipt.inputsUnchanged=$true;$businessReceipt.coldGroupOutputsIdentical=$true;$businessReceipt.originalFourOutputsIdentical=$true;$businessReceipt.succeeded=$true
-        } finally {$businessReceipt|ConvertTo-Json -Depth 12|Set-Content "$modeOut/business-validation.json"}
+            if(!$reuse){$workReceipt.succeeded=$true;$workReceipt.coldGroupOutputsIdentical=$true;$workReceipt.originalFourOutputsIdentical=$true;$businessReceipt.workMetricsPassed=$true}
+        } catch {
+            $workReceipt.error=$_.Exception.ToString();throw
+        } finally {
+            $businessReceipt|ConvertTo-Json -Depth 12|Set-Content "$modeOut/business-validation.json"
+            $workReceipt|ConvertTo-Json -Depth 14|Set-Content "$modeOut/business-work-metrics.json"
+        }
         # Complete fixed original UI source closure. Keep both original TGA
         # textures and compare all bytes at the identical absolute input paths.
         $uiMod=Join-Path $modeWork 'real-ui'

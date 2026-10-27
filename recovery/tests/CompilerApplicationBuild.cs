@@ -154,6 +154,17 @@ public static class CompilerApplicationBuild
         string[] jsonLines = File.ReadAllLines(run.Request.EventsPath);
         Require(jsonLines.Length == events.Count && File.ReadAllBytes(run.Request.EventsPath).Last() == (byte)'\n', "Durable JSONL lost an event or final line");
         for (int i = 0; i < jsonLines.Length; i++) Require(Json.Serialize(Json.DeserializeObject(jsonLines[i])) == Json.Serialize(events[i]), "Durable JSONL differs from observed events");
+        var applicationWork = Map(run.Report["applicationWork"]);
+        Require(Text(applicationWork["captureBoundary"]) == "beforeInitialReport", "Application work lost its capture boundary");
+        var measured = Array(applicationWork["stages"]).Select(Map).ToArray();
+        foreach (var item in measured)
+            Require(Convert.ToInt64(item["calls"]) > 0 && Convert.ToInt64(item["failedCalls"]) >= 0 &&
+                    Convert.ToInt64(item["failedCalls"]) <= Convert.ToInt64(item["calls"]) && Convert.ToDouble(item["elapsedMs"]) >= 0,
+                    "Application operation work counters invalid");
+        Require(measured.Single(item => Text(item["stage"]) == "backendCompile")["calls"].ToString() == Events(run, "StreamStarted").Length.ToString(),
+            "Application work did not count actual stream compile attempts");
+        Require(Convert.ToInt64(measured.Single(item => Text(item["stage"]) == "backendDispose")["calls"]) == 1,
+            "Application work did not count backend disposal");
         CoreDiagnostics(run);
     }
     static bool CoreDiagnostic(IDictionary<string, object> value)

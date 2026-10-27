@@ -643,6 +643,11 @@ public class AssetDeclarationDocument : IXmlSerializable
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Document {0} attempted to load twice.", _Current.SourcePath);
 		}
 		_Current.DocumentProcessor.RecordXmlParse();
+		_Current.DocumentProcessor.MeasureWork("rawParse", () => LoadXmlCore(updateDependentFiles));
+	}
+
+	private void LoadXmlCore(bool updateDependentFiles)
+	{
 		CacheInputBoundary.Validate(_Current.SourcePath);
 		FileNameXmlResolver xmlResolver = FileNameResolver.GetXmlResolver(SourceDirectory);
 		if (!File.Exists(_Current.SourcePath))

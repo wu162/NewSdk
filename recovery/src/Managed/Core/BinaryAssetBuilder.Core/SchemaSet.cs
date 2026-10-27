@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -11,6 +12,31 @@ namespace BinaryAssetBuilder.Core;
 
 public class SchemaSet
 {
+	// Lifetime metrics for this SchemaSet, including reloads. These intervals nest
+	// inside the application's schema preparation interval and must not be added to it.
+	private readonly Dictionary<string, DocumentProcessor.WorkMeasurement> _PreparationWork = new Dictionary<string, DocumentProcessor.WorkMeasurement>(StringComparer.Ordinal);
+	public long SchemaFileReadCount { get; private set; }
+	public long SchemaContentBytesRead { get; private set; }
+	public long SchemaContentCheckCount { get; private set; }
+	public DocumentProcessor.WorkMeasurement[] GetPreparationMetrics()
+	{
+		var result = new DocumentProcessor.WorkMeasurement[_PreparationWork.Count];
+		int index = 0;
+		foreach (var item in _PreparationWork.Values)
+			result[index++] = new DocumentProcessor.WorkMeasurement(item.stage) { calls = item.calls, failedCalls = item.failedCalls, ticks = item.ticks };
+		Array.Sort(result, (left, right) => StringComparer.Ordinal.Compare(left.stage, right.stage));
+		return result;
+	}
+	private void MeasurePreparation(string stage, Action operation)
+	{
+		if (!_PreparationWork.TryGetValue(stage, out var work)) _PreparationWork.Add(stage, work = new DocumentProcessor.WorkMeasurement(stage));
+		work.calls++;
+		long start = Stopwatch.GetTimestamp();
+		try { operation(); }
+		catch { work.failedCalls++; throw; }
+		finally { work.ticks += Stopwatch.GetTimestamp() - start; }
+	}
+
 	private class SchemaHashTable : SortedDictionary<XmlSchema, uint>
 	{
 	}
@@ -166,6 +192,8 @@ public class SchemaSet
 		_CurrentSchema = schemaFile;
 		if (_SchemaPaths.ContainsKey(schemaFile)) return;
 		byte[] contents = File.ReadAllBytes(schemaFile);
+		SchemaFileReadCount++;
+		SchemaContentBytesRead += contents.LongLength;
 		_SchemaPaths.Add(schemaFile, File.GetLastWriteTime(schemaFile));
 		using (var algorithm = SHA256.Create())
 			_SchemaContentHashes.Add(schemaFile, Convert.ToBase64String(algorithm.ComputeHash(contents)));
@@ -401,13 +429,19 @@ public class SchemaSet
 		_HashableTypes = new Dictionary<XmlSchemaType, bool>();
 		try
 		{
-			ReadSchema(Directory.GetCurrentDirectory(), Settings.Current.SchemaPath);
+			MeasurePreparation("schemaRead", () => ReadSchema(Directory.GetCurrentDirectory(), Settings.Current.SchemaPath));
 		}
 		catch (Exception innerException)
 		{
 			throw new BinaryAssetBuilderException(innerException, ErrorCode.ReadingSchema, "Error encountered in schema '{0}'", _CurrentSchema);
 		}
-		_Schemas.Compile();
+		MeasurePreparation("schemaCompile", _Schemas.Compile);
+		MeasurePreparation("schemaMetadata", () => BuildSchemaMetadata(countDependencies));
+		_LoadedSchemaPath = Path.GetFullPath(Settings.Current.SchemaPath);
+	}
+
+	private void BuildSchemaMetadata(bool countDependencies)
+	{
 		SetupHelperSchemaTypes();
 		IDictionary<string, StringCollection> dictionary = new SortedDictionary<string, StringCollection>();
 		dictionary.Add("BaseAssetType", new StringCollection());
@@ -449,7 +483,6 @@ public class SchemaSet
 		{
 			FlattenInheritanceTree(key, dictionary);
 		}
-		_LoadedSchemaPath = Path.GetFullPath(Settings.Current.SchemaPath);
 	}
 
 	private void SetupHelperSchemaTypes()
@@ -480,6 +513,13 @@ public class SchemaSet
 
 	public void ReloadIfChanged(bool countDependencies)
 	{
+		bool changed = false;
+		MeasurePreparation("schemaContentCheck", () => changed = CheckSchemaChanged(countDependencies));
+		if (changed) LoadSchemas(countDependencies);
+	}
+
+	private bool CheckSchemaChanged(bool countDependencies)
+	{
 		bool changed = countDependencies && _AssetDependencies == null;
 		string requested = Path.GetFullPath(Settings.Current.SchemaPath);
 		if (!string.Equals(requested, _LoadedSchemaPath, StringComparison.OrdinalIgnoreCase) ||
@@ -498,6 +538,8 @@ public class SchemaSet
 				using (var input = File.OpenRead(schemaPath.Key))
 				{
 					string content = Convert.ToBase64String(algorithm.ComputeHash(input));
+					SchemaContentCheckCount++;
+					SchemaContentBytesRead += input.Position;
 					if (!string.Equals(content, _SchemaContentHashes[schemaPath.Key], StringComparison.Ordinal))
 					{
 						changed = true;
@@ -506,7 +548,7 @@ public class SchemaSet
 				}
 			}
 		}
-		if (changed) LoadSchemas(countDependencies);
+		return changed;
 	}
 
 	public StringCollection GetDerivedTypes(string typeName)

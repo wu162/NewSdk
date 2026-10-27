@@ -134,7 +134,7 @@ public class DocumentProcessor
 		Array.Sort(result, (left, right) => StringComparer.Ordinal.Compare(left.stage, right.stage));
 		return result;
 	}
-	private void MeasureWork(string stage, Action operation)
+	internal void MeasureWork(string stage, Action operation)
 	{
 		if (!_Work.TryGetValue(stage, out var work)) _Work.Add(stage, work = new WorkMeasurement(stage));
 		work.calls++;

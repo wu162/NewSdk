@@ -20,6 +20,7 @@ internal static class CompilerCoreLifecycle
     const string Ns = "uri:ea.com:eala:asset";
     static readonly List<string> Tests = new List<string>();
     static readonly List<object> OptimizationRisks = new List<object>();
+    static readonly List<object> WorkMetrics = new List<object>();
     static string sdk, work, probe;
     static int checks;
     static readonly BindingFlags Private = BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
@@ -507,7 +508,7 @@ internal static class CompilerCoreLifecycle
         Run(processor, first);
         var snapshot = processor.GetWorkMetrics();
         var snapshotValues = snapshot.ToDictionary(item => item.stage, item => new[] { (double)item.calls, (double)item.failedCalls, item.elapsedMs });
-        foreach (string stage in new[] { "definitions", "expressions", "inheritance", "validation", "assetProcessing", "referenceBinding", "manifest", "link" })
+        foreach (string stage in new[] { "rawParse", "definitions", "expressions", "inheritance", "validation", "assetProcessing", "referenceBinding", "manifest", "link" })
             Require(snapshot.Any(item => item.stage == stage && item.calls > 0 && item.failedCalls == 0 && item.elapsedMs >= 0 && !Double.IsInfinity(item.elapsedMs)),
                 "Cold Core work metric missing/invalid: " + stage);
         var before = CachedDocument(processor, shared).SelfInstances[0];
@@ -537,6 +538,61 @@ internal static class CompilerCoreLifecycle
         Require(warmContainsUpgrade && SameOutputs(expected, warm),
             "Each stream must rebind the declaration's weak references in its own symbol view");
         Tests.Add("risk-stream-binding:real-Core-two-symbol-views-weak-missing-to-Tentative-cold-warm-equality");
+    }
+    static void WorkMetricsProbe(BuiltinCompilers plugins)
+    {
+        const string name = "work-metrics";
+        var settings = Configure(name); var processor = Processor(plugins); var schemas = processor.SchemaSet;
+        var preparation = schemas.GetPreparationMetrics();
+        var values = preparation.ToDictionary(item => item.stage, item => new[] { (double)item.calls, (double)item.failedCalls, item.elapsedMs });
+        foreach (string stage in new[] { "schemaRead", "schemaCompile", "schemaMetadata" })
+            Require(preparation.Any(item => item.stage == stage && item.calls == 1 && item.failedCalls == 0 && item.elapsedMs >= 0 && !Double.IsInfinity(item.elapsedMs)),
+                "Schema preparation metric missing/invalid: " + stage);
+        long filesRead = schemas.SchemaFileReadCount, bytesRead = schemas.SchemaContentBytesRead;
+        Require(filesRead > 0 && bytesRead > 0 && schemas.SchemaContentCheckCount == 0,
+            "Initial schema preparation must report its actual input reads");
+        schemas.ReloadIfChanged(settings.StableSort);
+        var checkedPreparation = schemas.GetPreparationMetrics();
+        Require(checkedPreparation.Single(item => item.stage == "schemaContentCheck").calls == 1 &&
+            checkedPreparation.Single(item => item.stage == "schemaContentCheck").failedCalls == 0,
+            "Unchanged schema reload must record a content-check interval");
+        Require(schemas.SchemaFileReadCount == filesRead && schemas.SchemaContentCheckCount == filesRead && schemas.SchemaContentBytesRead == 2 * bytesRead,
+            "Unchanged schema reload must recheck the whole closure without reparsing");
+        Require(checkedPreparation.Single(item => item.stage == "schemaRead").calls == 1,
+            "Unchanged schema reload must not rebuild schema metadata");
+        foreach (var item in preparation)
+            Require(item.calls == values[item.stage][0] && item.failedCalls == values[item.stage][1] && item.elapsedMs == values[item.stage][2],
+                "A previously returned schema-preparation snapshot changed");
+        string valid = Write(name + "/valid.xml", Asset(Experience("WorkMetricOwner", null, false)));
+        Run(processor, valid);
+        var parsed = processor.GetWorkMetrics().Single(item => item.stage == "rawParse");
+        Require(parsed.calls == processor.XmlParseCount && parsed.calls == 1 && parsed.failedCalls == 0,
+            "Raw parse intervals must count the actual parser invocations");
+        long parseCalls = parsed.calls; double parseElapsed = parsed.elapsedMs;
+        string invalid = Write(name + "/invalid.xml", "<AssetDeclaration");
+        Failure(processor, invalid, ErrorCode.XmlFormattingError);
+        var failed = processor.GetWorkMetrics().Single(item => item.stage == "rawParse");
+        Require(failed.calls == processor.XmlParseCount && failed.calls == parseCalls + 1 && failed.failedCalls == 1 && failed.elapsedMs >= parseElapsed,
+            "Failed parsing must retain its call, failure and elapsed work");
+        Require(parsed.calls == parseCalls && parsed.failedCalls == 0 && parsed.elapsedMs == parseElapsed,
+            "A previous parse metric snapshot changed after failure");
+        string originalSchema = settings.SchemaPath;
+        try
+        {
+            settings.SchemaPath = Path.Combine(work, name, "missing-schema.xsd");
+            bool rejected = false;
+            try { schemas.ReloadIfChanged(settings.StableSort); }
+            catch (BinaryAssetBuilderException error) { rejected = error.ErrorCode == ErrorCode.ReadingSchema; }
+            Require(rejected, "Missing schema reload must retain its original reading error");
+            var readFailure = schemas.GetPreparationMetrics().Single(item => item.stage == "schemaRead");
+            Require(readFailure.calls == 2 && readFailure.failedCalls == 1 && readFailure.elapsedMs >= preparation.Single(item => item.stage == "schemaRead").elapsedMs,
+                "Failed schema loading must retain its call, failure and elapsed work");
+        }
+        finally { settings.SchemaPath = originalSchema; }
+        WorkMetrics.Add(new { id = name, preparation, checkedPreparation, finalPreparation = schemas.GetPreparationMetrics(),
+            initialFilesRead = filesRead, initialBytesRead = bytesRead, finalBytesRead = schemas.SchemaContentBytesRead,
+            contentChecks = schemas.SchemaContentCheckCount, successfulParse = parsed, finalStages = processor.GetWorkMetrics() });
+        Tests.Add("work-metrics:schema-closure-content-checks-parse-failure-and-immutable-snapshots");
     }
     static void LinkedSideFileProbe(BuiltinCompilers plugins)
     {
@@ -589,15 +645,15 @@ internal static class CompilerCoreLifecycle
                 MetricsFailureCase(plugins, true, false); MetricsFailureCase(plugins, false, true);
                 MetricsFailureCase(plugins, true, true); ProcessorStateCase(plugins);
                 DefineOverrideProbe(plugins, false); DefineOverrideProbe(plugins, true);
-                CrossStreamBindingProbe(plugins); LinkedSideFileProbe(plugins);
+                CrossStreamBindingProbe(plugins); LinkedSideFileProbe(plugins); WorkMetricsProbe(plugins);
                 Console.WriteLine("W01_PROBES " + new JavaScriptSerializer().Serialize(OptimizationRisks));
             }
-            result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), optimizationRisks=OptimizationRisks.ToArray(), optimizationRisksAccepted=true, longPathsValidated=false, scope="Real Core lifecycle and targeted persisted-session regression probes only; production CLI backend, SDK/G3 and general persistent-cache acceptance are separate" };
+            result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), optimizationRisks=OptimizationRisks.ToArray(), workMetrics=WorkMetrics.ToArray(), optimizationRisksAccepted=true, longPathsValidated=false, scope="Real Core lifecycle and targeted persisted-session regression probes only; production CLI backend, SDK/G3 and general persistent-cache acceptance are separate" };
             Console.WriteLine("PASS CoreLifecycle: " + Tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception e)
         {
-            code=1; result = new { succeeded=false, sourceCommit=args.Length>2?args[2]:null, runId=args.Length>3?args[3]:null, checks=checks, tests=Tests.ToArray(), optimizationRisks=OptimizationRisks.ToArray(), optimizationRisksAccepted=false, longPathsValidated=false, error=e.ToString() };
+            code=1; result = new { succeeded=false, sourceCommit=args.Length>2?args[2]:null, runId=args.Length>3?args[3]:null, checks=checks, tests=Tests.ToArray(), optimizationRisks=OptimizationRisks.ToArray(), workMetrics=WorkMetrics.ToArray(), optimizationRisksAccepted=false, longPathsValidated=false, error=e.ToString() };
             Console.Error.WriteLine(e);
         }
         finally { Settings.Current = original; }
