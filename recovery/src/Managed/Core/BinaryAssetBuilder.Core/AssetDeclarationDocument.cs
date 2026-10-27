@@ -96,9 +96,38 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 
+    private static bool DocumentSnapshotsEnabled()
+    {
+        bool disabled;
+        AppContext.TryGetSwitch("NewSdk.Compiler.DisableDocumentSnapshots", out disabled);
+        return !disabled;
+    }
+
+    private static bool CanSnapshotDeclarations(List2<InstanceDeclaration> instances)
+    {
+        if (instances == null) return true;
+        if (instances.GetType() != typeof(List2<InstanceDeclaration>)) return false;
+        foreach (InstanceDeclaration instance in instances)
+            if (instance == null || instance.GetType() != typeof(InstanceDeclaration)) return false;
+        return true;
+    }
+
+    private static List2<InstanceDeclaration> SnapshotDeclarations(List2<InstanceDeclaration> instances, bool fromCurrent = false)
+    {
+        if (instances == null) return null;
+        var copies = new List2<InstanceDeclaration>();
+        foreach (InstanceDeclaration instance in instances) copies.Add(instance.SnapshotCachedDeclaration(fromCurrent));
+        return copies;
+    }
+
 	[Serializable]
 	private class LastState
 	{
+        // Runtime provenance: derived declaration/list behavior remains legacy
+        // across a restore/recapture, rather than silently slicing custom types.
+        [NonSerialized] internal bool LegacyDeclarations;
+        [NonSerialized] internal bool LegacyMetadata;
+
 		public uint DocumentHash;
 
 		public uint DependentFileHash;
@@ -119,16 +148,16 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public List2<string> StreamHints;
 
-		public LastState(CurrentState current)
+		public LastState(CurrentState current, bool fromCurrent = false)
 		{
 			DocumentHash = current.DocumentHash;
 			IncludePathHash = current.IncludePathHash;
-			InclusionItems = ((current.InclusionItems.Count > 0) ? new List2<InclusionItem>(current.InclusionItems) : null);
 			DependentFileHash = current.DependentFileHash;
 			DependentFiles = ((current.DependentFiles.Count > 0) ? new List2<string>(current.DependentFiles) : null);
-			OutputAssets = ((current.OutputAssets.Count > 0) ? new List2<OutputAsset>(current.OutputAssets) : null);
-			SelfDefines = ((current.SelfDefines.Count > 0) ? new List2<Definition>(current.SelfDefines) : null);
 			SelfInstances = ((current.SelfInstances.Count > 0) ? new List2<InstanceDeclaration>(current.SelfInstances) : null);
+            LegacyDeclarations = !DocumentSnapshotsEnabled() || current.LegacyDeclarations ||
+                current.SelfInstances.GetType() != typeof(InstanceSet) || !CanSnapshotDeclarations(SelfInstances);
+            if (!LegacyDeclarations) SelfInstances = SnapshotDeclarations(SelfInstances, fromCurrent);
 			List2<DefinitionPair> list = new List2<DefinitionPair>();
 			foreach (KeyValuePair<string, string> usedDefine in current.UsedDefines)
 			{
@@ -137,10 +166,33 @@ public class AssetDeclarationDocument : IXmlSerializable
 					Name = usedDefine.Key,
 					EvaluatedValue = usedDefine.Value
 				});
-				UsedDefines = new List2<DefinitionPair>(list);
 			}
+            UsedDefines = list.Count > 0 ? list : null;
 			StreamHints = ((current.StreamHints.Count > 0) ? new List2<string>(current.StreamHints) : null);
+            CompilerDocumentMetadataSnapshot metadata = CompilerDocumentMetadataSnapshot.Capture(
+                current.InclusionItems.Count > 0 ? current.InclusionItems : null,
+                current.OutputAssets.Count > 0 ? current.OutputAssets : null,
+                current.SelfDefines.Count > 0 ? current.SelfDefines : null, UsedDefines, current.LegacyMetadata);
+            LegacyMetadata = metadata.Legacy;
+            InclusionItems = metadata.Inclusions; OutputAssets = metadata.Outputs;
+            SelfDefines = metadata.Definitions; UsedDefines = metadata.Used;
 		}
+
+        internal LastState(LastState last)
+        {
+            DocumentHash = last.DocumentHash;
+            DependentFileHash = last.DependentFileHash;
+            IncludePathHash = last.IncludePathHash;
+            DependentFiles = last.DependentFiles == null ? null : new List2<string>(last.DependentFiles);
+            StreamHints = last.StreamHints == null ? null : new List2<string>(last.StreamHints);
+            LegacyDeclarations = last.LegacyDeclarations || !CanSnapshotDeclarations(last.SelfInstances);
+            SelfInstances = LegacyDeclarations ? last.SelfInstances : SnapshotDeclarations(last.SelfInstances);
+            CompilerDocumentMetadataSnapshot metadata = CompilerDocumentMetadataSnapshot.Capture(
+                last.InclusionItems, last.OutputAssets, last.SelfDefines, last.UsedDefines, last.LegacyMetadata);
+            LegacyMetadata = metadata.Legacy;
+            InclusionItems = metadata.Inclusions; OutputAssets = metadata.Outputs;
+            SelfDefines = metadata.Definitions; UsedDefines = metadata.Used;
+        }
 
 		public LastState(XmlReader reader)
 		{
@@ -210,6 +262,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	private class CurrentState
 	{
+        internal bool LegacyDeclarations;
+        internal bool LegacyMetadata;
 		public uint DocumentHash;
 
 		public string SourcePath;
@@ -330,25 +384,31 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public void FromLast(AssetDeclarationDocument document, LastState last)
 		{
-			InclusionItems = ((last.InclusionItems != null) ? new List2<InclusionItem>(last.InclusionItems) : new List2<InclusionItem>());
+            CompilerDocumentMetadataSnapshot metadata = CompilerDocumentMetadataSnapshot.Capture(
+                last.InclusionItems, last.OutputAssets, last.SelfDefines, last.UsedDefines, last.LegacyMetadata);
+            LegacyMetadata = metadata.Legacy;
+            InclusionItems = metadata.Inclusions ?? new List2<InclusionItem>();
 			DependentFiles = ((last.DependentFiles != null) ? new List2<string>(last.DependentFiles) : new List2<string>());
 			StreamHints = ((last.StreamHints != null) ? new List2<string>(last.StreamHints) : new List2<string>());
 			UsedDefines = new SortedDictionary<string, string>();
-			if (last.UsedDefines != null)
+			if (metadata.Used != null)
 			{
-				foreach (DefinitionPair usedDefine in last.UsedDefines)
+				foreach (DefinitionPair usedDefine in metadata.Used)
 				{
 					UsedDefines[usedDefine.Name] = usedDefine.EvaluatedValue;
 				}
 			}
-			SelfDefines = ((last.SelfDefines != null) ? new List2<Definition>(last.SelfDefines) : new List2<Definition>());
+            SelfDefines = metadata.Definitions ?? new List2<Definition>();
 			foreach (Definition selfDefine in SelfDefines)
 			{
 				selfDefine.Document = document;
 			}
-			SelfInstances = ((last.SelfInstances != null) ? new InstanceSet(document, last.SelfInstances) : new InstanceSet());
+            LegacyDeclarations = last.LegacyDeclarations || !CanSnapshotDeclarations(last.SelfInstances);
+            List2<InstanceDeclaration> declarations = DocumentSnapshotsEnabled() && !LegacyDeclarations
+                ? SnapshotDeclarations(last.SelfInstances) : last.SelfInstances;
+            SelfInstances = declarations != null ? new InstanceSet(document, declarations) : new InstanceSet();
 			Changed = last.DocumentHash != DocumentHash;
-			LastOutputAssets = last.OutputAssets;
+            LastOutputAssets = metadata.Outputs;
 			LastDocumentHash = last.DocumentHash;
 			LastIncludePathHash = last.IncludePathHash;
 			LastDependentFileHash = last.DependentFileHash;
@@ -357,6 +417,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public void FromScratch()
 		{
+            LegacyDeclarations = false; LegacyMetadata = false;
 			InclusionItems = new List2<InclusionItem>();
 			DependentFiles = new List2<string>();
 			UsedDefines = new SortedDictionary<string, string>();
@@ -2009,7 +2070,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 	{
 		if (other._Last != null)
 		{
-			_Last = other._Last;
+            _Last = DocumentSnapshotsEnabled() ? new LastState(other._Last) : other._Last;
 		}
 		else
 		{
@@ -2017,8 +2078,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 			{
 				return;
 			}
-			_Last = new LastState(other._Current);
-			List2<InstanceDeclaration> list = new List2<InstanceDeclaration>();
+            _Last = new LastState(other._Current, true);
+            if (DocumentSnapshotsEnabled() && !_Last.LegacyDeclarations) return;
+            List2<InstanceDeclaration> list = new List2<InstanceDeclaration>();
 			foreach (InstanceDeclaration selfInstance in other._Current.SelfInstances)
 			{
 				InstanceDeclaration instanceDeclaration = new InstanceDeclaration();

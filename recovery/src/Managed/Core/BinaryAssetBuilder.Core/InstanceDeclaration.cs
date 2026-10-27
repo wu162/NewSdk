@@ -108,6 +108,22 @@ public class InstanceDeclaration : IXmlSerializable
 			PrevalidationXmlHash = current.PrevalidationXmlHash;
 		}
 
+        internal LastState(LastState last)
+        {
+            HandleGraph handles = SnapshotHandles(last.Handle, last.InheritFromHandle, last.ReferencedInstances, last.WeakReferencedInstances, last.LegacyHandleGraph);
+            LegacyHandleGraph = handles.Legacy;
+            Handle = handles.Handle;
+            InheritFromHandle = handles.Inheritance;
+            ReferencedInstances = handles.Strong;
+            WeakReferencedInstances = handles.Weak;
+            ReferencedFiles = last.ReferencedFiles == null ? null : new List2<string>(last.ReferencedFiles);
+            ProcessingHash = last.ProcessingHash;
+            InheritFromXmlHash = last.InheritFromXmlHash;
+            PrevalidationXmlHash = last.PrevalidationXmlHash;
+            IsInheritable = last.IsInheritable;
+            HasCustomData = last.HasCustomData;
+        }
+
 		public LastState(XmlReader reader)
 		{
 			reader.MoveToAttribute("d");
@@ -451,6 +467,16 @@ public class InstanceDeclaration : IXmlSerializable
 	{
 		return _Current.Handle.ToString();
 	}
+
+    // Document cache copies must preserve the saved declaration even when its
+    // source also has an initialized or subsequently completed Current state.
+    // No DOM/schema node is materialized or serialized at this boundary.
+    internal InstanceDeclaration SnapshotCachedDeclaration(bool fromCurrent = false)
+    {
+        var result = new InstanceDeclaration();
+        result._Last = !fromCurrent && _Last != null ? new LastState(_Last) : new LastState(_Current);
+        return result;
+    }
 
 	public void CacheFromInstance(InstanceDeclaration current)
 	{
