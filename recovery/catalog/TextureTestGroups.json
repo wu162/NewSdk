@@ -436,6 +436,19 @@
       ],
       "evidence": "recovery/evidence/texture/dxt3-alpha/*/validation.json",
       "sdk": false
+    },
+    "dxt-decompile": {
+      "script": "recovery/scripts/InspectTextureDxtDecompile.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureDxtDecompile.ps1",
+        "recovery/scripts/ghidra/ExportTextureDxt.java",
+        "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll"
+      ],
+      "evidence": "recovery/evidence/texture/dxt-decompile/*/validation.json",
+      "manual_only": true,
+      "evidence_only": true,
+      "sdk": false
     }
   },
   "targetPlatform": "Win32"
