@@ -87,10 +87,12 @@ NodeJoiner当前仅对重复子节点的id匹配建立索引；按Name匹配始�
 
 ## 本轮优化的诊断回退
 
-在用于诊断的解压副本中，可给`NewModCompiler.exe.config`已有的`<runtime>`加入下面这一项；保留原runtime设置，不重复创建`AppContextSwitchOverrides`，已有该项时将开关合并进其`value`。这是.NET配置，不是CLI参数，修改后重新启动进程。
+在用于诊断的解压副本中，编辑`NewModCompiler.exe.config`的`<configuration>`：若没有`<runtime>`，加入下面的整个子节点；已有时只合并内部设置，保留原runtime内容。不要重复创建`AppContextSwitchOverrides`，已有该项时将开关合并进其`value`。这是.NET配置，不是CLI参数，修改后重新启动进程。
 
 ```xml
-<AppContextSwitchOverrides value="NewSdk.Compiler.DisableSharedDocumentDeclarations=true;NewSdk.Compiler.DisableStableSortMembershipIndex=true" />
+<runtime>
+  <AppContextSwitchOverrides value="NewSdk.Compiler.DisableSharedDocumentDeclarations=true;NewSdk.Compiler.DisableStableSortMembershipIndex=true" />
+</runtime>
 ```
 
 这两个开关分别使用深复制saved声明和旧线性membership查询，仍保留本轮文档生命周期隔离。对NodeJoiner可独立加入`NewSdk.Compiler.DisableNodeJoinerIndex=true`关闭id索引。对比相同输入的四输出与报告计量；`DisableDocumentSnapshots`用于复现旧共享生命周期，与只关闭上述性能优化不同，不能把旧共享错误当作应保留的性能行为。
