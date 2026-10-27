@@ -1,0 +1,42 @@
+{
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples"
+  ],
+  "sourceCommit": "6d065a9edb5101d8a1387f7b508649e9d851adc7",
+  "selected": [
+    "dxt-volume-boundaries"
+  ],
+  "groups": [
+    {
+      "passed": true,
+      "evidenceOnly": true,
+      "group": "dxt-volume-boundaries"
+    }
+  ],
+  "runId": "40525480986",
+  "runAttempt": "1",
+  "status": "passed"
+}
