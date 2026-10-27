@@ -1,0 +1,8 @@
+recovery\tests\TextureNpotLoadProbe.cs(17,24): warning CS0169: The field 'TextureNpotLoadProbe.fixtures' is never used
+recovery\tests\TextureNpotLoadProbe.cs(17,34): warning CS0169: The field 'TextureNpotLoadProbe.mismatches' is never used
+recovery\tests\TextureNpotLoadProbe.cs(17,58): warning CS0169: The field 'TextureNpotLoadProbe.unsupportedCount' is never used
+recovery\tests\TextureNpotLoadProbe.cs(17,76): warning CS0169: The field 'TextureNpotLoadProbe.originalFailures' is never used
+recovery\tests\TextureNpotLoadProbe.cs(17,94): warning CS0169: The field 'TextureNpotLoadProbe.rejectionMatches' is never used
+recovery\tests\TextureNpotLoadProbe.cs(17,112): warning CS0169: The field 'TextureNpotLoadProbe.decodedMatches' is never used
+recovery\tests\TexturePngOracle.cs(20,58): warning CS0649: Field 'TexturePngOracle.unsupportedCount' is never assigned to, and will always have its default value 0
+recovery\tests\TextureBmpOracle.cs(20,58): warning CS0169: The field 'TextureBmpOracle.unsupportedCount' is never used

@@ -1,0 +1,1 @@
+PROBE Texture original NPOT LoadImageA records=1012 decoded=1012 rejected=0 checks=4231; dimensions/full RGBA capture; original-only; no recovered or SDK acceptance
