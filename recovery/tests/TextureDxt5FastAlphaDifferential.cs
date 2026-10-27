@@ -50,7 +50,8 @@ internal static unsafe class TextureDxt5FastAlphaDifferential
                         native(new IntPtr(p));
                         int high=*(int*)(p+0x810), low=*(int*)(p+0x814);
                         Check(high>=0&&high<=255&&low>=0&&low<=255,"Endpoint range");
-                        expected[0]=(byte)high;expected[1]=(byte)low;
+                        // Native state is followed by equal-endpoint canonicalization in the DDS writer.
+                        expected[0]=(byte)high;expected[1]=(byte)(high==low?Math.Min(255,low+1):low);
                         ulong bits=0;
                         for(int i=0;i<16;i++) {int index=((int*)(p+0x81c))[i];Check(index>=0&&index<8,"Index range");bits|=(ulong)index<<(3*i);}
                         for(int i=0;i<6;i++) expected[i+2]=(byte)(bits>>(8*i));
