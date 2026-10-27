@@ -65,9 +65,14 @@ namespace Recovered.Compiler.Texture
                         result = EmbedDds(volumeDds, !onDemand, _Platform);
                         break;
                     case "StandardTexture":
-                        byte[] dds = mipmaps
-                            ? TextureTriangleMipEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format)
-                            : TextureRawDdsEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format, false);
+                        byte[] dds;
+                        if (format == "D3DFMT_DXT3" || format == "D3DFMT_DXT5")
+                            dds = BinaryAssetBuilder.TextureCompiler.TextureDxtDdsEncoder.Encode(
+                                (uint)image.Width, (uint)image.Height, rgba, format, mipmaps);
+                        else
+                            dds = mipmaps
+                                ? TextureTriangleMipEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format)
+                                : TextureRawDdsEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format, false);
                         result = EmbedDds(dds, !onDemand, _Platform);
                         break;
                     // Original unknown enum text leaves TextureFileData empty.

@@ -30,18 +30,26 @@ ABI/边界：仅 Win32 SSE2、默认质量71；bridge 在进入状态机前拒�
 
 Alpha原锚点保留：`4bf0ca8c` / 40493971846，包括字节/float量化器及NoOriginal；其实现未在本轮修改。完整细节见 [TEXTURE_DXT_ALPHA.md](TEXTURE_DXT_ALPHA.md)。
 
-## 验证中：二维无 mip DDS
+## 已验收：二维无 mip DDS
 
-源码 `a9cc0daf82fa83ffd09468a8457251190491ff0f` / [40501793638](https://github.com/wu162/NewSdk/actions/runs/40501793638)，交接开始时为 in_progress，尚无完成声明。
+源码 `1a260825052acfe7f90582bf8483318b4f627e21` / [40502726713](https://github.com/wu162/NewSdk/actions/runs/40502726713) attempt1 completed/success，Debug/Release 及 NoOriginal 完整矩阵通过。
+
+前次 `a9cc0daf` / 40501793638 失败于测试宿主查找 `EncodeBlock`，整图实际入口为 `Encode`；未进入编码器。现已修复并增加入口及尺寸/格式/mip拒绝断言，原失败证据保留。
 
 - 新 `TextureDxtDdsEncoder.cs`：只支持 DXT3/5、POT且宽高至少4、无mip，逐4×4块编码并构建完整128字节DDS头。输入上限沿用小于16M像素；小尺寸/NPOT/mip/DXT1/1A明确拒绝。
 - `TestTextureDxtDds.ps1` / `TextureDxtDdsDifferential.cs` / `TextureDxtDdsNoOriginal.cs`：目标每配置768整图（两格式×12尺寸×32图案），包括4×8、8×4等非正方形图与32×32多块，完整DDS逐字节及NoOriginal重放。
-- 依赖表已登记 `dxt-dds2d`；未启用插件分支，未触发SDK。先收取此运行，失败则诊断修复，不重复未变的颜色状态/块/alpha成功组。
+- 依赖表已登记 `dxt-dds2d`；此次运行只选该组，未重跑未变的颜色状态/块/alpha成功组。未触发SDK。
+
+## 当前推进：插件 DXT3/5 无 mip 入口
+
+`Plugin.Images.cs` 的 StandardTexture 分支接入自有 DXT DDS 编码器；覆盖显式DXT3/5及原 GuessProperFormat 将带alpha的DXT1转换为DXT3/5的路径。原始DXT1/1A、压缩mip、volume与小于4尺寸仍明确拒绝。生产SDK未替换。
+
+新 `dxt-images` 组件组：Debug/Release各1280输入，含TGA七种尺寸与八类图案、PNG完整已声明格式/位深/交错/元数据组合、BMP位深/方向/bitfields，两个实际ProcessInstance入口与新旧cdata文件；逐字节比较三缓冲区与完整cdata，另做独立NoOriginal重放和未支持输入拒绝。当前待Actions验收，不能宣称通过；真实SDK仍待更大里程碑。
 
 ## 下一轮顺序
 
-1. fetch当前远程头，核实40501793638的head_sha、conclusion及收据，保留机器人提交，再继续源码。不要假设文档提交是新的验收源码。
-2. 完成上述整图无mip门槛后，再做实际 Texture/OnDemandTexture 插件入口差分；接入前同步原生成器、消费者依赖及native DLL构建/复制步骤。
+1. fetch当前远程头，核实最新dxt-images运行的head_sha、conclusion及收据，保留机器人提交，再继续源码。不要假设文档提交是新的验收源码。
+2. 完成实际 Texture/OnDemandTexture 插件入口差分；收取dxt-images及因Plugin.Images修改失效的现有入口组完整回归。新组包含native DLL构建/复制和独立重放。
 3. 在更大里程碑集中做 Original / Recovered / NoOriginal 真SDK。现阶段不能替换生产SDK或声称压缩图像SDK通过。
 4. 小于4的尾级块、浮点RGB块、triangle压缩mip、volume压缩与DXT1/1A是后续独立能力组。原包装层对小尺寸颜色索引有复制规则，而alpha越界像素不是直接复制边缘；勿直接把普通4×4块复制填充当作已恢复mip。
 
