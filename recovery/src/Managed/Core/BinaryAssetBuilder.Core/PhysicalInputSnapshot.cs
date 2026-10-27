@@ -184,6 +184,18 @@ public sealed class PhysicalInputSnapshot : IDisposable
         }
         return File.OpenRead(path);
     }
+    internal static void CaptureMaterializationSource(string path, Stream consumed)
+    {
+        Entry entry;
+        if (!TryCapture(path, out entry)) return;
+        FileStream original = consumed as FileStream;
+        // A parent may have been renamed between the original open and the
+        // acquisition of our directory pins. The current pathname must still
+        // identify the exact file whose bytes CopyAsset consumed, not merely a
+        // replacement with the same length (or even the same content digest).
+        if (original != null && (original.Length != entry.Length || Identity(original, path) != entry.Identity))
+            throw new IOException("Materialization source identity changed while sealing: " + path);
+    }
     internal sealed class MaterializationCapture : IDisposable
     {
         private PhysicalInputSnapshot owner;

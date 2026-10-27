@@ -165,6 +165,38 @@ public static class CompilerBinaryMaterialization
         Writable(cancelledSource);
         tests.Add("independent-disable-zero-budget-generated-root-conservative-fallback-and-capture-cancellation-release");
     }
+    static void ConsumedHandleIdentity()
+    {
+        var asset = Asset("identity-race", false);
+        string original = Source(asset, "identity-original", 64), replacement = Source(asset, "identity-replacement", 64);
+        // Use exactly equal bytes and lengths so only the open file's native
+        // identity can reject a pathname that no longer names the consumed
+        // object. Reflection reaches the same production post-copy check;
+        // no timing callback is added to CopyAsset.
+        File.Copy(original, replacement, true);
+        Require(File.ReadAllBytes(original).SequenceEqual(File.ReadAllBytes(replacement)), "Identity fixture must use equal-content distinct files");
+        using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, "identity-race-snapshot")))
+        using (snapshot.BeginReadScope())
+        using (var consumed = File.OpenRead(original))
+        {
+            var begin = typeof(PhysicalInputSnapshot).GetMethod("BeginMaterializationCapture", Hidden);
+            var capture = typeof(PhysicalInputSnapshot).GetMethod("CaptureMaterializationSource", Hidden);
+            bool rejected = false;
+            using ((IDisposable)begin.Invoke(null, new object[0]))
+            {
+                try { capture.Invoke(null, new object[] { replacement, consumed }); }
+                catch (TargetInvocationException error) { if (!(error.InnerException is IOException)) throw error.InnerException; rejected = true; }
+            }
+            Require(rejected, "A replacement path with equal bytes/length was accepted for a different consumed file handle");
+            var metrics = Metrics(snapshot);
+            Require(Number(metrics, "captures") == 0 && Number(metrics, "activeReadHandles") == 0 && Number(metrics, "activeDirectoryPins") == 0 &&
+                Attempt(metrics, "rollbacks") == 1 && Attempt(metrics, "captureReadsCompleted") == 1,
+                "Consumed identity mismatch did not roll back its provisional pathname pin");
+            Writable(replacement); observations.Add(new { id = "consumed-handle-versus-equal-content-replacement-identity", metrics });
+        }
+        Writable(original); Writable(replacement);
+        tests.Add("post-copy-native-handle-identity-check-rejects-equal-length-equal-content-distinct-file-and-releases-provisional-pins");
+    }
     public static int Main(string[] args)
     {
         object result; int code = 0; var settings = Settings.Current; bool disabled; AppContext.TryGetSwitch(Disable, out disabled);
@@ -173,7 +205,7 @@ public static class CompilerBinaryMaterialization
             work = Path.GetFullPath(args[0]); Directory.CreateDirectory(work);
             Settings.Current = new Settings { BuildCache = false, SessionCache = false, LinkedStreams = true, CustomPostfix = "", TargetPlatform = TargetPlatform.Win32 };
             AppContext.SetSwitch(Disable, false);
-            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes();
+            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
                 scope = "Actual CopyAsset successful validated sources and failure rollback only; invalid-header/length repair retains separate existing fixture coverage; not all BinaryAsset reads or hidden Texture closure" };
             Console.WriteLine("PASS BinaryMaterialization: " + tests.Count + " groups; " + checks + " checks");

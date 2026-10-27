@@ -298,7 +298,14 @@ public static class CompilerDocumentMetadata
         object result; int code = 0; bool previous, previousShare; AppContext.TryGetSwitch(Disable, out previous); AppContext.TryGetSwitch(ShareDisable, out previousShare);
         try
         {
-            Require(args.Length == 5 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work/result/source/run/SDK");
+            Require(args.Length == 6 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work/result/source/run/SDK/originalOracleJson");
+            var oracle = new JavaScriptSerializer().DeserializeObject(File.ReadAllText(args[5])) as IDictionary<string, object>;
+            Require(oracle != null && (bool)oracle["succeeded"] && (string)oracle["mode"] == "original" &&
+                (string)oracle["sourceCommit"] == args[2] && (string)oracle["runId"] == args[3], "Independent original SDK metadata oracle identity mismatch");
+            var originalMetadata = oracle["metadata"] as IDictionary<string, object>;
+            Require(originalMetadata != null && new[] { "sameDefinition", "definitionSourceRebound", "sameInclusion", "sameOutput", "sameOutputHandle", "sourceXmlChanged", "usedValuesIndependent" }
+                .All(name => (bool)originalMetadata[name]), "Original SDK did not establish expected legacy metadata ownership");
+            evidence.Add(new { id = "independent-original-SDK-DLL-metadata-oracle", oracle = originalMetadata });
             AppContext.SetSwitch(Disable, false);
             foreach (bool deepCopy in new[] { false, true }) { AppContext.SetSwitch(ShareDisable, deepCopy); PublicLifecycle(); Aliases(); Fallbacks(); }
             SavedOwnership(); TransferMeasurement();

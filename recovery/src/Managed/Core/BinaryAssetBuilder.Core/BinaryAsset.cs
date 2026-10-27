@@ -498,11 +498,11 @@ public class BinaryAsset
                 trustedSource = _AssetHeader != null && _AssetHeader.IsValidFileLength(fileStream.Length);
                 if (capture != null && trustedSource)
                 {
-                    PhysicalInputSnapshot.Entry ignored;
                     // The original read handle is still open (no write/delete
                     // sharing), or an existing pinned snapshot supplies this
-                    // read. Capture cannot seal different source bytes.
-                    PhysicalInputSnapshot.TryCapture(sourceAssetPath, out ignored);
+                    // read. Check its identity too: directory pins are only
+                    // acquired by capture, after the original file was opened.
+                    PhysicalInputSnapshot.CaptureMaterializationSource(sourceAssetPath, fileStream);
                 }
 				if (File.Exists(text))
 				{

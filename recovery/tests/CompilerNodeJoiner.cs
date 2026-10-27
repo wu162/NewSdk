@@ -405,6 +405,47 @@ public static class CompilerNodeJoiner
         }
         tests.Add("original-DLL-wide-schema-insertion-and-predecessor-helper-differential-local-bounded-set-with-switch-and-virtual-node-fallback");
     }
+    static void PredecessorMeasurement()
+    {
+        var before = new StringBuilder(); var after = new StringBuilder();
+        for (int index = 0; index < 64; index++)
+        {
+            for (int item = 0; item < 4; item++) before.Append("<W").Append(index).Append(" id='b").Append(index).Append('_').Append(item).Append("'/>");
+            after.Append("<W").Append(index).Append(" id='new").Append(index).Append("'/>");
+        }
+        string expected = original.Run("Wide", before.ToString(), after.ToString(), "").Outcome;
+        Require(expected.StartsWith("XML:", StringComparison.Ordinal), "Predecessor timing corpus original outcome failed");
+        var baseDocument = Document("Wide", before.ToString()); var overrideDocument = Document("Wide", after.ToString());
+        var samples = new List<object>(); var indexed = new List<long>(); var linear = new List<long>();
+        const string name = "NewSdk.Compiler.DisableNodeJoinerPredecessors";
+        bool previous; AppContext.TryGetSwitch(name, out previous);
+        try
+        {
+            for (int round = -1; round < 7; round++)
+            {
+                bool[] order = round % 2 == 0 ? new[] { false, true } : new[] { true, false };
+                foreach (bool disabled in order)
+                {
+                    AppContext.SetSwitch(name, disabled);
+                    var destination = new XmlDocument();
+                    long start = System.Diagnostics.Stopwatch.GetTimestamp();
+                    XmlNode merged = NodeJoiner.Override(schemas, destination, baseDocument.DocumentElement, overrideDocument.DocumentElement);
+                    long ticks = System.Diagnostics.Stopwatch.GetTimestamp() - start;
+                    Require("XML:" + merged.OuterXml == expected, "Predecessor timed merge changed original output");
+                    if (round < 0) continue;
+                    (disabled ? linear : indexed).Add(ticks);
+                    samples.Add(new { round, disabled, elapsedMs = ticks * 1000.0 / System.Diagnostics.Stopwatch.Frequency });
+                }
+            }
+        }
+        finally { AppContext.SetSwitch(name, previous); }
+        indexed.Sort(); linear.Sort();
+        observations.Add(new { id = "wide-predecessor-component-measurement", rounds = 7, beforeChildren = 256, insertedChildren = 64,
+            indexedMedianMs = indexed[3] * 1000.0 / System.Diagnostics.Stopwatch.Frequency,
+            legacyMedianMs = linear[3] * 1000.0 / System.Diagnostics.Stopwatch.Frequency,
+            samples = samples.ToArray(), scope = "Complete public NodeJoiner merge only; excludes source parse/validation/XML comparison, no CLI speed or significance claim" });
+        tests.Add("interleaved-seven-round-wide-predecessor-public-merge-timing-with-exact-original-XML-and-no-speed-assertion");
+    }
     public static int Main(string[] args)
     {
         int code = 0; object result; AppDomain baselineDomain = null;
@@ -420,7 +461,7 @@ public static class CompilerNodeJoiner
             original = (LegacyNodeJoinerDomain)baselineDomain.CreateInstanceFromAndUnwrap(typeof(LegacyNodeJoinerDomain).Assembly.Location, typeof(LegacyNodeJoinerDomain).FullName);
             string baselineAssembly = original.Initialize(library);
             Require(baselineAssembly.StartsWith("BinaryAssetBuilder.Core,", StringComparison.Ordinal), "Isolated original SDK assembly identity mismatch");
-            schemas = Schema(); Semantics(); DuplicateIndexSemantics(); DynamicCallbacks(); PrefixNameMatching(); WorkReduction(); PredecessorPlans();
+            schemas = Schema(); Semantics(); DuplicateIndexSemantics(); DynamicCallbacks(); PrefixNameMatching(); WorkReduction(); PredecessorPlans(); PredecessorMeasurement();
             AppDomain.Unload(baselineDomain); baselineDomain = null; original = null;
             foreach (Assembly loaded in AppDomain.CurrentDomain.GetAssemblies())
                 Require(!loaded.GetName().Name.Equals("BinaryAssetBuilder.Core", StringComparison.Ordinal), "Original Core escaped the disposable baseline AppDomain");

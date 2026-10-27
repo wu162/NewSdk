@@ -195,7 +195,9 @@ jobs:
           $csc=Join-Path $packages 'microsoft.net.compilers.toolset/4.0.1/tasks/net472/csc.exe'
           $module=(Resolve-Path 'recovery/artifacts/core-lifecycle-foundation/Debug/Managed.Foundation.netmodule').Path
           $failures=@();$checks=@()
-          foreach($name in @('CompilerNodeJoiner','CompilerDocumentMetadata','CompilerTransferBuffers','CompilerBinaryMaterialization')) {
+          # Only Core-only probes can bind to this module. App-dependent probes
+          # keep their full production-host compilation/runtime gate below.
+          foreach($name in @('CompilerNodeJoiner','CompilerDocumentMetadata','CompilerBinaryMaterialization')) {
             $source="recovery/tests/$name.cs"
             $arguments=@('/nologo','/noconfig','/nostdlib+','/target:library','/langversion:7.3','/codepage:65001','/platform:x86',('/out:'+(Join-Path $out ($name+'.dll'))),('/addmodule:'+$module),('/r:'+(Join-Path $PWD 'SDK/tools/antlr.runtime.dll')))
             foreach($reference in @($manifest.frameworkReferences)+@('System.Web.Extensions')){$arguments+=('/r:'+(Join-Path $refs ($reference+'.dll')))}

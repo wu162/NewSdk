@@ -33,6 +33,37 @@ public static class CompilerDocumentSnapshotOracle
         using (var writer = XmlWriter.Create(text, new XmlWriterSettings { OmitXmlDeclaration = true })) document.WriteXml(writer);
         return text.ToString();
     }
+    static object Metadata(string work, bool expectedShared)
+    {
+        var source = Document(work);
+        source.SelfDefines.Add(new Definition { Name = "Armor", OriginalValue = "=1+2", EvaluatedValue = "3", Document = source });
+        source.InclusionItems.Add(new InclusionItem("DATA:child.xml", "child.xml", InclusionType.All) { Document = source });
+        source.UsedDefines["Armor"] = "3";
+        var output = new OutputAsset { Handle = new InstanceHandle("ArmorTemplate", "StoredOwner"), InstanceFileSize = 17 };
+        object current = typeof(AssetDeclarationDocument).GetField("_Current", Hidden).GetValue(source);
+        current.GetType().GetField("OutputAssets").SetValue(current, new List2<OutputAsset> { output });
+        source.MakeCacheable(); string before = Xml(source);
+        var receiver = new AssetDeclarationDocument(); receiver.CacheFromDocument(source); receiver.FromLastHack();
+        bool sameDefinition = Object.ReferenceEquals(source.SelfDefines[0], receiver.SelfDefines[0]);
+        bool definitionSourceRebound = Object.ReferenceEquals(source.SelfDefines[0].Document, receiver);
+        bool sameInclusion = Object.ReferenceEquals(source.InclusionItems[0], receiver.InclusionItems[0]);
+        bool sameOutput = Object.ReferenceEquals(output, receiver.LastOutputAssets[0]);
+        bool sameOutputHandle = Object.ReferenceEquals(output.Handle, receiver.LastOutputAssets[0].Handle);
+        receiver.SelfDefines[0].EvaluatedValue = "changed";
+        receiver.InclusionItems[0].PhysicalPath = "changed-path";
+        receiver.LastOutputAssets[0].InstanceFileSize = 97;
+        receiver.LastOutputAssets[0].Handle.TypeHash = 101;
+        bool sourceXmlChanged = before != Xml(source);
+        string sourceBeforeUsedMutation = Xml(source), receiverBeforeUsedMutation = Xml(receiver);
+        receiver.UsedDefines["Armor"] = "changed-used";
+        bool usedValuesIndependent = source.UsedDefines["Armor"] == "3" &&
+            Xml(source) == sourceBeforeUsedMutation && Xml(receiver) == receiverBeforeUsedMutation;
+        if (sameDefinition != expectedShared || definitionSourceRebound != expectedShared || sameInclusion != expectedShared ||
+            sameOutput != expectedShared || sameOutputHandle != expectedShared || sourceXmlChanged != expectedShared || !usedValuesIndependent)
+            throw new Exception("Unexpected public document metadata ownership outcome");
+        return new { sameDefinition, definitionSourceRebound, sameInclusion, sameOutput, sameOutputHandle, sourceXmlChanged, usedValuesIndependent,
+            scope = "Independent original public Core cache-copy/restore metadata records; reflection supplies Current output fixture only; no production CLI fault claimed" };
+    }
     public static int Main(string[] args)
     {
         var json = new JavaScriptSerializer(); object result; int code = 0;
@@ -53,10 +84,11 @@ public static class CompilerDocumentSnapshotOracle
             bool expectedShared = mode != "owned";
             if (sameDeclaration != expectedShared || sourceXmlChanged != expectedShared || savedHash != 29 || receiver.SelfInstances[0].ProcessingHash != 47)
                 throw new Exception("Unexpected public document cache lifecycle outcome for " + mode);
+            object metadata = Metadata(args[0], expectedShared);
             string assemblySha;
             using (var sha = SHA256.Create()) assemblySha = Convert.ToBase64String(sha.ComputeHash(File.ReadAllBytes(typeof(AssetDeclarationDocument).Assembly.Location)));
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], mode, sameDeclaration, sourceXmlChanged,
-                savedHash, receiverHash = receiver.SelfInstances[0].ProcessingHash,
+                savedHash, receiverHash = receiver.SelfInstances[0].ProcessingHash, metadata,
                 assembly = typeof(AssetDeclarationDocument).Assembly.FullName, assemblySha256Base64 = assemblySha,
                 scope = "Direct public Core cache-copy/restore/complete/reserialize lifecycle; no production CLI failure is claimed" };
             Console.WriteLine("PASS DocumentSnapshotOracle: " + mode);
