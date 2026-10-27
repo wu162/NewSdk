@@ -37,6 +37,7 @@ on:
       - 'recovery/tests/CompilerCacheContent.cs'
       - 'recovery/tests/CompilerInputDigests.cs'
       - 'recovery/tests/CompilerPhysicalInputs.cs'
+      - 'recovery/tests/CompilerDependencyObservations.cs'
       - 'recovery/tests/CompilerNodeJoiner.cs'
       - 'recovery/tests/CompilerSchemaDescriptors.cs'
       - 'recovery/tests/CompilerSchemaMetadata.cs'

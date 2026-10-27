@@ -32,6 +32,7 @@ namespace NewModCompiler.Application
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
         readonly List<object> coreWork = new List<object>();
         readonly SchemaSet.MetadataCache schemaMetadata = new SchemaSet.MetadataCache();
+        readonly DependencyObservationLog dependencyObservations = new DependencyObservationLog();
         PhysicalInputSnapshot physicalInputs;
         bool retainInputs;
         object releasedInputMetrics;
@@ -62,7 +63,7 @@ namespace NewModCompiler.Application
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
         public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.SessionPackage" : buildCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.BuildAssetCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
-        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false, physicalInputs = InputSnapshotReport, coreWork }; } }
+        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false, physicalInputs = InputSnapshotReport, dependencyObservations = dependencyObservations.GetReport(), coreWork }; } }
 
         public void Initialize(BuildRequest request)
         {
@@ -459,7 +460,7 @@ namespace NewModCompiler.Application
                 throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "The experimental backend requires an existing XML stream entry.");
             Settings previousSettings = Settings.Current;
             bool previousMetrics = MetricManager.Enabled;
-            IDisposable hashes = null, tracing = null, report = null, processorState = null, inputBoundary = null, physicalReadScope = null;
+            IDisposable hashes = null, tracing = null, report = null, processorState = null, inputBoundary = null, physicalReadScope = null, dependencyScope = null;
             Exception failure = null;
             IList<Artifact> artifacts = null;
             DocumentProcessor processor = null;
@@ -468,6 +469,7 @@ namespace NewModCompiler.Application
             compiling = true;
             try
             {
+                dependencyScope = dependencyObservations.BeginScope(context.Task.Id);
                 physicalReadScope = physicalInputs == null ? null : physicalInputs.BeginReadScope(cancellation);
                 Directory.CreateDirectory(staging);
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
@@ -595,6 +597,7 @@ namespace NewModCompiler.Application
                 try { if (processorState != null) outerWork.Measure("cleanup", processorState.Dispose); } catch (Exception error) { cleanup.Add(error); }
                 try { if (tracing != null) outerWork.Measure("cleanup", tracing.Dispose); } catch (Exception error) { cleanup.Add(error); }
                 try { if (inputBoundary != null) outerWork.Measure("cleanup", inputBoundary.Dispose); } catch (Exception error) { cleanup.Add(error); }
+                try { if (dependencyScope != null) outerWork.Measure("cleanup", dependencyScope.Dispose); } catch (Exception error) { cleanup.Add(error); }
                 try { if (physicalReadScope != null) outerWork.Measure("cleanup", physicalReadScope.Dispose); } catch (Exception error) { cleanup.Add(error); }
                 Settings.Current = previousSettings;
                 MetricManager.Enabled = previousMetrics;

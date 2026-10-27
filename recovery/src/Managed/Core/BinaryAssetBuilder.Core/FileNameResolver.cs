@@ -23,7 +23,21 @@ public class FileNameResolver
 		return Path.GetFullPath(Path.Combine(Settings.Current.DataRoot, templatePath));
 	}
 
-	public static string ResolvePath(string baseDirectory, string targetPath)
+    public static string ResolvePath(string baseDirectory, string targetPath)
+    {
+        if (!DependencyObservationLog.IsActive) return ResolvePathCore(baseDirectory, targetPath);
+        using (var observation = DependencyObservationLog.BeginResolution(baseDirectory, targetPath))
+        {
+            try
+            {
+                string selected = ResolvePathCore(baseDirectory, targetPath);
+                observation.Complete(selected); return selected;
+            }
+            catch (Exception error) { observation.Fail(error); throw; }
+        }
+    }
+
+    private static string ResolvePathCore(string baseDirectory, string targetPath)
 	{
 		string text = null;
 		if (!Path.IsPathRooted(baseDirectory))
@@ -73,14 +87,14 @@ public class FileNameResolver
 								string path2 = $"{Path.GetFileNameWithoutExtension(text2)}_{Settings.Current.Postfix}{Path.GetExtension(text2)}";
 								text = Path.GetFullPath(Path.Combine(path, path2));
 								CacheInputBoundary.Validate(text);
-								if (File.Exists(text))
+								if (DependencyObservationLog.RecordFileExists(text))
 								{
 									break;
 								}
 							}
 							text = Path.GetFullPath(Path.Combine(path, text2));
 							CacheInputBoundary.Validate(text);
-							if (File.Exists(text))
+							if (DependencyObservationLog.RecordFileExists(text))
 							{
 								break;
 							}
@@ -213,7 +227,7 @@ public class FileNameResolver
 			{
 				text = ShPath.Canonicalize(Path.Combine((text2 == "*") ? baseDirectory : text2, path));
 				CacheInputBoundary.Validate(text);
-				if (File.Exists(text))
+				if (DependencyObservationLog.RecordFileExists(text))
 				{
 					return text;
 				}

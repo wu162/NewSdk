@@ -212,10 +212,20 @@ function BusinessWorkMetrics($Case,[bool]$SharedMetadata=$false){
     Need ($physical.verificationReads -eq $physical.captures -and $physical.verificationBytes -eq $physical.capturedBytes) 'Business final strong verification did not cover every unique captured input'
     $schemaLogicalReads=0L;foreach($taskWork in $taskMetrics){$schemaLogicalReads+=$taskWork.schemaInputs.filesRead}
     if($SharedMetadata){Need ($physical.hits -gt 0 -and $physical.captures -lt $schemaLogicalReads) 'Combined business input snapshot did not remove repeated schema captures'}
+    $dependencies=$Case.report.cache.dependencyObservations
+    Need ($null -ne $dependencies -and $dependencies.enabled -eq $true -and $dependencies.scope -ceq 'ResolverCandidatesOnly' -and $dependencies.canAuthorizeReuse -eq $false) 'Resolver shadow observation scope/reuse boundary changed'
+    Need ($dependencies.candidateChecks -eq $dependencies.foundChecks+$dependencies.missingChecks -and $dependencies.resolutionCalls -eq $dependencies.resolutionsSucceeded+$dependencies.resolutionsFailed) 'Resolver observation totals differ from actual query outcomes'
+    Need (@($dependencies.observations).Count -eq $dependencies.recorded -and $dependencies.recorded -le $dependencies.limit -and $dependencies.recordedTextChars -le $dependencies.textBudget) 'Resolver observations exceeded their evidence budget'
+    $previousSequence=0L;$taskIds=@($tasks|ForEach-Object{$_.Id})
+    foreach($observation in @($dependencies.observations)){
+        Need ($observation.sequence -gt $previousSequence -and $taskIds -ccontains $observation.taskId) 'Resolver shadow evidence lost ordering or stream identity'
+        $previousSequence=$observation.sequence
+    }
+    if(@($tasks|Where-Object{$_.Content -ceq 'apt'}).Count -gt 0){Need ($dependencies.resolutionCalls -gt 0 -and @($dependencies.observations|Where-Object{$_.kind -ceq 'resolve'}).Count -gt 0) 'Actual APT payload resolution was not observed'}
     Need ($Case.report.applicationWork.captureBoundary -ceq 'beforeInitialReport') 'Application work snapshot boundary changed'
     $application=@(WorkMeasurements $Case.report.applicationWork.stages @('planning','backendInitialize','backendCompile','artifactValidation','backendDispose','inputVerification','publicationPrepare','publicationCommit','cacheCommit') ($Case.name+'/application'))
     Need ($Case.control.elapsedMs -ge 0) 'Business CLI controller duration missing or invalid'
-    return @{case=$Case.name;buildId=$Case.report.buildId;taskCount=$tasks.Count;reportElapsedMs=$Case.report.elapsedMs;physicalInputs=$physical;controllerElapsedMs=$Case.control.elapsedMs;applicationWork=@{captureBoundary=$Case.report.applicationWork.captureBoundary;stages=$application};tasks=$taskMetrics}
+    return @{case=$Case.name;buildId=$Case.report.buildId;taskCount=$tasks.Count;reportElapsedMs=$Case.report.elapsedMs;physicalInputs=$physical;dependencyObservations=$dependencies;controllerElapsedMs=$Case.control.elapsedMs;applicationWork=@{captureBoundary=$Case.report.applicationWork.captureBoundary;stages=$application};tasks=$taskMetrics}
 }
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Real clean production EXE processes only: selected multi-stream CLI, independent fresh-process group comparisons and actual CtrlBreak; original BAB oracle comparison remains separately reported'}
 try {
