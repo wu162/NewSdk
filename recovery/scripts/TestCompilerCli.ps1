@@ -215,7 +215,7 @@ function BusinessWorkMetrics($Case,[bool]$SharedMetadata=$false){
     Need ($Case.report.applicationWork.captureBoundary -ceq 'beforeInitialReport') 'Application work snapshot boundary changed'
     $application=@(WorkMeasurements $Case.report.applicationWork.stages @('planning','backendInitialize','backendCompile','artifactValidation','backendDispose','inputVerification','publicationPrepare','publicationCommit','cacheCommit') ($Case.name+'/application'))
     Need ($Case.control.elapsedMs -ge 0) 'Business CLI controller duration missing or invalid'
-    return @{case=$Case.name;buildId=$Case.report.buildId;taskCount=$tasks.Count;reportElapsedMs=$Case.report.elapsedMs;physicalInputs=$physical;controllerElapsedMs=$Case.control.elapsedMs;physicalInputs=$physical;applicationWork=@{captureBoundary=$Case.report.applicationWork.captureBoundary;stages=$application};tasks=$taskMetrics}
+    return @{case=$Case.name;buildId=$Case.report.buildId;taskCount=$tasks.Count;reportElapsedMs=$Case.report.elapsedMs;physicalInputs=$physical;controllerElapsedMs=$Case.control.elapsedMs;applicationWork=@{captureBoundary=$Case.report.applicationWork.captureBoundary;stages=$application};tasks=$taskMetrics}
 }
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Real clean production EXE processes only: selected multi-stream CLI, independent fresh-process group comparisons and actual CtrlBreak; original BAB oracle comparison remains separately reported'}
 try {
