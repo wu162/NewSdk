@@ -62,7 +62,7 @@ internal static class TextureDxtPipelineOracle
         if(ea==null){Equal(expected.InstanceData,actual.InstanceData,label+" instance");Equal(expected.RelocationData,actual.RelocationData,label+" relo");Equal(expected.ImportsData,actual.ImportsData,label+" imports");}
         byte[] cdata=Cdata(oa);Equal(cdata,Cdata(ra),label+" cdata");Equal(image,File.ReadAllBytes(file),label+" source");
         if(ea==null&&root=="Texture"){
-            if(cdata!=null||actual.InstanceData.Length<156||BitConverter.ToUInt32(actual.InstanceData,4)!=12||BitConverter.ToUInt32(actual.InstanceData,12)!=0x20534444)throw new Exception(label+" independent Texture DDS layout");
+            if((cdata!=null)!=stale||(cdata!=null&&cdata.Length!=8192)||actual.InstanceData.Length<156||BitConverter.ToUInt32(actual.InstanceData,4)!=12||BitConverter.ToUInt32(actual.InstanceData,12)!=0x20534444)throw new Exception(label+" independent Texture DDS layout");
         }else if(ea==null){
             if(cdata==null||actual.InstanceData.Length!=8||cdata.Length<184||BitConverter.ToUInt32(cdata,32)!=8||BitConverter.ToUInt32(cdata,40)!=0x20534444)throw new Exception(label+" independent OnDemand DDS layout");
         }
