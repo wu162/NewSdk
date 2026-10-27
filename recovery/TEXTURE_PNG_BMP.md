@@ -1,5 +1,7 @@
 # TextureCompiler 第五轮：PNG/BMP 与集中验证
 
+当前更新（2026-10-28，北京时间）：PNG RGB/RGBA8与BI_RGB BMP24/32的限定NPOT已由d012da8a/40536063863闭环，公共加载及两入口/专用3200资产三模式SDK通过；PNG其他位深/颜色与BMP16等NPOT仍拒绝。 详细精确锚点与边界见[NPOT当前交接](TEXTURE_NPOT_NEXT.md)。下文保留历史阶段范围。
+
 > **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
 
 2026-10-26（北京时间）。分支 recovery/texturecompiler-source；本轮按用户要求单代理推进，不启动子代理，禁止强推。当前组件及包含 RGB16 的最终四 profile SDK 验收均已完成。生产 SDK 的 DLL/config 未替换，源码未合入其他分支。
@@ -62,4 +64,5 @@ SDK 使用 EALAModStudio case5 的 BAB 基础数据流程，仅在临时 SDK/MOD
 本轮末段运行环境失效后仍通过 GitHub/Actions 完成 SDK 收取与旧库符号采集。最终 SDK 和取证阶段每次仅一个 Windows 作业，取证运行明确只选 dxt-symbols，20 个已成功组件组全部复用。无源代码/行为变更后不再启动 Windows 重测。
 
 第五轮最后追加的原版 DXT 块取证 40237236370 成功：64例、输入未改写、只选 dxt-blocks、20个组件组复用。完整DDS/options/RGBA已留存；一对DXT1棋盘PC/PS3输出差异仅作历史观察，不再调查，详见 DXT 入口文档。未宣称 DXT 已恢复，不为此重跑 PNG/BMP/SDK。
+
 

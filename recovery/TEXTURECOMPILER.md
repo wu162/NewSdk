@@ -1,8 +1,8 @@
 # TextureCompiler 当前交接
 
-2026-10-27。分支 `recovery/texturecompiler-source`，源码位于根目录 `src/TextureCompiler`。最新DXT状态与精确验收入口：[TEXTURE_DXT_COLOUR.md](TEXTURE_DXT_COLOUR.md)。
+2026-10-28（北京时间）。分支`recovery/texturecompiler-source`，源码根`src/TextureCompiler`。最新入口 [RESUME.md](RESUME.md)。
 
-默认质量71颜色核心、完整DXT3/5块、POT二维无mip整图（含宽/高1和2）以及Texture/OnDemandTexture插件入口已取得组件Debug/Release与NoOriginal证据。浮点块与小尺寸无mip整图/插件、压缩SDK三模式712资产已通过；完整二维压缩float mip已由 `7ae4af37` / 40524039917验收；压缩volume无mip/递归float mip已由 `aaacb3d2` / 40526443463取得5568 DDS/7856插件输入与1488资产三模式SDK验收，见 [二维mip](TEXTURE_DXT_MIPS_NEXT.md) 与 [volume](TEXTURE_DXT_VOLUME_NEXT.md)。下方早期“未启用DXT路由”等条目保留为历史，当前范围以此入口与最新DXT交接为准。生产SDK DLL/config未替换。
+DXT3/5默认71颜色/alpha、完整块、POT二维和volume无mip/完整float mip、两实际插件入口已验收。限定RGBA8存储的NPOT（true-color TGA24/32、PNG RGB/RGBA8、BI_RGB BMP24/32）也已完成公共加载、两入口raw/DXT/标准/volume/有无mip和3200资产三模式SDK验收，当前闭环`d012da8a` / 40536063863 success，复用业务a945c18c/40533831752的17个通过组。各历史锚点保留，40533831752整轮failure不得改写；详见 [DXT](TEXTURE_DXT_COLOUR.md)、[二维mip](TEXTURE_DXT_MIPS_NEXT.md)、[volume](TEXTURE_DXT_VOLUME_NEXT.md)、[NPOT](TEXTURE_NPOT_NEXT.md)。生产SDK DLL/config未替换。
 
 ## 唯一目标：Win32 / PC
 
@@ -21,7 +21,7 @@
 ## 仍需完成（仅 PC）
 
 1. DXT1 / DXT1A默认完整路径、完整压缩器和生产集成。默认71颜色核心与DXT3/5完整块、对齐整图和无mip插件路由已取得组件验收；小尺寸/float块与小尺寸无mip消费者已通过组件和SDK门槛，压缩volume现也已通过组件及专用SDK完整验收。不再调查跨平台一致性。
-2. NPOT D3DX 图片重采样，目前明确拒绝。
+2. NPOT剩余源存储/量化路径（PNG灰度/GA/16位、Additional TGA灰度/调色板/16位、BMP16等），当前仍拒绝；RGBA8限定子集已按上文完成。原版拒绝格式仍保留原拒绝。
 3. JPEG、尚未声明支持的 PNG ICC/APNG、TGA metadata/RLE 边界和其他 BMP 组合，按实际 PC 输入需求独立取证。
 4. 完整 TerrainTextureAtlas 解码、处理、压缩及输出入口；目前只有内存 packer。
 5. 审计 PC 实际需要的原 native 初始化/释放及公共图像依赖。保留共享 helper，不为已排除平台补实现。

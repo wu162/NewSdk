@@ -38,3 +38,9 @@ PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平�
 `dxt-volume-dds`完整验证PC POT DXT3/5 volume的无mip/递归float mip，5568完整DDS与独立NoOriginal。`dxt-images`现含7856标准/volume入口，含原版拒绝匹配，完整三缓冲区/full cdata与NoOriginal；已实现的volume输入从拒绝矩阵转入成功对照，NPOT与默认DXT1/1A拒绝保留。`sdk-PcDxtVolumes`在显式SDK时运行186条带输入/1488资产（有/无mip合并）三模式与逐次隔离断言。新增VolumeDds/NextLevel消费者已登记依赖，aaacb3d2/40526443463整批14组通过、16组复用。
 
 `[texture-npot-load]`仅显式选择`npot-load`原版LoadImageA取证，1012记录含POT对照，manual_only/evidence_only/probe-only。辅助恢复程序集只提供既有Image数据类型与fixture源码依赖，不调用恢复NPOT路径，不作为恢复/SDK成功证据。
+
+## 8位NPOT最终验证与复用
+
+`npot-rgba8`包含1851原系数tap位模式、1012不可变原RGBA以及公共ImageLoader完整比较，Debug/Release、输入不变与逐次NoOriginal。shared helper已登记所有TGA24/32、PNG RGB/RGBA8、BMP24/32实际消费者。`dxt-images`矩阵14256（raw3/DXT3/5、POT/限定NPOT、标准/volume、有无mip、新旧cdata），保留34低位深NPOT/默认DXT1等拒绝；旧raw TGA的NPOT拒绝分支转为全buffer/cdata严格对照。显式`sdk-PcNpotRgba8`跑80输入/3200资产三模式、四产物与完整轨迹/逐次隔离。
+
+业务a945c18c/40533831752的17组（含全部6个SDK profile）成功，整轮failure因唯一回放宿主遗漏旧TGA全零alpha规则。最终d012da8a/40536063863 success仅补npot-rgba8，复用其余31组完整成功收据，未重跑未变SDK/颜色/alpha/直接DDS。保留失败状态与原锚点；不能把probe或整轮failure描述成新整轮success，也不能因为别组宿主失败而重跑已成功类型。

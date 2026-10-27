@@ -1,6 +1,6 @@
 # PC TextureCompiler DXT恢复交接（2026-10-27）
 
-分支 `recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。默认71颜色/alpha、完整块、float/小块、POT二维和volume无mip/完整float mip、Texture/OnDemandTexture入口已验收。二维完整DDS源码 `7ae4af37` / 40524039917；volume与最新插件/SDK源码 `aaacb3d2` / 40526443463均success，Debug/Release各5568 volume DDS、7856标准/volume入口与NoOriginal，新volume SDK三模式各1488资产/调用。详细 [二维mip](TEXTURE_DXT_MIPS_NEXT.md)、[volume](TEXTURE_DXT_VOLUME_NEXT.md)，下一组 [NPOT](TEXTURE_NPOT_NEXT.md)。生产SDK DLL/config未替换。下文保留历史原sourceCommit/runId，不以旧限制覆盖此当前入口。
+分支`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。默认71颜色/alpha、完整块、float/小块、二维和volume无mip/完整float mip已验收；RGBA8限定NPOT也已取得公共加载/两入口raw+DXT及3200资产三模式SDK闭环，最终d012da8a/40536063863 success（只补npot-rgba8，复用31成功组）。业务a945c18c/40533831752的17组通过、整轮因宿主失败仍保留failure。当前 [RESUME](RESUME.md)、[二维mip](TEXTURE_DXT_MIPS_NEXT.md)、[volume](TEXTURE_DXT_VOLUME_NEXT.md)、[NPOT](TEXTURE_NPOT_NEXT.md)。生产SDK未替换。下文旧限制仅属相应历史阶段。
 
 ## 已验收：默认 Production=71 颜色状态
 

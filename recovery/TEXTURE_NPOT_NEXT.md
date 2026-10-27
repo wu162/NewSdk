@@ -1,6 +1,6 @@
 # PC NPOT 当前调查入口
 
-仅PC，recovery/texturecompiler-source，禁止强推，编译测试只在GitHub Actions。已验收的DXT3/5二维/volume及mip锚点见RESUME.md；生产SDK未替换，当前NPOT仍明确拒绝。
+仅PC，recovery/texturecompiler-source，禁止强推，编译测试只在GitHub Actions。当前true-color TGA24/32、PNG RGB/RGBA8、BI_RGB BMP24/32的NPOT加载及标准/volume raw+DXT、无mip/完整mip已完成下述组件/入口/专用SDK验收。生产SDK未替换；其他存储/量化路径仍拒绝。下文按阶段保留取证与失败来源，当前状态以此入口及末段完整验收为准。
 
 原Plugin.ProcessTexture@0x06000106在PC无独立缩放分支，先调用LoadImageA@0x06000017（IL RVA0x3214），再IsValidTexture/GuessProperFormat和二维或volume压缩。LoadImageA调用D3DXCreateTextureFromFileA@0x060000E8（native RVA0x13C82），读取XGGetTextureDesc、LockRect，再以XGCopySurface目标0x1A200006/pitch=width*4转RGBA。静态来源：evidence/texture/runs/40191971356-1/{methods.json,decompiled/BinaryAssetBuilder.TextureCompiler/Plugin.cs}，原DLL SHA256固定4f559428...e9d9e。不能假定压缩器负责全部NPOT处理。
 
@@ -33,3 +33,22 @@ numeric源码`678db0127a2ea3620700b44e46093dd6dc2050d1` / 40529918922 completed/
 原Image/Mip/Volume/VolumeMip TGA入口中NPOT“拒绝后跳过”改成实际原版三缓冲区/full cdata对照，不减少样本。dxt-images保留旧7856并新增6400：80个已捕获NPOT源输入（四种合法加载后volume形状×十个存储/方向profile×两图案），两根/五输出raw+DXT/有无mip/标准+volume/新旧cdata，完整NoOriginal重放；34明确拒绝保留低位深NPOT和默认DXT1/1A。新PcNpotRgba8专用SDK同80输入、3200资产三模式与逐次隔离；选择器同步全部实际8位decoder/helper消费者，包括PNG/BMP/TGA组件及raw/DXT/volume/SDK回归。所有新集成仍待本轮完整Actions终态。
 
 集成批次源码a945c18c/40533831752整体failure，17组（含全部6个SDK profile）实际通过，唯一npot-rgba8失败于独立TGA fixture提取遗漏旧“全零alpha转opaque/HasAlpha=false”规则（tga-d32-1×1-p3）。现仅修复测试宿主，生产滤波/解码器/SDK输入不变，保留所有完整断言与失败记录；通过组继续保留原sourceCommit/runId，最终只补该组件并请求选择器核实/复用其余成功组。不得将40533831752改写为整轮success。
+
+## 最终8位NPOT集成验收（2026-10-28，北京时间）
+
+业务源码`a945c18c8ea02b6ad03f8a4b6172be10ba7dffa2` / 40533831752的17个实际组通过；整轮因唯一npot-rgba8宿主TGA全零alpha规则遗漏而failure，保留。最终仅修复宿主，源码`d012da8ae55c094220d9c506b5263b277a49042b` / [40536063863](https://github.com/wu162/NewSdk/actions/runs/40536063863) attempt1 completed/success：只运行npot-rgba8，完整复用其余31成功组。各复用收据保留原sourceCommit/runId，不把复用标为新跑。
+
+- Debug/Release各1012完整RGBA、公共TextureImageLoader同量比较、1851原系数tap位模式、1,361,709检查；TGA/BMP两种既有canonicalization均在独立fixture读取中正确保持，源像素不变，逐次无原DLL/未加载。
+- 两入口每配置14256输入（12736成功输出、1520原版拒绝匹配）、34明确拒绝、66,334,496字节比较及同量NoOriginal；包含80 NPOT源×raw3/DXT3/5×标准/volume×有无mip×新旧cdata。旧raw TGA NPOT“拒绝后跳过”全部转为严格原版buffer/cdata对照；相关TGA/PNG/BMP/范围与图像回归均成功。
+- 新PcNpotRgba8专用MOD：80输入（3×1、3×2、5×3、7×5四形状×十个存储/方向profile×0/2图案），五输出格式×两入口×标准/volume×有无mip=3200资产。Original/Recovered/NoOriginal各3200实际Core调用，四产物和完整轨迹相同；NoOriginal每次调用前后断言原DLL不存在且未加载。收据`evidence/texture/sdk-npot-rgba8/40533831752-1/validation.json`。
+- 原PcNoMip/PcMips各600、PcDxtNoMip/PcDxtMips各712、PcDxtVolumes各1488资产/调用三模式均通过；新共享helper消费关系已登记。颜色/alpha/直接DDS等未变成功组复用，不额外重测。
+
+边界：源各轴1..8192、向上取2幂后小于16M像素，POT保持原路径。仅上述RGBA8原始存储/目标8位量化；PNG非RGB/RGBA8、BMP16、Additional TGA16/灰度/调色板等NPOT保持明确拒绝，默认DXT1/1A仍未恢复。直接Raw/DXT DDS编码API仍要求POT；NPOT发生在图像加载层。生产SDK DLL/config与完整mymod均未替换或宣称通过。
+
+SDK收据的通用scope字符串沿用复用脚本的旧POT/DXT措辞；实际PcNpotRgba8范围由profile、80份fixtureFiles、input-Mod.xml的3200资产、三模式/四产物/完整轨迹及本段共同界定。补充见同目录SCOPE.md，不改写原始validation.json或来源锚点。
+
+## 下一完整能力组
+
+恢复余下NPOT源存储/目标量化：先读取原D3DX格式descriptor/格式vtable与row getter/setter，再核对过滤前的原始样本精度、向零存储/抖动以及XGCopySurface最终RGBA转换。RGBA8的已验收贡献表/遍历契约可复用，但PNG RGB16存在旧descriptor/行布局异常，BMP/TGA16可能先按5/6/1位量化，不能用解码后8位值近似。源格式变化应按连贯量化组统一完整原版差分、拒绝、公共加载器与两入口、NoOriginal以及适用SDK；不要拆成反复小批触发。
+
+已拒绝的原版PNG索引/部分GA16、BMP索引/bitfields等保留原错误，不把原版拒绝误列成缺失支持；ICC/APNG及未声明TGA/BMP metadata仍按既有边界。优先实际PC能力，默认DXT1/1A未初始化字段、完整atlas和生产集成为其他独立门槛。

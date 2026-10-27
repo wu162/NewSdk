@@ -1,14 +1,20 @@
-# TextureCompiler 当前续接（2026-10-27，本分支）
+# TextureCompiler 当前续接（2026-10-28，北京时间）
 
-`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。主入口 [TEXTURE_DXT_COLOUR.md](TEXTURE_DXT_COLOUR.md)。本轮起点远程头 `d0ab7450038056d35678d34c23fe7f6334426a75`，此前81e3e76d/40508857046与73cae641/40510009285已核实success并保留。
+`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions；每轮尽量约70分钟，按STAGE_DURATION.md。主入口 [TEXTURECOMPILER.md](TEXTURECOMPILER.md)。本轮从远程`d0ab7450038056d35678d34c23fe7f6334426a75`续接，已核对既有40508857046/40510009285成功证据并保留。
 
-**PC DXT3/5 POT标准二维与volume，均含无mip/完整float mip，已完成组件及两实际插件入口与专用MOD SDK验收。** 二维mip源码 `7ae4af3769842084cd19cbff87c651c945f45888` / [40524039917](https://github.com/wu162/NewSdk/actions/runs/40524039917) success：Debug/Release各3072完整DDS与NoOriginal。volume及最新插件源码 `aaacb3d25fdb99eddaa8ed4ab23701437e840ec2` / [40526443463](https://github.com/wu162/NewSdk/actions/runs/40526443463) attempt1 success：Debug/Release各5568完整volume DDS、7856标准/volume入口（6336输出/1520匹配原版拒绝）、18明确拒绝与同量NoOriginal通过。二维每层从base生成；volume递归先Z后XY，均不回写byte。精确范围见 [二维mip](TEXTURE_DXT_MIPS_NEXT.md) 与 [volume](TEXTURE_DXT_VOLUME_NEXT.md)。
+**本轮三组已完成：DXT3/5二维完整float mip、压缩volume无mip/递归float mip、限定RGBA8存储的NPOT加载及标准/volume raw+DXT入口。** 生产SDK DLL/config未替换，专用MOD不冒充完整mymod/全TextureCompiler。
 
-40526443463中PcDxtNoMip、PcDxtMips各三模式每模式712资产/实际调用；新PcDxtVolumes用186条带输入、有/无mip共1488资产/实际调用，各三模式四产物和完整buffer/cdata轨迹一致。NoOriginal每次Core调用前后断言原DLL不存在且未加载。两个受影响raw SDK各600资产三模式，以及共享raw volume/图像/元数据回归通过。整批14组执行、16成功组复用；二维DDS/triangle、颜色、alpha、float小块等未变子组保留各原sourceCommit/runId，未重复测试。
+- 二维mip：源码`7ae4af3769842084cd19cbff87c651c945f45888` / [40524039917](https://github.com/wu162/NewSdk/actions/runs/40524039917) success，Debug/Release各3072完整DDS及NoOriginal。二维每层从base生成，禁止float中途回写byte。
+- volume：源码`aaacb3d25fdb99eddaa8ed4ab23701437e840ec2` / [40526443463](https://github.com/wu162/NewSdk/actions/runs/40526443463) success，各配置5568完整DDS/NoOriginal；递归先Z后XY，XY-only头层数与完整XYZ尾链保留。详见 [二维mip](TEXTURE_DXT_MIPS_NEXT.md) / [volume](TEXTURE_DXT_VOLUME_NEXT.md)。
+- 8位NPOT：业务源码`a945c18c8ea02b6ad03f8a4b6172be10ba7dffa2` / [40533831752](https://github.com/wu162/NewSdk/actions/runs/40533831752) 的17组通过，包含各配置14256插件输入（12736输出/1520匹配原版拒绝）、34明确拒绝、66,334,496字节比较与完整NoOriginal；全部6个SDK profile三模式通过。此run整体failure仅因回放宿主漏TGA全零alpha规则，不能写为整轮success。
 
-原版volume边界 `6d065a9e` / 40525480986，416样本probe-only；不冒充恢复验收。NPOT隔离RGBA8组件已由 `e267d829b781681d4c846ced9bbfa872d8ee3ef5` / [40532546015](https://github.com/wu162/NewSdk/actions/runs/40532546015) success验收：Debug/Release各1012完整RGBA、1851原系数tap位模式、814468检查，无原DLL逐次隔离。原加载基线a19bb879/40528237009与numeric678db012/40529918922仍probe-only，未重跑。
+最终宿主修复源码`d012da8ae55c094220d9c506b5263b277a49042b` / [40536063863](https://github.com/wu162/NewSdk/actions/runs/40536063863) attempt1 completed/success：Debug/Release各1012原RGBA与公共加载器完整比较、1851原系数tap位模式、1,361,709检查，逐次原DLL不存在且未加载。仅补npot-rgba8，选择器复用其余31组完整成功证据，保留各原sourceCommit/runId。SDK业务源码未在宿主修复中改变。
 
-本轮第三完整组检查点：已接入TGA24/32、PNG RGB/RGBA8、BI_RGB BMP24/32的NPOT加载，**待完整Actions/SDK验收，不宣称集成完成**。PNG其他位深/颜色、BMP16和Additional TGA16等NPOT仍拒绝，不能直接套用8位量化。原raw NPOT拒绝样本转为严格buffer/cdata对照；两入口全矩阵扩为14256（新增80 NPOT输入×五输出格式×有无mip×标准/volume×新旧cdata），完整NoOriginal；新PcNpotRgba8 SDK80图像/3200资产三模式。所有新增实际helper消费者同步登记依赖。见 [TEXTURE_NPOT_NEXT.md](TEXTURE_NPOT_NEXT.md)。当前未验收NPOT集成不得写为完成；默认DXT1/1A仍明确拒绝。生产SDK DLL/config未改；专用MOD不能冒充完整mymod/全TextureCompiler完成。
+NPOT支持true-color TGA24/32、PNG RGB/RGBA8、BI_RGB BMP24/32，源各轴<=8192且向上取2幂后<16M像素；只在加载层重采样，直接DDS API仍要求POT。PcNpotRgba8专用SDK同80输入/3200资产，Original/Recovered/NoOriginal各3200实际Core调用，四产物与完整buffer/cdata轨迹一致；NoOriginal每次调用前后检查原DLL不存在且未加载。同轮两个raw profile各600、二维DXT两个profile各712、volume profile1488资产/调用的三模式也通过。范围及SDK通用scope文字补充见 [NPOT当前交接](TEXTURE_NPOT_NEXT.md)。
+
+**下一组**：NPOT剩余存储/量化路径（PNG灰度/GA及16位、Additional TGA灰度/调色板/16位、BMP16），先核对原D3DX源/目标像素格式、row converter与最终XGCopySurface，不能把16/5位量化简化为先解码到RGBA8再缩放。原版拒绝的PNG索引/部分GA16、BMP索引/bitfields等保持原拒绝，不把它们列成必须支持。默认DXT1/1A整块、完整TerrainTextureAtlas、生产替换/完整mymod仍待恢复或验收；未知域明确拒绝。详见 [TEXTURE_NPOT_NEXT.md](TEXTURE_NPOT_NEXT.md)。
+
+原版取证a19bb879/40528237009（1012加载记录）和678db012/40529918922（权重/常量/抖动）仍probe-only，作为不可变基线复用，不再重跑。826ff73e/40531802530与a945c18c/40533831752的宿主失败记录保留；新功能完成由上述精确成功/复用收据组成，不篡改旧运行。
 
 以下保留历史子系统与阶段记录，不以旧的“下一轮”覆盖上述当前入口。
 
