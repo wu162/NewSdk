@@ -1,0 +1,1 @@
+PASS Texture DXT ProcessInstance NoOriginal fixtures=1792 rejected=22 errors=368 comparedBytes=8220864; PC DXT3/5 POT including partial-block no-mip TGA/PNG/BMP; three buffers/full cdata; SDK pending

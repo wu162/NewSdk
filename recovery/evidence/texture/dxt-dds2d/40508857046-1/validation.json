@@ -1,0 +1,59 @@
+{
+  "scope": "PC quality71 DXT3/DXT5 POT/partial-block 2D no-mip DDS; no plugin/SDK acceptance",
+  "runId": "40508857046",
+  "sourceCommit": "81e3e76d69634b7e934937ea23206792b5c9c039",
+  "sdkValidated": false,
+  "status": "passed",
+  "nativeBinaries": [
+    {
+      "importDirectory": 0,
+      "machine": "I386",
+      "configuration": "Debug",
+      "sha256": "5cfbe4b10481fa119d42847bbfbc8741458a515125f8a89a418d6196e10aa9fc",
+      "entryPoint": 0
+    },
+    {
+      "importDirectory": 0,
+      "machine": "I386",
+      "configuration": "Release",
+      "sha256": "48a976234a1c7eade87dc0c9584cc9350bfdcf9e9662f67c4697eebe9e91ef60",
+      "entryPoint": 0
+    }
+  ],
+  "configurations": [
+    {
+      "summary": [
+        "PASS Texture complete DXT3/DXT5 2D DDS fixtures=1280 checks=335126; PC Production=71; full header and payload; POT including partial-block no-mip only; no plugin/SDK acceptance",
+        "PASS Texture 2D DDS NoOriginal fixtures=1280 checks=328704; original DLL absent and not loaded"
+      ],
+      "passed": true,
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Debug"
+    },
+    {
+      "summary": [
+        "PASS Texture complete DXT3/DXT5 2D DDS fixtures=1280 checks=335126; PC Production=71; full header and payload; POT including partial-block no-mip only; no plugin/SDK acceptance",
+        "PASS Texture 2D DDS NoOriginal fixtures=1280 checks=328704; original DLL absent and not loaded"
+      ],
+      "passed": true,
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Release"
+    }
+  ],
+  "sourceFiles": [
+    {
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66",
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json"
+    },
+    {
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9",
+      "path": "src/TextureCompiler/Colour/TextureColour.asm"
+    },
+    {
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281",
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp"
+    }
+  ],
+  "runAttempt": "1",
+  "probeOnly": false
+}

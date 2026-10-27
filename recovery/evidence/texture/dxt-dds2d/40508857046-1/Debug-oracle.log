@@ -1,0 +1,1 @@
+PASS Texture complete DXT3/DXT5 2D DDS fixtures=1280 checks=335126; PC Production=71; full header and payload; POT including partial-block no-mip only; no plugin/SDK acceptance

@@ -1,0 +1,201 @@
+{
+  "sourceCommit": "81e3e76d69634b7e934937ea23206792b5c9c039",
+  "selected": [
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "dxt-dds2d",
+    "dxt-images",
+    "sdk-PcDxtNoMip"
+  ],
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-samples"
+  ],
+  "details": {
+    "base": {
+      "sourceCommit": "1c2160ec3f43bf3077a87ed31eabddaa80937a02",
+      "runId": "40503241547",
+      "receipt": "recovery/evidence/texture/validation/40503241547-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "tga": {
+      "sourceCommit": "0cd42405f5b757c72383040d2f1ff820c31d29bf",
+      "runId": "40195290786",
+      "receipt": "recovery/evidence/texture/tga/40195290786-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "formats": {
+      "sourceCommit": "52e8d6d4189a21b82a01fa88a67687e8557f7d16",
+      "runId": "40198138775",
+      "receipt": "recovery/evidence/texture/stage2/Formats/40198138775-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-helper": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/Volume/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "raw": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/Raw/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "mips": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/Mips/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-dds": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/VolumeDds/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-mips": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/VolumeMips/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "images": {
+      "sourceCommit": "1c2160ec3f43bf3077a87ed31eabddaa80937a02",
+      "runId": "40503241547",
+      "receipt": "recovery/evidence/texture/images/40503241547-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "mip-images": {
+      "sourceCommit": "1c2160ec3f43bf3077a87ed31eabddaa80937a02",
+      "runId": "40503241547",
+      "receipt": "recovery/evidence/texture/mip-images/40503241547-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-images": {
+      "sourceCommit": "1c2160ec3f43bf3077a87ed31eabddaa80937a02",
+      "runId": "40503241547",
+      "receipt": "recovery/evidence/texture/volume-images/40503241547-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-mip-images": {
+      "sourceCommit": "1c2160ec3f43bf3077a87ed31eabddaa80937a02",
+      "runId": "40503241547",
+      "receipt": "recovery/evidence/texture/volume-mip-images/40503241547-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "png": {
+      "sourceCommit": "14b22c15ba0b45351b55089681c72b913bc1e521",
+      "runId": "40234341155",
+      "receipt": "recovery/evidence/texture/png/40234341155-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "bmp": {
+      "sourceCommit": "e20a40cc175e3b15029b106b07f78d9e21990a2f",
+      "runId": "40235000007",
+      "receipt": "recovery/evidence/texture/bmp/40235000007-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "raster-images": {
+      "sourceCommit": "1c2160ec3f43bf3077a87ed31eabddaa80937a02",
+      "runId": "40503241547",
+      "receipt": "recovery/evidence/texture/raster-images/40503241547-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcNoMip": {
+      "reason": "changed inputs: recovery/scripts/TestTextureRasterSdk.ps1, recovery/tests/TextureBmpOracle.cs, recovery/tests/TexturePngOracle.cs, recovery/tests/TextureRasterFixtureWriter.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/Plugin.Metadata.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureCatalog.cs, src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs, src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs, src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs, src/TextureCompiler/Managed/TextureDxt5FastAlphaEncoder.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs, src/TextureCompiler/Managed/TextureImageRules.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TexturePs3MipEncoder.cs, src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    "sdk-PcMips": {
+      "reason": "changed inputs: recovery/scripts/TestTextureRasterSdk.ps1, recovery/tests/TextureBmpOracle.cs, recovery/tests/TexturePngOracle.cs, recovery/tests/TextureRasterFixtureWriter.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/Plugin.Metadata.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureCatalog.cs, src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs, src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs, src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs, src/TextureCompiler/Managed/TextureDxt5FastAlphaEncoder.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs, src/TextureCompiler/Managed/TextureImageRules.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TexturePs3MipEncoder.cs, src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    "png-ranges": {
+      "sourceCommit": "14b22c15ba0b45351b55089681c72b913bc1e521",
+      "runId": "40234341155",
+      "receipt": "recovery/evidence/texture/png-ranges/40234341155-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-symbols": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-blocks": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt3-alpha": {
+      "sourceCommit": "9f8b1361148a6b76fec1b5564b3d055ba4ee62e7",
+      "runId": "40470055551",
+      "receipt": "recovery/evidence/texture/dxt3-alpha/40470055551-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-decompile": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt5-fast-alpha": {
+      "sourceCommit": "82422508cad2ad15b551be06596f8666791422c9",
+      "runId": "40490888440",
+      "receipt": "recovery/evidence/texture/dxt5-fast-alpha/40490888440-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt5-alpha": {
+      "sourceCommit": "4bf0ca8ccb74a6f670cd7ecb954483dc795fae9f",
+      "runId": "40493971846",
+      "receipt": "recovery/evidence/texture/dxt5-alpha/40493971846-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-colour-functions": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-colour-graph": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-colour-state": {
+      "sourceCommit": "2cee34462377beca4b16926eaf25d093daa02c2a",
+      "runId": "40500150864",
+      "receipt": "recovery/evidence/texture/colour-state/40500150864-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-blocks-complete": {
+      "sourceCommit": "9d487859ea0cd6da90a10d1e59e4e1300b7c04dd",
+      "runId": "40506678502",
+      "receipt": "recovery/evidence/texture/dxt-blocks/40506678502-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-dds2d": {
+      "reason": "changed inputs: recovery/scripts/TestTextureDxtDds.ps1, recovery/tests/TextureDxtDdsDifferential.cs, recovery/tests/TextureDxtDdsNoOriginal.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs"
+    },
+    "dxt-images": {
+      "reason": "changed inputs: recovery/scripts/TestTextureDxtImages.ps1, recovery/tests/TextureDxtPipelineOracle.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs"
+    },
+    "sdk-PcDxtNoMip": {
+      "reason": "changed inputs: recovery/scripts/TestTextureDxtSdk.ps1, recovery/tests/TextureDxtSdkFixtures.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs"
+    },
+    "dxt-samples": {
+      "sourceCommit": "9d487859ea0cd6da90a10d1e59e4e1300b7c04dd",
+      "runId": "40506678502",
+      "receipt": "recovery/evidence/texture/dxt-samples/40506678502-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-image-boundaries": {
+      "reason": "evidence collection requires explicit request"
+    }
+  }
+}
