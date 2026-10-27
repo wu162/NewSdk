@@ -1,0 +1,50 @@
+{
+  "evidenceOnly": true,
+  "runAttempt": "1",
+  "toolSha256": "795a02076af16257bd6f3f4736c4fc152ce9ff1f95df35cd47e2adc086e037a6",
+  "sdkValidated": false,
+  "probeOnly": true,
+  "exports": [
+    {
+      "sha256": "6e1c9a8ae6cdee3ec84684eddaa585f1778d8d7956ebda59402e22ea4fd85a1a",
+      "name": "CodeAlphaBlock.c",
+      "bytes": 7087
+    },
+    {
+      "sha256": "a0c5255f887b395583ddcd61a57c34c19dba54543975ccf693d087392faf721d",
+      "name": "CompressDispatch.c",
+      "bytes": 24160
+    },
+    {
+      "sha256": "dfe52785ef37f00441b03659f4274d80af8d6b240b8fc7ee55f2c65247f56fd6",
+      "name": "EncodeDXT3.c",
+      "bytes": 1098
+    },
+    {
+      "sha256": "0bda7c05bff438c459a4998934ab58ec2787632d20304858af7042df1753daec",
+      "name": "EncodeDXT5.c",
+      "bytes": 1098
+    },
+    {
+      "sha256": "0ada98fae0912522692f76faffba94e9d76c606e5d8134f589855b89918818fa",
+      "name": "FastEncodeDXT1AllPixelsSame.c",
+      "bytes": 1046
+    },
+    {
+      "sha256": "db77b5bf973a00243ff2b5777cfbd19fa062baaf69f2de95bc81f8ada0388751",
+      "name": "FastEncodeDXT5.c",
+      "bytes": 2184
+    },
+    {
+      "sha256": "8f182fb98414d7316150551c578aee83f0e731421da28e34170811d097ba2be8",
+      "name": "QuantizeAlpha.c",
+      "bytes": 17320
+    }
+  ],
+  "runId": "40488941255",
+  "scope": "Original native decompilation evidence only; not recovery acceptance",
+  "status": "probe-only",
+  "ghidraVersion": "11.4.2",
+  "sourceCommit": "05b9140e6551764c039ae4aa74229e9d0cf808b8",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e"
+}

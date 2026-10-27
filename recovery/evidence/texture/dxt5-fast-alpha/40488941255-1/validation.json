@@ -1,0 +1,90 @@
+{
+  "runAttempt": "1",
+  "sourceCommit": "05b9140e6551764c039ae4aa74229e9d0cf808b8",
+  "scope": "DXT5 fast alpha quality68 subcomponent only; no production endpoint search/colour/plugin/SDK acceptance",
+  "probeOnly": false,
+  "sourceFiles": [
+    {
+      "sha256": "7191ecde22771f2f261531773e3c1e22f11b6c4d09c30571d481621058f1e23a",
+      "path": "src/TextureCompiler/Managed/Plugin.Dds.cs"
+    },
+    {
+      "sha256": "cdd4aacbd9f2c78989349a91ab2a20b826d77611667e3795c37736c3802a6a2f",
+      "path": "src/TextureCompiler/Managed/Plugin.Images.cs"
+    },
+    {
+      "sha256": "cf65743de09274651b516c0cdf137169fd58b204a0ffeaf85a9f197db2e2476f",
+      "path": "src/TextureCompiler/Managed/Plugin.Metadata.cs"
+    },
+    {
+      "sha256": "4a9bb8990084335f2e1f2a51c05dbd0dfd3cbf3d86e87712c8dc4e5f7899c455",
+      "path": "src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj"
+    },
+    {
+      "sha256": "a7c2966a76d6b32533746749dc282b58914880d005e49010422930c2c1169d9c",
+      "path": "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+    },
+    {
+      "sha256": "20993978972f37c771c44f15dfe4bbd7d446157b823bcdc412cc321ec048891f",
+      "path": "src/TextureCompiler/Managed/TextureCatalog.cs"
+    },
+    {
+      "sha256": "5c0148c0297e16db3a593ee6aed6180eb2e5ad208eabf9257de557cbe47edbb1",
+      "path": "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs"
+    },
+    {
+      "sha256": "869c0ac889affcb1db7e2d3fd93b4b55feeff90d530237a50c23db4cfc4a5430",
+      "path": "src/TextureCompiler/Managed/TextureDxt5FastAlphaEncoder.cs"
+    },
+    {
+      "sha256": "3c15c5f9cc536398704b99d9fe5e532c2a3f5f51bc0f90e3739274fdf81f4e99",
+      "path": "src/TextureCompiler/Managed/TextureImageLoader.cs"
+    },
+    {
+      "sha256": "3072b97d55478e3e5836a4fa9237702be5c59a491e30f75dc7f7fa2b6b2b7408",
+      "path": "src/TextureCompiler/Managed/TextureImageRules.cs"
+    },
+    {
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176",
+      "path": "src/TextureCompiler/Managed/TexturePacker.cs"
+    },
+    {
+      "sha256": "7c6fc70439d7da23c8d88a68ff0d3c3fff9b16deb12030b4cf3513aa49455131",
+      "path": "src/TextureCompiler/Managed/TexturePngDecoder.cs"
+    },
+    {
+      "sha256": "44807a0dddbc6e9287187496572cbd6eea9519de20758773cba2ea6f0a07e49a",
+      "path": "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs"
+    },
+    {
+      "sha256": "25ced37ba13bfdb71dea0e2308502da992d0395e8a778599457da1c010202174",
+      "path": "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs"
+    },
+    {
+      "sha256": "72473f33395c37e94109209639ccafe70d788f5fbc3435c4591c340e392c5605",
+      "path": "src/TextureCompiler/Managed/TextureTgaDecoder.cs"
+    },
+    {
+      "sha256": "5db5b1397a80013d89a8b8124c73d2659c9f3bee8fd5b87c4bcb14194340f247",
+      "path": "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
+    },
+    {
+      "sha256": "4d203e1fa3cddef9094c7452c3ff4ae9c971eb26b1f104e7fa8914d21cd0d85b",
+      "path": "src/TextureCompiler/Managed/TextureVolume.cs"
+    },
+    {
+      "sha256": "826efddd611f7bc769eafdfe4a5f5f3c08e920a077504b8d23abbadb6d22486d",
+      "path": "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    {
+      "sha256": "d3e2f8f6894ba1f40a8662c59602c7b91e54e9d16b7457c6b58290e4267e4e6b",
+      "path": "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs"
+    }
+  ],
+  "group": "dxt5-fast-alpha",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runId": "40488941255",
+  "configurations": [],
+  "sdkValidated": false,
+  "status": "started"
+}
