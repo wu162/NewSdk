@@ -236,7 +236,7 @@ def additional_big_receipt(archive, cli, repo):
             case=[c for c in row['cases'] if c.get('name')=='all-with-additional']
             require(len(case)==1 and case[0].get('passed') is True, 'Explicit Additional CLI group failed/missing')
             arguments=case[0]['arguments']
-            require('--include-additional' in arguments and arguments[arguments.index('--include-additional')+1]=='true', 'Additional CLI was not explicitly enabled')
+            require('--include-additional=true' in arguments, 'Additional CLI was not explicitly enabled')
             comparison_path=f'{prefix}/{mode}/additional-original-copy-makebig'
             comparison=json.loads(archive.read(comparison_path+'/comparison.json').decode('utf-8-sig'))
             expected=json.loads(archive.read(comparison_path+'/expected.json').decode('utf-8-sig'))
@@ -295,7 +295,7 @@ def neutral_big_receipt(archive, cli, repo):
                 cases=[c for c in row['cases'] if c.get('name')==name]
                 require(len(cases)==1 and cases[0].get('passed') is True, 'Required optional neutral case failed/missing: '+name)
                 arguments=cases[0]['arguments']
-                require('--fix-neutral-assets' in arguments and arguments[arguments.index('--fix-neutral-assets')+1]=='true', 'Neutral repair was not explicitly enabled')
+                require('--fix-neutral-assets=true' in arguments, 'Neutral repair was not explicitly enabled')
             comparison_path=f'{prefix}/{mode}/neutral-original-hashfix-resolver-lod-makebig'
             comparison=json.loads(archive.read(comparison_path+'/comparison.json').decode('utf-8-sig'))
             expected=json.loads(archive.read(comparison_path+'/expected.json').decode('utf-8-sig'))

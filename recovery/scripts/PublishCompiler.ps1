@@ -164,13 +164,13 @@ try {
             Need ($rows.Count -eq 1 -and $rows[0].passed -eq $true -and $rows[0].packagedRuntimeUnchanged -eq $true -and $rows[0].exeSha256 -ceq $configuration.runtimeFiles[0].sha256) 'ZIP BIG acceptance used a different production EXE'
             foreach($name in @('base-big','base-loose','base-apt-maps-big','base-apt-maps-loose','all-with-additional','base-with-neutral-repair','neutral-missing-reference','neutral-retry-after-reference-restored')){Need (@($rows[0].cases|Where-Object{$_.name -ceq $name -and $_.passed -eq $true}).Count -eq 1) "ZIP BIG acceptance omitted $name"}
             $additionalCase=@($rows[0].cases|Where-Object{$_.name -ceq 'all-with-additional'})[0]
-            $additionalArguments=@($additionalCase.arguments);$additionalIndex=[Array]::IndexOf($additionalArguments,'--include-additional')
-            Need ($additionalIndex -ge 0 -and $additionalIndex+1 -lt $additionalArguments.Count -and $additionalArguments[$additionalIndex+1] -ceq 'true') 'ZIP Additional acceptance did not explicitly enable Additional'
+            $additionalArguments=@($additionalCase.arguments)
+            Need ($additionalArguments -ccontains '--include-additional=true') 'ZIP Additional acceptance did not explicitly enable Additional'
             $additionalComparison=@($rows[0].comparisons|Where-Object{$_.name -ceq 'additional-original-copy-makebig'})
             Need ($additionalComparison.Count -eq 1 -and $additionalComparison[0].comparison.succeeded -eq $true -and $additionalComparison[0].comparison.exactMemberNamesAndRawContents -eq $true) 'ZIP Additional lacks original CopyFolders/MakeBig raw comparison'
             $neutralCase=@($rows[0].cases|Where-Object{$_.name -ceq 'base-with-neutral-repair'})[0]
-            $neutralArguments=@($neutralCase.arguments);$neutralIndex=[Array]::IndexOf($neutralArguments,'--fix-neutral-assets')
-            Need ($neutralIndex -ge 0 -and $neutralIndex+1 -lt $neutralArguments.Count -and $neutralArguments[$neutralIndex+1] -ceq 'true') 'ZIP neutral repair acceptance did not explicitly enable repair'
+            $neutralArguments=@($neutralCase.arguments)
+            Need ($neutralArguments -ccontains '--fix-neutral-assets=true') 'ZIP neutral repair acceptance did not explicitly enable repair'
             $neutralComparison=@($rows[0].comparisons|Where-Object{$_.name -ceq 'neutral-original-hashfix-resolver-lod-makebig'})
             Need ($neutralComparison.Count -eq 1 -and $neutralComparison[0].comparison.succeeded -eq $true -and $neutralComparison[0].comparison.exactMemberNamesAndRawContents -eq $true) 'ZIP neutral repair lacks original HashFix/Resolver/LoD/MakeBig raw comparison'
             AssertInventory (Join-Path $deployedProduct ($configuration.configuration+'/bin')) $configuration.runtimeFiles

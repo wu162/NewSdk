@@ -280,7 +280,7 @@ try{
         $cancelled=RunCli 'actual-cancel' $mod $destination 'base,apt,maps' 'big' 6 $true
         foreach($name in $publishedBefore.Keys){Need ((Hash (Join-Path $published $name)) -ceq $publishedBefore[$name]) 'Cancelled BIG build changed the previous generation'}
         $retry=RunCli 'retry-after-cancel' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'cancel-retry-original'
-        $additionalBig=RunCli 'all-with-additional' $mod (Join-Path $modeWork 'all-additional') 'base,apt,maps' 'big' 0 $false $null @('--include-additional','true')
+        $additionalBig=RunCli 'all-with-additional' $mod (Join-Path $modeWork 'all-additional') 'base,apt,maps' 'big' 0 $false $null @('--include-additional=true')
         CompareBig $additionalBig $plain 'additional-original-copy-makebig' $true
         $baseManifest=@($baseLoose.report.artifacts|Where-Object{[IO.Path]::GetExtension($_.Path) -ieq '.manifest'})
         Need ($baseManifest.Count -eq 1) 'Neutral fixture requires one current base manifest'
@@ -293,18 +293,18 @@ try{
         Need ($LASTEXITCODE -eq 0) 'Original HashFix resolver LoD real-stream oracle failed'
         $referenceRoot=Join-Path $script:sdk 'BuiltMods';$referenceBefore=TreeSnapshot $referenceRoot;$modBefore=TreeSnapshot $mod
         $neutralDestination=Join-Path $modeWork 'neutral-base'
-        $neutralBig=RunCli 'base-with-neutral-repair' $mod $neutralDestination 'base' 'big' 0 $false $null @('--fix-neutral-assets','true')
+        $neutralBig=RunCli 'base-with-neutral-repair' $mod $neutralDestination 'base' 'big' 0 $false $null @('--fix-neutral-assets=true')
         CompareBig $neutralBig $baseLoose 'neutral-original-hashfix-resolver-lod-makebig' $false $neutralOracle
         TreeUnchanged $referenceRoot $referenceBefore;TreeUnchanged $mod $modBefore
         $neutralPublished=Join-Path $neutralDestination 'published';$neutralBefore=TreeSnapshot $neutralPublished
         $missing=Join-Path $referenceRoot 'Worldbuilder.manifest';$saved=$missing+'.saved';Move-Item -LiteralPath $missing -Destination $saved
         try{
-            $missingResult=RunCli 'neutral-missing-reference' $mod $neutralDestination 'base' 'big' 3 $false $null @('--fix-neutral-assets','true')
+            $missingResult=RunCli 'neutral-missing-reference' $mod $neutralDestination 'base' 'big' 3 $false $null @('--fix-neutral-assets=true')
             Need (@($missingResult.report.diagnostics|Where-Object{$_.code -ceq 'PACKAGE_NEUTRAL_REFERENCE_MISSING'}).Count -eq 1) 'Missing neutral reference did not emit its explicit diagnostic'
             TreeUnchanged $neutralPublished $neutralBefore
         }finally{Move-Item -LiteralPath $saved -Destination $missing}
         TreeUnchanged $referenceRoot $referenceBefore;TreeUnchanged $mod $modBefore
-        $neutralRetry=RunCli 'neutral-retry-after-reference-restored' $mod $neutralDestination 'base' 'big' 0 $false $null @('--fix-neutral-assets','true')
+        $neutralRetry=RunCli 'neutral-retry-after-reference-restored' $mod $neutralDestination 'base' 'big' 0 $false $null @('--fix-neutral-assets=true')
         CompareBig $neutralRetry $baseLoose 'neutral-retry-original-makebig' $false $neutralOracle
         TreeUnchanged $referenceRoot $referenceBefore;TreeUnchanged $mod $modBefore
         if($UsePackagedRuntime){RuntimeUnchanged $sourceBin $sourceBefore;RuntimeUnchanged $runtime $runtimeBefore;$modeState.packagedRuntimeUnchanged=$true;$modeState.runtimeFiles=$runtimeBefore}
