@@ -3,6 +3,12 @@
 更新：2026-10-27（北京时间）。用户指定 `compiler-main` 为重构结果及今后开发主线。旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 已关闭且未合并，不再合回旧主线。开发主线约定不代表已修改 GitHub 网页默认分支。
 禁止强推；今后其他合并仍须用户批准；子代理数量由当轮用户指定。
 
+## Upheaval 编译速度比较（2026-10-28 北京时间，验证中）
+
+独立分支 `benchmark/upheaval-compiler-speed`，草稿 [PR #16](https://github.com/wu162/NewSdk/pull/16)，方法及本地/CI入口见 [benchmarks/upheaval/README.md](benchmarks/upheaval/README.md)。从历史固定 tree 提取完整 2723 文件 Upheaval，原 SDK BAB 对正式 Release CLI，关闭生成缓存、保留随 MOD 提供的预编译输入；1 对预热、10 对交替正式样本，逐样本完整流/CDATA身份门槛后报告统计和配对置信区间。仅 compile/link，不含打包或增量缓存。
+
+二进制复用已完整验收的 `8b3e146cb5220e830ff6a0ce4718f47af052f166` / 运行40446975355，生产输入闭包、归档及五文件身份必须未变；测试来源独立记录。当前 [运行40604851281](https://github.com/wu162/NewSdk/actions/runs/40604851281) 测试源码 `c98507a0bdc90f7a5dbdbe37353a17ecba765fc2`，尚未取得终态，不能宣称速度或真实 MOD 通过。早期40604428912/40604660397为输入预检失败，分别修正主线不含Upheaval及原始SDK为独立历史的假设，保留原失败。续接先看当前运行终态及artifact的validation.json，再更新此段和PR；不要反复重启长任务。
+
 ## 默认构建与参数改进（PR #14，待合入）
 
 本轮从 `compiler-main` 的 `933cf4a2` 创建 `feature/compiler-build-defaults`，PR [#14](https://github.com/wu162/NewSdk/pull/14)，尚未合并。生产/测试源码 `8b3e146cb5220e830ff6a0ce4718f47af052f166`；[验收运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 的完整 mymod 原 BAB 流、含 Additional 的默认 BIG 与 SKUDEF 差分、全部受影响回归及独立五文件 ZIP 验收均已通过，运行整体 success。
