@@ -1,4 +1,4 @@
-param([ValidateSet('All','ColourRemaining')][string]$Group='All')
+param([ValidateSet('All','ColourRemaining','ColourGraph')][string]$Group='All')
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/dxt-decompile/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
@@ -16,11 +16,12 @@ try {
  if(!$env:JAVA_HOME_21_X64){throw 'JDK21 missing'}
  $env:JAVA_HOME=$env:JAVA_HOME_21_X64
  New-Item -ItemType Directory -Force "$work/project"|Out-Null
+ $postScript=if($Group -eq 'ColourGraph'){'ExportTextureDxtGraph.java'}else{'ExportTextureDxt.java'}
  $headless=Join-Path $work 'ghidra_11.4.2_PUBLIC/support/analyzeHeadless.bat'
- & $headless "$work/project" Texture -import "$root/SDK/tools/BinaryAssetBuilder.TextureCompiler.dll" -processor 'x86:LE:32:default' -analysisTimeoutPerFile 240 -scriptPath "$root/recovery/scripts/ghidra" -postScript ExportTextureDxt.java "$out" $Group -deleteProject *> "$out/ghidra.log"
+ & $headless "$work/project" Texture -import "$root/SDK/tools/BinaryAssetBuilder.TextureCompiler.dll" -processor 'x86:LE:32:default' -analysisTimeoutPerFile 240 -scriptPath "$root/recovery/scripts/ghidra" -postScript $postScript "$out" $Group -deleteProject *> "$out/ghidra.log"
  if($LASTEXITCODE -ne 0){Get-Content "$out/ghidra.log" -Tail 40;throw 'Ghidra export failed'}
- $files=@(Get-ChildItem "$out/*.c")
- $expected=if($Group -eq 'ColourRemaining'){4}else{18}
+ $files=if($Group -eq 'ColourGraph'){@(Get-Item "$out/graph.json","$out/graph.asm")}else{@(Get-ChildItem "$out/*.c")}
+ $expected=if($Group -eq 'ColourGraph'){2}elseif($Group -eq 'ColourRemaining'){4}else{18}
  if($files.Count -ne $expected){Get-Content "$out/ghidra.log" -Tail 40;throw 'Missing native function exports'}
  $r.exports=@($files|ForEach-Object{@{name=$_.Name;bytes=$_.Length;sha256=(Get-FileHash $_.FullName).Hash.ToLowerInvariant()}})
  $r.status='probe-only'
