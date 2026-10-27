@@ -5,11 +5,11 @@
 
 ## 当前任务：编译器性能优化
 
-2026-10-27 从 `compiler-main@e7396d3` 新建 `feature/compiler-optimization`。按用户要求每轮90分钟并交接，必须推进接近90分钟，提前完成一组后继续后续任务，通常2个子代理、最多3个；全部编译/测试通过 GitHub Actions。先读 [当前短交接](docs/compiler-optimization/HANDOFF.md)，再按 [方案索引](docs/compiler-optimization/README.md) 读取所需章节。完整用户方案只保存一份，阶段结果与未决工作由短交接覆盖更新。
+2026-10-27 从 `compiler-main@e7396d3` 新建 `feature/compiler-optimization`。按用户最新要求每轮最多120分钟，效率优先、正确性是底线，通常2个子代理、最多3个；全部编译/测试通过 GitHub Actions。先读 [当前短交接](docs/compiler-optimization/HANDOFF.md)，再按 [方案索引](docs/compiler-optimization/README.md) 读取所需章节。完整用户方案只保存一份，阶段结果与未决工作由短交接覆盖更新。
 
 首批优化与三项真实 Core 风险修复已通过[完整运行40461583024](https://github.com/wu162/NewSdk/actions/runs/40461583024)，生产源码 `75601909`。第二轮的 schema/解析/外层区间与构建内自有继承/依赖元数据共享已由源码 `4a128696` / [完整运行40466010643](https://github.com/wu162/NewSdk/actions/runs/40466010643) 整体成功验收，含全部缓存、完整mymod/BIG与独立五文件ZIP；三流元数据表1次构建+2次恢复，每流读取/Compile仍保留，不报告完整构建提速。范围、失败记录、计量与下一步见短交接和[验证记录](docs/compiler-optimization/VALIDATION.md)。[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，后续成果继续集中原优化分支。
 
-第三轮新增正内容封存与发布前强复核、失败代同backend重试/取消传播、resolver候选影子记录及base manifest保序索引子组；生产/测试/打包源码 `68f38abb` / [40476134103](https://github.com/wu162/NewSdk/actions/runs/40476134103) 已整体success，含各17个Core fixtures、完整mymod/BIG和独立五文件ZIP。补测 `55f1a519` / [40479104375](https://github.com/wu162/NewSdk/actions/runs/40479104375) 新发现hardlink alias可unlink的真实缺口（W08派生Equals三方已通过）。生产热修 `c65761fe` 已保留每别名句柄，[完整重建40479845571](https://github.com/wu162/NewSdk/actions/runs/40479845571) 仍运行中，未标通过；下一轮先跟进其终态，不能用68旧成功代替。source/test身份分开，范围见短交接。
+第三轮新增正内容封存与发布前强复核、失败代同backend重试/取消传播、resolver候选影子记录及base manifest保序索引子组。补测 `55f1a519` / [40479104375](https://github.com/wu162/NewSdk/actions/runs/40479104375) 发现hardlink alias可unlink缺口；生产热修 `c65761fe` 保留每别名句柄，[完整重建40479845571](https://github.com/wu162/NewSdk/actions/runs/40479845571) 已整体success，含各17个Core fixtures、CLI/全部缓存、完整mymod/BIG和独立五文件ZIP。第四轮正推进manifest正内容/相关查询一致性和Define/继承/符号消费影子轨迹，当前新改动尚未验收，准确source/run与下一步见短交接。
 
 ## 默认构建与参数改进（PR #14，已合入）
 

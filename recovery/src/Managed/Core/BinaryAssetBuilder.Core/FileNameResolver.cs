@@ -9,6 +9,13 @@ public class FileNameResolver
 
 	private static char[] SplitCharacters = new char[1] { ':' };
 
+    private static bool CandidateExists(string path)
+    {
+        bool found = DependencyObservationLog.RecordFileExists(path);
+        PhysicalInputSnapshot.ObserveCandidate(path, found);
+        return found;
+    }
+
 	public static FileNameXmlResolver GetXmlResolver(string baseDirectory)
 	{
 		return new FileNameXmlResolver(baseDirectory);
@@ -87,14 +94,14 @@ public class FileNameResolver
 								string path2 = $"{Path.GetFileNameWithoutExtension(text2)}_{Settings.Current.Postfix}{Path.GetExtension(text2)}";
 								text = Path.GetFullPath(Path.Combine(path, path2));
 								CacheInputBoundary.Validate(text);
-								if (DependencyObservationLog.RecordFileExists(text))
+								if (CandidateExists(text))
 								{
 									break;
 								}
 							}
 							text = Path.GetFullPath(Path.Combine(path, text2));
 							CacheInputBoundary.Validate(text);
-							if (DependencyObservationLog.RecordFileExists(text))
+								if (CandidateExists(text))
 							{
 								break;
 							}
@@ -227,7 +234,7 @@ public class FileNameResolver
 			{
 				text = ShPath.Canonicalize(Path.Combine((text2 == "*") ? baseDirectory : text2, path));
 				CacheInputBoundary.Validate(text);
-				if (DependencyObservationLog.RecordFileExists(text))
+				if (CandidateExists(text))
 				{
 					return text;
 				}

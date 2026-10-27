@@ -676,7 +676,7 @@ public class DocumentProcessor
 	private bool LoadPrecompiledReference(AssetDeclarationDocument parentDoc, string sourcePathFromRoot, string[] baseStreamSearchPaths)
 	{
 		string text = ShPath.Canonicalize(Path.Combine(Settings.Current.OutputDirectory, sourcePathFromRoot));
-		if (File.Exists(text))
+		if (ManifestInputReader.Exists(text))
 		{
 			Manifest manifest = new Manifest();
 			List<string> list = new List<string>();
@@ -687,8 +687,9 @@ public class DocumentProcessor
 			list.Add(Settings.Current.OutputDirectory);
 			try
 			{
-				manifest.Load(text, list.ToArray());
+				manifest.Load(text, list.ToArray(), true, ManifestInputReader.OpenRead, ManifestInputReader.Exists);
 			}
+			catch (System.OperationCanceledException) { throw; }
 			catch (Exception ex)
 			{
 				_Tracer.TraceError("Could not load {0}: {1}\n\r{2}", text, ex.Message, ex.StackTrace);
@@ -697,7 +698,7 @@ public class DocumentProcessor
 			try
 			{
 				ManifestHeader manifestHeader = new ManifestHeader();
-				using (FileStream input = File.OpenRead(text))
+				using (Stream input = PhysicalInputSnapshot.OpenRead(text))
 				{
 					manifestHeader.LoadFromStream(input, Settings.Current.BigEndian);
 				}
@@ -707,6 +708,7 @@ public class DocumentProcessor
 					return false;
 				}
 			}
+			catch (System.OperationCanceledException) { throw; }
 			catch (Exception innerException)
 			{
 				throw new BinaryAssetBuilderException(innerException, ErrorCode.LockedFile, "Unable to open '{0}'. Make sure no other application is writing to or reading from this file while the data build is running.", text);

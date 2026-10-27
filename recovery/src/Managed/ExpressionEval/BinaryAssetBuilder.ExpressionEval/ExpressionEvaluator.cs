@@ -22,8 +22,10 @@ public class ExpressionEvaluator : IExpressionEvaluator
 			{
 				_Document.UsedDefines[name] = value.EvaluatedValue;
 			}
+            _Document.ObserveDefineRead(name, value, value.EvaluatedValue, true);
 			return value.EvaluatedValue;
 		}
+        _Document.ObserveDefineRead(name, value, value == null ? null : value.EvaluatedValue, false);
 		throw new BinaryAssetBuilderException(ErrorCode.ExpressionEvaluationError, "Unknown define {0}", name);
 	}
 

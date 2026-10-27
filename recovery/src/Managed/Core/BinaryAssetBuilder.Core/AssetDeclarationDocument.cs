@@ -241,6 +241,9 @@ public class AssetDeclarationDocument : IXmlSerializable
         // Values visible before local overrides are installed in this pass.
         // Only previous external reads are needed when validating a restored document.
         public IDictionary<string, string> CachedDefineInputs;
+        public long DefineScopeEpoch;
+        public string DefineReadStage;
+        public string DefineReadSite;
 
 
 		public bool VerificationErrors;
@@ -379,6 +382,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 	public string SourcePathFromRoot => _Current.SourcePathFromRoot;
 
 	public string SourcePath => _Current.SourcePath;
+
+    internal string ObservationSourcePath => _Current == null ? null : _Current.SourcePath;
 
 	public InstanceSet SelfInstances => _Current.SelfInstances;
 
@@ -875,7 +880,11 @@ public class AssetDeclarationDocument : IXmlSerializable
 			if (selfDefine.OriginalValue != null)
 			{
 				selfDefine.EvaluatedValue = null;
-				evaluator.EvaluateDefinition(selfDefine);
+                string oldStage = _Current.DefineReadStage, oldSite = _Current.DefineReadSite;
+                _Current.DefineReadStage = "definitions";
+                _Current.DefineReadSite = DependencyObservationLog.IsActive ? "Define:" + selfDefine.Name : null;
+                try { evaluator.EvaluateDefinition(selfDefine); }
+                finally { _Current.DefineReadStage = oldStage; _Current.DefineReadSite = oldSite; }
 			}
 			Definition value = null;
 			if (AllDefines.TryGetValue(selfDefine.Name, out value) && selfDefine.Document != value.Document && !selfDefine.IsOverride)
@@ -883,8 +892,16 @@ public class AssetDeclarationDocument : IXmlSerializable
 				throw new BinaryAssetBuilderException(ErrorCode.DuplicateDefine, "Definition {0} defined in {1} is already defined in {2}", selfDefine.Name, selfDefine.Document.SourcePath, value.Document.SourcePath);
 			}
 			AllDefines[selfDefine.Name] = selfDefine;
+            _Current.DefineScopeEpoch++;
 		}
 	}
+
+    // Called at LookupDefine's actual result boundary; do not query AllDefines again.
+    public void ObserveDefineRead(string name, Definition definition, string value, bool succeeded)
+    {
+        DependencyObservationLog.RecordDefineRead(this, _Current.DefineReadStage ?? "directExpression",
+            _Current.DefineReadSite, _Current.DefineScopeEpoch, name, definition, value, succeeded);
+    }
 
 	public bool ValidateCachedDefines()
 	{
@@ -910,7 +927,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 				continue;
 			}
 			FindLocation location = FindLocation.None;
-			InstanceDeclaration instanceDeclaration = FindInstance(selfInstance.InheritFromHandle, (selfInstance.InheritFromHandle == selfInstance.Handle) ? FindLocation.Self : FindLocation.None, out location);
+			InstanceDeclaration instanceDeclaration = FindInstanceObserved(selfInstance.InheritFromHandle, (selfInstance.InheritFromHandle == selfInstance.Handle) ? FindLocation.Self : FindLocation.None, out location, "inheritanceValidation", selfInstance.Handle.Name);
 			if (instanceDeclaration == null)
 			{
 				throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0} attempts to inherit from non-existing instance {1}.", selfInstance, selfInstance.InheritFromHandle);
@@ -956,34 +973,47 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 		foreach (InstanceDeclaration selfInstance in SelfInstances)
 		{
-			ProcessExpressionsInNode(evaluator, selfInstance.XmlNode);
+            string oldStage = _Current.DefineReadStage, oldSite = _Current.DefineReadSite;
+            _Current.DefineReadStage = "expressions";
+            string consumer = DependencyObservationLog.IsActive ? selfInstance.Handle.Name : null;
+            _Current.DefineReadSite = consumer;
+            int ordinal = 0;
+            try { ProcessExpressionsInNode(evaluator, selfInstance.XmlNode, consumer, ref ordinal); }
+            finally { _Current.DefineReadStage = oldStage; _Current.DefineReadSite = oldSite; }
 		}
 	}
 
-	private void ProcessExpressionsInNode(IExpressionEvaluator eval, XmlNode node)
+	private void ProcessExpressionsInNode(IExpressionEvaluator eval, XmlNode node, string consumer, ref int ordinal)
 	{
+        // Compact preorder position identifies the actual read site without
+        // allocating a full ancestor path at every node (or when disabled).
+        int nodeOrdinal = ordinal++;
 		if (node.Attributes != null)
 		{
 			foreach (XmlAttribute attribute in node.Attributes)
 			{
 				if (attribute.Value.Length > 0 && attribute.Value[0] == '=')
 				{
-					attribute.Value = eval.Evaluate(attribute.Value);
+                    if (DependencyObservationLog.IsActive)
+                        _Current.DefineReadSite = consumer + "/" + node.Name + "[" + nodeOrdinal + "]/@" + attribute.Name;
+                    attribute.Value = eval.Evaluate(attribute.Value);
 				}
 			}
 		}
 		if (node.Value != null && node.Value.Length > 0 && node.Value[0] == '=')
 		{
-			node.Value = eval.Evaluate(node.Value);
+            if (DependencyObservationLog.IsActive)
+                _Current.DefineReadSite = consumer + "/" + node.Name + "[" + nodeOrdinal + "]";
+            node.Value = eval.Evaluate(node.Value);
 		}
 		if (node.ChildNodes == null)
 		{
 			return;
 		}
-		foreach (XmlNode childNode in node.ChildNodes)
-		{
-			ProcessExpressionsInNode(eval, childNode);
-		}
+        foreach (XmlNode childNode in node.ChildNodes)
+        {
+            ProcessExpressionsInNode(eval, childNode, consumer, ref ordinal);
+        }
 	}
 
 	private void OverrideInstance(InstanceDeclaration instance)
@@ -992,7 +1022,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			XmlNode xmlNode = null;
 			FindLocation location = FindLocation.None;
-			InstanceDeclaration instanceDeclaration = FindInstance(instance.InheritFromHandle, (instance.InheritFromHandle == instance.Handle) ? FindLocation.Self : FindLocation.None, out location);
+			InstanceDeclaration instanceDeclaration = FindInstanceObserved(instance.InheritFromHandle, (instance.InheritFromHandle == instance.Handle) ? FindLocation.Self : FindLocation.None, out location, "inheritance", instance.Handle.Name);
 			if (instanceDeclaration == null)
 			{
 				throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0} attempts to inherit from or override non-existing instance {1}", instance.Handle, instance.InheritFromHandle);
@@ -1029,6 +1059,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 			{
 				throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Instance {0} attempts to inherit from instance {1} but source XML is missing.", instance.Handle, instance.InheritFromHandle);
 			}
+            DependencyObservationLog.RecordInheritance(this, instance, instanceDeclaration, location,
+                location == FindLocation.Self ? "SameDocumentPrevalidation" : "IncludedDocumentProcessed");
 			XmlNode xmlNode2 = NodeJoiner.Override(_Current.DocumentProcessor.SchemaSet.Schemas, XmlDocument, xmlNode, instance.XmlNode);
 			XmlNode parentNode = instance.XmlNode.ParentNode;
 			parentNode.RemoveChild(instance.XmlNode);
@@ -1410,36 +1442,53 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 
-	public InstanceDeclaration FindInstance(InstanceHandle handle, FindLocation skipLocation, out FindLocation location)
-	{
-		location = FindLocation.None;
-		InstanceDeclaration value = null;
-		if (_Current.SelfInstances != null && skipLocation != FindLocation.Self && _Current.SelfInstances.TryGetValue(handle, out value))
-		{
-			location = FindLocation.Self;
-			return value;
-		}
-		if (_Current.AllInstances != null && skipLocation != FindLocation.All && _Current.AllInstances.TryGetValue(handle, out value))
-		{
-			location = FindLocation.All;
-			return value;
-		}
-		if (_Current.TentativeInstances != null && skipLocation != FindLocation.Tentative && _Current.TentativeInstances.TryGetValue(handle, out value))
-		{
-			location = FindLocation.Tentative;
-			return value;
-		}
-		if (_Current.ReferenceInstances != null && skipLocation != FindLocation.External && _Current.ReferenceInstances.TryGetValue(handle, out value))
-		{
-			location = FindLocation.External;
-			return value;
-		}
-		return null;
-	}
+    public InstanceDeclaration FindInstance(InstanceHandle handle, FindLocation skipLocation, out FindLocation location)
+    {
+        return FindInstanceObserved(handle, skipLocation, out location, "directSymbolLookup", null);
+    }
+    private bool TryFindObserved(InstanceSet instances, InstanceHandle handle, FindLocation candidateLocation,
+        long query, long parentQuery, string stage, string site, out InstanceDeclaration value)
+    {
+        bool found = instances.TryGetValue(handle, out value);
+        DependencyObservationLog.RecordSymbol("symbolCandidate", query, this, stage, site, handle, candidateLocation, value, found, null, parentQuery);
+        return found;
+    }
+    private InstanceDeclaration FindInstanceObserved(InstanceHandle handle, FindLocation skipLocation, out FindLocation location, string stage, string site, long parentQuery = 0)
+    {
+        long query = DependencyObservationLog.BeginSymbolLookup();
+        location = FindLocation.None;
+        InstanceDeclaration value = null;
+        try
+        {
+            if (_Current.SelfInstances != null && skipLocation != FindLocation.Self && TryFindObserved(_Current.SelfInstances, handle, FindLocation.Self, query, parentQuery, stage, site, out value))
+                location = FindLocation.Self;
+            else if (_Current.AllInstances != null && skipLocation != FindLocation.All && TryFindObserved(_Current.AllInstances, handle, FindLocation.All, query, parentQuery, stage, site, out value))
+                location = FindLocation.All;
+            else if (_Current.TentativeInstances != null && skipLocation != FindLocation.Tentative && TryFindObserved(_Current.TentativeInstances, handle, FindLocation.Tentative, query, parentQuery, stage, site, out value))
+                location = FindLocation.Tentative;
+            else if (_Current.ReferenceInstances != null && skipLocation != FindLocation.External && TryFindObserved(_Current.ReferenceInstances, handle, FindLocation.External, query, parentQuery, stage, site, out value))
+                location = FindLocation.External;
+            DependencyObservationLog.RecordSymbol("symbolLookup", query, this, stage, site, handle, location, value, location != FindLocation.None, null, parentQuery);
+            return location == FindLocation.None ? null : value;
+        }
+        catch (Exception error)
+        {
+            var buildError = error as BinaryAssetBuilderException;
+            DependencyObservationLog.RecordSymbol("symbolLookup", query, this, stage, site, handle, location, null, false,
+                buildError == null ? error.GetType().FullName : buildError.ErrorCode.ToString(), parentQuery);
+            throw;
+        }
+    }
 
-	private InstanceDeclaration ResolveReference(InstanceDeclaration parentInstance, InstanceHandle referenceHandle, out FindLocation location)
+	private InstanceDeclaration ResolveReference(InstanceDeclaration parentInstance, InstanceHandle referenceHandle, out FindLocation location, bool weak)
 	{
-		InstanceDeclaration instanceDeclaration = FindInstance(referenceHandle, FindLocation.None, out location);
+        string stage = weak ? "weakReference" : "strongReference", site = parentInstance.Handle.Name;
+        long query = DependencyObservationLog.BeginSymbolSelection();
+        location = FindLocation.None;
+        InstanceDeclaration instanceDeclaration = null;
+        try
+        {
+        instanceDeclaration = FindInstanceObserved(referenceHandle, FindLocation.None, out location, stage + ":exact", site, query);
 		if (instanceDeclaration == null)
 		{
 			InstanceHandle instanceHandle = new InstanceHandle(referenceHandle.TypeName, referenceHandle.InstanceName);
@@ -1456,7 +1505,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 						string current = enumerator.Current;
 						instanceHandle.TypeName = current;
 						FindLocation location2;
-						InstanceDeclaration instanceDeclaration2 = FindInstance(instanceHandle, FindLocation.None, out location2);
+						InstanceDeclaration instanceDeclaration2 = FindInstanceObserved(instanceHandle, FindLocation.None, out location2, stage + ":derived", site, query);
 						if (instanceDeclaration2 != null)
 						{
 							instanceDeclaration = instanceDeclaration2;
@@ -1483,8 +1532,17 @@ public class AssetDeclarationDocument : IXmlSerializable
 				}
 			}
 		}
-		return instanceDeclaration;
-	}
+        DependencyObservationLog.RecordSymbol("symbolSelection", query, this, stage, site, referenceHandle, location, instanceDeclaration, instanceDeclaration != null);
+        return instanceDeclaration;
+        }
+        catch (Exception error)
+        {
+            var buildError = error as BinaryAssetBuilderException;
+            DependencyObservationLog.RecordSymbol("symbolSelection", query, this, stage, site, referenceHandle, location, instanceDeclaration, false,
+                buildError == null ? error.GetType().FullName : buildError.ErrorCode.ToString());
+            throw;
+        }
+    }
 
 	private void AddOutputInstance(InstanceDeclaration instance)
 	{
@@ -1502,7 +1560,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		foreach (InstanceHandle referencedInstance in instance.ReferencedInstances)
 		{
 			FindLocation location2 = FindLocation.None;
-			InstanceDeclaration instanceDeclaration2 = ResolveReference(instance, referencedInstance, out location2);
+			InstanceDeclaration instanceDeclaration2 = ResolveReference(instance, referencedInstance, out location2, false);
 			if (instanceDeclaration2 != null)
 			{
 				if (location2 != FindLocation.External)
@@ -1535,7 +1593,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		foreach (InstanceHandle weakReferencedInstance in instance.WeakReferencedInstances)
 		{
 			FindLocation location3 = FindLocation.None;
-			InstanceDeclaration instanceDeclaration3 = ResolveReference(instance, weakReferencedInstance, out location3);
+			InstanceDeclaration instanceDeclaration3 = ResolveReference(instance, weakReferencedInstance, out location3, true);
 			if (instanceDeclaration3 != null && location3 == FindLocation.Tentative)
 			{
 				AddOutputInstance(instanceDeclaration3);

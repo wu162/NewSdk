@@ -130,26 +130,27 @@ public class OutputManager
 		}
 		list.Add(Settings.Current.OutputDirectory);
 		string text = basePatchStream;
-		if (!File.Exists(text))
+		if (!ManifestInputReader.Exists(text))
 		{
 			foreach (string item in list)
 			{
 				string text2 = Path.Combine(item, basePatchStream);
-				if (File.Exists(text2))
+				if (ManifestInputReader.Exists(text2))
 				{
 					text = text2;
 					break;
 				}
 			}
 		}
-		if (!File.Exists(text))
+		if (!ManifestInputReader.Exists(text))
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.FileNotFound, "Specified manifest could not be found: {0}", text);
 		}
 		try
 		{
-			manifest.Load(text, list.ToArray());
+			manifest.Load(text, list.ToArray(), true, ManifestInputReader.OpenRead, ManifestInputReader.Exists);
 		}
+		catch (System.OperationCanceledException) { throw; }
 		catch (Exception)
 		{
 			_Tracer.TraceError("Could not load {0}.", basePatchStream);

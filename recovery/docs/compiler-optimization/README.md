@@ -22,7 +22,7 @@
 
 ## 本轮合同
 
-- 每轮执行接近 90 分钟并交接；提前完成一组时继续后续已授权任务，不空等凑时长；通常 2 个子代理，最多 3 个。所有成果普通提交到本页指定的新分支；不强推、不自行合入主线。
+- 每轮最多 120 分钟并交接；效率优先、正确性是底线，完整能力组完成后继续有价值且依赖满足的已授权工作，不空等凑时长；通常 2 个子代理，最多 3 个。所有成果普通提交到本页指定的新分支；不强推、不自行合入主线。
 - HANDOFF 只保留当前结果、准确 sourceCommit/runId、未决事项和下一步，目标不超过 120 行；替换旧状态，历史由 git 保留。原方案只保存一份，不往交接里复制章节和运行日志。
 - 不改变 Win32/.NET4.8、插件 ABI、legacy 摘要/输出顺序、缓存默认关闭和 Texture 缓存边界。不将微基准当作完整构建提速。
 - 试验能力提供 AppContext 回退开关：`NewSdk.Compiler.DisableSinglePassDigest`、`NewSdk.Compiler.DisableNodeJoinerIndex`、`NewSdk.Compiler.DisableSchemaReferenceDescriptors` 为 true 时分别恢复历史双遍摘要、线性子节点匹配和每次重算 schema 引用描述。`NewSdk.Compiler.DisableSharedSchemaMetadata` 为 true 时关闭构建内继承/依赖元数据共享，仍逐流构建私有表。可在 EXE.config 的 `runtime/AppContextSwitchOverrides` 配置；不新增 CLI 参数。

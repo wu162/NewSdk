@@ -213,7 +213,7 @@ function BusinessWorkMetrics($Case,[bool]$SharedMetadata=$false){
     $schemaLogicalReads=0L;foreach($taskWork in $taskMetrics){$schemaLogicalReads+=$taskWork.schemaInputs.filesRead}
     if($SharedMetadata){Need ($physical.hits -gt 0 -and $physical.captures -lt $schemaLogicalReads) 'Combined business input snapshot did not remove repeated schema captures'}
     $dependencies=$Case.report.cache.dependencyObservations
-    Need ($null -ne $dependencies -and $dependencies.enabled -eq $true -and $dependencies.scope -ceq 'ResolverCandidatesOnly' -and $dependencies.canAuthorizeReuse -eq $false) 'Resolver shadow observation scope/reuse boundary changed'
+    Need ($null -ne $dependencies -and $dependencies.enabled -eq $true -and $dependencies.scope -ceq 'ResolverCandidatesAndSemanticReads' -and $dependencies.canAuthorizeReuse -eq $false) 'Dependency shadow observation scope/reuse boundary changed'
     Need ($dependencies.candidateChecks -eq $dependencies.foundChecks+$dependencies.missingChecks -and $dependencies.resolutionCalls -eq $dependencies.resolutionsSucceeded+$dependencies.resolutionsFailed) 'Resolver observation totals differ from actual query outcomes'
     Need (@($dependencies.observations).Count -eq $dependencies.recorded -and $dependencies.recorded -le $dependencies.limit -and $dependencies.recordedTextChars -le $dependencies.textBudget) 'Resolver observations exceeded their evidence budget'
     $previousSequence=0L;$taskIds=@($tasks|ForEach-Object{$_.Id})

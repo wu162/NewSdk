@@ -70,6 +70,7 @@ try {
     $fixtures=@(
         @{name='CompilerInputDigests';marker='PASS InputDigests:'},
         @{name='CompilerPhysicalInputs';marker='PASS PhysicalInputs:'},
+        @{name='CompilerManifestInputs';marker='PASS ManifestInputs:'},
         @{name='CompilerDependencyObservations';marker='PASS DependencyObservations:'},
         @{name='CompilerBaseManifestIndex';marker='PASS BaseManifestIndex:'},
         @{name='CompilerNodeJoiner';marker='PASS NodeJoiner:'},

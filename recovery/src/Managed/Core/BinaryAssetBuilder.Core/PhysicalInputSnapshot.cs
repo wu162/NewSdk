@@ -29,6 +29,12 @@ public sealed class PhysicalInputSnapshot : IDisposable
     private readonly List<string> _ExcludedRoots = new List<string>();
     private readonly List<FileStream> _AliasPins = new List<FileStream>();
     private readonly Dictionary<string, long> _BypassReasons = new Dictionary<string, long>(StringComparer.Ordinal);
+    // Only the resolver's already executed File.Exists answers enter this set.
+    // This is a bounded, point-in-time publication guard, never a query cache.
+    private readonly Dictionary<string, bool> _Candidates = new Dictionary<string, bool>(StringComparer.Ordinal);
+    private readonly int _CandidateLimit;
+    private readonly long _CandidateTextBudget;
+    private long _CandidateTextChars, _CandidateObservations, _CandidateUniquePaths, _CandidateDropped, _CandidateVerificationChecks, _CandidateConflicts;
     private string _RetainedScratch;
     private CancellationToken _Cancellation;
 
@@ -47,12 +53,16 @@ public sealed class PhysicalInputSnapshot : IDisposable
     private static extern bool GetFileInformationByHandle(SafeFileHandle handle, out FileInformation information);
 
     public PhysicalInputSnapshot(string privateScratchDirectory) : this(privateScratchDirectory, 32L * 1024 * 1024, 512L * 1024 * 1024, 4096, 4096) { }
-    public PhysicalInputSnapshot(string privateScratchDirectory, long memoryBudget, long diskBudget, int fileLimit, int directoryLimit)
+    public PhysicalInputSnapshot(string privateScratchDirectory, long memoryBudget, long diskBudget, int fileLimit, int directoryLimit,
+        int candidateLimit = 8192, long candidateTextBudget = 1048576)
     {
         if (string.IsNullOrEmpty(privateScratchDirectory)) throw new ArgumentException("A private snapshot scratch directory is required.");
         if (memoryBudget < 0 || diskBudget < 0 || fileLimit < 0 || directoryLimit < 0) throw new ArgumentOutOfRangeException("Snapshot budgets cannot be negative.");
+        if (candidateLimit < 0) throw new ArgumentOutOfRangeException("candidateLimit");
+        if (candidateTextBudget < 0) throw new ArgumentOutOfRangeException("candidateTextBudget");
         _Scratch = Path.GetFullPath(privateScratchDirectory); _MemoryBudget = memoryBudget; _DiskBudget = diskBudget;
         _FileLimit = fileLimit; _DirectoryLimit = directoryLimit;
+        _CandidateLimit = candidateLimit; _CandidateTextBudget = candidateTextBudget;
     }
     public void ExcludeRoot(string path)
     {
@@ -147,6 +157,29 @@ public sealed class PhysicalInputSnapshot : IDisposable
         Entry entry;
         if (!TryCapture(path, out entry)) return File.ReadAllBytes(path);
         using (var input = entry.OpenRead()) using (var output = new MemoryStream()) { input.CopyTo(output); return output.ToArray(); }
+    }
+    public static void ObserveCandidate(string path, bool found)
+    {
+        PhysicalInputSnapshot owner = _Current;
+        if (owner == null) return;
+        owner.Check(); owner._Cancellation.ThrowIfCancellationRequested(); owner._ReadStarted = true;
+        owner._CandidateObservations++;
+        string full;
+        if (!Normal(path, out full)) { owner._CandidateDropped++; return; }
+        foreach (string excluded in owner._ExcludedRoots)
+            if (string.Equals(full, excluded, StringComparison.OrdinalIgnoreCase) || full.StartsWith(excluded + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+            { owner._CandidateDropped++; return; }
+        if (string.Equals(full, owner._Scratch, StringComparison.OrdinalIgnoreCase) || full.StartsWith(owner._Scratch.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+        { owner._CandidateDropped++; return; }
+        bool previous;
+        if (owner._Candidates.TryGetValue(full, out previous))
+        {
+            if (previous != found) owner._CandidateConflicts++;
+            return;
+        }
+        if (owner._Candidates.Count >= owner._CandidateLimit || full.Length > owner._CandidateTextBudget - owner._CandidateTextChars)
+        { owner._CandidateDropped++; return; }
+        owner._Candidates.Add(full, found); owner._CandidateUniquePaths++; owner._CandidateTextChars += full.Length;
     }
     public void RegisterBypass(string reason)
     {
@@ -309,6 +342,14 @@ public sealed class PhysicalInputSnapshot : IDisposable
     public void VerifyUnchanged(CancellationToken cancellation = default(CancellationToken))
     {
         Check();
+        cancellation.ThrowIfCancellationRequested();
+        if (_CandidateConflicts != 0) throw new IOException("Resolver candidate existence changed during this input generation.");
+        foreach (var candidate in _Candidates)
+        {
+            cancellation.ThrowIfCancellationRequested();
+            bool found = File.Exists(candidate.Key); _CandidateVerificationChecks++;
+            if (found != candidate.Value) throw new IOException("Resolver candidate existence changed: " + candidate.Key);
+        }
         foreach (Entry entry in _Identities.Values)
         {
             bool first = true;
@@ -336,6 +377,10 @@ public sealed class PhysicalInputSnapshot : IDisposable
             activeAliasPins = _Disposed ? 0 : _AliasPins.Count,
             activeReadHandles = _Disposed ? 0 : _Identities.Count + _AliasPins.Count,
             activeDirectoryPins = _Disposed ? 0 : _Directories.Count,
+            resolverCandidates = new { scope = "ExecutedFileExistsOnly", canAuthorizeReuse = false, verificationPoint = "VerifyUnchanged",
+                observations = _CandidateObservations, uniquePaths = _CandidateUniquePaths, recordedTextChars = _CandidateTextChars,
+                limit = _CandidateLimit, textBudget = _CandidateTextBudget, dropped = _CandidateDropped, incomplete = _CandidateDropped != 0,
+                conflictingObservations = _CandidateConflicts, verificationChecks = _CandidateVerificationChecks },
             bypassReasons = new Dictionary<string, long>(_BypassReasons, StringComparer.Ordinal), cleanupFailures = _CleanupFailures, retainedScratch = _RetainedScratch };
     }
     public void Dispose()
@@ -354,6 +399,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
         foreach (SafeFileHandle directory in _Directories.Values)
             try { directory.Dispose(); } catch { _CleanupFailures++; }
         _Directories.Clear(); _Identities.Clear(); _Paths.Clear();
+        _Candidates.Clear();
         if (_OwnsScratch)
             try { if (Directory.Exists(_Scratch)) Directory.Delete(_Scratch, false); }
             catch { _CleanupFailures++; _RetainedScratch = _Scratch; }

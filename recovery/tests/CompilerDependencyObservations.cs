@@ -3,9 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography;
+using System.Xml;
 using System.Web.Script.Serialization;
 using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
+using NewModCompiler.Application;
 
 public static class CompilerDependencyObservations
 {
@@ -181,6 +185,258 @@ public static class CompilerDependencyObservations
         EqualFallback(second, source, target); observations.Add(new { id = "cross-task-negative-to-positive", report = Report(log) });
         tests.Add("repeated-and-cross-task-negative-to-positive-candidates-always-requery-and-return-immutable-contextual-observations");
     }
+    static AssetDeclarationDocument BareDocument(string source)
+    {
+        // Exercise actual public Core/evaluator methods with a small in-memory
+        // source context; only private state construction avoids an unrelated parse.
+        var document = new AssetDeclarationDocument();
+        Type currentType = typeof(AssetDeclarationDocument).GetNestedType("CurrentState", BindingFlags.NonPublic);
+        object current = Activator.CreateInstance(currentType, true);
+        currentType.GetMethod("FromScratch").Invoke(current, new object[0]);
+        currentType.GetField("SourcePath").SetValue(current, source);
+        currentType.GetField("SourceDirectory").SetValue(current, Path.GetDirectoryName(source));
+        typeof(AssetDeclarationDocument).GetField("_Current", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(document, current);
+        return document;
+    }
+    static InstanceDeclaration BareInstance(AssetDeclarationDocument document, string type, string id)
+    {
+        var xml = new XmlDocument(); xml.LoadXml("<" + type + " id='" + id + "'/>");
+        return new InstanceDeclaration(document) { XmlNode = xml.DocumentElement };
+    }
+    static void DefineCases(string work)
+    {
+        var imported = BareDocument(Path.Combine(work, "define", "external.xml"));
+        var document = BareDocument(Path.Combine(work, "define", "root.xml"));
+        var provider = new Definition { Name = "A", EvaluatedValue = "10", Document = imported };
+        document.AllDefines["A"] = provider;
+        document.SelfDefines.Add(new Definition { Name = "A", OriginalValue = "=$A+1", IsOverride = true, Document = document });
+        var log = new DependencyObservationLog();
+        using (log.BeginScope("actual-define-override"))
+        {
+            document.EvaluateDefinitions();
+            var evaluator = new BinaryAssetBuilder.ExpressionEval.ExpressionEvaluator(document);
+            Require(evaluator.Evaluate("=$A") == "11", "Local override did not retain the actual pre-installation imported read");
+            foreach (string missing in new[] { "MISSING", "PENDING" })
+            {
+                if (missing == "PENDING") document.AllDefines[missing] = new Definition { Name = missing, Document = imported };
+                try { evaluator.Evaluate("=$" + missing); throw new Exception("Unknown define was accepted"); }
+                catch (BinaryAssetBuilderException error) { Require(error.ErrorCode == ErrorCode.ExpressionEvaluationError, "Define read changed legacy error code"); }
+            }
+            var instance = BareInstance(document, "ArmorTemplate", "DefineOwner");
+            ((XmlElement)instance.XmlNode).SetAttribute("Default", "=$A"); document.SelfInstances.Add(instance);
+            document.ProcessExpressions(); Require(instance.XmlNode.Attributes["Default"].Value == "11", "Actual per-asset expression changed");
+        }
+        var reads = Events(log).Where(row => Text(row["kind"]) == "defineRead").ToArray();
+        Require(reads.Length == 5 && Number(Report(log), "defineReads") == 5, "Actual LookupDefine consumption did not produce one observation per old lookup");
+        Require(Text(reads[0]["providerDocument"]) == imported.SourcePath && Text(reads[0]["value"]) == "10" && Number(reads[0], "scopeEpoch") == 0 &&
+            Text(reads[0]["stage"]) == "definitions" && Text(reads[0]["readSite"]) == "Define:A", "Define override observation captured the post-installation binding");
+        Require(Text(reads[1]["providerDocument"]) == document.SourcePath && Text(reads[1]["value"]) == "11" && Number(reads[1], "scopeEpoch") == 1,
+            "Post-installation Define read lost source/value/scope epoch");
+        Require(!Convert.ToBoolean(reads[2]["found"]) && String.IsNullOrEmpty(Text(reads[2]["providerDocument"])) &&
+            !Convert.ToBoolean(reads[3]["found"]) && Text(reads[3]["providerDocument"]) == imported.SourcePath,
+            "Missing and unevaluated Define bindings were conflated");
+        Require(Text(reads[4]["stage"]) == "expressions" && Text(reads[4]["readSite"]).StartsWith("ArmorTemplate:DefineOwner/") && Text(reads[4]["readSite"]).EndsWith("/@Default"), "Asset expression read lost its actual attribute read site");
+        object prior = log.GetReport(); string immutable = Json.Serialize(prior); provider.EvaluatedValue = "mutated"; provider.Name = "mutated";
+        Require(Json.Serialize(prior) == immutable, "Define observations retained mutable Definition state");
+        var equalProvider = BareDocument(Path.Combine(work, "define", "equal-value-other-source.xml"));
+        document.AllDefines["A"] = new Definition { Name = "A", EvaluatedValue = "11", Document = equalProvider };
+        using (log.BeginScope("same-value-new-provider")) Require(new BinaryAssetBuilder.ExpressionEval.ExpressionEvaluator(document).Evaluate("=$A") == "11", "Same-value source change altered expression");
+        var changed = Events(log).Last(); Require(Text(changed["value"]) == "11" && Text(changed["providerDocument"]) == equalProvider.SourcePath,
+            "Same-value binding changes must retain their new provider evidence");
+        foreach (var budget in new[] { new DependencyObservationLog(0), new DependencyObservationLog(8192, 0) })
+        {
+            using (budget.BeginScope("bounded-semantic-read")) Require(new BinaryAssetBuilder.ExpressionEval.ExpressionEvaluator(document).Evaluate("=$A+$A") == "22", "Bounded storage changed actual Define evaluation");
+            Require(Number(Report(budget), "defineReads") == 2 && Number(Report(budget), "recorded") == 0 && Number(Report(budget), "dropped") == 2,
+                "Semantic evidence ignored the existing shared row/text budget");
+        }
+        AppContext.SetSwitch(Switch, true);
+        try
+        {
+            var disabled = new DependencyObservationLog();
+            using (disabled.BeginScope("disabled-define")) Require(new BinaryAssetBuilder.ExpressionEval.ExpressionEvaluator(document).Evaluate("=$A") == "11", "Disabled Define observation changed legacy evaluation");
+            Require(Number(Report(disabled), "defineReads") == 0 && Number(Report(disabled), "recorded") == 0, "Disabled semantic observation retained reads");
+        }
+        finally { AppContext.SetSwitch(Switch, false); }
+        observations.Add(new { id = "actual-define-bindings", report = Report(log) });
+        tests.Add("actual-evaluator-preoverride-postoverride-missing-unevaluated-attribute-site-same-value-new-provider-immutable-bounded-disabled");
+    }
+    static void SymbolCases(string work)
+    {
+        var document = BareDocument(Path.Combine(work, "symbols", "root.xml"));
+        var provider = BareDocument(Path.Combine(work, "symbols", "external.xml"));
+        var self = BareInstance(document, "ArmorTemplate", "Target");
+        var all = BareInstance(provider, "ArmorTemplate", "Target");
+        var tentative = BareInstance(provider, "ArmorTemplate", "Tentative");
+        var external = BareInstance(provider, "ArmorTemplate", "External");
+        document.SelfInstances.Add(self); document.AllInstances.Add(all); document.TentativeInstances.Add(tentative); document.ReferenceInstances.Add(external);
+        var log = new DependencyObservationLog();
+        using (log.BeginScope("actual-symbol-sets"))
+        {
+            FindLocation location;
+            Require(Object.ReferenceEquals(document.FindInstance(self.Handle, FindLocation.None, out location), self) && location == FindLocation.Self, "Self symbol selection changed");
+            Require(Object.ReferenceEquals(document.FindInstance(self.Handle, FindLocation.Self, out location), all) && location == FindLocation.All, "Skipped Self symbol selection changed");
+            Require(Object.ReferenceEquals(document.FindInstance(tentative.Handle, FindLocation.None, out location), tentative) && location == FindLocation.Tentative, "Tentative symbol selection changed");
+            Require(Object.ReferenceEquals(document.FindInstance(external.Handle, FindLocation.None, out location), external) && location == FindLocation.External, "External symbol selection changed");
+            Require(document.FindInstance(new InstanceHandle("ArmorTemplate", "Absent"), FindLocation.None, out location) == null && location == FindLocation.None, "Missing symbol selection changed");
+        }
+        var rows = Events(log); var candidates = rows.Where(row => Text(row["kind"]) == "symbolCandidate").ToArray();
+        Require(Number(Report(log), "symbolLookups") == 5 && Number(Report(log), "symbolCandidateChecks") == 13 && candidates.Length == 13,
+            "Symbol lookup added probes, failed to skip a set, or omitted an actual attempted set");
+        Require(candidates.Select(row => Text(row["providerLocation"])).SequenceEqual(new[] { "Self", "All", "Self", "All", "Tentative", "Self", "All", "Tentative", "External", "Self", "All", "Tentative", "External" }),
+            "Symbol candidate evidence lost original set priority or skip behavior");
+        Require(candidates.Count(row => Convert.ToBoolean(row["found"])) == 4 && rows.Last()["found"].Equals(false), "Positive/negative symbol queries were not retained");
+        string prior = Json.Serialize(log.GetReport()); self.Handle.TypeName = "Changed";
+        Require(Json.Serialize(log.GetReport()) == prior, "Symbol report retained a mutable InstanceHandle");
+        observations.Add(new { id = "actual-symbol-set-queries", report = Report(log) });
+        tests.Add("actual-Core-symbol-priority-skip-all-negative-set-evidence-and-mutable-handle-snapshot");
+    }
+    const string Ns = "uri:ea.com:eala:asset";
+    static string Asset(string body) { return "<AssetDeclaration xmlns='" + Ns + "'>" + body + "</AssetDeclaration>"; }
+    static string WriteXml(string path, string body) { Directory.CreateDirectory(Path.GetDirectoryName(path)); File.WriteAllText(path, Asset(body)); return path; }
+    static Settings ConfigureCore(string sdk, string root, string name)
+    {
+        var config = new XmlDocument(); config.Load(Path.Combine(sdk, "tools/BinaryAssetBuilder.exe.config"));
+        var settings = (Settings)new SerializedSectionHandler().Create(null, null, config.SelectSingleNode("/configuration/assetbuilder"));
+        settings.DataRoot = root; settings.SchemaPath = Path.Combine(sdk, "Schemas/xsd/CnC3Types.xsd");
+        settings.InputPath = Path.Combine(root, name, "root.xml"); settings.OutputDirectory = Path.Combine(root, name, "output");
+        settings.IntermediateOutputDirectory = Path.Combine(root, name, "intermediate"); settings.SessionCacheDirectory = Path.Combine(root, name, "cache");
+        settings.DefaultDataPaths = root; settings.DefaultArtPaths = root; settings.DefaultAudioPaths = root;
+        settings.TargetPlatform = TargetPlatform.Win32; settings.BuildCache = false; settings.SessionCache = false; settings.LinkedStreams = true;
+        settings.OutputAssetReport = false; settings.OutputStringHashes = false; settings.ErrorLevel = 1; settings.UsePrecompiled = false; settings.StreamHints = false; settings.StableSort = false;
+        Settings.Current = settings; SettingsLoader.PostProcessSettings(root);
+        Directory.CreateDirectory(settings.OutputDirectory); Directory.CreateDirectory(settings.IntermediateOutputDirectory); Directory.CreateDirectory(settings.SessionCacheDirectory);
+        return settings;
+    }
+    static DocumentProcessor Processor(BuiltinCompilers plugins)
+    {
+        var schemas = new SchemaSet(false); HashProvider.InitializeStringHashes(Settings.Current.SessionCacheDirectory);
+        var cache = new SessionCache(); cache.InitializeCache(new List<string>());
+        var verifiers = new VerifierPluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32);
+        verifiers.DefaultPlugin = (IAssetBuilderVerifierPlugin)Activator.CreateInstance(typeof(DocumentProcessor).Assembly.GetType("BinaryAssetBuilder.GameDataVerifier.Plugin", true), true);
+        verifiers.DefaultPlugin.Initialize(null, TargetPlatform.Win32);
+        return new DocumentProcessor(Settings.Current, plugins.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
+    }
+    static void Run(DocumentProcessor processor, string input) { bool success; processor.ProcessDocument(input, true, false, out success); Require(success, "Actual Core pipeline failed: " + input); }
+    static Dictionary<string, string> Outputs(string root)
+    {
+        var result = new Dictionary<string, string>();
+        foreach (string path in Directory.GetFiles(root, "*", SearchOption.AllDirectories))
+            if (new[] { ".manifest", ".bin", ".imp", ".relo" }.Contains(Path.GetExtension(path)))
+                using (var sha = SHA256.Create()) result[path.Substring(root.Length)] = BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(path)));
+        return result;
+    }
+    static string Experience(string id, string upgrade)
+    {
+        return "<ExperienceLevelTemplate id='" + id + "'><LevelUpTintColor r='1.0' g='1.0' b='1.0'/>" + (upgrade == null ? "" : "<Upgrade>" + upgrade + "</Upgrade>") + "</ExperienceLevelTemplate>";
+    }
+    static Outcome ResolveSymbol(AssetDeclarationDocument document, InstanceDeclaration parent, InstanceHandle requested, bool weak)
+    {
+        var method = typeof(AssetDeclarationDocument).GetMethod("ResolveReference", BindingFlags.NonPublic | BindingFlags.Instance);
+        object[] arguments = { parent, requested, FindLocation.None, weak };
+        try
+        {
+            var selected = (InstanceDeclaration)method.Invoke(document, arguments);
+            return new Outcome { selectedPath = selected == null ? null : selected.Handle.Name + "@" + arguments[2] };
+        }
+        catch (TargetInvocationException invocation)
+        {
+            var error = invocation.InnerException as BinaryAssetBuilderException;
+            if (error == null) throw;
+            return new Outcome { errorType = error.GetType().FullName, errorCode = error.ErrorCode.ToString(), message = error.Message };
+        }
+    }
+    static void DerivedSymbolCases(string work, DocumentProcessor processor)
+    {
+        var document = BareDocument(Path.Combine(work, "derived", "root.xml"));
+        var current = typeof(AssetDeclarationDocument).GetField("_Current", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(document);
+        current.GetType().GetField("DocumentProcessor").SetValue(current, processor);
+        var parent = BareInstance(document, "ExperienceLevelTemplate", "Owner");
+        var first = BareInstance(document, "ArmorTemplate", "DerivedTarget");
+        document.TentativeInstances.Add(first);
+        var request = new InstanceHandle("BaseInheritableAsset", "DerivedTarget");
+        string[] derivedOrder = processor.SchemaSet.GetDerivedTypes(request.TypeName).Cast<string>().ToArray();
+        Require(derivedOrder.Contains("ArmorTemplate") && derivedOrder.Contains("UpgradeTemplate"), "Real schema fixture lacks expected derived candidates");
+        var log = new DependencyObservationLog(65536, 8 * 1048576);
+        Outcome single;
+        using (log.BeginScope("derived-unique")) single = ResolveSymbol(document, parent, request, false);
+        Require(single.selectedPath == "ArmorTemplate:DerivedTarget@Tentative" && single.errorCode == null, "Actual derived lookup lost its unique candidate");
+        var rows = Events(log);
+        var lookups = rows.Where(row => Text(row["kind"]) == "symbolLookup" && Text(row["stage"]) == "strongReference:derived").ToArray();
+        Require(lookups.Select(row => Text(row["requestedType"])).SequenceEqual(derivedOrder), "Derived candidates were reordered, deduplicated, or extra candidates were queried");
+        long parentQuery = Number(rows.Last(), "queryId");
+        Require(lookups.All(row => Number(row, "parentQueryId") == parentQuery), "Derived lookup evidence lost its owning reference-selection query");
+        Require(rows.Any(row => Text(row["kind"]) == "symbolLookup" && Text(row["stage"]) == "strongReference:exact" && !Convert.ToBoolean(row["found"])) &&
+            lookups.Count(row => Convert.ToBoolean(row["found"])) == 1, "Exact missing and derived successful binding evidence were conflated");
+        document.TentativeInstances.Add(BareInstance(document, "UpgradeTemplate", "DerivedTarget"));
+        Outcome ambiguous;
+        using (log.BeginScope("derived-ambiguous")) ambiguous = ResolveSymbol(document, parent, request, false);
+        Require(ambiguous.errorCode == ErrorCode.ReferencingError.ToString(), "Two derived candidates must preserve original ambiguity refusal");
+        var failed = Events(log).Last();
+        Require(Text(failed["kind"]) == "symbolSelection" && Text(failed["errorCode"]) == ErrorCode.ReferencingError.ToString() && !Convert.ToBoolean(failed["found"]),
+            "Derived ambiguity terminal outcome was lost");
+        AppContext.SetSwitch(Switch, true);
+        try
+        {
+            var disabled = new DependencyObservationLog(); Outcome fallback;
+            using (disabled.BeginScope("derived-ambiguous-disabled")) fallback = ResolveSymbol(document, parent, request, false);
+            Require(Json.Serialize(fallback) == Json.Serialize(ambiguous) && Number(Report(disabled), "recorded") == 0, "Symbol observations changed legacy derived ambiguity details");
+        }
+        finally { AppContext.SetSwitch(Switch, false); }
+        observations.Add(new { id = "real-schema-derived-unique-and-ambiguity", report = Report(log) });
+        tests.Add("actual-Core-real-schema-exact-negative-derived-order-unique-then-ambiguous-with-legacy-error-equivalence");
+    }
+    static void PipelineCases(string work, string sdk)
+    {
+        string root = Path.Combine(work, "semantic-pipeline"); ConfigureCore(sdk, root, "initialize");
+        using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
+        {
+            string[] expectedOutputs = null;
+            foreach (bool disabled in new[] { false, true })
+            {
+                var settings = ConfigureCore(sdk, root, "inheritance");
+                if (disabled)
+                {
+                    settings.OutputDirectory = Path.Combine(root, "inheritance", "disabled-output");
+                    settings.IntermediateOutputDirectory = Path.Combine(root, "inheritance", "disabled-intermediate");
+                    Directory.CreateDirectory(settings.OutputDirectory); Directory.CreateDirectory(settings.IntermediateOutputDirectory);
+                }
+                string external = WriteXml(Path.Combine(root, "external.xml"), "<ArmorTemplate id='ExternalBase' Default='72.5%' />");
+                string input = WriteXml(settings.InputPath, "<Includes><Include type='instance' source='" + external.Replace('\\', '/') + "'/></Includes>" +
+                    "<ArmorTemplate id='LocalBase' Default='61.25%'/>" +
+                    "<ArmorTemplate id='LocalChild' inheritFrom='LocalBase'/>" +
+                    "<ArmorTemplate id='ExternalChild' inheritFrom='ExternalBase'/>");
+                AppContext.SetSwitch(Switch, disabled); var log = new DependencyObservationLog();
+                var processor = Processor(plugins); using (log.BeginScope("real-inheritance")) Run(processor, input);
+                var outputs = Outputs(settings.OutputDirectory).OrderBy(pair => pair.Key).Select(pair => pair.Value).ToArray();
+                Require(outputs.Length == 4 && (expectedOutputs == null || expectedOutputs.SequenceEqual(outputs)), "Semantic observations changed actual four-file Core inheritance output");
+                expectedOutputs = outputs;
+                if (!disabled)
+                {
+                    var templates = Events(log).Where(row => Text(row["kind"]) == "inheritanceTemplate").ToArray();
+                    Require(templates.Any(row => Text(row["templateStage"]) == "SameDocumentPrevalidation" && Text(row["providerInstance"]) == "LocalBase") &&
+                        templates.Any(row => Text(row["templateStage"]) == "IncludedDocumentProcessed" && Text(row["providerInstance"]) == "ExternalBase"),
+                        "Actual same/cross-document inherited template consumption lost its stage/source");
+                    observations.Add(new { id = "real-Core-inheritance", report = Report(log) });
+                }
+                else Require(Number(Report(log), "recorded") == 0, "Disabled real-Core semantic observations retained records");
+                AppContext.SetSwitch(Switch, false);
+            }
+            var binding = ConfigureCore(sdk, root, "binding"); var sharedProcessor = Processor(plugins); var bindingLog = new DependencyObservationLog();
+            WriteXml(Path.Combine(root, "binding", "shared.xml"), Experience("Owner", "LateUpgrade"));
+            WriteXml(Path.Combine(root, "binding", "candidate.xml"), "<UpgradeTemplate id='LateUpgrade'/>");
+            string first = WriteXml(Path.Combine(root, "binding", "first.xml"), "<Includes><Include type='all' source='shared.xml'/></Includes>");
+            string second = WriteXml(Path.Combine(root, "binding", "second.xml"), "<Includes><Include type='all' source='shared.xml'/><Include type='instance' source='candidate.xml'/></Includes>");
+            using (bindingLog.BeginScope("missing-weak")) Run(sharedProcessor, first);
+            using (bindingLog.BeginScope("present-weak")) Run(sharedProcessor, second);
+            var selected = Events(bindingLog).Where(row => Text(row["kind"]) == "symbolSelection" && Text(row["stage"]) == "weakReference" && Text(row["requestedInstance"]) == "LateUpgrade").ToArray();
+            Require(selected.Any(row => Text(row["taskId"]) == "missing-weak" && !Convert.ToBoolean(row["found"])) &&
+                selected.Any(row => Text(row["taskId"]) == "present-weak" && Convert.ToBoolean(row["found"]) && Text(row["providerLocation"]) == "Tentative"),
+                "Actual cross-stream missing weak reference lost its negative-to-Tentative evidence");
+            observations.Add(new { id = "real-Core-cross-stream-weak", report = Report(bindingLog) });
+            DerivedSymbolCases(work, sharedProcessor);
+        }
+        tests.Add("real-Core-inheritance-template-stages-and-fallback-four-output-equivalence-plus-cross-stream-missing-weak-to-Tentative");
+    }
     public static int Main(string[] args)
     {
         int code = 0; object result; Settings previous = Settings.Current; bool previousSwitch; AppContext.TryGetSwitch(Switch, out previousSwitch);
@@ -188,9 +444,9 @@ public static class CompilerDependencyObservations
         {
             Require(args.Length == 5 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work result source run SDK");
             AppContext.SetSwitch(Switch, false); string work = Path.GetFullPath(args[0]); Directory.CreateDirectory(work);
-            SearchCases(work); CrossTaskCases(work);
+            SearchCases(work); CrossTaskCases(work); DefineCases(work); SymbolCases(work); PipelineCases(work, Path.GetFullPath(args[4]));
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
-                scope = "Resolver request/candidate shadow observations only: ordered actual existence checks, misses and task outcomes; no dependency-based invalidation, result caching or skipped legacy work" };
+                scope = "Resolver candidates plus actual expression Define reads, inherited template stages and per-set symbol candidate/selection shadow evidence; no dependency-based invalidation, result caching or skipped legacy work" };
             Console.WriteLine("PASS DependencyObservations: " + tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception error)

@@ -86,7 +86,7 @@ public static class CompilerApplicationBuild
         }
         return root;
     }
-    static RunResult Build(string name, string mod, string[] content, Observe observer = null)
+    static RunResult Build(string name, string mod, string[] content, Observe observer = null, Action<BuildRequest> configure = null)
     {
         int number = ++buildNumber;
         // Core still uses legacy MAX_PATH APIs for intermediate asset names.
@@ -96,6 +96,7 @@ public static class CompilerApplicationBuild
         var request = Options.Parse(new[] { "build", "--mod", mod, "--sdk-root", sdk, "--out", output,
             "--package-format", "loose", "--package-content", String.Join(",", content), "/sc:false", "/bc:false", "/pc:false", "/csc:false", "/tl:3" });
         Require(request.ModRoot == Path.GetFullPath(mod) && !Paths.Contains(sdk, request.ModRoot), "Expected external MOD directory from Options.Parse");
+        if (configure != null) configure(request);
         BuildPlan expected = Planner.Resolve(request);
         observer = observer ?? new Observe();
         string id = "app-" + number + "-" + Guid.NewGuid().ToString("N").Substring(0, 8);
@@ -355,6 +356,38 @@ public static class CompilerApplicationBuild
         Tests.Add("new-build-equal-mtime-size-change-cancel-output-failure-final-release-and-retry");
         NativePhysicalPayloadCase();
     }
+    static void CandidatePublicationCase()
+    {
+        string mod = Mod("候选 一致性", new[] { "base" }), data = Path.Combine(mod, "Data");
+        string high = Path.Combine(work, "resolver-high"), low = Path.Combine(work, "resolver-low");
+        Directory.CreateDirectory(high); Directory.CreateDirectory(low);
+        string candidate = "candidate-input.xml", first = Path.Combine(high, candidate), second = Path.Combine(low, candidate);
+        File.WriteAllText(second, probe);
+        File.WriteAllText(Path.Combine(data, "Mod.xml"), "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><Includes><Include type='all' source='data:" + candidate + "'/></Includes></AssetDeclaration>");
+        Action<BuildRequest> configure = request => request.Options["data"] = new EffectiveOption { Value = high + ";" + low, Source = "candidate-consistency-fixture" };
+        bool injected = false;
+        var observer = new Observe { InputProbe = row => {
+            if (!injected && Text(row["eventType"]) == "StreamCompleted")
+            {
+                injected = true; File.WriteAllText(first, probe);
+            }
+        } };
+        var failed = Build("resolver-candidate-changed-before-publish", mod, new[] { "base" }, observer, configure);
+        Failed(failed, ExitCode.Compilation, "failed");
+        Require(injected && Events(failed, "Diagnostic").Any(row => Text(row["diagnosticCode"]) == "CORE_INPUT_CHANGED"),
+            "New higher-priority candidate did not reach final application input refusal");
+        Require(Events(failed, "StageStarted").All(row => !row.ContainsKey("stageId") || Text(row["stageId"]) != "publish"),
+            "Changed resolver generation entered publication");
+        RequireWritable(first); RequireWritable(second);
+        var retry = Build("resolver-candidate-next-generation", mod, new[] { "base" }, null, configure);
+        Require(retry.Code == ExitCode.Success && Array(retry.Report["artifacts"]).Length == 4,
+            "New generation did not compile the newly selected input after refusal");
+        var candidates = Map(Map(Map(retry.Report["cache"])["physicalInputs"])["resolverCandidates"]);
+        Require(Convert.ToInt64(candidates["observations"]) > 0 && Convert.ToInt64(candidates["verificationChecks"]) > 0 &&
+            !Convert.ToBoolean(candidates["canAuthorizeReuse"]), "Application did not expose final candidate verification boundaries");
+        RequireWritable(first); RequireWritable(second);
+        Tests.Add("actual-no-cache-application-higher-priority-resolver-candidate-added-after-stream-refuses-before-publication-and-new-generation-retries");
+    }
     static void Run()
     {
         string[] groups = { "base", "apt", "maps" };
@@ -398,6 +431,7 @@ public static class CompilerApplicationBuild
         Require(skipped.Length == 2 && skipped.Select(s => Text(Map(s)["Content"])).SequenceEqual(new[] { "apt", "maps" }) && skipped.All(s => Text(Map(s)["Status"]) == "SkippedNoInputs"), "Empty optional groups lost explicit SkippedNoInputs outcome");
         Tests.Add("empty-selected-optional-groups-explicit-SkippedNoInputs-without-stream-compilation");
         PhysicalInputCases();
+        CandidatePublicationCase();
     }
     public static int Main(string[] args)
     {

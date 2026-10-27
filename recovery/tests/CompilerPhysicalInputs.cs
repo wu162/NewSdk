@@ -316,6 +316,93 @@ public static class CompilerPhysicalInputs
         finally { Directory.Delete(link); }
         tests.Add("finite-memory-disk-file-budgets-and-reparse-device-ADS-retain-legacy-bypass-without-sharing-or-pin-leaks");
     }
+    static IDictionary<string, object> CandidateMetrics(PhysicalInputSnapshot snapshot)
+    { return (IDictionary<string, object>)Metrics(snapshot)["resolverCandidates"]; }
+    static void Changed(PhysicalInputSnapshot snapshot, string message)
+    {
+        bool rejected = false;
+        try { snapshot.VerifyUnchanged(); }
+        catch (IOException error) { rejected = error.Message.Contains("Resolver candidate existence changed"); }
+        Require(rejected, message);
+    }
+    static void CandidateCases(string work)
+    {
+        string root = Path.Combine(work, "resolver-consistency"), high = Path.Combine(root, "high"), low = Path.Combine(root, "low");
+        Directory.CreateDirectory(high); Directory.CreateDirectory(low);
+        string name = "candidate.bin", first = Path.Combine(high, name), second = Path.Combine(low, name);
+        File.WriteAllText(second, "lower-priority");
+        Settings previous = Settings.Current;
+        try
+        {
+            Settings.Current = new Settings { DataRoot = root, DataPaths = new[] { high, low }, ArtPaths = new[] { high, low }, AudioPaths = new[] { high, low } };
+            using (var snapshot = new PhysicalInputSnapshot(Path.Combine(root, "scratch")))
+            using (snapshot.BeginReadScope())
+            {
+                Require(FileNameResolver.ResolvePath(root, "data:" + name) == second, "Initial resolver choice changed");
+                Require(FileNameResolver.ResolvePath(root, "data:" + name) == second, "Repeated resolver choice changed");
+                var before = CandidateMetrics(snapshot);
+                Require(Number(before, "observations") == 4 && Number(before, "uniquePaths") == 2 && Number(before, "verificationChecks") == 0,
+                    "Candidate recording added probes or retained duplicate paths");
+                Require(Number(Metrics(snapshot), "captures") == 0 && Number(Metrics(snapshot), "activeReadHandles") == 0,
+                    "Candidate observations unexpectedly read or pinned payloads");
+                snapshot.VerifyUnchanged();
+                Require(Number(CandidateMetrics(snapshot), "verificationChecks") == 2 && Number(before, "verificationChecks") == 0,
+                    "Verification omitted a negative/positive candidate or mutated an earlier report");
+                File.WriteAllText(first, "higher-priority");
+                Changed(snapshot, "New higher-priority candidate did not refuse publication");
+                Require(FileNameResolver.ResolvePath(root, "data:" + name) == first, "Guard replaced the resolver's next actual answer");
+                File.Delete(first); // End state alone must not erase an already observed conflict.
+                Changed(snapshot, "A within-generation resolver conflict was forgotten after restoring the filesystem");
+                Require(Number(CandidateMetrics(snapshot), "conflictingObservations") == 1,
+                    "Changed repeated existence result was not retained");
+                observations.Add(new { id = "resolver-candidate-conflict", metrics = Metrics(snapshot) });
+            }
+            using (var snapshot = new PhysicalInputSnapshot(Path.Combine(root, "removed")))
+            using (snapshot.BeginReadScope())
+            {
+                Require(FileNameResolver.ResolvePath(root, "audio:" + name) == second, "Audio search changed");
+                File.Delete(second); Changed(snapshot, "Removed positive candidate did not refuse publication");
+            }
+            File.WriteAllText(second, "restored");
+            using (var snapshot = new PhysicalInputSnapshot(Path.Combine(root, "new-generation")))
+            using (snapshot.BeginReadScope())
+            {
+                Require(FileNameResolver.ResolvePath(root, "data:" + name) == second, "New generation retained old resolver conflict");
+                Settings.Current.DataPaths = new[] { low };
+                Require(FileNameResolver.ResolvePath(root, "data:unprobed.bin") == Path.Combine(low, "unprobed.bin"), "Single-root unprobed path changed");
+                Require(Number(CandidateMetrics(snapshot), "observations") == 2, "A single-root path added an existence check absent from legacy");
+                snapshot.VerifyUnchanged();
+            }
+            Settings.Current.DataPaths = new[] { high, low };
+            foreach (bool countBudget in new[] { true, false })
+            {
+                using (var snapshot = new PhysicalInputSnapshot(Path.Combine(root, countBudget ? "count-limit" : "text-limit"), 128, 0, 2, 64,
+                    countBudget ? 0 : 8192, countBudget ? 1048576 : 0))
+                using (snapshot.BeginReadScope())
+                {
+                    Require(FileNameResolver.ResolvePath(root, "data:" + name) == second, "Candidate budget changed legacy resolution");
+                    var metrics = CandidateMetrics(snapshot);
+                    Require(Number(metrics, "uniquePaths") == 0 && Number(metrics, "dropped") == 2 && Convert.ToBoolean(metrics["incomplete"]),
+                        "Candidate budget did not report incomplete coverage");
+                    snapshot.VerifyUnchanged();
+                }
+            }
+            using (var snapshot = new PhysicalInputSnapshot(Path.Combine(root, "excluded")))
+            {
+                snapshot.ExcludeRoot(high);
+                using (snapshot.BeginReadScope())
+                {
+                    Require(FileNameResolver.ResolvePath(root, "data:" + name) == second, "Exclusion changed resolution");
+                    Require(Number(CandidateMetrics(snapshot), "dropped") == 1 && Number(CandidateMetrics(snapshot), "uniquePaths") == 1,
+                        "Generated-root candidate was retained as immutable input");
+                    snapshot.VerifyUnchanged();
+                }
+            }
+        }
+        finally { Settings.Current = previous; }
+        tests.Add("actual-resolver-positive-negative-candidate-publication-check-priority-addition-removal-and-transient-conflict-without-query-reuse");
+        tests.Add("resolver-single-root-no-extra-probe-bounded-count-text-excluded-roots-and-independent-next-generation");
+    }
     public static int Main(string[] args)
     {
         int code = 0; object result;
@@ -323,9 +410,9 @@ public static class CompilerPhysicalInputs
         {
             Require(args.Length == 5 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work result source run SDK");
             string work = Path.GetFullPath(args[0]); Directory.CreateDirectory(work);
-            DigestCases(work); ReaderCases(work); CancellationCases(work); AliasCases(work); BudgetCases(work);
+            DigestCases(work); ReaderCases(work); CancellationCases(work); AliasCases(work); BudgetCases(work); CandidateCases(work);
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
-                scope = "Positive physical content snapshot, exact legacy digests, XML/XInclude/schema readers, finite budgets and Windows pin lifecycle only; negative queries and hidden plugin reads remain separate" };
+                scope = "Positive physical content snapshot, exact legacy digests, XML/XInclude/schema readers, finite budgets, Windows pin lifecycle and executed resolver existence consistency at verification; hidden plugin reads and complete query closure remain separate" };
             Console.WriteLine("PASS PhysicalInputs: " + tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception error)

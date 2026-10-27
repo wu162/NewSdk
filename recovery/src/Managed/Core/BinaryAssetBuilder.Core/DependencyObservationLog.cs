@@ -19,6 +19,7 @@ public sealed class DependencyObservationLog
     private string _TaskId;
     private Resolution _Resolution;
     private long _Sequence, _QueryId, _Dropped, _ResolutionCalls, _CandidateChecks, _FoundChecks, _MissingChecks, _Succeeded, _Failed;
+    private long _DefineReads, _SymbolLookups, _SymbolCandidateChecks, _InheritanceTemplates, _SymbolSelections;
 
     public DependencyObservationLog(int observationLimit = 8192, long textBudget = 1048576)
     {
@@ -32,6 +33,7 @@ public sealed class DependencyObservationLog
         public long sequence { get; private set; }
         public string kind { get; private set; }
         public long queryId { get; private set; }
+        public long parentQueryId { get; private set; }
         public string taskId { get; private set; }
         public string baseDirectory { get; private set; }
         public string targetPath { get; private set; }
@@ -39,12 +41,90 @@ public sealed class DependencyObservationLog
         public bool? found { get; private set; }
         public string selectedPath { get; private set; }
         public string errorCode { get; private set; }
-        internal Observation(long sequence, string kind, long queryId, string taskId, string baseDirectory, string targetPath, string candidatePath, bool? found, string selectedPath, string errorCode)
+        public string sourceDocument { get; private set; }
+        public string stage { get; private set; }
+        public string readSite { get; private set; }
+        public string requestedName { get; private set; }
+        public string requestedType { get; private set; }
+        public string requestedInstance { get; private set; }
+        public string providerDocument { get; private set; }
+        public string providerType { get; private set; }
+        public string providerInstance { get; private set; }
+        public string providerLocation { get; private set; }
+        public string value { get; private set; }
+        public long scopeEpoch { get; private set; }
+        public string templateStage { get; private set; }
+        internal Observation(long sequence, string kind, long queryId, string taskId, string baseDirectory, string targetPath, string candidatePath, bool? found, string selectedPath, string errorCode,
+            string source = null, string stage = null, string site = null, string name = null,
+            string requestedType = null, string requestedInstance = null, string provider = null,
+            string providerType = null, string providerInstance = null, string location = null,
+            string value = null, long epoch = 0, string templateStage = null, long parentQueryId = 0)
         {
             this.sequence = sequence; this.kind = kind; this.queryId = queryId; this.taskId = taskId;
             this.baseDirectory = baseDirectory; this.targetPath = targetPath; this.candidatePath = candidatePath;
             this.found = found; this.selectedPath = selectedPath; this.errorCode = errorCode;
+            sourceDocument = source; this.stage = stage; readSite = site; requestedName = name;
+            this.requestedType = requestedType; this.requestedInstance = requestedInstance; providerDocument = provider;
+            this.providerType = providerType; this.providerInstance = providerInstance; providerLocation = location;
+            this.value = value; scopeEpoch = epoch; this.templateStage = templateStage; this.parentQueryId = parentQueryId;
         }
+    }
+    // Snapshot only immutable strings/scalars from actual legacy lookup results.
+    // No Definition, InstanceHandle, DOM or collection is retained in the report.
+    private void AddSemantic(string kind, long queryId, string source, string stage, string site, string name,
+        string requestedType, string requestedInstance, string provider, string providerType, string providerInstance,
+        string location, string value, bool? found, long epoch, string templateStage, string error, long parentQueryId = 0)
+    {
+        long sequence = ++_Sequence;
+        long chars = TextLength(kind) + TextLength(_TaskId) + TextLength(source) + TextLength(stage) + TextLength(site) +
+            TextLength(name) + TextLength(requestedType) + TextLength(requestedInstance) + TextLength(provider) +
+            TextLength(providerType) + TextLength(providerInstance) + TextLength(location) + TextLength(value) + TextLength(templateStage) + TextLength(error);
+        if (_Observations.Count >= _Limit || chars > _TextBudget - _RecordedTextChars) { _Dropped++; return; }
+        _Observations.Add(new Observation(sequence, kind, queryId, _TaskId, null, null, null, found, null, error,
+            source, stage, site, name, requestedType, requestedInstance, provider, providerType, providerInstance,
+            location, value, epoch, templateStage, parentQueryId));
+        _RecordedTextChars += chars;
+    }
+    internal static void RecordDefineRead(AssetDeclarationDocument document, string stage, string site, long epoch,
+        string name, Definition definition, string value, bool succeeded)
+    {
+        DependencyObservationLog owner = _Current; if (owner == null) return;
+        owner._DefineReads++;
+        owner.AddSemantic("defineRead", ++owner._QueryId, document.ObservationSourcePath, stage, site, name, null, null,
+            definition == null || definition.Document == null ? null : definition.Document.ObservationSourcePath, null, null,
+            definition == null ? null : Object.ReferenceEquals(definition.Document, document) ? "Self" : "Imported",
+            value, succeeded, epoch, null, succeeded ? null : ErrorCode.ExpressionEvaluationError.ToString());
+    }
+    internal static long BeginSymbolLookup()
+    {
+        DependencyObservationLog owner = _Current; if (owner == null) return 0;
+        owner._SymbolLookups++; return ++owner._QueryId;
+    }
+    internal static long BeginSymbolSelection()
+    {
+        DependencyObservationLog owner = _Current; return owner == null ? 0 : ++owner._QueryId;
+    }
+    internal static void RecordSymbol(string kind, long queryId, AssetDeclarationDocument document, string stage, string site,
+        InstanceHandle requested, FindLocation location, InstanceDeclaration provider, bool found, string error = null, long parentQueryId = 0)
+    {
+        DependencyObservationLog owner = _Current; if (owner == null) return;
+        if (kind == "symbolCandidate") owner._SymbolCandidateChecks++;
+        if (kind == "symbolSelection") owner._SymbolSelections++;
+        owner.AddSemantic(kind, queryId, document.ObservationSourcePath, stage, site, null,
+            requested == null ? null : requested.TypeName, requested == null ? null : requested.InstanceName,
+            provider == null || provider.ObservationDocument == null ? null : provider.ObservationDocument.ObservationSourcePath,
+            provider == null || provider.ObservationHandle == null ? null : provider.ObservationHandle.TypeName, provider == null || provider.ObservationHandle == null ? null : provider.ObservationHandle.InstanceName,
+            location.ToString(), null, found, 0, null, error, parentQueryId);
+    }
+    internal static void RecordInheritance(AssetDeclarationDocument document, InstanceDeclaration consumer,
+        InstanceDeclaration provider, FindLocation location, string stage)
+    {
+        DependencyObservationLog owner = _Current; if (owner == null) return;
+        owner._InheritanceTemplates++;
+        owner.AddSemantic("inheritanceTemplate", ++owner._QueryId, document.ObservationSourcePath, "inheritance", consumer.Handle.Name,
+            null, consumer.InheritFromHandle.TypeName, consumer.InheritFromHandle.InstanceName,
+            provider.ObservationDocument == null ? null : provider.ObservationDocument.ObservationSourcePath, provider.Handle.TypeName, provider.Handle.InstanceName,
+            location.ToString(), provider.PrevalidationXmlHash.ToString(System.Globalization.CultureInfo.InvariantCulture), true, 0, stage, null);
     }
     public IDisposable BeginScope(string taskId)
     {
@@ -130,9 +210,10 @@ public sealed class DependencyObservationLog
     }
     public object GetReport()
     {
-        return new { enabled = _Enabled, scope = "ResolverCandidatesOnly", canAuthorizeReuse = false, limit = _Limit, textBudget = _TextBudget, recordedTextChars = _RecordedTextChars,
+        return new { enabled = _Enabled, scope = "ResolverCandidatesAndSemanticReads", canAuthorizeReuse = false, limit = _Limit, textBudget = _TextBudget, recordedTextChars = _RecordedTextChars,
             recorded = _Observations.Count, dropped = _Dropped, truncated = _Dropped != 0,
             resolutionCalls = _ResolutionCalls, candidateChecks = _CandidateChecks, foundChecks = _FoundChecks, missingChecks = _MissingChecks,
-            resolutionsSucceeded = _Succeeded, resolutionsFailed = _Failed, observations = _Observations.ToArray() };
+            resolutionsSucceeded = _Succeeded, resolutionsFailed = _Failed, defineReads = _DefineReads, symbolLookups = _SymbolLookups,
+            symbolCandidateChecks = _SymbolCandidateChecks, symbolSelections = _SymbolSelections, inheritanceTemplates = _InheritanceTemplates, observations = _Observations.ToArray() };
     }
 }

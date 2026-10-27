@@ -130,11 +130,16 @@ public class Asset
 
 	public void Update()
 	{
-		if (!File.Exists(m_FileBasePath + ".asset"))
+        Update(null);
+    }
+
+    public void Update(Func<string, bool> existsInput)
+    {
+        string path = m_FileBasePath + ".asset";
+		if (!(existsInput == null ? File.Exists(path) : existsInput(path)))
 		{
 			m_HasErrors |= true;
 			m_Message += "Asset file missing. ";
 		}
 	}
 }
-

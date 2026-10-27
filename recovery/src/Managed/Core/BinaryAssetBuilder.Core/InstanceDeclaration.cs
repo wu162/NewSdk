@@ -187,6 +187,10 @@ public class InstanceDeclaration : IXmlSerializable
 
 	public InstanceHandle Handle => _Current.Handle;
 
+    internal InstanceHandle ObservationHandle => _Current == null ? null : _Current.Handle;
+
+    internal AssetDeclarationDocument ObservationDocument => _Current == null ? null : _Current.Document;
+
 	public uint ProcessingHash
 	{
 		get
