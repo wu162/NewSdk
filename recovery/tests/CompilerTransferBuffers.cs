@@ -20,6 +20,7 @@ public static class CompilerTransferBuffers
     static int checks;
     static readonly List<string> tests = new List<string>();
     static readonly List<object> observations = new List<object>();
+    static readonly Dictionary<string, string> copySourceHashes = new Dictionary<string, string>(StringComparer.Ordinal);
     static readonly JavaScriptSerializer Json = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
     static void Require(bool value, string message) { checks++; if (!value) throw new Exception(message); }
     static IDictionary<string, object> Metrics(DocumentProcessor processor)
@@ -66,8 +67,23 @@ public static class CompilerTransferBuffers
     {
         var document = Document(owner, label); var instance = Instance(document); var manager = Manager(owner, label); var asset = manager.GetBinaryAsset(instance, true);
         int length = 2 * 1048576 + tail;
-        string source = Source(instance, label + "-source", Payload(length - 32), new byte[0], new byte[0], wrongIdentity);
+        // AssetHeader retains its original four padding bytes. Corresponding
+        // owned/fallback cases must consume one identical source, rather than
+        // independently allocating headers whose unspecified padding may differ.
+        string sourceName = "shared-copy-source-" + tail + (wrongIdentity ? "-wrong" : blockedTemporary ? "-blocked" : "-valid");
+        string source = Path.Combine(work, sourceName + ".asset");
+        if (!File.Exists(source)) Source(instance, sourceName, Payload(length - 32), new byte[0], new byte[0], wrongIdentity);
         Require(new FileInfo(source).Length == length, "Copy boundary fixture total length drifted");
+        string sourceHash = Hash(source), firstSourceHash;
+        if (copySourceHashes.TryGetValue(sourceName, out firstSourceHash)) Require(sourceHash == firstSourceHash, "Owned/fallback copy inputs do not have identical complete source bytes");
+        else copySourceHashes.Add(sourceName, sourceHash);
+        using (var input = File.OpenRead(source))
+        {
+            var header = new AssetHeader(); header.LoadFromStream(input, false);
+            Require(header.TypeId == instance.Handle.TypeId && header.InstanceId == instance.Handle.InstanceId && header.TypeHash == instance.Handle.TypeHash &&
+                header.InstanceHash == (wrongIdentity ? 20u : instance.Handle.InstanceHash) && header.InstanceDataSize == length - 32 && header.RelocationDataSize == 0 && header.ImportsDataSize == 0,
+                "Shared copy source no longer matches the case's complete semantic header identity");
+        }
         string destination = Path.Combine(asset.AssetOutputDirectory, asset.AssetFileName), temporary = destination + ".tmp";
         if (blockedTemporary) Directory.CreateDirectory(temporary);
         bool copied = Copy(asset, source); bool expected = !wrongIdentity && !blockedTemporary && (tail == 0 || tail >= 16);
@@ -78,6 +94,8 @@ public static class CompilerTransferBuffers
         // Legacy CopyAsset retains its own .tmp after read/header failure. Do
         // not silently change cleanup behavior while changing buffer ownership.
         if (!expected && !blockedTemporary) Require(File.Exists(temporary), "Copy changed its original failed-temporary behavior");
+        Require(Hash(source) == sourceHash, "Copy mutated its original input bytes");
+        observations.Add(new { id = "copy-case", label, sourceName, sourceSha256 = sourceHash, sourceLength = length, copied, destinationExists = File.Exists(destination), temporaryState });
         return copied + "|" + File.Exists(destination) + "|" + temporaryState;
     }
     static void LinkCase(DocumentProcessor owner, string name, int instanceSize, int relocationSize = 0, int importSize = 0)
@@ -114,7 +132,7 @@ public static class CompilerTransferBuffers
         AppContext.SetSwitch(Disable, true); var legacy = Owner(); var otherLegacy = Owner();
         var expected = new List<string>(); foreach (int tail in new[] { 0, 1, 15, 16, 17 }) expected.Add(CopyCase(legacy, "legacy-tail-" + tail, tail));
         expected.Add(CopyCase(legacy, "legacy-wrong-header", 16, true)); expected.Add(CopyCase(legacy, "legacy-blocked-temp", 16, false, true));
-        Require(outcomes.SequenceEqual(expected), "Owned CopyAsset error/final/temporary states differ from legacy static fallback");
+        Require(outcomes.SequenceEqual(expected), "Owned CopyAsset error/final/temporary states differ from legacy static fallback: " + Json.Serialize(new { owned = outcomes.ToArray(), fallback = expected.ToArray(), sourceSha256 = copySourceHashes }));
         LinkCase(legacy, "legacy-link", 1048576 + 17, 65536 + 3, 65536 + 5); object sharedCopy = Legacy(typeof(BinaryAsset), "_CopyBuffer"), sharedLink = Legacy(typeof(OutputManager), "_LinkedBuffer");
         LinkCase(otherLegacy, "other-legacy-link", 65537);
         Require(Object.ReferenceEquals(sharedCopy, Legacy(typeof(BinaryAsset), "_CopyBuffer")) && Object.ReferenceEquals(sharedLink, Legacy(typeof(OutputManager), "_LinkedBuffer")), "Fallback processors stopped sharing the original static transfer arrays");

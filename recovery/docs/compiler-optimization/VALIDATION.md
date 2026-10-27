@@ -186,3 +186,20 @@ W03新增两个Core入口及Utility递归patch/StringHashes封存与实际发现
 W05记录实际绑定/值/来源/安装epoch及原符号候选/选择/歧义，继承记录实际消费阶段。标量事件有界，canAuthorizeReuse=false，legacy XML hash不是强缓存放行证据。W06执行期map归root私有，强引用重复位置、weak规则、合法引用环、错误与排序保留；成功Prepare的公开快照不再持有可变Core对象。尚未完成整个不可变AssetSemanticResult或并行隔离。
 
 W08 exact程序只在完整原parser求值与AsString成功后发布，暖路重新执行当前Define/文化转换与原运算。25d原SDK DLL隔离进程264行、四文化cold/warm/fallback值/错误码/消息/parser诊断/UsedDefines全部相同；当前Define零值、缺失和未求值失败的首错读取前缀不变，失败不入缓存。独立entry/text/node预算压力、depth回退、跨DP隔离和真实XML四输出差分通过。后续共享文化与微基准属于新源，不能用25d组件结果冒称该新组已经通过。
+
+### 只读文化与传输缓冲的首次整组结果
+
+`9fce00c4e785a874607ff78f7eedc639f68dd17e` / [40488513976](https://github.com/wu162/NewSdk/actions/runs/40488513976) 双配置21个Core fixtures中20项通过，ExpressionPrograms各12421检查，新增五开关组合原DLL差分及文化ownership均通过。唯一目标组失败为TransferBuffers：default/fallback各自生成AssetHeader，32字节中只设置7个DWORD而保留原未初始化padding，两份独立源导致完整.tmp SHA不可直接相等。每个copy自身source==destination及原尾块拒绝已通过；修复让两路逐案例复用同一份原始source并校验其完整SHA和所有header字段，保留完整.tmp长度/SHA强差分，生产格式未改，不忽略padding换通过。
+
+下载核验targeted artifact `12727940311` / SHA256 `a71985151b308c2f738c34345629febca3319f1b0aa7ee48d43c0b9ca15d65d3`，binary/test/source/run均9fce/40488513976。以下只接受独立成功的表达式组件，不作为该run整体验收或新缓冲组成功。
+
+同runner/同进程，各路径先预热30次，7轮轮换顺序，每轮每路径500次，所有实际LookupDefine/结果检查保留。单位ms，中位数[最小,最大]；表达式`=round(($I+3)*2/3)+(($I*2)>=10)`，每次结果8。原始21行样本见上述result.json。
+
+| 配置 | program共享文化 | parser共享文化 | program独立文化 |
+| --- | --- | --- | --- |
+| Debug | 1.0535 [1.0157,1.0582] | 40.1146 [39.8454,43.0562] | 1.6057 [1.5840,3.1085] |
+| Release | 1.0431 [0.9898,1.0589] | 39.5572 [39.2252,40.4235] | 1.6714 [1.6643,1.7772] |
+
+每program batch实际parserCalls=0/hits=500，parser batch为500/0，测量不包含报告序列化；只是重复表达式组件的工作与耗时，不报告完整CLI提速、P95、物理I/O或统计显著性。25d真实三流业务输入当时无表达式，记录parser/build/hit全0；后续业务fixture加入三个相同Define求值，仍先做原XSD预检和原BAB四输出对照，验证真实CLI中1次parse/build+2次语义重放，不能把原0次称作已优化的业务收益。
+
+当前追加批次还包括：64KiB复用buffer的终验SHA及确定性read/EOF取消、强内容复核后才复核候选存在性；声明Handle保存/恢复两侧值图隔离（无DOM/Define或整个LastState不可变承诺）。这些新源须完整重建，未取得新source/run整体成功前不标验收完成。

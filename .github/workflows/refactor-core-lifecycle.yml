@@ -41,6 +41,7 @@ on:
       - 'recovery/tests/CompilerStreamBindings.cs'
       - 'recovery/tests/CompilerExpressionPrograms.cs'
       - 'recovery/tests/CompilerTransferBuffers.cs'
+      - 'recovery/tests/CompilerDeclarationSnapshots.cs'
       - 'recovery/tests/CompilerDependencyObservations.cs'
       - 'recovery/tests/CompilerBaseManifestIndex.cs'
       - 'recovery/tests/CompilerNodeJoiner.cs'
@@ -161,6 +162,8 @@ jobs:
           if($LASTEXITCODE -ne 0){throw 'Session-cache fixture preflight failed'}
           ./recovery/scripts/TestCompilerCliOutputs.ps1 -OutputDirectory recovery/artifacts/cli-output-preflight
           if($LASTEXITCODE -ne 0){throw 'CLI output contract preflight failed'}
+          python recovery/scripts/PrepareCompilerCliBusiness.py recovery/artifacts/business-fixture-preflight
+          if($LASTEXITCODE -ne 0){throw 'Business fixture XSD/Define preflight failed'}
           ./recovery/scripts/BuildCompilerCliControl.ps1 -OutputDirectory recovery/artifacts/cli-controller-preflight
       - name: Build managed Foundation inputs
         if: ${{ env.CLI_REUSE != 'true' }}
@@ -329,6 +332,7 @@ jobs:
             recovery/artifacts/core-cli-reuse-product/reuse.json
             recovery/artifacts/cli-controller-preflight/**
             recovery/artifacts/cli-output-preflight/**
+            recovery/artifacts/business-fixture-preflight/fixture-manifest.json
             recovery/artifacts/session-fixture-preflight/**
             recovery/artifacts/core-lifecycle-foundation/**/build.json
             recovery/artifacts/core-lifecycle-foundation/**/*.log

@@ -40,7 +40,16 @@ def main():
         raise ValueError('Expected 12 APT DataBlob assets and three MapMetaData fixtures')
     schema = runpy.run_path(str(ROOT / 'recovery/scripts/GenerateXmlSdkModA.py'),
                            run_name='cli_business_schema')['aggregate_schema']()
-    documents = {'Data/Mod.xml': E.parse(str(base_source)),
+    base = E.parse(str(base_source))
+    if base.getroot().find(A + 'Defines') is not None:
+        raise ValueError('Business expression proof requires its own ordered Define group')
+    definitions = E.Element(A + 'Defines')
+    E.SubElement(definitions, A + 'Define', name='RecoveryCliProgramInput', value='7')
+    expression = '=$RecoveryCliProgramInput+1'
+    for name in ('First', 'Second', 'Third'):
+        E.SubElement(definitions, A + 'Define', name='RecoveryCliProgram' + name, value=expression)
+    base.getroot().insert(0, definitions)
+    documents = {'Data/Mod.xml': base,
                  'Data/AptUI/FileBacked.xml': apt,
                  'Data/AdditionalMaps/MapMetaData_Business.xml': E.ElementTree(maps)}
     for name, document in documents.items():
@@ -69,6 +78,9 @@ def main():
                'files': [{'path': p.relative_to(destination).as_posix(), 'sha256': sha(p)}
                          for p in sorted(destination.rglob('*')) if p.is_file()],
                'xsdValidated': True, 'lxmlVersion': '.'.join(map(str, E.LXML_VERSION)), 'assetImports': False,
+               'expressionPreparation': {'task': 'base/Mod', 'expression': expression, 'expressionCount': 3,
+                                         'expectedParserCalls': 1, 'expectedProgramBuilds': 1, 'expectedProgramHits': 2,
+                                         'scope': 'Three ordered Define evaluations retain the same numeric asset inputs'},
                'payloadResolution': 'Each File basename remains beside its declaring AptUI XML'}
     (destination / 'fixture-manifest.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps({'prepared': True, 'executed': False, 'tasks': len(documents), 'aptAssets': 12, 'mapAssets': 3}))

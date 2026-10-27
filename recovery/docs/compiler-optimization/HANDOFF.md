@@ -27,3 +27,5 @@
 - 新TransferBuffers fixture实际消费边界、大DataBlob三流、session恢复、失败/取消后重试及四输出fallback；App协议测试来源修复也在统一重验范围。新源必须完整重建与全部SDK/ZIP门槛，不能沿固定68归档复用。
 
 下一步先跟进追加完整Actions终态并集中修复；成功前不标完整验收。继续有价值的输入一致性/状态隔离子组时保留中断检查点和来源区分。Texture隐藏读取、新完整bundle缓存、不可变语义结果与整个并行合同仍未完成；完整mymod仍1流，不外推全游戏/G3/中文Texture验收。
+
+17:39起约一小时检查点再追加：终验SHA复用64KiB buffer并在read/EOF检查原取消token，候选复核移到内容之后；InstanceDeclaration保存/恢复两侧exact Handle值图独立复制，派生Handle/list整图legacy（DisableDeclarationHandleSnapshots），未冻整个LastState/DOM/Define。实际CLI业务新增三个相同Define求值并要求1次parse/build+2次重放，保留原XSD预检及BAB四输出对照。TransferBuffers失败已改用同一原始source字节重验。全部追加新源未编译通过，下一完整run需覆盖这些点，不能用组件结果冒称成功。

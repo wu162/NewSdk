@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -218,6 +219,118 @@ public static class CompilerPhysicalInputs
         }
         tests.Add("schema-and-real-XInclude-cancellation-retain-token-and-bypass-resource-fallback-wrappers-without-pin-leaks");
     }
+    sealed class VerificationStream : Stream
+    {
+        readonly MemoryStream source;
+        readonly byte[] expectedBuffer;
+        readonly int chunk, cancelRead;
+        readonly bool cancelEof;
+        readonly CancellationTokenSource cancellation;
+        public int Reads { get; private set; }
+        public bool ReusedBuffer { get; private set; }
+        public VerificationStream(byte[] data, byte[] buffer, int chunk, CancellationTokenSource cancellation = null, int cancelRead = 0, bool cancelEof = false)
+        {
+            source = new MemoryStream(data, false); expectedBuffer = buffer; this.chunk = chunk; this.cancellation = cancellation;
+            this.cancelRead = cancelRead; this.cancelEof = cancelEof; ReusedBuffer = true;
+        }
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            Reads++; ReusedBuffer &= Object.ReferenceEquals(buffer, expectedBuffer);
+            int read = source.Read(buffer, offset, Math.Min(count, chunk));
+            if (cancellation != null && (Reads == cancelRead || (cancelEof && read == 0))) cancellation.Cancel();
+            return read;
+        }
+        public override bool CanRead { get { return true; } }
+        public override bool CanWrite { get { return false; } }
+        public override bool CanSeek { get { return true; } }
+        public override long Length { get { return source.Length; } }
+        public override long Position { get { return source.Position; } set { source.Position = value; } }
+        public override long Seek(long offset, SeekOrigin origin) { return source.Seek(offset, origin); }
+        public override void Flush() { }
+        public override void SetLength(long value) { throw new NotSupportedException(); }
+        public override void Write(byte[] buffer, int offset, int count) { throw new NotSupportedException(); }
+        protected override void Dispose(bool disposing) { if (disposing) source.Dispose(); base.Dispose(disposing); }
+    }
+    static string VerificationHash(Stream input, byte[] buffer, CancellationToken cancellation)
+    {
+        var method = typeof(PhysicalInputSnapshot).GetMethod("ComputeVerificationHash", BindingFlags.NonPublic | BindingFlags.Static);
+        Require(method != null, "Physical input verification hash helper is missing");
+        try { return (string)method.Invoke(null, new object[] { input, buffer, cancellation }); }
+        catch (TargetInvocationException error) { throw error.InnerException; }
+    }
+    static byte[] VerificationBytes(int length)
+    { byte[] bytes = new byte[length]; for (int i = 0; i < length; i++) bytes[i] = (byte)((i * 23 + 11) % 251); return bytes; }
+    static void VerificationCancellationCases(string work)
+    {
+        byte[] buffer = new byte[65536];
+        int[] lengths = { 0, 1, 65535, 65536, 65537, 1048607, 0 };
+        int[] chunks = { 65536, 1, 17, 65535, 37, 16381, 65536 };
+        for (int i = 0; i < lengths.Length; i++)
+        {
+            byte[] bytes = VerificationBytes(lengths[i]);
+            using (var input = new VerificationStream(bytes, buffer, chunks[i]))
+            {
+                Require(VerificationHash(input, buffer, CancellationToken.None) == Strong(bytes), "Chunked verification SHA differs from SHA256.ComputeHash: " + lengths[i]);
+                Require(input.Position == bytes.Length && input.ReusedBuffer && input.Reads >= 1, "Verification truncated a short read or replaced its provided buffer");
+            }
+        }
+        foreach (int read in new[] { 1, 2, 5 })
+            using (var cancellation = new CancellationTokenSource())
+            using (var input = new VerificationStream(VerificationBytes(1048607), buffer, 65536, cancellation, read))
+            {
+                bool cancelled = false;
+                try { VerificationHash(input, buffer, cancellation.Token); }
+                catch (OperationCanceledException error) { cancelled = true; Require(error.CancellationToken == cancellation.Token, "Read-triggered verification cancellation changed its token"); }
+                Require(cancelled && input.Reads == read && input.ReusedBuffer, "Verification did not stop immediately after the deterministic cancelling read");
+            }
+        foreach (int length in new[] { 0, 1, 65537 })
+            using (var cancellation = new CancellationTokenSource())
+            using (var input = new VerificationStream(VerificationBytes(length), buffer, 65536, cancellation, 0, true))
+            {
+                bool cancelled = false;
+                try { VerificationHash(input, buffer, cancellation.Token); }
+                catch (OperationCanceledException error) { cancelled = true; Require(error.CancellationToken == cancellation.Token, "EOF verification cancellation changed its token"); }
+                Require(cancelled && input.Position == length && input.Reads == (length + 65535) / 65536 + 1, "EOF cancellation was accepted as a successful final digest");
+            }
+        using (var cancellation = new CancellationTokenSource())
+        using (var input = new VerificationStream(new byte[1], buffer, 1))
+        {
+            cancellation.Cancel(); bool cancelled = false;
+            try { VerificationHash(input, buffer, cancellation.Token); }
+            catch (OperationCanceledException error) { cancelled = true; Require(error.CancellationToken == cancellation.Token, "Pre-read cancellation changed its token"); }
+            Require(cancelled && input.Reads == 0, "Already cancelled verification consumed input bytes");
+        }
+        string root = Path.Combine(work, "verification-cancellation"); Directory.CreateDirectory(root);
+        string first = Path.Combine(root, "empty.bin"), second = Path.Combine(root, "payload.bin");
+        File.WriteAllBytes(first, new byte[0]); File.WriteAllBytes(second, VerificationBytes(1048607));
+        var snapshot = new PhysicalInputSnapshot(Path.Combine(root, "scratch"));
+        try
+        {
+            using (snapshot.BeginReadScope())
+            {
+                Require(PhysicalInputSnapshot.ReadAllBytes(first).Length == 0 && PhysicalInputSnapshot.ReadAllBytes(second).Length == 1048607, "Verification integration did not seal its original inputs");
+                using (var cancellation = new CancellationTokenSource())
+                {
+                    cancellation.Cancel(); bool cancelled = false;
+                    try { snapshot.VerifyUnchanged(cancellation.Token); }
+                    catch (OperationCanceledException error) { cancelled = true; Require(error.CancellationToken == cancellation.Token, "Snapshot verification cancellation changed its token"); }
+                    Require(cancelled && Number(Metrics(snapshot), "verificationReads") == 0 && Number(Metrics(snapshot), "verificationBytes") == 0,
+                        "Cancelled verification was reported as successful logical reads/bytes");
+                }
+                Blocked(() => File.Delete(second), "Cancelled verification released an input pin before the generation ended");
+                snapshot.VerifyUnchanged(CancellationToken.None); var metrics = Metrics(snapshot);
+                Require(Number(metrics, "verificationReads") == 2 && Number(metrics, "verificationBytes") == 1048607, "Valid-token retry skipped or double-counted incomplete verification");
+                observations.Add(new { id = "cancelled-final-verification-and-valid-token-retry", metrics });
+            }
+        }
+        finally { snapshot.Dispose(); }
+        var final = Metrics(snapshot);
+        Require(Number(final, "activeFilePins") == 0 && Number(final, "activeAliasPins") == 0 && Number(final, "activeReadHandles") == 0 && Number(final, "activeDirectoryPins") == 0,
+            "Final verification cancellation/retry left file, alias or directory pins");
+        Writable(first); Writable(second);
+        tests.Add("actual-verification-hash-helper-reuses-buffer-preserves-SHA-on-short-read-boundaries-and-propagates-deterministic-read-and-EOF-cancellation-tokens");
+        tests.Add("actual-snapshot-cancelled-final-verification-does-not-claim-success-keeps-pins-valid-token-retry-completes-and-disposal-releases-pins");
+    }
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true, EntryPoint = "CreateHardLinkW")]
     [return: MarshalAs(UnmanagedType.Bool)]
     static extern bool CreateHardLink(string link, string existing, IntPtr security);
@@ -410,7 +523,7 @@ public static class CompilerPhysicalInputs
         {
             Require(args.Length == 5 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work result source run SDK");
             string work = Path.GetFullPath(args[0]); Directory.CreateDirectory(work);
-            DigestCases(work); ReaderCases(work); CancellationCases(work); AliasCases(work); BudgetCases(work); CandidateCases(work);
+            DigestCases(work); ReaderCases(work); CancellationCases(work); VerificationCancellationCases(work); AliasCases(work); BudgetCases(work); CandidateCases(work);
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
                 scope = "Positive physical content snapshot, exact legacy digests, XML/XInclude/schema readers, finite budgets, Windows pin lifecycle and executed resolver existence consistency at verification; hidden plugin reads and complete query closure remain separate" };
             Console.WriteLine("PASS PhysicalInputs: " + tests.Count + " groups; " + checks + " checks");

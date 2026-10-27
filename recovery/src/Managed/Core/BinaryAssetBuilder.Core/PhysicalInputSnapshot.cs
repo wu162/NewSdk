@@ -339,17 +339,29 @@ public sealed class PhysicalInputSnapshot : IDisposable
             }
         }
     }
+    private static string ComputeVerificationHash(Stream input, byte[] buffer, CancellationToken cancellation)
+    {
+        using (var algorithm = SHA256.Create())
+        {
+            while (true)
+            {
+                cancellation.ThrowIfCancellationRequested();
+                int count = input.Read(buffer, 0, buffer.Length);
+                cancellation.ThrowIfCancellationRequested();
+                if (count == 0) break;
+                algorithm.TransformBlock(buffer, 0, count, buffer, 0);
+            }
+            cancellation.ThrowIfCancellationRequested();
+            algorithm.TransformFinalBlock(new byte[0], 0, 0);
+            return Convert.ToBase64String(algorithm.Hash);
+        }
+    }
     public void VerifyUnchanged(CancellationToken cancellation = default(CancellationToken))
     {
         Check();
         cancellation.ThrowIfCancellationRequested();
         if (_CandidateConflicts != 0) throw new IOException("Resolver candidate existence changed during this input generation.");
-        foreach (var candidate in _Candidates)
-        {
-            cancellation.ThrowIfCancellationRequested();
-            bool found = File.Exists(candidate.Key); _CandidateVerificationChecks++;
-            if (found != candidate.Value) throw new IOException("Resolver candidate existence changed: " + candidate.Key);
-        }
+        byte[] verificationBuffer = _Identities.Count == 0 ? null : new byte[65536];
         foreach (Entry entry in _Identities.Values)
         {
             bool first = true;
@@ -361,13 +373,22 @@ public sealed class PhysicalInputSnapshot : IDisposable
                     if (Identity(input, path) != entry.Identity || input.Length != entry.Length) throw new IOException("Captured input identity changed: " + path);
                     if (first)
                     {
-                        using (var algorithm = SHA256.Create())
-                            if (!string.Equals(Convert.ToBase64String(algorithm.ComputeHash(input)), entry.Sha256, StringComparison.Ordinal)) throw new IOException("Captured input contents changed: " + path);
+                        if (!string.Equals(ComputeVerificationHash(input, verificationBuffer, cancellation), entry.Sha256, StringComparison.Ordinal))
+                            throw new IOException("Captured input contents changed: " + path);
                         _VerificationReads++; _VerificationBytes += input.Position; first = false;
                     }
                 }
             }
         }
+        // Existence has no pin/atomic-snapshot promise. Check the executed
+        // queries after potentially long content reads, nearest publication.
+        foreach (var candidate in _Candidates)
+        {
+            cancellation.ThrowIfCancellationRequested();
+            bool found = File.Exists(candidate.Key); _CandidateVerificationChecks++;
+            if (found != candidate.Value) throw new IOException("Resolver candidate existence changed: " + candidate.Key);
+        }
+        cancellation.ThrowIfCancellationRequested();
     }
     public object GetMetrics()
     {

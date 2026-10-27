@@ -61,9 +61,13 @@ BuildSession在provider Dispose后、发布前强复核捕获文件内容与身�
 
 `cache.physicalInputs.resolverCandidates`另存原resolver及manifest发现/asset存在查询已执行的布尔结果；解析阶段不额外探测、不复用答案，发布前VerifyUnchanged逐路径复核，已观测代内冲突或终验变化拒绝本代结果。最多8192路径/1Mi UTF-16字符，超限、不支持路径及输出根明确incomplete。只证明复核时点的已登记布尔存在性，不是原子快照、路径查询锁、文件身份或完整查询闭包；实际内容身份仍由正内容pins/SHA保障，原缓存全根校验保留。
 
+终验强摘要在同次Verify中复用64KiB buffer，每次Read前后及EOF检查原CancellationToken，成功完整文件才增加verificationReads/Bytes；这不是中断底层同步OS读取的承诺。原候选存在性复核位于可能较长的内容复核之后，尽量接近发布，仍不作原子保证。
+
 ## 每流绑定与精确表达式准备
 
 W06子组以每根文档私有map保存强引用每次出现/顺序、weak规则和依赖闭包，manifest、排序及资产报告消费当前root结果。成功PrepareOutputInstances后GetStreamBindings发布只读标量快照，失败不发布；执行期仍保留legacy live Handle语义。DisableStreamBindingResults恢复旧共享字段算法。尚未拆出完整不可变AssetSemanticResult，不代表并行安全。
+
+声明缓存的另一个子组在InstanceDeclaration保存/恢复两侧按reference identity复制exact-base Handle值图，直接复制存储32bit ids/hash，保留重复顺序、null及跨own/inherit/strong/weak字段的Handle别名。任一派生Handle/派生List2或DisableDeclarationHandleSnapshots整图回退原浅共享；不改变XML格式。只隔离这层Handle值，AssetDeclarationDocument.LastState/SelfInstances的更大生命周期、DOM与Define仍未全冻结，不称完整不可变语义结果或已确认CLI故障。
 
 W08 exact程序以DocumentProcessor弱生命周期拥有有界LRU：首遍原ANTLR parser仍按原序实际求值，在成功leaf/运算后观察不可变语法节点，整expr及AsString成功才发布。命中后重做原Value工厂/运算、当前Define读取和文化转换，不缓存值/绑定、不提前吞错或短路。默认128 entry、262144 UTF-16字符（key+leaf文本）、32768节点；单表达式16384字符/4096节点/depth128，超限继续原parser且不入缓存。DisableExpressionPrograms关闭；coreWork[].expressionPrograms记录实际parserCalls/builds/hits/evictions/fallbacks/失败与预算，hits不等于完整构建提速。
 

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -9,6 +11,59 @@ namespace BinaryAssetBuilder.Core;
 [Serializable]
 public class InstanceDeclaration : IXmlSerializable
 {
+    // Cache declarations own the value identities they snapshot. Preserve the
+    // legacy graph for unsupported derived handles rather than slicing their
+    // custom equality/serialization behavior into a base InstanceHandle.
+    private sealed class HandleIdentityComparer : IEqualityComparer<InstanceHandle>
+    {
+        public bool Equals(InstanceHandle left, InstanceHandle right) { return Object.ReferenceEquals(left, right); }
+        public int GetHashCode(InstanceHandle value) { return RuntimeHelpers.GetHashCode(value); }
+    }
+    private sealed class HandleGraph
+    {
+        internal InstanceHandle Handle, Inheritance;
+        internal List2<InstanceHandle> Strong, Weak;
+    }
+    private static bool ExactHandles(List2<InstanceHandle> handles)
+    {
+        if (handles != null && handles.Count != 0)
+            foreach (InstanceHandle handle in handles)
+                if ((object)handle != null && handle.GetType() != typeof(InstanceHandle)) return false;
+        return true;
+    }
+    private static HandleGraph SnapshotHandles(InstanceHandle own, InstanceHandle inheritance, List2<InstanceHandle> strong, List2<InstanceHandle> weak)
+    {
+        bool disabled; AppContext.TryGetSwitch("NewSdk.Compiler.DisableDeclarationHandleSnapshots", out disabled);
+        bool copy = !disabled && ((object)own == null || own.GetType() == typeof(InstanceHandle)) &&
+            ((object)inheritance == null || inheritance.GetType() == typeof(InstanceHandle)) &&
+            (strong == null || strong.GetType() == typeof(List2<InstanceHandle>)) &&
+            (weak == null || weak.GetType() == typeof(List2<InstanceHandle>)) && ExactHandles(strong) && ExactHandles(weak);
+        var seen = copy ? new Dictionary<InstanceHandle, InstanceHandle>(new HandleIdentityComparer()) : null;
+        return new HandleGraph { Handle = SnapshotHandle(own, seen), Inheritance = SnapshotHandle(inheritance, seen),
+            Strong = SnapshotHandleList(strong, seen), Weak = SnapshotHandleList(weak, seen) };
+    }
+    private static InstanceHandle SnapshotHandle(InstanceHandle handle, Dictionary<InstanceHandle, InstanceHandle> seen)
+    {
+        if (seen == null || (object)handle == null) return handle;
+        InstanceHandle copy;
+        if (!seen.TryGetValue(handle, out copy))
+        {
+            // Copies stored identifiers/hashes directly; never hash names again.
+            copy = new InstanceHandle(handle); seen.Add(handle, copy);
+        }
+        return copy;
+    }
+    private static List2<InstanceHandle> SnapshotHandleList(List2<InstanceHandle> handles, Dictionary<InstanceHandle, InstanceHandle> seen)
+    {
+        // Saved empty lists are null in the legacy cache representation;
+        // FromLast independently restores fresh empty Current collections.
+        if (handles == null || handles.Count == 0) return null;
+        if (seen == null) return new List2<InstanceHandle>(handles);
+        var result = new List2<InstanceHandle>();
+        foreach (InstanceHandle handle in handles) result.Add(SnapshotHandle(handle, seen));
+        return result;
+    }
+
 	[Serializable]
 	private class LastState
 	{
@@ -34,14 +89,15 @@ public class InstanceDeclaration : IXmlSerializable
 
 		public LastState(CurrentState current)
 		{
-			Handle = current.Handle;
-			ProcessingHash = current.ProcessingHash;
-			ReferencedInstances = ((current.ReferencedInstances.Count > 0) ? new List2<InstanceHandle>(current.ReferencedInstances) : null);
-			WeakReferencedInstances = ((current.WeakReferencedInstances.Count > 0) ? new List2<InstanceHandle>(current.WeakReferencedInstances) : null);
+            HandleGraph handles = SnapshotHandles(current.Handle, current.InheritFromHandle, current.ReferencedInstances, current.WeakReferencedInstances);
+            Handle = handles.Handle;
+            ProcessingHash = current.ProcessingHash;
+            ReferencedInstances = current.ReferencedInstances.Count > 0 ? handles.Strong : null;
+            WeakReferencedInstances = current.WeakReferencedInstances.Count > 0 ? handles.Weak : null;
 			ReferencedFiles = ((current.ReferencedFiles.Count > 0) ? new List2<string>(current.ReferencedFiles) : null);
 			IsInheritable = current.IsInheritable;
 			HasCustomData = current.HasCustomData;
-			InheritFromHandle = current.InheritFromHandle;
+			InheritFromHandle = handles.Inheritance;
 			InheritFromXmlHash = current.InheritFromXmlHash;
 			PrevalidationXmlHash = current.PrevalidationXmlHash;
 		}
@@ -128,14 +184,15 @@ public class InstanceDeclaration : IXmlSerializable
 
 		public void FromLast(LastState last)
 		{
-			Handle = last.Handle;
-			ProcessingHash = last.ProcessingHash;
-			ReferencedInstances = ((last.ReferencedInstances != null) ? new List2<InstanceHandle>(last.ReferencedInstances) : new List2<InstanceHandle>());
-			WeakReferencedInstances = ((last.WeakReferencedInstances != null) ? new List2<InstanceHandle>(last.WeakReferencedInstances) : new List2<InstanceHandle>());
+            HandleGraph handles = SnapshotHandles(last.Handle, last.InheritFromHandle, last.ReferencedInstances, last.WeakReferencedInstances);
+            Handle = handles.Handle;
+            ProcessingHash = last.ProcessingHash;
+            ReferencedInstances = handles.Strong ?? new List2<InstanceHandle>();
+            WeakReferencedInstances = handles.Weak ?? new List2<InstanceHandle>();
 			ReferencedFiles = ((last.ReferencedFiles != null) ? new List2<string>(last.ReferencedFiles) : new List2<string>());
 			IsInheritable = last.IsInheritable;
 			HasCustomData = last.HasCustomData;
-			InheritFromHandle = last.InheritFromHandle;
+			InheritFromHandle = handles.Inheritance;
 			InheritFromXmlHash = last.InheritFromXmlHash;
 			PrevalidationXmlHash = last.PrevalidationXmlHash;
 		}

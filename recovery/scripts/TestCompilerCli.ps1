@@ -208,6 +208,9 @@ function BusinessWorkMetrics($Case,[bool]$SharedMetadata=$false){
         Need ($null -ne $programs -and $programs.enabled -eq $true -and $programs.scope -ceq 'ExactExpressionProgramsPerDocumentProcessor') 'Business exact expression-program metrics missing'
         Need ($programs.parserCalls -ge 0 -and $programs.builds -ge 0 -and $programs.hits -ge 0 -and $programs.builds -le $programs.parserCalls -and $programs.parserFailures -le $programs.parserCalls -and $programs.replayFailures -le $programs.hits) 'Business expression work counts are inconsistent'
         Need ($programs.entries -le $programs.entryLimit -and $programs.retainedTextChars -le $programs.textBudget -and $programs.retainedNodes -le $programs.nodeBudget) 'Business expression programs exceeded their bounded ownership'
+        if($task.Content -ceq 'base'){
+            Need ($programs.parserCalls -eq 1 -and $programs.builds -eq 1 -and $programs.hits -eq 2 -and $programs.parserFailures -eq 0 -and $programs.replayFailures -eq 0) 'Actual base Define pipeline did not replace two repeated exact parses with current semantic replay'
+        }
         $buffers=$item.transferBuffers
         Need ($null -ne $buffers -and $buffers.enabled -eq $true -and $buffers.capturedOwnerMode -ceq 'Owned' -and $buffers.parallelExecutionEnabled -eq $false -and $buffers.allocationScope -ceq 'OwnedBuffersOnly') 'Business transfer buffer ownership contract missing'
         Need ($buffers.copyRequests -ge 0 -and $buffers.linkRequests -ge 0 -and $buffers.copyAllocations -eq $(if($buffers.copyRequests -eq 0){0}else{1}) -and $buffers.linkAllocations -eq $(if($buffers.linkRequests -eq 0){0}else{1})) 'Business transfer buffers were not lazy and reused within the processor'
