@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
 
@@ -26,6 +27,8 @@ public class NodeJoiner
 
 	private readonly XmlSchemaSet m_schema;
 
+	private readonly bool m_useChildIndex;
+
 	public static XmlNode Override(XmlSchemaSet docSchema, XmlDocument document, XmlNode baseNode, XmlNode overrideNode)
 	{
 		XmlNode xmlNode = document.CreateNode(baseNode.NodeType, baseNode.Name, baseNode.NamespaceURI);
@@ -47,12 +50,110 @@ public class NodeJoiner
 		return xmlNode;
 	}
 
-	private XmlNode SelectSame(XmlNode destParent, XmlNode srcChild, bool idMatchRequired, bool replaceAny)
+	// One parent's children, owned by one recursive merge call. Keys deliberately
+	// preserve the legacy rules: Name includes its prefix; id ignores node name
+	// and namespace. Buckets retain duplicates in document order.
+	private sealed class ChildIndex
+	{
+		private sealed class Entry
+		{
+			internal string Id;
+			internal LinkedListNode<XmlNode> NameNode;
+			internal LinkedListNode<XmlNode> IdNode;
+		}
+
+		private readonly Dictionary<string, LinkedList<XmlNode>> names = new Dictionary<string, LinkedList<XmlNode>>(StringComparer.Ordinal);
+		private readonly Dictionary<string, LinkedList<XmlNode>> ids = new Dictionary<string, LinkedList<XmlNode>>(StringComparer.Ordinal);
+		private readonly Dictionary<XmlNode, Entry> entries = new Dictionary<XmlNode, Entry>();
+
+		internal ChildIndex(XmlNode parent)
+		{
+			foreach (XmlNode child in parent.ChildNodes) Add(child, true);
+		}
+
+		private static string Id(XmlNode node)
+		{
+			XmlAttribute attribute = node.Attributes?.GetNamedItem("id") as XmlAttribute;
+			return attribute?.Value;
+		}
+
+		private LinkedListNode<XmlNode> AddKey(Dictionary<string, LinkedList<XmlNode>> map, string key, XmlNode child, bool atEnd, bool byId)
+		{
+			if (!map.TryGetValue(key, out LinkedList<XmlNode> bucket))
+			{
+				bucket = new LinkedList<XmlNode>();
+				map.Add(key, bucket);
+			}
+			if (!atEnd)
+			{
+				for (XmlNode next = child.NextSibling; next != null; next = next.NextSibling)
+				{
+					if (entries.TryGetValue(next, out Entry entry))
+					{
+						LinkedListNode<XmlNode> following = byId ? entry.IdNode : entry.NameNode;
+						if (following != null && following.List == bucket) return bucket.AddBefore(following, child);
+					}
+				}
+			}
+			return bucket.AddLast(child);
+		}
+
+		private void Add(XmlNode child, bool atEnd)
+		{
+			var entry = new Entry { Id = Id(child) };
+			entry.NameNode = AddKey(names, child.Name, child, atEnd, false);
+			if (entry.Id != null) entry.IdNode = AddKey(ids, entry.Id, child, atEnd, true);
+			entries.Add(child, entry);
+		}
+
+		internal void Refresh(XmlNode child)
+		{
+			if (!entries.TryGetValue(child, out Entry entry))
+			{
+				Add(child, child.NextSibling == null);
+				return;
+			}
+			string id = Id(child);
+			if (entry.Id == id) return;
+			if (entry.IdNode != null) RemoveKey(ids, entry.Id, entry.IdNode);
+			entry.Id = id;
+			entry.IdNode = id == null ? null : AddKey(ids, id, child, child.NextSibling == null, true);
+		}
+
+		private static void RemoveKey(Dictionary<string, LinkedList<XmlNode>> map, string key, LinkedListNode<XmlNode> item)
+		{
+			LinkedList<XmlNode> bucket = item.List;
+			bucket.Remove(item);
+			if (bucket.Count == 0) map.Remove(key);
+		}
+
+		internal void Remove(XmlNode child)
+		{
+			Entry entry = entries[child];
+			RemoveKey(names, child.Name, entry.NameNode);
+			if (entry.IdNode != null) RemoveKey(ids, entry.Id, entry.IdNode);
+			entries.Remove(child);
+		}
+
+		internal XmlNode Select(XmlNode child, bool byId)
+		{
+			string key = byId ? Id(child) : child.Name;
+			Dictionary<string, LinkedList<XmlNode>> map = byId ? ids : names;
+			return key != null && map.TryGetValue(key, out LinkedList<XmlNode> bucket) ? bucket.First.Value : null;
+		}
+	}
+
+	private XmlNode SelectSame(XmlNode destParent, XmlNode srcChild, bool idMatchRequired, bool replaceAny, ref ChildIndex index)
 	{
 		if (destParent.ChildNodes == null)
 		{
 			return null;
 		}
+		// Small parents keep the allocation-free legacy scan. Once constructed,
+		// maintain the index even if removals shrink the parent below this size.
+		if (replaceAny && !idMatchRequired && destParent.ChildNodes.Count == 1) return destParent.ChildNodes[0];
+		if (m_useChildIndex && index == null && destParent.ChildNodes.Count >= 8) index = new ChildIndex(destParent);
+		if (index != null) return index.Select(srcChild, idMatchRequired);
 		if (idMatchRequired)
 		{
 			foreach (XmlNode childNode in destParent.ChildNodes)
@@ -85,6 +186,8 @@ public class NodeJoiner
 	{
 		m_schema = docSchema;
 		m_document = document;
+		AppContext.TryGetSwitch("NewSdk.Compiler.DisableNodeJoinerIndex", out bool disableIndex);
+		m_useChildIndex = !disableIndex;
 	}
 
 	private XmlNode SelectMatchingKey(XmlNode destNode, XmlNode srcNode)
@@ -277,6 +380,7 @@ public class NodeJoiner
 			{
 				throw new BinaryAssetBuilderException(ErrorCode.SchemaValidation, $"The element {src.Name} is not expected in {src.ParentNode.Name}");
 			}
+			ChildIndex childIndex = null;
 			foreach (XmlNode childNode in src.ChildNodes)
 			{
 				XmlQualifiedName xmlQualifiedName = new XmlQualifiedName(childNode.Name, childNode.NamespaceURI);
@@ -289,6 +393,7 @@ public class NodeJoiner
 					XmlNode xmlNode2 = m_document.CreateNode(childNode.NodeType, childNode.Name, childNode.NamespaceURI);
 					xmlNode2.Value = childNode.Value;
 					dest.AppendChild(xmlNode2);
+					childIndex?.Refresh(xmlNode2);
 					continue;
 				}
 				if (xmlSchemaComplexType == null)
@@ -305,7 +410,7 @@ public class NodeJoiner
 				XmlNode xmlNode3 = null;
 				bool replaceAny = flag2 && xmlSchemaComplexType.ContentTypeParticle.MaxOccurs <= 1m;
 				bool idMatchRequired = (flag && xmlSchemaElement.MaxOccurs > 1m) || (flag2 && xmlSchemaComplexType.ContentTypeParticle.MaxOccurs > 1m);
-				xmlNode3 = SelectSame(dest, childNode, idMatchRequired, replaceAny);
+				xmlNode3 = SelectSame(dest, childNode, idMatchRequired, replaceAny, ref childIndex);
 				bool parentsMatch2 = parentsMatch || xmlNode3 != null;
 				JoinAction joinAction = parentAction;
 				GetJoinAction(childNode, ref joinAction);
@@ -318,6 +423,7 @@ public class NodeJoiner
 					XmlQualifiedName xmlQualifiedName2 = new XmlQualifiedName(xmlNode3.Name, xmlNode3.NamespaceURI);
 					if (xmlQualifiedName2 != xmlQualifiedName || joinAction == JoinAction.Remove || joinAction == JoinAction.Overwrite)
 					{
+						childIndex?.Remove(xmlNode3);
 						dest.RemoveChild(xmlNode3);
 						xmlNode3 = null;
 					}
@@ -333,6 +439,7 @@ public class NodeJoiner
 						xmlNode3 = AppendCorrespondedXmlNode(dest, childNode, xmlSchemaElement, xmlSchemaComplexType, insertPos);
 					}
 					ReplaceXmlNode(xmlNode3, childNode, xmlSchemaComplexType.ContentTypeParticle, parentsMatch2, joinAction);
+					childIndex?.Refresh(xmlNode3);
 				}
 			}
 		}

@@ -1,7 +1,7 @@
 name: MOD compiler Core lifecycle integration
 on:
   push:
-    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults]
+    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, feature/compiler-optimization]
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
@@ -35,6 +35,8 @@ on:
       - 'recovery/tests/CompilerValidationEntry.cpp'
       - 'recovery/tests/CompilerCoreLifecycle.cs'
       - 'recovery/tests/CompilerCacheContent.cs'
+      - 'recovery/tests/CompilerInputDigests.cs'
+      - 'recovery/tests/CompilerNodeJoiner.cs'
       - 'recovery/tests/CompilerCacheBoundary.cs'
       - 'recovery/tests/CompilerInputRoots.cs'
       - 'recovery/scripts/TestCompilerInputRoots.ps1'

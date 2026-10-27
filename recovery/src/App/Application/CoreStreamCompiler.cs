@@ -30,13 +30,14 @@ namespace NewModCompiler.Application
         int buildCacheHits, buildCacheMisses, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile;
         readonly List<BuildAssetCache> assetCaches = new List<BuildAssetCache>();
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
+        readonly List<object> coreWork = new List<object>();
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
         VerifierPluginRegistry verifiers;
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
         public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.SessionPackage" : buildCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.BuildAssetCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
-        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false }; } }
+        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false, coreWork }; } }
 
         public void Initialize(BuildRequest request)
         {
@@ -543,6 +544,7 @@ namespace NewModCompiler.Application
                     documentReuse += processor.DocumentReuseCount;
                     xmlParse += processor.XmlParseCount;
                     instanceCompile += processor.InstanceCompileCount;
+                    coreWork.Add(new { taskId = context.Task.Id, stages = processor.GetWorkMetrics() });
                 }
                 var cleanup = new List<Exception>();
                 try { if (report != null) report.Dispose(); } catch (Exception error) { cleanup.Add(error); }

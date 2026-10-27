@@ -38,6 +38,19 @@ public class FileHashItem : IXmlSerializable
 	private string _CurrentContentHash;
 
 	[NonSerialized]
+	private uint _CurrentLegacyHash;
+
+	[NonSerialized]
+	private bool _CurrentLegacyHashAvailable;
+
+	// Logical successful digest reads, scoped to this item (not physical disk I/O).
+	[field: NonSerialized]
+	public long DigestReadCount { get; private set; }
+
+	[field: NonSerialized]
+	public long DigestBytesRead { get; private set; }
+
+	[NonSerialized]
 	private bool _Dirty;
 
 	[NonSerialized]
@@ -92,9 +105,19 @@ public class FileHashItem : IXmlSerializable
 				if (Exists)
 				{
 					_CurrentDate = File.GetLastWriteTime(_Path);
-					using (var algorithm = SHA256.Create())
-					using (var input = File.OpenRead(_Path))
-						_CurrentContentHash = Convert.ToBase64String(algorithm.ComputeHash(input));
+					bool disabled;
+					if (AppContext.TryGetSwitch("NewSdk.Compiler.DisableSinglePassDigest", out disabled) && disabled)
+					{
+						// Compatibility fallback: the historical SHA-only dirty check.
+						using (var algorithm = SHA256.Create())
+						using (var input = File.OpenRead(_Path))
+						{
+							_CurrentContentHash = Convert.ToBase64String(algorithm.ComputeHash(input));
+							DigestReadCount++;
+							DigestBytesRead += input.Position;
+						}
+					}
+					else ReadContentIdentity();
 				}
 				_Dirty = !Exists || _LastDate != _CurrentDate || _ContentHash == null ||
 					!string.Equals(_ContentHash, _CurrentContentHash, StringComparison.Ordinal);
@@ -136,6 +159,8 @@ public class FileHashItem : IXmlSerializable
 		_ContentHash = reader.GetAttribute("sha256");
 		_State = FileState.AllInvalid;
 		_CurrentContentHash = null;
+		_CurrentLegacyHash = 0;
+		_CurrentLegacyHashAvailable = false;
 		reader.MoveToAttribute("d");
 		string[] array = reader.Value.Split(';');
 		_Path = array[0];
@@ -178,29 +203,44 @@ public class FileHashItem : IXmlSerializable
 		_State = FileState.AllInvalid;
 		_CurrentDate = DateTime.MaxValue;
 		_CurrentContentHash = null;
+		_CurrentLegacyHash = 0;
+		_CurrentLegacyHashAvailable = false;
 		_Dirty = false;
 	}
 
 	private void UpdateHash()
 	{
+		// IsDirty already sealed both identities from the same observed bytes.
+		// Do not open a dirty/new file a second time just to obtain FastHash.
+		if (!_CurrentLegacyHashAvailable) ReadContentIdentity();
+		_Hash = _CurrentLegacyHash;
+		_ContentHash = _CurrentContentHash;
+		_LastDate = _CurrentDate;
+		_Dirty = false;
+	}
+
+	private void ReadContentIdentity()
+	{
 		AsynchronousFileReader asynchronousFileReader = new AsynchronousFileReader(_Path);
 		uint hash = asynchronousFileReader.FileSize;
+		long bytesRead = 0;
 		using (var algorithm = SHA256.Create())
 		{
 			while (asynchronousFileReader.BeginRead())
 			{
 				byte[] data = asynchronousFileReader.CurrentChunk.Data;
 				int count = asynchronousFileReader.CurrentChunk.BytesRead;
+				bytesRead += count;
 				hash = FastHash.GetHashCode(hash, data, count);
 				algorithm.TransformBlock(data, 0, count, data, 0);
 				asynchronousFileReader.EndRead();
 			}
 			algorithm.TransformFinalBlock(new byte[0], 0, 0);
-			_ContentHash = Convert.ToBase64String(algorithm.Hash);
+			_CurrentContentHash = Convert.ToBase64String(algorithm.Hash);
 		}
-		_Hash = hash;
-		_LastDate = _CurrentDate;
-		_CurrentContentHash = _ContentHash;
-		_Dirty = false;
+		_CurrentLegacyHash = hash;
+		_CurrentLegacyHashAvailable = true;
+		DigestReadCount++;
+		DigestBytesRead += bytesRead;
 	}
 }

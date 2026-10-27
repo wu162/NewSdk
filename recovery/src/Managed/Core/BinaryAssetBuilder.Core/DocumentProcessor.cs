@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -111,6 +112,37 @@ public class DocumentProcessor
 	public IEnumerable<uint> ProcessedTypeIds => _ProcessedTypeIds;
 	internal void RecordXmlParse() { XmlParseCount++; }
 	internal void RecordInstanceCompile() { InstanceCompileCount++; }
+
+	// Per-processor work, independent of legacy metrics/listeners and process state.
+	// Intervals cover the named operation only; they are not total build wall time.
+	public sealed class WorkMeasurement
+	{
+		public string stage { get; private set; }
+		public long calls { get; internal set; }
+		public long failedCalls { get; internal set; }
+		internal long ticks;
+		public double elapsedMs => ticks * 1000.0 / Stopwatch.Frequency;
+		internal WorkMeasurement(string name) { stage = name; }
+	}
+	private readonly Dictionary<string, WorkMeasurement> _Work = new Dictionary<string, WorkMeasurement>(StringComparer.Ordinal);
+	public WorkMeasurement[] GetWorkMetrics()
+	{
+		var result = new WorkMeasurement[_Work.Count];
+		int index = 0;
+		foreach (var item in _Work.Values)
+			result[index++] = new WorkMeasurement(item.stage) { calls = item.calls, failedCalls = item.failedCalls, ticks = item.ticks };
+		Array.Sort(result, (left, right) => StringComparer.Ordinal.Compare(left.stage, right.stage));
+		return result;
+	}
+	private void MeasureWork(string stage, Action operation)
+	{
+		if (!_Work.TryGetValue(stage, out var work)) _Work.Add(stage, work = new WorkMeasurement(stage));
+		work.calls++;
+		long start = Stopwatch.GetTimestamp();
+		try { operation(); }
+		catch { work.failedCalls++; throw; }
+		finally { work.ticks += Stopwatch.GetTimestamp() - start; }
+	}
 
 	// Local/intermediate reuse is excluded from persistent asset-cache counters.
 	public int BuildCacheHits { get; private set; }
@@ -536,9 +568,9 @@ public class DocumentProcessor
 		{
 			DateTime now = DateTime.Now;
 			_FilesParsedCount++;
-			document.ProcessExpressions();
-			document.ProcessOverrides();
-			document.Validate();
+			MeasureWork("expressions", document.ProcessExpressions);
+			MeasureWork("inheritance", document.ProcessOverrides);
+			MeasureWork("validation", document.Validate);
 			_TotalValidateTime += DateTime.Now - now;
 		}
 		if (document.State != DocumentState.Loaded) DocumentReuseCount++;
@@ -549,7 +581,7 @@ public class DocumentProcessor
 		if (outputManager != null)
 		{
 			DateTime now2 = DateTime.Now;
-			document.ProcessInstances(outputManager, ref _InstancesCompiledCount, ref _InstancesCopiedFromCacheCount);
+			MeasureWork("assetProcessing", () => document.ProcessInstances(outputManager, ref _InstancesCompiledCount, ref _InstancesCopiedFromCacheCount));
 			_TotalProcInstancesTime += DateTime.Now - now2;
 		}
 		document.AddStreamsHints(_CurrentStreamStack.ToArray());
@@ -557,14 +589,16 @@ public class DocumentProcessor
 		{
 			DateTime now3 = DateTime.Now;
 			_Tracer.Message("Resolving references: {0}", document.SourcePathFromRoot);
-			document.PrepareOutputInstances(outputManager);
+			MeasureWork("referenceBinding", () => document.PrepareOutputInstances(outputManager));
 			_Tracer.Message("Generating stream: {0}", document.SourcePathFromRoot);
-			outputManager.CommitManifest(document);
-			outputManager.CleanOutput();
-			document.UpdateOutputAssets(outputManager);
+			MeasureWork("manifest", () => {
+				outputManager.CommitManifest(document);
+				outputManager.CleanOutput();
+				document.UpdateOutputAssets(outputManager);
+			});
 			if (Settings.Current.LinkedStreams)
 			{
-				outputManager.LinkStream(document);
+				MeasureWork("link", () => outputManager.LinkStream(document));
 			}
 			if (Settings.Current.VersionFiles)
 			{
@@ -822,7 +856,7 @@ public class DocumentProcessor
 				document.TentativeInstances.Remove(value2);
 			}
 		}
-		document.EvaluateDefinitions();
+		MeasureWork("definitions", document.EvaluateDefinitions);
 	}
 
 	private void TryDeleteFile(string filePath)

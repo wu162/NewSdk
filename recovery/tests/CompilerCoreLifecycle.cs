@@ -19,6 +19,7 @@ internal static class CompilerCoreLifecycle
 {
     const string Ns = "uri:ea.com:eala:asset";
     static readonly List<string> Tests = new List<string>();
+    static readonly List<object> OptimizationRisks = new List<object>();
     static string sdk, work, probe;
     static int checks;
     static readonly BindingFlags Private = BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
@@ -424,6 +425,143 @@ internal static class CompilerCoreLifecycle
         string normal = Write("project/normal.xml", probe); Run(p, normal); Clean(p, null, normal);
         Tests.Add("real-project-first-config-complete-three-assets-four-linked-streams-second-inheritance-failure-restores-settings-reader-then-plain-xml-success");
     }
+    // W01 records the actual public Core boundary before changing cache or
+    // binding semantics. A reproduced candidate is evidence, not acceptance of
+    // a production CLI bug: the CLI has its own staging/cache protections.
+    static bool SameOutputs(Dictionary<string, string> expected, Dictionary<string, string> actual)
+    {
+        return expected.Count == actual.Count && expected.All(pair => actual.ContainsKey(pair.Key) && actual[pair.Key] == pair.Value);
+    }
+    static AssetDeclarationDocument CachedDocument(DocumentProcessor processor, string path)
+    {
+        AssetDeclarationDocument document;
+        Require(processor.Cache.TryGetDocument(path, null, TargetPlatform.Win32, false, out document) && document != null,
+            "Probe document missing from real Core cache: " + path);
+        return document;
+    }
+    static DocumentProcessor PersistentProcessor(BuiltinCompilers plugins, string cachePath)
+    {
+        var processor = Processor(plugins);
+        var cache = new SessionCache(); cache.LoadCache(cachePath); cache.InitializeCache(new List<string>());
+        processor.Cache = cache;
+        return processor;
+    }
+    static void DefineOverrideProbe(BuiltinCompilers plugins, bool increment)
+    {
+        string name = "risk-define-" + (increment ? "increment" : "identity");
+        var settings = Configure(name);
+        string input = Write(name + "/root.xml", Asset(Include("external.xml") +
+            "<Defines><Define name='A' value='=$A" + (increment ? "+1" : "") + "' override='true'/></Defines>" +
+            "<ArmorTemplate id='OverrideProbe' Default='=$A'/>"));
+        string external = Write(name + "/external.xml", Asset("<Defines><Define name='A' value='10'/></Defines>"));
+        string cachePath = Path.Combine(settings.SessionCacheDirectory, "probe.xml");
+        var first = PersistentProcessor(plugins, cachePath); Run(first, input);
+        Require(CachedDocument(first, input).AllDefines.GetEvaluatedValue("A") == (increment ? "11" : "10"),
+            "Cold Define override did not read the external pre-override value");
+        var expectedInitial = Outputs(settings.OutputDirectory); first.Cache.SaveCache(false);
+        var warm = PersistentProcessor(plugins, cachePath); Run(warm, input);
+        var unmodified = Outputs(settings.OutputDirectory);
+        int unmodifiedParsed = (int)Field(warm, "_FilesParsedCount");
+        string unmodifiedValue = CachedDocument(warm, input).AllDefines.GetEvaluatedValue("A");
+        // Keep the original persisted generation: the root source stays byte
+        // identical, and only the included definition changes from 10 to 20.
+        byte[] rootBefore = File.ReadAllBytes(input);
+        File.WriteAllText(external, Asset("<Defines><Define name='A' value='20'/></Defines>"));
+        var changed = PersistentProcessor(plugins, cachePath); Run(changed, input);
+        string restoredValue = CachedDocument(changed, input).AllDefines.GetEvaluatedValue("A");
+        var restored = Outputs(settings.OutputDirectory);
+        Require(rootBefore.SequenceEqual(File.ReadAllBytes(input)), "Define probe changed the parent source");
+        settings.OutputDirectory = Path.Combine(work, name, "cold-output");
+        settings.IntermediateOutputDirectory = Path.Combine(work, name, "cold-intermediate");
+        var cold = Processor(plugins); Run(cold, input);
+        string coldValue = CachedDocument(cold, input).AllDefines.GetEvaluatedValue("A");
+        Require(coldValue == (increment ? "21" : "20"), "Changed cold Define override value incorrect");
+        OptimizationRisks.Add(new { id = name, boundary = "public-Core-persisted-session", initialValue = increment ? "11" : "10",
+            unmodifiedValue, unmodifiedEquivalent = SameOutputs(expectedInitial, unmodified), unmodifiedParsed, unmodifiedWork = warm.GetWorkMetrics(),
+            restoredValue, coldValue, changedEquivalent = SameOutputs(restored, Outputs(settings.OutputDirectory)),
+            correctnessMismatch = restoredValue != coldValue || !SameOutputs(restored, Outputs(settings.OutputDirectory)),
+            repeatedInvalidation = unmodifiedParsed > 0,
+            reproduced = restoredValue != coldValue || !SameOutputs(restored, Outputs(settings.OutputDirectory)) || unmodifiedParsed > 0,
+            cliFailureEstablished = false });
+        Tests.Add(name + ":real-Core-persisted-cache-unchanged-and-external-change-cold-warm-observation");
+    }
+    static string Experience(string id, string prerequisite, bool upgrade)
+    {
+        return "<ExperienceLevelTemplate id='" + id + "'" + (prerequisite == null ? "" : " Prerequisite='" + prerequisite + "'") +
+            "><LevelUpTintColor r='1.0' g='1.0' b='1.0'/>" + (upgrade ? "<Upgrade>BindingUpgrade</Upgrade>" : "") + "</ExperienceLevelTemplate>";
+    }
+    static void CrossStreamBindingProbe(BuiltinCompilers plugins)
+    {
+        const string name = "risk-stream-binding";
+        var settings = Configure(name); var processor = Processor(plugins);
+        string shared = Write(name + "/shared.xml", Asset(Experience("BindingOwner", null, true)));
+        Write(name + "/candidate.xml", Asset("<UpgradeTemplate id='BindingUpgrade'/>"));
+        string first = Write(name + "/first.xml", Asset(Include("shared.xml")));
+        string second = Write(name + "/second.xml", Asset("<Includes><Include type='all' source='shared.xml'/>" +
+            "<Include type='instance' source='candidate.xml'/></Includes>"));
+        Run(processor, first);
+        var snapshot = processor.GetWorkMetrics();
+        var snapshotValues = snapshot.ToDictionary(item => item.stage, item => new[] { (double)item.calls, (double)item.failedCalls, item.elapsedMs });
+        foreach (string stage in new[] { "definitions", "expressions", "inheritance", "validation", "assetProcessing", "referenceBinding", "manifest", "link" })
+            Require(snapshot.Any(item => item.stage == stage && item.calls > 0 && item.failedCalls == 0 && item.elapsedMs >= 0 && !Double.IsInfinity(item.elapsedMs)),
+                "Cold Core work metric missing/invalid: " + stage);
+        var before = CachedDocument(processor, shared).SelfInstances[0];
+        Require(before.WeakReferencedInstances.Count == 1 && before.ValidatedReferencedInstances.Count == 0,
+            "First stream must leave the weak Upgrade reference unresolved");
+        Run(processor, second);
+        foreach (var item in snapshot)
+            Require(item.calls == snapshotValues[item.stage][0] && item.failedCalls == snapshotValues[item.stage][1] && item.elapsedMs == snapshotValues[item.stage][2],
+                "A previously returned work-metric snapshot changed after another stream");
+        Require(processor.GetWorkMetrics().Single(item => item.stage == "link").calls > snapshot.Single(item => item.stage == "link").calls,
+            "The next stream must record its own additional link work");
+        var after = CachedDocument(processor, shared).SelfInstances[0];
+        var warmDocument = CachedDocument(processor, second);
+        var warm = Outputs(settings.OutputDirectory).Where(pair => pair.Key.Contains("second")).ToDictionary(pair => pair.Key, pair => pair.Value);
+        Require(warm.Count == 4, "Second binding stream did not produce four files");
+        bool warmContainsUpgrade = warmDocument.OutputInstances.Any(instance => instance.Handle.InstanceName == "BindingUpgrade");
+        settings.OutputDirectory = Path.Combine(work, name, "cold-output");
+        settings.IntermediateOutputDirectory = Path.Combine(work, name, "cold-intermediate");
+        var cold = Processor(plugins); Run(cold, second);
+        var coldDocument = CachedDocument(cold, second);
+        Require(coldDocument.OutputInstances.Any(instance => instance.Handle.InstanceName == "BindingUpgrade"),
+            "Cold stream must pull the weakly referenced Tentative upgrade into its closure");
+        var expected = Outputs(settings.OutputDirectory);
+        OptimizationRisks.Add(new { id = name, boundary = "public-Core-two-streams-one-processor", sharedInstanceRetained = Object.ReferenceEquals(before, after),
+            warmContainsUpgrade, warmAssets = warmDocument.OutputInstances.Count, coldAssets = coldDocument.OutputInstances.Count,
+            equivalent = SameOutputs(expected, warm), reproduced = !SameOutputs(expected, warm), cliFailureEstablished = false });
+        Tests.Add("risk-stream-binding:real-Core-two-symbol-views-weak-missing-to-Tentative-cold-warm-observation");
+    }
+    static void LinkedSideFileProbe(BuiltinCompilers plugins)
+    {
+        const string name = "risk-linked-side-files";
+        var settings = Configure(name);
+        string input = Write(name + "/root.xml", Asset(Experience("ImportParent", null, false) + Experience("ImportChild", "ImportParent", false)));
+        var first = Processor(plugins); Run(first, input);
+        var expected = Outputs(settings.OutputDirectory);
+        var original = Directory.GetFiles(settings.OutputDirectory, "*", SearchOption.AllDirectories)
+            .Where(path => new[] { ".manifest", ".bin", ".imp", ".relo" }.Contains(Path.GetExtension(path)))
+            .ToDictionary(path => path, File.ReadAllBytes);
+        foreach (string extension in new[] { ".imp", ".relo" })
+        {
+            string side = original.Keys.Single(path => Path.GetExtension(path) == extension);
+            Require(original[side].Length > 4, "Side-file recovery probe requires a nonempty payload: " + extension);
+            foreach (string damage in new[] { "deleted", "truncated-header", "truncated-payload" })
+            {
+                foreach (var pair in original) File.WriteAllBytes(pair.Key, pair.Value);
+                if (damage == "deleted") File.Delete(side);
+                else File.WriteAllBytes(side, original[side].Take(damage == "truncated-header" ? 2 : 4).ToArray());
+                var bin = original.Keys.Single(path => Path.GetExtension(path) == ".bin");
+                Require(File.ReadAllBytes(bin).SequenceEqual(original[bin]), "Probe must retain valid .bin bytes");
+                var repeat = Processor(plugins); Run(repeat, input);
+                bool equivalent = SameOutputs(expected, Outputs(settings.OutputDirectory));
+                OptimizationRisks.Add(new { id = name, extension, damage, boundary = "public-Core-existing-linked-stream-fresh-processor",
+                    equivalent, reproduced = !equivalent, originalPayloadBytes = original[side].Length - 4,
+                    restoredPayloadBytes = new FileInfo(side).Length - 4, cliFailureEstablished = false });
+            }
+        }
+        foreach (var pair in original) File.WriteAllBytes(pair.Key, pair.Value);
+        Tests.Add("risk-linked-side-files:real-Core-valid-bin-independent-imp-relo-deletion-header-and-payload-truncation-observation");
+    }
     public static int Main(string[] args)
     {
         object result; int code = 0; Settings original = Settings.Current;
@@ -442,13 +580,16 @@ internal static class CompilerCoreLifecycle
                 CycleCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins);
                 MetricsFailureCase(plugins, true, false); MetricsFailureCase(plugins, false, true);
                 MetricsFailureCase(plugins, true, true); ProcessorStateCase(plugins);
+                DefineOverrideProbe(plugins, false); DefineOverrideProbe(plugins, true);
+                CrossStreamBindingProbe(plugins); LinkedSideFileProbe(plugins);
+                Console.WriteLine("W01_PROBES " + new JavaScriptSerializer().Serialize(OptimizationRisks));
             }
-            result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), longPathsValidated=false, scope="Real Core lifecycle only; production CLI backend, other global scopes, SDK/G3 and persistent cache not accepted" };
+            result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), optimizationRisks=OptimizationRisks.ToArray(), optimizationRisksAccepted=false, longPathsValidated=false, scope="Real Core lifecycle only; production CLI backend, other global scopes, SDK/G3 and persistent cache not accepted" };
             Console.WriteLine("PASS CoreLifecycle: " + Tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception e)
         {
-            code=1; result = new { succeeded=false, sourceCommit=args.Length>2?args[2]:null, runId=args.Length>3?args[3]:null, checks=checks, tests=Tests.ToArray(), longPathsValidated=false, error=e.ToString() };
+            code=1; result = new { succeeded=false, sourceCommit=args.Length>2?args[2]:null, runId=args.Length>3?args[3]:null, checks=checks, tests=Tests.ToArray(), optimizationRisks=OptimizationRisks.ToArray(), optimizationRisksAccepted=false, longPathsValidated=false, error=e.ToString() };
             Console.Error.WriteLine(e);
         }
         finally { Settings.Current = original; }

@@ -56,6 +56,8 @@ try {
     if($state.schemaInputs.Count -eq 0){throw 'Real SDK schema input inventory is empty'}
     $fixtureFailures=@()
     $fixtures=@(
+        @{name='CompilerInputDigests';marker='PASS InputDigests:'},
+        @{name='CompilerNodeJoiner';marker='PASS NodeJoiner:'},
         @{name='CompilerCacheContent';marker='PASS CacheContent:'},
         @{name='CompilerCacheBoundary';marker='PASS CacheBoundary:'},
         @{name='CompilerInputRoots';marker='PASS InputRoots:'},
