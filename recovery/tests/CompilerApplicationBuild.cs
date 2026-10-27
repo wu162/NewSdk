@@ -87,7 +87,7 @@ public static class CompilerApplicationBuild
         }
         return root;
     }
-    static RunResult Build(string name, string mod, string[] content, Observe observer = null, string[] extraArguments = null)
+    static RunResult Build(string name, string mod, string[] content, Observe observer = null, string[] extraArguments = null, int traceLevel = 3)
     {
         int number = ++buildNumber;
         // Core still uses legacy MAX_PATH APIs for intermediate asset names.
@@ -95,7 +95,7 @@ public static class CompilerApplicationBuild
         // do not weaken Chinese/space MOD-path or production path validation.
         string output = Path.Combine(shortOutputRoot, "b" + number);
         var arguments = new List<string> { "build", "--mod", mod, "--sdk-root", sdk, "--out", output,
-            "--package-format", "loose", "--package-content", String.Join(",", content), "/sc:false", "/bc:false", "/pc:false", "/csc:false", "/tl:3" };
+            "--package-format", "loose", "--package-content", String.Join(",", content), "/sc:false", "/bc:false", "/pc:false", "/csc:false", "/tl:" + traceLevel.ToString(System.Globalization.CultureInfo.InvariantCulture) };
         if (extraArguments != null) arguments.AddRange(extraArguments);
         var request = Options.Parse(arguments.ToArray());
         Require(request.ModRoot == Path.GetFullPath(mod) && !Paths.Contains(sdk, request.ModRoot), "Expected external MOD directory from Options.Parse");
@@ -479,7 +479,7 @@ public static class CompilerApplicationBuild
                 else if (change == "nearer-hashes") File.WriteAllText(added, File.ReadAllText(hashes));
                 else File.WriteAllBytes(added, new byte[0]);
             } };
-            var failed = Build("manifest-publication-" + change, mod, groups, observer(true), new[] { "/tl:9" });
+            var failed = Build("manifest-publication-" + change, mod, groups, observer(true), null, 9);
             Failed(failed, ExitCode.Compilation, "failed");
             Require(injected && configured.Count == groups.Length && completed == groups.Length && Events(failed, "StreamCompleted").All(row => Text(Map(row["payload"])["status"]) == "succeeded"),
                 "Manifest candidate refusal did not follow three successful configured real Core streams");
@@ -493,7 +493,7 @@ public static class CompilerApplicationBuild
             Require(Convert.ToInt64(failedInputs["activeFilePins"]) == 0 && Convert.ToInt64(failedInputs["activeReadHandles"]) == 0,
                 "Refused manifest generation retained input pins");
             configured.Clear(); completed = 0;
-            var retry = Build("manifest-new-generation-" + change, mod, groups, observer(false), new[] { "/tl:9" });
+            var retry = Build("manifest-new-generation-" + change, mod, groups, observer(false), null, 9);
             Success(retry, groups);
             Require(configured.Count == groups.Length && completed == groups.Length, "Manifest retry omitted one configured application stream");
             var retryInputs = retry.ReleasedInputs;
