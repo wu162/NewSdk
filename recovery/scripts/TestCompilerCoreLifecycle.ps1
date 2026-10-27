@@ -76,6 +76,7 @@ try {
         @{name='CompilerDeclarationSnapshots';marker='PASS DeclarationSnapshots:';timeoutSeconds=600},
         @{name='CompilerDocumentSnapshots';marker='PASS DocumentSnapshots:';timeoutSeconds=600},
         @{name='CompilerDocumentMetadata';marker='PASS DocumentMetadata:';timeoutSeconds=600},
+        @{name='CompilerUpheavalSamples';marker='PASS UpheavalSamples:';timeoutSeconds=600},
         @{name='CompilerExpressionPrograms';marker='PASS ExpressionPrograms:';timeoutSeconds=600},
         @{name='CompilerDependencyObservations';marker='PASS DependencyObservations:'},
         @{name='CompilerBaseManifestIndex';marker='PASS BaseManifestIndex:'},
@@ -95,6 +96,9 @@ try {
     )
     $state.fixtures=@($fixtures|ForEach-Object{
         @{name=$_.name;path=('recovery/tests/'+$_.name+'.cs');sha256=(Hash ('recovery/tests/'+$_.name+'.cs'))}
+    })
+    $state.upheavalSampleInputs=@(Get-ChildItem -LiteralPath 'recovery/tests/fixtures/UpheavalSmall' -Recurse -File|Sort-Object FullName|ForEach-Object{
+        @{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/');sha256=(Hash $_.FullName)}
     })
     $state.sdkFixtureInputs=@('Mods/mymod/Data/RecoveryArmorProbe.xml','tools/BinaryAssetBuilder.exe.config'|ForEach-Object{
         @{path=$_;sha256=(Hash (Join-Path $sdk $_))}
@@ -268,6 +272,7 @@ try {
         if($modeState.fixtures.Count -ne $fixtures.Count){throw 'Lifecycle fixture omitted'}
         $modeState.passed=(@($modeState.fixtures|Where-Object{$_.passed -ne $true}).Count -eq 0)
     }
+    foreach($input in $state.upheavalSampleInputs){if((Hash (Join-Path $root $input.path)) -cne $input.sha256){throw 'Upheaval small-group source input changed during validation'}}
     foreach($input in $state.schemaInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK schema input changed during lifecycle validation'}}
     foreach($input in $state.sdkFixtureInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK fixture/config input changed during lifecycle validation'}}
     if((Hash $originalTexture) -cne $state.originalTextureSha256){throw 'Pinned original texture changed during backend lifecycle validation'}

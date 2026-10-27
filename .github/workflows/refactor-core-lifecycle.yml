@@ -45,6 +45,8 @@ on:
       - 'recovery/tests/CompilerDocumentSnapshots.cs'
       - 'recovery/tests/CompilerDocumentSnapshotOracle.cs'
       - 'recovery/tests/CompilerDocumentMetadata.cs'
+      - 'recovery/tests/CompilerUpheavalSamples.cs'
+      - 'recovery/tests/fixtures/UpheavalSmall/**'
       - 'recovery/tests/CompilerDependencyObservations.cs'
       - 'recovery/tests/CompilerBaseManifestIndex.cs'
       - 'recovery/tests/CompilerNodeJoiner.cs'
@@ -202,6 +204,7 @@ jobs:
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/runtime.log
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/expression-original/**
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/document-original/**
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/CompilerUpheavalSamples/work/upheaval-small/**
           if-no-files-found: warn
       - name: Isolated original BAB baseline for the two targeted backend cases
         if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
@@ -209,6 +212,13 @@ jobs:
         run: |
           foreach($mode in @('Debug','Release')) {
             ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerBackendLifecycle/result.json" -OutputDirectory "recovery/evidence/refactor/core-backend-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180
+          }
+      - name: Bounded Upheaval sample original BAB differential in Debug and Release
+        if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerUpheavalSamples/result.json" -OutputDirectory "recovery/evidence/refactor/core-upheaval-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180 -ExpectedCaseCount 1
           }
       - name: Validate actual application JSONL and reports against protocol schemas
         if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
@@ -332,6 +342,7 @@ jobs:
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-upheaval-baseline/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/core-cli-reuse-product/reuse.json
             recovery/artifacts/cli-controller-preflight/**

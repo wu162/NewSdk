@@ -1,0 +1,2 @@
+# Preserve the four original files' exact historical CRLF/BOM/EOF bytes.
+Data/*.xml -text
