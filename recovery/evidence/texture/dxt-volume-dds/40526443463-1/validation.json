@@ -1,0 +1,59 @@
+{
+  "runId": "40526443463",
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281"
+    }
+  ],
+  "status": "passed",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "summary": [
+        "PASS Texture complete DXT3/DXT5 volume DDS fixtures=5568 checks=2310019; PC Production=71; full header and payload; POT including partial blocks; no-mip and recursive float volume mip chains; no plugin/SDK acceptance",
+        "PASS Texture volume DDS NoOriginal fixtures=5568 checks=2207232; original DLL absent and not loaded"
+      ],
+      "passed": true,
+      "withoutOriginalTextureCompiler": true
+    },
+    {
+      "configuration": "Release",
+      "summary": [
+        "PASS Texture complete DXT3/DXT5 volume DDS fixtures=5568 checks=2310019; PC Production=71; full header and payload; POT including partial blocks; no-mip and recursive float volume mip chains; no plugin/SDK acceptance",
+        "PASS Texture volume DDS NoOriginal fixtures=5568 checks=2207232; original DLL absent and not loaded"
+      ],
+      "passed": true,
+      "withoutOriginalTextureCompiler": true
+    }
+  ],
+  "sdkValidated": false,
+  "probeOnly": false,
+  "runAttempt": "1",
+  "nativeBinaries": [
+    {
+      "configuration": "Debug",
+      "importDirectory": 0,
+      "entryPoint": 0,
+      "sha256": "9793840bf228fa7c2c49ff309bd14d2e549083f456920ba9950c368979ad3ac8",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Release",
+      "importDirectory": 0,
+      "entryPoint": 0,
+      "sha256": "a940c36f194ac6aafc6216d666ffdfa966823142029866fb641d2177224cce3e",
+      "machine": "I386"
+    }
+  ],
+  "sourceCommit": "aaacb3d25fdb99eddaa8ed4ab23701437e840ec2",
+  "scope": "PC quality71 DXT3/DXT5 POT/partial-block volume no-mip/recursive float mip DDS; no plugin/SDK acceptance"
+}

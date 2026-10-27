@@ -1,0 +1,112 @@
+{
+  "runId": "40526443463",
+  "reused": [
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "png",
+    "bmp",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-samples"
+  ],
+  "runAttempt": "1",
+  "sourceCommit": "aaacb3d25fdb99eddaa8ed4ab23701437e840ec2",
+  "status": "passed",
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "base"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "volume-mips"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "mip-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "volume-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "volume-mip-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "raster-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcNoMip"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcMips"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcDxtNoMip"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcDxtMips"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt-volume-dds"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcDxtVolumes"
+    }
+  ],
+  "selected": [
+    "base",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "raster-images",
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "dxt-images",
+    "sdk-PcDxtNoMip",
+    "sdk-PcDxtMips",
+    "dxt-volume-dds",
+    "sdk-PcDxtVolumes"
+  ]
+}

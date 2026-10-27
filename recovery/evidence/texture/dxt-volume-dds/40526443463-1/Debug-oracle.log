@@ -1,0 +1,1 @@
+PASS Texture complete DXT3/DXT5 volume DDS fixtures=5568 checks=2310019; PC Production=71; full header and payload; POT including partial blocks; no-mip and recursive float volume mip chains; no plugin/SDK acceptance
