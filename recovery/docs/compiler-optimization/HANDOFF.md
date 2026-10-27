@@ -1,30 +1,25 @@
 # 编译器优化：当前交接
 
-更新：2026-10-27，北京时间；本轮窗口15:01—16:01，使用2个子代理。
+更新：2026-10-27，北京时间；本轮15:01开始，少于60分钟，使用2个子代理。
 成果分支：`feature/compiler-optimization`，起点 `compiler-main@e7396d3`。
 执行约定与方案读取索引：[README.md](README.md)。
 
-## 当前状态：W02 扩展与 W04 构建内元数据共享验证中
+## 当前状态：本轮 W02 扩展与 W04 子组完整验收通过
 
-- 既有 W01 三项真实 Core 修复、W03 单遍双摘要、W08 NodeJoiner 局部索引、W04 同代引用描述已在源码 `75601909` / [40461583024](https://github.com/wu162/NewSdk/actions/runs/40461583024) 完整验收；准确范围与微基准保留在 [VALIDATION.md](VALIDATION.md)。
-- 本轮 W02：补 rawParse、schemaRead/Compile/Metadata/ContentCheck、逻辑 schema 读取与外层 settings/provider/cache/session/清理等区间；顶层 applicationWork 覆盖规划、backend、artifact 校验、包装、发布和缓存 Commit。不可变快照保留失败调用，明确 beforeInitialReport 边界与嵌套关系，不宣称全部 wall 成本已覆盖。
-- 本轮 W04 子组：每 build 单 entry MetadataCache，仅保存自有继承/依赖值、双向深拷贝，保留每流独立 XmlSchemaSet 全文读取/Compile/helper 绑定及整文档验证。键含完整有序内容闭包、根路径、依赖模式、文化及 hashable 配置；提供 DisableSharedSchemaMetadata 回退。尚无跨流 Framework schema 或引用描述共享。
-- 新专用 fixture 验证完整 SDK 表/顺序 cold-warm-fallback、可变集合隔离、同大小同时间戳 include 变更、失败不发布、模式/文化/根/配置隔离及 Clear；三流 business 继续严格原 BAB 与四输出差分，并记录逐任务读/编译/元数据 build/hit。
+- W02：增加 rawParse、schemaRead/Compile/Metadata/ContentCheck、逻辑 schema 读取、outerStages 与顶层 applicationWork；不可变快照保留实际调用/抛异常次数，明确 beforeInitialReport 边界和嵌套区间，未宣称覆盖全部 wall 成本。
+- W04：每 build 单 entry MetadataCache，仅保存自有继承/依赖值，存储/恢复均深拷贝。三流真实 CLI 双配置均从3次表遍历降为1次构建+2次恢复；每流仍完整读取815个schema文件/1,515,884字节并Compile自己的Framework schema、绑定helpers及整文档验证。提供 DisableSharedSchemaMetadata 回退，尚无跨流Framework schema或引用描述共享。
+- 既有 W01 三项真实 Core 风险修复、W03 单遍双摘要、W08 NodeJoiner 局部索引及同代引用描述均保留并回归。每流重绑仍不等于 W06 不可变结果或并行完成。
 
-## 验证中，不能标完成
+## 最新验证身份
 
 所有编译、测试和微基准仅在 Actions；本地只编辑、静态检查及读取证据。
+构建/测试/打包源码 `4a128696c2de04b5151c4dc9f1ac3c35661e7407` / [40466010643](https://github.com/wu162/NewSdk/actions/runs/40466010643) 整体 success：Debug/Release生产、各14个Core fixtures、原BAB、协议、Texture、实际CLI、全部缓存、输入根、完整mymod/BIG与五文件ZIP独立解压验收均通过。后续仅文档，不改二进制来源。
+提前 artifact `12716528944` 与完整 artifact `12716723779` 均下载核对SHA256；完整包含两配置ZIP及准确source/run manifest。哈希、微基准和范围见 [VALIDATION.md](VALIDATION.md)。
+本轮前两次运行40465129025/40465759765因新增测试误要求零输入可选组存在backendCompile指标而失败，原终态保留；已按真实调用数（含0）修复并完整重验，未放宽生产拒绝或字节断言。
 
-| 源码 | Actions | 当前证据 |
-| --- | --- | --- |
-| `ed364467a114a841c4ae3b2ba87629c4c4e851f3` | [40465129025](https://github.com/wu162/NewSdk/actions/runs/40465129025) | W02 首批。两配置新增 application fixture 断言误要求空可选组存在 backendCompile 指标而失败；其它独立组继续。失败保留。 |
-| `4da2282f99cae1a35e5c4cd1dfe64023b27c410c` | [40465759765](https://github.com/wu162/NewSdk/actions/runs/40465759765) | W04 生产/测试源码；运行中，仍带上述测试断言问题。 |
-| `4a128696c2de04b5151c4dc9f1ac3c35661e7407` | [40466010643](https://github.com/wu162/NewSdk/actions/runs/40466010643) | 修正零任务实际调用数断言，生产输入与上一行相同；两配置各14个 targeted fixtures、原 BAB 和协议通过，CLI/缓存/mymod/BIG/ZIP继续验收。 |
+## 测量与下一步
 
-继续低频跟进到终态，下载 targeted 小证据及最终 business-work-metrics、mymod/BIG/ZIP 收据，核对 source/run；更新本页与 VALIDATION，不能用文档头替代二进制来源。两次旧运行均保留，不取消或改写。
-
-## 下一步与边界
-
-先以三流实际计量核实 W04 是否减少表遍历及其成本，不以不同 CI runner 时长相除报告提速。W04 本组不减少 schema 读取/Compile，完整 mymod 仍仅1流。
-W03 不能仅加 path→digest 字典：Reset 的强内容复核、同时间同长度变更、XML/XInclude/payload 消费同版本、cacheoff 发布前变化拒绝及快照跨 Dispose/发布生命周期必须成组处理；未实现输入封存与跨流读取去重。W05 影子依赖、W06 不可变结果、W09—10 并行尚未完成。
-后续成果仍集中本分支；[PR #15](https://github.com/wu162/NewSdk/pull/15) 为草稿，不自行合入。每轮最多60分钟、通常2个子代理（最多3个）；只改文档不重编译。
+共享前真实三流每配置重复schema逻辑读2445次/4,547,652字节，外层schema准备合计约668/686ms。W04后读/Compile次数不变，元数据命中区间约1ms；三次微基准波动明显、单流还需保存成本，不能宣称完整构建提速。OS页缓存unknown，不跨CI机器相除比较时间。
+下一组优先推进 W03 构建级实际消费输入封存及变化拒绝，再接 W05 影子依赖。不能仅加path→digest字典：Reset强内容复核、同时间同长度变更、XML/Include/XInclude/payload消费同版本、cacheoff发布前强复核，以及快照跨Dispose/发布/Complete生命周期须成组处理。未证明消费闭包的类型保守回退；保留现有/bc /sc全根复核。
+W05影子依赖、W06不可变结果和W09—10并行尚未完成；完整mymod仍仅1流，不能单独证明跨流收益。
+后续成果仍集中本分支；[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，不自行合入。每轮最多60分钟、通常2个子代理（最多3个）；只改文档不重编译。
