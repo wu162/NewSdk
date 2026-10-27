@@ -1,0 +1,48 @@
+INFO  Using log config file: jar:file:/D:/a/_temp/dxt-decompile-e1b2b69f774e41de9c74d33901097cfb/ghidra_11.4.2_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: C:\Users\runneradmin\AppData\Roaming\ghidra\ghidra_11.4.2_PUBLIC\application.log (LoggingInitialization)  
+INFO  Loading user preferences: C:\Users\runneradmin\AppData\Roaming\ghidra\ghidra_11.4.2_PUBLIC\preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (923 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (SSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: SHA1PRNG (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (ApplicationTrustManagerFactory)  
+INFO  Starting cache cleanup: C:\Users\runneradmin\AppData\Local\ghidra\fscache2 (FileCacheMaintenanceDaemon)  
+INFO  Finished cache cleanup, estimated storage used: 0 (FileCacheMaintenanceDaemon)  
+INFO  Headless startup complete (10179 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 58 extension points (18 false positives) (ClassSearcher)  
+INFO  HEADLESS Script Paths:
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Debug\Debugger\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\PyGhidra\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Processors\Atmel\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\Base\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Debug\Debugger-rmi-trace\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\FunctionID\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\VersionTracking\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\BytePatterns\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\DecompilerDependent\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\BSim\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\FileFormats\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\PDB\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\Jython\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\SystemEmulation\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Processors\PIC\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\SwiftDemangler\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\WildcardAssembler\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Processors\DATA\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\Decompiler\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\GnuDemangler\ghidra_scripts
+    D:\a\NewSdk\NewSdk\recovery\scripts\ghidra
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Features\MicrosoftCodeAnalyzer\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Processors\JVM\ghidra_scripts
+    D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\ghidra_11.4.2_PUBLIC\Ghidra\Processors\8051\ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Creating temporary project: D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\project\Texture (HeadlessAnalyzer)  
+ERROR Abort due to Headless analyzer error: Directory not found: D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\project (HeadlessAnalyzer) java.io.FileNotFoundException: Directory not found: D:\a\_temp\dxt-decompile-e1b2b69f774e41de9c74d33901097cfb\project
+	at ghidra.framework.project.DefaultProjectManager.createProject(DefaultProjectManager.java:100)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processLocal(HeadlessAnalyzer.java:444)
+	at ghidra.app.util.headless.AnalyzeHeadless.launch(AnalyzeHeadless.java:198)
+	at ghidra.GhidraLauncher.launch(GhidraLauncher.java:81)
+	at ghidra.Ghidra.main(Ghidra.java:54)
+ 
+Press any key to continue . . . 

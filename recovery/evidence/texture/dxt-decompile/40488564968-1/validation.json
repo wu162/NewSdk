@@ -1,0 +1,13 @@
+{
+  "probeOnly": true,
+  "sdkValidated": false,
+  "toolSha256": "795a02076af16257bd6f3f4736c4fc152ce9ff1f95df35cd47e2adc086e037a6",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runId": "40488564968",
+  "status": "started",
+  "scope": "Original native decompilation evidence only; not recovery acceptance",
+  "sourceCommit": "2b9d41f3b5d672714452a3626724fc432f7f66f7",
+  "runAttempt": "1",
+  "evidenceOnly": true,
+  "ghidraVersion": "11.4.2"
+}

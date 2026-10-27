@@ -1,0 +1,36 @@
+{
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha"
+  ],
+  "runId": "40488564968",
+  "status": "failed",
+  "sourceCommit": "2b9d41f3b5d672714452a3626724fc432f7f66f7",
+  "groups": [
+    {
+      "error": "Ghidra export failed",
+      "evidenceOnly": true,
+      "passed": false,
+      "group": "dxt-decompile"
+    }
+  ],
+  "selected": [
+    "dxt-decompile"
+  ],
+  "runAttempt": "1"
+}
