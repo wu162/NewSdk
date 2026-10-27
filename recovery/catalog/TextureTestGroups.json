@@ -419,6 +419,22 @@
       "manual_only": true,
       "evidence_only": true,
       "sdk": false
+    },
+    "dxt3-alpha": {
+      "script": "recovery/scripts/TestTextureDxt3Alpha.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "global.json",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs",
+        "recovery/scripts/TestTextureDxt3Alpha.ps1",
+        "recovery/tests/TextureDxt3AlphaDifferential.cs"
+      ],
+      "evidence": "recovery/evidence/texture/dxt3-alpha/*/validation.json",
+      "sdk": false
     }
   },
   "targetPlatform": "Win32"

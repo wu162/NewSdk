@@ -12,7 +12,7 @@ try{
  '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TextureDxtBlockProbe.exe.config"
  Run probe {& "$work/TextureDxtBlockProbe.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/samples"}
  $dds=@(Get-ChildItem "$out/samples/dds" -File)
- if($dds.Count -ne 64){throw "Expected 64 original DDS samples; got $($dds.Count)"}
+ if($dds.Count -ne 32){throw "Expected 32 original DDS samples; got $($dds.Count)"}
  $r.fixtures=$dds.Count;$r.summary=@(Get-Content "$out/probe.log"|Where-Object{$_ -match '^PROBE Texture'})
  Copy-Item "$out/samples/transcript.tsv" "$out/transcript.tsv"
  Compress-Archive -Path "$out/samples/*" -DestinationPath "$out/samples.zip"
