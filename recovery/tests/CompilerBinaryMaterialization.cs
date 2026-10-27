@@ -190,7 +190,8 @@ public static class CompilerBinaryMaterialization
             using ((IDisposable)begin.Invoke(null, new object[0]))
             {
                 object content = prepare.Invoke(null, new object[] { replacement, consumed });
-                byte[] bytes = new byte[checked((int)consumed.Length)]; int count = consumed.Read(bytes, 0, bytes.Length);
+                byte[] bytes = new byte[checked((int)consumed.Length)]; int count = 0, next;
+                while (count < bytes.Length && (next = consumed.Read(bytes, count, bytes.Length - count)) != 0) count += next;
                 Require(count == bytes.Length, "Small identity fixture did not read its complete source");
                 content.GetType().GetMethod("Append", Hidden).Invoke(content, new object[] { bytes, 0, count });
                 try { content.GetType().GetMethod("Complete", Hidden).Invoke(content, new object[] { consumed }); }
@@ -332,6 +333,39 @@ public static class CompilerBinaryMaterialization
             Writable(fallbackSource); snapshot.VerifyUnchanged();
         }
         tests.Add("actual-CopyAsset-active-snapshot-zero-one-fifteen-sixteen-seventeen-tail-contracts-and-post-spool-parent-pin-budget-fallback");
+    }
+    static void LateFallbackClosesSpool()
+    {
+        var asset = Asset("late-fallback-spool", false); string source = Source(asset, "late-fallback-spool");
+        string scratch = Path.Combine(work, "late-fallback-spool-snapshot");
+        using (var snapshot = new PhysicalInputSnapshot(scratch, 0, 8L * 1048576, 10, 0))
+        using (snapshot.BeginReadScope())
+        {
+            var begin = typeof(PhysicalInputSnapshot).GetMethod("BeginMaterializationCapture", Hidden);
+            var prepare = typeof(PhysicalInputSnapshot).GetMethod("BeginMaterializationContent", Hidden);
+            object capture = begin.Invoke(null, new object[0]);
+            using ((IDisposable)capture)
+            using (var consumed = File.OpenRead(source))
+            {
+                object content = prepare.Invoke(null, new object[] { source, consumed });
+                var append = content.GetType().GetMethod("Append", Hidden); byte[] buffer = new byte[65521]; int count;
+                while ((count = consumed.Read(buffer, 0, buffer.Length)) != 0) append.Invoke(content, new object[] { buffer, 0, count });
+                var activeSpool = (FileStream)content.GetType().GetField("storage", Hidden).GetValue(content);
+                Require(activeSpool != null && activeSpool.CanRead && activeSpool.CanWrite && activeSpool.Length == consumed.Length,
+                    "Disk tee preflight did not establish an active complete private spool");
+                content.GetType().GetMethod("Complete", Hidden).Invoke(content, new object[] { consumed });
+                Require(!activeSpool.CanRead && Directory.GetFiles(scratch).Length == 0 && content.GetType().GetField("storage", Hidden).GetValue(content) == null,
+                    "Late publication fallback kept an unregistered private spool alive until the cdata phase");
+                var metrics = Metrics(snapshot);
+                Require(Number(metrics, "captures") == 0 && Number(metrics, "activeDirectoryPins") == 0 && Number(metrics, "diskBytes") == 0,
+                    "Late fallback retained source/directory/budget ownership");
+                capture.GetType().GetMethod("Commit", Hidden).Invoke(capture, new object[0]);
+                observations.Add(new { id = "late-fallback-releases-spool-before-following-consumers", metrics });
+            }
+        }
+        Require(!Directory.Exists(scratch), "Late fallback scratch was not removed on snapshot disposal");
+        Writable(source);
+        tests.Add("late-parent-pin-fallback-immediately-closes-unregistered-disk-spool-before-cdata-can-use-remaining-budget");
     }
     static Settings PublicSettings(string name, string input)
     {
@@ -495,7 +529,7 @@ public static class CompilerBinaryMaterialization
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
             Settings.Current = new Settings { BuildCache = false, SessionCache = false, LinkedStreams = true, CustomPostfix = "", TargetPlatform = TargetPlatform.Win32 };
             AppContext.SetSwitch(Disable, false);
-            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); CachedCommitCancellation(); ArbitraryTeeChunks(); ActiveSnapshotCopyTailContracts(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs();
+            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); CachedCommitCancellation(); ArbitraryTeeChunks(); ActiveSnapshotCopyTailContracts(); LateFallbackClosesSpool(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
                 scope = "Actual CopyAsset successful validated sources and failure rollback only; invalid-header/length repair retains separate existing fixture coverage; not all BinaryAsset reads or hidden Texture closure" };
             Console.WriteLine("PASS BinaryMaterialization: " + tests.Count + " groups; " + checks + " checks");

@@ -295,7 +295,14 @@ public sealed class PhysicalInputSnapshot : IDisposable
             }
             else { strong = existing.Sha256; finalLegacy = existing.LegacyHash; }
             complete = true;
-            owner.PublishMaterializationContent(this, strong, finalLegacy);
+            try { owner.PublishMaterializationContent(this, strong, finalLegacy); }
+            finally
+            {
+                // Successful publication has transferred its storage. On a
+                // late fallback, release the unregistered spool before cdata
+                // can consume the remaining snapshot budget.
+                Dispose();
+            }
         }
         internal byte[] CopyMemory() { return memory == null ? null : memory.ToArray(); }
         internal FileStream TakeStorage() { FileStream value = storage; storage = null; return value; }
