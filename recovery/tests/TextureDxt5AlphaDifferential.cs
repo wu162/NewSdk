@@ -104,7 +104,7 @@ internal static unsafe class TextureDxt5AlphaDifferential
                 transcript.WriteLine("fixture\toriginalAlpha\trecoveredAlpha\tddsSha256");
                 // Exhaust every alpha value, then every value at every pixel position
                 // against nonuniform colour/alpha neighbours (packing and ordering).
-                for(int fixture=0;fixture<12608;fixture++) {
+                for(int fixture=0;fixture<78144;fixture++) {
                     byte[] pixels=Pixels(4,4,2);
                     if(fixture<256) {
                         for(int i=0;i<16;i++) pixels[i*4+3]=(byte)fixture;
@@ -112,8 +112,11 @@ internal static unsafe class TextureDxt5AlphaDifferential
                         int n=fixture-256, position=n/256, value=n%256;
                         for(int i=0;i<16;i++) pixels[i*4+3]=(byte)(i*17);
                         pixels[position*4+3]=(byte)value;
-                    } else {
+                    } else if(fixture<12608) {
                         Random random=new Random(fixture*31+17); random.NextBytes(pixels);
+                    } else {
+                        int pair=fixture-12608, a=pair&255, b=pair>>8;
+                        for(int i=0;i<16;i++) pixels[i*4+3]=(byte)((i&1)==0?a:b);
                     }
                     byte[] before=(byte[])pixels.Clone();
                     byte[] expected=Original(compressor,plugin,optionsMethod,4,4,pixels,"D3DFMT_DXT5",false);
