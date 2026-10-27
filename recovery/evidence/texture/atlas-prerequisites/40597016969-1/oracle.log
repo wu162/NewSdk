@@ -1,0 +1,1 @@
+PROBE Texture PC atlas prerequisites fixtures=480 nativeCalls=960 checks=2885; exact format3/9 and filter5 overrides plus format7/filter0 controls; full DDS/options/callbacks and repeat determinism; original-only, no full atlas/recovered acceptance

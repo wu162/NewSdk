@@ -1,0 +1,64 @@
+{
+  "runAttempt": "1",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "sdk-PcDxtNoMip",
+    "dxt-samples",
+    "sdk-PcDxtMips",
+    "dxt-volume-dds",
+    "sdk-PcDxtVolumes",
+    "npot-rgba8",
+    "sdk-PcNpotRgba8",
+    "npot-storage-replay",
+    "sdk-PcNpotStorage"
+  ],
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt-images"
+    },
+    {
+      "evidenceOnly": true,
+      "error": "oracle failed",
+      "passed": false,
+      "group": "npot-storage-stress"
+    },
+    {
+      "evidenceOnly": true,
+      "passed": true,
+      "group": "atlas-prerequisites"
+    }
+  ],
+  "status": "failed",
+  "selected": [
+    "dxt-images",
+    "npot-storage-stress",
+    "atlas-prerequisites"
+  ],
+  "runId": "40597016969",
+  "sourceCommit": "9e7d671e46b3abb41e3e8ab22abd1c759e77b9c9"
+}

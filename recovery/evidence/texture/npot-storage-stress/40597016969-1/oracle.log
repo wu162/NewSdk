@@ -1,0 +1,6 @@
+
+Unhandled Exception: System.AccessViolationException: Attempted to read or write protected memory. This is often an indication that other memory is corrupt.
+   at System.Runtime.InteropServices.Marshal.CopyToManaged(IntPtr source, Object destination, Int32 startIndex, Int32 length)
+   at TextureNpotStorageStressProbe.Native(Assembly assembly, String path)
+   at TextureNpotStorageStressProbe.Case(Assembly original, MethodInfo load, StreamWriter transcript, String directory, String label, String profile, Int32 width, Int32 height, Int32 pattern, Int32 metadata, String extension, Byte[] file)
+   at TextureNpotStorageStressProbe.Main(String[] args)

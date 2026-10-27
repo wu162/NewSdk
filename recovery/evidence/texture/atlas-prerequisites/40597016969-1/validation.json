@@ -1,0 +1,14 @@
+{
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "fixtureCount": 480,
+  "samplesSha256": "506dd29951bae05e688f4c5474ffdbb594d43790d5834bf73a480b575bb7cb00",
+  "status": "probe-only",
+  "scope": "original-only PC atlas compression prerequisites: exact HandleTerrainTextureAtlas format3/9 filter5 overrides, format7/filter0 controls, full DDS/options/callbacks and twice-per-input determinism; not full atlas or recovered acceptance",
+  "evidenceOnly": true,
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "nativeCalls": 960,
+  "runId": "40597016969",
+  "probeOnly": true,
+  "sourceCommit": "9e7d671e46b3abb41e3e8ab22abd1c759e77b9c9"
+}

@@ -1,0 +1,12 @@
+{
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "status": "failed",
+  "scope": "original-only larger-ratio PC NPOT/POT-control PNG low/high-depth, TGA additional and BMP16 storage/quantization plus original rejection domains; descriptors, raw locked rows and final RGBA; not recovered acceptance",
+  "evidenceOnly": true,
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runId": "40597016969",
+  "error": "oracle failed",
+  "probeOnly": true,
+  "sourceCommit": "9e7d671e46b3abb41e3e8ab22abd1c759e77b9c9"
+}
