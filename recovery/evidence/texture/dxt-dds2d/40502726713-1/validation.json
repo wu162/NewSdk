@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "runAttempt": "1",
+  "sourceFiles": [
+    {
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66",
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json"
+    },
+    {
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9",
+      "path": "src/TextureCompiler/Colour/TextureColour.asm"
+    },
+    {
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281",
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp"
+    }
+  ],
+  "nativeBinaries": [
+    {
+      "entryPoint": 0,
+      "machine": "I386",
+      "sha256": "7c5ea7d92be0770bf42becf797fc694b8632fc38e49b46024433c301a94464cc",
+      "importDirectory": 0,
+      "configuration": "Debug"
+    },
+    {
+      "entryPoint": 0,
+      "machine": "I386",
+      "sha256": "205e433ceb42c03ac0f85d4e60f7cba722d0d455395f28c1af4d6db698f2635e",
+      "importDirectory": 0,
+      "configuration": "Release"
+    }
+  ],
+  "sdkValidated": false,
+  "probeOnly": false,
+  "scope": "PC quality71 DXT3/DXT5 aligned 2D no-mip DDS; no plugin/SDK acceptance",
+  "runId": "40502726713",
+  "configurations": [
+    {
+      "passed": true,
+      "summary": [
+        "PASS Texture complete DXT3/DXT5 2D DDS fixtures=768 checks=250646; PC Production=71; full header and payload; aligned POT no-mip only; no plugin/SDK acceptance",
+        "PASS Texture 2D DDS NoOriginal fixtures=768 checks=246784; original DLL absent and not loaded"
+      ],
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Debug"
+    },
+    {
+      "passed": true,
+      "summary": [
+        "PASS Texture complete DXT3/DXT5 2D DDS fixtures=768 checks=250646; PC Production=71; full header and payload; aligned POT no-mip only; no plugin/SDK acceptance",
+        "PASS Texture 2D DDS NoOriginal fixtures=768 checks=246784; original DLL absent and not loaded"
+      ],
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Release"
+    }
+  ],
+  "sourceCommit": "1a260825052acfe7f90582bf8483318b4f627e21"
+}

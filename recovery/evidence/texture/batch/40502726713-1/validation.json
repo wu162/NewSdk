@@ -1,0 +1,39 @@
+{
+  "sourceCommit": "1a260825052acfe7f90582bf8483318b4f627e21",
+  "status": "passed",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete"
+  ],
+  "runAttempt": "1",
+  "groups": [
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "dxt-dds2d"
+    }
+  ],
+  "selected": [
+    "dxt-dds2d"
+  ],
+  "runId": "40502726713"
+}
