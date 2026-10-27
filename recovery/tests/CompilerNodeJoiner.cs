@@ -454,12 +454,13 @@ public static class CompilerNodeJoiner
         const string after = "<W32 id='new'/><W0 id='first'/>";
         string expected = original.Run("Wide", before.ToString(), after, "").Outcome;
         bool previous; AppContext.TryGetSwitch("NewSdk.Compiler.DisableNodeJoinerPredecessors", out previous);
+        Settings previousSettings = Settings.Current; Settings.Current = new Settings { BuildCache = false, SessionCache = false };
         try
         {
             foreach (bool disabled in new[] { false, true })
             {
                 AppContext.SetSwitch("NewSdk.Compiler.DisableNodeJoinerPredecessors", disabled);
-                var owner = new DocumentProcessor(new Settings(), new PluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32), null);
+                var owner = new DocumentProcessor(Settings.Current, new PluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32), null);
                 XmlNode result = (XmlNode)typeof(NodeJoiner).GetMethod("OverrideWithWork", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null,
                     new object[] { schemas, new XmlDocument(), Document("Wide", before.ToString()).DocumentElement, Document("Wide", after).DocumentElement, owner });
                 var serializer = new JavaScriptSerializer();
@@ -471,7 +472,7 @@ public static class CompilerNodeJoiner
                 observations.Add(new { id = "owner-predecessor-actual-query-work", disabled, metrics });
             }
         }
-        finally { AppContext.SetSwitch("NewSdk.Compiler.DisableNodeJoinerPredecessors", previous); }
+        finally { Settings.Current = previousSettings; AppContext.SetSwitch("NewSdk.Compiler.DisableNodeJoinerPredecessors", previous); }
         tests.Add("actual-owner-NodeJoiner-merge-scalar-report-counter-and-disabled-legacy-query-path");
     }
     public static int Main(string[] args)
