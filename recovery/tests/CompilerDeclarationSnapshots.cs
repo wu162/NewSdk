@@ -131,6 +131,10 @@ public static class CompilerDeclarationSnapshots
             Require(Object.ReferenceEquals(cached.Handle, source.Handle) && Object.ReferenceEquals(cached.InheritFromHandle, source.InheritFromHandle) &&
                 Object.ReferenceEquals(cached.ReferencedInstances[0], source.ReferencedInstances[0]), "Unsupported graph was partially cloned or sliced: " + kind);
             Require(DerivedHandle.VirtualCalls == 0, "Snapshot classification invoked custom Equals/GetHashCode/ToString: " + kind);
+            var recaptured = new InstanceDeclaration(); recaptured.CacheFromInstance(cached); recaptured.Initialize(document);
+            Require(Object.ReferenceEquals(recaptured.Handle, source.Handle) && Object.ReferenceEquals(recaptured.ReferencedInstances[0], source.ReferencedInstances[0]),
+                "Unsupported runtime provenance was lost after a restore and recapture: " + kind);
+            Require(DerivedHandle.VirtualCalls == 0, "Legacy provenance propagation invoked custom virtual methods: " + kind);
             if (kind == "own") Require(cached.Handle is DerivedHandle && cached.Handle.ToString() == "custom-derived-handle", "Derived custom behavior did not survive legacy fallback");
         }
         tests.Add("any-derived-handle-or-list-keeps-whole-legacy-graph-without-virtual-method-probing-or-slicing");

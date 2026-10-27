@@ -23,6 +23,7 @@ public class InstanceDeclaration : IXmlSerializable
     {
         internal InstanceHandle Handle, Inheritance;
         internal List2<InstanceHandle> Strong, Weak;
+        internal bool Legacy;
     }
     private static bool ExactHandles(List2<InstanceHandle> handles)
     {
@@ -31,16 +32,16 @@ public class InstanceDeclaration : IXmlSerializable
                 if ((object)handle != null && handle.GetType() != typeof(InstanceHandle)) return false;
         return true;
     }
-    private static HandleGraph SnapshotHandles(InstanceHandle own, InstanceHandle inheritance, List2<InstanceHandle> strong, List2<InstanceHandle> weak)
+    private static HandleGraph SnapshotHandles(InstanceHandle own, InstanceHandle inheritance, List2<InstanceHandle> strong, List2<InstanceHandle> weak, bool forceLegacy = false)
     {
         bool disabled; AppContext.TryGetSwitch("NewSdk.Compiler.DisableDeclarationHandleSnapshots", out disabled);
-        bool copy = !disabled && ((object)own == null || own.GetType() == typeof(InstanceHandle)) &&
+        bool copy = !forceLegacy && !disabled && ((object)own == null || own.GetType() == typeof(InstanceHandle)) &&
             ((object)inheritance == null || inheritance.GetType() == typeof(InstanceHandle)) &&
             (strong == null || strong.GetType() == typeof(List2<InstanceHandle>)) &&
             (weak == null || weak.GetType() == typeof(List2<InstanceHandle>)) && ExactHandles(strong) && ExactHandles(weak);
         var seen = copy ? new Dictionary<InstanceHandle, InstanceHandle>(new HandleIdentityComparer()) : null;
         return new HandleGraph { Handle = SnapshotHandle(own, seen), Inheritance = SnapshotHandle(inheritance, seen),
-            Strong = SnapshotHandleList(strong, seen), Weak = SnapshotHandleList(weak, seen) };
+            Strong = SnapshotHandleList(strong, seen), Weak = SnapshotHandleList(weak, seen), Legacy = !copy };
     }
     private static InstanceHandle SnapshotHandle(InstanceHandle handle, Dictionary<InstanceHandle, InstanceHandle> seen)
     {
@@ -67,6 +68,10 @@ public class InstanceDeclaration : IXmlSerializable
 	[Serializable]
 	private class LastState
 	{
+        // Runtime provenance only: a derived collection becomes a base list in
+        // the legacy shallow container copy. Do not later misclassify that
+        // still-shared graph as an exact-base value-owned snapshot.
+        [NonSerialized] internal bool LegacyHandleGraph;
 		public InstanceHandle Handle;
 
 		public uint ProcessingHash;
@@ -89,7 +94,8 @@ public class InstanceDeclaration : IXmlSerializable
 
 		public LastState(CurrentState current)
 		{
-            HandleGraph handles = SnapshotHandles(current.Handle, current.InheritFromHandle, current.ReferencedInstances, current.WeakReferencedInstances);
+            HandleGraph handles = SnapshotHandles(current.Handle, current.InheritFromHandle, current.ReferencedInstances, current.WeakReferencedInstances, current.LegacyHandleGraph);
+            LegacyHandleGraph = handles.Legacy;
             Handle = handles.Handle;
             ProcessingHash = current.ProcessingHash;
             ReferencedInstances = current.ReferencedInstances.Count > 0 ? handles.Strong : null;
@@ -147,6 +153,7 @@ public class InstanceDeclaration : IXmlSerializable
 
 	private class CurrentState
 	{
+        internal bool LegacyHandleGraph;
 		public AssetDeclarationDocument Document;
 
 		public InstanceHandle Handle;
@@ -184,7 +191,8 @@ public class InstanceDeclaration : IXmlSerializable
 
 		public void FromLast(LastState last)
 		{
-            HandleGraph handles = SnapshotHandles(last.Handle, last.InheritFromHandle, last.ReferencedInstances, last.WeakReferencedInstances);
+            HandleGraph handles = SnapshotHandles(last.Handle, last.InheritFromHandle, last.ReferencedInstances, last.WeakReferencedInstances, last.LegacyHandleGraph);
+            LegacyHandleGraph = handles.Legacy;
             Handle = handles.Handle;
             ProcessingHash = last.ProcessingHash;
             ReferencedInstances = handles.Strong ?? new List2<InstanceHandle>();
@@ -199,6 +207,7 @@ public class InstanceDeclaration : IXmlSerializable
 
 		public void FromScratch()
 		{
+            LegacyHandleGraph = false;
 			ReferencedInstances = new List2<InstanceHandle>();
 			WeakReferencedInstances = new List2<InstanceHandle>();
 			ReferencedFiles = new List2<string>();
