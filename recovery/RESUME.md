@@ -61,3 +61,11 @@ PC 清理验证已完成：源码 0ae0efdb / 40241188546 的其余 10 组件组�
 Texture 2026-10-27 续接：`recovery/texturecompiler-source` 已新增 DXT3 显式 alpha 子组件（未接插件），`9f8b1361` / 40470055551 Debug/Release 各4352例、65288检查成功；`70aded86` / 40470267556 的参考库代码映射与32个PC块取证成功（probe-only，19/22目标代码节匹配）。下一步按 TEXTURE_DXT_ENTRYPOINTS.md 的候选 RVA 核对实际调用链并恢复 DXT5 alpha/颜色搜索，不重复旧探针、不把子组件或静态匹配写为完整DXT验收。生产 SDK 未替换。
 
 Texture 2026-10-27 第二阶段当前入口：[TEXTURE_DXT_ALPHA.md](TEXTURE_DXT_ALPHA.md)。分支仍为 `recovery/texturecompiler-source`，仅PC。Production DXT5 alpha 字节/float与独立x87源码后端最终源码 `4bf0ca8c` / 40493971846 success；Debug/Release各2176量化器、78144实际DDS alpha、12288 float、78144 NoOriginal重放通过，native无入口无导入；原SDK与插件DXT拒绝边界不变。颜色块、完整压缩器与SDK集成仍待做。不要再用未接受的私有managed参考替代x87后端，也不要重跑已通过alpha；下一步按颜色取证当前状态推进RoundMult/AllSame/CodeRGBBlock完整能力组。
+
+## 2026-10-27 19:19（北京时间）认证中断时的本地交接
+
+本轮最后成功普通推送为 `6417e32ad3bae6aa28b386a72ed35df1da0cd505`。随后 GitHub API 返回401 Bad credentials，原生Git只读访问同样无法取得认证；环境仍在线，尚无可用的凭据刷新工具。未新增secret要求，未强推，未改写失败记录。此交接提交尚未推送；恢复连接后先读取远程分支头，保留Actions可能已写回的证据，再rebase并普通推送本地文档。
+
+已验证成果：Production DXT5 alpha最终源码 `4bf0ca8ccb74a6f670cd7ecb954483dc795fae9f` / Actions `40493971846` completed/success，Debug/Release量化器、78144实际DDS alpha、12288 float、78144 NoOriginal及native ABI全部通过。源码/测试输入后续未变，SDK未修改，完整颜色压缩器未完成。详细范围见 TEXTURE_DXT_ALPHA.md，不重跑未变成功组。
+
+唯一待收取：源码 `c4bb4db72440bf23827656a643022ea67c7bbb1d` / Actions `40494632567`，显式 `dxt-colour-functions`，只补取 CodeRGBBlockExhaustive@0x833F0、CodeRGBBlockNoMode@0x83CD0、FastEncodeDXT1_3@0x8BAA0、FastEncodeDXT1_4@0x8C1F0。最后可读状态为运行中；当前最终状态与远端是否已自动回写未知，不标作成功、不重复启动。预期输出在 `evidence/texture/dxt-decompile/40494632567-1`。此前All取证40490888440在RoundMult超时、只收取13函数，仍为failed/partial；本次补取即使成功也不意味着RoundMult已完成。
