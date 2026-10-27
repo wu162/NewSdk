@@ -1,0 +1,13 @@
+{
+  "partialSamplesSha256": "505596ac514fcd056b294ddbe4018e091cec67d7aa67c2cf5ebb68938b432e70",
+  "sourceCommit": "dfbeaee30c482816a927d4f42229a0ceafd598e8",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "scope": "original-only PC TerrainTextureAtlas ProcessInstance full runtime buffers, embedded base/normal DDS, input XML/images, repeated determinism, size-count boundaries 0..49/50, normals and defined file errors; no recovered or SDK acceptance",
+  "probeOnly": true,
+  "error": "oracle failed",
+  "status": "failed",
+  "runId": "40599421956",
+  "runAttempt": "1",
+  "evidenceOnly": true,
+  "sdkValidated": false
+}

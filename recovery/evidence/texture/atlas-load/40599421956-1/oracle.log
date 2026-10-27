@@ -1,0 +1,3 @@
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at TextureAtlasLoadProbe.Case(IAssetBuilderPlugin plugin, StreamWriter transcript, String output, String label, Tile[] tiles, Int32 size, Boolean lossy, Boolean success, Int32 count)
+   at TextureAtlasLoadProbe.Main(String[] args)
