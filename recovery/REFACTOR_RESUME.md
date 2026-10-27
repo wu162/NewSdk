@@ -1,6 +1,6 @@
 # MOD 编译器：当前续接入口
 
-更新：2026-10-27（北京时间）。开发主线为 `compiler-main`；当前任务在 `feature/compiler-optimization`，成果继续集中该分支。[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，合并须用户明确批准；禁止任何强推。GitHub 网页默认分支以仓库实际设置为准。
+更新：2026-10-28（北京时间）。开发主线为 `compiler-main`；当前任务在 `feature/compiler-optimization`，成果继续集中该分支。[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，合并须用户明确批准；禁止任何强推。GitHub 网页默认分支以仓库实际设置为准。
 
 ## 继续性能优化
 
@@ -8,11 +8,11 @@
 2. 按 [优化索引](docs/compiler-optimization/README.md) 选择源码和方案章节；当前实现边界查 [CONTRACTS](docs/compiler-optimization/CONTRACTS.md)，完整用户方案仅保留 [PLAN](docs/compiler-optimization/PLAN.md) 一份。
 3. 按 [EFFICIENCY](EFFICIENCY.md) 推进完整能力组。通常 2 个子代理、最多 3 个；编译、测试和微基准全部使用 GitHub Actions。每约 10–15 分钟检查并普通推送有意义的检查点，未验证成果明确标记。
 
-最新生产、首次完整测试及打包来源为 **`64bfcc80cec7860e69f0ffbc5cb0e04c69baec87` / [40524897974](https://github.com/wu162/NewSdk/actions/runs/40524897974)**，运行整体 success。Debug/Release 各 30 组 Core 探针、原 DLL/独立原 BAB、CLI/协议、Texture、全部缓存与输入根、完整 mymod/BIG 和独立五文件 ZIP 均通过。后续文档或测试提交不改变该二进制来源；复用、原 ZIP 下载和准确哈希见短交接与 [验证记录](docs/compiler-optimization/VALIDATION.md)。
+最新完整接受的生产、首次测试及打包来源为 **`5727b05b234c130a5c26e5c465a31f8ff42baf22` / [40593235622](https://github.com/wu162/NewSdk/actions/runs/40593235622)**，整体 success。双配置各30组、原 DLL/独立原 BAB、协议、Texture、CLI、全部缓存与输入根、完整 mymod/BIG 和五文件 ZIP 通过。后续 `c3ef5344`（别名/原继承差分）、`07ff6a3b`（摘要读取所有权）及 owner-thread 合同组仍按各自 Actions 验证，不能继承旧生产结论。精确来源、下载身份及终态以[短交接](docs/compiler-optimization/HANDOFF.md)和[验证记录](docs/compiler-optimization/VALIDATION.md)为准。
 
-本轮完成 exact DOM 表达式遍历、绑定期局部符号索引、单次插入 schema 前序查询、私有 saved 元数据共享及已验证外部缓存物化的同流封存。XML 哈希缓冲/ASCII 尝试因 CPU 收益不稳定已撤回，947 行原 DLL 回归探针保留。局部组件计量不等于完整 CLI 提速；`CacheFromDocument` 的元数据共享目前只有公共 API 传递证明，没有生产调用收益证据。
+本轮推进 live 继承阶段/栈安全、Cache header 封存游标、实际网络 Cache 查询及自身可修复写删；后续别名、读取器与插件 owner 边界正验收。第一次实际三流小 CLI 的默认/回退成对计量没有显示端到端提速；局部组件计量不能替代完整构建对照。
 
-下一步仍以完整语义阶段结果与 Define 环境为主线；完整 AssetSemanticResult、Texture 隐藏读取闭包、强键 bundle 缓存和并行尚未完成。外部 legacy Cache 来源的封存不覆盖 App 排除的 staging cache，Local 可变输出继续保留原修复生命周期。不要靠旧 XML hash 或已观测的部分依赖放行完整缓存命中。
+下一步仍以完整语义结果与 Define 环境为主线；Texture 隐藏闭包、新强键 bundle 缓存和并行尚未完成。Local/Output 的可变修复和 App staging 排除继续保留；不能靠旧 XML hash 或部分依赖放行强缓存命中。
 
 ## 已交付产品与边界
 

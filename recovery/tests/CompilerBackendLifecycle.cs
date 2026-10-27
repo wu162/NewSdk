@@ -184,7 +184,7 @@ public static class CompilerBackendLifecycle
         }
         Require(seen.Count==3 && dataOffset==bin.Length && reloOffset==relocations.Length,"Asset chunks do not exactly consume streams");
     }
-    static bool oracleMutationChecked;
+    static bool oracleMutationChecked, providerOwnershipChecked;
     static void IndependentArmorOracle(IList<Artifact> artifacts,bool variant,string source)
     {
         Func<string,byte[]> read=extension=>File.ReadAllBytes(artifacts.Single(a=>Path.GetExtension(a.Path)==extension).Path);
@@ -206,6 +206,26 @@ public static class CompilerBackendLifecycle
     {
         var providers=(BuiltinCompilers)typeof(CoreStreamCompiler).GetField("compilers",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(backend);
         Require(providers.Registry.DefaultPlugin.GetAllTypesHash()==1424942948u && providers.Registry.DefaultPlugin.GetVersionNumber()==4u,"Backend default metadata is not the original Win32 XML contract");
+        if (!providerOwnershipChecked)
+        {
+            PluginRegistry registry = providers.Registry;
+            Action[] attempts = {
+                () => { PluginRegistry ignored = providers.Registry; },
+                () => providers.ReInitialize(TargetPlatform.Win32),
+                () => providers.Dispose()
+            };
+            foreach (Action attempt in attempts)
+            {
+                Exception observed = null;
+                var worker = new Thread(() => { try { attempt(); } catch (Exception error) { observed = error; } }) { IsBackground = true };
+                worker.Start(); Require(worker.Join(10000), "Wrong-thread provider call did not finish before reaching native code");
+                Require(observed is InvalidOperationException && observed.Message == "The built-in compilers must be used by their owning thread.",
+                    "Live provider lifecycle was not rejected at its aggregate owner boundary");
+                Require(Object.ReferenceEquals(providers.Registry, registry), "Rejected provider operation disposed or replaced the owner's registry");
+            }
+            providerOwnershipChecked = true;
+            Tests.Add("actual-live-backend-providers-wrong-thread-registry-reinitialize-dispose-rejected-before-native-or-terminal-state-owner-next-stream-and-dispose-remain-valid");
+        }
     }
     static Dictionary<string,string> Compile(CoreStreamCompiler backend, BuildRequest request, string name, string slot, Ambient ambient)
     {

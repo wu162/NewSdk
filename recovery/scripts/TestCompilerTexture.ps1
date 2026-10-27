@@ -24,6 +24,18 @@ function Assert-TextureTranscript([string]$Path){
     if($lines.Count -ne 10 -or @($lines|Where-Object{$_ -cmatch '^(Texture|OnDemandTexture|TerrainTextureAtlas):False:BUFFER:'}).Count -ne 6 -or
         @($lines|Where-Object{$_ -cmatch '^(Texture|OnDemandTexture|TerrainTextureAtlas):True:ERROR:'}).Count -ne 3){throw 'Texture transcript does not contain the complete three-route 6-success/3-error matrix'}
 }
+function Assert-TextureOwnership([string]$Path){
+    $methods=@('Initialize','ReInitialize','ProcessInstance','GetAllTypesHash','GetVersionNumber','GetExtendedTypeInformation','GetUnsupportedTypeInformation','Dispose')
+    $expected=@("TextureOwnerThreadSerial`tpassed")
+    foreach($phase in @('loaded','initialized','after-errors')){
+        foreach($method in $methods){$expected+="$phase.$method`tInvalidOperationException"}
+    }
+    $expected+=@("owner.Dispose`treturned","owner.DuplicateDispose`treturned")
+    foreach($method in $methods){$status=if($method -ceq 'Dispose'){'returned'}else{'ObjectDisposedException'};$expected+="closed.$method`t$status"}
+    $actual=@(Get-Content -LiteralPath $Path)
+    if($actual.Count -ne 35 -or $actual.Count -ne $expected.Count){throw 'Texture owner-thread matrix omitted an entry'}
+    for($index=0;$index -lt $expected.Count;$index++){if($actual[$index] -cne $expected[$index]){throw "Texture owner-thread refusal/order mismatch at $index"}}
+}
 Push-Location $root
 try{
     $state.sourceCommit=(git rev-parse HEAD).Trim()
@@ -65,6 +77,7 @@ try{
         try{
             Invoke-Fixture $run.exe $arguments $clean "$evidence/runtime.log"
             Assert-TextureTranscript "$evidence/adapter.txt"
+            Assert-TextureOwnership "$evidence/adapter.txt.ownership.tsv"
             if((Get-FileHash "$evidence/adapter.txt" -Algorithm SHA256).Hash.ToLowerInvariant() -cne $baseline){throw "$mode texture output, CustomData or input error differs from original"}
             $rejects=@(
                 @{field='originalSha256';message='Texture deployment mismatch: original input'},
@@ -89,7 +102,7 @@ try{
             }
         }finally{$env:PATH=$oldPath}
         Complete-CompilerValidationRun $run
-        $state.configurations+=@{configuration=$mode;passed=$true;successes=6;invalidInputErrors=3;deploymentRejections=@($rejects|ForEach-Object{$_.field});singleDispose=$true;separateOracleProcess=$true;exeSha256=$run.productExeSha256;validationHostSha256=$run.validationHostSha256;hostBoundPatch=$true;protectedPeAudit=$patch.protectedPeAudit;transcriptSha256=$baseline;componentExecution='test-only host with identical production objects; host-specific texture redirect'}
+        $state.configurations+=@{configuration=$mode;passed=$true;successes=6;invalidInputErrors=3;deploymentRejections=@($rejects|ForEach-Object{$_.field});singleDispose=$true;ownerThreadPolicy='OwnerThreadSerial';liveForeignThreadRejections=24;closedForeignThreadRejections=7;ownerAndClosedDisposeReturns=3;ownershipTranscriptSha256=(Get-FileHash "$evidence/adapter.txt.ownership.tsv" -Algorithm SHA256).Hash.ToLowerInvariant();separateOracleProcess=$true;exeSha256=$run.productExeSha256;validationHostSha256=$run.validationHostSha256;hostBoundPatch=$true;protectedPeAudit=$patch.protectedPeAudit;transcriptSha256=$baseline;componentExecution='test-only host with identical production objects; host-specific texture redirect'}
     }
     $state.status='passed'
     $global:LASTEXITCODE=0
