@@ -1,0 +1,55 @@
+{
+  "selected": [
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "sdk-PcDxtNoMip"
+  ],
+  "status": "failed",
+  "runAttempt": "1",
+  "runId": "40507166585",
+  "sourceCommit": "3e88414541b7b887527e965c6a0086f0b991cb09",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples"
+  ],
+  "groups": [
+    {
+      "passed": true,
+      "group": "sdk-PcNoMip",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "sdk-PcMips",
+      "evidenceOnly": false
+    },
+    {
+      "passed": false,
+      "group": "sdk-PcDxtNoMip",
+      "evidenceOnly": false,
+      "error": "Original SDK exit=-1"
+    }
+  ]
+}
