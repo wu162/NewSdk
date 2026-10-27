@@ -16,7 +16,7 @@ public sealed class StableMembershipCase
 {
     public string name, culture = "en-US";
     public int count = 40, extraBindings;
-    public bool legacyBindings, customComparer, customDictionary, customCulture, derivedHandle, derivedDeclaration, derivedSet, derivedList, duplicateOutput, traceMutation, collision;
+    public bool legacyBindings, customComparer, customDictionary, customCulture, derivedHandle, derivedDeclaration, derivedSet, derivedList, duplicateOutput, traceMutation, collision, xorQuery, entryBudget;
 }
 [Serializable]
 public sealed class StableMembershipResult
@@ -98,6 +98,7 @@ public sealed class StableMembershipRunner
         object handle = Activator.CreateInstance(spec.derivedHandle && index == 1 ? DerivedHandle() : handleType);
         uint type = spec.collision ? (uint)(index + 1) : (index % 2 == 0 ? 101u : 202u);
         uint id = spec.collision ? (index == 0 ? 10u : 9u) : unchecked((uint)(index + 1));
+        if (spec.xorQuery && index == spec.count - 1) { type = 202u; id = 174u; } // same XOR as (101,1), different full identity
         Set(handle, "_TypeId", type); Set(handle, "_InstanceId", id); Set(handle, "_TypeHash", 1u);
         Set(handle, "_TypeName", "Type" + type); Set(handle, "_InstanceName", new[] { "I", "İ", "ı", "i", "ä", "A" }[index % 6] + index.ToString("D3"));
         Set(state, "Handle", handle); Set(state, "AllDependentInstances", Activator.CreateInstance(spec.derivedSet && index == spec.count - 1 ? PlainDerived(setType) : setType));
@@ -122,20 +123,25 @@ public sealed class StableMembershipRunner
         manager = FormatterServices.GetUninitializedObject(core.GetType("BinaryAssetBuilder.Core.OutputManager", true));
         instances = new object[spec.count + spec.extraBindings];
         for (int index = 0; index < instances.Length; index++) instances[index] = NewInstance(index);
+        if (spec.xorQuery) { counts[101u] = 0; counts[202u] = 1; }
         MethodInfo begin = docType.GetMethod("BeginStreamBindings", All);
         if (begin != null && !spec.legacyBindings) begin.Invoke(document, null);
         IDictionary bindings = begin != null && !spec.legacyBindings ? (IDictionary)Get(current, "StreamBindings") : null;
         for (int index = 0; index < instances.Length; index++)
         {
             object dependencies = Get(Get(instances[index], "_Current"), "AllDependentInstances");
+            bool aliasBudgetSet = spec.entryBudget && index >= spec.count;
+            if (aliasBudgetSet) dependencies = Get(Get(instances[spec.count - 1], "_Current"), "AllDependentInstances");
             if (bindings != null)
             {
                 object binding = Activator.CreateInstance(core.GetType("BinaryAssetBuilder.Core.StreamBindingState", true), true);
-                if (spec.derivedSet && index == spec.count - 1) Set(binding, "Dependencies", Activator.CreateInstance(PlainDerived(setType)));
+                if (aliasBudgetSet) Set(binding, "Dependencies", dependencies);
+                else if (spec.derivedSet && index == spec.count - 1) Set(binding, "Dependencies", Activator.CreateInstance(PlainDerived(setType)));
                 dependencies = Get(binding, "Dependencies"); bindings.Add(instances[index], binding);
-                Set(Get(instances[index], "_Current"), "AllDependentInstances", dependencies);
             }
-            for (int prior = 0; prior < Math.Min(index, spec.count); prior++)
+            Set(Get(instances[index], "_Current"), "AllDependentInstances", dependencies);
+            int dependencyLimit = aliasBudgetSet || (spec.xorQuery && index == spec.count - 1) ? 0 : Math.Min(index, spec.count);
+            for (int prior = 0; prior < dependencyLimit; prior++)
                 setType.GetMethod("TryAdd").Invoke(dependencies, new[] { Handle(instances[prior]) });
         }
         outputs = (IList)Get(current, "OutputInstances");
@@ -280,22 +286,32 @@ public static class CompilerStableSortMembership
             cases.Add(new StableMembershipCase { name = "duplicate-output-reference", duplicateOutput = true });
             cases.Add(new StableMembershipCase { name = "last-trace-mutates-live-identity", traceMutation = true });
             cases.Add(new StableMembershipCase { name = "scope-budget", count = 32, extraBindings = 993 });
+            // Alias an already constructed exact 79-element set into extra
+            // non-output bindings. Validate cumulative-entry refusal without
+            // building a huge closure or sorting more than 80 declarations.
+            cases.Add(new StableMembershipCase { name = "entry-budget-shared-exact-set", count = 80, extraBindings = 800, entryBudget = true });
+            cases.Add(new StableMembershipCase { name = "same-XOR-distinct-query-full-identity", count = 18, xorQuery = true });
             cases.Add(new StableMembershipCase { name = "original-XOR-key-collision-error", count = 3, collision = true });
             foreach (var item in cases)
             {
                 var expected = original.Run(item, false); var actual = current.Run(item, false, false); var fallback = current.Run(item, true, false);
                 Require(expected.outcome == actual.outcome && expected.outcome == fallback.outcome, "Actual StableSort original/fallback differential: " + item.name + "\n" + expected.outcome + "\n" + actual.outcome + "\n" + fallback.outcome);
+                string privateInsertionPositions = null;
                 if (!item.traceMutation)
                 {
                     var expectedPositions = original.Run(item, true); var positions = current.Run(item, false, true);
-                    Require(expectedPositions.outcome == positions.outcome, "Original private insertion-position differential: " + item.name);
+                    Require(expectedPositions.outcome == positions.outcome, "Original private insertion-position differential: " + item.name + "\n" + expectedPositions.outcome + "\n" + positions.outcome);
+                    privateInsertionPositions = positions.outcome;
                 }
                 var metrics = Work(actual);
                 if (item.name == "en-US-40") Require(metrics != null && Convert.ToInt64(metrics["builds"]) > 0 && Convert.ToInt64(metrics["indexQueries"]) > 0, "Actual StableSort did not use admitted membership indexes");
                 if (item.legacyBindings || item.customComparer || item.customDictionary || item.customCulture || item.derivedHandle || item.derivedDeclaration || item.derivedSet || item.derivedList || item.extraBindings > 0)
                     Require(metrics != null && Convert.ToInt64(metrics["indexQueries"]) == 0 && Convert.ToInt64(metrics["builds"]) == 0, "Unsafe scope was indexed: " + item.name);
+                if (item.entryBudget) Require(metrics != null && (string)metrics["scopeReason"] == "entry-budget" && Convert.ToInt64(metrics["budgetBypasses"]) > 0,
+                    "Cumulative entry budget did not reject the actual aliased-binding scope");
+                if (item.xorQuery) Require(metrics != null && Convert.ToInt64(metrics["indexQueries"]) > 0, "Full-identity differential never used indexed membership");
                 if (item.collision) Require(expected.outcome.Contains("ArgumentException"), "Original XOR-key collision construction rejection was not retained");
-                evidence.Add(new { id = item.name, outcome = actual.outcome, work = metrics });
+                evidence.Add(new { id = item.name, outcome = actual.outcome, privateInsertionPositions, work = metrics });
             }
             string callbackEvidence = current.CallbackBoundary();
             var boundary = Json.Deserialize<Dictionary<string, object>>(callbackEvidence);
