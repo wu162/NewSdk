@@ -6,6 +6,9 @@
 | --- | --- | --- |
 | `18ae05cace7099bbd65fa6632dcfd7dd383bdded` | [40459453132](https://github.com/wu162/NewSdk/actions/runs/40459453132) | 整体 failure；完整生产、摘要、既有 Core、Texture、CLI、输入根、各缓存和 BIG 独立组通过。新 NodeJoiner 差分本身通过，但原 DLL 进入宿主触发归属检查，导致完整 mymod/最终 ZIP 未执行。失败不改写。 |
 | `75601909b0e874bc24786f1d6dd3d8c64eb1aee6` | [40461583024](https://github.com/wu162/NewSdk/actions/runs/40461583024) | 整体 success：完整生产、两配置各13个 Core fixtures、原 BAB、协议、Texture、CLI、全部缓存、输入根、完整 mymod 四文件/实际 BIG 原工具差分和最终五文件 ZIP 独立解压运行验收通过。 |
+| `ed364467a114a841c4ae3b2ba87629c4c4e851f3` | [40465129025](https://github.com/wu162/NewSdk/actions/runs/40465129025) | W02 首批；新增 application 计量断言误要求零输入可选组存在 backendCompile 阶段，targeted 失败。独立 CLI 已成功，其余范围以终态及独立收据为准。 |
+| `4da2282f99cae1a35e5c4cd1dfe64023b27c410c` | [40465759765](https://github.com/wu162/NewSdk/actions/runs/40465759765) | W04 生产组；专用 metadata fixture 双配置通过，仍受上述测试断言影响。失败历史不改写。 |
+| `4a128696c2de04b5151c4dc9f1ac3c35661e7407` | [40466010643](https://github.com/wu162/NewSdk/actions/runs/40466010643) | 零任务断言改为实际调用数，生产输入与上一行相同；两配置各14个 targeted fixtures、原 BAB 与协议通过，完整验收继续中。 |
 
 首轮证据 artifact：`12714925627`，SHA256 `9672e7e862791bac1ecc472c4e0efdadf1055f3d029405b83cfb798109fae593`。风险观察来自其中 Debug/Release `CompilerCoreLifecycle/result.json`，两配置一致。
 
@@ -37,7 +40,7 @@
 - 首轮对4,194,335字节输入交错5次测量，OS页缓存状态 unknown。全量双摘要暖路径中位数：Debug 6.065ms 对 SHA-only 4.849ms；Release 5.754ms 对4.692ms。因额外 CPU 成本，最终策略保留可能未变输入的 SHA-only 检查。
 - 首轮冷摘要模拟遗漏历史第二遍中的 SHA256，其耗时不作为最终比较数据。后续模拟已补齐，与新文件、普通变更、暖输入和同时间戳内容变化的正确性探针一起重验。
 - schema 描述以当前成功加载代、声明对象和实际类型为边界；有 fallback、上下文隔离、重载失败和同时间同大小内容变化探针。尚无跨流共享 SchemaSnapshot。
-- 暂无完整编译器前后 wall-time 对照，不报告端到端提速百分比。阶段计量不包含所有解析、schema 准备和发布成本；计数范围见 README。
+- 暂无完整编译器前后 wall-time 对照，不报告端到端提速百分比。首批计量当时未覆盖解析、schema 准备和发布的独立区间；第二轮扩展见下，完整边界见 README。
 
 第二轮修正后摘要微基准，同一 runner/进程内交错5次，输入4,194,335字节，OS页缓存 unknown。单位 ms，数值为中位数 [最小, 最大]；新文件指新的 FileHashItem 观察，不代表冷磁盘。
 
@@ -57,4 +60,24 @@
 | Debug | 845 | 202.127 | 63.706 | 15.346 |
 | Release | 713 | 162.036 | 56.252 | 13.694 |
 
-这只说明当前运行的成本，不与旧分支或其他 CI 机器相除求提速。八阶段尚未覆盖所有 schema 准备、原始 XML 解析、外层初始化与发布成本，不把差额全部归因给 schema。下一轮先补这些区间，再在多流样本评估 W03/W04 的共享边界。
+这只说明当前运行的成本，不与旧分支或其他 CI 机器相除求提速。这是首轮八阶段的历史读数，当时尚未覆盖 schema 准备、原始 XML 解析、外层初始化与发布，不把差额全部归因给 schema。第二轮已扩展这些区间；当前下一步以短交接为准。
+
+
+## 第二轮：W02 成本区间与 W04 构建内元数据
+
+当前候选 `4a128696c2de04b5151c4dc9f1ac3c35661e7407` / 40466010643。提前 targeted artifact `12716528944`，SHA256 `e7bec169a810740e985b2e9cc164435891f4f795d21d70fe76f18ee056d1001f`；下载后复核归档 SHA 与收据 source/run 一致。Debug/Release 各14 fixtures 全部通过：Core lifecycle 各15组、解析/schema失败计数和不可变快照、ApplicationBuild零任务与失败取消重试、原有缓存边界与原DLL差分均保留。整体验收尚未完成，不能以本小包替代完整 mymod/BIG/ZIP。
+
+第一批 targeted 失败原因仅为新增 application 测试在空可选组调用 Single 查找不存在的 backendCompile；已有零输入不编译合同正确。修复要求阶段至多1条，调用数之和等于真实 StreamStarted 数（含0），没有放宽生产拒绝或字节断言。初始失败 artifact `12716646191` 的 SHA256 为 `866203ff6b1c5e67adedf554ebfbbd178ee74f9fcbe543f740f35c46a3340ab0`。4da 的新增 metadata 专用 fixture 已独立成功，后续由4a完整重验。
+
+W02 当前新增 rawParse、schema 读/Compile/元数据/内容复核及 outerStages；顶层 applicationWork 快照明确停在 beforeInitialReport。报告/终态日志关闭、Complete及后续回滚仍不纳入本快照；嵌套区间不能相加。schema成功逻辑读取与digest读取分开记录，不等同物理磁盘 I/O。
+
+W04 仅共享构建内自有继承/依赖快照，存储与恢复双向深拷贝。专用 fixture 双配置各91项检查/3组：真实SDK完整表与顺序cold/warm/fallback相等；私有Framework和可变集合隔离；同大小同时间戳include变更、失败不发布/修复命中、countDependencies/文化/root/hashable配置/Clear全部通过。每次仍完整读取815文件、1,515,884字节并Compile，故未实现schema读取或Framework编译复用。
+
+以下为最终候选同一runner/进程内交错3轮的schemaMetadata区间，单位ms，中位数 [最小, 最大]；此区间包含helper绑定、key/查找及冷构建保存或命中恢复，warm表示构建内metadata命中，不表示物理磁盘冷暖。OS页缓存unknown。
+
+| 配置 | cold（新缓存） | warm（恢复） | fallback（禁用共享） |
+| --- | --- | --- | --- |
+| Debug | 5.540 [3.862,13.208] | 0.988 [0.984,0.993] | 12.458 [3.098,22.917] |
+| Release | 4.849 [3.945,13.819] | 0.957 [0.930,0.997] | 3.018 [2.852,14.395] |
+
+完整schema准备中位数cold/warm/fallback分别为Debug 191.345/187.655/185.008ms、Release 154.057/146.906/153.545ms。波动明显，样本少，不能据此报告完整构建提速或P95；确定性成果是命中不再遍历元数据表。冷路径保存及key计算有成本，单流不受益；可用DisableSharedSchemaMetadata回退。

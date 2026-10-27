@@ -19,7 +19,7 @@
 | --- | --- | --- |
 | `ed364467a114a841c4ae3b2ba87629c4c4e851f3` | [40465129025](https://github.com/wu162/NewSdk/actions/runs/40465129025) | W02 首批。两配置新增 application fixture 断言误要求空可选组存在 backendCompile 指标而失败；其它独立组继续。失败保留。 |
 | `4da2282f99cae1a35e5c4cd1dfe64023b27c410c` | [40465759765](https://github.com/wu162/NewSdk/actions/runs/40465759765) | W04 生产/测试源码；运行中，仍带上述测试断言问题。 |
-| `4a128696c2de04b5151c4dc9f1ac3c35661e7407` | [40466010643](https://github.com/wu162/NewSdk/actions/runs/40466010643) | 修正零任务实际调用数断言，生产输入与上一行相同；完整验证中。 |
+| `4a128696c2de04b5151c4dc9f1ac3c35661e7407` | [40466010643](https://github.com/wu162/NewSdk/actions/runs/40466010643) | 修正零任务实际调用数断言，生产输入与上一行相同；两配置各14个 targeted fixtures、原 BAB 和协议通过，CLI/缓存/mymod/BIG/ZIP继续验收。 |
 
 继续低频跟进到终态，下载 targeted 小证据及最终 business-work-metrics、mymod/BIG/ZIP 收据，核对 source/run；更新本页与 VALIDATION，不能用文档头替代二进制来源。两次旧运行均保留，不取消或改写。
 
