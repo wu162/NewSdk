@@ -1,6 +1,6 @@
 # GameObject recovery entry
 
-当前共同验收（2026-10-25）：246/322已知Marshal模块，源码`22aaf75aa50857f1675d545f7b1ed0684137ae11`，run`40129692157 success`。本轮新增完整15类，精确状态和下一组见[RESUME.md](RESUME.md)；76已知模块仍拒绝、58 Token-only回退保留，SDK未集成。不要把下文历史阶段范围当作最新计数。
+当前共同验收（2026-10-25）：246/322已知Marshal模块，源码`22aaf75aa50857f1675d545f7b1ed0684137ae11`，run`40129692157 success`。本轮新增完整15类，精确状态和下一组见[RESUME.md](../../../RESUME.md)；76已知模块仍拒绝、58 Token-only回退保留，SDK未集成。不要把下文历史阶段范围当作最新计数。
 
 Status: recovered **root component**, not a complete GameObject compiler or SDK plugin. It supports all 88 attributes declared directly by the GameObject XSD and 38 child kinds: the prior 29 non-polymorphic groups, complete SkirmishAIInformation, two empty module markers, and six module containers restricted to the 46 complete known types (31 base-only, seven additional Body, six ClientUpdate, two sound playback) plus unknown fallback (276 other known module types remain rejected). Unsupported children, fields and foreign namespaces remain explicitly rejected. SDK GameObject routing remains original.
 

@@ -1,4 +1,4 @@
-> 本设计清单已完成实现和模块验收；最终组件与SDK均已验收，结果见 [RESUME.md](RESUME.md) 和 [GAMEOBJECT_DRAW_MODEL.md](GAMEOBJECT_DRAW_MODEL.md)。以下保留原取证设计。
+> 本设计清单已完成实现和模块验收；最终组件与SDK均已验收，结果见 [RESUME.md](../../../RESUME.md) 和 [GAMEOBJECT_DRAW_MODEL.md](GAMEOBJECT_DRAW_MODEL.md)。以下保留原取证设计。
 
 # 下一完整组：W3D模型渲染5类（仍拒绝，未实现）
 

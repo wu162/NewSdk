@@ -25,6 +25,8 @@
 3. 用户确认无需AssetMerge，不再集成或列为P7必做。默认base仅需LoD；必要旧参数合同见 CLI_COMPATIBILITY.md；新增包版本/名称参数已实现，LoD明确选择修复原越界、保留完整逻辑表并补专项。下一步完成这组最终生产/ZIP验收并交付工具；本次不再以合回旧分支为目标。完整UI/runtime、Unicode Texture及混合Texture会话缓存分别记录为未覆盖范围，不自动扩大本次重构。WBData相关工作已取消，不能标成验证通过。
 4. 固定归档重放入口已启用为精确partial-Core恢复，不再钉无产物源。只在实际测试修复需要时使用，校验完整生产闭包/原始归档/成功范围，保留原失败终态与二进制/测试双来源；不重复已过SC。
 
+文档入口：`recovery/README.md`；用户使用说明：`recovery/COMPILER_USAGE.md`；类型恢复记录在 `recovery/docs/components`，历史流水在 `recovery/docs/history`。
+
 ## 按任务读取
 
 | 事项 | 入口 |

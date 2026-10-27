@@ -16,7 +16,7 @@
 实际优化：固定原blob/方法指纹、分段源读取、完整组集中验收、复用公共契约、SDK降频；不量化账号额度节省。
 
 
-**Current continuation:** read [RESUME.md](RESUME.md) first. Older “next stage” paragraphs below are historical and may already be completed. The current branch/evidence source commit is authoritative.
+**Current continuation:** read [RESUME.md](../../RESUME.md) first. Older “next stage” paragraphs below are historical and may already be completed. The current branch/evidence source commit is authoritative.
 
 Updated 2026-10-23. Branch: `recovery/compiler-source`. Original SDK on `main` has not been replaced or modified. This now includes the validated shared relocation runtime, complete ArmorTemplate path and WeaponTemplate scalar/resource/status/ten-optional-block/modifier-list/scatter subset, but is still **not completed recovery of both compiler DLLs**.
 
@@ -32,7 +32,7 @@ For all future tasks in `wu162/NewSdk`, all task-related repository operations e
 
 ## Stage size rule — user update, 2026-10-23
 
-The user extended stages from about 25 to about 35 minutes on 2026-10-23. This supersedes the earlier timing rule. Future implementation sessions should contain about **35 minutes of effective work** (normally estimated at 30–40 minutes), not stop after a roughly 10-minute component. Bundle implementation, Windows build, original-DLL differential tests, fixes, commits and handoff into substantial stages. If planned work finishes early, continue adjacent useful work; do not idle or repeat unaffected tests to pad time. Finish critical verification already in progress and hand off a reviewable milestone. Explain any earlier handoff caused by an external blocker or context limits. This rule governs future implementation stages; a planning-only documentation edit need not take 35 minutes. The dependency-based revised plan and next session scope are in [`STAGES.md`](STAGES.md). Read both files when resuming. No microtask scheduler is introduced.
+The user extended stages from about 25 to about 35 minutes on 2026-10-23. This supersedes the earlier timing rule. Future implementation sessions should contain about **35 minutes of effective work** (normally estimated at 30–40 minutes), not stop after a roughly 10-minute component. Bundle implementation, Windows build, original-DLL differential tests, fixes, commits and handoff into substantial stages. If planned work finishes early, continue adjacent useful work; do not idle or repeat unaffected tests to pad time. Finish critical verification already in progress and hand off a reviewable milestone. Explain any earlier handoff caused by an external blocker or context limits. This rule governs future implementation stages; a planning-only documentation edit need not take 35 minutes. The dependency-based revised plan and next session scope are in [`STAGES.md`](../../STAGES.md). Read both files when resuming. No microtask scheduler is introduced.
 
 ## Completed and persisted
 
@@ -748,7 +748,7 @@ SDK92180f9bbd830b9dbd49a696c259e54ffe2d7721，运行40098695436成功；159固�
 
 ## 2026-10-25：当前289路由DLL，267全局根真实SDK验收完成
 
-源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`，运行[40164710673](https://github.com/wu162/NewSdk/actions/runs/40164710673)，completed/success；最终收据 [xml-priority-sdk/acceptance.json](evidence/xml-priority-sdk/acceptance.json)。组件289入口已完成；SDK四平台metadata共16200项比较/56次未知与排除入口拒绝。真实SDK只复现EALAModStudio建立基础数据case5 BAB（清理阶段1/2），/O2、Win32，没有GUI/LoD/修复/打包。
+源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`，运行[40164710673](https://github.com/wu162/NewSdk/actions/runs/40164710673)，completed/success；最终收据 [xml-priority-sdk/acceptance.json](../../evidence/xml-priority-sdk/acceptance.json)。组件289入口已完成；SDK四平台metadata共16200项比较/56次未知与排除入口拒绝。真实SDK只复现EALAModStudio建立基础数据case5 BAB（清理阶段1/2），/O2、Win32，没有GUI/LoD/修复/打包。
 
 五profile为Baseline159次/80类型、A173/59、B277/130、FullMymod162/80、APT12/4；合计783次实际调用，类型并集精确267，原版及无原DLL隔离重放合计4698次三缓冲区比较，每profile四产物原/恢复逐字节一致。Baseline/A共332次调用复用887444e8b46ef185fdd120df5403dc8ff584840f/40162875013成功收据，Native/输入未变、metadata/委托路径与每个旧XML的identity guard完整，未重新调用编译器。最终运行只对B/Full/APT做6次原/恢复真实BAB构建，完整mymod7个Includes保留。
 

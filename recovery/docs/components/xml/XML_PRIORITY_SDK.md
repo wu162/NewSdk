@@ -1,6 +1,6 @@
 # XmlCompiler SDK：当前267全局根验收完成
 
-2026-10-25。当前289入口联合DLL的真实SDK验收已成功：源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`，运行[40164710673](https://github.com/wu162/NewSdk/actions/runs/40164710673)。五profile的实际根调用并集267、783次调用、原版及无原DLL隔离重放合计4698次三缓冲区比较；四产物逐字节相同。只执行EALAModStudio建立基础数据case5 BAB；当前完整范围、复用332次旧调用、APT非空文件证明、22个非全局登记项边界和12项排除见[XML_SDK_RECOVERY.md](XML_SDK_RECOVERY.md)及 [acceptance.json](evidence/xml-priority-sdk/acceptance.json)。
+2026-10-25。当前289入口联合DLL的真实SDK验收已成功：源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`，运行[40164710673](https://github.com/wu162/NewSdk/actions/runs/40164710673)。五profile的实际根调用并集267、783次调用、原版及无原DLL隔离重放合计4698次三缓冲区比较；四产物逐字节相同。只执行EALAModStudio建立基础数据case5 BAB；当前完整范围、复用332次旧调用、APT非空文件证明、22个非全局登记项边界和12项排除见[XML_SDK_RECOVERY.md](XML_SDK_RECOVERY.md)及 [acceptance.json](../../../evidence/xml-priority-sdk/acceptance.json)。
 
 以下为旧82入口及旧DLL历史，保留原sourceCommit/runId，不能与当前289路由DLL证据混用。
 

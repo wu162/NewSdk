@@ -6,4 +6,4 @@ GetAllTypesHash=1424942948；GetVersionNumber默认/Win32=4、PS3=7、Xbox360=6�
 
 最终源码71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7、SDK运行40095358016：52入口、四平台Initialize/ReInitialize、2928项公开字段/属性/哈希/版本比较、8项未知类型拒绝均通过。原DLL SHA256 d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6。
 
-独立原Plugin入口不总等于合法全局XSD资产。GameStatsModeData有独立Handler/Tracker/Marshal和完整组件恢复，但CnC3Types全局choice未注册；SDK仅使用其MultiplayerSettings嵌套形式。其他51入口均在原全局choice逐名核对并有实际SDK调用，见 [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md)。
+独立原Plugin入口不总等于合法全局XSD资产。GameStatsModeData有独立Handler/Tracker/Marshal和完整组件恢复，但CnC3Types全局choice未注册；SDK仅使用其MultiplayerSettings嵌套形式。其他51入口均在原全局choice逐名核对并有实际SDK调用，见 [XML_PRIORITY_SDK.md](docs/components/xml/XML_PRIORITY_SDK.md)。

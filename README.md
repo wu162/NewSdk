@@ -10,6 +10,8 @@
 
 ## 使用
 
+完整操作步骤见 [新编译器使用说明](recovery/COMPILER_USAGE.md)，开发和历史资料见 [文档入口](recovery/README.md)。
+
 ```powershell
 ./NewModCompiler.exe doctor --sdk-root C:\NewSdk\SDK
 ./NewModCompiler.exe plan --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --package-content base,apt,maps --package-format big

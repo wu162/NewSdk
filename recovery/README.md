@@ -1,51 +1,30 @@
-# RA3 compiler source recovery
+# 编译器文档入口
 
-This branch recovers the actual `SDK/tools/BinaryAssetBuilder.Tokenizer.dll` and `BinaryAssetBuilder.XmlCompiler.dll` shipped in this repository. The original DLLs are not replaced.
+`compiler-main` 是重构结果与后续开发主线。首次使用请读使用说明；继续开发请读交接入口。历史组件记录用于追溯，旧“下一步”不代表当前待办。
 
-## What is usable now
+## 使用与交付
 
-* `src/Managed/CompilerCatalog.cs`: buildable C# reconstruction of both plugins' version/type metadata logic, including all 301 XmlCompiler types and 3 Tokenizer types.
-* `src/Native/DataInitializers.cpp`: readable C++ implementations of the original time and angle initializers. No original DLL forwarding is used.
-* `src/Bridge/PrimitiveInitializers.cpp`: buildable C++/CLI bridge to those native implementations.
-* `src/Native/Relocation.h` / `.cpp` and `src/Bridge/RelocationBridge.cpp`: reconstructed allocation/relocation runtime, reference tables, bookmark exchange and Tokenizer member-offset fixup; see `RELOCATION_RUNTIME.md`.
-* `src/Native/ArmorTemplate.*`, `ScalarParsing.*`, `src/Bridge/XmlNodeAdapter.h` and `ArmorCompiler.cpp`: complete ArmorTemplate XML-to-buffer reconstruction plus shared XML/scalar parsing. See `ARMOR_TEMPLATE.md`.
-* `src/Native/WeaponTemplate.*` and `src/Bridge/WeaponCompiler.cpp`: 91 root attributes, four RangeDuration blocks, two SoundOrEvaEvent blocks WeaponAiHintInfo, three ObjectFilter blocks and the IncompatibleAttributeModifier reference list with complete buffers for that supported subset. See `WEAPON_TEMPLATE.md`; ScatterRadiusVsType now includes the complete inline ObjectFilter and 456-bit ModelCondition masks; Nuggets now supports all 35 explicit branches, plus missing/zero/unknown-TypeId default paths. See `WEAPON_NUGGETS.md`. Shared EnumBitset helpers include the two 223-bit ObjectStatus masks. ResourceMarshaling provides shared string, reference and typed-ID helpers.
-* `src/Native/WeaponNugget.*`: common Nugget serialization, the complete nine-member Damage family, projectile/reference branches, activation branches and six scalar/string branches, plus legal mymod/XSD/original-SDK probes; see `WEAPON_NUGGETS.md`.
-* `src/Plugin/ArmorPlugin.cs`: formal ArmorTemplate-only SDK plugin in `Recovered.Compiler.dll`; configuration switching, legal mymod probes and actual MOD output comparison are described in `ARMOR_SDK_INTEGRATION.md`.
-* `tests`: differential tests which load the original DLLs and compare the recovered components' results, including float bit patterns. See `evidence/primitives` for the actual results.
+| 需要做什么 | 文档 |
+| --- | --- |
+| 安装、编译 MOD、打包、缓存、排错 | [新编译器使用说明](COMPILER_USAGE.md) |
+| 查看版本、下载和发行验证 | [发行说明](COMPILER_RELEASE.md) |
+| 查询支持的命令行与旧参数 | [CLI 兼容范围](CLI_COMPATIBILITY.md) |
+| 查询 BIG、Additional、中立修复布局 | [打包合同](P7_PACKAGING.md) |
 
-These components are **not yet complete replacement compiler DLLs**. ArmorTemplate now has a working component `ProcessInstance` entry point; its node layer, native layout and token tables are reconstructed. The Armor-only formal plugin now compiles mymod through the real SDK; WeaponTemplate also has a formal plugin validated through the real SDK. GameObject, XmlCompiler serializers and whole-DLL replacement remain unfinished. The recovered relocation component is compiled and differentially validated against both originals; it is used by the recovered typed components and plugins, while complete replacement of both DLLs remains unfinished.
+## 开发与维护
 
-## Evidence versus recovered source
+| 事项 | 文档 |
+| --- | --- |
+| 当前状态与后续工作 | [REFACTOR_RESUME](REFACTOR_RESUME.md) |
+| 工作规则 | [EFFICIENCY](EFFICIENCY.md)、[阶段时长](STAGE_DURATION.md) |
+| 缓存与事务 | [生命周期记录](P5_LIFECYCLE_AUDIT.md) |
+| 路径约束 | [PATH_AUDIT](PATH_AUDIT.md) |
+| MakeBig 来源与恢复 | [MAKEBIG_RECOVERY](MAKEBIG_RECOVERY.md) |
+| LoD 原工具缺陷与修复合同 | [LoD 边界说明](P7_LOD_ORIGINAL_TAIL.md) |
+| 事件与最终报告 | [protocol](protocol/README.md) |
 
-`decompiled` is ILSpy's mechanical C# rendering, not the original source language and not a buildable substitute for a C++/CLI project. In particular, empty native structs retain only their total size; pointer arithmetic in function bodies is needed to recover their fields. Generated `.csproj` files in that directory are evidence, not the supported build entry point.
+## 原实现与历史资料
 
-`evidence/<assembly>/methods.json` records every method token/RVA, signature, code kind and available IL bytes. `types.json` records layouts and fields present in metadata. `summary.json` pins the assembly/hash. `logs` contains compressed complete IL/native listings. Source generation is pinned to ILSpy 9.1.0.7988.
+[分类索引](docs/README.md) 集中列出 GameObject、XML、Weapon、Armor、基础库和原始流程资料。152份类型/历史记录已从根目录移入分类目录，内容、原提交与 Actions 证据保留，文档相对链接已调整。
 
-Native metadata methods in the two targets are CRT/operator/runtime startup calls, not a large unidentified game-compiler subsystem. Most of the C++/CLI business logic was compiled to IL. This makes direct semantic recovery possible without importing an unrelated game's implementation.
-
-## Reproduce on Windows
-
-Use an x86 VS2022 developer PowerShell with C++/CLI support and .NET Framework 4.x:
-
-```powershell
-./recovery/scripts/TestPrimitives.ps1
-./recovery/scripts/TestRelocation.ps1
-./recovery/scripts/TestArmor.ps1
-./recovery/scripts/TestArmorSdk.ps1
-./recovery/scripts/TestWeapon.ps1
-./recovery/scripts/TestWeaponSdkProbe.ps1
-./recovery/scripts/Baseline.ps1
-```
-
-The scripts write build intermediates under `RUNNER_TEMP`; on a developer machine, set that variable to a disposable directory. The Actions workflows provide the same environment. The baseline uses a temporary SDK copy and invokes exactly the basic-data BAB command from `SDK/defaultscript.cs` case 5. Its only runtime compatibility change is adding CLR4 legacy mixed-mode activation to that temporary copy's application configuration.
-
-## Known boundaries
-
-The current tests validate the two rebuilt components, not an entire recovered MOD compiler. Primitive parsing comparisons include valid units, rounding, case sensitivity and malformed/mixed-unit cases. A differential failure exposed VC8 CRT's acceptance of D exponents, which current UCRT `atof` does not accept; the reconstructed initializer preserves that observed behavior. Shared scalar tests additionally cover integer limits, overflow and malformed signs, hex/octal integers, decimal float boundaries, and lexical differences from the current CRT. Old VC8 treats hex-float, INF and NaN text as zero; negative unsigned overflow saturates its magnitude before negation. The time/angle initializers now reuse that corrected numeric parser. Exotic legacy CRT inputs have not been exhaustively characterized.
-
-Read `RESUME.md` before continuing; consult historical `STATUS.md` entries as needed, then work from the committed evidence and differential harness. No microtask scheduler is required.
-
-
-
-GameObject component: all88 direct root attributes and29 non-polymorphic child classes are differentially validated. This includes completeCrusher/Projection, rawGeometry and allAudio/EVA groups. It still rejects SkirmishAIInformation and unsupported polymorphic modules; no formalGameObject SDK plugin exists. Follow RESUME.md for exact current source/run anchors and GAMEOBJECT_AI.md for the next source-only dependency map.
+`src/` 是恢复实现，`scripts/` 是构建及验证入口，`tests/` 是测试；`decompiled/`、`evidence/`、`preparation/` 是相应反编译、证据和准备资料。不要将准备目录或历史成功范围等同于当前产品已支持能力。

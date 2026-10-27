@@ -1,6 +1,6 @@
 # XmlCompiler：267全局根真实SDK验收完成
 
-2026-10-25。源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`，运行[40164710673](https://github.com/wu162/NewSdk/actions/runs/40164710673)，completed/success；汇总收据 [acceptance.json](evidence/xml-priority-sdk/acceptance.json)。原Plugin301入口中，排除12根后289入口组件还原完成；当前289个SDK登记项的公开metadata对照也已完成。真实SDK实际根调用覆盖其中267个schema全局类型；22个非全局/抽象/runtime项未冒充独立SDK根。
+2026-10-25。源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`，运行[40164710673](https://github.com/wu162/NewSdk/actions/runs/40164710673)，completed/success；汇总收据 [acceptance.json](../../../evidence/xml-priority-sdk/acceptance.json)。原Plugin301入口中，排除12根后289入口组件还原完成；当前289个SDK登记项的公开metadata对照也已完成。真实SDK实际根调用覆盖其中267个schema全局类型；22个非全局/抽象/runtime项未冒充独立SDK根。
 
 ## 实际执行范围
 

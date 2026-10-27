@@ -8,7 +8,7 @@
 
 工作与交付分支：`refactor/modcompiler-p0-p3`；目标：`recovery/compiler-source`。
 现有草稿 PR #13；未经用户明确批准不得合入，禁止强推。
-实施方案：[NewSdk_ModCompiler_Refactor_Plan.md](NewSdk_ModCompiler_Refactor_Plan.md)。
+实施方案：[NewSdk_ModCompiler_Refactor_Plan.md](../../NewSdk_ModCompiler_Refactor_Plan.md)。
 
 2026-10-26 本轮按用户“先交接”停止。**P4 未完成验收，不能宣称新入口已可构建真实 MOD。**
 本页只交接源码、状态及续接动作；沿用已有约束，不公开新增运行编号、指纹或产物链接。原始收据与日志保留在本分支 Actions 产物中，续接先读实际收据，不因缺少公开摘要重跑基线。
