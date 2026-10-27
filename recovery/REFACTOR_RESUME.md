@@ -9,6 +9,8 @@
 
 首批优化与三项真实 Core 风险修复已通过[完整运行40461583024](https://github.com/wu162/NewSdk/actions/runs/40461583024)，生产源码 `75601909`。第二轮的 schema/解析/外层区间与构建内自有继承/依赖元数据共享已由源码 `4a128696` / [完整运行40466010643](https://github.com/wu162/NewSdk/actions/runs/40466010643) 整体成功验收，含全部缓存、完整mymod/BIG与独立五文件ZIP；三流元数据表1次构建+2次恢复，每流读取/Compile仍保留，不报告完整构建提速。范围、失败记录、计量与下一步见短交接和[验证记录](docs/compiler-optimization/VALIDATION.md)。[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，后续成果继续集中原优化分支。
 
+第三轮新增正内容封存与发布前强复核、失败代同backend重试/取消传播、resolver候选影子记录及base manifest保序索引子组；生产/测试/打包源码 `68f38abb` / [40476134103](https://github.com/wu162/NewSdk/actions/runs/40476134103) 已整体success，含各17个Core fixtures、完整mymod/BIG和独立五文件ZIP。补测 `55f1a519` / [40479104375](https://github.com/wu162/NewSdk/actions/runs/40479104375) 新发现hardlink alias可unlink的真实缺口（W08派生Equals三方已通过）。生产热修 `c65761fe` 已保留每别名句柄，[完整重建40479845571](https://github.com/wu162/NewSdk/actions/runs/40479845571) 仍运行中，未标通过；下一轮先跟进其终态，不能用68旧成功代替。source/test身份分开，范围见短交接。
+
 ## 默认构建与参数改进（PR #14，已合入）
 
 本轮从 `compiler-main` 的 `933cf4a2` 创建 `feature/compiler-build-defaults`，PR [#14](https://github.com/wu162/NewSdk/pull/14)，已于2026-10-27合入 `compiler-main@e7396d3`。生产/测试源码 `8b3e146cb5220e830ff6a0ce4718f47af052f166`；[验收运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 的完整 mymod 原 BAB 流、含 Additional 的默认 BIG 与 SKUDEF 差分、全部受影响回归及独立五文件 ZIP 验收均已通过，运行整体 success。

@@ -109,3 +109,59 @@ schemaMetadata首流约21ms（含首次/JIT），后两流各约4ms。区间嵌�
 | NewModCompiler-Win32-Release.zip | `939a7c096cb98a1d8a9a55ec788c2d5704e7d44dbabff1bfa661b2965c44399b` |
 
 两ZIP各精确五个运行文件，归档哈希与manifest一致；Actions独立解压后doctor、小MOD与source-runtime原始输出、真实BIG/Additional/LoD/MakeBig、CDATA及回滚/取消验收通过。完整mymod另有同run收据，不把小MOD ZIP验收扩大为完整游戏/G3或中文Texture新验收。
+
+
+## 第三轮：正内容封存、resolver影子记录与基准匹配索引
+
+执行从北京时间15:56起，按用户最新要求推进接近90分钟，2个子代理。全部编译、测试仅在Actions，本地仅编辑、静态检查和读取既有证据。
+
+| 构建/测试源码 | Actions | 结果 |
+| --- | --- | --- |
+| `21cd74f98b6dd01d3d41d02e730d34de44eac4b2` | [40472165263](https://github.com/wu162/NewSdk/actions/runs/40472165263) | failure；CLI收据新加重复PowerShell key，预检拒绝，未进入长Native构建；普通修复保留原终态。 |
+| `0df7c92f4fb54d238b3dae588787f56bdb9cc230` | [40472198342](https://github.com/wu162/NewSdk/actions/runs/40472198342) | failure；旧Backend逐流reads>0假设、同backend失败修复被旧pin阻挡、ApplicationBuild漏System.Xml引用，以及真实CLI/BIG取消被ReadingSchema包装。无result的编译失败也按失败处理。各缓存/payload等独立成功不替代完整验收。 |
+| `b88240bc389f945191695118631e6abdef4d7d3e` | [40472999771](https://github.com/wu162/NewSdk/actions/runs/40472999771) | failure；新增W05专用用例双配置204检查/6组独立成功，仍受上述旧失败影响。 |
+| `68f38abb1ff649857ff786aa8a6bcf657553b8da` | [40476134103](https://github.com/wu162/NewSdk/actions/runs/40476134103) | 整体success；生产双配置、各17个Core fixtures、原BAB、协议、Texture、实际CLI/CTRL_BREAK、全部缓存、输入根、完整mymod/BIG和独立五文件ZIP全部通过。 |
+
+取消修复保留OperationCanceledException和原token，schema及XInclude不再把它转成ReadingSchema/resource错误或选择xi:fallback；真实CLI与BIG的CTRL_BREAK均重验exit6。失败Compile结束整个封存generation，原same-backend输入修复/重试合同恢复；新owner的snapshotId明确变代，重试强比较Initialize配置SHA。Backend计量要求零逐流摘要读必须由实际sealed hits解释、同代单调且跨代重置、旧快照不变，未简单删掉读工作断言。
+
+最新targeted artifact `12720638360`，SHA256 `02ccaf49d791ccac27329571b21866df6bd130bc987fb486d26b5117e7463cca`。完整validation逐项核对17/17、结果文件与构建日志，双配置均通过；PhysicalInputs100检查/5组，DependencyObservations204/6组，BaseManifestIndex38例/135检查/4组，ApplicationBuild4155检查/9组（含真实native APT DataBlob与XInclude发布边界），BackendLifecycle8010/6组及InputRoots80/6组均通过。
+
+### 实际三流的正内容工作量
+
+Debug/Release的business收据均succeeded=true，binarySourceCommit=sourceCommit=68f38abb。每配置实际capture822次/1,529,741字节，sealed hits1633次；发布前强复核822次/1,529,741字节，bypass0、cleanupFailures0。beforeInitialReport快照仍持822文件pin及47目录路径pin；实际Run返回后的释放由应用成功/取消/失败/重试用例验证。
+
+schema逻辑消费仍为2445次/4,547,652字节并逐流Compile，后续读取由封存字节满足；capture/verify是原文件逻辑I/O，不等同物理磁盘读，不能跨CI求提速。新快照单遍强/legacy摘要保持0、1及1MiB±边界原算法差分；同时间同长度的新generation变化、有限内存/磁盘/文件预算、不支持路径回退及取消已验证。positiveInputsOnly不表示全部依赖闭包，opaque Texture、precompiled/reference manifest及未接入查询仍保守。
+
+W05真实business每配置记录48次resolve、candidateChecks0、dropped0。这些FileReference是直接相对文件名，按旧resolver本就不做候选Exists；新观察器不额外探测。多根/postfix/wildcard/缺失与候选新增false→true等负查询由专用fixture验证，影子记录canAuthorizeReuse=false，不授权跳过或缓存命中。
+
+### 基准manifest子组的原DLL三方对照
+
+原SDK Core DLL SHA256 `b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47`。原DLL在可卸载AppDomain中，38例默认索引/禁用索引/原SDK结果、顺序、错误及异常部分状态一致；卸载后宿主ownership门槛通过。含重复Handle/base、patched首项保留、空/非法候选/别名列表、真实trace修改集合或Handle及异常等边界。
+
+512项倒序组两配置相同：默认512次索引查找、5121次秩操作，旧candidate/removal两类线性扫描各131,328次均降为0。List2内部数据搬移仍保留；任何实际trace回调后当前remove与后续lookup全部legacy，默认/tl3的放行范围保守。该fixture验证base初始化helper，不扩大为完整patch布局、CLI新patch功能或端到端提速。
+
+### 完整发行身份
+
+完整artifact `12720508892`，104,702,620字节，下载归档SHA256 `7b5e0c78444ac6937f9adfd1328f93bdcb60a53ec45be19dca40bb14070186d9` 与GitHub一致。完整mymod、BIG及release收据均success且source/run一致，两个manifest的binarySourceCommit/packagingSourceCommit均为68f38abb。
+
+| ZIP | SHA256 |
+| --- | --- |
+| NewModCompiler-Win32-Debug.zip | `4deb40b17e63193f1840641998bb6a500567d35cbbb1c884dc974878255f840b` |
+| NewModCompiler-Win32-Release.zip | `4a579c09d991fe3ccbc6936ce0768b5b8ad4b080968aabd043865d07277d0a62` |
+
+两份ZIP均精确五运行文件，下载后哈希与manifest相同。独立解压后的doctor、小MOD原始输出、BIG/Additional/LoD/MakeBig、CDATA及事务回滚/取消验收通过；完整mymod另有同run严格收据，不宣称新增游戏内/G3或中文Texture验收。
+
+### 测试补充与严格复用：发现硬链接路径缺口
+
+补测源码`4a67f452b41d182e4c9c10a9d8c2930b1bcc8ea9` / [40478217177](https://github.com/wu162/NewSdk/actions/runs/40478217177)仅改测试/controller与严格复用工具，生产源码/SDK/recipes未变。新补同卷hardlink/大小写alias身份共享、同字节不同inode不得合并，以及派生Equals主动改list/抛异常的旧固定扫描count与partial-state。二进制来自上述完整success的68f38abb。首个短运行40478217177复用门槛通过，但两新增fixture编译失败（未确定赋值/局部变量重名），其他15项通过；原失败保留，普通修复为55f1a519。
+
+复用拒绝非祖先、src/SDK/recipe/其他test改动，核对固定run/attempt/repository/branch/workflow、archive SHA/size、安全ZIP、双配置生产与validation EXE/runtime/Texture绑定及仅入口对象不同的生产清单。原receipts不改写，reuse.json和validation分开记录binary/test/sourceRun身份。未来生产改动不能直接沿用本固定归档。
+
+
+修正补测源码 `55f1a519c8a140f5c2988c138f15bc8854d68905` / [40479104375](https://github.com/wu162/NewSdk/actions/runs/40479104375) 整体failure：双配置各16/17，所有fixture构建已成功，每项结果文件/来源逐一核对。BaseManifestIndex新增派生Equals改list/抛错与null-final显式断言通过，双配置40例/147检查/5组；实际保持原Remove固定32次检查及异常先final.Add后移除的部分状态。
+
+唯一新真实失败是hardlink alias unlink：同文件ID的capture/hash共享正确、两个名字写入均被阻断，但第二名称可被File.Delete删除。原实现identity命中后释放别名handle；同inode的第一handle不阻止另一硬链接目录项unlink。父目录pin不阻子名称替换，末端Verify不足以保护此前native原路径消费窗口。不能删除/放宽该断言，也不能把68完整成功外推成硬链接闭包已通过。证据artifact `12722940233`，SHA256 `a2cb2bd385bf1d5f25ada550d65094d1a99e9aa1adbb069580647a4be8ea4e5b`；初次编译失败补测artifact `12722045816`，SHA256 `b84ea2f03293facec30ad7d3312ee5630a9869423cd317d7e39efdd8c727dbbc`。
+
+最新生产修复 `c65761fed6eed5ad71512e1cea2271eb49a4163f` 保留每个新alias路径的只读/禁delete句柄，仅共享immutable内容及双摘要；Dispose逐一关闭全部alias handles，仍受路径预算约束。activeFilePins保持unique内容owner口径，新增activeAliasPins/activeReadHandles区分实际资源数。该修复已独立静态复核，不等于运行验收。
+
+生产输入已改变，停止沿用68二进制复用，已触发[完整重建40479845571](https://github.com/wu162/NewSdk/actions/runs/40479845571)。本轮接近90分钟交接时仍在运行，未标通过；下一轮首先跟进此run到终态，核对hardlink unlink/其它17个fixture及全部CLI/缓存/mymod/BIG/ZIP，再更新准确二进制来源。原68发行包带已知hardlink alias边界，不把其成功当本修复的验收。

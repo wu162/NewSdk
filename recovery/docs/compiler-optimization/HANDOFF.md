@@ -1,31 +1,30 @@
 # 编译器优化：当前交接
 
-更新：2026-10-27，北京时间；本轮15:56开始，按用户最新要求推进接近90分钟，使用2个子代理。
-成果分支：`feature/compiler-optimization`，起点 `compiler-main@e7396d3`。
-执行约定与方案读取索引：[README.md](README.md)。
+更新：2026-10-27，北京时间；第三轮15:56开始，按用户要求推进接近90分钟，2个子代理。
+成果分支：`feature/compiler-optimization`；不强推、不自行合并，PR #15保持草稿。
+每轮90分钟，提前完成一组时继续后续已授权任务；编译/测试/微基准仅用Actions。
+方案与实际边界：[README.md](README.md)；准确哈希、失败与测量：[VALIDATION.md](VALIDATION.md)。
 
-## 当前状态：既有W02/W04已验收，W03正内容子组验证中
+## 最新状态：硬链接别名热修已推，完整重验运行中
 
-- W02：增加 rawParse、schemaRead/Compile/Metadata/ContentCheck、逻辑 schema 读取、outerStages 与顶层 applicationWork；不可变快照保留实际调用/抛异常次数，明确 beforeInitialReport 边界和嵌套区间，未宣称覆盖全部 wall 成本。
-- W04：每 build 单 entry MetadataCache，仅保存自有继承/依赖值，存储/恢复均深拷贝。三流真实 CLI 双配置均从3次表遍历降为1次构建+2次恢复；每流仍完整读取815个schema文件/1,515,884字节并Compile自己的Framework schema、绑定helpers及整文档验证。提供 DisableSharedSchemaMetadata 回退，尚无跨流Framework schema或引用描述共享。
-- 既有 W01 三项真实 Core 风险修复、W03 单遍双摘要、W08 NodeJoiner 局部索引及同代引用描述均保留并回归。每流重绑仍不等于 W06 不可变结果或并行完成。
+- W03正内容：有界PhysicalInputSnapshot封存字节+SHA256+原1MiB FastHash，XML/XInclude/schema读同内容，已登记native文件资源由文件/父目录pin保护原路径。provider Dispose后发布前强内容/身份复核，pins保留至事务及必需sink完成。预算/路径/opaque回退明确；仍保留/bc /sc全根复核，未全封闭precompiled/reference manifest、Texture隐藏读取和相关查询。
+- 失败Compile结束整个封存generation，原same-backend修复重试恢复，新代强比Initialize配置SHA。取消在schema/XInclude原样传播，不转ReadingSchema/xi:fallback；真实CLI/BIG CTRL_BREAK exit6已通过。
+- W05子组：有界resolver有序候选正/负影子证据，保留旧每次File.Exists、顺序、选择与错误；不额外探测、不复用、不跳工作，canAuthorizeReuse=false。Define/继承/符号消费边尚未接入。
+- W08子组：base manifest有序重复队列索引+Fenwick即时秩移除，patched首项、重复、异常部分状态保留；实际trace回调后永久legacy。小组/派生/非法/别名列表回退，计量不含List2内部搬移。W01旧修复、W02计量、W04自有元数据等均保留并回归。
 
-## 本轮进行中
+## 既有验收身份及新补测
 
-W03已接入有界PhysicalInputSnapshot：首次正内容单遍封存SHA256+原1MiB FastHash；文件只读pin与父目录防替换pin保留到发布/cache/必需输出完成，发布前强内容和身份复核；XML/XInclude/schema读同内容，跨流/配置共享。预算、不支持路径、输出工作区及opaque Texture单独bypass，保留/bc /sc全根复核；预编译reference manifest与隐藏读取未证明完整闭包，不宣称W03全部完成。
-源码 `0df7c92f4fb54d238b3dae588787f56bdb9cc230` / [40472198342](https://github.com/wu162/NewSdk/actions/runs/40472198342) 完整验证中。首次checkpoint21cd74f9的CLI测试收据重复PowerShell属性已普通修复，原预检失败[40472165263](https://github.com/wu162/NewSdk/actions/runs/40472165263)保留。
-W05 resolver候选影子日志源码b88240bc；专用fixture在40472999771双配置独立通过（204检查/6组），不授权缓存。W03原run同时发现取消包装、旧逐流计量假设、same-backend修复重试pin和新增fixture漏XML using；dd6745f8已保存取消/重试/仪表修复检查点，尚需新验收。W08基准manifest有序索引及原DLL三方用例正在集成，所有未验收项不标完成。
+生产/全套测试/打包源码 `68f38abb1ff649857ff786aa8a6bcf657553b8da` / [40476134103](https://github.com/wu162/NewSdk/actions/runs/40476134103) 整体success：Debug/Release生产、各17个Core fixtures、原DLL/原BAB、协议、Texture、实际CLI、全部缓存/输入根、完整mymod/BIG及独立五文件ZIP均通过。
+Targeted artifact `12720638360`、完整artifact `12720508892` 已下载校验SHA和source/run；ZIP与manifest一致。先前40472165263/40472198342/40472999771失败原样保留，原因与修复见VALIDATION，不降低断言换通过。
 
-## 最新验证身份
+补测test源码 `55f1a519c8a140f5c2988c138f15bc8854d68905` / [40479104375](https://github.com/wu162/NewSdk/actions/runs/40479104375) 严格复用68：双配置16/17，W08新增派生Equals边界40例/147检查通过；硬链接alias可以unlink的真实失败保留。第一次补测4a67f452/40478217177因两个fixture编译问题失败，均未改生产断言换通过。
 
-所有编译、测试和微基准仅在 Actions；本地只编辑、静态检查及读取证据。
-构建/测试/打包源码 `4a128696c2de04b5151c4dc9f1ac3c35661e7407` / [40466010643](https://github.com/wu162/NewSdk/actions/runs/40466010643) 整体 success：Debug/Release生产、各14个Core fixtures、原BAB、协议、Texture、实际CLI、全部缓存、输入根、完整mymod/BIG与五文件ZIP独立解压验收均通过。后续仅文档，不改二进制来源。
-提前 artifact `12716528944` 与完整 artifact `12716723779` 均下载核对SHA256；完整包含两配置ZIP及准确source/run manifest。哈希、微基准和范围见 [VALIDATION.md](VALIDATION.md)。
-本轮前两次运行40465129025/40465759765因新增测试误要求零输入可选组存在backendCompile指标而失败，原终态保留；已按真实调用数（含0）修复并完整重验，未放宽生产拒绝或字节断言。
+**当前生产源码 `c65761fed6eed5ad71512e1cea2271eb49a4163f` / [完整重建40479845571](https://github.com/wu162/NewSdk/actions/runs/40479845571) 仍在运行，不能标通过。** 热修保留每个alias路径自己的handle，共享内容/SHA不变；新增activeAliasPins/activeReadHandles，旧activeFilePins为unique内容owner数。68的第一inode handle只能阻写，不能阻另一hardlink名称删除，故68完整成功不覆盖该边界，也不能用于接受当前热修。
+下一轮首项：跟进40479845571到终态，核对hardlink unlink必须被阻断、同内容不同inode不误合并、全部17个fixtures与CLI/缓存/完整mymod/BIG/ZIP；失败集中修复。生产已变，固定68的targeted复用必须拒绝当前head，勿绕过closure检查。
 
-## 测量与下一步
+## 已测收益与剩余工作
 
-共享前真实三流每配置重复schema逻辑读2445次/4,547,652字节，外层schema准备合计约668/686ms。W04后读/Compile次数不变，元数据命中区间约1ms；三次微基准波动明显、单流还需保存成本，不能宣称完整构建提速。OS页缓存unknown，不跨CI机器相除比较时间。
-下一组优先推进 W03 构建级实际消费输入封存及变化拒绝，再接 W05 影子依赖。不能仅加path→digest字典：Reset强内容复核、同时间同长度变更、XML/Include/XInclude/payload消费同版本、cacheoff发布前强复核，以及快照跨Dispose/发布/Complete生命周期须成组处理。未证明消费闭包的类型保守回退；保留现有/bc /sc全根复核。
-W05影子依赖、W06不可变结果和W09—10并行尚未完成；完整mymod仍仅1流，不能单独证明跨流收益。
-后续成果仍集中本分支；[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，不自行合入。后续每轮90分钟并推进接近90分钟、提前完成一组后继续后续任务；通常2个子代理（最多3个）；只改文档不重编译。
+真实三流每配置822次正内容capture/1,529,741字节、1633次sealed hits，发布前822次复核；bypass/cleanupFailures均0。schema仍逻辑消费2445次并Compile3次，后续消费来自封存字节；不是物理磁盘计数。W04仍1次元数据构建+2次恢复。
+W08组件512倒序组旧candidate/removal扫描各131,328次变为0，512次索引查找+5121次秩操作；默认/tl3回调路径保守，不能据此报告完整CLI/排序提速。business的48次直接相对路径resolve原本没有candidate Exists，负查询另由专用用例验证。
+下一轮优先接入尚未封闭的precompiled/reference内容及resolver候选一致性，再扩展W05实际Define/继承/符号消费轨迹；影子证据未放行精确缓存跳过。W06不可变结果、W09—10并行尚未完成；完整mymod仍仅1流，不泛称全游戏/G3/中文Texture新验收。
+固定targeted复用归档仅适用于68f38abb之后明确允许的测试/文档变更；新生产输入变动必须重新构建验收，不能沿用归档。
