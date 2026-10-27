@@ -10,13 +10,16 @@
 | 完整运行 | [40524897974](https://github.com/wu162/NewSdk/actions/runs/40524897974)，attempt 1，整体 success |
 | 生产范围 | Debug/Release 各 30 组 Core fixtures；原 DLL；backend/Upheaval/98 资产链三组独立原 BAB；协议、Texture、实际 CLI、全部缓存/输入根、完整 mymod/BIG、独立五文件 ZIP |
 | 完整 archive | [`12744579204`](https://github.com/wu162/NewSdk/actions/runs/40524897974/artifacts/12744579204)，111102909字节，官方SHA256 `75e6e675bfcc42c47e90a11cc28a7c23d2b0119bf085f1fa3980576a7384e270` |
-| 后续严格复用 / 原 ZIP 导出 | 工具/测试源码 `2bd197f64b5ef1bd9476ac4198e1c3934ed13897` / [40528794946](https://github.com/wu162/NewSdk/actions/runs/40528794946) **进行中**；binarySource仍64bf，sourceRun=40524897974。Ubuntu控制器合同已过，完整复用运行尚不标记接受。 |
+| 后续严格复用 / 原 ZIP 导出 | 工具/测试源码 **`2bd197f64b5ef1bd9476ac4198e1c3934ed13897` / [40528794946](https://github.com/wu162/NewSdk/actions/runs/40528794946)，整体 success**。控制器合同、双配置各30组与独立原BAB再验通过；下载并核验完整archive digest/size、祖先/生产依赖闭包和原包身份后复用原生产对象，未重建。复用证据artifact `12745866251`，1255256字节，官方SHA256 `57758969398dd2749b549ea0671d520f1eac3720148d0487fff285a448298e77`；该大于原ZIP小包的收据artifact未另行本地下载。 |
 
 生产源码、测试源码、archive、运行文件与 ZIP 身份分别核对。生产 inputs/SDK/schema/recipe/工具链变化必须重建；只允许明确测试/工具/Markdown 的后续变化复用，依赖闭包与祖先关系仍须通过控制器。原 ZIP 只复制，不重打包。
 
-原ZIP小包正由上述严格复用运行导出；完成并核验后更新本节的Debug/Release链接、字节数和SHA。
+| 配置 | 原inner ZIP字节数 | 原inner ZIP SHA256 | 导出小artifact |
+| --- | --- | --- | --- |
+| Debug | 2287959 | `c7a297ad1fef9b46c2f5f7d77dcbac0d32bcf2c832417095f776fee193c7970d` | [12746445163](https://github.com/wu162/NewSdk/actions/runs/40528794946/artifacts/12746445163) |
+| Release | 1783398 | `e7c9e775a609a701e633c98650df5c3b5e8b29b73b1111f8d564743fb20993e7` | [12746065549](https://github.com/wu162/NewSdk/actions/runs/40528794946/artifacts/12746065549) |
 
-完整archive仅核对官方元数据，本地未下载大包；严格复用job负责实际archive digest/size、依赖闭包和原ZIP身份验证。最终targeted小证据已本地核验，见下。
+完整archive未本地下载，Actions已按官方digest/size实际核验；本地核对两份小artifact的官方outer身份、原inner ZIP、manifest、export receipt及精确五运行成员的bytes/SHA，Texture↔EXE绑定与protectedPeAudit均通过。Debug outer 2227010B/SHA `5c9d108bd2fca6e783d35c6f29a41949959b6e13c5a77c2b6c3b71da913c16a5`，manifest SHA `f738458a2c5e01a943c33098bc3978be1af61fc41ba04e7e1b58b9a6e145bb09`；Release outer 1770442B/SHA `0bde5f8c6ae4bc7bfba399e0f369b4398c6723be283bf588d3aa884d7263b9f9`，manifest SHA `c0d055e81d1021925851df84930512be444a47497b9a96bd18d2284f3ab5508a`。两包共用export receipt SHA `b3acc71c6db8e1b31e89d64cc22e389bf69da4557465b347a6d1d17ed16cea1f`，binarySource/packagingSource均64bf，sourceRun40524897974，testSource2bd，rebuildPerformed=false、zipBytesRepacked=false。
 
 ## 第六轮实现与回归
 
@@ -71,7 +74,7 @@ HashingWriter 初版没有 CPU 收益：`4682184b /40520247547` 中 Release 的 
 
 ## 效率与续接
 
-按用户约110分钟目标推进，使用2个子代理；10个完整候选中4个success、6个failure，另有工具合同与严格复用运行。完成四处实际生产快路径和W06私有saved共享；没有完整CLI前后计量，不给端到端提速百分比。
+本轮按用户要求持续推进约110分钟，使用2个子代理；10个完整候选中4个success、6个failure，另有工具合同与严格复用运行。完成四处实际生产快路径和W06私有saved共享；没有完整CLI前后计量，不给端到端提速百分比。
 
 效率评为中等：前置预检挡住了3次长Native链接，但新增owner探针的命名空间与Settings.Current未一次核齐，出现4次可避免准备错误。真实cache元数据交互和late spool预算缺陷按原断言修复；两次hash尝试测得不稳定CPU收益后撤回，没有拿推测的分配减少抵消回归。没有可靠逐项工时记录，不编造实现/等待比例。下一轮应一次核齐fixture依赖/全局初始化/规范路径，再批量前置编译，继续让调查和工具服务完整生产功能。
 

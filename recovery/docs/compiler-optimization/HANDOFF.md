@@ -5,8 +5,8 @@
 ## 最新接受点与下载
 
 - **生产、首次完整验收及打包：`64bfcc80cec7860e69f0ffbc5cb0e04c69baec87` / [40524897974](https://github.com/wu162/NewSdk/actions/runs/40524897974)，整体 success。** 双配置各 30 fixtures、原 DLL/三组独立原 BAB、协议、Texture、实际 CLI、全部缓存/输入根、完整 mymod/BIG 和独立五文件 ZIP 通过。
-- 当前严格复用pin已普通更新为上述64bf/40524897974；工具/测试 `2bd197f64b5ef1bd9476ac4198e1c3934ed13897` / [40528794946](https://github.com/wu162/NewSdk/actions/runs/40528794946) 正在执行，生产不重建。
-- 原包下载：[Debug/Release原ZIP导出进度](https://github.com/wu162/NewSdk/actions/runs/40528794946)；导出未完成时不填写下载哈希。ZIP 不重打包；binarySource、packagingSource、testSource 和精确五成员 SHA 分别记录在 VALIDATION，文档头不是二进制来源。
+- 当前严格复用pin为上述64bf/40524897974；工具/测试 **`2bd197f64b5ef1bd9476ac4198e1c3934ed13897` / [40528794946](https://github.com/wu162/NewSdk/actions/runs/40528794946)整体success**，双配置30/30与独立原BAB再验通过。生产对象未重建。
+- 原包下载：[Release](https://github.com/wu162/NewSdk/actions/runs/40528794946/artifacts/12746065549) / [Debug](https://github.com/wu162/NewSdk/actions/runs/40528794946/artifacts/12746445163)。ZIP 不重打包；binarySource、packagingSource、testSource 和精确五成员 SHA 分别记录在 VALIDATION，文档头不是二进制来源。
 
 ## 本轮完成
 
