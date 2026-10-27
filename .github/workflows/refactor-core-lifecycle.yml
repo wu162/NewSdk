@@ -213,26 +213,38 @@ jobs:
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/CompilerUpheavalSamples/work/upheaval-small/**
           if-no-files-found: warn
       - name: Isolated original BAB baseline for the two targeted backend cases
-        if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && steps.lifecycle.outcome != 'skipped' }}
         shell: pwsh
         run: |
+          $failures=@()
           foreach($mode in @('Debug','Release')) {
+            try {
             ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerBackendLifecycle/result.json" -OutputDirectory "recovery/evidence/refactor/core-backend-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180
+            } catch { $failures+=,"${mode}: $($_.Exception.Message)" }
           }
+          if($failures.Count){throw ($failures -join "`n")}
       - name: Bounded Upheaval sample original BAB differential in Debug and Release
-        if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && steps.lifecycle.outcome != 'skipped' }}
         shell: pwsh
         run: |
+          $failures=@()
           foreach($mode in @('Debug','Release')) {
+            try {
             ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerUpheavalSamples/result.json" -OutputDirectory "recovery/evidence/refactor/core-upheaval-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180 -ExpectedCaseCount 1
+            } catch { $failures+=,"${mode}: $($_.Exception.Message)" }
           }
+          if($failures.Count){throw ($failures -join "`n")}
       - name: Stable sort prerequisite chain original BAB differential in Debug and Release
-        if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && steps.lifecycle.outcome != 'skipped' }}
         shell: pwsh
         run: |
+          $failures=@()
           foreach($mode in @('Debug','Release')) {
+            try {
             ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode/CompilerStableSortStreams/result.json" -OutputDirectory "recovery/evidence/refactor/core-stablesort-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180 -ExpectedCaseCount 1
+            } catch { $failures+=,"${mode}: $($_.Exception.Message)" }
           }
+          if($failures.Count){throw ($failures -join "`n")}
       - name: Upload early independent original BAB comparison evidence
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
