@@ -1,3 +1,5 @@
+> 参数设计更新（2026-10-27）：标准构建默认 BIG/SKUDEF、自动发现输入并包含 Additional；开发模式 `--profile development` 默认 loose，高级模式 `--profile advanced` 使用标准默认值。显式选项与项目预设优先于模式默认值。`global-metadata` 是新名称，`maps` 为兼容别名；内部任务 ID/报告/输出目录保持 `maps`。`--help-advanced` 查看高级入口。缓存参数、默认值和实现未变。项目还可保存 SDK/输出路径、模式及 ss/pc/slowclean。最新操作见 [使用说明](COMPILER_USAGE.md)。
+
 # 当前命令行与旧参数范围
 
 `compiler-main` 的结果合同，2026-10-27。这是必要旧参数核对结果；原始全量设计不代表所有 BAB 开关均已开放。未支持项必须报错，不能静默忽略。

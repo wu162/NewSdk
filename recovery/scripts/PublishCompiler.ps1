@@ -48,7 +48,7 @@ function Controlled([string]$Name,[string]$Exe,[string]$Cwd,[string[]]$Arguments
 }
 function BuildOutputs([string]$Runtime,[string]$Sdk,[string]$Mod,[string]$Destination,[string]$Evidence){
     New-Item -ItemType Directory -Path $Destination|Out-Null
-    $audit=Controlled 'build' (Join-Path $Runtime 'NewModCompiler.exe') $Runtime @('build','--mod',$Mod,'--sdk-root',$Sdk,'--out',$Destination,'--package-content','base','/sc:false','/bc:false') $Destination $Evidence
+    $audit=Controlled 'build' (Join-Path $Runtime 'NewModCompiler.exe') $Runtime @('build','--mod',$Mod,'--sdk-root',$Sdk,'--out',$Destination,'--package-format','loose','--package-content','base','/sc:false','/bc:false') $Destination $Evidence
     $reportPath=Join-Path $Destination 'build-report.json';$eventPath=Join-Path $Destination 'build.events.jsonl'
     $report=Get-Content -LiteralPath $reportPath -Raw|ConvertFrom-Json
     $events=@(Get-Content -LiteralPath $eventPath|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})

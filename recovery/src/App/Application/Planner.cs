@@ -14,6 +14,7 @@ namespace NewModCompiler.Application
                 string[] files;
                 if (group == "base") {
                     string file = Path.Combine(request.ModRoot,"Data","Mod.xml");
+                    if (!File.Exists(file) && request.AutoDetectContent) { skipped.Add(new SkippedContent { Content = group, Status = "SkippedNoInputs", Reason = "Data/Mod.xml is absent during automatic discovery." }); continue; }
                     if (!File.Exists(file)) throw new BuildFailure(ExitCode.Arguments,"PLAN_BASE_MISSING","Selected base content requires Data/Mod.xml.");
                     files = new [] {file};
                 } else {
@@ -26,9 +27,11 @@ namespace NewModCompiler.Application
                     string name = Path.GetFileNameWithoutExtension(input);
                     string id = group + "/" + name;
                     if (tasks.Any(x => string.Equals(x.Id, id, StringComparison.OrdinalIgnoreCase))) throw new BuildFailure(ExitCode.Arguments,"PLAN_COLLISION","Case-insensitive stream output collision: " + id);
-                    tasks.Add(new BuildTask { Id = id, Content = group, InputPath = Path.GetFullPath(input), OutputName = group + "/" + name, Reason = "ExplicitContentSelection", Dependencies = new string[0] });
+                    tasks.Add(new BuildTask { Id = id, Content = group, InputPath = Path.GetFullPath(input), OutputName = group + "/" + name, Reason = request.AutoDetectContent ? "AutomaticContentDiscovery" : "ExplicitContentSelection", Dependencies = new string[0] });
                 }
             }
+            if (request.AutoDetectContent && tasks.Count == 0) throw new BuildFailure(ExitCode.Arguments,"PLAN_NO_INPUTS","No valid MOD inputs found. Expected Data/Mod.xml, Data/AptUI/*.xml or Data/AdditionalMaps/MapMetaData_*.xml. Additional files alone are not a compiled MOD input.");
+            if (request.FixNeutralAssets && !tasks.Any(x => x.Content == "base")) throw new BuildFailure(ExitCode.Arguments,"PACKAGE_NEUTRAL_CONTENT","Neutral-asset repair requires an actual base input (Data/Mod.xml).");
             return new BuildPlan { Tasks = OrderTasks(dependencyPlanner == null ? tasks : dependencyPlanner.Expand(request,tasks.AsReadOnly())), Skipped = skipped.ToArray(), PlanKind = dependencyPlanner == null ? "StreamDiscovery" : "ExplicitDependencyGraph" };
         }
         public static BuildTask[] OrderTasks(IEnumerable<BuildTask> input)

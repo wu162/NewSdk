@@ -15,7 +15,7 @@ namespace NewModCompiler.Cli
             {"bcd","build-cache-directory"}, {"bcp","build-cache-directory"}
         };
         static readonly HashSet<string> Values = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
-            "mod","sdk-root","out","events","report","log","package-content","package-format","mod-version","game-version","skudef-name",
+            "profile","mod","sdk-root","out","events","report","log","package-content","package-format","mod-version","game-version","skudef-name",
             "sp","dr","art","audio","data","iod","session-cache-directory","build-cache-directory",
             "bcn","tp","bps","cpf","tl","el"
         };
@@ -45,14 +45,19 @@ namespace NewModCompiler.Cli
                 if (!string.Equals(value, "Win32", StringComparison.OrdinalIgnoreCase)) throw Bad("CLI_PLATFORM", "Only Win32 is supported.");
                 return "Win32";
             }
+            if (key == "profile") {
+                value = value.ToLowerInvariant();
+                if (value != "standard" && value != "development" && value != "advanced") throw Bad("CLI_PROFILE", "Profile must be standard, development, or advanced.");
+            }
             if (key == "package-format") {
                 value = value.ToLowerInvariant();
-                if (value != "loose" && value != "big") throw Bad("CLI_CAPABILITY", "Package format must be loose or big; BIG supports base/apt/maps.");
+                if (value != "loose" && value != "big") throw Bad("CLI_CAPABILITY", "Package format must be loose or big; BIG supports base/apt/global-metadata.");
             }
             if (key == "package-content") {
-                var content = value.Split(',').Select(x => x.Trim().ToLowerInvariant()).ToArray();
-                if (content.Length == 0 || content.Any(x => x != "base" && x != "apt" && x != "maps")) throw Bad("CLI_CONTENT", "Content must be a comma separated selection of base,apt,maps.");
-                return string.Join(",", new [] {"base","apt","maps"}.Where(x => content.Contains(x)));
+                var content = value.Split(',').Select(x => x.Trim().ToLowerInvariant()).Select(x => x == "maps" ? "global-metadata" : x).ToArray();
+                if (content.Length == 1 && content[0] == "auto") return "auto";
+                if (content.Length == 0 || content.Any(x => x != "base" && x != "apt" && x != "global-metadata")) throw Bad("CLI_CONTENT", "Content must be auto or a comma separated selection of base,apt,global-metadata (legacy maps accepted).");
+                return string.Join(",", new [] {"base","apt","global-metadata"}.Where(x => content.Contains(x)));
             }
             if (key == "tl" || key == "el") {
                 int number; int maximum = key == "tl" ? 9 : 1;
@@ -101,7 +106,11 @@ namespace NewModCompiler.Cli
             foreach (var pair in commandLine) request.Options[pair.Key] = pair.Value;
             Default(request,"ss","true"); Default(request,"pc","true"); Default(request,"slowclean","true");
             Default(request,"mod-version","1.0"); Default(request,"game-version","1.12");
-            Default(request,"fix-neutral-assets","false"); Default(request,"include-additional","false"); Default(request, "package-content", "base,apt,maps"); Default(request, "package-format", "loose"); Default(request,"tp","Win32");
+            Default(request,"profile","standard");
+            Default(request,"fix-neutral-assets","false"); Default(request, "package-content", "auto");
+            Default(request, "package-format", request.Options["profile"].Value == "development" ? "loose" : "big");
+            // Additional is automatic only for packaging. Explicit loose calls remain valid.
+            Default(request,"include-additional",request.Options["package-format"].Value == "big" ? "true" : "false"); Default(request,"tp","Win32");
             if (!request.Options.ContainsKey("sdk-root")) throw Bad("CLI_SDK", "--sdk-root is required; it is independent of --mod.");
             request.SdkRoot = FullPath(request.Options["sdk-root"].Value);
             if (!Directory.Exists(request.SdkRoot)) throw new BuildFailure(ExitCode.Environment, "SDK_MISSING", "SDK root does not exist: " + request.SdkRoot);
@@ -135,7 +144,9 @@ namespace NewModCompiler.Cli
             }
             request.ModVersion=request.Options["mod-version"].Value; request.GameVersion=request.Options["game-version"].Value;
             EffectiveOption sku; if(request.Options.TryGetValue("skudef-name",out sku)) request.SkudefName=sku.Value;
-            request.Content = request.Options["package-content"].Value.Split(','); request.PackageFormat = request.Options["package-format"].Value; request.IncludeAdditional = request.Options["include-additional"].Value=="true"; request.FixNeutralAssets = request.Options["fix-neutral-assets"].Value=="true";
+            // Keep established task IDs, workspace names and protocol values for compatibility.
+            request.AutoDetectContent = request.Options["package-content"].Value == "auto";
+            request.Content = request.AutoDetectContent ? new [] {"base","apt","maps"} : request.Options["package-content"].Value.Split(',').Select(x => x == "global-metadata" ? "maps" : x).ToArray(); request.PackageFormat = request.Options["package-format"].Value; request.IncludeAdditional = request.Options["include-additional"].Value=="true"; request.FixNeutralAssets = request.Options["fix-neutral-assets"].Value=="true";
             BigPackage.ValidateRequest(request);
             return request;
         }
@@ -161,18 +172,31 @@ namespace NewModCompiler.Cli
         {
             try {
                 var values = new JavaScriptSerializer().Deserialize<Dictionary<string, object>>(File.ReadAllText(file));
+                if (values == null) throw Bad("PROJECT_INVALID", "Project preset must be a JSON object.");
                 foreach (var pair in values) {
                     string key = Canonical(pair.Key);
-                    if (!new [] {"package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
-                    Set(options, key, NormalizeValue(key, Convert.ToString(pair.Value, System.Globalization.CultureInfo.InvariantCulture)), "project");
+                    if (!new [] {"profile","sdk-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
+                    if (!(pair.Value is string) && !(pair.Value is bool)) throw Bad("PROJECT_OPTION", "Project values must be strings or booleans: " + pair.Key);
+                    string raw = Convert.ToString(pair.Value, System.Globalization.CultureInfo.InvariantCulture);
+                    if (string.IsNullOrWhiteSpace(raw)) throw Bad("PROJECT_OPTION", "Project value must not be empty: " + pair.Key);
+                    string value = NormalizeValue(key, raw);
+                    if (IsPath(key)) value = FullPath(Path.IsPathRooted(value) ? value : Path.Combine(Path.GetDirectoryName(file),value));
+                    Set(options, key, value, "project");
                 }
             } catch (BuildFailure) { throw; } catch (Exception e) { throw Bad("PROJECT_INVALID", "Invalid project preset: " + e.Message); }
         }
-#if NEWSdk_MONOLITHIC
-        const string RuntimeHelp = "Experimental Win32 in-process backend: loose output with independent opt-in /bc:true build-asset and /sc:true session-package caching. Session packages restore documents and intermediate/cdata assets, then regenerate linked outputs; mixed Texture inputs are rejected with /sc:true. Texture asset caching remains disabled. Cached builds require all resolved inputs within SDK, MOD or compiler-runtime roots. Successful nonempty builds replace the published directory under the output root; controlled finalization failures roll back. Empty optional selections preserve previous output. Compressed, partial and frozen session caches, legacy cache-directory overrides, and unsupported output options are explicitly rejected. Stable sorting (/ss), precompiled reference policy (/pc), and slow cleanup (/slowclean) default to true to match the legacy SDK script; each accepts true or false. Plan performs discovery only. Doctor checks the environment without compiling a stream. BIG packaging supports base/apt/maps and publishes an ASCII-named MOD_<mod-version>.big plus skudef (defaults: mod-version 1.0, game-version 1.12; skudef-name defaults to the MOD directory name); base includes the original low/medium LoD streams. --include-additional=true snapshots SDK then MOD Additional files into BIG with original overwrite precedence and *.asset exclusion. --fix-neutral-assets=true applies recovered HashFix then ModAssetResolver on an isolated base stream before LoD; extracted Worldbuilder linked files are required. AssetMerge is not part of this compiler flow.";
-#else
-        const string RuntimeHelp = "Standalone application skeleton: plan is available; build requires an integrated in-process backend. Legacy options are retained for backend validation, not proof of integrated capability.";
-#endif
-        public const string Help = "NewModCompiler build|plan --mod <directory> --sdk-root <directory> --out <directory> [--package-content base,apt,maps] [--package-format loose|big] [--mod-version <version>] [--game-version <version>] [--skudef-name <basename>] [--include-additional=<true|false>] [--fix-neutral-assets=<true|false>] [--events <file>] [--report <file>]\nNewModCompiler doctor --sdk-root <directory>\n" + RuntimeHelp;
+        public const string Help = "NewModCompiler build|plan --mod <directory> [--sdk-root <directory>] [--out <directory>] [--mod-version <version>]\n" +
+            "Standard (default): auto-detect base, APT UI and global metadata; publish BIG + SKUDEF, including SDK then MOD Additional (excluding .asset). Empty MOD inputs fail.\n" +
+            "Development: --profile development defaults to loose streams for iteration. No cache settings are changed by profiles.\n" +
+            "Advanced: --profile advanced uses standard defaults; --help-advanced lists compatibility controls. Explicit options override profile defaults.\n" +
+            "Save sdk-root, out, profile and package settings in MOD/newmodcompiler.json; CLI overrides the project. SDK and output paths are required from CLI or project.\n" +
+            "NewModCompiler doctor --sdk-root <directory>\n";
+        public const string AdvancedHelp = Help +
+            "Selection: --package-content auto|base,apt,global-metadata (maps remains an alias); explicit selections preserve partial-build behavior.\n" +
+            "Packaging: --package-format big|loose --include-additional=<true|false> --fix-neutral-assets=<true|false>\n" +
+            "Identity: --mod-version <version> (1.0) --game-version <version> (1.12) --skudef-name <basename>\n" +
+            "Compatibility: /ss:true /pc:true /slowclean:true are defaults; each accepts false. Win32 and linked streams are fixed runtime behavior; legacy /tp:Win32 and /ls:true remain accepted.\n" +
+            "Legacy input roots, diagnostics and supported BAB compatibility switches remain available; see CLI_COMPATIBILITY.md. Cache switches and defaults are unchanged.\n" +
+            "Additional overwrites compiled files and SDK files using old script precedence; conflicts emit warnings. Neutral repair is off by default and requires extracted reference streams. AssetMerge is not used.\n";
     }
 }

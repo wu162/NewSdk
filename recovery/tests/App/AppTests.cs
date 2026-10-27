@@ -17,7 +17,7 @@ namespace NewModCompiler.Tests
         static void FileAt(string path,string content="<AssetDeclaration/>") { Directory.CreateDirectory(Path.GetDirectoryName(path)); File.WriteAllText(path,content); }
         static BuildRequest Request(string content="base,apt,maps",params string[] extra)
         {
-            return Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"out"+(++serial)),"--package-content",content}.Concat(extra).ToArray());
+            return Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"out"+(++serial)),"--package-format","loose","--package-content",content}.Concat(extra).ToArray());
         }
         static void Reject(string code,params string[] extra)
         {
@@ -64,7 +64,7 @@ namespace NewModCompiler.Tests
         static int CloseFailureProcess()
         {
             string output=Environment.GetEnvironmentVariable("NEWSDK_APP_CLOSE_OUTPUT");
-            var request=Options.Parse(new [] {"plan","--mod",Environment.GetEnvironmentVariable("NEWSDK_APP_CLOSE_MOD"),"--sdk-root",Environment.GetEnvironmentVariable("NEWSDK_APP_CLOSE_SDK"),"--out",output,"--package-content","base"});
+            var request=Options.Parse(new [] {"plan","--mod",Environment.GetEnvironmentVariable("NEWSDK_APP_CLOSE_MOD"),"--sdk-root",Environment.GetEnvironmentVariable("NEWSDK_APP_CLOSE_SDK"),"--out",output,"--package-format","loose","--package-content","base"});
             Directory.CreateDirectory(output);
             return Program.RunSession(request,new IBuildEventSink[] {new CloseFailureSink(Path.Combine(output,"close-count.txt")),new JsonLineSink(request.EventsPath),new TextLogSink(request.LogPath)});
         }
@@ -149,6 +149,7 @@ namespace NewModCompiler.Tests
                 assertions += BuildAssetCacheTests.Run(Path.Combine(root,"build-asset-cache"));
                 assertions += SessionPackageTests.Run(Path.Combine(root,"session-package"));
                 assertions += BigArchiveWriterTests.Run(Path.Combine(root,"big-writer"));
+                assertions += BuildDefaultsTests.Run(Path.Combine(root,"build-defaults"));
                 assertions += AdditionalFilesTests.Run(Path.Combine(root,"additional-files"));
                 assertions += MakeBigTests.Run(Path.Combine(root,"makebig"));
                 assertions += BasePostProcessorTests.Run(Path.Combine(root,"neutral-assets"));
@@ -183,7 +184,7 @@ namespace NewModCompiler.Tests
                 dependency.Dependencies=new [] {"missing"}; try { Planner.OrderTasks(new [] {dependency}); throw new Exception("Missing dependency accepted"); } catch (BuildFailure e) { Check(e.Code=="PLAN_DEPENDENCY_MISSING","Missing dependency rejected"); }
                 Reject("CLI_CONFLICT","/pc:true","/pc:false"); Reject("CLI_CONFLICT","/od:"+Path.Combine(root,"different"));
                 Reject("CLI_UNKNOWN","--unknown","yes"); Reject("CLI_UNSUPPORTED","/gui:false"); Reject("CLI_UNSUPPORTED","/sh:true");
-                Reject("CLI_CAPABILITY","--package-format","zip"); Reject("CLI_PLATFORM","/tp:Xbox360"); Reject("CLI_BOOLEAN","/csc:garbage"); Reject("CLI_RANGE","/tl:10"); Reject("CLI_RANGE","/el:2"); Reject("CLI_CONTENT","--package-content","bogus");
+                Reject("CLI_CAPABILITY","--package-format","zip"); Reject("CLI_PLATFORM","/tp:Xbox360"); Reject("CLI_BOOLEAN","/csc:garbage"); Reject("CLI_RANGE","/tl:10"); Reject("CLI_RANGE","/el:2"); Reject("CLI_CONTENT","--package-format","loose","--package-content","bogus");
                 Reject("CLI_STDOUT_EVENTS","--events","-"); Reject("CLI_LOG_COLLISION","--events",Path.Combine(root,"same"),"--report",Path.Combine(root,"same")); Reject("CLI_LOG_INPUT","--events",Path.Combine(mod,"input.log"));
                 DiagnosticPathTests.Run(root,mod,sdk);
                 assertions += SessionPublicationTests.Run(Path.Combine(root,"session-publication"),mod,sdk);
@@ -192,7 +193,7 @@ namespace NewModCompiler.Tests
                 assertions += LoDCanonicalTests.Run(Path.Combine(root,"lod-canonical"));
                 assertions += BigPackageTests.Run(Path.Combine(root,"big-package-tests"),sdk);
                 string project=Path.Combine(mod,"newmodcompiler.json"); FileAt(project,"{\"package-content\":\"apt\",\"tp\":\"Win32\"}");
-                var preset=Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--out",Path.Combine(root,"preset")}); Check(preset.Content.SequenceEqual(new [] {"apt"}) && preset.Options["package-content"].Source=="project","Project preset");
+                var preset=Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--package-format","loose","--out",Path.Combine(root,"preset")}); Check(preset.Content.SequenceEqual(new [] {"apt"}) && preset.Options["package-content"].Source=="project","Project preset");
                 Check(Request("base").Options["package-content"].Source=="commandLine","CLI overrides project"); File.Delete(project);
                 var dependencyPlan=Planner.Resolve(Request("base"),new Dependencies()); Check(dependencyPlan.PlanKind=="ExplicitDependencyGraph" && dependencyPlan.Tasks.Length==2 && dependencyPlan.Tasks[0].Id=="apt/dependency","Injected explicit dependency expansion");
                 var record=new Recorder(); Check(Run(request,null,record)==ExitCode.Success,"Plan success"); Protocol(request,record,ExitCode.Success); Check(!record.Values.Any(x=>(string)x["eventType"]=="StreamStarted"),"Plan does not compile");
