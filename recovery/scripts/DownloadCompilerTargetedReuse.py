@@ -30,12 +30,12 @@ VALIDATION_RUNTIME = ('NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.
 # Exact current targeted suite only. Adding a different test or changing a
 # production build driver still requires fresh production acceptance.
 TARGETED_FIXTURES = (
-    'CompilerInputDigests', 'CompilerPhysicalInputs', 'CompilerManifestInputs',
-    'CompilerStreamBindings', 'CompilerTransferBuffers', 'CompilerDeclarationSnapshots',
+    'CompilerInputDigests', 'CompilerHashingWriter', 'CompilerPhysicalInputs', 'CompilerManifestInputs',
+    'CompilerStreamBindings', 'CompilerTransferBuffers', 'CompilerBinaryMaterialization', 'CompilerDeclarationSnapshots',
     'CompilerDocumentSnapshots', 'CompilerDocumentMetadata', 'CompilerUpheavalSamples',
     'CompilerStableSortMembership', 'CompilerStableSortStreams',
     'CompilerExpressionPrograms', 'CompilerDependencyObservations', 'CompilerBaseManifestIndex',
-    'CompilerNodeJoiner', 'CompilerSchemaDescriptors', 'CompilerSchemaMetadata',
+    'CompilerNodeJoiner', 'CompilerSymbolLookup', 'CompilerSchemaDescriptors', 'CompilerSchemaMetadata',
     'CompilerCacheContent', 'CompilerCacheBoundary', 'CompilerInputRoots',
     'CompilerCorePaths', 'CompilerUnicodeSettings', 'CompilerCoreLifecycle',
     'CompilerResourceLifecycle', 'CompilerStateLifecycle', 'CompilerBackendLifecycle',

@@ -66,7 +66,7 @@ class ClosureContracts(unittest.TestCase):
             self.assertIn(message, str(captured.exception))
 
     def test_exact_current_targeted_fixtures_and_docs_pass(self):
-        self.assertEqual(len(controller.TARGETED_FIXTURES), 27)
+        self.assertEqual(len(controller.TARGETED_FIXTURES), 30)
         paths = ['recovery/tests/' + name + '.cs' for name in controller.TARGETED_FIXTURES]
         paths += ['recovery/scripts/TestCompilerTargetedReuse.py', 'recovery/STAGE_DURATION.md',
                   'recovery/scripts/TestCompilerBackendBaseline.ps1',
