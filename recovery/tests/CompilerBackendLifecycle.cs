@@ -184,7 +184,7 @@ public static class CompilerBackendLifecycle
         }
         Require(seen.Count==3 && dataOffset==bin.Length && reloOffset==relocations.Length,"Asset chunks do not exactly consume streams");
     }
-    static bool oracleMutationChecked, providerOwnershipChecked;
+    static bool oracleMutationChecked, providerOwnershipChecked, capabilityPolicyChecked;
     static void IndependentArmorOracle(IList<Artifact> artifacts,bool variant,string source)
     {
         Func<string,byte[]> read=extension=>File.ReadAllBytes(artifacts.Single(a=>Path.GetExtension(a.Path)==extension).Path);
@@ -226,6 +226,96 @@ public static class CompilerBackendLifecycle
             providerOwnershipChecked = true;
             Tests.Add("actual-live-backend-providers-wrong-thread-registry-reinitialize-dispose-rejected-before-native-or-terminal-state-owner-next-stream-and-dispose-remain-valid");
         }
+        if (!capabilityPolicyChecked)
+        {
+            CapabilityPolicy(backend, providers); capabilityPolicyChecked = true;
+        }
+    }
+    static void CachePolicy(string consumer, IEnumerable<BuiltinCompilerCapabilities> policies, string expectedCode, string expectedMessage)
+    {
+        var method = typeof(CoreStreamCompiler).GetMethod(consumer, PrivateStatic);
+        try
+        {
+            method.Invoke(null, new object[] { policies });
+            Require(expectedCode == null, "Cache capability consumer accepted a denied route");
+        }
+        catch (TargetInvocationException error)
+        {
+            var failure = error.InnerException as BuildFailure;
+            Require(failure != null && failure.ExitCode == ExitCode.Arguments && failure.Code == expectedCode && failure.Message == expectedMessage,
+                "Cache capability consumer changed its type-specific refusal contract");
+        }
+    }
+    static void CapabilityPolicy(CoreStreamCompiler backend, BuiltinCompilers providers)
+    {
+        var serializer = new JavaScriptSerializer(); var map = providers.Capabilities;
+        Require(map.Count == providers.Routes.Count && map.Count > 3, "Capability catalog does not match actual registered type routes");
+        foreach (var route in providers.Routes)
+        {
+            var value = providers.GetCapabilities(route.TypeId); bool texture = route.Family == "texture";
+            Require(map.ContainsKey(route.TypeId) && Object.ReferenceEquals(map[route.TypeId], value) &&
+                value.TypeId == route.TypeId && value.TypeName == route.TypeName && value.Family == route.Family,
+                "Capability entry drifted from its actual provider registration");
+            Require(value.ThreadPolicy == "OwnerThreadSerial" && !value.StrongBundleAllowed && !value.ParallelAllowed &&
+                value.MemoryClass == "Unknown" && !value.RequiredEnvironmentComplete &&
+                value.InputTracking == (texture ? "Unknown" : "ConservativeCoreBoundary") &&
+                value.LegacyBuildCacheAllowed == !texture && value.LegacySessionCacheAllowed == !texture,
+                "A conservative plugin declaration claimed exact closure, environment completeness, new cache or parallel eligibility");
+        }
+        Require(typeof(BuiltinCompilerCapabilities).GetProperties().All(value => value.GetSetMethod(true) == null),
+            "Capability values expose a mutable setter");
+        var mutable = map as IDictionary<uint, BuiltinCompilerCapabilities>;
+        if (mutable != null)
+        {
+            bool rejected = false; try { mutable.Remove(providers.Routes[0].TypeId); } catch (NotSupportedException) { rejected = true; }
+            Require(rejected && map.Count == providers.Routes.Count, "Capability map exposes mutable registrations");
+        }
+        uint unknownId = UInt32.MaxValue; while (map.ContainsKey(unknownId)) unknownId--;
+        var unknown = providers.GetCapabilities(unknownId); int count = map.Count;
+        Require(unknown.TypeId == unknownId && unknown.TypeName == null && unknown.Family == "unknown" &&
+            unknown.InputTracking == "Unknown" && unknown.PhysicalInputBypassReason == "unknown-compiler-closure" &&
+            !unknown.LegacyBuildCacheAllowed && !unknown.LegacySessionCacheAllowed && !unknown.StrongBundleAllowed && !unknown.ParallelAllowed,
+            "Unknown compiler capability was eligible for cache, reuse or parallel execution");
+        for (uint i = 1; i <= 32; i++) providers.GetCapabilities(unknownId - i);
+        Require(map.Count == count, "Unknown capability requests grew the registered catalog");
+        uint armorId = InstanceHandle.GetTypeId("ArmorTemplate"), xmlId = InstanceHandle.GetTypeId("AttributeModifier");
+        var armor = providers.Registry.GetExtendedTypeInformation(armorId); var xml = providers.Registry.GetExtendedTypeInformation(xmlId);
+        Require(!armor.UseBuildCache && !xml.UseBuildCache, "Fixture no longer starts with the original Armor/XML descriptor cache defaults");
+        string saved = serializer.Serialize(providers.GetCapabilities(armorId)), name = armor.TypeName;
+        bool armorCache = armor.UseBuildCache;
+        try
+        {
+            armor.TypeName = "MutableMetadataOnly"; armor.UseBuildCache = !armorCache;
+            Require(serializer.Serialize(providers.GetCapabilities(armorId)) == saved, "Mutable plugin metadata changed a captured capability scalar");
+        }
+        finally { armor.TypeName = name; armor.UseBuildCache = armorCache; }
+        var texturePolicies = providers.Routes.Where(route => route.Family == "texture").Select(route => providers.GetCapabilities(route.TypeId)).ToArray();
+        Require(texturePolicies.Length == 3, "Capability consumer omitted a registered Texture route");
+        var textureMetadata = texturePolicies.Select(value => providers.Registry.GetExtendedTypeInformation(value.TypeId)).ToArray();
+        bool[] prior = textureMetadata.Select(value => value.UseBuildCache).ToArray();
+        try
+        {
+            foreach (var metadata in textureMetadata) metadata.UseBuildCache = true;
+            int vetoes = (int)typeof(CoreStreamCompiler).GetMethod("ApplyLegacyBuildCacheCapabilities", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(backend, new object[0]);
+            Require(vetoes == 3 && textureMetadata.All(value => !value.UseBuildCache), "Actual build-cache policy consumer failed to veto the three opaque Texture routes");
+            Require(!armor.UseBuildCache && !xml.UseBuildCache, "Allowed capability incorrectly enabled an originally disabled Armor/XML build cache");
+        }
+        finally { for (int i = 0; i < textureMetadata.Length; i++) textureMetadata[i].UseBuildCache = prior[i]; }
+        CachePolicy("RejectUnsupportedSessionCapabilities", new[] { providers.GetCapabilities(armorId), providers.GetCapabilities(xmlId) }, null, null);
+        foreach (var texture in texturePolicies)
+            CachePolicy("RejectUnsupportedSessionCapabilities", new[] { texture }, "CORE_SESSION_TEXTURE_UNSUPPORTED", "Session cache cannot reuse mixed Texture, OnDemandTexture or TerrainTextureAtlas assets; use /sc:false.");
+        CachePolicy("RejectUnsupportedSessionCapabilities", new[] { unknown }, "CORE_SESSION_PLUGIN_UNSUPPORTED", "Session cache cannot reuse assets without a supported compiler capability; use /sc:false.");
+        CachePolicy("RejectUnsupportedSessionCapabilities", new[] { unknown, texturePolicies[0] }, "CORE_SESSION_TEXTURE_UNSUPPORTED", "Session cache cannot reuse mixed Texture, OnDemandTexture or TerrainTextureAtlas assets; use /sc:false.");
+        CachePolicy("RejectUnknownBuildCacheCapabilities", texturePolicies.Concat(new[] { providers.GetCapabilities(armorId), providers.GetCapabilities(xmlId) }), null, null);
+        CachePolicy("RejectUnknownBuildCacheCapabilities", new[] { unknown }, "CORE_BUILD_CACHE_PLUGIN_UNSUPPORTED", "Build cache cannot reuse assets without a supported compiler capability; use /bc:false.");
+        Tests.Add("actual-registered-capability-map-immutable-scalars-metadata-isolation-unknown-reject-no-unbounded-growth-policy-veto-only-Armor-XML-defaults-and-production-build-session-refusal-consumers");
+    }
+    static object LatestCapabilitySummary(CoreStreamCompiler backend)
+    {
+        object report = backend.CacheReport;
+        var work = (IEnumerable<object>)report.GetType().GetProperty("coreWork").GetValue(report, null);
+        object entry = work.Last();
+        return entry.GetType().GetProperty("pluginCapabilities").GetValue(entry, null);
     }
     static Dictionary<string,string> Compile(CoreStreamCompiler backend, BuildRequest request, string name, string slot, Ambient ambient)
     {
@@ -241,6 +331,11 @@ public static class CompilerBackendLifecycle
         Require(work.Length>0,"Production cache report omitted its stream work measurements");
         var latest=(Dictionary<string,object>)work[work.Length-1];
         Require((string)latest["taskId"]==Task(request.ModRoot,name).Id,"Work measurements belong to a different stream");
+        var capabilities = (Dictionary<string, object>)latest["pluginCapabilities"];
+        Require(Convert.ToInt32(capabilities["processedTypes"]) > 0 && Convert.ToInt32(capabilities["conservativeCoreBoundaryTypes"]) > 0 &&
+            Convert.ToInt32(capabilities["unknownTrackingTypes"]) == 0 && !(bool)capabilities["exactClosureProven"] &&
+            !(bool)capabilities["strongBundleEnabled"] && !(bool)capabilities["parallelEnabled"],
+            "Actual backend capability summary misreported conservative input tracking as exact closure or enabled an unfinished execution mode");
         var digests=(Dictionary<string,object>)latest["inputDigests"];
         long digestReads = Convert.ToInt64(digests["reads"]), digestBytes = Convert.ToInt64(digests["bytes"]);
         Require(digestReads >= 0 && digestBytes >= 0 && Convert.ToInt32(digests["items"]) > 0 && (digestReads != 0 || digestBytes == 0),
@@ -358,6 +453,8 @@ public static class CompilerBackendLifecycle
             Tests.Add("cancel-before-core-then-same-backend-legal-stream-byte-equality");
         }
         finally { backend.Dispose(); backend.Dispose(); }
+        string afterDisposeSummary = new JavaScriptSerializer().Serialize(LatestCapabilitySummary(backend));
+        Require(afterDisposeSummary.Contains("LegacyCacheVetoAndInputTracking"), "Capability report consulted a disposed provider instead of retaining its scalar snapshot");
         ambient.Unchanged("Dispose twice");
         using(var other=Backend()) { other.Initialize(requestB); second=Compile(other,requestB,"Mod","first",ambient); }
         ambient.Unchanged("Second MOD Dispose");

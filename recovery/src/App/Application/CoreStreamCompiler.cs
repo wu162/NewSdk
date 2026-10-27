@@ -454,6 +454,41 @@ namespace NewModCompiler.Application
             public AssetBuffer ProcessInstance(InstanceDeclaration instance) { return rejection.ProcessInstance(instance); }
         }
 
+        int ApplyLegacyBuildCacheCapabilities()
+        {
+            int vetoes = 0;
+            foreach (BuiltinCompilerRoute route in compilers.Routes)
+            {
+                // Eligibility is a veto only. Keep the descriptor's original
+                // false values and all existing whole-root cache validation.
+                if (compilers.GetCapabilities(route.TypeId).LegacyBuildCacheAllowed) continue;
+                ExtendedTypeInformation metadata = compilers.Registry.GetExtendedTypeInformation(route.TypeId);
+                if (metadata.UseBuildCache) { metadata.UseBuildCache = false; vetoes++; }
+            }
+            return vetoes;
+        }
+
+        static void RejectUnknownBuildCacheCapabilities(IEnumerable<BuiltinCompilerCapabilities> capabilities)
+        {
+            if (capabilities.Any(value => value.Family == "unknown" && !value.LegacyBuildCacheAllowed))
+                throw new BuildFailure(ExitCode.Arguments, "CORE_BUILD_CACHE_PLUGIN_UNSUPPORTED", "Build cache cannot reuse assets without a supported compiler capability; use /bc:false.");
+        }
+
+        static void RejectUnsupportedSessionCapabilities(IEnumerable<BuiltinCompilerCapabilities> capabilities)
+        {
+            bool rejected = false, texture = false;
+            foreach (BuiltinCompilerCapabilities capability in capabilities)
+            {
+                if (capability.LegacySessionCacheAllowed) continue;
+                rejected = true;
+                if (capability.Family == "texture") texture = true;
+            }
+            if (texture)
+                throw new BuildFailure(ExitCode.Arguments, "CORE_SESSION_TEXTURE_UNSUPPORTED", "Session cache cannot reuse mixed Texture, OnDemandTexture or TerrainTextureAtlas assets; use /sc:false.");
+            if (rejected)
+                throw new BuildFailure(ExitCode.Arguments, "CORE_SESSION_PLUGIN_UNSUPPORTED", "Session cache cannot reuse assets without a supported compiler capability; use /sc:false.");
+        }
+
         public IList<Artifact> Compile(StreamContext context, CancellationToken cancellation)
         {
             CheckOwner();
@@ -478,6 +513,7 @@ namespace NewModCompiler.Application
             IList<Artifact> artifacts = null;
             DocumentProcessor processor = null;
             SchemaSet schemas = null;
+            object capabilitySummary = null;
             var outerWork = new WorkMetrics();
             compiling = true;
             try
@@ -493,12 +529,7 @@ namespace NewModCompiler.Application
                 processorState = DocumentProcessor.BeginStateScope();
                 report = AssetReport.BeginScope();
                 outerWork.Measure("providerPreparation", EnsureProviders);
-                // The mixed texture implementation cannot yet prove that every
-                // D3DX payload read uses Core's FileReference closure. Preserve
-                // its compilation behavior, but never authorize a texture hit.
-                if (buildCacheEnabled)
-                    foreach (string name in new[] { "Texture", "OnDemandTexture", "TerrainTextureAtlas" })
-                        compilers.Registry.GetExtendedTypeInformation(InstanceHandle.GetTypeId(name)).UseBuildCache = false;
+                int capabilityVetoes = buildCacheEnabled ? ApplyLegacyBuildCacheCapabilities() : 0;
                 string runtime = Path.GetDirectoryName(typeof(CoreStreamCompiler).Assembly.Location);
                 BuildPlan cachePlan = null; CacheInputSnapshot cacheInputs = null;
                 string processContract = null; BuildAssetCache assetCache = null; SessionPackage sessionPackage = null;
@@ -566,14 +597,21 @@ namespace NewModCompiler.Application
                 bool success = false;
                 outerWork.Measure("processDocument", () => processor.ProcessDocument(settings.InputPath, true, false, out success));
                 if (!success) throw new BuildFailure(ExitCode.Compilation, "CORE_COMPILE_FAILED", "Core did not complete the stream.");
-                if (physicalInputs != null && processor.ProcessedTypeIds.Any(new HashSet<uint>(new[] { "Texture", "OnDemandTexture", "TerrainTextureAtlas" }.Select(InstanceHandle.GetTypeId)).Contains))
-                    physicalInputs.RegisterBypass("opaque-texture-closure");
-                if (sessionCacheEnabled)
-                {
-                    var rejected = new HashSet<uint>(new[] { "Texture", "OnDemandTexture", "TerrainTextureAtlas" }.Select(InstanceHandle.GetTypeId));
-                    if (processor.ProcessedTypeIds.Any(rejected.Contains))
-                        throw new BuildFailure(ExitCode.Arguments, "CORE_SESSION_TEXTURE_UNSUPPORTED", "Session cache cannot reuse mixed Texture, OnDemandTexture or TerrainTextureAtlas assets; use /sc:false.");
-                }
+                BuiltinCompilerCapabilities[] processedCapabilities = processor.ProcessedTypeIds.Select(compilers.GetCapabilities).ToArray();
+                // Retain scalars only: CacheReport remains readable after the
+                // owner has disposed its providers. Conservative tracking is
+                // neither an exact resource closure nor a new bundle hit key.
+                capabilitySummary = new { scope = "LegacyCacheVetoAndInputTracking", processedTypes = processedCapabilities.Length,
+                    conservativeCoreBoundaryTypes = processedCapabilities.Count(value => value.InputTracking == "ConservativeCoreBoundary"),
+                    unknownTrackingTypes = processedCapabilities.Count(value => value.InputTracking == "Unknown"),
+                    legacyBuildCacheVetoes = capabilityVetoes,
+                    legacySessionDeniedTypes = processedCapabilities.Count(value => !value.LegacySessionCacheAllowed),
+                    exactClosureProven = false, strongBundleEnabled = false, parallelEnabled = false };
+                if (physicalInputs != null)
+                    foreach (string reason in processedCapabilities.Select(value => value.PhysicalInputBypassReason).Where(value => value != null).Distinct(StringComparer.Ordinal))
+                        physicalInputs.RegisterBypass(reason);
+                if (buildCacheEnabled) RejectUnknownBuildCacheCapabilities(processedCapabilities);
+                if (sessionCacheEnabled) RejectUnsupportedSessionCapabilities(processedCapabilities);
                 cancellation.ThrowIfCancellationRequested(); // Cancellation is cooperative at complete stream boundaries.
                 artifacts = outerWork.Measure("artifactCollection", () => CollectArtifacts(settings.OutputDirectory));
                 cancellation.ThrowIfCancellationRequested();
@@ -620,6 +658,7 @@ namespace NewModCompiler.Application
                 foreach (Exception error in cleanup) AddCleanupFailure(ref failure, error, ExitCode.Internal, "CORE_CLEANUP_FAILED");
                 var measuredSession = processor == null ? null : processor.Cache as SessionCache;
                 coreWork.Add(new { taskId = context.Task.Id, stages = processor == null ? null : processor.GetWorkMetrics(),
+                    pluginCapabilities = capabilitySummary,
                     baseManifest = processor == null ? null : processor.GetBaseManifestWorkMetrics(),
                     stableSortMembership = processor == null ? null : processor.GetStableSortMembershipMetrics(),
                     symbolLookup = processor == null ? null : processor.GetSymbolLookupMetrics(),

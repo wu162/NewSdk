@@ -31,6 +31,7 @@ namespace NewModCompiler.Application
         private readonly List<BuiltinCompilerRoute> routes = new List<BuiltinCompilerRoute>();
         private readonly Thread ownerThread = Thread.CurrentThread;
         private PluginRegistry registry;
+        private BuiltinCompilerCapabilityCatalog capabilities;
         private bool disposed;
         public static IList<BuiltinCompilerRoute> ExpectedRoutes { get { return expected; } }
         public IList<BuiltinCompilerRoute> Routes { get { return routes.AsReadOnly(); } }
@@ -38,6 +39,14 @@ namespace NewModCompiler.Application
         public PluginRegistry Registry
         {
             get { ThrowIfDisposed(); return registry; }
+        }
+        public IReadOnlyDictionary<uint, BuiltinCompilerCapabilities> Capabilities
+        {
+            get { ThrowIfDisposed(); return capabilities.Entries; }
+        }
+        public BuiltinCompilerCapabilities GetCapabilities(uint typeId)
+        {
+            ThrowIfDisposed(); return capabilities.GetCapabilities(typeId);
         }
         private BuiltinCompilers() { }
 
@@ -98,6 +107,7 @@ namespace NewModCompiler.Application
                         result.routes.Add(new BuiltinCompilerRoute(id, name, info.TypeHash, "texture", true));
                     }
                 }
+                result.capabilities = new BuiltinCompilerCapabilityCatalog(result.routes);
                 return result;
             }
             catch (Exception failure)

@@ -651,7 +651,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
         switch (reason)
         {
             case "unsupported-path": case "generated-output-root": case "snapshot-storage": case "file-budget":
-            case "missing-input": case "parent-pin": case "reparse-input": case "storage-budget": case "opaque-texture-closure": break;
+            case "missing-input": case "parent-pin": case "reparse-input": case "storage-budget": case "opaque-texture-closure": case "unknown-compiler-closure": break;
             default: reason = "other-consumer"; break;
         }
         long count; _BypassReasons.TryGetValue(reason, out count); _BypassReasons[reason] = count + 1; _Bypasses++;
