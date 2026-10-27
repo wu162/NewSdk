@@ -71,6 +71,7 @@ public static class CompilerApplicationBuild
         internal string BuildId;
         internal Observe Observer;
         internal IDictionary<string, object> Report;
+        internal IDictionary<string, object> ReleasedInputs;
     }
     static string Mod(string name, string[] valid, bool emptyOptional = false)
     {
@@ -119,7 +120,8 @@ public static class CompilerApplicationBuild
         Require(Object.ReferenceEquals(ambient, Settings.Current), "BuildSession did not restore ambient Core settings");
         Require(File.ReadAllText(sentinel) == "leave existing output alone", "BuildSession removed pre-existing unrelated output");
         var result = new RunResult { Request = request, Expected = expected, Code = code, BuildId = id, Observer = observer,
-            Report = Map(Json.DeserializeObject(File.ReadAllText(request.ReportPath))) };
+            Report = Map(Json.DeserializeObject(File.ReadAllText(request.ReportPath))),
+            ReleasedInputs = Map(Json.DeserializeObject(Json.Serialize(backend.InputSnapshotReport))) };
         Lifecycle(result);
         var copies = new List<object>(); int artifactNumber = 0;
         foreach (var artifact in Array(result.Report["artifacts"]).Select(Map))
@@ -132,7 +134,7 @@ public static class CompilerApplicationBuild
         }
         ProtocolCases.Add(new { name = name, events = Path.Combine(archive, "build.events.jsonl"), report = Path.Combine(archive, "build-report.json"),
             originalEventsPath = request.EventsPath, originalReportPath = request.ReportPath, originalOutputRoot = output, buildId = id,
-            selectedContent = content, expectedStreamCount = expected.Tasks.Length, exitCode = (int)code, artifactCopies = copies.ToArray() });
+            selectedContent = content, expectedStreamCount = expected.Tasks.Length, exitCode = (int)code, artifactCopies = copies.ToArray(), releasedPhysicalInputs = result.ReleasedInputs });
         return result;
     }
     static IDictionary<string, object>[] Events(RunResult run, string kind)
@@ -393,6 +395,116 @@ public static class CompilerApplicationBuild
         RequireWritable(first); RequireWritable(second);
         Tests.Add("actual-no-cache-application-higher-priority-resolver-candidate-added-after-stream-refuses-before-publication-and-new-generation-retries" + suffix);
     }
+    // Fixture-only Core configuration instrumentation. The supported CLI still
+    // clears BasePatchStream/configuration overrides. Each real application
+    // stream consumes the patch via its ordinary OutputManager; the additional
+    // precompiled consumer runs inside that same live physical-input scope.
+    // This tests BuildSession acceptance, not a newly supported CLI option.
+    static void ManifestFixture(string path, string patch)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(path));
+        byte[] references = patch == null ? new byte[0] : new byte[] { 2 }.Concat(System.Text.Encoding.ASCII.GetBytes(patch + "\0")).ToArray();
+        byte[] names = System.Text.Encoding.ASCII.GetBytes("Armor:Sealed\0"), source = System.Text.Encoding.ASCII.GetBytes("source.xml\0");
+        using (var output = new BinaryWriter(File.Create(path)))
+        {
+            output.Write((byte)0); output.Write((byte)1); output.Write((ushort)6);
+            foreach (uint value in new uint[] { 1234, 0, 1, 0, 0, 0, 0, 8, (uint)references.Length, (uint)names.Length, (uint)source.Length }) output.Write(value);
+            foreach (uint value in new uint[] { 99, 77, 11, 22, 0, 1, 0, 0, 0, 0, 0, 0 }) output.Write(value);
+            output.Write((uint)99); output.Write((uint)77);
+            output.Write(references); output.Write(names); output.Write(source);
+        }
+    }
+    static void PrecompiledFixtureConsumer(string manifest, string[] search)
+    {
+        const BindingFlags hidden = BindingFlags.NonPublic | BindingFlags.Instance;
+        var parent = new AssetDeclarationDocument();
+        var current = typeof(AssetDeclarationDocument).GetNestedType("CurrentState", BindingFlags.NonPublic);
+        typeof(AssetDeclarationDocument).GetField("_Current", hidden).SetValue(parent, Activator.CreateInstance(current, true));
+        var processor = new DocumentProcessor(Settings.Current, new PluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32), null);
+        try
+        {
+            Require((bool)typeof(DocumentProcessor).GetMethod("LoadPrecompiledReference", hidden).Invoke(processor, new object[] { parent, manifest, search }),
+                "Fixture precompiled consumer did not accept the external manifest");
+        }
+        catch (TargetInvocationException error) { throw error.InnerException; }
+        Require(parent.ReferenceInstances.Count == 1 && parent.ReferenceInstances.First().Handle.InstanceName == "Sealed",
+            "Fixture precompiled consumer did not restore the sealed symbols");
+    }
+    static void ManifestPublicationCases()
+    {
+        string[] groups = { "base", "apt", "maps" };
+        foreach (string change in new[] { "earlier-patch", "nearer-hashes", "patch-asset-presence" })
+        {
+            string mod = Mod("清单 事务 " + change, groups);
+            string root = Path.Combine(shortOutputRoot, "manifest-" + change), referenceRoot = Path.Combine(root, "reference"), search = Path.Combine(root, "search");
+            string patch = Path.Combine(search, "base.manifest"), reference = Path.Combine(referenceRoot, "main.manifest"), basePatch = Path.Combine(root, "patch.manifest");
+            ManifestFixture(patch, null); ManifestFixture(reference, "base.manifest"); ManifestFixture(basePatch, patch);
+            string hashes = Path.Combine(root, "StringHashes.xml");
+            File.WriteAllText(hashes, "<StringHashes><StringAndHash Hash='99' Text='Armor'/><StringAndHash Hash='77' Text='Sealed'/></StringHashes>");
+            string added = change == "earlier-patch" ? Path.Combine(referenceRoot, "base.manifest") :
+                change == "nearer-hashes" ? Path.Combine(referenceRoot, "main", "StringHashes.xml") : null;
+            if (added == null)
+                using (var manifest = new BinaryAssetBuilder.Utility.Manifest())
+                {
+                    Require(manifest.Load(patch, new[] { search }), "Patch asset candidate precondition failed");
+                    added = manifest.Assets[0].FileBasePath + ".asset";
+                }
+            var configured = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            bool inFixture = false, injected = false; int completed = 0;
+            Func<bool, Observe> observer = mutate => new Observe { InputProbe = row => {
+                string kind = Text(row["eventType"]);
+                if (!inFixture && kind == "Diagnostic" && row.ContainsKey("diagnosticCode") && Text(row["diagnosticCode"]).StartsWith("CORE_TRACE", StringComparison.Ordinal) &&
+                    Text(Map(row["payload"])["source"]) == "DocumentProcessor" && Text(row["message"]).StartsWith("Build Cache Status:", StringComparison.Ordinal))
+                {
+                    string input = Settings.Current.InputPath;
+                    Require(configured.Add(input), "Manifest instrumentation ran more than once for an application stream");
+                    // The real processor has not yet copied these settings into
+                    // ProcessOptions. Keep input/output paths untouched.
+                    Settings.Current.BasePatchStream = basePatch;
+                    inFixture = true;
+                    try { PrecompiledFixtureConsumer(reference, new[] { search }); }
+                    finally { inFixture = false; }
+                }
+                if (kind != "StreamCompleted") return;
+                completed++;
+                foreach (string path in new[] { reference, basePatch, patch, hashes })
+                {
+                    RequireBlocked(() => File.Delete(path), "Manifest input was not pinned through completed application stream: " + path);
+                    RequireBlocked(() => File.WriteAllText(path, "changed"), "Manifest input allowed a write through completed application stream: " + path);
+                }
+                if (!mutate || completed != groups.Length) return;
+                Require(!injected && !File.Exists(added), "Manifest candidate injection was not a single negative-to-positive transition");
+                injected = true; Directory.CreateDirectory(Path.GetDirectoryName(added));
+                if (change == "earlier-patch") ManifestFixture(added, null);
+                else if (change == "nearer-hashes") File.WriteAllText(added, File.ReadAllText(hashes));
+                else File.WriteAllBytes(added, new byte[0]);
+            } };
+            var failed = Build("manifest-publication-" + change, mod, groups, observer(true), new[] { "/tl:9" });
+            Failed(failed, ExitCode.Compilation, "failed");
+            Require(injected && configured.Count == groups.Length && completed == groups.Length && Events(failed, "StreamCompleted").All(row => Text(Map(row["payload"])["status"]) == "succeeded"),
+                "Manifest candidate refusal did not follow three successful configured real Core streams");
+            Require(Events(failed, "Diagnostic").Any(row => Text(row["diagnosticCode"]) == "CORE_INPUT_CHANGED") &&
+                !Events(failed, "StageStarted").Any(row => row.ContainsKey("stageId") && Text(row["stageId"]) == "publish"),
+                "Manifest candidate change was not refused before whole-build publication");
+            Require(!Directory.Exists(Path.Combine(failed.Request.OutputRoot, "published")) &&
+                !Directory.EnumerateDirectories(failed.Request.OutputRoot, ".input-snapshot-*").Any(), "Refused manifest generation retained published output or snapshot scratch");
+            foreach (string path in new[] { reference, basePatch, patch, hashes, added }) RequireWritable(path);
+            var failedInputs = failed.ReleasedInputs;
+            Require(Convert.ToInt64(failedInputs["activeFilePins"]) == 0 && Convert.ToInt64(failedInputs["activeReadHandles"]) == 0,
+                "Refused manifest generation retained input pins");
+            configured.Clear(); completed = 0;
+            var retry = Build("manifest-new-generation-" + change, mod, groups, observer(false), new[] { "/tl:9" });
+            Success(retry, groups);
+            Require(configured.Count == groups.Length && completed == groups.Length, "Manifest retry omitted one configured application stream");
+            var retryInputs = retry.ReleasedInputs;
+            var candidates = Map(retryInputs["resolverCandidates"]);
+            Require(Text(failedInputs["snapshotId"]) != Text(retryInputs["snapshotId"]) && Convert.ToInt64(candidates["verificationChecks"]) > 0,
+                "Manifest retry reused the rejected snapshot generation or omitted final query verification");
+            Require(Convert.ToInt64(retryInputs["activeFilePins"]) == 0 && Convert.ToInt64(retryInputs["activeReadHandles"]) == 0, "Successful manifest retry retained input pins");
+            foreach (string path in new[] { reference, basePatch, patch, hashes, added }) RequireWritable(path);
+            Tests.Add("fixture-only-Core-patch-setting-and-precompiled-consumer-three-real-application-streams-" + change + "-whole-build-refusal-release-and-new-generation-success");
+        }
+    }
     static void Run()
     {
         string[] groups = { "base", "apt", "maps" };
@@ -438,6 +550,7 @@ public static class CompilerApplicationBuild
         PhysicalInputCases();
         CandidatePublicationCase();
         CandidatePublicationCase(true);
+        ManifestPublicationCases();
     }
     public static int Main(string[] args)
     {
