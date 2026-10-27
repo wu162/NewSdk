@@ -24,7 +24,7 @@
 
 `/pc:true` 使用原 Core 的引用策略：优先尝试预编译引用，缺失时沿原逻辑处理引用而不额外发布它们。它不代表自动导入游戏数据或 WBData；当前私有工作区里不存在的参考 manifest 不会凭空生成。`/pc:false` 可恢复编译并输出引用流的旧选项行为；含多个输出流的 BIG 仍受现有打包合同约束。
 
-版本/名称选项仅用于 BIG，显式用于 loose 时拒绝。MOD 版本允许 ASCII 字母、数字、点、下划线及连字符；游戏版本为点分十进制；SKUDEF 名称为单个 ASCII 文件基名。均不能注入目录或换行指令。
+版本/名称选项仅用于 BIG，显式 `--package-format loose` 时仍拒绝。开发模式自动派生 loose 时允许保留这些设置供标准打包使用，不将它们写入流。MOD 版本允许 ASCII 字母、数字、点、下划线及连字符；游戏版本为点分十进制；SKUDEF 名称为单个 ASCII 文件基名。均不能注入目录或换行指令。
 
 `newmodcompiler.json` 可配置 package-content、package-format、mod-version、game-version、skudef-name、include-additional、fix-neutral-assets 、tp、profile、sdk-root、out、ss、pc 和 slowclean。命令行覆盖项目预设，同一来源同一参数指定冲突值时报错。所有生效值和来源进入报告及事件。
 

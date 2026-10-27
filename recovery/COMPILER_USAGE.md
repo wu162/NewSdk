@@ -53,7 +53,7 @@
 
 默认使用标准构建：`--package-content auto`，格式 `big`，自动包含 Additional。只有 APT 或全局元数据的 MOD 也能直接编译，无需创建空的 Mod.xml。自动发现没有任何有效编译入口时以 `PLAN_NO_INPUTS` 报错；仅有 Additional 不算编译入口。
 
-开发构建使用 `--profile development`，默认输出 loose，适合查看流文件；高级构建使用 `--profile advanced`，保持标准默认值并通过显式参数微调。`--help-advanced` 查看兼容入口。模式只提供默认值，显式参数优先；三个模式均不改变任何缓存选项。
+开发构建使用 `--profile development`，默认输出 loose，适合查看流文件；高级构建使用 `--profile advanced`，保持标准默认值并通过显式参数微调。`--help-advanced` 查看兼容入口。模式只提供默认值，显式参数优先；三个模式均不改变任何缓存选项。开发模式派生的 loose 输出允许保留项目的包版本/名称设置，这些设置只在以后标准打包时使用；显式 `--package-format loose` 的原有校验继续保留。
 
 `--package-content base|apt|global-metadata` 或逗号组合仍提供原有的部分编译，旧名 `maps` 完全兼容。显式选择为空的可选组时继续保留上一代，不生成空 BIG；没有改变部分编译和完整打包机制。
 
@@ -89,11 +89,7 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
   "profile": "standard",
   "package-content": "auto",
   "mod-version": "2.7-beta",
-  "game-version": "1.12",
-  "skudef-name": "ExampleLauncher",
-  "include-additional": true,
-  "fix-neutral-assets": false,
-  "tp": "Win32"
+  "skudef-name": "ExampleLauncher"
 }
 ```
 

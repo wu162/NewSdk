@@ -295,7 +295,7 @@ try{
         Need (@($automatic.report.diagnostics|Where-Object{$_.code -ceq 'ADDITIONAL_OVERWRITE' -and $_.level -ceq 'warning'}).Count -ge 3) 'Default Additional overwrites were not reported as warnings'
         CompareBig $automatic $plain 'standard-defaults-original-copy-makebig' $true
         $script:expectedArtifacts=18
-        $development=RunCli 'development-defaults' $mod (Join-Path $modeWork 'development-defaults') 'base,apt,maps' 'loose' -Extra @('--profile','development') -Defaults
+        $development=RunCli 'development-defaults' $mod (Join-Path $modeWork 'development-defaults') 'base,apt,maps' 'loose' -Extra @('--profile','development','--mod-version','2.7-beta') -Defaults
         Need ($development.report.effectiveOptions.'package-content'.Value -ceq 'auto' -and $development.report.effectiveOptions.'include-additional'.Value -ceq 'false') 'Development did not default to automatic loose streams'
         Need ($development.files.Count -eq $plain.files.Count) 'Development loose inventory differs'
         foreach($name in $plain.files.Keys){Need ($development.files.ContainsKey($name) -and (Hash $development.files[$name]) -ceq (Hash $plain.files[$name])) "Development default stream bytes differ: $name"}

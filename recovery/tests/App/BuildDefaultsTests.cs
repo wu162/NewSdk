@@ -62,6 +62,9 @@ namespace NewModCompiler.Tests
             Check(overridden.PackageFormat=="big" && overridden.OutputRoot==output && overridden.Options["pc"].Source=="commandLine","CLI overrides project");
             File.WriteAllText(project,"{\"mod-version\":2.7,\"game-version\":1.12}");
             Check(parse(new string[0]).ModVersion=="2.7", "Existing numeric project versions remain accepted");
+            var development=parse(new[]{"--profile","development","--mod-version","3.1"});
+            Check(development.PackageFormat=="loose" && development.ModVersion=="3.1" && development.GameVersion=="1.12", "Development can reuse project package identity and CLI version overrides");
+            Reject("PACKAGE_IDENTITY_FORMAT",()=>parse(new[]{"--package-format","loose","--mod-version","3.1"}));
             File.WriteAllText(project,"null");Reject("PROJECT_INVALID",()=>parse(new string[0]));
             File.WriteAllText(project,"{\"out\":null}");Reject("PROJECT_OPTION",()=>parse(new string[0]));
             File.Delete(project);
