@@ -1,0 +1,4 @@
+System.Exception: Converter extents 28000002-dither0
+   at TextureNpotFormatProbe.Check(Boolean v, String s)
+   at TextureNpotFormatProbe.Case(Factory factory, IntPtr module, StreamWriter transcript, String directory, UInt32 format, Int32 bytesPerPixel, Int32 dither)
+   at TextureNpotFormatProbe.Main(String[] args)
