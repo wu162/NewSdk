@@ -127,3 +127,28 @@ acceptance.
 The later source fix was a C# local-name collision in the float API, not a
 comparison waiver. The final run includes the float API and corrected build,
 and all exact assertions remain enabled.
+
+## Concrete colour audit notes for the next stage
+
+From the preserved `CodeRGBBlock.c`/`AllSame.c` and native assembly (static facts,
+not a validated colour harness): the RGB block count is at +0x8, triples of
+normalized doubles start at +0x10, three auxiliary/clamped doubles are at
++0x3018/+0x3020/+0x3028, selected level count is at +0x3034, six endpoint channel
+integers start at +0x3038, and per-sample indices start at +0x3050. The +0x4 field
+selects behaviour but its meaning is not yet established; do not guess its name
+or initialization. CodeRGBBlock mutates its internal sample triples when clamping.
+A future managed adapter should distinguish that owned working block from the
+caller's original RGBA storage.
+
+AllSame has two important data dependencies beyond the visible function body:
+it selects records from RVA 0xB9608 or 0xBB608 (32-byte records) for its grayscale
+path, and lazily constructs a 6,912-byte 3-channel endpoint lookup at RVA 0xC0160
+using 5/6/5 expansion and coefficients at RVA 0xBD608 onward. The initialized flag
+is at RVA 0xC1C60. These are analysis leads; no table regeneration or colour
+output has been accepted. Do not label a copied sample list as a restored table
+builder. Prove the initialization, tie-breaking and actual caller options first.
+
+The decompiler reports misleading calling conventions/extraout registers in some
+AllSame/rounding output. Use the COFF signature and original assembly for ABI and
+floating-point evaluation order. This stage's five-point quantizer failure shows
+why a mathematically equivalent decompiler expression is insufficient evidence.
