@@ -32,6 +32,7 @@ VALIDATION_RUNTIME = ('NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.
 TARGETED_FIXTURES = (
     'CompilerInputDigests', 'CompilerPhysicalInputs', 'CompilerManifestInputs',
     'CompilerStreamBindings', 'CompilerTransferBuffers', 'CompilerDeclarationSnapshots',
+    'CompilerDocumentSnapshots', 'CompilerDocumentMetadata', 'CompilerUpheavalSamples',
     'CompilerExpressionPrograms', 'CompilerDependencyObservations', 'CompilerBaseManifestIndex',
     'CompilerNodeJoiner', 'CompilerSchemaDescriptors', 'CompilerSchemaMetadata',
     'CompilerCacheContent', 'CompilerCacheBoundary', 'CompilerInputRoots',
@@ -41,8 +42,17 @@ TARGETED_FIXTURES = (
 )
 ALLOWED = {REUSE_WORKFLOW, 'recovery/scripts/DownloadCompilerTargetedReuse.py',
            'recovery/scripts/TestCompilerTargetedReuse.py', 'recovery/scripts/TestCompilerCoreLifecycle.ps1',
+           'recovery/scripts/TestCompilerBackendBaseline.ps1',
+           'recovery/tests/CompilerDocumentSnapshotOracle.cs',
            'recovery/scripts/ExportCompilerAcceptedRelease.py', 'recovery/scripts/TestCompilerAcceptedRelease.py'}
 ALLOWED.update('recovery/tests/' + name + '.cs' for name in TARGETED_FIXTURES)
+# Fixed, reviewed test inputs only; this is not a wildcard for arbitrary runtime
+# or build inputs. Their current bytes are consumed by the new targeted fixture.
+ALLOWED.update('recovery/tests/fixtures/UpheavalSmall/' + name for name in (
+    '.gitattributes', 'README.md', 'provenance.json', 'Data/Mod.xml', 'Data/Defines.xml',
+    'Data/Derived.xml', 'Data/ArcherMaidenArmor.xml', 'Data/FutureTankArmor.xml',
+    'Data/GrinderArmor.xml', 'Data/GigaFortressUpgrades.xml',
+))
 ROOT_DOCS = {'AGENTS.md', 'README.md', 'recovery/README.md', 'recovery/REFACTOR_RESUME.md',
              'recovery/EFFICIENCY.md', 'recovery/RESUME.md', 'recovery/STAGE_DURATION.md'}
 PRODUCTION_ROOTS = ('recovery/src', 'SDK', 'recovery/build')
