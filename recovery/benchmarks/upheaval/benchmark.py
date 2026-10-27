@@ -15,9 +15,13 @@ import shutil
 import statistics
 import subprocess
 import tempfile
+import tarfile
 import time
 import traceback
 import xml.etree.ElementTree as ET
+
+MOD_SOURCE = 'bacfc69fc3e71c8116d1f22b933b8b6173170ecf'
+MOD_TREE = '5551fc26a6f96b62613443e0d0fa2958c14cbce0'
 
 
 def digest(path):
@@ -134,7 +138,6 @@ def run(args):
     out = Path(args.output).resolve()
     out.mkdir(parents=True, exist_ok=False)
     sdk = repo / 'SDK'
-    mod = sdk / 'Mods/Upheaval'
     runtime = Path(args.runtime).resolve()
     state = dict(schemaVersion=1, succeeded=False, runId=os.getenv('GITHUB_RUN_ID'),
                  runAttempt=os.getenv('GITHUB_RUN_ATTEMPT'), pairs=[], warmups=[],
@@ -149,7 +152,8 @@ def run(args):
                      old='One original BAB process per discovered stream, aggregated',
                      new='One Release production CLI process for all discovered streams'))
     work = Path(tempfile.mkdtemp(prefix='ub', dir=os.environ.get('RUNNER_TEMP')))
-    sdk_before = runtime_before = None
+    sdk_before = runtime_before = mod_before = None
+    mod = work / 'historical/SDK/Mods/Upheaval'
     try:
         state['testSourceCommit'] = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', 'HEAD']).decode().strip()
         state['reuse'] = json.loads((runtime.parent / 'reuse.json').read_text())
@@ -159,7 +163,33 @@ def run(args):
         write(out / 'sdk-inputs.json', sdk_before)
         state['runtimeInputs'] = runtime_before
         state['sdkGitTree'] = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', 'HEAD:SDK']).decode().strip()
-        state['modGitTree'] = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', 'HEAD:SDK/Mods/Upheaval']).decode().strip()
+        subprocess.run(['git', '-C', str(repo), 'merge-base', '--is-ancestor', MOD_SOURCE,
+                        state['testSourceCommit']], check=True)
+        mod_tree = subprocess.check_output(['git', '-C', str(repo), 'rev-parse',
+                    MOD_SOURCE + ':SDK/Mods/Upheaval']).decode().strip()
+        if mod_tree != MOD_TREE:
+            raise ValueError('Pinned historical Upheaval tree mismatch')
+        archive = work / 'upheaval.tar'
+        with archive.open('xb') as stream:
+            subprocess.run(['git', '-C', str(repo), 'archive', '--format=tar', MOD_SOURCE,
+                            'SDK/Mods/Upheaval'], check=True, stdout=stream)
+        historical = work / 'historical'
+        historical.mkdir()
+        with tarfile.open(archive) as tar:
+            # Fixed Git tree, with explicit archive safety checks before extraction.
+            for member in tar.getmembers():
+                target = (historical / member.name).resolve()
+                if (not target.is_relative_to(historical.resolve()) or
+                        not (member.isfile() or member.isdir())):
+                    raise ValueError('Unsafe historical MOD archive entry')
+            tar.extractall(historical, filter='data')
+        archive.unlink()
+        state['modGitTree'] = mod_tree
+        state['modSourceCommit'] = MOD_SOURCE
+        mod_before = snapshot(mod)
+        if len(mod_before) != 2723:
+            raise ValueError('Pinned full Upheaval file count changed')
+        write(out / 'mod-inputs.json', mod_before)
         tasks = [('base', mod / 'Data/Mod.xml')]
         tasks += [('apt', p) for p in sorted((mod / 'Data/AptUI').glob('*.xml'))]
         tasks += [('maps', p) for p in sorted((mod / 'Data/AdditionalMaps').glob('MapMetaData_*.xml'))]
@@ -265,7 +295,8 @@ def run(args):
                             shutil.copytree(destination / str(number) / 's', pair_dir / engine / 'raw-output' / str(number))
                 write(out / 'validation.json', state)
                 print(f'{pair_dir.name} {engine}: {pair[engine]["wallSeconds"]:.3f}s, raw outputs identical', flush=True)
-        if snapshot(sdk) != sdk_before or snapshot(runtime) != runtime_before or snapshot(tools) != state['originalRuntime']:
+        if (snapshot(sdk) != sdk_before or snapshot(mod) != mod_before or
+                snapshot(runtime) != runtime_before or snapshot(tools) != state['originalRuntime']):
             raise ValueError('Compiler or SDK inputs changed during benchmark')
         state['inputsUnchanged'] = True
         state['statistics'] = summarize(state['pairs'])
@@ -289,11 +320,15 @@ def run(args):
                 stream.write(summary)
     except BaseException:
         state['error'] = traceback.format_exc()
+        partial = work / 'o'
+        if partial.exists():
+            shutil.copytree(partial, out / 'failed-partial-output')
         raise
     finally:
         # Verify unchanged inputs even on a failed sample. Preserve failure state.
-        state['inputsUnchanged'] = (sdk_before is not None and runtime_before is not None
-                                    and snapshot(sdk) == sdk_before and snapshot(runtime) == runtime_before)
+        state['inputsUnchanged'] = (sdk_before is not None and runtime_before is not None and mod_before is not None
+                                    and snapshot(sdk) == sdk_before and snapshot(runtime) == runtime_before
+                                    and snapshot(mod) == mod_before)
         if not state['inputsUnchanged']:
             state['succeeded'] = False
         write(out / 'validation.json', state)

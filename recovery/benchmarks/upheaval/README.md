@@ -1,6 +1,6 @@
 # Upheaval 新旧编译器 benchmark
 
-从 `compiler-main` 独立分支测试**完整、未精简的仓库 Upheaval**。修改 benchmark 文件并普通推送自动触发；合入后也可手动 `workflow_dispatch`。默认 1 对预热 + 10 对正式样本，旧→新、新→旧交替顺序，同一台 `windows-2022` runner 串行执行。分支并发排队，不取消已有实验；最长 240 分钟。单个编译进程 1200 秒超时会终止进程树，失败证据仍上传。
+从 `compiler-main` 独立分支测试**完整、未精简的历史 Upheaval**。当前主线已经不跟踪该 MOD，因此从初始 SDK 提交 `bacfc69fc3e71c8116d1f22b933b8b6173170ecf` 用 `git archive` 提取到临时目录，固定 tree `5551fc26a6f96b62613443e0d0fa2958c14cbce0`，共 2723 文件，不修改当前 SDK。新旧编译器共同使用这份外部 MOD；完整输入哈希另存 `mod-inputs.json`。修改 benchmark 文件并普通推送自动触发；合入后也可手动 `workflow_dispatch`。默认 1 对预热 + 10 对正式样本，旧→新、新→旧交替顺序，同一台 `windows-2022` runner 串行执行。分支并发排队，不取消已有实验；最长 240 分钟。单个编译进程 1200 秒超时会终止进程树，失败证据仍上传。
 
 ## 测量合同
 
