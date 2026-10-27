@@ -205,12 +205,12 @@ namespace BinaryAssetBuilder.TextureCompiler
             int best = -1;
             int[] chosenEndpoints = null, chosenIndices = null;
             for (int mode = 0; mode < 5; mode++) {
-                List<double> values = new List<double>();
+                List<double> filtered = new List<double>();
                 foreach (double value in alpha)
-                    if (!(value == 0 && excludeZero[mode]) && !(value == 1 && excludeOne[mode])) values.Add(value);
-                if (mode > 1 && values.Count == alpha.Length) continue;
-                int[] endpoints = new int[2], indices = new int[values.Count];
-                double error = Quantize(levels[mode], values.ToArray(), endpoints, indices);
+                    if (!(value == 0 && excludeZero[mode]) && !(value == 1 && excludeOne[mode])) filtered.Add(value);
+                if (mode > 1 && filtered.Count == alpha.Length) continue;
+                int[] endpoints = new int[2], indices = new int[filtered.Count];
+                double error = Quantize(levels[mode], filtered.ToArray(), endpoints, indices);
                 if (best == -1 || error < bestError) {
                     best = mode; bestError = error; chosenEndpoints = endpoints; chosenIndices = indices;
                 }
