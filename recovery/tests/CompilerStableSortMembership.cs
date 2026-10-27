@@ -16,7 +16,7 @@ public sealed class StableMembershipCase
 {
     public string name, culture = "en-US";
     public int count = 40, extraBindings;
-    public bool legacyBindings, customComparer, customDictionary, customCulture, derivedHandle, derivedDeclaration, derivedSet, derivedList, duplicateOutput, traceMutation, swapSchemaAfterTypeSort, collision, xorQuery, entryBudget;
+    public bool legacyBindings, customComparer, customDictionary, customCulture, derivedHandle, derivedDeclaration, derivedSet, derivedList, duplicateOutput, traceMutation, swapSchemaAfterTypeSort, nullSchemaAfterTypeSort, collision, xorQuery, entryBudget;
 }
 [Serializable]
 public sealed class StableMembershipResult
@@ -40,7 +40,7 @@ public sealed class StableMembershipRunner
     object oldWriter, oldMask, oldTraceEnabled;
     FieldInfo writerField, maskField;
     int callbacks;
-    bool schemaMapReplaced;
+    bool schemaMapReplaced, schemaSetNull;
     Type derivedHandleType;
     readonly Dictionary<Type, Type> plainDerived = new Dictionary<Type, Type>();
     public StableMembershipRunner(Assembly assembly)
@@ -109,7 +109,7 @@ public sealed class StableMembershipRunner
     }
     void Prepare(StableMembershipCase value)
     {
-        spec = value; callbacks = 0; schemaMapReplaced = false;
+        spec = value; callbacks = 0; schemaMapReplaced = false; schemaSetNull = false;
         oldSettings = settingsType.GetField("Current", All).GetValue(null);
         settings = Activator.CreateInstance(settingsType); settingsType.GetProperty("BuildCache").SetValue(settings, false, null);
         settingsType.GetField("Current", All).SetValue(null, settings);
@@ -154,7 +154,7 @@ public sealed class StableMembershipRunner
         oldWriter = writerField.GetValue(null); oldMask = maskField.GetValue(null);
         tracer = Field(docType, "_Tracer").GetValue(null); oldTraceEnabled = Get(tracer, "_TraceEnabled");
         Set(tracer, "_TraceEnabled", false); tracerType.GetMethod("SetTraceLevel").Invoke(null, new object[] { 9 });
-        writerField.SetValue(null, spec.traceMutation || spec.swapSchemaAfterTypeSort ? Delegate.CreateDelegate(writerField.FieldType, this, GetType().GetMethod("Trace")) : null);
+        writerField.SetValue(null, spec.traceMutation || spec.swapSchemaAfterTypeSort || spec.nullSchemaAfterTypeSort ? Delegate.CreateDelegate(writerField.FieldType, this, GetType().GetMethod("Trace")) : null);
     }
     public void Trace(string source, TraceEventType kind, string message)
     {
@@ -168,6 +168,12 @@ public sealed class StableMembershipRunner
                 Set(replacement, "_AssetDependencies", new SortedDictionary<uint, int>(counts));
                 processorType.GetProperty("SchemaSet").SetValue(processor, replacement, null);
                 schemaMapReplaced = true;
+            }
+            if (spec.nullSchemaAfterTypeSort)
+            {
+                processorType.GetProperty("SchemaSet").SetValue(processor, null, null);
+                schemaMapReplaced = true;
+                schemaSetNull = processorType.GetProperty("SchemaSet").GetValue(processor, null) == null;
             }
         }
     }
@@ -244,7 +250,7 @@ public sealed class StableMembershipRunner
             error = failure.GetType().Name + ":" + failure.Message;
         }
         finally { Restore(); CultureInfo.CurrentCulture = oldCulture; AppContext.SetSwitch("NewSdk.Compiler.DisableStableSortMembershipIndex", oldSwitch); }
-        return new StableMembershipResult { outcome = json.Serialize(new { error, positions = positions.ToArray(), order, callbacks, schemaMapReplaced }), metrics = metrics, elapsedTicks = ticks };
+        return new StableMembershipResult { outcome = json.Serialize(new { error, positions = positions.ToArray(), order, callbacks, schemaMapReplaced, schemaSetNull }), metrics = metrics, elapsedTicks = ticks };
     }
 }
 public sealed class LegacyStableMembershipDomain : MarshalByRefObject
@@ -291,6 +297,7 @@ public static class CompilerStableSortMembership
             cases.Add(new StableMembershipCase { name = "custom-schema-comparer", customComparer = true });
             cases.Add(new StableMembershipCase { name = "custom-schema-dictionary", customDictionary = true });
             cases.Add(new StableMembershipCase { name = "captured-custom-map-followed-by-trace-schema-swap", customDictionary = true, swapSchemaAfterTypeSort = true });
+            cases.Add(new StableMembershipCase { name = "last-trace-schema-null", nullSchemaAfterTypeSort = true });
             cases.Add(new StableMembershipCase { name = "custom-culture", customCulture = true });
             cases.Add(new StableMembershipCase { name = "derived-Equals-untraced-mutation", derivedHandle = true });
             cases.Add(new StableMembershipCase { name = "derived-declaration", derivedDeclaration = true });
@@ -326,6 +333,18 @@ public static class CompilerStableSortMembership
                     Require((bool)actualRow["schemaMapReplaced"] && Convert.ToInt64(actualRow["callbacks"]) == 1 && metrics != null &&
                         (string)metrics["scopeReason"] == "custom-schema-dependency-dictionary-or-comparer",
                         "Eligibility guard did not follow the custom map captured by the actual TypeDepCompare across final-trace schema replacement");
+                }
+                if (item.nullSchemaAfterTypeSort)
+                {
+                    var actualRow = Json.Deserialize<Dictionary<string, object>>(actual.outcome);
+                    Require((bool)actualRow["schemaMapReplaced"] && (bool)actualRow["schemaSetNull"] && Convert.ToInt64(actualRow["callbacks"]) == 1,
+                        "Last-trace callback did not actually clear the processor SchemaSet");
+                    // Limit this assertion to the original public StableSort's
+                    // local successful contract. Do not infer that later Core
+                    // processing supports an absent SchemaSet.
+                    if (actualRow["error"] == null)
+                        Require(metrics != null && (bool)metrics["enabled"] && Convert.ToInt64(metrics["builds"]) > 0 && Convert.ToInt64(metrics["indexQueries"]) > 0,
+                            "StableSort eligibility reread a replaced/null SchemaSet instead of the standard map captured by its comparer");
                 }
                 if (item.entryBudget) Require(metrics != null && (string)metrics["scopeReason"] == "entry-budget" && Convert.ToInt64(metrics["budgetBypasses"]) > 0,
                     "Cumulative entry budget did not reject the actual aliased-binding scope");
