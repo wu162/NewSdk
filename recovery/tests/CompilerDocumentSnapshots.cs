@@ -12,6 +12,8 @@ using NewModCompiler.Application;
 
 public static class CompilerDocumentSnapshots
 {
+    const string ShareDisable = "NewSdk.Compiler.DisableSharedDocumentDeclarations";
+    const string HandleDisable = "NewSdk.Compiler.DisableDeclarationHandleSnapshots";
     const string Disable = "NewSdk.Compiler.DisableDocumentSnapshots", Ns = "uri:ea.com:eala:asset";
     const BindingFlags Hidden = BindingFlags.Instance | BindingFlags.NonPublic;
     static string work, sdk;
@@ -137,6 +139,65 @@ public static class CompilerDocumentSnapshots
         }
         tests.Add("derived-declaration-and-instance-set-preserve-whole-legacy-graph-through-recapture");
     }
+    static InstanceDeclaration SavedDeclaration(AssetDeclarationDocument document)
+    {
+        object last = typeof(AssetDeclarationDocument).GetField("_Last", Hidden).GetValue(document);
+        return ((List2<InstanceDeclaration>)last.GetType().GetField("SelfInstances").GetValue(last))[0];
+    }
+    static object Saved(InstanceDeclaration declaration) { return typeof(InstanceDeclaration).GetField("_Last", Hidden).GetValue(declaration); }
+    static void SharedSavedBoundaries()
+    {
+        foreach (bool deepCopy in new[] { false, true })
+        {
+            AppContext.SetSwitch(Disable, false); AppContext.SetSwitch(HandleDisable, false); AppContext.SetSwitch(ShareDisable, deepCopy);
+            var source = BareDocument("shared-save"); Instance(source, "Owner"); source.MakeCacheable(); string before = Xml(source);
+            var first = new AssetDeclarationDocument(); first.CacheFromDocument(source);
+            var second = new AssetDeclarationDocument(); second.CacheFromDocument(first);
+            Require(!Object.ReferenceEquals(SavedDeclaration(source), SavedDeclaration(first)), "Public declaration wrappers unexpectedly shared");
+            Require(Object.ReferenceEquals(Saved(SavedDeclaration(source)), Saved(SavedDeclaration(first))) == !deepCopy &&
+                Object.ReferenceEquals(Saved(SavedDeclaration(first)), Saved(SavedDeclaration(second))) == !deepCopy,
+                "Saved-only private graph sharing/deep-copy fallback did not execute");
+            first.FromLastHack(); second.FromLastHack();
+            first.SelfInstances[0].Handle.TypeHash ^= 0x11223344;
+            first.SelfInstances[0].ReferencedInstances[0].TypeHash ^= 0x55667788;
+            first.MakeComplete(); first.SelfInstances[0].ProcessingHash = 123; first.MakeCacheable();
+            Require(Xml(source) == before && Xml(second) == before && Xml(first) != before, "Private saved sharing exposed a mutable Current or recapture");
+            // Switch transitions must preserve the prior deep-copy algorithm's
+            // legacy per-owner saved/current alias, without leaking to siblings.
+            foreach (bool transferAfterDisable in new[] { false, true })
+            {
+                AppContext.SetSwitch(HandleDisable, false);
+                var fresh = BareDocument("switch-transition"); Instance(fresh, "Owner"); fresh.MakeCacheable(); string savedBefore = Xml(fresh);
+                var a = new AssetDeclarationDocument(); a.CacheFromDocument(fresh);
+                var b = new AssetDeclarationDocument(); b.CacheFromDocument(fresh);
+                AppContext.SetSwitch(HandleDisable, true);
+                var receiver = a;
+                if (transferAfterDisable) { receiver = new AssetDeclarationDocument(); receiver.CacheFromDocument(a); }
+                receiver.FromLastHack(); receiver.SelfInstances[0].Handle.TypeHash ^= 0x12345678;
+                Require(Xml(fresh) == savedBefore && Xml(b) == savedBefore, "Dynamic legacy Handle restore/transfer mutated a previously independent sibling");
+                Require(Xml(receiver) != savedBefore, "Dynamic legacy Handle fallback lost its per-owner saved/current alias");
+            }
+            AppContext.SetSwitch(HandleDisable, false);
+            int savedGraphObjects = new[] { Saved(SavedDeclaration(source)), Saved(SavedDeclaration(second)) }.Distinct().Count();
+            evidence.Add(new { id = "sealed-private-saved-graph", deepCopyFallback = deepCopy, privateTransferSharesSavedGraph = !deepCopy, observedDistinctSavedGraphsAfterReceiverRecapture = savedGraphObjects,
+                scope = "Private saved declaration sharing only; wrappers, mutable Current, document containers and metadata remain independently owned" });
+        }
+        AppContext.SetSwitch(ShareDisable, false);
+        var binarySource = BareDocument("unknown-binary-provenance"); Instance(binarySource, "Owner"); binarySource.MakeCacheable();
+        AssetDeclarationDocument unknown;
+        using (var memory = new MemoryStream())
+        {
+            var formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            formatter.Serialize(memory, binarySource); memory.Position = 0;
+            unknown = (AssetDeclarationDocument)formatter.Deserialize(memory);
+        }
+        string unknownBefore = Xml(unknown);
+        var fromUnknown = new AssetDeclarationDocument(); fromUnknown.CacheFromDocument(unknown);
+        Require(!Object.ReferenceEquals(Saved(SavedDeclaration(unknown)), Saved(SavedDeclaration(fromUnknown))), "Unknown binary provenance incorrectly authorized saved graph sharing");
+        fromUnknown.FromLastHack(); fromUnknown.MakeComplete(); fromUnknown.SelfInstances[0].ProcessingHash = 987; fromUnknown.MakeCacheable();
+        Require(Xml(unknown) == unknownBefore, "Unknown serialized source was mutated through a copied declaration");
+        tests.Add("sealed-private-saved-transfer-sharing-deep-copy-fallback-current-mutation-recapture-and-dynamic-Handle-switch-isolation");
+    }
     static Settings Configure()
     {
         var config = new XmlDocument(); config.Load(Path.Combine(sdk, "tools/BinaryAssetBuilder.exe.config"));
@@ -178,10 +239,11 @@ public static class CompilerDocumentSnapshots
         using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
         {
             Dictionary<string, string> expected = null;
+            foreach (bool deepCopy in new[] { false, true })
             foreach (bool disabled in new[] { false, true })
             {
-                AppContext.SetSwitch(Disable, disabled);
-                string mode = disabled ? "legacy" : "owned";
+                AppContext.SetSwitch(Disable, disabled); AppContext.SetSwitch(ShareDisable, deepCopy);
+                string mode = (deepCopy ? "deep-" : "shared-") + (disabled ? "legacy" : "owned");
                 settings.OutputDirectory = Path.Combine(work, "real", mode + "-output"); settings.IntermediateOutputDirectory = Path.Combine(work, "real", mode + "-intermediate");
                 settings.SessionCacheDirectory = Path.Combine(work, "real", mode + "-cache"); Directory.CreateDirectory(settings.SessionCacheDirectory);
                 var schemas = new SchemaSet(false);
@@ -198,7 +260,7 @@ public static class CompilerDocumentSnapshots
                 Require(copy.SelfInstances.Count == 3 && copy.SelfInstances[0].Handle.Equals(document.SelfInstances[0].Handle), "Real Core cache copy lost declaration order");
                 copy.MakeComplete(); copy.SelfInstances[0].ProcessingHash ^= 0x12345678; copy.MakeCacheable();
                 Require((before == Xml(document)) == !disabled, "Real Core cached document lifecycle did not isolate declarations");
-                evidence.Add(new { id = "real-Core-session", legacyFallback = disabled, coldParse = cold.XmlParseCount, restoredParse = restored.XmlParseCount, fourOutputs = output,
+                evidence.Add(new { id = "real-Core-session", legacyFallback = disabled, deepCopySavedFallback = deepCopy, coldParse = cold.XmlParseCount, restoredParse = restored.XmlParseCount, fourOutputs = output,
                     mutationScope = "After successful compilation, direct public cache-copy/complete/reserialize probe" });
             }
         }
@@ -207,7 +269,9 @@ public static class CompilerDocumentSnapshots
     }
     public static int Main(string[] args)
     {
-        object result; int code = 0; Settings previous = Settings.Current; bool previousSwitch; AppContext.TryGetSwitch(Disable, out previousSwitch);
+        object result; int code = 0; Settings previous = Settings.Current;
+        bool previousSwitch, previousShare, previousHandle;
+        AppContext.TryGetSwitch(Disable, out previousSwitch); AppContext.TryGetSwitch(ShareDisable, out previousShare); AppContext.TryGetSwitch(HandleDisable, out previousHandle);
         try
         {
             Require(args.Length == 6 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work result source run SDK originalOracleJson");
@@ -216,7 +280,9 @@ public static class CompilerDocumentSnapshots
             Require(originalOracle != null && (bool)originalOracle["succeeded"] && (string)originalOracle["mode"] == "original" &&
                 (bool)originalOracle["sameDeclaration"] && (bool)originalOracle["sourceXmlChanged"], "Independent original SDK oracle did not reproduce shared declaration lifecycle");
             evidence.Add(new { id = "independent-original-SDK-DLL-oracle", oracle = originalOracle });
-            PublicCacheBoundaries(); UnsupportedFallbacks(); RealCore();
+            SharedSavedBoundaries();
+            foreach (bool deepCopy in new[] { false, true }) { AppContext.SetSwitch(ShareDisable, deepCopy); PublicCacheBoundaries(); UnsupportedFallbacks(); }
+            RealCore();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), evidence = evidence.ToArray(),
                 scope = "Document declaration cache ownership across save/copy/restore/complete/recapture; derived graphs and opt-out remain legacy; not immutable DOM/SchemaInfo or a confirmed CLI fault" };
             Console.WriteLine("PASS DocumentSnapshots: " + tests.Count + " groups; " + checks + " checks");
@@ -226,7 +292,7 @@ public static class CompilerDocumentSnapshots
             code = 1; Console.Error.WriteLine(error); result = new { succeeded = false, sourceCommit = args.Length > 2 ? args[2] : null, runId = args.Length > 3 ? args[3] : null,
                 checks, tests = tests.ToArray(), evidence = evidence.ToArray(), error = error.ToString() };
         }
-        finally { Settings.Current = previous; AppContext.SetSwitch(Disable, previousSwitch); }
+        finally { Settings.Current = previous; AppContext.SetSwitch(Disable, previousSwitch); AppContext.SetSwitch(ShareDisable, previousShare); AppContext.SetSwitch(HandleDisable, previousHandle); }
         if (args.Length > 1) File.WriteAllText(args[1], Json.Serialize(result)); return code;
     }
 }

@@ -32,10 +32,10 @@ public class InstanceDeclaration : IXmlSerializable
                 if ((object)handle != null && handle.GetType() != typeof(InstanceHandle)) return false;
         return true;
     }
-    private static HandleGraph SnapshotHandles(InstanceHandle own, InstanceHandle inheritance, List2<InstanceHandle> strong, List2<InstanceHandle> weak, bool forceLegacy = false)
+    private static HandleGraph SnapshotHandles(InstanceHandle own, InstanceHandle inheritance, List2<InstanceHandle> strong, List2<InstanceHandle> weak, bool forceLegacy = false, bool forceValueCopy = false)
     {
         bool disabled; AppContext.TryGetSwitch("NewSdk.Compiler.DisableDeclarationHandleSnapshots", out disabled);
-        bool copy = !forceLegacy && !disabled && ((object)own == null || own.GetType() == typeof(InstanceHandle)) &&
+        bool copy = !forceLegacy && (forceValueCopy || !disabled) && ((object)own == null || own.GetType() == typeof(InstanceHandle)) &&
             ((object)inheritance == null || inheritance.GetType() == typeof(InstanceHandle)) &&
             (strong == null || strong.GetType() == typeof(List2<InstanceHandle>)) &&
             (weak == null || weak.GetType() == typeof(List2<InstanceHandle>)) && ExactHandles(strong) && ExactHandles(weak);
@@ -72,6 +72,10 @@ public class InstanceDeclaration : IXmlSerializable
         // the legacy shallow container copy. Do not later misclassify that
         // still-shared graph as an exact-base value-owned snapshot.
         [NonSerialized] internal bool LegacyHandleGraph;
+        // Positive runtime proof only. Unknown BinaryFormatter provenance starts
+        // false; XML construction creates fresh exact-base handles and lists.
+        [NonSerialized] internal bool OwnedValues;
+        [NonSerialized] internal bool SharedSaved;
 		public InstanceHandle Handle;
 
 		public uint ProcessingHash;
@@ -96,6 +100,7 @@ public class InstanceDeclaration : IXmlSerializable
 		{
             HandleGraph handles = SnapshotHandles(current.Handle, current.InheritFromHandle, current.ReferencedInstances, current.WeakReferencedInstances, current.LegacyHandleGraph);
             LegacyHandleGraph = handles.Legacy;
+            OwnedValues = !handles.Legacy;
             Handle = handles.Handle;
             ProcessingHash = current.ProcessingHash;
             ReferencedInstances = current.ReferencedInstances.Count > 0 ? handles.Strong : null;
@@ -108,10 +113,11 @@ public class InstanceDeclaration : IXmlSerializable
 			PrevalidationXmlHash = current.PrevalidationXmlHash;
 		}
 
-        internal LastState(LastState last)
+        internal LastState(LastState last, bool forceValueCopy = false)
         {
-            HandleGraph handles = SnapshotHandles(last.Handle, last.InheritFromHandle, last.ReferencedInstances, last.WeakReferencedInstances, last.LegacyHandleGraph);
+            HandleGraph handles = SnapshotHandles(last.Handle, last.InheritFromHandle, last.ReferencedInstances, last.WeakReferencedInstances, last.LegacyHandleGraph, forceValueCopy);
             LegacyHandleGraph = handles.Legacy;
+            OwnedValues = !handles.Legacy;
             Handle = handles.Handle;
             InheritFromHandle = handles.Inheritance;
             ReferencedInstances = handles.Strong;
@@ -149,6 +155,7 @@ public class InstanceDeclaration : IXmlSerializable
 			obj = XmlHelper.ReadCollection(reader, "wri", typeof(InstanceHandle));
 			WeakReferencedInstances = ((obj == null) ? null : new List2<InstanceHandle>(obj as InstanceHandle[]));
 			reader.Read();
+            OwnedValues = true;
 		}
 
 		public void WriteXml(XmlWriter writer)
@@ -205,9 +212,9 @@ public class InstanceDeclaration : IXmlSerializable
 			Document = document;
 		}
 
-		public void FromLast(LastState last)
+		public void FromLast(LastState last, bool forceValueCopy = false)
 		{
-            HandleGraph handles = SnapshotHandles(last.Handle, last.InheritFromHandle, last.ReferencedInstances, last.WeakReferencedInstances, last.LegacyHandleGraph);
+            HandleGraph handles = SnapshotHandles(last.Handle, last.InheritFromHandle, last.ReferencedInstances, last.WeakReferencedInstances, last.LegacyHandleGraph, forceValueCopy);
             LegacyHandleGraph = handles.Legacy;
             Handle = handles.Handle;
             ProcessingHash = last.ProcessingHash;
@@ -420,7 +427,13 @@ public class InstanceDeclaration : IXmlSerializable
 			_Current = new CurrentState(document);
 			if (_Last != null)
 			{
-				_Current.FromLast(_Last);
+                // A dynamically enabled legacy Handle restore exposes the saved
+                // values. First detach this owner from any previously shared
+                // sealed result; keep the old per-owner shallow restore contract.
+                bool disabled; AppContext.TryGetSwitch("NewSdk.Compiler.DisableDeclarationHandleSnapshots", out disabled);
+                if (disabled) DetachSharedSavedValues();
+                _Current.FromLast(_Last, _Last.SharedSaved);
+                if (disabled) _Last.OwnedValues = false;
 			}
 			else
 			{
@@ -468,13 +481,36 @@ public class InstanceDeclaration : IXmlSerializable
 		return _Current.Handle.ToString();
 	}
 
-    // Document cache copies must preserve the saved declaration even when its
-    // source also has an initialized or subsequently completed Current state.
-    // No DOM/schema node is materialized or serialized at this boundary.
+    private void DetachSharedSavedValues()
+    {
+        if (_Last.SharedSaved && _Last.OwnedValues)
+            _Last = new LastState(_Last, true);
+    }
+
+    // Only the private value-owned saved result may be shared. Every caller
+    // still owns a distinct declaration wrapper, and restoring Current copies
+    // its mutable values. No DOM/schema node is shared or serialized here.
     internal InstanceDeclaration SnapshotCachedDeclaration(bool fromCurrent = false)
     {
         var result = new InstanceDeclaration();
-        result._Last = !fromCurrent && _Last != null ? new LastState(_Last) : new LastState(_Current);
+        if (!fromCurrent && _Last != null)
+        {
+            bool disabled, deepCopy;
+            AppContext.TryGetSwitch("NewSdk.Compiler.DisableDeclarationHandleSnapshots", out disabled);
+            AppContext.TryGetSwitch("NewSdk.Compiler.DisableSharedDocumentDeclarations", out deepCopy);
+            if (disabled) DetachSharedSavedValues();
+            if (!disabled && !deepCopy && _Last.OwnedValues && !_Last.LegacyHandleGraph)
+            {
+                _Last.SharedSaved = true;
+                result._Last = _Last;
+            }
+            else
+            {
+                result._Last = new LastState(_Last, _Last.SharedSaved && !disabled);
+                if (disabled) _Last.OwnedValues = false;
+            }
+        }
+        else result._Last = new LastState(_Current);
         return result;
     }
 
