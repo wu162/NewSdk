@@ -98,3 +98,8 @@ CodeAlphaBlockQuick（14字节，未达到16字节锚点门槛）、FastEncodeDX
 定向原版反编译入口 `dxt-decompile` 使用官方Ghidra11.4.2，SHA256 `795a02076af16257bd6f3f4736c4fc152ce9ff1f95df35cd47e2adc086e037a6`。首轮40488564968因临时项目目录未建立失败，原日志保留；修复后重跑中。仅取证，不加载进业务DLL。
 
 原DLL实际调用依据：RVA 0x5C50C / 0x8A77F 调用 CodeAlphaBlock@0x7E8F0；其入口检查 block+0x818==68 时调用 FastEncodeDXT5@0x8B570，其他质量在0x7EBB1调用QuantizeAlpha@0x7D500。block布局：count@0、float alpha[512]@4、保留zero/one@0x804/0x808、levels@0x80c、endpoints@0x810/0x814、indices@0x81c。包装层随后按levels与端点顺序做规范化与索引重映射，不能把低层输出布局未经核对直接当作DDS。
+
+
+## 第二阶段结果入口
+
+Production DXT5 alpha、独立 x87 后端、精确量化器反例、quality68 未初始化 levels 边界和颜色取证部分结果见 [TEXTURE_DXT_ALPHA.md](TEXTURE_DXT_ALPHA.md)。上面的“验证中”章节为历史检查点，不是最新验收声明。

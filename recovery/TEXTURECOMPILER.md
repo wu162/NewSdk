@@ -18,7 +18,7 @@
 
 ## 仍需完成（仅 PC）
 
-1. DXT1 / DXT1A / DXT3 / DXT5 压缩核心。已有 options、原生入口与 PC 小块样本，尚无恢复版压缩器；见 [DXT 取证](TEXTURE_DXT_ENTRYPOINTS.md)。不再调查跨平台一致性。
+1. DXT1 / DXT1A / DXT3 / DXT5 颜色压缩核心及完整压缩器。DXT3 显式 alpha 与 DXT5 Production alpha 子组件已有独立恢复，仍未启用插件 DXT 路由；当前 alpha 范围及证据见 [DXT alpha](TEXTURE_DXT_ALPHA.md)，颜色入口见 [DXT 取证](TEXTURE_DXT_ENTRYPOINTS.md)。不再调查跨平台一致性。
 2. NPOT D3DX 图片重采样，目前明确拒绝。
 3. JPEG、尚未声明支持的 PNG ICC/APNG、TGA metadata/RLE 边界和其他 BMP 组合，按实际 PC 输入需求独立取证。
 4. 完整 TerrainTextureAtlas 解码、处理、压缩及输出入口；目前只有内存 packer。

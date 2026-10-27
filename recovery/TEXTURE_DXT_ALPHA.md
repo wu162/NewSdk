@@ -1,0 +1,97 @@
+# PC DXT alpha recovery
+
+## Scope
+
+`TextureDxt3AlphaEncoder` emits the eight explicit-alpha bytes for a 4x4 RGBA
+block. Its original acceptance remains 9f8b1361 / Actions 40470055551.
+
+`TextureDxt5AlphaEncoder` reconstructs the default PC production-quality alpha
+path: eight-level/six-level candidates, zero/one exclusion candidates, endpoint
+search, integer palette/nearest-index selection, equal-endpoint canonicalization
+and PC DDS alpha packing. It emits eight alpha bytes, not a colour block or a
+complete DDS. `EncodeBlock` accepts 16 RGBA pixels; `EncodeAlphaBlock` accepts 16
+finite normalized alpha floats without an intermediate byte conversion.
+`Quantize` supports levels 6/8 and up to 512 normalized values.
+
+No plugin DXT route is enabled. DXT1/DXT1A and DXT3/DXT5 colour compression,
+complete compressed mip/volume/atlas output and real SDK integration remain
+unfinished. Existing raw rejection of unsupported DXT is unchanged. SDK DLLs and
+configuration remain untouched.
+
+## Source and native dependency
+
+The managed orchestration is in
+`src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs`. The quantizer is rebuilt
+from x87 assembly source in `src/TextureCompiler/Dxt/TextureAlphaQuantizer.cpp`.
+Build and copy `Recovered.TextureDxtAlpha.dll` alongside the managed assembly;
+see the [native build instructions](../src/TextureCompiler/Dxt/README.md).
+
+All runtime constants and clearing/floor/conversion helpers are owned source.
+The helper has no PE import directory and no DLL entry point. It neither calls
+an original DLL nor initializes a CRT that could reset the caller's x87 state.
+Its code labels retain original RVAs for auditing, not as executable addresses.
+The test script verifies x86, zero entry point and zero imports and records
+source/binary hashes for each configuration.
+
+A readable managed algorithm reference remains private and unused. It is not
+accepted as a portable replacement: the symmetric five-point alpha vector
+`[0,0.25,0.5,0.75,1]` selects endpoints `[3,255]`, while the original selects
+`[0,252]`, both with error 475.875. Exact indices differ too. Operation-order
+adjustments did not close this gap. The assembly backend closes the instruction-
+order gap; the exact comparisons remain in the native differential suite.
+
+## Evidence already confirmed during this stage
+
+- Byte alpha + quantizer + NoOriginal acceptance before the float API:
+  source `97ad2829b8ca9f17d86657072c2da5a0c6621840`, Actions
+  [40493322953](https://github.com/wu162/NewSdk/actions/runs/40493322953), success.
+  Debug/Release each: 2,176 quantizer cases / 408,835 exact checks; 78,144 actual
+  original DDS alpha cases / 1,172,168 checks; 78,144 isolated NoOriginal replays /
+  625,152 byte comparisons. This is a component run, not a real SDK MOD build.
+- Quantizer acceptance checks original endpoints, indices and double error bit
+  patterns for levels 6/8, counts 0 through representative sizes up to 512,
+  constant/binary/gradient/random/near-threshold values.
+- Actual DDS acceptance covers every byte-alpha pair, all uniform values,
+  per-position variation, gradients and random colours/alpha. The complete DDS
+  is captured by the original harness; only its eight alpha payload bytes are
+  claimed as recovered. Colour bytes are not accepted as restored.
+- NoOriginal is a separate executable directory with the original TextureCompiler
+  DLL absent; it replays all original records and checks the loaded assemblies.
+- Early managed-only quantizer failures (40490402314, 40490888440, 40491978889),
+  native build failures (40492606645, Release in 40492930678), and the float API's
+  first build failure (40493606249) remain as immutable diagnostic evidence.
+  They are not relabeled as successful runs.
+
+The latest complete native/float/ABI batch is recorded below after verification.
+Do not apply the earlier byte-only acceptance to an unverified changed input.
+
+## Fast-quality limitation
+
+`TextureDxt5FastAlphaEncoder` restores the quality-68 native **state** path only.
+Its complete low-level matrix has 71,168 cases / 1,921,543 checks per configuration.
+It is not a complete DDS alpha encoder. The original fast function leaves
+`levels` unwritten, while the DDS writer reads that field. Entry inspection
+failed at fixture 0 (equal endpoints) in 40488941255, and at fixture 256 (a
+nonuniform block after constant blocks) in 40489972525 after a trial equal-
+endpoint adjustment. The trial was reverted; no arbitrary DDS policy is claimed.
+
+The failing entry assertions remain in `TextureDxt5FastAlphaEntryDifferential.cs`,
+accessible through `TestTextureDxt5FastAlpha.ps1 -InspectDdsEntry` in Actions.
+That switch marks the run probe-only and is not an automatic component gate.
+The normal group accepts only the explicitly bounded low-level state component.
+
+## Colour recovery handoff
+
+Pinned Ghidra 11.4.2 successfully exported seven alpha/dispatch functions in
+40488941255 (the overall batch failed its separate fast-entry check). The later
+18-function request in 40490888440 exported 13 functions, then timed out while
+decompiling `RoundMult@0x61460`; that extraction is failed/partial. Its 13 C files
+and full log are retained in `evidence/texture/dxt-decompile/40490888440-1`.
+
+Useful next inputs are `CodeRGBBlock.c`, `AllSame.c`, `MapAndRoundMult.c`,
+`Search43Mult.c` and `CodeRGBBlockQuick.c`. `AlphaDdsWriter.c` independently records
+the packing rules used in this stage. The remaining requested colour exports
+were not reached after the timeout; do not treat them as collected. Next stage
+should address that targeted extraction and implement a coherent colour group,
+then validate complete colour/alpha/size/mip/volume outputs before enabling DXT
+in the plugin or scheduling a compressed-texture SDK milestone.
