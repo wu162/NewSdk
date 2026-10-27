@@ -109,6 +109,14 @@ public sealed class PhysicalInputSnapshot : IDisposable
         if (_Current != null) throw new InvalidOperationException("An input snapshot read scope is already active.");
         _Cancellation = cancellation; _Current = this; return new ReadScope(this);
     }
+    // Legacy/over-budget digest paths still belong to this read scope even
+    // when no content entry was captured. Checks do not claim OS I/O abort.
+    internal static void CheckReadCancellation()
+    {
+        PhysicalInputSnapshot owner = _Current;
+        if (owner == null) return;
+        owner.Check(); owner._Cancellation.ThrowIfCancellationRequested();
+    }
     private sealed class ReadScope : IDisposable
     {
         private PhysicalInputSnapshot owner;

@@ -170,7 +170,7 @@ function MeasureBusinessCli($Reference,[string]$Mod,[string]$Sdk){
     $switches=@('DisableSinglePassDigest','DisableSharedSchemaMetadata','DisableSchemaReferenceDescriptors',
         'DisableExpressionPrograms','DisableSharedExpressionCulture','DisableExpressionTraversal',
         'DisableNodeJoinerIndex','DisableNodeJoinerPredecessors','DisableBaseManifestIndex',
-        'DisableStableSortMembershipIndex','DisableSymbolLookupIndex','DisableOwnedTransferBuffers')
+        'DisableStableSortMembershipIndex','DisableSymbolLookupIndex','DisableDefineLookupIndex','DisableOwnedTransferBuffers')
     $receipt=@{schemaVersion=1;succeeded=$false;sourceCommit=$script:state.sourceCommit;binarySourceCommit=$script:state.binarySourceCommit;
         runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;configuration='Release';exeSha256=(Hash $script:exe);
         fixtureManifestSha256=(Hash (Join-Path $Mod 'fixture-manifest.json'));osPageCache='unknown';rounds=7;

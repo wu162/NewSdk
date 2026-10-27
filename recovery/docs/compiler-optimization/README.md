@@ -2,7 +2,7 @@
 
 实施分支：`feature/compiler-optimization`；起点：`compiler-main@e7396d3b6fb302682d3610ebbc6e99ce87eb867f`。[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，合并须用户明确批准；禁止强推。
 
-继续任务先读 [HANDOFF](HANDOFF.md)。它只保留当前接受点和下一步；源码、二进制、测试及原 ZIP 身份集中在 [VALIDATION](VALIDATION.md)。当前实现边界与诊断开关查 [CONTRACTS](CONTRACTS.md)。[PLAN](PLAN.md) 原样保存用户的 Final v3 方案，提案不等于已上线能力；前五轮证据查 [历史归档](history/VALIDATION_ROUNDS_1_5.md)。
+继续任务先读 [HANDOFF](HANDOFF.md)。它只保留当前接受点和下一步；源码、二进制、测试及原 ZIP 身份集中在 [VALIDATION](VALIDATION.md)。当前实现边界与诊断开关查 [CONTRACTS](CONTRACTS.md)。[PLAN](PLAN.md) 原样保存用户的 Final v3 方案，提案不等于已上线能力；历史证据查[前五轮](history/VALIDATION_ROUNDS_1_5.md)和[第六轮](history/VALIDATION_ROUND_6.md)。
 
 ## 按问题进入
 
@@ -18,7 +18,7 @@
 | 声明与每流绑定 W06 | 3.7、7.6 | `AssetDeclarationDocument.cs`、`InstanceDeclaration.cs`；完整语义结果未完成 |
 | 新缓存 W07 | 8–9、16–17 | `BuildAssetCache.cs`、`SessionPackage.cs`；未满足完整合同前不开放新 bundle 命中 |
 | XML 局部热点 W08 | 10.2–10.3、17.1 | `NodeJoiner.cs`、表达式程序/遍历、`CompilerSymbolLookup.cs`、StableSort 局部索引；XML 哈希保持旧实现 |
-| 状态与并行 W09–10 | 11–14 | 每 DP 传输 buffer 已隔离；backend 租约、Chunk/native/插件限制保留，未开放 worker |
+| 状态与并行 W09–10 | 11–14 | 每DP传输buffer、摘要读取所有权及Texture/Builtin owner门禁；能力声明实际消费仍待本轮验收，未开放worker |
 
 ## 工作与验收
 

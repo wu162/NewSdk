@@ -170,6 +170,77 @@ public static class CompilerInputDigests
         protected override void HashCore(byte[] data, int start, int size) { throw DigestFault; }
         protected override byte[] HashFinal() { throw DigestFault; }
     }
+    static CancellationTokenSource DigestCancellation;
+    static int CancellationHashCalls;
+    public sealed class CancellingSha256 : SHA256
+    {
+        readonly SHA256 inner = new SHA256Managed();
+        public CancellingSha256() { HashSizeValue = 256; }
+        public override void Initialize() { inner.Initialize(); }
+        protected override void HashCore(byte[] data, int start, int size)
+        {
+            inner.TransformBlock(data, start, size, data, start);
+            CancellationHashCalls++;
+            if (DigestCancellation != null) DigestCancellation.Cancel();
+        }
+        protected override byte[] HashFinal()
+        {
+            inner.TransformFinalBlock(new byte[0], 0, 0); return inner.Hash;
+        }
+        protected override void Dispose(bool disposing) { if (disposing) inner.Dispose(); base.Dispose(disposing); }
+    }
+    static void CancelledDigestOwnership(string work)
+    {
+        string path = Path.Combine(work, "cancelled-digest-ownership.bin");
+        byte[] data = new byte[2097183];
+        for (int i = 0; i < data.Length; i++) data[i] = (byte)(i * 23 + i / 257);
+        File.WriteAllBytes(path, data); uint expected = Legacy(path); string expectedStrong = Strong(path);
+        Type originalProvider; using (var original = SHA256.Create()) originalProvider = original.GetType();
+        bool originalSnapshot, originalDigest;
+        AppContext.TryGetSwitch("NewSdk.Compiler.DisablePhysicalInputSnapshot", out originalSnapshot);
+        AppContext.TryGetSwitch("NewSdk.Compiler.DisableSinglePassDigest", out originalDigest);
+        try
+        {
+            foreach (string mode in new[] { "budget-single", "disabled-single", "warm-sha", "diagnostic-sha" })
+            {
+                var item = new FileHashItem(path, mode, TargetPlatform.Win32);
+                if (mode == "warm-sha") { Require(item.Hash == expected, "Warm cancellation fixture did not initialize its baseline"); item.Reset(); }
+                long before = item.DigestReadCount, beforeBytes = item.DigestBytesRead;
+                AppContext.SetSwitch("NewSdk.Compiler.DisablePhysicalInputSnapshot", mode == "disabled-single");
+                AppContext.SetSwitch("NewSdk.Compiler.DisableSinglePassDigest", mode == "diagnostic-sha");
+                using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, "cancel-digest-" + mode), 0, 0, 0, 0))
+                {
+                    using (var cancellation = new CancellationTokenSource())
+                    {
+                        DigestCancellation = cancellation; CancellationHashCalls = 0; bool rejected = false;
+                        CryptoConfig.AddAlgorithm(typeof(CancellingSha256), "System.Security.Cryptography.SHA256");
+                        try
+                        {
+                            using (snapshot.BeginReadScope(cancellation.Token))
+                                try { bool dirty = item.IsDirty; }
+                                catch (OperationCanceledException error) { rejected = error.CancellationToken == cancellation.Token; }
+                        }
+                        finally { DigestCancellation = null; CryptoConfig.AddAlgorithm(originalProvider, "System.Security.Cryptography.SHA256"); }
+                        Require(rejected && CancellationHashCalls == 1, "Actual digest did not observe mid-consumption cancellation at its next chunk boundary: " + mode);
+                    }
+                    using (File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
+                    Require(item.DigestReadCount == before && item.DigestBytesRead == beforeBytes, "Cancelled digest published successful read accounting: " + mode);
+                    using (snapshot.BeginReadScope()) Require(item.Hash == expected, "Same FileHashItem could not retry its cancelled digest: " + mode);
+                    string strong; Roundtrip(item, out strong);
+                    Require(strong == expectedStrong && item.DigestReadCount > before, "Cancelled digest retained a partial SHA or prevented a complete retry: " + mode);
+                }
+            }
+        }
+        finally
+        {
+            DigestCancellation = null; CryptoConfig.AddAlgorithm(originalProvider, "System.Security.Cryptography.SHA256");
+            AppContext.SetSwitch("NewSdk.Compiler.DisablePhysicalInputSnapshot", originalSnapshot);
+            AppContext.SetSwitch("NewSdk.Compiler.DisableSinglePassDigest", originalDigest);
+        }
+        measurements.Add(new { scenario = "actual-fallback-digest-mid-HashCore-cancellation", modes = 4,
+            sourceImmediatelyExclusive = true, sameItemRetry = true, successfulAccountingOnly = true,
+            scope = "Cancellation between actual SHA/APM digest chunks under the owning input scope; pending OS reads can still delay disposal" });
+    }
     static void FailedDigestOwnership(string work)
     {
         string path = Path.Combine(work, "failed-digest-ownership.bin");
@@ -330,9 +401,9 @@ public static class CompilerInputDigests
             if (args.Length != 6 || IntPtr.Size != 4) throw new ArgumentException("Expected x86 work result source run SDK originalOracleJson");
             Directory.CreateDirectory(args[0]);
             object originalReaders = ReaderOriginalDifferential(args[5], args[0], args[2], args[3]);
-            Cases(args[0]); ReaderOwnership(args[0]); FailedDigestOwnership(args[0]); BoundedChunkPool(); Benchmark(args[0]);
+            Cases(args[0]); ReaderOwnership(args[0]); FailedDigestOwnership(args[0]); CancelledDigestOwnership(args[0]); BoundedChunkPool(); Benchmark(args[0]);
             var result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, originalReaders,
-                tests = new[] { "independent-original-SDK-async-reader-chunk-SHA-identity-repeat-Begin-End-EOF-and-FileHashItem-hash-differential", "single-pass-legacy-and-SHA256-boundaries-roundtrip-reset-content-invalidation-delete-recreate", "public-async-reader-pending-active-requeued-EOF-consumer-failure-dispose-and-no-double-pool-return", "actual-FileHashItem-SHA256-consumer-fault-immediate-source-release-primary-error-and-same-item-retry", "bounded-idle-Chunk-pool-high-water-and-concurrent-dispose-at-most-once-with-distinct-live-consumers", "interleaved-cold-and-warm-digest-cost" }, measurements };
+                tests = new[] { "independent-original-SDK-async-reader-chunk-SHA-identity-repeat-Begin-End-EOF-and-FileHashItem-hash-differential", "single-pass-legacy-and-SHA256-boundaries-roundtrip-reset-content-invalidation-delete-recreate", "public-async-reader-pending-active-requeued-EOF-consumer-failure-dispose-and-no-double-pool-return", "actual-FileHashItem-SHA256-consumer-fault-immediate-source-release-primary-error-and-same-item-retry", "actual-budget-disabled-warm-and-diagnostic-digest-mid-HashCore-cancellation-immediate-release-no-partial-success-same-item-retry", "bounded-idle-Chunk-pool-high-water-and-concurrent-dispose-at-most-once-with-distinct-live-consumers", "interleaved-cold-and-warm-digest-cost" }, measurements };
             string json = new JavaScriptSerializer().Serialize(result);
             File.WriteAllText(args[1], json); Console.WriteLine(json);
             Console.WriteLine("PASS InputDigests: " + checks + " assertions"); return 0;

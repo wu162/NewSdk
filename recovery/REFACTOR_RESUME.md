@@ -8,9 +8,9 @@
 2. 按 [优化索引](docs/compiler-optimization/README.md) 选择源码和方案章节；当前实现边界查 [CONTRACTS](docs/compiler-optimization/CONTRACTS.md)，完整用户方案仅保留 [PLAN](docs/compiler-optimization/PLAN.md) 一份。
 3. 按 [EFFICIENCY](EFFICIENCY.md) 推进完整能力组。通常 2 个子代理、最多 3 个；编译、测试和微基准全部使用 GitHub Actions。每约 10–15 分钟检查并普通推送有意义的检查点，未验证成果明确标记。
 
-最新完整接受的生产、首次测试及打包来源为 **`5727b05b234c130a5c26e5c465a31f8ff42baf22` / [40593235622](https://github.com/wu162/NewSdk/actions/runs/40593235622)**，整体 success。双配置各30组、原 DLL/独立原 BAB、协议、Texture、CLI、全部缓存与输入根、完整 mymod/BIG 和五文件 ZIP 通过。后续 `c3ef5344`（别名/原继承差分）、`07ff6a3b`（摘要读取所有权）及 owner-thread 合同组仍按各自 Actions 验证，不能继承旧生产结论。精确来源、下载身份及终态以[短交接](docs/compiler-optimization/HANDOFF.md)和[验证记录](docs/compiler-optimization/VALIDATION.md)为准。
+最新完整接受的生产、首次测试及打包来源为 **`15bcd14c97c475d6922cb367989a4fc04d8ba7bb` / [40596715818](https://github.com/wu162/NewSdk/actions/runs/40596715818)**，整体 success。双配置各30组、原DLL/独立原BAB、协议、Texture、CLI/cache/输入根、完整mymod/BIG和五文件ZIP通过。本轮此前三组完整运行也success；能力声明候选`71b5a0a4 / 40598874896`仍验证中，后续Chunk池检查点尚未验证。精确来源、产物身份和下一组范围见[短交接](docs/compiler-optimization/HANDOFF.md)与[验证记录](docs/compiler-optimization/VALIDATION.md)。
 
-本轮推进 live 继承阶段/栈安全、Cache header 封存游标、实际网络 Cache 查询及自身可修复写删；后续别名、读取器与插件 owner 边界正验收。第一次实际三流小 CLI 的默认/回退成对计量没有显示端到端提速；局部组件计量不能替代完整构建对照。
+本轮新增live继承阶段/栈安全、外部Cache查询/自身写删与case/junction别名、摘要读取确定收尾、Texture/Builtin所属线程门禁。能力声明下一组实际收紧缓存资格，没有授权强缓存或并行。实际三流小CLI默认/回退成对计量未观察到端到端提速；局部组件收益不能替代完整构建对照。
 
 下一步仍以完整语义结果与 Define 环境为主线；Texture 隐藏闭包、新强键 bundle 缓存和并行尚未完成。Local/Output 的可变修复和 App staging 排除继续保留；不能靠旧 XML hash 或部分依赖放行强缓存命中。
 

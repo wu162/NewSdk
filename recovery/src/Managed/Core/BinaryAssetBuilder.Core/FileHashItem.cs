@@ -124,7 +124,7 @@ public class FileHashItem : IXmlSerializable
 						using (var algorithm = SHA256.Create())
 						using (var input = File.OpenRead(_Path))
 						{
-							_CurrentContentHash = Convert.ToBase64String(algorithm.ComputeHash(input));
+                            _CurrentContentHash = ComputeContentHash(input, algorithm);
 							DigestReadCount++;
 							DigestBytesRead += input.Position;
 						}
@@ -233,6 +233,7 @@ public class FileHashItem : IXmlSerializable
 
 	private void ReadContentIdentity()
 	{
+        PhysicalInputSnapshot.CheckReadCancellation();
 		using AsynchronousFileReader asynchronousFileReader = new AsynchronousFileReader(_Path);
 		uint hash = asynchronousFileReader.FileSize;
 		long bytesRead = 0;
@@ -240,14 +241,19 @@ public class FileHashItem : IXmlSerializable
 		{
 			while (asynchronousFileReader.BeginRead())
 			{
+                PhysicalInputSnapshot.CheckReadCancellation();
 				byte[] data = asynchronousFileReader.CurrentChunk.Data;
 				int count = asynchronousFileReader.CurrentChunk.BytesRead;
 				bytesRead += count;
 				hash = FastHash.GetHashCode(hash, data, count);
 				algorithm.TransformBlock(data, 0, count, data, 0);
+                PhysicalInputSnapshot.CheckReadCancellation();
 				asynchronousFileReader.EndRead();
+				PhysicalInputSnapshot.CheckReadCancellation();
 			}
+            PhysicalInputSnapshot.CheckReadCancellation();
 			algorithm.TransformFinalBlock(new byte[0], 0, 0);
+            PhysicalInputSnapshot.CheckReadCancellation();
 			_CurrentContentHash = Convert.ToBase64String(algorithm.Hash);
 		}
 		_CurrentLegacyHash = hash;
@@ -255,4 +261,22 @@ public class FileHashItem : IXmlSerializable
 		DigestReadCount++;
 		DigestBytesRead += bytesRead;
 	}
+
+    private static string ComputeContentHash(Stream input, SHA256 algorithm)
+    {
+        // The warm/diagnostic SHA-only path used ComputeHash(Stream), whose
+        // internal read loop cannot observe the build's cancellation token.
+        byte[] buffer = new byte[65536];
+        while (true)
+        {
+            PhysicalInputSnapshot.CheckReadCancellation();
+            int count = input.Read(buffer, 0, buffer.Length);
+            PhysicalInputSnapshot.CheckReadCancellation();
+            if (count == 0) break;
+            algorithm.TransformBlock(buffer, 0, count, buffer, 0);
+        }
+        algorithm.TransformFinalBlock(new byte[0], 0, 0);
+        PhysicalInputSnapshot.CheckReadCancellation();
+        return Convert.ToBase64String(algorithm.Hash);
+    }
 }
