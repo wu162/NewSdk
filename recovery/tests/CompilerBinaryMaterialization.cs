@@ -11,6 +11,7 @@ using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 using BinaryAssetBuilder.Utility;
 using NewModCompiler.Application;
+using EALA.Hash;
 
 // Actual CopyAsset sources, not manually substituted streams or fabricated
 // output bytes. The full CLI/SDK matrix remains a separate acceptance gate.
@@ -90,7 +91,8 @@ public static class CompilerBinaryMaterialization
             snapshot.VerifyUnchanged(); metrics = Metrics(snapshot);
             Require(Number(metrics, "captures") == 2 && Number(metrics, "hits") >= 2 && Number(metrics, "verificationReads") == 2,
                 "Repeated materialization did not share one verified content generation");
-            Require(Attempt(metrics, "copyReadHits") == 1 && Attempt(metrics, "captureReadsCompleted") == 2,
+            Require(Attempt(metrics, "copyReadHits") == 1 && Attempt(metrics, "captureReadsCompleted") == 1 &&
+                Attempt(metrics, "teeCompleted") == 1 && Attempt(metrics, "teeBytes") == expected.Length,
                 "Repeated asset copy did not consume its already sealed read view or redundantly rehashed its source");
             observations.Add(new { id = "validated-asset-cdata-and-repeat", metrics });
         }
@@ -108,8 +110,9 @@ public static class CompilerBinaryMaterialization
             var failed = Metrics(snapshot);
             Require(Number(failed, "captures") == 0 && Number(failed, "activeReadHandles") == 0 && Number(failed, "activeDirectoryPins") == 0 &&
                 Number(failed, "diskBytes") == 0 && Attempt(failed, "rollbacks") == 1, "Failed materialization retained provisional file/directory/storage ownership");
-            Require(Attempt(failed, "captureReadsStarted") == 1 && Attempt(failed, "captureReadsCompleted") == 1 &&
-                Attempt(failed, "captureReadBytes") == new FileInfo(source).Length, "Rollback erased actual completed capture-read work");
+            Require(Attempt(failed, "captureReadsStarted") == 0 && Attempt(failed, "captureReadsCompleted") == 0 &&
+                Attempt(failed, "teeCompleted") == 1 && Attempt(failed, "teeBytes") == new FileInfo(source).Length,
+                "Asset tee performed an extra source pass or rollback erased actual spooled work");
             Writable(source); File.Delete(source); source = Source(asset, "missing-custom");
             File.WriteAllBytes(source + ".cdata", new byte[] { 2, 3 });
             Require(Copy(asset, source), "Repair and retry within the same generation failed");
@@ -182,22 +185,153 @@ public static class CompilerBinaryMaterialization
         using (var consumed = File.OpenRead(original))
         {
             var begin = typeof(PhysicalInputSnapshot).GetMethod("BeginMaterializationCapture", Hidden);
-            var capture = typeof(PhysicalInputSnapshot).GetMethod("CaptureMaterializationSource", Hidden);
+            var prepare = typeof(PhysicalInputSnapshot).GetMethod("BeginMaterializationContent", Hidden);
             bool rejected = false;
             using ((IDisposable)begin.Invoke(null, new object[0]))
             {
-                try { capture.Invoke(null, new object[] { replacement, consumed }); }
+                object content = prepare.Invoke(null, new object[] { replacement, consumed });
+                byte[] bytes = new byte[checked((int)consumed.Length)]; int count = consumed.Read(bytes, 0, bytes.Length);
+                Require(count == bytes.Length, "Small identity fixture did not read its complete source");
+                content.GetType().GetMethod("Append", Hidden).Invoke(content, new object[] { bytes, 0, count });
+                try { content.GetType().GetMethod("Complete", Hidden).Invoke(content, new object[] { consumed }); }
                 catch (TargetInvocationException error) { if (!(error.InnerException is IOException)) throw error.InnerException; rejected = true; }
             }
             Require(rejected, "A replacement path with equal bytes/length was accepted for a different consumed file handle");
             var metrics = Metrics(snapshot);
             Require(Number(metrics, "captures") == 0 && Number(metrics, "activeReadHandles") == 0 && Number(metrics, "activeDirectoryPins") == 0 &&
-                Attempt(metrics, "rollbacks") == 1 && Attempt(metrics, "captureReadsCompleted") == 1,
+                Attempt(metrics, "rollbacks") == 1 && Attempt(metrics, "captureReadsCompleted") == 0 && Attempt(metrics, "teeCompleted") == 1,
                 "Consumed identity mismatch did not roll back its provisional pathname pin");
             Writable(replacement); observations.Add(new { id = "consumed-handle-versus-equal-content-replacement-identity", metrics });
         }
         Writable(original); Writable(replacement);
         tests.Add("post-copy-native-handle-identity-check-rejects-equal-length-equal-content-distinct-file-and-releases-provisional-pins");
+    }
+    static void CachedCommitCancellation()
+    {
+        var asset = Asset("cancelled-cache-commit", false); string source = Source(asset, "cancelled-cache-commit", 64);
+        typeof(BinaryAsset).GetField("_CacheDirectory", Hidden).SetValue(asset, Path.GetDirectoryName(source));
+        Require(asset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == AssetLocation.Cache,
+            "Cancelled commit fixture did not establish an available external cache source");
+        using (DocumentProcessor.BeginStateScope())
+        {
+            var documents = (Stack<string>)typeof(DocumentProcessor).GetField("_CurrentDocumentStack", Hidden).GetValue(null);
+            documents.Push("cancelled-cache-commit:");
+            try
+            {
+                using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, "cancelled-cache-commit-snapshot")))
+                using (snapshot.BeginReadScope(new CancellationToken(true)))
+                {
+                    bool cancelled = false;
+                    try { asset.Commit(); } catch (OperationCanceledException) { cancelled = true; }
+                    var metrics = Metrics(snapshot);
+                    Require(cancelled, "CommitFromCache converted materialization cancellation into a retry/final cache error");
+                    Require(Attempt(metrics, "attempts") == 1 && Attempt(metrics, "rollbacks") == 1 && Number(metrics, "activeReadHandles") == 0 &&
+                        !File.Exists(Destination(asset)), "Cancelled cached commit retried materialization or retained pins/output");
+                    Writable(source); observations.Add(new { id = "public-Commit-external-cache-cancellation-not-retried", metrics });
+                }
+            }
+            finally { Require(documents.Pop() == "cancelled-cache-commit:" && documents.Count == 0, "Cached commit cancellation changed diagnostic stack ownership"); }
+        }
+        tests.Add("public-BinaryAsset-Commit-real-external-cache-materialization-cancellation-propagates-after-one-attempt-without-sleep-retry-error-conversion-pins-or-output");
+    }
+    static uint Legacy(byte[] bytes)
+    {
+        uint value = (uint)bytes.Length; var block = new byte[1048576];
+        for (int offset = 0; offset < bytes.Length; offset += block.Length)
+        {
+            int count = Math.Min(block.Length, bytes.Length - offset); System.Buffer.BlockCopy(bytes, offset, block, 0, count);
+            value = FastHash.GetHashCode(value, block, count);
+        }
+        return value;
+    }
+    static void ArbitraryTeeChunks()
+    {
+        var begin = typeof(PhysicalInputSnapshot).GetMethod("BeginMaterializationCapture", Hidden);
+        var prepare = typeof(PhysicalInputSnapshot).GetMethod("BeginMaterializationContent", Hidden);
+        foreach (int length in new[] { 32, 96, 1048576 + 17, 2 * 1048576 + 49 })
+        {
+            var asset = Asset("tee-chunks-" + length, false); string source = Source(asset, "tee-chunks-" + length, length - 32);
+            byte[] expected = File.ReadAllBytes(source); string strong;
+            using (var hash = SHA256.Create()) strong = Convert.ToBase64String(hash.ComputeHash(expected));
+            using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, "tee-chunks-snapshot-" + length)))
+            using (snapshot.BeginReadScope())
+            {
+                object capture = begin.Invoke(null, new object[0]);
+                using ((IDisposable)capture)
+                using (var consumed = File.OpenRead(source))
+                {
+                    object content = prepare.Invoke(null, new object[] { source, consumed });
+                    Require(content != null, "Arbitrary chunk source was not eligible for a bounded tee");
+                    var append = content.GetType().GetMethod("Append", Hidden);
+                    byte[] buffer = new byte[1048576 + 23]; int[] pattern = { 1, 7, 17, 31, 4093, 65521, 1048576 + 3 };
+                    int turn = 0; long total = 0;
+                    while (total < length)
+                    {
+                        int read = consumed.Read(buffer, 7, (int)Math.Min(pattern[turn++ % pattern.Length], length - total));
+                        Require(read != 0, "Arbitrary chunk source ended early");
+                        append.Invoke(content, new object[] { buffer, 7, read }); total += read;
+                    }
+                    Require(Number(Metrics(snapshot), "captures") == 0 && Number(Metrics(snapshot), "activeDirectoryPins") == 0,
+                        "Tee acquired source or parent pins before the complete successful source copy");
+                    content.GetType().GetMethod("Complete", Hidden).Invoke(content, new object[] { consumed });
+                    PhysicalInputSnapshot.Entry entry;
+                    Require(PhysicalInputSnapshot.TryCapture(source, out entry), "Completed tee did not publish a snapshot entry");
+                    Require(entry.Length == length && entry.Sha256 == strong && entry.LegacyHash == Legacy(expected),
+                        "Arbitrary short chunks changed canonical one-MiB legacy FastHash or SHA256");
+                    using (var input = entry.OpenRead()) using (var output = new MemoryStream())
+                    { input.CopyTo(output); Require(output.ToArray().SequenceEqual(expected), "Tee immutable memory/disk content differs from actual consumed chunks"); }
+                    capture.GetType().GetMethod("Commit", Hidden).Invoke(capture, new object[0]);
+                }
+                snapshot.VerifyUnchanged(); var metrics = Metrics(snapshot);
+                Require(Attempt(metrics, "teeStarted") == 1 && Attempt(metrics, "teeCompleted") == 1 && Attempt(metrics, "teeBytes") == length &&
+                    Attempt(metrics, "captureReadsStarted") == 0 && Attempt(metrics, "captureReadBytes") == 0,
+                    "Tee performed an extra complete source read or misreported its actual copied bytes");
+                observations.Add(new { id = "arbitrary-tee-chunks", length, metrics });
+            }
+            Writable(source);
+        }
+        tests.Add("tee-actual-FileStream-arbitrary-one-byte-offset-and-cross-one-MiB-chunks-canonical-FastHash-SHA-memory-disk-no-source-reread-no-early-pins");
+    }
+    static void ActiveSnapshotCopyTailContracts()
+    {
+        foreach (int tail in new[] { 0, 1, 15, 16, 17 })
+        {
+            var first = Asset("tee-tail-enabled-" + tail, false);
+            string source = Source(first, "tee-tail-" + tail, 2 * 1048576 + tail - 32);
+            string expectedState = null;
+            foreach (bool disabled in new[] { false, true })
+            {
+                var asset = disabled ? Asset("tee-tail-fallback-" + tail, false) : first;
+                AppContext.SetSwitch(Disable, disabled);
+                using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, "tee-tail-snapshot-" + tail + "-" + disabled)))
+                using (snapshot.BeginReadScope())
+                {
+                    bool copied = Copy(asset, source), expected = tail == 0 || tail >= 16;
+                    string destination = Destination(asset), temporary = destination + ".tmp";
+                    Require(copied == expected && File.Exists(destination) == expected, "Tee changed the original CopyAsset short-final-block rejection");
+                    string state = copied + "|" + File.Exists(temporary) + "|" + (File.Exists(temporary) ? new FileInfo(temporary).Length : -1);
+                    if (expectedState == null) expectedState = state; else Require(state == expectedState, "Tee changed the original failed temporary-file state");
+                    var metrics = Metrics(snapshot);
+                    Require(Number(metrics, "captures") == (!disabled && expected ? 1 : 0), "Short-block failure or disabled mode retained a source entry");
+                    Require(Attempt(metrics, "captureReadsStarted") == 0, "Asset copying still reread the original source for capture");
+                    if (!expected) { Writable(source); Require(Number(metrics, "activeDirectoryPins") == 0, "Short-block failure retained parent pins"); }
+                    else Require(File.ReadAllBytes(destination).SequenceEqual(File.ReadAllBytes(source)), "Tee changed successful copy bytes");
+                    snapshot.VerifyUnchanged(); observations.Add(new { id = "active-snapshot-tee-tail", tail, disabled, metrics, state });
+                }
+            }
+        }
+        AppContext.SetSwitch(Disable, false);
+        var fallback = Asset("tee-parent-budget", false); string fallbackSource = Source(fallback, "tee-parent-budget");
+        using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, "tee-parent-budget-snapshot"), 0, 8L * 1048576, 10, 0))
+        using (snapshot.BeginReadScope())
+        {
+            Require(Copy(fallback, fallbackSource), "Parent-pin budget fallback changed successful CopyAsset result");
+            var metrics = Metrics(snapshot);
+            Require(Number(metrics, "captures") == 0 && Number(metrics, "activeDirectoryPins") == 0 && Number(metrics, "diskBytes") == 0 &&
+                Attempt(metrics, "teeCompleted") == 1, "Parent-pin fallback retained provisional source/storage ownership");
+            Writable(fallbackSource); snapshot.VerifyUnchanged();
+        }
+        tests.Add("actual-CopyAsset-active-snapshot-zero-one-fifteen-sixteen-seventeen-tail-contracts-and-post-spool-parent-pin-budget-fallback");
     }
     static Settings PublicSettings(string name, string input)
     {
@@ -283,7 +417,8 @@ public static class CompilerBinaryMaterialization
                         }
                         var metrics = Metrics(snapshot);
                         Require(Attempt(metrics, "copyReadHits") == (mode == "enabled" ? 2 : 0), "Public Core three-stream cache reads did not use the expected sealed/fallback paths");
-                        Require(Attempt(metrics, "captureReadsCompleted") == (mode == "enabled" ? 1 : 0), "Public Core external asset was not captured exactly once in its generation");
+                        Require(Attempt(metrics, "captureReadsCompleted") == 0 && Attempt(metrics, "teeCompleted") == (mode == "enabled" ? 1 : 0),
+                            "Public Core external asset was reread or not spooled exactly once from its original copy stream");
                         if (mode == "enabled") Blocked(() => File.Delete(assets[0]), "Public Core successfully consumed external cache source was not pinned");
                         else Writable(assets[0]);
                         snapshot.VerifyUnchanged(); observations.Add(new { id = "public-Core-external-build-cache-" + mode, metrics, outputs = expected });
@@ -360,7 +495,7 @@ public static class CompilerBinaryMaterialization
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
             Settings.Current = new Settings { BuildCache = false, SessionCache = false, LinkedStreams = true, CustomPostfix = "", TargetPlatform = TargetPlatform.Win32 };
             AppContext.SetSwitch(Disable, false);
-            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs();
+            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); CachedCommitCancellation(); ArbitraryTeeChunks(); ActiveSnapshotCopyTailContracts(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
                 scope = "Actual CopyAsset successful validated sources and failure rollback only; invalid-header/length repair retains separate existing fixture coverage; not all BinaryAsset reads or hidden Texture closure" };
             Console.WriteLine("PASS BinaryMaterialization: " + tests.Count + " groups; " + checks + " checks");

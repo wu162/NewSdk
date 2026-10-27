@@ -37,6 +37,7 @@ on:
       - 'recovery/tests/CompilerCoreLifecycle.cs'
       - 'recovery/tests/CompilerCacheContent.cs'
       - 'recovery/tests/CompilerInputDigests.cs'
+      - 'recovery/tests/CompilerHashingWriter.cs'
       - 'recovery/tests/CompilerPhysicalInputs.cs'
       - 'recovery/tests/CompilerManifestInputs.cs'
       - 'recovery/tests/CompilerStreamBindings.cs'
@@ -198,7 +199,7 @@ jobs:
           $failures=@();$checks=@()
           # Only Core-only probes can bind to this module. App-dependent probes
           # keep their full production-host compilation/runtime gate below.
-          foreach($name in @('CompilerNodeJoiner','CompilerDocumentMetadata','CompilerDocumentSnapshotOracle','CompilerSymbolLookup')) {
+          foreach($name in @('CompilerNodeJoiner','CompilerDocumentMetadata','CompilerDocumentSnapshotOracle','CompilerSymbolLookup','CompilerHashingWriter')) {
             $source="recovery/tests/$name.cs"
             $arguments=@('/nologo','/noconfig','/nostdlib+','/target:library','/langversion:7.3','/codepage:65001','/platform:x86',('/out:'+(Join-Path $out ($name+'.dll'))),('/addmodule:'+$module),('/r:'+(Join-Path $PWD 'SDK/tools/antlr.runtime.dll')))
             foreach($reference in @($manifest.frameworkReferences)+@('System.Web.Extensions')){$arguments+=('/r:'+(Join-Path $refs ($reference+'.dll')))}
@@ -238,6 +239,7 @@ jobs:
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/protocol/*/build-report.json
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/expression-original/**
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/document-original/**
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/hashing-original/**
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/CompilerUpheavalSamples/work/upheaval-small/**
           if-no-files-found: warn
       - name: Isolated original BAB baseline for the two targeted backend cases

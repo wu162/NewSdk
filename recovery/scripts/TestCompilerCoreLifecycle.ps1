@@ -69,6 +69,7 @@ try {
     $fixtureFailures=@()
     $fixtures=@(
         @{name='CompilerInputDigests';marker='PASS InputDigests:'},
+        @{name='CompilerHashingWriter';marker='PASS HashingWriter:';timeoutSeconds=600},
         @{name='CompilerPhysicalInputs';marker='PASS PhysicalInputs:'},
         @{name='CompilerManifestInputs';marker='PASS ManifestInputs:'},
         @{name='CompilerStreamBindings';marker='PASS StreamBindings:';timeoutSeconds=600},
@@ -188,6 +189,33 @@ try {
         runtimeInputs=$state.expressionOriginal.runtimeInputs
         scope='Original SDK public Core document cache metadata lifecycle and expression-DOM traversal in a separate original-only process; direct reproducer does not establish a production CLI fault'
     }
+    $hashingOracleOut=(New-Item -ItemType Directory (Join-Path $out 'hashing-original')).FullName
+    $hashingOracleSource=(Resolve-Path 'recovery/tests/CompilerHashingWriter.cs').Path
+    $hashingOracleExe=Join-Path $expressionOracleRuntime 'CompilerHashingOriginal.exe'
+    $hashingOracleArguments=@('/nologo','/noconfig','/nostdlib+','/target:exe','/langversion:7.3','/codepage:65001','/platform:x86','/define:HASHING_ORIGINAL',('/out:'+$hashingOracleExe))
+    foreach($name in $frameworkReferences){$hashingOracleArguments+=('/r:'+(Join-Path $refs ($name+'.dll')))}
+    foreach($name in @('BinaryAssetBuilder.Core.dll','BinaryAssetBuilder.Utility.dll','antlr.runtime.dll')){$hashingOracleArguments+=('/r:'+(Join-Path $expressionOracleRuntime $name))}
+    $hashingOracleArguments+=$hashingOracleSource
+    & $csc @hashingOracleArguments *> "$hashingOracleOut/oracle-build.log"
+    if($LASTEXITCODE -ne 0){Get-Content "$hashingOracleOut/oracle-build.log" -Tail 100|Out-Host;throw 'Original HashingWriter oracle compilation failed'}
+    Copy-Item "$expressionOracleExe.config" "$hashingOracleExe.config"
+    Copy-Item $hashingOracleExe "$hashingOracleOut/oracle.exe"
+    Copy-Item "$hashingOracleExe.config" "$hashingOracleOut/oracle.exe.config"
+    $hashingOriginalJson=Join-Path $hashingOracleOut 'transcript.json'
+    $hashingOracleProcess=Invoke-LifecycleFixture $hashingOracleExe @($hashingOriginalJson,$state.sourceCommit,$state.runId) $expressionOracleRuntime "$hashingOracleOut/oracle-runtime.log" 180
+    $hashingOriginal=Get-Content $hashingOriginalJson -Raw|ConvertFrom-Json
+    if($hashingOriginal.succeeded -ne $true -or $hashingOriginal.sourceCommit -cne $state.sourceCommit -or
+       [string]$hashingOriginal.runId -cne [string]$state.runId -or @($hashingOriginal.rows).Count -le 850 -or
+       $hashingOriginal.assemblySha256Base64 -cne [Convert]::ToBase64String([Convert]::FromHexString((Hash $documentOriginalCore)))){
+        throw 'Original HashingWriter oracle identity/corpus mismatch'
+    }
+    $state.hashingOriginal=@{
+        sourceCommit=$state.sourceCommit;runId=$state.runId;runAttempt=$state.runAttempt;sourcePath='recovery/tests/CompilerHashingWriter.cs'
+        sourceSha256=(Hash $hashingOracleSource);compilerSha256=(Hash $csc);executableSha256=(Hash $hashingOracleExe);configSha256=(Hash "$hashingOracleExe.config")
+        processId=$hashingOracleProcess;transcriptSha256=(Hash $hashingOriginalJson);coreSha256=(Hash $documentOriginalCore);rows=@($hashingOriginal.rows).Count
+        runtimeInputs=$state.expressionOriginal.runtimeInputs
+        scope='Exact writer-operation/public XML hash corpus in independent original-only Core process; UTF-16 inputs generated in-process to preserve unpaired surrogate test data'
+    }
     foreach($mode in @('Debug','Release')) {
         $modeOut=(New-Item -ItemType Directory (Join-Path $out $mode)).FullName
         $clean=Join-Path $work $mode
@@ -241,6 +269,7 @@ try {
             $resultPath=Join-Path $fixtureOut 'result.json'
                 $fixtureArguments=@($fixtureExe,$fixtureWork,$resultPath,$state.sourceCommit,$state.runId,$sdk)
                 if($fixture.name -eq 'CompilerExpressionPrograms'){$fixtureArguments+=@($expressionOriginalJson,$documentOriginalJson)}
+                if($fixture.name -eq 'CompilerHashingWriter'){$fixtureArguments+=$hashingOriginalJson}
                 if($fixture.name -in @('CompilerDocumentSnapshots','CompilerDocumentMetadata')){$fixtureArguments+=$documentOriginalJson}
                 $processId=Invoke-LifecycleFixture $run.exe $fixtureArguments $clean "$fixtureOut/runtime.log" $timeout
                 if(!(Select-String -LiteralPath "$fixtureOut/runtime.log" -SimpleMatch $fixture.marker -Quiet)){throw 'Core lifecycle success marker missing'}
@@ -285,6 +314,8 @@ try {
     if((Hash $documentOracleSource) -cne $state.documentOriginal.sourceSha256 -or
        (Hash $documentOriginalJson) -cne $state.documentOriginal.transcriptSha256 -or
        (Hash $documentOriginalCore) -cne $state.documentOriginal.coreSha256){throw 'Original document oracle evidence changed during validation'}
+    if((Hash $hashingOracleSource) -cne $state.hashingOriginal.sourceSha256 -or
+       (Hash $hashingOriginalJson) -cne $state.hashingOriginal.transcriptSha256){throw 'Original HashingWriter oracle evidence changed during validation'}
     if($fixtureFailures.Count -ne 0){throw ($fixtureFailures -join "`n")}
     $state.succeeded=$true;$state.status='passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate'
     $global:LASTEXITCODE=0

@@ -473,6 +473,7 @@ public class BinaryAsset
             lock (copyBuffer)
 			{
 				using Stream fileStream = capture == null ? File.OpenRead(sourceAssetPath) : PhysicalInputSnapshot.OpenCapturedMaterializationRead(sourceAssetPath);
+                PhysicalInputSnapshot.MaterializationContent content = null;
 				using (FileStream fileStream2 = File.Open(text2, FileMode.Create, FileAccess.Write))
 				{
 					long num = fileStream.Length;
@@ -491,24 +492,22 @@ public class BinaryAsset
 							{
 								throw new Exception();
 							}
+                            // Keep the original deferred length rejection: a
+                            // malformed source is copied but never spooled or
+                            // pinned. No source pin is acquired at this point.
+                            trustedSource = capture != null && num2 >= 32 && fileStream.Length >= 32 && _AssetHeader.IsValidFileLength(fileStream.Length);
+                            if (trustedSource) content = PhysicalInputSnapshot.BeginMaterializationContent(sourceAssetPath, fileStream);
 						}
 						fileStream2.Write(copyBuffer, 0, num2);
+                        if (content != null) content.Append(copyBuffer, 0, num2);
 						num -= num2;
 					}
 					fileStream2.Flush();
 				}
-                // Do not change the original deferred length-error contract.
-                // Invalid copies can still be deleted/repaired below; only a
-                // valid source is eligible to outlive this materialization.
-                trustedSource = capture != null && _AssetHeader != null && _AssetHeader.IsValidFileLength(fileStream.Length);
-                if (capture != null && trustedSource)
-                {
-                    // The original read handle is still open (no write/delete
-                    // sharing), or an existing pinned snapshot supplies this
-                    // read. Check its identity too: directory pins are only
-                    // acquired by capture, after the original file was opened.
-                    PhysicalInputSnapshot.CaptureMaterializationSource(sourceAssetPath, fileStream);
-                }
+                // The original source handle is still open. Publish the bytes
+                // actually copied only after the full copy/flush succeeded and
+                // the current pathname's pinned identity matches that handle.
+                if (content != null) content.Complete(fileStream);
 				if (File.Exists(text))
 				{
 					File.Delete(text);
@@ -589,6 +588,7 @@ public class BinaryAsset
 					break;
 				}
 			}
+			catch (OperationCanceledException) { throw; }
 			catch (Exception ex)
 			{
 				_Tracer.Message("{0} in use ({1}), re-attempting grab: {2}", DocumentProcessor.CurrentDocument, ex.Message, Instance);

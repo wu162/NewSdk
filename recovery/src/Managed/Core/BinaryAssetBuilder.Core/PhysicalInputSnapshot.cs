@@ -41,6 +41,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
     private long _MaterializationAttempts, _MaterializationCommits, _MaterializationRollbacks;
     private long _MaterializationCaptureReadsStarted, _MaterializationCaptureReadsCompleted, _MaterializationCaptureReadBytes;
     private long _MaterializationCopyReadHits;
+    private long _MaterializationTeeStarted, _MaterializationTeeCompleted, _MaterializationTeeBytes;
 
     private const int BlockSize = 1048576;
     private const uint BackupSemantics = 0x02000000, OpenReparsePoint = 0x00200000;
@@ -184,17 +185,188 @@ public sealed class PhysicalInputSnapshot : IDisposable
         }
         return File.OpenRead(path);
     }
-    internal static void CaptureMaterializationSource(string path, Stream consumed)
+    internal static MaterializationContent BeginMaterializationContent(string path, Stream consumed)
     {
-        Entry entry;
-        if (!TryCapture(path, out entry)) return;
+        PhysicalInputSnapshot owner = _Current;
+        if (owner == null || owner._Materialization == null) return null;
+        owner.Check(); owner._Cancellation.ThrowIfCancellationRequested(); owner._ReadStarted = true;
+        string full;
+        if (!Normal(path, out full)) { owner.RegisterBypass("unsupported-path"); return null; }
+        foreach (string excluded in owner._ExcludedRoots)
+            if (string.Equals(full, excluded, StringComparison.OrdinalIgnoreCase) || full.StartsWith(excluded + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+            { owner.RegisterBypass("generated-output-root"); return null; }
+        if (string.Equals(full, owner._Scratch, StringComparison.OrdinalIgnoreCase) || full.StartsWith(owner._Scratch.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+        { owner.RegisterBypass("snapshot-storage"); return null; }
+        if (owner._Paths.ContainsKey(full)) { owner._Hits++; return null; }
+        if (owner._Paths.Count >= owner._FileLimit) { owner.RegisterBypass("file-budget"); return null; }
         FileStream original = consumed as FileStream;
-        // A parent may have been renamed between the original open and the
-        // acquisition of our directory pins. The current pathname must still
-        // identify the exact file whose bytes CopyAsset consumed, not merely a
-        // replacement with the same length (or even the same content digest).
-        if (original != null && (original.Length != entry.Length || Identity(original, path) != entry.Identity))
-            throw new IOException("Materialization source identity changed while sealing: " + path);
+        if (original == null) { owner.RegisterBypass("other-consumer"); return null; }
+        string identity = Identity(original, full);
+        if (identity == null) { owner.RegisterBypass("unsupported-path"); return null; }
+        Entry existing; owner._Identities.TryGetValue(identity, out existing);
+        long length = original.Length;
+        bool inMemory = length <= BlockSize && length <= owner._MemoryBudget - owner._MemoryBytes;
+        if (existing == null && !inMemory && length > owner._DiskBudget - owner._DiskBytes)
+        { owner.RegisterBypass("storage-budget"); return null; }
+        if (owner._Materialization.Content != null) throw new InvalidOperationException("Only one asset content stream belongs to a materialization.");
+        var content = new MaterializationContent(owner, full, identity, length, inMemory, existing);
+        owner._Materialization.Content = content;
+        return content;
+    }
+    // Receives only bytes already read and successfully written by the original
+    // CopyAsset loop. It never rereads the source or treats an output .tmp as an
+    // input. Pins and a snapshot Entry are acquired only at Complete.
+    internal sealed class MaterializationContent : IDisposable
+    {
+        private readonly PhysicalInputSnapshot owner;
+        internal readonly string PathName, SourceIdentity;
+        internal readonly long Length;
+        internal readonly bool InMemory;
+        private readonly Entry existing;
+        private MemoryStream memory;
+        private FileStream storage;
+        private SHA256 sha;
+        private byte[] legacyBuffer;
+        private int legacyCount;
+        private uint legacy;
+        private long copied;
+        private bool complete, disposed;
+        internal MaterializationContent(PhysicalInputSnapshot owner, string path, string identity, long length, bool inMemory, Entry existing)
+        {
+            this.owner = owner; PathName = path; SourceIdentity = identity; Length = length; InMemory = inMemory; this.existing = existing;
+            if (existing != null) return;
+            try
+            {
+                if (inMemory) memory = new MemoryStream((int)length);
+                else
+                {
+                    if (!owner._OwnsScratch)
+                    {
+                        if (!CreateDirectoryNative(owner._Scratch, IntPtr.Zero))
+                            throw new IOException("Cannot create exclusively owned snapshot scratch: " + owner._Scratch, new Win32Exception(Marshal.GetLastWin32Error()));
+                        owner._OwnsScratch = true;
+                    }
+                    storage = new FileStream(System.IO.Path.Combine(owner._Scratch, Guid.NewGuid().ToString("N") + ".input"),
+                        FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None, 4096, FileOptions.DeleteOnClose);
+                }
+                sha = SHA256.Create(); legacy = unchecked((uint)length);
+                legacyBuffer = new byte[(int)Math.Min(Math.Max(length, 1), BlockSize)];
+                owner._MaterializationTeeStarted++;
+            }
+            catch { Dispose(); throw; }
+        }
+        internal void Append(byte[] buffer, int offset, int count)
+        {
+            owner.Check(); owner._Cancellation.ThrowIfCancellationRequested();
+            if (disposed || complete) throw new InvalidOperationException("Materialization content is no longer writable.");
+            if (buffer == null) throw new ArgumentNullException("buffer");
+            if (offset < 0 || count < 0 || offset > buffer.Length - count || copied > Length - count) throw new ArgumentOutOfRangeException("count");
+            if (existing == null)
+            {
+                if (memory != null) memory.Write(buffer, offset, count); else storage.Write(buffer, offset, count);
+                sha.TransformBlock(buffer, offset, count, buffer, offset);
+                int remaining = count, position = offset;
+                while (remaining != 0)
+                {
+                    int take = Math.Min(remaining, legacyBuffer.Length - legacyCount);
+                    Buffer.BlockCopy(buffer, position, legacyBuffer, legacyCount, take);
+                    position += take; remaining -= take; legacyCount += take;
+                    if (legacyCount == legacyBuffer.Length)
+                    { legacy = FastHash.GetHashCode(legacy, legacyBuffer, legacyCount); legacyCount = 0; }
+                }
+                owner._MaterializationTeeBytes += count;
+            }
+            copied += count;
+        }
+        internal void Complete(Stream consumed)
+        {
+            owner.Check(); owner._Cancellation.ThrowIfCancellationRequested();
+            if (disposed || complete || copied != Length) throw new IOException("Materialization content did not receive the complete source.");
+            FileStream original = consumed as FileStream;
+            if (original == null || original.Length != Length || Identity(original, PathName) != SourceIdentity)
+                throw new IOException("Materialization source handle identity changed while sealing: " + PathName);
+            string strong; uint finalLegacy;
+            if (existing == null)
+            {
+                if (legacyCount != 0) legacy = FastHash.GetHashCode(legacy, legacyBuffer, legacyCount);
+                sha.TransformFinalBlock(new byte[0], 0, 0); strong = Convert.ToBase64String(sha.Hash); finalLegacy = legacy;
+                if (storage != null) storage.Flush();
+                owner._MaterializationTeeCompleted++;
+            }
+            else { strong = existing.Sha256; finalLegacy = existing.LegacyHash; }
+            complete = true;
+            owner.PublishMaterializationContent(this, strong, finalLegacy);
+        }
+        internal byte[] CopyMemory() { return memory == null ? null : memory.ToArray(); }
+        internal FileStream TakeStorage() { FileStream value = storage; storage = null; return value; }
+        public void Dispose()
+        {
+            if (disposed) return; disposed = true;
+            if (sha != null) try { sha.Dispose(); } catch { owner._CleanupFailures++; }
+            if (memory != null) try { memory.Dispose(); } catch { owner._CleanupFailures++; }
+            if (storage != null) try { storage.Dispose(); } catch { owner._CleanupFailures++; }
+            sha = null; memory = null; storage = null; legacyBuffer = null;
+        }
+    }
+    private void PublishMaterializationContent(MaterializationContent content, string strong, uint legacy)
+    {
+        Check(); _Cancellation.ThrowIfCancellationRequested();
+        if (_Materialization == null) throw new InvalidOperationException("Materialization capture ended before its content was published.");
+        string full = content.PathName;
+        int directoryStart = _Materialization.Directories.Count;
+        bool keepDirectories = false;
+        FileStream pin = null;
+        try
+        {
+            if (!PinParents(full)) { RegisterBypass("parent-pin"); return; }
+            SafeFileHandle handle = CreateFile(full, 0x80000000, 1, IntPtr.Zero, 3, OpenReparsePoint | 0x08000000, IntPtr.Zero);
+            if (handle.IsInvalid)
+            {
+                int error = Marshal.GetLastWin32Error(); handle.Dispose();
+                throw new IOException("Cannot pin materialization source: " + full, new Win32Exception(error));
+            }
+            FileInformation information;
+            if (!GetFileInformationByHandle(handle, out information)) { handle.Dispose(); throw new IOException("Cannot identify materialization source: " + full); }
+            if ((information.Attributes & 0x400) != 0) { handle.Dispose(); RegisterBypass("reparse-input"); return; }
+            try { pin = new FileStream(handle, FileAccess.Read, 4096, false); }
+            catch { handle.Dispose(); throw; }
+            string identity = Identity(pin, full);
+            // Directory pins were acquired after the original open. An equal
+            // length/digest replacement is still a different consumed object.
+            if (identity != content.SourceIdentity || pin.Length != content.Length)
+                throw new IOException("Materialization source identity changed while sealing: " + full);
+            Entry entry;
+            if (_Identities.TryGetValue(identity, out entry))
+            {
+                if (entry.Length != content.Length || entry.Sha256 != strong) throw new IOException("Materialization content disagrees with an existing sealed source.");
+                entry.Paths.Add(full); _Paths.Add(full, entry); _AliasPins.Add(pin);
+                _Materialization.Paths.Add(full); _Materialization.Aliases.Add(pin);
+                pin = null; _Hits++; keepDirectories = true; return;
+            }
+            byte[] memory = content.CopyMemory();
+            entry = new Entry(full, pin, identity, content.Length, strong, legacy, File.GetLastWriteTime(full), memory, content.TakeStorage());
+            pin = null;
+            _Paths.Add(full, entry); _Identities.Add(identity, entry);
+            _Materialization.Paths.Add(full); _Materialization.Entries.Add(entry);
+            _Captures++; _CapturedBytes += content.Length;
+            if (content.InMemory) _MemoryBytes += content.Length; else _DiskBytes += content.Length;
+            keepDirectories = true;
+        }
+        finally
+        {
+            if (pin != null) try { pin.Dispose(); } catch { _CleanupFailures++; }
+            if (!keepDirectories)
+            {
+                for (int i = directoryStart; i < _Materialization.Directories.Count; i++)
+                {
+                    string directory = _Materialization.Directories[i]; SafeFileHandle handle;
+                    if (!_Directories.TryGetValue(directory, out handle)) continue;
+                    _Directories.Remove(directory);
+                    try { handle.Dispose(); } catch { _CleanupFailures++; }
+                }
+                _Materialization.Directories.RemoveRange(directoryStart, _Materialization.Directories.Count - directoryStart);
+            }
+        }
     }
     internal sealed class MaterializationCapture : IDisposable
     {
@@ -203,6 +375,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
         internal readonly List<string> Paths = new List<string>(), Directories = new List<string>();
         internal readonly List<Entry> Entries = new List<Entry>();
         internal readonly List<FileStream> Aliases = new List<FileStream>();
+        internal MaterializationContent Content;
         private readonly long captures, hits, bytes, memory, disk;
         internal MaterializationCapture(PhysicalInputSnapshot owner)
         {
@@ -219,6 +392,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
         {
             if (owner == null) return;
             PhysicalInputSnapshot value = owner; owner = null;
+            if (Content != null) Content.Dispose();
             if (value._Disposed) return;
             value.Check();
             value._Materialization = null;
@@ -510,6 +684,8 @@ public sealed class PhysicalInputSnapshot : IDisposable
                 captureReadsStarted = _MaterializationCaptureReadsStarted, captureReadsCompleted = _MaterializationCaptureReadsCompleted,
                 captureReadBytes = _MaterializationCaptureReadBytes, countersIncludeRolledBackReads = true,
                 copyReadHits = _MaterializationCopyReadHits,
+                teeStarted = _MaterializationTeeStarted, teeCompleted = _MaterializationTeeCompleted, teeBytes = _MaterializationTeeBytes,
+                teeScope = "SuccessfulOriginalCopyChunks", teeCountersIncludeRolledBackChunks = true,
                 captureCounters = "RetainedSnapshotEntries", scope = "ValidatedCacheCopySourcesOnly", completeClosure = false },
             resolverCandidates = new { scope = "ExecutedFileExistsOnly", canAuthorizeReuse = false, verificationPoint = "VerifyUnchanged",
                 observations = _CandidateObservations, uniquePaths = _CandidateUniquePaths, recordedTextChars = _CandidateTextChars,
@@ -520,6 +696,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
     public void Dispose()
     {
         if (_Disposed) return;
+        if (_Materialization != null) _Materialization.Dispose();
         _Disposed = true;
         if (Object.ReferenceEquals(_Current, this)) _Current = null;
         foreach (Entry entry in _Identities.Values)
