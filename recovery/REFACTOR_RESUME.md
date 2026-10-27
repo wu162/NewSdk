@@ -5,7 +5,7 @@
 
 ## 当前任务：编译器性能优化
 
-2026-10-27 从 `compiler-main@e7396d3` 新建 `feature/compiler-optimization`。按用户要求每轮最多60分钟并交接，通常2个子代理、最多3个；全部编译/测试通过 GitHub Actions。先读 [当前短交接](docs/compiler-optimization/HANDOFF.md)，再按 [方案索引](docs/compiler-optimization/README.md) 读取所需章节。完整用户方案只保存一份，阶段结果与未决工作由短交接覆盖更新。
+2026-10-27 从 `compiler-main@e7396d3` 新建 `feature/compiler-optimization`。按用户要求每轮90分钟并交接，必须推进接近90分钟，提前完成一组后继续后续任务，通常2个子代理、最多3个；全部编译/测试通过 GitHub Actions。先读 [当前短交接](docs/compiler-optimization/HANDOFF.md)，再按 [方案索引](docs/compiler-optimization/README.md) 读取所需章节。完整用户方案只保存一份，阶段结果与未决工作由短交接覆盖更新。
 
 首批优化与三项真实 Core 风险修复已通过[完整运行40461583024](https://github.com/wu162/NewSdk/actions/runs/40461583024)，生产源码 `75601909`。第二轮的 schema/解析/外层区间与构建内自有继承/依赖元数据共享已由源码 `4a128696` / [完整运行40466010643](https://github.com/wu162/NewSdk/actions/runs/40466010643) 整体成功验收，含全部缓存、完整mymod/BIG与独立五文件ZIP；三流元数据表1次构建+2次恢复，每流读取/Compile仍保留，不报告完整构建提速。范围、失败记录、计量与下一步见短交接和[验证记录](docs/compiler-optimization/VALIDATION.md)。[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，后续成果继续集中原优化分支。
 
