@@ -19,7 +19,10 @@ internal static class TextureNpotRgba8Replay
         if(profile.StartsWith("tga-")){
             byte[] tga=File.ReadAllBytes(path);int depth=tga[16],stride=depth/8;Check(tga[2]==2&&tga[17]==(depth==32?40:32),"Immutable TGA fixture profile");
             uint[] raw=new uint[width*height];for(int i=0;i<raw.Length;i++){int p=18+i*stride;raw[i]=(uint)tga[p+2]|(uint)tga[p+1]<<8|(uint)tga[p]<<16|(uint)(depth==32?tga[p+3]:255)<<24;}
-            return new TexturePacker.Image(width,height,raw,depth==32);
+            bool hasAlpha=depth==32;
+            if(hasAlpha){bool nonzero=false;foreach(uint pixel in raw)if((pixel&0xff000000u)!=0){nonzero=true;break;}
+                if(!nonzero){for(int i=0;i<raw.Length;i++)raw[i]|=0xff000000u;hasAlpha=false;}}
+            return new TexturePacker.Image(width,height,raw,hasAlpha);
         }
         uint[] pixels=new uint[width*height];bool alpha=profile.StartsWith("png-c6");
         if(profile.StartsWith("png-")){

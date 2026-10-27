@@ -31,3 +31,5 @@ numeric源码`678db0127a2ea3620700b44e46093dd6dc2050d1` / 40529918922 completed/
 下一整组已准备：TGA24/32、PNG RGB/RGBA8、BI_RGB BMP24/32的NPOT解码接入同一helper；只有原始8位存储/目标8位量化域，PNG其他位深/颜色和BMP16/Additional TGA16等NPOT仍拒绝，POT原能力不变。公共解码分派加入同1012不可变原RGBA全量对照；隔离回放手工读取原TGA fixture，避免启用后的TGA Decode预先重采样而遮蔽组件测试。
 
 原Image/Mip/Volume/VolumeMip TGA入口中NPOT“拒绝后跳过”改成实际原版三缓冲区/full cdata对照，不减少样本。dxt-images保留旧7856并新增6400：80个已捕获NPOT源输入（四种合法加载后volume形状×十个存储/方向profile×两图案），两根/五输出raw+DXT/有无mip/标准+volume/新旧cdata，完整NoOriginal重放；34明确拒绝保留低位深NPOT和默认DXT1/1A。新PcNpotRgba8专用SDK同80输入、3200资产三模式与逐次隔离；选择器同步全部实际8位decoder/helper消费者，包括PNG/BMP/TGA组件及raw/DXT/volume/SDK回归。所有新集成仍待本轮完整Actions终态。
+
+集成批次源码a945c18c/40533831752整体failure，17组（含全部6个SDK profile）实际通过，唯一npot-rgba8失败于独立TGA fixture提取遗漏旧“全零alpha转opaque/HasAlpha=false”规则（tga-d32-1×1-p3）。现仅修复测试宿主，生产滤波/解码器/SDK输入不变，保留所有完整断言与失败记录；通过组继续保留原sourceCommit/runId，最终只补该组件并请求选择器核实/复用其余成功组。不得将40533831752改写为整轮success。
