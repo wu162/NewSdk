@@ -72,6 +72,7 @@ try {
         @{name='CompilerPhysicalInputs';marker='PASS PhysicalInputs:'},
         @{name='CompilerManifestInputs';marker='PASS ManifestInputs:'},
         @{name='CompilerStreamBindings';marker='PASS StreamBindings:';timeoutSeconds=600},
+        @{name='CompilerExpressionPrograms';marker='PASS ExpressionPrograms:';timeoutSeconds=600},
         @{name='CompilerDependencyObservations';marker='PASS DependencyObservations:'},
         @{name='CompilerBaseManifestIndex';marker='PASS BaseManifestIndex:'},
         @{name='CompilerNodeJoiner';marker='PASS NodeJoiner:'},
@@ -111,6 +112,32 @@ try {
     $state.compiler=@{path=$csc;sha256=(Hash $csc);version=([Diagnostics.FileVersionInfo]::GetVersionInfo($csc).FileVersion);languageVersion='7.3';target='net48/x86'}
     $state.frameworkReferences=@($frameworkReferences|ForEach-Object{@{name=$_;sha256=(Hash (Join-Path $refs ($_+'.dll')))}})
     $env:PATH=(@($oldPath -split ';'|Where-Object{$_ -notmatch '[\\/]SDK[\\/]tools'}) -join ';')
+    # Compile the same expression corpus against original SDK assemblies in a
+    # separate process/directory; never load originals into the product host.
+    $expressionOracleOut=(New-Item -ItemType Directory (Join-Path $out 'expression-original')).FullName
+    $expressionOracleRuntime=(New-Item -ItemType Directory (Join-Path $work 'expression-original-runtime')).FullName
+    Get-ChildItem (Join-Path $sdk 'tools') -Filter '*.dll' -File|Copy-Item -Destination $expressionOracleRuntime
+    $expressionOracleSource=(Resolve-Path 'recovery/tests/CompilerExpressionPrograms.cs').Path
+    $expressionOracleExe=Join-Path $expressionOracleRuntime 'CompilerExpressionOriginal.exe'
+    $expressionOracleArguments=@('/nologo','/noconfig','/nostdlib+','/target:exe','/langversion:7.3','/codepage:65001','/platform:x86','/define:EXPRESSION_ORIGINAL',('/out:'+$expressionOracleExe))
+    foreach($name in $frameworkReferences){$expressionOracleArguments+=('/r:'+(Join-Path $refs ($name+'.dll')))}
+    foreach($name in @('BinaryAssetBuilder.Core.dll','BinaryAssetBuilder.ExpressionEval.dll','BinaryAssetBuilder.Utility.dll','antlr.runtime.dll')){
+        $expressionOracleArguments+=('/r:'+(Join-Path $expressionOracleRuntime $name))
+    }
+    $expressionOracleArguments+=$expressionOracleSource
+    & $csc @expressionOracleArguments *> "$expressionOracleOut/oracle-build.log"
+    if($LASTEXITCODE -ne 0){Get-Content "$expressionOracleOut/oracle-build.log" -Tail 100|Out-Host;throw 'Original expression corpus compilation failed'}
+    '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$expressionOracleExe.config"
+    $expressionOriginalJson=Join-Path $expressionOracleOut 'transcript.json'
+    $expressionOracleProcess=Invoke-LifecycleFixture $expressionOracleExe @($expressionOriginalJson) $expressionOracleRuntime "$expressionOracleOut/oracle-runtime.log" 180
+    if(!(Select-String -LiteralPath "$expressionOracleOut/oracle-runtime.log" -SimpleMatch 'PASS ExpressionOriginal:' -Quiet)){throw 'Original expression success marker missing'}
+    $state.expressionOriginal=@{
+        sourceCommit=$state.sourceCommit;runId=$state.runId;runAttempt=$state.runAttempt;sourcePath='recovery/tests/CompilerExpressionPrograms.cs'
+        sourceSha256=(Hash $expressionOracleSource);compilerSha256=(Hash $csc);executableSha256=(Hash $expressionOracleExe);configSha256=(Hash "$expressionOracleExe.config")
+        processId=$expressionOracleProcess;transcriptSha256=(Hash $expressionOriginalJson);rows=@(Get-Content $expressionOriginalJson -Raw|ConvertFrom-Json).Count
+        runtimeInputs=@(Get-ChildItem $expressionOracleRuntime -Filter '*.dll' -File|Sort-Object Name|ForEach-Object{@{name=$_.Name;sha256=(Hash $_.FullName)}})
+        scope='Original SDK expression corpus in a separate original-only directory and process; no original Core/ExpressionEval assembly enters a production host'
+    }
     foreach($mode in @('Debug','Release')) {
         $modeOut=(New-Item -ItemType Directory (Join-Path $out $mode)).FullName
         $clean=Join-Path $work $mode
@@ -162,7 +189,9 @@ try {
             $fixtureHash=Hash $fixtureExe
             $timeout=if($fixture.timeoutSeconds){[int]$fixture.timeoutSeconds}else{$FixtureTimeoutSeconds}
             $resultPath=Join-Path $fixtureOut 'result.json'
-                $processId=Invoke-LifecycleFixture $run.exe @($fixtureExe,$fixtureWork,$resultPath,$state.sourceCommit,$state.runId,$sdk) $clean "$fixtureOut/runtime.log" $timeout
+                $fixtureArguments=@($fixtureExe,$fixtureWork,$resultPath,$state.sourceCommit,$state.runId,$sdk)
+                if($fixture.name -eq 'CompilerExpressionPrograms'){$fixtureArguments+=$expressionOriginalJson}
+                $processId=Invoke-LifecycleFixture $run.exe $fixtureArguments $clean "$fixtureOut/runtime.log" $timeout
                 if(!(Select-String -LiteralPath "$fixtureOut/runtime.log" -SimpleMatch $fixture.marker -Quiet)){throw 'Core lifecycle success marker missing'}
                 $result=Get-Content -LiteralPath $resultPath -Raw|ConvertFrom-Json
                 if(!$result.succeeded -or $result.sourceCommit -cne $state.sourceCommit -or $result.runId -cne $state.runId){throw 'Core lifecycle result identity or success mismatch'}

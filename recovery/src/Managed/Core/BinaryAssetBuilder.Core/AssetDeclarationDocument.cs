@@ -396,6 +396,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 
     internal string ObservationSourcePath => _Current == null ? null : _Current.SourcePath;
 
+    public DocumentProcessor ExpressionProgramOwner => _Current == null ? null : _Current.DocumentProcessor;
+
 	public InstanceSet SelfInstances => _Current.SelfInstances;
 
 	public List2<Definition> SelfDefines => _Current.SelfDefines;

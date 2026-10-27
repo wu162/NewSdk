@@ -6,6 +6,10 @@ namespace BinaryAssetBuilder.Core;
 public class ExpressionEvaluatorWrapper
 {
     public static void LoadAssembly() { }
+    public static object GetProgramMetrics(DocumentProcessor processor)
+    {
+        return BinaryAssetBuilder.ExpressionEval.ExpressionEvaluator.GetProgramMetrics(processor);
+    }
     public static IExpressionEvaluator GetEvaluator(AssetDeclarationDocument document)
     {
         return new BinaryAssetBuilder.ExpressionEval.ExpressionEvaluator(document);
@@ -36,6 +40,15 @@ public class ExpressionEvaluatorWrapper
 			_Tracer.TraceError("Could not load ExpressionEvaluator from BinaryAssetBuilder.ExpressionEval.dll. Expressions are disabled");
 		}
 	}
+
+    public static object GetProgramMetrics(DocumentProcessor processor)
+    {
+        if (_Lib == null) return null;
+        Type evaluator = _Lib.GetType("BinaryAssetBuilder.ExpressionEval.ExpressionEvaluator");
+        if (evaluator == null) return null;
+        MethodInfo method = evaluator.GetMethod("GetProgramMetrics", new Type[] { typeof(DocumentProcessor) });
+        return method == null ? null : method.Invoke(null, new object[] { processor });
+    }
 
 	public static IExpressionEvaluator GetEvaluator(AssetDeclarationDocument document)
 	{

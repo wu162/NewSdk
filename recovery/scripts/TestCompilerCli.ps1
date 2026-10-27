@@ -204,7 +204,11 @@ function BusinessWorkMetrics($Case,[bool]$SharedMetadata=$false){
         }
         Need ($null -ne $item.schemaInputs -and $item.schemaInputs.filesRead -gt 0 -and $item.schemaInputs.bytesRead -gt 0 -and $item.schemaInputs.contentChecks -ge 0) 'Business schema input read counters missing or invalid'
         Need ($null -ne $item.inputDigests -and $item.inputDigests.reads -ge 0 -and $item.inputDigests.bytes -ge 0) 'Business digest logical-read counters missing or invalid'
-        $taskMetrics+=,@{taskId=$task.Id;content=$task.Content;inputPath=$task.InputPath;stages=$core;schemaPreparation=$schema;schemaMetadata=$item.schemaMetadata;schemaInputs=$item.schemaInputs;outerStages=$outer;inputDigests=$item.inputDigests;schemaReferences=$item.schemaReferences}
+        $programs=$item.expressionPrograms
+        Need ($null -ne $programs -and $programs.enabled -eq $true -and $programs.scope -ceq 'ExactExpressionProgramsPerDocumentProcessor') 'Business exact expression-program metrics missing'
+        Need ($programs.parserCalls -ge 0 -and $programs.builds -ge 0 -and $programs.hits -ge 0 -and $programs.builds -le $programs.parserCalls -and $programs.parserFailures -le $programs.parserCalls -and $programs.replayFailures -le $programs.hits) 'Business expression work counts are inconsistent'
+        Need ($programs.entries -le $programs.entryLimit -and $programs.retainedTextChars -le $programs.textBudget -and $programs.retainedNodes -le $programs.nodeBudget) 'Business expression programs exceeded their bounded ownership'
+        $taskMetrics+=,@{taskId=$task.Id;content=$task.Content;inputPath=$task.InputPath;stages=$core;schemaPreparation=$schema;schemaMetadata=$item.schemaMetadata;schemaInputs=$item.schemaInputs;outerStages=$outer;inputDigests=$item.inputDigests;schemaReferences=$item.schemaReferences;expressionPrograms=$programs}
     }
     $physical=$Case.report.cache.physicalInputs
     Need ($null -ne $physical -and $physical.enabled -eq $true -and $physical.positiveInputsOnly -eq $true) 'Business positive-input snapshot coverage missing'

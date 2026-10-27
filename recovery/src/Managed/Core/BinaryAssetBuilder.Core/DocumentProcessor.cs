@@ -142,6 +142,11 @@ public class DocumentProcessor
         _BaseManifestWorkSnapshots.Values.CopyTo(result, 0); return result;
     }
 
+    public object GetExpressionProgramMetrics()
+    {
+        return ExpressionEvaluatorWrapper.GetProgramMetrics(this);
+    }
+
 	public WorkMeasurement[] GetWorkMetrics()
 	{
 		var result = new WorkMeasurement[_Work.Count];
