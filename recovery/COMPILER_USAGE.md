@@ -53,7 +53,13 @@
 
 默认使用标准构建：`--package-content auto`，格式 `big`，自动包含 Additional。只有 APT 或全局元数据的 MOD 也能直接编译，无需创建空的 Mod.xml。自动发现没有任何有效编译入口时以 `PLAN_NO_INPUTS` 报错；仅有 Additional 不算编译入口。
 
-开发构建使用 `--profile development`，默认输出 loose，适合查看流文件；高级构建使用 `--profile advanced`，保持标准默认值并通过显式参数微调。`--help-advanced` 查看兼容入口。模式只提供默认值，显式参数优先；三个模式均不改变任何缓存选项。开发模式派生的 loose 输出允许保留项目的包版本/名称设置，这些设置只在以后标准打包时使用；显式 `--package-format loose` 的原有校验继续保留。
+| 构建方式 | 用法 | 默认输出 / 用途 |
+| --- | --- | --- |
+| 标准构建 | `build`（或 `--profile standard`） | 自动识别内容，BIG + SKUDEF，自动包含 Additional |
+| 开发构建 | `--profile development` | 自动识别内容，输出 loose 流文件，便于迭代 |
+| 高级构建 | `--profile advanced`、`--help-advanced` | 标准默认值，按需使用兼容开关与显式内容选择 |
+
+模式只提供默认值，显式参数和项目设置优先；三个模式均不改变任何缓存选项。开发模式派生的 loose 输出允许保留项目的包版本/名称设置，这些设置只在以后标准打包时使用；显式 `--package-format loose` 的原有校验继续保留。
 
 `--package-content base|apt|global-metadata` 或逗号组合仍提供原有的部分编译，旧名 `maps` 完全兼容。显式选择为空的可选组时继续保留上一代，不生成空 BIG；没有改变部分编译和完整打包机制。
 
@@ -86,10 +92,7 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 {
   "sdk-root": "C:/NewSdk/SDK",
   "out": "C:/Build/Example",
-  "profile": "standard",
-  "package-content": "auto",
-  "mod-version": "2.7-beta",
-  "skudef-name": "ExampleLauncher"
+  "mod-version": "2.7-beta"
 }
 ```
 
@@ -99,7 +102,7 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 ./NewModCompiler.exe build --mod "C:\Mods\Example" --mod-version 2.8
 ```
 
-命令行覆盖项目预设，预设覆盖默认值；同一来源的冲突参数会报错。SDK 与输出路径可保存到项目，JSON 中相对路径以 MOD 目录为基准；命令行路径仍以调用目录为基准。还可保存 `package-format`、`ss`、`pc`、`slowclean`；后三者默认 true，可用 false 覆盖。Win32 与链接流属于固定行为，旧 `/tp:Win32`、`/ls:true` 调用仍接受。不要将其他旧 BAB 参数写入 JSON。
+命令行覆盖项目预设，预设覆盖默认值；同一来源的冲突参数会报错。SDK 与输出路径可保存到项目，JSON 中相对路径以 MOD 目录为基准；命令行路径仍以调用目录为基准。还可保存 `profile`、内容选择、BIG 设置以及 `ss`、`pc`、`slowclean`（完整列表见 [参数兼容表](CLI_COMPATIBILITY.md)）；后三者默认 true，可用 false 覆盖。Win32 与链接流属于固定行为，旧 `/tp:Win32`、`/ls:true` 调用仍接受。不要将其他旧 BAB 参数写入 JSON。
 
 ## 6. 缓存与资源根
 
