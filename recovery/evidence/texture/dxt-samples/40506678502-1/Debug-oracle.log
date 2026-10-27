@@ -1,0 +1,1 @@
+PASS Texture DXT sample blocks fixtures=4608 checks=376847; normalized float/partial POT shapes; original float dispatch plus 2304 actual byte DDS cross-checks; SDK/plugin not extended

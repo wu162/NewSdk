@@ -1,0 +1,59 @@
+{
+  "nativeBinaries": [
+    {
+      "machine": "I386",
+      "sha256": "ea77c821b7be2e8057358e03fc360cb7b2d754d02383c5be91a8295a3caf912f",
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "configuration": "Debug"
+    },
+    {
+      "machine": "I386",
+      "sha256": "2aa6f27036587e4a7e18290897a3ab38cb515d745e504f1b30e363a436603cb9",
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "configuration": "Release"
+    }
+  ],
+  "scope": "PC quality71 normalized float and partial DXT3/5 blocks; original float dispatch/byte DDS/NoOriginal; no new plugin/SDK scope",
+  "sourceCommit": "9d487859ea0cd6da90a10d1e59e4e1300b7c04dd",
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "runId": "40506678502",
+  "status": "passed",
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281"
+    }
+  ],
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture DXT sample blocks fixtures=4608 checks=376847; normalized float/partial POT shapes; original float dispatch plus 2304 actual byte DDS cross-checks; SDK/plugin not extended",
+        "PASS Texture DXT sample block NoOriginal fixtures=4608 checks=73728; original DLL absent and not loaded"
+      ],
+      "passed": true,
+      "configuration": "Debug"
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture DXT sample blocks fixtures=4608 checks=376847; normalized float/partial POT shapes; original float dispatch plus 2304 actual byte DDS cross-checks; SDK/plugin not extended",
+        "PASS Texture DXT sample block NoOriginal fixtures=4608 checks=73728; original DLL absent and not loaded"
+      ],
+      "passed": true,
+      "configuration": "Release"
+    }
+  ],
+  "probeOnly": false
+}

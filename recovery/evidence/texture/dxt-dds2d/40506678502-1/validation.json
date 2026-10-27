@@ -1,0 +1,59 @@
+{
+  "nativeBinaries": [
+    {
+      "machine": "I386",
+      "sha256": "be06435835fe329189f3c36ef7b3c9558857199a5d657629ab3abbdd189288eb",
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "configuration": "Debug"
+    },
+    {
+      "machine": "I386",
+      "sha256": "94ed02fba89167c2c8728c0cbbaca520a237eacec95220fcd9ba74cd64d87e91",
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "configuration": "Release"
+    }
+  ],
+  "scope": "PC quality71 DXT3/DXT5 aligned 2D no-mip DDS; no plugin/SDK acceptance",
+  "sourceCommit": "9d487859ea0cd6da90a10d1e59e4e1300b7c04dd",
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "runId": "40506678502",
+  "status": "passed",
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281"
+    }
+  ],
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture complete DXT3/DXT5 2D DDS fixtures=768 checks=250646; PC Production=71; full header and payload; aligned POT no-mip only; no plugin/SDK acceptance",
+        "PASS Texture 2D DDS NoOriginal fixtures=768 checks=246784; original DLL absent and not loaded"
+      ],
+      "passed": true,
+      "configuration": "Debug"
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture complete DXT3/DXT5 2D DDS fixtures=768 checks=250646; PC Production=71; full header and payload; aligned POT no-mip only; no plugin/SDK acceptance",
+        "PASS Texture 2D DDS NoOriginal fixtures=768 checks=246784; original DLL absent and not loaded"
+      ],
+      "passed": true,
+      "configuration": "Release"
+    }
+  ],
+  "probeOnly": false
+}

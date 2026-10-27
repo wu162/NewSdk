@@ -1,0 +1,59 @@
+{
+  "nativeBinaries": [
+    {
+      "machine": "I386",
+      "sha256": "41d09a1b8c31072a32e51bdeb8ef97cf58bce80411cf2951f91189a3349c4b71",
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "configuration": "Debug"
+    },
+    {
+      "machine": "I386",
+      "sha256": "b8c2abf36d22d5e811b6d52c5bb2db1e36947cf0d15b3688174c55816bf5cb6f",
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "configuration": "Release"
+    }
+  ],
+  "scope": "actual Texture/OnDemandTexture DXT3/5 ProcessInstance; PC aligned no-mip TGA/PNG/BMP; three buffers/full cdata and NoOriginal; SDK pending",
+  "sourceCommit": "9d487859ea0cd6da90a10d1e59e4e1300b7c04dd",
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "runId": "40506678502",
+  "status": "passed",
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281"
+    }
+  ],
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture DXT ProcessInstance differential fixtures=1280 rejected=22 errors=368 comparedBytes=6016960; PC DXT3/5 aligned no-mip TGA/PNG/BMP; three buffers/full cdata; SDK pending",
+        "PASS Texture DXT ProcessInstance NoOriginal fixtures=1280 rejected=22 errors=368 comparedBytes=6016960; PC DXT3/5 aligned no-mip TGA/PNG/BMP; three buffers/full cdata; SDK pending"
+      ],
+      "passed": true,
+      "configuration": "Debug"
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture DXT ProcessInstance differential fixtures=1280 rejected=22 errors=368 comparedBytes=6016960; PC DXT3/5 aligned no-mip TGA/PNG/BMP; three buffers/full cdata; SDK pending",
+        "PASS Texture DXT ProcessInstance NoOriginal fixtures=1280 rejected=22 errors=368 comparedBytes=6016960; PC DXT3/5 aligned no-mip TGA/PNG/BMP; three buffers/full cdata; SDK pending"
+      ],
+      "passed": true,
+      "configuration": "Release"
+    }
+  ],
+  "probeOnly": false
+}

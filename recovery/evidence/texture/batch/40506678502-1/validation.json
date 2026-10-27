@@ -1,0 +1,56 @@
+{
+  "runId": "40506678502",
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "group": "dxt-blocks-complete",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "dxt-dds2d",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "dxt-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "dxt-samples",
+      "passed": true
+    }
+  ],
+  "runAttempt": "1",
+  "status": "passed",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state"
+  ],
+  "selected": [
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples"
+  ],
+  "sourceCommit": "9d487859ea0cd6da90a10d1e59e4e1300b7c04dd"
+}
