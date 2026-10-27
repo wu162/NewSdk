@@ -83,12 +83,34 @@ internal static unsafe class TextureDxtDdsDifferential
             string input=Path.GetFullPath(args[0]),dir=Path.GetDirectoryName(input),output=Path.GetFullPath(args[1]);
             Check(Hash(File.ReadAllBytes(input))=="4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e","Original hash mismatch");
             Assembly recovered=Assembly.LoadFrom(Path.GetFullPath(args[2]));
-            MethodInfo encode=recovered.GetType("BinaryAssetBuilder.TextureCompiler.TextureDxtDdsEncoder",true).GetMethod("EncodeBlock");
+            MethodInfo encode=recovered.GetType("BinaryAssetBuilder.TextureCompiler.TextureDxtDdsEncoder",true).GetMethod("Encode");
+            Check(encode != null, "Complete DDS Encode entry point missing");
             foreach(byte[] invalid in new byte[][] { null, new byte[0], new byte[63], new byte[65] }) {
                 bool rejected=false;
                 try { encode.Invoke(null,new object[]{4u,4u,invalid,"D3DFMT_DXT3",false}); }
                 catch(TargetInvocationException e) { rejected=e.InnerException is ArgumentException; }
                 Check(rejected,"invalid block must be rejected");
+            }
+            object[][] rejectedInputs = {
+                new object[]{0u,4u,new byte[0],"D3DFMT_DXT3",false},
+                new object[]{1u,4u,new byte[16],"D3DFMT_DXT3",false},
+                new object[]{2u,4u,new byte[32],"D3DFMT_DXT3",false},
+                new object[]{4u,2u,new byte[32],"D3DFMT_DXT5",false},
+                new object[]{6u,4u,new byte[96],"D3DFMT_DXT3",false},
+                new object[]{4u,6u,new byte[96],"D3DFMT_DXT5",false},
+                new object[]{4096u,4096u,new byte[0],"D3DFMT_DXT3",false},
+                new object[]{4u,4u,new byte[64],"D3DFMT_DXT1",false},
+                new object[]{4u,4u,new byte[64],"D3DFMT_DXT1A",false},
+                new object[]{4u,4u,new byte[64],"unknown",false},
+                new object[]{4u,4u,new byte[64],null,false},
+                new object[]{4u,4u,new byte[64],"D3DFMT_DXT3",true},
+                new object[]{4u,4u,new byte[64],"D3DFMT_DXT5",true}
+            };
+            foreach(object[] invalid in rejectedInputs) {
+                bool rejected=false;
+                try { encode.Invoke(null,invalid); }
+                catch(TargetInvocationException e) { rejected=e.InnerException is ArgumentException || e.InnerException is NotSupportedException; }
+                Check(rejected,"unsupported DDS input must be rejected");
             }
             AppDomain.CurrentDomain.AssemblyResolve+=delegate(object sender,ResolveEventArgs e){string p=Path.Combine(dir,new AssemblyName(e.Name).Name+".dll");return File.Exists(p)?Assembly.LoadFrom(p):null;};
             Assembly original=Assembly.LoadFrom(input);Type type=original.GetType("BinaryAssetBuilder.TextureCompiler.Plugin",true);
