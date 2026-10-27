@@ -553,7 +553,7 @@ Q_1007d830:
 Q_1007d832:
         lea    edi,[esp+0xf8]
 Q_1007d839:
-        rep stos DWORD PTR es:[edi],eax
+        rep stosd
 Q_1007d83b:
         fidiv  DWORD PTR [esp+0x2c]
 Q_1007d83f:
@@ -1247,7 +1247,7 @@ Q_1007dc7d:
 Q_1007dc80:
         lea    edi,[esp+0x118]
 Q_1007dc87:
-        rep stos DWORD PTR es:[edi],eax
+        rep stosd
 Q_1007dc89:
         mov    edi,DWORD PTR [ebp+0xc]
 Q_1007dc8c:
