@@ -357,10 +357,12 @@ public static class CompilerApplicationBuild
         Tests.Add("new-build-equal-mtime-size-change-cancel-output-failure-final-release-and-retry");
         NativePhysicalPayloadCase();
     }
-    static void CandidatePublicationCase()
+    static void CandidatePublicationCase(bool combined = false)
     {
-        string mod = Mod("候选 一致性", new[] { "base" }), data = Path.Combine(mod, "Data");
-        string high = Path.Combine(work, "resolver-high"), low = Path.Combine(work, "resolver-low");
+        string suffix = combined ? "-combined" : "";
+        string[] groups = combined ? new[] { "base", "apt", "maps" } : new[] { "base" };
+        string mod = Mod("候选 一致性" + suffix, groups), data = Path.Combine(mod, "Data");
+        string high = Path.Combine(work, "resolver-high" + suffix), low = Path.Combine(work, "resolver-low" + suffix);
         Directory.CreateDirectory(high); Directory.CreateDirectory(low);
         string candidate = "candidate-input.xml", first = Path.Combine(high, candidate), second = Path.Combine(low, candidate);
         File.WriteAllText(second, probe);
@@ -373,21 +375,23 @@ public static class CompilerApplicationBuild
                 injected = true; File.WriteAllText(first, probe);
             }
         } };
-        var failed = Build("resolver-candidate-changed-before-publish", mod, new[] { "base" }, observer, dataArguments);
+        var failed = Build("resolver-candidate-changed-before-publish" + suffix, mod, groups, observer, dataArguments);
         Failed(failed, ExitCode.Compilation, "failed");
+        Require(Events(failed, "StreamCompleted").Length == groups.Length && Events(failed, "StreamCompleted").All(row => Text(Map(row["payload"])["status"]) == "succeeded"),
+            "Candidate publication refusal did not follow all selected successful stream compilations");
         Require(injected && Events(failed, "Diagnostic").Any(row => Text(row["diagnosticCode"]) == "CORE_INPUT_CHANGED"),
             "New higher-priority candidate did not reach final application input refusal");
         Require(Events(failed, "StageStarted").All(row => !row.ContainsKey("stageId") || Text(row["stageId"]) != "publish"),
             "Changed resolver generation entered publication");
         RequireWritable(first); RequireWritable(second);
-        var retry = Build("resolver-candidate-next-generation", mod, new[] { "base" }, null, dataArguments);
-        Require(retry.Code == ExitCode.Success && Array(retry.Report["artifacts"]).Length == 4,
+        var retry = Build("resolver-candidate-next-generation" + suffix, mod, groups, null, dataArguments);
+        Require(retry.Code == ExitCode.Success && Array(retry.Report["artifacts"]).Length == 4 * groups.Length,
             "New generation did not compile the newly selected input after refusal");
         var candidates = Map(Map(Map(retry.Report["cache"])["physicalInputs"])["resolverCandidates"]);
         Require(Convert.ToInt64(candidates["observations"]) > 0 && Convert.ToInt64(candidates["verificationChecks"]) > 0 &&
             !Convert.ToBoolean(candidates["canAuthorizeReuse"]), "Application did not expose final candidate verification boundaries");
         RequireWritable(first); RequireWritable(second);
-        Tests.Add("actual-no-cache-application-higher-priority-resolver-candidate-added-after-stream-refuses-before-publication-and-new-generation-retries");
+        Tests.Add("actual-no-cache-application-higher-priority-resolver-candidate-added-after-stream-refuses-before-publication-and-new-generation-retries" + suffix);
     }
     static void Run()
     {
@@ -433,6 +437,7 @@ public static class CompilerApplicationBuild
         Tests.Add("empty-selected-optional-groups-explicit-SkippedNoInputs-without-stream-compilation");
         PhysicalInputCases();
         CandidatePublicationCase();
+        CandidatePublicationCase(true);
     }
     public static int Main(string[] args)
     {
