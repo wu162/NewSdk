@@ -106,9 +106,11 @@ public class FileHashItem : IXmlSerializable
 				{
 					_CurrentDate = File.GetLastWriteTime(_Path);
 					bool disabled;
-					if (AppContext.TryGetSwitch("NewSdk.Compiler.DisableSinglePassDigest", out disabled) && disabled)
+					if ((AppContext.TryGetSwitch("NewSdk.Compiler.DisableSinglePassDigest", out disabled) && disabled) ||
+						(_ContentHash != null && _LastDate == _CurrentDate))
 					{
-						// Compatibility fallback: the historical SHA-only dirty check.
+						// Preserve the cheaper SHA-only check for likely warm inputs.
+						// Equal-time content changes still force a full legacy rehash.
 						using (var algorithm = SHA256.Create())
 						using (var input = File.OpenRead(_Path))
 						{
@@ -210,8 +212,8 @@ public class FileHashItem : IXmlSerializable
 
 	private void UpdateHash()
 	{
-		// IsDirty already sealed both identities from the same observed bytes.
-		// Do not open a dirty/new file a second time just to obtain FastHash.
+		// New inputs and timestamp changes already have both identities. A
+		// same-time content change detected by the warm SHA-only check rehashes.
 		if (!_CurrentLegacyHashAvailable) ReadContentIdentity();
 		_Hash = _CurrentLegacyHash;
 		_ContentHash = _CurrentContentHash;

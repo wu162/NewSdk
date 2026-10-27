@@ -86,13 +86,17 @@ public static class CompilerInputDigests
                 Require(File.GetLastWriteTimeUtc(path) == timestamp && new FileInfo(path).Length == length, "Mutation fixture must preserve time and length");
                 item.Reset();
                 Require(item.IsDirty && item.Hash == Legacy(path), "Equal-time equal-size mutation must invalidate the observation");
-                Require(item.DigestReadCount == 3 && item.DigestBytesRead == 3L * length, "Changed bytes must still require only one read per observation");
+                Require(item.DigestReadCount == 4 && item.DigestBytesRead == 4L * length, "Equal-time mutation must retain the conservative warm check plus full rehash");
                 Roundtrip(item, out strong);
                 Require(strong == Strong(path), "Updated strong identity must be committed with the current legacy identity");
                 File.Delete(path); item.Reset();
-                Require(item.IsDirty && !item.Exists && item.Hash == 0 && item.DigestReadCount == 3, "Missing files must not open content or reuse the old legacy hash");
+                Require(item.IsDirty && !item.Exists && item.Hash == 0 && item.DigestReadCount == 4, "Missing files must not open content or reuse the old legacy hash");
                 File.WriteAllBytes(path, data); File.SetLastWriteTimeUtc(path, timestamp); item.Reset();
-                Require(item.IsDirty && item.Hash == Legacy(path) && item.DigestReadCount == 4, "Same-time recreation must establish a fresh nonzero identity");
+                Require(item.IsDirty && item.Hash == Legacy(path) && item.DigestReadCount == 5, "Same-time recreation must establish a fresh nonzero identity");
+                data[0] ^= 11; File.WriteAllBytes(path, data); File.SetLastWriteTimeUtc(path, timestamp.AddSeconds(2));
+                Require(File.GetLastWriteTimeUtc(path) != timestamp, "Changed-date fixture must change its timestamp");
+                item.Reset();
+                Require(item.IsDirty && item.Hash == Legacy(path) && item.DigestReadCount == 6, "Timestamp-changed content must compute both identities in one read");
             }
         }
         AppContext.SetSwitch("NewSdk.Compiler.DisableSinglePassDigest", true);

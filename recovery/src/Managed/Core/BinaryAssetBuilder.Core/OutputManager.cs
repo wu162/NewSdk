@@ -368,110 +368,68 @@ public class OutputManager
 		File.Move(linkPath + ext, linkPathExisting + ext);
 	}
 
-	public void LinkStream(AssetDeclarationDocument document)
-	{
-		string text = _OutputDirectory + ".temp";
-		string outputDirectory = _OutputDirectory;
-		uint num = document.OutputChecksum;
-		if (Settings.Current.BigEndian)
-		{
-			num = ((num & 0xFF) << 24) | ((num & 0xFF00) << 8) | ((num & 0xFF0000) >> 8) | ((num >> 24) & 0xFF);
-		}
-		MemoryStream memoryStream = new MemoryStream();
-		MemoryStream memoryStream2 = new MemoryStream();
-		bool flag = true;
-		using (FileStream fileStream = new FileStream(outputDirectory + ".bin", FileMode.OpenOrCreate, FileAccess.Read))
-		{
-			if (fileStream.Length >= 4)
-			{
-				BinaryReader binaryReader = new BinaryReader(fileStream);
-				flag = binaryReader.ReadUInt32() != num;
-			}
-		}
-		if (flag)
-		{
-			using (FileStream fileStream2 = new FileStream(text + ".bin", FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write, 65536))
-			{
-				_Tracer.Message("{0} Linking binary data", document.SourcePathFromRoot);
-				AssetHeader assetHeader = new AssetHeader();
-				fileStream2.SetLength(0L);
-				BinaryWriter binaryWriter = new BinaryWriter(fileStream2);
-				binaryWriter.Write(num);
-				foreach (InstanceDeclaration outputInstance in document.OutputInstances)
-				{
-					BinaryAsset binaryAsset = _Assets[outputInstance.Handle.FileBase];
-					if (AssetLocation.BasePatchStream != binaryAsset.GetLocation(AssetLocation.BasePatchStream, AssetLocationOption.None))
-					{
-						using FileStream fileStream3 = File.OpenRead(Path.Combine(binaryAsset.AssetOutputDirectory, binaryAsset.AssetFileName));
-						assetHeader.LoadFromStream(fileStream3, Settings.Current.BigEndian);
-						AppendAsset(fileStream3, fileStream2, assetHeader.InstanceDataSize);
-						AppendAsset(fileStream3, memoryStream2, assetHeader.RelocationDataSize);
-						AppendAsset(fileStream3, memoryStream, assetHeader.ImportsDataSize);
-					}
-				}
-				fileStream2.Flush();
-			}
-			MoveLinked(text, outputDirectory, ".bin");
-		}
-		else
-		{
-			_Tracer.Message("{0} Linked binary data up to date", document.SourcePathFromRoot);
-		}
-		flag = true;
-		using (FileStream fileStream4 = new FileStream(outputDirectory + ".imp", FileMode.OpenOrCreate, FileAccess.Read))
-		{
-			if (fileStream4.Length >= 4)
-			{
-				BinaryReader binaryReader2 = new BinaryReader(fileStream4);
-				flag = binaryReader2.ReadUInt32() != num;
-			}
-		}
-		if (flag)
-		{
-			using (FileStream fileStream5 = new FileStream(text + ".imp", FileMode.OpenOrCreate, FileAccess.Write))
-			{
-				_Tracer.Message("{0} Linking import data", document.SourcePathFromRoot);
-				fileStream5.SetLength(0L);
-				BinaryWriter binaryWriter2 = new BinaryWriter(fileStream5);
-				binaryWriter2.Write(num);
-				binaryWriter2.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
-				fileStream5.Flush();
-			}
-			MoveLinked(text, outputDirectory, ".imp");
-		}
-		else
-		{
-			_Tracer.Message("{0} Linked import data up to date", document.SourcePathFromRoot);
-		}
-		flag = true;
-		using (FileStream fileStream6 = new FileStream(outputDirectory + ".relo", FileMode.OpenOrCreate, FileAccess.Read))
-		{
-			if (fileStream6.Length >= 4)
-			{
-				BinaryReader binaryReader3 = new BinaryReader(fileStream6);
-				flag = binaryReader3.ReadUInt32() != num;
-			}
-		}
-		if (flag)
-		{
-			using (FileStream fileStream7 = new FileStream(text + ".relo", FileMode.OpenOrCreate, FileAccess.Write))
-			{
-				_Tracer.Message("{0} Linking relocation data", document.SourcePathFromRoot);
-				fileStream7.SetLength(0L);
-				BinaryWriter binaryWriter3 = new BinaryWriter(fileStream7);
-				binaryWriter3.Write(num);
-				binaryWriter3.Write(memoryStream2.GetBuffer(), 0, (int)memoryStream2.Length);
-				fileStream7.Flush();
-			}
-			MoveLinked(text, outputDirectory, ".relo");
-		}
-		else
-		{
-			_Tracer.Message("{0} Linked relocation data up to date", document.SourcePathFromRoot);
-		}
-		memoryStream2.Close();
-		memoryStream.Close();
-	}
+    private static bool LinkedFileIsCurrent(string path, uint checksum, long expectedLength)
+    {
+        if (!File.Exists(path)) return false;
+        using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+        {
+            if (stream.Length != expectedLength || stream.Length < 4) return false;
+            return new BinaryReader(stream).ReadUInt32() == checksum;
+        }
+    }
+
+    public void LinkStream(AssetDeclarationDocument document)
+    {
+        string temporary = _OutputDirectory + ".temp";
+        uint checksum = document.OutputChecksum;
+        if (Settings.Current.BigEndian)
+            checksum = ((checksum & 0xFF) << 24) | ((checksum & 0xFF00) << 8) | ((checksum & 0xFF0000) >> 8) | ((checksum >> 24) & 0xFF);
+        long instanceLength = 4, relocationLength = 4, importsLength = 4;
+        foreach (InstanceDeclaration instance in document.OutputInstances)
+        {
+            BinaryAsset asset = _Assets[instance.Handle.FileBase];
+            if (asset.GetLocation(AssetLocation.BasePatchStream, AssetLocationOption.None) == AssetLocation.BasePatchStream) continue;
+            instanceLength += asset.InstanceFileSize;
+            relocationLength += asset.RelocationFileSize;
+            importsLength += asset.ImportsFileSize;
+        }
+        // A checksum header alone cannot authorize a truncated side file.
+        // Validate the complete group before skipping linking. A damaged member
+        // rebuilds all three from the same ordered set of source assets.
+        if (LinkedFileIsCurrent(_OutputDirectory + ".bin", checksum, instanceLength) &&
+            LinkedFileIsCurrent(_OutputDirectory + ".imp", checksum, importsLength) &&
+            LinkedFileIsCurrent(_OutputDirectory + ".relo", checksum, relocationLength))
+        {
+            _Tracer.Message("{0} Linked binary, import and relocation data up to date", document.SourcePathFromRoot);
+            return;
+        }
+        using (var instances = new FileStream(temporary + ".bin", FileMode.Create, FileAccess.Write, FileShare.Write, LinkedBufferSize))
+        using (var imports = new FileStream(temporary + ".imp", FileMode.Create, FileAccess.Write))
+        using (var relocations = new FileStream(temporary + ".relo", FileMode.Create, FileAccess.Write))
+        {
+            _Tracer.Message("{0} Linking binary, import and relocation data", document.SourcePathFromRoot);
+            new BinaryWriter(instances).Write(checksum);
+            new BinaryWriter(imports).Write(checksum);
+            new BinaryWriter(relocations).Write(checksum);
+            var header = new AssetHeader();
+            foreach (InstanceDeclaration instance in document.OutputInstances)
+            {
+                BinaryAsset asset = _Assets[instance.Handle.FileBase];
+                if (asset.GetLocation(AssetLocation.BasePatchStream, AssetLocationOption.None) == AssetLocation.BasePatchStream) continue;
+                using (var source = File.OpenRead(Path.Combine(asset.AssetOutputDirectory, asset.AssetFileName)))
+                {
+                    header.LoadFromStream(source, Settings.Current.BigEndian);
+                    AppendAsset(source, instances, header.InstanceDataSize);
+                    AppendAsset(source, relocations, header.RelocationDataSize);
+                    AppendAsset(source, imports, header.ImportsDataSize);
+                }
+            }
+            instances.Flush(); imports.Flush(); relocations.Flush();
+        }
+        MoveLinked(temporary, _OutputDirectory, ".bin");
+        MoveLinked(temporary, _OutputDirectory, ".imp");
+        MoveLinked(temporary, _OutputDirectory, ".relo");
+    }
 
 	public void CleanOutput()
 	{

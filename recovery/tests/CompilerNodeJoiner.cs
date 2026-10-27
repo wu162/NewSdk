@@ -9,8 +9,9 @@ using System.Xml;
 using System.Xml.Schema;
 using BinaryAssetBuilder.Core;
 
-// The original SDK DLL is loaded alongside the production-object EXE; the
-// comparison does not use a copied/reimplemented baseline algorithm.
+// The original SDK DLL runs only in a disposable AppDomain. No original business
+// assembly enters the production validation host's domain; comparisons exchange
+// XML/error strings, counts and child positions, never original runtime objects.
 public static class CompilerNodeJoiner
 {
     const string Ns = "uri:ea.com:eala:asset";
@@ -18,11 +19,11 @@ public static class CompilerNodeJoiner
     static int checks, cases;
     static long originalAttributeReads, indexedAttributeReads, disabledAttributeReads;
     static readonly List<string> tests = new List<string>();
-    static MethodInfo original;
-    static XmlSchemaSet schemas;
+    static LegacyNodeJoinerDomain original;
+    internal static XmlSchemaSet schemas;
     static void Require(bool condition, string message) { checks++; if (!condition) throw new Exception(message); }
 
-    sealed class CountingDocument : XmlDocument
+    internal sealed class CountingDocument : XmlDocument
     {
         internal long AttributeReads;
         public override XmlElement CreateElement(string prefix, string localName, string namespaceUri)
@@ -37,7 +38,7 @@ public static class CompilerNodeJoiner
             : base(prefix, localName, namespaceUri, document) { owner = document; }
         public override XmlAttributeCollection Attributes { get { owner.AttributeReads++; return base.Attributes; } }
     }
-    static XmlSchemaSet Schema()
+    internal static XmlSchemaSet Schema()
     {
         const string text = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:a='uri:ea.com:eala:asset' targetNamespace='uri:ea.com:eala:asset' elementFormDefault='qualified'>" +
             "<xs:complexType name='ItemType'><xs:sequence><xs:element name='Value' type='xs:string' minOccurs='0' maxOccurs='unbounded'/></xs:sequence><xs:attribute name='id' type='xs:string'/><xs:attribute name='mark' type='xs:string'/><xs:anyAttribute processContents='skip'/></xs:complexType>" +
@@ -49,7 +50,7 @@ public static class CompilerNodeJoiner
         using (var reader = XmlReader.Create(new StringReader(text))) result.Add(Ns, reader);
         result.Compile(); return result;
     }
-    static XmlDocument Document(string root, string body, string rootAttributes = "")
+    internal static XmlDocument Document(string root, string body, string rootAttributes = "")
     {
         var document = new XmlDocument();
         document.LoadXml("<" + root + " xmlns='" + Ns + "' xmlns:p='" + Ns + "' xmlns:i='" + InstanceNs + "' " + rootAttributes + ">" + body + "</" + root + ">");
@@ -59,16 +60,14 @@ public static class CompilerNodeJoiner
         document.Validate(delegate(object sender, ValidationEventArgs args) { });
         return document;
     }
-    static string Outcome(bool legacy, XmlDocument baseDocument, XmlDocument overrideDocument, CountingDocument destination, bool disableIndex = false)
+    static string Outcome(XmlDocument baseDocument, XmlDocument overrideDocument, CountingDocument destination, bool disableIndex = false)
     {
         bool previousSwitch;
         AppContext.TryGetSwitch("NewSdk.Compiler.DisableNodeJoinerIndex", out previousSwitch);
-        if (!legacy) AppContext.SetSwitch("NewSdk.Compiler.DisableNodeJoinerIndex", disableIndex);
+        AppContext.SetSwitch("NewSdk.Compiler.DisableNodeJoinerIndex", disableIndex);
         try
         {
-            XmlNode result = legacy
-                ? (XmlNode)original.Invoke(null, new object[] { schemas, destination, baseDocument.DocumentElement, overrideDocument.DocumentElement })
-                : NodeJoiner.Override(schemas, destination, baseDocument.DocumentElement, overrideDocument.DocumentElement);
+            XmlNode result = NodeJoiner.Override(schemas, destination, baseDocument.DocumentElement, overrideDocument.DocumentElement);
             return "XML:" + result.OuterXml;
         }
         catch (Exception error)
@@ -78,18 +77,19 @@ public static class CompilerNodeJoiner
             PropertyInfo code = error.GetType().GetProperty("ErrorCode");
             return "ERROR:" + error.GetType().Name + ":" + (code == null ? "" : Convert.ToString(code.GetValue(error, null))) + ":" + error.Message;
         }
-        finally { if (!legacy) AppContext.SetSwitch("NewSdk.Compiler.DisableNodeJoinerIndex", previousSwitch); }
+        finally { AppContext.SetSwitch("NewSdk.Compiler.DisableNodeJoinerIndex", previousSwitch); }
     }
     static string Compare(string label, string root, string before, string after, bool failure, string overrideAttributes = "")
     {
-        var oldDestination = new CountingDocument(); var newDestination = new CountingDocument(); var disabledDestination = new CountingDocument();
-        string expected = Outcome(true, Document(root, before), Document(root, after, overrideAttributes), oldDestination);
-        string actual = Outcome(false, Document(root, before), Document(root, after, overrideAttributes), newDestination);
+        var newDestination = new CountingDocument(); var disabledDestination = new CountingDocument();
+        LegacyNodeJoinerResult baseline = original.Run(root, before, after, overrideAttributes);
+        string expected = baseline.Outcome;
+        string actual = Outcome(Document(root, before), Document(root, after, overrideAttributes), newDestination);
         Require(expected == actual, label + " original DLL differential failed\nexpected: " + expected + "\nactual: " + actual);
-        string disabled = Outcome(false, Document(root, before), Document(root, after, overrideAttributes), disabledDestination, true);
+        string disabled = Outcome(Document(root, before), Document(root, after, overrideAttributes), disabledDestination, true);
         Require(expected == disabled, label + " disabled-index original DLL differential failed\nexpected: " + expected + "\nactual: " + disabled);
         Require(expected.StartsWith(failure ? "ERROR:" : "XML:", StringComparison.Ordinal), label + " did not exercise its intended outcome: " + expected);
-        cases++; originalAttributeReads += oldDestination.AttributeReads; indexedAttributeReads += newDestination.AttributeReads; disabledAttributeReads += disabledDestination.AttributeReads;
+        cases++; originalAttributeReads += baseline.AttributeReads; indexedAttributeReads += newDestination.AttributeReads; disabledAttributeReads += disabledDestination.AttributeReads;
         return actual;
     }
     static string Items(int count)
@@ -128,21 +128,21 @@ public static class CompilerNodeJoiner
     }
     static void DuplicateIndexSemantics()
     {
-        MethodInfo oldSelect = original.DeclaringType.GetMethod("SelectSame", BindingFlags.Instance | BindingFlags.NonPublic);
         MethodInfo newSelect = typeof(NodeJoiner).GetMethod("SelectSame", BindingFlags.Instance | BindingFlags.NonPublic);
         var destination = new XmlDocument();
         destination.LoadXml("<Parent xmlns:p='urn:p' xmlns:q='urn:q'><A id='dup' mark='first'/><B id='dup' mark='second'/><A/><A id=''/><p:A id='p'/><q:A id='q'/><A id='last'/><A id='end'/></Parent>");
         XmlNode parent = destination.DocumentElement;
-        object oldJoiner = Activator.CreateInstance(original.DeclaringType, new object[] { schemas, destination });
         var newJoiner = new NodeJoiner(schemas, destination);
         object index = null;
         Action<string, bool, bool> select = delegate(string xml, bool byId, bool replaceAny)
         {
             var source = new XmlDocument(); source.LoadXml(xml);
-            object expected = oldSelect.Invoke(oldJoiner, new object[] { parent, source.DocumentElement, byId, replaceAny });
+            int expected = original.Select(parent.OuterXml, xml, byId, replaceAny);
             object[] arguments = { parent, source.DocumentElement, byId, replaceAny, index };
             object actual = newSelect.Invoke(newJoiner, arguments); index = arguments[4];
-            Require(Object.ReferenceEquals(expected, actual), "Private original selector differential: " + xml + " byId=" + byId + " replaceAny=" + replaceAny);
+            int position = -1, offset = 0;
+            foreach (XmlNode child in parent.ChildNodes) { if (Object.ReferenceEquals(child, actual)) { position = offset; break; } offset++; }
+            Require(expected == position, "Private original selector differential: " + xml + " byId=" + byId + " replaceAny=" + replaceAny);
         };
         select("<B id='dup'/>", true, false);
         Require(index != null, "Wide duplicate-parent fixture did not instantiate an index");
@@ -189,21 +189,28 @@ public static class CompilerNodeJoiner
     }
     public static int Main(string[] args)
     {
-        int code = 0; object result;
+        int code = 0; object result; AppDomain baselineDomain = null;
         try
         {
             if (args.Length != 5 || IntPtr.Size != 4) throw new Exception("Expected work result sourceCommit runId sdk (x86)");
             Directory.CreateDirectory(args[0]);
             string library = Path.Combine(args[4], "tools/BinaryAssetBuilder.Core.dll");
-            Assembly baseline = Assembly.LoadFrom(library);
-            Require(baseline != typeof(NodeJoiner).Assembly, "Original SDK assembly resolved to the production EXE");
-            original = baseline.GetType("BinaryAssetBuilder.Core.NodeJoiner", true).GetMethod("Override", BindingFlags.Public | BindingFlags.Static);
-            Require(original != null, "Original SDK NodeJoiner.Override missing");
+            baselineDomain = AppDomain.CreateDomain("NodeJoiner-original-" + Guid.NewGuid().ToString("N"), null, new AppDomainSetup {
+                ApplicationBase = Path.GetDirectoryName(typeof(CompilerNodeJoiner).Assembly.Location),
+                ConfigurationFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile
+            });
+            original = (LegacyNodeJoinerDomain)baselineDomain.CreateInstanceFromAndUnwrap(typeof(LegacyNodeJoinerDomain).Assembly.Location, typeof(LegacyNodeJoinerDomain).FullName);
+            string baselineAssembly = original.Initialize(library);
+            Require(baselineAssembly.StartsWith("BinaryAssetBuilder.Core,", StringComparison.Ordinal), "Isolated original SDK assembly identity mismatch");
             schemas = Schema(); Semantics(); DuplicateIndexSemantics(); WorkReduction();
+            AppDomain.Unload(baselineDomain); baselineDomain = null; original = null;
+            foreach (Assembly loaded in AppDomain.CurrentDomain.GetAssemblies())
+                Require(!loaded.GetName().Name.Equals("BinaryAssetBuilder.Core", StringComparison.Ordinal), "Original Core escaped the disposable baseline AppDomain");
+            tests.Add("original-Core-isolated-in-unloaded-AppDomain-production-host-ownership-preserved");
             string sha256;
             using (var sha = SHA256.Create()) sha256 = BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(library))).Replace("-", "").ToLowerInvariant();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks = checks, tests = tests.ToArray(), cases = cases,
-                originalDllSha256 = sha256, originalDllAssembly = baseline.FullName, originalDestinationAttributeReads = originalAttributeReads,
+                originalDllSha256 = sha256, originalDllAssembly = baselineAssembly, originalDestinationAttributeReads = originalAttributeReads,
                 indexedDestinationAttributeReads = indexedAttributeReads, disabledDestinationAttributeReads = disabledAttributeReads, scope = "Real original DLL NodeJoiner XML/rejection differential and matching work; no end-to-end performance claim" };
             Console.WriteLine("PASS NodeJoiner: " + cases + " original DLL differential cases; destination attribute reads original=" + originalAttributeReads + " indexed=" + indexedAttributeReads);
         }
@@ -213,7 +220,66 @@ public static class CompilerNodeJoiner
             result = new { succeeded = false, sourceCommit = args.Length > 2 ? args[2] : null, runId = args.Length > 3 ? args[3] : null,
                 checks = checks, tests = tests.ToArray(), cases = cases, error = error.ToString() };
         }
+        finally { if (baselineDomain != null) AppDomain.Unload(baselineDomain); }
         if (args.Length > 1) File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(result));
         return code;
+    }
+}
+
+// MarshalByRefObject is the only cross-domain service. Every public input and
+// output uses framework primitives or our serializable scalar result.
+[Serializable]
+public sealed class LegacyNodeJoinerResult
+{
+    public string Outcome;
+    public long AttributeReads;
+}
+
+public sealed class LegacyNodeJoinerDomain : MarshalByRefObject
+{
+    MethodInfo original;
+    public override object InitializeLifetimeService() { return null; }
+    public string Initialize(string library)
+    {
+        Assembly baseline = Assembly.LoadFrom(library);
+        if (!String.Equals(Path.GetFullPath(baseline.Location), Path.GetFullPath(library), StringComparison.OrdinalIgnoreCase))
+            throw new Exception("Isolated baseline resolved outside the pinned SDK library path");
+        original = baseline.GetType("BinaryAssetBuilder.Core.NodeJoiner", true).GetMethod("Override", BindingFlags.Public | BindingFlags.Static);
+        if (original == null) throw new Exception("Original SDK NodeJoiner.Override missing");
+        CompilerNodeJoiner.schemas = CompilerNodeJoiner.Schema();
+        return baseline.FullName;
+    }
+    public LegacyNodeJoinerResult Run(string root, string before, string after, string attributes)
+    {
+        var destination = new CompilerNodeJoiner.CountingDocument();
+        string outcome;
+        try
+        {
+            XmlNode result = (XmlNode)original.Invoke(null, new object[] {
+                CompilerNodeJoiner.schemas, destination,
+                CompilerNodeJoiner.Document(root, before).DocumentElement,
+                CompilerNodeJoiner.Document(root, after, attributes).DocumentElement
+            });
+            outcome = "XML:" + result.OuterXml;
+        }
+        catch (Exception error)
+        {
+            var wrapped = error as TargetInvocationException;
+            if (wrapped != null) error = wrapped.InnerException;
+            PropertyInfo code = error.GetType().GetProperty("ErrorCode");
+            outcome = "ERROR:" + error.GetType().Name + ":" + (code == null ? "" : Convert.ToString(code.GetValue(error, null))) + ":" + error.Message;
+        }
+        return new LegacyNodeJoinerResult { Outcome = outcome, AttributeReads = destination.AttributeReads };
+    }
+    public int Select(string parentXml, string sourceXml, bool byId, bool replaceAny)
+    {
+        var destination = new XmlDocument(); destination.LoadXml(parentXml);
+        var source = new XmlDocument(); source.LoadXml(sourceXml);
+        object joiner = Activator.CreateInstance(original.DeclaringType, new object[] { CompilerNodeJoiner.schemas, destination });
+        MethodInfo method = original.DeclaringType.GetMethod("SelectSame", BindingFlags.Instance | BindingFlags.NonPublic);
+        var selected = (XmlNode)method.Invoke(joiner, new object[] { destination.DocumentElement, source.DocumentElement, byId, replaceAny });
+        int position = 0;
+        foreach (XmlNode child in destination.DocumentElement.ChildNodes) { if (Object.ReferenceEquals(child, selected)) return position; position++; }
+        return -1;
     }
 }

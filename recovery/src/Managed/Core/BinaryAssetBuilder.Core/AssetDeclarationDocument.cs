@@ -238,6 +238,11 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public IDictionary<string, string> UsedDefines;
 
+        // Values visible before local overrides are installed in this pass.
+        // Only previous external reads are needed when validating a restored document.
+        public IDictionary<string, string> CachedDefineInputs;
+
+
 		public bool VerificationErrors;
 
 		public FileHashItem HashItem;
@@ -852,6 +857,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void EvaluateDefinitions()
 	{
+        _Current.CachedDefineInputs = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (var used in UsedDefines)
+            _Current.CachedDefineInputs[used.Key] = AllDefines.GetEvaluatedValue(used.Key);
 		IExpressionEvaluator evaluator = ExpressionEvaluatorWrapper.GetEvaluator(this);
 		foreach (Definition selfDefine in SelfDefines)
 		{
@@ -873,7 +881,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 	{
 		foreach (KeyValuePair<string, string> usedDefine in UsedDefines)
 		{
-			if (usedDefine.Value != AllDefines.GetEvaluatedValue(usedDefine.Key))
+            string currentValue;
+            if (_Current.CachedDefineInputs == null || !_Current.CachedDefineInputs.TryGetValue(usedDefine.Key, out currentValue))
+                currentValue = AllDefines.GetEvaluatedValue(usedDefine.Key);
+            if (usedDefine.Value != currentValue)
 			{
 				return false;
 			}
@@ -1473,19 +1484,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 			return;
 		}
 		_Current.OutputInstanceSet.Add(instance.Handle, instance);
-		if (instance.ValidatedReferencedInstances != null)
-		{
-			foreach (InstanceHandle validatedReferencedInstance in instance.ValidatedReferencedInstances)
-			{
-				FindLocation location = FindLocation.None;
-				InstanceDeclaration instanceDeclaration = ResolveReference(instance, validatedReferencedInstance, out location);
-				if (instanceDeclaration != null && location != FindLocation.External)
-				{
-					AddOutputInstance(instanceDeclaration);
-				}
-			}
-			return;
-		}
+        // Instances may be shared by sequential streams. Their declaration
+        // references are reusable, but resolved handles and dependency closure
+        // belong to this stream's symbol view. OutputInstanceSet handles cycles
+        // and ensures each instance is rebound once in this traversal.
 		instance.ValidatedReferencedInstances = new List2<InstanceHandle>();
 		instance.AllDependentInstances = new InstanceHandleSet();
 		foreach (InstanceHandle referencedInstance in instance.ReferencedInstances)
@@ -1670,6 +1672,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 	public void PrepareOutputInstances(OutputManager outputManager)
 	{
 		_Current.OutputInstanceSet = new SortedDictionary<InstanceHandle, InstanceDeclaration>();
+        _Current.OutputInstances.Clear();
 		foreach (InstanceDeclaration instance in Instances)
 		{
 			AddOutputInstance(instance);

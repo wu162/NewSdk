@@ -483,7 +483,12 @@ internal static class CompilerCoreLifecycle
             repeatedInvalidation = unmodifiedParsed > 0,
             reproduced = restoredValue != coldValue || !SameOutputs(restored, Outputs(settings.OutputDirectory)) || unmodifiedParsed > 0,
             cliFailureEstablished = false });
-        Tests.Add(name + ":real-Core-persisted-cache-unchanged-and-external-change-cold-warm-observation");
+        Require(SameOutputs(expectedInitial, unmodified) && unmodifiedValue == (increment ? "11" : "10"),
+            "Unmodified persisted override must preserve its original value and four outputs");
+        Require(unmodifiedParsed == 0, "Unmodified persisted override reparsed a document unnecessarily");
+        Require(restoredValue == coldValue && SameOutputs(restored, Outputs(settings.OutputDirectory)),
+            "External Define change must match the fresh cold value and four outputs");
+        Tests.Add(name + ":real-Core-persisted-cache-unchanged-no-reparse-external-change-cold-warm-equality");
     }
     static string Experience(string id, string prerequisite, bool upgrade)
     {
@@ -529,7 +534,9 @@ internal static class CompilerCoreLifecycle
         OptimizationRisks.Add(new { id = name, boundary = "public-Core-two-streams-one-processor", sharedInstanceRetained = Object.ReferenceEquals(before, after),
             warmContainsUpgrade, warmAssets = warmDocument.OutputInstances.Count, coldAssets = coldDocument.OutputInstances.Count,
             equivalent = SameOutputs(expected, warm), reproduced = !SameOutputs(expected, warm), cliFailureEstablished = false });
-        Tests.Add("risk-stream-binding:real-Core-two-symbol-views-weak-missing-to-Tentative-cold-warm-observation");
+        Require(warmContainsUpgrade && SameOutputs(expected, warm),
+            "Each stream must rebind the declaration's weak references in its own symbol view");
+        Tests.Add("risk-stream-binding:real-Core-two-symbol-views-weak-missing-to-Tentative-cold-warm-equality");
     }
     static void LinkedSideFileProbe(BuiltinCompilers plugins)
     {
@@ -557,10 +564,11 @@ internal static class CompilerCoreLifecycle
                 OptimizationRisks.Add(new { id = name, extension, damage, boundary = "public-Core-existing-linked-stream-fresh-processor",
                     equivalent, reproduced = !equivalent, originalPayloadBytes = original[side].Length - 4,
                     restoredPayloadBytes = new FileInfo(side).Length - 4, cliFailureEstablished = false });
+                Require(equivalent, "Complete linked stream must recover " + extension + " " + damage + " with a valid retained .bin");
             }
         }
         foreach (var pair in original) File.WriteAllBytes(pair.Key, pair.Value);
-        Tests.Add("risk-linked-side-files:real-Core-valid-bin-independent-imp-relo-deletion-header-and-payload-truncation-observation");
+        Tests.Add("risk-linked-side-files:real-Core-valid-bin-independent-imp-relo-deletion-header-and-payload-truncation-four-output-equality");
     }
     public static int Main(string[] args)
     {
@@ -584,7 +592,7 @@ internal static class CompilerCoreLifecycle
                 CrossStreamBindingProbe(plugins); LinkedSideFileProbe(plugins);
                 Console.WriteLine("W01_PROBES " + new JavaScriptSerializer().Serialize(OptimizationRisks));
             }
-            result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), optimizationRisks=OptimizationRisks.ToArray(), optimizationRisksAccepted=false, longPathsValidated=false, scope="Real Core lifecycle only; production CLI backend, other global scopes, SDK/G3 and persistent cache not accepted" };
+            result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), optimizationRisks=OptimizationRisks.ToArray(), optimizationRisksAccepted=true, longPathsValidated=false, scope="Real Core lifecycle and targeted persisted-session regression probes only; production CLI backend, SDK/G3 and general persistent-cache acceptance are separate" };
             Console.WriteLine("PASS CoreLifecycle: " + Tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception e)

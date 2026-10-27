@@ -222,6 +222,9 @@ public static class CompilerBackendLifecycle
         Require(stages.Any(item=>(string)item["stage"]=="link" && Convert.ToInt64(item["calls"])>0),"Successful production stream omitted link work");
         Require(stages.All(item=>Convert.ToInt64(item["calls"])>=Convert.ToInt64(item["failedCalls"]) && Convert.ToDouble(item["elapsedMs"])>=0),
             "Serialized production work measurements are inconsistent");
+        var descriptors=(Dictionary<string,object>)latest["schemaReferences"];
+        Require(Convert.ToInt64(descriptors["builds"])>0 && Convert.ToInt64(descriptors["hits"])>=0,
+            "Production report must include work from the current schema descriptor generation");
         var result=Four(artifacts,staging);
         IndependentArmorOracle(artifacts,request.ModRoot.EndsWith("mod-b",StringComparison.Ordinal),name=="Mod"?"DATA:armor.xml":"DATA:extra.xml");
         DefaultMetadata(backend); ambient.Unchanged(slot);

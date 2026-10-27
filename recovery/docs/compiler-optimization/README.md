@@ -31,6 +31,6 @@
 
 `coreWork` 按任务保存各阶段的调用次数、失败次数和单调时钟区间：definitions、expressions、inheritance、validation、assetProcessing、referenceBinding、manifest、link。assetProcessing 包含资产准备/缓存等工作，不等于纯插件编码；这些区间不代表全构建成本，未计入解析、schema 准备、I/O 排队及发布成本的独立区间。
 
-FileHashItem 的 DigestReadCount / DigestBytesRead 是每项成功完成的逻辑摘要读取计数，不是操作系统物理磁盘 I/O。当前只合并单项同次观察的双摘要，不等于完成跨流共享 PhysicalInputSnapshot。暖内容验证同时计算 FastHash 的 CPU 成本须在微基准中与原 SHA-only 暖路径一起报告。
+FileHashItem 的 DigestReadCount / DigestBytesRead 是每项成功完成的逻辑摘要读取计数，不是操作系统物理磁盘 I/O。新文件、已知时间戳变化使用单遍双摘要；可能未变的输入保留 SHA-only 检查，同时间戳内容变化走保守重算。首轮试验中全量双摘要的暖路径有额外 CPU 成本，因此没有保留该策略。当前没有跨流共享 PhysicalInputSnapshot，不以 mtime/size 代替内容复核。
 
 `coreWork[].inputDigests` 汇总本流 SessionCache 已登记 FileHashItem 的成功摘要 reads / bytes，items 为去除对象重复后的项数；包含会话初始化内容复核，同一路径不同配置可以重复计数。不含 schema 专用摘要、插件绕开 FileHashItem 的读取和外层输入快照/发布校验。
