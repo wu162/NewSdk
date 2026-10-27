@@ -1,0 +1,42 @@
+{
+  "runAttempt": "1",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha"
+  ],
+  "runId": "40489972525",
+  "status": "failed",
+  "sourceCommit": "d44cb75ad58cc88b1453f9c3024f69a00c5d1a18",
+  "groups": [
+    {
+      "group": "dxt5-fast-alpha",
+      "passed": false,
+      "evidenceOnly": false,
+      "error": "Debug-entry failed"
+    },
+    {
+      "group": "dxt5-alpha",
+      "passed": true,
+      "evidenceOnly": false
+    }
+  ],
+  "selected": [
+    "dxt5-fast-alpha",
+    "dxt5-alpha"
+  ]
+}
