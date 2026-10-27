@@ -1,0 +1,36 @@
+{
+  "scope": "Original native decompilation evidence only; not recovery acceptance",
+  "status": "probe-only",
+  "sdkValidated": false,
+  "evidenceOnly": true,
+  "toolSha256": "795a02076af16257bd6f3f4736c4fc152ce9ff1f95df35cd47e2adc086e037a6",
+  "sourceCommit": "c4bb4db72440bf23827656a643022ea67c7bbb1d",
+  "probeOnly": true,
+  "runId": "40494632567",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "ghidraVersion": "11.4.2",
+  "requestedGroup": "ColourRemaining",
+  "exports": [
+    {
+      "sha256": "c96ece6c7bc8cb1326c87a5224d928c7164eea65a9d0c91984a0a4dd87b3d04d",
+      "name": "CodeRGBBlockExhaustive.c",
+      "bytes": 8018
+    },
+    {
+      "sha256": "e6dd3ea9abbd12dd83e53b86a8c86117aaa124902e1fa817de08c4636eed8686",
+      "name": "CodeRGBBlockNoMode.c",
+      "bytes": 5028
+    },
+    {
+      "sha256": "d20ff226977f9d8bc619ba5c229fa6ebf78d63b92f27b2ceff4e6552fe3fb862",
+      "name": "FastEncodeDXT1_3.c",
+      "bytes": 8688
+    },
+    {
+      "sha256": "d39062d85ce90aa1ca585d17d1481b66f037138f38db7b2900cc5e3faabd25b2",
+      "name": "FastEncodeDXT1_4.c",
+      "bytes": 8315
+    }
+  ],
+  "runAttempt": "1"
+}

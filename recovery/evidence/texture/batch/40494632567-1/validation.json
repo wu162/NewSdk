@@ -1,0 +1,37 @@
+{
+  "groups": [
+    {
+      "passed": true,
+      "group": "dxt-colour-functions",
+      "evidenceOnly": true
+    }
+  ],
+  "status": "passed",
+  "selected": [
+    "dxt-colour-functions"
+  ],
+  "sourceCommit": "c4bb4db72440bf23827656a643022ea67c7bbb1d",
+  "runId": "40494632567",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha"
+  ],
+  "runAttempt": "1"
+}
