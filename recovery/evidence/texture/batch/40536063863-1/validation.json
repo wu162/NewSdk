@@ -1,0 +1,49 @@
+{
+  "runAttempt": "1",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "sdk-PcDxtNoMip",
+    "dxt-samples",
+    "sdk-PcDxtMips",
+    "dxt-volume-dds",
+    "sdk-PcDxtVolumes",
+    "sdk-PcNpotRgba8"
+  ],
+  "groups": [
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "npot-rgba8"
+    }
+  ],
+  "status": "passed",
+  "selected": [
+    "npot-rgba8"
+  ],
+  "sourceCommit": "d012da8ae55c094220d9c506b5263b277a49042b",
+  "runId": "40536063863"
+}
