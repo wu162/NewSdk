@@ -263,6 +263,9 @@ public static class CompilerBinaryMaterialization
                 string cacheRoot = Settings.Current.BuildCacheDirectory;
                 string[] assets = Directory.GetFiles(cacheRoot, "*.asset", SearchOption.AllDirectories);
                 Require(assets.Length == 1, "Real native DataBlob did not populate exactly one legacy cache asset");
+                var oldWrite = new DateTime(2001, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                File.SetLastWriteTimeUtc(assets[0], oldWrite);
+                Require(File.GetLastWriteTimeUtc(assets[0]) == oldWrite, "Cache timestamp preflight did not establish an old write time");
                 using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, mode + "-public-snapshot")))
                 {
                     snapshot.ExcludeRoot(Path.Combine(work, "public-generated"));
@@ -274,6 +277,7 @@ public static class CompilerBinaryMaterialization
                             var processor = PublicProcessor(plugins, schema);
                             processor.ProcessDocument(input, true, false, out success); Require(success, "Public Core warm stream failed");
                             Require(processor.BuildCacheHits >= 1 && processor.BuildCacheMisses == 0, "Public Core warm stream did not consume the external build cache");
+                            Require(File.GetLastWriteTimeUtc(assets[0]) > oldWrite, "Successful cache pin blocked the original TouchCache keepalive timestamp update");
                             var outputs = Four(settings.OutputDirectory);
                             Require(expected.All(pair => outputs[pair.Key] == pair.Value), "Public Core warm/cold capture/fallback four outputs differ");
                         }

@@ -39,7 +39,9 @@ internal sealed class CompilerSymbolLookup
         int count = 0;
         foreach (InstanceSet set in sets)
         {
-            if (set == null || result.indexes.ContainsKey(set)) continue;
+            if (set == null) continue;
+            if (set.GetType() != typeof(InstanceSet)) { result.Reject("custom-symbol-table"); return result; }
+            if (result.indexes.ContainsKey(set)) continue;
             SortedDictionary<InstanceHandle, InstanceDeclaration> table;
             if (!set.TryGetSymbolTable(out table)) { result.Reject("custom-symbol-table"); return result; }
             count += table == null ? 0 : table.Count;
@@ -81,7 +83,7 @@ internal sealed class CompilerSymbolLookup
         if (active && Tracer.CallbackVersion != callbackVersion)
             { work.CallbackFallbacks++; Reject("callback-version-changed"); }
         Dictionary<ulong, InstanceDeclaration> index;
-        if (active && ((object)handle == null || handle.GetType() != typeof(InstanceHandle) || !indexes.TryGetValue(set, out index)))
+        if (active && (set == null || set.GetType() != typeof(InstanceSet) || (object)handle == null || handle.GetType() != typeof(InstanceHandle) || !indexes.TryGetValue(set, out index)))
             Reject("changed-query-graph");
         if (!active) { work.LegacyQueries++; return set.TryGetValue(handle, out value); }
         index = indexes[set];

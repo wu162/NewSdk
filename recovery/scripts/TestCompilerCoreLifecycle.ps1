@@ -175,6 +175,7 @@ try {
     if($documentOriginal.succeeded -ne $true -or $documentOriginal.mode -cne 'original' -or
        $documentOriginal.sourceCommit -cne $state.sourceCommit -or [string]$documentOriginal.runId -cne [string]$state.runId -or
        $documentOriginal.sameDeclaration -ne $true -or $documentOriginal.sourceXmlChanged -ne $true -or
+       @($documentOriginal.expressionTraversal).Count -ne 40 -or
        $documentOriginal.assemblySha256Base64 -cne [Convert]::ToBase64String([Convert]::FromHexString((Hash $documentOriginalCore)))){
         throw 'Original document oracle identity or historical shared-state outcome mismatch'
     }
@@ -183,8 +184,9 @@ try {
         sourceSha256=(Hash $documentOracleSource);compilerSha256=(Hash $csc);executableSha256=(Hash $documentOracleExe);configSha256=(Hash "$documentOracleExe.config")
         processId=$documentOracleProcess;transcriptSha256=(Hash $documentOriginalJson);coreSha256=(Hash $documentOriginalCore)
         sameDeclaration=$documentOriginal.sameDeclaration;sourceXmlChanged=$documentOriginal.sourceXmlChanged
+        metadata=$documentOriginal.metadata;expressionTraversalRows=@($documentOriginal.expressionTraversal).Count
         runtimeInputs=$state.expressionOriginal.runtimeInputs
-        scope='Original SDK public Core document cache lifecycle in a separate original-only process; direct reproducer does not establish a production CLI fault'
+        scope='Original SDK public Core document cache metadata lifecycle and expression-DOM traversal in a separate original-only process; direct reproducer does not establish a production CLI fault'
     }
     foreach($mode in @('Debug','Release')) {
         $modeOut=(New-Item -ItemType Directory (Join-Path $out $mode)).FullName

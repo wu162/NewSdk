@@ -79,18 +79,69 @@ public static class CompilerSymbolLookup
         evidence.Add(new { id = "full-key-location-and-stored-key", metrics = Metrics(currentWork) });
         tests.Add("full-type-instance-key-exact-legacy-location-precedence-skip-missing-and-dictionary-key-vs-live-value-handle-differential");
     }
+    static void FullKeyCollisions()
+    {
+        var document = Bare(); Populate(document);
+        var items = new List<InstanceDeclaration>();
+        foreach (string ids in new[] { "2;0;3;0;ArmorTemplate;CollisionA", "3;0;2;0;ArmorTemplate;CollisionB" })
+        {
+            var declaration = Declaration(document, "placeholder");
+            using (var reader = XmlReader.Create(new StringReader("<ih d='" + ids + "'/>"))) { reader.MoveToContent(); declaration.Handle.ReadXml(reader); }
+            document.SelfInstances.Add(declaration); items.Add(declaration);
+        }
+        object work = Scope(document);
+        foreach (var item in items)
+        {
+            FindLocation location;
+            Require(Object.ReferenceEquals(item, document.FindInstance(new InstanceHandle(item.Handle), FindLocation.None, out location)) && location == FindLocation.Self,
+                "Full symbol key collapsed an XOR collision");
+        }
+        Require(Number(Metrics(work), "indexQueries") == 2, "Full key collision fixture did not exercise indexed queries");
+        tests.Add("complete-64bit-type-instance-key-keeps-two-equal-XOR-identities-distinct");
+    }
+    static void Measurement()
+    {
+        var document = Bare(); Populate(document, 512);
+        var queries = Enumerable.Range(0, 512).Reverse().Select(index => new InstanceHandle("ArmorTemplate", "S" + index)).ToArray();
+        var samples = new List<object>(); var indexed = new List<long>(); var legacy = new List<long>();
+        for (int round = -1; round < 7; round++)
+        foreach (bool disabled in (round % 2 == 0 ? new[] { false, true } : new[] { true, false }))
+        {
+            AppContext.SetSwitch(Disable, disabled);
+            long start = System.Diagnostics.Stopwatch.GetTimestamp(); object work = Scope(document);
+            int found = 0;
+            for (int repeat = 0; repeat < 16; repeat++)
+            foreach (InstanceHandle query in queries)
+            {
+                FindLocation location;
+                if (document.FindInstance(query, FindLocation.None, out location) != null && location == FindLocation.Self) found++;
+            }
+            long ticks = System.Diagnostics.Stopwatch.GetTimestamp() - start;
+            Require(found == 8192, "Timed public symbol lookup lost a result");
+            if (round < 0) continue;
+            (disabled ? legacy : indexed).Add(ticks);
+            samples.Add(new { round, disabled, elapsedMs = ticks * 1000.0 / System.Diagnostics.Stopwatch.Frequency, metrics = Metrics(work) });
+        }
+        AppContext.SetSwitch(Disable, false); indexed.Sort(); legacy.Sort();
+        evidence.Add(new { id = "bounded-public-symbol-component-measurement", declarations = 2048, queriesPerSample = 8192, rounds = 7,
+            indexedMedianMs = indexed[3] * 1000.0 / System.Diagnostics.Stopwatch.Frequency,
+            legacyMedianMs = legacy[3] * 1000.0 / System.Diagnostics.Stopwatch.Frequency, samples = samples.ToArray(),
+            scope = "Includes scope admission/index building and public FindInstance calls; excludes fixture setup/reflection result inspection; no CLI speed or speed assertion" });
+        tests.Add("interleaved-seven-round-public-FindInstance-timing-including-local-index-preparation-and-no-speed-assertion");
+    }
     sealed class DerivedHandle : InstanceHandle { }
-    sealed class DerivedSet : InstanceSet { }
+    sealed class DerivedSet : InstanceSet { internal static int HashCalls; public override int GetHashCode() { HashCalls++; return 17; } }
     static void Fallbacks()
     {
         foreach (string scenario in new[] { "disabled", "unsafe-owner", "small", "derived-set", "derived-query", "mutated-key-order", "external-boundary" })
         {
             var document = Bare(); Populate(document, scenario == "small" ? 1 : 64);
-            if (scenario == "derived-set") Set(document, "AllInstances", new DerivedSet());
+            if (scenario == "derived-set") { DerivedSet.HashCalls = 0; Set(document, "AllInstances", new DerivedSet()); }
             if (scenario == "mutated-key-order")
                 document.SelfInstances.OrderBy(item => item.Handle.InstanceId).ElementAt(32).Handle.TypeName = "ZZChangedType";
             AppContext.SetSwitch(Disable, scenario == "disabled");
             object work = Scope(document, scenario != "unsafe-owner");
+            if (scenario == "derived-set") Require(DerivedSet.HashCalls == 0, "Admission invoked custom set hashing before exact-type guard");
             object scope = typeof(AssetDeclarationDocument).GetField("_SymbolLookup", Hidden).GetValue(document);
             if (scenario == "external-boundary") Helper.GetMethod("ExternalBoundary", Hidden).Invoke(scope, new object[0]);
             InstanceHandle query = new InstanceHandle("ArmorTemplate", "S1");
@@ -121,7 +172,7 @@ public static class CompilerSymbolLookup
         object result; int code = 0; bool previous; AppContext.TryGetSwitch(Disable, out previous);
         try
         {
-            Directory.CreateDirectory(args[0]); Differential(); Fallbacks(); CallbackInvalidation();
+            Directory.CreateDirectory(args[0]); Differential(); FullKeyCollisions(); Fallbacks(); CallbackInvalidation(); Measurement();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), evidence = evidence.ToArray(),
                 scope = "Actual production symbol scope and public FindInstance lookup; full Core outputs and independent original BAB remain separate" };
             Console.WriteLine("PASS SymbolLookup: " + checks + " checks");

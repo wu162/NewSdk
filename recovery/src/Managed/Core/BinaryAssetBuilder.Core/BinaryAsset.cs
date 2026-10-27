@@ -500,7 +500,7 @@ public class BinaryAsset
                 // Do not change the original deferred length-error contract.
                 // Invalid copies can still be deleted/repaired below; only a
                 // valid source is eligible to outlive this materialization.
-                trustedSource = _AssetHeader != null && _AssetHeader.IsValidFileLength(fileStream.Length);
+                trustedSource = capture != null && _AssetHeader != null && _AssetHeader.IsValidFileLength(fileStream.Length);
                 if (capture != null && trustedSource)
                 {
                     // The original read handle is still open (no write/delete

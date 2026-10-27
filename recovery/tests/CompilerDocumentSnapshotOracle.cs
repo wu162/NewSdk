@@ -153,7 +153,7 @@ public static class CompilerDocumentSnapshotOracle
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], mode, sameDeclaration, sourceXmlChanged,
                 savedHash, receiverHash = receiver.SelfInstances[0].ProcessingHash, metadata, expressionTraversal,
                 assembly = typeof(AssetDeclarationDocument).Assembly.FullName, assemblySha256Base64 = assemblySha,
-                scope = "Direct public Core cache-copy/restore/complete/reserialize lifecycle; no production CLI failure is claimed" };
+                scope = "Direct public Core cache-copy/restore/complete/reserialize metadata lifecycle and 40 expression-DOM traversal cases; no production CLI failure is claimed" };
             Console.WriteLine("PASS DocumentSnapshotOracle: " + mode);
         }
         catch (Exception error)

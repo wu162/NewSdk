@@ -2144,6 +2144,7 @@ public class AssetDeclarationDocument : IXmlSerializable
     {
 		_Current.OutputInstanceSet = new SortedDictionary<InstanceHandle, InstanceDeclaration>();
         _Current.OutputInstances.Clear();
+        DocumentProcessor symbolOwner = _Current.DocumentProcessor; string symbolSource = _Current.SourcePath;
         _SymbolLookupWork = new CompilerSymbolLookup.Work();
         _SymbolLookup = CompilerSymbolLookup.Create(GetType() == typeof(AssetDeclarationDocument) && _Current.UseStreamBindingResults,
             new[] { Instances, SelfInstances, AllInstances, TentativeInstances, ReferenceInstances }, _SymbolLookupWork);
@@ -2155,7 +2156,7 @@ public class AssetDeclarationDocument : IXmlSerializable
         {
             // Mutable declarations/tables cannot escape through diagnostics.
             _SymbolLookup = null;
-            if (_Current.DocumentProcessor != null) _Current.DocumentProcessor.RecordSymbolLookupWork(this, _Current.SourcePath);
+            if (symbolOwner != null) symbolOwner.RecordSymbolLookupWork(this, symbolSource);
         }
 		foreach (InstanceDeclaration value in _Current.OutputInstanceSet.Values)
 		{
