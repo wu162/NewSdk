@@ -1,320 +1,78 @@
-# 阶段 A 验证记录
+# 编译器优化：验收与产物身份
 
-所有编译、测试和微基准只在 GitHub Actions 执行。本地只编辑、静态检查和读取 Actions 证据。产品来源和文档提交分开记录，不以文档分支头冒充二进制来源。
+所有编译、测试和微基准只在 GitHub Actions 执行；本地只编辑、静态检查和读取已有证据。当前实现合同见 [CONTRACTS](CONTRACTS.md)，续接见 [HANDOFF](HANDOFF.md)。前五轮原始验证、失败与旧产物哈希完整保存在 [历史归档](history/VALIDATION_ROUNDS_1_5.md)，不把旧成功冒充本轮结果。
 
-| 生产/测试源码 | Actions | 状态与范围 |
+## 当前完整接受点
+
+| 身份 | 值 |
+| --- | --- |
+| 生产 / 首次测试 / 打包源码 | `64bfcc80cec7860e69f0ffbc5cb0e04c69baec87` |
+| 完整运行 | [40524897974](https://github.com/wu162/NewSdk/actions/runs/40524897974)，attempt 1，整体 success |
+| 生产范围 | Debug/Release 各 30 组 Core fixtures；原 DLL；backend/Upheaval/98 资产链三组独立原 BAB；协议、Texture、实际 CLI、全部缓存/输入根、完整 mymod/BIG、独立五文件 ZIP |
+| 完整 archive | [`12744579204`](https://github.com/wu162/NewSdk/actions/runs/40524897974/artifacts/12744579204)，111102909字节，官方SHA256 `75e6e675bfcc42c47e90a11cc28a7c23d2b0119bf085f1fa3980576a7384e270` |
+| 后续严格复用 / 原 ZIP 导出 | 工具/测试源码 `2bd197f64b5ef1bd9476ac4198e1c3934ed13897` / [40528794946](https://github.com/wu162/NewSdk/actions/runs/40528794946) **进行中**；binarySource仍64bf，sourceRun=40524897974。Ubuntu控制器合同已过，完整复用运行尚不标记接受。 |
+
+生产源码、测试源码、archive、运行文件与 ZIP 身份分别核对。生产 inputs/SDK/schema/recipe/工具链变化必须重建；只允许明确测试/工具/Markdown 的后续变化复用，依赖闭包与祖先关系仍须通过控制器。原 ZIP 只复制，不重打包。
+
+原ZIP小包正由上述严格复用运行导出；完成并核验后更新本节的Debug/Release链接、字节数和SHA。
+
+完整archive仅核对官方元数据，本地未下载大包；严格复用job负责实际archive digest/size、依赖闭包和原ZIP身份验证。最终targeted小证据已本地核验，见下。
+
+## 第六轮实现与回归
+
+- 外部 Cache 物化在原 copy 成功 chunks 上增量 SHA 与规范 1 MiB legacy FastHash，首次 `.asset` 不再额外读取；完整成功才 pin 当前路径并比较真实已消费 handle 身份。失败回滚新增所有权，late fallback 立即关闭未转交 spool；Local 可变输出、CDATA 原 File.Copy、缓存修复和真实 CommitFromCache 取消保留。
+- 有效 pin 下原 FileInfo keepalive 失败是实际生产交互，新增 attribute-only、identity 复核的时间戳更新；保留旧 access→write→creation 顺序、只读/未捕获 fallback 与内容写/删除拒绝。
+- exact DOM 表达式遍历保留原节点/错误/Define 轨迹；原进程 40 组 DOM corpus 覆盖混合 text/CDATA/comment/PI/entity、custom getter 和 sibling 增删移动，真实 Core parser/traversal 开关组合四输出相同。
+- XML hash 的缓冲与 ASCII 尝试均已撤回，当前生产是原 writer；947 行原 DLL 确定性语料保留，512 UTF-16 分块、重复 Final/后续 Write 与确定性 ANSI 边界通过。原进程和恢复版各自产生 raw UTF-16 输入，避免 JSON/UTF8 传输修复 unpaired surrogate；多 pair 造成旧 native 未初始化读取的范围不列为稳定 oracle。
+- 符号索引只替代同一次输出绑定的 exact 表查找，真实 98 资产强/弱引用链在两文化、symbol×membership 四组合保持四输出与独立原 BAB 相同。公共 shadow 日志逐 JSON 比较 task/query/parentQuery/provider/order/选择，不省略逻辑查询及影子事件，仅替换候选表查找实现。
+- NodeJoiner schema 前序集只存单次插入所需标量，支持标准小组、派生/预算回退和 per-owner 实际计量；公开原 DLL XML/helper 差分保留。
+- 私有 saved metadata 共享只以 positive ownership 放行，Current 恢复/recapture/动态 legacy/未知 BinaryFormatter/派生及别名合同通过。其公开 CacheFromDocument 当前无生产调用，组件结果不当作 CLI 收益。
+
+最终 targeted artifact `12743682844` 已下载核对官方 digest、字节数、source/run 与 controller 30/30 结果：542094 字节，SHA256 `a23077b3c842a93289cca003bee44409b0f563faf71248991c53b1cdcbe61139`。原 hash oracle 与两配置 currentLegacy 各947行通过且 `optimizationWithdrawn=true`；表达式40原DOM用例、两个文化的symbol×membership真实链、Upheaval四组合均通过。BinaryMaterialization两配置12组、TransferBuffers两配置3组的 result/runtime-log 哈希与 controller 一致。
+
+## 实际计量
+
+以下均来自最终源码 `64bfcc80` /运行40524897974，同一配置内交错7轮，单位ms，优化/回退中位数：
+
+| 公共组件范围 | Debug | Release |
 | --- | --- | --- |
-| `18ae05cace7099bbd65fa6632dcfd7dd383bdded` | [40459453132](https://github.com/wu162/NewSdk/actions/runs/40459453132) | 整体 failure；完整生产、摘要、既有 Core、Texture、CLI、输入根、各缓存和 BIG 独立组通过。新 NodeJoiner 差分本身通过，但原 DLL 进入宿主触发归属检查，导致完整 mymod/最终 ZIP 未执行。失败不改写。 |
-| `75601909b0e874bc24786f1d6dd3d8c64eb1aee6` | [40461583024](https://github.com/wu162/NewSdk/actions/runs/40461583024) | 整体 success：完整生产、两配置各13个 Core fixtures、原 BAB、协议、Texture、CLI、全部缓存、输入根、完整 mymod 四文件/实际 BIG 原工具差分和最终五文件 ZIP 独立解压运行验收通过。 |
-| `ed364467a114a841c4ae3b2ba87629c4c4e851f3` | [40465129025](https://github.com/wu162/NewSdk/actions/runs/40465129025) | 整体 failure；新增 application 计量断言误要求零输入可选组存在 backendCompile 阶段。CLI/协议、全部缓存、输入根、Texture及BIG独立范围成功；mymod与最终ZIP因门槛跳过。失败不改写。 |
-| `4da2282f99cae1a35e5c4cd1dfe64023b27c410c` | [40465759765](https://github.com/wu162/NewSdk/actions/runs/40465759765) | 整体 failure；W04 metadata专用fixture及其余独立范围通过，仅同一零输入测试断言失败，mymod与ZIP因门槛跳过。失败历史不改写。 |
-| `4a128696c2de04b5151c4dc9f1ac3c35661e7407` | [40466010643](https://github.com/wu162/NewSdk/actions/runs/40466010643) | 整体 success：零任务断言改为实际调用数；生产双配置、各14个Core fixtures、原BAB、协议、Texture、实际CLI、全部缓存、输入根、完整mymod/BIG及独立五文件ZIP全部通过。 |
+| 表达式遍历769节点、1281属性，100次；含实际遍历，排除fixture构图/比较 | 10.3039 / 13.5721 | 9.9147 / 13.5792 |
+| NodeJoiner完整merge，256旧子节点+64插入；排除parse/Validate/XML比较 | 4.8839 / 32.4956 | 4.8350 / 31.3033 |
+| Symbol 2048声明、8192次public查询；含scope资格检查、建索引与调用 | 1.7384 / 2.1074 | 1.6288 / 1.9668 |
+| Metadata 32×4记录、20次saved传递；不计XML/Current/身份枚举，无生产调用 | 0.0057 / 0.3814 | 0.0052 / 0.3770 |
 
-首轮证据 artifact：`12714925627`，SHA256 `9672e7e862791bac1ecc472c4e0efdadf1055f3d029405b83cfb798109fae593`。风险观察来自其中 Debug/Release `CompilerCoreLifecycle/result.json`，两配置一致。
+真实公开Core外部cache三流各配置实际记录：首次tee一次/1048692字节，额外asset captureRead=0，后两次copyReadHits=2，metadata touches=3/失败0；独立public Commit的asset+CDATA touches=2且内容写/删除仍拒绝。取消attempt=1/rollback=1，未进入20次重试。Local无输出排除条件下attempts=0，删除坏文件/修复/新流重试与四输出合同保留；late fallback在scope仍活跃时已立即关闭私有spool。
 
-第二轮提前上传探针 artifact：`12714883356`，SHA256 `47ada239c76a49c849c84a1f91e4b71525e09dabbba710ed3defe5e931f65e38`。收据 succeeded=true；两配置 W01 严格回归全部 equivalent、未变化 override 解析0；NodeJoiner 原 DLL / 默认索引 / 禁用索引差分与归属门槛通过；schema、摘要及生产报告集成通过。
 
-完整成功证据 artifact：`12715561263`（`refactor-core-lifecycle-40461583024-1`），SHA256 `c7e29041e529b068219e4d720e41192becbc61054e8d39f32a51bd98eb5a1dbc`。`artifacts/final-release/40461583024-1/` 含 Debug/Release ZIP；两份 manifest 的 binarySourceCommit 与 packagingSourceCommit 均为上表成功源码。后续文档提交不改变该二进制来源。
+计时是同 runner/进程内交错样本，无速度断言、P95 或显著性承诺；不包含范围外的 XML 解析/检查时会逐项说明。DOM OuterXml 长度是内容规模，不是精确 writer 输入或字节量。所有 read/tee/hit/capture 计数按 CONTRACTS 理解，不称物理 I/O、完整内存峰值或完整 CLI 提速。
 
-| ZIP | SHA256 |
-| --- | --- |
-| NewModCompiler-Win32-Debug.zip | `7a3c970475cb2f4ff3c195c8e61189d44b2446aee89f0b6dc0ce536a9bd0c0e8` |
-| NewModCompiler-Win32-Release.zip | `e494ac0f42f6fc05c963e67790fa7609c9642f5d753d2283a688f70356c4f6f2` |
+首次接受候选 `30d2ae96` 的早期独立证据仍保留：targeted artifact `12739912354`，472492 字节，SHA256 `6c0b167fc8f0b4fa9c154c16301c679b07b255492d1bceea2aad9159b563e908`。其中宽 schema 256 子节点/64 插入的 7 轮公共 NodeJoiner 中位数 Debug 4.9739/31.8176 ms、Release 4.8192/30.9398 ms（优化/旧算法），只包括 merge；metadata 32×4 记录/20 次公共传递为 0.0061/0.3843、0.0052/0.3691 ms，保留 records 128/2688，不外推生产调用或峰值。
 
-## 确认的问题与有意修复
+`6ea8ff16` 的早期 targeted artifact `12740316547`：499463 字节，SHA256 `3e64c1b241c20f224d8efc1db0cc75b1d7b27d578f5f81f16d9863069e218ee7`，双配置各 29 组与收据匹配。表达式公共 769 节点/1281 属性×100 次、7 轮中位 Debug 7.477/10.2352 ms、Release 7.0201/9.8991 ms。该次 Cache 首遍仍额外读取 1048692 字节，不冒充后来同流结果。
 
-这些是在公共 Core 边界确认的结果；不将其扩大为已确认的 CLI 故障。外层 CLI 使用独立流工作区与整输入缓存身份，单独验收。
+## 本轮运行与保留失败
 
-| 探针 | 首轮真实结果 | 新修复及严格门槛 |
+| 源码 | Actions | 原终态 / 范围 |
 | --- | --- | --- |
-| 外部 A=10，父级 `A=$A`，外部改20 | 暖恢复仍为10，冷构建为20，四文件不一致 | 按本地定义安装前的导入值验证 UsedDefines；冷暖值和四文件一致。 |
-| 父级 `A=$A+1`，输入未变 | 暖输出正确，但重复解析1份文档 | 同上；未变暖路径解析0，外部改20时结果21。 |
-| 两流共享弱引用，第二流新增 Tentative Upgrade | 暖流仅1资产，冷流2资产 | 每流从声明引用重建绑定和闭包；第二流包含 Upgrade，与冷流四文件一致。 |
-| 保留有效 .bin，分别删除/截断 .imp/.relo | 六种损坏均恢复为空payload，原payload各8字节 | 按当前有序资产集合验证三文件 checksum 与预期长度，任一损坏重建整组；六种情况均与完整冷构建相同。 |
+| `7664aa36` | [40514462818](https://github.com/wu162/NewSdk/actions/runs/40514462818) | failure；廉价预检错误地给 App 依赖探针只提供 Foundation，未进入长 Native 链接。 |
+| `30d2ae96` | [40514912497](https://github.com/wu162/NewSdk/actions/runs/40514912497) | success；双配置 28 fixtures、完整 SDK/缓存/BIG/ZIP；未覆盖后续生产组。 |
+| `6ea8ff16` | [40516481094](https://github.com/wu162/NewSdk/actions/runs/40516481094) | success；双配置 29 fixtures、原 DLL/BAB、全部矩阵与 ZIP；Cache 首遍仍多读一次。 |
+| `d4c52eb5` | [40519394846](https://github.com/wu162/NewSdk/actions/runs/40519394846) | failure；前置编译捕获 owner probe 平台 enum 命名空间错误。 |
+| `13ca8bd5` | [40519455441](https://github.com/wu162/NewSdk/actions/runs/40519455441) | failure；同一新增 probe 又缺 Settings/PluginDescriptor 命名空间。原失败 archive `12741721538`，SHA `554621afc9204e742b63685f5a6d340d881c2de8d9290a8c4f6d74437d80bcd1`。 |
+| `9154da61` | [40520099176](https://github.com/wu162/NewSdk/actions/runs/40520099176) | failure；owner probe 未初始化 Settings.Current，另有有效 cache pin 下 TouchCache 失败。 |
+| `4682184b` | [40520247547](https://github.com/wu162/NewSdk/actions/runs/40520247547) | failure；两配置 29/30 通过，仅实际 TouchCache 断言失败。hash 原 DLL 919 行通过，但 CPU 计量回归。 |
+| `6ac8bc41` | [40521031829](https://github.com/wu162/NewSdk/actions/runs/40521031829) | failure；两配置仍仅 TouchCache 失败，其余同流/短块/身份/取消/late spool 回滚合同通过。原 targeted `12741008520`，539873B，SHA `43f136f8f21d60ed83e3f45c082a798e71a76e5b3de7d31b854f897b75b4abb5`。 |
+| `abb72795` | [40523178582](https://github.com/wu162/NewSdk/actions/runs/40523178582) | success；双配置各30及完整矩阵/ZIP，Cache 同流与 metadata touch 通过。ASCII hash 的功能差分通过但性能收益不稳，随后撤回。targeted `12742099696`，543920B，SHA `601118f54e8e714914270439345da1f5ef41cc64d4d365ce38a783b5688ec143`。 |
+| `64bfcc80cec7860e69f0ffbc5cb0e04c69baec87` | [40524897974](https://github.com/wu162/NewSdk/actions/runs/40524897974) | success；生产 HashingWriter 恢复原实现，947 原 DLL corpus 和最终完整矩阵/ZIP 通过。 |
 
-链接长度/头检查不等于强 payload 校验：长度和 checksum 头均保持时的任意 payload 篡改仍须后续完整 LinkPlan/CAS 凭据。绑定修复针对串行 Core，不代表已完成 W06 不可变结果或并行安全。
+HashingWriter 初版没有 CPU 收益：`4682184b /40520247547` 中 Release 的 mixed DOM OuterXml 2516 字符×512 为 6.5425/5.7944 ms，148895 字符×32 为 19.5179/18.7273 ms，小 274 字符为 1.3922/1.3758 ms（新/旧）。919 行原语义通过不能替代性能收益；随后 `abb72795 /40523178582` 的 ASCII 专门路径仍在 Debug 小/中/大、Release 小/中及 mixed 多组回归，仅 Release 大 ASCII 约 2.5% 小幅改善；最终恢复原 HashingWriter，未把推测的分配减少当作 CPU 收益。
 
-## 优化证据与边界
+失败 archive 与独立成功范围按各自 source/run 保存，未取消或改写原终态。基础 `30d2ae96 /40514912497` 和 `6ea8ff16 /40516481094` 均完整 success，但不覆盖后来新增生产对象。
 
-- NodeJoiner 最终80个原 SDK DLL XML/错误差分及卸载 AppDomain 后的宿主 ownership 门槛通过；该 fixture 累计 destination Attributes 访问从549,919降到13,952，禁用索引恢复549,919。此为匹配工作量，不是构建耗时。
-- 首轮对4,194,335字节输入交错5次测量，OS页缓存状态 unknown。全量双摘要暖路径中位数：Debug 6.065ms 对 SHA-only 4.849ms；Release 5.754ms 对4.692ms。因额外 CPU 成本，最终策略保留可能未变输入的 SHA-only 检查。
-- 首轮冷摘要模拟遗漏历史第二遍中的 SHA256，其耗时不作为最终比较数据。后续模拟已补齐，与新文件、普通变更、暖输入和同时间戳内容变化的正确性探针一起重验。
-- schema 描述以当前成功加载代、声明对象和实际类型为边界；有 fallback、上下文隔离、重载失败和同时间同大小内容变化探针。尚无跨流共享 SchemaSnapshot。
-- 暂无完整编译器前后 wall-time 对照，不报告端到端提速百分比。首批计量当时未覆盖解析、schema 准备和发布的独立区间；第二轮扩展见下，完整边界见 README。
+## 效率与续接
 
-第二轮修正后摘要微基准，同一 runner/进程内交错5次，输入4,194,335字节，OS页缓存 unknown。单位 ms，数值为中位数 [最小, 最大]；新文件指新的 FileHashItem 观察，不代表冷磁盘。
+按用户约110分钟目标推进，使用2个子代理；10个完整候选中4个success、6个failure，另有工具合同与严格复用运行。完成四处实际生产快路径和W06私有saved共享；没有完整CLI前后计量，不给端到端提速百分比。
 
-| 配置 | 历史新文件双遍 | 新策略新文件单遍 | 历史暖 SHA-only | 新策略暖 SHA-only |
-| --- | --- | --- | --- | --- |
-| Debug | 12.765 [12.639,15.268] | 7.113 [7.034,7.173] | 5.602 [5.557,5.703] | 5.549 [5.521,5.589] |
-| Release | 11.953 [11.879,12.287] | 6.619 [6.581,7.043] | 5.399 [5.337,6.708] | 5.535 [5.428,5.694] |
+效率评为中等：前置预检挡住了3次长Native链接，但新增owner探针的命名空间与Settings.Current未一次核齐，出现4次可避免准备错误。真实cache元数据交互和late spool预算缺陷按原断言修复；两次hash尝试测得不稳定CPU收益后撤回，没有拿推测的分配减少抵消回归。没有可靠逐项工时记录，不编造实现/等待比例。下一轮应一次核齐fixture依赖/全局初始化/规范路径，再批量前置编译，继续让调查和工具服务完整生产功能。
 
-逻辑摘要读取：新文件/已知时间变化从2遍减到1遍；暖输入保持1遍；同时间内容变化保留2遍安全重算。暖耗时两配置有小幅双向波动，不将5个样本解释为统计显著性、P95或全项目性能结论。
-
-## 下一轮可用的真实成本入口
-
-成功运行的 `evidence/refactor/sdk-mymod/40461583024-1/validation.json` 保存完整报告。完整 mymod 两配置均为1个 Core 流、11份 XML 解析、47次资产编译，逻辑摘要13次/86,747字节；同代 schema 描述854次构建、6,860次命中。该样本不足以证明跨流复用收益，后续应结合已有多流 CLI business fixture。
-
-| 当前一次运行 | 报告总 wall ms | assetProcessing ms | validation ms | inheritance ms |
-| --- | --- | --- | --- | --- |
-| Debug | 845 | 202.127 | 63.706 | 15.346 |
-| Release | 713 | 162.036 | 56.252 | 13.694 |
-
-这只说明当前运行的成本，不与旧分支或其他 CI 机器相除求提速。这是首轮八阶段的历史读数，当时尚未覆盖 schema 准备、原始 XML 解析、外层初始化与发布，不把差额全部归因给 schema。第二轮已扩展这些区间；当前下一步以短交接为准。
-
-
-## 第二轮：W02 成本区间与 W04 构建内元数据
-
-完整成功源码 `4a128696c2de04b5151c4dc9f1ac3c35661e7407` / 40466010643。提前 targeted artifact `12716528944`，SHA256 `e7bec169a810740e985b2e9cc164435891f4f795d21d70fe76f18ee056d1001f`；下载后复核归档 SHA 与收据 source/run 一致。Debug/Release 各14 fixtures 全部通过：Core lifecycle 各15组、解析/schema失败计数和不可变快照、ApplicationBuild零任务与失败取消重试、原有缓存边界与原DLL差分均保留。完整验收随后由同run成功完成；本小包只代表其中targeted范围。
-
-第一批 targeted 失败原因仅为新增 application 测试在空可选组调用 Single 查找不存在的 backendCompile；已有零输入不编译合同正确。修复要求阶段至多1条，调用数之和等于真实 StreamStarted 数（含0），没有放宽生产拒绝或字节断言。初始失败 artifact `12716646191` 的 SHA256 为 `866203ff6b1c5e67adedf554ebfbbd178ee74f9fcbe543f740f35c46a3340ab0`。4da 的新增 metadata 专用 fixture 已独立成功，后续由4a完整重验。
-
-W02 当前新增 rawParse、schema 读/Compile/元数据/内容复核及 outerStages；顶层 applicationWork 快照明确停在 beforeInitialReport。报告/终态日志关闭、Complete及后续回滚仍不纳入本快照；嵌套区间不能相加。schema成功逻辑读取与digest读取分开记录，不等同物理磁盘 I/O。
-
-W04 仅共享构建内自有继承/依赖快照，存储与恢复双向深拷贝。专用 fixture 双配置各91项检查/3组：真实SDK完整表与顺序cold/warm/fallback相等；私有Framework和可变集合隔离；同大小同时间戳include变更、失败不发布/修复命中、countDependencies/文化/root/hashable配置/Clear全部通过。每次仍完整读取815文件、1,515,884字节并Compile，故未实现schema读取或Framework编译复用。
-
-以下为最终候选同一runner/进程内交错3轮的schemaMetadata区间，单位ms，中位数 [最小, 最大]；此区间包含helper绑定、key/查找及冷构建保存或命中恢复，warm表示构建内metadata命中，不表示物理磁盘冷暖。OS页缓存unknown。
-
-| 配置 | cold（新缓存） | warm（恢复） | fallback（禁用共享） |
-| --- | --- | --- | --- |
-| Debug | 5.540 [3.862,13.208] | 0.988 [0.984,0.993] | 12.458 [3.098,22.917] |
-| Release | 4.849 [3.945,13.819] | 0.957 [0.930,0.997] | 3.018 [2.852,14.395] |
-
-完整schema准备中位数cold/warm/fallback分别为Debug 191.345/187.655/185.008ms、Release 154.057/146.906/153.545ms。波动明显，样本少，不能据此报告完整构建提速或P95；确定性成果是命中不再遍历元数据表。冷路径保存及key计算有成本，单流不受益；可用DisableSharedSchemaMetadata回退。
-
-
-### 三流真实 CLI 基线（共享前，独立成功范围）
-
-W02 `ed364467` / 40465129025 的失败终态不作为完整验收；其中独立 CLI 与原 BAB 严格差分成功，`business-work-metrics.json` 两配置 succeeded=true，sourceCommit=binarySourceCommit=ed364467。最终 artifact `12716599360`，下载归档 SHA256 `f78a9b1514ee4f1254db09dbd34d543f28134ce698da5e7e2c234d3c6a55e238` 与 GitHub 一致。
-
-同一CLI进程的base/APT/maps三流：每配置schemaRead3、schemaCompile3、rawParse3；每流815文件/1,515,884字节，合计2445次逻辑文件读取/4,547,652字节。各独立单组也保留同样计量及严格四输出差分。
-
-| 配置 | report/controller wall ms | schemaRead合计ms | schemaCompile合计ms | schemaMetadata合计ms | outer schemaPreparation合计ms |
-| --- | --- | --- | --- | --- | --- |
-| Debug | 1095 / 1234 | 528.623 | 103.189 | 28.846 | 668.179 |
-| Release | 1088 / 1198 | 537.153 | 113.240 | 28.392 | 685.823 |
-
-schemaMetadata首流约21ms（含首次/JIT），后两流各约4ms。区间嵌套不能相加；controller含进程审计开销，report停在输出最终关闭前；OS页缓存unknown。此为一次基线，不与其他run的时间相除求提速。主导的schema读取/Compile在本轮W04后仍保留，后续应继续处理完整输入封存合同，而不是仅按mtime/size共享摘要。
-
-
-### 最终三流与完整发行验收
-
-`4a128696` / 40466010643 的 Debug/Release `business-work-metrics.json` 均 succeeded=true，sourceCommit=binarySourceCommit=本轮成功源码。三流均schemaRead3/Compile3/rawParse3、逻辑读2445次/4,547,652字节；metadata为base build1/hit0、APT build0/hit1、maps build0/hit1，合计build1/hit2。三个fresh单组各build1/hit0；原BAB和四输出严格差分均保留并通过。确定性成果是少两次元数据表遍历，未减少schema读/Compile。
-
-完整 artifact `12716723779`（103,927,379字节），下载归档 SHA256 `6ddce03ae8f8313e8d9c5f73e04c70bf33e871a353241079b6a1d9bd89abec1f` 与GitHub一致。完整mymod、实际BIG及release收据均succeeded=true，source/run均为本轮成功身份；两个manifest的binarySourceCommit与packagingSourceCommit同为4a128696。后续文档头不改变来源。
-
-| ZIP | SHA256 |
-| --- | --- |
-| NewModCompiler-Win32-Debug.zip | `8780c5a1d69d1e29103f298f40afc60b0de17682f853d4d8d708c496463e9751` |
-| NewModCompiler-Win32-Release.zip | `939a7c096cb98a1d8a9a55ec788c2d5704e7d44dbabff1bfa661b2965c44399b` |
-
-两ZIP各精确五个运行文件，归档哈希与manifest一致；Actions独立解压后doctor、小MOD与source-runtime原始输出、真实BIG/Additional/LoD/MakeBig、CDATA及回滚/取消验收通过。完整mymod另有同run收据，不把小MOD ZIP验收扩大为完整游戏/G3或中文Texture新验收。
-
-
-## 第三轮：正内容封存、resolver影子记录与基准匹配索引
-
-执行从北京时间15:56起，按用户最新要求推进接近90分钟，2个子代理。全部编译、测试仅在Actions，本地仅编辑、静态检查和读取既有证据。
-
-| 构建/测试源码 | Actions | 结果 |
-| --- | --- | --- |
-| `21cd74f98b6dd01d3d41d02e730d34de44eac4b2` | [40472165263](https://github.com/wu162/NewSdk/actions/runs/40472165263) | failure；CLI收据新加重复PowerShell key，预检拒绝，未进入长Native构建；普通修复保留原终态。 |
-| `0df7c92f4fb54d238b3dae588787f56bdb9cc230` | [40472198342](https://github.com/wu162/NewSdk/actions/runs/40472198342) | failure；旧Backend逐流reads>0假设、同backend失败修复被旧pin阻挡、ApplicationBuild漏System.Xml引用，以及真实CLI/BIG取消被ReadingSchema包装。无result的编译失败也按失败处理。各缓存/payload等独立成功不替代完整验收。 |
-| `b88240bc389f945191695118631e6abdef4d7d3e` | [40472999771](https://github.com/wu162/NewSdk/actions/runs/40472999771) | failure；新增W05专用用例双配置204检查/6组独立成功，仍受上述旧失败影响。 |
-| `68f38abb1ff649857ff786aa8a6bcf657553b8da` | [40476134103](https://github.com/wu162/NewSdk/actions/runs/40476134103) | 整体success；生产双配置、各17个Core fixtures、原BAB、协议、Texture、实际CLI/CTRL_BREAK、全部缓存、输入根、完整mymod/BIG和独立五文件ZIP全部通过。 |
-
-取消修复保留OperationCanceledException和原token，schema及XInclude不再把它转成ReadingSchema/resource错误或选择xi:fallback；真实CLI与BIG的CTRL_BREAK均重验exit6。失败Compile结束整个封存generation，原same-backend输入修复/重试合同恢复；新owner的snapshotId明确变代，重试强比较Initialize配置SHA。Backend计量要求零逐流摘要读必须由实际sealed hits解释、同代单调且跨代重置、旧快照不变，未简单删掉读工作断言。
-
-最新targeted artifact `12720638360`，SHA256 `02ccaf49d791ccac27329571b21866df6bd130bc987fb486d26b5117e7463cca`。完整validation逐项核对17/17、结果文件与构建日志，双配置均通过；PhysicalInputs100检查/5组，DependencyObservations204/6组，BaseManifestIndex38例/135检查/4组，ApplicationBuild4155检查/9组（含真实native APT DataBlob与XInclude发布边界），BackendLifecycle8010/6组及InputRoots80/6组均通过。
-
-### 实际三流的正内容工作量
-
-Debug/Release的business收据均succeeded=true，binarySourceCommit=sourceCommit=68f38abb。每配置实际capture822次/1,529,741字节，sealed hits1633次；发布前强复核822次/1,529,741字节，bypass0、cleanupFailures0。beforeInitialReport快照仍持822文件pin及47目录路径pin；实际Run返回后的释放由应用成功/取消/失败/重试用例验证。
-
-schema逻辑消费仍为2445次/4,547,652字节并逐流Compile，后续读取由封存字节满足；capture/verify是原文件逻辑I/O，不等同物理磁盘读，不能跨CI求提速。新快照单遍强/legacy摘要保持0、1及1MiB±边界原算法差分；同时间同长度的新generation变化、有限内存/磁盘/文件预算、不支持路径回退及取消已验证。positiveInputsOnly不表示全部依赖闭包，opaque Texture、precompiled/reference manifest及未接入查询仍保守。
-
-W05真实business每配置记录48次resolve、candidateChecks0、dropped0。这些FileReference是直接相对文件名，按旧resolver本就不做候选Exists；新观察器不额外探测。多根/postfix/wildcard/缺失与候选新增false→true等负查询由专用fixture验证，影子记录canAuthorizeReuse=false，不授权跳过或缓存命中。
-
-### 基准manifest子组的原DLL三方对照
-
-原SDK Core DLL SHA256 `b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47`。原DLL在可卸载AppDomain中，38例默认索引/禁用索引/原SDK结果、顺序、错误及异常部分状态一致；卸载后宿主ownership门槛通过。含重复Handle/base、patched首项保留、空/非法候选/别名列表、真实trace修改集合或Handle及异常等边界。
-
-512项倒序组两配置相同：默认512次索引查找、5121次秩操作，旧candidate/removal两类线性扫描各131,328次均降为0。List2内部数据搬移仍保留；任何实际trace回调后当前remove与后续lookup全部legacy，默认/tl3的放行范围保守。该fixture验证base初始化helper，不扩大为完整patch布局、CLI新patch功能或端到端提速。
-
-### 完整发行身份
-
-完整artifact `12720508892`，104,702,620字节，下载归档SHA256 `7b5e0c78444ac6937f9adfd1328f93bdcb60a53ec45be19dca40bb14070186d9` 与GitHub一致。完整mymod、BIG及release收据均success且source/run一致，两个manifest的binarySourceCommit/packagingSourceCommit均为68f38abb。
-
-| ZIP | SHA256 |
-| --- | --- |
-| NewModCompiler-Win32-Debug.zip | `4deb40b17e63193f1840641998bb6a500567d35cbbb1c884dc974878255f840b` |
-| NewModCompiler-Win32-Release.zip | `4a579c09d991fe3ccbc6936ce0768b5b8ad4b080968aabd043865d07277d0a62` |
-
-两份ZIP均精确五运行文件，下载后哈希与manifest相同。独立解压后的doctor、小MOD原始输出、BIG/Additional/LoD/MakeBig、CDATA及事务回滚/取消验收通过；完整mymod另有同run严格收据，不宣称新增游戏内/G3或中文Texture验收。
-
-### 测试补充与严格复用：发现硬链接路径缺口
-
-补测源码`4a67f452b41d182e4c9c10a9d8c2930b1bcc8ea9` / [40478217177](https://github.com/wu162/NewSdk/actions/runs/40478217177)仅改测试/controller与严格复用工具，生产源码/SDK/recipes未变。新补同卷hardlink/大小写alias身份共享、同字节不同inode不得合并，以及派生Equals主动改list/抛异常的旧固定扫描count与partial-state。二进制来自上述完整success的68f38abb。首个短运行40478217177复用门槛通过，但两新增fixture编译失败（未确定赋值/局部变量重名），其他15项通过；原失败保留，普通修复为55f1a519。
-
-复用拒绝非祖先、src/SDK/recipe/其他test改动，核对固定run/attempt/repository/branch/workflow、archive SHA/size、安全ZIP、双配置生产与validation EXE/runtime/Texture绑定及仅入口对象不同的生产清单。原receipts不改写，reuse.json和validation分开记录binary/test/sourceRun身份。未来生产改动不能直接沿用本固定归档。
-
-
-修正补测源码 `55f1a519c8a140f5c2988c138f15bc8854d68905` / [40479104375](https://github.com/wu162/NewSdk/actions/runs/40479104375) 整体failure：双配置各16/17，所有fixture构建已成功，每项结果文件/来源逐一核对。BaseManifestIndex新增派生Equals改list/抛错与null-final显式断言通过，双配置40例/147检查/5组；实际保持原Remove固定32次检查及异常先final.Add后移除的部分状态。
-
-唯一新真实失败是hardlink alias unlink：同文件ID的capture/hash共享正确、两个名字写入均被阻断，但第二名称可被File.Delete删除。原实现identity命中后释放别名handle；同inode的第一handle不阻止另一硬链接目录项unlink。父目录pin不阻子名称替换，末端Verify不足以保护此前native原路径消费窗口。不能删除/放宽该断言，也不能把68完整成功外推成硬链接闭包已通过。证据artifact `12722940233`，SHA256 `a2cb2bd385bf1d5f25ada550d65094d1a99e9aa1adbb069580647a4be8ea4e5b`；初次编译失败补测artifact `12722045816`，SHA256 `b84ea2f03293facec30ad7d3312ee5630a9869423cd317d7e39efdd8c727dbbc`。
-
-最新生产修复 `c65761fed6eed5ad71512e1cea2271eb49a4163f` 保留每个新alias路径的只读/禁delete句柄，仅共享immutable内容及双摘要；Dispose逐一关闭全部alias handles，仍受路径预算约束。activeFilePins保持unique内容owner口径，新增activeAliasPins/activeReadHandles区分实际资源数。该修复已独立静态复核，不等于运行验收。
-
-生产输入已改变，停止沿用68二进制复用，已触发[完整重建40479845571](https://github.com/wu162/NewSdk/actions/runs/40479845571)。本轮接近90分钟交接时仍在运行，未标通过；下一轮首先跟进此run到终态，核对hardlink unlink/其它17个fixture及全部CLI/缓存/mymod/BIG/ZIP，再更新准确二进制来源。原68发行包带已知hardlink alias边界，不把其成功当本修复的验收。
-
-## 第四轮：manifest、消费轨迹、每流绑定与表达式准备
-
-北京时间17:39开始；用户最新要求每轮最多120分钟、尽量跑满持续推进，通常2个子代理、最多3个。所有编译、测试和微基准均在Actions，本地仅编辑/静态检查及读取已生成证据。
-
-先核实上一轮热修：生产/测试/打包 `c65761fed6eed5ad71512e1cea2271eb49a4163f` / [40479845571](https://github.com/wu162/NewSdk/actions/runs/40479845571) 已整体success，包含17个Core fixtures、全部CLI/缓存/输入根、完整mymod/BIG和独立五文件ZIP。下载核验targeted artifact `12722102881`，SHA256 `dc4f5d4fc3a76ffc7aafe569ca136e881fe1eca1ca38cfecd28956225d56eae8`，source/run匹配；双配置PhysicalInputs各111检查，hardlink alias unlink阻断且独立inode不误合并。完整artifact `12723670985` 的GitHub digest为 `d004d4ae92f91e934ec7a1f0056a18e62f5af1ad85d30dfd56be8a0537592af3`；本轮未下载该大包，不冒称独立校验ZIP字节。
-
-| 生产/测试来源 | Actions | 状态与保留失败 |
-| --- | --- | --- |
-| `88e114bc0c1623dd5be707a3b583189ee78b9473` | [40483925423](https://github.com/wu162/NewSdk/actions/runs/40483925423) | failure：Foundation审计拒绝新增Utility.Asset.Update回调签名；修复精确列出Asset.Update和Manifest.Load两种新增重载，旧全部public/family签名、flags/custom modifiers门槛保留。 |
-| `cff094f1067c38465b9c00f777297953e45ee623` | [40484533010](https://github.com/wu162/NewSdk/actions/runs/40484533010) | failure：双配置18个Core fixtures仅ManifestInputs的测试配置默认BuildCache=true/未给缓存目录，OutputManager构造Path.Combine(null,platform)拒绝；其余17通过。原生产与断言不改，f001仅显式关闭该fixture未用缓存。未冒充完整SDK/ZIP验收。 |
-| `6e54d06f40a7d8e7c5bb08938b5029f2db2403dc` | [40485040370](https://github.com/wu162/NewSdk/actions/runs/40485040370) | 双配置新增W06 StreamBindings各42检查/3组通过，19 fixtures仅上述已知manifest测试配置失败；继续收集其它独立矩阵，不作为整体成功。 |
-| `25dde80d4c9355fa67e64679bf1dedd47e5ee65c` | [40486677963](https://github.com/wu162/NewSdk/actions/runs/40486677963) | 双配置20个Core fixtures全部通过，含修好的manifest与Expr各1279检查/5组；其后应用协议校验失败。新候选一致性测试写入非协议effectiveOptions.Source临时标签，已改用实际Options.Parse接收/data参数，不扩大schema枚举。当前后续完整重验仍必需。 |
-
-已下载核对targeted：cff artifact `12725295399` / SHA256 `f95e7d07d5d59d9e5b243f83f99eea515e0f3291f3e743be2848484d694ec031`；6e artifact `12724588122` / `0daa7f5ba386f04d887fc0ce6a2b83688ae6c55815c56504d517b38b5db34f00`；25d artifact `12724659580` / `97a7199e613fb94ac2518ba59fa3318cdbde1f8424c6f5c62154422b0f38e60d`。各收据source/run与原始归档匹配，只接受各自成功组件范围。
-
-W03新增两个Core入口及Utility递归patch/StringHashes封存与实际发现查询复核；不新增resolve时探测，不复用答案。存在性检查只证明复核时点的已登记候选，预算/路径/输出根回退明确，不替代全根缓存校验或Texture闭包。生产Utility原签名和fallback保留，追加三条回调签名经独立显式审计。
-
-W05记录实际绑定/值/来源/安装epoch及原符号候选/选择/歧义，继承记录实际消费阶段。标量事件有界，canAuthorizeReuse=false，legacy XML hash不是强缓存放行证据。W06执行期map归root私有，强引用重复位置、weak规则、合法引用环、错误与排序保留；成功Prepare的公开快照不再持有可变Core对象。尚未完成整个不可变AssetSemanticResult或并行隔离。
-
-W08 exact程序只在完整原parser求值与AsString成功后发布，暖路重新执行当前Define/文化转换与原运算。25d原SDK DLL隔离进程264行、四文化cold/warm/fallback值/错误码/消息/parser诊断/UsedDefines全部相同；当前Define零值、缺失和未求值失败的首错读取前缀不变，失败不入缓存。独立entry/text/node预算压力、depth回退、跨DP隔离和真实XML四输出差分通过。后续共享文化与微基准属于新源，不能用25d组件结果冒称该新组已经通过。
-
-### 只读文化与传输缓冲的首次整组结果
-
-`9fce00c4e785a874607ff78f7eedc639f68dd17e` / [40488513976](https://github.com/wu162/NewSdk/actions/runs/40488513976) 双配置21个Core fixtures中20项通过，ExpressionPrograms各12421检查，新增五开关组合原DLL差分及文化ownership均通过。唯一目标组失败为TransferBuffers：default/fallback各自生成AssetHeader，32字节中只设置7个DWORD而保留原未初始化padding，两份独立源导致完整.tmp SHA不可直接相等。每个copy自身source==destination及原尾块拒绝已通过；修复让两路逐案例复用同一份原始source并校验其完整SHA和所有header字段，保留完整.tmp长度/SHA强差分，生产格式未改，不忽略padding换通过。
-
-下载核验targeted artifact `12727940311` / SHA256 `a71985151b308c2f738c34345629febca3319f1b0aa7ee48d43c0b9ca15d65d3`，binary/test/source/run均9fce/40488513976。以下只接受独立成功的表达式组件，不作为该run整体验收或新缓冲组成功。
-
-同runner/同进程，各路径先预热30次，7轮轮换顺序，每轮每路径500次，所有实际LookupDefine/结果检查保留。单位ms，中位数[最小,最大]；表达式`=round(($I+3)*2/3)+(($I*2)>=10)`，每次结果8。原始21行样本见上述result.json。
-
-| 配置 | program共享文化 | parser共享文化 | program独立文化 |
-| --- | --- | --- | --- |
-| Debug | 1.0535 [1.0157,1.0582] | 40.1146 [39.8454,43.0562] | 1.6057 [1.5840,3.1085] |
-| Release | 1.0431 [0.9898,1.0589] | 39.5572 [39.2252,40.4235] | 1.6714 [1.6643,1.7772] |
-
-每program batch实际parserCalls=0/hits=500，parser batch为500/0，测量不包含报告序列化；只是重复表达式组件的工作与耗时，不报告完整CLI提速、P95、物理I/O或统计显著性。25d真实三流业务输入当时无表达式，记录parser/build/hit全0；后续业务fixture加入三个相同Define求值，仍先做原XSD预检和原BAB四输出对照，验证真实CLI中1次parse/build+2次语义重放，不能把原0次称作已优化的业务收益。
-
-当前追加批次还包括：64KiB复用buffer的终验SHA及确定性read/EOF取消、强内容复核后才复核候选存在性；声明Handle保存/恢复两侧值图隔离（无DOM/Define或整个LastState不可变承诺）。这些新源须完整重建，未取得新source/run整体成功前不标验收完成。
-
-### 第四轮最终完整生产验收
-
-`eb7ed6d07679be91c768fb145d4ca85e29720f65` / [40490423682](https://github.com/wu162/NewSdk/actions/runs/40490423682) 保留failure：双配置22 fixtures仅DeclarationSnapshots的derived-list回退检查失败，其他21成功。保存时派生列表回退被复制为base List2，恢复时二次分类误判为可clone；生产修复为LastState/Current运行时legacy来源标记，跨保存/恢复/再次保存传播，XML不新增字段，强断言及recapture检查保留。该失败targeted artifact `12728742768` 已下载核验SHA256 `9527721e05f82a9c3df7927cbcda3a7fa1977b025bb175a7440dbb2877358f0d`。
-
-最终生产/首次测试/打包源码 **`60abfeff415e8b1c5bc0b26bf1457f13754c6d75` / [40491888271](https://github.com/wu162/NewSdk/actions/runs/40491888271) 整体success**：Debug/Release各22个Core fixtures、原SDK DLL/原BAB、协议、Texture、真实CLI、build/session cache和输入根矩阵、完整mymod、BIG及独立五文件ZIP全部通过。原异常/失败记录保留，没有删除样本、关闭回归或放宽断言。
-
-已下载核验targeted artifact `12727804602` / SHA256 `85d8ae1f8975192f010295385d8fc2ff465ebe35b154dcf2907abfe52eaa030c`，收据source/run均为本成功身份，双配置22/22；PhysicalInputs各179检查、TransferBuffers各189、DeclarationSnapshots各46、ExpressionPrograms各12421。取消mid-read/EOF是在实际private SHA helper上的确定性stream用例，真实Snapshot整体采用预取消+有效token重试，不冒称向真实磁盘读中注入取消。
-
-CLI artifact `12729275483` / SHA256 `132359b543b49e1212cdf41fbfc2062039aa6b8f57487f4d55dea0f463c07b2c` 已下载核验。两配置business-work-metrics均succeeded=true且binary/source=60：base三次相同Define为parserCalls1/builds1/hits2，APT/maps无表达式均0，原BAB与独立冷组四输出相等。三流copyRequests/allocations均0，linkRequests依次5/24/6、各linkAllocations1/65536字节、legacy请求0；只说明当前owner分配，不报告完整内存峰值或端到端提速。原schema逐流读/Compile与构建内元数据共享门槛保留。
-
-完整生产artifact `12729367281`（106,765,851字节），GitHub SHA256 `3300f351b4dfff1d89a4d86d7dcb349ad1d2f7566c932fa01ff11e8b384f65c9`。该完整archive随后由严格复用/导出Actions下载并按digest/size逐字节核对；本地只下载其小证据包和导出原ZIP，不冒称本地下载过106MB原archive。
-
-### 当前接受点的严格复用与原包导出
-
-工具源码 `b549357fa32d2f73d51ae8f0d24c8035abf53681` / [40492634684](https://github.com/wu162/NewSdk/actions/runs/40492634684) 先仅运行控制器合同：12项真实临时git闭包测试+14项导出拒绝/传输测试成功，runtime job未请求；当时未更新旧68 pin。小证据 `12727624888` 已下载核验SHA256 `0078f4bd0017fb4c517dbefecca9914136685a4a5d5bb7af9fddee9f2a0f51ab`。
-
-确认60完整终态success后，工具/当前探针源码 **`443dc88152606a5a41475ff0a5820fc958e1a003` / [40494473681](https://github.com/wu162/NewSdk/actions/runs/40494473681) 整体success**。Ubuntu及Windows控制器合同通过，原SOURCE/RUN固定接受点更新为60/40491888271，仓库/分支/workflow/attempt、完整archive身份、production/validation共同对象、EXE/Texture绑定与实际依赖闭包全部严格核对。精确22 fixture及指定工具/Markdown白名单之外、生产/SDK/recipe、删除/rename/typechange、非祖先、staged/unstaged及含ignored的未跟踪生产输入拒绝。
-
-该run未重新编译生产：binarySourceCommit=60、testSourceCommit=443、sourceRunId=40491888271；当前22个fixtures在原生产对象上重新编译运行，双配置22/22。复用证据artifact `12730467093` 已下载核验SHA256 `1a424fcd046905a83141dcbf2a5d8676cc2df79d35b4f3c6999f9025c726d07c`，工具/测试身份和12+14项合同结果一致。
-
-Export再次实时确认完整接受metadata，从同一校验过的原archive读取发布receipt/manifest/ZIP，与staged product runtime的精确五文件逐字节核对，只复制原ZIP与manifest；rebuildPerformed=false、zipBytesRepacked=false。原发布manifest的binarySource与packagingSource仍为60，443只记在export/targeted测试收据，candidateValidated=false不表示重新验收候选生产代码。
-
-| 模式 | 原ZIP字节数 | 原ZIP SHA256 | 导出artifact |
-| --- | --- | --- | --- |
-| Debug | 2,269,828 | `cd30de97f6e38f33f278fc8a77ecc5ca61226d2ee32e1a51015d16e6aeb00b99` | [12730631821](https://github.com/wu162/NewSdk/actions/runs/40494473681/artifacts/12730631821) |
-| Release | 1,767,446 | `651084b2296449b99027ef59e126152bb48b42f2609be0012266bb850a6713f1` | [12730207255](https://github.com/wu162/NewSdk/actions/runs/40494473681/artifacts/12730207255) |
-
-两份导出小artifact均已本地下载复核外层SHA（Debug `c1895d09e11ea4fa8467a41ffd2b154bfaefab2ffcdbc169a236b750b2792eb0`，Release `18d18a83624f58e9b9a3d828b23f68c08bd6334c1ab263413aa4cc308f823fad`）、原内层ZIP、manifest及五个成员的长度/SHA、binary/test/sourceRun身份。这里只读取已生成字节和收据；实际EXE doctor、输出、BIG与事务运行仍全部来自Actions验收。
-
-本轮未完成整个不可变AssetSemanticResult、AssetDeclarationDocument.LastState/SelfInstances生命周期、所有隐藏文件读取/集合查询、W07完整bundle缓存或W09—10并行合同。绑定Prepare快照不是事务接受凭据；null未新增XML roundtrip支持。缓存默认、/bc /sc全根保护、Texture限制、Win32/.NET4.8与前置运行条件未改变。完整mymod仍一流，不外推全游戏/G3/中文Texture/游戏内新验收。
-
-### 本轮最后的三流发布边界补测
-
-最终补测源码 `2d77667ee581d9080d6474149e129efd3822836d` / [40496809491](https://github.com/wu162/NewSdk/actions/runs/40496809491) 整体success，binarySource仍60：保留单流候选变化测试，新增base/APT/maps三流全部完成后整次发布拒绝、清理及新代重试；两配置各22 fixtures和26项工具合同通过。三流用Armor验证应用事务编排，不冒称APT业务或precompiled/patch/StringHashes完整事务覆盖。
-
-本run严格复用同一完整成功来源40491888271，无生产重编译；current test source为2d77667e，打包/二进制来源仍60。小证据artifact `12731251359` 已下载校验SHA256 `90cd5a871494d1343e21be00683d31597b0ae37cb6232360f88bc870cc246618`；Debug/Release应用测试各5007检查，含原单流和新增combined用例，收据与日志均确认低优先级读取、三流完成后的CORE_INPUT_CHANGED及新代读取高优先级文件成功。后续文档提交不是新二进制来源。
-
-## 第五轮：文档生命周期、有界排序与真实小样例
-
-北京时间19:39开始，目标按用户要求持续推进约110分钟，通常2个子代理；全部编译、测试、微基准仅Actions。本地只编辑、静态差异检查及下载后读取已有证据。成果仍在feature/compiler-optimization，PR #15保持草稿、不自行合并。
-
-### 保留失败及修复
-
-| 源码 / 完整运行 | 实际结果与修复 |
-| --- | --- |
-| `b287028544c560998a771cd5a824b06f5d728593` / [40498587962](https://github.com/wu162/NewSdk/actions/runs/40498587962) | failure：新三流fixture同时传tl:3/tl:9，Options.Parse按原合同拒绝，尚未到事务断言；改测试只生成一个trace参数。两配置文档72/metadata44检查已独立成功，非整组验收。 |
-| `7e23acb16f5ef2fc41160038e14d170b460d93e9` / [40499175807](https://github.com/wu162/NewSdk/actions/runs/40499175807) | failure：同一旧fixture参数问题；两配置原DLL文档复现与文档75/metadata52独立通过。该候选的BinaryAsset封存组未获接受，随后因会阻断原坏缓存修复/删除/重试，由ebb3d48d完整撤回；保留active snapshot下原修复合同回归，不报读取闭包完成。 |
-| `16fcfdfcfc5afec3ea67923ae5fbc8f306671a8e` / [40499706053](https://github.com/wu162/NewSdk/actions/runs/40499706053) | failure：fixture直接将实时匿名payload转字典，事件sink拒绝；另Upheaval查询用了混合分隔符，而SessionCache键只转小写。已规范payload及使用resolver相同Canonicalize键，保留并加强确切继承断言。前者没有到预期事务拒绝，后者默认组已经过cold/warm/persisted四输出比较，不冒称fallback或原BAB通过。 |
-| `00fe3e7b80ffc0c517390a4e5dda6ad251360290` / [40500892490](https://github.com/wu162/NewSdk/actions/runs/40500892490) | failure：两配置25 fixtures、原DLL、既有原BAB、CLI/Texture/全部缓存/输入根/完整mymod/BIG均成功；新增Upheaval原BAB首次Debug比较在manifest byte8失败，Release该步未执行、最终ZIP跳过。归档证明bin/imp/relo相同，manifest仅8—11字节不同：原hash1424942948、裸fixture registry hash0。修复测试初始化为实际生产DefaultMetadataPlugin，未patch输出或放宽比较。 |
-| `d48be3c5ddfa4de7d2f4696f2ba0c0de216669cd` / [40504062764](https://github.com/wu162/NewSdk/actions/runs/40504062764) | 新增27组中的NodeJoiner探针编译失败：动态schema仍声明const string（CS0133）；改普通局部string，schema及断言未变。其余26探针已独立成功（含StableSort原DLL/真实链与组件计量）；该run最终状态另以Actions为准，不作整组接受点。 |
-
-以上早期targeted artifact均已下载核验outer SHA/source/run：
-
-| artifact | SHA256 |
-| --- | --- |
-| `12732287660`（40498587962） | `cea55dff258cb3272f2991094d62d114da70d424f434e618d24f82f692854cfe` |
-| `12732485666`（40499175807） | `b4db7e79b06cb0335cf7b4198fa088d55a98c87b96c1f49b85cff3a25cd8a389` |
-| `12732790726`（40499706053） | `e2721661e6b7ebf5da1437c25d8514acde974c6a5c31b7e3d7b522e4689765fb` |
-| `12733351540`（40500892490） | `404e29f583bdb72a4537eaf8a19a3b98b44a87e65b9ff6f73446e303132244f1` |
-| `12734098250`（40504062764） | `0f70c993e0657b33a1d10774e4fd390632d54b27a9a7540fc4294c1c63e513a2` |
-
-40500892490完整失败archive `12733572988`（71,703,463字节）也已本地下载核验SHA256 `a221f97141862e9a6d27f14f76b7ecc4f26cb355a1cda65d227543d612208786`，仅解出相关原BAB证据读取；Debug manifest两侧均790字节、差异正好8—11；bin4564、imp4、relo44字节逐字节相同。该失败不能作为完整发行/复用接受点。
-
-### 当前统一候选
-
-中间完整候选 `4c9ac8ad7addbdb70b9d89df550182b6711efbf1` / [40505567372](https://github.com/wu162/NewSdk/actions/runs/40505567372) 已整体success：双配置27 fixtures、三组独立原BAB、全部CLI/Texture/缓存/输入根、完整mymod/BIG及独立五文件ZIP均成功。随后复核发现末次trace可替换DP.SchemaSet，资格检查必须对准TypeDepCompare实际已捕获的同一map；f8a008dc只修正这处guard来源，另加custom→standard及null替换的原DLL对照，排序顺序及正常输入算法未变。
-
-最终生产/首次完整测试/打包源码 **`b934445adb4ae900215ff980cb902f67407e2d5e` / [40507039217](https://github.com/wu162/NewSdk/actions/runs/40507039217) 已整体success（attempt1）**。两配置各27 fixtures、原DLL/三组独立原BAB、协议、Texture、实际CLI、全部缓存/输入根、完整mymod/BIG及独立五文件ZIP均成功。包含W06文档记录隔离与受控private saved共享、NodeJoiner仅id索引/外部DOM变动回退、W08局部StableSort membership索引、7资产Upheaval小组及98资产依赖链。完整success后，严格接受pin才由60更新为b934/40507039217；后续仅测试/工具/文档变化仍须严格核对闭包与当前测试，不把文档头冒充binarySource。
-
-完整生产artifact `12736019142`（108,739,539字节），GitHub SHA256 `416e58b56c3b377adc5380f671e55f6558bde0c24e921506502a41cca3786dd9`；由后续严格复用/导出Actions按原digest/size下载核验。本地只读取其小证据与导出的原ZIP，不冒称已本地下载该完整成功archive。
-
-独立原BAB步骤现按各自成功fixture receipt进行严格验证，不再因其它不相干probe失败而全部阻塞；Debug/Release集中收集失败，任一失败仍使整组拒绝。新增提前小artifact保存原/新四输出、原配置与收据，最终发行门槛未降低。
-
-### 最终候选的已核验独立证据与组件计量
-
-40507039217早期27-fixture artifact `12734969954` 已下载核验SHA256 `eaac7e30b93e56c926342e6c108c8429b0bcdf188af40f2b671498137d68d2a0`，binary/test source均b934、双配置27/27成功。原BAB artifact `12736365897` 已下载核验SHA256 `c27dc9e86b7350fd03330222c31d7621af6f519abe9f24bc804f553d3f7149c5`，六份Debug/Release收据的source/run、输入未变及四输出逐字节门槛均一致：mod-a/mod-b、upheaval-small、stable-sort-chain共8次独立进程比较。最终整run/ZIP状态仍见下方接受点，不用独立组成功替代整组终态。
-
-| 组件 | Debug中位 | Release中位 | 原始工作边界 |
-| --- | --- | --- | --- |
-| 32声明×20公开缓存传递，private saved共享 | 0.1055ms | 0.1052ms | 7轮交错，保留21文档时实际private saved图32个 |
-| 同一输入，关闭共享走深复制 | 0.6153ms | 0.6211ms | 实际private saved图672个；不计XML/反射检查，不作RAM峰值推算 |
-| 64声明的实际public StableSort，membership开启 | 0.4455ms | 0.4318ms | 7轮交错；含入场检查、建索引及反射invoke，图构造在计时外 |
-| 同一排序图，membership关闭 | 0.4708ms | 0.4604ms | 不设速度断言，不报告完整CLI提速/P95/统计显著性 |
-
-实际98资产链两配置/两文化每根为80次索引构建、4440个索引项、4600次indexed查询+346次小集合linear查询；关闭后0 builds/0 indexed、4946次linear，四输出与独立原BAB相同。该计量不包括原闭包构造和List2内部搬移，不宣称整个StableSort变为O(NlogN)。
-
-NodeJoiner两配置各365检查，保留512项热点属性读取门槛及原DLL动态回调对照。Prefix专项在原/新DLL实测均0个DOM事件；因此Name匹配始终线性，不能把事件订阅当成Name索引完整失效保护。新声明probe各199、metadata各52、Upheaval各104、实际StableSort流各615、三流应用各7363检查；数字只用于定位准确组，不替代能力范围。
-
-工具源码 `9005452bac1409d7f8843e419170d3880bf8bc43` / [40508384421](https://github.com/wu162/NewSdk/actions/runs/40508384421) 仅运行Ubuntu控制器合同，整体success；27 fixture精确白名单及包导出拒绝/传输共26项通过，未请求runtime job，未提前更新接受pin。
-
-### 最终严格复用、补测与原ZIP导出
-
-工具/测试源码 **`e4a3adc3823c20a4a3858440702b3e9cfbf06b22` / [40510206136](https://github.com/wu162/NewSdk/actions/runs/40510206136) 整体success**。Ubuntu及Windows各26项控制器合同通过；严格验证b934完整success来源、production/validation同源对象、实际依赖闭包及原archive digest/size后，当前27 fixtures在精确原生产对象上重编译运行，两配置27/27。生产未重建，binarySourceCommit=b934、testSourceCommit=e4a3、sourceRunId=40507039217。
-
-最后补测将DP.SchemaSet在真实末次trace置null：原DLL/current/default/disabled排序结果一致，实际schemaSetNull=true、callbacks=1；默认仍对已捕获的标准map正确索引。StableSortMembership两配置各107检查；范围是公共StableSort局部合同，不代表整个processor后续可使用null SchemaSet。独立原BAB的backend/Upheaval/98资产链再次通过。
-
-复用证据artifact `12737136681` 已下载核验SHA256 `354f047621e1e6fc71f045347b7a8204cb1af7be69c6dfd3cbce76843101286f`，实际JSON收据binary/test/sourceRun和27组结果一致。Exporter从同一原archive读取发布receipt/manifest/ZIP，重新核验完整接受身份与五个成员，只复制原ZIP；rebuildPerformed=false、zipBytesRepacked=false。打包和二进制来源仍为b934，后续文档头不冒充binarySource。
-
-| 模式 | 原ZIP字节数 | 原ZIP SHA256 | 原包导出artifact |
-| --- | --- | --- | --- |
-| Debug | 2,276,390 | `4a8c20cb8670e8836c1c764bcfbccfd628e7c7297d853ce6236b8d1511d86aca` | [12737615880](https://github.com/wu162/NewSdk/actions/runs/40510206136/artifacts/12737615880) |
-| Release | 1,773,136 | `cacba1ccea28242613aca36fba50e3bf063e89aeb0d9dbe060d271d30e1ed738` | [12736174698](https://github.com/wu162/NewSdk/actions/runs/40510206136/artifacts/12736174698) |
-
-两份小artifact均已本地下载核验outer SHA（Debug `7015aef12d52cfed7dfade6af4feae19208734caf0e29c39c888eb6344718981`、Release `c09ed713342386943914ae051e98664ade39cbda6d35027a0518720e5e682a77`）、原inner ZIP及精确五运行成员的字节数/SHA、source/run/export身份。本地只读取已有产物，实际EXE执行、独立ZIP部署与事务门槛全部由Actions取得。
-
-### 第五轮实现效率复盘
-
-整体效率评为中等：本轮约105分钟、2个子代理，完成文档缓存生命周期隔离/私有saved共享、StableSort membership索引与NodeJoiner回调修复，并补入有界真实用例，最终验收成功。完整语义结果、新bundle缓存和并行未完成；没有完整CLI端到端计量，不能由组件结果推断构建明显提速。
-
-本轮启动7次完整运行：前5次失败、后2次成功，详见上表。前5次失败主要来自fixture准备（重复tl、匿名payload直接转换、混合路径键、缺生产默认元数据view、动态字符串误用const）；同一tl问题还进入了第二次完整运行。这些是可避免的返工，不应全部归因于必要正确性验证。另一次成功后的comparer来源收紧有具体回调边界依据，属于必要的正确性补强。
-
-测试和工具投入较多，其中原DLL/原BAB、缓存/事务、真实用例及来源校验保住了正确性底线；BinaryAsset pin会阻断原修复合同时及时撤回，最后仅测试变化通过严格二进制复用验收，处理方向正确。但不能以测试数量或最终通过掩盖前期准备不足。没有逐项可靠工时记录，不给出实现/等待/返工的虚构占比。
-
-下一轮落实到[EFFICIENCY.md](../../EFFICIENCY.md)：两个子代理优先并行推进完整实现组，主代理提前集成并核对fixture假设；参数、类型、路径、注册表与编译条件集中预检，轻量Actions检查前置；已知错误修复后再发下一完整候选，独立成功证据按原来源/闭包规则复用。工具扩展只服务当前交付，不降低原字节差分、失败拒绝、缓存或最终集成门槛。
+本轮结束只更新当前接受点和未决工作；后续完整语义结果、Texture/其它读取闭包、新 bundle 缓存与并行见短交接。不把本轮局部优化写成这些能力已完成，也不自行合并 PR。

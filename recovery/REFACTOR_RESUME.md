@@ -1,62 +1,37 @@
-# MOD 编译器：结果主线与续接入口
+# MOD 编译器：当前续接入口
 
-更新：2026-10-27（北京时间）。用户指定 `compiler-main` 为重构结果及今后开发主线。旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 已关闭且未合并，不再合回旧主线。开发主线约定不代表已修改 GitHub 网页默认分支。
-禁止强推；今后其他合并仍须用户批准；子代理数量由当轮用户指定。
+更新：2026-10-27（北京时间）。开发主线为 `compiler-main`；当前任务在 `feature/compiler-optimization`，成果继续集中该分支。[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，合并须用户明确批准；禁止任何强推。GitHub 网页默认分支以仓库实际设置为准。
 
-## 当前任务：编译器性能优化
+## 继续性能优化
 
-2026-10-27 从 `compiler-main@e7396d3` 新建 `feature/compiler-optimization`。按用户最新要求每轮最多120分钟，效率优先、正确性是底线，通常2个子代理、最多3个；全部编译/测试通过 GitHub Actions。先读 [当前短交接](docs/compiler-optimization/HANDOFF.md)，再按 [方案索引](docs/compiler-optimization/README.md) 读取所需章节。完整用户方案只保存一份，阶段结果与未决工作由短交接覆盖更新。
+1. 读仓库 [AGENTS.md](../AGENTS.md)、[当前短交接](docs/compiler-optimization/HANDOFF.md)。
+2. 按 [优化索引](docs/compiler-optimization/README.md) 选择源码和方案章节；当前实现边界查 [CONTRACTS](docs/compiler-optimization/CONTRACTS.md)，完整用户方案仅保留 [PLAN](docs/compiler-optimization/PLAN.md) 一份。
+3. 按 [EFFICIENCY](EFFICIENCY.md) 推进完整能力组。通常 2 个子代理、最多 3 个；编译、测试和微基准全部使用 GitHub Actions。每约 10–15 分钟检查并普通推送有意义的检查点，未验证成果明确标记。
 
-首批优化与三项真实 Core 风险修复已通过[完整运行40461583024](https://github.com/wu162/NewSdk/actions/runs/40461583024)，生产源码 `75601909`。第二轮的 schema/解析/外层区间与构建内自有继承/依赖元数据共享已由源码 `4a128696` / [完整运行40466010643](https://github.com/wu162/NewSdk/actions/runs/40466010643) 整体成功验收，含全部缓存、完整mymod/BIG与独立五文件ZIP；三流元数据表1次构建+2次恢复，每流读取/Compile仍保留，不报告完整构建提速。范围、失败记录、计量与下一步见短交接和[验证记录](docs/compiler-optimization/VALIDATION.md)。[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，后续成果继续集中原优化分支。
+最新生产、首次完整测试及打包来源为 **`64bfcc80cec7860e69f0ffbc5cb0e04c69baec87` / [40524897974](https://github.com/wu162/NewSdk/actions/runs/40524897974)**，运行整体 success。Debug/Release 各 30 组 Core 探针、原 DLL/独立原 BAB、CLI/协议、Texture、全部缓存与输入根、完整 mymod/BIG 和独立五文件 ZIP 均通过。后续文档或测试提交不改变该二进制来源；复用、原 ZIP 下载和准确哈希见短交接与 [验证记录](docs/compiler-optimization/VALIDATION.md)。
 
-第四轮生产/首次验收测试/打包源码 `60abfeff415e8b1c5bc0b26bf1457f13754c6d75` / [完整运行40491888271](https://github.com/wu162/NewSdk/actions/runs/40491888271) 已整体success：双配置各22个Core fixtures、原DLL/原BAB、协议、Texture、实际CLI、全部缓存/输入根、完整mymod/BIG与独立五文件ZIP全部通过。新增manifest封存与查询复核、实际语义轨迹、每流绑定/声明Handle值图、exact表达式准备/文化复用、每DP传输缓冲及终验取消；完整语义结果/Texture闭包/并行尚未完成。
+本轮完成 exact DOM 表达式遍历、绑定期局部符号索引、单次插入 schema 前序查询、私有 saved 元数据共享及已验证外部缓存物化的同流封存。XML 哈希缓冲/ASCII 尝试因 CPU 收益不稳定已撤回，947 行原 DLL 回归探针保留。局部组件计量不等于完整 CLI 提速；`CacheFromDocument` 的元数据共享目前只有公共 API 传递证明，没有生产调用收益证据。
 
-工具/探针源码 `443dc881` / [40494473681](https://github.com/wu162/NewSdk/actions/runs/40494473681) 严格复用60的原生产对象，26组控制器合同、双配置22 fixtures及原ZIP导出整体success。原Debug/Release ZIP及五成员已下载核验source/run/哈希；小包链接、计量、保留失败和下一轮完整组见短交接。生产变化必须重建，不把后续文档提交冒充binarySource，PR #15仍草稿且未合并。
+下一步仍以完整语义阶段结果与 Define 环境为主线；完整 AssetSemanticResult、Texture 隐藏读取闭包、强键 bundle 缓存和并行尚未完成。外部 legacy Cache 来源的封存不覆盖 App 排除的 staging cache，Local 可变输出继续保留原修复生命周期。不要靠旧 XML hash 或已观测的部分依赖放行完整缓存命中。
 
-最终补测源码 `2d77667ee581d9080d6474149e129efd3822836d` / [40496809491](https://github.com/wu162/NewSdk/actions/runs/40496809491) 整体success，binarySource仍60：保留单流候选变化测试，新增base/APT/maps三流全部完成后整次发布拒绝、清理及新代重试；两配置各22 fixtures和26项工具合同通过。三流用Armor验证应用事务编排，不冒称APT业务或precompiled/patch/StringHashes完整事务覆盖。
+## 已交付产品与边界
 
-第五轮生产/完整测试/打包源码 **`b934445adb4ae900215ff980cb902f67407e2d5e` / [40507039217](https://github.com/wu162/NewSdk/actions/runs/40507039217) 整体success**：两配置各27 fixtures、原DLL与三组独立原BAB、全部CLI/Texture/缓存/输入根、完整mymod/BIG及独立五文件ZIP通过。新增文档缓存生命周期隔离与私有saved值共享、NodeJoiner动态DOM/Prefix安全回退、有界StableSort完整ID membership索引、7资产Upheaval原文件小组和98资产依赖链；严格复用pin已更新为b934，最终仅测试补测/原ZIP导出[40510206136](https://github.com/wu162/NewSdk/actions/runs/40510206136)也整体success，双配置27探针、独立原BAB与原五文件ZIP传输均通过，身份见[当前短交接](docs/compiler-optimization/HANDOFF.md)。BinaryAsset提前pin尝试已撤回，完整语义结果/闭包缓存与并行未完成，不自行合并。
+`compiler-main` 已交付 Win32/.NET4.8 单进程编译、MOD 目录入口、base/APT/全局元数据计划、日志/JSONL/报告、默认 BIG/SKUDEF、Additional、内建 MakeBig 和五文件运行包。PR #14 的默认构建/参数改进已合入，来源见 [BUILD_DEFAULTS_VALIDATION](docs/BUILD_DEFAULTS_VALIDATION.md)。使用和正式发行身份分别以 [使用说明](COMPILER_USAGE.md)、[发行说明](COMPILER_RELEASE.md) 为准。
 
-## 默认构建与参数改进（PR #14，已合入）
-
-本轮从 `compiler-main` 的 `933cf4a2` 创建 `feature/compiler-build-defaults`，PR [#14](https://github.com/wu162/NewSdk/pull/14)，已于2026-10-27合入 `compiler-main@e7396d3`。生产/测试源码 `8b3e146cb5220e830ff6a0ce4718f47af052f166`；[验收运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 的完整 mymod 原 BAB 流、含 Additional 的默认 BIG 与 SKUDEF 差分、全部受影响回归及独立五文件 ZIP 验收均已通过，运行整体 success。
-
-标准构建默认自动发现 base/APT/全局元数据并输出 BIG/SKUDEF，Additional 默认包含、可关闭且覆盖警告；开发模式默认 loose，高级兼容入口保留。`global-metadata` 兼容 `maps`，项目可保存 SDK/输出路径和常用设置。显式部分编译/空可选组行为与打包机制保留，缓存参数/默认值/实现未改。最新使用方式见 [COMPILER_USAGE.md](COMPILER_USAGE.md)，来源与范围见 [BUILD_DEFAULTS_VALIDATION.md](docs/BUILD_DEFAULTS_VALIDATION.md)。该功能已在主线；新的优化工作从上面的独立分支续接，发行下载身份仍以 COMPILER_RELEASE.md 为准。
-
-## 最新旧参数兼容验收（2026-10-27）
-
-`57354fbc013369eac1ad4c6e3346134d81a68a6c` 已恢复 ss/pc/slowclean 默认 true，并支持独立 true/false；缓存仍默认关闭。[运行40440661815](https://github.com/wu162/NewSdk/actions/runs/40440661815) 整体 success：完整未精简 mymod 的两配置 MOD 四文件逐字节相同、无额外引用流；真实 MOD 的 BIG 12成员与原 LoD/MakeBig 内容一致，SKUDEF 对照通过。应用/Core/原BAB/Texture/CLI/全部缓存/P7及五文件ZIP独立运行也均通过。发行下载见 COMPILER_RELEASE.md，失败历史和新收据见 [SDK_SCRIPT_VALIDATION.md](docs/SDK_SCRIPT_VALIDATION.md)。原失败40439297653不改写，本轮未降低断言；没有完整游戏数据或游戏内运行的新验收。
-
-## 已完成的发行范围
-
-- Win32 单进程核心编译、MOD目录入口、base/apt/maps 计划、日志/JSONL/报告、默认 BIG/SKUDEF 与五文件发行包已验收。恢复业务代码进入 EXE；纯 C# MakeBig 已内建，不启动 BAB/MakeBig worker。
-- 最新结果在新主线重新编译 Debug/Release，应用、Core九组、原BAB基线、Texture、实际CLI、输入根、全部缓存、BIG原工具差分和独立ZIP运行均通过。准确源码/运行/产物身份见 COMPILER_RELEASE.md，不用文档头提交冒充二进制来源。
-- 新增 mod-version、game-version、skudef-name 及项目预设/命令行优先级已通过；默认1.0/1.12保持旧脚本行为。布尔开关使用等号，帮助示例已修正。必要旧参数及拒绝范围见 CLI_COMPATIBILITY.md。
-- `/bc`、`/sc` 默认关闭，可独立启用；会话缓存恢复实际文档和intermediate/CDATA，再重新链接输出。两配置各55用例、冷热/失效、缺损修复、失败取消和事务已验证。混合Texture仍明确拒绝 `/sc:true`。
-- 默认base包含低/中LoD；APT版本标记为原脚本空格+CRLF。既有主线发行中Additional显式开启（本轮PR改为默认自动包含），SDK先、MOD后覆盖并排除.asset，已通过原CopyFolders/MakeBig全内容对照。
-- 可选中立修复默认关闭；已集成HashFix→Resolver→LoD，在私有包工作区处理，缺完整参考明确拒绝。验收范围为组件差分及生产零插入链，未泛称完整游戏中立资产插入。
-- 原LoD已知越界明确采用确定性修复合同：完整逻辑表复制并保留NUL，不复刻越界内存。28–32字节边界专项重复验证通过；原工具异常差分/失败证据保留，不能改称原始字节相等。
-- Debug/Release正式包精确五运行文件，独立解压后doctor、小MOD、版本/包名、BIG、Additional、中立零插入、CDATA、回滚/取消/重试和协议全部通过。依赖.NET4.8、x86 VC80/VC与DirectX，不能推断裸Windows无前置要求。
-- 本轮完整未精简 mymod 已按旧脚本非缓存参数在新 Debug/Release 构建上重跑并通过严格四文件与真实 BIG 验收；历史 XML/非 XML 差分仍保留原 source/run 范围。
-
-## 已取消与未覆盖范围
-
-- 用户取消AssetMerge集成，不是发行必做项。用户取消WBData下载/提取/读取器及依赖其真实数据的验收，不再作为重构完成条件；保留已有可选修复和缺输入拒绝，不能把取消标记为验收通过。
-- 完整UI/runtime、中文纹理路径、混合Texture会话缓存仍有未覆盖范围。压缩/部分/冻结缓存、旧缓存目录覆盖及替代输出等未开放参数明确拒绝；这些不自动扩大为当前收尾任务。
-
-## 后续工作方式
-
-本次选定范围的收尾与工具交付已完成。后续按用户新需求选择上述未覆盖能力推进；继续以 compiler-main 为入口，不再准备合回旧分支。
-生产输入改变时成组重建受影响回归；只有文档改变时不重编译。旧固定归档重放器仍绑定其历史源，不能直接用于当前新生产源码。新发行走主工作流的完整构建与发布门槛。
+- `/bc`、`/sc` 默认关闭；混合 Texture 会话缓存仍明确拒绝。缓存冷热、失效、缺损修复、失败取消与事务门槛保留。
+- 中立修复默认关闭，已验收组件差分和生产零插入链；完整游戏数据/游戏内运行、完整 UI/runtime 和中文纹理路径仍有未覆盖范围。
+- LoD 原工具越界采用完整表复制并保留 NUL 的确定性修复，不能把该边界称为原始越界字节相等。
+- AssetMerge 集成、WBData 下载/提取/读取器及依赖其真实数据的验收已按用户要求取消，不列为本次必做项。
 
 ## 按任务读取
 
 | 事项 | 入口 |
 | --- | --- |
-| 使用与文档分类 | `recovery/COMPILER_USAGE.md`、`recovery/README.md`、`recovery/docs/README.md` |
-| 当前发行与参数 | `recovery/COMPILER_RELEASE.md`、`recovery/CLI_COMPATIBILITY.md` |
-| 缓存与事务 | `recovery/P5_LIFECYCLE_AUDIT.md`、`recovery/src/App/Application/CoreStreamCompiler.cs`、`SessionPackage.cs`、`BuildAssetCache.cs` |
-| BIG与LoD | `recovery/P7_PACKAGING.md`、`recovery/P7_LOD_ORIGINAL_TAIL.md`、`recovery/scripts/TestCompilerBig.ps1` |
-| 执行与验证 | `recovery/EFFICIENCY.md`、`.github/workflows/refactor-core-lifecycle.yml`、`recovery/scripts/PublishCompiler.ps1` |
+| 使用、参数、下载 | [COMPILER_USAGE](COMPILER_USAGE.md)、[CLI_COMPATIBILITY](CLI_COMPATIBILITY.md)、[COMPILER_RELEASE](COMPILER_RELEASE.md) |
+| 优化状态、合同、证据 | [HANDOFF](docs/compiler-optimization/HANDOFF.md)、[CONTRACTS](docs/compiler-optimization/CONTRACTS.md)、[VALIDATION](docs/compiler-optimization/VALIDATION.md) |
+| 缓存与事务 | [P5_LIFECYCLE_AUDIT](P5_LIFECYCLE_AUDIT.md)、`src/App/Application/CoreStreamCompiler.cs`、`SessionPackage.cs`、`BuildAssetCache.cs` |
+| BIG、Additional、LoD | [P7_PACKAGING](P7_PACKAGING.md)、[P7_LOD_ORIGINAL_TAIL](P7_LOD_ORIGINAL_TAIL.md) |
+| 构建与验收 | [工作流](../.github/workflows/refactor-core-lifecycle.yml)、[PublishCompiler](scripts/PublishCompiler.ps1) |
+| 类型恢复与历史记录 | [分类索引](docs/README.md)、[优化前五轮归档](docs/compiler-optimization/history/VALIDATION_ROUNDS_1_5.md) |
 
-效率优先，正确性是底线；保留原始差分和失败终态，复用有效证据。长任务每约10–15分钟保存检查点，低频跟进Actions到终态；交接直接说明新增能力、验证、剩余范围和下一步。
+生产输入变化时集中重建和回归；只改文档/测试时按来源、依赖闭包和产物哈希复用已通过对象。旧交接的“下一轮”只作历史，当前待办始终由短交接覆盖更新。

@@ -1,10 +1,10 @@
 # NewSdk — NewModCompiler
 
-`compiler-main` 是 2026-10-27 起的重构结果与后续开发主线。保留旧分支历史，不将本次成果合入 `recovery/compiler-source`；旧 PR #13 关闭且不合并。此处的开发主线约定不等同于 GitHub 仓库网页默认分支设置。
+`compiler-main` 是重构结果与后续开发主线。当前性能优化集中在 `feature/compiler-optimization`；继续任务见 [短交接](recovery/docs/compiler-optimization/HANDOFF.md) 和 [续接入口](recovery/REFACTOR_RESUME.md)，[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，合并须用户明确批准。
 
 ## 获取工具
 
-最终工具由 [Core lifecycle 工作流](https://github.com/wu162/NewSdk/actions/workflows/refactor-core-lifecycle.yml?query=branch%3Acompiler-main) 在 Windows 构建。仅成功通过生产与独立 ZIP 验收后，产物中的 `final-release` 目录才有正式 Debug/Release ZIP 和哈希清单；通常使用 Release。运行编号及固定下载入口见 [发行说明](recovery/COMPILER_RELEASE.md)。本次新主线最终构建与独立ZIP验收已成功：[运行40429363386](https://github.com/wu162/NewSdk/actions/runs/40429363386)。二进制来自新增版本/LoD收尾后的源码，文档整理随后提交，不改变运行文件。
+最终工具由 [Core lifecycle 工作流](https://github.com/wu162/NewSdk/actions/workflows/refactor-core-lifecycle.yml?query=branch%3Acompiler-main) 在 Windows 构建。仅成功通过生产与独立 ZIP 验收后，产物中的 `final-release` 目录才有正式 Debug/Release ZIP 和哈希清单；通常使用 Release。运行编号及固定下载入口见 [发行说明](recovery/COMPILER_RELEASE.md)。性能优化分支的候选包及准确源码/运行身份见 [优化验证记录](recovery/docs/compiler-optimization/VALIDATION.md)；下载时按对应来源选择，不以文档分支头冒充二进制版本。
 
 每个工具 ZIP 解压后只有五个运行文件：EXE、EXE.config、antlr.runtime.dll、TextureCompiler.dll 和其补丁身份清单。SDK、MOD 源码和系统运行库单独准备。要求 Windows x86 兼容环境、.NET Framework 4.8、x86 VC80/构建工具链 VC 运行库及 DirectX 9/D3DX；先运行 doctor 检查环境。
 

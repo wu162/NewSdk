@@ -2,6 +2,10 @@
 
 日常使用见 [新编译器使用说明](../COMPILER_USAGE.md)，当前开发状态见 [交接入口](../REFACTOR_RESUME.md)。本目录中的历史恢复记录须按原 sourceCommit/runId 理解，不替换当前能力合同。
 
+## 当前编译器性能优化
+
+[当前短交接](compiler-optimization/HANDOFF.md) 保存最新接受点与下一步；[方案索引](compiler-optimization/README.md) 按问题导航，[实现合同](compiler-optimization/CONTRACTS.md) 说明边界与开关，[当前验证](compiler-optimization/VALIDATION.md) 区分源码/二进制/测试和原 ZIP。历轮失败与产物身份集中在 [前五轮归档](compiler-optimization/history/VALIDATION_ROUNDS_1_5.md)，完整用户方案只保留 PLAN 一份。
+
 ## 类型恢复记录
 
 | 分类 | 入口 |

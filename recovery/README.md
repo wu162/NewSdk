@@ -16,6 +16,7 @@
 | 事项 | 文档 |
 | --- | --- |
 | 当前状态与后续工作 | [REFACTOR_RESUME](REFACTOR_RESUME.md) |
+| 性能优化：当前结果、合同与证据 | [短交接](docs/compiler-optimization/HANDOFF.md)、[优化索引](docs/compiler-optimization/README.md)、[实现合同](docs/compiler-optimization/CONTRACTS.md)、[验证](docs/compiler-optimization/VALIDATION.md) |
 | 工作规则 | [EFFICIENCY](EFFICIENCY.md)、[阶段时长](STAGE_DURATION.md) |
 | 缓存与事务 | [生命周期记录](P5_LIFECYCLE_AUDIT.md) |
 | 路径约束 | [PATH_AUDIT](PATH_AUDIT.md) |
