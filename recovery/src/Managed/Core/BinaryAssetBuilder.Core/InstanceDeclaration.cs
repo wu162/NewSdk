@@ -185,6 +185,11 @@ public class InstanceDeclaration : IXmlSerializable
 
 		public XmlNode XmlNode;
 
+        // Runtime proof about this live DOM only; never serialized/copied from
+        // declarations or inferred from the 32-bit legacy digest.
+        internal bool PrevalidationReady;
+        internal long DomAssignmentRevision;
+
 		public List2<InstanceHandle> ReferencedInstances;
 
 		public List2<InstanceHandle> WeakReferencedInstances;
@@ -310,6 +315,16 @@ public class InstanceDeclaration : IXmlSerializable
 
 	public XmlNode Node => _Current.XmlNode;
 
+    internal bool HasPrevalidationResult => _Current != null && _Current.PrevalidationReady;
+    internal long PrevalidationRevision => _Current.DomAssignmentRevision;
+    internal void BeginPrevalidation() { _Current.PrevalidationReady = false; }
+    internal void CompletePrevalidation(long revision)
+    {
+        // A custom DOM getter/writer may assign even the same node while hashing.
+        _Current.PrevalidationReady = revision == _Current.DomAssignmentRevision;
+    }
+
+
 	public XmlNode XmlNode
 	{
 		get
@@ -319,6 +334,8 @@ public class InstanceDeclaration : IXmlSerializable
 		set
 		{
 			_Current.XmlNode = value;
+            _Current.PrevalidationReady = false;
+            _Current.DomAssignmentRevision++;
 			if (value == null)
 			{
 				return;

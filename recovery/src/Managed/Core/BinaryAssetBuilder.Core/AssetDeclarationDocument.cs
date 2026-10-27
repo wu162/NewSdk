@@ -1212,83 +1212,107 @@ public class AssetDeclarationDocument : IXmlSerializable
             public bool Equals(InstanceDeclaration left, InstanceDeclaration right) => Object.ReferenceEquals(left, right);
             public int GetHashCode(InstanceDeclaration value) => RuntimeHelpers.GetHashCode(value);
         }
-        internal readonly Dictionary<InstanceDeclaration, bool> States = new Dictionary<InstanceDeclaration, bool>(new IdentityComparer());
+        internal readonly HashSet<InstanceDeclaration> Active = new HashSet<InstanceDeclaration>(new IdentityComparer());
     }
 
-    private void OverrideInstance(InstanceDeclaration instance, InheritanceExecution execution)
+    private sealed class InheritanceFrame
     {
-        bool completed;
-        if (execution.States.TryGetValue(instance, out completed) && !completed)
-            throw new BinaryAssetBuilderException(ErrorCode.CircularDependency,
-                "Illegal circular inheritance dependency found at {0} in document '{1}'.", instance.Handle, SourcePath);
-        execution.States[instance] = false;
+        internal readonly InstanceDeclaration Instance;
+        internal InstanceDeclaration Source;
+        internal FindLocation Location;
+        internal XmlNode IncludedSource;
+        internal bool Entered;
+        internal InheritanceFrame(InstanceDeclaration instance) { Instance = instance; }
+    }
+
+    private void OverrideInstance(InstanceDeclaration root, InheritanceExecution execution)
+    {
+        var pending = new Stack<InheritanceFrame>();
+        pending.Push(new InheritanceFrame(root));
         try
         {
-            OverrideInstanceCore(instance, execution);
-            execution.States[instance] = true;
+            while (pending.Count != 0)
+            {
+                InheritanceFrame frame = pending.Peek();
+                InstanceDeclaration instance = frame.Instance;
+                if (!frame.Entered)
+                {
+                    if (!execution.Active.Add(instance))
+                        throw new BinaryAssetBuilderException(ErrorCode.CircularDependency,
+                            "Illegal circular inheritance dependency found at {0} in document '{1}'.", instance.Handle, SourcePath);
+                    instance.BeginPrevalidation();
+                    frame.Entered = true;
+                    if (instance.InheritFromHandle != null)
+                    {
+                        frame.Source = FindInstanceObserved(instance.InheritFromHandle,
+                            (instance.InheritFromHandle == instance.Handle) ? FindLocation.Self : FindLocation.None,
+                            out frame.Location, "inheritance", ObservationHandleName(instance.Handle));
+                        InstanceDeclaration source = frame.Source;
+                        if (source == null)
+                            throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0} attempts to inherit from or override non-existing instance {1}", instance.Handle, instance.InheritFromHandle);
+                        if (!source.IsInheritable && frame.Location != FindLocation.Self)
+                            throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {1} cannot be overriden because it is not of type BaseInheritableAsset", instance.Handle, instance.InheritFromHandle);
+                        switch (frame.Location)
+                        {
+                            case FindLocation.Tentative:
+                                foreach (InclusionItem inclusion in _Current.InclusionItems)
+                                {
+                                    if (inclusion.Document == source.Document)
+                                    {
+                                        frame.IncludedSource = source.XmlNode;
+                                        break;
+                                    }
+                                }
+                                break;
+                            case FindLocation.Self:
+                                if (execution.Active.Contains(source) || !source.HasPrevalidationResult)
+                                {
+                                    // Resume this exact lookup after its source, without
+                                    // pre-resolving siblings or changing error order.
+                                    pending.Push(new InheritanceFrame(source));
+                                    continue;
+                                }
+                                break;
+                            case FindLocation.None:
+                                throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0} attempts to inherit from an instance {1} which could not be found.", instance.Handle, instance.InheritFromHandle);
+                            default:
+                                throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0}\n  in document '{1}'\n  attempts to inherit from instance {2}\n  from document '{3}'\n  which does not appear to be included by 'instance'.", instance.Handle, instance.Document.SourcePath, source, source.Document.SourcePath);
+                        }
+                    }
+                }
+                if (frame.Source != null)
+                {
+                    // Same-document sources are read after DFS, at precisely the
+                    // old recursive return boundary. Included processed DOM is
+                    // retained with its original SchemaInfo/defaults/source.
+                    XmlNode sourceNode = frame.Location == FindLocation.Self ? frame.Source.XmlNode : frame.IncludedSource;
+                    if (sourceNode == null)
+                        throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Instance {0} attempts to inherit from instance {1} but source XML is missing.", instance.Handle, instance.InheritFromHandle);
+                    DependencyObservationLog.RecordInheritance(this, instance, frame.Source, frame.Location,
+                        frame.Location == FindLocation.Self ? "SameDocumentPrevalidation" : "IncludedDocumentProcessed");
+                    XmlNode merged = NodeJoiner.OverrideWithWork(_Current.DocumentProcessor.SchemaSet.Schemas,
+                        XmlDocument, sourceNode, instance.XmlNode, _Current.DocumentProcessor);
+                    XmlNode parent = instance.XmlNode.ParentNode;
+                    parent.RemoveChild(instance.XmlNode);
+                    parent.AppendChild(merged);
+                    instance.XmlNode = merged;
+                    instance.InheritFromXmlHash = frame.Source.PrevalidationXmlHash;
+                }
+                XmlNode node = instance.XmlNode;
+                long revision = instance.PrevalidationRevision;
+                instance.PrevalidationXmlHash = HashProvider.GetXmlHash(ref node);
+                instance.CompletePrevalidation(revision);
+                execution.Active.Remove(instance);
+                pending.Pop();
+            }
         }
         catch
         {
             // A failed or reentrant partial merge is never a completed result.
-            execution.States.Remove(instance);
+            foreach (InheritanceFrame frame in pending) execution.Active.Remove(frame.Instance);
             throw;
         }
     }
-
-    private void OverrideInstanceCore(InstanceDeclaration instance, InheritanceExecution execution)
-    {
-		if (instance.InheritFromHandle != null)
-		{
-			XmlNode xmlNode = null;
-			FindLocation location = FindLocation.None;
-			InstanceDeclaration instanceDeclaration = FindInstanceObserved(instance.InheritFromHandle, (instance.InheritFromHandle == instance.Handle) ? FindLocation.Self : FindLocation.None, out location, "inheritance", ObservationHandleName(instance.Handle));
-			if (instanceDeclaration == null)
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0} attempts to inherit from or override non-existing instance {1}", instance.Handle, instance.InheritFromHandle);
-			}
-			if (!instanceDeclaration.IsInheritable && location != FindLocation.Self)
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {1} cannot be overriden because it is not of type BaseInheritableAsset", instance.Handle, instance.InheritFromHandle);
-			}
-			switch (location)
-			{
-			case FindLocation.Tentative:
-				foreach (InclusionItem inclusionItem in _Current.InclusionItems)
-				{
-					if (inclusionItem.Document == instanceDeclaration.Document)
-					{
-						xmlNode = instanceDeclaration.XmlNode;
-						break;
-					}
-				}
-				break;
-			case FindLocation.Self:
-                bool sourceCompleted;
-                if (!execution.States.TryGetValue(instanceDeclaration, out sourceCompleted) || !sourceCompleted)
-                    OverrideInstance(instanceDeclaration, execution);
-				xmlNode = instanceDeclaration.XmlNode;
-				break;
-			case FindLocation.None:
-				throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0} attempts to inherit from an instance {1} which could not be found.", instance.Handle, instance.InheritFromHandle);
-			default:
-				throw new BinaryAssetBuilderException(ErrorCode.InheritFromError, "Instance {0}\n  in document '{1}'\n  attempts to inherit from instance {2}\n  from document '{3}'\n  which does not appear to be included by 'instance'.", instance.Handle, instance.Document.SourcePath, instanceDeclaration, instanceDeclaration.Document.SourcePath);
-			}
-			if (xmlNode == null)
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Instance {0} attempts to inherit from instance {1} but source XML is missing.", instance.Handle, instance.InheritFromHandle);
-			}
-            DependencyObservationLog.RecordInheritance(this, instance, instanceDeclaration, location,
-                location == FindLocation.Self ? "SameDocumentPrevalidation" : "IncludedDocumentProcessed");
-			XmlNode xmlNode2 = NodeJoiner.OverrideWithWork(_Current.DocumentProcessor.SchemaSet.Schemas, XmlDocument, xmlNode, instance.XmlNode, _Current.DocumentProcessor);
-			XmlNode parentNode = instance.XmlNode.ParentNode;
-			parentNode.RemoveChild(instance.XmlNode);
-			parentNode.AppendChild(xmlNode2);
-			instance.XmlNode = xmlNode2;
-			instance.InheritFromXmlHash = instanceDeclaration.PrevalidationXmlHash;
-		}
-		XmlNode node = instance.XmlNode;
-		instance.PrevalidationXmlHash = HashProvider.GetXmlHash(ref node);
-	}
 
 	public void MergeInstances()
 	{
@@ -1386,12 +1410,24 @@ public class AssetDeclarationDocument : IXmlSerializable
 
     public void ProcessOverrides()
     {
-        var execution = new InheritanceExecution();
+        InheritanceExecution execution = null;
         foreach (InstanceDeclaration selfInstance in SelfInstances)
         {
+            if (selfInstance.InheritFromHandle == null)
+            {
+                // The common non-inheriting path needs neither a graph nor DFS
+                // frames. It still hashes on every legacy top-level visit.
+                selfInstance.BeginPrevalidation();
+                XmlNode node = selfInstance.XmlNode;
+                long revision = selfInstance.PrevalidationRevision;
+                selfInstance.PrevalidationXmlHash = HashProvider.GetXmlHash(ref node);
+                selfInstance.CompletePrevalidation(revision);
+                continue;
+            }
             // Preserve the legacy top-level merge/hash/DOM event order, even
             // when this declaration was recursively completed by an earlier
             // sibling. Only recursive source readiness uses execution states.
+            if (execution == null) execution = new InheritanceExecution();
             OverrideInstance(selfInstance, execution);
         }
     }

@@ -209,6 +209,121 @@ internal static class CompilerCoreLifecycle
         Require(source.PrevalidationXmlHash != 0, "Legacy top-level source hash/event order was skipped");
         Tests.Add("inheritance-zero-digest:actual-merge-boundary-injection-source-ready-with-zero-legacy-hash-root-order-preserved");
     }
+    static AssetDeclarationDocument BareInheritanceDocument(DocumentProcessor processor, string name, string body, out XmlDocument xml)
+    {
+        var document = new AssetDeclarationDocument();
+        var type = typeof(AssetDeclarationDocument).GetNestedType("CurrentState", BindingFlags.NonPublic);
+        object current = Activator.CreateInstance(type, true); type.GetMethod("FromScratch").Invoke(current, new object[0]);
+        type.GetField("SourcePath").SetValue(current, Path.Combine(work, name + "/root.xml"));
+        type.GetField("DocumentProcessor").SetValue(current, processor);
+        xml = new XmlDocument(); xml.LoadXml(Asset(body)); type.GetField("XmlDocument").SetValue(current, xml);
+        typeof(AssetDeclarationDocument).GetField("_Current", Private).SetValue(document, current);
+        foreach (XmlNode node in xml.DocumentElement.ChildNodes)
+            document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = node });
+        return document;
+    }
+    static void DeepInheritanceCase(BuiltinCompilers plugins)
+    {
+        Configure("inheritance-deep"); var processor = Processor(plugins);
+        const int length = 4096;
+        var body = new System.Text.StringBuilder();
+        for (int i = 0; i < length; i++)
+            body.Append("<ArmorTemplate id='Depth" + i + "'" + (i + 1 == length ? "" : " inheritFrom='Depth" + (i + 1) + "'") + "/>");
+        XmlDocument xml;
+        var document = BareInheritanceDocument(processor, "inheritance-deep", body.ToString(), out xml);
+        document.ProcessOverrides();
+        Require(document.SelfInstances.Count == length, "Deep forward inheritance lost declarations");
+        foreach (InstanceDeclaration instance in document.SelfInstances)
+            Require(instance.XmlNode.Attributes["Default"] == null, "Prevalidation prematurely inserted schema defaults");
+        // Whole-document Framework validation retains actual type/default
+        // augmentation on this original merged DOM, rather than a CloneNode or
+        // serialized approximation of its processed-stage result.
+        xml.Schemas.Add(processor.SchemaSet.Schemas);
+        xml.Validate((sender, error) => { throw error.Exception; });
+        foreach (InstanceDeclaration instance in document.SelfInstances)
+        {
+            Require(instance.XmlNode.SchemaInfo != null && instance.XmlNode.SchemaInfo.SchemaType != null &&
+                instance.XmlNode.SchemaInfo.SchemaType.Name == "ArmorTemplate", "Deep inherited DOM lost SchemaInfo");
+            Require(instance.XmlNode.Attributes["Default"] != null && instance.XmlNode.Attributes["Default"].Value == "100" &&
+                !instance.XmlNode.Attributes["Default"].Specified, "Schema default value/provenance was lost");
+        }
+        XmlDocument failedXml;
+        var failed = BareInheritanceDocument(processor, "inheritance-error-order",
+            "<ArmorTemplate id='First' inheritFrom='Middle'/><ArmorTemplate id='Middle' inheritFrom='MissingDeep'/>" +
+            "<ArmorTemplate id='Later' inheritFrom='MissingSibling'/>", out failedXml);
+        try { failed.ProcessOverrides(); throw new Exception("Missing inheritance sources accepted"); }
+        catch (BinaryAssetBuilderException error)
+        {
+            Require(error.ErrorCode == ErrorCode.InheritFromError && error.Message.Contains("MissingDeep") && !error.Message.Contains("MissingSibling"),
+                "Iterative DFS changed first inherited-source failure order");
+        }
+        Tests.Add("inheritance-explicit-DFS:4096-forward-sources-no-recursive-stack-actual-SchemaInfo-default-provenance-and-first-depth-error-order");
+    }
+    sealed class AssigningHashElement : XmlElement
+    {
+        internal Action DuringWrite;
+        internal AssigningHashElement(XmlDocument owner) : base("", "ArmorTemplate", Ns, owner) { }
+        public override void WriteTo(XmlWriter writer)
+        {
+            Action callback = DuringWrite; DuringWrite = null;
+            if (callback != null) callback();
+            base.WriteTo(writer);
+        }
+    }
+    static void HashCallbackReadinessCase(BuiltinCompilers plugins)
+    {
+        Configure("inheritance-hash-callback"); var processor = Processor(plugins); XmlDocument xml;
+        var document = BareInheritanceDocument(processor, "inheritance-hash-callback", "<ArmorTemplate id='Callback'/>", out xml);
+        InstanceDeclaration instance = document.SelfInstances[0];
+        var custom = new AssigningHashElement(xml); custom.SetAttribute("id", "Callback");
+        xml.DocumentElement.ReplaceChild(custom, instance.XmlNode); instance.XmlNode = custom;
+        custom.DuringWrite = () => { instance.XmlNode = instance.XmlNode; };
+        document.ProcessOverrides();
+        Require(!PrevalidationReady(instance), "WriteTo callback reassignment incorrectly published readiness for another DOM assignment");
+        document.ProcessOverrides();
+        Require(PrevalidationReady(instance), "Stable custom DOM could not publish its actual completed stage");
+        var injected = new IOException("Injected hash writer callback failure");
+        custom.DuringWrite = () => { throw injected; };
+        bool rejected = false;
+        try { document.ProcessOverrides(); }
+        catch (IOException error) { rejected = Object.ReferenceEquals(error, injected); }
+        Require(rejected && !PrevalidationReady(instance), "Failed hash stage changed primary error or retained readiness");
+        Tests.Add("inheritance-ready:custom-WriteTo-same-node-assignment-revision-stable-retry-and-primary-hash-error");
+    }
+    static bool PrevalidationReady(InstanceDeclaration instance)
+    {
+        return (bool)typeof(InstanceDeclaration).GetProperty("HasPrevalidationResult", Private).GetValue(instance, null);
+    }
+    static void RepeatedInheritanceCase(BuiltinCompilers plugins)
+    {
+        Configure("inheritance-repeat"); var processor = Processor(plugins); XmlDocument xml;
+        var document = BareInheritanceDocument(processor, "inheritance-repeat",
+            "<ArmorTemplate id='First' inheritFrom='Middle'/><ArmorTemplate id='Middle' inheritFrom='Last'/>" +
+            "<ArmorTemplate id='Last' Default='10'/>", out xml);
+        document.ProcessOverrides();
+        var inserted = new List<string>();
+        xml.NodeInserted += (sender, change) => {
+            if (change.NewParent == xml.DocumentElement && change.Node.Attributes != null && change.Node.Attributes["id"] != null)
+                inserted.Add(change.Node.Attributes["id"].Value);
+        };
+        InstanceDeclaration middle = document.SelfInstances[1];
+        middle.PrevalidationXmlHash = 0;
+        Require(PrevalidationReady(middle), "Changing legacy digest revoked actual live DOM readiness");
+        document.ProcessOverrides();
+        Require(String.Join(",", inserted) == "First,Middle" && document.SelfInstances[0].InheritFromXmlHash == 0,
+            "Repeated public ProcessOverrides changed legacy top-level DOM event order or zero-result readiness");
+        inserted.Clear(); middle.XmlNode = middle.XmlNode;
+        Require(!PrevalidationReady(middle), "Public XmlNode assignment retained stale prevalidation readiness");
+        document.ProcessOverrides();
+        Require(String.Join(",", inserted) == "Middle,First,Middle", "Reassigned source did not execute its live DOM stage again");
+        document.MakeCacheable();
+        var saved = new AssetDeclarationDocument(); saved.CacheFromDocument(document); saved.FromLastHack();
+        Require(!PrevalidationReady(saved.SelfInstances[0]) && saved.SelfInstances[0].XmlNode == null,
+            "Saved declarations incorrectly restored runtime-only live DOM readiness");
+        middle.XmlNode = null;
+        Require(!PrevalidationReady(middle), "Null DOM retained prevalidation readiness");
+        Tests.Add("inheritance-ready:repeat-call-zero-digest-event-order-node-assignment-null-and-saved-declaration-boundaries");
+    }
     sealed class SaveFaultCache : SessionCache
     {
         public bool Failed;
@@ -702,7 +817,7 @@ internal static class CompilerCoreLifecycle
             using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
             {
                 RetryCase(plugins, "include", false); RetryCase(plugins, "inheritance", true);
-                CycleCase(plugins); InheritanceExecutionCase(plugins, 2); InheritanceExecutionCase(plugins, 3); ZeroInheritanceDigestCase(plugins);
+                CycleCase(plugins); InheritanceExecutionCase(plugins, 2); InheritanceExecutionCase(plugins, 3); ZeroInheritanceDigestCase(plugins); DeepInheritanceCase(plugins); RepeatedInheritanceCase(plugins); HashCallbackReadinessCase(plugins);
                 ProjectCase(plugins); SaveFailureCase(plugins);
                 MetricsFailureCase(plugins, true, false); MetricsFailureCase(plugins, false, true);
                 MetricsFailureCase(plugins, true, true); ProcessorStateCase(plugins);

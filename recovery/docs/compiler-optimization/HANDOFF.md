@@ -2,6 +2,8 @@
 
 更新：2026-10-27（北京时间）。成果集中 `feature/compiler-optimization`；[PR #15](https://github.com/wu162/NewSdk/pull/15) 保持草稿，不强推、不自行合并。通常 2 个子代理、最多 3 个，编译/测试/微基准全部 Actions。导航：[README](README.md)；实现边界：[CONTRACTS](CONTRACTS.md)；完整证据：[VALIDATION](VALIDATION.md)。
 
+2026-10-28 续接检查点：当前分支有待新 Actions 验证的继承执行状态/栈安全、外部 cache header 游标与网络 cache 查询终验、真实 CLI 交错计量准备。下列 `64bf/40524897974` 仍是最近完整接受点，不覆盖新生产修改；完整语义结果、Define 环境冻结、Texture 隐藏闭包和强缓存命中均未因此完成。
+
 ## 最新接受点与下载
 
 - **生产、首次完整验收及打包：`64bfcc80cec7860e69f0ffbc5cb0e04c69baec87` / [40524897974](https://github.com/wu162/NewSdk/actions/runs/40524897974)，整体 success。** 双配置各 30 fixtures、原 DLL/三组独立原 BAB、协议、Texture、实际 CLI、全部缓存/输入根、完整 mymod/BIG 和独立五文件 ZIP 通过。

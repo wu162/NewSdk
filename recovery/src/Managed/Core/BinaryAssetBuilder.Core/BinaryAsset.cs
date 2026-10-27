@@ -716,6 +716,7 @@ public class BinaryAsset
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to copy asset {0} to network", _Instance);
 		}
 		_Tracer.Message("{0} Submitting to cache {1}", DocumentProcessor.CurrentDocument, Instance);
+		string attemptedCacheWrite = null;
 		try
 		{
 			if (!Directory.Exists(_CacheDirectory))
@@ -726,8 +727,10 @@ public class BinaryAsset
 			FileInfo fileInfo = new FileInfo(text);
 			if (!CacheFileExists(fileInfo))
 			{
+				attemptedCacheWrite = text;
 				File.Copy(Path.Combine(_AssetOutputDirectory, _AssetFileName), text);
                 PhysicalInputSnapshot.CacheFileChangedByCurrentBuild(text, true);
+				attemptedCacheWrite = null;
 			}
 			else
 			{
@@ -739,8 +742,10 @@ public class BinaryAsset
 				fileInfo = new FileInfo(text);
 				if (!CacheFileExists(fileInfo))
 				{
+					attemptedCacheWrite = text;
 					File.Copy(Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName), text);
                     PhysicalInputSnapshot.CacheFileChangedByCurrentBuild(text, true);
+					attemptedCacheWrite = null;
 					return;
 				}
                 TouchCacheFile(fileInfo);
@@ -749,6 +754,7 @@ public class BinaryAsset
 		catch (OperationCanceledException) { throw; }
 		catch (Exception)
 		{
+            if (attemptedCacheWrite != null) PhysicalInputSnapshot.CacheFileWriteFailedByCurrentBuild(attemptedCacheWrite);
 			_Tracer.Message("Failed to copy asset {0} to network", _Instance);
 		}
 	}

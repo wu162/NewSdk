@@ -456,6 +456,41 @@ public static class CompilerBinaryMaterialization
         finally { Settings.Current.AlwaysTouchCache = touch; }
         tests.Add("public-Commit-optional-cache-publication-and-output-keepalive-query-cancellation-propagates-without-write-touch-pin-or-own-change");
     }
+    static void FailedOptionalCacheCopy()
+    {
+        string name = "failed-optional-cdata-copy";
+        var asset = Asset(name, true); string source = Source(asset, name, 64); File.Delete(source);
+        string custom = Path.Combine(Path.GetDirectoryName(source), asset.Instance.Handle.FileBase + ".cdata");
+        typeof(BinaryAsset).GetField("_CacheDirectory", Hidden).SetValue(asset, Path.GetDirectoryName(source));
+        Directory.CreateDirectory(asset.CustomDataOutputDirectory);
+        string outputCustom = Path.Combine(asset.CustomDataOutputDirectory, asset.Instance.Handle.FileBase + ".cdata");
+        File.WriteAllBytes(outputCustom, new byte[] { 5, 7 });
+        asset.Buffer = new AssetBuffer { InstanceData = new byte[64], RelocationData = new byte[0], ImportsData = new byte[0] };
+        using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, name + "-snapshot")))
+        using (snapshot.BeginReadScope())
+        {
+            Require(asset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == AssetLocation.None, "Failed optional copy fixture did not start from a cache miss");
+            using (File.Open(outputCustom, FileMode.Open, FileAccess.Read, FileShare.None))
+                WithDocument(name, () => Require(asset.Commit() == AssetLocation.Memory, "Optional cdata cache copy failure changed a successful memory commit"));
+            var failed = Metrics(snapshot);
+            Require(File.Exists(source) && CacheQuery(failed, "successfulOwnChanges") == 1 && CacheQuery(failed, "failedOwnWrites") == 1 &&
+                CacheQuery(failed, "unverifiedWritePaths") == 1 && (bool)((IDictionary<string, object>)failed["binaryCacheCandidates"])["incomplete"],
+                "Failed optional copy did not revoke only its unverified cdata candidate while retaining the successful asset publication");
+            // The exclusive source lock deterministically proves File.Copy
+            // failure, not a partial destination. Explicitly leave a partial
+            // cache member afterwards to exercise the revoked query proof.
+            File.WriteAllBytes(custom, new byte[] { 0 });
+            snapshot.VerifyUnchanged();
+            Require(asset.GetLocation(AssetLocation.Cache, AssetLocationOption.ForceUpdate) == AssetLocation.Cache,
+                "A later real cache query did not execute after failed optional publication");
+            var observed = Metrics(snapshot);
+            Require(CacheQuery(observed, "realQueriesAfterFailedWrite") == 1 && CacheQuery(observed, "unverifiedWritePaths") == 0,
+                "A later executed query failed to establish a fresh existence baseline after an uncertain own write");
+            snapshot.VerifyUnchanged();
+            observations.Add(new { id = name, failed, observed, partialDestinationOrigin = "explicit test mutation after deterministic locked-source File.Copy failure; not an observed File.Copy partial write" });
+        }
+        tests.Add("public-Commit-memory-optional-cdata-File.Copy-exclusive-source-failure-retains-success-revokes-only-failed-query-proof-and-real-requery-reestablishes-baseline-explicit-partial-fixture");
+    }
     static uint Legacy(byte[] bytes)
     {
         uint value = (uint)bytes.Length; var block = new byte[1048576];
@@ -744,6 +779,60 @@ public static class CompilerBinaryMaterialization
         AppContext.SetSwitch(Disable, false);
         tests.Add("public-DocumentProcessor-same-backend-Local-multistream-without-exclusions-remains-writable-deletable-invalid-copy-rejects-repair-retry-and-four-output-equality");
     }
+    static void PublicCoreColdToWarmGeneration()
+    {
+        string inputDirectory = Path.Combine(work, "generation-input"); Directory.CreateDirectory(inputDirectory);
+        string input = Path.Combine(inputDirectory, "root.xml");
+        File.WriteAllText(input, "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><AptAptData id='GenerationBlob' File='payload.bin'/></AssetDeclaration>");
+        byte[] payload = new byte[1048576 + 64]; for (int i = 0; i < payload.Length; i++) payload[i] = (byte)(i % 239);
+        File.WriteAllBytes(Path.Combine(inputDirectory, "payload.bin"), payload);
+        Dictionary<string, string> expected = null;
+        PublicSettings("generationinitialize-cold", input);
+        using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
+        {
+            plugins.Registry.GetExtendedTypeInformation(InstanceHandle.GetTypeId("AptAptData")).UseBuildCache = true;
+            foreach (bool disabled in new[] { false, true })
+            {
+                string mode = disabled ? "generationfallback" : "generationenabled";
+                AppContext.SetSwitch(Disable, disabled);
+                using (var snapshot = new PhysicalInputSnapshot(Path.Combine(work, mode + "-snapshot")))
+                {
+                    snapshot.ExcludeRoot(Path.Combine(work, "public-generated"));
+                    using (snapshot.BeginReadScope())
+                    {
+                        var schema = new SchemaSet(false); string cacheAsset = null;
+                        for (int stream = 0; stream < 3; stream++)
+                        {
+                            var settings = PublicSettings(mode + "-stream-" + stream, input);
+                            var processor = PublicProcessor(plugins, schema); bool success;
+                            processor.ProcessDocument(input, true, false, out success); Require(success, "Same-generation native DataBlob stream failed");
+                            Require(stream == 0 ? processor.BuildCacheMisses >= 1 && processor.BuildCacheHits == 0 : processor.BuildCacheHits >= 1 && processor.BuildCacheMisses == 0,
+                                "Same-generation cold/warm stream did not follow its actual legacy cache route");
+                            var outputs = Four(settings.OutputDirectory);
+                            if (expected == null) expected = outputs;
+                            Require(expected.All(pair => outputs[pair.Key] == pair.Value), "Same-generation cold/warm enabled/fallback four outputs differ");
+                            string[] assets = Directory.GetFiles(settings.BuildCacheDirectory, "*.asset", SearchOption.AllDirectories);
+                            Require(assets.Length == 1, "Same-generation stream did not retain exactly one real cache asset");
+                            cacheAsset = assets[0]; var metrics = Metrics(snapshot);
+                            Require(CacheQuery(metrics, "successfulOwnChanges") == 1 && CacheQuery(metrics, "conflictingObservations") == 0,
+                                "Cold publication or a later warm lookup was treated as an external cache conflict");
+                            Require(Attempt(metrics, "teeCompleted") == (!disabled && stream > 0 ? 1 : 0) &&
+                                Attempt(metrics, "copyReadHits") == (!disabled && stream == 2 ? 1 : 0),
+                                "Cold-created cache was sealed prematurely or warm streams did not share the actual copied content");
+                            if (disabled || stream == 0) Writable(cacheAsset);
+                            else Blocked(() => File.Delete(cacheAsset), "Warm-consumed external source did not retain its pin");
+                        }
+                        snapshot.VerifyUnchanged(); var final = Metrics(snapshot);
+                        Require(CacheQuery(final, "verificationChecks") == 1 && CacheQuery(final, "uniquePaths") == 1,
+                            "Same-generation cache queries were not reduced to their one final publication check");
+                        observations.Add(new { id = mode + "-cold-own-publication-two-warm-streams", metrics = final, outputs = expected });
+                    }
+                }
+            }
+        }
+        AppContext.SetSwitch(Disable, false);
+        tests.Add("public-DocumentProcessor-native-DataBlob-one-input-generation-cold-miss-own-network-cache-publication-two-warm-streams-four-output-equality-seal-on-consumption-and-final-query-SHA-validation");
+    }
     public static int Main(string[] args)
     {
         object result; int code = 0; var settings = Settings.Current; bool disabled; AppContext.TryGetSwitch(Disable, out disabled);
@@ -752,7 +841,7 @@ public static class CompilerBinaryMaterialization
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
             Settings.Current = new Settings { BuildCache = false, SessionCache = false, LinkedStreams = true, CustomPostfix = "", TargetPlatform = TargetPlatform.Win32 };
             AppContext.SetSwitch(Disable, false);
-            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); CachedCommitCancellation(); CapturedCacheKeepalive(); NetworkCacheQueries(); OwnCachePublication(); CacheHeaderRecovery(); CacheQueryCancellation(); ArbitraryTeeChunks(); ActiveSnapshotCopyTailContracts(); LateFallbackClosesSpool(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs();
+            SuccessfulSources(); FailedAttemptAndRetry(); ExistingEntryAliasRollback(); ConservativeModes(); ConsumedHandleIdentity(); CachedCommitCancellation(); CapturedCacheKeepalive(); NetworkCacheQueries(); OwnCachePublication(); CacheHeaderRecovery(); CacheQueryCancellation(); FailedOptionalCacheCopy(); ArbitraryTeeChunks(); ActiveSnapshotCopyTailContracts(); LateFallbackClosesSpool(); PublicCoreExternalCache(); PublicCoreMutableLocalOutputs(); PublicCoreColdToWarmGeneration();
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
                 scope = "Actual CopyAsset validated sources, header recovery and network-cache executed existence queries with own publication/deletion; mutable Output/Local and hidden Texture closure remain separate" };
             Console.WriteLine("PASS BinaryMaterialization: " + tests.Count + " groups; " + checks + " checks");
