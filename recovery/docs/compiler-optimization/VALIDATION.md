@@ -269,6 +269,8 @@ Export再次实时确认完整接受metadata，从同一校验过的原archive�
 
 ### 当前统一候选
 
-`4c9ac8ad` 已推送完整重建/验收，尚待终态。包含W06文档记录隔离与受控private saved共享、NodeJoiner仅id索引/外部DOM变动回退、W08局部StableSort membership索引、7资产Upheaval小组及98资产依赖链。当前接受pin仍保留60/40491888271，待完整新success后才更新；后续仅测试/工具/文档变化仍须严格核对闭包与当前测试，不把文档头冒充binarySource。
+中间完整候选 `4c9ac8ad7addbdb70b9d89df550182b6711efbf1` / [40505567372](https://github.com/wu162/NewSdk/actions/runs/40505567372) 已整体success：双配置27 fixtures、三组独立原BAB、全部CLI/Texture/缓存/输入根、完整mymod/BIG及独立五文件ZIP均成功。随后复核发现末次trace可替换DP.SchemaSet，资格检查必须对准TypeDepCompare实际已捕获的同一map；f8a008dc只修正这处guard来源，另加custom→standard及null替换的原DLL对照，排序顺序及正常输入算法未变。
+
+最终生产/首次完整测试/打包候选 `b934445adb4ae900215ff980cb902f67407e2d5e` / [40507039217](https://github.com/wu162/NewSdk/actions/runs/40507039217) 正在统一重建/验收，待终态，不提前标通过。包含W06文档记录隔离与受控private saved共享、NodeJoiner仅id索引/外部DOM变动回退、W08局部StableSort membership索引、7资产Upheaval小组及98资产依赖链。严格接受pin仍保留60/40491888271，待完整新success后才更新；后续仅测试/工具/文档变化仍须严格核对闭包与当前测试，不把文档头冒充binarySource。
 
 独立原BAB步骤现按各自成功fixture receipt进行严格验证，不再因其它不相干probe失败而全部阻塞；Debug/Release集中收集失败，任一失败仍使整组拒绝。新增提前小artifact保存原/新四输出、原配置与收据，最终发行门槛未降低。
