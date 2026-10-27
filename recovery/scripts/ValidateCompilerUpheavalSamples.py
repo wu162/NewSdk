@@ -7,6 +7,7 @@ claiming that raw inheritance/Define XML has already passed Core validation.
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import subprocess
 import xml.etree.ElementTree as E
@@ -90,7 +91,10 @@ def validate():
             seen.add(base)
             require(assets[base]['type'] == value['type'], 'Inheritance type changed')
             value = assets[base]
-    return {'succeeded': True, 'compiled': False, 'sourceCommit': SOURCE, 'assets': assets,
+    candidate = subprocess.run(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'],
+                               check=True, capture_output=True, text=True).stdout.strip()
+    return {'succeeded': True, 'compiled': False, 'sourceCommit': candidate, 'originalSourceCommit': SOURCE,
+            'runId': os.environ.get('GITHUB_RUN_ID'), 'runAttempt': os.environ.get('GITHUB_RUN_ATTEMPT'), 'assets': assets,
             'includes': includes, 'definitions': definitions, 'expressionReads': len(expressions),
             'inputBytes': sum(map(len, inventory.values())),
             'inputs': [{'path': n, 'sha256': hashlib.sha256(b).hexdigest(), 'bytes': len(b)} for n, b in sorted(inventory.items())],
