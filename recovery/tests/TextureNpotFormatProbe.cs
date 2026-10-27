@@ -30,7 +30,7 @@ internal static class TextureNpotFormatProbe
         try{
             Marshal.Copy(input,0,data,input.Length);for(int i=0;i<0x50;i++)Marshal.WriteByte(descriptor,i,0);
             Put(descriptor,0,data.ToInt32());Put(descriptor,4,unchecked((int)format));Put(descriptor,8,rowBytes);Put(descriptor,12,rowBytes*height);
-            Put(descriptor,0x34,width);Put(descriptor,0x38,height);Put(descriptor,0x3c,1);Put(descriptor,0x40,dither==0?0:0x80000);
+            Put(descriptor,0x30,width);Put(descriptor,0x34,height);Put(descriptor,0x3c,1);Put(descriptor,0x40,dither==0?0:0x80000);
             converter=factory(descriptor);Check(converter!=IntPtr.Zero,"Converter factory "+label);
             Check(Marshal.ReadInt32(converter,0x68)==width&&Marshal.ReadInt32(converter,0x6c)==height&&Marshal.ReadInt32(converter,0x70)==1,"Converter extents "+label);
             Check(Marshal.ReadInt32(converter,0x78)==bytesPerPixel,"Converter byte size "+label);
