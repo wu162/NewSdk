@@ -1,0 +1,44 @@
+{
+  "runId": "40510009285",
+  "runAttempt": "1",
+  "status": "passed",
+  "selected": [
+    "sdk-PcDxtNoMip"
+  ],
+  "sourceCommit": "73cae6417889fd5fe9cb7fbce64229fb271c8c25",
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcDxtNoMip",
+      "passed": true
+    }
+  ],
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples"
+  ]
+}
