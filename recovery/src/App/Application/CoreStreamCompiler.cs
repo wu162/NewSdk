@@ -34,8 +34,14 @@ namespace NewModCompiler.Application
         readonly SchemaSet.MetadataCache schemaMetadata = new SchemaSet.MetadataCache();
         readonly DependencyObservationLog dependencyObservations = new DependencyObservationLog();
         PhysicalInputSnapshot physicalInputs;
-        bool retainInputs;
+        bool retainInputs, physicalInputsEnabled, refreshInputGeneration;
+        string configurationIdentity;
         object releasedInputMetrics;
+        void StartInputGeneration()
+        {
+            physicalInputs = new PhysicalInputSnapshot(Path.Combine(outputRoot, ".input-snapshot-" + Guid.NewGuid().ToString("N")));
+            physicalInputs.ExcludeRoot(outputRoot);
+        }
         public object InputSnapshotReport { get { return physicalInputs == null ? releasedInputMetrics ?? (object)new { enabled = false } : physicalInputs.GetMetrics(); } }
         public void RetainInputsUntilCompletion()
         {
@@ -92,8 +98,8 @@ namespace NewModCompiler.Application
                 bool snapshotDisabled;
                 if (!(AppContext.TryGetSwitch("NewSdk.Compiler.DisablePhysicalInputSnapshot", out snapshotDisabled) && snapshotDisabled))
                 {
-                    physicalInputs = new PhysicalInputSnapshot(Path.Combine(outputRoot, ".input-snapshot-" + Guid.NewGuid().ToString("N")));
-                    physicalInputs.ExcludeRoot(outputRoot);
+                    physicalInputsEnabled = true;
+                    StartInputGeneration();
                 }
                 using (physicalInputs == null ? null : physicalInputs.BeginReadScope())
                 {
@@ -117,8 +123,14 @@ namespace NewModCompiler.Application
             if (!Directory.Exists(sdkRoot)) throw new BuildFailure(ExitCode.Environment, "CORE_SDK_MISSING", "The SDK directory does not exist.");
             string path = Path.Combine(sdkRoot, "tools", "BinaryAssetBuilder.exe.config");
             if (!File.Exists(path)) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_MISSING", "The SDK BinaryAssetBuilder configuration is missing: " + path);
+            byte[] contents = PhysicalInputSnapshot.ReadAllBytes(path);
+            string identity;
+            using (var hash = SHA256.Create()) identity = Convert.ToBase64String(hash.ComputeHash(contents));
+            if (configurationIdentity != null && !string.Equals(configurationIdentity, identity, StringComparison.Ordinal))
+                throw new BuildFailure(ExitCode.Environment, "CORE_CONFIGURATION_CHANGED", "SDK configuration changed after backend initialization; initialize a new backend session.");
             var configuration = new XmlDocument { XmlResolver = null };
-            using (var input = PhysicalInputSnapshot.OpenRead(path)) configuration.Load(input);
+            using (var input = new MemoryStream(contents, false)) configuration.Load(input);
+            configurationIdentity = identity;
             XmlNode section = configuration.SelectSingleNode("/configuration/assetbuilder");
             if (section == null) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_MISSING", "The SDK configuration has no assetbuilder section.");
             configurationXml = section.OuterXml;
@@ -470,7 +482,9 @@ namespace NewModCompiler.Application
             try
             {
                 dependencyScope = dependencyObservations.BeginScope(context.Task.Id);
+                if (physicalInputsEnabled && physicalInputs == null) StartInputGeneration();
                 physicalReadScope = physicalInputs == null ? null : physicalInputs.BeginReadScope(cancellation);
+                if (refreshInputGeneration) { LoadSdkConfiguration(); refreshInputGeneration = false; }
                 Directory.CreateDirectory(staging);
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
@@ -612,6 +626,10 @@ namespace NewModCompiler.Application
                     schemaReferences = schemas == null ? null : new { builds = schemas.ReferenceDescriptorBuildCount, hits = schemas.ReferenceDescriptorHitCount } });
                 if (failure != null)
                 {
+                    // A failed attempt has no publishable result. End its sealed
+                    // generation so callers can repair input and retry on the
+                    // same initialized backend; the next attempt rechecks config.
+                    ReleaseInputs(); refreshInputGeneration = physicalInputsEnabled;
                     try { if (Directory.Exists(staging)) Directory.Delete(staging, true); }
                     catch (Exception error) { AddCleanupFailure(ref failure, error, ExitCode.Output, "CORE_STAGING_CLEANUP_FAILED"); }
                 }

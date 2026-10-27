@@ -18,6 +18,7 @@ public static class CompilerBackendLifecycle
 {
     static readonly List<string> Tests = new List<string>();
     static readonly List<object> BaselineCases = new List<object>();
+    static readonly List<object> DigestWork = new List<object>();
     static readonly BindingFlags PrivateStatic = BindingFlags.Static | BindingFlags.NonPublic;
     static string work, sdk, probe;
     static int checks, traceCalls;
@@ -209,6 +210,11 @@ public static class CompilerBackendLifecycle
     static Dictionary<string,string> Compile(CoreStreamCompiler backend, BuildRequest request, string name, string slot, Ambient ambient)
     {
         string staging=Path.Combine(request.OutputRoot,slot);
+        var serializer = new JavaScriptSerializer();
+        object priorCache = backend.CacheReport;
+        object priorPhysical = priorCache.GetType().GetProperty("physicalInputs").GetValue(priorCache, null);
+        string priorPhysicalJson = serializer.Serialize(priorPhysical);
+        var beforePhysical = (Dictionary<string, object>)serializer.DeserializeObject(priorPhysicalJson);
         var artifacts=backend.Compile(Context(request,Task(request.ModRoot,name),staging),CancellationToken.None);
         var report=(Dictionary<string,object>)new JavaScriptSerializer().DeserializeObject(new JavaScriptSerializer().Serialize(backend.CacheReport));
         var work=(object[])report["coreWork"];
@@ -216,8 +222,27 @@ public static class CompilerBackendLifecycle
         var latest=(Dictionary<string,object>)work[work.Length-1];
         Require((string)latest["taskId"]==Task(request.ModRoot,name).Id,"Work measurements belong to a different stream");
         var digests=(Dictionary<string,object>)latest["inputDigests"];
-        Require(Convert.ToInt64(digests["reads"])>0 && Convert.ToInt64(digests["bytes"])>0 && Convert.ToInt32(digests["items"])>0,
-            "Production report must include actual logical input digest work");
+        long digestReads = Convert.ToInt64(digests["reads"]), digestBytes = Convert.ToInt64(digests["bytes"]);
+        Require(digestReads >= 0 && digestBytes >= 0 && Convert.ToInt32(digests["items"]) > 0 && (digestReads != 0 || digestBytes == 0),
+            "Per-stream FileHashItem reads must describe actual work, including zero reads for sealed positive-input hits");
+        var physical = (Dictionary<string, object>)report["physicalInputs"];
+        if (Convert.ToBoolean(physical["enabled"]))
+        {
+            long captures = Convert.ToInt64(physical["captures"]), capturedBytes = Convert.ToInt64(physical["capturedBytes"]), hits = Convert.ToInt64(physical["hits"]);
+            long beforeCaptures = Convert.ToInt64(beforePhysical["captures"]), beforeBytes = Convert.ToInt64(beforePhysical["capturedBytes"]), beforeHits = Convert.ToInt64(beforePhysical["hits"]);
+            Require(captures > 0 && capturedBytes > 0 && captures >= beforeCaptures && capturedBytes >= beforeBytes && hits >= beforeHits &&
+                Convert.ToInt64(physical["activeFilePins"]) == captures && Convert.ToBoolean(physical["positiveInputsOnly"]),
+                "Build-level physical work lost captured positive bytes, active pins or monotonic accounting");
+            Require(captures > beforeCaptures || hits > beforeHits,
+                "A successful real stream neither captured content nor used any proven sealed positive input");
+            if (digestReads == 0)
+                Require(hits > beforeHits, "Zero FileHashItem reads require actual build-level sealed-content hits, not omitted work");
+        }
+        else
+            Require(digestReads > 0 && digestBytes > 0, "Unsealed fallback must retain its actual per-stream digest reads");
+        Require(serializer.Serialize(priorPhysical) == priorPhysicalJson,
+            "A previously returned physical-work snapshot changed after a later stream");
+        DigestWork.Add(new { taskId = Task(request.ModRoot,name).Id, slot, fileHashItems = digests, physicalBefore = beforePhysical, physicalAfter = physical });
         var stages=((object[])latest["stages"]).Cast<Dictionary<string,object>>().ToArray();
         Require(stages.Any(item=>(string)item["stage"]=="link" && Convert.ToInt64(item["calls"])>0),"Successful production stream omitted link work");
         Require(stages.All(item=>Convert.ToInt64(item["calls"])>=Convert.ToInt64(item["failedCalls"]) && Convert.ToDouble(item["elapsedMs"])>=0),
@@ -350,12 +375,12 @@ public static class CompilerBackendLifecycle
                 Require(baseline.Contains("BackendFixtureBaselineOnly") && !baseline.Contains("RecoveryArmorProbe"),"Backend polluted caller hash table contents");
             }
             Settings.Current=previous; original.Unchanged("Fixture scopes restored");
-            result=new {succeeded=true,sourceCommit=args[2],runId=args[3],checks=checks,tests=Tests.ToArray(),baselineCases=BaselineCases.ToArray(),fixtureWorkRoot=work,scope="Real in-process backend only; cold comparisons are same-process new-backend contexts; production CLI, cold-process/G3/SDK and persistent-cache acceptance pending"};
+            result=new {succeeded=true,sourceCommit=args[2],runId=args[3],checks=checks,tests=Tests.ToArray(),baselineCases=BaselineCases.ToArray(),digestWork=DigestWork.ToArray(),fixtureWorkRoot=work,scope="Real in-process backend only; cold comparisons are same-process new-backend contexts; production CLI, cold-process/G3/SDK and persistent-cache acceptance pending"};
             Console.WriteLine("PASS BackendLifecycle: "+Tests.Count+" groups; "+checks+" checks");
         }
         catch(Exception e)
         {
-            code=1; result=new {succeeded=false,sourceCommit=args.Length>2?args[2]:null,runId=args.Length>3?args[3]:null,checks=checks,tests=Tests.ToArray(),baselineCases=BaselineCases.ToArray(),fixtureWorkRoot=work,error=e.ToString()}; Console.Error.WriteLine(e);
+            code=1; result=new {succeeded=false,sourceCommit=args.Length>2?args[2]:null,runId=args.Length>3?args[3]:null,checks=checks,tests=Tests.ToArray(),baselineCases=BaselineCases.ToArray(),digestWork=DigestWork.ToArray(),fixtureWorkRoot=work,error=e.ToString()}; Console.Error.WriteLine(e);
         }
         finally { Settings.Current=previous; }
         if(args.Length>1) File.WriteAllText(args[1],new JavaScriptSerializer().Serialize(result));

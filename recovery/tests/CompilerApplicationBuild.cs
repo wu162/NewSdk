@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Web.Script.Serialization;
+using System.Xml;
 using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 using NewModCompiler.Application;

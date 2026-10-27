@@ -18,6 +18,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
     [ThreadStatic] private static PhysicalInputSnapshot _Current;
     private readonly int _Thread = Thread.CurrentThread.ManagedThreadId;
     private readonly string _Scratch;
+    private readonly string _SnapshotId = Guid.NewGuid().ToString("N");
     private readonly long _MemoryBudget, _DiskBudget;
     private readonly int _FileLimit, _DirectoryLimit;
     private readonly Dictionary<string, Entry> _Paths = new Dictionary<string, Entry>(StringComparer.Ordinal);
@@ -324,7 +325,7 @@ public sealed class PhysicalInputSnapshot : IDisposable
     }
     public object GetMetrics()
     {
-        return new { enabled = true, positiveInputsOnly = true, captures = _Captures, hits = _Hits, bypasses = _Bypasses, capturedBytes = _CapturedBytes,
+        return new { enabled = true, snapshotId = _SnapshotId, positiveInputsOnly = true, captures = _Captures, hits = _Hits, bypasses = _Bypasses, capturedBytes = _CapturedBytes,
             memoryBytes = _MemoryBytes, diskBytes = _DiskBytes, verificationReads = _VerificationReads, verificationBytes = _VerificationBytes,
             activeFilePins = _Disposed ? 0 : _Identities.Count, activeDirectoryPins = _Disposed ? 0 : _Directories.Count,
             bypassReasons = new Dictionary<string, long>(_BypassReasons, StringComparer.Ordinal), cleanupFailures = _CleanupFailures, retainedScratch = _RetainedScratch };

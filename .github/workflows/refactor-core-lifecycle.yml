@@ -213,6 +213,18 @@ jobs:
         run: |
           $compilerDirectory=if($env:CLI_REUSE -eq 'true'){'recovery/artifacts/core-cli-reuse-product'}else{'recovery/artifacts/core-lifecycle-product'}
           ./recovery/scripts/TestCompilerCli.ps1 -CompilerDirectory $compilerDirectory -OutputDirectory "recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Upload CLI failure and work-metric evidence before cache matrices
+        if: ${{ !cancelled() && steps.cli.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiler-cli-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/validation.json
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/business-*.json
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/stderr.log
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/stdout.log
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/controller.log
+          if-no-files-found: warn
       - name: Validate real production CLI protocol outputs
         if: ${{ !cancelled() && steps.cli.outcome == 'success' }}
         shell: pwsh

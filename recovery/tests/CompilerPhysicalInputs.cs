@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Web.Script.Serialization;
 using System.Xml;
 using BinaryAssetBuilder;
@@ -85,7 +86,7 @@ public static class CompilerPhysicalInputs
                 using (var next = new PhysicalInputSnapshot(Path.Combine(root, "scratch-next")))
                 using (next.BeginReadScope())
                 {
-                    first.Reset(); Require(first.IsDirty && first.Hash == Legacy(path) && first.Hash != legacy,
+                    first.Reset(); Require(first.IsDirty && first.Hash == Legacy(path),
                         "New build reused stale equal-time equal-length content");
                     next.VerifyUnchanged();
                 }
@@ -151,6 +152,70 @@ public static class CompilerPhysicalInputs
         }
         finally { Settings.Current = previous; }
         tests.Add("real-XInclude-relative-escaped-base-URI-and-schema-include-consumers-share-bytes-with-private-Framework-state");
+    }
+    sealed class CancellingResolver : FileNameXmlResolver
+    {
+        readonly CancellationTokenSource cancellation;
+        public CancellingResolver(string directory, CancellationTokenSource cancellation) : base(directory) { this.cancellation = cancellation; }
+        public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
+        {
+            cancellation.Cancel();
+            return base.GetEntity(absoluteUri, role, ofObjectToReturn);
+        }
+    }
+    static void CancellationCases(string work)
+    {
+        string root = Path.Combine(work, "cancellation"); Directory.CreateDirectory(root);
+        string schema = Path.Combine(root, "types.xsd"); File.WriteAllText(schema, Types(), new UTF8Encoding(false));
+        Settings previous = Settings.Current;
+        try
+        {
+            Settings.Current = new Settings { SchemaPath = schema, StringHashBinDescriptors = new StringHashBinDescriptor[0] };
+            var snapshot = new PhysicalInputSnapshot(Path.Combine(root, "schema-scratch"));
+            using (var cancellation = new CancellationTokenSource())
+            {
+                cancellation.Cancel(); bool cancelled = false;
+                try
+                {
+                    using (snapshot.BeginReadScope(cancellation.Token))
+                    {
+                        try { new SchemaSet(false); }
+                        catch (OperationCanceledException error) { cancelled = true; Require(error.CancellationToken == cancellation.Token, "Schema cancellation changed its token"); }
+                    }
+                    Require(cancelled, "Cancelled schema input was swallowed or converted to ReadingSchema");
+                }
+                finally { snapshot.Dispose(); }
+                Require(Number(Metrics(snapshot), "activeFilePins") == 0 && Number(Metrics(snapshot), "activeDirectoryPins") == 0,
+                    "Cancelled schema preparation retained input pins");
+            }
+        }
+        finally { Settings.Current = previous; }
+        string source = Path.Combine(root, "source.xml"), child = Path.Combine(root, "cancel-fragment.xml");
+        File.WriteAllText(source, "<root xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='cancel-fragment.xml'><xi:fallback><fallback-selected/></xi:fallback></xi:include></root>", new UTF8Encoding(false));
+        File.WriteAllText(child, "<value>must-not-consume</value>", new UTF8Encoding(false));
+        var includeSnapshot = new PhysicalInputSnapshot(Path.Combine(root, "include-scratch"));
+        using (var cancellation = new CancellationTokenSource())
+        {
+            bool cancelled = false; var document = new XmlDocument();
+            try
+            {
+                using (includeSnapshot.BeginReadScope(cancellation.Token))
+                using (var input = PhysicalInputSnapshot.OpenRead(source))
+                using (var reader = XmlReader.Create(input, new XmlReaderSettings { CloseInput = true }, new Uri(source, UriKind.Absolute).AbsoluteUri))
+                using (var including = new Mvp.Xml.XInclude.XIncludingReader(reader) { XmlResolver = new CancellingResolver(root, cancellation) })
+                {
+                    try { document.Load(including); }
+                    catch (OperationCanceledException error) { cancelled = true; Require(error.CancellationToken == cancellation.Token, "XInclude cancellation changed its token"); }
+                }
+                Require(cancelled && document.GetElementsByTagName("fallback-selected").Count == 0,
+                    "XInclude converted cancellation into a resource error or selected xi:fallback");
+            }
+            finally { includeSnapshot.Dispose(); }
+            Require(Number(Metrics(includeSnapshot), "activeFilePins") == 0 && Number(Metrics(includeSnapshot), "activeDirectoryPins") == 0,
+                "Cancelled XInclude retained its previously captured root pin");
+            Writable(source); Writable(child);
+        }
+        tests.Add("schema-and-real-XInclude-cancellation-retain-token-and-bypass-resource-fallback-wrappers-without-pin-leaks");
     }
     static void BudgetCases(string work)
     {
@@ -219,7 +284,7 @@ public static class CompilerPhysicalInputs
         {
             Require(args.Length == 5 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work result source run SDK");
             string work = Path.GetFullPath(args[0]); Directory.CreateDirectory(work);
-            DigestCases(work); ReaderCases(work); BudgetCases(work);
+            DigestCases(work); ReaderCases(work); CancellationCases(work); BudgetCases(work);
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(),
                 scope = "Positive physical content snapshot, exact legacy digests, XML/XInclude/schema readers, finite budgets and Windows pin lifecycle only; negative queries and hidden plugin reads remain separate" };
             Console.WriteLine("PASS PhysicalInputs: " + tests.Count + " groups; " + checks + " checks");

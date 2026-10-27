@@ -702,6 +702,18 @@ public class XIncludingReader : XmlReader
 					{
 						return ProcessIncludeElement();
 					}
+                    catch (OperationCanceledException cancellation)
+                    {
+                        // Cancellation is not an unavailable include and must
+                        // never select xi:fallback. Preserve it through cleanup.
+                        if (!reader.Equals(_reader))
+                        {
+                            try { _reader.Close(); }
+                            catch (Exception cleanup) { cancellation.Data["MvpXml.CancellationCleanupFailure"] = cleanup; }
+                            _reader = reader;
+                        }
+                        throw;
+                    }
 					catch (FatalException ex)
 					{
 						throw ex;
@@ -886,6 +898,7 @@ public class XIncludingReader : XmlReader
 			}
 			return _xmlResolver.ResolveUri(baseUri, href);
 		}
+        catch (OperationCanceledException) { throw; }
 		catch (UriFormatException innerException)
 		{
 			throw new ResourceException(SR.GetString("InvalidURI", href), innerException);
@@ -1110,6 +1123,7 @@ public class XIncludingReader : XmlReader
 		{
 			obj = _xmlResolver.GetEntity(uri, null, null);
 		}
+        catch (OperationCanceledException) { throw; }
 		catch (Exception innerException)
 		{
 			throw new ResourceException(SR.CustomXmlResolverError, innerException);

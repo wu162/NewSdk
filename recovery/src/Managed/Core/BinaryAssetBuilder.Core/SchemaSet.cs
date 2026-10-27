@@ -550,6 +550,7 @@ public class SchemaSet
 		{
 			MeasurePreparation("schemaRead", () => ReadSchema(Directory.GetCurrentDirectory(), Settings.Current.SchemaPath));
 		}
+        catch (OperationCanceledException) { throw; }
 		catch (Exception innerException)
 		{
 			throw new BinaryAssetBuilderException(innerException, ErrorCode.ReadingSchema, "Error encountered in schema '{0}'", _CurrentSchema);
