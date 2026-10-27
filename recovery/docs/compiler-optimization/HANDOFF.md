@@ -1,14 +1,20 @@
 # 编译器优化：当前交接
 
-更新：2026-10-27，北京时间；本轮15:01开始，少于60分钟，使用2个子代理。
+更新：2026-10-27，北京时间；本轮15:56开始，按用户最新要求推进接近90分钟，使用2个子代理。
 成果分支：`feature/compiler-optimization`，起点 `compiler-main@e7396d3`。
 执行约定与方案读取索引：[README.md](README.md)。
 
-## 当前状态：本轮 W02 扩展与 W04 子组完整验收通过
+## 当前状态：既有W02/W04已验收，W03正内容子组验证中
 
 - W02：增加 rawParse、schemaRead/Compile/Metadata/ContentCheck、逻辑 schema 读取、outerStages 与顶层 applicationWork；不可变快照保留实际调用/抛异常次数，明确 beforeInitialReport 边界和嵌套区间，未宣称覆盖全部 wall 成本。
 - W04：每 build 单 entry MetadataCache，仅保存自有继承/依赖值，存储/恢复均深拷贝。三流真实 CLI 双配置均从3次表遍历降为1次构建+2次恢复；每流仍完整读取815个schema文件/1,515,884字节并Compile自己的Framework schema、绑定helpers及整文档验证。提供 DisableSharedSchemaMetadata 回退，尚无跨流Framework schema或引用描述共享。
 - 既有 W01 三项真实 Core 风险修复、W03 单遍双摘要、W08 NodeJoiner 局部索引及同代引用描述均保留并回归。每流重绑仍不等于 W06 不可变结果或并行完成。
+
+## 本轮进行中
+
+W03已接入有界PhysicalInputSnapshot：首次正内容单遍封存SHA256+原1MiB FastHash；文件只读pin与父目录防替换pin保留到发布/cache/必需输出完成，发布前强内容和身份复核；XML/XInclude/schema读同内容，跨流/配置共享。预算、不支持路径、输出工作区及opaque Texture单独bypass，保留/bc /sc全根复核；预编译reference manifest与隐藏读取未证明完整闭包，不宣称W03全部完成。
+源码 `0df7c92f4fb54d238b3dae588787f56bdb9cc230` / [40472198342](https://github.com/wu162/NewSdk/actions/runs/40472198342) 完整验证中。首次checkpoint21cd74f9的CLI测试收据重复PowerShell属性已普通修复，原预检失败[40472165263](https://github.com/wu162/NewSdk/actions/runs/40472165263)保留。
+W05 resolver候选正/负观察日志正在开发：只记录原查询，不复用或跳过工作。后续源码会继续集中此分支并另取准确Actions证据。
 
 ## 最新验证身份
 
