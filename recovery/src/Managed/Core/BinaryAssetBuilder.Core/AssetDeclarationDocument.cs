@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
@@ -1202,8 +1203,40 @@ public class AssetDeclarationDocument : IXmlSerializable
         }
 	}
 
-	private void OverrideInstance(InstanceDeclaration instance)
-	{
+    // One invocation owns the execution graph. A legacy XML digest is content
+    // metadata, not a visiting/completion flag (zero is a valid digest).
+    private sealed class InheritanceExecution
+    {
+        private sealed class IdentityComparer : IEqualityComparer<InstanceDeclaration>
+        {
+            public bool Equals(InstanceDeclaration left, InstanceDeclaration right) => Object.ReferenceEquals(left, right);
+            public int GetHashCode(InstanceDeclaration value) => RuntimeHelpers.GetHashCode(value);
+        }
+        internal readonly Dictionary<InstanceDeclaration, bool> States = new Dictionary<InstanceDeclaration, bool>(new IdentityComparer());
+    }
+
+    private void OverrideInstance(InstanceDeclaration instance, InheritanceExecution execution)
+    {
+        bool completed;
+        if (execution.States.TryGetValue(instance, out completed) && !completed)
+            throw new BinaryAssetBuilderException(ErrorCode.CircularDependency,
+                "Illegal circular inheritance dependency found at {0} in document '{1}'.", instance.Handle, SourcePath);
+        execution.States[instance] = false;
+        try
+        {
+            OverrideInstanceCore(instance, execution);
+            execution.States[instance] = true;
+        }
+        catch
+        {
+            // A failed or reentrant partial merge is never a completed result.
+            execution.States.Remove(instance);
+            throw;
+        }
+    }
+
+    private void OverrideInstanceCore(InstanceDeclaration instance, InheritanceExecution execution)
+    {
 		if (instance.InheritFromHandle != null)
 		{
 			XmlNode xmlNode = null;
@@ -1230,10 +1263,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 				}
 				break;
 			case FindLocation.Self:
-				if (instanceDeclaration.PrevalidationXmlHash == 0)
-				{
-					OverrideInstance(instanceDeclaration);
-				}
+                bool sourceCompleted;
+                if (!execution.States.TryGetValue(instanceDeclaration, out sourceCompleted) || !sourceCompleted)
+                    OverrideInstance(instanceDeclaration, execution);
 				xmlNode = instanceDeclaration.XmlNode;
 				break;
 			case FindLocation.None:
@@ -1352,13 +1384,17 @@ public class AssetDeclarationDocument : IXmlSerializable
 		_Current.DocumentProcessor.AddCompileTime(asset.Instance.Handle, DateTime.Now - now);
 	}
 
-	public void ProcessOverrides()
-	{
-		foreach (InstanceDeclaration selfInstance in SelfInstances)
-		{
-			OverrideInstance(selfInstance);
-		}
-	}
+    public void ProcessOverrides()
+    {
+        var execution = new InheritanceExecution();
+        foreach (InstanceDeclaration selfInstance in SelfInstances)
+        {
+            // Preserve the legacy top-level merge/hash/DOM event order, even
+            // when this declaration was recursively completed by an earlier
+            // sibling. Only recursive source readiness uses execution states.
+            OverrideInstance(selfInstance, execution);
+        }
+    }
 
 	private void GatherUnvalidatedTags()
 	{

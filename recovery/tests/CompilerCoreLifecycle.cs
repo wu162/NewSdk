@@ -148,6 +148,67 @@ internal static class CompilerCoreLifecycle
         Write("cycle/b.xml", probe); Run(p, a); Clean(p, null, a, b);
         Tests.Add("real-core-circular-include-rejected-then-fixed-same-processor-cache");
     }
+    static void InheritanceExecutionCase(BuiltinCompilers plugins, int length)
+    {
+        string name = "inheritance-cycle-" + length;
+        var settings = Configure(name); var processor = Processor(plugins);
+        var body = new System.Text.StringBuilder();
+        for (int i = 0; i < length; i++)
+            body.Append("<ArmorTemplate id='Node" + i + "' inheritFrom='Node" + ((i + 1) % length) + "'/>");
+        string input = Write(name + "/root.xml", Asset(body.ToString()));
+        Failure(processor, input, ErrorCode.CircularDependency);
+        Clean(processor, null, input);
+        Require(CachedDocument(processor, input).State != DocumentState.Complete,
+            "Circular inheritance published a successful document");
+        // Repair the same source and reuse the processor after the failed
+        // partial DFS. Its visiting state must belong to that invocation only.
+        string chain = "<ArmorTemplate id='First' inheritFrom='Middle'/>" +
+            "<ArmorTemplate id='Middle' inheritFrom='Last'/>" +
+            "<ArmorTemplate id='Last' Default='10'/>";
+        Write(name + "/root.xml", Asset(chain)); Run(processor, input); Clean(processor, null, input);
+        var inherited = Outputs(settings.OutputDirectory);
+        Require(CachedDocument(processor, input).SelfInstances.Count == 3, "Repaired forward inheritance chain lost a declaration");
+        // The fully expanded declaration is an independent semantic oracle for
+        // these four actual production outputs; no digest is used as readiness.
+        settings.OutputDirectory = Path.Combine(work, name, "expanded-output");
+        settings.IntermediateOutputDirectory = Path.Combine(work, name, "expanded-intermediate");
+        Write(name + "/root.xml", Asset("<ArmorTemplate id='First' Default='10'/>" +
+            "<ArmorTemplate id='Middle' Default='10'/><ArmorTemplate id='Last' Default='10'/>"));
+        var expanded = Processor(plugins); Run(expanded, input); Clean(expanded, null, input);
+        Equal(inherited, Outputs(settings.OutputDirectory));
+        Tests.Add(name + ":bounded-cycle-error-no-completion-same-processor-repair-forward-chain-expanded-four-output-equality");
+    }
+    static void ZeroInheritanceDigestCase(BuiltinCompilers plugins)
+    {
+        Configure("inheritance-zero-digest"); var processor = Processor(plugins);
+        var document = new AssetDeclarationDocument();
+        var type = typeof(AssetDeclarationDocument).GetNestedType("CurrentState", BindingFlags.NonPublic);
+        object current = Activator.CreateInstance(type, true); type.GetMethod("FromScratch").Invoke(current, new object[0]);
+        type.GetField("SourcePath").SetValue(current, Path.Combine(work, "inheritance-zero-digest/root.xml"));
+        type.GetField("DocumentProcessor").SetValue(current, processor);
+        var xml = new XmlDocument(); xml.LoadXml(Asset("<ArmorTemplate id='First' inheritFrom='Last'/>" +
+            "<ArmorTemplate id='Second' inheritFrom='Last'/><ArmorTemplate id='Last' Default='10'/>"));
+        type.GetField("XmlDocument").SetValue(current, xml);
+        typeof(AssetDeclarationDocument).GetField("_Current", Private).SetValue(document, current);
+        foreach (XmlNode node in xml.DocumentElement.ChildNodes)
+            document.SelfInstances.Add(new InstanceDeclaration(document) { XmlNode = node });
+        InstanceDeclaration source = document.SelfInstances[2], consumer = document.SelfInstances[1];
+        bool injected = false;
+        xml.NodeInserted += (sender, change) => {
+            if (change.NewParent != xml.DocumentElement || change.Node.Attributes == null ||
+                change.Node.Attributes["id"] == null || change.Node.Attributes["id"].Value != "First") return;
+            // Supply a zero-valued completed digest at the actual boundary. This
+            // tests readiness independently of the hash algorithm; it does not
+            // claim to have found a real XML FastHash collision/preimage.
+            source.PrevalidationXmlHash = 0; injected = true;
+        };
+        document.ProcessOverrides();
+        Require(injected && consumer.InheritFromXmlHash == 0,
+            "A completed zero digest was treated as an unfinished inheritance source");
+        Require(consumer.XmlNode.Attributes["Default"].Value == "10", "Zero digest source payload was not consumed");
+        Require(source.PrevalidationXmlHash != 0, "Legacy top-level source hash/event order was skipped");
+        Tests.Add("inheritance-zero-digest:actual-merge-boundary-injection-source-ready-with-zero-legacy-hash-root-order-preserved");
+    }
     sealed class SaveFaultCache : SessionCache
     {
         public bool Failed;
@@ -641,7 +702,8 @@ internal static class CompilerCoreLifecycle
             using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
             {
                 RetryCase(plugins, "include", false); RetryCase(plugins, "inheritance", true);
-                CycleCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins);
+                CycleCase(plugins); InheritanceExecutionCase(plugins, 2); InheritanceExecutionCase(plugins, 3); ZeroInheritanceDigestCase(plugins);
+                ProjectCase(plugins); SaveFailureCase(plugins);
                 MetricsFailureCase(plugins, true, false); MetricsFailureCase(plugins, false, true);
                 MetricsFailureCase(plugins, true, true); ProcessorStateCase(plugins);
                 DefineOverrideProbe(plugins, false); DefineOverrideProbe(plugins, true);
