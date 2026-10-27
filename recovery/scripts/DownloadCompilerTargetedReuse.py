@@ -18,8 +18,8 @@ import zipfile
 from PrepareCompilerCliReuse import digest, git, require, safe_name
 
 REPOSITORY = 'wu162/NewSdk'
-SOURCE = '60abfeff415e8b1c5bc0b26bf1457f13754c6d75'
-RUN = 40491888271
+SOURCE = 'b934445adb4ae900215ff980cb902f67407e2d5e'
+RUN = 40507039217
 ATTEMPT = 1
 BRANCH = 'feature/compiler-optimization'
 WORKFLOW = '.github/workflows/refactor-core-lifecycle.yml'

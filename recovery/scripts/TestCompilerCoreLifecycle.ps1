@@ -49,8 +49,8 @@ try {
     $state.binarySourceCommit=$state.sourceCommit
     if($ReuseReceipt){
         $reuse=Get-Content -LiteralPath $ReuseReceipt -Raw|ConvertFrom-Json
-        if($reuse.prepared -ne $true -or $reuse.binarySourceCommit -cne '60abfeff415e8b1c5bc0b26bf1457f13754c6d75' -or
-           $reuse.testSourceCommit -cne $state.sourceCommit -or [string]$reuse.sourceRunId -cne '40491888271'){
+        if($reuse.prepared -ne $true -or $reuse.binarySourceCommit -cne 'b934445adb4ae900215ff980cb902f67407e2d5e' -or
+           $reuse.testSourceCommit -cne $state.sourceCommit -or [string]$reuse.sourceRunId -cne '40507039217'){
             throw 'Targeted runtime reuse receipt identity mismatch'
         }
         $state.binarySourceCommit=$reuse.binarySourceCommit
