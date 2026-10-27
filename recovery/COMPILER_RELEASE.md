@@ -2,9 +2,21 @@
 
 ## 结果主线与最终工具（2026-10-27）
 
-用户指定 `compiler-main` 为重构结果及今后开发主线，不合入旧分支，旧 PR #13 关闭且不合并。当前新源最终构建准备中：主工作流将重新构建 Debug/Release、执行生产验收，再用 `PublishCompiler.ps1 -VerifyBigDeployment` 生成并独立解压验证精确五文件 ZIP；全组成功才发布正式名称。旧成功包和二进制/测试双来源记录保留，不能冒称本次新源重编译。
+用户指定 `compiler-main` 为重构结果及今后开发主线，不合入旧分支，旧 PR #13 关闭且不合并。最终新源构建与发行已通过 [运行40429363386](https://github.com/wu162/NewSdk/actions/runs/40429363386)，二进制与测试/发行源码均为 `ecd5643df87246e8f1ff0b637fec8491732219a9`。其后的分类整理和说明更新仅改变文档，不冒称另一次二进制构建。
 
-WBData 下载/提取/读取器及其真实数据验收已取消，不作为发行阻塞；已有可选修复和缺输入拒绝保留。用户要求先完成剩余工作再交付：包版本/名称参数与必要旧参数合同已补齐，LoD确定性修复策略和专项回归已准备，等待统一最终生产/ZIP验收；前一新分支构建仅作中间验证，不作为最终交付。完整 UI/runtime、Unicode Texture、混合 Texture 会话缓存为另列未覆盖范围。
+[下载完整验收产物](https://github.com/wu162/NewSdk/actions/runs/40429363386/artifacts/12701857538)（GitHub可能要求登录；Actions产物当前保留至2027-01-25）。解压外层归档后，在 `artifacts/final-release/40429363386-1/` 中选择 `NewModCompiler-Win32-Release.zip`；Debug ZIP与两配置manifest亦在同处。运行ZIP内部严格五个文件；外层是构建/验收证据，不要把它直接当作安装目录。使用方法见 [COMPILER_USAGE.md](COMPILER_USAGE.md)。
+
+| 正式ZIP | 字节数 | SHA256 |
+| --- | ---: | --- |
+| NewModCompiler-Win32-Release.zip | 1721111 | `32491881d15273bf6823ae1f1e477eed86a016a39090cf08fbdea8eaf1de978b` |
+| NewModCompiler-Win32-Debug.zip | 2223747 | `e3248b4241a59b8db4374fd3dd122e3bbacb1edb933bc5cdc59e527db176bc8b` |
+
+本次先补齐包版本/名称参数、项目配置和必要旧参数合同，并明确LoD完整逻辑表复制的确定性修复，再统一重编译和验证。两配置应用（含28–32字节LoD重复专项）、Core九组、原BAB基线、EXE绑定Texture、实际CLI/取消、输入根、构建缓存、Audio CDATA/W3X缓存、55组会话缓存、BIG/原LoD/MakeBig对照均通过；最后从精确五文件ZIP独立解压，再通过doctor、小MOD、版本/包名、Additional、中立零插入、事务/重试及协议。
+
+完整mymod继续沿用原有范围及来源，本轮没有把历史结果改标为新二进制完整SDK重跑。先前主运行失败和原LoD异常差分保持原终态；最终成功来自本次新源的完整主工作流，不依赖旧partial-Core重放器。
+
+WBData下载/提取/读取器及其真实数据验收已取消，不作为发行阻塞；已有可选修复和缺输入拒绝保留。完整UI/runtime、Unicode Texture、混合Texture会话缓存及CLI表中未开放的旧功能仍另列未覆盖范围。本轮不再以PR合回旧分支为交付条件。
+
 
 ## 发布与验收机制
 

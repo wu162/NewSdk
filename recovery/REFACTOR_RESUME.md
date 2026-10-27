@@ -1,45 +1,38 @@
-# MOD 编译器重构：最小续接入口
+# MOD 编译器：结果主线与续接入口
 
-更新：2026-10-27（北京时间）。`compiler-main` 为用户指定的重构结果及今后开发主线；旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 关闭且不合并，不再回合旧主线。
-只在新主线普通提交；禁止强推；后续其他合并仍需用户批准。子代理数量以本轮用户指示为准；本次结果整理单代理。开发主线约定不代表已改 GitHub 网页默认分支。
+更新：2026-10-27（北京时间）。用户指定 `compiler-main` 为重构结果及今后开发主线。旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 已关闭且未合并，不再合回旧主线。开发主线约定不代表已修改 GitHub 网页默认分支。
+禁止强推；今后其他合并仍须用户批准；子代理数量由当轮用户指定。
 
-## 当前状态
+## 已完成的发行范围
 
-- **P4 已通过；Win32 loose 核心 P5/G3 与 P6 最小发行包已验收，P7 默认发行范围已验收；新增版本/包名参数和 LoD 确定性边界专项已实现，最终验收中。** 阶段依据是已接受生产版本和明确输入范围，不代表后续候选已重验，也不泛称完整 UI/Unicode Texture/全部后处理已支持。
-- `/sc:true` 已真实接入并通过两配置：独立包 session.xml/intermediate/cdata → fresh LoadCache→InitializeCache→新 processor → 重建四输出。热样例实际文档复用且 XML解析/实例编译为零；未用目录命中代替实际复用。
-- `/bc`、`/sc` 默认关闭，可独立启用；命名空间覆盖输入/运行文件/参数/进程合同，实际解析边界限制根。`/dr /data /art /audio` 输入根已通过原版对照。压缩/部分/冻结 session、旧缓存目录覆盖及其他未实现选项仍明确拒绝。
-- 会话包有完整清单/SHA256、布局/XML检查；坏包/结构/版本失效整包冷编译并可逆修复。缓存与发布、必需报告/终态/日志共同确认，pending 遗留始终 miss，回滚失败保留位置。
-- 三类混合 Texture 暂明确拒绝 `/sc`，`/sc:false` 仍可编译；不授权未经证明的 Texture 缓存复用。中文纹理受旧混合 DLL LoadImageA/D3DX 限制，不能泛称完整 Unicode Texture 已支持。
-- 当前 `/sc` 两配置各55用例与协议、生产组合/路由、App、Core九组、Texture、真实CLI、`/bc`、输入根、Audio CDATA/W3X均有成功证据。原Core Unicode组因反射fixture没绑processor失败；修正owner并保留全部断言后，精确归档host定向重验及原BAB基线已通过，原失败终态保留。
-- 原Core App协议步骤曾被整体失败跳过，已对固定原归档60份原始报告/事件文件补做协议校验，两配置各15报告/511事件，零错误；只补协议，不重跑成功业务组。
-- 完整未精简 mymod 原 BAB 先行与两配置生产四输出/cdata对照已通过。mymod apt/maps无入口，明确记录空集合；另有既有真实APT/MapMetaData及三份Upheaval UI完整依赖闭包证据，仍不代替完整 UI/runtime。
-- P6 Debug/Release 正式 ZIP 已通过：精确五运行文件、独立解压后源bin/包bin doctor与真实小MOD、四输出逐字节及协议检查。系统仍需.NET4.8/x86 VC80/现有VC与DirectX；包证据不推断裸Windows无前置要求。
-- 本轮首次生产链接C1001已通过等价移除App新增异常过滤器解决；生产重建成功。其后仅测试/发布工具变更严格复用同一已接受EXE与host，分别记录二进制/测试来源，不冒充当前重编译。
-- P7默认base/apt/maps BIG、SDK→MOD Additional、显式中立哈希修复零插入链与P6五文件ZIP已通过Debug/Release独立解压/原工具原始字节/事务及协议验收。恢复的纯C#MakeBig物理入EXE，组件两配置15组通过。生产构建/App/Core/CLI/全部缓存独立成功，后续纯测试修复严格复用同一生产五文件；保留原失败终态、二进制/测试双来源。完整P7仍不包含WBData提取、完整游戏中立插入与原LoD异常输入的通用等价。
-- XML63组/非XML历史差分按原sourceCommit与未变化输入复用；不重复完整SDK或无依据路径排列。BIG完整base后处理、完整Unicode纹理、完整UI/runtime仍未完成。
+- Win32 单进程核心编译、MOD目录入口、base/apt/maps 计划、日志/JSONL/报告、默认 BIG/SKUDEF 与五文件发行包已验收。恢复业务代码进入 EXE；纯 C# MakeBig 已内建，不启动 BAB/MakeBig worker。
+- 最新结果在新主线重新编译 Debug/Release，应用、Core九组、原BAB基线、Texture、实际CLI、输入根、全部缓存、BIG原工具差分和独立ZIP运行均通过。准确源码/运行/产物身份见 COMPILER_RELEASE.md，不用文档头提交冒充二进制来源。
+- 新增 mod-version、game-version、skudef-name 及项目预设/命令行优先级已通过；默认1.0/1.12保持旧脚本行为。布尔开关使用等号，帮助示例已修正。必要旧参数及拒绝范围见 CLI_COMPATIBILITY.md。
+- `/bc`、`/sc` 默认关闭，可独立启用；会话缓存恢复实际文档和intermediate/CDATA，再重新链接输出。两配置各55用例、冷热/失效、缺损修复、失败取消和事务已验证。混合Texture仍明确拒绝 `/sc:true`。
+- 默认base包含低/中LoD；APT版本标记为原脚本空格+CRLF。Additional显式开启，SDK先、MOD后覆盖并排除.asset，已通过原CopyFolders/MakeBig全内容对照。
+- 可选中立修复默认关闭；已集成HashFix→Resolver→LoD，在私有包工作区处理，缺完整参考明确拒绝。验收范围为组件差分及生产零插入链，未泛称完整游戏中立资产插入。
+- 原LoD已知越界明确采用确定性修复合同：完整逻辑表复制并保留NUL，不复刻越界内存。28–32字节边界专项重复验证通过；原工具异常差分/失败证据保留，不能改称原始字节相等。
+- Debug/Release正式包精确五运行文件，独立解压后doctor、小MOD、版本/包名、BIG、Additional、中立零插入、CDATA、回滚/取消/重试和协议全部通过。依赖.NET4.8、x86 VC80/VC与DirectX，不能推断裸Windows无前置要求。
+- 完整未精简mymod、历史XML/非XML差分保留原source/run范围；本次不重复未变化业务的完整SDK编译，不改标历史证据为当前二进制重跑。
 
-## 下一步（按顺序）
+## 已取消与未覆盖范围
 
-1. 2026-10-27 用户取消 WBData 相关规划：不再安排下载、提取、读取器开发及依赖真实 WBData 的中立资产插入验收，也不作为本轮重构完成条件。保留已有可选修复及完整参考文件缺失时的明确拒绝，验证范围仍为已通过的组件差分与生产零插入链。复用当前正式包及原始收据，不重跑未变化组。
-2. 布尔选项写 `--include-additional=true` / `--fix-neutral-assets=true`。本次结果分支已修 help 空格歧义，正在准备新源构建与独立 ZIP 验收；通过前不替换既有接受身份。新包与旧APT包分开记录，不用旧标签冒认。
-3. 用户确认无需AssetMerge，不再集成或列为P7必做。默认base仅需LoD；必要旧参数合同见 CLI_COMPATIBILITY.md；新增包版本/名称参数已实现，LoD明确选择修复原越界、保留完整逻辑表并补专项。下一步完成这组最终生产/ZIP验收并交付工具；本次不再以合回旧分支为目标。完整UI/runtime、Unicode Texture及混合Texture会话缓存分别记录为未覆盖范围，不自动扩大本次重构。WBData相关工作已取消，不能标成验证通过。
-4. 固定归档重放入口已启用为精确partial-Core恢复，不再钉无产物源。只在实际测试修复需要时使用，校验完整生产闭包/原始归档/成功范围，保留原失败终态与二进制/测试双来源；不重复已过SC。
+- 用户取消AssetMerge集成，不是发行必做项。用户取消WBData下载/提取/读取器及依赖其真实数据的验收，不再作为重构完成条件；保留已有可选修复和缺输入拒绝，不能把取消标记为验收通过。
+- 完整UI/runtime、中文纹理路径、混合Texture会话缓存仍有未覆盖范围。压缩/部分/冻结缓存、旧缓存目录覆盖、预编译及替代输出等未开放参数明确拒绝；这些不自动扩大为当前收尾任务。
 
-文档入口：`recovery/README.md`；用户使用说明：`recovery/COMPILER_USAGE.md`；类型恢复记录在 `recovery/docs/components`，历史流水在 `recovery/docs/history`。
+## 后续工作方式
+
+本次选定范围的收尾与工具交付已完成。后续按用户新需求选择上述未覆盖能力推进；继续以 compiler-main 为入口，不再准备合回旧分支。
+生产输入改变时成组重建受影响回归；只有文档改变时不重编译。旧固定归档重放器仍绑定其历史源，不能直接用于当前新生产源码。新发行走主工作流的完整构建与发布门槛。
 
 ## 按任务读取
 
 | 事项 | 入口 |
 | --- | --- |
-| P5 缓存与事务 | `recovery/P5_LIFECYCLE_AUDIT.md`、`recovery/src/App/Application/CoreStreamCompiler.cs`、`SessionPackage.cs`、`BuildAssetCache.cs` |
-| Windows 受影响组 | `.github/workflows/refactor-core-lifecycle.yml`、`recovery/scripts/TestCompilerSessionCache.ps1`、`TestCompilerSdk.ps1`、`TestCompilerUnicodeReplay.ps1` |
-| P7 BIG合同/限制 | `recovery/P7_PACKAGING.md`、`recovery/scripts/TestCompilerBig.ps1` |
-| P6 正式最小包 | `recovery/scripts/PublishCompiler.ps1`、`recovery/COMPILER_RELEASE.md` |
-| 既有路径/阶段/效率 | `recovery/PATH_AUDIT.md`、`recovery/NewSdk_ModCompiler_Refactor_Plan.md` P5/G3/P6/P7、`recovery/EFFICIENCY.md` |
+| 使用与文档分类 | `recovery/COMPILER_USAGE.md`、`recovery/README.md`、`recovery/docs/README.md` |
+| 当前发行与参数 | `recovery/COMPILER_RELEASE.md`、`recovery/CLI_COMPATIBILITY.md` |
+| 缓存与事务 | `recovery/P5_LIFECYCLE_AUDIT.md`、`recovery/src/App/Application/CoreStreamCompiler.cs`、`SessionPackage.cs`、`BuildAssetCache.cs` |
+| BIG与LoD | `recovery/P7_PACKAGING.md`、`recovery/P7_LOD_ORIGINAL_TAIL.md`、`recovery/scripts/TestCompilerBig.ps1` |
+| 执行与验证 | `recovery/EFFICIENCY.md`、`.github/workflows/refactor-core-lifecycle.yml`、`recovery/scripts/PublishCompiler.ps1` |
 
-## 不可丢失的执行约束
-
-效率优先，正确性是底线；已明确行为成组实现并接入生产，调查、工具和文档只服务当前交付。先廉价预检，独立组集中验收，严格复用未变化证据，保留原始差分及SDK门槛。
-Windows x86 / .NET Framework 4.8；恢复业务代码物理链接 EXE，保留必要 ANTLR。生产 EXE 不含测试入口；独立宿主复用生产对象，分别绑定两份 EXE 身份；不得放回业务 DLL 或改写 TLS/IAT 绕过限制。
-一次启动持续推进本轮已授权工作，低频跟进 Actions 到终态；不让用户反复启动。每约10–15分钟保存有意义检查点，未验证不能标完成。
-交接在对话中直接说明新增能力、验证、真正阻塞和下一步。入口约60行，不追加流水账、运行编号/指纹/产物链接；原始证据从分支 Actions 查询。
+效率优先，正确性是底线；保留原始差分和失败终态，复用有效证据。长任务每约10–15分钟保存检查点，低频跟进Actions到终态；交接直接说明新增能力、验证、剩余范围和下一步。
