@@ -1,0 +1,1 @@
+PASS Texture DXT5 alpha NoOriginal fixtures=78144 checks=625152; original DLL absent and not loaded

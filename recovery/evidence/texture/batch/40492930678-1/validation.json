@@ -1,0 +1,37 @@
+{
+  "runId": "40492930678",
+  "runAttempt": "1",
+  "selected": [
+    "dxt5-alpha"
+  ],
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha"
+  ],
+  "groups": [
+    {
+      "passed": false,
+      "evidenceOnly": false,
+      "group": "dxt5-alpha",
+      "error": "Release-native-build failed"
+    }
+  ],
+  "sourceCommit": "24d79369ccca3376befcb4c882bc49e234d7450e",
+  "status": "failed"
+}

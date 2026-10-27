@@ -1,0 +1,7 @@
+TextureAlphaQuantizer.cpp
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Dxt\TextureAlphaQuantizer.cpp(76): error C2420: 'memset': illegal symbol in first operand
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Dxt\TextureAlphaQuantizer.cpp(76): error C2415: improper operand type
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Dxt\TextureAlphaQuantizer.cpp(86): error C2420: 'memset': illegal symbol in first operand
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Dxt\TextureAlphaQuantizer.cpp(86): error C2415: improper operand type
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Dxt\TextureAlphaQuantizer.cpp(122): error C2420: 'memset': illegal symbol in first operand
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Dxt\TextureAlphaQuantizer.cpp(122): error C2415: improper operand type
