@@ -72,6 +72,7 @@ try {
         @{name='CompilerPhysicalInputs';marker='PASS PhysicalInputs:'},
         @{name='CompilerManifestInputs';marker='PASS ManifestInputs:'},
         @{name='CompilerStreamBindings';marker='PASS StreamBindings:';timeoutSeconds=600},
+        @{name='CompilerTransferBuffers';marker='PASS TransferBuffers:';timeoutSeconds=600},
         @{name='CompilerExpressionPrograms';marker='PASS ExpressionPrograms:';timeoutSeconds=600},
         @{name='CompilerDependencyObservations';marker='PASS DependencyObservations:'},
         @{name='CompilerBaseManifestIndex';marker='PASS BaseManifestIndex:'},

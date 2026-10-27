@@ -48,7 +48,17 @@ public class BinaryAsset
 
 	private OutputManager _Parent;
 
-	private static byte[] _CopyBuffer = new byte[1048576];
+    private static byte[] _CopyBuffer;
+    private static readonly object _CopyBufferGate = new object();
+    private static readonly Func<byte[]> _LegacyCopyBufferFactory = GetLegacyCopyBuffer;
+    private static byte[] GetLegacyCopyBuffer()
+    {
+        lock (_CopyBufferGate)
+        {
+            if (_CopyBuffer == null) _CopyBuffer = new byte[1048576];
+            return _CopyBuffer;
+        }
+    }
 
 	public AssetBuffer Buffer
 	{
@@ -450,7 +460,9 @@ public class BinaryAsset
 			{
 				Directory.CreateDirectory(_AssetOutputDirectory);
 			}
-			lock (_CopyBuffer)
+            DocumentProcessor processor = _Parent == null ? null : _Parent.DocumentProcessor;
+            byte[] copyBuffer = processor == null ? GetLegacyCopyBuffer() : processor.TransferBuffers.GetCopyBuffer(_LegacyCopyBufferFactory);
+            lock (copyBuffer)
 			{
 				using FileStream fileStream = File.OpenRead(sourceAssetPath);
 				using (FileStream fileStream2 = File.Open(text2, FileMode.Create, FileAccess.Write))
@@ -458,7 +470,7 @@ public class BinaryAsset
 					long num = fileStream.Length;
 					while (num > 0)
 					{
-						int num2 = fileStream.Read(_CopyBuffer, 0, _CopyBuffer.Length);
+						int num2 = fileStream.Read(copyBuffer, 0, copyBuffer.Length);
 						if (num2 < 16)
 						{
 							throw new Exception();
@@ -466,13 +478,13 @@ public class BinaryAsset
 						if (_AssetHeader == null)
 						{
 							_AssetHeader = new AssetHeader();
-							_AssetHeader.LoadFromBuffer(_CopyBuffer, Settings.Current.BigEndian);
+							_AssetHeader.LoadFromBuffer(copyBuffer, Settings.Current.BigEndian);
 							if (_AssetHeader.InstanceId != Instance.Handle.InstanceId || _AssetHeader.TypeId != Instance.Handle.TypeId || _AssetHeader.InstanceHash != Instance.Handle.InstanceHash || _AssetHeader.TypeHash != Instance.Handle.TypeHash)
 							{
 								throw new Exception();
 							}
 						}
-						fileStream2.Write(_CopyBuffer, 0, num2);
+						fileStream2.Write(copyBuffer, 0, num2);
 						num -= num2;
 					}
 					fileStream2.Flush();

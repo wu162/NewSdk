@@ -165,3 +165,24 @@ W05真实business每配置记录48次resolve、candidateChecks0、dropped0。这
 最新生产修复 `c65761fed6eed5ad71512e1cea2271eb49a4163f` 保留每个新alias路径的只读/禁delete句柄，仅共享immutable内容及双摘要；Dispose逐一关闭全部alias handles，仍受路径预算约束。activeFilePins保持unique内容owner口径，新增activeAliasPins/activeReadHandles区分实际资源数。该修复已独立静态复核，不等于运行验收。
 
 生产输入已改变，停止沿用68二进制复用，已触发[完整重建40479845571](https://github.com/wu162/NewSdk/actions/runs/40479845571)。本轮接近90分钟交接时仍在运行，未标通过；下一轮首先跟进此run到终态，核对hardlink unlink/其它17个fixture及全部CLI/缓存/mymod/BIG/ZIP，再更新准确二进制来源。原68发行包带已知hardlink alias边界，不把其成功当本修复的验收。
+
+## 第四轮：manifest、消费轨迹、每流绑定与表达式准备
+
+北京时间17:39开始；用户最新要求每轮最多120分钟、尽量跑满持续推进，通常2个子代理、最多3个。所有编译、测试和微基准均在Actions，本地仅编辑/静态检查及读取已生成证据。
+
+先核实上一轮热修：生产/测试/打包 `c65761fed6eed5ad71512e1cea2271eb49a4163f` / [40479845571](https://github.com/wu162/NewSdk/actions/runs/40479845571) 已整体success，包含17个Core fixtures、全部CLI/缓存/输入根、完整mymod/BIG和独立五文件ZIP。下载核验targeted artifact `12722102881`，SHA256 `dc4f5d4fc3a76ffc7aafe569ca136e881fe1eca1ca38cfecd28956225d56eae8`，source/run匹配；双配置PhysicalInputs各111检查，hardlink alias unlink阻断且独立inode不误合并。完整artifact `12723670985` 的GitHub digest为 `d004d4ae92f91e934ec7a1f0056a18e62f5af1ad85d30dfd56be8a0537592af3`；本轮未下载该大包，不冒称独立校验ZIP字节。
+
+| 生产/测试来源 | Actions | 状态与保留失败 |
+| --- | --- | --- |
+| `88e114bc0c1623dd5be707a3b583189ee78b9473` | [40483925423](https://github.com/wu162/NewSdk/actions/runs/40483925423) | failure：Foundation审计拒绝新增Utility.Asset.Update回调签名；修复精确列出Asset.Update和Manifest.Load两种新增重载，旧全部public/family签名、flags/custom modifiers门槛保留。 |
+| `cff094f1067c38465b9c00f777297953e45ee623` | [40484533010](https://github.com/wu162/NewSdk/actions/runs/40484533010) | failure：双配置18个Core fixtures仅ManifestInputs的测试配置默认BuildCache=true/未给缓存目录，OutputManager构造Path.Combine(null,platform)拒绝；其余17通过。原生产与断言不改，f001仅显式关闭该fixture未用缓存。未冒充完整SDK/ZIP验收。 |
+| `6e54d06f40a7d8e7c5bb08938b5029f2db2403dc` | [40485040370](https://github.com/wu162/NewSdk/actions/runs/40485040370) | 双配置新增W06 StreamBindings各42检查/3组通过，19 fixtures仅上述已知manifest测试配置失败；继续收集其它独立矩阵，不作为整体成功。 |
+| `25dde80d4c9355fa67e64679bf1dedd47e5ee65c` | [40486677963](https://github.com/wu162/NewSdk/actions/runs/40486677963) | 双配置20个Core fixtures全部通过，含修好的manifest与Expr各1279检查/5组；其后应用协议校验失败。新候选一致性测试写入非协议effectiveOptions.Source临时标签，已改用实际Options.Parse接收/data参数，不扩大schema枚举。当前后续完整重验仍必需。 |
+
+已下载核对targeted：cff artifact `12725295399` / SHA256 `f95e7d07d5d59d9e5b243f83f99eea515e0f3291f3e743be2848484d694ec031`；6e artifact `12724588122` / `0daa7f5ba386f04d887fc0ce6a2b83688ae6c55815c56504d517b38b5db34f00`；25d artifact `12724659580` / `97a7199e613fb94ac2518ba59fa3318cdbde1f8424c6f5c62154422b0f38e60d`。各收据source/run与原始归档匹配，只接受各自成功组件范围。
+
+W03新增两个Core入口及Utility递归patch/StringHashes封存与实际发现查询复核；不新增resolve时探测，不复用答案。存在性检查只证明复核时点的已登记候选，预算/路径/输出根回退明确，不替代全根缓存校验或Texture闭包。生产Utility原签名和fallback保留，追加三条回调签名经独立显式审计。
+
+W05记录实际绑定/值/来源/安装epoch及原符号候选/选择/歧义，继承记录实际消费阶段。标量事件有界，canAuthorizeReuse=false，legacy XML hash不是强缓存放行证据。W06执行期map归root私有，强引用重复位置、weak规则、合法引用环、错误与排序保留；成功Prepare的公开快照不再持有可变Core对象。尚未完成整个不可变AssetSemanticResult或并行隔离。
+
+W08 exact程序只在完整原parser求值与AsString成功后发布，暖路重新执行当前Define/文化转换与原运算。25d原SDK DLL隔离进程264行、四文化cold/warm/fallback值/错误码/消息/parser诊断/UsedDefines全部相同；当前Define零值、缺失和未求值失败的首错读取前缀不变，失败不入缓存。独立entry/text/node预算压力、depth回退、跨DP隔离和真实XML四输出差分通过。后续共享文化与微基准属于新源，不能用25d组件结果冒称该新组已经通过。

@@ -40,6 +40,7 @@ on:
       - 'recovery/tests/CompilerManifestInputs.cs'
       - 'recovery/tests/CompilerStreamBindings.cs'
       - 'recovery/tests/CompilerExpressionPrograms.cs'
+      - 'recovery/tests/CompilerTransferBuffers.cs'
       - 'recovery/tests/CompilerDependencyObservations.cs'
       - 'recovery/tests/CompilerBaseManifestIndex.cs'
       - 'recovery/tests/CompilerNodeJoiner.cs'

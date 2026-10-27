@@ -55,7 +55,17 @@ public class OutputManager
 
 	private static InstanceHandle breakHandle = new InstanceHandle(568797146u, 2920827972u);
 
-	private static byte[] _LinkedBuffer = new byte[65536];
+    private static byte[] _LinkedBuffer;
+    private static readonly object LegacyLinkedBufferGate = new object();
+    private static readonly Func<byte[]> LegacyLinkedBufferFactory = GetLegacyLinkedBuffer;
+    private static byte[] GetLegacyLinkedBuffer()
+    {
+        lock (LegacyLinkedBufferGate)
+        {
+            if (_LinkedBuffer == null) _LinkedBuffer = new byte[65536];
+            return _LinkedBuffer;
+        }
+    }
 
 	public IDictionary<string, BinaryAsset> Assets => _Assets;
 
@@ -347,15 +357,18 @@ public class OutputManager
 
 	private void AppendAsset(Stream source, Stream destination, int length)
 	{
+        if (length <= 0) return;
+        byte[] buffer = _DocumentProcessor == null ? GetLegacyLinkedBuffer()
+            : _DocumentProcessor.TransferBuffers.GetLinkBuffer(LegacyLinkedBufferFactory);
 		while (length > 0)
 		{
 			int num = ((length > 65536) ? 65536 : length);
-			int num2 = source.Read(_LinkedBuffer, 0, num);
+			int num2 = source.Read(buffer, 0, num);
 			if (num2 != num)
 			{
 				throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Requested more bytes to read than available.");
 			}
-			destination.Write(_LinkedBuffer, 0, num2);
+			destination.Write(buffer, 0, num2);
 			length -= num2;
 		}
 	}

@@ -142,6 +142,13 @@ public class DocumentProcessor
         _BaseManifestWorkSnapshots.Values.CopyTo(result, 0); return result;
     }
 
+    private readonly CoreTransferBuffers _TransferBuffers = new CoreTransferBuffers();
+    internal CoreTransferBuffers TransferBuffers => _TransferBuffers;
+    public object GetTransferBufferMetrics()
+    {
+        return _TransferBuffers.GetMetrics();
+    }
+
     public object GetExpressionProgramMetrics()
     {
         return ExpressionEvaluatorWrapper.GetProgramMetrics(this);

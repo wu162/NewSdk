@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -21,7 +22,7 @@ using NewModCompiler.Application;
 // production host's directory or loader context.
 public static class CompilerExpressionPrograms
 {
-    const string Disable = "NewSdk.Compiler.DisableExpressionPrograms";
+    const string Disable = "NewSdk.Compiler.DisableExpressionPrograms", DisableCulture = "NewSdk.Compiler.DisableSharedExpressionCulture";
     const BindingFlags Hidden = BindingFlags.NonPublic | BindingFlags.Instance;
     static readonly JavaScriptSerializer Json = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
     static int checks;
@@ -114,17 +115,18 @@ public static class CompilerExpressionPrograms
         {
             var row = expected[index]; Require(row.Take(3).SequenceEqual(specs[index]), "Original expression specification changed");
             Thread.CurrentThread.CurrentCulture = new CultureInfo(row[0]);
-            foreach (string mode in new[] { "first", "warm-cross-document", "fallback" })
+            foreach (string mode in new[] { "first", "warm-cross-document", "fallback", "warm-per-value-culture", "legacy-all" })
             {
-                AppContext.SetSwitch(Disable, mode == "fallback");
+                AppContext.SetSwitch(Disable, mode == "fallback" || mode == "legacy-all");
+                AppContext.SetSwitch(DisableCulture, mode == "warm-per-value-culture" || mode == "legacy-all");
                 string[] actual = Outcome(row[0], row[1], row[2], Input(owner, row[1]));
                 Require(actual.SequenceEqual(row), "Original/" + mode + " expression mismatch at " + index + ": " + Json.Serialize(row) + " != " + Json.Serialize(actual));
             }
         }
-        AppContext.SetSwitch(Disable, false); var metrics = Metrics(owner);
+        AppContext.SetSwitch(Disable, false); AppContext.SetSwitch(DisableCulture, false); var metrics = Metrics(owner);
         Require(Number(metrics, "hits") > 0 && Number(metrics, "builds") > 0 && Number(metrics, "parserCalls") > 0, "Real parser/program replay was not exercised");
         observations.Add(new { id = "original-cold-warm-fallback-all-cultures", rows = expected.Count, metrics });
-        tests.Add("isolated-original-DLL-vs-cold-warm-cross-document-and-fallback-full-value-errorcode-message-parser-diagnostic-used-define-differential-in-four-cultures");
+        tests.Add("isolated-original-DLL-vs-first-warm-parser-fallback-per-value-culture-and-legacy-all-full-outcome-and-read-state-differential-in-four-cultures");
     }
     static IDictionary<string, object>[] Reads(DependencyObservationLog log)
     {
@@ -219,6 +221,62 @@ public static class CompilerExpressionPrograms
         AppContext.SetSwitch(Disable, false); Require(Number(Metrics(owner), "replayFailures") >= 3, "Runtime program failures did not exercise actual replay");
         tests.Add("previously-successful-program-replays-current-Define-zero-missing-and-pending-failures-with-identical-first-error-and-read-prefix");
     }
+    static void CultureOwnership()
+    {
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+        var field = typeof(ExpressionValue).GetField("_CultureInfo", Hidden);
+        bool prior; AppContext.TryGetSwitch(DisableCulture, out prior);
+        try
+        {
+            AppContext.SetSwitch(DisableCulture, false);
+            var sharedA = ExpressionValue.NewFloat("1.25"); var sharedB = ExpressionValue.NewFloat("1.25");
+            var shared = (CultureInfo)field.GetValue(sharedA);
+            Require(Object.ReferenceEquals(shared, field.GetValue(sharedB)) && shared.IsReadOnly && shared.NumberFormat.IsReadOnly, "Shared expression culture data is not immutable and shared");
+            AppContext.SetSwitch(DisableCulture, true);
+            var legacyA = ExpressionValue.NewFloat("1.25"); var legacyB = ExpressionValue.NewFloat("1.25");
+            Require(!Object.ReferenceEquals(field.GetValue(legacyA), field.GetValue(legacyB)) && !Object.ReferenceEquals(shared, field.GetValue(legacyA)), "Per-value culture fallback shares mutable culture ownership");
+            Require(sharedA.AsString() == legacyA.AsString() && sharedB.AsString() == legacyB.AsString(), "Culture ownership changed the original explicit English formatting");
+        }
+        finally { AppContext.SetSwitch(DisableCulture, prior); }
+        tests.Add("shared-culture-readonly-ownership-and-independent-per-value-fallback-preserve-formatting");
+    }
+    static void InterleavedMicrobenchmark()
+    {
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+        const string expression = "=round(($I+3)*2/3)+(($I*2)>=10)";
+        const int iterations = 500, rounds = 7;
+        string[] modes = { "program-shared-culture", "parser-shared-culture", "program-per-value-culture" };
+        var owners = modes.ToDictionary(mode => mode, mode => Owner());
+        var evaluators = modes.ToDictionary(mode => mode, mode => new ExpressionEvaluator(Input(owners[mode], "standard")));
+        AppContext.SetSwitch(Disable, true); AppContext.SetSwitch(DisableCulture, false);
+        string expected = evaluators["parser-shared-culture"].Evaluate(expression);
+        // Warm every path independently in this process. Initial parses and all
+        // metrics serialization are outside the measured intervals.
+        for (int warm = 0; warm < 30; warm++)
+            foreach (string mode in modes)
+            {
+                AppContext.SetSwitch(Disable, mode == "parser-shared-culture"); AppContext.SetSwitch(DisableCulture, mode == "program-per-value-culture");
+                Require(evaluators[mode].Evaluate(expression) == expected, "Microbenchmark path warmup value changed");
+            }
+        var samples = new List<object>();
+        for (int round = 0; round < rounds; round++)
+            for (int position = 0; position < modes.Length; position++)
+            {
+                string mode = modes[(round + position) % modes.Length]; bool fallback = mode == "parser-shared-culture";
+                AppContext.SetSwitch(Disable, fallback); AppContext.SetSwitch(DisableCulture, mode == "program-per-value-culture");
+                var before = Metrics(owners[mode]); var timer = Stopwatch.StartNew();
+                for (int iteration = 0; iteration < iterations; iteration++) Require(evaluators[mode].Evaluate(expression) == expected, "Timed expression value changed");
+                timer.Stop(); var after = Metrics(owners[mode]);
+                long parserCalls = Number(after, "parserCalls") - Number(before, "parserCalls"), hits = Number(after, "hits") - Number(before, "hits");
+                Require(fallback ? parserCalls == iterations && hits == 0 : parserCalls == 0 && hits == iterations, "Timed batch did not execute the selected parser/program path");
+                samples.Add(new { round, position, mode, iterations, elapsedMs = timer.Elapsed.TotalMilliseconds, parserCalls, hits });
+            }
+        AppContext.SetSwitch(Disable, false); AppContext.SetSwitch(DisableCulture, false);
+        observations.Add(new { id = "interleaved-expression-program-parser-and-culture-microbenchmark", expression, expectedValue = expected, rounds, iterationsPerBatch = iterations,
+            warmedPaths = true, rotatingOrder = true, samples = samples.ToArray(), modes = modes.Select(mode => new { mode, metrics = Metrics(owners[mode]) }).ToArray(),
+            scope = "Three independently warmed same-process exact-expression paths; raw stopwatch samples include actual LookupDefine and result checks and separate parser/program from culture ownership; no OS I/O or complete CLI speedup claim" });
+        tests.Add("same-process-seven-round-rotating-three-path-expression-and-culture-microbenchmark-preserves-every-result-and-records-parser-hit-deltas");
+    }
     static Dictionary<string, string> Four(string directory)
     {
         var result = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -272,17 +330,17 @@ public static class CompilerExpressionPrograms
     }
     public static int Main(string[] args)
     {
-        object result; int code = 0; var culture = Thread.CurrentThread.CurrentCulture; var settings = Settings.Current; bool disabled; AppContext.TryGetSwitch(Disable, out disabled);
+        object result; int code = 0; var culture = Thread.CurrentThread.CurrentCulture; var settings = Settings.Current; bool disabled, cultureDisabled; AppContext.TryGetSwitch(Disable, out disabled); AppContext.TryGetSwitch(DisableCulture, out cultureDisabled);
         try
         {
             Require(args.Length == 6, "Expected work result sourceCommit runId sdk originalTranscript"); Settings.Current = new Settings { BuildCache = false, SessionCache = false };
-            Differential(args[5]); ReadAndBudgetCases(); TotalBudgetCases(); WarmFailures(); XmlDifferential(args[0], args[4]);
+            Differential(args[5]); ReadAndBudgetCases(); TotalBudgetCases(); WarmFailures(); CultureOwnership(); InterleavedMicrobenchmark(); XmlDifferential(args[0], args[4]);
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), observations = observations.ToArray(), scope = "Exact immutable expression programs, original DLL differential and actual semantic read replay; actual SDK-schema XML four-output differentials; synthetic expression contexts do not replace full MOD/SDK acceptance" };
             Console.WriteLine("PASS ExpressionPrograms: " + tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception error)
         { code = 1; Console.Error.WriteLine(error); result = new { succeeded = false, sourceCommit = args.Length > 2 ? args[2] : null, runId = args.Length > 3 ? args[3] : null, checks, tests = tests.ToArray(), observations = observations.ToArray(), error = error.ToString() }; }
-        finally { Settings.Current = settings; Thread.CurrentThread.CurrentCulture = culture; AppContext.SetSwitch(Disable, disabled); }
+        finally { Settings.Current = settings; Thread.CurrentThread.CurrentCulture = culture; AppContext.SetSwitch(Disable, disabled); AppContext.SetSwitch(DisableCulture, cultureDisabled); }
         if (args.Length > 1) File.WriteAllText(args[1], Json.Serialize(result)); return code;
     }
 #endif

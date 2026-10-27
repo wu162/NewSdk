@@ -86,17 +86,18 @@ public static class CompilerApplicationBuild
         }
         return root;
     }
-    static RunResult Build(string name, string mod, string[] content, Observe observer = null, Action<BuildRequest> configure = null)
+    static RunResult Build(string name, string mod, string[] content, Observe observer = null, string[] extraArguments = null)
     {
         int number = ++buildNumber;
         // Core still uses legacy MAX_PATH APIs for intermediate asset names.
         // Keep the real compile workspace short, then archive unmodified logs;
         // do not weaken Chinese/space MOD-path or production path validation.
         string output = Path.Combine(shortOutputRoot, "b" + number);
-        var request = Options.Parse(new[] { "build", "--mod", mod, "--sdk-root", sdk, "--out", output,
-            "--package-format", "loose", "--package-content", String.Join(",", content), "/sc:false", "/bc:false", "/pc:false", "/csc:false", "/tl:3" });
+        var arguments = new List<string> { "build", "--mod", mod, "--sdk-root", sdk, "--out", output,
+            "--package-format", "loose", "--package-content", String.Join(",", content), "/sc:false", "/bc:false", "/pc:false", "/csc:false", "/tl:3" };
+        if (extraArguments != null) arguments.AddRange(extraArguments);
+        var request = Options.Parse(arguments.ToArray());
         Require(request.ModRoot == Path.GetFullPath(mod) && !Paths.Contains(sdk, request.ModRoot), "Expected external MOD directory from Options.Parse");
-        if (configure != null) configure(request);
         BuildPlan expected = Planner.Resolve(request);
         observer = observer ?? new Observe();
         string id = "app-" + number + "-" + Guid.NewGuid().ToString("N").Substring(0, 8);
@@ -364,7 +365,7 @@ public static class CompilerApplicationBuild
         string candidate = "candidate-input.xml", first = Path.Combine(high, candidate), second = Path.Combine(low, candidate);
         File.WriteAllText(second, probe);
         File.WriteAllText(Path.Combine(data, "Mod.xml"), "<AssetDeclaration xmlns='uri:ea.com:eala:asset'><Includes><Include type='all' source='data:" + candidate + "'/></Includes></AssetDeclaration>");
-        Action<BuildRequest> configure = request => request.Options["data"] = new EffectiveOption { Value = high + ";" + low, Source = "candidate-consistency-fixture" };
+        string[] dataArguments = { "/data:" + high + ";" + low };
         bool injected = false;
         var observer = new Observe { InputProbe = row => {
             if (!injected && Text(row["eventType"]) == "StreamCompleted")
@@ -372,14 +373,14 @@ public static class CompilerApplicationBuild
                 injected = true; File.WriteAllText(first, probe);
             }
         } };
-        var failed = Build("resolver-candidate-changed-before-publish", mod, new[] { "base" }, observer, configure);
+        var failed = Build("resolver-candidate-changed-before-publish", mod, new[] { "base" }, observer, dataArguments);
         Failed(failed, ExitCode.Compilation, "failed");
         Require(injected && Events(failed, "Diagnostic").Any(row => Text(row["diagnosticCode"]) == "CORE_INPUT_CHANGED"),
             "New higher-priority candidate did not reach final application input refusal");
         Require(Events(failed, "StageStarted").All(row => !row.ContainsKey("stageId") || Text(row["stageId"]) != "publish"),
             "Changed resolver generation entered publication");
         RequireWritable(first); RequireWritable(second);
-        var retry = Build("resolver-candidate-next-generation", mod, new[] { "base" }, null, configure);
+        var retry = Build("resolver-candidate-next-generation", mod, new[] { "base" }, null, dataArguments);
         Require(retry.Code == ExitCode.Success && Array(retry.Report["artifacts"]).Length == 4,
             "New generation did not compile the newly selected input after refusal");
         var candidates = Map(Map(Map(retry.Report["cache"])["physicalInputs"])["resolverCandidates"]);

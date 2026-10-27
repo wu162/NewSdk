@@ -622,6 +622,7 @@ namespace NewModCompiler.Application
                 coreWork.Add(new { taskId = context.Task.Id, stages = processor == null ? null : processor.GetWorkMetrics(),
                     baseManifest = processor == null ? null : processor.GetBaseManifestWorkMetrics(),
                     expressionPrograms = processor == null ? null : processor.GetExpressionProgramMetrics(),
+                    transferBuffers = processor == null ? null : processor.GetTransferBufferMetrics(),
                     outerStages = outerWork.Snapshot(), inputDigests = measuredSession == null ? null : measuredSession.GetDigestReadMetrics(),
                     schemaPreparation = schemas == null ? null : schemas.GetPreparationMetrics(),
                     schemaMetadata = schemas == null ? null : new { enabled = schemas.SharedMetadataEnabled, builds = schemas.MetadataBuildCount, hits = schemas.MetadataHitCount },
