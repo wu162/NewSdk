@@ -88,6 +88,11 @@ public static class CompilerDocumentMetadata
                 // The receiver's own saved result remains unchanged until a new
                 // completed result is captured; no metadata is evaluated again.
                 Require((Xml(copy) == before) == !disabled, "Live metadata changed its saved cache result");
+                string beforeShape = Xml(source);
+                copy.LastOutputAssets.Add(new OutputAsset { Handle = new InstanceHandle("ArmorTemplate", "ReceiverOnly"), InstanceFileSize = 41 });
+                Require((Xml(source) == beforeShape) == !disabled, "Legacy output collection shape no longer shares the saved list");
+                copy.LastOutputAssets.RemoveAt(copy.LastOutputAssets.Count - 1);
+                Require(Xml(source) == beforeShape, "Output collection shape did not restore after removing the same item");
                 evidence.Add(new { id = persisted ? "persisted-metadata" : "in-memory-metadata", legacyFallback = disabled,
                     sourceXmlChanged = Xml(source) != before, scope = "Public Core cache/restore metadata ownership; not an observed CLI fault" });
             }
