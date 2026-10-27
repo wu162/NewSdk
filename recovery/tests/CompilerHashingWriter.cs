@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
 using System.Web.Script.Serialization;
 using System.Xml;
 using BinaryAssetBuilder.Core;
@@ -17,7 +15,6 @@ using BinaryAssetBuilder.Core;
 // so JSON/UTF-8 transport cannot replace unpaired surrogates in the test input.
 public static class CompilerHashingWriter
 {
-    const string Disable = "NewSdk.Compiler.DisableBufferedHashingWriter";
     static readonly JavaScriptSerializer Json = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
     static readonly Type WriterType = typeof(HashProvider).Assembly.GetType("BinaryAssetBuilder.Core.HashingWriter", true);
     static readonly MethodInfo FinalMethod = WriterType.GetMethod("GetFinalHash", BindingFlags.Public | BindingFlags.Instance);
@@ -142,9 +139,9 @@ public static class CompilerHashingWriter
         rows.Add(new[] { "public-XML-single-surrogate-pair", "0", "OK", pairHash.ToString(CultureInfo.InvariantCulture), pairAgain.ToString(CultureInfo.InvariantCulture), Encoding.Default.CodePage.ToString(CultureInfo.InvariantCulture) });
         return rows;
     }
-    static XmlNode Xml(int length, bool ascii = false)
+    static XmlNode Xml(int length)
     {
-        string valid = ascii ? "abc&<>\"'Az09\t\r\n" : "abc&<>\"'é中\t\r\n";
+        const string valid = "abc&<>\"'é中\t\r\n";
         var document = new XmlDocument(); document.LoadXml("<AssetDeclaration xmlns='uri:ea.com:eala:asset'><ArmorTemplate id='HashProbe'/></AssetDeclaration>");
         var body = new StringBuilder(); while (body.Length < length) body.Append(valid);
         // Public XML uses legal characters; direct writer cases above preserve
@@ -153,7 +150,7 @@ public static class CompilerHashingWriter
         document.DocumentElement.FirstChild.Attributes.Append(document.CreateAttribute("Value")).Value = value;
         document.DocumentElement.FirstChild.AppendChild(document.CreateTextNode(value));
         document.DocumentElement.AppendChild(document.CreateComment("comment"));
-        document.DocumentElement.AppendChild(document.CreateCDataSection(ascii ? "raw<>&ASCII" : "raw<>&é中"));
+        document.DocumentElement.AppendChild(document.CreateCDataSection("raw<>&é中"));
         return document.DocumentElement;
     }
 #if HASHING_ORIGINAL
@@ -174,77 +171,26 @@ public static class CompilerHashingWriter
         var original = Json.Deserialize<Dictionary<string, object>>(File.ReadAllText(path));
         Require((bool)original["succeeded"] && (string)original["sourceCommit"] == source && (string)original["runId"] == run, "Original hashing transcript identity mismatch");
         var expected = Json.Deserialize<List<string[]>>(Json.Serialize(original["rows"]));
-        foreach (bool disabled in new[] { false, true })
-        {
-            AppContext.SetSwitch(Disable, disabled); var actual = Corpus();
-            Require(expected.Count == actual.Count && actual.Count > 850, "Original hashing corpus size/identity mismatch");
-            for (int index = 0; index < actual.Count; index++)
-                Require(actual[index].SequenceEqual(expected[index]), "Original/" + (disabled ? "legacy" : "buffered") + " hashing mismatch row " + index + ": " + Json.Serialize(actual[index]) + " != " + Json.Serialize(expected[index]));
-            Require(actual.All(row => row[3] == row[4]), "Repeated GetFinalHash mutated pending/running state");
-            evidence.Add(new { id = "isolated-original-DLL-hashing-corpus", disabled, rows = actual.Count, encoding = Encoding.Default.CodePage });
-        }
-        AppContext.SetSwitch(Disable, false);
-        tests.Add("isolated-original-DLL-vs-default-and-legacy-exact-512-UTF16-ANSI-unicode-overload-error-repeated-final-flush-continue-and-public-XML-differential");
-    }
-    static void BoundedScratch()
-    {
-        FieldInfo pending = WriterType.GetField("m_pending", BindingFlags.Instance | BindingFlags.NonPublic);
-        FieldInfo ascii = WriterType.GetField("m_ascii", BindingFlags.Instance | BindingFlags.NonPublic);
-        AppContext.SetSwitch(Disable, false); var writer = Writer(0); writer.Write("small");
-        Require(pending.GetValue(writer) == null, "A single small string allocated a 512-character scratch");
-        var arrayWriter = Writer(0); arrayWriter.Write("small".ToCharArray(), 0, 5);
-        Require(pending.GetValue(arrayWriter) == null, "A single small char-array write allocated scratch");
-        uint first = Final(arrayWriter), second = Final(arrayWriter);
-        Require(first == second && ((byte[])ascii.GetValue(arrayWriter)).Length == 5 && pending.GetValue(arrayWriter) == null,
-            "ASCII Final did not lazily use a tail-sized byte scratch without mutating character pending state");
-        writer.Write("second"); var buffer = (char[])pending.GetValue(writer);
-        Require(buffer != null && buffer.Length == 512, "Fragmented pending text did not lazily allocate bounded scratch");
-        for (int index = 0; index < 2048; index++) writer.Write('a');
-        Require(Object.ReferenceEquals(buffer, pending.GetValue(writer)), "A writer did not reuse its own bounded scratch");
-        Require(((byte[])ascii.GetValue(writer)).Length <= 512, "ASCII hashing scratch exceeded exact chunk bound");
-        AppContext.SetSwitch(Disable, true); var legacy = Writer(0); legacy.Write("small"); legacy.Write("second");
-        Final(legacy); Require(pending.GetValue(legacy) == null && ascii.GetValue(legacy) == null, "Legacy diagnostic path allocated buffered scratch");
-        AppContext.SetSwitch(Disable, false);
-        tests.Add("single-small-write-keeps-original-string-path-fragmented-pending-lazily-owns-one-512-char-buffer-and-legacy-never-allocates-it");
-    }
-    static void Measurement()
-    {
-        foreach (bool ascii in new[] { true, false })
-        foreach (int size in new[] { 16, 512, 32768 })
-        {
-            XmlNode node = Xml(size, ascii); uint expected = HashProvider.GetXmlHash(27, ref node); int iterations = size > 1000 ? 32 : 512;
-            foreach (bool disabled in new[] { false, true }) { AppContext.SetSwitch(Disable, disabled); for (int index = 0; index < 4; index++) Require(HashProvider.GetXmlHash(27, ref node) == expected, "XML hashing warmup mismatch"); }
-            var samples = new List<object>(); var buffered = new List<long>(); var legacy = new List<long>();
-            for (int round = 0; round < 7; round++)
-            foreach (bool disabled in (round % 2 == 0 ? new[] { false, true } : new[] { true, false }))
-            {
-                AppContext.SetSwitch(Disable, disabled); uint value = 0; long start = Stopwatch.GetTimestamp();
-                for (int index = 0; index < iterations; index++) value ^= HashProvider.GetXmlHash(27, ref node);
-                long elapsed = Stopwatch.GetTimestamp() - start;
-                Require(value == (iterations % 2 == 0 ? 0 : expected), "Timed public XML hash result changed");
-                (disabled ? legacy : buffered).Add(elapsed);
-                samples.Add(new { round, disabled, elapsedMs = elapsed * 1000.0 / Stopwatch.Frequency });
-            }
-            buffered.Sort(); legacy.Sort();
-            evidence.Add(new { id = "public-XML-hash-component-measurement", ascii, requestedContentChars = size, nodeOuterXmlChars = node.OuterXml.Length, iterations, rounds = 7,
-                bufferedMedianMs = buffered[3] * 1000.0 / Stopwatch.Frequency, legacyMedianMs = legacy[3] * 1000.0 / Stopwatch.Frequency, samples = samples.ToArray(),
-                scope = "Actual public HashProvider.GetXmlHash including XmlWriter serialization and legacy ANSI native hash calls; excludes DOM creation/reflection/identity checks. No forced GC, speed assertion, allocation-byte or full-CLI speedup claim" });
-        }
-        AppContext.SetSwitch(Disable, false); tests.Add("bounded-small-medium-large-public-XML-hashing-seven-round-component-samples-with-no-speed-threshold");
+        var actual = Corpus();
+        Require(expected.Count == actual.Count && actual.Count == 947, "Original hashing corpus size/identity mismatch");
+        for (int index = 0; index < actual.Count; index++)
+            Require(actual[index].SequenceEqual(expected[index]), "Original/current legacy hashing mismatch row " + index + ": " + Json.Serialize(actual[index]) + " != " + Json.Serialize(expected[index]));
+        Require(actual.All(row => row[3] == row[4]), "Repeated GetFinalHash mutated pending/running state");
+        evidence.Add(new { id = "isolated-original-DLL-current-legacy-hashing-corpus", rows = actual.Count, encoding = Encoding.Default.CodePage, optimizationWithdrawn = true });
+        tests.Add("isolated-original-DLL-vs-current-legacy-947-row-512-UTF16-ANSI-ASCII-unicode-overload-error-repeated-final-flush-continue-and-public-XML-differential");
     }
     public static int Main(string[] args)
     {
-        object result; int code = 0; bool previous; AppContext.TryGetSwitch(Disable, out previous);
+        object result; int code = 0;
         try
         {
             Require(args.Length == 6 && IntPtr.Size == 4 && Path.DirectorySeparatorChar == '\\', "Expected Windows x86 work/result/source/run/SDK/originalHashingTranscript");
-            Differential(args[5], args[2], args[3]); BoundedScratch(); Measurement();
-            result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), evidence = evidence.ToArray(),
-                scope = "Original-only Core hashing transcript versus buffered/legacy TextWriter and public GetXmlHash; exact legacy 512 UTF-16 chunks and native ANSI behavior retained" };
+            Differential(args[5], args[2], args[3]);
+            result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests = tests.ToArray(), evidence = evidence.ToArray(), optimizationWithdrawn = true,
+                scope = "Original-only Core hashing transcript versus unchanged production legacy TextWriter and public GetXmlHash. Buffered/ASCII optimization withdrawn after CPU regression; no experimental path or new switch remains" };
             Console.WriteLine("PASS HashingWriter: " + tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception error) { code = 1; Console.Error.WriteLine(error); result = new { succeeded = false, sourceCommit = args.Length > 2 ? args[2] : null, runId = args.Length > 3 ? args[3] : null, checks, error = error.ToString() }; }
-        finally { AppContext.SetSwitch(Disable, previous); }
         if (args.Length > 1) File.WriteAllText(args[1], Json.Serialize(result)); return code;
     }
 #endif
