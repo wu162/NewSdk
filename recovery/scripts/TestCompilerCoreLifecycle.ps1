@@ -177,6 +177,7 @@ try {
        $documentOriginal.sourceCommit -cne $state.sourceCommit -or [string]$documentOriginal.runId -cne [string]$state.runId -or
        $documentOriginal.sameDeclaration -ne $true -or $documentOriginal.sourceXmlChanged -ne $true -or
        @($documentOriginal.expressionTraversal).Count -ne 40 -or
+       @($documentOriginal.inheritance).Count -ne 9 -or @($documentOriginal.inputReaders).Count -ne 6 -or
        $documentOriginal.assemblySha256Base64 -cne [Convert]::ToBase64String([Convert]::FromHexString((Hash $documentOriginalCore)))){
         throw 'Original document oracle identity or historical shared-state outcome mismatch'
     }
@@ -186,8 +187,9 @@ try {
         processId=$documentOracleProcess;transcriptSha256=(Hash $documentOriginalJson);coreSha256=(Hash $documentOriginalCore)
         sameDeclaration=$documentOriginal.sameDeclaration;sourceXmlChanged=$documentOriginal.sourceXmlChanged
         metadata=$documentOriginal.metadata;expressionTraversalRows=@($documentOriginal.expressionTraversal).Count
+        inheritanceRows=@($documentOriginal.inheritance).Count;inputReaderRows=@($documentOriginal.inputReaders).Count
         runtimeInputs=$state.expressionOriginal.runtimeInputs
-        scope='Original SDK public Core document cache metadata lifecycle and expression-DOM traversal in a separate original-only process; direct reproducer does not establish a production CLI fault'
+        scope='Original SDK public document metadata, expression-DOM traversal, inheritance stages and APM/file-hash boundary corpora in a separate original-only process; direct reproducer does not establish a production CLI fault'
     }
     $hashingOracleOut=(New-Item -ItemType Directory (Join-Path $out 'hashing-original')).FullName
     $hashingOracleSource=(Resolve-Path 'recovery/tests/CompilerHashingWriter.cs').Path
@@ -259,8 +261,8 @@ try {
             foreach($name in $frameworkReferences){$arguments+=('/r:'+(Join-Path $refs ($name+'.dll')))}
             $arguments+=$source
             $additionalSourceInputs=@()
-            if($fixture.name -eq 'CompilerCoreLifecycle'){
-                # Run the identical inheritance corpus against the independent
+            if($fixture.name -in @('CompilerCoreLifecycle','CompilerInputDigests')){
+                # Run identical inheritance/reader corpora against independent
                 # original SDK and this production host; suppress only its Main.
                 $arguments+=@('/define:DOCUMENT_ORACLE_SHARED',$documentOracleSource)
                 $additionalSourceInputs+=,@{path='recovery/tests/CompilerDocumentSnapshotOracle.cs';sha256=(Hash $documentOracleSource);define='DOCUMENT_ORACLE_SHARED'}
@@ -277,7 +279,7 @@ try {
                 $fixtureArguments=@($fixtureExe,$fixtureWork,$resultPath,$state.sourceCommit,$state.runId,$sdk)
                 if($fixture.name -eq 'CompilerExpressionPrograms'){$fixtureArguments+=@($expressionOriginalJson,$documentOriginalJson)}
                 if($fixture.name -eq 'CompilerHashingWriter'){$fixtureArguments+=$hashingOriginalJson}
-                if($fixture.name -in @('CompilerDocumentSnapshots','CompilerDocumentMetadata','CompilerCoreLifecycle')){$fixtureArguments+=$documentOriginalJson}
+                if($fixture.name -in @('CompilerDocumentSnapshots','CompilerDocumentMetadata','CompilerCoreLifecycle','CompilerInputDigests')){$fixtureArguments+=$documentOriginalJson}
                 $processId=Invoke-LifecycleFixture $run.exe $fixtureArguments $clean "$fixtureOut/runtime.log" $timeout
                 if(!(Select-String -LiteralPath "$fixtureOut/runtime.log" -SimpleMatch $fixture.marker -Quiet)){throw 'Core lifecycle success marker missing'}
                 $result=Get-Content -LiteralPath $resultPath -Raw|ConvertFrom-Json

@@ -225,6 +225,50 @@ public static class CompilerDocumentSnapshotOracle
         }
         finally { Settings.Current = previous; System.Threading.Thread.CurrentThread.CurrentCulture = priorCulture; }
     }
+    public static object[] InputReaderCases(string work)
+    {
+        string directory = Path.Combine(work, "input-reader-corpus"); Directory.CreateDirectory(directory);
+        var rows = new List<object>();
+        foreach (int length in new[] { 0, 1, 1048575, 1048576, 1048607, 2097183 })
+        {
+            string path = Path.Combine(directory, "reader-" + length + ".bin");
+            byte[] bytes = new byte[length];
+            for (int index = 0; index < bytes.Length; index++) bytes[index] = (byte)((index * 19 + 7) % 251);
+            File.WriteAllBytes(path, bytes);
+            string sha256;
+            using (var algorithm = SHA256.Create()) sha256 = Convert.ToBase64String(algorithm.ComputeHash(bytes));
+            // Use only the original public API and complete its natural EOF.
+            // Dispose is deliberately absent: it did not exist in the SDK API.
+            var reader = new AsynchronousFileReader(path);
+            uint initialSize = reader.FileSize; bool initiallyNull = reader.CurrentChunk == null;
+            var chunks = new List<object>(); Chunk first = null;
+            bool reusedChunk = true; long delivered = 0;
+            while (reader.BeginRead())
+            {
+                Chunk chunk = reader.CurrentChunk;
+                if (first == null) first = chunk; else reusedChunk &= Object.ReferenceEquals(first, chunk);
+                int count = chunk.BytesRead; string content;
+                using (var algorithm = SHA256.Create()) content = Convert.ToBase64String(algorithm.ComputeHash(chunk.Data, 0, count));
+                bool repeatedBegin = reader.BeginRead();
+                bool sameHeldChunk = Object.ReferenceEquals(chunk, reader.CurrentChunk);
+                bool repeatPreservedBytes = chunk.BytesRead == count;
+                delivered += count; reader.EndRead();
+                chunks.Add(new { count, sha256 = content, repeatedBegin, sameHeldChunk, repeatPreservedBytes,
+                    endCurrentNull = reader.CurrentChunk == null, endBytesRead = chunk.BytesRead, endRetainsData = chunk.Data != null });
+            }
+            Chunk eof = reader.CurrentChunk;
+            bool eofNonNull = eof != null, eofDataNull = eof != null && eof.Data == null;
+            int eofBytes = eof == null ? -1 : eof.BytesRead;
+            uint eofSize = reader.FileSize;
+            bool eofReusesChunk = first == null || Object.ReferenceEquals(first, eof);
+            bool beginAfterEof = reader.BeginRead(); reader.EndRead();
+            bool eofObjectPreserved = Object.ReferenceEquals(eof, reader.CurrentChunk);
+            uint legacyHash = new FileHashItem(path, "input-reader-corpus", TargetPlatform.Win32).Hash;
+            rows.Add(new { length, sha256, initialSize, initiallyNull, chunks = chunks.ToArray(), delivered,
+                reusedChunk, eofReusesChunk, eofNonNull, eofDataNull, eofBytes, eofSize, beginAfterEof, eofObjectPreserved, legacyHash });
+        }
+        return rows.ToArray();
+    }
 #if !DOCUMENT_ORACLE_SHARED
     public static int Main(string[] args)
     {
@@ -249,12 +293,13 @@ public static class CompilerDocumentSnapshotOracle
             object metadata = Metadata(args[0], expectedShared);
             object[] expressionTraversal = ExpressionTraversal(args[0]);
             object[] inheritance = InheritanceCases(args[0], args[5]);
+            object[] inputReaders = InputReaderCases(args[0]);
             string assemblySha;
             using (var sha = SHA256.Create()) assemblySha = Convert.ToBase64String(sha.ComputeHash(File.ReadAllBytes(typeof(AssetDeclarationDocument).Assembly.Location)));
             result = new { succeeded = true, sourceCommit = args[2], runId = args[3], mode, sameDeclaration, sourceXmlChanged,
                 savedHash, receiverHash = receiver.SelfInstances[0].ProcessingHash, metadata, expressionTraversal,
-                inheritance, assembly = typeof(AssetDeclarationDocument).Assembly.FullName, assemblySha256Base64 = assemblySha,
-                scope = "Direct public Core metadata lifecycle, 40 expression-DOM traversal cases and nine real-schema inheritance-stage rows; no production CLI failure is claimed" };
+                inheritance, inputReaders, assembly = typeof(AssetDeclarationDocument).Assembly.FullName, assemblySha256Base64 = assemblySha,
+                scope = "Direct public Core metadata lifecycle, 40 expression-DOM traversal cases and nine real-schema inheritance-stage rows and six original async-reader/digest rows; no production CLI failure is claimed" };
             Console.WriteLine("PASS DocumentSnapshotOracle: " + mode);
         }
         catch (Exception error)

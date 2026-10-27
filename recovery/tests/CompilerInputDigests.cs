@@ -245,13 +245,44 @@ public static class CompilerInputDigests
             oldColdMs = oldCold, newColdMs = newCold, oldWarmMs = oldWarm, newWarmMs = newWarm,
             osPageCache = "unknown", scope = "isolated digest microbenchmark; not end-to-end build speed" });
     }
+    static object ReaderOriginalDifferential(string baseline, string work, string sourceCommit, string runId)
+    {
+        var json = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
+        var original = json.Deserialize<Dictionary<string, object>>(File.ReadAllText(baseline));
+        Require((bool)original["succeeded"] && (string)original["mode"] == "original" &&
+            (string)original["sourceCommit"] == sourceCommit && (string)original["runId"] == runId,
+            "Independent original reader oracle source/run mismatch");
+        var expectedRows = new List<object>();
+        foreach (object row in (System.Collections.IEnumerable)original["inputReaders"]) expectedRows.Add(row);
+        // The full runner compiles this exact shared source into this fixture.
+        // Reflection only keeps the independent Foundation compile preflight
+        // free of an extra source dependency; it does not provide a stub oracle.
+        object[] actual = (object[])typeof(CompilerInputDigests).Assembly.GetType("CompilerDocumentSnapshotOracle", true)
+            .GetMethod("InputReaderCases", new[] { typeof(string) }).Invoke(null, new object[] { work });
+        Require(expectedRows.Count == 6 && actual.Length == expectedRows.Count, "Expected six original reader/digest boundary cases");
+        for (int i = 0; i < actual.Length; i++)
+        {
+            Require(json.Serialize(expectedRows[i]) == json.Serialize(actual[i]),
+                "Original async-reader/digest mismatch at case " + i + ": " + json.Serialize(expectedRows[i]) + " != " + json.Serialize(actual[i]));
+            var originalRow = (IDictionary<string, object>)expectedRows[i];
+            string path = Path.Combine(work, "input-reader-corpus/reader-" + Convert.ToInt32(originalRow["length"]) + ".bin");
+            uint expected = Convert.ToUInt32(originalRow["legacyHash"]); string strong;
+            Require(Legacy(path) == expected && HistoricalUpdate(path, out strong) == expected && strong == (string)originalRow["sha256"],
+                "Current reader consumers differ from independent original FileHashItem or SHA256 at case " + i);
+        }
+        return new { rows = actual.Length, cases = actual,
+            scope = "Same-source original SDK reader natural-EOF API and independent original FileHashItem hashes; failure/Dispose ownership is a separate new contract" };
+    }
     public static int Main(string[] args)
     {
         try
         {
-            Directory.CreateDirectory(args[0]); Cases(args[0]); ReaderOwnership(args[0]); FailedDigestOwnership(args[0]); Benchmark(args[0]);
-            var result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks,
-                tests = new[] { "single-pass-legacy-and-SHA256-boundaries-roundtrip-reset-content-invalidation-delete-recreate", "public-async-reader-pending-active-requeued-EOF-consumer-failure-dispose-and-no-double-pool-return", "actual-FileHashItem-SHA256-consumer-fault-immediate-source-release-primary-error-and-same-item-retry", "interleaved-cold-and-warm-digest-cost" }, measurements };
+            if (args.Length != 6 || IntPtr.Size != 4) throw new ArgumentException("Expected x86 work result source run SDK originalOracleJson");
+            Directory.CreateDirectory(args[0]);
+            object originalReaders = ReaderOriginalDifferential(args[5], args[0], args[2], args[3]);
+            Cases(args[0]); ReaderOwnership(args[0]); FailedDigestOwnership(args[0]); Benchmark(args[0]);
+            var result = new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, originalReaders,
+                tests = new[] { "independent-original-SDK-async-reader-chunk-SHA-identity-repeat-Begin-End-EOF-and-FileHashItem-hash-differential", "single-pass-legacy-and-SHA256-boundaries-roundtrip-reset-content-invalidation-delete-recreate", "public-async-reader-pending-active-requeued-EOF-consumer-failure-dispose-and-no-double-pool-return", "actual-FileHashItem-SHA256-consumer-fault-immediate-source-release-primary-error-and-same-item-retry", "interleaved-cold-and-warm-digest-cost" }, measurements };
             string json = new JavaScriptSerializer().Serialize(result);
             File.WriteAllText(args[1], json); Console.WriteLine(json);
             Console.WriteLine("PASS InputDigests: " + checks + " assertions"); return 0;
