@@ -8,10 +8,10 @@
 | 当前问题 | 方案章节 | 主要源码/证据入口 |
 | --- | --- | --- |
 | 顺序与放行 | 1、19 | 本页、HANDOFF.md |
-| Core 三项风险 W01 | 3、5.3、17 | CompilerCoreLifecycle.cs 的 OptimizationRiskProbes |
+| Core 三项风险 W01 | 3、5.3、17 | CompilerCoreLifecycle.cs 的 DefineOverrideProbe / CrossStreamBindingProbe / LinkedSideFileProbe |
 | 工作计量 W02 | 18 | DocumentProcessor.GetWorkMetrics、CoreStreamCompiler.CacheReport.coreWork |
 | 摘要读取 W03 | 8.1、9.6、10.1 | FileHashItem.cs、CompilerInputDigests.cs |
-| schema 元数据 W04 | 4.3、10.1 | SchemaSet.cs；复用前保留闭包内容校验 |
+| schema 元数据 W04 | 4.3、10.1 | SchemaSet.GetReferenceDescriptor、CompilerSchemaDescriptors.cs；保留闭包内容校验 |
 | 影子依赖 W05 | 6、7.3—7.4 | AssetDeclarationDocument.cs；先记录，再授权跳过 |
 | 每流绑定 W06 | 3.7、7.6 | InstanceDeclaration.cs、AssetDeclarationDocument.cs |
 | 新缓存 W07 | 8—9、16—17 | BuildAssetCache.cs、SessionPackage.cs；未满足完整合同前不开放 |
