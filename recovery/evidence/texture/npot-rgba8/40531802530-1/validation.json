@@ -1,0 +1,23 @@
+{
+  "error": "Debug-replay failed",
+  "configurations": [],
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "probeOnly": false,
+  "originalBaselines": [
+    {
+      "runId": "40528237009",
+      "sourceCommit": "a19bb879704cd80ad55202760a160c8af57bbe2d",
+      "samplesSha256": "dca86c4ed1b16c8e118d9e4535317343ddf80866a4eb6bd2f490fc1f0a32c26d"
+    },
+    {
+      "runId": "40529918922",
+      "weightsSha256": "b56e290c73b2240648793c0aa8cf13ccb61c4fbbe6b52ea7cee90768651dd717",
+      "sourceCommit": "678db0127a2ea3620700b44e46093dd6dc2050d1"
+    }
+  ],
+  "status": "failed",
+  "scope": "isolated PC D3DX RGBA8 NPOT triangle component only; immutable original LoadImageA corpus and coefficient bits; plugin/SDK NPOT remains rejected",
+  "runId": "40531802530",
+  "sourceCommit": "826ff73e98f796ee84f2c2bc483734ba45ce8501"
+}

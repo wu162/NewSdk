@@ -1,0 +1,44 @@
+{
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds"
+  ],
+  "runAttempt": "1",
+  "selected": [
+    "npot-rgba8"
+  ],
+  "status": "failed",
+  "groups": [
+    {
+      "passed": false,
+      "error": "Debug-replay failed",
+      "group": "npot-rgba8",
+      "evidenceOnly": false
+    }
+  ],
+  "runId": "40531802530",
+  "sourceCommit": "826ff73e98f796ee84f2c2bc483734ba45ce8501"
+}
