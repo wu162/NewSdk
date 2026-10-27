@@ -1,0 +1,59 @@
+{
+  "probeOnly": false,
+  "nativeBinaries": [
+    {
+      "sha256": "dcb97deab0f1daf2cfd7b00991718ff5c8104f805d023b01aba64b9cedfc6e22",
+      "configuration": "Debug",
+      "importDirectory": 0,
+      "machine": "I386",
+      "entryPoint": 0
+    },
+    {
+      "sha256": "e511810d02696dcd0f1e9f551b3d9540e3c85524056e7de9e6e002b5e1dd596d",
+      "configuration": "Release",
+      "importDirectory": 0,
+      "machine": "I386",
+      "entryPoint": 0
+    }
+  ],
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Debug",
+      "passed": true,
+      "summary": [
+        "PASS Texture complete DXT3/DXT5 2D DDS fixtures=3072 checks=1023327; PC Production=71; full header and payload; POT including partial blocks; no-mip and complete float mip chains; no plugin/SDK acceptance",
+        "PASS Texture 2D DDS NoOriginal fixtures=3072 checks=974848; original DLL absent and not loaded"
+      ]
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Release",
+      "passed": true,
+      "summary": [
+        "PASS Texture complete DXT3/DXT5 2D DDS fixtures=3072 checks=1023327; PC Production=71; full header and payload; POT including partial blocks; no-mip and complete float mip chains; no plugin/SDK acceptance",
+        "PASS Texture 2D DDS NoOriginal fixtures=3072 checks=974848; original DLL absent and not loaded"
+      ]
+    }
+  ],
+  "status": "passed",
+  "sdkValidated": false,
+  "runId": "40524039917",
+  "sourceCommit": "7ae4af3769842084cd19cbff87c651c945f45888",
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281"
+    }
+  ],
+  "scope": "PC quality71 DXT3/DXT5 POT/partial-block 2D no-mip/complete float mip DDS; no plugin/SDK acceptance",
+  "runAttempt": "1"
+}

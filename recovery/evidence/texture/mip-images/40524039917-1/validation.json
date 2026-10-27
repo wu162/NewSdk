@@ -1,0 +1,24 @@
+{
+  "sourceCommit": "7ae4af3769842084cd19cbff87c651c945f45888",
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "passed": true,
+      "summary": [
+        "PASS Texture mip ProcessInstance differential fixtures=174 errors=2 unsupportedResampling=6 comparedBytes=24788032; Win32 mip=true; real main TGA; three buffers and full cdata; no SDK acceptance"
+      ]
+    },
+    {
+      "configuration": "Release",
+      "passed": true,
+      "summary": [
+        "PASS Texture mip ProcessInstance differential fixtures=174 errors=2 unsupportedResampling=6 comparedBytes=24788032; Win32 mip=true; real main TGA; three buffers and full cdata; no SDK acceptance"
+      ]
+    }
+  ],
+  "runAttempt": "1",
+  "scope": "actual ProcessInstance image entry; supported TGA to raw complete-mip DDS (Win32 only); three buffers/full cdata",
+  "status": "passed",
+  "runId": "40524039917"
+}

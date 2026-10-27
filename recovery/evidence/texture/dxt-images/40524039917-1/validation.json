@@ -1,0 +1,59 @@
+{
+  "probeOnly": false,
+  "nativeBinaries": [
+    {
+      "sha256": "06cd04ca385c99fc4e0103598f2c32d199d6b92bf66fda1f7140436ca4a027fc",
+      "configuration": "Debug",
+      "importDirectory": 0,
+      "machine": "I386",
+      "entryPoint": 0
+    },
+    {
+      "sha256": "1b36663afb2692469a986fa494dd30413307d532d6c1044f948761ac8b863fa5",
+      "configuration": "Release",
+      "importDirectory": 0,
+      "machine": "I386",
+      "entryPoint": 0
+    }
+  ],
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Debug",
+      "passed": true,
+      "summary": [
+        "PASS Texture DXT ProcessInstance differential fixtures=3584 rejected=18 errors=736 comparedBytes=16506816; PC DXT3/5 POT including partial-block no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending",
+        "PASS Texture DXT ProcessInstance NoOriginal fixtures=3584 rejected=18 errors=736 comparedBytes=16506816; PC DXT3/5 POT including partial-block no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending"
+      ]
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Release",
+      "passed": true,
+      "summary": [
+        "PASS Texture DXT ProcessInstance differential fixtures=3584 rejected=18 errors=736 comparedBytes=16506816; PC DXT3/5 POT including partial-block no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending",
+        "PASS Texture DXT ProcessInstance NoOriginal fixtures=3584 rejected=18 errors=736 comparedBytes=16506816; PC DXT3/5 POT including partial-block no-mip/complete mip TGA/PNG/BMP; three buffers/full cdata; SDK pending"
+      ]
+    }
+  ],
+  "status": "passed",
+  "sdkValidated": false,
+  "runId": "40524039917",
+  "sourceCommit": "7ae4af3769842084cd19cbff87c651c945f45888",
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281"
+    }
+  ],
+  "scope": "actual Texture/OnDemandTexture DXT3/5 ProcessInstance; PC POT/partial-block no-mip/complete float mip TGA/PNG/BMP; three buffers/full cdata and NoOriginal; SDK pending",
+  "runAttempt": "1"
+}
