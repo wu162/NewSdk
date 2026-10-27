@@ -10,8 +10,8 @@ import java.nio.charset.StandardCharsets;
 public class ExportTextureDxt extends GhidraScript {
     public void run() throws Exception {
         File out = new File(getScriptArgs()[0]); out.mkdirs();
-        long[] rvas = {0x57f00,0x57ff0,0x5c790,0x7d500,0x7e8f0,0x8b570,0x8b380};
-        String[] names = {"EncodeDXT3","EncodeDXT5","CompressDispatch","QuantizeAlpha","CodeAlphaBlock","FastEncodeDXT5","FastEncodeDXT1AllPixelsSame"};
+        long[] rvas = {0x57f00,0x57ff0,0x5c790,0x7d500,0x7e8f0,0x8b570,0x8b380,0x5c310,0x7c420,0x7bdf0,0x7b3f0,0x7bb80,0x603d0,0x61460,0x833f0,0x83cd0,0x8baa0,0x8c1f0};
+        String[] names = {"EncodeDXT3","EncodeDXT5","CompressDispatch","QuantizeAlpha","CodeAlphaBlock","FastEncodeDXT5","FastEncodeDXT1AllPixelsSame","AlphaDdsWriter","CodeRGBBlock","CodeRGBBlockQuick","AllSame","MapAndRoundMult","Search43Mult","RoundMult","CodeRGBBlockExhaustive","CodeRGBBlockNoMode","FastEncodeDXT1_3","FastEncodeDXT1_4"};
         DecompInterface decompiler = new DecompInterface();
         try {
             decompiler.openProgram(currentProgram);

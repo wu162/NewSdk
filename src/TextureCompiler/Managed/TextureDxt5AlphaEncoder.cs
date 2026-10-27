@@ -13,12 +13,14 @@ namespace BinaryAssetBuilder.TextureCompiler
         }
 
         private static Fit Solve(int levels, int count, double meanAlpha,
-            double meanIndex, double variance, double covariance)
+            double meanIndex, double variance, double covariance, bool trial)
         {
             double n = count, steps = levels - 1;
             double left = -meanIndex, right = steps - meanIndex;
-            double a = left * left * n + variance;
-            double b = right * left * n + variance;
+            // The original local-move solver uses a different multiplication order
+            // from the main fit; preserving it matters for strict error ties.
+            double a = trial ? left * n * left + variance : left * left * n + variance;
+            double b = trial ? left * n * right + variance : right * left * n + variance;
             double c = right * n * right + variance;
             double ac = c * a;
             double scale = ac * variance * ac * steps * steps;
@@ -101,7 +103,7 @@ namespace BinaryAssetBuilder.TextureCompiler
                 }
                 double meanIndex = invCount * sumIndex;
                 double variance = sumSquare - count * meanIndex * meanIndex;
-                Fit best = Solve(levels, count, mean, meanIndex, variance, covariance);
+                Fit best = Solve(levels, count, mean, meanIndex, variance, covariance, false);
                 low = best.Low; high = best.High;
                 if (remaining == 0) break;
                 remaining--;
@@ -127,7 +129,7 @@ namespace BinaryAssetBuilder.TextureCompiler
                         int extreme = direction == 0 ? last[bin] : first[bin];
                         double movedCovariance = centered[extreme] * delta + covariance;
                         double movedVariance = twice * bin + correction;
-                        Fit trial = Solve(levels, count, mean, movedMean, movedVariance, movedCovariance);
+                        Fit trial = Solve(levels, count, mean, movedMean, movedVariance, movedCovariance, true);
                         if (trial.ErrorNumerator * best.ErrorDenominator < trial.ErrorDenominator * best.ErrorNumerator) {
                             low = trial.Low; high = trial.High; done = false; break;
                         }

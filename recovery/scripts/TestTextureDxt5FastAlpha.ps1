@@ -32,4 +32,4 @@ try{
  $files=@(Get-ChildItem "$out/*-transcript.txt")
  if($files.Count -gt 0){Compress-Archive -Path $files.FullName -DestinationPath "$out/transcripts.zip";$files|Remove-Item}
  $r.status=if($InspectDdsEntry){'probe-only'}else{'passed'}
-}finally{$r | ConvertTo-Json -Depth 10 | Set-Content "$out/validation.json"}
+}catch{$r.status='failed';$r.error=$_.Exception.Message;throw}finally{$r | ConvertTo-Json -Depth 10 | Set-Content "$out/validation.json"}
