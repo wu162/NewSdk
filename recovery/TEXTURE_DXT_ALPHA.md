@@ -95,3 +95,35 @@ were not reached after the timeout; do not treat them as collected. Next stage
 should address that targeted extraction and implement a coherent colour group,
 then validate complete colour/alpha/size/mip/volume outputs before enabling DXT
 in the plugin or scheduling a compressed-texture SDK milestone.
+
+## Latest complete acceptance: native + byte + float + NoOriginal + ABI
+
+Source `4bf0ca8ccb74a6f670cd7ecb954483dc795fae9f`, Actions
+[40493971846](https://github.com/wu162/NewSdk/actions/runs/40493971846), attempt1,
+completed/success. Each of Debug and Release passed:
+
+| Layer | Cases | Checks | Accepted scope |
+| --- | ---: | ---: | --- |
+| Quantizer | 2,176 | 408,835 | Native endpoints, indices, exact double error bits |
+| Actual original DDS | 78,144 | 1,172,168 | Eight production alpha payload bytes |
+| Normalized float alpha | 12,288 | 516,108 | Native CodeAlphaBlock state plus PC alpha packing |
+| Isolated NoOriginal replay | 78,144 | 625,152 | Original DLL absent and not loaded |
+
+Float cases include denormals/near-zero/near-one, constant/gradient/random values,
+zero/one exclusions and all input rejection assertions. Float-state comparison
+is a component test, not a full float-image DDS or compressed mip SDK run.
+
+Both native outputs are I386, PE entry point 0, import-directory RVA 0. The
+receipt records the exact CPP and README input hashes and Debug/Release native
+binary hashes. This batch selected only `dxt5-alpha`; 18 unchanged successful
+component groups reused their own ancestor sourceCommit/runId. No SDK was run.
+
+Receipt: `evidence/texture/dxt5-alpha/40493971846-1/validation.json`.
+Selection: `evidence/texture/batch/40493971846-1/selection.json`.
+The later documentation and evidence-only extraction changes do not modify
+these accepted implementation/test inputs and are not claimed as new runtime
+acceptance.
+
+The later source fix was a C# local-name collision in the float API, not a
+comparison waiver. The final run includes the float API and corrected build,
+and all exact assertions remain enabled.

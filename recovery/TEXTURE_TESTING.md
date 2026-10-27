@@ -24,3 +24,5 @@
 PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平台不进入业务差分。非 PC Initialize/ReInitialize 的明确拒绝由 metadata 组检查。历史 PC/PS3 收据原样保留，但选择器须对实际变更重新验收 PC 消费组。修改仅平台专属文件时不扩展到其他编译器；公共 PC 依赖按原规则选组。
 
 `dxt3-alpha` 是自动组件组，只验证 DXT3 显式 alpha 子组件，不能作为完整 DXT 压缩器或 SDK 验收。其实现尚无业务消费者，依赖仅登记本组；后续接入任何压缩入口时，必须同时扩展对应消费者依赖及完整差分。
+
+`dxt5-alpha` 的完整门槛包括 Debug/Release 自有 native x87 helper 构建与 PE 检查、原量化器端点/索引/误差位模式、实际 DDS 的8字节alpha、归一化float组件及独立 NoOriginal重放。新增消费者必须登记 `src/TextureCompiler/Dxt/**` 及托管alpha入口依赖，并复制自有native DLL；目前没有插件或SDK消费者，不能借此宣称完整DXT已恢复。`dxt5-fast-alpha` 只接受质量68低层state；`-InspectDdsEntry` 保留原版未初始化levels的失败探针，不作成功验收。`dxt-decompile`/`dxt-colour-functions` 是手动取证组，部分导出或超时不充当业务验收。

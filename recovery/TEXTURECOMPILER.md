@@ -41,3 +41,11 @@
 新增 PC `TextureDxt3AlphaEncoder`，仅 4×4 RGBA 的 8 字节显式 alpha，不接入尚未完整实现的 DXT3 插件路由。源码 `9f8b1361` / [40470055551](https://github.com/wu162/NewSdk/actions/runs/40470055551) success：Debug/Release 各 4,352 例、65,288 检查，与原 DLL alpha 块逐字节相同；仅运行新组、复用16组，未重跑 SDK。完整 DXT 颜色端点搜索、DXT1/1A/5 仍待恢复。细节及参考库函数映射工具见 [DXT 续接](TEXTURE_DXT_ENTRYPOINTS.md)。
 
 同轮参考库映射及 PC 块取证源码 `70aded86` / [40470267556](https://github.com/wu162/NewSdk/actions/runs/40470267556) success：32个PC原版块样本、22个目标代码节中19个重定位屏蔽后匹配；仍为 probe-only，不能作为完整压缩器验收。候选 RVA 和下一轮调用链核对入口见 DXT 文档。
+
+## 2026-10-27 第二阶段：Production DXT5 alpha
+
+PC DXT5 默认 Production alpha 已独立还原：字节 RGBA 与归一化 float 输入、五候选选择、x87 量化搜索、端点和索引以及8字节PC payload。`Recovered.TextureDxtAlpha.dll` 从自有 x86 汇编源码构建，无入口、无导入；不调用原DLL。完整颜色块及插件 DXT 路由仍未实现，生产 SDK 未替换。
+
+最终验收源码 `4bf0ca8c` / [40493971846](https://github.com/wu162/NewSdk/actions/runs/40493971846) success。Debug/Release 各：量化器2176例/408835检查（含误差位模式）；实际原DDS alpha 78144例/1172168检查；float alpha 12288例/516108检查；NoOriginal隔离重放78144例/625152比较；native x86/零入口/零导入检查通过。只选新组，18个未变组复用，未跑SDK。边界、失败反例、独立native构建和后续颜色恢复入口见 [TEXTURE_DXT_ALPHA.md](TEXTURE_DXT_ALPHA.md)。
+
+quality68快速路径仅接受低层state子组件；原版未初始化levels，完整DDS入口失败证据保留，不作为Production验收替代。颜色源码取证在RoundMult超时处取得部分结果，不能标成完整提取成功。
