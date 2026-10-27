@@ -47,7 +47,7 @@ def closure(repo,source,candidate):
     guard.git(repo,'merge-base','--is-ancestor',source,candidate)
     changed=sorted(p for p in guard.git(repo,'diff','--name-only','--no-renames','-z',source,candidate).decode().split('\0') if p)
     require(all(p in ALLOWED for p in changed),'Production/dependency/toolchain input changed: '+', '.join(p for p in changed if p not in ALLOWED))
-    guard.git(repo,'diff','--exit-code',candidate,'--','recovery/src','SDK','recovery/build')
+    guard.git(repo,'diff','--exit-code',candidate,'--','recovery/src','SDK','recovery/build','recovery/scripts/TestCompilerBig.ps1','recovery/scripts/PublishCompiler.ps1')
     require(not guard.git(repo,'ls-files','--others','--exclude-standard','-z','--','recovery/src','SDK','recovery/build'),'Untracked production input')
     return changed
 
@@ -114,7 +114,8 @@ def prepare(archive,candidate,output,repo):
         require(failed.get('succeeded') is False and failed.get('sourceCommit')==SOURCE and str(failed.get('runId'))==str(RUN) and str(failed.get('runAttempt'))==str(ATTEMPT) and 'Original SDK Additional copy helper compilation failed' in failed.get('error',''),'Original P7 failure was not the exact isolated helper compilation failure')
         take(failed_path,'original-failed-big.json')
     receipt.update(binarySourceCommit=SOURCE,testSourceCommit=candidate,artifactId=ARTIFACT,productionSourcesUnchanged=True,modeExeSha256=mode_hashes,
-                   requiresBigDeployment=True,testScriptSha256=guard.digest(guard.git(repo,'show',candidate+':recovery/scripts/TestCompilerBig.ps1')),
+                   requiresBigDeployment=True,testScriptGitSha256=guard.digest(guard.git(repo,'show',candidate+':recovery/scripts/TestCompilerBig.ps1')),
+                   testScriptSha256=guard.digest((Path(repo)/'recovery/scripts/TestCompilerBig.ps1').read_bytes()),
                    originalRunConclusion='failure',originalFailedStep=FAILED_STEP,originalBigProtocol='skipped',acceptedIndependentGroups=['App','Core','CLI','Texture','build-cache','input-roots','cache-payloads','session-cache'],
                    requiredNextSteps=['Run PublishCompiler -VerifyBigDeployment; it executes the complete P7 group from extracted ZIPs and validates protocols before publication'],
                    scope='Fixed original failure retained; independently successful exact production runtime/Core/CLI/cache evidence reused; candidate P7 and ZIP remain unaccepted until fresh replay succeeds')
