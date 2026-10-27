@@ -140,7 +140,7 @@ namespace NewModCompiler.Tests
                 } finally { Directory.Delete(junction); }
             }
             string late=Path.Combine(work,"late"), lateOutput=Path.Combine(work,"late-out");
-            Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--out",lateOutput,"--events",Path.Combine(late,"events.jsonl")});
+            Options.Parse(new [] {"plan","--mod",mod,"--sdk-root",sdk,"--out",lateOutput,"--package-format","loose","--events",Path.Combine(late,"events.jsonl")});
             Junction(late,mod);
             try { try { using (var sink=new JsonLineSink(Path.Combine(late,"events.jsonl"))) { } throw new Exception("Post-parse junction accepted"); } catch (IOException) { } }
             finally { Directory.Delete(late); }

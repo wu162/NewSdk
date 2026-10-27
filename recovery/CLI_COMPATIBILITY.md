@@ -17,7 +17,7 @@
 | MOD 包版本 | `--mod-version 2.7-beta`，默认 `1.0`；对应旧脚本 GUI 的 modversion，不把 `/vf` 当作此参数 |
 | SKUDEF 基名 | `--skudef-name Launcher`，默认 MOD 目录名；对应旧脚本 GUI 的 skudefname |
 | 游戏版本字段 | `--game-version 1.12`，默认与旧脚本常量相同；仅控制 SKUDEF 的 mod-game 字段，不能证明其他游戏版本已兼容 |
-| Additional / 中立修复 | `--include-additional=true`、`--fix-neutral-assets=true`，默认关闭，详细输入条件见 P7_PACKAGING |
+| Additional / 中立修复 | Additional 在 BIG 中默认开启，可用 `--include-additional=false` 关闭；`--fix-neutral-assets=true` 仍为显式启用，默认关闭，详细输入条件见 P7_PACKAGING |
 | 缓存高级模式 | `/csc`、`/psc`、`/fsc`、旧缓存目录覆盖及 touch 等尚未开放；不因旧解析器认识该名称而宣称已实现 |
 | 其他旧后端能力 | 自定义 Schema/中间目录、BuildConfiguration、基础补丁流、自定义后缀、非链接、替代输出、资产报告/字符串哈希等非默认请求明确拒绝；另行需求驱动实现 |
 | 旧宿主 | GUI、驻留、监视、出错暂停、旧单文件入口不纳入此产品 |
@@ -26,7 +26,7 @@
 
 版本/名称选项仅用于 BIG，显式用于 loose 时拒绝。MOD 版本允许 ASCII 字母、数字、点、下划线及连字符；游戏版本为点分十进制；SKUDEF 名称为单个 ASCII 文件基名。均不能注入目录或换行指令。
 
-`newmodcompiler.json` 可配置 package-content、package-format、mod-version、game-version、skudef-name、include-additional、fix-neutral-assets 和 tp。命令行覆盖项目预设，同一来源同一参数指定冲突值时报错。所有生效值和来源进入报告及事件。
+`newmodcompiler.json` 可配置 package-content、package-format、mod-version、game-version、skudef-name、include-additional、fix-neutral-assets 、tp、profile、sdk-root、out、ss、pc 和 slowclean。命令行覆盖项目预设，同一来源同一参数指定冲突值时报错。所有生效值和来源进入报告及事件。
 
 ```json
 {"package-content":"base,apt,maps","package-format":"big","mod-version":"2.7-beta","game-version":"1.12","skudef-name":"ExampleLauncher"}
