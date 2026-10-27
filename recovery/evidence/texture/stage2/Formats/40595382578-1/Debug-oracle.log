@@ -1,0 +1,1 @@
+PASS Texture TGA additional formats: fixtures=4534; decodedMatches=2606; rejectionMatches=1928; originalFailures=1928; mismatches=0; no old-format rerun; no SDK claim

@@ -1,0 +1,32 @@
+{
+  "probeOnly": false,
+  "scope": "PC D3DX NPOT/POT-control source storage public decoder, complete immutable original LoadImageA RGBA and original rejection domains; plugin/SDK acceptance is separate",
+  "configurations": [
+    {
+      "passed": true,
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Debug",
+      "summary": [
+        "PASS Texture NPOT/POT storage public decoder fixtures=4986 decoded=4446 rejected=540 checks=188998; full original RGBA buffers and original BadTextureFile domains; original absent/unloaded per call; source unchanged; plugin/SDK acceptance separate"
+      ]
+    },
+    {
+      "passed": true,
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Release",
+      "summary": [
+        "PASS Texture NPOT/POT storage public decoder fixtures=4986 decoded=4446 rejected=540 checks=188998; full original RGBA buffers and original BadTextureFile domains; original absent/unloaded per call; source unchanged; plugin/SDK acceptance separate"
+      ]
+    }
+  ],
+  "sourceCommit": "e9292a26149bf8add555a883cb95739a65fc69a9",
+  "runAttempt": "1",
+  "status": "passed",
+  "runId": "40595382578",
+  "originalBaseline": {
+    "samplesSha256": "ae52d4353de2e316538723229c9546513bd844b62459b3b82fd9a3aa5b1f82d7",
+    "sourceCommit": "c6459c7f0d2a88d3680e882bb0713bc95cb985a5",
+    "runId": "40592911746"
+  },
+  "sdkValidated": false
+}
