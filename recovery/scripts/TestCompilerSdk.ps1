@@ -61,16 +61,21 @@ function OutputInventory([string]$Directory){
     return $result
 }
 function CompareOutputs($Original,$Product,[string]$TaskId){
-    Need ($Original.Count -eq $Product.Count) "$TaskId output file count differs from original BAB"
     $rows=@()
-    foreach($key in @($Original.Keys|Sort-Object)){
-        Need ($Product.ContainsKey($key)) "$TaskId original output path missing in product: $key"
+    foreach($key in @( @($Original.Keys)+@($Product.Keys) | Sort-Object -Unique)){
         $left=$Original[$key];$right=$Product[$key]
-        Need ($left.bytes -eq $right.bytes -and $left.sha256 -ceq $right.sha256) "$TaskId original/product bytes differ: $key"
-        $originalBytes=[IO.File]::ReadAllBytes($left.path);$productBytes=[IO.File]::ReadAllBytes($right.path)
-        for($offset=0;$offset -lt $originalBytes.Length;$offset++){Need ($originalBytes[$offset] -eq $productBytes[$offset]) "$TaskId raw byte differential failed at $offset : $key"}
-        # Preserve both raw sides; no output rewriting or normalization.
-        $rows+=,@{relativePath=$key;original=$left;product=$right;byteIdentical=$true}
+        $identical=$null -ne $left -and $null -ne $right -and $left.bytes -eq $right.bytes -and $left.sha256 -ceq $right.sha256
+        $firstDifference=$null
+        if($left -and $right){
+            $originalBytes=[IO.File]::ReadAllBytes($left.path);$productBytes=[IO.File]::ReadAllBytes($right.path)
+            for($offset=0;$offset -lt [Math]::Min($originalBytes.Length,$productBytes.Length);$offset++){
+                if($originalBytes[$offset] -ne $productBytes[$offset]){$firstDifference=$offset;break}
+            }
+            if($null -eq $firstDifference -and $originalBytes.Length -ne $productBytes.Length){$firstDifference=[Math]::Min($originalBytes.Length,$productBytes.Length)}
+            $identical=$identical -and $null -eq $firstDifference
+        }
+        # Preserve every raw difference across both modes, without normalization.
+        $rows+=,@{relativePath=$key;original=$left;product=$right;byteIdentical=[bool]$identical;firstDifference=$firstDifference}
     }
     return $rows
 }
@@ -131,9 +136,18 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
     $originalExe=Join-Path $oracleTools 'BinaryAssetBuilder.exe';$config=Join-Path $oracleTools 'BinaryAssetBuilder.exe.config'
     [xml]$xml=[IO.File]::ReadAllText((Join-Path $sdk 'tools/BinaryAssetBuilder.exe.config'))
     $section=$xml.SelectSingleNode('/configuration/assetbuilder');Need ($null -ne $section) 'Original SDK configuration has no assetbuilder settings'
-    $schema=Join-Path $sdk 'Schemas/xsd/CnC3Types.xsd';$data=(Join-Path $mod 'Data')+';'+$section.GetAttribute('defaultDataPaths');$art=(Join-Path $mod 'Art')+';'+$section.GetAttribute('defaultArtPaths');$audio=(Join-Path $mod 'Audio')+';'+$section.GetAttribute('defaultAudioPaths')
+    $schema=Join-Path $sdk 'Schemas/xsd/CnC3Types.xsd'
+    # defaultscript.cs steps 3/4/5: SDK current directory, MOD, Mods, shared assets.
+    $data=$sdk+';'+(Join-Path $mod 'Data')+';'+(Join-Path $sdk 'Mods')+';'+(Join-Path $sdk 'SageXml')
+    $art=$sdk+';'+(Join-Path $mod 'Art')+';'+(Join-Path $sdk 'Mods')+';'+(Join-Path $sdk 'Art')
+    $audio=$sdk+';'+(Join-Path $mod 'Audio')+';'+(Join-Path $sdk 'Mods')+';'+(Join-Path $sdk 'Audio')
+    $legacyScript=Join-Path $sdk 'defaultscript.cs'
+    $legacyCalls=@(Get-Content -LiteralPath $legacyScript|Where-Object{$_ -match '/csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true'})
+    Need ($legacyCalls.Count -eq 3) 'Legacy base/APT/maps compiler argument contract changed'
+    $state.legacyParameterContract=@{script='SDK/defaultscript.cs';sha256=(Hash $legacyScript);matchingCalls=3;cacheException=@('/bc:false','/sc:false','/psc:false','/csc:false','/fsc:false','/atc:false');enabled=@('/ls:true','/pc:true','/res:true','/slowclean:true','/ss:true');searchPaths=@{data=$data;art=$art;audio=$audio};originalBuildConfigurationsPreserved=$true;outputIsolation='Fresh separate output/intermediate/hash/cache directories; no input SDK changes'}
+
     $section.SetAttribute('schema',$schema);$section.SetAttribute('dataRoot',$sdk);$section.SetAttribute('defaultDataPaths',$data);$section.SetAttribute('defaultArtPaths',$art);$section.SetAttribute('defaultAudioPaths',$audio)
-    $configurations=$section.SelectSingleNode('buildConfigurations');if($configurations){$configurations.RemoveAll()}
+    # Keep the original LowLOD/MediumLOD configuration table from the SDK script environment.
     $startup=$xml.SelectSingleNode('/configuration/startup');if(!$startup){$startup=$xml.CreateElement('startup');$null=$xml.configuration.AppendChild($startup)}
     $startup.RemoveAll();$startup.SetAttribute('useLegacyV2RuntimeActivationPolicy','true');$version=$xml.CreateElement('supportedRuntime');$version.SetAttribute('version','v4.0');$null=$startup.AppendChild($version);$xml.Save($config)
     $state.originalRuntime=Snapshot $oracleTools;Copy-Item -LiteralPath $config -Destination (Join-Path $out 'original-effective.config')
@@ -142,7 +156,7 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
         $caseOut=Join-Path $out ('original-'+$index);$work=Join-Path $short ('o'+$index);$streams=Join-Path $work 's'
         New-Item -ItemType Directory -Path $streams,(Join-Path $work 'i'),(Join-Path $work 'h'),(Join-Path $work 'c')|Out-Null
         $arguments=@($task.inputPath,"/sp:$schema","/dr:$sdk","/od:$streams",("/iod:"+(Join-Path $work 'i')),("/scd:"+(Join-Path $work 'h')),("/bcp:"+(Join-Path $work 'c')),
-            '/tp:Win32','/sc:false','/bc:false','/psc:false','/fsc:false','/csc:false','/atc:false','/sh:false','/pc:false','/res:false','/gui:false','/poe:false','/mr:false','/oof:false','/sf:false','/ls:true','/ss:false','/oix:false','/vf:false','/osh:false','/oar:false','/slowclean:false','/tl:3','/el:0',"/art:$art","/audio:$audio","/data:$data")
+            '/tp:Win32','/sc:false','/bc:false','/psc:false','/fsc:false','/csc:false','/atc:false','/sh:false','/pc:true','/res:true','/gui:false','/poe:false','/mr:false','/oof:false','/sf:false','/ls:true','/ss:true','/oix:false','/vf:false','/osh:false','/oar:false','/slowclean:true','/tl:3','/el:0',"/art:$art","/audio:$audio","/data:$data")
         $null=InvokeControlled ('original/'+$task.id) $originalExe $arguments $sdk (Join-Path $work 'unused.events.jsonl') $caseOut
         $null=OutputInventory $streams
         Copy-Item -LiteralPath $streams -Destination (Join-Path $caseOut 'streams') -Recurse
@@ -168,7 +182,7 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
         Need ($patch.targetExeSha256 -ceq (Hash $exe) -and $patch.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll')) -and $patch.protectedPeAudit.status -ceq 'passed') 'Texture runtime does not bind production EXE'
         Need (@(Get-ChildItem -LiteralPath $runtime -File).Count -eq 5) 'SDK production deployment is not the exact five-file runtime'
         $runtimeBefore=Snapshot $runtime;$destination=Join-Path $short ($mode.Substring(0,1)+'out');New-Item -ItemType Directory -Path $destination|Out-Null
-        $arguments=@('build','--mod',$mod,'--sdk-root',$sdk,'--out',$destination,'--package-content','base,apt,maps','/sc:false','/bc:false')
+        $arguments=@('build','--mod',$mod,'--sdk-root',$sdk,'--out',$destination,'--package-content','base,apt,maps','--package-format','loose','/sc:false','/bc:false',"/data:$data","/art:$art","/audio:$audio")
         $audit=InvokeControlled $mode $exe $arguments $runtime (Join-Path $destination 'build.events.jsonl') (Join-Path $modeOut 'process')
         $report=Get-Content -LiteralPath (Join-Path $destination 'build-report.json') -Raw|ConvertFrom-Json
         $events=@(Get-Content -LiteralPath (Join-Path $destination 'build.events.jsonl')|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})
@@ -177,6 +191,7 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
         Need (@($report.plan.Tasks).Count -eq $tasks.Count -and @($events|Where-Object{$_.eventType -eq 'StreamStarted'}).Count -eq $tasks.Count -and @($events|Where-Object{$_.eventType -eq 'StreamCompleted'}).Count -eq $tasks.Count) 'SDK task count changed'
         Need (@($events|Where-Object{$_.eventType -eq 'BuildStarted'}).Count -eq 1 -and @($events|Where-Object{$_.eventType -eq 'BuildFinished'}).Count -eq 1 -and $events[-1].eventType -ceq 'BuildFinished') 'SDK protocol terminal count/order changed'
         Need ($events[0].payload.processId -eq $audit.processId -and $events[-1].payload.exitCode -eq 0 -and $events[-1].payload.status -ceq 'succeeded') 'SDK protocol belongs to another process/outcome'
+        Copy-Item -LiteralPath $destination -Destination (Join-Path $modeOut 'output') -Recurse
         for($i=0;$i -lt $events.Count;$i++){Need ($events[$i].sequence -eq $i+1 -and $events[$i].buildId -ceq $report.buildId) 'SDK protocol correlation/sequence changed'}
         foreach($empty in $skipped){Need (@($report.plan.Skipped|Where-Object{$_.Content -ceq $empty}).Count -eq 1) 'SDK empty optional group was not explicitly reported'}
         $accepted=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
@@ -189,10 +204,12 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
         Need (@($report.artifacts).Count -eq $accepted.Count -and @(Get-ChildItem -LiteralPath (Join-Path $destination 'published') -File -Recurse).Count -eq $accepted.Count) 'SDK publication artifact allowlist differs from all raw outputs'
         foreach($artifact in $report.artifacts){Need ($accepted.Remove([string]$artifact.Path) -and (Within (Join-Path $destination 'published') $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'SDK reported artifact path/identity differs'}
         Need ($accepted.Count -eq 0 -and !(Test-Path -LiteralPath (Join-Path $destination ('.build/'+$report.buildId)))) 'SDK publication retained staging or omitted output'
-        Copy-Item -LiteralPath $destination -Destination (Join-Path $modeOut 'output') -Recurse
-        Unchanged $runtime $runtimeBefore;$modeState.succeeded=$true
+        Unchanged $runtime $runtimeBefore
+        $modeState.succeeded=@($modeState.comparisons.outputs|Where-Object{!$_.byteIdentical}).Count -eq 0
     }
-    Unchanged $oracleTools $state.originalRuntime;Unchanged $sdk $sdkBefore;$state.inputsUnchanged=$true;$state.succeeded=$true
+    Unchanged $oracleTools $state.originalRuntime;Unchanged $sdk $sdkBefore;$state.inputsUnchanged=$true
+    Need (@($state.modes).Count -eq 2 -and @($state.modes|Where-Object{!$_.succeeded}).Count -eq 0) 'Complete SDK differential failed; see per-file raw comparisons in validation.json'
+    $state.succeeded=$true
     $global:LASTEXITCODE=0
 } catch {$state.error=$_.Exception.ToString();throw}
 finally {
