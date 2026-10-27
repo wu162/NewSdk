@@ -1,6 +1,6 @@
 # PC TextureCompiler DXT恢复交接（2026-10-27）
 
-分支 `recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。默认71颜色/alpha、完整块、float/小块、POT二维无mip与完整float mip、Texture/OnDemandTexture入口已验收。最新源码 `7ae4af37` / 40524039917 success，Debug/Release各3072整图/3584入口及NoOriginal；两个压缩SDK profile各712资产三模式通过。详细 [二维mip验收](TEXTURE_DXT_MIPS_NEXT.md)，下一组 [压缩volume](TEXTURE_DXT_VOLUME_NEXT.md)。生产SDK DLL/config未替换。下文保留各阶段原sourceCommit/runId，不把历史子集或原版取证冒充当前全部验收。
+分支 `recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。默认71颜色/alpha、完整块、float/小块、POT二维和volume无mip/完整float mip、Texture/OnDemandTexture入口已验收。二维完整DDS源码 `7ae4af37` / 40524039917；volume与最新插件/SDK源码 `aaacb3d2` / 40526443463均success，Debug/Release各5568 volume DDS、7856标准/volume入口与NoOriginal，新volume SDK三模式各1488资产/调用。详细 [二维mip](TEXTURE_DXT_MIPS_NEXT.md)、[volume](TEXTURE_DXT_VOLUME_NEXT.md)，下一组 [NPOT](TEXTURE_NPOT_NEXT.md)。生产SDK DLL/config未替换。下文保留历史原sourceCommit/runId，不以旧限制覆盖此当前入口。
 
 ## 已验收：默认 Production=71 颜色状态
 
@@ -79,3 +79,7 @@ SDK集中运行 `40507166585`（源码 `3e884145`）的原两个raw profile三�
 ## PC二维完整压缩mip已验收
 
 源码 `7ae4af3769842084cd19cbff87c651c945f45888` / [40524039917](https://github.com/wu162/NewSdk/actions/runs/40524039917) success。完整float链和两实际入口、Debug/Release与NoOriginal、两个压缩SDK profile三模式各712资产/调用均通过，四产物与完整轨迹一致；共享triangle影响的raw回归和两个raw SDK profile也通过。详见 [完整范围与收据](TEXTURE_DXT_MIPS_NEXT.md)。此前“压缩mip待做”属于旧阶段限制；当前仍拒绝volume、NPOT与默认DXT1/1A。
+
+## PC压缩volume完整能力组已验收
+
+源码 `aaacb3d25fdb99eddaa8ed4ab23701437e840ec2` / [40526443463](https://github.com/wu162/NewSdk/actions/runs/40526443463) success；完整范围、5568 DDS/7856入口及新1488资产三模式SDK见 [volume验收](TEXTURE_DXT_VOLUME_NEXT.md)。无mip和递归float mip同时完成，原版XY-only头层数与完整XYZ payload均保留。旧文“volume待做/拒绝”属于历史阶段；当前NPOT与默认DXT1/1A仍拒绝。

@@ -1,14 +1,12 @@
 # TextureCompiler 当前续接（2026-10-27，本分支）
 
-`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。主入口 [TEXTURE_DXT_COLOUR.md](TEXTURE_DXT_COLOUR.md)。本轮起点远程头 `d0ab7450038056d35678d34c23fe7f6334426a75`；此前81e3e76d/40508857046与73cae641/40510009285已核实success并保留。
+`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试只在GitHub Actions。主入口 [TEXTURE_DXT_COLOUR.md](TEXTURE_DXT_COLOUR.md)。本轮起点远程头 `d0ab7450038056d35678d34c23fe7f6334426a75`，此前81e3e76d/40508857046与73cae641/40510009285已核实success并保留。
 
-**PC DXT3/5 POT 完整二维 float mip 已验收并接入 Texture/OnDemandTexture。** 源码 `7ae4af3769842084cd19cbff87c651c945f45888` / [40524039917](https://github.com/wu162/NewSdk/actions/runs/40524039917) attempt1 completed/success。Debug/Release各3072完整DDS、3584入口（2848输出/736匹配原版拒绝）、18明确拒绝和同量NoOriginal通过；每层保持float，不量化回byte。PcDxtNoMip与新PcDxtMips SDK各Original/Recovered/NoOriginal三模式，每模式712资产/实际调用，四产物和完整buffer/cdata轨迹一致；NoOriginal每次Core调用前后确认原DLL不存在且未加载。两个受影响raw SDK profile各600资产三模式通过。共享triangle的raw mip/入口回归也通过，整批9组执行、19成功组复用。细节见 [TEXTURE_DXT_MIPS_NEXT.md](TEXTURE_DXT_MIPS_NEXT.md)。
+**PC DXT3/5 POT标准二维与volume，均含无mip/完整float mip，已完成组件及两实际插件入口与专用MOD SDK验收。** 二维mip源码 `7ae4af3769842084cd19cbff87c651c945f45888` / [40524039917](https://github.com/wu162/NewSdk/actions/runs/40524039917) success：Debug/Release各3072完整DDS与NoOriginal。volume及最新插件源码 `aaacb3d25fdb99eddaa8ed4ab23701437e840ec2` / [40526443463](https://github.com/wu162/NewSdk/actions/runs/40526443463) attempt1 success：Debug/Release各5568完整volume DDS、7856标准/volume入口（6336输出/1520匹配原版拒绝）、18明确拒绝与同量NoOriginal通过。二维每层从base生成；volume递归先Z后XY，均不回写byte。精确范围见 [二维mip](TEXTURE_DXT_MIPS_NEXT.md) 与 [volume](TEXTURE_DXT_VOLUME_NEXT.md)。
 
-float/小块组件仍沿用 `9d487859` / 40506678502；颜色/alpha/native源码本轮未改，不重复重测这些成功组。416原版二维header/mip边界样本 `3319f50c` / 40507887013保持probe-only。源码与runId不得交叉冒充。
+40526443463中PcDxtNoMip、PcDxtMips各三模式每模式712资产/实际调用；新PcDxtVolumes用186条带输入、有/无mip共1488资产/实际调用，各三模式四产物和完整buffer/cdata轨迹一致。NoOriginal每次Core调用前后断言原DLL不存在且未加载。两个受影响raw SDK各600资产三模式，以及共享raw volume/图像/元数据回归通过。整批14组执行、16成功组复用；二维DDS/triangle、颜色、alpha、float小块等未变子组保留各原sourceCommit/runId，未重复测试。
 
-本轮第二组检查点：压缩volume边界源码 `6d065a9edb5101d8a1387f7b508649e9d851adc7` / [40525480986](https://github.com/wu162/NewSdk/actions/runs/40525480986) success，416样本，probe-only。已据原版header/逐slice callback实现PC DXT3/5无mip与递归float mip volume及插件路由，**待完整Actions验收，不宣称支持**。计划Debug/Release各5568完整DDS、7856标准/volume入口及NoOriginal；新PcDxtVolumes SDK186输入/1488资产，统一包含有/无mip。共享raw volume消费者同步回归。详情 [TEXTURE_DXT_VOLUME_NEXT.md](TEXTURE_DXT_VOLUME_NEXT.md)。
-
-已验收的二维mip保持上述锚点；新volume检查点不得替代它。NPOT和默认DXT1/1A仍明确拒绝。生产SDK DLL/config未改，专用MOD不能冒充完整mymod/全TextureCompiler完成。
+原版volume边界 `6d065a9e` / 40525480986，416样本probe-only；不冒充恢复验收。下一组NPOT：先收取 `npot-load` 原LoadImageA定向取证，1012个TGA24/32、PNG RGB/RGBA8、BMP24/32记录含POT对照，核实D3DX加载后的真实尺寸和完整RGBA，再恢复定义明确的行为。见 [TEXTURE_NPOT_NEXT.md](TEXTURE_NPOT_NEXT.md)。当前NPOT和默认DXT1/1A仍明确拒绝。生产SDK DLL/config未改；专用MOD不能冒充完整mymod/全TextureCompiler完成。
 
 以下保留历史子系统与阶段记录，不以旧的“下一轮”覆盖上述当前入口。
 

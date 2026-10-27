@@ -34,3 +34,7 @@ PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平�
 `dxt-dds2d` / `dxt-images`现含完整PC POT二维float mip；新增显式SDK组`sdk-PcDxtMips`。共享triangle变化必须使其raw和压缩消费者共同失效。源码7ae4af37/40524039917已通过整批9组，复用19个未变成功组。
 
 `[texture-dxt-volume-boundaries]`显式选择`dxt-volume-boundaries`，同一集中入口采集416原版压缩volume样本（无mip/完整mip、header、完整DDS/RGBA/options/callback），manual_only/evidence_only、probe-only，不作为恢复或SDK验收。普通组件/SDK不会自动启动该探针。
+
+`dxt-volume-dds`完整验证PC POT DXT3/5 volume的无mip/递归float mip，5568完整DDS与独立NoOriginal。`dxt-images`现含7856标准/volume入口，含原版拒绝匹配，完整三缓冲区/full cdata与NoOriginal；已实现的volume输入从拒绝矩阵转入成功对照，NPOT与默认DXT1/1A拒绝保留。`sdk-PcDxtVolumes`在显式SDK时运行186条带输入/1488资产（有/无mip合并）三模式与逐次隔离断言。新增VolumeDds/NextLevel消费者已登记依赖，aaacb3d2/40526443463整批14组通过、16组复用。
+
+`[texture-npot-load]`仅显式选择`npot-load`原版LoadImageA取证，1012记录含POT对照，manual_only/evidence_only/probe-only。辅助恢复程序集只提供既有Image数据类型与fixture源码依赖，不调用恢复NPOT路径，不作为恢复/SDK成功证据。

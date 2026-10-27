@@ -804,6 +804,23 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-dxt-volumes/*/validation.json",
       "sdk": true
+    },
+    "npot-load": {
+      "script": "recovery/scripts/InspectTextureNpotLoad.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureNpotLoad.ps1",
+        "recovery/tests/TextureNpotLoadProbe.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TextureBmpOracle.cs",
+        "src/TextureCompiler/Managed/*.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/npot-load/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"

@@ -2,7 +2,7 @@
 
 2026-10-27。分支 `recovery/texturecompiler-source`，源码位于根目录 `src/TextureCompiler`。最新DXT状态与精确验收入口：[TEXTURE_DXT_COLOUR.md](TEXTURE_DXT_COLOUR.md)。
 
-默认质量71颜色核心、完整DXT3/5块、POT二维无mip整图（含宽/高1和2）以及Texture/OnDemandTexture插件入口已取得组件Debug/Release与NoOriginal证据。浮点块与小尺寸无mip整图/插件、压缩SDK三模式712资产已通过；完整二维压缩float mip已由 `7ae4af37` / 40524039917取得组件与PcDxtMips三模式SDK验收，详细见 [TEXTURE_DXT_MIPS_NEXT.md](TEXTURE_DXT_MIPS_NEXT.md)。下方早期“未启用DXT路由”等条目保留为历史，当前范围以此入口与最新DXT交接为准。生产SDK DLL/config未替换。
+默认质量71颜色核心、完整DXT3/5块、POT二维无mip整图（含宽/高1和2）以及Texture/OnDemandTexture插件入口已取得组件Debug/Release与NoOriginal证据。浮点块与小尺寸无mip整图/插件、压缩SDK三模式712资产已通过；完整二维压缩float mip已由 `7ae4af37` / 40524039917验收；压缩volume无mip/递归float mip已由 `aaacb3d2` / 40526443463取得5568 DDS/7856插件输入与1488资产三模式SDK验收，见 [二维mip](TEXTURE_DXT_MIPS_NEXT.md) 与 [volume](TEXTURE_DXT_VOLUME_NEXT.md)。下方早期“未启用DXT路由”等条目保留为历史，当前范围以此入口与最新DXT交接为准。生产SDK DLL/config未替换。
 
 ## 唯一目标：Win32 / PC
 
@@ -20,7 +20,7 @@
 
 ## 仍需完成（仅 PC）
 
-1. DXT1 / DXT1A默认完整路径、DXT3/5压缩volume、完整压缩器和生产集成。默认71颜色核心与DXT3/5完整块、对齐整图和无mip插件路由已取得组件验收；小尺寸/float块与小尺寸无mip消费者已通过组件和SDK门槛，压缩volume仍需完整恢复验收。不再调查跨平台一致性。
+1. DXT1 / DXT1A默认完整路径、完整压缩器和生产集成。默认71颜色核心与DXT3/5完整块、对齐整图和无mip插件路由已取得组件验收；小尺寸/float块与小尺寸无mip消费者已通过组件和SDK门槛，压缩volume现也已通过组件及专用SDK完整验收。不再调查跨平台一致性。
 2. NPOT D3DX 图片重采样，目前明确拒绝。
 3. JPEG、尚未声明支持的 PNG ICC/APNG、TGA metadata/RLE 边界和其他 BMP 组合，按实际 PC 输入需求独立取证。
 4. 完整 TerrainTextureAtlas 解码、处理、压缩及输出入口；目前只有内存 packer。

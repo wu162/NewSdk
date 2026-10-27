@@ -1,6 +1,6 @@
 # PC DXT3/5 压缩 mip（已验收）
 
-PC POT 完整二维压缩 mip 已完成组件及专用MOD SDK验收，见末段精确锚点。当前生产 SDK 未替换；压缩 volume / NPOT / 默认 DXT1/1A 仍拒绝。最新组件、无 mip 插件与 SDK 状态以 [当前 DXT 交接](TEXTURE_DXT_COLOUR.md) 为准。继续在 `recovery/texturecompiler-source`，禁止强推，编译测试只用 GitHub Actions。
+PC POT 完整二维压缩 mip 已完成组件及专用MOD SDK验收，见末段精确锚点。当前生产 SDK 未替换；NPOT / 默认 DXT1/1A 仍拒绝；PC压缩volume已由aaacb3d2/40526443463验收。最新组件、无 mip 插件与 SDK 状态以 [当前 DXT 交接](TEXTURE_DXT_COLOUR.md) 为准。继续在 `recovery/texturecompiler-source`，禁止强推，编译测试只用 GitHub Actions。
 
 ## 已可复用的实现与证据
 
@@ -38,4 +38,4 @@ PC POT 完整二维压缩 mip 已完成组件及专用MOD SDK验收，见末段�
 - PcDxtNoMip与新PcDxtMips各三模式、每模式178输入图像/712资产和实际Core调用，四产物及完整轨迹一致。NoOriginal每次Core调用前后断言原DLL不存在且未加载，自有NativeColour/NativeAlpha一起部署并检查PE边界。
 - 共享triangle影响的mips、mip-images、raster-images全部通过；PcNoMip/PcMips raw SDK各600资产三模式通过。原版与恢复版使用相同专用MOD输入，生产SDK未替换。
 
-收据：`evidence/texture/{dxt-dds2d,dxt-images,sdk-dxt,sdk-dxt-mips,batch}/40524039917-1/validation.json`。原float小块等未变子组件保留原sourceCommit/runId。下一组压缩volume见 [TEXTURE_DXT_VOLUME_NEXT.md](TEXTURE_DXT_VOLUME_NEXT.md)，其递归Z后XY策略不能套用本二维base-relative策略。
+收据：`evidence/texture/{dxt-dds2d,dxt-images,sdk-dxt,sdk-dxt-mips,batch}/40524039917-1/validation.json`。原float小块等未变子组件保留原sourceCommit/runId。压缩volume后续也已验收，见 [TEXTURE_DXT_VOLUME_NEXT.md](TEXTURE_DXT_VOLUME_NEXT.md)，其递归Z后XY策略不能套用本二维base-relative策略。
