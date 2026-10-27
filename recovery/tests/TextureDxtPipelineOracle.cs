@@ -78,6 +78,12 @@ internal static class TextureDxtPipelineOracle
             bool failed=false;try{recovered.ProcessInstance(Declaration(root,file,format,cdata,mips,kind));}catch(NotSupportedException){failed=true;}
             if(!failed||File.Exists(cdata))throw new Exception("Unsupported compressed mip/volume must reject before cdata write");rejected++;
         }
+        // D3DX canonicalizes all-zero TGA alpha to opaque, so DXT1 remains DXT1.
+        foreach(string root in new[]{"Texture","OnDemandTexture"}){
+            string file=Path.Combine(work,"opaque-zero-alpha.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,Tga(8,4,0));Seed(cdata,false);
+            bool failed=false;try{recovered.ProcessInstance(Declaration(root,file,"DXT1",cdata,false,"StandardTexture"));}catch(NotSupportedException){failed=true;}
+            if(!failed||File.Exists(cdata))throw new Exception("All-zero TGA alpha becomes opaque and must retain DXT1 rejection");rejected++;
+        }
         foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT1","DXT1A","DXT3","DXT5"}){
             string file=Path.Combine(work,"unsupported.tga"),cdata=Path.Combine(work,"reject.cdata");File.WriteAllBytes(file,Tga(format=="DXT3"||format=="DXT5"?2:4,4,1));Seed(cdata,false);
             bool failed=false;try{recovered.ProcessInstance(Declaration(root,file,format,cdata,false,"StandardTexture"));}catch(NotSupportedException){failed=true;}
@@ -118,7 +124,7 @@ internal static class TextureDxtPipelineOracle
                     foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(string format in new[]{"DXT3","DXT5"})foreach(bool stale in new[]{false,true})
                         Case(original,recovered,work,"tga",Tga(size[0],size[1],pattern),root,format,stale,w);
                     // Inferred DXT1 alpha formats take the same accepted DXT3/5 route.
-                    foreach(int pattern in new[]{0,2,3,4})foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(bool stale in new[]{false,true})
+                    foreach(int pattern in new[]{2,3,4,5})foreach(string root in new[]{"Texture","OnDemandTexture"})foreach(bool stale in new[]{false,true})
                         Case(original,recovered,work,"tga",Tga(8,4,pattern),root,"DXT1",stale,w);
                     foreach(int color in new[]{0,2,3,4,6})foreach(int depth in new[]{1,2,4,8,16}){
                         if(color==3?depth==16:color!=0&&depth<8)continue;
