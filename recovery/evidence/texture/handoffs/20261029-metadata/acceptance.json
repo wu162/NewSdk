@@ -42,5 +42,15 @@
     "runId": "40657712486",
     "currentSourceAcceptance": false
   },
-  "next": "TGA valid nonzero extension/gamma/alpha/developer/table metadata; source TextureTgaDecoder.ValidateMetadataTail; retain existing zero-field/chained/DevIL/RLE acceptance"
+  "next": "TGA valid nonzero extension/gamma/alpha/developer/table metadata; source TextureTgaDecoder.ValidateMetadataTail; retain existing zero-field/chained/DevIL/RLE acceptance",
+  "postAcceptancePlan": {
+    "sourceCommit": "aa18bea79a8a048015be3595b0990175a37fadd0",
+    "runId": "40787793239",
+    "status": "completed/success",
+    "boundaryChecks": 15,
+    "selected": [],
+    "reusedGroups": 51,
+    "windowsJob": "skipped",
+    "sdkExecuted": false
+  }
 }
