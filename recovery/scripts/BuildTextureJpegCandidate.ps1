@@ -20,6 +20,9 @@ try{
  if($LASTEXITCODE -ne 0){throw 'IJG library failed'}
  & cl /nologo /TC /MT /O2 /D_CRT_SECURE_NO_WARNINGS /I. /Fe:cjpeg.exe cjpeg.c rdppm.c rdgif.c rdtarga.c rdrle.c rdbmp.c rdswitch.c cdjpeg.c /link jpeg.lib
  if($LASTEXITCODE -ne 0){throw 'IJG fixture encoder failed'}
- & cl /nologo /TC /MT /O2 /fp:precise /LD /D_CRT_SECURE_NO_WARNINGS /I. TextureJpegCandidate.c /link jpeg.lib /OUT:TextureJpegCandidate.dll /EXPORT:JpegCandidate=_JpegCandidate
- if($LASTEXITCODE -ne 0){throw 'JPEG candidate failed'}
+ & cl /nologo /TC /MT /O2 /fp:precise /LD /D_CRT_SECURE_NO_WARNINGS /I. TextureJpegCandidate.c /link jpeg.lib /OUT:TextureJpegCandidate.dll /MACHINE:X86
+ if($LASTEXITCODE -ne 0){& dumpbin /symbols TextureJpegCandidate.obj;throw 'JPEG candidate failed'}
+ & dumpbin /exports TextureJpegCandidate.dll
+ $bytes=[IO.File]::ReadAllBytes((Join-Path $Destination 'TextureJpegCandidate.dll'));$pe=[BitConverter]::ToInt32($bytes,0x3c)
+ if([BitConverter]::ToUInt16($bytes,$pe+4) -ne 0x14c){throw 'JPEG candidate must be I386'}
 }finally{Set-Location $previous}
