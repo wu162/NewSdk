@@ -62,3 +62,5 @@ python recovery/benchmarks/upheaval/benchmark.py --runtime recovery/artifacts/up
 ```
 
 准备器需要 `gh`、`GH_TOKEN` 和完整 git 历史；测量需要 Windows、原 SDK 及正式包已有的 .NET/VC/DirectX 前置依赖。输出目录必须不存在，避免覆盖历史结果。正式结果自动出现在 Actions Summary，并上传 raw logs、每次命令/计量/输出清单、输入清单、首对原始流和来源收据。
+
+原直接输出尝试40725824993在PowerShell参数转发初始化失败，未进入计时；263fa8088e312acd33ca3a7db3d7bac1c89997a4改为显式原生参数调用，新实测[40741198404](https://github.com/wu162/NewSdk/actions/runs/40741198404)独立记录。原40720756791已终态，后续只读重汇总排除有环境混淆的旧增量和含额外复制的旧打包，保留真实缓存/SC组及负向正确性发现。
