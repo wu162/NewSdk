@@ -177,7 +177,11 @@ public static class UpheavalInputInventory {
     $data=$sdk+';'+(Join-Path $mod 'Data')+';'+(Join-Path $sdk 'Mods')+';'+(Join-Path $sdk 'SageXml')
     $art=$sdk+';'+(Join-Path $mod 'Art')+';'+(Join-Path $sdk 'Mods')+';'+(Join-Path $sdk 'Art')
     $audio=$sdk+';'+(Join-Path $mod 'Audio')+';'+(Join-Path $sdk 'Mods')+';'+(Join-Path $sdk 'Audio')
-    foreach($directory in @(($data+';'+$art+';'+$audio).Split(';'))){Need (Test-Path -LiteralPath $directory -PathType Container) "Actual resolver root missing: $directory"}
+    # Resolver search lists deliberately retain optional absent SDK leaves,
+    # e.g. SDK/Audio. The production resolver skips them; do not create them or
+    # turn a legal search candidate into a benchmark-only fatal requirement.
+    $state.searchRootExistence=@(($data+';'+$art+';'+$audio).Split(';')|ForEach-Object{@{path=$_;exists=(Test-Path -LiteralPath $_ -PathType Container)}})
+    foreach($directory in @($sdk,(Join-Path $mod 'Data'),(Join-Path $mod 'Art'),(Join-Path $mod 'Audio'))){Need (Test-Path -LiteralPath $directory -PathType Container) "Required input root missing: $directory"}
     # static/audio references intentionally use the SDK's precompiled streams;
     # no matching source XML leaf is required by the original resolver contract.
     foreach($name in @('static','global','audio')){
