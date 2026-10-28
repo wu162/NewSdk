@@ -286,13 +286,14 @@ function EnvironmentParallelEvidence($Case){
     Need ($cache.requestedJobs -eq 2 -and $cache.cacheMode -ceq 'Disabled' -and $cache.backendCalls -eq 14 -and $cache.maxBackendConcurrency -eq 2) 'Environment fixture must execute all twelve roots plus real W3X dependencies with two actual calls overlapping'
     $intervals=@($cache.backendIntervals)
     $native=@($intervals|Where-Object{$_.typeName -ceq 'W3DAnimation'})
-    Need ($native.Count -eq 1) 'Environment peer must be one actual native animation call'
+    $owner=@($intervals|Where-Object{$_.typeName -ceq 'W3DHierarchy'})
+    Need ($native.Count -eq 1 -and $owner.Count -eq 1) 'Environment peer and owner-control must be actual animation/hierarchy calls'
     $overlapping=@()
     foreach($type in $script:environmentTypes){
         $calls=@($intervals|Where-Object{$_.typeName -ceq $type})
         Need ($calls.Count -eq 1 -and $cache.backendCallsByType.$type -eq 1) "Missing actual environment backend invocation: $type"
         $call=$calls[0]
-        Need ($call.startTicks -lt $call.endTicks) "Environment backend interval did not complete: $type"
+        Need ($call.startTicks -lt $call.endTicks -and $call.threadId -ne $owner[0].threadId) "Environment backend must complete on a worker distinct from the owner-only hierarchy: $type"
         if($call.threadId -ne $native[0].threadId -and $call.sourcePath -cne $native[0].sourcePath -and $call.startTicks -lt $native[0].endTicks -and $native[0].startTicks -lt $call.endTicks){$overlapping+=,$type}
     }
     Need ($overlapping.Count -gt 0) 'No newly certified environment backend actually overlapped the in-flight native peer'

@@ -32,7 +32,12 @@ class GitFixture(unittest.TestCase):
         self.git('init', '-q')
         self.git('config', 'user.email', 'fixture@example.invalid')
         self.git('config', 'user.name', 'Fixture')
-        for path in ('recovery/src/App/Application/PreparedBackend.cs', 'SDK/Schemas/xsd/input.xsd',
+        for path in ('recovery/src/App/Application/PreparedBackend.cs',
+                     'recovery/src/App/Application/CacheInputLeaseSet.cs',
+                     'recovery/src/App/Application/CacheInputSnapshot.cs',
+                     'recovery/src/App/Application/CoreStreamCompiler.cs',
+                     'recovery/src/App/Application/BackendResourcePolicy.cs',
+                     'SDK/Schemas/xsd/input.xsd', 'SDK/tools/BinaryAssetBuilder.exe.config',
                      'recovery/build/BuildCompiler.ps1', '.github/workflows/refactor-core-lifecycle.yml'):
             target = self.repo / path
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -72,7 +77,12 @@ class ClosureTests(GitFixture):
                     replay.closure(self.repo, source, candidate)
 
     def test_production_sdk_recipes_and_unreviewed_tools_rejected(self):
-        for path in ('recovery/src/App/Application/PreparedBackend.cs', 'SDK/Schemas/xsd/input.xsd',
+        for path in ('recovery/src/App/Application/PreparedBackend.cs',
+                     'recovery/src/App/Application/CacheInputLeaseSet.cs',
+                     'recovery/src/App/Application/CacheInputSnapshot.cs',
+                     'recovery/src/App/Application/CoreStreamCompiler.cs',
+                     'recovery/src/App/Application/BackendResourcePolicy.cs',
+                     'SDK/Schemas/xsd/input.xsd', 'SDK/tools/BinaryAssetBuilder.exe.config',
                      'recovery/build/BuildCompiler.ps1', 'recovery/scripts/BuildCompilerApp.ps1',
                      '.github/workflows/refactor-core-lifecycle.yml',
                      'recovery/tests/UnreviewedCompilerFixture.cs', 'new-production-input.txt'):
@@ -84,17 +94,37 @@ class ClosureTests(GitFixture):
             with self.subTest(path=path), self.assertRaises(ValueError):
                 replay.closure(self.repo, self.source, changed)
 
+    def test_new_production_sources_are_immutable_without_a_maintained_source_list(self):
+        self.commit('recovery/src/App/Application/FutureDigestProvider.cs', 'new production input\n')
+        with self.assertRaisesRegex(ValueError, 'Non-replay input changed'):
+            replay.closure(self.repo, self.source, self.git('rev-parse', 'HEAD').strip())
+
+    def test_a_new_successful_binary_baseline_includes_its_added_production_sources(self):
+        # A later successful build is selected explicitly; the replay is not
+        # constrained to the first historical cache-parallel source revision.
+        self.commit('recovery/src/App/Application/FutureDigestProvider.cs', 'new accepted production input\n')
+        later_source = self.git('rev-parse', 'HEAD').strip()
+        self.commit('recovery/scripts/TestCompilerBuildCachePayloads.ps1', 'later payload assertions\n')
+        later_tests = self.git('rev-parse', 'HEAD').strip()
+        self.assertEqual(replay.closure(self.repo, later_source, later_tests),
+                         ['recovery/scripts/TestCompilerBuildCachePayloads.ps1'])
+        self.commit('recovery/src/App/Application/FutureDigestProvider.cs', 'changed after accepted binary\n')
+        with self.assertRaisesRegex(ValueError, 'Non-replay input changed'):
+            replay.closure(self.repo, later_source, self.git('rev-parse', 'HEAD').strip())
+
     def test_deletion_and_rename_rejected(self):
-        self.git('rm', 'recovery/src/App/Application/PreparedBackend.cs')
-        self.git('commit', '-qm', 'deleted source')
-        with self.assertRaises(ValueError):
-            replay.closure(self.repo, self.source, self.git('rev-parse', 'HEAD').strip())
-        self.git('reset', '--hard', self.candidate)
-        self.git('mv', 'recovery/src/App/Application/PreparedBackend.cs',
-                 'recovery/src/App/Application/RenamedBackend.cs')
-        self.git('commit', '-qm', 'renamed source')
-        with self.assertRaises(ValueError):
-            replay.closure(self.repo, self.source, self.git('rev-parse', 'HEAD').strip())
+        for path in ('recovery/src/App/Application/PreparedBackend.cs',
+                     'recovery/src/App/Application/CacheInputLeaseSet.cs'):
+            self.git('reset', '--hard', self.candidate)
+            self.git('rm', path)
+            self.git('commit', '-qm', 'deleted source')
+            with self.subTest(deleted=path), self.assertRaises(ValueError):
+                replay.closure(self.repo, self.source, self.git('rev-parse', 'HEAD').strip())
+            self.git('reset', '--hard', self.candidate)
+            self.git('mv', path, 'recovery/src/App/Application/RenamedBackend.cs')
+            self.git('commit', '-qm', 'renamed source')
+            with self.subTest(renamed=path), self.assertRaises(ValueError):
+                replay.closure(self.repo, self.source, self.git('rev-parse', 'HEAD').strip())
 
 
     def test_dirty_tracked_bytes_are_not_confused_with_candidate_objects(self):

@@ -4,6 +4,20 @@
 This never builds production or treats preparation as candidate acceptance. Only
 an explicitly identified successful run is accepted; failed-run partial reuse is
 deliberately unsupported. Current payload and protocol tests remain mandatory.
+
+This entry is not pinned to a historical binary source. Once the complete Core
+lifecycle run succeeds, dispatch refactor-cache-payload-replay.yml on the current
+test commit with source_commit, run_id, run_attempt, artifact_id and archive_sha256
+from that successful run. Source must be an ancestor of the test commit. Every
+tracked production input, including newly added files such as
+Application/CacheInputLeaseSet.cs, is immutable by default; MUTABLE only names
+reviewed test/receipt paths. The whole production recipe, SDK and runtime source
+closure must agree. Dirty or untracked production inputs reject preparation.
+
+Preparation rechecks run/attempt/repository, successful acceptance steps, archive
+digest, build/link/toolchain receipts and exact runtime bytes. It records separate
+binarySourceCommit/testSourceCommit and still requires the current payload and
+protocol matrix. This is not a Core validation-host, SDK or final-release replay.
 """
 import argparse
 import hashlib
