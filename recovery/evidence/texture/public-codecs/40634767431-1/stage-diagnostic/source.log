@@ -1,0 +1,17 @@
+TexturePublicS3Bridge.cpp
+s3_quant.cpp
+TexturePublicCodecBridge.cpp
+TexturePublicAmdBridge.cpp
+compressonatorxcodec.cpp
+TexturePublicS3Diagnostics.cpp
+alpha.cpp
+clusterfit.cpp
+colourblock.cpp
+colourfit.cpp
+colourset.cpp
+maths.cpp
+rangefit.cpp
+singlecolourfit.cpp
+squish.cpp
+Generating Code...
+   Creating library TexturePublicS3Bridge.lib and object TexturePublicS3Bridge.exp

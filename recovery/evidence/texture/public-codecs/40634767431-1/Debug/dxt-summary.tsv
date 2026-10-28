@@ -1,0 +1,9 @@
+backend	variant	format	fixtures	fullEqual	colourEqual	alphaEqual	eligibleForIntegration
+s3-public	0	DXT3	5120	5109	5109	5120	False
+s3-public	0	DXT5	5120	5109	5109	5120	False
+s3-public	1	DXT3	5120	4735	4735	5120	False
+s3-public	1	DXT5	5120	4735	4735	5120	False
+s3-public	2	DXT3	5120	5109	5109	5120	False
+s3-public	2	DXT5	5120	5109	5109	5120	False
+s3-public	3	DXT3	5120	4726	4726	5120	False
+s3-public	3	DXT5	5120	4726	4726	5120	False

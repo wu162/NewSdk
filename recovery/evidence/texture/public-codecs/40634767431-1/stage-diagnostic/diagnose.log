@@ -1,0 +1,1 @@
+PASS S3 stage diagnostic inputs=28; instrumented reference matches immutable original gold; diagnostic-only, no acceptance
