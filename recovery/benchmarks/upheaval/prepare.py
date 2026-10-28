@@ -34,7 +34,8 @@ def prepare(output):
     changed = git('diff', '--name-only', '--no-renames', SOURCE, candidate).splitlines()
     allowed = lambda p: (p.endswith('.md') or p.startswith('recovery/benchmarks/upheaval/')
                          or p in {'.github/workflows/benchmark-upheaval.yml',
-                                  'recovery/docs/UPHEAVAL_BENCHMARK_RESULT.json'})
+                                  'recovery/docs/UPHEAVAL_BENCHMARK_RESULT.json',
+                                  'recovery/docs/UPHEAVAL_EXPANDED_RESULT.json'})
     denied = [p for p in changed if not allowed(p)]
     if denied:
         raise ValueError('Production/build/SDK input changed: ' + ', '.join(denied))

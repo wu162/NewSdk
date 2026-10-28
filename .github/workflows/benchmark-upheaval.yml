@@ -7,6 +7,11 @@ on:
       - '.github/workflows/benchmark-upheaval.yml'
   workflow_dispatch:
     inputs:
+      suite:
+        description: 'Choose clean baseline or expanded cache/incremental/packaging matrix'
+        type: choice
+        options: [clean, expanded]
+        default: clean
       report_run_id:
         description: 'Optional completed benchmark run to extract reports only (no recompilation)'
         default: ''
@@ -27,7 +32,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   benchmark:
-    if: ${{ !contains(github.event.head_commit.message, '[upheaval-report-only]') && inputs.report_run_id == '' }}
+    if: ${{ !contains(github.event.head_commit.message, '[upheaval-report-only]') && !contains(github.event.head_commit.message, '[upheaval-expanded]') && inputs.report_run_id == '' && inputs.suite != 'expanded' }}
     runs-on: windows-2022
     timeout-minutes: 240
     steps:
@@ -143,5 +148,149 @@ jobs:
         with:
           name: upheaval-report-${{ github.run_id }}-${{ github.run_attempt }}
           path: report/
+          if-no-files-found: error
+          retention-days: 30
+  expanded:
+    if: ${{ contains(github.event.head_commit.message, '[upheaval-expanded]') || (inputs.suite == 'expanded' && inputs.report_run_id == '') }}
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        replica: [1, 2]
+    runs-on: windows-2022
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Lightweight cache/mutation/statistics preflight
+        shell: pwsh
+        run: |
+          python -m unittest discover -s recovery/benchmarks/upheaval -p 'test_*.py' -v
+          if($LASTEXITCODE -ne 0){throw 'Expanded benchmark preflight failed'}
+      - name: Verify unchanged accepted production runtime
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/benchmarks/upheaval/prepare.py recovery/artifacts/upheaval-runtime
+          if($LASTEXITCODE -ne 0){throw 'Runtime reuse rejected'}
+      - name: Initialize full immutable SDK and isolated mutable historical MOD
+        id: init
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase init --replica ${{ matrix.replica }}
+          if($LASTEXITCODE -ne 0){throw 'Expanded initialization failed'}
+      - name: Warm up and verify exact previously accepted no-cache output identity
+        id: baseline
+        if: ${{ !cancelled() && steps.init.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase baseline
+          if($LASTEXITCODE -ne 0){throw 'Full workload baseline failed'}
+      - name: Matched cache-off, cache-cold and unchanged cache-hot repetitions
+        id: cache
+        if: ${{ !cancelled() && steps.baseline.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase cache
+          if($LASTEXITCODE -ne 0){throw 'Cache comparison gate failed'}
+      - name: Save completed cache checkpoint while later tests continue
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() && steps.init.outcome == 'success' }}
+        with:
+          name: upheaval-cache-checkpoint-${{ matrix.replica }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/upheaval-expanded/state.json
+            recovery/artifacts/upheaval-expanded/summary.md
+          retention-days: 30
+      - name: Reachable XML same-length same-timestamp incremental change
+        if: ${{ !cancelled() && steps.cache.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase incremental-xml
+          if($LASTEXITCODE -ne 0){throw 'XML incremental gate failed'}
+      - name: Reachable DDS same-length same-timestamp incremental change
+        if: ${{ !cancelled() && steps.cache.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase incremental-texture
+          if($LASTEXITCODE -ne 0){throw 'Texture incremental gate failed'}
+      - name: Reachable WAV same-length same-timestamp incremental change
+        if: ${{ !cancelled() && steps.cache.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase incremental-audio
+          if($LASTEXITCODE -ne 0){throw 'Audio incremental gate failed'}
+      - name: Missing/corrupt cache and failed-build restoration observations
+        if: ${{ !cancelled() && steps.cache.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase recovery
+          if($LASTEXITCODE -ne 0){throw 'Recovery gate failed'}
+      - name: Full-MOD SC capability and actual metadata-only SC cold/hot subset
+        if: ${{ !cancelled() && steps.baseline.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase session
+          if($LASTEXITCODE -ne 0){throw 'Session capability/subset gate failed'}
+      - name: Full compilation plus original LoD/MakeBig versus production BIG/SKUDEF
+        if: ${{ !cancelled() && steps.baseline.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase packaging
+          if($LASTEXITCODE -ne 0){throw 'End-to-end packaging differential failed'}
+      - name: Verify final SDK/MOD/runtime immutability and summarize accepted groups
+        if: ${{ !cancelled() && steps.init.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase finalize
+          if($LASTEXITCODE -ne 0){throw 'Expanded final acceptance failed'}
+      - name: Upload small per-runner summaries for independent aggregation
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-expanded-summary-${{ matrix.replica }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/upheaval-expanded/state.json
+            recovery/artifacts/upheaval-expanded/summary.md
+            recovery/artifacts/upheaval-expanded/context.json
+            recovery/artifacts/upheaval-runtime/reuse.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload complete commands, logs, inventories and first raw mutation/package oracles
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-expanded-evidence-${{ matrix.replica }}-${{ github.run_attempt }}
+          path: recovery/artifacts/upheaval-expanded/**
+          if-no-files-found: error
+          retention-days: 30
+  expanded-summary:
+    needs: expanded
+    if: ${{ !cancelled() && needs.expanded.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: recovery/benchmarks/upheaval
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: upheaval-expanded-summary-*
+          path: reports
+      - name: Stratified paired statistics across two distinct runner VMs
+        run: python recovery/benchmarks/upheaval/aggregate.py --input reports --output combined --expected 2
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-expanded-combined-${{ github.run_id }}-${{ github.run_attempt }}
+          path: combined/
           if-no-files-found: error
           retention-days: 30
