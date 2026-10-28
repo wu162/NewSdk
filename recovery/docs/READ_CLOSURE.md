@@ -21,7 +21,7 @@
 | 未知原因 | int32字节数及严格UTF-8字符串；去重，不能授予复用资格 |
 | 尾 | 前面全部字节的32字节SHA256 |
 
-路径字符串去重；每个路径最多一个内容身份，没有payload/base64/XML DOM。最多100000条路径和原因合计，单字符串131068字节，整个文件16MiB以内；累计预算先检查再修改集合。解析先校验文件长度与尾摘要，再检查版本、计数、文本、路径、布尔值、长度、重复和剩余范围；不允许把尾摘要读成记录。非法UTF-8/路径输入统一作为无效数据拒绝。空记录取消仍生效。
+路径字符串去重；每个路径最多一个内容身份，没有payload/base64/XML DOM。最多100000条路径和原因合计，单字符串131068字节，整个文件16MiB以内；累计预算先检查再修改集合。生产观察器只对专用预算异常停止记录并退回原保守读取，清单不落盘，报告单列`budgetFallbackStreams`；真实IO、内容/候选矛盾及取消继续传播。这里没有用partial清单替代全根保护。解析先校验文件长度与尾摘要，再检查版本、计数、文本、路径、布尔值、长度、重复和剩余范围；不允许把尾摘要读成记录。非法UTF-8/路径输入统一作为无效数据拒绝。空记录取消仍生效。
 
 整个内层文件的SHA256为持久key。外层复用现有 `ActionAssetCache` 的成员摘要、私有候选、pending排除、Commit/Complete和替换回滚，而非建立第二套事务引擎。独立目录 `.cache/read-closure-v1/<key>/`，数据在 `files/00000000`；`index.bin` 仍为原store成员合同。容量64MiB/256条，pending、备份和候选遵循原store规则；未确认记录不可作为成功缓存。与可写发布输出不共享字节。
 
@@ -29,7 +29,7 @@
 
 ## 计量与验证
 
-报告 `cache.dependencyObservation` 使用格式 `NewModCompiler.ReadClosure.v1`，记录streams/probes/files/unknownReads、直接hash字节、复用现有lease摘要的字节、复验字节、二进制长度、store hash/copy和manifestKeys。直接观察与复验hash纳入总 `hashReadBytes`；leased身份已经由原 `ExternalHashBytes` 计量，不再重复相加。新增store的hash/copy纳入总账本，并单列，避免隐藏记录成本。
+报告 `cache.dependencyObservation` 使用格式 `NewModCompiler.ReadClosure.v1`，记录streams/budgetFallbackStreams/probes/files/unknownReads、直接hash字节、复用现有lease摘要的字节、复验字节、二进制长度、store hash/copy和manifestKeys。直接观察与复验hash纳入总 `hashReadBytes`；leased身份已经由原 `ExternalHashBytes` 计量，不再重复相加。新增store的hash/copy纳入总账本，并单列，避免隐藏记录成本。
 
 read/validation/serialization ticks是包含关系可能重叠的Stopwatch时间；其frequency/semantics随记录返回。读/hash包含在stream准备或文档处理内，复验/持久化在stream完成前；不能与父计时求和。这里新增了记录成本，没有声称热缓存变快。
 

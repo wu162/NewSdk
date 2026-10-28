@@ -31,7 +31,7 @@ namespace NewModCompiler.Application
         readonly List<BuildAssetCache> assetCaches = new List<BuildAssetCache>();
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
         ActionAssetCache actionCache, dependencyStore;
-        int dependencyStreams, dependencyProbes, dependencyFiles, dependencyUnknownReads;
+        int dependencyStreams, dependencyProbes, dependencyFiles, dependencyUnknownReads, dependencyBudgetFallbackStreams;
         long dependencyLeasedReadBytes, dependencyReadBytes, dependencyValidationBytes, dependencyManifestBytes, completedDependencyHashBytes, completedDependencyCopyBytes;
         readonly List<string> dependencyManifestKeys = new List<string>();
         string actionToolchain;
@@ -81,6 +81,7 @@ namespace NewModCompiler.Application
             inputInventoryCaptures, inputHashReusedBytes, inputHashLeaseFiles, inputIdentityQueries, inputIdentitySkippedFiles,
             dependencyObservation = new {
                 format = CacheDependencyManifest.Format, streams = dependencyStreams,
+                budgetFallbackStreams = dependencyBudgetFallbackStreams,
                 probes = dependencyProbes, files = dependencyFiles, unknownReads = dependencyUnknownReads,
                 readBytes = dependencyReadBytes, leasedReadBytes = dependencyLeasedReadBytes, validationBytes = dependencyValidationBytes,
                 manifestBytes = dependencyManifestBytes,
@@ -541,13 +542,13 @@ namespace NewModCompiler.Application
                 BuildPlan cachePlan = null; CacheInputSnapshot cacheInputs = null;
                 string processContract = null; BuildAssetCache assetCache = null; SessionPackage sessionPackage = null;
                 bool packageRestored = false;
-                CacheDependencyManifest dependencies = null;
+                CacheDependencyRecorder dependencies = null;
                 if (buildCacheEnabled || sessionCacheEnabled)
                 {
                     inputBoundary = CacheInputBoundary.Begin(sdkRoot, modRoot, runtime);
                     if (buildCacheEnabled && !sessionCacheEnabled)
                     {
-                        dependencies = new CacheDependencyManifest(cancellation);
+                        dependencies = new CacheDependencyRecorder(cancellation);
                         // Native and directory-selection readers are not yet a
                         // certified closed set. The manifest is evidence only.
                         dependencies.ReportUnknownRead("native-and-directory-read-closure-not-certified");
@@ -650,19 +651,25 @@ namespace NewModCompiler.Application
                     inputHashBytes += finalInputs.HashedBytes;
                     if (cacheInputs.Fingerprint != finalInputs.Fingerprint || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal))
                         throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Build-cache inputs or process resolution contract changed during compilation.");
-                    if (dependencies != null)
+                    if (dependencies != null && dependencies.IsRecording)
                     {
-                        dependencies.ValidateCurrent(cancellation);
+                        CacheDependencyManifest manifest = dependencies.Manifest;
+                        manifest.ValidateCurrent(cancellation);
                         string directory = Path.Combine(staging, "read-closure"); Directory.CreateDirectory(directory);
-                        string key = dependencies.Write(Path.Combine(directory, "dependencies.bin"));
+                        string key = manifest.Write(Path.Combine(directory, "dependencies.bin"));
                         if (dependencyStore == null) dependencyStore = ActionAssetCache.CreateReadClosureStore(outputRoot);
                         dependencyStore.Stage(key, directory, cancellation);
-                        dependencyStreams++; dependencyProbes += dependencies.ProbeCount; dependencyFiles += dependencies.FileCount;
-                        dependencyUnknownReads += dependencies.UnknownReadCount;
-                        dependencyReadBytes += dependencies.ReadBytes; dependencyLeasedReadBytes += dependencies.LeasedReadBytes; dependencyValidationBytes += dependencies.ValidationBytes;
-                        dependencyManifestBytes += dependencies.ManifestBytes; dependencyManifestKeys.Add(key);
-                        dependencyReadTicks += dependencies.ReadTicks; dependencyValidationTicks += dependencies.ValidationTicks;
-                        dependencySerializationTicks += dependencies.SerializationTicks;
+                        dependencyStreams++; dependencyManifestBytes += manifest.ManifestBytes; dependencyManifestKeys.Add(key);
+                    }
+                    if (dependencies != null)
+                    {
+                        CacheDependencyManifest manifest = dependencies.Manifest;
+                        if (!dependencies.IsRecording) dependencyBudgetFallbackStreams++;
+                        dependencyProbes += manifest.ProbeCount; dependencyFiles += manifest.FileCount;
+                        dependencyUnknownReads += manifest.UnknownReadCount;
+                        dependencyReadBytes += manifest.ReadBytes; dependencyLeasedReadBytes += manifest.LeasedReadBytes; dependencyValidationBytes += manifest.ValidationBytes;
+                        dependencyReadTicks += manifest.ReadTicks; dependencyValidationTicks += manifest.ValidationTicks;
+                        dependencySerializationTicks += manifest.SerializationTicks;
                     }
                     if (sessionCacheEnabled)
                     {

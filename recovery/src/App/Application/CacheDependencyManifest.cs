@@ -8,6 +8,14 @@ using System.Threading;
 
 namespace NewModCompiler.Application
 {
+    // Capacity refusal is distinct from corrupt content or an input race.
+    // The production observer may stop recording while full-root protection
+    // remains active; it must never turn a partial record into reuse authority.
+    public sealed class CacheDependencyBudgetException : IOException
+    {
+        public CacheDependencyBudgetException(string message) : base(message) { }
+    }
+
     // Observed evidence, never a cache authorization by itself. Unknown native
     // reads and directory decisions still require the conservative inventory.
     public sealed class CacheDependencyManifest
@@ -39,7 +47,7 @@ namespace NewModCompiler.Application
         {
             cancellation.ThrowIfCancellationRequested();
             if (string.IsNullOrWhiteSpace(reason)) reason = "unspecified";
-            if (Utf8.GetByteCount(reason) > MaximumPathBytes) throw new InvalidDataException("Read-closure reason is too long.");
+            if (Utf8.GetByteCount(reason) > MaximumPathBytes) throw new CacheDependencyBudgetException("Read-closure reason is too long.");
             if (!unknownSet.Contains(reason)) { Account(reason); unknownSet.Add(reason); unknown.Add(reason); }
         }
         public void Probe(string path, bool exists)
@@ -61,7 +69,7 @@ namespace NewModCompiler.Application
             int bytes = Utf8.GetByteCount(value);
             if (bytes == 0 || bytes > MaximumPathBytes || records.Count + unknown.Count >= MaximumRecords ||
                 checked(pathBytes + bytes + 64L * (records.Count + unknown.Count + 1)) > MaximumManifestBytes)
-                throw new InvalidDataException("Read-closure metadata budget exceeded.");
+                throw new CacheDependencyBudgetException("Read-closure metadata budget exceeded.");
             pathBytes = checked(pathBytes + bytes);
         }
         // Called only by the audited owner while the original FileShare.Read
@@ -98,12 +106,14 @@ namespace NewModCompiler.Application
                 // path reopen or a timestamp/size identity. No payload copy.
                 byte[] digest = Digest(input, cancellation);
                 long length = input.Length;
+                // Count the real hash even if recording its new path exceeds
+                // the optional metadata budget and the owner falls back.
+                ReadBytes = checked(ReadBytes + length);
                 Probe(full, true);
                 Record record = paths[full];
                 if (record.Digest != null && (record.Length != length || !Same(record.Digest, digest)))
                     throw new IOException("Read-closure content changed between reads: " + full);
                 if (record.Digest == null) { record.Digest = digest; record.Length = length; FileCount++; }
-                ReadBytes = checked(ReadBytes + length);
                 input.Position = 0;
                 return input;
             }
@@ -160,7 +170,7 @@ namespace NewModCompiler.Application
                 output.Position = 0; byte[] checksum = Digest(output, cancellation);
                 output.Position = contentLength; output.Write(checksum, 0, checksum.Length);
                 ManifestBytes = output.Length;
-                if (ManifestBytes > MaximumManifestBytes) throw new InvalidDataException("Read-closure manifest budget exceeded.");
+                if (ManifestBytes > MaximumManifestBytes) throw new CacheDependencyBudgetException("Read-closure manifest budget exceeded.");
                 output.Position = 0;
                 return BitConverter.ToString(Digest(output, cancellation)).Replace("-", "").ToLowerInvariant();
             }
@@ -168,6 +178,7 @@ namespace NewModCompiler.Application
         public static CacheDependencyManifest Read(string path)
         {
             try { return ReadCore(path); }
+            catch (CacheDependencyBudgetException error) { throw new InvalidDataException("Read-closure metadata exceeds its decode budget.", error); }
             catch (ArgumentException error) { throw new InvalidDataException("Invalid read-closure text or physical path.", error); }
             catch (NotSupportedException error) { throw new InvalidDataException("Unsupported read-closure physical path.", error); }
         }

@@ -182,6 +182,7 @@
             "format": {
               "const": "NewModCompiler.ReadClosure.v1"
             },
+            "budgetFallbackStreams": { "type": "integer", "minimum": 0 },
             "streams": {
               "type": "integer",
               "minimum": 0

@@ -166,7 +166,7 @@ namespace NewModCompiler.Tests
             RejectInvalidData(() => CacheDependencyManifest.Read(file), "Checksum-valid oversized path escaped the per-record decode budget");
             File.WriteAllBytes(file, good); CacheDependencyManifest.Read(file).ValidateCurrent(CancellationToken.None);
             var bounded = new CacheDependencyManifest();
-            RejectInvalidData(() => bounded.ReportUnknownRead(new string('x', 131069)), "Oversized unknown-read metadata escaped the manifest decode budget");
+            Reject<CacheDependencyBudgetException>(() => bounded.ReportUnknownRead(new string('x', 131069)), "Oversized unknown-read metadata escaped the manifest decode budget");
             RejectInvalidData(() => bounded.Probe("relative-path.xml", false), "Relative dependency paths were accepted");
             bounded.Probe(missing, false);
             Reject<IOException>(() => bounded.Probe(missing, true), "Contradictory candidate decisions within one stream were accepted");
@@ -210,11 +210,65 @@ namespace NewModCompiler.Tests
             {
                 string reason = prefix + index.ToString("D4", System.Globalization.CultureInfo.InvariantCulture);
                 try { bounded.ReportUnknownRead(reason); accepted++; }
-                catch (InvalidDataException) { refused = reason; break; }
+                catch (CacheDependencyBudgetException) { refused = reason; break; }
             }
             Check(refused != null && accepted > 0 && bounded.UnknownReadCount == accepted, "The cumulative metadata budget did not bound accepted unknown-reader records");
-            RejectInvalidData(() => bounded.ReportUnknownRead(refused), "A rejected budget record polluted deduplication and silently disappeared on retry");
+            Reject<CacheDependencyBudgetException>(() => bounded.ReportUnknownRead(refused), "A rejected budget record polluted deduplication and silently disappeared on retry");
             Check(bounded.UnknownReadCount == accepted && !bounded.CanAuthorizeReuse, "Budget rejection changed the accepted evidence set or reuse authority");
+        }
+        static void RecorderBudgetFallback(string root)
+        {
+            string input = Put(root, "input.bin", "AAAA"), missing = Path.Combine(root, "missing.bin");
+            using (var cancellation = new CancellationTokenSource())
+            {
+                var recorder = new CacheDependencyRecorder(cancellation.Token);
+                using (var stream = recorder.OpenRead(input)) Check(stream.ReadByte() == (byte)'A', "Recording input bytes were changed");
+                int files = recorder.Manifest.FileCount, probes = recorder.Manifest.ProbeCount;
+                long observedBytes = recorder.Manifest.ReadBytes;
+                recorder.ReportUnknownRead(new string('x', 131069));
+                Check(!recorder.IsRecording && !recorder.Manifest.CanAuthorizeReuse && recorder.Manifest.ManifestBytes == 0, "An oversized observation must abandon incomplete evidence without authorizing reuse or persisting a manifest");
+                DateTime timestamp = File.GetLastWriteTimeUtc(input);
+                Put(root, "input.bin", "BBBB"); File.SetLastWriteTimeUtc(input, timestamp);
+                using (var stream = recorder.OpenRead(input))
+                using (var reader = new StreamReader(stream)) Check(reader.ReadToEnd() == "BBBB", "Budget fallback must freshly consume same-size/same-mtime changed input bytes");
+                recorder.Probe(missing, false); recorder.Probe(missing, true);
+                recorder.ReportUnknownRead("later-native-read"); recorder.RecordLeasedRead(input, 4, new byte[32]);
+                Check(recorder.Manifest.FileCount == files && recorder.Manifest.ProbeCount == probes && recorder.Manifest.ReadBytes == observedBytes && recorder.Manifest.UnknownReadCount == 0,
+                    "Callbacks after capacity fallback must not extend or revive a partial manifest");
+                cancellation.Cancel();
+                Reject<OperationCanceledException>(() => { using (recorder.OpenRead(input)) { } }, "Fallback input reads ignored cancellation");
+                Reject<OperationCanceledException>(() => recorder.Probe(input, true), "Fallback resolver probes ignored cancellation");
+                Reject<OperationCanceledException>(() => recorder.ReportUnknownRead("cancelled"), "Fallback unknown-read callbacks ignored cancellation");
+                Reject<OperationCanceledException>(() => recorder.RecordLeasedRead(input, 4, new byte[32]), "Fallback leased identities ignored cancellation");
+            }
+            using (var writable = File.Open(input, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) Check(writable.Length == 4, "Fallback or cancelled reads leaked an input handle");
+            var strict = new CacheDependencyRecorder();
+            Reject<FileNotFoundException>(() => { using (strict.OpenRead(missing)) { } }, "Real missing-input I/O was converted into a budget fallback");
+            Check(strict.IsRecording, "A genuine I/O error disabled dependency protection");
+            strict.Probe(missing, false);
+            Reject<IOException>(() => strict.Probe(missing, true), "Contradictory resolver decisions were converted into a budget fallback");
+            Check(strict.IsRecording, "A contradictory decision silently abandoned its evidence");
+            RejectInvalidData(() => strict.Probe("relative.xml", false), "Malformed input paths were converted into a budget fallback");
+            Check(strict.IsRecording, "A malformed path silently abandoned dependency protection");
+        }
+        static void RecorderReadCapacityFallback(string root)
+        {
+            string input = Put(root, "read-at-budget.bin", "AAAA");
+            var recorder = new CacheDependencyRecorder();
+            string prefix = new string('x', 131000);
+            // Populate the documented 16 MiB metadata budget exactly, using
+            // 129 bounded records rather than files or a large MOD. The next
+            // real OpenRead must release its attempted lease and fall back.
+            for (int index = 0; index < 128; index++)
+                recorder.ReportUnknownRead(prefix + index.ToString("D4", System.Globalization.CultureInfo.InvariantCulture));
+            recorder.ReportUnknownRead(new string('p', 448));
+            Check(recorder.IsRecording, "A manifest at its exact metadata limit was rejected early");
+            using (var stream = recorder.OpenRead(input))
+            using (var reader = new StreamReader(stream)) Check(reader.ReadToEnd() == "AAAA", "A budget failure during OpenRead interrupted valid input consumption");
+            Check(!recorder.IsRecording && recorder.Manifest.FileCount == 0 && recorder.Manifest.ManifestBytes == 0 && !recorder.Manifest.CanAuthorizeReuse,
+                "OpenRead capacity fallback must not claim a complete observed file, persisted manifest or reuse authority");
+            Check(recorder.Manifest.ReadBytes >= 4, "A rejected observation omitted actual bytes already hashed before its metadata budget check");
+            using (var writable = File.Open(input, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) Check(writable.Length == 4, "The attempted observation or fallback leaked its consumed file lease");
         }
         public static int Run(string root)
         {
@@ -224,6 +278,8 @@ namespace NewModCompiler.Tests
             EmptyCancellationAndInvalidText(Path.Combine(root, "empty-and-invalid-text"));
             MetadataBudgetIsTransactional();
             LeasedReadIdentities(Path.Combine(root, "leased-identities"));
+            RecorderBudgetFallback(Path.Combine(root, "recorder-fallback"));
+            RecorderReadCapacityFallback(Path.Combine(root, "read-capacity-fallback"));
             return checks;
         }
     }
