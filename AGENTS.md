@@ -17,7 +17,7 @@
 
 ## 续接与上下文控制
 
-继续编译器恢复时，先读 `recovery/RESUME.md`，再按本轮范围读取对应源码、测试与类型文档。`recovery/docs/history/STATUS.md` 保存历史验证记录，旧章节的“下一轮”可能已过时；不要把全量历史交接与大型反编译文件一次性加载到上下文。以远程分支头及验证文件的 sourceCommit/runId 核实实际状态。完成阶段时同步更新简短续接入口。
+在 `feature/cache-parallel` 续接时，先读 `recovery/docs/CACHE_PARALLEL_PLAN.md` 与 `recovery/REFACTOR_RESUME.md`，再按当前阻塞读取对应源码和证据。原组件恢复仅在专项确有依赖时定点查阅。`recovery/docs/history/STATUS.md` 保存历史验证记录，旧章节的“下一轮”可能已过时；不要把全量历史交接与大型反编译文件一次性加载到上下文。以远程分支头及验证文件的 sourceCommit/runId 核实实际状态。完成阶段时同步更新简短续接入口。
 
 ## 执行原则：效率优先，正确性是底线
 
@@ -46,10 +46,10 @@
 
 
 
-## 音频成果集中入口（2026-10-26）
+## 当前分支与专项范围（2026-10-28）
 
-用户明确要求将本轮所有音频成果集中回`recovery/audio-compiler-source`并关闭原PR#10。源码、验收证据及未编译的下一组准备均以此分支为续接入口；不得把未编译准备误报为已支持。仅PC/Win32音频恢复，不承担最终EXE或重构。后续合入其他分支仍须先提PR并经用户明确批准；禁止强推。
+`feature/cache-parallel` 从 `compiler-main` 分出，专门执行 [CACHE_PARALLEL_PLAN](recovery/docs/CACHE_PARALLEL_PLAN.md)。后续实现、验证与交接继续在此分支；`compiler-main` 是开发主线及最终 PR 目标，不是本专项直接提交位置。现有 draft PR #17 未经用户明确批准不得合入。
 
-## 当前结果主线（2026-10-27）
+本分支只推进资产动作缓存、重复 I/O 消除、跨文档有界并行，以及这些改动必需的兼容性、回归和计量。已完成的重构/发行、原 DLL 全面恢复、其他组件分支归集、通用路径审查和独立工具平台不成为专项待办。必要的旧 session、SDK、BIG/CDATA 与独立发行回归仍是正确性约束，不因排除无关任务而删除。
 
-用户明确指定 `compiler-main` 为重构成果及以后开发的主分支，不再将本次成果合入 `recovery/compiler-source` 或旧主线。`refactor/modcompiler-p0-p3` 保留历史；旧 PR #13 关闭且不合并。今后以 `README.md`、`recovery/REFACTOR_RESUME.md` 为入口。这里指定的是开发主线；仓库网页默认分支是否更改须以 GitHub 实际设置为准。禁止强推，后续其他合并仍按用户批准规则执行。
+计划规定目标与验收合同；`recovery/REFACTOR_RESUME.md` 只记录最新状态、阻塞和下一步；`recovery/docs/CACHE_PARALLEL.md` 及证据 JSON 保存详细能力和历史来源。历史“下一步”不覆盖当前交接，计划条款不等于已验收能力。

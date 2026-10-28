@@ -6,11 +6,11 @@
 >
 > 文档日期：2026-10-28。调研基线：`wu162/NewSdk` 的 `compiler-main`，提交 `e7396d3b6fb302682d3610ebbc6e99ce87eb867f`。执行时以最新远程头和实际源码为准，只补查相关差异。
 >
-> 本文已包含目标、产品模式、代码入口、实现顺序、验收和交付要求，不需要此前聊天或 PDF。本文描述待实施工作，不表示代码或性能已验证。
+> 本文已包含目标、产品模式、代码入口、实现顺序、验收和交付要求，不需要此前聊天或 PDF。本文规定专项目标与验收合同，不表示全部条款已经完成。最新进度和下一步见 [当前交接](../REFACTOR_RESUME.md)，能力与原始证据见 [专项记录](CACHE_PARALLEL.md)。
 
 ## 1. 要完成的任务
 
-仓库：<https://github.com/wu162/NewSdk>。开发基线与最终 PR 目标分支：`compiler-main`。
+仓库：<https://github.com/wu162/NewSdk>。开发基线与最终 PR 目标分支：`compiler-main`。现有实施分支：`feature/cache-parallel`，从该主线分出，后续在同一分支续接；现有 draft PR #17 未经用户明确批准不得合入。
 
 围绕现有前端、后端和链接器，完成以下主线：
 
@@ -29,10 +29,10 @@
 
 ## 2. 启动步骤与工作方式
 
-按以下顺序开始，随后进入编码：
+实现任务按以下顺序续接，随后进入编码；仅文档整理时只检查差异、引用和分支一致性，不触发构建：
 
-1. 读 `AGENTS.md`、`recovery/EFFICIENCY.md`、`README.md`、`recovery/REFACTOR_RESUME.md`，核对远程 `compiler-main` 和已有验证来源。交接描述与实际提交不一致时，以源码和有效收据为准。
-2. 从核对后的远程头创建成果分支 `feature/cache-parallel`。若已经存在本任务的成果分支，核实后续接；同名分支属于其他工作时使用不冲突的新名称，不覆盖别人工作。成果集中在首次确定的成果分支。
+1. 读 `AGENTS.md`、`recovery/EFFICIENCY.md`、本文和 `recovery/REFACTOR_RESUME.md`，核对远程 `feature/cache-parallel` 及已有验证来源。`compiler-main` 只作为来源与 PR 目标；交接与实际提交不一致时，以源码和有效收据为准。
+2. 继续现有 `feature/cache-parallel`，保留并发提交，不重新从 `compiler-main` 创建或重置分支。临时测试分支只承担专项验证，成果仍集中回本分支；禁止强推。
 3. 只读第 4 节所列接入点及当前阻塞需要的相关文件，不重做全仓和全网调研。行为未知时用定向探针确认，同时推进不依赖它的部分。
 4. 记录现有工具/输入身份，复用已有报告和计数位置补充必要计量；不要先开发独立性能平台，也不要等全量基准齐备才开始改造。
 5. 以完整能力组接入生产。核心循环由主集成者维护，存储、后端适配和验证按文件边界、当轮授权及可用并发容量分工；主集成者持续集成。
@@ -76,9 +76,9 @@
 | `recovery/src/Managed/Audio/`及 XML 各后端 adapter | 完整读取/CDATA/元数据合同，分别认证缓存与并行 |
 | `recovery/scripts/`现有缓存、CLI、Core、BIG、SDK 脚本 | 扩展对照和失效用例，复用原比较与运行控制 |
 
-### 必须先处理的已知陷阱
+### 需持续保持的来源授权合同（调研基线陷阱）
 
-当前 ProcessInstances 在调用 CompileInstance 之前就调用 GetLocation；OutputManager 以旧 FileBase 查找对象；BinaryAsset 选位置时 Output 可优先于新装入的 Memory，Commit 还会再次选择位置。
+调研基线的 ProcessInstances 在调用 CompileInstance 之前就调用 GetLocation；OutputManager 以旧 FileBase 查找对象；BinaryAsset 选位置时 Output 可优先于新装入的 Memory，Commit 还会再次选择位置。
 
 **新缓存必须接在 ProcessInstances 的结果来源决策处，并覆盖物化与提交。只包装 plugin.ProcessInstance 不算完成。**[R3]
 
