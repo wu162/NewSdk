@@ -1,83 +1,83 @@
 {
-  "binarySourceCommit": "810dd2ad2af23cc6a77b81c92f308f464083530f",
-  "testSourceCommit": "810dd2ad2af23cc6a77b81c92f308f464083530f",
-  "packagingSourceCommit": "810dd2ad2af23cc6a77b81c92f308f464083530f",
-  "runId": "40657123355",
+  "binarySourceCommit": "129d9639df7379dfe7898c5037afc32501eb0cd0",
+  "testSourceCommit": "129d9639df7379dfe7898c5037afc32501eb0cd0",
+  "packagingSourceCommit": "129d9639df7379dfe7898c5037afc32501eb0cd0",
+  "runId": "40660066519",
   "runConclusion": "success",
   "scope": "Fresh complete Windows Debug/Release build; bounded identity-checked leased input digests, twelve certified Xmlenvironment roots and observed Weather/W3X overlap, exact cache miss/bypass accounting, complete mymod and independent five-file ZIP acceptance. No game runtime acceptance or general speedup claim.",
-  "artifactId": 12803193116,
-  "artifactSha256": "eeaabe66deb0c2e50fcd1650e7fc355bf901b62da189f2c67cf5f50c2c8bd32f",
+  "artifactId": 12805100025,
+  "artifactSha256": "cebe5b0798c9ec2719ca0743e8702575ec44962ec47023bc6d94374d51b1af47",
   "groupReceipts": [
     {
       "group": "core-lifecycle-deployment",
-      "path": "evidence/refactor/core-lifecycle-deployment/40657123355-1/validation.json",
-      "sha256": "1d655dbef5b21f917e2a7816703385e7a8a7203c4da48359b46025aa2f8b5a56",
+      "path": "evidence/refactor/core-lifecycle-deployment/40660066519-1/validation.json",
+      "sha256": "5c28eb52bced1a930d7e5ed4fb54ff45268dc9ab2fa3411dfa88f44624c1f42a",
       "succeeded": true
     },
     {
       "group": "core-lifecycle",
-      "path": "evidence/refactor/core-lifecycle/40657123355-1/validation.json",
-      "sha256": "55560a6e7ecec7168d5237c17693265a024e802c5cc66c7ef6ca7d758ce8853b",
+      "path": "evidence/refactor/core-lifecycle/40660066519-1/validation.json",
+      "sha256": "005761cebfc42db9ef6bd4056d25b84f24755c393782daa0388cee1a82f5d24d",
       "succeeded": true
     },
     {
       "group": "core-lifecycle-texture",
-      "path": "evidence/refactor/core-lifecycle-texture/40657123355-1/validation.json",
-      "sha256": "89a523a6470c507f739a34356070ceaa936e8eec11931d4ecd0c544573ffb396",
+      "path": "evidence/refactor/core-lifecycle-texture/40660066519-1/validation.json",
+      "sha256": "0567778114db4418db6e17f1def4bb2d096a511ab6a7d688626b133f588009f4",
       "succeeded": true
     },
     {
       "group": "core-cli",
-      "path": "evidence/refactor/core-cli/40657123355-1/validation.json",
-      "sha256": "672110609c09a3c81208b48316d6a38cc093d90b9049de57637f4d33a1311449",
+      "path": "evidence/refactor/core-cli/40660066519-1/validation.json",
+      "sha256": "6c97ff6052a8a14df4c9f81578e8d0997b30918ac1ccd50170f52f6de1b492d6",
       "succeeded": true
     },
     {
       "group": "build-cache",
-      "path": "evidence/refactor/build-cache/40657123355-1/validation.json",
-      "sha256": "bbe0e72848536d85cd20d067b8a60b7f1d9bd63fdc7ca76f46249684928965d2",
+      "path": "evidence/refactor/build-cache/40660066519-1/validation.json",
+      "sha256": "1565330492f79824277042b5490fa56dd279c72b41420e616bcbbd13e5630bda",
       "succeeded": true
     },
     {
       "group": "input-roots",
-      "path": "evidence/refactor/input-roots/40657123355-1/validation.json",
-      "sha256": "05c371a72a36fa73dd6ac4614e04a7ef7360154638d0233101eebf4adbc6f346",
+      "path": "evidence/refactor/input-roots/40660066519-1/validation.json",
+      "sha256": "a6d60119d770fd37ff85189a7d706bd942ebbc0894bd8208551c669316829d9f",
       "succeeded": true
     },
     {
       "group": "cache-payloads",
-      "path": "evidence/refactor/cache-payloads/40657123355-1/validation.json",
-      "sha256": "a36178165a2e91dc37cfe03ccc859c2317489ecc1f008bf627ac8fc7fd3948d2",
+      "path": "evidence/refactor/cache-payloads/40660066519-1/validation.json",
+      "sha256": "b6c354cdfbff1dcd8ed86713e23d60d9bd606943c3e277b188a5934eb3801f1a",
       "succeeded": true
     },
     {
       "group": "session-cache",
-      "path": "evidence/refactor/session-cache/40657123355-1/validation.json",
-      "sha256": "0223ccf3be47180ac9fcdd24c10648c19c9d4088d9136acf8744e8f15e735a86",
+      "path": "evidence/refactor/session-cache/40660066519-1/validation.json",
+      "sha256": "4d0466b8689c6acd8e224c39bffd52b695fe6e8e88d858087197b53d7bebd682",
       "succeeded": true
     },
     {
       "group": "big",
-      "path": "evidence/refactor/big/40657123355-1/validation.json",
-      "sha256": "6d19ac616ad11b70993153a79bd621aa0007b9bfaea4c24b7b21b6e6cda8c4a2",
+      "path": "evidence/refactor/big/40660066519-1/validation.json",
+      "sha256": "cd5a9c90b7ec2cf5c47cb73487de1962dfe996031b7d5a46db60c9681c5c284e",
       "succeeded": true
     },
     {
       "group": "sdk-mymod",
-      "path": "evidence/refactor/sdk-mymod/40657123355-1/validation.json",
-      "sha256": "260f7e09c2cb3493bfe2405943c730aab631aa15e3b519d7e4f4437c6d1d7506",
+      "path": "evidence/refactor/sdk-mymod/40660066519-1/validation.json",
+      "sha256": "9f1e762b95c23a1551db5c878ed20c4619b4d0d87eb726157a48bef96d29d545",
       "succeeded": true
     },
     {
       "group": "original-bab-Debug",
-      "path": "evidence/refactor/core-backend-baseline/40657123355-1/Debug/validation.json",
-      "sha256": "224d4da7b1188199dcae323c0cc4a96898a5fb779c4d9d0b58777733ffd77d31",
+      "path": "evidence/refactor/core-backend-baseline/40660066519-1/Debug/validation.json",
+      "sha256": "c1b67919c833c6c1851ca27ec6d89a5fbf540afad5241993cd1270081298cea4",
       "succeeded": true
     },
     {
       "group": "original-bab-Release",
-      "path": "evidence/refactor/core-backend-baseline/40657123355-1/Release/validation.json",
-      "sha256": "ec6fc47b3f2e800347a361863408cca94f86f65583e03e5f38545e73c172b210",
+      "path": "evidence/refactor/core-backend-baseline/40660066519-1/Release/validation.json",
+      "sha256": "b85e7b7e120c48e2888b944b3a8755d829d2e7d41c5b7f9f8cf647b77813b370",
       "succeeded": true
     }
   ],
@@ -86,36 +86,40 @@
       "configuration": "Debug",
       "runtimeFiles": [
         {
-          "sha256": "d43b216a62b2d7864d784c25225147f5ba0d9881ee3448c4fbeaa381f83041e0",
-          "name": "NewModCompiler.exe",
-          "bytes": 6612480
+          "bytes": 6612480,
+          "sha256": "75233ef91161fd47366ac48ed5a7e792008060b5a63b9654c03a3c308f03b3b4",
+          "name": "NewModCompiler.exe"
         },
         {
+          "bytes": 201,
           "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
-          "name": "NewModCompiler.exe.config",
-          "bytes": 201
+          "name": "NewModCompiler.exe.config"
         },
         {
+          "bytes": 99328,
           "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
-          "name": "antlr.runtime.dll",
-          "bytes": 99328
+          "name": "antlr.runtime.dll"
         },
         {
+          "bytes": 917504,
           "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
-          "name": "BinaryAssetBuilder.TextureCompiler.dll",
-          "bytes": 917504
+          "name": "BinaryAssetBuilder.TextureCompiler.dll"
         },
         {
-          "sha256": "607ccc9e2a5bab3f51e4ff84563a554f7d183914bded557add673a241e3b696e",
-          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
-          "bytes": 14326
+          "bytes": 14326,
+          "sha256": "5df9883ca58ab6073f61fa0688b7826654aea4d1e7aba9f67348ec0ec3dc5690",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json"
         }
       ],
       "zip": {
         "name": "NewModCompiler-Win32-Debug.zip",
-        "sha256": "f19cccde940108dbd6ac6b8c05cc7db45835765bd0227f6bd2c2f78f3c14dbc3"
+        "sha256": "52029ecd2c4574fa64e10a73c65ed0a5f7c2aef4808c1115de2c9eadfcaf8cac"
       },
       "environmentParallel": {
+        "passed": true,
+        "observedOverlappingTypes": [
+          "Weather"
+        ],
         "certifiedTypes": [
           "Weather",
           "WaterTransparency",
@@ -133,225 +137,221 @@
         "intervals": [
           {
             "typeName": "W3DHierarchy",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\w3x.xml",
-            "startTicks": 10762858159,
-            "endTicks": 10763288866,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\w3x.xml",
+            "startTicks": 17765935268,
+            "endTicks": 17766343856,
             "threadId": 1
           },
           {
             "typeName": "Weather",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\weather.xml",
-            "startTicks": 10763501783,
-            "endTicks": 10763653035,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\weather.xml",
+            "startTicks": 17766553267,
+            "endTicks": 17766669276,
             "threadId": 7
           },
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\parallellong.xml",
-            "startTicks": 10763479716,
-            "endTicks": 10797653395,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\parallellong.xml",
+            "startTicks": 17766532433,
+            "endTicks": 17788322421,
             "threadId": 6
           },
           {
             "typeName": "WaterTransparency",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\watertransparency.xml",
-            "startTicks": 10797672737,
-            "endTicks": 10797676833,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\watertransparency.xml",
+            "startTicks": 17788341334,
+            "endTicks": 17788345459,
             "threadId": 7
           },
           {
             "typeName": "Environment",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\environment.xml",
-            "startTicks": 10797720404,
-            "endTicks": 10797729643,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\environment.xml",
+            "startTicks": 17788389074,
+            "endTicks": 17788395248,
             "threadId": 7
           },
           {
             "typeName": "WaterSetting",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\watersetting.xml",
-            "startTicks": 10797698174,
-            "endTicks": 10797731335,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\watersetting.xml",
+            "startTicks": 17788366184,
+            "endTicks": 17788396520,
             "threadId": 6
           },
           {
             "typeName": "LightingSettings",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\lightingsettings.xml",
-            "startTicks": 10797769308,
-            "endTicks": 10797792380,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\lightingsettings.xml",
+            "startTicks": 17788430009,
+            "endTicks": 17788449566,
             "threadId": 8
           },
           {
             "typeName": "WaterTextureList",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\watertexturelist.xml",
-            "startTicks": 10797789734,
-            "endTicks": 10797807124,
-            "threadId": 6
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\watertexturelist.xml",
+            "startTicks": 17788449848,
+            "endTicks": 17788473669,
+            "threadId": 8
           },
           {
             "typeName": "TerrainParticleMapping",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\terrainparticlemapping.xml",
-            "startTicks": 10797820356,
-            "endTicks": 10797824932,
-            "threadId": 7
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\terrainparticlemapping.xml",
+            "startTicks": 17788487546,
+            "endTicks": 17788492242,
+            "threadId": 6
           },
           {
             "typeName": "BounceKickTerrainMapping",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\bouncekickterrainmapping.xml",
-            "startTicks": 10797841247,
-            "endTicks": 10797845583,
-            "threadId": 6
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\bouncekickterrainmapping.xml",
+            "startTicks": 17788514721,
+            "endTicks": 17788518282,
+            "threadId": 8
           },
           {
             "typeName": "ShadowMap",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\shadowmap.xml",
-            "startTicks": 10797862070,
-            "endTicks": 10797866665,
-            "threadId": 7
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\shadowmap.xml",
+            "startTicks": 17788539569,
+            "endTicks": 17788542956,
+            "threadId": 6
           },
           {
             "typeName": "OrdersManagerSettings",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\ordersmanagersettings.xml",
-            "startTicks": 10798027048,
-            "endTicks": 10798033018,
-            "threadId": 6
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\ordersmanagersettings.xml",
+            "startTicks": 17788703765,
+            "endTicks": 17788709730,
+            "threadId": 8
           },
           {
             "typeName": "TerrainVisualSettings",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\terrainvisualsettings.xml",
-            "startTicks": 10798221716,
-            "endTicks": 10798226881,
-            "threadId": 7
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\terrainvisualsettings.xml",
+            "startTicks": 17788788793,
+            "endTicks": 17788793796,
+            "threadId": 6
           },
           {
             "typeName": "CameraSettings",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\environment\\data\\camerasettings.xml",
-            "startTicks": 10798246424,
-            "endTicks": 10798250344,
-            "threadId": 6
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\environment\\data\\camerasettings.xml",
+            "startTicks": 17788807507,
+            "endTicks": 17788811264,
+            "threadId": 8
           }
         ],
         "scope": "Twelve Xmlenvironment roots through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
-        "observedOverlappingTypes": [
-          "Weather"
-        ],
-        "passed": true,
         "maxBackendConcurrency": 2
       },
       "machineParallel": {
-        "passed": true,
         "taskMemoryBudgetBytes": 536838144,
-        "minimumTaskMemoryBudgetBytes": 536838144,
-        "resourceMemoryQuerySucceeded": true,
-        "actualMaximumConcurrency": 4,
-        "minimumEffectiveJobs": 4,
-        "effectiveJobs": 4,
+        "moreThanTwoApplicable": true,
         "intervals": [
           {
             "typeName": "AudioFile",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\four\\data\\audiotwo.xml",
-            "startTicks": 11092950294,
-            "endTicks": 11094183396,
-            "threadId": 7
-          },
-          {
-            "typeName": "AudioFile",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\four\\data\\audioone.xml",
-            "startTicks": 11092883537,
-            "endTicks": 11094190647,
-            "threadId": 6
-          },
-          {
-            "typeName": "AudioFile",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\four\\data\\audiothree.xml",
-            "startTicks": 11093023482,
-            "endTicks": 11094193388,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\four\\data\\audiothree.xml",
+            "startTicks": 18033649572,
+            "endTicks": 18034436619,
             "threadId": 8
           },
           {
             "typeName": "AudioFile",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\four\\data\\audiofour.xml",
-            "startTicks": 11093100191,
-            "endTicks": 11094226841,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\four\\data\\audioone.xml",
+            "startTicks": 18033508187,
+            "endTicks": 18034443023,
+            "threadId": 6
+          },
+          {
+            "typeName": "AudioFile",
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\four\\data\\audiotwo.xml",
+            "startTicks": 18033567987,
+            "endTicks": 18034482256,
+            "threadId": 7
+          },
+          {
+            "typeName": "AudioFile",
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\four\\data\\audiofour.xml",
+            "startTicks": 18033785259,
+            "endTicks": 18034507757,
             "threadId": 10
           }
         ],
-        "moreThanTwoApplicable": true,
-        "logicalProcessorCount": 4
+        "resourceMemoryQuerySucceeded": true,
+        "minimumTaskMemoryBudgetBytes": 536838144,
+        "minimumEffectiveJobs": 4,
+        "logicalProcessorCount": 4,
+        "effectiveJobs": 4,
+        "actualMaximumConcurrency": 4,
+        "passed": true
       },
       "parallel": {
+        "passed": true,
+        "maxBackendConcurrency": 2,
+        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled",
+        "backendCalls": 3,
         "requestedJobs": 2,
         "intervals": [
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\parallel\\data\\parallelshort.xml",
-            "startTicks": 10675590397,
-            "endTicks": 10700061402,
-            "threadId": 7
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\parallel\\data\\parallelshort.xml",
+            "startTicks": 17707755377,
+            "endTicks": 17723034063,
+            "threadId": 8
           },
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\parallel\\data\\parallellong.xml",
-            "startTicks": 10675560199,
-            "endTicks": 10711803883,
-            "threadId": 6
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\parallel\\data\\parallellong.xml",
+            "startTicks": 17707726201,
+            "endTicks": 17729778522,
+            "threadId": 7
           }
-        ],
-        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled",
-        "backendCalls": 3,
-        "passed": true,
-        "maxBackendConcurrency": 2
+        ]
       },
       "certifiedParallel": [
         {
-          "requestedJobs": 2,
-          "intervals": [
-            {
-              "typeName": "AudioFile",
-              "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\parallel-audio\\data\\audioshort.xml",
-              "startTicks": 10925305490,
-              "endTicks": 10926104253,
-              "threadId": 7
-            },
-            {
-              "typeName": "AudioFile",
-              "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\parallel-audio\\data\\audiolong.xml",
-              "startTicks": 10925251754,
-              "endTicks": 10926366721,
-              "threadId": 6
-            }
-          ],
+          "passed": true,
+          "maxBackendConcurrency": 2,
           "scope": "Independent AudioFile source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison",
           "backendCalls": 2,
-          "passed": true,
-          "maxBackendConcurrency": 2
+          "requestedJobs": 2,
+          "intervals": [
+            {
+              "typeName": "AudioFile",
+              "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\parallel-audio\\data\\audioshort.xml",
+              "startTicks": 17882904801,
+              "endTicks": 17883432847,
+              "threadId": 8
+            },
+            {
+              "typeName": "AudioFile",
+              "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\parallel-audio\\data\\audiolong.xml",
+              "startTicks": 17882847192,
+              "endTicks": 17883565262,
+              "threadId": 7
+            }
+          ]
         },
         {
+          "passed": true,
+          "maxBackendConcurrency": 2,
+          "scope": "Independent AptAptData source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison",
+          "backendCalls": 2,
           "requestedJobs": 2,
           "intervals": [
             {
               "typeName": "AptAptData",
-              "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\parallel-xml\\data\\aptshort.xml",
-              "startTicks": 10986551895,
-              "endTicks": 10986899214,
+              "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\parallel-xml\\data\\aptshort.xml",
+              "startTicks": 17936047423,
+              "endTicks": 17936363247,
               "threadId": 7
             },
             {
               "typeName": "AptAptData",
-              "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\d\\parallel-xml\\data\\aptlong.xml",
-              "startTicks": 10986507430,
-              "endTicks": 10986946452,
+              "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\d\\parallel-xml\\data\\aptlong.xml",
+              "startTicks": 17936009092,
+              "endTicks": 17936481815,
               "threadId": 6
             }
-          ],
-          "scope": "Independent AptAptData source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison",
-          "backendCalls": 2,
-          "passed": true,
-          "maxBackendConcurrency": 2
+          ]
         }
       ],
       "preparedBackend": {
-        "path": "evidence/refactor/core-lifecycle/40657123355-1/Debug/CompilerPreparedBackend/result.json",
-        "sha256": "83f060882b6ff64cbd1e0d1c8c156e31c6b54e8da81bac0428c78f680b8660d1",
+        "path": "evidence/refactor/core-lifecycle/40660066519-1/Debug/CompilerPreparedBackend/result.json",
+        "sha256": "7ae941cb40daa7b0f4164c230d17cc8e7c6b3258e04ea7f4781cf40d859c091a",
         "checks": 8406137,
         "scope": "Actual prepared input isolation, native APT content lease, exact external invalidation, schema defaults and preparation budgets, real BinaryAsset authorization guard, repeated include/inheritance byte equality, cancellation and native worker failure; complete Xmlenvironment family qualification with four-platform three-buffer equality; normal cross-document output overlap is checked separately",
         "lifecycleEvidence": [
@@ -390,7 +390,7 @@
       },
       "cacheCases": [
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/actual-cancel/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/actual-cancel/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
@@ -405,19 +405,19 @@
             "cacheBypassReasons": {},
             "maxBackendConcurrency": 0
           },
-          "reportSha256": "c0ca875c7de6eaf573418fa7c09a2f8fafcd90597b68762c5d4d2fa3cd50628f"
+          "reportSha256": "46f3edf6a6079f4dfc145d0c0e1e9f66b67f3bc07cefde67ef215f0df8b5f310"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/audio-header-content-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/audio-header-content-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -425,19 +425,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "214b824703d6549aa1aca1013e2da36eb3e03e91ec3f6594dc60d83ac34793b4"
+          "reportSha256": "cd0bef998cc791255d2b0c7e2c1f1424aff04cb8a96b85eb29e38dc36b757bee"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/audio-header-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/audio-header-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -447,10 +447,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "455adb2fac2acaa5a1a2b6cef91490c0d9c0c5f81ff233410b23e328a96bbfda"
+          "reportSha256": "9ea139ff69041fbac734e92044a40b2f3f604bf1859d6e158ae21a85390f3c08"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/audio-header-content-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/audio-header-content-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -467,19 +467,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "9f9a1afb6a571051b1841698447899cc128562be4ce758322f649e42ee4cba61"
+          "reportSha256": "aaf461e5692382d42367f95e68abb970f201042785064e3349071a0519c18076"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/cold/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/cold/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 0,
             "misses": 8,
             "backendCalls": 9,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 8
@@ -489,19 +489,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "e29783e4cfd036e411689b7b3cc51977a3984d48a1c7ae77b18ec4158f00932c"
+          "reportSha256": "758481d8dd003bd4ad43df8b957f25ebccdc7445e6e80bb26692f6ded8e8e07d"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/configuration-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/configuration-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 0,
             "misses": 8,
             "backendCalls": 9,
-            "hashReadBytes": 10854371,
+            "hashReadBytes": 12169908,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 30810861,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 8
@@ -511,19 +511,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "018eae3b6984f61a4a830a6c3320228e5405df5376c7fea95b8df1ac55f7bde3"
+          "reportSha256": "89b141bfd84660eddf84f87fe6adf6ad03dbd36a3121397c8a92663994a2b22d"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/corrupt-payload-reason-repaired/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/corrupt-payload-reason-repaired/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 10859489,
+            "hashReadBytes": 11119616,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "invalid-payload": 1
@@ -533,10 +533,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "317cb0e5d21d1d8db6bca82011636c02c01b5e428d7e51f83adb6b454acf810c"
+          "reportSha256": "0ca47c4f4176ac81763d434fe775d55d6616e5f3af5802b6bdb81cb03033bf19"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/disabled/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/disabled/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -553,19 +553,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "ca46222616381d6fdb0d3833461180573d5e47d56dc84f589874d0daf76be0cc"
+          "reportSha256": "7f9981fc0fac9b87c10b221d16c227b83101d8c20c3693be267479a55405b99f"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/first-mod-return/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/first-mod-return/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854371,
+            "hashReadBytes": 12169908,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 30810861,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -573,19 +573,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "1e0903ad17898ed27a2d137951fdffa3f70bbaaa42335eb1d76622d618b57b61"
+          "reportSha256": "96415a6da4a4aefd97b011174d594e23cac539690af4a72bc59f6321e7763832"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/gameobject-value-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/gameobject-value-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -593,19 +593,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "c71a40214ffd547fa39c93a119a6b9a3c522f1a6fa08abe8629b69754e6886b7"
+          "reportSha256": "e0a603010fa28f72e0a536a8fa10d66f18f7229855c8beb1f98992017ce5b127"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/gameobject-value-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/gameobject-value-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -615,10 +615,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "0487a21ff76f85706df0926f3c51a3c35467f5395fa5f95c7295c8f7a8fa60bd"
+          "reportSha256": "1fce9cd7127235c0a1b68e196a205782840968573ece96ae11e958cab798c148"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/gameobject-value-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/gameobject-value-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -635,19 +635,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "2c4dff5d93221a46e6dd087fba6f35186c8df197cfb4614d6684a10f476630f2"
+          "reportSha256": "76f9fd4b05c529146bac4616f051f593e2bd1ed397858f4f5408fa28a1b1c15c"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -655,19 +655,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "349b8b5906f4e85e8a8f0aaa6f9ed91567e6c7ce3df54325a826a8628299b163"
+          "reportSha256": "f83742afed242ea1286ff6dcd22c0f39478512e34c998389da978493799565c8"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/include-content-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/include-content-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -675,19 +675,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "d0ef7572e7ceb2980b783b7f9a2b290b661775ba3622fdf89a3f29b1dc12f84c"
+          "reportSha256": "31223960d846ab411f306d6755c01f676fbfc1c63245f59079fea54d65db4451"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/include-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/include-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -697,10 +697,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "4d91b1e85dfda8ea6a35bbd7cc682113b0ff6c930ca4b5f32630e7db380cb1b4"
+          "reportSha256": "9b2be8f42149a2498c49a49af2a033ce658e26f93e9ce62f1e61f1aa83ca63bb"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/include-content-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/include-content-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -717,17 +717,17 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "452f130f0544a2a701ae8048cd94444bbca6d7ad8d16dfb08b63c9daa21570a8"
+          "reportSha256": "a16d096e592f762bb4dacb3d2983cc077148137111d81f966985894b4e478b62"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/invalid-include/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/invalid-include/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 0,
             "misses": 0,
             "backendCalls": 0,
-            "hashReadBytes": 9430744,
+            "hashReadBytes": 10741511,
             "inputInventoryCaptures": 1,
             "inputHashReusedBytes": 0,
             "inputHashLeaseFiles": 512,
@@ -735,19 +735,19 @@
             "cacheBypassReasons": {},
             "maxBackendConcurrency": 0
           },
-          "reportSha256": "f8c4a54521b0d51fe3e26145b705a5425d94fbe0decb5bd53a30fe21dc182977"
+          "reportSha256": "bd6936daa15161dd24f1974f0c4324411a0013f1ca5303e613f9895c136e9643"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/payload-content-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/payload-content-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -755,19 +755,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "27cc0f72e5a535b4f0ac92b3f28bf8bb65329aebe780d11a072f8337d37c7e34"
+          "reportSha256": "a72c9f604221170e0d9996f92a54466c26c4e2c1565a9c6d9e3024550130929a"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/payload-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/payload-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -777,10 +777,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "1416d706f2acba14be029d4cfef4ea0b7421885e652023bc8e9120febe80f515"
+          "reportSha256": "6efa28816b1bdef9b68125b246663e16dfbab69a479bd3737ca6cea78130762e"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/payload-content-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/payload-content-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -797,19 +797,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "59318ecab67d54dd4b64edd7e625218355693ce4f1874740c0c92ec13288cb4a"
+          "reportSha256": "8714331bbce54b4640694e9ce83d42cde28ca82cec13be7a4ed96f0921af910a"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/pending-entry-reason-repaired/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/pending-entry-reason-repaired/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-pending": 1
@@ -819,19 +819,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "f6c8e8f907605a66fde90480372bf8e82fee5e1395f5e55421c7c9d6263bfff5"
+          "reportSha256": "758b0149ade4a78289d1e8153974673fa4c5d8cd2c8bdcedc81bf08bdfa40898"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/publication-fault/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/publication-fault/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 10852637,
+            "hashReadBytes": 12168174,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 30810861,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -841,19 +841,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "d89f539c283736590cc5a33a05882b7cc2193e44eeb992f929d12f9b15b8ad20"
+          "reportSha256": "ef4978543bd14b0794543514f8860c1465e075ced0039d416af637c2357ba364"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/publication-fault-retry-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/publication-fault-retry-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854371,
+            "hashReadBytes": 12169908,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 30810861,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -861,10 +861,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "f0d56f123ed4c04c9e7e7b06423adcf6aabb4050b2859f9d078e699ae6d8642d"
+          "reportSha256": "7f4ec3de13520157282cd7ce77b3e6dc9f94fbd2c26577ffa0ce60673d8b7798"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/publication-fault-retry-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/publication-fault-retry-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -881,19 +881,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "364d6358b8ee5c6d47f87ac4e11b0ad8a73d98ca2980bdf53ac0ebc58367b4e9"
+          "reportSha256": "dc6217745145e306c5ac6c784807445c7a5933176fb1690a3ba2c2a7807f11c2"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/reason-repairs-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/reason-repairs-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -901,19 +901,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "cfaf9f4d94a44facd3b455f63cb35d655556ec27c1ee712f6070c937af220ce4"
+          "reportSha256": "621bd7b9dbca9a894c1051c9488cf44096c8c37b80ff66a5c1bcdce4e3cf6ee1"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/retry-after-actual-cancel/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/retry-after-actual-cancel/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854371,
+            "hashReadBytes": 12169908,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 30810861,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -921,19 +921,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "4462fc75963124047c32c1963d7670c762ed80fae0384c7611c8ab66f85a9053"
+          "reportSha256": "ed9e8807a156f6483b05627c07cd806a3b0392e1e4162a3ef5cc25a1784fd7cd"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/retry-after-invalid-include/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/retry-after-invalid-include/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854371,
+            "hashReadBytes": 12169908,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 30810861,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -941,19 +941,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "e80ae31e774f1c9f40f8d494dc7d5674ada107c527674ef4b311ed96e02e2441"
+          "reportSha256": "bdfc7d3a2f9e659b9f7d525283ea1cd5f25624575a22730ffc0e0c9d2ac8b9dc"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/retry-after-publication-fault/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/retry-after-publication-fault/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 10854371,
+            "hashReadBytes": 12169908,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 30810861,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -963,19 +963,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "b0a5354f51bf443114d8e9a933e46bd8938a0c437f30ec9787e5c01c8136c3ea"
+          "reportSha256": "a9fd32f36614f869f1fdfb0b2a17df90c37fce33c562f65a0e7046c51b3c6a09"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/runtime-content-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/runtime-content-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854371,
+            "hashReadBytes": 12169908,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 30810861,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -983,19 +983,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "edf745e7ad79bb9e7e8ae1f45cffdb03d2bd1086886a9bf616ce828bc9486d7e"
+          "reportSha256": "ec04e54b48713f7866b85ca7e340275f30ccfe0c53ac7537b3a3670afe8b57df"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/runtime-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/runtime-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 0,
             "misses": 8,
             "backendCalls": 9,
-            "hashReadBytes": 10854371,
+            "hashReadBytes": 12169908,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 30810861,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 8
@@ -1005,19 +1005,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "f9a7ed866be1f62374830c8633896e5e5b1c0ebada528d754dcc6e92df7fe799"
+          "reportSha256": "f28908d8e1b6fee1e9663b45a72eaaad21318fab20c38d45ffdbcf1698c7d342"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/schema-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/schema-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 0,
             "misses": 8,
             "backendCalls": 9,
-            "hashReadBytes": 10854371,
+            "hashReadBytes": 12169908,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 30810861,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 8
@@ -1027,19 +1027,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "b23c9ed763b6bde81960e49ff5ba69311f9a94336eab286eb6707f97990c9cd5"
+          "reportSha256": "91f662547c76286694247e3ae008c32010fecebf5837008f7671847f31e51836"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/second-mod/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/second-mod/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 0,
             "misses": 8,
             "backendCalls": 9,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 12169824,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 30810861,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 8
@@ -1049,10 +1049,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "a24978db96bf5c3c17b8bc581e830ccdd3eed5f2eb04db6c4e147c5b8835e8d8"
+          "reportSha256": "a8d6800005c298af8a2b69473908251633dca27804323f0214dc090b86af210c"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/second-mod-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/second-mod-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -1069,19 +1069,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "b3e7c4cc94960677de60c4adca13230a09d8faf56896e574db6d248cd911cf55"
+          "reportSha256": "1c3b456a661c6d39f100a8f5233aec6ec25ad6c798e46a2e86da0893d8f00159"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/texture-content-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/texture-content-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -1089,19 +1089,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "0a8b1e1a62629b4dbea9c799bc436a4696a129e86faea6e6d028984ba74cc713"
+          "reportSha256": "26c1cadd14ba4dc9905b75c2ed2f00b118dc609876ce2979a8ee04b1202f41f7"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/texture-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/texture-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -1109,10 +1109,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "c34aa6e0ddee978261ded49b102c094567ad575ec94f17a3a93bc4869148f25a"
+          "reportSha256": "c5a67dc85e24960ded9e43b26be24baafb52f5cacd02f25b49238a3ab45151be"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/texture-content-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/texture-content-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -1129,19 +1129,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "239d9bb8a02ffb19f1c77bb997c7eb354721e0fb9af4a4141e83965113c7068d"
+          "reportSha256": "5dc14b5e72bdcfcefc71c30f223ea96ac214ec93112d4edae42dc3791b7f4baf"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/unread-additional-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/unread-additional-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854371,
+            "hashReadBytes": 11118986,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -1149,19 +1149,39 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "475727507ec019542955f8203f1dfa2ac6b116f3e18952e4be9aecf61f16a3b5"
+          "reportSha256": "6a1db92d5c1a0183a32b6e2f3cec731969f6f50a8e40e308f5744e8e10e014d2"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/weapon-value-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/unread-sdk-asset-hot/build-report.json",
+          "cache": {
+            "executionEngine": "AssetTasks.v1",
+            "cacheMode": "ActionCache",
+            "hits": 8,
+            "misses": 0,
+            "backendCalls": 1,
+            "hashReadBytes": 12169908,
+            "inputInventoryCaptures": 4,
+            "inputHashReusedBytes": 30810861,
+            "inputHashLeaseFiles": 512,
+            "actionMissReasons": {},
+            "cacheBypassReasons": {
+              "not-prepared": 1
+            },
+            "maxBackendConcurrency": 1
+          },
+          "reportSha256": "d224fbaea33315e9228d60951a1eb8004b63352fcd495fd5b745e3c54b0079be"
+        },
+        {
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/weapon-value-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -1171,10 +1191,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "5269e4b2640743a44ae644dda0267c104060d51d812231911b6ebcee853907fd"
+          "reportSha256": "9b7e31d9980da04096cd55c2f370d921315c4a70e4e8f2eb3783a990a78d9d18"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/weapon-value-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/weapon-value-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -1191,19 +1211,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "35c77bb425a0ccacecbfe8a416589209c6fdc831c4cae35321b6cd8b2e4fd217"
+          "reportSha256": "d71ef6a2470bd88c6c84c2591974180fcdef2ee943d50635e7d28fbf189a0621"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/xinclude-content-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/xinclude-content-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -1211,19 +1231,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "5000ed85db1730eab713b39e6d9e704083f09dc12d653ce06d5994f934f698fa"
+          "reportSha256": "ee14476f37db0035ece82d7111944238f0a539763075e9db3aef2589c9a5df94"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/xinclude-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/xinclude-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 10854287,
+            "hashReadBytes": 11118902,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 26883330,
+            "inputHashReusedBytes": 27667479,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -1233,10 +1253,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "afae66a6ace889e40ab941ac7fd5754678c9b508bc171b19f16619a1c4a52c3c"
+          "reportSha256": "58d955d0ce98a876f49d135449e7c40e7e421d808f584ee61d15df5a8c25886d"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Debug/xinclude-content-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Debug/xinclude-content-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -1253,12 +1273,12 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "d422fa84fba191d5bc43c0e8e30575c606d4c9b6cf0308ecf14c3d3de7df57a5"
+          "reportSha256": "c780ebba6ce48eb5ad18882b19f87f6be91dce0b78d95e41f348092a75dbe798"
         }
       ],
       "environmentCases": [
         {
-          "path": "evidence/refactor/cache-payloads/40657123355-1/Debug/environment-cold/build-report.json",
+          "path": "evidence/refactor/cache-payloads/40660066519-1/Debug/environment-cold/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
@@ -1275,10 +1295,10 @@
             "cacheBypassReasons": {},
             "maxBackendConcurrency": 2
           },
-          "reportSha256": "0924657d8c4455f9391d71e3dd0e95a1b7c6f2770f1b7c30771fb7e153a680f9"
+          "reportSha256": "3aeff0915a97f958b08257ae9608075d33ead91ba21d9ef9d51b653122ba75f7"
         },
         {
-          "path": "evidence/refactor/cache-payloads/40657123355-1/Debug/environment-edited-serial/build-report.json",
+          "path": "evidence/refactor/cache-payloads/40660066519-1/Debug/environment-edited-serial/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -1295,10 +1315,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "1bea841d420c5db0bd79ba6348961c6eb6f07d125c6171bac1b1895d7ceb797c"
+          "reportSha256": "17d232363dbf34d7bb2446bb18b6a83fdd35f34684450a42c4c11323652e5c63"
         },
         {
-          "path": "evidence/refactor/cache-payloads/40657123355-1/Debug/environment-hot/build-report.json",
+          "path": "evidence/refactor/cache-payloads/40660066519-1/Debug/environment-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
@@ -1313,10 +1333,10 @@
             "cacheBypassReasons": {},
             "maxBackendConcurrency": 0
           },
-          "reportSha256": "9faec05372c5209067f1bb342624405c6bb8e81578414ccf0fdade852abbd905"
+          "reportSha256": "7c990eefa361af28c5d3aab341aa2c7ab02e3de87e1d7139dd5994f76700beb9"
         },
         {
-          "path": "evidence/refactor/cache-payloads/40657123355-1/Debug/environment-parallel/build-report.json",
+          "path": "evidence/refactor/cache-payloads/40660066519-1/Debug/environment-parallel/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -1333,10 +1353,10 @@
             },
             "maxBackendConcurrency": 2
           },
-          "reportSha256": "f23bcbc253188dace167480077d4037f37d2332b92017462561377d0001ef262"
+          "reportSha256": "7248960b2f4ac1a5a689807aaf14eee9214046d39cf3504dee6d0d2dcc606ade"
         },
         {
-          "path": "evidence/refactor/cache-payloads/40657123355-1/Debug/environment-serial/build-report.json",
+          "path": "evidence/refactor/cache-payloads/40660066519-1/Debug/environment-serial/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -1353,10 +1373,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "0f92cfcf1509520be67aa9fdff939c53f715f3545cf0ca46b514dd7d776f9518"
+          "reportSha256": "7098da51d226fc45e13736a269ac095752c3ebcf2ecca149cc6fc2f2bde92928"
         },
         {
-          "path": "evidence/refactor/cache-payloads/40657123355-1/Debug/environment-single-edit/build-report.json",
+          "path": "evidence/refactor/cache-payloads/40660066519-1/Debug/environment-single-edit/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
@@ -1373,44 +1393,69 @@
             "cacheBypassReasons": {},
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "5b3895b355e15333096d1c1df39474732f6a14597735853cee308a71ce08cdaf"
+          "reportSha256": "50670466203c68ad5c6acb4ee5cd2a0b0ee15c0c93dad5d44afa46c9b423c206"
         }
-      ]
+      ],
+      "sdkTextureInput": {
+        "initialSha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+        "scope": "Existing legal 256-square BGRA fixture consumed from SDK/Art while SDK input digest leases remain active; unchanged owner-only Texture backend and original byte oracle",
+        "atLeastAsLargeLeaseInputs": 3,
+        "path": "D:\\a\\_temp\\c53cfcaa3\\D\\s\\Art\\cache.tga",
+        "bytes": 262162
+      },
+      "sdkAssetDigestReuse": {
+        "ledgerIncrease": 4194304,
+        "bytes": 1048576,
+        "sha256": "cc2cffa7208256c3d2e7fc44bc928e2b18c4390920e90bf087c97fcc4bec1f23",
+        "hashReadBytes": 12169908,
+        "baselineHashReadBytes": 11118986,
+        "path": "SageXml/Unconsumed.bin",
+        "reusedBytes": 30810861,
+        "actionHits": 8,
+        "baselineReusedBytes": 27667479,
+        "backendCalls": 1,
+        "allRawOutputsEqual": true,
+        "inventoryCaptures": 4
+      }
     },
     {
       "configuration": "Release",
       "runtimeFiles": [
         {
-          "sha256": "659a2f28419ae7bc3371ba49e9beb7e6bfded3298030990459680f40a1ea4c29",
-          "name": "NewModCompiler.exe",
-          "bytes": 4171264
+          "bytes": 4171264,
+          "sha256": "d2cdd19579330f7d37e7d7385371cbce7857a77444804cc20bed590b149e9323",
+          "name": "NewModCompiler.exe"
         },
         {
+          "bytes": 201,
           "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
-          "name": "NewModCompiler.exe.config",
-          "bytes": 201
+          "name": "NewModCompiler.exe.config"
         },
         {
+          "bytes": 99328,
           "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
-          "name": "antlr.runtime.dll",
-          "bytes": 99328
+          "name": "antlr.runtime.dll"
         },
         {
+          "bytes": 917504,
           "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
-          "name": "BinaryAssetBuilder.TextureCompiler.dll",
-          "bytes": 917504
+          "name": "BinaryAssetBuilder.TextureCompiler.dll"
         },
         {
-          "sha256": "a912ead7dde7a8910e28d9de2bf1f75dfad20ea8ce27d242719006d4f7d29a85",
-          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
-          "bytes": 14326
+          "bytes": 14326,
+          "sha256": "1336f60fbb368f5e86ac03fc7f35df54eb9de58975e335d8b48368290f164efe",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json"
         }
       ],
       "zip": {
         "name": "NewModCompiler-Win32-Release.zip",
-        "sha256": "fb9c1f46ea6f4816bbc8fe5dc8d5b5251469ee6042af9b04b2d3d4da955d4731"
+        "sha256": "415ad9c27043d498a0a0dd8d1ab4f66fb5d6b378931073983ff026e4b4ceb240"
       },
       "environmentParallel": {
+        "passed": true,
+        "observedOverlappingTypes": [
+          "Weather"
+        ],
         "certifiedTypes": [
           "Weather",
           "WaterTransparency",
@@ -1428,225 +1473,221 @@
         "intervals": [
           {
             "typeName": "W3DHierarchy",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\w3x.xml",
-            "startTicks": 11365375121,
-            "endTicks": 11365698208,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\w3x.xml",
+            "startTicks": 18258803654,
+            "endTicks": 18259090645,
             "threadId": 1
           },
           {
             "typeName": "Weather",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\weather.xml",
-            "startTicks": 11365905099,
-            "endTicks": 11366013568,
-            "threadId": 7
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\weather.xml",
+            "startTicks": 18259283797,
+            "endTicks": 18259368000,
+            "threadId": 8
           },
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\parallellong.xml",
-            "startTicks": 11365880165,
-            "endTicks": 11373306829,
-            "threadId": 6
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\parallellong.xml",
+            "startTicks": 18259263758,
+            "endTicks": 18262915922,
+            "threadId": 7
           },
           {
             "typeName": "WaterTransparency",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\watertransparency.xml",
-            "startTicks": 11373324526,
-            "endTicks": 11373328151,
-            "threadId": 7
-          },
-          {
-            "typeName": "Environment",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\environment.xml",
-            "startTicks": 11373370591,
-            "endTicks": 11373376352,
-            "threadId": 7
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\watertransparency.xml",
+            "startTicks": 18262934181,
+            "endTicks": 18262938442,
+            "threadId": 8
           },
           {
             "typeName": "WaterSetting",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\watersetting.xml",
-            "startTicks": 11373350483,
-            "endTicks": 11373377755,
-            "threadId": 8
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\watersetting.xml",
+            "startTicks": 18262960054,
+            "endTicks": 18262981883,
+            "threadId": 9
+          },
+          {
+            "typeName": "Environment",
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\environment.xml",
+            "startTicks": 18262982176,
+            "endTicks": 18262985417,
+            "threadId": 9
           },
           {
             "typeName": "LightingSettings",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\lightingsettings.xml",
-            "startTicks": 11373413119,
-            "endTicks": 11373426215,
-            "threadId": 6
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\lightingsettings.xml",
+            "startTicks": 18263025814,
+            "endTicks": 18263039320,
+            "threadId": 8
           },
           {
             "typeName": "WaterTextureList",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\watertexturelist.xml",
-            "startTicks": 11373433133,
-            "endTicks": 11373439944,
-            "threadId": 8
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\watertexturelist.xml",
+            "startTicks": 18263046379,
+            "endTicks": 18263052941,
+            "threadId": 9
           },
           {
             "typeName": "TerrainParticleMapping",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\terrainparticlemapping.xml",
-            "startTicks": 11373453222,
-            "endTicks": 11373456180,
-            "threadId": 6
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\terrainparticlemapping.xml",
+            "startTicks": 18263065761,
+            "endTicks": 18263069719,
+            "threadId": 8
           },
           {
             "typeName": "BounceKickTerrainMapping",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\bouncekickterrainmapping.xml",
-            "startTicks": 11373473053,
-            "endTicks": 11373476323,
-            "threadId": 8
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\bouncekickterrainmapping.xml",
+            "startTicks": 18263090556,
+            "endTicks": 18263093523,
+            "threadId": 9
           },
           {
             "typeName": "ShadowMap",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\shadowmap.xml",
-            "startTicks": 11373492816,
-            "endTicks": 11373496084,
-            "threadId": 6
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\shadowmap.xml",
+            "startTicks": 18263109398,
+            "endTicks": 18263112122,
+            "threadId": 8
           },
           {
             "typeName": "OrdersManagerSettings",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\ordersmanagersettings.xml",
-            "startTicks": 11373576997,
-            "endTicks": 11373582463,
-            "threadId": 8
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\ordersmanagersettings.xml",
+            "startTicks": 18263202531,
+            "endTicks": 18263208191,
+            "threadId": 9
           },
           {
             "typeName": "TerrainVisualSettings",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\terrainvisualsettings.xml",
-            "startTicks": 11373598065,
-            "endTicks": 11373602004,
-            "threadId": 6
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\terrainvisualsettings.xml",
+            "startTicks": 18263220164,
+            "endTicks": 18263225802,
+            "threadId": 8
           },
           {
             "typeName": "CameraSettings",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\environment\\data\\camerasettings.xml",
-            "startTicks": 11373617160,
-            "endTicks": 11373621144,
-            "threadId": 8
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\environment\\data\\camerasettings.xml",
+            "startTicks": 18263242977,
+            "endTicks": 18263247380,
+            "threadId": 9
           }
         ],
         "scope": "Twelve Xmlenvironment roots through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
-        "observedOverlappingTypes": [
-          "Weather"
-        ],
-        "passed": true,
         "maxBackendConcurrency": 2
       },
       "machineParallel": {
-        "passed": true,
         "taskMemoryBudgetBytes": 536838144,
-        "minimumTaskMemoryBudgetBytes": 536838144,
-        "resourceMemoryQuerySucceeded": true,
-        "actualMaximumConcurrency": 4,
-        "minimumEffectiveJobs": 4,
-        "effectiveJobs": 4,
+        "moreThanTwoApplicable": true,
         "intervals": [
           {
             "typeName": "AudioFile",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\four\\data\\audiotwo.xml",
-            "startTicks": 11601361526,
-            "endTicks": 11602546092,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\four\\data\\audiotwo.xml",
+            "startTicks": 18460208873,
+            "endTicks": 18460992478,
             "threadId": 7
           },
           {
             "typeName": "AudioFile",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\four\\data\\audioone.xml",
-            "startTicks": 11601298092,
-            "endTicks": 11602546199,
-            "threadId": 6
-          },
-          {
-            "typeName": "AudioFile",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\four\\data\\audiothree.xml",
-            "startTicks": 11601438831,
-            "endTicks": 11602561388,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\four\\data\\audiothree.xml",
+            "startTicks": 18460302958,
+            "endTicks": 18461066982,
             "threadId": 8
           },
           {
             "typeName": "AudioFile",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\four\\data\\audiofour.xml",
-            "startTicks": 11601513605,
-            "endTicks": 11602601126,
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\four\\data\\audioone.xml",
+            "startTicks": 18460150892,
+            "endTicks": 18461086660,
+            "threadId": 6
+          },
+          {
+            "typeName": "AudioFile",
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\four\\data\\audiofour.xml",
+            "startTicks": 18460419730,
+            "endTicks": 18461098420,
             "threadId": 10
           }
         ],
-        "moreThanTwoApplicable": true,
-        "logicalProcessorCount": 4
+        "resourceMemoryQuerySucceeded": true,
+        "minimumTaskMemoryBudgetBytes": 536838144,
+        "minimumEffectiveJobs": 4,
+        "logicalProcessorCount": 4,
+        "effectiveJobs": 4,
+        "actualMaximumConcurrency": 4,
+        "passed": true
       },
       "parallel": {
+        "passed": true,
+        "maxBackendConcurrency": 2,
+        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled",
+        "backendCalls": 3,
         "requestedJobs": 2,
         "intervals": [
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\parallel\\data\\parallelshort.xml",
-            "startTicks": 11335722753,
-            "endTicks": 11341087000,
-            "threadId": 7
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\parallel\\data\\parallelshort.xml",
+            "startTicks": 18238010445,
+            "endTicks": 18240941546,
+            "threadId": 8
           },
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\parallel\\data\\parallellong.xml",
-            "startTicks": 11335684165,
-            "endTicks": 11343183808,
-            "threadId": 6
+            "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\parallel\\data\\parallellong.xml",
+            "startTicks": 18237981713,
+            "endTicks": 18242091752,
+            "threadId": 7
           }
-        ],
-        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled",
-        "backendCalls": 3,
-        "passed": true,
-        "maxBackendConcurrency": 2
+        ]
       },
       "certifiedParallel": [
         {
-          "requestedJobs": 2,
-          "intervals": [
-            {
-              "typeName": "AudioFile",
-              "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\parallel-audio\\data\\audioshort.xml",
-              "startTicks": 11443093485,
-              "endTicks": 11443864881,
-              "threadId": 7
-            },
-            {
-              "typeName": "AudioFile",
-              "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\parallel-audio\\data\\audiolong.xml",
-              "startTicks": 11443038901,
-              "endTicks": 11444183278,
-              "threadId": 6
-            }
-          ],
+          "passed": true,
+          "maxBackendConcurrency": 2,
           "scope": "Independent AudioFile source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison",
           "backendCalls": 2,
-          "passed": true,
-          "maxBackendConcurrency": 2
+          "requestedJobs": 2,
+          "intervals": [
+            {
+              "typeName": "AudioFile",
+              "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\parallel-audio\\data\\audioshort.xml",
+              "startTicks": 18317864536,
+              "endTicks": 18318360641,
+              "threadId": 8
+            },
+            {
+              "typeName": "AudioFile",
+              "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\parallel-audio\\data\\audiolong.xml",
+              "startTicks": 18317811440,
+              "endTicks": 18318610529,
+              "threadId": 7
+            }
+          ]
         },
         {
+          "passed": true,
+          "maxBackendConcurrency": 2,
+          "scope": "Independent AptAptData source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison",
+          "backendCalls": 2,
           "requestedJobs": 2,
           "intervals": [
             {
               "typeName": "AptAptData",
-              "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\parallel-xml\\data\\aptshort.xml",
-              "startTicks": 11500692370,
-              "endTicks": 11500936530,
+              "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\parallel-xml\\data\\aptshort.xml",
+              "startTicks": 18367763434,
+              "endTicks": 18368012116,
               "threadId": 7
             },
             {
               "typeName": "AptAptData",
-              "sourcePath": "d:\\a\\_temp\\pfb55bfdf\\r\\parallel-xml\\data\\aptlong.xml",
-              "startTicks": 11500650436,
-              "endTicks": 11500998646,
+              "sourcePath": "d:\\a\\_temp\\pee7a5ca3\\r\\parallel-xml\\data\\aptlong.xml",
+              "startTicks": 18367725710,
+              "endTicks": 18368141524,
               "threadId": 6
             }
-          ],
-          "scope": "Independent AptAptData source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison",
-          "backendCalls": 2,
-          "passed": true,
-          "maxBackendConcurrency": 2
+          ]
         }
       ],
       "preparedBackend": {
-        "path": "evidence/refactor/core-lifecycle/40657123355-1/Release/CompilerPreparedBackend/result.json",
-        "sha256": "83f060882b6ff64cbd1e0d1c8c156e31c6b54e8da81bac0428c78f680b8660d1",
+        "path": "evidence/refactor/core-lifecycle/40660066519-1/Release/CompilerPreparedBackend/result.json",
+        "sha256": "7ae941cb40daa7b0f4164c230d17cc8e7c6b3258e04ea7f4781cf40d859c091a",
         "checks": 8406137,
         "scope": "Actual prepared input isolation, native APT content lease, exact external invalidation, schema defaults and preparation budgets, real BinaryAsset authorization guard, repeated include/inheritance byte equality, cancellation and native worker failure; complete Xmlenvironment family qualification with four-platform three-buffer equality; normal cross-document output overlap is checked separately",
         "lifecycleEvidence": [
@@ -1685,7 +1726,7 @@
       },
       "cacheCases": [
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/actual-cancel/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/actual-cancel/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
@@ -1700,19 +1741,19 @@
             "cacheBypassReasons": {},
             "maxBackendConcurrency": 0
           },
-          "reportSha256": "b74686c63aaa3741ad12dd3c89fcb584e111a2dd3a7bf5c9e538aec9b85b3dc6"
+          "reportSha256": "bd3b454a9e95dd65a3d7294d1000f95e56bb3c5f17e121cce11e1375118dc2c3"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/audio-header-content-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/audio-header-content-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -1720,19 +1761,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "d073a9672bf368e51f5ac06dadb184a0364f465563057a5e0137f0a4dc4d2d09"
+          "reportSha256": "a7536226529ef159ac25b51bfcbe3849df68d8c6d279c257986503746affc4b5"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/audio-header-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/audio-header-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -1742,10 +1783,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "c43872306df9fe12567efca8e4714581405e7b00fa0c97e17dede7c96cd4cfe8"
+          "reportSha256": "54bc6eb0124e54786c8ed1e74f07bfea380e88a06e8b32687c4bb18a85150db5"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/audio-header-content-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/audio-header-content-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -1762,19 +1803,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "b4c7dbd51eedb7dc1bbb8b1e2ea53a63151dc4fb8262e4b722b031e0b65de40a"
+          "reportSha256": "8fbf45f46e92985b72377406db1f8504f1370f76a33a80242a9a6a41f5585be0"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/cold/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/cold/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 0,
             "misses": 8,
             "backendCalls": 9,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 8
@@ -1784,19 +1825,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "4721561bfc8ab46092d3bca0f1b36c0d173ceceb53011e6a1441665980849f8c"
+          "reportSha256": "baac42e9306f5d964175338689db5e011eb8de60039d8f33896ee75a911840b9"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/configuration-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/configuration-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 0,
             "misses": 8,
             "backendCalls": 9,
-            "hashReadBytes": 8413155,
+            "hashReadBytes": 9728692,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 23487213,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 8
@@ -1806,19 +1847,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "793cb398d153250d65814eb9814114fd3bf386c476a91c5ea83c7be221d76ec5"
+          "reportSha256": "41aaafc0620af48d1842625da87bbfe56b0264ea737fc769645e800bc01121c4"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/corrupt-payload-reason-repaired/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/corrupt-payload-reason-repaired/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 8413449,
+            "hashReadBytes": 8679096,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "invalid-payload": 1
@@ -1828,10 +1869,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "f19f4a38cad37e0394c7489f13e002b04720ef2152e1875b1577569509b2c5ec"
+          "reportSha256": "98c9f75def6eeebf0b4aefd566c36ccb8e7cb964a3ff3a03b6540d9e0d55014d"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/disabled/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/disabled/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -1848,19 +1889,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "ef1e9312c8213678f1de9cd1602bb6ca7d66cd25a98e242ef30fca9f2457aa41"
+          "reportSha256": "185b3250e8cfb5b834683d4c67ae449eb5ce8f889d99bd4a849926f8c415bbf7"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/first-mod-return/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/first-mod-return/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413155,
+            "hashReadBytes": 9728692,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 23487213,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -1868,19 +1909,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "f0487f7bba749e3fb63505785d1645485e91d4b65b83bef34a1f6eddd90d87a4"
+          "reportSha256": "5df21761085a3e60823bf2934e106fd8e50b9e1265bc15bcddb9040bf1ecd451"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/gameobject-value-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/gameobject-value-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -1888,19 +1929,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "06c0f62371e62396ffa82518ba87988ae00b59bae06f7311e047206df522ea31"
+          "reportSha256": "15fdaa81951e0f9356a12f4b2bed03347daa8d08f64194542d5337d895536d4d"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/gameobject-value-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/gameobject-value-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -1910,10 +1951,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "7c3813aa2d7ad27e195168a6a5bf8f85f43230845dc396b9619bda15efa2f24f"
+          "reportSha256": "6748a9ec2c28f9e87ecefd195912550e8b4ad5359556882a481d11f44333277e"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/gameobject-value-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/gameobject-value-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -1930,19 +1971,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "9afe3c4db36ea8de1f390cc1d509618eea075dc2c8ea59634a70479269cceb72"
+          "reportSha256": "293345084d2af7e50b83cb408aa8d9df2116607a67ddf4823d2d911ef6b9e798"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -1950,19 +1991,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "f6baf848ee19d35342d25c019b21c03fac1e2d6cd3077384f7fa406f605058fc"
+          "reportSha256": "43d8a487d2c5b96259a5b88ea7389808b2bb1ab8eb953b7ed6cf0f0ef52155d0"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/include-content-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/include-content-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -1970,19 +2011,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "4d91bddf708c4cccff9b85f88773beac98b760d145179ff8f577cb01fc0347ac"
+          "reportSha256": "9e6e5397c4e1e6c0688cfb165fd20d6bfb64aa74099282924dba82b5cf8ecb9d"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/include-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/include-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -1992,10 +2033,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "f4b30b3662011ac1c98113ba9a054199ae7d2c0d3427fd63c3a9f89049c668df"
+          "reportSha256": "f447b632df4f70782c6ea1c42d79918bc4de35dafdb6b68b3c12b7cef7fe8d3f"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/include-content-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/include-content-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -2012,17 +2053,17 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "5c53d8d1ad41da9380b17e38c529e8c91dff01b8800c152c0d2cdcfc9468e36f"
+          "reportSha256": "913ca7ff33032cdf5f7484ae3f6c816be64357642ded5e8858fe5ef792c658a2"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/invalid-include/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/invalid-include/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 0,
             "misses": 0,
             "backendCalls": 0,
-            "hashReadBytes": 6989528,
+            "hashReadBytes": 8300295,
             "inputInventoryCaptures": 1,
             "inputHashReusedBytes": 0,
             "inputHashLeaseFiles": 512,
@@ -2030,19 +2071,19 @@
             "cacheBypassReasons": {},
             "maxBackendConcurrency": 0
           },
-          "reportSha256": "d0afe76d55b44a7bc747393c28e6494511ee7b403a36a037ae778a1980f12fb9"
+          "reportSha256": "bc02f6505066dc901487735706dd0e1aa8ea9860c6a5e6fb0beb14816e9a58a4"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/payload-content-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/payload-content-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -2050,19 +2091,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "222788496579d6fc9ba7d2921f6d532ff849d8eb9e775e58c41b7cfd2254c4e0"
+          "reportSha256": "eb02480da85c8e6478921f3d12a24952c813cb142ae5918159333aae8b382ba4"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/payload-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/payload-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -2072,10 +2113,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "0b6175501ffe31cfd96b925822fd65a8ce5306187ff4b0f7bdbcf83ae535d831"
+          "reportSha256": "e6f7eb3847a8fee54da9f58f518f579b2c526075e22b54a1907a2d16ef8998c4"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/payload-content-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/payload-content-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -2092,19 +2133,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "138c0cf8257d365689abc94702fd9d7c7fa336c899747a57acce72843401ac12"
+          "reportSha256": "20977a58eba302adedcfabf23ea4dbb496f79c01c2c4b346b6cca901e36bb9c2"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/pending-entry-reason-repaired/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/pending-entry-reason-repaired/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-pending": 1
@@ -2114,19 +2155,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "f604d115854df12a8743dbb13357366f2197d2e67d55db192923d995b95e9435"
+          "reportSha256": "6d267a4a49a230d6e9d203cf90a98c15be0102c726e1419ea80b4ea8737c76bb"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/publication-fault/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/publication-fault/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 8411421,
+            "hashReadBytes": 9726958,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 23487213,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -2136,19 +2177,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "e63d562655cbc784f75e225b4e17d8dc018a680b2052e5cb6b5744df640be75e"
+          "reportSha256": "40f0d8b512c19ddc144c7782c067ca6e132d2c1f531884010c6c4f294af294e8"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/publication-fault-retry-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/publication-fault-retry-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413155,
+            "hashReadBytes": 9728692,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 23487213,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -2156,10 +2197,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "46aa8f4d4fed8f821216d7079a5b3e497100bca55b5591ac1fbe98590aeface2"
+          "reportSha256": "476403f3765abbe9f585fcf95840bc59d1f203b30c989edc4fedf511ebeadab2"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/publication-fault-retry-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/publication-fault-retry-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -2176,19 +2217,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "94bb3777c715ad8bd1e9be5e55fadff03a39eb685da1eb2dd8d0de75d66d45c5"
+          "reportSha256": "b165dbd3f5f6945fd0bae257f50eea2d4c438b58467e92dc61029ca338c89bea"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/reason-repairs-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/reason-repairs-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -2196,19 +2237,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "ce2d49559b4013e2b3d268d9b8a06bd9ccc41a218074628fb3411a8a42f4a6e8"
+          "reportSha256": "3210d5340e096c008e043fa380ab2d78c74972ea04d400f517187c9c7a535abe"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/retry-after-actual-cancel/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/retry-after-actual-cancel/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413155,
+            "hashReadBytes": 9728692,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 23487213,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -2216,19 +2257,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "dacae126a0686beaba46fbe1a8fdaf602c06f924e02cebffc5d0efc6ce3491b0"
+          "reportSha256": "892d5c53b368d984034feb455c68a280c3f413a301248e6c45e7d7e73185714a"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/retry-after-invalid-include/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/retry-after-invalid-include/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413155,
+            "hashReadBytes": 9728692,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 23487213,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -2236,19 +2277,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "fcbabed6a8f924fee530e222415921fd2353f9acb64f134003c778acf345258a"
+          "reportSha256": "ab1da618ed04900bf6e0f2cd081a796f89422b870357a21f8801cf7bd8150494"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/retry-after-publication-fault/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/retry-after-publication-fault/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 8413155,
+            "hashReadBytes": 9728692,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 23487213,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -2258,19 +2299,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "982b11b28d27da5780a398bd10be75c940a30145eedc16aaf3180c4561b77109"
+          "reportSha256": "91ca93859b932734ac510ff0258dfadd78f56e1b92f869ab2b843f12cd57c212"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/runtime-content-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/runtime-content-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413155,
+            "hashReadBytes": 9728692,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 23487213,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -2278,19 +2319,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "3330e62f66394d3bca27e714cd895df35f4d0f3af4bbfb8593e5452d57665f93"
+          "reportSha256": "da81a9d4addfaf5a6994162d05ba76c52ba0ac43bdb162d6681717dcc6d42f6a"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/runtime-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/runtime-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 0,
             "misses": 8,
             "backendCalls": 9,
-            "hashReadBytes": 8413155,
+            "hashReadBytes": 9728692,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 23487213,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 8
@@ -2300,19 +2341,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "5bd3ec0b25011add11eaf48c7670bf2de0464d9dba22cb5dda4fd28a91181df9"
+          "reportSha256": "ea4ea7db29468338fe5d376ac5097a29ba156999fb88471c01f38d0b86641356"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/schema-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/schema-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 0,
             "misses": 8,
             "backendCalls": 9,
-            "hashReadBytes": 8413155,
+            "hashReadBytes": 9728692,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 23487213,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 8
@@ -2322,19 +2363,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "7d35e5c57d88e6455eff3f11d4bfc501c9e1235a57e0c3460dac6059b1689295"
+          "reportSha256": "b91a945441b6f17a55d74cc3e7531d560531c840843413da352ab8a7319ad135"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/second-mod/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/second-mod/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 0,
             "misses": 8,
             "backendCalls": 9,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 9728608,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 23487213,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 8
@@ -2344,10 +2385,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "5a7c33c1da4072fdca42d4b8b5b5b7beb0000b16799ac0955ae558d9e05d7c5b"
+          "reportSha256": "6b97ec14e6c5e7cab2733a69793a922a7269ea89184331cb92e3a9de45f58512"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/second-mod-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/second-mod-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -2364,19 +2405,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "ccf620a9710e78cd1be44c38063e1074a59a0c40375333a710188e6e8bcb67bf"
+          "reportSha256": "c3d18881914f7eb69b426845672b05c314987b0115ff0073e1f0ff7170dcb779"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/texture-content-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/texture-content-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -2384,19 +2425,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "2593443b0b0df351d98903edfc81b10f0f1be5b37770fceb68e51babfdf10949"
+          "reportSha256": "42cfccebf69c56542a885c56bcd4eb1f333c7c4f7af138a5a9207b6f8d65f0fc"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/texture-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/texture-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -2404,10 +2445,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "6082f779643f1720d5e6655803adf0566e8de619b46f7f5ff606339c8b2cf636"
+          "reportSha256": "50cec7d725d52ae093be9b927267256b906a290a5276d8d1cb91e5eb32e04b35"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/texture-content-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/texture-content-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -2424,19 +2465,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "750fd19f8d94b3931c203b1b56af7604527899f050e6d0862f39e8ebf8df1bce"
+          "reportSha256": "d3765a561c30ec63bad449e3627fc84d336487af4c47728c85d45a9a302d45ab"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/unread-additional-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/unread-additional-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413155,
+            "hashReadBytes": 8677770,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -2444,19 +2485,39 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "f5fb038451ce33023dff27b1d8e4aaef9bb8d37d9525a3649b81b36a3752b518"
+          "reportSha256": "424cafb925aad1fc547e5e14c401f06e46d622ef86b0b6d7fcd6001e2f50b546"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/weapon-value-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/unread-sdk-asset-hot/build-report.json",
+          "cache": {
+            "executionEngine": "AssetTasks.v1",
+            "cacheMode": "ActionCache",
+            "hits": 8,
+            "misses": 0,
+            "backendCalls": 1,
+            "hashReadBytes": 9728692,
+            "inputInventoryCaptures": 4,
+            "inputHashReusedBytes": 23487213,
+            "inputHashLeaseFiles": 512,
+            "actionMissReasons": {},
+            "cacheBypassReasons": {
+              "not-prepared": 1
+            },
+            "maxBackendConcurrency": 1
+          },
+          "reportSha256": "8dd7facaadcf4afc7b5603e10f6d9e0803b6456714876f3d877d00ffb1df8a2d"
+        },
+        {
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/weapon-value-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -2466,10 +2527,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "ca2f7e8dd031c3d21b8526cb570488563acc0b188a544c46b36f7b1ef1952d88"
+          "reportSha256": "ed6dda954ad5cc418b9ad2da072233ad51a6e2615e421acab3af28bafac72732"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/weapon-value-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/weapon-value-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -2486,19 +2547,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "fc54374fbed7cbe357095d2d5f952b060d5caaa326f1cbfa97383e9fa30677ee"
+          "reportSha256": "e9733e327f634996ef257dc4283fd3e7a342e0ea487c1011d7d7008f76962243"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/xinclude-content-hot/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/xinclude-content-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 8,
             "misses": 0,
             "backendCalls": 1,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {},
             "cacheBypassReasons": {
@@ -2506,19 +2567,19 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "718eb0d14b81b4497ecad16caf2f9d80966a4247863ae1c96006691c4b5862d2"
+          "reportSha256": "8a9edac797a5b41cb1d55443cb19a3b3a9db6723788bb6088a6402e4874ba685"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/xinclude-content-invalidated/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/xinclude-content-invalidated/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
             "hits": 7,
             "misses": 1,
             "backendCalls": 2,
-            "hashReadBytes": 8413071,
+            "hashReadBytes": 8677686,
             "inputInventoryCaptures": 4,
-            "inputHashReusedBytes": 19559682,
+            "inputHashReusedBytes": 20343831,
             "inputHashLeaseFiles": 512,
             "actionMissReasons": {
               "entry-not-found": 1
@@ -2528,10 +2589,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "de7c8f255cfb2f764bc2f5be90b6cfc9d5ca4f42e471e5dcb757a5520544f167"
+          "reportSha256": "8b8a89ce576186e0b0022e69a976c0140c443ff5cf38ad87117f430bce54b7db"
         },
         {
-          "path": "evidence/refactor/build-cache/40657123355-1/Release/xinclude-content-no-cache/build-report.json",
+          "path": "evidence/refactor/build-cache/40660066519-1/Release/xinclude-content-no-cache/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -2548,12 +2609,12 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "d78d393e85bf97982e582e015ff14e0ad5179c664366db6d3a8e80ff8ec8b6b8"
+          "reportSha256": "0f2e98dc4f4e6006f05f79b93d206e12a3f8d9c0d6bc06274f8aa4270a2d6695"
         }
       ],
       "environmentCases": [
         {
-          "path": "evidence/refactor/cache-payloads/40657123355-1/Release/environment-cold/build-report.json",
+          "path": "evidence/refactor/cache-payloads/40660066519-1/Release/environment-cold/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
@@ -2570,10 +2631,10 @@
             "cacheBypassReasons": {},
             "maxBackendConcurrency": 2
           },
-          "reportSha256": "4be56019b370df865cea70f6e74c8704c5e0e7d5e7818f207ebe479111fe92d2"
+          "reportSha256": "fd204d8952cf4fec701c03a7b29e5b635001440e632dfbdf7a4d4d64861cccc5"
         },
         {
-          "path": "evidence/refactor/cache-payloads/40657123355-1/Release/environment-edited-serial/build-report.json",
+          "path": "evidence/refactor/cache-payloads/40660066519-1/Release/environment-edited-serial/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -2590,10 +2651,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "094c1c4c786067c794c17e8005bbe198d071e524e129d886989b83eb210007f6"
+          "reportSha256": "8af63e8a41c9ee2ccdd073621508ebbd73c48187c8932446136bfe145c3d9e93"
         },
         {
-          "path": "evidence/refactor/cache-payloads/40657123355-1/Release/environment-hot/build-report.json",
+          "path": "evidence/refactor/cache-payloads/40660066519-1/Release/environment-hot/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
@@ -2608,10 +2669,10 @@
             "cacheBypassReasons": {},
             "maxBackendConcurrency": 0
           },
-          "reportSha256": "ec9a54ef5ad14cebff36158e690891cde61ab150e7cd5c7ff625cda1348fc742"
+          "reportSha256": "6546d63be8bf00c71c0a5b4c8042e843e838a70cde582b42ad55e02d85ef4a22"
         },
         {
-          "path": "evidence/refactor/cache-payloads/40657123355-1/Release/environment-parallel/build-report.json",
+          "path": "evidence/refactor/cache-payloads/40660066519-1/Release/environment-parallel/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -2628,10 +2689,10 @@
             },
             "maxBackendConcurrency": 2
           },
-          "reportSha256": "5cb3ce47bba31e6a541eca1c9ce4da0feb93e567b0d8f92ace310e9544794d4e"
+          "reportSha256": "39727bfadb209508cc7750a165bd8d22c4ad1d39632be33eccef823080ebe5c7"
         },
         {
-          "path": "evidence/refactor/cache-payloads/40657123355-1/Release/environment-serial/build-report.json",
+          "path": "evidence/refactor/cache-payloads/40660066519-1/Release/environment-serial/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "Disabled",
@@ -2648,10 +2709,10 @@
             },
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "746475930e0062fceb4148e948496124eb4cabbbce052b429616355c4c695208"
+          "reportSha256": "698fb63513936cc1e0a7a36aac0dee428727b54c3d5e1b9fc3e6ba0956026063"
         },
         {
-          "path": "evidence/refactor/cache-payloads/40657123355-1/Release/environment-single-edit/build-report.json",
+          "path": "evidence/refactor/cache-payloads/40660066519-1/Release/environment-single-edit/build-report.json",
           "cache": {
             "executionEngine": "AssetTasks.v1",
             "cacheMode": "ActionCache",
@@ -2668,9 +2729,30 @@
             "cacheBypassReasons": {},
             "maxBackendConcurrency": 1
           },
-          "reportSha256": "0891183f867e6d901966c65840532e9f32f8f08ab488f4a335b889362a5a9996"
+          "reportSha256": "946b1329c5e925bae5f7b61c1546ff26db24da6a5813824a1befb0d304a5d2b6"
         }
-      ]
+      ],
+      "sdkTextureInput": {
+        "initialSha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+        "scope": "Existing legal 256-square BGRA fixture consumed from SDK/Art while SDK input digest leases remain active; unchanged owner-only Texture backend and original byte oracle",
+        "atLeastAsLargeLeaseInputs": 3,
+        "path": "D:\\a\\_temp\\c53cfcaa3\\R\\s\\Art\\cache.tga",
+        "bytes": 262162
+      },
+      "sdkAssetDigestReuse": {
+        "ledgerIncrease": 4194304,
+        "bytes": 1048576,
+        "sha256": "cc2cffa7208256c3d2e7fc44bc928e2b18c4390920e90bf087c97fcc4bec1f23",
+        "hashReadBytes": 9728692,
+        "baselineHashReadBytes": 8677770,
+        "path": "SageXml/Unconsumed.bin",
+        "reusedBytes": 23487213,
+        "actionHits": 8,
+        "baselineReusedBytes": 20343831,
+        "backendCalls": 1,
+        "allRawOutputsEqual": true,
+        "inventoryCaptures": 4
+      }
     }
   ],
   "productionSourceHashes": [
@@ -2688,11 +2770,11 @@
     },
     {
       "path": "recovery/src/App/Application/CacheInputLeaseSet.cs",
-      "sha256": "b0dff9218ff1626ec6f65ff8729cfe35756eea145599055e30bbf1979aad0d27"
+      "sha256": "5ba8c5632eb51a936dea7d8451ef86892a4f106767e40efa119ebba3d63dbfb2"
     },
     {
       "path": "recovery/src/App/Application/CacheInputSnapshot.cs",
-      "sha256": "2896361f87a1b755d8df501f0994f37cb65aa6bf0b146e5437a894d8a57c0bf7"
+      "sha256": "b0c10aeb8aade145c52a43f6aa673c756417a50955e7a848e1f511133d236540"
     },
     {
       "path": "recovery/src/App/Application/CoreStreamCompiler.cs",
@@ -2719,8 +2801,17 @@
     "artifactId": 12802567585,
     "artifactSha256": "342a426e624b114e78e9d16e3b4896767124c34cd880c5955bec820b59f0627e"
   },
-  "sourceScope": "Tool/schema/runtime digest leases only at this source; broader SDK digest source 129d9639 is still undergoing its own acceptance.",
-  "successfulRepositoryModReplay": {
+  "priorMissDiagnosticsMilestone": {
+    "binarySourceCommit": "810dd2ad2af23cc6a77b81c92f308f464083530f",
+    "testSourceCommit": "810dd2ad2af23cc6a77b81c92f308f464083530f",
+    "packagingSourceCommit": "810dd2ad2af23cc6a77b81c92f308f464083530f",
+    "runId": "40657123355",
+    "artifactId": 12803193116,
+    "artifactSha256": "eeaabe66deb0c2e50fcd1650e7fc355bf901b62da189f2c67cf5f50c2c8bd32f"
+  },
+  "sourceScope": "Stable SDK/runtime read-leased digest reuse, excluding the current MOD entire subtree and SDK/Additional; all root membership checks and mutable input byte reads remain.",
+  "productionSourceHashRepresentation": "SHA256 of committed Git blobs. Exact Windows checkout/compiled fixture and build/link byte hashes are independently recorded in the raw CI receipts.",
+  "repositoryModReplayBeforeSdkReuse": {
     "runId": "40659913327",
     "runConclusion": "success",
     "binarySourceCommit": "810dd2ad2af23cc6a77b81c92f308f464083530f",
@@ -4028,6 +4119,870 @@
       "run_attempt": 1,
       "status": "completed",
       "updated_at": "2026-10-28T08:57:14Z"
+    }
+  },
+  "sdkDigestFixtureVerification": {
+    "verified": true,
+    "runId": "40660066519",
+    "sourceCommit": "129d9639df7379dfe7898c5037afc32501eb0cd0",
+    "scriptSha256": "df558f6b18cafd103e060349818d2d929787472c54f5d7de64a2538a62b3dd42",
+    "scriptCheckoutEncoding": "git-checkout-crlf",
+    "archiveSha256": "cebe5b0798c9ec2719ca0743e8702575ec44962ec47023bc6d94374d51b1af47",
+    "modes": [
+      {
+        "configuration": "Debug",
+        "sdkTextureInput": {
+          "initialSha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+          "scope": "Existing legal 256-square BGRA fixture consumed from SDK/Art while SDK input digest leases remain active; unchanged owner-only Texture backend and original byte oracle",
+          "atLeastAsLargeLeaseInputs": 3,
+          "path": "D:\\a\\_temp\\c53cfcaa3\\D\\s\\Art\\cache.tga",
+          "bytes": 262162
+        },
+        "nativeTextureOwnerCallsAfterHot": 1,
+        "allCertifiedActionsHit": 8,
+        "sameLengthMtimePixelMutationPassedInCi": true,
+        "pixelEditChangedRawFiles": [
+          "base/Mod/streams/mod.imp",
+          "base/Mod/streams/mod.manifest",
+          "base/Mod/streams/mod.relo",
+          "base/Mod/streams/mod.bin"
+        ],
+        "rawCachePairComparisons": 48,
+        "originalRawOraclePairs": 16,
+        "sdkAssetDigestReuse": {
+          "ledgerIncrease": 4194304,
+          "bytes": 1048576,
+          "sha256": "cc2cffa7208256c3d2e7fc44bc928e2b18c4390920e90bf087c97fcc4bec1f23",
+          "hashReadBytes": 12169908,
+          "baselineHashReadBytes": 11118986,
+          "path": "SageXml/Unconsumed.bin",
+          "reusedBytes": 30810861,
+          "actionHits": 8,
+          "baselineReusedBytes": 27667479,
+          "backendCalls": 1,
+          "allRawOutputsEqual": true,
+          "inventoryCaptures": 4
+        },
+        "reuseGainBytes": 3143382,
+        "ledgerIncreaseBytes": 4194304
+      },
+      {
+        "configuration": "Release",
+        "sdkTextureInput": {
+          "initialSha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+          "scope": "Existing legal 256-square BGRA fixture consumed from SDK/Art while SDK input digest leases remain active; unchanged owner-only Texture backend and original byte oracle",
+          "atLeastAsLargeLeaseInputs": 3,
+          "path": "D:\\a\\_temp\\c53cfcaa3\\R\\s\\Art\\cache.tga",
+          "bytes": 262162
+        },
+        "nativeTextureOwnerCallsAfterHot": 1,
+        "allCertifiedActionsHit": 8,
+        "sameLengthMtimePixelMutationPassedInCi": true,
+        "pixelEditChangedRawFiles": [
+          "base/Mod/streams/mod.manifest",
+          "base/Mod/streams/mod.imp",
+          "base/Mod/streams/mod.relo",
+          "base/Mod/streams/mod.bin"
+        ],
+        "rawCachePairComparisons": 48,
+        "originalRawOraclePairs": 16,
+        "sdkAssetDigestReuse": {
+          "ledgerIncrease": 4194304,
+          "bytes": 1048576,
+          "sha256": "cc2cffa7208256c3d2e7fc44bc928e2b18c4390920e90bf087c97fcc4bec1f23",
+          "hashReadBytes": 9728692,
+          "baselineHashReadBytes": 8677770,
+          "path": "SageXml/Unconsumed.bin",
+          "reusedBytes": 23487213,
+          "actionHits": 8,
+          "baselineReusedBytes": 20343831,
+          "backendCalls": 1,
+          "allRawOutputsEqual": true,
+          "inventoryCaptures": 4
+        },
+        "reuseGainBytes": 3143382,
+        "ledgerIncreaseBytes": 4194304
+      }
+    ]
+  },
+  "successfulRepositoryModReplay": {
+    "runId": "40662537517",
+    "binarySourceCommit": "129d9639df7379dfe7898c5037afc32501eb0cd0",
+    "testSourceCommit": "e25934df4bf2edde3646c2c4264a912ff6d10888",
+    "archiveSha256": "387a7189e4a0a2dcb025b76df007c2cc4afcbff160c9b894e20abbaddb58c026",
+    "archiveSizeBytes": 2802013,
+    "originalProfile": {
+      "binarySourceCommit": "129d9639df7379dfe7898c5037afc32501eb0cd0",
+      "runId": 40660066519,
+      "runAttempt": 1,
+      "artifactId": 12805100025,
+      "archiveSha256": "cebe5b0798c9ec2719ca0743e8702575ec44962ec47023bc6d94374d51b1af47"
+    },
+    "protocolPassed": true,
+    "artifactId": 12803958986,
+    "runMetadata": {
+      "conclusion": "success",
+      "created_at": "2026-10-28T09:13:13Z",
+      "head_branch": "feature/cache-parallel",
+      "head_sha": "e25934df4bf2edde3646c2c4264a912ff6d10888",
+      "id": 40662537517,
+      "path": ".github/workflows/refactor-cache-payload-replay.yml",
+      "run_attempt": 1,
+      "status": "completed",
+      "updated_at": "2026-10-28T09:17:41Z"
+    },
+    "runConclusion": "success",
+    "scope": "Complete payload/protocol plus opt-in unchanged repository MOD measurements on exact accepted 129d binary; no production recompilation."
+  },
+  "sameInputSdkScanCostComparison": {
+    "scope": "Two CI archive observations with identical actual SDK/MOD bytes, fixed CLI options and raw outputs; production runtime hashes recorded separately. OS file cache, host scheduling and sampled peak memory are not controlled; no large-MOD or speedup claim.",
+    "sdkInputFileCount": 14715,
+    "sdkInputBytes": 125887928,
+    "sdkActualManifestEqual": true,
+    "modes": [
+      {
+        "configuration": "Debug",
+        "modInputFileCount": 7,
+        "modInputBytes": 982257,
+        "modActualManifestEqual": true,
+        "normalizedEffectiveOptionsEqual": true,
+        "crossBuildRawOutputsEqual": true,
+        "baselineRuntime": {
+          "antlr.runtime.dll": [
+            99328,
+            "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+          ],
+          "BinaryAssetBuilder.TextureCompiler.dll": [
+            917504,
+            "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+          ],
+          "BinaryAssetBuilder.TextureCompiler.dll.patch.json": [
+            14326,
+            "607ccc9e2a5bab3f51e4ff84563a554f7d183914bded557add673a241e3b696e"
+          ],
+          "NewModCompiler.exe": [
+            6612480,
+            "d43b216a62b2d7864d784c25225147f5ba0d9881ee3448c4fbeaa381f83041e0"
+          ],
+          "NewModCompiler.exe.config": [
+            201,
+            "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+          ]
+        },
+        "candidateRuntime": {
+          "antlr.runtime.dll": [
+            99328,
+            "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+          ],
+          "BinaryAssetBuilder.TextureCompiler.dll": [
+            917504,
+            "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+          ],
+          "BinaryAssetBuilder.TextureCompiler.dll.patch.json": [
+            14326,
+            "5df9883ca58ab6073f61fa0688b7826654aea4d1e7aba9f67348ec0ec3dc5690"
+          ],
+          "NewModCompiler.exe": [
+            6612480,
+            "75233ef91161fd47366ac48ed5a7e792008060b5a63b9654c03a3c308f03b3b4"
+          ],
+          "NewModCompiler.exe.config": [
+            201,
+            "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+          ]
+        },
+        "rows": [
+          {
+            "name": "repository-mod-no-cache",
+            "actionCacheState": "disabled",
+            "inputVariant": "unchanged",
+            "baseline": {
+              "reportElapsedMs": 945,
+              "controllerElapsedMs": 1156,
+              "hits": 0,
+              "misses": 0,
+              "backendCalls": 47,
+              "hashReadBytes": 0,
+              "inputHashReusedBytes": 0,
+              "inputInventoryCaptures": 0,
+              "inputHashLeaseFiles": 0,
+              "restoredBytes": 0,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 0,
+              "peakSampledPrivateBytes": 107827200,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {
+                "cache-disabled": 47
+              }
+            },
+            "candidate": {
+              "reportElapsedMs": 763,
+              "controllerElapsedMs": 954,
+              "hits": 0,
+              "misses": 0,
+              "backendCalls": 47,
+              "hashReadBytes": 0,
+              "inputHashReusedBytes": 0,
+              "inputInventoryCaptures": 0,
+              "inputHashLeaseFiles": 0,
+              "restoredBytes": 0,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 0,
+              "peakSampledPrivateBytes": 108482560,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {
+                "cache-disabled": 47
+              }
+            },
+            "actualHashReadBytesAvoided": 0,
+            "rawOutputBytesEqual": true
+          },
+          {
+            "name": "repository-mod-empty-action-cache",
+            "actionCacheState": "empty-action-cache",
+            "inputVariant": "unchanged",
+            "baseline": {
+              "reportElapsedMs": 3506,
+              "controllerElapsedMs": 3743,
+              "hits": 0,
+              "misses": 47,
+              "backendCalls": 47,
+              "hashReadBytes": 231979083,
+              "inputHashReusedBytes": 37516937,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 0,
+              "writtenBytes": 233986,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 107364352,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {
+                "entry-not-found": 47
+              },
+              "cacheBypassReasons": {}
+            },
+            "candidate": {
+              "reportElapsedMs": 2689,
+              "controllerElapsedMs": 2873,
+              "hits": 0,
+              "misses": 47,
+              "backendCalls": 47,
+              "hashReadBytes": 153116993,
+              "inputHashReusedBytes": 116379027,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 0,
+              "writtenBytes": 233986,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 107855872,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {
+                "entry-not-found": 47
+              },
+              "cacheBypassReasons": {}
+            },
+            "actualHashReadBytesAvoided": 78862090,
+            "rawOutputBytesEqual": true
+          },
+          {
+            "name": "repository-mod-hot-1",
+            "actionCacheState": "hot-action-cache",
+            "inputVariant": "unchanged",
+            "baseline": {
+              "reportElapsedMs": 3303,
+              "controllerElapsedMs": 3530,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 231979083,
+              "inputHashReusedBytes": 37516937,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 107933696,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "candidate": {
+              "reportElapsedMs": 2477,
+              "controllerElapsedMs": 2743,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 153116993,
+              "inputHashReusedBytes": 116379027,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 106684416,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "actualHashReadBytesAvoided": 78862090,
+            "rawOutputBytesEqual": true
+          },
+          {
+            "name": "repository-mod-hot-2",
+            "actionCacheState": "hot-action-cache",
+            "inputVariant": "unchanged",
+            "baseline": {
+              "reportElapsedMs": 3224,
+              "controllerElapsedMs": 3447,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 231979083,
+              "inputHashReusedBytes": 37516937,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 107257856,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "candidate": {
+              "reportElapsedMs": 2545,
+              "controllerElapsedMs": 2739,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 153116993,
+              "inputHashReusedBytes": 116379027,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 106270720,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "actualHashReadBytesAvoided": 78862090,
+            "rawOutputBytesEqual": true
+          },
+          {
+            "name": "repository-mod-hot-3",
+            "actionCacheState": "hot-action-cache",
+            "inputVariant": "unchanged",
+            "baseline": {
+              "reportElapsedMs": 3253,
+              "controllerElapsedMs": 3539,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 231979083,
+              "inputHashReusedBytes": 37516937,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 106311680,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "candidate": {
+              "reportElapsedMs": 2550,
+              "controllerElapsedMs": 2753,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 153116993,
+              "inputHashReusedBytes": 116379027,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 106713088,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "actualHashReadBytesAvoided": 78862090,
+            "rawOutputBytesEqual": true
+          },
+          {
+            "name": "repository-mod-additional-only",
+            "actionCacheState": "hot-action-cache",
+            "inputVariant": "additional-only",
+            "baseline": {
+              "reportElapsedMs": 3244,
+              "controllerElapsedMs": 3467,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 231979253,
+              "inputHashReusedBytes": 37516937,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 107040768,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "candidate": {
+              "reportElapsedMs": 2550,
+              "controllerElapsedMs": 2740,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 153117163,
+              "inputHashReusedBytes": 116379027,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 106700800,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "actualHashReadBytesAvoided": 78862090,
+            "rawOutputBytesEqual": true
+          }
+        ],
+        "baselineHotReportMedianMs": 3253,
+        "candidateHotReportMedianMs": 2545
+      },
+      {
+        "configuration": "Release",
+        "modInputFileCount": 7,
+        "modInputBytes": 982257,
+        "modActualManifestEqual": true,
+        "normalizedEffectiveOptionsEqual": true,
+        "crossBuildRawOutputsEqual": true,
+        "baselineRuntime": {
+          "antlr.runtime.dll": [
+            99328,
+            "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+          ],
+          "BinaryAssetBuilder.TextureCompiler.dll": [
+            917504,
+            "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+          ],
+          "BinaryAssetBuilder.TextureCompiler.dll.patch.json": [
+            14326,
+            "a912ead7dde7a8910e28d9de2bf1f75dfad20ea8ce27d242719006d4f7d29a85"
+          ],
+          "NewModCompiler.exe": [
+            4171264,
+            "659a2f28419ae7bc3371ba49e9beb7e6bfded3298030990459680f40a1ea4c29"
+          ],
+          "NewModCompiler.exe.config": [
+            201,
+            "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+          ]
+        },
+        "candidateRuntime": {
+          "antlr.runtime.dll": [
+            99328,
+            "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+          ],
+          "BinaryAssetBuilder.TextureCompiler.dll": [
+            917504,
+            "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+          ],
+          "BinaryAssetBuilder.TextureCompiler.dll.patch.json": [
+            14326,
+            "1336f60fbb368f5e86ac03fc7f35df54eb9de58975e335d8b48368290f164efe"
+          ],
+          "NewModCompiler.exe": [
+            4171264,
+            "d2cdd19579330f7d37e7d7385371cbce7857a77444804cc20bed590b149e9323"
+          ],
+          "NewModCompiler.exe.config": [
+            201,
+            "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+          ]
+        },
+        "rows": [
+          {
+            "name": "repository-mod-no-cache",
+            "actionCacheState": "disabled",
+            "inputVariant": "unchanged",
+            "baseline": {
+              "reportElapsedMs": 756,
+              "controllerElapsedMs": 922,
+              "hits": 0,
+              "misses": 0,
+              "backendCalls": 47,
+              "hashReadBytes": 0,
+              "inputHashReusedBytes": 0,
+              "inputInventoryCaptures": 0,
+              "inputHashLeaseFiles": 0,
+              "restoredBytes": 0,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 0,
+              "peakSampledPrivateBytes": 107245568,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {
+                "cache-disabled": 47
+              }
+            },
+            "candidate": {
+              "reportElapsedMs": 668,
+              "controllerElapsedMs": 829,
+              "hits": 0,
+              "misses": 0,
+              "backendCalls": 47,
+              "hashReadBytes": 0,
+              "inputHashReusedBytes": 0,
+              "inputInventoryCaptures": 0,
+              "inputHashLeaseFiles": 0,
+              "restoredBytes": 0,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 0,
+              "peakSampledPrivateBytes": 107278336,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {
+                "cache-disabled": 47
+              }
+            },
+            "actualHashReadBytesAvoided": 0,
+            "rawOutputBytesEqual": true
+          },
+          {
+            "name": "repository-mod-empty-action-cache",
+            "actionCacheState": "empty-action-cache",
+            "inputVariant": "unchanged",
+            "baseline": {
+              "reportElapsedMs": 3278,
+              "controllerElapsedMs": 3473,
+              "hits": 0,
+              "misses": 47,
+              "backendCalls": 47,
+              "hashReadBytes": 229537867,
+              "inputHashReusedBytes": 35075721,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 0,
+              "writtenBytes": 233986,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 106532864,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {
+                "entry-not-found": 47
+              },
+              "cacheBypassReasons": {}
+            },
+            "candidate": {
+              "reportElapsedMs": 2605,
+              "controllerElapsedMs": 2778,
+              "hits": 0,
+              "misses": 47,
+              "backendCalls": 47,
+              "hashReadBytes": 150675777,
+              "inputHashReusedBytes": 113937811,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 0,
+              "writtenBytes": 233986,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 106774528,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {
+                "entry-not-found": 47
+              },
+              "cacheBypassReasons": {}
+            },
+            "actualHashReadBytesAvoided": 78862090,
+            "rawOutputBytesEqual": true
+          },
+          {
+            "name": "repository-mod-hot-1",
+            "actionCacheState": "hot-action-cache",
+            "inputVariant": "unchanged",
+            "baseline": {
+              "reportElapsedMs": 3101,
+              "controllerElapsedMs": 3282,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 229537867,
+              "inputHashReusedBytes": 35075721,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 105828352,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "candidate": {
+              "reportElapsedMs": 2423,
+              "controllerElapsedMs": 2660,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 150675777,
+              "inputHashReusedBytes": 113937811,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 106082304,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "actualHashReadBytesAvoided": 78862090,
+            "rawOutputBytesEqual": true
+          },
+          {
+            "name": "repository-mod-hot-2",
+            "actionCacheState": "hot-action-cache",
+            "inputVariant": "unchanged",
+            "baseline": {
+              "reportElapsedMs": 3168,
+              "controllerElapsedMs": 3363,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 229537867,
+              "inputHashReusedBytes": 35075721,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 105783296,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "candidate": {
+              "reportElapsedMs": 2463,
+              "controllerElapsedMs": 2634,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 150675777,
+              "inputHashReusedBytes": 113937811,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 106639360,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "actualHashReadBytesAvoided": 78862090,
+            "rawOutputBytesEqual": true
+          },
+          {
+            "name": "repository-mod-hot-3",
+            "actionCacheState": "hot-action-cache",
+            "inputVariant": "unchanged",
+            "baseline": {
+              "reportElapsedMs": 3121,
+              "controllerElapsedMs": 3319,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 229537867,
+              "inputHashReusedBytes": 35075721,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 105766912,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "candidate": {
+              "reportElapsedMs": 2503,
+              "controllerElapsedMs": 2679,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 150675777,
+              "inputHashReusedBytes": 113937811,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 106246144,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "actualHashReadBytesAvoided": 78862090,
+            "rawOutputBytesEqual": true
+          },
+          {
+            "name": "repository-mod-additional-only",
+            "actionCacheState": "hot-action-cache",
+            "inputVariant": "additional-only",
+            "baseline": {
+              "reportElapsedMs": 3130,
+              "controllerElapsedMs": 3376,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 229538037,
+              "inputHashReusedBytes": 35075721,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 105820160,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "candidate": {
+              "reportElapsedMs": 2494,
+              "controllerElapsedMs": 2662,
+              "hits": 47,
+              "misses": 0,
+              "backendCalls": 0,
+              "hashReadBytes": 150675947,
+              "inputHashReusedBytes": 113937811,
+              "inputInventoryCaptures": 2,
+              "inputHashLeaseFiles": 512,
+              "restoredBytes": 233986,
+              "writtenBytes": 0,
+              "cacheCopyBytes": 233986,
+              "peakSampledPrivateBytes": 105795584,
+              "logicalProcessorCount": 4,
+              "effectiveJobs": 1,
+              "minimumEffectiveJobs": 1,
+              "actionMissReasons": {},
+              "cacheBypassReasons": {}
+            },
+            "actualHashReadBytesAvoided": 78862090,
+            "rawOutputBytesEqual": true
+          }
+        ],
+        "baselineHotReportMedianMs": 3121,
+        "candidateHotReportMedianMs": 2463
+      }
+    ],
+    "measurementDriverSha256": "72e1c104a3f90fcb86ce2cc96aeeaa87042dd570c891c8909da273f2c7e85548",
+    "controllerSourceSha256": {
+      "recovery/tests/CompilerCliControl.cs": "4694fba0e5ccf58a520779af2ed93f44911332c935433fb84c1c7b9176481464",
+      "recovery/scripts/BuildCompilerCliControl.ps1": "80edf19099ce362a625cd4aa2419bf69a6b3eed6409a2886c8bdeff3ac1ac10b"
+    },
+    "baselineControllerSha256": "97eb9d5032756a9bbe980cb426e6e4158f946fdf2c61b4a5144365cad0555c2c",
+    "candidateControllerSha256": "db9312702a3c9cca16c0c96d398d5ced3a4b1c6526585e6701b5c5dbb3f8f342",
+    "controllerBinaryNote": "Controller is freshly built in each replay; original EXE hashes differ and are retained. Controller source and build-script bytes are identical at the two test commits.",
+    "baseline": {
+      "runId": "40659913327",
+      "binarySourceCommit": "810dd2ad2af23cc6a77b81c92f308f464083530f",
+      "testSourceCommit": "25dfd24da5df9de0a7947d0a053e3ca2bf5a3797",
+      "archiveSha256": "dc349be5072d68bd6ec92e78c378b3fc71743d684c3cc24c2dbf27e9e3463148",
+      "archiveSizeBytes": 2801260,
+      "originalProfile": {
+        "binarySourceCommit": "810dd2ad2af23cc6a77b81c92f308f464083530f",
+        "runId": 40657123355,
+        "runAttempt": 1,
+        "artifactId": 12803193116,
+        "archiveSha256": "eeaabe66deb0c2e50fcd1650e7fc355bf901b62da189f2c67cf5f50c2c8bd32f"
+      },
+      "protocolPassed": true,
+      "artifactId": 12802884504
+    },
+    "candidate": {
+      "runId": "40662537517",
+      "binarySourceCommit": "129d9639df7379dfe7898c5037afc32501eb0cd0",
+      "testSourceCommit": "e25934df4bf2edde3646c2c4264a912ff6d10888",
+      "archiveSha256": "387a7189e4a0a2dcb025b76df007c2cc4afcbff160c9b894e20abbaddb58c026",
+      "archiveSizeBytes": 2802013,
+      "originalProfile": {
+        "binarySourceCommit": "129d9639df7379dfe7898c5037afc32501eb0cd0",
+        "runId": 40660066519,
+        "runAttempt": 1,
+        "artifactId": 12805100025,
+        "archiveSha256": "cebe5b0798c9ec2719ca0743e8702575ec44962ec47023bc6d94374d51b1af47"
+      },
+      "protocolPassed": true,
+      "artifactId": 12803958986,
+      "runMetadata": {
+        "conclusion": "success",
+        "created_at": "2026-10-28T09:13:13Z",
+        "head_branch": "feature/cache-parallel",
+        "head_sha": "e25934df4bf2edde3646c2c4264a912ff6d10888",
+        "id": 40662537517,
+        "path": ".github/workflows/refactor-cache-payload-replay.yml",
+        "run_attempt": 1,
+        "status": "completed",
+        "updated_at": "2026-10-28T09:17:41Z"
+      }
     }
   }
 }

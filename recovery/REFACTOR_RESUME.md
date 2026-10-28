@@ -7,13 +7,13 @@
 
 成果集中 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`，[draft PR #17](https://github.com/wu162/NewSdk/pull/17)；未经用户批准不合入。源码入口、准确资格和原始证据只看 [CACHE_PARALLEL](docs/CACHE_PARALLEL.md) 及其JSON，无需重读历史。
 
-当前生产源码 `129d9639` 在[40660066519](https://github.com/wu162/NewSdk/actions/runs/40660066519)完整验收中：稳定SDK/runtime文件按512-largest持续读租约和128位身份复核复用摘要，排除当前MOD完整子树与SDKAdditional；目录仍首尾全枚举，MOD/Additional仍鲜读。已过预检/生产/Core/真实SDKArt Texture+SageXml账本缓存矩阵，尚不宣称整体通过。
+当前生产源码 `129d9639` 的[40660066519](https://github.com/wu162/NewSdk/actions/runs/40660066519)已完整success，原始归档/12组收据/两配置五文件ZIP已核验：稳定SDK/runtime文件按512-largest持续读租约和128位身份复核复用摘要，排除当前MOD完整子树与SDKAdditional；目录仍首尾全枚举，MOD/Additional仍鲜读。预检/生产/Core/真实SDKArt Texture+SageXml账本/精确缓存/旧session/完整mymod/BIG/独立ZIP全部通过。原包12805100025，精确SHA见专项。
 
-已验收来源：`810dd2ad` / [40657123355](https://github.com/wu162/NewSdk/actions/runs/40657123355)完整success，原包12803193116、12组收据和两配置运行文件/五文件ZIP均核验。包括原强ActionKey/完整三缓冲区及CDATA/回滚store/旧session隔离、MachineResources.v1按CPU和Win32物理/虚拟内存准入及降额、十二根Xmlenvironment worker、准确miss/bypass报告。冷8次缺失、损坏和pending各仅1次对应miss、其余7命中，修复后恢复全热；完整未精简mymod/原BAB/BIG/独立ZIP保留。十二根都使用worker，实际Weather与W3X重叠，不夸大每根双同类实测。
+先前诊断来源：`810dd2ad` / [40657123355](https://github.com/wu162/NewSdk/actions/runs/40657123355)完整success，原包12803193116、12组收据和两配置运行文件/五文件ZIP均核验。包括原强ActionKey/完整三缓冲区及CDATA/回滚store/旧session隔离、MachineResources.v1按CPU和Win32物理/虚拟内存准入及降额、十二根Xmlenvironment worker、准确miss/bypass报告。冷8次缺失、损坏和pending各仅1次对应miss、其余7命中，修复后恢复全热；完整未精简mymod/原BAB/BIG/独立ZIP保留。十二根都使用worker，实际Weather与W3X重叠，不夸大每根双同类实测。
 
-真实MOD计量[40659913327](https://github.com/wu162/NewSdk/actions/runs/40659913327)success，binary810/test25df，严格复用成功归档未重编。完整MOD7文件982257字节，真实SDK14715文件125887928字节，47资产热全部命中/零backend；热仍约230MB哈希读取、3.1–3.3秒，比无缓存0.76–0.95秒更慢。它不覆盖129d SDK扩展；下一步用其成功产物跑相同输入核对读取成本，不宣称大型MOD或通用加速。
+真实MOD计量[40659913327](https://github.com/wu162/NewSdk/actions/runs/40659913327)success，binary810/test25df，严格复用成功归档未重编。完整MOD7文件982257字节，真实SDK14715文件125887928字节，47资产热全部命中/零backend；热仍约230MB哈希读取、3.1–3.3秒，比无缓存0.76–0.95秒更慢。它不覆盖129d SDK扩展；相同输入新计量[40662537517](https://github.com/wu162/NewSdk/actions/runs/40662537517)已success，binary129d/teste259：完整SDK/MOD字节、参数与跨版本四输出均核对一致，两配置每次热构建少78862090字节哈希读取（约75.2MiB），47hit/0backend不变。新热中位数Debug2545ms/Release2463ms，仍比新无缓存763/668ms慢；不宣称此小MOD有缓存净收益或通用加速。两生产归档与两重放归档均已核验，完整来源见专项JSON。
 
-剩余：目录元数据扫描及跨构建首次哈希成本、细分prepare拒绝原因、更多已认证后端与双Mesh实测；Texture、重采样/PathMusic等继续owner，混合Texture session仍拒绝。默认bc/sc=false、jobs1保留，默认发行不随本分支替换。
+下一步按实际计量减少目录元数据扫描、非保留文件身份查询和跨构建首次哈希成本；不靠mtime/size授权复用。剩余、细分prepare拒绝原因、更多已认证后端与双Mesh实测；Texture、重采样/PathMusic等继续owner，混合Texture session仍拒绝。默认bc/sc=false、jobs1保留，默认发行不随本分支替换。
 
 按 [EFFICIENCY](EFFICIENCY.md) 集中实现/预检/完整验收，全部编译测试在Actions。仅测试改变先核验复用，分别记录binary/test来源；文档不重编，每10–15分钟检查点普通推送。用户本轮要求约70分钟、通常两个子代理最多三个，未自动变成以后每轮固定约定。
 
