@@ -6,9 +6,17 @@
 
 格式 `NewModCompiler.CachePhaseTimings.v1`，`frequency` 为Stopwatch每秒tick数，`semantics=inclusive-overlapping-ticks`。`coreCompileTicks`覆盖每stream受控编译及清理，`streamSetupTicks`包含该stream首次输入盘点和配置/provider/Schema准备，`documentProcessTicks`包含递归文档处理与最终worker汇合，`artifactCollectionTicks`独立统计产物收集。`inputInventoryTicks`含首尾盘点；其子项`inputEnumerationTicks`为目录枚举/属性/排序，`inputReadTicks`含受控打开、资格/身份核对、鲜读SHA或摘要复用及关闭，`inputDigestTicks`为最终两个盘点摘要。子项仅累加成功Capture，外层计时也保留失败尝试，不能把差值直接认作缺失计量。
 
-`preparationTicks`包含冻结输入/外读准备，`actionKeyTicks`记录完整动作Key计算；`storeLookupTicks`包含store校验及物化，`storeValidationTicks`还覆盖Stage/Commit/容量扫描内部校验；`storeMaterializationTicks`含已验证payload复制与再校验；`storeStageTicks`为候选写入，`resultRestoreTicks`为恢复后的语义结果读取与私有目录物化。`resultWriteTicks/resultCommitTicks`为owner结果写入/验证提交，后者可包含store候选写入。`workerWaitTicks`只统计owner等待结果，`backendWorkTicks`在受保护的既有调用区间记账处累计全部调用，保留区间仍最多512条。`processContractTicks/cacheCommitTicks/streamCleanupTicks`分别记录进程合同、可逆缓存安装和stream清理。报告在必要输出终结前截取，不包含之后的CompleteCache/最终清理。
+`preparationTicks`包含冻结输入/外读准备，`actionKeyTicks`记录完整动作Key计算；`storeLookupTicks`包含store校验及物化，`storeValidationTicks`还覆盖Stage/Commit/容量扫描内部校验；`storeMaterializationTicks`含已验证payload复制与再校验；`storeStageTicks`为候选写入，`resultRestoreTicks`为恢复后的语义结果读取与私有目录物化。`resultWriteTicks/resultCommitTicks`为owner结果写入/验证提交，后者可包含store候选写入。`workerWaitTicks`统计正常owner提交时等待worker结果；失败/取消清理中的汇合等待归入`streamCleanupTicks`。`backendWorkTicks`在受保护的既有调用区间记账处累计全部调用，保留区间仍最多512条。`processContractTicks/cacheCommitTicks/streamCleanupTicks`分别记录进程合同、可逆缓存安装和stream清理。报告在必要输出终结前截取，不包含之后的CompleteCache/最终清理。
 
 上述计时有嵌套及并发，不能相加代替`elapsedMs`，也不是CPU时间；不改变Key、输入保护、缓存资格、调度预算或默认参数。当前只能等待小夹具实际结果决定下一项有界优化，历史完整Upheaval性能结论保持原范围。
+
+## B组：共享路径分类与私有结果移动（2026-10-28，待统一验收）
+
+重读实施任务书后，收束计时/复用工具工作，直接消除两处已证明重复的生产工作：每次Capture预计算MOD、Additional、tools、Schemas的规范化边界，每个SDK文件只执行一次原有`GetFullPath+TrimEnd`并共享租约/工具分类；不假设枚举路径已规范化，不更改写入manifest的原始root/path、文件读取、身份或检查时点。新增一组真实Capture边界用例覆盖四类相邻前缀、等价根拼写、租约写保护与MOD/Additional同长mtime鲜读，复用已有身份替换与容量矩阵。
+
+热缓存命中后，已在私有staging完成store源SHA、复制、目标SHA及完整结果合同读取的`result.bin`/可选CDATA，改为同一任务目录中的文件移动，消除从`restored`到其父目录的再次复制。持久store文件仍独立复制并完整校验；命中计数仍在两次移动成功后更新，部分失败仍走原私有清理/发布缓存回滚。已有PCM/XAS/MP3完整CDATA、损坏修复、原始四输出、取消/异常及ZIP门槛保留。
+
+这组改变生产闭包，集中重建一次并验收，不用前一计时二进制代替。尚未取得新计量，不能宣称已解决缓存净收益或完整Upheaval端到端性能问题；大型MOD不重跑。
 
 更新：2026-10-28（北京时间）。成果分支 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`。本页只记录当前工作；旧发行证据见 [COMPILER_RELEASE](../COMPILER_RELEASE.md)。**生产主线与完整 Windows 回归已有通过收据；最新批次和精确范围见下文。未据此声明整份方案全部覆盖或完整 MOD 加速。**
 

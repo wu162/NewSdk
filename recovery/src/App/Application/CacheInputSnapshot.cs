@@ -33,6 +33,9 @@ namespace NewModCompiler.Application
         public long DigestTicks { get; private set; }
         public bool CanAuthorizeCacheReuse { get { return false; } }
 
+        [Flags]
+        enum InputRole { None = 0, LeaseEligible = 1, ToolInput = 2 }
+
         sealed class CaptureTiming
         {
             public long EnumerationTicks, ReadTicks;
@@ -92,6 +95,13 @@ namespace NewModCompiler.Application
                     writer.Write(task.Dependencies == null ? -1 : task.Dependencies.Length);
                     if (task.Dependencies != null) foreach (string dependency in task.Dependencies) Value(writer, dependency);
                 }
+                // Preserve Paths.Contains canonicalization exactly, but normalize
+                // these stable boundaries only once per capture. Serialized roots
+                // and enumerated member paths retain their original byte strings.
+                string modBoundary = CanonicalPath(roots[1]), modPrefix = modBoundary + Path.DirectorySeparatorChar;
+                string additionalBoundary = CanonicalPath(Path.Combine(roots[0], "Additional")), additionalPrefix = additionalBoundary + Path.DirectorySeparatorChar;
+                string toolsBoundary = CanonicalPath(Path.Combine(roots[0], "tools")), toolsPrefix = toolsBoundary + Path.DirectorySeparatorChar;
+                string schemasBoundary = CanonicalPath(Path.Combine(roots[0], "Schemas")), schemasPrefix = schemasBoundary + Path.DirectorySeparatorChar;
                 // Full root identities intentionally isolate two different MODs
                 // even when their current bytes happen to be identical.
                 for (int role = 0; role < roots.Length; ++role)
@@ -103,13 +113,22 @@ namespace NewModCompiler.Application
                     // can be beneath SDK/Mods: exclude it in the SDK role too.
                     // Packaging-only Additional remains writable and rehashed.
                     // This changes neither inventory bytes nor tool identity.
-                    Inventory(writer, roots[role], roots[role], cancellation, ref count, leases, fileHash, timing, path => currentRole == 2 || (currentRole == 0 &&
-                        !Paths.Contains(roots[1], path) && !Paths.Contains(Path.Combine(roots[0], "Additional"), path)), (path, length, digest, reused) => {
+                    Inventory(writer, roots[role], roots[role], cancellation, ref count, leases, fileHash, timing, path => {
+                        if (currentRole == 2) return InputRole.LeaseEligible | InputRole.ToolInput;
+                        if (currentRole != 0) return InputRole.None;
+                        // Enumeration spelling is not assumed canonical: keep the
+                        // same GetFullPath/TrimEnd semantics as Paths.Contains.
+                        string canonical = CanonicalPath(path);
+                        bool eligible = !ContainsCanonical(modBoundary, modPrefix, canonical) &&
+                            !ContainsCanonical(additionalBoundary, additionalPrefix, canonical);
+                        bool tool = ContainsCanonical(toolsBoundary, toolsPrefix, canonical) ||
+                            ContainsCanonical(schemasBoundary, schemasPrefix, canonical);
+                        return (eligible ? InputRole.LeaseEligible : InputRole.None) |
+                            (tool ? InputRole.ToolInput : InputRole.None);
+                    }, (path, length, digest, reused, tool) => {
                         if (reused) reusedHashBytes = checked(reusedHashBytes + length);
                         else hashedBytes = checked(hashedBytes + length);
-                        if (currentRole == 2 || (currentRole == 0 &&
-                            (Paths.Contains(Path.Combine(roots[0], "tools"), path) || Paths.Contains(Path.Combine(roots[0], "Schemas"), path))))
-                        { toolWriter.Write(currentRole); toolWriter.Write(path); toolWriter.Write(length); toolWriter.Write(digest); }
+                        if (tool) { toolWriter.Write(currentRole); toolWriter.Write(path); toolWriter.Write(length); toolWriter.Write(digest); }
                     });
                 }
                 cancellation.ThrowIfCancellationRequested(); writer.Flush(); bytes.Position = 0;
@@ -148,7 +167,7 @@ namespace NewModCompiler.Application
         {
             writer.Write(value != null); if (value != null) writer.Write(value);
         }
-        static void Inventory(BinaryWriter writer, string root, string directory, CancellationToken cancellation, ref int count, CacheInputLeaseSet leases, SHA256 fileHash, CaptureTiming timing, Func<string,bool> eligible, Action<string,long,byte[],bool> record)
+        static void Inventory(BinaryWriter writer, string root, string directory, CancellationToken cancellation, ref int count, CacheInputLeaseSet leases, SHA256 fileHash, CaptureTiming timing, Func<string,InputRole> classify, Action<string,long,byte[],bool,bool> record)
         {
             cancellation.ThrowIfCancellationRequested();
             long enumerationStarted = Stopwatch.GetTimestamp();
@@ -165,20 +184,25 @@ namespace NewModCompiler.Application
                 if ((attributes & FileAttributes.ReparsePoint) != 0) throw new IOException("Input inventory does not follow reparse points.");
                 bool isDirectory = (attributes & FileAttributes.Directory) != 0;
                 writer.Write(isDirectory); writer.Write(path.Substring(root.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length));
-                if (isDirectory) Inventory(writer, root, path, cancellation, ref count, leases, fileHash, timing, eligible, record);
+                if (isDirectory) Inventory(writer, root, path, cancellation, ref count, leases, fileHash, timing, classify, record);
                 else
                 {
                     long length; byte[] digest; bool reused = false;
                     long readStarted = Stopwatch.GetTimestamp();
-                    if (leases != null && eligible(path)) digest = leases.Read(path, cancellation, fileHash, out length, out reused);
+                    InputRole classification = classify(path);
+                    if (leases != null && (classification & InputRole.LeaseEligible) != 0) digest = leases.Read(path, cancellation, fileHash, out length, out reused);
                     else using (var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
                     { digest = fileHash.ComputeHash(input); length = input.Length; }
                     timing.ReadTicks += Stopwatch.GetTimestamp() - readStarted;
-                    writer.Write(length); writer.Write(digest); record(path, length, digest, reused);
+                    writer.Write(length); writer.Write(digest); record(path, length, digest, reused, (classification & InputRole.ToolInput) != 0);
                     checked { ++count; }
                 }
             }
         }
+        static string CanonicalPath(string path)
+        { return Path.GetFullPath(path).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar); }
+        static bool ContainsCanonical(string root, string prefix, string path)
+        { return string.Equals(root, path, StringComparison.OrdinalIgnoreCase) || path.StartsWith(prefix, StringComparison.OrdinalIgnoreCase); }
         static string Hex(byte[] hash) { return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant(); }
     }
 }

@@ -224,6 +224,98 @@ namespace NewModCompiler.Tests
                     "A shared SDK file must obey the existing handle cap and largest-file preference while remaining inputs use fresh hashes.");
             }
         }
+        static void CanonicalPrefixBoundaries(string root)
+        {
+            string sdk = Path.Combine(root, "sdk"), runtime = Path.Combine(root, "runtime");
+            string mod = Path.Combine(sdk, "Art", "EditableMod");
+            string entry = Path.Combine(mod, "Data", "Mod.xml"), editable = Path.Combine(mod, "Art", "editable.bin");
+            string additional = Path.Combine(sdk, "Additional", "pack.bin");
+            string tool = Path.Combine(sdk, "tools", "backend.dll"), schema = Path.Combine(sdk, "Schemas", "types.xsd");
+            string compiler = Path.Combine(runtime, "NewModCompiler.exe");
+            string[] siblings = {
+                Path.Combine(sdk, "Art", "EditableMod.extra", "payload.bin"),
+                Path.Combine(sdk, "Additional.extra", "payload.bin"),
+                Path.Combine(sdk, "tools.extra", "payload.bin"),
+                Path.Combine(sdk, "Schemas.extra", "payload.bin")
+            };
+            Write(entry, "<AssetDeclaration/>"); Write(editable, "M001"); Write(additional, "P001");
+            Write(tool, "T001"); Write(schema, "S001"); Write(compiler, "C001");
+            foreach (string sibling in siblings) Write(sibling, "AAAA");
+            var request = new BuildRequest { Command = "build", SdkRoot = sdk, ModRoot = mod,
+                OutputRoot = Path.Combine(root, "output"), Content = new[] { "base" }, PackageFormat = "loose" };
+            var plan = new BuildPlan { Tasks = new[] { new BuildTask { Id = "base/mod", Content = "base", InputPath = entry,
+                OutputName = "base/mod", Dependencies = new string[0] } } };
+            var canonical = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+            // Root uses GetFullPath but retains its resulting string in both
+            // identities. Filesystem-equivalent root spellings need not hash
+            // identically when a normalized trailing separator is retained.
+            string separator = Path.DirectorySeparatorChar.ToString();
+            foreach (string suffix in new[] { "", separator, separator + "." })
+            {
+                request.SdkRoot = sdk + suffix; request.ModRoot = mod + suffix;
+                string runtimeSpelling = runtime + suffix;
+                var fresh = CacheInputSnapshot.Capture(request, plan, runtimeSpelling, CancellationToken.None);
+                if (Path.GetFullPath(request.SdkRoot) == Path.GetFullPath(sdk) &&
+                    Path.GetFullPath(request.ModRoot) == Path.GetFullPath(mod) &&
+                    Path.GetFullPath(runtimeSpelling) == Path.GetFullPath(runtime))
+                    Check(fresh.Fingerprint == canonical.Fingerprint && fresh.ToolchainFingerprint == canonical.ToolchainFingerprint,
+                        "Root spellings normalized to identical serialized paths changed content identity.");
+                using (var leases = new CacheInputLeaseSet())
+                {
+                    var first = CacheInputSnapshot.Capture(request, plan, runtimeSpelling, CancellationToken.None, leases);
+                    var second = CacheInputSnapshot.Capture(request, plan, runtimeSpelling, CancellationToken.None, leases);
+                    Check(first.Fingerprint == fresh.Fingerprint && second.Fingerprint == fresh.Fingerprint &&
+                        first.ToolchainFingerprint == fresh.ToolchainFingerprint && second.ToolchainFingerprint == fresh.ToolchainFingerprint,
+                        "Fresh and leased captures differ for one equivalent root spelling.");
+                    Check(leases.RetainedFiles == 7 && second.ReusedHashBytes == 28 &&
+                        second.HashedBytes + second.ReusedHashBytes == fresh.HashedBytes,
+                        "Prefix siblings must remain stable SDK inputs; active MOD and actual Additional remain fresh in every inventory role.");
+                    foreach (string retained in new[] { siblings[0], siblings[1], siblings[2], siblings[3], tool, schema, compiler })
+                        Reject<IOException>(() => { using (File.Open(retained, FileMode.Open, FileAccess.Write, FileShare.ReadWrite)) { } },
+                            "A prefix-sibling or real tool digest was reused without a write-denying input lease: " + retained);
+                    DateTime editTime = File.GetLastWriteTimeUtc(editable), packTime = File.GetLastWriteTimeUtc(additional);
+                    Write(editable, "M002"); File.SetLastWriteTimeUtc(editable, editTime);
+                    Write(additional, "P002"); File.SetLastWriteTimeUtc(additional, packTime);
+                    Check(new FileInfo(editable).Length == 4 && File.GetLastWriteTimeUtc(editable) == editTime &&
+                        new FileInfo(additional).Length == 4 && File.GetLastWriteTimeUtc(additional) == packTime,
+                        "Mutable prefix-boundary probes must retain exact length and timestamp.");
+                    var changed = CacheInputSnapshot.Capture(request, plan, runtimeSpelling, CancellationToken.None, leases);
+                    var changedFresh = CacheInputSnapshot.Capture(request, plan, runtimeSpelling, CancellationToken.None);
+                    Check(changed.Fingerprint != fresh.Fingerprint && changed.Fingerprint == changedFresh.Fingerprint &&
+                        changed.ToolchainFingerprint == fresh.ToolchainFingerprint && changed.ToolchainFingerprint == changedFresh.ToolchainFingerprint &&
+                        changed.ReusedHashBytes == 28 && changed.HashedBytes + changed.ReusedHashBytes == changedFresh.HashedBytes,
+                        "Equivalent root spelling hid mutable MOD/Additional bytes or widened compiler-tool identity.");
+                }
+                Write(editable, "M001"); Write(additional, "P001");
+            }
+            request.SdkRoot = sdk; request.ModRoot = mod;
+            foreach (string sibling in siblings)
+            {
+                var before = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+                DateTime stamp = File.GetLastWriteTimeUtc(sibling);
+                Write(sibling, "BBBB"); File.SetLastWriteTimeUtc(sibling, stamp);
+                var changed = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+                Check(changed.Fingerprint != before.Fingerprint && changed.ToolchainFingerprint == before.ToolchainFingerprint,
+                    "An ordinary SDK prefix-sibling edit escaped content protection or was classified as a tool/schema: " + sibling);
+                using (var leases = new CacheInputLeaseSet())
+                {
+                    CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                    var repeated = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                    Check(repeated.Fingerprint == changed.Fingerprint && repeated.ToolchainFingerprint == changed.ToolchainFingerprint &&
+                        repeated.HashedBytes + repeated.ReusedHashBytes == changed.HashedBytes,
+                        "A changed prefix sibling did not agree with an independent fresh capture.");
+                }
+            }
+            foreach (string actualTool in new[] { tool, schema })
+            {
+                var before = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+                DateTime stamp = File.GetLastWriteTimeUtc(actualTool);
+                Write(actualTool, "ZZZZ"); File.SetLastWriteTimeUtc(actualTool, stamp);
+                var changed = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+                Check(changed.Fingerprint != before.Fingerprint && changed.ToolchainFingerprint != before.ToolchainFingerprint,
+                    "A same-length/same-time edit under actual tools/Schemas did not invalidate compiler-tool identity.");
+            }
+        }
         static void BoundedIdentityQueries(string root)
         {
             string sdk = Path.Combine(root, "sdk"), mod = Path.Combine(root, "mod"), runtime = Path.Combine(root, "runtime");
@@ -413,6 +505,7 @@ namespace NewModCompiler.Tests
             Check(baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Validation failure polluted retry.");
             SharedToolLeases(request, plan, runtime, dependency, schema, config, compiler, baseline);
             StableSdkLeases(Path.Combine(root, "stable-sdk-inputs"));
+            CanonicalPrefixBoundaries(Path.Combine(root, "canonical-prefix-boundaries"));
             BoundedIdentityQueries(Path.Combine(root, "bounded-identity-queries"));
             return assertions;
         }

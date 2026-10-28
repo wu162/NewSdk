@@ -218,8 +218,11 @@ namespace NewModCompiler.Application
                         string restored = Path.Combine(task.Directory, "restored");
                         if (ReadResult(task, restored))
                         {
-                            File.Copy(Path.Combine(restored, "result.bin"), Path.Combine(task.Directory, "result.bin"));
-                            if (File.Exists(Path.Combine(restored, "result.cdata"))) File.Copy(Path.Combine(restored, "result.cdata"), Path.Combine(task.Directory, "result.cdata"));
+                            // Store restoration already copied and verified private bytes.
+                            // ReadResult has closed its reader; both names are beneath
+                            // the same reparse-rejected task directory on one volume.
+                            File.Move(Path.Combine(restored, "result.bin"), Path.Combine(task.Directory, "result.bin"));
+                            if (File.Exists(Path.Combine(restored, "result.cdata"))) File.Move(Path.Combine(restored, "result.cdata"), Path.Combine(task.Directory, "result.cdata"));
                             task.Hit = true; metrics.Hits++;
                             metrics.RestoredBytes += new DirectoryInfo(restored).EnumerateFiles().Sum(x => x.Length);
                         }
