@@ -1,0 +1,585 @@
+{
+  "sourceCommit": "e8835cfee56cb35376a6bc1cb18a40d189263842",
+  "expectedAssets": 2560,
+  "targetPlatform": "Win32",
+  "traceArchiveSha256": "edb8e695dbf55750d7da1c7f5d2e8730041398cc9e372cf7e1c4f252f16b933a",
+  "fixtureFiles": [
+    {
+      "bytes": 77,
+      "sha256": "a8c86d39516de07ebcf339954a853420ac624a0a825b2b577050bad766e93a8e",
+      "name": "bmp-d16-topFalse-3x2-p0.bmp"
+    },
+    {
+      "bytes": 77,
+      "sha256": "27638f2845d8788469b867f41fce5a64aaa6c2ce7e9c05c886e26042bb50fdb0",
+      "name": "bmp-d16-topFalse-3x2-p2.bmp"
+    },
+    {
+      "bytes": 141,
+      "sha256": "98ce4bc730d3e62a24b15505d408344721a041475dd58ffa52656ecb4985b2dc",
+      "name": "bmp-d16-topFalse-7x5-p0.bmp"
+    },
+    {
+      "bytes": 141,
+      "sha256": "84f35d00ea7356f6495fee6dbf7b5749754cbf7677fff5ff8b2ea453305e68ef",
+      "name": "bmp-d16-topFalse-7x5-p2.bmp"
+    },
+    {
+      "bytes": 96,
+      "sha256": "ce619b04f04a46fca115abea56924dc8014c0d3a9ac8b2fce442b35f958f4997",
+      "name": "png-c0-d1-i0-m0-3x2-p0.png"
+    },
+    {
+      "bytes": 96,
+      "sha256": "5b01e2c5425d2e6da0e2766450b824294049fc3d722aadaba908b3f3849a9690",
+      "name": "png-c0-d1-i0-m0-3x2-p2.png"
+    },
+    {
+      "bytes": 102,
+      "sha256": "a829c32bbd40499775be8ff66908f794cac6f4e5633e761a4b85cdc1859e7125",
+      "name": "png-c0-d1-i0-m0-7x5-p0.png"
+    },
+    {
+      "bytes": 102,
+      "sha256": "cdce4cb1be703be9dd43abf163820a29a80f294896c2cbc70faaf4ec4098978a",
+      "name": "png-c0-d1-i0-m0-7x5-p2.png"
+    },
+    {
+      "bytes": 106,
+      "sha256": "a7df921afcd376386ae8c02af6c165dd39c6cf8845518ab4741d2fba69776de9",
+      "name": "png-c0-d16-i0-m0-3x2-p0.png"
+    },
+    {
+      "bytes": 106,
+      "sha256": "1f2818d84edff2795616fcd925873cd518c8c8c3e891235a819488e99757dadb",
+      "name": "png-c0-d16-i0-m0-3x2-p2.png"
+    },
+    {
+      "bytes": 167,
+      "sha256": "503d31b39e4e08e0e10219266db2f66d6ecfb8b60469c4f57618d9214d46da76",
+      "name": "png-c0-d16-i0-m0-7x5-p0.png"
+    },
+    {
+      "bytes": 167,
+      "sha256": "564d2fdbfe96b48f45796ee045c68020bfccae603ee2c4c5474d8b3065bfa43d",
+      "name": "png-c0-d16-i0-m0-7x5-p2.png"
+    },
+    {
+      "bytes": 96,
+      "sha256": "d1e32e8cd0629e88ead4841eebcfe355ae64a99fce27deac68d2010abb49ab2f",
+      "name": "png-c0-d2-i0-m0-3x2-p0.png"
+    },
+    {
+      "bytes": 96,
+      "sha256": "c5691e94275b297b08e9a4cac0c710665b0bd75ffca375c2c4c465e49513c09e",
+      "name": "png-c0-d2-i0-m0-3x2-p2.png"
+    },
+    {
+      "bytes": 107,
+      "sha256": "04fbb248b7a014433e9a206289ff185c8a5d4147f363f5233fc351bfe863db83",
+      "name": "png-c0-d2-i0-m0-7x5-p0.png"
+    },
+    {
+      "bytes": 107,
+      "sha256": "b99bcaf3e33b1e942efc4b104c4f853a18026f60a2de5a0de869113d918251d5",
+      "name": "png-c0-d2-i0-m0-7x5-p2.png"
+    },
+    {
+      "bytes": 98,
+      "sha256": "f7e307bed98992dcd4b7712dffd779f92438237b05eb264a6da070ad5d994db6",
+      "name": "png-c0-d4-i0-m0-3x2-p0.png"
+    },
+    {
+      "bytes": 98,
+      "sha256": "83ad0900043e387e0b4f84d4bf6a2972d2c47fef5f98a424a3cc17f45e1e3d69",
+      "name": "png-c0-d4-i0-m0-3x2-p2.png"
+    },
+    {
+      "bytes": 117,
+      "sha256": "ebba1e0099f59c45845b9dabbdf584338b99dd19c749fd91ff20856c0a4633bd",
+      "name": "png-c0-d4-i0-m0-7x5-p0.png"
+    },
+    {
+      "bytes": 117,
+      "sha256": "0bef87e65c0d3eb5489bb46ff677cb702e6402172566620ca2f4d70736b683a9",
+      "name": "png-c0-d4-i0-m0-7x5-p2.png"
+    },
+    {
+      "bytes": 100,
+      "sha256": "3419ade55ce44bbc8d31bfe360bf91f76f9167782fd1d31a75b3ca85bd09c74a",
+      "name": "png-c0-d8-i0-m0-3x2-p0.png"
+    },
+    {
+      "bytes": 100,
+      "sha256": "93b032b9e4d3bf6112292509026e7c045252a7d528d3797626877f68fabe01f2",
+      "name": "png-c0-d8-i0-m0-3x2-p2.png"
+    },
+    {
+      "bytes": 132,
+      "sha256": "4edb411c0cab06526251291255a9453fe1c5ee168c24aa3872792e59b80ad49e",
+      "name": "png-c0-d8-i0-m0-7x5-p0.png"
+    },
+    {
+      "bytes": 132,
+      "sha256": "a709f1406f6f04082542e0fcd26d86a020cf2e740cb25545c5aec7ef8424c92a",
+      "name": "png-c0-d8-i0-m0-7x5-p2.png"
+    },
+    {
+      "bytes": 130,
+      "sha256": "59818e0a050ed4fe273a0e8f22521650b3844552306814a19bdbe9d4aa25aac1",
+      "name": "png-c2-d16-i0-m0-3x2-p0.png"
+    },
+    {
+      "bytes": 130,
+      "sha256": "7787ec43b53c9cbb6e1b7422acb1a4030f238b48bc8982e65c71fa5373f0ae32",
+      "name": "png-c2-d16-i0-m0-3x2-p2.png"
+    },
+    {
+      "bytes": 307,
+      "sha256": "bbc011b0d6a576b7cb9b04b399e4a45539041cea570e2439a3454a90b04943a1",
+      "name": "png-c2-d16-i0-m0-7x5-p0.png"
+    },
+    {
+      "bytes": 307,
+      "sha256": "250087c950ad3e41ae9a4f003c0579fc3c582c7d0a09a57e3379d9f0dbe2e2f1",
+      "name": "png-c2-d16-i0-m0-7x5-p2.png"
+    },
+    {
+      "bytes": 106,
+      "sha256": "ef7deb6c019707ccc32e234ade4d0c1b35e01bc9c9d6bb8a9d85b55a7c073cac",
+      "name": "png-c4-d8-i0-m0-3x2-p0.png"
+    },
+    {
+      "bytes": 106,
+      "sha256": "27d16c9d505065c67263b830c9aadeed2f3d19734144885f89d75fd899899087",
+      "name": "png-c4-d8-i0-m0-3x2-p2.png"
+    },
+    {
+      "bytes": 167,
+      "sha256": "69d51c9f96ff76155011c5019d518e8aa44bd0d517af91c6a794baa159c3d394",
+      "name": "png-c4-d8-i0-m0-7x5-p0.png"
+    },
+    {
+      "bytes": 167,
+      "sha256": "5ad51a6c01e5753fffb4cab3ebc56f4b05dfa1d2c34459292e7910ac853e4c8a",
+      "name": "png-c4-d8-i0-m0-7x5-p2.png"
+    },
+    {
+      "bytes": 142,
+      "sha256": "ee9c10f54eca2778bc6cefed00603468de3301c6d7dee68d72670b48fc30347a",
+      "name": "png-c6-d16-i0-m0-3x2-p0.png"
+    },
+    {
+      "bytes": 142,
+      "sha256": "3af3fab213a9eb9d97145b6ef245a29f43a01e3bc6feaf0fb888090bda227c69",
+      "name": "png-c6-d16-i0-m0-3x2-p2.png"
+    },
+    {
+      "bytes": 377,
+      "sha256": "a3db5acbeb6f370d6fd46449a16c58f10706ed7219f42ce728356b56c4043aa8",
+      "name": "png-c6-d16-i0-m0-7x5-p0.png"
+    },
+    {
+      "bytes": 377,
+      "sha256": "d97e582071ec8eff78d17f8c188e90161ccaa7e7d5826aaf28600b44681361b3",
+      "name": "png-c6-d16-i0-m0-7x5-p2.png"
+    },
+    {
+      "bytes": 39,
+      "sha256": "bc66258e39969384c0cd6e63aed38d775c803e693383eb1cabf94c5cb61548dd",
+      "name": "tga-f1-d8-pal15-a0-rleFalse-dir0-3x2-p0.tga"
+    },
+    {
+      "bytes": 39,
+      "sha256": "bc66258e39969384c0cd6e63aed38d775c803e693383eb1cabf94c5cb61548dd",
+      "name": "tga-f1-d8-pal15-a0-rleFalse-dir0-3x2-p2.tga"
+    },
+    {
+      "bytes": 68,
+      "sha256": "ec447622b45a8fe8b54ee5d2c03eaaa7e628b732413fa348b2809a16ff21b5ff",
+      "name": "tga-f1-d8-pal15-a0-rleFalse-dir0-7x5-p0.tga"
+    },
+    {
+      "bytes": 68,
+      "sha256": "ec447622b45a8fe8b54ee5d2c03eaaa7e628b732413fa348b2809a16ff21b5ff",
+      "name": "tga-f1-d8-pal15-a0-rleFalse-dir0-7x5-p2.tga"
+    },
+    {
+      "bytes": 39,
+      "sha256": "2826ac6578b565588358cf0c020b807f0c83ae573b329aa361a92676b4192801",
+      "name": "tga-f1-d8-pal16-a0-rleFalse-dir0-3x2-p0.tga"
+    },
+    {
+      "bytes": 39,
+      "sha256": "bdc85ea8b4f14684a9117a4e5df2a0d2b7b74305e9128e38336fe6a07a28cb2b",
+      "name": "tga-f1-d8-pal16-a0-rleFalse-dir0-3x2-p2.tga"
+    },
+    {
+      "bytes": 68,
+      "sha256": "c66d43dba4c38a7c46fd252c2cd9fd01cf5bfa317c9e44325bc02021ff964c7b",
+      "name": "tga-f1-d8-pal16-a0-rleFalse-dir0-7x5-p0.tga"
+    },
+    {
+      "bytes": 68,
+      "sha256": "45c273bd8e806cb8c7cf5ae7a3fa8f4d56de6f2e9ce2fb35f57440ca2b6cd7bf",
+      "name": "tga-f1-d8-pal16-a0-rleFalse-dir0-7x5-p2.tga"
+    },
+    {
+      "bytes": 43,
+      "sha256": "34bac8591ce99c8e455eb548d9d6a69073121a4fd7c39becc358f7d54b36ae94",
+      "name": "tga-f1-d8-pal24-a0-rleFalse-dir0-3x2-p0.tga"
+    },
+    {
+      "bytes": 43,
+      "sha256": "34bac8591ce99c8e455eb548d9d6a69073121a4fd7c39becc358f7d54b36ae94",
+      "name": "tga-f1-d8-pal24-a0-rleFalse-dir0-3x2-p2.tga"
+    },
+    {
+      "bytes": 72,
+      "sha256": "56a6b1ce18bee5a57dd0db068b6c805170fdde174ba5608ec51e68650e629c83",
+      "name": "tga-f1-d8-pal24-a0-rleFalse-dir0-7x5-p0.tga"
+    },
+    {
+      "bytes": 72,
+      "sha256": "56a6b1ce18bee5a57dd0db068b6c805170fdde174ba5608ec51e68650e629c83",
+      "name": "tga-f1-d8-pal24-a0-rleFalse-dir0-7x5-p2.tga"
+    },
+    {
+      "bytes": 47,
+      "sha256": "38cb7dff2f804eb01012448e85e444b8409c3ba8ceb8aab408bc1663f4a1361a",
+      "name": "tga-f1-d8-pal32-a0-rleFalse-dir0-3x2-p0.tga"
+    },
+    {
+      "bytes": 47,
+      "sha256": "6efb12307a670837e7dbd39b2806c0da6c6c90e4aa9f374a176c999e1bcd7956",
+      "name": "tga-f1-d8-pal32-a0-rleFalse-dir0-3x2-p2.tga"
+    },
+    {
+      "bytes": 76,
+      "sha256": "314ab6beff97a6631c47901983a5533e36f8c31f530e3240cafe10af3d699e3c",
+      "name": "tga-f1-d8-pal32-a0-rleFalse-dir0-7x5-p0.tga"
+    },
+    {
+      "bytes": 76,
+      "sha256": "587b510093ce46204235d3c547519f12773492c2997ff7228916799c9aebfde0",
+      "name": "tga-f1-d8-pal32-a0-rleFalse-dir0-7x5-p2.tga"
+    },
+    {
+      "bytes": 37,
+      "sha256": "7530d625e05819ba743f39c3de188bb2cd48b71cfe477cb087ad2c1e2f2f7f44",
+      "name": "tga-f2-d16-pal0-a0-rleFalse-dir0-3x2-p0.tga"
+    },
+    {
+      "bytes": 37,
+      "sha256": "c1f05a83e814623bef14a19423c297e78e6678c29ac5b029108f6f97661b9cc8",
+      "name": "tga-f2-d16-pal0-a0-rleFalse-dir0-3x2-p2.tga"
+    },
+    {
+      "bytes": 95,
+      "sha256": "a65ac4bc55e6210f041f784ec511d996219903b150cb04e1796dd0b028a44db5",
+      "name": "tga-f2-d16-pal0-a0-rleFalse-dir0-7x5-p0.tga"
+    },
+    {
+      "bytes": 95,
+      "sha256": "3a445cd092918ca43ee6ca310913bec4f7e0ef300c8c449a597b0297afe930ce",
+      "name": "tga-f2-d16-pal0-a0-rleFalse-dir0-7x5-p2.tga"
+    },
+    {
+      "bytes": 37,
+      "sha256": "cb39ba39058a65fd795f30e274c494c3e89da5d8a0d2dd89954925ffffdd8827",
+      "name": "tga-f2-d16-pal0-a1-rleFalse-dir0-3x2-p0.tga"
+    },
+    {
+      "bytes": 37,
+      "sha256": "3b33399820f9cab0d9fa88b2da00da2d9cc397d8331ad9a17b9a29f9fd79c294",
+      "name": "tga-f2-d16-pal0-a1-rleFalse-dir0-3x2-p2.tga"
+    },
+    {
+      "bytes": 95,
+      "sha256": "cd0659ad8e9330b02a64e0d2b8741f528c4f17d3f2450b0ba7e9691394cb7673",
+      "name": "tga-f2-d16-pal0-a1-rleFalse-dir0-7x5-p0.tga"
+    },
+    {
+      "bytes": 95,
+      "sha256": "4c385546882ece2981cfc1d6fa26115246cb6f83510c7f676159649222a6c7eb",
+      "name": "tga-f2-d16-pal0-a1-rleFalse-dir0-7x5-p2.tga"
+    },
+    {
+      "bytes": 31,
+      "sha256": "c1e4a6901b413860c3982bedab969e5f040eef8b4fdefb28b5512076c73153ed",
+      "name": "tga-f3-d8-pal0-a0-rleFalse-dir0-3x2-p0.tga"
+    },
+    {
+      "bytes": 31,
+      "sha256": "c1e4a6901b413860c3982bedab969e5f040eef8b4fdefb28b5512076c73153ed",
+      "name": "tga-f3-d8-pal0-a0-rleFalse-dir0-3x2-p2.tga"
+    },
+    {
+      "bytes": 60,
+      "sha256": "02cb47050aec0d132b2ede6b19015e93cf42c6e992c5943d9acc785ab4e05901",
+      "name": "tga-f3-d8-pal0-a0-rleFalse-dir0-7x5-p0.tga"
+    },
+    {
+      "bytes": 60,
+      "sha256": "02cb47050aec0d132b2ede6b19015e93cf42c6e992c5943d9acc785ab4e05901",
+      "name": "tga-f3-d8-pal0-a0-rleFalse-dir0-7x5-p2.tga"
+    }
+  ],
+  "runAttempt": "1",
+  "nativeBinaries": [
+    {
+      "entryPoint": 0,
+      "sha256": "eae63e3527ad0d9faf3a6024d89e9effbd96f76ccc398250d2cbf4a38258dd38",
+      "name": "Recovered.TextureDxtColour.dll",
+      "machine": "I386",
+      "importDirectory": 0
+    },
+    {
+      "entryPoint": 0,
+      "sha256": "0124e2bd2faaf47ac1ee95389f5542188a850262acc2d9a3e867501ce683d801",
+      "name": "Recovered.TextureDxtAlpha.dll",
+      "machine": "I386",
+      "importDirectory": 0
+    }
+  ],
+  "profile": "PcNpotStorage",
+  "modes": [
+    {
+      "files": [
+        {
+          "sha256": "0f9f549fd94746c8c41054b3e7e84e57b6c17f13b38a0921a37d78a8e1af2a41",
+          "bytes": 328324,
+          "file": "mod.bin"
+        },
+        {
+          "sha256": "5ddbf775a52a7612a7b692c25b94d6a68346c9e284cb73f4628025c192d0f1f0",
+          "bytes": 206337,
+          "file": "mod.manifest"
+        },
+        {
+          "sha256": "6b7c407272fca3a5492b5e01065570c26fdff152e778b11749417cd51d6013b2",
+          "bytes": 4,
+          "file": "mod.imp"
+        },
+        {
+          "sha256": "ba6a70ac063ce7f17be03ada356125887c928b0061ba8098c3bc4cb39c580857",
+          "bytes": 10244,
+          "file": "mod.relo"
+        }
+      ],
+      "uniqueAssets": 2560,
+      "assertedOriginalNotLoadedDuringEveryCall": false,
+      "passed": true,
+      "mode": "Original",
+      "withoutOriginalTextureCompiler": false,
+      "actualCalls": 2560
+    },
+    {
+      "files": [
+        {
+          "sha256": "0f9f549fd94746c8c41054b3e7e84e57b6c17f13b38a0921a37d78a8e1af2a41",
+          "bytes": 328324,
+          "file": "mod.bin"
+        },
+        {
+          "sha256": "5ddbf775a52a7612a7b692c25b94d6a68346c9e284cb73f4628025c192d0f1f0",
+          "bytes": 206337,
+          "file": "mod.manifest"
+        },
+        {
+          "sha256": "6b7c407272fca3a5492b5e01065570c26fdff152e778b11749417cd51d6013b2",
+          "bytes": 4,
+          "file": "mod.imp"
+        },
+        {
+          "sha256": "ba6a70ac063ce7f17be03ada356125887c928b0061ba8098c3bc4cb39c580857",
+          "bytes": 10244,
+          "file": "mod.relo"
+        }
+      ],
+      "uniqueAssets": 2560,
+      "assertedOriginalNotLoadedDuringEveryCall": false,
+      "passed": true,
+      "mode": "Recovered",
+      "withoutOriginalTextureCompiler": false,
+      "actualCalls": 2560
+    },
+    {
+      "files": [
+        {
+          "sha256": "0f9f549fd94746c8c41054b3e7e84e57b6c17f13b38a0921a37d78a8e1af2a41",
+          "bytes": 328324,
+          "file": "mod.bin"
+        },
+        {
+          "sha256": "5ddbf775a52a7612a7b692c25b94d6a68346c9e284cb73f4628025c192d0f1f0",
+          "bytes": 206337,
+          "file": "mod.manifest"
+        },
+        {
+          "sha256": "6b7c407272fca3a5492b5e01065570c26fdff152e778b11749417cd51d6013b2",
+          "bytes": 4,
+          "file": "mod.imp"
+        },
+        {
+          "sha256": "ba6a70ac063ce7f17be03ada356125887c928b0061ba8098c3bc4cb39c580857",
+          "bytes": 10244,
+          "file": "mod.relo"
+        }
+      ],
+      "uniqueAssets": 2560,
+      "assertedOriginalNotLoadedDuringEveryCall": true,
+      "passed": true,
+      "mode": "NoOriginal",
+      "withoutOriginalTextureCompiler": true,
+      "actualCalls": 2560
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Managed/Plugin.Atlas.cs",
+      "sha256": "464b44bc5ef15993e8785d0b31130b6998ca519ec5804aee7b3e76dd2d55227b"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/Plugin.Dds.cs",
+      "sha256": "318685344fd7eb21925ad91c8e15aae02b219f9bac2f6446d4696452f3f6ad27"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/Plugin.Images.cs",
+      "sha256": "cdec9ffe00a30af9df2a020d5fcf87afd3fd96376aad400aa9651db05486cdb8"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/Plugin.Metadata.cs",
+      "sha256": "cf65743de09274651b516c0cdf137169fd58b204a0ffeaf85a9f197db2e2476f"
+    },
+    {
+      "path": "src/TextureCompiler/Dxt/README.md",
+      "sha256": "ab32e023e8b8673f484cee52af9cda38fa15a02fc70daae15356edc8bcf4604b"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj",
+      "sha256": "4a9bb8990084335f2e1f2a51c05dbd0dfd3cbf3d86e87712c8dc4e5f7899c455"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66"
+    },
+    {
+      "path": "src/TextureCompiler/Dxt/TextureAlphaQuantizer.cpp",
+      "sha256": "e00f17c387de53110e8f78e023c524f277db2b8172aad193ab5993b959e3c5ba"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureAtlasDdsEncoder.cs",
+      "sha256": "8ae860b573ec81ad33eb23222d4773e090c5f8e6c62be252f9eae4de52148b19"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+      "sha256": "98c7dd22ab33d31f5a343c92ec7cb19996b1fcbe9e8e38db0335caeda99259f4"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureCatalog.cs",
+      "sha256": "20993978972f37c771c44f15dfe4bbd7d446157b823bcdc412cc321ec048891f"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs",
+      "sha256": "5c0148c0297e16db3a593ee6aed6180eb2e5ad208eabf9257de557cbe47edbb1"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs",
+      "sha256": "21ac8c4b7a0ca1da47f9b030468a127b5dac26d8c8577de23a8baef7db8bb570"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureDxt5FastAlphaEncoder.cs",
+      "sha256": "d187a663098b9cee0ad5bed2e80d9619f37097a33243d99b9148b764a94a4b6e"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs",
+      "sha256": "050500fa4d38db31b94fafec2c8d2421058a986b6c1b79ee6ba2da787dc8a3a2"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs",
+      "sha256": "1328e392626f4317d47af3c59716a5ecf6a5c7ae4b9d59eaab4ac6b67ab64cd2"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
+      "sha256": "449ff8a4e0b87d4c82a45b5f2c0c4784af66ad62dc833a36e0d5ff87d5ad1d94"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs",
+      "sha256": "bd99d0b0cb22fe9994b6dd4bda7e1bcac3998129a47df79580778b382834fda5"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureImageLoader.cs",
+      "sha256": "ffdb57b39c28082f332064d5af008b99b862a354c9f9a89b590c07e7c80fb761"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureImageRules.cs",
+      "sha256": "3072b97d55478e3e5836a4fa9237702be5c59a491e30f75dc7f7fa2b6b2b7408"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureJpegDecoder.cs",
+      "sha256": "a9aadb2e7e2a067adcddaff506e352e21076d73fe10e7f884f1d959e8be0517c"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+      "sha256": "9c9251ac5b11478e951468f0ad51b160f72652be8ce960f45a95247fdc562de0"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs",
+      "sha256": "b55034426d263718ab22c1f2865ed0a005cb6ac99247707a3eaa7e0ec2ccff61"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TexturePacker.cs",
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TexturePngDecoder.cs",
+      "sha256": "be7a64fbba7a14aad4213067cabce75271e41e2630e1262dfcf72730e3ceeb44"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+      "sha256": "44807a0dddbc6e9287187496572cbd6eea9519de20758773cba2ea6f0a07e49a"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+      "sha256": "6b68e58cff8423ff766bce30b45e52782435d18244966423d417f43fe5cf6661"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
+      "sha256": "31fe55228b799364a54be283228105c5c1d05af12a68f779fad9825f0da2e00e"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs",
+      "sha256": "8209f4b9e8e55ef34cf08e8a44a5f77612319f5eb1a0dccb341f59718b995239"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureVolume.cs",
+      "sha256": "4d203e1fa3cddef9094c7452c3ff4ae9c971eb26b1f104e7fa8914d21cd0d85b"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs",
+      "sha256": "f6b1cf28db0f1cf49e47c2f46aef953052618cc3f51ff5414ccac2db32a8f9ba"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs",
+      "sha256": "d3e2f8f6894ba1f40a8662c59602c7b91e54e9d16b7457c6b58290e4267e4e6b"
+    }
+  ],
+  "scope": "EALAModStudio case5 BAB build of dedicated PC standard/volume raw+DXT3/5 POT/NPOT TGA/PNG/BMP texture MOD: PcNpotStorage",
+  "originalNpotStorageBaseline": {
+    "runId": "40592911746",
+    "fixtures": 64,
+    "sourceCommit": "c6459c7f0d2a88d3680e882bb0713bc95cb985a5"
+  },
+  "sdkValidated": true,
+  "runId": "40628208308",
+  "status": "passed"
+}

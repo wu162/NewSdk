@@ -1,27 +1,26 @@
-# TextureCompiler 当前交接（2026-10-28 11:23 北京时间）
+# TextureCompiler 当前续接（2026-10-28 11:54 北京时间）
 
-继续 `recovery/texturecompiler-source`，仅PC；禁止强推，编译测试仅GitHub Actions，每轮尽量约70分钟。本次按用户“先交接”保存，不启动新批次、不把在跑结果写成成功。生产SDK DLL/config未替换，全部成果继续在本分支。
+目标 `recovery/texturecompiler-source`，仅PC，禁止强推，编译/测试只在GitHub Actions，每轮尽量约70分钟。用户新增要求：直接复用网上可取得的现成源码，在独立测试分支比较产物，完整一致才合入；不按许可类型筛选公开候选，保留上游文件/通知/来源。本轮已执行该流程，详见[公开源码比较与验收](TEXTURE_PUBLIC_REUSE_RESULTS.md)。生产SDK DLL/config未替换。
 
-## 第一件事：收取仍在跑的业务验证
+## 已完成：现成IJG6b源码 + 原版精确适配
 
-交接时远程头与本地均为 `699479a95c73012f5e66b74a3d7d1e43f1d8b51f`，对应 [40626161229](https://github.com/wu162/NewSdk/actions/runs/40626161229) **in_progress，未取得终态**。先核对最新远程头，保留Actions写回，再按batch/各组收据判断，不重复启动同源码组。该run是JPEG业务首次完整组件批次，未请求SDK。
+- 组件源码 `699479a95c73012f5e66b74a3d7d1e43f1d8b51f` / [40626161229](https://github.com/wu162/NewSdk/actions/runs/40626161229) completed/success：13受影响组件组通过。jpeg D/R各1284记录（1280完整RGBA/元数据相同、4原错误），23105检查、888960字节、逐次NoOriginal；六个灰度NPOT差异已由原L8存储规则完全修复。jpeg-images各11248入口（16原错误、6既有DXT1/1A拒绝）、82,231,440字节比较与同量NoOriginal，含raw/DXT3/5、二维/volume/mips、旧cdata和32 JPEG编码atlas变体。
+- 干净集成测试分支 `validation/texture-public-jpeg` 从贴图分支05208638创建，没有不匹配的DXT/STB实验源码。SDK验收源码 `e8835cfee56cb35376a6bc1cb18a40d189263842` / [40628208308](https://github.com/wu162/NewSdk/actions/runs/40628208308) completed/success：9个SDK profile全部通过、32组件组复用。PcJpeg Original/Recovered/NoOriginal各3216资产/3216实际Core调用，四产物和完整实际轨迹相同；NoOriginal逐次确认原DLL不存在且未加载。全9profile每模式合计13104资产/调用。PcJpeg mod.bin=12,181,924字节。SDK已完成，不再按旧“准备稿/运行中”重复触发。
+- 自有C桥接`src/TextureCompiler/Jpeg/TextureJpeg.c`直接静态链接固定IJG6b公开源码，IFAST/fancy，灰度L8/RGB RGBA8 NPOT；公共ImageLoader和.jpg/.jpeg路由已验收。原型原gold `3f2351f2/40625499544` 1284/2568调用保留probe-only。源库`recovery/reference/ijg6b`里最初说明的“probe-only”是采集阶段历史范围，当前消费/验收以上述成功锚点为准；不改写已固定源文件/指纹。CMYK/未声明metadata等域不扩大支持，专用MOD不冒充完整mymod。
 
-- `699479a9` 已接入 `TextureJpegDecoder.cs`、自有C桥接 `src/TextureCompiler/Jpeg/TextureJpeg.c`、公共ImageLoader和.jpg/.jpeg路由。候选固定IJG6b IFAST/fancy；灰度通过源jpeg_color_space标志选择既有L8 NPOT resampler，RGB走RGBA8。**业务仍待验收，不能声称JPEG已支持。**
-- 新`jpeg`组应完整回放1284原输入、元数据/完整RGBA/异常及逐次NoOriginal，D/R各自构建native /Od、/O2；6个已定位灰度NPOT像素差异是否被L8路径修复，须以该回放结果确认。
-- 新`jpeg-images`组应验证11248例公共入口原版差分与NoOriginal：1284输入的两根/旧新cdata/raw基本路由，80个focused输入的完整raw3/DXT3/5×两根×标准/volume×有无mip×旧新cdata矩阵，以及8种256×256 JPEG编码但命名.tga的atlas base/normal共32例。未删改19404旧dxt-images矩阵；依赖表同步登记JPEG桥接/参考库及所有公共loader消费者。
-- 新 `sdk-PcJpeg` 及 `TestTextureJpegSdk.ps1` **仅准备，未运行**：计划80输入×40纹理组合=3200，加16个JPEG编码atlas资产，总3216；Original/Recovered/NoOriginal四产物/实际Core轨迹。先完成组件，再显式[texture-sdk]；不得把准备稿或旧PC SDK证据作为JPEG SDK验收。新增SDK脚本当前尚未通过Actions语法/执行验证。
+## 已测试但禁止作为等价后端合入：现成DXT/STB
 
-## 已完成并可复用的精确锚点
+- 分支 `validation/texture-public-codecs`，实际比较源码94ebf7886592843a06f6e1bc5cacaf372ae0b4ff / [40627584385](https://github.com/wu162/NewSdk/actions/runs/40627584385) success表示比较完成，收据status=comparison-completed、productionAccepted=false。复制30个未改上游源码/通知，Git blob/SHA256逐项核对；libsquish12配置、stb_dxt2配置、NVTT ICBC18配置，共32配置。
+- D/R各对全部10240原DXT3/5块比较（327680候选块），完整源RGBA与原/候选块归档。最佳完整匹配/5120：libsquish DXT3=481、DXT5=1；stb=288/232；ICBC=1217/2。**没有一个完整格式达到5120/5120**，实际随机样本RGB565端点也不同；不能只改DDS头或常量索引宣称等价。Squish DXT3 alpha单独5120相同不代表颜色/完整DXT相同。
+- STB JPEG完整匹配272/1280，原拒绝匹配1/4，不等价；不启用。16个DXT1/1A旧快照仅probe-only，原默认未初始化状态门槛保留。失败/不匹配实验代码与产物留在上述测试分支；贴图分支只接收已完整验收的IJG6b结果与说明。
 
-**完整公共TerrainTextureAtlas及专用SDK已验收**：源码 `be520b8e4e8d4180fc5961e189a059b0e42fef90` / [40607538234](https://github.com/wu162/NewSdk/actions/runs/40607538234) attempt1 completed/success，16受影响组通过、22未变组件组复用。atlas D/R各48例（40成功含空声明、8原错误）、1623检查、84,513,604字节完整比较与逐次NoOriginal；专用PcAtlas三模式各16资产/16实际Core调用、四产物/完整轨迹相同，mod.bin=66,350,560字节。同批其余7 SDK profile全部成功，每模式合计9888资产/调用。后续JPEG共享loader变更已使相关消费者进入新run；不能把be520当699的新验收。详见[atlas](TEXTURE_ATLAS_NEXT.md)。
+## 继续工作的约束与入口
 
-**JPEG原版与六模式取证已完成**：源码 `3f2351f2d0b0adccf416ba6dda7e97d49b5c92f6` / [40625499544](https://github.com/wu162/NewSdk/actions/runs/40625499544) success，收据为probe-only。1284例=1280解码/4完全匹配候选拒绝，2568原调用；IFAST/fancy匹配1274，余6均灰度NPOT、各仅一个RGB像素各通道差1。POT灰度/全部彩色均匹配；L8存储量化是当前待验证修复。原输入/所有完整RGBA在samples.zip，SHA256 b758465f88b831f5952e4700531ffe5b83a9696be6889a8b9d0defdc1eee24a1；不要重新采这批原样本。详见[JPEG入口](TEXTURE_JPEG_NEXT.md)。
+先fetch远程头并保留Actions证据；上述验证源码均应为合入后祖先，输入未变时复用原sourceCommit/runId，文档/合并提交不冒充新跑SDK。已验收全部PC atlas仍保留be520b8e/40607538234的48例/16资产原锚点，JPEG共享loader后的atlas组件与SDK已分别在40626161229/40628208308补验。
 
-失败历史全部保留：40606702213 atlas首轮仅新增负溢出ID失败，原VC8 strtoul先饱和再取负（-4294967296→1）已在be520最终修复。JPEG 40609293267因/TC误将jpeg.lib当C源码、40625214348因多余导出别名失败，均未采原样本；3f235已修复并验证C导出/I386。工作流补全BuildTexture/InspectTexture/参考库监听，仍只有统一入口、至多一个Windows作业顺序跑选中组。
+余下：原默认DXT1/1A未初始化状态、未声明图像/metadata、必要PC native边界和完整mymod/生产部署。不要再把JPEG、已声明NPOT或完整atlas列为未恢复。新公开实现可继续在测试分支跑完整原版差分；没有字节等价证据不得替换当前压缩器。历史失败保持真实状态，不重跑本轮未变成功组。
 
-公开IJG6b源码、未改README/许可、逐文件指纹位于`recovery/reference/ijg6b`（上游archive SHA256 75c3ec241e9996504fe02a9ed4d12f16b74ade713972f3db9e65ce95cd27e35d），目录.gitattributes固定字节；生产解码桥接不回调原DLL。DXT1/1A未初始化状态、未声明metadata、完整生产部署/mymod仍为独立门槛。
-
-以下为前序已核实NPOT/atlas历史，保留精确锚点；旧“atlas公共入口未接入”已由上节验收覆盖，当前JPEG状态以上述新run为准。
+以下为前序历史，旧“JPEG待验收/atlas未接入”等阶段描述由本页最新成功锚点覆盖。
 
 # TextureCompiler 当前续接（2026-10-28，北京时间）
 
