@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-原版取证与不可变gold、恢复组件及完整插件消费已通过。源码`1cff9256c8af926121cd47f44b82b34200ff24e1` / [40780996417](https://github.com/wu162/NewSdk/actions/runs/40780996417) completed/success：15个实际受影响组全部通过、22个未变成功组复用。Debug/Release各7920 gold输入的双入口共15840调用、1094726检查、3153920 RGBA字节；34880插件输入与同量NoOriginal均0错误、各232844236字节比较。专用SDK即将集中验证，未取得成功收据前不宣称集成完成。
+原版取证与不可变gold、恢复组件及完整插件消费已通过。源码`1cff9256c8af926121cd47f44b82b34200ff24e1` / [40780996417](https://github.com/wu162/NewSdk/actions/runs/40780996417) completed/success：15个实际受影响组全部通过、22个未变成功组复用。Debug/Release各7920 gold输入的双入口共15840调用、1094726检查、3153920 RGBA字节；34880插件输入与同量NoOriginal均0错误、各232844236字节比较。专用SDK已闭环：源码`7ff6dc66e8d847718fcaf4926b7eecdce46c05ac` / [40783041481](https://github.com/wu162/NewSdk/actions/runs/40783041481) completed/success，11个profile三模式每模式17664实际资产/调用，37组件复用；四产物和每模式61811完整轨迹文件独立逐文件核对，新PcPngMetadata每模式4240资产。业务/native源码与组件1cff9256完全相同，SDK提交不冒充组件新跑。
 
 ## 已核对的原版契约
 
@@ -38,10 +38,10 @@
 - `png-metadata`：`TestTexturePngMetadata.ps1`固定两份gold的sourceCommit/runId/归档SHA/总数/成功拒绝数，要求原源码是祖先；Debug/Release分别对全部7920输入执行直接decoder与公共ImageLoader两入口，共15840次调用。逐像素完整比较RGBA、尺寸/hasAlpha和原错误，数组与源文件不变，每次调用前后检查原DLL不存在且未加载。
 - `png-metadata-images`：`TestTexturePngMetadataImages.ps1`，D/R各34880输入及同量NoOriginal重放。32640个raw3/DXT3/5输入、2176个全透明DXT1A输入、64个PNG编码atlas输入；两根、标准/volume、无mip/完整mip、POT/NPOT、linear/Adam7、新旧cdata。完整三buffer、全cdata/旧文件尾与源字节相同，并作独立DDS/atlas布局检查。默认DXT1/不透明DXT1A范围不扩大。
 - 原受影响组通过集中选择器统一回归；成功且输入未变的组保留原sourceCommit/runId，gold探针不作为可复用恢复证据。原版取证入口`png-metadata-load`/`png-metadata-order`为manual_only/evidence_only。
-- SDK专用组`sdk-PcPngMetadata`覆盖4240实际资产，当前待验收：88张不可变RGBA8 POT/NPOT输入产生3520 raw/DXT3/5资产，88张全透明metadata输入产生704 DXT1A资产，8张PNG编码TGA路径产生16 atlas base/normal资产。三模式实际Core调用、四产物、全轨迹文件集/完整buffer/cdata与逐次NoOriginal；不替代完整MOD。
+- SDK专用组`sdk-PcPngMetadata`已验收4240实际资产：88张不可变RGBA8 POT/NPOT输入产生3520 raw/DXT3/5资产，88张全透明metadata输入产生704 DXT1A资产，8张PNG编码TGA路径产生16 atlas base/normal资产。三模式实际Core调用、四产物、全轨迹文件集/完整buffer/cdata与逐次NoOriginal；不替代完整MOD。
 
 ## 下一步和效率
 
-本轮最终组件已取得完整成功证据，接着集中必要SDK并独立逐文件核对实际归档。此后PNG metadata本批闭环，转向未声明JPEG CMYK或TGA metadata/RLE、其他BMP组合的实际输入取证。原默认DXT1/不透明DXT1A的未初始化边界继续拒绝。
+本轮组件、所有受影响专用SDK已完成；[SDK归档审计](evidence/texture/handoffs/20261029-png-metadata/sdk-archive-audit.json)核对11 profile、三模式实际资产、四产物以及所有实际轨迹文件。此后PNG metadata本批闭环，转向未声明JPEG CMYK或TGA metadata/RLE、其他BMP组合的实际输入取证。原默认DXT1/不透明DXT1A的未初始化边界继续拒绝。
 
 本轮先用两个独立原版探针查清完整metadata规则，再合批所有恢复/消费矩阵，避免按单个ICC或APNG子项重复启动全部消费者。未重跑既有成功且输入未变的组件，完整mymod仍manual_only。无法量化账号额度节省。

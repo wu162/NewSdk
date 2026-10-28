@@ -6,7 +6,7 @@ DXT3/5默认71颜色/alpha、完整块、POT二维/volume无mip与完整float mi
 
 透明块DXT1A现已完成独立公开源码适配、block/float/partial、二维/volume/mip、Texture/OnDemandTexture与320资产专用SDK验收，源码与运行锚点见[受限DXT1A](TEXTURE_DXT1A_TRANSPARENT.md)。每个实际编码块（包括全部mip和volume切片）都必须有alpha<=0.5的样本；padding空洞不计透明样本。默认DXT1及任何全不透明DXT1A块的原未初始化边界继续拒绝。完整mymod本轮未重跑，保留原5a1b8e1d/40657712486锚点，不冒充当前源码完整MOD验收。
 
-PNG ICC/APNG默认图与sRGB/gAMA优先级已完成组件及完整插件消费：1cff9256/40780996417 success，15组通过/22复用，D/R各7920 gold双入口与34880插件输入/逐次NoOriginal，详见[PNG metadata](TEXTURE_PNG_METADATA.md)。专用SDK待本轮集中验收，不将组件成功冒充集成完成。
+PNG ICC/APNG默认图与sRGB/gAMA优先级已完成组件及完整插件消费：1cff9256/40780996417 success，15组通过/22复用，D/R各7920 gold双入口与34880插件输入/逐次NoOriginal，详见[PNG metadata](TEXTURE_PNG_METADATA.md)。专用SDK在7ff6dc66/40783041481已通过，11 profile三模式每模式17664实际资产/调用、四产物与61811完整轨迹文件一致，PcPngMetadata每模式4240资产；37组件复用，业务源码同1cff9256。
 
 ## 唯一目标：Win32 / PC
 

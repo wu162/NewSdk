@@ -1,0 +1,579 @@
+{
+  "scope": "independent recorded products/complete actual trace audit; no BAB/codec execution",
+  "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+  "runId": "40783041481",
+  "profiles": [
+    {
+      "profile": "PcAtlas",
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-atlas/40783041481-1/validation.json",
+      "products": [
+        {
+          "file": "mod.bin",
+          "bytes": 66350560,
+          "sha256": "6abe2bde5acaca6b7b55804233b5e8965729134f5013f0a534b81807d13ea43f"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 1490,
+          "sha256": "e945bc79903ebc2a02d301a587c66c025e4cad17624aa65596488de035bc4fc6"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "36ce67470fe9f83a309686cf7358ea94503235e16b60314fccee845d230484e5"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 240,
+          "sha256": "60f4fbbbedb53382ed454cbb08e9f14faae19cf3ba73c5678eff77bf8c11d678"
+        }
+      ],
+      "modes": [
+        {
+          "mode": "Original",
+          "uniqueAssets": 16,
+          "actualCalls": 16,
+          "completeTraceFiles": 49,
+          "traceIndexSha256": "3bc1ee52ed31e7d0c974c48c24ca7bef9c3bc14f152aa416db594ffadae65ac9"
+        },
+        {
+          "mode": "Recovered",
+          "uniqueAssets": 16,
+          "actualCalls": 16,
+          "completeTraceFiles": 49,
+          "traceIndexSha256": "3bc1ee52ed31e7d0c974c48c24ca7bef9c3bc14f152aa416db594ffadae65ac9"
+        },
+        {
+          "mode": "NoOriginal",
+          "uniqueAssets": 16,
+          "actualCalls": 16,
+          "completeTraceFiles": 49,
+          "traceIndexSha256": "3bc1ee52ed31e7d0c974c48c24ca7bef9c3bc14f152aa416db594ffadae65ac9"
+        }
+      ],
+      "traceArchiveSha256": "08b152f2ab293466c2f2b7a8fe4c650119ec7b559601bf2b7c0281c198b9b335"
+    },
+    {
+      "profile": "PcDxtNoMip",
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-dxt/40783041481-1/validation.json",
+      "products": [
+        {
+          "file": "mod.bin",
+          "bytes": 83284,
+          "sha256": "809a661ba73770bd2811e910870716782e66ed577920651286f4115153375fac"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 56937,
+          "sha256": "9f4e6534dda5944435653f8b4b4c2d5bea5ded5b4d8bef6563ec6cc8f9dae6a0"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "ae7b62f1cdf79439c7ccc94de4d89d89b4d573d76cf4a07f4c5d671a3bf4f548"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 2852,
+          "sha256": "6eb8d803c2a543258466e4f125983446810db7ea2b63c8d97e46acf9165a64c8"
+        }
+      ],
+      "modes": [
+        {
+          "mode": "Original",
+          "uniqueAssets": 712,
+          "actualCalls": 712,
+          "completeTraceFiles": 2493,
+          "traceIndexSha256": "00cf945a15019ce3e78a5f69541363f40eaad0a5e4db926729bd68c41f3322a8"
+        },
+        {
+          "mode": "Recovered",
+          "uniqueAssets": 712,
+          "actualCalls": 712,
+          "completeTraceFiles": 2493,
+          "traceIndexSha256": "00cf945a15019ce3e78a5f69541363f40eaad0a5e4db926729bd68c41f3322a8"
+        },
+        {
+          "mode": "NoOriginal",
+          "uniqueAssets": 712,
+          "actualCalls": 712,
+          "completeTraceFiles": 2493,
+          "traceIndexSha256": "00cf945a15019ce3e78a5f69541363f40eaad0a5e4db926729bd68c41f3322a8"
+        }
+      ],
+      "traceArchiveSha256": "f968ec1bb53db19ab17cbd4cef11c5a7e8597a839cb494364218e8c87f38ee6d"
+    },
+    {
+      "profile": "PcDxtMips",
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-dxt-mips/40783041481-1/validation.json",
+      "products": [
+        {
+          "file": "mod.bin",
+          "bytes": 104980,
+          "sha256": "1606d79ded79155b467dca591ed397d6a28c51fe0582312763ffb5d28ccde8f0"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 56937,
+          "sha256": "8eee92a0be5636fe458ee52fd41c939b4daf31580e5118b5414a6b5036cb3cf9"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "bf31fbbf831f488871884288950ec975bc1c0fc5782d420bb61b8f1c2b3c5908"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 2852,
+          "sha256": "32609cbba4ff3f59b9e5b5e469830985c8bd603a638dba32b71ca611a444db96"
+        }
+      ],
+      "modes": [
+        {
+          "mode": "Original",
+          "uniqueAssets": 712,
+          "actualCalls": 712,
+          "completeTraceFiles": 2493,
+          "traceIndexSha256": "df27ebeda42364656084003a459e2c842bb8e316fe9fd4beb85f72fd6dd71305"
+        },
+        {
+          "mode": "Recovered",
+          "uniqueAssets": 712,
+          "actualCalls": 712,
+          "completeTraceFiles": 2493,
+          "traceIndexSha256": "df27ebeda42364656084003a459e2c842bb8e316fe9fd4beb85f72fd6dd71305"
+        },
+        {
+          "mode": "NoOriginal",
+          "uniqueAssets": 712,
+          "actualCalls": 712,
+          "completeTraceFiles": 2493,
+          "traceIndexSha256": "df27ebeda42364656084003a459e2c842bb8e316fe9fd4beb85f72fd6dd71305"
+        }
+      ],
+      "traceArchiveSha256": "4434d4239dab8ba0b3146fdc5d2d103ecabc164da6eebfd220032aaf335398d2"
+    },
+    {
+      "profile": "PcDxtVolumes",
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-dxt-volumes/40783041481-1/validation.json",
+      "products": [
+        {
+          "file": "mod.bin",
+          "bytes": 188836,
+          "sha256": "14abae83ba4ae5c064f8a8c1ba9618dd86339872ed64932200ea0b1f5d56c575"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 119505,
+          "sha256": "c593cc9c505b648add0ab5f321e2251987653bf39cba5d8c582195a1f29abc3f"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "1efbd0b1fe07b159a6e1bfe8c4b14d06b18e039bf53db0ccd1895c18f8b06253"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 5956,
+          "sha256": "26158af01d4ffb1e167ea899a800aca3d63cfe790cbb03dab27ca97f4e3e4bf0"
+        }
+      ],
+      "modes": [
+        {
+          "mode": "Original",
+          "uniqueAssets": 1488,
+          "actualCalls": 1488,
+          "completeTraceFiles": 5209,
+          "traceIndexSha256": "555b5b85584acc59d0bf83d4efb014c6690e4d47fd25711d81ebd61b3344e144"
+        },
+        {
+          "mode": "Recovered",
+          "uniqueAssets": 1488,
+          "actualCalls": 1488,
+          "completeTraceFiles": 5209,
+          "traceIndexSha256": "555b5b85584acc59d0bf83d4efb014c6690e4d47fd25711d81ebd61b3344e144"
+        },
+        {
+          "mode": "NoOriginal",
+          "uniqueAssets": 1488,
+          "actualCalls": 1488,
+          "completeTraceFiles": 5209,
+          "traceIndexSha256": "555b5b85584acc59d0bf83d4efb014c6690e4d47fd25711d81ebd61b3344e144"
+        }
+      ],
+      "traceArchiveSha256": "20a6c205dc431d2979fb03612dfc412f61e8807879f5c89e1776a0fb9f60968f"
+    },
+    {
+      "profile": "PcDxt1a",
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-dxt1a/40783041481-1/validation.json",
+      "products": [
+        {
+          "file": "mod.bin",
+          "bytes": 37892,
+          "sha256": "2b4bffa4bafe389f63f38a50175c156cde170e2dd5fd88fbef80021d3fe8dd37"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 25257,
+          "sha256": "251f5c7a908d6b7a5b4499cb49fb6fb29d41eca4961693d3954143ceda290f1c"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "5b81988d059503c3a20c6bc89d0279c0559b36ab1a57549a103c96d5e85f39d5"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 1284,
+          "sha256": "f691fc8ed7874c1446e6018beda2e10fecd279f38528fcf2f73d9f28430a7ea9"
+        }
+      ],
+      "modes": [
+        {
+          "mode": "Original",
+          "uniqueAssets": 320,
+          "actualCalls": 320,
+          "completeTraceFiles": 1121,
+          "traceIndexSha256": "45e9012d1ee7e40cf5b45e3a02e4774e3576cdde6fea3bb6f6e8d4f39b0ddebb"
+        },
+        {
+          "mode": "Recovered",
+          "uniqueAssets": 320,
+          "actualCalls": 320,
+          "completeTraceFiles": 1121,
+          "traceIndexSha256": "45e9012d1ee7e40cf5b45e3a02e4774e3576cdde6fea3bb6f6e8d4f39b0ddebb"
+        },
+        {
+          "mode": "NoOriginal",
+          "uniqueAssets": 320,
+          "actualCalls": 320,
+          "completeTraceFiles": 1121,
+          "traceIndexSha256": "45e9012d1ee7e40cf5b45e3a02e4774e3576cdde6fea3bb6f6e8d4f39b0ddebb"
+        }
+      ],
+      "traceArchiveSha256": "6b73c6caab97820d337a450791f9663612c50f4b4acb287db54f005d4cc6ceca"
+    },
+    {
+      "profile": "PcJpeg",
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-jpeg/40783041481-1/validation.json",
+      "products": [
+        {
+          "file": "mod.bin",
+          "bytes": 12181924,
+          "sha256": "bd67f637e67ef7fe3b875ab671bea6542e47ebaf28318df398ac904a407697c1"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 224305,
+          "sha256": "69ea4ae93dc88175ee71e27f0015576c6a913efa8096b488e0fccd5779ff0c49"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "744479988f3f8f19dba64e34c2dd0a576f509023d208e675295c2b152f8e025f"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 13028,
+          "sha256": "45987146f5134f538f460a3cac812f4ecf1058ed54659cdfb5ea10886d13cee0"
+        }
+      ],
+      "modes": [
+        {
+          "mode": "Original",
+          "uniqueAssets": 3216,
+          "actualCalls": 3216,
+          "completeTraceFiles": 11249,
+          "traceIndexSha256": "98f65185f9b5afd5d394b21e6a75da2bdc4c27043f8f256bd89329585b860aee"
+        },
+        {
+          "mode": "Recovered",
+          "uniqueAssets": 3216,
+          "actualCalls": 3216,
+          "completeTraceFiles": 11249,
+          "traceIndexSha256": "98f65185f9b5afd5d394b21e6a75da2bdc4c27043f8f256bd89329585b860aee"
+        },
+        {
+          "mode": "NoOriginal",
+          "uniqueAssets": 3216,
+          "actualCalls": 3216,
+          "completeTraceFiles": 11249,
+          "traceIndexSha256": "98f65185f9b5afd5d394b21e6a75da2bdc4c27043f8f256bd89329585b860aee"
+        }
+      ],
+      "traceArchiveSha256": "fbf29524902ea81b22d3eb1e6480556a1d149db6ff0bc836ad9e389e98e2cc78"
+    },
+    {
+      "profile": "PcNpotRgba8",
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-npot-rgba8/40783041481-1/validation.json",
+      "products": [
+        {
+          "file": "mod.bin",
+          "bytes": 374884,
+          "sha256": "0db115caf1021838b5e29c050715765518ed2e545a003b7c03c974e40a404d6d"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 258177,
+          "sha256": "c2be9458d0d75d9f4fdd5c22ac403d12e81572add21c984d5ca9db09f6676266"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "33883a0668d2b6f974ce11a5e792215e72dbf27b31b54323ced89fa2255ce2e9"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 12804,
+          "sha256": "eec234d5ee08275ac5308add5b956d9b94cdb4db6c2fe35de80c703dfa74da9d"
+        }
+      ],
+      "modes": [
+        {
+          "mode": "Original",
+          "uniqueAssets": 3200,
+          "actualCalls": 3200,
+          "completeTraceFiles": 11201,
+          "traceIndexSha256": "262c02430048be20dfa9d62a3c7890a1c49cfa640e37f8133579a78c651c080a"
+        },
+        {
+          "mode": "Recovered",
+          "uniqueAssets": 3200,
+          "actualCalls": 3200,
+          "completeTraceFiles": 11201,
+          "traceIndexSha256": "262c02430048be20dfa9d62a3c7890a1c49cfa640e37f8133579a78c651c080a"
+        },
+        {
+          "mode": "NoOriginal",
+          "uniqueAssets": 3200,
+          "actualCalls": 3200,
+          "completeTraceFiles": 11201,
+          "traceIndexSha256": "262c02430048be20dfa9d62a3c7890a1c49cfa640e37f8133579a78c651c080a"
+        }
+      ],
+      "traceArchiveSha256": "c0ec5603a645204a95234bd6cf83f042794a63ed959d4b4492340033cbd5f5ef"
+    },
+    {
+      "profile": "PcNpotStorage",
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-npot-storage/40783041481-1/validation.json",
+      "products": [
+        {
+          "file": "mod.bin",
+          "bytes": 328324,
+          "sha256": "0f9f549fd94746c8c41054b3e7e84e57b6c17f13b38a0921a37d78a8e1af2a41"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 206337,
+          "sha256": "5ddbf775a52a7612a7b692c25b94d6a68346c9e284cb73f4628025c192d0f1f0"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "6b7c407272fca3a5492b5e01065570c26fdff152e778b11749417cd51d6013b2"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 10244,
+          "sha256": "ba6a70ac063ce7f17be03ada356125887c928b0061ba8098c3bc4cb39c580857"
+        }
+      ],
+      "modes": [
+        {
+          "mode": "Original",
+          "uniqueAssets": 2560,
+          "actualCalls": 2560,
+          "completeTraceFiles": 8961,
+          "traceIndexSha256": "c5316840d5d7eb8d2a4c6bd0d255aca74c3ab788bb5674dcfadbfbcef80ad3af"
+        },
+        {
+          "mode": "Recovered",
+          "uniqueAssets": 2560,
+          "actualCalls": 2560,
+          "completeTraceFiles": 8961,
+          "traceIndexSha256": "c5316840d5d7eb8d2a4c6bd0d255aca74c3ab788bb5674dcfadbfbcef80ad3af"
+        },
+        {
+          "mode": "NoOriginal",
+          "uniqueAssets": 2560,
+          "actualCalls": 2560,
+          "completeTraceFiles": 8961,
+          "traceIndexSha256": "c5316840d5d7eb8d2a4c6bd0d255aca74c3ab788bb5674dcfadbfbcef80ad3af"
+        }
+      ],
+      "traceArchiveSha256": "a14d12b8e74bc6e3c7788db8f50201722ed31db6f61c257b11054778d4ba22a9"
+    },
+    {
+      "profile": "PcPngMetadata",
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-png-metadata/40783041481-1/validation.json",
+      "products": [
+        {
+          "file": "mod.bin",
+          "bytes": 11984212,
+          "sha256": "a1bd0f399341bac4f6a34262a19405809ac5800fadcfde658b885ec4476b4087"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 325665,
+          "sha256": "234a965576e78912e0f1a6a1e36b3d158e05387f760eff0424f2c2ece8dd6334"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "62db931b7524ef3ca3167f80e2b756e86b035606fadb50cb5c403f1987e34a3c"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 17124,
+          "sha256": "2085648e57515856a130d1ebf9a07bee0778ebae0fffb330d20b9d3a61be84f9"
+        }
+      ],
+      "modes": [
+        {
+          "mode": "Original",
+          "uniqueAssets": 4240,
+          "actualCalls": 4240,
+          "completeTraceFiles": 14833,
+          "traceIndexSha256": "b988c3d205e276270e1ade152296510caa46449e13bd902a7b4f7f2f778c54fd"
+        },
+        {
+          "mode": "Recovered",
+          "uniqueAssets": 4240,
+          "actualCalls": 4240,
+          "completeTraceFiles": 14833,
+          "traceIndexSha256": "b988c3d205e276270e1ade152296510caa46449e13bd902a7b4f7f2f778c54fd"
+        },
+        {
+          "mode": "NoOriginal",
+          "uniqueAssets": 4240,
+          "actualCalls": 4240,
+          "completeTraceFiles": 14833,
+          "traceIndexSha256": "b988c3d205e276270e1ade152296510caa46449e13bd902a7b4f7f2f778c54fd"
+        }
+      ],
+      "traceArchiveSha256": "f7caf95ef6e5c8ab15926aa8b9b12f2f583ef30d8fc97852ac3e402d2c7076de"
+    },
+    {
+      "profile": "PcMips",
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-rasters/PcMips/40783041481-1/validation.json",
+      "products": [
+        {
+          "file": "mod.bin",
+          "bytes": 84604,
+          "sha256": "45a9d1c7a76a13c9a4f690e58e1b6420afda625ce8fea4c3c53ca97afee7fb91"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 47977,
+          "sha256": "6ef8befe61e29ab8518ac6016c6de0e10aaf408b28cdec4e7fe7cbbe4743033c"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "b6f50314b30f802a230d5f3316c072013b8110a60a2568e80827d2543854dfdb"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 2404,
+          "sha256": "eec6c96a304d95b3c644a645d086e1328becc34abb7ddf4009c5e646c77c9e8f"
+        }
+      ],
+      "modes": [
+        {
+          "mode": "Original",
+          "uniqueAssets": 600,
+          "actualCalls": 600,
+          "completeTraceFiles": 2101,
+          "traceIndexSha256": "75ea9d4899f626735c428605e9f79e9067b4a15edefb8728a475e0ef19f6bb86"
+        },
+        {
+          "mode": "Recovered",
+          "uniqueAssets": 600,
+          "actualCalls": 600,
+          "completeTraceFiles": 2101,
+          "traceIndexSha256": "75ea9d4899f626735c428605e9f79e9067b4a15edefb8728a475e0ef19f6bb86"
+        },
+        {
+          "mode": "NoOriginal",
+          "uniqueAssets": 600,
+          "actualCalls": 600,
+          "completeTraceFiles": 2101,
+          "traceIndexSha256": "75ea9d4899f626735c428605e9f79e9067b4a15edefb8728a475e0ef19f6bb86"
+        }
+      ],
+      "traceArchiveSha256": "b4fc5beb170d5faffce39263e8dace8b43c864243b6103d03f96b14c544bdcf6"
+    },
+    {
+      "profile": "PcNoMip",
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-rasters/PcNoMip/40783041481-1/validation.json",
+      "products": [
+        {
+          "file": "mod.bin",
+          "bytes": 76404,
+          "sha256": "3451ed5927c6cb71f3e20cdc4783cc00df6fac3ce635407a4c869dd643e5753d"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 47977,
+          "sha256": "3a1968e8a028952cba16e0d734834b0a848e01c9ad10772e7ac95a65beab57ba"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "2c18ab5218e21fe35ca06689a537dfa7edac0d86cdd35e77a1186e0237647d49"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 2404,
+          "sha256": "7da9d04c8722956dff8014f572b1d0cb092e26f3bad78221f2392565be52d797"
+        }
+      ],
+      "modes": [
+        {
+          "mode": "Original",
+          "uniqueAssets": 600,
+          "actualCalls": 600,
+          "completeTraceFiles": 2101,
+          "traceIndexSha256": "9e718bd5065944e16014e2312af5f406d5b87be6c1b520d2487d2f0e8c258fcc"
+        },
+        {
+          "mode": "Recovered",
+          "uniqueAssets": 600,
+          "actualCalls": 600,
+          "completeTraceFiles": 2101,
+          "traceIndexSha256": "9e718bd5065944e16014e2312af5f406d5b87be6c1b520d2487d2f0e8c258fcc"
+        },
+        {
+          "mode": "NoOriginal",
+          "uniqueAssets": 600,
+          "actualCalls": 600,
+          "completeTraceFiles": 2101,
+          "traceIndexSha256": "9e718bd5065944e16014e2312af5f406d5b87be6c1b520d2487d2f0e8c258fcc"
+        }
+      ],
+      "traceArchiveSha256": "4d5a77af2dc4b131f8c6c0533e0bafa30fabf30e1bed3b4b691e2b69cacd7322"
+    }
+  ]
+}
