@@ -1,0 +1,926 @@
+{
+  "status": "offline-sdk-artifact-inspection",
+  "businessSourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+  "businessRunId": "40695394943",
+  "rawGuardSourceCommit": "52d90eff668110855f469a45a395dcaf5cec5c44",
+  "rawGuardRunId": "40699857549",
+  "artifactSha256": {
+    "40695394943": "732c065f2c47b1fb664da979d05aded783016132d106af316d2f916026ae6b7f",
+    "40699857549": "d757a23664beed4cca8f9e7a262846536e7456093ea0b280cde2c00bca07ba6e"
+  },
+  "sdkProfiles": [
+    {
+      "status": "offline-sdk-artifact-inspection",
+      "scope": "All four actual outputs and every complete trace file; no new SDK execution",
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "runAttempt": "1",
+      "profile": "PcAtlas",
+      "streams": [
+        {
+          "file": "mod.bin",
+          "bytes": 66350560,
+          "sha256": "6abe2bde5acaca6b7b55804233b5e8965729134f5013f0a534b81807d13ea43f"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 1490,
+          "sha256": "e945bc79903ebc2a02d301a587c66c025e4cad17624aa65596488de035bc4fc6"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "36ce67470fe9f83a309686cf7358ea94503235e16b60314fccee845d230484e5"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 240,
+          "sha256": "60f4fbbbedb53382ed454cbb08e9f14faae19cf3ba73c5678eff77bf8c11d678"
+        }
+      ],
+      "traceArchiveSha256": "9dd9d9b10307d913533bb51dc08f1a708914e765d782e06379ab3415a0f6c094",
+      "modes": [
+        {
+          "mode": "Original",
+          "actualCalls": 16,
+          "uniqueAssets": 16,
+          "traceFiles": 49,
+          "formats": [
+            ""
+          ],
+          "rootNames": [
+            "TerrainTextureAtlas"
+          ],
+          "kinds": [
+            ""
+          ]
+        },
+        {
+          "mode": "Recovered",
+          "actualCalls": 16,
+          "uniqueAssets": 16,
+          "traceFiles": 49,
+          "formats": [
+            ""
+          ],
+          "rootNames": [
+            "TerrainTextureAtlas"
+          ],
+          "kinds": [
+            ""
+          ]
+        },
+        {
+          "mode": "NoOriginal",
+          "actualCalls": 16,
+          "uniqueAssets": 16,
+          "traceFiles": 49,
+          "formats": [
+            ""
+          ],
+          "rootNames": [
+            "TerrainTextureAtlas"
+          ],
+          "kinds": [
+            ""
+          ]
+        }
+      ],
+      "perCallIsolationRuntimeReceipt": true
+    },
+    {
+      "status": "offline-sdk-artifact-inspection",
+      "scope": "All four actual outputs and every complete trace file; no new SDK execution",
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "runAttempt": "1",
+      "profile": "PcDxtNoMip",
+      "streams": [
+        {
+          "file": "mod.bin",
+          "bytes": 83284,
+          "sha256": "809a661ba73770bd2811e910870716782e66ed577920651286f4115153375fac"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 56937,
+          "sha256": "9f4e6534dda5944435653f8b4b4c2d5bea5ded5b4d8bef6563ec6cc8f9dae6a0"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "ae7b62f1cdf79439c7ccc94de4d89d89b4d573d76cf4a07f4c5d671a3bf4f548"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 2852,
+          "sha256": "6eb8d803c2a543258466e4f125983446810db7ea2b63c8d97e46acf9165a64c8"
+        }
+      ],
+      "traceArchiveSha256": "b87e03a7382e8145a329cdf3cb2f822fded3987cc8eaf9aab4812b633eb35a1b",
+      "modes": [
+        {
+          "mode": "Original",
+          "actualCalls": 712,
+          "uniqueAssets": 712,
+          "traceFiles": 2493,
+          "formats": [
+            "DXT3",
+            "DXT5"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture"
+          ]
+        },
+        {
+          "mode": "Recovered",
+          "actualCalls": 712,
+          "uniqueAssets": 712,
+          "traceFiles": 2493,
+          "formats": [
+            "DXT3",
+            "DXT5"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture"
+          ]
+        },
+        {
+          "mode": "NoOriginal",
+          "actualCalls": 712,
+          "uniqueAssets": 712,
+          "traceFiles": 2493,
+          "formats": [
+            "DXT3",
+            "DXT5"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture"
+          ]
+        }
+      ],
+      "perCallIsolationRuntimeReceipt": true
+    },
+    {
+      "status": "offline-sdk-artifact-inspection",
+      "scope": "All four actual outputs and every complete trace file; no new SDK execution",
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "runAttempt": "1",
+      "profile": "PcDxtMips",
+      "streams": [
+        {
+          "file": "mod.bin",
+          "bytes": 104980,
+          "sha256": "1606d79ded79155b467dca591ed397d6a28c51fe0582312763ffb5d28ccde8f0"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 56937,
+          "sha256": "8eee92a0be5636fe458ee52fd41c939b4daf31580e5118b5414a6b5036cb3cf9"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "bf31fbbf831f488871884288950ec975bc1c0fc5782d420bb61b8f1c2b3c5908"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 2852,
+          "sha256": "32609cbba4ff3f59b9e5b5e469830985c8bd603a638dba32b71ca611a444db96"
+        }
+      ],
+      "traceArchiveSha256": "b58ac14772f5abf13c2e4fe2c084572ccfe961ac1072adf884babce7f7e399b5",
+      "modes": [
+        {
+          "mode": "Original",
+          "actualCalls": 712,
+          "uniqueAssets": 712,
+          "traceFiles": 2493,
+          "formats": [
+            "DXT3",
+            "DXT5"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture"
+          ]
+        },
+        {
+          "mode": "Recovered",
+          "actualCalls": 712,
+          "uniqueAssets": 712,
+          "traceFiles": 2493,
+          "formats": [
+            "DXT3",
+            "DXT5"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture"
+          ]
+        },
+        {
+          "mode": "NoOriginal",
+          "actualCalls": 712,
+          "uniqueAssets": 712,
+          "traceFiles": 2493,
+          "formats": [
+            "DXT3",
+            "DXT5"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture"
+          ]
+        }
+      ],
+      "perCallIsolationRuntimeReceipt": true
+    },
+    {
+      "status": "offline-sdk-artifact-inspection",
+      "scope": "All four actual outputs and every complete trace file; no new SDK execution",
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "runAttempt": "1",
+      "profile": "PcDxtVolumes",
+      "streams": [
+        {
+          "file": "mod.bin",
+          "bytes": 188836,
+          "sha256": "14abae83ba4ae5c064f8a8c1ba9618dd86339872ed64932200ea0b1f5d56c575"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 119505,
+          "sha256": "c593cc9c505b648add0ab5f321e2251987653bf39cba5d8c582195a1f29abc3f"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "1efbd0b1fe07b159a6e1bfe8c4b14d06b18e039bf53db0ccd1895c18f8b06253"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 5956,
+          "sha256": "26158af01d4ffb1e167ea899a800aca3d63cfe790cbb03dab27ca97f4e3e4bf0"
+        }
+      ],
+      "traceArchiveSha256": "9b41908649f18a0f6dec5a0f0f8a831a04e307076ab058cbf19f7d6ee1fb1168",
+      "modes": [
+        {
+          "mode": "Original",
+          "actualCalls": 1488,
+          "uniqueAssets": 1488,
+          "traceFiles": 5209,
+          "formats": [
+            "DXT3",
+            "DXT5"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "Recovered",
+          "actualCalls": 1488,
+          "uniqueAssets": 1488,
+          "traceFiles": 5209,
+          "formats": [
+            "DXT3",
+            "DXT5"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "NoOriginal",
+          "actualCalls": 1488,
+          "uniqueAssets": 1488,
+          "traceFiles": 5209,
+          "formats": [
+            "DXT3",
+            "DXT5"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "VolumeTexture"
+          ]
+        }
+      ],
+      "perCallIsolationRuntimeReceipt": true
+    },
+    {
+      "status": "offline-sdk-artifact-inspection",
+      "scope": "All four actual outputs and every complete trace file; no new SDK execution",
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "runAttempt": "1",
+      "profile": "PcDxt1a",
+      "streams": [
+        {
+          "file": "mod.bin",
+          "bytes": 37892,
+          "sha256": "2b4bffa4bafe389f63f38a50175c156cde170e2dd5fd88fbef80021d3fe8dd37"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 25257,
+          "sha256": "251f5c7a908d6b7a5b4499cb49fb6fb29d41eca4961693d3954143ceda290f1c"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "5b81988d059503c3a20c6bc89d0279c0559b36ab1a57549a103c96d5e85f39d5"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 1284,
+          "sha256": "f691fc8ed7874c1446e6018beda2e10fecd279f38528fcf2f73d9f28430a7ea9"
+        }
+      ],
+      "traceArchiveSha256": "fcdc656f5c83d14ec9fa9891a5fcf99a7fa7b18c0d91fd7771ee769c0653151b",
+      "modes": [
+        {
+          "mode": "Original",
+          "actualCalls": 320,
+          "uniqueAssets": 320,
+          "traceFiles": 1121,
+          "formats": [
+            "DXT1A"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "Recovered",
+          "actualCalls": 320,
+          "uniqueAssets": 320,
+          "traceFiles": 1121,
+          "formats": [
+            "DXT1A"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "NoOriginal",
+          "actualCalls": 320,
+          "uniqueAssets": 320,
+          "traceFiles": 1121,
+          "formats": [
+            "DXT1A"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        }
+      ],
+      "perCallIsolationRuntimeReceipt": true
+    },
+    {
+      "status": "offline-sdk-artifact-inspection",
+      "scope": "All four actual outputs and every complete trace file; no new SDK execution",
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "runAttempt": "1",
+      "profile": "PcJpeg",
+      "streams": [
+        {
+          "file": "mod.bin",
+          "bytes": 12181924,
+          "sha256": "bd67f637e67ef7fe3b875ab671bea6542e47ebaf28318df398ac904a407697c1"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 224305,
+          "sha256": "69ea4ae93dc88175ee71e27f0015576c6a913efa8096b488e0fccd5779ff0c49"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "744479988f3f8f19dba64e34c2dd0a576f509023d208e675295c2b152f8e025f"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 13028,
+          "sha256": "45987146f5134f538f460a3cac812f4ecf1058ed54659cdfb5ea10886d13cee0"
+        }
+      ],
+      "traceArchiveSha256": "525352cefb71a6e10f8838af9e15fd5cd218ed2ee95bd6a8664f3dd3d9081f0d",
+      "modes": [
+        {
+          "mode": "Original",
+          "actualCalls": 3216,
+          "uniqueAssets": 3216,
+          "traceFiles": 11249,
+          "formats": [
+            "",
+            "A8R8G8B8",
+            "DXT3",
+            "DXT5",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "TerrainTextureAtlas",
+            "Texture"
+          ],
+          "kinds": [
+            "",
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "Recovered",
+          "actualCalls": 3216,
+          "uniqueAssets": 3216,
+          "traceFiles": 11249,
+          "formats": [
+            "",
+            "A8R8G8B8",
+            "DXT3",
+            "DXT5",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "TerrainTextureAtlas",
+            "Texture"
+          ],
+          "kinds": [
+            "",
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "NoOriginal",
+          "actualCalls": 3216,
+          "uniqueAssets": 3216,
+          "traceFiles": 11249,
+          "formats": [
+            "",
+            "A8R8G8B8",
+            "DXT3",
+            "DXT5",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "TerrainTextureAtlas",
+            "Texture"
+          ],
+          "kinds": [
+            "",
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        }
+      ],
+      "perCallIsolationRuntimeReceipt": true
+    },
+    {
+      "status": "offline-sdk-artifact-inspection",
+      "scope": "All four actual outputs and every complete trace file; no new SDK execution",
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "runAttempt": "1",
+      "profile": "PcNpotRgba8",
+      "streams": [
+        {
+          "file": "mod.bin",
+          "bytes": 374884,
+          "sha256": "0db115caf1021838b5e29c050715765518ed2e545a003b7c03c974e40a404d6d"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 258177,
+          "sha256": "c2be9458d0d75d9f4fdd5c22ac403d12e81572add21c984d5ca9db09f6676266"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "33883a0668d2b6f974ce11a5e792215e72dbf27b31b54323ced89fa2255ce2e9"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 12804,
+          "sha256": "eec234d5ee08275ac5308add5b956d9b94cdb4db6c2fe35de80c703dfa74da9d"
+        }
+      ],
+      "traceArchiveSha256": "19d4cb47ed8fec394498a4c312d5e0870044991053fb5d2f108aed5bdb164cb5",
+      "modes": [
+        {
+          "mode": "Original",
+          "actualCalls": 3200,
+          "uniqueAssets": 3200,
+          "traceFiles": 11201,
+          "formats": [
+            "A8R8G8B8",
+            "DXT3",
+            "DXT5",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "Recovered",
+          "actualCalls": 3200,
+          "uniqueAssets": 3200,
+          "traceFiles": 11201,
+          "formats": [
+            "A8R8G8B8",
+            "DXT3",
+            "DXT5",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "NoOriginal",
+          "actualCalls": 3200,
+          "uniqueAssets": 3200,
+          "traceFiles": 11201,
+          "formats": [
+            "A8R8G8B8",
+            "DXT3",
+            "DXT5",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        }
+      ],
+      "perCallIsolationRuntimeReceipt": true
+    },
+    {
+      "status": "offline-sdk-artifact-inspection",
+      "scope": "All four actual outputs and every complete trace file; no new SDK execution",
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "runAttempt": "1",
+      "profile": "PcNpotStorage",
+      "streams": [
+        {
+          "file": "mod.bin",
+          "bytes": 328324,
+          "sha256": "0f9f549fd94746c8c41054b3e7e84e57b6c17f13b38a0921a37d78a8e1af2a41"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 206337,
+          "sha256": "5ddbf775a52a7612a7b692c25b94d6a68346c9e284cb73f4628025c192d0f1f0"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "6b7c407272fca3a5492b5e01065570c26fdff152e778b11749417cd51d6013b2"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 10244,
+          "sha256": "ba6a70ac063ce7f17be03ada356125887c928b0061ba8098c3bc4cb39c580857"
+        }
+      ],
+      "traceArchiveSha256": "4c76869c2f391dda2af5a9bdd4d9c04332d8ba983d596c141209aa31538a4971",
+      "modes": [
+        {
+          "mode": "Original",
+          "actualCalls": 2560,
+          "uniqueAssets": 2560,
+          "traceFiles": 8961,
+          "formats": [
+            "A8R8G8B8",
+            "DXT3",
+            "DXT5",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "Recovered",
+          "actualCalls": 2560,
+          "uniqueAssets": 2560,
+          "traceFiles": 8961,
+          "formats": [
+            "A8R8G8B8",
+            "DXT3",
+            "DXT5",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "NoOriginal",
+          "actualCalls": 2560,
+          "uniqueAssets": 2560,
+          "traceFiles": 8961,
+          "formats": [
+            "A8R8G8B8",
+            "DXT3",
+            "DXT5",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        }
+      ],
+      "perCallIsolationRuntimeReceipt": true
+    },
+    {
+      "status": "offline-sdk-artifact-inspection",
+      "scope": "All four actual outputs and every complete trace file; no new SDK execution",
+      "sourceCommit": "52d90eff668110855f469a45a395dcaf5cec5c44",
+      "runId": "40699857549",
+      "runAttempt": "1",
+      "profile": "PcMips",
+      "streams": [
+        {
+          "file": "mod.bin",
+          "bytes": 84604,
+          "sha256": "45a9d1c7a76a13c9a4f690e58e1b6420afda625ce8fea4c3c53ca97afee7fb91"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 47977,
+          "sha256": "6ef8befe61e29ab8518ac6016c6de0e10aaf408b28cdec4e7fe7cbbe4743033c"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "b6f50314b30f802a230d5f3316c072013b8110a60a2568e80827d2543854dfdb"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 2404,
+          "sha256": "eec6c96a304d95b3c644a645d086e1328becc34abb7ddf4009c5e646c77c9e8f"
+        }
+      ],
+      "traceArchiveSha256": "4f1ae21cd485fe6a0d0e2a0f2255b506ad01171b94d4bdce50dcfe4e642031a0",
+      "modes": [
+        {
+          "mode": "Original",
+          "actualCalls": 600,
+          "uniqueAssets": 600,
+          "traceFiles": 2101,
+          "formats": [
+            "A8R8G8B8",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "Recovered",
+          "actualCalls": 600,
+          "uniqueAssets": 600,
+          "traceFiles": 2101,
+          "formats": [
+            "A8R8G8B8",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "NoOriginal",
+          "actualCalls": 600,
+          "uniqueAssets": 600,
+          "traceFiles": 2101,
+          "formats": [
+            "A8R8G8B8",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        }
+      ],
+      "perCallIsolationRuntimeReceipt": true
+    },
+    {
+      "status": "offline-sdk-artifact-inspection",
+      "scope": "All four actual outputs and every complete trace file; no new SDK execution",
+      "sourceCommit": "52d90eff668110855f469a45a395dcaf5cec5c44",
+      "runId": "40699857549",
+      "runAttempt": "1",
+      "profile": "PcNoMip",
+      "streams": [
+        {
+          "file": "mod.bin",
+          "bytes": 76404,
+          "sha256": "3451ed5927c6cb71f3e20cdc4783cc00df6fac3ce635407a4c869dd643e5753d"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 47977,
+          "sha256": "3a1968e8a028952cba16e0d734834b0a848e01c9ad10772e7ac95a65beab57ba"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "2c18ab5218e21fe35ca06689a537dfa7edac0d86cdd35e77a1186e0237647d49"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 2404,
+          "sha256": "7da9d04c8722956dff8014f572b1d0cb092e26f3bad78221f2392565be52d797"
+        }
+      ],
+      "traceArchiveSha256": "bd09b7f08bb9fb3c00c89eef15a5884283e10445cd9afbcb75cb57b8c9e2ebca",
+      "modes": [
+        {
+          "mode": "Original",
+          "actualCalls": 600,
+          "uniqueAssets": 600,
+          "traceFiles": 2101,
+          "formats": [
+            "A8R8G8B8",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "Recovered",
+          "actualCalls": 600,
+          "uniqueAssets": 600,
+          "traceFiles": 2101,
+          "formats": [
+            "A8R8G8B8",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        },
+        {
+          "mode": "NoOriginal",
+          "actualCalls": 600,
+          "uniqueAssets": 600,
+          "traceFiles": 2101,
+          "formats": [
+            "A8R8G8B8",
+            "R5G6B5",
+            "X8R8G8B8"
+          ],
+          "rootNames": [
+            "OnDemandTexture",
+            "Texture"
+          ],
+          "kinds": [
+            "StandardTexture",
+            "VolumeTexture"
+          ]
+        }
+      ],
+      "perCallIsolationRuntimeReceipt": true
+    }
+  ],
+  "allCompleteOutputsAndTraceFilesEqual": true,
+  "allProfilesHavePerCallIsolationReceipt": true,
+  "totalPerMode": {
+    "Original": 13424,
+    "Recovered": 13424,
+    "NoOriginal": 13424
+  },
+  "traceFilesPerMode": {
+    "Original": 46978,
+    "Recovered": 46978,
+    "NoOriginal": 46978
+  }
+}

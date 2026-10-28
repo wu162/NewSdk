@@ -1,0 +1,64 @@
+{
+  "status": "offline-full-record-inspection",
+  "productionAccepted": false,
+  "scope": "Exact complete raw outputs and independent DDS layout; not codec execution, plugin or SDK acceptance",
+  "archiveSha256": "40086de38fa395743adc0aea9846f160e39c9b91f0571fd0cabc8ec27c74ba2d",
+  "configurations": [
+    {
+      "file": "Debug-transcript.tsv.records",
+      "version": "0x32415844",
+      "inputs": 3648,
+      "compared": 2714,
+      "matched": 2714,
+      "opaqueRejected": 934,
+      "completeDDS": 2714,
+      "ddsMatched": 2714,
+      "recordSha256": "fcf1d06e84f73f7325e05eb6c52f66b51e04606a290d2f9a0480b72c010d2337",
+      "recordBytes": 1800012,
+      "consumedBytes": 1800012,
+      "byteInputsStored": true,
+      "shapes": {},
+      "categories": {
+        "2d-no-mips-compared": 679,
+        "2d-no-mips-rejected": 121,
+        "2d-mips-compared": 551,
+        "2d-mips-rejected": 249,
+        "volume-no-mips-compared": 824,
+        "volume-no-mips-rejected": 200,
+        "volume-mips-compared": 660,
+        "volume-mips-rejected": 364
+      },
+      "differences": []
+    },
+    {
+      "file": "Release-transcript.tsv.records",
+      "version": "0x32415844",
+      "inputs": 3648,
+      "compared": 2714,
+      "matched": 2714,
+      "opaqueRejected": 934,
+      "completeDDS": 2714,
+      "ddsMatched": 2714,
+      "recordSha256": "fcf1d06e84f73f7325e05eb6c52f66b51e04606a290d2f9a0480b72c010d2337",
+      "recordBytes": 1800012,
+      "consumedBytes": 1800012,
+      "byteInputsStored": true,
+      "shapes": {},
+      "categories": {
+        "2d-no-mips-compared": 679,
+        "2d-no-mips-rejected": 121,
+        "2d-mips-compared": 551,
+        "2d-mips-rejected": 249,
+        "volume-no-mips-compared": 824,
+        "volume-no-mips-rejected": 200,
+        "volume-mips-compared": 660,
+        "volume-mips-rejected": 364
+      },
+      "differences": []
+    }
+  ],
+  "sourceCommit": "0d37d401f812edb58a4e96a0c9ba2ad033abe996",
+  "runId": "40699070349",
+  "runAttempt": "1",
+  "options": []
+}

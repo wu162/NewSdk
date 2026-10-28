@@ -1,0 +1,125 @@
+Command Line: D:\a\_temp\texture-sdk-536b7735d03946edbb415ae2b83a619a\Recovered\Mods\RecoveryTexture\Data\Mod.xml /od:D:\a\_temp\texture-sdk-536b7735d03946edbb415ae2b83a619a\Recovered\builtmods /iod:D:\a\_temp\texture-sdk-536b7735d03946edbb415ae2b83a619a\Recovered\builtmods /tp:Win32 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\RecoveryTexture\Art;.\Mods;.\Art /audio:.;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio /data:.;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\texture-sdk-536b7735d03946edbb415ae2b83a619a\Recovered\Mods\RecoveryTexture\Data\Mod.xml /od:D:\a\_temp\texture-sdk-536b7735d03946edbb415ae2b83a619a\Recovered\builtmods /iod:D:\a\_temp\texture-sdk-536b7735d03946edbb415ae2b83a619a\Recovered\builtmods /tp:Win32 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\RecoveryTexture\Art;.\Mods;.\Art /audio:.;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio /data:.;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.2508393] Cached session data not available.
+[00:00:00.2508393] Session caching enabled ('D:\a\_temp\texture-sdk-536b7735d03946edbb415ae2b83a619a\Recovered\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.2508393] Network caching enabled ('D:\a\_temp\texture-sdk-536b7735d03946edbb415ae2b83a619a\Recovered\builtmods\cache').
+[00:00:00.2664557] Loading 'file://d:\a\_temp\texture-sdk-536b7735d03946edbb415ae2b83a619a\recovered\mods\recoverytexture\data\mod.xml'.
+[00:00:00.3445726] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_count-1 [5f74536d:e348f66b]
+[00:00:00.5795453] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_count-2 [5f74536d:cd3b8cb2]
+[00:00:01.0488466] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_count-3 [5f74536d:5babd9f0]
+[00:00:01.3775397] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_count-4 [5f74536d:bf0c5a39]
+[00:00:02.1915772] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_count-7 [5f74536d:2df5915a]
+[00:00:03.0405319] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_count-8 [5f74536d:5b955f86]
+[00:00:03.8959869] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_count-9 [5f74536d:8f65b6e4]
+[00:00:04.5683634] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_count-10 [5f74536d:501ca8c8]
+[00:00:06.2722689] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_count-21 [5f74536d:fed97705]
+[00:00:07.6643865] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_count-22 [5f74536d:75bc96cd]
+[00:00:11.0616297] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_count-49 [5f74536d:d36e339c]
+[00:00:14.6147864] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_metadata-zero-false [5f74536d:f06a73be]
+[00:00:14.8179315] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_metadata-max-true [5f74536d:887e3826]
+[00:00:15.0367309] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_metadata-default-false [5f74536d:21443216]
+[00:00:15.2399411] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_base-npot [5f74536d:4deaf18b]
+[00:00:15.4118601] mod.xml: Compiling TerrainTextureAtlas:AtlasSdk_base-24 [5f74536d:80a422c6]
+[00:00:15.5840305] Resolving references: mods\recoverytexture\data\mod
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5840305] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Warning: Referenced file not found: ..\art\missing-normal.tga
+[00:00:15.5996562] Stable sorting assets
+[00:00:15.5996562] Sorting by schema dependencies
+[00:00:15.6152704] Sorting by asset dependencies
+[00:00:15.6152704] Generating stream: mods\recoverytexture\data\mod
+[00:00:15.6152704] Slow asset clean-up (expected: 16, actual: 16, old: 0, current: 16)
+[00:00:15.6152704] mods\recoverytexture\data\mod Linking binary data
+[00:00:15.6622398] mods\recoverytexture\data\mod Linking import data
+[00:00:15.6622398] mods\recoverytexture\data\mod Linking relocation data
+[00:00:15.6622398] mods\recoverytexture\data\mod Stream complete
+[00:00:15.6622398] BinaryAssetBuilder complete
+[00:00:15.6777761] TerrainTextureAtlas:
+[00:00:15.6777761]       Instances Processed: 16
+[00:00:15.6777761]       Total Processing Time: 00:00:15.1896179
+[00:00:15.6777761]       Longest Processing Time: 00:00:03.5531567 (AtlasSdk_count-49)
+[00:00:15.6777761]       Average Processing Time: 0.94935111875 seconds
+[00:00:15.6777761] Total Processing Time for All Types: 00:00:15.1896179

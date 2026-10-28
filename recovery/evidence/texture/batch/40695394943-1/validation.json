@@ -1,0 +1,192 @@
+{
+  "runId": "40695394943",
+  "reused": [
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "png",
+    "bmp",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "jpeg"
+  ],
+  "selected": [
+    "base",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "raster-images",
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "sdk-PcDxtNoMip",
+    "dxt-samples",
+    "sdk-PcDxtMips",
+    "dxt-volume-dds",
+    "sdk-PcDxtVolumes",
+    "sdk-PcNpotRgba8",
+    "sdk-PcNpotStorage",
+    "atlas-dds",
+    "atlas-entry",
+    "sdk-PcAtlas",
+    "jpeg-images",
+    "sdk-PcJpeg",
+    "dxt1a-blocks",
+    "dxt1a-dds",
+    "dxt1a-images",
+    "sdk-PcDxt1a"
+  ],
+  "runAttempt": "1",
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "base"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "mip-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "volume-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "volume-mip-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "raster-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcNoMip"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcMips"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt-blocks-complete"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt-dds2d"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcDxtNoMip"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt-samples"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcDxtMips"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt-volume-dds"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcDxtVolumes"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcNpotRgba8"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcNpotStorage"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "atlas-dds"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "atlas-entry"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcAtlas"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "jpeg-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcJpeg"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt1a-blocks"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt1a-dds"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt1a-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "sdk-PcDxt1a"
+    }
+  ],
+  "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+  "status": "passed"
+}

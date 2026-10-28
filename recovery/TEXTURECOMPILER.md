@@ -4,6 +4,8 @@
 
 DXT3/5默认71颜色/alpha、完整块、POT二维/volume无mip与完整float mip、两插件入口已验收。NPOT已扩至PNG灰度/GA8/RGB/RGBA8/16、Additional TGA16/灰度8/index8调色板及BI_RGB BMP16/24/32，保留原错误与量化/通道布局。业务e9292a26/40595382578的18组及7个SDK profile通过，插件隔离宿主修复9e7d671e/40597016969完成19404输入D/R/NoOriginal；两run各自总体失败原因和精确成功组保持原记录。后续abdffd97/40598190231与daf4a749/40598863269均success，前者闭环原探针并复用34组，后者完成9418存储语料D/R回放及独立atlas指定五层DDS组件。详见[当前续接](RESUME.md)、[NPOT](TEXTURE_NPOT_NEXT.md)、[atlas](TEXTURE_ATLAS_NEXT.md)。完整atlas公共入口及16资产专用SDK已在be520b8e/40607538234通过，D/R各48例、三模式四产物/实际Core调用相同；生产SDK DLL/config未替换。JPEG公共路由699479a9/40626161229及3216资产三模式SDK e8835cfe/40628208308均已验收；最初公开DXT/STB的32配置不一致，继续留测试分支；后续修改的S3源码已通过完整块、全部受影响消费与9组SDK三模式验收（705af338/40649825971、867e7d38/40650835181），现为完整PC DXT3/5后端，见TEXTURE_PUBLIC_S3.md及验收核对。
 
+透明块DXT1A现已完成独立公开源码适配、block/float/partial、二维/volume/mip、Texture/OnDemandTexture与320资产专用SDK验收，源码与运行锚点见[受限DXT1A](TEXTURE_DXT1A_TRANSPARENT.md)。每个实际编码块（包括全部mip和volume切片）都必须有alpha<=0.5的样本；padding空洞不计透明样本。默认DXT1及任何全不透明DXT1A块的原未初始化边界继续拒绝。完整mymod本轮未重跑，保留原5a1b8e1d/40657712486锚点，不冒充当前源码完整MOD验收。
+
 ## 唯一目标：Win32 / PC
 
 用户要求移除非 PC 代码与规划。PS3 专属三份 mip、自动 cubic 缩放、平台输出分支及对应测试/取证/SDK 入口已删除；Xbox360 与 unknown 平台不再支持。Initialize/ReInitialize 和公共平台入口明确拒绝非 Win32。SDK 原 DLL、共享 Core 平台枚举、原始 IL 和历史证据不变；历史 PS3 验收不属于当前能力或待办。
@@ -20,7 +22,7 @@ DXT3/5默认71颜色/alpha、完整块、POT二维/volume无mip与完整float mi
 
 ## 仍需完成（仅 PC）
 
-1. 默认DXT1 / DXT1A未初始化边界已取得原版受控反例，继续拒绝；详见[边界](TEXTURE_DXT1_BOUNDARY.md)。已声明DXT3/5完整压缩器及真实消费均已验收，不再列为未恢复。默认71颜色核心与DXT3/5完整块、对齐整图和无mip插件路由已取得组件验收；小尺寸/float块与小尺寸无mip消费者已通过组件和SDK门槛，压缩volume现也已通过组件及专用SDK完整验收。不再调查跨平台一致性。
+1. 默认DXT1及全不透明DXT1A块的未初始化边界已取得原版受控反例，继续拒绝；透明块DXT1A已按上文完整验收；详见[边界](TEXTURE_DXT1_BOUNDARY.md)。已声明DXT3/5完整压缩器及真实消费均已验收，不再列为未恢复。默认71颜色核心与DXT3/5完整块、对齐整图和无mip插件路由已取得组件验收；小尺寸/float块与小尺寸无mip消费者已通过组件和SDK门槛，压缩volume现也已通过组件及专用SDK完整验收。不再调查跨平台一致性。
 2. NPOT已声明源存储路径已按上文验收；未声明格式/metadata按实际输入需求独立取证，原版拒绝格式继续保留原拒绝。
 3. JPEG已声明灰度/RGB顺序/渐进、POT/NPOT及插件/SDK已完成；CMYK/其他未声明JPEG域、PNG ICC/APNG、TGA metadata/RLE边界与其他BMP组合按实际输入需求独立取证。
 4. TerrainTextureAtlas公共入口及专用SDK已完成（be520b8e/40607538234）；后续只按真实输入扩展未声明格式/metadata，不重复已验收整组。

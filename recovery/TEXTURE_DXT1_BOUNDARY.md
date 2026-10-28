@@ -22,3 +22,9 @@
 可推进的独立范围是显式初始化三色state，以及已确认有透明样本的DXT1A块。必须继续用完整原块/float/partial/DDS/mip/volume/入口/SDK门槛验证后才启用对应消费者。全透明、透明阈值、输出模式与端点/索引规范化仍需逐项核对。无原版回调、样本ID分派或gold表后端。
 
 证据：`evidence/texture/dxt1-boundary/40658031884-1/{validation.json,samples.zip}`。`[texture-dxt1-boundary]`显式采集，普通组件/SDK不自动运行。后续宿主提交6bd4ade3将每次options复制和三进程摘要单独保存；该收据仍绑定实际运行85690b1f，不改写源码锚点。
+
+## 透明块DXT1A当前范围
+
+已在独立实验比较后，通过实际托管block/float/partial、完整二维/volume/mip DDS、两类插件入口及320资产专用SDK三模式门槛，详见[精确验收](TEXTURE_DXT1A_TRANSPARENT.md)。条件是每个实际编码块均有alpha<=0.5样本，包括每层mip与每个volume切片；只有padding空洞不能满足条件。任一实际块不满足则整体拒绝，不写入部分DDS或cdata。原图像解码alpha规则保留，因此全零alpha的TGA仍会先变为不透明。
+
+包装保留原单色路径返回level4的字节行为；不是把所有三色输入强制改成level3。原完整state三例端点/索引orientation差异保留，规范化后的compact打包全等不冒充未初始化默认DXT1。上文默认DXT1/opaque DXT1A反例和拒绝边界仍有效。生产SDK未替换，完整mymod继续保留原锚点。

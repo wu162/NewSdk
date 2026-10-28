@@ -75,8 +75,21 @@ public class TextureSdkTracePlugin : TraceBase
         if (!File.Exists(path)) File.WriteAllText(path, Header + "\n", Utf8);
         File.AppendAllText(path, String.Join("\t", fields) + "\n", Utf8);
     }
+#if NO_ORIGINAL
+    private static void VerifyOriginalAbsent()
+    {
+        if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BinaryAssetBuilder.TextureCompiler.dll")))
+            throw new InvalidOperationException("Original TextureCompiler DLL present in isolated SDK.");
+        foreach (System.Reflection.Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            if (assembly.GetName().Name == "BinaryAssetBuilder.TextureCompiler")
+                throw new InvalidOperationException("Original TextureCompiler assembly loaded in isolated SDK.");
+    }
+#endif
     public override AssetBuffer ProcessInstance(InstanceDeclaration declaration)
     {
+#if NO_ORIGINAL
+        VerifyOriginalAbsent();
+#endif
         string directory = Environment.GetEnvironmentVariable("RA3_TEXTURE_SDK_TRACE");
         if (String.IsNullOrEmpty(directory)) return base.ProcessInstance(declaration);
         if (declaration == null || declaration.Handle == null)
@@ -99,6 +112,9 @@ public class TextureSdkTracePlugin : TraceBase
         try
         {
             result = base.ProcessInstance(declaration);
+#if NO_ORIGINAL
+            VerifyOriginalAbsent();
+#endif
         }
         catch (Exception error)
         {

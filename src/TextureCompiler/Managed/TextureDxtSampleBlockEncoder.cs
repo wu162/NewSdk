@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace BinaryAssetBuilder.TextureCompiler
 {
-    // PC quality71 float/partial blocks. Preserves the original wrapper's index
+    // PC quality71 float/partial DXT3/5 and transparent-block DXT1A. Preserves the original wrapper's index
     // map, including holes in 1x1/2x2; alpha holes are zero indices, not edges.
     public static class TextureDxtSampleBlockEncoder
     {
@@ -23,12 +23,13 @@ namespace BinaryAssetBuilder.TextureCompiler
         {
             if((width!=1&&width!=2&&width!=4)||(height!=1&&height!=2&&height!=4))throw new NotSupportedException("A power-of-two block with dimensions 1, 2 or 4 is required.");
             if(length!=width*height*4)throw new ArgumentException("RGBA storage must match block dimensions.");
-            if(format!="D3DFMT_DXT3"&&format!="D3DFMT_DXT5")throw new NotSupportedException("Only PC Production DXT3/DXT5 blocks are accepted.");
+            if(format!="D3DFMT_DXT1A"&&format!="D3DFMT_DXT3"&&format!="D3DFMT_DXT5")throw new NotSupportedException("Only PC Production DXT3/DXT5 or transparent-block DXT1A is accepted.");
         }
         public static byte[] EncodeFloatBlock(float[] rgba,int width,int height,string format)
         {
             if(rgba==null)throw new ArgumentNullException("rgba");Validate(width,height,rgba.Length,format);
             foreach(float value in rgba)if(Single.IsNaN(value)||value<0||value>1)throw new ArgumentException("Finite normalized RGBA samples are required.","rgba");
+            if(format=="D3DFMT_DXT1A")return TextureDxt1aTransparentBlockEncoder.EncodeFloatBlock(rgba,width,height);
             int count=width*height;byte[] state=new byte[0x3850];PutInt(state,0,format=="D3DFMT_DXT3"?2:3);PutInt(state,4,1);PutInt(state,8,count);
             for(int i=0;i<count;i++)for(int c=0;c<3;c++)PutDouble(state,0x10+(i*3+c)*8,rgba[i*4+c]);
             // Original default block area stays 16 even for partial blocks.

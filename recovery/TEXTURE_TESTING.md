@@ -57,3 +57,9 @@ PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平�
 `[texture-jpeg-load]`仅显式选择原JPEG LoadImageA/六种IJG6b选项取证，manual_only/evidence_only/probe-only；不作为公共JPEG、组件或SDK验收，不自动重跑未变成功组。
 
 `[texture-dxt1-boundary]`仅显式原版栈边界取证；3个新进程、每进程1280完整DDS，含DXT3/5稳定对照。manual_only/evidence_only/probe-only，不能作为恢复组件或SDK验收。`sdk-PcMymod`显式SDK组验证完整原样mymod与保留所有Includes的384资产全SDK图像扩展；原样0贴图调用不冒充该插件覆盖。
+
+## 透明块DXT1A完整能力组
+
+`dxt1a-blocks`对生产托管block/byte/float/partial接口执行D/R原版完整比较，4608块、3456份块DDS，完整源/options/双方输出与逐次NoOriginal；`dxt1a-dds`比较3648个二维/volume、有无完整mip输入，2714个完整DDS全等，934个含不透明实际块的输入明确拒绝且不调用不确定原路径；`dxt1a-images`对两根执行768个POT/partial/NPOT及标准/volume/mip输入、三buffer/full cdata/旧文件尾、原invalid-volume错误和每次NoOriginal，另保留DXT1/不透明DXT1A及混合透明/不透明块拒绝和cdata所有权检查。三组为严格组件组，成功收据必须含Debug/Release `passed=true`，不能复用evidence-only比较作为正式通过。
+
+`sdk-PcDxt1a`只在显式SDK里程碑选择，80张TGA、320实际根资产，Original/Recovered/NoOriginal三模式、四产物与全部实际轨迹完全比较；不替代完整mymod，不改变其manual_only规则。新helper已登记所有实际消费者；SDK和未变成功组保持各自精确sourceCommit/runId。完整能力组稳定后集中验证，不为内部orientation或单个候选重复启动所有消费者。

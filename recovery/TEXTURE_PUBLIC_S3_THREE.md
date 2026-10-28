@@ -1,6 +1,6 @@
 # 公开 S3 显式三色状态适配
 
-实验分支 `validation/texture-public-s3-dxt1`；正式目标 `recovery/texturecompiler-source`。实验代码尚未合入或接入业务，默认DXT1/1A仍拒绝。原默认路径有[栈依赖反例](TEXTURE_DXT1_BOUNDARY.md)，不能用一个自定模式覆盖。
+实验分支 `validation/texture-public-s3-dxt1`；正式目标 `recovery/texturecompiler-source`。透明块DXT1A已按完整产物/插件/SDK门槛合入目标分支，精确锚点见[受限DXT1A](TEXTURE_DXT1A_TRANSPARENT.md)。默认DXT1及不透明DXT1A实际块仍拒绝。原默认路径有[栈依赖反例](TEXTURE_DXT1_BOUNDARY.md)，不能用一个自定模式覆盖。
 
 在已验收的公开S3源码上继续修改，而非仅测试原样上游：加入显式level3搜索、三点floor调色板/extended x87最终评分、三色快速候选和严格误差选择；灰度常量来自既有恢复源码D_000B9608首8192字节，PROVENANCE.json记录源指纹，不是语料gold输出表。候选不回调原/既有恢复编码器，没有样本ID分派。
 
@@ -37,3 +37,9 @@ Debug/Release各5312份完整0x3850初始化状态：format0/1、flag0、mode0/3
 5e994ac0 /40693591607已completed/success。D/R各2714个完整DDS逐字节相同：二维无mip679、有mip551；volume无mip824、有mip660；另934个输入因某实际块无透明样本明确拒绝，未调用原不确定路径。相同运行中统一实验块组4608/3456及逐次NoOriginal也通过；新档案包括完整byte源与1644字节原options，D/R完整records SHA相同。[独立完整归档核对](evidence/texture/public-s3-dxt1a/inspection-40693591607-1/dds.json)和[块归档核对](evidence/texture/public-s3-dxt1a/inspection-40693591607-1/blocks.json)由`scripts/InspectTexturePublicS3Dxt1aArchive.py`重读全部原始输出、核对DDS头/完整payload而非摘要生成。
 
 基于上述完整比较，正式受限接入候选5882d9af / [40695394943](https://github.com/wu162/NewSdk/actions/runs/40695394943)验证中。每个实际块（包括每层mip/volume切片）须有alpha<=0.5样本；将该能力接入block/float/partial、二维/volume DDS与Texture/OnDemandTexture。新增3个严格组件组及320资产专用PcDxt1a SDK；实际选中17组件（含3新组）+10 SDK（含新profile），18未变组件复用，完整mymod未选。该候选尚不合入为已支持能力；生产SDK未替换。两个新组件脚本随后仅补全`passed=true`收据字段(d69e4681)，需补跑这两个组取得可复用收据，不篡改当前run旧收据，也不因此重跑已完成其他组。
+
+## 当前结论：透明块DXT1A已取得完整正式门槛
+
+业务5882d9af/40695394943的17组件、10 SDK全部成功；0d37d401/40699070349仅补2个严格组件可复用收据，52d90eff/40699857549仅补2个raw SDK逐次隔离守卫。D/R新插件768输入/14拒绝，10 SDK每模式合计13424实际Core调用、46978完整轨迹逐文件相同，四产物全等。受限实现与来源、实验和最终证据已集中正式分支，生产SDK未替换、完整mymod未重跑。上文“尚未合入/待收取”等表述保留为当时实验状态，由本节及TEXTURE_DXT1A_TRANSPARENT.md覆盖。
+
+原5312完整内部state仍5309相同，剩余3例的真实orientation差异不删改；输出规范化和完整透明DXT1A独立验收已闭环，不再把这3例列为该产物路径未修复问题。默认DXT1/opaque DXT1A的原栈依赖反例保持有效。

@@ -1,0 +1,77 @@
+{
+  "status": "offline-full-record-inspection",
+  "productionAccepted": false,
+  "scope": "Exact complete raw outputs and independent DDS layout; not codec execution, plugin or SDK acceptance",
+  "archiveSha256": "305f3df416a78a9bd68900769eb31f7cfaf23c03f77e902c280752aff402e23f",
+  "configurations": [
+    {
+      "file": "Debug-transcript.tsv.records",
+      "version": "0x33415844",
+      "inputs": 4608,
+      "compared": 4608,
+      "matched": 4608,
+      "opaqueRejected": 0,
+      "completeDDS": 3456,
+      "ddsMatched": 3456,
+      "recordSha256": "074b801f310d2ccf7e56b451b21ed2a625f044534540c6578f334bc0e150d732",
+      "recordBytes": 1586222,
+      "consumedBytes": 1586222,
+      "byteInputsStored": true,
+      "shapes": {
+        "1x1": 512,
+        "1x2": 512,
+        "1x4": 512,
+        "2x1": 512,
+        "2x2": 512,
+        "2x4": 512,
+        "4x1": 512,
+        "4x2": 512,
+        "4x4": 512
+      },
+      "categories": {},
+      "differences": []
+    },
+    {
+      "file": "Release-transcript.tsv.records",
+      "version": "0x33415844",
+      "inputs": 4608,
+      "compared": 4608,
+      "matched": 4608,
+      "opaqueRejected": 0,
+      "completeDDS": 3456,
+      "ddsMatched": 3456,
+      "recordSha256": "074b801f310d2ccf7e56b451b21ed2a625f044534540c6578f334bc0e150d732",
+      "recordBytes": 1586222,
+      "consumedBytes": 1586222,
+      "byteInputsStored": true,
+      "shapes": {
+        "1x1": 512,
+        "1x2": 512,
+        "1x4": 512,
+        "2x1": 512,
+        "2x2": 512,
+        "2x4": 512,
+        "4x1": 512,
+        "4x2": 512,
+        "4x4": 512
+      },
+      "categories": {},
+      "differences": []
+    }
+  ],
+  "sourceCommit": "0d37d401f812edb58a4e96a0c9ba2ad033abe996",
+  "runId": "40699070349",
+  "runAttempt": "1",
+  "options": [
+    {
+      "file": "Debug-transcript.tsv.options",
+      "bytes": 1644,
+      "sha256": "7fdfbf47e65491d594fee442dfbc119a589f3117d77e0c17e7cc822c4141bd0c"
+    },
+    {
+      "file": "Release-transcript.tsv.options",
+      "bytes": 1644,
+      "sha256": "7fdfbf47e65491d594fee442dfbc119a589f3117d77e0c17e7cc822c4141bd0c"
+    }
+  ]
+}
