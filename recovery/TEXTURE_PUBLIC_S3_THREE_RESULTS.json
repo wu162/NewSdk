@@ -1,0 +1,70 @@
+{
+  "sourceCommit": "fbc82056f286bf9e7e8ead98655baa6a56d3c4a1",
+  "runId": "40670148058",
+  "status": "comparison-completed",
+  "productionAccepted": false,
+  "archiveSha256": "3e062e22af13360c325be54022f53fb6ec206ac5ee131e6ebf6509eed5f9f8a9",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "fixtures": 5312,
+      "matched": 4862,
+      "differences": 450,
+      "differencesByFormatAndMode": {
+        "f0/mode0": 450
+      },
+      "differencesByOffset": {
+        "3050": 29,
+        "3064": 28,
+        "3070": 30,
+        "308c": 5,
+        "3060": 35,
+        "3068": 34,
+        "3084": 20,
+        "3054": 32,
+        "3080": 24,
+        "3078": 24,
+        "3088": 27,
+        "307c": 40,
+        "3074": 31,
+        "305c": 33,
+        "3058": 28,
+        "306c": 27,
+        "303c": 1,
+        "3038": 2
+      },
+      "recordsSha256": "1a6e698efa8dc941b3ff89dae00049363be7d163e070818d46b7bfa87aa57b9e"
+    },
+    {
+      "configuration": "Release",
+      "fixtures": 5312,
+      "matched": 4862,
+      "differences": 450,
+      "differencesByFormatAndMode": {
+        "f0/mode0": 450
+      },
+      "differencesByOffset": {
+        "3050": 29,
+        "3064": 28,
+        "3070": 30,
+        "308c": 5,
+        "3060": 35,
+        "3068": 34,
+        "3084": 20,
+        "3054": 32,
+        "3080": 24,
+        "3078": 24,
+        "3088": 27,
+        "307c": 40,
+        "3074": 31,
+        "305c": 33,
+        "3058": 28,
+        "306c": 27,
+        "303c": 1,
+        "3038": 2
+      },
+      "recordsSha256": "1a6e698efa8dc941b3ff89dae00049363be7d163e070818d46b7bfa87aa57b9e"
+    }
+  ],
+  "staticRuleEvidence": "TextureColour.asm Q_1007BF3D..Q_1007BF68: outLevel3 uses 4 points for format0, 3 points for nonzero format, fourth point black"
+}
