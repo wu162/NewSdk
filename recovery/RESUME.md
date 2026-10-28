@@ -1,7 +1,7 @@
-# 当前轮检查点：三色包装与透明DXT1A完整产物比较
+# 当前轮：透明DXT1A完整块/DDS已比较相同，mip/volume验证中
 
-- **本轮完成（验证中）**：按原包装规则离线核对40671760128不可变归档，D/R compact打包各5312/5312相同，原完整state仍5309/5312；新增可复现分析脚本/收据。独立实验分支新增透明DXT1A float/partial与完整DDS比较，源码792aff38 / [40679136957](https://github.com/wu162/NewSdk/actions/runs/40679136957)运行中，尚不声明支持。详细入口[三色适配](TEXTURE_PUBLIC_S3_THREE.md)。
-- **下一步**：收取该run终态与完整差异，按实际包装问题集中修复；候选稳定后再取得适用完整消费/SDK门槛。默认未初始化DXT1/opaque DXT1A保持拒绝；本轮不默认重跑完整MOD，未变成功组保留原锚点。
+- **本轮完成**：不可变三色归档D/R compact打包各5312/5312相同，原完整state仍5309/5312；保留可复现分析与3个真实差异。包装源码2ebb72e3 / [40692652134](https://github.com/wu162/NewSdk/actions/runs/40692652134) completed/success：D/R各4608 float/partial块、3456完整DDS全部字节相同，逐次NoOriginal通过。已识别并保留原单色level4行为，首轮宿主断言failure如实保留。成果/归档集中本分支，实验源码仍在validation/texture-public-s3-dxt1，未启用生产。详见[三色包装续接](TEXTURE_PUBLIC_S3_THREE.md)。
+- **下一步**：收取5e994ac0 / [40693591607](https://github.com/wu162/NewSdk/actions/runs/40693591607)的二维/volume/mip完整DDS与统一实验块组终态，按完整产物修复；组件稳定后集中必要消费与SDK门槛。默认未初始化DXT1/opaque DXT1A保持拒绝；不默认重跑完整MOD，未变32组与SDK保留原锚点。
 
 # 本轮规则修订：效率复盘、完整MOD降频与交接
 
