@@ -7,12 +7,12 @@
       "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
       "repository": "Team-Resurgent/RXDK-Libs",
       "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
-      "blobSha": "49cd78be654ce2687e20d1a025bbd5334da1a1f4",
-      "sha256": "23276c2a3222a44cb3f054071176a9800b4a5fae77b82f4d8df49e3a0b210658",
-      "bytes": 89952,
+      "blobSha": "5d06e1eab978685fffaea10b86957c0d9221f9d9",
+      "sha256": "b2925a6233fc5abb7dac7e084d6ebe76767e2594c38c5001fc5c7541d5002fc9",
+      "bytes": 89919,
       "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
       "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
-      "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection",
+      "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain",
       "file": "s3_quant.cpp"
     },
     {

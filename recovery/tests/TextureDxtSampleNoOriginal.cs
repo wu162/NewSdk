@@ -6,7 +6,7 @@ internal static class TextureDxtSampleNoOriginal {
     private static int Main(string[] args){try{
         if(File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"BinaryAssetBuilder.TextureCompiler.dll")))throw new Exception("Original present");
         int fixtures=0,checks=0;
-        using(var r=new BinaryReader(File.OpenRead(args[0]))){int count=r.ReadInt32();if(count!=4608)throw new Exception("Wrong corpus count");
+        using(var r=new BinaryReader(File.OpenRead(args[0]))){int count=r.ReadInt32();if(count!=4752)throw new Exception("Wrong corpus count");
             while(r.BaseStream.Position<r.BaseStream.Length){string format=r.ReadString();int width=r.ReadInt32(),height=r.ReadInt32(),length=r.ReadInt32();if(length!=width*height*4||length>64)throw new Exception("Wrong sample count");float[] rgba=new float[length];for(int i=0;i<length;i++)rgba[i]=r.ReadSingle();byte[] expected=r.ReadBytes(16);if(expected.Length!=16)throw new Exception("Truncated replay");
                 byte[] actual=TextureDxtSampleBlockEncoder.EncodeFloatBlock(rgba,width,height,format);
                 if(actual.Length!=16)throw new Exception("Block size");

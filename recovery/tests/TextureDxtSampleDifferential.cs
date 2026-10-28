@@ -113,13 +113,19 @@ internal static unsafe class TextureDxtSampleDifferential
             Compressor byteCompressor=(Compressor)Marshal.GetDelegateForFunctionPointer(IntPtr.Add(module,0x52b60),typeof(Compressor));
             FloatCompressor floatCompressor=(FloatCompressor)Marshal.GetDelegateForFunctionPointer(IntPtr.Add(module,0x5c790),typeof(FloatCompressor));
             using(var replay=new BinaryWriter(File.Create(output+".replay")))using(var transcript=new StreamWriter(output)){
-                replay.Write(4608);transcript.WriteLine("format\twidth\theight\tpattern\tsha256");
-                foreach(string format in new[]{"D3DFMT_DXT3","D3DFMT_DXT5"})foreach(int width in new[]{1,2,4})foreach(int height in new[]{1,2,4})for(int pattern=0;pattern<256;pattern++){
+                replay.Write(4752);transcript.WriteLine("format\twidth\theight\tpattern\tsha256");
+                foreach(string format in new[]{"D3DFMT_DXT3","D3DFMT_DXT5"})foreach(int width in new[]{1,2,4})foreach(int height in new[]{1,2,4})for(int pattern=0;pattern<264;pattern++){
                     byte[] bytes=Pixels((uint)width,(uint)height,pattern%8);if(pattern>=8)new Random(pattern*7919+width*31+height).NextBytes(bytes);
                     float[] values=new float[bytes.Length];for(int i=0;i<values.Length;i++)values[i]=(float)(bytes[i]/255.0);
                     if(pattern>=128){var random=new Random(pattern*3571+width*37+height);for(int i=0;i<values.Length;i++)values[i]=random.Next(16777216)/16777215f;
                         if(pattern<158)for(int i=3;i<values.Length;i+=4)values[i]=(float)((pattern-128+0.5)/15.0); // valid half-step alpha cases below
                         for(int i=0;i<values.Length;i++)if(values[i]>1)values[i]=1;
+                    }
+                    // Near-equal RGB values must still use the original exact
+                    // all-same decision, across every partial block shape.
+                    if(pattern>=256)for(int i=0;i<values.Length/4;i++)for(int c=0;c<3;c++) {
+                        double center=pattern<260?0.5:((c==1?31.5:15.5)/(c==1?63.0:31.0));
+                        values[i*4+c]=(float)(center+(pattern%4-1.5)*0.00002+(i-(values.Length/4-1)*0.5)*0.000004);
                     }
                     float[] before=(float[])values.Clone();byte[] expected=OriginalFloat(floatCompressor,plugin,optionsMethod,width,height,values,format);
                     byte[] actual=(byte[])encode.Invoke(null,new object[]{values,width,height,format});string label=format+" "+width+"x"+height+" p"+pattern;
@@ -132,7 +138,7 @@ internal static unsafe class TextureDxtSampleDifferential
                     transcript.WriteLine(format+"\t"+width+"\t"+height+"\t"+pattern+"\t"+Hash(actual));fixtures++;
                 }
             }
-            Check(fixtures==4608,"corpus count");Console.WriteLine("PASS Texture DXT sample blocks fixtures="+fixtures+" checks="+checks+"; normalized float/partial POT shapes; original float dispatch plus 2304 actual byte DDS cross-checks; SDK/plugin not extended");return 0;
+            Check(fixtures==4752,"corpus count");Console.WriteLine("PASS Texture DXT sample blocks fixtures="+fixtures+" checks="+checks+"; normalized float/partial POT shapes; original float dispatch plus 2304 actual byte DDS cross-checks; SDK/plugin not extended");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}finally{if(owner!=null)owner.Dispose();}
     }
 }

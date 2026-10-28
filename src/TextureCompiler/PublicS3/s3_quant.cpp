@@ -1811,8 +1811,7 @@ void CodeRGBBlock(RGBBlock *block) {
     for (j = 0; j < 3; j++) {
 	for (gC[j] = 0., i = 0; i < n; i++) {
 	    allsame &= 
-	      fabs(block->colorChannel[i][j] - block->colorChannel[0][j]) <
-	      ALL_SAME_THRESHOLD;
+	      block->colorChannel[i][j] == block->colorChannel[0][j];
 	    gC[j] += (q[i][j] =  block->colorChannel[i][j] * weight[j]);
 	}
     }

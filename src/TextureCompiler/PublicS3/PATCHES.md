@@ -80,3 +80,5 @@ Copied S3 source now additionally implements a readable PC wrapper: float covari
 ## Isolated PC integration candidate
 
 Only the accepted S3 family and its explicit legacy gray constants are copied here. The colour and alpha ABIs reject invalid domain inputs and call only these copied source functions. Managed block/partial/float wrappers now consume this DLL; the prior colour/alpha assembly components remain independent historical implementations and are not called for candidate encoding. Production SDK DLL/config unchanged. Component and SDK gates pending.
+
+The first clean integration run40647513311 stopped before business comparison because Windows auto-CRLF changed source file hashes. This directory now disables text conversion explicitly. Float-domain audit also replaces upstream's near-equality ALL_SAME_THRESHOLD with the original exact input equality (CodeRGBBlock@0x7C420); byte-domain inputs were unaffected. The sample matrix keeps all4608 existing cases and adds144 near-equal RGB float/partial cases, with complete NoOriginal replay.
