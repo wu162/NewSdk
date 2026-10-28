@@ -62,20 +62,20 @@ internal static unsafe class TexturePublicS3Dxt1aComparison
         }
         if(!transparent)throw new NotSupportedException("Opaque DXT1A remains an undefined original state boundary.");
         Put(state,8,count);PutDouble(state,0x3010,16);PutDouble(state,0x3018,(double)0.3086f);PutDouble(state,0x3020,(double)0.6094f);PutDouble(state,0x3028,(double)0.082f);Put(state,0x3030,71);
-        int[] indices=new int[count];ushort first=0,second=0;
+        int[] indices=new int[count];ushort first=0,second=0;int levels=3;
         if(count>0){
             fixed(byte* s=state)Check(candidate(new IntPtr(s),state.Length,0)==0,"candidate state status");
-            Check(BitConverter.ToInt32(state,0x3034)==3,"three-colour levels");
+            levels=BitConverter.ToInt32(state,0x3034);Check(levels==3||levels==4,"original colour-level domain");
             first=Pack(state,0x3038);second=Pack(state,0x3044);
             for(int i=0;i<count;i++)indices[i]=BitConverter.ToInt32(state,0x3050+i*4);
         }
-        if(first==second){second=unchecked((ushort)(second+1));Array.Clear(indices,0,count);}
-        bool swap=second<first;if(swap){ushort tmp=first;first=second;second=tmp;}
+        if(first==second){second=unchecked((ushort)(second+1));levels=3;Array.Clear(indices,0,count);}
+        bool swap=(second<first)==(levels==3);if(swap){ushort tmp=first;first=second;second=tmp;}
         byte[] result=new byte[8];result[0]=(byte)first;result[1]=(byte)(first>>8);result[2]=(byte)second;result[3]=(byte)(second>>8);
         int[] map=ColourMap(width,height);uint bits=0;
         for(int i=0;i<16;i++){
             int compact=map[i]<0?-1:sourceMap[map[i]],index=compact<0?3:indices[compact];
-            Check(index>=0&&index<=3,"colour index");if(compact>=0&&swap&&index<2)index^=1;
+            Check(index>=0&&index<=3,"colour index");if(compact>=0&&swap&&(levels==4||index<2))index^=1;
             bits|=(uint)index<<(i*2);
         }
         for(int i=0;i<4;i++)result[4+i]=(byte)(bits>>(8*i));return result;
