@@ -31,3 +31,9 @@ Debug/Release各5312份完整0x3850初始化状态：format0/1、flag0、mode0/3
 首轮40679136957保留failure：新宿主误断言显式三色搜索必返回level3。不可变旧gold显示每格式/模式各222例实际返回level4；原包装在端点相等时才强制三色，否则按实际levels排序并映射。修复包装后全量比较相同，没有修改公开S3搜索、屏蔽样本或放宽产物比较。真实剩余3例内部orientation差异保持原样。
 
 下一批源码 `5e994ac0db6bcf1c4c226bba8cd4e7d26b85c19e` / [40693591607](https://github.com/wu162/NewSdk/actions/runs/40693591607)运行中：将实验块实现统一成独立测试源码，并新增3648个二维/volume、无mip/完整mip输入；遇任一实际编码块无透明样本则明确拒绝且不调用不确定原路径。接受域保存全部原始byte输入和完整双方DDS，逐次NoOriginal重放，同时重新验证4608/3456块组和完整byte源/原options档案。复用已验收2D base-relative与volume递归float mip helper，绝不调用既有颜色编码器。候选仍只在实验分支，无生产路由或SDK声明。
+
+### mip/volume完整比较通过，受限生产接入候选验证中
+
+5e994ac0 /40693591607已completed/success。D/R各2714个完整DDS逐字节相同：二维无mip679、有mip551；volume无mip824、有mip660；另934个输入因某实际块无透明样本明确拒绝，未调用原不确定路径。相同运行中统一实验块组4608/3456及逐次NoOriginal也通过；新档案包括完整byte源与1644字节原options，D/R完整records SHA相同。[独立完整归档核对](evidence/texture/public-s3-dxt1a/inspection-40693591607-1/dds.json)和[块归档核对](evidence/texture/public-s3-dxt1a/inspection-40693591607-1/blocks.json)由`scripts/InspectTexturePublicS3Dxt1aArchive.py`重读全部原始输出、核对DDS头/完整payload而非摘要生成。
+
+基于上述完整比较，正式受限接入候选5882d9af / [40695394943](https://github.com/wu162/NewSdk/actions/runs/40695394943)验证中。每个实际块（包括每层mip/volume切片）须有alpha<=0.5样本；将该能力接入block/float/partial、二维/volume DDS与Texture/OnDemandTexture。新增3个严格组件组及320资产专用PcDxt1a SDK；实际选中17组件（含3新组）+10 SDK（含新profile），18未变组件复用，完整mymod未选。该候选尚不合入为已支持能力；生产SDK未替换。两个新组件脚本随后仅补全`passed=true`收据字段(d69e4681)，需补跑这两个组取得可复用收据，不篡改当前run旧收据，也不因此重跑已完成其他组。
