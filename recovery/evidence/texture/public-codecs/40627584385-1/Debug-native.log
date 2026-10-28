@@ -1,0 +1,12 @@
+TexturePublicCodecBridge.cpp
+alpha.cpp
+clusterfit.cpp
+colourblock.cpp
+colourfit.cpp
+colourset.cpp
+maths.cpp
+rangefit.cpp
+singlecolourfit.cpp
+squish.cpp
+Generating Code...
+   Creating library TexturePublicCodecBridge.lib and object TexturePublicCodecBridge.exp
