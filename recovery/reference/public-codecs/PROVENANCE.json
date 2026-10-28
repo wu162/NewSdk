@@ -303,6 +303,24 @@
       "upstreamBlobSha": "6ad67812d02ff85c7b1ed0a6371f6e011b250ced",
       "upstreamSha256": "d3ab38eb6f830218665a72ecc8ad91b8d663dc71ba854b8b769cdecef3bcc0cd",
       "compatibilityPatch": "Declare added PC alpha compatibility API"
+    },
+    {
+      "path": "recovery/reference/public-codecs/s3/s3_quant.cpp",
+      "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
+      "repository": "Team-Resurgent/RXDK-Libs",
+      "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+      "blobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
+      "sha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
+      "bytes": 81219
+    },
+    {
+      "path": "recovery/reference/public-codecs/s3/S3_quant.h",
+      "upstreamPath": "libs/libxgraphics/dxtc/S3_quant.h",
+      "repository": "Team-Resurgent/RXDK-Libs",
+      "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+      "blobSha": "ba9a7180467f3e1ea744c83ba1fe5249c2928345",
+      "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
+      "bytes": 2724
     }
   ]
 }

@@ -1,4 +1,4 @@
-// Experimental API adapters only. Compression algorithms are unmodified upstream source.
+// Experimental adapters to pinned public sources; compatibility edits are listed in PATCHES.md.
 #include <cstring>
 #include "squish.h"
 #include "alpha.h"
@@ -11,6 +11,7 @@
 #define ICBC_SIMD 0
 #include "icbc.h"
 
+int EncodePublicS3(int variant,int format,const unsigned char* rgba,unsigned char* output);
 int EncodePublicAmd(int variant,int format,const unsigned char* rgba,unsigned char* output);
 int EncodePublicAmdPatched(int variant,int format,const unsigned char* rgba,unsigned char* output);
 extern "C" __declspec(dllexport) int __cdecl PublicDxtEncode(int backend,int variant,int format,const unsigned char* rgba,unsigned char* output)
@@ -40,6 +41,7 @@ extern "C" __declspec(dllexport) int __cdecl PublicDxtEncode(int backend,int var
         if(format==3)squish::CompressAlphaDxt5(rgba,65535,output);
         icbc::compress_dxt1(qualities[variant%3],colors,weights,variant/9?metric:uniform,format==0,false,output+(format<2?0:8));
     }else if(backend==3)return EncodePublicAmd(variant,format,rgba,output);
+    else if(backend==5)return EncodePublicS3(variant,format,rgba,output);
     else if(backend==4)return EncodePublicAmdPatched(variant,format,rgba,output);
     else return 0;
     return format<2?8:16;
