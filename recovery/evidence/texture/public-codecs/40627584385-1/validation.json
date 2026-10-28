@@ -1,0 +1,1594 @@
+{
+  "configurations": [
+    {
+      "candidates": [
+        {
+          "backend": "libsquish",
+          "variant": "0",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "299",
+          "colourEqual": "299",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "0",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "299",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "1",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "312",
+          "colourEqual": "312",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "1",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "312",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "2",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "319",
+          "colourEqual": "319",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "2",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "319",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "3",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "299",
+          "colourEqual": "299",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "3",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "299",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "4",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "348",
+          "colourEqual": "348",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "4",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "348",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "5",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "481",
+          "colourEqual": "481",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "5",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "1",
+          "colourEqual": "481",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "6",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "299",
+          "colourEqual": "299",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "6",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "299",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "7",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "300",
+          "colourEqual": "300",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "7",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "300",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "8",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "300",
+          "colourEqual": "300",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "8",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "300",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "9",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "299",
+          "colourEqual": "299",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "9",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "299",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "10",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "300",
+          "colourEqual": "300",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "10",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "300",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "11",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "303",
+          "colourEqual": "303",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "11",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "303",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "stb_dxt+squish-dxt3-alpha",
+          "variant": "0",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "287",
+          "colourEqual": "287",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "stb_dxt+squish-dxt3-alpha",
+          "variant": "0",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "232",
+          "colourEqual": "287",
+          "alphaEqual": "269",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "stb_dxt+squish-dxt3-alpha",
+          "variant": "1",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "288",
+          "colourEqual": "288",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "stb_dxt+squish-dxt3-alpha",
+          "variant": "1",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "232",
+          "colourEqual": "288",
+          "alphaEqual": "269",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "0",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "239",
+          "colourEqual": "239",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "0",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "239",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "1",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "254",
+          "colourEqual": "254",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "1",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "254",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "2",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "253",
+          "colourEqual": "253",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "2",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "253",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "3",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "239",
+          "colourEqual": "239",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "3",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "239",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "4",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "254",
+          "colourEqual": "254",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "4",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "254",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "5",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "502",
+          "colourEqual": "502",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "5",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "502",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "6",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "239",
+          "colourEqual": "239",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "6",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "239",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "7",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "262",
+          "colourEqual": "262",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "7",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "262",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "8",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "527",
+          "colourEqual": "527",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "8",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "527",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "9",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "296",
+          "colourEqual": "296",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "9",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "296",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "10",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "300",
+          "colourEqual": "300",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "10",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "300",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "11",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "596",
+          "colourEqual": "596",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "11",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "596",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "12",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "281",
+          "colourEqual": "281",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "12",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "281",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "13",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "300",
+          "colourEqual": "300",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "13",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "300",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "14",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "877",
+          "colourEqual": "877",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "14",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "877",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "15",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "292",
+          "colourEqual": "292",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "15",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "292",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "16",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "308",
+          "colourEqual": "308",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "16",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "308",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "17",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "1217",
+          "colourEqual": "1217",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "17",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "2",
+          "colourEqual": "1217",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        }
+      ],
+      "comparisonCompleted": true,
+      "configuration": "Debug",
+      "nativeSha256": "d214d1677eab5ec5a0c906dba98da5051562c0f392daa77a0ee50e40addcc14c",
+      "withoutOriginalTextureCompiler": true
+    },
+    {
+      "candidates": [
+        {
+          "backend": "libsquish",
+          "variant": "0",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "299",
+          "colourEqual": "299",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "0",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "299",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "1",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "312",
+          "colourEqual": "312",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "1",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "312",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "2",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "319",
+          "colourEqual": "319",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "2",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "319",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "3",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "299",
+          "colourEqual": "299",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "3",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "299",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "4",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "348",
+          "colourEqual": "348",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "4",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "348",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "5",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "481",
+          "colourEqual": "481",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "5",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "1",
+          "colourEqual": "481",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "6",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "299",
+          "colourEqual": "299",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "6",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "299",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "7",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "300",
+          "colourEqual": "300",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "7",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "300",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "8",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "300",
+          "colourEqual": "300",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "8",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "300",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "9",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "299",
+          "colourEqual": "299",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "9",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "299",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "10",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "300",
+          "colourEqual": "300",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "10",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "300",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "11",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "303",
+          "colourEqual": "303",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "libsquish",
+          "variant": "11",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "303",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "stb_dxt+squish-dxt3-alpha",
+          "variant": "0",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "287",
+          "colourEqual": "287",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "stb_dxt+squish-dxt3-alpha",
+          "variant": "0",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "232",
+          "colourEqual": "287",
+          "alphaEqual": "269",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "stb_dxt+squish-dxt3-alpha",
+          "variant": "1",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "288",
+          "colourEqual": "288",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "stb_dxt+squish-dxt3-alpha",
+          "variant": "1",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "232",
+          "colourEqual": "288",
+          "alphaEqual": "269",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "0",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "239",
+          "colourEqual": "239",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "0",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "239",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "1",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "254",
+          "colourEqual": "254",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "1",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "254",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "2",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "253",
+          "colourEqual": "253",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "2",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "253",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "3",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "239",
+          "colourEqual": "239",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "3",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "239",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "4",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "254",
+          "colourEqual": "254",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "4",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "254",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "5",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "502",
+          "colourEqual": "502",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "5",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "502",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "6",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "239",
+          "colourEqual": "239",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "6",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "239",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "7",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "262",
+          "colourEqual": "262",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "7",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "262",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "8",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "527",
+          "colourEqual": "527",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "8",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "527",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "9",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "296",
+          "colourEqual": "296",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "9",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "296",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "10",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "300",
+          "colourEqual": "300",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "10",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "300",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "11",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "596",
+          "colourEqual": "596",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "11",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "596",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "12",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "281",
+          "colourEqual": "281",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "12",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "281",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "13",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "300",
+          "colourEqual": "300",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "13",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "300",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "14",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "877",
+          "colourEqual": "877",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "14",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "877",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "15",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "292",
+          "colourEqual": "292",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "15",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "292",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "16",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "308",
+          "colourEqual": "308",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "16",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "0",
+          "colourEqual": "308",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "17",
+          "format": "DXT3",
+          "fixtures": "5120",
+          "fullEqual": "1217",
+          "colourEqual": "1217",
+          "alphaEqual": "5120",
+          "eligibleForIntegration": "False"
+        },
+        {
+          "backend": "nvtt-icbc+squish-alpha",
+          "variant": "17",
+          "format": "DXT5",
+          "fixtures": "5120",
+          "fullEqual": "2",
+          "colourEqual": "1217",
+          "alphaEqual": "13",
+          "eligibleForIntegration": "False"
+        }
+      ],
+      "comparisonCompleted": true,
+      "configuration": "Release",
+      "nativeSha256": "0cb5ed6173c6b8486f3135b5d9e1b152671ae03d685a58bc813c98156304e4a8",
+      "withoutOriginalTextureCompiler": true
+    }
+  ],
+  "sdkValidated": false,
+  "comparisonOnly": true,
+  "sourceCommit": "94ebf7886592843a06f6e1bc5cacaf372ae0b4ff",
+  "upstreamSources": {
+    "scope": "Unmodified public sources, experimental comparison only; no production acceptance",
+    "files": [
+      {
+        "path": "recovery/reference/public-codecs/squish/LICENSE.txt",
+        "upstreamPath": "extern/libsquish-1.15/LICENSE.txt",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "ed1c78d9370d702ebaec853d84c733cbea87c8d8",
+        "sha256": "a6b8c383bf3ab28460d6507484d605dd722e03971606f0cd3032a3af682b63a5",
+        "bytes": 1121
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/alpha.cpp",
+        "upstreamPath": "extern/libsquish-1.15/alpha.cpp",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "7039c1a3b8eb674dbe03cc2eee2073a1b6d538b6",
+        "sha256": "a1012457e7dacb77052e2cad2a246671ac4652521b91d7176dd3a34c4755c1d8",
+        "bytes": 9558
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/alpha.h",
+        "upstreamPath": "extern/libsquish-1.15/alpha.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "a1fffd4049bda3c60c7d4193a4f83b052b580c08",
+        "sha256": "2efe0fffdb8cb73f1192a3ebd9029841277b37ecd4efd7dd6f5fe61e59b82a69",
+        "bytes": 1717
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/clusterfit.cpp",
+        "upstreamPath": "extern/libsquish-1.15/clusterfit.cpp",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "1610ecb5d864d061c9647662a76513918c28fea7",
+        "sha256": "ba455b1ce308c61b69d3b977298a1a9c1f61898ae921a80ee359d8358dd8eb64",
+        "bytes": 14421
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/clusterfit.h",
+        "upstreamPath": "extern/libsquish-1.15/clusterfit.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "999396b2628f5a254f0ad3a4ac8e4a22afcc7c18",
+        "sha256": "83cb26eef038302953ba67d09c5e2ddf06ac128afb95a35f6ddbb21ebadab7da",
+        "bytes": 2115
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/colourblock.cpp",
+        "upstreamPath": "extern/libsquish-1.15/colourblock.cpp",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "af8b980365ad188b0340d9ed686f3764d05660c2",
+        "sha256": "aa933312e7c64de394a78b0ea56391f988ac228c6ccf2cb23d0ea46fa7d0b204",
+        "bytes": 5876
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/colourblock.h",
+        "upstreamPath": "extern/libsquish-1.15/colourblock.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "fee2cd7c5dcb5e8e275089603c3615127898bcc0",
+        "sha256": "79cedb3174d45bd46f8b1bdb55e277ce4fcc83098d5d7831a11062678ce5c3bd",
+        "bytes": 1757
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/colourfit.cpp",
+        "upstreamPath": "extern/libsquish-1.15/colourfit.cpp",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "e45b656557f61196d1668f5185e03e7f88d2f4db",
+        "sha256": "765afce96cc3f75c41a8004a5af8e0cc9f7ae911b0565c0cb9418e72e847e143",
+        "bytes": 1821
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/colourfit.h",
+        "upstreamPath": "extern/libsquish-1.15/colourfit.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "e73dceb2ebad8294ff1de62423638ce13fe55089",
+        "sha256": "02b9021e0b3697309e836dbe1503e933993d54c61e6709020183d221124d93fb",
+        "bytes": 1841
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/colourset.cpp",
+        "upstreamPath": "extern/libsquish-1.15/colourset.cpp",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "e9005564719f6454ce06a1db460b857f7edbbf50",
+        "sha256": "43d170a88f658d6b7be319fccf676df7bf4e9480143c37dbfa67c6f42681ea65",
+        "bytes": 4109
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/colourset.h",
+        "upstreamPath": "extern/libsquish-1.15/colourset.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "e13bb6fc355a36851d280610e8e31a317f1ff553",
+        "sha256": "a396444f85060a31abb29fac5501b6881f413de8bf1d193ed2a298e8bf64bb9d",
+        "bytes": 2031
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/config.h",
+        "upstreamPath": "extern/libsquish-1.15/config.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "9f1f4b177adee3ed06a2af5253a435a36e6c243f",
+        "sha256": "1191220140b999cab4e0bca7168e6a23dfcdd0959949d72b9f169eee03832be2",
+        "bytes": 1938
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/maths.cpp",
+        "upstreamPath": "extern/libsquish-1.15/maths.cpp",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "4fa0bcfb355ed84228f32910eb6f79369712cbaa",
+        "sha256": "30be11f09a97185e20bc5fe6f57fd2bc9e7eb37dd06b2d55ae27bd7c7db21248",
+        "bytes": 7230
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/maths.h",
+        "upstreamPath": "extern/libsquish-1.15/maths.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "59c32196b1602b24baf2f899f168d08d610c1b03",
+        "sha256": "77edf23f0585e88ebc88122213430dca147dae915b2efa8ed7e52d7a2a3e2b00",
+        "bytes": 5065
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/rangefit.cpp",
+        "upstreamPath": "extern/libsquish-1.15/rangefit.cpp",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "adc07ed7d221fc6881775e82b0d4fa3c635af15e",
+        "sha256": "b60ac47cfe48e46fcef0968743e2c37166f126f0a1e3c54252817ee17036b44d",
+        "bytes": 5761
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/rangefit.h",
+        "upstreamPath": "extern/libsquish-1.15/rangefit.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "bdb21a900744beb6d922a57c6a533974c80b7d26",
+        "sha256": "4c5b1274b895d2732a9c9de7ac9654cf467e0cf3dfe1d750be80b4fc2d681514",
+        "bytes": 1819
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/simd.h",
+        "upstreamPath": "extern/libsquish-1.15/simd.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "1e02fa160eb845eae62149132bca2cec5cee3a1b",
+        "sha256": "bbdff232199862687548109718a42540dc1600b3ab971b8029e461b18c2ca002",
+        "bytes": 1550
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/simd_float.h",
+        "upstreamPath": "extern/libsquish-1.15/simd_float.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "030ea70950c3c99eb895c501566bb0067e6c1969",
+        "sha256": "00680b5357422821686f9d472952fa725a1d6ceaa0bcf9c36d5180b56a89184e",
+        "bytes": 4636
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/simd_sse.h",
+        "upstreamPath": "extern/libsquish-1.15/simd_sse.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "2e8be4ca7be2461cc5e28a63c2eb82334ab490d4",
+        "sha256": "3761dbd996f1cc34dec37049169c1d3385993f84d75bce8ff945ab94aa0ed5d7",
+        "bytes": 5459
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/simd_ve.h",
+        "upstreamPath": "extern/libsquish-1.15/simd_ve.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "08a153750329df73ec14c22aacef885dba25f335",
+        "sha256": "6378da37561f24ce60e7ddccb0cfa579f55641c5da9c0ac30606291295e9a8ab",
+        "bytes": 4559
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/singlecolourfit.cpp",
+        "upstreamPath": "extern/libsquish-1.15/singlecolourfit.cpp",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "cef0ebc410bef76d383a49a1818d178aaa245f8c",
+        "sha256": "175cde4031c830d387f0512b50fc4566b37e942bd81fef4c10620a9994a2ad8f",
+        "bytes": 4922
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/singlecolourfit.h",
+        "upstreamPath": "extern/libsquish-1.15/singlecolourfit.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "974ce77256909120b9e54be37010d0bfdd9a8300",
+        "sha256": "0514ae016d2e7b84ffbd843fb968f82732e907abe661f653fdab614d999413fa",
+        "bytes": 1961
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/singlecolourlookup.inl",
+        "upstreamPath": "extern/libsquish-1.15/singlecolourlookup.inl",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "5b44a1e5e62e123fdf7a41622387121ea1dc6faa",
+        "sha256": "0bf99c99e6c39e1b665277f55b9dab73d4b79f32189c2d14d853d34619d9ca84",
+        "bytes": 42650
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/squish.cpp",
+        "upstreamPath": "extern/libsquish-1.15/squish.cpp",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "1d22a64ad60cd8454f9fb1e4171a99c2842c8422",
+        "sha256": "6d2314bc55277ab5231bee5d53229fabd6cb42afb9ae80e3757d63c79e988349",
+        "bytes": 13394
+      },
+      {
+        "path": "recovery/reference/public-codecs/squish/squish.h",
+        "upstreamPath": "extern/libsquish-1.15/squish.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "14c9bb59fb14f61b2068fd101c4beda7fe0449e7",
+        "sha256": "3d2ef14de2463f8d13ba2290708c9e79b8762d575d18f1b68fb1bbd11d5f4fe9",
+        "bytes": 13859
+      },
+      {
+        "path": "recovery/reference/public-codecs/stb/stb_dxt.h",
+        "upstreamPath": "stb_dxt.h",
+        "repository": "nothings/stb",
+        "commit": "003501f6d7a8668ce8b6d875e34dd97ad0d5d5b5",
+        "blobSha": "6150a87f08d951371a55a4c06ce1e41a9b5ca3a7",
+        "sha256": "807667ef98e0fd749cdb65cca0c2d980bc148109d2fed6f1873c81ae0f449933",
+        "bytes": 28319
+      },
+      {
+        "path": "recovery/reference/public-codecs/stb/stb_image.h",
+        "upstreamPath": "stb_image.h",
+        "repository": "nothings/stb",
+        "commit": "003501f6d7a8668ce8b6d875e34dd97ad0d5d5b5",
+        "blobSha": "9eedabedc45b3e6fd88fae6f14a160b4d53272ec",
+        "sha256": "594c2fe35d49488b4382dbfaec8f98366defca819d916ac95becf3e75f4200b3",
+        "bytes": 283010
+      },
+      {
+        "path": "recovery/reference/public-codecs/stb/LICENSE",
+        "upstreamPath": "LICENSE",
+        "repository": "nothings/stb",
+        "commit": "003501f6d7a8668ce8b6d875e34dd97ad0d5d5b5",
+        "blobSha": "a77ae91f3ec0abb0028c9d9bd8d34d880b454d38",
+        "sha256": "bebfe904b14301657e4e5d655c811d51fd31b97c455b9cc2d8600d6bac6cff63",
+        "bytes": 2510
+      },
+      {
+        "path": "recovery/reference/public-codecs/nvtt/icbc.h",
+        "upstreamPath": "src/nvtt/icbc.h",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "681a77ad8043c67e23ddc06e94af17b48ab7a22f",
+        "sha256": "8fe743b284b65a4e4060d3b905b40675ca875c7a91a4661603b03491111017c2",
+        "bytes": 114327
+      },
+      {
+        "path": "recovery/reference/public-codecs/nvtt/LICENSE",
+        "upstreamPath": "LICENSE",
+        "repository": "castano/nvidia-texture-tools",
+        "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
+        "blobSha": "35d671ff9902189ee3e3fe900e15785aebb0e614",
+        "sha256": "6ede1753acdf87735699cf6a40bc73a609af6a43ff69565a1bcfe5a1a1456035",
+        "bytes": 1190
+      }
+    ]
+  },
+  "jpegBaseline": {
+    "sha256": "b758465f88b831f5952e4700531ffe5b83a9696be6889a8b9d0defdc1eee24a1",
+    "sourceCommit": "3f2351f2d0b0adccf416ba6dda7e97d49b5c92f6",
+    "runId": "40625499544"
+  },
+  "runId": "40627584385",
+  "scope": "copied upstream libsquish/STB/NVTT ICBC full original 10240 DXT3/5 blocks, 16 nonacceptance DXT1 snapshots, 1284 JPEG records; Debug/Release and no original DLL loaded",
+  "productionAccepted": false,
+  "status": "comparison-completed",
+  "runAttempt": "1",
+  "eligibleCandidates": [],
+  "blockBaseline": {
+    "sha256": "7150e0ce4b01c58e319aca053e87e60b00040344211b621c3fa10883716a245c",
+    "sourceCommit": "b02787056a655a9710117e05e4b771740d3b67fe",
+    "runId": "40500898688"
+  }
+}
