@@ -14,6 +14,8 @@ Both configurations checked all10,240 original DXT3/5 blocks against32 parameter
 | stb_dxt, 2 configurations; squish explicit alpha for DXT3 | 288 | 232 |
 | NVTT ICBC, 18 configurations; squish alpha | 1217 | 2 |
 
+Full artifact inspection also found different RGB565 endpoints on the same random input1024, rather than merely alternate indices for a constant color. Original DXT3 payload is `93f22c7b192dde8c4b8fd380d7222d9e`; the best ICBC variant17 produced `93f22c7b192dde8c2c86b480d7200d18`. Original RGB endpoints are36683/32979, candidate34348/32948. The compared artifact contains327,680 records per configuration, each with input RGBA and both complete blocks.
+
 No complete format reached5120/5120. Squish DXT3 alpha alone matched5120/5120, but its color output did not; alpha-only equality is not full-DXT equality. DXT1/1A16 saved snapshots are explicitly probe-only due to the legacy undefined default-state boundary. No DXT default support is inferred from them.
 
 STB JPEG matched272/1280 decoded images and1/4 original rejection records, after retaining the same validated downstream POT/L8/RGBA8 adapter. It is not eligible to replace the original-compatible decoder. Failed/partial copied implementations are not enabled or copied into the texture branch by this integration branch.
