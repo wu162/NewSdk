@@ -34,6 +34,7 @@
 #include <math.h>
 #include <assert.h>
 #include "S3_quant.h"
+#include "LegacyGray4.inl"
 
 /*****************************************************************************
 **									    **
@@ -1328,6 +1329,23 @@ static double roundMult (int nColors, int n, double (*q)[3], double *pMult,
 */
 static double allSame(int *nColors, int n, double (*q)[3], double weight[3], 
   int endPointOut[2][3], int index [MAX_PIXEL_PER_BLOCK]) {
+
+    // PC legacy compatibility: use the codec's fixed grayscale optimization
+    // records for a single quantized gray value. Other colors retain S3 search.
+    if (*nColors == 4 && n > 0) {
+        int gray = (int)floor(q[0][0] * 255.0 / weight[0] + 0.5);
+        bool sameGray = gray >= 0 && gray <= 255;
+        for (int pixel=0;pixel<n && sameGray;pixel++)
+            for (int channel=0;channel<3;channel++)
+                sameGray &= (int)floor(q[pixel][channel] * 255.0 / weight[channel] + 0.5) == gray;
+        if (sameGray) {
+            const int* record=LegacyGray4[gray];
+            for(int endpoint=0;endpoint<2;endpoint++)for(int channel=0;channel<3;channel++)
+                endPointOut[endpoint][channel]=record[endpoint*3+channel];
+            *nColors=record[6];for(int pixel=0;pixel<n;pixel++)index[pixel]=record[7];
+            return 0;
+        }
+    }
 
     /* Because the input is floating point, we don't generally assume that 
     ** the input points actually have the same values. Instead, we assume

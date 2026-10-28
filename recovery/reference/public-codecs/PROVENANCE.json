@@ -309,12 +309,12 @@
       "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
       "repository": "Team-Resurgent/RXDK-Libs",
       "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
-      "blobSha": "5b32c15dcc6285c9b23ee81bdeef475488803e69",
-      "sha256": "0cfb5998a02baa1a8486983664d47e08073dca2cf4d73fd7b66503cf5365d8af",
-      "bytes": 81284,
+      "blobSha": "d44e0759fe392ec14e003ea675ee35404201680c",
+      "sha256": "e87b0c97011f2d74b011d4af687b133fa8d3758c4228ccb1ad28d58dbf324ddd",
+      "bytes": 82190,
       "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
       "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
-      "compatibilityPatch": "Force four-colour single-colour search for PC DXT3/5; exclude BC1 midpoint candidate"
+      "compatibilityPatch": "Forced four-colour single-colour search and existing legacy grayscale optimization constants from owned source"
     },
     {
       "path": "recovery/reference/public-codecs/s3/S3_quant.h",
@@ -324,6 +324,17 @@
       "blobSha": "ba9a7180467f3e1ea744c83ba1fe5249c2928345",
       "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
       "bytes": 2724
+    },
+    {
+      "path": "recovery/reference/public-codecs/s3/LegacyGray4.inl",
+      "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608+8192 (8192 bytes)",
+      "repository": "wu162/NewSdk",
+      "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+      "blobSha": "b188483b80391cee4d7e5f9b85f01832bfa1f012",
+      "sha256": "404d173c95c2beb07625b256a544b7a1febb2590b52b667c021921121eb6e227",
+      "bytes": 7023,
+      "origin": "existing recovered fixed codec optimization data, not public S3 upstream and not corpus payloads",
+      "sourceDataSha256": "c8c04516fe9c09fd35f56b5ef96e889db56a41ab1f575385f90ee1fa2e558211"
     }
   ]
 }

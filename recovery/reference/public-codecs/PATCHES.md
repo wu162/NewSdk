@@ -27,3 +27,15 @@ endpoint ordering. The copied allSame search now excludes that BC1-only candidat
 when the caller requests four colours. This changes a general format contract,
 not expected bytes for a fixture. Both original upstream and patched hashes are
 retained. The failed partial run cannot establish any matrix acceptance.
+
+## S3 grayscale compatibility data
+
+LegacyGray4.inl contains the existing PC codec's256 fixed grayscale optimization
+records, already preserved as owned source in TextureColour.asm at
+D_000B9608+8192 / original RVA0xBB608. These are codec algorithm constants, not
+saved DXT differential payloads. Their original source, source-data SHA256 and
+new file hash are explicit in PROVENANCE.json. The copied S3 single-colour entry
+uses them only for one common quantized grayscale value; non-gray search remains
+S3. This is a hybrid compatibility adaptation and is not described as unmodified
+public S3 code or as independently generated optimization tables. No original
+DLL or existing recovered encoder function is called.
