@@ -1513,6 +1513,21 @@
       "sdk": false,
       "manual_only": true,
       "evidence_only": true
+    },
+    "public-s3-dxt1a": {
+      "script": "recovery/scripts/TestTexturePublicS3Dxt1a.ps1",
+      "arguments": {},
+      "dependencies": [
+        "SDK/tools/*.dll",
+        "recovery/scripts/TestTexturePublicS3Dxt1a.ps1",
+        "recovery/scripts/BuildTexturePublicS3.ps1",
+        "recovery/tests/TexturePublicS3Dxt1aComparison.cs",
+        "src/TextureCompiler/PublicS3/**"
+      ],
+      "evidence": "recovery/evidence/texture/public-s3-dxt1a/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"
