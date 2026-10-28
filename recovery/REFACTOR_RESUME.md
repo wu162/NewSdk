@@ -11,7 +11,7 @@
 
 本轮 XML/Audio 并行已在 `d7ecbebf` 的 [40647141375](https://github.com/wu162/NewSdk/actions/runs/40647141375) 完整通过 Debug/Release、精确缓存/CDATA、实际重叠、完整 mymod 与五文件 ZIP。覆盖 APT 四根、Xmlaudio 七根、内建 AudioFile 与 MP3 passthrough；未知注入编码器拒绝认证，重采样/PathMusic 保持 owner。新增成功归档 payload 重放工具已通过 [40648208910](https://github.com/wu162/NewSdk/actions/runs/40648208910) 的拒绝合同测试，真实归档重放 [40649079387](https://github.com/wu162/NewSdk/actions/runs/40649079387) 已成功，运行文件哈希与原二进制一致，binary/test 来源分别记录。
 
-按用户关于机器资源的最新反馈，生产调度继续改为 `MachineResources.v1`：jobs/CPU/Win32 可用物理和虚拟地址空间共同准入，单任务与准备态预算由总预算推导；不再把 2 worker、256/64MiB 当统一机器额度。压力收紧时排空已有任务，再减少后续派发；单个超大兼容任务不承诺通用硬内存上限。自适应组首跑40649384165的Core测试暴露One.xml大小写识别问题；c2a2cec6仅修复测试，完整验收 [40650040607](https://github.com/wu162/NewSdk/actions/runs/40650040607) 尚在执行。现payload复用入口不覆盖Core验证宿主及完整SDK/发行链，本次集中重建；不能沿用上段旧源码收据标完成。
+按用户关于机器资源的最新反馈，生产调度已改为 `MachineResources.v1`：jobs/CPU/Win32可用物理和虚拟地址空间共同准入，单任务和准备态预算由总预算推导；默认jobs=1保留，显式jobs=N不再统一硬限2 worker。`c2a2cec6`的 [40650040607](https://github.com/wu162/NewSdk/actions/runs/40650040607) 完整success：两配置均在4核机器得到4路真实重叠、约512MiB预算；压力下8→1、安全汇合、超预算APT owner、小任务worker、完整mymod及五文件ZIP全部通过。原始归档12800535841和运行文件/ZIP哈希已核验，精确来源见专项JSON。首跑40649384165因测试路径大小写误判failure，c2仅修测试、未改生产或放宽断言；失败原终态保留。现payload复用不覆盖Core宿主与完整SDK/发行链，本次集中重建完成验收。
 
 后续优先按计量减少跨stream扫描或扩展剩余已认证并行，保留现有强身份、读租约、失败事务与完整SDK门槛。编译/测试全部GitHub Actions；通常两个子代理、最多三个由本轮用户授权。禁止强推；目标compiler-main，未经用户批准不合入。
 

@@ -118,7 +118,7 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 
 `--jobs=N` 只接受正整数，项目 JSON 可保存 `"jobs": "2"`，命令行优先。`MachineResources.v1` 按用户上限、CPU 和当前 Win32 进程的可用物理/虚拟内存决定准入容量，防御上限32，并非固定只运行两个任务。它预留地址空间与运行开销，按资源估算限制在途总量；任务准入处最多每100ms采样一次，本 stream 只收紧、不因瞬时回升扩容。查询失败退化为串行；不能仅按64位宿主机 RAM 放大 x86 进程。超大任务仍可走 owner 串行，其原有执行峰值不受通用硬内存保证。
 
-后端可重入认证与机器准入分别判断：W3X 已有旧固定预算下的真实重叠验收；本轮源码新增 APT 四种数据根、Xmlaudio 七种元数据根、无 `PCSampleRate` 的默认/NONE/XAS AudioFile，以及 MP3 passthrough，新的自适应 CI 验收待完成。准确类型、内存估算与证据见[资格表](docs/CACHE_PARALLEL.md#源码资格表实测范围由下节收据决定)。显式指定 `PCSampleRate` 的 AudioFile、PathMusic、其他未认证 XML 与 Texture 继续 owner 串行。AudioFile 仅认证内建 `PcmWaveAudioCompiler`，注入未知编码器不启用缓存或并行。
+后端可重入认证与机器准入分别判断：W3X 已有旧固定预算下的真实重叠验收；本轮源码新增 APT 四种数据根、Xmlaudio 七种元数据根、无 `PCSampleRate` 的默认/NONE/XAS AudioFile，以及 MP3 passthrough，自适应调度已通过Debug/Release完整验收，4核样例实测4路后端重叠，内存降额和超大单任务owner回退也通过。准确类型、内存估算与证据见[资格表](docs/CACHE_PARALLEL.md#源码资格表实测范围由下节收据决定)。显式指定 `PCSampleRate` 的 AudioFile、PathMusic、其他未认证 XML 与 Texture 继续 owner 串行。AudioFile 仅认证内建 `PcmWaveAudioCompiler`，注入未知编码器不启用缓存或并行。
 
 报告 `requestedJobs` 表示用户上限，`effectiveJobs` 表示初始准入容量，`minimumEffectiveJobs` 表示运行中观测的最低准入容量；有多个 stream 时分别汇总初始最高和观测最低值。它们都不等于真实并发，实际同时执行数看 `maxBackendConcurrency` 和调用区间。`taskMemoryBudgetBytes`、`minimumTaskMemoryBudgetBytes`、`perTaskMemoryLimitBytes` 记录预算；缓存命中也不证明并行。
 
