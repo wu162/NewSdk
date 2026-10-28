@@ -1,0 +1,9 @@
+# PC 透明块 DXT1A 接入候选
+
+仅当每个实际编码块（包括每一层mip及每个volume切片）均有alpha<=0.5的源样本时接受DXT1A。默认DXT1及任何全不透明DXT1A编码块继续明确拒绝。保留原partial映射、全透明端点/索引、原单色level4返回、端点相等与模式相关规范化；公开S3负责颜色搜索，无原DLL/既有编码器回调。
+
+先前实验完整比较：2ebb72e3/40692652134的D/R各4608块、3456完整DDS；5e994ac0/40693591607的统一块组以及2714二维/volume/mip完整DDS全部相同，934个不确定域输入明确拒绝，逐次NoOriginal通过。原内部5312状态保留5309全等及3个orientation差异，compact打包5312一致，不把该内部组件改写成完全一致。
+
+当前提交新增正式托管block/float/partial、二维/volume/mip和Texture/OnDemandTexture路由，仍是独立验证分支上的待验收候选。新增3个严格完整组件组，768插件输入含旧cdata、源不变、三buffer与完整cdata、invalid volume原错误和逐次NoOriginal；专用PcDxt1a SDK为80TGA、320真实根资产，Original/Recovered/NoOriginal三模式和四产物/全部实际轨迹比较。共享helper依赖已维护。旧DXT3/5及其他实际受影响组件/9 SDK由集中选择器决定，不删既有断言；旧DXT1A全透明拒绝样本改为真正全不透明样本以保留未初始化边界的断言。
+
+本轮作为正式接入里程碑集中运行组件和必要SDK。完整mymod不随普通SDK选择，保留manual_only和原完整验收锚点。生产SDK/tools DLL/config未替换。取得当前源码完整终态前，不合入为已支持能力。

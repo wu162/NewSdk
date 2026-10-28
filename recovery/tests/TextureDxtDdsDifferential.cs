@@ -128,7 +128,7 @@ internal static unsafe class TextureDxtDdsDifferential
                 new object[]{4u,6u,new byte[96],"D3DFMT_DXT5",false},
                 new object[]{4096u,4096u,new byte[0],"D3DFMT_DXT3",false},
                 new object[]{4u,4u,new byte[64],"D3DFMT_DXT1",false},
-                new object[]{4u,4u,new byte[64],"D3DFMT_DXT1A",false},
+                new object[]{4u,4u,Pixels(4,4,1),"D3DFMT_DXT1A",false},
                 new object[]{4u,4u,new byte[64],"unknown",false},
                 new object[]{4u,4u,new byte[64],null,false}
             };

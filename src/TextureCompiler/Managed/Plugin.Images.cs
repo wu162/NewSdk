@@ -58,7 +58,7 @@ namespace Recovered.Compiler.Texture
                             "CubeTexture is not currently supported.  Create the cube texture as a DDS with the D3D Texture tool in the meantime.", new object[0]);
                     case "VolumeTexture":
                         byte[] volumeDds;
-                        if (format == "D3DFMT_DXT3" || format == "D3DFMT_DXT5")
+                        if (format == "D3DFMT_DXT1A" || format == "D3DFMT_DXT3" || format == "D3DFMT_DXT5")
                             volumeDds = BinaryAssetBuilder.TextureCompiler.TextureDxtVolumeDdsEncoder.EncodeStrip(
                                 (uint)image.Width, (uint)image.Height, rgba, format, mipmaps);
                         else
@@ -69,7 +69,7 @@ namespace Recovered.Compiler.Texture
                         break;
                     case "StandardTexture":
                         byte[] dds;
-                        if (format == "D3DFMT_DXT3" || format == "D3DFMT_DXT5")
+                        if (format == "D3DFMT_DXT1A" || format == "D3DFMT_DXT3" || format == "D3DFMT_DXT5")
                             dds = BinaryAssetBuilder.TextureCompiler.TextureDxtDdsEncoder.Encode(
                                 (uint)image.Width, (uint)image.Height, rgba, format, mipmaps);
                         else

@@ -3,7 +3,7 @@ using Recovered.Compiler.Texture;
 
 namespace BinaryAssetBuilder.TextureCompiler
 {
-    // PC DXT3/5 volume DDS, tightly packed RGBA slices in z/y/x order.
+    // PC DXT3/5 and transparent-block DXT1A volume DDS, tightly packed RGBA slices in z/y/x order.
     // Header/slice layout: original probe 6d065a9e / 40525480986.
     // Header mip count covers XY; payload includes the full XYZ tail.
     public static class TextureDxtVolumeDdsEncoder
@@ -19,13 +19,14 @@ namespace BinaryAssetBuilder.TextureCompiler
                 throw new ArgumentOutOfRangeException("width", "Volume exceeds the original safe RGBA range.");
             if ((ulong)rgba.LongLength != slicePixels * depth * 4)
                 throw new ArgumentException("RGBA storage must exactly match volume dimensions.", "rgba");
-            if (format != "D3DFMT_DXT3" && format != "D3DFMT_DXT5")
-                throw new NotSupportedException("Only PC Production DXT3/DXT5 volumes are accepted.");
+            if (format != "D3DFMT_DXT1A" && format != "D3DFMT_DXT3" && format != "D3DFMT_DXT5")
+                throw new NotSupportedException("Only PC Production DXT3/DXT5 or transparent-block DXT1A volumes are accepted.");
+            int blockBytes = format == "D3DFMT_DXT1A" ? 8 : 16;
             int cw = (int)width, ch = (int)height, cd = (int)depth;
             long total = 128;
             do
             {
-                total = checked(total + (long)((cw + 3) / 4) * ((ch + 3) / 4) * cd * 16);
+                total = checked(total + (long)((cw + 3) / 4) * ((ch + 3) / 4) * cd * blockBytes);
                 if (!generateMipMaps || (cw == 1 && ch == 1 && cd == 1)) break;
                 cw = Math.Max(1, cw / 2); ch = Math.Max(1, ch / 2); cd = Math.Max(1, cd / 2);
             } while (true);
@@ -33,11 +34,11 @@ namespace BinaryAssetBuilder.TextureCompiler
             Put(output, 0, 0x20534444); Put(output, 4, 124);
             Put(output, 8, generateMipMaps ? 0x8a1007u : 0x881007u);
             Put(output, 12, height); Put(output, 16, width);
-            Put(output, 20, checked(((width + 3) / 4) * ((height + 3) / 4) * 16));
+            Put(output, 20, checked(((width + 3) / 4) * ((height + 3) / 4) * (uint)blockBytes));
             Put(output, 24, depth);
             if (generateMipMaps) Put(output, 28, TextureVolume.MipCount(width, height, 1));
             Put(output, 76, 32); Put(output, 80, 4);
-            Put(output, 84, format == "D3DFMT_DXT3" ? 0x33545844u : 0x35545844u);
+            Put(output, 84, format == "D3DFMT_DXT1A" ? 0x31545844u : format == "D3DFMT_DXT3" ? 0x33545844u : 0x35545844u);
             Put(output, 108, generateMipMaps ? 0x401008u : 0x1000u); Put(output, 112, 0x200000u);
             float[] current = new float[rgba.Length];
             for (int i = 0; i < rgba.Length; i++) current[i] = (float)((double)rgba[i] / 255.0);
@@ -52,7 +53,7 @@ namespace BinaryAssetBuilder.TextureCompiler
                     for (int row = 0; row < bh; row++)
                         Array.Copy(current, ((z * ch + y + row) * cw + x) * 4, block, row * bw * 4, bw * 4);
                     byte[] encoded = TextureDxtSampleBlockEncoder.EncodeFloatBlock(block, bw, bh, format);
-                    Buffer.BlockCopy(encoded, 0, output, offset, 16); offset += 16;
+                    Buffer.BlockCopy(encoded, 0, output, offset, blockBytes); offset += blockBytes;
                 }
                 if (!generateMipMaps || (cw == 1 && ch == 1 && cd == 1)) break;
                 current = TextureVolumeMipEncoder.NextLevel(current, cw, ch, cd);
