@@ -211,6 +211,75 @@ namespace NewModCompiler.Tests
                     "A shared SDK file must obey the existing handle cap and largest-file preference while remaining inputs use fresh hashes.");
             }
         }
+        static void BoundedIdentityQueries(string root)
+        {
+            string sdk = Path.Combine(root, "sdk"), mod = Path.Combine(root, "mod"), runtime = Path.Combine(root, "runtime");
+            string entry = Path.Combine(mod, "Data", "Mod.xml");
+            // Ordinal enumeration first fills the one-file pool, then visits
+            // smaller/equal files, and finally replaces it with a larger file.
+            string firstLarge = Path.Combine(sdk, "a-first.bin"), small = Path.Combine(sdk, "b-small.bin");
+            string otherSmall = Path.Combine(sdk, "c-small.bin"), equal = Path.Combine(sdk, "d-equal.bin");
+            string largest = Path.Combine(sdk, "e-largest.bin"), compiler = Path.Combine(runtime, "NewModCompiler.exe");
+            string additional = Path.Combine(sdk, "Additional", "editable.bin");
+            Write(entry, "<AssetDeclaration/>"); Write(firstLarge, new string('A', 4096));
+            Write(small, "BBBB"); Write(otherSmall, "CCCCC"); Write(equal, new string('D', 4096));
+            Write(largest, new string('E', 8192)); Write(compiler, "compiler"); Write(additional, "PACK");
+            var request = new BuildRequest { Command = "build", SdkRoot = sdk, ModRoot = mod,
+                OutputRoot = Path.Combine(root, "output"), Content = new[] { "base" }, PackageFormat = "loose" };
+            var plan = new BuildPlan { Tasks = new[] { new BuildTask { Id = "base/mod", Content = "base", InputPath = entry,
+                OutputName = "base/mod", Dependencies = new string[0] } } };
+            var fresh = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+            Check(new FileInfo(firstLarge).Length == new FileInfo(equal).Length && new FileInfo(largest).Length == 8192,
+                "Bounded identity-query fixture must have exact equal and strictly larger lengths.");
+            using (var leases = new CacheInputLeaseSet(1))
+            {
+                var first = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                Check(first.Fingerprint == fresh.Fingerprint && first.ToolchainFingerprint == fresh.ToolchainFingerprint &&
+                    first.HashedBytes == fresh.HashedBytes && first.ReusedHashBytes == 0,
+                    "One-capture SHA reuse and skipped identities must preserve the exact fresh fingerprint and byte ledger.");
+                Check(leases.RetainedFiles == 1 && leases.IdentityQueries == 2 && leases.IdentitySkippedFiles == 4,
+                    "First bounded capture must query initial/larger candidates only; smaller, equal and runtime inputs still hash without file IDs.");
+                // Replacing the largest-file candidate must release the prior
+                // lease even though both belong to the same stable SDK role.
+                using (File.Open(firstLarge, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
+                Reject<IOException>(() => { using (File.Open(largest, FileMode.Open, FileAccess.Write, FileShare.ReadWrite)) { } },
+                    "The largest candidate must keep a real read lease after replacing the first input.");
+                var second = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                Check(second.Fingerprint == fresh.Fingerprint && second.ToolchainFingerprint == fresh.ToolchainFingerprint &&
+                    second.ReusedHashBytes == 8192 && second.HashedBytes + second.ReusedHashBytes == fresh.HashedBytes,
+                    "A second capture must remain byte-identical to a no-lease capture while reusing only the largest input digest.");
+                Check(leases.IdentityQueries == 3 && leases.IdentitySkippedFiles == 9 && leases.ReusedFiles == 1,
+                    "An existing retained path must still query its current file ID; every smaller absent entry skips only identity, not hashing.");
+
+                DateTime timestamp = File.GetLastWriteTimeUtc(small);
+                Write(small, "ZZZZ"); File.SetLastWriteTimeUtc(small, timestamp);
+                Check(new FileInfo(small).Length == 4 && File.GetLastWriteTimeUtc(small) == timestamp,
+                    "Skipped-identity input mutation must preserve its exact length and timestamp.");
+                var changedFresh = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+                var changed = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                Check(changed.Fingerprint != second.Fingerprint && changed.Fingerprint == changedFresh.Fingerprint &&
+                    changed.ToolchainFingerprint == changedFresh.ToolchainFingerprint && changed.ToolchainFingerprint == fresh.ToolchainFingerprint,
+                    "An unretained same-length/same-time SDK mutation must still invalidate content protection and match a completely fresh inventory.");
+                Check(changed.ReusedHashBytes == 8192 && changed.HashedBytes + changed.ReusedHashBytes == changedFresh.HashedBytes &&
+                    leases.IdentityQueries == 4 && leases.IdentitySkippedFiles == 14,
+                    "Skipped identity queries must not omit fresh byte reads or alter exact per-capture query accounting after mutation.");
+
+                Write(firstLarge, new string('N', 12288));
+                var replacementFresh = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+                var replacement = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                Check(replacement.Fingerprint == replacementFresh.Fingerprint && replacement.ToolchainFingerprint == replacementFresh.ToolchainFingerprint &&
+                    replacement.HashedBytes == replacementFresh.HashedBytes && replacement.ReusedHashBytes == 0 && leases.RetainedFiles == 1,
+                    "A new larger candidate must replace the old lease using fresh content while retaining exact snapshot identity.");
+                Check(leases.IdentityQueries == 5 && leases.IdentitySkippedFiles == 19,
+                    "A larger candidate must query its identity before retention; the now-evicted old largest must freshly hash without a query.");
+                using (File.Open(largest, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
+                Reject<IOException>(() => { using (File.Open(firstLarge, FileMode.Open, FileAccess.Write, FileShare.ReadWrite)) { } },
+                    "Replacement must release the evicted file and keep only the new largest input read-leased.");
+            }
+            foreach (string path in new[] { firstLarge, small, otherSmall, equal, largest, compiler, additional, entry })
+                using (File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
+            Check(true, "Disposing a bounded identity-query pool must release every retained and transient handle.");
+        }
         public static int Run(string root)
         {
             assertions = 0;
@@ -329,6 +398,7 @@ namespace NewModCompiler.Tests
             Check(baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Validation failure polluted retry.");
             SharedToolLeases(request, plan, runtime, dependency, schema, config, compiler, baseline);
             StableSdkLeases(Path.Combine(root, "stable-sdk-inputs"));
+            BoundedIdentityQueries(Path.Combine(root, "bounded-identity-queries"));
             return assertions;
         }
     }

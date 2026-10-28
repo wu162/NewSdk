@@ -41,3 +41,5 @@ The input-root candidate exports `inputRoots` in the final report when a backend
 The `/bc` and input-root source candidates are under Windows integration verification. The source contract above is not a claim that complete P5/G3, session caching, every external-root combination or the full SDK has passed.
 
 `preparationRejectedReasons` is an optional additive dictionary of positive first-gate preparation refusal counts, independent of persistent caching. It partitions failed preparations, not lookup misses or scheduler admission decisions. A successfully prepared owner-only task has no preparation refusal. Existing action miss and bypass counters retain their semantics.
+
+`inputIdentityQueries` counts actual Win32 FileIdInfo calls in completed build inventory captures; `inputIdentitySkippedFiles` counts eligible files that still received a fresh SHA256 read because their current open-handle length could not enter the full bounded lease set. Neither count authorizes digest reuse or replaces full directory enumeration. File hash objects are local to one sequential capture.

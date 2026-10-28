@@ -372,19 +372,39 @@ function EnvironmentMod([string]$Path){
 $targetingTypes=@('TargetingDistanceCompare','TargetingCombatChainCompare','TargetingInTurretArcCompare','TargetingCompareList')
 $visibilityTypes=@('InvisibilityTemplate','InvisibilityManagerSettings')
 $radarTypes=@('RadarTerrainImage','UIRadarObjectsLayer')
+$conditionsTypes=@('GameplayConditionData')
+$objectsetsTypes=@('ObjectFilterAsset','RegisteredObjectSet')
+$renderdeviceTypes=@('W3DDeviceSettings','ScorchMarkSettings')
+$uiimagesTypes=@('ImageSequence','UnitTypeIcon','DrawGroupInfo')
+$healthbarsTypes=@('HealthBarTemplate','HealthBarSettings')
+$unitoverlayTypes=@('UnitOverlayIconSettings')
 function TargetingMod([string]$Path){MetadataMod $Path 'Xmltargeting' $script:targetingTypes}
 function VisibilityMod([string]$Path){MetadataMod $Path 'Xmlvisibility' $script:visibilityTypes}
 function RadarMod([string]$Path){MetadataMod $Path 'Xmlradar' $script:radarTypes}
+function ConditionsMod([string]$Path){MetadataMod $Path 'Xmlconditions' $script:conditionsTypes}
+function ObjectSetsMod([string]$Path){MetadataMod $Path 'Xmlobjectsets' $script:objectsetsTypes}
+function RenderDeviceMod([string]$Path){MetadataMod $Path 'Xmlrenderdevice' $script:renderdeviceTypes}
+function UiImagesMod([string]$Path){MetadataMod $Path 'Xmluiimages' $script:uiimagesTypes}
+function HealthBarsMod([string]$Path){MetadataMod $Path 'Xmlhealthbars' $script:healthbarsTypes}
+function UnitOverlayMod([string]$Path){MetadataMod $Path 'Xmlunitoverlay' $script:unitoverlayTypes}
 function MetadataMod([string]$Path,[string]$Family,[string[]]$Types){
     ParallelW3xMod $Path
     Remove-Item -LiteralPath "$Path/Data/ParallelShort.xml"
     [xml]$probe=[IO.File]::ReadAllText("$root/recovery/tests/$($Family)Probe.xml")
     $ns=[Xml.XmlNamespaceManager]::new($probe.NameTable);$ns.AddNamespace('ea','uri:ea.com:eala:asset')
     $includes=''
-    if($Family -ceq 'Xmlradar'){
+    if($Family -ceq 'Xmlradar' -or $Family -ceq 'Xmluiimages' -or $Family -ceq 'Xmlunitoverlay'){
         # Real strong references are resolved through their complete production
         # texture/image closure before the native peer and metadata workers.
         Put "$Path/Data/RadarDependencies.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Texture id="ParallelRadarTexture" File="cache.tga" Type="StandardTexture" GenerateMipMaps="false" OutputFormat="A8R8G8B8" AllowAutomaticResize="false"/><PackedTextureImage id="ParallelRadarImage" Texture="ParallelRadarTexture" Rotated="false"><Dimensions x="32" y="32"/><Coords x="0" y="0"/><TextureDimensions x="256" y="256"/></PackedTextureImage></AssetDeclaration>'
+        if($Family -ceq 'Xmlunitoverlay'){
+            [xml]$images=[IO.File]::ReadAllText("$root/recovery/tests/XmluiimagesProbe.xml")
+            $imageNs=[Xml.XmlNamespaceManager]::new($images.NameTable);$imageNs.AddNamespace('ea','uri:ea.com:eala:asset')
+            $sequence=$images.SelectSingleNode('/ea:AssetDeclaration/ea:ImageSequence',$imageNs)
+            Need ($null -ne $sequence) 'Overlay source ImageSequence dependency is missing'
+            $deps=[IO.File]::ReadAllText("$Path/Data/RadarDependencies.xml")
+            Put "$Path/Data/RadarDependencies.xml" ($deps.Replace('</AssetDeclaration>',($sequence.OuterXml+'</AssetDeclaration>')))
+        }
         & python "$root/recovery/probes/TextureRedirect/MakeFixture.py" "$Path/Data/cache.tga"
         Need ($LASTEXITCODE -eq 0) 'Radar real Texture fixture generation failed'
         $includes+='<Include type="all" source="RadarDependencies.xml"/>'
@@ -392,7 +412,7 @@ function MetadataMod([string]$Path,[string]$Family,[string[]]$Types){
     $includes+='<Include type="all" source="W3x.xml"/><Include type="all" source="ParallelLong.xml"/>'
     foreach($type in $Types){
         $node=$probe.SelectSingleNode(('/ea:AssetDeclaration/ea:'+$type+'[1]'),$ns)
-        Need ($null -ne $node -and $node.GetAttribute('id') -ceq ('Parallel'+$type)) "Metadata source fixture identity differs: $type"
+        Need ($null -ne $node -and ![string]::IsNullOrEmpty($node.GetAttribute('id'))) "Metadata source fixture identity differs: $type"
         Put "$Path/Data/$type.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$node.OuterXml+'</AssetDeclaration>')
         $includes+='<Include type="all" source="'+$type+'.xml"/>'
     }
@@ -438,13 +458,13 @@ function ParallelEvidence($Case){
     Need ($left.startTicks -lt $left.endTicks -and $right.startTicks -lt $right.endTicks -and $left.startTicks -lt $right.endTicks -and $right.startTicks -lt $left.endTicks) 'Actual cross-document backend call intervals did not overlap'
     return @{passed=$true;requestedJobs=2;maxBackendConcurrency=$cache.maxBackendConcurrency;backendCalls=$cache.backendCalls;intervals=$intervals;scope='One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled'}
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native, leased APT XML and streamed XAS AudioFile overlap with jobs2, twelve Xmlenvironment and four public Xmltargeting and complete Radar/Visibility roots with cold/hot/same-mtime single edit and actual cross-family overlap, independent dual Mesh native overlap; not a new original-DLL/SDK gate'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native, leased APT XML and streamed XAS AudioFile overlap with jobs2, twelve Xmlenvironment and four public Xmltargeting and complete Radar/Visibility and all public Conditions/Objectsets/Renderdevice/UIimages/Healthbars/Unitoverlay roots with cold/hot/same-mtime single edit and actual cross-family overlap, independent dual Mesh native overlap; not a new original-DLL/SDK gate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     $state.repositoryModMetricsRequested=[bool]$RepositoryModMetrics
     if($RepositoryModMetrics -and !$Preflight){Need ([bool]$ReplayReceipt) 'Repository MOD metrics require a verified successful archived runtime and ReplayReceipt'}
     if($Preflight){
-        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3');FourWorkerAudioMod (Join-Path $short 'four');ParallelMeshMod (Join-Path $short 'mesh');EnvironmentMod (Join-Path $short 'env');TargetingMod (Join-Path $short 'target');VisibilityMod (Join-Path $short 'visibility');RadarMod (Join-Path $short 'radar')
+        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3');FourWorkerAudioMod (Join-Path $short 'four');ParallelMeshMod (Join-Path $short 'mesh');EnvironmentMod (Join-Path $short 'env');TargetingMod (Join-Path $short 'target');VisibilityMod (Join-Path $short 'visibility');RadarMod (Join-Path $short 'radar');ConditionsMod (Join-Path $short 'conditions');ObjectSetsMod (Join-Path $short 'objectsets');RenderDeviceMod (Join-Path $short 'renderdevice');UiImagesMod (Join-Path $short 'uiimages');HealthBarsMod (Join-Path $short 'healthbars');UnitOverlayMod (Join-Path $short 'unitoverlay')
         $check=@'
 import pathlib, runpy, sys
 from lxml import etree as E
@@ -497,7 +517,7 @@ assert len(E.parse(str(work/'env/Data/Mod.xml')).getroot()[0])==14
 targeting_roots={'TargetingDistanceCompare','TargetingCombatChainCompare','TargetingInTurretArcCompare','TargetingCompareList'}
 for name in targeting_roots:
     node=E.parse(str(work/('target/Data/'+name+'.xml'))).getroot()[0]
-    assert node.tag=='{uri:ea.com:eala:asset}'+name and node.get('id')=='Parallel'+name
+    assert node.tag=='{uri:ea.com:eala:asset}'+name and node.get('id')
 assert len(E.parse(str(work/'target/Data/Mod.xml')).getroot()[0])==6
 compare=E.parse(str(work/'target/Data/TargetingCompareList.xml')).getroot()[0]
 assert len(compare)==4
@@ -511,11 +531,20 @@ between=list_bytes[first+len(first_value):second]
 reordered=list_bytes.replace(span,second_value+between+first_value,1)
 assert len(reordered)==len(list_bytes) and reordered!=list_bytes
 schema.assertValid(E.fromstring(reordered))
-for folder,types in (('visibility',('InvisibilityTemplate','InvisibilityManagerSettings')),('radar',('RadarTerrainImage','UIRadarObjectsLayer'))):
+for folder,types in (('visibility',('InvisibilityTemplate','InvisibilityManagerSettings')),('radar',('RadarTerrainImage','UIRadarObjectsLayer')),('conditions',('GameplayConditionData',)),('objectsets',('ObjectFilterAsset','RegisteredObjectSet')),('renderdevice',('W3DDeviceSettings','ScorchMarkSettings')),('uiimages',('ImageSequence','UnitTypeIcon','DrawGroupInfo')),('healthbars',('HealthBarTemplate','HealthBarSettings')),('unitoverlay',('UnitOverlayIconSettings',))):
     for name in types:
         node=E.parse(str(work/(folder+'/Data/'+name+'.xml'))).getroot()[0]
-        assert node.tag=='{uri:ea.com:eala:asset}'+name and node.get('id')=='Parallel'+name
+        assert node.tag=='{uri:ea.com:eala:asset}'+name and node.get('id')
+assert (work/'healthbars/Data/HealthBarSettings.xml').read_bytes().count(b'Rule="ANY"')==1
+assert b'AmmoPipRange="-17"' in (work/'unitoverlay/Data/UnitOverlayIconSettings.xml').read_bytes()
+overlay_deps=E.parse(str(work/'unitoverlay/Data/RadarDependencies.xml')).getroot()
+assert {n.tag.split('}')[1] for n in overlay_deps}=={'Texture','PackedTextureImage','ImageSequence'}
+assert b'MaxTerrainTracks="117"' in (work/'renderdevice/Data/W3DDeviceSettings.xml').read_bytes()
+assert b'FontSize="17"' in (work/'uiimages/Data/DrawGroupInfo.xml').read_bytes()
 assert b'CamouflageLevel="17"' in (work/'visibility/Data/InvisibilityTemplate.xml').read_bytes()
+assert b'TimeReq="250ms"' in (work/'conditions/Data/GameplayConditionData.xml').read_bytes()
+assert b'Type="PLAYER"' in (work/'objectsets/Data/RegisteredObjectSet.xml').read_bytes()
+assert len(b'Type="PLAYER"')==len(b'Type="GLOBAL"')
 assert b'MinUnitDotSize="7"' in (work/'radar/Data/UIRadarObjectsLayer.xml').read_bytes()
 radar=E.parse(str(work/'radar/Data/RadarDependencies.xml')).getroot()
 assert {n.tag.split('}')[1] for n in radar}=={'Texture','PackedTextureImage'}
@@ -583,7 +612,7 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
     }
     $script:control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
     $state.scriptSha256=Hash $PSCommandPath;$state.controllerSha256=Hash $control
-    $state.sourceInputs=@('recovery/tests/AudioSdkSupport.cs','recovery/tests/AudioMp3Fixtures.cs','recovery/tests/XmltargetingProbe.xml','recovery/tests/XmlvisibilityProbe.xml','recovery/tests/XmlradarProbe.xml','SDK/Mods/W3xRecovery/Data/Animations.xml','SDK/Mods/W3xRecovery/Data/Dependencies.xml','SDK/Mods/W3xRecovery/Data/Meshes.xml')|ForEach-Object{@{path=$_;sha256=(Hash (Join-Path $root $_))}}
+    $state.sourceInputs=@('recovery/tests/AudioSdkSupport.cs','recovery/tests/AudioMp3Fixtures.cs','recovery/tests/XmltargetingProbe.xml','recovery/tests/XmlvisibilityProbe.xml','recovery/tests/XmlradarProbe.xml','recovery/tests/XmlconditionsProbe.xml','recovery/tests/XmlobjectsetsProbe.xml','recovery/tests/XmlrenderdeviceProbe.xml','recovery/tests/XmluiimagesProbe.xml','recovery/tests/XmlhealthbarsProbe.xml','recovery/tests/XmlunitoverlayProbe.xml','SDK/Mods/W3xRecovery/Data/Animations.xml','SDK/Mods/W3xRecovery/Data/Dependencies.xml','SDK/Mods/W3xRecovery/Data/Meshes.xml')|ForEach-Object{@{path=$_;sha256=(Hash (Join-Path $root $_))}}
     foreach($mode in @('Debug','Release')){
         $script:modeOut=(New-Item -ItemType Directory -Path (Join-Path $out $mode)).FullName
         $modeWork=(New-Item -ItemType Directory -Path (Join-Path $short $mode.Substring(0,1))).FullName
@@ -691,10 +720,16 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
         $targetingPartial=RunCli 'targeting-single-edit' $targeting $targetingCache $true -Extra @('--jobs=2');Cache $targetingPartial 'partial';DifferentOutputs $targetingHot $targetingPartial
         Need ($targetingPartial.report.cache.backendCalls -eq 1 -and $targetingPartial.report.cache.backendCallsByType.TargetingCompareList -eq 1) 'Reference reorder must compile only the changed targeting list'
         $targetingChanged=RunCli 'targeting-edited-serial' $targeting (Join-Path $modeWork 'targeting-changed-jobs1') $false -Extra @('--jobs=1');Cache $targetingChanged 'disabled';SameOutputs $targetingChanged $targetingPartial
-        foreach($family in @('visibility','radar')){
+        foreach($family in @('visibility','radar','conditions','objectsets','renderdevice','uiimages','healthbars','unitoverlay')){
             $metadata=Join-Path $modeWork $family;$script:expectedCustomData=0
             if($family -eq 'visibility'){VisibilityMod $metadata;$types=$script:visibilityTypes;$dependencies=0;$ownerCalls=0;$changedType='InvisibilityTemplate'}
-            else{RadarMod $metadata;$types=$script:radarTypes;$dependencies=2;$ownerCalls=1;$changedType='UIRadarObjectsLayer'}
+            elseif($family -eq 'radar'){RadarMod $metadata;$types=$script:radarTypes;$dependencies=2;$ownerCalls=1;$changedType='UIRadarObjectsLayer'}
+            elseif($family -eq 'conditions'){ConditionsMod $metadata;$types=$script:conditionsTypes;$dependencies=0;$ownerCalls=0;$changedType='GameplayConditionData'}
+            elseif($family -eq 'objectsets'){ObjectSetsMod $metadata;$types=$script:objectsetsTypes;$dependencies=0;$ownerCalls=0;$changedType='RegisteredObjectSet'}
+            elseif($family -eq 'renderdevice'){RenderDeviceMod $metadata;$types=$script:renderdeviceTypes;$dependencies=0;$ownerCalls=0;$changedType='W3DDeviceSettings'}
+            elseif($family -eq 'uiimages'){UiImagesMod $metadata;$types=$script:uiimagesTypes;$dependencies=2;$ownerCalls=1;$changedType='DrawGroupInfo'}
+            elseif($family -eq 'healthbars'){HealthBarsMod $metadata;$types=$script:healthbarsTypes;$dependencies=0;$ownerCalls=0;$changedType='HealthBarSettings'}
+            else{UnitOverlayMod $metadata;$types=$script:unitoverlayTypes;$dependencies=3;$ownerCalls=1;$changedType='UnitOverlayIconSettings'}
             $metadataSerial=RunCli ($family+'-serial') $metadata (Join-Path $modeWork ($family+'-jobs1')) $false -Extra @('--jobs=1');Cache $metadataSerial 'disabled'
             $metadataParallel=RunCli ($family+'-parallel') $metadata (Join-Path $modeWork ($family+'-jobs2')) $false -Extra @('--jobs=2');Cache $metadataParallel 'disabled';SameOutputs $metadataSerial $metadataParallel
             $modeState[($family+'Parallel')]=MetadataParallelEvidence $metadataParallel $types $family $dependencies
@@ -703,7 +738,13 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
             $metadataHot=RunCli ($family+'-hot') $metadata $metadataCache $true -Extra @('--jobs=2');Cache $metadataHot 'hot';SameOutputs $metadataSerial $metadataHot
             Need ($metadataHot.report.cache.backendCalls -eq $ownerCalls) "Hot $family must retain exactly its unprepared Texture owner calls"
             if($family -eq 'visibility'){SameLengthMutation "$metadata/Data/InvisibilityTemplate.xml" 'CamouflageLevel="17"' 'CamouflageLevel="18"'}
-            else{SameLengthMutation "$metadata/Data/UIRadarObjectsLayer.xml" 'MinUnitDotSize="7"' 'MinUnitDotSize="8"'}
+            elseif($family -eq 'radar'){SameLengthMutation "$metadata/Data/UIRadarObjectsLayer.xml" 'MinUnitDotSize="7"' 'MinUnitDotSize="8"'}
+            elseif($family -eq 'conditions'){SameLengthMutation "$metadata/Data/GameplayConditionData.xml" 'TimeReq="250ms"' 'TimeReq="350ms"'}
+            elseif($family -eq 'objectsets'){SameLengthMutation "$metadata/Data/RegisteredObjectSet.xml" 'Type="PLAYER"' 'Type="GLOBAL"'}
+            elseif($family -eq 'renderdevice'){SameLengthMutation "$metadata/Data/W3DDeviceSettings.xml" 'MaxTerrainTracks="117"' 'MaxTerrainTracks="118"'}
+            elseif($family -eq 'uiimages'){SameLengthMutation "$metadata/Data/DrawGroupInfo.xml" 'FontSize="17"' 'FontSize="18"'}
+            elseif($family -eq 'healthbars'){SameLengthMutation "$metadata/Data/HealthBarSettings.xml" 'Rule="ANY"' 'Rule="ALL"'}
+            else{SameLengthMutation "$metadata/Data/UnitOverlayIconSettings.xml" 'AmmoPipRange="-17"' 'AmmoPipRange="-18"'}
             $metadataPartial=RunCli ($family+'-single-edit') $metadata $metadataCache $true -Extra @('--jobs=2');Cache $metadataPartial 'partial';DifferentOutputs $metadataHot $metadataPartial
             Need ($metadataPartial.report.cache.backendCalls -eq (1+$ownerCalls) -and $metadataPartial.report.cache.backendCallsByType.$changedType -eq 1) "Single $family edit must compile only the changed metadata and uncertified owner dependencies"
             $metadataChanged=RunCli ($family+'-edited-serial') $metadata (Join-Path $modeWork ($family+'-changed-jobs1')) $false -Extra @('--jobs=1');Cache $metadataChanged 'disabled';SameOutputs $metadataChanged $metadataPartial

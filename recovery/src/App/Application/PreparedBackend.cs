@@ -293,6 +293,30 @@ namespace NewModCompiler.Application
                 // const field/enum tables and no process-wide hash registration.
                 case 3906227957u: case 299416263u: case 1443425905u:
                 case 587347702u: case 1447728787u: case 1826140078u: case 3370391592u:
+                // XmlunitoverlayCompiler.cpp / Xmlunitoverlay.cpp: detached
+                // tree, local Builder/Tracker, readonly faction lookup and pure
+                // percentage/time/reference helpers, with no external reads.
+                case 2421413379u:
+                // XmlhealthbarsCompiler.cpp / Xmlhealthbars.cpp: private bridge
+                // tree and call-local Tracker/ObjectFilter, pure reference/weak
+                // hash helpers and const filter enums, without external reads.
+                case 1507490649u: case 3919360587u:
+                // XmlrenderdeviceCompiler.cpp / Xmlrenderdevice.cpp: detached
+                // bridge tree, call-local Builder/Tracker/ObjectFilter, const
+                // enums and pure scalar/string helpers; no external reads.
+                case 1469055344u: case 2383722691u:
+                // XmluiimagesCompiler.cpp / Xmluiimages.cpp: private bridge
+                // tree, local Builder/Tracker and pure string/reference/scalar
+                // marshaling, without font/image reads or global registration.
+                case 565855655u: case 3614134471u: case 2913856066u:
+                // XmlconditionsCompiler.cpp / Xmlconditions.cpp: private bridge
+                // tree, call-local Builder/Tracker/ObjectFilter, const enums,
+                // pure weak hashes/time/angle helpers; no external reads.
+                case 3899256902u: case 519519951u: case 76901015u: case 2309012900u:
+                // XmlobjectsetsCompiler.cpp / Xmlobjectsets.cpp: local builder,
+                // Tracker/ObjectFilter and const enums, pure scalar/hash helpers,
+                // with no external reads or process-wide hash registration.
+                case 1151702845u: case 814796096u: case 772930644u:
                 // XmlradarCompiler.cpp / Xmlradar.cpp: detached bridge tree,
                 // call-local Builder/Tracker/ObjectFilter, const enum tables,
                 // pure hash/reference/scalar helpers and no external reads.

@@ -7,7 +7,7 @@
 
 成果集中 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`，[draft PR #17](https://github.com/wu162/NewSdk/pull/17)；未经用户批准不合入。源码入口、准确资格和原始证据只看 [CACHE_PARALLEL](docs/CACHE_PARALLEL.md) 及其JSON，无需重读历史。
 
-本轮继续（2026-10-28，约80分钟、通常两个子代理最多三个）：已准备独立 `preparationRejectedReasons`、完整 Xmltargeting/Xmlvisibility/Xmlradar 九类并行资格（SDK公开八根）及双 Mesh 真实区间验收；**新源码/测试尚未在 Actions 验证**，不得用下方129d收据代替。本批生产闭包改变，接下来统一新建Debug/Release并跑完整验收，准确状态见专项。
+本轮继续（2026-10-28，约80分钟、通常两个子代理最多三个）：已准备独立 `preparationRejectedReasons`、完整九个元数据后端族共24类并行资格（SDK公开19根）及双 Mesh 真实区间验收；**新源码/测试尚未在 Actions 验证**，不得用下方129d收据代替。本批生产闭包改变，首批b467d708在40670721531验收；本批统一新建Debug/Release并跑完整验收。用户指出逐类型开放太细，收束这批后按模块合同成组认证/复用测试，优先专用测试分支的低频Upheaval实际计量，准确状态见专项。
 
 当前生产源码 `129d9639` 的[40660066519](https://github.com/wu162/NewSdk/actions/runs/40660066519)已完整success，原始归档/12组收据/两配置五文件ZIP已核验：稳定SDK/runtime文件按512-largest持续读租约和128位身份复核复用摘要，排除当前MOD完整子树与SDKAdditional；目录仍首尾全枚举，MOD/Additional仍鲜读。预检/生产/Core/真实SDKArt Texture+SageXml账本/精确缓存/旧session/完整mymod/BIG/独立ZIP全部通过。原包12805100025，精确SHA见专项。
 

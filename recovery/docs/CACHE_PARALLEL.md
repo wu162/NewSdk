@@ -12,6 +12,12 @@
 
 Radar生产保留完整Texture/PackedTextureImage强引用及ObjectFilter弱名闭包，热缓存预期仍有1次Texture owner调用；Visibility保留flags/时间/inline filter；Targeting单改交换已有两引用，避免修改依赖资产。新增9类源码资格、8个SDK公开根，准备态组件覆盖完整9类。
 
+首批9类生产/诊断闭包 `b467d708` 正在[40670721531](https://github.com/wu162/NewSdk/actions/runs/40670721531)集中验收。后续同一批已准备 Conditions4类（公开1根）、Objectsets3类（公开2根）、Renderdevice2根、UIimages3根、Healthbars2根、Unitoverlay1根；合计本轮24类源码资格、19个SDK公开根。新增族保持真实强引用与非空filter/string/relocation/import覆盖，未把嵌套类型充作公开资产。
+
+本轮另对次要小任务做两项有界实现：仅当当前open句柄的长度无法进入已满保留集且path没有既有entry时跳过FileIdInfo查询，仍持拒写句柄完整鲜读SHA；所有既有entry仍强制128位ID核对。单Capture内独占复用SHA256对象，不跨线程或Capture共享。新增实际API尝试/鲜读但免身份查询的 `inputIdentityQueries/inputIdentitySkippedFiles`，App cap1矩阵保留同长mtime修改、最大文件替换、释放与fresh指纹/字节账本对照。尚无新端到端计量，不宣称小MOD问题已解决。
+
+用户进一步要求减少逐类型细拆和大型MOD测试频率：本批收束后不再追加小XML组，后续按共享后端/状态合同成批认证与复用夹具；专用测试分支只手动低频测量完整历史Upheaval，先廉价预检、严格复用已验收运行文件，不把未运行计量当收益。
+
 本批因生产闭包改变，统一新建Debug/Release并保留完整Core、真实SDK/原BAB、缓存/旧session、完整mymod、BIG与五文件ZIP门槛。此检查点**未完成Actions验收**；下节收据只适用于各自历史生产闭包。按EFFICIENCY继续成组实现与集中验证；不替换默认发行，不合并PR。
 
 ## 本轮验收（2026-10-28）

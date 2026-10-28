@@ -41,6 +41,10 @@ namespace NewModCompiler.Application
             cancellation.ThrowIfCancellationRequested();
             int count = 0;
             long hashedBytes = 0, reusedHashBytes = 0;
+            // One owner-local file hasher per capture avoids CryptoConfig/CSP
+            // creation for every tiny leaf. ComputeHash initializes between
+            // files; recursive inventory never nests or shares a hash operation.
+            using (var fileHash = SHA256.Create())
             using (var bytes = new MemoryStream())
             using (var writer = new BinaryWriter(bytes, new UTF8Encoding(false, true)))
             using (var tools = new MemoryStream())
@@ -87,7 +91,7 @@ namespace NewModCompiler.Application
                     // can be beneath SDK/Mods: exclude it in the SDK role too.
                     // Packaging-only Additional remains writable and rehashed.
                     // This changes neither inventory bytes nor tool identity.
-                    Inventory(writer, roots[role], roots[role], cancellation, ref count, leases, path => currentRole == 2 || (currentRole == 0 &&
+                    Inventory(writer, roots[role], roots[role], cancellation, ref count, leases, fileHash, path => currentRole == 2 || (currentRole == 0 &&
                         !Paths.Contains(roots[1], path) && !Paths.Contains(Path.Combine(roots[0], "Additional"), path)), (path, length, digest, reused) => {
                         if (reused) reusedHashBytes = checked(reusedHashBytes + length);
                         else hashedBytes = checked(hashedBytes + length);
@@ -125,7 +129,7 @@ namespace NewModCompiler.Application
         {
             writer.Write(value != null); if (value != null) writer.Write(value);
         }
-        static void Inventory(BinaryWriter writer, string root, string directory, CancellationToken cancellation, ref int count, CacheInputLeaseSet leases, Func<string,bool> eligible, Action<string,long,byte[],bool> record)
+        static void Inventory(BinaryWriter writer, string root, string directory, CancellationToken cancellation, ref int count, CacheInputLeaseSet leases, SHA256 fileHash, Func<string,bool> eligible, Action<string,long,byte[],bool> record)
         {
             cancellation.ThrowIfCancellationRequested();
             if ((File.GetAttributes(directory) & FileAttributes.ReparsePoint) != 0) throw new IOException("Input inventory does not follow reparse points.");
@@ -138,14 +142,13 @@ namespace NewModCompiler.Application
                 if ((attributes & FileAttributes.ReparsePoint) != 0) throw new IOException("Input inventory does not follow reparse points.");
                 bool isDirectory = (attributes & FileAttributes.Directory) != 0;
                 writer.Write(isDirectory); writer.Write(path.Substring(root.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length));
-                if (isDirectory) Inventory(writer, root, path, cancellation, ref count, leases, eligible, record);
+                if (isDirectory) Inventory(writer, root, path, cancellation, ref count, leases, fileHash, eligible, record);
                 else
                 {
                     long length; byte[] digest; bool reused = false;
-                    if (leases != null && eligible(path)) digest = leases.Read(path, cancellation, out length, out reused);
+                    if (leases != null && eligible(path)) digest = leases.Read(path, cancellation, fileHash, out length, out reused);
                     else using (var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
-                    using (var hash = SHA256.Create())
-                    { digest = hash.ComputeHash(input); length = input.Length; }
+                    { digest = fileHash.ComputeHash(input); length = input.Length; }
                     writer.Write(length); writer.Write(digest); record(path, length, digest, reused);
                     checked { ++count; }
                 }

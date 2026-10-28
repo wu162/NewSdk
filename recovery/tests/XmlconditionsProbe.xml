@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- The other three registered condition types have no SDK global element.
+       CompilerXmlConditionsPrepared derives their direct component fixtures
+       from the corresponding complete nested data below. -->
+  <GameplayConditionData id="ParallelGameplayConditionData" GameplayConditionBitFlags="KILL UPGRADE" TimeReq="250ms" AllowedGameTypeBitFlags="SKIRMISH ONLINE" GameDifficultyBitFlags="NORMAL HARD">
+    <PrimaryObject Count="3" Unique="true">
+      <ObjectFilter id="ParallelConditionPrimaryFilter" Rule="ANY" Relationship="ALLIES ENEMIES" Alignment="GOOD" Include="INFANTRY VEHICLE" Exclude="STRUCTURE" StatusBitFlags="STEALTHED" StatusBitFlagsExclude="UNDER_CONSTRUCTION">
+        <IncludeThing>ParallelConditionWeakThing</IncludeThing>
+        <IncludeThing>PARALLELCONDITIONWEAKTHING</IncludeThing>
+        <ExcludeThing>ParallelConditionWeakExcluded</ExcludeThing>
+      </ObjectFilter>
+      <DieMuxData VeterancyLevels="VETERAN ELITE HEROIC" ExemptStatus="STEALTHED" RequiredStatus="AFLAME" DamageAmountRequired="12.5" MinKillerAngle="-90d" MaxKillerAngle="1.5r" DeathTypes="NORMAL BURNED" DeathTypesForbidden="CRUSHED" />
+    </PrimaryObject>
+    <RequiredObjectCondition Count="2" Unique="false">
+      <ObjectFilter id="ParallelConditionRequiredFilter" Rule="ALL" Relationship="NEUTRAL SAME_PLAYER" Alignment="EVIL" Include="STRUCTURE" Exclude="AIRCRAFT" StatusBitFlags="AFLAME" StatusBitFlagsExclude="STEALTHED">
+        <IncludeThing>ParallelConditionRequiredThing</IncludeThing>
+        <ExcludeThing>ParallelConditionWeakExcluded</ExcludeThing>
+      </ObjectFilter>
+      <DieMuxData VeterancyLevels="NORMAL VETERAN" ExemptStatus="UNDER_CONSTRUCTION" RequiredStatus="STEALTHED" DamageAmountRequired="20.25" MinKillerAngle="0d" MaxKillerAngle="180d" DeathTypes="EXPLODED LASERED" DeathTypesForbidden="POISONED" />
+    </RequiredObjectCondition>
+    <RequiredUpgradeCondition Count="4" Unique="true">
+      <ObjectFilter id="ParallelConditionUpgradeFilter" Rule="NONE" Relationship="ALLIES" Alignment="NONE" Include="VEHICLE" Exclude="INFANTRY" StatusBitFlags="STEALTHED" StatusBitFlagsExclude="AFLAME">
+        <IncludeThing>ParallelConditionUpgradeThing</IncludeThing>
+      </ObjectFilter>
+      <UpgradeRequired>ParallelConditionUpgradeOne</UpgradeRequired>
+      <UpgradeRequired>PARALLELCONDITIONUPGRADEONE</UpgradeRequired>
+      <UpgradeRequired>ParallelConditionUpgradeTwo</UpgradeRequired>
+    </RequiredUpgradeCondition>
+  </GameplayConditionData>
+</AssetDeclaration>

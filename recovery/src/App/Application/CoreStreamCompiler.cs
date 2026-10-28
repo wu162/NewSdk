@@ -32,7 +32,7 @@ namespace NewModCompiler.Application
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
         ActionAssetCache actionCache;
         string actionToolchain;
-        long inputHashBytes, inputHashReusedBytes, completedCacheHashBytes, completedCacheCopyBytes;
+        long inputHashBytes, inputHashReusedBytes, completedCacheHashBytes, completedCacheCopyBytes, inputIdentityQueries, inputIdentitySkippedFiles;
         int inputInventoryCaptures, inputHashLeaseFiles;
         CacheInputLeaseSet inputLeases;
         readonly AssetExecutionMetrics executionMetrics = new AssetExecutionMetrics();
@@ -66,7 +66,7 @@ namespace NewModCompiler.Application
             preparationRejectedReasons = new Dictionary<string,int>(executionMetrics.PreparationRejectedReasons),
             restoredBytes = executionMetrics.RestoredBytes, writtenBytes = executionMetrics.WrittenBytes,
             hashReadBytes = inputHashBytes + executionMetrics.ExternalHashBytes + completedCacheHashBytes + (actionCache == null ? 0 : actionCache.HashReadBytes),
-            inputInventoryCaptures, inputHashReusedBytes, inputHashLeaseFiles,
+            inputInventoryCaptures, inputHashReusedBytes, inputHashLeaseFiles, inputIdentityQueries, inputIdentitySkippedFiles,
             cacheCopyBytes = completedCacheCopyBytes + (actionCache == null ? 0 : actionCache.CopyBytes),
             peakSampledPrivateBytes = executionMetrics.PeakSampledPrivateBytes,
             backendCallsByType = new Dictionary<string,int>(executionMetrics.CallsByType),
@@ -638,7 +638,12 @@ namespace NewModCompiler.Application
             var result = CacheInputSnapshot.Capture(request, plan, runtime, cancellation, inputLeases);
             inputInventoryCaptures++;
             inputHashReusedBytes = checked(inputHashReusedBytes + result.ReusedHashBytes);
-            if (inputLeases != null) inputHashLeaseFiles = Math.Max(inputHashLeaseFiles, inputLeases.RetainedFiles);
+            if (inputLeases != null)
+            {
+                inputHashLeaseFiles = Math.Max(inputHashLeaseFiles, inputLeases.RetainedFiles);
+                inputIdentityQueries = inputLeases.IdentityQueries;
+                inputIdentitySkippedFiles = inputLeases.IdentitySkippedFiles;
+            }
             return result;
         }
 

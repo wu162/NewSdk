@@ -152,6 +152,8 @@
           "type": "integer",
           "minimum": 0
         },
+        "inputIdentityQueries": { "type": "integer", "minimum": 0 },
+        "inputIdentitySkippedFiles": { "type": "integer", "minimum": 0 },
         "inputInventoryCaptures": { "type": "integer", "minimum": 0 },
         "inputHashReusedBytes": { "type": "integer", "minimum": 0 },
         "inputHashLeaseFiles": { "type": "integer", "minimum": 0, "maximum": 512 },
