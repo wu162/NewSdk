@@ -4,6 +4,12 @@
 
 用户提供的[原始实施方案](CACHE_PARALLEL_PLAN.md)保留作目标与验收参考；当前状态只看本页收据，不能把方案要求当作已完成能力。日常续接无需重读整份方案。
 
+## 最新已核验阶段与当前批量
+
+`c807fd1bd13f902bd659d2112dfd3c91fcf66c71` / [40674077574](https://github.com/wu162/NewSdk/actions/runs/40674077574)已完整success；原始归档12810219503、SHA256 `c2a3f2bca01fd804c34a37e34e5822725b9fb36b1512ab3685f920bddaa6ec42`、12组收据及两配置运行文件/独立五文件ZIP已核验。该阶段是24类资格/19个公开根及拒绝原因/哈希开销改进，**不能冒充后续288路由批量结果**。双Mesh4096/4顶点在两配置均为两独立worker且区间重叠、max2、全部串并行/冷热单改原字节相等；九族19个新公开根均实际worker，观察到的与W3X重叠子集逐族保留。11种可构造拒绝原因、部分租约释放/零预算owner、完整mymod/原BAB/BIG/旧session/独立ZIP通过。Debug ZIP `3bcd6cd33a8cb11857713c28756f6feeba9391e030277ec737ebe01142f3275b`，Release `2afad7b0f26e5e3a8df591efa20a1385758511fd5611136bd930514d0181b69f`。
+
+全模块闭合表生产源码 `ac22f7770c7172d1dcb00699387b32bf12be46b7` 正在 [40676722714](https://github.com/wu162/NewSdk/actions/runs/40676722714) 集中验收，当前Core四平台批量矩阵已通过，完整验收仍须等待终态。原发行不随分支替换。证据见JSON的 `preparedMetadataAndInventoryStage` 与后续新收据。
+
 ## 模块批量开放（2026-10-28，最新批次验证待执行）
 
 用户再次明确指出逐类型开放太慢，因此改为完整模块审计+一套通用矩阵，不再为每个类型复制测试类。当前内建 XML 路由共289条：已对63个模块的外读、共享写/诊断、初始化表与数字属性驱动分配进行成组审计，完整依据和逐模块/逐类型清单见 [XML_BACKEND_REENTRY.json](XML_BACKEND_REENTRY.json)。其中284条纯元数据由闭合的编译期模块表认证，APT四条继续已有闭合读取资格；只有TestTexture因真实外读及文件长度驱动分配保持owner。TestTextureCollection是纯引用数组，单独按实际读合同认证，不按族名推断。
@@ -79,7 +85,8 @@ Radar生产保留完整Texture/PackedTextureImage强引用及ObjectFilter弱名�
 
 | 族/类型 | CanCache | CanRunParallel | 实际合同与边界 |
 | --- | --- | --- | --- |
-| 其余普通 XML、GameObject、WeaponTemplate、ArmorTemplate | 是 | 否 | 私有有效 XML（含 schema 默认属性）、独占命名空间、类型/schema/引用兼容身份；完整三缓冲区。并行只开放下面明确列出的 XML 根 |
+| GameObject、WeaponTemplate、ArmorTemplate | 是 | 否 | 私有有效XML、类型/schema/引用强身份及完整三缓冲；非本次XML模块表族仍保留owner |
+| 全部内建XML元数据闭合集 | 是 | 是（源码资格；批量运行见最新收据） | 284条/62个metadata族；非全局类型保持组件范围。APT四条另有闭合读取；TestTexture继续owner；新未知TypeId不自动加入 |
 | AptAptData/AptConstData/AptDatData/AptGeometryData | 条件成立时 | 是 | 对全部真实外部读取持 Win32 FileShare.Read 租约并 SHA256；native 窄路径暂限 ASCII。私有 bridge 树和 Relo::Tracker；缺失/不可读/非 ASCII 回兼容实际执行 |
 | AudioEventLimitGroup/AudioLOD/AudioSettings/Video/VideoEventList/MicrophoneSettings/BootupDisplaySequence | 是 | 是 | Xmlaudio 的七根共用局部 Builder/Tracker 和只读字段/枚举表；不读取外部文件，不注册全局字符串哈希；可选 XML trace 已有锁 |
 | TestTexture | 条件成立时 | 否 | 全部真实外读持 Win32 租约并 SHA256；未扩展其并行资格 |

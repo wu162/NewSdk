@@ -3724,7 +3724,7 @@
           {
             "sha256": "722db1388ea9fd9434cf5c7bcf24ac2a5cb9b5fbd06bc0c753a7128a4551b505",
             "bytes": 84992,
-            "path": "Data/\u3010\u914d\u5957\u6559\u7a0b\u3011\u3010\u4ee3\u7801\u7bc7\u3011RA3DIY---\u5165\u95e8\u6559\u7a0b \u521d\u7ea7\u6559\u7a0b.doc"
+            "path": "Data/【配套教程】【代码篇】RA3DIY---入门教程 初级教程.doc"
           },
           {
             "sha256": "69349eae29b8bcf64a047c5f00f6b9bfb6c144bc2c41dced56429932d1e8827e",
@@ -3921,7 +3921,7 @@
           {
             "sha256": "722db1388ea9fd9434cf5c7bcf24ac2a5cb9b5fbd06bc0c753a7128a4551b505",
             "bytes": 84992,
-            "path": "Data/\u3010\u914d\u5957\u6559\u7a0b\u3011\u3010\u4ee3\u7801\u7bc7\u3011RA3DIY---\u5165\u95e8\u6559\u7a0b \u521d\u7ea7\u6559\u7a0b.doc"
+            "path": "Data/【配套教程】【代码篇】RA3DIY---入门教程 初级教程.doc"
           },
           {
             "sha256": "69349eae29b8bcf64a047c5f00f6b9bfb6c144bc2c41dced56429932d1e8827e",
@@ -4984,5 +4984,1364 @@
         "updated_at": "2026-10-28T09:17:41Z"
       }
     }
+  },
+  "preparedMetadataAndInventoryStage": {
+    "binarySourceCommit": "c807fd1bd13f902bd659d2112dfd3c91fcf66c71",
+    "testSourceCommit": "c807fd1bd13f902bd659d2112dfd3c91fcf66c71",
+    "packagingSourceCommit": "c807fd1bd13f902bd659d2112dfd3c91fcf66c71",
+    "runId": 40674077574,
+    "runConclusion": "success",
+    "artifactId": 12810219503,
+    "artifactSha256": "c2a3f2bca01fd804c34a37e34e5822725b9fb36b1512ab3685f920bddaa6ec42",
+    "independentRawArchiveAndTwelveReceiptsVerified": true,
+    "groupReceipts": {
+      "evidence/refactor/big/40674077574-1/validation.json": "11e3914983a63ba788185b842ae5d16643fb2d6a8c8b2f9a808f520f7e373b19",
+      "evidence/refactor/sdk-mymod/40674077574-1/validation.json": "1ee0e1346ab0fba4d0a2e2e671519c672237cb0162fd135714d9caad7ac16228",
+      "evidence/refactor/session-cache/40674077574-1/validation.json": "a72ab42f173ea29c01b67339cfd39238a7b1f935e486e77df9eb57add4edb12b",
+      "evidence/refactor/cache-payloads/40674077574-1/validation.json": "ed005d691ccc9959659a0b3457425765e131921103d6bc5fb5b27fc2c61dca6b",
+      "evidence/refactor/input-roots/40674077574-1/validation.json": "56e611e6f1c6d7ab601d95385e79e394e895fbc8b6c30a404b7239b19b165d2f",
+      "evidence/refactor/build-cache/40674077574-1/validation.json": "f591316ea84e22bb02aa9c9e65838b6a8175ecf7fbda67a79aa4f5c67a051f41",
+      "evidence/refactor/core-lifecycle-deployment/40674077574-1/validation.json": "5ba218e6fde18639e6dd90eeb4c7e0c0fb2d3f581301c2c8ebfb2bf31408bbb5",
+      "evidence/refactor/core-lifecycle/40674077574-1/validation.json": "b2a9e09f9e3715862053d2a03f15c8c15698ef656b917abc3ab399aa0f05644b",
+      "evidence/refactor/core-lifecycle-texture/40674077574-1/validation.json": "2b3320ebe26f33473b15cc3ec255bb50800e7909bd06b83d22ca6d0dd47a79c0",
+      "evidence/refactor/core-cli/40674077574-1/validation.json": "d80fff23f9fd25d1e622210194e02b6e0b3d1835f5e025c3868b6e78422816b6",
+      "evidence/refactor/core-backend-baseline/40674077574-1/Debug/validation.json": "547ac48cadaef5a87b8b56d54a4cfeaf07fece74598e07d3fa9cc442cd203910",
+      "evidence/refactor/core-backend-baseline/40674077574-1/Release/validation.json": "2ba47a169dcd71dddd4c933018b66d9dfe90b7352d5c40d369a3fa1765909a07"
+    },
+    "modes": [
+      {
+        "configuration": "Debug",
+        "zipSha256": "3bcd6cd33a8cb11857713c28756f6feeba9391e030277ec737ebe01142f3275b",
+        "runtimeFiles": [
+          {
+            "name": "NewModCompiler.exe",
+            "bytes": 6616064,
+            "sha256": "d39d25016cd2bd575158eb992bac354969cff5d3831d8aeb55bf2e8b777fe099"
+          },
+          {
+            "name": "NewModCompiler.exe.config",
+            "bytes": 201,
+            "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+          },
+          {
+            "name": "antlr.runtime.dll",
+            "bytes": 99328,
+            "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+          },
+          {
+            "name": "BinaryAssetBuilder.TextureCompiler.dll",
+            "bytes": 917504,
+            "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+          },
+          {
+            "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+            "bytes": 14326,
+            "sha256": "22e474e32d83a6a76b4ece5e2b12a4e433e2768c3598b32dbcafddd94cf1453a"
+          }
+        ],
+        "metadataFamilies": {
+          "renderdeviceParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\renderdevice\\data\\w3x.xml",
+                "startTicks": 12211550093,
+                "endTicks": 12211971006,
+                "threadId": 1
+              },
+              {
+                "typeName": "W3DDeviceSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\renderdevice\\data\\w3ddevicesettings.xml",
+                "startTicks": 12212185415,
+                "endTicks": 12212319448,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\renderdevice\\data\\parallellong.xml",
+                "startTicks": 12212164164,
+                "endTicks": 12246194418,
+                "threadId": 6
+              },
+              {
+                "typeName": "ScorchMarkSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\renderdevice\\data\\scorchmarksettings.xml",
+                "startTicks": 12246213272,
+                "endTicks": 12246217646,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "W3DDeviceSettings",
+              "ScorchMarkSettings"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "renderdevice",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "W3DDeviceSettings"
+            ],
+            "passed": true
+          },
+          "environmentParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\w3x.xml",
+                "startTicks": 11050212523,
+                "endTicks": 11050628694,
+                "threadId": 1
+              },
+              {
+                "typeName": "Weather",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\weather.xml",
+                "startTicks": 11050841291,
+                "endTicks": 11050970331,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\parallellong.xml",
+                "startTicks": 11050821766,
+                "endTicks": 11084938478,
+                "threadId": 6
+              },
+              {
+                "typeName": "WaterTransparency",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\watertransparency.xml",
+                "startTicks": 11084957186,
+                "endTicks": 11084961132,
+                "threadId": 7
+              },
+              {
+                "typeName": "Environment",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\environment.xml",
+                "startTicks": 11085011853,
+                "endTicks": 11085016635,
+                "threadId": 7
+              },
+              {
+                "typeName": "WaterSetting",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\watersetting.xml",
+                "startTicks": 11084983549,
+                "endTicks": 11085018342,
+                "threadId": 6
+              },
+              {
+                "typeName": "LightingSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\lightingsettings.xml",
+                "startTicks": 11085057110,
+                "endTicks": 11085080704,
+                "threadId": 8
+              },
+              {
+                "typeName": "WaterTextureList",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\watertexturelist.xml",
+                "startTicks": 11085077841,
+                "endTicks": 11085098469,
+                "threadId": 6
+              },
+              {
+                "typeName": "TerrainParticleMapping",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\terrainparticlemapping.xml",
+                "startTicks": 11085111448,
+                "endTicks": 11085115999,
+                "threadId": 7
+              },
+              {
+                "typeName": "BounceKickTerrainMapping",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\bouncekickterrainmapping.xml",
+                "startTicks": 11085132416,
+                "endTicks": 11085136899,
+                "threadId": 6
+              },
+              {
+                "typeName": "ShadowMap",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\shadowmap.xml",
+                "startTicks": 11085154057,
+                "endTicks": 11085158366,
+                "threadId": 7
+              },
+              {
+                "typeName": "OrdersManagerSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\ordersmanagersettings.xml",
+                "startTicks": 11085310163,
+                "endTicks": 11085318263,
+                "threadId": 6
+              },
+              {
+                "typeName": "TerrainVisualSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\terrainvisualsettings.xml",
+                "startTicks": 11085476468,
+                "endTicks": 11085481408,
+                "threadId": 7
+              },
+              {
+                "typeName": "CameraSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\environment\\data\\camerasettings.xml",
+                "startTicks": 11085495997,
+                "endTicks": 11085499009,
+                "threadId": 6
+              }
+            ],
+            "certifiedTypes": [
+              "Weather",
+              "WaterTransparency",
+              "WaterSetting",
+              "Environment",
+              "LightingSettings",
+              "WaterTextureList",
+              "TerrainParticleMapping",
+              "BounceKickTerrainMapping",
+              "ShadowMap",
+              "OrdersManagerSettings",
+              "TerrainVisualSettings",
+              "CameraSettings"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "Xmlenvironment",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "Weather"
+            ],
+            "passed": true
+          },
+          "healthbarsParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\healthbars\\data\\w3x.xml",
+                "startTicks": 12598850552,
+                "endTicks": 12599275026,
+                "threadId": 1
+              },
+              {
+                "typeName": "HealthBarTemplate",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\healthbars\\data\\healthbartemplate.xml",
+                "startTicks": 12599491222,
+                "endTicks": 12599541602,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\healthbars\\data\\parallellong.xml",
+                "startTicks": 12599469370,
+                "endTicks": 12633540062,
+                "threadId": 6
+              },
+              {
+                "typeName": "HealthBarSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\healthbars\\data\\healthbarsettings.xml",
+                "startTicks": 12633560395,
+                "endTicks": 12633632316,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "HealthBarTemplate",
+              "HealthBarSettings"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "healthbars",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "HealthBarTemplate"
+            ],
+            "passed": true
+          },
+          "conditionsParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\conditions\\data\\w3x.xml",
+                "startTicks": 11827931374,
+                "endTicks": 11828352027,
+                "threadId": 1
+              },
+              {
+                "typeName": "GameplayConditionData",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\conditions\\data\\gameplayconditiondata.xml",
+                "startTicks": 11828569896,
+                "endTicks": 11828708771,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\conditions\\data\\parallellong.xml",
+                "startTicks": 11828545826,
+                "endTicks": 11862623099,
+                "threadId": 6
+              }
+            ],
+            "certifiedTypes": [
+              "GameplayConditionData"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "conditions",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "GameplayConditionData"
+            ],
+            "passed": true
+          },
+          "targetingParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\targeting\\data\\w3x.xml",
+                "startTicks": 11246426842,
+                "endTicks": 11246860630,
+                "threadId": 1
+              },
+              {
+                "typeName": "TargetingDistanceCompare",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\targeting\\data\\targetingdistancecompare.xml",
+                "startTicks": 11247080275,
+                "endTicks": 11247130577,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\targeting\\data\\parallellong.xml",
+                "startTicks": 11247059240,
+                "endTicks": 11282381657,
+                "threadId": 6
+              },
+              {
+                "typeName": "TargetingCombatChainCompare",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\targeting\\data\\targetingcombatchaincompare.xml",
+                "startTicks": 11282399473,
+                "endTicks": 11282402984,
+                "threadId": 7
+              },
+              {
+                "typeName": "TargetingInTurretArcCompare",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\targeting\\data\\targetinginturretarccompare.xml",
+                "startTicks": 11282424847,
+                "endTicks": 11282428596,
+                "threadId": 6
+              },
+              {
+                "typeName": "TargetingCompareList",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\targeting\\data\\targetingcomparelist.xml",
+                "startTicks": 11282450576,
+                "endTicks": 11282476980,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "TargetingDistanceCompare",
+              "TargetingCombatChainCompare",
+              "TargetingInTurretArcCompare",
+              "TargetingCompareList"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "Xmltargeting",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "TargetingDistanceCompare"
+            ],
+            "passed": true
+          },
+          "visibilityParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\visibility\\data\\w3x.xml",
+                "startTicks": 11439807838,
+                "endTicks": 11440242666,
+                "threadId": 1
+              },
+              {
+                "typeName": "InvisibilityTemplate",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\visibility\\data\\invisibilitytemplate.xml",
+                "startTicks": 11440456533,
+                "endTicks": 11440510231,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\visibility\\data\\parallellong.xml",
+                "startTicks": 11440434956,
+                "endTicks": 11474544290,
+                "threadId": 6
+              },
+              {
+                "typeName": "InvisibilityManagerSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\visibility\\data\\invisibilitymanagersettings.xml",
+                "startTicks": 11474563722,
+                "endTicks": 11474595417,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "InvisibilityTemplate",
+              "InvisibilityManagerSettings"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "visibility",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "InvisibilityTemplate"
+            ],
+            "passed": true
+          },
+          "radarParallel": {
+            "intervals": [
+              {
+                "typeName": "Texture",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\radar\\data\\radardependencies.xml",
+                "startTicks": 11634048720,
+                "endTicks": 11634376389,
+                "threadId": 1
+              },
+              {
+                "typeName": "PackedTextureImage",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\radar\\data\\radardependencies.xml",
+                "startTicks": 11634491583,
+                "endTicks": 11634886654,
+                "threadId": 1
+              },
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\radar\\data\\w3x.xml",
+                "startTicks": 11634977884,
+                "endTicks": 11635056192,
+                "threadId": 1
+              },
+              {
+                "typeName": "RadarTerrainImage",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\radar\\data\\radarterrainimage.xml",
+                "startTicks": 11635139375,
+                "endTicks": 11635211597,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\radar\\data\\parallellong.xml",
+                "startTicks": 11635122541,
+                "endTicks": 11669220705,
+                "threadId": 6
+              },
+              {
+                "typeName": "UIRadarObjectsLayer",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\radar\\data\\uiradarobjectslayer.xml",
+                "startTicks": 11669243941,
+                "endTicks": 11669300623,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "RadarTerrainImage",
+              "UIRadarObjectsLayer"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "radar",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "RadarTerrainImage"
+            ],
+            "passed": true
+          },
+          "unitoverlayParallel": {
+            "intervals": [
+              {
+                "typeName": "Texture",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\unitoverlay\\data\\radardependencies.xml",
+                "startTicks": 12791701421,
+                "endTicks": 12792023033,
+                "threadId": 1
+              },
+              {
+                "typeName": "PackedTextureImage",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\unitoverlay\\data\\radardependencies.xml",
+                "startTicks": 12792131247,
+                "endTicks": 12792518807,
+                "threadId": 1
+              },
+              {
+                "typeName": "ImageSequence",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\unitoverlay\\data\\radardependencies.xml",
+                "startTicks": 12792558476,
+                "endTicks": 12792614657,
+                "threadId": 6
+              },
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\unitoverlay\\data\\w3x.xml",
+                "startTicks": 12792645608,
+                "endTicks": 12792722351,
+                "threadId": 1
+              },
+              {
+                "typeName": "UnitOverlayIconSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\unitoverlay\\data\\unitoverlayiconsettings.xml",
+                "startTicks": 12792781915,
+                "endTicks": 12792866026,
+                "threadId": 6
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\unitoverlay\\data\\parallellong.xml",
+                "startTicks": 12792764261,
+                "endTicks": 12826825577,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "UnitOverlayIconSettings"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "unitoverlay",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "UnitOverlayIconSettings"
+            ],
+            "passed": true
+          },
+          "uiimagesParallel": {
+            "intervals": [
+              {
+                "typeName": "Texture",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\uiimages\\data\\radardependencies.xml",
+                "startTicks": 12404242944,
+                "endTicks": 12404557907,
+                "threadId": 1
+              },
+              {
+                "typeName": "PackedTextureImage",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\uiimages\\data\\radardependencies.xml",
+                "startTicks": 12404714815,
+                "endTicks": 12405122692,
+                "threadId": 1
+              },
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\uiimages\\data\\w3x.xml",
+                "startTicks": 12405210514,
+                "endTicks": 12405288695,
+                "threadId": 1
+              },
+              {
+                "typeName": "ImageSequence",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\uiimages\\data\\imagesequence.xml",
+                "startTicks": 12405372694,
+                "endTicks": 12405452687,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\uiimages\\data\\parallellong.xml",
+                "startTicks": 12405353931,
+                "endTicks": 12439341154,
+                "threadId": 6
+              },
+              {
+                "typeName": "UnitTypeIcon",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\uiimages\\data\\unittypeicon.xml",
+                "startTicks": 12439358462,
+                "endTicks": 12439363613,
+                "threadId": 7
+              },
+              {
+                "typeName": "DrawGroupInfo",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\uiimages\\data\\drawgroupinfo.xml",
+                "startTicks": 12439391830,
+                "endTicks": 12439402649,
+                "threadId": 6
+              }
+            ],
+            "certifiedTypes": [
+              "ImageSequence",
+              "UnitTypeIcon",
+              "DrawGroupInfo"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "uiimages",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "ImageSequence"
+            ],
+            "passed": true
+          },
+          "objectsetsParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\objectsets\\data\\w3x.xml",
+                "startTicks": 12018849759,
+                "endTicks": 12019277436,
+                "threadId": 1
+              },
+              {
+                "typeName": "ObjectFilterAsset",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\objectsets\\data\\objectfilterasset.xml",
+                "startTicks": 12019480992,
+                "endTicks": 12019604315,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\objectsets\\data\\parallellong.xml",
+                "startTicks": 12019461216,
+                "endTicks": 12053379609,
+                "threadId": 6
+              },
+              {
+                "typeName": "RegisteredObjectSet",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\objectsets\\data\\registeredobjectset.xml",
+                "startTicks": 12053399602,
+                "endTicks": 12053404195,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "ObjectFilterAsset",
+              "RegisteredObjectSet"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "objectsets",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "ObjectFilterAsset"
+            ],
+            "passed": true
+          }
+        },
+        "dualMesh": {
+          "backendCalls": 2,
+          "requestedJobs": 2,
+          "scope": "Independent W3DMesh source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison",
+          "maxBackendConcurrency": 2,
+          "intervals": [
+            {
+              "typeName": "W3DMesh",
+              "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\parallel-mesh\\data\\meshshort.xml",
+              "startTicks": 13082849646,
+              "endTicks": 13083115755,
+              "threadId": 8
+            },
+            {
+              "typeName": "W3DMesh",
+              "sourcePath": "d:\\a\\_temp\\p34851a90\\d\\parallel-mesh\\data\\meshlong.xml",
+              "startTicks": 13082821303,
+              "endTicks": 13083120819,
+              "threadId": 7
+            }
+          ],
+          "passed": true
+        },
+        "preparationReasons": [
+          {
+            "kind": "preparation-rejected-reasons",
+            "firstActualGate": true,
+            "reasons": [
+              "invalid-input",
+              "uncertified-plugin",
+              "preparation-budget-exceeded",
+              "external-input-path-missing",
+              "external-input-unavailable",
+              "native-path-non-ascii",
+              "external-input-reparse-point",
+              "uncertified-audio-compiler",
+              "audio-compression-diagnostic",
+              "uncertified-audio-type",
+              "path-music-handle-missing"
+            ],
+            "partialLeaseFailureReleased": true,
+            "successfulRetryReasonCleared": true,
+            "scope": "Windows production host; unsupported-platform and rare header-reopen failure remain source-certified gates"
+          },
+          {
+            "scenario": "zero-preparation-pool-owner",
+            "preparationRejectedReasons": {
+              "preparation-budget-exceeded": 3
+            },
+            "cacheBypassReasons": {
+              "cache-disabled": 3
+            },
+            "backendCalls": 3,
+            "actionHits": 0,
+            "actionMisses": 0
+          }
+        ],
+        "inventoryExample": {
+          "inputIdentityQueries": 1260,
+          "inputIdentitySkippedFiles": 394,
+          "inputInventoryCaptures": 2,
+          "hashReadBytes": 9520226,
+          "inputHashReusedBytes": 8964694
+        },
+        "allCasesPassed": true,
+        "caseCount": 106
+      },
+      {
+        "configuration": "Release",
+        "zipSha256": "2afad7b0f26e5e3a8df591efa20a1385758511fd5611136bd930514d0181b69f",
+        "runtimeFiles": [
+          {
+            "name": "NewModCompiler.exe",
+            "bytes": 4175360,
+            "sha256": "9606cd570c7c1858c8d111abf54b9c24d66622a5a29b6f138356e95a3eb90ab2"
+          },
+          {
+            "name": "NewModCompiler.exe.config",
+            "bytes": 201,
+            "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+          },
+          {
+            "name": "antlr.runtime.dll",
+            "bytes": 99328,
+            "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+          },
+          {
+            "name": "BinaryAssetBuilder.TextureCompiler.dll",
+            "bytes": 917504,
+            "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+          },
+          {
+            "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+            "bytes": 14326,
+            "sha256": "2dbf5389af4d11252fa6cae9c22ee9411922c7b6c097c79a19568a37a4fe2006"
+          }
+        ],
+        "metadataFamilies": {
+          "renderdeviceParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\renderdevice\\data\\w3x.xml",
+                "startTicks": 13935380761,
+                "endTicks": 13935695387,
+                "threadId": 1
+              },
+              {
+                "typeName": "W3DDeviceSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\renderdevice\\data\\w3ddevicesettings.xml",
+                "startTicks": 13935896480,
+                "endTicks": 13936020516,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\renderdevice\\data\\parallellong.xml",
+                "startTicks": 13935875946,
+                "endTicks": 13942672997,
+                "threadId": 6
+              },
+              {
+                "typeName": "ScorchMarkSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\renderdevice\\data\\scorchmarksettings.xml",
+                "startTicks": 13942691263,
+                "endTicks": 13942695844,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "W3DDeviceSettings",
+              "ScorchMarkSettings"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "renderdevice",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "W3DDeviceSettings"
+            ],
+            "passed": true
+          },
+          "environmentParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\w3x.xml",
+                "startTicks": 13450106223,
+                "endTicks": 13450424986,
+                "threadId": 1
+              },
+              {
+                "typeName": "Weather",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\weather.xml",
+                "startTicks": 13450622572,
+                "endTicks": 13450711427,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\parallellong.xml",
+                "startTicks": 13450602219,
+                "endTicks": 13457873322,
+                "threadId": 6
+              },
+              {
+                "typeName": "WaterTransparency",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\watertransparency.xml",
+                "startTicks": 13457891902,
+                "endTicks": 13457895743,
+                "threadId": 7
+              },
+              {
+                "typeName": "Environment",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\environment.xml",
+                "startTicks": 13457939669,
+                "endTicks": 13457945515,
+                "threadId": 7
+              },
+              {
+                "typeName": "WaterSetting",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\watersetting.xml",
+                "startTicks": 13457918571,
+                "endTicks": 13457945550,
+                "threadId": 8
+              },
+              {
+                "typeName": "LightingSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\lightingsettings.xml",
+                "startTicks": 13457982452,
+                "endTicks": 13457998157,
+                "threadId": 6
+              },
+              {
+                "typeName": "WaterTextureList",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\watertexturelist.xml",
+                "startTicks": 13458005780,
+                "endTicks": 13458012625,
+                "threadId": 8
+              },
+              {
+                "typeName": "TerrainParticleMapping",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\terrainparticlemapping.xml",
+                "startTicks": 13458026368,
+                "endTicks": 13458029369,
+                "threadId": 6
+              },
+              {
+                "typeName": "BounceKickTerrainMapping",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\bouncekickterrainmapping.xml",
+                "startTicks": 13458046192,
+                "endTicks": 13458049053,
+                "threadId": 8
+              },
+              {
+                "typeName": "ShadowMap",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\shadowmap.xml",
+                "startTicks": 13458065962,
+                "endTicks": 13458068721,
+                "threadId": 6
+              },
+              {
+                "typeName": "OrdersManagerSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\ordersmanagersettings.xml",
+                "startTicks": 13458154805,
+                "endTicks": 13458160349,
+                "threadId": 8
+              },
+              {
+                "typeName": "TerrainVisualSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\terrainvisualsettings.xml",
+                "startTicks": 13458178041,
+                "endTicks": 13458181978,
+                "threadId": 6
+              },
+              {
+                "typeName": "CameraSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\environment\\data\\camerasettings.xml",
+                "startTicks": 13458197283,
+                "endTicks": 13458201069,
+                "threadId": 8
+              }
+            ],
+            "certifiedTypes": [
+              "Weather",
+              "WaterTransparency",
+              "WaterSetting",
+              "Environment",
+              "LightingSettings",
+              "WaterTextureList",
+              "TerrainParticleMapping",
+              "BounceKickTerrainMapping",
+              "ShadowMap",
+              "OrdersManagerSettings",
+              "TerrainVisualSettings",
+              "CameraSettings"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "Xmlenvironment",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "Weather"
+            ],
+            "passed": true
+          },
+          "healthbarsParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\healthbars\\data\\w3x.xml",
+                "startTicks": 14101762363,
+                "endTicks": 14102079770,
+                "threadId": 1
+              },
+              {
+                "typeName": "HealthBarTemplate",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\healthbars\\data\\healthbartemplate.xml",
+                "startTicks": 14102278616,
+                "endTicks": 14102316347,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\healthbars\\data\\parallellong.xml",
+                "startTicks": 14102260532,
+                "endTicks": 14109391455,
+                "threadId": 6
+              },
+              {
+                "typeName": "HealthBarSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\healthbars\\data\\healthbarsettings.xml",
+                "startTicks": 14109409411,
+                "endTicks": 14109459511,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "HealthBarTemplate",
+              "HealthBarSettings"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "healthbars",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "HealthBarTemplate"
+            ],
+            "passed": true
+          },
+          "conditionsParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\conditions\\data\\w3x.xml",
+                "startTicks": 13775664533,
+                "endTicks": 13775992658,
+                "threadId": 1
+              },
+              {
+                "typeName": "GameplayConditionData",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\conditions\\data\\gameplayconditiondata.xml",
+                "startTicks": 13776196718,
+                "endTicks": 13776315031,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\conditions\\data\\parallellong.xml",
+                "startTicks": 13776171203,
+                "endTicks": 13783261462,
+                "threadId": 6
+              }
+            ],
+            "certifiedTypes": [
+              "GameplayConditionData"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "conditions",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "GameplayConditionData"
+            ],
+            "passed": true
+          },
+          "targetingParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\targeting\\data\\w3x.xml",
+                "startTicks": 13533317336,
+                "endTicks": 13533638919,
+                "threadId": 1
+              },
+              {
+                "typeName": "TargetingDistanceCompare",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\targeting\\data\\targetingdistancecompare.xml",
+                "startTicks": 13533843582,
+                "endTicks": 13533881785,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\targeting\\data\\parallellong.xml",
+                "startTicks": 13533825775,
+                "endTicks": 13541084762,
+                "threadId": 6
+              },
+              {
+                "typeName": "TargetingCombatChainCompare",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\targeting\\data\\targetingcombatchaincompare.xml",
+                "startTicks": 13541102415,
+                "endTicks": 13541105868,
+                "threadId": 7
+              },
+              {
+                "typeName": "TargetingInTurretArcCompare",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\targeting\\data\\targetinginturretarccompare.xml",
+                "startTicks": 13541128024,
+                "endTicks": 13541131790,
+                "threadId": 8
+              },
+              {
+                "typeName": "TargetingCompareList",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\targeting\\data\\targetingcomparelist.xml",
+                "startTicks": 13541152313,
+                "endTicks": 13541173887,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "TargetingDistanceCompare",
+              "TargetingCombatChainCompare",
+              "TargetingInTurretArcCompare",
+              "TargetingCompareList"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "Xmltargeting",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "TargetingDistanceCompare"
+            ],
+            "passed": true
+          },
+          "visibilityParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\visibility\\data\\w3x.xml",
+                "startTicks": 13613629053,
+                "endTicks": 13613955602,
+                "threadId": 1
+              },
+              {
+                "typeName": "InvisibilityTemplate",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\visibility\\data\\invisibilitytemplate.xml",
+                "startTicks": 13614149787,
+                "endTicks": 13614188679,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\visibility\\data\\parallellong.xml",
+                "startTicks": 13614130948,
+                "endTicks": 13620872207,
+                "threadId": 6
+              },
+              {
+                "typeName": "InvisibilityManagerSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\visibility\\data\\invisibilitymanagersettings.xml",
+                "startTicks": 13620889619,
+                "endTicks": 13620912918,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "InvisibilityTemplate",
+              "InvisibilityManagerSettings"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "visibility",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "InvisibilityTemplate"
+            ],
+            "passed": true
+          },
+          "radarParallel": {
+            "intervals": [
+              {
+                "typeName": "Texture",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\radar\\data\\radardependencies.xml",
+                "startTicks": 13693448137,
+                "endTicks": 13693756510,
+                "threadId": 1
+              },
+              {
+                "typeName": "PackedTextureImage",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\radar\\data\\radardependencies.xml",
+                "startTicks": 13693852433,
+                "endTicks": 13694147147,
+                "threadId": 1
+              },
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\radar\\data\\w3x.xml",
+                "startTicks": 13694236446,
+                "endTicks": 13694296287,
+                "threadId": 1
+              },
+              {
+                "typeName": "RadarTerrainImage",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\radar\\data\\radarterrainimage.xml",
+                "startTicks": 13694377818,
+                "endTicks": 13694426184,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\radar\\data\\parallellong.xml",
+                "startTicks": 13694360193,
+                "endTicks": 13701468617,
+                "threadId": 6
+              },
+              {
+                "typeName": "UIRadarObjectsLayer",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\radar\\data\\uiradarobjectslayer.xml",
+                "startTicks": 13701488068,
+                "endTicks": 13701523844,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "RadarTerrainImage",
+              "UIRadarObjectsLayer"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "radar",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "RadarTerrainImage"
+            ],
+            "passed": true
+          },
+          "unitoverlayParallel": {
+            "intervals": [
+              {
+                "typeName": "Texture",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\unitoverlay\\data\\radardependencies.xml",
+                "startTicks": 14182499351,
+                "endTicks": 14182820707,
+                "threadId": 1
+              },
+              {
+                "typeName": "PackedTextureImage",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\unitoverlay\\data\\radardependencies.xml",
+                "startTicks": 14182918119,
+                "endTicks": 14183221445,
+                "threadId": 1
+              },
+              {
+                "typeName": "ImageSequence",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\unitoverlay\\data\\radardependencies.xml",
+                "startTicks": 14183261357,
+                "endTicks": 14183315084,
+                "threadId": 6
+              },
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\unitoverlay\\data\\w3x.xml",
+                "startTicks": 14183345095,
+                "endTicks": 14183403403,
+                "threadId": 1
+              },
+              {
+                "typeName": "UnitOverlayIconSettings",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\unitoverlay\\data\\unitoverlayiconsettings.xml",
+                "startTicks": 14183460261,
+                "endTicks": 14183506907,
+                "threadId": 6
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\unitoverlay\\data\\parallellong.xml",
+                "startTicks": 14183442041,
+                "endTicks": 14190648993,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "UnitOverlayIconSettings"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "unitoverlay",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "UnitOverlayIconSettings"
+            ],
+            "passed": true
+          },
+          "uiimagesParallel": {
+            "intervals": [
+              {
+                "typeName": "Texture",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\uiimages\\data\\radardependencies.xml",
+                "startTicks": 14019324635,
+                "endTicks": 14019638132,
+                "threadId": 1
+              },
+              {
+                "typeName": "PackedTextureImage",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\uiimages\\data\\radardependencies.xml",
+                "startTicks": 14019735160,
+                "endTicks": 14020029804,
+                "threadId": 1
+              },
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\uiimages\\data\\w3x.xml",
+                "startTicks": 14020116581,
+                "endTicks": 14020176198,
+                "threadId": 1
+              },
+              {
+                "typeName": "ImageSequence",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\uiimages\\data\\imagesequence.xml",
+                "startTicks": 14020261911,
+                "endTicks": 14020314279,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\uiimages\\data\\parallellong.xml",
+                "startTicks": 14020243872,
+                "endTicks": 14027434933,
+                "threadId": 6
+              },
+              {
+                "typeName": "UnitTypeIcon",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\uiimages\\data\\unittypeicon.xml",
+                "startTicks": 14027452370,
+                "endTicks": 14027456753,
+                "threadId": 7
+              },
+              {
+                "typeName": "DrawGroupInfo",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\uiimages\\data\\drawgroupinfo.xml",
+                "startTicks": 14027483987,
+                "endTicks": 14027491551,
+                "threadId": 8
+              }
+            ],
+            "certifiedTypes": [
+              "ImageSequence",
+              "UnitTypeIcon",
+              "DrawGroupInfo"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "uiimages",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "ImageSequence"
+            ],
+            "passed": true
+          },
+          "objectsetsParallel": {
+            "intervals": [
+              {
+                "typeName": "W3DHierarchy",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\objectsets\\data\\w3x.xml",
+                "startTicks": 13855355016,
+                "endTicks": 13855670508,
+                "threadId": 1
+              },
+              {
+                "typeName": "ObjectFilterAsset",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\objectsets\\data\\objectfilterasset.xml",
+                "startTicks": 13855873058,
+                "endTicks": 13855979265,
+                "threadId": 7
+              },
+              {
+                "typeName": "W3DAnimation",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\objectsets\\data\\parallellong.xml",
+                "startTicks": 13855851884,
+                "endTicks": 13863075325,
+                "threadId": 6
+              },
+              {
+                "typeName": "RegisteredObjectSet",
+                "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\objectsets\\data\\registeredobjectset.xml",
+                "startTicks": 13863098764,
+                "endTicks": 13863103090,
+                "threadId": 7
+              }
+            ],
+            "certifiedTypes": [
+              "ObjectFilterAsset",
+              "RegisteredObjectSet"
+            ],
+            "scope": "All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly",
+            "family": "objectsets",
+            "maxBackendConcurrency": 2,
+            "observedOverlappingTypes": [
+              "ObjectFilterAsset"
+            ],
+            "passed": true
+          }
+        },
+        "dualMesh": {
+          "backendCalls": 2,
+          "requestedJobs": 2,
+          "scope": "Independent W3DMesh source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison",
+          "maxBackendConcurrency": 2,
+          "intervals": [
+            {
+              "typeName": "W3DMesh",
+              "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\parallel-mesh\\data\\meshshort.xml",
+              "startTicks": 14382359988,
+              "endTicks": 14382569521,
+              "threadId": 8
+            },
+            {
+              "typeName": "W3DMesh",
+              "sourcePath": "d:\\a\\_temp\\p34851a90\\r\\parallel-mesh\\data\\meshlong.xml",
+              "startTicks": 14382327137,
+              "endTicks": 14382575056,
+              "threadId": 7
+            }
+          ],
+          "passed": true
+        },
+        "preparationReasons": [
+          {
+            "kind": "preparation-rejected-reasons",
+            "firstActualGate": true,
+            "reasons": [
+              "invalid-input",
+              "uncertified-plugin",
+              "preparation-budget-exceeded",
+              "external-input-path-missing",
+              "external-input-unavailable",
+              "native-path-non-ascii",
+              "external-input-reparse-point",
+              "uncertified-audio-compiler",
+              "audio-compression-diagnostic",
+              "uncertified-audio-type",
+              "path-music-handle-missing"
+            ],
+            "partialLeaseFailureReleased": true,
+            "successfulRetryReasonCleared": true,
+            "scope": "Windows production host; unsupported-platform and rare header-reopen failure remain source-certified gates"
+          },
+          {
+            "scenario": "zero-preparation-pool-owner",
+            "preparationRejectedReasons": {
+              "preparation-budget-exceeded": 3
+            },
+            "cacheBypassReasons": {
+              "cache-disabled": 3
+            },
+            "backendCalls": 3,
+            "actionHits": 0,
+            "actionMisses": 0
+          }
+        ],
+        "inventoryExample": {
+          "inputIdentityQueries": 1260,
+          "inputIdentitySkippedFiles": 394,
+          "inputInventoryCaptures": 2,
+          "hashReadBytes": 7079522,
+          "inputHashReusedBytes": 6523990
+        },
+        "allCasesPassed": true,
+        "caseCount": 106
+      }
+    ],
+    "scope": "Pre-bulk 24 metadata type qualification / 19 public SDK roots, exact preparation rejection partition, bounded file-ID query and capture-local SHA reuse; real dual Mesh intervals and all raw output checks. Full SDK/mymod/BIG and standalone five-file ZIP acceptance. This does not certify the later 284-route module expansion or establish end-to-end large-MOD performance."
   }
 }
