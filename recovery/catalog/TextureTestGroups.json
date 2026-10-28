@@ -1790,6 +1790,36 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-png-metadata/*/validation.json",
       "sdk": true
+    },
+    "jpeg-metadata-load": {
+      "script": "recovery/scripts/InspectTextureJpegMetadata.ps1",
+      "arguments": {},
+      "dependencies": [
+        "SDK/tools/*.dll",
+        "Directory.Build.*",
+        "NuGet.Config",
+        "global.json",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureJpegDecoder.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs",
+        "src/TextureCompiler/Jpeg/**",
+        "recovery/reference/ijg6b/**",
+        "recovery/reference/compact-icc/**",
+        "recovery/scripts/BuildTextureJpeg.ps1",
+        "recovery/scripts/InspectTextureJpegMetadata.ps1",
+        "recovery/tests/TextureJpegMetadataProbe.cs",
+        "recovery/tests/TextureJpegColourFixtures.c",
+        "recovery/tests/TexturePngMetadataFixtures.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/evidence/texture/jpeg-load/40625499544-1/**"
+      ],
+      "evidence": "recovery/evidence/texture/jpeg-metadata-load/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"
