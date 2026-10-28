@@ -10,9 +10,9 @@
 - 成果分支 `feature/cache-parallel`，[draft PR #17](https://github.com/wu162/NewSdk/pull/17)，未经批准不合入。最新模块批量生产 `ac22f777` / [40676722714](https://github.com/wu162/NewSdk/actions/runs/40676722714) 已完整success并独立核验原包12811797346/12组收据/两配置五文件ZIP；Debug/Release通用284路由×四平台均真实worker且owner三缓冲原字节相同（无拒绝）。生产/SDK/完整mymod/BIG/旧session/取消回滚及独立ZIP全部通过。复杂历史原DLL矩阵和真实公开根/取消/回滚门槛保留，最小DOM矩阵不冒充复杂字段或全部SDK全局根验收。
 - 前一阶段 `c807fd1b` / [40674077574](https://github.com/wu162/NewSdk/actions/runs/40674077574) 已完整success，原包12810219503、12组收据、两配置原五文件及独立ZIP均已核验。包含24类资格/19公开根、双Mesh4096/4顶点实际双worker重叠、13种源码prepare拒绝（Windows实测11种）、独立原因计数与零预算owner/部分租约释放；不能据此前一阶段宣称288路由批量已验收。
 - 有界开销改进：full bounded保留集之外且没有既有entry的小文件跳过FileIdInfo查询，但仍同一拒写handle鲜读SHA；既有entry继续128位身份核对。每Capture独占复用SHA对象。App容量/等长mtime/替换释放及完整SDK已通过c807；尚无本轮真实MOD端到端新收益，不称小MOD缓存慢的问题已解决。129d历史同输入计量仍见专项JSON。
-- 专用完整Upheaval测试分支 `test/upheaval-cache-parallel-bulk` 基于ac22，普通push只cheap guards，显式marker才单批测量；源输入为原始bacfc69的完整2723文件/300900885字节，在RUNNER_TEMP提取，不改当前SDK/源MOD。旧 `test/upheaval-cache-parallel-20261028` 的40677846430在原始XSD include URI预检失败，未进入plan/大型编译；后续bulk已改既有aggregate_schema、批量获取历史blob、保存可选不存在搜索根，严格复用ac22成功五文件归档。若baseline失败保留诊断并停止后续大MOD，不删输入重试。
+- 专用完整Upheaval测试分支 `test/upheaval-cache-parallel-bulk` 基于ac22，严格复用已验收原始五文件；[40682631514](https://github.com/wu162/NewSdk/actions/runs/40682631514) 的五入口plan和六次build收据成功，原始2723文件/300900885字节输入未改、每次1311输出原字节相同。同二进制无缓存jobs1→4为88.160s→57.733s（约缩短34.5%），热缓存三次中位73.609s仍慢于无缓存并行；每热次3214hit/0miss但鲜读哈希约3.45GB，下一步调查闭包成本。Actions整体failure来自末尾通用协议检查器误要求Debug/Release布局，保留原终态，仅轻量重放已有归档，勿为入口错误重跑MOD。精确source/归档SHA/边界见 [Upheaval计量](docs/UPHEAVAL_CACHE_PARALLEL.md)。
 
-默认bc/sc=false、jobs1及旧发行不变，Texture、Audio重采样/Audio PathMusic仍owner。本批模块验收已全部完成，不重跑未变生产矩阵；继续Upheaval预检/单批计量，真实阻塞按原日志处理；禁止强推、禁止未经批准合并。编译/测试全部Actions，文档不重编，依据EFFICIENCY复用有效来源，分别记录binary/test/packaging来源。
+默认bc/sc=false、jobs1及旧发行不变，Texture、Audio重采样/Audio PathMusic仍owner。本批模块验收已全部完成，不重跑未变生产矩阵或大型MOD；优先用已有计量/小夹具定位缓存闭包成本。禁止强推、禁止未经批准合并。编译/测试全部Actions，文档不重编，依据EFFICIENCY复用有效来源，分别记录binary/test/packaging来源。
 
 ## 已合入的默认构建与参数改进
 

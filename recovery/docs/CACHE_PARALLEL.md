@@ -4,6 +4,8 @@
 
 用户提供的[原始实施方案](CACHE_PARALLEL_PLAN.md)保留作目标与验收参考；当前状态只看本页收据，不能把方案要求当作已完成能力。日常续接无需重读整份方案。
 
+完整 Upheaval 已在专用分支完成一次串行/并行/冷/三热计量：[原始结果与边界](UPHEAVAL_CACHE_PARALLEL.md)。同二进制无缓存 jobs1→4 为88.160s→57.733s，1311个输出逐字节相同；热缓存中位73.609s仍慢于无缓存并行，不称缓存端到端问题已解决。40682631514的实际case收据成功，但通用协议检查入口目录错误导致Actions整体failure，原终态保留，后续仅重放存档验证。
+
 ## 最新完整验收（模块批量）
 
 生产/binary/test/packaging来源均为 `ac22f7770c7172d1dcb00699387b32bf12be46b7`，[40676722714](https://github.com/wu162/NewSdk/actions/runs/40676722714)完整**success**。原始归档12811797346，SHA256 `14f92ed1f66904d4746ad38a486e18fc0c24d8dbff629bf7defca5931c992114`，12组收据、Core fixture源码/结果和两配置独立五文件ZIP原字节均已核验。Debug ZIP `8c4f2b9fd9ace32c4f404985aa3c2f399890f286a113d29f53e631dcff5a6281`；Release `999f672c47514402304fd9794f4a58ae484ce1ff7dafadc4822e18de75186580`。
