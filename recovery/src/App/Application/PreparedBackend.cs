@@ -57,6 +57,12 @@ namespace NewModCompiler.Application
             else if (implementation == typeof(BinaryAssetBuilder.AudioCompiler.Plugin)) family = "audio";
             else return false;
 
+            long preparationEstimate = EstimatePreparationBytes(original);
+            // Avoid first allocating an enormous private representation and
+            // only then discovering that the task exceeds the preparation pool.
+            // The owner compatibility path retains the original input contract.
+            if (preparationEstimate > 128L * 1024L * 1024L) return false;
+
             var leases = new List<FileStream>();
             try
             {
@@ -84,7 +90,7 @@ namespace NewModCompiler.Application
                 foreach (string file in original.ReferencedFiles) frozen.ReferencedFiles.Add(file);
 
                 byte[] inputIdentity;
-                long retained = Math.Max(4096L, (long)node.OuterXml.Length * 6L);
+                long retained = preparationEstimate;
                 using (var bytes = new MemoryStream())
                 using (var writer = new BinaryWriter(bytes, new UTF8Encoding(false, true)))
                 {
@@ -130,6 +136,26 @@ namespace NewModCompiler.Application
         {
             if (disposed) throw new ObjectDisposedException("PreparedBackend");
             writer.Write(identity.Length); writer.Write(identity);
+        }
+
+        public static long EstimatePreparationBytes(InstanceDeclaration original)
+        {
+            if (original == null || original.Node == null) return 0;
+            // Count the existing tree without OuterXml, a cloned DOM or an
+            // encoded identity. The allowance covers original/private strings,
+            // serialization scratch, retained identity and per-node metadata.
+            try { return checked(4096L + EstimateNode(original.Node)); }
+            catch (OverflowException) { return long.MaxValue; }
+        }
+
+        static long EstimateNode(XmlNode node)
+        {
+            long characters = (long)node.Name.Length + node.NamespaceURI.Length + (node.Value == null ? 0L : node.Value.Length);
+            long bytes = checked(2048L + characters * 64L);
+            if (node.Attributes != null)
+                foreach (XmlAttribute attribute in node.Attributes) bytes = checked(bytes + EstimateNode(attribute));
+            foreach (XmlNode child in node.ChildNodes) bytes = checked(bytes + EstimateNode(child));
+            return bytes;
         }
 
         public AssetBuffer Execute()

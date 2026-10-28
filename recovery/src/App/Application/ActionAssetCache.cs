@@ -26,6 +26,8 @@ namespace NewModCompiler.Application
         PublicationLock cacheLock;
         int candidateSequence;
         bool committed, completed, disposed;
+        public long HashReadBytes { get; private set; }
+        public long CopyBytes { get; private set; }
 
         sealed class Member { public string Name, Storage, Hash; public long Size; }
         sealed class Manifest { public string Owner, Digest; public List<Member> Members; public long Bytes; }
@@ -347,25 +349,25 @@ namespace NewModCompiler.Application
                 else { if (names.Count == MaximumMembers) throw new InvalidDataException("Too many action result members."); names.Add(path.Substring(root.TrimEnd('\\', '/').Length + 1)); }
             }
         }
-        static void Copy(string source, string destination, CancellationToken cancellation)
+        void Copy(string source, string destination, CancellationToken cancellation)
         {
             RejectAncestors(source); RejectAncestors(destination);
             using (var input = new FileStream(source, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (var output = new FileStream(destination, FileMode.CreateNew, FileAccess.Write, FileShare.None))
             {
                 byte[] buffer = new byte[81920]; int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) != 0) { cancellation.ThrowIfCancellationRequested(); output.Write(buffer, 0, read); }
+                while ((read = input.Read(buffer, 0, buffer.Length)) != 0) { cancellation.ThrowIfCancellationRequested(); output.Write(buffer, 0, read); CopyBytes += read; }
                 cancellation.ThrowIfCancellationRequested(); output.Flush(true);
             }
         }
         static string Hex(byte[] value) { return BitConverter.ToString(value).Replace("-", "").ToLowerInvariant(); }
-        static string Hash(string path, CancellationToken cancellation)
+        string Hash(string path, CancellationToken cancellation)
         {
             using (var hash = SHA256.Create())
             using (var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 byte[] buffer = new byte[81920]; int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) != 0) { cancellation.ThrowIfCancellationRequested(); hash.TransformBlock(buffer, 0, read, buffer, 0); }
+                while ((read = input.Read(buffer, 0, buffer.Length)) != 0) { cancellation.ThrowIfCancellationRequested(); hash.TransformBlock(buffer, 0, read, buffer, 0); HashReadBytes += read; }
                 cancellation.ThrowIfCancellationRequested(); hash.TransformFinalBlock(new byte[0], 0, 0); return Hex(hash.Hash);
             }
         }

@@ -32,7 +32,7 @@ namespace NewModCompiler.Application
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
         ActionAssetCache actionCache;
         string actionToolchain;
-        long inputHashBytes;
+        long inputHashBytes, completedCacheHashBytes, completedCacheCopyBytes;
         readonly AssetExecutionMetrics executionMetrics = new AssetExecutionMetrics();
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
@@ -52,7 +52,10 @@ namespace NewModCompiler.Application
             maxBackendConcurrency = sessionCacheEnabled ? (instanceCompile == 0 ? 0 : 1) : executionMetrics.MaximumConcurrency,
             actionHits = executionMetrics.Hits, actionMisses = executionMetrics.Misses,
             restoredBytes = executionMetrics.RestoredBytes, writtenBytes = executionMetrics.WrittenBytes,
-            hashReadBytes = inputHashBytes + executionMetrics.ExternalHashBytes,
+            hashReadBytes = inputHashBytes + executionMetrics.ExternalHashBytes + completedCacheHashBytes + (actionCache == null ? 0 : actionCache.HashReadBytes),
+            cacheCopyBytes = completedCacheCopyBytes + (actionCache == null ? 0 : actionCache.CopyBytes),
+            peakSampledPrivateBytes = executionMetrics.PeakSampledPrivateBytes,
+            backendCallsByType = new Dictionary<string,int>(executionMetrics.CallsByType),
             backendIntervals = executionMetrics.Intervals.ToArray(), intervalFrequency = Stopwatch.Frequency
         }; } }
 
@@ -630,7 +633,7 @@ namespace NewModCompiler.Application
         {
             if (cacheCompleted) return;
             var failures = new List<Exception>(); var retained = new List<BuildAssetCache>();
-            try { if (actionCache != null) { actionCache.Dispose(); actionCache = null; } } catch (Exception error) { failures.Add(error); }
+            try { if (actionCache != null) { actionCache.Dispose(); completedCacheHashBytes += actionCache.HashReadBytes; completedCacheCopyBytes += actionCache.CopyBytes; actionCache = null; } } catch (Exception error) { failures.Add(error); }
             foreach (BuildAssetCache cache in assetCaches)
                 try { cache.Dispose(); } catch (Exception error) { failures.Add(error); retained.Add(cache); }
             assetCaches.Clear(); assetCaches.AddRange(retained);
@@ -643,7 +646,7 @@ namespace NewModCompiler.Application
         public void CompleteCache()
         {
             if (cacheCompleted || !cacheCommitted) return;
-            if (actionCache != null) { actionCache.Complete(); actionCache.Dispose(); actionCache = null; }
+            if (actionCache != null) { actionCache.Complete(); actionCache.Dispose(); completedCacheHashBytes += actionCache.HashReadBytes; completedCacheCopyBytes += actionCache.CopyBytes; actionCache = null; }
             foreach (BuildAssetCache cache in assetCaches) cache.Complete();
             foreach (SessionPackage package in sessionPackages) package.Complete();
             assetCaches.Clear(); sessionPackages.Clear(); cacheCompleted = true;

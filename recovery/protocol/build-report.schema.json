@@ -140,6 +140,25 @@
           "type": "integer",
           "minimum": 0
         },
+        "hashReadBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cacheCopyBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "peakSampledPrivateBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backendCallsByType": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
         "backendIntervals": {
           "type": "array",
           "maxItems": 512,

@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Web.Script.Serialization;
 using System.Xml;
 using BinaryAssetBuilder;
@@ -88,7 +89,9 @@ public static class CompilerPreparedBackend
     }
     static void AptLeaseAndFreeze(string work)
     {
-        string path = Path.Combine(work, "prepared-blob.bin");
+        string inputDirectory = Path.Combine(work, "prepared-input-lease");
+        Directory.CreateDirectory(inputDirectory);
+        string path = Path.Combine(inputDirectory, "prepared-blob.bin");
         string alternate = Path.Combine(work, "alternate-blob.bin");
         byte[] first = Encoding.ASCII.GetBytes("ABCDEFGHIJKLMNOP");
         byte[] second = Encoding.ASCII.GetBytes("QRSTUVWXYZabcdef");
@@ -108,6 +111,7 @@ public static class CompilerPreparedBackend
             Denied(delegate { using (var writer = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.ReadWrite)) { } }, "a writer");
             Denied(delegate { File.Delete(path); }, "deletion");
             Denied(delegate { File.Move(path, path + ".moved"); }, "rename");
+            Denied(delegate { Directory.Move(inputDirectory, inputDirectory + ".moved"); }, "ancestor directory rename");
             // Native fopen must still be allowed to read while the owner holds
             // FileShare.Read. Neither a new XML value nor a namespace mutation
             // may alter the actual private representation being executed.
@@ -182,6 +186,25 @@ public static class CompilerPreparedBackend
             Require(Execute(prepared) != null, "The detached default-bearing Armor declaration must execute through the real backend");
         }
         finally { ((IDisposable)prepared).Dispose(); }
+    }
+    static long PreparationEstimate(InstanceDeclaration instance)
+    {
+        return (long)contract.GetMethod("EstimatePreparationBytes", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { instance });
+    }
+    static void PreparationBudget()
+    {
+        var plugin = new Recovered.Compiler.Plugin(); plugin.Initialize(null, TargetPlatform.Win32);
+        var declaration = Declaration("ArmorTemplate", "PreparationBudget", Namespaces());
+        Metadata(declaration, plugin);
+        long small = PreparationEstimate(declaration);
+        Require(small >= 4096, "Preparation estimate must cover even a small private DOM and identity");
+        // Use an otherwise ordinary metadata string. Preparation's size gate
+        // precedes backend field validation and must not clone or serialize it.
+        ((XmlElement)declaration.Node).SetAttribute("id", new string('x', 3 * 1024 * 1024));
+        long large = PreparationEstimate(declaration);
+        Require(large >= 3L * 1024L * 1024L * 64L && large > 128L * 1024L * 1024L,
+            "A large single attribute must be included without relying on element count or source file size");
+        Require(Prepare(declaration, plugin) == null, "Oversized preparation must use the owner compatibility path before cloning");
     }
     static void CommitRejected(BinaryAsset asset, string label)
     {
@@ -268,11 +291,110 @@ public static class CompilerPreparedBackend
         }
         finally { Settings.Current = previous; EALA.Metrics.MetricManager.Enabled = previousMetrics; }
     }
+    static void Put(string path, string text)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(path)); File.WriteAllText(path, text);
+    }
+    static string Assets(string body)
+    {
+        return "<AssetDeclaration xmlns='uri:ea.com:eala:asset'>" + body + "</AssetDeclaration>";
+    }
+    static Dictionary<string, string> RepeatedIncludeRun(string sdk, string mod, string output, int jobs)
+    {
+        Settings previous = Settings.Current;
+        bool previousMetrics = EALA.Metrics.MetricManager.Enabled;
+        using (DocumentProcessor.BeginStateScope())
+        try
+        {
+            EALA.Metrics.MetricManager.Enabled = false;
+            var configuration = new XmlDocument { XmlResolver = null };
+            configuration.Load(Path.Combine(sdk, "tools/BinaryAssetBuilder.exe.config"));
+            var settings = (Settings)new SerializedSectionHandler().Create(null, null, configuration.SelectSingleNode("/configuration/assetbuilder"));
+            settings.DataRoot = mod; settings.SchemaPath = Path.Combine(sdk, "Schemas/xsd/CnC3Types.xsd");
+            settings.InputPath = Path.Combine(mod, "Root.xml");
+            settings.OutputDirectory = Path.Combine(output, "output");
+            settings.IntermediateOutputDirectory = Path.Combine(output, "intermediate");
+            settings.SessionCacheDirectory = Path.Combine(output, "hashes");
+            settings.DefaultDataPaths = mod; settings.DefaultArtPaths = mod; settings.DefaultAudioPaths = mod;
+            settings.TargetPlatform = TargetPlatform.Win32; settings.BigEndian = false;
+            settings.BuildCache = settings.SessionCache = false; settings.LinkedStreams = true;
+            settings.OutputAssetReport = settings.OutputStringHashes = false;
+            settings.ErrorLevel = 1; settings.UsePrecompiled = settings.StreamHints = settings.StableSort = false;
+            Settings.Current = settings; SettingsLoader.PostProcessSettings(mod);
+            Directory.CreateDirectory(settings.OutputDirectory); Directory.CreateDirectory(settings.IntermediateOutputDirectory);
+            Directory.CreateDirectory(settings.SessionCacheDirectory);
+            var schemas = new SchemaSet(false);
+            using (HashProvider.BeginStringHashScope(settings.SessionCacheDirectory))
+            using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
+            {
+                var verifiers = new VerifierPluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32);
+                verifiers.DefaultPlugin = (IAssetBuilderVerifierPlugin)Activator.CreateInstance(
+                    typeof(DocumentProcessor).Assembly.GetType("BinaryAssetBuilder.GameDataVerifier.Plugin", true), true);
+                verifiers.DefaultPlugin.Initialize(null, TargetPlatform.Win32);
+                var cache = new SessionCache(); cache.InitializeCache(new List<string>());
+                var processor = new DocumentProcessor(settings, plugins.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
+                var assembly = typeof(CoreStreamCompiler).Assembly;
+                var metrics = Activator.CreateInstance(assembly.GetType("NewModCompiler.Application.AssetExecutionMetrics", true), true);
+                var execution = (IAssetExecution)Activator.CreateInstance(assembly.GetType("NewModCompiler.Application.AssetTaskExecution", true),
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
+                    new object[] { processor, null, Path.Combine(output, "task-staging"), "no-persistent-cache", "repeat-include-fixture", jobs, metrics, CancellationToken.None }, null);
+                try
+                {
+                    processor.AssetExecution = execution;
+                    bool success;
+                    processor.ProcessDocument(settings.InputPath, true, false, out success);
+                    execution.Flush();
+                    Require(success && processor.InstanceCompileCount == 3,
+                        "Repeated includes must execute the three distinct real assets exactly once with jobs=" + jobs);
+                    foreach (var expected in new Dictionary<string, int> { { "Leaf.xml", 2 }, { "A.xml", 2 }, { "B.xml", 1 }, { "Root.xml", 3 } })
+                    {
+                        AssetDeclarationDocument document;
+                        Require(cache.TryGetDocument(Path.Combine(mod, expected.Key), null, TargetPlatform.Win32, false, out document) && document != null,
+                            "Actual processed document must remain in the real session cache: " + expected.Key);
+                        Require(document.State == DocumentState.Complete && !document.Processing && document.Instances.Count == expected.Value,
+                            "Deferred completion must preserve prepared declarations through repeated include and inheritance: " + expected.Key);
+                    }
+                    object pendingDocuments = typeof(DocumentProcessor).GetField("_PendingExecutionDocuments",
+                        BindingFlags.NonPublic | BindingFlags.Instance).GetValue(processor);
+                    Require((int)pendingDocuments.GetType().GetProperty("Count").GetValue(pendingDocuments, null) == 0,
+                        "Successful physical-result barrier must leave no deferred document completion");
+                    var result = new Dictionary<string, string>(StringComparer.Ordinal);
+                    foreach (string file in Directory.GetFiles(settings.OutputDirectory, "*", SearchOption.AllDirectories))
+                    {
+                        string extension = Path.GetExtension(file);
+                        if (extension != ".manifest" && extension != ".bin" && extension != ".imp" && extension != ".relo") continue;
+                        using (var sha = SHA256.Create()) result.Add(file.Substring(settings.OutputDirectory.Length), BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(file))));
+                    }
+                    Require(result.Count == 4, "Repeated-include production stream must produce all four raw output files");
+                    return result;
+                }
+                finally { ((IDisposable)execution).Dispose(); }
+            }
+        }
+        finally { Settings.Current = previous; EALA.Metrics.MetricManager.Enabled = previousMetrics; }
+    }
+    static void RepeatedIncludeAndInheritance(string work, string sdk)
+    {
+        string mod = Path.Combine(work, "repeated-include-input");
+        Put(Path.Combine(mod, "Leaf.xml"), Assets(
+            "<ArmorTemplate id='PreparedBaseArmor' Default='50%'/><W3DAnimation id='PreparedLeafAnimation' NumFrames='1' FrameRate='30'><Channels/></W3DAnimation>"));
+        Put(Path.Combine(mod, "A.xml"), Assets("<Includes><Include type='all' source='Leaf.xml'/></Includes>"));
+        Put(Path.Combine(mod, "B.xml"), Assets("<Includes><Include type='instance' source='Leaf.xml'/></Includes>" +
+            "<ArmorTemplate id='PreparedDerivedArmor' inheritFrom='PreparedBaseArmor' Default='75%'/>"));
+        Put(Path.Combine(mod, "Root.xml"), Assets("<Includes><Include type='all' source='A.xml'/><Include type='all' source='B.xml'/></Includes>"));
+        var serial = RepeatedIncludeRun(sdk, mod, Path.Combine(work, "repeated-serial"), 1);
+        var parallel = RepeatedIncludeRun(sdk, mod, Path.Combine(work, "repeated-parallel"), 2);
+        Require(serial.Count == parallel.Count, "Repeated include serial/parallel outputs must have the same members");
+        foreach (var output in serial)
+            Require(parallel.ContainsKey(output.Key) && parallel[output.Key] == output.Value,
+                "Repeated includes and inherited input must preserve exact serial stream bytes: " + output.Key);
+    }
     public static int Main(string[] args)
     {
         try
         {
-            Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); W3xBudget(); SchemaDefaults(); BinaryAssetAuthorization(args[0]);
+            Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); BinaryAssetAuthorization(args[0]);
+            RepeatedIncludeAndInheritance(args[0], args[4]);
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new {
                 succeeded = true, sourceCommit = args[2], runId = args[3], checks,
                 scope = "Actual prepared input isolation, native APT content lease, exact external invalidation, schema defaults, W3X expansion budget and real BinaryAsset Output/Local/Cache authorization guard; cross-document overlap is checked separately"

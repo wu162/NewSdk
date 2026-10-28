@@ -621,6 +621,10 @@ public class DocumentProcessor
 			stringBuilder.AppendFormat("\n   {0}", sourcePath);
 			throw new BinaryAssetBuilderException(ErrorCode.CircularDependency, stringBuilder.ToString());
 		}
+		// Open recreates CurrentState for a non-complete document. A repeated
+		// include is a semantic reuse barrier: finish its existing tasks before
+		// allowing Open to inspect/reload that same document.
+		if (AssetExecution != null && _PendingExecutionDocuments.Contains(document)) AssetExecution.Flush();
 		document.Open(this, hashItem, logicalPath, configuration);
 		if (document.State != DocumentState.Complete)
 		{
@@ -832,7 +836,9 @@ public class DocumentProcessor
 				document.TentativeInstances.Add(document2.TentativeInstances);
 				break;
 			}
-			document2.Reset();
+			if (AssetExecution != null && _PendingExecutionDocuments.Contains(document2))
+				AssetExecution.DeferCompletion(document2.Reset);
+			else document2.Reset();
 			_TotalPostProcTime += DateTime.Now - now;
 		}
 		foreach (InstanceDeclaration referenceInstance in document.ReferenceInstances)

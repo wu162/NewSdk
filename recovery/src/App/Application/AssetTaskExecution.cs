@@ -25,14 +25,23 @@ namespace NewModCompiler.Application
         int active;
         public int BackendCalls, MaximumConcurrency, Hits, Misses;
         public long RestoredBytes, WrittenBytes, ExternalHashBytes;
+        public long PeakSampledPrivateBytes;
+        public readonly Dictionary<string,int> CallsByType = new Dictionary<string,int>(StringComparer.Ordinal);
         public readonly List<BackendInterval> Intervals = new List<BackendInterval>();
+        public void SampleMemory()
+        {
+            try { using (var process = Process.GetCurrentProcess()) { long bytes = process.PrivateMemorySize64; lock (gate) PeakSampledPrivateBytes = Math.Max(PeakSampledPrivateBytes, bytes); } }
+            catch (System.ComponentModel.Win32Exception) { }
+            catch (InvalidOperationException) { }
+        }
         public AssetBuffer Execute(string type, string source, Func<AssetBuffer> action)
         {
             var interval = new BackendInterval { typeName = type, sourcePath = source,
                 threadId = Thread.CurrentThread.ManagedThreadId };
-            lock (gate) { BackendCalls++; active++; MaximumConcurrency = Math.Max(MaximumConcurrency, active); interval.startTicks = Stopwatch.GetTimestamp(); }
+            SampleMemory();
+            lock (gate) { BackendCalls++; active++; MaximumConcurrency = Math.Max(MaximumConcurrency, active); interval.startTicks = Stopwatch.GetTimestamp(); int count; CallsByType.TryGetValue(type, out count); CallsByType[type] = count + 1; }
             try { return action(); }
-            finally { lock (gate) { interval.endTicks = Stopwatch.GetTimestamp(); active--; if (Intervals.Count < 512) Intervals.Add(interval); } }
+            finally { lock (gate) { interval.endTicks = Stopwatch.GetTimestamp(); active--; if (Intervals.Count < 512) Intervals.Add(interval); } SampleMemory(); }
         }
     }
 
@@ -94,6 +103,9 @@ namespace NewModCompiler.Application
             task.Sequence = sequence;
             Directory.CreateDirectory(task.Directory);
             declaration.CustomDataPath = Path.Combine(task.Directory, "result.cdata");
+            long preparationBytes = PreparedBackend.EstimatePreparationBytes(declaration);
+            if (preparationBytes > ByteBudget) Flush();
+            else while (pending.Count > 0 && retainedBytes + preparationBytes > ByteBudget) CommitOne();
             PreparedBackend prepared;
             if (!PreparedBackend.TryPrepare(declaration, plugin, out prepared))
             {
@@ -199,6 +211,7 @@ namespace NewModCompiler.Application
             task.Declaration.CustomDataPath = output;
             task.Asset.Buffer = task.Buffer;
             task.Asset.AuthorizeExecutionResult(task.Identity, digest);
+            metrics.SampleMemory();
             task.Verify();
             AssetLocation location = task.Asset.Commit();
             task.Committed(location);
