@@ -129,16 +129,16 @@
 	The following numbers were define using some statistical profiling
 	on the large set of images and believed to be optimal		    */
 
-// Explicit experimental search budget. Default preserves upstream16/8.
-// Lower budgets test whether legacy PC Production stops refinement earlier.
-static int LegacySearchBudget=0;
-void SetLegacyS3SearchBudget(int policy){LegacySearchBudget=policy;}
-#define UNCLIPPED_ITERATION_LIMIT (LegacySearchBudget == 0 ? 16 : LegacySearchBudget - 1)
+// Decoder interpolation rounding policies: baseline, single-colour floor,
+// general-ramp floor, both. Search budgets retain upstream defaults.
+static int LegacyInterpolationPolicy=0;
+void SetLegacyS3InterpolationPolicy(int policy){LegacyInterpolationPolicy=policy;}
+#define UNCLIPPED_ITERATION_LIMIT 16
 
     /*	Maximum number of <seachClipped43Mult> calls (iterations) for one 
 	block, similar to UNCLIPPED_ITERATION_LIMIT, see above		    */
 
-#define CLIPPED_ITERATION_LIMIT (LegacySearchBudget == 0 ? 8 : LegacySearchBudget - 1)
+#define CLIPPED_ITERATION_LIMIT 8
 
     /* During <seach43Mult> / <seachClipped43Mult> iterative calls 
        each configuration is defined by the ordering of the points, which 
@@ -1111,9 +1111,9 @@ static double roundMult (int nColors, int n, double (*q)[3], double *pMult,
 		double *p;
     /* compute intermediate points					    */
 		iRamp [i][j][2] = 
-		  (2 * iRamp [i][j][0] +     iRamp [i][j][1] + 1) / 3;
+		  (2 * iRamp [i][j][0] +     iRamp [i][j][1] + ((LegacyInterpolationPolicy & 2) ? 0 : 1)) / 3;
 		iRamp [i][j][3] = 
-		  (    iRamp [i][j][0] + 2 * iRamp [i][j][1] + 1) / 3;
+		  (    iRamp [i][j][0] + 2 * iRamp [i][j][1] + ((LegacyInterpolationPolicy & 2) ? 0 : 1)) / 3;
 		for (k = 0; k < 4; k++) {
 		    ramp[i][j][k] = (double)iRamp[i][j][k] * w[i] / 255.;
 		}
@@ -1373,12 +1373,15 @@ static double allSame(int *nColors, int n, double (*q)[3], double weight[3],
 				   by the third index.			    */
 	unsigned char point[2];	/* endpoints to interpolate on, if the 
 				   value is represetable		    */
-    } grid[256][3][3];		/* first index	- value of the channel
+    } grids[2][256][3][3];		/* first index	- value of the channel
 				   second index	- cannel (color), RGB
 				   third index	- representation type: 
 				   endpoint, one half, one third 	    */
     
-    static int initFlag = 0;	/* set if the table has been initialized    */
+    gridPoint_ (*grid)[3][3] = grids[LegacyInterpolationPolicy & 1];
+    static int initFlags[2]={0,0};
+    int &initFlag=initFlags[LegacyInterpolationPolicy & 1];
+    /* set if the table has been initialized    */
     static int size[3] = {5,6,5};   
 				/* with in bits of the RGB values for S3TC  
 				   endpoints				    */ 
@@ -1417,7 +1420,7 @@ static double allSame(int *nColors, int n, double (*q)[3], double weight[3],
 		    for(k=0; k < 3; k++) {
     /* compute represetable value with the end values above		    */
 			p = (intCoeff[k][0] * p0 +intCoeff[k][1] * p1 +
-			  intCoeff[k][2]) /intCoeff[k][3];
+			  ((k == 2 && (LegacyInterpolationPolicy & 1)) ? 0 : intCoeff[k][2])) /intCoeff[k][3];
     /* let's try to make interval smaller; good for the decoder accuracy    */
 			if (! grid[p][l][k].valid || 
 			  abs(grid[p][l][k].point[1] -  

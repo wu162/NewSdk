@@ -50,3 +50,17 @@ unclipped/clipped iterations, then0/0,1/1,2/2. Each budget runs all four input/w
 precision variants and all10240 original blocks in both configurations. This is
 an experiment; lower error or selecting best results per fixture is not accepted.
 No original-output data is used to choose a budget at runtime.
+
+## Interpolation rounding comparison
+
+40632315333 completed the full stopping-policy matrix. Gray adaptation improved
+complete DXT3/5 equality to5093/5120. Lower0/0 budgets regress4 blocks and fix none;
+1/1 and2/2 do not change the remaining27. Restore upstream16/8. The remaining
+single-color cases suggest the decoder's one-third interpolation rounding may
+matter (e.g. input green3 between endpoints4 and0: rounded gives3, floor gives2,
+changing strict endpoint ties). Compare single-colour-table floor, general-ramp
+floor and both, independently from baseline, with separate cached lookup tables.
+Variant /4 now identifies rounding policy0..3; variant bits0..1 still preserve
+source/weight precision. Keep every complete prior matrix; never compare variant
+numbers across receipts without checking sourceCommit. This is a general codec
+arithmetic hypothesis and not fixture-ID dispatch.
