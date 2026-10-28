@@ -479,6 +479,14 @@ public class AssetDeclarationDocument : IXmlSerializable
 	{
 	}
 
+	// A backend view deliberately has no processor, cache or semantic owner.
+	// Its namespace table belongs to the prepared task.
+	public static AssetDeclarationDocument CreateBackendView(XmlNamespaceManager namespaces)
+	{
+		if (namespaces == null) throw new ArgumentNullException(nameof(namespaces));
+		return new AssetDeclarationDocument { _Current = new CurrentState { NamespaceManager = namespaces } };
+	}
+
 	public AssetDeclarationDocument(DocumentProcessor documentProcessor, FileHashItem hashItem, string logicalPath, string configuration)
 	{
 		Open(documentProcessor, hashItem, logicalPath, configuration);
@@ -1040,6 +1048,21 @@ public class AssetDeclarationDocument : IXmlSerializable
 			BinaryAsset binaryAsset = outputManager.GetBinaryAsset(selfInstance, isOutputAsset: true);
 			if (binaryAsset != null)
 			{
+				if (_Current.DocumentProcessor.AssetExecution != null)
+				{
+					var processor = _Current.DocumentProcessor;
+					var declaration = selfInstance;
+					processor.AssetExecution.Enqueue(binaryAsset, declaration,
+						processor.Plugins.GetPlugin(declaration.Handle.TypeId),
+						() => CompileInstance(binaryAsset, declaration),
+						() => VerifyInstance(binaryAsset, declaration),
+						location => {
+							processor.RecordExecutionCommit(location);
+							if (location != AssetLocation.BasePatchStream) processor.AddLastWrittenAsset(binaryAsset);
+							if (!declaration.IsInheritable) declaration.XmlNode = null;
+						});
+					continue;
+				}
 				if (binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None) == AssetLocation.None)
 				{
 					CompileInstance(binaryAsset, selfInstance);

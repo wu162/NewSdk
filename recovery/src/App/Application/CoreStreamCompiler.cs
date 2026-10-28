@@ -30,13 +30,29 @@ namespace NewModCompiler.Application
         int buildCacheHits, buildCacheMisses, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile;
         readonly List<BuildAssetCache> assetCaches = new List<BuildAssetCache>();
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
+        ActionAssetCache actionCache;
+        string actionToolchain;
+        readonly AssetExecutionMetrics executionMetrics = new AssetExecutionMetrics();
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
         VerifierPluginRegistry verifiers;
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
-        public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.SessionPackage" : buildCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.BuildAssetCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
-        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false }; } }
+        public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.SessionPackage" : buildCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.ActionCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
+        public object CacheReport { get { return new {
+            status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "ActionCache" : "Disabled",
+            hits = sessionCacheEnabled ? buildCacheHits : executionMetrics.Hits,
+            misses = sessionCacheEnabled ? buildCacheMisses : executionMetrics.Misses,
+            sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false,
+            executionEngine = sessionCacheEnabled ? "LegacySession" : "AssetTasks.v1",
+            cacheMode = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "ActionCache" : "Disabled",
+            requestedJobs = request == null ? 1 : request.RequestedJobs,
+            backendCalls = sessionCacheEnabled ? instanceCompile : executionMetrics.BackendCalls,
+            maxBackendConcurrency = sessionCacheEnabled ? (instanceCompile == 0 ? 0 : 1) : executionMetrics.MaximumConcurrency,
+            actionHits = executionMetrics.Hits, actionMisses = executionMetrics.Misses,
+            restoredBytes = executionMetrics.RestoredBytes, writtenBytes = executionMetrics.WrittenBytes,
+            backendIntervals = executionMetrics.Intervals.ToArray(), intervalFrequency = Stopwatch.Frequency
+        }; } }
 
         public void Initialize(BuildRequest request)
         {
@@ -168,6 +184,7 @@ namespace NewModCompiler.Application
             traceLevel = 3; buildCacheEnabled = sessionCacheEnabled = false;
             stableSortEnabled = usePrecompiled = forceSlowCleanup = true;
             BigPackage.ValidateRequest(candidate);
+            if (candidate.RequestedJobs <= 0) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", "jobs expects a positive integer.");
             if(candidate.Command=="build" && candidate.FixNeutralAssets) BasePostProcessor.ValidateReferences(candidate.SdkRoot);
             var ordinary = new HashSet<string>(new[] { "profile", "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format", "mod-version", "game-version", "skudef-name", "include-additional", "fix-neutral-assets", "dr", "data", "art", "audio" }, StringComparer.OrdinalIgnoreCase);
             var disabled = new HashSet<string>(new[] { "csc", "psc", "fsc", "atc", "oof", "vf", "oar", "osh", "oix", "mr" }, StringComparer.OrdinalIgnoreCase);
@@ -175,6 +192,13 @@ namespace NewModCompiler.Application
             {
                 if (option.Value == null) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", "A Core option has no effective value: " + option.Key);
                 string key = option.Key, value = option.Value.Value;
+                if (key == "jobs")
+                {
+                    int jobs;
+                    if (!int.TryParse(value, System.Globalization.NumberStyles.None, System.Globalization.CultureInfo.InvariantCulture, out jobs) || jobs <= 0 || jobs != candidate.RequestedJobs)
+                        throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", "jobs expects a matching positive integer.");
+                    continue;
+                }
                 if (key == "package-format" && !string.Equals(value, "loose", StringComparison.OrdinalIgnoreCase) && !string.Equals(value,"big",StringComparison.OrdinalIgnoreCase))
                     throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Package format must be loose or big; BIG supports base/apt/maps.");
                 if (ordinary.Contains(key)) continue;
@@ -197,6 +221,8 @@ namespace NewModCompiler.Application
                 if (key == "tl" && int.TryParse(value, out level) && level >= 0 && level <= 9) { traceLevel = level; continue; }
                 throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Experimental Core backend does not support option " + key + "=" + value + ". Compressed/partial/frozen session cache, precompiled, alternate output, reporting, configuration overrides and postprocessing options are not enabled.");
             }
+            if (sessionCacheEnabled && candidate.RequestedJobs > 1)
+                throw new BuildFailure(ExitCode.Arguments, "CORE_SESSION_PARALLEL_UNSUPPORTED", "Session cache requires jobs=1.");
         }
 
         Settings ReadSettings()
@@ -231,7 +257,7 @@ namespace NewModCompiler.Application
             // BuildSession confirms both caches only after required output succeeds.
             settings.SessionCache = sessionCacheEnabled;
             settings.PartialSessionCache = settings.FreezeSessionCache = settings.CompressedSessionCache = false;
-            settings.BuildCache = buildCacheEnabled;
+            settings.BuildCache = buildCacheEnabled && sessionCacheEnabled;
             settings.AlwaysTouchCache = settings.StreamHints = false;
             // SDK/defaultscript.cs steps 3/4/5 enable these independently of caching.
             // In particular /pc changes whether referenced streams emit output.
@@ -427,6 +453,7 @@ namespace NewModCompiler.Application
             Exception failure = null;
             IList<Artifact> artifacts = null;
             DocumentProcessor processor = null;
+            AssetTaskExecution execution = null;
             compiling = true;
             try
             {
@@ -453,7 +480,7 @@ namespace NewModCompiler.Application
                     cachePlan = new BuildPlan { PlanKind = "CoreCacheStream.v2", Tasks = new[] { context.Task } };
                     cacheInputs = CacheInputSnapshot.Capture(request, cachePlan, runtime, cancellation);
                     processContract = CacheProcessContract();
-                    if (buildCacheEnabled)
+                    if (buildCacheEnabled && sessionCacheEnabled)
                     {
                         assetCache = new BuildAssetCache(outputRoot, CacheNamespace(cacheInputs.Fingerprint, processContract));
                         assetCaches.Add(assetCache);
@@ -503,8 +530,20 @@ namespace NewModCompiler.Application
                 }
                 else cache.InitializeCache(new List<string>());
                 processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
+                if (!sessionCacheEnabled)
+                {
+                    if (buildCacheEnabled)
+                    {
+                        if (actionCache == null) actionCache = new ActionAssetCache(outputRoot);
+                        if (actionToolchain == null) actionToolchain = ActionToolchainIdentity(runtime, cancellation);
+                    }
+                    execution = new AssetTaskExecution(processor, buildCacheEnabled ? actionCache : null, staging,
+                        actionToolchain ?? "no-persistent-cache", EffectiveActionOptions(), request.RequestedJobs, executionMetrics, cancellation);
+                    processor.AssetExecution = execution;
+                }
                 bool success;
                 processor.ProcessDocument(settings.InputPath, true, false, out success);
+                if (execution != null) execution.Flush();
                 if (!success) throw new BuildFailure(ExitCode.Compilation, "CORE_COMPILE_FAILED", "Core did not complete the stream.");
                 if (sessionCacheEnabled)
                 {
@@ -517,14 +556,15 @@ namespace NewModCompiler.Application
                 cancellation.ThrowIfCancellationRequested();
                 if (buildCacheEnabled || sessionCacheEnabled)
                 {
-                    if (!cacheInputs.MatchesCurrent(request, cachePlan, runtime, cancellation) || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal))
+                    if (!cacheInputs.MatchesCurrent(request, cachePlan, runtime, cancellation) || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal)
+                        || (!sessionCacheEnabled && buildCacheEnabled && actionToolchain != ActionToolchainIdentity(runtime, cancellation)))
                         throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Build-cache inputs or process resolution contract changed during compilation.");
                     if (sessionCacheEnabled)
                     {
                         cache.SaveCache(false);
                         sessionPackage.StageStream(context.Task.Id, staging, cancellation);
                     }
-                    if (buildCacheEnabled)
+                    if (buildCacheEnabled && sessionCacheEnabled)
                     {
                         assetCache.StageStream(context.Task.Id, settings.BuildCacheDirectory, cancellation);
                         buildCacheHits += processor.BuildCacheHits; buildCacheMisses += processor.BuildCacheMisses;
@@ -545,6 +585,7 @@ namespace NewModCompiler.Application
                     instanceCompile += processor.InstanceCompileCount;
                 }
                 var cleanup = new List<Exception>();
+                try { if (execution != null) execution.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (report != null) report.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (hashes != null) hashes.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (processorState != null) processorState.Dispose(); } catch (Exception error) { cleanup.Add(error); }
@@ -568,7 +609,7 @@ namespace NewModCompiler.Application
         public void CommitCache()
         {
             if (cacheCompleted || cacheCommitted) return;
-            try { foreach (BuildAssetCache cache in assetCaches) cache.Commit(); foreach (SessionPackage package in sessionPackages) package.Commit(); cacheCommitted = true; }
+            try { if (actionCache != null) actionCache.Commit(); foreach (BuildAssetCache cache in assetCaches) cache.Commit(); foreach (SessionPackage package in sessionPackages) package.Commit(); cacheCommitted = true; }
             catch (Exception error)
             {
                 Exception failure = error;
@@ -580,6 +621,7 @@ namespace NewModCompiler.Application
         {
             if (cacheCompleted) return;
             var failures = new List<Exception>(); var retained = new List<BuildAssetCache>();
+            try { if (actionCache != null) { actionCache.Dispose(); actionCache = null; } } catch (Exception error) { failures.Add(error); }
             foreach (BuildAssetCache cache in assetCaches)
                 try { cache.Dispose(); } catch (Exception error) { failures.Add(error); retained.Add(cache); }
             assetCaches.Clear(); assetCaches.AddRange(retained);
@@ -592,6 +634,7 @@ namespace NewModCompiler.Application
         public void CompleteCache()
         {
             if (cacheCompleted || !cacheCommitted) return;
+            if (actionCache != null) { actionCache.Complete(); actionCache.Dispose(); actionCache = null; }
             foreach (BuildAssetCache cache in assetCaches) cache.Complete();
             foreach (SessionPackage package in sessionPackages) package.Complete();
             assetCaches.Clear(); sessionPackages.Clear(); cacheCompleted = true;
@@ -613,6 +656,43 @@ namespace NewModCompiler.Application
                 foreach (string key in keys) { writer.Write(key); writer.Write((string)variables[key]); }
                 writer.Flush(); bytes.Position = 0;
                 using (var hash = SHA256.Create()) return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
+            }
+        }
+
+        string EffectiveActionOptions()
+        {
+            // Scheduling, reporting and packaging do not change backend bytes.
+            var excluded = new HashSet<string>(new[] { "jobs", "bc", "sc", "out", "events", "report", "log", "profile", "package-format", "package-content", "include-additional", "mod-version", "game-version", "skudef-name", "fix-neutral-assets" }, StringComparer.OrdinalIgnoreCase);
+            using (var bytes = new MemoryStream()) using (var writer = new BinaryWriter(bytes, System.Text.Encoding.UTF8))
+            {
+                writer.Write("NewModCompiler.ActionOptions.v1"); writer.Write(sdkRoot); writer.Write(modRoot);
+                foreach (string key in request.Options.Keys.Where(x => !excluded.Contains(x)).OrderBy(x => x, StringComparer.Ordinal))
+                { writer.Write(key); writer.Write(request.Options[key].Value ?? ""); }
+                writer.Write("Win32"); writer.Write(stableSortEnabled); writer.Write(usePrecompiled); writer.Write(forceSlowCleanup);
+                writer.Flush(); using (var hash = SHA256.Create()) return BitConverter.ToString(hash.ComputeHash(bytes.ToArray())).Replace("-", "").ToLowerInvariant();
+            }
+        }
+
+        string ActionToolchainIdentity(string runtime, CancellationToken cancellation)
+        {
+            using (var bytes = new MemoryStream()) using (var writer = new BinaryWriter(bytes, System.Text.Encoding.UTF8))
+            {
+                writer.Write("NewModCompiler.ActionToolchain.v1"); writer.Write(CacheProcessContract()); writer.Write(configurationXml);
+                // The full MOD/root inventory remains an input-change guard,
+                // never an action identity. Tool/config/schema inputs are shared
+                // across all asset keys in this build.
+                foreach (string root in new[] { runtime, Path.Combine(sdkRoot, "tools"), Path.Combine(sdkRoot, "Schemas") })
+                {
+                    writer.Write(Path.GetFullPath(root));
+                    var files = SafeFiles(root).OrderBy(x => x, StringComparer.Ordinal).ToArray(); writer.Write(files.Length);
+                    foreach (string file in files)
+                    {
+                        cancellation.ThrowIfCancellationRequested(); writer.Write(file.Substring(root.Length));
+                        using (var input = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+                        using (var hash = SHA256.Create()) { writer.Write(input.Length); writer.Write(hash.ComputeHash(input)); }
+                    }
+                }
+                writer.Flush(); using (var hash = SHA256.Create()) return BitConverter.ToString(hash.ComputeHash(bytes.ToArray())).Replace("-", "").ToLowerInvariant();
             }
         }
         static string CacheNamespace(string inputs, string process)

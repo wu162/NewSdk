@@ -37,11 +37,12 @@ function DifferentOutputs($Left,$Right){
 function Cache($Case,[string]$Expected){
     $statistics=$Case.report.cache
     Need ($null -ne $statistics) 'Durable report omitted actual asset-cache statistics'
-    if($Expected -eq 'disabled'){Need ($statistics.hits -eq 0 -and $statistics.misses -eq 0) 'Disabled cache recorded reuse';return}
-    Need ($statistics.status -ceq 'BuildAssetCache') 'Build cache was accepted without the actual asset-cache implementation'
+    Need ($statistics.executionEngine -ceq 'AssetTasks.v1') 'Payload build did not use the shared asset executor'
+    if($Expected -eq 'disabled'){Need ($statistics.cacheMode -ceq 'Disabled' -and $statistics.hits -eq 0 -and $statistics.misses -eq 0 -and $statistics.actionHits -eq 0) 'Disabled cache recorded reuse';return}
+    Need ($statistics.status -ceq 'ActionCache' -and $statistics.cacheMode -ceq 'ActionCache') 'Build cache was accepted without the actual action-cache implementation'
     if($Expected -eq 'cold'){Need ($statistics.hits -eq 0 -and $statistics.misses -gt 0) 'Cold asset cache did not record real misses'}
     elseif($Expected -eq 'hot'){Need ($statistics.hits -gt 0 -and $statistics.misses -eq 0) 'Hot asset cache did not reuse all fixture assets'}
-    elseif($Expected -eq 'invalidated'){Need ($statistics.misses -gt 0) 'Changed dependency did not invalidate cached assets'}
+    elseif($Expected -eq 'partial'){Need ($statistics.misses -eq 1 -and $statistics.hits -gt 0) 'Single-action change did not retain unrelated certified hits'}
     else{throw "Unknown cache expectation: $Expected"}
 }
 function SameLengthMutation([string]$Path,[string]$From,[string]$To){
@@ -95,7 +96,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
             }
         }else{Need (@($body.artifacts).Count -eq 0) 'Failed/cancelled cache build accepted artifacts'}
         Need (!(Test-Path -LiteralPath (Join-Path $Destination ('.build/'+$body.buildId)))) 'Cache build retained owned staging'
-        Need (@(Get-ChildItem -LiteralPath $Destination -Directory|Where-Object{$_.Name -like '.cache-candidate-*'}).Count -eq 0) 'Asset-cache transaction retained its candidate directory'
+        Need (@(Get-ChildItem -LiteralPath $Destination -Directory|Where-Object{$_.Name -like '.cache-candidate-*' -or $_.Name -like '.action-cache-candidate-*'}).Count -eq 0) 'Asset-cache transaction retained its candidate directory'
         $entry.passed=$true;$entry.cache=$body.cache;$entry.buildId=$body.buildId
         return @{name=$Name;report=$body;files=$files;mod=$Mod;caseOut=$caseOut;destination=$Destination}
     }catch{
@@ -122,8 +123,8 @@ function MakeWave([string]$Path){
     Need ((Get-Item -LiteralPath $Path).Length -eq 44+4096*2*2) 'PCM fixture length differs from its RIFF data size'
 }
 function AudioMod([string]$Path){
-    Put "$Path/Data/Mod.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><AudioFile id="BuildCachePcmWave" File="../Audio/probe.wav" PCCompression="NONE" IsStreamedOnPC="false"/></AssetDeclaration>'
-    New-Item -ItemType Directory -Path "$Path/Audio"|Out-Null;MakeWave "$Path/Audio/probe.wav"
+    Put "$Path/Data/Mod.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><AudioFile id="BuildCachePcmWave" File="../Audio/probe.wav" PCCompression="NONE" IsStreamedOnPC="false"/><AudioFile id="BuildCacheXasWave" File="../Audio/stable.wav" PCCompression="XAS" IsStreamedOnPC="false"/></AssetDeclaration>'
+    New-Item -ItemType Directory -Path "$Path/Audio"|Out-Null;MakeWave "$Path/Audio/probe.wav";MakeWave "$Path/Audio/stable.wav"
 }
 function W3xMod([string]$Path){
     # Reuse the existing source-XSD-valid recovered W3X integration fixtures,
@@ -135,8 +136,40 @@ function W3xMod([string]$Path){
     $dns=[Xml.XmlNamespaceManager]::new($dependencies.NameTable);$dns.AddNamespace('ea','uri:ea.com:eala:asset')
     $hierarchy=$dependencies.SelectSingleNode('/ea:AssetDeclaration/ea:W3DHierarchy[1]',$dns)
     Need ($null -ne $animation -and $null -ne $hierarchy -and $animation.GetAttribute('Hierarchy') -ceq $hierarchy.GetAttribute('id')) 'W3X source fixture hierarchy closure changed'
-    Put "$Path/Data/Mod.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes><Include type="all" source="W3x.xml"/></Includes></AssetDeclaration>'
-    Put "$Path/Data/W3x.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$hierarchy.OuterXml+$animation.OuterXml+'</AssetDeclaration>')
+    [xml]$meshes=[IO.File]::ReadAllText("$root/SDK/Mods/W3xRecovery/Data/Meshes.xml")
+    $mns=[Xml.XmlNamespaceManager]::new($meshes.NameTable);$mns.AddNamespace('ea','uri:ea.com:eala:asset')
+    $mesh=$meshes.SelectSingleNode('/ea:AssetDeclaration/ea:W3DMesh[1]',$mns)
+    Need ($null -ne $mesh) 'W3X mesh fixture is missing'
+    Put "$Path/Data/Mod.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes><Include type="all" source="W3x.xml"/><Include type="all" source="W3xAnimation.xml"/><Include type="all" source="W3xMesh.xml"/></Includes></AssetDeclaration>'
+    Put "$Path/Data/W3x.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$hierarchy.OuterXml+'</AssetDeclaration>')
+    Put "$Path/Data/W3xAnimation.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$animation.OuterXml+'</AssetDeclaration>')
+    Put "$Path/Data/W3xMesh.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$mesh.OuterXml+'</AssetDeclaration>')
+}
+function ParallelW3xMod([string]$Path){
+    W3xMod $Path
+    [xml]$document=[IO.File]::ReadAllText("$Path/Data/W3xAnimation.xml")
+    $ns=[Xml.XmlNamespaceManager]::new($document.NameTable);$ns.AddNamespace('ea','uri:ea.com:eala:asset')
+    $source=$document.SelectSingleNode('/ea:AssetDeclaration/ea:W3DAnimation',$ns)
+    $includes='<Include type="all" source="W3x.xml"/>'
+    # Sparse source channels are legal and expand to NumFrames inside the real
+    # backend. Small prepared XML plus substantial native work makes overlapping
+    # independent calls observable without a test sleep or scheduling hook.
+    foreach($item in @(@{name='ParallelLong';frames=32768},@{name='ParallelShort';frames=24576})){
+        $node=$source.CloneNode($true);$node.SetAttribute('id',$item.name);$node.SetAttribute('NumFrames',[string]$item.frames)
+        Put "$Path/Data/$($item.name).xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$node.OuterXml+'</AssetDeclaration>')
+        $includes+='<Include type="all" source="'+$item.name+'.xml"/>'
+    }
+    Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
+}
+function ParallelEvidence($Case){
+    $cache=$Case.report.cache
+    Need ($cache.requestedJobs -eq 2 -and $cache.cacheMode -ceq 'Disabled' -and $cache.actionHits -eq 0 -and $cache.maxBackendConcurrency -ge 2 -and $cache.maxBackendConcurrency -le 2) 'Cold no-cache build did not execute bounded real backend concurrency'
+    $intervals=@($cache.backendIntervals|Where-Object{$_.typeName -ceq 'W3DAnimation'})
+    Need ($intervals.Count -eq 2 -and $cache.backendCalls -ge 3) 'Parallel fixture did not execute both real W3X animations and hierarchy'
+    $left=$intervals[0];$right=$intervals[1]
+    Need ($left.sourcePath -cne $right.sourcePath -and ![string]::IsNullOrWhiteSpace($left.sourcePath) -and ![string]::IsNullOrWhiteSpace($right.sourcePath)) 'Parallel calls did not originate in independent documents of the same stream'
+    Need ($left.startTicks -lt $left.endTicks -and $right.startTicks -lt $right.endTicks -and $left.startTicks -lt $right.endTicks -and $right.startTicks -lt $left.endTicks) 'Actual cross-document backend call intervals did not overlap'
+    return @{passed=$true;requestedJobs=2;maxBackendConcurrency=$cache.maxBackendConcurrency;backendCalls=$cache.backendCalls;intervals=$intervals;scope='One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled'}
 }
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production /bc asset-cache replay for AudioFile PCM WAVE including complete CDATA and one real W3DAnimation with hierarchy closure; disabled/cold/hot, same-length same-mtime input changes, exact four-stream and CDATA equality against independent no-cache processes; not a new original-DLL/SDK gate'}
 try{
@@ -168,7 +201,7 @@ try{
     }
     $script:control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
     $state.scriptSha256=Hash $PSCommandPath;$state.controllerSha256=Hash $control
-    $state.sourceInputs=@('recovery/tests/AudioSdkSupport.cs','SDK/Mods/W3xRecovery/Data/Animations.xml','SDK/Mods/W3xRecovery/Data/Dependencies.xml')|ForEach-Object{@{path=$_;sha256=(Hash (Join-Path $root $_))}}
+    $state.sourceInputs=@('recovery/tests/AudioSdkSupport.cs','SDK/Mods/W3xRecovery/Data/Animations.xml','SDK/Mods/W3xRecovery/Data/Dependencies.xml','SDK/Mods/W3xRecovery/Data/Meshes.xml')|ForEach-Object{@{path=$_;sha256=(Hash (Join-Path $root $_))}}
     foreach($mode in @('Debug','Release')){
         $script:modeOut=(New-Item -ItemType Directory -Path (Join-Path $out $mode)).FullName
         $modeWork=(New-Item -ItemType Directory -Path (Join-Path $short $mode.Substring(0,1))).FullName
@@ -186,7 +219,7 @@ try{
         Copy-Item -LiteralPath "$root/SDK/tools/BinaryAssetBuilder.exe.config" -Destination "$sdk/tools"
         foreach($family in @('audio','w3x')){
             $mod=Join-Path $modeWork $family;$cachedOut=Join-Path $modeWork ($family+'-cache');$plainOut=Join-Path $modeWork ($family+'-plain')
-            if($family -eq 'audio'){AudioMod $mod;$script:expectedCustomData=1}else{W3xMod $mod;$script:expectedCustomData=0}
+            if($family -eq 'audio'){AudioMod $mod;$script:expectedCustomData=2}else{W3xMod $mod;$script:expectedCustomData=0}
             $before=RunCli ($family+'-disabled') $mod $plainOut $false;Cache $before 'disabled'
             $cold=RunCli ($family+'-cold') $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $before $cold
             $hot=RunCli ($family+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $before $hot
@@ -197,19 +230,44 @@ try{
                 [IO.File]::WriteAllBytes($input,$bytes);[IO.File]::SetLastWriteTimeUtc($input,$stamp)
                 Need ((Get-Item -LiteralPath $input).Length -eq $length -and [IO.File]::GetLastWriteTimeUtc($input) -eq $stamp) 'Audio mutation did not preserve input length/mtime'
             }else{
-                $input="$mod/Data/W3x.xml";$stamp=[IO.File]::GetLastWriteTimeUtc($input)
+                $input="$mod/Data/W3xAnimation.xml";$stamp=[IO.File]::GetLastWriteTimeUtc($input)
                 SameLengthMutation $input 'FrameRate="30"' 'FrameRate="31"'
             }
-            $changed=RunCli ($family+'-content-invalidated') $mod $cachedOut $true;Cache $changed 'cold';DifferentOutputs $hot $changed
+            $changed=RunCli ($family+'-content-invalidated') $mod $cachedOut $true;Cache $changed 'partial';DifferentOutputs $hot $changed
             $changedPlain=RunCli ($family+'-changed-disabled') $mod $plainOut $false;Cache $changedPlain 'disabled';SameOutputs $changedPlain $changed
             $changedHot=RunCli ($family+'-changed-hot') $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
             if($family -eq 'audio'){
                 $customKeys=@($hot.files.Keys|Where-Object{[IO.Path]::GetExtension($_) -ceq '.cdata'})
                 $changedKeys=@($changed.files.Keys|Where-Object{[IO.Path]::GetExtension($_) -ceq '.cdata'})
-                Need ($customKeys.Count -eq 1 -and $changedKeys.Count -eq 1 -and (Hash $hot.files[$customKeys[0]]) -cne (Hash $changed.files[$changedKeys[0]])) 'Audio sample mutation did not change the actual complete CDATA payload'
+                $unchangedCustom=@($customKeys|Where-Object{$changed.files.ContainsKey($_) -and (Hash $hot.files[$_]) -ceq (Hash $changed.files[$_])})
+                Need ($customKeys.Count -eq 2 -and $changedKeys.Count -eq 2 -and $unchangedCustom.Count -eq 1) 'One WAV sample mutation must change its complete PCM CDATA while preserving the independent XAS result'
             }
+            New-Item -ItemType Directory -Force -Path "$mod/Additional"|Out-Null
+            [IO.File]::WriteAllText("$mod/Additional/only-package.txt",'not read by any compiler action')
+            $additional=RunCli ($family+'-additional-only') $mod $cachedOut $true;Cache $additional 'hot';SameOutputs $changedPlain $additional
+            Need ($additional.report.cache.backendCalls -eq 0) 'Unread Additional member triggered backend compilation in an entirely certified stream'
+            $store=Join-Path $cachedOut '.cache/action-cache-v1'
+            $entries=@(Get-ChildItem -LiteralPath $store -Directory|Where-Object{$_.Name -cmatch '^[0-9a-f]{64}$'})
+            Need ($entries.Count -gt 0) 'Action cache did not persist independently addressed entries'
+            if($family -eq 'audio'){
+                $entry=@($entries|Where-Object{@(Get-ChildItem -LiteralPath (Join-Path $_.FullName 'files') -File).Count -eq 2})[0]
+                Need ($null -ne $entry) 'Audio cache entry did not preserve metadata/buffers plus complete CDATA'
+                $members=@(Get-ChildItem -LiteralPath (Join-Path $entry.FullName 'files') -File|Sort-Object Name)
+                # Result metadata/buffers sort before the complete CDATA member.
+                Remove-Item -LiteralPath $members[-1].FullName
+            }else{
+                $entry=$entries[0];$member=@(Get-ChildItem -LiteralPath (Join-Path $entry.FullName 'files') -File)[0]
+                $bytes=[IO.File]::ReadAllBytes($member.FullName);Need ($bytes.Length -gt 0) 'Expected a nonempty result contract'
+                $bytes[0]=$bytes[0] -bxor 0x7f;[IO.File]::WriteAllBytes($member.FullName,$bytes)
+            }
+            $repaired=RunCli ($family+'-damaged-result-repaired') $mod $cachedOut $true;Cache $repaired 'partial';SameOutputs $changedPlain $repaired
+            $repairedHot=RunCli ($family+'-repaired-hot') $mod $cachedOut $true;Cache $repairedHot 'hot';SameOutputs $changedPlain $repairedHot
             $modeState.fixtures+=,@{family=$family;input=$input;mutatedInputSha256=(Hash $input);sameLengthSameTimestamp=$true;hotAssetHits=$hot.report.cache.hits;changedHotAssetHits=$changedHot.report.cache.hits;completeCustomDataFiles=$script:expectedCustomData;allRawOutputsEqualToIndependentNoCache=$true}
         }
+        $parallelMod=Join-Path $modeWork 'parallel';ParallelW3xMod $parallelMod;$script:expectedCustomData=0
+        $serial=RunCli 'w3x-parallel-control' $parallelMod (Join-Path $modeWork 'parallel-serial') $false -Extra @('--jobs=1');Cache $serial 'disabled'
+        $parallel=RunCli 'w3x-cross-document-parallel' $parallelMod (Join-Path $modeWork 'parallel-jobs2') $false -Extra @('--jobs=2');Cache $parallel 'disabled';SameOutputs $serial $parallel
+        $modeState.parallel=ParallelEvidence $parallel
         $modeState.passed=$true
     }
     foreach($file in $state.sourceInputs){Need ((Hash (Join-Path $root $file.path)) -ceq $file.sha256) 'Original payload fixture source changed'}

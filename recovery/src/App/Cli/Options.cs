@@ -17,7 +17,7 @@ namespace NewModCompiler.Cli
         static readonly HashSet<string> Values = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
             "profile","mod","sdk-root","out","events","report","log","package-content","package-format","mod-version","game-version","skudef-name",
             "sp","dr","art","audio","data","iod","session-cache-directory","build-cache-directory",
-            "bcn","tp","bps","cpf","tl","el"
+            "bcn","tp","bps","cpf","tl","el","jobs"
         };
         static readonly HashSet<string> Booleans = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
             "fix-neutral-assets","include-additional","sc","bc","csc","psc","fsc","atc","slowclean","pc","ls","ss","oof","vf","oar","osh","oix","mr"
@@ -36,6 +36,12 @@ namespace NewModCompiler.Cli
         static string Canonical(string key) { string canonical; return Aliases.TryGetValue(key, out canonical) ? canonical : key.ToLowerInvariant(); }
         static string NormalizeValue(string key, string value)
         {
+            if (key == "jobs") {
+                int jobs;
+                if (!int.TryParse(value, System.Globalization.NumberStyles.None, System.Globalization.CultureInfo.InvariantCulture, out jobs) || jobs < 1)
+                    throw Bad("CLI_RANGE", "jobs must be a positive integer in range 1..2147483647.");
+                return jobs.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            }
             if (Booleans.Contains(key)) {
                 bool parsed;
                 if (!bool.TryParse(value, out parsed)) throw Bad("CLI_BOOLEAN", key + " expects true or false.");
@@ -104,6 +110,11 @@ namespace NewModCompiler.Cli
                 if (File.Exists(preset)) LoadPreset(request.Options, preset);
             }
             foreach (var pair in commandLine) request.Options[pair.Key] = pair.Value;
+            Default(request,"jobs","1");
+            request.RequestedJobs = int.Parse(request.Options["jobs"].Value, System.Globalization.CultureInfo.InvariantCulture);
+            EffectiveOption session;
+            if (request.RequestedJobs > 1 && request.Options.TryGetValue("sc", out session) && session.Value == "true")
+                throw Bad("CORE_SESSION_PARALLEL_UNSUPPORTED", "/sc:true requires --jobs=1; parallel session caching is unsupported.");
             Default(request,"ss","true"); Default(request,"pc","true"); Default(request,"slowclean","true");
             Default(request,"mod-version","1.0"); Default(request,"game-version","1.12");
             Default(request,"profile","standard");
@@ -175,7 +186,7 @@ namespace NewModCompiler.Cli
                 if (values == null) throw Bad("PROJECT_INVALID", "Project preset must be a JSON object.");
                 foreach (var pair in values) {
                     string key = Canonical(pair.Key);
-                    if (!new [] {"profile","sdk-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
+                    if (!new [] {"profile","sdk-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean","jobs"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
                     if (!(pair.Value is IConvertible)) throw Bad("PROJECT_OPTION", "Project values must be scalar values: " + pair.Key);
                     string raw = Convert.ToString(pair.Value, System.Globalization.CultureInfo.InvariantCulture);
                     if (string.IsNullOrWhiteSpace(raw)) throw Bad("PROJECT_OPTION", "Project value must not be empty: " + pair.Key);
@@ -188,13 +199,15 @@ namespace NewModCompiler.Cli
         public const string Help = "NewModCompiler build|plan --mod <directory> [--sdk-root <directory>] [--out <directory>] [--mod-version <version>]\n" +
             "Standard (default): auto-detect base, APT UI and global metadata; publish BIG + SKUDEF, including SDK then MOD Additional (excluding .asset). Empty MOD inputs fail.\n" +
             "Development: --profile development defaults to loose streams for iteration. No cache settings are changed by profiles.\n" +
+            "Execution: --jobs=N requests bounded backend concurrency (positive integer; default 1). /sc:true requires --jobs=1.\n" +
             "Advanced: --profile advanced uses standard defaults; --help-advanced lists compatibility controls. Explicit options override profile defaults.\n" +
-            "Save sdk-root, out, profile and package settings in MOD/newmodcompiler.json; CLI overrides the project. SDK and output paths are required from CLI or project.\n" +
+            "Save sdk-root, out, profile, jobs and package settings in MOD/newmodcompiler.json; CLI overrides the project. SDK and output paths are required from CLI or project.\n" +
             "NewModCompiler doctor --sdk-root <directory>\n";
         public const string AdvancedHelp = Help +
             "Selection: --package-content auto|base,apt,global-metadata (maps remains an alias); explicit selections preserve partial-build behavior.\n" +
             "Packaging: --package-format big|loose --include-additional=<true|false> --fix-neutral-assets=<true|false>\n" +
             "Identity: --mod-version <version> (1.0) --game-version <version> (1.12) --skudef-name <basename>\n" +
+            "Cache: /bc:true enables the action cache when /sc:false; /sc:true retains session caching with jobs=1. Both caches default off. Actual concurrency may be below requested jobs.\n" +
             "Compatibility: /ss:true /pc:true /slowclean:true are defaults; each accepts false. Win32 and linked streams are fixed runtime behavior; legacy /tp:Win32 and /ls:true remain accepted.\n" +
             "Legacy input roots, diagnostics and supported BAB compatibility switches remain available; see CLI_COMPATIBILITY.md. Cache switches and defaults are unchanged.\n" +
             "Additional overwrites compiled files and SDK files using old script precedence; conflicts emit warnings. Neutral repair is off by default and requires extracted reference streams. AssetMerge is not used.\n";

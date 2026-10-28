@@ -44,11 +44,12 @@ function CacheUnchanged([string]$Destination,$Before){
 function Cache($Case,[string]$Expected){
     $statistics=$Case.report.cache
     Need ($null -ne $statistics) 'Durable report omitted actual asset-cache statistics'
-    if($Expected -eq 'disabled'){Need ($statistics.hits -eq 0 -and $statistics.misses -eq 0) 'Disabled cache recorded reuse';return}
-    Need ($statistics.status -ceq 'BuildAssetCache') 'Build cache was accepted without the actual asset-cache implementation'
+    Need ($statistics.executionEngine -ceq 'AssetTasks.v1') 'Build did not use the shared asset executor'
+    if($Expected -eq 'disabled'){Need ($statistics.cacheMode -ceq 'Disabled' -and $statistics.hits -eq 0 -and $statistics.misses -eq 0 -and $statistics.actionHits -eq 0) 'Disabled cache recorded reuse';return}
+    Need ($statistics.status -ceq 'ActionCache' -and $statistics.cacheMode -ceq 'ActionCache') 'Build cache was accepted without the actual action-cache implementation'
     if($Expected -eq 'cold'){Need ($statistics.hits -eq 0 -and $statistics.misses -gt 0) 'Cold asset cache did not record real misses'}
     elseif($Expected -eq 'hot'){Need ($statistics.hits -gt 0 -and $statistics.misses -eq 0) 'Hot asset cache did not reuse all fixture assets'}
-    elseif($Expected -eq 'invalidated'){Need ($statistics.misses -gt 0) 'Changed dependency did not invalidate cached assets'}
+    elseif($Expected -eq 'partial'){Need ($statistics.misses -eq 1 -and $statistics.hits -gt 0) 'A single changed action did not preserve unrelated certified asset hits'}
     else{throw "Unknown cache expectation: $Expected"}
 }
 function SameLengthMutation([string]$Path,[string]$From,[string]$To){
@@ -70,10 +71,9 @@ function SameLengthMutation([string]$Path,[string]$From,[string]$To){
 function MakeMod([string]$Path,[string]$Probe){
     New-Item -ItemType Directory -Path "$Path/Data/AptUI" -Force|Out-Null
     [IO.File]::WriteAllText("$Path/Data/Armor.xml",$Probe,[Text.UTF8Encoding]::new($false))
-    # XML/Armor and the legacy Texture boundary do not use /bc. The verified
-    # Audio-family PathMusicEvent route does, with one declared FileReference
-    # and no CustomData. A nonzero hot hit must come from this real asset.
-    [IO.File]::WriteAllText("$Path/Data/Mod.xml",'<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xi="http://www.w3.org/2001/XInclude"><Includes><Include type="all" source="Armor.xml"/></Includes><xi:include href="XArmor.xml"/><Texture id="BuildCacheTexture" File="cache.tga" Type="StandardTexture" GenerateMipMaps="false" OutputFormat="A8R8G8B8" AllowAutomaticResize="false"/><PathMusicEvent id="CacheEvent" PathfinderEventHeader="events.h" IsXferable="true"/></AssetDeclaration>')
+    # XML/Armor, PathMusicEvent and file-backed APT exercise independent action
+    # identities. Texture remains a real uncacheable compatibility call.
+    [IO.File]::WriteAllText("$Path/Data/Mod.xml",'<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xi="http://www.w3.org/2001/XInclude"><Includes><Include type="all" source="Armor.xml"/></Includes><xi:include href="XArmor.xml"/><WeaponTemplate id="BuildCacheWeapon" AttackRange="101"/><GameObject id="BuildCacheObject" ThreatLevel="1.0"/><Texture id="BuildCacheTexture" File="cache.tga" Type="StandardTexture" GenerateMipMaps="false" OutputFormat="A8R8G8B8" AllowAutomaticResize="false"/><PathMusicEvent id="CacheEvent" PathfinderEventHeader="events.h" IsXferable="true"/></AssetDeclaration>')
     [IO.File]::WriteAllText("$Path/Data/XArmor.xml",'<ArmorTemplate xmlns="uri:ea.com:eala:asset" id="XIncludeArmor" Default="22.5%"/>')
     [IO.File]::WriteAllText("$Path/Data/events.h","#define PATH_EVENT_CacheEvent 0x12345678`r`n")
     & python "$root/recovery/probes/TextureRedirect/MakeFixture.py" "$Path/Data/cache.tga"
@@ -115,7 +115,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
             }
         }else{Need (@($body.artifacts).Count -eq 0) 'Failed/cancelled cache build accepted artifacts'}
         Need (!(Test-Path -LiteralPath (Join-Path $Destination ('.build/'+$body.buildId)))) 'Cache build retained owned staging'
-        Need (@(Get-ChildItem -LiteralPath $Destination -Directory|Where-Object{$_.Name -like '.cache-candidate-*'}).Count -eq 0) 'Asset-cache transaction retained its candidate directory'
+        Need (@(Get-ChildItem -LiteralPath $Destination -Directory|Where-Object{$_.Name -like '.cache-candidate-*' -or $_.Name -like '.action-cache-candidate-*'}).Count -eq 0) 'Asset-cache transaction retained its candidate directory'
         $entry.passed=$true;$entry.cache=$body.cache;$entry.buildId=$body.buildId
         return @{name=$Name;report=$body;files=$files;mod=$Mod;caseOut=$caseOut;destination=$Destination}
     }catch{
@@ -139,7 +139,7 @@ function OriginalOracle($Case,[string]$Name){
     & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds
     Need ($LASTEXITCODE -eq 0) 'Build-cache independent original BAB oracle failed'
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production /bc asset-cache CLI acceptance using cacheable Audio-family PathMusicEvent plus noncached Texture, Armor Include/XInclude and file-backed APT streams; raw four outputs, actual asset hits/misses, same-length/same-mtime dependency invalidation, MOD isolation, actual cancellation and failure/retry; AudioFile codec/CustomData, /sc and complete SDK remain separate'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production action-cache CLI acceptance: XML/Armor, Weapon, GameObject, PathMusicEvent and file-backed APT with noncached Texture; exact single-action invalidation, unread Additional, complete raw four outputs, original BAB, same-length/same-mtime changes, MOD reuse boundaries, actual cancellation and failure/retry; /sc and full SDK remain separate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     Need (!(Test-Path -LiteralPath (Join-Path $CompilerDirectory 'reuse.json'))) 'Build-cache acceptance requires current production EXE bytes'
@@ -192,29 +192,41 @@ try{
         $hot=RunCli 'hot' $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         OriginalOracle $hot 'original-initial'
         SameLengthMutation "$mod/Data/Armor.xml" '72.5%' '12.5%'
-        $include=RunCli 'include-content-invalidated' $mod $cachedOut $true;Cache $include 'invalidated';DifferentOutputs $hot $include
+        $include=RunCli 'include-content-invalidated' $mod $cachedOut $true;Cache $include 'partial';DifferentOutputs $hot $include
         $includePlain=RunCli 'include-content-no-cache' $mod $plainOut $false;SameOutputs $includePlain $include
         $includeHot=RunCli 'include-content-hot' $mod $cachedOut $true;Cache $includeHot 'hot';SameOutputs $includePlain $includeHot
         SameLengthMutation "$mod/Data/XArmor.xml" '22.5%' '32.5%'
-        $xinclude=RunCli 'xinclude-content-invalidated' $mod $cachedOut $true;Cache $xinclude 'invalidated';DifferentOutputs $includeHot $xinclude
+        $xinclude=RunCli 'xinclude-content-invalidated' $mod $cachedOut $true;Cache $xinclude 'partial';DifferentOutputs $includeHot $xinclude
         $includePlain=RunCli 'xinclude-content-no-cache' $mod $plainOut $false;SameOutputs $includePlain $xinclude
         $includeHot=RunCli 'xinclude-content-hot' $mod $cachedOut $true;Cache $includeHot 'hot';SameOutputs $includePlain $includeHot
+        SameLengthMutation "$mod/Data/Mod.xml" 'AttackRange="101"' 'AttackRange="102"'
+        $weapon=RunCli 'weapon-value-invalidated' $mod $cachedOut $true;Cache $weapon 'partial';DifferentOutputs $includeHot $weapon
+        $weaponPlain=RunCli 'weapon-value-no-cache' $mod $plainOut $false;Cache $weaponPlain 'disabled';SameOutputs $weaponPlain $weapon
+        SameLengthMutation "$mod/Data/Mod.xml" 'ThreatLevel="1.0"' 'ThreatLevel="2.0"'
+        $gameObject=RunCli 'gameobject-value-invalidated' $mod $cachedOut $true;Cache $gameObject 'partial';DifferentOutputs $weapon $gameObject
+        $includePlain=RunCli 'gameobject-value-no-cache' $mod $plainOut $false;SameOutputs $includePlain $gameObject
+        $includeHot=RunCli 'gameobject-value-hot' $mod $cachedOut $true;Cache $includeHot 'hot';SameOutputs $includePlain $includeHot
         $payload="$mod/Data/AptUI/payload.bin";$stamp=[IO.File]::GetLastWriteTimeUtc($payload);$bytes=[IO.File]::ReadAllBytes($payload);$bytes[0]=9
         [IO.File]::WriteAllBytes($payload,$bytes);[IO.File]::SetLastWriteTimeUtc($payload,$stamp)
         Need ((Get-Item -LiteralPath $payload).Length -eq 7 -and [IO.File]::GetLastWriteTimeUtc($payload) -eq $stamp) 'Payload mutation failed to preserve length/mtime'
-        $changed=RunCli 'payload-content-invalidated' $mod $cachedOut $true;Cache $changed 'invalidated';DifferentOutputs $includeHot $changed
+        $changed=RunCli 'payload-content-invalidated' $mod $cachedOut $true;Cache $changed 'partial';DifferentOutputs $includeHot $changed
         $changedPlain=RunCli 'payload-content-no-cache' $mod $plainOut $false;SameOutputs $changedPlain $changed
         $changedHot=RunCli 'payload-content-hot' $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
         $texture="$mod/Data/cache.tga";$stamp=[IO.File]::GetLastWriteTimeUtc($texture);$bytes=[IO.File]::ReadAllBytes($texture);$originalLength=$bytes.Length;$bytes[18]=253
         [IO.File]::WriteAllBytes($texture,$bytes);[IO.File]::SetLastWriteTimeUtc($texture,$stamp)
         Need ((Get-Item -LiteralPath $texture).Length -eq $originalLength -and [IO.File]::GetLastWriteTimeUtc($texture) -eq $stamp) 'Texture mutation failed to preserve length/mtime'
-        $textureChanged=RunCli 'texture-content-invalidated' $mod $cachedOut $true;Cache $textureChanged 'invalidated';DifferentOutputs $changedHot $textureChanged
+        $textureChanged=RunCli 'texture-content-invalidated' $mod $cachedOut $true;Cache $textureChanged 'hot';DifferentOutputs $changedHot $textureChanged
+        Need ($textureChanged.report.cache.backendCalls -eq 1) 'Texture edit recompiled unrelated certified assets or reused the uncertified Texture'
         $changedPlain=RunCli 'texture-content-no-cache' $mod $plainOut $false;SameOutputs $changedPlain $textureChanged
         $changedHot=RunCli 'texture-content-hot' $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
         SameLengthMutation "$mod/Data/events.h" '0x12345678' '0x23456789'
-        $audioChanged=RunCli 'audio-header-content-invalidated' $mod $cachedOut $true;Cache $audioChanged 'invalidated';DifferentOutputs $changedHot $audioChanged
+        $audioChanged=RunCli 'audio-header-content-invalidated' $mod $cachedOut $true;Cache $audioChanged 'partial';DifferentOutputs $changedHot $audioChanged
         $changedPlain=RunCli 'audio-header-content-no-cache' $mod $plainOut $false;SameOutputs $changedPlain $audioChanged
         $changedHot=RunCli 'audio-header-content-hot' $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
+        New-Item -ItemType Directory -Force -Path "$mod/Additional"|Out-Null
+        [IO.File]::WriteAllText("$mod/Additional/not-consumed.txt",'unread package member')
+        $additional=RunCli 'unread-additional-hot' $mod $cachedOut $true;Cache $additional 'hot';SameOutputs $changedPlain $additional
+        Need ($additional.report.cache.backendCalls -eq 1) 'Unread Additional member invalidated certified actions'
         OriginalOracle $changedHot 'original-mutated'
         # Semantically neutral edits still require content invalidation. Keep
         # original BOM/length/mtime, and prove resulting bytes stay unchanged.
@@ -226,7 +238,7 @@ try{
         $runtimeChange=RunCli 'runtime-content-invalidated' $mod $cachedOut $true;Cache $runtimeChange 'cold';SameOutputs $changedPlain $runtimeChange
         $runtimeHot=RunCli 'runtime-content-hot' $mod $cachedOut $true;Cache $runtimeHot 'hot';SameOutputs $changedPlain $runtimeHot
         $other=Join-Path $modeWork 'b';MakeMod $other ($probe.Replace('72.5%','32.5%'))
-        $otherCold=RunCli 'second-mod' $other $cachedOut $true;Cache $otherCold 'cold'
+        $otherCold=RunCli 'second-mod' $other $cachedOut $true;Need ($otherCold.report.cache.misses -gt 0) 'Different MOD inputs silently reused every action'
         $otherPlain=RunCli 'second-mod-no-cache' $other $plainOut $false;SameOutputs $otherPlain $otherCold
         $returnA=RunCli 'first-mod-return' $mod $cachedOut $true;Cache $returnA 'hot';SameOutputs $changedPlain $returnA
         $armorPath="$mod/Data/Armor.xml";$valid=[IO.File]::ReadAllBytes($armorPath)

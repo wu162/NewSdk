@@ -29,7 +29,7 @@ function MakeMod([string]$Path,[string]$Probe){
     [IO.File]::WriteAllText((Join-Path $Path 'Data/AptUI/Two.xml'),$Probe.Replace('Default="72.5%"','Default="32.5%"'))
     [IO.File]::WriteAllText((Join-Path $Path 'Data/AdditionalMaps/MapMetaData_One.xml'),$Probe.Replace('Default="72.5%"','Default="42.5%"'))
 }
-function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string]$Selection,[int]$Expected,[int]$StreamCount,[bool]$Cancel=$false,[string[]]$Extra=@(),[string]$HoldReadFile=$null,[int]$CustomDataCount=0,[string]$ReuseDestination=$null){
+function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string]$Selection,[int]$Expected,[int]$StreamCount,[bool]$Cancel=$false,[string[]]$Extra=@(),[string]$HoldReadFile=$null,[int]$CustomDataCount=0,[string]$ReuseDestination=$null,[string]$ParseFailureCode=$null){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     $destination=if($ReuseDestination){$ReuseDestination}else{Join-Path $script:modeWork ('o'+$script:caseIndex)};$script:caseIndex++
     New-Item -ItemType Directory -Force -Path $destination|Out-Null
@@ -56,6 +56,9 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
         if(Test-Path -LiteralPath $report){$body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json}
         if($Command -eq 'doctor'){
             Need ((Get-Content (Join-Path $caseOut 'stdout.log') -Raw).Contains('CORE_ENVIRONMENT_OK')) 'Doctor did not verify actual environment'
+        } elseif($ParseFailureCode) {
+            Need ($Expected -eq 2 -and (Get-Content (Join-Path $caseOut 'stderr.log') -Raw).Contains($ParseFailureCode)) "$Name did not report the expected parse diagnostic $ParseFailureCode"
+            Need ($null -eq $body -and $rows.Count -eq 0) 'Invalid jobs/session options started a build'
         } elseif($Name -eq 'log-directory-rejected') {
             Need ($Expected -eq 2 -and (Get-Content (Join-Path $caseOut 'stderr.log') -Raw).Contains('CLI_LOG_PATH')) 'Diagnostic directory must be refused during argument parsing'
             Need ($null -eq $body -and $rows.Count -eq 0) 'Invalid diagnostic path started a build'
@@ -220,6 +223,26 @@ try {
         $plan=RunCli 'plan-all' 'plan' $mod $sdk 'base,apt,maps' 0 0
         Need (@($plan.report.plan.Tasks).Count -eq 4) 'Real CLI plan omitted base+two apt+map tasks'
         $combined=RunCli 'combined' 'build' $mod $sdk 'base,apt,maps' 0 4
+        if(!$reuse){
+            Need ($combined.report.effectiveOptions.jobs.Value -ceq '1' -and $combined.report.effectiveOptions.jobs.Source -ceq 'default' -and $combined.report.cache.requestedJobs -eq 1) 'Default job count/provenance/report differs'
+            $jobsPlan=RunCli 'jobs-plan' 'plan' $mod $sdk 'base' 0 0 -Extra @('--jobs=2')
+            Need ($jobsPlan.report.effectiveOptions.jobs.Value -ceq '2' -and $jobsPlan.report.effectiveOptions.jobs.Source -ceq 'commandLine') 'Plan lost requested jobs option'
+            $jobsCold=RunCli 'jobs-no-cache' 'build' $mod $sdk 'base' 0 1 -Extra @('--jobs=2','/sc:false','/bc:false')
+            EqualTask $combined $jobsCold 'base'
+            Need ($jobsCold.report.cache.executionEngine -ceq 'AssetTasks.v1' -and $jobsCold.report.cache.cacheMode -ceq 'Disabled' -and $jobsCold.report.cache.requestedJobs -eq 2) 'No-cache jobs mode was not reported by the asset executor'
+            Need ($jobsCold.report.cache.actionHits -eq 0 -and $jobsCold.report.cache.backendCalls -gt 0 -and $jobsCold.report.cache.maxBackendConcurrency -ge 1 -and $jobsCold.report.cache.maxBackendConcurrency -le 2) 'No-cache mode reused persistent results or reported invalid actual backend concurrency'
+            # Parser limits do not authorize allocation proportional to a large request.
+            $jobsHuge=RunCli 'jobs-large-request' 'build' $mod $sdk 'base' 0 1 -Extra @('--jobs=2147483647','/sc:false','/bc:false')
+            EqualTask $combined $jobsHuge 'base'
+            Need ($jobsHuge.report.cache.requestedJobs -eq 2147483647 -and $jobsHuge.report.cache.maxBackendConcurrency -ge 1) 'Large requested jobs did not preserve its effective value'
+            foreach($invalid in @(@{name='zero';value='0'},@{name='negative';value='-1'},@{name='fraction';value='1.5'},@{name='overflow';value='2147483648'})){
+                $rejected=RunCli ('jobs-invalid-'+$invalid.name) 'build' $mod $sdk 'base' 2 0 -Extra @('--jobs='+$invalid.value) -ParseFailureCode 'CLI_RANGE'
+            }
+            foreach($assetCache in @('false','true')){
+                $rejected=RunCli ('jobs-session-rejected-bc-'+$assetCache) 'build' $mod $sdk 'base' 2 0 -Extra @('--jobs=2','/sc:true',('/bc:'+$assetCache)) -ParseFailureCode 'CORE_SESSION_PARALLEL_UNSUPPORTED'
+            }
+            $modeState.jobsContract=@{passed=$true;default=1;parallelRequest=2;maximumRequest=2147483647;sessionParallelRejected=$true;noCacheOutputIdentical=$true;scope='CLI mode routing and output equivalence; actual cross-document backend-overlap evidence remains separate'}
+        }
         # The old ANSI BAB cannot reliably open Unicode input paths. Keep those
         # production cases and their exact DATA source-table checks, and give the
         # independent old-tool oracle an identical ASCII-path companion.
