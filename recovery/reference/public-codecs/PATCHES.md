@@ -39,3 +39,14 @@ uses them only for one common quantized grayscale value; non-gray search remains
 S3. This is a hybrid compatibility adaptation and is not described as unmodified
 public S3 code or as independently generated optimization tables. No original
 DLL or existing recovered encoder function is called.
+
+## Explicit source search-budget comparison
+
+The original complete payloads differ on22/4096 random blocks after the first
+S3 adaptation;21 of those S3 blocks have lower decoded weighted error than the
+legacy output. This suggests preserving the legacy stopping rule matters more
+than maximizing quality. Add an explicit source budget selector: default16/8
+unclipped/clipped iterations, then0/0,1/1,2/2. Each budget runs all four input/weight
+precision variants and all10240 original blocks in both configurations. This is
+an experiment; lower error or selecting best results per fixture is not accepted.
+No original-output data is used to choose a budget at runtime.

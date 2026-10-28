@@ -309,12 +309,12 @@
       "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
       "repository": "Team-Resurgent/RXDK-Libs",
       "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
-      "blobSha": "d44e0759fe392ec14e003ea675ee35404201680c",
-      "sha256": "e87b0c97011f2d74b011d4af687b133fa8d3758c4228ccb1ad28d58dbf324ddd",
-      "bytes": 82190,
+      "blobSha": "c636a48b8beb31f90cbcae04bfc7a8a2dd484ab2",
+      "sha256": "5a60067298b621afa29a620658b5ef11af44cf47c0cb433270ce28db89f29eb0",
+      "bytes": 82547,
       "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
       "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
-      "compatibilityPatch": "Forced four-colour single-colour search and existing legacy grayscale optimization constants from owned source"
+      "compatibilityPatch": "Forced four-colour single-colour search and existing legacy grayscale optimization constants from owned source; explicit baseline/lower search-budget policies to compare legacy refinement stopping"
     },
     {
       "path": "recovery/reference/public-codecs/s3/S3_quant.h",

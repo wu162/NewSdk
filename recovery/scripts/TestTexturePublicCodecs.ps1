@@ -46,7 +46,7 @@ try{
   Checked "$mode-replay" {& "$work/TexturePublicCodecsReplay.exe" "$work/blocks/Debug-transcript.txt" "$work/legacy" "$work/jpeg" "$out/$mode" $family}
   Compress-Archive "$out/$mode/dxt-blocks.bin" "$out/$mode/dxt-blocks.zip"
   Remove-Item "$out/$mode/dxt-blocks.bin"
-  $rows=Import-Csv "$out/$mode/dxt-summary.tsv" -Delimiter "`t";if($rows.Count -ne $(if($OnlyS3){8}elseif($Patched){84}elseif($OnlyAmd){24}else{64})){throw 'Incomplete candidate matrix'}
+  $rows=Import-Csv "$out/$mode/dxt-summary.tsv" -Delimiter "`t";if($rows.Count -ne $(if($OnlyS3){32}elseif($Patched){84}elseif($OnlyAmd){24}else{64})){throw 'Incomplete candidate matrix'}
   $r.configurations+=@{configuration=$mode;comparisonCompleted=$true;withoutOriginalTextureCompiler=$true;nativeSha256=(Get-FileHash "$work/TexturePublicCodecs.dll").Hash.ToLowerInvariant();candidates=@($rows)}
  }
  foreach($row in $r.configurations[0].candidates){

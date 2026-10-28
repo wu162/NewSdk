@@ -129,12 +129,16 @@
 	The following numbers were define using some statistical profiling
 	on the large set of images and believed to be optimal		    */
 
-#define UNCLIPPED_ITERATION_LIMIT 16
+// Explicit experimental search budget. Default preserves upstream16/8.
+// Lower budgets test whether legacy PC Production stops refinement earlier.
+static int LegacySearchBudget=0;
+void SetLegacyS3SearchBudget(int policy){LegacySearchBudget=policy;}
+#define UNCLIPPED_ITERATION_LIMIT (LegacySearchBudget == 0 ? 16 : LegacySearchBudget - 1)
 
     /*	Maximum number of <seachClipped43Mult> calls (iterations) for one 
 	block, similar to UNCLIPPED_ITERATION_LIMIT, see above		    */
 
-#define CLIPPED_ITERATION_LIMIT 8
+#define CLIPPED_ITERATION_LIMIT (LegacySearchBudget == 0 ? 8 : LegacySearchBudget - 1)
 
     /* During <seach43Mult> / <seachClipped43Mult> iterative calls 
        each configuration is defined by the ordering of the points, which 
