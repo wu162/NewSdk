@@ -1,0 +1,24 @@
+{
+  "sdkValidated": false,
+  "runId": "40695394943",
+  "runAttempt": "1",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "passed": true,
+      "summary": [
+        "PASS Texture image ProcessInstance differential fixtures=4608 errors=2208 unsupportedRgb16=0 comparedBytes=9946584; PC; PNG/BMP format/depth/interlace/orientation group; standard/volume and no-mip/mips; three buffers and full cdata; no SDK acceptance"
+      ]
+    },
+    {
+      "configuration": "Release",
+      "passed": true,
+      "summary": [
+        "PASS Texture image ProcessInstance differential fixtures=4608 errors=2208 unsupportedRgb16=0 comparedBytes=9946584; PC; PNG/BMP format/depth/interlace/orientation group; standard/volume and no-mip/mips; three buffers and full cdata; no SDK acceptance"
+      ]
+    }
+  ],
+  "scope": "PNG/BMP actual ProcessInstance; PC standard/volume; raw/mips; three buffers/full cdata",
+  "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+  "status": "passed"
+}

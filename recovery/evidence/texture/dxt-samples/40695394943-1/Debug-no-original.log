@@ -1,0 +1,1 @@
+PASS Texture DXT sample block NoOriginal fixtures=4752 checks=76032; original DLL absent and not loaded

@@ -1,0 +1,1 @@
+PASS Texture mip ProcessInstance differential fixtures=174 errors=4 unsupportedResampling=0 comparedBytes=24788512; Win32 mip=true; real main TGA; three buffers and full cdata; no SDK acceptance
