@@ -1,0 +1,1 @@
+PASS Texture complete DXT3/DXT5 blocks fixtures=10240 checks=235528; PC Production=71; complete 16-byte payloads; no image/plugin/SDK acceptance

@@ -1,0 +1,90 @@
+{
+  "sourceCommit": "091239f2870001422073ac31ad1aac9935511615",
+  "runAttempt": "1",
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "group": "dxt-blocks-complete",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "dxt-dds2d",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "dxt-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "dxt-samples",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "dxt-volume-dds",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "atlas-dds",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "atlas-entry",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "jpeg-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": true,
+      "group": "public-s3-three",
+      "passed": true
+    }
+  ],
+  "status": "passed",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "jpeg"
+  ],
+  "runId": "40671760128",
+  "selected": [
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "atlas-dds",
+    "atlas-entry",
+    "jpeg-images",
+    "public-s3-three"
+  ]
+}
