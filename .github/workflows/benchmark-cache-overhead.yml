@@ -1,0 +1,120 @@
+name: Upheaval cache overhead optimization benchmark
+on:
+  push:
+    branches: [perf/upheaval-cache-overhead]
+    paths:
+      - '.github/workflows/benchmark-cache-overhead.yml'
+      - 'recovery/benchmarks/upheaval/**'
+  workflow_dispatch:
+    inputs:
+      accepted_source:
+        description: 'Production source with a successful complete lifecycle run'
+        default: 'c0f3880e2f5dd72ed0017316dce1b023ac220e00'
+        required: true
+      accepted_run:
+        description: 'Successful lifecycle run containing the matching five-file Release'
+        default: '40788966635'
+        required: true
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: upheaval-cache-speed-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: recovery/benchmarks/upheaval
+      - name: Verify benchmark gates and statistics before long measuring jobs
+        run: python -m unittest discover -s recovery/benchmarks/upheaval -p 'test_*.py' -v
+  measure:
+    name: cache-speed (${{ matrix.replica }})
+    needs: preflight
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[upheaval-cache-speed]')
+    runs-on: windows-2022
+    timeout-minutes: 100
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        replica: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Verify distinct accepted production artifacts and exact input closure
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ACCEPTED_SOURCE: ${{ inputs.accepted_source || 'c0f3880e2f5dd72ed0017316dce1b023ac220e00' }}
+          ACCEPTED_RUN: ${{ inputs.accepted_run || '40788966635' }}
+        run: |
+          python recovery/benchmarks/upheaval/prepare_cache_speed.py --source $env:ACCEPTED_SOURCE --run $env:ACCEPTED_RUN
+          if($LASTEXITCODE -ne 0){throw 'Candidate acceptance or runtime identity rejected'}
+      - name: Full Upheaval three-way no-cache cold hot benchmark
+        shell: pwsh
+        env:
+          REPLICA: ${{ matrix.replica }}
+        run: |
+          python recovery/benchmarks/upheaval/cache_speed.py --replica $env:REPLICA --runs 5
+          if($LASTEXITCODE -ne 0){throw 'A measured build failed its exact byte/cache/input gate'}
+      - name: Upload lightweight measurements and runtime provenance
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cache-speed-summary-${{ matrix.replica }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/cache-speed/state.json
+            recovery/artifacts/cache-speed/context.json
+            recovery/artifacts/cache-speed-runtime/provenance.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Preserve commands logs raw manifests and individual process timings
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cache-speed-evidence-${{ matrix.replica }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/cache-speed/**
+            recovery/artifacts/cache-speed-runtime/**/reuse.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30
+  aggregate:
+    needs: measure
+    if: ${{ !cancelled() && needs.measure.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: recovery/benchmarks/upheaval
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cache-speed-summary-*
+          path: reports
+      - name: Verify independent runner identities and summarize stratified paired samples
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/jobs?per_page=100 > runner-jobs.json
+          python recovery/benchmarks/upheaval/aggregate_cache_speed.py --input reports --jobs-metadata runner-jobs.json --output combined
+          cat combined/summary.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cache-speed-combined-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            combined/
+            runner-jobs.json
+          if-no-files-found: error
+          retention-days: 30
