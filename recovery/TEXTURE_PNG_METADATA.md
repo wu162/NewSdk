@@ -42,6 +42,6 @@
 
 ## 下一步和效率
 
-本轮组件、所有受影响专用SDK已完成；[SDK归档审计](evidence/texture/handoffs/20261029-png-metadata/sdk-archive-audit.json)核对11 profile、三模式实际资产、四产物以及所有实际轨迹文件。此后PNG metadata本批闭环，转向未声明JPEG CMYK或TGA metadata/RLE、其他BMP组合的实际输入取证。原默认DXT1/不透明DXT1A的未初始化边界继续拒绝。
+本轮组件、所有受影响专用SDK已完成；[SDK归档审计](evidence/texture/handoffs/20261029-png-metadata/sdk-archive-audit.json)核对11 profile、三模式实际资产、四产物以及所有实际轨迹文件。PNG metadata本批已闭环，JPEG RGB/APP metadata与CMYK/YCCK原拒绝随后也已取得完整消费/SDK验收，见[该项验收](TEXTURE_JPEG_METADATA_NEXT.md)。下一轮优先TGA有效非零extension metadata和其他实际BMP组合，不重跑已声明RLE/零字段footer。原默认DXT1/不透明DXT1A的未初始化边界继续拒绝。
 
 本轮先用两个独立原版探针查清完整metadata规则，再合批所有恢复/消费矩阵，避免按单个ICC或APNG子项重复启动全部消费者。未重跑既有成功且输入未变的组件，完整mymod仍manual_only。无法量化账号额度节省。

@@ -1,0 +1,59 @@
+{
+  "scope": "independent recorded products/complete actual trace audit; no BAB/codec execution",
+  "sourceCommit": "dba6d3050bf33db791144e00f54129f769226714",
+  "runId": "40785653416",
+  "profiles": [
+    {
+      "profile": "PcJpegMetadata",
+      "sourceCommit": "dba6d3050bf33db791144e00f54129f769226714",
+      "runId": "40785653416",
+      "receipt": "recovery/evidence/texture/sdk-jpeg-metadata/40785653416-1/validation.json",
+      "products": [
+        {
+          "file": "mod.bin",
+          "bytes": 30956964,
+          "sha256": "f76da5d4d53b95473947d23529adf82dec7887c3c58237b7348ab1a7d8bcbc41"
+        },
+        {
+          "file": "mod.manifest",
+          "bytes": 751417,
+          "sha256": "a9c3b1efc3dc42d5739e8aacef9a1dbb9a4da88b03697fc0b86d99ff28d653aa"
+        },
+        {
+          "file": "mod.imp",
+          "bytes": 4,
+          "sha256": "ff79313cd136ad70b8347f8b367f46374564ae425dc5855a89160ec3cee94c3c"
+        },
+        {
+          "file": "mod.relo",
+          "bytes": 38964,
+          "sha256": "7dbbae3b7b5d13a9ac2cdd075b429fbbe44fc4c2fb57bc64eb49b01d4f30622a"
+        }
+      ],
+      "modes": [
+        {
+          "mode": "Original",
+          "uniqueAssets": 9640,
+          "actualCalls": 9640,
+          "completeTraceFiles": 33721,
+          "traceIndexSha256": "79e3028d4b7b77eae7f36d1fbaf42bf570a3e05a90ef29a4b6cf3c311d861e83"
+        },
+        {
+          "mode": "Recovered",
+          "uniqueAssets": 9640,
+          "actualCalls": 9640,
+          "completeTraceFiles": 33721,
+          "traceIndexSha256": "79e3028d4b7b77eae7f36d1fbaf42bf570a3e05a90ef29a4b6cf3c311d861e83"
+        },
+        {
+          "mode": "NoOriginal",
+          "uniqueAssets": 9640,
+          "actualCalls": 9640,
+          "completeTraceFiles": 33721,
+          "traceIndexSha256": "79e3028d4b7b77eae7f36d1fbaf42bf570a3e05a90ef29a4b6cf3c311d861e83"
+        }
+      ],
+      "traceArchiveSha256": "657d3903fed38f0bf68493d1f79736abe79025abf8d2d9c2dd54c8dd9f43f0c9"
+    }
+  ]
+}

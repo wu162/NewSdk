@@ -35,7 +35,6 @@ def audit(root):
         rows = list(csv.DictReader(io.StringIO(files.read('transcript.tsv').decode('utf-8-sig')), delimiter='\t'))
         assert rows == list(csv.DictReader((directory / 'transcript.tsv').open(encoding='utf-8-sig'), delimiter='\t'))
         assert len(rows) == 4000 and len({r['label'] for r in rows}) == 4000
-        by_label = {r['label']: r for r in rows}
         for row in rows:
             label = row['label']
             source = files.read(label + '.jpg')

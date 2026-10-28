@@ -1,8 +1,9 @@
-# 当前：PNG metadata组件与11专用SDK闭环；JPEG新域最终矩阵准备好
+# 当前：PNG 与 JPEG metadata 均已完成组件、完整消费与专用SDK
 
-- **本轮完成**：PNG ICC/APNG默认图与sRGB/gAMA优先级已闭环。组件1cff9256 / [40780996417](https://github.com/wu162/NewSdk/actions/runs/40780996417) success：15组通过/22复用，D/R各7920 gold双入口和34880完整插件输入/同量逐次NoOriginal，0错误。SDK源码7ff6dc66 / [40783041481](https://github.com/wu162/NewSdk/actions/runs/40783041481) completed/success：11 profile三模式每模式17664实际资产/调用，四产物及61811完整轨迹文件全部独立逐文件核对；37组件复用。新PcPngMetadata每模式4240资产，含透明DXT1A/atlas/volume/mips。详见[PNG metadata](TEXTURE_PNG_METADATA.md)及原/SDK归档审计。
-- **继续推进**：同一批JPEG原版探针4000输入/8000原调用：1440解码/2560 CMYK/YCCK原拒绝，当前公开IJG生产入口4000全部完整匹配，收据仍probe-only。原gold和来源已集中本分支；业务/native源码未改。已准备新jpeg-metadata双入口D/R逐次隔离、32080插件/atlas完整差分和9640资产PcJpegMetadata专用SDK，下面提交集中验收；在其成功前不把探针冒充新JPEG消费/集成完成。
-- **下一轮计划**：先收新JPEG最终批次、核对sourceCommit/runId/实际产物。完整相同后闭环JPEG本批并转向TGA有效非零extension/gamma/alpha属性与developer/table、其他BMP实际输入；既有TGA标准零字段/DevIL和cross-row RLE已验收，不重复旧矩阵。默认DXT1/不透明DXT1A仍拒绝，生产SDK未替换；完整MOD未跑，保留旧5a1b8e1d/40657712486锚点。
+- **本轮完成（PNG）**：ICC/APNG按原版取IDAT默认图，有效sRGB优先于前/后gAMA。组件1cff9256 / [40780996417](https://github.com/wu162/NewSdk/actions/runs/40780996417) success：15组通过/22复用，D/R各7920 gold双入口和34880插件输入/同量逐次NoOriginal，0错误；SDK源码7ff6dc66 / [40783041481](https://github.com/wu162/NewSdk/actions/runs/40783041481) success，11 profile三模式每模式17664实际资产/调用、四产物与61811完整轨迹文件独立核对，37组件复用。PcPngMetadata每模式4240资产，含透明DXT1A/atlas/volume/mips。详见[PNG metadata](TEXTURE_PNG_METADATA.md)。
+- **本轮完成（JPEG）**：原gold4000输入/8000原调用：1440解码/2560 CMYK/YCCK原拒绝，当前公开IJG入口全部匹配；收据probe-only保持不变。最终源码dba6d305 / [40785653416](https://github.com/wu162/NewSdk/actions/runs/40785653416) completed/success：只跑2新组件+1新SDK，复用旧37组件+11 SDK。D/R各4000输入双入口8000调用、649163检查；32080插件输入/同量NoOriginal，其中19280输出+12800原拒绝匹配、224710304字节比较，含80 atlas入口。PcJpegMetadata三模式各9640实际资产/调用，四产物与33721完整轨迹文件独立逐文件全等。RGB/APP14解释与Exif/ICC/XMP/COM边界详见[JPEG新域验收](TEXTURE_JPEG_METADATA_NEXT.md)。JPEG/native业务源码未修改。
+- **保存与边界**：成果和原/失败/成功证据均集中`recovery/texturecompiler-source`，禁止强推。当前39组件/12专用SDK有有效祖先验收；12 SDK每模式合计27304资产/调用、95532完整轨迹文件。不同组保留各自sourceCommit/runId，不把复用说成新跑。生产SDK树未变，完整MOD本轮未跑，旧5a1b8e1d/40657712486仍仅旧锚点；默认DXT1/不透明DXT1A继续拒绝。
+- **下一轮计划**：本批PNG/JPEG已闭环，不重复成功矩阵。按实际输入优先取证TGA有效非零495-byte extension（gamma、alpha属性、developer/table/色彩修正等），入口`TextureTgaDecoder.ValidateMetadataTail`及[既有TGA范围](TEXTURE_TGA.md)；标准零字段/chained footer/DevIL/既有cross-row RLE已有明确验收，别重复旧实验。另有未声明BMP组合可按真实需求排队。先原版完整RGBA/错误取证，再整组实现和受影响完整差分；SDK继续跨能力组集中，完整mymod仅必要集成里程碑。
 
 # 当前：PC透明块DXT1A已完成组件、插件与专用SDK接入
 

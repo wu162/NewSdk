@@ -1,0 +1,46 @@
+{
+  "branch": "recovery/texturecompiler-source",
+  "businessSourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+  "pngComponents": {
+    "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+    "runId": "40780996417",
+    "selected": 15,
+    "reused": 22,
+    "goldInputs": 7920,
+    "pluginInputsPerConfiguration": 34880,
+    "pluginOriginalRejectionMatches": 0
+  },
+  "pngAndPriorSdk": {
+    "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+    "runId": "40783041481",
+    "profiles": 11,
+    "assetsPerMode": 17664,
+    "completeTraceFilesPerMode": 61811
+  },
+  "jpegComponentsAndSdk": {
+    "sourceCommit": "dba6d3050bf33db791144e00f54129f769226714",
+    "runId": "40785653416",
+    "selected": 3,
+    "reused": 48,
+    "goldInputs": 4000,
+    "goldDecoded": 1440,
+    "goldOriginalRejections": 2560,
+    "pluginInputsPerConfiguration": 32080,
+    "pluginOutputsPerConfiguration": 19280,
+    "pluginOriginalRejectionMatches": 12800,
+    "newSdkAssetsPerMode": 9640,
+    "newSdkCompleteTraceFilesPerMode": 33721
+  },
+  "acceptedComponentGroups": 39,
+  "acceptedSdkProfiles": 12,
+  "actualAssetsAndCallsPerMode": 27304,
+  "completeTraceFilesPerMode": 95532,
+  "productionSdkTreeUnchanged": true,
+  "fullModRunThisStage": false,
+  "priorFullModAnchor": {
+    "sourceCommit": "5a1b8e1d",
+    "runId": "40657712486",
+    "currentSourceAcceptance": false
+  },
+  "next": "TGA valid nonzero extension/gamma/alpha/developer/table metadata; source TextureTgaDecoder.ValidateMetadataTail; retain existing zero-field/chained/DevIL/RLE acceptance"
+}

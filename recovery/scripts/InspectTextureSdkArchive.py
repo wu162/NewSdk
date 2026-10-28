@@ -29,7 +29,8 @@ def audit(directory, source):
     result = {'profile': receipt['profile'], 'sourceCommit': source, 'runId': receipt['runId'],
               'receipt': directory.as_posix(), 'products': [], 'modes': []}
     products = {}
-    for mode, row in modes.items():
+    for mode in ('Original', 'Recovered', 'NoOriginal'):
+        row = modes[mode]
         assert row['passed'] is True and row['uniqueAssets'] > 0 and row['actualCalls'] >= row['uniqueAssets']
         files = {f['file']: f for f in row['files']}
         assert len(row['files']) == 4 and set(files) == {'mod.bin', 'mod.manifest', 'mod.imp', 'mod.relo'}

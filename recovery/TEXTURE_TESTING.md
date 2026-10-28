@@ -69,3 +69,7 @@ PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平�
 `png-metadata`固定7920个原版gold输入，D/R执行直接/public两入口完整RGBA/原错误/源不变和逐次NoOriginal。`png-metadata-images`为D/R各34880原/恢复插件输入及同量隔离重放，含raw3/DXT3/5、透明DXT1A、标准/volume/完整mip、64个PNG编码atlas、三buffer/full cdata/旧尾。1cff9256/40780996417已整批15组通过、22组复用；不重复跑未变组。
 
 `sdk-PcPngMetadata`仅显式SDK时选，4240实际资产、三模式四产物/完整轨迹文件集与逐次NoOriginal。metadata共享loader及native消费者已登记实际依赖；专用SDK不替代完整MOD。`png-metadata-load`/`png-metadata-order`/`jpeg-metadata-load`均manual_only/evidence_only/probe-only：前两组使用`[texture-png-metadata]`/`[texture-png-order]`，后者使用`[texture-jpeg-metadata]`。可在同一明确SDK批次顺序采集下一项探针；SDK成功与probe结论必须各自记录，比较完成不能冒充恢复验收。
+
+## JPEG RGB/APP metadata 与 CMYK/YCCK 拒绝
+
+`jpeg-metadata`固定4000原gold，D/R各直接/public两入口8000调用、完整RGBA/原错误/源不变与逐次NoOriginal；自有IJG native分别D/R构建。`jpeg-metadata-images`各32080完整输入（19280输出/12800原拒绝）和同量NoOriginal，含80 metadata atlas、raw3/DXT3/5、标准/volume/full mip和旧cdata/三buffer。`sdk-PcJpegMetadata`显式SDK组为9640真实资产、三模式四产物/33721完整轨迹文件集及逐次NoOriginal。dba6d305/40785653416已整批通过，仅执行2新组件+1新SDK、复用旧37组件+11 SDK。原探针仍probe-only，生产JPEG源码未改；相关helper/消费者/gold依赖已登记，未变成功组不重复跑。当前39组件/12专用SDK有效；完整MOD规则不变。
