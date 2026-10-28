@@ -1,3 +1,8 @@
+# 本轮规则修订：效率复盘、完整MOD降频与交接
+
+- **本轮完成**：用户于2026-10-28要求把效率复盘纳入持续规则，并降低完整MOD频率、每轮最后说明完成与下一步。已更新AGENTS/EFFICIENCY/STAGE_DURATION/TEXTURE_TESTING；`sdk-PcMymod`改manual_only，普通SDK批次不再自动选择；新增两项选择边界检查，本轮只运行Linux选择检查/计划，不启动Windows或MOD重测。精确验证状态待本次Actions收据核对后更新。
+- **下一轮计划**：继续下节三色剩余3例，优先核对原完整透明DXT1A包装、float/partial、端点规范化与完整DDS gold，再集中必要消费回归；阶段内不默认重跑完整MOD。已验收且输入未变的32组件/9专用SDK与mymod保留各自原锚点；新后端正式启用前仍须取得必要当前SDK验收。
+
 # 当前：完整 mymod 集成通过；默认 DXT1 栈依赖已实证
 
 仅PC、禁止强推、编译测试仅Actions。2026-10-28本轮从05504a80续接。

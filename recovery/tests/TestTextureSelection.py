@@ -56,6 +56,19 @@ class SelectionTests(unittest.TestCase):
         self.group['manual_only']=True
         self.assertEqual(self.result()['selected'],[])
         self.assertEqual(self.result(requested=['a'])['selected'],['a'])
+    def test_full_mod_is_not_selected_by_general_sdk_request(self):
+        catalog=json.loads((Path(__file__).parents[1]/'catalog/TextureTestGroups.json').read_text())['groups']
+        self.assertTrue(catalog['sdk-PcMymod'].get('manual_only'))
+        self.group.update(sdk=True,manual_only=True)
+        self.write('src/TextureCompiler/Managed/A.cs','changed');self.commit()
+        self.assertEqual(self.result(sdk=True)['selected'],[])
+        self.assertEqual(self.result(sdk=True,requested=['a'])['selected'],['a'])
+    def test_explicit_full_mod_does_not_request_other_sdk_profiles(self):
+        full_mod=dict(self.group,sdk=True,manual_only=True)
+        ordinary_sdk=dict(self.group,sdk=True)
+        row=selector.select(self.root,{'full-mod':full_mod,'ordinary-sdk':ordinary_sdk},requested=['full-mod'])
+        self.assertEqual(row['selected'],['full-mod'])
+        self.assertEqual(row['details']['ordinary-sdk']['reason'],'SDK not requested')
     def test_existing_nonancestor_is_rejected(self):
         foreign=self.git('commit-tree',self.git('rev-parse','HEAD^{tree}'),'-m','foreign')
         self.receipt(sourceCommit=foreign);self.assertEqual(self.result()['selected'],['a'])

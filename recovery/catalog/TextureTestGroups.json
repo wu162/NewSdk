@@ -1483,7 +1483,8 @@
         "src/TextureCompiler/Jpeg/**"
       ],
       "evidence": "recovery/evidence/texture/sdk-mymod/*/validation.json",
-      "sdk": true
+      "sdk": true,
+      "manual_only": true
     },
     "dxt1-boundary": {
       "script": "recovery/scripts/InspectTextureDxt1Boundary.ps1",

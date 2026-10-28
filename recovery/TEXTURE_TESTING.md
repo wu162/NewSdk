@@ -2,6 +2,12 @@
 
 2026-10-26（北京时间），用户反馈“每次触发的测试个数太多了”。本规则优先于旧文档关于每次相关提交自动启动多条 Texture 工作流的安排。后续仅 Win32/PC；保留 PC 的全部输入、断言、Debug/Release、原版差分及 SDK 三模式，移除非 PC 平台轴和专属组。
 
+## 完整 MOD 降频补充（2026-10-28）
+
+普通组件与候选迭代不运行完整MOD。SDK验证可跨多轮能力组集中；正式启用/关键集成里程碑或实际相关集成故障时，再显式验证当前受影响profile。完整mymod/384资产扩展`sdk-PcMymod`改为`manual_only: true`，普通`[texture-sdk]`或`run_sdk=true`均不会自动选择它。需要完整MOD时，通过同一个工作流的手动入口显式填`force_groups=sdk-PcMymod`；仅运行该MOD时`run_sdk=false`即可，明确同时需要其他受影响SDK时再设置true。显式选择仍保留所有实际受影响组件的选择与完整断言，不是只运行MOD而跳过组件。
+
+该调整不删除依赖/历史收据、不改成功判定，不缩减原样mymod、真实资产、三模式、四产物或完整轨迹/隔离检查。相关输入变化后，旧MOD成功不能证明新源码已集成；正式接入或部署前仍须完成必要验收。完整规则与交接要求见[效率规则](EFFICIENCY.md)。以下旧SDK触发说明以本补充的完整MOD例外为准。
+
 - **普通检查点提交不启动 Windows 验证。** 整个能力批次准备好后，在阶段提交消息加 `[texture-test]`。自动验证统一由 `texture-validation.yml` 承担：一个 Linux 选择作业、至多一个 Windows 作业，选中组顺序执行，不再按组/配置创建矩阵作业。
 - `[texture-sdk]` 显式纳入受影响的 PC SDK profile（原PNG/BMP PcNoMip、PcMips，以及压缩组PcDxtNoMip）；普通 `[texture-test]` 不启动 SDK。同样已成功且输入未变的 SDK profile 保留原 sourceCommit/runId，不重复运行。
 - `[texture-plan]` 仅运行选择器及其单元检查并上传计划，不启动 Windows。手动入口可指定 force_groups、run_sdk 和 plan_only。
