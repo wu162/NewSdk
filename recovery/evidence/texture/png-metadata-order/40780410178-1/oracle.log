@@ -1,0 +1,1 @@
+PROBE Texture PNG metadata fixtures=3240 decoded=2160 rejected=1080 originalCalls=6480 checks=657002 order=True; original complete RGBA/errors, ICC/APNG/sRGB, POT/NPOT, Adam7 and gamma; not recovered or SDK acceptance
