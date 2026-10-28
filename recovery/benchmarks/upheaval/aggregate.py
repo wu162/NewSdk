@@ -29,13 +29,34 @@ def summarize_strata(strata):
     return result
 
 
-def aggregate(root,output,expected=2):
+def verify_runners(states,jobs=None):
+    # Hosted images can retain an identical Windows hostname. GitHub's assigned
+    # runner names/IDs, not the image hostname, identify the execution instances.
+    names=[state.get('runner') for state in states]
+    if any(not name for name in names) or len(set(names))!=len(states):
+        raise ValueError('Runner execution identities are not distinct')
+    verified=[]
+    if jobs is not None:
+        for state in states:
+            matched=[job for job in jobs['jobs'] if job['name']==f'expanded ({state["replica"]})']
+            if len(matched)!=1:raise ValueError('Missing unique measuring job identity')
+            job=matched[0]
+            if (job.get('runner_name')!=state['runner'] or not job.get('runner_id')
+                    or str(job['run_id'])!=str(state['runId'])):
+                raise ValueError('Artifact runner identity differs from GitHub job metadata')
+            verified.append({key:job[key] for key in ('id','name','run_id','runner_id','runner_name','started_at','completed_at','conclusion')})
+        if len({job['runner_id'] for job in verified})!=len(states):
+            raise ValueError('GitHub measuring runner IDs are not distinct')
+    return verified
+
+
+def aggregate(root,output,expected=2,jobs_metadata=None):
     paths=sorted(Path(root).rglob('state.json'))
     states=[json.loads(path.read_text()) for path in paths]
     if len(states)!=expected or len({s['replica'] for s in states})!=expected:
         raise ValueError('Missing or duplicate independent runner summaries')
-    if len({s['machine'] for s in states})!=expected:
-        raise ValueError('Runner instances are not distinct')
+    jobs=json.loads(Path(jobs_metadata).read_text()) if jobs_metadata else None
+    verified=verify_runners(states,jobs)
     if len({s['sourceCommit'] for s in states})!=1 or len({s['binarySourceCommit'] for s in states})!=1:
         raise ValueError('Runner source/runtime identities differ')
     names=set.intersection(*(set(s['pairs']) for s in states))
@@ -61,7 +82,7 @@ def aggregate(root,output,expected=2):
     result=dict(schemaVersion=1,succeeded=all(s['succeeded'] for s in states),
                 runId=os.getenv('GITHUB_RUN_ID'),sourceCommit=states[0]['sourceCommit'],
                 binarySourceCommit=states[0]['binarySourceCommit'],statistics=stats,cacheEffects=effects,
-                replicas=states,scope='Two independent hosted Windows runner VMs, full historical Upheaval except explicitly labelled metadata-only SC subset; no physical-hardware diversity claim')
+                verifiedRunnerJobs=verified,replicas=states,scope='Two independent hosted Windows runner VMs, full historical Upheaval except explicitly labelled metadata-only SC subset; no physical-hardware diversity claim')
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     B.write(output/'expanded-result.json',result)
     summary='# Upheaval cache and packaging comparison\n\n'
@@ -86,5 +107,6 @@ if __name__=='__main__':
     parser.add_argument('--input',required=True)
     parser.add_argument('--output',required=True)
     parser.add_argument('--expected',type=int,default=2)
+    parser.add_argument('--jobs-metadata')
     args=parser.parse_args()
-    aggregate(args.input,args.output,args.expected)
+    aggregate(args.input,args.output,args.expected,args.jobs_metadata)

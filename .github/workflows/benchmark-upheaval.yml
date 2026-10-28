@@ -7,6 +7,10 @@ on:
       - '.github/workflows/benchmark-upheaval.yml'
   workflow_dispatch:
     inputs:
+      expanded_report_run_id:
+        description: 'Completed expanded/packaging run to reaggregate existing summaries only'
+        default: ''
+        required: false
       suite:
         description: 'Choose clean baseline or expanded cache/incremental/packaging matrix'
         type: choice
@@ -28,11 +32,11 @@ permissions:
   contents: read
   actions: read
 concurrency:
-  group: benchmark-upheaval-${{ github.ref }}
+  group: benchmark-upheaval-${{ github.ref }}${{ (contains(github.event.head_commit.message, '[upheaval-report-only]') || contains(github.event.head_commit.message, '[upheaval-reaggregate]') || inputs.report_run_id != '' || inputs.expanded_report_run_id != '') && '-report' || '' }}
   cancel-in-progress: false
 jobs:
   benchmark:
-    if: ${{ !contains(github.event.head_commit.message, '[upheaval-report-only]') && !contains(github.event.head_commit.message, '[upheaval-expanded]') && !contains(github.event.head_commit.message, '[upheaval-package]') && inputs.report_run_id == '' && inputs.suite != 'expanded' && inputs.suite != 'packaging' }}
+    if: ${{ !contains(github.event.head_commit.message, '[upheaval-report-only]') && !contains(github.event.head_commit.message, '[upheaval-reaggregate]') && !contains(github.event.head_commit.message, '[upheaval-expanded]') && !contains(github.event.head_commit.message, '[upheaval-package]') && inputs.report_run_id == '' && inputs.expanded_report_run_id == '' && inputs.suite != 'expanded' && inputs.suite != 'packaging' }}
     runs-on: windows-2022
     timeout-minutes: 240
     steps:
@@ -91,6 +95,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: recovery/benchmarks/upheaval
+      - name: Verify benchmark and report-only identity contracts
+        run: python -m unittest discover -s recovery/benchmarks/upheaval -p 'test_*.py' -v
       - name: Verify original artifact and extract existing reports without running compilers
         env:
           GH_TOKEN: ${{ github.token }}
@@ -151,7 +161,7 @@ jobs:
           if-no-files-found: error
           retention-days: 30
   expanded:
-    if: ${{ contains(github.event.head_commit.message, '[upheaval-expanded]') || contains(github.event.head_commit.message, '[upheaval-package]') || ((inputs.suite == 'expanded' || inputs.suite == 'packaging') && inputs.report_run_id == '') }}
+    if: ${{ (contains(github.event.head_commit.message, '[upheaval-expanded]') || contains(github.event.head_commit.message, '[upheaval-package]') || ((inputs.suite == 'expanded' || inputs.suite == 'packaging') && inputs.report_run_id == '')) && inputs.expanded_report_run_id == '' }}
     strategy:
       fail-fast: false
       max-parallel: 2
@@ -289,11 +299,68 @@ jobs:
           pattern: upheaval-expanded-summary-*
           path: reports
       - name: Stratified paired statistics across two distinct runner VMs
-        run: python recovery/benchmarks/upheaval/aggregate.py --input reports --output combined --expected 2
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/jobs?per_page=100 > runner-jobs.json
+          python recovery/benchmarks/upheaval/aggregate.py --input reports --output combined --expected 2 --jobs-metadata runner-jobs.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: upheaval-expanded-combined-${{ github.run_id }}-${{ github.run_attempt }}
           path: combined/
+          if-no-files-found: error
+          retention-days: 30
+  expanded-reaggregate:
+    if: ${{ contains(github.event.head_commit.message, '[upheaval-reaggregate]') || inputs.expanded_report_run_id != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: recovery/benchmarks/upheaval
+      - name: Download and verify existing measuring summaries, retaining the original terminal
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN: ${{ inputs.expanded_report_run_id || '40720756791' }}
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,pathlib,re,subprocess,zipfile
+          source=os.environ['SOURCE_RUN'];assert re.fullmatch('[0-9]+',source)
+          repo=os.environ['GITHUB_REPOSITORY']
+          def api(path):return json.loads(subprocess.check_output(['gh','api',f'repos/{repo}/{path}']))
+          run=api(f'actions/runs/{source}');assert run['status']=='completed'
+          assert run['repository']['full_name']==repo and run['path']=='.github/workflows/benchmark-upheaval.yml'
+          jobs=api(f'actions/runs/{source}/jobs?per_page=100')
+          pathlib.Path('runner-jobs.json').write_text(json.dumps(jobs))
+          artifacts=api(f'actions/runs/{source}/artifacts')['artifacts']
+          receipts=[]
+          for replica in (1,2):
+              name=f'upheaval-expanded-summary-{replica}-{run["run_attempt"]}'
+              selected=[a for a in artifacts if a['name']==name and not a['expired']];assert len(selected)==1
+              artifact=selected[0];archive=pathlib.Path(f'{replica}.zip')
+              with archive.open('xb') as stream:subprocess.run(['gh','api',f'repos/{repo}/actions/artifacts/{artifact["id"]}/zip'],check=True,stdout=stream)
+              sha=hashlib.sha256(archive.read_bytes()).hexdigest();assert artifact['digest']=='sha256:'+sha
+              with zipfile.ZipFile(archive) as z:
+                  names=[n for n in z.namelist() if n.endswith('/state.json') or n=='state.json'];assert len(names)==1
+                  data=z.read(names[0]);state=json.loads(data)
+              assert state['sourceCommit']==run['head_sha'] and str(state['runId'])==source and state['replica']==replica
+              target=pathlib.Path('reports')/str(replica);target.mkdir(parents=True)
+              (target/'state.json').write_bytes(data)
+              receipts.append(dict(replica=replica,artifactId=artifact['id'],archiveSha256=sha,stateSha256=hashlib.sha256(data).hexdigest()))
+          pathlib.Path('extraction.json').write_text(json.dumps(dict(sourceRunId=source,sourceCommit=run['head_sha'],sourceConclusion=run['conclusion'],recompiled=False,artifacts=receipts),indent=2))
+          PY
+      - name: Reaggregate verified per-runner timing pairs without recompilation
+        run: |
+          python recovery/benchmarks/upheaval/aggregate.py --input reports --output combined --expected 2 --jobs-metadata runner-jobs.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-expanded-reaggregate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            combined/
+            extraction.json
+            runner-jobs.json
           if-no-files-found: error
           retention-days: 30

@@ -21,6 +21,8 @@
 
 打包阶段的旧BAB直接写入 `package/input/data`，利用原MOD的Data搜索根自然生成APT及地图子目录，不人为增加一次松散产物搬运。手动选择 `suite=packaging`，或提交标记 `[upheaval-package]`，仅在两台VM重新校验无缓存指纹并运行打包组，不重复缓存/增量矩阵。首轮扩展运行8318eb71中的打包路径包含测试收集复制，因此正式完整出包比较采用此直接输出版本的独立新运行；前轮缓存与增量数据保持原源码身份。
 
+Windows托管镜像可能使用相同的hostname，不能用hostname判定是否独立机器。汇总使用GitHub分配的runner名称及jobs API中的唯一runner_id核实对应测量job。手动 `expanded_report_run_id` 或 `[upheaval-reaggregate]` 仅校验已有轻量artifact的原始SHA256、source/run与runner元数据后重汇总，不重新编译，不改写原运行终态。只读报告任务使用独立并发组，不挤掉正在排队的测量任务。原8318eb71与c35ed91d测量代码使用旧hostname门槛，其有效测量数据需由新报告校验器重新汇总；原始门槛错误仍保留。
+
 从 `compiler-main` 独立分支测试**完整、未精简的历史 Upheaval**。当前主线已经不跟踪该 MOD，因此从初始 SDK 提交 `bacfc69fc3e71c8116d1f22b933b8b6173170ecf` 用 `git archive` 提取到临时目录，固定 tree `5551fc26a6f96b62613443e0d0fa2958c14cbce0`，共 2723 文件，不修改当前 SDK。新旧编译器共同使用这份外部 MOD；完整输入哈希另存 `mod-inputs.json`。修改 benchmark 文件并普通推送自动触发；合入后也可手动 `workflow_dispatch`。默认 1 对预热 + 10 对正式样本，旧→新、新→旧交替顺序，同一台 `windows-2022` runner 串行执行。分支并发排队，不取消已有实验；最长 240 分钟。单个编译进程 1200 秒超时会终止进程树，失败证据仍上传。
 
 ## 测量合同

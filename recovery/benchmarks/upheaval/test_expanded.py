@@ -34,8 +34,16 @@ class ExpandedTests(unittest.TestCase):
             root=Path(folder)
             for number in (1,2):
                 path=root/str(number);path.mkdir()
-                (path/'state.json').write_text(json.dumps(dict(replica=number,machine='same-host')))
+                (path/'state.json').write_text(json.dumps(dict(replica=number,machine='same-host',runner='same-runner')))
             with self.assertRaisesRegex(ValueError,'distinct'):aggregate.aggregate(root,root/'output')
+
+    def test_cloned_hostnames_use_verified_github_runner_identity(self):
+        states=[dict(replica=i,machine='cloned-hostname',runner=f'runner-{i}',runId='42') for i in (1,2)]
+        jobs={'jobs':[dict(id=i,name=f'expanded ({i})',run_id=42,runner_id=i,runner_name=f'runner-{i}',
+                           started_at='start',completed_at='end',conclusion='success') for i in (1,2)]}
+        self.assertEqual(len(aggregate.verify_runners(states,jobs)),2)
+        jobs['jobs'][1]['runner_id']=1
+        with self.assertRaisesRegex(ValueError,'distinct'):aggregate.verify_runners(states,jobs)
 
 
 if __name__=='__main__':unittest.main()
