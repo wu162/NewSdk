@@ -309,12 +309,12 @@
       "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
       "repository": "Team-Resurgent/RXDK-Libs",
       "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
-      "blobSha": "dad3907f49e9db41b23fba28a81e338e234e92bd",
-      "sha256": "79b50a02af63b75fb3d68355dcc1f9f453a9aa11909648b3d4d14c25beb99e68",
-      "bytes": 83516,
+      "blobSha": "49cd78be654ce2687e20d1a025bbd5334da1a1f4",
+      "sha256": "23276c2a3222a44cb3f054071176a9800b4a5fae77b82f4d8df49e3a0b210658",
+      "bytes": 89952,
       "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
       "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
-      "compatibilityPatch": "Forced four colours, fixed legacy grayscale constants, explicit independently selectable single-colour/general-ramp interpolation rounding; original search budgets restored; compile-time stage diagnostics only (no selection by corpus identity)"
+      "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection"
     },
     {
       "path": "recovery/reference/public-codecs/s3/S3_quant.h",

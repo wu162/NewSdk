@@ -14,6 +14,7 @@ extern "C" void __cdecl S3LegacyTrace(int stage,unsigned char* stack) {
     if(stage==0){unsigned int* args=(unsigned int*)stack;
         double head[2]={(double)args[1],(double)args[2]};S3StageTrace("legacy-round-mode",2,head);
         S3StageTrace("legacy-round-input",6,(double*)args[6]);
+    }else if(stage==2){unsigned int* args=(unsigned int*)stack;int* ep=(int*)(args[1]+0x3038);double values[6];for(int i=0;i<6;i++)values[i]=ep[i];S3StageTrace("legacy-wrapper-endpoints",6,values);
     }else{
         S3StageTrace("legacy-single-errors",3,(double*)(stack+0x50));
         double choice=(double)*(int*)(stack+0x18);S3StageTrace("legacy-single-choice",1,&choice);

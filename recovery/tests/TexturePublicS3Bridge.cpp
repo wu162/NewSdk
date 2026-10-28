@@ -3,6 +3,7 @@
 #include "alpha.h"
 #include <algorithm>
 #include <cstring>
+void CodeRGBBlockPC(RGBBlock* block);
 void SetLegacyS3InterpolationPolicy(int policy);
 int EncodePublicS3(int variant,int format,const unsigned char* rgba,unsigned char* output)
 {
@@ -12,7 +13,7 @@ int EncodePublicS3(int variant,int format,const unsigned char* rgba,unsigned cha
     double weights[3]={0.3086,0.6094,0.082};
     for(int c=0;c<3;c++)b.weight[c]=(variant&2)?weights[c]:(double)(float)weights[c];
     for(int i=0;i<16;i++)for(int c=0;c<3;c++)b.colorChannel[i][c]=(variant&1)?rgba[i*4+c]/255.0:(double)(float)(rgba[i*4+c]/255.0);
-    CodeRGBBlock(&b);if(b.outLevel!=4)return 0;
+    CodeRGBBlockPC(&b);if(b.outLevel!=4)return 0;
     unsigned int c0=(b.endPoint[0][0]<<11)|(b.endPoint[0][1]<<5)|b.endPoint[0][2];
     unsigned int c1=(b.endPoint[1][0]<<11)|(b.endPoint[1][1]<<5)|b.endPoint[1][2];
     if(c0==c1){c0=(c0+1)&65535;for(int i=0;i<16;i++)b.index[i]=1;}

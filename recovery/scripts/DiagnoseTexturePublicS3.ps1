@@ -33,6 +33,7 @@ try{
     popfd
 "@}
  $asm=$asm.Replace("Q_10061460:",("Q_10061460:`n"+(Tap 0))).Replace("Q_1007BAD8:",("Q_1007BAD8:`n"+(Tap 1)))
+ $asm=$asm.Replace("Q_1007BE60:",("Q_1007BE60:`n"+(Tap 2)))
  $asm|Set-Content "$work/colour-trace.asm"
  $bridge=Get-Content src/TextureCompiler/Colour/TextureColourBridge.cpp -Raw
  $bridge=$bridge.Replace('#pragma comment(linker,"/NOENTRY")','').Replace('extern "C" int _fltused=0;','')

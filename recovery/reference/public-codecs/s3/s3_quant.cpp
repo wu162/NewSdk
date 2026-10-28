@@ -2011,6 +2011,120 @@ void CodeRGBBlock(RGBBlock *block) {
 
 }
 
+// Legacy PC wrapper surrounding the public S3 continuous/grid search.
+// General rules audited against CodeRGBBlockNoMode@0x83CD0, FastEncodeDXT1_4
+// @0x8C1F0 and RmsError@0x7BE60. No original/recovered encoder calls or gold data.
+static float pcFloat(double value) { volatile float rounded=(float)value; return rounded; }
+static int pcPack(const int p[3]) { return (p[0]<<11)|(p[1]<<5)|p[2]; }
+static void pcSingle(RGBBlock* b) {
+    static const int maximum[3]={31,63,31};
+    for(int c=0;c<3;c++)b->endPoint[0][c]=b->endPoint[1][c]=(int)floor(b->colorChannel[0][c]*maximum[c]+0.5);
+    b->outLevel=4;for(int i=0;i<b->n;i++)b->index[i]=0;
+}
+static void pcSquare(const float a[6],float o[6]) {
+    o[0]=pcFloat((double)a[0]*a[0]+(double)a[1]*a[1]+(double)a[2]*a[2]);
+    o[1]=pcFloat((double)a[3]*a[1]+(double)a[0]*a[1]+(double)a[2]*a[4]);
+    o[2]=pcFloat((double)a[4]*a[1]+(double)a[2]*a[0]+(double)a[2]*a[5]);
+    o[3]=pcFloat((double)a[3]*a[3]+(double)a[1]*a[1]+(double)a[4]*a[4]);
+    o[4]=pcFloat((double)a[4]*a[3]+(double)a[2]*a[1]+(double)a[5]*a[4]);
+    o[5]=pcFloat((double)a[4]*a[4]+(double)a[2]*a[2]+(double)a[5]*a[5]);
+}
+static void pcClip(float a[3],float b[3],const double w[3]) {
+    for(int c=0;c<3;c++)for(int edge=0;edge<2;edge++) {
+        double bound=edge?w[c]:0.0;
+        bool outsideA=edge?a[c]>bound:a[c]<bound, outsideB=edge?b[c]>bound:b[c]<bound;
+        if(outsideA==outsideB)continue;
+        float t=pcFloat((bound-(double)a[c])/((double)b[c]-a[c]));
+        float* out=outsideA?a:b;
+        if(outsideB)t=pcFloat((double)t-1.0);
+        for(int k=0;k<3;k++)out[k]=pcFloat(((double)b[k]-a[k])*t+out[k]);
+    }
+}
+static int pcNearestEven(float v) {
+    int lo=(int)floor(v);double f=(double)v-lo;
+    return lo+(f>0.5||(f==0.5&&(lo&1)));
+}
+static void pcQuick(RGBBlock* b) {
+    bool same=true;for(int i=1;i<b->n;i++)for(int c=0;c<3;c++)same&=b->colorChannel[i][c]==b->colorChannel[0][c];
+    if(same){pcSingle(b);return;}
+    float q[MAX_PIXEL_PER_BLOCK][3],mean[3]={0,0,0},cov[6]={0,0,0,0,0,0};
+    for(int i=0;i<b->n;i++)for(int c=0;c<3;c++) {
+        q[i][c]=pcFloat(b->colorChannel[i][c]*b->weight[c]);mean[c]=pcFloat((double)mean[c]+q[i][c]);
+    }
+    float inverse=pcFloat(1.0/b->n);
+    for(int c=0;c<3;c++)mean[c]=pcFloat((double)mean[c]*inverse);
+    for(int i=0;i<b->n;i++) {
+        for(int c=0;c<3;c++)q[i][c]=pcFloat((double)q[i][c]-mean[c]);
+        double r=q[i][0],g=q[i][1],blue=q[i][2];
+        cov[0]=pcFloat(r*r+cov[0]);cov[1]=pcFloat(r*g+cov[1]);cov[2]=pcFloat(blue*r+cov[2]);
+        cov[3]=pcFloat(g*g+cov[3]);cov[4]=pcFloat(g*blue+cov[4]);cov[5]=pcFloat(blue*blue+cov[5]);
+    }
+    for(int iteration=0;iteration<9;iteration++) {
+        float temporary[6];pcSquare(cov,temporary);pcSquare(temporary,cov);
+        float trace=pcFloat((double)cov[3]+cov[0]+cov[5]);
+        if(trace==0){pcSingle(b);return;}
+        float root=pcFloat(sqrt((double)trace));float reciprocal=pcFloat(1.0/root);
+        float factor=pcFloat(3.0*reciprocal*reciprocal);
+        for(int k=0;k<6;k++)cov[k]=pcFloat((double)cov[k]*factor);
+    }
+    int major=0;if(cov[0]<cov[3])major=1;if(cov[major==0?0:3]<cov[5])major=2;
+    float diagonal=cov[major==0?0:major==1?3:5];
+    if(fabs(diagonal)<1.1920928955078125e-7){pcSingle(b);return;}
+    float reciprocal=pcFloat(1.0/pcFloat(sqrt((double)diagonal)));
+    const int rows[3][3]={{0,1,2},{1,3,4},{2,4,5}};float axis[3];
+    for(int c=0;c<3;c++)axis[c]=pcFloat((double)cov[rows[major][c]]*reciprocal);
+    float norm=pcFloat((double)axis[2]*axis[2]+(double)axis[1]*axis[1]+(double)axis[0]*axis[0]);
+    if(norm==0){pcSingle(b);return;}
+    float invNorm=pcFloat(1.0/norm),low=3.4028234663852886e38f,high=-3.4028234663852886e38f;
+    for(int i=0;i<b->n;i++) {
+        float projection=pcFloat(((double)q[i][2]*axis[2]+(double)q[i][1]*axis[1]+(double)q[i][0]*axis[0])*invNorm+128.0);
+        if(projection<low)low=projection;if(projection>high)high=projection;
+    }
+    low=pcFloat((double)low-128.0);high=pcFloat((double)high-128.0);
+    float a[3],z[3];for(int c=0;c<3;c++){a[c]=pcFloat((double)low*axis[c]+mean[c]);z[c]=pcFloat((double)high*axis[c]+mean[c]);}
+    pcClip(a,z,b->weight);
+    static const int maximum[3]={31,63,31};
+    for(int c=0;c<3;c++) {
+        a[c]=pcFloat((1.0/b->weight[c])*a[c]);z[c]=pcFloat((1.0/b->weight[c])*z[c]);
+        float av=pcFloat((a[c]<0?0:a[c]>1?1:(double)a[c])*maximum[c]);
+        float zv=pcFloat((z[c]<0?0:z[c]>1?1:(double)z[c])*maximum[c]);
+        int first=pcNearestEven(av),second=pcNearestEven(zv);
+        if(first==second){first=(int)floor(av);second=(int)ceil(zv);}
+        b->endPoint[0][c]=first;b->endPoint[1][c]=second;
+    }
+    // Fast path normalizes packed endpoint order before error/index remapping.
+    if(pcPack(b->endPoint[0])>pcPack(b->endPoint[1]))for(int c=0;c<3;c++){int t=b->endPoint[0][c];b->endPoint[0][c]=b->endPoint[1][c];b->endPoint[1][c]=t;}
+    b->outLevel=4;for(int i=0;i<b->n;i++)b->index[i]=0;
+}
+static double pcErrorAndIndices(RGBBlock* b) {
+    int ramp[4][3];static const int bits[3]={5,6,5};
+    for(int c=0;c<3;c++){
+        int a=b->endPoint[0][c],z=b->endPoint[1][c];
+        ramp[0][c]=(a<<(8-bits[c]))|(a>>(2*bits[c]-8));ramp[1][c]=(z<<(8-bits[c]))|(z>>(2*bits[c]-8));
+        // The final wrapper's metric/reindex uses truncating interpolation,
+        // while the S3 grid search above deliberately uses rounded interpolation.
+        ramp[2][c]=(2*ramp[0][c]+ramp[1][c])/3;ramp[3][c]=(ramp[0][c]+2*ramp[1][c])/3;
+    }
+    double total=0;
+    for(int i=0;i<b->n;i++){
+        double best=1.0e100;int choice=0;
+        for(int k=0;k<4;k++){
+            double d[3];for(int c=0;c<3;c++)d[c]=(b->colorChannel[i][c]*255.0-ramp[k][c])*b->weight[c];
+            double error=d[0]*d[0]+d[1]*d[1]+d[2]*d[2];if(error<best){best=error;choice=k;}
+        }
+        b->index[i]=choice;total+=best;
+    }
+    return total;
+}
+void CodeRGBBlockPC(RGBBlock* block) {
+    if(!block||block->n<1||block->n>MAX_PIXEL_PER_BLOCK||block->inLevel!=4)return;
+    RGBBlock quick=*block;pcQuick(&quick);double quickError=pcErrorAndIndices(&quick);
+    double quickEndpoints[6];for(int i=0;i<6;i++)quickEndpoints[i]=quick.endPoint[i/3][i%3];S3_TRACE("s3-quick-endpoints",6,quickEndpoints);
+    CodeRGBBlock(block);double fullError=pcErrorAndIndices(block);
+    double errors[2]={quickError,fullError};S3_TRACE("s3-wrapper-errors",2,errors);
+    if(fullError>quickError)*block=quick;
+}
+
 /*****************************************************************************
 **									    **
 **	MAIN ALPHA QUANTIZER					    	    **
