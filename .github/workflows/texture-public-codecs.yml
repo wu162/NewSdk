@@ -7,7 +7,7 @@ permissions:
   contents: write
 jobs:
   compare:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[public-codecs-test]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[public-codecs-test]') || contains(github.event.head_commit.message, '[public-codecs-amd]')
     runs-on: windows-2022
     timeout-minutes: 70
     steps:
@@ -20,7 +20,10 @@ jobs:
       - name: Compare copied public source against original gold
         id: tests
         shell: pwsh
-        run: ./recovery/scripts/TestTexturePublicCodecs.ps1
+        env:
+          ONLY_AMD: ${{ contains(github.event.head_commit.message, '[public-codecs-amd]') }}
+        run: |
+          if($env:ONLY_AMD -eq 'true'){./recovery/scripts/TestTexturePublicCodecs.ps1 -OnlyAmd}else{./recovery/scripts/TestTexturePublicCodecs.ps1}
       - name: Preserve complete comparison results
         if: always()
         uses: actions/upload-artifact@v4

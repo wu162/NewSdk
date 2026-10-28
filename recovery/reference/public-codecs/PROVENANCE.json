@@ -270,6 +270,24 @@
       "blobSha": "35d671ff9902189ee3e3fe900e15785aebb0e614",
       "sha256": "6ede1753acdf87735699cf6a40bc73a609af6a43ff69565a1bcfe5a1a1456035",
       "bytes": 1190
+    },
+    {
+      "path": "recovery/reference/public-codecs/amd/compressonatorxcodec.cpp",
+      "upstreamPath": "cmp_compressonatorlib/ati/compressonatorxcodec.cpp",
+      "repository": "GPUOpen-Tools/compressonator",
+      "commit": "095a143ad8cfbf9ed5afa4ea63c735bfd0fd04dd",
+      "blobSha": "e541eadbe39c049e0f351618221047900e4f2d81",
+      "sha256": "242cceac34573270fa643e4a74807dabe1ca0e6600c19719876660e8589a0b31",
+      "bytes": 84850
+    },
+    {
+      "path": "recovery/reference/public-codecs/amd/compressonatorxcodec.h",
+      "upstreamPath": "cmp_compressonatorlib/ati/compressonatorxcodec.h",
+      "repository": "GPUOpen-Tools/compressonator",
+      "commit": "095a143ad8cfbf9ed5afa4ea63c735bfd0fd04dd",
+      "blobSha": "6ad67812d02ff85c7b1ed0a6371f6e011b250ced",
+      "sha256": "d3ab38eb6f830218665a72ecc8ad91b8d663dc71ba854b8b769cdecef3bcc0cd",
+      "bytes": 7284
     }
   ]
 }

@@ -1,9 +1,11 @@
+param([switch]$OnlyAmd)
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/public-codecs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('texture-public-codecs-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';comparisonOnly=$true;productionAccepted=$false;sdkValidated=$false;scope='copied upstream libsquish/STB/NVTT ICBC full original 10240 DXT3/5 blocks, 16 nonacceptance DXT1 snapshots, 1284 JPEG records; Debug/Release and no original DLL loaded';configurations=@();eligibleCandidates=@()}
+$family=if($OnlyAmd){'amd'}else{'stb-squish-icbc'}
+$r=@{candidateFamily=$family;sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';comparisonOnly=$true;productionAccepted=$false;sdkValidated=$false;scope='copied public DXT codec complete original10240-block differential; selected candidate family only, full payload/RGB/alpha counts, Debug/Release and original DLL absent/unloaded';configurations=@();eligibleCandidates=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 45;throw "$name failed"};Get-Content "$out/$name.log"|Where-Object{$_ -match '^(PASS|COMPARE) '}}
 try{
  $manifest=Get-Content recovery/reference/public-codecs/PROVENANCE.json -Raw|ConvertFrom-Json
@@ -27,19 +29,20 @@ try{
  $sources=@('recovery/tests/TexturePublicCodecsReplay.cs','src/TextureCompiler/Managed/TexturePacker.cs','src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs','src/TextureCompiler/Managed/TextureNpotStorageResampler.cs')|ForEach-Object{(Resolve-Path $_).Path}
  $squish=(Resolve-Path recovery/reference/public-codecs/squish).Path
  $stb=(Resolve-Path recovery/reference/public-codecs/stb).Path;$nvtt=(Resolve-Path recovery/reference/public-codecs/nvtt).Path
- $native=@((Resolve-Path recovery/tests/TexturePublicCodecBridge.cpp).Path)+@(Get-ChildItem "$squish/*.cpp"|ForEach-Object FullName)
+ $amd=(Resolve-Path recovery/reference/public-codecs/amd).Path;$compat=(Resolve-Path recovery/tests/public-amd-compat).Path
+ $native=@((Resolve-Path recovery/tests/TexturePublicCodecBridge.cpp).Path,(Resolve-Path recovery/tests/TexturePublicAmdBridge.cpp).Path,(Resolve-Path recovery/reference/public-codecs/amd/compressonatorxcodec.cpp).Path)+@(Get-ChildItem "$squish/*.cpp"|ForEach-Object FullName)
  foreach($mode in @('Debug','Release')){
   $build=Join-Path $work $mode;New-Item -ItemType Directory -Force $build|Out-Null
   $opt=if($mode -eq 'Release'){'/O2'}else{'/Od'};$managedOpt=if($mode -eq 'Release'){'/optimize+'}else{'/optimize-'}
-  Checked "$mode-native" {Push-Location $build;try{& cl /nologo /LD /MT /EHsc /std:c++17 /arch:SSE2 /fp:strict $opt /I"$squish" /I"$stb" /I"$nvtt" @native /link /OUT:"$work/TexturePublicCodecs.dll" /MACHINE:X86}finally{Pop-Location}}
+  Checked "$mode-native" {Push-Location $build;try{& cl /nologo /LD /MT /EHsc /std:c++17 /arch:SSE2 /fp:strict $opt /I"$squish" /I"$stb" /I"$nvtt" /I"$compat" /I"$amd" @native /link /OUT:"$work/TexturePublicCodecs.dll" /MACHINE:X86}finally{Pop-Location}}
   $bytes=[IO.File]::ReadAllBytes("$work/TexturePublicCodecs.dll");$pe=[BitConverter]::ToInt32($bytes,0x3c);if([BitConverter]::ToUInt16($bytes,$pe+4) -ne 0x14c){throw 'Public codec DLL must be x86'}
   Checked "$mode-host-build" {& $csc /nologo /platform:x86 $managedOpt /r:"$work/BinaryAssetBuilder.Core.dll" /r:"$work/BinaryAssetBuilder.Utility.dll" /out:"$work/TexturePublicCodecsReplay.exe" $sources}
   '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TexturePublicCodecsReplay.exe.config"
   New-Item -ItemType Directory -Force "$out/$mode"|Out-Null
-  Checked "$mode-replay" {& "$work/TexturePublicCodecsReplay.exe" "$work/blocks/Debug-transcript.txt" "$work/legacy" "$work/jpeg" "$out/$mode"}
+  Checked "$mode-replay" {& "$work/TexturePublicCodecsReplay.exe" "$work/blocks/Debug-transcript.txt" "$work/legacy" "$work/jpeg" "$out/$mode" $family}
   Compress-Archive "$out/$mode/dxt-blocks.bin" "$out/$mode/dxt-blocks.zip"
   Remove-Item "$out/$mode/dxt-blocks.bin"
-  $rows=Import-Csv "$out/$mode/dxt-summary.tsv" -Delimiter "`t";if($rows.Count -ne 64){throw 'Incomplete candidate matrix'}
+  $rows=Import-Csv "$out/$mode/dxt-summary.tsv" -Delimiter "`t";if($rows.Count -ne $(if($OnlyAmd){24}else{64})){throw 'Incomplete candidate matrix'}
   $r.configurations+=@{configuration=$mode;comparisonCompleted=$true;withoutOriginalTextureCompiler=$true;nativeSha256=(Get-FileHash "$work/TexturePublicCodecs.dll").Hash.ToLowerInvariant();candidates=@($rows)}
  }
  foreach($row in $r.configurations[0].candidates){

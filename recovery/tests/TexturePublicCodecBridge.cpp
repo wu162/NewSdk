@@ -11,6 +11,7 @@
 #define ICBC_SIMD 0
 #include "icbc.h"
 
+int EncodePublicAmd(int variant,int format,const unsigned char* rgba,unsigned char* output);
 extern "C" __declspec(dllexport) int __cdecl PublicDxtEncode(int backend,int variant,int format,const unsigned char* rgba,unsigned char* output)
 {
     if(!rgba||!output||format<0||format>3)return 0;
@@ -37,7 +38,8 @@ extern "C" __declspec(dllexport) int __cdecl PublicDxtEncode(int backend,int var
         if(format==2)squish::CompressAlphaDxt3(rgba,65535,output);
         if(format==3)squish::CompressAlphaDxt5(rgba,65535,output);
         icbc::compress_dxt1(qualities[variant%3],colors,weights,variant/9?metric:uniform,format==0,false,output+(format<2?0:8));
-    }else return 0;
+    }else if(backend==3)return EncodePublicAmd(variant,format,rgba,output);
+    else return 0;
     return format<2?8:16;
 }
 extern "C" __declspec(dllexport) int __cdecl PublicImageDecode(const unsigned char* input,int bytes,unsigned char* output,int capacity,int* width,int* height,int* channels)
