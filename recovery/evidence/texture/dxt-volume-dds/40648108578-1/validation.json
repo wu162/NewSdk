@@ -1,0 +1,84 @@
+{
+  "runAttempt": "1",
+  "runId": "40648108578",
+  "sdkValidated": false,
+  "sourceCommit": "a32b077a66f5f00dac229a4ff700239b2839a732",
+  "nativeBinaries": [
+    {
+      "importDirectory": 0,
+      "sha256": "e6d568ac8f8d8035610e1941a15d39ab7bf6868777c52c8be3d79cecc84a2c5f",
+      "entryPoint": 0,
+      "configuration": "Debug",
+      "machine": "I386"
+    }
+  ],
+  "scope": "PC quality71 DXT3/DXT5 POT/partial-block volume no-mip/recursive float mip DDS; no plugin/SDK acceptance",
+  "publicS3Native": [
+    {
+      "machine": "I386",
+      "configuration": "Debug",
+      "sourceManifestSha256": "e2b1fecbb1aeea7b83affe8e6b98cda80bedf2ae057b4df3c45658f26814e9de",
+      "sha256": "0faf49cb7ef2b7daa3b11cf6128d2cc29d5d0c07922646ad67072cb1dc4a8c86",
+      "sourceFiles": [
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "5d06e1eab978685fffaea10b86957c0d9221f9d9",
+          "sha256": "b2925a6233fc5abb7dac7e084d6ebe76767e2594c38c5001fc5c7541d5002fc9",
+          "bytes": 89919,
+          "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
+          "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
+          "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain",
+          "file": "s3_quant.cpp"
+        },
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/S3_quant.h",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "ba9a7180467f3e1ea744c83ba1fe5249c2928345",
+          "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
+          "bytes": 2724,
+          "file": "S3_quant.h"
+        },
+        {
+          "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608+8192 (8192 bytes)",
+          "repository": "wu162/NewSdk",
+          "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+          "blobSha": "b188483b80391cee4d7e5f9b85f01832bfa1f012",
+          "sha256": "404d173c95c2beb07625b256a544b7a1febb2590b52b667c021921121eb6e227",
+          "bytes": 7023,
+          "origin": "existing recovered fixed codec optimization data, not public S3 upstream and not corpus payloads",
+          "sourceDataSha256": "c8c04516fe9c09fd35f56b5ef96e889db56a41ab1f575385f90ee1fa2e558211",
+          "file": "LegacyGray4.inl"
+        },
+        {
+          "file": "TexturePublicS3.cpp",
+          "origin": "owned bounded PC ABI; no encoder implementation callbacks",
+          "sha256": "2501890cd41bc4779b9c4eb427e690e03dd94fd1a99dd3ab54ed2a3f45b05536",
+          "blobSha": "2b058273cf6fc2e2b0e1074ee87a9a5d8f722420",
+          "bytes": 1833
+        }
+      ],
+      "importsOtherEncoders": false
+    }
+  ],
+  "error": "Debug-oracle failed",
+  "status": "failed",
+  "configurations": [],
+  "probeOnly": false,
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281"
+    }
+  ]
+}

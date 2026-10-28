@@ -1,0 +1,1 @@
+D3DFMT_DXT3 8x8 pattern=19 mips=True

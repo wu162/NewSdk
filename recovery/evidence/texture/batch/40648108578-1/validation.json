@@ -1,0 +1,90 @@
+{
+  "runAttempt": "1",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "jpeg"
+  ],
+  "status": "failed",
+  "sourceCommit": "a32b077a66f5f00dac229a4ff700239b2839a732",
+  "runId": "40648108578",
+  "selected": [
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "atlas-dds",
+    "atlas-entry",
+    "jpeg-images"
+  ],
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt-blocks-complete"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "error": "Debug-oracle failed",
+      "group": "dxt-dds2d"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "error": "Debug-oracle failed",
+      "group": "dxt-images"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt-samples"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "error": "Debug-oracle failed",
+      "group": "dxt-volume-dds"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "error": "Debug-replay failed",
+      "group": "atlas-dds"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "error": "Debug-replay failed",
+      "group": "atlas-entry"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "error": "Debug-oracle failed",
+      "group": "jpeg-images"
+    }
+  ]
+}

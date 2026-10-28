@@ -1,0 +1,1 @@
+D3DFMT_DXT3 16x1x8 pattern=14 mips=False
