@@ -1,0 +1,9 @@
+COMPARE s3-public variant=0 DXT3 full=5120/5120 color=5120 alpha=5120
+COMPARE s3-public variant=0 DXT5 full=5120/5120 color=5120 alpha=5120
+COMPARE s3-public variant=1 DXT3 full=4743/5120 color=4743 alpha=5120
+COMPARE s3-public variant=1 DXT5 full=4743/5120 color=4743 alpha=5120
+COMPARE s3-public variant=2 DXT3 full=5120/5120 color=5120 alpha=5120
+COMPARE s3-public variant=2 DXT5 full=5120/5120 color=5120 alpha=5120
+COMPARE s3-public variant=3 DXT3 full=4737/5120 color=4737 alpha=5120
+COMPARE s3-public variant=3 DXT5 full=4737/5120 color=4737 alpha=5120
+PASS Public codec comparison completed; mismatches retained, no production acceptance implied
