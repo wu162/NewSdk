@@ -76,7 +76,7 @@ namespace NewModCompiler.Application
                 length = input.Length; reused = false;
                 if (identified)
                 {
-                    // Spend the bounded handle budget on the largest tool files,
+                    // Spend the bounded handle budget on the largest leased inputs,
                     // rather than filling it with the first tiny schema leaves.
                     if (entries.Count == maximumFiles && length > minimumRetainedLength)
                     {

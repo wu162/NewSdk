@@ -94,7 +94,7 @@ function SameLengthMutation([string]$Path,[string]$From,[string]$To){
     [IO.File]::SetLastWriteTimeUtc($Path,$stamp)
     Need (([IO.File]::ReadAllBytes($Path)).Length -eq $before.Length -and [IO.File]::GetLastWriteTimeUtc($Path) -eq $stamp) 'Mutation did not preserve exact input length and timestamp'
 }
-function MakeMod([string]$Path,[string]$Probe){
+function MakeMod([string]$Path,[string]$Probe,[string]$TexturePath=$null){
     New-Item -ItemType Directory -Path "$Path/Data/AptUI" -Force|Out-Null
     [IO.File]::WriteAllText("$Path/Data/Armor.xml",$Probe,[Text.UTF8Encoding]::new($false))
     # XML/Armor, PathMusicEvent and file-backed APT exercise independent action
@@ -104,6 +104,15 @@ function MakeMod([string]$Path,[string]$Probe){
     [IO.File]::WriteAllText("$Path/Data/events.h","#define PATH_EVENT_CacheEvent 0x12345678`r`n")
     & python "$root/recovery/probes/TextureRedirect/MakeFixture.py" "$Path/Data/cache.tga"
     Need ($LASTEXITCODE -eq 0) 'Build-cache deterministic Texture fixture preparation failed'
+    if($TexturePath){
+        New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($TexturePath))|Out-Null
+        # A second MOD shares the current SDK texture version. Do not undo the
+        # earlier same-length/mtime pixel edit by copying the original again.
+        if(!(Test-Path -LiteralPath $TexturePath)){Copy-Item -LiteralPath "$Path/Data/cache.tga" -Destination $TexturePath}
+        $xml=[IO.File]::ReadAllText("$Path/Data/Mod.xml")
+        Need ($xml.Contains('File="cache.tga"')) 'Texture SDK-path substitution token is missing'
+        [IO.File]::WriteAllText("$Path/Data/Mod.xml",$xml.Replace('File="cache.tga"',('File="'+[Security.SecurityElement]::Escape($TexturePath)+'"')))
+    }
     [IO.File]::WriteAllText("$Path/Data/AptUI/Payload.xml",'<AssetDeclaration xmlns="uri:ea.com:eala:asset"><AptAptData id="BuildCachePayload" File="payload.bin"/></AssetDeclaration>')
     [IO.File]::WriteAllBytes("$Path/Data/AptUI/payload.bin",[byte[]](1,2,3,4,5,6,7))
 }
@@ -172,12 +181,12 @@ function OriginalOracle($Case,[string]$Name){
     & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds
     Need ($LASTEXITCODE -eq 0) 'Build-cache independent original BAB oracle failed'
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production action-cache CLI acceptance: XML/Armor, Weapon, GameObject, PathMusicEvent and file-backed APT with noncached Texture; exact single-action invalidation, unread Additional, complete raw four outputs, original BAB, same-length/same-mtime changes, MOD reuse boundaries, bounded cross-stream tool-digest leases with all four root inventories preserved, actual lookup-miss reason accounting and independent disabled/unprepared bypasses, corrupt and pending entry repair, actual cancellation and failure/retry; /sc and full SDK remain separate'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production action-cache CLI acceptance: XML/Armor, Weapon, GameObject, PathMusicEvent and file-backed APT with noncached Texture; exact single-action invalidation, unread Additional, complete raw four outputs, original BAB, same-length/same-mtime changes, MOD reuse boundaries, bounded cross-stream stable SDK/runtime digest leases, real SDK/Art native Texture reads and unused SageXml payload reuse with all four root inventories preserved, actual lookup-miss reason accounting and independent disabled/unprepared bypasses, corrupt and pending entry repair, actual cancellation and failure/retry; /sc and full SDK remain separate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     if($Preflight){
         $probe=[IO.File]::ReadAllText("$root/SDK/Mods/mymod/Data/RecoveryArmorProbe.xml")
-        MakeMod (Join-Path $short 'm') $probe
+        MakeMod (Join-Path $short 'm') $probe (Join-Path $short 's/Art/cache.tga')
         $check=@'
 import pathlib, runpy, sys
 from lxml import etree as E
@@ -197,6 +206,16 @@ assert b'0x12345678' in (work/'Data/events.h').read_bytes()
 assert len((work/'Data/AptUI/payload.bin').read_bytes())==7
 assert b'monitorPaths="..\\"' in (module['ROOT']/'SDK/tools/BinaryAssetBuilder.exe.config').read_bytes()
 assert b'elementFormDefault="qualified"' in (module['S']/'AssetTypeTexture.xsd').read_bytes()
+texture=(work.parent/'s/Art/cache.tga').read_bytes()
+assert texture==(work/'Data/cache.tga').read_bytes()
+assert texture[2]==2 and int.from_bytes(texture[12:14],'little')==256 and int.from_bytes(texture[14:16],'little')==256 and texture[16]==32
+assert len(texture)==18+256*256*4
+texture_paths=main.xpath('/ea:AssetDeclaration/ea:Texture/@File',namespaces=ns)
+assert len(texture_paths)==1 and pathlib.Path(texture_paths[0]).resolve()==(work.parent/'s/Art/cache.tga').resolve()
+# The real SDK texture is larger than every XSD. Allow five deployed runtime
+# files and one config; it must survive the production 512-largest lease cap.
+assert sum(path.stat().st_size>=len(texture) for path in module['S'].rglob('*') if path.is_file())+6 < 512
+
 print('PASS action-cache fixture XSD, required GameObject Body, Weapon/Armor/XInclude, external reads and mutation tokens')
 '@
         & python -c $check $PSScriptRoot $short *> "$out/fixture-preflight.log"
@@ -248,7 +267,12 @@ print('PASS action-cache fixture XSD, required GameObject Body, Weapon/Armor/XIn
         Copy-Item -LiteralPath "$root/SDK/Schemas/xsd" -Destination "$sdk/Schemas" -Recurse
         Copy-Item -LiteralPath "$root/SDK/tools/BinaryAssetBuilder.exe.config" -Destination "$sdk/tools"
         $probe=[IO.File]::ReadAllText("$root/SDK/Mods/mymod/Data/RecoveryArmorProbe.xml")
-        $mod=Join-Path $modeWork 'm';MakeMod $mod $probe
+        $sdkTexture=Join-Path $sdk 'Art/cache.tga'
+        $mod=Join-Path $modeWork 'm';MakeMod $mod $probe $sdkTexture
+        $textureLength=(Get-Item -LiteralPath $sdkTexture).Length
+        $largerLeaseInputs=@(Get-ChildItem -LiteralPath $sdk,$runtime -File -Recurse|Where-Object{$_.Length -ge $textureLength}).Count
+        Need ($textureLength -eq 262162 -and $largerLeaseInputs -lt 512) 'Real SDK Texture must stay inside the bounded largest-input read leases'
+        $modeState.sdkTextureInput=@{path=$sdkTexture;bytes=$textureLength;initialSha256=(Hash $sdkTexture);atLeastAsLargeLeaseInputs=$largerLeaseInputs;scope='Existing legal 256-square BGRA fixture consumed from SDK/Art while SDK input digest leases remain active; unchanged owner-only Texture backend and original byte oracle'}
         $cachedOut=Join-Path $modeWork 'cache';$plainOut=Join-Path $modeWork 'plain'
         $plain=RunCli 'disabled' $mod $plainOut $false;Cache $plain 'disabled'
         $cold=RunCli 'cold' $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $plain $cold
@@ -293,7 +317,7 @@ print('PASS action-cache fixture XSD, required GameObject Body, Weapon/Armor/XIn
         $changed=RunCli 'payload-content-invalidated' $mod $cachedOut $true;Cache $changed 'partial';DifferentOutputs $includeHot $changed
         $changedPlain=RunCli 'payload-content-no-cache' $mod $plainOut $false;SameOutputs $changedPlain $changed
         $changedHot=RunCli 'payload-content-hot' $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
-        $texture="$mod/Data/cache.tga";$stamp=[IO.File]::GetLastWriteTimeUtc($texture);$bytes=[IO.File]::ReadAllBytes($texture);$originalLength=$bytes.Length;$bytes[18]=253
+        $texture=$sdkTexture;$stamp=[IO.File]::GetLastWriteTimeUtc($texture);$bytes=[IO.File]::ReadAllBytes($texture);$originalLength=$bytes.Length;$bytes[18]=253
         [IO.File]::WriteAllBytes($texture,$bytes);[IO.File]::SetLastWriteTimeUtc($texture,$stamp)
         Need ((Get-Item -LiteralPath $texture).Length -eq $originalLength -and [IO.File]::GetLastWriteTimeUtc($texture) -eq $stamp) 'Texture mutation failed to preserve length/mtime'
         $textureChanged=RunCli 'texture-content-invalidated' $mod $cachedOut $true;Cache $textureChanged 'hot';DifferentOutputs $changedHot $textureChanged
@@ -308,6 +332,25 @@ print('PASS action-cache fixture XSD, required GameObject Body, Weapon/Armor/XIn
         [IO.File]::WriteAllText("$mod/Additional/not-consumed.txt",'unread package member')
         $additional=RunCli 'unread-additional-hot' $mod $cachedOut $true;Cache $additional 'hot';SameOutputs $changedPlain $additional
         Need ($additional.report.cache.backendCalls -eq 1) 'Unread Additional member invalidated certified actions'
+        # An unread SDK payload remains in all four whole-root inventories but
+        # must not widen the compiler/tool identity or invalidate any action.
+        $unused=Join-Path $sdk 'SageXml/Unconsumed.bin'
+        New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($unused))|Out-Null
+        $stream=[IO.File]::Create($unused)
+        try{
+            $block=[byte[]]::new(65536)
+            for($i=0;$i -lt $block.Length;$i++){$block[$i]=[byte]($i%251)}
+            foreach($unusedBlock in 1..16){$stream.Write($block,0,$block.Length)}
+        }finally{$stream.Dispose()}
+        $unusedLength=(Get-Item -LiteralPath $unused).Length
+        Need ($unusedLength -eq 1024*1024) 'Unused SDK asset fixture has an unexpected byte count'
+        $sdkAsset=RunCli 'unread-sdk-asset-hot' $mod $cachedOut $true;Cache $sdkAsset 'hot';SameOutputs $changedPlain $sdkAsset
+        Need ($sdkAsset.report.cache.backendCalls -eq 1 -and $sdkAsset.report.cache.actionHits -eq $additional.report.cache.actionHits) 'Unread SDK payload widened tool identity or recompiled certified actions'
+        $beforeLedger=[long]$additional.report.cache.hashReadBytes+[long]$additional.report.cache.inputHashReusedBytes
+        $afterLedger=[long]$sdkAsset.report.cache.hashReadBytes+[long]$sdkAsset.report.cache.inputHashReusedBytes
+        Need ($afterLedger-$beforeLedger -eq 4*$unusedLength) 'Unread SDK payload escaped one of four whole-root content inventories'
+        Need ($sdkAsset.report.cache.inputHashReusedBytes-$additional.report.cache.inputHashReusedBytes -ge 2*$unusedLength) 'Unread SDK asset digest was not retained and reused across stream snapshots'
+        $modeState.sdkAssetDigestReuse=@{path='SageXml/Unconsumed.bin';bytes=$unusedLength;sha256=(Hash $unused);inventoryCaptures=$sdkAsset.report.cache.inputInventoryCaptures;baselineHashReadBytes=$additional.report.cache.hashReadBytes;baselineReusedBytes=$additional.report.cache.inputHashReusedBytes;hashReadBytes=$sdkAsset.report.cache.hashReadBytes;reusedBytes=$sdkAsset.report.cache.inputHashReusedBytes;ledgerIncrease=$afterLedger-$beforeLedger;actionHits=$sdkAsset.report.cache.actionHits;backendCalls=$sdkAsset.report.cache.backendCalls;allRawOutputsEqual=$true}
         OriginalOracle $changedHot 'original-mutated'
         # Semantically neutral edits still require content invalidation. Keep
         # original BOM/length/mtime, and prove resulting bytes stay unchanged.
@@ -318,7 +361,7 @@ print('PASS action-cache fixture XSD, required GameObject Body, Weapon/Armor/XIn
         SameLengthMutation "$runtime/NewModCompiler.exe.config" 'version="v4.0"' "version='v4.0'"
         $runtimeChange=RunCli 'runtime-content-invalidated' $mod $cachedOut $true;Cache $runtimeChange 'cold';SameOutputs $changedPlain $runtimeChange
         $runtimeHot=RunCli 'runtime-content-hot' $mod $cachedOut $true;Cache $runtimeHot 'hot';SameOutputs $changedPlain $runtimeHot
-        $other=Join-Path $modeWork 'b';MakeMod $other ($probe.Replace('72.5%','32.5%'))
+        $other=Join-Path $modeWork 'b';MakeMod $other ($probe.Replace('72.5%','32.5%')) $sdkTexture
         $otherCold=RunCli 'second-mod' $other $cachedOut $true;Need ($otherCold.report.cache.misses -gt 0) 'Different MOD inputs silently reused every action'
         $otherPlain=RunCli 'second-mod-no-cache' $other $plainOut $false;SameOutputs $otherPlain $otherCold
         $returnA=RunCli 'first-mod-return' $mod $cachedOut $true;Cache $returnA 'hot';SameOutputs $changedPlain $returnA

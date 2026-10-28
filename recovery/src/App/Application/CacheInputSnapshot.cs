@@ -82,8 +82,13 @@ namespace NewModCompiler.Application
                 {
                     writer.Write(role); writer.Write(roots[role]);
                     int currentRole = role;
+                    // SDK inputs may share byte digests only while their exact
+                    // file objects remain read-leased. The user's current MOD
+                    // can be beneath SDK/Mods: exclude it in the SDK role too.
+                    // Packaging-only Additional remains writable and rehashed.
+                    // This changes neither inventory bytes nor tool identity.
                     Inventory(writer, roots[role], roots[role], cancellation, ref count, leases, path => currentRole == 2 || (currentRole == 0 &&
-                        (Paths.Contains(Path.Combine(roots[0], "tools"), path) || Paths.Contains(Path.Combine(roots[0], "Schemas"), path))), (path, length, digest, reused) => {
+                        !Paths.Contains(roots[1], path) && !Paths.Contains(Path.Combine(roots[0], "Additional"), path)), (path, length, digest, reused) => {
                         if (reused) reusedHashBytes = checked(reusedHashBytes + length);
                         else hashedBytes = checked(hashedBytes + length);
                         if (currentRole == 2 || (currentRole == 0 &&

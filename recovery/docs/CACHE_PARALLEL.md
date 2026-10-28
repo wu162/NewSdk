@@ -14,6 +14,10 @@
 
 第二组候选增加 `actionMissReasons` 与 `cacheBypassReasons`：前者只记录真实认证查询最终未命中的原因，之和严格等于既有 `actionMisses/misses`，不统计Stage/Commit/Prune内部完整性读取；后者互斥记录 `cache-disabled`、`not-prepared`、`base-patch-source`，不扩大旧miss总数。查询理由为 `entry-not-found`、`entry-invalidated`、`entry-pending`、`invalid-manifest`、`invalid-payload`、`entry-unavailable`、`invalid-result-contract`。`not-prepared`不猜测预算/插件/外读等具体拒绝原因；报告也不把键缺失猜成源码/schema/工具的某种变化。低层与生产CLI已准备损坏/pending/修复后热命中的精确计数及原始字节对照。生产闭包改变后统一重建，首批结果不能冒称覆盖第二组。`8f0d228a`仅增强重放拒绝合同和逐根worker线程证据，未改生产源码；其guards [40656585109](https://github.com/wu162/NewSdk/actions/runs/40656585109) success，新增逐根worker断言尚待新结果。
 
+第三组候选继续减少SDK重复哈希：有界租约资格扩至稳定SDK文件，排除当前MOD完整子树（包括MOD嵌于SDK/Art等任意路径）和SDK/Additional；所有目录仍首尾完整枚举，MOD与Additional继续按字节重新哈希，工具身份范围不扩大。最多512句柄及当前路径128位身份复核/最大文件优先/失败取消释放合同不变。新增真实SDK/Art Texture原生只读兼容、原等长mtime像素失效与原BAB字节对照，以及1MiB未消费SageXml文件的四次盘点完整账本和缓存命中证明；App补嵌套MOD、Additional可写、释放后修改与容量退化。该组改变生产闭包，须新完整验收，不复用810二进制冒充本组。
+
+第二组 `810dd2ad` / [40657123355](https://github.com/wu162/NewSdk/actions/runs/40657123355) 已整体success，原始归档 `12803193116`，API SHA256 `eeaabe66deb0c2e50fcd1650e7fc355bf901b62da189f2c67cf5f50c2c8bd32f`，本地详细核验正在进行。其完整payload+可选真实MOD计量重放 [40659913327](https://github.com/wu162/NewSdk/actions/runs/40659913327) 已启动，binarySource=810dd2ad、testSource=25dfd24d，不能据此宣称第三组SDK扩展性能。
+
 ## 先查什么
 
 | 问题 | 最短入口 |

@@ -145,6 +145,72 @@ namespace NewModCompiler.Tests
             Check(baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None),
                 "Shared inventory tests must release every retained handle and restore the original bytes.");
         }
+        static void StableSdkLeases(string root)
+        {
+            string sdk = Path.Combine(root, "sdk"), runtime = Path.Combine(root, "runtime");
+            // Exclusion follows the actual MOD root, even below SDK/Art rather
+            // than a conventional SDK/Mods directory.
+            string mod = Path.Combine(sdk, "Art", "EditableMod");
+            string entry = Path.Combine(mod, "Data", "Mod.xml"), editable = Path.Combine(mod, "Art", "editable.bin");
+            string art = Path.Combine(sdk, "Art", "large.bin"), declaration = Path.Combine(sdk, "SageXml", "Stable.xml");
+            string additional = Path.Combine(sdk, "Additional", "payload.bin"), compiler = Path.Combine(runtime, "NewModCompiler.exe");
+            Write(entry, "<AssetDeclaration/>"); Write(editable, "AAAA"); Write(art, new string('A', 256 * 1024));
+            Write(declaration, "<AssetDeclaration id='Stable'/>"); Write(additional, "PACK"); Write(compiler, "compiler");
+            var request = new BuildRequest { Command = "build", SdkRoot = sdk, ModRoot = mod, OutputRoot = Path.Combine(root, "output"), Content = new[] { "base" }, PackageFormat = "loose" };
+            var plan = new BuildPlan { Tasks = new[] { new BuildTask { Id = "base/mod", Content = "base", InputPath = entry, OutputName = "base/mod", Dependencies = new string[0] } } };
+            var fresh = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+            long stableBytes = new FileInfo(art).Length + new FileInfo(declaration).Length + new FileInfo(compiler).Length;
+            CacheInputSnapshot last;
+            using (var leases = new CacheInputLeaseSet())
+            {
+                var first = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                var second = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                Check(first.Fingerprint == fresh.Fingerprint && first.ToolchainFingerprint == fresh.ToolchainFingerprint && first.HashedBytes == fresh.HashedBytes && first.ReusedHashBytes == 0,
+                    "Stable SDK leasing must preserve the original first-capture identities and full byte reads.");
+                Check(second.Fingerprint == fresh.Fingerprint && second.ToolchainFingerprint == fresh.ToolchainFingerprint && leases.RetainedFiles == 3,
+                    "Only stable SDK Art/SageXml and runtime files may retain leases in the nested-MOD fixture.");
+                Check(second.ReusedHashBytes == stableBytes && second.HashedBytes + second.ReusedHashBytes == fresh.HashedBytes,
+                    "Repeated SDK capture must reuse exact stable bytes while rehashing Additional and both appearances of nested MOD inputs.");
+                foreach (string path in new[] { art, declaration })
+                    Reject<IOException>(() => { using (File.Open(path, FileMode.Open, FileAccess.Write, FileShare.ReadWrite)) { } },
+                        "An SDK digest may be reused only while its actual file bytes remain under a read lease: " + path);
+
+                DateTime editTime = File.GetLastWriteTimeUtc(editable);
+                Write(editable, "BBBB"); File.SetLastWriteTimeUtc(editable, editTime);
+                Check(new FileInfo(editable).Length == 4 && File.GetLastWriteTimeUtc(editable) == editTime,
+                    "Nested MOD mutation must preserve exact file length and mtime.");
+                var changedMod = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                Check(changedMod.Fingerprint != second.Fingerprint && changedMod.ToolchainFingerprint == fresh.ToolchainFingerprint && changedMod.ReusedHashBytes == stableBytes,
+                    "An SDK-role lease must not lock or hide an equal-length/equal-time mutation anywhere below the active MOD root.");
+                Check(changedMod.HashedBytes + changedMod.ReusedHashBytes == fresh.HashedBytes,
+                    "Nested MOD files must be read freshly in both SDK and MOD inventory roles.");
+
+                DateTime additionalTime = File.GetLastWriteTimeUtc(additional);
+                Write(additional, "TAPE"); File.SetLastWriteTimeUtc(additional, additionalTime);
+                Check(new FileInfo(additional).Length == 4 && File.GetLastWriteTimeUtc(additional) == additionalTime,
+                    "SDK Additional mutation must preserve exact file length and mtime.");
+                last = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                Check(last.Fingerprint != changedMod.Fingerprint && last.ToolchainFingerprint == fresh.ToolchainFingerprint && last.ReusedHashBytes == stableBytes,
+                    "SDK Additional must remain writable and freshly content-hashed without widening tool identity.");
+                Check(last.Fingerprint == CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None).Fingerprint && last.HashedBytes + last.ReusedHashBytes == fresh.HashedBytes,
+                    "Shared SDK capture must agree with a completely fresh inventory after mutable input changes.");
+            }
+            DateTime artTime = File.GetLastWriteTimeUtc(art);
+            byte[] changed = File.ReadAllBytes(art); changed[0] ^= 0x7f; File.WriteAllBytes(art, changed); File.SetLastWriteTimeUtc(art, artTime);
+            using (var next = new CacheInputLeaseSet())
+            {
+                var changedArt = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, next);
+                Check(changedArt.Fingerprint != last.Fingerprint && changedArt.ToolchainFingerprint == fresh.ToolchainFingerprint && changedArt.ReusedHashBytes == 0,
+                    "A new lease set must hash edited SDK Art bytes afresh without treating ordinary SDK assets as compiler tools.");
+            }
+            using (var limited = new CacheInputLeaseSet(1))
+            {
+                CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, limited);
+                var again = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, limited);
+                Check(limited.RetainedFiles == 1 && again.ReusedHashBytes == new FileInfo(art).Length && again.HashedBytes + again.ReusedHashBytes == fresh.HashedBytes,
+                    "A shared SDK file must obey the existing handle cap and largest-file preference while remaining inputs use fresh hashes.");
+            }
+        }
         public static int Run(string root)
         {
             assertions = 0;
@@ -262,6 +328,7 @@ namespace NewModCompiler.Tests
             request.OutputRoot = output;
             Check(baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Validation failure polluted retry.");
             SharedToolLeases(request, plan, runtime, dependency, schema, config, compiler, baseline);
+            StableSdkLeases(Path.Combine(root, "stable-sdk-inputs"));
             return assertions;
         }
     }
