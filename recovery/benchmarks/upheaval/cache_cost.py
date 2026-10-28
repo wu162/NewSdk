@@ -1,4 +1,4 @@
-"""Replay accepted production cache operations without modifying the compiler."""
+"""Replay accepted production cache operations without modifying the production compiler."""
 import argparse,json,os,statistics,subprocess,sys
 from pathlib import Path
 import benchmark as B
@@ -22,7 +22,14 @@ def main():
     probe=output/'probe';probe.mkdir()
     exe=probe/'CacheCostProbe.exe'
     csc=Path(os.environ['WINDIR'])/'Microsoft.NET/Framework/v4.0.30319/csc.exe'
-    subprocess.run([str(csc),'/nologo','/optimize+','/platform:x86','/target:exe','/out:'+str(exe),'/r:'+str(x.runtime/'NewModCompiler.exe'),'/r:System.Core.dll','/r:System.Web.Extensions.dll',str(Path(__file__).with_name('CacheCostProbe.cs'))],check=True)
+    app=Path('recovery/src/App').resolve()
+    core=(app/'Application/CoreStreamCompiler.cs').read_text(encoding='utf-8-sig')
+    begin=core.index('        static string CacheProcessContract()')
+    end=core.index('        static BuildFailure Failure(',begin)
+    contracts=probe/'CacheContracts.cs'
+    contracts.write_text('using System; using System.IO; using System.Linq; using System.Security.Cryptography;\npartial class CacheCostProbe {\n'+core[begin:end]+'\n}\n')
+    sources=[app/'Application'/f for f in ('Model.cs','CacheInputSnapshot.cs','BuildAssetCache.cs','ArtifactPublisher.cs')]+[app/'Diagnostics/Events.cs']
+    subprocess.run([str(csc),'/nologo','/optimize+','/platform:x86','/target:exe','/out:'+str(exe),'/r:System.Core.dll','/r:System.Web.Extensions.dll',str(Path(__file__).with_name('CacheCostProbe.cs')),str(contracts),*[str(p) for p in sources]],check=True)
     exe.with_suffix('.exe.config').write_bytes((x.runtime/'NewModCompiler.exe.config').read_bytes())
     subprocess.run([str(exe),str(x.runtime),'--check-runtime'],cwd=x.runtime,env=x.env,check=True)
     expected_hash=json.loads((Path(args.repo)/'recovery/docs/UPHEAVAL_BENCHMARK_RESULT.json').read_text())['outputGate']['inventorySha256']
@@ -36,7 +43,12 @@ def main():
         row['eventTimings']=event_times(output/row['case']/'build.events.jsonl');rows.append(row)
     hot=rows[-1];before=B.snapshot(x.cache_root('new'))
     probe_result=output/'probe-cost.json'
-    process=E.execute(exe,[str(x.runtime),str(output/hot['case']/'command.json'),str(probe_result)],x.runtime,output/'probe-process',1200,x.env)
+    events=[json.loads(line) for line in (output/hot['case']/'build.events.jsonl').read_text(encoding='utf-8-sig').splitlines()]
+    request=next(e['payload']['request'] for e in events if e['eventType']=='BuildStarted')
+    tasks=next(e['payload']['Tasks'] for e in events if e['eventType']=='PlanResolved')
+    probe_input=output/'probe-input.json'
+    B.write(probe_input,dict(request={k:v for k,v in request.items() if k!='Options'},options=request['Options'],tasks=tasks))
+    process=E.execute(exe,[str(x.runtime),str(probe_input),str(probe_result)],x.runtime,output/'probe-process',1200,x.env)
     if not process['succeeded']:raise ValueError('Original-runtime cost replay failed')
     result=json.loads(probe_result.read_text(encoding='utf-8-sig'))
     if not result['succeeded'] or result['architecture']!=32 or B.snapshot(x.cache_root('new'))!=before:
@@ -47,14 +59,14 @@ def main():
         key=(row['kind'],row['repetition']);grouped[key]=grouped.get(key,0)+row['wallSeconds']
     statistics_by_kind={kind:dict(perRepetition=[grouped[kind,i] for i in range(3)],medianSeconds=statistics.median(grouped[kind,i] for i in range(3))) for kind in sorted({k[0] for k in grouped})}
     summary=dict(schemaVersion=1,succeeded=True,sourceCommit=x.state['sourceCommit'],binarySourceCommit=x.state['binarySourceCommit'],runId=os.getenv('GITHUB_RUN_ID'),environment=x.state['environment'],compilerEnvironmentSha256=x.c['compilerEnvironmentSha256'],
-                 productionInputsUnchanged=x.state['inputsUnchanged'],confirmedCacheUnchanged=True,reuse=x.state['reuse'],probeExeSha256=B.digest(exe),probeRuntimeAssemblySha256=B.digest(x.runtime/'NewModCompiler.exe'),
+                 productionInputsUnchanged=x.state['inputsUnchanged'],confirmedCacheUnchanged=True,reuse=x.state['reuse'],probeExeSha256=B.digest(exe),replayedSourceSha256={str(p.relative_to(app)):B.digest(p) for p in sources},contractSourceSha256=B.digest(contracts),probeRuntimeAssemblySha256=B.digest(x.runtime/'NewModCompiler.exe'),
                  inputFileCount=result['inputFilesPerInventory'],inputBytesExcludingRuntime=sum(v['bytes'] for f in ('sdk','mod') for v in json.loads((output/(f+'-inputs.json')).read_text()).values()),
                  builds=[{k:v for k,v in row.items() if k!='diagnostics'} for row in rows],isolatedCosts=statistics_by_kind,probeMetadata={k:v for k,v in result.items() if k!='measurements'},methodology=result['methodology'])
     B.write(output/'cost-summary.json',summary)
     text='# Upheaval cache-cost replay\n\nUnchanged accepted Release, one Windows VM; diagnostic timings, not replacement benchmark means.\n\n'
     text+='| Build | wall s | CPU s |\n| --- | ---: | ---: |\n'
     for row in rows:text+=f'| {row["label"]} | {row["wallSeconds"]:.6f} | {row["cpuSeconds"]:.6f} |\n'
-    text+='\n| Exact method replay | median total s (5 streams) | 3 repetitions |\n| --- | ---: | --- |\n'
+    text+='\n| Same-source method replay | median total s (5 streams) | 3 repetitions |\n| --- | ---: | --- |\n'
     for kind,s in statistics_by_kind.items():text+=f'| {kind} | {s["medianSeconds"]:.6f} | {s["perRepetition"]} |\n'
     (output/'cost-summary.md').write_text(text);print(text)
     if os.getenv('GITHUB_STEP_SUMMARY'):

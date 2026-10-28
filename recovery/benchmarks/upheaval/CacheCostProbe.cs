@@ -8,20 +8,14 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Web.Script.Serialization;
 using NewModCompiler.Application;
-using NewModCompiler.Cli;
 
-class CacheCostProbe {
+partial class CacheCostProbe {
     static string runtime;
     static readonly List<object> measurements=new List<object>();
     public class Command { public string[] arguments {get;set;} }
     static int Main(string[] args) {
         try {
             runtime=Path.GetFullPath(args[0]);
-            AppDomain.CurrentDomain.AssemblyResolve+=(sender,e)=>{
-                string name=new AssemblyName(e.Name).Name;
-                string path=Path.Combine(runtime,name=="NewModCompiler"?"NewModCompiler.exe":name+".dll");
-                return File.Exists(path)?Assembly.LoadFrom(path):null;
-            };
             return Run(args);
         } catch(Exception e) { Console.Error.WriteLine(e);return 1; }
     }
@@ -37,22 +31,22 @@ class CacheCostProbe {
     static int Run(string[] args) {
         if(IntPtr.Size!=4)throw new InvalidOperationException("Probe must run as x86 CLR4");
         if(args.Length==2 && args[1]=="--check-runtime") {
-            if(typeof(CoreStreamCompiler).GetMethod("CacheProcessContract",BindingFlags.NonPublic|BindingFlags.Static)==null)
+            if(typeof(CacheCostProbe).GetMethod("CacheProcessContract",BindingFlags.NonPublic|BindingFlags.Static)==null)
                 throw new InvalidOperationException("Accepted runtime contract missing");
-            Console.WriteLine("Original runtime loaded: "+typeof(CacheInputSnapshot).Assembly.Location+" CLR "+Environment.Version+" x86");return 0;
+            Console.WriteLine("Same-source replay helper loaded: "+typeof(CacheInputSnapshot).Assembly.Location+" CLR "+Environment.Version+" x86");return 0;
         }
         var json=new JavaScriptSerializer{MaxJsonLength=int.MaxValue};
-        var command=json.Deserialize<Command>(File.ReadAllText(args[1]));
-        BuildRequest request=Options.Parse(command.arguments);
-        BuildPlan plan=Planner.Resolve(request,null);
+        var input=json.Deserialize<Dictionary<string,object>>(File.ReadAllText(args[1]));
+        BuildRequest request=json.Deserialize<BuildRequest>(json.Serialize(input["request"]));
+        request.Options.Clear();
+        foreach(var pair in (Dictionary<string,object>)input["options"])
+            request.Options.Add(pair.Key,json.Deserialize<EffectiveOption>(json.Serialize(pair.Value)));
+        BuildPlan plan=new BuildPlan{Tasks=json.Deserialize<BuildTask[]>(json.Serialize(input["tasks"]))};
         if(plan.Tasks.Length!=5)throw new InvalidOperationException("Expected all five original Upheaval streams");
         string work=Path.GetDirectoryName(Path.GetFullPath(args[2]));
-        var flags=BindingFlags.NonPublic|BindingFlags.Static;
-        MethodInfo contract=typeof(CoreStreamCompiler).GetMethod("CacheProcessContract",flags);
-        MethodInfo ns=typeof(CoreStreamCompiler).GetMethod("CacheNamespace",flags);
         MethodInfo taskName=typeof(BuildAssetCache).GetMethod("TaskName",BindingFlags.NonPublic|BindingFlags.Instance);
-        if(contract==null||ns==null||taskName==null)throw new InvalidOperationException("Original runtime profiling contracts changed");
-        string processContract=(string)contract.Invoke(null,null);
+        if(taskName==null)throw new InvalidOperationException("Original cache contract changed");
+        string processContract=CacheProcessContract();
         var namespaces=new Dictionary<string,string>();var fingerprints=new Dictionary<string,string>();
         int fileCount=0;
         // Warm the exact production method/JIT and derive exact existing cache identities.
@@ -60,7 +54,7 @@ class CacheCostProbe {
             var one=new BuildPlan{PlanKind="CoreCacheStream.v2",Tasks=new[]{task}};
             var capture=CacheInputSnapshot.Capture(request,one,runtime,CancellationToken.None);
             fileCount=capture.FileCount;fingerprints.Add(task.Id,capture.Fingerprint);
-            namespaces.Add(task.Id,(string)ns.Invoke(null,new object[]{capture.Fingerprint,processContract}));
+            namespaces.Add(task.Id,CacheNamespace(capture.Fingerprint,processContract));
         }
         for(int repetition=0;repetition<3;repetition++) {
             foreach(BuildTask task in plan.Tasks) {
@@ -115,8 +109,8 @@ class CacheCostProbe {
         var result=new{schemaVersion=1,succeeded=true,architecture=IntPtr.Size*8,clrVersion=Environment.Version.ToString(),
             assemblyPath=typeof(CacheInputSnapshot).Assembly.Location,repetitions=3,streamCount=plan.Tasks.Length,
             inputFilesPerInventory=fileCount,restoredStreamObservations=restored,payloadFiles=payloadFiles,payloadBytes=payloadBytes,
-            requestArguments=command.arguments,measurements=measurements,
-            methodology="Exact public production methods replayed from accepted unchanged x86 Release; warm method body cost, not sampled full-CLI attribution; input/confirmed-cache immutability verified by controller"};
+            requestArguments=request.Arguments,measurements=measurements,
+            methodology="Unmodified production C# method sources compiled opt+ CLR4/x86 into separate replay helper; actual CLI request/tasks and confirmed cache namespace verified; warm body cost, not sampled full-CLI attribution; input/confirmed-cache immutability verified by controller"};
         File.WriteAllText(args[2],json.Serialize(result));return 0;
     }
     static void CopyTree(string source,string target) {
