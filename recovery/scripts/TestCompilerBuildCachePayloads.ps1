@@ -251,6 +251,7 @@ function RepositoryMetricRow($Case,[string]$CacheState,[string]$InputVariant,[in
     $entries=@($script:modeState.cases|Where-Object{$_.name -ceq $Case.name})
     Need ($entries.Count -eq 1) 'Repository measurement must identify one exact controlled invocation'
     Need ($null -ne $Case.report.cache.PSObject.Properties['inputHashReusedBytes']) 'Repository metrics runtime must report actual hash reuse'
+    Need ($Case.report.cache.requestedJobs -eq 1 -and $Case.report.cache.effectiveJobs -eq 1) 'Repository paired timings require the same requested and effective jobs1 configuration'
     $observed=$Case.report.cache.dependencyObservation
     Need ($null -ne $observed -and $observed.format -ceq 'NewModCompiler.ReadClosure.v1' -and $observed.frequency -gt 0 -and $observed.semantics -ceq 'inclusive-overlapping-ticks') 'Repository measurements require the versioned actual consumed-read timing contract'
     $observationMs=@{}
@@ -258,7 +259,26 @@ function RepositoryMetricRow($Case,[string]$CacheState,[string]$InputVariant,[in
         Need ($observed.$field -ge 0) "Repository consumed-read timing is negative: $field"
         $observationMs[$field.Substring(0,$field.Length-5)+'Ms']=1000.0*[double]$observed.$field/[double]$observed.frequency
     }
-    return @{name=$Case.name;arguments=$entries[0].arguments;pairIndex=$PairIndex;actionCacheState=$CacheState;inputVariant=$InputVariant;reportElapsedMs=$Case.report.elapsedMs;controllerElapsedMs=$controller.elapsedMs;cache=$Case.report.cache;dependencyObservationMs=$observationMs;observationTimingSemantics='inclusive-overlapping; do not sum nested phases';cacheStorage=(RepositoryCacheStorage $Case.destination);peakSampledPrivateBytes=$Case.report.cache.peakSampledPrivateBytes;memoryScope='executor sampling, not continuous OS peak';artifactCount=$Case.files.Count;allRawStreamBytesEqualToNoCache=$true}
+    $samples=@()
+    if($CacheState -ceq 'empty-action-cache'){
+        $keys=@($observed.manifestKeys)
+        Need ($keys.Count -gt 0 -and $keys.Count -eq $observed.streams) 'Cold repository sample omitted its observed stream manifest keys'
+        $archive=Join-Path $Case.caseOut 'read-closures';New-Item -ItemType Directory -Path $archive|Out-Null
+        $sampleBytes=0L
+        foreach($key in $keys){
+            Need ($key -cmatch '^[0-9a-f]{64}$') 'Cold repository manifest key is not a complete SHA256 content identity'
+            $entry=Join-Path $Case.destination ('.cache/read-closure-v1/'+$key)
+            $members=@(Get-ChildItem -LiteralPath (Join-Path $entry 'files') -File)
+            Need ($members.Count -eq 1 -and (Hash $members[0].FullName) -ceq $key) 'Cold repository sample does not identify exactly one complete keyed binary manifest'
+            $target=Join-Path $archive ($key+'.bin');Copy-Item -LiteralPath $members[0].FullName -Destination $target
+            $length=[long]$members[0].Length
+            Need ((Get-Item -LiteralPath $target).Length -eq $length -and (Hash $target) -ceq $key) 'Archived repository manifest bytes differ from the verified cold sample'
+            $samples+=,@{artifactName=[IO.Path]::GetRelativePath($out,$target).Replace('\','/');relativeTo='payload validation.json directory';bytes=$length;sha256=$key;scope='inner read-closure binary manifest from this cold small mymod invocation; no recompression or product format change'}
+            $sampleBytes+=$length
+        }
+        Need ($sampleBytes -eq $observed.manifestBytes) 'Cold repository sample lengths differ from actual manifest-byte accounting'
+    }
+    return @{name=$Case.name;arguments=$entries[0].arguments;pairIndex=$PairIndex;actionCacheState=$CacheState;inputVariant=$InputVariant;reportElapsedMs=$Case.report.elapsedMs;controllerElapsedMs=$controller.elapsedMs;cache=$Case.report.cache;dependencyObservationMs=$observationMs;observationTimingSemantics='inclusive-overlapping; do not sum nested phases';cacheStorage=(RepositoryCacheStorage $Case.destination);readClosureSamples=$samples;peakSampledPrivateBytes=$Case.report.cache.peakSampledPrivateBytes;memoryScope='executor sampling, not continuous OS peak';artifactCount=$Case.files.Count;allRawStreamBytesEqualToNoCache=$true}
 }
 function MakeWave([string]$Path,[int]$Frames=4096){
     # Same known integral PCM source shape as AudioSdkSupport.Wave; no codec,
