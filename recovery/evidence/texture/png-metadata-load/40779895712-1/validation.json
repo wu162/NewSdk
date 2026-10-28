@@ -1,0 +1,54 @@
+{
+  "evidenceOnly": true,
+  "samplesSha256": "5e698ae274086468e3efa5520847fa9127acc4de62c1b96060a5ac0cbab0cac6",
+  "profiles": {
+    "repository": "https://github.com/saucecontrol/Compact-ICC-Profiles",
+    "commit": "bdd84663061bc4ae95ca70decff54f581e27f702",
+    "license": "CC0-1.0",
+    "scope": "Unmodified ICC profile fixture bytes, base64 transport only. Not a production color-management backend.",
+    "files": [
+      {
+        "path": "AdobeCompat-v2.icc",
+        "storedAs": "AdobeCompat-v2.icc.base64",
+        "bytes": 374,
+        "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+      },
+      {
+        "path": "sGrey-v2-micro.icc",
+        "storedAs": "sGrey-v2-micro.icc.base64",
+        "bytes": 336,
+        "sha256": "010676406dbfc641776154fd3603adef7bace317a26027a33066891975621820"
+      },
+      {
+        "path": "sGrey-v4.icc",
+        "storedAs": "sGrey-v4.icc.base64",
+        "bytes": 360,
+        "sha256": "00c0f94e09127520a17dc0e1d9264b5702081d96dbdb1549ee88e3631ce42a9d"
+      },
+      {
+        "path": "sRGB-v2-micro.icc",
+        "storedAs": "sRGB-v2-micro.icc.base64",
+        "bytes": 456,
+        "sha256": "0a8a33aea66a6f154a5642ebe168ef287e73265d9f7b51c42a45e6eedbacda7a"
+      },
+      {
+        "path": "sRGB-v4.icc",
+        "storedAs": "sRGB-v4.icc.base64",
+        "bytes": 480,
+        "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+      }
+    ]
+  },
+  "rejectedCount": 1560,
+  "fixtureCount": 4680,
+  "scope": "original PC LoadImageA ICC/APNG full RGBA/errors and per-input repeat determinism; no recovered/plugin/SDK acceptance",
+  "runId": "40779895712",
+  "status": "probe-only",
+  "probeOnly": true,
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "sourceCommit": "c812b8094a032dba0a29475d90e563cef211116e",
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "decodedCount": 3120,
+  "originalCalls": 9360
+}
