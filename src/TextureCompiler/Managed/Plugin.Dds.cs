@@ -16,7 +16,7 @@ namespace Recovered.Compiler.Texture
                 case TextureCatalog.TextureTypeId: return CompileTexture(declaration, false);
                 case TextureCatalog.OnDemandTextureTypeId: return CompileTexture(declaration, true);
                 case TextureCatalog.TerrainTextureAtlasTypeId:
-                    throw new NotSupportedException("Terrain texture atlas packing and compression have not been recovered.");
+                    return CompileAtlas(declaration);
                 default:
                     Console.WriteLine("Warning: Couldn't process {0}. No matching handler found.", declaration);
                     return null;
