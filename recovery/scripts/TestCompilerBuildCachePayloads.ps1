@@ -2,6 +2,7 @@
 [CmdletBinding()]
 param(
     [string]$CompilerDirectory,
+    [string]$ReplayReceipt,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
     [ValidateRange(15,600)][int]$TimeoutSeconds=180,
     [switch]$Preflight
@@ -307,6 +308,27 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
 
     $state.testSourceCommit=$state.sourceCommit;$state.binarySourceCommit=$state.sourceCommit
     $replayFiles=@{};$replayPath=Join-Path $CompilerDirectory 'candidate-replay.json'
+    $successfulReplay=Join-Path $CompilerDirectory 'cache-payload-replay.json'
+    Need ($ReplayReceipt -or !(Test-Path -LiteralPath $successfulReplay)) 'Successful archive reuse requires explicit ReplayReceipt'
+    if($ReplayReceipt){
+        Need (!(Test-Path -LiteralPath $replayPath)) 'Cannot combine fixed failed-test replay and successful archive replay'
+        $ReplayReceipt=(Resolve-Path -LiteralPath $ReplayReceipt).Path
+        Need ($ReplayReceipt -ceq $successfulReplay) 'ReplayReceipt must belong to this prepared runtime directory'
+        & python "$PSScriptRoot/PrepareCompilerCacheReplay.py" --repo $root --candidate-commit $state.sourceCommit --verify-prepared $ReplayReceipt *> "$out/replay-verification.log"
+        Need ($LASTEXITCODE -eq 0) 'Successful archive API, closure, receipts or runtime verification rejected'
+        $replay=Get-Content -LiteralPath $ReplayReceipt -Raw|ConvertFrom-Json
+        Need ($replay.prepared -eq $true -and $replay.candidateValidated -eq $false -and $replay.productionSourcesUnchanged -eq $true -and $replay.testSourceCommit -ceq $state.sourceCommit -and $replay.testScriptSha256 -ceq (Hash $PSCommandPath)) 'Successful replay source or current test script identity differs'
+        $expectedFiles=[Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+        foreach($configuration in @('Debug','Release')){foreach($fileName in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){$null=$expectedFiles.Add($configuration+'/bin/'+$fileName)}}
+        Need (@($replay.files).Count -eq 6) 'Successful replay requires exactly six runtime identities'
+        foreach($identity in $replay.files){
+            Need ($expectedFiles.Remove([string]$identity.path) -and $identity.sha256 -cmatch '^[0-9a-f]{64}$' -and (Hash (Join-Path $CompilerDirectory $identity.path)) -ceq $identity.sha256) 'Successful replay runtime identity or bytes differ'
+            $replayFiles[[string]$identity.path]=[string]$identity.sha256
+        }
+        Need ($expectedFiles.Count -eq 0) 'Successful replay runtime set is incomplete'
+        $state.binarySourceCommit=$replay.binarySourceCommit;$state.successfulArchiveReplay=$replay
+        $state.scope+='; successful archived binarySourceCommit with current testSourceCommit; production inputs unchanged and no production rebuild'
+    }
     if(Test-Path -LiteralPath $replayPath){
         $replay=Get-Content -LiteralPath $replayPath -Raw|ConvertFrom-Json
         $fixedSource='fb6f67a0aaf5889bcd950485c41a883bc5807523'
