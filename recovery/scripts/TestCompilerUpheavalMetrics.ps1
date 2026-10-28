@@ -59,6 +59,7 @@ function InvokeProduct([string]$Name,[string]$Command,[string]$Destination,[bool
         Need (@($tasks|Where-Object{$_.Content -ceq 'base'}).Count -eq 1 -and @($tasks|Where-Object{$_.Content -ceq 'apt'}).Count -eq 3 -and @($tasks|Where-Object{$_.Content -ceq 'maps'}).Count -eq 1) 'Actual CLI plan groups differ'
         $files=@{}
         if($Command -ceq 'build'){
+            Need ($body.diagnosticCounts.error -eq 0) 'Upheaval reported Core errors despite a successful exit; stop before further large builds'
             Need ($body.publicationStatus -ceq 'PublishedDirectory' -and $body.cache.executionEngine -ceq 'AssetTasks.v1') 'Upheaval build did not publish through the shared asset executor'
             Need ($body.cache.requestedJobs -eq $Jobs) 'Reported user concurrency upper bound differs'
             if(!$Enabled){Need ($body.cache.cacheMode -ceq 'Disabled' -and $body.cache.hits -eq 0 -and $body.cache.misses -eq 0) 'No-cache build recorded action cache use'}
@@ -165,6 +166,7 @@ public static class UpheavalRawBytes {
 }
 '@
         $baseline=InvokeProduct 'no-cache-jobs1' 'build' (Join-Path $work 'plain1') $false 1
+        $state.baselineCompilationValidated=$true
         $parallel=InvokeProduct 'no-cache-jobs4' 'build' (Join-Path $work 'plain4') $false 4;CompareOutputs $baseline $parallel
         $cached=Join-Path $work 'cached';Need (!(Test-Path -LiteralPath $cached)) 'Empty action-cache destination already exists'
         $cold=InvokeProduct 'empty-action-cache-jobs4' 'build' $cached $true 4;CompareOutputs $baseline $cold
