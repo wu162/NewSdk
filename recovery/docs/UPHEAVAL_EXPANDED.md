@@ -141,6 +141,8 @@ DDS例子：旧缓存新增1文件/692字节；新缓存从54,859,079增至109,7
 
 复跑方法、全部参数与clean/expanded/cache-followup/packaging入口见[benchmark README](../benchmarks/upheaval/README.md)。源码/运行文件或生产闭包变化时准备器拒绝复用；固定artifact到期后须先取得新的合格二进制来源。分支及[PR#16](https://github.com/wu162/NewSdk/pull/16)供审查，尚未合入。
 
+进一步的[冷/热建成本定位](UPHEAVAL_CACHE_COST.md)已用单VM原Release完整构建和同源x86方法重放量化全库扫描/重复候选复制；它不替换本报告正式统计。
+
 ## 解码完整原始计量
 
 持久JSON顶层直接保存统计、来源与验收状态；为避免大体积提交连接阻塞，430次完整构建记录使用无损XZ+base64存放在 `rawMeasurements`。解码后是完整schema-v1 JSON，含所有原始样本、配对和观察；原始UTF-8长度993408字节，SHA256 `cac8fed77882bd87abe44b326d52e259489a7294ccb849dcbccd25e5563be3b1`，未删减数据。下面的Python代码可验证并导出：

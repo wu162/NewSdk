@@ -30,6 +30,16 @@
 
 修正记录保留：相同镜像hostname改用GitHub唯一runner_id/name核验；首轮Actions跨步骤环境改变新版缓存键，旧增量/新版恢复因果结论撤回，41cea8d8固定子进程环境并在修改/破坏前证明热命中后重测；40725824993因PowerShell字符串splat初始化失败、零计时，263fa808显式参数后重新验证。不得重用混淆数据、降低断言或重复启动有效组。待用户审查，禁止强推或自行合并。
 
+## 缓存成本定位（诊断已验证）
+
+用户继续追问冷/热建为何更慢。生产EXE/SDK未改，[40778834315](https://github.com/wu162/NewSdk/actions/runs/40778834315)整体成功，测试源d30f36aa13a2839eba5728c99b6e8c5b499fff7b：单Intel WindowsVM，原Release执行完整无缓存/冷/热各一次并核对原Upheaval指纹；未修改原函数源码用CLR4/x86 opt+独立helper重放3次，实际请求/任务及缓存namespace真命中证明、原确认缓存和全部输入不变门槛均通过。它是同源受控成本诊断，不能冒充整进程CPU采样或替换原双VM正式均值。
+
+本机新版无缓存59.905秒、冷75.166秒、热49.148秒。五条流每条前后均完整Capture SDK/MOD/runtime：17443文件×10，哈希4319264120字节；原函数重放合计中位13.192秒（CPU12.563秒）。三APT及地图无缓存载荷却同样付全库扫描，地图从0.252增至3.437秒。热恢复复制/校验1.667秒，命中后重建候选1.091秒、丢弃0.118秒；Commit已有条目仅0.0003秒。冷候选复制/哈希1.149秒，不含插件首次生成工作缓存成本。发布阶段约1.5秒且差异小。
+
+热命中1617项恰对应AudioFile1289、W3DAnimation194、W3DMesh134；仍解析925XML、实际插件编译1737次（含Texture115/OnDemandTexture2与大量XML类型），不能把1737全当贴图，也不能给未消融类型硬分配秒数。优先评估会话级去重扫描/保留统一最终校验，以及全命中无新增资产时避免候选重写；单文件依赖粒度和Texture D3DX闭包须另作正确性审计，不能只关哈希/改mtime键/强开贴图BC。
+
+[诊断报告](docs/UPHEAVAL_CACHE_COST.md)、[持久原始计量](benchmarks/upheaval/results/cache-cost-40778834315.json)含源/运行文件哈希、84次方法观察、逐流事件、编译类型计数及已核验原archive摘要。原尝试40778055207在混合PE不能作普通程序集加载时预检失败、尚无构建计时，失败保留；随后同源helper方案无正式EXE修改。复跑suite=cache-cost只跑定向job，既有92对正式benchmark不重复。尚未优化生产实现，禁止自行合并。
+
 ## 默认构建与参数改进（PR #14，待合入）
 
 本轮从 `compiler-main` 的 `933cf4a2` 创建 `feature/compiler-build-defaults`，PR [#14](https://github.com/wu162/NewSdk/pull/14)，尚未合并。生产/测试源码 `8b3e146cb5220e830ff6a0ce4718f47af052f166`；[验收运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 的完整 mymod 原 BAB 流、含 Additional 的默认 BIG 与 SKUDEF 差分、全部受影响回归及独立五文件 ZIP 验收均已通过，运行整体 success。

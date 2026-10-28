@@ -515,7 +515,7 @@ jobs:
         run: |
           python recovery/benchmarks/upheaval/prepare.py recovery/artifacts/upheaval-runtime
           if($LASTEXITCODE -ne 0){throw 'Production source/runtime identity mismatch'}
-      - name: Time full builds and exact original x86 cache methods without changing the compiler
+      - name: Time unchanged production CLI and same-source CLR4 x86 cache replay
         shell: pwsh
         run: |
           python recovery/benchmarks/upheaval/cache_cost.py

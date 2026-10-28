@@ -1,0 +1,1276 @@
+{
+  "schemaVersion": 1,
+  "succeeded": true,
+  "summary": {
+    "schemaVersion": 1,
+    "succeeded": true,
+    "sourceCommit": "d30f36aa13a2839eba5728c99b6e8c5b499fff7b",
+    "binarySourceCommit": "8b3e146cb5220e830ff6a0ce4718f47af052f166",
+    "runId": "40778834315",
+    "environment": {
+      "platform": "Windows-2022Server-10.0.20348-SP0",
+      "processor": "Intel64 Family 6 Model 106 Stepping 6, GenuineIntel",
+      "logicalCpus": 4,
+      "python": "3.12.10"
+    },
+    "compilerEnvironmentSha256": "5daf7b94c2dd5f6a6f847df3b51c552c70d8c857ccd09125d7f3bb7b782c43b0",
+    "productionInputsUnchanged": {
+      "sdk": true,
+      "mod": true,
+      "runtime": true,
+      "original-runtime": true
+    },
+    "confirmedCacheUnchanged": true,
+    "reuse": {
+      "prepared": true,
+      "candidateValidated": false,
+      "binarySourceCommit": "8b3e146cb5220e830ff6a0ce4718f47af052f166",
+      "testSourceCommit": "d30f36aa13a2839eba5728c99b6e8c5b499fff7b",
+      "sourceRunId": 40446975355,
+      "artifactId": 12708969379,
+      "archiveSha256": "4354fd09d9390e4224152fc48b2ca9ff302cde5dcda01f244d2e3c74c4ad12e9",
+      "packageSha256": "fb8cd8de283819f19b3c812ba944646a9333b778a8c4c4657db0c6636bee64ad",
+      "files": {
+        "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+        "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "6d452f606c29915866d89eaebadcd58a20c22b74455aa0f5aa596d8fb711a32d",
+        "NewModCompiler.exe": "fc2e99a1a6f65e058759bda187e5ca3bb084c2269fa0fa07b26bca8ce289cf0d",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+      },
+      "changedPaths": [
+        ".github/workflows/benchmark-upheaval.yml",
+        "recovery/COMPILER_USAGE.md",
+        "recovery/REFACTOR_RESUME.md",
+        "recovery/benchmarks/upheaval/CacheCostProbe.cs",
+        "recovery/benchmarks/upheaval/README.md",
+        "recovery/benchmarks/upheaval/aggregate.py",
+        "recovery/benchmarks/upheaval/benchmark.py",
+        "recovery/benchmarks/upheaval/cache_cost.py",
+        "recovery/benchmarks/upheaval/expanded.py",
+        "recovery/benchmarks/upheaval/prepare.py",
+        "recovery/benchmarks/upheaval/test_benchmark.py",
+        "recovery/benchmarks/upheaval/test_expanded.py",
+        "recovery/docs/BUILD_DEFAULTS_VALIDATION.md",
+        "recovery/docs/UPHEAVAL_BENCHMARK.md",
+        "recovery/docs/UPHEAVAL_BENCHMARK_RESULT.json",
+        "recovery/docs/UPHEAVAL_EXPANDED.md",
+        "recovery/docs/UPHEAVAL_EXPANDED_RESULT.json",
+        "recovery/protocol/README.md"
+      ],
+      "productionInputsUnchanged": true
+    },
+    "probeExeSha256": "29bf0b2e4f3d3b622e5ddba376715c102bfbaf99946ad7dd138eb83693b6c0be",
+    "replayedSourceSha256": {
+      "Application\\Model.cs": "2ebe585d608eda39d89e6ae13911d72dc50020f963b0ad0e28f300cec851b31c",
+      "Application\\CacheInputSnapshot.cs": "ea2f1de8c7c81b9b5864f79dc8cc5ce07da082d79d29bf2ee50f8044ec4d8c5f",
+      "Application\\BuildAssetCache.cs": "3cd94ced8d6a53b5a46283d4b1bf1f5ccc4ebaf70581434ce9c64bfe7cd5c437",
+      "Application\\ArtifactPublisher.cs": "39fe55ef4a4347c49777521c3a1a3a75494611488c1d23f4826c206058c57072",
+      "Diagnostics\\Events.cs": "d601b195060b8fcc99fde9496ff99c95afc4b1868766bcd4ef5de205f1ea7e65"
+    },
+    "contractSourceSha256": "b80ab6247e801cbf368800a7b3a475653b30797febd6afdbbeee1bfd75d57c05",
+    "probeRuntimeAssemblySha256": "fc2e99a1a6f65e058759bda187e5ca3bb084c2269fa0fa07b26bca8ce289cf0d",
+    "inputFileCount": 17443,
+    "inputBytesExcludingRuntime": 426788813,
+    "builds": [
+      {
+        "id": 1,
+        "label": "profile-no-cache",
+        "engine": "new",
+        "mode": "profile-plain",
+        "bc": false,
+        "sc": false,
+        "package": false,
+        "selection": [
+          "base",
+          "apt",
+          "maps"
+        ],
+        "succeeded": true,
+        "wallSeconds": 59.90528230000001,
+        "cpuSeconds": 54.5625,
+        "peakWorkingSetBytes": 211677184,
+        "processes": [
+          {
+            "wallSeconds": 59.90528230000001,
+            "exitCode": 0,
+            "timedOut": false,
+            "cpuSeconds": 54.5625,
+            "peakWorkingSetBytes": 211677184,
+            "compilerErrorLogged": false,
+            "legacyCacheCopyMessages": 0,
+            "succeeded": true
+          }
+        ],
+        "byteIdentical": true,
+        "case": "cases\\0001-profile-no-cache-new",
+        "cacheBefore": {
+          "files": 0,
+          "bytes": 0,
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        "cacheStatistics": {
+          "status": "Disabled",
+          "hits": 0,
+          "misses": 0,
+          "sessionCache": false,
+          "sessionPackageHits": 0,
+          "sessionPackageMisses": 0,
+          "documentReuse": 0,
+          "xmlParse": 925,
+          "instanceCompile": 3354,
+          "textureCache": false
+        },
+        "reportExitCode": 0,
+        "outputsSha256": "d65742aa08bbdbea317f11112b717469fffe51da1742a6a56884c8b1e7436212",
+        "cacheAfter": {
+          "files": 0,
+          "bytes": 0,
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        "cacheCopyMessages": 0,
+        "eventTimings": {
+          "streamSeconds": {
+            "base/Mod": 54.107,
+            "apt/TacticalHUDBuildQueuePage": 0.459,
+            "apt/TacticalHUDCommandListBox": 0.201,
+            "apt/TacticalHUDMainCommandBar": 0.274,
+            "maps/MapMetaData_Global": 0.252
+          },
+          "stageSeconds": {
+            "plan": 0.046,
+            "compile": 55.298,
+            "publish": 1.483
+          }
+        }
+      },
+      {
+        "id": 2,
+        "label": "profile-bc-cold",
+        "engine": "new",
+        "mode": "bc",
+        "bc": true,
+        "sc": false,
+        "package": false,
+        "selection": [
+          "base",
+          "apt",
+          "maps"
+        ],
+        "succeeded": true,
+        "wallSeconds": 75.16575229999998,
+        "cpuSeconds": 73.203125,
+        "peakWorkingSetBytes": 227618816,
+        "processes": [
+          {
+            "wallSeconds": 75.16575229999998,
+            "exitCode": 0,
+            "timedOut": false,
+            "cpuSeconds": 73.203125,
+            "peakWorkingSetBytes": 227618816,
+            "compilerErrorLogged": false,
+            "legacyCacheCopyMessages": 0,
+            "succeeded": true
+          }
+        ],
+        "byteIdentical": true,
+        "case": "cases\\0002-profile-bc-cold-new",
+        "cacheBefore": {
+          "files": 0,
+          "bytes": 0,
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        "cacheStatistics": {
+          "status": "BuildAssetCache",
+          "hits": 0,
+          "misses": 1617,
+          "sessionCache": false,
+          "sessionPackageHits": 0,
+          "sessionPackageMisses": 0,
+          "documentReuse": 0,
+          "xmlParse": 925,
+          "instanceCompile": 3354,
+          "textureCache": false
+        },
+        "reportExitCode": 0,
+        "outputsSha256": "d65742aa08bbdbea317f11112b717469fffe51da1742a6a56884c8b1e7436212",
+        "cacheAfter": {
+          "files": 2907,
+          "bytes": 54859079,
+          "sha256": "68b7eac1d44bf4140ab4b4fe3264a3988820a7b3810b61287b0e94c5d3869332"
+        },
+        "cacheCopyMessages": 0,
+        "eventTimings": {
+          "streamSeconds": {
+            "base/Mod": 60.783,
+            "apt/TacticalHUDBuildQueuePage": 3.279,
+            "apt/TacticalHUDCommandListBox": 2.976,
+            "apt/TacticalHUDMainCommandBar": 3.157,
+            "maps/MapMetaData_Global": 2.942
+          },
+          "stageSeconds": {
+            "plan": 0.007,
+            "compile": 73.141,
+            "publish": 1.436
+          }
+        }
+      },
+      {
+        "id": 3,
+        "label": "profile-bc-hot",
+        "engine": "new",
+        "mode": "bc",
+        "bc": true,
+        "sc": false,
+        "package": false,
+        "selection": [
+          "base",
+          "apt",
+          "maps"
+        ],
+        "succeeded": true,
+        "wallSeconds": 49.148085899999955,
+        "cpuSeconds": 46.90625,
+        "peakWorkingSetBytes": 225206272,
+        "processes": [
+          {
+            "wallSeconds": 49.148085899999955,
+            "exitCode": 0,
+            "timedOut": false,
+            "cpuSeconds": 46.90625,
+            "peakWorkingSetBytes": 225206272,
+            "compilerErrorLogged": false,
+            "legacyCacheCopyMessages": 1617,
+            "succeeded": true
+          }
+        ],
+        "byteIdentical": true,
+        "case": "cases\\0003-profile-bc-hot-new",
+        "cacheBefore": {
+          "files": 2907,
+          "bytes": 54859079,
+          "sha256": "68b7eac1d44bf4140ab4b4fe3264a3988820a7b3810b61287b0e94c5d3869332"
+        },
+        "cacheStatistics": {
+          "status": "BuildAssetCache",
+          "hits": 1617,
+          "misses": 0,
+          "sessionCache": false,
+          "sessionPackageHits": 0,
+          "sessionPackageMisses": 0,
+          "documentReuse": 0,
+          "xmlParse": 925,
+          "instanceCompile": 1737,
+          "textureCache": false
+        },
+        "reportExitCode": 0,
+        "outputsSha256": "d65742aa08bbdbea317f11112b717469fffe51da1742a6a56884c8b1e7436212",
+        "cacheAfter": {
+          "files": 2907,
+          "bytes": 54859079,
+          "sha256": "68b7eac1d44bf4140ab4b4fe3264a3988820a7b3810b61287b0e94c5d3869332"
+        },
+        "cacheCopyMessages": 1617,
+        "eventTimings": {
+          "streamSeconds": {
+            "base/Mod": 33.722,
+            "apt/TacticalHUDBuildQueuePage": 3.218,
+            "apt/TacticalHUDCommandListBox": 3.147,
+            "apt/TacticalHUDMainCommandBar": 3.289,
+            "maps/MapMetaData_Global": 3.437
+          },
+          "stageSeconds": {
+            "plan": 0.007,
+            "compile": 46.82,
+            "publish": 1.523
+          }
+        }
+      }
+    ],
+    "isolatedCosts": {
+      "cold-commit": {
+        "perRepetition": [
+          0.0025417,
+          0.0024537,
+          0.0027832
+        ],
+        "medianSeconds": 0.0025417,
+        "cpuSecondsPerRepetition": [
+          0,
+          0,
+          0.015625
+        ],
+        "medianCpuSeconds": 0
+      },
+      "cold-complete": {
+        "perRepetition": [
+          0.0003301,
+          0.0002502,
+          0.00027519999999999997
+        ],
+        "medianSeconds": 0.00027519999999999997,
+        "cpuSecondsPerRepetition": [
+          0,
+          0,
+          0
+        ],
+        "medianCpuSeconds": 0
+      },
+      "cold-stage": {
+        "perRepetition": [
+          1.1489046,
+          1.1307498,
+          1.1522677
+        ],
+        "medianSeconds": 1.1489046,
+        "cpuSecondsPerRepetition": [
+          0.9375,
+          0.765625,
+          0.796875
+        ],
+        "medianCpuSeconds": 0.796875
+      },
+      "hot-commit-existing": {
+        "perRepetition": [
+          0.0010523,
+          0.00029479999999999996,
+          0.00030339999999999995
+        ],
+        "medianSeconds": 0.00030339999999999995,
+        "cpuSecondsPerRepetition": [
+          0,
+          0,
+          0
+        ],
+        "medianCpuSeconds": 0
+      },
+      "hot-discard-candidate": {
+        "perRepetition": [
+          0.11431200000000001,
+          0.11831829999999999,
+          0.14393689999999998
+        ],
+        "medianSeconds": 0.11831829999999999,
+        "cpuSecondsPerRepetition": [
+          0.109375,
+          0.109375,
+          0.140625
+        ],
+        "medianCpuSeconds": 0.109375
+      },
+      "hot-prepare": {
+        "perRepetition": [
+          1.7342207999999997,
+          1.6665231,
+          1.6276328
+        ],
+        "medianSeconds": 1.6665231,
+        "cpuSecondsPerRepetition": [
+          1.375,
+          1.328125,
+          1.296875
+        ],
+        "medianCpuSeconds": 1.328125
+      },
+      "hot-restage": {
+        "perRepetition": [
+          1.1541172999999998,
+          1.0674844999999997,
+          1.0908871
+        ],
+        "medianSeconds": 1.0908871,
+        "cpuSecondsPerRepetition": [
+          0.84375,
+          0.859375,
+          0.8125
+        ],
+        "medianCpuSeconds": 0.84375
+      },
+      "input-capture-pair": {
+        "perRepetition": [
+          13.119018500000001,
+          13.338482199999998,
+          13.191572499999998
+        ],
+        "medianSeconds": 13.191572499999998,
+        "cpuSecondsPerRepetition": [
+          12.53125,
+          12.734375,
+          12.5625
+        ],
+        "medianCpuSeconds": 12.5625
+      }
+    },
+    "probeMetadata": {
+      "schemaVersion": 1,
+      "succeeded": true,
+      "architecture": 32,
+      "clrVersion": "4.0.30319.42000",
+      "assemblyPath": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\upheaval-cost\\probe\\CacheCostProbe.exe",
+      "repetitions": 3,
+      "streamCount": 5,
+      "inputFilesPerInventory": 17443,
+      "restoredStreamObservations": 3,
+      "payloadFiles": 2906,
+      "payloadBytes": 54443140,
+      "requestArguments": [
+        "build",
+        "--mod",
+        "D:\\a\\_temp\\ux8sizxwab\\h\\SDK\\Mods\\Upheaval",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--out",
+        "D:\\a\\_temp\\ux8sizxwab\\n-bc",
+        "--package-content",
+        "base,apt,maps",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:false",
+        "/pc:true",
+        "/ss:true",
+        "/slowclean:true",
+        "/tl:3",
+        "/data:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\_temp\\ux8sizxwab\\h\\SDK\\Mods\\Upheaval\\Data;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\SageXml",
+        "/art:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\_temp\\ux8sizxwab\\h\\SDK\\Mods\\Upheaval\\Art;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Art",
+        "/audio:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\_temp\\ux8sizxwab\\h\\SDK\\Mods\\Upheaval\\Audio;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+      ],
+      "methodology": "Unmodified production C# method sources compiled opt+ CLR4/x86 into separate replay helper; actual CLI request/tasks and confirmed cache namespace verified; warm body cost, not sampled full-CLI attribution; input/confirmed-cache immutability verified by controller"
+    },
+    "methodology": "Unmodified production C# method sources compiled opt+ CLR4/x86 into separate replay helper; actual CLI request/tasks and confirmed cache namespace verified; warm body cost, not sampled full-CLI attribution; input/confirmed-cache immutability verified by controller"
+  },
+  "rawProbe": {
+    "schemaVersion": 1,
+    "succeeded": true,
+    "architecture": 32,
+    "clrVersion": "4.0.30319.42000",
+    "assemblyPath": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\upheaval-cost\\probe\\CacheCostProbe.exe",
+    "repetitions": 3,
+    "streamCount": 5,
+    "inputFilesPerInventory": 17443,
+    "restoredStreamObservations": 3,
+    "payloadFiles": 2906,
+    "payloadBytes": 54443140,
+    "requestArguments": [
+      "build",
+      "--mod",
+      "D:\\a\\_temp\\ux8sizxwab\\h\\SDK\\Mods\\Upheaval",
+      "--sdk-root",
+      "D:\\a\\NewSdk\\NewSdk\\SDK",
+      "--out",
+      "D:\\a\\_temp\\ux8sizxwab\\n-bc",
+      "--package-content",
+      "base,apt,maps",
+      "--package-format",
+      "loose",
+      "/bc:true",
+      "/sc:false",
+      "/pc:true",
+      "/ss:true",
+      "/slowclean:true",
+      "/tl:3",
+      "/data:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\_temp\\ux8sizxwab\\h\\SDK\\Mods\\Upheaval\\Data;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\SageXml",
+      "/art:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\_temp\\ux8sizxwab\\h\\SDK\\Mods\\Upheaval\\Art;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Art",
+      "/audio:D:\\a\\NewSdk\\NewSdk\\SDK;D:\\a\\_temp\\ux8sizxwab\\h\\SDK\\Mods\\Upheaval\\Audio;D:\\a\\NewSdk\\NewSdk\\SDK\\Mods;D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+    ],
+    "measurements": [
+      {
+        "kind": "input-capture-pair",
+        "task": "base/Mod",
+        "repetition": 0,
+        "wallSeconds": 2.6373405,
+        "cpuSeconds": 2.515625,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 0,
+        "wallSeconds": 2.6439266999999997,
+        "cpuSeconds": 2.5,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 0,
+        "wallSeconds": 2.6495294,
+        "cpuSeconds": 2.515625,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 0,
+        "wallSeconds": 2.5745375,
+        "cpuSeconds": 2.515625,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 0,
+        "wallSeconds": 2.6136844,
+        "cpuSeconds": 2.484375,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "base/Mod",
+        "repetition": 1,
+        "wallSeconds": 2.6453146999999997,
+        "cpuSeconds": 2.515625,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 1,
+        "wallSeconds": 2.672223,
+        "cpuSeconds": 2.546875,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 1,
+        "wallSeconds": 2.6766334,
+        "cpuSeconds": 2.5625,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 1,
+        "wallSeconds": 2.6808294999999998,
+        "cpuSeconds": 2.5625,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 1,
+        "wallSeconds": 2.6634816,
+        "cpuSeconds": 2.546875,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "base/Mod",
+        "repetition": 2,
+        "wallSeconds": 2.5640247,
+        "cpuSeconds": 2.4375,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 2,
+        "wallSeconds": 2.6548507999999997,
+        "cpuSeconds": 2.53125,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 2,
+        "wallSeconds": 2.6520186999999997,
+        "cpuSeconds": 2.53125,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 2,
+        "wallSeconds": 2.6553461,
+        "cpuSeconds": 2.515625,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "input-capture-pair",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 2,
+        "wallSeconds": 2.6653322,
+        "cpuSeconds": 2.546875,
+        "filesHashed": 34886
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "base/Mod",
+        "repetition": 0,
+        "wallSeconds": 1.7337471999999998,
+        "cpuSeconds": 1.375,
+        "restored": true,
+        "payloadFiles": 2906,
+        "payloadBytes": 54443140
+      },
+      {
+        "kind": "hot-restage",
+        "task": "base/Mod",
+        "repetition": 0,
+        "wallSeconds": 1.1538454999999999,
+        "cpuSeconds": 0.84375
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "base/Mod",
+        "repetition": 0,
+        "wallSeconds": 0.0008862999999999999,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "base/Mod",
+        "repetition": 0,
+        "wallSeconds": 0.1141141,
+        "cpuSeconds": 0.109375
+      },
+      {
+        "kind": "cold-stage",
+        "task": "base/Mod",
+        "repetition": 0,
+        "wallSeconds": 1.1489046,
+        "cpuSeconds": 0.9375
+      },
+      {
+        "kind": "cold-commit",
+        "task": "base/Mod",
+        "repetition": 0,
+        "wallSeconds": 0.0025417,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "cold-complete",
+        "task": "base/Mod",
+        "repetition": 0,
+        "wallSeconds": 0.0003301,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 0,
+        "wallSeconds": 0.0001422,
+        "cpuSeconds": 0,
+        "restored": false
+      },
+      {
+        "kind": "hot-restage",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 0,
+        "wallSeconds": 6.7e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 0,
+        "wallSeconds": 4.24e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 0,
+        "wallSeconds": 5.71e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 0,
+        "wallSeconds": 0.00011219999999999999,
+        "cpuSeconds": 0,
+        "restored": false
+      },
+      {
+        "kind": "hot-restage",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 0,
+        "wallSeconds": 7.329999999999999e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 0,
+        "wallSeconds": 4.09e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 0,
+        "wallSeconds": 4.73e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 0,
+        "wallSeconds": 0.00010899999999999999,
+        "cpuSeconds": 0,
+        "restored": false
+      },
+      {
+        "kind": "hot-restage",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 0,
+        "wallSeconds": 6.35e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 0,
+        "wallSeconds": 4.04e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 0,
+        "wallSeconds": 4.84e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 0,
+        "wallSeconds": 0.0001102,
+        "cpuSeconds": 0,
+        "restored": false
+      },
+      {
+        "kind": "hot-restage",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 0,
+        "wallSeconds": 6.8e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 0,
+        "wallSeconds": 4.23e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 0,
+        "wallSeconds": 4.51e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "base/Mod",
+        "repetition": 1,
+        "wallSeconds": 1.6660450999999998,
+        "cpuSeconds": 1.328125,
+        "restored": true,
+        "payloadFiles": 2906,
+        "payloadBytes": 54443140
+      },
+      {
+        "kind": "hot-restage",
+        "task": "base/Mod",
+        "repetition": 1,
+        "wallSeconds": 1.0672275,
+        "cpuSeconds": 0.859375
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "base/Mod",
+        "repetition": 1,
+        "wallSeconds": 0.00012869999999999998,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "base/Mod",
+        "repetition": 1,
+        "wallSeconds": 0.11811659999999999,
+        "cpuSeconds": 0.109375
+      },
+      {
+        "kind": "cold-stage",
+        "task": "base/Mod",
+        "repetition": 1,
+        "wallSeconds": 1.1307498,
+        "cpuSeconds": 0.765625
+      },
+      {
+        "kind": "cold-commit",
+        "task": "base/Mod",
+        "repetition": 1,
+        "wallSeconds": 0.0024537,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "cold-complete",
+        "task": "base/Mod",
+        "repetition": 1,
+        "wallSeconds": 0.0002502,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 1,
+        "wallSeconds": 0.0001411,
+        "cpuSeconds": 0,
+        "restored": false
+      },
+      {
+        "kind": "hot-restage",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 1,
+        "wallSeconds": 6.72e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 1,
+        "wallSeconds": 4.63e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 1,
+        "wallSeconds": 5.5299999999999996e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 1,
+        "wallSeconds": 0.00011159999999999999,
+        "cpuSeconds": 0,
+        "restored": false
+      },
+      {
+        "kind": "hot-restage",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 1,
+        "wallSeconds": 6.26e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 1,
+        "wallSeconds": 3.96e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 1,
+        "wallSeconds": 4.74e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 1,
+        "wallSeconds": 0.00011119999999999999,
+        "cpuSeconds": 0,
+        "restored": false
+      },
+      {
+        "kind": "hot-restage",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 1,
+        "wallSeconds": 6.149999999999999e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 1,
+        "wallSeconds": 3.9999999999999996e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 1,
+        "wallSeconds": 4.54e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 1,
+        "wallSeconds": 0.0001141,
+        "cpuSeconds": 0,
+        "restored": false
+      },
+      {
+        "kind": "hot-restage",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 1,
+        "wallSeconds": 6.57e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 1,
+        "wallSeconds": 4.02e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 1,
+        "wallSeconds": 5.3599999999999995e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "base/Mod",
+        "repetition": 2,
+        "wallSeconds": 1.6271361,
+        "cpuSeconds": 1.296875,
+        "restored": true,
+        "payloadFiles": 2906,
+        "payloadBytes": 54443140
+      },
+      {
+        "kind": "hot-restage",
+        "task": "base/Mod",
+        "repetition": 2,
+        "wallSeconds": 1.0906318,
+        "cpuSeconds": 0.8125
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "base/Mod",
+        "repetition": 2,
+        "wallSeconds": 0.0001259,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "base/Mod",
+        "repetition": 2,
+        "wallSeconds": 0.1437341,
+        "cpuSeconds": 0.140625
+      },
+      {
+        "kind": "cold-stage",
+        "task": "base/Mod",
+        "repetition": 2,
+        "wallSeconds": 1.1522677,
+        "cpuSeconds": 0.796875
+      },
+      {
+        "kind": "cold-commit",
+        "task": "base/Mod",
+        "repetition": 2,
+        "wallSeconds": 0.0027832,
+        "cpuSeconds": 0.015625
+      },
+      {
+        "kind": "cold-complete",
+        "task": "base/Mod",
+        "repetition": 2,
+        "wallSeconds": 0.00027519999999999997,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 2,
+        "wallSeconds": 0.0001446,
+        "cpuSeconds": 0,
+        "restored": false
+      },
+      {
+        "kind": "hot-restage",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 2,
+        "wallSeconds": 6.599999999999999e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 2,
+        "wallSeconds": 5.62e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "apt/TacticalHUDBuildQueuePage",
+        "repetition": 2,
+        "wallSeconds": 5.4999999999999995e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 2,
+        "wallSeconds": 0.00011439999999999999,
+        "cpuSeconds": 0,
+        "restored": false
+      },
+      {
+        "kind": "hot-restage",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 2,
+        "wallSeconds": 6.59e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 2,
+        "wallSeconds": 3.9999999999999996e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "apt/TacticalHUDCommandListBox",
+        "repetition": 2,
+        "wallSeconds": 4.62e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 2,
+        "wallSeconds": 0.0001132,
+        "cpuSeconds": 0,
+        "restored": false
+      },
+      {
+        "kind": "hot-restage",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 2,
+        "wallSeconds": 6.17e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 2,
+        "wallSeconds": 4.1899999999999995e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "apt/TacticalHUDMainCommandBar",
+        "repetition": 2,
+        "wallSeconds": 5.1699999999999996e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-prepare",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 2,
+        "wallSeconds": 0.0001245,
+        "cpuSeconds": 0,
+        "restored": false
+      },
+      {
+        "kind": "hot-restage",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 2,
+        "wallSeconds": 6.17e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-commit-existing",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 2,
+        "wallSeconds": 3.9399999999999995e-05,
+        "cpuSeconds": 0
+      },
+      {
+        "kind": "hot-discard-candidate",
+        "task": "maps/MapMetaData_Global",
+        "repetition": 2,
+        "wallSeconds": 4.99e-05,
+        "cpuSeconds": 0
+      }
+    ],
+    "methodology": "Unmodified production C# method sources compiled opt+ CLR4/x86 into separate replay helper; actual CLI request/tasks and confirmed cache namespace verified; warm body cost, not sampled full-CLI attribution; input/confirmed-cache immutability verified by controller"
+  },
+  "compiledTypeCounts": {
+    "profile-no-cache": {
+      "AmbientStream": 6,
+      "AudioEvent": 304,
+      "AudioFile": 1289,
+      "GameObject": 121,
+      "MapMetaData": 1,
+      "OnDemandTexture": 2,
+      "OnDemandTextureImage": 7,
+      "Texture": 115,
+      "AIBuildStateDefinition": 18,
+      "AIPersonalityDefinition": 26,
+      "DamageFX": 7,
+      "LogicCommandSet": 26,
+      "ObjectFilterAsset": 7,
+      "PlayerTech": 45,
+      "PlayerTechStoreTemplate": 3,
+      "SpecialPowerTemplate": 27,
+      "WeaponTemplate": 108,
+      "UpgradeTemplate": 12,
+      "W3DMesh": 134,
+      "W3DContainer": 73,
+      "W3DHierarchy": 70,
+      "AttributeModifier": 16,
+      "ObjectCreationList": 29,
+      "FXList": 84,
+      "Multisound": 50,
+      "FXParticleSystemTemplate": 214,
+      "Video": 12,
+      "VideoEventList": 12,
+      "ArmorTemplate": 12,
+      "ButtonSingleStateData": 17,
+      "ExperienceLevelTemplate": 65,
+      "LogicCommand": 23,
+      "PackedTextureImage": 46,
+      "RadiusCursor": 1,
+      "UnitAbilityButtonTemplate": 12,
+      "UnitIntro": 11,
+      "UnitTypeIcon": 3,
+      "W3DAnimation": 194,
+      "W3DCollisionBox": 34,
+      "LocomotorTemplate": 12,
+      "AptAptData": 3,
+      "AptConstData": 3,
+      "AptDatData": 3,
+      "AptGeometryData": 89,
+      "Credits": 1,
+      "HealthBarSettings": 1,
+      "HealthBarTemplate": 6
+    },
+    "profile-bc-cold": {
+      "AmbientStream": 6,
+      "AudioEvent": 304,
+      "AudioFile": 1289,
+      "GameObject": 121,
+      "MapMetaData": 1,
+      "OnDemandTexture": 2,
+      "OnDemandTextureImage": 7,
+      "Texture": 115,
+      "AIBuildStateDefinition": 18,
+      "AIPersonalityDefinition": 26,
+      "DamageFX": 7,
+      "LogicCommandSet": 26,
+      "ObjectFilterAsset": 7,
+      "PlayerTech": 45,
+      "PlayerTechStoreTemplate": 3,
+      "SpecialPowerTemplate": 27,
+      "WeaponTemplate": 108,
+      "UpgradeTemplate": 12,
+      "W3DMesh": 134,
+      "W3DContainer": 73,
+      "W3DHierarchy": 70,
+      "AttributeModifier": 16,
+      "ObjectCreationList": 29,
+      "FXList": 84,
+      "Multisound": 50,
+      "FXParticleSystemTemplate": 214,
+      "Video": 12,
+      "VideoEventList": 12,
+      "ArmorTemplate": 12,
+      "ButtonSingleStateData": 17,
+      "ExperienceLevelTemplate": 65,
+      "LogicCommand": 23,
+      "PackedTextureImage": 46,
+      "RadiusCursor": 1,
+      "UnitAbilityButtonTemplate": 12,
+      "UnitIntro": 11,
+      "UnitTypeIcon": 3,
+      "W3DAnimation": 194,
+      "W3DCollisionBox": 34,
+      "LocomotorTemplate": 12,
+      "AptAptData": 3,
+      "AptConstData": 3,
+      "AptDatData": 3,
+      "AptGeometryData": 89,
+      "Credits": 1,
+      "HealthBarSettings": 1,
+      "HealthBarTemplate": 6
+    },
+    "profile-bc-hot": {
+      "AmbientStream": 6,
+      "AudioEvent": 304,
+      "GameObject": 121,
+      "MapMetaData": 1,
+      "OnDemandTexture": 2,
+      "OnDemandTextureImage": 7,
+      "Texture": 115,
+      "AIBuildStateDefinition": 18,
+      "AIPersonalityDefinition": 26,
+      "DamageFX": 7,
+      "LogicCommandSet": 26,
+      "ObjectFilterAsset": 7,
+      "PlayerTech": 45,
+      "PlayerTechStoreTemplate": 3,
+      "SpecialPowerTemplate": 27,
+      "WeaponTemplate": 108,
+      "UpgradeTemplate": 12,
+      "W3DContainer": 73,
+      "W3DHierarchy": 70,
+      "AttributeModifier": 16,
+      "ObjectCreationList": 29,
+      "FXList": 84,
+      "Multisound": 50,
+      "FXParticleSystemTemplate": 214,
+      "Video": 12,
+      "VideoEventList": 12,
+      "ArmorTemplate": 12,
+      "ButtonSingleStateData": 17,
+      "ExperienceLevelTemplate": 65,
+      "LogicCommand": 23,
+      "PackedTextureImage": 46,
+      "RadiusCursor": 1,
+      "UnitAbilityButtonTemplate": 12,
+      "UnitIntro": 11,
+      "UnitTypeIcon": 3,
+      "W3DCollisionBox": 34,
+      "LocomotorTemplate": 12,
+      "AptAptData": 3,
+      "AptConstData": 3,
+      "AptDatData": 3,
+      "AptGeometryData": 89,
+      "Credits": 1,
+      "HealthBarSettings": 1,
+      "HealthBarTemplate": 6
+    }
+  },
+  "hashWork": {
+    "fullRootPassesPerBuild": 10,
+    "filesHashedPerBuild": 174430,
+    "contentBytesHashedPerBuild": 4319264120,
+    "runtimeInputBytes": 5137599
+  },
+  "artifacts": [
+    {
+      "id": 12857115321,
+      "name": "upheaval-cache-cost-evidence-40778834315-1",
+      "archiveSha256": "80a828dd12eb04b4855b534f39da681fb5d2ab57194e1d15fe29b802f240484f",
+      "archiveVerifiedLocally": true
+    },
+    {
+      "id": 12856910646,
+      "name": "upheaval-cache-cost-summary-40778834315-1",
+      "archiveSha256": "ecd5e8885f594f01573562354d5f5cd3db495c6dce0f54ea1464cad0d86f19e9",
+      "archiveVerifiedLocally": true
+    }
+  ],
+  "excludedAttempts": [
+    {
+      "runId": "40778055207",
+      "sourceCommit": "de559059d708d3a89402f257b2c5f1b04ce0ebeb",
+      "reason": "Mixed-PE EXE cannot be loaded as a library into the replay helper; preflight rejected before full builds/timings"
+    }
+  ]
+}
