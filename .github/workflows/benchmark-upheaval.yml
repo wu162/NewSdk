@@ -14,7 +14,7 @@ on:
       suite:
         description: 'Choose clean baseline or expanded cache/incremental/packaging matrix'
         type: choice
-        options: [clean, expanded, packaging, cache-followup]
+        options: [clean, expanded, packaging, cache-followup, cache-cost]
         default: clean
       report_run_id:
         description: 'Optional completed benchmark run to extract reports only (no recompilation)'
@@ -32,11 +32,11 @@ permissions:
   contents: read
   actions: read
 concurrency:
-  group: benchmark-upheaval-${{ github.ref }}${{ (contains(github.event.head_commit.message, '[upheaval-cache-followup]') || inputs.suite == 'cache-followup') && '-followup' || (contains(github.event.head_commit.message, '[upheaval-report-only]') || contains(github.event.head_commit.message, '[upheaval-reaggregate]') || inputs.report_run_id != '' || inputs.expanded_report_run_id != '') && '-report' || '' }}
+  group: benchmark-upheaval-${{ github.ref }}${{ (contains(github.event.head_commit.message, '[upheaval-cache-cost]') || inputs.suite == 'cache-cost') && '-cost' || (contains(github.event.head_commit.message, '[upheaval-cache-followup]') || inputs.suite == 'cache-followup') && '-followup' || (contains(github.event.head_commit.message, '[upheaval-report-only]') || contains(github.event.head_commit.message, '[upheaval-reaggregate]') || inputs.report_run_id != '' || inputs.expanded_report_run_id != '') && '-report' || '' }}
   cancel-in-progress: false
 jobs:
   benchmark:
-    if: ${{ !contains(github.event.head_commit.message, '[upheaval-cache-followup]') && inputs.suite != 'cache-followup' && !contains(github.event.head_commit.message, '[upheaval-report-only]') && !contains(github.event.head_commit.message, '[upheaval-reaggregate]') && !contains(github.event.head_commit.message, '[upheaval-expanded]') && !contains(github.event.head_commit.message, '[upheaval-package]') && inputs.report_run_id == '' && inputs.expanded_report_run_id == '' && inputs.suite != 'expanded' && inputs.suite != 'packaging' }}
+    if: ${{ !contains(github.event.head_commit.message, '[upheaval-cache-cost]') && inputs.suite != 'cache-cost' && !contains(github.event.head_commit.message, '[upheaval-cache-followup]') && inputs.suite != 'cache-followup' && !contains(github.event.head_commit.message, '[upheaval-report-only]') && !contains(github.event.head_commit.message, '[upheaval-reaggregate]') && !contains(github.event.head_commit.message, '[upheaval-expanded]') && !contains(github.event.head_commit.message, '[upheaval-package]') && inputs.report_run_id == '' && inputs.expanded_report_run_id == '' && inputs.suite != 'expanded' && inputs.suite != 'packaging' }}
     runs-on: windows-2022
     timeout-minutes: 240
     steps:
@@ -487,5 +487,54 @@ jobs:
           path: |
             combined/
             runner-jobs.json
+          if-no-files-found: error
+          retention-days: 30
+
+  cache-cost:
+    if: ${{ contains(github.event.head_commit.message, '[upheaval-cache-cost]') || inputs.suite == 'cache-cost' }}
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Lightweight benchmark contract checks
+        shell: pwsh
+        run: |
+          python -m unittest discover -s recovery/benchmarks/upheaval -p 'test_*.py' -v
+          if($LASTEXITCODE -ne 0){throw 'Cost replay preflight failed'}
+      - name: Verify and reuse the exact accepted production Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/benchmarks/upheaval/prepare.py recovery/artifacts/upheaval-runtime
+          if($LASTEXITCODE -ne 0){throw 'Production source/runtime identity mismatch'}
+      - name: Time full builds and exact original x86 cache methods without changing the compiler
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/cache_cost.py
+          if($LASTEXITCODE -ne 0){throw 'Cost replay failed; no accepted diagnosis timings'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-cache-cost-summary-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/upheaval-cost/cost-summary.json
+            recovery/artifacts/upheaval-cost/cost-summary.md
+            recovery/artifacts/upheaval-cost/probe-cost.json
+            recovery/artifacts/upheaval-runtime/reuse.json
+          if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-cache-cost-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/artifacts/upheaval-cost/**
           if-no-files-found: error
           retention-days: 30
