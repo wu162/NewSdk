@@ -31,9 +31,38 @@ jobs:
           sparse-checkout: recovery/benchmarks/upheaval
       - name: Verify benchmark gates and statistics before long measuring jobs
         run: python -m unittest discover -s recovery/benchmarks/upheaval -p 'test_*.py' -v
+  acceptance:
+    needs: preflight
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[upheaval-cache-speed]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    steps:
+      - name: Wait for pinned production acceptance before allocating measuring VMs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ACCEPTED_SOURCE: ${{ inputs.accepted_source || 'c0f3880e2f5dd72ed0017316dce1b023ac220e00' }}
+          ACCEPTED_RUN: ${{ inputs.accepted_run || '40788966635' }}
+        run: |
+          python - <<'PYWAIT'
+          import json, os, subprocess, time
+          deadline=time.monotonic()+3600
+          while True:
+              run=json.loads(subprocess.check_output(['gh','api','repos/'+os.environ['GITHUB_REPOSITORY']+'/actions/runs/'+os.environ['ACCEPTED_RUN']]))
+              if run['head_sha']!=os.environ['ACCEPTED_SOURCE']:
+                  raise ValueError('Pinned acceptance source differs')
+              if run['status']=='completed':
+                  if run['conclusion']!='success':
+                      raise ValueError('Production acceptance failed; no timing jobs allowed')
+                  print('Pinned production acceptance passed',flush=True)
+                  break
+              if time.monotonic()>deadline:
+                  raise TimeoutError('Production acceptance did not complete within its allowed window')
+              print('Waiting for production acceptance: '+run['status'],flush=True)
+              time.sleep(30)
+          PYWAIT
   measure:
     name: cache-speed (${{ matrix.replica }})
-    needs: preflight
+    needs: [preflight, acceptance]
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[upheaval-cache-speed]')
     runs-on: windows-2022
     timeout-minutes: 100
