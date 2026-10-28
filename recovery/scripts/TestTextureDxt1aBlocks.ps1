@@ -3,7 +3,7 @@ $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/dxt1a-blocks/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('texture-s3-dxt1a-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$false;evidenceOnly=$false;productionAccepted=$false;sdkValidated=$false;scope='Experimental full original DXT1A transparent float/partial blocks and complete byte DDS; opaque DXT1/1A rejected, not production/plugin/SDK acceptance';configurations=@()}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$false;evidenceOnly=$false;productionAccepted=$false;sdkValidated=$false;scope='Production managed API compared against full original DXT1A transparent float/partial blocks and complete byte DDS; opaque DXT1/1A rejected, not production/plugin/SDK acceptance';configurations=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 50;throw "$name failed"};Get-Content "$out/$name.log"|Where-Object{$_ -match '^PASS '}}
 try{
  Copy-Item SDK/tools/*.dll $work
@@ -22,7 +22,7 @@ try{
   Get-ChildItem "$work/*.dll"|Where-Object{$_.Name -ne "BinaryAssetBuilder.TextureCompiler.dll"}|Copy-Item -Destination $isolated
   Copy-Item "$work/TextureDxt1aBlockDifferential.exe","$work/$configuration/Recovered.TexturePublicS3.dll" $isolated
   Checked "$configuration-isolated" {& "$isolated/TextureDxt1aBlockDifferential.exe" --replay "$out/$configuration-transcript.tsv.records" "$isolated/Recovered.TexturePublicS3.dll" "$isolated/Recovered.BinaryAssetBuilder.TextureCompiler.dll"}
-  $r.configurations+=@{configuration=$configuration;comparisonCompleted=$true;withoutOriginalTextureCompiler=$true;summary=@(Get-Content "$out/$configuration-original.log","$out/$configuration-isolated.log"|Where-Object{$_ -match '^PASS '})}
+  $r.configurations+=@{configuration=$configuration;passed=$true;comparisonCompleted=$true;withoutOriginalTextureCompiler=$true;summary=@(Get-Content "$out/$configuration-original.log","$out/$configuration-isolated.log"|Where-Object{$_ -match '^PASS '})}
  }
  $files=@(Get-ChildItem $out -File|Where-Object {$_.Name -match '-transcript[.]tsv([.]records|[.]options)?$'})
  Compress-Archive -Path $files.FullName -DestinationPath "$out/comparison.zip"
