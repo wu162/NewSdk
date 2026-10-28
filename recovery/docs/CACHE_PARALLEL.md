@@ -71,15 +71,17 @@ owner 在任务准入处最多每100ms重新采样一次；本 stream 的预算�
 
 ## 当前收据与续接
 
-本轮续接已接入上述11根 XML 和两类 Audio 的并行资格、资源估算、注入未知编码器的拒绝认证，以及 `MachineResources.v1` 机器资源准入与降额。新的自适应源码/测试 CI 结果待验收；以下成功运行和计量仍属于原先生产闭包，不能作为新增类型已测真实重叠、自适应资源策略或新源码发行通过的证据。
+新增 XML/Audio 组已通过完整批次：`d7ecbebf884f03b1b682bee7eecfe5db9207b8dc`，[40647141375](https://github.com/wu162/NewSdk/actions/runs/40647141375)，**success**。binarySourceCommit、testSourceCommit、packagingSourceCommit 均为该提交；Debug/Release 全新编译，保留当时最多2任务、256MiB总预算、64MiB单任务及128MiB准备态的初始保守限额。此成功不等于新 `MachineResources.v1` 自适应验收。
 
-已通过的完整批次：`125902cc5b8b0c3df3434b24db574970e2e022d5`，[40629580163](https://github.com/wu162/NewSdk/actions/runs/40629580163)，**success**。binarySourceCommit、testSourceCommit、packagingSourceCommit 均为该提交；Debug/Release 均全新编译。包含应用/Core、schema 默认属性、真实读锁及父目录换名拒绝、旧位置授权、重复include/继承、双native在途取消与真实worker异常安全汇合、CLI/jobs/协议、精确缓存/损坏/事务、输入根、Audio PCM/XAS/CDATA、W3X动画/网格缓存与双动画跨文档重叠、旧session、原BAB/BIG、完整未精简mymod与最终精确五文件ZIP独立运行。
+本批包含11根 XML 的源码资格，其中七根 Xmlaudio 通过独占准备态与 owner 三缓冲区逐字节对照；Audio 未知注入编码器拒绝、显式采样率串行及大输入预算边界通过。两配置均证明独立文档的 AudioFile 和 AptAptData 在无持久缓存时真实后端区间重叠、最大并发2，串行/并行输出逐字节相同；冷/热/单改继续覆盖完整 CDATA。MP3 mono/stereo 的 jobs1/jobs2、完整 CDATA 原字节及冷热缓存对照也通过；不将这些样例扩大为每个新增子类型的实际重叠实测。既有 W3X、读租约、旧来源授权、重复include/继承、取消/异常安全汇合、CLI/协议、缓存/损坏/事务、旧session、原BAB/BIG、完整未精简 mymod 及精确五文件 ZIP 独立运行均通过。
 
-原始归档 artifact `12791073520`，SHA256 `44d237d777bbbe6d8730beab34b1aff60c9510e2b646e8dcf48adc549f00d4fa`。已下载并核验，12组收据路径及哈希、运行文件、ZIP与逐用例数据集中在 [机器可读证据](CACHE_PARALLEL_EVIDENCE.json)。发行与源码来源分开记录，不用文档提交冒充二进制来源，不复用不匹配旧二进制。
+原始归档 artifact `12799061630`，SHA256 `3b4711b1e15283998b0173dbc9d88d002cd2890fcb4928f471cc774a414e7da0`，已下载核验12组收据、运行文件和两配置 ZIP。Debug ZIP 为 `fa423e26a51885fab908494a41fb88dd1605508052723f0bf2df56383bc61dd9`，Release 为 `9d64db7f60d85f7031c22850db58e8e9c53c4157682bea701b912dfef4246292`。逐用例区间、计量和完整身份见[机器可读证据](CACHE_PARALLEL_EVIDENCE.json)。Core 原始收据仍确认取消/异常时 Dispose 前有真实调用在途、返回后 active=0，两条区间结束，失败不发布完成状态。
 
-最终Core原始收据确认：Debug/Release的取消与native异常两种场景，Dispose前均仍有1个真实后端调用在途，返回后active=0，两个调用区间都有结束；取消发生时确实观察到2个实际调用同时在途，失败/取消均未发布文档完成或最终manifest。完整W3X无缓存对照还记录了跨文档最大实际并发2，乱序结束后输出与串行逐字节一致。
+新资源能力组在 `0f5388a4a980da7905d39eb1d703b72025699537` 改变了生产闭包，首次完整运行 [40649384165](https://github.com/wu162/NewSdk/actions/runs/40649384165) 保留实际终态。新增 owner 准入测试识别 `One.xml` 时没有遵守 Core 物理路径的小写化，后续 `c2a2cec616ff625ce37f4751084d3b82626f98f4` 仅修复测试路径大小写匹配，并重新启动完整验收。**最新自适应组仍待验收**，必须取得自己的动态降额、资源允许时超过2并发及 SDK/发行结果；不能拿固定限额二进制重放 HEAD 后标为已通过。现有复用入口仅覆盖 payload，没有 Core validation host 及完整 SDK/发行的重放验收链；最小适配成本高于一次集中重建，因此这次测试修复选择集中完整验收，未强行复用。
 
-上述先前批次的完整运行均来自成果分支。早期显式workflow_dispatch，加入push过滤后由提交标记 `[refactor-core-lifecycle]` 触发；最终运行event=push、cli_only=false。`75118632` 的采样频率限制也已独立完整通过，最终收据包含该生产改动及后续native异常测试，不需要拿早期通过范围代替它。
+成功归档重放入口的 guards [40648208910](https://github.com/wu162/NewSdk/actions/runs/40648208910) 与 [40649384198](https://github.com/wu162/NewSdk/actions/runs/40649384198) 已 success。真实 payload 重放 [40649079387](https://github.com/wu162/NewSdk/actions/runs/40649079387) 也 success，分别记录 binarySourceCommit=`d7ecbebf884f03b1b682bee7eecfe5db9207b8dc`、testSourceCommit=`0e0edc16d7e5c7229b8afc4ee8d159dc73648c0b`；原始收据已核验，重放 artifact `12799251466`、SHA256 `dbeb151510c476f53d02fe6f5036565c5d84bbb11314f72b467a3f70c96a6891`。它验证自适应前 XML/Audio 闭包的测试复用，不是 `0f5388a4` 或 `c2a2cec6` 的生产验收。
+
+旧 W3X 里程碑保留为历史来源：`125902cc5b8b0c3df3434b24db574970e2e022d5` / [40629580163](https://github.com/wu162/NewSdk/actions/runs/40629580163) success，artifact `12791073520`，SHA256 `44d237d777bbbe6d8730beab34b1aff60c9510e2b646e8dcf48adc549f00d4fa`。其取消/异常、完整 SDK 和独立 ZIP 范围不扩展为后续源码结果。主线发行不自动替换。
 
 失败记录保留原终态，均未放宽断言或超时：
 
@@ -91,28 +93,28 @@ owner 在任务准入处最多每100ms重新采样一次；本 stream 的预算�
 
 ## 单样本计量与实际边界
 
-以下为同一成功运行的 Release 小夹具，固定运行文件与输入族，顺序启动独立CLI进程；“空缓存”指编译器动作缓存为空，OS文件缓存未清空。仅提供原始耗时与调用数，不推出全MOD加速倍率；完整机器/OS缓存控制及重复采样尚未做。
+以下为 `d7ecbebf` / `40647141375` 同一成功运行的 Release 小夹具，使用当时固定保守限额，固定运行文件与输入族，顺序启动独立CLI进程；“空缓存”指编译器动作缓存为空，OS文件缓存未清空。仅提供原始耗时与调用数，不推出全MOD加速倍率，也不作为自适应源码的性能结果；完整机器/OS缓存控制及重复采样尚未做。
 
 | 夹具 | 状态 | 后端调用 | hit/miss | elapsedMs |
 | --- | --- | ---: | ---: | ---: |
-| Audio PCM/XAS | 空动作缓存 | 2 | 0/2 | 429 |
-| Audio PCM/XAS | 热缓存 | 0 | 2/0 | 412 |
-| Audio PCM/XAS | 单资产修改 | 1 | 1/1 | 421 |
-| Audio PCM/XAS | 仅Additional修改 | 0 | 2/0 | 409 |
-| W3X | 空动作缓存 | 3 | 0/3 | 490 |
-| W3X | 热缓存 | 0 | 3/0 | 432 |
-| W3X | 单资产修改 | 1 | 2/1 | 435 |
-| W3X | 仅Additional修改 | 0 | 3/0 | 448 |
+| Audio PCM/XAS | 空动作缓存 | 2 | 0/2 | 569 |
+| Audio PCM/XAS | 热缓存 | 0 | 2/0 | 571 |
+| Audio PCM/XAS | 单资产修改 | 1 | 1/1 | 589 |
+| Audio PCM/XAS | 仅Additional修改 | 0 | 2/0 | 558 |
+| W3X | 空动作缓存 | 3 | 0/3 | 634 |
+| W3X | 热缓存 | 0 | 3/0 | 595 |
+| W3X | 单资产修改 | 1 | 2/1 | 603 |
+| W3X | 仅Additional修改 | 0 | 3/0 | 591 |
 
-小夹具热运行仍有约13MiB输入保护/校验哈希读取，前端、启动、全根保护和链接继续执行；零后端调用不等于只重打包。混合Texture用例的热缓存仍有1次Texture调用；其余认证资产8hit/0miss，修改Weapon/GameObject/Armor等为7hit/1miss，含Texture总调用2。
+小夹具热运行仍有约13MiB输入保护/校验哈希读取，前端、启动、全根保护和链接继续执行；零后端调用不等于只重打包。同批 Release 双文档 streamed XAS 串行/并行分别539/500ms、APT分别611/609ms，均有实际区间重叠和原始字节对照；这两个单次计量只证明当前样例，不推导机器资源策略或大型 MOD 的速度收益。既有混合Texture验收保留其真实调用和其他认证资产命中合同，未因此开放Texture缓存。
 
 仍保留的范围与下一步：
 
-- Texture、未闭合/警告/非ASCII native读取、超大准备态继续兼容执行；本轮新增11根XML和两类Audio并行已接入源码、CI待验收，其余XML及Audio重采样/PathMusic仍串行。资格表区分源码认证与实测，未把双动画重叠扩称每个W3X或新增XML/Audio子类型实测。
+- Texture、未闭合/警告/非ASCII native读取、超大准备态继续兼容执行；新增11根XML和两类Audio已有初始保守限额的完整通过证据，MachineResources.v1自适应组仍待新验收，其余XML及Audio重采样/PathMusic仍串行。资格表区分源码认证与实测，未把样例重叠扩称每个W3X或新增XML/Audio子类型实测。
 - 各stream全根保护扫描尚未合并；已有按需恢复和扫描内工具摘要共享。跨stream再复用摘要须有稳定字节版本证明，不能用mtime/size替代。
 - 尚未形成细分全部miss原因或真实大型MOD的受控冷/热/单改/封装性能基准；先用现有报告定位剩余成本，再扩并行或减少扫描。
 
-先前 W3X 批次已完成其有界实施与验收；本轮新增 XML/Audio 仍须新 CI 收据，不把已接入源码描述为已验收。续接只需读本页、[REFACTOR_RESUME](../REFACTOR_RESUME.md)和相应最新运行；按失败步骤取原始日志，不重新全仓调研。成果在 [draft PR #17](https://github.com/wu162/NewSdk/pull/17)，目标compiler-main；禁止强推，未经用户明确批准不合入。全部编译/测试在GitHub Actions；文档整理不触发Windows构建。
+XML/Audio 初始组已完成有界实施与验收，当前继续跟进机器资源组的新 CI，不把待验收源码描述为已通过。续接只需读本页、[REFACTOR_RESUME](../REFACTOR_RESUME.md)和相应最新运行；按失败步骤取原始日志，不重新全仓调研。成果在 [draft PR #17](https://github.com/wu162/NewSdk/pull/17)，目标compiler-main；禁止强推，未经用户明确批准不合入。全部编译/测试在GitHub Actions；文档整理不触发Windows构建。
 
 ## 后续验证效率要求
 

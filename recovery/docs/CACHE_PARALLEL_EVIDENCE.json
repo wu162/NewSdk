@@ -1,106 +1,110 @@
 {
-  "binarySourceCommit": "125902cc5b8b0c3df3434b24db574970e2e022d5",
-  "testSourceCommit": "125902cc5b8b0c3df3434b24db574970e2e022d5",
-  "packagingSourceCommit": "125902cc5b8b0c3df3434b24db574970e2e022d5",
-  "runId": "40629580163",
+  "binarySourceCommit": "d7ecbebf884f03b1b682bee7eecfe5db9207b8dc",
+  "testSourceCommit": "d7ecbebf884f03b1b682bee7eecfe5db9207b8dc",
+  "packagingSourceCommit": "d7ecbebf884f03b1b682bee7eecfe5db9207b8dc",
+  "runId": "40647141375",
   "runConclusion": "success",
-  "scope": "Fresh full Windows Debug/Release build and current tests; complete unchanged mymod SDK and exact five-file ZIP deployment included. No game runtime acceptance.",
-  "artifactId": 12791073520,
-  "artifactSha256": "44d237d777bbbe6d8730beab34b1aff60c9510e2b646e8dcf48adc549f00d4fa",
+  "scope": "Fresh complete Windows Debug/Release build; certified XML/Audio/W3X tasks, exact cache and CDATA, full unchanged mymod and exact five-file independent ZIP deployment. No game runtime acceptance.",
+  "artifactId": 12799061630,
+  "artifactSha256": "3b4711b1e15283998b0173dbc9d88d002cd2890fcb4928f471cc774a414e7da0",
   "groupReceipts": [
     {
       "group": "core-lifecycle-deployment",
-      "path": "evidence/refactor/core-lifecycle-deployment/40629580163-1/validation.json",
-      "sha256": "593253fcb842f9c354424a7503f75ac880f3dcbc110ab3a5be97ae8ae8a2bed0",
+      "path": "evidence/refactor/core-lifecycle-deployment/40647141375-1/validation.json",
+      "sha256": "3d46efb56573b2aa586b951ad7c985a7fe88b25506e89bb5428683da2aec9050",
       "succeeded": true
     },
     {
       "group": "core-lifecycle",
-      "path": "evidence/refactor/core-lifecycle/40629580163-1/validation.json",
-      "sha256": "40acdc57abdfdcf51a837ef84eda5d79db38e2049cb69adefd74366f55492438",
+      "path": "evidence/refactor/core-lifecycle/40647141375-1/validation.json",
+      "sha256": "4bef1f1f55649bec2d3813a4aa03abdb5f6aab2a93bf5d3ba7f1ae260b22e693",
       "succeeded": true
     },
     {
       "group": "core-lifecycle-texture",
-      "path": "evidence/refactor/core-lifecycle-texture/40629580163-1/validation.json",
-      "sha256": "67f706eecdac764f82f762e60ac1afdba45aeb4144d655cba9e193cc67858ac7",
+      "path": "evidence/refactor/core-lifecycle-texture/40647141375-1/validation.json",
+      "sha256": "317be62b32e2236cc8bfdfdca95c1c2c42e10de8cea12dc651d413bd09e667a6",
       "succeeded": true
     },
     {
       "group": "core-cli",
-      "path": "evidence/refactor/core-cli/40629580163-1/validation.json",
-      "sha256": "42140334c8f5adb7e8d5e2b3a593a5912b3fc5c155cb14390a684f5cc317f37b",
+      "path": "evidence/refactor/core-cli/40647141375-1/validation.json",
+      "sha256": "1d135edf82012a1107df079c5ede76d5d58f0f5687ae0f07d8e2da83008fa466",
       "succeeded": true
     },
     {
       "group": "build-cache",
-      "path": "evidence/refactor/build-cache/40629580163-1/validation.json",
-      "sha256": "98dfdd82ae2941ea437a4c1e8574cda32a111aedc984140389a4b5254c510708",
+      "path": "evidence/refactor/build-cache/40647141375-1/validation.json",
+      "sha256": "6ec26a476cc90dfed0cacc57bf2ee833a4d992e8ea07203339230e4ada3c4561",
       "succeeded": true
     },
     {
       "group": "input-roots",
-      "path": "evidence/refactor/input-roots/40629580163-1/validation.json",
-      "sha256": "1297b397ed50dd2d505e4e9f2bd800a0d39232096336e19555fadeeb0be87df1",
+      "path": "evidence/refactor/input-roots/40647141375-1/validation.json",
+      "sha256": "f5762fb12331a7bd086126f2bd6d0aa92fc74fff6dc62ab12f3059c2f76d6807",
       "succeeded": true
     },
     {
       "group": "cache-payloads",
-      "path": "evidence/refactor/cache-payloads/40629580163-1/validation.json",
-      "sha256": "1641b3d718beb7dccb34f6ce1f61c82914b3dd4c22260dcb6517ea8925ca7c23",
+      "path": "evidence/refactor/cache-payloads/40647141375-1/validation.json",
+      "sha256": "ccabc05acdae668440cbef35c1ce644783f7a49e7b48e85c4b1e1e0b978a201c",
       "succeeded": true
     },
     {
       "group": "session-cache",
-      "path": "evidence/refactor/session-cache/40629580163-1/validation.json",
-      "sha256": "f5c85589c203cd62dff016ea1393e90093fcde5136a2113d20945115d434d498",
+      "path": "evidence/refactor/session-cache/40647141375-1/validation.json",
+      "sha256": "df54148bbe870f780a285bca3e82ef6ada24dabece1b05047c56bb7e16ec5433",
       "succeeded": true
     },
     {
       "group": "big",
-      "path": "evidence/refactor/big/40629580163-1/validation.json",
-      "sha256": "20a7396288376f02519acb72eb220f124a21f95246d322578fbf55450cea13eb",
+      "path": "evidence/refactor/big/40647141375-1/validation.json",
+      "sha256": "38955be0ce88dcff69285f583cdceed864f341b065441af3fedf6c1a72328f39",
       "succeeded": true
     },
     {
       "group": "sdk-mymod",
-      "path": "evidence/refactor/sdk-mymod/40629580163-1/validation.json",
-      "sha256": "8bbc1f061559bbfdfa0aad293cb5e7214567f8999898e41d63b2ae7876475d36",
+      "path": "evidence/refactor/sdk-mymod/40647141375-1/validation.json",
+      "sha256": "e29489ea83147220521ea0a462de4237ff28acddeb8561028697bfe121ae1b7e",
       "succeeded": true
     },
     {
       "group": "original-bab-Debug",
-      "path": "evidence/refactor/core-backend-baseline/40629580163-1/Debug/validation.json",
-      "sha256": "fe060b11d5eb6012c484f7ec41fb5cd68805c13bf05f6fff1e19dad2c38f35fd",
+      "path": "evidence/refactor/core-backend-baseline/40647141375-1/Debug/validation.json",
+      "sha256": "87156df63757234d2ecac9a126c2078ad35fb583411dca04a337c4be220aa00d",
       "succeeded": true
     },
     {
       "group": "original-bab-Release",
-      "path": "evidence/refactor/core-backend-baseline/40629580163-1/Release/validation.json",
-      "sha256": "04252a75e06b6295e1608f6154968801447b6b79b4fd6ef6012289a97fe09c0d",
+      "path": "evidence/refactor/core-backend-baseline/40647141375-1/Release/validation.json",
+      "sha256": "32f26ba75aa0b37681cbe7034bfa499eeb2152d3454e98e9f52d166ff4684402",
       "succeeded": true
     }
   ],
   "productionSourceHashes": [
     {
       "path": "recovery/src/App/Application/ActionAssetCache.cs",
-      "sha256": "b986271c3366aef2aa7992e30030baaa33628be52ec6b3d1603f5316780d4cc7"
+      "sha256": "fa9300b391e037e8f9b7dacd48a915f46fef3967748ebb9283e809bbdb684e99"
     },
     {
       "path": "recovery/src/App/Application/AssetTaskExecution.cs",
-      "sha256": "c4b32e60d3fcc886177b4f674ecb8385691812cc369ffd8277c7eaaaa7608dbe"
-    },
-    {
-      "path": "recovery/src/App/Application/CacheInputSnapshot.cs",
-      "sha256": "f9c38cb35a861a2007d6234b46ed12cc917a0e94a3293a1c188beac8b65486f5"
-    },
-    {
-      "path": "recovery/src/App/Application/CoreStreamCompiler.cs",
-      "sha256": "a8ae936ff81eb27c9a4c4172e629138538d4eca0a64b3ce453dbc99e53f3beb1"
+      "sha256": "9476f8f18998dde3b23e366b931b9cb49b24280e5b7d10482d40d8b213d7d707"
     },
     {
       "path": "recovery/src/App/Application/PreparedBackend.cs",
-      "sha256": "2183b19621eac4a32f7c3fc2252068f1883f508f39bf2f62df8ffe39af75778e"
+      "sha256": "81848932517727cd82c6a97285279cd05a94db8d714c21c1f805bce2c7961cc4"
+    },
+    {
+      "path": "recovery/src/App/Application/CacheInputSnapshot.cs",
+      "sha256": "23b71987db32f736728326a08c8e6fa63021a8fd5cbe76c52b943282442e6500"
+    },
+    {
+      "path": "recovery/src/App/Application/CoreStreamCompiler.cs",
+      "sha256": "6f10d396aee0a18f3b8d613bfa8ddefd253fad241e92327431ba422bc9760eb1"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/Plugin.cs",
+      "sha256": "78df1e9366f0941ef502e0ce49667e091d36c68c0774968920c15b75f288e293"
     }
   ],
   "modes": [
@@ -108,42 +112,42 @@
       "configuration": "Debug",
       "exactFiveRuntimeFiles": [
         {
-          "sha256": "f9f75b6c0fc8cd62b5f4c3a2a97f551f2053770cbae1decbb1f29c5727c71621",
           "name": "NewModCompiler.exe",
-          "bytes": 6593536
+          "sha256": "0bd17502f536d310fc3d9521ac954c53e18d711381dd3a363dc8d76a7abf7e97",
+          "bytes": 6594560
         },
         {
-          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
           "name": "NewModCompiler.exe.config",
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
           "bytes": 201
         },
         {
-          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
           "name": "antlr.runtime.dll",
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
           "bytes": 99328
         },
         {
-          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
           "name": "BinaryAssetBuilder.TextureCompiler.dll",
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
           "bytes": 917504
         },
         {
-          "sha256": "0f3ad8e45b59689810638bab8546b7ea3016b202d50f7e373437cd35142a06ad",
           "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+          "sha256": "5393f225cd84cc8c254df4aef71ab9133766ad978149f4212a24b13dcf38926d",
           "bytes": 14326
         }
       ],
       "archive": {
-        "sha256": "da21859f2c7a8b33f5c655f18c5e6caa2f6bb7c1280a29224dc67b6826bec1ff",
         "name": "NewModCompiler-Win32-Debug.zip",
-        "bytes": 2243354
+        "sha256": "fa423e26a51885fab908494a41fb88dd1605508052723f0bf2df56383bc61dd9",
+        "bytes": 2243900
       },
-      "manifestPath": "artifacts/final-release/40629580163-1/NewModCompiler-Win32-Debug.manifest.json",
-      "manifestSha256": "8db251fb66ec1e08ecd1f36a50c6e76a37debf727eda12e2ad1fe88f85cb0c28",
+      "manifestPath": "artifacts/final-release/40647141375-1/NewModCompiler-Win32-Debug.manifest.json",
+      "manifestSha256": "542f55e9ea988d6385ef95d60ae1b6c6608947ee4c65d4b45be054cdbe6ed557",
       "corePreparedContract": {
-        "path": "evidence/refactor/core-lifecycle/40629580163-1/Debug/CompilerPreparedBackend/result.json",
-        "sha256": "396a704c6c5d93aaa1baf56d3d8a3ecc8e74c685895784592da2f8b1381ff475",
-        "checks": 86,
+        "path": "evidence/refactor/core-lifecycle/40647141375-1/Debug/CompilerPreparedBackend/result.json",
+        "sha256": "5a5030d8a509f769caf12ac27cf9983daac16c31a28fec4879a2d616925a7ddb",
+        "checks": 685,
         "lifecycleEvidence": [
           {
             "scenario": "cancel-during-two-native-calls",
@@ -162,408 +166,781 @@
         ]
       },
       "parallel": {
-        "maxBackendConcurrency": 2,
-        "requestedJobs": 2,
         "passed": true,
+        "requestedJobs": 2,
         "backendCalls": 3,
-        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled",
         "intervals": [
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\p67342edc\\d\\parallel\\data\\parallelshort.xml",
-            "startTicks": 7376369528,
-            "endTicks": 7390444921,
+            "sourcePath": "d:\\a\\_temp\\p545c34ed\\d\\parallel\\data\\parallelshort.xml",
+            "startTicks": 9534052454,
+            "endTicks": 9554257864,
             "threadId": 7
           },
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\p67342edc\\d\\parallel\\data\\parallellong.xml",
-            "startTicks": 7376348677,
-            "endTicks": 7397213555,
+            "sourcePath": "d:\\a\\_temp\\p545c34ed\\d\\parallel\\data\\parallellong.xml",
+            "startTicks": 9534032283,
+            "endTicks": 9563812947,
             "threadId": 6
           }
-        ]
+        ],
+        "maxBackendConcurrency": 2,
+        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled"
       },
+      "certifiedParallel": [
+        {
+          "passed": true,
+          "requestedJobs": 2,
+          "backendCalls": 2,
+          "intervals": [
+            {
+              "typeName": "AudioFile",
+              "sourcePath": "d:\\a\\_temp\\p545c34ed\\d\\parallel-audio\\data\\audioshort.xml",
+              "startTicks": 9577204836,
+              "endTicks": 9577966230,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "sourcePath": "d:\\a\\_temp\\p545c34ed\\d\\parallel-audio\\data\\audiolong.xml",
+              "startTicks": 9577161606,
+              "endTicks": 9578301595,
+              "threadId": 6
+            }
+          ],
+          "maxBackendConcurrency": 2,
+          "scope": "Independent AudioFile source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison"
+        },
+        {
+          "passed": true,
+          "requestedJobs": 2,
+          "backendCalls": 2,
+          "intervals": [
+            {
+              "typeName": "AptAptData",
+              "sourcePath": "d:\\a\\_temp\\p545c34ed\\d\\parallel-xml\\data\\aptshort.xml",
+              "startTicks": 9625927396,
+              "endTicks": 9626196109,
+              "threadId": 7
+            },
+            {
+              "typeName": "AptAptData",
+              "sourcePath": "d:\\a\\_temp\\p545c34ed\\d\\parallel-xml\\data\\aptlong.xml",
+              "startTicks": 9625890930,
+              "endTicks": 9626249655,
+              "threadId": 6
+            }
+          ],
+          "maxBackendConcurrency": 2,
+          "scope": "Independent AptAptData source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison"
+        }
+      ],
+      "mp3Passthrough": null,
       "cases": [
         {
-          "group": "build-cache",
-          "case": "cold",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/cold/build-report.json",
-          "reportSha256": "ef1b58737ff73cce35bc54d76792946e59f10b1fbc2ebe85f6ee82636e409b17",
-          "elapsedMs": 1124,
-          "backendCalls": 9,
-          "hits": 0,
-          "misses": 8,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 37661841,
-          "restoredBytes": 0,
-          "writtenBytes": 5872,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 109158400,
-          "backendCallsByType": {
-            "ArmorTemplate": 4,
-            "WeaponTemplate": 1,
-            "GameObject": 1,
-            "Texture": 1,
-            "PathMusicEvent": 1,
-            "AptAptData": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "build-cache",
-          "case": "hot",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/hot/build-report.json",
-          "reportSha256": "618fa59b40ae1f2684a7a83a17602faa32455b10c7048789470e7928393e4975",
-          "elapsedMs": 894,
-          "backendCalls": 1,
-          "hits": 8,
-          "misses": 0,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 37661841,
-          "restoredBytes": 5872,
-          "writtenBytes": 0,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 110260224,
-          "backendCallsByType": {
-            "Texture": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "build-cache",
-          "case": "include-content-invalidated",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/include-content-invalidated/build-report.json",
-          "reportSha256": "a7fd14cdf6efe47b77c524950add01675a37dc1f4a423a05fd6165305750fbfb",
-          "elapsedMs": 963,
-          "backendCalls": 2,
-          "hits": 7,
-          "misses": 1,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 37661841,
-          "restoredBytes": 5402,
-          "writtenBytes": 470,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 110391296,
-          "backendCallsByType": {
-            "ArmorTemplate": 1,
-            "Texture": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "build-cache",
-          "case": "weapon-value-invalidated",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/weapon-value-invalidated/build-report.json",
-          "reportSha256": "c4733228cb379ceea038e31e564f4694d5ef65928dcc7dae456032ac4bbaa69b",
-          "elapsedMs": 885,
-          "backendCalls": 2,
-          "hits": 7,
-          "misses": 1,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 37661841,
-          "restoredBytes": 4138,
-          "writtenBytes": 1734,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 111304704,
-          "backendCallsByType": {
-            "WeaponTemplate": 1,
-            "Texture": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "build-cache",
-          "case": "gameobject-value-invalidated",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/gameobject-value-invalidated/build-report.json",
-          "reportSha256": "d2a395b0b28afcd0f4fe88f559d8405cb4bf81733e3ab6194a087b22d80c9b75",
-          "elapsedMs": 930,
-          "backendCalls": 2,
-          "hits": 7,
-          "misses": 1,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 37661841,
-          "restoredBytes": 3414,
-          "writtenBytes": 2458,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 110481408,
-          "backendCallsByType": {
-            "GameObject": 1,
-            "Texture": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "build-cache",
-          "case": "texture-content-invalidated",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/texture-content-invalidated/build-report.json",
-          "reportSha256": "a75f84b5b7b1a416fab8585e5ccb610aefdab442cf23ef101e307142d8be18dd",
-          "elapsedMs": 822,
-          "backendCalls": 1,
-          "hits": 8,
-          "misses": 0,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 37661841,
-          "restoredBytes": 5872,
-          "writtenBytes": 0,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 110084096,
-          "backendCallsByType": {
-            "Texture": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "build-cache",
-          "case": "unread-additional-hot",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/unread-additional-hot/build-report.json",
-          "reportSha256": "8329fe83d8e9a3c0a219d51d86a9ea18df101c5d68b7311d26cb62916cd4db90",
-          "elapsedMs": 882,
-          "backendCalls": 1,
-          "hits": 8,
-          "misses": 0,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 37661925,
-          "restoredBytes": 5872,
-          "writtenBytes": 0,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 110321664,
-          "backendCallsByType": {
-            "Texture": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "cache-payloads",
-          "case": "audio-cold",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/audio-cold/build-report.json",
-          "reportSha256": "84d81830d7289ef58b1af8c957ac67c978cd743ae5b74b81816e42eca28fc0a5",
-          "elapsedMs": 531,
-          "backendCalls": 2,
-          "hits": 0,
-          "misses": 2,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 18439864,
-          "restoredBytes": 0,
-          "writtenBytes": 21636,
-          "cacheCopyBytes": 21636,
-          "peakSampledPrivateBytes": 101236736,
-          "backendCallsByType": {
-            "AudioFile": 2
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "cache-payloads",
-          "case": "audio-hot",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/audio-hot/build-report.json",
-          "reportSha256": "624e6a0a06b809ca14def7cf18510f7d1f9c802a9fec07fdf7e44abf6aecd255",
-          "elapsedMs": 535,
+          "case": "audio-additional-only",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-additional-only/build-report.json",
+          "reportSha256": "be081008edc5c95932660511ca2bb2fefea9d2889fcee0d7dc8abda9444b4320",
+          "elapsedMs": 642,
           "backendCalls": 0,
           "hits": 2,
           "misses": 0,
           "maxBackendConcurrency": 0,
-          "hashReadBytes": 18439864,
+          "requestedJobs": 2,
+          "hashReadBytes": 18441974,
           "restoredBytes": 21636,
           "writtenBytes": 0,
           "cacheCopyBytes": 21636,
-          "peakSampledPrivateBytes": 102703104,
-          "backendCallsByType": {},
-          "requestedJobs": 1
+          "peakSampledPrivateBytes": 102834176,
+          "backendCallsByType": {}
         },
         {
-          "group": "cache-payloads",
+          "case": "audio-changed-disabled",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-changed-disabled/build-report.json",
+          "reportSha256": "a9bf55a1e65f97b83475a29e6150b69b17d573eabef7cc6eff0d4cf8e2996c86",
+          "elapsedMs": 443,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 32856,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98447360,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
+          "case": "audio-changed-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-changed-hot/build-report.json",
+          "reportSha256": "48dee6141442debe5b28dcea49be1cd92175e17819dd1e3805575808a6b0b990",
+          "elapsedMs": 611,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 18441912,
+          "restoredBytes": 21636,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 102715392,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "audio-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-cold/build-report.json",
+          "reportSha256": "ab863da184c6aaad01ea88848f90e85b82e8b631faab3be32e58bca2bfcd1f1e",
+          "elapsedMs": 722,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 2,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 18441912,
+          "restoredBytes": 0,
+          "writtenBytes": 21636,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 101982208,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
           "case": "audio-content-invalidated",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/audio-content-invalidated/build-report.json",
-          "reportSha256": "4b77be473b7c916d2205ef092bd392534ff66135e0380597abf5cf533adb058f",
-          "elapsedMs": 495,
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-content-invalidated/build-report.json",
+          "reportSha256": "243de211e869e0d9b2b26afa40b1ffc12716231ec9ba3817045e0cf77406cedc",
+          "elapsedMs": 658,
           "backendCalls": 1,
           "hits": 1,
           "misses": 1,
           "maxBackendConcurrency": 1,
-          "hashReadBytes": 18439864,
+          "requestedJobs": 2,
+          "hashReadBytes": 18441912,
           "restoredBytes": 5058,
           "writtenBytes": 16578,
           "cacheCopyBytes": 21636,
-          "peakSampledPrivateBytes": 101244928,
+          "peakSampledPrivateBytes": 101761024,
           "backendCallsByType": {
             "AudioFile": 1
-          },
-          "requestedJobs": 1
+          }
         },
         {
-          "group": "cache-payloads",
-          "case": "audio-additional-only",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/audio-additional-only/build-report.json",
-          "reportSha256": "8b5ae379025b56217b982c1062caf36a75eaeec2c28fd18bca6c9b333ae1d1ee",
-          "elapsedMs": 476,
+          "case": "audio-cross-document-parallel",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-cross-document-parallel/build-report.json",
+          "reportSha256": "a116e32661c59492d2e679dd4a64b8779e39a68551cd6ef703f453a1e298fb9c",
+          "elapsedMs": 530,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 1310808,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 110473216,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
+          "case": "audio-damaged-result-repaired",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-damaged-result-repaired/build-report.json",
+          "reportSha256": "0b809b23170763888bf3027cd33595c862311fd9e0e9af2bbdaa49de43fad8ff",
+          "elapsedMs": 596,
+          "backendCalls": 1,
+          "hits": 1,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 2,
+          "hashReadBytes": 18441974,
+          "restoredBytes": 5058,
+          "writtenBytes": 16578,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 101916672,
+          "backendCallsByType": {
+            "AudioFile": 1
+          }
+        },
+        {
+          "case": "audio-disabled",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-disabled/build-report.json",
+          "reportSha256": "68f49a81d5d8008dc605c18d3e387514c2ebb1610381515b2000bb8584bc75d5",
+          "elapsedMs": 506,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 32856,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98553856,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
+          "case": "audio-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-hot/build-report.json",
+          "reportSha256": "898c253f0af3f6f1607a5ea25f0ac85b6dde18c4eee4268b1e1c61be433aca71",
+          "elapsedMs": 652,
           "backendCalls": 0,
           "hits": 2,
           "misses": 0,
           "maxBackendConcurrency": 0,
-          "hashReadBytes": 18439926,
+          "requestedJobs": 1,
+          "hashReadBytes": 18441912,
           "restoredBytes": 21636,
           "writtenBytes": 0,
           "cacheCopyBytes": 21636,
-          "peakSampledPrivateBytes": 102850560,
-          "backendCallsByType": {},
-          "requestedJobs": 1
+          "peakSampledPrivateBytes": 102862848,
+          "backendCallsByType": {}
         },
         {
-          "group": "cache-payloads",
           "case": "audio-hot-jobs2",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/audio-hot-jobs2/build-report.json",
-          "reportSha256": "60876bbb8c7cee7ec22bcf5f0ffb1ab1a47312785469770d9da89cfb03637fcd",
-          "elapsedMs": 520,
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-hot-jobs2/build-report.json",
+          "reportSha256": "a9e3edad2bf185200d586955e2ab8384b34e44b2153b87daf3914ad99ffd8106",
+          "elapsedMs": 652,
           "backendCalls": 0,
           "hits": 2,
           "misses": 0,
           "maxBackendConcurrency": 0,
-          "hashReadBytes": 18439864,
+          "requestedJobs": 2,
+          "hashReadBytes": 18441912,
           "restoredBytes": 21636,
           "writtenBytes": 0,
           "cacheCopyBytes": 21636,
-          "peakSampledPrivateBytes": 102776832,
-          "backendCallsByType": {},
-          "requestedJobs": 2
+          "peakSampledPrivateBytes": 102858752,
+          "backendCallsByType": {}
         },
         {
-          "group": "cache-payloads",
-          "case": "w3x-cold",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-cold/build-report.json",
-          "reportSha256": "23bbc90617e61ec8c9fd2bab3b2beb41157434672aeaae6bbc7a38130a4d3fd4",
-          "elapsedMs": 514,
+          "case": "audio-parallel-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-parallel-cold/build-report.json",
+          "reportSha256": "f712afaf4ee584a777285cb68c8d5a046b277cd485a2323012b1e69db9148848",
+          "elapsedMs": 681,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 2,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 23015180,
+          "restoredBytes": 0,
+          "writtenBytes": 391108,
+          "cacheCopyBytes": 391108,
+          "peakSampledPrivateBytes": 110592000,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
+          "case": "audio-parallel-control",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-parallel-control/build-report.json",
+          "reportSha256": "06975d6110d9c879e05835db065d5d9642e8b431ef0f6a397950d909839f6f57",
+          "elapsedMs": 567,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 1310808,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 107290624,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
+          "case": "audio-parallel-edited-control",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-parallel-edited-control/build-report.json",
+          "reportSha256": "6dec167136810bab263434fb3999475b54308ca6e8cd758cfabe96dc57fa3481",
+          "elapsedMs": 581,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 1310808,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 107057152,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
+          "case": "audio-parallel-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-parallel-hot/build-report.json",
+          "reportSha256": "ae4e431a4e8399ef431ebe837ee4bfe9e2bc8bc273ed8c7294486824009e76fb",
+          "elapsedMs": 619,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 23015180,
+          "restoredBytes": 391108,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 391108,
+          "peakSampledPrivateBytes": 102752256,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "audio-parallel-single-edit",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-parallel-single-edit/build-report.json",
+          "reportSha256": "be217a5f997bb2b1af4d35d17bc789c4c4cc0e67b0449ca96e8340c9c35c09a2",
+          "elapsedMs": 674,
+          "backendCalls": 1,
+          "hits": 1,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 2,
+          "hashReadBytes": 23015180,
+          "restoredBytes": 156482,
+          "writtenBytes": 234626,
+          "cacheCopyBytes": 391108,
+          "peakSampledPrivateBytes": 107872256,
+          "backendCallsByType": {
+            "AudioFile": 1
+          }
+        },
+        {
+          "case": "audio-repaired-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/audio-repaired-hot/build-report.json",
+          "reportSha256": "a5c9ca52157190bff14987c3f9176210a58ef400135c70fcd07837d84ebeae1f",
+          "elapsedMs": 589,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 18441974,
+          "restoredBytes": 21636,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 102846464,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "mp3-parallel",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/mp3-parallel/build-report.json",
+          "reportSha256": "001c6d43dbb360bfaa551b930cc7be8e47bfc85416b53f37aa02e648fbcc3504",
+          "elapsedMs": 409,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 3133,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 99246080,
+          "backendCallsByType": {
+            "AudioFileMP3Passthrough": 2
+          }
+        },
+        {
+          "case": "mp3-parallel-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/mp3-parallel-cold/build-report.json",
+          "reportSha256": "9d6fb4bd8aac6441e95e14e0fb987946a662d22f1f03c271a5856767e2ba7d73",
+          "elapsedMs": 596,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 2,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 18316771,
+          "restoredBytes": 0,
+          "writtenBytes": 3457,
+          "cacheCopyBytes": 3457,
+          "peakSampledPrivateBytes": 99368960,
+          "backendCallsByType": {
+            "AudioFileMP3Passthrough": 2
+          }
+        },
+        {
+          "case": "mp3-parallel-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/mp3-parallel-hot/build-report.json",
+          "reportSha256": "ae1e53e79a06fcb98ef464df31555792998d3a8127eb1ca2468e64cdafd55722",
+          "elapsedMs": 594,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 18316771,
+          "restoredBytes": 3457,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 3457,
+          "peakSampledPrivateBytes": 100544512,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "mp3-serial-control",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/mp3-serial-control/build-report.json",
+          "reportSha256": "8a01f1ea581c8833aeb0deabc3fa508ac7fb3ad36b2283d4bdc352481813fbfe",
+          "elapsedMs": 429,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 3133,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98549760,
+          "backendCallsByType": {
+            "AudioFileMP3Passthrough": 2
+          }
+        },
+        {
+          "case": "w3x-additional-only",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/w3x-additional-only/build-report.json",
+          "reportSha256": "cf5600c288e070d0f0ff2dea5ede52fb474f73f5ea6fee7f0ac9e8330c1ab0b7",
+          "elapsedMs": 606,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 18314754,
+          "restoredBytes": 1386,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102768640,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "w3x-changed-disabled",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/w3x-changed-disabled/build-report.json",
+          "reportSha256": "e08cd79b1a9285bd1f5b47c08d4e16794abec20509e50dbbb11022005c0b8838",
+          "elapsedMs": 480,
           "backendCalls": 3,
           "hits": 0,
-          "misses": 3,
+          "misses": 0,
           "maxBackendConcurrency": 1,
-          "hashReadBytes": 18312644,
+          "requestedJobs": 1,
+          "hashReadBytes": 0,
           "restoredBytes": 0,
-          "writtenBytes": 1386,
-          "cacheCopyBytes": 1386,
-          "peakSampledPrivateBytes": 101195776,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98787328,
           "backendCallsByType": {
             "W3DHierarchy": 1,
             "W3DAnimation": 1,
             "W3DMesh": 1
-          },
-          "requestedJobs": 1
+          }
         },
         {
-          "group": "cache-payloads",
-          "case": "w3x-hot",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-hot/build-report.json",
-          "reportSha256": "866baa594425af1d9b5a95089addbfcb3718fdbc1ce94257f54722aa59e1cfee",
-          "elapsedMs": 512,
+          "case": "w3x-changed-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/w3x-changed-hot/build-report.json",
+          "reportSha256": "d35bf45caca28ddfbb031c967bb1a70c47bb706d63f8c09ae7e25f316f8f370a",
+          "elapsedMs": 605,
           "backendCalls": 0,
           "hits": 3,
           "misses": 0,
           "maxBackendConcurrency": 0,
-          "hashReadBytes": 18312644,
+          "requestedJobs": 2,
+          "hashReadBytes": 18314692,
           "restoredBytes": 1386,
           "writtenBytes": 0,
           "cacheCopyBytes": 1386,
-          "peakSampledPrivateBytes": 102785024,
-          "backendCallsByType": {},
-          "requestedJobs": 1
+          "peakSampledPrivateBytes": 102612992,
+          "backendCallsByType": {}
         },
         {
-          "group": "cache-payloads",
+          "case": "w3x-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/w3x-cold/build-report.json",
+          "reportSha256": "f3d2eb3fb0da35697990cafbe7c1db1ead828e3f854955bf76d3b9dd1c7a8a5d",
+          "elapsedMs": 668,
+          "backendCalls": 3,
+          "hits": 0,
+          "misses": 3,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 18314692,
+          "restoredBytes": 0,
+          "writtenBytes": 1386,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 101093376,
+          "backendCallsByType": {
+            "W3DHierarchy": 1,
+            "W3DAnimation": 1,
+            "W3DMesh": 1
+          }
+        },
+        {
           "case": "w3x-content-invalidated",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-content-invalidated/build-report.json",
-          "reportSha256": "87f78b4055f358a635fee983af040e028a643ef540c71d5d1950f079e4a68d87",
-          "elapsedMs": 499,
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/w3x-content-invalidated/build-report.json",
+          "reportSha256": "648db78e612396fd1bbf1966dffacf8f0f3dcf0e6043d7ec23630c0f42aa1f4b",
+          "elapsedMs": 651,
           "backendCalls": 1,
           "hits": 2,
           "misses": 1,
           "maxBackendConcurrency": 1,
-          "hashReadBytes": 18312644,
+          "requestedJobs": 2,
+          "hashReadBytes": 18314692,
           "restoredBytes": 780,
           "writtenBytes": 606,
           "cacheCopyBytes": 1386,
-          "peakSampledPrivateBytes": 102797312,
+          "peakSampledPrivateBytes": 103141376,
           "backendCallsByType": {
             "W3DAnimation": 1
-          },
-          "requestedJobs": 1
+          }
         },
         {
-          "group": "cache-payloads",
-          "case": "w3x-additional-only",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-additional-only/build-report.json",
-          "reportSha256": "7afa819a7922468bb727831facd145eca758c9a1f4e34f98856fc43e9ea07b5b",
-          "elapsedMs": 477,
-          "backendCalls": 0,
-          "hits": 3,
-          "misses": 0,
-          "maxBackendConcurrency": 0,
-          "hashReadBytes": 18312706,
-          "restoredBytes": 1386,
-          "writtenBytes": 0,
-          "cacheCopyBytes": 1386,
-          "peakSampledPrivateBytes": 102694912,
-          "backendCallsByType": {},
-          "requestedJobs": 1
-        },
-        {
-          "group": "cache-payloads",
-          "case": "w3x-hot-jobs2",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-hot-jobs2/build-report.json",
-          "reportSha256": "fd26c0b73a72a2f1e59fe93d23dd6fc81a399dd922b940f3d2aa07a4769cd240",
-          "elapsedMs": 479,
-          "backendCalls": 0,
-          "hits": 3,
-          "misses": 0,
-          "maxBackendConcurrency": 0,
-          "hashReadBytes": 18312644,
-          "restoredBytes": 1386,
-          "writtenBytes": 0,
-          "cacheCopyBytes": 1386,
-          "peakSampledPrivateBytes": 102780928,
-          "backendCallsByType": {},
-          "requestedJobs": 2
-        },
-        {
-          "group": "cache-payloads",
-          "case": "w3x-parallel-control",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-parallel-control/build-report.json",
-          "reportSha256": "695b1fecc0d1c305cb9e5fe60d46e4ae077e0a9d37015fd0b5a8507fe3395b96",
-          "elapsedMs": 3687,
-          "backendCalls": 3,
-          "hits": 0,
-          "misses": 0,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 0,
-          "restoredBytes": 0,
-          "writtenBytes": 0,
-          "cacheCopyBytes": 0,
-          "peakSampledPrivateBytes": 100876288,
-          "backendCallsByType": {
-            "W3DHierarchy": 1,
-            "W3DAnimation": 2
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "cache-payloads",
           "case": "w3x-cross-document-parallel",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-cross-document-parallel/build-report.json",
-          "reportSha256": "655d82c1d73a58d6001b855d1f039f3ce0ad2eb48f005e695f37dddc10865bad",
-          "elapsedMs": 2421,
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/w3x-cross-document-parallel/build-report.json",
+          "reportSha256": "b3105fe8f5a066315aa7b08e436190ef73ecdd24670404ecbf23146de287b1b4",
+          "elapsedMs": 3423,
           "backendCalls": 3,
           "hits": 0,
           "misses": 0,
           "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
           "hashReadBytes": 0,
           "restoredBytes": 0,
           "writtenBytes": 0,
           "cacheCopyBytes": 0,
-          "peakSampledPrivateBytes": 102834176,
+          "peakSampledPrivateBytes": 102551552,
           "backendCallsByType": {
             "W3DHierarchy": 1,
             "W3DAnimation": 2
-          },
-          "requestedJobs": 2
+          }
+        },
+        {
+          "case": "w3x-damaged-result-repaired",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/w3x-damaged-result-repaired/build-report.json",
+          "reportSha256": "a27dea6af21a785f0a3f91d74b6bde435aa7edae7b1aaedac38c8e3f4bf73902",
+          "elapsedMs": 635,
+          "backendCalls": 1,
+          "hits": 2,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 2,
+          "hashReadBytes": 18316572,
+          "restoredBytes": 780,
+          "writtenBytes": 606,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 103309312,
+          "backendCallsByType": {
+            "W3DAnimation": 1
+          }
+        },
+        {
+          "case": "w3x-disabled",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/w3x-disabled/build-report.json",
+          "reportSha256": "ead4eb36fced75129d1f9837e5b2fe08cbcf2ade902c08185e445f46ee7e39f2",
+          "elapsedMs": 514,
+          "backendCalls": 3,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 0,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98746368,
+          "backendCallsByType": {
+            "W3DHierarchy": 1,
+            "W3DAnimation": 1,
+            "W3DMesh": 1
+          }
+        },
+        {
+          "case": "w3x-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/w3x-hot/build-report.json",
+          "reportSha256": "955690716adce88449fe4a2dad94b75d54d0713f81f1955ace9a309de103f415",
+          "elapsedMs": 601,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 1,
+          "hashReadBytes": 18314692,
+          "restoredBytes": 1386,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102699008,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "w3x-hot-jobs2",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/w3x-hot-jobs2/build-report.json",
+          "reportSha256": "2576ae95565191446818f0467cd9ce0ae9771fdcdf8f8c63c4bbbef54851c955",
+          "elapsedMs": 606,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 18314692,
+          "restoredBytes": 1386,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102649856,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "w3x-parallel-control",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/w3x-parallel-control/build-report.json",
+          "reportSha256": "f464944e2c94b5f96100fd2893fa13b8e163289dd187af16883d4cf854d2b236",
+          "elapsedMs": 5194,
+          "backendCalls": 3,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 0,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 100646912,
+          "backendCallsByType": {
+            "W3DHierarchy": 1,
+            "W3DAnimation": 2
+          }
+        },
+        {
+          "case": "w3x-repaired-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/w3x-repaired-hot/build-report.json",
+          "reportSha256": "3c9462423c69d1fbddbece67a265243dade3b9ffb6d4c6bb5d48fb8cde89ceed",
+          "elapsedMs": 601,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 18314754,
+          "restoredBytes": 1386,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102760448,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "xml-cross-document-parallel",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/xml-cross-document-parallel/build-report.json",
+          "reportSha256": "448bc1e967c2601e48276aa9170d1e39a6c2ffef141cc99debf54505c6de0de9",
+          "elapsedMs": 625,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 12845056,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 99422208,
+          "backendCallsByType": {
+            "AptAptData": 2
+          }
+        },
+        {
+          "case": "xml-parallel-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/xml-parallel-cold/build-report.json",
+          "reportSha256": "12b90d757df428ccac967400aa3c3b3bdb66a693886e1f638ffa2891d1c41d6d",
+          "elapsedMs": 914,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 2,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 82526116,
+          "restoredBytes": 0,
+          "writtenBytes": 12845316,
+          "cacheCopyBytes": 12845316,
+          "peakSampledPrivateBytes": 157089792,
+          "backendCallsByType": {
+            "AptAptData": 2
+          }
+        },
+        {
+          "case": "xml-parallel-control",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/xml-parallel-control/build-report.json",
+          "reportSha256": "afe0b19ec065f9dff65ec31a5475df4ce482b67ae7fd7de8ebe6049dcfda35d6",
+          "elapsedMs": 657,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 12845056,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98885632,
+          "backendCallsByType": {
+            "AptAptData": 2
+          }
+        },
+        {
+          "case": "xml-parallel-edited-control",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/xml-parallel-edited-control/build-report.json",
+          "reportSha256": "01ff0ab388e7035dbc66280f813f6995743ee7a2df7cbe4c29f4e33cd1267180",
+          "elapsedMs": 624,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 12845056,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98766848,
+          "backendCallsByType": {
+            "AptAptData": 2
+          }
+        },
+        {
+          "case": "xml-parallel-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/xml-parallel-hot/build-report.json",
+          "reportSha256": "3a728a49f8893d289e65df474869930236d9c7b5587a335e7b7df980febae1e7",
+          "elapsedMs": 892,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 82526116,
+          "restoredBytes": 12845316,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 12845316,
+          "peakSampledPrivateBytes": 155516928,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "xml-parallel-single-edit",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Debug/xml-parallel-single-edit/build-report.json",
+          "reportSha256": "8ab769ffcdfab6ffb6409a8248a1856c722bc39ea5f678034a0429ab43c03759",
+          "elapsedMs": 925,
+          "backendCalls": 1,
+          "hits": 1,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 2,
+          "hashReadBytes": 82526116,
+          "restoredBytes": 262274,
+          "writtenBytes": 12583042,
+          "cacheCopyBytes": 12845316,
+          "peakSampledPrivateBytes": 157138944,
+          "backendCallsByType": {
+            "AptAptData": 1
+          }
         }
       ]
     },
@@ -571,42 +948,42 @@
       "configuration": "Release",
       "exactFiveRuntimeFiles": [
         {
-          "sha256": "6c485a9ad8392ac315f70bc5fb1e32143ba0fdb4096db8db5d837db2b7a59aed",
           "name": "NewModCompiler.exe",
-          "bytes": 4153856
+          "sha256": "1f89a165ee4633c7a84ab900319d05f6229d877faa3977b9d02290499e4c5a9d",
+          "bytes": 4154368
         },
         {
-          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
           "name": "NewModCompiler.exe.config",
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
           "bytes": 201
         },
         {
-          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
           "name": "antlr.runtime.dll",
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
           "bytes": 99328
         },
         {
-          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
           "name": "BinaryAssetBuilder.TextureCompiler.dll",
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
           "bytes": 917504
         },
         {
-          "sha256": "508ddc6bc94061c539e915c049e70f910ad62ab62de7de01bee4545dd067e6eb",
           "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+          "sha256": "7d3d119014a2306d47cfe8ecd397e0b863e1080bf550735512a11343f0532933",
           "bytes": 14326
         }
       ],
       "archive": {
-        "sha256": "1c69449d93dd17d0d71d99ece30ba822488710f2f34299d4957f3ebfe322233e",
         "name": "NewModCompiler-Win32-Release.zip",
-        "bytes": 1743209
+        "sha256": "9d64db7f60d85f7031c22850db58e8e9c53c4157682bea701b912dfef4246292",
+        "bytes": 1743610
       },
-      "manifestPath": "artifacts/final-release/40629580163-1/NewModCompiler-Win32-Release.manifest.json",
-      "manifestSha256": "4063ff474656fb714f401300b2392551096968bebe5b020e94a18d2f2988e805",
+      "manifestPath": "artifacts/final-release/40647141375-1/NewModCompiler-Win32-Release.manifest.json",
+      "manifestSha256": "1f6d617c44ed7299cf7033d03aa65f32c29134012d928a58fc9ca4ab51afaebd",
       "corePreparedContract": {
-        "path": "evidence/refactor/core-lifecycle/40629580163-1/Release/CompilerPreparedBackend/result.json",
-        "sha256": "396a704c6c5d93aaa1baf56d3d8a3ecc8e74c685895784592da2f8b1381ff475",
-        "checks": 86,
+        "path": "evidence/refactor/core-lifecycle/40647141375-1/Release/CompilerPreparedBackend/result.json",
+        "sha256": "5a5030d8a509f769caf12ac27cf9983daac16c31a28fec4879a2d616925a7ddb",
+        "checks": 685,
         "lifecycleEvidence": [
           {
             "scenario": "cancel-during-two-native-calls",
@@ -625,411 +1002,819 @@
         ]
       },
       "parallel": {
-        "maxBackendConcurrency": 2,
-        "requestedJobs": 2,
         "passed": true,
+        "requestedJobs": 2,
         "backendCalls": 3,
-        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled",
         "intervals": [
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\p67342edc\\r\\parallel\\data\\parallelshort.xml",
-            "startTicks": 7541382928,
-            "endTicks": 7544391763,
+            "sourcePath": "d:\\a\\_temp\\p545c34ed\\r\\parallel\\data\\parallelshort.xml",
+            "startTicks": 9886360099,
+            "endTicks": 9891224196,
             "threadId": 7
           },
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\p67342edc\\r\\parallel\\data\\parallellong.xml",
-            "startTicks": 7541355608,
-            "endTicks": 7545108576,
+            "sourcePath": "d:\\a\\_temp\\p545c34ed\\r\\parallel\\data\\parallellong.xml",
+            "startTicks": 9886336436,
+            "endTicks": 9893062813,
             "threadId": 6
           }
-        ]
+        ],
+        "maxBackendConcurrency": 2,
+        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled"
       },
+      "certifiedParallel": [
+        {
+          "passed": true,
+          "requestedJobs": 2,
+          "backendCalls": 2,
+          "intervals": [
+            {
+              "typeName": "AudioFile",
+              "sourcePath": "d:\\a\\_temp\\p545c34ed\\r\\parallel-audio\\data\\audioshort.xml",
+              "startTicks": 9905228833,
+              "endTicks": 9905902042,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "sourcePath": "d:\\a\\_temp\\p545c34ed\\r\\parallel-audio\\data\\audiolong.xml",
+              "startTicks": 9905186642,
+              "endTicks": 9906219569,
+              "threadId": 6
+            }
+          ],
+          "maxBackendConcurrency": 2,
+          "scope": "Independent AudioFile source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison"
+        },
+        {
+          "passed": true,
+          "requestedJobs": 2,
+          "backendCalls": 2,
+          "intervals": [
+            {
+              "typeName": "AptAptData",
+              "sourcePath": "d:\\a\\_temp\\p545c34ed\\r\\parallel-xml\\data\\aptshort.xml",
+              "startTicks": 9950647131,
+              "endTicks": 9950845991,
+              "threadId": 7
+            },
+            {
+              "typeName": "AptAptData",
+              "sourcePath": "d:\\a\\_temp\\p545c34ed\\r\\parallel-xml\\data\\aptlong.xml",
+              "startTicks": 9950614025,
+              "endTicks": 9950915837,
+              "threadId": 6
+            }
+          ],
+          "maxBackendConcurrency": 2,
+          "scope": "Independent AptAptData source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison"
+        }
+      ],
+      "mp3Passthrough": null,
       "cases": [
         {
-          "group": "build-cache",
-          "case": "cold",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/cold/build-report.json",
-          "reportSha256": "deabbc865600ec45439c0323e04b78438de1d09020a8d7bb8dc3cfd91e83a680",
-          "elapsedMs": 909,
-          "backendCalls": 9,
-          "hits": 0,
-          "misses": 8,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 27903121,
-          "restoredBytes": 0,
-          "writtenBytes": 5872,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 108781568,
-          "backendCallsByType": {
-            "ArmorTemplate": 4,
-            "WeaponTemplate": 1,
-            "GameObject": 1,
-            "Texture": 1,
-            "PathMusicEvent": 1,
-            "AptAptData": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "build-cache",
-          "case": "hot",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/hot/build-report.json",
-          "reportSha256": "068487df81518a42337eaf0e95a4b0bb563437d11ddc5899f8ffaadc6e9c00dd",
-          "elapsedMs": 805,
-          "backendCalls": 1,
-          "hits": 8,
-          "misses": 0,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 27903121,
-          "restoredBytes": 5872,
-          "writtenBytes": 0,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 109887488,
-          "backendCallsByType": {
-            "Texture": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "build-cache",
-          "case": "include-content-invalidated",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/include-content-invalidated/build-report.json",
-          "reportSha256": "8211a246cec5c83dd0da914f089436f94bbe349d5a90826d459dda61480301e6",
-          "elapsedMs": 807,
-          "backendCalls": 2,
-          "hits": 7,
-          "misses": 1,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 27903121,
-          "restoredBytes": 5402,
-          "writtenBytes": 470,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 109764608,
-          "backendCallsByType": {
-            "ArmorTemplate": 1,
-            "Texture": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "build-cache",
-          "case": "weapon-value-invalidated",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/weapon-value-invalidated/build-report.json",
-          "reportSha256": "56653a1d739f2ab7e97fe0261229bcf28be6a813a9923264068b0a09ad72d2c4",
-          "elapsedMs": 832,
-          "backendCalls": 2,
-          "hits": 7,
-          "misses": 1,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 27903121,
-          "restoredBytes": 4138,
-          "writtenBytes": 1734,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 110534656,
-          "backendCallsByType": {
-            "WeaponTemplate": 1,
-            "Texture": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "build-cache",
-          "case": "gameobject-value-invalidated",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/gameobject-value-invalidated/build-report.json",
-          "reportSha256": "d216088643eca1bf04a5939b19a03c7711bf2602d5a7bdcc5c2f2a50cf0e3315",
-          "elapsedMs": 883,
-          "backendCalls": 2,
-          "hits": 7,
-          "misses": 1,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 27903121,
-          "restoredBytes": 3414,
-          "writtenBytes": 2458,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 110034944,
-          "backendCallsByType": {
-            "GameObject": 1,
-            "Texture": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "build-cache",
-          "case": "texture-content-invalidated",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/texture-content-invalidated/build-report.json",
-          "reportSha256": "b266135e5f5091d9e477b09a7e54df04f80f65e9a9e77fb790153c7b56ef23ba",
-          "elapsedMs": 830,
-          "backendCalls": 1,
-          "hits": 8,
-          "misses": 0,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 27903121,
-          "restoredBytes": 5872,
-          "writtenBytes": 0,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 109801472,
-          "backendCallsByType": {
-            "Texture": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "build-cache",
-          "case": "unread-additional-hot",
-          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/unread-additional-hot/build-report.json",
-          "reportSha256": "c44dc44c5a7c13a5ac381670b1d3d0d7ecb42b31092b63611d39683fc2721948",
-          "elapsedMs": 726,
-          "backendCalls": 1,
-          "hits": 8,
-          "misses": 0,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 27903205,
-          "restoredBytes": 5872,
-          "writtenBytes": 0,
-          "cacheCopyBytes": 5872,
-          "peakSampledPrivateBytes": 109719552,
-          "backendCallsByType": {
-            "Texture": 1
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "cache-payloads",
-          "case": "audio-cold",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/audio-cold/build-report.json",
-          "reportSha256": "24e7f21a8f682410c110b80236014cd6fc2d7d3b5c61c8d7506667772d171245",
-          "elapsedMs": 429,
-          "backendCalls": 2,
-          "hits": 0,
-          "misses": 2,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 13560504,
-          "restoredBytes": 0,
-          "writtenBytes": 21636,
-          "cacheCopyBytes": 21636,
-          "peakSampledPrivateBytes": 100610048,
-          "backendCallsByType": {
-            "AudioFile": 2
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "cache-payloads",
-          "case": "audio-hot",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/audio-hot/build-report.json",
-          "reportSha256": "d4b02b3ae685c5394a8ab7afc3a97bea7219c758848b3508d1d0fd75b6e49598",
-          "elapsedMs": 412,
+          "case": "audio-additional-only",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-additional-only/build-report.json",
+          "reportSha256": "2f3d4b4568878a976aab81035471d4d2480ca955f4f8616107ff23de98121b4a",
+          "elapsedMs": 558,
           "backendCalls": 0,
           "hits": 2,
           "misses": 0,
           "maxBackendConcurrency": 0,
-          "hashReadBytes": 13560504,
+          "requestedJobs": 2,
+          "hashReadBytes": 13561590,
           "restoredBytes": 21636,
           "writtenBytes": 0,
           "cacheCopyBytes": 21636,
-          "peakSampledPrivateBytes": 102264832,
-          "backendCallsByType": {},
-          "requestedJobs": 1
+          "peakSampledPrivateBytes": 102166528,
+          "backendCallsByType": {}
         },
         {
-          "group": "cache-payloads",
+          "case": "audio-changed-disabled",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-changed-disabled/build-report.json",
+          "reportSha256": "3291cf8ba03c1e51ef892fc1f37d991aae3922880c5b399968a548ce46ca3eb4",
+          "elapsedMs": 408,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 32856,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98033664,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
+          "case": "audio-changed-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-changed-hot/build-report.json",
+          "reportSha256": "b9230e3fc4de2ae8803bb724d0acb608104e5093fa9b82d894306d31a17d014a",
+          "elapsedMs": 564,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 13561528,
+          "restoredBytes": 21636,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 102076416,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "audio-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-cold/build-report.json",
+          "reportSha256": "d46feffda6a447b0993893db9eb841e244b0b94b747e3e992fc3b543465f2cba",
+          "elapsedMs": 569,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 2,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 13561528,
+          "restoredBytes": 0,
+          "writtenBytes": 21636,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 101359616,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
           "case": "audio-content-invalidated",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/audio-content-invalidated/build-report.json",
-          "reportSha256": "2406703c20ccdb5529b9772a640e5587135a89be1f45aa4e79bd99c27b0cf210",
-          "elapsedMs": 421,
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-content-invalidated/build-report.json",
+          "reportSha256": "36a6e47caef1f6a235424a88ab81b13e64c919bab08fdd12fdd80f9c6e85d06f",
+          "elapsedMs": 589,
           "backendCalls": 1,
           "hits": 1,
           "misses": 1,
           "maxBackendConcurrency": 1,
-          "hashReadBytes": 13560504,
+          "requestedJobs": 2,
+          "hashReadBytes": 13561528,
           "restoredBytes": 5058,
           "writtenBytes": 16578,
           "cacheCopyBytes": 21636,
-          "peakSampledPrivateBytes": 100491264,
+          "peakSampledPrivateBytes": 101244928,
           "backendCallsByType": {
             "AudioFile": 1
-          },
-          "requestedJobs": 1
+          }
         },
         {
-          "group": "cache-payloads",
-          "case": "audio-additional-only",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/audio-additional-only/build-report.json",
-          "reportSha256": "506de4b357e0845a8587304023820d1a43d04ffbf912700161305df413bdcebf",
-          "elapsedMs": 409,
+          "case": "audio-cross-document-parallel",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-cross-document-parallel/build-report.json",
+          "reportSha256": "d7b902c413030c285978ff2d5a186d2c8bb2c129a85b33102f2a6e545918d724",
+          "elapsedMs": 500,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 1310808,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 109887488,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
+          "case": "audio-damaged-result-repaired",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-damaged-result-repaired/build-report.json",
+          "reportSha256": "8087a5b49901af49d30ad178ae14c614f314595ffb3e1bdfdbdebbad8c7dea37",
+          "elapsedMs": 583,
+          "backendCalls": 1,
+          "hits": 1,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 2,
+          "hashReadBytes": 13561590,
+          "restoredBytes": 5058,
+          "writtenBytes": 16578,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 101380096,
+          "backendCallsByType": {
+            "AudioFile": 1
+          }
+        },
+        {
+          "case": "audio-disabled",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-disabled/build-report.json",
+          "reportSha256": "2a80c392e4ada866ad95351455258e740ac7e377b3cc7321c8eaa3c801a433e0",
+          "elapsedMs": 420,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 32856,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98095104,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
+          "case": "audio-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-hot/build-report.json",
+          "reportSha256": "b6f3a51a87a81b77ed5153b13d2bc4587eed00aa2787d4b2f72285323fd582a5",
+          "elapsedMs": 571,
           "backendCalls": 0,
           "hits": 2,
           "misses": 0,
           "maxBackendConcurrency": 0,
-          "hashReadBytes": 13560566,
+          "requestedJobs": 1,
+          "hashReadBytes": 13561528,
           "restoredBytes": 21636,
           "writtenBytes": 0,
           "cacheCopyBytes": 21636,
-          "peakSampledPrivateBytes": 102182912,
-          "backendCallsByType": {},
-          "requestedJobs": 1
+          "peakSampledPrivateBytes": 102187008,
+          "backendCallsByType": {}
         },
         {
-          "group": "cache-payloads",
           "case": "audio-hot-jobs2",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/audio-hot-jobs2/build-report.json",
-          "reportSha256": "06ec00459cf3a336add900c06de2a23092216e7440bec59684505ba6530e3c09",
-          "elapsedMs": 410,
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-hot-jobs2/build-report.json",
+          "reportSha256": "7502c749a2ffa167d72b1a5dc7f2949173e768efba72a3fc94b0c1c39487db5b",
+          "elapsedMs": 568,
           "backendCalls": 0,
           "hits": 2,
           "misses": 0,
           "maxBackendConcurrency": 0,
-          "hashReadBytes": 13560504,
+          "requestedJobs": 2,
+          "hashReadBytes": 13561528,
           "restoredBytes": 21636,
           "writtenBytes": 0,
           "cacheCopyBytes": 21636,
-          "peakSampledPrivateBytes": 102236160,
-          "backendCallsByType": {},
-          "requestedJobs": 2
+          "peakSampledPrivateBytes": 102113280,
+          "backendCallsByType": {}
         },
         {
-          "group": "cache-payloads",
-          "case": "w3x-cold",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-cold/build-report.json",
-          "reportSha256": "9df93bf036b8eea348f23c47181ab05f3de74e89cd2fd808a985fd81a252d6cf",
-          "elapsedMs": 490,
+          "case": "audio-parallel-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-parallel-cold/build-report.json",
+          "reportSha256": "2aac350fd25407e3b8900253243cc2510cffc1428f092cf58592c75daf8b0bb8",
+          "elapsedMs": 661,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 2,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 18134796,
+          "restoredBytes": 0,
+          "writtenBytes": 391108,
+          "cacheCopyBytes": 391108,
+          "peakSampledPrivateBytes": 109957120,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
+          "case": "audio-parallel-control",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-parallel-control/build-report.json",
+          "reportSha256": "b7a43f095748099e9dd2b15bcef61bfa47b7784fcaf015968fa8a02868367530",
+          "elapsedMs": 539,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 1310808,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 106602496,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
+          "case": "audio-parallel-edited-control",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-parallel-edited-control/build-report.json",
+          "reportSha256": "1837ce5c2eb54cf4619ffbff02586ce90984cf4b243eb4d70610852f5c5b236c",
+          "elapsedMs": 540,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 1310808,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 106614784,
+          "backendCallsByType": {
+            "AudioFile": 2
+          }
+        },
+        {
+          "case": "audio-parallel-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-parallel-hot/build-report.json",
+          "reportSha256": "b4989395974583a9bd36da7a81d199322d64ccc0c7abc6a89e4e7f8a6e3578e7",
+          "elapsedMs": 591,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 18134796,
+          "restoredBytes": 391108,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 391108,
+          "peakSampledPrivateBytes": 102080512,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "audio-parallel-single-edit",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-parallel-single-edit/build-report.json",
+          "reportSha256": "2722efe8addc01351d850f6524985e33aefd4bea010675cd0902cf853bdf493b",
+          "elapsedMs": 653,
+          "backendCalls": 1,
+          "hits": 1,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 2,
+          "hashReadBytes": 18134796,
+          "restoredBytes": 156482,
+          "writtenBytes": 234626,
+          "cacheCopyBytes": 391108,
+          "peakSampledPrivateBytes": 107438080,
+          "backendCallsByType": {
+            "AudioFile": 1
+          }
+        },
+        {
+          "case": "audio-repaired-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/audio-repaired-hot/build-report.json",
+          "reportSha256": "d6bad2f2c7301a065708d970b000fbc080e704a4cac0b55f06f0e4924446b8d5",
+          "elapsedMs": 562,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 13561590,
+          "restoredBytes": 21636,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 102256640,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "mp3-parallel",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/mp3-parallel/build-report.json",
+          "reportSha256": "a2d6b4813c055e3a998eeff4b740939ea19789444c6e2efbdc83e3e5084b31fe",
+          "elapsedMs": 394,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 3133,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98639872,
+          "backendCallsByType": {
+            "AudioFileMP3Passthrough": 2
+          }
+        },
+        {
+          "case": "mp3-parallel-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/mp3-parallel-cold/build-report.json",
+          "reportSha256": "35a15c19384eab57645ddcb57ff31faadb702493441909cf600e0a347fce6e12",
+          "elapsedMs": 579,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 2,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 2,
+          "hashReadBytes": 13436387,
+          "restoredBytes": 0,
+          "writtenBytes": 3457,
+          "cacheCopyBytes": 3457,
+          "peakSampledPrivateBytes": 101208064,
+          "backendCallsByType": {
+            "AudioFileMP3Passthrough": 2
+          }
+        },
+        {
+          "case": "mp3-parallel-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/mp3-parallel-hot/build-report.json",
+          "reportSha256": "2ad276e3567aceb4c2028e770a26632af010d29778e2123c25e51d4c97bc26d6",
+          "elapsedMs": 591,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 13436387,
+          "restoredBytes": 3457,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 3457,
+          "peakSampledPrivateBytes": 102227968,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "mp3-serial-control",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/mp3-serial-control/build-report.json",
+          "reportSha256": "69c5a2f86d1121a729e5097f116c5bddbe445907e8a804b791f0d9533038bfa4",
+          "elapsedMs": 402,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 3133,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98045952,
+          "backendCallsByType": {
+            "AudioFileMP3Passthrough": 2
+          }
+        },
+        {
+          "case": "w3x-additional-only",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/w3x-additional-only/build-report.json",
+          "reportSha256": "1896e804f42e06f0b94a679795050d3828a2404325e229d363947ecd8d2a0a65",
+          "elapsedMs": 591,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 13434370,
+          "restoredBytes": 1386,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102080512,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "w3x-changed-disabled",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/w3x-changed-disabled/build-report.json",
+          "reportSha256": "8221994665dfa8ad1dada0cbc93a8920205bd04c89b5951404d73edfd9baeb9b",
+          "elapsedMs": 443,
           "backendCalls": 3,
           "hits": 0,
-          "misses": 3,
+          "misses": 0,
           "maxBackendConcurrency": 1,
-          "hashReadBytes": 13433284,
+          "requestedJobs": 1,
+          "hashReadBytes": 0,
           "restoredBytes": 0,
-          "writtenBytes": 1386,
-          "cacheCopyBytes": 1386,
-          "peakSampledPrivateBytes": 100585472,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98082816,
           "backendCallsByType": {
             "W3DHierarchy": 1,
             "W3DAnimation": 1,
             "W3DMesh": 1
-          },
-          "requestedJobs": 1
+          }
         },
         {
-          "group": "cache-payloads",
-          "case": "w3x-hot",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-hot/build-report.json",
-          "reportSha256": "4645748927c2c418aa8c3091adb34a54f8092249ff825ef293e34dacbfc96980",
-          "elapsedMs": 432,
+          "case": "w3x-changed-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/w3x-changed-hot/build-report.json",
+          "reportSha256": "bccc49812eddd88d35cc512213c89acbca8b16c3cab4f8ac357a689ccd244e3d",
+          "elapsedMs": 587,
           "backendCalls": 0,
           "hits": 3,
           "misses": 0,
           "maxBackendConcurrency": 0,
-          "hashReadBytes": 13433284,
+          "requestedJobs": 2,
+          "hashReadBytes": 13434308,
           "restoredBytes": 1386,
           "writtenBytes": 0,
           "cacheCopyBytes": 1386,
-          "peakSampledPrivateBytes": 102076416,
-          "backendCallsByType": {},
-          "requestedJobs": 1
+          "peakSampledPrivateBytes": 102113280,
+          "backendCallsByType": {}
         },
         {
-          "group": "cache-payloads",
+          "case": "w3x-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/w3x-cold/build-report.json",
+          "reportSha256": "c280a710810ae710c78031579976fd40512b8263178112450aefc6624df3816e",
+          "elapsedMs": 634,
+          "backendCalls": 3,
+          "hits": 0,
+          "misses": 3,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 13434308,
+          "restoredBytes": 0,
+          "writtenBytes": 1386,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 100614144,
+          "backendCallsByType": {
+            "W3DHierarchy": 1,
+            "W3DAnimation": 1,
+            "W3DMesh": 1
+          }
+        },
+        {
           "case": "w3x-content-invalidated",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-content-invalidated/build-report.json",
-          "reportSha256": "70c7cac436c8b96503fcb9ed6318e846d82a4cff367e4006c2b165ac736407f0",
-          "elapsedMs": 435,
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/w3x-content-invalidated/build-report.json",
+          "reportSha256": "67118765084d0691542eb85011b1c8da2890fd67ccc7ec0e94b2baf7a16b74d5",
+          "elapsedMs": 603,
           "backendCalls": 1,
           "hits": 2,
           "misses": 1,
           "maxBackendConcurrency": 1,
-          "hashReadBytes": 13433284,
+          "requestedJobs": 2,
+          "hashReadBytes": 13434308,
           "restoredBytes": 780,
           "writtenBytes": 606,
           "cacheCopyBytes": 1386,
-          "peakSampledPrivateBytes": 102158336,
+          "peakSampledPrivateBytes": 102748160,
           "backendCallsByType": {
             "W3DAnimation": 1
-          },
-          "requestedJobs": 1
+          }
         },
         {
-          "group": "cache-payloads",
-          "case": "w3x-additional-only",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-additional-only/build-report.json",
-          "reportSha256": "69ef2602a911bd83bf3f0b2608ecd617e3b304effa4042635162d7d2d0aadc89",
-          "elapsedMs": 448,
-          "backendCalls": 0,
-          "hits": 3,
-          "misses": 0,
-          "maxBackendConcurrency": 0,
-          "hashReadBytes": 13433346,
-          "restoredBytes": 1386,
-          "writtenBytes": 0,
-          "cacheCopyBytes": 1386,
-          "peakSampledPrivateBytes": 102162432,
-          "backendCallsByType": {},
-          "requestedJobs": 1
-        },
-        {
-          "group": "cache-payloads",
-          "case": "w3x-hot-jobs2",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-hot-jobs2/build-report.json",
-          "reportSha256": "90b4aad2235d7cb9bcff56be20f6f95bba0fada50651a6f690294695328a2cee",
-          "elapsedMs": 435,
-          "backendCalls": 0,
-          "hits": 3,
-          "misses": 0,
-          "maxBackendConcurrency": 0,
-          "hashReadBytes": 13433284,
-          "restoredBytes": 1386,
-          "writtenBytes": 0,
-          "cacheCopyBytes": 1386,
-          "peakSampledPrivateBytes": 102100992,
-          "backendCallsByType": {},
-          "requestedJobs": 2
-        },
-        {
-          "group": "cache-payloads",
-          "case": "w3x-parallel-control",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-parallel-control/build-report.json",
-          "reportSha256": "437b6efa630a0fea060048705fd5a1ed45821947dda4e47af0d110a26217d373",
-          "elapsedMs": 763,
-          "backendCalls": 3,
-          "hits": 0,
-          "misses": 0,
-          "maxBackendConcurrency": 1,
-          "hashReadBytes": 0,
-          "restoredBytes": 0,
-          "writtenBytes": 0,
-          "cacheCopyBytes": 0,
-          "peakSampledPrivateBytes": 99909632,
-          "backendCallsByType": {
-            "W3DHierarchy": 1,
-            "W3DAnimation": 2
-          },
-          "requestedJobs": 1
-        },
-        {
-          "group": "cache-payloads",
           "case": "w3x-cross-document-parallel",
-          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-cross-document-parallel/build-report.json",
-          "reportSha256": "646c9e255cc04b45ada2888dbd9df05a5cef708d0c3236b649186a32cf4a51f9",
-          "elapsedMs": 693,
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/w3x-cross-document-parallel/build-report.json",
+          "reportSha256": "a99e471325ab09640ac18606bd9bb968f9a84ccf8dcc3d7b324c2b7f0abb4c29",
+          "elapsedMs": 1100,
           "backendCalls": 3,
           "hits": 0,
           "misses": 0,
           "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
           "hashReadBytes": 0,
           "restoredBytes": 0,
           "writtenBytes": 0,
           "cacheCopyBytes": 0,
-          "peakSampledPrivateBytes": 102105088,
+          "peakSampledPrivateBytes": 102084608,
           "backendCallsByType": {
             "W3DHierarchy": 1,
             "W3DAnimation": 2
-          },
-          "requestedJobs": 2
+          }
+        },
+        {
+          "case": "w3x-damaged-result-repaired",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/w3x-damaged-result-repaired/build-report.json",
+          "reportSha256": "85fd84cf6a5dd857d584b8bff90285de20df6e7474f4f6b7184e78fe0f25d16f",
+          "elapsedMs": 593,
+          "backendCalls": 1,
+          "hits": 2,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 2,
+          "hashReadBytes": 13436188,
+          "restoredBytes": 780,
+          "writtenBytes": 606,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102670336,
+          "backendCallsByType": {
+            "W3DAnimation": 1
+          }
+        },
+        {
+          "case": "w3x-disabled",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/w3x-disabled/build-report.json",
+          "reportSha256": "861f99a01b5bb77e59490a82894991dc32eb174e859e91899ac8f463de76db70",
+          "elapsedMs": 456,
+          "backendCalls": 3,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 0,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98078720,
+          "backendCallsByType": {
+            "W3DHierarchy": 1,
+            "W3DAnimation": 1,
+            "W3DMesh": 1
+          }
+        },
+        {
+          "case": "w3x-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/w3x-hot/build-report.json",
+          "reportSha256": "16d9124344b9f1bc862027d600aeeac9f558e4f650cdc5022f121d31b6290d16",
+          "elapsedMs": 595,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 1,
+          "hashReadBytes": 13434308,
+          "restoredBytes": 1386,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102088704,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "w3x-hot-jobs2",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/w3x-hot-jobs2/build-report.json",
+          "reportSha256": "32b8b9eebf88294ed8e1ced4683c027a4f9a34324fe1b28c36315d289c007b0f",
+          "elapsedMs": 594,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 13434308,
+          "restoredBytes": 1386,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102162432,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "w3x-parallel-control",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/w3x-parallel-control/build-report.json",
+          "reportSha256": "74ef6809577ca228bebab0413cbe82339c35e430c332fa4034661a548a8eed5e",
+          "elapsedMs": 1589,
+          "backendCalls": 3,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 0,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 99782656,
+          "backendCallsByType": {
+            "W3DHierarchy": 1,
+            "W3DAnimation": 2
+          }
+        },
+        {
+          "case": "w3x-repaired-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/w3x-repaired-hot/build-report.json",
+          "reportSha256": "003d1e20cb8efe388ba833ebd052791de1146460feeaea10cf4332425580435f",
+          "elapsedMs": 591,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 13434370,
+          "restoredBytes": 1386,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102105088,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "xml-cross-document-parallel",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/xml-cross-document-parallel/build-report.json",
+          "reportSha256": "385ee71963a332de539fc888f70c5a42c400ccde35146b3a7aa8b584360977b5",
+          "elapsedMs": 609,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 12845056,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98783232,
+          "backendCallsByType": {
+            "AptAptData": 2
+          }
+        },
+        {
+          "case": "xml-parallel-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/xml-parallel-cold/build-report.json",
+          "reportSha256": "1af80ab4a2c9de2f4faf442ac63abc196b9f5626fddcce80790ecf0bdd75810e",
+          "elapsedMs": 873,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 2,
+          "maxBackendConcurrency": 2,
+          "requestedJobs": 2,
+          "hashReadBytes": 77645732,
+          "restoredBytes": 0,
+          "writtenBytes": 12845316,
+          "cacheCopyBytes": 12845316,
+          "peakSampledPrivateBytes": 156528640,
+          "backendCallsByType": {
+            "AptAptData": 2
+          }
+        },
+        {
+          "case": "xml-parallel-control",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/xml-parallel-control/build-report.json",
+          "reportSha256": "bb65ec9fbc2edf2b9337b8d71feda5179a98a2b3815905fbd9eefe7e331288ba",
+          "elapsedMs": 611,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 12845056,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98172928,
+          "backendCallsByType": {
+            "AptAptData": 2
+          }
+        },
+        {
+          "case": "xml-parallel-edited-control",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/xml-parallel-edited-control/build-report.json",
+          "reportSha256": "3d3fe9abd0e47d7ca7079e1d6a329290758723dfbd888fb452bf426ffee132eb",
+          "elapsedMs": 619,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 1,
+          "hashReadBytes": 12845056,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 98197504,
+          "backendCallsByType": {
+            "AptAptData": 2
+          }
+        },
+        {
+          "case": "xml-parallel-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/xml-parallel-hot/build-report.json",
+          "reportSha256": "5a954c274dc303b988c96e857bdddb8cf9dcb7bc649271ef9868e5de5cb112f2",
+          "elapsedMs": 864,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "requestedJobs": 2,
+          "hashReadBytes": 77645732,
+          "restoredBytes": 12845316,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 12845316,
+          "peakSampledPrivateBytes": 155045888,
+          "backendCallsByType": {}
+        },
+        {
+          "case": "xml-parallel-single-edit",
+          "reportPath": "evidence/refactor/cache-payloads/40647141375-1/Release/xml-parallel-single-edit/build-report.json",
+          "reportSha256": "0ece4ce74208c0ca0bcce75482474b916f6e8bc55e1219a7124ab3907f6b4811",
+          "elapsedMs": 884,
+          "backendCalls": 1,
+          "hits": 1,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "requestedJobs": 2,
+          "hashReadBytes": 77645732,
+          "restoredBytes": 262274,
+          "writtenBytes": 12583042,
+          "cacheCopyBytes": 12845316,
+          "peakSampledPrivateBytes": 156454912,
+          "backendCallsByType": {
+            "AptAptData": 1
+          }
         }
       ]
     }
   ],
-  "osFileCache": "Not controlled. Same hosted Windows run, sequential CLI fixture processes, one sample per case; raw elapsed values only, no generalized speedup claim."
+  "pendingAdaptiveCandidate": {
+    "sourceCommit": "c2a2cec616ff625ce37f4751084d3b82626f98f4",
+    "runId": "40650040607",
+    "status": "in_progress",
+    "scope": "MachineResources.v1 requires its own complete validation; production inputs match 0f5388a4, only Windows path matching in the owner-admission test changed."
+  },
+  "successfulTestOnlyReplay": {
+    "runId": "40649079387",
+    "runConclusion": "success",
+    "binarySourceCommit": "d7ecbebf884f03b1b682bee7eecfe5db9207b8dc",
+    "testSourceCommit": "0e0edc16d7e5c7229b8afc4ee8d159dc73648c0b",
+    "artifactId": 12799251466,
+    "artifactSha256": "dbeb151510c476f53d02fe6f5036565c5d84bbb11314f72b467a3f70c96a6891",
+    "preparationReceiptSha256": "420aadaac75d6d723f88a86288c3778b0c04be4ce05abd17ca74f7d954200a1f",
+    "testReceiptSha256": "bae1d1db4aa3644c50031a5a43735c5f450be664add1cbc93ba8eb2ea06c1c9a",
+    "runtimeHashesMatchOriginal": true,
+    "modes": [
+      {
+        "configuration": "Debug",
+        "exeSha256": "0bd17502f536d310fc3d9521ac954c53e18d711381dd3a363dc8d76a7abf7e97",
+        "passed": true
+      },
+      {
+        "configuration": "Release",
+        "exeSha256": "1f89a165ee4633c7a84ab900319d05f6229d877faa3977b9d02290499e4c5a9d",
+        "passed": true
+      }
+    ]
+  },
+  "intermediateAdaptiveAttempt": {
+    "sourceCommit": "0f5388a4a980da7905d39eb1d703b72025699537",
+    "runId": "40649384165",
+    "status": "in_progress",
+    "failedStep": "Targeted real Core, backend and application pipeline in Debug and Release",
+    "knownTestIssue": "Case-sensitive One.xml identification did not match Core lowercased physical include paths; corrected without changing owner/worker assertions."
+  }
 }
