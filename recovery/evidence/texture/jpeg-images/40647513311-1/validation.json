@@ -1,0 +1,38 @@
+{
+  "sourceCommit": "2c396358285ee1e6482b0dcd9d01b707afd8cd47",
+  "scope": "actual PC public JPEG Texture/OnDemandTexture full raw route plus complete focused raw/DXT3/5 standard/volume/mip/cdata matrix, JPEG-coded TerrainTextureAtlas base/normal; 11248 complete original buffers/errors and isolated replay; SDK separate",
+  "configurations": [],
+  "nativeBinaries": [
+    {
+      "name": "Recovered.TextureJpeg.dll",
+      "sha256": "ae54d7fda93e5c45a7f355615f06322c799b00ed4f575971700476105d484e04",
+      "machine": "I386",
+      "configuration": "Debug"
+    }
+  ],
+  "runAttempt": "1",
+  "sourceFiles": [
+    {
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66",
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json"
+    },
+    {
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9",
+      "path": "src/TextureCompiler/Colour/TextureColour.asm"
+    },
+    {
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281",
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp"
+    }
+  ],
+  "sdkValidated": false,
+  "probeOnly": false,
+  "runId": "40647513311",
+  "originalBaseline": {
+    "sourceCommit": "3f2351f2d0b0adccf416ba6dda7e97d49b5c92f6",
+    "runId": "40625499544",
+    "samplesSha256": "b758465f88b831f5952e4700531ffe5b83a9696be6889a8b9d0defdc1eee24a1"
+  },
+  "error": "S3 source fingerprint changed: s3_quant.cpp",
+  "status": "failed"
+}

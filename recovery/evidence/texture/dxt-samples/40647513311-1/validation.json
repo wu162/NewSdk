@@ -1,0 +1,26 @@
+{
+  "sourceCommit": "2c396358285ee1e6482b0dcd9d01b707afd8cd47",
+  "scope": "PC quality71 normalized float and partial DXT3/5 blocks; original float dispatch/byte DDS/NoOriginal; no new plugin/SDK scope",
+  "configurations": [],
+  "nativeBinaries": [],
+  "runAttempt": "1",
+  "sourceFiles": [
+    {
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66",
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json"
+    },
+    {
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9",
+      "path": "src/TextureCompiler/Colour/TextureColour.asm"
+    },
+    {
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281",
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp"
+    }
+  ],
+  "sdkValidated": false,
+  "probeOnly": false,
+  "runId": "40647513311",
+  "error": "S3 source fingerprint changed: s3_quant.cpp",
+  "status": "failed"
+}

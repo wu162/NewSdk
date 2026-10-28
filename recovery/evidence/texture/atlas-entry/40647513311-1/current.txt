@@ -1,0 +1,1 @@
+pattern-normal-reject repeat=1

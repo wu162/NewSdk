@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "2c396358285ee1e6482b0dcd9d01b707afd8cd47",
+  "scope": "isolated PC atlas DDS prerequisites format3 DXT5/format9 RGB555 and specified five mip levels (option +104), complete immutable original DDS; full atlas ProcessInstance/SDK separate",
+  "configurations": [],
+  "nativeBinaries": [],
+  "runAttempt": "1",
+  "originalBaseline": {
+    "sourceCommit": "9e7d671e46b3abb41e3e8ab22abd1c759e77b9c9",
+    "runId": "40597016969",
+    "samplesSha256": "506dd29951bae05e688f4c5474ffdbb594d43790d5834bf73a480b575bb7cb00"
+  },
+  "sdkValidated": false,
+  "probeOnly": false,
+  "runId": "40647513311",
+  "error": "S3 source fingerprint changed: s3_quant.cpp",
+  "status": "failed"
+}
