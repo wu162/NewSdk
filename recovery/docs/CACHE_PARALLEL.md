@@ -8,9 +8,13 @@
 
 本轮准备态拒绝诊断保留旧 `actionMissReasons` 与 `cacheBypassReasons` 语义，新增独立 `preparationRejectedReasons`，仅记录准备器实际返回false的首个门禁；缓存关闭时也记录，不把成功准备后的worker额度不足或排队算为拒绝。13种源码门禁，Windows夹具可构造11种，保留部分外读失败释放租约、成功重试清空原因与零准备预算owner输出对照；不捏造罕见header重开失败实测。
 
-完整 Xmltargeting 五类、Xmlvisibility 两根、Xmlradar 两根已加入源码并行资格，四平台含99的准备态三缓冲/冻结对照与生产八根worker、冷热、等长mtime单改已接入本批。TargetingBaseCompare没有SDK全局元素，只声明组件资格，不修改Schema扩大范围。新增独立双Mesh（8192与4顶点）的串并行真实区间、冷/热与单改原字节对照，保持原180秒门槛和机器资源准入，不靠sleep/派发钩子证明重叠。
+完整 Xmltargeting 五类、Xmlvisibility 两根、Xmlradar 两根已加入源码并行资格，四平台含99的准备态三缓冲/冻结对照与生产八根worker、冷热、等长mtime单改已接入本批。TargetingBaseCompare没有SDK全局元素，只声明组件资格，不修改Schema扩大范围。新增独立双Mesh（修正为4096与4顶点）的串并行真实区间、冷/热与单改原字节对照，保持原180秒门槛和机器资源准入，不靠sleep/派发钩子证明重叠。
 
 Radar生产保留完整Texture/PackedTextureImage强引用及ObjectFilter弱名闭包，热缓存预期仍有1次Texture owner调用；Visibility保留flags/时间/inline filter；Targeting单改交换已有两引用，避免修改依赖资产。新增9类源码资格、8个SDK公开根，准备态组件覆盖完整9类。
+
+首次本轮运行 `b467d708` / [40670721531](https://github.com/wu162/NewSdk/actions/runs/40670721531) 保留failure原终态：唯一失败是新增双Mesh夹具。原始归档12809127829、SHA256 `e69979291b815d2d44c734774dd9b00834331ecf5a9b713fb09de59496ac069f`已核；Debug actual report中requested/effective/minimum jobs均2、总预算536838144/单任务268419072不变，8192顶点Mesh线程1(owner)、4顶点Mesh线程7(worker)、2调用/max1，未触发准备拒绝。该夹具经保守PreparedBytes估算超过单任务worker门槛，兼容owner行为正确；修为4096/4顶点，保留180秒/双worker区间重叠/串并行及冷热单改原字节断言，不改生产限额。原应用/Core/原因组/三族准备态与真实worker、原BAB、Texture、CLI、普通缓存、input roots及旧session/BIG独立组通过；未执行的完整mymod与独立ZIP不冒称通过。
+
+测试修复不改变c7生产闭包；但失败批次缺完整mymod/独立final-release收据，现成功归档重放器拒绝失败源且不覆盖Core/SDK/发行完整重放，故这次集中重建一次并重新完成完整门槛，未强行复用不完整证据。后续不得再为零散测试触发全构建。
 
 首批9类生产/诊断闭包 `b467d708` 正在[40670721531](https://github.com/wu162/NewSdk/actions/runs/40670721531)集中验收。后续同一批已准备 Conditions4类（公开1根）、Objectsets3类（公开2根）、Renderdevice2根、UIimages3根、Healthbars2根、Unitoverlay1根；合计本轮24类源码资格、19个SDK公开根。新增族保持真实强引用与非空filter/string/relocation/import覆盖，未把嵌套类型充作公开资产。
 

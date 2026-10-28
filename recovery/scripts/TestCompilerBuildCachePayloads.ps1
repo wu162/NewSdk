@@ -265,7 +265,10 @@ function ParallelW3xMod([string]$Path){
     Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
 }
 function ParallelMeshMod([string]$Path){
-    # Asymmetric, linear-size meshes: the long real bridge conversion is still
+    # Bounded asymmetric meshes: 8192 vertices exceeded the conservative
+    # prepared-task estimate and correctly stayed on the owner. Use 4096 while
+    # keeping the actual two-worker interval assertion unchanged.
+    # The long real bridge conversion is still
     # in flight while the next tiny independent document is prepared. No sleep,
     # dispatch hook or quadratic animation compression is involved.
     [xml]$source=[IO.File]::ReadAllText("$root/SDK/Mods/W3xRecovery/Data/Meshes.xml")
@@ -274,7 +277,7 @@ function ParallelMeshMod([string]$Path){
     Need ($null -ne $mesh) 'Parallel mesh source is missing'
     $vertices=$mesh.SelectSingleNode('ea:Vertices',$ns).InnerXml
     $includes=''
-    foreach($item in @(@{name='MeshLong';repeat=2048},@{name='MeshShort';repeat=1})){
+    foreach($item in @(@{name='MeshLong';repeat=1024},@{name='MeshShort';repeat=1})){
         $node=$mesh.CloneNode($true);$node.SetAttribute('id',$item.name)
         $node.SelectSingleNode('ea:Vertices',$ns).InnerXml=($vertices*$item.repeat -join '')
         Put "$Path/Data/$($item.name).xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$node.OuterXml+'</AssetDeclaration>')
@@ -486,7 +489,7 @@ for name in ('ParallelLong','ParallelShort'):
     assert max(len(channel) for channel in channels)<frames
     animations.append(node.get('id'))
 assert len(set(animations))==2
-for name,vertices in (('MeshLong',8192),('MeshShort',4)):
+for name,vertices in (('MeshLong',4096),('MeshShort',4)):
     node=E.parse(str(work/('mesh/Data/'+name+'.xml'))).getroot()[0]
     assert node.tag=='{uri:ea.com:eala:asset}W3DMesh' and node.get('SortLevel')=='0'
     assert len(node.find('ea:Vertices',ns))==vertices
