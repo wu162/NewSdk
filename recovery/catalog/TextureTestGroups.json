@@ -1169,6 +1169,40 @@
       ],
       "evidence": "recovery/evidence/texture/atlas-entry/*/validation.json",
       "sdk": false
+    },
+    "sdk-PcAtlas": {
+      "script": "recovery/scripts/TestTextureAtlasSdk.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Managed/*.csproj",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Colour/**",
+        "src/TextureCompiler/Dxt/**",
+        "src/TextureCompiler/Managed/TextureAtlasDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt5FastAlphaEncoder.cs",
+        "recovery/evidence/texture/atlas-load/40599993769-1/**",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
+        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs",
+        "src/TextureCompiler/Managed/TexturePngDecoder.cs",
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "recovery/scripts/TestTextureAtlasSdk.ps1",
+        "recovery/tests/TextureDxtSdkTracePlugin.cs",
+        "SDK/tools/**",
+        "SDK/Schemas/**"
+      ],
+      "evidence": "recovery/evidence/texture/sdk-atlas/*/validation.json",
+      "sdk": true
     }
   },
   "targetPlatform": "Win32"
