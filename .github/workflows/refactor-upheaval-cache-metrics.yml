@@ -1,0 +1,170 @@
+name: Isolated Upheaval cache and parallel measurements
+on:
+  push:
+    branches: [test/upheaval-cache-parallel-bulk]
+  workflow_dispatch:
+    inputs:
+      source_commit:
+        description: Fully successful feature/cache-parallel production source SHA
+        required: true
+        type: string
+      run_id:
+        description: Fully successful core lifecycle production run ID
+        required: true
+        type: string
+      run_attempt:
+        description: Successful production run attempt
+        required: true
+        default: '1'
+        type: string
+      artifact_id:
+        description: Original complete core lifecycle artifact ID
+        required: true
+        type: string
+      archive_sha256:
+        description: Original complete artifact ZIP SHA256 matching GitHub digest
+        required: true
+        type: string
+      preflight_only:
+        description: Stop after exact input, XML, route, source and five-entry plan preflight
+        required: true
+        default: true
+        type: boolean
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: upheaval-metrics-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  guards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      run_measure: ${{ steps.entry.outputs.run_measure }}
+      preflight_only: ${{ steps.entry.outputs.preflight_only }}
+      source_commit: ${{ steps.entry.outputs.source_commit }}
+      run_id: ${{ steps.entry.outputs.run_id }}
+      run_attempt: ${{ steps.entry.outputs.run_attempt }}
+      artifact_id: ${{ steps.entry.outputs.artifact_id }}
+      archive_sha256: ${{ steps.entry.outputs.archive_sha256 }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /recovery/scripts/PrepareCompilerCliReuse.py
+            /recovery/scripts/PrepareCompilerCacheReplay.py
+            /recovery/scripts/PrepareUpheavalInputs.py
+            /recovery/scripts/TestCompilerUpheavalMetrics.ps1
+            /recovery/tests/test_prepare_compiler_cache_replay.py
+      - name: Reject wrong purposes, changed production closure and false archive origins
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python -m unittest discover -s recovery/tests -p 'test_prepare_compiler_cache_replay.py' -v
+      - name: Parse measurement scripts without compiling production or running a MOD
+        shell: pwsh
+        run: |
+          python -c "import ast,pathlib; ast.parse(pathlib.Path('recovery/scripts/PrepareUpheavalInputs.py').read_text(encoding='utf-8'))"
+          if($LASTEXITCODE -ne 0){throw 'Upheaval input script syntax rejected'}
+          $tokens=$null;$parseErrors=$null
+          $ast=[System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'recovery/scripts/TestCompilerUpheavalMetrics.ps1'),[ref]$tokens,[ref]$parseErrors)
+          if(@($parseErrors).Count -ne 0){$parseErrors|Format-List|Out-String|Write-Host;throw 'Upheaval measurement syntax rejected'}
+      - name: Resolve explicit profile and mutually exclusive run marker
+        id: entry
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          TASK_REF: ${{ github.ref }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          DISPATCH_SOURCE: ${{ inputs.source_commit }}
+          DISPATCH_RUN: ${{ inputs.run_id }}
+          DISPATCH_ATTEMPT: ${{ inputs.run_attempt }}
+          DISPATCH_ARTIFACT: ${{ inputs.artifact_id }}
+          DISPATCH_SHA256: ${{ inputs.archive_sha256 }}
+          DISPATCH_PREFLIGHT: ${{ inputs.preflight_only }}
+        run: |
+          import os, sys
+          from pathlib import Path
+          sys.path.insert(0, 'recovery/scripts')
+          from PrepareCompilerCacheReplay import resolve_upheaval_profile
+          event = os.environ['EVENT_NAME']
+          if event not in ('push', 'workflow_dispatch'): raise ValueError('Unsupported measurement event')
+          dispatch = None
+          if event == 'workflow_dispatch':
+              dispatch = dict(source_commit=os.environ['DISPATCH_SOURCE'], run_id=os.environ['DISPATCH_RUN'],
+                              run_attempt=os.environ['DISPATCH_ATTEMPT'], artifact_id=os.environ['DISPATCH_ARTIFACT'],
+                              archive_sha256=os.environ['DISPATCH_SHA256'], preflight_only=os.environ['DISPATCH_PREFLIGHT'])
+          resolved = resolve_upheaval_profile(os.environ.get('COMMIT_MESSAGE', ''), os.environ['TASK_REF'], dispatch)
+          with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
+              for key in sorted(resolved): output.write(key + '=' + resolved[key] + '\n')
+        shell: python
+  measure:
+    needs: guards
+    if: needs.guards.outputs.run_measure == 'true'
+    runs-on: windows-2022
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Validate explicit isolated measurement entry and PowerShell syntax
+        shell: pwsh
+        run: |
+          $tokens=$null;$parseErrors=$null
+          $path=Join-Path $PWD 'recovery/scripts/TestCompilerUpheavalMetrics.ps1'
+          $ast=[System.Management.Automation.Language.Parser]::ParseFile($path,[ref]$tokens,[ref]$parseErrors)
+          if(@($parseErrors).Count -ne 0){$parseErrors|Format-List|Out-String|Write-Host;throw 'Upheaval PowerShell syntax rejected'}
+          $names=@($ast.ParamBlock.Parameters|ForEach-Object{$_.Name.VariablePath.UserPath})
+          foreach($name in @('CompilerDirectory','ReplayReceipt','OutputDirectory','Preflight')){
+            if(@($names|Where-Object{$_ -ceq $name}).Count -ne 1){throw "Expected one explicit Upheaval entry parameter: $name"}
+          }
+          $preflight=@($ast.ParamBlock.Parameters|Where-Object{$_.Name.VariablePath.UserPath -ceq 'Preflight'})
+          if($preflight[0].StaticType -ne [System.Management.Automation.SwitchParameter]){throw 'Preflight must be an explicit switch'}
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Install input schema, pinned Texture audit and protocol dependencies
+        shell: pwsh
+        run: |
+          python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+          if($LASTEXITCODE -ne 0){throw 'Upheaval preflight dependencies failed'}
+      - name: Verify complete successful production archive and stage exact runtime
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPLAY_SOURCE: ${{ needs.guards.outputs.source_commit }}
+          REPLAY_RUN: ${{ needs.guards.outputs.run_id }}
+          REPLAY_ATTEMPT: ${{ needs.guards.outputs.run_attempt }}
+          REPLAY_ARTIFACT: ${{ needs.guards.outputs.artifact_id }}
+          REPLAY_SHA256: ${{ needs.guards.outputs.archive_sha256 }}
+        run: |
+          python recovery/scripts/PrepareCompilerCacheReplay.py --repo . --candidate-commit $env:GITHUB_SHA --purpose upheaval-metrics --source-commit $env:REPLAY_SOURCE --run-id $env:REPLAY_RUN --run-attempt $env:REPLAY_ATTEMPT --artifact-id $env:REPLAY_ARTIFACT --archive-sha256 $env:REPLAY_SHA256 --archive "$env:RUNNER_TEMP/upheaval-production.zip" --output recovery/artifacts/upheaval-runtime
+          if($LASTEXITCODE -ne 0){throw 'Upheaval successful production archive reuse rejected'}
+      - name: Preflight once and optionally measure full original Upheaval in Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PREFLIGHT_ONLY: ${{ needs.guards.outputs.preflight_only }}
+        run: |
+          if($env:PREFLIGHT_ONLY -cnotin @('true','false')){throw 'Upheaval preflight input must be an explicit boolean'}
+          $compiler=Join-Path $PWD 'recovery/artifacts/upheaval-runtime'
+          $evidence="recovery/evidence/refactor/upheaval-metrics/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          $preflightOnly=[bool]::Parse($env:PREFLIGHT_ONLY)
+          ./recovery/scripts/TestCompilerUpheavalMetrics.ps1 -CompilerDirectory $compiler -ReplayReceipt (Join-Path $compiler 'cache-payload-replay.json') -OutputDirectory $evidence -Preflight:$preflightOnly
+          if($LASTEXITCODE -ne 0){throw 'Upheaval input/plan preflight or measurement failed; no retry'}
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Upheaval report/event protocol schema validation failed'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-cache-metrics-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/upheaval-runtime/cache-payload-replay.json
+            recovery/evidence/refactor/upheaval-metrics/${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
