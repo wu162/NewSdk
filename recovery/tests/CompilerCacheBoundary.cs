@@ -316,7 +316,7 @@ public static class CompilerCacheBoundary
             Compile(plugins, "observed-routes", Asset("<Includes><Include type='all' source='" + Escape(included) + "'/></Includes><xi:include href='" + Escape(new Uri(xincluded).AbsoluteUri) + "'/><ArmorTemplate id='ObservedRootArmor'/>") );
         }
         Require(reads.Contains(Path.Combine(inside, "observed-routes.xml")) && reads.Contains(included) && reads.Contains(xincluded) && reads.Contains(nested), "Real XML/Include/XInclude consumption must use observed input streams");
-        Require(reads.Contains(Path.Combine(sdk, "Schemas/xsd/CnC3Types.xsd")), "Real schema root must use observed input bytes");
+        Require(reads.Contains(Path.GetFullPath(Path.Combine(sdk, "Schemas/xsd/CnC3Types.xsd"))), "Real schema root must use observed input bytes");
         Require(reads.Count > 5, "Real schema includes must contribute their consumed byte paths");
         tests.Add("real-Core-XML-Include-nested-XInclude-special-character-base-URI-and-transitive-schema-read-observation-with-four-output-success");
     }
