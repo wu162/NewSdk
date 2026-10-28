@@ -99,6 +99,128 @@ jobs:
           with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
               for key in sorted(resolved): output.write(key + '=' + resolved[key] + '\n')
         shell: python
+  replay_completed_measurement:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.github/workflows/refactor-upheaval-cache-metrics.yml
+            /recovery/protocol/
+            /recovery/scripts/app-protocol-requirements.txt
+      - name: Install pinned schema dependencies for archived evidence only
+        run: python -m pip install -r recovery/scripts/app-protocol-requirements.txt
+      - name: Revalidate fixed completed Upheaval archive without executing a compiler
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: python
+        run: |
+          import hashlib, json, os, re, subprocess, sys, textwrap, zipfile
+          from pathlib import Path, PurePosixPath
+          run_id, artifact_id = 40682631514, 12814381539
+          head = '12c947494feb1d90d18e65ad551019f7020042bc'
+          expected_sha = '893e9aa6a2aa2d983455ebb9cce8d3cf763aab8d0311d011551334c173f0fa1a'
+          base = 'repos/wu162/NewSdk/'
+          out = Path('upheaval-archive-replay'); out.mkdir()
+          def need(value, message):
+              if not value:
+                  raise ValueError(message)
+          def api(path):
+              return json.loads(subprocess.check_output(['gh','api',base + path], timeout=60))
+          audit = dict(succeeded=False, runId=run_id, artifactId=artifact_id, sourceCommit=head,
+                       scope='Fixed original measurement archive only: no CLI, backend, compiler, SDK build or large MOD invocation.')
+          try:
+              run = api('actions/runs/' + str(run_id) + '/attempts/1')
+              artifact = api('actions/artifacts/' + str(artifact_id))
+              need(run['id'] == run_id and run['run_attempt'] == 1 and run['head_sha'] == head and
+                   run['head_branch'] == 'test/upheaval-cache-parallel-bulk' and run['status'] == 'completed' and
+                   run['conclusion'] == 'failure' and run['path'] == '.github/workflows/refactor-upheaval-cache-metrics.yml', 'Original failed workflow identity differs')
+              origin = artifact['workflow_run']
+              need(artifact['id'] == artifact_id and not artifact['expired'] and origin['id'] == run_id and
+                   origin['head_sha'] == head and origin['head_branch'] == run['head_branch'] and
+                   origin['repository_id'] == run['repository']['id'] and origin['head_repository_id'] == run['head_repository']['id'] and
+                   artifact['digest'] == 'sha256:' + expected_sha, 'Original measurement artifact origin/digest differs')
+              archive = Path(os.environ['RUNNER_TEMP']) / 'upheaval-completed-measurement.zip'
+              with archive.open('xb') as stream:
+                  subprocess.run(['gh','api',base + 'actions/artifacts/' + str(artifact_id) + '/zip'], stdout=stream, check=True, timeout=180)
+              need(hashlib.sha256(archive.read_bytes()).hexdigest() == expected_sha, 'Original archive raw SHA256 differs')
+              prefix = 'evidence/refactor/upheaval-metrics/40682631514-1/'
+              cases = ['preflight-plan','no-cache-jobs1','no-cache-jobs4','empty-action-cache-jobs4','hot-action-cache-1','hot-action-cache-2','hot-action-cache-3']
+              build_cases = cases[1:]
+              with zipfile.ZipFile(archive) as source:
+                  entries = source.namelist()
+                  need(len(entries) == len(set(entries)), 'Duplicate ZIP entries')
+                  for name in entries:
+                      path = PurePosixPath(name)
+                      need(not path.is_absolute() and '..' not in path.parts and '\\' not in name, 'Unsafe archived path')
+                  def document(name):
+                      return json.loads(source.read(prefix + name).decode('utf-8-sig'))
+                  state = document('validation.json')
+                  need(state['succeeded'] is True and state['preflightOnly'] is False and state['testSourceCommit'] == head and
+                       state['binarySourceCommit'] == 'ac22f7770c7172d1dcb00699387b32bf12be46b7' and
+                       str(state['runId']) == str(run_id) and str(state['runAttempt']) == '1' and
+                       state['inputChecks'] == dict(mod=True,runtime=True,sdk=True), 'Archived measurement receipt differs')
+                  need(state['modInputs']['fileCount'] == 2723 and state['modInputs']['bytes'] == 300900885 and
+                       state['modInputs']['modTree'] == '5551fc26a6f96b62613443e0d0fa2958c14cbce0', 'Original complete MOD input identity differs')
+                  replay = out / 'cases'; replay.mkdir()
+                  for relative in ['validation.json'] + [case + '/' + leaf for case in cases for leaf in ('build-report.json','build.events.jsonl','control.json')]:
+                      target = replay / relative; target.parent.mkdir(parents=True,exist_ok=True)
+                      target.write_bytes(source.read(prefix + relative))
+                  baseline = None; checked = []
+                  for case in cases:
+                      control = document(case + '/control.json')
+                      report = document(case + '/build-report.json')
+                      events = [json.loads(line) for line in source.read(prefix + case + '/build.events.jsonl').decode('utf-8-sig').splitlines()]
+                      need(control['succeeded'] is True and control['processExitCode'] == 0 and control['singleProcessJobEnforced'] is True and
+                           control['singleProcessJobLimit'] == 1 and control['descendants'] == [] and
+                           events[0]['payload']['processId'] == control['processId'], 'Archived process control differs: ' + case)
+                      if case == 'preflight-plan':
+                          continue
+                      row = next(item for item in state['cases'] if item['name'] == case)
+                      artifacts = row['artifacts']
+                      need(row['passed'] is True and row['artifactCount'] == 1311 and row['customDataCount'] == 1291 and
+                           len(artifacts) == len(report['artifacts']) == 1311, 'Archived complete output membership differs: ' + case)
+                      by_name = {item['path']:item for item in artifacts}
+                      need(len(by_name) == 1311 and sum(item['bytes'] for item in artifacts) == 77873601, 'Archived output paths/byte totals differ: ' + case)
+                      actual_names = {name[len(prefix + case + '/artifacts/'):] for name in entries if name.startswith(prefix + case + '/artifacts/') and not name.endswith('/')}
+                      need(actual_names == set(by_name), 'Archive contains omitted/unlisted output: ' + case)
+                      report_rows = {re.sub(r'[\\/]+','/',item['Path']).split('/published/',1)[1]:item for item in report['artifacts']}
+                      need(set(report_rows) == set(by_name), 'Durable report output membership differs: ' + case)
+                      for suffix in ('.manifest','.bin','.imp','.relo'):
+                          need(sum(name.endswith(suffix) for name in by_name) == 5, 'Five complete stream quartet differs: ' + case)
+                      need(sum(name.endswith('.cdata') for name in by_name) == 1291, 'CDATA membership differs: ' + case)
+                      for name, item in by_name.items():
+                          raw = source.read(prefix + case + '/artifacts/' + name)
+                          need(len(raw) == item['bytes'] and hashlib.sha256(raw).hexdigest() == item['sha256'] and
+                               report_rows[name]['Size'] == item['bytes'] and report_rows[name]['Sha256'] == item['sha256'], 'Archived output digest differs: ' + case + '/' + name)
+                          if baseline is not None:
+                              need(name in baseline and raw == source.read(prefix + 'no-cache-jobs1/artifacts/' + name), 'Raw serial/parallel/cache output differs: ' + case + '/' + name)
+                      if baseline is None:
+                          baseline = by_name
+                      checked.append(dict(case=case, artifactCount=1311, bytes=77873601, rawEqualToBaseline=True))
+              # Execute exactly the same checked-in inline protocol checker used
+              # after future measurements, against only this archive's JSON pairs.
+              workflow = Path('.github/workflows/refactor-upheaval-cache-metrics.yml').read_text()
+              block = workflow.split("$protocolCheck=@'\n",1)[1].split("\n          '@",1)[0]
+              checker = textwrap.dedent(block)
+              sys.argv = ['archived-upheaval-protocol', str(replay)]
+              exec(compile(checker,'checked-in-inline-protocol','exec'), dict(__name__='__main__'))
+              audit.update(succeeded=True, archiveSha256=expected_sha, rawOutputCases=checked,
+                           protocol=json.loads((replay / 'protocol.json').read_text()))
+          except Exception as error:
+              audit['failure'] = type(error).__name__ + ': ' + str(error)
+              raise
+          finally:
+              (out / 'validation.json').write_text(json.dumps(audit,indent=2) + '\n')
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-fixed-archive-replay-${{ github.run_id }}-${{ github.run_attempt }}
+          path: upheaval-archive-replay
+          if-no-files-found: error
   measure:
     needs: guards
     if: needs.guards.outputs.run_measure == 'true'
@@ -156,10 +278,96 @@ jobs:
           $compiler=Join-Path $PWD 'recovery/artifacts/upheaval-runtime'
           $evidence="recovery/evidence/refactor/upheaval-metrics/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           $preflightOnly=[bool]::Parse($env:PREFLIGHT_ONLY)
-          ./recovery/scripts/TestCompilerUpheavalMetrics.ps1 -CompilerDirectory $compiler -ReplayReceipt (Join-Path $compiler 'cache-payload-replay.json') -OutputDirectory $evidence -Preflight:$preflightOnly
-          if($LASTEXITCODE -ne 0){throw 'Upheaval input/plan preflight or measurement failed; no retry'}
-          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
-          if($LASTEXITCODE -ne 0){throw 'Upheaval report/event protocol schema validation failed'}
+          $ErrorActionPreference='Stop'
+          try {
+            & ./recovery/scripts/TestCompilerUpheavalMetrics.ps1 -CompilerDirectory $compiler -ReplayReceipt (Join-Path $compiler 'cache-payload-replay.json') -OutputDirectory $evidence -Preflight:$preflightOnly
+            $controllerSucceeded=$?
+            if(!$controllerSucceeded){throw 'Upheaval controller failed; no downstream validation or retry'}
+          } catch { throw }
+          $measurement=Get-Content -LiteralPath (Join-Path $evidence 'validation.json') -Raw|ConvertFrom-Json
+          if($measurement.succeeded -ne $true){throw 'Upheaval measurement receipt failed; preserve its original outcome'}
+          # This custom Release-only evidence is intentionally not the ordinary
+          # Debug/Release directory layout expected by ValidateAppProtocol.py.
+          $protocolCheck=@'
+          import hashlib, importlib.metadata, json, os, sys
+          from pathlib import Path
+          from jsonschema import Draft202012Validator, FormatChecker
+          root = Path(sys.argv[1])
+          output = root / 'protocol.json'
+          receipt = dict(status='failed', sourceCommit=os.environ['GITHUB_SHA'], configuration='Release',
+                         scope='Exact Upheaval case reports/events: protocol schemas and lifecycle only; no new compilation.',
+                         validatedFiles=[], schemaInputs=[], errors=[])
+          def require(value, message):
+              if not value:
+                  raise ValueError(message)
+          def digest(path):
+              return hashlib.sha256(path.read_bytes()).hexdigest()
+          try:
+              for package, version in {'jsonschema':'4.23.0', 'rfc3339-validator':'0.1.4'}.items():
+                  require(importlib.metadata.version(package) == version, 'Pinned protocol dependency differs: ' + package)
+              checker = FormatChecker()
+              require('date-time' in checker.checkers, 'RFC3339 checker is missing')
+              validators = {}
+              for kind in ('report', 'event'):
+                  path = Path('recovery/protocol') / ('build-' + kind + '.schema.json')
+                  schema = json.loads(path.read_text(encoding='utf-8-sig'))
+                  Draft202012Validator.check_schema(schema)
+                  validators[kind] = Draft202012Validator(schema, format_checker=checker)
+                  receipt['schemaInputs'].append(dict(path=path.as_posix(), sha256=digest(path)))
+              state = json.loads((root / 'validation.json').read_text(encoding='utf-8-sig'))
+              require(state.get('succeeded') is True, 'Measurement did not succeed')
+              names = ['preflight-plan']
+              if not state['preflightOnly']:
+                  names += ['no-cache-jobs1', 'no-cache-jobs4', 'empty-action-cache-jobs4']
+                  names += ['hot-action-cache-' + str(index) for index in range(1, 4)]
+              actual = [row['name'] for row in state['cases']]
+              require(actual == names and all(row.get('passed') is True for row in state['cases']), 'Exact ordered case receipt differs')
+              expected = {name + '/' + leaf for name in names for leaf in ('build-report.json', 'build.events.jsonl')}
+              found = {path.relative_to(root).as_posix() for path in root.rglob('*')
+                       if path.is_file() and path.name in ('build-report.json', 'build.events.jsonl')}
+              require(found == expected, 'Actual nonempty case report/event pairs differ')
+              event_count = 0
+              for name in names:
+                  report_path = root / name / 'build-report.json'
+                  events_path = root / name / 'build.events.jsonl'
+                  report = json.loads(report_path.read_text(encoding='utf-8-sig'))
+                  raw = events_path.read_bytes()
+                  require(raw and raw.endswith(b'\n'), 'Incomplete or empty event file: ' + name)
+                  events = [json.loads(line) for line in raw.decode('utf-8-sig').splitlines()]
+                  validators['report'].validate(report)
+                  for event in events:
+                      validators['event'].validate(event)
+                  require(report['status'] == 'succeeded' and report['exitCode'] == 0, 'Case report outcome differs: ' + name)
+                  require(events[0]['eventType'] == 'BuildStarted' and events[-1]['eventType'] == 'BuildFinished', 'Case terminal events differ: ' + name)
+                  for index, event in enumerate(events, 1):
+                      require(event['sequence'] == index and event['buildId'] == report['buildId'], 'Case event correlation differs: ' + name)
+                  require(sum(event['eventType'] == 'BuildStarted' for event in events) == 1 and
+                          sum(event['eventType'] == 'BuildFinished' for event in events) == 1, 'Duplicate case terminal event: ' + name)
+                  require(events[-1]['payload']['exitCode'] == report['exitCode'] and events[-1]['payload']['status'] == report['status'], 'Terminal/report outcome differs: ' + name)
+                  starts = [event for event in events if event['eventType'] == 'StreamStarted']
+                  ends = [event for event in events if event['eventType'] == 'StreamCompleted']
+                  expected_streams = 0 if name == 'preflight-plan' else 5
+                  require(len(starts) == len(ends) == expected_streams, 'Actual stream count differs: ' + name)
+                  tasks = report['plan']['Tasks']
+                  require(len(tasks) == 5 and len({task['Id'] for task in tasks}) == 5, 'Task plan differs: ' + name)
+                  if expected_streams:
+                      for task in tasks:
+                          begin = [event for event in starts if event['streamId'] == task['Id']]
+                          end = [event for event in ends if event['streamId'] == task['Id']]
+                          require(len(begin) == len(end) == 1 and begin[0]['sequence'] < end[0]['sequence'] and
+                                  begin[0]['payload']['input'] == task['InputPath'] and end[0]['payload']['status'] == 'succeeded', 'Actual stream/task identity differs: ' + name)
+                  event_count += len(events)
+                  for path in (report_path, events_path):
+                      receipt['validatedFiles'].append(dict(path=path.relative_to(root).as_posix(), sha256=digest(path)))
+              receipt.update(status='passed', reports=len(names), eventFiles=len(names), events=event_count)
+          except Exception as error:
+              receipt['errors'].append(type(error).__name__ + ': ' + str(error))
+          output.write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
+          require(receipt['status'] == 'passed', 'Upheaval case protocol validation failed: ' + '; '.join(receipt['errors']))
+          print('PASS Upheaval protocol: ' + str(receipt['reports']) + ' exact report/event pairs')
+          '@
+          $protocolCheck | python - $evidence
+          if($LASTEXITCODE -ne 0){throw 'Upheaval actual case report/event schema validation failed'}
       - uses: actions/upload-artifact@v4
         if: always()
         with:

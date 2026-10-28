@@ -20,8 +20,30 @@ $setupClock=[Diagnostics.Stopwatch]::StartNew();$phaseWatch=$null;$phaseName=$nu
 function EndSetupPhase([bool]$Succeeded=$true){
     if($script:phaseWatch){$script:phaseWatch.Stop();$state.setupPhaseTimings+=,@{name=$script:phaseName;elapsedMs=$script:phaseWatch.ElapsedMilliseconds;succeeded=$Succeeded};Write-Host ("END Upheaval setup {0}: elapsedMs={1} succeeded={2}" -f $script:phaseName,$script:phaseWatch.ElapsedMilliseconds,$Succeeded);$script:phaseWatch=$null}
 }
-function BeginSetupPhase([string]$Name){EndSetupPhase;$script:phaseName=$Name;$script:phaseWatch=[Diagnostics.Stopwatch]::StartNew();Write-Host ("START Upheaval setup {0}" -f $Name)}
+function BeginSetupPhase([string]$Name){EndSetupPhase;Need ($setupClock.ElapsedMilliseconds -lt 900000) 'Upheaval preparation exceeded its independent 900-second deadline; not product cancellation';$script:phaseName=$Name;$script:phaseWatch=[Diagnostics.Stopwatch]::StartNew();Write-Host ("START Upheaval setup {0}" -f $Name)}
 function Need([bool]$Value,[string]$Message){if(!$Value){throw $Message}}
+function InvokeInputTool([string[]]$Arguments,[string]$Log,[int]$Seconds=600,[bool]$ForSetup=$true){
+    if($ForSetup){$Seconds=[int][Math]::Min($Seconds,[Math]::Ceiling((900000-$setupClock.ElapsedMilliseconds)/1000));Need ($Seconds -gt 0) 'Upheaval setup deadline exceeded; not product cancellation'}
+    $info=[Diagnostics.ProcessStartInfo]::new('python');$info.WorkingDirectory=$root;$info.UseShellExecute=$false
+    $info.RedirectStandardOutput=$true;$info.RedirectStandardError=$true
+    foreach($argument in $Arguments){$info.ArgumentList.Add($argument)}
+    $process=[Diagnostics.Process]::new();$process.StartInfo=$info;$started=$false;$stdout=$null;$stderr=$null
+    try{
+        $started=$process.Start();Need $started 'Cannot start Upheaval input/reuse helper'
+        $stdout=$process.StandardOutput.ReadToEndAsync();$stderr=$process.StandardError.ReadToEndAsync()
+        Need ($process.WaitForExit($Seconds*1000)) 'Upheaval input/reuse helper deadline exceeded; preparation failure, not product cancellation'
+        Need ($stdout.Wait(15000) -and $stderr.Wait(15000)) 'Upheaval input/reuse helper output did not close within its deadline'
+        Need ($process.ExitCode -eq 0) ("Upheaval input/reuse helper failed with exit {0}" -f $process.ExitCode)
+    }finally{
+        try{if($started -and !$process.HasExited){$process.Kill($true);$null=$process.WaitForExit(15000)}}catch{Write-Host 'Upheaval helper process-tree cleanup failed; preserving preparation failure'}
+        try{
+            $text=if($stdout -and $stdout.Status -eq [Threading.Tasks.TaskStatus]::RanToCompletion){$stdout.GetAwaiter().GetResult()}else{'Helper stdout unavailable/incomplete after bounded cleanup.'}
+            $text+=if($stderr -and $stderr.Status -eq [Threading.Tasks.TaskStatus]::RanToCompletion){$stderr.GetAwaiter().GetResult()}else{'Helper stderr unavailable/incomplete after bounded cleanup.'}
+            [IO.File]::WriteAllText($Log,$text)
+        }catch{Write-Host 'Unable to save helper stream log; preserving original preparation failure'}
+        $process.Dispose()
+    }
+}
 function Hash([string]$Path){(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
 function Within([string]$Directory,[string]$Path){
     $base=[IO.Path]::GetFullPath($Directory).TrimEnd([char[]]'\/');$full=[IO.Path]::GetFullPath($Path)
@@ -60,12 +82,21 @@ function InvokeProduct([string]$Name,[string]$Command,[string]$Destination,[bool
         Need (@($rows|Where-Object{$_.eventType -ceq 'BuildStarted'}).Count -eq 1 -and @($rows|Where-Object{$_.eventType -ceq 'BuildFinished'}).Count -eq 1) 'Upheaval protocol terminal events are duplicated'
         $sequence=0;foreach($row in $rows){$sequence++;Need ($row.sequence -eq $sequence -and $row.buildId -ceq $body.buildId) 'Upheaval protocol identity/sequence differs'}
         Need ($rows[0].payload.processId -eq $audit.processId) 'Upheaval report is from another process'
+        Need ($rows[-1].payload.exitCode -eq $body.exitCode -and $rows[-1].payload.status -ceq $body.status) 'BuildFinished outcome differs from durable report'
         $tasks=@($body.plan.Tasks);Need ($tasks.Count -eq 5) 'Upheaval actual plan must have exactly five tasks'
         $actualInputs=@($tasks|ForEach-Object{[IO.Path]::GetRelativePath($script:mod,$_.InputPath).Replace('\','/')}|Sort-Object)
         Need (($actualInputs -join "`n") -ceq (($script:inputContract.entries|Sort-Object) -join "`n")) 'Actual CLI plan input set differs from pinned five entries'
         Need (@($tasks|Where-Object{$_.Content -ceq 'base'}).Count -eq 1 -and @($tasks|Where-Object{$_.Content -ceq 'apt'}).Count -eq 3 -and @($tasks|Where-Object{$_.Content -ceq 'maps'}).Count -eq 1) 'Actual CLI plan groups differ'
         $files=@{}
         if($Command -ceq 'build'){
+            $starts=@($rows|Where-Object{$_.eventType -ceq 'StreamStarted'});$completed=@($rows|Where-Object{$_.eventType -ceq 'StreamCompleted'})
+            Need ($starts.Count -eq 5 -and $completed.Count -eq 5) 'Successful Upheaval build must start and complete exactly five real streams'
+            $ids=[Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+            foreach($task in $tasks){
+                Need (![string]::IsNullOrEmpty($task.Id) -and $ids.Add([string]$task.Id)) 'Upheaval plan task IDs must be unique and nonempty'
+                $start=@($starts|Where-Object{$_.streamId -ceq $task.Id});$end=@($completed|Where-Object{$_.streamId -ceq $task.Id})
+                Need ($start.Count -eq 1 -and $end.Count -eq 1 -and $start[0].sequence -lt $end[0].sequence -and $start[0].payload.input -ceq $task.InputPath -and $end[0].payload.status -ceq 'succeeded') 'Real Upheaval stream/task identity, input, ordering or completion differs'
+            }
             Need ($body.diagnosticCounts.error -eq 0) 'Upheaval reported Core errors despite a successful exit; stop before further large builds'
             Need ($body.publicationStatus -ceq 'PublishedDirectory' -and $body.cache.executionEngine -ceq 'AssetTasks.v1') 'Upheaval build did not publish through the shared asset executor'
             Need ($body.cache.requestedJobs -eq $Jobs) 'Reported user concurrency upper bound differs'
@@ -154,8 +185,7 @@ public static class UpheavalInputInventory {
     try{$state.testSourceCommit=(& git rev-parse HEAD).Trim();Need ($LASTEXITCODE -eq 0) 'Cannot identify test source'}finally{Pop-Location}
     $CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path;$ReplayReceipt=(Resolve-Path -LiteralPath $ReplayReceipt).Path
     Need ($ReplayReceipt -ceq (Join-Path $CompilerDirectory 'cache-payload-replay.json')) 'Replay receipt must belong to prepared compiler directory'
-    & python "$PSScriptRoot/PrepareCompilerCacheReplay.py" --repo $root --candidate-commit $state.testSourceCommit --verify-prepared $ReplayReceipt --purpose upheaval-metrics *> "$out/replay-verification.log"
-    Need ($LASTEXITCODE -eq 0) 'Strict successful archive/production closure/API/runtime replay verification failed'
+    InvokeInputTool @("$PSScriptRoot/PrepareCompilerCacheReplay.py",'--repo',$root,'--candidate-commit',$state.testSourceCommit,'--verify-prepared',$ReplayReceipt,'--purpose','upheaval-metrics') "$out/replay-verification.log" 600
     $replay=Get-Content -LiteralPath $ReplayReceipt -Raw|ConvertFrom-Json
     Need ($replay.purpose -ceq 'upheaval-metrics' -and $replay.prepared -eq $true -and $replay.candidateValidated -eq $false -and $replay.productionSourcesUnchanged -eq $true -and $replay.testSourceCommit -ceq $state.testSourceCommit) 'Reuse purpose/source contract differs'
     $measurementNames=@('recovery/scripts/TestCompilerUpheavalMetrics.ps1','recovery/scripts/PrepareUpheavalInputs.py')
@@ -165,8 +195,7 @@ public static class UpheavalInputInventory {
     $sdk=(Resolve-Path -LiteralPath (Join-Path $root 'SDK')).Path;$mod=Join-Path $work 'Upheaval';$runtime=(New-Item -ItemType Directory -Path (Join-Path $work 'runtime')).FullName
     Need (!(Within $sdk $mod) -and !(Within $sdk $out) -and !(Within $mod $out)) 'Measurement must not add MOD or outputs to original SDK inputs'
     BeginSetupPhase 'input-extraction-schema-routes'
-    & python "$PSScriptRoot/PrepareUpheavalInputs.py" --repo $root --sdk $sdk --mod $mod --output "$out/mod-inputs.json" *> "$out/input-preflight.log"
-    Need ($LASTEXITCODE -eq 0) 'Complete pinned MOD blob/schema/route/input preflight failed'
+    InvokeInputTool @("$PSScriptRoot/PrepareUpheavalInputs.py",'--repo',$root,'--sdk',$sdk,'--mod',$mod,'--output',"$out/mod-inputs.json") "$out/input-preflight.log" 600
     $inputContract=Get-Content -LiteralPath "$out/mod-inputs.json" -Raw|ConvertFrom-Json
     Need ($inputContract.sourceCommit -ceq 'bacfc69fc3e71c8116d1f22b933b8b6173170ecf' -and $inputContract.modTree -ceq '5551fc26a6f96b62613443e0d0fa2958c14cbce0' -and $inputContract.fileCount -eq 2723 -and $inputContract.bytes -eq 300900885) 'Complete original MOD contract differs'
     $state.modInputs=$inputContract
@@ -257,9 +286,9 @@ public static class UpheavalRawBytes {
     if($runtime -and $state.runtimeInputs){$watch=[Diagnostics.Stopwatch]::StartNew();try{Unchanged $runtime $state.runtimeInputs;$inputChecks.runtime=$true}catch{$inputChecks.runtime=$false;$state.succeeded=$false;$state.inputVerificationFailure=$_.Exception.ToString()}finally{$state.verificationPhaseTimings+=,@{name='runtime-input-inventory';elapsedMs=$watch.ElapsedMilliseconds;succeeded=$inputChecks.runtime}}}
     if(Test-Path -LiteralPath "$out/mod-inputs.json"){
         $watch=[Diagnostics.Stopwatch]::StartNew()
-        & python "$PSScriptRoot/PrepareUpheavalInputs.py" --mod $mod --verify "$out/mod-inputs.json" --output "$out/mod-after.json" *> "$out/input-after.log"
-        $inputChecks.mod=($LASTEXITCODE -eq 0);if(!$inputChecks.mod){$state.succeeded=$false;$state.inputVerificationFailure='Complete MOD input changed'}
-        $state.verificationPhaseTimings+=,@{name='complete-mod-input-inventory';elapsedMs=$watch.ElapsedMilliseconds;succeeded=$inputChecks.mod}
+        try{InvokeInputTool @("$PSScriptRoot/PrepareUpheavalInputs.py",'--mod',$mod,'--verify',"$out/mod-inputs.json",'--output',"$out/mod-after.json") "$out/input-after.log" 180 $false;$inputChecks.mod=$true}
+        catch{$inputChecks.mod=$false;$state.succeeded=$false;$state.inputVerificationFailure=$_.Exception.ToString()}
+        finally{$state.verificationPhaseTimings+=,@{name='complete-mod-input-inventory';elapsedMs=$watch.ElapsedMilliseconds;succeeded=$inputChecks.mod}}
     }
     $state.finalVerificationElapsedMs=$verificationClock.ElapsedMilliseconds
     Write-Host ("END Upheaval final input verification: elapsedMs={0}" -f $state.finalVerificationElapsedMs)

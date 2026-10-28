@@ -3,12 +3,14 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path, PurePosixPath
 import re
 import runpy
 import stat
 import subprocess
 import tarfile
+import time
 from lxml import etree as E
 
 SOURCE = 'bacfc69fc3e71c8116d1f22b933b8b6173170ecf'
@@ -16,6 +18,14 @@ PREFIX = 'SDK/Mods/Upheaval/'
 TREE = '5551fc26a6f96b62613443e0d0fa2958c14cbce0'
 COUNT, BYTES = 2723, 300900885
 NS = 'uri:ea.com:eala:asset'
+DEADLINE = None
+
+
+def remaining(limit=180):
+    value = limit if DEADLINE is None else min(limit, DEADLINE - time.monotonic())
+    if value <= 0:
+        raise TimeoutError('Upheaval input preparation deadline exceeded; not product cancellation')
+    return value
 
 
 def need(value, message):
@@ -24,7 +34,7 @@ def need(value, message):
 
 
 def git(repo, *args):
-    return subprocess.check_output(['git', '-C', str(repo), *args])
+    return subprocess.check_output(['git', '-C', str(repo), *args], timeout=remaining())
 
 
 def sha(data):
@@ -39,11 +49,24 @@ def inventory(root):
              'Input reparse point rejected: ' + str(path))
     ordinary(Path(root))
     result = []
-    for p in sorted(Path(root).rglob('*')):
-        ordinary(p)
-        if p.is_file():
-            data = p.read_bytes()
-            result.append(dict(path=p.relative_to(root).as_posix(), bytes=len(data), sha256=sha(data)))
+    pending = [Path(root)]
+    while pending:
+        remaining()
+        directory = pending.pop()
+        ordinary(directory)
+        with os.scandir(directory) as entries:
+            for entry in entries:
+                remaining()
+                p = Path(entry.path)
+                ordinary(p)  # Reject symlinks/junctions BEFORE descending.
+                if entry.is_dir(follow_symlinks=False):
+                    pending.append(p)
+                elif entry.is_file(follow_symlinks=False):
+                    data = p.read_bytes()
+                    result.append(dict(path=p.relative_to(root).as_posix(), bytes=len(data), sha256=sha(data)))
+                else:
+                    raise ValueError('Non-regular input rejected: ' + str(p))
+    result.sort(key=lambda row: row['path'])
     return result
 
 
@@ -65,17 +88,27 @@ def prepare(repo, sdk, mod, output):
         blobs.add(blob); file_count += 1
     need(file_count == COUNT, 'Pinned tree file count differs before hydration')
     promisor = subprocess.run(['git', '-C', str(repo), 'config', '--get', 'remote.origin.promisor'],
-                              check=False, capture_output=True, text=True)
+                              check=False, capture_output=True, text=True, timeout=remaining())
     need(promisor.returncode in (0, 1), 'Cannot inspect promisor configuration')
     if promisor.returncode == 0 and promisor.stdout.strip().lower() == 'true':
         print('Prefetching complete pinned Upheaval blob set in one bounded promisor fetch.', flush=True)
-        subprocess.run(['git', '-C', str(repo), '-c', 'credential.helper=',
+        environment = dict(os.environ, GIT_TERMINAL_PROMPT='0', GCM_INTERACTIVE='never')
+        fetched = subprocess.run(['git', '-C', str(repo), '-c', 'credential.helper=',
                         '-c', 'credential.helper=!gh auth git-credential',
                         '-c', 'fetch.negotiationAlgorithm=noop', 'fetch', 'origin',
                         '--no-tags', '--no-write-fetch-head', '--recurse-submodules=no',
                         '--filter=blob:none', '--stdin'],
                        input=('\n'.join(sorted(blobs)) + '\n').encode('ascii'),
-                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=300, check=True)
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=remaining(300), check=False, env=environment)
+        if fetched.returncode != 0:
+            # Emit fixed categories only, never raw remote/helper output that
+            # could contain credential material or an authenticated URL.
+            error = fetched.stderr.lower()
+            categories = [label for text, label in ((b'authentication', 'authentication'), (b'not found', 'not-found'),
+                (b'resolve host', 'dns'), (b'timed out', 'network-timeout'), (b'not our ref', 'object-unavailable')) if text in error]
+            print('Upheaval hydration failed: exit=' + str(fetched.returncode) + ' categories=' + ','.join(categories) +
+                  ' stderrBytes=' + str(len(fetched.stderr)) + ' stderrSha256=' + sha(fetched.stderr), flush=True)
+            raise RuntimeError('Bounded Upheaval hydration failed; credential output withheld')
         print('Pinned Upheaval bulk blob hydration completed.', flush=True)
     else:
         print('Repository is not an origin promisor clone; using its existing complete objects.', flush=True)
@@ -98,6 +131,7 @@ def prepare(repo, sdk, mod, output):
     try:
         with tarfile.open(fileobj=process.stdout, mode='r|') as archive:
             for member in archive:
+                remaining()
                 if member.isdir():
                     continue
                 need(member.isfile() and member.name.startswith(PREFIX), 'Unsafe archive entry')
@@ -113,17 +147,18 @@ def prepare(repo, sdk, mod, output):
         # must follow EOF, not precede draining the producer's remaining bytes.
         print('Upheaval TAR entries extracted; draining git archive stdout to EOF.', flush=True)
         for _ in iter(lambda: process.stdout.read(65536), b''):
-            pass
-        need(process.wait() == 0, 'Pinned git archive failed')
+            remaining()
+        need(process.wait(timeout=remaining()) == 0, 'Pinned git archive failed')
         print('Upheaval git archive exited; checking all extracted input blobs.', flush=True)
     finally:
         if process.poll() is None:
             process.kill()
-            process.wait()
+            process.wait(timeout=15)
         process.stdout.close()
     inputs = inventory(mod)
     need(len(inputs) == COUNT, 'Extracted input count differs')
     for row in inputs:
+        remaining()
         data = (mod / row['path']).read_bytes()
         old = expected[row['path']]
         need(row['bytes'] == old['bytes'] and hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest() == old['blob'], 'Extracted input blob differs: ' + row['path'])
@@ -138,9 +173,12 @@ def prepare(repo, sdk, mod, output):
     schema_module = runpy.run_path(str(schema_script), run_name='upheaval_schema_preflight')
     need(Path(schema_module['S']).resolve() == (Path(sdk) / 'Schemas/xsd').resolve(), 'Aggregate schema must use the measured immutable SDK')
     schema = schema_module['aggregate_schema']()
+    remaining()
     types, documents, runtime_xml = {}, [], []
     parser = E.XMLParser(resolve_entities=False, no_network=True)
-    for p in sorted(mod.rglob('*')):
+    for input_row in inputs:
+        remaining()
+        p = mod / input_row['path']
         if p.suffix.lower() not in ('.xml', '.w3x'):
             continue
         doc = E.parse(str(p), parser)
@@ -176,6 +214,8 @@ def prepare(repo, sdk, mod, output):
 
 
 def main():
+    global DEADLINE
+    DEADLINE = time.monotonic() + 600
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--repo', type=Path)
     ap.add_argument('--sdk', type=Path)
