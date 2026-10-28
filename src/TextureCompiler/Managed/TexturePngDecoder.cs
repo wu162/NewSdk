@@ -48,7 +48,7 @@ namespace Recovered.Compiler.Texture
             int width = 0, height = 0, depth = 0, color = -1, interlace = 0;
             uint gamma=0;
             byte[] palette = null, transparency = null;
-            bool header = false, ended = false, idatSeen = false, idatEnded = false;
+            bool header = false, ended = false, idatSeen = false, idatEnded = false, srgb = false;
             using (MemoryStream compressed = new MemoryStream())
             {
                 int at = 8;
@@ -85,15 +85,25 @@ namespace Recovered.Compiler.Texture
                         case "gAMA":
                             if(idatSeen||n!=4||Big(data,payload)==0)throw Invalid();
                             gamma=Big(data,payload);break;
+                        case "sRGB":
+                            // Legacy libpng accepts intents 0..3 before IDAT. A
+                            // valid sRGB declaration takes precedence over gAMA,
+                            // including a gAMA chunk that follows it. Late or
+                            // malformed declarations do not change the samples.
+                            if(!idatSeen&&n==1&&data[payload]<=3)srgb=true;
+                            break;
                         case "IDAT":
                             if (idatEnded || (color == 3 && palette == null)) throw Invalid();
                             compressed.Write(data, payload, n); idatSeen = true; break;
                         case "IEND":
                             if (n != 0 || !idatSeen) throw Invalid(); ended = true; break;
                         case "acTL": case "fcTL": case "fdAT":
-                            throw new NotSupportedException("Animated PNG has not been recovered.");
                         case "iCCP":
-                            throw new NotSupportedException("PNG ICC profiles have not been accepted against legacy D3DX.");
+                            // D3DX consumes the default PNG image in IDAT. It
+                            // neither color-manages ICC profiles nor composites
+                            // APNG frames; ancillary payload validity does not
+                            // alter that image. Chunk framing/CRC remain checked.
+                            break;
                         default:
                             if ((data[at + 4] & 32) == 0) throw new NotSupportedException("Unknown critical PNG chunk.");
                             break;
@@ -102,6 +112,7 @@ namespace Recovered.Compiler.Texture
                     if (ended) break;
                 }
                 if (!ended) throw Invalid();
+                if(srgb)gamma=45455;
                 // NPOT decoding is coupled to D3DX texture creation and resampling.
                 bool npot = (width & (width - 1)) != 0 || (height & (height - 1)) != 0;
                 if(color==3||(color==4&&depth==16)||(color==0&&depth==16&&transparency!=null))

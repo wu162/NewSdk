@@ -1,3 +1,9 @@
+# 当前进行中：PNG ICC/APNG 与 sRGB/gAMA 完整能力组
+
+- **本轮完成**：仅PC、单代理、编译测试仅Actions。原版取证c812b809 / [40779895712](https://github.com/wu162/NewSdk/actions/runs/40779895712) success：4680输入、9360原调用、3120完整RGBA/1560原错误。补充2cab4931 / [40780410178](https://github.com/wu162/NewSdk/actions/runs/40780410178) success：3240输入、6480原调用、2160完整RGBA/1080原错误。两份不可变gold和固定ICC来源已集中本分支；收据均probe-only，不能当恢复验收。
+- **实现/验证中**：原版忽略ICC与APNG帧/控制payload，读取IDAT默认图；有效sRGB（IDAT前、长度1、intent 0..3）覆盖前/后gAMA。无效或IDAT后sRGB不覆盖；有效sRGB后再遇无效重复声明仍保留。恢复源码和双入口gold重放、完整插件/atlas/透明DXT1A消费矩阵已准备，以下提交集中跑受影响完整组件；尚未取得恢复成功收据，不宣称启用/SDK通过。
+- **下一轮计划**：先收本能力组最终组件终态、核对sourceCommit/runId和完整产物；稳定后集中必要专用SDK。完整MOD不默认运行；默认DXT1/不透明DXT1A拒绝保持，生产SDK未替换。上一轮已验收能力见下节，未变成功组沿用原锚点。
+
 # 当前：PC透明块DXT1A已完成组件、插件与专用SDK接入
 
 - **本轮完成**：公开S3透明块DXT1A接入byte/float/partial、二维/volume/完整mip及Texture/OnDemandTexture。业务5882d9af / [40695394943](https://github.com/wu162/NewSdk/actions/runs/40695394943) success：17组件+10 SDK通过、18组件复用；新插件D/R各768输入（744输出/24原错误）、14边界拒绝、三buffer/full cdata/旧文件尾及逐次NoOriginal通过。0d37d401 / [40699070349](https://github.com/wu162/NewSdk/actions/runs/40699070349)仅补两个组件可复用收据：4608块/3456块DDS及2714二维/volume/mip DDS全等、934不确定域拒绝，复用33组件不重跑SDK。
