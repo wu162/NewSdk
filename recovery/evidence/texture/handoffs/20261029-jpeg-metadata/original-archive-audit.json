@@ -1,0 +1,16 @@
+{
+  "scope": "independent recorded original/candidate byte audit; probe-only, not recovered/plugin/SDK acceptance",
+  "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+  "runId": "40783041481",
+  "archiveSha256": "ef7313c2061dcc28b580e8447c9dc8e01a8dfe7b08025fd19bab8ffe5ee5acca",
+  "fixtureCount": 4000,
+  "metrics": {
+    "colour-decoded": 1280,
+    "completeOriginalCandidateRgbaBytes": 1000080,
+    "colour-rejected": 2560,
+    "metadata-decoded": 160,
+    "metadataFullByteBaselineComparisons": 160,
+    "rgbContextsChangedByAdobeTransform": 256,
+    "rgbAdobeContexts": 256
+  }
+}
