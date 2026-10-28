@@ -1,265 +1,1035 @@
 {
-  "binarySourceCommit": "cb22761562cbe9a9d12c50591e448d65a31cc883",
-  "testSourceCommit": "cb22761562cbe9a9d12c50591e448d65a31cc883",
-  "runId": "40626352606",
-  "runConclusion": "failure",
-  "scope": "Independently successful cache-payloads group only; ordinary build-cache fixture failed. Not whole-run or latest-source acceptance.",
-  "artifactId": 12789918646,
-  "artifactSha256": "0e256694828fc718f3b8880723deaf883ad027a50826f2fae8c86964a5c1eca7",
-  "groupValidationPath": "evidence/refactor/cache-payloads/40626352606-1/validation.json",
-  "osFileCache": "Not controlled; sequential CI fixture processes, one sample per case. No generalized speedup claim.",
+  "binarySourceCommit": "125902cc5b8b0c3df3434b24db574970e2e022d5",
+  "testSourceCommit": "125902cc5b8b0c3df3434b24db574970e2e022d5",
+  "packagingSourceCommit": "125902cc5b8b0c3df3434b24db574970e2e022d5",
+  "runId": "40629580163",
+  "runConclusion": "success",
+  "scope": "Fresh full Windows Debug/Release build and current tests; complete unchanged mymod SDK and exact five-file ZIP deployment included. No game runtime acceptance.",
+  "artifactId": 12791073520,
+  "artifactSha256": "44d237d777bbbe6d8730beab34b1aff60c9510e2b646e8dcf48adc549f00d4fa",
+  "groupReceipts": [
+    {
+      "group": "core-lifecycle-deployment",
+      "path": "evidence/refactor/core-lifecycle-deployment/40629580163-1/validation.json",
+      "sha256": "593253fcb842f9c354424a7503f75ac880f3dcbc110ab3a5be97ae8ae8a2bed0",
+      "succeeded": true
+    },
+    {
+      "group": "core-lifecycle",
+      "path": "evidence/refactor/core-lifecycle/40629580163-1/validation.json",
+      "sha256": "40acdc57abdfdcf51a837ef84eda5d79db38e2049cb69adefd74366f55492438",
+      "succeeded": true
+    },
+    {
+      "group": "core-lifecycle-texture",
+      "path": "evidence/refactor/core-lifecycle-texture/40629580163-1/validation.json",
+      "sha256": "67f706eecdac764f82f762e60ac1afdba45aeb4144d655cba9e193cc67858ac7",
+      "succeeded": true
+    },
+    {
+      "group": "core-cli",
+      "path": "evidence/refactor/core-cli/40629580163-1/validation.json",
+      "sha256": "42140334c8f5adb7e8d5e2b3a593a5912b3fc5c155cb14390a684f5cc317f37b",
+      "succeeded": true
+    },
+    {
+      "group": "build-cache",
+      "path": "evidence/refactor/build-cache/40629580163-1/validation.json",
+      "sha256": "98dfdd82ae2941ea437a4c1e8574cda32a111aedc984140389a4b5254c510708",
+      "succeeded": true
+    },
+    {
+      "group": "input-roots",
+      "path": "evidence/refactor/input-roots/40629580163-1/validation.json",
+      "sha256": "1297b397ed50dd2d505e4e9f2bd800a0d39232096336e19555fadeeb0be87df1",
+      "succeeded": true
+    },
+    {
+      "group": "cache-payloads",
+      "path": "evidence/refactor/cache-payloads/40629580163-1/validation.json",
+      "sha256": "1641b3d718beb7dccb34f6ce1f61c82914b3dd4c22260dcb6517ea8925ca7c23",
+      "succeeded": true
+    },
+    {
+      "group": "session-cache",
+      "path": "evidence/refactor/session-cache/40629580163-1/validation.json",
+      "sha256": "f5c85589c203cd62dff016ea1393e90093fcde5136a2113d20945115d434d498",
+      "succeeded": true
+    },
+    {
+      "group": "big",
+      "path": "evidence/refactor/big/40629580163-1/validation.json",
+      "sha256": "20a7396288376f02519acb72eb220f124a21f95246d322578fbf55450cea13eb",
+      "succeeded": true
+    },
+    {
+      "group": "sdk-mymod",
+      "path": "evidence/refactor/sdk-mymod/40629580163-1/validation.json",
+      "sha256": "8bbc1f061559bbfdfa0aad293cb5e7214567f8999898e41d63b2ae7876475d36",
+      "succeeded": true
+    },
+    {
+      "group": "original-bab-Debug",
+      "path": "evidence/refactor/core-backend-baseline/40629580163-1/Debug/validation.json",
+      "sha256": "fe060b11d5eb6012c484f7ec41fb5cd68805c13bf05f6fff1e19dad2c38f35fd",
+      "succeeded": true
+    },
+    {
+      "group": "original-bab-Release",
+      "path": "evidence/refactor/core-backend-baseline/40629580163-1/Release/validation.json",
+      "sha256": "04252a75e06b6295e1608f6154968801447b6b79b4fd6ef6012289a97fe09c0d",
+      "succeeded": true
+    }
+  ],
+  "productionSourceHashes": [
+    {
+      "path": "recovery/src/App/Application/ActionAssetCache.cs",
+      "sha256": "b986271c3366aef2aa7992e30030baaa33628be52ec6b3d1603f5316780d4cc7"
+    },
+    {
+      "path": "recovery/src/App/Application/AssetTaskExecution.cs",
+      "sha256": "c4b32e60d3fcc886177b4f674ecb8385691812cc369ffd8277c7eaaaa7608dbe"
+    },
+    {
+      "path": "recovery/src/App/Application/CacheInputSnapshot.cs",
+      "sha256": "f9c38cb35a861a2007d6234b46ed12cc917a0e94a3293a1c188beac8b65486f5"
+    },
+    {
+      "path": "recovery/src/App/Application/CoreStreamCompiler.cs",
+      "sha256": "a8ae936ff81eb27c9a4c4172e629138538d4eca0a64b3ce453dbc99e53f3beb1"
+    },
+    {
+      "path": "recovery/src/App/Application/PreparedBackend.cs",
+      "sha256": "2183b19621eac4a32f7c3fc2252068f1883f508f39bf2f62df8ffe39af75778e"
+    }
+  ],
   "modes": [
     {
       "configuration": "Debug",
-      "exeSha256": "d7af1aa1ebfc2c26bd410899294c9d873bf5d9bd4e03db966870023c91da16f0",
-      "passed": true,
+      "exactFiveRuntimeFiles": [
+        {
+          "sha256": "f9f75b6c0fc8cd62b5f4c3a2a97f551f2053770cbae1decbb1f29c5727c71621",
+          "name": "NewModCompiler.exe",
+          "bytes": 6593536
+        },
+        {
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "name": "NewModCompiler.exe.config",
+          "bytes": 201
+        },
+        {
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "name": "antlr.runtime.dll",
+          "bytes": 99328
+        },
+        {
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll",
+          "bytes": 917504
+        },
+        {
+          "sha256": "0f3ad8e45b59689810638bab8546b7ea3016b202d50f7e373437cd35142a06ad",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+          "bytes": 14326
+        }
+      ],
+      "archive": {
+        "sha256": "da21859f2c7a8b33f5c655f18c5e6caa2f6bb7c1280a29224dc67b6826bec1ff",
+        "name": "NewModCompiler-Win32-Debug.zip",
+        "bytes": 2243354
+      },
+      "manifestPath": "artifacts/final-release/40629580163-1/NewModCompiler-Win32-Debug.manifest.json",
+      "manifestSha256": "8db251fb66ec1e08ecd1f36a50c6e76a37debf727eda12e2ad1fe88f85cb0c28",
+      "corePreparedContract": {
+        "path": "evidence/refactor/core-lifecycle/40629580163-1/Debug/CompilerPreparedBackend/result.json",
+        "sha256": "396a704c6c5d93aaa1baf56d3d8a3ecc8e74c685895784592da2f8b1381ff475",
+        "checks": 86,
+        "lifecycleEvidence": [
+          {
+            "scenario": "cancel-during-two-native-calls",
+            "observedConcurrentCalls": true,
+            "activeBeforeDispose": 1,
+            "activeAfterDispose": 0,
+            "completedIntervals": 2
+          },
+          {
+            "scenario": "native-worker-range-failure",
+            "observedConcurrentCalls": false,
+            "activeBeforeDispose": 1,
+            "activeAfterDispose": 0,
+            "completedIntervals": 2
+          }
+        ]
+      },
       "parallel": {
-        "requestedJobs": 2,
         "maxBackendConcurrency": 2,
+        "requestedJobs": 2,
         "passed": true,
+        "backendCalls": 3,
+        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled",
         "intervals": [
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\pd44ecaf7\\d\\parallel\\data\\parallelshort.xml",
-            "startTicks": 8625252282,
-            "endTicks": 9277631319,
+            "sourcePath": "d:\\a\\_temp\\p67342edc\\d\\parallel\\data\\parallelshort.xml",
+            "startTicks": 7376369528,
+            "endTicks": 7390444921,
             "threadId": 7
           },
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\pd44ecaf7\\d\\parallel\\data\\parallellong.xml",
-            "startTicks": 8625227092,
-            "endTicks": 9692030211,
+            "sourcePath": "d:\\a\\_temp\\p67342edc\\d\\parallel\\data\\parallellong.xml",
+            "startTicks": 7376348677,
+            "endTicks": 7397213555,
             "threadId": 6
           }
-        ],
-        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled",
-        "backendCalls": 3
+        ]
       },
       "cases": [
         {
+          "group": "build-cache",
+          "case": "cold",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/cold/build-report.json",
+          "reportSha256": "ef1b58737ff73cce35bc54d76792946e59f10b1fbc2ebe85f6ee82636e409b17",
+          "elapsedMs": 1124,
+          "backendCalls": 9,
+          "hits": 0,
+          "misses": 8,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 37661841,
+          "restoredBytes": 0,
+          "writtenBytes": 5872,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 109158400,
+          "backendCallsByType": {
+            "ArmorTemplate": 4,
+            "WeaponTemplate": 1,
+            "GameObject": 1,
+            "Texture": 1,
+            "PathMusicEvent": 1,
+            "AptAptData": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "build-cache",
+          "case": "hot",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/hot/build-report.json",
+          "reportSha256": "618fa59b40ae1f2684a7a83a17602faa32455b10c7048789470e7928393e4975",
+          "elapsedMs": 894,
+          "backendCalls": 1,
+          "hits": 8,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 37661841,
+          "restoredBytes": 5872,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 110260224,
+          "backendCallsByType": {
+            "Texture": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "build-cache",
+          "case": "include-content-invalidated",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/include-content-invalidated/build-report.json",
+          "reportSha256": "a7fd14cdf6efe47b77c524950add01675a37dc1f4a423a05fd6165305750fbfb",
+          "elapsedMs": 963,
+          "backendCalls": 2,
+          "hits": 7,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 37661841,
+          "restoredBytes": 5402,
+          "writtenBytes": 470,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 110391296,
+          "backendCallsByType": {
+            "ArmorTemplate": 1,
+            "Texture": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "build-cache",
+          "case": "weapon-value-invalidated",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/weapon-value-invalidated/build-report.json",
+          "reportSha256": "c4733228cb379ceea038e31e564f4694d5ef65928dcc7dae456032ac4bbaa69b",
+          "elapsedMs": 885,
+          "backendCalls": 2,
+          "hits": 7,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 37661841,
+          "restoredBytes": 4138,
+          "writtenBytes": 1734,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 111304704,
+          "backendCallsByType": {
+            "WeaponTemplate": 1,
+            "Texture": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "build-cache",
+          "case": "gameobject-value-invalidated",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/gameobject-value-invalidated/build-report.json",
+          "reportSha256": "d2a395b0b28afcd0f4fe88f559d8405cb4bf81733e3ab6194a087b22d80c9b75",
+          "elapsedMs": 930,
+          "backendCalls": 2,
+          "hits": 7,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 37661841,
+          "restoredBytes": 3414,
+          "writtenBytes": 2458,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 110481408,
+          "backendCallsByType": {
+            "GameObject": 1,
+            "Texture": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "build-cache",
+          "case": "texture-content-invalidated",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/texture-content-invalidated/build-report.json",
+          "reportSha256": "a75f84b5b7b1a416fab8585e5ccb610aefdab442cf23ef101e307142d8be18dd",
+          "elapsedMs": 822,
+          "backendCalls": 1,
+          "hits": 8,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 37661841,
+          "restoredBytes": 5872,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 110084096,
+          "backendCallsByType": {
+            "Texture": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "build-cache",
+          "case": "unread-additional-hot",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Debug/unread-additional-hot/build-report.json",
+          "reportSha256": "8329fe83d8e9a3c0a219d51d86a9ea18df101c5d68b7311d26cb62916cd4db90",
+          "elapsedMs": 882,
+          "backendCalls": 1,
+          "hits": 8,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 37661925,
+          "restoredBytes": 5872,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 110321664,
+          "backendCallsByType": {
+            "Texture": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "cache-payloads",
           "case": "audio-cold",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/audio-cold/build-report.json",
-          "reportSha256": "34cf35db18356ea4086d76f08639fae26e785edf4783004309487f3c8185f15c",
-          "elapsedMs": 826,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/audio-cold/build-report.json",
+          "reportSha256": "84d81830d7289ef58b1af8c957ac67c978cd743ae5b74b81816e42eca28fc0a5",
+          "elapsedMs": 531,
           "backendCalls": 2,
           "hits": 0,
           "misses": 2,
-          "hashReadBytes": 18390448,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 18439864,
           "restoredBytes": 0,
-          "writtenBytes": 21636
+          "writtenBytes": 21636,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 101236736,
+          "backendCallsByType": {
+            "AudioFile": 2
+          },
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
           "case": "audio-hot",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/audio-hot/build-report.json",
-          "reportSha256": "82748fdfb3f022fb2b41d7494cacd4db1ea06898b2e600790be4216c0732e8cc",
-          "elapsedMs": 782,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/audio-hot/build-report.json",
+          "reportSha256": "624e6a0a06b809ca14def7cf18510f7d1f9c802a9fec07fdf7e44abf6aecd255",
+          "elapsedMs": 535,
           "backendCalls": 0,
           "hits": 2,
           "misses": 0,
-          "hashReadBytes": 18390448,
+          "maxBackendConcurrency": 0,
+          "hashReadBytes": 18439864,
           "restoredBytes": 21636,
-          "writtenBytes": 0
+          "writtenBytes": 0,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 102703104,
+          "backendCallsByType": {},
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
           "case": "audio-content-invalidated",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/audio-content-invalidated/build-report.json",
-          "reportSha256": "cfc0d21d6b2fe1c6696935f2d38c9e38fef5af9bfcaaf503389b9e966f6457d1",
-          "elapsedMs": 724,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/audio-content-invalidated/build-report.json",
+          "reportSha256": "4b77be473b7c916d2205ef092bd392534ff66135e0380597abf5cf533adb058f",
+          "elapsedMs": 495,
           "backendCalls": 1,
           "hits": 1,
           "misses": 1,
-          "hashReadBytes": 18390448,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 18439864,
           "restoredBytes": 5058,
-          "writtenBytes": 16578
+          "writtenBytes": 16578,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 101244928,
+          "backendCallsByType": {
+            "AudioFile": 1
+          },
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
           "case": "audio-additional-only",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/audio-additional-only/build-report.json",
-          "reportSha256": "dd0127e6d62b0fa7b0dfbb169b17fe33cd5439e8004bd9182fc95a519fac72b5",
-          "elapsedMs": 697,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/audio-additional-only/build-report.json",
+          "reportSha256": "8b5ae379025b56217b982c1062caf36a75eaeec2c28fd18bca6c9b333ae1d1ee",
+          "elapsedMs": 476,
           "backendCalls": 0,
           "hits": 2,
           "misses": 0,
-          "hashReadBytes": 18390510,
+          "maxBackendConcurrency": 0,
+          "hashReadBytes": 18439926,
           "restoredBytes": 21636,
-          "writtenBytes": 0
+          "writtenBytes": 0,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 102850560,
+          "backendCallsByType": {},
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
+          "case": "audio-hot-jobs2",
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/audio-hot-jobs2/build-report.json",
+          "reportSha256": "60876bbb8c7cee7ec22bcf5f0ffb1ab1a47312785469770d9da89cfb03637fcd",
+          "elapsedMs": 520,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "hashReadBytes": 18439864,
+          "restoredBytes": 21636,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 102776832,
+          "backendCallsByType": {},
+          "requestedJobs": 2
+        },
+        {
+          "group": "cache-payloads",
           "case": "w3x-cold",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/w3x-cold/build-report.json",
-          "reportSha256": "6c1b6712ec1ab8bebb3e101d014e7d40a77a042110128216fbdba3fa7294db07",
-          "elapsedMs": 692,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-cold/build-report.json",
+          "reportSha256": "23bbc90617e61ec8c9fd2bab3b2beb41157434672aeaae6bbc7a38130a4d3fd4",
+          "elapsedMs": 514,
           "backendCalls": 3,
           "hits": 0,
           "misses": 3,
-          "hashReadBytes": 18303728,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 18312644,
           "restoredBytes": 0,
-          "writtenBytes": 1386
+          "writtenBytes": 1386,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 101195776,
+          "backendCallsByType": {
+            "W3DHierarchy": 1,
+            "W3DAnimation": 1,
+            "W3DMesh": 1
+          },
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
           "case": "w3x-hot",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/w3x-hot/build-report.json",
-          "reportSha256": "6fa1d9a531733016148556832ebc2332f4c1ee429c0d54443d6a3de7265fb688",
-          "elapsedMs": 640,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-hot/build-report.json",
+          "reportSha256": "866baa594425af1d9b5a95089addbfcb3718fdbc1ce94257f54722aa59e1cfee",
+          "elapsedMs": 512,
           "backendCalls": 0,
           "hits": 3,
           "misses": 0,
-          "hashReadBytes": 18303728,
+          "maxBackendConcurrency": 0,
+          "hashReadBytes": 18312644,
           "restoredBytes": 1386,
-          "writtenBytes": 0
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102785024,
+          "backendCallsByType": {},
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
           "case": "w3x-content-invalidated",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/w3x-content-invalidated/build-report.json",
-          "reportSha256": "4596c8aeaa67f437220665d7ca49bfc64bd76f5a40405b3f029590ddfc0e1204",
-          "elapsedMs": 671,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-content-invalidated/build-report.json",
+          "reportSha256": "87f78b4055f358a635fee983af040e028a643ef540c71d5d1950f079e4a68d87",
+          "elapsedMs": 499,
           "backendCalls": 1,
           "hits": 2,
           "misses": 1,
-          "hashReadBytes": 18303728,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 18312644,
           "restoredBytes": 780,
-          "writtenBytes": 606
+          "writtenBytes": 606,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102797312,
+          "backendCallsByType": {
+            "W3DAnimation": 1
+          },
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
           "case": "w3x-additional-only",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/w3x-additional-only/build-report.json",
-          "reportSha256": "35d236ea5484a9c09f1043857f5410cfc7482c1243a77524abf7a3204bd553ec",
-          "elapsedMs": 628,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-additional-only/build-report.json",
+          "reportSha256": "7afa819a7922468bb727831facd145eca758c9a1f4e34f98856fc43e9ea07b5b",
+          "elapsedMs": 477,
           "backendCalls": 0,
           "hits": 3,
           "misses": 0,
-          "hashReadBytes": 18303790,
+          "maxBackendConcurrency": 0,
+          "hashReadBytes": 18312706,
           "restoredBytes": 1386,
-          "writtenBytes": 0
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102694912,
+          "backendCallsByType": {},
+          "requestedJobs": 1
+        },
+        {
+          "group": "cache-payloads",
+          "case": "w3x-hot-jobs2",
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-hot-jobs2/build-report.json",
+          "reportSha256": "fd26c0b73a72a2f1e59fe93d23dd6fc81a399dd922b940f3d2aa07a4769cd240",
+          "elapsedMs": 479,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "hashReadBytes": 18312644,
+          "restoredBytes": 1386,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102780928,
+          "backendCallsByType": {},
+          "requestedJobs": 2
+        },
+        {
+          "group": "cache-payloads",
+          "case": "w3x-parallel-control",
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-parallel-control/build-report.json",
+          "reportSha256": "695b1fecc0d1c305cb9e5fe60d46e4ae077e0a9d37015fd0b5a8507fe3395b96",
+          "elapsedMs": 3687,
+          "backendCalls": 3,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 0,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 100876288,
+          "backendCallsByType": {
+            "W3DHierarchy": 1,
+            "W3DAnimation": 2
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "cache-payloads",
+          "case": "w3x-cross-document-parallel",
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Debug/w3x-cross-document-parallel/build-report.json",
+          "reportSha256": "655d82c1d73a58d6001b855d1f039f3ce0ad2eb48f005e695f37dddc10865bad",
+          "elapsedMs": 2421,
+          "backendCalls": 3,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 2,
+          "hashReadBytes": 0,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 102834176,
+          "backendCallsByType": {
+            "W3DHierarchy": 1,
+            "W3DAnimation": 2
+          },
+          "requestedJobs": 2
         }
       ]
     },
     {
       "configuration": "Release",
-      "exeSha256": "01f92dbf80e7dd0ac83c325e31ca5ac48fb7d195be38652043b7e8b580dbd9cc",
-      "passed": true,
+      "exactFiveRuntimeFiles": [
+        {
+          "sha256": "6c485a9ad8392ac315f70bc5fb1e32143ba0fdb4096db8db5d837db2b7a59aed",
+          "name": "NewModCompiler.exe",
+          "bytes": 4153856
+        },
+        {
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "name": "NewModCompiler.exe.config",
+          "bytes": 201
+        },
+        {
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "name": "antlr.runtime.dll",
+          "bytes": 99328
+        },
+        {
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll",
+          "bytes": 917504
+        },
+        {
+          "sha256": "508ddc6bc94061c539e915c049e70f910ad62ab62de7de01bee4545dd067e6eb",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+          "bytes": 14326
+        }
+      ],
+      "archive": {
+        "sha256": "1c69449d93dd17d0d71d99ece30ba822488710f2f34299d4957f3ebfe322233e",
+        "name": "NewModCompiler-Win32-Release.zip",
+        "bytes": 1743209
+      },
+      "manifestPath": "artifacts/final-release/40629580163-1/NewModCompiler-Win32-Release.manifest.json",
+      "manifestSha256": "4063ff474656fb714f401300b2392551096968bebe5b020e94a18d2f2988e805",
+      "corePreparedContract": {
+        "path": "evidence/refactor/core-lifecycle/40629580163-1/Release/CompilerPreparedBackend/result.json",
+        "sha256": "396a704c6c5d93aaa1baf56d3d8a3ecc8e74c685895784592da2f8b1381ff475",
+        "checks": 86,
+        "lifecycleEvidence": [
+          {
+            "scenario": "cancel-during-two-native-calls",
+            "observedConcurrentCalls": true,
+            "activeBeforeDispose": 1,
+            "activeAfterDispose": 0,
+            "completedIntervals": 2
+          },
+          {
+            "scenario": "native-worker-range-failure",
+            "observedConcurrentCalls": false,
+            "activeBeforeDispose": 1,
+            "activeAfterDispose": 0,
+            "completedIntervals": 2
+          }
+        ]
+      },
       "parallel": {
-        "requestedJobs": 2,
         "maxBackendConcurrency": 2,
+        "requestedJobs": 2,
         "passed": true,
+        "backendCalls": 3,
+        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled",
         "intervals": [
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\pd44ecaf7\\r\\parallel\\data\\parallelshort.xml",
-            "startTicks": 10075692590,
-            "endTicks": 10163926805,
+            "sourcePath": "d:\\a\\_temp\\p67342edc\\r\\parallel\\data\\parallelshort.xml",
+            "startTicks": 7541382928,
+            "endTicks": 7544391763,
             "threadId": 7
           },
           {
             "typeName": "W3DAnimation",
-            "sourcePath": "d:\\a\\_temp\\pd44ecaf7\\r\\parallel\\data\\parallellong.xml",
-            "startTicks": 10075661198,
-            "endTicks": 10210985690,
+            "sourcePath": "d:\\a\\_temp\\p67342edc\\r\\parallel\\data\\parallellong.xml",
+            "startTicks": 7541355608,
+            "endTicks": 7545108576,
             "threadId": 6
           }
-        ],
-        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled",
-        "backendCalls": 3
+        ]
       },
       "cases": [
         {
+          "group": "build-cache",
+          "case": "cold",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/cold/build-report.json",
+          "reportSha256": "deabbc865600ec45439c0323e04b78438de1d09020a8d7bb8dc3cfd91e83a680",
+          "elapsedMs": 909,
+          "backendCalls": 9,
+          "hits": 0,
+          "misses": 8,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 27903121,
+          "restoredBytes": 0,
+          "writtenBytes": 5872,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 108781568,
+          "backendCallsByType": {
+            "ArmorTemplate": 4,
+            "WeaponTemplate": 1,
+            "GameObject": 1,
+            "Texture": 1,
+            "PathMusicEvent": 1,
+            "AptAptData": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "build-cache",
+          "case": "hot",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/hot/build-report.json",
+          "reportSha256": "068487df81518a42337eaf0e95a4b0bb563437d11ddc5899f8ffaadc6e9c00dd",
+          "elapsedMs": 805,
+          "backendCalls": 1,
+          "hits": 8,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 27903121,
+          "restoredBytes": 5872,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 109887488,
+          "backendCallsByType": {
+            "Texture": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "build-cache",
+          "case": "include-content-invalidated",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/include-content-invalidated/build-report.json",
+          "reportSha256": "8211a246cec5c83dd0da914f089436f94bbe349d5a90826d459dda61480301e6",
+          "elapsedMs": 807,
+          "backendCalls": 2,
+          "hits": 7,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 27903121,
+          "restoredBytes": 5402,
+          "writtenBytes": 470,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 109764608,
+          "backendCallsByType": {
+            "ArmorTemplate": 1,
+            "Texture": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "build-cache",
+          "case": "weapon-value-invalidated",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/weapon-value-invalidated/build-report.json",
+          "reportSha256": "56653a1d739f2ab7e97fe0261229bcf28be6a813a9923264068b0a09ad72d2c4",
+          "elapsedMs": 832,
+          "backendCalls": 2,
+          "hits": 7,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 27903121,
+          "restoredBytes": 4138,
+          "writtenBytes": 1734,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 110534656,
+          "backendCallsByType": {
+            "WeaponTemplate": 1,
+            "Texture": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "build-cache",
+          "case": "gameobject-value-invalidated",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/gameobject-value-invalidated/build-report.json",
+          "reportSha256": "d216088643eca1bf04a5939b19a03c7711bf2602d5a7bdcc5c2f2a50cf0e3315",
+          "elapsedMs": 883,
+          "backendCalls": 2,
+          "hits": 7,
+          "misses": 1,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 27903121,
+          "restoredBytes": 3414,
+          "writtenBytes": 2458,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 110034944,
+          "backendCallsByType": {
+            "GameObject": 1,
+            "Texture": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "build-cache",
+          "case": "texture-content-invalidated",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/texture-content-invalidated/build-report.json",
+          "reportSha256": "b266135e5f5091d9e477b09a7e54df04f80f65e9a9e77fb790153c7b56ef23ba",
+          "elapsedMs": 830,
+          "backendCalls": 1,
+          "hits": 8,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 27903121,
+          "restoredBytes": 5872,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 109801472,
+          "backendCallsByType": {
+            "Texture": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "build-cache",
+          "case": "unread-additional-hot",
+          "reportPath": "evidence/refactor/build-cache/40629580163-1/Release/unread-additional-hot/build-report.json",
+          "reportSha256": "c44dc44c5a7c13a5ac381670b1d3d0d7ecb42b31092b63611d39683fc2721948",
+          "elapsedMs": 726,
+          "backendCalls": 1,
+          "hits": 8,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 27903205,
+          "restoredBytes": 5872,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 5872,
+          "peakSampledPrivateBytes": 109719552,
+          "backendCallsByType": {
+            "Texture": 1
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "cache-payloads",
           "case": "audio-cold",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/audio-cold/build-report.json",
-          "reportSha256": "eb21835dd8d02046a35633f5940a0079a2235ff61e22272ded8908def8311217",
-          "elapsedMs": 619,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/audio-cold/build-report.json",
+          "reportSha256": "24e7f21a8f682410c110b80236014cd6fc2d7d3b5c61c8d7506667772d171245",
+          "elapsedMs": 429,
           "backendCalls": 2,
           "hits": 0,
           "misses": 2,
-          "hashReadBytes": 13510064,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 13560504,
           "restoredBytes": 0,
-          "writtenBytes": 21636
+          "writtenBytes": 21636,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 100610048,
+          "backendCallsByType": {
+            "AudioFile": 2
+          },
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
           "case": "audio-hot",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/audio-hot/build-report.json",
-          "reportSha256": "12fee9a814cb4839e7813337e8e026008b01a35e4391f52d85bd9b5fee5837a9",
-          "elapsedMs": 589,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/audio-hot/build-report.json",
+          "reportSha256": "d4b02b3ae685c5394a8ab7afc3a97bea7219c758848b3508d1d0fd75b6e49598",
+          "elapsedMs": 412,
           "backendCalls": 0,
           "hits": 2,
           "misses": 0,
-          "hashReadBytes": 13510064,
+          "maxBackendConcurrency": 0,
+          "hashReadBytes": 13560504,
           "restoredBytes": 21636,
-          "writtenBytes": 0
+          "writtenBytes": 0,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 102264832,
+          "backendCallsByType": {},
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
           "case": "audio-content-invalidated",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/audio-content-invalidated/build-report.json",
-          "reportSha256": "1d908ca2a5cb529828d4b0c4232194f329c7083e9eef546086da71794a9280c9",
-          "elapsedMs": 610,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/audio-content-invalidated/build-report.json",
+          "reportSha256": "2406703c20ccdb5529b9772a640e5587135a89be1f45aa4e79bd99c27b0cf210",
+          "elapsedMs": 421,
           "backendCalls": 1,
           "hits": 1,
           "misses": 1,
-          "hashReadBytes": 13510064,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 13560504,
           "restoredBytes": 5058,
-          "writtenBytes": 16578
+          "writtenBytes": 16578,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 100491264,
+          "backendCallsByType": {
+            "AudioFile": 1
+          },
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
           "case": "audio-additional-only",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/audio-additional-only/build-report.json",
-          "reportSha256": "94ce74cc7056fc51573bbb68395537017604adb090870fa9d5390d79871d2153",
-          "elapsedMs": 599,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/audio-additional-only/build-report.json",
+          "reportSha256": "506de4b357e0845a8587304023820d1a43d04ffbf912700161305df413bdcebf",
+          "elapsedMs": 409,
           "backendCalls": 0,
           "hits": 2,
           "misses": 0,
-          "hashReadBytes": 13510126,
+          "maxBackendConcurrency": 0,
+          "hashReadBytes": 13560566,
           "restoredBytes": 21636,
-          "writtenBytes": 0
+          "writtenBytes": 0,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 102182912,
+          "backendCallsByType": {},
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
+          "case": "audio-hot-jobs2",
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/audio-hot-jobs2/build-report.json",
+          "reportSha256": "06ec00459cf3a336add900c06de2a23092216e7440bec59684505ba6530e3c09",
+          "elapsedMs": 410,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "hashReadBytes": 13560504,
+          "restoredBytes": 21636,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 21636,
+          "peakSampledPrivateBytes": 102236160,
+          "backendCallsByType": {},
+          "requestedJobs": 2
+        },
+        {
+          "group": "cache-payloads",
           "case": "w3x-cold",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/w3x-cold/build-report.json",
-          "reportSha256": "a3e5bb78d93f07dc04577fcd052a39c1b6cc41ad397b5fa3e89b424a3ed091f0",
-          "elapsedMs": 634,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-cold/build-report.json",
+          "reportSha256": "9df93bf036b8eea348f23c47181ab05f3de74e89cd2fd808a985fd81a252d6cf",
+          "elapsedMs": 490,
           "backendCalls": 3,
           "hits": 0,
           "misses": 3,
-          "hashReadBytes": 13423344,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 13433284,
           "restoredBytes": 0,
-          "writtenBytes": 1386
+          "writtenBytes": 1386,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 100585472,
+          "backendCallsByType": {
+            "W3DHierarchy": 1,
+            "W3DAnimation": 1,
+            "W3DMesh": 1
+          },
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
           "case": "w3x-hot",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/w3x-hot/build-report.json",
-          "reportSha256": "5cd9ea36e416d46a9eb226b2e85ed1f861fa83c1faada0aa7c52393aafd57383",
-          "elapsedMs": 608,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-hot/build-report.json",
+          "reportSha256": "4645748927c2c418aa8c3091adb34a54f8092249ff825ef293e34dacbfc96980",
+          "elapsedMs": 432,
           "backendCalls": 0,
           "hits": 3,
           "misses": 0,
-          "hashReadBytes": 13423344,
+          "maxBackendConcurrency": 0,
+          "hashReadBytes": 13433284,
           "restoredBytes": 1386,
-          "writtenBytes": 0
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102076416,
+          "backendCallsByType": {},
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
           "case": "w3x-content-invalidated",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/w3x-content-invalidated/build-report.json",
-          "reportSha256": "036629244819d3c8fb94b3f093794537020295f3cff5119aff7da1ce8f0f6758",
-          "elapsedMs": 653,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-content-invalidated/build-report.json",
+          "reportSha256": "70c7cac436c8b96503fcb9ed6318e846d82a4cff367e4006c2b165ac736407f0",
+          "elapsedMs": 435,
           "backendCalls": 1,
           "hits": 2,
           "misses": 1,
-          "hashReadBytes": 13423344,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 13433284,
           "restoredBytes": 780,
-          "writtenBytes": 606
+          "writtenBytes": 606,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102158336,
+          "backendCallsByType": {
+            "W3DAnimation": 1
+          },
+          "requestedJobs": 1
         },
         {
+          "group": "cache-payloads",
           "case": "w3x-additional-only",
-          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/w3x-additional-only/build-report.json",
-          "reportSha256": "badbb1995646a19cd79b1a8c1b4d3dda5c85060bb6714ec05d2a9cf71e8d37dd",
-          "elapsedMs": 608,
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-additional-only/build-report.json",
+          "reportSha256": "69ef2602a911bd83bf3f0b2608ecd617e3b304effa4042635162d7d2d0aadc89",
+          "elapsedMs": 448,
           "backendCalls": 0,
           "hits": 3,
           "misses": 0,
-          "hashReadBytes": 13423406,
+          "maxBackendConcurrency": 0,
+          "hashReadBytes": 13433346,
           "restoredBytes": 1386,
-          "writtenBytes": 0
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102162432,
+          "backendCallsByType": {},
+          "requestedJobs": 1
+        },
+        {
+          "group": "cache-payloads",
+          "case": "w3x-hot-jobs2",
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-hot-jobs2/build-report.json",
+          "reportSha256": "90b4aad2235d7cb9bcff56be20f6f95bba0fada50651a6f690294695328a2cee",
+          "elapsedMs": 435,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "maxBackendConcurrency": 0,
+          "hashReadBytes": 13433284,
+          "restoredBytes": 1386,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 1386,
+          "peakSampledPrivateBytes": 102100992,
+          "backendCallsByType": {},
+          "requestedJobs": 2
+        },
+        {
+          "group": "cache-payloads",
+          "case": "w3x-parallel-control",
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-parallel-control/build-report.json",
+          "reportSha256": "437b6efa630a0fea060048705fd5a1ed45821947dda4e47af0d110a26217d373",
+          "elapsedMs": 763,
+          "backendCalls": 3,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 1,
+          "hashReadBytes": 0,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 99909632,
+          "backendCallsByType": {
+            "W3DHierarchy": 1,
+            "W3DAnimation": 2
+          },
+          "requestedJobs": 1
+        },
+        {
+          "group": "cache-payloads",
+          "case": "w3x-cross-document-parallel",
+          "reportPath": "evidence/refactor/cache-payloads/40629580163-1/Release/w3x-cross-document-parallel/build-report.json",
+          "reportSha256": "646c9e255cc04b45ada2888dbd9df05a5cef708d0c3236b649186a32cf4a51f9",
+          "elapsedMs": 693,
+          "backendCalls": 3,
+          "hits": 0,
+          "misses": 0,
+          "maxBackendConcurrency": 2,
+          "hashReadBytes": 0,
+          "restoredBytes": 0,
+          "writtenBytes": 0,
+          "cacheCopyBytes": 0,
+          "peakSampledPrivateBytes": 102105088,
+          "backendCallsByType": {
+            "W3DHierarchy": 1,
+            "W3DAnimation": 2
+          },
+          "requestedJobs": 2
         }
       ]
     }
-  ]
+  ],
+  "osFileCache": "Not controlled. Same hosted Windows run, sequential CLI fixture processes, one sample per case; raw elapsed values only, no generalized speedup claim."
 }

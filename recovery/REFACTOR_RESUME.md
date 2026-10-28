@@ -1,13 +1,15 @@
 # MOD 编译器：结果主线与续接入口
 
-更新：2026-10-27（北京时间）。用户指定 `compiler-main` 为重构结果及今后开发主线。旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 已关闭且未合并，不再合回旧主线。开发主线约定不代表已修改 GitHub 网页默认分支。
+更新：2026-10-28（北京时间）。用户指定 `compiler-main` 为重构结果及今后开发主线。旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 已关闭且未合并，不再合回旧主线。开发主线约定不代表已修改 GitHub 网页默认分支。
 禁止强推；今后其他合并仍须用户批准；子代理数量由当轮用户指定。
 
 ## 当前任务：资产动作缓存与跨文档并行（2026-10-28）
 
-成果分支 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`。本轮正在实现与验证，**尚未完成验收，不替换已通过的主线发行**。准确能力、sourceCommit/runId、失败与后续入口集中在 [CACHE_PARALLEL](docs/CACHE_PARALLEL.md)，不要重新加载全量历史或把源码认证当作实测通过。
+成果分支 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`，成果为 [draft PR #17](https://github.com/wu162/NewSdk/pull/17)。已接入生产统一资产任务、强ActionKey、按需完整结果及可回滚store、jobs与有界W3X worker；旧session隔离、Texture保留兼容。准确能力、源码入口、计量、sourceCommit/runId/归档哈希与剩余范围只看 [CACHE_PARALLEL](docs/CACHE_PARALLEL.md)，无需重读全量历史。
 
-生产路径已接统一资产任务、强 ActionKey、按需完整结果、可回滚 action store、jobs 参数与预算内 W3X worker；旧 session 路径隔离。当前优先跟进该记录中的完整 Windows Actions，再修复真实失败；编译和测试全部在 GitHub Actions。首轮应用存储测试发现私有候选路径过长，已缩短并准备重验。禁止强推，PR 目标 compiler-main，未经用户批准不合入。
+`125902cc` 的 [40629580163](https://github.com/wu162/NewSdk/actions/runs/40629580163) 整体success：Debug/Release完整生产、精确缓存、CDATA、跨文档实际重叠、读租约、旧来源授权、重复include/继承、native在途取消/异常安全汇合、旧session、完整mymod、五文件ZIP独立运行。该push运行已包含采样频率优化和native异常用例；原始归档、两配置运行文件/ZIP哈希及计量均已核验，见专项记录。主线发行不自动替换。
+
+后续优先按计量扩XML/Audio并行或减少跨stream扫描，保留现有强身份、读租约、失败事务与完整SDK门槛。编译/测试全部GitHub Actions；通常两个子代理、最多三个由本轮用户授权。禁止强推；目标compiler-main，未经用户批准不合入。
 
 ## 已合入的默认构建与参数改进
 
@@ -36,7 +38,7 @@ PR [#14](https://github.com/wu162/NewSdk/pull/14) 已合入 `compiler-main@e7396
 
 ## 后续工作方式
 
-本次选定范围的收尾与工具交付已完成。后续按用户新需求选择上述未覆盖能力推进；继续以 compiler-main 为入口，不再准备合回旧分支。
+此前重构工具交付已完成；本轮缓存与并行状态以前文及 CACHE_PARALLEL 为准。后续继续以 compiler-main 为入口，不再准备合回旧分支。
 生产输入改变时成组重建受影响回归；只有文档改变时不重编译。旧固定归档重放器仍绑定其历史源，不能直接用于当前新生产源码。新发行走主工作流的完整构建与发布门槛。
 
 ## 按任务读取

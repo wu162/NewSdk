@@ -1,6 +1,6 @@
 # 资产动作缓存与跨文档后端并行
 
-更新：2026-10-28（北京时间）。成果分支 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`。本页只记录当前工作；旧发行证据见 [COMPILER_RELEASE](../COMPILER_RELEASE.md)。**当前源码已接生产，尚待本轮完整 CI 验收，不声明性能加速或全矩阵通过。**
+更新：2026-10-28（北京时间）。成果分支 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`。本页只记录当前工作；旧发行证据见 [COMPILER_RELEASE](../COMPILER_RELEASE.md)。**生产主线与完整 Windows 回归已有通过收据；最新批次和精确范围见下文。未据此声明整份方案全部覆盖或完整 MOD 加速。**
 
 用户提供的[原始实施方案](CACHE_PARALLEL_PLAN.md)保留作目标与验收参考；当前状态只看本页收据，不能把方案要求当作已完成能力。日常续接无需重读整份方案。
 
@@ -38,7 +38,7 @@
 | --- | --- | --- | --- |
 | 普通 XML、GameObject、WeaponTemplate、ArmorTemplate | 是 | 否 | 私有有效 XML（含 schema 默认属性）、独占命名空间、类型/schema/引用兼容身份；完整三缓冲区。其他 XML 特例见下一行 |
 | AptAptData/AptConstData/AptDatData/AptGeometryData、TestTexture | 条件成立时 | 否 | 对全部真实外部读取持 Win32 FileShare.Read 租约并 SHA256；native 窄路径暂限 ASCII。缺失/不可读/非 ASCII 回兼容实际执行 |
-| W3DAnimation/W3DMesh | 是 | 估算展开≤64MiB时 | 冻结 XML/命名空间，native scratch/output 独占，初始化与 trace 已源码审计；待真实跨文档重叠证据 |
+| W3DAnimation/W3DMesh | 是 | 估算展开≤64MiB时 | 冻结 XML/命名空间，native scratch/output 独占，初始化与 trace 已源码审计；真实重叠已在双动画用例验证；Mesh 保持源码重入认证，未单独宣称双 Mesh 重叠实测 |
 | AudioFile 默认/NONE/XAS、MP3 passthrough、PathMusicMap | 条件成立时 | 否 | 存在且可读的真实输入持续持租约，三缓冲区、完整应有 CDATA；非法后端输出不得成为候选 |
 | PathMusicTrack/Event | 条件成立时 | 否 | 全部实际 File/header 持租约、header 非零 handle；保留语义路径，缺失/警告路径实际执行 |
 | Audio EALAYER3 或未闭合/警告路径 | 否 | 否 | 保留原诊断与执行，不消除进程一次性警告 |
@@ -62,13 +62,43 @@ owner 保持前端顺序，worker 仅拿独占后端输入；结果按发现顺�
 
 ## 当前收据与续接
 
-| sourceCommit | runId / 状态 | 范围 |
-| --- | --- | --- |
-| b9a5f2686fb6dc54aa8fb76b9b5cb8be8e9b60b2 | [40625998371](https://github.com/wu162/NewSdk/actions/runs/40625998371)，failure | App Debug/Release 发现 ActionAssetCache.Stage 私有候选路径过长；未进入生产验收。失败终态保留 |
-| cb22761562cbe9a9d12c50591e448d65a31cc883 | [40626352606](https://github.com/wu162/NewSdk/actions/runs/40626352606)，进行中且cache step失败 | 生产构建、Core、原BAB、Texture、CLI/协议、输入根、Audio/CDATA/W3X含真实并行、旧session与session协议已success；普通缓存fixture的GameObject缺Body已在后续测试修复，待终态原始日志确认 |
-| d7143a505e4579f2b96a947e8aa7c8c559e8a5f2 | [40626782705](https://github.com/wu162/NewSdk/actions/runs/40626782705)，进行中 | 普通action-cache完整矩阵、输入根、生产/Core/CLI/协议等局部success；后续payload/session/SDK/发行仍须终态 |
-| 79270b094a94de185f2bdaf88a593188db056837 | [40627506002](https://github.com/wu162/NewSdk/actions/runs/40627506002)，push触发、进行中 | 新分支已加入push过滤，显式完整标记，不复用旧二进制；含pending重复include/Reset修复、准备预算前置、计量及小帧并行fixture |
+已通过的完整批次：`125902cc5b8b0c3df3434b24db574970e2e022d5`，[40629580163](https://github.com/wu162/NewSdk/actions/runs/40629580163)，**success**。binarySourceCommit、testSourceCommit、packagingSourceCommit 均为该提交；Debug/Release 均全新编译。包含应用/Core、schema 默认属性、真实读锁及父目录换名拒绝、旧位置授权、重复include/继承、双native在途取消与真实worker异常安全汇合、CLI/jobs/协议、精确缓存/损坏/事务、输入根、Audio PCM/XAS/CDATA、W3X动画/网格缓存与双动画跨文档重叠、旧session、原BAB/BIG、完整未精简mymod与最终精确五文件ZIP独立运行。
 
-所有编译和测试均在 GitHub Actions。运行中不计作通过；二进制和测试来源以具体 run 的归档 build/validation JSON 及运行文件 SHA256 为准，文档提交不冒充二进制来源。尚无固定机器/输入可比的冷、热、单改、Additional 性能数据，暂不报告加速倍数。
+原始归档 artifact `12791073520`，SHA256 `44d237d777bbbe6d8730beab34b1aff60c9510e2b646e8dcf48adc549f00d4fa`。已下载并核验，12组收据路径及哈希、运行文件、ZIP与逐用例数据集中在 [机器可读证据](CACHE_PARALLEL_EVIDENCE.json)。发行与源码来源分开记录，不用文档提交冒充二进制来源，不复用不匹配旧二进制。
 
-下一步：跟进最新完整运行到终态，按失败步骤取日志集中修复，保留严格差分和 session 矩阵。生产输入再变更时重建；独立成功组只在闭包与证据匹配时复用。最后更新此表的最终 sourceCommit、原始 artifact、通过范围和真实阻塞，再准备指向 compiler-main 的 PR；未验收用 draft，未经用户明确批准不合入。
+最终Core原始收据确认：Debug/Release的取消与native异常两种场景，Dispose前均仍有1个真实后端调用在途，返回后active=0，两个调用区间都有结束；取消发生时确实观察到2个实际调用同时在途，失败/取消均未发布文档完成或最终manifest。完整W3X无缓存对照还记录了跨文档最大实际并发2，乱序结束后输出与串行逐字节一致。
+
+本轮全部完整运行均来自成果分支。早期显式workflow_dispatch，加入push过滤后由提交标记 `[refactor-core-lifecycle]` 触发；最终运行event=push、cli_only=false。`75118632` 的采样频率限制也已独立完整通过，最终收据包含该生产改动及后续native异常测试，不需要拿早期通过范围代替它。
+
+失败记录保留原终态，均未放宽断言或超时：
+
+| runId | 确认原因与修复 |
+| --- | --- |
+| [40625998371](https://github.com/wu162/NewSdk/actions/runs/40625998371) | 私有候选名重复完整Key/GUID导致Win32路径过长；改为短序号，后续全组通过 |
+| [40626352606](https://github.com/wu162/NewSdk/actions/runs/40626352606) | GameObject夹具缺必需Body，原始XSD异常已核实；修正真实夹具并增加长链接前预检，后续普通缓存矩阵通过 |
+| [40626782705](https://github.com/wu162/NewSdk/actions/runs/40626782705) | 旧大帧W3X串行控制 `control.json` 明确 timedOut=true、180秒超时；实际压缩O(n²)成本使夹具过重。改4096/3072帧并保留真实重叠、字节对照与原超时，后续完整组通过 |
+
+## 单样本计量与实际边界
+
+以下为同一成功运行的 Release 小夹具，固定运行文件与输入族，顺序启动独立CLI进程；“空缓存”指编译器动作缓存为空，OS文件缓存未清空。仅提供原始耗时与调用数，不推出全MOD加速倍率；完整机器/OS缓存控制及重复采样尚未做。
+
+| 夹具 | 状态 | 后端调用 | hit/miss | elapsedMs |
+| --- | --- | ---: | ---: | ---: |
+| Audio PCM/XAS | 空动作缓存 | 2 | 0/2 | 429 |
+| Audio PCM/XAS | 热缓存 | 0 | 2/0 | 412 |
+| Audio PCM/XAS | 单资产修改 | 1 | 1/1 | 421 |
+| Audio PCM/XAS | 仅Additional修改 | 0 | 2/0 | 409 |
+| W3X | 空动作缓存 | 3 | 0/3 | 490 |
+| W3X | 热缓存 | 0 | 3/0 | 432 |
+| W3X | 单资产修改 | 1 | 2/1 | 435 |
+| W3X | 仅Additional修改 | 0 | 3/0 | 448 |
+
+小夹具热运行仍有约13MiB输入保护/校验哈希读取，前端、启动、全根保护和链接继续执行；零后端调用不等于只重打包。混合Texture用例的热缓存仍有1次Texture调用；其余认证资产8hit/0miss，修改Weapon/GameObject/Armor等为7hit/1miss，含Texture总调用2。
+
+仍保留的范围与下一步：
+
+- Texture、未闭合/警告/非ASCII native读取、超大准备态继续兼容执行；XML/Audio并行尚未开启。资格表区分源码认证与实测，未把双动画重叠扩称每个W3X子类型实测。
+- 各stream全根保护扫描尚未合并；已有按需恢复和扫描内工具摘要共享。跨stream再复用摘要须有稳定字节版本证明，不能用mtime/size替代。
+- 尚未形成细分全部miss原因或真实大型MOD的受控冷/热/单改/封装性能基准；先用现有报告定位剩余成本，再扩并行或减少扫描。
+
+已完成本轮有界实施与验收；后续从上述明确保留范围选择下一组，不把本轮描述为完整方案全部完成。续接只需读本页、[REFACTOR_RESUME](../REFACTOR_RESUME.md)和上述最新运行；按失败步骤取原始日志，不重新全仓调研。成果在 [draft PR #17](https://github.com/wu162/NewSdk/pull/17)，目标compiler-main；禁止强推，未经用户明确批准不合入。全部编译/测试在GitHub Actions；文档整理不触发Windows构建。
