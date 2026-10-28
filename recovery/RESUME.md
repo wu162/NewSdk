@@ -4,7 +4,7 @@
 
 - 完整未裁剪mymod及全仓库图像扩展已通过：源码5a1b8e1d / [40657712486](https://github.com/wu162/NewSdk/actions/runs/40657712486) completed/success。原样mymod三模式四产物相同，但贴图调用0；扩展场景保留全部原Includes，150 DDS+7 TGA形成384资产，Original/Recovered/NoOriginal各384实际Core调用，65,917,672字节mod.bin、其余三产物与全部1345个完整轨迹文件相同，逐次NoOriginal隔离通过。只新增sdk-PcMymod，32组件+9既有SDK profile复用。实际归档SHA已独立核对，见[完整mymod验收](TEXTURE_MYMOD_ACCEPTANCE.md)。生产SDK未替换，其他编译器仍用原插件。
 - 默认DXT1/1A的静态未初始化疑点已得到原版受控反例：85690b1f / [40658031884](https://github.com/wu162/NewSdk/actions/runs/40658031884) completed/success，收据probe-only。3新进程各1280原DDS，同RGBA/options仅调用前栈填充不同，每进程均25类输出变化；DXT3/5全部稳定。默认DXT1与不透明DXT1A继续拒绝。显式初始化三色状态与有透明DXT1A块可独立适配公开S3；不能擅自规定未初始化字段默认值。详见[边界](TEXTURE_DXT1_BOUNDARY.md)。
-- 既有公开S3 DXT3/5、JPEG、NPOT、atlas和9专用SDK均保持下节精确锚点，不重复已闭环实验。接下来推进三色公开源码适配、PC native生命周期审计；完整DLL/native ABI及未声明metadata仍独立。
+- 既有公开S3 DXT3/5、JPEG、NPOT、atlas和9专用SDK均保持下节精确锚点，不重复已闭环实验。PC native生命周期依赖已完成[静态审计](TEXTURE_PC_LIFECYCLE.md)，无需给托管业务重建原设备/共享buffer；原native ABI和异常资源路径不冒充等价。三色公开源码适配在独立validation/texture-public-s3-dxt1验证中，尚未合入/启用；完整DLL/native ABI及未声明metadata仍独立。
 
 # 最新：公开 S3 适配与完整 PC 消费/SDK 已验收
 

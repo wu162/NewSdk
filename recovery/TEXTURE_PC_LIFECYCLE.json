@@ -1,0 +1,199 @@
+{
+  "status": "static-audit",
+  "sourceCommit": "d8f77489ff4351486f3d7a3c7978840e36e6b08f",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "scope": "Current PC managed production consumers resource ownership; not native ABI equality",
+  "nativeAbiEquivalent": false,
+  "productionInstalled": false,
+  "methods": [
+    {
+      "token": "0x06000017",
+      "type": "<Module>",
+      "name": "BinaryAssetBuilder.TextureCompiler.LoadImageA",
+      "rva": "0x00003214",
+      "kind": "IL"
+    },
+    {
+      "token": "0x060000C0",
+      "type": "<Module>",
+      "name": "?A0x749b4e39.Direct3DCreate9",
+      "rva": "0x00001C00",
+      "kind": "Native"
+    },
+    {
+      "token": "0x060000C2",
+      "type": "<Module>",
+      "name": "Direct3D.CreateDevice",
+      "rva": "0x00001C10",
+      "kind": "Native"
+    },
+    {
+      "token": "0x060000C3",
+      "type": "<Module>",
+      "name": "D3DDevice.Release",
+      "rva": "0x00001AD0",
+      "kind": "Native"
+    },
+    {
+      "token": "0x060000C4",
+      "type": "<Module>",
+      "name": "D3DResource.Release",
+      "rva": "0x00001940",
+      "kind": "Native"
+    },
+    {
+      "token": "0x060000C7",
+      "type": "<Module>",
+      "name": "BinaryAssetBuilder.TextureCompiler.SimpleBuffer.{ctor}",
+      "rva": "0x00001C20",
+      "kind": "Native"
+    },
+    {
+      "token": "0x060000C8",
+      "type": "<Module>",
+      "name": "BinaryAssetBuilder.TextureCompiler.SimpleBuffer.Reset",
+      "rva": "0x000056B0",
+      "kind": "Native"
+    },
+    {
+      "token": "0x060000C9",
+      "type": "<Module>",
+      "name": "BinaryAssetBuilder.TextureCompiler.SimpleBuffer.Append",
+      "rva": "0x00001A00",
+      "kind": "Native"
+    },
+    {
+      "token": "0x060000CB",
+      "type": "<Module>",
+      "name": "BinaryAssetBuilder.TextureCompiler.SimpleBuffer.__delDtor",
+      "rva": "0x00001E90",
+      "kind": "Native"
+    },
+    {
+      "token": "0x060000FC",
+      "type": "BinaryAssetBuilder.TextureCompiler.Plugin",
+      "name": "~Plugin",
+      "rva": "0x000026D4",
+      "kind": "IL"
+    },
+    {
+      "token": "0x060000FD",
+      "type": "BinaryAssetBuilder.TextureCompiler.Plugin",
+      "name": "!Plugin",
+      "rva": "0x00001A58",
+      "kind": "IL"
+    },
+    {
+      "token": "0x060000FE",
+      "type": "BinaryAssetBuilder.TextureCompiler.Plugin",
+      "name": "Initialize",
+      "rva": "0x00001AD8",
+      "kind": "IL"
+    },
+    {
+      "token": "0x060000FF",
+      "type": "BinaryAssetBuilder.TextureCompiler.Plugin",
+      "name": "ReInitialize",
+      "rva": "0x00001C44",
+      "kind": "IL"
+    },
+    {
+      "token": "0x06000101",
+      "type": "BinaryAssetBuilder.TextureCompiler.Plugin",
+      "name": "CompressAndEmbed",
+      "rva": "0x00005604",
+      "kind": "IL"
+    },
+    {
+      "token": "0x06000102",
+      "type": "BinaryAssetBuilder.TextureCompiler.Plugin",
+      "name": "CompressAndEmbed3D",
+      "rva": "0x000056B8",
+      "kind": "IL"
+    },
+    {
+      "token": "0x0600010F",
+      "type": "BinaryAssetBuilder.TextureCompiler.Plugin",
+      "name": "Dispose",
+      "rva": "0x000026E8",
+      "kind": "IL"
+    },
+    {
+      "token": "0x06000110",
+      "type": "BinaryAssetBuilder.TextureCompiler.Plugin",
+      "name": "Dispose",
+      "rva": "0x00002ED0",
+      "kind": "IL"
+    },
+    {
+      "token": "0x06000111",
+      "type": "BinaryAssetBuilder.TextureCompiler.Plugin",
+      "name": "Finalize",
+      "rva": "0x0000272C",
+      "kind": "IL"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "recovery/evidence/texture/runs/40191971356-1/decompiled/BinaryAssetBuilder.TextureCompiler/Plugin.cs",
+      "sha256": "0991fdf9ce7aec25d0316486495fed1a570716896a6fef3e5acb3c9bd9e0e466"
+    },
+    {
+      "path": "recovery/evidence/texture/runs/40191971356-1/decompiled/-Module-.cs",
+      "sha256": "3c5f79747a42c3e88602344b4644129d04d3bc841977abaf64c181705918d41c"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/Plugin.Metadata.cs",
+      "sha256": "e7e3ebb28e8e134a349dab27fe0e5ce0d39d12495acce498cd9793143d84e7bb"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/Plugin.Images.cs",
+      "sha256": "7d7affe2a0e67068b7de98ab7affa4e124e78800771da788791f552152838402"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/Plugin.Dds.cs",
+      "sha256": "b7b53ab3a4834a091f72aa06b1c152a574147d1c72976b31accb53b6c7eb7e17"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/Plugin.Atlas.cs",
+      "sha256": "a1c411f5e49d4de1e7a4e73abc37dbe9d5c582bfc493b7addd0c715314a22a1e"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureImageLoader.cs",
+      "sha256": "dcd62a26200ed2dcb5f34c95abd9d2741a48a2b65f784bf5b77f584a403e4564"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureJpegDecoder.cs",
+      "sha256": "4d6bd7bb1046ba532b83179357186b4db1928ed9098a176b6d06360b45911f13"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
+      "sha256": "926635e7568d0dfb9983c9428a86bc22580be4193bdc553f3582c9728c50d7ef"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs",
+      "sha256": "a3ffc02c85acc6e604d7145bffdaf7f8d3b36699040fb7173bfde7d74cb60bed"
+    },
+    {
+      "path": "src/TextureCompiler/Jpeg/TextureJpeg.c",
+      "sha256": "01889f568434aa00c15cd5876ebf474894c11a4409f236bfa6a7e0c0fd6208a5"
+    },
+    {
+      "path": "src/TextureCompiler/PublicS3/s3_quant.cpp",
+      "sha256": "9f6e5004632fdad94f18305b2bfb2005367ab1c276e9002397c3678439e72831"
+    },
+    {
+      "path": "src/TextureCompiler/PublicS3/TexturePublicS3.cpp",
+      "sha256": "2501890cd41bc4779b9c4eb427e690e03dd94fd1a99dd3ab54ed2a3f45b05536"
+    },
+    {
+      "path": "src/TextureCompiler/Native/TextureSupport.cpp",
+      "sha256": "8a1bff57829156c3dda392a5a8b43c2985bf213d227ddd052679a798fa3c4209"
+    }
+  ],
+  "sdkEvidence": {
+    "sourceCommit": "5a1b8e1d0e6c66ac9ebff60906da184eee1e26a7",
+    "runId": "40657712486",
+    "assetCallsPerMode": 384
+  }
+}

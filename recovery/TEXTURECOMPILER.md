@@ -20,12 +20,12 @@ DXT3/5默认71颜色/alpha、完整块、POT二维/volume无mip与完整float mi
 
 ## 仍需完成（仅 PC）
 
-1. DXT1 / DXT1A默认完整路径、完整压缩器和生产集成。默认71颜色核心与DXT3/5完整块、对齐整图和无mip插件路由已取得组件验收；小尺寸/float块与小尺寸无mip消费者已通过组件和SDK门槛，压缩volume现也已通过组件及专用SDK完整验收。不再调查跨平台一致性。
+1. 默认DXT1 / DXT1A未初始化边界已取得原版受控反例，继续拒绝；详见[边界](TEXTURE_DXT1_BOUNDARY.md)。已声明DXT3/5完整压缩器及真实消费均已验收，不再列为未恢复。默认71颜色核心与DXT3/5完整块、对齐整图和无mip插件路由已取得组件验收；小尺寸/float块与小尺寸无mip消费者已通过组件和SDK门槛，压缩volume现也已通过组件及专用SDK完整验收。不再调查跨平台一致性。
 2. NPOT已声明源存储路径已按上文验收；未声明格式/metadata按实际输入需求独立取证，原版拒绝格式继续保留原拒绝。
 3. JPEG已声明灰度/RGB顺序/渐进、POT/NPOT及插件/SDK已完成；CMYK/其他未声明JPEG域、PNG ICC/APNG、TGA metadata/RLE边界与其他BMP组合按实际输入需求独立取证。
 4. TerrainTextureAtlas公共入口及专用SDK已完成（be520b8e/40607538234）；后续只按真实输入扩展未声明格式/metadata，不重复已验收整组。
-5. 审计 PC 实际需要的原 native 初始化/释放及公共图像依赖。保留共享 helper，不为已排除平台补实现。
-6. 最终合入并接入新编译器。生产 SDK DLL/config 仍未替换，完整 DLL 尚未还原。
+5. 当前PC托管业务消费的native资源依赖已完成[静态审计](TEXTURE_PC_LIFECYCLE.md)，完整mymod和384资产SDK证实无需原共享buffer/设备。原native指针ABI、设备实现和异常资源路径仍非等价替换范围。
+6. [完整mymod集成](TEXTURE_MYMOD_ACCEPTANCE.md)已通过原样与384真实贴图资产三模式四产物/轨迹验证；生产SDK DLL/config仍未替换，完整混合模式DLL/native ABI尚未还原。
 
 ## 本轮验证（已完成）
 
