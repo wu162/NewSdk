@@ -2095,33 +2095,111 @@ static void pcQuick(RGBBlock* b) {
     if(pcPack(b->endPoint[0])>pcPack(b->endPoint[1]))for(int c=0;c<3;c++){int t=b->endPoint[0][c];b->endPoint[0][c]=b->endPoint[1][c];b->endPoint[1][c]=t;}
     b->outLevel=4;for(int i=0;i<b->n;i++)b->index[i]=0;
 }
-static double pcErrorAndIndices(RGBBlock* b) {
+// Preserve x87 intermediates through nearest-palette comparisons. A double
+// spill at each channel/point changes mip/partial ties. Owned arithmetic in
+// the copied S3 source; no original/recovered encoder callback. PC x86 only.
+static int pcClosestX87(const double* values,const int* palette,const double* weights,unsigned char* error80) {
+    unsigned char best[10];double limit=1.0e100,scale=255.0;int choice=0;
+    __asm {
+        fld qword ptr limit
+        fstp tbyte ptr best
+        xor ecx,ecx
+        mov esi,values
+        mov edi,palette
+        mov ebx,weights
+    pointRamp:
+        fld qword ptr [esi]
+        fmul qword ptr scale
+        fisub dword ptr [edi]
+        fmul qword ptr [ebx]
+        fld qword ptr [esi+8]
+        fmul qword ptr scale
+        fisub dword ptr [edi+4]
+        fmul qword ptr [ebx+8]
+        fld qword ptr [esi+16]
+        fmul qword ptr scale
+        fisub dword ptr [edi+8]
+        fmul qword ptr [ebx+16]
+        fld st(1)
+        fmulp st(2),st(0)
+        fld st(2)
+        fmulp st(3),st(0)
+        fxch st(1)
+        faddp st(2),st(0)
+        fmul st(0),st(0)
+        faddp st(1),st(0)
+        fld tbyte ptr best
+        fxch st(1)
+        fcom st(1)
+        fnstsw ax
+        test ah,5
+        jp pointReject
+        fstp st(1)
+        fstp tbyte ptr best
+        mov choice,ecx
+        jmp pointNext
+    pointReject:
+        fstp st(0)
+        fstp st(0)
+    pointNext:
+        add edi,12
+        inc ecx
+        cmp ecx,4
+        jl pointRamp
+        mov eax,error80
+        fld tbyte ptr best
+        fstp tbyte ptr [eax]
+    }
+    return choice;
+}
+static double pcErrorAndIndices(RGBBlock* b,const double* threshold,int* greater) {
     int ramp[4][3];static const int bits[3]={5,6,5};
     for(int c=0;c<3;c++){
         int a=b->endPoint[0][c],z=b->endPoint[1][c];
         ramp[0][c]=(a<<(8-bits[c]))|(a>>(2*bits[c]-8));ramp[1][c]=(z<<(8-bits[c]))|(z>>(2*bits[c]-8));
-        // The final wrapper's metric/reindex uses truncating interpolation,
-        // while the S3 grid search above deliberately uses rounded interpolation.
         ramp[2][c]=(2*ramp[0][c]+ramp[1][c])/3;ramp[3][c]=(ramp[0][c]+2*ramp[1][c])/3;
     }
-    double total=0;
+    unsigned char total80[10],point80[10];double total;
+    __asm {
+        fldz
+        fstp tbyte ptr total80
+    }
     for(int i=0;i<b->n;i++){
-        double best=1.0e100;int choice=0;
-        for(int k=0;k<4;k++){
-            double d[3];for(int c=0;c<3;c++)d[c]=(b->colorChannel[i][c]*255.0-ramp[k][c])*b->weight[c];
-            double error=d[0]*d[0]+d[1]*d[1]+d[2]*d[2];if(error<best){best=error;choice=k;}
+        b->index[i]=pcClosestX87(b->colorChannel[i],&ramp[0][0],b->weight,point80);
+        __asm {
+            fld tbyte ptr total80
+            fld tbyte ptr point80
+            faddp st(1),st(0)
+            fstp tbyte ptr total80
         }
-        b->index[i]=choice;total+=best;
+    }
+    __asm {
+        fld tbyte ptr total80
+        fstp qword ptr total
+    }
+    if(threshold&&greater){
+        int result;
+        __asm {
+            mov ecx,threshold
+            fld tbyte ptr total80
+            fcomp qword ptr [ecx]
+            fnstsw ax
+            test ah,41h
+            setz cl
+            movzx ecx,cl
+            mov result,ecx
+        }
+        *greater=result;
     }
     return total;
 }
 void CodeRGBBlockPC(RGBBlock* block) {
     if(!block||block->n<1||block->n>MAX_PIXEL_PER_BLOCK||block->inLevel!=4)return;
-    RGBBlock quick=*block;pcQuick(&quick);double quickError=pcErrorAndIndices(&quick);
+    RGBBlock quick=*block;pcQuick(&quick);double quickError=pcErrorAndIndices(&quick,0,0);
     double quickEndpoints[6];for(int i=0;i<6;i++)quickEndpoints[i]=quick.endPoint[i/3][i%3];S3_TRACE("s3-quick-endpoints",6,quickEndpoints);
-    CodeRGBBlock(block);double fullError=pcErrorAndIndices(block);
+    CodeRGBBlock(block);int greater=0;double fullError=pcErrorAndIndices(block,&quickError,&greater);
     double errors[2]={quickError,fullError};S3_TRACE("s3-wrapper-errors",2,errors);
-    if(fullError>quickError)*block=quick;
+    if(greater)*block=quick;
 }
 
 /*****************************************************************************
