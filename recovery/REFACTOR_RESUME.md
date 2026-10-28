@@ -9,6 +9,12 @@
 
 详见 [完整结果与来源](docs/UPHEAVAL_BENCHMARK.md)、[持久计量JSON](docs/UPHEAVAL_BENCHMARK_RESULT.json) 和 [复跑方法](benchmarks/upheaval/README.md)。二进制源码 `8b3e146cb5220e830ff6a0ce4718f47af052f166` / 成功运行40446975355，测试源码 `c98507a0bdc90f7a5dbdbe37353a17ecba765fc2`，未重建或修改生产代码。[40608627111](https://github.com/wu162/NewSdk/actions/runs/40608627111) 已验证原始归档并只读提取约2MiB轻量报告，未重新编译；以后正常运行也同时上传轻量包，手动 `report_run_id` 仅提取已有成功结果。早期40604428912/40604660397的输入预检失败保留，未混入统计。当前任务已完成，后续按用户审查决定是否合入，禁止强推或自行合并。
 
+## 扩展缓存与完整打包矩阵（验证中）
+
+用户要求继续补齐有/无缓存、增量修改、恢复、内存/CPU、完整打包与多机器重复。生产代码不变；独立分支及PR#16继续，PR暂回draft。[运行40720756791](https://github.com/wu162/NewSdk/actions/runs/40720756791) 测试源码 `8318eb71f03c85f2f10f690b779fbd7df71ae0f4`，两台独立windows-2022 runner VM；本地/Windows八项轻量预检、生产包来源及输入初始化已通过，完整矩阵尚在运行，不能预告性能结果。
+
+方法见 [benchmark README](benchmarks/upheaval/README.md)：每VM无缓存/BC冷/BC热各5对，真实XML/DDS/WAV同长度同mtime内容修改首次/热建各3对，缓存缺失/损坏及无效XML失败后的重试；完整SC的新侧Texture拒绝单列，原地图元数据子集另测SC；BIG/SKUDEF流水线预热后3对。各阶段独立门槛，缓存阶段后会先上传轻量checkpoint；最终按VM分层配对bootstrap汇总，保留原始输出差异和失败终态。复用既有无缓存成果，不关闭旧入口或回归。续接先读该运行的jobs/轻量artifact，等终态后更新本段与PR，避免重复启动长任务；既有88.918/74.002秒结果仍仅属于原无缓存运行。
+
 ## 默认构建与参数改进（PR #14，待合入）
 
 本轮从 `compiler-main` 的 `933cf4a2` 创建 `feature/compiler-build-defaults`，PR [#14](https://github.com/wu162/NewSdk/pull/14)，尚未合并。生产/测试源码 `8b3e146cb5220e830ff6a0ce4718f47af052f166`；[验收运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 的完整 mymod 原 BAB 流、含 Additional 的默认 BIG 与 SKUDEF 差分、全部受影响回归及独立五文件 ZIP 验收均已通过，运行整体 success。
