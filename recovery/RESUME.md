@@ -1,3 +1,8 @@
+# 当前轮检查点：三色包装与透明DXT1A完整产物比较
+
+- **本轮完成（验证中）**：按原包装规则离线核对40671760128不可变归档，D/R compact打包各5312/5312相同，原完整state仍5309/5312；新增可复现分析脚本/收据。独立实验分支新增透明DXT1A float/partial与完整DDS比较，源码792aff38 / [40679136957](https://github.com/wu162/NewSdk/actions/runs/40679136957)运行中，尚不声明支持。详细入口[三色适配](TEXTURE_PUBLIC_S3_THREE.md)。
+- **下一步**：收取该run终态与完整差异，按实际包装问题集中修复；候选稳定后再取得适用完整消费/SDK门槛。默认未初始化DXT1/opaque DXT1A保持拒绝；本轮不默认重跑完整MOD，未变成功组保留原锚点。
+
 # 本轮规则修订：效率复盘、完整MOD降频与交接
 
 - **本轮完成**：用户于2026-10-28要求把效率复盘纳入持续规则，并降低完整MOD频率、每轮最后说明完成与下一步。已更新AGENTS/EFFICIENCY/STAGE_DURATION/TEXTURE_TESTING，并明确总原则“效率优先、正确性是底线”；`sdk-PcMymod`改manual_only，普通SDK批次不再自动选择；新增两项选择边界检查，本轮只运行Linux选择检查/计划，不启动Windows或MOD重测。选择规则源码`41281b506218f1f603c3006143cd6892c4ed0175` / [40676349619](https://github.com/wu162/NewSdk/actions/runs/40676349619) completed/success：15项检查通过，SDK请求计划selected=空，32组件/9专用SDK复用，Windows作业skipped，未启动MOD；[政策验证收据](evidence/texture/selection-policy/40676349619-1/validation.json)。

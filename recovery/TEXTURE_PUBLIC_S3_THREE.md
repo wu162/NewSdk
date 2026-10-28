@@ -17,3 +17,9 @@ Debug/Release各5312份完整0x3850初始化状态：format0/1、flag0、mode0/3
 两轮完整比较档案已集中保存到目标分支 `evidence/texture/public-s3-three/{40670148058,40671760128}-1`；[分类统计](TEXTURE_PUBLIC_S3_THREE_RESULTS.json)保留原sourceCommit/runId和SHA，不改写为正式分支生产源码。源码和补丁前后指纹继续在实验分支。
 
 即使初始化状态达到5312/5312，下一门槛仍是完整DXT1A透明/全透明包装、原阈值、浮点/partial映射与端点/索引规范化，以及适用DDS/mip/volume/插件/SDK。不能把状态组件一致扩大为默认DXT1或完整DXT1A支持。
+
+## 2026-10-28 包装优先续接（当前比较中）
+
+已按不可变原包装 `CompressDispatch.c` 的端点相等/排序与三色0/1映射，离线逐条分析40671760128的完整状态归档：D/R各5312个compact状态打包全部相同，原始完整状态仍保持5309/5312与3个0x3038差异。可复现脚本为 `scripts/SummarizeTexturePublicS3Packing.py`，[分析收据](evidence/texture/public-s3-three/packing-40671760128-1/analysis.json)绑定原归档SHA256；这只证明compact状态打包规则，不包含实际尺寸、alpha剔除或DDS头，不能冒充完整DDS验收。
+
+独立实验分支已新增透明DXT1A包装比较，源码 `792aff38a3dfbdda015eddda41f44d03d74e12c9` / [40679136957](https://github.com/wu162/NewSdk/actions/runs/40679136957)，启动时尚在运行。每配置4608个float块、3456个完整byte DDS，覆盖9种partial形状、全透明、灰度、单色/随机及0.5阈值两侧；独立NoOriginal重放完整输入/原输出/候选输出。仅测试入口消费公开三色export，无生产路由变更，opaque DXT1A与默认DXT1仍拒绝。只选择新增evidence-only组；旧成功组/SDK保持原锚点。运行终态和差异待收取，不预判成功。

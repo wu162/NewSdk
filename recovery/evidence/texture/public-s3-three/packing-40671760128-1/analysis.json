@@ -1,0 +1,78 @@
+{
+  "archiveSha256": "f16c07b1c10032ea31a9ee85baca10e24b379514a4da91a5ae05fb477aa8efe0",
+  "status": "state-packing-analysis",
+  "productionAccepted": false,
+  "scope": "Full fixed initialized states, retaining raw differences; compact indices only, no dimensions/alpha/DDS claim",
+  "configurations": [
+    {
+      "file": "Debug-transcript.tsv.records",
+      "fixtures": 5312,
+      "rawMatches": 5309,
+      "packingMatches": 5312,
+      "rawDifferences": [
+        {
+          "ordinal": 761,
+          "mode": 0,
+          "format": 0,
+          "inputSha256": "462ac007ecb5af4db576ab609f5ae34509a44468f5faf27cb86738a9bc489fc1",
+          "firstRawDifference": 12344,
+          "packedEqual": true
+        },
+        {
+          "ordinal": 781,
+          "mode": 0,
+          "format": 0,
+          "inputSha256": "6e93e6b699bbae528ea4cf4284bfe86dd180db465c582551de14684d5138c3b5",
+          "firstRawDifference": 12344,
+          "packedEqual": true
+        },
+        {
+          "ordinal": 1023,
+          "mode": 0,
+          "format": 0,
+          "inputSha256": "9260c540ef7ff34d2a467d39ab9d2dbca259bf56691be90a1a09426c9c02ab61",
+          "firstRawDifference": 12344,
+          "packedEqual": true
+        }
+      ]
+    },
+    {
+      "file": "Release-transcript.tsv.records",
+      "fixtures": 5312,
+      "rawMatches": 5309,
+      "packingMatches": 5312,
+      "rawDifferences": [
+        {
+          "ordinal": 761,
+          "mode": 0,
+          "format": 0,
+          "inputSha256": "462ac007ecb5af4db576ab609f5ae34509a44468f5faf27cb86738a9bc489fc1",
+          "firstRawDifference": 12344,
+          "packedEqual": true
+        },
+        {
+          "ordinal": 781,
+          "mode": 0,
+          "format": 0,
+          "inputSha256": "6e93e6b699bbae528ea4cf4284bfe86dd180db465c582551de14684d5138c3b5",
+          "firstRawDifference": 12344,
+          "packedEqual": true
+        },
+        {
+          "ordinal": 1023,
+          "mode": 0,
+          "format": 0,
+          "inputSha256": "9260c540ef7ff34d2a467d39ab9d2dbca259bf56691be90a1a09426c9c02ab61",
+          "firstRawDifference": 12344,
+          "packedEqual": true
+        }
+      ]
+    }
+  ],
+  "sourceCommit": "091239f2870001422073ac31ad1aac9935511615",
+  "runId": "40671760128",
+  "runAttempt": "1",
+  "analysisKind": "Offline immutable-record analysis; no new compiler execution",
+  "originalWrapperEvidence": "recovery/evidence/texture/dxt-decompile/40488941255-1/CompressDispatch.c RVA 0x5d0a0..0x5d1b0 and 0x5d43f..0x5d54e",
+  "command": "python recovery/scripts/SummarizeTexturePublicS3Packing.py recovery/evidence/texture/public-s3-three/40671760128-1/comparison.zip"
+}
