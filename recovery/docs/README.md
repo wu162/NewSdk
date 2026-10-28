@@ -2,6 +2,10 @@
 
 日常使用见 [新编译器使用说明](../COMPILER_USAGE.md)，当前开发状态见 [交接入口](../REFACTOR_RESUME.md)。本目录中的历史恢复记录须按原 sourceCommit/runId 理解，不替换当前能力合同。
 
+## 当前专项
+
+- [缓存与并行](CACHE_PARALLEL.md)：能力表、模式合同、最短源码查询、当前 CI 与交接。
+
 ## 类型恢复记录
 
 | 分类 | 入口 |

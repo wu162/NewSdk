@@ -17,7 +17,8 @@
 | --- | --- |
 | 当前状态与后续工作 | [REFACTOR_RESUME](REFACTOR_RESUME.md) |
 | 工作规则 | [EFFICIENCY](EFFICIENCY.md)、[阶段时长](STAGE_DURATION.md) |
-| 缓存与事务 | [生命周期记录](P5_LIFECYCLE_AUDIT.md) |
+| 缓存与并行的当前能力、源码入口、CI 与下一步 | [缓存并行记录](docs/CACHE_PARALLEL.md) |
+| 旧缓存与事务参考 | [生命周期记录](P5_LIFECYCLE_AUDIT.md) |
 | 路径约束 | [PATH_AUDIT](PATH_AUDIT.md) |
 | MakeBig 来源与恢复 | [MAKEBIG_RECOVERY](MAKEBIG_RECOVERY.md) |
 | LoD 原工具缺陷与修复合同 | [LoD 边界说明](P7_LOD_ORIGINAL_TAIL.md) |

@@ -3,11 +3,15 @@
 更新：2026-10-27（北京时间）。用户指定 `compiler-main` 为重构结果及今后开发主线。旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 已关闭且未合并，不再合回旧主线。开发主线约定不代表已修改 GitHub 网页默认分支。
 禁止强推；今后其他合并仍须用户批准；子代理数量由当轮用户指定。
 
-## 默认构建与参数改进（PR #14，待合入）
+## 当前任务：资产动作缓存与跨文档并行（2026-10-28）
 
-本轮从 `compiler-main` 的 `933cf4a2` 创建 `feature/compiler-build-defaults`，PR [#14](https://github.com/wu162/NewSdk/pull/14)，尚未合并。生产/测试源码 `8b3e146cb5220e830ff6a0ce4718f47af052f166`；[验收运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 的完整 mymod 原 BAB 流、含 Additional 的默认 BIG 与 SKUDEF 差分、全部受影响回归及独立五文件 ZIP 验收均已通过，运行整体 success。
+成果分支 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`。本轮正在实现与验证，**尚未完成验收，不替换已通过的主线发行**。准确能力、sourceCommit/runId、失败与后续入口集中在 [CACHE_PARALLEL](docs/CACHE_PARALLEL.md)，不要重新加载全量历史或把源码认证当作实测通过。
 
-标准构建默认自动发现 base/APT/全局元数据并输出 BIG/SKUDEF，Additional 默认包含、可关闭且覆盖警告；开发模式默认 loose，高级兼容入口保留。`global-metadata` 兼容 `maps`，项目可保存 SDK/输出路径和常用设置。显式部分编译/空可选组行为与打包机制保留，缓存参数/默认值/实现未改。最新使用方式见 [COMPILER_USAGE.md](COMPILER_USAGE.md)，来源与范围见 [BUILD_DEFAULTS_VALIDATION.md](docs/BUILD_DEFAULTS_VALIDATION.md)。下次以该 PR 分支续接，用户批准后才能合入 `compiler-main`；主线现有发行下载不因此自动替换。
+生产路径已接统一资产任务、强 ActionKey、按需完整结果、可回滚 action store、jobs 参数与预算内 W3X worker；旧 session 路径隔离。当前优先跟进该记录中的完整 Windows Actions，再修复真实失败；编译和测试全部在 GitHub Actions。首轮应用存储测试发现私有候选路径过长，已缩短并准备重验。禁止强推，PR 目标 compiler-main，未经用户批准不合入。
+
+## 已合入的默认构建与参数改进
+
+PR [#14](https://github.com/wu162/NewSdk/pull/14) 已合入 `compiler-main@e7396d3b`（旧交接写待合入已过时）。生产/测试源码 `8b3e146c` 的 [运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 完整 mymod、默认 BIG/SKUDEF 和五文件 ZIP 验收属于基线证据，不能替代本轮新生产源码验收。详见 [默认构建验证](docs/BUILD_DEFAULTS_VALIDATION.md)。
 
 ## 最新旧参数兼容验收（2026-10-27）
 

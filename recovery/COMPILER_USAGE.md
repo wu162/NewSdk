@@ -108,13 +108,17 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 
 稳定排序 `/ss`、预编译引用策略 `/pc` 和慢清理 `/slowclean` 默认开启，与旧编译脚本一致，通常不必手动填写；确有需要可分别传入 `/ss:false`、`/pc:false`、`/slowclean:false`。这些选项不依赖缓存开关。
 
-构建资产缓存和会话缓存默认关闭，可独立启用：
+构建资产缓存和会话缓存默认关闭，`--jobs=1` 为默认串行执行。当前分支的新模式（验收状态见[缓存与并行记录](docs/CACHE_PARALLEL.md)）：
 
 ```powershell
-./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --package-content base /bc:true /sc:true
+./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --package-content base /bc:true /sc:false --jobs=2
 ```
 
-`/bc` 复用合格的资产编译结果；`/sc` 恢复文档及 intermediate/CDATA 后重新生成链接输出。缓存位于输出根的 `.cache` 下，修改输入或参数会按缓存合同失效。中途失败和取消不得确认新缓存。
+`/sc:false /bc:true` 使用独立 `.cache/action-cache-v1`，按资产动作的强身份复用完整三缓冲区和 CDATA，命中仍执行验证器。前端检查和最终链接每次运行；修改一个资产不再让其他合格资产全冷。`/bc:false /sc:false` 使用同一执行器且不读写持久动作缓存，可用于串行/并行对照。
+
+`--jobs=N` 只接受正整数，项目 JSON 可保存 `"jobs": "2"`，命令行优先。实际并发受后端认证和资源预算限制，当前 W3X 最多两个独立任务，其他后端保留 owner 串行屏障。报告记录 requestedJobs、backendCalls、maxBackendConcurrency 和实际调用区间；仅热缓存命中不证明并行。
+
+`/sc:true` 保留原会话缓存及其原有 `/bc` 组合路径、全根失效保护、intermediate/CDATA 恢复与重新链接，要求 `--jobs=1`；jobs>1 明确报 `CORE_SESSION_PARALLEL_UNSUPPORTED`。旧缓存不会导入新动作缓存。中途编译、取消、发布或必要报告通道失败时，不确认新缓存。
 
 含混合 Texture 的流目前不支持 `/sc:true`，改用 `/sc:false`；`/bc:true` 不表示贴图缓存已经开放。不要直接沿用旧 BAB 的缓存目录。需要清理时，在没有构建运行的情况下删除对应输出根的 `.cache` 即可，保留 `published` 可保留上一代产物。
 
