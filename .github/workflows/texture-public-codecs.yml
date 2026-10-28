@@ -30,4 +30,5 @@ jobs:
       - name: Save evidence on the test branch
         if: always() && steps.tests.outcome != 'skipped'
         shell: pwsh
-        run: ./recovery/scripts/SaveTextureEvidence.ps1 -Path recovery/evidence/texture/public-codecs -Message "texture: record public codec comparison $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+        run: |
+          ./recovery/scripts/SaveTextureEvidence.ps1 -Path recovery/evidence/texture/public-codecs -Message "texture: record public codec comparison $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
