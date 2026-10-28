@@ -370,15 +370,29 @@ function EnvironmentMod([string]$Path){
     Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
 }
 $targetingTypes=@('TargetingDistanceCompare','TargetingCombatChainCompare','TargetingInTurretArcCompare','TargetingCompareList')
-function TargetingMod([string]$Path){
+$visibilityTypes=@('InvisibilityTemplate','InvisibilityManagerSettings')
+$radarTypes=@('RadarTerrainImage','UIRadarObjectsLayer')
+function TargetingMod([string]$Path){MetadataMod $Path 'Xmltargeting' $script:targetingTypes}
+function VisibilityMod([string]$Path){MetadataMod $Path 'Xmlvisibility' $script:visibilityTypes}
+function RadarMod([string]$Path){MetadataMod $Path 'Xmlradar' $script:radarTypes}
+function MetadataMod([string]$Path,[string]$Family,[string[]]$Types){
     ParallelW3xMod $Path
     Remove-Item -LiteralPath "$Path/Data/ParallelShort.xml"
-    [xml]$probe=[IO.File]::ReadAllText("$root/recovery/tests/XmltargetingProbe.xml")
+    [xml]$probe=[IO.File]::ReadAllText("$root/recovery/tests/$($Family)Probe.xml")
     $ns=[Xml.XmlNamespaceManager]::new($probe.NameTable);$ns.AddNamespace('ea','uri:ea.com:eala:asset')
-    $includes='<Include type="all" source="W3x.xml"/><Include type="all" source="ParallelLong.xml"/>'
-    foreach($type in $script:targetingTypes){
+    $includes=''
+    if($Family -ceq 'Xmlradar'){
+        # Real strong references are resolved through their complete production
+        # texture/image closure before the native peer and metadata workers.
+        Put "$Path/Data/RadarDependencies.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Texture id="ParallelRadarTexture" File="cache.tga" Type="StandardTexture" GenerateMipMaps="false" OutputFormat="A8R8G8B8" AllowAutomaticResize="false"/><PackedTextureImage id="ParallelRadarImage" Texture="ParallelRadarTexture" Rotated="false"><Dimensions x="32" y="32"/><Coords x="0" y="0"/><TextureDimensions x="256" y="256"/></PackedTextureImage></AssetDeclaration>'
+        & python "$root/recovery/probes/TextureRedirect/MakeFixture.py" "$Path/Data/cache.tga"
+        Need ($LASTEXITCODE -eq 0) 'Radar real Texture fixture generation failed'
+        $includes+='<Include type="all" source="RadarDependencies.xml"/>'
+    }
+    $includes+='<Include type="all" source="W3x.xml"/><Include type="all" source="ParallelLong.xml"/>'
+    foreach($type in $Types){
         $node=$probe.SelectSingleNode(('/ea:AssetDeclaration/ea:'+$type+'[1]'),$ns)
-        Need ($null -ne $node -and $node.GetAttribute('id') -ceq ('Parallel'+$type)) "Targeting source fixture identity differs: $type"
+        Need ($null -ne $node -and $node.GetAttribute('id') -ceq ('Parallel'+$type)) "Metadata source fixture identity differs: $type"
         Put "$Path/Data/$type.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$node.OuterXml+'</AssetDeclaration>')
         $includes+='<Include type="all" source="'+$type+'.xml"/>'
     }
@@ -386,13 +400,13 @@ function TargetingMod([string]$Path){
 }
 function EnvironmentParallelEvidence($Case){MetadataParallelEvidence $Case $script:environmentTypes 'Xmlenvironment'}
 function TargetingParallelEvidence($Case){MetadataParallelEvidence $Case $script:targetingTypes 'Xmltargeting'}
-function MetadataParallelEvidence($Case,[string[]]$Types,[string]$Family){
+function MetadataParallelEvidence($Case,[string[]]$Types,[string]$Family,[int]$DependencyCalls=0){
     $cache=$Case.report.cache
-    Need ($cache.requestedJobs -eq 2 -and $cache.cacheMode -ceq 'Disabled' -and $cache.backendCalls -eq ($Types.Count+2) -and $cache.maxBackendConcurrency -eq 2) "$Family fixture must execute every public root plus real W3X dependencies with two actual calls overlapping"
+    Need ($cache.requestedJobs -eq 2 -and $cache.cacheMode -ceq 'Disabled' -and $cache.backendCalls -eq ($Types.Count+2+$DependencyCalls) -and $cache.maxBackendConcurrency -eq 2) "$Family fixture must execute every public root plus real W3X dependencies with two actual calls overlapping"
     $intervals=@($cache.backendIntervals)
     $native=@($intervals|Where-Object{$_.typeName -ceq 'W3DAnimation'})
     $owner=@($intervals|Where-Object{$_.typeName -ceq 'W3DHierarchy'})
-    Need ($native.Count -eq 1 -and $owner.Count -eq 1) 'Environment peer and owner-control must be actual animation/hierarchy calls'
+    Need ($native.Count -eq 1 -and $owner.Count -eq 1) 'Metadata peer and owner-control must be actual animation/hierarchy calls'
     $overlapping=@()
     foreach($type in $Types){
         $calls=@($intervals|Where-Object{$_.typeName -ceq $type})
@@ -424,13 +438,13 @@ function ParallelEvidence($Case){
     Need ($left.startTicks -lt $left.endTicks -and $right.startTicks -lt $right.endTicks -and $left.startTicks -lt $right.endTicks -and $right.startTicks -lt $left.endTicks) 'Actual cross-document backend call intervals did not overlap'
     return @{passed=$true;requestedJobs=2;maxBackendConcurrency=$cache.maxBackendConcurrency;backendCalls=$cache.backendCalls;intervals=$intervals;scope='One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled'}
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native, leased APT XML and streamed XAS AudioFile overlap with jobs2, twelve Xmlenvironment and four public Xmltargeting roots with cold/hot/same-mtime single edit and actual cross-family overlap, independent dual Mesh native overlap; not a new original-DLL/SDK gate'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native, leased APT XML and streamed XAS AudioFile overlap with jobs2, twelve Xmlenvironment and four public Xmltargeting and complete Radar/Visibility roots with cold/hot/same-mtime single edit and actual cross-family overlap, independent dual Mesh native overlap; not a new original-DLL/SDK gate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     $state.repositoryModMetricsRequested=[bool]$RepositoryModMetrics
     if($RepositoryModMetrics -and !$Preflight){Need ([bool]$ReplayReceipt) 'Repository MOD metrics require a verified successful archived runtime and ReplayReceipt'}
     if($Preflight){
-        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3');FourWorkerAudioMod (Join-Path $short 'four');ParallelMeshMod (Join-Path $short 'mesh');EnvironmentMod (Join-Path $short 'env');TargetingMod (Join-Path $short 'target')
+        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3');FourWorkerAudioMod (Join-Path $short 'four');ParallelMeshMod (Join-Path $short 'mesh');EnvironmentMod (Join-Path $short 'env');TargetingMod (Join-Path $short 'target');VisibilityMod (Join-Path $short 'visibility');RadarMod (Join-Path $short 'radar')
         $check=@'
 import pathlib, runpy, sys
 from lxml import etree as E
@@ -488,6 +502,24 @@ assert len(E.parse(str(work/'target/Data/Mod.xml')).getroot()[0])==6
 compare=E.parse(str(work/'target/Data/TargetingCompareList.xml')).getroot()[0]
 assert len(compare)==4
 assert all(ref.text.split(':')[0] in targeting_roots for ref in compare)
+list_bytes=(work/'target/Data/TargetingCompareList.xml').read_bytes()
+first_value=compare[0].text.encode(); second_value=compare[1].text.encode()
+first=list_bytes.index(first_value); second=list_bytes.index(second_value)
+assert first<second
+span=list_bytes[first:second+len(second_value)]
+between=list_bytes[first+len(first_value):second]
+reordered=list_bytes.replace(span,second_value+between+first_value,1)
+assert len(reordered)==len(list_bytes) and reordered!=list_bytes
+schema.assertValid(E.fromstring(reordered))
+for folder,types in (('visibility',('InvisibilityTemplate','InvisibilityManagerSettings')),('radar',('RadarTerrainImage','UIRadarObjectsLayer'))):
+    for name in types:
+        node=E.parse(str(work/(folder+'/Data/'+name+'.xml'))).getroot()[0]
+        assert node.tag=='{uri:ea.com:eala:asset}'+name and node.get('id')=='Parallel'+name
+assert b'CamouflageLevel="17"' in (work/'visibility/Data/InvisibilityTemplate.xml').read_bytes()
+assert b'MinUnitDotSize="7"' in (work/'radar/Data/UIRadarObjectsLayer.xml').read_bytes()
+radar=E.parse(str(work/'radar/Data/RadarDependencies.xml')).getroot()
+assert {n.tag.split('}')[1] for n in radar}=={'Texture','PackedTextureImage'}
+assert (work/'radar/Data/cache.tga').stat().st_size==18+256*256*4
 for path in (work/'four/Audio').glob('*.wav'):
     assert len(path.read_bytes())==44+196608*2*2
 assert len(list((work/'four/Data').glob('Audio*.xml')))==4
@@ -551,7 +583,7 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
     }
     $script:control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
     $state.scriptSha256=Hash $PSCommandPath;$state.controllerSha256=Hash $control
-    $state.sourceInputs=@('recovery/tests/AudioSdkSupport.cs','recovery/tests/AudioMp3Fixtures.cs','SDK/Mods/W3xRecovery/Data/Animations.xml','SDK/Mods/W3xRecovery/Data/Dependencies.xml','SDK/Mods/W3xRecovery/Data/Meshes.xml')|ForEach-Object{@{path=$_;sha256=(Hash (Join-Path $root $_))}}
+    $state.sourceInputs=@('recovery/tests/AudioSdkSupport.cs','recovery/tests/AudioMp3Fixtures.cs','recovery/tests/XmltargetingProbe.xml','recovery/tests/XmlvisibilityProbe.xml','recovery/tests/XmlradarProbe.xml','SDK/Mods/W3xRecovery/Data/Animations.xml','SDK/Mods/W3xRecovery/Data/Dependencies.xml','SDK/Mods/W3xRecovery/Data/Meshes.xml')|ForEach-Object{@{path=$_;sha256=(Hash (Join-Path $root $_))}}
     foreach($mode in @('Debug','Release')){
         $script:modeOut=(New-Item -ItemType Directory -Path (Join-Path $out $mode)).FullName
         $modeWork=(New-Item -ItemType Directory -Path (Join-Path $short $mode.Substring(0,1))).FullName
@@ -659,6 +691,23 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
         $targetingPartial=RunCli 'targeting-single-edit' $targeting $targetingCache $true -Extra @('--jobs=2');Cache $targetingPartial 'partial';DifferentOutputs $targetingHot $targetingPartial
         Need ($targetingPartial.report.cache.backendCalls -eq 1 -and $targetingPartial.report.cache.backendCallsByType.TargetingCompareList -eq 1) 'Reference reorder must compile only the changed targeting list'
         $targetingChanged=RunCli 'targeting-edited-serial' $targeting (Join-Path $modeWork 'targeting-changed-jobs1') $false -Extra @('--jobs=1');Cache $targetingChanged 'disabled';SameOutputs $targetingChanged $targetingPartial
+        foreach($family in @('visibility','radar')){
+            $metadata=Join-Path $modeWork $family;$script:expectedCustomData=0
+            if($family -eq 'visibility'){VisibilityMod $metadata;$types=$script:visibilityTypes;$dependencies=0;$ownerCalls=0;$changedType='InvisibilityTemplate'}
+            else{RadarMod $metadata;$types=$script:radarTypes;$dependencies=2;$ownerCalls=1;$changedType='UIRadarObjectsLayer'}
+            $metadataSerial=RunCli ($family+'-serial') $metadata (Join-Path $modeWork ($family+'-jobs1')) $false -Extra @('--jobs=1');Cache $metadataSerial 'disabled'
+            $metadataParallel=RunCli ($family+'-parallel') $metadata (Join-Path $modeWork ($family+'-jobs2')) $false -Extra @('--jobs=2');Cache $metadataParallel 'disabled';SameOutputs $metadataSerial $metadataParallel
+            $modeState[($family+'Parallel')]=MetadataParallelEvidence $metadataParallel $types $family $dependencies
+            $metadataCache=Join-Path $modeWork ($family+'-cache')
+            $metadataCold=RunCli ($family+'-cold') $metadata $metadataCache $true -Extra @('--jobs=2');Cache $metadataCold 'cold';SameOutputs $metadataSerial $metadataCold
+            $metadataHot=RunCli ($family+'-hot') $metadata $metadataCache $true -Extra @('--jobs=2');Cache $metadataHot 'hot';SameOutputs $metadataSerial $metadataHot
+            Need ($metadataHot.report.cache.backendCalls -eq $ownerCalls) "Hot $family must retain exactly its unprepared Texture owner calls"
+            if($family -eq 'visibility'){SameLengthMutation "$metadata/Data/InvisibilityTemplate.xml" 'CamouflageLevel="17"' 'CamouflageLevel="18"'}
+            else{SameLengthMutation "$metadata/Data/UIRadarObjectsLayer.xml" 'MinUnitDotSize="7"' 'MinUnitDotSize="8"'}
+            $metadataPartial=RunCli ($family+'-single-edit') $metadata $metadataCache $true -Extra @('--jobs=2');Cache $metadataPartial 'partial';DifferentOutputs $metadataHot $metadataPartial
+            Need ($metadataPartial.report.cache.backendCalls -eq (1+$ownerCalls) -and $metadataPartial.report.cache.backendCallsByType.$changedType -eq 1) "Single $family edit must compile only the changed metadata and uncertified owner dependencies"
+            $metadataChanged=RunCli ($family+'-edited-serial') $metadata (Join-Path $modeWork ($family+'-changed-jobs1')) $false -Extra @('--jobs=1');Cache $metadataChanged 'disabled';SameOutputs $metadataChanged $metadataPartial
+        }
         $modeState.certifiedParallel=@()
         foreach($family in @('audio','xml','mesh')){
             $fixture=Join-Path $modeWork ('parallel-'+$family)

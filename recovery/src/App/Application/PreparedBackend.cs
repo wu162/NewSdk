@@ -293,6 +293,14 @@ namespace NewModCompiler.Application
                 // const field/enum tables and no process-wide hash registration.
                 case 3906227957u: case 299416263u: case 1443425905u:
                 case 587347702u: case 1447728787u: case 1826140078u: case 3370391592u:
+                // XmlradarCompiler.cpp / Xmlradar.cpp: detached bridge tree,
+                // call-local Builder/Tracker/ObjectFilter, const enum tables,
+                // pure hash/reference/scalar helpers and no external reads.
+                case 1099769729u: case 4039592522u:
+                // XmlvisibilityCompiler.cpp / Xmlvisibility.cpp: detached tree,
+                // local Tracker/ObjectFilter, const enums and pure hash/time
+                // initializers, without external reads or global registration.
+                case 1431290504u: case 254471188u:
                 // XmltargetingCompiler.cpp / Xmltargeting.cpp: detached tree,
                 // call-local Tracker and pure ParseFloat/MarshalReference;
                 // no external reads or process-wide mutation.

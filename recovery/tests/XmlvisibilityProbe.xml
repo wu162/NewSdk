@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <InvisibilityTemplate id="ParallelInvisibilityTemplate"
+      ForbiddenConditions="PREATTACK_A FIRING_A" ForbiddenConditionExceptions="RELOADING_A"
+      ForbiddenStatus="IS_FIRING_WEAPON" CamouflageLevel="17" InvisibilityType="CAMOUFLAGE"
+      Options="ALLOW_NEAR_TREES CAN_ATTACK_WHILE_ACTIVE" HintDetectableStates="IS_ATTACKING"
+      NoStealthForAttackWindow="500ms" RequiredStatus="USING_ABILITY" />
+  <InvisibilityManagerSettings id="ParallelInvisibilityManagerSettings">
+    <CamouflageDetectorObjectFilter id="ParallelCamouflageFilter" Rule="ANY" Relationship="ALLIES ENEMIES"
+        Alignment="GOOD" Include="INFANTRY" Exclude="STRUCTURE"
+        StatusBitFlags="IS_ATTACKING" StatusBitFlagsExclude="STEALTHED" />
+  </InvisibilityManagerSettings>
+</AssetDeclaration>

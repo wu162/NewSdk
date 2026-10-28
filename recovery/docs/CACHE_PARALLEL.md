@@ -8,9 +8,11 @@
 
 本轮准备态拒绝诊断保留旧 `actionMissReasons` 与 `cacheBypassReasons` 语义，新增独立 `preparationRejectedReasons`，仅记录准备器实际返回false的首个门禁；缓存关闭时也记录，不把成功准备后的worker额度不足或排队算为拒绝。13种源码门禁，Windows夹具可构造11种，保留部分外读失败释放租约、成功重试清空原因与零准备预算owner输出对照；不捏造罕见header重开失败实测。
 
-完整 Xmltargeting 五类已加入源码并行资格，四平台含99的准备态三缓冲/冻结对照与生产四根worker、冷热、等长mtime引用重排正在准备。TargetingBaseCompare没有SDK全局元素，只声明组件资格，不修改Schema扩大范围。新增独立双Mesh（8192与4顶点）的串并行真实区间、冷/热与单改原字节对照，保持原180秒门槛和机器资源准入，不靠sleep/派发钩子证明重叠。
+完整 Xmltargeting 五类、Xmlvisibility 两根、Xmlradar 两根已加入源码并行资格，四平台含99的准备态三缓冲/冻结对照与生产八根worker、冷热、等长mtime单改已接入本批。TargetingBaseCompare没有SDK全局元素，只声明组件资格，不修改Schema扩大范围。新增独立双Mesh（8192与4顶点）的串并行真实区间、冷/热与单改原字节对照，保持原180秒门槛和机器资源准入，不靠sleep/派发钩子证明重叠。
 
-此检查点**未完成Actions验收**；下节收据只适用于各自历史生产闭包。按EFFICIENCY继续成组实现与集中验证；不替换默认发行，不合并PR。
+Radar生产保留完整Texture/PackedTextureImage强引用及ObjectFilter弱名闭包，热缓存预期仍有1次Texture owner调用；Visibility保留flags/时间/inline filter；Targeting单改交换已有两引用，避免修改依赖资产。新增9类源码资格、8个SDK公开根，准备态组件覆盖完整9类。
+
+本批因生产闭包改变，统一新建Debug/Release并保留完整Core、真实SDK/原BAB、缓存/旧session、完整mymod、BIG与五文件ZIP门槛。此检查点**未完成Actions验收**；下节收据只适用于各自历史生产闭包。按EFFICIENCY继续成组实现与集中验证；不替换默认发行，不合并PR。
 
 ## 本轮验收（2026-10-28）
 
