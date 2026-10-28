@@ -17,6 +17,7 @@ using NewModCompiler.Application;
 public static class CompilerPreparedBackend
 {
     static int checks;
+    static readonly List<object> lifecycleEvidence = new List<object>();
     static readonly Type contract = typeof(CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.PreparedBackend", true);
     static void Require(bool condition, string message)
     {
@@ -300,7 +301,7 @@ public static class CompilerPreparedBackend
     {
         return "<AssetDeclaration xmlns='uri:ea.com:eala:asset'>" + body + "</AssetDeclaration>";
     }
-    static Dictionary<string, string> RepeatedIncludeRun(string sdk, string mod, string output, int jobs, bool cancelInFlight = false)
+    static Dictionary<string, string> RepeatedIncludeRun(string sdk, string mod, string output, int jobs, bool cancelInFlight = false, bool nativeFailure = false)
     {
         Settings previous = Settings.Current;
         bool previousMetrics = EALA.Metrics.MetricManager.Enabled;
@@ -377,34 +378,47 @@ public static class CompilerPreparedBackend
                     processor.AssetExecution = execution;
                     bool success;
                     bool cancelled = false;
+                    bool failedNative = false;
                     try { processor.ProcessDocument(settings.InputPath, true, false, out success); }
                     catch (OperationCanceledException) { cancelled = true; success = false; }
-                    if (cancelInFlight)
+                    catch (NotSupportedException error)
                     {
+                        if (!nativeFailure || error.Message.IndexOf("Animation frame range exceeds NumFrames", StringComparison.Ordinal) < 0) throw;
+                        failedNative = true; success = false;
+                    }
+                    if (cancelInFlight || nativeFailure)
+                    {
+                        int activeBeforeDispose;
+                        lock (metricGate) activeBeforeDispose = (int)activeCalls.GetValue(metrics);
                         ((IDisposable)execution).Dispose();
-                        Require(cancelled && observedConcurrentCalls, "Cancellation must be requested during two real in-flight native backend calls");
+                        if (cancelInFlight)
+                            Require(cancelled && observedConcurrentCalls, "Cancellation must be requested during two real in-flight native backend calls");
+                        if (nativeFailure)
+                            Require(failedNative && !cancelled, "The schema-legal frame range must fail inside the actual native worker");
                         lock (metricGate)
                         {
-                            Require((int)activeCalls.GetValue(metrics) == 0, "Cancellation disposal must join all in-flight native calls before returning");
+                            Require((int)activeCalls.GetValue(metrics) == 0, "Failure/cancellation disposal must join all in-flight native calls before returning");
                             var intervals = (System.Collections.IEnumerable)metrics.GetType().GetField("Intervals").GetValue(metrics);
                             int completedIntervals = 0;
                             foreach (object interval in intervals)
                             {
                                 completedIntervals++;
                                 Require((long)interval.GetType().GetField("endTicks").GetValue(interval) >= (long)interval.GetType().GetField("startTicks").GetValue(interval),
-                                    "Every started native interval must have safely returned after cancellation");
+                                    "Every started native interval must have safely returned after failure/cancellation");
                             }
-                            Require(completedIntervals == 2, "Both actual native calls must be present in the cancellation evidence");
+                            Require(completedIntervals == 2, "Both actual native calls must be present in the failure/cancellation evidence");
+                            lifecycleEvidence.Add(new { scenario = nativeFailure ? "native-worker-range-failure" : "cancel-during-two-native-calls",
+                                observedConcurrentCalls, activeBeforeDispose, activeAfterDispose = 0, completedIntervals });
                         }
                         foreach (string file in new[] { "One.xml", "Two.xml", "Root.xml" })
                         {
                             AssetDeclarationDocument document;
                             cache.TryGetDocument(Path.Combine(mod, file), null, TargetPlatform.Win32, false, out document);
                             Require(document != null && document.State != DocumentState.Complete && !document.Processing,
-                                "Cancelled in-flight work must not publish document completion: " + file);
+                                "Failed/cancelled in-flight work must not publish document completion: " + file);
                         }
                         Require(Directory.GetFiles(settings.OutputDirectory, "*.manifest", SearchOption.AllDirectories).Length == 0,
-                            "Cancelled native work must not reach successful final stream linking");
+                            "Failed/cancelled native work must not reach successful final stream linking");
                         return new Dictionary<string, string>();
                     }
                     Require(!cancelled, "The non-cancelled repeated include build must complete");
@@ -465,10 +479,22 @@ public static class CompilerPreparedBackend
         string mod = Path.Combine(work, "native-cancellation-input");
         Put(Path.Combine(mod, "One.xml"), Assets("<W3DAnimation id='CancelNativeOne' NumFrames='4096' FrameRate='30'>" +
             "<Channels><ChannelScalar Type='XTranslation' Pivot='0' FirstFrame='0'><Frame>0</Frame><Frame>1</Frame></ChannelScalar></Channels></W3DAnimation>"));
-        Put(Path.Combine(mod, "Two.xml"), Assets("<W3DAnimation id='CancelNativeTwo' NumFrames='3072' FrameRate='30'>" +
+        Put(Path.Combine(mod, "Two.xml"), Assets("<W3DAnimation id='CancelNativeTwo' NumFrames='8192' FrameRate='30'>" +
             "<Channels><ChannelScalar Type='XTranslation' Pivot='0' FirstFrame='0'><Frame>0</Frame><Frame>2</Frame></ChannelScalar></Channels></W3DAnimation>"));
         Put(Path.Combine(mod, "Root.xml"), Assets("<Includes><Include type='all' source='One.xml'/><Include type='all' source='Two.xml'/></Includes>"));
         RepeatedIncludeRun(sdk, mod, Path.Combine(work, "native-cancelled-output"), 2, true);
+    }
+    static void NativeWorkerFailure(string work, string sdk)
+    {
+        string mod = Path.Combine(work, "native-failure-input");
+        // xs:unsignedInt permits zero; no schema relation constrains Frame to
+        // NumFrames. Native PrepareAnimation must reject this actual overrun.
+        Put(Path.Combine(mod, "One.xml"), Assets("<W3DAnimation id='FailNativeOne' NumFrames='0' FrameRate='30'>" +
+            "<Channels><ChannelScalar Type='XTranslation' Pivot='0' FirstFrame='0'><Frame>1</Frame></ChannelScalar></Channels></W3DAnimation>"));
+        Put(Path.Combine(mod, "Two.xml"), Assets("<W3DAnimation id='FailNativeTwo' NumFrames='8192' FrameRate='30'>" +
+            "<Channels><ChannelScalar Type='XTranslation' Pivot='0' FirstFrame='0'><Frame>0</Frame><Frame>2</Frame></ChannelScalar></Channels></W3DAnimation>"));
+        Put(Path.Combine(mod, "Root.xml"), Assets("<Includes><Include type='all' source='One.xml'/><Include type='all' source='Two.xml'/></Includes>"));
+        RepeatedIncludeRun(sdk, mod, Path.Combine(work, "native-failed-output"), 2, false, true);
     }
     public static int Main(string[] args)
     {
@@ -477,9 +503,10 @@ public static class CompilerPreparedBackend
             Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); BinaryAssetAuthorization(args[0]);
             RepeatedIncludeAndInheritance(args[0], args[4]);
             CancelInFlight(args[0], args[4]);
+            NativeWorkerFailure(args[0], args[4]);
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new {
-                succeeded = true, sourceCommit = args[2], runId = args[3], checks,
-                scope = "Actual prepared input isolation, native APT content lease, exact external invalidation, schema defaults and preparation budgets, real BinaryAsset authorization guard, repeated include/inheritance byte equality and cancellation during two native calls; normal cross-document output overlap is checked separately"
+                succeeded = true, sourceCommit = args[2], runId = args[3], checks, lifecycleEvidence,
+                scope = "Actual prepared input isolation, native APT content lease, exact external invalidation, schema defaults and preparation budgets, real BinaryAsset authorization guard, repeated include/inheritance byte equality, cancellation and native worker failure; normal cross-document output overlap is checked separately"
             }));
             Console.WriteLine("PASS PreparedBackend: " + checks + " assertions"); return 0;
         }
