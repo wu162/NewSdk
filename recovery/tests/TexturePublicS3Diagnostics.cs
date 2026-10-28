@@ -21,7 +21,7 @@ internal static class TexturePublicS3Diagnostics {
    int a=(BitConverter.ToInt32(state,0x3038)<<11)|(BitConverter.ToInt32(state,0x303c)<<5)|BitConverter.ToInt32(state,0x3040),b=(BitConverter.ToInt32(state,0x3044)<<11)|(BitConverter.ToInt32(state,0x3048)<<5)|BitConverter.ToInt32(state,0x304c);uint bits=0;
    if(a==b){a=(a+1)&65535;for(int i=0;i<16;i++)Buffer.BlockCopy(BitConverter.GetBytes(1),0,state,0x3050+4*i,4);}bool swap=a<b;if(swap){int t=a;a=b;b=t;}for(int i=0;i<16;i++)bits|=(uint)(BitConverter.ToInt32(state,0x3050+4*i)^(swap?1:0))<<(2*i);
    string legacy=BitConverter.ToString(new[]{(byte)a,(byte)(a>>8),(byte)b,(byte)(b>>8),(byte)bits,(byte)(bits>>8),(byte)(bits>>16),(byte)(bits>>24)}).Replace("-","").ToLowerInvariant();
-   if(legacy!=row[2].Replace("-","").Substring(16))throw new Exception("Instrumented reference differs from immutable original gold fixture="+fixture);
+   if(legacy!=row[2].Replace("-","").Substring(16).ToLowerInvariant())throw new Exception("Instrumented reference differs from immutable original gold fixture="+fixture);
    File.WriteAllText(Path.Combine(args[1],fixture+"-result.txt"),"original="+row[2]+"\nsource="+BitConverter.ToString(actual)+"\n");count++;
   }
   if(count!=28)throw new Exception("Incomplete diagnostic corpus");Console.WriteLine("PASS S3 stage diagnostic inputs=28; instrumented reference matches immutable original gold; diagnostic-only, no acceptance");return 0;

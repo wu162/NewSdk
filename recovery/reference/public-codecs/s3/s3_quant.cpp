@@ -1666,6 +1666,11 @@ static double mapAndRoundMult(int *nColors, bool bForce4, int levelLimit, int n,
     assert(levelLimit > 1);
     assert(*nColors <= levelLimit);
 
+    // PC legacy caller sets the working level count to four before mapping,
+    // not merely the output format. Do not remap a shorter continuous fit to
+    // extra extended ramps that the original forced-four-colour path never tries.
+    if (bForce4) *nColors = 4;
+
     /* check "default" mapping						    */
     
     m = 0;

@@ -6,8 +6,8 @@
 void SetLegacyS3InterpolationPolicy(int policy);
 int EncodePublicS3(int variant,int format,const unsigned char* rgba,unsigned char* output)
 {
-    if(variant<0||variant>15||format<2||format>3)return 0;
-    SetLegacyS3InterpolationPolicy(variant/4);
+    if(variant<0||variant>3||format<2||format>3)return 0;
+    SetLegacyS3InterpolationPolicy(0); // Rejected floor policies remain in history, not this matrix.
     RGBBlock b={};b.n=16;b.inLevel=4;
     double weights[3]={0.3086,0.6094,0.082};
     for(int c=0;c<3;c++)b.weight[c]=(variant&2)?weights[c]:(double)(float)weights[c];

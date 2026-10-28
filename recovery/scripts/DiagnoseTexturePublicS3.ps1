@@ -1,6 +1,6 @@
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
-$out="recovery/evidence/texture/public-codecs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+$out="recovery/evidence/texture/public-codecs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/stage-diagnostic"
 $work=Join-Path $env:RUNNER_TEMP ('s3-stages-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
 $r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';diagnosticOnly=$true;productionAccepted=$false;sdkValidated=$false;scope='27 remaining S3 RGB differences plus one matching control; existing recovered state-machine diagnostic, checked against immutable original full-block gold; no replacement callback'}

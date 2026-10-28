@@ -309,9 +309,9 @@
       "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
       "repository": "Team-Resurgent/RXDK-Libs",
       "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
-      "blobSha": "de9892dc8d65a332864becbaa5ef054ff4ba4ea7",
-      "sha256": "22d9713992b53d8a5d2b1a1aa50078c3a1839b028fd04af86a004c5ba348634f",
-      "bytes": 83246,
+      "blobSha": "dad3907f49e9db41b23fba28a81e338e234e92bd",
+      "sha256": "79b50a02af63b75fb3d68355dcc1f9f453a9aa11909648b3d4d14c25beb99e68",
+      "bytes": 83516,
       "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
       "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
       "compatibilityPatch": "Forced four colours, fixed legacy grayscale constants, explicit independently selectable single-colour/general-ramp interpolation rounding; original search budgets restored; compile-time stage diagnostics only (no selection by corpus identity)"

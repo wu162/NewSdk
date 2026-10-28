@@ -68,3 +68,5 @@ arithmetic hypothesis and not fixture-ID dispatch.
 ## Stage diagnostic checkpoint
 
 S3_STAGE_TRACE adds observation-only hooks to single-colour errors and final rounding inputs/outputs. A separate diagnostic reference is built from the already accepted colour-state source (40500150864); instrumented outputs must still match immutable original block gold. It is never invoked by the candidate encoder, never supplies candidate output, and does not establish integration eligibility. The 27 outlier identities occur only in the diagnostic host. No rejected interpolation/precision/budget matrix is repeated unchanged.
+
+PC forced-four-colour MapAndRoundMult now sets the input working level count to four, as CodeRGBBlock@0x7D470 does before MapAndRoundMult@0x7BB80. Previously only the default output was forced, leaving extra mappings from shorter fits active. The S3 complete matrix now contains only four input/weight precisions; rejected floor policies are not rerun. The first stage run40634411717 compiled but its host compared lower-case reference hex to upper-case gold and failed on263; its failure is retained and the comparison now normalizes case.
