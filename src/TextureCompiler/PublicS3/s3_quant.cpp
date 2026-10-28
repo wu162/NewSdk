@@ -2093,7 +2093,25 @@ static void pcQuick(RGBBlock* b) {
     }
     // Fast path normalizes packed endpoint order before error/index remapping.
     if(pcPack(b->endPoint[0])>pcPack(b->endPoint[1]))for(int c=0;c<3;c++){int t=b->endPoint[0][c];b->endPoint[0][c]=b->endPoint[1][c];b->endPoint[1][c]=t;}
-    b->outLevel=4;for(int i=0;i<b->n;i++)b->index[i]=0;
+    // The original snapshots the quick candidate before final RmsError
+    // reindexing, and restores these projection indices if quick wins.
+    float start[3],direction[3];
+    for(int c=0;c<3;c++) {
+        start[c]=pcFloat((double)pcFloat((double)b->endPoint[0][c]/maximum[c])*b->weight[c]);
+        float end=pcFloat((double)pcFloat((double)b->endPoint[1][c]/maximum[c])*b->weight[c]);
+        direction[c]=pcFloat((double)end-start[c]);
+    }
+    float length=pcFloat((double)direction[2]*direction[2]+(double)direction[1]*direction[1]+(double)direction[0]*direction[0]);
+    if(length==0){pcSingle(b);return;}
+    float inverseLength=pcFloat(1.0/length);static const int mapping[4]={0,2,3,1};
+    for(int i=0;i<b->n;i++) {
+        float projection=pcFloat(((double)q[i][2]*direction[2]+(double)q[i][1]*direction[1]+(double)q[i][0]*direction[0]
+            +((double)mean[2]-start[2])*direction[2]+((double)mean[1]-start[1])*direction[1]+((double)mean[0]-start[0])*direction[0])*inverseLength);
+        if(projection<0)projection=0;else if(projection>1)projection=1;
+        union {float f;unsigned int bits;} biased;biased.f=pcFloat((double)projection*3.0+12582912.0);
+        b->index[i]=mapping[biased.bits&65535];
+    }
+    b->outLevel=4;
 }
 // Preserve x87 intermediates through nearest-palette comparisons. A double
 // spill at each channel/point changes mip/partial ties. Owned arithmetic in
@@ -2195,7 +2213,7 @@ static double pcErrorAndIndices(RGBBlock* b,const double* threshold,int* greater
 }
 void CodeRGBBlockPC(RGBBlock* block) {
     if(!block||block->n<1||block->n>MAX_PIXEL_PER_BLOCK||block->inLevel!=4)return;
-    RGBBlock quick=*block;pcQuick(&quick);double quickError=pcErrorAndIndices(&quick,0,0);
+    RGBBlock quick=*block;pcQuick(&quick);RGBBlock scoredQuick=quick;double quickError=pcErrorAndIndices(&scoredQuick,0,0);
     double quickEndpoints[6];for(int i=0;i<6;i++)quickEndpoints[i]=quick.endPoint[i/3][i%3];S3_TRACE("s3-quick-endpoints",6,quickEndpoints);
     CodeRGBBlock(block);int greater=0;double fullError=pcErrorAndIndices(block,&quickError,&greater);
     double errors[2]={quickError,fullError};S3_TRACE("s3-wrapper-errors",2,errors);

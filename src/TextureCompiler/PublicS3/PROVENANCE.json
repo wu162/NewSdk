@@ -7,12 +7,12 @@
       "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
       "repository": "Team-Resurgent/RXDK-Libs",
       "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
-      "blobSha": "b965e132350500e9753ad0cf85ec4162caa55371",
-      "sha256": "b69d0521d317c9997d940ebac05cb2d984b36f47e2e21522684d0e0f677cec0d",
-      "bytes": 91847,
+      "blobSha": "efc5386e85f2153f59738cc8141920fa787ccb69",
+      "sha256": "9f6e5004632fdad94f18305b2bfb2005367ab1c276e9002397c3678439e72831",
+      "bytes": 93075,
       "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
       "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
-      "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain; final wrapper uses owned inline x87 scoring/comparisons and extended intermediates",
+      "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain; final wrapper uses owned inline x87 scoring/comparisons and extended intermediates; restore quick projection indices from the pre-scoring snapshot when quick wins",
       "file": "s3_quant.cpp"
     },
     {
