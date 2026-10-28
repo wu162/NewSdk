@@ -7,6 +7,10 @@ on:
       - '.github/workflows/benchmark-upheaval.yml'
   workflow_dispatch:
     inputs:
+      report_run_id:
+        description: 'Optional completed benchmark run to extract reports only (no recompilation)'
+        default: ''
+        required: false
       runs:
         description: 'Measured old/new pairs (3-30; warmups excluded)'
         default: '10'
@@ -23,6 +27,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   benchmark:
+    if: ${{ !contains(github.event.head_commit.message, '[upheaval-report-only]') && inputs.report_run_id == '' }}
     runs-on: windows-2022
     timeout-minutes: 240
     steps:
@@ -61,5 +66,82 @@ jobs:
           path: |
             recovery/artifacts/upheaval-runtime/reuse.json
             recovery/artifacts/upheaval-benchmark/**
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload lightweight reports separately from raw streams
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-summary-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/upheaval-runtime/reuse.json
+            recovery/artifacts/upheaval-benchmark/summary.md
+            recovery/artifacts/upheaval-benchmark/validation.json
+            recovery/artifacts/upheaval-benchmark/sdk-inputs.json
+            recovery/artifacts/upheaval-benchmark/mod-inputs.json
+          if-no-files-found: error
+          retention-days: 30
+  extract-report:
+    if: ${{ contains(github.event.head_commit.message, '[upheaval-report-only]') || inputs.report_run_id != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify original artifact and extract existing reports without running compilers
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN: ${{ inputs.report_run_id || '40604851281' }}
+        run: |
+          python - <<'PY'
+          import hashlib, json, os, pathlib, re, subprocess, zipfile
+          run_id = os.environ['SOURCE_RUN']
+          assert re.fullmatch(r'[0-9]+', run_id), 'Invalid source run'
+          repo = os.environ['GITHUB_REPOSITORY']
+          def api(path):
+              return json.loads(subprocess.check_output(['gh', 'api', f'repos/{repo}/{path}']))
+          run = api(f'actions/runs/{run_id}')
+          assert run['status'] == 'completed' and run['conclusion'] == 'success'
+          assert run['repository']['full_name'] == repo and run['path'] == '.github/workflows/benchmark-upheaval.yml'
+          artifacts = api(f'actions/runs/{run_id}/artifacts')['artifacts']
+          matches = [a for a in artifacts if a['name'] == f'upheaval-benchmark-{run_id}-{run["run_attempt"]}' and not a['expired']]
+          assert len(matches) == 1, 'Expected one original full evidence artifact'
+          artifact = matches[0]
+          archive = pathlib.Path('original.zip')
+          with archive.open('xb') as stream:
+              subprocess.run(['gh', 'api', f'repos/{repo}/actions/artifacts/{artifact["id"]}/zip'], check=True, stdout=stream)
+          archive_hash = hashlib.sha256(archive.read_bytes()).hexdigest()
+          assert artifact['digest'] == 'sha256:' + archive_hash, 'Original archive digest mismatch'
+          out = pathlib.Path('report')
+          out.mkdir()
+          wanted = {'summary.md', 'validation.json', 'sdk-inputs.json', 'mod-inputs.json', 'reuse.json'}
+          with zipfile.ZipFile(archive) as z:
+              selected = {}
+              for info in z.infolist():
+                  leaf = pathlib.PurePosixPath(info.filename).name
+                  if leaf in wanted:
+                      assert leaf not in selected, 'Ambiguous report identity'
+                      selected[leaf] = z.read(info)
+              assert set(selected) == wanted, 'Incomplete original reports'
+          state = json.loads(selected['validation.json'])
+          assert state['succeeded'] is True and state['inputsUnchanged'] is True
+          assert state['testSourceCommit'] == run['head_sha'] and str(state['runId']) == run_id
+          assert len(state['pairs']) == state['methodology']['repetitions']
+          assert all(pair[engine]['byteIdentical'] is True for pair in state['warmups'] + state['pairs'] for engine in ('old', 'new'))
+          for name, data in selected.items():
+              (out / name).write_bytes(data)
+          receipt = dict(sourceRunId=run_id, sourceRunAttempt=run['run_attempt'], sourceCommit=run['head_sha'],
+                         artifactId=artifact['id'], archiveSha256=archive_hash,
+                         extractionRunId=os.environ['GITHUB_RUN_ID'], recompiled=False,
+                         files={name: hashlib.sha256(data).hexdigest() for name, data in selected.items()})
+          (out / 'extraction.json').write_text(json.dumps(receipt, indent=2) + '\n')
+          summary = selected['summary.md'].decode('utf-8')
+          print(summary)
+          print('STATISTICS_JSON ' + json.dumps(state['statistics']))
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as stream:
+              stream.write(summary)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: upheaval-report-${{ github.run_id }}-${{ github.run_attempt }}
+          path: report/
           if-no-files-found: error
           retention-days: 30
