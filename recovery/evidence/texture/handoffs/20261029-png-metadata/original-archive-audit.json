@@ -1,0 +1,60 @@
+{
+  "scope": "recorded original archives only; not recovered/plugin/SDK acceptance",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "baselines": [
+    {
+      "path": "png-metadata-load/40779895712-1",
+      "sourceCommit": "c812b8094a032dba0a29475d90e563cef211116e",
+      "runId": "40779895712",
+      "archiveSha256": "5e698ae274086468e3efa5520847fa9127acc4de62c1b96060a5ac0cbab0cac6",
+      "fixtures": 4680,
+      "decoded": 3120,
+      "rejected": 1560,
+      "contexts": 180,
+      "originalRgbaBytes": 931840,
+      "fullByteRuleComparisons": 4680,
+      "gammaChanges": 54
+    },
+    {
+      "path": "png-metadata-order/40780410178-1",
+      "sourceCommit": "2cab493118bb33992a762ee191af392d10fe30eb",
+      "runId": "40780410178",
+      "archiveSha256": "e804e2d5099f73c6be676a87153b02806fc0237827dc0da657c48503cdbd964f",
+      "fixtures": 3240,
+      "decoded": 2160,
+      "rejected": 1080,
+      "contexts": 180,
+      "originalRgbaBytes": 645120,
+      "fullByteRuleComparisons": 3240,
+      "gammaChanges": 54
+    }
+  ],
+  "iccFixtures": [
+    {
+      "path": "AdobeCompat-v2.icc",
+      "bytes": 374,
+      "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+    },
+    {
+      "path": "sGrey-v2-micro.icc",
+      "bytes": 336,
+      "sha256": "010676406dbfc641776154fd3603adef7bace317a26027a33066891975621820"
+    },
+    {
+      "path": "sGrey-v4.icc",
+      "bytes": 360,
+      "sha256": "00c0f94e09127520a17dc0e1d9264b5702081d96dbdb1549ee88e3631ce42a9d"
+    },
+    {
+      "path": "sRGB-v2-micro.icc",
+      "bytes": 456,
+      "sha256": "0a8a33aea66a6f154a5642ebe168ef287e73265d9f7b51c42a45e6eedbacda7a"
+    },
+    {
+      "path": "sRGB-v4.icc",
+      "bytes": 480,
+      "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+    }
+  ],
+  "upstreamCommit": "bdd84663061bc4ae95ca70decff54f581e27f702"
+}
