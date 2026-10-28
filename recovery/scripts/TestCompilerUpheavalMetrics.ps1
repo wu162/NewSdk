@@ -4,7 +4,7 @@ param(
     [Parameter(Mandatory=$true)][string]$CompilerDirectory,
     [Parameter(Mandatory=$true)][string]$ReplayReceipt,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
-    [ValidateRange(60,2400)][int]$TimeoutSeconds=1200,
+    [ValidateRange(60,600)][int]$TimeoutSeconds=600,
     [switch]$Preflight
 )
 $ErrorActionPreference='Stop'
