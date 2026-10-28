@@ -1459,6 +1459,31 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-jpeg/*/validation.json",
       "sdk": true
+    },
+    "sdk-PcMymod": {
+      "script": "recovery/scripts/TestTextureMymodSdk.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "global.json",
+        "SDK/tools/**",
+        "SDK/Schemas/**",
+        "SDK/SageXml/**",
+        "SDK/Mods/mymod/**",
+        "SDK/Art/**",
+        "SDK/defaultscript.cs",
+        "recovery/scripts/TestTextureMymodSdk.ps1",
+        "recovery/tests/TextureDxtSdkTracePlugin.cs",
+        "recovery/scripts/BuildTexturePublicS3.ps1",
+        "recovery/scripts/BuildTextureJpeg.ps1",
+        "recovery/reference/ijg6b/**",
+        "src/TextureCompiler/Managed/**",
+        "src/TextureCompiler/PublicS3/**",
+        "src/TextureCompiler/Jpeg/**"
+      ],
+      "evidence": "recovery/evidence/texture/sdk-mymod/*/validation.json",
+      "sdk": true
     }
   },
   "targetPlatform": "Win32"
