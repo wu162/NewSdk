@@ -86,3 +86,11 @@ The first clean integration run40647513311 stopped before business comparison be
 Normalized float/partial integration a32b077a /40648108578 passed both configurations' full10240 blocks and4752 sample cases plus NoOriginal, but6 downstream groups found RGB/index differences on filtered/partial inputs. Final floor-palette scoring now retains x87 values through channel sums, nearest-index comparisons and the full-vs-stored-quick error comparison, matching RmsError@0x7BE60 and NoMode@0x83CD0 instruction ordering. It is new small arithmetic code within S3, not recovered encoder invocation. Earlier architecture-only recompilation did not preserve these intermediate lifetimes and is not repeated. Full affected consumer rerun pending.
 
 7b690181 /40649209933 retained complete-block/sample equality, but the same6 consumers still failed on the same first cases: x87 final scoring alone did not fix them. Inspection of NoMode@0x83DE5..0x83E0E and restore@0x83D8A proves a separate snapshot rule: quick is copied BEFORE RmsError mutates its indices. The quick candidate now computes the original quantized-endpoint projection indices (mapping0,2,3,1 and float bias rounding) and retains a pre-scoring snapshot; only a separate copy is reindexed for scoring. A quick win restores those projection indices. Saved16x1x8 and8x8-mip counterexamples have identical endpoints with differing indices, which this rule directly addresses. Full rerun pending.
+
+Experimental initialized-three-colour extension (not production accepted): public
+S3 level3 search, fixed codec LegacyGray3 data from the already recovered source,
+three-point PC floor scoring and general quick-candidate comparison. Original
+source/gray data fingerprints are preserved in PROVENANCE.json. Default DXT1
+state is stack-dependent and is not assigned an invented flag. No production
+consumer calls the experimental export. Complete initialized-state comparisons
+are required before any further claim; DDS/plugin/SDK remain separate gates.

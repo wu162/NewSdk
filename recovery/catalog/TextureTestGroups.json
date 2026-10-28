@@ -1498,6 +1498,21 @@
       "sdk": false,
       "manual_only": true,
       "evidence_only": true
+    },
+    "public-s3-three": {
+      "script": "recovery/scripts/TestTexturePublicS3Three.ps1",
+      "arguments": {},
+      "dependencies": [
+        "SDK/tools/*.dll",
+        "recovery/scripts/TestTexturePublicS3Three.ps1",
+        "recovery/scripts/BuildTexturePublicS3.ps1",
+        "recovery/tests/TexturePublicS3ThreeComparison.cs",
+        "src/TextureCompiler/PublicS3/**"
+      ],
+      "evidence": "recovery/evidence/texture/public-s3-three/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"

@@ -35,6 +35,7 @@
 #include <assert.h>
 #include "S3_quant.h"
 #include "LegacyGray4.inl"
+#include "LegacyGray3.inl"
 
 /*****************************************************************************
 **									    **
@@ -1346,14 +1347,14 @@ static double allSame(int *nColors, int n, double (*q)[3], double weight[3],
 
     // PC legacy compatibility: use the codec's fixed grayscale optimization
     // records for a single quantized gray value. Other colors retain S3 search.
-    if (*nColors == 4 && n > 0) {
+    if ((*nColors == 3 || *nColors == 4) && n > 0) {
         int gray = (int)floor(q[0][0] * 255.0 / weight[0] + 0.5);
         bool sameGray = gray >= 0 && gray <= 255;
         for (int pixel=0;pixel<n && sameGray;pixel++)
             for (int channel=0;channel<3;channel++)
                 sameGray &= (int)floor(q[pixel][channel] * 255.0 / weight[channel] + 0.5) == gray;
         if (sameGray) {
-            const int* record=LegacyGray4[gray];
+            const int* record=(*nColors == 4 ? LegacyGray4 : LegacyGray3)[gray];
             for(int endpoint=0;endpoint<2;endpoint++)for(int channel=0;channel<3;channel++)
                 endPointOut[endpoint][channel]=record[endpoint*3+channel];
             *nColors=record[6];for(int pixel=0;pixel<n;pixel++)index[pixel]=record[7];
@@ -2044,11 +2045,16 @@ static int pcNearestEven(float v) {
     return lo+(f>0.5||(f==0.5&&(lo&1)));
 }
 static void pcQuick(RGBBlock* b) {
+    int requestedLevels=b->inLevel;
     bool same=true;for(int i=1;i<b->n;i++)for(int c=0;c<3;c++)same&=b->colorChannel[i][c]==b->colorChannel[0][c];
     if(same){pcSingle(b);return;}
     float q[MAX_PIXEL_PER_BLOCK][3],mean[3]={0,0,0},cov[6]={0,0,0,0,0,0};
     for(int i=0;i<b->n;i++)for(int c=0;c<3;c++) {
         q[i][c]=pcFloat(b->colorChannel[i][c]*b->weight[c]);mean[c]=pcFloat((double)mean[c]+q[i][c]);
+    }
+    if(requestedLevels==3){
+        bool near=true;for(int i=1;i<b->n;i++)for(int c=0;c<3;c++)near&=fabs((double)pcFloat((double)q[i][c]-q[i-1][c]))<=1.1920928955078125e-7;
+        if(near){pcSingle(b);return;}
     }
     float inverse=pcFloat(1.0/b->n);
     for(int c=0;c<3;c++)mean[c]=pcFloat((double)mean[c]*inverse);
@@ -2103,20 +2109,21 @@ static void pcQuick(RGBBlock* b) {
     }
     float length=pcFloat((double)direction[2]*direction[2]+(double)direction[1]*direction[1]+(double)direction[0]*direction[0]);
     if(length==0){pcSingle(b);return;}
-    float inverseLength=pcFloat(1.0/length);static const int mapping[4]={0,2,3,1};
+    float inverseLength=pcFloat(1.0/length);static const int mapping4[4]={0,2,3,1},mapping3[4]={0,2,1,3};
+    const int* mapping=requestedLevels==3?mapping3:mapping4;
     for(int i=0;i<b->n;i++) {
         float projection=pcFloat(((double)q[i][2]*direction[2]+(double)q[i][1]*direction[1]+(double)q[i][0]*direction[0]
             +((double)mean[2]-start[2])*direction[2]+((double)mean[1]-start[1])*direction[1]+((double)mean[0]-start[0])*direction[0])*inverseLength);
         if(projection<0)projection=0;else if(projection>1)projection=1;
-        union {float f;unsigned int bits;} biased;biased.f=pcFloat((double)projection*3.0+12582912.0);
+        union {float f;unsigned int bits;} biased;biased.f=pcFloat((double)projection*(requestedLevels-1)+12582912.0);
         b->index[i]=mapping[biased.bits&65535];
     }
-    b->outLevel=4;
+    b->outLevel=requestedLevels;
 }
 // Preserve x87 intermediates through nearest-palette comparisons. A double
 // spill at each channel/point changes mip/partial ties. Owned arithmetic in
 // the copied S3 source; no original/recovered encoder callback. PC x86 only.
-static int pcClosestX87(const double* values,const int* palette,const double* weights,unsigned char* error80) {
+static int pcClosestX87(const double* values,const int* palette,const double* weights,unsigned char* error80,int levels) {
     unsigned char best[10];double limit=1.0e100,scale=255.0;int choice=0;
     __asm {
         fld qword ptr limit
@@ -2162,7 +2169,7 @@ static int pcClosestX87(const double* values,const int* palette,const double* we
     pointNext:
         add edi,12
         inc ecx
-        cmp ecx,4
+        cmp ecx,levels
         jl pointRamp
         mov eax,error80
         fld tbyte ptr best
@@ -2170,12 +2177,13 @@ static int pcClosestX87(const double* values,const int* palette,const double* we
     }
     return choice;
 }
-static double pcErrorAndIndices(RGBBlock* b,const double* threshold,int* greater) {
+static double pcErrorAndIndices(RGBBlock* b,const double* threshold,int* greater,int* less=0) {
     int ramp[4][3];static const int bits[3]={5,6,5};
     for(int c=0;c<3;c++){
         int a=b->endPoint[0][c],z=b->endPoint[1][c];
         ramp[0][c]=(a<<(8-bits[c]))|(a>>(2*bits[c]-8));ramp[1][c]=(z<<(8-bits[c]))|(z>>(2*bits[c]-8));
-        ramp[2][c]=(2*ramp[0][c]+ramp[1][c])/3;ramp[3][c]=(ramp[0][c]+2*ramp[1][c])/3;
+        if(b->outLevel==3){ramp[2][c]=(ramp[0][c]+ramp[1][c])/2;ramp[3][c]=0;}
+        else{ramp[2][c]=(2*ramp[0][c]+ramp[1][c])/3;ramp[3][c]=(ramp[0][c]+2*ramp[1][c])/3;}
     }
     unsigned char total80[10],point80[10];double total;
     __asm {
@@ -2183,7 +2191,7 @@ static double pcErrorAndIndices(RGBBlock* b,const double* threshold,int* greater
         fstp tbyte ptr total80
     }
     for(int i=0;i<b->n;i++){
-        b->index[i]=pcClosestX87(b->colorChannel[i],&ramp[0][0],b->weight,point80);
+        b->index[i]=pcClosestX87(b->colorChannel[i],&ramp[0][0],b->weight,point80,b->outLevel);
         __asm {
             fld tbyte ptr total80
             fld tbyte ptr point80
@@ -2209,7 +2217,33 @@ static double pcErrorAndIndices(RGBBlock* b,const double* threshold,int* greater
         }
         *greater=result;
     }
+    if(threshold&&less){
+        int result;
+        __asm {
+            mov ecx,threshold
+            fld tbyte ptr total80
+            fcomp qword ptr [ecx]
+            fnstsw ax
+            and ah,45h
+            cmp ah,1
+            sete cl
+            movzx ecx,cl
+            mov result,ecx
+        }
+        *less=result;
+    }
     return total;
+}
+// Explicit initialized three-colour state only; default DXT1 remains undefined.
+void CodeRGBBlockPC3(RGBBlock* block,int mode) {
+    if(!block||block->n<1||block->n>MAX_PIXEL_PER_BLOCK||block->inLevel!=3)return;
+    RGBBlock input=*block;
+    CodeRGBBlock(block);
+    if(mode==3)return;
+    double fullError=pcErrorAndIndices(block,0,0);
+    RGBBlock quick=input;pcQuick(&quick);int less=0;
+    pcErrorAndIndices(&quick,&fullError,0,&less);
+    if(less)*block=quick;
 }
 void CodeRGBBlockPC(RGBBlock* block) {
     if(!block||block->n<1||block->n>MAX_PIXEL_PER_BLOCK||block->inLevel!=4)return;
