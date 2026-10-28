@@ -20,6 +20,12 @@ internal static class TexturePngMetadataFixtures
         new[]{2,8},new[]{2,16},new[]{3,1},new[]{3,2},new[]{3,4},new[]{3,8},
         new[]{4,8},new[]{4,16},new[]{6,8},new[]{6,16}
     };
+    internal static readonly string[] OrderProfiles = {
+        "srgb-only", "gamma-only", "srgb-first", "srgb-last", "srgb-low", "srgb-high",
+        "srgb-intent1", "srgb-intent2", "srgb-intent3", "srgb-bad-intent", "srgb-empty",
+        "srgb-long", "srgb-after", "srgb-duplicate", "srgb-duplicate-bad",
+        "srgb-bad-before-gamma", "srgb-bad-after-gamma", "srgb-gamma-after"
+    };
     internal sealed class Part { internal string Name; internal byte[] Data; internal Part(string n, byte[] d){Name=n;Data=d;} }
     internal static uint Big(byte[] b,int at){return (uint)b[at]<<24|(uint)b[at+1]<<16|(uint)b[at+2]<<8|b[at+3];}
     internal static void Big(BinaryWriter w,uint v){w.Write((byte)(v>>24));w.Write((byte)(v>>16));w.Write((byte)(v>>8));w.Write((byte)v);}
@@ -43,6 +49,7 @@ internal static class TexturePngMetadataFixtures
     static Part Frame(uint sequence,int width,int height,int x,int y,byte dispose,byte blend){return new Part("fcTL",Join(Words(sequence,(uint)width,(uint)height,(uint)x,(uint)y),new byte[]{0,1,0,10,dispose,blend}));}
     static byte[] Data(byte[] png){var rows=new List<byte[]>();foreach(var p in Parts(png))if(p.Name=="IDAT")rows.Add(p.Data);return Join(rows.ToArray());}
     internal static byte[] Create(string directory,int width,int height,int color,int depth,int interlace,int pattern,string profile){
+        if(Array.IndexOf(OrderProfiles,profile)>=0)return Srgb(width,height,color,depth,interlace,pattern,profile);
         int meta=profile.IndexOf("gamma",StringComparison.Ordinal)>=0?5:0;
         var parts=Parts(TexturePngOracle.Fixture(width,height,depth,color,interlace,5,meta,pattern));
         int first=parts.FindIndex(p=>p.Name=="IDAT");
@@ -71,5 +78,20 @@ internal static class TexturePngMetadataFixtures
             if(three){after.Add(Frame(3,width,height,0,0,2,0));after.Add(new Part("fdAT",Join(Words(4),Data(TexturePngOracle.Fixture(width,height,depth,color,interlace,5,0,(pattern+1)%4)))));}
         }
         parts.InsertRange(first,before);parts.InsertRange(parts.Count-1,after);return Encode(parts);
+    }
+    static byte[] Srgb(int width,int height,int color,int depth,int interlace,int pattern,string profile){
+        var parts=Parts(TexturePngOracle.Fixture(width,height,depth,color,interlace,5,0,pattern));
+        int first=parts.FindIndex(p=>p.Name=="IDAT");var tags=new List<Part>();
+        byte intent=profile=="srgb-intent1"?(byte)1:profile=="srgb-intent2"?(byte)2:profile=="srgb-intent3"?(byte)3:profile=="srgb-bad-intent"||profile=="srgb-bad-before-gamma"||profile=="srgb-bad-after-gamma"?(byte)4:(byte)0;
+        var srgb=new Part("sRGB",profile=="srgb-empty"?new byte[0]:profile=="srgb-long"?new byte[]{0,0}:new byte[]{intent});
+        var gamma=new Part("gAMA",Words(profile=="srgb-low"?10000u:profile=="srgb-high"?180000u:100000u));
+        if(profile=="gamma-only")tags.Add(gamma);
+        else if(profile=="srgb-only")tags.Add(srgb);
+        else if(profile=="srgb-after"){tags.Add(gamma);parts.Insert(parts.Count-1,srgb);}
+        else if(profile=="srgb-first"||profile=="srgb-bad-before-gamma"||profile=="srgb-gamma-after"){tags.Add(srgb);tags.Add(gamma);}
+        else{tags.Add(gamma);tags.Add(srgb);}
+        if(profile=="srgb-duplicate")tags.Add(new Part("sRGB",new byte[]{2}));
+        if(profile=="srgb-duplicate-bad")tags.Add(new Part("sRGB",new byte[]{4}));
+        parts.InsertRange(first,tags);return Encode(parts);
     }
 }

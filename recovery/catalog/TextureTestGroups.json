@@ -1658,6 +1658,26 @@
       "sdk": false,
       "manual_only": true,
       "evidence_only": true
+    },
+    "png-metadata-order": {
+      "script": "recovery/scripts/InspectTexturePngMetadata.ps1",
+      "arguments": {
+        "Order": true
+      },
+      "dependencies": [
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TexturePngMetadataFixtures.cs",
+        "recovery/tests/TexturePngMetadataProbe.cs",
+        "recovery/reference/compact-icc/**",
+        "recovery/scripts/InspectTexturePngMetadata.ps1"
+      ],
+      "evidence": "recovery/evidence/texture/png-metadata-order/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"

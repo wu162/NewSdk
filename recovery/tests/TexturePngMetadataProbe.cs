@@ -15,12 +15,12 @@ internal static class TexturePngMetadataProbe
     static string Error(Exception e){if(e==null)return "";while(e is TargetInvocationException&&e.InnerException!=null)e=e.InnerException;var p=e.GetType().GetProperty("ErrorCode");return (e.GetType().FullName+"/"+(p==null?"":Convert.ToString(p.GetValue(e,null)))+"/"+e.Message).Replace('\t',' ').Replace('\r',' ').Replace('\n',' ');}
     static int Main(string[] args){
         try{
-            Check(IntPtr.Size==4,"x86 required");string input=Path.GetFullPath(args[0]),directory=Path.GetDirectoryName(input),output=Path.GetFullPath(args[1]),profiles=Path.GetFullPath(args[2]);Directory.CreateDirectory(output);
+            Check(IntPtr.Size==4,"x86 required");string input=Path.GetFullPath(args[0]),directory=Path.GetDirectoryName(input),output=Path.GetFullPath(args[1]),profiles=Path.GetFullPath(args[2]);Directory.CreateDirectory(output);bool order=args.Length>3&&args[3]=="order";
             AppDomain.CurrentDomain.AssemblyResolve+=delegate(object sender,ResolveEventArgs e){string p=Path.Combine(directory,new AssemblyName(e.Name).Name+".dll");return File.Exists(p)?Assembly.LoadFrom(p):null;};
             typeof(TexturePngOracle).GetMethod("Bind",BindingFlags.Static|BindingFlags.NonPublic).Invoke(null,new object[]{Assembly.LoadFrom(input),input});
             MethodInfo load=typeof(TexturePngOracle).GetMethod("Original",BindingFlags.Static|BindingFlags.NonPublic);
             using(var log=new StreamWriter(Path.Combine(output,"transcript.tsv"))){log.AutoFlush=true;log.WriteLine("label\tprofile\twidth\theight\thasAlpha\tbytes\tsha256\terror\tinputSha256");
-                foreach(int[] format in TexturePngMetadataFixtures.Formats)foreach(int[] size in new[]{new[]{8,4},new[]{7,5},new[]{16,8}})foreach(int interlace in new[]{0,1})foreach(int pattern in new[]{0,3})foreach(string profile in TexturePngMetadataFixtures.Profiles){
+                foreach(int[] format in TexturePngMetadataFixtures.Formats)foreach(int[] size in new[]{new[]{8,4},new[]{7,5},new[]{16,8}})foreach(int interlace in new[]{0,1})foreach(int pattern in new[]{0,3})foreach(string profile in order?TexturePngMetadataFixtures.OrderProfiles:TexturePngMetadataFixtures.Profiles){
                     int c=format[0],d=format[1],w=size[0],h=size[1];string label="c"+c+"d"+d+"-"+w+"x"+h+"-i"+interlace+"-p"+pattern+"-"+profile,path=Path.Combine(output,label+".png");byte[] source=TexturePngMetadataFixtures.Create(profiles,w,h,c,d,interlace,pattern,profile);File.WriteAllBytes(path,source);
                     TexturePacker.Image image=null,again=null;Exception error=null,repeatError=null;
                     try{image=(TexturePacker.Image)load.Invoke(null,new object[]{path});}catch(Exception e){error=e;}
@@ -31,7 +31,7 @@ internal static class TexturePngMetadataProbe
                     log.WriteLine(label+"\t"+profile+"\t"+(image==null?0:image.Width)+"\t"+(image==null?0:image.Height)+"\t"+(image!=null&&image.HasAlpha)+"\t"+(rgba==null?0:rgba.Length)+"\t"+(rgba==null?"":Hash(rgba))+"\t"+Error(error)+"\t"+Hash(source));fixtures++;
                 }
             }
-            Check(fixtures==4680,"Full metadata probe corpus");Console.WriteLine("PROBE Texture PNG metadata fixtures="+fixtures+" decoded="+decoded+" rejected="+rejected+" originalCalls="+(fixtures*2)+" checks="+checks+"; original complete RGBA/errors, ICC/APNG, POT/NPOT, Adam7 and gamma; not recovered or SDK acceptance");return 0;
+            Check(fixtures==(order?3240:4680),"Full metadata probe corpus");Console.WriteLine("PROBE Texture PNG metadata fixtures="+fixtures+" decoded="+decoded+" rejected="+rejected+" originalCalls="+(fixtures*2)+" checks="+checks+" order="+order+"; original complete RGBA/errors, ICC/APNG/sRGB, POT/NPOT, Adam7 and gamma; not recovered or SDK acceptance");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}finally{var f=typeof(TexturePngOracle).GetField("owner",BindingFlags.Static|BindingFlags.NonPublic);var owner=f.GetValue(null) as IDisposable;if(owner!=null)owner.Dispose();}
     }
 }

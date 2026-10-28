@@ -1,6 +1,8 @@
+param([switch]$Order)
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
-$out="recovery/evidence/texture/png-metadata-load/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+$group=if($Order){'png-metadata-order'}else{'png-metadata-load'}
+$out="recovery/evidence/texture/$group/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('texture-png-metadata-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
 $r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$true;evidenceOnly=$true;sdkValidated=$false;scope='original PC LoadImageA ICC/APNG full RGBA/errors and per-input repeat determinism; no recovered/plugin/SDK acceptance'}
@@ -14,9 +16,11 @@ try{
  $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
  Checked build {& $csc /nologo /unsafe /platform:x86 /optimize+ /main:TexturePngMetadataProbe /r:System.Drawing.dll /r:"$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll" /out:"$work/TexturePngMetadataProbe.exe" (Resolve-Path recovery/tests/TexturePngMetadataProbe.cs).Path (Resolve-Path recovery/tests/TexturePngMetadataFixtures.cs).Path (Resolve-Path recovery/tests/TexturePngOracle.cs).Path}
  '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TexturePngMetadataProbe.exe.config"
- Checked oracle {& "$work/TexturePngMetadataProbe.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$work/samples" (Resolve-Path recovery/reference/compact-icc).Path}
+ $variant=if($Order){'order'}else{'metadata'}
+ Checked oracle {& "$work/TexturePngMetadataProbe.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$work/samples" (Resolve-Path recovery/reference/compact-icc).Path $variant}
  Copy-Item "$work/samples/transcript.tsv" "$out/transcript.tsv"
- $rows=Import-Csv "$out/transcript.tsv" -Delimiter "`t";if($rows.Count -ne 4680){throw 'Incomplete PNG metadata corpus'}
+ $count=if($Order){3240}else{4680}
+ $rows=Import-Csv "$out/transcript.tsv" -Delimiter "`t";if($rows.Count -ne $count){throw 'Incomplete PNG metadata corpus'}
  $r.fixtureCount=$rows.Count;$r.decodedCount=@($rows|Where-Object error -eq '').Count;$r.rejectedCount=@($rows|Where-Object error -ne '').Count;$r.originalCalls=$rows.Count*2
  Compress-Archive -Path "$work/samples/*" -DestinationPath "$out/samples.zip"
  $r.samplesSha256=(Get-FileHash "$out/samples.zip").Hash.ToLowerInvariant();$r.status='probe-only'
