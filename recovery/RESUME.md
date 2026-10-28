@@ -1,8 +1,11 @@
-# 当前续接入口
+# 缓存与并行专项续接
 
-本分支以 `compiler-main` 为重构结果和后续开发主线。
+当前工作分支：`feature/cache-parallel`；来源与最终 PR 目标：`compiler-main`。
 
-- 继续开发：读 [REFACTOR_RESUME.md](REFACTOR_RESUME.md) 和 [EFFICIENCY.md](EFFICIENCY.md)。
-- 使用工具：读 [COMPILER_USAGE.md](COMPILER_USAGE.md)。
-- 发行结果：读 [COMPILER_RELEASE.md](COMPILER_RELEASE.md)。
-- 原组件恢复及旧交接：[分类索引](docs/README.md)。本文件先前混合的 Hash/Audio/其他交接保存在 [历史快照](docs/history/RESUME_BEFORE_COMPILER_MAIN.md)，其中分支、PR 和“下一步”均为当时状态，不作为当前指令。
+1. 读仓库 `AGENTS.md`、[当前交接](REFACTOR_RESUME.md) 和 [执行规则](EFFICIENCY.md)，从最新下一步继续。
+2. 按交接中的章节链接查阅实施计划；日常续接无需全文读取，不重新创建分支或重做已验收能力。
+3. 按具体阻塞读取源码及 [能力与证据](docs/CACHE_PARALLEL.md) 的相关段落；首次接手或整体方向调整时再通读计划。
+
+产品使用与历史资料见 [文档索引](README.md)。旧恢复交接和历史“下一步”不构成本专项待办。
+
+后续使用 Codex 云端：复用任务检出、终端与Git，环境/分支/验证分工见 [云端执行规则](EFFICIENCY.md#codex-cloud)。不依赖ChatGPT插件。

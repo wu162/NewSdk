@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- The production fixture supplies the same real Texture/PackedTextureImage
+       closure as the radar fixture. FontName is serialized, never opened. -->
+  <ImageSequence id="ParallelImageSequence">
+    <Image>ParallelRadarImage</Image>
+    <Image>ParallelRadarImage</Image>
+    <Image>ParallelRadarImage</Image>
+  </ImageSequence>
+  <UnitTypeIcon id="ParallelUnitTypeIcon" Image="ParallelRadarImage">
+    <Offset x="0.5" y="-2" />
+  </UnitTypeIcon>
+  <DrawGroupInfo id="ParallelDrawGroupInfo" FontName="Parallel Sans" FontSize="17"
+      IsBold="true" UsePlayerColor="false" DropShadowOffsetX="-3" DropShadowOffsetY="7"
+      PixelOffsetAsPercentage="true" PixelOffetXInteger="-9" PixelOffetYInteger="11"
+      PixelOffetXReal="0.5" PixelOffetYReal="-2">
+    <TextColor R="17" G="34" B="51" A="68" />
+    <TextDropShadowColor R="1" G="2" B="3" A="255" />
+  </DrawGroupInfo>
+</AssetDeclaration>

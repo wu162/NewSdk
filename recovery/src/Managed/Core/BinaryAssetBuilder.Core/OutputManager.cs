@@ -191,6 +191,8 @@ public class OutputManager
 		}
 		else
 		{
+			// A queued result retains its original declaration until owner commit.
+			if (DocumentProcessor.AssetExecution != null) DocumentProcessor.AssetExecution.Flush();
 			value.Instance = instance;
 		}
 		if (isOutputAsset && !value.IsOutputAsset)

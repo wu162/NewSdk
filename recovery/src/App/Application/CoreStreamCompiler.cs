@@ -30,13 +30,95 @@ namespace NewModCompiler.Application
         int buildCacheHits, buildCacheMisses, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile;
         readonly List<BuildAssetCache> assetCaches = new List<BuildAssetCache>();
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
+        ActionAssetCache actionCache, dependencyStore;
+        int dependencyStreams, dependencyProbes, dependencyFiles, dependencyUnknownReads, dependencyBudgetFallbackStreams;
+        long dependencyLeasedReadBytes, dependencyReadBytes, dependencyValidationBytes, dependencyManifestBytes, completedDependencyHashBytes, completedDependencyCopyBytes;
+        readonly List<string> dependencyManifestKeys = new List<string>();
+        string actionToolchain;
+        long inputHashBytes, inputHashReusedBytes, completedCacheHashBytes, completedCacheCopyBytes, inputIdentityQueries, inputIdentitySkippedFiles;
+        int inputInventoryCaptures, inputHashLeaseFiles;
+        long inputInventoryTicks, inputEnumerationTicks, inputReadTicks, inputDigestTicks,
+            processContractTicks, coreCompileTicks, streamSetupTicks, streamCleanupTicks,
+            documentProcessTicks, artifactCollectionTicks, cacheCommitTicks;
+        long completedStoreLookupTicks, completedStoreValidationTicks,
+            completedStoreMaterializationTicks, completedStoreStageTicks;
+        long dependencyReadTicks, dependencyValidationTicks, dependencySerializationTicks;
+        CacheInputLeaseSet inputLeases;
+        readonly AssetExecutionMetrics executionMetrics = new AssetExecutionMetrics();
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
         VerifierPluginRegistry verifiers;
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
-        public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.SessionPackage" : buildCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.BuildAssetCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
-        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false }; } }
+        public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.SessionPackage" : buildCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.ActionCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
+        public object CacheReport { get { return new {
+            status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "ActionCache" : "Disabled",
+            hits = sessionCacheEnabled ? buildCacheHits : executionMetrics.Hits,
+            misses = sessionCacheEnabled ? buildCacheMisses : executionMetrics.Misses,
+            sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false,
+            executionEngine = sessionCacheEnabled ? "LegacySession" : "AssetTasks.v1",
+            cacheMode = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "ActionCache" : "Disabled",
+            requestedJobs = request == null ? 1 : request.RequestedJobs,
+            resourcePolicy = sessionCacheEnabled ? "LegacySession" : "MachineResources.v1",
+            logicalProcessorCount = executionMetrics.LogicalProcessorCount,
+            effectiveJobs = sessionCacheEnabled ? 1 : executionMetrics.EffectiveJobs,
+            minimumEffectiveJobs = sessionCacheEnabled ? 1 : executionMetrics.MinimumEffectiveJobs,
+            taskMemoryBudgetBytes = executionMetrics.TaskMemoryBudgetBytes,
+            minimumTaskMemoryBudgetBytes = executionMetrics.MinimumTaskMemoryBudgetBytes,
+            perTaskMemoryLimitBytes = executionMetrics.PerTaskMemoryLimitBytes,
+            resourceMemoryQuerySucceeded = executionMetrics.ResourceMemoryQuerySucceeded,
+            backendOwnerThreadId = threadId,
+            parallelXmlCertifiedTypes = XmlBackendCertification.TypeCount + 4,
+            parallelXmlCertifiedFamilies = XmlBackendCertification.FamilyCount + 1,
+            backendCalls = sessionCacheEnabled ? instanceCompile : executionMetrics.BackendCalls,
+            maxBackendConcurrency = sessionCacheEnabled ? (instanceCompile == 0 ? 0 : 1) : executionMetrics.MaximumConcurrency,
+            actionHits = executionMetrics.Hits, actionMisses = executionMetrics.Misses,
+            actionMissReasons = new Dictionary<string,int>(executionMetrics.ActionMissReasons),
+            cacheBypassReasons = new Dictionary<string,int>(executionMetrics.CacheBypassReasons),
+            preparationRejectedReasons = new Dictionary<string,int>(executionMetrics.PreparationRejectedReasons),
+            restoredBytes = executionMetrics.RestoredBytes, writtenBytes = executionMetrics.WrittenBytes,
+            hashReadBytes = inputHashBytes + dependencyReadBytes + dependencyValidationBytes + completedDependencyHashBytes + (dependencyStore == null ? 0 : dependencyStore.HashReadBytes) + executionMetrics.ExternalHashBytes + completedCacheHashBytes + (actionCache == null ? 0 : actionCache.HashReadBytes),
+            inputInventoryCaptures, inputHashReusedBytes, inputHashLeaseFiles, inputIdentityQueries, inputIdentitySkippedFiles,
+            dependencyObservation = new {
+                format = CacheDependencyManifest.Format, streams = dependencyStreams,
+                budgetFallbackStreams = dependencyBudgetFallbackStreams,
+                probes = dependencyProbes, files = dependencyFiles, unknownReads = dependencyUnknownReads,
+                readBytes = dependencyReadBytes, leasedReadBytes = dependencyLeasedReadBytes, validationBytes = dependencyValidationBytes,
+                manifestBytes = dependencyManifestBytes,
+                storeHashReadBytes = completedDependencyHashBytes + (dependencyStore == null ? 0 : dependencyStore.HashReadBytes),
+                storeCopyBytes = completedDependencyCopyBytes + (dependencyStore == null ? 0 : dependencyStore.CopyBytes),
+                manifestKeys = dependencyManifestKeys.ToArray(),
+                frequency = Stopwatch.Frequency, semantics = "inclusive-overlapping-ticks",
+                readTicks = dependencyReadTicks, validationTicks = dependencyValidationTicks, serializationTicks = dependencySerializationTicks,
+                inventoryFallback = true, canAuthorizeReuse = false
+            },
+            cacheCopyBytes = completedCacheCopyBytes + completedDependencyCopyBytes + (dependencyStore == null ? 0 : dependencyStore.CopyBytes) + (actionCache == null ? 0 : actionCache.CopyBytes),
+            phaseTimings = new {
+                format = "NewModCompiler.CachePhaseTimings.v1",
+                frequency = Stopwatch.Frequency,
+                // Inclusive nested spans and concurrent backend work overlap.
+                // Never sum these counters to estimate wall time or CPU time.
+                semantics = "inclusive-overlapping-ticks",
+                coreCompileTicks, streamSetupTicks, streamCleanupTicks,
+                inputInventoryTicks, inputEnumerationTicks, inputReadTicks, inputDigestTicks,
+                processContractTicks, documentProcessTicks, artifactCollectionTicks,
+                preparationTicks = executionMetrics.PreparationTicks,
+                actionKeyTicks = executionMetrics.ActionKeyTicks,
+                resultRestoreTicks = executionMetrics.ResultRestoreTicks,
+                resultWriteTicks = executionMetrics.ResultWriteTicks,
+                resultCommitTicks = executionMetrics.ResultCommitTicks,
+                workerWaitTicks = executionMetrics.WorkerWaitTicks,
+                backendWorkTicks = executionMetrics.BackendWorkTicks,
+                storeLookupTicks = completedStoreLookupTicks + (actionCache == null ? 0 : actionCache.LookupTicks),
+                storeValidationTicks = completedStoreValidationTicks + (actionCache == null ? 0 : actionCache.ValidationTicks),
+                storeMaterializationTicks = completedStoreMaterializationTicks + (actionCache == null ? 0 : actionCache.MaterializationTicks),
+                storeStageTicks = completedStoreStageTicks + (actionCache == null ? 0 : actionCache.StageTicks),
+                cacheCommitTicks
+            },
+            peakSampledPrivateBytes = executionMetrics.PeakSampledPrivateBytes,
+            backendCallsByType = new Dictionary<string,int>(executionMetrics.CallsByType),
+            backendIntervals = executionMetrics.Intervals.ToArray(), intervalFrequency = Stopwatch.Frequency
+        }; } }
 
         public void Initialize(BuildRequest request)
         {
@@ -168,6 +250,7 @@ namespace NewModCompiler.Application
             traceLevel = 3; buildCacheEnabled = sessionCacheEnabled = false;
             stableSortEnabled = usePrecompiled = forceSlowCleanup = true;
             BigPackage.ValidateRequest(candidate);
+            if (candidate.RequestedJobs <= 0) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", "jobs expects a positive integer.");
             if(candidate.Command=="build" && candidate.FixNeutralAssets) BasePostProcessor.ValidateReferences(candidate.SdkRoot);
             var ordinary = new HashSet<string>(new[] { "profile", "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format", "mod-version", "game-version", "skudef-name", "include-additional", "fix-neutral-assets", "dr", "data", "art", "audio" }, StringComparer.OrdinalIgnoreCase);
             var disabled = new HashSet<string>(new[] { "csc", "psc", "fsc", "atc", "oof", "vf", "oar", "osh", "oix", "mr" }, StringComparer.OrdinalIgnoreCase);
@@ -175,6 +258,13 @@ namespace NewModCompiler.Application
             {
                 if (option.Value == null) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", "A Core option has no effective value: " + option.Key);
                 string key = option.Key, value = option.Value.Value;
+                if (key == "jobs")
+                {
+                    int jobs;
+                    if (!int.TryParse(value, System.Globalization.NumberStyles.None, System.Globalization.CultureInfo.InvariantCulture, out jobs) || jobs <= 0 || jobs != candidate.RequestedJobs)
+                        throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", "jobs expects a matching positive integer.");
+                    continue;
+                }
                 if (key == "package-format" && !string.Equals(value, "loose", StringComparison.OrdinalIgnoreCase) && !string.Equals(value,"big",StringComparison.OrdinalIgnoreCase))
                     throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Package format must be loose or big; BIG supports base/apt/maps.");
                 if (ordinary.Contains(key)) continue;
@@ -197,6 +287,8 @@ namespace NewModCompiler.Application
                 if (key == "tl" && int.TryParse(value, out level) && level >= 0 && level <= 9) { traceLevel = level; continue; }
                 throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Experimental Core backend does not support option " + key + "=" + value + ". Compressed/partial/frozen session cache, precompiled, alternate output, reporting, configuration overrides and postprocessing options are not enabled.");
             }
+            if (sessionCacheEnabled && candidate.RequestedJobs > 1)
+                throw new BuildFailure(ExitCode.Arguments, "CORE_SESSION_PARALLEL_UNSUPPORTED", "Session cache requires jobs=1.");
         }
 
         Settings ReadSettings()
@@ -231,7 +323,7 @@ namespace NewModCompiler.Application
             // BuildSession confirms both caches only after required output succeeds.
             settings.SessionCache = sessionCacheEnabled;
             settings.PartialSessionCache = settings.FreezeSessionCache = settings.CompressedSessionCache = false;
-            settings.BuildCache = buildCacheEnabled;
+            settings.BuildCache = buildCacheEnabled && sessionCacheEnabled;
             settings.AlwaysTouchCache = settings.StreamHints = false;
             // SDK/defaultscript.cs steps 3/4/5 enable these independently of caching.
             // In particular /pc changes whether referenced streams emit output.
@@ -423,11 +515,14 @@ namespace NewModCompiler.Application
                 throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "The experimental backend requires an existing XML stream entry.");
             Settings previousSettings = Settings.Current;
             bool previousMetrics = MetricManager.Enabled;
-            IDisposable hashes = null, tracing = null, report = null, processorState = null, inputBoundary = null;
+            IDisposable hashes = null, tracing = null, report = null, processorState = null, inputBoundary = null, inputObservation = null;
             Exception failure = null;
             IList<Artifact> artifacts = null;
             DocumentProcessor processor = null;
+            AssetTaskExecution execution = null;
             compiling = true;
+            long compileStarted = Stopwatch.GetTimestamp(), setupStarted = compileStarted;
+            bool setupRecorded = false;
             try
             {
                 Directory.CreateDirectory(staging);
@@ -447,13 +542,29 @@ namespace NewModCompiler.Application
                 BuildPlan cachePlan = null; CacheInputSnapshot cacheInputs = null;
                 string processContract = null; BuildAssetCache assetCache = null; SessionPackage sessionPackage = null;
                 bool packageRestored = false;
+                CacheDependencyRecorder dependencies = null;
                 if (buildCacheEnabled || sessionCacheEnabled)
                 {
                     inputBoundary = CacheInputBoundary.Begin(sdkRoot, modRoot, runtime);
+                    if (buildCacheEnabled && !sessionCacheEnabled)
+                    {
+                        dependencies = new CacheDependencyRecorder(cancellation);
+                        // Native and directory-selection readers are not yet a
+                        // certified closed set. The manifest is evidence only.
+                        dependencies.ReportUnknownRead("native-and-directory-read-closure-not-certified");
+                        inputObservation = CacheInputBoundary.BeginObservation(dependencies.Probe, dependencies.OpenRead, dependencies.ReportUnknownRead, dependencies.RecordLeasedRead);
+                    }
                     cachePlan = new BuildPlan { PlanKind = "CoreCacheStream.v2", Tasks = new[] { context.Task } };
-                    cacheInputs = CacheInputSnapshot.Capture(request, cachePlan, runtime, cancellation);
+                    cacheInputs = CaptureInputs(cachePlan, runtime, cancellation);
+                    inputHashBytes += cacheInputs.HashedBytes;
                     processContract = CacheProcessContract();
-                    if (buildCacheEnabled)
+                    if (buildCacheEnabled && !sessionCacheEnabled)
+                    {
+                        string identity = ActionToolchainIdentity(cacheInputs.ToolchainFingerprint, processContract);
+                        if (actionToolchain == null) actionToolchain = identity;
+                        else if (actionToolchain != identity) throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Toolchain or process inputs changed between streams.");
+                    }
+                    if (buildCacheEnabled && sessionCacheEnabled)
                     {
                         assetCache = new BuildAssetCache(outputRoot, CacheNamespace(cacheInputs.Fingerprint, processContract));
                         assetCaches.Add(assetCache);
@@ -503,8 +614,25 @@ namespace NewModCompiler.Application
                 }
                 else cache.InitializeCache(new List<string>());
                 processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
+                if (!sessionCacheEnabled)
+                {
+                    if (buildCacheEnabled)
+                    {
+                        if (actionCache == null) actionCache = new ActionAssetCache(outputRoot);
+                    }
+                    execution = new AssetTaskExecution(processor, buildCacheEnabled ? actionCache : null, staging,
+                        actionToolchain ?? "no-persistent-cache", EffectiveActionOptions(), request.RequestedJobs, executionMetrics, cancellation);
+                    processor.AssetExecution = execution;
+                }
+                streamSetupTicks += Stopwatch.GetTimestamp() - setupStarted; setupRecorded = true;
                 bool success;
-                processor.ProcessDocument(settings.InputPath, true, false, out success);
+                long documentStarted = Stopwatch.GetTimestamp();
+                try
+                {
+                    processor.ProcessDocument(settings.InputPath, true, false, out success);
+                    if (execution != null) execution.Flush();
+                }
+                finally { documentProcessTicks += Stopwatch.GetTimestamp() - documentStarted; }
                 if (!success) throw new BuildFailure(ExitCode.Compilation, "CORE_COMPILE_FAILED", "Core did not complete the stream.");
                 if (sessionCacheEnabled)
                 {
@@ -513,18 +641,42 @@ namespace NewModCompiler.Application
                         throw new BuildFailure(ExitCode.Arguments, "CORE_SESSION_TEXTURE_UNSUPPORTED", "Session cache cannot reuse mixed Texture, OnDemandTexture or TerrainTextureAtlas assets; use /sc:false.");
                 }
                 cancellation.ThrowIfCancellationRequested(); // Cancellation is cooperative at complete stream boundaries.
-                artifacts = CollectArtifacts(settings.OutputDirectory);
+                long artifactsStarted = Stopwatch.GetTimestamp();
+                try { artifacts = CollectArtifacts(settings.OutputDirectory); }
+                finally { artifactCollectionTicks += Stopwatch.GetTimestamp() - artifactsStarted; }
                 cancellation.ThrowIfCancellationRequested();
                 if (buildCacheEnabled || sessionCacheEnabled)
                 {
-                    if (!cacheInputs.MatchesCurrent(request, cachePlan, runtime, cancellation) || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal))
+                    var finalInputs = CaptureInputs(cachePlan, runtime, cancellation);
+                    inputHashBytes += finalInputs.HashedBytes;
+                    if (cacheInputs.Fingerprint != finalInputs.Fingerprint || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal))
                         throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Build-cache inputs or process resolution contract changed during compilation.");
+                    if (dependencies != null && dependencies.IsRecording)
+                    {
+                        CacheDependencyManifest manifest = dependencies.Manifest;
+                        manifest.ValidateCurrent(cancellation);
+                        string directory = Path.Combine(staging, "read-closure"); Directory.CreateDirectory(directory);
+                        string key = manifest.Write(Path.Combine(directory, "dependencies.bin"));
+                        if (dependencyStore == null) dependencyStore = ActionAssetCache.CreateReadClosureStore(outputRoot);
+                        dependencyStore.Stage(key, directory, cancellation);
+                        dependencyStreams++; dependencyManifestBytes += manifest.ManifestBytes; dependencyManifestKeys.Add(key);
+                    }
+                    if (dependencies != null)
+                    {
+                        CacheDependencyManifest manifest = dependencies.Manifest;
+                        if (!dependencies.IsRecording) dependencyBudgetFallbackStreams++;
+                        dependencyProbes += manifest.ProbeCount; dependencyFiles += manifest.FileCount;
+                        dependencyUnknownReads += manifest.UnknownReadCount;
+                        dependencyReadBytes += manifest.ReadBytes; dependencyLeasedReadBytes += manifest.LeasedReadBytes; dependencyValidationBytes += manifest.ValidationBytes;
+                        dependencyReadTicks += manifest.ReadTicks; dependencyValidationTicks += manifest.ValidationTicks;
+                        dependencySerializationTicks += manifest.SerializationTicks;
+                    }
                     if (sessionCacheEnabled)
                     {
                         cache.SaveCache(false);
                         sessionPackage.StageStream(context.Task.Id, staging, cancellation);
                     }
-                    if (buildCacheEnabled)
+                    if (buildCacheEnabled && sessionCacheEnabled)
                     {
                         assetCache.StageStream(context.Task.Id, settings.BuildCacheDirectory, cancellation);
                         buildCacheHits += processor.BuildCacheHits; buildCacheMisses += processor.BuildCacheMisses;
@@ -538,6 +690,8 @@ namespace NewModCompiler.Application
             }
             finally
             {
+                long cleanupStarted = Stopwatch.GetTimestamp();
+                if (!setupRecorded) streamSetupTicks += cleanupStarted - setupStarted;
                 if (processor != null)
                 {
                     documentReuse += processor.DocumentReuseCount;
@@ -545,10 +699,12 @@ namespace NewModCompiler.Application
                     instanceCompile += processor.InstanceCompileCount;
                 }
                 var cleanup = new List<Exception>();
+                try { if (execution != null) execution.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (report != null) report.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (hashes != null) hashes.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (processorState != null) processorState.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (tracing != null) tracing.Dispose(); } catch (Exception error) { cleanup.Add(error); }
+                try { if (inputObservation != null) inputObservation.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (inputBoundary != null) inputBoundary.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 Settings.Current = previousSettings;
                 MetricManager.Enabled = previousMetrics;
@@ -559,27 +715,56 @@ namespace NewModCompiler.Application
                     try { if (Directory.Exists(staging)) Directory.Delete(staging, true); }
                     catch (Exception error) { AddCleanupFailure(ref failure, error, ExitCode.Output, "CORE_STAGING_CLEANUP_FAILED"); }
                 }
+                long finished = Stopwatch.GetTimestamp();
+                streamCleanupTicks += finished - cleanupStarted;
+                coreCompileTicks += finished - compileStarted;
             }
             if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
             return artifacts;
+        }
+
+        CacheInputSnapshot CaptureInputs(BuildPlan plan, string runtime, CancellationToken cancellation)
+        {
+            // Session-package compatibility retains its original independent scans.
+            if (!sessionCacheEnabled && inputLeases == null) inputLeases = new CacheInputLeaseSet();
+            CacheInputSnapshot result;
+            long started = Stopwatch.GetTimestamp();
+            try { result = CacheInputSnapshot.Capture(request, plan, runtime, cancellation, inputLeases); }
+            finally { inputInventoryTicks += Stopwatch.GetTimestamp() - started; }
+            inputEnumerationTicks += result.EnumerationTicks;
+            inputReadTicks += result.ReadTicks;
+            inputDigestTicks += result.DigestTicks;
+            inputInventoryCaptures++;
+            inputHashReusedBytes = checked(inputHashReusedBytes + result.ReusedHashBytes);
+            if (inputLeases != null)
+            {
+                inputHashLeaseFiles = Math.Max(inputHashLeaseFiles, inputLeases.RetainedFiles);
+                inputIdentityQueries = inputLeases.IdentityQueries;
+                inputIdentitySkippedFiles = inputLeases.IdentitySkippedFiles;
+            }
+            return result;
         }
 
         // BuildSession owns these reversible writes after provider disposal.
         public void CommitCache()
         {
             if (cacheCompleted || cacheCommitted) return;
-            try { foreach (BuildAssetCache cache in assetCaches) cache.Commit(); foreach (SessionPackage package in sessionPackages) package.Commit(); cacheCommitted = true; }
+            long started = Stopwatch.GetTimestamp();
+            try { if (actionCache != null) actionCache.Commit(); if (dependencyStore != null) dependencyStore.Commit(); foreach (BuildAssetCache cache in assetCaches) cache.Commit(); foreach (SessionPackage package in sessionPackages) package.Commit(); cacheCommitted = true; }
             catch (Exception error)
             {
                 Exception failure = error;
                 try { RollbackCache(); } catch (Exception cleanup) { AddCleanupFailure(ref failure, cleanup, ExitCode.Output, "CORE_CACHE_ROLLBACK_FAILED"); }
                 ExceptionDispatchInfo.Capture(failure).Throw(); throw;
             }
+            finally { cacheCommitTicks += Stopwatch.GetTimestamp() - started; }
         }
         public void RollbackCache()
         {
             if (cacheCompleted) return;
             var failures = new List<Exception>(); var retained = new List<BuildAssetCache>();
+            try { if (actionCache != null) { actionCache.Dispose(); AccumulateActionCacheMetrics(); actionCache = null; } } catch (Exception error) { failures.Add(error); }
+            try { if (dependencyStore != null) { dependencyStore.Dispose(); AccumulateDependencyMetrics(); dependencyStore = null; } } catch (Exception error) { failures.Add(error); }
             foreach (BuildAssetCache cache in assetCaches)
                 try { cache.Dispose(); } catch (Exception error) { failures.Add(error); retained.Add(cache); }
             assetCaches.Clear(); assetCaches.AddRange(retained);
@@ -592,11 +777,35 @@ namespace NewModCompiler.Application
         public void CompleteCache()
         {
             if (cacheCompleted || !cacheCommitted) return;
+            if (actionCache != null) { actionCache.Complete(); actionCache.Dispose(); AccumulateActionCacheMetrics(); actionCache = null; }
+            if (dependencyStore != null) { dependencyStore.Complete(); dependencyStore.Dispose(); AccumulateDependencyMetrics(); dependencyStore = null; }
             foreach (BuildAssetCache cache in assetCaches) cache.Complete();
             foreach (SessionPackage package in sessionPackages) package.Complete();
             assetCaches.Clear(); sessionPackages.Clear(); cacheCompleted = true;
         }
-        static string CacheProcessContract()
+        void AccumulateDependencyMetrics()
+        {
+            completedDependencyHashBytes += dependencyStore.HashReadBytes;
+            completedDependencyCopyBytes += dependencyStore.CopyBytes;
+        }
+        void AccumulateActionCacheMetrics()
+        {
+            completedCacheHashBytes += actionCache.HashReadBytes;
+            completedCacheCopyBytes += actionCache.CopyBytes;
+            completedStoreLookupTicks += actionCache.LookupTicks;
+            completedStoreValidationTicks += actionCache.ValidationTicks;
+            completedStoreMaterializationTicks += actionCache.MaterializationTicks;
+            completedStoreStageTicks += actionCache.StageTicks;
+        }
+
+        string CacheProcessContract()
+        {
+            long started = Stopwatch.GetTimestamp();
+            try { return CacheProcessContractCore(); }
+            finally { processContractTicks += Stopwatch.GetTimestamp() - started; }
+        }
+
+        static string CacheProcessContractCore()
         {
             using (var bytes = new MemoryStream())
             using (var writer = new BinaryWriter(bytes, System.Text.Encoding.UTF8))
@@ -613,6 +822,32 @@ namespace NewModCompiler.Application
                 foreach (string key in keys) { writer.Write(key); writer.Write((string)variables[key]); }
                 writer.Flush(); bytes.Position = 0;
                 using (var hash = SHA256.Create()) return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
+            }
+        }
+
+        string EffectiveActionOptions()
+        {
+            // Scheduling, reporting and packaging do not change backend bytes.
+            var excluded = new HashSet<string>(new[] { "jobs", "bc", "sc", "out", "events", "report", "log", "profile", "package-format", "package-content", "include-additional", "mod-version", "game-version", "skudef-name", "fix-neutral-assets" }, StringComparer.OrdinalIgnoreCase);
+            using (var bytes = new MemoryStream()) using (var writer = new BinaryWriter(bytes, System.Text.Encoding.UTF8))
+            {
+                writer.Write("NewModCompiler.ActionOptions.v1"); writer.Write(sdkRoot); writer.Write(modRoot);
+                foreach (string key in request.Options.Keys.Where(x => !excluded.Contains(x)).OrderBy(x => x, StringComparer.Ordinal))
+                { writer.Write(key); writer.Write(request.Options[key].Value ?? ""); }
+                writer.Write("Win32"); writer.Write(stableSortEnabled); writer.Write(usePrecompiled); writer.Write(forceSlowCleanup);
+                writer.Flush(); using (var hash = SHA256.Create()) return BitConverter.ToString(hash.ComputeHash(bytes.ToArray())).Replace("-", "").ToLowerInvariant();
+            }
+        }
+
+        string ActionToolchainIdentity(string toolInputs, string processContract)
+        {
+            using (var bytes = new MemoryStream()) using (var writer = new BinaryWriter(bytes, System.Text.Encoding.UTF8))
+            {
+                writer.Write("NewModCompiler.ActionToolchain.v1"); writer.Write(processContract); writer.Write(configurationXml); writer.Write(toolInputs);
+                // The full MOD/root inventory remains an input-change guard,
+                // never an action identity. Tool/config/schema inputs are shared
+                // across all asset keys in this build.
+                writer.Flush(); using (var hash = SHA256.Create()) return BitConverter.ToString(hash.ComputeHash(bytes.ToArray())).Replace("-", "").ToLowerInvariant();
             }
         }
         static string CacheNamespace(string inputs, string process)
@@ -731,7 +966,7 @@ namespace NewModCompiler.Application
                 disposed = true;
             }
             try { DisposeProviders(); }
-            finally { ReleaseLease(); }
+            finally { try { if (inputLeases != null) { inputLeases.Dispose(); inputLeases = null; } } finally { ReleaseLease(); } }
         }
         void DisposeProviders()
         {

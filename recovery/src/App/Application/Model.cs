@@ -32,9 +32,10 @@ namespace NewModCompiler.Application
         public string SkudefName { get; set; }
         public bool IncludeAdditional { get; set; }
         public bool FixNeutralAssets { get; set; }
+        public int RequestedJobs { get; set; }
         public string[] Arguments { get; set; }
         public IDictionary<string, EffectiveOption> Options { get; private set; }
-        public BuildRequest() { ModVersion="1.0"; GameVersion="1.12"; Options = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal); }
+        public BuildRequest() { ModVersion="1.0"; GameVersion="1.12"; RequestedJobs=1; Options = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal); }
     }
     public sealed class BuildTask
     {

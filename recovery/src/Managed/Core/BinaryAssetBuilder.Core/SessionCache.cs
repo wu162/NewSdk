@@ -217,6 +217,7 @@ public class SessionCache : ISessionCache
 				if (File.Exists(sessionCachePath + ".deflate"))
 				{
 					_Tracer.TraceInfo("Loading compressed XML cache");
+					CacheInputBoundary.ReportUnknownRead(sessionCachePath + ".deflate");
 					using Stream stream = new FileStream(sessionCachePath + ".deflate", FileMode.Open, FileAccess.Read, FileShare.Read);
 					DeflateStream input = new DeflateStream(stream, CompressionMode.Decompress);
 					XmlReader xmlReader = XmlReader.Create(input);
@@ -227,6 +228,7 @@ public class SessionCache : ISessionCache
 				else if (File.Exists(sessionCachePath))
 				{
 					_Tracer.TraceInfo("Loading XML cache");
+					CacheInputBoundary.ReportUnknownRead(sessionCachePath);
 					using Stream input2 = new FileStream(sessionCachePath, FileMode.Open, FileAccess.Read, FileShare.Read);
 					XmlReader xmlReader2 = XmlReader.Create(input2);
 					xmlReader2.Read();

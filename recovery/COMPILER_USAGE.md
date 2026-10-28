@@ -106,15 +106,31 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 
 ## 6. 缓存与资源根
 
+`feature/cache-parallel` 的B1实现正在加入受控读取与版本化二进制依赖清单，存于独立 `.cache/read-closure-v1`，报告为 `cache.dependencyObservation`。该阶段仍保留全根保护，尚不启用文档/stream快路；不会因清单存在而扩大缓存或worker资格。当前验收状态与记录成本见 [读取清单合同](docs/READ_CLOSURE.md) 和 [交接](REFACTOR_RESUME.md)，不能把此实验分支当作主线新发行。
+
 稳定排序 `/ss`、预编译引用策略 `/pc` 和慢清理 `/slowclean` 默认开启，与旧编译脚本一致，通常不必手动填写；确有需要可分别传入 `/ss:false`、`/pc:false`、`/slowclean:false`。这些选项不依赖缓存开关。
 
-构建资产缓存和会话缓存默认关闭，可独立启用：
+构建资产缓存和会话缓存默认关闭，`--jobs=1` 为默认串行执行。当前分支的新模式（验收状态见[缓存与并行记录](docs/CACHE_PARALLEL.md)）：
 
 ```powershell
-./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --package-content base /bc:true /sc:true
+./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --package-content base /bc:true /sc:false --jobs=2
 ```
 
-`/bc` 复用合格的资产编译结果；`/sc` 恢复文档及 intermediate/CDATA 后重新生成链接输出。缓存位于输出根的 `.cache` 下，修改输入或参数会按缓存合同失效。中途失败和取消不得确认新缓存。
+`/sc:false /bc:true` 使用独立 `.cache/action-cache-v1`，按资产动作的强身份复用完整三缓冲区和 CDATA，命中仍执行验证器。前端检查和最终链接每次运行；修改一个资产不再让其他合格资产全冷。`/bc:false /sc:false` 使用同一执行器且不读写持久动作缓存，可用于串行/并行对照。
+
+`--jobs=N` 只接受正整数，项目 JSON 可保存 `"jobs": "2"`，命令行优先。`MachineResources.v1` 按用户上限、CPU 和当前 Win32 进程的可用物理/虚拟内存决定准入容量，防御上限32，并非固定只运行两个任务。它预留地址空间与运行开销，按资源估算限制在途总量；任务准入处最多每100ms采样一次，本 stream 只收紧、不因瞬时回升扩容。查询失败退化为串行；不能仅按64位宿主机 RAM 放大 x86 进程。超大任务仍可走 owner 串行，其原有执行峰值不受通用硬内存保证。
+
+后端可重入认证与机器准入分别判断：W3X 已有旧固定预算下的真实重叠验收；本轮源码新增 APT 四种数据根、Xmlaudio 七种元数据根、无 `PCSampleRate` 的默认/NONE/XAS AudioFile，以及 MP3 passthrough；随后加入Weather/Water/Lighting/Camera等Xmlenvironment十二根（完整名单见资格表）。自适应调度与环境XML组已通过Debug/Release完整验收，4核样例实测4路后端重叠，内存降额和超大单任务owner回退也通过。准确类型、内存估算与证据见[资格表](docs/CACHE_PARALLEL.md#源码资格表实测范围由下节收据决定)。显式指定 `PCSampleRate` 的 AudioFile、PathMusic、其他未认证 XML 与 Texture 继续 owner 串行。AudioFile 仅认证内建 `PcmWaveAudioCompiler`，注入未知编码器不启用缓存或并行。
+
+报告 `requestedJobs` 表示用户上限，`effectiveJobs` 表示初始准入容量，`minimumEffectiveJobs` 表示运行中观测的最低准入容量；有多个 stream 时分别汇总初始最高和观测最低值。它们都不等于真实并发，实际同时执行数看 `maxBackendConcurrency` 和调用区间。`taskMemoryBudgetBytes`、`minimumTaskMemoryBudgetBytes`、`perTaskMemoryLimitBytes` 记录预算；缓存命中也不证明并行。
+
+动作缓存报告中的 `actionMissReasons` 按实际查询失败分类，合计等于 `actionMisses/misses`。`entry-not-found` 表示该强Key没有条目，`entry-pending` 表示事务未确认，`invalid-manifest`、`invalid-payload`、`invalid-result-contract` 分别表示索引、内容完整性或结果合同被拒绝；`entry-unavailable` 表示无法安全读取，`entry-invalidated` 表示本次构建已排除该条目。`cacheBypassReasons` 单独记录缓存关闭、未能准备及base-patch来源，不计入miss；未命中一个新Key不据此猜测是哪项输入变化。
+
+`inputInventoryCaptures` 记录完整根盘点次数，`inputHashReusedBytes` 记录持续读租约和文件身份允许复用的输入摘要字节；`hashReadBytes` 仍为实际读取量。租约有512文件上限，当前MOD整个子树及SDK/Additional仍重新哈希；本次构建存续时被租约保护的稳定SDK与工具/Schema/runtime文件不可改写，结束后释放。新字段与环境XML扩展的当前验收状态均见专项记录。
+
+`cache.phaseTimings` 提供输入盘点、文档处理、准备与动作身份、缓存查询/校验/物化、结果提交及后端工作的聚合计时。格式为 `NewModCompiler.CachePhaseTimings.v1`；每项 `*Ticks / frequency` 为秒。各范围有嵌套和并发，不能相加当作总耗时或CPU时间；`backendWorkTicks` 覆盖全部后端调用，不受保留512个区间的上限影响。整次构建耗时仍看 `elapsedMs`，新字段的验收来源见专项记录。
+
+`/sc:true` 保留原会话缓存及其原有 `/bc` 组合路径、全根失效保护、intermediate/CDATA 恢复与重新链接，要求 `--jobs=1`；jobs>1 明确报 `CORE_SESSION_PARALLEL_UNSUPPORTED`。旧缓存不会导入新动作缓存。中途编译、取消、发布或必要报告通道失败时，不确认新缓存。
 
 含混合 Texture 的流目前不支持 `/sc:true`，改用 `/sc:false`；`/bc:true` 不表示贴图缓存已经开放。不要直接沿用旧 BAB 的缓存目录。需要清理时，在没有构建运行的情况下删除对应输出根的 `.cache` 即可，保留 `published` 可保留上一代产物。
 

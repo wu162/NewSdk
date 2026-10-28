@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- ObjectVisionRangeItem is a nested SDK type, not a global asset root;
+       its direct prepared contract is covered by CompilerXmlObjectSetsPrepared. -->
+  <ObjectFilterAsset id="ParallelObjectFilterAsset">
+    <Filter id="ParallelObjectFilter" Rule="ANY" Relationship="ALLIES ENEMIES" Alignment="GOOD"
+        Include="INFANTRY VEHICLE" Exclude="STRUCTURE"
+        StatusBitFlags="IS_ATTACKING STEALTHED" StatusBitFlagsExclude="UNDER_CONSTRUCTION">
+      <IncludeThing>ParallelObjectWeakOne</IncludeThing>
+      <IncludeThing>PARALLELOBJECTWEAKONE</IncludeThing>
+      <ExcludeThing>ParallelObjectWeakExcluded</ExcludeThing>
+    </Filter>
+  </ObjectFilterAsset>
+  <RegisteredObjectSet id="ParallelRegisteredObjectSet" SetId="AIRCRAFT" Type="PLAYER">
+    <ObjectFilter id="ParallelRegisteredFilter" Rule="ALL" Relationship="NEUTRAL SAME_PLAYER" Alignment="EVIL"
+        Include="AIRCRAFT STRUCTURE" Exclude="INFANTRY"
+        StatusBitFlags="USING_ABILITY" StatusBitFlagsExclude="STEALTHED">
+      <IncludeThing>ParallelRegisteredWeakOne</IncludeThing>
+      <IncludeThing>PARALLELREGISTEREDWEAKONE</IncludeThing>
+      <ExcludeThing>ParallelRegisteredWeakExcluded</ExcludeThing>
+    </ObjectFilter>
+  </RegisteredObjectSet>
+</AssetDeclaration>

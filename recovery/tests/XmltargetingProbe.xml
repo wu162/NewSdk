@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- TargetingBaseCompare has no global SDK element; it is covered directly
+       by CompilerXmlTargetingPrepared, without modifying the real schema. -->
+  <TargetingDistanceCompare id="ParallelTargetingDistanceCompare" Tolerance="12.25" />
+  <TargetingCombatChainCompare id="ParallelTargetingCombatChainCompare" />
+  <TargetingInTurretArcCompare id="ParallelTargetingInTurretArcCompare" />
+  <TargetingCompareList id="ParallelTargetingCompareList">
+    <Compare>TargetingDistanceCompare:ParallelTargetingDistanceCompare</Compare>
+    <Compare>TargetingCombatChainCompare:ParallelTargetingCombatChainCompare</Compare>
+    <Compare>TargetingInTurretArcCompare:ParallelTargetingInTurretArcCompare</Compare>
+    <Compare>TargetingDistanceCompare:ParallelTargetingDistanceCompare</Compare>
+  </TargetingCompareList>
+</AssetDeclaration>

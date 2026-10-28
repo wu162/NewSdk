@@ -93,7 +93,7 @@ public class FileHashItem : IXmlSerializable
 				{
 					_CurrentDate = File.GetLastWriteTime(_Path);
 					using (var algorithm = SHA256.Create())
-					using (var input = File.OpenRead(_Path))
+					using (var input = CacheInputBoundary.OpenRead(_Path))
 						_CurrentContentHash = Convert.ToBase64String(algorithm.ComputeHash(input));
 				}
 				_Dirty = !Exists || _LastDate != _CurrentDate || _ContentHash == null ||
@@ -111,7 +111,7 @@ public class FileHashItem : IXmlSerializable
 			CacheInputBoundary.Validate(_Path);
 			if (_State < FileState.ExistsValid)
 			{
-				_Exists = File.Exists(_Path);
+				_Exists = CacheInputBoundary.FileExists(_Path);
 				_State = FileState.ExistsValid;
 			}
 			return _Exists;
@@ -183,7 +183,7 @@ public class FileHashItem : IXmlSerializable
 
 	private void UpdateHash()
 	{
-		AsynchronousFileReader asynchronousFileReader = new AsynchronousFileReader(_Path);
+		using AsynchronousFileReader asynchronousFileReader = new AsynchronousFileReader(_Path);
 		uint hash = asynchronousFileReader.FileSize;
 		using (var algorithm = SHA256.Create())
 		{

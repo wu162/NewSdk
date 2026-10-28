@@ -135,6 +135,9 @@ namespace NewModCompiler.Tests
             string buildId=(string)recorder.Values[0]["buildId"];
             for (int i=0;i<recorder.Values.Count;i++) { Check((long)recorder.Values[i]["sequence"]==i+1,"Monotonic sequence"); Check((string)recorder.Values[i]["buildId"]==buildId,"Consistent build id"); }
             var report=Report(request); Check(Convert.ToInt32(report["exitCode"])==(int)expected,"Report exit code"); Check((string)report["buildId"]==buildId,"Report correlation");
+            var effective=(Dictionary<string,object>)report["effectiveOptions"];
+            var jobs=(Dictionary<string,object>)effective["jobs"];
+            Check((string)jobs["Value"]==request.RequestedJobs.ToString(System.Globalization.CultureInfo.InvariantCulture) && (string)jobs["Source"]==request.Options["jobs"].Source,"Durable report preserves effective jobs and provenance");
             var lines=File.ReadAllLines(request.EventsPath); Check(lines.Length==recorder.Values.Count,"Every complete JSONL line flushed");
             foreach (string line in lines) Check(new JavaScriptSerializer().Deserialize<Dictionary<string,object>>(line).ContainsKey("schemaVersion"),"Parse JSONL");
         }
@@ -146,10 +149,13 @@ namespace NewModCompiler.Tests
                 if (Directory.Exists(root)) Directory.Delete(root,true); Directory.CreateDirectory(root);
                 assertions += ArtifactPublisherTests.Run(Path.Combine(root,"publisher-tests"));
                 assertions += CacheInputSnapshotTests.Run(Path.Combine(root,"cache-input-tests"));
+                assertions += CacheDependencyTests.Run(Path.Combine(root,"cache-dependency-tests"));
                 assertions += BuildAssetCacheTests.Run(Path.Combine(root,"build-asset-cache"));
+                assertions += ActionAssetCacheTests.Run(Path.Combine(root,"action-asset-cache"));
                 assertions += SessionPackageTests.Run(Path.Combine(root,"session-package"));
                 assertions += BigArchiveWriterTests.Run(Path.Combine(root,"big-writer"));
                 assertions += BuildDefaultsTests.Run(Path.Combine(root,"build-defaults"));
+                assertions += JobsOptionsTests.Run(Path.Combine(root,"jobs-options"));
                 assertions += AdditionalFilesTests.Run(Path.Combine(root,"additional-files"));
                 assertions += MakeBigTests.Run(Path.Combine(root,"makebig"));
                 assertions += BasePostProcessorTests.Run(Path.Combine(root,"neutral-assets"));
@@ -197,6 +203,7 @@ namespace NewModCompiler.Tests
                 Check(Request("base").Options["package-content"].Source=="commandLine","CLI overrides project"); File.Delete(project);
                 var dependencyPlan=Planner.Resolve(Request("base"),new Dependencies()); Check(dependencyPlan.PlanKind=="ExplicitDependencyGraph" && dependencyPlan.Tasks.Length==2 && dependencyPlan.Tasks[0].Id=="apt/dependency","Injected explicit dependency expansion");
                 var record=new Recorder(); Check(Run(request,null,record)==ExitCode.Success,"Plan success"); Protocol(request,record,ExitCode.Success); Check(!record.Values.Any(x=>(string)x["eventType"]=="StreamStarted"),"Plan does not compile");
+                request=Request("base","--jobs=2"); record=new Recorder(); Check(Run(request,null,record)==ExitCode.Success,"Parallel request plan success"); Protocol(request,record,ExitCode.Success);
                 request=Request(); request.Command="build"; record=new Recorder(); Check(Run(request,null,record)==ExitCode.Environment,"Production skeleton refuses missing backend"); Protocol(request,record,ExitCode.Environment);
                 request=Request(); request.Command="build"; var compiler=new Compiler(); record=new Recorder(); Check(Run(request,compiler,record)==ExitCode.Success,"Controlled executor success"); Protocol(request,record,ExitCode.Success);
                 Check(compiler.Calls.Count==4 && compiler.Disposed,"Single compiler initialized once and disposed"); Check(record.Values.Count(x=>(string)x["eventType"]=="ArtifactProduced")==4,"Exact produced manifest");

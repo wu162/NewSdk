@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Production dependencies: real Texture, PackedTextureImage ParallelRadarImage
+       and ImageSequence ParallelImageSequence; no image files are opened here. -->
+  <UnitOverlayIconSettings id="ParallelUnitOverlayIconSettings"
+      AmmoPipImage="ParallelRadarImage" AmmoPipFrameImage="ParallelRadarImage"
+      ContainPipImage="ParallelRadarImage" ContainPipFrameImage="ParallelRadarImage"
+      GarrisonPipImage="ParallelRadarImage" UnitTypeIconBackgroundImage="ParallelRadarImage"
+      TargetIndicatorImage="ParallelRadarImage" TargetIndicatorGlowImage="ParallelRadarImage"
+      PowerIconImageSequence="ParallelImageSequence" RepairIconImageSequence="ParallelImageSequence"
+      InfiltratedIconImageSequence="ParallelImageSequence" HealUnitIconImageSequence="ParallelImageSequence"
+      RepairVehicleIconImageSequence="ParallelImageSequence"
+      AmmoPipScale="50%" AmmoPipRange="-17" ContainPipScale="25%" GarrisonPipScale="75%"
+      UnitTypeIconScale="100%" StatusIconScale="125%" VeterancyIconScale="150%"
+      TargetIndicatorScale="200%" HealingIconScale="33%" HealingIconDisplayTime="1500ms">
+    <FactionVeterancy Faction="Soviet">
+      <RankIcon Rank="1" Image="ParallelRadarImage" />
+      <RankIcon Rank="-1" Image="ParallelRadarImage" />
+    </FactionVeterancy>
+    <FactionVeterancy Faction="Japan">
+      <RankIcon Rank="4" Image="ParallelRadarImage" />
+    </FactionVeterancy>
+  </UnitOverlayIconSettings>
+</AssetDeclaration>

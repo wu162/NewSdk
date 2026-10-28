@@ -479,6 +479,14 @@ public class AssetDeclarationDocument : IXmlSerializable
 	{
 	}
 
+	// A backend view deliberately has no processor, cache or semantic owner.
+	// Its namespace table belongs to the prepared task.
+	public static AssetDeclarationDocument CreateBackendView(XmlNamespaceManager namespaces)
+	{
+		if (namespaces == null) throw new ArgumentNullException(nameof(namespaces));
+		return new AssetDeclarationDocument { _Current = new CurrentState { NamespaceManager = namespaces } };
+	}
+
 	public AssetDeclarationDocument(DocumentProcessor documentProcessor, FileHashItem hashItem, string logicalPath, string configuration)
 	{
 		Open(documentProcessor, hashItem, logicalPath, configuration);
@@ -640,14 +648,14 @@ public class AssetDeclarationDocument : IXmlSerializable
 		_Current.DocumentProcessor.RecordXmlParse();
 		CacheInputBoundary.Validate(_Current.SourcePath);
 		FileNameXmlResolver xmlResolver = FileNameResolver.GetXmlResolver(SourceDirectory);
-		if (!File.Exists(_Current.SourcePath))
+		if (!CacheInputBoundary.FileExists(_Current.SourcePath))
 		{
 			string s = "<?xml version='1.0' encoding='UTF-8'?>\n<AssetDeclaration xmlns=\"uri:ea.com:eala:asset\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n</AssetDeclaration>";
 			_Current.XmlReader = XmlReader.Create(new StringReader(s));
 		}
 		else
 		{
-			_Current.XmlReader = XmlReader.Create(_Current.SourcePath);
+			_Current.XmlReader = CacheInputBoundary.CreateXmlReader(_Current.SourcePath);
 		}
 		_Current.XmlDocument = new XmlDocument();
 		XmlReader xmlReader = new Mvp.Xml.XInclude.XIncludingReader(_Current.XmlReader)
@@ -1040,6 +1048,21 @@ public class AssetDeclarationDocument : IXmlSerializable
 			BinaryAsset binaryAsset = outputManager.GetBinaryAsset(selfInstance, isOutputAsset: true);
 			if (binaryAsset != null)
 			{
+				if (_Current.DocumentProcessor.AssetExecution != null)
+				{
+					var processor = _Current.DocumentProcessor;
+					var declaration = selfInstance;
+					processor.AssetExecution.Enqueue(binaryAsset, declaration,
+						processor.Plugins.GetPlugin(declaration.Handle.TypeId),
+						() => CompileInstance(binaryAsset, declaration),
+						() => VerifyInstance(binaryAsset, declaration),
+						location => {
+							processor.RecordExecutionCommit(location);
+							if (location != AssetLocation.BasePatchStream) processor.AddLastWrittenAsset(binaryAsset);
+							if (!declaration.IsInheritable) declaration.XmlNode = null;
+						});
+					continue;
+				}
 				if (binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None) == AssetLocation.None)
 				{
 					CompileInstance(binaryAsset, selfInstance);

@@ -4,13 +4,13 @@ using System.IO;
 
 namespace BinaryAssetBuilder.Core;
 
-public class AsynchronousFileReader
+public class AsynchronousFileReader : IDisposable
 {
 	private const int QueueSize = 1;
 
 	private Queue<IAsyncResult> _JobQueue = new Queue<IAsyncResult>();
 
-	private FileStream _Stream;
+	private Stream _Stream;
 
 	private Chunk _CurrentChunk;
 
@@ -30,14 +30,18 @@ public class AsynchronousFileReader
 
 	public AsynchronousFileReader(string path)
 	{
-		_Stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 8, useAsync: true);
+		_Stream = CacheInputBoundary.IsObserving ? CacheInputBoundary.OpenRead(path) : new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 8, useAsync: true);
 		if (_Stream != null)
 		{
 			for (int i = 0; i < 1; i++)
 			{
 				Chunk chunk = new Chunk();
-				IAsyncResult item = _Stream.BeginRead(chunk.Data, 0, chunk.Data.Length, null, chunk);
-				_JobQueue.Enqueue(item);
+				try
+				{
+					IAsyncResult item = _Stream.BeginRead(chunk.Data, 0, chunk.Data.Length, null, chunk);
+					_JobQueue.Enqueue(item);
+				}
+				catch { chunk.Dispose(); _Stream.Dispose(); _Stream = null; throw; }
 			}
 		}
 	}
@@ -76,6 +80,26 @@ public class AsynchronousFileReader
 			_CurrentChunk.BytesRead = 0;
 			_JobQueue.Enqueue(_Stream.BeginRead(_CurrentChunk.Data, 0, _CurrentChunk.Data.Length, null, _CurrentChunk));
 			_CurrentChunk = null;
+		}
+	}
+
+	public void Dispose()
+	{
+		// Even a failed digest must finish its outstanding read before returning
+		// the shared Chunk buffer or closing the observer-owned input stream.
+		try
+		{
+			while (_JobQueue.Count != 0)
+			{
+				IAsyncResult result = _JobQueue.Dequeue();
+				try { _Stream.EndRead(result); }
+				finally { (result.AsyncState as Chunk)?.Dispose(); }
+			}
+		}
+		finally
+		{
+			_CurrentChunk?.Dispose(); _CurrentChunk = null;
+			if (_Stream != null) { _Stream.Dispose(); _Stream = null; }
 		}
 	}
 }

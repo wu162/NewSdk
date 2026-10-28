@@ -29,6 +29,27 @@ public class BinaryAsset
 	private string _CustomDataFileName;
 
 	private AssetBuffer _Buffer;
+	private bool _RequireExecutionResult, _ExecutionResultAuthorized, _ExecutionResultCommitted;
+	public string ExecutionIdentity { get; private set; }
+	public string ExecutionResultDigest { get; private set; }
+
+	public void BeginExecution(string identity)
+	{
+		if (string.IsNullOrEmpty(identity)) throw new ArgumentException("An execution identity is required.");
+		_RequireExecutionResult = true;
+		_ExecutionResultAuthorized = _ExecutionResultCommitted = false;
+		ExecutionIdentity = identity; ExecutionResultDigest = null;
+		_Buffer = null; _AssetHeader = null; _MemoryAvailability = Availability.Missing;
+	}
+
+	public void AuthorizeExecutionResult(string identity, string digest)
+	{
+		if (!_RequireExecutionResult || identity != ExecutionIdentity || string.IsNullOrEmpty(digest))
+			throw new InvalidOperationException("The asset result does not belong to this action.");
+		UpdateMemoryAvailability(true);
+		if (_MemoryAvailability != Availability.Present) throw new InvalidDataException("An action must install all three buffers.");
+		ExecutionResultDigest = digest; _ExecutionResultAuthorized = true;
+	}
 
 	private bool _IsOutputAsset;
 
@@ -219,6 +240,13 @@ public class BinaryAsset
 
 	public AssetLocation GetLocation(AssetLocation locationFilter, AssetLocationOption options)
 	{
+		if (_RequireExecutionResult)
+		{
+			// FileBase/legacy output locations never authorize an ordinary result.
+			var allowed = AssetLocation.BasePatchStream;
+			if (_ExecutionResultAuthorized) allowed |= _ExecutionResultCommitted ? AssetLocation.Output : AssetLocation.Memory;
+			locationFilter &= allowed;
+		}
 		AssetLocation assetLocation = AssetLocation.None;
 		bool forceUpdate = (options & AssetLocationOption.ForceUpdate) != 0;
 		bool flag = (options & AssetLocationOption.ReturnAll) == 0;
@@ -373,6 +401,7 @@ public class BinaryAsset
 	public BinaryAsset(OutputManager parent, OutputAsset oldInstance, InstanceDeclaration instance)
 	{
 		_Parent = parent;
+		_RequireExecutionResult = parent.DocumentProcessor.AssetExecution != null;
 		if (Settings.Current.OldOutputFormat)
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Old Output Format no longer supported");
@@ -429,7 +458,8 @@ public class BinaryAsset
 		}
 		if (location == AssetLocation.Memory)
 		{
-			CopyToCache();
+			if (!_RequireExecutionResult) CopyToCache();
+			_ExecutionResultCommitted = _RequireExecutionResult;
 		}
 		else if (location == AssetLocation.Cache || Settings.Current.AlwaysTouchCache)
 		{

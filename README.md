@@ -1,37 +1,27 @@
-# NewSdk — NewModCompiler
+# NewSdk：缓存与并行优化分支
 
-`compiler-main` 是 2026-10-27 起的重构结果与后续开发主线。保留旧分支历史，不将本次成果合入 `recovery/compiler-source`；旧 PR #13 关闭且不合并。此处的开发主线约定不等同于 GitHub 仓库网页默认分支设置。
+`feature/cache-parallel` 从 `compiler-main` 分出，专门实施 [缓存与并行优化计划](recovery/docs/CACHE_PARALLEL_PLAN.md)。成果继续提交到本分支，最终通过 [draft PR #17](https://github.com/wu162/NewSdk/pull/17) 面向 `compiler-main` 审查；未经用户明确批准不合入，禁止强推。
 
-## 获取工具
+后续开发使用 **Codex 云端**，复用任务已有检出；编辑与静态检查在云端完成，编译/运行测试仍走Windows Actions。具体见 [云端执行规则](recovery/EFFICIENCY.md#codex-cloud)。
 
-最终工具由 [Core lifecycle 工作流](https://github.com/wu162/NewSdk/actions/workflows/refactor-core-lifecycle.yml?query=branch%3Acompiler-main) 在 Windows 构建。仅成功通过生产与独立 ZIP 验收后，产物中的 `final-release` 目录才有正式 Debug/Release ZIP 和哈希清单；通常使用 Release。运行编号及固定下载入口见 [发行说明](recovery/COMPILER_RELEASE.md)。本次新主线最终构建与独立ZIP验收已成功：[运行40429363386](https://github.com/wu162/NewSdk/actions/runs/40429363386)。二进制来自新增版本/LoD收尾后的源码，文档整理随后提交，不改变运行文件。
+## 专项入口
 
-每个工具 ZIP 解压后只有五个运行文件：EXE、EXE.config、antlr.runtime.dll、TextureCompiler.dll 和其补丁身份清单。SDK、MOD 源码和系统运行库单独准备。要求 Windows x86 兼容环境、.NET Framework 4.8、x86 VC80/构建工具链 VC 运行库及 DirectX 9/D3DX；先运行 doctor 检查环境。
+日常续接：先读 `AGENTS.md`、简短交接与执行规则，再按交接链接读取计划章节；不默认加载完整计划和历史记录。
 
-## 使用
+| 需要了解什么 | 文档 |
+| --- | --- |
+| 目标、范围、产品模式与验收条件 | [CACHE_PARALLEL_PLAN](recovery/docs/CACHE_PARALLEL_PLAN.md) |
+| 最新状态、当前阻塞、下一步 | [REFACTOR_RESUME](recovery/REFACTOR_RESUME.md) |
+| 能力矩阵、实现与验证记录 | [CACHE_PARALLEL](recovery/docs/CACHE_PARALLEL.md) |
+| 完整 Upheaval 计量与限制 | [UPHEAVAL_CACHE_PARALLEL](recovery/docs/UPHEAVAL_CACHE_PARALLEL.md) |
+| 成组实现、验证复用与保存规则 | [EFFICIENCY](recovery/EFFICIENCY.md) |
 
-完整操作步骤见 [新编译器使用说明](recovery/COMPILER_USAGE.md)，开发和历史资料见 [文档入口](recovery/README.md)。
+本分支围绕资产级动作缓存、重复输入读取/物化消除、跨文档有界后端并行推进。保留输出字节、CDATA、引用/schema、取消、事务回滚及适用 SDK/发行合同。默认缓存关闭、jobs=1；`/sc:true` 保留兼容路径且要求 jobs=1。具体可缓存与可并行资格以能力矩阵为准。
 
-```powershell
-./NewModCompiler.exe doctor --sdk-root C:\NewSdk\SDK
-./NewModCompiler.exe plan --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example
-./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example
-```
+当前重点是计划 B 组的输入盘点/受控读取重复成本。已有并行收益证据，但热缓存端到端净收益仍未解决；不能把命中率、读取量或小样例结果当作普遍加速。
 
-`--mod` 指向 MOD 文件夹。默认自动发现 base、APT UI、全局元数据，输出 BIG + SKUDEF；开发模式 `--profile development` 默认 loose。`--package-content global-metadata` 兼容旧名 `maps`。成功构建的最终文件位于输出根下 `published`，默认 BIG/SKUDEF 名称为 `<MOD目录名>_1.0`。构建同时输出日志、JSONL 事件及最终报告，适合后续界面调用；不启动旧 GUI 或 BAB 子进程。
+## 产品与历史参考
 
-- `--mod-version 2.7-beta`、`--game-version 1.12`、`--skudef-name ExampleLauncher`：设置 BIG/SKUDEF 身份，默认值保持旧脚本行为。
-- `/bc:true`：启用构建资产缓存，默认关闭。
-- `/sc:true`：启用会话缓存，默认关闭；含混合 Texture 的流明确拒绝此选项。
-- `--include-additional=false`：BIG 默认自动包含 SDK/Additional，再由 MOD/Additional 覆盖；使用 false 可关闭，排除 `.asset`，覆盖冲突记录警告。
-- `--fix-neutral-assets=true`：仅 base BIG 可用的显式中立修复；默认关闭，要求已有完整 Worldbuilder 参考四文件，缺失时报错。
+使用工具见 [COMPILER_USAGE](recovery/COMPILER_USAGE.md)，参数见 [CLI_COMPATIBILITY](recovery/CLI_COMPATIBILITY.md)，主线发行见 [COMPILER_RELEASE](recovery/COMPILER_RELEASE.md)。专项成果不自动替换主线发行。
 
-布尔值使用等号，或单独裸开关启用；不要写成 `--include-additional true`。详细包布局见 [P7 打包合同](recovery/P7_PACKAGING.md)。
-
-## 已完成与范围
-
-核心编译、单进程 base/apt/maps、日志/协议、构建与会话缓存、默认 BIG/SKUDEF、Additional、纯 C# MakeBig 入 EXE 和五文件包已有验收。中立修复已覆盖组件差分及生产零插入链，完整游戏插入不在已验证范围内。原工具的特定 LoD 来源表尾字节差异见 [说明](recovery/P7_LOD_ORIGINAL_TAIL.md)。
-
-AssetMerge 已按用户要求排除。WBData 下载、提取、读取器与依赖真实 WBData 的验收已取消，均不作为本次重构完成条件。完整 UI/runtime、中文纹理路径、混合纹理会话缓存仍有未覆盖范围。
-
-版本与必要旧参数已形成[明确合同](recovery/CLI_COMPATIBILITY.md)，LoD 对原工具越界采用完整表复制的确定性修复，专项与最终生产/ZIP验收已通过；不把这些未完成项目表述为全功能兼容。当前不支持的参数明确拒绝。压缩/部分/冻结会话缓存、旧缓存目录覆盖、预编译及替代输出/资产报告等选项尚未开放；并非每个旧 BAB 参数都已支持。开发续接见 [REFACTOR_RESUME](recovery/REFACTOR_RESUME.md)，历史实施设计见 [重构方案](recovery/NewSdk_ModCompiler_Refactor_Plan.md)。
+[文档索引](recovery/README.md) 保留产品与历史资料入口。旧重构收尾、其他组件恢复和已取消事项不作为本分支待办；只在当前优化需要时查阅相关合同与证据。

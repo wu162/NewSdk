@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <HealthBarTemplate id="ParallelHealthTemplate" Length="117" />
+  <HealthBarSettings id="ParallelHealthSettings" DefaultHealthBar="ParallelHealthTemplate">
+    <ObjectMapping HealthBar="ParallelHealthTemplate">
+      <ObjectFilter id="ParallelHealthPrimaryFilter" Rule="ANY" Relationship="ALLIES ENEMIES" Alignment="GOOD" Include="INFANTRY VEHICLE" Exclude="STRUCTURE" StatusBitFlags="STEALTHED" StatusBitFlagsExclude="UNDER_CONSTRUCTION">
+        <IncludeThing>ParallelHealthWeakOne</IncludeThing>
+        <IncludeThing>ParallelHealthWeakOther</IncludeThing>
+        <ExcludeThing>ParallelHealthWeakExcluded</ExcludeThing>
+      </ObjectFilter>
+    </ObjectMapping>
+    <ObjectMapping HealthBar="ParallelHealthTemplate">
+      <ObjectFilter id="ParallelHealthSecondaryFilter" Rule="NONE" Relationship="NEUTRAL SAME_PLAYER" Alignment="EVIL" Include="STRUCTURE" Exclude="AIRCRAFT" StatusBitFlags="AFLAME" StatusBitFlagsExclude="STEALTHED">
+        <IncludeThing>ParallelHealthStructure</IncludeThing>
+      </ObjectFilter>
+    </ObjectMapping>
+  </HealthBarSettings>
+</AssetDeclaration>

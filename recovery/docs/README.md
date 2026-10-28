@@ -2,6 +2,15 @@
 
 日常使用见 [新编译器使用说明](../COMPILER_USAGE.md)，当前开发状态见 [交接入口](../REFACTOR_RESUME.md)。本目录中的历史恢复记录须按原 sourceCommit/runId 理解，不替换当前能力合同。
 
+## 当前专项
+
+本分支 `feature/cache-parallel` 从 `compiler-main` 分出，仅推进缓存与并行计划；下方类型恢复和历史设计按需查阅，不作为当前待办。
+
+- [实施计划](CACHE_PARALLEL_PLAN.md)：专项范围、A/B/C能力组及验收合同。
+- [当前交接](../REFACTOR_RESUME.md)：最新有效状态、阻塞与下一步。
+
+- [缓存与并行](CACHE_PARALLEL.md)：能力表、模式合同、最短源码查询、当前 CI 与交接。
+
 ## 类型恢复记录
 
 | 分类 | 入口 |

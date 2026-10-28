@@ -1,15 +1,125 @@
 using System;
 using System.IO;
 using System.Threading;
+using System.Xml;
 
 namespace BinaryAssetBuilder.Core;
 
 // Opt-in boundary for the content-addressed /bc namespace. Normal Core builds
-// retain their existing resolver contract. Cached builds must inventory every
-// candidate root, not merely the path that happened to win a search this time.
+// retain their existing resolver contract. Observation records actual candidate
+// decisions and consumed bytes; it does not by itself certify a complete closure.
 public static class CacheInputBoundary
 {
 	[ThreadStatic] private static string[] _Roots;
+	[ThreadStatic] private static ObservationScope _Observation;
+
+	// The owner supplies a stream containing exactly the bytes whose identity it
+	// records. Never hash a path here and then let the consumer reopen that path.
+	// This scope is deliberately separate from Begin: recording does not remove
+	// the conservative root protection or certify native/legacy readers.
+	public static IDisposable BeginObservation(Action<string, bool> probe, Func<string, Stream> openRead, Action<string> unknownRead)
+	{
+		return BeginObservation(probe, openRead, unknownRead, null);
+	}
+
+	public static IDisposable BeginObservation(Action<string, bool> probe, Func<string, Stream> openRead, Action<string> unknownRead, Action<string, long, byte[]> leasedRead)
+	{
+		if (_Observation != null) throw new InvalidOperationException("A cache input observation is already active.");
+		if (probe == null || openRead == null || unknownRead == null) throw new ArgumentNullException("Cache input observation callbacks are required.");
+		_Observation = new ObservationScope(probe, openRead, unknownRead, leasedRead);
+		return _Observation;
+	}
+
+	public static bool IsObserving => _Observation != null;
+
+	public static bool FileExists(string path)
+	{
+		Validate(path);
+		bool exists = File.Exists(path);
+		if (_Observation != null) _Observation.Probe(Path.GetFullPath(path), exists);
+		return exists;
+	}
+
+	public static Stream OpenRead(string path)
+	{
+		Validate(path);
+		if (_Observation == null) return File.OpenRead(path);
+		Stream input = _Observation.OpenRead(Path.GetFullPath(path));
+		if (input == null) throw new IOException("Cache input observer did not provide a stream.");
+		if (!input.CanRead)
+		{
+			input.Dispose();
+			throw new IOException("Cache input observer provided an unreadable stream.");
+		}
+		return input;
+	}
+
+	public static byte[] ReadAllBytes(string path)
+	{
+		Validate(path);
+		if (_Observation == null) return File.ReadAllBytes(path);
+		using (Stream input = OpenRead(path))
+		using (var output = new MemoryStream())
+		{
+			byte[] buffer = new byte[8192];
+			int count;
+			while ((count = input.Read(buffer, 0, buffer.Length)) != 0) output.Write(buffer, 0, count);
+			return output.ToArray();
+		}
+	}
+
+	public static XmlReader CreateXmlReader(string path)
+	{
+		if (_Observation == null) return XmlReader.Create(path);
+		Stream input = OpenRead(path);
+		try { return XmlReader.Create(input, new XmlReaderSettings { CloseInput = true }, new Uri(Path.GetFullPath(path), UriKind.Absolute).AbsoluteUri); }
+		catch { input.Dispose(); throw; }
+	}
+
+	// Legacy/output-side or native readers cannot be inferred from the Core
+	// file-reference set. Their use makes this observation incomplete until the
+	// corresponding reader receives its own certified input contract.
+	public static void ReportUnknownRead(string path)
+	{
+		if (_Observation != null) _Observation.UnknownRead(path);
+	}
+
+	// A certified preparer already holds this exact input open across identity
+	// generation and backend consumption. Reuse its digest without a second
+	// path open or read; the observer still cannot grant cache/worker eligibility.
+	public static void ReportLeasedRead(string path, long length, byte[] digest)
+	{
+		if (_Observation == null) return;
+		Validate(path);
+		string full = Path.GetFullPath(path);
+		if (_Observation.LeasedRead == null)
+		{
+			_Observation.UnknownRead("leased-input-not-recorded:" + full);
+			return;
+		}
+		if (length < 0 || digest == null || digest.Length != 32)
+			throw new IOException("A leased cache input requires a valid length and SHA256 identity.");
+		_Observation.LeasedRead(full, length, digest);
+	}
+
+	sealed class ObservationScope : IDisposable
+	{
+		internal readonly Action<string, bool> Probe;
+		internal readonly Func<string, Stream> OpenRead;
+		internal readonly Action<string> UnknownRead;
+		internal readonly Action<string, long, byte[]> LeasedRead;
+		readonly int thread = Thread.CurrentThread.ManagedThreadId;
+		bool disposed;
+		internal ObservationScope(Action<string, bool> probe, Func<string, Stream> openRead, Action<string> unknownRead, Action<string, long, byte[]> leasedRead)
+		{ Probe = probe; OpenRead = openRead; UnknownRead = unknownRead; LeasedRead = leasedRead; }
+		public void Dispose()
+		{
+			if (disposed) return;
+			if (thread != Thread.CurrentThread.ManagedThreadId || !Object.ReferenceEquals(_Observation, this))
+				throw new InvalidOperationException("Cache input observation must close on its owning thread.");
+			_Observation = null; disposed = true;
+		}
+	}
 
 	public static IDisposable Begin(params string[] roots)
 	{

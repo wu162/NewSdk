@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <RadarTerrainImage id="ParallelRadarTerrainImage" MapBorder="Purple" Texture="ParallelRadarTexture" Rotated="true">
+    <ImageSize x="128" y="96" />
+    <ImagePosition x="-3" y="9" />
+    <TextureSize x="256" y="256" />
+  </RadarTerrainImage>
+  <UIRadarObjectsLayer id="ParallelUIRadarObjectsLayer" MinUnitDotSize="7" MinStructureDotSize="11">
+    <NeutralColor R="17" G="34" B="51" A="68" />
+    <SpecialIcon Image="ParallelRadarImage">
+      <ImageOffset x="0.5" y="-2" />
+      <ObjectFilter id="ParallelRadarFilter" Rule="ANY" Relationship="ALLIES ENEMIES" Alignment="GOOD" Include="INFANTRY VEHICLE" Exclude="STRUCTURE" StatusBitFlags="STEALTHED" StatusBitFlagsExclude="UNDER_CONSTRUCTION">
+        <IncludeThing>ParallelRadarWeakThing</IncludeThing>
+        <IncludeThing>ParallelRadarWeakOther</IncludeThing>
+        <ExcludeThing>ParallelRadarWeakExcluded</ExcludeThing>
+      </ObjectFilter>
+    </SpecialIcon>
+    <SpecialIcon Image="ParallelRadarImage">
+      <ImageOffset x="-1.25" y="3.5" />
+      <ObjectFilter Rule="ALL" Relationship="NEUTRAL" Alignment="NONE" Include="STRUCTURE" Exclude="INFANTRY" StatusBitFlags="AFLAME" StatusBitFlagsExclude="STEALTHED">
+        <IncludeThing>ParallelRadarWeakThing</IncludeThing>
+      </ObjectFilter>
+    </SpecialIcon>
+  </UIRadarObjectsLayer>
+</AssetDeclaration>

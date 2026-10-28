@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <W3DDeviceSettings id="ParallelW3DDeviceSettings" MaxTerrainTracks="117" UseSimpleHordeDecals="true" OpacityOfSimpleMergeDecals="25%" OccludedColorLuminanceScale="0.75" MaxRoadSegments="101" MaxRoadVertex="202" MaxRoadIndex="303" FogAlpha="77" ShroudAlpha="12" ClearAlpha="201" DefaultShroudStatus="SHROUDED">
+    <ShroudColor R="0.25" G="0.5" B="0.75" />
+    <TreeFadeObjectFilter id="ParallelDeviceFilter" Rule="ANY" Relationship="ALLIES ENEMIES" Alignment="GOOD" Include="INFANTRY VEHICLE" Exclude="STRUCTURE" StatusBitFlags="STEALTHED" StatusBitFlagsExclude="UNDER_CONSTRUCTION">
+      <IncludeThing>ParallelDeviceWeakThing</IncludeThing>
+      <IncludeThing>ParallelDeviceWeakOther</IncludeThing>
+      <ExcludeThing>ParallelDeviceWeakExcluded</ExcludeThing>
+    </TreeFadeObjectFilter>
+    <StandardPublicBone>BONE_A</StandardPublicBone>
+    <StandardPublicBone>BONE_B</StandardPublicBone>
+  </W3DDeviceSettings>
+  <ScorchMarkSettings id="ParallelScorchMarkSettings">
+    <ScorchMarkSetting TerrainClass="Sand">
+      <Scorch>SCORCH_1</Scorch>
+      <Scorch>SCORCH_16</Scorch>
+    </ScorchMarkSetting>
+    <ScorchMarkSetting TerrainClass="Snow">
+      <Scorch>RANDOM</Scorch>
+      <Scorch>TERRAIN_MAPPED</Scorch>
+    </ScorchMarkSetting>
+  </ScorchMarkSettings>
+</AssetDeclaration>

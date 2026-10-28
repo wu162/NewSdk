@@ -1,7 +1,7 @@
 name: MOD compiler Core lifecycle integration
 on:
   push:
-    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults]
+    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, feature/cache-parallel]
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
@@ -34,6 +34,26 @@ on:
       - 'recovery/scripts/BuildManagedFoundation.ps1'
       - 'recovery/tests/CompilerValidationEntry.cpp'
       - 'recovery/tests/CompilerCoreLifecycle.cs'
+      - 'recovery/tests/CompilerPreparedBackend.cs'
+      - 'recovery/tests/CompilerXmlBackendBatch.cs'
+      - 'recovery/tests/CompilerXmlTargetingPrepared.cs'
+      - 'recovery/tests/XmltargetingProbe.xml'
+      - 'recovery/tests/CompilerXmlVisibilityPrepared.cs'
+      - 'recovery/tests/XmlvisibilityProbe.xml'
+      - 'recovery/tests/CompilerXmlRadarPrepared.cs'
+      - 'recovery/tests/XmlradarProbe.xml'
+      - 'recovery/tests/CompilerXmlConditionsPrepared.cs'
+      - 'recovery/tests/XmlconditionsProbe.xml'
+      - 'recovery/tests/CompilerXmlObjectSetsPrepared.cs'
+      - 'recovery/tests/XmlobjectsetsProbe.xml'
+      - 'recovery/tests/CompilerXmlRenderDevicePrepared.cs'
+      - 'recovery/tests/XmlrenderdeviceProbe.xml'
+      - 'recovery/tests/CompilerXmlUiImagesPrepared.cs'
+      - 'recovery/tests/XmluiimagesProbe.xml'
+      - 'recovery/tests/CompilerXmlHealthBarsPrepared.cs'
+      - 'recovery/tests/XmlhealthbarsProbe.xml'
+      - 'recovery/tests/CompilerXmlUnitOverlayPrepared.cs'
+      - 'recovery/tests/XmlunitoverlayProbe.xml'
       - 'recovery/tests/CompilerCacheContent.cs'
       - 'recovery/tests/CompilerCacheBoundary.cs'
       - 'recovery/tests/CompilerInputRoots.cs'
@@ -145,6 +165,10 @@ jobs:
           if($LASTEXITCODE -ne 0){throw 'BIG fixture/parser preflight failed'}
           ./recovery/scripts/TestCompilerSessionCache.ps1 -Preflight -OutputDirectory recovery/artifacts/session-fixture-preflight
           if($LASTEXITCODE -ne 0){throw 'Session-cache fixture preflight failed'}
+          ./recovery/scripts/TestCompilerBuildCache.ps1 -Preflight -OutputDirectory recovery/artifacts/action-fixture-preflight
+          if($LASTEXITCODE -ne 0){throw 'Action-cache fixture preflight failed'}
+          ./recovery/scripts/TestCompilerBuildCachePayloads.ps1 -Preflight -OutputDirectory recovery/artifacts/action-payload-preflight
+          if($LASTEXITCODE -ne 0){throw 'Action-cache payload fixture preflight failed'}
           ./recovery/scripts/TestCompilerCliOutputs.ps1 -OutputDirectory recovery/artifacts/cli-output-preflight
           if($LASTEXITCODE -ne 0){throw 'CLI output contract preflight failed'}
           ./recovery/scripts/BuildCompilerCliControl.ps1 -OutputDirectory recovery/artifacts/cli-controller-preflight
@@ -292,6 +316,8 @@ jobs:
             recovery/artifacts/cli-controller-preflight/**
             recovery/artifacts/cli-output-preflight/**
             recovery/artifacts/session-fixture-preflight/**
+            recovery/artifacts/action-fixture-preflight/**
+            recovery/artifacts/action-payload-preflight/**
             recovery/artifacts/core-lifecycle-foundation/**/build.json
             recovery/artifacts/core-lifecycle-foundation/**/*.log
             recovery/artifacts/core-lifecycle-product/**/build.json

@@ -111,7 +111,205 @@
       "maxItems": 0
     },
     "cache": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "executionEngine": {
+          "enum": ["AssetTasks.v1", "LegacySession"]
+        },
+        "cacheMode": {
+          "enum": ["ActionCache", "Disabled", "SessionPackage"]
+        },
+        "requestedJobs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "resourcePolicy": { "enum": ["MachineResources.v1", "LegacySession"] },
+        "logicalProcessorCount": { "type": "integer", "minimum": 0 },
+        "effectiveJobs": { "type": "integer", "minimum": 0, "maximum": 32 },
+        "minimumEffectiveJobs": { "type": "integer", "minimum": 0, "maximum": 32 },
+        "taskMemoryBudgetBytes": { "type": "integer", "minimum": 0 },
+        "minimumTaskMemoryBudgetBytes": { "type": "integer", "minimum": 0 },
+        "perTaskMemoryLimitBytes": { "type": "integer", "minimum": 0 },
+        "resourceMemoryQuerySucceeded": { "type": "boolean" },
+        "backendCalls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxBackendConcurrency": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backendOwnerThreadId": { "type": "integer", "minimum": 0 },
+        "parallelXmlCertifiedTypes": { "type": "integer", "minimum": 0 },
+        "parallelXmlCertifiedFamilies": { "type": "integer", "minimum": 0 },
+        "actionHits": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "actionMisses": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hashReadBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "inputIdentityQueries": { "type": "integer", "minimum": 0 },
+        "inputIdentitySkippedFiles": { "type": "integer", "minimum": 0 },
+        "inputInventoryCaptures": { "type": "integer", "minimum": 0 },
+        "inputHashReusedBytes": { "type": "integer", "minimum": 0 },
+        "inputHashLeaseFiles": { "type": "integer", "minimum": 0, "maximum": 512 },
+        "dependencyObservation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "format",
+            "streams",
+            "probes",
+            "files",
+            "unknownReads",
+            "readBytes",
+            "validationBytes",
+            "manifestBytes",
+            "storeHashReadBytes",
+            "storeCopyBytes",
+            "manifestKeys",
+            "inventoryFallback",
+            "canAuthorizeReuse"
+          ],
+          "properties": {
+            "format": {
+              "const": "NewModCompiler.ReadClosure.v1"
+            },
+            "budgetFallbackStreams": { "type": "integer", "minimum": 0 },
+            "streams": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "probes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "files": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unknownReads": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "leasedReadBytes": { "type": "integer", "minimum": 0 },
+            "readBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "validationBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "manifestBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "storeHashReadBytes": { "type": "integer", "minimum": 0 },
+            "storeCopyBytes": { "type": "integer", "minimum": 0 },
+            "manifestKeys": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "frequency": { "type": "integer", "minimum": 1 },
+            "semantics": { "const": "inclusive-overlapping-ticks" },
+            "readTicks": { "type": "integer", "minimum": 0 },
+            "validationTicks": { "type": "integer", "minimum": 0 },
+            "serializationTicks": { "type": "integer", "minimum": 0 },
+            "inventoryFallback": {
+              "const": true
+            },
+            "canAuthorizeReuse": {
+              "const": false
+            }
+          }
+        },
+        "phaseTimings": {
+          "type": "object",
+          "description": "Inclusive monotonic-clock ticks for nested and overlapping scopes; these values cannot be added to obtain build wall time. Backend work covers all calls, not just retained intervals. Report snapshots precede final best-effort cache completion.",
+          "required": ["format", "frequency", "semantics", "coreCompileTicks", "streamSetupTicks", "streamCleanupTicks", "inputInventoryTicks", "inputEnumerationTicks", "inputReadTicks", "inputDigestTicks", "processContractTicks", "documentProcessTicks", "artifactCollectionTicks", "preparationTicks", "actionKeyTicks", "resultRestoreTicks", "resultWriteTicks", "resultCommitTicks", "workerWaitTicks", "backendWorkTicks", "storeLookupTicks", "storeValidationTicks", "storeMaterializationTicks", "storeStageTicks", "cacheCommitTicks"],
+          "additionalProperties": false,
+          "properties": {
+            "format": { "const": "NewModCompiler.CachePhaseTimings.v1" },
+            "frequency": { "type": "integer", "minimum": 1 },
+            "semantics": { "const": "inclusive-overlapping-ticks" },
+            "coreCompileTicks": { "type": "integer", "minimum": 0 },
+            "streamSetupTicks": { "type": "integer", "minimum": 0 },
+            "streamCleanupTicks": { "type": "integer", "minimum": 0 },
+            "inputInventoryTicks": { "type": "integer", "minimum": 0 },
+            "inputEnumerationTicks": { "type": "integer", "minimum": 0 },
+            "inputReadTicks": { "type": "integer", "minimum": 0 },
+            "inputDigestTicks": { "type": "integer", "minimum": 0 },
+            "processContractTicks": { "type": "integer", "minimum": 0 },
+            "documentProcessTicks": { "type": "integer", "minimum": 0 },
+            "artifactCollectionTicks": { "type": "integer", "minimum": 0 },
+            "preparationTicks": { "type": "integer", "minimum": 0 },
+            "actionKeyTicks": { "type": "integer", "minimum": 0 },
+            "resultRestoreTicks": { "type": "integer", "minimum": 0 },
+            "resultWriteTicks": { "type": "integer", "minimum": 0 },
+            "resultCommitTicks": { "type": "integer", "minimum": 0 },
+            "workerWaitTicks": { "type": "integer", "minimum": 0 },
+            "backendWorkTicks": { "type": "integer", "minimum": 0 },
+            "storeLookupTicks": { "type": "integer", "minimum": 0 },
+            "storeValidationTicks": { "type": "integer", "minimum": 0 },
+            "storeMaterializationTicks": { "type": "integer", "minimum": 0 },
+            "storeStageTicks": { "type": "integer", "minimum": 0 },
+            "cacheCommitTicks": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "actionMissReasons": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        },
+        "cacheBypassReasons": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        },
+        "preparationRejectedReasons": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        },
+        "cacheCopyBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "peakSampledPrivateBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "backendCallsByType": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "backendIntervals": {
+          "type": "array",
+          "maxItems": 512,
+          "items": {
+            "type": "object",
+            "required": ["typeName", "sourcePath", "startTicks", "endTicks", "threadId"],
+            "properties": {
+              "typeName": {"type": "string", "minLength": 1},
+              "sourcePath": {"type": "string", "minLength": 1},
+              "startTicks": {"type": "integer", "minimum": 0},
+              "endTicks": {"type": "integer", "minimum": 0},
+              "threadId": {"type": "integer", "minimum": 1}
+            }
+          }
+        }
+      }
     },
     "elapsedMs": {
       "type": "integer",

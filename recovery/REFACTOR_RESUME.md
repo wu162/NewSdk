@@ -1,48 +1,48 @@
-# MOD 编译器：结果主线与续接入口
+# 缓存与并行专项：当前交接
 
-更新：2026-10-27（北京时间）。用户指定 `compiler-main` 为重构结果及今后开发主线。旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 已关闭且未合并，不再合回旧主线。开发主线约定不代表已修改 GitHub 网页默认分支。
-禁止强推；今后其他合并仍须用户批准；子代理数量由当轮用户指定。
+更新：2026-10-29（北京时间）。工作分支 `feature/cache-parallel` 从 `compiler-main` 分出；[draft PR #17](https://github.com/wu162/NewSdk/pull/17) 目标为 `compiler-main`，未经用户批准不合入，禁止强推。
 
-## 默认构建与参数改进（PR #14，待合入）
+## 云端任务入口
 
-本轮从 `compiler-main` 的 `933cf4a2` 创建 `feature/compiler-build-defaults`，PR [#14](https://github.com/wu162/NewSdk/pull/14)，尚未合并。生产/测试源码 `8b3e146cb5220e830ff6a0ce4718f47af052f166`；[验收运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 的完整 mymod 原 BAB 流、含 Additional 的默认 BIG 与 SKUDEF 差分、全部受影响回归及独立五文件 ZIP 验收均已通过，运行整体 success。
+后续在 Codex 云端执行，复用已有仓库检出和终端；先检查工作区/HEAD，再按 [云端执行规则](EFFICIENCY.md#codex-cloud) 核对成果分支。不要要求ChatGPT GitHub插件，不默认重新clone。云端完成编辑与静态检查，编译/运行测试仍走Windows Actions。任务临时分支不改变成果归属；受限时交付差异并注明未推送或待CI状态，不覆盖已有修改。
 
-标准构建默认自动发现 base/APT/全局元数据并输出 BIG/SKUDEF，Additional 默认包含、可关闭且覆盖警告；开发模式默认 loose，高级兼容入口保留。`global-metadata` 兼容 `maps`，项目可保存 SDK/输出路径和常用设置。显式部分编译/空可选组行为与打包机制保留，缓存参数/默认值/实现未改。最新使用方式见 [COMPILER_USAGE.md](COMPILER_USAGE.md)，来源与范围见 [BUILD_DEFAULTS_VALIDATION.md](docs/BUILD_DEFAULTS_VALIDATION.md)。下次以该 PR 分支续接，用户批准后才能合入 `compiler-main`；主线现有发行下载不因此自动替换。
+## 范围与读取顺序
 
-## 最新旧参数兼容验收（2026-10-27）
+读完 `AGENTS.md` 后先读本页及 [执行规则](EFFICIENCY.md)，随后按本次任务读取计划章节；首次接手或调整整体方向时再通读计划，日常不加载全部计划和历史记录。
 
-`57354fbc013369eac1ad4c6e3346134d81a68a6c` 已恢复 ss/pc/slowclean 默认 true，并支持独立 true/false；缓存仍默认关闭。[运行40440661815](https://github.com/wu162/NewSdk/actions/runs/40440661815) 整体 success：完整未精简 mymod 的两配置 MOD 四文件逐字节相同、无额外引用流；真实 MOD 的 BIG 12成员与原 LoD/MakeBig 内容一致，SKUDEF 对照通过。应用/Core/原BAB/Texture/CLI/全部缓存/P7及五文件ZIP独立运行也均通过。发行下载见 COMPILER_RELEASE.md，失败历史和新收据见 [SDK_SCRIPT_VALIDATION.md](docs/SDK_SCRIPT_VALIDATION.md)。原失败40439297653不改写，本轮未降低断言；没有完整游戏数据或游戏内运行的新验收。
+以 [CACHE_PARALLEL_PLAN](docs/CACHE_PARALLEL_PLAN.md) 为目标与验收合同：A 资产动作缓存、B 消除重复 I/O、C 跨文档有界并行。具体已支持能力见 [CACHE_PARALLEL](docs/CACHE_PARALLEL.md)，精确来源见 [证据 JSON](docs/CACHE_PARALLEL_EVIDENCE.json)。计划中的要求不能当作已完成状态；历史里程碑中的“下一步”不覆盖本页。
 
-## 已完成的发行范围
+不继续旧重构收尾、发行功能扩展、其他组件分支归集或全局研究。旧 session、原字节差分、SDK/mymod、BIG/CDATA、取消与回滚、独立 ZIP 仍保留为适用回归合同。
 
-- Win32 单进程核心编译、MOD目录入口、base/apt/maps 计划、日志/JSONL/报告、默认 BIG/SKUDEF 与五文件发行包已验收。恢复业务代码进入 EXE；纯 C# MakeBig 已内建，不启动 BAB/MakeBig worker。
-- 最新结果在新主线重新编译 Debug/Release，应用、Core九组、原BAB基线、Texture、实际CLI、输入根、全部缓存、BIG原工具差分和独立ZIP运行均通过。准确源码/运行/产物身份见 COMPILER_RELEASE.md，不用文档头提交冒充二进制来源。
-- 新增 mod-version、game-version、skudef-name 及项目预设/命令行优先级已通过；默认1.0/1.12保持旧脚本行为。布尔开关使用等号，帮助示例已修正。必要旧参数及拒绝范围见 CLI_COMPATIBILITY.md。
-- `/bc`、`/sc` 默认关闭，可独立启用；会话缓存恢复实际文档和intermediate/CDATA，再重新链接输出。两配置各55用例、冷热/失效、缺损修复、失败取消和事务已验证。混合Texture仍明确拒绝 `/sc:true`。
-- 默认base包含低/中LoD；APT版本标记为原脚本空格+CRLF。既有主线发行中Additional显式开启（本轮PR改为默认自动包含），SDK先、MOD后覆盖并排除.asset，已通过原CopyFolders/MakeBig全内容对照。
-- 可选中立修复默认关闭；已集成HashFix→Resolver→LoD，在私有包工作区处理，缺完整参考明确拒绝。验收范围为组件差分及生产零插入链，未泛称完整游戏中立资产插入。
-- 原LoD已知越界明确采用确定性修复合同：完整逻辑表复制并保留NUL，不复刻越界内存。28–32字节边界专项重复验证通过；原工具异常差分/失败证据保留，不能改称原始字节相等。
-- Debug/Release正式包精确五运行文件，独立解压后doctor、小MOD、版本/包名、BIG、Additional、中立零插入、CDATA、回滚/取消/重试和协议全部通过。依赖.NET4.8、x86 VC80/VC与DirectX，不能推断裸Windows无前置要求。
-- 本轮完整未精简 mymod 已按旧脚本非缓存参数在新 Debug/Release 构建上重跑并通过严格四文件与真实 BIG 验收；历史 XML/非 XML 差分仍保留原 source/run 范围。
+## 当前有效状态
 
-## 已取消与未覆盖范围
+- A/C 已有生产接入与完整回归证据。XML 289 路由中284条 metadata 与4条 APT 已获 worker 准入资格，TestTexture及未知新增类型保持 owner；资格不等于每类型复杂字段或双同类重叠均已实测。W3X/Audio 的具体资格与限制以能力表为准，Texture、Audio 重采样/PathMusic边界不扩大。
+- 最新完整生产验收：`e86958de` / [40690172191](https://github.com/wu162/NewSdk/actions/runs/40690172191) success。B 组已加入阶段计时、共享每 Capture 路径分类、移动已验证私有结果以消除再次复制；完整 Debug/Release、Core、缓存、旧 session、SDK/mymod、BIG 与独立 ZIP 已通过。精确归档与来源见 JSON 的 `sharedInventoryAndPrivateMoveMilestone`。
+- 最新小 mymod 计量：[40693590489](https://github.com/wu162/NewSdk/actions/runs/40693590489) success；binarySource=`e86958de`、testSource=`e5809d10`，复用成功二进制，未重编。完整7文件/982257字节 MOD、完整 SDK；Debug/Release 热中位2226/2217ms，无缓存824/760ms。热与 Additional-only 均47hit/0miss/0backend，四输出原字节相同。Release首热盘点1360.599ms，其中受控读1007.240ms，私有恢复15.806ms、动作Key3.864ms；计时有嵌套，受控读不是纯磁盘/hash。
+- 完整 Upheaval 的历史同二进制计量：无缓存 jobs1→4 为88.160s→57.733s，1311输出原字节相同；热缓存中位73.609s仍慢于无缓存并行。原 [40682631514](https://github.com/wu162/NewSdk/actions/runs/40682631514) case成功但整体failure（末尾协议目录检查错误）；轻量归档重放 [40685364366](https://github.com/wu162/NewSdk/actions/runs/40685364366) success，不改写原终态。详见 [Upheaval记录](docs/UPHEAVAL_CACHE_PARALLEL.md)。此计量不是最新B组二进制的性能验收。
 
-- 用户取消AssetMerge集成，不是发行必做项。用户取消WBData下载/提取/读取器及依赖其真实数据的验收，不再作为重构完成条件；保留已有可选修复和缺输入拒绝，不能把取消标记为验收通过。
-- 完整UI/runtime、中文纹理路径、混合Texture会话缓存仍有未覆盖范围。压缩/部分/冻结缓存、旧缓存目录覆盖及替代输出等未开放参数明确拒绝；这些不自动扩大为当前收尾任务。
+默认 `bc/sc=false`、jobs=1；专项未替换主线发行。热缓存净收益尚未解决，不能用零后端调用或跨runner耗时差宣称已加速。
 
-## 后续工作方式
+## 下一步：依赖清单与分层持久缓存
 
-本次选定范围的收尾与工具交付已完成。后续按用户新需求选择上述未覆盖能力推进；继续以 compiler-main 为入口，不再准备合回旧分支。
-生产输入改变时成组重建受影响回归；只有文档改变时不重编译。旧固定归档重放器仍绑定其历史源，不能直接用于当前新生产源码。新发行走主工作流的完整构建与发布门槛。
+按 [B1执行方案](docs/HOT_CACHE_OPTIMIZATION.md) 推进。当前已接入第一阶段生产读取观察、Core负候选、后端租约摘要、清单复验与独立二进制持久事务，具体 [READ_CLOSURE](docs/READ_CLOSURE.md)。全根保护仍保留，`canAuthorizeReuse=false`，尚无文档/stream复用或新性能验收。
 
-## 按任务读取
+- 首批 `60d17fb2` / [40783157399](https://github.com/wu162/NewSdk/actions/runs/40783157399) failure：新增畸形记录测试错误假设InvalidDataException属于IOException，未进入native构建；失败保留。
+- 修正与解码/取消边界 `66524fb2` / [40783469606](https://github.com/wu162/NewSdk/actions/runs/40783469606) App Debug/Release success；不代表后续lease记录或完整生产验收。
+- 第一轮新生产 `15cc807d` / [40783922358](https://github.com/wu162/NewSdk/actions/runs/40783922358) failure：仅Debug/Release的CompilerCacheBoundary预期schema路径未规范分隔符，40个其他Core fixture及独立生产/Texture/CLI/缓存/payload/输入根/session/BIG组通过；原BAB baseline、SDK与最终ZIP按门槛跳过。原归档12859752321及SHA256已核，见证据JSON；不作完整成功复用。
+- 最新生产检查点 `ae15d418` 增加观察预算耗尽后停止记录、保留全根保护并继续普通读取，partial清单不持久化；真实IO/矛盾/取消仍拒绝。轻量App Debug/Release [40786061373](https://github.com/wu162/NewSdk/actions/runs/40786061373) success；尚未替代完整生产验收。
+- 规范化路径断言修复并含预算回退的 `63d32a0f` / [40787554052](https://github.com/wu162/NewSdk/actions/runs/40787554052) 正在执行完整生产验收，尚未标通过。
+- 小mymod三对交替无缓存/热缓存、按层逻辑体积和cold二进制样本归档已准备。等Core失败集中修复和最新生产完整验收后，严格复用最终成功原包运行，不为仅测试变化重编，不追加Upheaval。
 
-| 事项 | 入口 |
-| --- | --- |
-| 使用与文档分类 | `recovery/COMPILER_USAGE.md`、`recovery/README.md`、`recovery/docs/README.md` |
-| 当前发行与参数 | `recovery/COMPILER_RELEASE.md`、`recovery/CLI_COMPATIBILITY.md` |
-| 缓存与事务 | `recovery/P5_LIFECYCLE_AUDIT.md`、`recovery/src/App/Application/CoreStreamCompiler.cs`、`SessionPackage.cs`、`BuildAssetCache.cs` |
-| BIG与LoD | `recovery/P7_PACKAGING.md`、`recovery/P7_LOD_ORIGINAL_TAIL.md`、`recovery/scripts/TestCompilerBig.ps1` |
-| 执行与验证 | `recovery/EFFICIENCY.md`、`.github/workflows/refactor-core-lifecycle.yml`、`recovery/scripts/PublishCompiler.ps1` |
+1. 第一阶段观察记录接入后，先取得完整生产回归与原始归档；再认证纯metadata读取闭包（配置/工具/选项绑定、逐任务读取资格及precompiled/目录决策仍缺）。只有认证完成才能替换全根保护。继续记录并验证完整实际读取闭包（含resolver候选/不存在/目录决策），在已认证路径替换全根盘点；未知读取保留保守路径。目标允许无关根成员变化，影响语义/输出的变化仍须失效；旧session合同不改。
+2. 先读B1“与当前后端优化的衔接”：恢复态必须保留强Key、引用/注册副作用、三缓冲/CDATA、独占输入、owner提交与MachineResources预算，不能扩大XML/W3X/Audio/Texture资格。随后复用文档准备态，再实现完整stream无变化快路；保留现有ActionCache和有界执行器，不复制第二套前端。枚举/并行鲜读降为局部优化，不先做完微调才推进结构改造。
+3. 缓存采用版本化二进制索引与可定位数据块的设计方向：字符串去重、按需解码、分块可选压缩、小记录有界聚合；旧格式隔离，容量、完整性与代际事务必须闭合。具体压缩/分片阈值用同数据集对照确定。
+4. 成组Actions验证失效、原字节、取消/异常和回滚；同runner同jobs交替无缓存/热缓存至少3对。同时报告各层体积、文件数、热读取/解码、内存峰值、单改重写和事务峰值空间。先小mymod，稳定后低频完整Upheaval。
 
-效率优先，正确性是底线；保留原始差分和失败终态，复用有效证据。长任务每约10–15分钟保存检查点，低频跟进Actions到终态；交接直接说明新增能力、验证、剩余范围和下一步。
+当前Release小mymod仍为热中位2217ms、无缓存760ms；首热盘点1361ms来自另一次阶段记录，不能混合相减。必须分别报告开销下降与热缓存净收益，不把零后端调用或压缩率当作解决。
+
+## 执行与交接
+
+遵循 [EFFICIENCY](EFFICIENCY.md)：生产成组实现与验证，编译/测试全部 Actions；仅测试变化优先复用匹配二进制并重跑受影响测试，分别记录 binary/test 来源；仅文档不构建。已有有效验收不重复运行，失败终态与严格断言保留。
+
+每轮更新本页的最新有效来源、真实阻塞和下一步，细节放能力文档/证据 JSON，历史留 git。不要累加旧发行和组件恢复待办。

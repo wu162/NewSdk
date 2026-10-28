@@ -57,6 +57,17 @@ try {
     $fixtureFailures=@()
     $fixtures=@(
         @{name='CompilerCacheContent';marker='PASS CacheContent:'},
+        @{name='CompilerPreparedBackend';marker='PASS PreparedBackend:'},
+        @{name='CompilerXmlBackendBatch';marker='PASS XmlBackendBatch:';timeoutSeconds=180},
+        @{name='CompilerXmlTargetingPrepared';marker='PASS XmlTargetingPrepared:'},
+        @{name='CompilerXmlVisibilityPrepared';marker='PASS XmlVisibilityPrepared:'},
+        @{name='CompilerXmlRadarPrepared';marker='PASS XmlRadarPrepared:'},
+        @{name='CompilerXmlConditionsPrepared';marker='PASS XmlConditionsPrepared:'},
+        @{name='CompilerXmlObjectSetsPrepared';marker='PASS XmlObjectSetsPrepared:'},
+        @{name='CompilerXmlRenderDevicePrepared';marker='PASS XmlRenderDevicePrepared:'},
+        @{name='CompilerXmlUiImagesPrepared';marker='PASS XmlUiImagesPrepared:'},
+        @{name='CompilerXmlHealthBarsPrepared';marker='PASS XmlHealthBarsPrepared:'},
+        @{name='CompilerXmlUnitOverlayPrepared';marker='PASS XmlUnitOverlayPrepared:'},
         @{name='CompilerCacheBoundary';marker='PASS CacheBoundary:'},
         @{name='CompilerInputRoots';marker='PASS InputRoots:'},
         @{name='CompilerCorePaths';marker='PASS CorePaths:'},
@@ -69,6 +80,9 @@ try {
     )
     $state.fixtures=@($fixtures|ForEach-Object{
         @{name=$_.name;path=('recovery/tests/'+$_.name+'.cs');sha256=(Hash ('recovery/tests/'+$_.name+'.cs'))}
+    })
+    $state.fixtureInputs=@('recovery/tests/XmltargetingProbe.xml','recovery/tests/XmlvisibilityProbe.xml','recovery/tests/XmlradarProbe.xml','recovery/tests/XmlconditionsProbe.xml','recovery/tests/XmlobjectsetsProbe.xml','recovery/tests/XmlrenderdeviceProbe.xml','recovery/tests/XmluiimagesProbe.xml','recovery/tests/XmlhealthbarsProbe.xml','recovery/tests/XmlunitoverlayProbe.xml'|ForEach-Object{
+        @{path=$_;sha256=(Hash $_)}
     })
     $state.sdkFixtureInputs=@('Mods/mymod/Data/RecoveryArmorProbe.xml','tools/BinaryAssetBuilder.exe.config'|ForEach-Object{
         @{path=$_;sha256=(Hash (Join-Path $sdk $_))}
@@ -179,6 +193,7 @@ try {
     }
     foreach($input in $state.schemaInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK schema input changed during lifecycle validation'}}
     foreach($input in $state.sdkFixtureInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK fixture/config input changed during lifecycle validation'}}
+    foreach($input in $state.fixtureInputs){if((Hash $input.path) -cne $input.sha256){throw 'Prepared XML fixture input changed during lifecycle validation'}}
     if((Hash $originalTexture) -cne $state.originalTextureSha256){throw 'Pinned original texture changed during backend lifecycle validation'}
     if($fixtureFailures.Count -ne 0){throw ($fixtureFailures -join "`n")}
     $state.succeeded=$true;$state.status='passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate'

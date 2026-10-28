@@ -168,6 +168,7 @@ public static class HashProvider
             path = Path.Combine(outputDirectory, StringHashesFileDefault);
             if (!File.Exists(path)) return;
         }
+        CacheInputBoundary.ReportUnknownRead(path);
         _Tracer.TraceInfo("Loading previous string hash file from {0}", path);
         XmlDocument document = new XmlDocument();
         document.Load(path);

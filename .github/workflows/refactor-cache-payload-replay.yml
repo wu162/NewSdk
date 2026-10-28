@@ -1,0 +1,157 @@
+name: MOD compiler successful cache and payload replay
+on:
+  push:
+    branches: [compiler-main, feature/cache-parallel]
+    paths:
+      - '.github/workflows/refactor-cache-payload-replay.yml'
+      - 'recovery/scripts/PrepareCompilerCacheReplay.py'
+      - 'recovery/tests/test_prepare_compiler_cache_replay.py'
+  workflow_dispatch:
+    inputs:
+      source_commit:
+        description: Successful original production full commit SHA
+        required: true
+        type: string
+      run_id:
+        description: Successful original core lifecycle run ID
+        required: true
+        type: string
+      run_attempt:
+        description: Original successful run attempt
+        required: true
+        default: '1'
+        type: string
+      artifact_id:
+        description: Original core lifecycle artifact ID
+        required: true
+        type: string
+      archive_sha256:
+        description: Original artifact ZIP SHA256, matching GitHub digest
+        required: true
+        type: string
+      repository_mod_metrics:
+        description: Append untrimmed repository mymod measurements to the payload matrix
+        required: false
+        default: false
+        type: boolean
+      repository_mod_metrics_only:
+        description: Run only new mymod measurements after strict successful original cache/payload verification; requires repository_mod_metrics
+        required: false
+        default: false
+        type: boolean
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: cache-payload-replay-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  guards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /recovery/scripts/PrepareCompilerCliReuse.py
+            /recovery/scripts/PrepareCompilerCacheReplay.py
+            /recovery/tests/test_prepare_compiler_cache_replay.py
+      - name: Reject changed production inputs, false origins and malformed archives
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python -m unittest discover -s recovery/tests -p 'test_prepare_compiler_cache_replay.py' -v
+  replay:
+    if: github.event_name == 'workflow_dispatch'
+    needs: guards
+    runs-on: windows-2022
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Parse cache replay entries and validate explicit receipt parameters
+        shell: pwsh
+        env:
+          REPOSITORY_MOD_METRICS: ${{ inputs.repository_mod_metrics }}
+          REPOSITORY_MOD_METRICS_ONLY: ${{ inputs.repository_mod_metrics_only }}
+        run: |
+          foreach($script in @('TestCompilerBuildCache.ps1','TestCompilerBuildCachePayloads.ps1')){
+            $tokens=$null;$parseErrors=$null
+            $ast=[System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD "recovery/scripts/$script"),[ref]$tokens,[ref]$parseErrors)
+            if(@($parseErrors).Count -ne 0){$parseErrors|Format-List|Out-String|Write-Host;throw "Cache replay PowerShell syntax rejected: $script"}
+            $parameters=@($ast.ParamBlock.Parameters|ForEach-Object{$_.Name.VariablePath.UserPath})
+            if(@($parameters|Where-Object{$_ -ceq 'ReplayReceipt'}).Count -ne 1){throw "Cache replay requires one explicit ReplayReceipt parameter: $script"}
+          }
+          $metrics=@($ast.ParamBlock.Parameters|Where-Object{$_.Name.VariablePath.UserPath -ceq 'RepositoryModMetrics'})
+          if($metrics.Count -ne 1 -or $metrics[0].StaticType -ne [System.Management.Automation.SwitchParameter]){throw 'Repository measurements require one explicit opt-in switch parameter'}
+          $only=@($ast.ParamBlock.Parameters|Where-Object{$_.Name.VariablePath.UserPath -ceq 'RepositoryModMetricsOnly'})
+          if($only.Count -ne 1 -or $only[0].StaticType -ne [System.Management.Automation.SwitchParameter]){throw 'Repository-only measurements require one explicit opt-in switch parameter'}
+          foreach($value in @($env:REPOSITORY_MOD_METRICS,$env:REPOSITORY_MOD_METRICS_ONLY)){if($value -cnotin @('true','false')){throw 'Repository measurement inputs must be explicit booleans'}}
+          if([bool]::Parse($env:REPOSITORY_MOD_METRICS_ONLY) -and ![bool]::Parse($env:REPOSITORY_MOD_METRICS)){throw 'Repository metrics-only mode requires repository_mod_metrics=true'}
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Install pinned Texture audit and protocol dependencies
+        shell: pwsh
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt
+      - name: Verify successful original run and stage exact archived runtime
+        id: runtime
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPLAY_SOURCE: ${{ inputs.source_commit }}
+          REPLAY_RUN: ${{ inputs.run_id }}
+          REPLAY_ATTEMPT: ${{ inputs.run_attempt }}
+          REPLAY_ARTIFACT: ${{ inputs.artifact_id }}
+          REPLAY_SHA256: ${{ inputs.archive_sha256 }}
+        run: |
+          python recovery/scripts/PrepareCompilerCacheReplay.py --repo . --candidate-commit $env:GITHUB_SHA --source-commit $env:REPLAY_SOURCE --run-id $env:REPLAY_RUN --run-attempt $env:REPLAY_ATTEMPT --artifact-id $env:REPLAY_ARTIFACT --archive-sha256 $env:REPLAY_SHA256 --archive "$env:RUNNER_TEMP/cache-payload-replay.zip" --output recovery/artifacts/cache-payload-replay
+          if($LASTEXITCODE -ne 0){throw 'Successful archive reuse rejected'}
+      - name: Run current build-cache matrix and its protocol against verified bytes
+        id: build_cache
+        if: ${{ !cancelled() && steps.runtime.outcome == 'success' && !inputs.repository_mod_metrics_only }}
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $compiler=Join-Path $PWD 'recovery/artifacts/cache-payload-replay'
+          $evidence="recovery/evidence/refactor/build-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          ./recovery/scripts/TestCompilerBuildCache.ps1 -CompilerDirectory $compiler -ReplayReceipt (Join-Path $compiler 'cache-payload-replay.json') -OutputDirectory $evidence
+          if($LASTEXITCODE -ne 0){throw 'Current build-cache replay matrix failed'}
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Current build-cache replay protocol validation failed'}
+      - name: Run payload matrix and optional repository mymod measurements against verified bytes
+        if: ${{ !cancelled() && steps.runtime.outcome == 'success' }}
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY_MOD_METRICS: ${{ inputs.repository_mod_metrics }}
+          REPOSITORY_MOD_METRICS_ONLY: ${{ inputs.repository_mod_metrics_only }}
+        run: |
+          $compiler=Join-Path $PWD 'recovery/artifacts/cache-payload-replay'
+          $evidence="recovery/evidence/refactor/cache-payloads/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if($env:REPOSITORY_MOD_METRICS -cnotin @('true','false')){throw 'Repository measurements input must be an explicit boolean'}
+          if($env:REPOSITORY_MOD_METRICS_ONLY -cnotin @('true','false')){throw 'Repository metrics-only input must be an explicit boolean'}
+          $repositoryMetrics=[bool]::Parse($env:REPOSITORY_MOD_METRICS)
+          $metricsOnly=[bool]::Parse($env:REPOSITORY_MOD_METRICS_ONLY)
+          if($metricsOnly -and !$repositoryMetrics){throw 'Repository metrics-only mode requires repository_mod_metrics=true'}
+          ./recovery/scripts/TestCompilerBuildCachePayloads.ps1 -CompilerDirectory $compiler -ReplayReceipt (Join-Path $compiler 'cache-payload-replay.json') -OutputDirectory $evidence -RepositoryModMetrics:$repositoryMetrics -RepositoryModMetricsOnly:$metricsOnly
+          if($LASTEXITCODE -ne 0){throw 'Current payload replay matrix failed'}
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Current replay protocol validation failed'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cache-payload-replay-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/cache-payload-replay/cache-payload-replay.json
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error

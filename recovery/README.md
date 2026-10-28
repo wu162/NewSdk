@@ -1,6 +1,6 @@
 # 编译器文档入口
 
-`compiler-main` 是重构结果与后续开发主线。首次使用请读使用说明；继续开发请读交接入口。历史组件记录用于追溯，旧“下一步”不代表当前待办。
+本分支 `feature/cache-parallel` 从 `compiler-main` 分出，专门执行 [缓存与并行计划](docs/CACHE_PARALLEL_PLAN.md)。继续专项先读 [简短交接](REFACTOR_RESUME.md) 和 [执行规则](EFFICIENCY.md)，再按需读计划章节；`compiler-main` 为最终 PR 目标。首次使用工具请读使用说明。历史组件记录用于追溯，旧“下一步”不代表当前待办。
 
 ## 使用与交付
 
@@ -17,7 +17,8 @@
 | --- | --- |
 | 当前状态与后续工作 | [REFACTOR_RESUME](REFACTOR_RESUME.md) |
 | 工作规则 | [EFFICIENCY](EFFICIENCY.md)、[阶段时长](STAGE_DURATION.md) |
-| 缓存与事务 | [生命周期记录](P5_LIFECYCLE_AUDIT.md) |
+| 缓存与并行的当前能力、源码入口、CI 与下一步 | [缓存并行记录](docs/CACHE_PARALLEL.md) |
+| 旧缓存与事务参考 | [生命周期记录](P5_LIFECYCLE_AUDIT.md) |
 | 路径约束 | [PATH_AUDIT](PATH_AUDIT.md) |
 | MakeBig 来源与恢复 | [MAKEBIG_RECOVERY](MAKEBIG_RECOVERY.md) |
 | LoD 原工具缺陷与修复合同 | [LoD 边界说明](P7_LOD_ORIGINAL_TAIL.md) |
