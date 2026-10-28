@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import re
+import runpy
 import stat
 import subprocess
 import tarfile
@@ -48,6 +49,36 @@ def inventory(root):
 
 def prepare(repo, sdk, mod, output):
     need(git(repo, 'rev-parse', SOURCE + ':SDK/Mods/Upheaval').decode().strip() == TREE, 'Pinned MOD tree mismatch')
+    # Object sizes (-l) can hydrate one missing promisor blob at a time. Obtain
+    # only tree metadata first, then use Git's standard bulk promisor fetch.
+    # No credential value is placed in the command or emitted into the log.
+    tree_rows = git(repo, 'ls-tree', '-rz', SOURCE, 'SDK/Mods/Upheaval').split(b'\0')
+    blobs = set()
+    file_count = 0
+    for row in tree_rows:
+        if not row:
+            continue
+        metadata, path = row.split(b'\t', 1)
+        mode, kind, blob = metadata.decode().split()
+        need(mode == '100644' and kind == 'blob' and path.decode('utf-8').startswith(PREFIX), 'Unsafe pinned tree entry')
+        need(re.fullmatch(r'[0-9a-f]{40}', blob), 'Malformed pinned blob identity')
+        blobs.add(blob); file_count += 1
+    need(file_count == COUNT, 'Pinned tree file count differs before hydration')
+    promisor = subprocess.run(['git', '-C', str(repo), 'config', '--get', 'remote.origin.promisor'],
+                              check=False, capture_output=True, text=True)
+    need(promisor.returncode in (0, 1), 'Cannot inspect promisor configuration')
+    if promisor.returncode == 0 and promisor.stdout.strip().lower() == 'true':
+        print('Prefetching complete pinned Upheaval blob set in one bounded promisor fetch.', flush=True)
+        subprocess.run(['git', '-C', str(repo), '-c', 'credential.helper=',
+                        '-c', 'credential.helper=!gh auth git-credential',
+                        '-c', 'fetch.negotiationAlgorithm=noop', 'fetch', 'origin',
+                        '--no-tags', '--no-write-fetch-head', '--recurse-submodules=no',
+                        '--filter=blob:none', '--stdin'],
+                       input=('\n'.join(sorted(blobs)) + '\n').encode('ascii'),
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=300, check=True)
+        print('Pinned Upheaval bulk blob hydration completed.', flush=True)
+    else:
+        print('Repository is not an origin promisor clone; using its existing complete objects.', flush=True)
     rows = git(repo, 'ls-tree', '-rlz', SOURCE, 'SDK/Mods/Upheaval').split(b'\0')
     expected = {}
     for row in rows:
@@ -100,7 +131,13 @@ def prepare(repo, sdk, mod, output):
     route_sources = [git(repo, 'show', 'HEAD:' + p).decode() for p in ('recovery/src/App/Application/BuiltinCompilers.cs', 'recovery/src/App/Application/BuiltinXmlRoutes.cs')]
     routes = set(re.findall(r'new BuiltinCompilerRoute\([^\n]*?"([^\"]+)"', '\n'.join(route_sources)))
     routes.update(('Texture', 'OnDemandTexture', 'TerrainTextureAtlas'))
-    schema = E.XMLSchema(E.parse(str(sdk / 'Schemas/xsd/CnC3Types.xsd')))
+    # Reuse the production preflight's aggregate construction from the exact
+    # unchanged SDK bytes. Direct lxml file-URI includes fail on Windows paths.
+    # A non-__main__ run name loads definitions only, never create() fixtures.
+    schema_script = Path(repo) / 'recovery/scripts/GenerateXmlSdkModA.py'
+    schema_module = runpy.run_path(str(schema_script), run_name='upheaval_schema_preflight')
+    need(Path(schema_module['S']).resolve() == (Path(sdk) / 'Schemas/xsd').resolve(), 'Aggregate schema must use the measured immutable SDK')
+    schema = schema_module['aggregate_schema']()
     types, documents, runtime_xml = {}, [], []
     parser = E.XMLParser(resolve_entities=False, no_network=True)
     for p in sorted(mod.rglob('*')):
@@ -132,6 +169,7 @@ def prepare(repo, sdk, mod, output):
     entries += sorted(p.relative_to(mod).as_posix() for p in (mod / 'Data/AdditionalMaps').glob('MapMetaData_*.xml'))
     need(len(entries) == 5 and len([x for x in entries if '/AptUI/' in x]) == 3, 'Pinned five-entry plan input contract differs')
     result = dict(sourceCommit=SOURCE, modTree=TREE, files=inputs, fileCount=COUNT, bytes=BYTES, entries=entries,
+                  schemaProvider=dict(path='recovery/scripts/GenerateXmlSdkModA.py', sha256=sha(schema_script.read_bytes())),
                   declarationDocuments=documents, runtimeXml=runtime_xml, staticTypes=types,
                   actualResolverClosureValidated=False, scope='Complete original input blob/byte/SHA audit, real SDK schema and current top-level route preflight. Actual resolver and compilation still require the CLI baseline.')
     output.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
