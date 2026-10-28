@@ -20,7 +20,7 @@
 
 新增一个共享的批量组件矩阵：全部284条已审计元数据路由×四平台含99，私有最小DOM先执行有界worker波次，再与owner的完整三缓冲或同型同文拒绝结果对照，原owner DOM/namespace突变不影响冻结输入；最小输入被拒绝的条目明确记录，不冒充复杂有效输入验收或SDK全局可达。原有复杂原DLL差分证据、真实19公开根/原始流、Mesh/Audio/APT实际重叠、取消/异常及完整SDK/发行门槛全部保留。这批改变生产并行资格，已集中新建Debug/Release并完成上节完整验收。
 
-## 当前实现检查点（2026-10-28，验证待执行）
+## 本轮阶段检查点记录（已被上节完整验收覆盖）
 
 本轮准备态拒绝诊断保留旧 `actionMissReasons` 与 `cacheBypassReasons` 语义，新增独立 `preparationRejectedReasons`，仅记录准备器实际返回false的首个门禁；缓存关闭时也记录，不把成功准备后的worker额度不足或排队算为拒绝。13种源码门禁，Windows夹具可构造11种，保留部分外读失败释放租约、成功重试清空原因与零准备预算owner输出对照；不捏造罕见header重开失败实测。
 
@@ -38,7 +38,7 @@ Radar生产保留完整Texture/PackedTextureImage强引用及ObjectFilter弱名�
 
 用户进一步要求减少逐类型细拆和大型MOD测试频率：本批收束后不再追加小XML组，后续按共享后端/状态合同成批认证与复用夹具；专用测试分支只手动低频测量完整历史Upheaval，先廉价预检、严格复用已验收运行文件，不把未运行计量当收益。
 
-本批因生产闭包改变，统一新建Debug/Release并保留完整Core、真实SDK/原BAB、缓存/旧session、完整mymod、BIG与五文件ZIP门槛。此检查点**未完成Actions验收**；下节收据只适用于各自历史生产闭包。按EFFICIENCY继续成组实现与集中验证；不替换默认发行，不合并PR。
+本批因生产闭包改变，统一新建Debug/Release并保留完整Core、真实SDK/原BAB、缓存/旧session、完整mymod、BIG与五文件ZIP门槛。该早期检查点当时未完成Actions验收，现已被上节c807/ac22完整收据覆盖；下节旧收据仍只适用于各自历史闭包。按EFFICIENCY继续成组实现与集中验证；不替换默认发行，不合并PR。
 
 ## 本轮验收（2026-10-28）
 
