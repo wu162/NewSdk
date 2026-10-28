@@ -55,7 +55,8 @@
 | AptAptData/AptConstData/AptDatData/AptGeometryData | 条件成立时 | 是 | 对全部真实外部读取持 Win32 FileShare.Read 租约并 SHA256；native 窄路径暂限 ASCII。私有 bridge 树和 Relo::Tracker；缺失/不可读/非 ASCII 回兼容实际执行 |
 | AudioEventLimitGroup/AudioLOD/AudioSettings/Video/VideoEventList/MicrophoneSettings/BootupDisplaySequence | 是 | 是 | Xmlaudio 的七根共用局部 Builder/Tracker 和只读字段/枚举表；不读取外部文件，不注册全局字符串哈希；可选 XML trace 已有锁 |
 | TestTexture | 条件成立时 | 否 | 全部真实外读持 Win32 租约并 SHA256；未扩展其并行资格 |
-| W3DAnimation/W3DMesh | 是 | 是 | 冻结 XML/命名空间，native scratch/output 独占，初始化与 trace 已源码审计；旧固定预算下真实重叠已在双动画用例验证，机器资源策略待新验收；Mesh 保持源码重入认证，未单独宣称双 Mesh 重叠实测 |
+| Weather/WaterTransparency/WaterSetting/Environment/LightingSettings/WaterTextureList/TerrainParticleMapping/BounceKickTerrainMapping/ShadowMap/OrdersManagerSettings/TerrainVisualSettings/CameraSettings | 是 | 是 | Xmlenvironment完整十二根；独占树及局部Builder/Tracker、只读布局/枚举、无外部读取。四平台含99的三缓冲区已对照；十二根均真实worker执行，实际与W3X重叠子集仅Weather |
+| W3DAnimation/W3DMesh | 是 | 是 | 冻结 XML/命名空间，native scratch/output 独占，初始化与 trace 已源码审计；旧固定预算下真实重叠已在双动画用例验证，MachineResources.v1完整生产矩阵已重验；Mesh 保持源码重入认证，未单独宣称双 Mesh 重叠实测 |
 | AudioFile 默认/NONE/XAS | 条件成立时 | 无 PCSampleRate 时 | 必须为内建精确 PcmWaveAudioCompiler；存在且可读的真实输入持续持租约，编码 scratch 和 CDATA 独占。注入其他 IAudioFileCompiler 不认证缓存或并行；有 PCSampleRate 保持串行，不影响已认证缓存资格 |
 | MP3 passthrough | 条件成立时 | 是 | 真实输入持续持租约，输出 CDATA 独占；不解码音频，非法结果不得成为候选 |
 | PathMusicMap | 条件成立时 | 否 | 真实输入持租约；I/O fallback 可能发出 Core scoped Tracer 诊断，保留 owner 执行 |
@@ -135,7 +136,7 @@ owner 在任务准入处最多每100ms重新采样一次；本 stream 的预算�
 仍保留的范围与下一步：
 
 - Texture、未闭合/警告/非ASCII native读取、超大准备态继续兼容执行；新增11根XML和两类Audio已有初始保守限额的完整通过证据，MachineResources.v1自适应组已有最新完整通过收据，其余XML及Audio重采样/PathMusic仍串行。资格表区分源码认证与实测，未把样例重叠扩称每个W3X或新增XML/Audio子类型实测。
-- 各stream全根保护扫描尚未合并；已有按需恢复和扫描内工具摘要共享。跨stream再复用摘要须有稳定字节版本证明，不能用mtime/size替代。
+- 各stream全根保护扫描尚未合并；已有按需恢复和扫描内工具摘要共享。同一构建内稳定SDK/runtime文件已使用受512句柄限制的持续只读租约及128位文件身份复核来复用摘要；当前MOD子树和SDKAdditional保持鲜读。目录枚举成本仍在，跨构建仍需首次读全输入，不能用mtime/size替代。
 - 尚未形成细分全部miss原因或真实大型MOD的受控冷/热/单改/封装性能基准；先用现有报告定位剩余成本，再扩并行或减少扫描。
 
 XML/Audio 初始组已完成有界实施与验收，机器资源组也已完成最新完整验收；后续从下列真实剩余范围继续。续接只需读本页、[REFACTOR_RESUME](../REFACTOR_RESUME.md)和相应最新运行；按失败步骤取原始日志，不重新全仓调研。成果在 [draft PR #17](https://github.com/wu162/NewSdk/pull/17)，目标compiler-main；禁止强推，未经用户明确批准不合入。全部编译/测试在GitHub Actions；文档整理不触发Windows构建。

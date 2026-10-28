@@ -5,23 +5,17 @@
 
 ## 当前任务：资产动作缓存与跨文档并行（2026-10-28）
 
-成果分支 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`，成果为 [draft PR #17](https://github.com/wu162/NewSdk/pull/17)。已接入生产统一资产任务、强ActionKey、按需完整结果及可回滚store、jobs与有界W3X worker；旧session隔离、Texture保留兼容。准确能力、源码入口、计量、sourceCommit/runId/归档哈希与剩余范围只看 [CACHE_PARALLEL](docs/CACHE_PARALLEL.md)，无需重读全量历史。
+成果集中 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`，[draft PR #17](https://github.com/wu162/NewSdk/pull/17)；未经用户批准不合入。源码入口、准确资格和原始证据只看 [CACHE_PARALLEL](docs/CACHE_PARALLEL.md) 及其JSON，无需重读历史。
 
-`125902cc` 的 [40629580163](https://github.com/wu162/NewSdk/actions/runs/40629580163) 整体success：Debug/Release完整生产、精确缓存、CDATA、跨文档实际重叠、读租约、旧来源授权、重复include/继承、native在途取消/异常安全汇合、旧session、完整mymod、五文件ZIP独立运行。该push运行已包含采样频率优化和native异常用例；原始归档、两配置运行文件/ZIP哈希及计量均已核验，见专项记录。主线发行不自动替换。
+当前生产源码 `129d9639` 在[40660066519](https://github.com/wu162/NewSdk/actions/runs/40660066519)完整验收中：稳定SDK/runtime文件按512-largest持续读租约和128位身份复核复用摘要，排除当前MOD完整子树与SDKAdditional；目录仍首尾全枚举，MOD/Additional仍鲜读。已过预检/生产/Core/真实SDKArt Texture+SageXml账本缓存矩阵，尚不宣称整体通过。
 
-本轮 XML/Audio 并行已在 `d7ecbebf` 的 [40647141375](https://github.com/wu162/NewSdk/actions/runs/40647141375) 完整通过 Debug/Release、精确缓存/CDATA、实际重叠、完整 mymod 与五文件 ZIP。覆盖 APT 四根、Xmlaudio 七根、内建 AudioFile 与 MP3 passthrough；未知注入编码器拒绝认证，重采样/PathMusic 保持 owner。新增成功归档 payload 重放工具已通过 [40648208910](https://github.com/wu162/NewSdk/actions/runs/40648208910) 的拒绝合同测试，真实归档重放 [40649079387](https://github.com/wu162/NewSdk/actions/runs/40649079387) 已成功，运行文件哈希与原二进制一致，binary/test 来源分别记录。
+已验收来源：`810dd2ad` / [40657123355](https://github.com/wu162/NewSdk/actions/runs/40657123355)完整success，原包12803193116、12组收据和两配置运行文件/五文件ZIP均核验。包括原强ActionKey/完整三缓冲区及CDATA/回滚store/旧session隔离、MachineResources.v1按CPU和Win32物理/虚拟内存准入及降额、十二根Xmlenvironment worker、准确miss/bypass报告。冷8次缺失、损坏和pending各仅1次对应miss、其余7命中，修复后恢复全热；完整未精简mymod/原BAB/BIG/独立ZIP保留。十二根都使用worker，实际Weather与W3X重叠，不夸大每根双同类实测。
 
-按用户关于机器资源的最新反馈，生产调度已改为 `MachineResources.v1`：jobs/CPU/Win32可用物理和虚拟地址空间共同准入，单任务和准备态预算由总预算推导；默认jobs=1保留，显式jobs=N不再统一硬限2 worker。`c2a2cec6`的 [40650040607](https://github.com/wu162/NewSdk/actions/runs/40650040607) 完整success：两配置均在4核机器得到4路真实重叠、约512MiB预算；压力下8→1、安全汇合、超预算APT owner、小任务worker、完整mymod及五文件ZIP全部通过。原始归档12800535841和运行文件/ZIP哈希已核验，精确来源见专项JSON。首跑40649384165因测试路径大小写误判failure，c2仅修测试、未改生产或放宽断言；失败原终态保留。现payload复用不覆盖Core宿主与完整SDK/发行链，本次集中重建完成验收。
+真实MOD计量[40659913327](https://github.com/wu162/NewSdk/actions/runs/40659913327)success，binary810/test25df，严格复用成功归档未重编。完整MOD7文件982257字节，真实SDK14715文件125887928字节，47资产热全部命中/零backend；热仍约230MB哈希读取、3.1–3.3秒，比无缓存0.76–0.95秒更慢。它不覆盖129d SDK扩展；下一步用其成功产物跑相同输入核对读取成本，不宣称大型MOD或通用加速。
 
-本轮前两组已完整通过：6ed的[40656205838](https://github.com/wu162/NewSdk/actions/runs/40656205838)与810的[40657123355](https://github.com/wu162/NewSdk/actions/runs/40657123355)，原始归档、12组收据及两配置五文件ZIP均核验。新增工具/Schema/runtime摘要读租约、十二根Xmlenvironment并行和准确miss/bypass报告；十二根都实际使用worker，实际Weather/W3X重叠，不夸大每根双同类实测。
+剩余：目录元数据扫描及跨构建首次哈希成本、细分prepare拒绝原因、更多已认证后端与双Mesh实测；Texture、重采样/PathMusic等继续owner，混合Texture session仍拒绝。默认bc/sc=false、jobs1保留，默认发行不随本分支替换。
 
-当前源码`129d9639`正在[40660066519](https://github.com/wu162/NewSdk/actions/runs/40660066519)完整验收稳定SDK摘要共享，排除当前MOD子树和SDKAdditional，保留全根枚举/鲜读及512句柄上限。新增真实SDKArt Texture只读兼容与未消费SageXml账本，未宣称此来源通过。
-
-真实MOD计量[40659913327](https://github.com/wu162/NewSdk/actions/runs/40659913327)success，binary810/test25df，严格复用成功归档、未重编。原mymod7文件982257字节，47资产热全部命中且零backend；热仍约230MB哈希读取，3.1–3.3秒，比无缓存0.76–0.95秒更慢，不能宣称加速。该计量不覆盖129d；下步用129d成功产物核对相同输入的读量变化，准确数据见CACHE_PARALLEL。
-
-后续优先按计量减少跨stream扫描或扩展剩余已认证并行，保留现有强身份、读租约、失败事务与完整SDK门槛。编译/测试全部GitHub Actions；通常两个子代理、最多三个由本轮用户授权。禁止强推；目标compiler-main，未经用户批准不合入。
-
-执行要求（2026-10-28用户再次确认）：提高效率且守住正确性底线，按 [EFFICIENCY](EFFICIENCY.md#验证批次与触发决策) 集中实现、预检和验收。下一轮先列齐必要回归、核验可复用二进制；不要重复本轮零散补测试后多次启动完整构建的方式。仅文档变化不重跑已通过的生产/SDK矩阵；测试-only 变化使用严格来源重放并取得新结果，生产闭包变化统一重建。缓存专项记录列出了现有复用入口的具体限制。
+按 [EFFICIENCY](EFFICIENCY.md) 集中实现/预检/完整验收，全部编译测试在Actions。仅测试改变先核验复用，分别记录binary/test来源；文档不重编，每10–15分钟检查点普通推送。用户本轮要求约70分钟、通常两个子代理最多三个，未自动变成以后每轮固定约定。
 
 ## 已合入的默认构建与参数改进
 
