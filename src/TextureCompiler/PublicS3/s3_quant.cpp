@@ -2177,7 +2177,7 @@ static int pcClosestX87(const double* values,const int* palette,const double* we
     }
     return choice;
 }
-static double pcErrorAndIndices(RGBBlock* b,const double* threshold,int* greater,int* less=0) {
+static double pcErrorAndIndices(RGBBlock* b,const double* threshold,int* greater,int* less=0,bool opaqueBlack=false) {
     int ramp[4][3];static const int bits[3]={5,6,5};
     for(int c=0;c<3;c++){
         int a=b->endPoint[0][c],z=b->endPoint[1][c];
@@ -2191,7 +2191,7 @@ static double pcErrorAndIndices(RGBBlock* b,const double* threshold,int* greater
         fstp tbyte ptr total80
     }
     for(int i=0;i<b->n;i++){
-        b->index[i]=pcClosestX87(b->colorChannel[i],&ramp[0][0],b->weight,point80,b->outLevel);
+        b->index[i]=pcClosestX87(b->colorChannel[i],&ramp[0][0],b->weight,point80,(b->outLevel==3&&opaqueBlack)?4:b->outLevel);
         __asm {
             fld tbyte ptr total80
             fld tbyte ptr point80
@@ -2235,14 +2235,14 @@ static double pcErrorAndIndices(RGBBlock* b,const double* threshold,int* greater
     return total;
 }
 // Explicit initialized three-colour state only; default DXT1 remains undefined.
-void CodeRGBBlockPC3(RGBBlock* block,int mode) {
+void CodeRGBBlockPC3(RGBBlock* block,int mode,bool opaqueBlack) {
     if(!block||block->n<1||block->n>MAX_PIXEL_PER_BLOCK||block->inLevel!=3)return;
     RGBBlock input=*block;
     CodeRGBBlock(block);
     if(mode==3)return;
-    double fullError=pcErrorAndIndices(block,0,0);
+    double fullError=pcErrorAndIndices(block,0,0,0,opaqueBlack);
     RGBBlock quick=input;pcQuick(&quick);int less=0;
-    pcErrorAndIndices(&quick,&fullError,0,&less);
+    pcErrorAndIndices(&quick,&fullError,0,&less,opaqueBlack);
     if(less)*block=quick;
 }
 void CodeRGBBlockPC(RGBBlock* block) {

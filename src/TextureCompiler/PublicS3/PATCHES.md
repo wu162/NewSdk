@@ -94,3 +94,5 @@ source/gray data fingerprints are preserved in PROVENANCE.json. Default DXT1
 state is stack-dependent and is not assigned an invented flag. No production
 consumer calls the experimental export. Complete initialized-state comparisons
 are required before any further claim; DDS/plugin/SDK remain separate gates.
+
+The opaque DXT1 format0 three-colour ramp includes its fourth opaque-black entry in final error/reindex; DXT1A format1 excludes its transparent entry. This general format rule applies to both continuous and quick candidates; it is not fixture selection.
