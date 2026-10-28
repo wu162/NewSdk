@@ -1,0 +1,19 @@
+{
+  "sourceCommit": "41281b506218f1f603c3006143cd6892c4ed0175",
+  "runId": "40676349619",
+  "runAttempt": "1",
+  "status": "passed",
+  "scope": "Linux selector policy/unit checks and SDK-request plan only; not compiler or SDK/MOD acceptance",
+  "unitTests": 15,
+  "fullModManualOnly": true,
+  "selected": [],
+  "reusedComponentGroups": 32,
+  "reusedSdkProfiles": 9,
+  "planJobId": 122775648980,
+  "planJobConclusion": "success",
+  "windowsJobId": 122776104430,
+  "windowsJobConclusion": "skipped",
+  "sdkValidated": false,
+  "modTestsStarted": false,
+  "evidence": "GitHub workflow terminal status, plan job unit-check and selection logs"
+}
