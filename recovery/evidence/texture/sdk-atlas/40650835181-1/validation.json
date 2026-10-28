@@ -1,0 +1,613 @@
+{
+  "expectedAssets": 16,
+  "sourceCommit": "867e7d38a17f82f42aa4c2f12ff387fca2ca78c0",
+  "fixtureLabels": [
+    "count-1",
+    "count-2",
+    "count-3",
+    "count-4",
+    "count-7",
+    "count-8",
+    "count-9",
+    "count-10",
+    "count-21",
+    "count-22",
+    "count-49",
+    "metadata-zero-false",
+    "metadata-max-true",
+    "metadata-default-false",
+    "base-npot",
+    "base-24"
+  ],
+  "profile": "PcAtlas",
+  "sdkValidated": true,
+  "fixtureFiles": [
+    {
+      "bytes": 262162,
+      "sha256": "51a2ceeaadc347b3e3c3bebf5f86bacb7d390f5a5bf9ac1df78f865ef1029890",
+      "name": "base-00.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "6d554ad031a8368fa2e968f0f28d93ec4636ecfb81f327a50b5cd809986af00b",
+      "name": "base-01.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "0bc0e97e8e63e97ae66514f561ea8e70bd07e72f698b7907d936165d6b3cde61",
+      "name": "base-02.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "7e8f86d857f12ae39a1407740bc1952ef4fc50e80b536600b0ecacff50696cbc",
+      "name": "base-03.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "05f43ac78347080d98deb2258c57f62405752e960e096bacd252ee8f30f61649",
+      "name": "base-04.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "92267c5bc55e163748aae8b92e5438a1a965a440506b79b3653ff2ef7b131f3c",
+      "name": "base-05.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "c5c2f0b7e68262b006f3345c2f20a15d7b38e07ee76e09fe174b119cf2af6507",
+      "name": "base-06.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "5dfced6ab848d825f57153aebeaf1c8050df635d71c8a0a5e122b74c7733b4c7",
+      "name": "base-07.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "7779fd03767f503efd45be5a55711385a013e9dc6f149cced3897a505a01caa5",
+      "name": "base-08.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "b216ee4ff0c6ca3309cc3731cd79f6ac6896292d02e26c8d29bc5ec1a65e1e9a",
+      "name": "base-09.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "062dec2e791b8d9bc99a66400ae38c334ddc003254ccebda58bcb596699ef1cd",
+      "name": "base-10.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "84dd43f6d8c70785edf97854eb8ead3129e1cc4ca75284e4d7010a7871349e6e",
+      "name": "base-11.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "b9508b828b5de74bc10df706bacc7c5915c1cb4ad219b85e49a11f36e1240562",
+      "name": "base-12.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "68c1fb8665a69cf177040bee807367e5b832414f03680f4d93bf35d821b05e0b",
+      "name": "base-13.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "6cd041fc218cb5238294d0b3ee9f5b449198020b8b0f91bb152efe04dec881e6",
+      "name": "base-14.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "bc634a54369e592a8638b8ba4df8f6fe6d11bc15b5fdb43a979274ecd072f3ca",
+      "name": "base-15.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "a8e1fae94fd678c60ed35c9516ede912655d70f26ad7a5fdc1d97480db63d238",
+      "name": "base-16.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "3970cf64b75a0f36031d9d218d89c27d0d73fb26ca2d62180be1338591e82112",
+      "name": "base-17.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "6305eafe84ba0c050bf9ebd604216c92aac1e733258dcd3d999b9448d2c9f853",
+      "name": "base-18.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "5ee8b19a4bd2a072dbd7ca3e791fe9ff3a34ac50f009592b294600cd5d818510",
+      "name": "base-19.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "dbf82cb4190e2297345f931a8db693aec3bb795c2d9e65a6aabcf89b62e1951a",
+      "name": "base-20.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "0e524e33f6832f0cbf70444a6eb095e9bc20c4acf8d76e41fe24eadcf3407f73",
+      "name": "base-21.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "33859025f06dffe2a085df5f1a4a21032e972b7635d229f45f5c2d47e737b3ea",
+      "name": "base-22.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "8a288936a430ef56493e89b9988a72e9ff1c12d0c01ac660653863aad207c9a7",
+      "name": "base-23.tga"
+    },
+    {
+      "bytes": 196626,
+      "sha256": "3945d7e4b404207c66cb7d0ed7c67c61ad51283f974243edc43673219aada5d3",
+      "name": "base-24.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "4623813d1be1e838e31cf9c33ed7d07676ff12960a4620deda940fc035179235",
+      "name": "base-25.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "070810aac3db440a5b3c2916bea579c747d8b1b259244c10620bd6b59d20037a",
+      "name": "base-26.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "b508f2b756aca5be733913f33167e0e09298a16f60ce5d6f1b71249abff235f3",
+      "name": "base-27.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "7b890a46c4a465ed405607bc2f27bef1d2b49f019f5ad417f686ba6e3d88e958",
+      "name": "base-28.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "2af9a2f2da0bacef531f6b3a821235753ba6fa157dc523289c839375e5b84892",
+      "name": "base-29.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "9f7bbf9c8a50689812edbd2147994781e10144698ff16da8adaa6527c60e1888",
+      "name": "base-30.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "70e92fba6482ed8ffed0f3006979c37b7e3f18ba9e07b13d8ad50a8eb96406af",
+      "name": "base-31.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "e7b61b01d5f37ee26a6f11fce1c9cf3584d11be689333c6c23832eecf96e1e1b",
+      "name": "base-32.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "890fd59e5d3cf72c35409d60c2409d81b221659b13cc42a5d85a152b928c47a1",
+      "name": "base-33.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "e46428083ddb438273033fa295d8af1e3559c735d17473d8f9a562a35556d0c3",
+      "name": "base-34.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "e9efd54192b233ffede60b39ef26baf278c8a08e6c03f0b0ed5948d53632abda",
+      "name": "base-35.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "6302870e8157ef783e46053bee975bda9c490ae3fe64da47d48c799c280d18db",
+      "name": "base-36.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "ee24e3b5ba01a5b6d98afe98540b8e720d014138c40a4646de5a0d744dff591e",
+      "name": "base-37.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "3aed45cd29cce0570862e07a4891fbb735c9110fba4f1098015ca6a47c7969ae",
+      "name": "base-38.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "e888ad058e1a03ee7824bce7d1541e860f06c4f4dd44aa2b17f2e5c8165b706a",
+      "name": "base-39.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "69c5c9045e4d5902a3c831ada69cf31da62c0f5c6a678b23dc0c66d23d423dad",
+      "name": "base-40.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "f48580b75b82fcd9f4b90bec0aaf80b264ea2464ea50d30490aa765bf441c3be",
+      "name": "base-41.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "086d1f8346188862113b62ac81ffda1e2b02e57678004a97ef882746444743db",
+      "name": "base-42.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "e7616047b59db2e4f452f2823766f66472b892f48a84e68a53bd49389c4f6a61",
+      "name": "base-43.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "99062720113df8b7af082dafaf5e498aa011d83e4f9290705fbe0427f9640366",
+      "name": "base-44.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "f0d83e6c0b7bfc50c0c6344d1736947f1c374cf65d933e896a14f0ca8be72bd2",
+      "name": "base-45.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "f718ee2a3ef62d4f91675f85f03cbf216a19c7a22bdd6f8393cb2785c5b10873",
+      "name": "base-46.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "0f1f6352d343dd66b148128f3fef88b2fb952a9d6963e1614a6b95f48e8ad297",
+      "name": "base-47.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "4febf60a8e82c6199daa5984377cc49b52d0b71b0518803c21ee685d948918e5",
+      "name": "base-48.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "ce86c183985d3961ed67d407a185a3c140d8ae5e07d4e6c2ed220ddbca954105",
+      "name": "base-49.tga"
+    },
+    {
+      "bytes": 260118,
+      "sha256": "931a2f9866b3e9ee5d51b82bc3afa0d952186fb93c8ff577edd947e7cb347dcc",
+      "name": "base-npot.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "0bc0e97e8e63e97ae66514f561ea8e70bd07e72f698b7907d936165d6b3cde61",
+      "name": "base-other.png"
+    },
+    {
+      "bytes": 131090,
+      "sha256": "a42db39300b3aae019b8f3ada64258e12cb837ffe8af6726d39915f34a8b8652",
+      "name": "base-small.tga"
+    },
+    {
+      "bytes": 65554,
+      "sha256": "8b1d9d06b14dd862090d0d7ced0c9d640900dba336cfb72ef47fd71b0912c164",
+      "name": "normal-128.tga"
+    },
+    {
+      "bytes": 262162,
+      "sha256": "6d554ad031a8368fa2e968f0f28d93ec4636ecfb81f327a50b5cd809986af00b",
+      "name": "normal-256.tga"
+    },
+    {
+      "bytes": 131090,
+      "sha256": "dc0c322f301b43f738919dca8aaaeb5602b45ed3128e3ee357f457cfe145c982",
+      "name": "reject.tga"
+    }
+  ],
+  "nativeBinaries": [
+    {
+      "machine": "I386",
+      "importDirectory": 0,
+      "entryPoint": 0,
+      "sha256": "99b7a127fe8a50bc207207f882a9f078f510398088a9dcd6ad9d65093639864c",
+      "name": "Recovered.TextureDxtColour.dll"
+    },
+    {
+      "machine": "I386",
+      "importDirectory": 0,
+      "entryPoint": 0,
+      "sha256": "07b427114155fb800c765972be7a1ca2bc86bdd4ca4e85552d47cd0dcf25ac0d",
+      "name": "Recovered.TextureDxtAlpha.dll"
+    }
+  ],
+  "status": "passed",
+  "runId": "40650835181",
+  "scope": "Dedicated PC TerrainTextureAtlas MOD through real Core: tile-count atlas shapes, normals256/128, duplicate IDs/Cell, metadata, NPOT and24-bit source; four artifacts/full buffer traces in three modes; not complete production MOD",
+  "sourceFiles": [
+    {
+      "sha256": "464b44bc5ef15993e8785d0b31130b6998ca519ec5804aee7b3e76dd2d55227b",
+      "path": "src/TextureCompiler/Managed/Plugin.Atlas.cs"
+    },
+    {
+      "sha256": "318685344fd7eb21925ad91c8e15aae02b219f9bac2f6446d4696452f3f6ad27",
+      "path": "src/TextureCompiler/Managed/Plugin.Dds.cs"
+    },
+    {
+      "sha256": "cdec9ffe00a30af9df2a020d5fcf87afd3fd96376aad400aa9651db05486cdb8",
+      "path": "src/TextureCompiler/Managed/Plugin.Images.cs"
+    },
+    {
+      "sha256": "cf65743de09274651b516c0cdf137169fd58b204a0ffeaf85a9f197db2e2476f",
+      "path": "src/TextureCompiler/Managed/Plugin.Metadata.cs"
+    },
+    {
+      "sha256": "ab32e023e8b8673f484cee52af9cda38fa15a02fc70daae15356edc8bcf4604b",
+      "path": "src/TextureCompiler/Dxt/README.md"
+    },
+    {
+      "sha256": "4a9bb8990084335f2e1f2a51c05dbd0dfd3cbf3d86e87712c8dc4e5f7899c455",
+      "path": "src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj"
+    },
+    {
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66",
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json"
+    },
+    {
+      "sha256": "e00f17c387de53110e8f78e023c524f277db2b8172aad193ab5993b959e3c5ba",
+      "path": "src/TextureCompiler/Dxt/TextureAlphaQuantizer.cpp"
+    },
+    {
+      "sha256": "8ae860b573ec81ad33eb23222d4773e090c5f8e6c62be252f9eae4de52148b19",
+      "path": "src/TextureCompiler/Managed/TextureAtlasDdsEncoder.cs"
+    },
+    {
+      "sha256": "98c7dd22ab33d31f5a343c92ec7cb19996b1fcbe9e8e38db0335caeda99259f4",
+      "path": "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+    },
+    {
+      "sha256": "20993978972f37c771c44f15dfe4bbd7d446157b823bcdc412cc321ec048891f",
+      "path": "src/TextureCompiler/Managed/TextureCatalog.cs"
+    },
+    {
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9",
+      "path": "src/TextureCompiler/Colour/TextureColour.asm"
+    },
+    {
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281",
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp"
+    },
+    {
+      "sha256": "5c0148c0297e16db3a593ee6aed6180eb2e5ad208eabf9257de557cbe47edbb1",
+      "path": "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs"
+    },
+    {
+      "sha256": "21ac8c4b7a0ca1da47f9b030468a127b5dac26d8c8577de23a8baef7db8bb570",
+      "path": "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs"
+    },
+    {
+      "sha256": "d187a663098b9cee0ad5bed2e80d9619f37097a33243d99b9148b764a94a4b6e",
+      "path": "src/TextureCompiler/Managed/TextureDxt5FastAlphaEncoder.cs"
+    },
+    {
+      "sha256": "46912aec62434435c3ecfb6a79ef0dd0a6b40e10543aa2281f7a17b97098623d",
+      "path": "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs"
+    },
+    {
+      "sha256": "1328e392626f4317d47af3c59716a5ecf6a5c7ae4b9d59eaab4ac6b67ab64cd2",
+      "path": "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs"
+    },
+    {
+      "sha256": "41aabce2aaec6fcfcbccdf3387cb4b7d47e5aeb4e8d7b5710329f1e56d389470",
+      "path": "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs"
+    },
+    {
+      "sha256": "bd99d0b0cb22fe9994b6dd4bda7e1bcac3998129a47df79580778b382834fda5",
+      "path": "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs"
+    },
+    {
+      "sha256": "ffdb57b39c28082f332064d5af008b99b862a354c9f9a89b590c07e7c80fb761",
+      "path": "src/TextureCompiler/Managed/TextureImageLoader.cs"
+    },
+    {
+      "sha256": "3072b97d55478e3e5836a4fa9237702be5c59a491e30f75dc7f7fa2b6b2b7408",
+      "path": "src/TextureCompiler/Managed/TextureImageRules.cs"
+    },
+    {
+      "sha256": "a9aadb2e7e2a067adcddaff506e352e21076d73fe10e7f884f1d959e8be0517c",
+      "path": "src/TextureCompiler/Managed/TextureJpegDecoder.cs"
+    },
+    {
+      "sha256": "9c9251ac5b11478e951468f0ad51b160f72652be8ce960f45a95247fdc562de0",
+      "path": "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs"
+    },
+    {
+      "sha256": "b55034426d263718ab22c1f2865ed0a005cb6ac99247707a3eaa7e0ec2ccff61",
+      "path": "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs"
+    },
+    {
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176",
+      "path": "src/TextureCompiler/Managed/TexturePacker.cs"
+    },
+    {
+      "sha256": "be7a64fbba7a14aad4213067cabce75271e41e2630e1262dfcf72730e3ceeb44",
+      "path": "src/TextureCompiler/Managed/TexturePngDecoder.cs"
+    },
+    {
+      "sha256": "44807a0dddbc6e9287187496572cbd6eea9519de20758773cba2ea6f0a07e49a",
+      "path": "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs"
+    },
+    {
+      "sha256": "6b68e58cff8423ff766bce30b45e52782435d18244966423d417f43fe5cf6661",
+      "path": "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs"
+    },
+    {
+      "sha256": "31fe55228b799364a54be283228105c5c1d05af12a68f779fad9825f0da2e00e",
+      "path": "src/TextureCompiler/Managed/TextureTgaDecoder.cs"
+    },
+    {
+      "sha256": "8209f4b9e8e55ef34cf08e8a44a5f77612319f5eb1a0dccb341f59718b995239",
+      "path": "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
+    },
+    {
+      "sha256": "4d203e1fa3cddef9094c7452c3ff4ae9c971eb26b1f104e7fa8914d21cd0d85b",
+      "path": "src/TextureCompiler/Managed/TextureVolume.cs"
+    },
+    {
+      "sha256": "f6b1cf28db0f1cf49e47c2f46aef953052618cc3f51ff5414ccac2db32a8f9ba",
+      "path": "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    {
+      "sha256": "d3e2f8f6894ba1f40a8662c59602c7b91e54e9d16b7457c6b58290e4267e4e6b",
+      "path": "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs"
+    }
+  ],
+  "modes": [
+    {
+      "withoutOriginalTextureCompiler": false,
+      "assertedOriginalNotLoadedDuringEveryCall": false,
+      "uniqueAssets": 16,
+      "files": [
+        {
+          "bytes": 66350560,
+          "file": "mod.bin",
+          "sha256": "6abe2bde5acaca6b7b55804233b5e8965729134f5013f0a534b81807d13ea43f"
+        },
+        {
+          "bytes": 1490,
+          "file": "mod.manifest",
+          "sha256": "e945bc79903ebc2a02d301a587c66c025e4cad17624aa65596488de035bc4fc6"
+        },
+        {
+          "bytes": 4,
+          "file": "mod.imp",
+          "sha256": "36ce67470fe9f83a309686cf7358ea94503235e16b60314fccee845d230484e5"
+        },
+        {
+          "bytes": 240,
+          "file": "mod.relo",
+          "sha256": "60f4fbbbedb53382ed454cbb08e9f14faae19cf3ba73c5678eff77bf8c11d678"
+        }
+      ],
+      "actualCalls": 16,
+      "mode": "Original",
+      "passed": true
+    },
+    {
+      "withoutOriginalTextureCompiler": false,
+      "assertedOriginalNotLoadedDuringEveryCall": false,
+      "uniqueAssets": 16,
+      "files": [
+        {
+          "bytes": 66350560,
+          "file": "mod.bin",
+          "sha256": "6abe2bde5acaca6b7b55804233b5e8965729134f5013f0a534b81807d13ea43f"
+        },
+        {
+          "bytes": 1490,
+          "file": "mod.manifest",
+          "sha256": "e945bc79903ebc2a02d301a587c66c025e4cad17624aa65596488de035bc4fc6"
+        },
+        {
+          "bytes": 4,
+          "file": "mod.imp",
+          "sha256": "36ce67470fe9f83a309686cf7358ea94503235e16b60314fccee845d230484e5"
+        },
+        {
+          "bytes": 240,
+          "file": "mod.relo",
+          "sha256": "60f4fbbbedb53382ed454cbb08e9f14faae19cf3ba73c5678eff77bf8c11d678"
+        }
+      ],
+      "actualCalls": 16,
+      "mode": "Recovered",
+      "passed": true
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "assertedOriginalNotLoadedDuringEveryCall": true,
+      "uniqueAssets": 16,
+      "files": [
+        {
+          "bytes": 66350560,
+          "file": "mod.bin",
+          "sha256": "6abe2bde5acaca6b7b55804233b5e8965729134f5013f0a534b81807d13ea43f"
+        },
+        {
+          "bytes": 1490,
+          "file": "mod.manifest",
+          "sha256": "e945bc79903ebc2a02d301a587c66c025e4cad17624aa65596488de035bc4fc6"
+        },
+        {
+          "bytes": 4,
+          "file": "mod.imp",
+          "sha256": "36ce67470fe9f83a309686cf7358ea94503235e16b60314fccee845d230484e5"
+        },
+        {
+          "bytes": 240,
+          "file": "mod.relo",
+          "sha256": "60f4fbbbedb53382ed454cbb08e9f14faae19cf3ba73c5678eff77bf8c11d678"
+        }
+      ],
+      "actualCalls": 16,
+      "mode": "NoOriginal",
+      "passed": true
+    }
+  ],
+  "traceArchiveSha256": "fba697f3dc42d5a2c13afc53eb423ddddc887907ed1d231edf4e303956565837",
+  "targetPlatform": "Win32",
+  "originalBaseline": {
+    "runId": "40599993769",
+    "sourceCommit": "056937b13fa39431ec9171b0d990e6a5c15a013c",
+    "samplesSha256": "644f33f05f16d2e304d65d732b04bdefcabbfa091dbb274c2b60a1a46cb106e2"
+  },
+  "runAttempt": "1",
+  "publicS3Native": [
+    {
+      "configuration": "Release",
+      "sha256": "fa289b457c641326c9bc8da11fb7fd10ae71fda9ea6ee38e90cf985f63d366dd",
+      "importsOtherEncoders": false,
+      "sourceManifestSha256": "5c0a7cb32f7b2976e1afc7776f417be6a3b6f7b2450abb58bfad0f187117b3c5",
+      "machine": "I386",
+      "sourceFiles": [
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "efc5386e85f2153f59738cc8141920fa787ccb69",
+          "sha256": "9f6e5004632fdad94f18305b2bfb2005367ab1c276e9002397c3678439e72831",
+          "bytes": 93075,
+          "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
+          "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
+          "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain; final wrapper uses owned inline x87 scoring/comparisons and extended intermediates; restore quick projection indices from the pre-scoring snapshot when quick wins",
+          "file": "s3_quant.cpp"
+        },
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/S3_quant.h",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "ba9a7180467f3e1ea744c83ba1fe5249c2928345",
+          "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
+          "bytes": 2724,
+          "file": "S3_quant.h"
+        },
+        {
+          "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608+8192 (8192 bytes)",
+          "repository": "wu162/NewSdk",
+          "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+          "blobSha": "b188483b80391cee4d7e5f9b85f01832bfa1f012",
+          "sha256": "404d173c95c2beb07625b256a544b7a1febb2590b52b667c021921121eb6e227",
+          "bytes": 7023,
+          "origin": "existing recovered fixed codec optimization data, not public S3 upstream and not corpus payloads",
+          "sourceDataSha256": "c8c04516fe9c09fd35f56b5ef96e889db56a41ab1f575385f90ee1fa2e558211",
+          "file": "LegacyGray4.inl"
+        },
+        {
+          "file": "TexturePublicS3.cpp",
+          "origin": "owned bounded PC ABI; no encoder implementation callbacks",
+          "sha256": "2501890cd41bc4779b9c4eb427e690e03dd94fd1a99dd3ab54ed2a3f45b05536",
+          "blobSha": "2b058273cf6fc2e2b0e1074ee87a9a5d8f722420",
+          "bytes": 1833
+        }
+      ]
+    }
+  ]
+}

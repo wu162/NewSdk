@@ -1,0 +1,98 @@
+{
+  "status": "passed",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-dds",
+    "atlas-entry",
+    "jpeg",
+    "jpeg-images"
+  ],
+  "groups": [
+    {
+      "passed": true,
+      "group": "sdk-PcNoMip",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "sdk-PcMips",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "sdk-PcDxtNoMip",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "sdk-PcDxtMips",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "sdk-PcDxtVolumes",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "sdk-PcNpotRgba8",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "sdk-PcNpotStorage",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "sdk-PcAtlas",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "sdk-PcJpeg",
+      "evidenceOnly": false
+    }
+  ],
+  "runId": "40650835181",
+  "sourceCommit": "867e7d38a17f82f42aa4c2f12ff387fca2ca78c0",
+  "selected": [
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "sdk-PcDxtNoMip",
+    "sdk-PcDxtMips",
+    "sdk-PcDxtVolumes",
+    "sdk-PcNpotRgba8",
+    "sdk-PcNpotStorage",
+    "sdk-PcAtlas",
+    "sdk-PcJpeg"
+  ],
+  "runAttempt": "1"
+}
