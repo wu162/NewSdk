@@ -1,3 +1,12 @@
+# 最新：S3 完整消费矩阵已通过，SDK 验收中
+
+- 干净分支 `validation/texture-public-s3` 源码 `705af33817d97c1a10557914e9dd80c1f3d31efe` / Actions `40649825971` completed/success：8个实际受影响完整组，Debug/Release与NoOriginal全部通过；24个未变组复用。包括10240完整DXT3/5块、4752 float/partial、3072二维DDS/mips、5568 volume/mips、19404插件、160 atlas DDS、48 atlas入口和11248 JPEG插件。原27块差分已全部闭环，不再停留5093/5120或仅块级完成。
+- SDK当前唯一待收取 `40650835181`（workflow_dispatch，sourceCommit=`867e7d38a17f82f42aa4c2f12ff387fca2ca78c0`），组件源码仍为705af338，之间只增加Actions证据。先核实实际终态/三模式/收据，再普通合入 `recovery/texturecompiler-source`；当前尚未合入或改生产SDK DLL/config。
+- 消费失败的关键根因：原PC包装层在RmsError评分/改索引之前保存快速候选，快速方案胜出恢复的是投影索引；现已实现这个快照时机。最终评分保留x87中间值，搜索仍rounded、最终评分floor。没有样本ID分派、gold输出表或原/既有恢复编码器回调。源码已同步回本实验分支S3目录，具体SHA指纹见PROVENANCE.json；不重新启动未变候选矩阵。
+- 仅PC，所有编译测试仍为Actions，禁止强推。保留三次干净集成失败40647513311（CRLF指纹）、40648108578（消费差分）、40649209933（仅x87评分不修复首反例）及完整证据，成功范围以40649825971为准。干净分支只含S3族与明确来源灰度常量，其余失败公开候选留本实验分支。SDK通过后同步最终交接，生产部署/完整mymod仍独立。
+
+以下为阶段历史，由本节覆盖当前状态。
+
 # S3 公开源码适配：完整块5120/5120，消费验收中
 
 当前仅PC，禁止强推，编译/测试仅Actions。测试分支 `validation/texture-public-codecs` 的 S3 源码 `cda610ed4ad1348eae7c1631824ce6d8c35a7e3c` / Actions `40646658908` completed/success：Debug/Release各4精度、40960完整记录；variant0/2的DXT3、DXT5均5120/5120、alpha5120/5120。原gold保持40500898688不变，原27差异全部修复，不再重复x87/预算/broad-floor实验。
