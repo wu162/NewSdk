@@ -1,0 +1,58 @@
+{
+  "status": "original-only-counterexample",
+  "sourceCommit": "85690b1f1112de3937c52fae2e97eff16cb5d785",
+  "runId": "40658031884",
+  "runAttempt": "1",
+  "productionAccepted": false,
+  "example": {
+    "format": "D3DFMT_DXT1",
+    "width": 4,
+    "height": 4,
+    "sourcePixelRgba": [
+      63,
+      126,
+      189,
+      255
+    ],
+    "sourcePixelCount": 16,
+    "originalOptionsSha256": "3ac48311b4ac8e0365150749d69dfc6e292944e3ec7d8af4e3a2156005ed00ae",
+    "outputs": [
+      {
+        "stackFill": "00000000",
+        "fullDdsSha256": "a94d6cf1af9bf3fc03f275c0048ebd628e1cbbdbcb56f3f96758a3fba33960b7",
+        "payloadHex": "f73b174caaaaaaaa",
+        "bytes": 136
+      },
+      {
+        "stackFill": "00000001",
+        "fullDdsSha256": "1248f35327acb6dbd363f4d5b8efb4c0b9aee5ca5eef5bd59726e87003c8ad6f",
+        "payloadHex": "1744b73baaaaaaaa",
+        "bytes": 136
+      },
+      {
+        "stackFill": "00000002",
+        "fullDdsSha256": "1248f35327acb6dbd363f4d5b8efb4c0b9aee5ca5eef5bd59726e87003c8ad6f",
+        "payloadHex": "1744b73baaaaaaaa",
+        "bytes": 136
+      },
+      {
+        "stackFill": "7fffffff",
+        "fullDdsSha256": "1248f35327acb6dbd363f4d5b8efb4c0b9aee5ca5eef5bd59726e87003c8ad6f",
+        "payloadHex": "1744b73baaaaaaaa",
+        "bytes": 136
+      },
+      {
+        "stackFill": "ffffffff",
+        "fullDdsSha256": "1248f35327acb6dbd363f4d5b8efb4c0b9aee5ca5eef5bd59726e87003c8ad6f",
+        "payloadHex": "1744b73baaaaaaaa",
+        "bytes": 136
+      }
+    ]
+  },
+  "allThreeProcessesVaryingFixtureCount": [
+    25,
+    25,
+    25
+  ],
+  "fullArchiveSha256": "01ccde400a74c2209914a855a576de6afd96436ee9afb6e5050ea1542169fc90"
+}
