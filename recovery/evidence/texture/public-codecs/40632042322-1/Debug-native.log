@@ -1,0 +1,26 @@
+cl : Command line warning D9002 : ignoring unknown option '/'
+cl : Command line warning D9024 : unrecognized source file type 'a', object file assumed
+cl : Command line warning D9024 : unrecognized source file type 'r', object file assumed
+cl : Command line warning D9024 : unrecognized source file type 'c', object file assumed
+cl : Command line warning D9024 : unrecognized source file type 'h', object file assumed
+cl : Command line warning D9024 : unrecognized source file type ':', object file assumed
+cl : Command line warning D9024 : unrecognized source file type 'S', object file assumed
+cl : Command line warning D9024 : unrecognized source file type 'S', object file assumed
+cl : Command line warning D9024 : unrecognized source file type 'E', object file assumed
+cl : Command line warning D9024 : unrecognized source file type '2', object file assumed
+TexturePublicS3Bridge.cpp
+s3_quant.cpp
+TexturePublicCodecBridge.cpp
+TexturePublicAmdBridge.cpp
+compressonatorxcodec.cpp
+alpha.cpp
+clusterfit.cpp
+colourblock.cpp
+colourfit.cpp
+colourset.cpp
+maths.cpp
+rangefit.cpp
+singlecolourfit.cpp
+squish.cpp
+Generating Code...
+LINK : fatal error LNK1181: cannot open input file 'a.obj'
