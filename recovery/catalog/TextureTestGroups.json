@@ -1640,6 +1640,24 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-dxt1a/*/validation.json",
       "sdk": true
+    },
+    "png-metadata-load": {
+      "script": "recovery/scripts/InspectTexturePngMetadata.ps1",
+      "arguments": {},
+      "dependencies": [
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TexturePngMetadataFixtures.cs",
+        "recovery/tests/TexturePngMetadataProbe.cs",
+        "recovery/reference/compact-icc/**",
+        "recovery/scripts/InspectTexturePngMetadata.ps1"
+      ],
+      "evidence": "recovery/evidence/texture/png-metadata-load/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"
