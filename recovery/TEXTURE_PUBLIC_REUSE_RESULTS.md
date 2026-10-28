@@ -131,3 +131,34 @@ New e5fbd08a tests independent single-colour/general-ramp floor interpolation
 against baseline, all4 precision variants per policy, same complete corpus.
 The variant policy meaning changed explicitly at that source; earlier receipts
 must keep their original source-specific interpretation. Its result is pending.
+
+
+## Final collected rounding result and next step
+
+Sourcee5fbd08a8275af071c08b65a3fd579653d915cd7 /
+[40632587996](https://github.com/wu162/NewSdk/actions/runs/40632587996)
+completed/success. D/R each16 policies/precisions,163840 records;
+raw artifact SHA2569ecff36fad03558b2199fc68839e5f4db2b7d44ff9d30e6f78655accd569298b
+is identical between configurations. Baseline variant0 and2 remain best at
+5093/5120 complete DXT3 and DXT5, alpha5120/5120. Single-colour floor gives4892,
+general-ramp floor1648, both1447 at float source/weight precision. Single-colour
+floor fixes none of the27 and regresses201; general floor fixes fixture1690
+but regresses3446. These broad floor substitutions are rejected. The accepted
+experimental baseline keeps rounded interpolation and upstream16/8 iteration
+budgets, with the explicit fixed grayscale adaptation. All alternatives remain
+isolated as experimental policies and are never selected per fixture.
+
+No candidate is eligible for full-format integration: all receipts keep
+productionAccepted=false/sdkValidated=false. No
+public DXT candidate was merged into production TextureCompiler. All new builds
+and replays ran in GitHub Actions. No run remains pending at this handoff.
+
+Continue on the copied S3 source, instrumenting its single-colour selection and
+final ramp/search stages for the27 fixed outliers. Reuse already saved colour
+state evidence under colour-state/40500150864-1 and complete block artifacts;
+inspect its receipt/scope first, rather than recollecting the same original
+inputs. Compare general rules/precision and stage choices. Do not repeat the
+rejected x87, lower-budget or broad-floor matrices unchanged. Do not substitute
+visually better blocks or use runtime outlier-ID/payload lookup. Once complete
+byte equality is obtained, preserve full float, image/mip/volume/atlas/plugin
+and dedicated SDK Original/Recovered/NoOriginal acceptance before merge.

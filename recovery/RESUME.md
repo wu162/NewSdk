@@ -6,10 +6,10 @@
 - DXT已实际修改复制的libsquish/ICBC/AMD源码。AMD第二轮1ce890cf /40631302274的D/R DXT5 alpha已5120/5120；RGB仍只有374/5120完整块，不能启用为完整DXT后端。
 - 更接近的公开S3源码已复制并修复强制四色契约：81268e60 /40631683152 D/R完整DXT3、DXT5各4838/5120、alpha5120/5120。剩余252灰度单色、8其他单RGB（其中3灰度）、22随机。02557975 /40631926236的x87比较没有改善，别重复跑相同配置。
 - 灰度兼容+停止策略完整矩阵 a61e2b58 /40632315333 已success：D/R各16配置、163840完整记录，最佳完整DXT3=DXT5=5093/5120，alpha全部5120。固定灰度算法常量来自既有还原源码、不是gold输出表，不回调原/恢复编码器。0/0预算回退4例且修复0，1/1与2/2不改善，已恢复原16/8。剩余5单RGB+22随机，精确fixture清单在适配结果文档。
-- 最后源码 e5fbd08a 比较单色表/一般ramp的floor插值规则与原规则，共4策略×4精度变体；该run待收取，不能写成功。先核对远程头、run sourceCommit/收据并保留Actions回写，不重复启动同源码矩阵。完整块5120/5120后还必须验证float量化域、mip/volume/atlas/plugin和SDK。
+- 最后源码 e5fbd08a8275af071c08b65a3fd579653d915cd7 /40632587996 已completed/success：4策略×4精度，D/R各163840记录。最佳仍5093/5120；单色floor=4892、一般ramp floor=1648、二者=1447，大范围floor替换假设已排除。Debug/Release完整原始候选记录哈希相同。**本轮无待收取run。**先核对远程头、run sourceCommit/收据并保留Actions回写，不重复启动同源码矩阵。完整块5120/5120后还必须验证float量化域、mip/volume/atlas/plugin和SDK。
 - 所有不完整候选和完整实验产物仍在测试分支，贴图分支只集中已验收成果、当前规则与交接。详见[适配结果](TEXTURE_PUBLIC_REUSE_RESULTS.md)，实验分支文档TEXTURE_PUBLIC_CODECS.md、源码PROVENANCE.json/PATCHES.md。灰度首轮40632042322因PowerShell参数拆字符导致link失败，非业务匹配结论；a61e2b58已修复重提。
 
-本页以下保留已完成JPEG与历史锚点；当前DXT适配优先以上述最新状态为准。
+本页以下保留已完成JPEG与历史锚点；当前DXT适配优先以上述最新状态为准。下一步在公开S3源码里加单色选择/最终ramp搜索阶段诊断，复用既有colour-state/40500150864-1及全块gold，聚焦27例一般规则差异；不重复无改动的x87/预算/floor试验。
 
 # TextureCompiler 当前续接（2026-10-28 11:54 北京时间）
 
