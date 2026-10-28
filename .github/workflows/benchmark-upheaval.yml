@@ -196,8 +196,11 @@ jobs:
         id: init
         shell: pwsh
         run: |
-          $extra=if($env:PACKAGE_ONLY -eq 'true'){@('--only-package')}else{@()}
-          python recovery/benchmarks/upheaval/expanded.py --phase init --replica ${{ matrix.replica }} @extra
+          if($env:PACKAGE_ONLY -eq 'true'){
+            python recovery/benchmarks/upheaval/expanded.py --phase init --replica ${{ matrix.replica }} --only-package
+          }else{
+            python recovery/benchmarks/upheaval/expanded.py --phase init --replica ${{ matrix.replica }}
+          }
           if($LASTEXITCODE -ne 0){throw 'Expanded initialization failed'}
       - name: Warm up and verify exact previously accepted no-cache output identity
         id: baseline
@@ -320,6 +323,8 @@ jobs:
         with:
           persist-credentials: false
           sparse-checkout: recovery/benchmarks/upheaval
+      - name: Verify report identity and scope-admissibility contracts
+        run: python -m unittest discover -s recovery/benchmarks/upheaval -p 'test_*.py' -v
       - name: Download and verify existing measuring summaries, retaining the original terminal
         env:
           GH_TOKEN: ${{ github.token }}

@@ -54,6 +54,14 @@ def verify_runners(states,jobs=None):
     return verified
 
 
+def profile_exclusion(name,states):
+    if ('-changed' in name and any(not s.get('compilerEnvironmentSha256') for s in states)):
+        return 'Original cross-step baseline inherited volatile Actions environment; use fixed-environment followup instead'
+    if name=='big-end-to-end' and any('directly' not in s.get('methodology',{}).get('packagingLayout','') for s in states):
+        return 'Original layout includes observer collection copy; use the direct-output packaging run instead'
+    return None
+
+
 def aggregate(root,output,expected=2,jobs_metadata=None):
     paths=sorted(Path(root).rglob('state.json'))
     states=[json.loads(path.read_text()) for path in paths]
@@ -61,11 +69,16 @@ def aggregate(root,output,expected=2,jobs_metadata=None):
         raise ValueError('Missing or duplicate independent runner summaries')
     jobs=json.loads(Path(jobs_metadata).read_text()) if jobs_metadata else None
     verified=verify_runners(states,jobs)
-    if len({s['sourceCommit'] for s in states})!=1 or len({s['binarySourceCommit'] for s in states})!=1:
-        raise ValueError('Runner source/runtime identities differ')
+    if (len({s['sourceCommit'] for s in states})!=1 or len({s['binarySourceCommit'] for s in states})!=1
+            or len({str(s['runId']) for s in states})!=1 or len({s.get('followupGroup') for s in states})!=1):
+        raise ValueError('Runner source/runtime/run/scope identities differ')
     names=set.intersection(*(set(s['pairs']) for s in states))
-    stats={}
+    stats={};excluded={}
     for name in sorted(names):
+        reason=profile_exclusion(name,states)
+        if reason:
+            excluded[name]=reason
+            continue
         if all(len(s['pairs'][name])>=3 for s in states):
             if any(not p[e]['byteIdentical'] for s in states for p in s['pairs'][name] for e in ('old','new')):
                 raise ValueError('Rejected output entered statistics')
@@ -86,6 +99,10 @@ def aggregate(root,output,expected=2,jobs_metadata=None):
     result=dict(schemaVersion=1,succeeded=all(s['succeeded'] for s in states),
                 runId=os.getenv('GITHUB_RUN_ID'),sourceCommit=states[0]['sourceCommit'],
                 binarySourceCommit=states[0]['binarySourceCommit'],statistics=stats,cacheEffects=effects,
+                excludedProfiles=excluded,
+                recoveryCaveat=('New-side original recovery observations lack intended-namespace proof' if any(
+                    x.get('engine')=='new' and x.get('kind','').startswith('cache-') and not x.get('intendedNamespaceVerified')
+                    for state in states for x in state['observations']) else None),
                 verifiedRunnerJobs=verified,replicas=states,scope=('Two independent hosted Windows runner VMs for '+str(states[0].get('followupGroup') or 'expanded')+'; full historical Upheaval except explicitly labelled metadata-only SC subset; no physical-hardware diversity claim'))
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     B.write(output/'expanded-result.json',result)
@@ -98,6 +115,8 @@ def aggregate(root,output,expected=2,jobs_metadata=None):
     for name,row in effects.items():
         summary+=f'| {name} | {row["noCache"]["mean"]:.3f} | {row["cached"]["mean"]:.3f} | {row["noCacheToCachedRatio"]:.3f} | {row["ratio95CI"][0]:.3f}–{row["ratio95CI"][1]:.3f} |\n'
     summary+='\nFull-MOD new SC rejection and cache recovery/failure observations are recorded separately, never as speedups.\n'
+    if excluded: summary+='\nExcluded original profiles: '+json.dumps(excluded)+'\n'
+    if result['recoveryCaveat']:summary+='\nRecovery caveat: '+result['recoveryCaveat']+'\n'
     summary+='\nAcceptance: '+str(result['succeeded'])+'; consult per-runner phase errors before accepting individual groups.\n'
     (output/'summary.md').write_text(summary,encoding='utf-8')
     print(summary)

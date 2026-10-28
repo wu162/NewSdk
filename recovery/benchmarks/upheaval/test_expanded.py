@@ -18,6 +18,17 @@ class ExpandedTests(unittest.TestCase):
             expanded.require_hot(dict(engine='new',cacheStatistics=dict(hits=0,misses=1617)))
         expanded.require_hot(dict(engine='new',cacheStatistics=dict(hits=1617,misses=0)))
 
+    def test_original_confounded_groups_do_not_enter_formal_statistics(self):
+        old=[dict(methodology={})]
+        self.assertIsNotNone(aggregate.profile_exclusion('xml-changed',old))
+        self.assertIsNotNone(aggregate.profile_exclusion('audio-changed-hot',old))
+        self.assertIsNotNone(aggregate.profile_exclusion('big-end-to-end',old))
+        for name in ('no-cache','bc-cold','bc-hot','maps-session-cold','maps-session-hot'):
+            self.assertIsNone(aggregate.profile_exclusion(name,old))
+        fixed=[dict(compilerEnvironmentSha256='verified',methodology=dict(packagingLayout='Old BAB writes directly into package/input/data'))]
+        self.assertIsNone(aggregate.profile_exclusion('xml-changed',fixed))
+        self.assertIsNone(aggregate.profile_exclusion('big-end-to-end',fixed))
+
     def test_mutations_are_real_and_length_preserving(self):
         xml=b'<AmbientStream id="Reachable" Volume = "60"/>'
         self.assertEqual(expanded.mutate(None,'xml',xml),b'<AmbientStream id="Reachable" Volume = "61"/>')

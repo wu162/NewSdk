@@ -6,7 +6,7 @@
 
 `compiler_environment` 对两侧使用相同的显式Windows运行环境白名单，排除CI临时元数据、凭据及调试变量；只保存环境摘要，不写出环境值。每个阶段必须与初始化的环境摘要相同。首次增量修改前和每次缓存破坏前，额外运行基线验证：新版必须真实hits>0、misses=0，旧版必须有cache-copy消息，禁止把其他命名空间的重建误判成缓存失效或完整性恢复。
 
-`suite=cache-followup` 或提交标记 `[upheaval-cache-followup]` 仅重测受影响的XML、DDS、WAV和恢复；每组各两台独立Windows VM、单独prime并跨步骤证明命中，增量仍各3对。组间VM独立、最多四个job同时运行；不会在同一VM上并行计时。既有有效缓存/SC和直接打包不重复测量。原失败终态和混淆数据不删除，不进入新正式增量统计。
+`suite=cache-followup` 或提交标记 `[upheaval-cache-followup]` 仅重测受影响的XML、DDS、WAV和恢复；每组各两台独立Windows VM、单独prime并跨步骤证明命中，增量仍各3对。组间VM独立、最多四个job同时运行；不会在同一VM上并行计时。既有有效缓存/SC和直接打包不重复测量。原失败终态和混淆数据不删除，不进入新正式增量统计。报告汇总器会自动排除缺少固定环境证据的旧增量组，以及含额外收集复制的旧打包组，并列出排除原因；旧新版恢复观察若缺少预先命中证明，也会明确标注不能接受为缓存完整性结论。
 
 ## 扩展矩阵：缓存、增量、恢复、会话边界及打包
 
@@ -20,6 +20,8 @@
 | 完整MOD会话缓存 | 各侧能力检查 | 新侧预期明确拒绝含Texture的 `/sc:true`；保留旧侧完整冷/热结果，不虚构新侧速度 |
 | 实际地图元数据的SC冷/热子集 | 各5对 | 明确是原MOD的部分入口；新侧热建必须记录sessionPackageHits |
 | 编译→LoD→Additional→BIG/SKUDEF | 预热后3对 | 新旧完整成员及SKUDEF身份对照，计完整流水线wall time |
+
+旧SDK工具复制到临时目录，仅调整配置的SDK/Schema搜索路径及CLR4/legacy-v2启动策略以适配runner；原EXE/DLL未修改。不据此推断CLR2机器上的表现。
 
 两种缓存存储永不跨编译器共享。BC单独测试清除旧侧intermediate及linked输出，保留其资产缓存；SC测试保留所需intermediate/session状态。增量测试每次恢复到同一份已验证的基线缓存，避免前一次修改污染下一次样本。修改仅发生在临时副本，最后核对SDK、完整MOD和两侧运行文件恢复原样。
 
