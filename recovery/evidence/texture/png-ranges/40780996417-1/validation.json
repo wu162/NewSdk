@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+  "probeOnly": false,
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "passed": true,
+      "summary": [
+        "PASS Texture PNG full-sample ranges cases=98 comparedPixels=3684352 differentCases=0"
+      ]
+    },
+    {
+      "configuration": "Release",
+      "passed": true,
+      "summary": [
+        "PASS Texture PNG full-sample ranges cases=98 comparedPixels=3684352 differentCases=0"
+      ]
+    }
+  ],
+  "runId": "40780996417"
+}

@@ -1,0 +1,1 @@
+PASS Texture PNG metadata NoOriginal fixtures=3240 publicCalls=6480 decoded=4320 rejected=2160 checks=447843 comparedBytes=1290240; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate
