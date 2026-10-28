@@ -4,6 +4,16 @@
 
 用户提供的[原始实施方案](CACHE_PARALLEL_PLAN.md)保留作目标与验收参考；当前状态只看本页收据，不能把方案要求当作已完成能力。日常续接无需重读整份方案。
 
+## 本轮候选（2026-10-28，待验）
+
+`6ed2cda8` / [40656205838](https://github.com/wu162/NewSdk/actions/runs/40656205838) 正在执行首批完整验收，尚未计入已验证能力：
+
+- `CacheInputLeaseSet` 在构建内持续持最多512个工具/Schema/runtime文件的只读拒写拒删句柄；每次盘点仍重新打开当前路径，用 Win32 `FileIdInfo` 的64位volume与128位文件ID比对后才复用 SHA256。保留较大文件；不支持可靠身份或超上限时重新哈希。每stream首尾完整枚举不变，MOD/Additional/普通SDK资产仍逐次重哈希，session路径保持旧行为。工具输入在租约存续期不可改写，Core销毁释放所有租约；不等同于完整目录快照或硬内存保证。
+- 新增完整 Xmlenvironment 十二根的源码重入资格：Weather、WaterTransparency、WaterSetting、Environment、LightingSettings、WaterTextureList、TerrainParticleMapping、BounceKickTerrainMapping、ShadowMap、OrdersManagerSettings、TerrainVisualSettings、CameraSettings。独占桥接树、局部Builder/Tracker、InitOnce只读表、无外部读取；worker仍须通过原机器准入。准备四平台三缓冲区差分及生产冷/热/单改/串并行原字节对照；实际重叠只按收据记录观察到的根。
+- 新报告 `inputInventoryCaptures`、`inputHashReusedBytes`、`inputHashLeaseFiles`；`hashReadBytes`继续只计实际读取。读量减少不等于已证明完整MOD耗时倍率。
+
+第二组候选增加 `actionMissReasons` 与 `cacheBypassReasons`：前者只记录真实认证查询最终未命中的原因，之和严格等于既有 `actionMisses/misses`，不统计Stage/Commit/Prune内部完整性读取；后者互斥记录 `cache-disabled`、`not-prepared`、`base-patch-source`，不扩大旧miss总数。查询理由为 `entry-not-found`、`entry-invalidated`、`entry-pending`、`invalid-manifest`、`invalid-payload`、`entry-unavailable`、`invalid-result-contract`。`not-prepared`不猜测预算/插件/外读等具体拒绝原因；报告也不把键缺失猜成源码/schema/工具的某种变化。低层与生产CLI已准备损坏/pending/修复后热命中的精确计数及原始字节对照。生产闭包改变后统一重建，首批结果不能冒称覆盖第二组。`8f0d228a`仅增强重放拒绝合同和逐根worker线程证据，未改生产源码；其guards [40656585109](https://github.com/wu162/NewSdk/actions/runs/40656585109) success，新增逐根worker断言尚待新结果。
+
 ## 先查什么
 
 | 问题 | 最短入口 |

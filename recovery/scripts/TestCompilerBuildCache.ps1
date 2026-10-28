@@ -42,12 +42,37 @@ function CacheUnchanged([string]$Destination,$Before){
     $after=CacheFiles $Destination;Need ($after.Count -eq $Before.Count) 'Failed/cancelled build persisted additional asset-cache files'
     foreach($key in $Before.Keys){Need ($after.ContainsKey($key) -and $after[$key] -ceq $Before[$key]) 'Failed/cancelled build changed previously confirmed asset-cache bytes'}
 }
+function ReasonCount($Reasons,[string]$Name){
+    $property=$Reasons.PSObject.Properties[$Name]
+    if($null -eq $property){return 0L}
+    return [long]$property.Value
+}
+function ReasonAccounting($Statistics){
+    Need ($null -ne $Statistics.actionMissReasons -and $null -ne $Statistics.cacheBypassReasons) 'Cache report omitted miss/bypass reason dictionaries'
+    $sum=0L
+    foreach($property in $Statistics.actionMissReasons.PSObject.Properties){
+        Need (@('entry-not-found','entry-invalidated','entry-pending','invalid-manifest','invalid-payload','entry-unavailable','invalid-result-contract') -ccontains $property.Name) 'Cache reported an unknown miss reason'
+        Need (($property.Value -is [int] -or $property.Value -is [long]) -and $property.Value -gt 0) 'Miss reason counters must be positive actual lookup counts'
+        $sum+=[long]$property.Value
+    }
+    Need ($sum -eq $Statistics.misses -and $sum -eq $Statistics.actionMisses) 'Reason counts changed or double-counted existing certified-action miss semantics'
+    foreach($property in $Statistics.cacheBypassReasons.PSObject.Properties){
+        Need (@('not-prepared','cache-disabled','base-patch-source') -ccontains $property.Name) 'Cache reported an unknown bypass reason'
+        Need (($property.Value -is [int] -or $property.Value -is [long]) -and $property.Value -gt 0) 'Bypass counters must describe actual decisions independently of lookup misses'
+    }
+}
 function Cache($Case,[string]$Expected){
     $statistics=$Case.report.cache
     Need ($null -ne $statistics) 'Durable report omitted actual asset-cache statistics'
     Need ($statistics.executionEngine -ceq 'AssetTasks.v1') 'Build did not use the shared asset executor'
-    if($Expected -eq 'disabled'){Need ($statistics.cacheMode -ceq 'Disabled' -and $statistics.hits -eq 0 -and $statistics.misses -eq 0 -and $statistics.actionHits -eq 0) 'Disabled cache recorded reuse';return}
+    ReasonAccounting $statistics
+    if($Expected -eq 'disabled'){
+        Need ($statistics.cacheMode -ceq 'Disabled' -and $statistics.hits -eq 0 -and $statistics.misses -eq 0 -and $statistics.actionHits -eq 0) 'Disabled cache recorded reuse'
+        Need ((ReasonCount $statistics.cacheBypassReasons 'cache-disabled') -gt 0) 'No-cache build omitted actual certified-action bypass decisions'
+        return
+    }
     Need ($statistics.status -ceq 'ActionCache' -and $statistics.cacheMode -ceq 'ActionCache') 'Build cache was accepted without the actual action-cache implementation'
+    Need ((ReasonCount $statistics.cacheBypassReasons 'not-prepared') -eq 1) 'The single noncertified Texture must remain an unprepared bypass rather than a lookup miss'
     if($Expected -eq 'cold'){Need ($statistics.hits -eq 0 -and $statistics.misses -gt 0) 'Cold asset cache did not record real misses'}
     elseif($Expected -eq 'hot'){Need ($statistics.hits -gt 0 -and $statistics.misses -eq 0) 'Hot asset cache did not reuse all fixture assets'}
     elseif($Expected -eq 'partial'){Need ($statistics.misses -eq 1 -and $statistics.hits -gt 0) 'A single changed action did not preserve unrelated certified asset hits'}
@@ -147,7 +172,7 @@ function OriginalOracle($Case,[string]$Name){
     & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds
     Need ($LASTEXITCODE -eq 0) 'Build-cache independent original BAB oracle failed'
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production action-cache CLI acceptance: XML/Armor, Weapon, GameObject, PathMusicEvent and file-backed APT with noncached Texture; exact single-action invalidation, unread Additional, complete raw four outputs, original BAB, same-length/same-mtime changes, MOD reuse boundaries, bounded cross-stream tool-digest leases with all four root inventories preserved, actual cancellation and failure/retry; /sc and full SDK remain separate'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production action-cache CLI acceptance: XML/Armor, Weapon, GameObject, PathMusicEvent and file-backed APT with noncached Texture; exact single-action invalidation, unread Additional, complete raw four outputs, original BAB, same-length/same-mtime changes, MOD reuse boundaries, bounded cross-stream tool-digest leases with all four root inventories preserved, actual lookup-miss reason accounting and independent disabled/unprepared bypasses, corrupt and pending entry repair, actual cancellation and failure/retry; /sc and full SDK remain separate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     if($Preflight){
@@ -227,7 +252,25 @@ print('PASS action-cache fixture XSD, required GameObject Body, Weapon/Armor/XIn
         $cachedOut=Join-Path $modeWork 'cache';$plainOut=Join-Path $modeWork 'plain'
         $plain=RunCli 'disabled' $mod $plainOut $false;Cache $plain 'disabled'
         $cold=RunCli 'cold' $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $plain $cold
+        Need ((ReasonCount $cold.report.cache.actionMissReasons 'entry-not-found') -eq $cold.report.cache.misses) 'Cold cache misses must describe absent action entries'
         $hot=RunCli 'hot' $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
+        Need (@($hot.report.cache.actionMissReasons.PSObject.Properties).Count -eq 0) 'Hot reuse invented a lookup failure reason'
+        $store=Join-Path $cachedOut '.cache/action-cache-v1'
+        $entries=@(Get-ChildItem -LiteralPath $store -Directory|Where-Object{$_.Name -cmatch '^[0-9a-f]{64}$'}|Sort-Object Name)
+        Need ($entries.Count -gt 1) 'Miss-reason repair fixture needs multiple independent persisted actions'
+        $entry=$entries[0].FullName
+        $members=@(Get-ChildItem -LiteralPath (Join-Path $entry 'files') -File|Sort-Object Name)
+        Need ($members.Count -gt 0 -and (Test-Path -LiteralPath (Join-Path $entry 'index.bin'))) 'Miss-reason repair fixture lacks a complete persisted entry'
+        $member=$members[0].FullName;$stamp=[IO.File]::GetLastWriteTimeUtc($member);$bytes=[IO.File]::ReadAllBytes($member)
+        Need ($bytes.Length -gt 0) 'Miss-reason corruption fixture requires a nonempty real cache payload'
+        $bytes[0]=$bytes[0] -bxor 0x7f;[IO.File]::WriteAllBytes($member,$bytes);[IO.File]::SetLastWriteTimeUtc($member,$stamp)
+        Need ((Get-Item -LiteralPath $member).Length -eq $bytes.Length -and [IO.File]::GetLastWriteTimeUtc($member) -eq $stamp) 'Cache corruption must preserve exact payload size and mtime'
+        $corrupt=RunCli 'corrupt-payload-reason-repaired' $mod $cachedOut $true;Cache $corrupt 'partial';SameOutputs $plain $corrupt
+        Need ((ReasonCount $corrupt.report.cache.actionMissReasons 'invalid-payload') -eq 1) 'Corrupt bytes must produce exactly one real payload-validation miss'
+        [IO.File]::WriteAllText((Join-Path $entry 'pending'),'abandoned-transaction')
+        $pending=RunCli 'pending-entry-reason-repaired' $mod $cachedOut $true;Cache $pending 'partial';SameOutputs $plain $pending
+        Need ((ReasonCount $pending.report.cache.actionMissReasons 'entry-pending') -eq 1) 'Abandoned pending entry must produce exactly one exclusion miss'
+        $repairedHot=RunCli 'reason-repairs-hot' $mod $cachedOut $true;Cache $repairedHot 'hot';SameOutputs $plain $repairedHot
         OriginalOracle $hot 'original-initial'
         SameLengthMutation "$mod/Data/Armor.xml" '72.5%' '12.5%'
         $include=RunCli 'include-content-invalidated' $mod $cachedOut $true;Cache $include 'partial';DifferentOutputs $hot $include

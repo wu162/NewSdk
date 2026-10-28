@@ -31,6 +31,14 @@ namespace NewModCompiler.Application
         public long TaskMemoryBudgetBytes, MinimumTaskMemoryBudgetBytes, PerTaskMemoryLimitBytes;
         public bool ResourceMemoryQuerySucceeded;
         public readonly Dictionary<string,int> CallsByType = new Dictionary<string,int>(StringComparer.Ordinal);
+        // Owner-only classifications. Lookup misses partition Misses; bypasses
+        // never enter the existing action hit/miss totals.
+        public readonly Dictionary<string,int> ActionMissReasons = new Dictionary<string,int>(StringComparer.Ordinal);
+        public readonly Dictionary<string,int> CacheBypassReasons = new Dictionary<string,int>(StringComparer.Ordinal);
+        public void RecordMiss(string reason) { Misses++; Increment(ActionMissReasons, reason); }
+        public void RecordBypass(string reason) { Increment(CacheBypassReasons, reason); }
+        static void Increment(Dictionary<string,int> counts, string reason)
+        { int count; counts.TryGetValue(reason, out count); counts[reason] = count + 1; }
         public readonly List<BackendInterval> Intervals = new List<BackendInterval>();
         public void SampleMemory()
         {
@@ -144,6 +152,7 @@ namespace NewModCompiler.Application
             RefreshResources();
             if (asset.GetLocation(AssetLocation.BasePatchStream, AssetLocationOption.None) == AssetLocation.BasePatchStream)
             {
+                metrics.RecordBypass("base-patch-source");
                 Flush(); verify(); committed(asset.Commit()); return;
             }
             while (pending.Count >= capacity) CommitOne();
@@ -158,6 +167,9 @@ namespace NewModCompiler.Application
             PreparedBackend prepared;
             if (!PreparedBackend.TryPrepareWithinBudget(declaration, plugin, byteBudget / 2, out prepared))
             {
+                // Preparation can reject unknown providers, unclosed reads or
+                // preparation budgets. Do not infer a more specific reason.
+                metrics.RecordBypass(cache == null ? "cache-disabled" : "not-prepared");
                 // Owner-only is also a barrier against unknown shared state.
                 Flush(); cancellation.ThrowIfCancellationRequested(); asset.BeginExecution(task.Identity);
                 metrics.Execute(declaration.Handle.TypeName, declaration.Document.SourcePath, () => { compileCompatibility(); return asset.Buffer; });
@@ -180,7 +192,11 @@ namespace NewModCompiler.Application
                 task.Key = prepared.CanCache ? Key(prepared) : null;
                 if (task.Key != null) task.Identity = task.Key;
                 asset.BeginExecution(task.Identity);
-                if (cache != null && task.Key != null && cache.TryRestore(task.Key, Path.Combine(task.Directory, "restored"), cancellation))
+                ActionCacheMissReason diskMiss = ActionCacheMissReason.None;
+                string missReason = null;
+                if (cache == null) metrics.RecordBypass("cache-disabled");
+                else if (task.Key == null) metrics.RecordBypass("not-prepared");
+                else if (cache.TryRestore(task.Key, Path.Combine(task.Directory, "restored"), cancellation, out diskMiss))
                 {
                     string restored = Path.Combine(task.Directory, "restored");
                     if (ReadResult(task, restored))
@@ -190,16 +206,17 @@ namespace NewModCompiler.Application
                         task.Hit = true; metrics.Hits++;
                         metrics.RestoredBytes += new DirectoryInfo(restored).EnumerateFiles().Sum(x => x.Length);
                     }
-                    else cache.Invalidate(task.Key);
+                    else { cache.Invalidate(task.Key); missReason = "invalid-result-contract"; }
                     Directory.Delete(restored, true);
                 }
+                else missReason = MissReasonCode(diskMiss);
                 if (!task.Hit)
                 {
                     // Preparing an external input may spend time hashing under
                     // a read lease. Cancellation arriving during that work must
                     // stop dispatch before another backend is started.
                     cancellation.ThrowIfCancellationRequested();
-                    if (cache != null && task.Key != null) metrics.Misses++;
+                    if (cache != null && task.Key != null) metrics.RecordMiss(missReason);
                     processor.RecordExecutionCompile();
                     if (prepared.CanRunParallel && capacity > 1 && prepared.PreparedBytes <= byteBudget / 2)
                     {
@@ -322,6 +339,20 @@ namespace NewModCompiler.Application
             catch (ArgumentException) { return false; }
             catch (FormatException) { return false; }
             catch (InvalidDataException) { return false; }
+        }
+
+        static string MissReasonCode(ActionCacheMissReason reason)
+        {
+            switch (reason)
+            {
+                case ActionCacheMissReason.EntryNotFound: return "entry-not-found";
+                case ActionCacheMissReason.EntryInvalidated: return "entry-invalidated";
+                case ActionCacheMissReason.EntryPending: return "entry-pending";
+                case ActionCacheMissReason.InvalidManifest: return "invalid-manifest";
+                case ActionCacheMissReason.InvalidPayload: return "invalid-payload";
+                case ActionCacheMissReason.EntryUnavailable: return "entry-unavailable";
+                default: throw new InvalidOperationException("A rejected action lookup must provide its miss reason.");
+            }
         }
 
         static string ReadBoundedString(BinaryReader reader, int maximumBytes)

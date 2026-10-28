@@ -152,6 +152,17 @@
           "type": "integer",
           "minimum": 0
         },
+        "inputInventoryCaptures": { "type": "integer", "minimum": 0 },
+        "inputHashReusedBytes": { "type": "integer", "minimum": 0 },
+        "inputHashLeaseFiles": { "type": "integer", "minimum": 0, "maximum": 512 },
+        "actionMissReasons": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        },
+        "cacheBypassReasons": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        },
         "cacheCopyBytes": {
           "type": "integer",
           "minimum": 0

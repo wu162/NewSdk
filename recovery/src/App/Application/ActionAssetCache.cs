@@ -8,6 +8,12 @@ using System.Threading;
 
 namespace NewModCompiler.Application
 {
+    public enum ActionCacheMissReason
+    {
+        None, EntryNotFound, EntryInvalidated, EntryPending,
+        InvalidManifest, InvalidPayload, EntryUnavailable
+    }
+
     // An action key authorizes reuse; neither the legacy FileBase nor the input
     // root inventory is a store identity. The owner supplies the complete result
     // directory, including metadata and the explicit CDATA presence contract.
@@ -49,17 +55,26 @@ namespace NewModCompiler.Application
 
         public bool TryRestore(string actionKey, string destination, CancellationToken cancellation)
         {
+            ActionCacheMissReason ignored;
+            return TryRestore(actionKey, destination, cancellation, out ignored);
+        }
+
+        // Reports the rejection of this lookup only. Installation validation,
+        // capacity scans and Stage do not manufacture cache lookup misses.
+        public bool TryRestore(string actionKey, string destination, CancellationToken cancellation, out ActionCacheMissReason missReason)
+        {
+            missReason = ActionCacheMissReason.None;
             Active(); EnsureLock(); Uncommitted(); ValidateKey(actionKey);
             cancellation.ThrowIfCancellationRequested();
             string target = Staging(destination), source;
             if (!staged.TryGetValue(actionKey, out source))
             {
-                if (invalidated.Contains(actionKey)) return false;
+                if (invalidated.Contains(actionKey)) { missReason = ActionCacheMissReason.EntryInvalidated; return false; }
                 source = Path.Combine(cacheRoot, actionKey);
             }
             cancellation.ThrowIfCancellationRequested();
             Manifest manifest;
-            if (!TryRead(source, actionKey, staged.ContainsKey(actionKey), true, cancellation, out manifest)) return false;
+            if (!TryRead(source, actionKey, staged.ContainsKey(actionKey), true, cancellation, out manifest, out missReason)) return false;
             if (File.Exists(target) || (Directory.Exists(target) && Directory.GetFileSystemEntries(target).Length != 0))
                 throw new IOException("An action restore destination must be absent or empty.");
             string temporary = target + ".restore-" + owner;
@@ -414,14 +429,25 @@ namespace NewModCompiler.Application
         }
         bool TryRead(string root, string key, bool ownCandidate, bool verifyPayload, CancellationToken cancellation, out Manifest manifest)
         {
+            ActionCacheMissReason ignored;
+            return TryRead(root, key, ownCandidate, verifyPayload, cancellation, out manifest, out ignored);
+        }
+        bool TryRead(string root, string key, bool ownCandidate, bool verifyPayload, CancellationToken cancellation,
+            out Manifest manifest, out ActionCacheMissReason missReason)
+        {
             manifest = null;
+            missReason = ActionCacheMissReason.InvalidManifest;
             try
             {
                 cancellation.ThrowIfCancellationRequested(); RejectAncestors(root);
-                if (!Directory.Exists(root)) return false;
+                FileAttributes attributes;
+                try { attributes = File.GetAttributes(root); }
+                catch (FileNotFoundException) { missReason = ActionCacheMissReason.EntryNotFound; return false; }
+                catch (DirectoryNotFoundException) { missReason = ActionCacheMissReason.EntryNotFound; return false; }
+                if ((attributes & FileAttributes.Directory) == 0) return false;
                 string pending = Path.Combine(root, PendingName); RejectAncestors(pending);
-                if (ownCandidate) { if (!File.Exists(pending) || File.ReadAllText(pending) != owner) return false; }
-                else if (File.Exists(pending) || Directory.Exists(pending)) return false;
+                if (ownCandidate) { if (!File.Exists(pending) || File.ReadAllText(pending) != owner) { missReason = ActionCacheMissReason.EntryPending; return false; } }
+                else if (File.Exists(pending) || Directory.Exists(pending)) { missReason = ActionCacheMissReason.EntryPending; return false; }
                 foreach (string item in Directory.GetFileSystemEntries(root))
                 {
                     string name = Path.GetFileName(item);
@@ -457,6 +483,7 @@ namespace NewModCompiler.Application
                 }
                 if (verifyPayload)
                 {
+                    missReason = ActionCacheMissReason.InvalidPayload;
                     string data = Path.Combine(root, FilesName); RejectAncestors(data);
                     if (!Directory.Exists(data)) return false;
                     var actual = Directory.GetFileSystemEntries(data); if (actual.Length != result.Members.Count) return false;
@@ -466,11 +493,14 @@ namespace NewModCompiler.Application
                         if (!File.Exists(path) || new FileInfo(path).Length != member.Size || Hash(path, cancellation) != member.Hash) return false;
                     }
                 }
-                manifest = result; return true;
+                manifest = result; missReason = ActionCacheMissReason.None; return true;
             }
             catch (InvalidDataException) { return false; }
-            catch (IOException) { return false; }
-            catch (UnauthorizedAccessException) { return false; }
+            catch (EndOfStreamException) { return false; }
+            catch (FileNotFoundException) { return false; }
+            catch (DirectoryNotFoundException) { return false; }
+            catch (IOException) { missReason = ActionCacheMissReason.EntryUnavailable; return false; }
+            catch (UnauthorizedAccessException) { missReason = ActionCacheMissReason.EntryUnavailable; return false; }
             catch (ArgumentException) { return false; }
             catch (OverflowException) { return false; }
         }

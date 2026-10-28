@@ -61,6 +61,8 @@ namespace NewModCompiler.Application
             backendCalls = sessionCacheEnabled ? instanceCompile : executionMetrics.BackendCalls,
             maxBackendConcurrency = sessionCacheEnabled ? (instanceCompile == 0 ? 0 : 1) : executionMetrics.MaximumConcurrency,
             actionHits = executionMetrics.Hits, actionMisses = executionMetrics.Misses,
+            actionMissReasons = new Dictionary<string,int>(executionMetrics.ActionMissReasons),
+            cacheBypassReasons = new Dictionary<string,int>(executionMetrics.CacheBypassReasons),
             restoredBytes = executionMetrics.RestoredBytes, writtenBytes = executionMetrics.WrittenBytes,
             hashReadBytes = inputHashBytes + executionMetrics.ExternalHashBytes + completedCacheHashBytes + (actionCache == null ? 0 : actionCache.HashReadBytes),
             inputInventoryCaptures, inputHashReusedBytes, inputHashLeaseFiles,

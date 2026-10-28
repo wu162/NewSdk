@@ -25,6 +25,14 @@ namespace NewModCompiler.Tests
             Put(Path.Combine(path, "custom", "one.cdata"), value);
             Put(Path.Combine(path, "custom", "two.cdata"), "second-cdata");
         }
+        static bool Restore(ActionAssetCache store, string key, string destination, ActionCacheMissReason expected)
+        {
+            ActionCacheMissReason reason;
+            bool restored = store.TryRestore(key, destination, CancellationToken.None, out reason);
+            Check(reason == expected, "Action lookup reason differs: expected " + expected + ", observed " + reason);
+            Check(restored == (reason == ActionCacheMissReason.None), "Hit/miss classification disagrees with lookup result");
+            return restored;
+        }
         static void Publish(string root, string key, string source)
         {
             using (var store = new ActionAssetCache(root)) { store.Stage(key, source, CancellationToken.None); store.Commit(); store.Complete(); }
@@ -58,13 +66,13 @@ namespace NewModCompiler.Tests
             string source = Staging(root, "first");
             using (var store = new ActionAssetCache(root))
             {
-                Check(!store.TryRestore(First, Staging(root, "cold"), CancellationToken.None), "Cold action cache unexpectedly hit");
+                Check(!Restore(store, First, Staging(root, "cold"), ActionCacheMissReason.EntryNotFound), "Cold action cache unexpectedly hit");
                 store.Stage(First, source, CancellationToken.None);
                 Check(!Directory.Exists(Entry(root, First)), "Staging exposed an action cache entry");
                 // The building owner may reuse its own complete candidate,
                 // including multiple CDATA files, without public visibility.
                 string candidate = Staging(root, "candidate");
-                Check(store.TryRestore(First, candidate, CancellationToken.None), "Owner could not restore its action candidate");
+                Check(Restore(store, First, candidate, ActionCacheMissReason.None), "Owner could not restore its action candidate");
                 Check(RelativeFiles(source).SequenceEqual(RelativeFiles(candidate)), "Action candidate member set changed");
                 store.Stage(First, source, CancellationToken.None);
                 store.Commit(); Check(File.Exists(Path.Combine(Entry(root, First), "pending")), "Action install omitted its exclusion marker");
@@ -76,7 +84,7 @@ namespace NewModCompiler.Tests
             byte[] publishedIndex = File.ReadAllBytes(Path.Combine(Entry(root, First), "index.bin"));
             using (var store = new ActionAssetCache(root))
             {
-                string hot = Staging(root, "hot"); Check(store.TryRestore(First, hot, CancellationToken.None), "Complete action entry did not restore");
+                string hot = Staging(root, "hot"); Check(Restore(store, First, hot, ActionCacheMissReason.None), "Complete action entry did not restore");
                 Check(RelativeFiles(source).SequenceEqual(RelativeFiles(hot)), "Complete action restore lost members");
                 foreach (string name in RelativeFiles(source)) Check(File.ReadAllBytes(Path.Combine(source, name)).SequenceEqual(File.ReadAllBytes(Path.Combine(hot, name))), "Action restore changed result bytes: " + name);
                 Put(Path.Combine(hot, "custom", "one.cdata"), "mutated published output");
@@ -96,7 +104,7 @@ namespace NewModCompiler.Tests
             using (var store = new ActionAssetCache(root))
             {
                 store.Invalidate(First);
-                Check(!store.TryRestore(First, Staging(root, "semantic-miss"), CancellationToken.None), "Semantically invalidated action was reused");
+                Check(!Restore(store, First, Staging(root, "semantic-miss"), ActionCacheMissReason.EntryInvalidated), "Semantically invalidated action was reused");
                 store.Stage(First, Staging(root, "different"), CancellationToken.None); store.Commit(); store.Rollback();
             }
             Check(File.ReadAllBytes(Path.Combine(Entry(root, First), "index.bin")).SequenceEqual(publishedIndex), "Semantic repair rollback changed the trusted predecessor");
@@ -116,7 +124,7 @@ namespace NewModCompiler.Tests
             byte[] corruptBytes = File.ReadAllBytes(damaged);
             using (var store = new ActionAssetCache(root))
             {
-                Check(!store.TryRestore(First, Staging(root, "corrupt"), CancellationToken.None), "Same-size/same-mtime corruption was reused");
+                Check(!Restore(store, First, Staging(root, "corrupt"), ActionCacheMissReason.InvalidPayload), "Same-size/same-mtime corruption was reused");
                 Check(!Directory.Exists(Staging(root, "corrupt")), "Corrupt action entry partly restored");
                 store.Stage(First, source, CancellationToken.None); store.Commit();
                 Check(File.Exists(Path.Combine(Entry(root, First), "pending")), "Action repair became visible before Complete");
@@ -127,20 +135,22 @@ namespace NewModCompiler.Tests
             using (var store = new ActionAssetCache(root)) Check(store.TryRestore(First, Staging(root, "repaired"), CancellationToken.None), "Transactional action repair failed");
             string missing = Directory.GetFiles(Path.Combine(Entry(root, First), "files")).Single(path => File.ReadAllText(path) == "second-cdata");
             File.Delete(missing);
-            using (var store = new ActionAssetCache(root)) Check(!store.TryRestore(First, Staging(root, "missing-cdata"), CancellationToken.None), "Missing CDATA was accepted as a complete result");
+            using (var store = new ActionAssetCache(root)) Check(!Restore(store, First, Staging(root, "missing-cdata"), ActionCacheMissReason.InvalidPayload), "Missing CDATA was accepted as a complete result");
             Publish(root, First, source);
             Put(Path.Combine(Entry(root, First), "files", "unexpected"), "unindexed");
-            using (var store = new ActionAssetCache(root)) Check(!store.TryRestore(First, Staging(root, "extra"), CancellationToken.None), "Unexpected action payload member was accepted");
+            using (var store = new ActionAssetCache(root)) Check(!Restore(store, First, Staging(root, "extra"), ActionCacheMissReason.InvalidPayload), "Unexpected action payload member was accepted");
             Publish(root, First, source);
             Put(Path.Combine(Entry(root, First), "pending"), "abandoned");
-            using (var store = new ActionAssetCache(root)) Check(!store.TryRestore(First, Staging(root, "pending"), CancellationToken.None), "Abandoned pending action became a hit");
+            using (var store = new ActionAssetCache(root)) Check(!Restore(store, First, Staging(root, "pending"), ActionCacheMissReason.EntryPending), "Abandoned pending action became a hit");
             Publish(root, First, source);
 
             using (var store = new ActionAssetCache(root))
             using (var cancellation = new CancellationTokenSource())
             {
                 cancellation.Cancel();
-                Reject<OperationCanceledException>(() => store.TryRestore(First, Staging(root, "cancelled"), cancellation.Token), "Cancelled action restore succeeded");
+                ActionCacheMissReason cancelledReason = ActionCacheMissReason.InvalidPayload;
+                Reject<OperationCanceledException>(() => store.TryRestore(First, Staging(root, "cancelled"), cancellation.Token, out cancelledReason), "Cancelled action restore succeeded");
+                Check(cancelledReason == ActionCacheMissReason.None, "Cancellation must not manufacture a rejected-lookup reason");
                 Reject<OperationCanceledException>(() => store.Stage(Second, source, cancellation.Token), "Cancelled action stage succeeded");
                 Reject<ArgumentException>(() => store.Stage("../escape", source, CancellationToken.None), "Action key traversal was accepted");
                 Reject<ArgumentException>(() => store.TryRestore(First.ToUpperInvariant(), Staging(root, "uppercase"), CancellationToken.None), "Noncanonical action identity was accepted");
@@ -157,8 +167,11 @@ namespace NewModCompiler.Tests
             // member uniqueness even when bytes are individually well formed.
             string index = Path.Combine(Entry(root, First), "index.bin");
             byte[] valid = File.ReadAllBytes(index);
+            using (var store = new ActionAssetCache(root))
+            using (var held = new FileStream(index, FileMode.Open, FileAccess.Read, FileShare.None))
+                Check(!Restore(store, First, Staging(root, "unavailable-index"), ActionCacheMissReason.EntryUnavailable), "A sharing-denied manifest became a hit");
             File.WriteAllBytes(index, new byte[] { 255, 255, 255, 255, 127 });
-            using (var store = new ActionAssetCache(root)) Check(!store.TryRestore(First, Staging(root, "bad-index"), CancellationToken.None), "Malformed action index was accepted");
+            using (var store = new ActionAssetCache(root)) Check(!Restore(store, First, Staging(root, "bad-index"), ActionCacheMissReason.InvalidManifest), "Malformed action index was accepted");
             File.WriteAllBytes(index, valid);
             int attack = 0;
             foreach (string[] names in new[] {
@@ -171,7 +184,7 @@ namespace NewModCompiler.Tests
                 File.WriteAllBytes(index, valid);
             }
             string swapped = Path.Combine(Cache(root), Second); Directory.Move(Entry(root, First), swapped);
-            using (var store = new ActionAssetCache(root)) Check(!store.TryRestore(Second, Staging(root, "swapped"), CancellationToken.None), "Manifest belonging to another action identity was reused");
+            using (var store = new ActionAssetCache(root)) Check(!Restore(store, Second, Staging(root, "swapped"), ActionCacheMissReason.InvalidManifest), "Manifest belonging to another action identity was reused");
             Directory.Move(swapped, Entry(root, First));
 
             // A file occupying a key directory is an invalid entry, and even
@@ -179,7 +192,7 @@ namespace NewModCompiler.Tests
             Put(Entry(root, Second), "invalid-entry-file");
             using (var store = new ActionAssetCache(root))
             {
-                Check(!store.TryRestore(Second, Staging(root, "file-entry"), CancellationToken.None), "A file at an action key became a hit");
+                Check(!Restore(store, Second, Staging(root, "file-entry"), ActionCacheMissReason.InvalidManifest), "A file at an action key became a hit");
                 store.Stage(Second, source, CancellationToken.None); store.Commit(); store.Rollback();
             }
             Check(File.ReadAllText(Entry(root, Second)) == "invalid-entry-file", "Action repair rollback lost a previous file object");
