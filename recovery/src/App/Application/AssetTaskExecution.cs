@@ -27,6 +27,10 @@ namespace NewModCompiler.Application
         public int BackendCalls, MaximumConcurrency, Hits, Misses;
         public long RestoredBytes, WrittenBytes, ExternalHashBytes;
         public long PeakSampledPrivateBytes;
+        // Owner-only phase counters except BackendWorkTicks, which is updated
+        // under gate with the real backend intervals. Inclusive, overlapping.
+        public long PreparationTicks, ActionKeyTicks, ResultRestoreTicks, ResultWriteTicks,
+            ResultCommitTicks, WorkerWaitTicks, BackendWorkTicks;
         public int EffectiveJobs, MinimumEffectiveJobs, LogicalProcessorCount;
         public long TaskMemoryBudgetBytes, MinimumTaskMemoryBudgetBytes, PerTaskMemoryLimitBytes;
         public bool ResourceMemoryQuerySucceeded;
@@ -64,7 +68,7 @@ namespace NewModCompiler.Application
             SampleMemory();
             lock (gate) { BackendCalls++; active++; MaximumConcurrency = Math.Max(MaximumConcurrency, active); interval.startTicks = Stopwatch.GetTimestamp(); int count; CallsByType.TryGetValue(type, out count); CallsByType[type] = count + 1; }
             try { return action(); }
-            finally { lock (gate) { interval.endTicks = Stopwatch.GetTimestamp(); active--; if (Intervals.Count < 512) Intervals.Add(interval); } SampleMemory(); }
+            finally { lock (gate) { interval.endTicks = Stopwatch.GetTimestamp(); BackendWorkTicks += interval.endTicks - interval.startTicks; active--; if (Intervals.Count < 512) Intervals.Add(interval); } SampleMemory(); }
         }
     }
 
@@ -168,7 +172,11 @@ namespace NewModCompiler.Application
             while (pending.Count > 0 && !Fits(preparationBytes)) CommitOne();
             PreparedBackend prepared;
             string preparationReason;
-            if (!PreparedBackend.TryPrepareWithReason(declaration, plugin, byteBudget / 2, out prepared, out preparationReason))
+            bool preparationAccepted;
+            long preparationStarted = Stopwatch.GetTimestamp();
+            try { preparationAccepted = PreparedBackend.TryPrepareWithReason(declaration, plugin, byteBudget / 2, out prepared, out preparationReason); }
+            finally { metrics.PreparationTicks += Stopwatch.GetTimestamp() - preparationStarted; }
+            if (!preparationAccepted)
             {
                 // The preparer reports the actual rejecting predicate. This
                 // independent partition also applies with persistent cache off.
@@ -193,7 +201,9 @@ namespace NewModCompiler.Application
                 RefreshResources();
                 while (pending.Count >= capacity) CommitOne();
                 while (pending.Count > 0 && !Fits(prepared.PreparedBytes)) CommitOne();
-                task.Key = prepared.CanCache ? Key(prepared) : null;
+                long keyStarted = Stopwatch.GetTimestamp();
+                try { task.Key = prepared.CanCache ? Key(prepared) : null; }
+                finally { metrics.ActionKeyTicks += Stopwatch.GetTimestamp() - keyStarted; }
                 if (task.Key != null) task.Identity = task.Key;
                 asset.BeginExecution(task.Identity);
                 ActionCacheMissReason diskMiss = ActionCacheMissReason.None;
@@ -202,16 +212,21 @@ namespace NewModCompiler.Application
                 else if (task.Key == null) metrics.RecordBypass("not-prepared");
                 else if (cache.TryRestore(task.Key, Path.Combine(task.Directory, "restored"), cancellation, out diskMiss))
                 {
-                    string restored = Path.Combine(task.Directory, "restored");
-                    if (ReadResult(task, restored))
+                    long restoreStarted = Stopwatch.GetTimestamp();
+                    try
                     {
-                        File.Copy(Path.Combine(restored, "result.bin"), Path.Combine(task.Directory, "result.bin"));
-                        if (File.Exists(Path.Combine(restored, "result.cdata"))) File.Copy(Path.Combine(restored, "result.cdata"), Path.Combine(task.Directory, "result.cdata"));
-                        task.Hit = true; metrics.Hits++;
-                        metrics.RestoredBytes += new DirectoryInfo(restored).EnumerateFiles().Sum(x => x.Length);
+                        string restored = Path.Combine(task.Directory, "restored");
+                        if (ReadResult(task, restored))
+                        {
+                            File.Copy(Path.Combine(restored, "result.bin"), Path.Combine(task.Directory, "result.bin"));
+                            if (File.Exists(Path.Combine(restored, "result.cdata"))) File.Copy(Path.Combine(restored, "result.cdata"), Path.Combine(task.Directory, "result.cdata"));
+                            task.Hit = true; metrics.Hits++;
+                            metrics.RestoredBytes += new DirectoryInfo(restored).EnumerateFiles().Sum(x => x.Length);
+                        }
+                        else { cache.Invalidate(task.Key); missReason = "invalid-result-contract"; }
+                        Directory.Delete(restored, true);
                     }
-                    else { cache.Invalidate(task.Key); missReason = "invalid-result-contract"; }
-                    Directory.Delete(restored, true);
+                    finally { metrics.ResultRestoreTicks += Stopwatch.GetTimestamp() - restoreStarted; }
                 }
                 else missReason = MissReasonCode(diskMiss);
                 if (!task.Hit)
@@ -263,7 +278,12 @@ namespace NewModCompiler.Application
             Pending task = pending.Dequeue();
             try
             {
-                if (task.Worker != null) task.Buffer = task.Worker.GetAwaiter().GetResult();
+                if (task.Worker != null)
+                {
+                    long waitStarted = Stopwatch.GetTimestamp();
+                    try { task.Buffer = task.Worker.GetAwaiter().GetResult(); }
+                    finally { metrics.WorkerWaitTicks += Stopwatch.GetTimestamp() - waitStarted; }
+                }
                 cancellation.ThrowIfCancellationRequested();
                 if (!task.Hit) WriteResult(task);
                 Finish(task);
@@ -272,6 +292,13 @@ namespace NewModCompiler.Application
         }
 
         void Finish(Pending task)
+        {
+            long started = Stopwatch.GetTimestamp();
+            try { FinishCore(task); }
+            finally { metrics.ResultCommitTicks += Stopwatch.GetTimestamp() - started; }
+        }
+
+        void FinishCore(Pending task)
         {
             cancellation.ThrowIfCancellationRequested();
             string digest = Digest(task.Directory);
@@ -301,7 +328,14 @@ namespace NewModCompiler.Application
             CompleteReadyDocuments();
         }
 
-        static void WriteResult(Pending task)
+        void WriteResult(Pending task)
+        {
+            long started = Stopwatch.GetTimestamp();
+            try { WriteResultCore(task); }
+            finally { metrics.ResultWriteTicks += Stopwatch.GetTimestamp() - started; }
+        }
+
+        static void WriteResultCore(Pending task)
         {
             AssetBuffer result = task.Buffer;
             if (result == null || result.InstanceData == null || result.RelocationData == null || result.ImportsData == null)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -25,7 +26,17 @@ namespace NewModCompiler.Application
         public string ToolchainFingerprint { get; private set; }
         public long HashedBytes { get; private set; }
         public long ReusedHashBytes { get; private set; }
+        // Inclusive Stopwatch ticks for this capture only. These diagnostic
+        // counters never participate in either content identity.
+        public long EnumerationTicks { get; private set; }
+        public long ReadTicks { get; private set; }
+        public long DigestTicks { get; private set; }
         public bool CanAuthorizeCacheReuse { get { return false; } }
+
+        sealed class CaptureTiming
+        {
+            public long EnumerationTicks, ReadTicks;
+        }
 
         public static CacheInputSnapshot Capture(BuildRequest request, BuildPlan plan, string runtimeDirectory, CancellationToken cancellation)
         { return Capture(request, plan, runtimeDirectory, cancellation, null); }
@@ -41,6 +52,7 @@ namespace NewModCompiler.Application
             cancellation.ThrowIfCancellationRequested();
             int count = 0;
             long hashedBytes = 0, reusedHashBytes = 0;
+            var timing = new CaptureTiming();
             // One owner-local file hasher per capture avoids CryptoConfig/CSP
             // creation for every tiny leaf. ComputeHash initializes between
             // files; recursive inventory never nests or shares a hash operation.
@@ -91,7 +103,7 @@ namespace NewModCompiler.Application
                     // can be beneath SDK/Mods: exclude it in the SDK role too.
                     // Packaging-only Additional remains writable and rehashed.
                     // This changes neither inventory bytes nor tool identity.
-                    Inventory(writer, roots[role], roots[role], cancellation, ref count, leases, fileHash, path => currentRole == 2 || (currentRole == 0 &&
+                    Inventory(writer, roots[role], roots[role], cancellation, ref count, leases, fileHash, timing, path => currentRole == 2 || (currentRole == 0 &&
                         !Paths.Contains(roots[1], path) && !Paths.Contains(Path.Combine(roots[0], "Additional"), path)), (path, length, digest, reused) => {
                         if (reused) reusedHashBytes = checked(reusedHashBytes + length);
                         else hashedBytes = checked(hashedBytes + length);
@@ -102,8 +114,15 @@ namespace NewModCompiler.Application
                 }
                 cancellation.ThrowIfCancellationRequested(); writer.Flush(); bytes.Position = 0;
                 toolWriter.Flush(); tools.Position = 0;
+                long digestStarted = Stopwatch.GetTimestamp();
                 using (var hash = SHA256.Create())
-                    return new CacheInputSnapshot(Hex(hash.ComputeHash(bytes)), count, Hex(hash.ComputeHash(tools)), hashedBytes, reusedHashBytes);
+                {
+                    string contentDigest = Hex(hash.ComputeHash(bytes)), toolDigest = Hex(hash.ComputeHash(tools));
+                    return new CacheInputSnapshot(contentDigest, count, toolDigest, hashedBytes, reusedHashBytes) {
+                        EnumerationTicks = timing.EnumerationTicks, ReadTicks = timing.ReadTicks,
+                        DigestTicks = Stopwatch.GetTimestamp() - digestStarted
+                    };
+                }
             }
         }
 
@@ -129,26 +148,32 @@ namespace NewModCompiler.Application
         {
             writer.Write(value != null); if (value != null) writer.Write(value);
         }
-        static void Inventory(BinaryWriter writer, string root, string directory, CancellationToken cancellation, ref int count, CacheInputLeaseSet leases, SHA256 fileHash, Func<string,bool> eligible, Action<string,long,byte[],bool> record)
+        static void Inventory(BinaryWriter writer, string root, string directory, CancellationToken cancellation, ref int count, CacheInputLeaseSet leases, SHA256 fileHash, CaptureTiming timing, Func<string,bool> eligible, Action<string,long,byte[],bool> record)
         {
             cancellation.ThrowIfCancellationRequested();
+            long enumerationStarted = Stopwatch.GetTimestamp();
             if ((File.GetAttributes(directory) & FileAttributes.ReparsePoint) != 0) throw new IOException("Input inventory does not follow reparse points.");
             string[] entries = Directory.GetFileSystemEntries(directory); Array.Sort(entries, StringComparer.Ordinal);
+            timing.EnumerationTicks += Stopwatch.GetTimestamp() - enumerationStarted;
             writer.Write(entries.Length);
             foreach (string path in entries)
             {
                 cancellation.ThrowIfCancellationRequested();
+                enumerationStarted = Stopwatch.GetTimestamp();
                 FileAttributes attributes = File.GetAttributes(path);
+                timing.EnumerationTicks += Stopwatch.GetTimestamp() - enumerationStarted;
                 if ((attributes & FileAttributes.ReparsePoint) != 0) throw new IOException("Input inventory does not follow reparse points.");
                 bool isDirectory = (attributes & FileAttributes.Directory) != 0;
                 writer.Write(isDirectory); writer.Write(path.Substring(root.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length));
-                if (isDirectory) Inventory(writer, root, path, cancellation, ref count, leases, fileHash, eligible, record);
+                if (isDirectory) Inventory(writer, root, path, cancellation, ref count, leases, fileHash, timing, eligible, record);
                 else
                 {
                     long length; byte[] digest; bool reused = false;
+                    long readStarted = Stopwatch.GetTimestamp();
                     if (leases != null && eligible(path)) digest = leases.Read(path, cancellation, fileHash, out length, out reused);
                     else using (var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
                     { digest = fileHash.ComputeHash(input); length = input.Length; }
+                    timing.ReadTicks += Stopwatch.GetTimestamp() - readStarted;
                     writer.Write(length); writer.Write(digest); record(path, length, digest, reused);
                     checked { ++count; }
                 }

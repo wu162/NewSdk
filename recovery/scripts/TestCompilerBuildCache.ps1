@@ -47,6 +47,33 @@ function ReasonCount($Reasons,[string]$Name){
     if($null -eq $property){return 0L}
     return [long]$property.Value
 }
+function PhaseTimings($Statistics,[bool]$Succeeded,[bool]$Enabled){
+    $timings=$Statistics.phaseTimings
+    Need ($null -ne $timings -and $timings.format -ceq 'NewModCompiler.CachePhaseTimings.v1' -and $timings.semantics -ceq 'inclusive-overlapping-ticks') 'Cache report omitted its versioned inclusive phase timing contract'
+    Need (($timings.frequency -is [int] -or $timings.frequency -is [long]) -and $timings.frequency -gt 0 -and $timings.frequency -eq $Statistics.intervalFrequency) 'Phase timings and backend intervals must use the same monotonic clock frequency'
+    foreach($name in @('coreCompileTicks','streamSetupTicks','streamCleanupTicks','inputInventoryTicks','inputEnumerationTicks','inputReadTicks','inputDigestTicks','processContractTicks','documentProcessTicks','artifactCollectionTicks','preparationTicks','actionKeyTicks','resultRestoreTicks','resultWriteTicks','resultCommitTicks','workerWaitTicks','backendWorkTicks','storeLookupTicks','storeValidationTicks','storeMaterializationTicks','storeStageTicks','cacheCommitTicks')){
+        $property=$timings.PSObject.Properties[$name]
+        Need ($null -ne $property -and ($property.Value -is [int] -or $property.Value -is [long]) -and $property.Value -ge 0) "Cache phase timing must be a nonnegative integer tick count: $name"
+    }
+    # These scopes overlap: document work contains owner preparation/commit,
+    # lookup contains validation/materialization, and backend work can overlap
+    # across workers. Never add them together or impose wall-clock thresholds.
+    if($Succeeded){
+        foreach($name in @('documentProcessTicks','artifactCollectionTicks','preparationTicks','resultWriteTicks','resultCommitTicks','backendWorkTicks')){
+            Need ($timings.$name -gt 0) "Successful real fixture omitted active phase work: $name"
+        }
+        if($Enabled){
+            foreach($name in @('inputInventoryTicks','inputEnumerationTicks','inputReadTicks','inputDigestTicks','processContractTicks','actionKeyTicks','storeLookupTicks','storeValidationTicks')){
+                Need ($timings.$name -gt 0) "Successful cached fixture omitted active phase work: $name"
+            }
+        }
+    }
+    if(!$Enabled){
+        foreach($name in @('inputInventoryTicks','inputEnumerationTicks','inputReadTicks','inputDigestTicks','processContractTicks','storeLookupTicks','storeValidationTicks','storeMaterializationTicks','storeStageTicks')){
+            Need ($timings.$name -eq 0) "Disabled cache invented inventory or store work: $name"
+        }
+    }
+}
 function ReasonAccounting($Statistics){
     Need ($null -ne $Statistics.actionMissReasons -and $null -ne $Statistics.cacheBypassReasons) 'Cache report omitted miss/bypass reason dictionaries'
     Need ($null -ne $Statistics.preparationRejectedReasons) 'Cache report omitted actual preparation rejection reasons'
@@ -79,6 +106,12 @@ function Cache($Case,[string]$Expected){
     elseif($Expected -eq 'hot'){Need ($statistics.hits -gt 0 -and $statistics.misses -eq 0) 'Hot asset cache did not reuse all fixture assets'}
     elseif($Expected -eq 'partial'){Need ($statistics.misses -eq 1 -and $statistics.hits -gt 0) 'A single changed action did not preserve unrelated certified asset hits'}
     else{throw "Unknown cache expectation: $Expected"}
+    if($Expected -eq 'hot'){
+        Need ($statistics.phaseTimings.storeStageTicks -eq 0) 'Fully hot actions unexpectedly staged new cache payloads'
+        Need ($statistics.phaseTimings.resultRestoreTicks -gt 0 -and $statistics.phaseTimings.storeMaterializationTicks -gt 0) 'Hot cache omitted actual validated result materialization timing'
+    }else{
+        Need ($statistics.phaseTimings.storeStageTicks -gt 0) 'Real cache misses omitted candidate staging timing'
+    }
 }
 function SameLengthMutation([string]$Path,[string]$From,[string]$To){
     $before=[IO.File]::ReadAllBytes($Path);$stamp=[IO.File]::GetLastWriteTimeUtc($Path)
@@ -135,6 +168,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
         if($Cancel){Need ($audit.signalSent -and $audit.freshEventsPathObserved -and $audit.streamStartedObserved -and $Expected -eq 6) 'Cache cancellation did not receive actual CtrlBreak'}
         $body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json
         Need ($body.exitCode -eq $Expected) 'Cache process/report exit differs'
+        PhaseTimings $body.cache ($Expected -eq 0) $Enabled
         $rows=@(Get-Content -LiteralPath $events|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})
         Need ($rows[-1].eventType -ceq 'BuildFinished' -and @($rows|Where-Object{$_.eventType -ceq 'BuildStarted'}).Count -eq 1 -and @($rows|Where-Object{$_.eventType -ceq 'BuildFinished'}).Count -eq 1) 'Cache CLI terminal protocol differs'
         $sequence=0;foreach($row in $rows){$sequence++;Need ($row.buildId -ceq $body.buildId -and $row.sequence -eq $sequence) 'Cache CLI build identity/sequence differs'}

@@ -15,6 +15,15 @@ namespace NewModCompiler.Tests
             try { action(); } catch (T) { ++assertions; return; }
             throw new Exception(message);
         }
+        static void CaptureTimings(CacheInputSnapshot snapshot)
+        {
+            Check(snapshot.EnumerationTicks > 0, "A nonempty input capture omitted actual directory/attribute work timing.");
+            Check(snapshot.ReadTicks > 0, "A nonempty input capture omitted controlled file-read and lease-check timing.");
+            Check(snapshot.DigestTicks > 0, "A completed input capture omitted its inventory/toolchain digest timing.");
+            // Diagnostic scopes are inclusive, so they do not partition wall
+            // time. Existing identity and byte-ledger assertions below remain
+            // the independent correctness oracle for fresh and reused reads.
+        }
         static void SharedToolLeases(BuildRequest request, BuildPlan plan, string runtime, string dependency, string schema, string config, string compiler, CacheInputSnapshot baseline)
         {
             long toolBytes = new FileInfo(schema).Length + new FileInfo(config).Length + new FileInfo(compiler).Length;
@@ -22,11 +31,13 @@ namespace NewModCompiler.Tests
             try
             {
                 var first = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                CaptureTimings(first);
                 Check(first.Fingerprint == baseline.Fingerprint && first.ToolchainFingerprint == baseline.ToolchainFingerprint,
                     "Leased input inventory must preserve the original content and tool identities.");
                 Check(first.HashedBytes == baseline.HashedBytes && first.ReusedHashBytes == 0 && leases.RetainedFiles == 3,
                     "The first capture must hash every byte and retain only the three tool files.");
                 var second = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                CaptureTimings(second);
                 Check(second.Fingerprint == first.Fingerprint && second.ToolchainFingerprint == first.ToolchainFingerprint,
                     "Tool digest reuse changed the actual inventory identity.");
                 Check(second.ReusedHashBytes == toolBytes && second.HashedBytes + second.ReusedHashBytes == baseline.HashedBytes,
@@ -159,12 +170,14 @@ namespace NewModCompiler.Tests
             var request = new BuildRequest { Command = "build", SdkRoot = sdk, ModRoot = mod, OutputRoot = Path.Combine(root, "output"), Content = new[] { "base" }, PackageFormat = "loose" };
             var plan = new BuildPlan { Tasks = new[] { new BuildTask { Id = "base/mod", Content = "base", InputPath = entry, OutputName = "base/mod", Dependencies = new string[0] } } };
             var fresh = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+            CaptureTimings(fresh);
             long stableBytes = new FileInfo(art).Length + new FileInfo(declaration).Length + new FileInfo(compiler).Length;
             CacheInputSnapshot last;
             using (var leases = new CacheInputLeaseSet())
             {
                 var first = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
                 var second = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                CaptureTimings(first); CaptureTimings(second);
                 Check(first.Fingerprint == fresh.Fingerprint && first.ToolchainFingerprint == fresh.ToolchainFingerprint && first.HashedBytes == fresh.HashedBytes && first.ReusedHashBytes == 0,
                     "Stable SDK leasing must preserve the original first-capture identities and full byte reads.");
                 Check(second.Fingerprint == fresh.Fingerprint && second.ToolchainFingerprint == fresh.ToolchainFingerprint && leases.RetainedFiles == 3,
@@ -257,6 +270,7 @@ namespace NewModCompiler.Tests
                     "Skipped-identity input mutation must preserve its exact length and timestamp.");
                 var changedFresh = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
                 var changed = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, leases);
+                CaptureTimings(changedFresh); CaptureTimings(changed);
                 Check(changed.Fingerprint != second.Fingerprint && changed.Fingerprint == changedFresh.Fingerprint &&
                     changed.ToolchainFingerprint == changedFresh.ToolchainFingerprint && changed.ToolchainFingerprint == fresh.ToolchainFingerprint,
                     "An unretained same-length/same-time SDK mutation must still invalidate content protection and match a completely fresh inventory.");
@@ -295,6 +309,7 @@ namespace NewModCompiler.Tests
             var plan = new BuildPlan { Tasks = new[] { new BuildTask { Id = "base/mod", Content = "base", InputPath = entry, OutputName = "base/mod", Dependencies = new string[0] } } };
             request.Options["tp"] = new EffectiveOption { Value = "Win32", Source = "commandLine" };
             var baseline = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+            CaptureTimings(baseline);
             Check(!baseline.CanAuthorizeCacheReuse, "An inventory must never authorize production cache reuse.");
             Check(CacheInputSnapshot.CoverageLimitations.Contains("Root-external"), "Missing inventory scope explanation.");
             Check(baseline.Fingerprint.Length == 64 && baseline.FileCount == 5, "Inventory digest and file count.");

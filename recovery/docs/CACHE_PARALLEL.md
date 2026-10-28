@@ -1,5 +1,15 @@
 # 资产动作缓存与跨文档后端并行
 
+## 阶段计时候选（2026-10-28，本批待Actions验收）
+
+按完整Upheaval计量的下一步，在既有生产报告中加入 `cache.phaseTimings`，用现有小夹具的冷热、单改、损坏修复与失败/取消回归验证；不为此重跑完整Upheaval。生产闭包已改变，本批统一新建Debug/Release并保留原有完整受影响回归和发行门槛。尚未取得新阶段结果，不宣称已定位大型MOD剩余wall或获得新加速。
+
+格式 `NewModCompiler.CachePhaseTimings.v1`，`frequency` 为Stopwatch每秒tick数，`semantics=inclusive-overlapping-ticks`。`coreCompileTicks`覆盖每stream受控编译及清理，`streamSetupTicks`包含该stream首次输入盘点和配置/provider/Schema准备，`documentProcessTicks`包含递归文档处理与最终worker汇合，`artifactCollectionTicks`独立统计产物收集。`inputInventoryTicks`含首尾盘点；其子项`inputEnumerationTicks`为目录枚举/属性/排序，`inputReadTicks`含受控打开、资格/身份核对、鲜读SHA或摘要复用及关闭，`inputDigestTicks`为最终两个盘点摘要。子项仅累加成功Capture，外层计时也保留失败尝试，不能把差值直接认作缺失计量。
+
+`preparationTicks`包含冻结输入/外读准备，`actionKeyTicks`记录完整动作Key计算；`storeLookupTicks`包含store校验及物化，`storeValidationTicks`还覆盖Stage/Commit/容量扫描内部校验；`storeMaterializationTicks`含已验证payload复制与再校验；`storeStageTicks`为候选写入，`resultRestoreTicks`为恢复后的语义结果读取与私有目录物化。`resultWriteTicks/resultCommitTicks`为owner结果写入/验证提交，后者可包含store候选写入。`workerWaitTicks`只统计owner等待结果，`backendWorkTicks`在受保护的既有调用区间记账处累计全部调用，保留区间仍最多512条。`processContractTicks/cacheCommitTicks/streamCleanupTicks`分别记录进程合同、可逆缓存安装和stream清理。报告在必要输出终结前截取，不包含之后的CompleteCache/最终清理。
+
+上述计时有嵌套及并发，不能相加代替`elapsedMs`，也不是CPU时间；不改变Key、输入保护、缓存资格、调度预算或默认参数。当前只能等待小夹具实际结果决定下一项有界优化，历史完整Upheaval性能结论保持原范围。
+
 更新：2026-10-28（北京时间）。成果分支 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`。本页只记录当前工作；旧发行证据见 [COMPILER_RELEASE](../COMPILER_RELEASE.md)。**生产主线与完整 Windows 回归已有通过收据；最新批次和精确范围见下文。未据此声明整份方案全部覆盖或完整 MOD 加速。**
 
 用户提供的[原始实施方案](CACHE_PARALLEL_PLAN.md)保留作目标与验收参考；当前状态只看本页收据，不能把方案要求当作已完成能力。日常续接无需重读整份方案。

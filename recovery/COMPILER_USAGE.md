@@ -126,6 +126,8 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 
 `inputInventoryCaptures` 记录完整根盘点次数，`inputHashReusedBytes` 记录持续读租约和文件身份允许复用的输入摘要字节；`hashReadBytes` 仍为实际读取量。租约有512文件上限，当前MOD整个子树及SDK/Additional仍重新哈希；本次构建存续时被租约保护的稳定SDK与工具/Schema/runtime文件不可改写，结束后释放。新字段与环境XML扩展的当前验收状态均见专项记录。
 
+`cache.phaseTimings` 提供输入盘点、文档处理、准备与动作身份、缓存查询/校验/物化、结果提交及后端工作的聚合计时。格式为 `NewModCompiler.CachePhaseTimings.v1`；每项 `*Ticks / frequency` 为秒。各范围有嵌套和并发，不能相加当作总耗时或CPU时间；`backendWorkTicks` 覆盖全部后端调用，不受保留512个区间的上限影响。整次构建耗时仍看 `elapsedMs`，新字段的验收来源见专项记录。
+
 `/sc:true` 保留原会话缓存及其原有 `/bc` 组合路径、全根失效保护、intermediate/CDATA 恢复与重新链接，要求 `--jobs=1`；jobs>1 明确报 `CORE_SESSION_PARALLEL_UNSUPPORTED`。旧缓存不会导入新动作缓存。中途编译、取消、发布或必要报告通道失败时，不确认新缓存。
 
 含混合 Texture 的流目前不支持 `/sc:true`，改用 `/sc:false`；`/bc:true` 不表示贴图缓存已经开放。不要直接沿用旧 BAB 的缓存目录。需要清理时，在没有构建运行的情况下删除对应输出根的 `.cache` 即可，保留 `published` 可保留上一代产物。

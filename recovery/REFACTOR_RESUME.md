@@ -16,6 +16,8 @@
 
 交接状态：测试分支 `582946ba` 的轻量归档重放 [40685364366](https://github.com/wu162/NewSdk/actions/runs/40685364366) 已success，guards与原包schema/原字节重放均通过，measure明确skipped；原40682631514的failure终态保留。下一轮按小夹具成组补缓存关键阶段计时；hot后端仅约5.7–6.0s/总73–77s，需调查其余wall，不能通过扩大XML资格或跳过强输入校验盲目优化。测试分支脚本截止/清理/reparse/协议修复均已保存；不将尚未跑到的新超时路径报为已验收。PR #17保持draft，未合入。
 
+本轮新候选：已接入生产`cache.phaseTimings`，覆盖输入盘点/读/hash、准备/动作Key、文档、store校验/物化/写入、owner提交/等待及完整后端工作；沿用既有小夹具冷热/单改/事务矩阵，尚待统一Actions验收。该组改动生产闭包，需一次完整Debug/Release重建，暂不重跑大型Upheaval；计时范围及不可加总边界见[CACHE_PARALLEL](docs/CACHE_PARALLEL.md#阶段计时候选2026-10-28本批待actions验收)。不宣称已有新加速。
+
 ## 已合入的默认构建与参数改进
 
 PR [#14](https://github.com/wu162/NewSdk/pull/14) 已合入 `compiler-main@e7396d3b`（旧交接写待合入已过时）。生产/测试源码 `8b3e146c` 的 [运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 完整 mymod、默认 BIG/SKUDEF 和五文件 ZIP 验收属于基线证据，不能替代本轮新生产源码验收。详见 [默认构建验证](docs/BUILD_DEFAULTS_VALIDATION.md)。

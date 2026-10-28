@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -34,6 +35,12 @@ namespace NewModCompiler.Application
         bool committed, completed, disposed;
         public long HashReadBytes { get; private set; }
         public long CopyBytes { get; private set; }
+        // Inclusive Stopwatch ticks. Validation is nested in lookup/stage/commit;
+        // these diagnostic counters never participate in cache identity.
+        public long LookupTicks { get; private set; }
+        public long ValidationTicks { get; private set; }
+        public long MaterializationTicks { get; private set; }
+        public long StageTicks { get; private set; }
 
         sealed class Member { public string Name, Storage, Hash; public long Size; }
         sealed class Manifest { public string Owner, Digest; public List<Member> Members; public long Bytes; }
@@ -63,6 +70,13 @@ namespace NewModCompiler.Application
         // capacity scans and Stage do not manufacture cache lookup misses.
         public bool TryRestore(string actionKey, string destination, CancellationToken cancellation, out ActionCacheMissReason missReason)
         {
+            long started = Stopwatch.GetTimestamp();
+            try { return TryRestoreCore(actionKey, destination, cancellation, out missReason); }
+            finally { LookupTicks += Stopwatch.GetTimestamp() - started; }
+        }
+
+        bool TryRestoreCore(string actionKey, string destination, CancellationToken cancellation, out ActionCacheMissReason missReason)
+        {
             missReason = ActionCacheMissReason.None;
             Active(); EnsureLock(); Uncommitted(); ValidateKey(actionKey);
             cancellation.ThrowIfCancellationRequested();
@@ -80,6 +94,7 @@ namespace NewModCompiler.Application
             string temporary = target + ".restore-" + owner;
             RejectAncestors(temporary);
             if (Directory.Exists(temporary) || File.Exists(temporary)) throw new IOException("An action restore temporary path already exists.");
+            long materializationStarted = Stopwatch.GetTimestamp();
             Directory.CreateDirectory(temporary);
             try
             {
@@ -98,10 +113,21 @@ namespace NewModCompiler.Application
                 Directory.Move(temporary, target);
                 return true;
             }
-            finally { DeletePrivateTree(temporary); }
+            finally
+            {
+                try { DeletePrivateTree(temporary); }
+                finally { MaterializationTicks += Stopwatch.GetTimestamp() - materializationStarted; }
+            }
         }
 
         public void Stage(string actionKey, string source, CancellationToken cancellation)
+        {
+            long started = Stopwatch.GetTimestamp();
+            try { StageCore(actionKey, source, cancellation); }
+            finally { StageTicks += Stopwatch.GetTimestamp() - started; }
+        }
+
+        void StageCore(string actionKey, string source, CancellationToken cancellation)
         {
             Active(); EnsureLock(); Uncommitted(); ValidateKey(actionKey);
             source = Staging(source);
@@ -433,6 +459,14 @@ namespace NewModCompiler.Application
             return TryRead(root, key, ownCandidate, verifyPayload, cancellation, out manifest, out ignored);
         }
         bool TryRead(string root, string key, bool ownCandidate, bool verifyPayload, CancellationToken cancellation,
+            out Manifest manifest, out ActionCacheMissReason missReason)
+        {
+            long started = Stopwatch.GetTimestamp();
+            try { return TryReadCore(root, key, ownCandidate, verifyPayload, cancellation, out manifest, out missReason); }
+            finally { ValidationTicks += Stopwatch.GetTimestamp() - started; }
+        }
+
+        bool TryReadCore(string root, string key, bool ownCandidate, bool verifyPayload, CancellationToken cancellation,
             out Manifest manifest, out ActionCacheMissReason missReason)
         {
             manifest = null;
