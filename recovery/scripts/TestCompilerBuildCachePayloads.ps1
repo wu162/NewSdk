@@ -165,7 +165,7 @@ function RepositoryModMetrics([string]$ModeWork){
         $script:expectedCustomData=0
         $runtimeInputs=@(RepositoryInputManifest $script:runtime)
         Need ($runtimeInputs.Count -eq 5) 'Repository metrics require the deployed five-file runtime'
-        $measurement=@{passed=$false;scope='Complete unchanged repository SDK/Mods/mymod copy against the real SDK, development/loose/base/jobs1. Small repository fixture, not a large MOD benchmark; OS cache uncontrolled; peak private memory is sampled, not an OS continuous peak; no speed threshold or speedup claim. Additional changes do not enter loose stream artifacts and are not a packaging-byte comparison.';sourceGitTree=(& git -C $root rev-parse 'HEAD:SDK/Mods/mymod').Trim();sdkGitTree=(& git -C $root rev-parse 'HEAD:SDK').Trim();sourceRoot=$source;modRoot=$mod;sdkRoot=$sdk;inputFiles=$inputs;inputFileCount=$inputs.Count;inputBytes=[long](($inputs|Measure-Object -Property bytes -Sum).Sum);runtimeFiles=$runtimeInputs;fixedArguments=(@('--package-format','loose','--package-content','base')+$fixed);rows=@()}
+        $measurement=@{passed=$false;scope='Complete unchanged repository SDK/Mods/mymod copy against the real SDK, development/loose/base/jobs1. Initial no-cache control and empty-store write followed by three alternating disabled/hot pairs on this runner. Small repository fixture, not a large MOD benchmark; sampled private memory is not an OS continuous peak; no speed threshold or speedup claim. Additional changes do not enter loose stream artifacts and are not a packaging-byte comparison.';osFileCache=@{control='not-flushed-or-isolated';pairedSampleCondition='after SDK input hashing, initial no-cache control and cold cache write; OS cache may remain warm across invocations';runner=$env:RUNNER_NAME;operatingSystem=$env:RUNNER_OS;machine=[Environment]::MachineName;crossRunnerComparison=$false};sourceGitTree=(& git -C $root rev-parse 'HEAD:SDK/Mods/mymod').Trim();sdkGitTree=(& git -C $root rev-parse 'HEAD:SDK').Trim();sourceRoot=$source;modRoot=$mod;sdkRoot=$sdk;inputFiles=$inputs;inputFileCount=$inputs.Count;inputBytes=[long](($inputs|Measure-Object -Property bytes -Sum).Sum);runtimeFiles=$runtimeInputs;fixedArguments=(@('--package-format','loose','--package-content','base')+$fixed);rows=@()}
         $script:modeState.repositoryModMetrics=$measurement
         $controlCase=RunCli 'repository-mod-no-cache' $mod (Join-Path $ModeWork 'repository-plain') $false -Extra $fixed;Cache $controlCase 'disabled'
         $measurement.rows+=,(RepositoryMetricRow $controlCase 'disabled' 'unchanged')
@@ -175,10 +175,16 @@ function RepositoryModMetrics([string]$ModeWork){
         $measurement.rows+=,(RepositoryMetricRow $cold 'empty-action-cache' 'unchanged')
         $hot=$null
         foreach($repeat in 1..3){
-            $next=RunCli ('repository-mod-hot-'+$repeat) $mod $cached $true -Extra $fixed;Cache $next 'hot';SameOutputs $controlCase $next
+            # Alternate in one process order, reuse the exact same runtime,
+            # roots/options/jobs and both fixed output layouts. Setup/cold rows
+            # remain separate from the comparable three-pair summary.
+            $plain=RunCli ('repository-mod-pair-'+$repeat+'-no-cache') $mod (Join-Path $ModeWork 'repository-plain') $false -Extra $fixed;Cache $plain 'disabled';SameOutputs $controlCase $plain
+            $measurement.rows+=,(RepositoryMetricRow $plain 'disabled' 'unchanged' $repeat)
+            $next=RunCli ('repository-mod-pair-'+$repeat+'-hot') $mod $cached $true -Extra $fixed;Cache $next 'hot';SameOutputs $plain $next
             if($null -ne $hot){Need ($next.report.cache.backendCalls -eq $hot.report.cache.backendCalls -and $next.report.cache.actionHits -eq $hot.report.cache.actionHits) 'Repeated repository hot calls or certified hit count changed'}
-            $hot=$next;$measurement.rows+=,(RepositoryMetricRow $hot 'hot-action-cache' 'unchanged')
+            $hot=$next;$measurement.rows+=,(RepositoryMetricRow $hot 'hot-action-cache' 'unchanged' $repeat)
         }
+        $measurement.comparison=RepositoryPairedSummary $measurement.rows
         $additional=Join-Path $mod 'Additional/repository-cache-metrics.txt'
         Need (!(Test-Path -LiteralPath $additional)) 'Repository metrics Additional marker would overwrite source content'
         Put $additional 'Repository metrics: unread Additional-only change; loose stream bytes stay identical.'
@@ -195,12 +201,64 @@ function RepositoryModMetrics([string]$ModeWork){
         $measurement.passed=$true
     }finally{$script:sdk=$savedSdk}
 }
-function RepositoryMetricRow($Case,[string]$CacheState,[string]$InputVariant){
+function RepositoryCacheStorage([string]$Destination){
+    $layers=@{}
+    foreach($name in @('actionResults','readClosures','other')){
+        $layers[$name]=@{fileCount=0;fileLengthBytes=0L;indexFileCount=0;indexFileLengthBytes=0L;payloadFileCount=0;payloadFileLengthBytes=0L}
+    }
+    $cache=Join-Path $Destination '.cache'
+    if(Test-Path -LiteralPath $cache){
+        foreach($file in @(Get-ChildItem -LiteralPath $cache -File -Recurse)){
+            $relative=[IO.Path]::GetRelativePath($cache,$file.FullName).Replace('\','/')
+            $name=if($relative.StartsWith('action-cache-v1/',[StringComparison]::Ordinal)){'actionResults'}elseif($relative.StartsWith('read-closure-v1/',[StringComparison]::Ordinal)){'readClosures'}else{'other'}
+            $layer=$layers[$name];$layer.fileCount++;$layer.fileLengthBytes+=[long]$file.Length
+            if($file.Name -ceq 'index.bin'){$layer.indexFileCount++;$layer.indexFileLengthBytes+=[long]$file.Length}
+            elseif($relative.Contains('/files/')){$layer.payloadFileCount++;$layer.payloadFileLengthBytes+=[long]$file.Length}
+        }
+    }
+    $files=0;$bytes=0L
+    foreach($layer in $layers.Values){$files+=$layer.fileCount;$bytes+=$layer.fileLengthBytes}
+    return @{format='NewModCompiler.CacheStorage.v1';sizeBasis='sum-of-logical-file-lengths-not-allocated-disk-space';snapshotScope='after compiler process exit; enumeration cost excluded from both CLI timers';fileCount=$files;fileLengthBytes=$bytes;layers=$layers;documentState='not-implemented';streamResults='not-implemented';compressionComparison='not-run';transactionPeakStatus='not-measured'}
+}
+function RepositoryMetricRange([double[]]$Values){
+    Need ($Values.Count -gt 0) 'Repository metric summary has no comparable samples'
+    $sorted=@($Values|Sort-Object);$middle=[int][Math]::Floor($sorted.Count/2)
+    $median=if($sorted.Count%2 -eq 1){[double]$sorted[$middle]}else{([double]$sorted[$middle-1]+[double]$sorted[$middle])/2.0}
+    return @{samples=@($Values);median=$median;minimum=[double]$sorted[0];maximum=[double]$sorted[-1];range=([double]$sorted[-1]-[double]$sorted[0])}
+}
+function RepositoryPairedSummary($Rows){
+    $plain=@($Rows|Where-Object{$_.pairIndex -gt 0 -and $_.actionCacheState -ceq 'disabled'})
+    $hot=@($Rows|Where-Object{$_.pairIndex -gt 0 -and $_.actionCacheState -ceq 'hot-action-cache'})
+    Need ($plain.Count -eq 3 -and $hot.Count -eq 3) 'Repository comparison requires exactly three disabled/hot alternating pairs'
+    $pairs=@();$reportDelta=@();$controllerDelta=@()
+    foreach($repeat in 1..3){
+        $left=@($plain|Where-Object{$_.pairIndex -eq $repeat});$right=@($hot|Where-Object{$_.pairIndex -eq $repeat})
+        Need ($left.Count -eq 1 -and $right.Count -eq 1) 'Repository comparison lost its paired invocation identity'
+        $report=[double]$right[0].reportElapsedMs-[double]$left[0].reportElapsedMs
+        $controller=[double]$right[0].controllerElapsedMs-[double]$left[0].controllerElapsedMs
+        $pairs+=,@{pairIndex=$repeat;order='disabled-then-hot';disabled=$left[0].name;hot=$right[0].name;reportHotMinusDisabledMs=$report;controllerHotMinusDisabledMs=$controller;allFourRawOutputsEqual=$true}
+        $reportDelta+=$report;$controllerDelta+=$controller
+    }
+    return @{
+        pairCount=3;requestedJobs=1;order='disabled,hot,disabled,hot,disabled,hot';pairs=$pairs
+        reportElapsedMs=@{disabled=(RepositoryMetricRange @($plain|ForEach-Object{[double]$_.reportElapsedMs}));hot=(RepositoryMetricRange @($hot|ForEach-Object{[double]$_.reportElapsedMs}));pairedHotMinusDisabled=(RepositoryMetricRange $reportDelta)}
+        controllerElapsedMs=@{disabled=(RepositoryMetricRange @($plain|ForEach-Object{[double]$_.controllerElapsedMs}));hot=(RepositoryMetricRange @($hot|ForEach-Object{[double]$_.controllerElapsedMs}));pairedHotMinusDisabled=(RepositoryMetricRange $controllerDelta)}
+        interpretation='same-runner paired measurements only; positive hot-minus-disabled means overhead; no automatic speedup claim or threshold'
+    }
+}
+function RepositoryMetricRow($Case,[string]$CacheState,[string]$InputVariant,[int]$PairIndex=0){
     $controller=Get-Content -LiteralPath (Join-Path $Case.caseOut 'control.json') -Raw|ConvertFrom-Json
     $entries=@($script:modeState.cases|Where-Object{$_.name -ceq $Case.name})
     Need ($entries.Count -eq 1) 'Repository measurement must identify one exact controlled invocation'
     Need ($null -ne $Case.report.cache.PSObject.Properties['inputHashReusedBytes']) 'Repository metrics runtime must report actual hash reuse'
-    return @{name=$Case.name;arguments=$entries[0].arguments;actionCacheState=$CacheState;inputVariant=$InputVariant;reportElapsedMs=$Case.report.elapsedMs;controllerElapsedMs=$controller.elapsedMs;cache=$Case.report.cache;artifactCount=$Case.files.Count;allRawStreamBytesEqualToNoCache=$true}
+    $observed=$Case.report.cache.dependencyObservation
+    Need ($null -ne $observed -and $observed.format -ceq 'NewModCompiler.ReadClosure.v1' -and $observed.frequency -gt 0 -and $observed.semantics -ceq 'inclusive-overlapping-ticks') 'Repository measurements require the versioned actual consumed-read timing contract'
+    $observationMs=@{}
+    foreach($field in @('readTicks','validationTicks','serializationTicks')){
+        Need ($observed.$field -ge 0) "Repository consumed-read timing is negative: $field"
+        $observationMs[$field.Substring(0,$field.Length-5)+'Ms']=1000.0*[double]$observed.$field/[double]$observed.frequency
+    }
+    return @{name=$Case.name;arguments=$entries[0].arguments;pairIndex=$PairIndex;actionCacheState=$CacheState;inputVariant=$InputVariant;reportElapsedMs=$Case.report.elapsedMs;controllerElapsedMs=$controller.elapsedMs;cache=$Case.report.cache;dependencyObservationMs=$observationMs;observationTimingSemantics='inclusive-overlapping; do not sum nested phases';cacheStorage=(RepositoryCacheStorage $Case.destination);peakSampledPrivateBytes=$Case.report.cache.peakSampledPrivateBytes;memoryScope='executor sampling, not continuous OS peak';artifactCount=$Case.files.Count;allRawStreamBytesEqualToNoCache=$true}
 }
 function MakeWave([string]$Path,[int]$Frames=4096){
     # Same known integral PCM source shape as AudioSdkSupport.Wave; no codec,
