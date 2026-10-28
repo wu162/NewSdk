@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "runId": "40693591607",
+  "selected": [
+    "public-s3-dxt1a",
+    "public-s3-dxt1a-dds"
+  ],
+  "groups": [
+    {
+      "passed": true,
+      "evidenceOnly": true,
+      "group": "public-s3-dxt1a"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": true,
+      "group": "public-s3-dxt1a-dds"
+    }
+  ],
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-dds",
+    "atlas-entry",
+    "jpeg",
+    "jpeg-images"
+  ],
+  "runAttempt": "1",
+  "sourceCommit": "5e994ac0db6bcf1c4c226bba8cd4e7d26b85c19e"
+}
