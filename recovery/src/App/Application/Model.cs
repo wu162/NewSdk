@@ -94,6 +94,10 @@ namespace NewModCompiler.Application
         // Cleanup only, idempotent and non-throwing. No new cache writes here.
         void CompleteCache();
     }
+    public interface IBuildCacheInputValidator
+    {
+        void ValidateCacheInputs(System.Threading.CancellationToken cancellation);
+    }
     public interface IInputRootsCompiler
     {
         object InputRootsReport { get; }
@@ -108,3 +112,4 @@ namespace NewModCompiler.Application
         }
     }
 }
+

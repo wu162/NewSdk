@@ -26,13 +26,22 @@ namespace NewModCompiler.Application
         public static CacheInputSnapshot Capture(BuildRequest request, BuildPlan plan, string runtimeDirectory, CancellationToken cancellation)
         {
             if (request == null || plan == null || plan.Tasks == null) throw new ArgumentException("A resolved request and plan are required.");
+            return Capture(request, plan, runtimeDirectory, cancellation, CaptureInputs(request, runtimeDirectory, cancellation));
+        }
+
+        // One immutable content inventory per build. Each stream still hashes its
+        // own request/plan contract; input bytes are read again before publication.
+        internal static CacheInputSnapshot Capture(BuildRequest request, BuildPlan plan, string runtimeDirectory, CancellationToken cancellation, InputInventory inventory)
+        {
+            if (request == null || plan == null || plan.Tasks == null || inventory == null) throw new ArgumentException("A resolved request, plan and inventory are required.");
             string[] roots = { Root(request.SdkRoot), Root(request.ModRoot), Root(runtimeDirectory) };
+            for (int i = 0; i < roots.Length; ++i)
+                if (!string.Equals(roots[i], inventory.Roots[i], StringComparison.Ordinal)) throw new IOException("Shared inventory roots changed.");
             if (string.IsNullOrWhiteSpace(request.OutputRoot)) throw new ArgumentException("An output root is required.");
             string output = Path.GetFullPath(request.OutputRoot);
             foreach (string root in roots)
                 if (Paths.Contains(root, output) || Paths.Contains(output, root)) throw new IOException("Input inventory roots must be separate from output.");
             cancellation.ThrowIfCancellationRequested();
-            int count = 0;
             using (var bytes = new MemoryStream())
             using (var writer = new BinaryWriter(bytes, new UTF8Encoding(false, true)))
             {
@@ -66,13 +75,9 @@ namespace NewModCompiler.Application
                 }
                 // Full root identities intentionally isolate two different MODs
                 // even when their current bytes happen to be identical.
-                for (int role = 0; role < roots.Length; ++role)
-                {
-                    writer.Write(role); writer.Write(roots[role]);
-                    Inventory(writer, roots[role], roots[role], cancellation, ref count);
-                }
+                writer.Write(inventory.Contents);
                 cancellation.ThrowIfCancellationRequested(); writer.Flush(); bytes.Position = 0;
-                using (var hash = SHA256.Create()) return new CacheInputSnapshot(Hex(hash.ComputeHash(bytes)), count);
+                using (var hash = SHA256.Create()) return new CacheInputSnapshot(Hex(hash.ComputeHash(bytes)), inventory.FileCount);
             }
         }
 
@@ -82,6 +87,44 @@ namespace NewModCompiler.Application
         public bool MatchesCurrent(BuildRequest request, BuildPlan plan, string runtimeDirectory, CancellationToken cancellation)
         {
             return string.Equals(fingerprint, Capture(request, plan, runtimeDirectory, cancellation).Fingerprint, StringComparison.Ordinal);
+        }
+
+        internal sealed class InputInventory
+        {
+            internal readonly string[] Roots;
+            internal readonly byte[] Contents;
+            internal readonly int FileCount;
+            readonly string fingerprint;
+            internal InputInventory(string[] roots, byte[] contents, int count)
+            {
+                Roots = roots; Contents = contents; FileCount = count;
+                using (var hash = SHA256.Create()) fingerprint = Hex(hash.ComputeHash(contents));
+            }
+            internal bool MatchesCurrent(BuildRequest request, string runtime, CancellationToken cancellation)
+            {
+                return fingerprint == CaptureInputs(request, runtime, cancellation).fingerprint;
+            }
+        }
+        internal static InputInventory CaptureInputs(BuildRequest request, string runtime, CancellationToken cancellation)
+        {
+            if (request == null) throw new ArgumentNullException("request");
+            string[] roots = { Root(request.SdkRoot), Root(request.ModRoot), Root(runtime) };
+            if (string.IsNullOrWhiteSpace(request.OutputRoot)) throw new ArgumentException("An output root is required.");
+            foreach (string root in roots)
+                if (Paths.Contains(root, request.OutputRoot) || Paths.Contains(request.OutputRoot, root)) throw new IOException("Input inventory roots must be separate from output.");
+            int count = 0;
+            using (var bytes = new MemoryStream())
+            using (var writer = new BinaryWriter(bytes, new UTF8Encoding(false, true)))
+            using (var hash = SHA256.Create())
+            {
+                for (int role = 0; role < roots.Length; ++role)
+                {
+                    writer.Write(role); writer.Write(roots[role]);
+                    Inventory(writer, roots[role], roots[role], cancellation, hash, ref count);
+                }
+                cancellation.ThrowIfCancellationRequested(); writer.Flush();
+                return new InputInventory(roots, bytes.ToArray(), count);
+            }
         }
 
         static string Root(string directory)
@@ -98,7 +141,7 @@ namespace NewModCompiler.Application
         {
             writer.Write(value != null); if (value != null) writer.Write(value);
         }
-        static void Inventory(BinaryWriter writer, string root, string directory, CancellationToken cancellation, ref int count)
+        static void Inventory(BinaryWriter writer, string root, string directory, CancellationToken cancellation, SHA256 hash, ref int count)
         {
             cancellation.ThrowIfCancellationRequested();
             if ((File.GetAttributes(directory) & FileAttributes.ReparsePoint) != 0) throw new IOException("Input inventory does not follow reparse points.");
@@ -111,11 +154,10 @@ namespace NewModCompiler.Application
                 if ((attributes & FileAttributes.ReparsePoint) != 0) throw new IOException("Input inventory does not follow reparse points.");
                 bool isDirectory = (attributes & FileAttributes.Directory) != 0;
                 writer.Write(isDirectory); writer.Write(path.Substring(root.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length));
-                if (isDirectory) Inventory(writer, root, path, cancellation, ref count);
+                if (isDirectory) Inventory(writer, root, path, cancellation, hash, ref count);
                 else
                 {
                     using (var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
-                    using (var hash = SHA256.Create())
                     {
                         writer.Write(input.Length); writer.Write(hash.ComputeHash(input));
                     }
@@ -126,3 +168,4 @@ namespace NewModCompiler.Application
         static string Hex(byte[] hash) { return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant(); }
     }
 }
+
