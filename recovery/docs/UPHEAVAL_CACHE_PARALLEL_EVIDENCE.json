@@ -1,0 +1,1372 @@
+{
+  "archiveSha256": "893e9aa6a2aa2d983455ebb9cce8d3cf763aab8d0311d011551334c173f0fa1a",
+  "scope": "Independent static JSON/event/raw-byte audit; no product execution",
+  "binarySourceCommit": "ac22f7770c7172d1dcb00699387b32bf12be46b7",
+  "testSourceCommit": "12c947494feb1d90d18e65ad551019f7020042bc",
+  "validationSucceeded": true,
+  "inputChecks": {
+    "mod": true,
+    "runtime": true,
+    "sdk": true
+  },
+  "setupElapsedMs": 42134,
+  "finalVerificationElapsedMs": 1739,
+  "intervalLimit": "Only first 512 backend intervals are recorded; type durations are captured-call shares, not complete backend or wall-time shares.",
+  "cases": [
+    {
+      "name": "preflight-plan",
+      "buildId": "8744854eebeb455c8185ab7f9d9b55f6",
+      "reportElapsedMs": 255,
+      "controllerElapsedMs": 1521,
+      "identityEventsPassed": true
+    },
+    {
+      "name": "no-cache-jobs1",
+      "buildId": "1e6fd77dff314089808f3e63e5693c21",
+      "reportElapsedMs": 88160,
+      "controllerElapsedMs": 88394,
+      "identityEventsPassed": true,
+      "artifactCount": 1311,
+      "customDataCount": 1291,
+      "rawByteIdenticalToBaseline": true,
+      "sha256AndSizesMatchReportAndReceipt": true,
+      "streamDurationsMs": {
+        "base/Mod": 85104,
+        "apt/TacticalHUDBuildQueuePage": 469,
+        "apt/TacticalHUDCommandListBox": 214,
+        "apt/TacticalHUDMainCommandBar": 326,
+        "maps/MapMetaData_Global": 257
+      },
+      "cache": {
+        "backendCalls": 3366,
+        "maxBackendConcurrency": 1,
+        "backendOwnerThreadId": 1,
+        "actionHits": 0,
+        "actionMisses": 0,
+        "actionMissReasons": {},
+        "cacheBypassReasons": {
+          "cache-disabled": 3366
+        },
+        "hashReadBytes": 66172963,
+        "restoredBytes": 0,
+        "writtenBytes": 0,
+        "cacheCopyBytes": 0
+      },
+      "sampledIntervals": 512,
+      "sampledMaxConcurrency": 1,
+      "sampledWorkerMaxConcurrency": 0,
+      "sampledWorkerThreadIds": [],
+      "sampledTotalCallMs": 5085.697,
+      "sampledTypes": [
+        {
+          "typeName": "AudioFile",
+          "capturedMs": 4366.198,
+          "capturedCallTimePercent": 85.852,
+          "capturedCalls": 140,
+          "totalCalls": 1289
+        },
+        {
+          "typeName": "W3DMesh",
+          "capturedMs": 238.908,
+          "capturedCallTimePercent": 4.698,
+          "capturedCalls": 16,
+          "totalCalls": 138
+        },
+        {
+          "typeName": "GameObject",
+          "capturedMs": 199.193,
+          "capturedCallTimePercent": 3.917,
+          "capturedCalls": 48,
+          "totalCalls": 121
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "capturedMs": 37.462,
+          "capturedCallTimePercent": 0.737,
+          "capturedCalls": 27,
+          "totalCalls": 108
+        },
+        {
+          "typeName": "FXList",
+          "capturedMs": 34.898,
+          "capturedCallTimePercent": 0.686,
+          "capturedCalls": 9,
+          "totalCalls": 84
+        },
+        {
+          "typeName": "AmbientStream",
+          "capturedMs": 32.215,
+          "capturedCallTimePercent": 0.633,
+          "capturedCalls": 6,
+          "totalCalls": 6
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "capturedMs": 29.484,
+          "capturedCallTimePercent": 0.58,
+          "capturedCalls": 17,
+          "totalCalls": 26
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "capturedMs": 23.516,
+          "capturedCallTimePercent": 0.462,
+          "capturedCalls": 18,
+          "totalCalls": 18
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "capturedMs": 23.055,
+          "capturedCallTimePercent": 0.453,
+          "capturedCalls": 14,
+          "totalCalls": 216
+        },
+        {
+          "typeName": "Texture",
+          "capturedMs": 22.527,
+          "capturedCallTimePercent": 0.443,
+          "capturedCalls": 49,
+          "totalCalls": 115
+        },
+        {
+          "typeName": "OnDemandTexture",
+          "capturedMs": 14.132,
+          "capturedCallTimePercent": 0.278,
+          "capturedCalls": 2,
+          "totalCalls": 2
+        },
+        {
+          "typeName": "DamageFX",
+          "capturedMs": 9.257,
+          "capturedCallTimePercent": 0.182,
+          "capturedCalls": 7,
+          "totalCalls": 7
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "capturedMs": 6.796,
+          "capturedCallTimePercent": 0.134,
+          "capturedCalls": 14,
+          "totalCalls": 27
+        },
+        {
+          "typeName": "MapMetaData",
+          "capturedMs": 6.603,
+          "capturedCallTimePercent": 0.13,
+          "capturedCalls": 1,
+          "totalCalls": 1
+        },
+        {
+          "typeName": "PlayerTech",
+          "capturedMs": 5.967,
+          "capturedCallTimePercent": 0.117,
+          "capturedCalls": 45,
+          "totalCalls": 45
+        },
+        {
+          "typeName": "OnDemandTextureImage",
+          "capturedMs": 5.657,
+          "capturedCallTimePercent": 0.111,
+          "capturedCalls": 7,
+          "totalCalls": 7
+        },
+        {
+          "typeName": "AudioEvent",
+          "capturedMs": 5.581,
+          "capturedCallTimePercent": 0.11,
+          "capturedCalls": 35,
+          "totalCalls": 306
+        },
+        {
+          "typeName": "ObjectFilterAsset",
+          "capturedMs": 4.971,
+          "capturedCallTimePercent": 0.098,
+          "capturedCalls": 7,
+          "totalCalls": 7
+        },
+        {
+          "typeName": "W3DContainer",
+          "capturedMs": 4.798,
+          "capturedCallTimePercent": 0.094,
+          "capturedCalls": 7,
+          "totalCalls": 75
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "capturedMs": 4.766,
+          "capturedCallTimePercent": 0.094,
+          "capturedCalls": 10,
+          "totalCalls": 12
+        },
+        {
+          "typeName": "AttributeModifier",
+          "capturedMs": 3.037,
+          "capturedCallTimePercent": 0.06,
+          "capturedCalls": 2,
+          "totalCalls": 16
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "capturedMs": 2.519,
+          "capturedCallTimePercent": 0.05,
+          "capturedCalls": 14,
+          "totalCalls": 26
+        },
+        {
+          "typeName": "W3DHierarchy",
+          "capturedMs": 1.971,
+          "capturedCallTimePercent": 0.039,
+          "capturedCalls": 7,
+          "totalCalls": 72
+        },
+        {
+          "typeName": "ObjectCreationList",
+          "capturedMs": 0.969,
+          "capturedCallTimePercent": 0.019,
+          "capturedCalls": 6,
+          "totalCalls": 29
+        },
+        {
+          "typeName": "PlayerTechStoreTemplate",
+          "capturedMs": 0.67,
+          "capturedCallTimePercent": 0.013,
+          "capturedCalls": 3,
+          "totalCalls": 3
+        },
+        {
+          "typeName": "Multisound",
+          "capturedMs": 0.546,
+          "capturedCallTimePercent": 0.011,
+          "capturedCalls": 1,
+          "totalCalls": 50
+        }
+      ],
+      "backendCallsByType": {
+        "AmbientStream": 6,
+        "AudioEvent": 306,
+        "AudioFile": 1289,
+        "GameObject": 121,
+        "MapMetaData": 1,
+        "OnDemandTexture": 2,
+        "OnDemandTextureImage": 7,
+        "Texture": 115,
+        "AIBuildStateDefinition": 18,
+        "AIPersonalityDefinition": 26,
+        "DamageFX": 7,
+        "LogicCommandSet": 26,
+        "ObjectFilterAsset": 7,
+        "PlayerTech": 45,
+        "PlayerTechStoreTemplate": 3,
+        "SpecialPowerTemplate": 27,
+        "WeaponTemplate": 108,
+        "UpgradeTemplate": 12,
+        "W3DMesh": 138,
+        "W3DContainer": 75,
+        "W3DHierarchy": 72,
+        "AttributeModifier": 16,
+        "ObjectCreationList": 29,
+        "FXList": 84,
+        "Multisound": 50,
+        "FXParticleSystemTemplate": 216,
+        "Video": 12,
+        "VideoEventList": 12,
+        "ArmorTemplate": 12,
+        "ButtonSingleStateData": 17,
+        "ExperienceLevelTemplate": 65,
+        "LogicCommand": 23,
+        "PackedTextureImage": 46,
+        "RadiusCursor": 1,
+        "UnitAbilityButtonTemplate": 12,
+        "UnitIntro": 11,
+        "UnitTypeIcon": 3,
+        "W3DAnimation": 194,
+        "W3DCollisionBox": 34,
+        "LocomotorTemplate": 12,
+        "AptAptData": 3,
+        "AptConstData": 3,
+        "AptDatData": 3,
+        "AptGeometryData": 89,
+        "Credits": 1,
+        "HealthBarSettings": 1,
+        "HealthBarTemplate": 6
+      },
+      "stages": [
+        {
+          "id": "plan",
+          "status": "succeeded",
+          "elapsedMs": 9,
+          "artifactCount": 0
+        },
+        {
+          "id": "compile",
+          "status": "succeeded",
+          "elapsedMs": 86375,
+          "artifactCount": 1311
+        },
+        {
+          "id": "publish",
+          "status": "succeeded",
+          "elapsedMs": 1498,
+          "artifactCount": 1311
+        }
+      ],
+      "workerOverlapWitness": [],
+      "sampleCoversAllBackendCalls": false,
+      "completeBackendCallWallPercent": null,
+      "rawByteComparisonCount": 1311
+    },
+    {
+      "name": "no-cache-jobs4",
+      "buildId": "f874af4dea6c45d1a77564175e771e49",
+      "reportElapsedMs": 57733,
+      "controllerElapsedMs": 57943,
+      "identityEventsPassed": true,
+      "artifactCount": 1311,
+      "customDataCount": 1291,
+      "rawByteIdenticalToBaseline": true,
+      "sha256AndSizesMatchReportAndReceipt": true,
+      "streamDurationsMs": {
+        "base/Mod": 54681,
+        "apt/TacticalHUDBuildQueuePage": 462,
+        "apt/TacticalHUDCommandListBox": 204,
+        "apt/TacticalHUDMainCommandBar": 327,
+        "maps/MapMetaData_Global": 281
+      },
+      "cache": {
+        "backendCalls": 3366,
+        "maxBackendConcurrency": 4,
+        "backendOwnerThreadId": 1,
+        "actionHits": 0,
+        "actionMisses": 0,
+        "actionMissReasons": {},
+        "cacheBypassReasons": {
+          "cache-disabled": 3366
+        },
+        "hashReadBytes": 66172963,
+        "restoredBytes": 0,
+        "writtenBytes": 0,
+        "cacheCopyBytes": 0
+      },
+      "sampledIntervals": 512,
+      "sampledMaxConcurrency": 4,
+      "sampledWorkerMaxConcurrency": 4,
+      "sampledWorkerThreadIds": [
+        6,
+        7,
+        8,
+        9,
+        11,
+        12
+      ],
+      "sampledTotalCallMs": 5779.492,
+      "sampledTypes": [
+        {
+          "typeName": "AudioFile",
+          "capturedMs": 4705.851,
+          "capturedCallTimePercent": 81.423,
+          "capturedCalls": 140,
+          "totalCalls": 1289
+        },
+        {
+          "typeName": "W3DMesh",
+          "capturedMs": 274.195,
+          "capturedCallTimePercent": 4.744,
+          "capturedCalls": 16,
+          "totalCalls": 138
+        },
+        {
+          "typeName": "GameObject",
+          "capturedMs": 194.606,
+          "capturedCallTimePercent": 3.367,
+          "capturedCalls": 48,
+          "totalCalls": 121
+        },
+        {
+          "typeName": "AmbientStream",
+          "capturedMs": 123.266,
+          "capturedCallTimePercent": 2.133,
+          "capturedCalls": 6,
+          "totalCalls": 6
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "capturedMs": 79.858,
+          "capturedCallTimePercent": 1.382,
+          "capturedCalls": 14,
+          "totalCalls": 216
+        },
+        {
+          "typeName": "FXList",
+          "capturedMs": 72.879,
+          "capturedCallTimePercent": 1.261,
+          "capturedCalls": 9,
+          "totalCalls": 84
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "capturedMs": 68.03,
+          "capturedCallTimePercent": 1.177,
+          "capturedCalls": 18,
+          "totalCalls": 18
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "capturedMs": 45.262,
+          "capturedCallTimePercent": 0.783,
+          "capturedCalls": 17,
+          "totalCalls": 26
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "capturedMs": 38.411,
+          "capturedCallTimePercent": 0.665,
+          "capturedCalls": 27,
+          "totalCalls": 108
+        },
+        {
+          "typeName": "Texture",
+          "capturedMs": 21.885,
+          "capturedCallTimePercent": 0.379,
+          "capturedCalls": 49,
+          "totalCalls": 115
+        },
+        {
+          "typeName": "PlayerTech",
+          "capturedMs": 19.179,
+          "capturedCallTimePercent": 0.332,
+          "capturedCalls": 45,
+          "totalCalls": 45
+        },
+        {
+          "typeName": "OnDemandTextureImage",
+          "capturedMs": 18.314,
+          "capturedCallTimePercent": 0.317,
+          "capturedCalls": 7,
+          "totalCalls": 7
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "capturedMs": 17.5,
+          "capturedCallTimePercent": 0.303,
+          "capturedCalls": 14,
+          "totalCalls": 27
+        },
+        {
+          "typeName": "DamageFX",
+          "capturedMs": 15.903,
+          "capturedCallTimePercent": 0.275,
+          "capturedCalls": 7,
+          "totalCalls": 7
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "capturedMs": 15.035,
+          "capturedCallTimePercent": 0.26,
+          "capturedCalls": 10,
+          "totalCalls": 12
+        },
+        {
+          "typeName": "ObjectFilterAsset",
+          "capturedMs": 14.714,
+          "capturedCallTimePercent": 0.255,
+          "capturedCalls": 7,
+          "totalCalls": 7
+        },
+        {
+          "typeName": "OnDemandTexture",
+          "capturedMs": 13.83,
+          "capturedCallTimePercent": 0.239,
+          "capturedCalls": 2,
+          "totalCalls": 2
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "capturedMs": 10.027,
+          "capturedCallTimePercent": 0.173,
+          "capturedCalls": 14,
+          "totalCalls": 26
+        },
+        {
+          "typeName": "AudioEvent",
+          "capturedMs": 8.83,
+          "capturedCallTimePercent": 0.153,
+          "capturedCalls": 35,
+          "totalCalls": 306
+        },
+        {
+          "typeName": "MapMetaData",
+          "capturedMs": 7.736,
+          "capturedCallTimePercent": 0.134,
+          "capturedCalls": 1,
+          "totalCalls": 1
+        },
+        {
+          "typeName": "W3DContainer",
+          "capturedMs": 5.434,
+          "capturedCallTimePercent": 0.094,
+          "capturedCalls": 7,
+          "totalCalls": 75
+        },
+        {
+          "typeName": "W3DHierarchy",
+          "capturedMs": 3.003,
+          "capturedCallTimePercent": 0.052,
+          "capturedCalls": 7,
+          "totalCalls": 72
+        },
+        {
+          "typeName": "AttributeModifier",
+          "capturedMs": 2.762,
+          "capturedCallTimePercent": 0.048,
+          "capturedCalls": 2,
+          "totalCalls": 16
+        },
+        {
+          "typeName": "ObjectCreationList",
+          "capturedMs": 1.428,
+          "capturedCallTimePercent": 0.025,
+          "capturedCalls": 6,
+          "totalCalls": 29
+        },
+        {
+          "typeName": "PlayerTechStoreTemplate",
+          "capturedMs": 0.866,
+          "capturedCallTimePercent": 0.015,
+          "capturedCalls": 3,
+          "totalCalls": 3
+        },
+        {
+          "typeName": "Multisound",
+          "capturedMs": 0.69,
+          "capturedCallTimePercent": 0.012,
+          "capturedCalls": 1,
+          "totalCalls": 50
+        }
+      ],
+      "backendCallsByType": {
+        "AmbientStream": 6,
+        "AudioEvent": 306,
+        "AudioFile": 1289,
+        "GameObject": 121,
+        "MapMetaData": 1,
+        "OnDemandTexture": 2,
+        "OnDemandTextureImage": 7,
+        "Texture": 115,
+        "AIBuildStateDefinition": 18,
+        "AIPersonalityDefinition": 26,
+        "DamageFX": 7,
+        "LogicCommandSet": 26,
+        "ObjectFilterAsset": 7,
+        "PlayerTech": 45,
+        "PlayerTechStoreTemplate": 3,
+        "SpecialPowerTemplate": 27,
+        "WeaponTemplate": 108,
+        "UpgradeTemplate": 12,
+        "W3DMesh": 138,
+        "W3DContainer": 75,
+        "W3DHierarchy": 72,
+        "AttributeModifier": 16,
+        "ObjectCreationList": 29,
+        "FXList": 84,
+        "Multisound": 50,
+        "FXParticleSystemTemplate": 216,
+        "Video": 12,
+        "VideoEventList": 12,
+        "ArmorTemplate": 12,
+        "ButtonSingleStateData": 17,
+        "ExperienceLevelTemplate": 65,
+        "LogicCommand": 23,
+        "PackedTextureImage": 46,
+        "RadiusCursor": 1,
+        "UnitAbilityButtonTemplate": 12,
+        "UnitIntro": 11,
+        "UnitTypeIcon": 3,
+        "W3DAnimation": 194,
+        "W3DCollisionBox": 34,
+        "LocomotorTemplate": 12,
+        "AptConstData": 3,
+        "AptAptData": 3,
+        "AptDatData": 3,
+        "AptGeometryData": 89,
+        "Credits": 1,
+        "HealthBarSettings": 1,
+        "HealthBarTemplate": 6
+      },
+      "stages": [
+        {
+          "id": "plan",
+          "status": "succeeded",
+          "elapsedMs": 6,
+          "artifactCount": 0
+        },
+        {
+          "id": "compile",
+          "status": "succeeded",
+          "elapsedMs": 55962,
+          "artifactCount": 1311
+        },
+        {
+          "id": "publish",
+          "status": "succeeded",
+          "elapsedMs": 1505,
+          "artifactCount": 1311
+        }
+      ],
+      "workerOverlapWitness": [
+        {
+          "threadId": 6,
+          "typeName": "AmbientStream",
+          "sourcePath": "d:\\a\\_temp\\u8c964a4d\\upheaval\\data\\base\\baseambientstream.xml",
+          "startTicks": 4066227182,
+          "endTicks": 4066586783
+        },
+        {
+          "threadId": 8,
+          "typeName": "AmbientStream",
+          "sourcePath": "d:\\a\\_temp\\u8c964a4d\\upheaval\\data\\mod\\specific\\ambientstream.xml",
+          "startTicks": 4066295410,
+          "endTicks": 4066586915
+        },
+        {
+          "threadId": 7,
+          "typeName": "AmbientStream",
+          "sourcePath": "d:\\a\\_temp\\u8c964a4d\\upheaval\\data\\mod\\specific\\ambientstream.xml",
+          "startTicks": 4066292979,
+          "endTicks": 4066587650
+        },
+        {
+          "threadId": 9,
+          "typeName": "AmbientStream",
+          "sourcePath": "d:\\a\\_temp\\u8c964a4d\\upheaval\\data\\mod\\specific\\ambientstream.xml",
+          "startTicks": 4066303351,
+          "endTicks": 4066587680
+        }
+      ],
+      "sampleCoversAllBackendCalls": false,
+      "completeBackendCallWallPercent": null,
+      "rawByteComparisonCount": 1311
+    },
+    {
+      "name": "empty-action-cache-jobs4",
+      "buildId": "ea89cc67e3544f24b34cfd2da25f2b6e",
+      "reportElapsedMs": 85841,
+      "controllerElapsedMs": 87502,
+      "identityEventsPassed": true,
+      "artifactCount": 1311,
+      "customDataCount": 1291,
+      "rawByteIdenticalToBaseline": true,
+      "sha256AndSizesMatchReportAndReceipt": true,
+      "streamDurationsMs": {
+        "base/Mod": 67907,
+        "apt/TacticalHUDBuildQueuePage": 3550,
+        "apt/TacticalHUDCommandListBox": 3121,
+        "apt/TacticalHUDMainCommandBar": 3454,
+        "maps/MapMetaData_Global": 3248
+      },
+      "cache": {
+        "backendCalls": 3354,
+        "maxBackendConcurrency": 4,
+        "backendOwnerThreadId": 1,
+        "actionHits": 12,
+        "actionMisses": 3202,
+        "actionMissReasons": {
+          "entry-not-found": 3202
+        },
+        "cacheBypassReasons": {
+          "not-prepared": 152
+        },
+        "hashReadBytes": 3453936344,
+        "restoredBytes": 9264,
+        "writtenBytes": 46628740,
+        "cacheCopyBytes": 46638004
+      },
+      "sampledIntervals": 512,
+      "sampledMaxConcurrency": 4,
+      "sampledWorkerMaxConcurrency": 4,
+      "sampledWorkerThreadIds": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "sampledTotalCallMs": 5596.823,
+      "sampledTypes": [
+        {
+          "typeName": "AudioFile",
+          "capturedMs": 4591.063,
+          "capturedCallTimePercent": 82.03,
+          "capturedCalls": 140,
+          "totalCalls": 1289
+        },
+        {
+          "typeName": "W3DMesh",
+          "capturedMs": 305.808,
+          "capturedCallTimePercent": 5.464,
+          "capturedCalls": 16,
+          "totalCalls": 134
+        },
+        {
+          "typeName": "GameObject",
+          "capturedMs": 183.429,
+          "capturedCallTimePercent": 3.277,
+          "capturedCalls": 48,
+          "totalCalls": 121
+        },
+        {
+          "typeName": "AmbientStream",
+          "capturedMs": 100.456,
+          "capturedCallTimePercent": 1.795,
+          "capturedCalls": 6,
+          "totalCalls": 6
+        },
+        {
+          "typeName": "FXList",
+          "capturedMs": 77.016,
+          "capturedCallTimePercent": 1.376,
+          "capturedCalls": 9,
+          "totalCalls": 84
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "capturedMs": 63.27,
+          "capturedCallTimePercent": 1.13,
+          "capturedCalls": 18,
+          "totalCalls": 18
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "capturedMs": 61.116,
+          "capturedCallTimePercent": 1.092,
+          "capturedCalls": 14,
+          "totalCalls": 214
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "capturedMs": 38.417,
+          "capturedCallTimePercent": 0.686,
+          "capturedCalls": 17,
+          "totalCalls": 26
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "capturedMs": 35.797,
+          "capturedCallTimePercent": 0.64,
+          "capturedCalls": 27,
+          "totalCalls": 108
+        },
+        {
+          "typeName": "Texture",
+          "capturedMs": 21.805,
+          "capturedCallTimePercent": 0.39,
+          "capturedCalls": 49,
+          "totalCalls": 115
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "capturedMs": 16.24,
+          "capturedCallTimePercent": 0.29,
+          "capturedCalls": 10,
+          "totalCalls": 12
+        },
+        {
+          "typeName": "OnDemandTextureImage",
+          "capturedMs": 15.602,
+          "capturedCallTimePercent": 0.279,
+          "capturedCalls": 7,
+          "totalCalls": 7
+        },
+        {
+          "typeName": "OnDemandTexture",
+          "capturedMs": 13.81,
+          "capturedCallTimePercent": 0.247,
+          "capturedCalls": 2,
+          "totalCalls": 2
+        },
+        {
+          "typeName": "DamageFX",
+          "capturedMs": 11.184,
+          "capturedCallTimePercent": 0.2,
+          "capturedCalls": 7,
+          "totalCalls": 7
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "capturedMs": 9.801,
+          "capturedCallTimePercent": 0.175,
+          "capturedCalls": 14,
+          "totalCalls": 27
+        },
+        {
+          "typeName": "PlayerTech",
+          "capturedMs": 9.552,
+          "capturedCallTimePercent": 0.171,
+          "capturedCalls": 45,
+          "totalCalls": 45
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "capturedMs": 8.233,
+          "capturedCallTimePercent": 0.147,
+          "capturedCalls": 14,
+          "totalCalls": 26
+        },
+        {
+          "typeName": "ObjectFilterAsset",
+          "capturedMs": 7.008,
+          "capturedCallTimePercent": 0.125,
+          "capturedCalls": 7,
+          "totalCalls": 7
+        },
+        {
+          "typeName": "MapMetaData",
+          "capturedMs": 6.654,
+          "capturedCallTimePercent": 0.119,
+          "capturedCalls": 1,
+          "totalCalls": 1
+        },
+        {
+          "typeName": "W3DContainer",
+          "capturedMs": 6.583,
+          "capturedCallTimePercent": 0.118,
+          "capturedCalls": 7,
+          "totalCalls": 73
+        },
+        {
+          "typeName": "AudioEvent",
+          "capturedMs": 6.348,
+          "capturedCallTimePercent": 0.113,
+          "capturedCalls": 35,
+          "totalCalls": 304
+        },
+        {
+          "typeName": "W3DHierarchy",
+          "capturedMs": 2.609,
+          "capturedCallTimePercent": 0.047,
+          "capturedCalls": 7,
+          "totalCalls": 70
+        },
+        {
+          "typeName": "AttributeModifier",
+          "capturedMs": 2.393,
+          "capturedCallTimePercent": 0.043,
+          "capturedCalls": 2,
+          "totalCalls": 16
+        },
+        {
+          "typeName": "ObjectCreationList",
+          "capturedMs": 1.231,
+          "capturedCallTimePercent": 0.022,
+          "capturedCalls": 6,
+          "totalCalls": 29
+        },
+        {
+          "typeName": "PlayerTechStoreTemplate",
+          "capturedMs": 0.777,
+          "capturedCallTimePercent": 0.014,
+          "capturedCalls": 3,
+          "totalCalls": 3
+        },
+        {
+          "typeName": "Multisound",
+          "capturedMs": 0.623,
+          "capturedCallTimePercent": 0.011,
+          "capturedCalls": 1,
+          "totalCalls": 50
+        }
+      ],
+      "backendCallsByType": {
+        "AmbientStream": 6,
+        "AudioEvent": 304,
+        "AudioFile": 1289,
+        "GameObject": 121,
+        "MapMetaData": 1,
+        "OnDemandTexture": 2,
+        "OnDemandTextureImage": 7,
+        "Texture": 115,
+        "AIBuildStateDefinition": 18,
+        "AIPersonalityDefinition": 26,
+        "DamageFX": 7,
+        "LogicCommandSet": 26,
+        "ObjectFilterAsset": 7,
+        "PlayerTech": 45,
+        "PlayerTechStoreTemplate": 3,
+        "SpecialPowerTemplate": 27,
+        "WeaponTemplate": 108,
+        "UpgradeTemplate": 12,
+        "W3DMesh": 134,
+        "W3DContainer": 73,
+        "W3DHierarchy": 70,
+        "AttributeModifier": 16,
+        "ObjectCreationList": 29,
+        "FXList": 84,
+        "Multisound": 50,
+        "FXParticleSystemTemplate": 214,
+        "Video": 12,
+        "VideoEventList": 12,
+        "ArmorTemplate": 12,
+        "ButtonSingleStateData": 17,
+        "ExperienceLevelTemplate": 65,
+        "LogicCommand": 23,
+        "PackedTextureImage": 46,
+        "RadiusCursor": 1,
+        "UnitAbilityButtonTemplate": 12,
+        "UnitIntro": 11,
+        "UnitTypeIcon": 3,
+        "W3DAnimation": 194,
+        "W3DCollisionBox": 34,
+        "LocomotorTemplate": 12,
+        "AptAptData": 3,
+        "AptConstData": 3,
+        "AptDatData": 3,
+        "AptGeometryData": 89,
+        "Credits": 1,
+        "HealthBarSettings": 1,
+        "HealthBarTemplate": 6
+      },
+      "stages": [
+        {
+          "id": "plan",
+          "status": "succeeded",
+          "elapsedMs": 7,
+          "artifactCount": 0
+        },
+        {
+          "id": "compile",
+          "status": "succeeded",
+          "elapsedMs": 81286,
+          "artifactCount": 1311
+        },
+        {
+          "id": "publish",
+          "status": "succeeded",
+          "elapsedMs": 1517,
+          "artifactCount": 1311
+        }
+      ],
+      "workerOverlapWitness": [
+        {
+          "threadId": 9,
+          "typeName": "AmbientStream",
+          "sourcePath": "d:\\a\\_temp\\u8c964a4d\\upheaval\\data\\mod\\specific\\ambientstream.xml",
+          "startTicks": 4695606817,
+          "endTicks": 4695838860
+        },
+        {
+          "threadId": 10,
+          "typeName": "AmbientStream",
+          "sourcePath": "d:\\a\\_temp\\u8c964a4d\\upheaval\\data\\mod\\specific\\ambientstream.xml",
+          "startTicks": 4695617129,
+          "endTicks": 4695838871
+        },
+        {
+          "threadId": 8,
+          "typeName": "AmbientStream",
+          "sourcePath": "d:\\a\\_temp\\u8c964a4d\\upheaval\\data\\mod\\specific\\ambientstream.xml",
+          "startTicks": 4695601292,
+          "endTicks": 4695838878
+        },
+        {
+          "threadId": 7,
+          "typeName": "AmbientStream",
+          "sourcePath": "d:\\a\\_temp\\u8c964a4d\\upheaval\\data\\base\\baseambientstream.xml",
+          "startTicks": 4695527583,
+          "endTicks": 4695838902
+        }
+      ],
+      "sampleCoversAllBackendCalls": false,
+      "completeBackendCallWallPercent": null,
+      "rawByteComparisonCount": 1311
+    },
+    {
+      "name": "hot-action-cache-1",
+      "buildId": "34f8db44501b46549c46274e02fc048d",
+      "reportElapsedMs": 73609,
+      "controllerElapsedMs": 75194,
+      "identityEventsPassed": true,
+      "artifactCount": 1311,
+      "customDataCount": 1291,
+      "rawByteIdenticalToBaseline": true,
+      "sha256AndSizesMatchReportAndReceipt": true,
+      "streamDurationsMs": {
+        "base/Mod": 58080,
+        "apt/TacticalHUDBuildQueuePage": 3490,
+        "apt/TacticalHUDCommandListBox": 3237,
+        "apt/TacticalHUDMainCommandBar": 3397,
+        "maps/MapMetaData_Global": 3385
+      },
+      "cache": {
+        "backendCalls": 152,
+        "maxBackendConcurrency": 1,
+        "backendOwnerThreadId": 1,
+        "actionHits": 3214,
+        "actionMisses": 0,
+        "actionMissReasons": {},
+        "cacheBypassReasons": {
+          "not-prepared": 152
+        },
+        "hashReadBytes": 3453936344,
+        "restoredBytes": 46638004,
+        "writtenBytes": 0,
+        "cacheCopyBytes": 46638004
+      },
+      "sampledIntervals": 152,
+      "sampledMaxConcurrency": 1,
+      "sampledWorkerMaxConcurrency": 0,
+      "sampledWorkerThreadIds": [],
+      "sampledTotalCallMs": 5707.084,
+      "sampledTypes": [
+        {
+          "typeName": "W3DAnimation",
+          "capturedMs": 3124.146,
+          "capturedCallTimePercent": 54.742,
+          "capturedCalls": 4,
+          "totalCalls": 4
+        },
+        {
+          "typeName": "W3DMesh",
+          "capturedMs": 2331.9,
+          "capturedCallTimePercent": 40.86,
+          "capturedCalls": 31,
+          "totalCalls": 31
+        },
+        {
+          "typeName": "Texture",
+          "capturedMs": 237.463,
+          "capturedCallTimePercent": 4.161,
+          "capturedCalls": 115,
+          "totalCalls": 115
+        },
+        {
+          "typeName": "OnDemandTexture",
+          "capturedMs": 13.575,
+          "capturedCallTimePercent": 0.238,
+          "capturedCalls": 2,
+          "totalCalls": 2
+        }
+      ],
+      "backendCallsByType": {
+        "OnDemandTexture": 2,
+        "Texture": 115,
+        "W3DMesh": 31,
+        "W3DAnimation": 4
+      },
+      "stages": [
+        {
+          "id": "plan",
+          "status": "succeeded",
+          "elapsedMs": 6,
+          "artifactCount": 0
+        },
+        {
+          "id": "compile",
+          "status": "succeeded",
+          "elapsedMs": 71593,
+          "artifactCount": 1311
+        },
+        {
+          "id": "publish",
+          "status": "succeeded",
+          "elapsedMs": 1716,
+          "artifactCount": 1311
+        }
+      ],
+      "workerOverlapWitness": [],
+      "sampleCoversAllBackendCalls": true,
+      "completeBackendCallWallPercent": 7.753,
+      "rawByteComparisonCount": 1311
+    },
+    {
+      "name": "hot-action-cache-2",
+      "buildId": "be7233452e52454cbe774cc0605aa1c5",
+      "reportElapsedMs": 76909,
+      "controllerElapsedMs": 78250,
+      "identityEventsPassed": true,
+      "artifactCount": 1311,
+      "customDataCount": 1291,
+      "rawByteIdenticalToBaseline": true,
+      "sha256AndSizesMatchReportAndReceipt": true,
+      "streamDurationsMs": {
+        "base/Mod": 61804,
+        "apt/TacticalHUDBuildQueuePage": 3502,
+        "apt/TacticalHUDCommandListBox": 3181,
+        "apt/TacticalHUDMainCommandBar": 3370,
+        "maps/MapMetaData_Global": 3239
+      },
+      "cache": {
+        "backendCalls": 152,
+        "maxBackendConcurrency": 1,
+        "backendOwnerThreadId": 1,
+        "actionHits": 3214,
+        "actionMisses": 0,
+        "actionMissReasons": {},
+        "cacheBypassReasons": {
+          "not-prepared": 152
+        },
+        "hashReadBytes": 3453936344,
+        "restoredBytes": 46638004,
+        "writtenBytes": 0,
+        "cacheCopyBytes": 46638004
+      },
+      "sampledIntervals": 152,
+      "sampledMaxConcurrency": 1,
+      "sampledWorkerMaxConcurrency": 0,
+      "sampledWorkerThreadIds": [],
+      "sampledTotalCallMs": 6023.289,
+      "sampledTypes": [
+        {
+          "typeName": "W3DAnimation",
+          "capturedMs": 3216.962,
+          "capturedCallTimePercent": 53.409,
+          "capturedCalls": 4,
+          "totalCalls": 4
+        },
+        {
+          "typeName": "W3DMesh",
+          "capturedMs": 2485.34,
+          "capturedCallTimePercent": 41.262,
+          "capturedCalls": 31,
+          "totalCalls": 31
+        },
+        {
+          "typeName": "Texture",
+          "capturedMs": 307.035,
+          "capturedCallTimePercent": 5.097,
+          "capturedCalls": 115,
+          "totalCalls": 115
+        },
+        {
+          "typeName": "OnDemandTexture",
+          "capturedMs": 13.952,
+          "capturedCallTimePercent": 0.232,
+          "capturedCalls": 2,
+          "totalCalls": 2
+        }
+      ],
+      "backendCallsByType": {
+        "OnDemandTexture": 2,
+        "Texture": 115,
+        "W3DMesh": 31,
+        "W3DAnimation": 4
+      },
+      "stages": [
+        {
+          "id": "plan",
+          "status": "succeeded",
+          "elapsedMs": 8,
+          "artifactCount": 0
+        },
+        {
+          "id": "compile",
+          "status": "succeeded",
+          "elapsedMs": 75099,
+          "artifactCount": 1311
+        },
+        {
+          "id": "publish",
+          "status": "succeeded",
+          "elapsedMs": 1520,
+          "artifactCount": 1311
+        }
+      ],
+      "workerOverlapWitness": [],
+      "sampleCoversAllBackendCalls": true,
+      "completeBackendCallWallPercent": 7.832,
+      "rawByteComparisonCount": 1311
+    },
+    {
+      "name": "hot-action-cache-3",
+      "buildId": "beda502d7c4146c4909e58f0a1ef6ab9",
+      "reportElapsedMs": 72781,
+      "controllerElapsedMs": 74106,
+      "identityEventsPassed": true,
+      "artifactCount": 1311,
+      "customDataCount": 1291,
+      "rawByteIdenticalToBaseline": true,
+      "sha256AndSizesMatchReportAndReceipt": true,
+      "streamDurationsMs": {
+        "base/Mod": 57646,
+        "apt/TacticalHUDBuildQueuePage": 3537,
+        "apt/TacticalHUDCommandListBox": 3156,
+        "apt/TacticalHUDMainCommandBar": 3393,
+        "maps/MapMetaData_Global": 3248
+      },
+      "cache": {
+        "backendCalls": 152,
+        "maxBackendConcurrency": 1,
+        "backendOwnerThreadId": 1,
+        "actionHits": 3214,
+        "actionMisses": 0,
+        "actionMissReasons": {},
+        "cacheBypassReasons": {
+          "not-prepared": 152
+        },
+        "hashReadBytes": 3453936344,
+        "restoredBytes": 46638004,
+        "writtenBytes": 0,
+        "cacheCopyBytes": 46638004
+      },
+      "sampledIntervals": 152,
+      "sampledMaxConcurrency": 1,
+      "sampledWorkerMaxConcurrency": 0,
+      "sampledWorkerThreadIds": [],
+      "sampledTotalCallMs": 5776.899,
+      "sampledTypes": [
+        {
+          "typeName": "W3DAnimation",
+          "capturedMs": 3106.446,
+          "capturedCallTimePercent": 53.774,
+          "capturedCalls": 4,
+          "totalCalls": 4
+        },
+        {
+          "typeName": "W3DMesh",
+          "capturedMs": 2385.354,
+          "capturedCallTimePercent": 41.291,
+          "capturedCalls": 31,
+          "totalCalls": 31
+        },
+        {
+          "typeName": "Texture",
+          "capturedMs": 270.829,
+          "capturedCallTimePercent": 4.688,
+          "capturedCalls": 115,
+          "totalCalls": 115
+        },
+        {
+          "typeName": "OnDemandTexture",
+          "capturedMs": 14.27,
+          "capturedCallTimePercent": 0.247,
+          "capturedCalls": 2,
+          "totalCalls": 2
+        }
+      ],
+      "backendCallsByType": {
+        "OnDemandTexture": 2,
+        "Texture": 115,
+        "W3DMesh": 31,
+        "W3DAnimation": 4
+      },
+      "stages": [
+        {
+          "id": "plan",
+          "status": "succeeded",
+          "elapsedMs": 8,
+          "artifactCount": 0
+        },
+        {
+          "id": "compile",
+          "status": "succeeded",
+          "elapsedMs": 70983,
+          "artifactCount": 1311
+        },
+        {
+          "id": "publish",
+          "status": "succeeded",
+          "elapsedMs": 1505,
+          "artifactCount": 1311
+        }
+      ],
+      "workerOverlapWitness": [],
+      "sampleCoversAllBackendCalls": true,
+      "completeBackendCallWallPercent": 7.937,
+      "rawByteComparisonCount": 1311
+    }
+  ],
+  "allPassed": true,
+  "findings": [
+    "All six build publications contain 1311 artifacts (1291 custom-data plus 20 stream files), identical raw bytes to no-cache jobs1, independently hashed against both durable report and validation receipt.",
+    "No-cache jobs4 elapsed 57733ms vs jobs1 88160ms: 34.51 percent reduction, one measured run each; sampled intervals prove four distinct worker threads overlapping.",
+    "Hot cache: all three runs 3214 hits/0 misses, but 72781-76909ms. Complete hot backend intervals total only 5707-6023ms (7.75-7.94 percent of total wall time), all owner-thread. Backend compilation alone cannot explain remaining hot elapsed.",
+    "HashReadBytes increases from 66172963 without action cache to 3453936344 with action cache (52.20x), while hot restored bytes are only about46.64MB. Profile action-key/input hashing and non-backend document/materialization pipeline before further backend family expansion. Hash byte counts do not establish hashing wall time.",
+    "Base/Mod stream dominates no-cache elapsed (85104/88160ms jobs1;54681/57733ms jobs4). Cold/hot other streams plus framework time also grow; consult per-stream timings in this receipt.",
+    "Only first512 intervals recorded for uncached/cold builds; captured AudioFile81-86 percent share is biased partial coverage and must not be presented as full backend/wall share. Hot152/152 intervals are complete; W3DAnimation53-55 percent and W3DMesh41 percent of backend-call time.",
+    "Workflow final default two-configuration validator failure is separate from these successful Release product cases; no product reference-support failure demonstrated."
+  ],
+  "runId": 40682631514,
+  "runAttempt": 1,
+  "artifactId": 12814381539,
+  "workflowConclusion": "failure",
+  "workflowFailure": "Final generic protocol checker required Debug/Release directories; actual custom Release cases succeeded.",
+  "archiveReplaySourceCommit": "582946ba6cf2bf2a8e100b80033e419f6d6ba7a9",
+  "archiveReplayRunId": 40685364366,
+  "archiveReplayConclusion": "success",
+  "archiveReplayMeasureJob": "skipped",
+  "archiveReplayArtifactId": 12814104094,
+  "archiveReplayArtifactSha256": "6178f32ce1cab26b451f57fbc4d9b185d1abf3a349562d34d8aba287ba72d63f",
+  "archiveReplayReceiptSha256": "39c18eb711724dce20dc50e2e3912546226bed7af8acd995beb724a3669dcb6a",
+  "archiveReplayProtocol": {
+    "status": "passed",
+    "reports": 7,
+    "eventFiles": 7,
+    "events": 25985,
+    "schemaInputs": [
+      {
+        "path": "recovery/protocol/build-report.schema.json",
+        "sha256": "87d09b8c39e24c9cce9e4e600acf061417b6f2a82df46c78cfdbcea36ae63e12"
+      },
+      {
+        "path": "recovery/protocol/build-event.schema.json",
+        "sha256": "9ed098a7aa7eae217fbfd1df05a5a4674e2b4af6d375ab230d79c54e733ada07"
+      }
+    ],
+    "validatedFiles": [
+      {
+        "path": "preflight-plan/build-report.json",
+        "sha256": "386afea15e9b3bbe1409cc9312cbf49586c323fc408a0e41f42e66c1f93c6281"
+      },
+      {
+        "path": "preflight-plan/build.events.jsonl",
+        "sha256": "d102ca19a8c34a1de23f633d93271e2eedfef94dd64593258e30cdcb06d81ce2"
+      },
+      {
+        "path": "no-cache-jobs1/build-report.json",
+        "sha256": "00148411e2116e1325e88ccc2a8fb8e3cb4a6d741061787fa04676fc5623e315"
+      },
+      {
+        "path": "no-cache-jobs1/build.events.jsonl",
+        "sha256": "fc6c8666a078cf1e5d5e0f5f4cb0818ac90a84616eaf837cf9ee1c021103d77c"
+      },
+      {
+        "path": "no-cache-jobs4/build-report.json",
+        "sha256": "b8129cd331ab461a6ddd986f1b5423a9ef83898f0bd1f46b10a1793453916cbf"
+      },
+      {
+        "path": "no-cache-jobs4/build.events.jsonl",
+        "sha256": "14b5fdf97f5e780b103e0332f95aee92b579989b79b5678f1812802449113f39"
+      },
+      {
+        "path": "empty-action-cache-jobs4/build-report.json",
+        "sha256": "59bed972dc9fa2de43af55ca91c575fea24867e2d2c9c01c54df02262cf8b460"
+      },
+      {
+        "path": "empty-action-cache-jobs4/build.events.jsonl",
+        "sha256": "d1082381633e2ff0e982238b15f994b9b6638f1b428f62d8c6f3e4b584148d9b"
+      },
+      {
+        "path": "hot-action-cache-1/build-report.json",
+        "sha256": "3ade1801366bdfeab715eb3c06559ad7bce53644dd2945651b63deadb821abc6"
+      },
+      {
+        "path": "hot-action-cache-1/build.events.jsonl",
+        "sha256": "79aa40d5618e2c7e3d5934d2160298ee59ad6d8ed33c80e74581764c97e3d9f0"
+      },
+      {
+        "path": "hot-action-cache-2/build-report.json",
+        "sha256": "54991c7545c4954bb89a097e56203278d6dc17c5cd2c8fd92f0ce4d2276d7a9d"
+      },
+      {
+        "path": "hot-action-cache-2/build.events.jsonl",
+        "sha256": "737cdc61637a4675fcd44c7c177a1b1283a59d7850713c992d14c2b8421b0dba"
+      },
+      {
+        "path": "hot-action-cache-3/build-report.json",
+        "sha256": "20f94e01f63e94cb66adb1be0c9100a2a48b0653b4b0e079ba0920da881f02a5"
+      },
+      {
+        "path": "hot-action-cache-3/build.events.jsonl",
+        "sha256": "c53d3a479a23d546a0009e338670a3a4d9672da2a7c83337c17284a8b58d831a"
+      }
+    ]
+  }
+}

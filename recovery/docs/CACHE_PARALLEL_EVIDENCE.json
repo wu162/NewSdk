@@ -7935,5 +7935,20 @@
         }
       }
     }
+  },
+  "fullUpheavalMeasurement": {
+    "binarySourceCommit": "ac22f7770c7172d1dcb00699387b32bf12be46b7",
+    "testSourceCommit": "12c947494feb1d90d18e65ad551019f7020042bc",
+    "runId": 40682631514,
+    "workflowConclusion": "failure",
+    "actualCasesSucceeded": true,
+    "artifactId": 12814381539,
+    "artifactSha256": "893e9aa6a2aa2d983455ebb9cce8d3cf763aab8d0311d011551334c173f0fa1a",
+    "independentRawBytesAndLifecycleVerified": true,
+    "evidence": "UPHEAVAL_CACHE_PARALLEL_EVIDENCE.json",
+    "note": "Original overall failure retained; fixed archive-only schema and raw-byte replay succeeded, large MOD task skipped.",
+    "archiveReplayRunId": 40685364366,
+    "archiveReplayConclusion": "success",
+    "archiveReplayMeasureJob": "skipped"
   }
 }

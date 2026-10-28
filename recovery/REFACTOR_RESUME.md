@@ -14,6 +14,8 @@
 
 默认bc/sc=false、jobs1及旧发行不变，Texture、Audio重采样/Audio PathMusic仍owner。本批模块验收已全部完成，不重跑未变生产矩阵或大型MOD；优先用已有计量/小夹具定位缓存闭包成本。禁止强推、禁止未经批准合并。编译/测试全部Actions，文档不重编，依据EFFICIENCY复用有效来源，分别记录binary/test/packaging来源。
 
+交接状态：测试分支 `582946ba` 的轻量归档重放 [40685364366](https://github.com/wu162/NewSdk/actions/runs/40685364366) 已success，guards与原包schema/原字节重放均通过，measure明确skipped；原40682631514的failure终态保留。下一轮按小夹具成组补缓存关键阶段计时；hot后端仅约5.7–6.0s/总73–77s，需调查其余wall，不能通过扩大XML资格或跳过强输入校验盲目优化。测试分支脚本截止/清理/reparse/协议修复均已保存；不将尚未跑到的新超时路径报为已验收。PR #17保持draft，未合入。
+
 ## 已合入的默认构建与参数改进
 
 PR [#14](https://github.com/wu162/NewSdk/pull/14) 已合入 `compiler-main@e7396d3b`（旧交接写待合入已过时）。生产/测试源码 `8b3e146c` 的 [运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 完整 mymod、默认 BIG/SKUDEF 和五文件 ZIP 验收属于基线证据，不能替代本轮新生产源码验收。详见 [默认构建验证](docs/BUILD_DEFAULTS_VALIDATION.md)。
