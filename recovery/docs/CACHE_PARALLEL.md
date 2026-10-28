@@ -4,19 +4,21 @@
 
 用户提供的[原始实施方案](CACHE_PARALLEL_PLAN.md)保留作目标与验收参考；当前状态只看本页收据，不能把方案要求当作已完成能力。日常续接无需重读整份方案。
 
-## 最新已核验阶段与当前批量
+## 最新完整验收（模块批量）
 
-`c807fd1bd13f902bd659d2112dfd3c91fcf66c71` / [40674077574](https://github.com/wu162/NewSdk/actions/runs/40674077574)已完整success；原始归档12810219503、SHA256 `c2a3f2bca01fd804c34a37e34e5822725b9fb36b1512ab3685f920bddaa6ec42`、12组收据及两配置运行文件/独立五文件ZIP已核验。该阶段是24类资格/19个公开根及拒绝原因/哈希开销改进，**不能冒充后续288路由批量结果**。双Mesh4096/4顶点在两配置均为两独立worker且区间重叠、max2、全部串并行/冷热单改原字节相等；九族19个新公开根均实际worker，观察到的与W3X重叠子集逐族保留。11种可构造拒绝原因、部分租约释放/零预算owner、完整mymod/原BAB/BIG/旧session/独立ZIP通过。Debug ZIP `3bcd6cd33a8cb11857713c28756f6feeba9391e030277ec737ebe01142f3275b`，Release `2afad7b0f26e5e3a8df591efa20a1385758511fd5611136bd930514d0181b69f`。
+生产/binary/test/packaging来源均为 `ac22f7770c7172d1dcb00699387b32bf12be46b7`，[40676722714](https://github.com/wu162/NewSdk/actions/runs/40676722714)完整**success**。原始归档12811797346，SHA256 `14f92ed1f66904d4746ad38a486e18fc0c24d8dbff629bf7defca5931c992114`，12组收据、Core fixture源码/结果和两配置独立五文件ZIP原字节均已核验。Debug ZIP `8c4f2b9fd9ace32c4f404985aa3c2f399890f286a113d29f53e631dcff5a6281`；Release `999f672c47514402304fd9794f4a58ae484ce1ff7dafadc4822e18de75186580`。
 
-全模块闭合表生产源码 `ac22f7770c7172d1dcb00699387b32bf12be46b7` 正在 [40676722714](https://github.com/wu162/NewSdk/actions/runs/40676722714) 集中验收，当前Core四平台批量矩阵已通过，完整验收仍须等待终态。原发行不随分支替换。证据见JSON的 `preparedMetadataAndInventoryStage` 与后续新收据。
+当前289条内建XML路由中，284条metadata模块资格、APT四条闭合读取资格，共288条可准入worker；唯一TestTexture因真实外读/长度驱动分配继续owner。新未知路由不自动加入。通用矩阵在Debug/Release的0/1/2/99四平台**各284条都真实worker执行并与owner全部三缓冲逐字节相同**，最小输入拒绝计数均0；有界组件波次观测最大并发Debug4/3/3/3、Release4/4/4/4。这不是每个类型的双同类重叠或复杂字段新原DLL验收；复杂历史差分与19个新公开根及原环境12根的真实worker/串并行/冷热单改、Audio/APT/双Mesh实际重叠、取消/异常/回滚、旧session、完整未精简mymod/原BAB/BIG/独立ZIP全部保留并完整通过。大MOD整体性能仍须专用计量，不能从资格/并发数推倍率。
 
-## 模块批量开放（2026-10-28，最新批次验证待执行）
+先前24类阶段 `c807fd1b` / [40674077574](https://github.com/wu162/NewSdk/actions/runs/40674077574)也已完整success并核验，详见JSON的preparedMetadataAndInventoryStage；更早129d与固定输入成本比较保留在priorSdkDigestMilestone。文档HEAD不冒充binary来源，默认发行不随feature分支替换。
+
+## 模块批量开放（2026-10-28，已完整验收）
 
 用户再次明确指出逐类型开放太慢，因此改为完整模块审计+一套通用矩阵，不再为每个类型复制测试类。当前内建 XML 路由共289条：已对63个模块的外读、共享写/诊断、初始化表与数字属性驱动分配进行成组审计，完整依据和逐模块/逐类型清单见 [XML_BACKEND_REENTRY.json](XML_BACKEND_REENTRY.json)。其中284条纯元数据由闭合的编译期模块表认证，APT四条继续已有闭合读取资格；只有TestTexture因真实外读及文件长度驱动分配保持owner。TestTextureCollection是纯引用数组，单独按实际读合同认证，不按族名推断。
 
 生产 `XmlBackendCertification` 不枚举live routes后自动开放，新/未知类型默认owner。沿用独占DOM/namespace/引用、原始三缓冲、机器预算及取消汇合；XML里的runtime容量只写标量，审计未发现NumFrames式额外编译展开。Audio插件的重采样/PathMusic与Texture限制不改变。Xmlw3d的Hierarchy/Container/Runtime/CollisionBox也属于纯元数据，生产报告新增显式`backendOwnerThreadId`，不再拿Hierarchy的人为串行作worker判断。
 
-新增一个共享的批量组件矩阵：全部284条已审计元数据路由×四平台含99，私有最小DOM先执行有界worker波次，再与owner的完整三缓冲或同型同文拒绝结果对照，原owner DOM/namespace突变不影响冻结输入；最小输入被拒绝的条目明确记录，不冒充复杂有效输入验收或SDK全局可达。原有复杂原DLL差分证据、真实19公开根/原始流、Mesh/Audio/APT实际重叠、取消/异常及完整SDK/发行门槛全部保留。这批改变生产并行资格，集中新建并验收；尚未在CI运行的部分不得标完成。
+新增一个共享的批量组件矩阵：全部284条已审计元数据路由×四平台含99，私有最小DOM先执行有界worker波次，再与owner的完整三缓冲或同型同文拒绝结果对照，原owner DOM/namespace突变不影响冻结输入；最小输入被拒绝的条目明确记录，不冒充复杂有效输入验收或SDK全局可达。原有复杂原DLL差分证据、真实19公开根/原始流、Mesh/Audio/APT实际重叠、取消/异常及完整SDK/发行门槛全部保留。这批改变生产并行资格，已集中新建Debug/Release并完成上节完整验收。
 
 ## 当前实现检查点（2026-10-28，验证待执行）
 
@@ -86,7 +88,7 @@ Radar生产保留完整Texture/PackedTextureImage强引用及ObjectFilter弱名�
 | 族/类型 | CanCache | CanRunParallel | 实际合同与边界 |
 | --- | --- | --- | --- |
 | GameObject、WeaponTemplate、ArmorTemplate | 是 | 否 | 私有有效XML、类型/schema/引用强身份及完整三缓冲；非本次XML模块表族仍保留owner |
-| 全部内建XML元数据闭合集 | 是 | 是（源码资格；批量运行见最新收据） | 284条/62个metadata族；非全局类型保持组件范围。APT四条另有闭合读取；TestTexture继续owner；新未知TypeId不自动加入 |
+| 全部内建XML元数据闭合集 | 是 | 是（机器准入后） | 284条/62个metadata族；非全局类型保持组件范围。APT四条另有闭合读取；TestTexture继续owner；新未知TypeId不自动加入 |
 | AptAptData/AptConstData/AptDatData/AptGeometryData | 条件成立时 | 是 | 对全部真实外部读取持 Win32 FileShare.Read 租约并 SHA256；native 窄路径暂限 ASCII。私有 bridge 树和 Relo::Tracker；缺失/不可读/非 ASCII 回兼容实际执行 |
 | AudioEventLimitGroup/AudioLOD/AudioSettings/Video/VideoEventList/MicrophoneSettings/BootupDisplaySequence | 是 | 是 | Xmlaudio 的七根共用局部 Builder/Tracker 和只读字段/枚举表；不读取外部文件，不注册全局字符串哈希；可选 XML trace 已有锁 |
 | TestTexture | 条件成立时 | 否 | 全部真实外读持 Win32 租约并 SHA256；未扩展其并行资格 |

@@ -5,21 +5,14 @@
 
 ## 当前任务：资产动作缓存与跨文档并行（2026-10-28）
 
-最新用户要求：XML按完整后端模块批量开放，避免逐类型复制夹具/全量编译。当前289条内建XML路由已完成63模块源码审计，284纯metadata+4既有APT闭合读取共288条资格已接生产（TestTexture仍owner），**批量组件/集成CI待执行**。未知新增type默认owner，通用4平台worker/owner三缓冲或拒绝一致矩阵复用复杂历史差分，详见专项及XML_BACKEND_REENTRY.json。Upheaval在专用test/upheaval-cache-parallel-20261028，仅显式低频单批测量，普通push只廉价guards；先等完整成功二进制，不以失败归档开始大型编译。
+最新用户要求：XML按完整后端模块批量开放；大型MOD低频集中测试，运行时继续独立工作。当前289条内建XML路由完成63模块审计，284纯metadata+4既有APT闭合读取共288条资格已接生产，TestTexture仍owner；未知新增type默认owner。闭合表及完整审计见 [CACHE_PARALLEL](docs/CACHE_PARALLEL.md) / XML_BACKEND_REENTRY.json，不再按每type复制夹具。
 
-成果集中 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`，[draft PR #17](https://github.com/wu162/NewSdk/pull/17)；未经用户批准不合入。源码入口、准确资格和原始证据只看 [CACHE_PARALLEL](docs/CACHE_PARALLEL.md) 及其JSON，无需重读历史。
+- 成果分支 `feature/cache-parallel`，[draft PR #17](https://github.com/wu162/NewSdk/pull/17)，未经批准不合入。最新模块批量生产 `ac22f777` / [40676722714](https://github.com/wu162/NewSdk/actions/runs/40676722714) 已完整success并独立核验原包12811797346/12组收据/两配置五文件ZIP；Debug/Release通用284路由×四平台均真实worker且owner三缓冲原字节相同（无拒绝）。生产/SDK/完整mymod/BIG/旧session/取消回滚及独立ZIP全部通过。复杂历史原DLL矩阵和真实公开根/取消/回滚门槛保留，最小DOM矩阵不冒充复杂字段或全部SDK全局根验收。
+- 前一阶段 `c807fd1b` / [40674077574](https://github.com/wu162/NewSdk/actions/runs/40674077574) 已完整success，原包12810219503、12组收据、两配置原五文件及独立ZIP均已核验。包含24类资格/19公开根、双Mesh4096/4顶点实际双worker重叠、13种源码prepare拒绝（Windows实测11种）、独立原因计数与零预算owner/部分租约释放；不能据此前一阶段宣称288路由批量已验收。
+- 有界开销改进：full bounded保留集之外且没有既有entry的小文件跳过FileIdInfo查询，但仍同一拒写handle鲜读SHA；既有entry继续128位身份核对。每Capture独占复用SHA对象。App容量/等长mtime/替换释放及完整SDK已通过c807；尚无本轮真实MOD端到端新收益，不称小MOD缓存慢的问题已解决。129d历史同输入计量仍见专项JSON。
+- 专用完整Upheaval测试分支 `test/upheaval-cache-parallel-bulk` 基于ac22，普通push只cheap guards，显式marker才单批测量；源输入为原始bacfc69的完整2723文件/300900885字节，在RUNNER_TEMP提取，不改当前SDK/源MOD。旧 `test/upheaval-cache-parallel-20261028` 用c807仅跑输入与plan预检（40677846430），无大型编译；后续测量等ac22完整成功五文件归档。若baseline失败保留诊断并停止后续大MOD，不删输入重试。
 
-本轮继续（2026-10-28，约80分钟、通常两个子代理最多三个）：已准备独立 `preparationRejectedReasons`、完整九个元数据后端族共24类并行资格（SDK公开19根）及双 Mesh 真实区间验收；**新源码/测试尚未在 Actions 验证**，不得用下方129d收据代替。本批生产闭包改变，首批b467d708在40670721531验收；本批统一新建Debug/Release并跑完整验收。用户指出逐类型开放太细，收束这批后按模块合同成组认证/复用测试，优先专用测试分支的低频Upheaval实际计量，准确状态见专项。
-
-当前生产源码 `129d9639` 的[40660066519](https://github.com/wu162/NewSdk/actions/runs/40660066519)已完整success，原始归档/12组收据/两配置五文件ZIP已核验：稳定SDK/runtime文件按512-largest持续读租约和128位身份复核复用摘要，排除当前MOD完整子树与SDKAdditional；目录仍首尾全枚举，MOD/Additional仍鲜读。预检/生产/Core/真实SDKArt Texture+SageXml账本/精确缓存/旧session/完整mymod/BIG/独立ZIP全部通过。原包12805100025，精确SHA见专项。
-
-先前诊断来源：`810dd2ad` / [40657123355](https://github.com/wu162/NewSdk/actions/runs/40657123355)完整success，原包12803193116、12组收据和两配置运行文件/五文件ZIP均核验。包括原强ActionKey/完整三缓冲区及CDATA/回滚store/旧session隔离、MachineResources.v1按CPU和Win32物理/虚拟内存准入及降额、十二根Xmlenvironment worker、准确miss/bypass报告。冷8次缺失、损坏和pending各仅1次对应miss、其余7命中，修复后恢复全热；完整未精简mymod/原BAB/BIG/独立ZIP保留。十二根都使用worker，实际Weather与W3X重叠，不夸大每根双同类实测。
-
-真实MOD计量[40659913327](https://github.com/wu162/NewSdk/actions/runs/40659913327)success，binary810/test25df，严格复用成功归档未重编。完整MOD7文件982257字节，真实SDK14715文件125887928字节，47资产热全部命中/零backend；热仍约230MB哈希读取、3.1–3.3秒，比无缓存0.76–0.95秒更慢。它不覆盖129d SDK扩展；相同输入新计量[40662537517](https://github.com/wu162/NewSdk/actions/runs/40662537517)已success，binary129d/teste259：完整SDK/MOD字节、参数与跨版本四输出均核对一致，两配置每次热构建少78862090字节哈希读取（约75.2MiB），47hit/0backend不变。新热中位数Debug2545ms/Release2463ms，仍比新无缓存763/668ms慢；不宣称此小MOD有缓存净收益或通用加速。两生产归档与两重放归档均已核验，完整来源见专项JSON。
-
-主线继续资产动作缓存与跨文档并行的功能完善，包括细分prepare拒绝原因、更多已认证后端与双Mesh实测。小MOD热缓存慢于无缓存的问题已单列为次要小任务，见[专项记录](docs/CACHE_PARALLEL.md)“小 MOD 热缓存开销”；有余量时处理，不作为下一轮默认主线或主线验收阻塞项。Texture、重采样/PathMusic等继续owner，混合Texture session仍拒绝。默认bc/sc=false、jobs1保留，默认发行不随本分支替换。
-
-按 [EFFICIENCY](EFFICIENCY.md) 集中实现/预检/完整验收，全部编译测试在Actions。仅测试改变先核验复用，分别记录binary/test来源；文档不重编，每10–15分钟检查点普通推送。用户本轮要求约70分钟、通常两个子代理最多三个，未自动变成以后每轮固定约定。
+默认bc/sc=false、jobs1及旧发行不变，Texture、Audio重采样/Audio PathMusic仍owner。先完成正在运行的批量验收与Upheaval预检/单批计量，真实阻塞按原日志处理；禁止强推、禁止未经批准合并。编译/测试全部Actions，文档不重编，依据EFFICIENCY复用有效来源，分别记录binary/test/packaging来源。
 
 ## 已合入的默认构建与参数改进
 
