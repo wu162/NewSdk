@@ -9134,5 +9134,120 @@
     "sdkInputFileCount": 14715,
     "sdkInputBytes": 125887928,
     "scope": "Verified successful e86958de runtime reused without rebuilding. Complete cache/payload matrix plus unchanged 7-file/982257-byte small repository mymod against the full SDK; 12 metric invocations preserve raw four-output equality. Hot and Additional-only cases have 47 hits, zero misses and zero backend calls. Different runners/uncontrolled OS caches prevent cross-version speedup attribution. No full-Upheaval rerun."
+  },
+  "readClosureMilestone": {
+    "candidateSourceCommit": "63d32a0f9395130d686b0815e3dddbb0708f137b",
+    "runId": 40787554052,
+    "runConclusion": "in_progress",
+    "scope": "Controlled Core reads, negative resolver probes, existing backend lease digests, bounded checksummed binary evidence and transactional store. Whole-root fallback retained; no document/stream reuse or net speedup claim.",
+    "canAuthorizeReuse": false,
+    "wholeRootInventoryRetained": true,
+    "budgetFallbackApp": {
+      "sourceCommit": "ae15d418339575ec8fe7524052620ed92af0dc04",
+      "runId": 40786061373,
+      "runConclusion": "success",
+      "scope": "Standalone Debug/Release App, not full production acceptance"
+    },
+    "failedAttempts": [
+      {
+        "sourceCommit": "60d17fb27300a62abc4a399a895dcfbcf739306b",
+        "runId": 40783157399,
+        "runConclusion": "failure",
+        "reason": "Added malformed-record tests incorrectly assumed InvalidDataException derives from IOException; native build was not reached."
+      },
+      {
+        "sourceCommit": "15cc807dbf2c914055cb205af269812664c98dc5",
+        "runId": 40783922358,
+        "runConclusion": "failure",
+        "artifactId": 12859752321,
+        "archiveSha256": "e8c37191a5ba8a3fbab603fbb6af8d96ba9f1ad80edeccd1f53e5718041934aa",
+        "archiveMatchesGitHubDigest": true,
+        "reason": "Only Debug/Release CompilerCacheBoundary fixture failed: expected schema path mixed separators while observed paths were canonical. Other 40 Core fixtures and independent deployment/Texture/CLI/cache/payload/input-roots/session/BIG groups passed. Original BAB baseline, SDK and final ZIP gates skipped.",
+        "strictSuccessReplay": false,
+        "scopeReceipts": [
+          {
+            "path": "evidence/refactor/big/40783922358-1/validation.json",
+            "sourceCommit": "15cc807dbf2c914055cb205af269812664c98dc5",
+            "status": null,
+            "succeeded": true,
+            "error": null,
+            "failures": null,
+            "sha256": "6fae288b03af434e4a800634e9bc92dd77c62f71c983344e292f9937e307484a"
+          },
+          {
+            "path": "evidence/refactor/session-cache/40783922358-1/validation.json",
+            "sourceCommit": "15cc807dbf2c914055cb205af269812664c98dc5",
+            "status": null,
+            "succeeded": true,
+            "error": null,
+            "failures": null,
+            "sha256": "795109e00269ded4aba40cc571eb58b8567b210cdba4c9ac22466de2fef185ed"
+          },
+          {
+            "path": "evidence/refactor/cache-payloads/40783922358-1/validation.json",
+            "sourceCommit": "15cc807dbf2c914055cb205af269812664c98dc5",
+            "status": null,
+            "succeeded": true,
+            "error": null,
+            "failures": null,
+            "sha256": "6463f59a54e08c0d681db470fa01c212e35f9ddb7ca0d15eb243d86a93c943ee"
+          },
+          {
+            "path": "evidence/refactor/input-roots/40783922358-1/validation.json",
+            "sourceCommit": "15cc807dbf2c914055cb205af269812664c98dc5",
+            "status": null,
+            "succeeded": true,
+            "error": null,
+            "failures": null,
+            "sha256": "1bc97ddd78d1419d0a87981f00ca0a0a4c0fa6e4e7b3947c92e8732ac95613f7"
+          },
+          {
+            "path": "evidence/refactor/build-cache/40783922358-1/validation.json",
+            "sourceCommit": "15cc807dbf2c914055cb205af269812664c98dc5",
+            "status": null,
+            "succeeded": true,
+            "error": null,
+            "failures": null,
+            "sha256": "f7fd80d639dd619a7deb2d5ebc41fe5fe65d376233d3c697764060193a9ce8e0"
+          },
+          {
+            "path": "evidence/refactor/core-lifecycle-deployment/40783922358-1/validation.json",
+            "sourceCommit": "15cc807dbf2c914055cb205af269812664c98dc5",
+            "status": "passed",
+            "succeeded": null,
+            "error": null,
+            "failures": null,
+            "sha256": "c804e9bffa4e7bdc6b175a2b766b5bb7060ad5df1d61cbe63a506512f38ac55a"
+          },
+          {
+            "path": "evidence/refactor/core-lifecycle/40783922358-1/validation.json",
+            "sourceCommit": "15cc807dbf2c914055cb205af269812664c98dc5",
+            "status": "failed",
+            "succeeded": false,
+            "error": "System.Management.Automation.RuntimeException: Debug CompilerCacheBoundary: System.Management.Automation.RuntimeException: Core lifecycle fixture failed: timeout=False exit=1\nRelease CompilerCacheBoundary: System.Management.Automation.RuntimeException: Core lifecycle fixture failed: timeout=False exit=1",
+            "failures": null,
+            "sha256": "93fb87f03e389ef934761fe6fa6c5324b577b69940f36cff33d927aadce16ff3"
+          },
+          {
+            "path": "evidence/refactor/core-lifecycle-texture/40783922358-1/validation.json",
+            "sourceCommit": "15cc807dbf2c914055cb205af269812664c98dc5",
+            "status": "passed",
+            "succeeded": null,
+            "error": null,
+            "failures": null,
+            "sha256": "44d268319cd34087a20dc13ff663d8a73f83091396afbd9403263ae7688b61a1"
+          },
+          {
+            "path": "evidence/refactor/core-cli/40783922358-1/validation.json",
+            "sourceCommit": "15cc807dbf2c914055cb205af269812664c98dc5",
+            "status": null,
+            "succeeded": true,
+            "error": null,
+            "failures": null,
+            "sha256": "18c62e7d41b0779a30af32632d50809f007f3a808efda13b0de5b38fa8f254ab"
+          }
+        ]
+      }
+    ]
   }
 }

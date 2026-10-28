@@ -6,7 +6,8 @@ param(
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
     [ValidateRange(15,600)][int]$TimeoutSeconds=180,
     [switch]$Preflight,
-    [switch]$RepositoryModMetrics
+    [switch]$RepositoryModMetrics,
+    [switch]$RepositoryModMetricsOnly
 )
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
@@ -544,6 +545,12 @@ $state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     $state.repositoryModMetricsRequested=[bool]$RepositoryModMetrics
+    $state.repositoryModMetricsOnlyRequested=[bool]$RepositoryModMetricsOnly
+    if($RepositoryModMetricsOnly){
+        Need (!$Preflight -and $RepositoryModMetrics -and [bool]$ReplayReceipt) 'Repository metrics-only mode requires RepositoryModMetrics, a verified successful ReplayReceipt, and actual execution rather than Preflight'
+        $state.scope='Repository mymod metrics only: Debug/Release small complete MOD, cold write, three alternating no-cache/hot pairs, Additional-only and exact four-output equality; cache/payload matrices reuse the strictly verified successful original production run and are not re-executed here'
+        $state.validationScope=@{mode='repository-mod-metrics-only';fresh='small repository mymod measurements and protocol';reused='full build-cache and payload acceptance from successful original production archive';origin='strict PrepareCompilerCacheReplay verification; unchanged production closure and exact runtime bytes'}
+    }else{$state.validationScope=@{mode='complete-payload-matrix';fresh='complete payload acceptance and protocol, plus repository mymod metrics only when requested'}}
     if($RepositoryModMetrics -and !$Preflight){Need ([bool]$ReplayReceipt) 'Repository MOD metrics require a verified successful archived runtime and ReplayReceipt'}
     if($Preflight){
         AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3');FourWorkerAudioMod (Join-Path $short 'four');ParallelMeshMod (Join-Path $short 'mesh');EnvironmentMod (Join-Path $short 'env');TargetingMod (Join-Path $short 'target');VisibilityMod (Join-Path $short 'visibility');RadarMod (Join-Path $short 'radar');ConditionsMod (Join-Path $short 'conditions');ObjectSetsMod (Join-Path $short 'objectsets');RenderDeviceMod (Join-Path $short 'renderdevice');UiImagesMod (Join-Path $short 'uiimages');HealthBarsMod (Join-Path $short 'healthbars');UnitOverlayMod (Join-Path $short 'unitoverlay')
@@ -694,7 +701,10 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
     }
     $script:control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
     $state.scriptSha256=Hash $PSCommandPath;$state.controllerSha256=Hash $control
+    $state.sourceInputs=@()
+    if(!$RepositoryModMetricsOnly){
     $state.sourceInputs=@('recovery/tests/AudioSdkSupport.cs','recovery/tests/AudioMp3Fixtures.cs','recovery/tests/XmltargetingProbe.xml','recovery/tests/XmlvisibilityProbe.xml','recovery/tests/XmlradarProbe.xml','recovery/tests/XmlconditionsProbe.xml','recovery/tests/XmlobjectsetsProbe.xml','recovery/tests/XmlrenderdeviceProbe.xml','recovery/tests/XmluiimagesProbe.xml','recovery/tests/XmlhealthbarsProbe.xml','recovery/tests/XmlunitoverlayProbe.xml','SDK/Mods/W3xRecovery/Data/Animations.xml','SDK/Mods/W3xRecovery/Data/Dependencies.xml','SDK/Mods/W3xRecovery/Data/Meshes.xml')|ForEach-Object{@{path=$_;sha256=(Hash (Join-Path $root $_))}}
+    }
     foreach($mode in @('Debug','Release')){
         $script:modeOut=(New-Item -ItemType Directory -Path (Join-Path $out $mode)).FullName
         $modeWork=(New-Item -ItemType Directory -Path (Join-Path $short $mode.Substring(0,1))).FullName
@@ -710,6 +720,13 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
         New-Item -ItemType Directory -Path "$sdk/tools","$sdk/Schemas"|Out-Null
         Copy-Item -LiteralPath "$root/SDK/Schemas/xsd" -Destination "$sdk/Schemas" -Recurse
         Copy-Item -LiteralPath "$root/SDK/tools/BinaryAssetBuilder.exe.config" -Destination "$sdk/tools"
+        if($RepositoryModMetricsOnly){
+            Need ($state.ContainsKey('successfulArchiveReplay') -and $replayFiles.Count -eq 6) 'Metrics-only execution requires completed strict successful-archive verification'
+            $modeState.validationScope='repository-mod-metrics-only; prior full cache/payload acceptance is reused from the verified original run'
+            RepositoryModMetrics $modeWork
+            $modeState.passed=$true
+            continue
+        }
         foreach($family in @('audio','w3x')){
             $mod=Join-Path $modeWork $family;$cachedOut=Join-Path $modeWork ($family+'-cache');$plainOut=Join-Path $modeWork ($family+'-plain')
             if($family -eq 'audio'){AudioMod $mod;$script:expectedCustomData=2}else{W3xMod $mod;$script:expectedCustomData=0}

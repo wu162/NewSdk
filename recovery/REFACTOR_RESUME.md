@@ -29,8 +29,9 @@
 
 - 首批 `60d17fb2` / [40783157399](https://github.com/wu162/NewSdk/actions/runs/40783157399) failure：新增畸形记录测试错误假设InvalidDataException属于IOException，未进入native构建；失败保留。
 - 修正与解码/取消边界 `66524fb2` / [40783469606](https://github.com/wu162/NewSdk/actions/runs/40783469606) App Debug/Release success；不代表后续lease记录或完整生产验收。
-- 第一轮新生产 `15cc807d` / [40783922358](https://github.com/wu162/NewSdk/actions/runs/40783922358) 当前仍收集独立结果，已知Core定向组failure；生产组合、App、CLI、缓存和输入根组已成功，具体失败日志待job终态。不能用于成功原包复用。
+- 第一轮新生产 `15cc807d` / [40783922358](https://github.com/wu162/NewSdk/actions/runs/40783922358) failure：仅Debug/Release的CompilerCacheBoundary预期schema路径未规范分隔符，40个其他Core fixture及独立生产/Texture/CLI/缓存/payload/输入根/session/BIG组通过；原BAB baseline、SDK与最终ZIP按门槛跳过。原归档12859752321及SHA256已核，见证据JSON；不作完整成功复用。
 - 最新生产检查点 `ae15d418` 增加观察预算耗尽后停止记录、保留全根保护并继续普通读取，partial清单不持久化；真实IO/矛盾/取消仍拒绝。轻量App Debug/Release [40786061373](https://github.com/wu162/NewSdk/actions/runs/40786061373) success；尚未替代完整生产验收。
+- 规范化路径断言修复并含预算回退的 `63d32a0f` / [40787554052](https://github.com/wu162/NewSdk/actions/runs/40787554052) 正在执行完整生产验收，尚未标通过。
 - 小mymod三对交替无缓存/热缓存、按层逻辑体积和cold二进制样本归档已准备。等Core失败集中修复和最新生产完整验收后，严格复用最终成功原包运行，不为仅测试变化重编，不追加Upheaval。
 
 1. 第一阶段观察记录接入后，先取得完整生产回归与原始归档；再认证纯metadata读取闭包（配置/工具/选项绑定、逐任务读取资格及precompiled/目录决策仍缺）。只有认证完成才能替换全根保护。继续记录并验证完整实际读取闭包（含resolver候选/不存在/目录决策），在已认证路径替换全根盘点；未知读取保留保守路径。目标允许无关根成员变化，影响语义/输出的变化仍须失效；旧session合同不改。

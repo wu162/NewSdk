@@ -34,6 +34,11 @@ on:
         required: false
         default: false
         type: boolean
+      repository_mod_metrics_only:
+        description: Run only new mymod measurements after strict successful original cache/payload verification; requires repository_mod_metrics
+        required: false
+        default: false
+        type: boolean
 permissions:
   contents: read
   actions: read
@@ -73,6 +78,9 @@ jobs:
             !/recovery/evidence/
       - name: Parse cache replay entries and validate explicit receipt parameters
         shell: pwsh
+        env:
+          REPOSITORY_MOD_METRICS: ${{ inputs.repository_mod_metrics }}
+          REPOSITORY_MOD_METRICS_ONLY: ${{ inputs.repository_mod_metrics_only }}
         run: |
           foreach($script in @('TestCompilerBuildCache.ps1','TestCompilerBuildCachePayloads.ps1')){
             $tokens=$null;$parseErrors=$null
@@ -83,6 +91,10 @@ jobs:
           }
           $metrics=@($ast.ParamBlock.Parameters|Where-Object{$_.Name.VariablePath.UserPath -ceq 'RepositoryModMetrics'})
           if($metrics.Count -ne 1 -or $metrics[0].StaticType -ne [System.Management.Automation.SwitchParameter]){throw 'Repository measurements require one explicit opt-in switch parameter'}
+          $only=@($ast.ParamBlock.Parameters|Where-Object{$_.Name.VariablePath.UserPath -ceq 'RepositoryModMetricsOnly'})
+          if($only.Count -ne 1 -or $only[0].StaticType -ne [System.Management.Automation.SwitchParameter]){throw 'Repository-only measurements require one explicit opt-in switch parameter'}
+          foreach($value in @($env:REPOSITORY_MOD_METRICS,$env:REPOSITORY_MOD_METRICS_ONLY)){if($value -cnotin @('true','false')){throw 'Repository measurement inputs must be explicit booleans'}}
+          if([bool]::Parse($env:REPOSITORY_MOD_METRICS_ONLY) -and ![bool]::Parse($env:REPOSITORY_MOD_METRICS)){throw 'Repository metrics-only mode requires repository_mod_metrics=true'}
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -104,6 +116,7 @@ jobs:
           if($LASTEXITCODE -ne 0){throw 'Successful archive reuse rejected'}
       - name: Run current build-cache matrix and its protocol against verified bytes
         id: build_cache
+        if: ${{ !cancelled() && steps.runtime.outcome == 'success' && !inputs.repository_mod_metrics_only }}
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
@@ -120,12 +133,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY_MOD_METRICS: ${{ inputs.repository_mod_metrics }}
+          REPOSITORY_MOD_METRICS_ONLY: ${{ inputs.repository_mod_metrics_only }}
         run: |
           $compiler=Join-Path $PWD 'recovery/artifacts/cache-payload-replay'
           $evidence="recovery/evidence/refactor/cache-payloads/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           if($env:REPOSITORY_MOD_METRICS -cnotin @('true','false')){throw 'Repository measurements input must be an explicit boolean'}
+          if($env:REPOSITORY_MOD_METRICS_ONLY -cnotin @('true','false')){throw 'Repository metrics-only input must be an explicit boolean'}
           $repositoryMetrics=[bool]::Parse($env:REPOSITORY_MOD_METRICS)
-          ./recovery/scripts/TestCompilerBuildCachePayloads.ps1 -CompilerDirectory $compiler -ReplayReceipt (Join-Path $compiler 'cache-payload-replay.json') -OutputDirectory $evidence -RepositoryModMetrics:$repositoryMetrics
+          $metricsOnly=[bool]::Parse($env:REPOSITORY_MOD_METRICS_ONLY)
+          if($metricsOnly -and !$repositoryMetrics){throw 'Repository metrics-only mode requires repository_mod_metrics=true'}
+          ./recovery/scripts/TestCompilerBuildCachePayloads.ps1 -CompilerDirectory $compiler -ReplayReceipt (Join-Path $compiler 'cache-payload-replay.json') -OutputDirectory $evidence -RepositoryModMetrics:$repositoryMetrics -RepositoryModMetricsOnly:$metricsOnly
           if($LASTEXITCODE -ne 0){throw 'Current payload replay matrix failed'}
           python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
           if($LASTEXITCODE -ne 0){throw 'Current replay protocol validation failed'}
