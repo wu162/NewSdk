@@ -1,0 +1,36 @@
+{
+  "probeOnly": true,
+  "processes": [
+    {
+      "summary": [
+        "PROBE Texture DXT1 stack boundary fixtures=1280 checks=6469 varyingInputs=25; original-only; no production acceptance"
+      ],
+      "process": 0,
+      "fixtureCount": 1280
+    },
+    {
+      "summary": [
+        "PROBE Texture DXT1 stack boundary fixtures=1280 checks=6469 varyingInputs=25; original-only; no production acceptance"
+      ],
+      "process": 1,
+      "fixtureCount": 1280
+    },
+    {
+      "summary": [
+        "PROBE Texture DXT1 stack boundary fixtures=1280 checks=6469 varyingInputs=25; original-only; no production acceptance"
+      ],
+      "process": 2,
+      "fixtureCount": 1280
+    }
+  ],
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "probe-only",
+  "runId": "40658031884",
+  "runAttempt": "1",
+  "samplesSha256": "01ccde400a74c2209914a855a576de6afd96436ee9afb6e5050ea1542169fc90",
+  "fixtureCount": 3840,
+  "evidenceOnly": true,
+  "sourceCommit": "85690b1f1112de3937c52fae2e97eff16cb5d785",
+  "scope": "Original-only PC default71 DXT1/1A stack-boundary with DXT3/5 controls; no binary patch or alternate codec, not production acceptance",
+  "sdkValidated": false
+}

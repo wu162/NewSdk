@@ -1,0 +1,1 @@
+PROBE Texture DXT1 stack boundary fixtures=1280 checks=6469 varyingInputs=25; original-only; no production acceptance
