@@ -2193,7 +2193,133 @@ CODECFLOAT CompBlock1XS(CMP_SBYTE* _Blk,
     return CompBlock1X(fBlk, dwBlockSize, nEndpoints, pcIndices, dwNumPoints, bFixedRampPoints, _bUseSSE2, _intPrec, _fracPrec, _bFixedRamp);
 }
 
-// Added compatibility entry: preserve the upstream quantizer, but consider
+// Compatibility solver: constrained Lloyd fit and local bin-extreme moves.
+// Adapted from this repository's readable scalar reference, not a call into
+// Recovered.TextureDxtAlpha.dll. Scalar doubles deliberately expose remaining
+// x87 tie differences through the full immutable differential corpus.
+struct LegacyFit { double Low,High,ErrorNumerator,ErrorDenominator; };
+        static LegacyFit LegacySolve(int levels, int count, double meanAlpha,
+            double meanIndex, double variance, double covariance, bool trial)
+        {
+            double n = count, steps = levels - 1;
+            double left = -meanIndex, right = steps - meanIndex;
+            // The original local-move solver uses a different multiplication order
+            // from the main fit; preserving it matters for strict error ties.
+            double a = trial ? left * n * left + variance : left * left * n + variance;
+            double b = trial ? left * n * right + variance : right * left * n + variance;
+            double c = right * n * right + variance;
+            double ac = c * a;
+            double scale = ac * variance * ac * steps * steps;
+            double lowerLeft = -(variance * meanAlpha) - left * covariance;
+            double upperLeft = (1.0 - meanAlpha) * variance - left * covariance;
+            double lowerRight = (-(variance * meanAlpha) - right * covariance) * a;
+            double upperRight = ((1.0 - meanAlpha) * variance - right * covariance) * a;
+            double t = ((upperLeft - fabs(upperLeft)) + fabs(lowerLeft) + lowerLeft) * 0.5 * b;
+            t = (fabs(lowerRight - t) + lowerRight + (upperRight - fabs(upperRight - t))) * 0.5;
+            double highScaled = t * c;
+            double lowScaled = (fabs(lowerLeft * ac - b * t) + lowerLeft * ac +
+                (upperLeft * ac - fabs(upperLeft * ac - b * t))) * 0.5;
+            double residual = highScaled * left - lowScaled * right;
+            LegacyFit result;
+ result = {
+                (lowScaled / ac + left * covariance) / variance,
+                (highScaled / ac + right * covariance) / variance,
+                ((lowScaled - highScaled) * variance * (lowScaled - highScaled) +
+                    residual * n * residual) - covariance * covariance * scale,
+                scale * variance
+            }; return result;
+        }
+
+static void LegacyQuantize(int levels,int count,const CMP_BYTE* input,CMP_BYTE* ends)
+{
+    if(count==0){ends[0]=ends[1]=0;return;}
+    double values[16];int indices[16]={0};
+    for(int i=0;i<count;i++)values[i]=(double)(float)(input[i]/255.0);
+            double min = values[0], max = values[0], mean = values[0];
+            for (int i = 1; i < count; i++) {
+                min = std::min(min, values[i]); max = std::max(max, values[i]); mean += values[i];
+            }
+            double invCount = 1.0 / count;
+            mean *= invCount;
+            double centered[16];
+            for (int i = 0; i < count; i++) centered[i] = values[i] - mean;
+            double low = min - mean, high = max - mean;
+            int steps = levels - 1, remaining = 64;
+            int populations[8];
+            // The native caller zero-initializes these arrays before searching.
+            memset(indices,0,sizeof(int)*count);
+            bool done = false;
+            while (!done) {
+                double thresholds[7];
+                for (int i = 0; i < steps; i++) thresholds[i] = (i + 0.5) * ((high - low) / steps) + low;
+                memset(populations,0,sizeof(populations));
+                bool unchanged = true;
+                for (int i = 0; i < count; i++) {
+                    int index = 0;
+                    while (index < steps && thresholds[index] <= centered[i]) index++;
+                    populations[index]++;
+                    unchanged &= indices[i] == index;
+                    indices[i] = index;
+                }
+                int occupied = 0;
+                for (int i = 0; i < levels; i++) if (populations[i] != 0) occupied++;
+                if (occupied == 1) break;
+                double covariance = 0, sumIndex = 0, sumSquare = 0;
+                int pos = 0;
+                // Preserve the original four-at-a-time accumulation order.
+                for (; pos < count - 3; pos += 4) {
+                    double i0 = indices[pos], i1 = indices[pos+1], i2 = indices[pos+2], i3 = indices[pos+3];
+                    covariance = i2 * centered[pos+2] + centered[pos+1] * i1 + centered[pos] * i0 + covariance + centered[pos+3] * i3;
+                    sumIndex = i0 + sumIndex + i1 + i2 + i3;
+                    sumSquare = i2 * i2 + i1 * i1 + i0 * i0 + sumSquare + i3 * i3;
+                }
+                for (; pos < count; pos++) {
+                    double index = indices[pos];
+                    covariance = centered[pos] * index + covariance;
+                    sumSquare = index * index + sumSquare;
+                    sumIndex = index + sumIndex;
+                }
+                double meanIndex = invCount * sumIndex;
+                double variance = sumSquare - count * meanIndex * meanIndex;
+                LegacyFit best = LegacySolve(levels, count, mean, meanIndex, variance, covariance, false);
+                low = best.Low; high = best.High;
+                if (remaining == 0) break;
+                remaining--;
+                if (!unchanged) continue;
+                int first[8],last[8];
+                for (int i = 0; i < levels; i++) first[i] = -1;
+                for (int i = 0; i < count; i++) {
+                    int bin = indices[i];
+                    if (first[bin] == -1) { first[bin] = last[bin] = i; }
+                    else {
+                        if (centered[i] < centered[first[bin]]) first[bin] = i;
+                        if (centered[last[bin]] < centered[i]) last[bin] = i;
+                    }
+                }
+                done = true;
+                for (int direction = 0; direction < 2 && done; direction++) {
+                    double delta = direction == 0 ? 1.0 : -1.0;
+                    double movedMean = invCount * delta + meanIndex;
+                    double twice = delta + delta;
+                    double correction = ((variance + 1.0) - twice * meanIndex) - invCount;
+                    for (int bin = direction; bin < steps + direction; bin++) {
+                        if (populations[bin] == 0 || (populations[bin] == 1 && occupied <= 2)) continue;
+                        int extreme = direction == 0 ? last[bin] : first[bin];
+                        double movedCovariance = centered[extreme] * delta + covariance;
+                        double movedVariance = twice * bin + correction;
+                        LegacyFit trial = LegacySolve(levels, count, mean, movedMean, movedVariance, movedCovariance, true);
+                        if (trial.ErrorNumerator * best.ErrorDenominator < trial.ErrorDenominator * best.ErrorNumerator) {
+                            low = trial.Low; high = trial.High; done = false; break;
+                        }
+                    }
+                }
+            }
+
+            ends[0]=(CMP_BYTE)std::max(0,std::min(255,(int)floor((low+mean)*255.0+0.5)));
+            ends[1]=(CMP_BYTE)std::max(0,std::min(255,(int)floor((high+mean)*255.0+0.5)));
+}
+
+// Added compatibility entry: replace the upstream scalar search and consider
 // the five PC candidate classes and original constant-alpha canonical form.
 // This changes the public source rather than consulting original DLL code.
 void CompBlockLegacyPC(const CMP_BYTE* alpha, CMP_BYTE* output)
@@ -2207,7 +2333,7 @@ void CompBlockLegacyPC(const CMP_BYTE* alpha, CMP_BYTE* output)
         for(int i=0;i<16;i++)if(!((noZero&&alpha[i]==0)||(noOne&&alpha[i]==255))){mapping[count]=(CMP_BYTE)i;values[count++]=alpha[i];}
         if(mode>1&&count==16)continue;
         int levels=mode==0?8:6;
-        if(count)CompBlock1X(values,count,ends,indices,(CMP_BYTE)levels,false,false,8,0,true);
+        if(count)LegacyQuantize(levels,count,values,ends);
         int low=std::min(ends[0],ends[1]),high=std::max(ends[0],ends[1]);
         CMP_BYTE ordered[16]={0};
         // PC tie order is low, high, interior points; endpoint reordering is

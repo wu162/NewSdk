@@ -8,3 +8,13 @@ The source bases remain pinned by upstreamBlobSha/upstreamSha256 in PROVENANCE.j
 4. amd/compressonatorxcodec.cpp/.h: add CompBlockLegacyPC over the upstream quantizer, considering8 levels,6 levels,6 excluding zero,6 excluding one,6 excluding both. Preserve normalized-float input error, low-endpoint-first ties and integer-palette/index packing. The adapter also tries the upstream normalized-float RGB API rather than discarding original source precision through packed-byte input. Original search APIs remain available for baseline comparison.
 
 The five-candidate logic and canonical forms follow already established, verified runtime contracts in the repository; this is source adaptation, not another DLL reverse-engineering pass. Full original10240-block Debug/Release equality remains mandatory. Matching more cases is progress, not permission to enable a partially matching backend.
+
+## Second compatibility iteration
+
+The AMD scalar quantizer now uses a constrained Lloyd fit with local bin-extreme
+moves, adapted from the repository's readable `TextureDxt5AlphaEncoder` reference.
+This replaces AMD's grid search for the compatibility entry only; the original
+AMD entry is retained. It does not call the recovered native quantizer or original
+DLL. The reference has known scalar/x87 tie limitations, so this remains an
+experiment until the complete comparison proves equality. RGB still uses AMD's
+public encoder. All source hash changes are explicit in PROVENANCE.json.

@@ -285,12 +285,12 @@
       "upstreamPath": "cmp_compressonatorlib/ati/compressonatorxcodec.cpp",
       "repository": "GPUOpen-Tools/compressonator",
       "commit": "095a143ad8cfbf9ed5afa4ea63c735bfd0fd04dd",
-      "blobSha": "c7ebec8cfd745c8690e04048219477401a983ddb",
-      "sha256": "f173de449ecd41031e1d0e3e06e8043e1cdebdfcc2bc4f07ee0cdc36db3ad0a8",
-      "bytes": 87194,
+      "blobSha": "b2e0b21c9d7882d683fa694ff042bada4da7f998",
+      "sha256": "786315cfbe525586d2026a8867174b2bf490ccc9cdf76529f54a113aefe6aa3a",
+      "bytes": 94435,
       "upstreamBlobSha": "e541eadbe39c049e0f351618221047900e4f2d81",
       "upstreamSha256": "242cceac34573270fa643e4a74807dabe1ca0e6600c19719876660e8589a0b31",
-      "compatibilityPatch": "Add five-class PC alpha selection using upstream quantizer and normalized float error/tie order"
+      "compatibilityPatch": "Legacy PC candidate classes, scalar constrained Lloyd fit/local moves, normalized-float input and canonical output; readable reference adapted, no native recovered dependency"
     },
     {
       "path": "recovery/reference/public-codecs/amd/compressonatorxcodec.h",
