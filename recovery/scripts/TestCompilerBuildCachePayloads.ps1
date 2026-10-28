@@ -206,6 +206,35 @@ function ParallelAudioMod([string]$Path){
     }
     Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
 }
+function FourWorkerAudioMod([string]$Path){
+    $includes=''
+    New-Item -ItemType Directory -Path "$Path/Audio" -Force|Out-Null
+    foreach($name in @('AudioOne','AudioTwo','AudioThree','AudioFour')){
+        MakeWave "$Path/Audio/$name.wav" 196608
+        Put "$Path/Data/$name.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><AudioFile id="'+$name+'" File="../Audio/'+$name+'.wav" PCCompression="XAS" IsStreamedOnPC="true"/></AssetDeclaration>')
+        $includes+='<Include type="all" source="'+$name+'.xml"/>'
+    }
+    Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
+}
+function MachineParallelEvidence($Case){
+    $cache=$Case.report.cache
+    Need ($cache.requestedJobs -eq 4 -and $cache.logicalProcessorCount -ge 1 -and $cache.effectiveJobs -ge 1 -and $cache.effectiveJobs -le [Math]::Min(4,$cache.logicalProcessorCount)) 'Effective worker capacity did not respect machine CPU and requested jobs'
+    Need ($cache.minimumEffectiveJobs -ge 1 -and $cache.minimumEffectiveJobs -le $cache.effectiveJobs -and $cache.minimumTaskMemoryBudgetBytes -le $cache.taskMemoryBudgetBytes) 'Resource-pressure minimum observations differ'
+    Need ($cache.perTaskMemoryLimitBytes -eq [Math]::Floor($cache.minimumTaskMemoryBudgetBytes/2) -and $cache.backendCalls -eq 4) 'Per-task memory/report or actual backend count differs'
+    $intervals=@($cache.backendIntervals|Where-Object{$_.typeName -ceq 'AudioFile'})
+    Need ($intervals.Count -eq 4 -and @($intervals.sourcePath|Sort-Object -Unique).Count -eq 4) 'Machine-capacity fixture must execute four independent real source documents'
+    $edges=@();foreach($interval in $intervals){Need ($interval.startTicks -lt $interval.endTicks) 'A backend interval did not complete';$edges+=,@{tick=$interval.startTicks;delta=1};$edges+=,@{tick=$interval.endTicks;delta=-1}}
+    $active=0;$peak=0
+    foreach($edge in @($edges|Sort-Object @{Expression={$_.tick}},@{Expression={$_.delta}})){$active+=$edge.delta;$peak=[Math]::Max($peak,$active)}
+    Need ($active -eq 0 -and $peak -eq $cache.maxBackendConcurrency -and $peak -le $cache.effectiveJobs) 'Reported concurrency does not match bounded actual backend interval overlap'
+    # Each source is <1MiB and the conservative backend estimate is <52MiB.
+    # On a host/budget admitting three tasks this must prove >2 real calls;
+    # one/two-CPU or genuinely memory-constrained runners retain their limits.
+    $canAdmitThree=$cache.minimumEffectiveJobs -ge 3 -and $cache.minimumTaskMemoryBudgetBytes -ge 3*52*1024*1024
+    if($canAdmitThree){Need ($peak -gt 2) 'A machine admitting at least three tasks remained hard-capped at two actual backend calls'}
+    else{Need ($peak -ge 1) 'CPU/memory-constrained execution omitted real backend work'}
+    return @{passed=$true;logicalProcessorCount=$cache.logicalProcessorCount;effectiveJobs=$cache.effectiveJobs;minimumEffectiveJobs=$cache.minimumEffectiveJobs;taskMemoryBudgetBytes=$cache.taskMemoryBudgetBytes;minimumTaskMemoryBudgetBytes=$cache.minimumTaskMemoryBudgetBytes;resourceMemoryQuerySucceeded=$cache.resourceMemoryQuerySucceeded;actualMaximumConcurrency=$peak;moreThanTwoApplicable=$canAdmitThree;intervals=$intervals}
+}
 function Mp3Mod([string]$Path){
     $includes='';$source=[IO.File]::ReadAllText("$root/recovery/tests/AudioMp3Fixtures.cs")
     New-Item -ItemType Directory -Force -Path "$Path/Audio"|Out-Null
@@ -258,7 +287,7 @@ $state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     if($Preflight){
-        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3')
+        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3');FourWorkerAudioMod (Join-Path $short 'four')
         $check=@'
 import pathlib, runpy, sys
 from lxml import etree as E
@@ -292,6 +321,9 @@ for name,size in (('AptLong',12*1024*1024),('AptShort',256*1024)):
     assert node.tag=='{uri:ea.com:eala:asset}AptAptData' and node.get('File')==name+'.bin'
     assert (work/('px/Data/'+name+'.bin')).stat().st_size==size
     assert size*4 < 64*1024*1024
+for path in (work/'four/Audio').glob('*.wav'):
+    assert len(path.read_bytes())==44+196608*2*2
+assert len(list((work/'four/Data').glob('Audio*.xml')))==4
 for name in ('Mono','Stereo'):
     assert len((work/('mp3/Audio/'+name+'.mp3')).read_bytes())>100
     node=E.parse(str(work/('mp3/Data/'+name+'.xml'))).getroot()[0]
@@ -458,6 +490,10 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
             Need ($payloads.Count -eq 2) 'MP3 passthrough omitted complete CDATA'
             foreach($name in @('Mono','Stereo')){Need (@($payloads|Where-Object{[PayloadRawBytes]::Equal($case.files[$_],"$mp3/Audio/$name.mp3")}).Count -eq 1) 'Passthrough CDATA must equal exact original MP3 bytes'}
         }
+        $four=Join-Path $modeWork 'four';FourWorkerAudioMod $four;$script:expectedCustomData=4
+        $fourSerial=RunCli 'four-audio-serial-control' $four (Join-Path $modeWork 'four-serial') $false -Extra @('--jobs=1');Cache $fourSerial 'disabled'
+        $fourParallel=RunCli 'four-audio-machine-budget-parallel' $four (Join-Path $modeWork 'four-jobs4') $false -Extra @('--jobs=4');Cache $fourParallel 'disabled';SameOutputs $fourSerial $fourParallel
+        $modeState.machineParallel=MachineParallelEvidence $fourParallel
         $modeState.passed=$true
     }
     foreach($file in $state.sourceInputs){Need ((Hash (Join-Path $root $file.path)) -ceq $file.sha256) 'Original payload fixture source changed'}

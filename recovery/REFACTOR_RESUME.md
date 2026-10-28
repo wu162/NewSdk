@@ -9,11 +9,13 @@
 
 `125902cc` 的 [40629580163](https://github.com/wu162/NewSdk/actions/runs/40629580163) 整体success：Debug/Release完整生产、精确缓存、CDATA、跨文档实际重叠、读租约、旧来源授权、重复include/继承、native在途取消/异常安全汇合、旧session、完整mymod、五文件ZIP独立运行。该push运行已包含采样频率优化和native异常用例；原始归档、两配置运行文件/ZIP哈希及计量均已核验，见专项记录。主线发行不自动替换。
 
-本轮续接已接入有界 XML/Audio 并行：APT 四根、Xmlaudio 七根，以及无显式重采样的内建 AudioFile 和 MP3 passthrough；读租约、64MiB 单任务资格及共用 2-worker 上限保留。未知注入 Audio 编码器不再继承缓存/并行资格；准备后取消阻止继续派发。新 Debug/Release CI 尚待验收，不能复用上段旧收据宣称这些新增能力已通过。
+本轮 XML/Audio 并行已在 `d7ecbebf` 的 [40647141375](https://github.com/wu162/NewSdk/actions/runs/40647141375) 完整通过 Debug/Release、精确缓存/CDATA、实际重叠、完整 mymod 与五文件 ZIP。覆盖 APT 四根、Xmlaudio 七根、内建 AudioFile 与 MP3 passthrough；未知注入编码器拒绝认证，重采样/PathMusic 保持 owner。新增成功归档 payload 重放工具已通过 [40648208910](https://github.com/wu162/NewSdk/actions/runs/40648208910) 的拒绝合同测试，真实归档重放 [40649079387](https://github.com/wu162/NewSdk/actions/runs/40649079387) 仍在执行。
+
+按用户关于机器资源的最新反馈，生产调度继续改为 `MachineResources.v1`：jobs/CPU/Win32 可用物理和虚拟地址空间共同准入，单任务与准备态预算由总预算推导；不再把 2 worker、256/64MiB 当统一机器额度。压力收紧时排空已有任务，再减少后续派发；单个超大兼容任务不承诺通用硬内存上限。此自适应生产组尚待第二批完整 CI，不能沿用上段旧源码收据标完成。
 
 后续优先按计量减少跨stream扫描或扩展剩余已认证并行，保留现有强身份、读租约、失败事务与完整SDK门槛。编译/测试全部GitHub Actions；通常两个子代理、最多三个由本轮用户授权。禁止强推；目标compiler-main，未经用户批准不合入。
 
-执行要求（2026-10-28用户再次确认）：提高效率且守住正确性底线，按 [EFFICIENCY](EFFICIENCY.md#验证批次与触发决策) 集中实现、预检和验收。下一轮先列齐必要回归、核验可复用二进制；不要重复本轮零散补测试后多次启动完整构建的方式。当前仅规则/文档变化，不重跑已通过的生产/SDK矩阵；新增测试仍须新的CI结果，生产闭包变化才统一重建。缓存专项记录列出了现有复用入口的具体限制。
+执行要求（2026-10-28用户再次确认）：提高效率且守住正确性底线，按 [EFFICIENCY](EFFICIENCY.md#验证批次与触发决策) 集中实现、预检和验收。下一轮先列齐必要回归、核验可复用二进制；不要重复本轮零散补测试后多次启动完整构建的方式。仅文档变化不重跑已通过的生产/SDK矩阵；测试-only 变化使用严格来源重放并取得新结果，生产闭包变化统一重建。缓存专项记录列出了现有复用入口的具体限制。
 
 ## 已合入的默认构建与参数改进
 

@@ -185,7 +185,7 @@ public static class CompilerPreparedBackend
         Require(Prepare(declaration, unknown) == null, "Injected AudioFile compiler must not inherit recovered cache or parallel certification");
         using (var stream = new FileStream(input, FileMode.Open, FileAccess.Write)) stream.SetLength(2L * 1024L * 1024L);
         prepared = Prepare(declaration, audio);
-        try { Require(prepared != null && !Value<bool>(prepared, "CanRunParallel") && Value<long>(prepared, "PreparedBytes") > 64L * 1024L * 1024L, "Large audio input must include decoded/encoded working memory in the pool budget"); }
+        try { Require(prepared != null && Value<bool>(prepared, "CanRunParallel") && Value<long>(prepared, "PreparedBytes") > 64L * 1024L * 1024L, "Large audio stays semantically certified while its decoded/encoded estimate controls resource admission"); }
         finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
         var xml = new Recovered.XmlPriority.Plugin(); xml.Initialize(null, TargetPlatform.Win32);
         foreach (string type in new[] { "AudioEventLimitGroup", "AudioLOD", "AudioSettings", "Video", "VideoEventList", "MicrophoneSettings", "BootupDisplaySequence" })
@@ -202,6 +202,82 @@ public static class CompilerPreparedBackend
         // File length affects retention even though this fixture never executes
         // invalid large WAV contents. Only the lease/qualification is exercised.
         File.Delete(input);
+    }
+    static Func<T> TypedSampler<T>(Func<object> sampler) { return delegate { return (T)sampler(); }; }
+    static object ResourceSampler(Func<object> sampler)
+    {
+        return typeof(CompilerPreparedBackend).GetMethod("TypedSampler", BindingFlags.Static | BindingFlags.NonPublic)
+            .MakeGenericMethod(resourcePolicy).Invoke(null, new object[] { sampler });
+    }
+    static readonly Type resourcePolicy = typeof(CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.BackendResourcePolicy", true);
+    static object ResourcePolicy(int jobs, int processors, long physical, long availableVirtual, long totalVirtual, bool queried)
+    {
+        return resourcePolicy.GetMethod("Calculate").Invoke(null, new object[] { jobs, processors, physical, availableVirtual, totalVirtual, queried });
+    }
+    static T ResourceValue<T>(object policy, string property)
+    {
+        return (T)resourcePolicy.GetProperty(property).GetValue(policy, null);
+    }
+    static void ResourceBudget(string work)
+    {
+        const long MiB = 1024L * 1024L, GiB = 1024L * MiB;
+        object generous = ResourcePolicy(Int32.MaxValue, 8, 16 * GiB, 3 * GiB, 4 * GiB, true);
+        Require(ResourceValue<int>(generous, "RequestedJobs") == Int32.MaxValue && ResourceValue<int>(generous, "ProcessorCount") == 8,
+            "Resource policy must retain the requested jobs and detected CPU identity");
+        Require(ResourceValue<int>(generous, "Capacity") == 8, "A sufficiently provisioned eight-CPU host must not remain hard-capped at two workers");
+        Require(ResourceValue<long>(generous, "ByteBudget") == GiB && ResourceValue<long>(generous, "PerTaskBudget") == GiB / 2,
+            "Available virtual address space and process reserve must bound aggregate/per-task retention");
+        Require(ResourceValue<long>(generous, "PreparationBudget") == GiB / 2, "Private input preparation must follow the observed resource budget");
+        Require(ResourceValue<int>(ResourcePolicy(1, 8, 16 * GiB, 3 * GiB, 4 * GiB, true), "Capacity") == 1,
+            "Explicit jobs=1 must remain serial on a large host");
+        Require(ResourceValue<int>(ResourcePolicy(8, 1, 16 * GiB, 3 * GiB, 4 * GiB, true), "Capacity") == 1,
+            "One logical processor must limit dispatch despite large RAM and jobs");
+        Require(ResourceValue<int>(ResourcePolicy(Int32.MaxValue, 128, 32 * GiB, 6 * GiB, 8 * GiB, true), "Capacity") == 32,
+            "Huge jobs and CPU counts must be bounded independently of requested queue allocation");
+        object lowVirtual = ResourcePolicy(8, 8, 32 * GiB, 256 * MiB, 2 * GiB, true);
+        Require(ResourceValue<int>(lowVirtual, "Capacity") == 1 && ResourceValue<long>(lowVirtual, "ByteBudget") == 0,
+            "A Win32 process with exhausted virtual space must not admit workers merely because host RAM is plentiful");
+        object lowPhysical = ResourcePolicy(8, 8, 600 * MiB, 1536 * MiB, 2 * GiB, true);
+        Require(ResourceValue<long>(lowPhysical, "ByteBudget") == 44 * MiB && ResourceValue<int>(lowPhysical, "Capacity") == 2,
+            "Physical availability must independently constrain the aggregate budget and worker count");
+        object failed = ResourcePolicy(Int32.MaxValue, 8, 32 * GiB, 3 * GiB, 4 * GiB, false);
+        Require(!ResourceValue<bool>(failed, "MemoryQuerySucceeded") && ResourceValue<int>(failed, "Capacity") == 1 &&
+            ResourceValue<long>(failed, "ByteBudget") == 16 * MiB && ResourceValue<long>(failed, "PerTaskBudget") == 8 * MiB,
+            "Failed memory observation must explicitly degrade to one worker and a conservative bounded budget");
+        object invalid = ResourcePolicy(8, 0, -1, -1, 2 * GiB, true);
+        Require(ResourceValue<int>(invalid, "Capacity") == 1 && ResourceValue<long>(invalid, "ByteBudget") == 0,
+            "Invalid CPU/availability observations must not overflow into a large worker pool");
+        object overflow = ResourcePolicy(Int32.MaxValue, Int32.MaxValue, Int64.MaxValue, Int64.MaxValue, 2 * GiB, true);
+        Require(ResourceValue<int>(overflow, "Capacity") <= 32 && ResourceValue<long>(overflow, "ByteBudget") <= 512 * MiB,
+            "Extreme observations must remain bounded by the Win32 virtual address-space identity");
+        object tightened = resourcePolicy.GetMethod("RecalculateMemory").Invoke(generous,
+            new object[] { 600 * MiB, 1536 * MiB, 2 * GiB, true });
+        Require(ResourceValue<int>(tightened, "ProcessorCount") == 8 && ResourceValue<int>(tightened, "RequestedJobs") == Int32.MaxValue &&
+            ResourceValue<int>(tightened, "Capacity") == 2 && ResourceValue<long>(tightened, "ByteBudget") == 44 * MiB,
+            "A new memory observation must tighten capacity without losing CPU/request identity");
+        Require(ResourceValue<int>(generous, "Capacity") == 8 && ResourceValue<long>(generous, "ByteBudget") == GiB,
+            "Refreshing resources must not silently mutate the prior observation");
+        var assembly = typeof(CoreStreamCompiler).Assembly;
+        var metrics = Activator.CreateInstance(assembly.GetType("NewModCompiler.Application.AssetExecutionMetrics", true), true);
+        var executorType = assembly.GetType("NewModCompiler.Application.AssetTaskExecution", true);
+        var executor = (IDisposable)Activator.CreateInstance(executorType,
+            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
+            new object[] { null, null, Path.Combine(work, "pure-admission"), "toolchain", "options", 8, metrics,
+                           CancellationToken.None, ResourceSampler(delegate { return lowPhysical; }) }, null);
+        try
+        {
+            var retained = executorType.GetField("retainedBytes", BindingFlags.Instance | BindingFlags.NonPublic);
+            var fits = executorType.GetMethod("Fits", BindingFlags.Instance | BindingFlags.NonPublic);
+            Require((bool)fits.Invoke(executor, new object[] { 44 * MiB }), "The exact aggregate resource boundary must be admissible");
+            Require(!(bool)fits.Invoke(executor, new object[] { 44 * MiB + 1 }), "One byte over the observed aggregate budget must be rejected");
+            retained.SetValue(executor, 40 * MiB);
+            Require((bool)fits.Invoke(executor, new object[] { 4 * MiB }) && !(bool)fits.Invoke(executor, new object[] { 4 * MiB + 1 }),
+                "Already retained prepared/worker/result bytes must reduce further admission");
+            retained.SetValue(executor, Int64.MaxValue);
+            Require(!(bool)fits.Invoke(executor, new object[] { Int64.MaxValue }), "Retained byte arithmetic must reject overflow rather than admit work");
+        }
+        finally { executorType.GetField("retainedBytes", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(executor, 0L); executor.Dispose(); }
+
     }
     static void W3xBudget()
     {
@@ -223,7 +299,7 @@ public static class CompilerPreparedBackend
         finally { ((IDisposable)prepared).Dispose(); }
         ((XmlElement)instance.Node).SetAttribute("NumFrames", "4294967295");
         prepared = Prepare(instance, plugin);
-        try { Require(!Value<bool>(prepared, "CanRunParallel"), "A tiny XML declaring huge expansion must stay on the owner path"); }
+        try { Require(Value<bool>(prepared, "CanRunParallel") && Value<long>(prepared, "PreparedBytes") > 2L * 1024L * 1024L * 1024L, "Semantic W3X certification must retain an expansion estimate that excludes huge tasks from any Win32 worker budget"); }
         finally { ((IDisposable)prepared).Dispose(); }
     }
     static void SchemaDefaults()
@@ -262,6 +338,10 @@ public static class CompilerPreparedBackend
         var declaration = Declaration("ArmorTemplate", "PreparationBudget", Namespaces());
         Metadata(declaration, plugin);
         long small = PreparationEstimate(declaration);
+        var budgetArguments = new object[] { declaration, plugin, 0L, null };
+        Require(!(bool)contract.GetMethod("TryPrepareWithinBudget").Invoke(null, budgetArguments) && budgetArguments[3] == null,
+            "A zero observed preparation budget must reject before allocating a detached private representation");
+
         Require(small >= 4096, "Preparation estimate must cover even a small private DOM and identity");
         // Use an otherwise ordinary metadata string. Preparation's size gate
         // precedes backend field validation and must not clone or serialize it.
@@ -364,7 +444,7 @@ public static class CompilerPreparedBackend
     {
         return "<AssetDeclaration xmlns='uri:ea.com:eala:asset'>" + body + "</AssetDeclaration>";
     }
-    static Dictionary<string, string> RepeatedIncludeRun(string sdk, string mod, string output, int jobs, bool cancelInFlight = false, bool nativeFailure = false)
+    static Dictionary<string, string> RepeatedIncludeRun(string sdk, string mod, string output, int jobs, bool cancelInFlight = false, bool nativeFailure = false, bool resourceFixture = false, bool tightenResources = false, bool limitSingleTask = false)
     {
         Settings previous = Settings.Current;
         bool previousMetrics = EALA.Metrics.MetricManager.Enabled;
@@ -403,9 +483,45 @@ public static class CompilerPreparedBackend
                 using (var cancellation = new CancellationTokenSource())
                 using (var observerReady = new ManualResetEventSlim())
                 {
-                var execution = (IAssetExecution)Activator.CreateInstance(assembly.GetType("NewModCompiler.Application.AssetTaskExecution", true),
-                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
-                    new object[] { processor, null, Path.Combine(output, "task-staging"), "no-persistent-cache", "repeat-include-fixture", jobs, metrics, cancellation.Token }, null);
+                var executionType = assembly.GetType("NewModCompiler.Application.AssetTaskExecution", true);
+                IAssetExecution execution = null;
+                bool observedQueuedAtTightening = false;
+                int activeAtTightening = -1;
+                object sampler = null;
+                if (tightenResources)
+                {
+                    object generous = ResourcePolicy(jobs, 8, 16L * 1024 * 1024 * 1024, 3L * 1024 * 1024 * 1024, 4L * 1024 * 1024 * 1024, true);
+                    object pressured = ResourcePolicy(jobs, 8, 0, 0, 2L * 1024 * 1024 * 1024, false);
+                    sampler = ResourceSampler(delegate
+                    {
+                        if (execution != null)
+                        {
+                            object queue = executionType.GetField("pending", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(execution);
+                            if ((int)queue.GetType().GetProperty("Count").GetValue(queue, null) > 0)
+                            {
+                                observedQueuedAtTightening = true;
+                                object gate = metrics.GetType().GetField("gate", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(metrics);
+                                lock (gate) activeAtTightening = (int)metrics.GetType().GetField("active", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(metrics);
+                                return pressured;
+                            }
+                        }
+                        return generous;
+                    });
+                }
+                if (limitSingleTask)
+                {
+                    object constrained = ResourcePolicy(jobs, 8, 600L * 1024 * 1024, 1536L * 1024 * 1024, 2L * 1024 * 1024 * 1024, true);
+                    sampler = ResourceSampler(delegate { return constrained; });
+                }
+                object[] executionArguments = new object[] { processor, null, Path.Combine(output, "task-staging"), "no-persistent-cache", "repeat-include-fixture", jobs, metrics, cancellation.Token };
+                if (sampler != null)
+                {
+                    var injected = new object[executionArguments.Length + 1];
+                    Array.Copy(executionArguments, injected, executionArguments.Length); injected[injected.Length - 1] = sampler;
+                    executionArguments = injected;
+                }
+                execution = (IAssetExecution)Activator.CreateInstance(executionType,
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, executionArguments, null);
                 Thread observer = null;
                 int stopObservation = 0;
                 bool observedConcurrentCalls = false;
@@ -488,13 +604,60 @@ public static class CompilerPreparedBackend
                     execution.Flush();
                     Require(success && processor.InstanceCompileCount == 3,
                         "Repeated includes must execute the three distinct real assets exactly once with jobs=" + jobs);
-                    foreach (var expected in new Dictionary<string, int> { { "Leaf.xml", 2 }, { "A.xml", 2 }, { "B.xml", 1 }, { "Root.xml", 3 } })
+                    if (!resourceFixture) foreach (var expected in new Dictionary<string, int> { { "Leaf.xml", 2 }, { "A.xml", 2 }, { "B.xml", 1 }, { "Root.xml", 3 } })
                     {
                         AssetDeclarationDocument document;
                         Require(cache.TryGetDocument(Path.Combine(mod, expected.Key), null, TargetPlatform.Win32, false, out document) && document != null,
                             "Actual processed document must remain in the real session cache: " + expected.Key);
                         Require(document.State == DocumentState.Complete && !document.Processing && document.Instances.Count == expected.Value,
                             "Deferred completion must preserve prepared declarations through repeated include and inheritance: " + expected.Key);
+                    }
+                    if (limitSingleTask)
+                    {
+                        Require((int)metrics.GetType().GetField("EffectiveJobs").GetValue(metrics) == 2 &&
+                            (long)metrics.GetType().GetField("PerTaskMemoryLimitBytes").GetValue(metrics) == 22L * 1024 * 1024,
+                            "Single-task admission fixture must retain two-worker/44MiB aggregate/22MiB individual limits");
+                        var intervals = (System.Collections.IEnumerable)metrics.GetType().GetField("Intervals").GetValue(metrics);
+                        bool checkedLarge = false, checkedSmallWorker = false;
+                        foreach (object interval in intervals)
+                        {
+                            string sourcePath = (string)interval.GetType().GetField("sourcePath").GetValue(interval);
+                            if (Path.GetFileName(sourcePath) == "One.xml")
+                            {
+                                Require((int)interval.GetType().GetField("threadId").GetValue(interval) == Thread.CurrentThread.ManagedThreadId,
+                                    "An individually oversized APT task must execute on the owner even when it fits the aggregate pool");
+                                checkedLarge = true;
+                            }
+                            else if ((int)interval.GetType().GetField("threadId").GetValue(interval) != Thread.CurrentThread.ManagedThreadId)
+                                checkedSmallWorker = true;
+                        }
+                        Require(checkedLarge && checkedSmallWorker, "The oversized APT must run on the owner while an admissible independent small APT uses a worker");
+                        lifecycleEvidence.Add(new { scenario = "oversized-single-apt-on-owner", effectiveJobs = 2,
+                            taskMemoryBudgetBytes = 44L * 1024 * 1024, perTaskMemoryLimitBytes = 22L * 1024 * 1024,
+                            inputBytes = 8L * 1024 * 1024, estimatedRetainedBytesAtLeast = 32L * 1024 * 1024 });
+                    }
+                    if (tightenResources)
+                    {
+                        Require(observedQueuedAtTightening, "Resource reduction must occur with a real pending backend result");
+                        Require((int)executionType.GetField("capacity", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(execution) == 1 &&
+                            (long)executionType.GetField("byteBudget", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(execution) == 16L * 1024 * 1024,
+                            "A later generous sample must not re-expand this stream after memory pressure");
+                        Require((int)metrics.GetType().GetField("MaximumConcurrency").GetValue(metrics) == 1 &&
+                            (int)metrics.GetType().GetField("MinimumEffectiveJobs").GetValue(metrics) == 1 &&
+                            !(bool)metrics.GetType().GetField("ResourceMemoryQuerySucceeded").GetValue(metrics),
+                            "Budget reduction must stop further parallel admission and report conservative fallback");
+                        var intervals = (System.Collections.IEnumerable)metrics.GetType().GetField("Intervals").GetValue(metrics);
+                        long priorEnd = 0; int count = 0;
+                        foreach (object interval in intervals)
+                        {
+                            long start = (long)interval.GetType().GetField("startTicks").GetValue(interval);
+                            long end = (long)interval.GetType().GetField("endTicks").GetValue(interval);
+                            Require(start >= priorEnd && end > start, "A reduced resource budget must join prior real work before the next backend starts");
+                            priorEnd = end; count++;
+                        }
+                        Require(count == 3, "Resource pressure must preserve all three actual backend calls");
+                        lifecycleEvidence.Add(new { scenario = "memory-pressure-with-pending-work", observedQueuedAtTightening, activeAtTightening, completedIntervals = count,
+                            effectiveJobs = 8, minimumEffectiveJobs = 1, minimumTaskMemoryBudgetBytes = 16L * 1024 * 1024 });
                     }
                     object pendingDocuments = typeof(DocumentProcessor).GetField("_PendingExecutionDocuments",
                         BindingFlags.NonPublic | BindingFlags.Instance).GetValue(processor);
@@ -537,6 +700,59 @@ public static class CompilerPreparedBackend
             Require(parallel.ContainsKey(output.Key) && parallel[output.Key] == output.Value,
                 "Repeated includes and inherited input must preserve exact serial stream bytes: " + output.Key);
     }
+    static void ResourcePressure(string work, string sdk)
+    {
+        string mod = Path.Combine(work, "resource-pressure-input");
+        string includes = "";
+        foreach (string name in new[] { "One", "Two", "Three" })
+        {
+            string frames = name == "One" ? "4096" : "1024";
+            Put(Path.Combine(mod, name + ".xml"), Assets("<W3DAnimation id='Resource" + name + "' NumFrames='" + frames + "' FrameRate='30'>" +
+                "<Channels><ChannelScalar Type='XTranslation' Pivot='0' FirstFrame='0'><Frame>0</Frame><Frame>1</Frame></ChannelScalar></Channels></W3DAnimation>"));
+            includes += "<Include type='all' source='" + name + ".xml'/>";
+        }
+        Put(Path.Combine(mod, "Root.xml"), Assets("<Includes>" + includes + "</Includes>"));
+        string serialOutput = Path.Combine(work, "resource-pressure-serial"), constrainedOutput = Path.Combine(work, "resource-pressure-constrained");
+        var serial = RepeatedIncludeRun(sdk, mod, serialOutput, 1, false, false, true, false);
+        var constrained = RepeatedIncludeRun(sdk, mod, constrainedOutput, 8, false, false, true, true);
+        Require(serial.Count == constrained.Count, "Resource pressure must preserve the exact linked output layout");
+        foreach (string relative in serial.Keys)
+        {
+            byte[] left = File.ReadAllBytes(Path.Combine(serialOutput, "output") + relative);
+            byte[] right = File.ReadAllBytes(Path.Combine(constrainedOutput, "output") + relative);
+            Require(left.Length == right.Length, "Resource-constrained output length differs");
+            for (int i = 0; i < left.Length; i++) Require(left[i] == right[i], "Resource-constrained output raw byte differs");
+        }
+    }
+    static void SingleTaskAdmission(string work, string sdk)
+    {
+        string mod = Path.Combine(work, "single-task-admission-input");
+        string includes = "";
+        foreach (string name in new[] { "One", "Two", "Three" })
+        {
+            string input = Path.Combine(mod, name + ".bin");
+            Directory.CreateDirectory(mod);
+            using (var stream = File.Create(input))
+            {
+                if (name == "One") stream.SetLength(8L * 1024 * 1024);
+                else stream.Write(new byte[] { 1, 2, 3, 4 }, 0, 4);
+            }
+            Put(Path.Combine(mod, name + ".xml"), Assets("<AptAptData id='Admission" + name + "' File='" + name + ".bin'/>"));
+            includes += "<Include type='all' source='" + name + ".xml'/>";
+        }
+        Put(Path.Combine(mod, "Root.xml"), Assets("<Includes>" + includes + "</Includes>"));
+        string serialOutput = Path.Combine(work, "single-task-serial"), constrainedOutput = Path.Combine(work, "single-task-constrained");
+        var serial = RepeatedIncludeRun(sdk, mod, serialOutput, 1, false, false, true);
+        var constrained = RepeatedIncludeRun(sdk, mod, constrainedOutput, 8, false, false, true, false, true);
+        Require(serial.Count == constrained.Count, "Single-task owner fallback must preserve linked output layout");
+        foreach (string relative in serial.Keys)
+        {
+            byte[] left = File.ReadAllBytes(Path.Combine(serialOutput, "output") + relative);
+            byte[] right = File.ReadAllBytes(Path.Combine(constrainedOutput, "output") + relative);
+            Require(left.Length == right.Length, "Single-task owner output length differs");
+            for (int i = 0; i < left.Length; i++) Require(left[i] == right[i], "Single-task owner output raw byte differs");
+        }
+    }
     static void CancelInFlight(string work, string sdk)
     {
         string mod = Path.Combine(work, "native-cancellation-input");
@@ -563,8 +779,8 @@ public static class CompilerPreparedBackend
     {
         try
         {
-            Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); ParallelQualification(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); BinaryAssetAuthorization(args[0]);
-            RepeatedIncludeAndInheritance(args[0], args[4]);
+            Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); ParallelQualification(args[0]); ResourceBudget(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); BinaryAssetAuthorization(args[0]);
+            RepeatedIncludeAndInheritance(args[0], args[4]); ResourcePressure(args[0], args[4]); SingleTaskAdmission(args[0], args[4]);
             CancelInFlight(args[0], args[4]);
             NativeWorkerFailure(args[0], args[4]);
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new {

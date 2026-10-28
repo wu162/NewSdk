@@ -472,6 +472,13 @@ class ArchiveTests(GitFixture):
             self.prepare()
         self.assertEqual(keep.read_bytes(), b'preserve existing output')
 
+    def test_verify_prepared_accepts_unchanged_receipt_and_runtime(self):
+        original = self.prepare()
+        with patch.object(replay, 'check_api') as api:
+            verified = replay.verify_prepared(self.output / 'cache-payload-replay.json', self.candidate, self.repo)
+        api.assert_called_once_with(self.profile)
+        self.assertEqual(verified, original)
+
     def test_verify_prepared_rejects_modified_receipt_and_runtime(self):
         self.prepare()
         receipt_path = self.output / 'cache-payload-replay.json'

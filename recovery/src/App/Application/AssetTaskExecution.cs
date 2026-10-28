@@ -27,6 +27,9 @@ namespace NewModCompiler.Application
         public int BackendCalls, MaximumConcurrency, Hits, Misses;
         public long RestoredBytes, WrittenBytes, ExternalHashBytes;
         public long PeakSampledPrivateBytes;
+        public int EffectiveJobs, MinimumEffectiveJobs, LogicalProcessorCount;
+        public long TaskMemoryBudgetBytes, MinimumTaskMemoryBudgetBytes, PerTaskMemoryLimitBytes;
+        public bool ResourceMemoryQuerySucceeded;
         public readonly Dictionary<string,int> CallsByType = new Dictionary<string,int>(StringComparer.Ordinal);
         public readonly List<BackendInterval> Intervals = new List<BackendInterval>();
         public void SampleMemory()
@@ -60,13 +63,15 @@ namespace NewModCompiler.Application
     internal sealed class AssetTaskExecution : IAssetExecution, IDisposable
     {
         const string ResultFormat = "NewModCompiler.ActionResult.v1";
-        const long ByteBudget = 256L * 1024 * 1024;
         readonly DocumentProcessor processor;
         readonly ActionAssetCache cache;
         readonly AssetExecutionMetrics metrics;
         readonly string staging, toolchain, effectiveOptions;
         readonly CancellationToken cancellation;
-        readonly int capacity;
+        int capacity;
+        long byteBudget, nextResourceSample;
+        BackendResourcePolicy resources;
+        readonly Func<BackendResourcePolicy> resourceSampler;
         readonly Queue<Pending> pending = new Queue<Pending>();
         readonly Queue<KeyValuePair<int,Action>> completions = new Queue<KeyValuePair<int,Action>>();
         readonly Dictionary<string,string> outputDigests = new Dictionary<string,string>(StringComparer.Ordinal);
@@ -90,19 +95,53 @@ namespace NewModCompiler.Application
 
         public AssetTaskExecution(DocumentProcessor processor, ActionAssetCache cache, string staging,
             string toolchain, string effectiveOptions, int requestedJobs, AssetExecutionMetrics metrics, CancellationToken cancellation)
+            : this(processor, cache, staging, toolchain, effectiveOptions, requestedJobs, metrics, cancellation, null)
+        { }
+
+        internal AssetTaskExecution(DocumentProcessor processor, ActionAssetCache cache, string staging,
+            string toolchain, string effectiveOptions, int requestedJobs, AssetExecutionMetrics metrics, CancellationToken cancellation,
+            Func<BackendResourcePolicy> resourceSampler)
         {
             this.processor = processor; this.cache = cache; this.staging = staging;
             this.toolchain = toolchain; this.effectiveOptions = effectiveOptions;
             this.metrics = metrics; this.cancellation = cancellation;
-            // Certified backend work shares one bounded pool. Never size a
-            // thread/queue from raw N, even for inexpensive XML/Audio tasks.
-            capacity = Math.Min(requestedJobs, 2);
+            this.resourceSampler = resourceSampler;
+            resources = resourceSampler == null ? BackendResourcePolicy.Capture(requestedJobs) : resourceSampler();
+            capacity = resources.Capacity; byteBudget = resources.ByteBudget;
+            bool previouslyObserved = metrics.LogicalProcessorCount != 0;
+            metrics.EffectiveJobs = Math.Max(metrics.EffectiveJobs, capacity);
+            metrics.MinimumEffectiveJobs = metrics.MinimumEffectiveJobs == 0 ? capacity : Math.Min(metrics.MinimumEffectiveJobs, capacity);
+            metrics.LogicalProcessorCount = resources.ProcessorCount;
+            metrics.TaskMemoryBudgetBytes = Math.Max(metrics.TaskMemoryBudgetBytes, byteBudget);
+            metrics.MinimumTaskMemoryBudgetBytes = previouslyObserved ? Math.Min(metrics.MinimumTaskMemoryBudgetBytes, byteBudget) : byteBudget;
+            metrics.PerTaskMemoryLimitBytes = metrics.MinimumTaskMemoryBudgetBytes / 2;
+            metrics.ResourceMemoryQuerySucceeded = (!previouslyObserved || metrics.ResourceMemoryQuerySucceeded) && resources.MemoryQuerySucceeded;
         }
+
+        void RefreshResources()
+        {
+            long now = Stopwatch.GetTimestamp();
+            if (resourceSampler == null && now < nextResourceSample) return;
+            nextResourceSample = now + Math.Max(1L, Stopwatch.Frequency / 10);
+            resources = resourceSampler == null ? resources.RefreshMemoryBudget() : resourceSampler();
+            // Pressure may reduce admission during a stream. Retain that lower
+            // bound until its workers and results have all been joined; this
+            // avoids repeatedly filling the pool as transient pressure changes.
+            capacity = Math.Min(capacity, resources.Capacity);
+            byteBudget = Math.Min(byteBudget, resources.ByteBudget);
+            metrics.MinimumEffectiveJobs = Math.Min(metrics.MinimumEffectiveJobs, capacity);
+            metrics.MinimumTaskMemoryBudgetBytes = Math.Min(metrics.MinimumTaskMemoryBudgetBytes, byteBudget);
+            metrics.PerTaskMemoryLimitBytes = metrics.MinimumTaskMemoryBudgetBytes / 2;
+            metrics.ResourceMemoryQuerySucceeded &= resources.MemoryQuerySucceeded;
+        }
+
+        bool Fits(long bytes) { return bytes >= 0 && retainedBytes <= byteBudget && bytes <= byteBudget - retainedBytes; }
 
         public void Enqueue(BinaryAsset asset, InstanceDeclaration declaration, IAssetBuilderPlugin plugin,
             Action compileCompatibility, Action verify, Action<AssetLocation> committed)
         {
             cancellation.ThrowIfCancellationRequested();
+            RefreshResources();
             if (asset.GetLocation(AssetLocation.BasePatchStream, AssetLocationOption.None) == AssetLocation.BasePatchStream)
             {
                 Flush(); verify(); committed(asset.Commit()); return;
@@ -115,10 +154,9 @@ namespace NewModCompiler.Application
             Directory.CreateDirectory(task.Directory);
             declaration.CustomDataPath = Path.Combine(task.Directory, "result.cdata");
             long preparationBytes = PreparedBackend.EstimatePreparationBytes(declaration);
-            if (preparationBytes > ByteBudget) Flush();
-            else while (pending.Count > 0 && retainedBytes + preparationBytes > ByteBudget) CommitOne();
+            while (pending.Count > 0 && !Fits(preparationBytes)) CommitOne();
             PreparedBackend prepared;
-            if (!PreparedBackend.TryPrepare(declaration, plugin, out prepared))
+            if (!PreparedBackend.TryPrepareWithinBudget(declaration, plugin, byteBudget / 2, out prepared))
             {
                 // Owner-only is also a barrier against unknown shared state.
                 Flush(); cancellation.ThrowIfCancellationRequested(); asset.BeginExecution(task.Identity);
@@ -136,8 +174,9 @@ namespace NewModCompiler.Application
             string typeName = declaration.Handle.TypeName, sourcePath = declaration.Document.SourcePath;
             try
             {
-                if (prepared.PreparedBytes > ByteBudget) Flush();
-                else while (pending.Count > 0 && retainedBytes + prepared.PreparedBytes > ByteBudget) CommitOne();
+                RefreshResources();
+                while (pending.Count >= capacity) CommitOne();
+                while (pending.Count > 0 && !Fits(prepared.PreparedBytes)) CommitOne();
                 task.Key = prepared.CanCache ? Key(prepared) : null;
                 if (task.Key != null) task.Identity = task.Key;
                 asset.BeginExecution(task.Identity);
@@ -162,7 +201,7 @@ namespace NewModCompiler.Application
                     cancellation.ThrowIfCancellationRequested();
                     if (cache != null && task.Key != null) metrics.Misses++;
                     processor.RecordExecutionCompile();
-                    if (prepared.CanRunParallel && capacity > 1 && prepared.PreparedBytes <= ByteBudget / 2)
+                    if (prepared.CanRunParallel && capacity > 1 && prepared.PreparedBytes <= byteBudget / 2)
                     {
                         task.Worker = Task.Factory.StartNew(() => metrics.Execute(typeName,
                             sourcePath, prepared.Execute), CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);

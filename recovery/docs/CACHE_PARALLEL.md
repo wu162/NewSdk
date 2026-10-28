@@ -10,6 +10,7 @@
 | --- | --- |
 | 使用、参数和项目优先级 | [使用说明第6节](../COMPILER_USAGE.md#6-缓存与资源根)、`src/App/Cli/Options.cs` |
 | 模式路由、保护扫描、缓存终态 | `src/App/Application/CoreStreamCompiler.cs` |
+| CPU、Win32 地址空间与动态内存准入 | `src/App/Application/BackendResourcePolicy.cs`、`AssetTaskExecution.cs` |
 | 准备态、读取闭包和资格 | `src/App/Application/PreparedBackend.cs` |
 | 排队、真实调用区间、结果与有序提交 | `src/App/Application/AssetTaskExecution.cs` |
 | 磁盘完整性、pending、修复与回滚 | `src/App/Application/ActionAssetCache.cs` |
@@ -30,25 +31,25 @@
 | sc=true, jobs=1 | 原 SessionPackage 及其 bc 组合，全根保护和拒绝行为保留 |
 | sc=true, jobs>1 | 参数/预检报 `CORE_SESSION_PARALLEL_UNSUPPORTED` |
 
-默认 sc/bc=false、jobs=1。jobs 只接受正整数，巨大值不会直接创建线程或等量队列；认证后端共用最多2个在途任务，超预算任务转 owner 串行。缓存资格和并行资格分别判断，其他后端执行前排空在途队列。本轮新增 XML/Audio 资格已接入源码，新的 CI 验收尚待完成；下方旧收据仅证明其原有范围。
+默认 sc/bc=false、jobs=1。jobs 只接受正整数，巨大值不会直接创建线程或等量队列；`MachineResources.v1` 根据用户上限、CPU 和当前 Win32 进程可用内存决定准入容量，超预算任务转 owner 串行。缓存资格、后端重入认证和当前资源准入分别判断；未认证后端执行前排空在途队列。本轮新增 XML/Audio 资格及机器资源策略已接入源码，新的自适应 CI 验收尚待完成；下方旧收据仅证明其原有范围。
 
 ## 源码资格表（实测范围由下节收据决定）
 
 | 族/类型 | CanCache | CanRunParallel | 实际合同与边界 |
 | --- | --- | --- | --- |
 | 其余普通 XML、GameObject、WeaponTemplate、ArmorTemplate | 是 | 否 | 私有有效 XML（含 schema 默认属性）、独占命名空间、类型/schema/引用兼容身份；完整三缓冲区。并行只开放下面明确列出的 XML 根 |
-| AptAptData/AptConstData/AptDatData/AptGeometryData | 条件成立时 | 估算≤64MiB时（本轮待验收） | 对全部真实外部读取持 Win32 FileShare.Read 租约并 SHA256；native 窄路径暂限 ASCII。私有 bridge 树和 Relo::Tracker；缺失/不可读/非 ASCII 回兼容实际执行 |
-| AudioEventLimitGroup/AudioLOD/AudioSettings/Video/VideoEventList/MicrophoneSettings/BootupDisplaySequence | 是 | 估算≤64MiB时（本轮待验收） | Xmlaudio 的七根共用局部 Builder/Tracker 和只读字段/枚举表；不读取外部文件，不注册全局字符串哈希；可选 XML trace 已有锁 |
+| AptAptData/AptConstData/AptDatData/AptGeometryData | 条件成立时 | 是（本轮待验收） | 对全部真实外部读取持 Win32 FileShare.Read 租约并 SHA256；native 窄路径暂限 ASCII。私有 bridge 树和 Relo::Tracker；缺失/不可读/非 ASCII 回兼容实际执行 |
+| AudioEventLimitGroup/AudioLOD/AudioSettings/Video/VideoEventList/MicrophoneSettings/BootupDisplaySequence | 是 | 是（本轮待验收） | Xmlaudio 的七根共用局部 Builder/Tracker 和只读字段/枚举表；不读取外部文件，不注册全局字符串哈希；可选 XML trace 已有锁 |
 | TestTexture | 条件成立时 | 否 | 全部真实外读持 Win32 租约并 SHA256；未扩展其并行资格 |
-| W3DAnimation/W3DMesh | 是 | 估算展开≤64MiB时 | 冻结 XML/命名空间，native scratch/output 独占，初始化与 trace 已源码审计；真实重叠已在双动画用例验证；Mesh 保持源码重入认证，未单独宣称双 Mesh 重叠实测 |
-| AudioFile 默认/NONE/XAS | 条件成立时 | 无 PCSampleRate 且估算≤64MiB时（本轮待验收） | 必须为内建精确 PcmWaveAudioCompiler；存在且可读的真实输入持续持租约，编码 scratch 和 CDATA 独占。注入其他 IAudioFileCompiler 不认证缓存或并行；有 PCSampleRate 保持串行，不影响已认证缓存资格 |
-| MP3 passthrough | 条件成立时 | 估算≤64MiB时（本轮待验收） | 真实输入持续持租约，输出 CDATA 独占；不解码音频，非法结果不得成为候选 |
+| W3DAnimation/W3DMesh | 是 | 是 | 冻结 XML/命名空间，native scratch/output 独占，初始化与 trace 已源码审计；旧固定预算下真实重叠已在双动画用例验证，机器资源策略待新验收；Mesh 保持源码重入认证，未单独宣称双 Mesh 重叠实测 |
+| AudioFile 默认/NONE/XAS | 条件成立时 | 无 PCSampleRate 时（本轮待验收） | 必须为内建精确 PcmWaveAudioCompiler；存在且可读的真实输入持续持租约，编码 scratch 和 CDATA 独占。注入其他 IAudioFileCompiler 不认证缓存或并行；有 PCSampleRate 保持串行，不影响已认证缓存资格 |
+| MP3 passthrough | 条件成立时 | 是（本轮待验收） | 真实输入持续持租约，输出 CDATA 独占；不解码音频，非法结果不得成为候选 |
 | PathMusicMap | 条件成立时 | 否 | 真实输入持租约；I/O fallback 可能发出 Core scoped Tracer 诊断，保留 owner 执行 |
 | PathMusicTrack/Event | 条件成立时 | 否 | 全部实际 File/header 持租约、header 非零 handle；保留语义路径，缺失/警告路径实际执行 |
 | Audio EALAYER3 或未闭合/警告路径 | 否 | 否 | 保留原诊断与执行，不消除进程一次性警告 |
 | Texture/OnDemandTexture/TerrainTextureAtlas | 否 | 否 | 兼容 owner 调用并设在途屏障；混合 Texture session 原拒绝保留 |
 
-不存在“同族一个用例通过即整个族实测通过”的推断。以上资格由后端真实读取审计决定，不按 fixture ID 白名单。
+不存在“同族一个用例通过即整个族实测通过”的推断。以上资格由后端真实读取审计决定，不按 fixture ID 白名单。`CanRunParallel` 表示后端重入合同已认证，不表示该次任务一定进入 worker；执行器另外按 `PreparedBytes`、可用槽位和当前机器预算准入。
 
 ## 身份、事务与资源
 
@@ -58,17 +59,19 @@
 
 存储按 ActionKey 读取与物化单条完整结果；不恢复历史整树，不导入旧缓存。候选和发布产物独立复制；Commit 可失败安装并保留 pending，必要报告/终态/sink 完成后 Complete 才移除排除标记。失败撤销安装及修复替换，遗留 pending 继续 miss。根写锁、4096条/4GiB 默认容量和成功后的整条清理已接入。
 
-owner 保持前端顺序，worker 仅拿独占后端输入；结果按发现顺序验证和提交，文档最后任务提交后才完成/释放，再汇合链接。准备/在途/待提交受数量与256MiB保守预算限制，W3X展开按帧/通道和节点估计；取消停止派发并等待不可中断 native 安全返回。极大单任务采用串行，不承诺自动内存预测。
+owner 保持前端顺序，worker 仅拿独占后端输入；结果按发现顺序验证和提交，文档最后任务提交后才完成/释放，再汇合链接。取消停止派发并等待不可中断 native 安全返回。新生产路径使用 `MachineResources.v1`，不再固定为两个任务、256MiB 总预算或64MiB 单任务上限；旧运行的固定限制仍属于其历史证据。
 
-新增 XML/Audio 的单任务并行准入上限同为64MiB：APT 与 MP3 passthrough 在准备态估算上另加全部租约输入长度的4倍；无 PCSampleRate 的 AudioFile 另加64倍，保守覆盖解码 float 样本、loop 片段、编码列表及 CDATA；Xmlaudio 七根仅使用其准备态估算。长度求和与乘法 checked，溢出视为超预算。AudioFile 显式采样率可能扩大样本，因此本轮全部保持 owner 串行；PathMusic 的 scoped Tracer 路径也未开放 worker。估算是准入保护，不是进程实际峰值证明。
+每个 stream 固定初次 CPU 上限，并通过 `GlobalMemoryStatusEx` 同时读取 availablePhysical、availableVirtual、totalVirtual。预留 `max(128MiB,totalVirtual/4)`，从 `min(availablePhysical,availableVirtual)` 扣除后得到非负 usable；总预算为 `min(usable/2,totalVirtual/4)`。容量由 requestedJobs、CPU、`总预算/16MiB` 和32个槽位的防御上限共同限制，最低为串行1；没有可用预算时不虚构最低可用内存。32是限制 Win32 线程栈及调度开销的防御顶，不是默认线程数，也不能只按64位宿主机物理 RAM 放大 x86 进程。
 
-准备前先无序列化遍历 DOM 估算私有表示成本，再做队列预算准入；超过128MiB的准备估算不克隆、不缓存，直接使用 owner 兼容调用。256MiB是并发任务的保守预算；单个超大兼容任务沿用原执行峰值，不承诺通用硬内存上限。
+owner 在任务准入处最多每100ms重新采样一次；本 stream 的预算和容量只保留已观测较小值，不因后续瞬时回升扩容。单任务 worker 上限与准备态克隆上限均为当时总预算的一半；排队前同时核对已保留的准备态、在途及待提交结果之和。内存查询失败明确退化为串行，使用16MiB保守预算并报告 `resourceMemoryQuerySucceeded=false`，不能把该回退值称为实测可用内存。
 
-报告新增 executionEngine/cacheMode/requestedJobs/backendCalls/maxBackendConcurrency、backendCallsByType、最多512条 backendIntervals、hashReadBytes/restoredBytes/writtenBytes/cacheCopyBytes。hashReadBytes记录保护盘点、后端外部输入与store payload校验的文件SHA256读取；cacheCopyBytes记录store实际拷贝，不代表整个进程全部I/O。peakSampledPrivateBytes来自owner/worker边界采样，不等于OS连续峰值。最大并发来自真实调用区间；缓存命中、排队长度与请求 N 均不能代替此证据。
+`PreparedBytes` 保留后端成本估算：W3X 按帧/通道和节点展开；APT 与 MP3 passthrough 在准备态上另加全部租约输入长度4倍；无 PCSampleRate 的 AudioFile 加64倍，保守覆盖解码 float 样本、loop 片段、编码列表和 CDATA；Xmlaudio 七根使用准备态估算。长度求和与乘法 checked，溢出视为超预算。Audio 显式采样率和 PathMusic scoped Tracer 路径仍保持 owner。准备前无序列化遍历 DOM；超过机器准备预算时不克隆、不缓存，直接 owner 兼容调用。超大任务的 owner 路径沿用原执行峰值；这些估算和采样不承诺进程通用硬内存上限。
+
+报告的 `requestedJobs` 是用户请求上限；`effectiveJobs` 是各 stream 初始准入容量的最大值，`minimumEffectiveJobs` 是运行中观测的最低准入容量；两者均不等于实际同时执行的后端数。`taskMemoryBudgetBytes`、`minimumTaskMemoryBudgetBytes` 分别保留初始最高和观测最低总预算，`perTaskMemoryLimitBytes` 对应最低预算的一半，另有 `logicalProcessorCount`、`resourcePolicy` 和查询状态。真实并发只看 `maxBackendConcurrency` 和最多512条 `backendIntervals`。报告还保留 executionEngine/cacheMode/backendCalls、backendCallsByType、hashReadBytes/restoredBytes/writtenBytes/cacheCopyBytes；hashReadBytes含保护盘点、外部输入与store payload校验的文件SHA256读取，cacheCopyBytes只含store拷贝。peakSampledPrivateBytes来自边界采样，不等于OS连续峰值。缓存命中、排队长度和请求 N 都不能代替真实调用重叠。
 
 ## 当前收据与续接
 
-本轮续接已接入上述11根 XML 和两类 Audio 的并行资格、资源估算，以及注入未知编码器的拒绝认证。新的源码/测试 CI 结果待验收；以下成功运行和计量仍属于原先生产闭包，不能作为新增类型已测真实重叠或新源码发行通过的证据。
+本轮续接已接入上述11根 XML 和两类 Audio 的并行资格、资源估算、注入未知编码器的拒绝认证，以及 `MachineResources.v1` 机器资源准入与降额。新的自适应源码/测试 CI 结果待验收；以下成功运行和计量仍属于原先生产闭包，不能作为新增类型已测真实重叠、自适应资源策略或新源码发行通过的证据。
 
 已通过的完整批次：`125902cc5b8b0c3df3434b24db574970e2e022d5`，[40629580163](https://github.com/wu162/NewSdk/actions/runs/40629580163)，**success**。binarySourceCommit、testSourceCommit、packagingSourceCommit 均为该提交；Debug/Release 均全新编译。包含应用/Core、schema 默认属性、真实读锁及父目录换名拒绝、旧位置授权、重复include/继承、双native在途取消与真实worker异常安全汇合、CLI/jobs/协议、精确缓存/损坏/事务、输入根、Audio PCM/XAS/CDATA、W3X动画/网格缓存与双动画跨文档重叠、旧session、原BAB/BIG、完整未精简mymod与最终精确五文件ZIP独立运行。
 

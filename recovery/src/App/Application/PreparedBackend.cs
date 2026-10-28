@@ -42,6 +42,12 @@ namespace NewModCompiler.Application
         public static bool TryPrepare(InstanceDeclaration original, IAssetBuilderPlugin plugin,
             out PreparedBackend prepared)
         {
+            return TryPrepareWithinBudget(original, plugin, 128L * 1024L * 1024L, out prepared);
+        }
+
+        public static bool TryPrepareWithinBudget(InstanceDeclaration original, IAssetBuilderPlugin plugin,
+            long preparationBudget, out PreparedBackend prepared)
+        {
             prepared = null;
             if (original == null || original.Node == null || original.Document == null || plugin == null)
                 return false;
@@ -61,7 +67,7 @@ namespace NewModCompiler.Application
             // Avoid first allocating an enormous private representation and
             // only then discovering that the task exceeds the preparation pool.
             // The owner compatibility path retains the original input contract.
-            if (preparationEstimate > 128L * 1024L * 1024L) return false;
+            if (preparationEstimate > preparationBudget) return false;
 
             var leases = new List<FileStream>();
             try
@@ -119,15 +125,15 @@ namespace NewModCompiler.Application
                 {
                     retained = W3xBudget(node, retained);
                     // Animation expansion depends on declared frames, not just
-                    // the small XML source. Oversized work remains owner serial.
-                    parallel = retained <= 64L * 1024L * 1024L;
+                    // the small XML source. The executor admits the estimate
+                    // against this process's current resource budget.
                 }
                 else if (family == "xml" && IsParallelXml(original.Handle.TypeId))
                 {
                     // APT's tracker payload, relocatable copy and managed output
                     // coexist. The seven Xmlaudio roots have no external reads.
                     retained = ExternalReadBudget(leases, retained, 4L);
-                    parallel = retained <= 64L * 1024L * 1024L;
+                    parallel = true;
                 }
                 else if (family == "audio")
                 {
@@ -141,7 +147,7 @@ namespace NewModCompiler.Application
                     if (boundedAudioFile || type == AudioCatalog.Mp3PassthroughTypeId)
                     {
                         retained = ExternalReadBudget(leases, retained, boundedAudioFile ? 64L : 4L);
-                        parallel = retained <= 64L * 1024L * 1024L;
+                        parallel = true;
                     }
                     // PathMusic handlers can invoke Core's scoped Tracer even
                     // on an I/O fallback. Their cache/read contracts do not yet

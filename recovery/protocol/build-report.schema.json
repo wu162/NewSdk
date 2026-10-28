@@ -124,6 +124,14 @@
           "minimum": 1,
           "maximum": 2147483647
         },
+        "resourcePolicy": { "enum": ["MachineResources.v1", "LegacySession"] },
+        "logicalProcessorCount": { "type": "integer", "minimum": 0 },
+        "effectiveJobs": { "type": "integer", "minimum": 0, "maximum": 32 },
+        "minimumEffectiveJobs": { "type": "integer", "minimum": 0, "maximum": 32 },
+        "taskMemoryBudgetBytes": { "type": "integer", "minimum": 0 },
+        "minimumTaskMemoryBudgetBytes": { "type": "integer", "minimum": 0 },
+        "perTaskMemoryLimitBytes": { "type": "integer", "minimum": 0 },
+        "resourceMemoryQuerySucceeded": { "type": "boolean" },
         "backendCalls": {
           "type": "integer",
           "minimum": 0
