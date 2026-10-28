@@ -5,7 +5,8 @@ param(
     [string]$ReplayReceipt,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
     [ValidateRange(15,600)][int]$TimeoutSeconds=180,
-    [switch]$Preflight
+    [switch]$Preflight,
+    [switch]$RepositoryModMetrics
 )
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
@@ -131,6 +132,75 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
     }
 }
 function Put([string]$Path,[string]$Text){New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($Path))|Out-Null;[IO.File]::WriteAllText($Path,$Text)}
+function RepositoryInputManifest([string]$Directory){
+    Get-ChildItem -LiteralPath $Directory -Recurse -File -Force|Sort-Object FullName|ForEach-Object{
+        @{path=[IO.Path]::GetRelativePath($Directory,$_.FullName).Replace('\','/');bytes=$_.Length;sha256=(Hash $_.FullName)}
+    }
+}
+function RepositoryModMetrics([string]$ModeWork){
+    # This is the repository's small, untrimmed MOD fixture. The OS file cache
+    # is uncontrolled; only the compiler's action-cache state is controlled.
+    $source=(Resolve-Path -LiteralPath "$root/SDK/Mods/mymod").Path
+    $mod=Join-Path $ModeWork 'repository-mod'
+    $inputs=@(RepositoryInputManifest $source)
+    Need ($inputs.Count -gt 0) 'Repository MOD metrics input is empty'
+    Copy-Item -LiteralPath $source -Destination $mod -Recurse -Force
+    Need (@(Get-ChildItem -LiteralPath $mod -Recurse -File -Force).Count -eq $inputs.Count) 'Repository MOD copy trimmed or added inputs'
+    foreach($inputFile in $inputs){Need ((Hash (Join-Path $mod $inputFile.path)) -ceq $inputFile.sha256) 'Repository MOD copy changed an input byte'}
+    $savedSdk=$script:sdk
+    try{
+        $script:sdk=(Resolve-Path -LiteralPath "$root/SDK").Path
+        if(!$state.ContainsKey('repositorySdkInputs')){
+            # Capture actual SDK bytes, including the original mymod below it.
+            # This setup/verification cost is outside both reported CLI timers.
+            $state.repositorySdkInputs=@(RepositoryInputManifest $sdk)
+            $state.repositorySdkInputBytes=[long](($state.repositorySdkInputs|Measure-Object -Property bytes -Sum).Sum)
+        }
+        # Keep the exact defaultscript-style source order used by TestCompilerSdk.
+        $data=$sdk+';'+(Join-Path $mod 'Data')+';'+(Join-Path $sdk 'Mods')+';'+(Join-Path $sdk 'SageXml')
+        $art=$sdk+';'+(Join-Path $mod 'Art')+';'+(Join-Path $sdk 'Mods')+';'+(Join-Path $sdk 'Art')
+        $audio=$sdk+';'+(Join-Path $mod 'Audio')+';'+(Join-Path $sdk 'Mods')+';'+(Join-Path $sdk 'Audio')
+        $fixed=@('--profile','development','--jobs=1','/sc:false','--include-additional=false',('/data:'+$data),('/art:'+$art),('/audio:'+$audio))
+        $script:expectedCustomData=0
+        $runtimeInputs=@(RepositoryInputManifest $script:runtime)
+        Need ($runtimeInputs.Count -eq 5) 'Repository metrics require the deployed five-file runtime'
+        $measurement=@{passed=$false;scope='Complete unchanged repository SDK/Mods/mymod copy against the real SDK, development/loose/base/jobs1. Small repository fixture, not a large MOD benchmark; OS cache uncontrolled; peak private memory is sampled, not an OS continuous peak; no speed threshold or speedup claim. Additional changes do not enter loose stream artifacts and are not a packaging-byte comparison.';sourceGitTree=(& git -C $root rev-parse 'HEAD:SDK/Mods/mymod').Trim();sdkGitTree=(& git -C $root rev-parse 'HEAD:SDK').Trim();sourceRoot=$source;modRoot=$mod;sdkRoot=$sdk;inputFiles=$inputs;inputFileCount=$inputs.Count;inputBytes=[long](($inputs|Measure-Object -Property bytes -Sum).Sum);runtimeFiles=$runtimeInputs;fixedArguments=(@('--package-format','loose','--package-content','base')+$fixed);rows=@()}
+        $script:modeState.repositoryModMetrics=$measurement
+        $controlCase=RunCli 'repository-mod-no-cache' $mod (Join-Path $ModeWork 'repository-plain') $false -Extra $fixed;Cache $controlCase 'disabled'
+        $measurement.rows+=,(RepositoryMetricRow $controlCase 'disabled' 'unchanged')
+        $cached=Join-Path $ModeWork 'repository-cache'
+        Need (!(Test-Path -LiteralPath (Join-Path $cached '.cache/action-cache-v1'))) 'Repository action cache must start empty'
+        $cold=RunCli 'repository-mod-empty-action-cache' $mod $cached $true -Extra $fixed;Cache $cold 'cold';SameOutputs $controlCase $cold
+        $measurement.rows+=,(RepositoryMetricRow $cold 'empty-action-cache' 'unchanged')
+        $hot=$null
+        foreach($repeat in 1..3){
+            $next=RunCli ('repository-mod-hot-'+$repeat) $mod $cached $true -Extra $fixed;Cache $next 'hot';SameOutputs $controlCase $next
+            if($null -ne $hot){Need ($next.report.cache.backendCalls -eq $hot.report.cache.backendCalls -and $next.report.cache.actionHits -eq $hot.report.cache.actionHits) 'Repeated repository hot calls or certified hit count changed'}
+            $hot=$next;$measurement.rows+=,(RepositoryMetricRow $hot 'hot-action-cache' 'unchanged')
+        }
+        $additional=Join-Path $mod 'Additional/repository-cache-metrics.txt'
+        Need (!(Test-Path -LiteralPath $additional)) 'Repository metrics Additional marker would overwrite source content'
+        Put $additional 'Repository metrics: unread Additional-only change; loose stream bytes stay identical.'
+        $additionalCase=RunCli 'repository-mod-additional-only' $mod $cached $true -Extra $fixed;Cache $additionalCase 'hot';SameOutputs $controlCase $additionalCase
+        Need ($additionalCase.report.cache.backendCalls -eq $hot.report.cache.backendCalls -and $additionalCase.report.cache.actionHits -eq $hot.report.cache.actionHits) 'Unread Additional-only edit added a backend call or changed certified hits'
+        $measurement.rows+=,(RepositoryMetricRow $additionalCase 'hot-action-cache' 'additional-only')
+        foreach($inputFile in $inputs){
+            Need ((Hash (Join-Path $source $inputFile.path)) -ceq $inputFile.sha256 -and (Hash (Join-Path $mod $inputFile.path)) -ceq $inputFile.sha256) 'Repository metrics changed an original MOD input'
+        }
+        Need (@(Get-ChildItem -LiteralPath $source -Recurse -File -Force).Count -eq $inputs.Count -and @(Get-ChildItem -LiteralPath $mod -Recurse -File -Force).Count -eq $inputs.Count+1) 'Repository metrics added files outside its one private Additional marker'
+        foreach($runtimeFile in $runtimeInputs){Need ((Hash (Join-Path $script:runtime $runtimeFile.path)) -ceq $runtimeFile.sha256) 'Repository metrics changed a deployed runtime file'}
+        Need (@(Get-ChildItem -LiteralPath $script:runtime -File -Recurse -Force).Count -eq 5) 'Repository metrics changed the deployed runtime inventory'
+        $measurement.additionalChange=@{path='Additional/repository-cache-metrics.txt';sha256=(Hash $additional);streamBytesEqual=$true;certifiedMisses=0;backendCalls=$additionalCase.report.cache.backendCalls}
+        $measurement.passed=$true
+    }finally{$script:sdk=$savedSdk}
+}
+function RepositoryMetricRow($Case,[string]$CacheState,[string]$InputVariant){
+    $controller=Get-Content -LiteralPath (Join-Path $Case.caseOut 'control.json') -Raw|ConvertFrom-Json
+    $entries=@($script:modeState.cases|Where-Object{$_.name -ceq $Case.name})
+    Need ($entries.Count -eq 1) 'Repository measurement must identify one exact controlled invocation'
+    Need ($null -ne $Case.report.cache.PSObject.Properties['inputHashReusedBytes']) 'Repository metrics runtime must report actual hash reuse'
+    return @{name=$Case.name;arguments=$entries[0].arguments;actionCacheState=$CacheState;inputVariant=$InputVariant;reportElapsedMs=$Case.report.elapsedMs;controllerElapsedMs=$controller.elapsedMs;cache=$Case.report.cache;artifactCount=$Case.files.Count;allRawStreamBytesEqualToNoCache=$true}
+}
 function MakeWave([string]$Path,[int]$Frames=4096){
     # Same known integral PCM source shape as AudioSdkSupport.Wave; no codec,
     # compression library, external encoder or imprecise floating conversion.
@@ -322,6 +392,8 @@ function ParallelEvidence($Case){
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native, leased APT XML and streamed XAS AudioFile overlap with jobs2, twelve Xmlenvironment roots with cold/hot/same-mtime single edit and actual cross-family overlap; not a new original-DLL/SDK gate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
+    $state.repositoryModMetricsRequested=[bool]$RepositoryModMetrics
+    if($RepositoryModMetrics -and !$Preflight){Need ([bool]$ReplayReceipt) 'Repository MOD metrics require a verified successful archived runtime and ReplayReceipt'}
     if($Preflight){
         AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3');FourWorkerAudioMod (Join-Path $short 'four');EnvironmentMod (Join-Path $short 'env')
         $check=@'
@@ -550,9 +622,14 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
         $fourSerial=RunCli 'four-audio-serial-control' $four (Join-Path $modeWork 'four-serial') $false -Extra @('--jobs=1');Cache $fourSerial 'disabled'
         $fourParallel=RunCli 'four-audio-machine-budget-parallel' $four (Join-Path $modeWork 'four-jobs4') $false -Extra @('--jobs=4');Cache $fourParallel 'disabled';SameOutputs $fourSerial $fourParallel
         $modeState.machineParallel=MachineParallelEvidence $fourParallel
+        if($RepositoryModMetrics){RepositoryModMetrics $modeWork}
         $modeState.passed=$true
     }
     foreach($file in $state.sourceInputs){Need ((Hash (Join-Path $root $file.path)) -ceq $file.sha256) 'Original payload fixture source changed'}
+    if($RepositoryModMetrics){
+        foreach($inputFile in $state.repositorySdkInputs){Need ((Hash (Join-Path "$root/SDK" $inputFile.path)) -ceq $inputFile.sha256) 'Repository metrics changed an original SDK input'}
+        Need (@(Get-ChildItem -LiteralPath "$root/SDK" -Recurse -File -Force).Count -eq $state.repositorySdkInputs.Count) 'Repository metrics changed the SDK file inventory'
+    }
     $state.succeeded=$true;$global:LASTEXITCODE=0
 }catch{$state.error=$_.Exception.ToString();throw}
 finally{

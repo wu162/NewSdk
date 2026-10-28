@@ -122,6 +122,10 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 
 报告 `requestedJobs` 表示用户上限，`effectiveJobs` 表示初始准入容量，`minimumEffectiveJobs` 表示运行中观测的最低准入容量；有多个 stream 时分别汇总初始最高和观测最低值。它们都不等于真实并发，实际同时执行数看 `maxBackendConcurrency` 和调用区间。`taskMemoryBudgetBytes`、`minimumTaskMemoryBudgetBytes`、`perTaskMemoryLimitBytes` 记录预算；缓存命中也不证明并行。
 
+动作缓存报告中的 `actionMissReasons` 按实际查询失败分类，合计等于 `actionMisses/misses`。`entry-not-found` 表示该强Key没有条目，`entry-pending` 表示事务未确认，`invalid-manifest`、`invalid-payload`、`invalid-result-contract` 分别表示索引、内容完整性或结果合同被拒绝；`entry-unavailable` 表示无法安全读取，`entry-invalidated` 表示本次构建已排除该条目。`cacheBypassReasons` 单独记录缓存关闭、未能准备及base-patch来源，不计入miss；未命中一个新Key不据此猜测是哪项输入变化。
+
+`inputInventoryCaptures` 记录完整根盘点次数，`inputHashReusedBytes` 记录持续读租约和文件身份允许复用的工具摘要字节；`hashReadBytes` 仍为实际读取量。租约有512文件上限，MOD资源仍重新哈希；本次构建存续时被租约保护的工具/Schema/runtime文件不可改写，结束后释放。新字段与环境XML扩展的当前验收状态均见专项记录。
+
 `/sc:true` 保留原会话缓存及其原有 `/bc` 组合路径、全根失效保护、intermediate/CDATA 恢复与重新链接，要求 `--jobs=1`；jobs>1 明确报 `CORE_SESSION_PARALLEL_UNSUPPORTED`。旧缓存不会导入新动作缓存。中途编译、取消、发布或必要报告通道失败时，不确认新缓存。
 
 含混合 Texture 的流目前不支持 `/sc:true`，改用 `/sc:false`；`/bc:true` 不表示贴图缓存已经开放。不要直接沿用旧 BAB 的缓存目录。需要清理时，在没有构建运行的情况下删除对应输出根的 `.cache` 即可，保留 `published` 可保留上一代产物。
