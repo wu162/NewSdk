@@ -122,9 +122,13 @@ void WriteColourBlock4( Vec3::Arg start, Vec3::Arg end, u8 const* indices, void*
     }
     else if( a == b )
     {
-        // use index 0
+        // PC legacy compatibility: preserve the same decoded endpoint while
+        // using the nvDDS canonical non-degenerate four-colour block.
+        a = ( a + 1 ) & 0xffff;
+        int index = 1;
+        if( a < b ) { std::swap( a, b ); index = 0; }
         for( int i = 0; i < 16; ++i )
-            remapped[i] = 0;
+            remapped[i] = ( u8 )index;
     }
     else
     {

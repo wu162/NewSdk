@@ -1,10 +1,10 @@
-param([switch]$OnlyAmd)
+param([switch]$OnlyAmd,[switch]$Patched)
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/public-codecs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('texture-public-codecs-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
-$family=if($OnlyAmd){'amd'}else{'stb-squish-icbc'}
+$family=if($Patched){'patched'}elseif($OnlyAmd){'amd'}else{'stb-squish-icbc'}
 $r=@{candidateFamily=$family;sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';comparisonOnly=$true;productionAccepted=$false;sdkValidated=$false;scope='copied public DXT codec complete original10240-block differential; selected candidate family only, full payload/RGB/alpha counts, Debug/Release and original DLL absent/unloaded';configurations=@();eligibleCandidates=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 45;throw "$name failed"};Get-Content "$out/$name.log"|Where-Object{$_ -match '^(PASS|COMPARE) '}}
 try{
@@ -42,7 +42,7 @@ try{
   Checked "$mode-replay" {& "$work/TexturePublicCodecsReplay.exe" "$work/blocks/Debug-transcript.txt" "$work/legacy" "$work/jpeg" "$out/$mode" $family}
   Compress-Archive "$out/$mode/dxt-blocks.bin" "$out/$mode/dxt-blocks.zip"
   Remove-Item "$out/$mode/dxt-blocks.bin"
-  $rows=Import-Csv "$out/$mode/dxt-summary.tsv" -Delimiter "`t";if($rows.Count -ne $(if($OnlyAmd){24}else{64})){throw 'Incomplete candidate matrix'}
+  $rows=Import-Csv "$out/$mode/dxt-summary.tsv" -Delimiter "`t";if($rows.Count -ne $(if($Patched){84}elseif($OnlyAmd){24}else{64})){throw 'Incomplete candidate matrix'}
   $r.configurations+=@{configuration=$mode;comparisonCompleted=$true;withoutOriginalTextureCompiler=$true;nativeSha256=(Get-FileHash "$work/TexturePublicCodecs.dll").Hash.ToLowerInvariant();candidates=@($rows)}
  }
  foreach($row in $r.configurations[0].candidates){

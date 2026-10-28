@@ -134,3 +134,5 @@ CODECFLOAT CompBlock1XS(CMP_SBYTE* _Blk,
                         bool       _bFixedRamp = true);
 
 #endif
+// Added source-level legacy PC compatibility entry; upstream APIs above are unchanged.
+void CompBlockLegacyPC(const CMP_BYTE* alpha, CMP_BYTE* output);

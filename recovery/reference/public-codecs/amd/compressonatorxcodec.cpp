@@ -2192,3 +2192,44 @@ CODECFLOAT CompBlock1XS(CMP_SBYTE* _Blk,
 
     return CompBlock1X(fBlk, dwBlockSize, nEndpoints, pcIndices, dwNumPoints, bFixedRampPoints, _bUseSSE2, _intPrec, _fracPrec, _bFixedRamp);
 }
+
+// Added compatibility entry: preserve the upstream quantizer, but consider
+// the five PC candidate classes and original constant-alpha canonical form.
+// This changes the public source rather than consulting original DLL code.
+void CompBlockLegacyPC(const CMP_BYTE* alpha, CMP_BYTE* output)
+{
+    bool constant=true;for(int i=1;i<16;i++)constant &= alpha[i]==alpha[0];
+    if(constant){output[0]=alpha[0];output[1]=(CMP_BYTE)std::min(255,(int)alpha[0]+1);memset(output+2,0,6);return;}
+    double bestError=DBL_MAX;CMP_BYTE best[8]={0};
+    for(int mode=0;mode<5;mode++){
+        CMP_BYTE values[16],mapping[16],count=0,ends[2]={0},indices[16]={0};
+        bool noZero=mode==2||mode==4,noOne=mode==3||mode==4;
+        for(int i=0;i<16;i++)if(!((noZero&&alpha[i]==0)||(noOne&&alpha[i]==255))){mapping[count]=(CMP_BYTE)i;values[count++]=alpha[i];}
+        if(mode>1&&count==16)continue;
+        int levels=mode==0?8:6;
+        if(count)CompBlock1X(values,count,ends,indices,(CMP_BYTE)levels,false,false,8,0,true);
+        int low=std::min(ends[0],ends[1]),high=std::max(ends[0],ends[1]);
+        CMP_BYTE ordered[16]={0};
+        // PC tie order is low, high, interior points; endpoint reordering is
+        // applied only after choosing a code. Preserve normalized float input.
+        int p[8];p[0]=low;p[1]=high;
+        for(int j=2;j<levels;j++)p[j]=(low*(levels-j)+(j-1)*high+(levels-2)/2)/(levels-1);
+        int e0=levels==8?high:low,e1=levels==8?low:high;
+        double error=0;
+        for(int i=0;i<16;i++){
+            int index=0;
+            if(noZero&&alpha[i]==0)index=6;
+            else if(noOne&&alpha[i]==255)index=7;
+            else{
+                double value=(double)(float)(alpha[i]/255.0)*255.0;
+                for(int j=1;j<levels;j++)if(fabs(p[j]-value)<fabs(p[index]-value))index=j;
+                double delta=p[index]-value;error+=delta*delta;
+                if(levels==8)index=index>1?9-index:1-index;
+            }
+            ordered[i]=(CMP_BYTE)index;
+        }
+        if(low==high){e0=low;e1=std::min(255,high+1);memset(ordered,0,16);}
+        if(error<bestError){bestError=error;best[0]=(CMP_BYTE)e0;best[1]=(CMP_BYTE)e1;unsigned __int64 bits=0;for(int i=0;i<16;i++)bits|=(unsigned __int64)ordered[i]<<(i*3);for(int i=0;i<6;i++)best[i+2]=(CMP_BYTE)(bits>>(i*8));}
+    }
+    memcpy(output,best,8);
+}

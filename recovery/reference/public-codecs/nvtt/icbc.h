@@ -2976,6 +2976,17 @@ static float output_block4(const Vector4 input_colors[16], const float input_wei
     block->col1 = color1;
     block->indices = compute_indices4(input_colors, color_weights, palette);
 
+    // PC legacy compatibility, same decoded constant colour after canonicalization.
+    if (color0.u == color1.u) {
+        uint incremented = (color0.u + 1) & 0xffff;
+        if (incremented > color1.u) {
+            block->col0.u = (uint16)incremented; block->indices = 0x55555555;
+        }
+        else {
+            block->col0.u = color1.u; block->col1.u = (uint16)incremented;
+            block->indices = 0;
+        }
+    }
     return evaluate_mse(input_colors, input_weights, color_weights, palette, block->indices);
 }
 

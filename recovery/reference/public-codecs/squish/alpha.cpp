@@ -231,6 +231,20 @@ static void WriteAlphaBlock7( int alpha0, int alpha1, u8 const* indices, void* b
 
 void CompressAlphaDxt5( u8 const* rgba, int mask, void* block )
 {
+    // PC legacy compatibility: a constant alpha has a deterministic six-step
+    // endpoint pair, including saturated 255/255. This preserves every pixel.
+    if( mask == 0xffff )
+    {
+        int value = rgba[3]; bool constant = true;
+        for( int i = 1; i < 16; ++i ) constant &= rgba[4*i + 3] == value;
+        if( constant )
+        {
+            u8 indices[16] = { 0 };
+            WriteAlphaBlock( value, std::min(255, value + 1), indices, block );
+            return;
+        }
+    }
+
     // get the range for 5-alpha and 7-alpha interpolation
     int min5 = 255;
     int max5 = 0;

@@ -1,5 +1,5 @@
 {
-  "scope": "Unmodified public sources, experimental comparison only; no production acceptance",
+  "scope": "Pinned public source bases with explicit legacy PC compatibility patches; see PATCHES.md; experimental, not accepted",
   "files": [
     {
       "path": "recovery/reference/public-codecs/squish/LICENSE.txt",
@@ -15,9 +15,12 @@
       "upstreamPath": "extern/libsquish-1.15/alpha.cpp",
       "repository": "castano/nvidia-texture-tools",
       "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
-      "blobSha": "7039c1a3b8eb674dbe03cc2eee2073a1b6d538b6",
-      "sha256": "a1012457e7dacb77052e2cad2a246671ac4652521b91d7176dd3a34c4755c1d8",
-      "bytes": 9558
+      "blobSha": "40966cfe8dc5f753b4124f7e32ec2fc63fc49e92",
+      "sha256": "0dba498a0607016336c81245df9eec65a7908e86c8a5514ae25ad1ffd3cbb0f0",
+      "bytes": 10057,
+      "upstreamBlobSha": "7039c1a3b8eb674dbe03cc2eee2073a1b6d538b6",
+      "upstreamSha256": "a1012457e7dacb77052e2cad2a246671ac4652521b91d7176dd3a34c4755c1d8",
+      "compatibilityPatch": "NV constant-alpha canonical endpoint pair"
     },
     {
       "path": "recovery/reference/public-codecs/squish/alpha.h",
@@ -51,9 +54,12 @@
       "upstreamPath": "extern/libsquish-1.15/colourblock.cpp",
       "repository": "castano/nvidia-texture-tools",
       "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
-      "blobSha": "af8b980365ad188b0340d9ed686f3764d05660c2",
-      "sha256": "aa933312e7c64de394a78b0ea56391f988ac228c6ccf2cb23d0ea46fa7d0b204",
-      "bytes": 5876
+      "blobSha": "71c19e20fe99f2cb4e4270a9ca5687abb32e4aa4",
+      "sha256": "09dc46d609518d08623578386c94840261b7634324a52d712b6eff901aa6527e",
+      "bytes": 6120,
+      "upstreamBlobSha": "af8b980365ad188b0340d9ed686f3764d05660c2",
+      "upstreamSha256": "aa933312e7c64de394a78b0ea56391f988ac228c6ccf2cb23d0ea46fa7d0b204",
+      "compatibilityPatch": "NV degenerate RGB565 canonical endpoint/index rule"
     },
     {
       "path": "recovery/reference/public-codecs/squish/colourblock.h",
@@ -258,9 +264,12 @@
       "upstreamPath": "src/nvtt/icbc.h",
       "repository": "castano/nvidia-texture-tools",
       "commit": "aeddd65f81d36d8cb7b169b469ef25156666077e",
-      "blobSha": "681a77ad8043c67e23ddc06e94af17b48ab7a22f",
-      "sha256": "8fe743b284b65a4e4060d3b905b40675ca875c7a91a4661603b03491111017c2",
-      "bytes": 114327
+      "blobSha": "e7c53a27096dfd33e1dd8f13a366b494e759798f",
+      "sha256": "be25144431bede5a21d7e3badb546c5452ccdcec9822635df6e5ee299b0d7562",
+      "bytes": 114760,
+      "upstreamBlobSha": "681a77ad8043c67e23ddc06e94af17b48ab7a22f",
+      "upstreamSha256": "8fe743b284b65a4e4060d3b905b40675ca875c7a91a4661603b03491111017c2",
+      "compatibilityPatch": "NV degenerate RGB565 canonical endpoint/index rule"
     },
     {
       "path": "recovery/reference/public-codecs/nvtt/LICENSE",
@@ -276,18 +285,24 @@
       "upstreamPath": "cmp_compressonatorlib/ati/compressonatorxcodec.cpp",
       "repository": "GPUOpen-Tools/compressonator",
       "commit": "095a143ad8cfbf9ed5afa4ea63c735bfd0fd04dd",
-      "blobSha": "e541eadbe39c049e0f351618221047900e4f2d81",
-      "sha256": "242cceac34573270fa643e4a74807dabe1ca0e6600c19719876660e8589a0b31",
-      "bytes": 84850
+      "blobSha": "c7ebec8cfd745c8690e04048219477401a983ddb",
+      "sha256": "f173de449ecd41031e1d0e3e06e8043e1cdebdfcc2bc4f07ee0cdc36db3ad0a8",
+      "bytes": 87194,
+      "upstreamBlobSha": "e541eadbe39c049e0f351618221047900e4f2d81",
+      "upstreamSha256": "242cceac34573270fa643e4a74807dabe1ca0e6600c19719876660e8589a0b31",
+      "compatibilityPatch": "Add five-class PC alpha selection using upstream quantizer and normalized float error/tie order"
     },
     {
       "path": "recovery/reference/public-codecs/amd/compressonatorxcodec.h",
       "upstreamPath": "cmp_compressonatorlib/ati/compressonatorxcodec.h",
       "repository": "GPUOpen-Tools/compressonator",
       "commit": "095a143ad8cfbf9ed5afa4ea63c735bfd0fd04dd",
-      "blobSha": "6ad67812d02ff85c7b1ed0a6371f6e011b250ced",
-      "sha256": "d3ab38eb6f830218665a72ecc8ad91b8d663dc71ba854b8b769cdecef3bcc0cd",
-      "bytes": 7284
+      "blobSha": "db30d0a91d4fb356ee049d1b002d40ac0efae709",
+      "sha256": "61f25e730cb8fe7610b984e5e67440ddc0166359013fa0bb86ffb1dfcf14e4d5",
+      "bytes": 7438,
+      "upstreamBlobSha": "6ad67812d02ff85c7b1ed0a6371f6e011b250ced",
+      "upstreamSha256": "d3ab38eb6f830218665a72ecc8ad91b8d663dc71ba854b8b769cdecef3bcc0cd",
+      "compatibilityPatch": "Declare added PC alpha compatibility API"
     }
   ]
 }
