@@ -24,6 +24,14 @@ namespace BinaryAssetBuilder.AudioCompiler
         public Plugin() : this(new PcmWaveAudioCompiler()) { }
         public Plugin(IAudioFileCompiler compiler) { audioCompiler = compiler; }
 
+        // The public dependency-injection constructor also accepts encoders with
+        // unknown reads, shared state and side effects. An exact Plugin type is
+        // therefore insufficient to certify its AudioFile execution closure.
+        public bool UsesRecoveredAudioFileCompiler
+        {
+            get { return audioCompiler != null && audioCompiler.GetType() == typeof(PcmWaveAudioCompiler); }
+        }
+
         public virtual void Initialize(object configSection, TargetPlatform platform)
         {
             AudioCatalog.RequireWin32(platform);

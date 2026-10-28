@@ -111,7 +111,7 @@ namespace NewModCompiler.Application
                     if (family == "xml" && !PrepareXmlReads(original, writer, leases)) return false;
                     // Hold actual input handles throughout hashing AND execution,
                     // never just hash then reopen freely.
-                    if (family == "audio" && !PrepareAudio(original, writer, leases)) return false;
+                    if (family == "audio" && !PrepareAudio(original, (BinaryAssetBuilder.AudioCompiler.Plugin)plugin, writer, leases)) return false;
                     writer.Flush(); inputIdentity = bytes.ToArray();
                 }
                 bool parallel = family == "w3x";
@@ -121,6 +121,31 @@ namespace NewModCompiler.Application
                     // Animation expansion depends on declared frames, not just
                     // the small XML source. Oversized work remains owner serial.
                     parallel = retained <= 64L * 1024L * 1024L;
+                }
+                else if (family == "xml" && IsParallelXml(original.Handle.TypeId))
+                {
+                    // APT's tracker payload, relocatable copy and managed output
+                    // coexist. The seven Xmlaudio roots have no external reads.
+                    retained = ExternalReadBudget(leases, retained, 4L);
+                    parallel = retained <= 64L * 1024L * 1024L;
+                }
+                else if (family == "audio")
+                {
+                    uint type = original.Handle.TypeId;
+                    // Without rate conversion, integral WAVE/AIFF decoding,
+                    // optional loop slices and PCM/XAS output are bounded by
+                    // input bytes. A deliberately conservative allowance covers
+                    // float samples, temporary lists, copies and CDATA. Explicit
+                    // rates stay serial: expansion depends on source metadata.
+                    bool boundedAudioFile = type == AudioCatalog.AudioFileTypeId && node.Attributes["PCSampleRate"] == null;
+                    if (boundedAudioFile || type == AudioCatalog.Mp3PassthroughTypeId)
+                    {
+                        retained = ExternalReadBudget(leases, retained, boundedAudioFile ? 64L : 4L);
+                        parallel = retained <= 64L * 1024L * 1024L;
+                    }
+                    // PathMusic handlers can invoke Core's scoped Tracer even
+                    // on an I/O fallback. Their cache/read contracts do not yet
+                    // certify worker diagnostic delivery, so retain the owner.
                 }
                 prepared = new PreparedBackend(family, plugin, frozen, inputIdentity, leases, retained, parallel);
                 leases = null; // Ownership moves to the envelope through commit.
@@ -165,7 +190,10 @@ namespace NewModCompiler.Application
             // its backend consumes this private node/namespace view. Native
             // scratch and outputs are per-call; the only lazy native table is
             // const and built with C++17's thread-safe static initialization.
-            // XML and Audio stay on the owner until separately certified.
+            // Certified XML routes use a per-call bridge tree and Relo::Tracker;
+            // XmlPriority's optional trace writes already hold TraceGate. Audio
+            // uses a stateless exact encoder, readonly tables and private CDATA.
+            // Other routes remain owner barriers, including Audio's Tracer paths.
             return plugin.ProcessInstance(declaration);
         }
 
@@ -231,7 +259,34 @@ namespace NewModCompiler.Application
             return LeaseInputPath(path, writer, leases);
         }
 
-        static bool PrepareAudio(InstanceDeclaration original, BinaryWriter writer, List<FileStream> leases)
+        static bool IsParallelXml(uint type)
+        {
+            switch (type)
+            {
+                // XmlaptdataCompiler.cpp / Xmlaptdata.cpp: leased File payload.
+                case 1816258268u: case 983359664u: case 1110676961u: case 1034587168u:
+                // XmlaudioCompiler.cpp / Xmlaudio.cpp: one private native Builder,
+                // const field/enum tables and no process-wide hash registration.
+                case 3906227957u: case 299416263u: case 1443425905u:
+                case 587347702u: case 1447728787u: case 1826140078u: case 3370391592u:
+                    return true;
+                default: return false;
+            }
+        }
+
+        static long ExternalReadBudget(List<FileStream> leases, long minimum, long multiplier)
+        {
+            try
+            {
+                long bytes = minimum;
+                foreach (FileStream lease in leases) bytes = checked(bytes + checked(lease.Length * multiplier));
+                return bytes;
+            }
+            catch (OverflowException) { return long.MaxValue; }
+        }
+
+        static bool PrepareAudio(InstanceDeclaration original, BinaryAssetBuilder.AudioCompiler.Plugin plugin,
+            BinaryWriter writer, List<FileStream> leases)
         {
             // FileShare.Read excludes both writes and delete/rename while the
             // same pathname is reopened by the current managed Audio backend.
@@ -241,6 +296,7 @@ namespace NewModCompiler.Application
             XmlAttributeCollection attrs = original.Node.Attributes;
             if (type == AudioCatalog.AudioFileTypeId)
             {
+                if (!plugin.UsesRecoveredAudioFileCompiler) return false;
                 XmlAttribute compression = attrs["PCCompression"];
                 // EALAYER3 emits a process-once diagnostic. Do not cache until
                 // the diagnostic result can be replayed with the same contract.

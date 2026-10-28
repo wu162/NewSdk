@@ -94,7 +94,8 @@ namespace NewModCompiler.Application
             this.processor = processor; this.cache = cache; this.staging = staging;
             this.toolchain = toolchain; this.effectiveOptions = effectiveOptions;
             this.metrics = metrics; this.cancellation = cancellation;
-            // W3X expansion is expensive. Never size a thread/queue from raw N.
+            // Certified backend work shares one bounded pool. Never size a
+            // thread/queue from raw N, even for inexpensive XML/Audio tasks.
             capacity = Math.Min(requestedJobs, 2);
         }
 
@@ -120,7 +121,7 @@ namespace NewModCompiler.Application
             if (!PreparedBackend.TryPrepare(declaration, plugin, out prepared))
             {
                 // Owner-only is also a barrier against unknown shared state.
-                Flush(); asset.BeginExecution(task.Identity);
+                Flush(); cancellation.ThrowIfCancellationRequested(); asset.BeginExecution(task.Identity);
                 metrics.Execute(declaration.Handle.TypeName, declaration.Document.SourcePath, () => { compileCompatibility(); return asset.Buffer; });
                 task.Buffer = asset.Buffer;
                 // Compatibility compilation uses Core's established CDATA path.
@@ -155,6 +156,10 @@ namespace NewModCompiler.Application
                 }
                 if (!task.Hit)
                 {
+                    // Preparing an external input may spend time hashing under
+                    // a read lease. Cancellation arriving during that work must
+                    // stop dispatch before another backend is started.
+                    cancellation.ThrowIfCancellationRequested();
                     if (cache != null && task.Key != null) metrics.Misses++;
                     processor.RecordExecutionCompile();
                     if (prepared.CanRunParallel && capacity > 1 && prepared.PreparedBytes <= ByteBudget / 2)
@@ -165,6 +170,7 @@ namespace NewModCompiler.Application
                     else
                     {
                         Flush();
+                        cancellation.ThrowIfCancellationRequested();
                         task.Buffer = metrics.Execute(declaration.Handle.TypeName, declaration.Document.SourcePath, prepared.Execute);
                     }
                 }
