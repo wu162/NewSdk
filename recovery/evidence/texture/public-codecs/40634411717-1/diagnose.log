@@ -1,0 +1,2 @@
+System.Exception: Instrumented reference differs from immutable original gold fixture=263
+   at TexturePublicS3Diagnostics.Main(String[] args)
