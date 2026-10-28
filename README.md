@@ -23,7 +23,7 @@
 - `--mod-version 2.7-beta`、`--game-version 1.12`、`--skudef-name ExampleLauncher`：设置 BIG/SKUDEF 身份，默认值保持旧脚本行为。
 - `/bc:true`：启用构建资产缓存，默认关闭；本分支 sc=false 使用按资产强身份的 ActionCache，详见[缓存并行记录](recovery/docs/CACHE_PARALLEL.md)。
 - `/sc:true`：启用会话缓存，默认关闭；含混合 Texture 的流明确拒绝此选项，要求 jobs=1。
-- `--jobs=N`：后端并发上限，默认1；当前仅认证的 W3X 可并行，实际并发受资源预算限制。
+- `--jobs=N`：后端并发上限，默认1；认证的 W3X、部分 XML 与 Audio 后端共用有界 worker，具体资格与验收范围见[缓存并行记录](recovery/docs/CACHE_PARALLEL.md)，实际并发受资源预算限制。
 - `--include-additional=false`：BIG 默认自动包含 SDK/Additional，再由 MOD/Additional 覆盖；使用 false 可关闭，排除 `.asset`，覆盖冲突记录警告。
 - `--fix-neutral-assets=true`：仅 base BIG 可用的显式中立修复；默认关闭，要求已有完整 Worldbuilder 参考四文件，缺失时报错。
 
