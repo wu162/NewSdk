@@ -1,0 +1,49 @@
+{
+  "selected": [
+    "jpeg-load"
+  ],
+  "status": "failed",
+  "runAttempt": "1",
+  "runId": "40625214348",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-dds",
+    "atlas-entry"
+  ],
+  "sourceCommit": "631cd093b3a5a95e922db07d71c1a6141161ef8d",
+  "groups": [
+    {
+      "group": "jpeg-load",
+      "evidenceOnly": true,
+      "passed": false,
+      "error": "JPEG candidate failed"
+    }
+  ]
+}

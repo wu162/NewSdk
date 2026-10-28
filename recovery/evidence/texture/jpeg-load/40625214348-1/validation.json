@@ -1,0 +1,12 @@
+{
+  "scope": "original PC LoadImageA JPEG full pixels and repeat determinism; IJG6b six decoder option candidates; no public plugin or SDK acceptance",
+  "evidenceOnly": true,
+  "runAttempt": "1",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "probeOnly": true,
+  "runId": "40625214348",
+  "error": "JPEG candidate failed",
+  "sourceCommit": "631cd093b3a5a95e922db07d71c1a6141161ef8d",
+  "status": "failed",
+  "sdkValidated": false
+}
