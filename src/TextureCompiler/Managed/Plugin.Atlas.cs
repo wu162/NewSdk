@@ -94,7 +94,10 @@ namespace Recovered.Compiler.Texture
                 if (value > (uint.MaxValue - digit) / radix) overflow = true;
                 value = unchecked(value * (uint)radix + (uint)digit);
             }
-            return overflow ? uint.MaxValue : negative ? unchecked(0u - value) : value;
+            // VC8 strtoul saturates the magnitude, then applies the sign even
+            // on overflow: -4294967296 therefore becomes 1, not UINT_MAX.
+            if (overflow) value = uint.MaxValue;
+            return negative ? unchecked(0u - value) : value;
         }
         private static int AtlasDigit(char c)
         {
