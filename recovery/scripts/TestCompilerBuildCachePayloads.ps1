@@ -258,6 +258,8 @@ print('PASS payload fixture XSD, independent PCM/XAS reads, CDATA sources, W3X m
             $before=RunCli ($family+'-disabled') $mod $plainOut $false;Cache $before 'disabled'
             $cold=RunCli ($family+'-cold') $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $before $cold
             $hot=RunCli ($family+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $before $hot
+            $hotJobs=RunCli ($family+'-hot-jobs2') $mod $cachedOut $true -Extra @('--jobs=2');Cache $hotJobs 'hot';SameOutputs $before $hotJobs
+            Need ($hotJobs.report.cache.requestedJobs -eq 2 -and $hotJobs.report.cache.backendCalls -eq 0 -and $hotJobs.report.cache.maxBackendConcurrency -eq 0) 'Changing jobs invalidated action identities or reported cache hits as actual backend calls'
             $initialActionKeys=@(Get-ChildItem -LiteralPath (Join-Path $cachedOut '.cache/action-cache-v1') -Directory|Where-Object{$_.Name -cmatch '^[0-9a-f]{64}$'}|ForEach-Object{$_.Name})
             if($family -eq 'audio'){
                 $input="$mod/Audio/probe.wav";$stamp=[IO.File]::GetLastWriteTimeUtc($input);$bytes=[IO.File]::ReadAllBytes($input);$length=$bytes.Length

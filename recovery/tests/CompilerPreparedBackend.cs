@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -299,7 +300,7 @@ public static class CompilerPreparedBackend
     {
         return "<AssetDeclaration xmlns='uri:ea.com:eala:asset'>" + body + "</AssetDeclaration>";
     }
-    static Dictionary<string, string> RepeatedIncludeRun(string sdk, string mod, string output, int jobs)
+    static Dictionary<string, string> RepeatedIncludeRun(string sdk, string mod, string output, int jobs, bool cancelInFlight = false)
     {
         Settings previous = Settings.Current;
         bool previousMetrics = EALA.Metrics.MetricManager.Enabled;
@@ -335,14 +336,78 @@ public static class CompilerPreparedBackend
                 var processor = new DocumentProcessor(settings, plugins.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
                 var assembly = typeof(CoreStreamCompiler).Assembly;
                 var metrics = Activator.CreateInstance(assembly.GetType("NewModCompiler.Application.AssetExecutionMetrics", true), true);
+                using (var cancellation = new CancellationTokenSource())
+                using (var observerReady = new ManualResetEventSlim())
+                {
                 var execution = (IAssetExecution)Activator.CreateInstance(assembly.GetType("NewModCompiler.Application.AssetTaskExecution", true),
                     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
-                    new object[] { processor, null, Path.Combine(output, "task-staging"), "no-persistent-cache", "repeat-include-fixture", jobs, metrics, CancellationToken.None }, null);
+                    new object[] { processor, null, Path.Combine(output, "task-staging"), "no-persistent-cache", "repeat-include-fixture", jobs, metrics, cancellation.Token }, null);
+                Thread observer = null;
+                int stopObservation = 0;
+                bool observedConcurrentCalls = false;
+                object metricGate = metrics.GetType().GetField("gate", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(metrics);
+                FieldInfo activeCalls = metrics.GetType().GetField("active", BindingFlags.NonPublic | BindingFlags.Instance);
+                if (cancelInFlight)
+                {
+                    observer = new Thread(delegate()
+                    {
+                        var timeout = Stopwatch.StartNew(); observerReady.Set();
+                        while (Volatile.Read(ref stopObservation) == 0 && timeout.Elapsed < TimeSpan.FromSeconds(20))
+                        {
+                            lock (metricGate)
+                            {
+                                if ((int)activeCalls.GetValue(metrics) >= 2)
+                                {
+                                    // Cancel while both actual backend intervals
+                                    // remain open under their own metrics lock.
+                                    observedConcurrentCalls = true;
+                                    cancellation.Cancel(); return;
+                                }
+                            }
+                            Thread.Yield();
+                        }
+                        // Bound a broken test without retrying or manufacturing
+                        // an overlap. The final assertion still rejects it.
+                        if (Volatile.Read(ref stopObservation) == 0) cancellation.Cancel();
+                    });
+                    observer.IsBackground = true; observer.Start(); observerReady.Wait();
+                }
                 try
                 {
                     processor.AssetExecution = execution;
                     bool success;
-                    processor.ProcessDocument(settings.InputPath, true, false, out success);
+                    bool cancelled = false;
+                    try { processor.ProcessDocument(settings.InputPath, true, false, out success); }
+                    catch (OperationCanceledException) { cancelled = true; success = false; }
+                    if (cancelInFlight)
+                    {
+                        ((IDisposable)execution).Dispose();
+                        Require(cancelled && observedConcurrentCalls, "Cancellation must be requested during two real in-flight native backend calls");
+                        lock (metricGate)
+                        {
+                            Require((int)activeCalls.GetValue(metrics) == 0, "Cancellation disposal must join all in-flight native calls before returning");
+                            var intervals = (System.Collections.IEnumerable)metrics.GetType().GetField("Intervals").GetValue(metrics);
+                            int completedIntervals = 0;
+                            foreach (object interval in intervals)
+                            {
+                                completedIntervals++;
+                                Require((long)interval.GetType().GetField("endTicks").GetValue(interval) >= (long)interval.GetType().GetField("startTicks").GetValue(interval),
+                                    "Every started native interval must have safely returned after cancellation");
+                            }
+                            Require(completedIntervals == 2, "Both actual native calls must be present in the cancellation evidence");
+                        }
+                        foreach (string file in new[] { "One.xml", "Two.xml", "Root.xml" })
+                        {
+                            AssetDeclarationDocument document;
+                            cache.TryGetDocument(Path.Combine(mod, file), null, TargetPlatform.Win32, false, out document);
+                            Require(document != null && document.State != DocumentState.Complete && !document.Processing,
+                                "Cancelled in-flight work must not publish document completion: " + file);
+                        }
+                        Require(Directory.GetFiles(settings.OutputDirectory, "*.manifest", SearchOption.AllDirectories).Length == 0,
+                            "Cancelled native work must not reach successful final stream linking");
+                        return new Dictionary<string, string>();
+                    }
+                    Require(!cancelled, "The non-cancelled repeated include build must complete");
                     execution.Flush();
                     Require(success && processor.InstanceCompileCount == 3,
                         "Repeated includes must execute the three distinct real assets exactly once with jobs=" + jobs);
@@ -368,7 +433,13 @@ public static class CompilerPreparedBackend
                     Require(result.Count == 4, "Repeated-include production stream must produce all four raw output files");
                     return result;
                 }
-                finally { ((IDisposable)execution).Dispose(); }
+                finally
+                {
+                    Volatile.Write(ref stopObservation, 1);
+                    if (observer != null) observer.Join();
+                    ((IDisposable)execution).Dispose();
+                }
+                }
             }
         }
         finally { Settings.Current = previous; EALA.Metrics.MetricManager.Enabled = previousMetrics; }
@@ -389,15 +460,26 @@ public static class CompilerPreparedBackend
             Require(parallel.ContainsKey(output.Key) && parallel[output.Key] == output.Value,
                 "Repeated includes and inherited input must preserve exact serial stream bytes: " + output.Key);
     }
+    static void CancelInFlight(string work, string sdk)
+    {
+        string mod = Path.Combine(work, "native-cancellation-input");
+        Put(Path.Combine(mod, "One.xml"), Assets("<W3DAnimation id='CancelNativeOne' NumFrames='4096' FrameRate='30'>" +
+            "<Channels><ChannelScalar Type='XTranslation' Pivot='0' FirstFrame='0'><Frame>0</Frame><Frame>1</Frame></ChannelScalar></Channels></W3DAnimation>"));
+        Put(Path.Combine(mod, "Two.xml"), Assets("<W3DAnimation id='CancelNativeTwo' NumFrames='3072' FrameRate='30'>" +
+            "<Channels><ChannelScalar Type='XTranslation' Pivot='0' FirstFrame='0'><Frame>0</Frame><Frame>2</Frame></ChannelScalar></Channels></W3DAnimation>"));
+        Put(Path.Combine(mod, "Root.xml"), Assets("<Includes><Include type='all' source='One.xml'/><Include type='all' source='Two.xml'/></Includes>"));
+        RepeatedIncludeRun(sdk, mod, Path.Combine(work, "native-cancelled-output"), 2, true);
+    }
     public static int Main(string[] args)
     {
         try
         {
             Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); BinaryAssetAuthorization(args[0]);
             RepeatedIncludeAndInheritance(args[0], args[4]);
+            CancelInFlight(args[0], args[4]);
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new {
                 succeeded = true, sourceCommit = args[2], runId = args[3], checks,
-                scope = "Actual prepared input isolation, native APT content lease, exact external invalidation, schema defaults, W3X expansion budget and real BinaryAsset Output/Local/Cache authorization guard; cross-document overlap is checked separately"
+                scope = "Actual prepared input isolation, native APT content lease, exact external invalidation, schema defaults and preparation budgets, real BinaryAsset authorization guard, repeated include/inheritance byte equality and cancellation during two native calls; normal cross-document output overlap is checked separately"
             }));
             Console.WriteLine("PASS PreparedBackend: " + checks + " assertions"); return 0;
         }

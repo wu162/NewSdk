@@ -2,6 +2,8 @@
 
 更新：2026-10-28（北京时间）。成果分支 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`。本页只记录当前工作；旧发行证据见 [COMPILER_RELEASE](../COMPILER_RELEASE.md)。**当前源码已接生产，尚待本轮完整 CI 验收，不声明性能加速或全矩阵通过。**
 
+用户提供的[原始实施方案](CACHE_PARALLEL_PLAN.md)保留作目标与验收参考；当前状态只看本页收据，不能把方案要求当作已完成能力。日常续接无需重读整份方案。
+
 ## 先查什么
 
 | 问题 | 最短入口 |
@@ -54,14 +56,18 @@
 
 owner 保持前端顺序，worker 仅拿独占后端输入；结果按发现顺序验证和提交，文档最后任务提交后才完成/释放，再汇合链接。准备/在途/待提交受数量与256MiB保守预算限制，W3X展开按帧/通道和节点估计；取消停止派发并等待不可中断 native 安全返回。极大单任务采用串行，不承诺自动内存预测。
 
-报告新增 executionEngine/cacheMode/requestedJobs/backendCalls/maxBackendConcurrency、最多512条 backendIntervals、hashReadBytes/restoredBytes/writtenBytes。最大并发来自真实调用区间；缓存命中、排队长度与请求 N 均不能代替此证据。
+准备前先无序列化遍历 DOM 估算私有表示成本，再做队列预算准入；超过128MiB的准备估算不克隆、不缓存，直接使用 owner 兼容调用。256MiB是并发任务的保守预算；单个超大兼容任务沿用原执行峰值，不承诺通用硬内存上限。
+
+报告新增 executionEngine/cacheMode/requestedJobs/backendCalls/maxBackendConcurrency、backendCallsByType、最多512条 backendIntervals、hashReadBytes/restoredBytes/writtenBytes/cacheCopyBytes。hashReadBytes记录保护盘点、后端外部输入与store payload校验的文件SHA256读取；cacheCopyBytes记录store实际拷贝，不代表整个进程全部I/O。peakSampledPrivateBytes来自owner/worker边界采样，不等于OS连续峰值。最大并发来自真实调用区间；缓存命中、排队长度与请求 N 均不能代替此证据。
 
 ## 当前收据与续接
 
 | sourceCommit | runId / 状态 | 范围 |
 | --- | --- | --- |
 | b9a5f2686fb6dc54aa8fb76b9b5cb8be8e9b60b2 | [40625998371](https://github.com/wu162/NewSdk/actions/runs/40625998371)，failure | App Debug/Release 发现 ActionAssetCache.Stage 私有候选路径过长；未进入生产验收。失败终态保留 |
-| cb22761562cbe9a9d12c50591e448d65a31cc883 | [40626352606](https://github.com/wu162/NewSdk/actions/runs/40626352606)，进行中 | 修复候选路径、schema 默认属性冻结，补真实读锁/精确失效/并行/事务用例；完整生产构建，cli_only=false |
+| cb22761562cbe9a9d12c50591e448d65a31cc883 | [40626352606](https://github.com/wu162/NewSdk/actions/runs/40626352606)，进行中且cache step失败 | 生产构建、Core、原BAB、Texture、CLI/协议、输入根、Audio/CDATA/W3X含真实并行、旧session与session协议已success；普通缓存fixture的GameObject缺Body已在后续测试修复，待终态原始日志确认 |
+| d7143a505e4579f2b96a947e8aa7c8c559e8a5f2 | [40626782705](https://github.com/wu162/NewSdk/actions/runs/40626782705)，进行中 | 普通action-cache完整矩阵、输入根、生产/Core/CLI/协议等局部success；后续payload/session/SDK/发行仍须终态 |
+| 79270b094a94de185f2bdaf88a593188db056837 | [40627506002](https://github.com/wu162/NewSdk/actions/runs/40627506002)，push触发、进行中 | 新分支已加入push过滤，显式完整标记，不复用旧二进制；含pending重复include/Reset修复、准备预算前置、计量及小帧并行fixture |
 
 所有编译和测试均在 GitHub Actions。运行中不计作通过；二进制和测试来源以具体 run 的归档 build/validation JSON 及运行文件 SHA256 为准，文档提交不冒充二进制来源。尚无固定机器/输入可比的冷、热、单改、Additional 性能数据，暂不报告加速倍数。
 
