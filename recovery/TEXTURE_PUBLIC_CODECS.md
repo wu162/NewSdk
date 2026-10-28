@@ -1,6 +1,6 @@
 # Public texture codec replacement experiment
 
-Test branch: `validation/texture-public-codecs`; merge destination: `recovery/texturecompiler-source`. Only Windows GitHub Actions builds/tests; no force pushes. Upstream code is copied as a base and then modified to match legacy output, as the user explicitly requested. `PROVENANCE.json` pins repository commits and SHA256/Git blob IDs for all34 current files. For modified files it separately records original upstream identities and the compatibility patch; PATCHES.md explains changes. Notices are retained.
+Test branch: `validation/texture-public-codecs`; merge destination: `recovery/texturecompiler-source`. Only Windows GitHub Actions builds/tests; no force pushes. Upstream code is copied as a base and then modified to match legacy output, as the user explicitly requested. `PROVENANCE.json` pins repository commits and SHA256/Git blob IDs for all35 current files (34 copied-source/notice files plus one explicitly identified legacy constant-data file). For modified files it separately records original upstream identities and the compatibility patch; PATCHES.md explains changes. Notices are retained.
 
 Candidates:
 
@@ -51,3 +51,31 @@ Keep candidate changes and unchanged-source baselines separate.
 The copied S3 code exposes allSame/search43Mult/mapAndRoundMult/quantizeAlpha,
 so it is a stronger algorithm-family candidate than changing an unrelated fit's
 quality flags. A shared name is a research lead, never proof of byte equality.
+
+
+## Collected full matrices after checkpoint
+
+- AMD1ce890cf /40631302274: all12 variants' DXT5 alpha5120/5120 in
+  both configurations; best whole block374/5120. No float/SDK acceptance.
+- S3 81268e60 /40631683152: best full DXT3=DXT5=4838/5120,
+  all alpha5120/5120. IA32/x87 source02557975 /40631926236 produces the same
+  complete payload artifacts as SSE2; architecture alone does not resolve it.
+- Grayscale source d512a562 /40632042322 and merged checkpoint2e44eaed /
+  40632288601 fail native linking because PowerShell splatted a single string
+  architecture argument into characters; neither performed a complete replay.
+- Script/source a61e2b58 /40632315333: comparison-completed, Debug/Release16
+  variants,163840 complete records each. Baseline source/weight float variant0
+  DXT3=DXT5=5093/5120, all alpha5120/5120. All grayscale and two-color cases
+  match.0/0 budgets regress4 and fix0;1/1 and2/2 do not improve, so the next
+  source restores16/8. No candidate has integration eligibility.
+
+Remaining variant0 RGB fixtures:263,281,337,356,462 (single RGB), and
+1361,1445,1690,1937,2132,2144,2405,2487,2527,2758,2878,2944,3010,3618,
+3651,3787,3910,4001,4268,4299,4838,5115 (random).
+
+Current e5fbd08a compares rounding policy0baseline,1single-colour-floor,
+2general-ramp-floor,3both, each with all4 precision variants. Variant policy
+meaning changed explicitly at this source commit; earlier matrices retain their
+own source and must not be relabeled. Its Actions result is still pending at
+this checkpoint. No new original-DLL investigation was needed for these source
+adaptations. Preserve full component/float/mip/volume/atlas/plugin/SDK gates.
