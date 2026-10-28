@@ -72,3 +72,7 @@ acceptance targets. Shared image/device/resource routines needed by Win32/PC
 remain in scope, including any such routines exposed through XGraphics names. The two constant facades must not be interpreted as
 providing those larger algorithms or making a working graphics device.
 
+
+## Current managed PC consumer audit (2026-10-28)
+
+The remaining native boundary above describes native pointer ABI replacement. The accepted managed PC image/compression/atlas consumers do not call these original device/shared-buffer globals; see [resource ownership audit](TEXTURE_PC_LIFECYCLE.md). Complete bundled mymod and all150 DDS+7 TGA art passed original/recovered/no-original SDK acceptance at5a1b8e1d/run40657712486. This does not turn the two constant facades into a reconstructed device or claim the entire original mixed-mode native ABI.
