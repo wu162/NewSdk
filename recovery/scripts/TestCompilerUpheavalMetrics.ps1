@@ -14,6 +14,13 @@ if(Test-Path -LiteralPath $OutputDirectory){throw 'Refusing to overwrite Upheava
 $out=(New-Item -ItemType Directory -Path $OutputDirectory).FullName
 $work=(New-Item -ItemType Directory -Path (Join-Path $env:RUNNER_TEMP ('u'+[Guid]::NewGuid().ToString('N').Substring(0,8)))).FullName
 $state=@{schemaVersion=1;succeeded=$false;preflightOnly=[bool]$Preflight;preflightPassed=$false;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;cases=@();scope='Complete original Upheaval Release-only controlled no-cache serial/parallel, empty action cache and three hot builds. OS file cache uncontrolled; sampled private memory is not continuous peak. No single-edit or packaging measurement. No speed threshold or general speedup claim.'}
+$state.setupPhaseTimings=@();$state.verificationPhaseTimings=@()
+$state.setupTimingScope='Controller preparation wall-clock only; excluded from every product report/controller CLI elapsed value. Inventory optimization has no measured speedup claim.'
+$setupClock=[Diagnostics.Stopwatch]::StartNew();$phaseWatch=$null;$phaseName=$null
+function EndSetupPhase([bool]$Succeeded=$true){
+    if($script:phaseWatch){$script:phaseWatch.Stop();$state.setupPhaseTimings+=,@{name=$script:phaseName;elapsedMs=$script:phaseWatch.ElapsedMilliseconds;succeeded=$Succeeded};Write-Host ("END Upheaval setup {0}: elapsedMs={1} succeeded={2}" -f $script:phaseName,$script:phaseWatch.ElapsedMilliseconds,$Succeeded);$script:phaseWatch=$null}
+}
+function BeginSetupPhase([string]$Name){EndSetupPhase;$script:phaseName=$Name;$script:phaseWatch=[Diagnostics.Stopwatch]::StartNew();Write-Host ("START Upheaval setup {0}" -f $Name)}
 function Need([bool]$Value,[string]$Message){if(!$Value){throw $Message}}
 function Hash([string]$Path){(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
 function Within([string]$Directory,[string]$Path){
@@ -21,14 +28,14 @@ function Within([string]$Directory,[string]$Path){
     $full.StartsWith($base+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)
 }
 function Inventory([string]$Directory){
-    @(Get-ChildItem -LiteralPath $Directory -Recurse -File -Force|Sort-Object FullName|ForEach-Object{
-        @{path=[IO.Path]::GetRelativePath($Directory,$_.FullName).Replace('\','/');bytes=$_.Length;sha256=(Hash $_.FullName)}
-    })
+    # One managed traversal/hash loop avoids a PowerShell pipeline/Get-FileHash
+    # invocation per SDK file. Before/after use the same explicit Ordinal order.
+    @([UpheavalInputInventory]::Capture($Directory))
 }
 function Unchanged([string]$Directory,$Before){
     $actual=@(Inventory $Directory);Need ($actual.Count -eq $Before.Count) "Input inventory count changed: $Directory"
     for($i=0;$i -lt $actual.Count;$i++){
-        Need ($actual[$i].path -ceq $Before[$i].path -and $actual[$i].bytes -eq $Before[$i].bytes -and $actual[$i].sha256 -ceq $Before[$i].sha256) "Input bytes changed: $Directory"
+        Need ([string]::Equals($actual[$i].path,$Before[$i].path,[StringComparison]::Ordinal) -and $actual[$i].bytes -eq $Before[$i].bytes -and [string]::Equals($actual[$i].sha256,$Before[$i].sha256,[StringComparison]::Ordinal)) "Input bytes changed: $Directory"
     }
 }
 function InvokeProduct([string]$Name,[string]$Command,[string]$Destination,[bool]$Enabled,[int]$Jobs){
@@ -99,6 +106,50 @@ function CompareOutputs($Baseline,$Current){
     $Current.entry.allRawBytesEqualToSerialNoCache=$true
 }
 try{
+    BeginSetupPhase 'inventory-helper-compile'
+    Add-Type -TypeDefinition @'
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography;
+public static class UpheavalInputInventory {
+ public sealed class Entry {
+  public string path { get; set; }
+  public long bytes { get; set; }
+  public string sha256 { get; set; }
+ }
+ static FileAttributes SafeAttributes(string path) {
+  FileAttributes value=File.GetAttributes(path);
+  if((value&FileAttributes.ReparsePoint)!=0) throw new IOException("Reparse input rejected: "+path);
+  return value;
+ }
+ public static Entry[] Capture(string directory) {
+  string root=Path.GetFullPath(directory);
+  if((SafeAttributes(root)&FileAttributes.Directory)==0) throw new IOException("Inventory root is not a directory");
+  var pending=new Stack<string>();pending.Push(root);
+  var paths=new SortedDictionary<string,string>(StringComparer.Ordinal);
+  while(pending.Count!=0) {
+   string current=pending.Pop();SafeAttributes(current);
+   foreach(string path in Directory.EnumerateFileSystemEntries(current)) {
+    FileAttributes attributes=SafeAttributes(path);
+    if((attributes&FileAttributes.Directory)!=0) pending.Push(path);
+    else paths.Add(Path.GetRelativePath(root,path).Replace('\\','/'),path);
+   }
+  }
+  var rows=new List<Entry>(paths.Count);
+  using(SHA256 hash=SHA256.Create()) foreach(var pair in paths) {
+   SafeAttributes(pair.Value);
+   using(var input=new FileStream(pair.Value,FileMode.Open,FileAccess.Read,FileShare.Read,65536,FileOptions.SequentialScan)) {
+    long size=input.Length;byte[] digest=hash.ComputeHash(input);
+    if(input.Position!=size || input.Length!=size) throw new IOException("Inventory file length changed: "+pair.Value);
+    rows.Add(new Entry{path=pair.Key,bytes=size,sha256=BitConverter.ToString(digest).Replace("-","").ToLowerInvariant()});
+   }
+  }
+  return rows.ToArray();
+ }
+}
+'@
+    BeginSetupPhase 'strict-replay-verification'
     Push-Location $root
     try{$state.testSourceCommit=(& git rev-parse HEAD).Trim();Need ($LASTEXITCODE -eq 0) 'Cannot identify test source'}finally{Pop-Location}
     $CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path;$ReplayReceipt=(Resolve-Path -LiteralPath $ReplayReceipt).Path
@@ -113,13 +164,16 @@ try{
     $state.binarySourceCommit=$replay.binarySourceCommit;$state.successfulArchiveReplay=$replay
     $sdk=(Resolve-Path -LiteralPath (Join-Path $root 'SDK')).Path;$mod=Join-Path $work 'Upheaval';$runtime=(New-Item -ItemType Directory -Path (Join-Path $work 'runtime')).FullName
     Need (!(Within $sdk $mod) -and !(Within $sdk $out) -and !(Within $mod $out)) 'Measurement must not add MOD or outputs to original SDK inputs'
+    BeginSetupPhase 'input-extraction-schema-routes'
     & python "$PSScriptRoot/PrepareUpheavalInputs.py" --repo $root --sdk $sdk --mod $mod --output "$out/mod-inputs.json" *> "$out/input-preflight.log"
     Need ($LASTEXITCODE -eq 0) 'Complete pinned MOD blob/schema/route/input preflight failed'
     $inputContract=Get-Content -LiteralPath "$out/mod-inputs.json" -Raw|ConvertFrom-Json
     Need ($inputContract.sourceCommit -ceq 'bacfc69fc3e71c8116d1f22b933b8b6173170ecf' -and $inputContract.modTree -ceq '5551fc26a6f96b62613443e0d0fa2958c14cbce0' -and $inputContract.fileCount -eq 2723 -and $inputContract.bytes -eq 300900885) 'Complete original MOD contract differs'
     $state.modInputs=$inputContract
+    BeginSetupPhase 'sdk-input-inventory'
     $state.sdkInputs=@(Inventory $sdk);Need ($state.sdkInputs.Count -gt 0) 'Real SDK input inventory is empty'
     $state.sdkInputBytes=[long](($state.sdkInputs|Measure-Object -Property bytes -Sum).Sum)
+    BeginSetupPhase 'resource-root-reference-preflight'
     $data=$sdk+';'+(Join-Path $mod 'Data')+';'+(Join-Path $sdk 'Mods')+';'+(Join-Path $sdk 'SageXml')
     $art=$sdk+';'+(Join-Path $mod 'Art')+';'+(Join-Path $sdk 'Mods')+';'+(Join-Path $sdk 'Art')
     $audio=$sdk+';'+(Join-Path $mod 'Audio')+';'+(Join-Path $sdk 'Mods')+';'+(Join-Path $sdk 'Audio')
@@ -133,6 +187,7 @@ try{
     }
     $state.referenceScope='Static source-or-manifest presence only; exact original resolver/reference compatibility is gated by the first no-cache build.'
     $state.resourceRoots=@{data=$data;art=$art;audio=$audio}
+    BeginSetupPhase 'runtime-deployment-inventory'
     foreach($name in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')){
         $path='Release/bin/'+$name;$identity=@($replay.files|Where-Object{$_.path -ceq $path})
         Need ($identity.Count -eq 1 -and (Hash (Join-Path $CompilerDirectory $path)) -ceq $identity[0].sha256) 'Release runtime differs from verified archive'
@@ -143,11 +198,15 @@ try{
     Need ($patch.targetExeSha256 -ceq (Hash $exe) -and $patch.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll')) -and $patch.originalSha256 -ceq '4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e' -and $patch.protectedPeAudit.status -ceq 'passed' -and $patch.protectedPeAudit.mode -ceq 'redirect') 'Texture patch does not bind the verified EXE'
     $state.runtimeInputs=@(Inventory $runtime);Need ($state.runtimeInputs.Count -eq 5) 'Measurement requires exact five-file runtime'
     $state.textureDeployment=$patch
+    BeginSetupPhase 'cli-controller-build'
     $control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
     Need ($LASTEXITCODE -eq 0 -and (Test-Path -LiteralPath $control -PathType Leaf)) 'Actual CLI controller build failed'
+    BeginSetupPhase 'five-entry-plan'
     $plan=InvokeProduct 'preflight-plan' 'plan' (Join-Path $work 'plan') $false 1
     $state.plan=$plan.report.plan;$state.preflightPassed=$true
+    EndSetupPhase;$state.setupElapsedMs=$setupClock.ElapsedMilliseconds
     if(!$Preflight){
+        BeginSetupPhase 'raw-output-comparison-helper-compile'
         Add-Type -TypeDefinition @'
 using System;
 using System.IO;
@@ -165,6 +224,7 @@ public static class UpheavalRawBytes {
  }
 }
 '@
+        EndSetupPhase;$state.setupElapsedMs=$setupClock.ElapsedMilliseconds
         $baseline=InvokeProduct 'no-cache-jobs1' 'build' (Join-Path $work 'plain1') $false 1
         $state.baselineCompilationValidated=$true
         $parallel=InvokeProduct 'no-cache-jobs4' 'build' (Join-Path $work 'plain4') $false 4;CompareOutputs $baseline $parallel
@@ -182,16 +242,24 @@ public static class UpheavalRawBytes {
     }
     $state.succeeded=$true
 }catch{
+    EndSetupPhase $false
     $state.failure=$_.Exception.ToString();$state.succeeded=$false
     throw
 }finally{
+    Write-Host 'START Upheaval final input verification'
+    $verificationClock=[Diagnostics.Stopwatch]::StartNew()
     $inputChecks=@{}
-    if($sdk -and $state.sdkInputs){try{Unchanged $sdk $state.sdkInputs;$inputChecks.sdk=$true}catch{$inputChecks.sdk=$false;$state.succeeded=$false;$state.inputVerificationFailure=$_.Exception.ToString()}}
-    if($runtime -and $state.runtimeInputs){try{Unchanged $runtime $state.runtimeInputs;$inputChecks.runtime=$true}catch{$inputChecks.runtime=$false;$state.succeeded=$false;$state.inputVerificationFailure=$_.Exception.ToString()}}
+    if($sdk -and $state.sdkInputs){$watch=[Diagnostics.Stopwatch]::StartNew();try{Unchanged $sdk $state.sdkInputs;$inputChecks.sdk=$true}catch{$inputChecks.sdk=$false;$state.succeeded=$false;$state.inputVerificationFailure=$_.Exception.ToString()}finally{$state.verificationPhaseTimings+=,@{name='sdk-input-inventory';elapsedMs=$watch.ElapsedMilliseconds;succeeded=$inputChecks.sdk}}}
+    if($runtime -and $state.runtimeInputs){$watch=[Diagnostics.Stopwatch]::StartNew();try{Unchanged $runtime $state.runtimeInputs;$inputChecks.runtime=$true}catch{$inputChecks.runtime=$false;$state.succeeded=$false;$state.inputVerificationFailure=$_.Exception.ToString()}finally{$state.verificationPhaseTimings+=,@{name='runtime-input-inventory';elapsedMs=$watch.ElapsedMilliseconds;succeeded=$inputChecks.runtime}}}
     if(Test-Path -LiteralPath "$out/mod-inputs.json"){
+        $watch=[Diagnostics.Stopwatch]::StartNew()
         & python "$PSScriptRoot/PrepareUpheavalInputs.py" --mod $mod --verify "$out/mod-inputs.json" --output "$out/mod-after.json" *> "$out/input-after.log"
         $inputChecks.mod=($LASTEXITCODE -eq 0);if(!$inputChecks.mod){$state.succeeded=$false;$state.inputVerificationFailure='Complete MOD input changed'}
+        $state.verificationPhaseTimings+=,@{name='complete-mod-input-inventory';elapsedMs=$watch.ElapsedMilliseconds;succeeded=$inputChecks.mod}
     }
+    $state.finalVerificationElapsedMs=$verificationClock.ElapsedMilliseconds
+    Write-Host ("END Upheaval final input verification: elapsedMs={0}" -f $state.finalVerificationElapsedMs)
+    if(!$state.ContainsKey('setupElapsedMs')){$state.setupElapsedMs=[long](($state.setupPhaseTimings|Measure-Object -Property elapsedMs -Sum).Sum)}
     $state.inputChecks=$inputChecks
     $state|ConvertTo-Json -Depth 100|Set-Content "$out/validation.json"
     if(!$state.succeeded -and !$state.failure){throw 'Final input identity verification failed'}

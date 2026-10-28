@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import re
+import stat
 import subprocess
 import tarfile
 from lxml import etree as E
@@ -30,9 +31,15 @@ def sha(data):
 
 
 def inventory(root):
+    def ordinary(path):
+        attributes = path.lstat()
+        need(not stat.S_ISLNK(attributes.st_mode) and
+             not (getattr(attributes, 'st_file_attributes', 0) & getattr(stat, 'FILE_ATTRIBUTE_REPARSE_POINT', 0x400)),
+             'Input reparse point rejected: ' + str(path))
+    ordinary(Path(root))
     result = []
     for p in sorted(Path(root).rglob('*')):
-        need(not p.is_symlink(), 'Input symlink rejected: ' + str(p))
+        ordinary(p)
         if p.is_file():
             data = p.read_bytes()
             result.append(dict(path=p.relative_to(root).as_posix(), bytes=len(data), sha256=sha(data)))
@@ -69,7 +76,15 @@ def prepare(repo, sdk, mod, output):
                 target.parent.mkdir(parents=True, exist_ok=True)
                 with target.open('xb') as stream:
                     stream.write(archive.extractfile(member).read())
+        # tarfile's streaming reader may stop at the TAR end marker before
+        # consuming Git's remaining block padding. On Windows that padding can
+        # fill the small stdout pipe and prevent git archive from exiting; wait
+        # must follow EOF, not precede draining the producer's remaining bytes.
+        print('Upheaval TAR entries extracted; draining git archive stdout to EOF.', flush=True)
+        for _ in iter(lambda: process.stdout.read(65536), b''):
+            pass
         need(process.wait() == 0, 'Pinned git archive failed')
+        print('Upheaval git archive exited; checking all extracted input blobs.', flush=True)
     finally:
         if process.poll() is None:
             process.kill()
