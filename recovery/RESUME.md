@@ -2,6 +2,7 @@
 
 - **本轮完成**：公开S3透明块DXT1A接入byte/float/partial、二维/volume/完整mip及Texture/OnDemandTexture。业务5882d9af / [40695394943](https://github.com/wu162/NewSdk/actions/runs/40695394943) success：17组件+10 SDK通过、18组件复用；新插件D/R各768输入（744输出/24原错误）、14边界拒绝、三buffer/full cdata/旧文件尾及逐次NoOriginal通过。0d37d401 / [40699070349](https://github.com/wu162/NewSdk/actions/runs/40699070349)仅补两个组件可复用收据：4608块/3456块DDS及2714二维/volume/mip DDS全等、934不确定域拒绝，复用33组件不重跑SDK。
 - **隔离与独立核对**：发现旧两个raw SDK缺逐次守卫，52d90eff / [40699857549](https://github.com/wu162/NewSdk/actions/runs/40699857549)只补各600资产并复用35组件+8 SDK。当前10 profile每模式合计13424实际资产/调用、46978完整轨迹文件及四产物全部独立逐文件核对。原三色state仍5309/5312、三个orientation差异真实保留，compact打包5312相同不冒充默认DXT1验收。完整实现、来源、原gold/失败/成功证据和复现脚本集中本分支，见[受限DXT1A验收](TEXTURE_DXT1A_TRANSPARENT.md)。
+- **合入后检查**：0e769795 / [40701952375](https://github.com/wu162/NewSdk/actions/runs/40701952375) completed/success，15项选择检查通过，selected为空、35组件+10 SDK全部复用，Windows skipped，未启动完整MOD。文档收尾不冒充新跑SDK。
 - **下一轮计划**：本轮透明DXT1A能力已闭环；按实际素材需求优先取证未声明图像/metadata（入口TEXTURECOMPILER.md第3项，PNG ICC/APNG等），不重复本轮成功矩阵。每个实际块/每层mip都须有alpha<=0.5样本；默认DXT1/不透明DXT1A继续保留原栈依赖拒绝。完整mymod本轮未跑、保留5a1b8e1d/40657712486旧锚点，生产SDK未替换，完整MOD仅留到必要集成里程碑。
 
 # 本轮规则修订：效率复盘、完整MOD降频与交接

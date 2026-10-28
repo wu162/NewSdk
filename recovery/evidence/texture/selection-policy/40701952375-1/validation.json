@@ -1,0 +1,13 @@
+{
+  "sourceCommit": "0e769795a28b0c1b9d610b85ed1bc518abe0ea73",
+  "runId": "40701952375",
+  "runAttempt": "1",
+  "status": "passed",
+  "scope": "Post-merge Linux selection only",
+  "selectionTestsPassed": 15,
+  "selected": [],
+  "reusedComponents": 35,
+  "reusedSdkProfiles": 10,
+  "windowsJob": "skipped",
+  "fullModRun": false
+}
