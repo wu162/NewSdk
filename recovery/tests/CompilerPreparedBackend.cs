@@ -30,6 +30,22 @@ public static class CompilerPreparedBackend
         bool accepted = (bool)contract.GetMethod("TryPrepare", BindingFlags.Public | BindingFlags.Static).Invoke(null, arguments);
         return accepted ? arguments[2] : null;
     }
+    static object PrepareWithReason(InstanceDeclaration declaration, IAssetBuilderPlugin plugin, long budget, out string reason)
+    {
+        var arguments = new object[] { declaration, plugin, budget, null, null };
+        bool accepted = (bool)contract.GetMethod("TryPrepareWithReason", BindingFlags.Public | BindingFlags.Static).Invoke(null, arguments);
+        reason = (string)arguments[4];
+        Require(accepted == (arguments[3] != null), "Preparation acceptance must match retained envelope presence");
+        Require(accepted ? reason == null : !string.IsNullOrEmpty(reason), "Exactly refused preparations must have a reason");
+        return arguments[3];
+    }
+    static void RejectedPreparation(InstanceDeclaration declaration, IAssetBuilderPlugin plugin, long budget, string expected)
+    {
+        string reason;
+        object prepared = PrepareWithReason(declaration, plugin, budget, out reason);
+        try { Require(prepared == null && reason == expected, "Expected exact preparation refusal " + expected + ", actual " + reason); }
+        finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
+    }
     static T Value<T>(object prepared, string property)
     {
         return (T)contract.GetProperty(property, BindingFlags.Public | BindingFlags.Instance).GetValue(prepared, null);
@@ -390,6 +406,93 @@ public static class CompilerPreparedBackend
             "A large single attribute must be included without relying on element count or source file size");
         Require(Prepare(declaration, plugin) == null, "Oversized preparation must use the owner compatibility path before cloning");
     }
+    sealed class UncertifiedAudioPlugin : BinaryAssetBuilder.AudioCompiler.Plugin { }
+    static void PreparationRejectionReasons(string work)
+    {
+        const long budget = 128L * 1024L * 1024L;
+        var xml = new Recovered.XmlPriority.Plugin(); xml.Initialize(null, TargetPlatform.Win32);
+        var audio = new BinaryAssetBuilder.AudioCompiler.Plugin(); audio.Initialize(null, TargetPlatform.Win32);
+        var apt = Declaration("AptAptData", "RejectedApt", Namespaces()); Metadata(apt, xml);
+        RejectedPreparation(null, xml, budget, "invalid-input");
+        RejectedPreparation(apt, null, budget, "invalid-input");
+        RejectedPreparation(apt, new UncertifiedAudioPlugin(), budget, "uncertified-plugin");
+        RejectedPreparation(apt, xml, 0, "preparation-budget-exceeded");
+        ((XmlElement)apt.Node).SetAttribute("File", "");
+        RejectedPreparation(apt, xml, budget, "external-input-path-missing");
+        ((XmlElement)apt.Node).SetAttribute("File", Path.Combine(work, "absent-prepared.bin"));
+        RejectedPreparation(apt, xml, budget, "external-input-unavailable");
+        ((XmlElement)apt.Node).SetAttribute("File", Path.Combine(work, "non-ascii-\u4e2d.bin"));
+        RejectedPreparation(apt, xml, budget, "native-path-non-ascii");
+
+        string path = Path.Combine(work, "reason-input.bin"); File.WriteAllBytes(path, new byte[] { 1, 2, 3, 4 });
+        ((XmlElement)apt.Node).SetAttribute("File", path);
+        using (var denied = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.None))
+            RejectedPreparation(apt, xml, budget, "external-input-unavailable");
+        string reason;
+        object accepted = PrepareWithReason(apt, xml, budget, out reason);
+        try
+        {
+            Require(accepted != null && reason == null, "A successful retry must clear the previous refusal");
+            Denied(delegate { File.Delete(path); }, "deletion after a successful reason-aware preparation");
+        }
+        finally { if (accepted != null) ((IDisposable)accepted).Dispose(); }
+
+        // A later failed external read must release every lease acquired so far.
+        // This directly checks the partial-closure failure cleanup used by native XML.
+        var texture = Declaration("TestTexture", "PartialLeaseFailure", Namespaces()); Metadata(texture, xml);
+        foreach (string value in new[] { path, Path.Combine(work, "missing-second-prepared.bin") })
+        {
+            XmlElement file = texture.Node.OwnerDocument.CreateElement("File", "uri:ea.com:eala:asset");
+            file.InnerText = value; texture.Node.AppendChild(file);
+        }
+        RejectedPreparation(texture, xml, budget, "external-input-unavailable");
+        using (var released = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.None))
+            Require(released.CanWrite, "Refusal after a partial closure must release earlier input leases");
+
+        string target = Path.Combine(work, "reason-junction-target"); Directory.CreateDirectory(target);
+        File.WriteAllBytes(Path.Combine(target, "input.bin"), new byte[] { 5, 6 });
+        string junction = Path.Combine(work, "reason-junction");
+        var start = new ProcessStartInfo("cmd.exe", "/d /c mklink /J \"" + junction + "\" \"" + target + "\"") {
+            UseShellExecute = false, CreateNoWindow = true, RedirectStandardOutput = true, RedirectStandardError = true };
+        using (var process = Process.Start(start))
+        {
+            string stdout = process.StandardOutput.ReadToEnd(), stderr = process.StandardError.ReadToEnd();
+            process.WaitForExit(); Require(process.ExitCode == 0, "Preparation-reason junction fixture: " + stdout + stderr);
+        }
+        try
+        {
+            ((XmlElement)apt.Node).SetAttribute("File", Path.Combine(junction, "input.bin"));
+            RejectedPreparation(apt, xml, budget, "external-input-reparse-point");
+        }
+        finally { Directory.Delete(junction); }
+
+        var audioFile = Declaration("AudioFile", "RejectedAudio", Namespaces()); Metadata(audioFile, audio);
+        ((XmlElement)audioFile.Node).SetAttribute("File", path);
+        var unknown = new BinaryAssetBuilder.AudioCompiler.Plugin(new UnknownAudioCompiler()); unknown.Initialize(null, TargetPlatform.Win32);
+        RejectedPreparation(audioFile, unknown, budget, "uncertified-audio-compiler");
+        ((XmlElement)audioFile.Node).SetAttribute("PCCompression", "EALAYER3");
+        RejectedPreparation(audioFile, audio, budget, "audio-compression-diagnostic");
+        ((XmlElement)audioFile.Node).SetAttribute("PCCompression", "NONE");
+        ((XmlElement)audioFile.Node).RemoveAttribute("File");
+        RejectedPreparation(audioFile, audio, budget, "external-input-path-missing");
+        RejectedPreparation(apt, audio, budget, "uncertified-audio-type");
+
+        string header = Path.Combine(work, "reason-header.h"); File.WriteAllText(header, "#define PATH_EVENT_Other 0x1\r\n");
+        var music = Declaration("PathMusicEvent", "RejectedMusic", Namespaces()); Metadata(music, audio);
+        ((XmlElement)music.Node).SetAttribute("PathfinderEventHeader", header);
+        RejectedPreparation(music, audio, budget, "path-music-handle-missing");
+        File.WriteAllText(header, "#define PATH_EVENT_RejectedMusic 0x2\r\n");
+        accepted = PrepareWithReason(music, audio, budget, out reason);
+        try { Require(accepted != null && !Value<bool>(accepted, "CanRunParallel"), "A valid PathMusic handle stays prepared and owner-only"); }
+        finally { if (accepted != null) ((IDisposable)accepted).Dispose(); }
+        File.Delete(header); File.Delete(path);
+        lifecycleEvidence.Add(new { kind = "preparation-rejected-reasons", firstActualGate = true,
+            reasons = new[] { "invalid-input", "uncertified-plugin", "preparation-budget-exceeded", "external-input-path-missing",
+                "external-input-unavailable", "native-path-non-ascii", "external-input-reparse-point", "uncertified-audio-compiler",
+                "audio-compression-diagnostic", "uncertified-audio-type", "path-music-handle-missing" },
+            partialLeaseFailureReleased = true, successfulRetryReasonCleared = true,
+            scope = "Windows production host; unsupported-platform and rare header-reopen failure remain source-certified gates" });
+    }
     static void CommitRejected(BinaryAsset asset, string label)
     {
         bool rejected = false;
@@ -483,7 +586,7 @@ public static class CompilerPreparedBackend
     {
         return "<AssetDeclaration xmlns='uri:ea.com:eala:asset'>" + body + "</AssetDeclaration>";
     }
-    static Dictionary<string, string> RepeatedIncludeRun(string sdk, string mod, string output, int jobs, bool cancelInFlight = false, bool nativeFailure = false, bool resourceFixture = false, bool tightenResources = false, bool limitSingleTask = false)
+    static Dictionary<string, string> RepeatedIncludeRun(string sdk, string mod, string output, int jobs, bool cancelInFlight = false, bool nativeFailure = false, bool resourceFixture = false, bool tightenResources = false, bool limitSingleTask = false, bool rejectPreparation = false)
     {
         Settings previous = Settings.Current;
         bool previousMetrics = EALA.Metrics.MetricManager.Enabled;
@@ -551,6 +654,11 @@ public static class CompilerPreparedBackend
                 {
                     object constrained = ResourcePolicy(jobs, 8, 600L * 1024 * 1024, 1536L * 1024 * 1024, 2L * 1024 * 1024 * 1024, true);
                     sampler = ResourceSampler(delegate { return constrained; });
+                }
+                if (rejectPreparation)
+                {
+                    object noPreparationPool = ResourcePolicy(jobs, 8, 0, 0, 2L * 1024 * 1024 * 1024, true);
+                    sampler = ResourceSampler(delegate { return noPreparationPool; });
                 }
                 object[] executionArguments = new object[] { processor, null, Path.Combine(output, "task-staging"), "no-persistent-cache", "repeat-include-fixture", jobs, metrics, cancellation.Token };
                 if (sampler != null)
@@ -651,8 +759,25 @@ public static class CompilerPreparedBackend
                         Require(document.State == DocumentState.Complete && !document.Processing && document.Instances.Count == expected.Value,
                             "Deferred completion must preserve prepared declarations through repeated include and inheritance: " + expected.Key);
                     }
+                    var preparationRejected = (IDictionary<string, int>)metrics.GetType().GetField("PreparationRejectedReasons").GetValue(metrics);
+                    if (rejectPreparation)
+                    {
+                        Require(preparationRejected.Count == 1 && preparationRejected.ContainsKey("preparation-budget-exceeded") &&
+                            preparationRejected["preparation-budget-exceeded"] == 3,
+                            "A zero preparation pool must record exactly three actual budget refusals, even with persistent cache disabled");
+                        var bypasses = (IDictionary<string, int>)metrics.GetType().GetField("CacheBypassReasons").GetValue(metrics);
+                        Require(bypasses.Count == 1 && bypasses.ContainsKey("cache-disabled") && bypasses["cache-disabled"] == 3 &&
+                            (int)metrics.GetType().GetField("Hits").GetValue(metrics) == 0 && (int)metrics.GetType().GetField("Misses").GetValue(metrics) == 0,
+                            "Preparation refusals must not become action misses or change cache-disabled bypass accounting");
+                        Require((int)metrics.GetType().GetField("MaximumConcurrency").GetValue(metrics) == 1,
+                            "Every unprepared compatibility call must run through the owner barrier");
+                        lifecycleEvidence.Add(new { scenario = "zero-preparation-pool-owner", preparationRejectedReasons = preparationRejected,
+                            cacheBypassReasons = bypasses, backendCalls = 3, actionHits = 0, actionMisses = 0 });
+                    }
                     if (limitSingleTask)
                     {
+                        Require(preparationRejected.Count == 0,
+                            "A prepared APT task rejected only by external expansion admission must not count as a preparation refusal");
                         Require((int)metrics.GetType().GetField("EffectiveJobs").GetValue(metrics) == 2 &&
                             (long)metrics.GetType().GetField("PerTaskMemoryLimitBytes").GetValue(metrics) == 22L * 1024 * 1024,
                             "Single-task admission fixture must retain two-worker/44MiB aggregate/22MiB individual limits");
@@ -677,6 +802,8 @@ public static class CompilerPreparedBackend
                     }
                     if (tightenResources)
                     {
+                        Require(preparationRejected.Count == 0,
+                            "Small W3X DOMs must remain prepared after pressure; worker admission and expansion are not preparation refusals");
                         Require(observedQueuedAtTightening, "Resource reduction must occur with a real pending backend result");
                         Require((int)executionType.GetField("capacity", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(execution) == 1 &&
                             (long)executionType.GetField("byteBudget", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(execution) == 16L * 1024 * 1024,
@@ -783,13 +910,21 @@ public static class CompilerPreparedBackend
         string serialOutput = Path.Combine(work, "single-task-serial"), constrainedOutput = Path.Combine(work, "single-task-constrained");
         var serial = RepeatedIncludeRun(sdk, mod, serialOutput, 1, false, false, true);
         var constrained = RepeatedIncludeRun(sdk, mod, constrainedOutput, 8, false, false, true, false, true);
+        string unpreparedOutput = Path.Combine(work, "single-task-unprepared");
+        var unprepared = RepeatedIncludeRun(sdk, mod, unpreparedOutput, 8, false, false, true, false, false, true);
+        Require(serial.Count == unprepared.Count, "Preparation refusal owner fallback must preserve linked output layout");
         Require(serial.Count == constrained.Count, "Single-task owner fallback must preserve linked output layout");
         foreach (string relative in serial.Keys)
         {
             byte[] left = File.ReadAllBytes(Path.Combine(serialOutput, "output") + relative);
             byte[] right = File.ReadAllBytes(Path.Combine(constrainedOutput, "output") + relative);
-            Require(left.Length == right.Length, "Single-task owner output length differs");
-            for (int i = 0; i < left.Length; i++) Require(left[i] == right[i], "Single-task owner output raw byte differs");
+            byte[] rejected = File.ReadAllBytes(Path.Combine(unpreparedOutput, "output") + relative);
+            Require(left.Length == right.Length && left.Length == rejected.Length, "Single-task prepared/unprepared owner output length differs");
+            for (int i = 0; i < left.Length; i++)
+            {
+                Require(left[i] == right[i], "Single-task owner output raw byte differs");
+                Require(left[i] == rejected[i], "Preparation-refusal owner output raw byte differs");
+            }
         }
     }
     static void CancelInFlight(string work, string sdk)
@@ -818,13 +953,13 @@ public static class CompilerPreparedBackend
     {
         try
         {
-            Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); ParallelQualification(args[0]); EnvironmentQualification(args[4]); ResourceBudget(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); BinaryAssetAuthorization(args[0]);
+            Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); ParallelQualification(args[0]); EnvironmentQualification(args[4]); ResourceBudget(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); PreparationRejectionReasons(args[0]); BinaryAssetAuthorization(args[0]);
             RepeatedIncludeAndInheritance(args[0], args[4]); ResourcePressure(args[0], args[4]); SingleTaskAdmission(args[0], args[4]);
             CancelInFlight(args[0], args[4]);
             NativeWorkerFailure(args[0], args[4]);
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new {
                 succeeded = true, sourceCommit = args[2], runId = args[3], checks, lifecycleEvidence,
-                scope = "Actual prepared input isolation, native APT content lease, exact external invalidation, schema defaults and preparation budgets, real BinaryAsset authorization guard, repeated include/inheritance byte equality, cancellation and native worker failure; complete Xmlenvironment family qualification with four-platform three-buffer equality; normal cross-document output overlap is checked separately"
+                scope = "Actual prepared input isolation, native APT content lease, exact external invalidation, schema defaults, preparation budgets and exact first-gate refusal reasons with partial-lease cleanup, real BinaryAsset authorization guard, repeated include/inheritance byte equality, cancellation and native worker failure; complete Xmlenvironment family qualification with four-platform three-buffer equality; normal cross-document output overlap is checked separately"
             }));
             Console.WriteLine("PASS PreparedBackend: " + checks + " assertions"); return 0;
         }

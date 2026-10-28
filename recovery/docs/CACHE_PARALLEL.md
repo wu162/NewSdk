@@ -4,6 +4,14 @@
 
 用户提供的[原始实施方案](CACHE_PARALLEL_PLAN.md)保留作目标与验收参考；当前状态只看本页收据，不能把方案要求当作已完成能力。日常续接无需重读整份方案。
 
+## 当前实现检查点（2026-10-28，验证待执行）
+
+本轮准备态拒绝诊断保留旧 `actionMissReasons` 与 `cacheBypassReasons` 语义，新增独立 `preparationRejectedReasons`，仅记录准备器实际返回false的首个门禁；缓存关闭时也记录，不把成功准备后的worker额度不足或排队算为拒绝。13种源码门禁，Windows夹具可构造11种，保留部分外读失败释放租约、成功重试清空原因与零准备预算owner输出对照；不捏造罕见header重开失败实测。
+
+完整 Xmltargeting 五类已加入源码并行资格，四平台含99的准备态三缓冲/冻结对照与生产四根worker、冷热、等长mtime引用重排正在准备。TargetingBaseCompare没有SDK全局元素，只声明组件资格，不修改Schema扩大范围。新增独立双Mesh（8192与4顶点）的串并行真实区间、冷/热与单改原字节对照，保持原180秒门槛和机器资源准入，不靠sleep/派发钩子证明重叠。
+
+此检查点**未完成Actions验收**；下节收据只适用于各自历史生产闭包。按EFFICIENCY继续成组实现与集中验证；不替换默认发行，不合并PR。
+
 ## 本轮验收（2026-10-28）
 
 `6ed2cda8` / [40656205838](https://github.com/wu162/NewSdk/actions/runs/40656205838) 首批完整验收已success，原始归档、12组收据及两配置五文件ZIP已核验：

@@ -264,6 +264,24 @@ function ParallelW3xMod([string]$Path){
     }
     Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
 }
+function ParallelMeshMod([string]$Path){
+    # Asymmetric, linear-size meshes: the long real bridge conversion is still
+    # in flight while the next tiny independent document is prepared. No sleep,
+    # dispatch hook or quadratic animation compression is involved.
+    [xml]$source=[IO.File]::ReadAllText("$root/SDK/Mods/W3xRecovery/Data/Meshes.xml")
+    $ns=[Xml.XmlNamespaceManager]::new($source.NameTable);$ns.AddNamespace('ea','uri:ea.com:eala:asset')
+    $mesh=$source.SelectSingleNode('/ea:AssetDeclaration/ea:W3DMesh[1]',$ns)
+    Need ($null -ne $mesh) 'Parallel mesh source is missing'
+    $vertices=$mesh.SelectSingleNode('ea:Vertices',$ns).InnerXml
+    $includes=''
+    foreach($item in @(@{name='MeshLong';repeat=2048},@{name='MeshShort';repeat=1})){
+        $node=$mesh.CloneNode($true);$node.SetAttribute('id',$item.name)
+        $node.SelectSingleNode('ea:Vertices',$ns).InnerXml=($vertices*$item.repeat -join '')
+        Put "$Path/Data/$($item.name).xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$node.OuterXml+'</AssetDeclaration>')
+        $includes+='<Include type="all" source="'+$item.name+'.xml"/>'
+    }
+    Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
+}
 function ParallelAudioMod([string]$Path){
     # Streamed XAS bounds each pending buffer; unstreamed giant fixtures would
     # exercise the encoder's quadratic RemoveRange path rather than concurrency.
@@ -351,23 +369,40 @@ function EnvironmentMod([string]$Path){
     }
     Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
 }
-function EnvironmentParallelEvidence($Case){
+$targetingTypes=@('TargetingDistanceCompare','TargetingCombatChainCompare','TargetingInTurretArcCompare','TargetingCompareList')
+function TargetingMod([string]$Path){
+    ParallelW3xMod $Path
+    Remove-Item -LiteralPath "$Path/Data/ParallelShort.xml"
+    [xml]$probe=[IO.File]::ReadAllText("$root/recovery/tests/XmltargetingProbe.xml")
+    $ns=[Xml.XmlNamespaceManager]::new($probe.NameTable);$ns.AddNamespace('ea','uri:ea.com:eala:asset')
+    $includes='<Include type="all" source="W3x.xml"/><Include type="all" source="ParallelLong.xml"/>'
+    foreach($type in $script:targetingTypes){
+        $node=$probe.SelectSingleNode(('/ea:AssetDeclaration/ea:'+$type+'[1]'),$ns)
+        Need ($null -ne $node -and $node.GetAttribute('id') -ceq ('Parallel'+$type)) "Targeting source fixture identity differs: $type"
+        Put "$Path/Data/$type.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$node.OuterXml+'</AssetDeclaration>')
+        $includes+='<Include type="all" source="'+$type+'.xml"/>'
+    }
+    Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
+}
+function EnvironmentParallelEvidence($Case){MetadataParallelEvidence $Case $script:environmentTypes 'Xmlenvironment'}
+function TargetingParallelEvidence($Case){MetadataParallelEvidence $Case $script:targetingTypes 'Xmltargeting'}
+function MetadataParallelEvidence($Case,[string[]]$Types,[string]$Family){
     $cache=$Case.report.cache
-    Need ($cache.requestedJobs -eq 2 -and $cache.cacheMode -ceq 'Disabled' -and $cache.backendCalls -eq 14 -and $cache.maxBackendConcurrency -eq 2) 'Environment fixture must execute all twelve roots plus real W3X dependencies with two actual calls overlapping'
+    Need ($cache.requestedJobs -eq 2 -and $cache.cacheMode -ceq 'Disabled' -and $cache.backendCalls -eq ($Types.Count+2) -and $cache.maxBackendConcurrency -eq 2) "$Family fixture must execute every public root plus real W3X dependencies with two actual calls overlapping"
     $intervals=@($cache.backendIntervals)
     $native=@($intervals|Where-Object{$_.typeName -ceq 'W3DAnimation'})
     $owner=@($intervals|Where-Object{$_.typeName -ceq 'W3DHierarchy'})
     Need ($native.Count -eq 1 -and $owner.Count -eq 1) 'Environment peer and owner-control must be actual animation/hierarchy calls'
     $overlapping=@()
-    foreach($type in $script:environmentTypes){
+    foreach($type in $Types){
         $calls=@($intervals|Where-Object{$_.typeName -ceq $type})
-        Need ($calls.Count -eq 1 -and $cache.backendCallsByType.$type -eq 1) "Missing actual environment backend invocation: $type"
+        Need ($calls.Count -eq 1 -and $cache.backendCallsByType.$type -eq 1) "Missing actual $Family backend invocation: $type"
         $call=$calls[0]
-        Need ($call.startTicks -lt $call.endTicks -and $call.threadId -ne $owner[0].threadId) "Environment backend must complete on a worker distinct from the owner-only hierarchy: $type"
+        Need ($call.startTicks -lt $call.endTicks -and $call.threadId -ne $owner[0].threadId) "$Family backend must complete on a worker distinct from the owner-only hierarchy: $type"
         if($call.threadId -ne $native[0].threadId -and $call.sourcePath -cne $native[0].sourcePath -and $call.startTicks -lt $native[0].endTicks -and $native[0].startTicks -lt $call.endTicks){$overlapping+=,$type}
     }
-    Need ($overlapping.Count -gt 0) 'No newly certified environment backend actually overlapped the in-flight native peer'
-    return @{passed=$true;certifiedTypes=$script:environmentTypes;observedOverlappingTypes=$overlapping;maxBackendConcurrency=$cache.maxBackendConcurrency;intervals=$intervals;scope='Twelve Xmlenvironment roots through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly'}
+    Need ($overlapping.Count -gt 0) "No certified $Family backend actually overlapped the in-flight native peer"
+    return @{passed=$true;family=$Family;certifiedTypes=$Types;observedOverlappingTypes=$overlapping;maxBackendConcurrency=$cache.maxBackendConcurrency;intervals=$intervals;scope='All public roots of this family through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly'}
 }
 function CertifiedParallelEvidence($Case,[string]$Type){
     $cache=$Case.report.cache
@@ -389,13 +424,13 @@ function ParallelEvidence($Case){
     Need ($left.startTicks -lt $left.endTicks -and $right.startTicks -lt $right.endTicks -and $left.startTicks -lt $right.endTicks -and $right.startTicks -lt $left.endTicks) 'Actual cross-document backend call intervals did not overlap'
     return @{passed=$true;requestedJobs=2;maxBackendConcurrency=$cache.maxBackendConcurrency;backendCalls=$cache.backendCalls;intervals=$intervals;scope='One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled'}
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native, leased APT XML and streamed XAS AudioFile overlap with jobs2, twelve Xmlenvironment roots with cold/hot/same-mtime single edit and actual cross-family overlap; not a new original-DLL/SDK gate'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native, leased APT XML and streamed XAS AudioFile overlap with jobs2, twelve Xmlenvironment and four public Xmltargeting roots with cold/hot/same-mtime single edit and actual cross-family overlap, independent dual Mesh native overlap; not a new original-DLL/SDK gate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     $state.repositoryModMetricsRequested=[bool]$RepositoryModMetrics
     if($RepositoryModMetrics -and !$Preflight){Need ([bool]$ReplayReceipt) 'Repository MOD metrics require a verified successful archived runtime and ReplayReceipt'}
     if($Preflight){
-        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3');FourWorkerAudioMod (Join-Path $short 'four');EnvironmentMod (Join-Path $short 'env')
+        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3');FourWorkerAudioMod (Join-Path $short 'four');ParallelMeshMod (Join-Path $short 'mesh');EnvironmentMod (Join-Path $short 'env');TargetingMod (Join-Path $short 'target')
         $check=@'
 import pathlib, runpy, sys
 from lxml import etree as E
@@ -417,6 +452,14 @@ for name in ('ParallelLong','ParallelShort'):
     assert max(len(channel) for channel in channels)<frames
     animations.append(node.get('id'))
 assert len(set(animations))==2
+for name,vertices in (('MeshLong',8192),('MeshShort',4)):
+    node=E.parse(str(work/('mesh/Data/'+name+'.xml'))).getroot()[0]
+    assert node.tag=='{uri:ea.com:eala:asset}W3DMesh' and node.get('SortLevel')=='0'
+    assert len(node.find('ea:Vertices',ns))==vertices
+    assert len(node.find('ea:Triangles',ns))==2
+    for triangle in node.findall('ea:Triangles/ea:T',ns):
+        assert all(0<=int(v.text)<vertices for v in triangle.findall('ea:V',ns))
+assert len(b'SortLevel="0"')==len(b'SortLevel="1"')
 for name,frames in (('AudioLong',196608),('AudioShort',131072)):
     node=E.parse(str(work/('pa/Data/'+name+'.xml'))).getroot()[0]
     assert node.tag=='{uri:ea.com:eala:asset}AudioFile'
@@ -437,6 +480,14 @@ shadow=(work/'env/Data/ShadowMap.xml').read_bytes()
 assert shadow.count(b'MapSize="1024"')==1
 assert len(b'MapSize="1024"')==len(b'MapSize="1025"')
 assert len(E.parse(str(work/'env/Data/Mod.xml')).getroot()[0])==14
+targeting_roots={'TargetingDistanceCompare','TargetingCombatChainCompare','TargetingInTurretArcCompare','TargetingCompareList'}
+for name in targeting_roots:
+    node=E.parse(str(work/('target/Data/'+name+'.xml'))).getroot()[0]
+    assert node.tag=='{uri:ea.com:eala:asset}'+name and node.get('id')=='Parallel'+name
+assert len(E.parse(str(work/'target/Data/Mod.xml')).getroot()[0])==6
+compare=E.parse(str(work/'target/Data/TargetingCompareList.xml')).getroot()[0]
+assert len(compare)==4
+assert all(ref.text.split(':')[0] in targeting_roots for ref in compare)
 for path in (work/'four/Audio').glob('*.wav'):
     assert len(path.read_bytes())==44+196608*2*2
 assert len(list((work/'four/Data').glob('Audio*.xml')))==4
@@ -584,11 +635,36 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
         $environmentPartial=RunCli 'environment-single-edit' $environment $environmentCache $true -Extra @('--jobs=2');Cache $environmentPartial 'partial';DifferentOutputs $environmentHot $environmentPartial
         Need ($environmentPartial.report.cache.backendCalls -eq 1 -and $environmentPartial.report.cache.backendCallsByType.ShadowMap -eq 1) 'One same-length/mtime environment edit must compile only ShadowMap'
         $environmentChanged=RunCli 'environment-edited-serial' $environment (Join-Path $modeWork 'environment-changed-jobs1') $false -Extra @('--jobs=1');Cache $environmentChanged 'disabled';SameOutputs $environmentChanged $environmentPartial
+        $targeting=Join-Path $modeWork 'targeting';TargetingMod $targeting;$script:expectedCustomData=0
+        $targetingSerial=RunCli 'targeting-serial' $targeting (Join-Path $modeWork 'targeting-jobs1') $false -Extra @('--jobs=1');Cache $targetingSerial 'disabled'
+        $targetingParallel=RunCli 'targeting-parallel' $targeting (Join-Path $modeWork 'targeting-jobs2') $false -Extra @('--jobs=2');Cache $targetingParallel 'disabled';SameOutputs $targetingSerial $targetingParallel
+        $modeState.targetingParallel=TargetingParallelEvidence $targetingParallel
+        $targetingCache=Join-Path $modeWork 'targeting-cache'
+        $targetingCold=RunCli 'targeting-cold' $targeting $targetingCache $true -Extra @('--jobs=2');Cache $targetingCold 'cold';SameOutputs $targetingSerial $targetingCold
+        $targetingHot=RunCli 'targeting-hot' $targeting $targetingCache $true -Extra @('--jobs=2');Cache $targetingHot 'hot';SameOutputs $targetingSerial $targetingHot
+        Need ($targetingHot.report.cache.backendCalls -eq 0) 'Hot targeting fixture must eliminate every backend call'
+        # Reorder existing references without modifying any referenced asset.
+        # Swapping whole adjacent elements retains total source bytes and mtime.
+        $listPath="$targeting/Data/TargetingCompareList.xml"
+        [xml]$listXml=[IO.File]::ReadAllText($listPath)
+        $ns=[Xml.XmlNamespaceManager]::new($listXml.NameTable);$ns.AddNamespace('ea','uri:ea.com:eala:asset')
+        $refs=$listXml.SelectNodes('/ea:AssetDeclaration/ea:TargetingCompareList/ea:Compare',$ns)
+        $before=$refs[0].InnerText;$after=$refs[1].InnerText
+        $text=[IO.File]::ReadAllText($listPath)
+        $first=$text.IndexOf($before,[StringComparison]::Ordinal);$second=$text.IndexOf($after,[StringComparison]::Ordinal)
+        Need ($first -ge 0 -and $second -gt $first) 'Targeting reference-swap tokens are missing or out of order'
+        $span=$text.Substring($first,$second+$after.Length-$first)
+        $between=$text.Substring($first+$before.Length,$second-$first-$before.Length)
+        SameLengthMutation $listPath $span ($after+$between+$before)
+        $targetingPartial=RunCli 'targeting-single-edit' $targeting $targetingCache $true -Extra @('--jobs=2');Cache $targetingPartial 'partial';DifferentOutputs $targetingHot $targetingPartial
+        Need ($targetingPartial.report.cache.backendCalls -eq 1 -and $targetingPartial.report.cache.backendCallsByType.TargetingCompareList -eq 1) 'Reference reorder must compile only the changed targeting list'
+        $targetingChanged=RunCli 'targeting-edited-serial' $targeting (Join-Path $modeWork 'targeting-changed-jobs1') $false -Extra @('--jobs=1');Cache $targetingChanged 'disabled';SameOutputs $targetingChanged $targetingPartial
         $modeState.certifiedParallel=@()
-        foreach($family in @('audio','xml')){
+        foreach($family in @('audio','xml','mesh')){
             $fixture=Join-Path $modeWork ('parallel-'+$family)
             if($family -eq 'audio'){ParallelAudioMod $fixture;$script:expectedCustomData=2;$type='AudioFile'}
-            else{ParallelXmlMod $fixture;$script:expectedCustomData=0;$type='AptAptData'}
+            elseif($family -eq 'xml'){ParallelXmlMod $fixture;$script:expectedCustomData=0;$type='AptAptData'}
+            else{ParallelMeshMod $fixture;$script:expectedCustomData=0;$type='W3DMesh'}
             $controlCase=RunCli ($family+'-parallel-control') $fixture (Join-Path $modeWork ($family+'-parallel-serial')) $false -Extra @('--jobs=1');Cache $controlCase 'disabled'
             Need ($controlCase.report.cache.backendCalls -eq 2 -and $controlCase.report.cache.maxBackendConcurrency -eq 1) 'Serial control did not execute exactly two serial real backend calls'
             $parallelCase=RunCli ($family+'-cross-document-parallel') $fixture (Join-Path $modeWork ($family+'-parallel-jobs2')) $false -Extra @('--jobs=2');Cache $parallelCase 'disabled';SameOutputs $controlCase $parallelCase
@@ -597,11 +673,15 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
             $parallelCold=RunCli ($family+'-parallel-cold') $fixture $cachedDestination $true -Extra @('--jobs=2');Cache $parallelCold 'cold';SameOutputs $controlCase $parallelCold
             $parallelHot=RunCli ($family+'-parallel-hot') $fixture $cachedDestination $true -Extra @('--jobs=2');Cache $parallelHot 'hot';SameOutputs $controlCase $parallelHot
             Need ($parallelHot.report.cache.backendCalls -eq 0 -and $parallelHot.report.cache.maxBackendConcurrency -eq 0) 'Parallel hot hits were reported as backend calls'
-            $changedInput=if($family -eq 'audio'){"$fixture/Audio/AudioLong.wav"}else{"$fixture/Data/AptLong.bin"}
-            $stamp=[IO.File]::GetLastWriteTimeUtc($changedInput);$bytes=[IO.File]::ReadAllBytes($changedInput);$length=$bytes.Length
-            $offset=if($family -eq 'audio'){44}else{0}
-            $bytes[$offset]=$bytes[$offset] -bxor 0x34;[IO.File]::WriteAllBytes($changedInput,$bytes);[IO.File]::SetLastWriteTimeUtc($changedInput,$stamp)
-            Need ((Get-Item -LiteralPath $changedInput).Length -eq $length -and [IO.File]::GetLastWriteTimeUtc($changedInput) -eq $stamp) 'Parallel payload mutation must retain exact length/mtime'
+            if($family -eq 'mesh'){
+                SameLengthMutation "$fixture/Data/MeshLong.xml" 'SortLevel="0"' 'SortLevel="1"'
+            }else{
+                $changedInput=if($family -eq 'audio'){"$fixture/Audio/AudioLong.wav"}else{"$fixture/Data/AptLong.bin"}
+                $stamp=[IO.File]::GetLastWriteTimeUtc($changedInput);$bytes=[IO.File]::ReadAllBytes($changedInput);$length=$bytes.Length
+                $offset=if($family -eq 'audio'){44}else{0}
+                $bytes[$offset]=$bytes[$offset] -bxor 0x34;[IO.File]::WriteAllBytes($changedInput,$bytes);[IO.File]::SetLastWriteTimeUtc($changedInput,$stamp)
+                Need ((Get-Item -LiteralPath $changedInput).Length -eq $length -and [IO.File]::GetLastWriteTimeUtc($changedInput) -eq $stamp) 'Parallel payload mutation must retain exact length/mtime'
+            }
             $partial=RunCli ($family+'-parallel-single-edit') $fixture $cachedDestination $true -Extra @('--jobs=2');Cache $partial 'partial';DifferentOutputs $parallelHot $partial
             $changedControl=RunCli ($family+'-parallel-edited-control') $fixture (Join-Path $modeWork ($family+'-parallel-serial')) $false -Extra @('--jobs=1');Cache $changedControl 'disabled';SameOutputs $changedControl $partial
             Need ($partial.report.cache.backendCalls -eq 1) 'One changed parallel payload must execute exactly one backend'

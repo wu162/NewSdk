@@ -49,6 +49,8 @@ function ReasonCount($Reasons,[string]$Name){
 }
 function ReasonAccounting($Statistics){
     Need ($null -ne $Statistics.actionMissReasons -and $null -ne $Statistics.cacheBypassReasons) 'Cache report omitted miss/bypass reason dictionaries'
+    Need ($null -ne $Statistics.preparationRejectedReasons) 'Cache report omitted actual preparation rejection reasons'
+    Need ((ReasonCount $Statistics.preparationRejectedReasons 'uncertified-plugin') -eq 1 -and @($Statistics.preparationRejectedReasons.PSObject.Properties).Count -eq 1) 'The sole Texture rejection must identify its actual unrecognized provider in cache and no-cache modes'
     $sum=0L
     foreach($property in $Statistics.actionMissReasons.PSObject.Properties){
         Need (@('entry-not-found','entry-invalidated','entry-pending','invalid-manifest','invalid-payload','entry-unavailable','invalid-result-contract') -ccontains $property.Name) 'Cache reported an unknown miss reason'

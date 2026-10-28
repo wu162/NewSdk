@@ -63,6 +63,7 @@ namespace NewModCompiler.Application
             actionHits = executionMetrics.Hits, actionMisses = executionMetrics.Misses,
             actionMissReasons = new Dictionary<string,int>(executionMetrics.ActionMissReasons),
             cacheBypassReasons = new Dictionary<string,int>(executionMetrics.CacheBypassReasons),
+            preparationRejectedReasons = new Dictionary<string,int>(executionMetrics.PreparationRejectedReasons),
             restoredBytes = executionMetrics.RestoredBytes, writtenBytes = executionMetrics.WrittenBytes,
             hashReadBytes = inputHashBytes + executionMetrics.ExternalHashBytes + completedCacheHashBytes + (actionCache == null ? 0 : actionCache.HashReadBytes),
             inputInventoryCaptures, inputHashReusedBytes, inputHashLeaseFiles,

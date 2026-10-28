@@ -35,6 +35,8 @@ namespace NewModCompiler.Application
         // never enter the existing action hit/miss totals.
         public readonly Dictionary<string,int> ActionMissReasons = new Dictionary<string,int>(StringComparer.Ordinal);
         public readonly Dictionary<string,int> CacheBypassReasons = new Dictionary<string,int>(StringComparer.Ordinal);
+        public readonly Dictionary<string,int> PreparationRejectedReasons = new Dictionary<string,int>(StringComparer.Ordinal);
+        public void RecordPreparationRejected(string reason) { Increment(PreparationRejectedReasons, reason); }
         public void RecordMiss(string reason) { Misses++; Increment(ActionMissReasons, reason); }
         public void RecordBypass(string reason) { Increment(CacheBypassReasons, reason); }
         static void Increment(Dictionary<string,int> counts, string reason)
@@ -165,10 +167,12 @@ namespace NewModCompiler.Application
             long preparationBytes = PreparedBackend.EstimatePreparationBytes(declaration);
             while (pending.Count > 0 && !Fits(preparationBytes)) CommitOne();
             PreparedBackend prepared;
-            if (!PreparedBackend.TryPrepareWithinBudget(declaration, plugin, byteBudget / 2, out prepared))
+            string preparationReason;
+            if (!PreparedBackend.TryPrepareWithReason(declaration, plugin, byteBudget / 2, out prepared, out preparationReason))
             {
-                // Preparation can reject unknown providers, unclosed reads or
-                // preparation budgets. Do not infer a more specific reason.
+                // The preparer reports the actual rejecting predicate. This
+                // independent partition also applies with persistent cache off.
+                metrics.RecordPreparationRejected(preparationReason);
                 metrics.RecordBypass(cache == null ? "cache-disabled" : "not-prepared");
                 // Owner-only is also a barrier against unknown shared state.
                 Flush(); cancellation.ThrowIfCancellationRequested(); asset.BeginExecution(task.Identity);

@@ -48,9 +48,20 @@ namespace NewModCompiler.Application
         public static bool TryPrepareWithinBudget(InstanceDeclaration original, IAssetBuilderPlugin plugin,
             long preparationBudget, out PreparedBackend prepared)
         {
+            string reason;
+            return TryPrepareWithReason(original, plugin, preparationBudget, out prepared, out reason);
+        }
+
+        // The reason records the first actual gate that refused preparation.
+        // It describes neither a cache lookup nor a backend execution failure;
+        // exceptions retain their original propagation and compatibility path.
+        public static bool TryPrepareWithReason(InstanceDeclaration original, IAssetBuilderPlugin plugin,
+            long preparationBudget, out PreparedBackend prepared, out string reason)
+        {
             prepared = null;
+            reason = null;
             if (original == null || original.Node == null || original.Document == null || plugin == null)
-                return false;
+                return Reject("invalid-input", out reason);
             string family;
             // Exact built-in classes only: a subclass may introduce untracked
             // reads, metadata writes or registrations even for an identical type.
@@ -61,13 +72,13 @@ namespace NewModCompiler.Application
             else if (implementation == typeof(Recovered.XmlPriority.Plugin)) family = "xml";
             else if (implementation == typeof(Recovered.Compiler.W3x.NativePlugin)) family = "w3x";
             else if (implementation == typeof(BinaryAssetBuilder.AudioCompiler.Plugin)) family = "audio";
-            else return false;
+            else return Reject("uncertified-plugin", out reason);
 
             long preparationEstimate = EstimatePreparationBytes(original);
             // Avoid first allocating an enormous private representation and
             // only then discovering that the task exceeds the preparation pool.
             // The owner compatibility path retains the original input contract.
-            if (preparationEstimate > preparationBudget) return false;
+            if (preparationEstimate > preparationBudget) return Reject("preparation-budget-exceeded", out reason);
 
             var leases = new List<FileStream>();
             try
@@ -114,10 +125,10 @@ namespace NewModCompiler.Application
                     // Most XML bridges serialize File fields as runtime paths;
                     // APT blobs and TestTexture actually open them. Their exact
                     // reads are covered separately from the Audio closure.
-                    if (family == "xml" && !PrepareXmlReads(original, writer, leases)) return false;
+                    if (family == "xml" && !PrepareXmlReads(original, writer, leases, out reason)) return false;
                     // Hold actual input handles throughout hashing AND execution,
                     // never just hash then reopen freely.
-                    if (family == "audio" && !PrepareAudio(original, (BinaryAssetBuilder.AudioCompiler.Plugin)plugin, writer, leases)) return false;
+                    if (family == "audio" && !PrepareAudio(original, (BinaryAssetBuilder.AudioCompiler.Plugin)plugin, writer, leases, out reason)) return false;
                     writer.Flush(); inputIdentity = bytes.ToArray();
                 }
                 bool parallel = family == "w3x";
@@ -226,14 +237,21 @@ namespace NewModCompiler.Application
             return copy;
         }
 
-        static bool PrepareXmlReads(InstanceDeclaration original, BinaryWriter writer, List<FileStream> leases)
+        static bool Reject(string value, out string reason)
         {
+            reason = value;
+            return false;
+        }
+
+        static bool PrepareXmlReads(InstanceDeclaration original, BinaryWriter writer, List<FileStream> leases, out string reason)
+        {
+            reason = null;
             uint type = original.Handle.TypeId;
             if (type == 1816258268u || type == 983359664u || type == 1110676961u || type == 1034587168u)
             {
                 XmlAttribute file = original.Node.Attributes["File"];
                 writer.Write(file == null ? 0 : 1);
-                return file == null || LeaseNativeInput(file.Value, writer, leases);
+                return file == null || LeaseNativeInput(file.Value, writer, leases, out reason);
             }
             if (type == 2826773070u)
             {
@@ -247,7 +265,7 @@ namespace NewModCompiler.Application
                     foreach (XmlNode child in file.ChildNodes)
                         if (child.NodeType == XmlNodeType.Text || child.NodeType == XmlNodeType.CDATA || child.NodeType == XmlNodeType.SignificantWhitespace)
                             text.Append(child.Value);
-                    if (!LeaseNativeInput(text.ToString(), writer, leases)) return false;
+                    if (!LeaseNativeInput(text.ToString(), writer, leases, out reason)) return false;
                 }
                 return true;
             }
@@ -255,14 +273,14 @@ namespace NewModCompiler.Application
             return true;
         }
 
-        static bool LeaseNativeInput(string path, BinaryWriter writer, List<FileStream> leases)
+        static bool LeaseNativeInput(string path, BinaryWriter writer, List<FileStream> leases, out string reason)
         {
             // The native bridges use narrow fopen. Until codepage conversion is
             // separately proven, only ASCII paths can share the managed lease's
             // exact pathname guarantee. Missing reads retain their real fallback.
-            if (Environment.OSVersion.Platform != PlatformID.Win32NT) return false;
-            foreach (char character in path) if (character > 127) return false;
-            return LeaseInputPath(path, writer, leases);
+            if (Environment.OSVersion.Platform != PlatformID.Win32NT) return Reject("unsupported-platform", out reason);
+            foreach (char character in path) if (character > 127) return Reject("native-path-non-ascii", out reason);
+            return LeaseInputPath(path, writer, leases, out reason);
         }
 
         static bool IsParallelXml(uint type)
@@ -275,6 +293,10 @@ namespace NewModCompiler.Application
                 // const field/enum tables and no process-wide hash registration.
                 case 3906227957u: case 299416263u: case 1443425905u:
                 case 587347702u: case 1447728787u: case 1826140078u: case 3370391592u:
+                // XmltargetingCompiler.cpp / Xmltargeting.cpp: detached tree,
+                // call-local Tracker and pure ParseFloat/MarshalReference;
+                // no external reads or process-wide mutation.
+                case 3600209407u: case 2359666647u: case 89767986u: case 2007776008u: case 3188107749u:
                 // XmlenvironmentCompiler.cpp / Xmlenvironment.cpp: detached tree,
                 // call-local Builder/Tracker, InitOnce immutable layout registry,
                 // pure HashAssetId/reference marshaling and no external reads.
@@ -298,58 +320,65 @@ namespace NewModCompiler.Application
         }
 
         static bool PrepareAudio(InstanceDeclaration original, BinaryAssetBuilder.AudioCompiler.Plugin plugin,
-            BinaryWriter writer, List<FileStream> leases)
+            BinaryWriter writer, List<FileStream> leases, out string reason)
         {
+            reason = null;
             // FileShare.Read excludes both writes and delete/rename while the
             // same pathname is reopened by the current managed Audio backend.
             // Certification is Windows-only and never assumes Unix semantics.
-            if (Environment.OSVersion.Platform != PlatformID.Win32NT) return false;
+            if (Environment.OSVersion.Platform != PlatformID.Win32NT) return Reject("unsupported-platform", out reason);
             uint type = original.Handle.TypeId;
             XmlAttributeCollection attrs = original.Node.Attributes;
             if (type == AudioCatalog.AudioFileTypeId)
             {
-                if (!plugin.UsesRecoveredAudioFileCompiler) return false;
+                if (!plugin.UsesRecoveredAudioFileCompiler) return Reject("uncertified-audio-compiler", out reason);
                 XmlAttribute compression = attrs["PCCompression"];
                 // EALAYER3 emits a process-once diagnostic. Do not cache until
                 // the diagnostic result can be replayed with the same contract.
-                if (compression != null && compression.Value != "NONE" && compression.Value != "XAS") return false;
-                return LeaseInput(attrs["File"], writer, leases);
+                if (compression != null && compression.Value != "NONE" && compression.Value != "XAS") return Reject("audio-compression-diagnostic", out reason);
+                return LeaseInput(attrs["File"], writer, leases, out reason);
             }
             if (type == AudioCatalog.Mp3PassthroughTypeId || type == AudioCatalog.PathMusicMapTypeId)
-                return LeaseInput(attrs["File"], writer, leases);
+                return LeaseInput(attrs["File"], writer, leases, out reason);
             if (type == AudioCatalog.PathMusicTrackTypeId || type == AudioCatalog.PathMusicEventTypeId)
             {
                 string field = type == AudioCatalog.PathMusicTrackTypeId ? "PathfinderTrackHeader" : "PathfinderEventHeader";
-                if (type == AudioCatalog.PathMusicTrackTypeId && !LeaseInput(attrs["File"], writer, leases)) return false;
-                if (!LeaseInput(attrs[field], writer, leases)) return false;
+                if (type == AudioCatalog.PathMusicTrackTypeId && !LeaseInput(attrs["File"], writer, leases, out reason)) return false;
+                if (!LeaseInput(attrs[field], writer, leases, out reason)) return false;
                 // Missing handles emit warnings. Keep those calls on their
                 // compatibility path rather than silently eliding diagnostics.
                 bool opened;
                 int handle = PathMusicHeader.Find(attrs[field].Value,
                     type == AudioCatalog.PathMusicTrackTypeId ? "PATH_TRACK_" : "PATH_EVENT_",
                     attrs["id"].Value, out opened);
-                return opened && handle != 0;
+                if (!opened) return Reject("path-music-header-unavailable", out reason);
+                if (handle == 0) return Reject("path-music-handle-missing", out reason);
+                return true;
             }
-            return false;
+            return Reject("uncertified-audio-type", out reason);
         }
 
-        static bool LeaseInput(XmlAttribute attribute, BinaryWriter writer, List<FileStream> leases)
+        static bool LeaseInput(XmlAttribute attribute, BinaryWriter writer, List<FileStream> leases, out string reason)
         {
-            if (attribute == null || string.IsNullOrEmpty(attribute.Value)) return false;
-            return LeaseInputPath(attribute.Value, writer, leases);
+            if (attribute == null || string.IsNullOrEmpty(attribute.Value)) return Reject("external-input-path-missing", out reason);
+            return LeaseInputPath(attribute.Value, writer, leases, out reason);
         }
 
-        static bool LeaseInputPath(string value, BinaryWriter writer, List<FileStream> leases)
+        static bool LeaseInputPath(string value, BinaryWriter writer, List<FileStream> leases, out string reason)
         {
-            if (string.IsNullOrEmpty(value)) return false;
+            reason = null;
+            if (string.IsNullOrEmpty(value)) return Reject("external-input-path-missing", out reason);
             string path = Path.GetFullPath(value);
             for (var parent = new FileInfo(path).Directory; parent != null; parent = parent.Parent)
-                if (parent.Exists && (parent.Attributes & FileAttributes.ReparsePoint) != 0) return false;
-            if (!File.Exists(path) || (File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0) return false;
+                if (parent.Exists && (parent.Attributes & FileAttributes.ReparsePoint) != 0) return Reject("external-input-reparse-point", out reason);
+            // File.Exists also returns false for inaccessible inputs. Do not
+            // infer missing vs denied from that deliberately ambiguous result.
+            if (!File.Exists(path)) return Reject("external-input-unavailable", out reason);
+            if ((File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0) return Reject("external-input-reparse-point", out reason);
             FileStream input;
             try { input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read); }
-            catch (IOException) { return false; }
-            catch (UnauthorizedAccessException) { return false; }
+            catch (IOException) { return Reject("external-input-unavailable", out reason); }
+            catch (UnauthorizedAccessException) { return Reject("external-input-unavailable", out reason); }
             leases.Add(input);
             writer.Write(path); writer.Write(input.Length);
             using (var hash = SHA256.Create()) writer.Write(hash.ComputeHash(input));
