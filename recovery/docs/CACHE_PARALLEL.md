@@ -10,15 +10,17 @@
 
 上述计时有嵌套及并发，不能相加代替`elapsedMs`，也不是CPU时间；不改变Key、输入保护、缓存资格、调度预算或默认参数。Release小夹具disabled/cold/hot各892/1378/1237ms，hot为8hit/0miss/1次Texture后端；hot的stream准备812.696ms、完整输入盘点208.477ms、文档202.340ms、store查询23.749ms、全部后端30.924ms。准备含首次盘点，文档含store及后端，不能把这些数加总；输入读阶段也不等于纯磁盘或哈希。此小夹具未控制OS缓存、未做反序重复，不宣称速度倍率或已定位完整Upheaval剩余wall。下一项优先核查准备范围内的Schema/provider等重复工作，须先证明可共享边界，不盲目增加XML资格或删除校验。
 
-## B组：共享路径分类与私有结果移动（2026-10-28，待统一验收）
+## B组：共享路径分类与私有结果移动（2026-10-28，已完整验收）
 
 重读实施任务书后，收束计时/复用工具工作，直接消除两处已证明重复的生产工作：每次Capture预计算MOD、Additional、tools、Schemas的规范化边界，每个SDK文件只执行一次原有`GetFullPath+TrimEnd`并共享租约/工具分类；不假设枚举路径已规范化，不更改写入manifest的原始root/path、文件读取、身份或检查时点。新增一组真实Capture边界用例覆盖四类相邻前缀、等价根拼写、租约写保护与MOD/Additional同长mtime鲜读，复用已有身份替换与容量矩阵。
 
 热缓存命中后，已在私有staging完成store源SHA、复制、目标SHA及完整结果合同读取的`result.bin`/可选CDATA，改为同一任务目录中的文件移动，消除从`restored`到其父目录的再次复制。持久store文件仍独立复制并完整校验；命中计数仍在两次移动成功后更新，部分失败仍走原私有清理/发布缓存回滚。已有PCM/XAS/MP3完整CDATA、损坏修复、原始四输出、取消/异常及ZIP门槛保留。
 
-这组改变生产闭包，集中重建一次并验收，不用前一计时二进制代替。尚未取得新计量，不能宣称已解决缓存净收益或完整Upheaval端到端性能问题；大型MOD不重跑。
+最终生产/测试/打包源码`e86958de` / [40690172191](https://github.com/wu162/NewSdk/actions/runs/40690172191)已完整success。原包12817384085/SHA256 `accf9436a6343359286c386f31cbfaee3f92e7a492d60513c5951bc485edcee5`已独立核验归档、12组收据、build/link身份、两配置五文件ZIP原字节及608份报告计时账本；没有用前一计时二进制代替生产重建。精确记录见JSON的`sharedInventoryAndPrivateMoveMilestone`。
 
-本组首个`3ada12e7`检查点的移动改动遗漏了恢复字节取值时点：文件移走后原枚举返回0。输出三缓冲/CDATA不因此变化，但该统计不能接受为完整计量。`e86958de`已改为移动前取长度、两次移动成功后再记命中及字节，并在普通缓存和Audio/CDATA/W3X缓存的cold/hot/partial用例加入恢复字节合同。修复批次[40690172191](https://github.com/wu162/NewSdk/actions/runs/40690172191)正在运行；保留原检查点和运行，不冒称尚未结束的批次通过。
+该批Release小夹具disabled/cold/hot为695/926/884ms；hot仍8hit/0miss/1后端，完整恢复字节5872，盘点108.725ms、私有结果恢复3.281ms。此前计时批次使用另一runner且未控制OS缓存，不能把两批数字差归因于本次优化或给出加速倍率；该小夹具热缓存仍慢于无缓存，不称净收益已解决。完整Upheaval不重跑，其历史性能范围保持。
+
+本组首个`3ada12e7`检查点的移动改动遗漏了恢复字节取值时点：文件移走后原枚举返回0。输出三缓冲/CDATA不因此变化，但该统计不能接受为完整计量。`e86958de`已改为移动前取长度、两次移动成功后再记命中及字节，并在普通缓存和Audio/CDATA/W3X缓存的cold/hot/partial用例加入恢复字节合同；修复批次已完整通过，原检查点和运行保留。
 
 更新：2026-10-28（北京时间）。成果分支 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`。本页只记录当前工作；旧发行证据见 [COMPILER_RELEASE](../COMPILER_RELEASE.md)。**生产主线与完整 Windows 回归已有通过收据；最新批次和精确范围见下文。未据此声明整份方案全部覆盖或完整 MOD 加速。**
 
