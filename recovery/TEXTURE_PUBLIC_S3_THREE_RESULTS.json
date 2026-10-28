@@ -1,70 +1,142 @@
 {
-  "sourceCommit": "fbc82056f286bf9e7e8ead98655baa6a56d3c4a1",
-  "runId": "40670148058",
-  "status": "comparison-completed",
+  "scope": "Experimental explicit initialized three-colour states, not DDS/plugin/SDK acceptance",
   "productionAccepted": false,
-  "archiveSha256": "3e062e22af13360c325be54022f53fb6ec206ac5ee131e6ebf6509eed5f9f8a9",
-  "configurations": [
+  "rounds": [
     {
-      "configuration": "Debug",
-      "fixtures": 5312,
-      "matched": 4862,
-      "differences": 450,
-      "differencesByFormatAndMode": {
-        "f0/mode0": 450
-      },
-      "differencesByOffset": {
-        "3050": 29,
-        "3064": 28,
-        "3070": 30,
-        "308c": 5,
-        "3060": 35,
-        "3068": 34,
-        "3084": 20,
-        "3054": 32,
-        "3080": 24,
-        "3078": 24,
-        "3088": 27,
-        "307c": 40,
-        "3074": 31,
-        "305c": 33,
-        "3058": 28,
-        "306c": 27,
-        "303c": 1,
-        "3038": 2
-      },
-      "recordsSha256": "1a6e698efa8dc941b3ff89dae00049363be7d163e070818d46b7bfa87aa57b9e"
+      "sourceCommit": "fbc82056f286bf9e7e8ead98655baa6a56d3c4a1",
+      "runId": "40670148058",
+      "status": "comparison-completed",
+      "productionAccepted": false,
+      "archiveSha256": "3e062e22af13360c325be54022f53fb6ec206ac5ee131e6ebf6509eed5f9f8a9",
+      "configurations": [
+        {
+          "configuration": "Debug",
+          "fixtures": 5312,
+          "matched": 4862,
+          "differences": 450,
+          "differencesByFormatAndMode": {
+            "f0/mode0": 450
+          },
+          "recordsSha256": "1a6e698efa8dc941b3ff89dae00049363be7d163e070818d46b7bfa87aa57b9e"
+        },
+        {
+          "configuration": "Release",
+          "fixtures": 5312,
+          "matched": 4862,
+          "differences": 450,
+          "differencesByFormatAndMode": {
+            "f0/mode0": 450
+          },
+          "recordsSha256": "1a6e698efa8dc941b3ff89dae00049363be7d163e070818d46b7bfa87aa57b9e"
+        }
+      ],
+      "remaining": []
     },
     {
-      "configuration": "Release",
-      "fixtures": 5312,
-      "matched": 4862,
-      "differences": 450,
-      "differencesByFormatAndMode": {
-        "f0/mode0": 450
-      },
-      "differencesByOffset": {
-        "3050": 29,
-        "3064": 28,
-        "3070": 30,
-        "308c": 5,
-        "3060": 35,
-        "3068": 34,
-        "3084": 20,
-        "3054": 32,
-        "3080": 24,
-        "3078": 24,
-        "3088": 27,
-        "307c": 40,
-        "3074": 31,
-        "305c": 33,
-        "3058": 28,
-        "306c": 27,
-        "303c": 1,
-        "3038": 2
-      },
-      "recordsSha256": "1a6e698efa8dc941b3ff89dae00049363be7d163e070818d46b7bfa87aa57b9e"
+      "sourceCommit": "091239f2870001422073ac31ad1aac9935511615",
+      "runId": "40671760128",
+      "status": "comparison-completed",
+      "productionAccepted": false,
+      "archiveSha256": "f16c07b1c10032ea31a9ee85baca10e24b379514a4da91a5ae05fb477aa8efe0",
+      "configurations": [
+        {
+          "configuration": "Debug",
+          "fixtures": 5312,
+          "matched": 5309,
+          "differences": 3,
+          "differencesByFormatAndMode": {
+            "f0/mode0": 3
+          },
+          "recordsSha256": "480fa2fc1991c7d1d037c800515d992639738adb6c98cce71d938d8b8c8c423b"
+        },
+        {
+          "configuration": "Release",
+          "fixtures": 5312,
+          "matched": 5309,
+          "differences": 3,
+          "differencesByFormatAndMode": {
+            "f0/mode0": 3
+          },
+          "recordsSha256": "480fa2fc1991c7d1d037c800515d992639738adb6c98cce71d938d8b8c8c423b"
+        }
+      ],
+      "remaining": [
+        {
+          "label": "f0-random457",
+          "mode": "0",
+          "inputSha256": "462ac007ecb5af4db576ab609f5ae34509a44468f5faf27cb86738a9bc489fc1",
+          "originalSha256": "67e933284a39c5016db8d91f71536a052c7298da8ca138539276668008e645d0",
+          "candidateSha256": "c0c5a9ac4291fac4fe377b204cb707a07a4bcc449ed43ef462014142970b7204",
+          "firstDifference": "3038",
+          "onlyEndpointSwapAnd01IndexRemap": true,
+          "originalEndpoints": [
+            19,
+            63,
+            8,
+            18,
+            5,
+            27
+          ],
+          "candidateEndpoints": [
+            18,
+            5,
+            27,
+            19,
+            63,
+            8
+          ]
+        },
+        {
+          "label": "f0-random477",
+          "mode": "0",
+          "inputSha256": "6e93e6b699bbae528ea4cf4284bfe86dd180db465c582551de14684d5138c3b5",
+          "originalSha256": "e656eb1734443bfe440f7f17b3acb488b3f6c366fd44e3ce81fd162e7c063d8a",
+          "candidateSha256": "a6c8be16b0d66917039ab097283dc58b41a889c3f68218d21b413e4d14a01677",
+          "firstDifference": "3038",
+          "onlyEndpointSwapAnd01IndexRemap": true,
+          "originalEndpoints": [
+            31,
+            20,
+            11,
+            1,
+            38,
+            19
+          ],
+          "candidateEndpoints": [
+            1,
+            38,
+            19,
+            31,
+            20,
+            11
+          ]
+        },
+        {
+          "label": "f0-random719",
+          "mode": "0",
+          "inputSha256": "9260c540ef7ff34d2a467d39ab9d2dbca259bf56691be90a1a09426c9c02ab61",
+          "originalSha256": "e6e7954a7a015fe61d30451d6aa6d242d156300fc91f9415f3eba7b525c9cc58",
+          "candidateSha256": "32196bdf846fcd68fa310d214c8c156ebd310feb3ea83cf50a0fff24bd36ed7c",
+          "firstDifference": "3038",
+          "onlyEndpointSwapAnd01IndexRemap": true,
+          "originalEndpoints": [
+            31,
+            37,
+            5,
+            6,
+            25,
+            24
+          ],
+          "candidateEndpoints": [
+            6,
+            25,
+            24,
+            31,
+            37,
+            5
+          ]
+        }
+      ]
     }
-  ],
-  "staticRuleEvidence": "TextureColour.asm Q_1007BF3D..Q_1007BF68: outLevel3 uses 4 points for format0, 3 points for nonzero format, fourth point black"
+  ]
 }

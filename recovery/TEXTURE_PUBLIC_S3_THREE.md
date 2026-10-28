@@ -10,8 +10,10 @@ Debug/Release各5312份完整0x3850初始化状态：format0/1、flag0、mode0/3
 
 同批8个受影响完整DXT3/5消费组D/R/NoOriginal通过，24未变组复用；未运行SDK。不能把实验组件证据复用为正式分支或SDK新验收。
 
-原RmsError@0x7BE60的静态规则（owned ASM Q_1007BF3D..Q_1007BF68）解释了剩余格式差异：level3时format0仍检查第4个不透明黑点，非零格式只检查3个点，DXT1A透明索引不参与RGB误差。后续源码091239f2已将此通用格式规则用于full/quick候选评分与reindex，运行[40671760128](https://github.com/wu162/NewSdk/actions/runs/40671760128)验证中；结果未取得前不声明修复完成。
+原RmsError@0x7BE60的静态规则（owned ASM Q_1007BF3D..Q_1007BF68）解释了剩余格式差异：level3时format0仍检查第4个不透明黑点，非零格式只检查3个点，DXT1A透明索引不参与RGB误差。后续源码`091239f2870001422073ac31ad1aac9935511615`已将此通用格式规则用于full/quick候选评分与reindex，运行[40671760128](https://github.com/wu162/NewSdk/actions/runs/40671760128) completed/success：D/R各5309/5312完整状态一致，修复447例；NoOriginal各5312回放/76620292检查，8个旧消费完整组仍通过、24组复用。比较仍为comparison-completed/productionAccepted=false，未运行SDK。
 
-首轮完整比较档案已集中保存到目标分支 `evidence/texture/public-s3-three/40670148058-1`；[分类统计](TEXTURE_PUBLIC_S3_THREE_RESULTS.json)保留原sourceCommit/runId和SHA，不改写为正式分支生产源码。源码和补丁前后指纹继续在实验分支。
+余下仅format0/mode0的`f0-random457`、`f0-random477`、`f0-random719`，首差均0x3038。逐字节复核证实三例只是两个RGB565端点反序、索引0/1互换；交换后整个0x3850状态完全相同，索引2/3与其他字节未变。**不能据此宣称完整DDS已相同**：下一步先补原完整DXT1A透明包装及字节产物gold，并核对其规范化是否消除该内部表示差异，不重复宽泛x87/预算实验，也不删掉这3例的真实状态差异。
+
+两轮完整比较档案已集中保存到目标分支 `evidence/texture/public-s3-three/{40670148058,40671760128}-1`；[分类统计](TEXTURE_PUBLIC_S3_THREE_RESULTS.json)保留原sourceCommit/runId和SHA，不改写为正式分支生产源码。源码和补丁前后指纹继续在实验分支。
 
 即使初始化状态达到5312/5312，下一门槛仍是完整DXT1A透明/全透明包装、原阈值、浮点/partial映射与端点/索引规范化，以及适用DDS/mip/volume/插件/SDK。不能把状态组件一致扩大为默认DXT1或完整DXT1A支持。
