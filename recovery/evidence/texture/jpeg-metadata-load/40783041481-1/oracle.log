@@ -1,0 +1,1 @@
+PROBE Texture JPEG colour/metadata fixtures=4000 decoded=1440 rejected=2560 matches=4000 differences=0 originalCalls=8000 checks=1050291; full original/candidate bytes, not recovered/plugin/SDK acceptance
