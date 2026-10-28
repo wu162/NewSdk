@@ -68,6 +68,7 @@ function Cache($Case,[string]$Expected){
     elseif($Expected -eq 'hot'){Need ($statistics.hits -gt 0 -and $statistics.misses -eq 0) 'Hot asset cache did not reuse all fixture assets'}
     elseif($Expected -eq 'partial'){Need ($statistics.misses -eq 1 -and $statistics.hits -gt 0) 'Single-action change did not retain unrelated certified hits'}
     else{throw "Unknown cache expectation: $Expected"}
+    Need (($Expected -eq 'cold' -and $statistics.restoredBytes -eq 0) -or ($Expected -ne 'cold' -and $statistics.restoredBytes -gt 0)) 'Restored-byte accounting must retain complete result and CDATA consumption after private file moves'
 }
 function SameLengthMutation([string]$Path,[string]$From,[string]$To){
     $before=[IO.File]::ReadAllBytes($Path);$stamp=[IO.File]::GetLastWriteTimeUtc($Path)

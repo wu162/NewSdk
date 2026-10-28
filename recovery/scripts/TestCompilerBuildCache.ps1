@@ -117,6 +117,7 @@ function Cache($Case,[string]$Expected){
     elseif($Expected -eq 'hot'){Need ($statistics.hits -gt 0 -and $statistics.misses -eq 0) 'Hot asset cache did not reuse all fixture assets'}
     elseif($Expected -eq 'partial'){Need ($statistics.misses -eq 1 -and $statistics.hits -gt 0) 'A single changed action did not preserve unrelated certified asset hits'}
     else{throw "Unknown cache expectation: $Expected"}
+    Need (($Expected -eq 'cold' -and $statistics.restoredBytes -eq 0) -or ($Expected -ne 'cold' -and $statistics.restoredBytes -gt 0)) 'Restored-byte accounting must describe complete consumed hit payloads, including after private file moves'
     if($Expected -eq 'hot'){
         Need ($statistics.phaseTimings.storeStageTicks -eq 0) 'Fully hot actions unexpectedly staged new cache payloads'
         Need ($statistics.phaseTimings.resultRestoreTicks -gt 0 -and $statistics.phaseTimings.storeMaterializationTicks -gt 0) 'Hot cache omitted actual validated result materialization timing'
