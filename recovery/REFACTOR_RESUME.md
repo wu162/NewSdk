@@ -20,7 +20,7 @@
 
 仅计时基线`062053cb` / [40687271479](https://github.com/wu162/NewSdk/actions/runs/40687271479)已完整success，原包12816553914/SHA`1dedcd81b768cad26183d84aaffbb3b2838000c60b08647d8c3f43db9a1ea234`、12组收据/build-link来源/两配置五文件ZIP及608份报告计时账本已核验。Release小夹具hot1237ms、stream准备812.696ms、盘点208.477ms、后端30.924ms（嵌套不可相加），不能外推完整Upheaval。测试复用入口`d358a656`的guards [40687837253](https://github.com/wu162/NewSdk/actions/runs/40687837253)已success（34测试，replay未运行），不等同B组已验收。计时/边界见[CACHE_PARALLEL](docs/CACHE_PARALLEL.md)，精确新证据在JSON的`phaseTimingBaseline`。本轮未重跑大型Upheaval，未宣称缓存净收益已解决；收束工具工作，优先B组直接消除重复工作与必要验收。
 
-最后的小MOD计量复用[40693590489](https://github.com/wu162/NewSdk/actions/runs/40693590489)正在运行：binarySource=`e86958de`成功原包，testSource=`e5809d10`，生产闭包未变且没有重编。范围为当前缓存/payload矩阵与未精简小mymod的无缓存/冷/三热/Additional阶段计量；不是完整Upheaval，不将运行中计量报为通过。已通过的生产验收以前段40690172191为准。
+最后复用[40693590489](https://github.com/wu162/NewSdk/actions/runs/40693590489)已success：binarySource=`e86958de`、testSource=`e5809d10`，未重编；原包12818408571/SHA`458a971a9ce1a0fe243a056b4789e3ee1917dc331433371c78d375a4e31f63fe`、两组收据/来源及12条计量已核。未精简小mymod为7文件/982257字节，使用真实完整SDK；Debug/Release热中位2226/2217ms，无缓存824/760ms，热及Additional-only均47hit/0miss/0backend，四输出原字节相同。Release首热盘点1360.599ms（含受控读1007.240ms），私有恢复15.806ms，动作Key3.864ms；范围有嵌套，read不是纯磁盘/hash。下一轮优先整体处理输入盘点/受控读闭包成本，保留鲜读/身份/首尾保护；不要继续盯恢复微调或扩大XML资格。精确数据在JSON的`smallRepositoryModPhaseMeasurements`，不称缓存净收益已解决，不外推Upheaval。
 
 ## 已合入的默认构建与参数改进
 

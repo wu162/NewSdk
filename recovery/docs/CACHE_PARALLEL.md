@@ -22,6 +22,17 @@
 
 本组首个`3ada12e7`检查点的移动改动遗漏了恢复字节取值时点：文件移走后原枚举返回0。输出三缓冲/CDATA不因此变化，但该统计不能接受为完整计量。`e86958de`已改为移动前取长度、两次移动成功后再记命中及字节，并在普通缓存和Audio/CDATA/W3X缓存的cold/hot/partial用例加入恢复字节合同；修复批次已完整通过，原检查点和运行保留。
 
+### 同一成功二进制的小mymod阶段计量
+
+[40693590489](https://github.com/wu162/NewSdk/actions/runs/40693590489)已success，binarySource=`e86958de`、testSource=`e5809d10`，严格复用成功原包，无生产重编。重放归档12818408571/SHA256 `458a971a9ce1a0fe243a056b4789e3ee1917dc331433371c78d375a4e31f63fe`已核，当前缓存/payload矩阵和两配置各六次小MOD测量均通过。输入为完整未精简的7文件/982257字节小mymod及完整SDK，按现有development/loose/base/jobs1口径；不是大型MOD测试。
+
+| 配置 | 无缓存 | 空动作缓存 | 三热中位 | 热命中/未命中/后端 |
+| --- | ---: | ---: | ---: | --- |
+| Debug | 824ms | 2488ms | 2226ms | 47/0/0 |
+| Release | 760ms | 2469ms | 2217ms | 47/0/0 |
+
+12次测量均与各自无缓存四输出原字节相等；Additional-only同样47hit/0miss/0backend，不冒称BIG打包比较。Release首热盘点1360.599ms、其中受控读1007.240ms/目录枚举271.533ms，私有结果恢复15.806ms、动作Key3.864ms、后端0ms。受控读含打开/资格/身份/哈希或复用/关闭，并非纯磁盘或纯SHA耗时。当前真实小MOD的主要缓存额外成本仍在输入闭包保护，后续应整体减少此处重复工作或有依据地加速必要读取；不再围绕十余毫秒私有恢复追加微调。OS缓存与跨runner条件未控制，不归因跨版本倍率，缓存净收益仍未解决。完整收据与原始ticks在JSON的`smallRepositoryModPhaseMeasurements`。
+
 更新：2026-10-28（北京时间）。成果分支 `feature/cache-parallel`，基线 `compiler-main@e7396d3b`。本页只记录当前工作；旧发行证据见 [COMPILER_RELEASE](../COMPILER_RELEASE.md)。**生产主线与完整 Windows 回归已有通过收据；最新批次和精确范围见下文。未据此声明整份方案全部覆盖或完整 MOD 加速。**
 
 用户提供的[原始实施方案](CACHE_PARALLEL_PLAN.md)保留作目标与验收参考；当前状态只看本页收据，不能把方案要求当作已完成能力。日常续接无需重读整份方案。
