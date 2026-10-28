@@ -11,6 +11,8 @@
 
 后续优先按计量扩XML/Audio并行或减少跨stream扫描，保留现有强身份、读租约、失败事务与完整SDK门槛。编译/测试全部GitHub Actions；通常两个子代理、最多三个由本轮用户授权。禁止强推；目标compiler-main，未经用户批准不合入。
 
+执行要求（2026-10-28用户再次确认）：提高效率且守住正确性底线，按 [EFFICIENCY](EFFICIENCY.md#验证批次与触发决策) 集中实现、预检和验收。下一轮先列齐必要回归、核验可复用二进制；不要重复本轮零散补测试后多次启动完整构建的方式。当前仅规则/文档变化，不重跑已通过的生产/SDK矩阵；新增测试仍须新的CI结果，生产闭包变化才统一重建。缓存专项记录列出了现有复用入口的具体限制。
+
 ## 已合入的默认构建与参数改进
 
 PR [#14](https://github.com/wu162/NewSdk/pull/14) 已合入 `compiler-main@e7396d3b`（旧交接写待合入已过时）。生产/测试源码 `8b3e146c` 的 [运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 完整 mymod、默认 BIG/SKUDEF 和五文件 ZIP 验收属于基线证据，不能替代本轮新生产源码验收。详见 [默认构建验证](docs/BUILD_DEFAULTS_VALIDATION.md)。
