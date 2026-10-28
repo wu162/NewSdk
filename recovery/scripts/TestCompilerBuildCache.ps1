@@ -85,6 +85,36 @@ function PhaseTimings($Statistics,[bool]$Succeeded,[bool]$Enabled){
         }
     }
 }
+function DependencyObservation($Statistics,[bool]$Enabled,[string]$Destination,[string]$CaseDirectory,[string]$Name){
+    $observed=$Statistics.dependencyObservation
+    Need ($null -ne $observed -and $observed.format -ceq 'NewModCompiler.ReadClosure.v1') 'Cache report omitted the versioned consumed-read observation contract'
+    Need ($observed.inventoryFallback -eq $true -and $observed.canAuthorizeReuse -eq $false) 'Partial read observations must not authorize reuse or replace conservative root protection'
+    foreach($field in @('streams','probes','files','unknownReads','readBytes','validationBytes','manifestBytes','storeHashReadBytes','storeCopyBytes')){
+        $property=$observed.PSObject.Properties[$field]
+        Need ($null -ne $property -and ($property.Value -is [int] -or $property.Value -is [long]) -and $property.Value -ge 0) "Observed read metric must be a nonnegative integer: $field"
+        if(!$Enabled){Need ($property.Value -eq 0) "Disabled cache invented dependency observation work: $field"}
+    }
+    $keys=@($observed.manifestKeys)
+    if(!$Enabled){Need ($keys.Count -eq 0) 'Disabled cache persisted a read-closure manifest';return}
+    Need ($observed.streams -eq 2 -and $keys.Count -eq 2 -and $observed.probes -gt 0 -and $observed.files -gt 0 -and $observed.unknownReads -ge 2) 'Two streams must retain consumed files, resolver decisions and explicit incomplete-reader evidence'
+    Need ($observed.readBytes -gt 0 -and $observed.validationBytes -gt 0 -and $observed.manifestBytes -gt 0 -and $observed.storeHashReadBytes -gt 0 -and $observed.storeCopyBytes -gt 0) 'Read closure must measure actual identity-bound reads, final validation and binary persistence'
+    $manifestBytes=0L
+    foreach($key in $keys){
+        Need ($key -cmatch '^[0-9a-f]{64}$') 'Read-closure record omitted its complete content key'
+        $entry=Join-Path $Destination ('.cache/read-closure-v1/'+$key)
+        Need ((Test-Path -LiteralPath (Join-Path $entry 'index.bin')) -and !(Test-Path -LiteralPath (Join-Path $entry 'pending'))) 'A successful read-closure record is missing or remains pending'
+        $members=@(Get-ChildItem -LiteralPath (Join-Path $entry 'files') -File)
+        Need ($members.Count -eq 1 -and (Hash $members[0].FullName) -ceq $key) 'Read-closure store did not persist exactly the complete keyed binary manifest'
+        $reader=[IO.BinaryReader]::new([IO.File]::OpenRead($members[0].FullName))
+        try{Need ($reader.ReadInt32() -eq 0x31434452 -and $reader.ReadInt32() -eq 1) 'Persisted read-closure magic or binary version differs'}finally{$reader.Dispose()}
+        $manifestBytes+=[long]$members[0].Length
+        if($Name -ceq 'cold'){
+            $archive=Join-Path $CaseDirectory 'read-closures';New-Item -ItemType Directory -Force -Path $archive|Out-Null
+            Copy-Item -LiteralPath $members[0].FullName -Destination (Join-Path $archive ($key+'.bin'))
+        }
+    }
+    Need ($manifestBytes -eq $observed.manifestBytes) 'Observed manifest-byte accounting differs from actual persisted binary records'
+}
 function ReasonAccounting($Statistics){
     Need ($null -ne $Statistics.actionMissReasons -and $null -ne $Statistics.cacheBypassReasons) 'Cache report omitted miss/bypass reason dictionaries'
     Need ($null -ne $Statistics.preparationRejectedReasons) 'Cache report omitted actual preparation rejection reasons'
@@ -189,6 +219,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
         $files=@{};$archived=Join-Path $caseOut 'artifacts';New-Item -ItemType Directory -Path $archived|Out-Null
         if($Expected -eq 0){
             Need ($body.publicationStatus -ceq 'PublishedDirectory' -and @($body.artifacts).Count -eq 8) 'Cache fixture did not publish exactly two four-file streams'
+            DependencyObservation $body.cache $Enabled $Destination $caseOut $Name
             if($Enabled){
                 Need ($body.cache.inputInventoryCaptures -eq 4) 'Two cached streams must preserve both initial and final whole-root inventories'
                 Need ($body.cache.inputHashLeaseFiles -gt 0 -and $body.cache.inputHashLeaseFiles -le 512) 'Tool digest sharing omitted its bounded retained-file count'
@@ -229,7 +260,7 @@ function OriginalOracle($Case,[string]$Name){
     & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds
     Need ($LASTEXITCODE -eq 0) 'Build-cache independent original BAB oracle failed'
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production action-cache CLI acceptance: XML/Armor, Weapon, GameObject, PathMusicEvent and file-backed APT with noncached Texture; exact single-action invalidation, unread Additional, complete raw four outputs, original BAB, same-length/same-mtime changes, MOD reuse boundaries, bounded cross-stream stable SDK/runtime digest leases, real SDK/Art native Texture reads and unused SageXml payload reuse with all four root inventories preserved, actual lookup-miss reason accounting and independent disabled/unprepared bypasses, corrupt and pending entry repair, actual cancellation and failure/retry; /sc and full SDK remain separate'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production action-cache CLI acceptance: XML/Armor, Weapon, GameObject, PathMusicEvent and file-backed APT with noncached Texture; exact single-action invalidation, unread Additional, complete raw four outputs, original BAB, same-length/same-mtime changes, MOD reuse boundaries, bounded cross-stream stable SDK/runtime digest leases, real SDK/Art native Texture reads and unused SageXml payload reuse with all four root inventories preserved, actual lookup-miss reason accounting and independent disabled/unprepared bypasses, binary consumed-read observations with explicit whole-root fallback and successful-store visibility, corrupt and pending entry repair, actual cancellation and failure/retry; /sc and full SDK remain separate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     if($Preflight){

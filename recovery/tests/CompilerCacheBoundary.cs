@@ -110,6 +110,155 @@ public static class CompilerCacheBoundary
         CacheInputBoundary.Validate(external);
         tests.Add("opt-in-scope-nesting-rejected-owning-thread-disposal-enforced-owner-preserved-dispose-restores-and-next-scope-opens");
     }
+    static void ObservedResolverCases()
+    {
+        Configure("observed-resolver");
+        string first = Path.Combine(inside, "first"), second = Path.Combine(inside, "second"), third = Path.Combine(inside, "third");
+        Directory.CreateDirectory(first); Directory.CreateDirectory(second); Directory.CreateDirectory(third);
+        string missing = Path.Combine(first, "choice.xml"), selected = Write(second, "choice.xml", "AAAA");
+        Write(third, "choice.xml", "LATE");
+        Settings.Current.DataPaths = new[] { first, second, third };
+        var candidates = new List<string>(); var exists = new List<bool>(); var opened = new List<string>();
+        Action<string, bool> probe = delegate(string path, bool present) { candidates.Add(Path.GetFullPath(path)); exists.Add(present); };
+        Func<string, Stream> read = delegate(string path) { opened.Add(Path.GetFullPath(path)); return File.OpenRead(path); };
+        using (CacheInputBoundary.Begin(inside, sdk))
+        using (CacheInputBoundary.BeginObservation(probe, read, delegate(string path) { }))
+        {
+            string result = FileNameResolver.ResolvePath(inside, "DATA:choice.xml");
+            Require(string.Equals(result, selected, StringComparison.OrdinalIgnoreCase), "Observed resolver changed root priority");
+            int absent = candidates.FindIndex(p => string.Equals(p, missing, StringComparison.OrdinalIgnoreCase));
+            int winner = candidates.FindIndex(p => string.Equals(p, selected, StringComparison.OrdinalIgnoreCase));
+            Require(absent >= 0 && winner > absent && !exists[absent] && exists[winner], "Resolver must record the earlier absent candidate before its winner");
+            Require(!candidates.Exists(p => string.Equals(p, Path.Combine(third, "choice.xml"), StringComparison.OrdinalIgnoreCase)), "Resolver observation must not invent candidates after the selected root");
+            DateTime timestamp = File.GetLastWriteTimeUtc(selected);
+            using (var input = CacheInputBoundary.OpenRead(selected))
+            using (var reader = new StreamReader(input)) Require(reader.ReadToEnd() == "AAAA", "Observed open must consume its delegated stream");
+            Write(second, "choice.xml", "BBBB"); File.SetLastWriteTimeUtc(selected, timestamp);
+            Require(new FileInfo(selected).Length == 4 && File.GetLastWriteTimeUtc(selected) == timestamp, "Observed input mutation must preserve length and mtime");
+            using (var input = CacheInputBoundary.OpenRead(selected))
+            using (var reader = new StreamReader(input)) Require(reader.ReadToEnd() == "BBBB", "Observed reads must not reuse content by length and mtime");
+            Require(opened.Count == 2 && opened.TrueForAll(p => string.Equals(p, selected, StringComparison.OrdinalIgnoreCase)), "Every delegated content read must identify its actual file");
+            Write(first, "choice.xml", "HIGH"); candidates.Clear(); exists.Clear();
+            result = FileNameResolver.ResolvePath(inside, "DATA:choice.xml");
+            Require(string.Equals(result, missing, StringComparison.OrdinalIgnoreCase) && candidates.Count > 0 && exists[0], "A newly present higher-priority candidate must replace the old winner");
+            File.Delete(missing); File.Delete(selected); candidates.Clear(); exists.Clear();
+            result = FileNameResolver.ResolvePath(inside, "DATA:choice.xml");
+            Require(string.Equals(result, Path.Combine(third, "choice.xml"), StringComparison.OrdinalIgnoreCase) && exists.Count >= 3 && !exists[0] && !exists[1], "Deleting the old winner must preserve ordered negative probes and select the next root");
+            Settings.Current.ArtPaths = new[] { first, second }; Settings.Current.Postfix = "hi";
+            string artWinner = Write(Path.Combine(second, "ca"), "cache.bin", "ART");
+            candidates.Clear(); exists.Clear();
+            result = FileNameResolver.ResolvePath(inside, "ART:cache.bin");
+            Require(string.Equals(result, artWinner, StringComparison.OrdinalIgnoreCase), "Observed ART fallback changed the selected payload");
+            Require(candidates.Count >= 4 && candidates[0] == Path.Combine(first, "ca", "cache_hi.bin") && candidates[1] == Path.Combine(first, "ca", "cache.bin") && candidates[2] == Path.Combine(second, "ca", "cache_hi.bin") && candidates[3] == artWinner,
+                "ART postfix and base-name candidates must retain their actual search order");
+            Require(!exists[0] && !exists[1] && !exists[2] && exists[3], "ART observation omitted negative postfix or root candidates");
+        }
+        int after = opened.Count;
+        using (var input = CacheInputBoundary.OpenRead(Path.Combine(third, "choice.xml"))) Require(input.ReadByte() == (byte)'L', "Closing observation must restore ordinary file reads");
+        Require(opened.Count == after, "An observation callback leaked after scope disposal");
+        tests.Add("observed-resolver-ordered-negative-DATA-and-ART-postfix-probes-new-higher-priority-file-deletion-and-same-length-mtime-fresh-consumption");
+    }
+    sealed class ObservedMemoryStream : MemoryStream
+    {
+        public bool Closed;
+        public ObservedMemoryStream(byte[] bytes) : base(bytes) { }
+        protected override void Dispose(bool disposing) { Closed = true; base.Dispose(disposing); }
+    }
+    static void ObservedStreamOwnership()
+    {
+        string input = Write(inside, "observed-frozen.xml", "<disk/>");
+        var frozen = new ObservedMemoryStream(System.Text.Encoding.UTF8.GetBytes("<frozen/>"));
+        using (CacheInputBoundary.BeginObservation(delegate(string path, bool present) { }, delegate(string path) { return frozen; }, delegate(string path) { }))
+        using (var reader = CacheInputBoundary.CreateXmlReader(input))
+        {
+            reader.MoveToContent();
+            Require(reader.Name == "frozen", "XML reader reopened the path instead of consuming the identity-bound delegated stream");
+        }
+        Require(frozen.Closed, "XML reader disposal must release its delegated stream");
+        var invalid = new ObservedMemoryStream(new byte[0]); invalid.Dispose();
+        bool rejected = false;
+        try
+        {
+            using (CacheInputBoundary.BeginObservation(delegate(string path, bool present) { }, delegate(string path) { return invalid; }, delegate(string path) { }))
+            using (CacheInputBoundary.OpenRead(input)) { }
+        }
+        catch (IOException) { rejected = true; }
+        Require(rejected && invalid.Closed && !CacheInputBoundary.IsObserving, "Unreadable delegated input must fail and release the observation scope");
+        rejected = false;
+        try
+        {
+            using (CacheInputBoundary.BeginObservation(delegate(string path, bool present) { }, delegate(string path) { return null; }, delegate(string path) { }))
+            using (CacheInputBoundary.OpenRead(input)) { }
+        }
+        catch (IOException) { rejected = true; }
+        Require(rejected && !CacheInputBoundary.IsObserving, "A null delegated stream must fail and release observation state");
+        tests.Add("observed-XML-consumes-frozen-bytes-instead-of-reopening-path-stream-disposal-and-null-unreadable-failure");
+    }
+    static void ObservationLifetimeCases()
+    {
+        string input = Write(inside, "observation-lifetime.bin", "data");
+        int reads = 0;
+        Func<string, Stream> read = delegate(string path) { reads++; return File.OpenRead(path); };
+        IDisposable observation = CacheInputBoundary.BeginObservation(delegate(string path, bool present) { }, read, delegate(string path) { });
+        try
+        {
+            bool rejected = false;
+            try { CacheInputBoundary.BeginObservation(delegate(string path, bool present) { }, read, delegate(string path) { }).Dispose(); }
+            catch (InvalidOperationException) { rejected = true; }
+            Require(rejected && CacheInputBoundary.IsObserving, "Nested observation must not replace the owner callbacks");
+            Exception threadError = null;
+            var thread = new Thread(delegate()
+            {
+                try
+                {
+                    using (var stream = CacheInputBoundary.OpenRead(input)) Require(stream.ReadByte() == (byte)'d', "Unrelated thread must retain ordinary input reads");
+                    observation.Dispose();
+                }
+                catch (Exception error) { threadError = error; }
+            });
+            thread.Start(); Require(thread.Join(30000), "Observation disposal thread did not finish");
+            Require(threadError is InvalidOperationException && reads == 0, "Observation callbacks and disposal must remain owner-thread scoped");
+            using (var stream = CacheInputBoundary.OpenRead(input)) Require(stream.ReadByte() == (byte)'d', "Wrong-thread disposal must preserve the owner callback");
+            Require(reads == 1, "Owner callback was lost after rejected wrong-thread disposal");
+        }
+        finally { observation.Dispose(); }
+        observation.Dispose();
+        Require(!CacheInputBoundary.IsObserving, "Disposed observation must not remain active");
+        var unknown = new List<string>();
+        using (CacheInputBoundary.BeginObservation(delegate(string path, bool present) { }, read, unknown.Add))
+            CacheInputBoundary.ReportUnknownRead("native-or-legacy-reader");
+        CacheInputBoundary.ReportUnknownRead("outside-observation");
+        Require(unknown.Count == 1 && unknown[0] == "native-or-legacy-reader", "Unknown readers must remain explicit and scope-owned");
+        bool failed = false;
+        try
+        {
+            using (CacheInputBoundary.BeginObservation(delegate(string path, bool present) { }, delegate(string path) { throw new IOException("controlled-observer-read-failure"); }, delegate(string path) { }))
+            using (CacheInputBoundary.OpenRead(input)) { }
+        }
+        catch (IOException error) { Require(error.Message == "controlled-observer-read-failure", "Observed read failure changed its cause"); failed = true; }
+        Require(failed, "A delegated read failure must propagate");
+        using (CacheInputBoundary.BeginObservation(delegate(string path, bool present) { }, read, delegate(string path) { }))
+        using (var stream = CacheInputBoundary.OpenRead(input)) Require(stream.ReadByte() == (byte)'d', "An exceptional observation must release its callbacks for the next scope");
+        Require(reads == 2, "The next observation did not own its delegated read");
+        tests.Add("observation-owner-thread-nesting-rejection-callback-isolation-exception-cleanup-and-next-scope-restoration");
+    }
+    static void ObservedRealRoutes(BuiltinCompilers plugins)
+    {
+        string nestedDirectory = Path.Combine(inside, "observed # %");
+        string nested = Write(nestedDirectory, "nested.xml", "<ArmorTemplate xmlns='" + Ns + "' id='ObservedNestedArmor'/>");
+        string included = Write(nestedDirectory, "observed-include.xml", Asset("<ArmorTemplate id='ObservedIncludeArmor'/><xi:include href='nested.xml'/>"));
+        string xincluded = Write(inside, "observed-xinclude.xml", "<ArmorTemplate xmlns='" + Ns + "' id='ObservedXIncludeArmor'/>");
+        var reads = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        using (CacheInputBoundary.Begin(inside, sdk))
+        using (CacheInputBoundary.BeginObservation(delegate(string path, bool present) { }, delegate(string path) { reads.Add(Path.GetFullPath(path)); return File.OpenRead(path); }, delegate(string path) { }))
+        {
+            Compile(plugins, "observed-routes", Asset("<Includes><Include type='all' source='" + Escape(included) + "'/></Includes><xi:include href='" + Escape(new Uri(xincluded).AbsoluteUri) + "'/><ArmorTemplate id='ObservedRootArmor'/>") );
+        }
+        Require(reads.Contains(Path.Combine(inside, "observed-routes.xml")) && reads.Contains(included) && reads.Contains(xincluded) && reads.Contains(nested), "Real XML/Include/XInclude consumption must use observed input streams");
+        Require(reads.Contains(Path.Combine(sdk, "Schemas/xsd/CnC3Types.xsd")), "Real schema root must use observed input bytes");
+        Require(reads.Count > 5, "Real schema includes must contribute their consumed byte paths");
+        tests.Add("real-Core-XML-Include-nested-XInclude-special-character-base-URI-and-transitive-schema-read-observation-with-four-output-success");
+    }
     static void RealRoutes(BuiltinCompilers plugins)
     {
         string probe = File.ReadAllText(Path.Combine(sdk, "Mods/mymod/Data/RecoveryArmorProbe.xml"));
@@ -151,8 +300,8 @@ public static class CompilerCacheBoundary
             if (args.Length != 5 || IntPtr.Size != 4) throw new Exception("Expected work result sourceCommit runId sdk (x86)");
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); inside = Path.Combine(work, "allowed"); outside = Path.Combine(work, "external");
             Directory.CreateDirectory(inside); Directory.CreateDirectory(outside);
-            ScopeCases(); Configure("initialize");
-            using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32)) RealRoutes(plugins);
+            ScopeCases(); ObservedResolverCases(); ObservationLifetimeCases(); ObservedStreamOwnership(); Configure("initialize");
+            using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32)) { RealRoutes(plugins); ObservedRealRoutes(plugins); }
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests }));
             Console.WriteLine("PASS CacheBoundary: " + checks + " assertions"); return 0;
         }

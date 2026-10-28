@@ -87,7 +87,7 @@ public class SchemaSet
 		CacheInputBoundary.Validate(schemaFile);
 		_CurrentSchema = schemaFile;
 		if (_SchemaPaths.ContainsKey(schemaFile)) return;
-		byte[] contents = File.ReadAllBytes(schemaFile);
+		byte[] contents = CacheInputBoundary.ReadAllBytes(schemaFile);
 		_SchemaPaths.Add(schemaFile, File.GetLastWriteTime(schemaFile));
 		using (var algorithm = SHA256.Create())
 			_SchemaContentHashes.Add(schemaFile, Convert.ToBase64String(algorithm.ComputeHash(contents)));
@@ -407,13 +407,13 @@ public class SchemaSet
 		{
 			foreach (KeyValuePair<string, DateTime> schemaPath in _SchemaPaths)
 			{
-				if (!File.Exists(schemaPath.Key) || File.GetLastWriteTime(schemaPath.Key) != schemaPath.Value)
+				if (!CacheInputBoundary.FileExists(schemaPath.Key) || File.GetLastWriteTime(schemaPath.Key) != schemaPath.Value)
 				{
 					changed = true;
 					break;
 				}
 				using (var algorithm = SHA256.Create())
-				using (var input = File.OpenRead(schemaPath.Key))
+				using (var input = CacheInputBoundary.OpenRead(schemaPath.Key))
 				{
 					string content = Convert.ToBase64String(algorithm.ComputeHash(input));
 					if (!string.Equals(content, _SchemaContentHashes[schemaPath.Key], StringComparison.Ordinal))

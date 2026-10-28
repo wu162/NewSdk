@@ -160,6 +160,78 @@
         "inputInventoryCaptures": { "type": "integer", "minimum": 0 },
         "inputHashReusedBytes": { "type": "integer", "minimum": 0 },
         "inputHashLeaseFiles": { "type": "integer", "minimum": 0, "maximum": 512 },
+        "dependencyObservation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "format",
+            "streams",
+            "probes",
+            "files",
+            "unknownReads",
+            "readBytes",
+            "validationBytes",
+            "manifestBytes",
+            "storeHashReadBytes",
+            "storeCopyBytes",
+            "manifestKeys",
+            "inventoryFallback",
+            "canAuthorizeReuse"
+          ],
+          "properties": {
+            "format": {
+              "const": "NewModCompiler.ReadClosure.v1"
+            },
+            "streams": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "probes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "files": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unknownReads": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "readBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "validationBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "manifestBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "storeHashReadBytes": { "type": "integer", "minimum": 0 },
+            "storeCopyBytes": { "type": "integer", "minimum": 0 },
+            "manifestKeys": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "frequency": { "type": "integer", "minimum": 1 },
+            "semantics": { "const": "inclusive-overlapping-ticks" },
+            "readTicks": { "type": "integer", "minimum": 0 },
+            "validationTicks": { "type": "integer", "minimum": 0 },
+            "serializationTicks": { "type": "integer", "minimum": 0 },
+            "inventoryFallback": {
+              "const": true
+            },
+            "canAuthorizeReuse": {
+              "const": false
+            }
+          }
+        },
         "phaseTimings": {
           "type": "object",
           "description": "Inclusive monotonic-clock ticks for nested and overlapping scopes; these values cannot be added to obtain build wall time. Backend work covers all calls, not just retained intervals. Report snapshots precede final best-effort cache completion.",

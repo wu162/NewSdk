@@ -648,14 +648,14 @@ public class AssetDeclarationDocument : IXmlSerializable
 		_Current.DocumentProcessor.RecordXmlParse();
 		CacheInputBoundary.Validate(_Current.SourcePath);
 		FileNameXmlResolver xmlResolver = FileNameResolver.GetXmlResolver(SourceDirectory);
-		if (!File.Exists(_Current.SourcePath))
+		if (!CacheInputBoundary.FileExists(_Current.SourcePath))
 		{
 			string s = "<?xml version='1.0' encoding='UTF-8'?>\n<AssetDeclaration xmlns=\"uri:ea.com:eala:asset\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n</AssetDeclaration>";
 			_Current.XmlReader = XmlReader.Create(new StringReader(s));
 		}
 		else
 		{
-			_Current.XmlReader = XmlReader.Create(_Current.SourcePath);
+			_Current.XmlReader = CacheInputBoundary.CreateXmlReader(_Current.SourcePath);
 		}
 		_Current.XmlDocument = new XmlDocument();
 		XmlReader xmlReader = new Mvp.Xml.XInclude.XIncludingReader(_Current.XmlReader)

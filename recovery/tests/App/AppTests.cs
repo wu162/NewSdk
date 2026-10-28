@@ -149,6 +149,7 @@ namespace NewModCompiler.Tests
                 if (Directory.Exists(root)) Directory.Delete(root,true); Directory.CreateDirectory(root);
                 assertions += ArtifactPublisherTests.Run(Path.Combine(root,"publisher-tests"));
                 assertions += CacheInputSnapshotTests.Run(Path.Combine(root,"cache-input-tests"));
+                assertions += CacheDependencyTests.Run(Path.Combine(root,"cache-dependency-tests"));
                 assertions += BuildAssetCacheTests.Run(Path.Combine(root,"build-asset-cache"));
                 assertions += ActionAssetCacheTests.Run(Path.Combine(root,"action-asset-cache"));
                 assertions += SessionPackageTests.Run(Path.Combine(root,"session-package"));

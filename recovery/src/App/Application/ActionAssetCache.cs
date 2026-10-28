@@ -47,14 +47,20 @@ namespace NewModCompiler.Application
         sealed class Eviction { public string Path; public long Bytes; public DateTime Created; }
 
         public ActionAssetCache(string outputRoot, long maximumBytes = 4294967296L, int maximumEntries = 4096)
+            : this(outputRoot, maximumBytes, maximumEntries, "action-cache-v1") { }
+
+        internal static ActionAssetCache CreateReadClosureStore(string outputRoot)
+        { return new ActionAssetCache(outputRoot, 67108864L, 256, "read-closure-v1"); }
+
+        ActionAssetCache(string outputRoot, long maximumBytes, int maximumEntries, string storeName)
         {
             if (string.IsNullOrWhiteSpace(outputRoot)) throw new ArgumentException("An output root is required.");
             if (maximumBytes < 0 || maximumEntries < 0) throw new ArgumentOutOfRangeException("maximumBytes", "Action cache limits cannot be negative.");
             this.outputRoot = Path.GetFullPath(outputRoot);
             this.maximumBytes = maximumBytes; this.maximumEntries = maximumEntries;
             RejectAncestors(this.outputRoot);
-            cacheRoot = Path.Combine(this.outputRoot, ".cache", "action-cache-v1");
-            candidateRoot = Path.Combine(this.outputRoot, ".action-cache-candidate-" + owner);
+            cacheRoot = Path.Combine(this.outputRoot, ".cache", storeName);
+            candidateRoot = Path.Combine(this.outputRoot, (storeName == "action-cache-v1" ? ".action-cache-candidate-" : ".read-closure-candidate-") + owner);
             // One writer/reader owner for the whole store, held through required
             // report and sink completion. Contention is explicit, never a retry.
             EnsureLock();

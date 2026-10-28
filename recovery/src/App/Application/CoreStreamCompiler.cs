@@ -30,7 +30,10 @@ namespace NewModCompiler.Application
         int buildCacheHits, buildCacheMisses, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile;
         readonly List<BuildAssetCache> assetCaches = new List<BuildAssetCache>();
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
-        ActionAssetCache actionCache;
+        ActionAssetCache actionCache, dependencyStore;
+        int dependencyStreams, dependencyProbes, dependencyFiles, dependencyUnknownReads;
+        long dependencyReadBytes, dependencyValidationBytes, dependencyManifestBytes, completedDependencyHashBytes, completedDependencyCopyBytes;
+        readonly List<string> dependencyManifestKeys = new List<string>();
         string actionToolchain;
         long inputHashBytes, inputHashReusedBytes, completedCacheHashBytes, completedCacheCopyBytes, inputIdentityQueries, inputIdentitySkippedFiles;
         int inputInventoryCaptures, inputHashLeaseFiles;
@@ -39,6 +42,7 @@ namespace NewModCompiler.Application
             documentProcessTicks, artifactCollectionTicks, cacheCommitTicks;
         long completedStoreLookupTicks, completedStoreValidationTicks,
             completedStoreMaterializationTicks, completedStoreStageTicks;
+        long dependencyReadTicks, dependencyValidationTicks, dependencySerializationTicks;
         CacheInputLeaseSet inputLeases;
         readonly AssetExecutionMetrics executionMetrics = new AssetExecutionMetrics();
         public object InputRootsReport { get; private set; }
@@ -73,9 +77,21 @@ namespace NewModCompiler.Application
             cacheBypassReasons = new Dictionary<string,int>(executionMetrics.CacheBypassReasons),
             preparationRejectedReasons = new Dictionary<string,int>(executionMetrics.PreparationRejectedReasons),
             restoredBytes = executionMetrics.RestoredBytes, writtenBytes = executionMetrics.WrittenBytes,
-            hashReadBytes = inputHashBytes + executionMetrics.ExternalHashBytes + completedCacheHashBytes + (actionCache == null ? 0 : actionCache.HashReadBytes),
+            hashReadBytes = inputHashBytes + dependencyReadBytes + dependencyValidationBytes + completedDependencyHashBytes + (dependencyStore == null ? 0 : dependencyStore.HashReadBytes) + executionMetrics.ExternalHashBytes + completedCacheHashBytes + (actionCache == null ? 0 : actionCache.HashReadBytes),
             inputInventoryCaptures, inputHashReusedBytes, inputHashLeaseFiles, inputIdentityQueries, inputIdentitySkippedFiles,
-            cacheCopyBytes = completedCacheCopyBytes + (actionCache == null ? 0 : actionCache.CopyBytes),
+            dependencyObservation = new {
+                format = CacheDependencyManifest.Format, streams = dependencyStreams,
+                probes = dependencyProbes, files = dependencyFiles, unknownReads = dependencyUnknownReads,
+                readBytes = dependencyReadBytes, validationBytes = dependencyValidationBytes,
+                manifestBytes = dependencyManifestBytes,
+                storeHashReadBytes = completedDependencyHashBytes + (dependencyStore == null ? 0 : dependencyStore.HashReadBytes),
+                storeCopyBytes = completedDependencyCopyBytes + (dependencyStore == null ? 0 : dependencyStore.CopyBytes),
+                manifestKeys = dependencyManifestKeys.ToArray(),
+                frequency = Stopwatch.Frequency, semantics = "inclusive-overlapping-ticks",
+                readTicks = dependencyReadTicks, validationTicks = dependencyValidationTicks, serializationTicks = dependencySerializationTicks,
+                inventoryFallback = true, canAuthorizeReuse = false
+            },
+            cacheCopyBytes = completedCacheCopyBytes + completedDependencyCopyBytes + (dependencyStore == null ? 0 : dependencyStore.CopyBytes) + (actionCache == null ? 0 : actionCache.CopyBytes),
             phaseTimings = new {
                 format = "NewModCompiler.CachePhaseTimings.v1",
                 frequency = Stopwatch.Frequency,
@@ -498,7 +514,7 @@ namespace NewModCompiler.Application
                 throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "The experimental backend requires an existing XML stream entry.");
             Settings previousSettings = Settings.Current;
             bool previousMetrics = MetricManager.Enabled;
-            IDisposable hashes = null, tracing = null, report = null, processorState = null, inputBoundary = null;
+            IDisposable hashes = null, tracing = null, report = null, processorState = null, inputBoundary = null, inputObservation = null;
             Exception failure = null;
             IList<Artifact> artifacts = null;
             DocumentProcessor processor = null;
@@ -525,9 +541,18 @@ namespace NewModCompiler.Application
                 BuildPlan cachePlan = null; CacheInputSnapshot cacheInputs = null;
                 string processContract = null; BuildAssetCache assetCache = null; SessionPackage sessionPackage = null;
                 bool packageRestored = false;
+                CacheDependencyManifest dependencies = null;
                 if (buildCacheEnabled || sessionCacheEnabled)
                 {
                     inputBoundary = CacheInputBoundary.Begin(sdkRoot, modRoot, runtime);
+                    if (buildCacheEnabled && !sessionCacheEnabled)
+                    {
+                        dependencies = new CacheDependencyManifest(cancellation);
+                        // Native and directory-selection readers are not yet a
+                        // certified closed set. The manifest is evidence only.
+                        dependencies.ReportUnknownRead("native-and-directory-read-closure-not-certified");
+                        inputObservation = CacheInputBoundary.BeginObservation(dependencies.Probe, dependencies.OpenRead, dependencies.ReportUnknownRead);
+                    }
                     cachePlan = new BuildPlan { PlanKind = "CoreCacheStream.v2", Tasks = new[] { context.Task } };
                     cacheInputs = CaptureInputs(cachePlan, runtime, cancellation);
                     inputHashBytes += cacheInputs.HashedBytes;
@@ -625,6 +650,20 @@ namespace NewModCompiler.Application
                     inputHashBytes += finalInputs.HashedBytes;
                     if (cacheInputs.Fingerprint != finalInputs.Fingerprint || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal))
                         throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Build-cache inputs or process resolution contract changed during compilation.");
+                    if (dependencies != null)
+                    {
+                        dependencies.ValidateCurrent(cancellation);
+                        string directory = Path.Combine(staging, "read-closure"); Directory.CreateDirectory(directory);
+                        string key = dependencies.Write(Path.Combine(directory, "dependencies.bin"));
+                        if (dependencyStore == null) dependencyStore = ActionAssetCache.CreateReadClosureStore(outputRoot);
+                        dependencyStore.Stage(key, directory, cancellation);
+                        dependencyStreams++; dependencyProbes += dependencies.ProbeCount; dependencyFiles += dependencies.FileCount;
+                        dependencyUnknownReads += dependencies.UnknownReadCount;
+                        dependencyReadBytes += dependencies.ReadBytes; dependencyValidationBytes += dependencies.ValidationBytes;
+                        dependencyManifestBytes += dependencies.ManifestBytes; dependencyManifestKeys.Add(key);
+                        dependencyReadTicks += dependencies.ReadTicks; dependencyValidationTicks += dependencies.ValidationTicks;
+                        dependencySerializationTicks += dependencies.SerializationTicks;
+                    }
                     if (sessionCacheEnabled)
                     {
                         cache.SaveCache(false);
@@ -658,6 +697,7 @@ namespace NewModCompiler.Application
                 try { if (hashes != null) hashes.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (processorState != null) processorState.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (tracing != null) tracing.Dispose(); } catch (Exception error) { cleanup.Add(error); }
+                try { if (inputObservation != null) inputObservation.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (inputBoundary != null) inputBoundary.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 Settings.Current = previousSettings;
                 MetricManager.Enabled = previousMetrics;
@@ -703,7 +743,7 @@ namespace NewModCompiler.Application
         {
             if (cacheCompleted || cacheCommitted) return;
             long started = Stopwatch.GetTimestamp();
-            try { if (actionCache != null) actionCache.Commit(); foreach (BuildAssetCache cache in assetCaches) cache.Commit(); foreach (SessionPackage package in sessionPackages) package.Commit(); cacheCommitted = true; }
+            try { if (actionCache != null) actionCache.Commit(); if (dependencyStore != null) dependencyStore.Commit(); foreach (BuildAssetCache cache in assetCaches) cache.Commit(); foreach (SessionPackage package in sessionPackages) package.Commit(); cacheCommitted = true; }
             catch (Exception error)
             {
                 Exception failure = error;
@@ -717,6 +757,7 @@ namespace NewModCompiler.Application
             if (cacheCompleted) return;
             var failures = new List<Exception>(); var retained = new List<BuildAssetCache>();
             try { if (actionCache != null) { actionCache.Dispose(); AccumulateActionCacheMetrics(); actionCache = null; } } catch (Exception error) { failures.Add(error); }
+            try { if (dependencyStore != null) { dependencyStore.Dispose(); AccumulateDependencyMetrics(); dependencyStore = null; } } catch (Exception error) { failures.Add(error); }
             foreach (BuildAssetCache cache in assetCaches)
                 try { cache.Dispose(); } catch (Exception error) { failures.Add(error); retained.Add(cache); }
             assetCaches.Clear(); assetCaches.AddRange(retained);
@@ -730,9 +771,15 @@ namespace NewModCompiler.Application
         {
             if (cacheCompleted || !cacheCommitted) return;
             if (actionCache != null) { actionCache.Complete(); actionCache.Dispose(); AccumulateActionCacheMetrics(); actionCache = null; }
+            if (dependencyStore != null) { dependencyStore.Complete(); dependencyStore.Dispose(); AccumulateDependencyMetrics(); dependencyStore = null; }
             foreach (BuildAssetCache cache in assetCaches) cache.Complete();
             foreach (SessionPackage package in sessionPackages) package.Complete();
             assetCaches.Clear(); sessionPackages.Clear(); cacheCompleted = true;
+        }
+        void AccumulateDependencyMetrics()
+        {
+            completedDependencyHashBytes += dependencyStore.HashReadBytes;
+            completedDependencyCopyBytes += dependencyStore.CopyBytes;
         }
         void AccumulateActionCacheMetrics()
         {

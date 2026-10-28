@@ -271,7 +271,7 @@ public class DocumentProcessor
 		Exception failure = null;
 		try
 		{
-			if (!File.Exists(fileName))
+			if (!CacheInputBoundary.FileExists(fileName))
 			{
 				throw new BinaryAssetBuilderException(ErrorCode.InputXmlFileNotFound, "File {0} not found", fileName);
 			}
@@ -359,7 +359,7 @@ public class DocumentProcessor
 				schema = XmlSchema.Read(schemaStream, null);
 			}
 			BinaryAssetBuilderProject binaryAssetBuilderProject = null;
-			using (XmlReader xmlReader = XmlReader.Create(projectPath))
+			using (XmlReader xmlReader = CacheInputBoundary.CreateXmlReader(projectPath))
 			{
 				xmlReader.Settings.Schemas.Add(schema);
 				try
@@ -655,6 +655,7 @@ public class DocumentProcessor
 		string text = ShPath.Canonicalize(Path.Combine(Settings.Current.OutputDirectory, sourcePathFromRoot));
 		if (File.Exists(text))
 		{
+			CacheInputBoundary.ReportUnknownRead(text);
 			Manifest manifest = new Manifest();
 			List<string> list = new List<string>();
 			if (baseStreamSearchPaths != null)
