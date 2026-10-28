@@ -132,6 +132,14 @@ owner 在任务准入处最多每100ms重新采样一次；本 stream 的预算�
 
 XML/Audio 初始组已完成有界实施与验收，机器资源组也已完成最新完整验收；后续从下列真实剩余范围继续。续接只需读本页、[REFACTOR_RESUME](../REFACTOR_RESUME.md)和相应最新运行；按失败步骤取原始日志，不重新全仓调研。成果在 [draft PR #17](https://github.com/wu162/NewSdk/pull/17)，目标compiler-main；禁止强推，未经用户明确批准不合入。全部编译/测试在GitHub Actions；文档整理不触发Windows构建。
 
+## 可选真实仓库 MOD 计量
+
+`refactor-cache-payload-replay.yml` 的 `repository_mod_metrics=true` 在完整payload/协议重放之外追加计量，默认关闭，不增加普通生产矩阵负载。必须显式指定已完整成功的生产 source/run/attempt/artifact/SHA256，并通过既有祖先、完整闭包、构建/链接配方、API成功范围和运行文件校验；不能用较旧生产源码的归档验证新生产输入。
+
+每配置使用原仓库 `SDK/Mods/mymod` 的未精简副本与真实完整SDK，固定development/loose/base/jobs=1、sc=false、Additional关闭及原资源根顺序。运行无缓存、空动作缓存、三次热运行、私有副本仅Additional变化；保留六次CLI原始报告/事件和严格四文件逐字节对照。SDK全部文件、完整MOD和五个运行文件均保存实际字节指纹并在结束时复核，准备/哈希/归档成本不混入CLI计时。报告分别记录产品与控制器耗时、真实后端调用、hash/read/copy、预算与边界采样内存。
+
+仓库MOD仅7文件约996KiB，这不是大型MOD基准；OS文件缓存未控制，“空缓存”仅指动作缓存为空。Additional不进入loose输出，此例只证明编译命中与流字节不变，不是封装性能或封装字节差分。保留未认证owner调用的实际计数，不靠要求所有热运行零调用掩盖未开放资格；不按耗时阈值放行、不推断通用加速倍率。`92b7925e`的[guards 40658122856](https://github.com/wu162/NewSdk/actions/runs/40658122856)已success，真实归档计量仍待首次运行结果。
+
 ## 后续验证效率要求
 
 本轮正确性门槛已有通过证据，但必要测试分批补充、过重动画夹具及重复完整构建降低了执行效率。用户再次要求提高效率，后续统一按 [EFFICIENCY的批次规则](../EFFICIENCY.md#验证批次与触发决策) 执行：先准备完整能力组与必要回归，在CI长链接前完成夹具预检；检查点普通推送不自动触发全量；失败集中定位和修复。保留严格字节对照、真实调用重叠、取消/异常、事务和适用SDK/发行门槛，不能靠删断言或放宽超时减少失败。
