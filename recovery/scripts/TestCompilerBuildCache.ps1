@@ -1,13 +1,14 @@
 #requires -Version 7.0
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory=$true)][string]$CompilerDirectory,
+    [string]$CompilerDirectory,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
-    [ValidateRange(15,600)][int]$TimeoutSeconds=180
+    [ValidateRange(15,600)][int]$TimeoutSeconds=180,
+    [switch]$Preflight
 )
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
-$CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path
+if(!$Preflight){$CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path}
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite build-cache evidence: $OutputDirectory"}
 $out=(New-Item -ItemType Directory -Path $OutputDirectory).FullName
 $short=(New-Item -ItemType Directory -Path (Join-Path $env:RUNNER_TEMP ('c'+[Guid]::NewGuid().ToString('N').Substring(0,8)))).FullName
@@ -73,7 +74,7 @@ function MakeMod([string]$Path,[string]$Probe){
     [IO.File]::WriteAllText("$Path/Data/Armor.xml",$Probe,[Text.UTF8Encoding]::new($false))
     # XML/Armor, PathMusicEvent and file-backed APT exercise independent action
     # identities. Texture remains a real uncacheable compatibility call.
-    [IO.File]::WriteAllText("$Path/Data/Mod.xml",'<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xi="http://www.w3.org/2001/XInclude"><Includes><Include type="all" source="Armor.xml"/></Includes><xi:include href="XArmor.xml"/><WeaponTemplate id="BuildCacheWeapon" AttackRange="101"/><GameObject id="BuildCacheObject" ThreatLevel="1.0"/><Texture id="BuildCacheTexture" File="cache.tga" Type="StandardTexture" GenerateMipMaps="false" OutputFormat="A8R8G8B8" AllowAutomaticResize="false"/><PathMusicEvent id="CacheEvent" PathfinderEventHeader="events.h" IsXferable="true"/></AssetDeclaration>')
+    [IO.File]::WriteAllText("$Path/Data/Mod.xml",'<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xi="http://www.w3.org/2001/XInclude"><Includes><Include type="all" source="Armor.xml"/></Includes><xi:include href="XArmor.xml"/><WeaponTemplate id="BuildCacheWeapon" AttackRange="101"/><GameObject id="BuildCacheObject" ThreatLevel="1.0"><Body><InactiveBody id="BuildCacheBody"/></Body></GameObject><Texture id="BuildCacheTexture" File="cache.tga" Type="StandardTexture" GenerateMipMaps="false" OutputFormat="A8R8G8B8" AllowAutomaticResize="false"/><PathMusicEvent id="CacheEvent" PathfinderEventHeader="events.h" IsXferable="true"/></AssetDeclaration>')
     [IO.File]::WriteAllText("$Path/Data/XArmor.xml",'<ArmorTemplate xmlns="uri:ea.com:eala:asset" id="XIncludeArmor" Default="22.5%"/>')
     [IO.File]::WriteAllText("$Path/Data/events.h","#define PATH_EVENT_CacheEvent 0x12345678`r`n")
     & python "$root/recovery/probes/TextureRedirect/MakeFixture.py" "$Path/Data/cache.tga"
@@ -142,6 +143,36 @@ function OriginalOracle($Case,[string]$Name){
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production action-cache CLI acceptance: XML/Armor, Weapon, GameObject, PathMusicEvent and file-backed APT with noncached Texture; exact single-action invalidation, unread Additional, complete raw four outputs, original BAB, same-length/same-mtime changes, MOD reuse boundaries, actual cancellation and failure/retry; /sc and full SDK remain separate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
+    if($Preflight){
+        $probe=[IO.File]::ReadAllText("$root/SDK/Mods/mymod/Data/RecoveryArmorProbe.xml")
+        MakeMod (Join-Path $short 'm') $probe
+        $check=@'
+import pathlib, runpy, sys
+from lxml import etree as E
+scripts=pathlib.Path(sys.argv[1]); work=pathlib.Path(sys.argv[2])/'m'
+module=runpy.run_path(str(scripts/'GenerateXmlSdkModA.py'), run_name='action_cache_schema')
+schema=module['aggregate_schema'](); ns={'ea':'uri:ea.com:eala:asset'}
+main=E.parse(str(work/'Data/Mod.xml')); main.xinclude(); schema.assertValid(main)
+for name in ('Data/Armor.xml','Data/AptUI/Payload.xml'):
+    schema.assertValid(E.parse(str(work/name)))
+assert len(main.xpath('/ea:AssetDeclaration/ea:GameObject/ea:Body/ea:InactiveBody[@id="BuildCacheBody"]',namespaces=ns))==1
+assert len(main.xpath('/ea:AssetDeclaration/ea:WeaponTemplate[@id="BuildCacheWeapon"]',namespaces=ns))==1
+assert b'AttackRange="101"' in (work/'Data/Mod.xml').read_bytes()
+assert b'ThreatLevel="1.0"' in (work/'Data/Mod.xml').read_bytes()
+assert b'72.5%' in (work/'Data/Armor.xml').read_bytes()
+assert b'22.5%' in (work/'Data/XArmor.xml').read_bytes()
+assert b'0x12345678' in (work/'Data/events.h').read_bytes()
+assert len((work/'Data/AptUI/payload.bin').read_bytes())==7
+assert b'monitorPaths="..\\"' in (module['ROOT']/'SDK/tools/BinaryAssetBuilder.exe.config').read_bytes()
+assert b'elementFormDefault="qualified"' in (module['S']/'AssetTypeTexture.xsd').read_bytes()
+print('PASS action-cache fixture XSD, required GameObject Body, Weapon/Armor/XInclude, external reads and mutation tokens')
+'@
+        & python -c $check $PSScriptRoot $short *> "$out/fixture-preflight.log"
+        if($LASTEXITCODE -ne 0){Get-Content "$out/fixture-preflight.log" -Tail 30|Out-Host}
+        Need ($LASTEXITCODE -eq 0) 'Action-cache fixture preflight failed'
+        $state.preflight=$true;$state.scope='Source-XSD and mutation-token fixture preflight only; no production execution';$state.succeeded=$true;$global:LASTEXITCODE=0
+        return
+    }
     Need (!(Test-Path -LiteralPath (Join-Path $CompilerDirectory 'reuse.json'))) 'Build-cache acceptance requires current production EXE bytes'
 
     $state.testSourceCommit=$state.sourceCommit;$state.binarySourceCommit=$state.sourceCommit

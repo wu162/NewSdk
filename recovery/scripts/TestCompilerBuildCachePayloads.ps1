@@ -1,13 +1,14 @@
 #requires -Version 7.0
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory=$true)][string]$CompilerDirectory,
+    [string]$CompilerDirectory,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
-    [ValidateRange(15,600)][int]$TimeoutSeconds=180
+    [ValidateRange(15,600)][int]$TimeoutSeconds=180,
+    [switch]$Preflight
 )
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
-$CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path
+if(!$Preflight){$CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path}
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite build-cache payload evidence: $OutputDirectory"}
 $out=(New-Item -ItemType Directory -Path $OutputDirectory).FullName
 $short=(New-Item -ItemType Directory -Path (Join-Path $env:RUNNER_TEMP ('p'+[Guid]::NewGuid().ToString('N').Substring(0,8)))).FullName
@@ -174,6 +175,37 @@ function ParallelEvidence($Case){
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native overlap with jobs2; not a new original-DLL/SDK gate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
+    if($Preflight){
+        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p')
+        $check=@'
+import pathlib, runpy, sys
+from lxml import etree as E
+scripts=pathlib.Path(sys.argv[1]); work=pathlib.Path(sys.argv[2])
+module=runpy.run_path(str(scripts/'GenerateXmlSdkModA.py'), run_name='action_payload_schema')
+schema=module['aggregate_schema'](); ns={'ea':'uri:ea.com:eala:asset'}
+for path in sorted(work.glob('*/Data/*.xml')):
+    schema.assertValid(E.parse(str(path)))
+audio=E.parse(str(work/'a/Data/Mod.xml'))
+assert sorted(audio.xpath('/ea:AssetDeclaration/ea:AudioFile/@PCCompression',namespaces=ns))==['NONE','XAS']
+assert len((work/'a/Audio/probe.wav').read_bytes())==44+4096*2*2
+assert (work/'a/Audio/probe.wav').read_bytes()==(work/'a/Audio/stable.wav').read_bytes()
+assert b'FrameRate="30"' in (work/'w/Data/W3xAnimation.xml').read_bytes()
+animations=[]
+for name in ('ParallelLong','ParallelShort'):
+    node=E.parse(str(work/('p/Data/'+name+'.xml'))).getroot()[0]
+    frames=int(node.get('NumFrames')); channels=node.find('ea:Channels',ns)
+    assert 16*1024*1024 <= frames*len(channels)*256 <= 64*1024*1024
+    assert max(len(channel) for channel in channels)<frames
+    animations.append(node.get('id'))
+assert len(set(animations))==2
+print('PASS payload fixture XSD, independent PCM/XAS reads, CDATA sources, W3X mesh/animation and bounded sparse cross-document animation expansion')
+'@
+        & python -c $check $PSScriptRoot $short *> "$out/fixture-preflight.log"
+        if($LASTEXITCODE -ne 0){Get-Content "$out/fixture-preflight.log" -Tail 30|Out-Host}
+        Need ($LASTEXITCODE -eq 0) 'Action-cache payload fixture preflight failed'
+        $state.preflight=$true;$state.scope='Source-XSD, exact source-byte and parallel resource-estimate fixture preflight only; no production execution';$state.succeeded=$true;$global:LASTEXITCODE=0
+        return
+    }
     Need (!(Test-Path -LiteralPath (Join-Path $CompilerDirectory 'reuse.json'))) 'Payload cache acceptance requires current production EXE bytes'
 
     $state.testSourceCommit=$state.sourceCommit;$state.binarySourceCommit=$state.sourceCommit

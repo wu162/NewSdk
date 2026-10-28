@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Script.Serialization;
 using System.Xml;
+using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 using NewModCompiler.Application;
 
@@ -181,14 +183,99 @@ public static class CompilerPreparedBackend
         }
         finally { ((IDisposable)prepared).Dispose(); }
     }
+    static void CommitRejected(BinaryAsset asset, string label)
+    {
+        bool rejected = false;
+        try { asset.Commit(); }
+        catch (BinaryAssetBuilderException error) { rejected = error.ErrorCode == ErrorCode.DependencyCacheFailure; }
+        Require(rejected, "An unauthenticated " + label + " must not commit through a legacy result location");
+    }
+    static void BinaryAssetAuthorization(string work)
+    {
+        Settings previous = Settings.Current;
+        bool previousMetrics = EALA.Metrics.MetricManager.Enabled;
+        using (DocumentProcessor.BeginStateScope())
+        try
+        {
+            EALA.Metrics.MetricManager.Enabled = false;
+            string root = Path.Combine(work, "asset-authorization");
+            Settings.Current = new Settings { TargetPlatform = TargetPlatform.Win32, BigEndian = false,
+                BuildCache = true, BuildCacheDirectory = Path.Combine(root, "legacy-cache"), CustomPostfix = "" };
+            // BinaryAsset's ordinary logging expects a real traversal frame.
+            var frames = (Stack<string>)typeof(DocumentProcessor).GetField("_CurrentDocumentStack",
+                BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+            frames.Push("PreparedBackend authorization fixture:");
+            using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
+            {
+                var processor = new DocumentProcessor(Settings.Current, plugins.Registry,
+                    new VerifierPluginRegistry(new PluginDescriptor[0], TargetPlatform.Win32));
+                var output = new OutputManager(processor, null, Path.Combine(root, "output"),
+                    Path.Combine(root, "intermediate"), null, null, null);
+                var declaration = Declaration("W3DAnimation", "GuardAnimation", Namespaces());
+                var plugin = plugins.Registry.GetPlugin(declaration.Handle.TypeId);
+                Metadata(declaration, plugin);
+                ((XmlElement)declaration.Node).SetAttribute("NumFrames", "1");
+                ((XmlElement)declaration.Node).SetAttribute("FrameRate", "30");
+                var first = plugin.ProcessInstance(declaration);
+                Require(first != null && first.InstanceData != null, "Guard fixture must execute the real W3X backend");
+                var asset = output.GetBinaryAsset(declaration, true);
+                asset.Buffer = first;
+                Require(asset.Commit() == AssetLocation.Memory, "Seed must use the real legacy memory commit");
+                processor.AddLastWrittenAsset(asset);
+                string path = Path.Combine(asset.AssetOutputDirectory, asset.AssetFileName);
+                byte[] oldOutput = File.ReadAllBytes(path);
+                var oldLocations = asset.GetLocation(AssetLocation.All,
+                    AssetLocationOption.ReturnAll | AssetLocationOption.ForceUpdate);
+                Require((oldLocations & AssetLocation.Output) != 0 && (oldLocations & AssetLocation.Local) != 0 && (oldLocations & AssetLocation.Cache) != 0,
+                    "Guard fixture must contain actual old Output, Local and persistent Cache bytes");
+
+                asset.BeginExecution("action-A");
+                Require(asset.GetLocation(AssetLocation.All, AssetLocationOption.ReturnAll | AssetLocationOption.ForceUpdate) == AssetLocation.None,
+                    "Beginning an action must mask all three pre-existing legacy result sources");
+                CommitRejected(asset, "missing buffer");
+                ((XmlElement)declaration.Node).SetAttribute("FrameRate", "60");
+                var second = plugin.ProcessInstance(declaration);
+                asset.Buffer = second;
+                Require(asset.GetLocation(AssetLocation.All, AssetLocationOption.None) == AssetLocation.None,
+                    "Installing buffers without source authorization must not make Memory or old Output trusted");
+                CommitRejected(asset, "installed buffer");
+                bool wrongIdentity = false;
+                try { asset.AuthorizeExecutionResult("action-B", new string('b', 64)); }
+                catch (InvalidOperationException) { wrongIdentity = true; }
+                Require(wrongIdentity, "An action must reject a complete result carrying another action's identity");
+                string digest;
+                using (var bytes = new MemoryStream())
+                using (var sha = SHA256.Create())
+                {
+                    bytes.Write(second.InstanceData, 0, second.InstanceData.Length);
+                    bytes.Write(second.RelocationData, 0, second.RelocationData.Length);
+                    bytes.Write(second.ImportsData, 0, second.ImportsData.Length);
+                    digest = BitConverter.ToString(sha.ComputeHash(bytes.ToArray())).Replace("-", "").ToLowerInvariant();
+                }
+                asset.AuthorizeExecutionResult("action-A", digest);
+                Require(asset.GetLocation(AssetLocation.All, AssetLocationOption.None) == AssetLocation.Memory,
+                    "Authorized Memory must take precedence over stale Output/Local/Cache");
+                Require(asset.Commit() == AssetLocation.Memory, "Commit must install the authorized replacement rather than reselect old Output");
+                Require(!Convert.ToBase64String(File.ReadAllBytes(path)).Equals(Convert.ToBase64String(oldOutput), StringComparison.Ordinal),
+                    "The real output asset must change after the different authorized backend result");
+                Require(asset.GetLocation(AssetLocation.All, AssetLocationOption.ReturnAll) == AssetLocation.Output,
+                    "Only this action's committed output may remain selectable after Memory is released");
+                asset.BeginExecution("action-C");
+                Require(asset.GetLocation(AssetLocation.All, AssetLocationOption.ReturnAll) == AssetLocation.None,
+                    "Reusing an OutputManager's BinaryAsset must revoke the prior action authorization");
+                CommitRejected(asset, "subsequent action");
+            }
+        }
+        finally { Settings.Current = previous; EALA.Metrics.MetricManager.Enabled = previousMetrics; }
+    }
     public static int Main(string[] args)
     {
         try
         {
-            Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); W3xBudget(); SchemaDefaults();
+            Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); W3xBudget(); SchemaDefaults(); BinaryAssetAuthorization(args[0]);
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new {
                 succeeded = true, sourceCommit = args[2], runId = args[3], checks,
-                scope = "Actual prepared input isolation, native APT content lease, exact external invalidation and W3X expansion budget; cross-document overlap is checked separately"
+                scope = "Actual prepared input isolation, native APT content lease, exact external invalidation, schema defaults, W3X expansion budget and real BinaryAsset Output/Local/Cache authorization guard; cross-document overlap is checked separately"
             }));
             Console.WriteLine("PASS PreparedBackend: " + checks + " assertions"); return 0;
         }

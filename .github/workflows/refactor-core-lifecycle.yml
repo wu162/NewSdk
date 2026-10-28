@@ -145,6 +145,10 @@ jobs:
           if($LASTEXITCODE -ne 0){throw 'BIG fixture/parser preflight failed'}
           ./recovery/scripts/TestCompilerSessionCache.ps1 -Preflight -OutputDirectory recovery/artifacts/session-fixture-preflight
           if($LASTEXITCODE -ne 0){throw 'Session-cache fixture preflight failed'}
+          ./recovery/scripts/TestCompilerBuildCache.ps1 -Preflight -OutputDirectory recovery/artifacts/action-fixture-preflight
+          if($LASTEXITCODE -ne 0){throw 'Action-cache fixture preflight failed'}
+          ./recovery/scripts/TestCompilerBuildCachePayloads.ps1 -Preflight -OutputDirectory recovery/artifacts/action-payload-preflight
+          if($LASTEXITCODE -ne 0){throw 'Action-cache payload fixture preflight failed'}
           ./recovery/scripts/TestCompilerCliOutputs.ps1 -OutputDirectory recovery/artifacts/cli-output-preflight
           if($LASTEXITCODE -ne 0){throw 'CLI output contract preflight failed'}
           ./recovery/scripts/BuildCompilerCliControl.ps1 -OutputDirectory recovery/artifacts/cli-controller-preflight
@@ -292,6 +296,8 @@ jobs:
             recovery/artifacts/cli-controller-preflight/**
             recovery/artifacts/cli-output-preflight/**
             recovery/artifacts/session-fixture-preflight/**
+            recovery/artifacts/action-fixture-preflight/**
+            recovery/artifacts/action-payload-preflight/**
             recovery/artifacts/core-lifecycle-foundation/**/build.json
             recovery/artifacts/core-lifecycle-foundation/**/*.log
             recovery/artifacts/core-lifecycle-product/**/build.json
