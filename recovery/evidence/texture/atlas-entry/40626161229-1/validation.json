@@ -1,0 +1,65 @@
+{
+  "sourceCommit": "699479a95c73012f5e66b74a3d7d1e43f1d8b51f",
+  "nativeBinaries": [
+    {
+      "entryPoint": 0,
+      "sha256": "c8088950bf896f7087f49e7c72eb7699c68aef9256775d746949dece83fb54a6",
+      "importDirectory": 0,
+      "machine": "I386",
+      "configuration": "Debug"
+    },
+    {
+      "name": "Recovered.TextureDxtAlpha.dll",
+      "sha256": "a4bdf9679abb63e95681b24d51398c0ce31ff877cd46b763c7d508963f5bcb60",
+      "entryPoint": 0,
+      "machine": "I386",
+      "importDirectory": 0,
+      "configuration": "Debug"
+    },
+    {
+      "entryPoint": 0,
+      "sha256": "f3b91fc9c7b842f7a91d9d27a1f066df9c0595e60a91a5201bac0f34347bc504",
+      "importDirectory": 0,
+      "machine": "I386",
+      "configuration": "Release"
+    },
+    {
+      "name": "Recovered.TextureDxtAlpha.dll",
+      "sha256": "8217ebcee759b5ff4f74ed7759d1b4b932be9b53b591ff47af5290feb060909c",
+      "entryPoint": 0,
+      "machine": "I386",
+      "importDirectory": 0,
+      "configuration": "Release"
+    }
+  ],
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture PC atlas entry fixtures=48 decoded=40 rejected=8 checks=1623 comparedBytes=84513604; full instance/relo/imports, exact exceptions, XML/cdata/source invariance; per-call original absent and not loaded"
+      ],
+      "passed": true,
+      "configuration": "Debug"
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture PC atlas entry fixtures=48 decoded=40 rejected=8 checks=1623 comparedBytes=84513604; full instance/relo/imports, exact exceptions, XML/cdata/source invariance; per-call original absent and not loaded"
+      ],
+      "passed": true,
+      "configuration": "Release"
+    }
+  ],
+  "additionalSamplesSha256": "63e0e6b5889ae42303652cb3bf2724c2bafb31adef326061ff32d5f4ced8cafe",
+  "sdkValidated": false,
+  "scope": "PC TerrainTextureAtlas full plugin entry: immutable 25-case original corpus plus 23 patterned/file/strtoul cases; full runtime/DDS/relo/imports/error/unchanged input and cdata, per-call isolated replay; SDK separate",
+  "probeOnly": false,
+  "runId": "40626161229",
+  "status": "passed",
+  "originalBaseline": {
+    "samplesSha256": "644f33f05f16d2e304d65d732b04bdefcabbfa091dbb274c2b60a1a46cb106e2",
+    "sourceCommit": "056937b13fa39431ec9171b0d990e6a5c15a013c",
+    "runId": "40599993769"
+  },
+  "runAttempt": "1"
+}

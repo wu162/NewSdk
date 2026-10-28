@@ -1,0 +1,109 @@
+{
+  "groups": [
+    {
+      "group": "base",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "images",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "mip-images",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "volume-images",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "volume-mip-images",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "raster-images",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "dxt-images",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "npot-rgba8",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "npot-storage-replay",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "npot-storage-stress-replay",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "atlas-entry",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "jpeg",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "jpeg-images",
+      "passed": true,
+      "evidenceOnly": false
+    }
+  ],
+  "status": "passed",
+  "reused": [
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "png",
+    "bmp",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "atlas-dds"
+  ],
+  "runAttempt": "1",
+  "sourceCommit": "699479a95c73012f5e66b74a3d7d1e43f1d8b51f",
+  "selected": [
+    "base",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "raster-images",
+    "dxt-images",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-entry",
+    "jpeg",
+    "jpeg-images"
+  ],
+  "runId": "40626161229"
+}
