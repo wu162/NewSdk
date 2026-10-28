@@ -1,0 +1,6 @@
+recovery\tests\TextureJpegLoadProbe.cs(17,24): warning CS0169: The field 'TextureJpegLoadProbe.fixtures' is never used
+recovery\tests\TextureJpegLoadProbe.cs(17,34): warning CS0169: The field 'TextureJpegLoadProbe.mismatches' is never used
+recovery\tests\TextureJpegLoadProbe.cs(17,58): warning CS0169: The field 'TextureJpegLoadProbe.unsupportedCount' is never used
+recovery\tests\TextureJpegLoadProbe.cs(17,76): warning CS0169: The field 'TextureJpegLoadProbe.originalFailures' is never used
+recovery\tests\TextureJpegLoadProbe.cs(17,94): warning CS0169: The field 'TextureJpegLoadProbe.rejectionMatches' is never used
+recovery\tests\TextureJpegLoadProbe.cs(17,112): warning CS0169: The field 'TextureJpegLoadProbe.decodedMatches' is never used

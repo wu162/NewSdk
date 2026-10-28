@@ -1,0 +1,1 @@
+PROBE Texture PC JPEG original records=1284 decoded=1280 rejected=4 originalCalls=2568 checks=12815 exactByMode=272,1154,274,272,1274,274; modes ISLOW/IFAST/FLOAT box then fancy; original pixel/exception evidence only, no plugin or SDK acceptance
