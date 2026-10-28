@@ -3,7 +3,9 @@
 
 This never builds production or treats preparation as candidate acceptance. Only
 an explicitly identified successful run is accepted; failed-run partial reuse is
-deliberately unsupported. Current payload and protocol tests remain mandatory.
+deliberately unsupported. The default purpose requires current payload/protocol
+tests; the separate upheaval-metrics purpose only measures an already accepted
+runtime and never grants candidate payload, SDK or release acceptance.
 
 This entry is not pinned to a historical binary source. Once the complete Core
 lifecycle run succeeds, dispatch refactor-cache-payload-replay.yml on the current
@@ -52,6 +54,16 @@ MUTABLE = {
     'recovery/REFACTOR_RESUME.md', 'recovery/COMPILER_USAGE.md',
     'recovery/docs/CACHE_PARALLEL.md', 'recovery/docs/CACHE_PARALLEL_EVIDENCE.json',
 }
+UPHEAVAL_SCRIPTS = (
+    'recovery/scripts/TestCompilerUpheavalMetrics.ps1',
+    'recovery/scripts/PrepareUpheavalInputs.py',
+)
+UPHEAVAL_MUTABLE = set(UPHEAVAL_SCRIPTS) | {
+    '.github/workflows/refactor-upheaval-cache-metrics.yml',
+}
+PURPOSES = ('payload', 'upheaval-metrics')
+UPHEAVAL_REF = 'refs/heads/test/upheaval-cache-parallel-20261028'
+UPHEAVAL_PROFILE_KEYS = {'source_commit', 'run_id', 'run_attempt', 'artifact_id', 'archive_sha256'}
 REQUIRED_STEPS = {
     'Build full production combination and verify deployment and route metadata',
     'Targeted real Core, backend and application pipeline in Debug and Release',
@@ -61,7 +73,42 @@ REQUIRED_STEPS = {
 }
 
 
-def closure(repo, source, candidate):
+def resolve_upheaval_profile(message, reference, dispatch=None):
+    """Resolve inert event data; an ordinary push never requests a product run."""
+    if dispatch is None:
+        markers = [message.count('[upheaval-preflight]'), message.count('[upheaval-measure-once]')]
+        require(sum(markers) <= 1, 'Upheaval markers must be unique and mutually exclusive')
+        if sum(markers) == 0:
+            return dict(run_measure='false')
+        lines = [line for line in message.splitlines() if line.startswith('UpheavalProfile:')]
+        require(len(lines) == 1 and lines[0].startswith('UpheavalProfile: '), 'One explicit UpheavalProfile JSON line is required')
+        def unique(pairs):
+            result = {}
+            for key, value in pairs:
+                require(key not in result, 'Duplicate profile key')
+                result[key] = value
+            return result
+        profile = json.loads(lines[0][len('UpheavalProfile: '):], object_pairs_hook=unique)
+        preflight = 'true' if markers[0] else 'false'
+    else:
+        require(isinstance(dispatch, dict) and set(dispatch) == UPHEAVAL_PROFILE_KEYS | {'preflight_only'}, 'Dispatch profile keys differ')
+        profile = {key: dispatch[key] for key in UPHEAVAL_PROFILE_KEYS}
+        preflight = dispatch['preflight_only']
+        require(preflight in ('true', 'false'), 'Dispatch preflight must be an explicit boolean')
+    require(reference == UPHEAVAL_REF, 'Measurements require the dedicated test branch')
+    require(isinstance(profile, dict) and set(profile) == UPHEAVAL_PROFILE_KEYS, 'Profile must contain exactly five reviewed keys')
+    require(isinstance(profile['source_commit'], str) and re.fullmatch(r'[0-9a-f]{40}', profile['source_commit']), 'Full lowercase production source SHA required')
+    require(isinstance(profile['archive_sha256'], str) and re.fullmatch(r'[0-9a-f]{64}', profile['archive_sha256']), 'Full lowercase archive SHA256 required')
+    for key in ('run_id', 'run_attempt', 'artifact_id'):
+        value = profile[key]
+        require(type(value) in (str, int) and re.fullmatch(r'[1-9][0-9]*', str(value)), 'Positive decimal profile identity required')
+        profile[key] = str(value)
+    return dict(profile, run_measure='true', preflight_only=preflight)
+
+
+def closure(repo, source, candidate, purpose='payload'):
+    require(purpose in PURPOSES, 'Unreviewed replay purpose')
+    mutable = MUTABLE | (UPHEAVAL_MUTABLE if purpose == 'upheaval-metrics' else set())
     for commit in (source, candidate):
         require(re.fullmatch('[0-9a-f]{40}', commit), 'Use full lowercase commit SHAs')
         git(repo, 'cat-file', '-e', commit + '^{commit}')
@@ -76,9 +123,24 @@ def closure(repo, source, candidate):
     changed = []
     for index in range(0, len(rows) - 1, 2):
         status, path = rows[index:index + 2]
-        require(status in ('M', 'A') and path in MUTABLE, 'Non-replay input changed: ' + path)
+        require(status in ('M', 'A') and path in mutable, 'Non-replay input changed: ' + path)
         changed.append(path)
     return sorted(changed)
+
+
+def measurement_scripts(repo, candidate, purpose):
+    require(purpose in PURPOSES, 'Unreviewed replay purpose')
+    if purpose == 'payload':
+        return []
+    rows = []
+    for path in UPHEAVAL_SCRIPTS:
+        # Identity comes from the exact candidate Git object as well as the
+        # consumed bytes. An untracked lookalike cannot become an authorized tool.
+        committed = git(repo, 'show', candidate + ':' + path)
+        actual = (Path(repo) / path).read_bytes()
+        require(actual == committed, 'Measurement script differs from candidate: ' + path)
+        rows.append(dict(path=path, sha256=digest(actual)))
+    return rows
 
 
 def profile_identity(profile):
@@ -125,8 +187,9 @@ def safe_zip(z):
         seen.add(name.casefold())
 
 
-def validate_archive(z, profile):
-    """Validate immutable receipts and bytes; return only six runtime payloads."""
+def validate_archive(z, profile, purpose='payload'):
+    """Validate both accepted configurations; stage only exact approved bytes."""
+    require(purpose in PURPOSES, 'Unreviewed replay purpose')
     safe_zip(z)
     source = profile['binarySourceCommit']
     run, attempt = str(profile['runId']), str(profile['runAttempt'])
@@ -186,10 +249,12 @@ def validate_archive(z, profile):
         for row in inventory:
             data = z.read(prefix + 'bin/' + row['name'])
             require(row.get('bytes') == len(data) and row.get('sha256') == digest(data), 'Runtime hash mismatch: ' + row['name'])
-            if row['name'] in RUNTIME:
+            staged = FIVE_RUNTIME if purpose == 'upheaval-metrics' else RUNTIME
+            if row['name'] in staged:
                 path = mode + '/bin/' + row['name']
                 payload[path] = data
                 files.append({'path': path, 'sha256': digest(data)})
+            if row['name'] in RUNTIME:
                 runtime_inputs = accepted['core-cli'][mode].get('runtimeInputs', {})
                 cli_hashes = [sha for name, sha in runtime_inputs.items()
                               if name.replace('\\', '/').lstrip('/') == row['name']]
@@ -204,9 +269,10 @@ def validate_archive(z, profile):
     return payload, files, receipts, toolchains
 
 
-def prepare(archive, profile, candidate, output, repo):
+def prepare(archive, profile, candidate, output, repo, purpose='payload'):
     profile_identity(profile)
-    changed = closure(repo, profile['binarySourceCommit'], candidate)
+    changed = closure(repo, profile['binarySourceCommit'], candidate, purpose)
+    scripts = measurement_scripts(repo, candidate, purpose)
     with Path(archive).open('rb') as stream:
         hasher = hashlib.sha256()
         for block in iter(lambda: stream.read(1024 * 1024), b''):
@@ -214,14 +280,17 @@ def prepare(archive, profile, candidate, output, repo):
         require(hasher.hexdigest() == profile['archiveSha256'], 'Archive SHA256 mismatch')
         stream.seek(0)
         with zipfile.ZipFile(stream) as z:
-            payload, files, receipts, toolchains = validate_archive(z, profile)
+            payload, files, receipts, toolchains = validate_archive(z, profile, purpose)
     receipt = dict(schemaVersion=1, prepared=True, candidateValidated=False, productionSourcesUnchanged=True,
+                   purpose=purpose, measurementScripts=scripts,
                    binarySourceCommit=profile['binarySourceCommit'], testSourceCommit=candidate,
                    profile=profile, archivePath=str(Path(archive).resolve()), archiveSha256=profile['archiveSha256'],
                    runId=str(profile['runId']), runAttempt=str(profile['runAttempt']),
                    files=files, originalReceipts=receipts, toolchains=toolchains, changedPaths=changed,
                    testScriptSha256=digest((Path(repo) / 'recovery/scripts/TestCompilerBuildCachePayloads.ps1').read_bytes()),
-                   scope='Successful original production archive; current payload/protocol tests required; no production rebuild')
+                   scope=('Successful original production archive; current payload/protocol tests required; no production rebuild'
+                          if purpose == 'payload' else
+                          'Successful production archive for isolated Upheaval measurements only; no production rebuild or new payload/SDK/release acceptance'))
     output = Path(output)
     require(not output.exists(), 'Refusing to replace replay output')
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -250,13 +319,14 @@ def check_api(profile):
              api(f'repos/{REPOSITORY}/actions/runs/{run_id}/attempts/{attempt}/jobs?per_page=100'), profile)
 
 
-def verify_prepared(receipt_path, candidate, repo):
+def verify_prepared(receipt_path, candidate, repo, purpose='payload'):
     path = Path(receipt_path)
     row = json.loads(path.read_text(encoding='utf-8'))
+    require(purpose in PURPOSES and row.get('purpose') == purpose, 'Replay purpose mismatch')
     profile = row['profile']
     check_api(profile)
     with tempfile.TemporaryDirectory(prefix='verify-cache-replay-') as directory:
-        expected = prepare(row['archivePath'], profile, candidate, Path(directory) / 'verified', repo)
+        expected = prepare(row['archivePath'], profile, candidate, Path(directory) / 'verified', repo, purpose)
     require(row == expected, 'Replay preparation receipt differs from independently verified archive/closure')
     for identity in row['files']:
         require(digest((path.parent / identity['path']).read_bytes()) == identity['sha256'], 'Prepared runtime hash mismatch')
@@ -268,22 +338,23 @@ def main():
     for name in ('repo', 'candidate-commit'):
         parser.add_argument('--' + name, required=True)
     parser.add_argument('--verify-prepared')
+    parser.add_argument('--purpose', choices=PURPOSES, default='payload')
     for name in ('source-commit', 'run-id', 'run-attempt', 'artifact-id', 'archive-sha256', 'archive', 'output'):
         parser.add_argument('--' + name)
     args = parser.parse_args()
     try:
         if args.verify_prepared:
-            receipt = verify_prepared(args.verify_prepared, args.candidate_commit, args.repo)
+            receipt = verify_prepared(args.verify_prepared, args.candidate_commit, args.repo, args.purpose)
         else:
             profile = dict(binarySourceCommit=args.source_commit, runId=int(args.run_id), runAttempt=int(args.run_attempt),
                            artifactId=int(args.artifact_id), archiveSha256=args.archive_sha256)
             profile_identity(profile)
-            closure(args.repo, profile['binarySourceCommit'], args.candidate_commit)
+            closure(args.repo, profile['binarySourceCommit'], args.candidate_commit, args.purpose)
             check_api(profile)
             with Path(args.archive).open('xb') as stream:
                 subprocess.run(['gh', 'api', f'repos/{REPOSITORY}/actions/artifacts/{profile["artifactId"]}/zip'],
                                check=True, stdout=stream, stderr=subprocess.PIPE)
-            receipt = prepare(args.archive, profile, args.candidate_commit, args.output, args.repo)
+            receipt = prepare(args.archive, profile, args.candidate_commit, args.output, args.repo, args.purpose)
         print(json.dumps({k: receipt[k] for k in ('prepared', 'candidateValidated', 'binarySourceCommit', 'testSourceCommit', 'runId')}))
     except (ValueError, OSError, KeyError, TypeError, zipfile.BadZipFile, subprocess.CalledProcessError) as error:
         parser.exit(1, 'Cache payload replay rejected: ' + type(error).__name__ + '\n')

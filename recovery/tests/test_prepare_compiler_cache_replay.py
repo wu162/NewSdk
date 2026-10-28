@@ -61,6 +61,43 @@ class GitFixture(unittest.TestCase):
 
 
 class ClosureTests(GitFixture):
+    def test_upheaval_tools_are_exact_and_purpose_scoped(self):
+        for path in sorted(replay.UPHEAVAL_MUTABLE):
+            self.git('reset', '--hard', self.candidate)
+            self.commit(path, 'reviewed isolated benchmark tool\n')
+            candidate = self.git('rev-parse', 'HEAD').strip()
+            with self.subTest(path=path):
+                self.assertIn(path, replay.closure(self.repo, self.source, candidate, 'upheaval-metrics'))
+                with self.assertRaises(ValueError):
+                    replay.closure(self.repo, self.source, candidate)
+        for path in ('recovery/scripts/UnreviewedUpheaval.py', 'SDK/Mods/Upheaval/Data/Mod.xml',
+                     '.github/workflows/refactor-core-lifecycle.yml'):
+            self.git('reset', '--hard', self.candidate)
+            self.commit(path, 'unreviewed input\n')
+            with self.subTest(path=path), self.assertRaises(ValueError):
+                replay.closure(self.repo, self.source, self.git('rev-parse', 'HEAD').strip(), 'upheaval-metrics')
+
+    def test_unknown_purpose_and_nonancestor_upheaval_rejected(self):
+        for purpose in ('', None, 'release', 'Upheaval', '../upheaval-metrics'):
+            with self.subTest(purpose=purpose), self.assertRaises(ValueError):
+                replay.closure(self.repo, self.source, self.candidate, purpose)
+        with self.assertRaises(subprocess.CalledProcessError):
+            replay.closure(self.repo, self.candidate, self.source, 'upheaval-metrics')
+
+    def test_upheaval_tool_identity_requires_committed_exact_bytes(self):
+        for path in replay.UPHEAVAL_SCRIPTS:
+            self.commit(path, 'reviewed benchmark script\n')
+        candidate = self.git('rev-parse', 'HEAD').strip()
+        rows = replay.measurement_scripts(self.repo, candidate, 'upheaval-metrics')
+        self.assertEqual([row['path'] for row in rows], list(replay.UPHEAVAL_SCRIPTS))
+        for row in rows:
+            self.assertEqual(row['sha256'], replay.digest((self.repo / row['path']).read_bytes()))
+        (self.repo / replay.UPHEAVAL_SCRIPTS[0]).write_bytes(b'tampered uncommitted benchmark')
+        with self.assertRaises(ValueError):
+            replay.measurement_scripts(self.repo, candidate, 'upheaval-metrics')
+        with self.assertRaises(subprocess.CalledProcessError):
+            replay.measurement_scripts(self.repo, self.candidate, 'upheaval-metrics')
+
     def test_only_candidate_payload_changes_accepted(self):
         self.assertEqual(replay.closure(self.repo, self.source, self.candidate),
                          ['recovery/scripts/TestCompilerBuildCachePayloads.ps1'])
@@ -158,6 +195,50 @@ class ProfileTests(unittest.TestCase):
                     replay.profile_identity(dict(valid, **{key: value}))
 
 
+class UpheavalEventTests(unittest.TestCase):
+    def setUp(self):
+        self.profile = dict(source_commit='a' * 40, run_id='123', run_attempt='1',
+                            artifact_id=456, archive_sha256='b' * 64)
+
+    def resolve(self, profile=None, marker='[upheaval-preflight]', reference=None):
+        message = marker + '\n\nUpheavalProfile: ' + json.dumps(self.profile if profile is None else profile)
+        return replay.resolve_upheaval_profile(message, replay.UPHEAVAL_REF if reference is None else reference)
+
+    def test_ordinary_push_never_runs_measurement(self):
+        self.assertEqual(replay.resolve_upheaval_profile('ordinary checkpoint', replay.UPHEAVAL_REF), {'run_measure': 'false'})
+
+    def test_marked_profile_selects_preflight_or_one_measurement(self):
+        row = self.resolve()
+        self.assertEqual(row['run_measure'], 'true')
+        self.assertEqual(row['preflight_only'], 'true')
+        self.assertEqual(row['artifact_id'], '456')
+        self.assertEqual(self.resolve(marker='[upheaval-measure-once]')['preflight_only'], 'false')
+
+    def test_ambiguous_marker_missing_duplicate_profile_or_wrong_branch_rejected(self):
+        for marker in ('[upheaval-preflight] [upheaval-measure-once]', '[upheaval-preflight] [upheaval-preflight]'):
+            with self.subTest(marker=marker), self.assertRaises(ValueError): self.resolve(marker=marker)
+        for message in ('[upheaval-preflight]', '[upheaval-preflight]\nUpheavalProfile: {}\nUpheavalProfile: invalid',
+                        '[upheaval-preflight]\nUpheavalProfile: {"run_id":1,"run_id":2}'):
+            with self.subTest(message=message), self.assertRaises(ValueError):
+                replay.resolve_upheaval_profile(message, replay.UPHEAVAL_REF)
+        with self.assertRaises(ValueError): self.resolve(reference='refs/heads/compiler-main')
+
+    def test_profile_has_only_exact_hex_and_positive_decimal_fields(self):
+        for key, values in (('source_commit', ['HEAD', 'A' * 40, 'a' * 39, None, 123]),
+                            ('archive_sha256', ['B' * 64, 'b' * 63, '../archive', None]),
+                            ('run_id', [0, -1, True, 1.0, '01', '1\nother=value', '$(exit)'])):
+            for value in values:
+                with self.subTest(key=key, value=value), self.assertRaises(ValueError):
+                    self.resolve(dict(self.profile, **{key: value}))
+        for profile in (dict(self.profile, extra='unreviewed'), {k: v for k, v in self.profile.items() if k != 'run_id'}, []):
+            with self.subTest(profile=profile), self.assertRaises(ValueError): self.resolve(profile)
+
+    def test_dispatch_requires_explicit_boolean_and_same_profile_rules(self):
+        dispatch = dict(self.profile, preflight_only='true')
+        self.assertEqual(replay.resolve_upheaval_profile('', replay.UPHEAVAL_REF, dispatch)['preflight_only'], 'true')
+        for value in (True, None, 'yes', ''):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                replay.resolve_upheaval_profile('', replay.UPHEAVAL_REF, dict(dispatch, preflight_only=value))
 class MetadataTests(unittest.TestCase):
     def setUp(self):
         self.profile = dict(binarySourceCommit='a' * 40, runId=123, runAttempt=1,
@@ -378,9 +459,54 @@ class ArchiveTests(GitFixture):
                 archive.writestr(name, data)
         self.profile['archiveSha256'] = replay.digest(self.archive.read_bytes())
 
-    def prepare(self):
+    def prepare(self, purpose='payload'):
         self.write_archive()
-        return replay.prepare(self.archive, self.profile, self.candidate, self.output, self.repo)
+        return replay.prepare(self.archive, self.profile, self.candidate, self.output, self.repo, purpose)
+
+    def upheaval_candidate(self):
+        for path in sorted(replay.UPHEAVAL_MUTABLE):
+            self.commit(path, 'reviewed isolated benchmark tool\n')
+        self.candidate = self.git('rev-parse', 'HEAD').strip()
+
+    def test_upheaval_receipt_binds_exact_scripts_and_rechecks_original_archive(self):
+        self.upheaval_candidate()
+        receipt = self.prepare('upheaval-metrics')
+        self.assertEqual(receipt['purpose'], 'upheaval-metrics')
+        self.assertFalse(receipt['candidateValidated'])
+        self.assertEqual(receipt['measurementScripts'], replay.measurement_scripts(self.repo, self.candidate, 'upheaval-metrics'))
+        expected = [mode + '/bin/' + name for mode in ('Debug', 'Release') for name in replay.FIVE_RUNTIME]
+        self.assertEqual(sorted(row['path'] for row in receipt['files']), sorted(expected))
+        for row in receipt['files']:
+            self.assertEqual((self.output / row['path']).read_bytes(), self.entries['artifacts/core-lifecycle-product/' + row['path']])
+        path = self.output / 'cache-payload-replay.json'
+        with patch.object(replay, 'check_api') as api:
+            self.assertEqual(replay.verify_prepared(path, self.candidate, self.repo, 'upheaval-metrics'), receipt)
+        api.assert_called_once_with(self.profile)
+        with patch.object(replay, 'check_api'), self.assertRaisesRegex(ValueError, 'purpose mismatch'):
+            replay.verify_prepared(path, self.candidate, self.repo)
+        for mutate in (lambda row: row.update(purpose='payload'),
+                       lambda row: row['measurementScripts'][0].update(sha256='0' * 64),
+                       lambda row: row['measurementScripts'].pop(),
+                       lambda row: row['measurementScripts'][0].update(path='recovery/scripts/Other.ps1')):
+            changed = copy.deepcopy(receipt); mutate(changed)
+            path.write_text(json.dumps(changed))
+            with self.subTest(receipt=changed), patch.object(replay, 'check_api'), self.assertRaises(ValueError):
+                replay.verify_prepared(path, self.candidate, self.repo, 'upheaval-metrics')
+        path.write_text(json.dumps(receipt))
+        (self.output / 'Release/bin/NewModCompiler.exe').write_bytes(b'tampered benchmark runtime')
+        with patch.object(replay, 'check_api'), self.assertRaises(ValueError):
+            replay.verify_prepared(path, self.candidate, self.repo, 'upheaval-metrics')
+
+    def test_upheaval_still_rejects_bad_digest_or_incomplete_production_acceptance(self):
+        self.upheaval_candidate()
+        self.write_archive()
+        self.profile['archiveSha256'] = '0' * 64
+        with self.assertRaisesRegex(ValueError, 'SHA256 mismatch'):
+            replay.prepare(self.archive, self.profile, self.candidate, self.output, self.repo, 'upheaval-metrics')
+        self.change_json('evidence/refactor/cache-payloads/123-1/validation.json', lambda row: row.update(succeeded=False))
+        with self.assertRaises(ValueError):
+            self.prepare('upheaval-metrics')
+        self.assertFalse(self.output.exists())
 
     def test_valid_archive_extracts_exactly_six_files_and_separate_sources(self):
         receipt = self.prepare()
