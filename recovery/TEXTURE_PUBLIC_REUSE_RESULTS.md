@@ -162,3 +162,9 @@ rejected x87, lower-budget or broad-floor matrices unchanged. Do not substitute
 visually better blocks or use runtime outlier-ID/payload lookup. Once complete
 byte equality is obtained, preserve full float, image/mip/volume/atlas/plugin
 and dedicated SDK Original/Recovered/NoOriginal acceptance before merge.
+
+## S3 fully accepted after source adaptation
+
+Final clean integration source705af33817d97c1a10557914e9dd80c1f3d31efe / Actions40649825971 passed8 complete affected component groups in Debug/Release with NoOriginal;24 unchanged groups reused. SDK source867e7d38a17f82f42aa4c2f12ff387fca2ca78c0 / Actions40650835181 passed all9 profiles:13104 assets and actual Core calls per mode, four outputs and complete traces identical across Original/Recovered/NoOriginal. All32 component groups were reused in SDK validation. Full source/input domain, consumer counts and independently checked hashes are in TEXTURE_PUBLIC_S3.md and TEXTURE_PUBLIC_S3_ACCEPTANCE.json.
+
+This closes all27 original full-block differences and the downstream filtered/partial quick-index snapshot mismatch. Only adapted S3 source and explicit legacy gray constants are included in the clean integration; other failed public candidates remain isolated. Source fingerprints and original notices are retained. Production SDK DLL/config and complete mymod deployment remain unchanged/separate.

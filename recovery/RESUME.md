@@ -1,3 +1,16 @@
+# 最新：公开 S3 适配与完整 PC 消费/SDK 已验收
+
+仅PC、禁止强推、编译测试仅GitHub Actions。原剩余27块已全部修复；默认DXT3/DXT5完整块均5120/5120、alpha全部一致。干净集成分支 `validation/texture-public-s3` 只引入S3族与明确来源的固定灰度常量，其他失败公开候选留 `validation/texture-public-codecs`。
+
+- 组件源码 `705af33817d97c1a10557914e9dd80c1f3d31efe` / [40649825971](https://github.com/wu162/NewSdk/actions/runs/40649825971) completed/success：8个实际受影响完整组，D/R及NoOriginal通过；24个未变成功组复用。每配置10240完整块、4752 float/partial、3072二维DDS/mips、5568 volume/mips、19404插件、160 atlas DDS、48 atlas入口、11248 JPEG插件，完整字节/错误域/三缓冲区/cdata/逐次隔离断言保留。
+- SDK源码 `867e7d38a17f82f42aa4c2f12ff387fca2ca78c0` / [40650835181](https://github.com/wu162/NewSdk/actions/runs/40650835181) completed/success：9个profile全部通过，32组件组复用。Original/Recovered/NoOriginal各13104资产、13104实际Core调用，四产物与完整实际轨迹一致，NoOriginal隔离通过。组件与SDK之间只有证据变化，不把复用锚点改写为新跑。独立核对四产物实际SHA与归档完整轨迹，见 [验收核对](TEXTURE_PUBLIC_S3_ACCEPTANCE.json)。
+- 一般规则：强制四色前设工作级数4；S3搜索保留rounded插值，最终评分/reindex用floor；float快速候选在评分前保存投影索引快照；保留x87评分中间值；RGB单色判断使用精确相等。没有样本ID分派、gold产物表或原/既有恢复编码器回调。源码上游/修改前后指纹及明确灰度常量来源在 `src/TextureCompiler/PublicS3/PROVENANCE.json` 与 PATCHES.md；其中初建时pending描述为历史上下文，当前验收以本节收据为准。
+- 新完整/float/partial编码路径使用 `Recovered.TexturePublicS3.dll` 的RGB和DXT5 alpha；DXT3显式4-bit打包及原partial映射规则保留。既有独立颜色/alpha恢复API/证据未改，不作为新后端的回退。所有真实消费者已维护依赖表和native构建/复制入口。
+
+本批以普通快进合入 `recovery/texturecompiler-source`；目标源树与上述验收保持相同，保留Actions回写及失败历史，不重复测试未变成功组。生产SDK DLL/config未替换，专用MOD不冒充完整mymod/生产部署。后续仅剩原默认DXT1/1A未初始化边界、未声明图像/metadata及完整生产集成等独立事项；不要重跑已闭环的27块、x87架构/预算/broad-floor旧实验。详细实现与门槛见 [S3适配](TEXTURE_PUBLIC_S3.md)。
+
+以下为历史交接，由本节覆盖当前状态。
+
 # TextureCompiler 公开源码适配续接（2026-10-28，最新完整矩阵5093/5120）
 
 目标贴图分支 `recovery/texturecompiler-source`；独立实验 `validation/texture-public-codecs`。仅PC、禁止强推、编译测试仅GitHub Actions。用户澄清：**修改拿来的源码，使产物一致**；不只是原样比较后放弃。测试分支修改和原版gold全量比较持续推进，完整相同后还需消费/SDK门槛才合入；生产SDK DLL/config未替换。
