@@ -16,7 +16,8 @@ try{
  for($process=0;$process -lt 3;$process++){
   Checked "process-$process" {& "$work/TextureDxt1BoundaryProbe.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/samples/process-$process"}
   if(@(Get-ChildItem "$out/samples/process-$process/dds" -File).Count -ne 1280){throw 'Incomplete original process corpus'}
-  Copy-Item "$out/samples/process-$process/transcript.tsv","$out/samples/process-$process/variations.tsv" $out -ErrorAction SilentlyContinue
+  Copy-Item "$out/samples/process-$process/transcript.tsv" "$out/process-$process-transcript.tsv"
+  Copy-Item "$out/samples/process-$process/variations.tsv" "$out/process-$process-variations.tsv"
   $r.processes+=@{process=$process;fixtureCount=1280;summary=@(Get-Content "$out/process-$process.log"|Where-Object{$_ -match '^PROBE '})}
  }
  $r.fixtureCount=3840

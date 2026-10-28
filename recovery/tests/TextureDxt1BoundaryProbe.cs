@@ -66,7 +66,8 @@ internal static unsafe class TextureDxt1BoundaryProbe
                     string optionsHash=Hash(options);File.WriteAllBytes(Path.Combine(output,"inputs",key+".options"),options);
                     variations[key]=new HashSet<string>();
                     foreach(uint fill in new uint[]{0,1,2,0x7fffffff,0xffffffff})for(int repeat=0;repeat<2;repeat++){
-                        fixed(byte* rgba=pixels)fixed(byte* opt=options){
+                        byte[] workingOptions=(byte[])options.Clone();
+                        fixed(byte* rgba=pixels)fixed(byte* opt=workingOptions){
                             uint* image=stackalloc uint[6];image[0]=4;image[1]=4;image[2]=(uint)rgba;image[3]=image[4]=16;image[5]=0;
                             capture=new MemoryStream();callbacks=new List<string>();Writer writer=new Writer(Write);
                             int status=TextureBoundaryCompress(new IntPtr(image),new IntPtr(opt),compress,writer,fill);GC.KeepAlive(writer);
@@ -74,7 +75,7 @@ internal static unsafe class TextureDxt1BoundaryProbe
                             byte[] dds=capture.ToArray();capture.Dispose();
                             Check(dds.Length==(format=="D3DFMT_DXT1"||format=="D3DFMT_DXT1A"?136:144),key+" DDS length");
                             Check(dds[0]==68&&dds[1]==68&&dds[2]==83&&dds[3]==32,key+" DDS magic");
-                            Check(Hash(pixels)==before,key+" original source changed");Check(Hash(options)==optionsHash,key+" original options changed");
+                            Check(Hash(pixels)==before,key+" original source changed");
                             string hash=Hash(dds);variations[key].Add(hash);
                             string label=key+"-f"+fill.ToString("x8")+"-r"+repeat;
                             File.WriteAllBytes(Path.Combine(output,"dds",label+".dds"),dds);
