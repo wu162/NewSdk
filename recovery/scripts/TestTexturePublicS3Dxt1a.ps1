@@ -12,7 +12,7 @@ try{
   Checked "$configuration-native" {& "$PSScriptRoot/BuildTexturePublicS3.ps1" -Destination "$work/$configuration" -Configuration $configuration}
   $r.nativeBinaries=@($r.nativeBinaries|Where-Object{$_})+@((Get-Content "$work/$configuration/PublicS3-native.json" -Raw|ConvertFrom-Json))
   $opt=if($configuration -eq 'Release'){'/optimize+'}else{'/optimize-'}
-  Checked "$configuration-build" {& $csc /nologo /unsafe /platform:x86 $opt /out:"$work/TexturePublicS3Dxt1aComparison.exe" (Resolve-Path recovery/tests/TexturePublicS3Dxt1aComparison.cs).Path}
+  Checked "$configuration-build" {& $csc /nologo /unsafe /platform:x86 $opt /out:"$work/TexturePublicS3Dxt1aComparison.exe" (Resolve-Path recovery/tests/TexturePublicS3Dxt1aComparison.cs).Path (Resolve-Path recovery/tests/TexturePublicS3Dxt1aExperimental.cs).Path}
   '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TexturePublicS3Dxt1aComparison.exe.config"
   Checked "$configuration-original" {& "$work/TexturePublicS3Dxt1aComparison.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/$configuration-transcript.tsv" "$work/$configuration/Recovered.TexturePublicS3.dll"}
   $isolated="$work/isolated-$configuration";New-Item -ItemType Directory -Force $isolated|Out-Null
@@ -20,7 +20,7 @@ try{
   Checked "$configuration-isolated" {& "$isolated/TexturePublicS3Dxt1aComparison.exe" --replay "$out/$configuration-transcript.tsv.records" "$isolated/Recovered.TexturePublicS3.dll"}
   $r.configurations+=@{configuration=$configuration;comparisonCompleted=$true;withoutOriginalTextureCompiler=$true;summary=@(Get-Content "$out/$configuration-original.log","$out/$configuration-isolated.log"|Where-Object{$_ -match '^COMPARISON '})}
  }
- $files=@(Get-ChildItem $out -File|Where-Object {$_.Name -match '-transcript[.]tsv([.]records)?$'})
+ $files=@(Get-ChildItem $out -File|Where-Object {$_.Name -match '-transcript[.]tsv([.]records|[.]options)?$'})
  Compress-Archive -Path $files.FullName -DestinationPath "$out/comparison.zip"
  $r.archiveSha256=(Get-FileHash "$out/comparison.zip").Hash.ToLowerInvariant();$files|Remove-Item
  $r.status='comparison-completed'
