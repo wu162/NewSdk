@@ -109,7 +109,7 @@ public static class CompilerPreparedBackend
         try
         {
             before = Identity(prepared);
-            Require(!Value<bool>(prepared, "CanRunParallel"), "XML parallelism must remain separately gated");
+            Require(Value<bool>(prepared, "CanRunParallel"), "Bounded leased APT XML must be certified for independent backend execution");
             Denied(delegate { using (var writer = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.ReadWrite)) { } }, "a writer");
             Denied(delegate { File.Delete(path); }, "deletion");
             Denied(delegate { File.Move(path, path + ".moved"); }, "rename");
@@ -139,6 +139,69 @@ public static class CompilerPreparedBackend
         finally { ((IDisposable)prepared).Dispose(); }
         File.Delete(path);
         Require(Prepare(instance, plugin) == null, "A missing APT read must use the compatibility path rather than an incomplete identity");
+    }
+    static void EqualBuffers(AssetBuffer expected, AssetBuffer actual, string type)
+    {
+        Require(expected != null && actual != null, "Backend buffers must exist for " + type);
+        byte[][] left = { expected.InstanceData, expected.RelocationData, expected.ImportsData };
+        byte[][] right = { actual.InstanceData, actual.RelocationData, actual.ImportsData };
+        for (int array = 0; array < left.Length; array++)
+        {
+            Require(left[array] != null && right[array] != null && left[array].Length == right[array].Length, "Prepared three-buffer lengths differ for " + type);
+            for (int i = 0; i < left[array].Length; i++)
+                Require(left[array][i] == right[array][i], "Prepared three-buffer raw byte differs for " + type);
+        }
+    }
+    sealed class UnknownAudioCompiler : BinaryAssetBuilder.AudioCompiler.IAudioFileCompiler
+    {
+        public AssetBuffer CompileAudioFile(InstanceDeclaration declaration, TargetPlatform platform)
+        { throw new InvalidOperationException("Preparation must never execute an untrusted injected compiler"); }
+    }
+    static void ParallelQualification(string work)
+    {
+        string input = Path.Combine(work, "qualified-audio.wav");
+        using (var stream = File.Create(input))
+        using (var writer = new BinaryWriter(stream))
+        {
+            writer.Write(Encoding.ASCII.GetBytes("RIFF")); writer.Write(52);
+            writer.Write(Encoding.ASCII.GetBytes("WAVEfmt ")); writer.Write(16);
+            writer.Write((short)1); writer.Write((short)1); writer.Write(22050); writer.Write(44100);
+            writer.Write((short)2); writer.Write((short)16); writer.Write(Encoding.ASCII.GetBytes("data")); writer.Write(16);
+            for (int i = 0; i < 8; i++) writer.Write((short)(i * 127));
+        }
+        var audio = new BinaryAssetBuilder.AudioCompiler.Plugin(); audio.Initialize(null, TargetPlatform.Win32);
+        var declaration = Declaration("AudioFile", "QualifiedAudio", Namespaces()); Metadata(declaration, audio);
+        ((XmlElement)declaration.Node).SetAttribute("File", input);
+        ((XmlElement)declaration.Node).SetAttribute("PCCompression", "XAS");
+        object prepared = Prepare(declaration, audio);
+        try { Require(prepared != null && Value<bool>(prepared, "CanRunParallel"), "Known bounded recovered AudioFile must be parallel eligible"); }
+        finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
+        ((XmlElement)declaration.Node).SetAttribute("PCSampleRate", "22050");
+        prepared = Prepare(declaration, audio);
+        try { Require(prepared != null && !Value<bool>(prepared, "CanRunParallel"), "Explicit sample-rate processing must retain its owner-only budget contract"); }
+        finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
+        ((XmlElement)declaration.Node).RemoveAttribute("PCSampleRate");
+        var unknown = new BinaryAssetBuilder.AudioCompiler.Plugin(new UnknownAudioCompiler()); unknown.Initialize(null, TargetPlatform.Win32);
+        Require(Prepare(declaration, unknown) == null, "Injected AudioFile compiler must not inherit recovered cache or parallel certification");
+        using (var stream = new FileStream(input, FileMode.Open, FileAccess.Write)) stream.SetLength(2L * 1024L * 1024L);
+        prepared = Prepare(declaration, audio);
+        try { Require(prepared != null && !Value<bool>(prepared, "CanRunParallel") && Value<long>(prepared, "PreparedBytes") > 64L * 1024L * 1024L, "Large audio input must include decoded/encoded working memory in the pool budget"); }
+        finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
+        var xml = new Recovered.XmlPriority.Plugin(); xml.Initialize(null, TargetPlatform.Win32);
+        foreach (string type in new[] { "AudioEventLimitGroup", "AudioLOD", "AudioSettings", "Video", "VideoEventList", "MicrophoneSettings", "BootupDisplaySequence" })
+        {
+            declaration = Declaration(type, "Qualified" + type, Namespaces()); Metadata(declaration, xml);
+            prepared = Prepare(declaration, xml);
+            try
+            {
+                Require(prepared != null && Value<bool>(prepared, "CanRunParallel"), "Audited XML metadata root must retain independent backend eligibility: " + type);
+                EqualBuffers(xml.ProcessInstance(declaration), Execute(prepared), type);
+            }
+            finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
+        }
+        // File length affects retention even though this fixture never executes
+        // invalid large WAV contents. Only the lease/qualification is exercised.
+        File.Delete(input);
     }
     static void W3xBudget()
     {
@@ -500,7 +563,7 @@ public static class CompilerPreparedBackend
     {
         try
         {
-            Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); BinaryAssetAuthorization(args[0]);
+            Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); ParallelQualification(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); BinaryAssetAuthorization(args[0]);
             RepeatedIncludeAndInheritance(args[0], args[4]);
             CancelInFlight(args[0], args[4]);
             NativeWorkerFailure(args[0], args[4]);

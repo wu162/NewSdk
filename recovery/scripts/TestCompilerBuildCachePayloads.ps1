@@ -19,9 +19,30 @@ function Within([string]$Directory,[string]$Path){
     $path.StartsWith($directory+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)
 }
 function EqualBytes([string]$Left,[string]$Right){
-    $leftBytes=[IO.File]::ReadAllBytes($Left);$rightBytes=[IO.File]::ReadAllBytes($Right)
-    Need ($leftBytes.Length -eq $rightBytes.Length) 'No-cache/cache artifact lengths differ'
-    for($i=0;$i -lt $leftBytes.Length;$i++){Need ($leftBytes[$i] -eq $rightBytes[$i]) "No-cache/cache raw artifact byte differs at $i"}
+    # Preserve strict byte equality while avoiding one PowerShell function call
+    # per byte on the multi-MiB real APT payload. No hash-only acceptance.
+    if(!('PayloadRawBytes' -as [type])){
+        Add-Type -TypeDefinition @'
+using System;
+using System.IO;
+public static class PayloadRawBytes {
+    public static bool Equal(string a, string b) {
+        using (var left = File.OpenRead(a)) using (var right = File.OpenRead(b)) {
+            if (left.Length != right.Length) return false;
+            byte[] first = new byte[65536], second = new byte[65536];
+            int count;
+            while ((count = left.Read(first, 0, first.Length)) != 0) {
+                int read = 0;
+                while (read < count) { int n = right.Read(second, read, count - read); if (n == 0) return false; read += n; }
+                for (int i = 0; i < count; i++) if (first[i] != second[i]) return false;
+            }
+            return right.ReadByte() == -1;
+        }
+    }
+}
+'@
+    }
+    Need ([PayloadRawBytes]::Equal($Left,$Right)) 'Serial/parallel/cache raw artifact bytes differ'
 }
 function SameOutputs($Left,$Right){
     Need ($Left.files.Count -eq $Right.files.Count) 'No-cache/cache artifact counts differ'
@@ -109,19 +130,26 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
     }
 }
 function Put([string]$Path,[string]$Text){New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($Path))|Out-Null;[IO.File]::WriteAllText($Path,$Text)}
-function MakeWave([string]$Path){
+function MakeWave([string]$Path,[int]$Frames=4096){
     # Same known integral PCM source shape as AudioSdkSupport.Wave; no codec,
     # compression library, external encoder or imprecise floating conversion.
     $stream=[IO.File]::Create($Path);$writer=[IO.BinaryWriter]::new($stream)
     try{
-        $frames=4096;$channels=2;$dataBytes=$frames*$channels*2
+        $frames=$Frames;$channels=2;$dataBytes=$frames*$channels*2
         $writer.Write([Text.Encoding]::ASCII.GetBytes('RIFF'));$writer.Write([int](36+$dataBytes));$writer.Write([Text.Encoding]::ASCII.GetBytes('WAVEfmt '))
         $writer.Write([int]16);$writer.Write([int16]1);$writer.Write([int16]$channels);$writer.Write([int]22050);$writer.Write([int](22050*$channels*2));$writer.Write([int16]($channels*2));$writer.Write([int16]16)
         $writer.Write([Text.Encoding]::ASCII.GetBytes('data'));$writer.Write([int]$dataBytes)
         $values=[int16[]](0,1,-1,32767,-32768,0x1234)
-        for($i=0;$i -lt $frames*$channels;$i++){$writer.Write([int16]$values[$i%$values.Length])}
+        # Build one periodic source block, then write whole blocks. This keeps the
+        # fixture setup linear without millions of PowerShell method calls.
+        $block=[byte[]]::new(4096*2*2)
+        for($i=0;$i -lt 4096*2;$i++){
+            $sample=[BitConverter]::GetBytes([int16]$values[$i%$values.Length])
+            $block[2*$i]=$sample[0];$block[2*$i+1]=$sample[1]
+        }
+        for($left=$dataBytes;$left -gt 0;$left-=$block.Length){$writer.Write($block,0,[Math]::Min($left,$block.Length))}
     }finally{$writer.Dispose();$stream.Dispose()}
-    Need ((Get-Item -LiteralPath $Path).Length -eq 44+4096*2*2) 'PCM fixture length differs from its RIFF data size'
+    Need ((Get-Item -LiteralPath $Path).Length -eq 44+$Frames*2*2) 'PCM fixture length differs from its RIFF data size'
 }
 function AudioMod([string]$Path){
     Put "$Path/Data/Mod.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><AudioFile id="BuildCachePcmWave" File="../Audio/probe.wav" PCCompression="NONE" IsStreamedOnPC="false"/><AudioFile id="BuildCacheXasWave" File="../Audio/stable.wav" PCCompression="XAS" IsStreamedOnPC="false"/></AssetDeclaration>'
@@ -165,6 +193,56 @@ function ParallelW3xMod([string]$Path){
     }
     Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
 }
+function ParallelAudioMod([string]$Path){
+    # Streamed XAS bounds each pending buffer; unstreamed giant fixtures would
+    # exercise the encoder's quadratic RemoveRange path rather than concurrency.
+    $includes=''
+    New-Item -ItemType Directory -Path "$Path/Audio" -Force|Out-Null
+    foreach($item in @(@{name='AudioLong';frames=196608},@{name='AudioShort';frames=131072})){
+        MakeWave "$Path/Audio/$($item.name).wav" $item.frames
+        Put "$Path/Data/$($item.name).xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><AudioFile id="'+$item.name+'" File="../Audio/'+$item.name+'.wav" PCCompression="XAS" IsStreamedOnPC="true"/></AssetDeclaration>')
+        $includes+='<Include type="all" source="'+$item.name+'.xml"/>'
+    }
+    Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
+}
+function Mp3Mod([string]$Path){
+    $includes='';$source=[IO.File]::ReadAllText("$root/recovery/tests/AudioMp3Fixtures.cs")
+    New-Item -ItemType Directory -Force -Path "$Path/Audio"|Out-Null
+    foreach($name in @('Mono','Stereo')){
+        $match=[regex]::Match($source,('public const string '+$name+' = "([^"]+)"'))
+        Need $match.Success "Existing MP3 fixture is missing: $name"
+        [IO.File]::WriteAllBytes("$Path/Audio/$name.mp3",[Convert]::FromBase64String($match.Groups[1].Value))
+        Put "$Path/Data/$name.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><AudioFileMP3Passthrough id="Mp3'+$name+'" File="../Audio/'+$name+'.mp3" IsStreamed="true"/></AssetDeclaration>')
+        $includes+='<Include type="all" source="'+$name+'.xml"/>'
+    }
+    Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
+}
+function ParallelXmlMod([string]$Path){
+    $includes=''
+    foreach($item in @(@{name='AptLong';bytes=12*1024*1024},@{name='AptShort';bytes=256*1024})){
+        $input="$Path/Data/$($item.name).bin"
+        New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($input))|Out-Null
+        $stream=[IO.File]::Create($input)
+        try{
+            $block=[byte[]]::new(65536)
+            for($i=0;$i -lt $block.Length;$i++){$block[$i]=[byte]($i%251)}
+            for($left=$item.bytes;$left -gt 0;$left-=$block.Length){$stream.Write($block,0,[Math]::Min($left,$block.Length))}
+        }finally{$stream.Dispose()}
+        Put "$Path/Data/$($item.name).xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><AptAptData id="'+$item.name+'" File="'+$item.name+'.bin"/></AssetDeclaration>')
+        $includes+='<Include type="all" source="'+$item.name+'.xml"/>'
+    }
+    Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
+}
+function CertifiedParallelEvidence($Case,[string]$Type){
+    $cache=$Case.report.cache
+    Need ($cache.requestedJobs -eq 2 -and $cache.cacheMode -ceq 'Disabled' -and $cache.actionHits -eq 0 -and $cache.backendCalls -eq 2 -and $cache.maxBackendConcurrency -eq 2) "Real bounded $Type parallel calls were not observed"
+    $intervals=@($cache.backendIntervals|Where-Object{$_.typeName -ceq $Type})
+    Need ($intervals.Count -eq 2) "Both real $Type backend intervals must be recorded"
+    $left=$intervals[0];$right=$intervals[1]
+    Need ($left.sourcePath -cne $right.sourcePath -and ![string]::IsNullOrWhiteSpace($left.sourcePath) -and ![string]::IsNullOrWhiteSpace($right.sourcePath)) 'Parallel calls must belong to independent source documents'
+    Need ($left.threadId -ne $right.threadId -and $left.startTicks -lt $left.endTicks -and $right.startTicks -lt $right.endTicks -and $left.startTicks -lt $right.endTicks -and $right.startTicks -lt $left.endTicks) "Actual $Type backend invocation intervals did not overlap"
+    return @{passed=$true;requestedJobs=2;maxBackendConcurrency=$cache.maxBackendConcurrency;backendCalls=$cache.backendCalls;intervals=$intervals;scope=('Independent '+$Type+' source documents, real backend overlap with persistent cache disabled, strict serial/parallel raw output comparison')}
+}
 function ParallelEvidence($Case){
     $cache=$Case.report.cache
     Need ($cache.requestedJobs -eq 2 -and $cache.cacheMode -ceq 'Disabled' -and $cache.actionHits -eq 0 -and $cache.maxBackendConcurrency -ge 2 -and $cache.maxBackendConcurrency -le 2) 'Cold no-cache build did not execute bounded real backend concurrency'
@@ -175,11 +253,11 @@ function ParallelEvidence($Case){
     Need ($left.startTicks -lt $left.endTicks -and $right.startTicks -lt $right.endTicks -and $left.startTicks -lt $right.endTicks -and $right.startTicks -lt $left.endTicks) 'Actual cross-document backend call intervals did not overlap'
     return @{passed=$true;requestedJobs=2;maxBackendConcurrency=$cache.maxBackendConcurrency;backendCalls=$cache.backendCalls;intervals=$intervals;scope='One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled'}
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native overlap with jobs2; not a new original-DLL/SDK gate'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native, leased APT XML and streamed XAS AudioFile overlap with jobs2; not a new original-DLL/SDK gate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     if($Preflight){
-        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p')
+        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3')
         $check=@'
 import pathlib, runpy, sys
 from lxml import etree as E
@@ -201,7 +279,23 @@ for name in ('ParallelLong','ParallelShort'):
     assert max(len(channel) for channel in channels)<frames
     animations.append(node.get('id'))
 assert len(set(animations))==2
-print('PASS payload fixture XSD, independent PCM/XAS reads, CDATA sources, W3X mesh/animation and bounded sparse cross-document animation expansion')
+for name,frames in (('AudioLong',196608),('AudioShort',131072)):
+    node=E.parse(str(work/('pa/Data/'+name+'.xml'))).getroot()[0]
+    assert node.tag=='{uri:ea.com:eala:asset}AudioFile'
+    assert node.get('PCCompression')=='XAS' and node.get('IsStreamedOnPC')=='true'
+    data=(work/('pa/Audio/'+name+'.wav')).read_bytes()
+    assert len(data)==44+frames*2*2 and len(data)*64 < 64*1024*1024
+    assert int.from_bytes(data[40:44],'little')==len(data)-44
+for name,size in (('AptLong',12*1024*1024),('AptShort',256*1024)):
+    node=E.parse(str(work/('px/Data/'+name+'.xml'))).getroot()[0]
+    assert node.tag=='{uri:ea.com:eala:asset}AptAptData' and node.get('File')==name+'.bin'
+    assert (work/('px/Data/'+name+'.bin')).stat().st_size==size
+    assert size*4 < 64*1024*1024
+for name in ('Mono','Stereo'):
+    assert len((work/('mp3/Audio/'+name+'.mp3')).read_bytes())>100
+    node=E.parse(str(work/('mp3/Data/'+name+'.xml'))).getroot()[0]
+    assert node.tag=='{uri:ea.com:eala:asset}AudioFileMP3Passthrough'
+print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bounded sparse W3X expansion and streamed Audio/APT cross-document workload budgets')
 '@
         & python -c $check $PSScriptRoot $short *> "$out/fixture-preflight.log"
         if($LASTEXITCODE -ne 0){Get-Content "$out/fixture-preflight.log" -Tail 30|Out-Host}
@@ -236,7 +330,7 @@ print('PASS payload fixture XSD, independent PCM/XAS reads, CDATA sources, W3X m
     }
     $script:control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
     $state.scriptSha256=Hash $PSCommandPath;$state.controllerSha256=Hash $control
-    $state.sourceInputs=@('recovery/tests/AudioSdkSupport.cs','SDK/Mods/W3xRecovery/Data/Animations.xml','SDK/Mods/W3xRecovery/Data/Dependencies.xml','SDK/Mods/W3xRecovery/Data/Meshes.xml')|ForEach-Object{@{path=$_;sha256=(Hash (Join-Path $root $_))}}
+    $state.sourceInputs=@('recovery/tests/AudioSdkSupport.cs','recovery/tests/AudioMp3Fixtures.cs','SDK/Mods/W3xRecovery/Data/Animations.xml','SDK/Mods/W3xRecovery/Data/Dependencies.xml','SDK/Mods/W3xRecovery/Data/Meshes.xml')|ForEach-Object{@{path=$_;sha256=(Hash (Join-Path $root $_))}}
     foreach($mode in @('Debug','Release')){
         $script:modeOut=(New-Item -ItemType Directory -Path (Join-Path $out $mode)).FullName
         $modeWork=(New-Item -ItemType Directory -Path (Join-Path $short $mode.Substring(0,1))).FullName
@@ -256,7 +350,7 @@ print('PASS payload fixture XSD, independent PCM/XAS reads, CDATA sources, W3X m
             $mod=Join-Path $modeWork $family;$cachedOut=Join-Path $modeWork ($family+'-cache');$plainOut=Join-Path $modeWork ($family+'-plain')
             if($family -eq 'audio'){AudioMod $mod;$script:expectedCustomData=2}else{W3xMod $mod;$script:expectedCustomData=0}
             $before=RunCli ($family+'-disabled') $mod $plainOut $false;Cache $before 'disabled'
-            $cold=RunCli ($family+'-cold') $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $before $cold
+            $cold=RunCli ($family+'-cold') $mod $cachedOut $true -Extra @('--jobs=2');Cache $cold 'cold';SameOutputs $before $cold
             $hot=RunCli ($family+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $before $hot
             $hotJobs=RunCli ($family+'-hot-jobs2') $mod $cachedOut $true -Extra @('--jobs=2');Cache $hotJobs 'hot';SameOutputs $before $hotJobs
             Need ($hotJobs.report.cache.requestedJobs -eq 2 -and $hotJobs.report.cache.backendCalls -eq 0 -and $hotJobs.report.cache.maxBackendConcurrency -eq 0) 'Changing jobs invalidated action identities or reported cache hits as actual backend calls'
@@ -271,9 +365,9 @@ print('PASS payload fixture XSD, independent PCM/XAS reads, CDATA sources, W3X m
                 $input="$mod/Data/W3xAnimation.xml";$stamp=[IO.File]::GetLastWriteTimeUtc($input)
                 SameLengthMutation $input 'FrameRate="30"' 'FrameRate="31"'
             }
-            $changed=RunCli ($family+'-content-invalidated') $mod $cachedOut $true;Cache $changed 'partial';DifferentOutputs $hot $changed
+            $changed=RunCli ($family+'-content-invalidated') $mod $cachedOut $true -Extra @('--jobs=2');Cache $changed 'partial';DifferentOutputs $hot $changed
             $changedPlain=RunCli ($family+'-changed-disabled') $mod $plainOut $false;Cache $changedPlain 'disabled';SameOutputs $changedPlain $changed
-            $changedHot=RunCli ($family+'-changed-hot') $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
+            $changedHot=RunCli ($family+'-changed-hot') $mod $cachedOut $true -Extra @('--jobs=2');Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
             if($family -eq 'audio'){
                 $customKeys=@($hot.files.Keys|Where-Object{[IO.Path]::GetExtension($_) -ceq '.cdata'})
                 $changedKeys=@($changed.files.Keys|Where-Object{[IO.Path]::GetExtension($_) -ceq '.cdata'})
@@ -282,7 +376,7 @@ print('PASS payload fixture XSD, independent PCM/XAS reads, CDATA sources, W3X m
             }
             New-Item -ItemType Directory -Force -Path "$mod/Additional"|Out-Null
             [IO.File]::WriteAllText("$mod/Additional/only-package.txt",'not read by any compiler action')
-            $additional=RunCli ($family+'-additional-only') $mod $cachedOut $true;Cache $additional 'hot';SameOutputs $changedPlain $additional
+            $additional=RunCli ($family+'-additional-only') $mod $cachedOut $true -Extra @('--jobs=2');Cache $additional 'hot';SameOutputs $changedPlain $additional
             Need ($additional.report.cache.backendCalls -eq 0) 'Unread Additional member triggered backend compilation in an entirely certified stream'
             $store=Join-Path $cachedOut '.cache/action-cache-v1'
             $entries=@(Get-ChildItem -LiteralPath $store -Directory|Where-Object{$_.Name -cmatch '^[0-9a-f]{64}$'})
@@ -300,14 +394,48 @@ print('PASS payload fixture XSD, independent PCM/XAS reads, CDATA sources, W3X m
                 $bytes=[IO.File]::ReadAllBytes($member.FullName);Need ($bytes.Length -gt 0) 'Expected a nonempty result contract'
                 $bytes[0]=$bytes[0] -bxor 0x7f;[IO.File]::WriteAllBytes($member.FullName,$bytes)
             }
-            $repaired=RunCli ($family+'-damaged-result-repaired') $mod $cachedOut $true;Cache $repaired 'partial';SameOutputs $changedPlain $repaired
-            $repairedHot=RunCli ($family+'-repaired-hot') $mod $cachedOut $true;Cache $repairedHot 'hot';SameOutputs $changedPlain $repairedHot
+            $repaired=RunCli ($family+'-damaged-result-repaired') $mod $cachedOut $true -Extra @('--jobs=2');Cache $repaired 'partial';SameOutputs $changedPlain $repaired
+            $repairedHot=RunCli ($family+'-repaired-hot') $mod $cachedOut $true -Extra @('--jobs=2');Cache $repairedHot 'hot';SameOutputs $changedPlain $repairedHot
             $modeState.fixtures+=,@{family=$family;input=$input;mutatedInputSha256=(Hash $input);sameLengthSameTimestamp=$true;hotAssetHits=$hot.report.cache.hits;changedHotAssetHits=$changedHot.report.cache.hits;completeCustomDataFiles=$script:expectedCustomData;allRawOutputsEqualToIndependentNoCache=$true}
         }
         $parallelMod=Join-Path $modeWork 'parallel';ParallelW3xMod $parallelMod;$script:expectedCustomData=0
         $serial=RunCli 'w3x-parallel-control' $parallelMod (Join-Path $modeWork 'parallel-serial') $false -Extra @('--jobs=1');Cache $serial 'disabled'
         $parallel=RunCli 'w3x-cross-document-parallel' $parallelMod (Join-Path $modeWork 'parallel-jobs2') $false -Extra @('--jobs=2');Cache $parallel 'disabled';SameOutputs $serial $parallel
         $modeState.parallel=ParallelEvidence $parallel
+        $modeState.certifiedParallel=@()
+        foreach($family in @('audio','xml')){
+            $fixture=Join-Path $modeWork ('parallel-'+$family)
+            if($family -eq 'audio'){ParallelAudioMod $fixture;$script:expectedCustomData=2;$type='AudioFile'}
+            else{ParallelXmlMod $fixture;$script:expectedCustomData=0;$type='AptAptData'}
+            $controlCase=RunCli ($family+'-parallel-control') $fixture (Join-Path $modeWork ($family+'-parallel-serial')) $false -Extra @('--jobs=1');Cache $controlCase 'disabled'
+            Need ($controlCase.report.cache.backendCalls -eq 2 -and $controlCase.report.cache.maxBackendConcurrency -eq 1) 'Serial control did not execute exactly two serial real backend calls'
+            $parallelCase=RunCli ($family+'-cross-document-parallel') $fixture (Join-Path $modeWork ($family+'-parallel-jobs2')) $false -Extra @('--jobs=2');Cache $parallelCase 'disabled';SameOutputs $controlCase $parallelCase
+            $modeState.certifiedParallel+=,(CertifiedParallelEvidence $parallelCase $type)
+            $cachedDestination=Join-Path $modeWork ($family+'-parallel-cached')
+            $parallelCold=RunCli ($family+'-parallel-cold') $fixture $cachedDestination $true -Extra @('--jobs=2');Cache $parallelCold 'cold';SameOutputs $controlCase $parallelCold
+            $parallelHot=RunCli ($family+'-parallel-hot') $fixture $cachedDestination $true -Extra @('--jobs=2');Cache $parallelHot 'hot';SameOutputs $controlCase $parallelHot
+            Need ($parallelHot.report.cache.backendCalls -eq 0 -and $parallelHot.report.cache.maxBackendConcurrency -eq 0) 'Parallel hot hits were reported as backend calls'
+            $changedInput=if($family -eq 'audio'){"$fixture/Audio/AudioLong.wav"}else{"$fixture/Data/AptLong.bin"}
+            $stamp=[IO.File]::GetLastWriteTimeUtc($changedInput);$bytes=[IO.File]::ReadAllBytes($changedInput);$length=$bytes.Length
+            $offset=if($family -eq 'audio'){44}else{0}
+            $bytes[$offset]=$bytes[$offset] -bxor 0x34;[IO.File]::WriteAllBytes($changedInput,$bytes);[IO.File]::SetLastWriteTimeUtc($changedInput,$stamp)
+            Need ((Get-Item -LiteralPath $changedInput).Length -eq $length -and [IO.File]::GetLastWriteTimeUtc($changedInput) -eq $stamp) 'Parallel payload mutation must retain exact length/mtime'
+            $partial=RunCli ($family+'-parallel-single-edit') $fixture $cachedDestination $true -Extra @('--jobs=2');Cache $partial 'partial';DifferentOutputs $parallelHot $partial
+            $changedControl=RunCli ($family+'-parallel-edited-control') $fixture (Join-Path $modeWork ($family+'-parallel-serial')) $false -Extra @('--jobs=1');Cache $changedControl 'disabled';SameOutputs $changedControl $partial
+            Need ($partial.report.cache.backendCalls -eq 1) 'One changed parallel payload must execute exactly one backend'
+
+        }
+        $mp3=Join-Path $modeWork 'mp3';Mp3Mod $mp3;$script:expectedCustomData=2
+        $mp3Serial=RunCli 'mp3-serial-control' $mp3 (Join-Path $modeWork 'mp3-serial') $false -Extra @('--jobs=1');Cache $mp3Serial 'disabled'
+        $mp3Parallel=RunCli 'mp3-parallel' $mp3 (Join-Path $modeWork 'mp3-jobs2') $false -Extra @('--jobs=2');Cache $mp3Parallel 'disabled';SameOutputs $mp3Serial $mp3Parallel
+        Need ($mp3Parallel.report.cache.backendCalls -eq 2 -and $mp3Parallel.report.cache.backendCallsByType.AudioFileMP3Passthrough -eq 2) 'MP3 parallel mode did not execute both real passthrough calls'
+        $mp3Cold=RunCli 'mp3-parallel-cold' $mp3 (Join-Path $modeWork 'mp3-cache') $true -Extra @('--jobs=2');Cache $mp3Cold 'cold';SameOutputs $mp3Serial $mp3Cold
+        $mp3Hot=RunCli 'mp3-parallel-hot' $mp3 (Join-Path $modeWork 'mp3-cache') $true -Extra @('--jobs=2');Cache $mp3Hot 'hot';SameOutputs $mp3Serial $mp3Hot
+        foreach($case in @($mp3Serial,$mp3Parallel,$mp3Cold,$mp3Hot)){
+            $payloads=@($case.files.Keys|Where-Object{[IO.Path]::GetExtension($_) -ceq '.cdata'})
+            Need ($payloads.Count -eq 2) 'MP3 passthrough omitted complete CDATA'
+            foreach($name in @('Mono','Stereo')){Need (@($payloads|Where-Object{[PayloadRawBytes]::Equal($case.files[$_],"$mp3/Audio/$name.mp3")}).Count -eq 1) 'Passthrough CDATA must equal exact original MP3 bytes'}
+        }
         $modeState.passed=$true
     }
     foreach($file in $state.sourceInputs){Need ((Hash (Join-Path $root $file.path)) -ceq $file.sha256) 'Original payload fixture source changed'}

@@ -116,7 +116,9 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 
 `/sc:false /bc:true` 使用独立 `.cache/action-cache-v1`，按资产动作的强身份复用完整三缓冲区和 CDATA，命中仍执行验证器。前端检查和最终链接每次运行；修改一个资产不再让其他合格资产全冷。`/bc:false /sc:false` 使用同一执行器且不读写持久动作缓存，可用于串行/并行对照。
 
-`--jobs=N` 只接受正整数，项目 JSON 可保存 `"jobs": "2"`，命令行优先。实际并发受后端认证和资源预算限制，当前 W3X 最多两个独立任务，其他后端保留 owner 串行屏障。报告记录 requestedJobs、backendCalls、maxBackendConcurrency 和实际调用区间；仅热缓存命中不证明并行。
+`--jobs=N` 只接受正整数，项目 JSON 可保存 `"jobs": "2"`，命令行优先。实际并发受后端认证和资源预算限制，共用最多两个在途任务。W3X 已有真实重叠验收；本轮源码另外接入 APT 四种数据根、Xmlaudio 七种元数据根、无 `PCSampleRate` 的默认/NONE/XAS AudioFile，以及 MP3 passthrough，新的 CI 验收待完成。准确类型名称与证据见[资格表](docs/CACHE_PARALLEL.md#源码资格表实测范围由下节收据决定)，不能将旧 W3X 通过范围视为新增类型已通过。
+
+新开放类型单任务估算超过64MiB时保持串行；APT/MP3按准备态加输入长度4倍、AudioFile加64倍估算，Xmlaudio按准备态估算。显式指定 `PCSampleRate` 的 AudioFile、PathMusic、其他未认证 XML 与 Texture 继续 owner 串行。AudioFile 仅认证内建 `PcmWaveAudioCompiler`，注入未知编码器不启用缓存或并行。报告记录 requestedJobs、backendCalls、maxBackendConcurrency 和实际调用区间；仅热缓存命中不证明并行。
 
 `/sc:true` 保留原会话缓存及其原有 `/bc` 组合路径、全根失效保护、intermediate/CDATA 恢复与重新链接，要求 `--jobs=1`；jobs>1 明确报 `CORE_SESSION_PARALLEL_UNSUPPORTED`。旧缓存不会导入新动作缓存。中途编译、取消、发布或必要报告通道失败时，不确认新缓存。
 
