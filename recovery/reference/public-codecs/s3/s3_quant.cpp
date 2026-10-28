@@ -1472,9 +1472,9 @@ static double allSame(int *nColors, int n, double (*q)[3], double weight[3],
     }
 
     if (*nColors == 4) 
-	j = ( (colorError[0] <= colorError[1]) ? 
-	  ( (colorError[0] <= colorError[2]) ? 0 : 2) :
-	  ( (colorError[1] <= colorError[2]) ? 1 : 2) );
+        // PC DXT3/5 compatibility: four-colour mode is forced. A midpoint
+        // would require three-colour BC1 mode, which these formats cannot use.
+        j = colorError[0] <= colorError[2] ? 0 : 2;
     else if (*nColors == 3) 
 	j = ( (colorError[0] <= colorError[1]) ? 0: 1 );
 

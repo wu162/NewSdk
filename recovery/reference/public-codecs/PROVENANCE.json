@@ -309,9 +309,12 @@
       "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
       "repository": "Team-Resurgent/RXDK-Libs",
       "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
-      "blobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
-      "sha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
-      "bytes": 81219
+      "blobSha": "5b32c15dcc6285c9b23ee81bdeef475488803e69",
+      "sha256": "0cfb5998a02baa1a8486983664d47e08073dca2cf4d73fd7b66503cf5365d8af",
+      "bytes": 81284,
+      "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
+      "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
+      "compatibilityPatch": "Force four-colour single-colour search for PC DXT3/5; exclude BC1 midpoint candidate"
     },
     {
       "path": "recovery/reference/public-codecs/s3/S3_quant.h",

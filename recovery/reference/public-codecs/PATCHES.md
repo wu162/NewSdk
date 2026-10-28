@@ -18,3 +18,12 @@ AMD entry is retained. It does not call the recovered native quantizer or origin
 DLL. The reference has known scalar/x87 tie limitations, so this remains an
 experiment until the complete comparison proves equality. RGB still uses AMD's
 public encoder. All source hash changes are explicit in PROVENANCE.json.
+
+## S3 four-colour contract
+
+The initial S3 run40631487946 compiled but stopped at the first grayscale block
+that chose a three-colour midpoint. DXT3/5 require four-colour RGB regardless of
+endpoint ordering. The copied allSame search now excludes that BC1-only candidate
+when the caller requests four colours. This changes a general format contract,
+not expected bytes for a fixture. Both original upstream and patched hashes are
+retained. The failed partial run cannot establish any matrix acceptance.
