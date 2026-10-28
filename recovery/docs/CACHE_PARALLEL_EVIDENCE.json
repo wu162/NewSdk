@@ -1,0 +1,265 @@
+{
+  "binarySourceCommit": "cb22761562cbe9a9d12c50591e448d65a31cc883",
+  "testSourceCommit": "cb22761562cbe9a9d12c50591e448d65a31cc883",
+  "runId": "40626352606",
+  "runConclusion": "failure",
+  "scope": "Independently successful cache-payloads group only; ordinary build-cache fixture failed. Not whole-run or latest-source acceptance.",
+  "artifactId": 12789918646,
+  "artifactSha256": "0e256694828fc718f3b8880723deaf883ad027a50826f2fae8c86964a5c1eca7",
+  "groupValidationPath": "evidence/refactor/cache-payloads/40626352606-1/validation.json",
+  "osFileCache": "Not controlled; sequential CI fixture processes, one sample per case. No generalized speedup claim.",
+  "modes": [
+    {
+      "configuration": "Debug",
+      "exeSha256": "d7af1aa1ebfc2c26bd410899294c9d873bf5d9bd4e03db966870023c91da16f0",
+      "passed": true,
+      "parallel": {
+        "requestedJobs": 2,
+        "maxBackendConcurrency": 2,
+        "passed": true,
+        "intervals": [
+          {
+            "typeName": "W3DAnimation",
+            "sourcePath": "d:\\a\\_temp\\pd44ecaf7\\d\\parallel\\data\\parallelshort.xml",
+            "startTicks": 8625252282,
+            "endTicks": 9277631319,
+            "threadId": 7
+          },
+          {
+            "typeName": "W3DAnimation",
+            "sourcePath": "d:\\a\\_temp\\pd44ecaf7\\d\\parallel\\data\\parallellong.xml",
+            "startTicks": 8625227092,
+            "endTicks": 9692030211,
+            "threadId": 6
+          }
+        ],
+        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled",
+        "backendCalls": 3
+      },
+      "cases": [
+        {
+          "case": "audio-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/audio-cold/build-report.json",
+          "reportSha256": "34cf35db18356ea4086d76f08639fae26e785edf4783004309487f3c8185f15c",
+          "elapsedMs": 826,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 2,
+          "hashReadBytes": 18390448,
+          "restoredBytes": 0,
+          "writtenBytes": 21636
+        },
+        {
+          "case": "audio-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/audio-hot/build-report.json",
+          "reportSha256": "82748fdfb3f022fb2b41d7494cacd4db1ea06898b2e600790be4216c0732e8cc",
+          "elapsedMs": 782,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "hashReadBytes": 18390448,
+          "restoredBytes": 21636,
+          "writtenBytes": 0
+        },
+        {
+          "case": "audio-content-invalidated",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/audio-content-invalidated/build-report.json",
+          "reportSha256": "cfc0d21d6b2fe1c6696935f2d38c9e38fef5af9bfcaaf503389b9e966f6457d1",
+          "elapsedMs": 724,
+          "backendCalls": 1,
+          "hits": 1,
+          "misses": 1,
+          "hashReadBytes": 18390448,
+          "restoredBytes": 5058,
+          "writtenBytes": 16578
+        },
+        {
+          "case": "audio-additional-only",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/audio-additional-only/build-report.json",
+          "reportSha256": "dd0127e6d62b0fa7b0dfbb169b17fe33cd5439e8004bd9182fc95a519fac72b5",
+          "elapsedMs": 697,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "hashReadBytes": 18390510,
+          "restoredBytes": 21636,
+          "writtenBytes": 0
+        },
+        {
+          "case": "w3x-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/w3x-cold/build-report.json",
+          "reportSha256": "6c1b6712ec1ab8bebb3e101d014e7d40a77a042110128216fbdba3fa7294db07",
+          "elapsedMs": 692,
+          "backendCalls": 3,
+          "hits": 0,
+          "misses": 3,
+          "hashReadBytes": 18303728,
+          "restoredBytes": 0,
+          "writtenBytes": 1386
+        },
+        {
+          "case": "w3x-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/w3x-hot/build-report.json",
+          "reportSha256": "6fa1d9a531733016148556832ebc2332f4c1ee429c0d54443d6a3de7265fb688",
+          "elapsedMs": 640,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "hashReadBytes": 18303728,
+          "restoredBytes": 1386,
+          "writtenBytes": 0
+        },
+        {
+          "case": "w3x-content-invalidated",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/w3x-content-invalidated/build-report.json",
+          "reportSha256": "4596c8aeaa67f437220665d7ca49bfc64bd76f5a40405b3f029590ddfc0e1204",
+          "elapsedMs": 671,
+          "backendCalls": 1,
+          "hits": 2,
+          "misses": 1,
+          "hashReadBytes": 18303728,
+          "restoredBytes": 780,
+          "writtenBytes": 606
+        },
+        {
+          "case": "w3x-additional-only",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Debug/w3x-additional-only/build-report.json",
+          "reportSha256": "35d236ea5484a9c09f1043857f5410cfc7482c1243a77524abf7a3204bd553ec",
+          "elapsedMs": 628,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "hashReadBytes": 18303790,
+          "restoredBytes": 1386,
+          "writtenBytes": 0
+        }
+      ]
+    },
+    {
+      "configuration": "Release",
+      "exeSha256": "01f92dbf80e7dd0ac83c325e31ca5ac48fb7d195be38652043b7e8b580dbd9cc",
+      "passed": true,
+      "parallel": {
+        "requestedJobs": 2,
+        "maxBackendConcurrency": 2,
+        "passed": true,
+        "intervals": [
+          {
+            "typeName": "W3DAnimation",
+            "sourcePath": "d:\\a\\_temp\\pd44ecaf7\\r\\parallel\\data\\parallelshort.xml",
+            "startTicks": 10075692590,
+            "endTicks": 10163926805,
+            "threadId": 7
+          },
+          {
+            "typeName": "W3DAnimation",
+            "sourcePath": "d:\\a\\_temp\\pd44ecaf7\\r\\parallel\\data\\parallellong.xml",
+            "startTicks": 10075661198,
+            "endTicks": 10210985690,
+            "threadId": 6
+          }
+        ],
+        "scope": "One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled",
+        "backendCalls": 3
+      },
+      "cases": [
+        {
+          "case": "audio-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/audio-cold/build-report.json",
+          "reportSha256": "eb21835dd8d02046a35633f5940a0079a2235ff61e22272ded8908def8311217",
+          "elapsedMs": 619,
+          "backendCalls": 2,
+          "hits": 0,
+          "misses": 2,
+          "hashReadBytes": 13510064,
+          "restoredBytes": 0,
+          "writtenBytes": 21636
+        },
+        {
+          "case": "audio-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/audio-hot/build-report.json",
+          "reportSha256": "12fee9a814cb4839e7813337e8e026008b01a35e4391f52d85bd9b5fee5837a9",
+          "elapsedMs": 589,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "hashReadBytes": 13510064,
+          "restoredBytes": 21636,
+          "writtenBytes": 0
+        },
+        {
+          "case": "audio-content-invalidated",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/audio-content-invalidated/build-report.json",
+          "reportSha256": "1d908ca2a5cb529828d4b0c4232194f329c7083e9eef546086da71794a9280c9",
+          "elapsedMs": 610,
+          "backendCalls": 1,
+          "hits": 1,
+          "misses": 1,
+          "hashReadBytes": 13510064,
+          "restoredBytes": 5058,
+          "writtenBytes": 16578
+        },
+        {
+          "case": "audio-additional-only",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/audio-additional-only/build-report.json",
+          "reportSha256": "94ce74cc7056fc51573bbb68395537017604adb090870fa9d5390d79871d2153",
+          "elapsedMs": 599,
+          "backendCalls": 0,
+          "hits": 2,
+          "misses": 0,
+          "hashReadBytes": 13510126,
+          "restoredBytes": 21636,
+          "writtenBytes": 0
+        },
+        {
+          "case": "w3x-cold",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/w3x-cold/build-report.json",
+          "reportSha256": "a3e5bb78d93f07dc04577fcd052a39c1b6cc41ad397b5fa3e89b424a3ed091f0",
+          "elapsedMs": 634,
+          "backendCalls": 3,
+          "hits": 0,
+          "misses": 3,
+          "hashReadBytes": 13423344,
+          "restoredBytes": 0,
+          "writtenBytes": 1386
+        },
+        {
+          "case": "w3x-hot",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/w3x-hot/build-report.json",
+          "reportSha256": "5cd9ea36e416d46a9eb226b2e85ed1f861fa83c1faada0aa7c52393aafd57383",
+          "elapsedMs": 608,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "hashReadBytes": 13423344,
+          "restoredBytes": 1386,
+          "writtenBytes": 0
+        },
+        {
+          "case": "w3x-content-invalidated",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/w3x-content-invalidated/build-report.json",
+          "reportSha256": "036629244819d3c8fb94b3f093794537020295f3cff5119aff7da1ce8f0f6758",
+          "elapsedMs": 653,
+          "backendCalls": 1,
+          "hits": 2,
+          "misses": 1,
+          "hashReadBytes": 13423344,
+          "restoredBytes": 780,
+          "writtenBytes": 606
+        },
+        {
+          "case": "w3x-additional-only",
+          "reportPath": "evidence/refactor/cache-payloads/40626352606-1/Release/w3x-additional-only/build-report.json",
+          "reportSha256": "badbb1995646a19cd79b1a8c1b4d3dda5c85060bb6714ec05d2a9cf71e8d37dd",
+          "elapsedMs": 608,
+          "backendCalls": 0,
+          "hits": 3,
+          "misses": 0,
+          "hashReadBytes": 13423406,
+          "restoredBytes": 1386,
+          "writtenBytes": 0
+        }
+      ]
+    }
+  ]
+}

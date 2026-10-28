@@ -23,6 +23,7 @@ namespace NewModCompiler.Application
     {
         readonly object gate = new object();
         int active;
+        long nextMemorySample;
         public int BackendCalls, MaximumConcurrency, Hits, Misses;
         public long RestoredBytes, WrittenBytes, ExternalHashBytes;
         public long PeakSampledPrivateBytes;
@@ -30,6 +31,15 @@ namespace NewModCompiler.Application
         public readonly List<BackendInterval> Intervals = new List<BackendInterval>();
         public void SampleMemory()
         {
+            // Process memory queries are much more expensive than many XML
+            // backends. Bound telemetry to ten samples/second for the whole
+            // executor instead of querying three times for every tiny asset.
+            long now = Stopwatch.GetTimestamp();
+            lock (gate)
+            {
+                if (now < nextMemorySample) return;
+                nextMemorySample = now + Math.Max(1L, Stopwatch.Frequency / 10);
+            }
             try { using (var process = Process.GetCurrentProcess()) { long bytes = process.PrivateMemorySize64; lock (gate) PeakSampledPrivateBytes = Math.Max(PeakSampledPrivateBytes, bytes); } }
             catch (System.ComponentModel.Win32Exception) { }
             catch (InvalidOperationException) { }

@@ -34,6 +34,7 @@ on:
       - 'recovery/scripts/BuildManagedFoundation.ps1'
       - 'recovery/tests/CompilerValidationEntry.cpp'
       - 'recovery/tests/CompilerCoreLifecycle.cs'
+      - 'recovery/tests/CompilerPreparedBackend.cs'
       - 'recovery/tests/CompilerCacheContent.cs'
       - 'recovery/tests/CompilerCacheBoundary.cs'
       - 'recovery/tests/CompilerInputRoots.cs'
