@@ -134,12 +134,17 @@ def measurement_scripts(repo, candidate, purpose):
         return []
     rows = []
     for path in UPHEAVAL_SCRIPTS:
-        # Identity comes from the exact candidate Git object as well as the
-        # consumed bytes. An untracked lookalike cannot become an authorized tool.
-        committed = git(repo, 'show', candidate + ':' + path)
+        # Authorize Git's canonical clean identity, including this path's actual
+        # checkout attributes/core.autocrlf. Windows CRLF consumption need not
+        # equal the raw LF blob, and must never be approved by ad-hoc stripping.
+        # Keep a separate SHA256 of the exact consumed bytes in the receipt.
+        committed = git(repo, 'rev-parse', candidate + ':' + path).decode().strip()
+        require(git(repo, 'cat-file', '-t', committed).strip() == b'blob', 'Measurement input is not a Git blob: ' + path)
         actual = (Path(repo) / path).read_bytes()
-        require(actual == committed, 'Measurement script differs from candidate: ' + path)
-        rows.append(dict(path=path, sha256=digest(actual)))
+        cleaned = subprocess.check_output(['git', '-C', str(repo), 'hash-object',
+                                           '--path=' + path, '--stdin'], input=actual).decode().strip()
+        require(cleaned == committed, 'Measurement script differs from candidate clean identity: ' + path)
+        rows.append(dict(path=path, sha256=digest(actual), canonicalGitBlob=committed))
     return rows
 
 

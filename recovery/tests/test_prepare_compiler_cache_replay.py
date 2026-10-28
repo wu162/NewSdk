@@ -98,6 +98,37 @@ class ClosureTests(GitFixture):
         with self.assertRaises(subprocess.CalledProcessError):
             replay.measurement_scripts(self.repo, self.candidate, 'upheaval-metrics')
 
+    def test_autocrlf_checkout_authorizes_canonical_blob_and_records_consumed_bytes(self):
+        self.git('config', 'core.autocrlf', 'true')
+        text = 'reviewed benchmark script\nsecond line\n'
+        for path in replay.UPHEAVAL_SCRIPTS:
+            self.commit(path, text)
+        candidate = self.git('rev-parse', 'HEAD').strip()
+        # Force a real Git checkout, rather than manufacturing CRLF with a
+        # replacement function. This reproduces actions/checkout on Windows.
+        for path in replay.UPHEAVAL_SCRIPTS:
+            (self.repo / path).unlink()
+        self.git('checkout', '--', *replay.UPHEAVAL_SCRIPTS)
+        rows = replay.measurement_scripts(self.repo, candidate, 'upheaval-metrics')
+        self.assertIn(replay.UPHEAVAL_SCRIPTS[0], replay.closure(self.repo, self.source, candidate, 'upheaval-metrics'))
+        for row in rows:
+            actual = (self.repo / row['path']).read_bytes()
+            self.assertEqual(actual, b'reviewed benchmark script\r\nsecond line\r\n')
+            committed = subprocess.check_output(['git', '-C', str(self.repo), 'show', candidate + ':' + row['path']])
+            self.assertEqual(committed, b'reviewed benchmark script\nsecond line\n')
+            self.assertEqual(row['canonicalGitBlob'], self.git('rev-parse', candidate + ':' + row['path']).strip())
+            self.assertEqual(row['sha256'], replay.digest(actual))
+            self.assertNotEqual(row['sha256'], replay.digest(committed))
+        # The same raw CRLF is NOT equivalent when Git's actual clean policy
+        # stops normalizing it. A global replace would incorrectly allow this.
+        self.git('config', 'core.autocrlf', 'false')
+        with self.assertRaisesRegex(ValueError, 'clean identity'):
+            replay.measurement_scripts(self.repo, candidate, 'upheaval-metrics')
+        self.git('config', 'core.autocrlf', 'true')
+        (self.repo / replay.UPHEAVAL_SCRIPTS[0]).write_bytes(b'reviewed benchmark script\r\nchanged line\r\n')
+        with self.assertRaisesRegex(ValueError, 'clean identity'):
+            replay.measurement_scripts(self.repo, candidate, 'upheaval-metrics')
+
     def test_only_candidate_payload_changes_accepted(self):
         self.assertEqual(replay.closure(self.repo, self.source, self.candidate),
                          ['recovery/scripts/TestCompilerBuildCachePayloads.ps1'])
