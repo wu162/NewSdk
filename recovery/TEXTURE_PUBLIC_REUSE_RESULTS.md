@@ -162,3 +162,11 @@ rejected x87, lower-budget or broad-floor matrices unchanged. Do not substitute
 visually better blocks or use runtime outlier-ID/payload lookup. Once complete
 byte equality is obtained, preserve full float, image/mip/volume/atlas/plugin
 and dedicated SDK Original/Recovered/NoOriginal acceptance before merge.
+
+## Complete S3 block equality obtained
+
+Copied source cda610ed4ad1348eae7c1631824ce6d8c35a7e3c / Actions40646658908 completed/success. Debug and Release each4 precisions/40960 complete block records. Float-source variants0 and2 reach5120/5120 complete DXT3 and DXT5, alpha5120/5120. The immutable40500898688 original payloads are unchanged; all original27 differences are fixed. Source hashes/upstream records and full candidate/input/expected artifacts remain on the test branch.
+
+The source adaptation fixes the forced-four-colour working-level mapping contract (16 fixes at98455891 /40634767431), then restores the surrounding general PC float quick candidate, final floor-palette reindex/scoring and candidate comparison (the final11 fixes). This is not the rejected broad-floor grid search. No fixture dispatch or existing encoder callbacks are used. Stage diagnostic28 inputs independently match the fixed original payloads; first40634411717 failed a host hexadecimal-case comparison and is preserved as failure.
+
+Clean integration branch validation/texture-public-s3 starts at b6caf437; source2c396358 /40647513311 is running the complete affected float/partial, DDS/mip/volume/atlas/plugin matrices. It copies only the S3 family and explicit gray constants, and uses this code for both RGB and DXT5 alpha. SDK still required; no production acceptance/merge claimed yet.

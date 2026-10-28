@@ -1,3 +1,13 @@
+# S3 公开源码适配：完整块5120/5120，消费验收中
+
+当前仅PC，禁止强推，编译/测试仅Actions。测试分支 `validation/texture-public-codecs` 的 S3 源码 `cda610ed4ad1348eae7c1631824ce6d8c35a7e3c` / Actions `40646658908` completed/success：Debug/Release各4精度、40960完整记录；variant0/2的DXT3、DXT5均5120/5120、alpha5120/5120。原gold保持40500898688不变，原27差异全部修复，不再重复x87/预算/broad-floor实验。
+
+一般规则修复：强制四色时先把连续搜索工作级数设为4，禁止额外短ramp映射；保留S3 rounded搜索；按原PC包装层生成float快速候选，使用最终floor调色板重选索引/评分，再比较快速与完整搜索结果。没有样本ID分派、gold输出表或原/既有恢复编码器回调。中间98455891 /40634767431达到5109；首诊断40634411717因宿主hex大小写比较错误失败，修正后的28例阶段诊断全部与不可变gold一致。
+
+干净集成分支 `validation/texture-public-s3` 从贴图分支b6caf437创建，只复制S3族/明确来源的固定灰度常量，保留上游/补丁前后哈希。集成源码 `2c396358285ee1e6482b0dcd9d01b707afd8cd47` / Actions `40647513311` 正在验收8个受影响完整组件组，复用24个未变成功组。托管完整/partial/float路径改为新S3 DLL的RGB和DXT5 alpha，无原/既有恢复后端回退。SDK尚未启动，尚未合入贴图分支；不得以5120块一致代替float、DDS/mip/volume/atlas/plugin与SDK三模式门槛。生产SDK DLL/config未替换。
+
+先收取40647513311的实际终态/sourceCommit/逐组收据，保留Actions回写；失败集中修复，通过后显式受影响SDK验收，再普通合入 `recovery/texturecompiler-source`。干净分支细节见 `recovery/TEXTURE_PUBLIC_S3.md`。以下旧5093交接为历史，由本节覆盖。
+
 # TextureCompiler 公开源码适配续接（2026-10-28，最新完整矩阵5093/5120）
 
 目标贴图分支 `recovery/texturecompiler-source`；独立实验 `validation/texture-public-codecs`。仅PC、禁止强推、编译测试仅GitHub Actions。用户澄清：**修改拿来的源码，使产物一致**；不只是原样比较后放弃。测试分支修改和原版gold全量比较持续推进，完整相同后还需消费/SDK门槛才合入；生产SDK DLL/config未替换。
