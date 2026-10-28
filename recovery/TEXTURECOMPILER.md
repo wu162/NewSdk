@@ -6,6 +6,8 @@ DXT3/5默认71颜色/alpha、完整块、POT二维/volume无mip与完整float mi
 
 透明块DXT1A现已完成独立公开源码适配、block/float/partial、二维/volume/mip、Texture/OnDemandTexture与320资产专用SDK验收，源码与运行锚点见[受限DXT1A](TEXTURE_DXT1A_TRANSPARENT.md)。每个实际编码块（包括全部mip和volume切片）都必须有alpha<=0.5的样本；padding空洞不计透明样本。默认DXT1及任何全不透明DXT1A块的原未初始化边界继续拒绝。完整mymod本轮未重跑，保留原5a1b8e1d/40657712486锚点，不冒充当前源码完整MOD验收。
 
+PNG ICC/APNG默认图与sRGB/gAMA优先级已完成组件及完整插件消费：1cff9256/40780996417 success，15组通过/22复用，D/R各7920 gold双入口与34880插件输入/逐次NoOriginal，详见[PNG metadata](TEXTURE_PNG_METADATA.md)。专用SDK待本轮集中验收，不将组件成功冒充集成完成。
+
 ## 唯一目标：Win32 / PC
 
 用户要求移除非 PC 代码与规划。PS3 专属三份 mip、自动 cubic 缩放、平台输出分支及对应测试/取证/SDK 入口已删除；Xbox360 与 unknown 平台不再支持。Initialize/ReInitialize 和公共平台入口明确拒绝非 Win32。SDK 原 DLL、共享 Core 平台枚举、原始 IL 和历史证据不变；历史 PS3 验收不属于当前能力或待办。
@@ -24,7 +26,7 @@ DXT3/5默认71颜色/alpha、完整块、POT二维/volume无mip与完整float mi
 
 1. 默认DXT1及全不透明DXT1A块的未初始化边界已取得原版受控反例，继续拒绝；透明块DXT1A已按上文完整验收；详见[边界](TEXTURE_DXT1_BOUNDARY.md)。已声明DXT3/5完整压缩器及真实消费均已验收，不再列为未恢复。默认71颜色核心与DXT3/5完整块、对齐整图和无mip插件路由已取得组件验收；小尺寸/float块与小尺寸无mip消费者已通过组件和SDK门槛，压缩volume现也已通过组件及专用SDK完整验收。不再调查跨平台一致性。
 2. NPOT已声明源存储路径已按上文验收；未声明格式/metadata按实际输入需求独立取证，原版拒绝格式继续保留原拒绝。
-3. JPEG已声明灰度/RGB顺序/渐进、POT/NPOT及插件/SDK已完成；CMYK/其他未声明JPEG域、PNG ICC/APNG、TGA metadata/RLE边界与其他BMP组合按实际输入需求独立取证。
+3. JPEG已声明灰度/RGB顺序/渐进、POT/NPOT及插件/SDK已完成；CMYK/其他未声明JPEG域、本批之外的PNG metadata组合、TGA metadata/RLE边界与其他BMP组合按实际输入需求独立取证。
 4. TerrainTextureAtlas公共入口及专用SDK已完成（be520b8e/40607538234）；后续只按真实输入扩展未声明格式/metadata，不重复已验收整组。
 5. 当前PC托管业务消费的native资源依赖已完成[静态审计](TEXTURE_PC_LIFECYCLE.md)，完整mymod和384资产SDK证实无需原共享buffer/设备。原native指针ABI、设备实现和异常资源路径仍非等价替换范围。
 6. [完整mymod集成](TEXTURE_MYMOD_ACCEPTANCE.md)已通过原样与384真实贴图资产三模式四产物/轨迹验证；生产SDK DLL/config仍未替换，完整混合模式DLL/native ABI尚未还原。

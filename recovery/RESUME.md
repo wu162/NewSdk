@@ -1,8 +1,8 @@
-# 当前进行中：PNG ICC/APNG 与 sRGB/gAMA 完整能力组
+# 当前：PNG ICC/APNG/sRGB组件与全消费通过，专用SDK验证中
 
-- **本轮完成**：仅PC、单代理、编译测试仅Actions。原版取证c812b809 / [40779895712](https://github.com/wu162/NewSdk/actions/runs/40779895712) success：4680输入、9360原调用、3120完整RGBA/1560原错误。补充2cab4931 / [40780410178](https://github.com/wu162/NewSdk/actions/runs/40780410178) success：3240输入、6480原调用、2160完整RGBA/1080原错误。两份不可变gold和固定ICC来源已集中本分支；收据均probe-only，不能当恢复验收。
-- **实现/验证中**：原版忽略ICC与APNG帧/控制payload，读取IDAT默认图；有效sRGB（IDAT前、长度1、intent 0..3）覆盖前/后gAMA。无效或IDAT后sRGB不覆盖；有效sRGB后再遇无效重复声明仍保留。恢复源码和双入口gold重放、完整插件/atlas/透明DXT1A消费矩阵已准备，以下提交集中跑受影响完整组件；尚未取得恢复成功收据，不宣称启用/SDK通过。
-- **下一轮计划**：先收本能力组最终组件终态、核对sourceCommit/runId和完整产物；稳定后集中必要专用SDK。完整MOD不默认运行；默认DXT1/不透明DXT1A拒绝保持，生产SDK未替换。上一轮已验收能力见下节，未变成功组沿用原锚点。
+- **本轮完成**：PNG ICC/APNG按原版读取IDAT默认图；有效sRGB覆盖前/后gAMA，无效/后置声明忽略。原版两份不可变gold共7920输入/15840原调用，完整RGBA/错误与上游ICC均独立核对。恢复源码1cff9256 / [40780996417](https://github.com/wu162/NewSdk/actions/runs/40780996417) completed/success：15受影响完整组件通过、22组复用。D/R各7920输入双入口15840调用，完整RGBA/错误及逐次NoOriginal；各34880插件输入与同量NoOriginal、232844236字节比较、0错误，含raw3/DXT3/5、透明DXT1A、二维/volume/完整mip、64个PNG编码atlas、新旧cdata和三buffer。详见[PNG metadata](TEXTURE_PNG_METADATA.md)。
+- **验证中**：准备好的sdk-PcPngMetadata为4240真实资产；与所有实际受影响既有专用SDK集中运行，完整mymod不选。下一个JPEG RGB/CMYK/YCCK/APP14/ICC/Exif/XMP/COM探针4000输入已准备并合入同一Windows批次顺序采集；其probe-only不冒充恢复。业务源码自1cff9256未变，组件锚点不改写为SDK提交新跑。
+- **下一轮计划**：先收本轮SDK/JPEG批次终态、核对sourceCommit/runId与实际产物/完整轨迹；SDK全部通过后闭环本批PNG，按[下一项JPEG入口](TEXTURE_JPEG_METADATA_NEXT.md)的真实差异推进。默认DXT1/不透明DXT1A仍拒绝，生产SDK未替换。完整MOD仅必要里程碑，保留旧5a1b8e1d/40657712486锚点，不冒充本轮新验收。
 
 # 当前：PC透明块DXT1A已完成组件、插件与专用SDK接入
 

@@ -63,3 +63,9 @@ PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平�
 `dxt1a-blocks`对生产托管block/byte/float/partial接口执行D/R原版完整比较，4608块、3456份块DDS，完整源/options/双方输出与逐次NoOriginal；`dxt1a-dds`比较3648个二维/volume、有无完整mip输入，2714个完整DDS全等，934个含不透明实际块的输入明确拒绝且不调用不确定原路径；`dxt1a-images`对两根执行768个POT/partial/NPOT及标准/volume/mip输入、三buffer/full cdata/旧文件尾、原invalid-volume错误和每次NoOriginal，另保留DXT1/不透明DXT1A及混合透明/不透明块拒绝和cdata所有权检查。三组为严格组件组，成功收据必须含Debug/Release `passed=true`，不能复用evidence-only比较作为正式通过。
 
 `sdk-PcDxt1a`只在显式SDK里程碑选择，80张TGA、320实际根资产，Original/Recovered/NoOriginal三模式、四产物与全部实际轨迹完全比较；不替代完整mymod，不改变其manual_only规则。新helper已登记所有实际消费者；SDK和未变成功组保持各自精确sourceCommit/runId。完整能力组稳定后集中验证，不为内部orientation或单个候选重复启动所有消费者。
+
+## PNG ICC/APNG/sRGB metadata
+
+`png-metadata`固定7920个原版gold输入，D/R执行直接/public两入口完整RGBA/原错误/源不变和逐次NoOriginal。`png-metadata-images`为D/R各34880原/恢复插件输入及同量隔离重放，含raw3/DXT3/5、透明DXT1A、标准/volume/完整mip、64个PNG编码atlas、三buffer/full cdata/旧尾。1cff9256/40780996417已整批15组通过、22组复用；不重复跑未变组。
+
+`sdk-PcPngMetadata`仅显式SDK时选，4240实际资产、三模式四产物/完整轨迹文件集与逐次NoOriginal。metadata共享loader及native消费者已登记实际依赖；专用SDK不替代完整MOD。`png-metadata-load`/`png-metadata-order`/`jpeg-metadata-load`均manual_only/evidence_only/probe-only：前两组使用`[texture-png-metadata]`/`[texture-png-order]`，后者使用`[texture-jpeg-metadata]`。可在同一明确SDK批次顺序采集下一项探针；SDK成功与probe结论必须各自记录，比较完成不能冒充恢复验收。
