@@ -1,0 +1,76 @@
+{
+  "sourceCommit": "699479a95c73012f5e66b74a3d7d1e43f1d8b51f",
+  "originalBaseline": {
+    "samplesSha256": "b758465f88b831f5952e4700531ffe5b83a9696be6889a8b9d0defdc1eee24a1",
+    "sourceCommit": "3f2351f2d0b0adccf416ba6dda7e97d49b5c92f6",
+    "runId": "40625499544"
+  },
+  "nativeBinaries": [
+    {
+      "machine": "I386",
+      "sha256": "665c845bbb6d4e7d1584c32ce3569578e21efb7d9219fa196db32a6272ca385b",
+      "name": "Recovered.TextureJpeg.dll",
+      "configuration": "Debug"
+    },
+    {
+      "entryPoint": 0,
+      "sha256": "a3176bb731c3efc4e392ac5c509875169640ec6f3bb5b6a38c5bd4e1b1a2bf66",
+      "importDirectory": 0,
+      "machine": "I386",
+      "configuration": "Debug"
+    },
+    {
+      "machine": "I386",
+      "sha256": "68202dc9af3496b328d6973724ef2929403a4ec0000d5a2b94e2298426004d51",
+      "name": "Recovered.TextureJpeg.dll",
+      "configuration": "Release"
+    },
+    {
+      "entryPoint": 0,
+      "sha256": "ceea95b5b33545065a42539d4a9fed5f0ab95fd0e6d7cba5d75a2cfe9c49e00f",
+      "importDirectory": 0,
+      "machine": "I386",
+      "configuration": "Release"
+    }
+  ],
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture JPEG ProcessInstance differential fixtures=11248 rejected=6 errors=16 comparedBytes=82231440; PC complete original JPEG corpus public raw route plus full focused raw/DXT3/5 standard/volume/mip/root/cdata matrix and JPEG-coded atlas base/normal; three buffers/full cdata; SDK pending",
+        "PASS Texture JPEG ProcessInstance NoOriginal fixtures=11248 rejected=6 errors=16 comparedBytes=82231440; PC complete original JPEG corpus public raw route plus full focused raw/DXT3/5 standard/volume/mip/root/cdata matrix and JPEG-coded atlas base/normal; three buffers/full cdata; SDK pending"
+      ],
+      "passed": true,
+      "configuration": "Debug"
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture JPEG ProcessInstance differential fixtures=11248 rejected=6 errors=16 comparedBytes=82231440; PC complete original JPEG corpus public raw route plus full focused raw/DXT3/5 standard/volume/mip/root/cdata matrix and JPEG-coded atlas base/normal; three buffers/full cdata; SDK pending",
+        "PASS Texture JPEG ProcessInstance NoOriginal fixtures=11248 rejected=6 errors=16 comparedBytes=82231440; PC complete original JPEG corpus public raw route plus full focused raw/DXT3/5 standard/volume/mip/root/cdata matrix and JPEG-coded atlas base/normal; three buffers/full cdata; SDK pending"
+      ],
+      "passed": true,
+      "configuration": "Release"
+    }
+  ],
+  "sdkValidated": false,
+  "scope": "actual PC public JPEG Texture/OnDemandTexture full raw route plus complete focused raw/DXT3/5 standard/volume/mip/cdata matrix, JPEG-coded TerrainTextureAtlas base/normal; 11248 complete original buffers/errors and isolated replay; SDK separate",
+  "probeOnly": false,
+  "runId": "40626161229",
+  "status": "passed",
+  "sourceFiles": [
+    {
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66",
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json"
+    },
+    {
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9",
+      "path": "src/TextureCompiler/Colour/TextureColour.asm"
+    },
+    {
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281",
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp"
+    }
+  ],
+  "runAttempt": "1"
+}

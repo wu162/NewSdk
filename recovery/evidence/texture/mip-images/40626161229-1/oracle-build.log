@@ -1,0 +1,1 @@
+recovery\tests\TextureMipPipelineOracle.cs(11,34): warning CS0649: Field 'TextureMipPipelineOracle.unsupportedResampling' is never assigned to, and will always have its default value 0
