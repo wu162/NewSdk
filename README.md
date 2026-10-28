@@ -2,6 +2,8 @@
 
 `feature/cache-parallel` 从 `compiler-main` 分出，专门实施 [缓存与并行优化计划](recovery/docs/CACHE_PARALLEL_PLAN.md)。成果继续提交到本分支，最终通过 [draft PR #17](https://github.com/wu162/NewSdk/pull/17) 面向 `compiler-main` 审查；未经用户明确批准不合入，禁止强推。
 
+后续开发使用 **Codex 云端**，复用任务已有检出；编辑与静态检查在云端完成，编译/运行测试仍走Windows Actions。具体见 [云端执行规则](recovery/EFFICIENCY.md#codex-cloud)。
+
 ## 专项入口
 
 日常续接：先读 `AGENTS.md`、简短交接与执行规则，再按交接链接读取计划章节；不默认加载完整计划和历史记录。

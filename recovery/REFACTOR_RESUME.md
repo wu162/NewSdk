@@ -2,6 +2,10 @@
 
 更新：2026-10-28（北京时间）。工作分支 `feature/cache-parallel` 从 `compiler-main` 分出；[draft PR #17](https://github.com/wu162/NewSdk/pull/17) 目标为 `compiler-main`，未经用户批准不合入，禁止强推。
 
+## 云端任务入口
+
+后续在 Codex 云端执行，复用已有仓库检出和终端；先检查工作区/HEAD，再按 [云端执行规则](EFFICIENCY.md#codex-cloud) 核对成果分支。不要要求ChatGPT GitHub插件，不默认重新clone。云端完成编辑与静态检查，编译/运行测试仍走Windows Actions。任务临时分支不改变成果归属；受限时交付差异并注明未推送或待CI状态，不覆盖已有修改。
+
 ## 范围与读取顺序
 
 读完 `AGENTS.md` 后先读本页及 [执行规则](EFFICIENCY.md)，随后按本次任务读取计划章节；首次接手或调整整体方向时再通读计划，日常不加载全部计划和历史记录。

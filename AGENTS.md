@@ -15,6 +15,12 @@
 这条授权适用于本仓库后续所有任务；不自动扩展到其他仓库。它是操作授权，具体工作目标仍以用户任务及最新交接为准。时长以用户当轮要求及 `recovery/STAGE_DURATION.md` 为准，验证和交接规则继续适用。
 
 
+## Codex 云端执行环境（2026-10-28）
+
+后续工作以 Codex 云端任务为准。优先使用任务已有的仓库检出、终端与 Git；不要求安装或使用 ChatGPT GitHub 插件，不重复克隆已有仓库。先检查工作目录、`git status --short --branch`、HEAD和远程配置，保留已有未提交修改；具体续接、验证及提交方式见 [EFFICIENCY](recovery/EFFICIENCY.md#codex-cloud)。
+
+环境权限以实际可用能力为准，不能假定能联网、推送、使用gh或触发Actions。允许在云端做源码编辑与静态预检；生产编译、运行测试及Windows/SDK验收仍使用GitHub Actions。缺少能力时保存可审查的修改并准确交接，不把本地提交当作已推送，不把静态检查当作CI通过。
+
 ## 续接与上下文控制
 
 在 `feature/cache-parallel` 续接时，先读简短交接 `recovery/REFACTOR_RESUME.md` 和执行规则 `recovery/EFFICIENCY.md`，再按交接链接读取计划的相关章节、源码和必要证据。日常续接不要求完整读取 `recovery/docs/CACHE_PARALLEL_PLAN.md`；首次接手或调整整体方向时再通读。原组件恢复仅在专项确有依赖时定点查阅。`recovery/docs/history/STATUS.md` 保存历史验证记录，旧章节的“下一轮”可能已过时；不要把全量历史交接与大型反编译文件一次性加载到上下文。以远程分支头及验证文件的 sourceCommit/runId 核实实际状态。完成阶段时同步更新简短续接入口。
