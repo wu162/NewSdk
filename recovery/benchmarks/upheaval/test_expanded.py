@@ -7,6 +7,17 @@ import expanded
 
 
 class ExpandedTests(unittest.TestCase):
+    def test_actions_step_metadata_cannot_change_compiler_environment(self):
+        first={'SystemRoot':'C:/Windows','PATH':'C:/Windows;D:/SDK/tools','TEMP':'D:/temp',
+               'GITHUB_ACTION':'step1','GITHUB_ENV':'D:/one','RUNNER_TRACKING_ID':'a','SECRET':'x'}
+        second=dict(first,GITHUB_ACTION='step2',GITHUB_ENV='D:/two',RUNNER_TRACKING_ID='b')
+        self.assertEqual(expanded.compiler_environment(first),expanded.compiler_environment(second))
+        self.assertEqual(expanded.compiler_environment(first),
+                         {'SYSTEMROOT':'C:/Windows','PATH':'C:/Windows','TEMP':'D:/temp'})
+        with self.assertRaisesRegex(ValueError,'namespace'):
+            expanded.require_hot(dict(engine='new',cacheStatistics=dict(hits=0,misses=1617)))
+        expanded.require_hot(dict(engine='new',cacheStatistics=dict(hits=1617,misses=0)))
+
     def test_mutations_are_real_and_length_preserving(self):
         xml=b'<AmbientStream id="Reachable" Volume = "60"/>'
         self.assertEqual(expanded.mutate(None,'xml',xml),b'<AmbientStream id="Reachable" Volume = "61"/>')
@@ -41,6 +52,9 @@ class ExpandedTests(unittest.TestCase):
         states=[dict(replica=i,machine='cloned-hostname',runner=f'runner-{i}',runId='42') for i in (1,2)]
         jobs={'jobs':[dict(id=i,name=f'expanded ({i})',run_id=42,runner_id=i,runner_name=f'runner-{i}',
                            started_at='start',completed_at='end',conclusion='success') for i in (1,2)]}
+        self.assertEqual(len(aggregate.verify_runners(states,jobs)),2)
+        for state,job in zip(states,jobs['jobs']):
+            state['followupGroup']='xml';job['name']=f'cache-followup (xml, {state["replica"]})'
         self.assertEqual(len(aggregate.verify_runners(states,jobs)),2)
         jobs['jobs'][1]['runner_id']=1
         with self.assertRaisesRegex(ValueError,'distinct'):aggregate.verify_runners(states,jobs)

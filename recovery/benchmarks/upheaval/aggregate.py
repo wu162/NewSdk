@@ -38,7 +38,11 @@ def verify_runners(states,jobs=None):
     verified=[]
     if jobs is not None:
         for state in states:
-            matched=[job for job in jobs['jobs'] if job['name']==f'expanded ({state["replica"]})']
+            group=state.get('followupGroup')
+            if group is not None and group not in ('xml','texture','audio','recovery'):
+                raise ValueError('Unknown followup measurement scope')
+            name=f'cache-followup ({group}, {state["replica"]})' if group else f'expanded ({state["replica"]})'
+            matched=[job for job in jobs['jobs'] if job['name']==name]
             if len(matched)!=1:raise ValueError('Missing unique measuring job identity')
             job=matched[0]
             if (job.get('runner_name')!=state['runner'] or not job.get('runner_id')
@@ -82,7 +86,7 @@ def aggregate(root,output,expected=2,jobs_metadata=None):
     result=dict(schemaVersion=1,succeeded=all(s['succeeded'] for s in states),
                 runId=os.getenv('GITHUB_RUN_ID'),sourceCommit=states[0]['sourceCommit'],
                 binarySourceCommit=states[0]['binarySourceCommit'],statistics=stats,cacheEffects=effects,
-                verifiedRunnerJobs=verified,replicas=states,scope='Two independent hosted Windows runner VMs, full historical Upheaval except explicitly labelled metadata-only SC subset; no physical-hardware diversity claim')
+                verifiedRunnerJobs=verified,replicas=states,scope=('Two independent hosted Windows runner VMs for '+str(states[0].get('followupGroup') or 'expanded')+'; full historical Upheaval except explicitly labelled metadata-only SC subset; no physical-hardware diversity claim'))
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     B.write(output/'expanded-result.json',result)
     summary='# Upheaval cache and packaging comparison\n\n'

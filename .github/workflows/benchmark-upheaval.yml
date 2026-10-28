@@ -14,7 +14,7 @@ on:
       suite:
         description: 'Choose clean baseline or expanded cache/incremental/packaging matrix'
         type: choice
-        options: [clean, expanded, packaging]
+        options: [clean, expanded, packaging, cache-followup]
         default: clean
       report_run_id:
         description: 'Optional completed benchmark run to extract reports only (no recompilation)'
@@ -32,11 +32,11 @@ permissions:
   contents: read
   actions: read
 concurrency:
-  group: benchmark-upheaval-${{ github.ref }}${{ (contains(github.event.head_commit.message, '[upheaval-report-only]') || contains(github.event.head_commit.message, '[upheaval-reaggregate]') || inputs.report_run_id != '' || inputs.expanded_report_run_id != '') && '-report' || '' }}
+  group: benchmark-upheaval-${{ github.ref }}${{ (contains(github.event.head_commit.message, '[upheaval-cache-followup]') || inputs.suite == 'cache-followup') && '-followup' || (contains(github.event.head_commit.message, '[upheaval-report-only]') || contains(github.event.head_commit.message, '[upheaval-reaggregate]') || inputs.report_run_id != '' || inputs.expanded_report_run_id != '') && '-report' || '' }}
   cancel-in-progress: false
 jobs:
   benchmark:
-    if: ${{ !contains(github.event.head_commit.message, '[upheaval-report-only]') && !contains(github.event.head_commit.message, '[upheaval-reaggregate]') && !contains(github.event.head_commit.message, '[upheaval-expanded]') && !contains(github.event.head_commit.message, '[upheaval-package]') && inputs.report_run_id == '' && inputs.expanded_report_run_id == '' && inputs.suite != 'expanded' && inputs.suite != 'packaging' }}
+    if: ${{ !contains(github.event.head_commit.message, '[upheaval-cache-followup]') && inputs.suite != 'cache-followup' && !contains(github.event.head_commit.message, '[upheaval-report-only]') && !contains(github.event.head_commit.message, '[upheaval-reaggregate]') && !contains(github.event.head_commit.message, '[upheaval-expanded]') && !contains(github.event.head_commit.message, '[upheaval-package]') && inputs.report_run_id == '' && inputs.expanded_report_run_id == '' && inputs.suite != 'expanded' && inputs.suite != 'packaging' }}
     runs-on: windows-2022
     timeout-minutes: 240
     steps:
@@ -361,6 +361,126 @@ jobs:
           path: |
             combined/
             extraction.json
+            runner-jobs.json
+          if-no-files-found: error
+          retention-days: 30
+
+  cache-followup:
+    name: cache-followup (${{ matrix.group }}, ${{ matrix.replica }})
+    if: ${{ contains(github.event.head_commit.message, '[upheaval-cache-followup]') || inputs.suite == 'cache-followup' }}
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        group: [xml, texture, audio, recovery]
+        replica: [1, 2]
+    runs-on: windows-2022
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Lightweight preflight including cross-step environment identity
+        shell: pwsh
+        run: |
+          python -m unittest discover -s recovery/benchmarks/upheaval -p 'test_*.py' -v
+          if($LASTEXITCODE -ne 0){throw 'Followup preflight failed'}
+      - name: Verify unchanged accepted production runtime
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/benchmarks/upheaval/prepare.py recovery/artifacts/upheaval-runtime
+          if($LASTEXITCODE -ne 0){throw 'Runtime reuse rejected'}
+      - name: Initialize isolated real MOD and fixed compiler environment
+        id: init
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase init --replica ${{ matrix.replica }} --followup-group ${{ matrix.group }}
+          if($LASTEXITCODE -ne 0){throw 'Followup initialization failed'}
+      - name: Verify unchanged complete no-cache output fingerprint
+        id: baseline
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase baseline
+          if($LASTEXITCODE -ne 0){throw 'Followup baseline failed'}
+      - name: Prime native caches and prove actual cold misses and hot hits
+        id: prime
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase prime
+          if($LASTEXITCODE -ne 0){throw 'Followup cache priming failed'}
+      - name: Same-length same-mtime incremental change from verified hot baseline
+        if: ${{ !cancelled() && steps.prime.outcome == 'success' && matrix.group != 'recovery' }}
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase incremental-${{ matrix.group }}
+          if($LASTEXITCODE -ne 0){throw 'Verified-namespace incremental gate failed'}
+      - name: Damage the verified hot namespace and observe failure/restoration
+        if: ${{ !cancelled() && steps.prime.outcome == 'success' && matrix.group == 'recovery' }}
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase recovery
+          if($LASTEXITCODE -ne 0){throw 'Verified-namespace recovery observation failed'}
+      - name: Final input/runtime immutability and correctness acceptance
+        if: ${{ !cancelled() && steps.init.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/benchmarks/upheaval/expanded.py --phase finalize
+          if($LASTEXITCODE -ne 0){throw 'Followup has negative correctness findings; preserved'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-followup-summary-${{ matrix.group }}-${{ matrix.replica }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/upheaval-expanded/state.json
+            recovery/artifacts/upheaval-expanded/summary.md
+            recovery/artifacts/upheaval-expanded/context.json
+            recovery/artifacts/upheaval-runtime/reuse.json
+          if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-followup-evidence-${{ matrix.group }}-${{ matrix.replica }}-${{ github.run_attempt }}
+          path: recovery/artifacts/upheaval-expanded/**
+          if-no-files-found: error
+          retention-days: 30
+  cache-followup-summary:
+    needs: cache-followup
+    if: ${{ !cancelled() && needs.cache-followup.result != 'skipped' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [xml, texture, audio, recovery]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: recovery/benchmarks/upheaval
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: upheaval-followup-summary-${{ matrix.group }}-*
+          path: reports
+      - name: Verify distinct measuring runner IDs and summarize this scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/jobs?per_page=100 > runner-jobs.json
+          python recovery/benchmarks/upheaval/aggregate.py --input reports --output combined --expected 2 --jobs-metadata runner-jobs.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-followup-combined-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            combined/
             runner-jobs.json
           if-no-files-found: error
           retention-days: 30

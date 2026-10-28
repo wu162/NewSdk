@@ -1,5 +1,13 @@
 # Upheaval 新旧编译器 benchmark
 
+## 跨 Actions 步骤的缓存环境修正
+
+生产 `CacheProcessContract` 将整个子进程环境纳入缓存命名空间。首轮8318eb71框架直接继承Actions环境，其 `GITHUB_ACTION`、命令文件等随步骤变化，导致缓存阶段的备份在后续增量/恢复步骤中全部miss。因此首轮首次增量不是纯文件修改测量，新版损坏缓存也未证明实际命中被损坏的命名空间；这两类结论撤回，原记录保留。首轮同一步骤内的BC冷/热对照，以及各自初始化冷/热的SC和打包，不受此跨步骤问题影响。
+
+`compiler_environment` 对两侧使用相同的显式Windows运行环境白名单，排除CI临时元数据、凭据及调试变量；只保存环境摘要，不写出环境值。每个阶段必须与初始化的环境摘要相同。首次增量修改前和每次缓存破坏前，额外运行基线验证：新版必须真实hits>0、misses=0，旧版必须有cache-copy消息，禁止把其他命名空间的重建误判成缓存失效或完整性恢复。
+
+`suite=cache-followup` 或提交标记 `[upheaval-cache-followup]` 仅重测受影响的XML、DDS、WAV和恢复；每组各两台独立Windows VM、单独prime并跨步骤证明命中，增量仍各3对。组间VM独立、最多四个job同时运行；不会在同一VM上并行计时。既有有效缓存/SC和直接打包不重复测量。原失败终态和混淆数据不删除，不进入新正式增量统计。
+
 ## 扩展矩阵：缓存、增量、恢复、会话边界及打包
 
 用户于2026-10-28要求补齐缓存及其他指标。工作流手动选择 `suite=expanded`，或以 `[upheaval-expanded]` 标记提交，即在两台独立 `windows-2022` runner VM 上执行新旧配对；原clean组不重复启动。两台VM先各完成一对无缓存预热和既有完整输出指纹验证。
@@ -25,7 +33,7 @@ Windows托管镜像可能使用相同的hostname，不能用hostname判定是否
 
 从 `compiler-main` 独立分支测试**完整、未精简的历史 Upheaval**。当前主线已经不跟踪该 MOD，因此从初始 SDK 提交 `bacfc69fc3e71c8116d1f22b933b8b6173170ecf` 用 `git archive` 提取到临时目录，固定 tree `5551fc26a6f96b62613443e0d0fa2958c14cbce0`，共 2723 文件，不修改当前 SDK。新旧编译器共同使用这份外部 MOD；完整输入哈希另存 `mod-inputs.json`。修改 benchmark 文件并普通推送自动触发；合入后也可手动 `workflow_dispatch`。默认 1 对预热 + 10 对正式样本，旧→新、新→旧交替顺序，同一台 `windows-2022` runner 串行执行。分支并发排队，不取消已有实验；最长 240 分钟。单个编译进程 1200 秒超时会终止进程树，失败证据仍上传。
 
-## 测量合同
+## 原clean组测量合同
 
 - 对比原 SDK `BinaryAssetBuilder.exe` 与正式 Release `NewModCompiler.exe` 的完整 MOD **编译/链接耗时**。自动选择 `Data/Mod.xml`、APT 和地图元数据入口；不注释引用、不替换资产、不用小 fixture 冒充真实 MOD。
 - 两侧使用相同 SDK/MOD、Schema、资源搜索路径、Win32、`pc/ss/slowclean=true`，所有编译缓存关闭，每次新进程、全新输出/intermediate/hash/cache 目录。旧侧保留原配置中的 LowLOD/MediumLOD 表及所有插件路由。
@@ -44,7 +52,7 @@ Windows托管镜像可能使用相同的hostname，不能用hostname判定是否
 
 准备器要求生产源为当前提交祖先，生产源码、SDK、构建脚本、probes/catalog 完全未变；仅准许文档及本 benchmark 目录/专属工作流差异。校验 Actions 成功终态、原始 artifact 元数据与归档哈希、五文件正式 Release ZIP、Texture 与 EXE 的绑定。来源分别记为 `binarySourceCommit` 与 `testSourceCommit`，不把历史二进制冒充新构建。不重跑生产代码未变的既有全回归，也不修改其门槛。
 
-本机 Linux 仅执行轻量测试；真实 Windows 编译结果以本分支 Actions 的 `validation.json`、`summary.md` 和原始日志为准。SDK 和运行文件前后完整哈希核对。产物自动保留 30 天，未取得 `succeeded=true` 不算完成 benchmark。
+本机 Linux 仅执行轻量测试；真实 Windows 编译结果以本分支 Actions 的 `validation.json`、`summary.md` 和原始日志为准。SDK 和运行文件前后完整哈希核对。产物自动保留30天。整轮只有 `succeeded=true` 才通过全部门槛；故障注入导致负向正确性发现时，仍保留失败终态。报告可单列独立通过、产物身份一致且样本完整的性能组，但不得把它们写成整轮验收通过。
 
 ```powershell
 python recovery/benchmarks/upheaval/prepare.py recovery/artifacts/upheaval-runtime

@@ -19,6 +19,35 @@ import xml.etree.ElementTree as ET
 import benchmark as B
 
 
+def compiler_environment(source=None):
+    # CacheProcessContract hashes every child variable. Actions changes its
+    # command-file paths and GITHUB_ACTION at each step; they are not compiler
+    # inputs. Use the same explicit runtime environment in every phase.
+    source = os.environ if source is None else source
+    allowed = {'PATH','SYSTEMROOT','WINDIR','COMSPEC','PATHEXT','TEMP','TMP',
+               'USERPROFILE','APPDATA','LOCALAPPDATA','PROGRAMDATA','PROGRAMFILES',
+               'PROGRAMFILES(X86)','PROGRAMW6432','COMMONPROGRAMFILES',
+               'COMMONPROGRAMFILES(X86)','COMMONPROGRAMW6432','SYSTEMDRIVE',
+               'HOMEDRIVE','HOMEPATH','USERNAME','USERDOMAIN','USERDOMAIN_ROAMINGPROFILE',
+               'PUBLIC','ALLUSERSPROFILE','OS','NUMBER_OF_PROCESSORS',
+               'PROCESSOR_ARCHITECTURE','PROCESSOR_ARCHITEW6432','PROCESSOR_IDENTIFIER',
+               'PROCESSOR_LEVEL','PROCESSOR_REVISION'}
+    result = {k.upper():v for k,v in source.items() if k.upper() in allowed}
+    if 'PATH' in result:
+        result['PATH'] = ';'.join(p for p in result['PATH'].split(';')
+                                if not re.search(r'[\\/]SDK[\\/]tools',p,re.I))
+    return result
+
+
+def require_hot(row):
+    if row['engine']=='new':
+        stats=row.get('cacheStatistics') or {}
+        if stats.get('hits',0)<=0 or stats.get('misses',-1)!=0:
+            raise ValueError('Restored baseline did not exercise the intended hot namespace')
+    elif row.get('cacheCopyMessages',0)<=0:
+        raise ValueError('Original restored baseline had no actual cache-copy evidence')
+
+
 def fingerprint(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
@@ -141,11 +170,13 @@ def initialize(args):
         raise ValueError('Runtime not verified against this source')
     config = dict(repo=str(repo), work=str(work), runtime=str(runtime), sdk=str(sdk), mod=str(mod),
                   tools=str(tools), paths=paths, runs=args.runs, changes=args.changes, replica=args.replica,
-                  timeout=args.timeout, sourceCommit=source, onlyPackaging=args.only_package)
+                  timeout=args.timeout, sourceCommit=source, onlyPackaging=args.only_package, followupGroup=args.followup_group,
+                  compilerEnvironmentSha256=fingerprint(compiler_environment()))
     B.write(out/'context.json', config)
     state = dict(schemaVersion=1, sourceCommit=source, binarySourceCommit=reuse['binarySourceCommit'],
                  runId=os.getenv('GITHUB_RUN_ID'), runAttempt=os.getenv('GITHUB_RUN_ATTEMPT'),
                  replica=args.replica, machine=platform.node(), runner=os.getenv('RUNNER_NAME'),
+                 followupGroup=args.followup_group, compilerEnvironmentSha256=config['compilerEnvironmentSha256'],
                  environment=dict(platform=platform.platform(), processor=platform.processor(),
                                   logicalCpus=os.cpu_count(), python=platform.python_version()),
                  reuse=reuse, modSourceCommit=B.MOD_SOURCE, modGitTree=tree, phases={}, samples=[],
@@ -166,8 +197,9 @@ class Experiment:
         self.c = json.loads((self.out/'context.json').read_text())
         self.state = json.loads((self.out/'state.json').read_text())
         self.work, self.sdk, self.mod, self.tools, self.runtime = [Path(self.c[k]) for k in ('work','sdk','mod','tools','runtime')]
-        self.env = {k:v for k,v in os.environ.items() if not k.startswith('RA3_RECOVERED_') and k != 'RECOVERED_W3X_TRACE_DIRECTORY'}
-        self.env['PATH'] = ';'.join(p for p in self.env['PATH'].split(';') if not re.search(r'[\\/]SDK[\\/]tools', p, re.I))
+        self.env = compiler_environment()
+        if fingerprint(self.env)!=self.c['compilerEnvironmentSha256']:
+            raise ValueError('Compiler runtime environment changed across Actions phases')
         self.tasks = [('base',self.mod/'Data/Mod.xml')]
         self.tasks += [('apt',p) for p in sorted((self.mod/'Data/AptUI').glob('*.xml'))]
         self.tasks += [('maps',p) for p in sorted((self.mod/'Data/AdditionalMaps').glob('MapMetaData_*.xml'))]
@@ -392,6 +424,20 @@ class Experiment:
             self.persist()
         for engine in ('old','new'): self.backup(engine)
 
+    def prime(self):
+        baseline=json.loads((self.out/'baseline.json').read_text())
+        for engine in self.order(0):
+            self.reset(engine,'bc')
+            cold=self.accept(self.build(engine,'followup-prime-cold'),baseline)
+            hot=self.accept(self.build(engine,'followup-prime-hot'),baseline)
+            require_hot(hot)
+            if engine=='new' and (cold['cacheStatistics']['hits']!=0 or cold['cacheStatistics']['misses']<=0):
+                raise ValueError('Followup prime did not start cold')
+            self.backup(engine)
+            self.state['observations'].append(dict(kind='followup-prime',engine=engine,
+                 coldSampleId=cold['id'],hotSampleId=hot['id']))
+        self.persist()
+
     def incremental(self,family=None):
         baseline=json.loads((self.out/'baseline.json').read_text())
         inputs={'xml':self.mod/'Data/Mod/Specific/AmbientStream.xml',
@@ -399,6 +445,14 @@ class Experiment:
                 'audio':self.mod/'Audio/Specific/JUPearl_ambiLoopa.wav'}
         if family:inputs={family:inputs[family]}
         for kind,path in inputs.items():
+            # This runs in a different Actions step from prime/cache. Prove
+            # the restored baseline can actually hit before changing content.
+            for engine in self.order(0):
+                self.restore_cache(engine)
+                row=self.accept(self.build(engine,kind+'-baseline-cache-check'),baseline)
+                require_hot(row)
+                self.state['observations'].append(dict(kind='incremental-baseline-cache',family=kind,
+                     engine=engine,sampleId=row['id'],actualHotNamespaceVerified=True))
             original=path.read_bytes();stamp=path.stat();changed=mutate(path,kind,original)
             def put(data):
                 path.write_bytes(data);os.utime(path,ns=(stamp.st_atime_ns,stamp.st_mtime_ns))
@@ -429,6 +483,9 @@ class Experiment:
         for damage in ('missing','corrupt'):
             for engine in self.order(0):
                 self.restore_cache(engine)
+                check=self.accept(self.build(engine,'before-cache-'+damage),baseline)
+                require_hot(check)
+                self.restore_cache(engine)
                 candidates=[p for p in self.cache_root(engine).rglob('*') if p.is_file() and p.stat().st_size>16
                             and (p.suffix=='.asset' if engine=='old' else p.parent.name=='files')]
                 if not candidates: raise ValueError('No real cache payload to damage')
@@ -442,6 +499,7 @@ class Experiment:
                 if correct: result[0]['byteIdentical']=True
                 self.state['observations'].append(dict(kind='cache-'+damage,engine=engine,sampleId=result[0]['id'],
                       victim=str(victim.relative_to(self.cache_root(engine))),beforeSha256=before,
+                      baselineHotSampleId=check['id'],intendedNamespaceVerified=True,
                       automaticRecovery=correct,failedClosed=not result[0]['succeeded'],
                       wrongOutputAccepted=result[0]['succeeded'] and not correct))
                 if result[0]['succeeded'] and not correct:
@@ -529,7 +587,7 @@ class Experiment:
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--phase',choices=['init','baseline','cache','incremental','incremental-xml','incremental-texture','incremental-audio','recovery','session','packaging','finalize'],required=True)
+    parser.add_argument('--phase',choices=['init','baseline','cache','prime','incremental','incremental-xml','incremental-texture','incremental-audio','recovery','session','packaging','finalize'],required=True)
     parser.add_argument('--repo',default='.')
     parser.add_argument('--runtime',default='recovery/artifacts/upheaval-runtime/bin')
     parser.add_argument('--output',default='recovery/artifacts/upheaval-expanded')
@@ -538,6 +596,7 @@ def main():
     parser.add_argument('--replica',type=int,default=1)
     parser.add_argument('--timeout',type=int,default=1200)
     parser.add_argument('--only-package',action='store_true')
+    parser.add_argument('--followup-group',choices=['xml','texture','audio','recovery'])
     args=parser.parse_args()
     if os.name!='nt': raise ValueError('Real experiments require Windows')
     if args.phase=='init': return initialize(args)

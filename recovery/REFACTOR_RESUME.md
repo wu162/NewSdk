@@ -21,6 +21,8 @@
 
 方法见 [benchmark README](benchmarks/upheaval/README.md)：每VM无缓存/BC冷/BC热各5对，真实XML/DDS/WAV同长度同mtime内容修改首次/热建各3对，缓存缺失/损坏及无效XML失败后的重试；完整SC的新侧Texture拒绝单列，原地图元数据子集另测SC；BIG/SKUDEF流水线预热后3对。各阶段独立门槛，缓存阶段后会先上传轻量checkpoint；最终按VM分层配对bootstrap汇总，保留原始输出差异和失败终态。复用既有无缓存成果，不关闭旧入口或回归。续接先读该运行的jobs/轻量artifact，等终态后更新本段与PR，避免重复启动长任务；既有88.918/74.002秒结果仍仅属于原无缓存运行。
 
+首轮补充核查：生产缓存键还覆盖整个进程环境；Actions跨步骤的临时变量变化，使8318eb71保存的BC备份在后续步骤全部失效。因此首次增量计时和新版损坏缓存的因果结论不接受，原数据保留。同一步骤内的BC冷热、各自初始化的SC和打包不受影响。框架已改为两侧相同运行环境白名单、跨步骤摘要一致校验，修改或破坏前必须证明新版hits>0/misses=0、旧版真实cache-copy；十项轻量测试通过。标记 `[upheaval-cache-followup]` 启动各XML/DDS/WAV/恢复两VM独立补测，不重跑有效组；仍待Actions新终态。第二台原运行完整打包身份通过，旧版损坏Texture缓存返回成功但产生错字节，整轮失败保留；不能把新版因命名空间失效的重建误称已经验证完整性检测。当前来源及待验证范围见 [扩展报告](docs/UPHEAVAL_EXPANDED.md)。
+
 ## 默认构建与参数改进（PR #14，待合入）
 
 本轮从 `compiler-main` 的 `933cf4a2` 创建 `feature/compiler-build-defaults`，PR [#14](https://github.com/wu162/NewSdk/pull/14)，尚未合并。生产/测试源码 `8b3e146cb5220e830ff6a0ce4718f47af052f166`；[验收运行40446975355](https://github.com/wu162/NewSdk/actions/runs/40446975355) 的完整 mymod 原 BAB 流、含 Additional 的默认 BIG 与 SKUDEF 差分、全部受影响回归及独立五文件 ZIP 验收均已通过，运行整体 success。
