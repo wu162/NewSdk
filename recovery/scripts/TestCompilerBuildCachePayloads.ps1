@@ -263,6 +263,41 @@ function ParallelXmlMod([string]$Path){
     }
     Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
 }
+$environmentTypes=@('Weather','WaterTransparency','WaterSetting','Environment','LightingSettings','WaterTextureList','TerrainParticleMapping','BounceKickTerrainMapping','ShadowMap','OrdersManagerSettings','TerrainVisualSettings','CameraSettings')
+function EnvironmentMod([string]$Path){
+    # A real sparse W3X task provides a natural in-flight peer while each newly
+    # certified metadata-only backend executes. No sleep or dispatch hook is used.
+    ParallelW3xMod $Path
+    Remove-Item -LiteralPath "$Path/Data/ParallelShort.xml"
+    [xml]$probe=[IO.File]::ReadAllText("$root/recovery/tests/XmlenvironmentProbe.xml")
+    $ns=[Xml.XmlNamespaceManager]::new($probe.NameTable);$ns.AddNamespace('ea','uri:ea.com:eala:asset')
+    $includes='<Include type="all" source="W3x.xml"/><Include type="all" source="ParallelLong.xml"/>'
+    foreach($type in $script:environmentTypes){
+        $node=$probe.SelectSingleNode(('/ea:AssetDeclaration/ea:'+$type+'[1]'),$ns).CloneNode($true)
+        $node.SetAttribute('id',('Parallel'+$type))
+        if($type -ceq 'ShadowMap'){$node.SetAttribute('MapSize','1024')}
+        Put "$Path/Data/$type.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$node.OuterXml+'</AssetDeclaration>')
+        $includes+='<Include type="all" source="'+$type+'.xml"/>'
+    }
+    Put "$Path/Data/Mod.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes>'+$includes+'</Includes></AssetDeclaration>')
+}
+function EnvironmentParallelEvidence($Case){
+    $cache=$Case.report.cache
+    Need ($cache.requestedJobs -eq 2 -and $cache.cacheMode -ceq 'Disabled' -and $cache.backendCalls -eq 14 -and $cache.maxBackendConcurrency -eq 2) 'Environment fixture must execute all twelve roots plus real W3X dependencies with two actual calls overlapping'
+    $intervals=@($cache.backendIntervals)
+    $native=@($intervals|Where-Object{$_.typeName -ceq 'W3DAnimation'})
+    Need ($native.Count -eq 1) 'Environment peer must be one actual native animation call'
+    $overlapping=@()
+    foreach($type in $script:environmentTypes){
+        $calls=@($intervals|Where-Object{$_.typeName -ceq $type})
+        Need ($calls.Count -eq 1 -and $cache.backendCallsByType.$type -eq 1) "Missing actual environment backend invocation: $type"
+        $call=$calls[0]
+        Need ($call.startTicks -lt $call.endTicks) "Environment backend interval did not complete: $type"
+        if($call.threadId -ne $native[0].threadId -and $call.sourcePath -cne $native[0].sourcePath -and $call.startTicks -lt $native[0].endTicks -and $native[0].startTicks -lt $call.endTicks){$overlapping+=,$type}
+    }
+    Need ($overlapping.Count -gt 0) 'No newly certified environment backend actually overlapped the in-flight native peer'
+    return @{passed=$true;certifiedTypes=$script:environmentTypes;observedOverlappingTypes=$overlapping;maxBackendConcurrency=$cache.maxBackendConcurrency;intervals=$intervals;scope='Twelve Xmlenvironment roots through production jobs2, real cross-family backend overlap against sparse W3X, all raw stream bytes equal to jobs1; observed subset is recorded explicitly'}
+}
 function CertifiedParallelEvidence($Case,[string]$Type){
     $cache=$Case.report.cache
     Need ($cache.requestedJobs -eq 2 -and $cache.cacheMode -ceq 'Disabled' -and $cache.actionHits -eq 0 -and $cache.backendCalls -eq 2 -and $cache.maxBackendConcurrency -eq 2) "Real bounded $Type parallel calls were not observed"
@@ -283,11 +318,11 @@ function ParallelEvidence($Case){
     Need ($left.startTicks -lt $left.endTicks -and $right.startTicks -lt $right.endTicks -and $left.startTicks -lt $right.endTicks -and $right.startTicks -lt $left.endTicks) 'Actual cross-document backend call intervals did not overlap'
     return @{passed=$true;requestedJobs=2;maxBackendConcurrency=$cache.maxBackendConcurrency;backendCalls=$cache.backendCalls;intervals=$intervals;scope='One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled'}
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native, leased APT XML and streamed XAS AudioFile overlap with jobs2; not a new original-DLL/SDK gate'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native, leased APT XML and streamed XAS AudioFile overlap with jobs2, twelve Xmlenvironment roots with cold/hot/same-mtime single edit and actual cross-family overlap; not a new original-DLL/SDK gate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     if($Preflight){
-        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3');FourWorkerAudioMod (Join-Path $short 'four')
+        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w');ParallelW3xMod (Join-Path $short 'p');ParallelAudioMod (Join-Path $short 'pa');ParallelXmlMod (Join-Path $short 'px');Mp3Mod (Join-Path $short 'mp3');FourWorkerAudioMod (Join-Path $short 'four');EnvironmentMod (Join-Path $short 'env')
         $check=@'
 import pathlib, runpy, sys
 from lxml import etree as E
@@ -321,6 +356,14 @@ for name,size in (('AptLong',12*1024*1024),('AptShort',256*1024)):
     assert node.tag=='{uri:ea.com:eala:asset}AptAptData' and node.get('File')==name+'.bin'
     assert (work/('px/Data/'+name+'.bin')).stat().st_size==size
     assert size*4 < 64*1024*1024
+environment_roots={'Weather','WaterTransparency','WaterSetting','Environment','LightingSettings','WaterTextureList','TerrainParticleMapping','BounceKickTerrainMapping','ShadowMap','OrdersManagerSettings','TerrainVisualSettings','CameraSettings'}
+for name in environment_roots:
+    node=E.parse(str(work/('env/Data/'+name+'.xml'))).getroot()[0]
+    assert node.tag=='{uri:ea.com:eala:asset}'+name
+shadow=(work/'env/Data/ShadowMap.xml').read_bytes()
+assert shadow.count(b'MapSize="1024"')==1
+assert len(b'MapSize="1024"')==len(b'MapSize="1025"')
+assert len(E.parse(str(work/'env/Data/Mod.xml')).getroot()[0])==14
 for path in (work/'four/Audio').glob('*.wav'):
     assert len(path.read_bytes())==44+196608*2*2
 assert len(list((work/'four/Data').glob('Audio*.xml')))==4
@@ -456,6 +499,18 @@ print('PASS payload fixture XSD, exact PCM/XAS and APT reads, CDATA sources, bou
         $serial=RunCli 'w3x-parallel-control' $parallelMod (Join-Path $modeWork 'parallel-serial') $false -Extra @('--jobs=1');Cache $serial 'disabled'
         $parallel=RunCli 'w3x-cross-document-parallel' $parallelMod (Join-Path $modeWork 'parallel-jobs2') $false -Extra @('--jobs=2');Cache $parallel 'disabled';SameOutputs $serial $parallel
         $modeState.parallel=ParallelEvidence $parallel
+        $environment=Join-Path $modeWork 'environment';EnvironmentMod $environment;$script:expectedCustomData=0
+        $environmentSerial=RunCli 'environment-serial' $environment (Join-Path $modeWork 'environment-jobs1') $false -Extra @('--jobs=1');Cache $environmentSerial 'disabled'
+        $environmentParallel=RunCli 'environment-parallel' $environment (Join-Path $modeWork 'environment-jobs2') $false -Extra @('--jobs=2');Cache $environmentParallel 'disabled';SameOutputs $environmentSerial $environmentParallel
+        $modeState.environmentParallel=EnvironmentParallelEvidence $environmentParallel
+        $environmentCache=Join-Path $modeWork 'environment-cache'
+        $environmentCold=RunCli 'environment-cold' $environment $environmentCache $true -Extra @('--jobs=2');Cache $environmentCold 'cold';SameOutputs $environmentSerial $environmentCold
+        $environmentHot=RunCli 'environment-hot' $environment $environmentCache $true -Extra @('--jobs=2');Cache $environmentHot 'hot';SameOutputs $environmentSerial $environmentHot
+        Need ($environmentHot.report.cache.backendCalls -eq 0) 'Hot environment fixture must eliminate every backend call'
+        SameLengthMutation "$environment/Data/ShadowMap.xml" 'MapSize="1024"' 'MapSize="1025"'
+        $environmentPartial=RunCli 'environment-single-edit' $environment $environmentCache $true -Extra @('--jobs=2');Cache $environmentPartial 'partial';DifferentOutputs $environmentHot $environmentPartial
+        Need ($environmentPartial.report.cache.backendCalls -eq 1 -and $environmentPartial.report.cache.backendCallsByType.ShadowMap -eq 1) 'One same-length/mtime environment edit must compile only ShadowMap'
+        $environmentChanged=RunCli 'environment-edited-serial' $environment (Join-Path $modeWork 'environment-changed-jobs1') $false -Extra @('--jobs=1');Cache $environmentChanged 'disabled';SameOutputs $environmentChanged $environmentPartial
         $modeState.certifiedParallel=@()
         foreach($family in @('audio','xml')){
             $fixture=Join-Path $modeWork ('parallel-'+$family)

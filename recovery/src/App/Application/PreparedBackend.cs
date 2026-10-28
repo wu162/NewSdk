@@ -131,7 +131,7 @@ namespace NewModCompiler.Application
                 else if (family == "xml" && IsParallelXml(original.Handle.TypeId))
                 {
                     // APT's tracker payload, relocatable copy and managed output
-                    // coexist. The seven Xmlaudio roots have no external reads.
+                    // coexist. Certified metadata-only XML roots have no external reads.
                     retained = ExternalReadBudget(leases, retained, 4L);
                     parallel = true;
                 }
@@ -275,6 +275,12 @@ namespace NewModCompiler.Application
                 // const field/enum tables and no process-wide hash registration.
                 case 3906227957u: case 299416263u: case 1443425905u:
                 case 587347702u: case 1447728787u: case 1826140078u: case 3370391592u:
+                // XmlenvironmentCompiler.cpp / Xmlenvironment.cpp: detached tree,
+                // call-local Builder/Tracker, InitOnce immutable layout registry,
+                // pure HashAssetId/reference marshaling and no external reads.
+                case 2430161325u: case 1479531562u: case 2728605516u: case 680780553u:
+                case 3169690211u: case 2995571269u: case 1469498551u: case 2368878637u:
+                case 4157475773u: case 2996766068u: case 1184276792u: case 3898802054u:
                     return true;
                 default: return false;
             }

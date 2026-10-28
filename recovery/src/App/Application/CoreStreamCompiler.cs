@@ -32,7 +32,9 @@ namespace NewModCompiler.Application
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
         ActionAssetCache actionCache;
         string actionToolchain;
-        long inputHashBytes, completedCacheHashBytes, completedCacheCopyBytes;
+        long inputHashBytes, inputHashReusedBytes, completedCacheHashBytes, completedCacheCopyBytes;
+        int inputInventoryCaptures, inputHashLeaseFiles;
+        CacheInputLeaseSet inputLeases;
         readonly AssetExecutionMetrics executionMetrics = new AssetExecutionMetrics();
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
@@ -61,6 +63,7 @@ namespace NewModCompiler.Application
             actionHits = executionMetrics.Hits, actionMisses = executionMetrics.Misses,
             restoredBytes = executionMetrics.RestoredBytes, writtenBytes = executionMetrics.WrittenBytes,
             hashReadBytes = inputHashBytes + executionMetrics.ExternalHashBytes + completedCacheHashBytes + (actionCache == null ? 0 : actionCache.HashReadBytes),
+            inputInventoryCaptures, inputHashReusedBytes, inputHashLeaseFiles,
             cacheCopyBytes = completedCacheCopyBytes + (actionCache == null ? 0 : actionCache.CopyBytes),
             peakSampledPrivateBytes = executionMetrics.PeakSampledPrivateBytes,
             backendCallsByType = new Dictionary<string,int>(executionMetrics.CallsByType),
@@ -491,7 +494,7 @@ namespace NewModCompiler.Application
                 {
                     inputBoundary = CacheInputBoundary.Begin(sdkRoot, modRoot, runtime);
                     cachePlan = new BuildPlan { PlanKind = "CoreCacheStream.v2", Tasks = new[] { context.Task } };
-                    cacheInputs = CacheInputSnapshot.Capture(request, cachePlan, runtime, cancellation);
+                    cacheInputs = CaptureInputs(cachePlan, runtime, cancellation);
                     inputHashBytes += cacheInputs.HashedBytes;
                     processContract = CacheProcessContract();
                     if (buildCacheEnabled && !sessionCacheEnabled)
@@ -575,7 +578,7 @@ namespace NewModCompiler.Application
                 cancellation.ThrowIfCancellationRequested();
                 if (buildCacheEnabled || sessionCacheEnabled)
                 {
-                    var finalInputs = CacheInputSnapshot.Capture(request, cachePlan, runtime, cancellation);
+                    var finalInputs = CaptureInputs(cachePlan, runtime, cancellation);
                     inputHashBytes += finalInputs.HashedBytes;
                     if (cacheInputs.Fingerprint != finalInputs.Fingerprint || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal))
                         throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Build-cache inputs or process resolution contract changed during compilation.");
@@ -623,6 +626,17 @@ namespace NewModCompiler.Application
             }
             if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
             return artifacts;
+        }
+
+        CacheInputSnapshot CaptureInputs(BuildPlan plan, string runtime, CancellationToken cancellation)
+        {
+            // Session-package compatibility retains its original independent scans.
+            if (!sessionCacheEnabled && inputLeases == null) inputLeases = new CacheInputLeaseSet();
+            var result = CacheInputSnapshot.Capture(request, plan, runtime, cancellation, inputLeases);
+            inputInventoryCaptures++;
+            inputHashReusedBytes = checked(inputHashReusedBytes + result.ReusedHashBytes);
+            if (inputLeases != null) inputHashLeaseFiles = Math.Max(inputHashLeaseFiles, inputLeases.RetainedFiles);
+            return result;
         }
 
         // BuildSession owns these reversible writes after provider disposal.
@@ -820,7 +834,7 @@ namespace NewModCompiler.Application
                 disposed = true;
             }
             try { DisposeProviders(); }
-            finally { ReleaseLease(); }
+            finally { try { if (inputLeases != null) { inputLeases.Dispose(); inputLeases = null; } } finally { ReleaseLease(); } }
         }
         void DisposeProviders()
         {

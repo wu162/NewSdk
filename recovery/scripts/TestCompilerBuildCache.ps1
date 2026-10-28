@@ -107,6 +107,13 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
         $files=@{};$archived=Join-Path $caseOut 'artifacts';New-Item -ItemType Directory -Path $archived|Out-Null
         if($Expected -eq 0){
             Need ($body.publicationStatus -ceq 'PublishedDirectory' -and @($body.artifacts).Count -eq 8) 'Cache fixture did not publish exactly two four-file streams'
+            if($Enabled){
+                Need ($body.cache.inputInventoryCaptures -eq 4) 'Two cached streams must preserve both initial and final whole-root inventories'
+                Need ($body.cache.inputHashLeaseFiles -gt 0 -and $body.cache.inputHashLeaseFiles -le 512) 'Tool digest sharing omitted its bounded retained-file count'
+                Need ($body.cache.inputHashReusedBytes -gt 0 -and $body.cache.hashReadBytes -gt 0) 'Shared tool digests must report avoided reads while ordinary input and payload reads remain counted'
+            }else{
+                Need ($body.cache.inputInventoryCaptures -eq 0 -and $body.cache.inputHashReusedBytes -eq 0 -and $body.cache.inputHashLeaseFiles -eq 0) 'Disabled cache invented input inventory or shared digest work'
+            }
             $published=Join-Path $Destination 'published'
             foreach($artifact in $body.artifacts){
                 Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
@@ -140,7 +147,7 @@ function OriginalOracle($Case,[string]$Name){
     & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds
     Need ($LASTEXITCODE -eq 0) 'Build-cache independent original BAB oracle failed'
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production action-cache CLI acceptance: XML/Armor, Weapon, GameObject, PathMusicEvent and file-backed APT with noncached Texture; exact single-action invalidation, unread Additional, complete raw four outputs, original BAB, same-length/same-mtime changes, MOD reuse boundaries, actual cancellation and failure/retry; /sc and full SDK remain separate'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production action-cache CLI acceptance: XML/Armor, Weapon, GameObject, PathMusicEvent and file-backed APT with noncached Texture; exact single-action invalidation, unread Additional, complete raw four outputs, original BAB, same-length/same-mtime changes, MOD reuse boundaries, bounded cross-stream tool-digest leases with all four root inventories preserved, actual cancellation and failure/retry; /sc and full SDK remain separate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     if($Preflight){

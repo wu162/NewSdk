@@ -203,6 +203,45 @@ public static class CompilerPreparedBackend
         // invalid large WAV contents. Only the lease/qualification is exercised.
         File.Delete(input);
     }
+    static void EnvironmentQualification(string sdk)
+    {
+        // Use the existing source-derived, XSD-covered component fixtures rather
+        // than empty roots that omit required fields and pointer/list payloads.
+        var fixtures = new XmlDocument { XmlResolver = null };
+        fixtures.Load(Path.Combine(sdk, "../recovery/tests/XmlenvironmentProbe.xml"));
+        string[] roots = { "Weather", "WaterTransparency", "WaterSetting", "Environment", "LightingSettings",
+            "WaterTextureList", "TerrainParticleMapping", "BounceKickTerrainMapping", "ShadowMap",
+            "OrdersManagerSettings", "TerrainVisualSettings", "CameraSettings" };
+        foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 })
+        {
+            var plugin = new Recovered.XmlPriority.Plugin(); plugin.Initialize(null, platform);
+            foreach (string type in roots)
+            {
+                int fixtureCount = 0;
+                foreach (XmlNode source in fixtures.DocumentElement.ChildNodes)
+                {
+                    if (source.LocalName != type) continue;
+                    fixtureCount++;
+                    var declaration = Declaration(type, "Prepared" + type, Namespaces());
+                    var document = new XmlDocument { XmlResolver = null };
+                    declaration.XmlNode = document.ImportNode(source, true); document.AppendChild(declaration.Node);
+                    Metadata(declaration, plugin);
+                    object prepared = Prepare(declaration, plugin);
+                    try
+                    {
+                        Require(prepared != null && Value<bool>(prepared, "CanRunParallel"), "Complete environment family must be independently eligible: " + type);
+                        EqualBuffers(plugin.ProcessInstance(declaration), Execute(prepared), type + "/" + platform);
+                    }
+                    finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
+                }
+                Require(fixtureCount > 0, "Environment qualification fixture missing: " + type);
+            }
+            var owner = Declaration("LogicCommandSet", "StillOwner", Namespaces()); Metadata(owner, plugin);
+            object unqualified = Prepare(owner, plugin);
+            try { Require(unqualified != null && !Value<bool>(unqualified, "CanRunParallel"), "Unaudited XML roots must retain owner execution"); }
+            finally { if (unqualified != null) ((IDisposable)unqualified).Dispose(); }
+        }
+    }
     static Func<T> TypedSampler<T>(Func<object> sampler) { return delegate { return (T)sampler(); }; }
     static object ResourceSampler(Func<object> sampler)
     {
@@ -779,13 +818,13 @@ public static class CompilerPreparedBackend
     {
         try
         {
-            Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); ParallelQualification(args[0]); ResourceBudget(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); BinaryAssetAuthorization(args[0]);
+            Directory.CreateDirectory(args[0]); AptLeaseAndFreeze(args[0]); ParallelQualification(args[0]); EnvironmentQualification(args[4]); ResourceBudget(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); BinaryAssetAuthorization(args[0]);
             RepeatedIncludeAndInheritance(args[0], args[4]); ResourcePressure(args[0], args[4]); SingleTaskAdmission(args[0], args[4]);
             CancelInFlight(args[0], args[4]);
             NativeWorkerFailure(args[0], args[4]);
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new {
                 succeeded = true, sourceCommit = args[2], runId = args[3], checks, lifecycleEvidence,
-                scope = "Actual prepared input isolation, native APT content lease, exact external invalidation, schema defaults and preparation budgets, real BinaryAsset authorization guard, repeated include/inheritance byte equality, cancellation and native worker failure; normal cross-document output overlap is checked separately"
+                scope = "Actual prepared input isolation, native APT content lease, exact external invalidation, schema defaults and preparation budgets, real BinaryAsset authorization guard, repeated include/inheritance byte equality, cancellation and native worker failure; complete Xmlenvironment family qualification with four-platform three-buffer equality; normal cross-document output overlap is checked separately"
             }));
             Console.WriteLine("PASS PreparedBackend: " + checks + " assertions"); return 0;
         }
