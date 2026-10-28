@@ -171,12 +171,59 @@ namespace NewModCompiler.Tests
             bounded.Probe(missing, false);
             Reject<IOException>(() => bounded.Probe(missing, true), "Contradictory candidate decisions within one stream were accepted");
         }
+        static void LeasedReadIdentities(string root)
+        {
+            string input = Put(root, "leased.bin", "AAAA");
+            byte[] digest;
+            using (var file = File.OpenRead(input))
+            using (var hash = SHA256.Create()) digest = hash.ComputeHash(file);
+            var manifest = new CacheDependencyManifest();
+            manifest.RecordLeasedRead(input, 4, digest);
+            Check(manifest.FileCount == 1 && manifest.ReadBytes == 0 && manifest.LeasedReadBytes == 4, "An identity from an existing read lease must not invent another file read");
+            byte[] retained = (byte[])digest.Clone(); digest[0] ^= 0x7f;
+            manifest.ValidateCurrent(CancellationToken.None);
+            manifest.RecordLeasedRead(input, 4, retained);
+            Check(manifest.FileCount == 1 && manifest.LeasedReadBytes == 8 && manifest.ReadBytes == 0, "Repeated consistent lease identities must preserve one dependency and account separately");
+            Reject<IOException>(() => manifest.RecordLeasedRead(input, 4, digest), "Contradictory digests from one stream's leased input were accepted");
+            Reject<IOException>(() => manifest.RecordLeasedRead(input, 5, retained), "Contradictory leased lengths were accepted");
+            foreach (byte[] invalid in new[] { null, new byte[0], new byte[31], new byte[33] })
+                RejectInvalidData(() => manifest.RecordLeasedRead(input, 4, invalid), "A leased input without exactly one SHA256 identity was accepted");
+            RejectInvalidData(() => manifest.RecordLeasedRead(input, -1, retained), "A negative leased input length was accepted");
+            using (var stream = manifest.OpenRead(input)) Check(stream.ReadByte() == (byte)'A', "Ordinary observed reads must agree with an existing leased identity");
+            Check(manifest.ReadBytes == 4 && manifest.LeasedReadBytes == 8 && manifest.FileCount == 1, "Leased and observed read byte counters must remain distinct");
+            string record = Path.Combine(root, "leased-manifest.bin"); manifest.Write(record);
+            var restored = CacheDependencyManifest.Read(record); restored.ValidateCurrent(CancellationToken.None);
+            Check(restored.FileCount == 1 && !restored.CanAuthorizeReuse, "Persisted leased identity must not acquire reuse authority");
+            Put(root, "leased.bin", "BBBB");
+            Reject<IOException>(() => restored.ValidateCurrent(CancellationToken.None), "Publication validation failed to check the current content of a previously leased input");
+            var absent = new CacheDependencyManifest(); absent.Probe(Path.Combine(root, "absent.bin"), false);
+            Reject<IOException>(() => absent.RecordLeasedRead(Path.Combine(root, "absent.bin"), 4, retained), "A leased read silently contradicted an earlier negative candidate decision");
+        }
+        static void MetadataBudgetIsTransactional()
+        {
+            var bounded = new CacheDependencyManifest();
+            string prefix = new string('x', 131000), refused = null;
+            int accepted = 0;
+            // Reach the 16 MiB metadata cap with fewer than 130 records. This
+            // exercises bounded rejection without a large MOD or file payload.
+            for (int index = 0; index < 130; index++)
+            {
+                string reason = prefix + index.ToString("D4", System.Globalization.CultureInfo.InvariantCulture);
+                try { bounded.ReportUnknownRead(reason); accepted++; }
+                catch (InvalidDataException) { refused = reason; break; }
+            }
+            Check(refused != null && accepted > 0 && bounded.UnknownReadCount == accepted, "The cumulative metadata budget did not bound accepted unknown-reader records");
+            RejectInvalidData(() => bounded.ReportUnknownRead(refused), "A rejected budget record polluted deduplication and silently disappeared on retry");
+            Check(bounded.UnknownReadCount == accepted && !bounded.CanAuthorizeReuse, "Budget rejection changed the accepted evidence set or reuse authority");
+        }
         public static int Run(string root)
         {
             checks = 0; Directory.CreateDirectory(root);
             RoundTripAndChanges(Path.Combine(root, "roundtrip"));
             CorruptRecords(Path.Combine(root, "malformed"));
             EmptyCancellationAndInvalidText(Path.Combine(root, "empty-and-invalid-text"));
+            MetadataBudgetIsTransactional();
+            LeasedReadIdentities(Path.Combine(root, "leased-identities"));
             return checks;
         }
     }

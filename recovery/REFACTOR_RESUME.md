@@ -1,6 +1,6 @@
 # 缓存与并行专项：当前交接
 
-更新：2026-10-28（北京时间）。工作分支 `feature/cache-parallel` 从 `compiler-main` 分出；[draft PR #17](https://github.com/wu162/NewSdk/pull/17) 目标为 `compiler-main`，未经用户批准不合入，禁止强推。
+更新：2026-10-29（北京时间）。工作分支 `feature/cache-parallel` 从 `compiler-main` 分出；[draft PR #17](https://github.com/wu162/NewSdk/pull/17) 目标为 `compiler-main`，未经用户批准不合入，禁止强推。
 
 ## 云端任务入口
 
@@ -25,9 +25,13 @@
 
 ## 下一步：依赖清单与分层持久缓存
 
-按 [B1执行方案](docs/HOT_CACHE_OPTIMIZATION.md) 推进。用户本轮要求参考老SDK并考虑缓存格式/大小，已调整计划；尚无新生产实现、格式测量或性能验收。
+按 [B1执行方案](docs/HOT_CACHE_OPTIMIZATION.md) 推进。当前已接入第一阶段生产读取观察、Core负候选、后端租约摘要、清单复验与独立二进制持久事务，具体 [READ_CLOSURE](docs/READ_CLOSURE.md)。全根保护仍保留，`canAuthorizeReuse=false`，尚无文档/stream复用或新性能验收。
 
-1. 先记录并验证完整实际读取闭包（含resolver候选/不存在/目录决策），在已认证路径替换全根盘点；未知读取保留保守路径。目标允许无关根成员变化，影响语义/输出的变化仍须失效；旧session合同不改。
+- 首批 `60d17fb2` / [40783157399](https://github.com/wu162/NewSdk/actions/runs/40783157399) failure：新增畸形记录测试错误假设InvalidDataException属于IOException，未进入native构建；失败保留。
+- 修正与解码/取消边界 `66524fb2` / [40783469606](https://github.com/wu162/NewSdk/actions/runs/40783469606) App Debug/Release success；不代表后续lease记录或完整生产验收。
+- 后续lease接入、预算状态修复、空间计量与完整回归正在集中验收，终态和精确源码稍后补录。
+
+1. 第一阶段观察记录接入后，先取得完整生产回归与原始归档；再认证纯metadata读取闭包（配置/工具/选项绑定、逐任务读取资格及precompiled/目录决策仍缺）。只有认证完成才能替换全根保护。继续记录并验证完整实际读取闭包（含resolver候选/不存在/目录决策），在已认证路径替换全根盘点；未知读取保留保守路径。目标允许无关根成员变化，影响语义/输出的变化仍须失效；旧session合同不改。
 2. 先读B1“与当前后端优化的衔接”：恢复态必须保留强Key、引用/注册副作用、三缓冲/CDATA、独占输入、owner提交与MachineResources预算，不能扩大XML/W3X/Audio/Texture资格。随后复用文档准备态，再实现完整stream无变化快路；保留现有ActionCache和有界执行器，不复制第二套前端。枚举/并行鲜读降为局部优化，不先做完微调才推进结构改造。
 3. 缓存采用版本化二进制索引与可定位数据块的设计方向：字符串去重、按需解码、分块可选压缩、小记录有界聚合；旧格式隔离，容量、完整性与代际事务必须闭合。具体压缩/分片阈值用同数据集对照确定。
 4. 成组Actions验证失效、原字节、取消/异常和回滚；同runner同jobs交替无缓存/热缓存至少3对。同时报告各层体积、文件数、热读取/解码、内存峰值、单改重写和事务峰值空间。先小mymod，稳定后低频完整Upheaval。

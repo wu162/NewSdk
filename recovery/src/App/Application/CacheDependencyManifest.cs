@@ -28,6 +28,7 @@ namespace NewModCompiler.Application
         public int FileCount { get; private set; }
         public int UnknownReadCount { get { return unknown.Count; } }
         public long ReadBytes { get; private set; }
+        public long LeasedReadBytes { get; private set; }
         public long ValidationBytes { get; private set; }
         public long ManifestBytes { get; private set; }
         public long ReadTicks { get; private set; }
@@ -39,7 +40,7 @@ namespace NewModCompiler.Application
             cancellation.ThrowIfCancellationRequested();
             if (string.IsNullOrWhiteSpace(reason)) reason = "unspecified";
             if (Utf8.GetByteCount(reason) > MaximumPathBytes) throw new InvalidDataException("Read-closure reason is too long.");
-            if (unknownSet.Add(reason)) { Account(reason); unknown.Add(reason); }
+            if (!unknownSet.Contains(reason)) { Account(reason); unknownSet.Add(reason); unknown.Add(reason); }
         }
         public void Probe(string path, bool exists)
         {
@@ -62,6 +63,22 @@ namespace NewModCompiler.Application
                 checked(pathBytes + bytes + 64L * (records.Count + unknown.Count + 1)) > MaximumManifestBytes)
                 throw new InvalidDataException("Read-closure metadata budget exceeded.");
             pathBytes = checked(pathBytes + bytes);
+        }
+        // Called only by the audited owner while the original FileShare.Read
+        // handle remains leased through native consumption. The digest belongs
+        // to that handle; this API never authorizes a later unleased path read.
+        public void RecordLeasedRead(string path, long length, byte[] digest)
+        {
+            cancellation.ThrowIfCancellationRequested();
+            if (length < 0 || digest == null || digest.Length != 32)
+                throw new InvalidDataException("Invalid leased read identity.");
+            string full = PhysicalPath(path);
+            Probe(full, true);
+            Record record = paths[full];
+            if (record.Digest != null && (record.Length != length || !Same(record.Digest, digest)))
+                throw new IOException("Read-closure content changed between reads: " + full);
+            if (record.Digest == null) { record.Digest = (byte[])digest.Clone(); record.Length = length; FileCount++; }
+            LeasedReadBytes = checked(LeasedReadBytes + length);
         }
         public Stream OpenRead(string path)
         {

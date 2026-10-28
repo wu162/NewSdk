@@ -32,7 +32,7 @@ namespace NewModCompiler.Application
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
         ActionAssetCache actionCache, dependencyStore;
         int dependencyStreams, dependencyProbes, dependencyFiles, dependencyUnknownReads;
-        long dependencyReadBytes, dependencyValidationBytes, dependencyManifestBytes, completedDependencyHashBytes, completedDependencyCopyBytes;
+        long dependencyLeasedReadBytes, dependencyReadBytes, dependencyValidationBytes, dependencyManifestBytes, completedDependencyHashBytes, completedDependencyCopyBytes;
         readonly List<string> dependencyManifestKeys = new List<string>();
         string actionToolchain;
         long inputHashBytes, inputHashReusedBytes, completedCacheHashBytes, completedCacheCopyBytes, inputIdentityQueries, inputIdentitySkippedFiles;
@@ -82,7 +82,7 @@ namespace NewModCompiler.Application
             dependencyObservation = new {
                 format = CacheDependencyManifest.Format, streams = dependencyStreams,
                 probes = dependencyProbes, files = dependencyFiles, unknownReads = dependencyUnknownReads,
-                readBytes = dependencyReadBytes, validationBytes = dependencyValidationBytes,
+                readBytes = dependencyReadBytes, leasedReadBytes = dependencyLeasedReadBytes, validationBytes = dependencyValidationBytes,
                 manifestBytes = dependencyManifestBytes,
                 storeHashReadBytes = completedDependencyHashBytes + (dependencyStore == null ? 0 : dependencyStore.HashReadBytes),
                 storeCopyBytes = completedDependencyCopyBytes + (dependencyStore == null ? 0 : dependencyStore.CopyBytes),
@@ -551,7 +551,7 @@ namespace NewModCompiler.Application
                         // Native and directory-selection readers are not yet a
                         // certified closed set. The manifest is evidence only.
                         dependencies.ReportUnknownRead("native-and-directory-read-closure-not-certified");
-                        inputObservation = CacheInputBoundary.BeginObservation(dependencies.Probe, dependencies.OpenRead, dependencies.ReportUnknownRead);
+                        inputObservation = CacheInputBoundary.BeginObservation(dependencies.Probe, dependencies.OpenRead, dependencies.ReportUnknownRead, dependencies.RecordLeasedRead);
                     }
                     cachePlan = new BuildPlan { PlanKind = "CoreCacheStream.v2", Tasks = new[] { context.Task } };
                     cacheInputs = CaptureInputs(cachePlan, runtime, cancellation);
@@ -659,7 +659,7 @@ namespace NewModCompiler.Application
                         dependencyStore.Stage(key, directory, cancellation);
                         dependencyStreams++; dependencyProbes += dependencies.ProbeCount; dependencyFiles += dependencies.FileCount;
                         dependencyUnknownReads += dependencies.UnknownReadCount;
-                        dependencyReadBytes += dependencies.ReadBytes; dependencyValidationBytes += dependencies.ValidationBytes;
+                        dependencyReadBytes += dependencies.ReadBytes; dependencyLeasedReadBytes += dependencies.LeasedReadBytes; dependencyValidationBytes += dependencies.ValidationBytes;
                         dependencyManifestBytes += dependencies.ManifestBytes; dependencyManifestKeys.Add(key);
                         dependencyReadTicks += dependencies.ReadTicks; dependencyValidationTicks += dependencies.ValidationTicks;
                         dependencySerializationTicks += dependencies.SerializationTicks;

@@ -357,15 +357,19 @@ namespace NewModCompiler.Application
                 if (parent.Exists && (parent.Attributes & FileAttributes.ReparsePoint) != 0) return Reject("external-input-reparse-point", out reason);
             // File.Exists also returns false for inaccessible inputs. Do not
             // infer missing vs denied from that deliberately ambiguous result.
-            if (!File.Exists(path)) return Reject("external-input-unavailable", out reason);
+            if (!CacheInputBoundary.FileExists(path)) return Reject("external-input-unavailable", out reason);
             if ((File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0) return Reject("external-input-reparse-point", out reason);
             FileStream input;
             try { input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read); }
             catch (IOException) { return Reject("external-input-unavailable", out reason); }
             catch (UnauthorizedAccessException) { return Reject("external-input-unavailable", out reason); }
             leases.Add(input);
-            writer.Write(path); writer.Write(input.Length);
-            using (var hash = SHA256.Create()) writer.Write(hash.ComputeHash(input));
+            long length = input.Length;
+            writer.Write(path); writer.Write(length);
+            byte[] digest;
+            using (var hash = SHA256.Create()) digest = hash.ComputeHash(input);
+            writer.Write(digest);
+            CacheInputBoundary.ReportLeasedRead(path, length, digest);
             input.Position = 0;
             return true;
         }

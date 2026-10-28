@@ -242,6 +242,67 @@ public static class CompilerCacheBoundary
         Require(reads == 2, "The next observation did not own its delegated read");
         tests.Add("observation-owner-thread-nesting-rejection-callback-isolation-exception-cleanup-and-next-scope-restoration");
     }
+    static void LeasedObservationCases()
+    {
+        string input = Write(inside, "observed-leased.bin", "leased bytes"), external = Write(outside, "observed-leased.bin", "external");
+        var unknown = new List<string>();
+        int reads = 0, callbacks = 0;
+        Action<string, bool> probe = delegate(string path, bool present) { };
+        Func<string, Stream> reopen = delegate(string path) { reads++; throw new Exception("Leased observation must not reopen an already hashed input"); };
+        using (CacheInputBoundary.Begin(inside, sdk))
+        using (var lease = new FileStream(input, FileMode.Open, FileAccess.Read, FileShare.Read))
+        {
+            byte[] digest;
+            using (var hash = System.Security.Cryptography.SHA256.Create()) digest = hash.ComputeHash(lease);
+            long length = lease.Length;
+            using (CacheInputBoundary.BeginObservation(probe, reopen, unknown.Add))
+            {
+                CacheInputBoundary.ReportLeasedRead(input, length, digest);
+                Require(unknown.Count == 1 && unknown[0] == "leased-input-not-recorded:" + Path.GetFullPath(input), "A three-callback observer must explicitly report an unrecorded lease");
+                Reject(delegate { CacheInputBoundary.ReportLeasedRead(external, length, digest); }, "Three-callback leased input boundary");
+                Require(unknown.Count == 1, "An out-of-boundary lease must not enter the unknown-read callback");
+            }
+            Action<string, long, byte[]> leased = delegate(string path, long observedLength, byte[] observedDigest)
+            {
+                callbacks++;
+                Require(path == Path.GetFullPath(input) && observedLength == length, "Leased observation changed the physical path or consumed length");
+                Require(observedDigest != null && Convert.ToBase64String(observedDigest) == Convert.ToBase64String(digest), "Leased observation changed the existing SHA256 identity");
+            };
+            using (CacheInputBoundary.BeginObservation(probe, reopen, unknown.Add, leased))
+            {
+                CacheInputBoundary.ReportLeasedRead(input, length, digest);
+                Require(callbacks == 1 && reads == 0 && unknown.Count == 1, "A recorded leased input must reuse its supplied identity without another read or unknown fallback");
+                Reject(delegate { CacheInputBoundary.ReportLeasedRead(external, length, digest); }, "Four-callback leased input boundary");
+                var invalidLengths = new long[] { -1, length, length, length };
+                var invalidDigests = new byte[][] { digest, null, new byte[31], new byte[33] };
+                for (int index = 0; index < invalidLengths.Length; index++)
+                {
+                    bool rejected = false;
+                    try { CacheInputBoundary.ReportLeasedRead(input, invalidLengths[index], invalidDigests[index]); }
+                    catch (IOException) { rejected = true; }
+                    Require(rejected, "Invalid leased length or SHA256 digest reached observation: " + index);
+                }
+                Require(callbacks == 1 && reads == 0 && unknown.Count == 1, "Rejected lease metadata must not invoke read or identity callbacks");
+            }
+            // Observation is opt-in even while the independent root guard is
+            // active: no observer means there is no leased evidence to record.
+            CacheInputBoundary.ReportLeasedRead(external, -1, null);
+            Require(callbacks == 1 && unknown.Count == 1 && !CacheInputBoundary.IsObserving, "A disposed leased observer leaked callbacks or validation into an unrelated call");
+            var expected = new IOException("controlled-leased-observer-failure");
+            bool failed = false;
+            try
+            {
+                using (CacheInputBoundary.BeginObservation(probe, reopen, unknown.Add, delegate(string path, long observedLength, byte[] observedDigest) { throw expected; }))
+                    CacheInputBoundary.ReportLeasedRead(input, length, digest);
+            }
+            catch (IOException error) { Require(Object.ReferenceEquals(error, expected), "Leased callback failure lost its original cause"); failed = true; }
+            Require(failed && !CacheInputBoundary.IsObserving, "A failed leased callback must release observation state");
+            using (CacheInputBoundary.BeginObservation(probe, reopen, unknown.Add, leased))
+                CacheInputBoundary.ReportLeasedRead(input, length, digest);
+            Require(callbacks == 2 && reads == 0 && !CacheInputBoundary.IsObserving, "A later leased observer must work after exceptional scope cleanup");
+        }
+        tests.Add("leased-read-existing-handle-SHA256-transfer-no-reopen-three-callback-unknown-fallback-boundary-invalid-identity-and-exception-scope-cleanup");
+    }
     static void ObservedRealRoutes(BuiltinCompilers plugins)
     {
         string nestedDirectory = Path.Combine(inside, "observed # %");
@@ -300,7 +361,7 @@ public static class CompilerCacheBoundary
             if (args.Length != 5 || IntPtr.Size != 4) throw new Exception("Expected work result sourceCommit runId sdk (x86)");
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); inside = Path.Combine(work, "allowed"); outside = Path.Combine(work, "external");
             Directory.CreateDirectory(inside); Directory.CreateDirectory(outside);
-            ScopeCases(); ObservedResolverCases(); ObservationLifetimeCases(); ObservedStreamOwnership(); Configure("initialize");
+            ScopeCases(); ObservedResolverCases(); ObservationLifetimeCases(); ObservedStreamOwnership(); LeasedObservationCases(); Configure("initialize");
             using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32)) { RealRoutes(plugins); ObservedRealRoutes(plugins); }
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests }));
             Console.WriteLine("PASS CacheBoundary: " + checks + " assertions"); return 0;

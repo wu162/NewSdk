@@ -106,6 +106,8 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 
 ## 6. 缓存与资源根
 
+`feature/cache-parallel` 的B1实现正在加入受控读取与版本化二进制依赖清单，存于独立 `.cache/read-closure-v1`，报告为 `cache.dependencyObservation`。该阶段仍保留全根保护，尚不启用文档/stream快路；不会因清单存在而扩大缓存或worker资格。当前验收状态与记录成本见 [读取清单合同](docs/READ_CLOSURE.md) 和 [交接](REFACTOR_RESUME.md)，不能把此实验分支当作主线新发行。
+
 稳定排序 `/ss`、预编译引用策略 `/pc` 和慢清理 `/slowclean` 默认开启，与旧编译脚本一致，通常不必手动填写；确有需要可分别传入 `/ss:false`、`/pc:false`、`/slowclean:false`。这些选项不依赖缓存开关。
 
 构建资产缓存和会话缓存默认关闭，`--jobs=1` 为默认串行执行。当前分支的新模式（验收状态见[缓存与并行记录](docs/CACHE_PARALLEL.md)）：

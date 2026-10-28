@@ -19,9 +19,14 @@ public static class CacheInputBoundary
 	// the conservative root protection or certify native/legacy readers.
 	public static IDisposable BeginObservation(Action<string, bool> probe, Func<string, Stream> openRead, Action<string> unknownRead)
 	{
+		return BeginObservation(probe, openRead, unknownRead, null);
+	}
+
+	public static IDisposable BeginObservation(Action<string, bool> probe, Func<string, Stream> openRead, Action<string> unknownRead, Action<string, long, byte[]> leasedRead)
+	{
 		if (_Observation != null) throw new InvalidOperationException("A cache input observation is already active.");
 		if (probe == null || openRead == null || unknownRead == null) throw new ArgumentNullException("Cache input observation callbacks are required.");
-		_Observation = new ObservationScope(probe, openRead, unknownRead);
+		_Observation = new ObservationScope(probe, openRead, unknownRead, leasedRead);
 		return _Observation;
 	}
 
@@ -79,15 +84,34 @@ public static class CacheInputBoundary
 		if (_Observation != null) _Observation.UnknownRead(path);
 	}
 
+	// A certified preparer already holds this exact input open across identity
+	// generation and backend consumption. Reuse its digest without a second
+	// path open or read; the observer still cannot grant cache/worker eligibility.
+	public static void ReportLeasedRead(string path, long length, byte[] digest)
+	{
+		if (_Observation == null) return;
+		Validate(path);
+		string full = Path.GetFullPath(path);
+		if (_Observation.LeasedRead == null)
+		{
+			_Observation.UnknownRead("leased-input-not-recorded:" + full);
+			return;
+		}
+		if (length < 0 || digest == null || digest.Length != 32)
+			throw new IOException("A leased cache input requires a valid length and SHA256 identity.");
+		_Observation.LeasedRead(full, length, digest);
+	}
+
 	sealed class ObservationScope : IDisposable
 	{
 		internal readonly Action<string, bool> Probe;
 		internal readonly Func<string, Stream> OpenRead;
 		internal readonly Action<string> UnknownRead;
+		internal readonly Action<string, long, byte[]> LeasedRead;
 		readonly int thread = Thread.CurrentThread.ManagedThreadId;
 		bool disposed;
-		internal ObservationScope(Action<string, bool> probe, Func<string, Stream> openRead, Action<string> unknownRead)
-		{ Probe = probe; OpenRead = openRead; UnknownRead = unknownRead; }
+		internal ObservationScope(Action<string, bool> probe, Func<string, Stream> openRead, Action<string> unknownRead, Action<string, long, byte[]> leasedRead)
+		{ Probe = probe; OpenRead = openRead; UnknownRead = unknownRead; LeasedRead = leasedRead; }
 		public void Dispose()
 		{
 			if (disposed) return;

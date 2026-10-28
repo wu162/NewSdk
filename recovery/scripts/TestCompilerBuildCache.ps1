@@ -13,6 +13,7 @@ if(!$Preflight){$CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite build-cache evidence: $OutputDirectory"}
 $out=(New-Item -ItemType Directory -Path $OutputDirectory).FullName
 $short=(New-Item -ItemType Directory -Path (Join-Path $env:RUNNER_TEMP ('c'+[Guid]::NewGuid().ToString('N').Substring(0,8)))).FullName
+$script:cacheSnapshots=@{}
 function Need([bool]$Value,[string]$Message){if(!$Value){throw $Message}}
 function Hash([string]$Path){(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
 function Within([string]$Directory,[string]$Path){
@@ -36,12 +37,47 @@ function DifferentOutputs($Left,$Right){
 }
 function CacheFiles([string]$Destination){
     $files=@{};$cache=Join-Path $Destination '.cache'
-    if(Test-Path -LiteralPath $cache){Get-ChildItem -LiteralPath $cache -File -Recurse|ForEach-Object{$files[$_.FullName.Substring($cache.Length)]=Hash $_.FullName}}
+    if(Test-Path -LiteralPath $cache){
+        Get-ChildItem -LiteralPath $cache -File -Recurse|ForEach-Object{
+            $files[$_.FullName.Substring($cache.Length)]=@{sha256=(Hash $_.FullName);length=[long]$_.Length}
+        }
+    }
     return $files
 }
-function CacheUnchanged([string]$Destination,$Before){
-    $after=CacheFiles $Destination;Need ($after.Count -eq $Before.Count) 'Failed/cancelled build persisted additional asset-cache files'
-    foreach($key in $Before.Keys){Need ($after.ContainsKey($key) -and $after[$key] -ceq $Before[$key]) 'Failed/cancelled build changed previously confirmed asset-cache bytes'}
+function CacheUnchanged([string]$Destination,$Before,$After=$null){
+    if($null -eq $After){$After=CacheFiles $Destination}
+    Need ($After.Count -eq $Before.Count) 'Failed/cancelled build persisted additional asset-cache files'
+    foreach($key in $Before.Keys){
+        Need ($After.ContainsKey($key) -and $After[$key].sha256 -ceq $Before[$key].sha256 -and $After[$key].length -eq $Before[$key].length) 'Failed/cancelled build changed previously confirmed asset-cache bytes'
+    }
+}
+function CacheStorage($Before,$After,[bool]$HasPrevious){
+    $layers=@{}
+    foreach($name in @('actionResults','readClosures','other')){
+        $layers[$name]=@{fileCount=0;fileLengthBytes=0L;addedFiles=0;addedBytes=0L;rewrittenFiles=0;rewrittenBytes=0L;removedFiles=0;removedBytes=0L}
+    }
+    foreach($key in $After.Keys){
+        $relative=$key.Replace('\','/').TrimStart('/')
+        $name=if($relative.StartsWith('action-cache-v1/',[StringComparison]::Ordinal)){'actionResults'}elseif($relative.StartsWith('read-closure-v1/',[StringComparison]::Ordinal)){'readClosures'}else{'other'}
+        $layer=$layers[$name];$layer.fileCount++;$layer.fileLengthBytes+=[long]$After[$key].length
+        if(!$Before.ContainsKey($key)){$layer.addedFiles++;$layer.addedBytes+=[long]$After[$key].length}
+        elseif($After[$key].sha256 -cne $Before[$key].sha256 -or $After[$key].length -ne $Before[$key].length){$layer.rewrittenFiles++;$layer.rewrittenBytes+=[long]$After[$key].length}
+    }
+    foreach($key in $Before.Keys){
+        if($After.ContainsKey($key)){continue}
+        $relative=$key.Replace('\','/').TrimStart('/')
+        $name=if($relative.StartsWith('action-cache-v1/',[StringComparison]::Ordinal)){'actionResults'}elseif($relative.StartsWith('read-closure-v1/',[StringComparison]::Ordinal)){'readClosures'}else{'other'}
+        $layer=$layers[$name];$layer.removedFiles++;$layer.removedBytes+=[long]$Before[$key].length
+    }
+    $totalFiles=0;$totalBytes=0L
+    foreach($layer in $layers.Values){$totalFiles+=$layer.fileCount;$totalBytes+=$layer.fileLengthBytes}
+    return @{
+        format='NewModCompiler.CacheStorage.v1';sizeBasis='sum-of-logical-file-lengths-not-allocated-disk-space'
+        deltaScope='since-previous-case-snapshot-including-deliberate-fixture-mutations';hasPreviousSnapshot=$HasPrevious
+        snapshotScope='after-compiler-process-exit; one content-hashed snapshot reused for exact rollback checks'
+        fileCount=$totalFiles;fileLengthBytes=$totalBytes;layers=$layers
+        transactionPeakBytes=$null;transactionPeakStatus='not-measured';compressionComparison='not-run'
+    }
 }
 function ReasonCount($Reasons,[string]$Name){
     $property=$Reasons.PSObject.Properties[$Name]
@@ -89,7 +125,7 @@ function DependencyObservation($Statistics,[bool]$Enabled,[string]$Destination,[
     $observed=$Statistics.dependencyObservation
     Need ($null -ne $observed -and $observed.format -ceq 'NewModCompiler.ReadClosure.v1') 'Cache report omitted the versioned consumed-read observation contract'
     Need ($observed.inventoryFallback -eq $true -and $observed.canAuthorizeReuse -eq $false) 'Partial read observations must not authorize reuse or replace conservative root protection'
-    foreach($field in @('streams','probes','files','unknownReads','readBytes','validationBytes','manifestBytes','storeHashReadBytes','storeCopyBytes')){
+    foreach($field in @('streams','probes','files','unknownReads','readBytes','leasedReadBytes','validationBytes','manifestBytes','storeHashReadBytes','storeCopyBytes')){
         $property=$observed.PSObject.Properties[$field]
         Need ($null -ne $property -and ($property.Value -is [int] -or $property.Value -is [long]) -and $property.Value -ge 0) "Observed read metric must be a nonnegative integer: $field"
         if(!$Enabled){Need ($property.Value -eq 0) "Disabled cache invented dependency observation work: $field"}
@@ -97,7 +133,7 @@ function DependencyObservation($Statistics,[bool]$Enabled,[string]$Destination,[
     $keys=@($observed.manifestKeys)
     if(!$Enabled){Need ($keys.Count -eq 0) 'Disabled cache persisted a read-closure manifest';return}
     Need ($observed.streams -eq 2 -and $keys.Count -eq 2 -and $observed.probes -gt 0 -and $observed.files -gt 0 -and $observed.unknownReads -ge 2) 'Two streams must retain consumed files, resolver decisions and explicit incomplete-reader evidence'
-    Need ($observed.readBytes -gt 0 -and $observed.validationBytes -gt 0 -and $observed.manifestBytes -gt 0 -and $observed.storeHashReadBytes -gt 0 -and $observed.storeCopyBytes -gt 0) 'Read closure must measure actual identity-bound reads, final validation and binary persistence'
+    Need ($observed.readBytes -gt 0 -and $observed.leasedReadBytes -gt 0 -and $observed.validationBytes -gt 0 -and $observed.manifestBytes -gt 0 -and $observed.storeHashReadBytes -gt 0 -and $observed.storeCopyBytes -gt 0) 'Read closure must measure actual identity-bound reads, final validation and binary persistence'
     $manifestBytes=0L
     foreach($key in $keys){
         Need ($key -cmatch '^[0-9a-f]{64}$') 'Read-closure record omitted its complete content key'
@@ -204,6 +240,11 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
     & $script:control "$caseOut/request.json" "$caseOut/control.json" *> "$caseOut/controller.log"
     $exit=$LASTEXITCODE;$audit=Get-Content "$caseOut/control.json" -Raw|ConvertFrom-Json
     $entry=@{name=$Name;arguments=$arguments;expectedExit=$Expected;passed=$false;controller=$audit};$script:modeState.cases+=,$entry
+    $hasPrevious=$script:cacheSnapshots.ContainsKey($Destination);$beforeCache=@{}
+    if($hasPrevious){$beforeCache=$script:cacheSnapshots[$Destination]}
+    $cacheSnapshot=CacheFiles $Destination
+    $entry.cacheStorage=CacheStorage $beforeCache $cacheSnapshot $hasPrevious
+    $script:cacheSnapshots[$Destination]=$cacheSnapshot
     try{
         Need ($exit -eq 0 -and $audit.succeeded -and $audit.processExitCode -eq $Expected) "Build-cache CLI failed: $Name"
         Need ($audit.singleProcessJobEnforced -and $audit.singleProcessJobLimit -eq 1 -and @($audit.descendants).Count -eq 0) 'Asset cache introduced a product child process'
@@ -238,7 +279,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
         Need (!(Test-Path -LiteralPath (Join-Path $Destination ('.build/'+$body.buildId)))) 'Cache build retained owned staging'
         Need (@(Get-ChildItem -LiteralPath $Destination -Directory|Where-Object{$_.Name -like '.cache-candidate-*' -or $_.Name -like '.action-cache-candidate-*'}).Count -eq 0) 'Asset-cache transaction retained its candidate directory'
         $entry.passed=$true;$entry.cache=$body.cache;$entry.buildId=$body.buildId
-        return @{name=$Name;report=$body;files=$files;mod=$Mod;caseOut=$caseOut;destination=$Destination}
+        return @{name=$Name;report=$body;files=$files;mod=$Mod;caseOut=$caseOut;destination=$Destination;cacheSnapshot=$cacheSnapshot}
     }catch{
         foreach($name in @('stdout.log','stderr.log','controller.log')){Get-Content -LiteralPath (Join-Path $caseOut $name) -Tail 30 -ErrorAction SilentlyContinue|Out-Host}
         throw
@@ -466,24 +507,24 @@ print('PASS action-cache fixture XSD, required GameObject Body, Weapon/Armor/XIn
         $otherPlain=RunCli 'second-mod-no-cache' $other $plainOut $false;SameOutputs $otherPlain $otherCold
         $returnA=RunCli 'first-mod-return' $mod $cachedOut $true;Cache $returnA 'hot';SameOutputs $changedPlain $returnA
         $armorPath="$mod/Data/Armor.xml";$valid=[IO.File]::ReadAllBytes($armorPath)
-        $confirmed=CacheFiles $cachedOut
+        $confirmed=$returnA.cacheSnapshot
         [IO.File]::WriteAllText($armorPath,'<AssetDeclaration>broken')
         $failed=RunCli 'invalid-include' $mod $cachedOut $true 4
-        CacheUnchanged $cachedOut $confirmed
+        CacheUnchanged $cachedOut $confirmed $failed.cacheSnapshot
         [IO.File]::WriteAllBytes($armorPath,$valid)
         $retry=RunCli 'retry-after-invalid-include' $mod $cachedOut $true;SameOutputs $changedPlain $retry
-        $confirmed=CacheFiles $cachedOut
+        $confirmed=$retry.cacheSnapshot
         $cancelled=RunCli 'actual-cancel' $mod $cachedOut $true 6 $true
-        CacheUnchanged $cachedOut $confirmed
+        CacheUnchanged $cachedOut $confirmed $cancelled.cacheSnapshot
         $afterCancel=RunCli 'retry-after-actual-cancel' $mod $cachedOut $true;SameOutputs $changedPlain $afterCancel
         $held=@($afterCancel.report.artifacts)[0].Path
-        $confirmed=CacheFiles $cachedOut
+        $confirmed=$afterCancel.cacheSnapshot
         # A genuine new action must be staged before publication fails. A hot
         # no-write build alone cannot prove candidate installation rollback.
         SameLengthMutation "$mod/Data/Mod.xml" 'AttackRange="102"' 'AttackRange="103"'
         $occupied=RunCli 'publication-fault' $mod $cachedOut $true 7 $false $held
         Cache $occupied 'partial'
-        CacheUnchanged $cachedOut $confirmed
+        CacheUnchanged $cachedOut $confirmed $occupied.cacheSnapshot
         $afterFault=RunCli 'retry-after-publication-fault' $mod $cachedOut $true;Cache $afterFault 'partial'
         $afterFaultPlain=RunCli 'publication-fault-retry-no-cache' $mod $plainOut $false;Cache $afterFaultPlain 'disabled';SameOutputs $afterFaultPlain $afterFault
         $afterFaultHot=RunCli 'publication-fault-retry-hot' $mod $cachedOut $true;Cache $afterFaultHot 'hot';SameOutputs $afterFaultPlain $afterFaultHot
