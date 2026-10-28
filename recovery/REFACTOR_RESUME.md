@@ -23,16 +23,16 @@
 
 默认 `bc/sc=false`、jobs=1；专项未替换主线发行。热缓存净收益尚未解决，不能用零后端调用或跨runner耗时差宣称已加速。
 
-## 下一步：计划 B 组输入闭包成本
+## 下一步：解决热缓存额外开销
 
-本次按需读：[B组](docs/CACHE_PARALLEL_PLAN.md#plan-b)、[输入一致性](docs/CACHE_PARALLEL_PLAN.md#plan-input-consistency)、[验收](docs/CACHE_PARALLEL_PLAN.md#plan-validation) 和 [计量](docs/CACHE_PARALLEL_PLAN.md#plan-performance)；涉及store/发布时补读 [事务](docs/CACHE_PARALLEL_PLAN.md#plan-transactions)。
+按需读计划 [B1热缓存执行方案](docs/HOT_CACHE_OPTIMIZATION.md)，涉及输入/事务变化再读其关联合同。当前为待实现方案，没有新的生产验证或收益。
 
-1. 从 `CacheInputSnapshot.cs`、`CoreStreamCompiler.cs` 及既有计量定位同一构建内重复盘点/受控读，成组消除可证明重复的工作，保留必要读取；不再扩大 XML 资格或围绕私有恢复做微调。
-2. 共享必须有稳定字节版本证明；保留鲜读、文件身份核验、MOD/Additional保护、首尾检查与发布前保护。不能用 mtime/size 替代内容身份，也不把前后扫描当严格快照。
-3. 同组准备等长mtime修改、替换/租约释放、输入变化拒绝、取消/异常与事务回归；生产闭包变化后集中重建受影响矩阵，按适用里程碑验证 SDK/独立 ZIP。
-4. 先用已有计量与小夹具验证改动；大型 MOD 仅在专用测试分支低频集中运行。完整运行期间推进独立工作，有余量继续计划内依赖满足的工作。
+1. **第一批先减重复操作：**优化目录属性获取、稳定文件分类/摘要复用及root内容与stream描述组织；现有build级租约已经存在，不重复实现。保留每stream首尾保护、MOD/Additional鲜读和512句柄预算。
+2. **仍由受控读主导时实施第二批：**有界并行必要鲜读，reader独占SHA/缓冲/handle，owner维护租约与确定顺序归并；先比较1/2/4 reader，不将非线程安全的现有租约字典直接并行化。
+3. 按现有Actions入口成组验证，先小mymod同runner、同jobs交替无缓存/热缓存至少3对；稳定后低频复测完整Upheaval。原字节、失效、取消/异常、租约释放、回滚与旧session合同保留。
+4. 分别报告“开销下降”和“热缓存快于无缓存”。若仍倒挂，如实保留差距；不继续恢复微调、扩大XML资格或用自动关闭缓存掩盖问题。全根保护替换为实际读取闭包涉及行为合同变更，需单独说明并经用户确认，不能借优化删除检查。
 
-小 MOD 的“所有情况下热缓存必须更快”不是新增验收门槛，也不另起长期调优项目；其阶段计量用于定位计划 B 的重复成本。后续 Parse/Prepare、链接/封装缓存仅在计划第9节的计量条件成立时推进。
+最新问题定位：无缓存不执行缓存路径的两次全根盘点；47hit/0backend仍承担盘点、文件打开/身份与鲜读成本。首热1361ms盘点和三热2217ms中位不能混作同次数据相减。目标是降低这些成本，不能保证所有小MOD都有缓存净收益。
 
 ## 执行与交接
 
