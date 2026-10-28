@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using NewModCompiler.Application;
@@ -13,6 +14,13 @@ namespace NewModCompiler.Tests
         static void Reject<T>(Action action, string message) where T : Exception
         {
             try { action(); } catch (T) { ++checks; return; }
+            throw new Exception(message);
+        }
+        static void RejectInvalidData(Action action, string message)
+        {
+            try { action(); }
+            catch (InvalidDataException) { ++checks; return; }
+            catch (EndOfStreamException) { ++checks; return; }
             throw new Exception(message);
         }
         static string Put(string root, string name, string text)
@@ -75,6 +83,49 @@ namespace NewModCompiler.Tests
             Put(root, "selected.xml", "BBBB");
             Reject<IOException>(() => { using (raced.OpenRead(input)) { } }, "A second observed version of one input was accepted within the same stream");
         }
+        static void RepairChecksum(byte[] bytes)
+        {
+            using (var hash = SHA256.Create())
+                Array.Copy(hash.ComputeHash(bytes, 0, bytes.Length - 32), 0, bytes, bytes.Length - 32, 32);
+        }
+        static void SignedManifest(string file, Action<BinaryWriter> body)
+        {
+            using (var stream = new MemoryStream())
+            {
+                using (var writer = new BinaryWriter(stream, Encoding.UTF8, true)) body(writer);
+                byte[] payload = stream.ToArray(), checksum;
+                using (var hash = SHA256.Create()) checksum = hash.ComputeHash(payload);
+                using (var output = File.Create(file)) { output.Write(payload, 0, payload.Length); output.Write(checksum, 0, checksum.Length); }
+            }
+        }
+        static void Text(BinaryWriter writer, string text)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(text); writer.Write(bytes.Length); writer.Write(bytes);
+        }
+        static void EmptyCancellationAndInvalidText(string root)
+        {
+            Directory.CreateDirectory(root);
+            var empty = new CacheDependencyManifest();
+            using (var cancelled = new CancellationTokenSource())
+            {
+                cancelled.Cancel();
+                Reject<OperationCanceledException>(() => empty.ValidateCurrent(cancelled.Token), "Empty read closures must still observe cancellation at publication validation");
+                var preCancelled = new CacheDependencyManifest(cancelled.Token);
+                Reject<OperationCanceledException>(() => preCancelled.ValidateCurrent(CancellationToken.None), "An empty observation must honor its constructor cancellation token");
+                Reject<OperationCanceledException>(() => preCancelled.Probe(Path.Combine(root, "missing"), false), "Cancelled observation accepted a resolver decision");
+                Reject<OperationCanceledException>(() => preCancelled.Write(Path.Combine(root, "cancelled.bin")), "Cancelled observation created a persisted record");
+                Check(!File.Exists(Path.Combine(root, "cancelled.bin")), "Cancelled persistence must not create a partial manifest");
+            }
+            string file = Path.Combine(root, "invalid-text.bin");
+            SignedManifest(file, writer => { writer.Write(0x31434452); writer.Write(1); writer.Write(0); writer.Write(1); writer.Write(2); writer.Write((byte)0xc0); writer.Write((byte)0xaf); });
+            RejectInvalidData(() => CacheDependencyManifest.Read(file), "Malformed UTF-8 must reject as invalid cache data rather than leak a decoder implementation exception");
+            SignedManifest(file, writer => { writer.Write(0x31434452); writer.Write(1); writer.Write(1); writer.Write(0); Text(writer, Path.Combine(root, "nul") + "\0name"); writer.Write((byte)0); writer.Write(-1L); });
+            RejectInvalidData(() => CacheDependencyManifest.Read(file), "An illegal physical path in a checksum-valid table must reject as invalid cache data");
+            empty.ValidateCurrent(CancellationToken.None);
+            string first = Path.Combine(root, "empty.bin"), second = Path.Combine(root, "empty-restored.bin");
+            string key = empty.Write(first);
+            Check(CacheDependencyManifest.Read(first).Write(second) == key, "The minimum empty manifest must have a deterministic bounded roundtrip");
+        }
         static void CorruptRecords(string root)
         {
             string input = Put(root, "input.bin", "AAAA"), missing = Path.Combine(root, "missing.bin"), file = Path.Combine(root, "manifest.bin");
@@ -83,23 +134,40 @@ namespace NewModCompiler.Tests
             foreach (int length in new[] { 0, 1, good.Length / 2, good.Length - 1 })
             {
                 byte[] shortRecord = new byte[length]; Array.Copy(good, shortRecord, length); File.WriteAllBytes(file, shortRecord);
-                Reject<IOException>(() => CacheDependencyManifest.Read(file), "Truncated dependency record was accepted: " + length);
+                RejectInvalidData(() => CacheDependencyManifest.Read(file), "Truncated dependency record was accepted: " + length);
             }
             byte[] bad = (byte[])good.Clone(); bad[0] ^= 0x7f; File.WriteAllBytes(file, bad);
-            Reject<IOException>(() => CacheDependencyManifest.Read(file), "Unknown binary manifest magic/version was accepted");
+            RejectInvalidData(() => CacheDependencyManifest.Read(file), "Unknown binary manifest magic/version was accepted");
             bad = new byte[good.Length + 1]; Array.Copy(good, bad, good.Length); bad[bad.Length - 1] = 0x7f; File.WriteAllBytes(file, bad);
-            Reject<IOException>(() => CacheDependencyManifest.Read(file), "Trailing unvalidated bytes were accepted by the binary manifest reader");
+            RejectInvalidData(() => CacheDependencyManifest.Read(file), "Trailing unvalidated bytes were accepted by the binary manifest reader");
             // Explicit little-endian count and path-length bounds reject allocation
             // requests before parsing a forged or truncated table.
-            foreach (var malformed in new[] { new[] { 8, -1 }, new[] { 8, 100001 }, new[] { 12, 100001 }, new[] { 16, int.MaxValue } })
+            foreach (var malformed in new[] { new[] { 4, 2 }, new[] { 8, -1 }, new[] { 8, 100001 }, new[] { 12, 100001 }, new[] { 16, int.MaxValue } })
             {
-                bad = (byte[])good.Clone(); Array.Copy(BitConverter.GetBytes(malformed[1]), 0, bad, malformed[0], 4); File.WriteAllBytes(file, bad);
-                Reject<IOException>(() => CacheDependencyManifest.Read(file), "Out-of-range dependency table count or text length was accepted");
+                bad = (byte[])good.Clone(); Array.Copy(BitConverter.GetBytes(malformed[1]), 0, bad, malformed[0], 4); RepairChecksum(bad); File.WriteAllBytes(file, bad);
+                RejectInvalidData(() => CacheDependencyManifest.Read(file), "Out-of-range dependency table count or text length was accepted");
             }
+            // Re-sign malformed records so structural checks, rather than the
+            // outer checksum alone, must reject the invalid payload.
+            foreach (int corruption in new[] { 0, 1, 2, 3, 4, 5 })
+            {
+                SignedManifest(file, writer =>
+                {
+                    writer.Write(0x31434452); writer.Write(1); writer.Write(corruption == 0 ? 2 : corruption == 4 ? 0 : 1); writer.Write(corruption == 4 ? 2 : 0);
+                    if (corruption == 4) { Text(writer, "duplicate"); Text(writer, "duplicate"); return; }
+                    Text(writer, corruption == 3 ? "relative.xml" : missing);
+                    writer.Write((byte)(corruption == 1 ? 2 : 0)); writer.Write(corruption == 2 ? -2L : corruption == 5 ? 4L : -1L);
+                    if (corruption == 0) { Text(writer, missing); writer.Write((byte)0); writer.Write(-1L); }
+                    if (corruption == 5) writer.Write(new byte[32]);
+                });
+                RejectInvalidData(() => CacheDependencyManifest.Read(file), "Checksum-valid malformed path/candidate/content-length/duplicate table was accepted: " + corruption);
+            }
+            SignedManifest(file, writer => { writer.Write(0x31434452); writer.Write(1); writer.Write(1); writer.Write(0); writer.Write(131069); writer.Write(new byte[131069]); });
+            RejectInvalidData(() => CacheDependencyManifest.Read(file), "Checksum-valid oversized path escaped the per-record decode budget");
             File.WriteAllBytes(file, good); CacheDependencyManifest.Read(file).ValidateCurrent(CancellationToken.None);
             var bounded = new CacheDependencyManifest();
-            Reject<IOException>(() => bounded.ReportUnknownRead(new string('x', 131069)), "Oversized unknown-read metadata escaped the manifest decode budget");
-            Reject<IOException>(() => bounded.Probe("relative-path.xml", false), "Relative dependency paths were accepted");
+            RejectInvalidData(() => bounded.ReportUnknownRead(new string('x', 131069)), "Oversized unknown-read metadata escaped the manifest decode budget");
+            RejectInvalidData(() => bounded.Probe("relative-path.xml", false), "Relative dependency paths were accepted");
             bounded.Probe(missing, false);
             Reject<IOException>(() => bounded.Probe(missing, true), "Contradictory candidate decisions within one stream were accepted");
         }
@@ -108,6 +176,7 @@ namespace NewModCompiler.Tests
             checks = 0; Directory.CreateDirectory(root);
             RoundTripAndChanges(Path.Combine(root, "roundtrip"));
             CorruptRecords(Path.Combine(root, "malformed"));
+            EmptyCancellationAndInvalidText(Path.Combine(root, "empty-and-invalid-text"));
             return checks;
         }
     }

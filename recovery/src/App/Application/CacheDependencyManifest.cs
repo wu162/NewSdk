@@ -100,6 +100,7 @@ namespace NewModCompiler.Application
         }
         void ValidateCurrentCore(CancellationToken token)
         {
+            cancellation.ThrowIfCancellationRequested(); token.ThrowIfCancellationRequested();
             foreach (Record record in records)
             {
                 cancellation.ThrowIfCancellationRequested(); token.ThrowIfCancellationRequested();
@@ -149,6 +150,12 @@ namespace NewModCompiler.Application
         }
         public static CacheDependencyManifest Read(string path)
         {
+            try { return ReadCore(path); }
+            catch (ArgumentException error) { throw new InvalidDataException("Invalid read-closure text or physical path.", error); }
+            catch (NotSupportedException error) { throw new InvalidDataException("Unsupported read-closure physical path.", error); }
+        }
+        static CacheDependencyManifest ReadCore(string path)
+        {
             using (var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (var reader = new BinaryReader(input, Utf8))
             {
@@ -164,14 +171,16 @@ namespace NewModCompiler.Application
                 var result = new CacheDependencyManifest();
                 for (int i = 0; i < count; i++)
                 {
-                    string full = ReadText(reader);
+                    string full = ReadText(reader, contentLength);
                     if (PhysicalPath(full) != full || result.paths.ContainsKey(full)) throw new InvalidDataException("Invalid read-closure path table.");
+                    if (contentLength - input.Position < 9) throw new InvalidDataException("Truncated read-closure record.");
                     byte present = reader.ReadByte(); if (present > 1) throw new InvalidDataException("Invalid read-closure candidate state.");
                     long length = reader.ReadInt64();
                     if (length < -1 || (length >= 0 && present == 0)) throw new InvalidDataException("Invalid read-closure content length.");
                     result.Probe(full, present != 0);
                     if (length >= 0)
                     {
+                        if (contentLength - input.Position < 32) throw new InvalidDataException("Truncated read-closure content digest.");
                         var record = result.paths[full]; record.Length = length; record.Digest = reader.ReadBytes(32);
                         if (record.Digest.Length != 32) throw new EndOfStreamException();
                         result.FileCount++;
@@ -179,8 +188,8 @@ namespace NewModCompiler.Application
                 }
                 for (int i = 0; i < reasons; i++)
                 {
-                    string reason = ReadText(reader);
-                    if (result.unknownSet.Contains(reason)) throw new InvalidDataException("Duplicate read-closure reason.");
+                    string reason = ReadText(reader, contentLength);
+                    if (string.IsNullOrWhiteSpace(reason) || result.unknownSet.Contains(reason)) throw new InvalidDataException("Duplicate read-closure reason.");
                     result.ReportUnknownRead(reason);
                 }
                 if (input.Position != contentLength) throw new InvalidDataException("Trailing read-closure bytes.");
@@ -188,10 +197,11 @@ namespace NewModCompiler.Application
             }
         }
         static void Text(BinaryWriter writer, string value) { byte[] bytes = Utf8.GetBytes(value); writer.Write(bytes.Length); writer.Write(bytes); }
-        static string ReadText(BinaryReader reader)
+        static string ReadText(BinaryReader reader, long contentLength)
         {
+            if (contentLength - reader.BaseStream.Position < 4) throw new InvalidDataException("Truncated read-closure string.");
             int count = reader.ReadInt32();
-            if (count <= 0 || count > MaximumPathBytes || count > reader.BaseStream.Length - reader.BaseStream.Position)
+            if (count <= 0 || count > MaximumPathBytes || count > contentLength - reader.BaseStream.Position)
                 throw new InvalidDataException("Invalid read-closure string length.");
             return Utf8.GetString(reader.ReadBytes(count));
         }
