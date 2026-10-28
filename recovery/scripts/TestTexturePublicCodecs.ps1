@@ -1,11 +1,14 @@
-param([switch]$OnlyAmd,[switch]$Patched,[switch]$OnlyS3)
+param([switch]$OnlyAmd,[switch]$Patched,[switch]$OnlyS3,[switch]$X87)
 $ErrorActionPreference='Stop'
+if($X87 -and !$OnlyS3){throw 'X87 experiment must select the complete S3 family'}
 $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/public-codecs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('texture-public-codecs-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
 $family=if($OnlyS3){'s3'}elseif($Patched){'patched'}elseif($OnlyAmd){'amd'}else{'stb-squish-icbc'}
-$r=@{candidateFamily=$family;sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';comparisonOnly=$true;productionAccepted=$false;sdkValidated=$false;scope='copied public DXT codec complete original10240-block differential; selected candidate family only, full payload/RGB/alpha counts, Debug/Release and original DLL absent/unloaded';configurations=@();eligibleCandidates=@()}
+$fpMode=if($X87){'IA32-x87-scalar'}else{'SSE2'}
+$architecture=if($X87){@('/arch:IA32','/DSQUISH_USE_SSE=0')}else{@('/arch:SSE2')}
+$r=@{floatingPointMode=$fpMode;candidateFamily=$family;sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';comparisonOnly=$true;productionAccepted=$false;sdkValidated=$false;scope='copied public DXT codec complete original10240-block differential; selected candidate family only, full payload/RGB/alpha counts, Debug/Release and original DLL absent/unloaded';configurations=@();eligibleCandidates=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 45;throw "$name failed"};Get-Content "$out/$name.log"|Where-Object{$_ -match '^(PASS|COMPARE) '}}
 try{
  $manifest=Get-Content recovery/reference/public-codecs/PROVENANCE.json -Raw|ConvertFrom-Json
@@ -35,7 +38,7 @@ try{
  foreach($mode in @('Debug','Release')){
   $build=Join-Path $work $mode;New-Item -ItemType Directory -Force $build|Out-Null
   $opt=if($mode -eq 'Release'){'/O2'}else{'/Od'};$managedOpt=if($mode -eq 'Release'){'/optimize+'}else{'/optimize-'}
-  Checked "$mode-native" {Push-Location $build;try{& cl /nologo /LD /MT /EHsc /std:c++17 /arch:SSE2 /fp:strict $opt /I"$squish" /I"$stb" /I"$nvtt" /I"$compat" /I"$amd" /I"$s3" @native /link /OUT:"$work/TexturePublicCodecs.dll" /MACHINE:X86}finally{Pop-Location}}
+  Checked "$mode-native" {Push-Location $build;try{& cl /nologo /LD /MT /EHsc /std:c++17 @architecture /fp:strict $opt /I"$squish" /I"$stb" /I"$nvtt" /I"$compat" /I"$amd" /I"$s3" @native /link /OUT:"$work/TexturePublicCodecs.dll" /MACHINE:X86}finally{Pop-Location}}
   $bytes=[IO.File]::ReadAllBytes("$work/TexturePublicCodecs.dll");$pe=[BitConverter]::ToInt32($bytes,0x3c);if([BitConverter]::ToUInt16($bytes,$pe+4) -ne 0x14c){throw 'Public codec DLL must be x86'}
   Checked "$mode-host-build" {& $csc /nologo /platform:x86 $managedOpt /r:"$work/BinaryAssetBuilder.Core.dll" /r:"$work/BinaryAssetBuilder.Utility.dll" /out:"$work/TexturePublicCodecsReplay.exe" $sources}
   '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TexturePublicCodecsReplay.exe.config"
