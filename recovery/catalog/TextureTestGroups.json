@@ -1484,6 +1484,20 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-mymod/*/validation.json",
       "sdk": true
+    },
+    "dxt1-boundary": {
+      "script": "recovery/scripts/InspectTextureDxt1Boundary.ps1",
+      "arguments": {},
+      "dependencies": [
+        "SDK/tools/*.dll",
+        "recovery/scripts/InspectTextureDxt1Boundary.ps1",
+        "recovery/tests/TextureDxt1BoundaryNative.cpp",
+        "recovery/tests/TextureDxt1BoundaryProbe.cs"
+      ],
+      "evidence": "recovery/evidence/texture/dxt1-boundary/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"
