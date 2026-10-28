@@ -1,3 +1,15 @@
+# TextureCompiler 公开源码适配续接（2026-10-28，本轮进行中）
+
+目标贴图分支 `recovery/texturecompiler-source`；独立实验 `validation/texture-public-codecs`。仅PC、禁止强推、编译测试仅GitHub Actions。用户澄清：**修改拿来的源码，使产物一致**；不只是原样比较后放弃。测试分支修改和原版gold全量比较持续推进，完整相同后还需消费/SDK门槛才合入；生产SDK DLL/config未替换。
+
+- IJG公开源码、JPEG组件及真实SDK验收已在 `ce37532f192f6b2275adcd044cddce5232aa3c1e` 合入贴图分支。40626161229/40628208308均success；9 SDK profiles每模式13104资产/实际调用。后面旧状态不能覆盖这项完成。
+- DXT已实际修改复制的libsquish/ICBC/AMD源码。AMD第二轮1ce890cf /40631302274的D/R DXT5 alpha已5120/5120；RGB仍只有374/5120完整块，不能启用为完整DXT后端。
+- 更接近的公开S3源码已复制并修复强制四色契约：81268e60 /40631683152 D/R完整DXT3、DXT5各4838/5120、alpha5120/5120。剩余252灰度单色、8其他单RGB（其中3灰度）、22随机。02557975 /40631926236的x87比较没有改善，别重复跑相同配置。
+- 新兼容补丁把既有还原源码的固定灰度算法表接入S3（不是gold样本输出表，不回调恢复/原编码函数），并比较原16/8与0/0、1/1、2/2迭代停止规则。最新矩阵待收取；先读远程分支头、run sourceCommit和收据，保留Actions回写，不重跑未变成功组。
+- 所有不完整候选和完整实验产物仍在测试分支，贴图分支只集中已验收成果、当前规则与交接。详见[适配结果](TEXTURE_PUBLIC_REUSE_RESULTS.md)，实验分支文档TEXTURE_PUBLIC_CODECS.md、源码PROVENANCE.json/PATCHES.md。灰度首轮40632042322因PowerShell参数拆字符导致link失败，非业务匹配结论；a61e2b58已修复重提。
+
+本页以下保留已完成JPEG与历史锚点；当前DXT适配优先以上述最新状态为准。
+
 # TextureCompiler 当前续接（2026-10-28 11:54 北京时间）
 
 目标 `recovery/texturecompiler-source`，仅PC，禁止强推，编译/测试只在GitHub Actions，每轮尽量约70分钟。用户新增要求：直接复用网上可取得的现成源码，在独立测试分支比较产物，完整一致才合入；不按许可类型筛选公开候选，保留上游文件/通知/来源。本轮已执行该流程，详见[公开源码比较与验收](TEXTURE_PUBLIC_REUSE_RESULTS.md)。生产SDK DLL/config未替换。
