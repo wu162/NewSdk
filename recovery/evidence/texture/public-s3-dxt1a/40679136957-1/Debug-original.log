@@ -1,0 +1,5 @@
+System.Exception: three-colour levels
+   at TexturePublicS3Dxt1aComparison.Check(Boolean ok, String why)
+   at TexturePublicS3Dxt1aComparison.Candidate(Single[] rgba, Int32 width, Int32 height)
+   at TexturePublicS3Dxt1aComparison.Compare(BinaryWriter record, StreamWriter transcript, String label, Int32 width, Int32 height, Single[] rgba, Byte[] bytes)
+   at TexturePublicS3Dxt1aComparison.Main(String[] args)
