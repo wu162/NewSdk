@@ -13,7 +13,11 @@
 
 按用户关于机器资源的最新反馈，生产调度已改为 `MachineResources.v1`：jobs/CPU/Win32可用物理和虚拟地址空间共同准入，单任务和准备态预算由总预算推导；默认jobs=1保留，显式jobs=N不再统一硬限2 worker。`c2a2cec6`的 [40650040607](https://github.com/wu162/NewSdk/actions/runs/40650040607) 完整success：两配置均在4核机器得到4路真实重叠、约512MiB预算；压力下8→1、安全汇合、超预算APT owner、小任务worker、完整mymod及五文件ZIP全部通过。原始归档12800535841和运行文件/ZIP哈希已核验，精确来源见专项JSON。首跑40649384165因测试路径大小写误判failure，c2仅修测试、未改生产或放宽断言；失败原终态保留。现payload复用不覆盖Core宿主与完整SDK/发行链，本次集中重建完成验收。
 
-本轮进行中：`6ed2cda8` 的 [40656205838](https://github.com/wu162/NewSdk/actions/runs/40656205838) 正在完整验收有界工具摘要租约复用与十二根Xmlenvironment并行，未宣称通过。每stream首尾完整目录盘点与MOD字节重哈希保留，仅持续锁定且重新核对128位文件身份的工具摘要可复用。下一组正在准备准确miss/bypass原因计量；详见专项页“本轮候选”，不能用首批结果覆盖后续生产变动。测试only guards `40656585109`已success。
+本轮前两组已完整通过：6ed的[40656205838](https://github.com/wu162/NewSdk/actions/runs/40656205838)与810的[40657123355](https://github.com/wu162/NewSdk/actions/runs/40657123355)，原始归档、12组收据及两配置五文件ZIP均核验。新增工具/Schema/runtime摘要读租约、十二根Xmlenvironment并行和准确miss/bypass报告；十二根都实际使用worker，实际Weather/W3X重叠，不夸大每根双同类实测。
+
+当前源码`129d9639`正在[40660066519](https://github.com/wu162/NewSdk/actions/runs/40660066519)完整验收稳定SDK摘要共享，排除当前MOD子树和SDKAdditional，保留全根枚举/鲜读及512句柄上限。新增真实SDKArt Texture只读兼容与未消费SageXml账本，未宣称此来源通过。
+
+真实MOD计量[40659913327](https://github.com/wu162/NewSdk/actions/runs/40659913327)success，binary810/test25df，严格复用成功归档、未重编。原mymod7文件982257字节，47资产热全部命中且零backend；热仍约230MB哈希读取，3.1–3.3秒，比无缓存0.76–0.95秒更慢，不能宣称加速。该计量不覆盖129d；下步用129d成功产物核对相同输入的读量变化，准确数据见CACHE_PARALLEL。
 
 后续优先按计量减少跨stream扫描或扩展剩余已认证并行，保留现有强身份、读租约、失败事务与完整SDK门槛。编译/测试全部GitHub Actions；通常两个子代理、最多三个由本轮用户授权。禁止强推；目标compiler-main，未经用户批准不合入。
 

@@ -4,19 +4,19 @@
 
 用户提供的[原始实施方案](CACHE_PARALLEL_PLAN.md)保留作目标与验收参考；当前状态只看本页收据，不能把方案要求当作已完成能力。日常续接无需重读整份方案。
 
-## 本轮候选（2026-10-28，待验）
+## 本轮验收与候选（2026-10-28）
 
-`6ed2cda8` / [40656205838](https://github.com/wu162/NewSdk/actions/runs/40656205838) 正在执行首批完整验收，尚未计入已验证能力：
+`6ed2cda8` / [40656205838](https://github.com/wu162/NewSdk/actions/runs/40656205838) 首批完整验收已success，原始归档、12组收据及两配置五文件ZIP已核验：
 
 - `CacheInputLeaseSet` 在构建内持续持最多512个工具/Schema/runtime文件的只读拒写拒删句柄；每次盘点仍重新打开当前路径，用 Win32 `FileIdInfo` 的64位volume与128位文件ID比对后才复用 SHA256。保留较大文件；不支持可靠身份或超上限时重新哈希。每stream首尾完整枚举不变，MOD/Additional/普通SDK资产仍逐次重哈希，session路径保持旧行为。工具输入在租约存续期不可改写，Core销毁释放所有租约；不等同于完整目录快照或硬内存保证。
 - 新增完整 Xmlenvironment 十二根的源码重入资格：Weather、WaterTransparency、WaterSetting、Environment、LightingSettings、WaterTextureList、TerrainParticleMapping、BounceKickTerrainMapping、ShadowMap、OrdersManagerSettings、TerrainVisualSettings、CameraSettings。独占桥接树、局部Builder/Tracker、InitOnce只读表、无外部读取；worker仍须通过原机器准入。准备四平台三缓冲区差分及生产冷/热/单改/串并行原字节对照；实际重叠只按收据记录观察到的根。
 - 新报告 `inputInventoryCaptures`、`inputHashReusedBytes`、`inputHashLeaseFiles`；`hashReadBytes`继续只计实际读取。读量减少不等于已证明完整MOD耗时倍率。
 
-第二组候选增加 `actionMissReasons` 与 `cacheBypassReasons`：前者只记录真实认证查询最终未命中的原因，之和严格等于既有 `actionMisses/misses`，不统计Stage/Commit/Prune内部完整性读取；后者互斥记录 `cache-disabled`、`not-prepared`、`base-patch-source`，不扩大旧miss总数。查询理由为 `entry-not-found`、`entry-invalidated`、`entry-pending`、`invalid-manifest`、`invalid-payload`、`entry-unavailable`、`invalid-result-contract`。`not-prepared`不猜测预算/插件/外读等具体拒绝原因；报告也不把键缺失猜成源码/schema/工具的某种变化。低层与生产CLI已准备损坏/pending/修复后热命中的精确计数及原始字节对照。生产闭包改变后统一重建，首批结果不能冒称覆盖第二组。`8f0d228a`仅增强重放拒绝合同和逐根worker线程证据，未改生产源码；其guards [40656585109](https://github.com/wu162/NewSdk/actions/runs/40656585109) success，新增逐根worker断言尚待新结果。
+第二组候选增加 `actionMissReasons` 与 `cacheBypassReasons`：前者只记录真实认证查询最终未命中的原因，之和严格等于既有 `actionMisses/misses`，不统计Stage/Commit/Prune内部完整性读取；后者互斥记录 `cache-disabled`、`not-prepared`、`base-patch-source`，不扩大旧miss总数。查询理由为 `entry-not-found`、`entry-invalidated`、`entry-pending`、`invalid-manifest`、`invalid-payload`、`entry-unavailable`、`invalid-result-contract`。`not-prepared`不猜测预算/插件/外读等具体拒绝原因；报告也不把键缺失猜成源码/schema/工具的某种变化。低层与生产CLI已准备损坏/pending/修复后热命中的精确计数及原始字节对照。生产闭包改变后统一重建，首批结果不能冒称覆盖第二组。`8f0d228a`仅增强重放拒绝合同和逐根worker线程证据，未改生产源码；其guards [40656585109](https://github.com/wu162/NewSdk/actions/runs/40656585109) success，新增逐根worker断言已在810完整批次通过。
 
 第三组候选继续减少SDK重复哈希：有界租约资格扩至稳定SDK文件，排除当前MOD完整子树（包括MOD嵌于SDK/Art等任意路径）和SDK/Additional；所有目录仍首尾完整枚举，MOD与Additional继续按字节重新哈希，工具身份范围不扩大。最多512句柄及当前路径128位身份复核/最大文件优先/失败取消释放合同不变。新增真实SDK/Art Texture原生只读兼容、原等长mtime像素失效与原BAB字节对照，以及1MiB未消费SageXml文件的四次盘点完整账本和缓存命中证明；App补嵌套MOD、Additional可写、释放后修改与容量退化。该组改变生产闭包，须新完整验收，不复用810二进制冒充本组。
 
-第二组 `810dd2ad` / [40657123355](https://github.com/wu162/NewSdk/actions/runs/40657123355) 已整体success，原始归档 `12803193116`，API SHA256 `eeaabe66deb0c2e50fcd1650e7fc355bf901b62da189f2c67cf5f50c2c8bd32f`，本地详细核验正在进行。其完整payload+可选真实MOD计量重放 [40659913327](https://github.com/wu162/NewSdk/actions/runs/40659913327) 已启动，binarySource=810dd2ad、testSource=25dfd24d，不能据此宣称第三组SDK扩展性能。
+第二组 `810dd2ad` / [40657123355](https://github.com/wu162/NewSdk/actions/runs/40657123355) 已整体success，原始归档 `12803193116`，API SHA256 `eeaabe66deb0c2e50fcd1650e7fc355bf901b62da189f2c67cf5f50c2c8bd32f`，本地原始归档SHA、12组收据、运行文件与两配置ZIP已核验。其完整payload+可选真实MOD计量重放 [40659913327](https://github.com/wu162/NewSdk/actions/runs/40659913327) 已success，binarySource=810dd2ad、testSource=25dfd24d；原包12802884504/SHA256 `dc349be5072d68bd6ec92e78c378b3fc71743d684c3cc24c2dbf27e9e3463148`已核验，不能据此宣称第三组SDK扩展性能。
 
 ## 先查什么
 
@@ -85,7 +85,11 @@ owner 在任务准入处最多每100ms重新采样一次；本 stream 的预算�
 
 ## 当前收据与续接
 
-最新完整批次：`c2a2cec616ff625ce37f4751084d3b82626f98f4`，[40650040607](https://github.com/wu162/NewSdk/actions/runs/40650040607)，**success**；binarySourceCommit、testSourceCommit、packagingSourceCommit 均为该提交。Debug/Release 全新编译，通过应用/Core、资源纯计算/实际准入、压力降额、超大单任务 owner 与小任务 worker、原有取消/异常安全汇合、原BAB/Texture/CLI/协议、精确缓存/CDATA、XML/Audio/W3X真实并行、旧session、完整未精简mymod、BIG与精确五文件ZIP独立运行。
+最新已验收批次：`810dd2ad2af23cc6a77b81c92f308f464083530f`，[40657123355](https://github.com/wu162/NewSdk/actions/runs/40657123355)，**success**；binary/test/packagingSource均为810。两配置新构建通过完整应用/Core、精确缓存/CDATA、十二根环境XML worker及Weather/W3X真实重叠、取消/异常、原BAB、旧session、完整未精简mymod、BIG及五文件ZIP。原始归档12803193116、SHA256 `eeaabe66deb0c2e50fcd1650e7fc355bf901b62da189f2c67cf5f50c2c8bd32f`；12组收据和运行文件/ZIP已独立核验。Debug ZIP `f19cccde940108dbd6ac6b8c05cc7db45835765bd0227f6bd2c2f78f3c14dbc3`，Release `fb9c1f46ea6f4816bbc8fe5dc8d5b5251469ee6042af9b04b2d3d4da955d4731`。精确来源、区间、读取和原因计数见[机器证据](CACHE_PARALLEL_EVIDENCE.json)。第三组129d的范围不能由此来源代替。
+
+两配置冷缓存8次`entry-not-found`，热缓存8hit/0miss且只保留Texture一次owner调用；损坏与pending修复分别7hit/1miss且仅一个对应原因，修复后恢复8hit/0miss。42个CLI用例的原因总和严格等于旧miss计数；每个修复用例八产物及原BAB对照均原字节一致。环境十二根均实际在worker上运行；观测到的跨家族重叠子集两配置均仅Weather，不扩大为每根双同类重叠。
+
+资源自适应里程碑：`c2a2cec616ff625ce37f4751084d3b82626f98f4`，[40650040607](https://github.com/wu162/NewSdk/actions/runs/40650040607)，**success**；binarySourceCommit、testSourceCommit、packagingSourceCommit 均为该提交。Debug/Release 全新编译，通过应用/Core、资源纯计算/实际准入、压力降额、超大单任务 owner 与小任务 worker、原有取消/异常安全汇合、原BAB/Texture/CLI/协议、精确缓存/CDATA、XML/Audio/W3X真实并行、旧session、完整未精简mymod、BIG与精确五文件ZIP独立运行。
 
 两配置均在逻辑CPU=4、requestedJobs=4的真实机器上得到 effectiveJobs=4、actualMaximumConcurrency=4，四个独立AudioFile后端区间确实重叠，串行/并行原始输出一致；总预算536838144字节（约512MiB），并非宿主机RAM的任意比例放大。压力注入发生时仍有1个真实调用在途，额度从8收紧至1、预算降为16MiB，3个调用安全完成且四输出逐字节相同。44MiB总预算/22MiB单任务用例确认8MiB APT（估算至少32MiB）在owner执行，小APT仍使用worker。内存估算和准入采样不等于进程硬内存保证。
 
@@ -142,7 +146,9 @@ XML/Audio 初始组已完成有界实施与验收，机器资源组也已完成�
 
 每配置使用原仓库 `SDK/Mods/mymod` 的未精简副本与真实完整SDK，固定development/loose/base/jobs=1、sc=false、Additional关闭及原资源根顺序。运行无缓存、空动作缓存、三次热运行、私有副本仅Additional变化；保留六次CLI原始报告/事件和严格四文件逐字节对照。SDK全部文件、完整MOD和五个运行文件均保存实际字节指纹并在结束时复核，准备/哈希/归档成本不混入CLI计时。报告分别记录产品与控制器耗时、真实后端调用、hash/read/copy、预算与边界采样内存。
 
-仓库MOD仅7文件约996KiB，这不是大型MOD基准；OS文件缓存未控制，“空缓存”仅指动作缓存为空。Additional不进入loose输出，此例只证明编译命中与流字节不变，不是封装性能或封装字节差分。保留未认证owner调用的实际计数，不靠要求所有热运行零调用掩盖未开放资格；不按耗时阈值放行、不推断通用加速倍率。`92b7925e`的[guards 40658122856](https://github.com/wu162/NewSdk/actions/runs/40658122856)已success，真实归档计量仍待首次运行结果。
+仓库MOD仅7文件约996KiB，这不是大型MOD基准；OS文件缓存未控制，“空缓存”仅指动作缓存为空。Additional不进入loose输出，此例只证明编译命中与流字节不变，不是封装性能或封装字节差分。保留未认证owner调用的实际计数，不靠要求所有热运行零调用掩盖未开放资格；不按耗时阈值放行、不推断通用加速倍率。`92b7925e`的[guards 40658122856](https://github.com/wu162/NewSdk/actions/runs/40658122856)已success，真实重放[40659913327](https://github.com/wu162/NewSdk/actions/runs/40659913327)已success并核验原包、两配置52报告/52事件文件及12次真实MOD四输出原字节。SDK实际14715文件/125887928字节，MOD7文件/982257字节；三次热与Additional-only均47hit/0miss/0backend。
+
+该来源仍为810（仅工具摘要共享）。Debug无缓存945ms、空动作缓存3506ms、热3303/3224/3253ms；Release756ms、3278ms、热3101/3168/3121ms。热hashRead分别231979083/229537867字节，复用37516937/35075721字节。这个小MOD缓存热运行比关闭缓存慢，扫描成本仍大；不能隐藏该结果或称为通用加速。后续129d稳定SDK摘要共享应在其成功产物上另取相同输入计量。
 
 ## 后续验证效率要求
 
