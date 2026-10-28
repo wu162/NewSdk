@@ -622,7 +622,7 @@ public static class CompilerPreparedBackend
                         foreach (object interval in intervals)
                         {
                             string sourcePath = (string)interval.GetType().GetField("sourcePath").GetValue(interval);
-                            if (Path.GetFileName(sourcePath) == "One.xml")
+                            if (String.Equals(Path.GetFileName(sourcePath), "One.xml", StringComparison.OrdinalIgnoreCase))
                             {
                                 Require((int)interval.GetType().GetField("threadId").GetValue(interval) == Thread.CurrentThread.ManagedThreadId,
                                     "An individually oversized APT task must execute on the owner even when it fits the aggregate pool");
