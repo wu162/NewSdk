@@ -7,7 +7,7 @@ $work=Join-Path $env:RUNNER_TEMP ('texture-public-codecs-'+[Guid]::NewGuid().ToS
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
 $family=if($OnlyS3){'s3'}elseif($Patched){'patched'}elseif($OnlyAmd){'amd'}else{'stb-squish-icbc'}
 $fpMode=if($X87){'IA32-x87-scalar'}else{'SSE2'}
-$architecture=if($X87){@('/arch:IA32','/DSQUISH_USE_SSE=0')}else{@('/arch:SSE2')}
+$architecture=@('/arch:SSE2');if($X87){$architecture=@('/arch:IA32','/DSQUISH_USE_SSE=0')}
 $r=@{floatingPointMode=$fpMode;candidateFamily=$family;sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';comparisonOnly=$true;productionAccepted=$false;sdkValidated=$false;scope='copied public DXT codec complete original10240-block differential; selected candidate family only, full payload/RGB/alpha counts, Debug/Release and original DLL absent/unloaded';configurations=@();eligibleCandidates=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 45;throw "$name failed"};Get-Content "$out/$name.log"|Where-Object{$_ -match '^(PASS|COMPARE) '}}
 try{
