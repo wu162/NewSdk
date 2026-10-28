@@ -20,6 +20,6 @@ try{
  if($LASTEXITCODE -ne 0){throw 'IJG library failed'}
  & cl /nologo /TC /MT /O2 /D_CRT_SECURE_NO_WARNINGS /I. /Fe:cjpeg.exe cjpeg.c rdppm.c rdgif.c rdtarga.c rdrle.c rdbmp.c rdswitch.c cdjpeg.c jpeg.lib
  if($LASTEXITCODE -ne 0){throw 'IJG fixture encoder failed'}
- & cl /nologo /TC /MT /O2 /fp:precise /LD /D_CRT_SECURE_NO_WARNINGS /I. TextureJpegCandidate.c jpeg.lib /link /OUT:TextureJpegCandidate.dll
+ & cl /nologo /TC /MT /O2 /fp:precise /LD /D_CRT_SECURE_NO_WARNINGS /I. TextureJpegCandidate.c jpeg.lib /link /OUT:TextureJpegCandidate.dll /EXPORT:JpegCandidate=_JpegCandidate
  if($LASTEXITCODE -ne 0){throw 'JPEG candidate failed'}
 }finally{Set-Location $previous}

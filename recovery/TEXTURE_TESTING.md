@@ -44,3 +44,8 @@ PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平�
 `npot-rgba8`包含1851原系数tap位模式、1012不可变原RGBA以及公共ImageLoader完整比较，Debug/Release、输入不变与逐次NoOriginal。shared helper已登记所有TGA24/32、PNG RGB/RGBA8、BMP24/32实际消费者。`dxt-images`矩阵14256（raw3/DXT3/5、POT/限定NPOT、标准/volume、有无mip、新旧cdata），保留34低位深NPOT/默认DXT1等拒绝；旧raw TGA的NPOT拒绝分支转为全buffer/cdata严格对照。显式`sdk-PcNpotRgba8`跑80输入/3200资产三模式、四产物与完整轨迹/逐次隔离。
 
 业务a945c18c/40533831752的17组（含全部6个SDK profile）成功，整轮failure因唯一回放宿主遗漏旧TGA全零alpha规则。最终d012da8a/40536063863 success仅补npot-rgba8，复用其余31组完整成功收据，未重跑未变SDK/颜色/alpha/直接DDS。保留失败状态与原锚点；不能把probe或整轮failure描述成新整轮success，也不能因为别组宿主失败而重跑已成功类型。
+
+
+`atlas-entry`验证完整公共TerrainTextureAtlas入口：旧25原gold和新23例，D/R各48、完整三buffer/DDS/cdata/错误及逐次NoOriginal。`sdk-PcAtlas`仅显式SDK时纳入，16资产三模式实际Core/四产物/完整轨迹。be520b8e/40607538234已通过，独立atlas-dds保留原锚点。
+
+`[texture-jpeg-load]`仅显式选择原JPEG LoadImageA/六种IJG6b选项取证，manual_only/evidence_only/probe-only；不作为公共JPEG、组件或SDK验收，不自动重跑未变成功组。

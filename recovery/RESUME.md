@@ -1,12 +1,17 @@
-# 2026-10-28 本轮进行中：PC atlas 公共入口与 JPEG 前置证据
+# TextureCompiler 本轮续接：PC atlas 已验收（2026-10-28，北京时间）
 
-继续 `recovery/texturecompiler-source`，仅PC、禁止强推、编译测试仅GitHub Actions，每轮尽量约70分钟。启动时远程头已核对为 `bdd102d13b59270e3f228f744c905029dc9b42a3`，Actions `40599993769` completed/success，atlas-load 仍为原版取证而非恢复验收。
+`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试仅GitHub Actions，每轮尽量约70分钟。启动远程头 `bdd102d13b59270e3f228f744c905029dc9b42a3` 与前置原gold运行40599993769已核对。所有源码/取证/验收仍集中本分支，生产SDK DLL/config未替换。
 
-- 新公共 `Plugin.Atlas.cs` 接入 Tile/File、已验收packer/指定五层DXT5/RGB555 DDS与完整runtime/relocation；空声明三个null、有效数0的末指针、原排序与错误契约均按完整gold。首轮 `b889488b` / `40606702213` **failure**：其余7个组件组成功；atlas Debug已匹配旧25例及全部新增渐变图DDS，唯一失败是 `TextureID=-4294967296` 的VC8 strtoul负溢出（原1/恢复UINT_MAX）。完整失败与23例新增原gold已回写，不能称为atlas完成。
-- 修复源码 `be520b8e4e8d4180fc5961e189a059b0e42fef90` / `40607538234` **验证中**：负溢出按原版先饱和再取负；完整48例原入口/NoOriginal D/R，以及受影响SDK批次（含新16资产atlas专用MOD）待收取。先核对终态和各组收据，保留成功祖先证据，不重复未变组。
-- JPEG仅准备新 manual_only/evidence_only `jpeg-load`，尚未启动/验收。1284例×原两调用与六种IJG6b解码候选，逐像素/异常比较；未接公共入口。公开源码字节指纹与许可见 `recovery/reference/ijg6b`，当前入口 [TEXTURE_JPEG_NEXT.md](TEXTURE_JPEG_NEXT.md)。待atlas验证作业结束后再用统一工作流显式选此组，不开第二路自动Windows矩阵。
+**完整公共TerrainTextureAtlas入口及专用SDK已完成。** 验收源码 `be520b8e4e8d4180fc5961e189a059b0e42fef90` / [40607538234](https://github.com/wu162/NewSdk/actions/runs/40607538234) attempt1 completed/success：16个受影响组全部通过，22个未变组件组沿用原锚点。
 
-下文为本轮开始时已核实的完整NPOT/atlas前置交接，保留精确锚点；生产SDK DLL/config未替换。
+- `Plugin.Atlas.cs` 恢复Tile/File/TextureID、公共加载、packer、DXT5/RGB555固定五层DDS和完整Runtime/relocation。空声明三个null；声明非空但base全缺失保留512画布及Tile末指针；metadata按原版不改变PC输出。已覆盖全部atlas尺寸阈值至49、50拒绝、normal128/256、NPOT/24/16位、渐变图、重复ID/Cell、路径/原解码错误及strtoul边界。详见 [atlas记录](TEXTURE_ATLAS_NEXT.md)。
+- `atlas-entry` Debug/Release各48例：40成功（含空声明）、8匹配原错误，1623检查、84,513,604字节完整instance/relo/imports比较，XML/cdata/源不变，逐次原DLL不存在且未加载。旧25例原gold复用40599993769，新23例原gold随本次收据保存。
+- `sdk-PcAtlas` 三模式各16资产/16实际Core调用，四产物与完整轨迹相同；mod.bin为66,350,560字节，NoOriginal逐次检查原DLL不存在且未加载。其余7个受影响SDK profile同批成功，各模式合计9888资产/调用。专用MOD不冒充完整mymod或完整TextureCompiler。
+- 首轮 `b889488b` /40606702213保留failure：7组件成功；atlas仅在新增负溢出ID失败。原VC8 `strtoul(-4294967296)=1`，已修复先饱和再取负；没有删断言或改写失败。最终验收以上述be520b8e为准。
+
+**正在继续JPEG前置证据**：新manual_only/evidence_only `jpeg-load`（显式[texture-jpeg-load]），1284例×原两调用与六种IJG6b解码候选，尚待本次Actions终态。公开源码指纹/许可见 `recovery/reference/ijg6b`，详见 [JPEG入口](TEXTURE_JPEG_NEXT.md)。未接公共JPEG路由，不把probe-only写为组件/SDK成功；后续必须完整像素、异常、D/R隔离、公共入口和专用SDK门槛。DXT1/1A未初始化状态、未声明metadata、完整生产部署仍为独立边界。
+
+以下为已核实的前序NPOT/atlas前置历史，保留精确锚点；旧“atlas公共入口未接入”已由上节最终验收覆盖。
 
 # TextureCompiler 当前续接（2026-10-28，北京时间）
 

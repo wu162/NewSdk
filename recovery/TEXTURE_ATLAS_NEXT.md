@@ -1,6 +1,6 @@
 # PC TerrainTextureAtlas 后续入口
 
-公共TerrainTextureAtlas恢复入口尚未接入，生产SDK未替换。现已具备验收过的内存TexturePacker、独立DXT5/RGB555固定五层DDS组件，以及完整原插件25例gold；这些不冒充完整atlas恢复版或SDK验收。继续同一recovery/texturecompiler-source分支，禁止强推，所有构建与测试只在GitHub Actions。
+公共TerrainTextureAtlas恢复入口及专用MOD三模式SDK现已验收，生产SDK未替换。验收源码be520b8e4e8d4180fc5961e189a059b0e42fef90 / Actions40607538234 completed/success。以下前置取证章节保留历史范围，最终验收见文末。继续同一recovery/texturecompiler-source分支，禁止强推，所有构建与测试只在GitHub Actions。
 
 ## 静态原版依据与当前缺口
 
@@ -46,3 +46,15 @@ TextureAtlasPrerequisitesProbe.cs / InspectTextureAtlasPrerequisites.ps1为manua
 - six errors均为BadTextureFile：base/normal扩展名必须含tga；base加载后须256×256；原拒绝的gray16用于base/normal时仍为D3DX cannot load；50 tile报Maximum number of textures exceeded (50). Limit is 49. 缺失base先跳过，缺失normal的错误扩展名先报targa要求。NPOT 255×255 base先被LoadImageA取整到256×256后可接受，24位base也已捕获。
 
 下一轮直接在此gold上完成Plugin.Atlas路由/Marshal及Runtime序列化，恢复版全25例原buffer/cdata、源/错误/空字段对照与NoOriginal；扩展真实文件/边界矩阵并取得专用atlas MOD三模式SDK。原DDS组件的小形状160例不代替512..2048实际atlas图谱的最终差分。保留所有失败与probe-only来源，不重新执行已完成原取证。
+
+## 完整公共入口最终验收（2026-10-28，北京时间）
+
+源码 `be520b8e4e8d4180fc5961e189a059b0e42fef90` / [40607538234](https://github.com/wu162/NewSdk/actions/runs/40607538234) attempt1 completed/success。`Plugin.Atlas.cs`已消费公共ImageLoader、TexturePacker与独立固定五层DDS，ProcessInstance按Handle.TypeId真实分派，读取Core预处理后的declaration.Node；PC业务不回调原DLL。
+
+组件Debug/Release各48例，40成功（包含空声明返回null字段）/8匹配原错误，1623检查、84,513,604字节对照。复用前置25例完整原gold，新增23例覆盖四种渐变图tile-count形状、真色16/24/32、128/256 normal、文件名含tga子串/大小写、混合缺失base、NPOT及10个strtoul边界。逐次核对原DLL不存在且未加载；完整instance/relo/imports、所有嵌入DDS、XML/cdata/源不变。SDK有独立收据，组件收据sdkValidated=false保持真实层次。
+
+专用PcAtlas SDK三模式Original/Recovered/NoOriginal各16资产/16次真实Core成功调用，mod.bin/manifest/imp/relo及完整实际调用轨迹逐字节相同，NoOriginal逐次检查原DLL不存在且未加载。16根包含11个非空count阈值、3个metadata变体、NPOT和24-bit；normal、重复ID和Cell来自原gold。mod.bin=66,350,560字节。Core仍运行完整XSD/预处理/链接，只在临时SDK/MOD副本配置恢复插件；未替换生产SDK或宣称完整mymod/完整TextureCompiler。
+
+首轮40606702213 failure保留：完整25原gold、全部新增图像DDS已匹配，唯一差异为负溢出ID。原VC8 strtoul按base0解析；溢出先饱和到UINT_MAX再应用负号，因此-4294967296变1。固定原gold直接锁定该行为，修复后完整48例D/R全部通过，未删减断言。正溢出仍UINT_MAX，0x/八进制/符号/前缀终止按原收据。
+
+最终收据：`evidence/texture/atlas-entry/40607538234-1/validation.json`、`evidence/texture/sdk-atlas/40607538234-1/validation.json`与batch同run。新增23例原完整输入/输出在atlas-entry的additional-samples.zip，不改写旧25例不可变gold。512..2048完整画布已经过公共入口差分，160个小形状独立DDS样本仍保留原验收锚点。

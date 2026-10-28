@@ -73,7 +73,7 @@ internal static unsafe class TextureJpegLoadProbe
         }
     }
     [DllImport("TextureJpegCandidate.dll",CallingConvention=CallingConvention.Cdecl)]
-    static extern int JpegCandidate(byte[] input,int length,int mode,byte[] output,int capacity,out int width,out int height);
+    static extern int JpegCandidate(byte[] input,int length,int mode,[Out] byte[] output,int capacity,out int width,out int height);
     static int records,loaded,rejected;static int[] exact=new int[6];
     static string Hash(byte[] bytes){using(var sha=SHA256.Create())return BitConverter.ToString(sha.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();}
     static string Error(Exception e){if(e==null)return "";while(e is TargetInvocationException&&e.InnerException!=null)e=e.InnerException;var code=e.GetType().GetProperty("ErrorCode");return (e.GetType().FullName+"/"+(code==null?"":Convert.ToString(code.GetValue(e,null)))+"/"+e.Message).Replace('\t',' ').Replace('\r',' ').Replace('\n',' ');}
