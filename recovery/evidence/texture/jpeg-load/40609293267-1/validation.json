@@ -1,0 +1,12 @@
+{
+  "evidenceOnly": true,
+  "runAttempt": "1",
+  "sourceCommit": "62a4064fca589dea79b91b194febd2762ab42ad2",
+  "sdkValidated": false,
+  "scope": "original PC LoadImageA JPEG full pixels and repeat determinism; IJG6b six decoder option candidates; no public plugin or SDK acceptance",
+  "runId": "40609293267",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "failed",
+  "error": "IJG fixture encoder failed",
+  "probeOnly": true
+}

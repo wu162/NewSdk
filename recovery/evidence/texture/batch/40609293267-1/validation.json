@@ -1,0 +1,49 @@
+{
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-dds",
+    "atlas-entry"
+  ],
+  "runAttempt": "1",
+  "sourceCommit": "62a4064fca589dea79b91b194febd2762ab42ad2",
+  "groups": [
+    {
+      "evidenceOnly": true,
+      "error": "IJG fixture encoder failed",
+      "group": "jpeg-load",
+      "passed": false
+    }
+  ],
+  "selected": [
+    "jpeg-load"
+  ],
+  "runId": "40609293267",
+  "status": "failed"
+}
