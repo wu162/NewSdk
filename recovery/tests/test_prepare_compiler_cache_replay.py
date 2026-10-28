@@ -38,7 +38,8 @@ class GitFixture(unittest.TestCase):
                      'recovery/src/App/Application/CoreStreamCompiler.cs',
                      'recovery/src/App/Application/BackendResourcePolicy.cs',
                      'SDK/Schemas/xsd/input.xsd', 'SDK/tools/BinaryAssetBuilder.exe.config',
-                     'recovery/build/BuildCompiler.ps1', '.github/workflows/refactor-core-lifecycle.yml'):
+                     'recovery/build/BuildCompiler.ps1', '.github/workflows/refactor-core-lifecycle.yml',
+                     'recovery/scripts/TestCompilerBuildCache.ps1'):
             target = self.repo / path
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text('original production closure\n')
@@ -64,6 +65,15 @@ class ClosureTests(GitFixture):
     def test_only_candidate_payload_changes_accepted(self):
         self.assertEqual(replay.closure(self.repo, self.source, self.candidate),
                          ['recovery/scripts/TestCompilerBuildCachePayloads.ps1'])
+
+    def test_current_build_cache_and_payload_assertions_share_immutable_runtime(self):
+        self.commit('recovery/scripts/TestCompilerBuildCache.ps1', 'current build-cache assertions\n')
+        self.assertEqual(replay.closure(self.repo, self.source, self.git('rev-parse', 'HEAD').strip()),
+                         ['recovery/scripts/TestCompilerBuildCache.ps1',
+                          'recovery/scripts/TestCompilerBuildCachePayloads.ps1'])
+        self.commit('recovery/scripts/TestCompilerBuildCacheUnreviewed.ps1', 'unreviewed sibling\n')
+        with self.assertRaisesRegex(ValueError, 'Non-replay input changed'):
+            replay.closure(self.repo, self.source, self.git('rev-parse', 'HEAD').strip())
 
     def test_nonancestor_rejected(self):
         with self.assertRaises((ValueError, subprocess.CalledProcessError)):
@@ -329,7 +339,7 @@ class ArchiveTests(GitFixture):
 
         common = dict(sourceCommit=self.source, runId='123', runAttempt='1')
         receipts = {scope: dict(common, succeeded=True, status='passed', modes=[])
-                    for scope in ('core-lifecycle-deployment', 'core-lifecycle', 'cache-payloads', 'core-cli')}
+                    for scope in ('core-lifecycle-deployment', 'core-lifecycle', 'build-cache', 'cache-payloads', 'core-cli')}
         release_prefix = 'artifacts/final-release/123-1/'
         release = dict(common, binarySourceCommit=self.source, succeeded=True,
                        status='verified-small-mod-deployment', configurations=[])
@@ -390,6 +400,10 @@ class ArchiveTests(GitFixture):
         self.assertEqual(receipt['binarySourceCommit'], self.source)
         self.assertEqual(receipt['testSourceCommit'], self.candidate)
         self.assertEqual(receipt['changedPaths'], ['recovery/scripts/TestCompilerBuildCachePayloads.ps1'])
+        self.assertEqual(receipt['testScriptSha256'],
+                         replay.digest((self.repo / 'recovery/scripts/TestCompilerBuildCachePayloads.ps1').read_bytes()))
+        self.assertEqual(receipt['buildCacheTestScriptSha256'],
+                         replay.digest((self.repo / 'recovery/scripts/TestCompilerBuildCache.ps1').read_bytes()))
         expected = [mode + '/bin/' + name for mode in ('Debug', 'Release') for name in replay.RUNTIME]
         actual = [path.relative_to(self.output).as_posix() for path in self.output.rglob('*') if path.is_file()]
         self.assertEqual(sorted(actual), sorted(expected + ['cache-payload-replay.json']))
@@ -407,7 +421,7 @@ class ArchiveTests(GitFixture):
 
     def test_each_scope_needs_both_complete_successful_modes(self):
         original = copy.deepcopy(self.entries)
-        for scope in ('core-lifecycle-deployment', 'core-lifecycle', 'cache-payloads', 'core-cli'):
+        for scope in ('core-lifecycle-deployment', 'core-lifecycle', 'build-cache', 'cache-payloads', 'core-cli'):
             path = 'evidence/refactor/' + scope + '/123-1/validation.json'
             for mutation in ('missing-release', 'duplicate-debug', 'failed-release', 'failed-scope'):
                 self.entries = copy.deepcopy(original)
@@ -486,7 +500,7 @@ class ArchiveTests(GitFixture):
             with self.subTest(runtime=name), self.assertRaises(ValueError):
                 self.prepare()
         for scope, field in (('core-lifecycle-deployment', 'exeSha256'), ('core-lifecycle', 'productExeSha256'),
-                             ('cache-payloads', 'exeSha256'), ('core-cli', 'exeSha256')):
+                             ('build-cache', 'exeSha256'), ('cache-payloads', 'exeSha256'), ('core-cli', 'exeSha256')):
             self.entries = copy.deepcopy(original)
             self.change_json('evidence/refactor/' + scope + '/123-1/validation.json',
                              lambda row: row['modes'][0].update({field: '0' * 64}))
@@ -515,6 +529,12 @@ class ArchiveTests(GitFixture):
         original = receipt_path.read_bytes()
         row = json.loads(original)
         row['productionSourcesUnchanged'] = False
+        receipt_path.write_text(json.dumps(row))
+        with patch.object(replay, 'check_api'), self.assertRaises(ValueError):
+            replay.verify_prepared(receipt_path, self.candidate, self.repo)
+        receipt_path.write_bytes(original)
+        row = json.loads(original)
+        row['buildCacheTestScriptSha256'] = '0' * 64
         receipt_path.write_text(json.dumps(row))
         with patch.object(replay, 'check_api'), self.assertRaises(ValueError):
             replay.verify_prepared(receipt_path, self.candidate, self.repo)

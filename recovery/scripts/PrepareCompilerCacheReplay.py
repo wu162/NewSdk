@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare a successful cache-parallel production archive for new payload tests.
+"""Prepare a successful cache-parallel archive for current cache and payload tests.
 
 This never builds production or treats preparation as candidate acceptance. Only
 an explicitly identified successful run is accepted; failed-run partial reuse is
@@ -45,6 +45,7 @@ MUTABLE = {
     '.github/workflows/refactor-cache-payload-replay.yml',
     'recovery/scripts/PrepareCompilerCacheReplay.py',
     'recovery/tests/test_prepare_compiler_cache_replay.py',
+    'recovery/scripts/TestCompilerBuildCache.ps1',
     'recovery/scripts/TestCompilerBuildCachePayloads.ps1',
     'recovery/scripts/BuildCompilerCliControl.ps1',
     'recovery/tests/CompilerCliControl.cs',
@@ -55,6 +56,7 @@ MUTABLE = {
 REQUIRED_STEPS = {
     'Build full production combination and verify deployment and route metadata',
     'Targeted real Core, backend and application pipeline in Debug and Release',
+    'Actual build-cache cold hot invalidation and retry matrix',
     'Actual Audio CDATA and W3X build-cache payload replay',
     'Complete mymod original BAB and production SDK differential',
     'Publish final five-file packages after complete production acceptance',
@@ -145,7 +147,7 @@ def validate_archive(z, profile):
                 str(row.get('runAttempt')) == attempt, 'Archive receipt source/run mismatch')
 
     accepted = {}
-    for scope in ('core-lifecycle-deployment', 'core-lifecycle', 'cache-payloads', 'core-cli'):
+    for scope in ('core-lifecycle-deployment', 'core-lifecycle', 'build-cache', 'cache-payloads', 'core-cli'):
         row = document(f'evidence/refactor/{scope}/{tag}/validation.json')
         identity(row)
         require(row.get('status') == 'passed' if scope == 'core-lifecycle-deployment' else row.get('succeeded') is True,
@@ -198,6 +200,7 @@ def validate_archive(z, profile):
         require(build.get('exeSha256') == exe_sha and
                 accepted['core-lifecycle-deployment'][mode].get('exeSha256') == exe_sha and
                 accepted['core-lifecycle'][mode].get('productExeSha256') == exe_sha and
+                accepted['build-cache'][mode].get('exeSha256') == exe_sha and
                 accepted['cache-payloads'][mode].get('exeSha256') == exe_sha and
                 accepted['core-cli'][mode].get('exeSha256') == exe_sha, 'Accepted EXE identities differ')
         toolchains[mode] = toolchain
@@ -221,7 +224,8 @@ def prepare(archive, profile, candidate, output, repo):
                    runId=str(profile['runId']), runAttempt=str(profile['runAttempt']),
                    files=files, originalReceipts=receipts, toolchains=toolchains, changedPaths=changed,
                    testScriptSha256=digest((Path(repo) / 'recovery/scripts/TestCompilerBuildCachePayloads.ps1').read_bytes()),
-                   scope='Successful original production archive; current payload/protocol tests required; no production rebuild')
+                   buildCacheTestScriptSha256=digest((Path(repo) / 'recovery/scripts/TestCompilerBuildCache.ps1').read_bytes()),
+                   scope='Successful original production archive; current build-cache/payload/protocol tests required; no production rebuild')
     output = Path(output)
     require(not output.exists(), 'Refusing to replace replay output')
     output.parent.mkdir(parents=True, exist_ok=True)

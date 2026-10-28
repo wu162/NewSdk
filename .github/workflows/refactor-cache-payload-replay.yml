@@ -1,4 +1,4 @@
-name: MOD compiler successful cache payload replay
+name: MOD compiler successful cache and payload replay
 on:
   push:
     branches: [compiler-main, feature/cache-parallel]
@@ -71,14 +71,16 @@ jobs:
           sparse-checkout: |
             /*
             !/recovery/evidence/
-      - name: Parse payload replay entry and validate explicit receipt parameter
+      - name: Parse cache replay entries and validate explicit receipt parameters
         shell: pwsh
         run: |
-          $tokens=$null;$parseErrors=$null
-          $ast=[System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'recovery/scripts/TestCompilerBuildCachePayloads.ps1'),[ref]$tokens,[ref]$parseErrors)
-          if(@($parseErrors).Count -ne 0){$parseErrors|Format-List|Out-String|Write-Host;throw 'Payload replay PowerShell syntax rejected'}
-          $parameters=@($ast.ParamBlock.Parameters|ForEach-Object{$_.Name.VariablePath.UserPath})
-          if(@($parameters|Where-Object{$_ -ceq 'ReplayReceipt'}).Count -ne 1){throw 'Payload replay requires one explicit ReplayReceipt parameter'}
+          foreach($script in @('TestCompilerBuildCache.ps1','TestCompilerBuildCachePayloads.ps1')){
+            $tokens=$null;$parseErrors=$null
+            $ast=[System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD "recovery/scripts/$script"),[ref]$tokens,[ref]$parseErrors)
+            if(@($parseErrors).Count -ne 0){$parseErrors|Format-List|Out-String|Write-Host;throw "Cache replay PowerShell syntax rejected: $script"}
+            $parameters=@($ast.ParamBlock.Parameters|ForEach-Object{$_.Name.VariablePath.UserPath})
+            if(@($parameters|Where-Object{$_ -ceq 'ReplayReceipt'}).Count -ne 1){throw "Cache replay requires one explicit ReplayReceipt parameter: $script"}
+          }
           $metrics=@($ast.ParamBlock.Parameters|Where-Object{$_.Name.VariablePath.UserPath -ceq 'RepositoryModMetrics'})
           if($metrics.Count -ne 1 -or $metrics[0].StaticType -ne [System.Management.Automation.SwitchParameter]){throw 'Repository measurements require one explicit opt-in switch parameter'}
       - uses: actions/setup-dotnet@v4
@@ -88,6 +90,7 @@ jobs:
         shell: pwsh
         run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt
       - name: Verify successful original run and stage exact archived runtime
+        id: runtime
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
@@ -99,7 +102,20 @@ jobs:
         run: |
           python recovery/scripts/PrepareCompilerCacheReplay.py --repo . --candidate-commit $env:GITHUB_SHA --source-commit $env:REPLAY_SOURCE --run-id $env:REPLAY_RUN --run-attempt $env:REPLAY_ATTEMPT --artifact-id $env:REPLAY_ARTIFACT --archive-sha256 $env:REPLAY_SHA256 --archive "$env:RUNNER_TEMP/cache-payload-replay.zip" --output recovery/artifacts/cache-payload-replay
           if($LASTEXITCODE -ne 0){throw 'Successful archive reuse rejected'}
+      - name: Run current build-cache matrix and its protocol against verified bytes
+        id: build_cache
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $compiler=Join-Path $PWD 'recovery/artifacts/cache-payload-replay'
+          $evidence="recovery/evidence/refactor/build-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          ./recovery/scripts/TestCompilerBuildCache.ps1 -CompilerDirectory $compiler -ReplayReceipt (Join-Path $compiler 'cache-payload-replay.json') -OutputDirectory $evidence
+          if($LASTEXITCODE -ne 0){throw 'Current build-cache replay matrix failed'}
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Current build-cache replay protocol validation failed'}
       - name: Run payload matrix and optional repository mymod measurements against verified bytes
+        if: ${{ !cancelled() && steps.runtime.outcome == 'success' }}
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
@@ -110,6 +126,7 @@ jobs:
           if($env:REPOSITORY_MOD_METRICS -cnotin @('true','false')){throw 'Repository measurements input must be an explicit boolean'}
           $repositoryMetrics=[bool]::Parse($env:REPOSITORY_MOD_METRICS)
           ./recovery/scripts/TestCompilerBuildCachePayloads.ps1 -CompilerDirectory $compiler -ReplayReceipt (Join-Path $compiler 'cache-payload-replay.json') -OutputDirectory $evidence -RepositoryModMetrics:$repositoryMetrics
+          if($LASTEXITCODE -ne 0){throw 'Current payload replay matrix failed'}
           python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
           if($LASTEXITCODE -ne 0){throw 'Current replay protocol validation failed'}
       - uses: actions/upload-artifact@v4
@@ -118,5 +135,6 @@ jobs:
           name: cache-payload-replay-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             recovery/artifacts/cache-payload-replay/cache-payload-replay.json
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}
           if-no-files-found: error
