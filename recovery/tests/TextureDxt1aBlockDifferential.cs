@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 
-// Experimental complete DXT1A wrapper. Never called by production APIs.
+// Complete differential host for the production DXT1A block APIs.
 // Only blocks with at least one actual transparent source sample are accepted.
 internal static unsafe class TextureDxt1aBlockDifferential
 {

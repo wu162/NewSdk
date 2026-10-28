@@ -5,8 +5,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 
-// Complete experimental DDS comparison, including the original 2D base-relative
-// and volume recursive float mip contracts. No production routing is changed.
+// Complete production DDS API comparison, including the original 2D base-relative
+// and volume recursive float mip contracts, with explicit opaque-block refusal.
 internal static unsafe class TextureDxt1aDdsDifferential
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate int Writer(IntPtr data,uint size,IntPtr mip,IntPtr user);
