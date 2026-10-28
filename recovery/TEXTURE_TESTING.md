@@ -49,3 +49,5 @@ PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平�
 `atlas-entry`验证完整公共TerrainTextureAtlas入口：旧25原gold和新23例，D/R各48、完整三buffer/DDS/cdata/错误及逐次NoOriginal。`sdk-PcAtlas`仅显式SDK时纳入，16资产三模式实际Core/四产物/完整轨迹。be520b8e/40607538234已通过，独立atlas-dds保留原锚点。
 
 `[texture-jpeg-load]`仅显式选择原JPEG LoadImageA/六种IJG6b选项取证，manual_only/evidence_only/probe-only；不作为公共JPEG、组件或SDK验收，不自动重跑未变成功组。
+
+`[texture-dxt1-boundary]`仅显式原版栈边界取证；3个新进程、每进程1280完整DDS，含DXT3/5稳定对照。manual_only/evidence_only/probe-only，不能作为恢复组件或SDK验收。`sdk-PcMymod`显式SDK组验证完整原样mymod与保留所有Includes的384资产全SDK图像扩展；原样0贴图调用不冒充该插件覆盖。
