@@ -64,3 +64,7 @@ Variant /4 now identifies rounding policy0..3; variant bits0..1 still preserve
 source/weight precision. Keep every complete prior matrix; never compare variant
 numbers across receipts without checking sourceCommit. This is a general codec
 arithmetic hypothesis and not fixture-ID dispatch.
+
+## Stage diagnostic checkpoint
+
+S3_STAGE_TRACE adds observation-only hooks to single-colour errors and final rounding inputs/outputs. A separate diagnostic reference is built from the already accepted colour-state source (40500150864); instrumented outputs must still match immutable original block gold. It is never invoked by the candidate encoder, never supplies candidate output, and does not establish integration eligibility. The 27 outlier identities occur only in the diagnostic host. No rejected interpolation/precision/budget matrix is repeated unchanged.

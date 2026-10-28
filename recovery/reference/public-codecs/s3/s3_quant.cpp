@@ -131,6 +131,13 @@
 
 // Decoder interpolation rounding policies: baseline, single-colour floor,
 // general-ramp floor, both. Search budgets retain upstream defaults.
+// Compile-time-only stage diagnostics; never used to select codec output.
+#ifdef S3_STAGE_TRACE
+extern void S3StageTrace(const char*, int, const double*);
+#define S3_TRACE(name,n,p) S3StageTrace(name,n,p)
+#else
+#define S3_TRACE(name,n,p) ((void)0)
+#endif
 static int LegacyInterpolationPolicy=0;
 void SetLegacyS3InterpolationPolicy(int policy){LegacyInterpolationPolicy=policy;}
 #define UNCLIPPED_ITERATION_LIMIT 16
@@ -1033,6 +1040,7 @@ static double roundMult (int nColors, int n, double (*q)[3], double *pMult,
     STATIC double m;
     STATIC double cf;
     
+    S3_TRACE("s3-round-input",6,&endPointIn[0][0]);
     static const int bitNum[3] = {5,6,5};	
 				/* number of bits per channel		    */
     
@@ -1273,6 +1281,8 @@ static double roundMult (int nColors, int n, double (*q)[3], double *pMult,
 	    assert(j0 != -1);
 	    index[i] = j0;
 	}
+        double traceOutput[7]; for(int t=0;t<6;t++)traceOutput[t]=endPointOut[t/3][t%3];traceOutput[6]=i0;
+        S3_TRACE("s3-round-output",7,traceOutput);
 	return(d);
     }
 		    		    
@@ -1496,6 +1506,7 @@ static double allSame(int *nColors, int n, double (*q)[3], double weight[3],
 
     }
 
+    S3_TRACE("s3-single-errors",3,colorError);
     if (*nColors == 4) 
         // PC DXT3/5 compatibility: four-colour mode is forced. A midpoint
         // would require three-colour BC1 mode, which these formats cannot use.

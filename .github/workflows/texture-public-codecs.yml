@@ -7,7 +7,7 @@ permissions:
   contents: write
 jobs:
   compare:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[public-codecs-test]') || contains(github.event.head_commit.message, '[public-codecs-amd]') || contains(github.event.head_commit.message, '[public-codecs-patch]') || contains(github.event.head_commit.message, '[public-codecs-s3]') || contains(github.event.head_commit.message, '[public-codecs-s3-x87]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[public-s3-diagnose]') || contains(github.event.head_commit.message, '[public-codecs-test]') || contains(github.event.head_commit.message, '[public-codecs-amd]') || contains(github.event.head_commit.message, '[public-codecs-patch]') || contains(github.event.head_commit.message, '[public-codecs-s3]') || contains(github.event.head_commit.message, '[public-codecs-s3-x87]')
     runs-on: windows-2022
     timeout-minutes: 70
     steps:
@@ -21,12 +21,13 @@ jobs:
         id: tests
         shell: pwsh
         env:
+          DIAGNOSE: ${{ contains(github.event.head_commit.message, '[public-s3-diagnose]') }}
           PATCHED: ${{ contains(github.event.head_commit.message, '[public-codecs-patch]') }}
           S3_X87: ${{ contains(github.event.head_commit.message, '[public-codecs-s3-x87]') }}
           ONLY_S3: ${{ contains(github.event.head_commit.message, '[public-codecs-s3]') }}
           ONLY_AMD: ${{ contains(github.event.head_commit.message, '[public-codecs-amd]') }}
         run: |
-          if($env:S3_X87 -eq 'true'){./recovery/scripts/TestTexturePublicCodecs.ps1 -OnlyS3 -X87}elseif($env:ONLY_S3 -eq 'true'){./recovery/scripts/TestTexturePublicCodecs.ps1 -OnlyS3}elseif($env:PATCHED -eq 'true'){./recovery/scripts/TestTexturePublicCodecs.ps1 -Patched}elseif($env:ONLY_AMD -eq 'true'){./recovery/scripts/TestTexturePublicCodecs.ps1 -OnlyAmd}else{./recovery/scripts/TestTexturePublicCodecs.ps1}
+          if($env:DIAGNOSE -eq 'true'){./recovery/scripts/DiagnoseTexturePublicS3.ps1}elseif($env:S3_X87 -eq 'true'){./recovery/scripts/TestTexturePublicCodecs.ps1 -OnlyS3 -X87}elseif($env:ONLY_S3 -eq 'true'){./recovery/scripts/TestTexturePublicCodecs.ps1 -OnlyS3}elseif($env:PATCHED -eq 'true'){./recovery/scripts/TestTexturePublicCodecs.ps1 -Patched}elseif($env:ONLY_AMD -eq 'true'){./recovery/scripts/TestTexturePublicCodecs.ps1 -OnlyAmd}else{./recovery/scripts/TestTexturePublicCodecs.ps1}
       - name: Preserve complete comparison results
         if: always()
         uses: actions/upload-artifact@v4

@@ -12,7 +12,7 @@ internal static class TexturePublicCodecsReplay
     [DllImport("TexturePublicCodecs.dll",CallingConvention=CallingConvention.Cdecl)]
     static extern int PublicImageDecode([In] byte[] input,int bytes,[Out] byte[] output,int capacity,out int width,out int height,out int channels);
     static string Hex(byte[] b){return BitConverter.ToString(b).Replace("-","").ToLowerInvariant();}
-    static byte[] Pixels(int fixture){byte[] p=new byte[64];for(int i=0;i<16;i++){p[i*4]=(byte)(i*37+17);p[i*4+1]=(byte)(i*71+33);p[i*4+2]=(byte)(i*113+129);p[i*4+3]=(byte)(i*19+7);}
+    internal static byte[] Pixels(int fixture){byte[] p=new byte[64];for(int i=0;i<16;i++){p[i*4]=(byte)(i*37+17);p[i*4+1]=(byte)(i*71+33);p[i*4+2]=(byte)(i*113+129);p[i*4+3]=(byte)(i*19+7);}
         if(fixture<256){for(int i=0;i<16;i++){p[i*4]=p[i*4+1]=p[i*4+2]=(byte)fixture;p[i*4+3]=(byte)(i*17);}}
         else if(fixture<512){for(int i=0;i<16;i++){p[i*4]=(byte)fixture;p[i*4+1]=(byte)(fixture*37);p[i*4+2]=(byte)(fixture*73);p[i*4+3]=(byte)(fixture+i*17);}}
         else if(fixture<768){for(int i=0;i<16;i++){p[i*4]=(byte)((i&1)==0?fixture:255-fixture);p[i*4+1]=(byte)((i&1)==0?17:229);p[i*4+2]=(byte)((i&1)==0?71:191);p[i*4+3]=(byte)((i&1)==0?127:128);}}
