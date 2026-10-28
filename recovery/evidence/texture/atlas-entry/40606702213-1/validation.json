@@ -1,0 +1,34 @@
+{
+  "nativeBinaries": [
+    {
+      "entryPoint": 0,
+      "machine": "I386",
+      "sha256": "4aa7e28ddee106b23646e0c2305cc1b4d9f239b89d56296f43243de0c35af3a8",
+      "configuration": "Debug",
+      "importDirectory": 0
+    },
+    {
+      "entryPoint": 0,
+      "configuration": "Debug",
+      "machine": "I386",
+      "sha256": "bb8b0da1a18cc9c89a4ff380c91a22fa54d0b05bc2a90303493c20252e7e34fb",
+      "importDirectory": 0,
+      "name": "Recovered.TextureDxtAlpha.dll"
+    }
+  ],
+  "sdkValidated": false,
+  "runId": "40606702213",
+  "runAttempt": "1",
+  "originalBaseline": {
+    "sourceCommit": "056937b13fa39431ec9171b0d990e6a5c15a013c",
+    "samplesSha256": "644f33f05f16d2e304d65d732b04bdefcabbfa091dbb274c2b60a1a46cb106e2",
+    "runId": "40599993769"
+  },
+  "configurations": [],
+  "sourceCommit": "b889488bfe48b84d31e955e788d21dd70246d1b1",
+  "status": "failed",
+  "scope": "PC TerrainTextureAtlas full plugin entry: immutable 25-case original corpus plus 23 patterned/file/strtoul cases; full runtime/DDS/relo/imports/error/unchanged input and cdata, per-call isolated replay; SDK separate",
+  "error": "Debug-replay failed",
+  "additionalSamplesSha256": "194fcf777e42272a50af98a4f1c62fb99f9eef9985e2879495fc7f9b4fd7b4a8",
+  "probeOnly": false
+}

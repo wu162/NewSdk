@@ -1,0 +1,83 @@
+{
+  "reused": [
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "png",
+    "bmp",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-dds"
+  ],
+  "runAttempt": "1",
+  "sourceCommit": "b889488bfe48b84d31e955e788d21dd70246d1b1",
+  "status": "failed",
+  "groups": [
+    {
+      "passed": true,
+      "group": "base",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "images",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "mip-images",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "volume-images",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "volume-mip-images",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "raster-images",
+      "evidenceOnly": false
+    },
+    {
+      "passed": true,
+      "group": "dxt-images",
+      "evidenceOnly": false
+    },
+    {
+      "error": "Debug-replay failed",
+      "passed": false,
+      "group": "atlas-entry",
+      "evidenceOnly": false
+    }
+  ],
+  "runId": "40606702213",
+  "selected": [
+    "base",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "raster-images",
+    "dxt-images",
+    "atlas-entry"
+  ]
+}

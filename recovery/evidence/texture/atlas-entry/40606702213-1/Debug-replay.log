@@ -1,0 +1,42 @@
+CHECK count-0
+CHECK count-1
+CHECK count-2
+CHECK count-3
+CHECK count-4
+CHECK count-7
+CHECK count-8
+CHECK count-9
+CHECK count-10
+CHECK count-21
+CHECK count-22
+CHECK count-49
+CHECK metadata-zero-false
+CHECK metadata-max-true
+CHECK metadata-default-false
+CHECK missing-base
+CHECK base-extension
+CHECK normal-extension
+CHECK base-size
+CHECK missing-base-png
+CHECK base-reject
+CHECK normal-reject
+CHECK base-npot
+CHECK base-24
+CHECK count-50
+CHECK pattern-count-1
+CHECK pattern-count-2
+CHECK pattern-count-3
+CHECK pattern-count-4
+CHECK depth-16
+CHECK depth-24
+CHECK depth-32
+CHECK tga-substring
+CHECK uppercase-path
+CHECK id-9
+CHECK id-10
+CHECK id-11
+CHECK id-12
+CHECK id-13
+System.Exception: id-14 instance mismatch at 349340 expected=1 actual=255
+   at TextureAtlasEntryReplay.Same(String directory, String label, String name, Byte[] actual, Boolean empty)
+   at TextureAtlasEntryReplay.Main(String[] args)
