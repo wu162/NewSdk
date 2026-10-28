@@ -1,0 +1,1 @@
+PASS Texture JPEG colour/metadata ProcessInstance differential fixtures=32080 errors=12800 comparedBytes=224710304; RGB/CMYK/YCCK/Adobe/ICC/Exif/XMP/COM POT/NPOT raw3/DXT3/5 standard/volume full mip; 80 atlas inputs; three buffers/full cdata/old tails; SDK separate

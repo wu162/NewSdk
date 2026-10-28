@@ -1,0 +1,426 @@
+{
+  "sourceCommit": "dba6d3050bf33db791144e00f54129f769226714",
+  "selected": [
+    "jpeg-metadata",
+    "jpeg-metadata-images",
+    "sdk-PcJpegMetadata"
+  ],
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "sdk-PcDxtNoMip",
+    "dxt-samples",
+    "sdk-PcDxtMips",
+    "dxt-volume-dds",
+    "sdk-PcDxtVolumes",
+    "npot-rgba8",
+    "sdk-PcNpotRgba8",
+    "npot-storage-replay",
+    "sdk-PcNpotStorage",
+    "npot-storage-stress-replay",
+    "atlas-dds",
+    "atlas-entry",
+    "sdk-PcAtlas",
+    "jpeg",
+    "jpeg-images",
+    "sdk-PcJpeg",
+    "dxt1a-blocks",
+    "dxt1a-dds",
+    "dxt1a-images",
+    "sdk-PcDxt1a",
+    "png-metadata",
+    "png-metadata-images",
+    "sdk-PcPngMetadata"
+  ],
+  "details": {
+    "base": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/validation/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "tga": {
+      "sourceCommit": "a945c18c8ea02b6ad03f8a4b6172be10ba7dffa2",
+      "runId": "40533831752",
+      "receipt": "recovery/evidence/texture/tga/40533831752-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "formats": {
+      "sourceCommit": "e9292a26149bf8add555a883cb95739a65fc69a9",
+      "runId": "40595382578",
+      "receipt": "recovery/evidence/texture/stage2/Formats/40595382578-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-helper": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/Volume/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "raw": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/Raw/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "mips": {
+      "sourceCommit": "7ae4af3769842084cd19cbff87c651c945f45888",
+      "runId": "40524039917",
+      "receipt": "recovery/evidence/texture/stage2/Mips/40524039917-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-dds": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/VolumeDds/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-mips": {
+      "sourceCommit": "aaacb3d25fdb99eddaa8ed4ab23701437e840ec2",
+      "runId": "40526443463",
+      "receipt": "recovery/evidence/texture/stage2/VolumeMips/40526443463-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "images": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/images/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "mip-images": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/mip-images/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-images": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/volume-images/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-mip-images": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/volume-mip-images/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "png": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "bmp": {
+      "sourceCommit": "e9292a26149bf8add555a883cb95739a65fc69a9",
+      "runId": "40595382578",
+      "receipt": "recovery/evidence/texture/bmp/40595382578-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "raster-images": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/raster-images/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcNoMip": {
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-rasters/PcNoMip/40783041481-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcMips": {
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-rasters/PcMips/40783041481-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "png-ranges": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png-ranges/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-symbols": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-blocks": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt3-alpha": {
+      "sourceCommit": "9f8b1361148a6b76fec1b5564b3d055ba4ee62e7",
+      "runId": "40470055551",
+      "receipt": "recovery/evidence/texture/dxt3-alpha/40470055551-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-decompile": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt5-fast-alpha": {
+      "sourceCommit": "82422508cad2ad15b551be06596f8666791422c9",
+      "runId": "40490888440",
+      "receipt": "recovery/evidence/texture/dxt5-fast-alpha/40490888440-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt5-alpha": {
+      "sourceCommit": "4bf0ca8ccb74a6f670cd7ecb954483dc795fae9f",
+      "runId": "40493971846",
+      "receipt": "recovery/evidence/texture/dxt5-alpha/40493971846-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-colour-functions": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-colour-graph": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-colour-state": {
+      "sourceCommit": "2cee34462377beca4b16926eaf25d093daa02c2a",
+      "runId": "40500150864",
+      "receipt": "recovery/evidence/texture/colour-state/40500150864-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-blocks-complete": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-blocks/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-dds2d": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-dds2d/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-images": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/dxt-images/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcDxtNoMip": {
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-dxt/40783041481-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-samples": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-samples/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-image-boundaries": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "sdk-PcDxtMips": {
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-dxt-mips/40783041481-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-volume-boundaries": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-volume-dds": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-volume-dds/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcDxtVolumes": {
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-dxt-volumes/40783041481-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "npot-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-numeric": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-rgba8": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/npot-rgba8/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcNpotRgba8": {
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-npot-rgba8/40783041481-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "npot-storage": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-formats": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-storage-replay": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/npot-storage-replay/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcNpotStorage": {
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-npot-storage/40783041481-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "npot-storage-stress": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "atlas-prerequisites": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-storage-stress-replay": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/npot-storage-stress-replay/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "atlas-dds": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/atlas-dds/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "atlas-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "atlas-entry": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/atlas-entry/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcAtlas": {
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-atlas/40783041481-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "jpeg-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "jpeg": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/jpeg/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "jpeg-images": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/jpeg-images/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcJpeg": {
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-jpeg/40783041481-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcMymod": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt1-boundary": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "public-s3-three": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "public-s3-dxt1a": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "public-s3-dxt1a-dds": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt1a-blocks": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/dxt1a-blocks/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt1a-dds": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/dxt1a-dds/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt1a-images": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/dxt1a-images/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcDxt1a": {
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-dxt1a/40783041481-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "png-metadata-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "png-metadata-order": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "png-metadata": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png-metadata/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "png-metadata-images": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png-metadata-images/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcPngMetadata": {
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-png-metadata/40783041481-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "jpeg-metadata-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "jpeg-metadata": {
+      "reason": "no complete successful ancestor evidence"
+    },
+    "jpeg-metadata-images": {
+      "reason": "no complete successful ancestor evidence"
+    },
+    "sdk-PcJpegMetadata": {
+      "reason": "no complete successful ancestor evidence"
+    }
+  }
+}
