@@ -33,6 +33,12 @@ namespace NewModCompiler.Tests
             Check(!baseline.CanAuthorizeCacheReuse, "An inventory must never authorize production cache reuse.");
             Check(CacheInputSnapshot.CoverageLimitations.Contains("Root-external"), "Missing inventory scope explanation.");
             Check(baseline.Fingerprint.Length == 64 && baseline.FileCount == 5, "Inventory digest and file count.");
+            Check(baseline.ToolchainFingerprint.Length == 64, "Tool identity must be a separate SHA-256 digest.");
+            long expectedBytes = 0;
+            foreach (string file in new[] { entry, dependency, schema, config, compiler }) expectedBytes += new FileInfo(file).Length;
+            Check(baseline.HashedBytes > 0 && baseline.HashedBytes == expectedBytes, "Inventory byte accounting must include each actual input read exactly once.");
+            var unchanged = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+            Check(unchanged.ToolchainFingerprint == baseline.ToolchainFingerprint && unchanged.HashedBytes == baseline.HashedBytes, "Unchanged tool identity or byte accounting is unstable.");
             Check(baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Identical cold/hot inventory differs.");
 
             // A plugin payload absent from the XML task list still invalidates
@@ -40,14 +46,46 @@ namespace NewModCompiler.Tests
             DateTime timestamp = File.GetLastWriteTimeUtc(dependency);
             Write(dependency, "BBBB"); File.SetLastWriteTimeUtc(dependency, timestamp);
             Check(!baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Payload content change was missed.");
+            var payloadChange = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+            Check(payloadChange.Fingerprint != baseline.Fingerprint && payloadChange.ToolchainFingerprint == baseline.ToolchainFingerprint, "Ordinary payload bytes leaked into tool identity or escaped whole-root protection.");
+            Check(payloadChange.HashedBytes == baseline.HashedBytes, "Same-size payload mutation changed byte accounting.");
             Write(dependency, "AAAA"); File.SetLastWriteTimeUtc(dependency, timestamp);
             Check(baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Restored input bytes should reproduce the fingerprint.");
             foreach (string file in new[] { entry, schema, config, compiler })
             {
-                string previous = File.ReadAllText(file); Write(file, previous + "changed");
+                string previous = File.ReadAllText(file); DateTime previousTime = File.GetLastWriteTimeUtc(file);
+                Write(file, (previous[0] == 'X' ? "Y" : "X") + previous.Substring(1)); File.SetLastWriteTimeUtc(file, previousTime);
                 Check(!baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Root input change was missed: " + file);
-                Write(file, previous);
+                var changed = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+                Check(changed.HashedBytes == baseline.HashedBytes, "Same-size input mutation changed byte accounting: " + file);
+                if (file == entry)
+                    Check(changed.ToolchainFingerprint == baseline.ToolchainFingerprint, "MOD XML bytes were included in tool identity.");
+                else
+                    Check(changed.ToolchainFingerprint != baseline.ToolchainFingerprint, "Same-size/same-mtime tool, config or schema mutation did not invalidate tool identity: " + file);
+                Write(file, previous); File.SetLastWriteTimeUtc(file, previousTime);
+                Check(CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None).ToolchainFingerprint == baseline.ToolchainFingerprint, "Restoring tool bytes did not restore tool identity: " + file);
             }
+            // Packaging-only additions and normal SDK declarations remain root
+            // protection inputs, without invalidating unrelated action tools.
+            foreach (string file in new[] {
+                Path.Combine(request.ModRoot, "Additional", "packaging.bin"),
+                Path.Combine(request.SdkRoot, "Additional", "packaging.bin"),
+                Path.Combine(request.SdkRoot, "SageXml", "Weapon.xml")
+            })
+            {
+                Write(file, "AAAA");
+                var added = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+                Check(added.Fingerprint != baseline.Fingerprint && added.ToolchainFingerprint == baseline.ToolchainFingerprint, "Packaging/SDK asset addition widened tool identity or escaped root protection: " + file);
+                DateTime previousTime = File.GetLastWriteTimeUtc(file); Write(file, "BBBB"); File.SetLastWriteTimeUtc(file, previousTime);
+                var changed = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+                Check(changed.Fingerprint != added.Fingerprint && changed.ToolchainFingerprint == added.ToolchainFingerprint, "Packaging/SDK asset edit widened tool identity or escaped root protection: " + file);
+                Check(changed.HashedBytes == added.HashedBytes && added.HashedBytes > baseline.HashedBytes, "Packaging/SDK asset byte accounting is inconsistent.");
+                File.Delete(file); Directory.Delete(Path.GetDirectoryName(file));
+            }
+            Check(baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Removing packaging/SDK asset probes did not restore the inventory.");
+            string backendTool = Path.Combine(request.SdkRoot, "tools", "backend.dll"); Write(backendTool, "tool-implementation");
+            Check(CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None).ToolchainFingerprint != baseline.ToolchainFingerprint, "New SDK tool implementation did not invalidate tool identity.");
+            File.Delete(backendTool);
             string indirect = Path.Combine(request.ModRoot, "includes", "nested", "indirect.xml");
             Write(indirect, "new dependency");
             Check(!baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Added nested dependency was missed.");

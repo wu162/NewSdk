@@ -32,6 +32,7 @@ namespace NewModCompiler.Application
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
         ActionAssetCache actionCache;
         string actionToolchain;
+        long inputHashBytes;
         readonly AssetExecutionMetrics executionMetrics = new AssetExecutionMetrics();
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
@@ -51,6 +52,7 @@ namespace NewModCompiler.Application
             maxBackendConcurrency = sessionCacheEnabled ? (instanceCompile == 0 ? 0 : 1) : executionMetrics.MaximumConcurrency,
             actionHits = executionMetrics.Hits, actionMisses = executionMetrics.Misses,
             restoredBytes = executionMetrics.RestoredBytes, writtenBytes = executionMetrics.WrittenBytes,
+            hashReadBytes = inputHashBytes + executionMetrics.ExternalHashBytes,
             backendIntervals = executionMetrics.Intervals.ToArray(), intervalFrequency = Stopwatch.Frequency
         }; } }
 
@@ -479,7 +481,14 @@ namespace NewModCompiler.Application
                     inputBoundary = CacheInputBoundary.Begin(sdkRoot, modRoot, runtime);
                     cachePlan = new BuildPlan { PlanKind = "CoreCacheStream.v2", Tasks = new[] { context.Task } };
                     cacheInputs = CacheInputSnapshot.Capture(request, cachePlan, runtime, cancellation);
+                    inputHashBytes += cacheInputs.HashedBytes;
                     processContract = CacheProcessContract();
+                    if (buildCacheEnabled && !sessionCacheEnabled)
+                    {
+                        string identity = ActionToolchainIdentity(cacheInputs.ToolchainFingerprint, processContract);
+                        if (actionToolchain == null) actionToolchain = identity;
+                        else if (actionToolchain != identity) throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Toolchain or process inputs changed between streams.");
+                    }
                     if (buildCacheEnabled && sessionCacheEnabled)
                     {
                         assetCache = new BuildAssetCache(outputRoot, CacheNamespace(cacheInputs.Fingerprint, processContract));
@@ -535,7 +544,6 @@ namespace NewModCompiler.Application
                     if (buildCacheEnabled)
                     {
                         if (actionCache == null) actionCache = new ActionAssetCache(outputRoot);
-                        if (actionToolchain == null) actionToolchain = ActionToolchainIdentity(runtime, cancellation);
                     }
                     execution = new AssetTaskExecution(processor, buildCacheEnabled ? actionCache : null, staging,
                         actionToolchain ?? "no-persistent-cache", EffectiveActionOptions(), request.RequestedJobs, executionMetrics, cancellation);
@@ -556,8 +564,9 @@ namespace NewModCompiler.Application
                 cancellation.ThrowIfCancellationRequested();
                 if (buildCacheEnabled || sessionCacheEnabled)
                 {
-                    if (!cacheInputs.MatchesCurrent(request, cachePlan, runtime, cancellation) || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal)
-                        || (!sessionCacheEnabled && buildCacheEnabled && actionToolchain != ActionToolchainIdentity(runtime, cancellation)))
+                    var finalInputs = CacheInputSnapshot.Capture(request, cachePlan, runtime, cancellation);
+                    inputHashBytes += finalInputs.HashedBytes;
+                    if (cacheInputs.Fingerprint != finalInputs.Fingerprint || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal))
                         throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Build-cache inputs or process resolution contract changed during compilation.");
                     if (sessionCacheEnabled)
                     {
@@ -673,25 +682,14 @@ namespace NewModCompiler.Application
             }
         }
 
-        string ActionToolchainIdentity(string runtime, CancellationToken cancellation)
+        string ActionToolchainIdentity(string toolInputs, string processContract)
         {
             using (var bytes = new MemoryStream()) using (var writer = new BinaryWriter(bytes, System.Text.Encoding.UTF8))
             {
-                writer.Write("NewModCompiler.ActionToolchain.v1"); writer.Write(CacheProcessContract()); writer.Write(configurationXml);
+                writer.Write("NewModCompiler.ActionToolchain.v1"); writer.Write(processContract); writer.Write(configurationXml); writer.Write(toolInputs);
                 // The full MOD/root inventory remains an input-change guard,
                 // never an action identity. Tool/config/schema inputs are shared
                 // across all asset keys in this build.
-                foreach (string root in new[] { runtime, Path.Combine(sdkRoot, "tools"), Path.Combine(sdkRoot, "Schemas") })
-                {
-                    writer.Write(Path.GetFullPath(root));
-                    var files = SafeFiles(root).OrderBy(x => x, StringComparer.Ordinal).ToArray(); writer.Write(files.Length);
-                    foreach (string file in files)
-                    {
-                        cancellation.ThrowIfCancellationRequested(); writer.Write(file.Substring(root.Length));
-                        using (var input = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
-                        using (var hash = SHA256.Create()) { writer.Write(input.Length); writer.Write(hash.ComputeHash(input)); }
-                    }
-                }
                 writer.Flush(); using (var hash = SHA256.Create()) return BitConverter.ToString(hash.ComputeHash(bytes.ToArray())).Replace("-", "").ToLowerInvariant();
             }
         }

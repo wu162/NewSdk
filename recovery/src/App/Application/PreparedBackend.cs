@@ -27,6 +27,7 @@ namespace NewModCompiler.Application
         public bool CanCache { get { return true; } }
         public bool CanRunParallel { get; private set; }
         public long PreparedBytes { get; private set; }
+        public long ExternalReadBytes { get; private set; }
         public InstanceDeclaration Declaration { get { return declaration; } }
 
         PreparedBackend(string family, IAssetBuilderPlugin plugin, InstanceDeclaration declaration,
@@ -35,6 +36,7 @@ namespace NewModCompiler.Application
             Family = family; this.plugin = plugin; this.declaration = declaration;
             this.identity = identity; this.inputLeases = inputLeases;
             PreparedBytes = preparedBytes; CanRunParallel = parallel;
+            foreach (FileStream input in inputLeases) ExternalReadBytes = checked(ExternalReadBytes + input.Length);
         }
 
         public static bool TryPrepare(InstanceDeclaration original, IAssetBuilderPlugin plugin,
@@ -62,7 +64,7 @@ namespace NewModCompiler.Application
                 // Import into a private document and name table. All type IDs,
                 // reference slots, defaults and evaluated values were installed
                 // by the existing front end before this immutable copy is taken.
-                XmlNode node = document.ImportNode(original.Node, true);
+                XmlNode node = CopyBackendXml(document, original.Node);
                 document.AppendChild(node);
                 var namespaces = new XmlNamespaceManager(document.NameTable);
                 var bindings = original.Document.NamespaceManager.GetNamespacesInScope(XmlNamespaceScope.All);
@@ -146,6 +148,22 @@ namespace NewModCompiler.Application
             if (disposed) return;
             foreach (FileStream lease in inputLeases) lease.Dispose();
             disposed = true;
+        }
+
+        static XmlNode CopyBackendXml(XmlDocument document, XmlNode source)
+        {
+            if (source.NodeType != XmlNodeType.Element) return document.ImportNode(source, true);
+            XmlElement copy = document.CreateElement(source.Prefix, source.LocalName, source.NamespaceURI);
+            // XmlDocument.ImportNode deliberately drops unspecified default
+            // attributes. Schema validation has already made their values part
+            // of the real backend input, so copy every effective attribute.
+            foreach (XmlAttribute attribute in source.Attributes)
+            {
+                XmlAttribute value = document.CreateAttribute(attribute.Prefix, attribute.LocalName, attribute.NamespaceURI);
+                value.Value = attribute.Value; copy.Attributes.Append(value);
+            }
+            foreach (XmlNode child in source.ChildNodes) copy.AppendChild(CopyBackendXml(document, child));
+            return copy;
         }
 
         static bool PrepareXmlReads(InstanceDeclaration original, BinaryWriter writer, List<FileStream> leases)

@@ -174,6 +174,26 @@ namespace NewModCompiler.Tests
             using (var store = new ActionAssetCache(root)) Check(!store.TryRestore(Second, Staging(root, "swapped"), CancellationToken.None), "Manifest belonging to another action identity was reused");
             Directory.Move(swapped, Entry(root, First));
 
+            // A file occupying a key directory is an invalid entry, and even
+            // that previous object must be restored on unsuccessful repair.
+            Put(Entry(root, Second), "invalid-entry-file");
+            using (var store = new ActionAssetCache(root))
+            {
+                Check(!store.TryRestore(Second, Staging(root, "file-entry"), CancellationToken.None), "A file at an action key became a hit");
+                store.Stage(Second, source, CancellationToken.None); store.Commit(); store.Rollback();
+            }
+            Check(File.ReadAllText(Entry(root, Second)) == "invalid-entry-file", "Action repair rollback lost a previous file object");
+            File.Delete(Entry(root, Second));
+            using (var store = new ActionAssetCache(root))
+            {
+                store.Stage(Second, source, CancellationToken.None);
+                string candidateRoot = Directory.GetDirectories(root, ".action-cache-candidate-*").Single();
+                string candidatePayload = Directory.GetFiles(candidateRoot, "*", SearchOption.AllDirectories).First(path => Path.GetFileName(Path.GetDirectoryName(path)) == "files");
+                Put(candidatePayload, "changed-after-stage");
+                Reject<IOException>(() => store.Commit(), "Installation accepted a corrupted candidate action result");
+                Check(!Directory.Exists(Entry(root, Second)), "Failed candidate validation published an action entry");
+            }
+
             // Windows deletion failure retains the exclusion marker and exact
             // ownership evidence; rollback can safely retry after handle close.
             using (var store = new ActionAssetCache(root))

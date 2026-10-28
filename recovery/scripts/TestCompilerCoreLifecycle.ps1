@@ -57,6 +57,7 @@ try {
     $fixtureFailures=@()
     $fixtures=@(
         @{name='CompilerCacheContent';marker='PASS CacheContent:'},
+        @{name='CompilerPreparedBackend';marker='PASS PreparedBackend:'},
         @{name='CompilerCacheBoundary';marker='PASS CacheBoundary:'},
         @{name='CompilerInputRoots';marker='PASS InputRoots:'},
         @{name='CompilerCorePaths';marker='PASS CorePaths:'},

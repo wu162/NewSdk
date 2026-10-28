@@ -24,7 +24,7 @@ namespace NewModCompiler.Application
         readonly object gate = new object();
         int active;
         public int BackendCalls, MaximumConcurrency, Hits, Misses;
-        public long RestoredBytes, WrittenBytes;
+        public long RestoredBytes, WrittenBytes, ExternalHashBytes;
         public readonly List<BackendInterval> Intervals = new List<BackendInterval>();
         public AssetBuffer Execute(string type, string source, Func<AssetBuffer> action)
         {
@@ -109,6 +109,8 @@ namespace NewModCompiler.Application
                 return;
             }
             task.Prepared = prepared;
+            metrics.ExternalHashBytes += prepared.ExternalReadBytes;
+            string typeName = declaration.Handle.TypeName, sourcePath = declaration.Document.SourcePath;
             try
             {
                 if (prepared.PreparedBytes > ByteBudget) Flush();
@@ -135,8 +137,8 @@ namespace NewModCompiler.Application
                     processor.RecordExecutionCompile();
                     if (prepared.CanRunParallel && capacity > 1 && prepared.PreparedBytes <= ByteBudget / 2)
                     {
-                        task.Worker = Task.Factory.StartNew(() => metrics.Execute(declaration.Handle.TypeName,
-                            declaration.Document.SourcePath, prepared.Execute), CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
+                        task.Worker = Task.Factory.StartNew(() => metrics.Execute(typeName,
+                            sourcePath, prepared.Execute), CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
                     }
                     else
                     {

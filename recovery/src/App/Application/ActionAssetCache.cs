@@ -24,6 +24,7 @@ namespace NewModCompiler.Application
         readonly HashSet<string> invalidated = new HashSet<string>(StringComparer.Ordinal);
         readonly List<string> installed = new List<string>();
         PublicationLock cacheLock;
+        int candidateSequence;
         bool committed, completed, disposed;
 
         sealed class Member { public string Name, Storage, Hash; public long Size; }
@@ -93,7 +94,10 @@ namespace NewModCompiler.Application
             // Even a zero-buffer result needs the caller's result metadata. An
             // empty tree cannot prove which optional files were legally absent.
             if (names.Count == 0) throw new InvalidDataException("An action result needs a complete nonempty result contract.");
-            string target = Path.Combine(candidateRoot, actionKey + ".new-" + Guid.NewGuid().ToString("N"));
+            // The manifest carries the full action identity. Repeating a
+            // 64-byte key plus a GUID in this private filename needlessly
+            // exceeded Win32 MAX_PATH under normal Actions output roots.
+            string target = Path.Combine(candidateRoot, checked(++candidateSequence).ToString("x8", CultureInfo.InvariantCulture));
             string data = Path.Combine(target, FilesName);
             RejectAncestors(target); Directory.CreateDirectory(data);
             bool retained = false;

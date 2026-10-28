@@ -139,6 +139,21 @@
         "actionMisses": {
           "type": "integer",
           "minimum": 0
+        },
+        "backendIntervals": {
+          "type": "array",
+          "maxItems": 512,
+          "items": {
+            "type": "object",
+            "required": ["typeName", "sourcePath", "startTicks", "endTicks", "threadId"],
+            "properties": {
+              "typeName": {"type": "string", "minLength": 1},
+              "sourcePath": {"type": "string", "minLength": 1},
+              "startTicks": {"type": "integer", "minimum": 0},
+              "endTicks": {"type": "integer", "minimum": 0},
+              "threadId": {"type": "integer", "minimum": 1}
+            }
+          }
         }
       }
     },

@@ -18,9 +18,12 @@ namespace NewModCompiler.Application
         public const string CoverageLimitations = "Only SDK, MOD and compiler-runtime roots are inventoried. Root-external references, environment-dependent resolution and toolchain identity still require a verified resolver contract before this fingerprint can authorize cache reuse. This component neither stores nor loads cached results.";
         readonly string fingerprint;
         readonly int fileCount;
-        private CacheInputSnapshot(string fingerprint, int fileCount) { this.fingerprint = fingerprint; this.fileCount = fileCount; }
+        private CacheInputSnapshot(string fingerprint, int fileCount, string toolchainFingerprint, long hashedBytes)
+        { this.fingerprint = fingerprint; this.fileCount = fileCount; ToolchainFingerprint = toolchainFingerprint; HashedBytes = hashedBytes; }
         public string Fingerprint { get { return fingerprint; } }
         public int FileCount { get { return fileCount; } }
+        public string ToolchainFingerprint { get; private set; }
+        public long HashedBytes { get; private set; }
         public bool CanAuthorizeCacheReuse { get { return false; } }
 
         public static CacheInputSnapshot Capture(BuildRequest request, BuildPlan plan, string runtimeDirectory, CancellationToken cancellation)
@@ -33,9 +36,14 @@ namespace NewModCompiler.Application
                 if (Paths.Contains(root, output) || Paths.Contains(output, root)) throw new IOException("Input inventory roots must be separate from output.");
             cancellation.ThrowIfCancellationRequested();
             int count = 0;
+            long hashedBytes = 0;
             using (var bytes = new MemoryStream())
             using (var writer = new BinaryWriter(bytes, new UTF8Encoding(false, true)))
+            using (var tools = new MemoryStream())
+            using (var toolWriter = new BinaryWriter(tools, new UTF8Encoding(false, true)))
             {
+                toolWriter.Write("NewModCompiler.ToolInputs.v1");
+                foreach (string root in roots) toolWriter.Write(root);
                 // BinaryWriter's length-prefixed strings prevent delimiter and
                 // concatenation collisions. Enumeration uses ordinal sorting.
                 writer.Write(Format);
@@ -69,10 +77,18 @@ namespace NewModCompiler.Application
                 for (int role = 0; role < roots.Length; ++role)
                 {
                     writer.Write(role); writer.Write(roots[role]);
-                    Inventory(writer, roots[role], roots[role], cancellation, ref count);
+                    int currentRole = role;
+                    Inventory(writer, roots[role], roots[role], cancellation, ref count, (path, length, digest) => {
+                        hashedBytes = checked(hashedBytes + length);
+                        if (currentRole == 2 || (currentRole == 0 &&
+                            (Paths.Contains(Path.Combine(roots[0], "tools"), path) || Paths.Contains(Path.Combine(roots[0], "Schemas"), path))))
+                        { toolWriter.Write(currentRole); toolWriter.Write(path); toolWriter.Write(length); toolWriter.Write(digest); }
+                    });
                 }
                 cancellation.ThrowIfCancellationRequested(); writer.Flush(); bytes.Position = 0;
-                using (var hash = SHA256.Create()) return new CacheInputSnapshot(Hex(hash.ComputeHash(bytes)), count);
+                toolWriter.Flush(); tools.Position = 0;
+                using (var hash = SHA256.Create())
+                    return new CacheInputSnapshot(Hex(hash.ComputeHash(bytes)), count, Hex(hash.ComputeHash(tools)), hashedBytes);
             }
         }
 
@@ -98,7 +114,7 @@ namespace NewModCompiler.Application
         {
             writer.Write(value != null); if (value != null) writer.Write(value);
         }
-        static void Inventory(BinaryWriter writer, string root, string directory, CancellationToken cancellation, ref int count)
+        static void Inventory(BinaryWriter writer, string root, string directory, CancellationToken cancellation, ref int count, Action<string,long,byte[]> record)
         {
             cancellation.ThrowIfCancellationRequested();
             if ((File.GetAttributes(directory) & FileAttributes.ReparsePoint) != 0) throw new IOException("Input inventory does not follow reparse points.");
@@ -111,13 +127,14 @@ namespace NewModCompiler.Application
                 if ((attributes & FileAttributes.ReparsePoint) != 0) throw new IOException("Input inventory does not follow reparse points.");
                 bool isDirectory = (attributes & FileAttributes.Directory) != 0;
                 writer.Write(isDirectory); writer.Write(path.Substring(root.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length));
-                if (isDirectory) Inventory(writer, root, path, cancellation, ref count);
+                if (isDirectory) Inventory(writer, root, path, cancellation, ref count, record);
                 else
                 {
                     using (var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
                     using (var hash = SHA256.Create())
                     {
-                        writer.Write(input.Length); writer.Write(hash.ComputeHash(input));
+                        byte[] digest = hash.ComputeHash(input);
+                        writer.Write(input.Length); writer.Write(digest); record(path, input.Length, digest);
                     }
                     checked { ++count; }
                 }

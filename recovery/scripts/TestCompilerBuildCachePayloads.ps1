@@ -171,7 +171,7 @@ function ParallelEvidence($Case){
     Need ($left.startTicks -lt $left.endTicks -and $right.startTicks -lt $right.endTicks -and $left.startTicks -lt $right.endTicks -and $right.startTicks -lt $left.endTicks) 'Actual cross-document backend call intervals did not overlap'
     return @{passed=$true;requestedJobs=2;maxBackendConcurrency=$cache.maxBackendConcurrency;backendCalls=$cache.backendCalls;intervals=$intervals;scope='One stream, independent W3DAnimation source documents, actual native invocation overlap with persistent cache disabled'}
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production /bc asset-cache replay for AudioFile PCM WAVE including complete CDATA and one real W3DAnimation with hierarchy closure; disabled/cold/hot, same-length same-mtime input changes, exact four-stream and CDATA equality against independent no-cache processes; not a new original-DLL/SDK gate'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production action-cache PCM/XAS AudioFile complete CDATA and W3X animation/hierarchy/mesh; precise one-action edits, Additional zero compilation, corrupt result and missing CDATA repair, exact four-stream/CDATA no-cache equality, bounded real cross-document native overlap with jobs2; not a new original-DLL/SDK gate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     Need (!(Test-Path -LiteralPath (Join-Path $CompilerDirectory 'reuse.json'))) 'Payload cache acceptance requires current production EXE bytes'
@@ -223,6 +223,7 @@ try{
             $before=RunCli ($family+'-disabled') $mod $plainOut $false;Cache $before 'disabled'
             $cold=RunCli ($family+'-cold') $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $before $cold
             $hot=RunCli ($family+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $before $hot
+            $initialActionKeys=@(Get-ChildItem -LiteralPath (Join-Path $cachedOut '.cache/action-cache-v1') -Directory|Where-Object{$_.Name -cmatch '^[0-9a-f]{64}$'}|ForEach-Object{$_.Name})
             if($family -eq 'audio'){
                 $input="$mod/Audio/probe.wav";$stamp=[IO.File]::GetLastWriteTimeUtc($input);$bytes=[IO.File]::ReadAllBytes($input);$length=$bytes.Length
                 # Change one PCM sample, not RIFF metadata; force payload change.
@@ -249,14 +250,16 @@ try{
             $store=Join-Path $cachedOut '.cache/action-cache-v1'
             $entries=@(Get-ChildItem -LiteralPath $store -Directory|Where-Object{$_.Name -cmatch '^[0-9a-f]{64}$'})
             Need ($entries.Count -gt 0) 'Action cache did not persist independently addressed entries'
+            $mutatedEntries=@($entries|Where-Object{$initialActionKeys -cnotcontains $_.Name})
+            Need ($mutatedEntries.Count -eq 1) 'A single payload edit installed more than one new action identity'
+            $entry=$mutatedEntries[0]
             if($family -eq 'audio'){
-                $entry=@($entries|Where-Object{@(Get-ChildItem -LiteralPath (Join-Path $_.FullName 'files') -File).Count -eq 2})[0]
-                Need ($null -ne $entry) 'Audio cache entry did not preserve metadata/buffers plus complete CDATA'
                 $members=@(Get-ChildItem -LiteralPath (Join-Path $entry.FullName 'files') -File|Sort-Object Name)
+                Need ($members.Count -eq 2) 'Audio cache entry did not preserve metadata/buffers plus complete CDATA'
                 # Result metadata/buffers sort before the complete CDATA member.
                 Remove-Item -LiteralPath $members[-1].FullName
             }else{
-                $entry=$entries[0];$member=@(Get-ChildItem -LiteralPath (Join-Path $entry.FullName 'files') -File)[0]
+                $member=@(Get-ChildItem -LiteralPath (Join-Path $entry.FullName 'files') -File)[0]
                 $bytes=[IO.File]::ReadAllBytes($member.FullName);Need ($bytes.Length -gt 0) 'Expected a nonempty result contract'
                 $bytes[0]=$bytes[0] -bxor 0x7f;[IO.File]::WriteAllBytes($member.FullName,$bytes)
             }

@@ -254,9 +254,15 @@ try{
         $afterCancel=RunCli 'retry-after-actual-cancel' $mod $cachedOut $true;SameOutputs $changedPlain $afterCancel
         $held=@($afterCancel.report.artifacts)[0].Path
         $confirmed=CacheFiles $cachedOut
+        # A genuine new action must be staged before publication fails. A hot
+        # no-write build alone cannot prove candidate installation rollback.
+        SameLengthMutation "$mod/Data/Mod.xml" 'AttackRange="102"' 'AttackRange="103"'
         $occupied=RunCli 'publication-fault' $mod $cachedOut $true 7 $false $held
+        Cache $occupied 'partial'
         CacheUnchanged $cachedOut $confirmed
-        $afterFault=RunCli 'retry-after-publication-fault' $mod $cachedOut $true;SameOutputs $changedPlain $afterFault
+        $afterFault=RunCli 'retry-after-publication-fault' $mod $cachedOut $true;Cache $afterFault 'partial'
+        $afterFaultPlain=RunCli 'publication-fault-retry-no-cache' $mod $plainOut $false;Cache $afterFaultPlain 'disabled';SameOutputs $afterFaultPlain $afterFault
+        $afterFaultHot=RunCli 'publication-fault-retry-hot' $mod $cachedOut $true;Cache $afterFaultHot 'hot';SameOutputs $afterFaultPlain $afterFaultHot
         $modeState.passed=$true
     }
     $state.succeeded=$true;$global:LASTEXITCODE=0
