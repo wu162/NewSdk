@@ -8,8 +8,10 @@ namespace BinaryAssetBuilder.TextureCompiler
     // map, including holes in 1x1/2x2; alpha holes are zero indices, not edges.
     public static class TextureDxtSampleBlockEncoder
     {
-        [DllImport("Recovered.TextureDxtColour.dll",CallingConvention=CallingConvention.StdCall,EntryPoint="TextureColorState")]
+        [DllImport("Recovered.TexturePublicS3.dll",CallingConvention=CallingConvention.StdCall,EntryPoint="TexturePublicS3Colour")]
         private static extern int Colour([In,Out] byte[] state,int bytes,int mode);
+        [DllImport("Recovered.TexturePublicS3.dll",CallingConvention=CallingConvention.StdCall,EntryPoint="TexturePublicS3Alpha")]
+        private static extern int PublicAlpha([In] float[] rgba,int count,[Out] int[] endpoints,[Out] int[] indices,out int levels);
         public static byte[] EncodeBlock(byte[] rgba,int width,int height,string format)
         {
             if(rgba==null)throw new ArgumentNullException("rgba");
@@ -77,17 +79,9 @@ namespace BinaryAssetBuilder.TextureCompiler
         }
         private static byte[] InterpolatedAlpha(float[] rgba,int width,int height)
         {
-            int count=width*height;double[] alpha=new double[count];for(int i=0;i<count;i++)alpha[i]=rgba[i*4+3];
-            int[] levels={8,6,6,6,6};bool[] excludeZero={false,false,true,false,true},excludeOne={false,false,false,true,true};
-            double bestError=Double.MaxValue;int best=-1;int[] endpoints=null,chosen=null;
-            for(int mode=0;mode<5;mode++){
-                var filtered=new List<double>();foreach(double a in alpha)if(!(a==0&&excludeZero[mode])&&!(a==1&&excludeOne[mode]))filtered.Add(a);
-                if(mode>1&&filtered.Count==count)continue;
-                int[] ep=new int[2],indices=new int[filtered.Count];double error=TextureDxt5AlphaEncoder.Quantize(levels[mode],filtered.ToArray(),ep,indices);
-                if(best<0||error<bestError){best=mode;bestError=error;endpoints=ep;chosen=indices;}
-            }
-            int low=endpoints[0],high=endpoints[1],numLevels=levels[best],position=0;int[] resultIndices=new int[count];
-            for(int i=0;i<count;i++)resultIndices[i]=alpha[i]==0&&excludeZero[best]?6:alpha[i]==1&&excludeOne[best]?7:chosen[position++];
+            int count=width*height,numLevels;int[] endpoints=new int[2],resultIndices=new int[count];
+            lock(TextureDxtBlockEncoder.ColourLock){if(PublicAlpha(rgba,count,endpoints,resultIndices,out numLevels)!=0)throw new InvalidOperationException("Public S3 alpha input rejected.");}
+            int low=endpoints[0],high=endpoints[1];
             if(low==high){high++;numLevels=6;Array.Clear(resultIndices,0,count);}
             bool swap=(low>high)==(numLevels==6);if(swap){int tmp=low;low=high;high=tmp;}
             byte[] output=new byte[16];output[0]=(byte)Math.Max(0,Math.Min(255,low));output[1]=(byte)Math.Max(0,Math.Min(255,high));ulong bits=0;
