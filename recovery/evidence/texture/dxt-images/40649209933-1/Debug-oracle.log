@@ -1,0 +1,4 @@
+System.Exception: tga/Texture/DXT3/kind=VolumeTexture/stale=False/mips=True/6120 instance byte=2200 original=45 recovered=13
+   at TextureDxtPipelineOracle.Equal(Byte[] expected, Byte[] actual, String label)
+   at TextureDxtPipelineOracle.Case(IAssetBuilderPlugin original, IAssetBuilderPlugin recovered, String work, String extension, Byte[] image, String root, String format, Boolean stale, Boolean mipmaps, BinaryWriter replay, String kind)
+   at TextureDxtPipelineOracle.Main(String[] args)

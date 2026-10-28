@@ -1,0 +1,14 @@
+CHECK count-0
+CHECK count-1
+CHECK count-2
+CHECK count-3
+CHECK count-4
+CHECK count-7
+CHECK count-8
+CHECK count-9
+CHECK count-10
+CHECK count-21
+CHECK count-22
+System.Exception: count-49 instance mismatch at 4783659 expected=252 actual=168
+   at TextureAtlasEntryReplay.Same(String directory, String label, String name, Byte[] actual, Boolean empty)
+   at TextureAtlasEntryReplay.Main(String[] args)

@@ -1,0 +1,90 @@
+{
+  "runId": "40649209933",
+  "sourceCommit": "7b6901810516acb9c7b025ce2230046057047a8c",
+  "status": "failed",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "jpeg"
+  ],
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt-blocks-complete"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "group": "dxt-dds2d",
+      "error": "Debug-oracle failed"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "group": "dxt-images",
+      "error": "Debug-oracle failed"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "dxt-samples"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "group": "dxt-volume-dds",
+      "error": "Debug-oracle failed"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "group": "atlas-dds",
+      "error": "Debug-replay failed"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "group": "atlas-entry",
+      "error": "Debug-replay failed"
+    },
+    {
+      "evidenceOnly": false,
+      "passed": false,
+      "group": "jpeg-images",
+      "error": "Debug-oracle failed"
+    }
+  ],
+  "runAttempt": "1",
+  "selected": [
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "atlas-dds",
+    "atlas-entry",
+    "jpeg-images"
+  ]
+}

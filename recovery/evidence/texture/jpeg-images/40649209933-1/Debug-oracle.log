@@ -1,0 +1,4 @@
+System.Exception: JPG/Texture/DXT3/kind=StandardTexture/stale=False/mips=True/6630 instance byte=825 original=117 recovered=119
+   at TextureJpegPipelineOracle.Equal(Byte[] expected, Byte[] actual, String label)
+   at TextureJpegPipelineOracle.Case(IAssetBuilderPlugin original, IAssetBuilderPlugin recovered, String work, String extension, Byte[] image, String root, String format, Boolean stale, Boolean mipmaps, BinaryWriter replay, String kind)
+   at TextureJpegPipelineOracle.Main(String[] args)
