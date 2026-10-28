@@ -1,7 +1,7 @@
 name: Texture batched validation
 on:
   push:
-    branches: [recovery/texturecompiler-source]
+    branches: [recovery/texturecompiler-source, validation/texture-public-jpeg]
     paths:
       - 'src/TextureCompiler/**'
       - 'SDK/tools/**'

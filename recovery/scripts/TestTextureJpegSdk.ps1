@@ -105,7 +105,7 @@ try{
   }
  }
  $r.status='passed';$r.sdkValidated=$true
- $r.expectedAssets=$expectedAssets;$r.sourceFiles=@(Get-ChildItem src/TextureCompiler/Managed,src/TextureCompiler/Colour,src/TextureCompiler/Dxt -File|Sort-Object Name|ForEach-Object{@{path=$_.FullName.Substring($root.Length+1).Replace('\','/');sha256=(Get-FileHash $_.FullName).Hash.ToLowerInvariant()}})
+ $r.expectedAssets=$expectedAssets;$r.sourceFiles=@(Get-ChildItem src/TextureCompiler/Managed,src/TextureCompiler/Colour,src/TextureCompiler/Dxt,src/TextureCompiler/Jpeg,recovery/reference/ijg6b -File|Sort-Object Name|ForEach-Object{@{path=$_.FullName.Substring($root.Length+1).Replace('\','/');sha256=(Get-FileHash $_.FullName).Hash.ToLowerInvariant()}})
  Write-Output 'PASS Texture JPEG SDK original/recovered/no-original: four stream files, actual Core calls, every buffer and full cdata identical'
 }finally{
  $env:RA3_TEXTURE_SDK_TRACE=$null
