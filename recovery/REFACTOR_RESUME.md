@@ -13,7 +13,7 @@
 
 真实MOD计量[40659913327](https://github.com/wu162/NewSdk/actions/runs/40659913327)success，binary810/test25df，严格复用成功归档未重编。完整MOD7文件982257字节，真实SDK14715文件125887928字节，47资产热全部命中/零backend；热仍约230MB哈希读取、3.1–3.3秒，比无缓存0.76–0.95秒更慢。它不覆盖129d SDK扩展；相同输入新计量[40662537517](https://github.com/wu162/NewSdk/actions/runs/40662537517)已success，binary129d/teste259：完整SDK/MOD字节、参数与跨版本四输出均核对一致，两配置每次热构建少78862090字节哈希读取（约75.2MiB），47hit/0backend不变。新热中位数Debug2545ms/Release2463ms，仍比新无缓存763/668ms慢；不宣称此小MOD有缓存净收益或通用加速。两生产归档与两重放归档均已核验，完整来源见专项JSON。
 
-下一步按实际计量减少目录元数据扫描、非保留文件身份查询和跨构建首次哈希成本；不靠mtime/size授权复用。剩余、细分prepare拒绝原因、更多已认证后端与双Mesh实测；Texture、重采样/PathMusic等继续owner，混合Texture session仍拒绝。默认bc/sc=false、jobs1保留，默认发行不随本分支替换。
+下一步按实际计量减少目录元数据扫描、非保留文件身份查询和跨构建首次哈希成本；不靠mtime/size授权复用。其他剩余项为细分prepare拒绝原因、更多已认证后端与双Mesh实测；Texture、重采样/PathMusic等继续owner，混合Texture session仍拒绝。默认bc/sc=false、jobs1保留，默认发行不随本分支替换。
 
 按 [EFFICIENCY](EFFICIENCY.md) 集中实现/预检/完整验收，全部编译测试在Actions。仅测试改变先核验复用，分别记录binary/test来源；文档不重编，每10–15分钟检查点普通推送。用户本轮要求约70分钟、通常两个子代理最多三个，未自动变成以后每轮固定约定。
 
