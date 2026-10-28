@@ -1,0 +1,90 @@
+{
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "jpeg"
+  ],
+  "runId": "40670148058",
+  "runAttempt": "1",
+  "status": "passed",
+  "groups": [
+    {
+      "group": "dxt-blocks-complete",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "dxt-dds2d",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "dxt-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "dxt-samples",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "dxt-volume-dds",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "atlas-dds",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "atlas-entry",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "jpeg-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "public-s3-three",
+      "evidenceOnly": true,
+      "passed": true
+    }
+  ],
+  "sourceCommit": "fbc82056f286bf9e7e8ead98655baa6a56d3c4a1",
+  "selected": [
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "atlas-dds",
+    "atlas-entry",
+    "jpeg-images",
+    "public-s3-three"
+  ]
+}

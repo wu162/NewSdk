@@ -1,0 +1,1 @@
+PASS Texture PC atlas DDS prerequisite fixtures=160 rejected=12 checks=57984 comparedBytes=54304; complete original DXT5/RGB555 DDS with exactly five levels and repeated 1x1 tails; original absent/unloaded per call; source unchanged; full atlas/plugin/SDK separate
