@@ -49,10 +49,10 @@ namespace NewModCompiler.Application
         readonly CancellationToken cancellation;
         readonly int capacity;
         readonly Queue<Pending> pending = new Queue<Pending>();
-        readonly List<Action> completions = new List<Action>();
+        readonly Queue<KeyValuePair<int,Action>> completions = new Queue<KeyValuePair<int,Action>>();
         readonly Dictionary<string,string> outputDigests = new Dictionary<string,string>(StringComparer.Ordinal);
         long retainedBytes;
-        int sequence;
+        int sequence, committedSequence;
         bool disposed;
 
         sealed class Pending
@@ -64,6 +64,7 @@ namespace NewModCompiler.Application
             public AssetBuffer Buffer;
             public string Identity, Key, Directory;
             public bool Hit;
+            public int Sequence;
             public Action Verify;
             public Action<AssetLocation> Committed;
         }
@@ -90,6 +91,7 @@ namespace NewModCompiler.Application
             var task = new Pending { Asset = asset, Declaration = declaration, Verify = verify, Committed = committed,
                 Identity = "execution:" + Guid.NewGuid().ToString("N"),
                 Directory = Path.Combine(staging, "asset-tasks", (++sequence).ToString("D8")) };
+            task.Sequence = sequence;
             Directory.CreateDirectory(task.Directory);
             declaration.CustomDataPath = Path.Combine(task.Directory, "result.cdata");
             PreparedBackend prepared;
@@ -149,14 +151,21 @@ namespace NewModCompiler.Application
             catch { prepared.Dispose(); throw; }
         }
 
-        public void DeferCompletion(Action complete) { completions.Add(complete); }
+        public void DeferCompletion(Action complete)
+        {
+            completions.Enqueue(new KeyValuePair<int,Action>(sequence, complete));
+            CompleteReadyDocuments();
+        }
+        void CompleteReadyDocuments()
+        {
+            while (completions.Count != 0 && completions.Peek().Key <= committedSequence) completions.Dequeue().Value();
+        }
         public void Flush()
         {
             while (pending.Count != 0) CommitOne();
             // A completion may release XML used by an inheriting declaration.
             // Run only at an actual physical-result barrier, after all workers.
-            var ready = completions.ToArray(); completions.Clear();
-            foreach (Action complete in ready) complete();
+            CompleteReadyDocuments();
         }
 
         void CommitOne()
@@ -197,6 +206,8 @@ namespace NewModCompiler.Application
                 metrics.WrittenBytes += new DirectoryInfo(task.Directory).EnumerateFiles().Sum(x => x.Length);
             }
             Directory.Delete(task.Directory, true);
+            committedSequence = task.Sequence;
+            CompleteReadyDocuments();
         }
 
         static void WriteResult(Pending task)
@@ -221,7 +232,7 @@ namespace NewModCompiler.Application
                 if (Directory.GetDirectories(directory).Length != 0 || files.Any(x => Path.GetFileName(x) != "result.bin" && Path.GetFileName(x) != "result.cdata")) return false;
                 using (var reader = new BinaryReader(File.OpenRead(Path.Combine(directory, "result.bin")), Encoding.UTF8))
                 {
-                    if (reader.ReadString() != ResultFormat || reader.ReadString() != task.Key || reader.ReadBoolean() != task.Declaration.HasCustomData) return false;
+                    if (ReadBoundedString(reader, 64) != ResultFormat || ReadBoundedString(reader, 64) != task.Key || reader.ReadBoolean() != task.Declaration.HasCustomData) return false;
                     bool hasCdata = reader.ReadBoolean();
                     if (hasCdata != File.Exists(Path.Combine(directory, "result.cdata")) || (task.Declaration.HasCustomData && !hasCdata)) return false;
                     var buffers = new byte[3][];
@@ -240,6 +251,28 @@ namespace NewModCompiler.Application
             catch (IOException) { return false; }
             catch (ArgumentException) { return false; }
             catch (FormatException) { return false; }
+            catch (InvalidDataException) { return false; }
+        }
+
+        static string ReadBoundedString(BinaryReader reader, int maximumBytes)
+        {
+            int length = 0, shift = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                byte value = reader.ReadByte();
+                if (i == 4 && value > 7) throw new InvalidDataException("Invalid result string length.");
+                length |= (value & 127) << shift;
+                if ((value & 128) == 0)
+                {
+                    if (length < 0 || length > maximumBytes || length > reader.BaseStream.Length - reader.BaseStream.Position)
+                        throw new InvalidDataException("Result string exceeds its contract.");
+                    byte[] bytes = reader.ReadBytes(length);
+                    if (bytes.Length != length) throw new EndOfStreamException();
+                    return new UTF8Encoding(false, true).GetString(bytes);
+                }
+                shift += 7;
+            }
+            throw new InvalidDataException("Invalid result string length.");
         }
 
         string Key(PreparedBackend prepared)
@@ -258,7 +291,7 @@ namespace NewModCompiler.Application
                 // Action identity itself is not part of semantic output identity.
                 using (var reader = new BinaryReader(File.OpenRead(Path.Combine(directory, "result.bin")), Encoding.UTF8))
                 {
-                    reader.ReadString(); reader.ReadString();
+                    ReadBoundedString(reader, 64); ReadBoundedString(reader, 64);
                     writer.Write(reader.ReadBytes(checked((int)(reader.BaseStream.Length - reader.BaseStream.Position))));
                 }
                 string cdata = Path.Combine(directory, "result.cdata");
