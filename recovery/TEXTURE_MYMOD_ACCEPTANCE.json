@@ -1,0 +1,69 @@
+{
+  "status": "independently-verified-archives-and-receipts",
+  "sourceCommit": "5a1b8e1d0e6c66ac9ebff60906da184eee1e26a7",
+  "runId": "40657712486",
+  "runAttempt": "1",
+  "actualArtifacts": [
+    {
+      "profile": "Baseline",
+      "file": "mod.bin",
+      "bytes": 209548,
+      "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012",
+      "allThreeModeReceiptsMatch": true
+    },
+    {
+      "profile": "Baseline",
+      "file": "mod.manifest",
+      "bytes": 4995,
+      "sha256": "ad37d83f6a74cc51efa5e579a543d69fb18569cbf0d00884bebbf18f9666eee9",
+      "allThreeModeReceiptsMatch": true
+    },
+    {
+      "profile": "Baseline",
+      "file": "mod.imp",
+      "bytes": 64,
+      "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c",
+      "allThreeModeReceiptsMatch": true
+    },
+    {
+      "profile": "Baseline",
+      "file": "mod.relo",
+      "bytes": 4656,
+      "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648",
+      "allThreeModeReceiptsMatch": true
+    },
+    {
+      "profile": "ArtOverlay",
+      "file": "mod.bin",
+      "bytes": 65917672,
+      "sha256": "b702da6a04cfa024d3fbe9ac1fe26ec61b3c7496f45d8107b2be10b9fe48facc",
+      "allThreeModeReceiptsMatch": true
+    },
+    {
+      "profile": "ArtOverlay",
+      "file": "mod.manifest",
+      "bytes": 34491,
+      "sha256": "463068fca35b439eb65842b7bf2dc55e7c13011fe1209b83244485affeb85ac3",
+      "allThreeModeReceiptsMatch": true
+    },
+    {
+      "profile": "ArtOverlay",
+      "file": "mod.imp",
+      "bytes": 64,
+      "sha256": "19995b8284d9055fd0327c3f39a91ae1fc5a5aeb2c950ac13f51bac9d0c71521",
+      "allThreeModeReceiptsMatch": true
+    },
+    {
+      "profile": "ArtOverlay",
+      "file": "mod.relo",
+      "bytes": 6192,
+      "sha256": "acbb9cf0d239e9f1a9d9e70d6188bcef498dcf39f4ba004ef2f6f641fb126958",
+      "allThreeModeReceiptsMatch": true
+    }
+  ],
+  "traceFiles": 1345,
+  "threeModeTraceManifestsEqual": true,
+  "allOriginalTraceArchiveBytesVerified": true,
+  "sdkRuntimeFullByteComparison": "TestTextureMymodSdk.ps1 SequenceEqual on all outputs/trace files; repeated data archived once",
+  "productionSdkInstalled": false
+}

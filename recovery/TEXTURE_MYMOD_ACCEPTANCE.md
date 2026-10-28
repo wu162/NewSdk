@@ -11,7 +11,7 @@
 
 扩展场景保留原完整 mymod，仅在临时 Mod.xml 的 Includes 尾部追加一个生成文件。DDS按原字节直通，声明DXT1不代表重新编码DXT1已恢复。TGA扩展名规范为小写，内容字节不变；没有补充未声明图像域。384=150×2+7×2×3×2。NoOriginal实际删除原 TextureCompiler DLL，逐次调用前后确认不存在且未加载。
 
-收据和原四产物/原完整轨迹归档在 `evidence/texture/sdk-mymod/40657712486-1`。两个恢复模式在运行中用 SequenceEqual 比较所有字节；保存每模式每轨迹文件的路径、长度、SHA256及完整调用TSV，避免提交三份重复的大型DDS。独立核对归档中实际四产物SHA256与全部1345个原轨迹文件，三个模式轨迹清单完全相同。
+收据和原四产物/原完整轨迹归档在 `evidence/texture/sdk-mymod/40657712486-1`。两个恢复模式在运行中用 SequenceEqual 比较所有字节；保存每模式每轨迹文件的路径、长度、SHA256及完整调用TSV，避免提交三份重复的大型DDS。独立核对归档中实际四产物SHA256与全部1345个原轨迹文件，三个模式轨迹清单完全相同；结构化复核见[验收核对](TEXTURE_MYMOD_ACCEPTANCE.json)。
 
 原样四产物SHA256：
 
