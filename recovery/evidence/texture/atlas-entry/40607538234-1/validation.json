@@ -1,0 +1,65 @@
+{
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "status": "passed",
+  "scope": "PC TerrainTextureAtlas full plugin entry: immutable 25-case original corpus plus 23 patterned/file/strtoul cases; full runtime/DDS/relo/imports/error/unchanged input and cdata, per-call isolated replay; SDK separate",
+  "configurations": [
+    {
+      "summary": [
+        "PASS Texture PC atlas entry fixtures=48 decoded=40 rejected=8 checks=1623 comparedBytes=84513604; full instance/relo/imports, exact exceptions, XML/cdata/source invariance; per-call original absent and not loaded"
+      ],
+      "configuration": "Debug",
+      "passed": true,
+      "withoutOriginalTextureCompiler": true
+    },
+    {
+      "summary": [
+        "PASS Texture PC atlas entry fixtures=48 decoded=40 rejected=8 checks=1623 comparedBytes=84513604; full instance/relo/imports, exact exceptions, XML/cdata/source invariance; per-call original absent and not loaded"
+      ],
+      "configuration": "Release",
+      "passed": true,
+      "withoutOriginalTextureCompiler": true
+    }
+  ],
+  "originalBaseline": {
+    "runId": "40599993769",
+    "samplesSha256": "644f33f05f16d2e304d65d732b04bdefcabbfa091dbb274c2b60a1a46cb106e2",
+    "sourceCommit": "056937b13fa39431ec9171b0d990e6a5c15a013c"
+  },
+  "sourceCommit": "be520b8e4e8d4180fc5961e189a059b0e42fef90",
+  "additionalSamplesSha256": "56810000051a877534506a93fb8cfc4aaff5fdd42a10ae4f764b226b96abdf75",
+  "probeOnly": false,
+  "runId": "40607538234",
+  "nativeBinaries": [
+    {
+      "sha256": "102bcf7c670525efda1beaf648c959aa17806d92257b7ccd717a0dde6d79b0ac",
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "configuration": "Debug",
+      "machine": "I386"
+    },
+    {
+      "sha256": "0fb2b43372cc51d6db7c2a64ab6c560ec124fe9de1632bdf96bc7e6f63765fdd",
+      "machine": "I386",
+      "configuration": "Debug",
+      "name": "Recovered.TextureDxtAlpha.dll",
+      "entryPoint": 0,
+      "importDirectory": 0
+    },
+    {
+      "sha256": "21a3107232e365426299334335258bf607bc3379ce24cb57f98d2e4f89c0f076",
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "configuration": "Release",
+      "machine": "I386"
+    },
+    {
+      "sha256": "d565ce1a1d5cf7d5c866a69ead395ea494ec94f10ddee61a413dbf1ae0356341",
+      "machine": "I386",
+      "configuration": "Release",
+      "name": "Recovered.TextureDxtAlpha.dll",
+      "entryPoint": 0,
+      "importDirectory": 0
+    }
+  ]
+}

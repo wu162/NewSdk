@@ -1,0 +1,1 @@
+PASS Texture metadata differential comparisons=628; original state-only ReInitialize; native Initialize/Dispose and texture compilation not validated

@@ -1,0 +1,130 @@
+{
+  "status": "passed",
+  "runAttempt": "1",
+  "runId": "40607538234",
+  "selected": [
+    "base",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "raster-images",
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "dxt-images",
+    "sdk-PcDxtNoMip",
+    "sdk-PcDxtMips",
+    "sdk-PcDxtVolumes",
+    "sdk-PcNpotRgba8",
+    "sdk-PcNpotStorage",
+    "atlas-entry",
+    "sdk-PcAtlas"
+  ],
+  "reused": [
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "png",
+    "bmp",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-dds"
+  ],
+  "sourceCommit": "be520b8e4e8d4180fc5961e189a059b0e42fef90",
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "group": "base",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "mip-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "volume-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "volume-mip-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "raster-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcNoMip",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcMips",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "dxt-images",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcDxtNoMip",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcDxtMips",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcDxtVolumes",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcNpotRgba8",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcNpotStorage",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "atlas-entry",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "sdk-PcAtlas",
+      "passed": true
+    }
+  ]
+}
