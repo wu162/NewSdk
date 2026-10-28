@@ -252,7 +252,7 @@ public static class CompilerPreparedBackend
                 }
                 Require(fixtureCount > 0, "Environment qualification fixture missing: " + type);
             }
-            var owner = Declaration("LogicCommandSet", "StillOwner", Namespaces()); Metadata(owner, plugin);
+            var owner = Declaration("UncertifiedFutureXmlBackend", "StillOwner", Namespaces());
             object unqualified = Prepare(owner, plugin);
             try { Require(unqualified != null && !Value<bool>(unqualified, "CanRunParallel"), "Unaudited XML roots must retain owner execution"); }
             finally { if (unqualified != null) ((IDisposable)unqualified).Dispose(); }

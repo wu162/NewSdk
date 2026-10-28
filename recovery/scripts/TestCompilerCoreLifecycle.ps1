@@ -58,6 +58,7 @@ try {
     $fixtures=@(
         @{name='CompilerCacheContent';marker='PASS CacheContent:'},
         @{name='CompilerPreparedBackend';marker='PASS PreparedBackend:'},
+        @{name='CompilerXmlBackendBatch';marker='PASS XmlBackendBatch:';timeoutSeconds=180},
         @{name='CompilerXmlTargetingPrepared';marker='PASS XmlTargetingPrepared:'},
         @{name='CompilerXmlVisibilityPrepared';marker='PASS XmlVisibilityPrepared:'},
         @{name='CompilerXmlRadarPrepared';marker='PASS XmlRadarPrepared:'},

@@ -35,6 +35,7 @@ on:
       - 'recovery/tests/CompilerValidationEntry.cpp'
       - 'recovery/tests/CompilerCoreLifecycle.cs'
       - 'recovery/tests/CompilerPreparedBackend.cs'
+      - 'recovery/tests/CompilerXmlBackendBatch.cs'
       - 'recovery/tests/CompilerXmlTargetingPrepared.cs'
       - 'recovery/tests/XmltargetingProbe.xml'
       - 'recovery/tests/CompilerXmlVisibilityPrepared.cs'

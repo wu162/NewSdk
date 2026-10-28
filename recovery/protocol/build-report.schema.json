@@ -140,6 +140,9 @@
           "type": "integer",
           "minimum": 0
         },
+        "backendOwnerThreadId": { "type": "integer", "minimum": 0 },
+        "parallelXmlCertifiedTypes": { "type": "integer", "minimum": 0 },
+        "parallelXmlCertifiedFamilies": { "type": "integer", "minimum": 0 },
         "actionHits": {
           "type": "integer",
           "minimum": 0

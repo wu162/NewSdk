@@ -285,59 +285,11 @@ namespace NewModCompiler.Application
 
         static bool IsParallelXml(uint type)
         {
-            switch (type)
-            {
-                // XmlaptdataCompiler.cpp / Xmlaptdata.cpp: leased File payload.
-                case 1816258268u: case 983359664u: case 1110676961u: case 1034587168u:
-                // XmlaudioCompiler.cpp / Xmlaudio.cpp: one private native Builder,
-                // const field/enum tables and no process-wide hash registration.
-                case 3906227957u: case 299416263u: case 1443425905u:
-                case 587347702u: case 1447728787u: case 1826140078u: case 3370391592u:
-                // XmlunitoverlayCompiler.cpp / Xmlunitoverlay.cpp: detached
-                // tree, local Builder/Tracker, readonly faction lookup and pure
-                // percentage/time/reference helpers, with no external reads.
-                case 2421413379u:
-                // XmlhealthbarsCompiler.cpp / Xmlhealthbars.cpp: private bridge
-                // tree and call-local Tracker/ObjectFilter, pure reference/weak
-                // hash helpers and const filter enums, without external reads.
-                case 1507490649u: case 3919360587u:
-                // XmlrenderdeviceCompiler.cpp / Xmlrenderdevice.cpp: detached
-                // bridge tree, call-local Builder/Tracker/ObjectFilter, const
-                // enums and pure scalar/string helpers; no external reads.
-                case 1469055344u: case 2383722691u:
-                // XmluiimagesCompiler.cpp / Xmluiimages.cpp: private bridge
-                // tree, local Builder/Tracker and pure string/reference/scalar
-                // marshaling, without font/image reads or global registration.
-                case 565855655u: case 3614134471u: case 2913856066u:
-                // XmlconditionsCompiler.cpp / Xmlconditions.cpp: private bridge
-                // tree, call-local Builder/Tracker/ObjectFilter, const enums,
-                // pure weak hashes/time/angle helpers; no external reads.
-                case 3899256902u: case 519519951u: case 76901015u: case 2309012900u:
-                // XmlobjectsetsCompiler.cpp / Xmlobjectsets.cpp: local builder,
-                // Tracker/ObjectFilter and const enums, pure scalar/hash helpers,
-                // with no external reads or process-wide hash registration.
-                case 1151702845u: case 814796096u: case 772930644u:
-                // XmlradarCompiler.cpp / Xmlradar.cpp: detached bridge tree,
-                // call-local Builder/Tracker/ObjectFilter, const enum tables,
-                // pure hash/reference/scalar helpers and no external reads.
-                case 1099769729u: case 4039592522u:
-                // XmlvisibilityCompiler.cpp / Xmlvisibility.cpp: detached tree,
-                // local Tracker/ObjectFilter, const enums and pure hash/time
-                // initializers, without external reads or global registration.
-                case 1431290504u: case 254471188u:
-                // XmltargetingCompiler.cpp / Xmltargeting.cpp: detached tree,
-                // call-local Tracker and pure ParseFloat/MarshalReference;
-                // no external reads or process-wide mutation.
-                case 3600209407u: case 2359666647u: case 89767986u: case 2007776008u: case 3188107749u:
-                // XmlenvironmentCompiler.cpp / Xmlenvironment.cpp: detached tree,
-                // call-local Builder/Tracker, InitOnce immutable layout registry,
-                // pure HashAssetId/reference marshaling and no external reads.
-                case 2430161325u: case 1479531562u: case 2728605516u: case 680780553u:
-                case 3169690211u: case 2995571269u: case 1469498551u: case 2368878637u:
-                case 4157475773u: case 2996766068u: case 1184276792u: case 3898802054u:
-                    return true;
-                default: return false;
-            }
+            // APT retains its separately certified read-lease envelope. All
+            // metadata routes use the closed module audit, never an open-ended
+            // "all XML except" rule. Unknown/new routes remain owner-only.
+            return type == 1816258268u || type == 983359664u || type == 1110676961u || type == 1034587168u ||
+                XmlBackendCertification.IsCertified(type);
         }
 
         static long ExternalReadBudget(List<FileStream> leases, long minimum, long multiplier)

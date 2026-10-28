@@ -4,6 +4,14 @@
 
 用户提供的[原始实施方案](CACHE_PARALLEL_PLAN.md)保留作目标与验收参考；当前状态只看本页收据，不能把方案要求当作已完成能力。日常续接无需重读整份方案。
 
+## 模块批量开放（2026-10-28，最新批次验证待执行）
+
+用户再次明确指出逐类型开放太慢，因此改为完整模块审计+一套通用矩阵，不再为每个类型复制测试类。当前内建 XML 路由共289条：已对63个模块的外读、共享写/诊断、初始化表与数字属性驱动分配进行成组审计，完整依据和逐模块/逐类型清单见 [XML_BACKEND_REENTRY.json](XML_BACKEND_REENTRY.json)。其中284条纯元数据由闭合的编译期模块表认证，APT四条继续已有闭合读取资格；只有TestTexture因真实外读及文件长度驱动分配保持owner。TestTextureCollection是纯引用数组，单独按实际读合同认证，不按族名推断。
+
+生产 `XmlBackendCertification` 不枚举live routes后自动开放，新/未知类型默认owner。沿用独占DOM/namespace/引用、原始三缓冲、机器预算及取消汇合；XML里的runtime容量只写标量，审计未发现NumFrames式额外编译展开。Audio插件的重采样/PathMusic与Texture限制不改变。Xmlw3d的Hierarchy/Container/Runtime/CollisionBox也属于纯元数据，生产报告新增显式`backendOwnerThreadId`，不再拿Hierarchy的人为串行作worker判断。
+
+新增一个共享的批量组件矩阵：全部284条已审计元数据路由×四平台含99，私有最小DOM先执行有界worker波次，再与owner的完整三缓冲或同型同文拒绝结果对照，原owner DOM/namespace突变不影响冻结输入；最小输入被拒绝的条目明确记录，不冒充复杂有效输入验收或SDK全局可达。原有复杂原DLL差分证据、真实19公开根/原始流、Mesh/Audio/APT实际重叠、取消/异常及完整SDK/发行门槛全部保留。这批改变生产并行资格，集中新建并验收；尚未在CI运行的部分不得标完成。
+
 ## 当前实现检查点（2026-10-28，验证待执行）
 
 本轮准备态拒绝诊断保留旧 `actionMissReasons` 与 `cacheBypassReasons` 语义，新增独立 `preparationRejectedReasons`，仅记录准备器实际返回false的首个门禁；缓存关闭时也记录，不把成功准备后的worker额度不足或排队算为拒绝。13种源码门禁，Windows夹具可构造11种，保留部分外读失败释放租约、成功重试清空原因与零准备预算owner输出对照；不捏造罕见header重开失败实测。
