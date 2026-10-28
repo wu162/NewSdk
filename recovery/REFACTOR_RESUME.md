@@ -16,9 +16,9 @@
 
 交接状态：测试分支 `582946ba` 的轻量归档重放 [40685364366](https://github.com/wu162/NewSdk/actions/runs/40685364366) 已success，guards与原包schema/原字节重放均通过，measure明确skipped；原40682631514的failure终态保留。下一轮按小夹具成组补缓存关键阶段计时；hot后端仅约5.7–6.0s/总73–77s，需调查其余wall，不能通过扩大XML资格或跳过强输入校验盲目优化。测试分支脚本截止/清理/reparse/协议修复均已保存；不将尚未跑到的新超时路径报为已验收。PR #17保持draft，未合入。
 
-本轮新候选：已接入生产`cache.phaseTimings`，覆盖输入盘点/读/hash、准备/动作Key、文档、store校验/物化/写入、owner提交/等待及完整后端工作；沿用既有小夹具冷热/单改/事务矩阵，尚待统一Actions验收。该组改动生产闭包，需一次完整Debug/Release重建，暂不重跑大型Upheaval；计时范围及不可加总边界见[CACHE_PARALLEL](docs/CACHE_PARALLEL.md#阶段计时候选2026-10-28本批待actions验收)。不宣称已有新加速。
+本轮B组候选已保存：生产聚合`cache.phaseTimings`；共享每Capture目录边界/每SDK文件规范化分类；热恢复后移动已验证私有结果以消除再次复制。保持源/目标强校验、CDATA、首尾盘点及回滚。最新修复`e86958de` / [40690172191](https://github.com/wu162/NewSdk/actions/runs/40690172191)正在统一新建Debug/Release验收，尚未通过；修正`3ada12e7`移动后误从空目录统计恢复字节的遗漏，新增普通/CDATA冷热恢复字节断言。原`3ada`运行保留，不用其零恢复字节作计量。
 
-本轮继续B组生产改进：共享每Capture的目录边界及每SDK文件的原样路径规范化/分类，热恢复后将已验证私有结果移动至任务目录以消除再次复制；源/目标强校验、CDATA、首尾盘点及回滚保持。源码和必要前缀边界测试已整组准备，待一次集中新建验收。计时工具工作已收束，不以工具准备代替主线交付；未宣称完整MOD性能已改善。
+仅计时批次`062053cb` / [40687271479](https://github.com/wu162/NewSdk/actions/runs/40687271479)仍在验收，可独立核验后作为阶段基线；测试复用入口`d358a656`的guards [40687837253](https://github.com/wu162/NewSdk/actions/runs/40687837253)已success（34测试，replay未运行），不等同当前生产已验收。计时范围见[CACHE_PARALLEL](docs/CACHE_PARALLEL.md)。本轮未重跑大型Upheaval，未宣称缓存净收益已解决；收束工具工作，优先B组直接消除重复工作与必要验收。
 
 ## 已合入的默认构建与参数改进
 
