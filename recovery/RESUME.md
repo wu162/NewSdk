@@ -1,3 +1,12 @@
+# 实验分支当前续接：公开S3显式三色5309/5312
+
+本分支`validation/texture-public-s3-dxt1`未合入正式后端；目标分支`recovery/texturecompiler-source`的bed9f41a保存完整本轮交接、两轮comparison.zip、完整mymod验收与默认DXT1栈依赖反例。不要以本页以下旧S3四色情况覆盖当前实验状态。
+
+- 最新业务源码`091239f2870001422073ac31ad1aac9935511615`，Actions40671760128 completed/success，D/R各5312完整初始化state比较：5309全等、3不同；同量NoOriginal隔离回放各76620292检查。8个受影响DXT3/5完整消费组D/R/NoOriginal均通过，24组复用；SDK未运行。
+- 首轮fbc82056/40670148058为4862/5312；一般格式规则修复447例：format0三色RmsError包含第4个不透明黑点，DXT1A排除透明索引。原ASM Q_1007BF3D..Q_1007BF68提供静态依据，未使用fixture-ID或gold表分派。
+- 剩余`f0-random457/477/719`仅端点反序与0/1索引互换；交换后整个0x3850 state全等，D/R完整records SHA256同为480fa2fc1991c7d1d037c800515d992639738adb6c98cce71d938d8b8c8c423b。下一步先补原完整透明DXT1A包装/float/partial/端点规范化和DDS gold，核对内部表示差异是否在实际writer消除；不把其当作DDS已经验收，不反复宽泛改精度/预算。
+- 收据仍是comparison-completed/productionAccepted=false。默认DXT1/不透明DXT1A原输出随调用前栈改变，正式路径继续拒绝。即使显式state全相同，也须完成适用DDS/mip/volume/插件/SDK后才能启用。保留上游来源与补丁前后指纹，禁止强推。
+
 # 最新：公开 S3 适配与完整 PC 消费/SDK 已验收
 
 仅PC、禁止强推、编译测试仅GitHub Actions。原剩余27块已全部修复；默认DXT3/DXT5完整块均5120/5120、alpha全部一致。干净集成分支 `validation/texture-public-s3` 只引入S3族与明确来源的固定灰度常量，其他失败公开候选留 `validation/texture-public-codecs`。
