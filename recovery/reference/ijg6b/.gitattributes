@@ -1,0 +1,2 @@
+# Preserve upstream bytes and the pinned PROVENANCE hashes on Windows checkout.
+* -text

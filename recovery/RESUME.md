@@ -1,3 +1,13 @@
+# 2026-10-28 本轮进行中：PC atlas 公共入口与 JPEG 前置证据
+
+继续 `recovery/texturecompiler-source`，仅PC、禁止强推、编译测试仅GitHub Actions，每轮尽量约70分钟。启动时远程头已核对为 `bdd102d13b59270e3f228f744c905029dc9b42a3`，Actions `40599993769` completed/success，atlas-load 仍为原版取证而非恢复验收。
+
+- 新公共 `Plugin.Atlas.cs` 接入 Tile/File、已验收packer/指定五层DXT5/RGB555 DDS与完整runtime/relocation；空声明三个null、有效数0的末指针、原排序与错误契约均按完整gold。首轮 `b889488b` / `40606702213` **failure**：其余7个组件组成功；atlas Debug已匹配旧25例及全部新增渐变图DDS，唯一失败是 `TextureID=-4294967296` 的VC8 strtoul负溢出（原1/恢复UINT_MAX）。完整失败与23例新增原gold已回写，不能称为atlas完成。
+- 修复源码 `be520b8e4e8d4180fc5961e189a059b0e42fef90` / `40607538234` **验证中**：负溢出按原版先饱和再取负；完整48例原入口/NoOriginal D/R，以及受影响SDK批次（含新16资产atlas专用MOD）待收取。先核对终态和各组收据，保留成功祖先证据，不重复未变组。
+- JPEG仅准备新 manual_only/evidence_only `jpeg-load`，尚未启动/验收。1284例×原两调用与六种IJG6b解码候选，逐像素/异常比较；未接公共入口。公开源码字节指纹与许可见 `recovery/reference/ijg6b`，当前入口 [TEXTURE_JPEG_NEXT.md](TEXTURE_JPEG_NEXT.md)。待atlas验证作业结束后再用统一工作流显式选此组，不开第二路自动Windows矩阵。
+
+下文为本轮开始时已核实的完整NPOT/atlas前置交接，保留精确锚点；生产SDK DLL/config未替换。
+
 # TextureCompiler 当前续接（2026-10-28，北京时间）
 
 `recovery/texturecompiler-source`，仅Win32/PC，禁止强推，编译测试只在GitHub Actions；每轮尽量约70分钟，按STAGE_DURATION.md。Git身份wu162 <2997261975@qq.com>。主入口[TEXTURECOMPILER.md](TEXTURECOMPILER.md)。本轮从4857ff70续接，先核对远程头与40536063863及其复用收据；所有源码、取证、验收继续集中本分支。
