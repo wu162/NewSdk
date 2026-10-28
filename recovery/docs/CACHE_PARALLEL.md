@@ -1,14 +1,14 @@
 # 资产动作缓存与跨文档后端并行
 
-## 阶段计时候选（2026-10-28，本批待Actions验收）
+## 阶段计时基线（2026-10-28，已完整验收）
 
-按完整Upheaval计量的下一步，在既有生产报告中加入 `cache.phaseTimings`，用现有小夹具的冷热、单改、损坏修复与失败/取消回归验证；不为此重跑完整Upheaval。生产闭包已改变，本批统一新建Debug/Release并保留原有完整受影响回归和发行门槛。尚未取得新阶段结果，不宣称已定位大型MOD剩余wall或获得新加速。
+按完整Upheaval计量的下一步，在既有生产报告中加入 `cache.phaseTimings`，用现有小夹具的冷热、单改、损坏修复与失败/取消回归验证；不为此重跑完整Upheaval。计时基线源码`062053cb` / [40687271479](https://github.com/wu162/NewSdk/actions/runs/40687271479)已完整success。原包12816553914的SHA256为`1dedcd81b768cad26183d84aaffbb3b2838000c60b08647d8c3f43db9a1ea234`，已独立核验归档、12组收据、build/link来源与两配置五文件ZIP原字节；608份报告的适用后端区间/聚合账本相符。精确身份及6份冷热小夹具原始计时见[证据](CACHE_PARALLEL_EVIDENCE.json)的`phaseTimingBaseline`。该基线不代表后续B组改动已验收。
 
 格式 `NewModCompiler.CachePhaseTimings.v1`，`frequency` 为Stopwatch每秒tick数，`semantics=inclusive-overlapping-ticks`。`coreCompileTicks`覆盖每stream受控编译及清理，`streamSetupTicks`包含该stream首次输入盘点和配置/provider/Schema准备，`documentProcessTicks`包含递归文档处理与最终worker汇合，`artifactCollectionTicks`独立统计产物收集。`inputInventoryTicks`含首尾盘点；其子项`inputEnumerationTicks`为目录枚举/属性/排序，`inputReadTicks`含受控打开、资格/身份核对、鲜读SHA或摘要复用及关闭，`inputDigestTicks`为最终两个盘点摘要。子项仅累加成功Capture，外层计时也保留失败尝试，不能把差值直接认作缺失计量。
 
 `preparationTicks`包含冻结输入/外读准备，`actionKeyTicks`记录完整动作Key计算；`storeLookupTicks`包含store校验及物化，`storeValidationTicks`还覆盖Stage/Commit/容量扫描内部校验；`storeMaterializationTicks`含已验证payload复制与再校验；`storeStageTicks`为候选写入，`resultRestoreTicks`为恢复后的语义结果读取与私有目录物化。`resultWriteTicks/resultCommitTicks`为owner结果写入/验证提交，后者可包含store候选写入。`workerWaitTicks`统计正常owner提交时等待worker结果；失败/取消清理中的汇合等待归入`streamCleanupTicks`。`backendWorkTicks`在受保护的既有调用区间记账处累计全部调用，保留区间仍最多512条。`processContractTicks/cacheCommitTicks/streamCleanupTicks`分别记录进程合同、可逆缓存安装和stream清理。报告在必要输出终结前截取，不包含之后的CompleteCache/最终清理。
 
-上述计时有嵌套及并发，不能相加代替`elapsedMs`，也不是CPU时间；不改变Key、输入保护、缓存资格、调度预算或默认参数。当前只能等待小夹具实际结果决定下一项有界优化，历史完整Upheaval性能结论保持原范围。
+上述计时有嵌套及并发，不能相加代替`elapsedMs`，也不是CPU时间；不改变Key、输入保护、缓存资格、调度预算或默认参数。Release小夹具disabled/cold/hot各892/1378/1237ms，hot为8hit/0miss/1次Texture后端；hot的stream准备812.696ms、完整输入盘点208.477ms、文档202.340ms、store查询23.749ms、全部后端30.924ms。准备含首次盘点，文档含store及后端，不能把这些数加总；输入读阶段也不等于纯磁盘或哈希。此小夹具未控制OS缓存、未做反序重复，不宣称速度倍率或已定位完整Upheaval剩余wall。下一项优先核查准备范围内的Schema/provider等重复工作，须先证明可共享边界，不盲目增加XML资格或删除校验。
 
 ## B组：共享路径分类与私有结果移动（2026-10-28，待统一验收）
 

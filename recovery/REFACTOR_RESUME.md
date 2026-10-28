@@ -18,7 +18,7 @@
 
 本轮B组候选已保存：生产聚合`cache.phaseTimings`；共享每Capture目录边界/每SDK文件规范化分类；热恢复后移动已验证私有结果以消除再次复制。保持源/目标强校验、CDATA、首尾盘点及回滚。最新修复`e86958de` / [40690172191](https://github.com/wu162/NewSdk/actions/runs/40690172191)正在统一新建Debug/Release验收，尚未通过；修正`3ada12e7`移动后误从空目录统计恢复字节的遗漏，新增普通/CDATA冷热恢复字节断言。原`3ada`运行保留，不用其零恢复字节作计量。
 
-仅计时批次`062053cb` / [40687271479](https://github.com/wu162/NewSdk/actions/runs/40687271479)仍在验收，可独立核验后作为阶段基线；测试复用入口`d358a656`的guards [40687837253](https://github.com/wu162/NewSdk/actions/runs/40687837253)已success（34测试，replay未运行），不等同当前生产已验收。计时范围见[CACHE_PARALLEL](docs/CACHE_PARALLEL.md)。本轮未重跑大型Upheaval，未宣称缓存净收益已解决；收束工具工作，优先B组直接消除重复工作与必要验收。
+仅计时基线`062053cb` / [40687271479](https://github.com/wu162/NewSdk/actions/runs/40687271479)已完整success，原包12816553914/SHA`1dedcd81b768cad26183d84aaffbb3b2838000c60b08647d8c3f43db9a1ea234`、12组收据/build-link来源/两配置五文件ZIP及608份报告计时账本已核验。Release小夹具hot1237ms、stream准备812.696ms、盘点208.477ms、后端30.924ms（嵌套不可相加），不能外推完整Upheaval。测试复用入口`d358a656`的guards [40687837253](https://github.com/wu162/NewSdk/actions/runs/40687837253)已success（34测试，replay未运行），不等同B组已验收。计时/边界见[CACHE_PARALLEL](docs/CACHE_PARALLEL.md)，精确新证据在JSON的`phaseTimingBaseline`。本轮未重跑大型Upheaval，未宣称缓存净收益已解决；收束工具工作，优先B组直接消除重复工作与必要验收。
 
 ## 已合入的默认构建与参数改进
 
