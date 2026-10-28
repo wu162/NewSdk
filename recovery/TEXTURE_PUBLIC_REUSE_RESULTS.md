@@ -112,3 +112,22 @@ Grayscale-source run40632042322 failed native linking because the new PowerShell
 architecture argument was a single string splatted into characters; it did not
 run the matrix. The script now explicitly keeps an array (a61e2b58). Preserve
 failed runs and do not describe them as codec-output mismatches or acceptance.
+
+
+Grayscale and stopping-policy sourcea61e2b586c03f3ad58f0c6c1ba88679e52a9a822 /
+[40632315333](https://github.com/wu162/NewSdk/actions/runs/40632315333)
+completed the full16-variant matrix: D/R each163840 full original/candidate
+records, best complete DXT3=DXT5=5093/5120 (99.47%), all alpha5120/5120.
+All grayscale/two-color/constant-alpha-gradient cases now match. Five single-RGB
+and22 random fixtures remain. Budgets0/0 regress4 and fix none;1/1 and2/2 do not
+improve, so upstream16/8 is restored. The original stopping hypothesis is not
+supported by this matrix. Run40632288601 shares the earlier argument-splat link
+failure and is retained as failed, not as a codec comparison.
+
+Remaining variant0 fixtures:263,281,337,356,462;1361,1445,1690,1937,2132,2144,
+2405,2487,2527,2758,2878,2944,3010,3618,3651,3787,3910,4001,4268,4299,4838,5115.
+These are diagnosis identities only; no runtime fixture dispatch is implemented.
+New e5fbd08a tests independent single-colour/general-ramp floor interpolation
+against baseline, all4 precision variants per policy, same complete corpus.
+The variant policy meaning changed explicitly at that source; earlier receipts
+must keep their original source-specific interpretation. Its result is pending.
