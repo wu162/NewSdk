@@ -141,7 +141,7 @@ def initialize(args):
         raise ValueError('Runtime not verified against this source')
     config = dict(repo=str(repo), work=str(work), runtime=str(runtime), sdk=str(sdk), mod=str(mod),
                   tools=str(tools), paths=paths, runs=args.runs, changes=args.changes, replica=args.replica,
-                  timeout=args.timeout, sourceCommit=source)
+                  timeout=args.timeout, sourceCommit=source, onlyPackaging=args.only_package)
     B.write(out/'context.json', config)
     state = dict(schemaVersion=1, sourceCommit=source, binarySourceCommit=reuse['binarySourceCommit'],
                  runId=os.getenv('GITHUB_RUN_ID'), runAttempt=os.getenv('GITHUB_RUN_ATTEMPT'),
@@ -154,6 +154,7 @@ def initialize(args):
                  clocks='perf_counter: process creation through exit; full pipeline wall time for BIG builds',
                  caches='BC and SC independent; native cache stores retained separately, never shared between engines',
                  mutations='Reachable XML/DDS/WAV content changed at same length and timestamp; unmodified full MOD otherwise',
+                 packagingLayout='Old BAB writes directly into package/input/data; no artificial loose-output collection copy',
                  outliers='No removed samples; no ratio for failed or unsupported operations'))
     B.write(out/'state.json', state)
     print('INITIALIZED '+json.dumps(dict(replica=args.replica,machine=state['machine'],modFiles=len(mod_inputs))),flush=True)
@@ -219,6 +220,10 @@ class Experiment:
         cache_before=B.snapshot(self.cache_root(engine,mode)) if self.cache_root(engine,mode).exists() else {}
         rows=[]; commands=[]; products={}; report=None; package_paths=None
         if engine=='old':
+            if package:
+                package_dir=destination/'package'
+                if package_dir.exists():shutil.rmtree(package_dir)
+                (package_dir/'input/data').mkdir(parents=True)
             # BC-only experiments deliberately discard intermediate/link outputs;
             # SC experiments retain its required intermediate/session state.
             for number,(content,entry) in enumerate(tasks):
@@ -228,8 +233,9 @@ class Experiment:
                     if not sc and target.exists(): shutil.rmtree(target)
                     target.mkdir(parents=True,exist_ok=True)
                 cache=destination/'caches'/str(number);cache.mkdir(parents=True,exist_ok=True)
+                streams=destination/'package/input/data' if package else task_dir/'s'
                 arguments=[str(entry),f'/sp:{self.sdk/"Schemas/xsd/CnC3Types.xsd"}',f'/dr:{self.sdk}',
-                           f'/od:{task_dir/"s"}',f'/iod:{task_dir/"i"}',f'/scd:{task_dir/"h"}',f'/bcp:{cache}',
+                           f'/od:{streams}',f'/iod:{task_dir/"i"}',f'/scd:{task_dir/"h"}',f'/bcp:{cache}',
                            '/tp:Win32',f'/sc:{str(sc).lower()}',f'/bc:{str(bc).lower()}',
                            '/psc:false','/fsc:false','/csc:false','/atc:false','/sh:false','/pc:true',
                            '/res:true','/gui:false','/poe:false','/mr:false','/oof:false','/sf:false',
@@ -314,15 +320,9 @@ class Experiment:
 
     def package_old(self,destination,tasks,case):
         package=destination/'package'
-        if package.exists(): shutil.rmtree(package)
-        inputs=package/'input';inputs.mkdir(parents=True)
-        for number,(content,entry) in enumerate(tasks):
-            prefix=inputs/('data' if content=='base' else 'data/aptui' if content=='apt' else 'data/additionalmaps')
-            for source in (destination/str(number)/'s').rglob('*'):
-                if source.is_file():
-                    relative=Path(entry.stem.lower())/'cdata'/source.name.lower() if source.suffix.lower()=='.cdata' else Path(source.name.lower())
-                    target=prefix/relative;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,target)
-            if content=='apt': (prefix/(entry.stem.lower()+'.version')).write_bytes(b' \r\n')
+        inputs=package/'input'
+        for content,entry in tasks:
+            if content=='apt': (inputs/'data/aptui'/(entry.stem.lower()+'.version')).write_bytes(b' \r\n')
         rows=[execute(self.tools/'LoDStreamBuilder.exe',[str(inputs/'data/mod.manifest')],self.tools,case/'lod',self.c['timeout'],self.env)]
         if not rows[0]['succeeded']: return (package/'failed.big',package/'failed.skudef'),rows
         for root in (self.sdk/'Additional',self.mod/'Additional'):
@@ -537,6 +537,7 @@ def main():
     parser.add_argument('--changes',type=int,choices=range(3,11),default=3)
     parser.add_argument('--replica',type=int,default=1)
     parser.add_argument('--timeout',type=int,default=1200)
+    parser.add_argument('--only-package',action='store_true')
     args=parser.parse_args()
     if os.name!='nt': raise ValueError('Real experiments require Windows')
     if args.phase=='init': return initialize(args)

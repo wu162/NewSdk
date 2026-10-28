@@ -10,7 +10,7 @@ on:
       suite:
         description: 'Choose clean baseline or expanded cache/incremental/packaging matrix'
         type: choice
-        options: [clean, expanded]
+        options: [clean, expanded, packaging]
         default: clean
       report_run_id:
         description: 'Optional completed benchmark run to extract reports only (no recompilation)'
@@ -32,7 +32,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   benchmark:
-    if: ${{ !contains(github.event.head_commit.message, '[upheaval-report-only]') && !contains(github.event.head_commit.message, '[upheaval-expanded]') && inputs.report_run_id == '' && inputs.suite != 'expanded' }}
+    if: ${{ !contains(github.event.head_commit.message, '[upheaval-report-only]') && !contains(github.event.head_commit.message, '[upheaval-expanded]') && !contains(github.event.head_commit.message, '[upheaval-package]') && inputs.report_run_id == '' && inputs.suite != 'expanded' && inputs.suite != 'packaging' }}
     runs-on: windows-2022
     timeout-minutes: 240
     steps:
@@ -151,7 +151,7 @@ jobs:
           if-no-files-found: error
           retention-days: 30
   expanded:
-    if: ${{ contains(github.event.head_commit.message, '[upheaval-expanded]') || (inputs.suite == 'expanded' && inputs.report_run_id == '') }}
+    if: ${{ contains(github.event.head_commit.message, '[upheaval-expanded]') || contains(github.event.head_commit.message, '[upheaval-package]') || ((inputs.suite == 'expanded' || inputs.suite == 'packaging') && inputs.report_run_id == '') }}
     strategy:
       fail-fast: false
       max-parallel: 2
@@ -159,6 +159,8 @@ jobs:
         replica: [1, 2]
     runs-on: windows-2022
     timeout-minutes: 240
+    env:
+      PACKAGE_ONLY: ${{ contains(github.event.head_commit.message, '[upheaval-package]') || inputs.suite == 'packaging' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -184,7 +186,8 @@ jobs:
         id: init
         shell: pwsh
         run: |
-          python recovery/benchmarks/upheaval/expanded.py --phase init --replica ${{ matrix.replica }}
+          $extra=if($env:PACKAGE_ONLY -eq 'true'){@('--only-package')}else{@()}
+          python recovery/benchmarks/upheaval/expanded.py --phase init --replica ${{ matrix.replica }} @extra
           if($LASTEXITCODE -ne 0){throw 'Expanded initialization failed'}
       - name: Warm up and verify exact previously accepted no-cache output identity
         id: baseline
@@ -195,14 +198,14 @@ jobs:
           if($LASTEXITCODE -ne 0){throw 'Full workload baseline failed'}
       - name: Matched cache-off, cache-cold and unchanged cache-hot repetitions
         id: cache
-        if: ${{ !cancelled() && steps.baseline.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.baseline.outcome == 'success' && env.PACKAGE_ONLY != 'true' }}
         shell: pwsh
         run: |
           python recovery/benchmarks/upheaval/expanded.py --phase cache
           if($LASTEXITCODE -ne 0){throw 'Cache comparison gate failed'}
       - name: Save completed cache checkpoint while later tests continue
         uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() && steps.init.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.init.outcome == 'success' && env.PACKAGE_ONLY != 'true' }}
         with:
           name: upheaval-cache-checkpoint-${{ matrix.replica }}-${{ github.run_attempt }}
           path: |
@@ -234,7 +237,7 @@ jobs:
           python recovery/benchmarks/upheaval/expanded.py --phase recovery
           if($LASTEXITCODE -ne 0){throw 'Recovery gate failed'}
       - name: Full-MOD SC capability and actual metadata-only SC cold/hot subset
-        if: ${{ !cancelled() && steps.baseline.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.baseline.outcome == 'success' && env.PACKAGE_ONLY != 'true' }}
         shell: pwsh
         run: |
           python recovery/benchmarks/upheaval/expanded.py --phase session
