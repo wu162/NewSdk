@@ -9,17 +9,26 @@
 
 详见 [完整结果与来源](docs/UPHEAVAL_BENCHMARK.md)、[持久计量JSON](docs/UPHEAVAL_BENCHMARK_RESULT.json) 和 [复跑方法](benchmarks/upheaval/README.md)。二进制源码 `8b3e146cb5220e830ff6a0ce4718f47af052f166` / 成功运行40446975355，测试源码 `c98507a0bdc90f7a5dbdbe37353a17ecba765fc2`，未重建或修改生产代码。[40608627111](https://github.com/wu162/NewSdk/actions/runs/40608627111) 已验证原始归档并只读提取约2MiB轻量报告，未重新编译；以后正常运行也同时上传轻量包，手动 `report_run_id` 仅提取已有成功结果。早期40604428912/40604660397的输入预检失败保留，未混入统计。当前任务已完成，后续按用户审查决定是否合入，禁止强推或自行合并。
 
-## 扩展缓存与完整打包矩阵（验证中）
+## 扩展缓存与完整打包矩阵（已完成）
 
-独立分支及[PR#16](https://github.com/wu162/NewSdk/pull/16)继续，暂保持draft；生产编译器未改。缓存、SC正式测量来自[40720756791](https://github.com/wu162/NewSdk/actions/runs/40720756791)，测试源码8318eb71，两VM各5对。无缓存旧82.342秒/新68.594秒，BC冷建旧83.804秒/新88.947秒，BC热建旧24.149秒/新45.804秒。**新版无缓存优势不能泛化到缓存体验。** 两VM缓存checkpoint及终态summary的原始SHA已核对。
+独立分支 `benchmark/upheaval-compiler-speed`，[PR#16](https://github.com/wu162/NewSdk/pull/16)，尚未合入。每场景两台独立Windows VM，整套12个VM作业、12个正式场景、92对计时，另保存430次构建观察。生产编译器/SDK未改，复用既有Release的祖先、闭包、原始包和EXE绑定Texture均核验；各VM的SDK/MOD/运行文件最终字节未变。[扩展报告](docs/UPHEAVAL_EXPANDED.md)、[持久JSON](docs/UPHEAVAL_EXPANDED_RESULT.json)、[复跑入口](benchmarks/upheaval/README.md)已齐备。
 
-原407207两VM已终态，所有输入/运行文件哈希未变，缓存/增量/SC/包成员门槛执行完；但旧SDK被破坏的最大Texture缓存返回成功且产物字节错误，最终正确性门槛失败，不能写整轮通过。完整新SC两VM明确CORE_SESSION_TEXTURE_UNSUPPORTED；老完整SC冷/热各一次观察89.051/4.658秒、74.178/3.673秒。原地图元数据SC子集各5对，合计10对：冷旧0.598秒/新3.342秒，热旧0.501秒/新3.262秒；不冒充完整MOD支持。
+| 正式场景 | 旧SDK秒 | 新版秒 | 结论 |
+| --- | ---: | ---: | --- |
+| 关闭生成缓存 | 82.342 | 68.594 | 新版速度1.2004倍，95%区间1.1957–1.2055 |
+| BC首次冷建 | 83.804 | 88.947 | 旧版更快 |
+| BC无修改热建 | 24.149 | 45.804 | 旧版约1.90倍速度 |
+| 完整直接出包 | 71.556 | 59.348 | 新版速度1.2057倍，95%区间1.1965–1.2150 |
 
-首轮框架直接继承Actions环境，而生产缓存键覆盖整个子进程环境；跨步骤临时变量变化导致基线备份在后续新侧增量/恢复中全部miss。首轮首次增量及新版缓存损坏的因果结论不接受，原数据保留。同一步骤的BC冷热及各自初始化的SC/打包不受影响。源码41cea8d84a7efafc631de20aae636b991d5d656b固定两侧Windows运行环境白名单，逐阶段摘要一致校验，修改/破坏前强制真实热命中证明；[40737740303](https://github.com/wu162/NewSdk/actions/runs/40737740303)仅补测XML/DDS/WAV和恢复，每组各两VM、最多四个job独立并行。XML/DDS两组各两VM、每行6对已通过最终门槛：XML首次旧27.567秒/新99.191秒，热建27.669/52.750；DDS首次23.259/87.660，热建23.199/45.147。修改前真命中1617/0、修改后0/1617已核对，均与无缓存oracle相同；音频和恢复仍在运行，不用首轮混淆成绩填补正式结果。
+出包组使用不同VM，不能与缓存组绝对均值相减估算开销。XML/DDS/WAV真实同长度同mtime单文件修改，各首次/热建每行6对均通过独立无缓存oracle：新版首次耗时为旧版3.6～3.8倍、热建约1.9倍。修改前新侧命中1617/0，首次变成0/1617，显示整SDK/MOD/runtime内容清单命名空间的失效成本；DDS样本新缓存新增约54.9MB，旧新增692字节。
 
-直接输出打包首次运行[40725824993](https://github.com/wu162/NewSdk/actions/runs/40725824993)、源码c35ed91d在初始化失败：PowerShell把单字符串splat拆成字符，未进入计时。已改成显式原生参数调用，新测量[40741198404](https://github.com/wu162/NewSdk/actions/runs/40741198404)，源码263fa8088e312acd33ca3a7db3d7bac1c89997a4，仅基线+打包两VM，不重复有效缓存/SC；第一VM已成功（1322成员内容与SKUDEF一致），第二VM仍在运行。原8318的额外收集复制打包只能作次要记录，不能冒充正式直接输出时间。
+完整新SC两VM明确CORE_SESSION_TEXTURE_UNSUPPORTED，不计速度比；老完整SC支持，冷/热各一次观察89.051/4.658秒和74.178/3.673秒。地图元数据SC子集每行10对：冷旧0.598秒/新3.342秒，热旧0.501秒/新3.262秒，不能泛化完整MOD。CPU/峰值工作集、各VM计时及BIG1322成员+SKUDEF身份门槛见报告；BIG容器SHA不同，不声称整体字节相等。
 
-报告器用GitHub jobs runner_id/runner_name校验独立VM，不用托管镜像的相同hostname；原hostname汇总错误及原始失败终态保留。当前11项本地轻量测试通过；新汇总器明确排除缺少固定环境证据的旧增量组、额外复制的旧打包组并标注新版旧恢复试验无命名空间证明，只读[40741441409](https://github.com/wu162/NewSdk/actions/runs/40741441409)已完成11项检查与原artifact/runner校验，保留5个正式缓存/SC组、排除7个旧组；终态因真实旧SDK错误产物而仍失败，报告artifact12839159351、SHA e4b5c20008e73d0b70c19c0f0966a49a3c0ea25e4c83a4c560df39969746db35已核对，无重编译。后续先查上述补测及新的直接打包终态，下载轻量artifact并核对SHA、source/run/job身份，再更新[扩展报告](docs/UPHEAVAL_EXPANDED.md)、持久JSON及PR；不得自行合并。
+固定环境故障补测：旧SDK破损Texture缓存返回成功但产物字节错误，两VM复现；新版拒用损坏缓存后重编译正确输出，但缺失/坏持久条目前后哈希相同，不能称已自动修好。无效XML两侧均失败且确认缓存不变，新侧既有发布字节也不变；恢复健康备份/合法XML后重试均正确。各故障各侧每VM仅一次，不作性能区间；JSON明确measurementComplete=true/allCorrectnessGatesPassed=false，不能写全部正确性通过。
+
+正式来源：[40720756791](https://github.com/wu162/NewSdk/actions/runs/40720756791)/8318eb71的缓存和SC，经[40741441409](https://github.com/wu162/NewSdk/actions/runs/40741441409)/86eb0b25只读验证原summary SHA及runner身份、排除7个无效旧组；[40737740303](https://github.com/wu162/NewSdk/actions/runs/40737740303)/41cea8d8的固定环境增量/恢复；[40741198404](https://github.com/wu162/NewSdk/actions/runs/40741198404)/263fa808直接打包整体成功。三个双VM增量组成功；原运行及恢复组因真实旧SDK错误产物保留失败，报告器正常保存负向发现。11项最新轻量合同检查及直接打包预检通过。
+
+修正记录保留：相同镜像hostname改用GitHub唯一runner_id/name核验；首轮Actions跨步骤环境改变新版缓存键，旧增量/新版恢复因果结论撤回，41cea8d8固定子进程环境并在修改/破坏前证明热命中后重测；40725824993因PowerShell字符串splat初始化失败、零计时，263fa808显式参数后重新验证。不得重用混淆数据、降低断言或重复启动有效组。待用户审查，禁止强推或自行合并。
 
 ## 默认构建与参数改进（PR #14，待合入）
 
