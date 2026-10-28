@@ -12,6 +12,7 @@ try{
   Checked "$configuration-native" {& "$PSScriptRoot/BuildTexturePublicS3.ps1" -Destination "$work/$configuration" -Configuration $configuration}
   Checked "$configuration-managed" {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c $configuration -o "$work/build-$configuration" --nologo}
   Copy-Item "$work/build-$configuration/*.dll" $work -Force
+  $r.managedBinaries=@($r.managedBinaries|Where-Object{$_})+@(@{configuration=$configuration;sha256=(Get-FileHash "$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll").Hash.ToLowerInvariant();sourceCommit=$r.sourceCommit})
   Copy-Item "$work/$configuration/Recovered.TexturePublicS3.dll" $work -Force
   $r.nativeBinaries=@($r.nativeBinaries|Where-Object{$_})+@((Get-Content "$work/$configuration/PublicS3-native.json" -Raw|ConvertFrom-Json))
   $opt=if($configuration -eq 'Release'){'/optimize+'}else{'/optimize-'}

@@ -13,6 +13,7 @@ try{
   Copy-Item "$work/$configuration/Recovered.TexturePublicS3.dll" $work -Force
   Checked "$configuration-managed" {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c $configuration -o "$work/build-$configuration" --nologo}
   Copy-Item "$work/build-$configuration/*.dll" $work -Force
+  $r.managedBinaries=@($r.managedBinaries|Where-Object{$_})+@(@{configuration=$configuration;sha256=(Get-FileHash "$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll").Hash.ToLowerInvariant();sourceCommit=$r.sourceCommit})
   $r.nativeBinaries=@($r.nativeBinaries|Where-Object{$_})+@((Get-Content "$work/$configuration/PublicS3-native.json" -Raw|ConvertFrom-Json))
   $opt=if($configuration -eq 'Release'){'/optimize+'}else{'/optimize-'}
   Checked "$configuration-build" {& $csc /nologo /unsafe /platform:x86 $opt /out:"$work/TextureDxt1aBlockDifferential.exe" (Resolve-Path recovery/tests/TextureDxt1aBlockDifferential.cs).Path}
