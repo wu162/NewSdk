@@ -1203,6 +1203,25 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-atlas/*/validation.json",
       "sdk": true
+    },
+    "jpeg-load": {
+      "script": "recovery/scripts/InspectTextureJpegLoad.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureJpegLoad.ps1",
+        "recovery/scripts/BuildTextureJpegCandidate.ps1",
+        "recovery/reference/ijg6b/**",
+        "recovery/tests/TextureJpegCandidate.c",
+        "recovery/tests/TextureJpegLoadProbe.cs",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs"
+      ],
+      "evidence": "recovery/evidence/texture/jpeg-load/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"
