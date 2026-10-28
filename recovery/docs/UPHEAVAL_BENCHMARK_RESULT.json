@@ -1,0 +1,893 @@
+{
+  "schemaVersion": 1,
+  "succeeded": true,
+  "inputsUnchanged": true,
+  "runId": "40604851281",
+  "runAttempt": "1",
+  "testSourceCommit": "c98507a0bdc90f7a5dbdbe37353a17ecba765fc2",
+  "sdkGitTree": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+  "modGitTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0",
+  "modSourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+  "environment": {
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "python": "3.12.10",
+    "processor": "AMD64 Family 25 Model 1 Stepping 1, AuthenticAMD",
+    "logicalCpus": 4
+  },
+  "scope": "Unmodified full Upheaval base/APT/maps clean compile and link; no LoD, BIG or SKUDEF packaging",
+  "methodology": {
+    "warmups": 1,
+    "repetitions": 10,
+    "order": "Alternating old-new / new-old pairs, including warmup pairs",
+    "cache": "All compiler caches off, fresh processes and output/intermediate directories; OS filesystem cache warmed, not evicted",
+    "timing": "perf_counter immediately before process creation through process exit; input hashing, output checks and preparation excluded",
+    "outliers": "No samples removed; all successful pairs retained",
+    "old": "One original BAB process per discovered stream, aggregated",
+    "new": "One Release production CLI process for all discovered streams"
+  },
+  "statistics": {
+    "old": {
+      "n": 10,
+      "mean": 88.91799507000022,
+      "median": 88.95327505,
+      "min": 88.52235880000035,
+      "max": 89.1522887000001,
+      "stddev": 0.1837463893862692,
+      "cv": 0.0020664702262080453,
+      "p95": 89.11562999000023
+    },
+    "new": {
+      "n": 10,
+      "mean": 74.00247749999991,
+      "median": 73.99882254999977,
+      "min": 73.69146629999977,
+      "max": 74.42699119999997,
+      "stddev": 0.205804741487665,
+      "cv": 0.0027810520463678427,
+      "p95": 74.29604651000002
+    },
+    "speedup": 1.201554300259749,
+    "speedup95CI": [
+      1.1994898357442048,
+      1.2036204647648052
+    ],
+    "method": "Ratio of arithmetic mean wall times; paired percentile bootstrap, 10000 resamples, seed 162"
+  },
+  "binarySourceCommit": "8b3e146cb5220e830ff6a0ce4718f47af052f166",
+  "runtimeReuse": {
+    "prepared": true,
+    "candidateValidated": false,
+    "binarySourceCommit": "8b3e146cb5220e830ff6a0ce4718f47af052f166",
+    "testSourceCommit": "c98507a0bdc90f7a5dbdbe37353a17ecba765fc2",
+    "sourceRunId": 40446975355,
+    "artifactId": 12708969379,
+    "archiveSha256": "4354fd09d9390e4224152fc48b2ca9ff302cde5dcda01f244d2e3c74c4ad12e9",
+    "packageSha256": "fb8cd8de283819f19b3c812ba944646a9333b778a8c4c4657db0c6636bee64ad",
+    "files": {
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "6d452f606c29915866d89eaebadcd58a20c22b74455aa0f5aa596d8fb711a32d",
+      "NewModCompiler.exe": "fc2e99a1a6f65e058759bda187e5ca3bb084c2269fa0fa07b26bca8ce289cf0d",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    "changedPaths": [
+      ".github/workflows/benchmark-upheaval.yml",
+      "recovery/COMPILER_USAGE.md",
+      "recovery/REFACTOR_RESUME.md",
+      "recovery/benchmarks/upheaval/README.md",
+      "recovery/benchmarks/upheaval/benchmark.py",
+      "recovery/benchmarks/upheaval/prepare.py",
+      "recovery/benchmarks/upheaval/test_benchmark.py",
+      "recovery/docs/BUILD_DEFAULTS_VALIDATION.md",
+      "recovery/protocol/README.md"
+    ],
+    "productionInputsUnchanged": true
+  },
+  "modInputs": {
+    "files": 2723,
+    "bytes": 300900885,
+    "assetFiles": 194,
+    "inventorySha256": "c6ea037fda67c31f676f5cc418aeabfe5ebf9e5764b44879213b31e21f3f95e5"
+  },
+  "sdkInputs": {
+    "files": 14715,
+    "inventorySha256": "a8fc2c1312025cb062d71adcddaa55e5d79e457b9c6679dc0dd0705455a9ddf6"
+  },
+  "tasks": [
+    {
+      "content": "base",
+      "input": "Data/Mod.xml"
+    },
+    {
+      "content": "apt",
+      "input": "Data/AptUI/TacticalHUDBuildQueuePage.xml"
+    },
+    {
+      "content": "apt",
+      "input": "Data/AptUI/TacticalHUDCommandListBox.xml"
+    },
+    {
+      "content": "apt",
+      "input": "Data/AptUI/TacticalHUDMainCommandBar.xml"
+    },
+    {
+      "content": "maps",
+      "input": "Data/AdditionalMaps/MapMetaData_Global.xml"
+    }
+  ],
+  "outputGate": {
+    "allWarmupAndMeasuredBuildsByteIdentical": true,
+    "builds": 22,
+    "filesPerBuild": 1311,
+    "bytesPerBuild": 77873601,
+    "cdataFilesPerBuild": 1291,
+    "inventorySha256": "d65742aa08bbdbea317f11112b717469fffe51da1742a6a56884c8b1e7436212"
+  },
+  "originalExecutableSha256": "f79c2fe743de251e59c9e1daee6930f4c58b1de3adf735f73aa7e9798c8c49af",
+  "originalConfigSha256": "0a663a8d05fc071f404b6efff9512f9ffd8cb74f69c8df6a2f2a3cc4e781b107",
+  "evidenceExtraction": {
+    "sourceRunId": "40604851281",
+    "sourceRunAttempt": 1,
+    "sourceCommit": "c98507a0bdc90f7a5dbdbe37353a17ecba765fc2",
+    "artifactId": 12782007171,
+    "archiveSha256": "339d9343026d0928d22c73637ebb36808dea7d348d3792d97b195ce356580a30",
+    "extractionRunId": "40608627111",
+    "recompiled": false,
+    "files": {
+      "mod-inputs.json": "c6ea037fda67c31f676f5cc418aeabfe5ebf9e5764b44879213b31e21f3f95e5",
+      "reuse.json": "3d096b02f581fa7841378db820007bf398d84bc567bc3b794d2b181245d0841d",
+      "sdk-inputs.json": "a8fc2c1312025cb062d71adcddaa55e5d79e457b9c6679dc0dd0705455a9ddf6",
+      "summary.md": "c3095c84b4a305430bc8032df716d6fdd24cbc307c275bb4b649b6d16948bdc5",
+      "validation.json": "cd5a82b386ef68ee8bc5489348e897ee01b505374ec70f53c59ea600a42efecb"
+    }
+  },
+  "evidenceArtifact": {
+    "id": 12782007171,
+    "sha256": "339d9343026d0928d22c73637ebb36808dea7d348d3792d97b195ce356580a30",
+    "expiresAt": "2026-11-27T00:22:01Z",
+    "url": "https://github.com/wu162/NewSdk/actions/runs/40604851281/artifacts/12782007171"
+  },
+  "lightweightArtifact": {
+    "id": 12782320515,
+    "sha256": "dc4bfa78d513d290e992620d87d796dfcba254edc89ecfc361a34cad70411036",
+    "url": "https://github.com/wu162/NewSdk/actions/runs/40608627111/artifacts/12782320515"
+  },
+  "samples": [
+    {
+      "index": 0,
+      "warmup": true,
+      "order": [
+        "old",
+        "new"
+      ],
+      "old": {
+        "wallSeconds": 93.46227629999987,
+        "cpuSeconds": 88.546875,
+        "peakWorkingSetBytes": 181190656,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 90.76315939999995,
+            "exitCode": 0,
+            "pid": 1484,
+            "cpuSeconds": 85.90625,
+            "peakWorkingSetBytes": 181190656
+          },
+          {
+            "wallSeconds": 0.8111151000000518,
+            "exitCode": 0,
+            "pid": 5392,
+            "cpuSeconds": 0.78125,
+            "peakWorkingSetBytes": 72712192
+          },
+          {
+            "wallSeconds": 0.57736239999997,
+            "exitCode": 0,
+            "pid": 3132,
+            "cpuSeconds": 0.578125,
+            "peakWorkingSetBytes": 47247360
+          },
+          {
+            "wallSeconds": 0.6707272999999532,
+            "exitCode": 0,
+            "pid": 2624,
+            "cpuSeconds": 0.65625,
+            "peakWorkingSetBytes": 53321728
+          },
+          {
+            "wallSeconds": 0.6399120999999468,
+            "exitCode": 0,
+            "pid": 3644,
+            "cpuSeconds": 0.625,
+            "peakWorkingSetBytes": 51625984
+          }
+        ]
+      },
+      "new": {
+        "wallSeconds": 75.28493830000002,
+        "cpuSeconds": 73.796875,
+        "peakWorkingSetBytes": 220700672,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 75.28493830000002,
+            "exitCode": 0,
+            "pid": 7388,
+            "cpuSeconds": 73.796875,
+            "peakWorkingSetBytes": 220700672
+          }
+        ]
+      }
+    },
+    {
+      "index": 1,
+      "warmup": false,
+      "order": [
+        "new",
+        "old"
+      ],
+      "old": {
+        "wallSeconds": 88.92586889999984,
+        "cpuSeconds": 88.671875,
+        "peakWorkingSetBytes": 178630656,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 86.25756999999999,
+            "exitCode": 0,
+            "pid": 2752,
+            "cpuSeconds": 86.03125,
+            "peakWorkingSetBytes": 178630656
+          },
+          {
+            "wallSeconds": 0.7967891000000691,
+            "exitCode": 0,
+            "pid": 4616,
+            "cpuSeconds": 0.8125,
+            "peakWorkingSetBytes": 72962048
+          },
+          {
+            "wallSeconds": 0.576302700000042,
+            "exitCode": 0,
+            "pid": 2904,
+            "cpuSeconds": 0.5625,
+            "peakWorkingSetBytes": 47116288
+          },
+          {
+            "wallSeconds": 0.6560062999999445,
+            "exitCode": 0,
+            "pid": 4024,
+            "cpuSeconds": 0.640625,
+            "peakWorkingSetBytes": 53370880
+          },
+          {
+            "wallSeconds": 0.6392007999997986,
+            "exitCode": 0,
+            "pid": 6896,
+            "cpuSeconds": 0.625,
+            "peakWorkingSetBytes": 51560448
+          }
+        ]
+      },
+      "new": {
+        "wallSeconds": 74.08662210000011,
+        "cpuSeconds": 73.671875,
+        "peakWorkingSetBytes": 208752640,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 74.08662210000011,
+            "exitCode": 0,
+            "pid": 5884,
+            "cpuSeconds": 73.671875,
+            "peakWorkingSetBytes": 208752640
+          }
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "warmup": false,
+      "order": [
+        "old",
+        "new"
+      ],
+      "old": {
+        "wallSeconds": 88.87053739999988,
+        "cpuSeconds": 88.6875,
+        "peakWorkingSetBytes": 176320512,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 86.18712239999991,
+            "exitCode": 0,
+            "pid": 2552,
+            "cpuSeconds": 86.046875,
+            "peakWorkingSetBytes": 176320512
+          },
+          {
+            "wallSeconds": 0.7967552000000069,
+            "exitCode": 0,
+            "pid": 5100,
+            "cpuSeconds": 0.78125,
+            "peakWorkingSetBytes": 72884224
+          },
+          {
+            "wallSeconds": 0.5762707999999748,
+            "exitCode": 0,
+            "pid": 6288,
+            "cpuSeconds": 0.5625,
+            "peakWorkingSetBytes": 47169536
+          },
+          {
+            "wallSeconds": 0.671630900000082,
+            "exitCode": 0,
+            "pid": 8008,
+            "cpuSeconds": 0.671875,
+            "peakWorkingSetBytes": 53358592
+          },
+          {
+            "wallSeconds": 0.6387580999999045,
+            "exitCode": 0,
+            "pid": 3240,
+            "cpuSeconds": 0.625,
+            "peakWorkingSetBytes": 51634176
+          }
+        ]
+      },
+      "new": {
+        "wallSeconds": 74.09341199999994,
+        "cpuSeconds": 73.734375,
+        "peakWorkingSetBytes": 210919424,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 74.09341199999994,
+            "exitCode": 0,
+            "pid": 3452,
+            "cpuSeconds": 73.734375,
+            "peakWorkingSetBytes": 210919424
+          }
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "warmup": false,
+      "order": [
+        "new",
+        "old"
+      ],
+      "old": {
+        "wallSeconds": 89.1522887000001,
+        "cpuSeconds": 89.046875,
+        "peakWorkingSetBytes": 178110464,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 86.4694641000001,
+            "exitCode": 0,
+            "pid": 7728,
+            "cpuSeconds": 86.328125,
+            "peakWorkingSetBytes": 178110464
+          },
+          {
+            "wallSeconds": 0.7956289000001107,
+            "exitCode": 0,
+            "pid": 5852,
+            "cpuSeconds": 0.828125,
+            "peakWorkingSetBytes": 72818688
+          },
+          {
+            "wallSeconds": 0.5766329000000496,
+            "exitCode": 0,
+            "pid": 6880,
+            "cpuSeconds": 0.578125,
+            "peakWorkingSetBytes": 47116288
+          },
+          {
+            "wallSeconds": 0.6702373999999054,
+            "exitCode": 0,
+            "pid": 3196,
+            "cpuSeconds": 0.671875,
+            "peakWorkingSetBytes": 53399552
+          },
+          {
+            "wallSeconds": 0.6403253999999379,
+            "exitCode": 0,
+            "pid": 5948,
+            "cpuSeconds": 0.640625,
+            "peakWorkingSetBytes": 51605504
+          }
+        ]
+      },
+      "new": {
+        "wallSeconds": 74.13600300000007,
+        "cpuSeconds": 73.859375,
+        "peakWorkingSetBytes": 221278208,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 74.13600300000007,
+            "exitCode": 0,
+            "pid": 6180,
+            "cpuSeconds": 73.859375,
+            "peakWorkingSetBytes": 221278208
+          }
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "warmup": false,
+      "order": [
+        "old",
+        "new"
+      ],
+      "old": {
+        "wallSeconds": 88.98068120000016,
+        "cpuSeconds": 88.796875,
+        "peakWorkingSetBytes": 172191744,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 86.32748270000002,
+            "exitCode": 0,
+            "pid": 4884,
+            "cpuSeconds": 86.1875,
+            "peakWorkingSetBytes": 172191744
+          },
+          {
+            "wallSeconds": 0.7810927999998967,
+            "exitCode": 0,
+            "pid": 1096,
+            "cpuSeconds": 0.765625,
+            "peakWorkingSetBytes": 72802304
+          },
+          {
+            "wallSeconds": 0.5772596000001613,
+            "exitCode": 0,
+            "pid": 4896,
+            "cpuSeconds": 0.5625,
+            "peakWorkingSetBytes": 47161344
+          },
+          {
+            "wallSeconds": 0.6707596000001104,
+            "exitCode": 0,
+            "pid": 1864,
+            "cpuSeconds": 0.65625,
+            "peakWorkingSetBytes": 53334016
+          },
+          {
+            "wallSeconds": 0.6240864999999758,
+            "exitCode": 0,
+            "pid": 7344,
+            "cpuSeconds": 0.625,
+            "peakWorkingSetBytes": 51482624
+          }
+        ]
+      },
+      "new": {
+        "wallSeconds": 73.9281395999999,
+        "cpuSeconds": 73.671875,
+        "peakWorkingSetBytes": 225312768,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 73.9281395999999,
+            "exitCode": 0,
+            "pid": 7340,
+            "cpuSeconds": 73.671875,
+            "peakWorkingSetBytes": 225312768
+          }
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "warmup": false,
+      "order": [
+        "new",
+        "old"
+      ],
+      "old": {
+        "wallSeconds": 88.52235880000035,
+        "cpuSeconds": 88.25,
+        "peakWorkingSetBytes": 177065984,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 85.86499789999993,
+            "exitCode": 0,
+            "pid": 2480,
+            "cpuSeconds": 85.609375,
+            "peakWorkingSetBytes": 177065984
+          },
+          {
+            "wallSeconds": 0.7852297000001727,
+            "exitCode": 0,
+            "pid": 8032,
+            "cpuSeconds": 0.78125,
+            "peakWorkingSetBytes": 72896512
+          },
+          {
+            "wallSeconds": 0.5640143000000535,
+            "exitCode": 0,
+            "pid": 5816,
+            "cpuSeconds": 0.5625,
+            "peakWorkingSetBytes": 47120384
+          },
+          {
+            "wallSeconds": 0.6689096000000063,
+            "exitCode": 0,
+            "pid": 748,
+            "cpuSeconds": 0.65625,
+            "peakWorkingSetBytes": 53358592
+          },
+          {
+            "wallSeconds": 0.6392073000001801,
+            "exitCode": 0,
+            "pid": 736,
+            "cpuSeconds": 0.640625,
+            "peakWorkingSetBytes": 51482624
+          }
+        ]
+      },
+      "new": {
+        "wallSeconds": 73.91171450000002,
+        "cpuSeconds": 73.484375,
+        "peakWorkingSetBytes": 222494720,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 73.91171450000002,
+            "exitCode": 0,
+            "pid": 1484,
+            "cpuSeconds": 73.484375,
+            "peakWorkingSetBytes": 222494720
+          }
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "warmup": false,
+      "order": [
+        "old",
+        "new"
+      ],
+      "old": {
+        "wallSeconds": 88.73218900000029,
+        "cpuSeconds": 88.453125,
+        "peakWorkingSetBytes": 185593856,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 86.04962280000018,
+            "exitCode": 0,
+            "pid": 1676,
+            "cpuSeconds": 85.8125,
+            "peakWorkingSetBytes": 185593856
+          },
+          {
+            "wallSeconds": 0.7957960999999614,
+            "exitCode": 0,
+            "pid": 2124,
+            "cpuSeconds": 0.78125,
+            "peakWorkingSetBytes": 72912896
+          },
+          {
+            "wallSeconds": 0.5764260000000831,
+            "exitCode": 0,
+            "pid": 7964,
+            "cpuSeconds": 0.5625,
+            "peakWorkingSetBytes": 47120384
+          },
+          {
+            "wallSeconds": 0.6710831000000326,
+            "exitCode": 0,
+            "pid": 3832,
+            "cpuSeconds": 0.671875,
+            "peakWorkingSetBytes": 53387264
+          },
+          {
+            "wallSeconds": 0.6392610000000332,
+            "exitCode": 0,
+            "pid": 2132,
+            "cpuSeconds": 0.625,
+            "peakWorkingSetBytes": 51412992
+          }
+        ]
+      },
+      "new": {
+        "wallSeconds": 73.85323029999995,
+        "cpuSeconds": 73.484375,
+        "peakWorkingSetBytes": 209784832,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 73.85323029999995,
+            "exitCode": 0,
+            "pid": 1752,
+            "cpuSeconds": 73.484375,
+            "peakWorkingSetBytes": 209784832
+          }
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "warmup": false,
+      "order": [
+        "new",
+        "old"
+      ],
+      "old": {
+        "wallSeconds": 89.01112070000045,
+        "cpuSeconds": 88.90625,
+        "peakWorkingSetBytes": 176398336,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 86.3252507000002,
+            "exitCode": 0,
+            "pid": 2704,
+            "cpuSeconds": 86.21875,
+            "peakWorkingSetBytes": 176398336
+          },
+          {
+            "wallSeconds": 0.7968719000000419,
+            "exitCode": 0,
+            "pid": 5708,
+            "cpuSeconds": 0.796875,
+            "peakWorkingSetBytes": 72912896
+          },
+          {
+            "wallSeconds": 0.5772320000000946,
+            "exitCode": 0,
+            "pid": 2944,
+            "cpuSeconds": 0.578125,
+            "peakWorkingSetBytes": 47169536
+          },
+          {
+            "wallSeconds": 0.6715382000002137,
+            "exitCode": 0,
+            "pid": 7016,
+            "cpuSeconds": 0.671875,
+            "peakWorkingSetBytes": 53301248
+          },
+          {
+            "wallSeconds": 0.6402278999998998,
+            "exitCode": 0,
+            "pid": 5516,
+            "cpuSeconds": 0.640625,
+            "peakWorkingSetBytes": 51691520
+          }
+        ]
+      },
+      "new": {
+        "wallSeconds": 74.42699119999997,
+        "cpuSeconds": 73.984375,
+        "peakWorkingSetBytes": 222470144,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 74.42699119999997,
+            "exitCode": 0,
+            "pid": 700,
+            "cpuSeconds": 73.984375,
+            "peakWorkingSetBytes": 222470144
+          }
+        ]
+      }
+    },
+    {
+      "index": 8,
+      "warmup": false,
+      "order": [
+        "old",
+        "new"
+      ],
+      "old": {
+        "wallSeconds": 89.07082490000039,
+        "cpuSeconds": 88.859375,
+        "peakWorkingSetBytes": 172466176,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 86.37744920000023,
+            "exitCode": 0,
+            "pid": 3132,
+            "cpuSeconds": 86.234375,
+            "peakWorkingSetBytes": 172466176
+          },
+          {
+            "wallSeconds": 0.7882103000001734,
+            "exitCode": 0,
+            "pid": 7592,
+            "cpuSeconds": 0.765625,
+            "peakWorkingSetBytes": 72777728
+          },
+          {
+            "wallSeconds": 0.5918031000001065,
+            "exitCode": 0,
+            "pid": 852,
+            "cpuSeconds": 0.578125,
+            "peakWorkingSetBytes": 47218688
+          },
+          {
+            "wallSeconds": 0.6725059000000329,
+            "exitCode": 0,
+            "pid": 1784,
+            "cpuSeconds": 0.65625,
+            "peakWorkingSetBytes": 53227520
+          },
+          {
+            "wallSeconds": 0.6408563999998478,
+            "exitCode": 0,
+            "pid": 4668,
+            "cpuSeconds": 0.625,
+            "peakWorkingSetBytes": 51646464
+          }
+        ]
+      },
+      "new": {
+        "wallSeconds": 74.06950549999965,
+        "cpuSeconds": 73.546875,
+        "peakWorkingSetBytes": 210276352,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 74.06950549999965,
+            "exitCode": 0,
+            "pid": 4604,
+            "cpuSeconds": 73.546875,
+            "peakWorkingSetBytes": 210276352
+          }
+        ]
+      }
+    },
+    {
+      "index": 9,
+      "warmup": false,
+      "order": [
+        "new",
+        "old"
+      ],
+      "old": {
+        "wallSeconds": 88.86594460000015,
+        "cpuSeconds": 88.671875,
+        "peakWorkingSetBytes": 172638208,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 86.18291150000005,
+            "exitCode": 0,
+            "pid": 7976,
+            "cpuSeconds": 85.984375,
+            "peakWorkingSetBytes": 172638208
+          },
+          {
+            "wallSeconds": 0.7959465999997519,
+            "exitCode": 0,
+            "pid": 5616,
+            "cpuSeconds": 0.796875,
+            "peakWorkingSetBytes": 72998912
+          },
+          {
+            "wallSeconds": 0.5761063999998441,
+            "exitCode": 0,
+            "pid": 6032,
+            "cpuSeconds": 0.5625,
+            "peakWorkingSetBytes": 47079424
+          },
+          {
+            "wallSeconds": 0.6712117000001854,
+            "exitCode": 0,
+            "pid": 1532,
+            "cpuSeconds": 0.6875,
+            "peakWorkingSetBytes": 53383168
+          },
+          {
+            "wallSeconds": 0.639768400000321,
+            "exitCode": 0,
+            "pid": 764,
+            "cpuSeconds": 0.640625,
+            "peakWorkingSetBytes": 51572736
+          }
+        ]
+      },
+      "new": {
+        "wallSeconds": 73.82769049999979,
+        "cpuSeconds": 73.484375,
+        "peakWorkingSetBytes": 221917184,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 73.82769049999979,
+            "exitCode": 0,
+            "pid": 8148,
+            "cpuSeconds": 73.484375,
+            "peakWorkingSetBytes": 221917184
+          }
+        ]
+      }
+    },
+    {
+      "index": 10,
+      "warmup": false,
+      "order": [
+        "old",
+        "new"
+      ],
+      "old": {
+        "wallSeconds": 89.04813650000051,
+        "cpuSeconds": 88.71875,
+        "peakWorkingSetBytes": 179040256,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 86.36323300000004,
+            "exitCode": 0,
+            "pid": 7036,
+            "cpuSeconds": 86.078125,
+            "peakWorkingSetBytes": 179040256
+          },
+          {
+            "wallSeconds": 0.7976915000003828,
+            "exitCode": 0,
+            "pid": 4968,
+            "cpuSeconds": 0.78125,
+            "peakWorkingSetBytes": 72769536
+          },
+          {
+            "wallSeconds": 0.576013200000034,
+            "exitCode": 0,
+            "pid": 1100,
+            "cpuSeconds": 0.578125,
+            "peakWorkingSetBytes": 47136768
+          },
+          {
+            "wallSeconds": 0.6715549000000465,
+            "exitCode": 0,
+            "pid": 5360,
+            "cpuSeconds": 0.640625,
+            "peakWorkingSetBytes": 53354496
+          },
+          {
+            "wallSeconds": 0.63964390000001,
+            "exitCode": 0,
+            "pid": 3744,
+            "cpuSeconds": 0.640625,
+            "peakWorkingSetBytes": 51728384
+          }
+        ]
+      },
+      "new": {
+        "wallSeconds": 73.69146629999977,
+        "cpuSeconds": 73.59375,
+        "peakWorkingSetBytes": 211234816,
+        "byteIdentical": true,
+        "processes": [
+          {
+            "wallSeconds": 73.69146629999977,
+            "exitCode": 0,
+            "pid": 4984,
+            "cpuSeconds": 73.59375,
+            "peakWorkingSetBytes": 211234816
+          }
+        ]
+      }
+    }
+  ],
+  "supportingMeans": {
+    "old": {
+      "cpuSeconds": 88.70625,
+      "peakWorkingSetMiB": 168.653125
+    },
+    "new": {
+      "cpuSeconds": 73.6515625,
+      "peakWorkingSetMiB": 206.4171875
+    }
+  }
+}

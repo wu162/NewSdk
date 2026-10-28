@@ -3,11 +3,11 @@
 更新：2026-10-27（北京时间）。用户指定 `compiler-main` 为重构结果及今后开发主线。旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 已关闭且未合并，不再合回旧主线。开发主线约定不代表已修改 GitHub 网页默认分支。
 禁止强推；今后其他合并仍须用户批准；子代理数量由当轮用户指定。
 
-## Upheaval 编译速度比较（2026-10-28 北京时间，验证中）
+## Upheaval 编译速度比较（2026-10-28 北京时间，已验证）
 
-独立分支 `benchmark/upheaval-compiler-speed`，草稿 [PR #16](https://github.com/wu162/NewSdk/pull/16)，方法及本地/CI入口见 [benchmarks/upheaval/README.md](benchmarks/upheaval/README.md)。从历史固定 tree 提取完整 2723 文件 Upheaval，原 SDK BAB 对正式 Release CLI，关闭生成缓存、保留随 MOD 提供的预编译输入；1 对预热、10 对交替正式样本，逐样本完整流/CDATA身份门槛后报告统计和配对置信区间。仅 compile/link，不含打包或增量缓存。
+独立分支 `benchmark/upheaval-compiler-speed`，[PR #16](https://github.com/wu162/NewSdk/pull/16)。[实测运行40604851281](https://github.com/wu162/NewSdk/actions/runs/40604851281) 全部成功：完整 Upheaval 五入口、1 对预热后 10 对交替正式样本，新 Release 平均 **74.002秒**，旧 SDK **88.918秒**，耗时减少 **16.77%**，速度比 **1.202×**（配对95% CI **1.199–1.204×**）。22 次构建各1311文件/1291CDATA全部身份一致，SDK/MOD/运行文件未变；仅clean compile/link，不含LoD/BIG/SKUDEF或增量缓存。
 
-二进制复用已完整验收的 `8b3e146cb5220e830ff6a0ce4718f47af052f166` / 运行40446975355，生产输入闭包、归档及五文件身份必须未变；测试来源独立记录。当前 [运行40604851281](https://github.com/wu162/NewSdk/actions/runs/40604851281) 测试源码 `c98507a0bdc90f7a5dbdbe37353a17ecba765fc2`，尚未取得终态，不能宣称速度或真实 MOD 通过。早期40604428912/40604660397为输入预检失败，分别修正主线不含Upheaval及原始SDK为独立历史的假设，保留原失败。续接先看当前运行终态及artifact的validation.json，再更新此段和PR；不要反复重启长任务。
+详见 [完整结果与来源](docs/UPHEAVAL_BENCHMARK.md)、[持久计量JSON](docs/UPHEAVAL_BENCHMARK_RESULT.json) 和 [复跑方法](benchmarks/upheaval/README.md)。二进制源码 `8b3e146cb5220e830ff6a0ce4718f47af052f166` / 成功运行40446975355，测试源码 `c98507a0bdc90f7a5dbdbe37353a17ecba765fc2`，未重建或修改生产代码。[40608627111](https://github.com/wu162/NewSdk/actions/runs/40608627111) 已验证原始归档并只读提取约2MiB轻量报告，未重新编译；以后正常运行也同时上传轻量包，手动 `report_run_id` 仅提取已有成功结果。早期40604428912/40604660397的输入预检失败保留，未混入统计。当前任务已完成，后续按用户审查决定是否合入，禁止强推或自行合并。
 
 ## 默认构建与参数改进（PR #14，待合入）
 
