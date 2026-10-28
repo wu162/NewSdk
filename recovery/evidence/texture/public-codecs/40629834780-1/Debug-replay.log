@@ -1,0 +1,25 @@
+COMPARE amd-ati-legacy variant=0 DXT3 full=342/5120 color=342 alpha=5120
+COMPARE amd-ati-legacy variant=0 DXT5 full=280/5120 color=342 alpha=2400
+COMPARE amd-ati-legacy variant=1 DXT3 full=295/5120 color=295 alpha=5120
+COMPARE amd-ati-legacy variant=1 DXT5 full=268/5120 color=295 alpha=2400
+COMPARE amd-ati-legacy variant=2 DXT3 full=295/5120 color=295 alpha=5120
+COMPARE amd-ati-legacy variant=2 DXT5 full=267/5120 color=295 alpha=2400
+COMPARE amd-ati-legacy variant=3 DXT3 full=342/5120 color=342 alpha=5120
+COMPARE amd-ati-legacy variant=3 DXT5 full=280/5120 color=342 alpha=2400
+COMPARE amd-ati-legacy variant=4 DXT3 full=295/5120 color=295 alpha=5120
+COMPARE amd-ati-legacy variant=4 DXT5 full=268/5120 color=295 alpha=2400
+COMPARE amd-ati-legacy variant=5 DXT3 full=295/5120 color=295 alpha=5120
+COMPARE amd-ati-legacy variant=5 DXT5 full=267/5120 color=295 alpha=2400
+COMPARE amd-ati-legacy variant=6 DXT3 full=349/5120 color=349 alpha=5120
+COMPARE amd-ati-legacy variant=6 DXT5 full=282/5120 color=349 alpha=2400
+COMPARE amd-ati-legacy variant=7 DXT3 full=369/5120 color=369 alpha=5120
+COMPARE amd-ati-legacy variant=7 DXT5 full=308/5120 color=369 alpha=2400
+COMPARE amd-ati-legacy variant=8 DXT3 full=308/5120 color=308 alpha=5120
+COMPARE amd-ati-legacy variant=8 DXT5 full=274/5120 color=308 alpha=2400
+COMPARE amd-ati-legacy variant=9 DXT3 full=349/5120 color=349 alpha=5120
+COMPARE amd-ati-legacy variant=9 DXT5 full=282/5120 color=349 alpha=2400
+COMPARE amd-ati-legacy variant=10 DXT3 full=369/5120 color=369 alpha=5120
+COMPARE amd-ati-legacy variant=10 DXT5 full=308/5120 color=369 alpha=2400
+COMPARE amd-ati-legacy variant=11 DXT3 full=308/5120 color=308 alpha=5120
+COMPARE amd-ati-legacy variant=11 DXT5 full=274/5120 color=308 alpha=2400
+PASS Public codec comparison completed; mismatches retained, no production acceptance implied
