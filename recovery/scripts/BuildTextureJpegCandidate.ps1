@@ -18,8 +18,8 @@ try{
  if($LASTEXITCODE -ne 0){throw 'IJG source compilation failed'}
  & lib /nologo /out:jpeg.lib @($common+$encoder+$decoder|ForEach-Object{[IO.Path]::ChangeExtension($_,'obj')})
  if($LASTEXITCODE -ne 0){throw 'IJG library failed'}
- & cl /nologo /TC /MT /O2 /D_CRT_SECURE_NO_WARNINGS /I. /Fe:cjpeg.exe cjpeg.c rdppm.c rdgif.c rdtarga.c rdrle.c rdbmp.c rdswitch.c cdjpeg.c jpeg.lib
+ & cl /nologo /TC /MT /O2 /D_CRT_SECURE_NO_WARNINGS /I. /Fe:cjpeg.exe cjpeg.c rdppm.c rdgif.c rdtarga.c rdrle.c rdbmp.c rdswitch.c cdjpeg.c /link jpeg.lib
  if($LASTEXITCODE -ne 0){throw 'IJG fixture encoder failed'}
- & cl /nologo /TC /MT /O2 /fp:precise /LD /D_CRT_SECURE_NO_WARNINGS /I. TextureJpegCandidate.c jpeg.lib /link /OUT:TextureJpegCandidate.dll /EXPORT:JpegCandidate=_JpegCandidate
+ & cl /nologo /TC /MT /O2 /fp:precise /LD /D_CRT_SECURE_NO_WARNINGS /I. TextureJpegCandidate.c /link jpeg.lib /OUT:TextureJpegCandidate.dll /EXPORT:JpegCandidate=_JpegCandidate
  if($LASTEXITCODE -ne 0){throw 'JPEG candidate failed'}
 }finally{Set-Location $previous}
