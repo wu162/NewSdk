@@ -1,6 +1,6 @@
 # 编译器文档入口
 
-本分支 `feature/cache-parallel` 从 `compiler-main` 分出，专门执行 [缓存与并行计划](docs/CACHE_PARALLEL_PLAN.md)。继续专项先读计划和交接；`compiler-main` 为最终 PR 目标。首次使用工具请读使用说明。历史组件记录用于追溯，旧“下一步”不代表当前待办。
+本分支 `feature/cache-parallel` 从 `compiler-main` 分出，专门执行 [缓存与并行计划](docs/CACHE_PARALLEL_PLAN.md)。继续专项先读 [简短交接](REFACTOR_RESUME.md) 和 [执行规则](EFFICIENCY.md)，再按需读计划章节；`compiler-main` 为最终 PR 目标。首次使用工具请读使用说明。历史组件记录用于追溯，旧“下一步”不代表当前待办。
 
 ## 使用与交付
 

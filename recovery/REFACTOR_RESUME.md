@@ -4,6 +4,8 @@
 
 ## 范围与读取顺序
 
+读完 `AGENTS.md` 后先读本页及 [执行规则](EFFICIENCY.md)，随后按本次任务读取计划章节；首次接手或调整整体方向时再通读计划，日常不加载全部计划和历史记录。
+
 以 [CACHE_PARALLEL_PLAN](docs/CACHE_PARALLEL_PLAN.md) 为目标与验收合同：A 资产动作缓存、B 消除重复 I/O、C 跨文档有界并行。具体已支持能力见 [CACHE_PARALLEL](docs/CACHE_PARALLEL.md)，精确来源见 [证据 JSON](docs/CACHE_PARALLEL_EVIDENCE.json)。计划中的要求不能当作已完成状态；历史里程碑中的“下一步”不覆盖本页。
 
 不继续旧重构收尾、发行功能扩展、其他组件分支归集或全局研究。旧 session、原字节差分、SDK/mymod、BIG/CDATA、取消与回滚、独立 ZIP 仍保留为适用回归合同。
@@ -18,6 +20,8 @@
 默认 `bc/sc=false`、jobs=1；专项未替换主线发行。热缓存净收益尚未解决，不能用零后端调用或跨runner耗时差宣称已加速。
 
 ## 下一步：计划 B 组输入闭包成本
+
+本次按需读：[B组](docs/CACHE_PARALLEL_PLAN.md#plan-b)、[输入一致性](docs/CACHE_PARALLEL_PLAN.md#plan-input-consistency)、[验收](docs/CACHE_PARALLEL_PLAN.md#plan-validation) 和 [计量](docs/CACHE_PARALLEL_PLAN.md#plan-performance)；涉及store/发布时补读 [事务](docs/CACHE_PARALLEL_PLAN.md#plan-transactions)。
 
 1. 从 `CacheInputSnapshot.cs`、`CoreStreamCompiler.cs` 及既有计量定位同一构建内重复盘点/受控读，成组消除可证明重复的工作，保留必要读取；不再扩大 XML 资格或围绕私有恢复做微调。
 2. 共享必须有稳定字节版本证明；保留鲜读、文件身份核验、MOD/Additional保护、首尾检查与发布前保护。不能用 mtime/size 替代内容身份，也不把前后扫描当严格快照。

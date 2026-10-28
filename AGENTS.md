@@ -17,7 +17,7 @@
 
 ## 续接与上下文控制
 
-在 `feature/cache-parallel` 续接时，先读 `recovery/docs/CACHE_PARALLEL_PLAN.md` 与 `recovery/REFACTOR_RESUME.md`，再按当前阻塞读取对应源码和证据。原组件恢复仅在专项确有依赖时定点查阅。`recovery/docs/history/STATUS.md` 保存历史验证记录，旧章节的“下一轮”可能已过时；不要把全量历史交接与大型反编译文件一次性加载到上下文。以远程分支头及验证文件的 sourceCommit/runId 核实实际状态。完成阶段时同步更新简短续接入口。
+在 `feature/cache-parallel` 续接时，先读简短交接 `recovery/REFACTOR_RESUME.md` 和执行规则 `recovery/EFFICIENCY.md`，再按交接链接读取计划的相关章节、源码和必要证据。日常续接不要求完整读取 `recovery/docs/CACHE_PARALLEL_PLAN.md`；首次接手或调整整体方向时再通读。原组件恢复仅在专项确有依赖时定点查阅。`recovery/docs/history/STATUS.md` 保存历史验证记录，旧章节的“下一轮”可能已过时；不要把全量历史交接与大型反编译文件一次性加载到上下文。以远程分支头及验证文件的 sourceCommit/runId 核实实际状态。完成阶段时同步更新简短续接入口。
 
 ## 执行原则：效率优先，正确性是底线
 

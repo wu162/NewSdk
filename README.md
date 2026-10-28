@@ -4,6 +4,8 @@
 
 ## 专项入口
 
+日常续接：先读 `AGENTS.md`、简短交接与执行规则，再按交接链接读取计划章节；不默认加载完整计划和历史记录。
+
 | 需要了解什么 | 文档 |
 | --- | --- |
 | 目标、范围、产品模式与验收条件 | [CACHE_PARALLEL_PLAN](recovery/docs/CACHE_PARALLEL_PLAN.md) |
