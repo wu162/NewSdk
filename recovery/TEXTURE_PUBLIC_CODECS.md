@@ -79,3 +79,21 @@ meaning changed explicitly at this source commit; earlier matrices retain their
 own source and must not be relabeled. Its Actions result is still pending at
 this checkpoint. No new original-DLL investigation was needed for these source
 adaptations. Preserve full component/float/mip/volume/atlas/plugin/SDK gates.
+
+
+## Final handoff (2026-10-28)
+
+40632587996 completed/success at sourcee5fbd08a8275af071c08b65a3fd579653d915cd7.
+D/R each16 complete variants/163840 records, raw artifacts SHA256
+9ecff36fad03558b2199fc68839e5f4db2b7d44ff9d30e6f78655accd569298b identical.
+Best variant0/2 remains5093/5120 whole DXT3/5 with5120/5120 alpha. Floor table,
+floor ramp and both give4892,1648,1447 at source/weight float precision. Single
+floor fixes0 of27 and regresses201; general floor fixes1690 but regresses3446.
+No broad-floor patch is acceptable. Baseline variant0 keeps upstream rounded
+interpolation and16/8 search budgets with fixed gray compatibility constants.
+No production/SDK acceptance, no pending run. Continue source stage diagnostics
+against the27 already listed inputs and existing colour-state/40500150864-1
+receipt/artifacts. Do not repeat unchanged rejected matrices. Main handoff is
+recovery/RESUME.md and TEXTURE_PUBLIC_REUSE_RESULTS.md on the texture branch;
+JPEG full component/SDK acceptance remains merged there. Test-branch source and
+failed experiments are retained; no partial DXT backend was merged to production.
