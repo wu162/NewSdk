@@ -44,3 +44,7 @@
 
 用户指出“每次触发的测试个数太多了”。TextureCompiler 后续按 [TEXTURE_TESTING.md](recovery/TEXTURE_TESTING.md) 执行：普通检查点不启动 Windows 重测，完整能力组准备好后使用 [texture-test]；显式 SDK 里程碑使用 [texture-sdk]。只有一个自动入口 texture-validation.yml，按成功祖先证据和实际依赖选组，至多一个 Windows 作业顺序运行选中完整矩阵。原独立工作流保留手动入口，不再多路 push 触发。新增 helper/消费关系同步维护依赖表。旧文档里的多条自动触发安排以本条为准；不减少断言，不把探针、失败或缺失证据作为完成，未变成功组保留原 sourceCommit/runId。此规则仅针对 TextureCompiler。
 
+
+## TextureCompiler 公开源码复用（2026-10-28 用户要求）
+
+用户要求优先直接复用网上可取得的现成源码，其他功能有可用实现也按此推进；不按许可类型排除公开源码候选，保留上游文件、通知、固定提交与来源。先开独立测试分支，以原DLL或不可变原gold做完整逐字节产物对照；一致后再普通合入recovery/texturecompiler-source。组件、DDS/mip/volume/atlas/插件与适用SDK门槛不降低；同格式、视觉相同、alpha子部分相同或比较任务success均不能代替完整产物一致。未匹配候选继续留在测试分支，不启用为生产后端；禁止强推。

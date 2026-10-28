@@ -1,6 +1,6 @@
 # PC JPEG 恢复入口
 
-当前已收齐原版取证，并接入JPEG候选业务路由；源码699479a9 / Actions40626161229仍在完整组件验证，尚无业务或SDK验收。不得把probe-only收据或正在运行的批次写为恢复完成。
+当前公共JPEG路由与专用SDK已验收：组件699479a9/40626161229与SDK e8835cfe/40628208308均completed/success。本文后续“候选/待验收”章节保留历史；最终验收见文末，原probe-only记录不改写。
 
 原 DLL SHA256 `4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e` 包含 IJG 的 JPEG 错误文本及 `Copyright (C) 1998, Thomas G. Lane`。这只构成选择公开参考库的依据，不能证明 D3DX 的调用参数或 JPEG 输出与该库相同。
 
@@ -23,3 +23,11 @@
 新jpeg-images完整11248例：原全部输入的raw/两根/cdata路径+80 focused输入的raw3/DXT3/5、标准/volume、有无mip与旧新cdata矩阵+32 JPEG编码atlas base/normal变体，原版全buffer/cdata及逐次NoOriginal，D/R各自native/managed构建。TestTextureJpegSdk.ps1计划3216资产（三模式每模式3200标准/volume纹理+16 atlas），仅保存准备稿，尚未运行。组件成功后再显式SDK；生产SDK不替换。
 
 构建修复历史：40609293267因cl /TC把jpeg.lib当C输入失败；40625214348因多余_EXPORT别名失败，未采原输入；3f235移除别名、显式I386检查与实际导出记录后通过。所有失败收据保持原状态。
+
+## 最终组件与公开源码SDK验收（2026-10-28 11:54 北京时间）
+
+组件699479a9/40626161229 success：D/R各1284原RGBA/元数据/异常回放（1280解码、4拒绝），23105检查、888960字节；公共插件11248例、16原错误、6旧DXT1/1A拒绝、82231440字节，完整NoOriginal同量通过，六个L8差异全部闭环。其余11组件同批成功。
+
+SDK e8835cfee56cb35376a6bc1cb18a40d189263842 /40628208308 success，在validation/texture-public-jpeg干净分支完成。PcJpeg三模式各3216资产/3216真实Core调用，包括3200 raw/DXT、标准/volume/mip/两根与16 JPEG编码atlas；四产物/完整轨迹相同，NoOriginal逐次原DLL缺席/未加载。其余8个受影响SDK profile同批通过，全9profile每模式13104资产/调用；32组件组复用，未重跑。未改生产SDK或宣称完整mymod。当前source/schema/native依赖均未改变，合入继续引用此精确锚点。
+
+对比网上另一现成库STB：40627584385 D/R均仅272/1280完整JPEG像素相同、1/4原错误匹配。未将STB作为替代后端合入。公开DXT结果和具体反例见TEXTURE_PUBLIC_REUSE_RESULTS.md。
