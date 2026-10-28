@@ -175,13 +175,6 @@ namespace NewModCompiler.Application
             // Closing required sinks is part of the controlled outcome, before the caller's
             // return value is evaluated. A late failure cannot emit a second terminal event.
             events.Dispose();
-            if (code == ExitCode.Success && compiler is IBuildCacheInputValidator)
-            {
-                try { ((IBuildCacheInputValidator)compiler).ValidateCacheInputs(cancellation); }
-                catch (OperationCanceledException e) { code=ExitCode.Cancelled; status="cancelled"; Fail(e,status,"BUILD_CANCELLED","Build cancelled during final cache input validation."); }
-                catch (BuildFailure e) { code=e.ExitCode; status="failed"; Fail(e,status,e.Code,e.Message); }
-                catch (Exception e) { code=ExitCode.Compilation; status="failed"; Fail(e,status,"CORE_CACHE_INPUT_CHANGED",e.ToString()); }
-            }
             if (events.OutputFailed) { code=ExitCode.Output; status="failed"; }
             if (events.CloseFailed) {
                 AddReportDiagnostic("EVENT_CLOSE_FAILED",events.CloseFailureMessage,"error",null,null,null,null);
