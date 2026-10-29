@@ -1,0 +1,8 @@
+Command Line: D:\a\_temp\texture-sdk-47b0ce1909a64395b11b8cf0eddbe85d\Original\Mods\RecoveryTexture\Data\Mod.xml /od:D:\a\_temp\texture-sdk-47b0ce1909a64395b11b8cf0eddbe85d\Original\builtmods /iod:D:\a\_temp\texture-sdk-47b0ce1909a64395b11b8cf0eddbe85d\Original\builtmods /tp:Win32 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\RecoveryTexture\Art;.\Mods;.\Art /audio:.;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio /data:.;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\texture-sdk-47b0ce1909a64395b11b8cf0eddbe85d\Original\Mods\RecoveryTexture\Data\Mod.xml /od:D:\a\_temp\texture-sdk-47b0ce1909a64395b11b8cf0eddbe85d\Original\builtmods /iod:D:\a\_temp\texture-sdk-47b0ce1909a64395b11b8cf0eddbe85d\Original\builtmods /tp:Win32 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\RecoveryTexture\Art;.\Mods;.\Art /audio:.;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio /data:.;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.1718961] Cached session data not available.
+[00:00:00.1718961] Session caching enabled ('D:\a\_temp\texture-sdk-47b0ce1909a64395b11b8cf0eddbe85d\Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.1718961] Network caching enabled ('D:\a\_temp\texture-sdk-47b0ce1909a64395b11b8cf0eddbe85d\Original\builtmods\cache').
+[00:00:00.1875133] Loading 'file://d:\a\_temp\texture-sdk-47b0ce1909a64395b11b8cf0eddbe85d\original\mods\recoverytexture\data\mod.xml'.
+[00:00:00.3437526] Critical: Duplicate Instance: Texture:BmpHeader_12000 [21e727da:7c4181ec] (other is Texture:BmpHeader_11012 [21e727da:7c4181ec])

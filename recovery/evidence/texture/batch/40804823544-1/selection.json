@@ -1,0 +1,454 @@
+{
+  "sourceCommit": "6fb39059583ffa0f3a5418e151c9e92e13b41d26",
+  "selected": [
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "sdk-PcDxtNoMip",
+    "sdk-PcDxtMips",
+    "sdk-PcDxtVolumes",
+    "sdk-PcNpotRgba8",
+    "sdk-PcNpotStorage",
+    "sdk-PcAtlas",
+    "sdk-PcJpeg",
+    "sdk-PcDxt1a",
+    "sdk-PcBmpHeaders",
+    "bmp-bitfields-load"
+  ],
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-dds",
+    "atlas-entry",
+    "jpeg",
+    "jpeg-images",
+    "dxt1a-blocks",
+    "dxt1a-dds",
+    "dxt1a-images",
+    "png-metadata",
+    "png-metadata-images",
+    "sdk-PcPngMetadata",
+    "jpeg-metadata",
+    "jpeg-metadata-images",
+    "sdk-PcJpegMetadata",
+    "tga-metadata",
+    "tga-metadata-images",
+    "sdk-PcTgaMetadata",
+    "bmp-headers",
+    "bmp-header-images"
+  ],
+  "details": {
+    "base": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/validation/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "tga": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/tga/40795326615-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "formats": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/stage2/Formats/40795326615-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-helper": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/Volume/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "raw": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/Raw/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "mips": {
+      "sourceCommit": "7ae4af3769842084cd19cbff87c651c945f45888",
+      "runId": "40524039917",
+      "receipt": "recovery/evidence/texture/stage2/Mips/40524039917-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-dds": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/VolumeDds/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-mips": {
+      "sourceCommit": "aaacb3d25fdb99eddaa8ed4ab23701437e840ec2",
+      "runId": "40526443463",
+      "receipt": "recovery/evidence/texture/stage2/VolumeMips/40526443463-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "images": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/images/40795326615-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "mip-images": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/mip-images/40795326615-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-images": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/volume-images/40795326615-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-mip-images": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/volume-mip-images/40795326615-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "png": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "bmp": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/bmp/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "raster-images": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/raster-images/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcNoMip": {
+      "reason": "changed inputs: recovery/reference/ijg6b/.gitattributes, recovery/reference/ijg6b/NOTICE.md, recovery/reference/ijg6b/PROVENANCE.json, recovery/reference/ijg6b/README, recovery/reference/ijg6b/cderror.h, recovery/reference/ijg6b/cdjpeg.c, recovery/reference/ijg6b/cdjpeg.h, recovery/reference/ijg6b/cjpeg.c, recovery/reference/ijg6b/jcapimin.c, recovery/reference/ijg6b/jcapistd.c, recovery/reference/ijg6b/jccoefct.c, recovery/reference/ijg6b/jccolor.c, recovery/reference/ijg6b/jcdctmgr.c, recovery/reference/ijg6b/jchuff.c, recovery/reference/ijg6b/jchuff.h, recovery/reference/ijg6b/jcinit.c, recovery/reference/ijg6b/jcmainct.c, recovery/reference/ijg6b/jcmarker.c, recovery/reference/ijg6b/jcmaster.c, recovery/reference/ijg6b/jcomapi.c, recovery/reference/ijg6b/jconfig.vc, recovery/reference/ijg6b/jcparam.c, recovery/reference/ijg6b/jcphuff.c, recovery/reference/ijg6b/jcprepct.c, recovery/reference/ijg6b/jcsample.c, recovery/reference/ijg6b/jctrans.c, recovery/reference/ijg6b/jdapimin.c, recovery/reference/ijg6b/jdapistd.c, recovery/reference/ijg6b/jdatadst.c, recovery/reference/ijg6b/jdatasrc.c, recovery/reference/ijg6b/jdcoefct.c, recovery/reference/ijg6b/jdcolor.c, recovery/reference/ijg6b/jdct.h, recovery/reference/ijg6b/jddctmgr.c, recovery/reference/ijg6b/jdhuff.c, recovery/reference/ijg6b/jdhuff.h, recovery/reference/ijg6b/jdinput.c, recovery/reference/ijg6b/jdmainct.c, recovery/reference/ijg6b/jdmarker.c, recovery/reference/ijg6b/jdmaster.c, recovery/reference/ijg6b/jdmerge.c, recovery/reference/ijg6b/jdphuff.c, recovery/reference/ijg6b/jdpostct.c, recovery/reference/ijg6b/jdsample.c, recovery/reference/ijg6b/jdtrans.c, recovery/reference/ijg6b/jerror.c, recovery/reference/ijg6b/jerror.h, recovery/reference/ijg6b/jfdctflt.c, recovery/reference/ijg6b/jfdctfst.c, recovery/reference/ijg6b/jfdctint.c, recovery/reference/ijg6b/jidctflt.c, recovery/reference/ijg6b/jidctfst.c, recovery/reference/ijg6b/jidctint.c, recovery/reference/ijg6b/jidctred.c, recovery/reference/ijg6b/jinclude.h, recovery/reference/ijg6b/jmemansi.c, recovery/reference/ijg6b/jmemdos.c, recovery/reference/ijg6b/jmemmac.c, recovery/reference/ijg6b/jmemmgr.c, recovery/reference/ijg6b/jmemname.c, recovery/reference/ijg6b/jmemnobs.c, recovery/reference/ijg6b/jmemsys.h, recovery/reference/ijg6b/jmorecfg.h, recovery/reference/ijg6b/jpegint.h, recovery/reference/ijg6b/jpeglib.h, recovery/reference/ijg6b/jpegtran.c, recovery/reference/ijg6b/jquant1.c, recovery/reference/ijg6b/jquant2.c, recovery/reference/ijg6b/jutils.c, recovery/reference/ijg6b/jversion.h, recovery/reference/ijg6b/makefile.vc, recovery/reference/ijg6b/rdbmp.c, recovery/reference/ijg6b/rdgif.c, recovery/reference/ijg6b/rdppm.c, recovery/reference/ijg6b/rdrle.c, recovery/reference/ijg6b/rdswitch.c, recovery/reference/ijg6b/rdtarga.c, recovery/reference/ijg6b/transupp.h, recovery/scripts/BuildTextureJpeg.ps1, recovery/scripts/TestTextureRasterSdk.ps1, recovery/tests/TextureBmpOracle.cs, recovery/tests/TexturePngOracle.cs, recovery/tests/TextureRasterFixtureWriter.cs, recovery/tests/TextureSdkTracePlugin.cs, src/TextureCompiler/Jpeg/TextureJpeg.c, src/TextureCompiler/Managed/Plugin.Atlas.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/Plugin.Metadata.cs, src/TextureCompiler/Managed/TextureAtlasDdsEncoder.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureCatalog.cs, src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs, src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs, src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs, src/TextureCompiler/Managed/TextureDxt5FastAlphaEncoder.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs, src/TextureCompiler/Managed/TextureImageLoader.cs, src/TextureCompiler/Managed/TextureImageRules.cs, src/TextureCompiler/Managed/TextureJpegDecoder.cs, src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs, src/TextureCompiler/Managed/TextureNpotStorageResampler.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TexturePs3MipEncoder.cs, src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs, src/TextureCompiler/Managed/TextureTgaDecoder.cs, src/TextureCompiler/Managed/TextureTgaMetadata.cs, src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs, src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    "sdk-PcMips": {
+      "reason": "changed inputs: recovery/reference/ijg6b/.gitattributes, recovery/reference/ijg6b/NOTICE.md, recovery/reference/ijg6b/PROVENANCE.json, recovery/reference/ijg6b/README, recovery/reference/ijg6b/cderror.h, recovery/reference/ijg6b/cdjpeg.c, recovery/reference/ijg6b/cdjpeg.h, recovery/reference/ijg6b/cjpeg.c, recovery/reference/ijg6b/jcapimin.c, recovery/reference/ijg6b/jcapistd.c, recovery/reference/ijg6b/jccoefct.c, recovery/reference/ijg6b/jccolor.c, recovery/reference/ijg6b/jcdctmgr.c, recovery/reference/ijg6b/jchuff.c, recovery/reference/ijg6b/jchuff.h, recovery/reference/ijg6b/jcinit.c, recovery/reference/ijg6b/jcmainct.c, recovery/reference/ijg6b/jcmarker.c, recovery/reference/ijg6b/jcmaster.c, recovery/reference/ijg6b/jcomapi.c, recovery/reference/ijg6b/jconfig.vc, recovery/reference/ijg6b/jcparam.c, recovery/reference/ijg6b/jcphuff.c, recovery/reference/ijg6b/jcprepct.c, recovery/reference/ijg6b/jcsample.c, recovery/reference/ijg6b/jctrans.c, recovery/reference/ijg6b/jdapimin.c, recovery/reference/ijg6b/jdapistd.c, recovery/reference/ijg6b/jdatadst.c, recovery/reference/ijg6b/jdatasrc.c, recovery/reference/ijg6b/jdcoefct.c, recovery/reference/ijg6b/jdcolor.c, recovery/reference/ijg6b/jdct.h, recovery/reference/ijg6b/jddctmgr.c, recovery/reference/ijg6b/jdhuff.c, recovery/reference/ijg6b/jdhuff.h, recovery/reference/ijg6b/jdinput.c, recovery/reference/ijg6b/jdmainct.c, recovery/reference/ijg6b/jdmarker.c, recovery/reference/ijg6b/jdmaster.c, recovery/reference/ijg6b/jdmerge.c, recovery/reference/ijg6b/jdphuff.c, recovery/reference/ijg6b/jdpostct.c, recovery/reference/ijg6b/jdsample.c, recovery/reference/ijg6b/jdtrans.c, recovery/reference/ijg6b/jerror.c, recovery/reference/ijg6b/jerror.h, recovery/reference/ijg6b/jfdctflt.c, recovery/reference/ijg6b/jfdctfst.c, recovery/reference/ijg6b/jfdctint.c, recovery/reference/ijg6b/jidctflt.c, recovery/reference/ijg6b/jidctfst.c, recovery/reference/ijg6b/jidctint.c, recovery/reference/ijg6b/jidctred.c, recovery/reference/ijg6b/jinclude.h, recovery/reference/ijg6b/jmemansi.c, recovery/reference/ijg6b/jmemdos.c, recovery/reference/ijg6b/jmemmac.c, recovery/reference/ijg6b/jmemmgr.c, recovery/reference/ijg6b/jmemname.c, recovery/reference/ijg6b/jmemnobs.c, recovery/reference/ijg6b/jmemsys.h, recovery/reference/ijg6b/jmorecfg.h, recovery/reference/ijg6b/jpegint.h, recovery/reference/ijg6b/jpeglib.h, recovery/reference/ijg6b/jpegtran.c, recovery/reference/ijg6b/jquant1.c, recovery/reference/ijg6b/jquant2.c, recovery/reference/ijg6b/jutils.c, recovery/reference/ijg6b/jversion.h, recovery/reference/ijg6b/makefile.vc, recovery/reference/ijg6b/rdbmp.c, recovery/reference/ijg6b/rdgif.c, recovery/reference/ijg6b/rdppm.c, recovery/reference/ijg6b/rdrle.c, recovery/reference/ijg6b/rdswitch.c, recovery/reference/ijg6b/rdtarga.c, recovery/reference/ijg6b/transupp.h, recovery/scripts/BuildTextureJpeg.ps1, recovery/scripts/TestTextureRasterSdk.ps1, recovery/tests/TextureBmpOracle.cs, recovery/tests/TexturePngOracle.cs, recovery/tests/TextureRasterFixtureWriter.cs, recovery/tests/TextureSdkTracePlugin.cs, src/TextureCompiler/Jpeg/TextureJpeg.c, src/TextureCompiler/Managed/Plugin.Atlas.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/Plugin.Metadata.cs, src/TextureCompiler/Managed/TextureAtlasDdsEncoder.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureCatalog.cs, src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs, src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs, src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs, src/TextureCompiler/Managed/TextureDxt5FastAlphaEncoder.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs, src/TextureCompiler/Managed/TextureImageLoader.cs, src/TextureCompiler/Managed/TextureImageRules.cs, src/TextureCompiler/Managed/TextureJpegDecoder.cs, src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs, src/TextureCompiler/Managed/TextureNpotStorageResampler.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TexturePs3MipEncoder.cs, src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs, src/TextureCompiler/Managed/TextureTgaDecoder.cs, src/TextureCompiler/Managed/TextureTgaMetadata.cs, src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs, src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    "png-ranges": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png-ranges/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-symbols": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-blocks": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt3-alpha": {
+      "sourceCommit": "9f8b1361148a6b76fec1b5564b3d055ba4ee62e7",
+      "runId": "40470055551",
+      "receipt": "recovery/evidence/texture/dxt3-alpha/40470055551-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-decompile": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt5-fast-alpha": {
+      "sourceCommit": "82422508cad2ad15b551be06596f8666791422c9",
+      "runId": "40490888440",
+      "receipt": "recovery/evidence/texture/dxt5-fast-alpha/40490888440-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt5-alpha": {
+      "sourceCommit": "4bf0ca8ccb74a6f670cd7ecb954483dc795fae9f",
+      "runId": "40493971846",
+      "receipt": "recovery/evidence/texture/dxt5-alpha/40493971846-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-colour-functions": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-colour-graph": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-colour-state": {
+      "sourceCommit": "2cee34462377beca4b16926eaf25d093daa02c2a",
+      "runId": "40500150864",
+      "receipt": "recovery/evidence/texture/colour-state/40500150864-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-blocks-complete": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-blocks/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-dds2d": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-dds2d/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-images": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/dxt-images/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcDxtNoMip": {
+      "reason": "changed inputs: recovery/evidence/texture/npot-load/40528237009-1/build.log, recovery/evidence/texture/npot-load/40528237009-1/fixture-support-build.log, recovery/evidence/texture/npot-load/40528237009-1/oracle.log, recovery/evidence/texture/npot-load/40528237009-1/samples.zip, recovery/evidence/texture/npot-load/40528237009-1/transcript.tsv, recovery/evidence/texture/npot-load/40528237009-1/validation.json, recovery/evidence/texture/npot-storage/40592911746-1/build.log, recovery/evidence/texture/npot-storage/40592911746-1/fixture-support-build.log, recovery/evidence/texture/npot-storage/40592911746-1/oracle.log, recovery/evidence/texture/npot-storage/40592911746-1/samples.zip, recovery/evidence/texture/npot-storage/40592911746-1/transcript.tsv, recovery/evidence/texture/npot-storage/40592911746-1/validation.json, recovery/reference/ijg6b/.gitattributes, recovery/reference/ijg6b/NOTICE.md, recovery/reference/ijg6b/PROVENANCE.json, recovery/reference/ijg6b/README, recovery/reference/ijg6b/cderror.h, recovery/reference/ijg6b/cdjpeg.c, recovery/reference/ijg6b/cdjpeg.h, recovery/reference/ijg6b/cjpeg.c, recovery/reference/ijg6b/jcapimin.c, recovery/reference/ijg6b/jcapistd.c, recovery/reference/ijg6b/jccoefct.c, recovery/reference/ijg6b/jccolor.c, recovery/reference/ijg6b/jcdctmgr.c, recovery/reference/ijg6b/jchuff.c, recovery/reference/ijg6b/jchuff.h, recovery/reference/ijg6b/jcinit.c, recovery/reference/ijg6b/jcmainct.c, recovery/reference/ijg6b/jcmarker.c, recovery/reference/ijg6b/jcmaster.c, recovery/reference/ijg6b/jcomapi.c, recovery/reference/ijg6b/jconfig.vc, recovery/reference/ijg6b/jcparam.c, recovery/reference/ijg6b/jcphuff.c, recovery/reference/ijg6b/jcprepct.c, recovery/reference/ijg6b/jcsample.c, recovery/reference/ijg6b/jctrans.c, recovery/reference/ijg6b/jdapimin.c, recovery/reference/ijg6b/jdapistd.c, recovery/reference/ijg6b/jdatadst.c, recovery/reference/ijg6b/jdatasrc.c, recovery/reference/ijg6b/jdcoefct.c, recovery/reference/ijg6b/jdcolor.c, recovery/reference/ijg6b/jdct.h, recovery/reference/ijg6b/jddctmgr.c, recovery/reference/ijg6b/jdhuff.c, recovery/reference/ijg6b/jdhuff.h, recovery/reference/ijg6b/jdinput.c, recovery/reference/ijg6b/jdmainct.c, recovery/reference/ijg6b/jdmarker.c, recovery/reference/ijg6b/jdmaster.c, recovery/reference/ijg6b/jdmerge.c, recovery/reference/ijg6b/jdphuff.c, recovery/reference/ijg6b/jdpostct.c, recovery/reference/ijg6b/jdsample.c, recovery/reference/ijg6b/jdtrans.c, recovery/reference/ijg6b/jerror.c, recovery/reference/ijg6b/jerror.h, recovery/reference/ijg6b/jfdctflt.c, recovery/reference/ijg6b/jfdctfst.c, recovery/reference/ijg6b/jfdctint.c, recovery/reference/ijg6b/jidctflt.c, recovery/reference/ijg6b/jidctfst.c, recovery/reference/ijg6b/jidctint.c, recovery/reference/ijg6b/jidctred.c, recovery/reference/ijg6b/jinclude.h, recovery/reference/ijg6b/jmemansi.c, recovery/reference/ijg6b/jmemdos.c, recovery/reference/ijg6b/jmemmac.c, recovery/reference/ijg6b/jmemmgr.c, recovery/reference/ijg6b/jmemname.c, recovery/reference/ijg6b/jmemnobs.c, recovery/reference/ijg6b/jmemsys.h, recovery/reference/ijg6b/jmorecfg.h, recovery/reference/ijg6b/jpegint.h, recovery/reference/ijg6b/jpeglib.h, recovery/reference/ijg6b/jpegtran.c, recovery/reference/ijg6b/jquant1.c, recovery/reference/ijg6b/jquant2.c, recovery/reference/ijg6b/jutils.c, recovery/reference/ijg6b/jversion.h, recovery/reference/ijg6b/makefile.vc, recovery/reference/ijg6b/rdbmp.c, recovery/reference/ijg6b/rdgif.c, recovery/reference/ijg6b/rdppm.c, recovery/reference/ijg6b/rdrle.c, recovery/reference/ijg6b/rdswitch.c, recovery/reference/ijg6b/rdtarga.c, recovery/reference/ijg6b/transupp.h, recovery/scripts/BuildTextureJpeg.ps1, recovery/scripts/BuildTexturePublicS3.ps1, recovery/scripts/SelectTextureNpotStorageFixtures.ps1, recovery/scripts/TestTextureDxtSdk.ps1, recovery/tests/TextureDxtSdkFixtures.cs, recovery/tests/TextureDxtSdkTracePlugin.cs, recovery/tests/TextureSdkTracePlugin.cs, src/TextureCompiler/Jpeg/TextureJpeg.c, src/TextureCompiler/Managed/Plugin.Atlas.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs, src/TextureCompiler/Managed/TextureImageLoader.cs, src/TextureCompiler/Managed/TextureJpegDecoder.cs, src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs, src/TextureCompiler/Managed/TextureNpotStorageResampler.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs, src/TextureCompiler/Managed/TextureTgaDecoder.cs, src/TextureCompiler/Managed/TextureTgaMetadata.cs, src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs, src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs, src/TextureCompiler/PublicS3/.gitattributes, src/TextureCompiler/PublicS3/LegacyGray3.inl, src/TextureCompiler/PublicS3/LegacyGray4.inl, src/TextureCompiler/PublicS3/PATCHES.md, src/TextureCompiler/PublicS3/PROVENANCE.json, src/TextureCompiler/PublicS3/S3_quant.h, src/TextureCompiler/PublicS3/TexturePublicS3.cpp, src/TextureCompiler/PublicS3/s3_quant.cpp"
+    },
+    "dxt-samples": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-samples/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-image-boundaries": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "sdk-PcDxtMips": {
+      "reason": "changed inputs: recovery/evidence/texture/npot-load/40528237009-1/build.log, recovery/evidence/texture/npot-load/40528237009-1/fixture-support-build.log, recovery/evidence/texture/npot-load/40528237009-1/oracle.log, recovery/evidence/texture/npot-load/40528237009-1/samples.zip, recovery/evidence/texture/npot-load/40528237009-1/transcript.tsv, recovery/evidence/texture/npot-load/40528237009-1/validation.json, recovery/evidence/texture/npot-storage/40592911746-1/build.log, recovery/evidence/texture/npot-storage/40592911746-1/fixture-support-build.log, recovery/evidence/texture/npot-storage/40592911746-1/oracle.log, recovery/evidence/texture/npot-storage/40592911746-1/samples.zip, recovery/evidence/texture/npot-storage/40592911746-1/transcript.tsv, recovery/evidence/texture/npot-storage/40592911746-1/validation.json, recovery/reference/ijg6b/.gitattributes, recovery/reference/ijg6b/NOTICE.md, recovery/reference/ijg6b/PROVENANCE.json, recovery/reference/ijg6b/README, recovery/reference/ijg6b/cderror.h, recovery/reference/ijg6b/cdjpeg.c, recovery/reference/ijg6b/cdjpeg.h, recovery/reference/ijg6b/cjpeg.c, recovery/reference/ijg6b/jcapimin.c, recovery/reference/ijg6b/jcapistd.c, recovery/reference/ijg6b/jccoefct.c, recovery/reference/ijg6b/jccolor.c, recovery/reference/ijg6b/jcdctmgr.c, recovery/reference/ijg6b/jchuff.c, recovery/reference/ijg6b/jchuff.h, recovery/reference/ijg6b/jcinit.c, recovery/reference/ijg6b/jcmainct.c, recovery/reference/ijg6b/jcmarker.c, recovery/reference/ijg6b/jcmaster.c, recovery/reference/ijg6b/jcomapi.c, recovery/reference/ijg6b/jconfig.vc, recovery/reference/ijg6b/jcparam.c, recovery/reference/ijg6b/jcphuff.c, recovery/reference/ijg6b/jcprepct.c, recovery/reference/ijg6b/jcsample.c, recovery/reference/ijg6b/jctrans.c, recovery/reference/ijg6b/jdapimin.c, recovery/reference/ijg6b/jdapistd.c, recovery/reference/ijg6b/jdatadst.c, recovery/reference/ijg6b/jdatasrc.c, recovery/reference/ijg6b/jdcoefct.c, recovery/reference/ijg6b/jdcolor.c, recovery/reference/ijg6b/jdct.h, recovery/reference/ijg6b/jddctmgr.c, recovery/reference/ijg6b/jdhuff.c, recovery/reference/ijg6b/jdhuff.h, recovery/reference/ijg6b/jdinput.c, recovery/reference/ijg6b/jdmainct.c, recovery/reference/ijg6b/jdmarker.c, recovery/reference/ijg6b/jdmaster.c, recovery/reference/ijg6b/jdmerge.c, recovery/reference/ijg6b/jdphuff.c, recovery/reference/ijg6b/jdpostct.c, recovery/reference/ijg6b/jdsample.c, recovery/reference/ijg6b/jdtrans.c, recovery/reference/ijg6b/jerror.c, recovery/reference/ijg6b/jerror.h, recovery/reference/ijg6b/jfdctflt.c, recovery/reference/ijg6b/jfdctfst.c, recovery/reference/ijg6b/jfdctint.c, recovery/reference/ijg6b/jidctflt.c, recovery/reference/ijg6b/jidctfst.c, recovery/reference/ijg6b/jidctint.c, recovery/reference/ijg6b/jidctred.c, recovery/reference/ijg6b/jinclude.h, recovery/reference/ijg6b/jmemansi.c, recovery/reference/ijg6b/jmemdos.c, recovery/reference/ijg6b/jmemmac.c, recovery/reference/ijg6b/jmemmgr.c, recovery/reference/ijg6b/jmemname.c, recovery/reference/ijg6b/jmemnobs.c, recovery/reference/ijg6b/jmemsys.h, recovery/reference/ijg6b/jmorecfg.h, recovery/reference/ijg6b/jpegint.h, recovery/reference/ijg6b/jpeglib.h, recovery/reference/ijg6b/jpegtran.c, recovery/reference/ijg6b/jquant1.c, recovery/reference/ijg6b/jquant2.c, recovery/reference/ijg6b/jutils.c, recovery/reference/ijg6b/jversion.h, recovery/reference/ijg6b/makefile.vc, recovery/reference/ijg6b/rdbmp.c, recovery/reference/ijg6b/rdgif.c, recovery/reference/ijg6b/rdppm.c, recovery/reference/ijg6b/rdrle.c, recovery/reference/ijg6b/rdswitch.c, recovery/reference/ijg6b/rdtarga.c, recovery/reference/ijg6b/transupp.h, recovery/scripts/BuildTextureJpeg.ps1, recovery/scripts/BuildTexturePublicS3.ps1, recovery/scripts/SelectTextureNpotStorageFixtures.ps1, recovery/scripts/TestTextureDxtSdk.ps1, recovery/tests/TextureDxtSdkFixtures.cs, src/TextureCompiler/Jpeg/TextureJpeg.c, src/TextureCompiler/Managed/Plugin.Atlas.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs, src/TextureCompiler/Managed/TextureImageLoader.cs, src/TextureCompiler/Managed/TextureJpegDecoder.cs, src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs, src/TextureCompiler/Managed/TextureNpotStorageResampler.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs, src/TextureCompiler/Managed/TextureTgaDecoder.cs, src/TextureCompiler/Managed/TextureTgaMetadata.cs, src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs, src/TextureCompiler/PublicS3/.gitattributes, src/TextureCompiler/PublicS3/LegacyGray3.inl, src/TextureCompiler/PublicS3/LegacyGray4.inl, src/TextureCompiler/PublicS3/PATCHES.md, src/TextureCompiler/PublicS3/PROVENANCE.json, src/TextureCompiler/PublicS3/S3_quant.h, src/TextureCompiler/PublicS3/TexturePublicS3.cpp, src/TextureCompiler/PublicS3/s3_quant.cpp"
+    },
+    "dxt-volume-boundaries": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-volume-dds": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-volume-dds/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcDxtVolumes": {
+      "reason": "changed inputs: recovery/evidence/texture/npot-load/40528237009-1/build.log, recovery/evidence/texture/npot-load/40528237009-1/fixture-support-build.log, recovery/evidence/texture/npot-load/40528237009-1/oracle.log, recovery/evidence/texture/npot-load/40528237009-1/samples.zip, recovery/evidence/texture/npot-load/40528237009-1/transcript.tsv, recovery/evidence/texture/npot-load/40528237009-1/validation.json, recovery/evidence/texture/npot-storage/40592911746-1/build.log, recovery/evidence/texture/npot-storage/40592911746-1/fixture-support-build.log, recovery/evidence/texture/npot-storage/40592911746-1/oracle.log, recovery/evidence/texture/npot-storage/40592911746-1/samples.zip, recovery/evidence/texture/npot-storage/40592911746-1/transcript.tsv, recovery/evidence/texture/npot-storage/40592911746-1/validation.json, recovery/reference/ijg6b/.gitattributes, recovery/reference/ijg6b/NOTICE.md, recovery/reference/ijg6b/PROVENANCE.json, recovery/reference/ijg6b/README, recovery/reference/ijg6b/cderror.h, recovery/reference/ijg6b/cdjpeg.c, recovery/reference/ijg6b/cdjpeg.h, recovery/reference/ijg6b/cjpeg.c, recovery/reference/ijg6b/jcapimin.c, recovery/reference/ijg6b/jcapistd.c, recovery/reference/ijg6b/jccoefct.c, recovery/reference/ijg6b/jccolor.c, recovery/reference/ijg6b/jcdctmgr.c, recovery/reference/ijg6b/jchuff.c, recovery/reference/ijg6b/jchuff.h, recovery/reference/ijg6b/jcinit.c, recovery/reference/ijg6b/jcmainct.c, recovery/reference/ijg6b/jcmarker.c, recovery/reference/ijg6b/jcmaster.c, recovery/reference/ijg6b/jcomapi.c, recovery/reference/ijg6b/jconfig.vc, recovery/reference/ijg6b/jcparam.c, recovery/reference/ijg6b/jcphuff.c, recovery/reference/ijg6b/jcprepct.c, recovery/reference/ijg6b/jcsample.c, recovery/reference/ijg6b/jctrans.c, recovery/reference/ijg6b/jdapimin.c, recovery/reference/ijg6b/jdapistd.c, recovery/reference/ijg6b/jdatadst.c, recovery/reference/ijg6b/jdatasrc.c, recovery/reference/ijg6b/jdcoefct.c, recovery/reference/ijg6b/jdcolor.c, recovery/reference/ijg6b/jdct.h, recovery/reference/ijg6b/jddctmgr.c, recovery/reference/ijg6b/jdhuff.c, recovery/reference/ijg6b/jdhuff.h, recovery/reference/ijg6b/jdinput.c, recovery/reference/ijg6b/jdmainct.c, recovery/reference/ijg6b/jdmarker.c, recovery/reference/ijg6b/jdmaster.c, recovery/reference/ijg6b/jdmerge.c, recovery/reference/ijg6b/jdphuff.c, recovery/reference/ijg6b/jdpostct.c, recovery/reference/ijg6b/jdsample.c, recovery/reference/ijg6b/jdtrans.c, recovery/reference/ijg6b/jerror.c, recovery/reference/ijg6b/jerror.h, recovery/reference/ijg6b/jfdctflt.c, recovery/reference/ijg6b/jfdctfst.c, recovery/reference/ijg6b/jfdctint.c, recovery/reference/ijg6b/jidctflt.c, recovery/reference/ijg6b/jidctfst.c, recovery/reference/ijg6b/jidctint.c, recovery/reference/ijg6b/jidctred.c, recovery/reference/ijg6b/jinclude.h, recovery/reference/ijg6b/jmemansi.c, recovery/reference/ijg6b/jmemdos.c, recovery/reference/ijg6b/jmemmac.c, recovery/reference/ijg6b/jmemmgr.c, recovery/reference/ijg6b/jmemname.c, recovery/reference/ijg6b/jmemnobs.c, recovery/reference/ijg6b/jmemsys.h, recovery/reference/ijg6b/jmorecfg.h, recovery/reference/ijg6b/jpegint.h, recovery/reference/ijg6b/jpeglib.h, recovery/reference/ijg6b/jpegtran.c, recovery/reference/ijg6b/jquant1.c, recovery/reference/ijg6b/jquant2.c, recovery/reference/ijg6b/jutils.c, recovery/reference/ijg6b/jversion.h, recovery/reference/ijg6b/makefile.vc, recovery/reference/ijg6b/rdbmp.c, recovery/reference/ijg6b/rdgif.c, recovery/reference/ijg6b/rdppm.c, recovery/reference/ijg6b/rdrle.c, recovery/reference/ijg6b/rdswitch.c, recovery/reference/ijg6b/rdtarga.c, recovery/reference/ijg6b/transupp.h, recovery/scripts/BuildTextureJpeg.ps1, recovery/scripts/BuildTexturePublicS3.ps1, recovery/scripts/SelectTextureNpotStorageFixtures.ps1, recovery/scripts/TestTextureDxtSdk.ps1, src/TextureCompiler/Jpeg/TextureJpeg.c, src/TextureCompiler/Managed/Plugin.Atlas.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs, src/TextureCompiler/Managed/TextureImageLoader.cs, src/TextureCompiler/Managed/TextureJpegDecoder.cs, src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs, src/TextureCompiler/Managed/TextureNpotStorageResampler.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs, src/TextureCompiler/Managed/TextureTgaDecoder.cs, src/TextureCompiler/Managed/TextureTgaMetadata.cs, src/TextureCompiler/PublicS3/.gitattributes, src/TextureCompiler/PublicS3/LegacyGray3.inl, src/TextureCompiler/PublicS3/LegacyGray4.inl, src/TextureCompiler/PublicS3/PATCHES.md, src/TextureCompiler/PublicS3/PROVENANCE.json, src/TextureCompiler/PublicS3/S3_quant.h, src/TextureCompiler/PublicS3/TexturePublicS3.cpp, src/TextureCompiler/PublicS3/s3_quant.cpp"
+    },
+    "npot-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-numeric": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-rgba8": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/npot-rgba8/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcNpotRgba8": {
+      "reason": "changed inputs: recovery/evidence/texture/npot-storage/40592911746-1/build.log, recovery/evidence/texture/npot-storage/40592911746-1/fixture-support-build.log, recovery/evidence/texture/npot-storage/40592911746-1/oracle.log, recovery/evidence/texture/npot-storage/40592911746-1/samples.zip, recovery/evidence/texture/npot-storage/40592911746-1/transcript.tsv, recovery/evidence/texture/npot-storage/40592911746-1/validation.json, recovery/reference/ijg6b/.gitattributes, recovery/reference/ijg6b/NOTICE.md, recovery/reference/ijg6b/PROVENANCE.json, recovery/reference/ijg6b/README, recovery/reference/ijg6b/cderror.h, recovery/reference/ijg6b/cdjpeg.c, recovery/reference/ijg6b/cdjpeg.h, recovery/reference/ijg6b/cjpeg.c, recovery/reference/ijg6b/jcapimin.c, recovery/reference/ijg6b/jcapistd.c, recovery/reference/ijg6b/jccoefct.c, recovery/reference/ijg6b/jccolor.c, recovery/reference/ijg6b/jcdctmgr.c, recovery/reference/ijg6b/jchuff.c, recovery/reference/ijg6b/jchuff.h, recovery/reference/ijg6b/jcinit.c, recovery/reference/ijg6b/jcmainct.c, recovery/reference/ijg6b/jcmarker.c, recovery/reference/ijg6b/jcmaster.c, recovery/reference/ijg6b/jcomapi.c, recovery/reference/ijg6b/jconfig.vc, recovery/reference/ijg6b/jcparam.c, recovery/reference/ijg6b/jcphuff.c, recovery/reference/ijg6b/jcprepct.c, recovery/reference/ijg6b/jcsample.c, recovery/reference/ijg6b/jctrans.c, recovery/reference/ijg6b/jdapimin.c, recovery/reference/ijg6b/jdapistd.c, recovery/reference/ijg6b/jdatadst.c, recovery/reference/ijg6b/jdatasrc.c, recovery/reference/ijg6b/jdcoefct.c, recovery/reference/ijg6b/jdcolor.c, recovery/reference/ijg6b/jdct.h, recovery/reference/ijg6b/jddctmgr.c, recovery/reference/ijg6b/jdhuff.c, recovery/reference/ijg6b/jdhuff.h, recovery/reference/ijg6b/jdinput.c, recovery/reference/ijg6b/jdmainct.c, recovery/reference/ijg6b/jdmarker.c, recovery/reference/ijg6b/jdmaster.c, recovery/reference/ijg6b/jdmerge.c, recovery/reference/ijg6b/jdphuff.c, recovery/reference/ijg6b/jdpostct.c, recovery/reference/ijg6b/jdsample.c, recovery/reference/ijg6b/jdtrans.c, recovery/reference/ijg6b/jerror.c, recovery/reference/ijg6b/jerror.h, recovery/reference/ijg6b/jfdctflt.c, recovery/reference/ijg6b/jfdctfst.c, recovery/reference/ijg6b/jfdctint.c, recovery/reference/ijg6b/jidctflt.c, recovery/reference/ijg6b/jidctfst.c, recovery/reference/ijg6b/jidctint.c, recovery/reference/ijg6b/jidctred.c, recovery/reference/ijg6b/jinclude.h, recovery/reference/ijg6b/jmemansi.c, recovery/reference/ijg6b/jmemdos.c, recovery/reference/ijg6b/jmemmac.c, recovery/reference/ijg6b/jmemmgr.c, recovery/reference/ijg6b/jmemname.c, recovery/reference/ijg6b/jmemnobs.c, recovery/reference/ijg6b/jmemsys.h, recovery/reference/ijg6b/jmorecfg.h, recovery/reference/ijg6b/jpegint.h, recovery/reference/ijg6b/jpeglib.h, recovery/reference/ijg6b/jpegtran.c, recovery/reference/ijg6b/jquant1.c, recovery/reference/ijg6b/jquant2.c, recovery/reference/ijg6b/jutils.c, recovery/reference/ijg6b/jversion.h, recovery/reference/ijg6b/makefile.vc, recovery/reference/ijg6b/rdbmp.c, recovery/reference/ijg6b/rdgif.c, recovery/reference/ijg6b/rdppm.c, recovery/reference/ijg6b/rdrle.c, recovery/reference/ijg6b/rdswitch.c, recovery/reference/ijg6b/rdtarga.c, recovery/reference/ijg6b/transupp.h, recovery/scripts/BuildTextureJpeg.ps1, recovery/scripts/BuildTexturePublicS3.ps1, recovery/scripts/SelectTextureNpotStorageFixtures.ps1, recovery/scripts/TestTextureDxtSdk.ps1, src/TextureCompiler/Jpeg/TextureJpeg.c, src/TextureCompiler/Managed/Plugin.Atlas.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs, src/TextureCompiler/Managed/TextureImageLoader.cs, src/TextureCompiler/Managed/TextureJpegDecoder.cs, src/TextureCompiler/Managed/TextureNpotStorageResampler.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs, src/TextureCompiler/Managed/TextureTgaDecoder.cs, src/TextureCompiler/Managed/TextureTgaMetadata.cs, src/TextureCompiler/PublicS3/.gitattributes, src/TextureCompiler/PublicS3/LegacyGray3.inl, src/TextureCompiler/PublicS3/LegacyGray4.inl, src/TextureCompiler/PublicS3/PATCHES.md, src/TextureCompiler/PublicS3/PROVENANCE.json, src/TextureCompiler/PublicS3/S3_quant.h, src/TextureCompiler/PublicS3/TexturePublicS3.cpp, src/TextureCompiler/PublicS3/s3_quant.cpp"
+    },
+    "npot-storage": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-formats": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-storage-replay": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/npot-storage-replay/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcNpotStorage": {
+      "reason": "changed inputs: recovery/reference/ijg6b/.gitattributes, recovery/reference/ijg6b/NOTICE.md, recovery/reference/ijg6b/PROVENANCE.json, recovery/reference/ijg6b/README, recovery/reference/ijg6b/cderror.h, recovery/reference/ijg6b/cdjpeg.c, recovery/reference/ijg6b/cdjpeg.h, recovery/reference/ijg6b/cjpeg.c, recovery/reference/ijg6b/jcapimin.c, recovery/reference/ijg6b/jcapistd.c, recovery/reference/ijg6b/jccoefct.c, recovery/reference/ijg6b/jccolor.c, recovery/reference/ijg6b/jcdctmgr.c, recovery/reference/ijg6b/jchuff.c, recovery/reference/ijg6b/jchuff.h, recovery/reference/ijg6b/jcinit.c, recovery/reference/ijg6b/jcmainct.c, recovery/reference/ijg6b/jcmarker.c, recovery/reference/ijg6b/jcmaster.c, recovery/reference/ijg6b/jcomapi.c, recovery/reference/ijg6b/jconfig.vc, recovery/reference/ijg6b/jcparam.c, recovery/reference/ijg6b/jcphuff.c, recovery/reference/ijg6b/jcprepct.c, recovery/reference/ijg6b/jcsample.c, recovery/reference/ijg6b/jctrans.c, recovery/reference/ijg6b/jdapimin.c, recovery/reference/ijg6b/jdapistd.c, recovery/reference/ijg6b/jdatadst.c, recovery/reference/ijg6b/jdatasrc.c, recovery/reference/ijg6b/jdcoefct.c, recovery/reference/ijg6b/jdcolor.c, recovery/reference/ijg6b/jdct.h, recovery/reference/ijg6b/jddctmgr.c, recovery/reference/ijg6b/jdhuff.c, recovery/reference/ijg6b/jdhuff.h, recovery/reference/ijg6b/jdinput.c, recovery/reference/ijg6b/jdmainct.c, recovery/reference/ijg6b/jdmarker.c, recovery/reference/ijg6b/jdmaster.c, recovery/reference/ijg6b/jdmerge.c, recovery/reference/ijg6b/jdphuff.c, recovery/reference/ijg6b/jdpostct.c, recovery/reference/ijg6b/jdsample.c, recovery/reference/ijg6b/jdtrans.c, recovery/reference/ijg6b/jerror.c, recovery/reference/ijg6b/jerror.h, recovery/reference/ijg6b/jfdctflt.c, recovery/reference/ijg6b/jfdctfst.c, recovery/reference/ijg6b/jfdctint.c, recovery/reference/ijg6b/jidctflt.c, recovery/reference/ijg6b/jidctfst.c, recovery/reference/ijg6b/jidctint.c, recovery/reference/ijg6b/jidctred.c, recovery/reference/ijg6b/jinclude.h, recovery/reference/ijg6b/jmemansi.c, recovery/reference/ijg6b/jmemdos.c, recovery/reference/ijg6b/jmemmac.c, recovery/reference/ijg6b/jmemmgr.c, recovery/reference/ijg6b/jmemname.c, recovery/reference/ijg6b/jmemnobs.c, recovery/reference/ijg6b/jmemsys.h, recovery/reference/ijg6b/jmorecfg.h, recovery/reference/ijg6b/jpegint.h, recovery/reference/ijg6b/jpeglib.h, recovery/reference/ijg6b/jpegtran.c, recovery/reference/ijg6b/jquant1.c, recovery/reference/ijg6b/jquant2.c, recovery/reference/ijg6b/jutils.c, recovery/reference/ijg6b/jversion.h, recovery/reference/ijg6b/makefile.vc, recovery/reference/ijg6b/rdbmp.c, recovery/reference/ijg6b/rdgif.c, recovery/reference/ijg6b/rdppm.c, recovery/reference/ijg6b/rdrle.c, recovery/reference/ijg6b/rdswitch.c, recovery/reference/ijg6b/rdtarga.c, recovery/reference/ijg6b/transupp.h, recovery/scripts/BuildTextureJpeg.ps1, recovery/scripts/BuildTexturePublicS3.ps1, recovery/scripts/TestTextureDxtSdk.ps1, src/TextureCompiler/Jpeg/TextureJpeg.c, src/TextureCompiler/Managed/Plugin.Atlas.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs, src/TextureCompiler/Managed/TextureImageLoader.cs, src/TextureCompiler/Managed/TextureJpegDecoder.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs, src/TextureCompiler/Managed/TextureTgaDecoder.cs, src/TextureCompiler/Managed/TextureTgaMetadata.cs, src/TextureCompiler/PublicS3/.gitattributes, src/TextureCompiler/PublicS3/LegacyGray3.inl, src/TextureCompiler/PublicS3/LegacyGray4.inl, src/TextureCompiler/PublicS3/PATCHES.md, src/TextureCompiler/PublicS3/PROVENANCE.json, src/TextureCompiler/PublicS3/S3_quant.h, src/TextureCompiler/PublicS3/TexturePublicS3.cpp, src/TextureCompiler/PublicS3/s3_quant.cpp"
+    },
+    "npot-storage-stress": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "atlas-prerequisites": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-storage-stress-replay": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/npot-storage-stress-replay/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "atlas-dds": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/atlas-dds/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "atlas-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "atlas-entry": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/atlas-entry/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcAtlas": {
+      "reason": "changed inputs: recovery/reference/ijg6b/.gitattributes, recovery/scripts/BuildTextureJpeg.ps1, recovery/scripts/BuildTexturePublicS3.ps1, recovery/scripts/TestTextureAtlasSdk.ps1, src/TextureCompiler/Jpeg/TextureJpeg.c, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs, src/TextureCompiler/Managed/TextureImageLoader.cs, src/TextureCompiler/Managed/TextureJpegDecoder.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs, src/TextureCompiler/Managed/TextureTgaDecoder.cs, src/TextureCompiler/Managed/TextureTgaMetadata.cs, src/TextureCompiler/PublicS3/.gitattributes, src/TextureCompiler/PublicS3/LegacyGray3.inl, src/TextureCompiler/PublicS3/LegacyGray4.inl, src/TextureCompiler/PublicS3/PATCHES.md, src/TextureCompiler/PublicS3/PROVENANCE.json, src/TextureCompiler/PublicS3/S3_quant.h, src/TextureCompiler/PublicS3/TexturePublicS3.cpp, src/TextureCompiler/PublicS3/s3_quant.cpp"
+    },
+    "jpeg-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "jpeg": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/jpeg/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "jpeg-images": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/jpeg-images/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcJpeg": {
+      "reason": "changed inputs: recovery/scripts/BuildTexturePublicS3.ps1, recovery/scripts/TestTextureJpegSdk.ps1, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs, src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs, src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs, src/TextureCompiler/Managed/TextureTgaDecoder.cs, src/TextureCompiler/Managed/TextureTgaMetadata.cs, src/TextureCompiler/PublicS3/.gitattributes, src/TextureCompiler/PublicS3/LegacyGray3.inl, src/TextureCompiler/PublicS3/LegacyGray4.inl, src/TextureCompiler/PublicS3/PATCHES.md, src/TextureCompiler/PublicS3/PROVENANCE.json, src/TextureCompiler/PublicS3/S3_quant.h, src/TextureCompiler/PublicS3/TexturePublicS3.cpp, src/TextureCompiler/PublicS3/s3_quant.cpp"
+    },
+    "sdk-PcMymod": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt1-boundary": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "public-s3-three": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "public-s3-dxt1a": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "public-s3-dxt1a-dds": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt1a-blocks": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/dxt1a-blocks/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt1a-dds": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/dxt1a-dds/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt1a-images": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/dxt1a-images/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcDxt1a": {
+      "reason": "changed inputs: src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs, src/TextureCompiler/Managed/TextureTgaDecoder.cs, src/TextureCompiler/Managed/TextureTgaMetadata.cs"
+    },
+    "png-metadata-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "png-metadata-order": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "png-metadata": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png-metadata/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "png-metadata-images": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png-metadata-images/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcPngMetadata": {
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-png-metadata/40783041481-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "jpeg-metadata-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "jpeg-metadata": {
+      "sourceCommit": "dba6d3050bf33db791144e00f54129f769226714",
+      "runId": "40785653416",
+      "receipt": "recovery/evidence/texture/jpeg-metadata/40785653416-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "jpeg-metadata-images": {
+      "sourceCommit": "dba6d3050bf33db791144e00f54129f769226714",
+      "runId": "40785653416",
+      "receipt": "recovery/evidence/texture/jpeg-metadata-images/40785653416-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcJpegMetadata": {
+      "sourceCommit": "dba6d3050bf33db791144e00f54129f769226714",
+      "runId": "40785653416",
+      "receipt": "recovery/evidence/texture/sdk-jpeg-metadata/40785653416-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "tga-metadata-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "tga-metadata": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/tga-metadata/40795326615-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "tga-metadata-images": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/tga-metadata-images/40795326615-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcTgaMetadata": {
+      "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+      "runId": "40797426507",
+      "receipt": "recovery/evidence/texture/sdk-tga-metadata/40797426507-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "bmp-header-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "bmp-headers": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/bmp-headers/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "bmp-header-images": {
+      "sourceCommit": "9dc5a38911b821178feea03ac90ac036c0e3ce5d",
+      "runId": "40803450961",
+      "receipt": "recovery/evidence/texture/bmp-header-images/40803450961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcBmpHeaders": {
+      "reason": "no complete successful ancestor evidence"
+    },
+    "bmp-bitfields-load": {
+      "reason": "explicit group request"
+    }
+  }
+}

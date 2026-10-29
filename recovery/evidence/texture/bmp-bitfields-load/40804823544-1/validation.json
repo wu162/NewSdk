@@ -1,0 +1,70 @@
+{
+  "processes": [
+    {
+      "rejectedCount": 864,
+      "repeatPrefixAbsent": 4320,
+      "fixtureCount": 4320,
+      "decodedCount": 3456,
+      "prefixDifferences": 0,
+      "fixtureLoadCalls": 8652,
+      "nativeSnapshots": 8652,
+      "process": 0,
+      "contextLoadCalls": 4320,
+      "controlCount": 6,
+      "descriptorDifferences": 0,
+      "initializationControlLoadCalls": 1,
+      "unstableOriginals": 464,
+      "firstPrefixAbsent": 4320
+    },
+    {
+      "rejectedCount": 864,
+      "repeatPrefixAbsent": 4320,
+      "fixtureCount": 4320,
+      "decodedCount": 3456,
+      "prefixDifferences": 0,
+      "fixtureLoadCalls": 8652,
+      "nativeSnapshots": 8652,
+      "process": 1,
+      "contextLoadCalls": 4320,
+      "controlCount": 6,
+      "descriptorDifferences": 0,
+      "initializationControlLoadCalls": 1,
+      "unstableOriginals": 561,
+      "firstPrefixAbsent": 4320
+    }
+  ],
+  "processTimeoutSeconds": 300,
+  "fixtureCount": 8640,
+  "status": "probe-only",
+  "contextOriginalCalls": 8640,
+  "scope": "original PC BMP bitfields masks: two independent reversed-order processes, two prior-call contexts, repeated descriptor/nativeFormat/known-format logical first-row prefix and LoadImageA full RGBA/errors; unknown native formats never read, no recovered/plugin/SDK acceptance",
+  "initializationControlCalls": 2,
+  "sdkValidated": false,
+  "nativeSnapshots": 17304,
+  "probeOnly": true,
+  "originalCalls": 25946,
+  "productionAccepted": false,
+  "pairedControlInputCount": 6,
+  "samplesSha256": "adb3d94c66d8ac07e32e93e61f02e71d10e61180cd0eb104a2a1092912e2c98c",
+  "controlCount": 12,
+  "evidenceOnly": true,
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "processEvents": [
+    {
+      "exitCode": 0,
+      "process": 0,
+      "status": "exited"
+    },
+    {
+      "exitCode": 0,
+      "process": 1,
+      "status": "exited"
+    }
+  ],
+  "fixtureOriginalCalls": 17304,
+  "crossProcessSourceIdentityVerified": true,
+  "pairedInputCount": 4320,
+  "runAttempt": "1",
+  "sourceCommit": "6fb39059583ffa0f3a5418e151c9e92e13b41d26",
+  "runId": "40804823544"
+}

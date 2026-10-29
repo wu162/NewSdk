@@ -1,0 +1,734 @@
+{
+  "sourceFiles": [
+    {
+      "sha256": "464b44bc5ef15993e8785d0b31130b6998ca519ec5804aee7b3e76dd2d55227b",
+      "path": "src/TextureCompiler/Managed/Plugin.Atlas.cs"
+    },
+    {
+      "sha256": "318685344fd7eb21925ad91c8e15aae02b219f9bac2f6446d4696452f3f6ad27",
+      "path": "src/TextureCompiler/Managed/Plugin.Dds.cs"
+    },
+    {
+      "sha256": "d7aa788951e7b312b7b437fd49b1480a2f865be67f07f1cc600664f05a1a1a5a",
+      "path": "src/TextureCompiler/Managed/Plugin.Images.cs"
+    },
+    {
+      "sha256": "cf65743de09274651b516c0cdf137169fd58b204a0ffeaf85a9f197db2e2476f",
+      "path": "src/TextureCompiler/Managed/Plugin.Metadata.cs"
+    },
+    {
+      "sha256": "ab32e023e8b8673f484cee52af9cda38fa15a02fc70daae15356edc8bcf4604b",
+      "path": "src/TextureCompiler/Dxt/README.md"
+    },
+    {
+      "sha256": "4a9bb8990084335f2e1f2a51c05dbd0dfd3cbf3d86e87712c8dc4e5f7899c455",
+      "path": "src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj"
+    },
+    {
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66",
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json"
+    },
+    {
+      "sha256": "e00f17c387de53110e8f78e023c524f277db2b8172aad193ab5993b959e3c5ba",
+      "path": "src/TextureCompiler/Dxt/TextureAlphaQuantizer.cpp"
+    },
+    {
+      "sha256": "8ae860b573ec81ad33eb23222d4773e090c5f8e6c62be252f9eae4de52148b19",
+      "path": "src/TextureCompiler/Managed/TextureAtlasDdsEncoder.cs"
+    },
+    {
+      "sha256": "a2ecb46688188215497c2a67df4eb070f6b9f9cdbf62c32bbdf21489ca4a4068",
+      "path": "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+    },
+    {
+      "sha256": "20993978972f37c771c44f15dfe4bbd7d446157b823bcdc412cc321ec048891f",
+      "path": "src/TextureCompiler/Managed/TextureCatalog.cs"
+    },
+    {
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9",
+      "path": "src/TextureCompiler/Colour/TextureColour.asm"
+    },
+    {
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281",
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp"
+    },
+    {
+      "sha256": "26a728ef4273641a602471fb6089fd732a0c6df15a5e8a42cee5793369614e6d",
+      "path": "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs"
+    },
+    {
+      "sha256": "5c0148c0297e16db3a593ee6aed6180eb2e5ad208eabf9257de557cbe47edbb1",
+      "path": "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs"
+    },
+    {
+      "sha256": "21ac8c4b7a0ca1da47f9b030468a127b5dac26d8c8577de23a8baef7db8bb570",
+      "path": "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs"
+    },
+    {
+      "sha256": "d187a663098b9cee0ad5bed2e80d9619f37097a33243d99b9148b764a94a4b6e",
+      "path": "src/TextureCompiler/Managed/TextureDxt5FastAlphaEncoder.cs"
+    },
+    {
+      "sha256": "500cc4345d032bb2feed5be16c0d40a5b00ba3e9a03742b704bd3d004555c822",
+      "path": "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs"
+    },
+    {
+      "sha256": "f594328e3f10ff37ef36b853ca7a879fa5d91330340bcad6f3ec71122e691bc2",
+      "path": "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs"
+    },
+    {
+      "sha256": "a7159c08d627b8cfc38e6f48caf68945816c156457facf2665ec287bef9c65ed",
+      "path": "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs"
+    },
+    {
+      "sha256": "fd54465e2a852d05cdf3e72d8514cdfb15355a9c20c3d2eeb4e120eea7eaa9ad",
+      "path": "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs"
+    },
+    {
+      "sha256": "ffdb57b39c28082f332064d5af008b99b862a354c9f9a89b590c07e7c80fb761",
+      "path": "src/TextureCompiler/Managed/TextureImageLoader.cs"
+    },
+    {
+      "sha256": "3072b97d55478e3e5836a4fa9237702be5c59a491e30f75dc7f7fa2b6b2b7408",
+      "path": "src/TextureCompiler/Managed/TextureImageRules.cs"
+    },
+    {
+      "sha256": "a9aadb2e7e2a067adcddaff506e352e21076d73fe10e7f884f1d959e8be0517c",
+      "path": "src/TextureCompiler/Managed/TextureJpegDecoder.cs"
+    },
+    {
+      "sha256": "9c9251ac5b11478e951468f0ad51b160f72652be8ce960f45a95247fdc562de0",
+      "path": "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs"
+    },
+    {
+      "sha256": "b55034426d263718ab22c1f2865ed0a005cb6ac99247707a3eaa7e0ec2ccff61",
+      "path": "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs"
+    },
+    {
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176",
+      "path": "src/TextureCompiler/Managed/TexturePacker.cs"
+    },
+    {
+      "sha256": "6fb74adfc10711b739f4e5b4b0bc6b0ff8fae078459965f01e1917d4c482ad8e",
+      "path": "src/TextureCompiler/Managed/TexturePngDecoder.cs"
+    },
+    {
+      "sha256": "44807a0dddbc6e9287187496572cbd6eea9519de20758773cba2ea6f0a07e49a",
+      "path": "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs"
+    },
+    {
+      "sha256": "892957068399549d78d0b9525469ceddfb96491f1b887e3e219d221639ffe058",
+      "path": "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs"
+    },
+    {
+      "sha256": "6dc00e5c07831d4ba137a02b9ea7355d26b1e9f894b1b6fd86ab4d56e895048d",
+      "path": "src/TextureCompiler/Managed/TextureTgaDecoder.cs"
+    },
+    {
+      "sha256": "a60f347980ced631a5fa24efc3be9de65ffe7dacb1e642a116ada93bf1986cc2",
+      "path": "src/TextureCompiler/Managed/TextureTgaMetadata.cs"
+    },
+    {
+      "sha256": "8209f4b9e8e55ef34cf08e8a44a5f77612319f5eb1a0dccb341f59718b995239",
+      "path": "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
+    },
+    {
+      "sha256": "4d203e1fa3cddef9094c7452c3ff4ae9c971eb26b1f104e7fa8914d21cd0d85b",
+      "path": "src/TextureCompiler/Managed/TextureVolume.cs"
+    },
+    {
+      "sha256": "f6b1cf28db0f1cf49e47c2f46aef953052618cc3f51ff5414ccac2db32a8f9ba",
+      "path": "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    {
+      "sha256": "d3e2f8f6894ba1f40a8662c59602c7b91e54e9d16b7457c6b58290e4267e4e6b",
+      "path": "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs"
+    }
+  ],
+  "nativeBinaries": [
+    {
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "machine": "I386",
+      "sha256": "06c045134b302dbec43b60bd9f5e58f03def111356460d447ffb27580894eb55",
+      "name": "Recovered.TextureDxtColour.dll"
+    },
+    {
+      "entryPoint": 0,
+      "importDirectory": 0,
+      "machine": "I386",
+      "sha256": "0c4bda526c1e97d3a32b5d0f728d89cbf9108f2b254ecda018c6a998f0b8917b",
+      "name": "Recovered.TextureDxtAlpha.dll"
+    }
+  ],
+  "status": "passed",
+  "scope": "EALAModStudio case5 BAB build of dedicated PC standard/volume raw+DXT3/5 POT/NPOT TGA/PNG/BMP texture MOD: PcNpotRgba8",
+  "publicS3Native": [
+    {
+      "sourceFiles": [
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "006f68a2034a4dd053d3b54558123690581a5d84",
+          "sha256": "9bb3c07a310ade0c9bb4ab70603a557893d9b6887b972d83df8ffcfedbbdfb7e",
+          "bytes": 94548,
+          "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
+          "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
+          "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain; final wrapper uses owned inline x87 scoring/comparisons and extended intermediates; restore quick projection indices from the pre-scoring snapshot when quick wins; explicit mode3 with fixed original gray constants, three-point floor palette and opaque DXT1 black-index scoring (DXT1A excludes transparent index)",
+          "file": "s3_quant.cpp"
+        },
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/S3_quant.h",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "ba9a7180467f3e1ea744c83ba1fe5249c2928345",
+          "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
+          "bytes": 2724,
+          "file": "S3_quant.h"
+        },
+        {
+          "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608+8192 (8192 bytes)",
+          "repository": "wu162/NewSdk",
+          "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+          "blobSha": "b188483b80391cee4d7e5f9b85f01832bfa1f012",
+          "sha256": "404d173c95c2beb07625b256a544b7a1febb2590b52b667c021921121eb6e227",
+          "bytes": 7023,
+          "origin": "existing recovered fixed codec optimization data, not public S3 upstream and not corpus payloads",
+          "sourceDataSha256": "c8c04516fe9c09fd35f56b5ef96e889db56a41ab1f575385f90ee1fa2e558211",
+          "file": "LegacyGray4.inl"
+        },
+        {
+          "file": "TexturePublicS3.cpp",
+          "origin": "owned bounded PC ABI; no encoder implementation callbacks",
+          "sha256": "13a26e58d76e040ea2b774224dc9e99fbd5abfbb718fdbe4c9569f793f27b054",
+          "blobSha": "46c4b05cf9967be24d6c5ecaaa79cfdc8af70567",
+          "bytes": 3145
+        },
+        {
+          "file": "LegacyGray3.inl",
+          "origin": "existing recovered codec optimization data, not corpus payloads",
+          "repository": "wu162/NewSdk",
+          "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+          "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608 first8192 bytes",
+          "sourceDataSha256": "c9feeaf992d2457d146d414a2d27543b5178bd07f4797fd4b596d914eaa7013e",
+          "sha256": "04915b4cb6b5af4182697a5479ec9ca388b1e445762937135089d1c866e11a0b",
+          "bytes": 6934,
+          "blobSha": "160505d3cea649e811f9ace75991c7e0bb726a9f"
+        }
+      ],
+      "importsOtherEncoders": false,
+      "sourceManifestSha256": "39956cf3d81ebcb1a5fc7f74e3486174250d9fe9b3a67f96491a1844d7a601b6",
+      "sha256": "ed70fe5d93fafe8c100742b80d71ca1857cc30b570acea1b6c38346fe7b233dd",
+      "machine": "I386",
+      "configuration": "Release"
+    }
+  ],
+  "sdkValidated": true,
+  "runId": "40804823544",
+  "sourceCommit": "6fb39059583ffa0f3a5418e151c9e92e13b41d26",
+  "expectedAssets": 3200,
+  "traceArchiveSha256": "8297526c450352889117082fd6a2c36e64c07e74753e1ade2368407ad1eb3926",
+  "originalNpotBaseline": {
+    "runId": "40528237009",
+    "samplesSha256": "dca86c4ed1b16c8e118d9e4535317343ddf80866a4eb6bd2f490fc1f0a32c26d",
+    "sourceCommit": "a19bb879704cd80ad55202760a160c8af57bbe2d"
+  },
+  "modes": [
+    {
+      "uniqueAssets": 3200,
+      "withoutOriginalTextureCompiler": false,
+      "mode": "Original",
+      "passed": true,
+      "actualCalls": 3200,
+      "files": [
+        {
+          "bytes": 374884,
+          "file": "mod.bin",
+          "sha256": "0db115caf1021838b5e29c050715765518ed2e545a003b7c03c974e40a404d6d"
+        },
+        {
+          "bytes": 258177,
+          "file": "mod.manifest",
+          "sha256": "c2be9458d0d75d9f4fdd5c22ac403d12e81572add21c984d5ca9db09f6676266"
+        },
+        {
+          "bytes": 4,
+          "file": "mod.imp",
+          "sha256": "33883a0668d2b6f974ce11a5e792215e72dbf27b31b54323ced89fa2255ce2e9"
+        },
+        {
+          "bytes": 12804,
+          "file": "mod.relo",
+          "sha256": "eec234d5ee08275ac5308add5b956d9b94cdb4db6c2fe35de80c703dfa74da9d"
+        }
+      ],
+      "assertedOriginalNotLoadedDuringEveryCall": false
+    },
+    {
+      "uniqueAssets": 3200,
+      "withoutOriginalTextureCompiler": false,
+      "mode": "Recovered",
+      "passed": true,
+      "actualCalls": 3200,
+      "files": [
+        {
+          "bytes": 374884,
+          "file": "mod.bin",
+          "sha256": "0db115caf1021838b5e29c050715765518ed2e545a003b7c03c974e40a404d6d"
+        },
+        {
+          "bytes": 258177,
+          "file": "mod.manifest",
+          "sha256": "c2be9458d0d75d9f4fdd5c22ac403d12e81572add21c984d5ca9db09f6676266"
+        },
+        {
+          "bytes": 4,
+          "file": "mod.imp",
+          "sha256": "33883a0668d2b6f974ce11a5e792215e72dbf27b31b54323ced89fa2255ce2e9"
+        },
+        {
+          "bytes": 12804,
+          "file": "mod.relo",
+          "sha256": "eec234d5ee08275ac5308add5b956d9b94cdb4db6c2fe35de80c703dfa74da9d"
+        }
+      ],
+      "assertedOriginalNotLoadedDuringEveryCall": false
+    },
+    {
+      "uniqueAssets": 3200,
+      "withoutOriginalTextureCompiler": true,
+      "mode": "NoOriginal",
+      "passed": true,
+      "actualCalls": 3200,
+      "files": [
+        {
+          "bytes": 374884,
+          "file": "mod.bin",
+          "sha256": "0db115caf1021838b5e29c050715765518ed2e545a003b7c03c974e40a404d6d"
+        },
+        {
+          "bytes": 258177,
+          "file": "mod.manifest",
+          "sha256": "c2be9458d0d75d9f4fdd5c22ac403d12e81572add21c984d5ca9db09f6676266"
+        },
+        {
+          "bytes": 4,
+          "file": "mod.imp",
+          "sha256": "33883a0668d2b6f974ce11a5e792215e72dbf27b31b54323ced89fa2255ce2e9"
+        },
+        {
+          "bytes": 12804,
+          "file": "mod.relo",
+          "sha256": "eec234d5ee08275ac5308add5b956d9b94cdb4db6c2fe35de80c703dfa74da9d"
+        }
+      ],
+      "assertedOriginalNotLoadedDuringEveryCall": true
+    }
+  ],
+  "fixtureFiles": [
+    {
+      "sha256": "2e8b4e2c0e0391d971d533293bb187a3b35e0138e99b8b2e760cdd4f27441238",
+      "bytes": 73,
+      "name": "bmp-d24-topFalse-3x1-p0.bmp"
+    },
+    {
+      "sha256": "2e8b4e2c0e0391d971d533293bb187a3b35e0138e99b8b2e760cdd4f27441238",
+      "bytes": 73,
+      "name": "bmp-d24-topFalse-3x1-p2.bmp"
+    },
+    {
+      "sha256": "935fcb5a4f51998f4693d9d03c196b143a5527cf37716388b2e52374b381ba41",
+      "bytes": 85,
+      "name": "bmp-d24-topFalse-3x2-p0.bmp"
+    },
+    {
+      "sha256": "935fcb5a4f51998f4693d9d03c196b143a5527cf37716388b2e52374b381ba41",
+      "bytes": 85,
+      "name": "bmp-d24-topFalse-3x2-p2.bmp"
+    },
+    {
+      "sha256": "88bf1c6846ca840a5d970256327878aefe3f299d9b54e63e0578ed86e364ddd4",
+      "bytes": 109,
+      "name": "bmp-d24-topFalse-5x3-p0.bmp"
+    },
+    {
+      "sha256": "88bf1c6846ca840a5d970256327878aefe3f299d9b54e63e0578ed86e364ddd4",
+      "bytes": 109,
+      "name": "bmp-d24-topFalse-5x3-p2.bmp"
+    },
+    {
+      "sha256": "1b70f5b059697f6c9d9a20d8845ae2f1b6bfe12b1df930001cce356ee5fba942",
+      "bytes": 181,
+      "name": "bmp-d24-topFalse-7x5-p0.bmp"
+    },
+    {
+      "sha256": "1b70f5b059697f6c9d9a20d8845ae2f1b6bfe12b1df930001cce356ee5fba942",
+      "bytes": 181,
+      "name": "bmp-d24-topFalse-7x5-p2.bmp"
+    },
+    {
+      "sha256": "bb44a4b53490a5e56b50fcbcd7627f407f63225706dd2149e645b9a423a4794c",
+      "bytes": 73,
+      "name": "bmp-d24-topTrue-3x1-p0.bmp"
+    },
+    {
+      "sha256": "bb44a4b53490a5e56b50fcbcd7627f407f63225706dd2149e645b9a423a4794c",
+      "bytes": 73,
+      "name": "bmp-d24-topTrue-3x1-p2.bmp"
+    },
+    {
+      "sha256": "51a723cb90cd2c8d907919d9b34c689ecb9f2ae2e1c072f0a9c454688327b370",
+      "bytes": 85,
+      "name": "bmp-d24-topTrue-3x2-p0.bmp"
+    },
+    {
+      "sha256": "51a723cb90cd2c8d907919d9b34c689ecb9f2ae2e1c072f0a9c454688327b370",
+      "bytes": 85,
+      "name": "bmp-d24-topTrue-3x2-p2.bmp"
+    },
+    {
+      "sha256": "efd1440924ced4a65935e3605ada7637fadfc839873e12d60dc755a1ce701a62",
+      "bytes": 109,
+      "name": "bmp-d24-topTrue-5x3-p0.bmp"
+    },
+    {
+      "sha256": "efd1440924ced4a65935e3605ada7637fadfc839873e12d60dc755a1ce701a62",
+      "bytes": 109,
+      "name": "bmp-d24-topTrue-5x3-p2.bmp"
+    },
+    {
+      "sha256": "a3b199b2ec1ea0b62f17b35b42b7a8545d8755bb837aae37f1218d7bfe56154f",
+      "bytes": 181,
+      "name": "bmp-d24-topTrue-7x5-p0.bmp"
+    },
+    {
+      "sha256": "a3b199b2ec1ea0b62f17b35b42b7a8545d8755bb837aae37f1218d7bfe56154f",
+      "bytes": 181,
+      "name": "bmp-d24-topTrue-7x5-p2.bmp"
+    },
+    {
+      "sha256": "8fe98564f79eb4bbbcb0b4acad810330c7de5cd2410a807c9900462a059ae541",
+      "bytes": 73,
+      "name": "bmp-d32-topFalse-3x1-p0.bmp"
+    },
+    {
+      "sha256": "e1bbd6ae8c53ee4019577774636983cb74b612b84ed3b2f155e8160e6a3104e6",
+      "bytes": 73,
+      "name": "bmp-d32-topFalse-3x1-p2.bmp"
+    },
+    {
+      "sha256": "9d9c73020c9605625fb9ca1c69e7045f210aa9b654ec1a2e877e3e041b95df5c",
+      "bytes": 85,
+      "name": "bmp-d32-topFalse-3x2-p0.bmp"
+    },
+    {
+      "sha256": "2b98aaed979ab91f5e80a6962014d369ac71bfa250462da7c29cebb3e0b9419a",
+      "bytes": 85,
+      "name": "bmp-d32-topFalse-3x2-p2.bmp"
+    },
+    {
+      "sha256": "b036f9f72047d20f450e9b725f75913d3a736ff0015d5cc1745ddab2c3d036fd",
+      "bytes": 121,
+      "name": "bmp-d32-topFalse-5x3-p0.bmp"
+    },
+    {
+      "sha256": "6ca8a0ee6e3a95d884a7890ba3f6026a98c01277918a9c638acaed7538c148e0",
+      "bytes": 121,
+      "name": "bmp-d32-topFalse-5x3-p2.bmp"
+    },
+    {
+      "sha256": "cd7faec59dbc6d0d427e85e2dfe8b61d14eb6e1a59794531ee31ed86ceed19fd",
+      "bytes": 201,
+      "name": "bmp-d32-topFalse-7x5-p0.bmp"
+    },
+    {
+      "sha256": "da58d85159038cd21b5d9feadc943d265511408c5892e094ea883385aedf8329",
+      "bytes": 201,
+      "name": "bmp-d32-topFalse-7x5-p2.bmp"
+    },
+    {
+      "sha256": "5b88a3343a7d486fc2255d8c0d850ac48370d914087cccbb655b2de374b0b10a",
+      "bytes": 73,
+      "name": "bmp-d32-topTrue-3x1-p0.bmp"
+    },
+    {
+      "sha256": "05f79e3cbd6b182d39a447d0f5deed2e499407c04d398e61c411cac4e198fcf0",
+      "bytes": 73,
+      "name": "bmp-d32-topTrue-3x1-p2.bmp"
+    },
+    {
+      "sha256": "3667af4cd1199227558e8ac1fe3c31661d70e632d4396052a5ad6ffd117c417f",
+      "bytes": 85,
+      "name": "bmp-d32-topTrue-3x2-p0.bmp"
+    },
+    {
+      "sha256": "874331fedc4c267b5bd944985405d7f77b865c3a5a3d8ab3176d7cbb6067952f",
+      "bytes": 85,
+      "name": "bmp-d32-topTrue-3x2-p2.bmp"
+    },
+    {
+      "sha256": "a2995f3104fd8da345e0b6b2e2c0d265653afd027df66e4dd4ef6406df45dd51",
+      "bytes": 121,
+      "name": "bmp-d32-topTrue-5x3-p0.bmp"
+    },
+    {
+      "sha256": "c8d6283850a32a236adfd1b1c9b8033c90d80a4c9d5fb1610ae32dae87ac46de",
+      "bytes": 121,
+      "name": "bmp-d32-topTrue-5x3-p2.bmp"
+    },
+    {
+      "sha256": "c53b4b1604384f357b129376939e2661cadd35bdb7d0665aca6ed4e7e71adda1",
+      "bytes": 201,
+      "name": "bmp-d32-topTrue-7x5-p0.bmp"
+    },
+    {
+      "sha256": "b0b365a0e5424fc5ef7886edb4fe42c9ed714232ae9e54c65641fbc24fbffeaf",
+      "bytes": 201,
+      "name": "bmp-d32-topTrue-7x5-p2.bmp"
+    },
+    {
+      "sha256": "290412cd2874bb4e503d4c3ac02836c46f0e9090f854160b42b63672f9bb03c4",
+      "bytes": 102,
+      "name": "png-c2-i0-3x1-p0.png"
+    },
+    {
+      "sha256": "c7c75815bd71b016e89e53aae4adce8817631b8ce760d4a5c689e8fea3f7e815",
+      "bytes": 102,
+      "name": "png-c2-i0-3x1-p2.png"
+    },
+    {
+      "sha256": "274f602a5ece49a1f31657608fc072412e8e7c8e123b581c614c6f20abb40084",
+      "bytes": 112,
+      "name": "png-c2-i0-3x2-p0.png"
+    },
+    {
+      "sha256": "fdc39d9e2a898e1ce2eef8a7bb3a5b3d634089fca0a2179766ecac0e99122359",
+      "bytes": 112,
+      "name": "png-c2-i0-3x2-p2.png"
+    },
+    {
+      "sha256": "0c7b6e8d0a141b3be92b5db313407c50b9e958b04d3d46e89ad6ba308ec05f09",
+      "bytes": 140,
+      "name": "png-c2-i0-5x3-p0.png"
+    },
+    {
+      "sha256": "be6590e31926ac0c4e5d21648e58769923218c0a4aec569947cf0221013b1a30",
+      "bytes": 140,
+      "name": "png-c2-i0-5x3-p2.png"
+    },
+    {
+      "sha256": "1afff00815c6672ee13cab39a14e5433d1cfcea167e270d11b75bf35ee8502f2",
+      "bytes": 202,
+      "name": "png-c2-i0-7x5-p0.png"
+    },
+    {
+      "sha256": "59764f96be5d74030db98a56c6463a0d643a575d6fe8dbaea46a443930c89cb4",
+      "bytes": 202,
+      "name": "png-c2-i0-7x5-p2.png"
+    },
+    {
+      "sha256": "03f1f802fa54dab9880e660c498550bb03fd22bcf0def6d3b0733ac35fbd17ba",
+      "bytes": 104,
+      "name": "png-c2-i1-3x1-p0.png"
+    },
+    {
+      "sha256": "7bc933f2d2fd6e215a9f34e92e39fa30574bdabdc9caf9fa4a70c14a2d2bd51b",
+      "bytes": 104,
+      "name": "png-c2-i1-3x1-p2.png"
+    },
+    {
+      "sha256": "959358020be1cc78f084d01b335b459f28f06a660786b35ddb1bdc16a8152283",
+      "bytes": 114,
+      "name": "png-c2-i1-3x2-p0.png"
+    },
+    {
+      "sha256": "32fc13a0f6b3c450b04e7382d24c4aff1eab6fe7b0e442fd26dc668b94981cc1",
+      "bytes": 114,
+      "name": "png-c2-i1-3x2-p2.png"
+    },
+    {
+      "sha256": "5941954e0e93feb7476c6963ce26d3129f0404ba0df9cc2b72675db904ae8a04",
+      "bytes": 144,
+      "name": "png-c2-i1-5x3-p0.png"
+    },
+    {
+      "sha256": "bf41bf7bbc412169f983cee71c0a8032deede11483a2e06564bc324765b4d126",
+      "bytes": 144,
+      "name": "png-c2-i1-5x3-p2.png"
+    },
+    {
+      "sha256": "6e2b7d9535e3e8145ad3d6ba29dcf165306b426b2af4c521de3c930d1f025d89",
+      "bytes": 208,
+      "name": "png-c2-i1-7x5-p0.png"
+    },
+    {
+      "sha256": "7364f169caaae44b2c2890cf2a12fd353f49e11e97d2476dab6f82219bb889a5",
+      "bytes": 208,
+      "name": "png-c2-i1-7x5-p2.png"
+    },
+    {
+      "sha256": "d3de6582b1a73430a9686d1155e98821ddffe87e4ed7d2e847bb1c1a7b40560e",
+      "bytes": 105,
+      "name": "png-c6-i0-3x1-p0.png"
+    },
+    {
+      "sha256": "0dd03875d25d7494f3218c08d3fe3c08bcc5014fe1ccbca94e8f7ca46ca62d3c",
+      "bytes": 105,
+      "name": "png-c6-i0-3x1-p2.png"
+    },
+    {
+      "sha256": "d074192bc4f16d6110c2fc1d43267b61ddb231abb13329a2b0dd07389d66ba66",
+      "bytes": 118,
+      "name": "png-c6-i0-3x2-p0.png"
+    },
+    {
+      "sha256": "562686ef0efa5017e09a85af2e755f20c34ed9a1889b2cb50189c41fa00ca672",
+      "bytes": 118,
+      "name": "png-c6-i0-3x2-p2.png"
+    },
+    {
+      "sha256": "3906557dd96c5528be6154a5e428d1e569c9182b650682a4ba5ae58a3fb38f6e",
+      "bytes": 155,
+      "name": "png-c6-i0-5x3-p0.png"
+    },
+    {
+      "sha256": "caf872236cb4bff2f96939ba3f96c95efd1697928b2edac4b94e70bf940ba1fe",
+      "bytes": 155,
+      "name": "png-c6-i0-5x3-p2.png"
+    },
+    {
+      "sha256": "8e55fabc25b5947b5bfa797af2b30b11c0de7e70b9c43446e42a46365334d439",
+      "bytes": 237,
+      "name": "png-c6-i0-7x5-p0.png"
+    },
+    {
+      "sha256": "0d4b8ca1ccfc05fd802f311b7200d798af96e27ce7cb91a92172935a5a67af6f",
+      "bytes": 237,
+      "name": "png-c6-i0-7x5-p2.png"
+    },
+    {
+      "sha256": "af8fe13851427a3b9452fd445f76815b1b8469b9c4f06922b126a9d0259b39b6",
+      "bytes": 107,
+      "name": "png-c6-i1-3x1-p0.png"
+    },
+    {
+      "sha256": "c0296ab4140040a127452519408ca2841526311abce2f989f5bb74747d73881a",
+      "bytes": 107,
+      "name": "png-c6-i1-3x1-p2.png"
+    },
+    {
+      "sha256": "ca1f69e3ffd1f34acbc3272bbfe2051f5c720cc0e09680142e25d3d7a0a1f7e3",
+      "bytes": 120,
+      "name": "png-c6-i1-3x2-p0.png"
+    },
+    {
+      "sha256": "78b2545a3ee7bdfa497c61be9f15a5813d1893f468727acf664d15a942d33b48",
+      "bytes": 120,
+      "name": "png-c6-i1-3x2-p2.png"
+    },
+    {
+      "sha256": "57a2cd5dc3006fd85194a2ea350bd3f74dd962a71a01151645f96366f007bf88",
+      "bytes": 159,
+      "name": "png-c6-i1-5x3-p0.png"
+    },
+    {
+      "sha256": "e53e0f6fb58d3d2323ff909af6e54e8a463c959959a6645dcc4d33bc009f39a9",
+      "bytes": 159,
+      "name": "png-c6-i1-5x3-p2.png"
+    },
+    {
+      "sha256": "204fb0073f120ce0a9bc4dc463a099393ecb99e3b07619dd514c45b5485d35ec",
+      "bytes": 243,
+      "name": "png-c6-i1-7x5-p0.png"
+    },
+    {
+      "sha256": "2dfacb18260abcd85d064a374408f5875ea72c1ed2e57131db71ecfb30b67f81",
+      "bytes": 243,
+      "name": "png-c6-i1-7x5-p2.png"
+    },
+    {
+      "sha256": "166bfc1bb84f90470ea3f8fba42576c4045e81cd9ebe37c6f5487a2d0eb295b5",
+      "bytes": 27,
+      "name": "tga-d24-3x1-p0.tga"
+    },
+    {
+      "sha256": "09977e1047b25799b6530cc4041dfdf27f8aa2caaeed2d9fdfa36919d487c523",
+      "bytes": 27,
+      "name": "tga-d24-3x1-p2.tga"
+    },
+    {
+      "sha256": "d35e40ae83b6ade654350c4313e6b90e773072703d276cbea73f462cca317b36",
+      "bytes": 36,
+      "name": "tga-d24-3x2-p0.tga"
+    },
+    {
+      "sha256": "b9a59b6fb736b03c93d5c1bd4125767c1389dd1347b1088885833714651b71c1",
+      "bytes": 36,
+      "name": "tga-d24-3x2-p2.tga"
+    },
+    {
+      "sha256": "754dc0df875ec099b166323de8a58b7fc4626e0ece180067e6b58d153fdcc7a6",
+      "bytes": 63,
+      "name": "tga-d24-5x3-p0.tga"
+    },
+    {
+      "sha256": "e43f3817813b210e60ba1e1f14545a7db90169d1a0b51c616104e84ac757c198",
+      "bytes": 63,
+      "name": "tga-d24-5x3-p2.tga"
+    },
+    {
+      "sha256": "b20faf447721b94def49381b498cc705e0f01fbd426764ceefaf3e3580b7bb4a",
+      "bytes": 123,
+      "name": "tga-d24-7x5-p0.tga"
+    },
+    {
+      "sha256": "ab0b181ee02b4f2e0bf9736e2421e72cdb0e9cf13fe5d3099999c209b54cbedf",
+      "bytes": 123,
+      "name": "tga-d24-7x5-p2.tga"
+    },
+    {
+      "sha256": "21674ce8c73dec2390126dabcbaecf9c7675bb19f96c856a32672b7d34df65fe",
+      "bytes": 30,
+      "name": "tga-d32-3x1-p0.tga"
+    },
+    {
+      "sha256": "47c057dac62b597523a86baaa7600ea3555c8a39b31dcda873cffa2bf71366b3",
+      "bytes": 30,
+      "name": "tga-d32-3x1-p2.tga"
+    },
+    {
+      "sha256": "3e8d9a02db923d89799a6516274be6985266b47ce96ab3ad13c93e176f8a76c4",
+      "bytes": 42,
+      "name": "tga-d32-3x2-p0.tga"
+    },
+    {
+      "sha256": "705e095e8602792d61972ab44506f7fe6789c816a7284d87551d319e61e590fb",
+      "bytes": 42,
+      "name": "tga-d32-3x2-p2.tga"
+    },
+    {
+      "sha256": "b140ba95463cc6cb97d3fae4caedae4130890fb7615e28ea74eb46473b7cf45d",
+      "bytes": 78,
+      "name": "tga-d32-5x3-p0.tga"
+    },
+    {
+      "sha256": "4c7aed02e92f382dd69f5e51ba7d5b58ce3bfad766b205a22b792f2d434005ae",
+      "bytes": 78,
+      "name": "tga-d32-5x3-p2.tga"
+    },
+    {
+      "sha256": "5d75ff83073350873f205151d9700d941c0692aadffd8cafeff81d45af18c667",
+      "bytes": 158,
+      "name": "tga-d32-7x5-p0.tga"
+    },
+    {
+      "sha256": "3790b2c8fe1a50245546d45c6d59641f6018e0613ba8a950721be8f2ad71bd2a",
+      "bytes": 158,
+      "name": "tga-d32-7x5-p2.tga"
+    }
+  ],
+  "profile": "PcNpotRgba8",
+  "runAttempt": "1",
+  "targetPlatform": "Win32"
+}

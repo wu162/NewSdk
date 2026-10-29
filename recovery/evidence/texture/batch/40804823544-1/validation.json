@@ -1,0 +1,131 @@
+{
+  "runId": "40804823544",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-dds",
+    "atlas-entry",
+    "jpeg",
+    "jpeg-images",
+    "dxt1a-blocks",
+    "dxt1a-dds",
+    "dxt1a-images",
+    "png-metadata",
+    "png-metadata-images",
+    "sdk-PcPngMetadata",
+    "jpeg-metadata",
+    "jpeg-metadata-images",
+    "sdk-PcJpegMetadata",
+    "tga-metadata",
+    "tga-metadata-images",
+    "sdk-PcTgaMetadata",
+    "bmp-headers",
+    "bmp-header-images"
+  ],
+  "sourceCommit": "6fb39059583ffa0f3a5418e151c9e92e13b41d26",
+  "runAttempt": "1",
+  "selected": [
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "sdk-PcDxtNoMip",
+    "sdk-PcDxtMips",
+    "sdk-PcDxtVolumes",
+    "sdk-PcNpotRgba8",
+    "sdk-PcNpotStorage",
+    "sdk-PcAtlas",
+    "sdk-PcJpeg",
+    "sdk-PcDxt1a",
+    "sdk-PcBmpHeaders",
+    "bmp-bitfields-load"
+  ],
+  "groups": [
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "sdk-PcNoMip"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "sdk-PcMips"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "sdk-PcDxtNoMip"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "sdk-PcDxtMips"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "sdk-PcDxtVolumes"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "sdk-PcNpotRgba8"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "sdk-PcNpotStorage"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "sdk-PcAtlas"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "sdk-PcJpeg"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "sdk-PcDxt1a"
+    },
+    {
+      "passed": false,
+      "evidenceOnly": false,
+      "error": "Cannot find path 'D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture\\sdk-bmp-headers\\40804823544-1\\traces.zip' because it does not exist.",
+      "group": "sdk-PcBmpHeaders"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": true,
+      "group": "bmp-bitfields-load"
+    }
+  ],
+  "status": "failed"
+}
