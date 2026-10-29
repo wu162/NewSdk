@@ -35,6 +35,7 @@ on:
       - 'recovery/tests/CompilerValidationEntry.cpp'
       - 'recovery/tests/CompilerCoreLifecycle.cs'
       - 'recovery/tests/CompilerCacheContent.cs'
+      - 'recovery/tests/CompilerStableSort.cs'
       - 'recovery/tests/CompilerCacheBoundary.cs'
       - 'recovery/tests/CompilerLegacyCacheMetadata.cs'
       - 'recovery/tests/CompilerInputRoots.cs'

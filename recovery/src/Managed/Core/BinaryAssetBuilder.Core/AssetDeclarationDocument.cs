@@ -1599,34 +1599,64 @@ public class AssetDeclarationDocument : IXmlSerializable
 		if (outputManager.BasePatchStreamManifest != null)
 		{
 			_Tracer.TraceInfo("Merging base stream assets from {0}", outputManager.BasePatchStream);
-			StableSort_InitializeFromBaseManifest(ref outputManager, ref _Current.OutputInstances, ref finalList);
+			StableSort_InitializeFromBaseManifest(outputManager, ref _Current.OutputInstances, finalList);
 		}
 		_Tracer.TraceInfo("Sorting by schema dependencies");
 		TypeDepCompare typeDepCompare = new TypeDepCompare(_Current.DocumentProcessor.SchemaSet.AssetDependencies);
 		_Current.OutputInstances.Sort(typeDepCompare);
 		_Tracer.TraceInfo("Sorting by asset dependencies");
-		foreach (InstanceDeclaration outputInstance in _Current.OutputInstances)
-		{
-			int index = StableSort_CalcInsertPosition(finalList, outputInstance, typeDepCompare);
-			finalList.Insert(index, outputInstance);
-		}
+		StableSort_ByAssetDependencies(_Current.OutputInstances, finalList, typeDepCompare);
 		_Current.OutputInstances = finalList;
 	}
 
-	private static void StableSort_InitializeFromBaseManifest(ref OutputManager outputManager, ref List2<InstanceDeclaration> outputInstances, ref List2<InstanceDeclaration> finalList)
+	private static void StableSort_ByAssetDependencies(List2<InstanceDeclaration> instances, List2<InstanceDeclaration> finalList, IComparer<InstanceDeclaration> comparer)
+	{
+		var dependencies = new Dictionary<InstanceDeclaration, HashSet<InstanceHandle>>();
+		var requiredByPrevious = new HashSet<InstanceHandle>();
+		InstanceDeclaration maximum = null;
+		foreach (var instance in finalList)
+		{
+			var set = StableSort_Dependencies(instance);
+			if (set != null) { dependencies.Add(instance, set); requiredByPrevious.UnionWith(set); }
+			if (maximum == null || comparer.Compare(instance, maximum) > 0) maximum = instance;
+		}
+		foreach (var instance in instances)
+		{
+			var set = StableSort_Dependencies(instance);
+			int order = maximum == null ? 1 : comparer.Compare(instance, maximum);
+			// In this case every step of the original insertion scan advances to
+			// the end. Equal culture keys and base-stream gaps keep its exact rules.
+			if (order > 0 && !requiredByPrevious.Contains(instance.Handle)) finalList.Add(instance);
+			else finalList.Insert(StableSort_CalcInsertPosition(finalList, instance, comparer, set, dependencies), instance);
+			if (set != null) { dependencies.Add(instance, set); requiredByPrevious.UnionWith(set); }
+			if (order > 0) maximum = instance;
+		}
+	}
+
+	private static HashSet<InstanceHandle> StableSort_Dependencies(InstanceDeclaration instance)
+	{
+		var dependencies = instance.AllDependentInstances;
+		return dependencies == null || dependencies.Count == 0 ? null : new HashSet<InstanceHandle>(dependencies);
+	}
+
+	private static ulong StableSort_Key(uint typeId, uint instanceId) => ((ulong)typeId << 32) | instanceId;
+
+	private static void StableSort_InitializeFromBaseManifest(OutputManager outputManager, ref List2<InstanceDeclaration> outputInstances, List2<InstanceDeclaration> finalList)
 	{
 		Manifest basePatchStreamManifest = outputManager.BasePatchStreamManifest;
 		Asset[] assets = basePatchStreamManifest.Assets;
+		var instances = new Dictionary<ulong, InstanceDeclaration>();
+		foreach (var instance in outputInstances) instances.Add(StableSort_Key(instance.Handle.TypeId, instance.Handle.InstanceId), instance);
 		foreach (Asset baseAsset in assets)
 		{
-			InstanceDeclaration instanceDeclaration = FindInstance(baseAsset, outputInstances);
-			if (instanceDeclaration != null)
+			ulong key = StableSort_Key(baseAsset.TypeId, baseAsset.InstanceId);
+			if (instances.TryGetValue(key, out var instanceDeclaration))
 			{
 				if (outputManager.GetBinaryAsset(instanceDeclaration, isOutputAsset: false).GetLocation(AssetLocation.BasePatchStream, AssetLocationOption.None) == AssetLocation.BasePatchStream)
 				{
 					_Tracer.TraceInfo("Using base stream instance {0}:{1}", instanceDeclaration.Handle.TypeName, instanceDeclaration.Handle.InstanceName);
 					finalList.Add(instanceDeclaration);
-					outputInstances.Remove(instanceDeclaration);
+					instances.Remove(key);
 				}
 				else
 				{
@@ -1634,21 +1664,14 @@ public class AssetDeclarationDocument : IXmlSerializable
 				}
 			}
 		}
+		var remaining = new List2<InstanceDeclaration>();
+		foreach (var instance in outputInstances)
+			if (instances.ContainsKey(StableSort_Key(instance.Handle.TypeId, instance.Handle.InstanceId))) remaining.Add(instance);
+		outputInstances = remaining;
 	}
 
-	private static InstanceDeclaration FindInstance(Asset baseAsset, List2<InstanceDeclaration> instances)
-	{
-		foreach (InstanceDeclaration instance in instances)
-		{
-			if (baseAsset.TypeId == instance.Handle.TypeId && baseAsset.InstanceId == instance.Handle.InstanceId)
-			{
-				return instance;
-			}
-		}
-		return null;
-	}
-
-	private static int StableSort_CalcInsertPosition(List2<InstanceDeclaration> finalList, InstanceDeclaration instance, TypeDepCompare depCompare)
+	private static int StableSort_CalcInsertPosition(List2<InstanceDeclaration> finalList, InstanceDeclaration instance, IComparer<InstanceDeclaration> depCompare,
+		HashSet<InstanceHandle> instanceDependencies, Dictionary<InstanceDeclaration, HashSet<InstanceHandle>> dependencies)
 	{
 		int num = 0;
 		int num2 = 0;
@@ -1664,7 +1687,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 				num3 = num2;
 				num6 = final.Handle.TypeId;
 			}
-			if (instance.AllDependentInstances != null && instance.AllDependentInstances.Contains(final.Handle))
+			if (instanceDependencies != null && instanceDependencies.Contains(final.Handle))
 			{
 				num = num2 + 1;
 				num4 = num;
@@ -1676,7 +1699,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			}
 			else
 			{
-				if (final.AllDependentInstances != null && final.AllDependentInstances.Contains(instance.Handle))
+				if (dependencies.TryGetValue(final, out var finalDependencies) && finalDependencies.Contains(instance.Handle))
 				{
 					if (num3 > num4 && instance.Handle.TypeId != final.Handle.TypeId)
 					{
