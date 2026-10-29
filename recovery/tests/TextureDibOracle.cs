@@ -6,7 +6,7 @@ using Recovered.Compiler.Texture;
 
 internal static class TextureDibOracle
 {
-    static int fixtures,decoded,rejected,refused,originalCalls,originalBmpCalls,checks,tables;static long compared;
+    static int fixtures,decoded,rejected,refused,originalCalls,originalBmpCalls,checks,tables,boundaries;static long compared;
     static bool isolated;static MethodInfo originalLoad;
     static void Check(bool value,string message){checks++;if(!value)throw new Exception(message);}
     static string Hash(byte[] data){using(var sha=SHA256.Create())return BitConverter.ToString(sha.ComputeHash(data)).Replace("-","").ToLowerInvariant();}
@@ -35,7 +35,7 @@ internal static class TextureDibOracle
     {
         Check(bmp!=null&&bmp.Length>=26&&bmp[0]==66&&bmp[1]==77,"Bounded original BMP source");
         byte[] dib=new byte[bmp.Length-14];Buffer.BlockCopy(bmp,14,dib,0,dib.Length);
-        string before=Hash(dib),path=Path.Combine(work,"input.dib");File.WriteAllBytes(path,dib);
+        string bmpBefore=Hash(bmp);string before=Hash(dib),path=Path.Combine(work,"input.dib");File.WriteAllBytes(path,dib);
         Check(TextureDibDecoder.IsDib(dib)&&!TextureDibDecoder.IsDib(bmp),"Raw DIB recognition "+label);
         if(!isolated&&!refusal){
             TexturePacker.Image actual=null;Exception error=null;originalCalls++;
@@ -62,13 +62,40 @@ internal static class TextureDibOracle
                 default:actual=TextureImageLoader.Decode(bmp);break;
             }}catch(Exception e){error=e;}
             if(isolated)Isolated();
-            Check(Hash(dib)==before&&Hash(File.ReadAllBytes(path))==before,"DIB source unchanged "+label);
+            Check(Hash(bmp)==bmpBefore&&Hash(dib)==before&&Hash(File.ReadAllBytes(path))==before,"DIB source unchanged "+label);
             if(refusal){Check(error is NotSupportedException&&actual==null,"Uncertain bitfields remain refused "+label);refused++;continue;}
             Check(Error(error)==expectedError,"Recovered DIB error "+label+": "+Error(error));
             if(expectedError!=""){Check(actual==null,"Rejected DIB returned image");rejected++;continue;}
             Image(actual,width,height,alpha,expected,"recovered DIB "+label);decoded++;
         }
         log.WriteLine(label+"\t"+before+"\t"+(refusal?"explicit-refusal":expectedError==""?"decoded":"original-error")+"\t"+(expected==null?"":Hash(expected)));fixtures++;
+    }
+    static void Boundary(string header)
+    {
+        // Safety refusals, not claims about undefined original out-of-bounds reads.
+        foreach(int dib in new[]{40,52,56,64,108,124})foreach(int depth in new[]{16,24,32})foreach(int mutation in new[]{0,1,2}){
+            byte[] bmp=null;
+            foreach(string file in Directory.GetFiles(header,"*.bmp")){
+                byte[] candidate=File.ReadAllBytes(file);
+                if(BitConverter.ToUInt32(candidate,14)==dib&&candidate[28]==depth&&BitConverter.ToUInt32(candidate,30)==0&&BitConverter.ToUInt32(candidate,46)==0){bmp=candidate;break;}
+            }
+            if(bmp==null&&dib==64){
+                bmp=new byte[14+64+16*8*(depth/8)];bmp[0]=66;bmp[1]=77;Put(bmp,2,(uint)bmp.Length);Put(bmp,10,78);Put(bmp,14,64);Put(bmp,18,16);Put(bmp,22,8);bmp[26]=1;bmp[28]=(byte)depth;
+            }
+            Check(bmp!=null,"Boundary source exists");bmp=Table(bmp,17);tables--;
+            if(mutation==0)Put(bmp,46,uint.MaxValue);
+            if(mutation==1)Array.Resize(ref bmp,14+dib+67);
+            if(mutation==2){bmp[26]=2;}
+            byte[] raw=new byte[bmp.Length-14];Buffer.BlockCopy(bmp,14,raw,0,raw.Length);
+            foreach(int entry in new[]{0,1,2,3}){
+                string before=Hash(bmp),rawBefore=Hash(raw);Exception error=null;TexturePacker.Image image=null;
+                if(isolated)Isolated();
+                try{image=entry==0?TextureBmpDecoder.Decode(bmp):entry==1?TextureDibDecoder.Decode(raw):entry==2?TextureImageLoader.Decode(bmp):TextureImageLoader.Decode(raw);}catch(Exception e){error=e;}
+                if(isolated)Isolated();
+                Check(error is InvalidDataException&&image==null,"Bounded table refusal "+dib+"/"+depth+"/"+mutation+"/"+entry+": "+error);
+                Check(Hash(bmp)==before&&Hash(raw)==rawBefore,"Malformed table source unchanged");boundaries++;
+            }
+        }
     }
     static int Main(string[] args)
     {
@@ -100,8 +127,10 @@ internal static class TextureDibOracle
                     }Check(count==1944,"Complete OS2 source accounting");
                 }
             }
+            Boundary(header);
+            Check(boundaries==216,"Complete malformed table accounting");
             Check(fixtures==4866&&tables==306&&decoded==17100&&rejected==10368&&refused==1728&&originalCalls==(isolated?0:4578)&&originalBmpCalls==(isolated?0:306),"Complete DIB accounting fixtures="+fixtures+" tables="+tables+" decoded="+decoded+" rejected="+rejected+" refused="+refused);
-            Console.WriteLine("PASS Texture raw DIB "+(isolated?"NoOriginal":"differential")+" fixtures="+fixtures+" decoded="+decoded+" rejected="+rejected+" explicitRefusals="+refused+" rawDibOriginalCalls="+originalCalls+" bmpTableOriginalCalls="+originalBmpCalls+" checks="+checks+" comparedBytes="+compared+"; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, direct/public array/file and BMP APIs, actual original raw-DIB/BMP table equality and per-call isolation; Plugin/SDK separate");return 0;
+            Console.WriteLine("PASS Texture raw DIB "+(isolated?"NoOriginal":"differential")+" fixtures="+fixtures+" decoded="+decoded+" rejected="+rejected+" explicitRefusals="+refused+" rawDibOriginalCalls="+originalCalls+" bmpTableOriginalCalls="+originalBmpCalls+" boundaries="+boundaries+" checks="+checks+" comparedBytes="+compared+"; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, direct/public array/file and BMP APIs, actual original raw-DIB/BMP table equality and per-call isolation; Plugin/SDK separate");return 0;
         }catch(Exception error){Console.Error.WriteLine(error);return 1;}finally{if(owner!=null)owner.Dispose();}
     }
 }
