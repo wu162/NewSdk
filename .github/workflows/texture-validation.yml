@@ -11,10 +11,12 @@ on:
       - 'NuGet.Config'
       - 'recovery/tests/Texture*'
       - 'recovery/tests/TestTextureSelection.py'
+      - 'recovery/tests/TestTextureEvidenceStorage.py'
       - 'recovery/tests/fixtures/texture-main/**'
       - 'recovery/scripts/TestTexture*'
       - 'recovery/scripts/BuildTexture*'
       - 'recovery/scripts/InspectTexture*'
+      - 'recovery/scripts/PackTexture*'
       - 'recovery/reference/ijg6b/**'
       - 'recovery/reference/compact-icc/**'
       - 'recovery/scripts/SelectTextureGroups.py'
@@ -49,6 +51,8 @@ jobs:
           fetch-depth: 0
       - name: Verify dependency selection boundaries
         run: python recovery/tests/TestTextureSelection.py
+      - name: Verify lossless SDK evidence storage
+        run: python recovery/tests/TestTextureEvidenceStorage.py
       - name: Select affected groups and preserve original acceptance anchors
         id: select
         env:

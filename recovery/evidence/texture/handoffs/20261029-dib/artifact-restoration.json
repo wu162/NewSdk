@@ -1,0 +1,14 @@
+{
+  "scope": "lossless recovery and recorded-byte audit; no business test rerun",
+  "runId": "40835621765",
+  "sourceCommit": "b63f329c1ab5566dfa8a0fa57440108d71f070d4",
+  "workflowConclusion": "failure",
+  "failureStage": "ordinary evidence push; GitHub single-file limit, all selected business groups passed",
+  "artifactId": 12881575467,
+  "artifactName": "texture-batch-40835621765-1",
+  "artifactZipSha256": "338d6abd547d056d37f8560fef1c9756a28d690ffa3b6d0d4a548d3500b3acd8",
+  "receiptsUnchanged": true,
+  "businessTestsRepeated": false,
+  "productsStorageManifest": "recovery/evidence/texture/sdk-dib/40835621765-1/products-storage.json",
+  "completeAudit": "recovery/evidence/texture/handoffs/20261029-dib/sdk-package-audit.json"
+}

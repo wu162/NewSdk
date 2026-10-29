@@ -1,5 +1,15 @@
 param([Parameter(Mandatory=$true)][string]$Path,[Parameter(Mandatory=$true)][string]$Message)
 $ErrorActionPreference='Stop'
+# The uploaded Actions artifact retains raw outputs. Before staging only this
+# run's directories, round-trip oversized SDK products into a lossless archive;
+# never rewrite old gold, receipt hashes or historical checkout attributes.
+if($env:GITHUB_RUN_ID -and $env:GITHUB_RUN_ATTEMPT){
+ $runDirectory="$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+ foreach($directory in Get-ChildItem $Path -Directory -Recurse|Where-Object Name -eq $runDirectory){
+  python "$PSScriptRoot/PackTextureSdkProducts.py" $directory.FullName
+  if($LASTEXITCODE -ne 0){throw "SDK evidence product storage failed: $($directory.FullName)"}
+ }
+}
 git config user.name 'github-actions[bot]'
 git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 git add -- $Path

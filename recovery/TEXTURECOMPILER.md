@@ -2,6 +2,8 @@
 
 2026-10-29（北京时间）。分支`recovery/texturecompiler-source`，源码根`src/TextureCompiler`。最新入口 [RESUME.md](RESUME.md)。
 
+最新DIB/BMP真彩表已完成组件及专用PcDib SDK，完整当前锚点和独立审计见[范围](TEXTURE_DIB.md)。PPM公开IJG源码适配已在独立`validation/texture-public-ppm`取得8438原gold的D/R双入口/NoOriginal全等，尚未正式接插件或合入；下一功能入口为[PPM](TEXTURE_PPM_NEXT.md)。SDK/MOD保持明确里程碑低频执行。
+
 DXT3/5默认71颜色/alpha、完整块、POT二维/volume无mip与完整float mip、两插件入口已验收。NPOT已扩至PNG灰度/GA8/RGB/RGBA8/16、Additional TGA16/灰度8/index8调色板及BI_RGB BMP16/24/32，保留原错误与量化/通道布局。业务e9292a26/40595382578的18组及7个SDK profile通过，插件隔离宿主修复9e7d671e/40597016969完成19404输入D/R/NoOriginal；两run各自总体失败原因和精确成功组保持原记录。后续abdffd97/40598190231与daf4a749/40598863269均success，前者闭环原探针并复用34组，后者完成9418存储语料D/R回放及独立atlas指定五层DDS组件。详见[当前续接](RESUME.md)、[NPOT](TEXTURE_NPOT_NEXT.md)、[atlas](TEXTURE_ATLAS_NEXT.md)。完整atlas公共入口及16资产专用SDK已在be520b8e/40607538234通过，D/R各48例、三模式四产物/实际Core调用相同；生产SDK DLL/config未替换。JPEG公共路由699479a9/40626161229及3216资产三模式SDK e8835cfe/40628208308均已验收；最初公开DXT/STB的32配置不一致，继续留测试分支；后续修改的S3源码已通过完整块、全部受影响消费与9组SDK三模式验收（705af338/40649825971、867e7d38/40650835181），现为完整PC DXT3/5后端，见TEXTURE_PUBLIC_S3.md及验收核对。
 
 透明块DXT1A现已完成独立公开源码适配、block/float/partial、二维/volume/mip、Texture/OnDemandTexture与320资产专用SDK验收，源码与运行锚点见[受限DXT1A](TEXTURE_DXT1A_TRANSPARENT.md)。每个实际编码块（包括全部mip和volume切片）都必须有alpha<=0.5的样本；padding空洞不计透明样本。默认DXT1及任何全不透明DXT1A块的原未初始化边界继续拒绝。完整mymod本轮未重跑，保留原5a1b8e1d/40657712486锚点，不冒充当前源码完整MOD验收。
