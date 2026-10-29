@@ -73,3 +73,7 @@ PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平�
 ## JPEG RGB/APP metadata 与 CMYK/YCCK 拒绝
 
 `jpeg-metadata`固定4000原gold，D/R各直接/public两入口8000调用、完整RGBA/原错误/源不变与逐次NoOriginal；自有IJG native分别D/R构建。`jpeg-metadata-images`各32080完整输入（19280输出/12800原拒绝）和同量NoOriginal，含80 metadata atlas、raw3/DXT3/5、标准/volume/full mip和旧cdata/三buffer。`sdk-PcJpegMetadata`显式SDK组为9640真实资产、三模式四产物/33721完整轨迹文件集及逐次NoOriginal。dba6d305/40785653416已整批通过，仅执行2新组件+1新SDK、复用旧37组件+11 SDK。原探针仍probe-only，生产JPEG源码未改；相关helper/消费者/gold依赖已登记，未变成功组不重复跑。当前39组件/12专用SDK有效；完整MOD规则不变。
+
+## 2026-10-29 TGA metadata SDK 里程碑
+
+组件a928f981/40795326615的19完整组通过、22复用。SDK278ae577/40797426507的11 profile全部passed，41组件与两个纯PNG/JPEG metadata SDK复用；每模式21576实际资产/调用、75459完整轨迹文件及四产物独立全字节核对。当前41组件/13专用SDK有效，原锚点见handoffs/20261029-tga-metadata/acceptance.json。整个40797426507仍为failure：附带BMP原版探针在重复相同输入时产生不同像素，不能混作SDK失败或整体success；仅修改取证记录工具并显式重跑bmp-header-load，不重跑未变成功SDK。不稳定原输出留作不确定边界，不可当确定gold或恢复验收。

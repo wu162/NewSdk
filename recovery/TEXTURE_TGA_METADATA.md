@@ -29,4 +29,4 @@
 
 最终组件源码`a928f9819a483f94256c3e16a450f7dd1034107a` / [40795326615](https://github.com/wu162/NewSdk/actions/runs/40795326615) completed/success：19完整组通过，22成功组复用。D/R各12480 gold双入口24960调用、1904740检查、5616000 RGBA字节和96个损坏结构明确拒绝；47248完整插件输入/同量NoOriginal各432710096字节、0错误。损坏结构拒绝是明确未支持边界，不冒充原拒绝对照；原gold本批12480全部成功。全部原gold已由[独立审计](evidence/texture/handoffs/20261029-tga-metadata/original-archive-audit.json)逐文件核对。
 
-专用SDK `sdk-PcTgaMetadata` 为8152真实资产：170份原gold输入形成6800 raw/DXT3/5资产，156恒alpha63源形成1248透明DXT1A资产，52份atlas输入形成104 base/normal资产。原/恢复/逐次NoOriginal、四产物与完整实际轨迹；不替代完整MOD。当前待集中SDK终态。
+专用SDK `sdk-PcTgaMetadata` 为8152真实资产：170份原gold输入形成6800 raw/DXT3/5资产，156恒alpha63源形成1248透明DXT1A资产，52份atlas输入形成104 base/normal资产。原/恢复/逐次NoOriginal、四产物与完整实际轨迹；不替代完整MOD。SDK源码278ae5774226853ad5ac5df5de9db67c935755bf /40797426507的11 profile全部passed：三模式每模式21576实际资产/调用、75459完整轨迹文件，四产物/完整轨迹独立逐文件核对通过；其中PcTgaMetadata各8152资产/调用、28481轨迹。41组件和两个纯PNG/JPEG metadata SDK复用祖先锚点。当前13专用SDK每模式共35456资产/调用、124013轨迹，分组锚点见[验收汇总](evidence/texture/handoffs/20261029-tga-metadata/acceptance.json)。整体workflow为failure，原因仅BMP原版探针检测重复不确定性，不能称整批success；SDK独立passed收据有效。生产SDK未修改，完整MOD未跑。
