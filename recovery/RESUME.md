@@ -11,7 +11,7 @@
 ## 最终验证与下一轮计划
 
 - 最终复制源码 `7f2994d7bfc4d350cd1a71e99904b73c0ab0c7c1` / [40916397812](https://github.com/wu162/NewSdk/actions/runs/40916397812) completed/success；最后一行负步幅指针修正完整补验通过，原版21,217,672字节捕获SHA与前一成功版本完全相同，D/R/NoOriginal/导入库与独立行复制模型审计通过，见copy-final-archive-audit.json。只补native-copy/base，55其他成功组复用。
-- 当前静态组件选择检查selected=[]、57完整成功组全部有效，原sourceCommit/runId逐组保留，见current-component-readiness.json。本轮所有新增能力与必要消费者已闭环；不宣称重跑57组或SDK。结束时仅再检查最终交接/审计内容不会触发Windows重验。
+- 当前静态组件选择检查selected=[]、57完整成功组全部有效，原sourceCommit/runId逐组保留，见current-component-readiness.json。本轮所有新增能力与必要消费者已闭环；不宣称重跑57组或SDK。最终75ada271 /40917510565 completed/success，Linux计划确认selected为空、57成功组复用、Windows skipped；收尾完整记录见closing-verification.json，源码树与最终验收实现相同，整个SDK树与本轮开始时完全相同。
 - 下一业务入口：XGCopySurface@0x3ccc0的转换/过滤分支0x3cef7..0x3d969，按PC LoadImageA真正消费的格式转换优先；D3DXCreateTextureFromFileA@0x13c82→0x13b53原生加载/资源头构造及完整混合模式身份仍未实现。独立库入口为src/TextureCompiler/Native/TextureNative{Device,Resource,Surface,Descriptor,Copy}Api.*；不加入已部署生产六DLL包。
 - 保留边界：设备type2渲染状态、type9/GPU上下文、OOM、未初始化DXT1/bitfields仍未完成；不支持输入明确拒绝。仅PC、编译测试仅Actions、禁止强推。全部完整原档审计见evidence/texture/handoffs/20261030-native-abi/，中间失败保留。
 

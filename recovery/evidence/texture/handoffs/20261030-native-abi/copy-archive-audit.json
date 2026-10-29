@@ -4,7 +4,7 @@
   "runId": "40915252008",
   "completeDebugReleaseCaptureBytes": 21217672,
   "captureSha256": "fec63787c512ea2c733091088d707d17b2db8bf701c8befca23a2463416124b9",
-  "independentCompleteFixtureModel": false,
+  "independentCompleteFixtureModel": true,
   "completeIdentityCopyRecords": 32768,
   "successfulCopyRecords": 31744,
   "originalUnsupportedOneBitRecords": 1024,

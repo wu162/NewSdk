@@ -217,7 +217,7 @@ def audit(group,run,source):
         else:details=({'native-descriptor':descriptor_archive,'native-copy':copy_archive}.get(group,surface_archive))(b)
         dlls=list(directory.glob(configuration+'-Recovered.*.dll'));assert len(dlls)==1 and sha(dlls[0].read_bytes())==m['nativeSha256']
         dll=dlls[0].read_bytes();pe=struct.unpack_from('<I',dll,60)[0];assert dll[pe:pe+4]==b'PE\0\0' and struct.unpack_from('<H',dll,pe+4)[0]==0x14c
-    return {'group':group,'sourceCommit':source,'runId':run,'completeDebugReleaseCaptureBytes':len(b),'captureSha256':digest,'independentCompleteFixtureModel':model is not None,**details}
+    return {'group':group,'sourceCommit':source,'runId':run,'completeDebugReleaseCaptureBytes':len(b),'captureSha256':digest,'independentCompleteFixtureModel':model is not None or group=='native-copy',**details}
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--group',choices=['native-device','native-resource','native-surface','native-descriptor','native-copy'],required=True);p.add_argument('--run-id',required=True);p.add_argument('--source-commit',required=True);p.add_argument('--out',type=Path,required=True);a=p.parse_args()

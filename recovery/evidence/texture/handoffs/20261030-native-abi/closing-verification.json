@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "scope": "read-only closeout plan and exact tree/input audit; not an additional runtime matrix/SDK/MOD run",
+  "implementationSourceCommit": "7f2994d7bfc4d350cd1a71e99904b73c0ab0c7c1",
+  "finalRuntimeRunId": "40916397812",
+  "closingPlanSourceCommit": "75ada2718a56534667de517416d4d432be759cb8",
+  "closingPlanRunId": "40917510565",
+  "closingPlanStatus": "completed/success",
+  "selected": [],
+  "completeSuccessfulComponentGroupsReused": 57,
+  "windowsJob": "skipped",
+  "originalAcceptanceAnchorsPreserved": true,
+  "nativeSourceTreeSha": "ee46be9a7f133156dcda581385b265b70f4ac361",
+  "nativeSourceTreeMatchesAcceptedFinalImplementation": true,
+  "initialRemoteCommit": "0ccab97b3269f66272f0da99d9c5321eb07b87d4",
+  "sdkTreeSha": "b38938fd7347ff0acb7cf39135b520c9db4618c7",
+  "sdkTreeUnchangedDuringSession": true,
+  "componentReadiness": "current-component-readiness.json",
+  "fullSavedNativeCapturesIndependentlyAudited": true
+}
