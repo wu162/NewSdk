@@ -1,0 +1,57 @@
+name: Bounded cache overhead diagnostic
+on:
+  push:
+    branches: [recovery/legacy-sdk-cache, compiler-main]
+    paths:
+      - '.github/workflows/compiler-cache-profile.yml'
+      - 'recovery/scripts/ProfileCompilerCacheIdentity.ps1'
+      - 'recovery/tests/CompilerCacheIdentityProfile.cs'
+      - 'recovery/scripts/PrepareCompilerCacheBenchmark.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: cache-profile-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  profile:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[cache-profile]')
+    runs-on: windows-2022
+    timeout-minutes: 5
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Verify accepted Release without a production rebuild
+        shell: pwsh
+        timeout-minutes: 2
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/scripts/PrepareCompilerCacheBenchmark.py --repo . --candidate-commit $env:GITHUB_SHA --output "$env:RUNNER_TEMP/cb"
+          if($LASTEXITCODE -ne 0){throw 'Accepted diagnostic runtime preparation failed'}
+      - name: Compile test-only helper and measure read-only methods
+        shell: pwsh
+        timeout-minutes: 1
+        run: |
+          $prepared=Get-Content "$env:RUNNER_TEMP/cb/preparation.json" -Raw|ConvertFrom-Json
+          $out="recovery/evidence/refactor/cache-profile/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          ./recovery/scripts/ProfileCompilerCacheIdentity.ps1 -RuntimeDirectory $prepared.runtimeDirectory -SdkRoot $prepared.sdkRoot -ModRoot $prepared.workloads[0].modRoot -OutputDirectory $out
+          if($LASTEXITCODE -ne 0){throw 'Read-only identity/preflight diagnostic failed'}
+          Copy-Item "$env:RUNNER_TEMP/cb/preparation.json" "$out/preparation.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compiler-cache-profile-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**

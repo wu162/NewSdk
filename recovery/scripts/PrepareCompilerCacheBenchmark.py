@@ -30,6 +30,10 @@ BENCHMARK_FILES = frozenset(('recovery/scripts/PrepareCompilerCacheBenchmark.py'
                             'recovery/tests/test_sdk_benchmark.py',
                             'recovery/tests/test_prepare_sdk_benchmark.py',
                             '.github/workflows/compiler-sdk-benchmark.yml',
+                            'recovery/scripts/AnalyzeCompilerSdkTimings.py',
+                            'recovery/scripts/ProfileCompilerCacheIdentity.ps1',
+                            'recovery/tests/CompilerCacheIdentityProfile.cs',
+                            '.github/workflows/compiler-cache-profile.yml',
                             '.github/workflows/compiler-cache-benchmark.yml'))
 
 
