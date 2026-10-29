@@ -153,6 +153,9 @@ jobs:
           $metadataExe=Join-Path $env:RUNNER_TEMP 'LegacyCacheMetadata.exe'
           & "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe" /nologo /platform:x86 /r:System.Web.Extensions.dll ("/out:"+$metadataExe) $metadataSource
           if($LASTEXITCODE -ne 0){throw 'Original cache metadata probe compilation failed before native linking'}
+          '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0"/></startup></configuration>'|Set-Content "$metadataExe.config"
+          & $metadataExe (Resolve-Path -LiteralPath 'SDK/tools').Path (Join-Path $env:RUNNER_TEMP 'LegacyCacheMetadata.json')
+          if($LASTEXITCODE -ne 0){throw 'Original DLL metadata reflection failed before native linking'}
       - name: Build managed Foundation inputs
         if: ${{ env.CLI_REUSE != 'true' }}
         shell: pwsh

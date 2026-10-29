@@ -17,12 +17,13 @@ public static class CompilerLegacyCacheMetadata
             var texture = Assembly.LoadFrom(Path.Combine(args[0], "BinaryAssetBuilder.TextureCompiler.dll"));
             var pluginType = texture.GetType("BinaryAssetBuilder.TextureCompiler.Plugin", true);
             var api = core.GetType("BinaryAssetBuilder.Core.IAssetBuilderPlugin", true);
+            var lifecycle = core.GetType("BinaryAssetBuilder.IAssetBuilderPluginBase", true);
             object plugin = Activator.CreateInstance(pluginType);
             var result = new Dictionary<string, object>();
             try
             {
                 object platform = Enum.Parse(core.GetType("BinaryAssetBuilder.Core.TargetPlatform", true), "Win32");
-                api.GetMethod("Initialize").Invoke(plugin, new object[] {null, platform});
+                lifecycle.GetMethod("Initialize").Invoke(plugin, new object[] {null, platform});
                 foreach (string name in new[] {"Texture", "OnDemandTexture", "TerrainTextureAtlas"})
                 {
                     object id = core.GetType("BinaryAssetBuilder.Core.InstanceHandle", true).GetMethod("GetTypeId").Invoke(null, new object[] {name});
