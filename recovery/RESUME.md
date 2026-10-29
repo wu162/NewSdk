@@ -1,3 +1,17 @@
+# 当前：PC XGCopySurface 非压缩归一化转换已实现，等待完整Actions差分
+
+## 本轮完成（2026-10-30续接）
+
+- 从018350ca继续，新增独立 `TextureCopySurface` stdcall导出，保留原identity接口；实现28个unsigned-normalized布局、8/16/32位打包与64位RGBA16、源/目标通道映射及常量、重复目标last-wins、原float32归一化/量化及1位阈值。静态原版描述符/指令与SHA保存在native-convert-static/20261030；不调用原DLL或gold后端。
+- 新native-convert完整矩阵100412输入/配置：784格式对、16映射对、4步幅方向/区域、2padding；其中60完整65536像素条带覆盖3932160像素，含全部16位源值和三阈值。保存完整源/输出/padding/guard；Debug/Release原版差分、NoOriginal和真实导入库消费者尚待Actions，当前**未验收**。负步幅转换按原临时分配失败路径返回E_OUTOFMEMORY，identity保留已有负步幅支持；待实测核对。
+- 仅改独立copy DLL，不加入已部署六DLL包。格式属性的signed/gamma/endian/float/压缩、过滤及重叠仍明确拒绝；旧57组件按实际依赖选择，仅补native-convert/native-copy/base，SDK/MOD无新输入不重跑。
+
+## 下一轮计划／当前继续入口
+
+- 先收本次 `[texture-test]` 的native-convert完整原版差分，失败优先核对HRESULT、通道映射、float32舍入/阈值；保留其他逐组成功证据。成功后独立审计完整capture并记录sourceCommit/runId，再继续PC LoadImageA需要的其余转换/原生文件加载资源构造。测试入口TestTextureNativeConvert.ps1及TextureNativeConvertOracle.cpp；编译测试仅Actions、禁止强推。
+
+以下为前轮已验收状态及历史锚点。
+
 # 当前：PC原生五个能力组与真实消费已闭环；57组件当前证据齐全
 
 ## 本轮完成

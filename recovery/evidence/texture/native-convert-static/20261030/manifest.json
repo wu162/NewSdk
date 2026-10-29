@@ -1,0 +1,78 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "formatIds": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    14,
+    15,
+    16,
+    17,
+    24,
+    25,
+    26,
+    41,
+    42,
+    43,
+    45,
+    46,
+    47,
+    48,
+    50,
+    54,
+    55,
+    56,
+    62
+  ],
+  "scope": "Unsigned normalized conversion metadata and x87 decode/store/swizzle/threshold rules",
+  "files": [
+    {
+      "name": "FormatDescriptors",
+      "rva": "0xa0390",
+      "size": 3840,
+      "sha256": "c2ed3d4d6f19536238e045d494e72869c580885478181e23147cfa72a160761b"
+    },
+    {
+      "name": "SwizzleAndConstants",
+      "rva": "0xa1290",
+      "size": 344,
+      "sha256": "65d526209d5929407e7ab97811dcae70d2578de01033541f6e4b2c48195823d1"
+    },
+    {
+      "name": "SourceDecode",
+      "rva": "0x3a99a",
+      "size": 614,
+      "sha256": "487808a9c365d5b8363dab6f14d18d49231397852bfa0d2be9542d479b23e39b"
+    },
+    {
+      "name": "DestinationStore",
+      "rva": "0x3c85b",
+      "size": 800,
+      "sha256": "cbca17363aa5b6f1cf5966d2a265d39d16a9f36d67d10f526336d32e6d9cb9d2"
+    },
+    {
+      "name": "SourceScale",
+      "rva": "0x3b366",
+      "size": 474,
+      "sha256": "9e9e711a409f0a60fc10cafd35415a309ce46421283512d31887606bdcd3d89e"
+    },
+    {
+      "name": "DestinationScale",
+      "rva": "0x3b540",
+      "size": 555,
+      "sha256": "1c6339941553e02f803e52dce49cbb93cab795566942f5ad2b513f7592de3155"
+    },
+    {
+      "name": "Swizzle",
+      "rva": "0x3a22d",
+      "size": 188,
+      "sha256": "37700bd97a307b82139fb3d3d1463098cfc9f49f8b3a3a06e6c3b1df49bae1a3"
+    }
+  ]
+}

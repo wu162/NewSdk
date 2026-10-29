@@ -4,7 +4,7 @@ New-Item -ItemType Directory -Force $Destination|Out-Null;$destinationPath=(Reso
 $opt=if($Configuration -eq 'Release'){'/O2'}else{'/Od'}
 Push-Location $destinationPath
 try{
- & cl /nologo /LD /MT /EHsc /std:c++17 $opt "$root/src/TextureCompiler/Native/TextureNativeCopyApi.cpp" /link /DEF:"$root/src/TextureCompiler/Native/TextureNativeCopyApi.def" /OUT:"$destinationPath/Recovered.TextureNativeCopy.dll" /IMPLIB:"$destinationPath/native-copy.lib" /MACHINE:X86
+ & cl /nologo /LD /MT /EHsc /std:c++17 $opt /fp:strict "$root/src/TextureCompiler/Native/TextureNativeCopyApi.cpp" "$root/src/TextureCompiler/Native/TextureNativeConvertApi.cpp" /link /DEF:"$root/src/TextureCompiler/Native/TextureNativeCopyApi.def" /OUT:"$destinationPath/Recovered.TextureNativeCopy.dll" /IMPLIB:"$destinationPath/native-copy.lib" /MACHINE:X86
  if($LASTEXITCODE -ne 0){throw 'Native x86 PC copy build failed'}
  $data=[IO.File]::ReadAllBytes("$destinationPath/Recovered.TextureNativeCopy.dll");$pe=[BitConverter]::ToInt32($data,0x3c)
  if([BitConverter]::ToUInt16($data,$pe+4) -ne 0x14c){throw 'Copy ABI requires I386'}

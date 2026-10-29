@@ -1,3 +1,4 @@
 LIBRARY Recovered.TextureNativeCopy.dll
 EXPORTS
     TextureCopySurfaceIdentity=_TextureCopySurfaceIdentity@48
+    TextureCopySurface=_TextureCopySurface@48
