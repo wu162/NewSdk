@@ -1,0 +1,102 @@
+"""Short rejection checks for the benchmark's accepted-binary boundary."""
+import importlib.util
+import io
+import json
+from pathlib import Path
+import tempfile
+import unittest
+import zipfile
+
+SPEC = importlib.util.spec_from_file_location('prepare_cache_benchmark',
+    Path(__file__).resolve().parents[1] / 'scripts/PrepareCompilerCacheBenchmark.py')
+P = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(P)
+
+
+class PreparationTests(unittest.TestCase):
+    def bundle(self, root, bad_patch=False, extra=False, bad_file=False):
+        files = {name: name.encode() for name in P.NAMES}
+        patch = dict(mode='redirect', targetExeSha256=P.sha(files['NewModCompiler.exe']),
+            patchedSha256=P.sha(files['BinaryAssetBuilder.TextureCompiler.dll']),
+            originalSha256='4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e',
+            protectedPeAudit=dict(status='passed', mode='redirect'))
+        if bad_patch:
+            patch['targetExeSha256'] = '0' * 64
+        files['BinaryAssetBuilder.TextureCompiler.dll.patch.json'] = json.dumps(patch).encode()
+        identities = [dict(name=name, bytes=len(data), sha256=P.sha(data)) for name, data in files.items()]
+        if bad_file:
+            files['NewModCompiler.exe'] += b'tampered'
+        inner = io.BytesIO()
+        with zipfile.ZipFile(inner, 'w') as archive:
+            for name, data in files.items():
+                archive.writestr(name, data)
+            if extra:
+                archive.writestr('../other.dll', b'extra')
+        data = inner.getvalue()
+        identity = dict(binarySourceCommit=P.SOURCE, runId=P.RUN, runAttempt='1')
+        release = dict(identity, sourceCommit=P.SOURCE, succeeded=True,
+            configurations=[dict(configuration=name, rawOutputEquality=True, zipSha256=P.sha(data))
+                            for name in ('Debug', 'Release')])
+        manifest = dict(identity, configuration='Release', platform='Win32',
+            status='verified-small-mod-deployment', packagingSourceCommit=P.SOURCE, texturePatch=patch,
+            archive=dict(name='NewModCompiler-Win32-Release.zip', bytes=len(data), sha256=P.sha(data)),
+            files=identities)
+        target = root / 'artifact.zip'
+        with zipfile.ZipFile(target, 'w') as archive:
+            archive.writestr(P.PREFIX + 'release.json', json.dumps(release))
+            archive.writestr(P.PREFIX + 'NewModCompiler-Win32-Release.manifest.json', json.dumps(manifest))
+            archive.writestr(P.PREFIX + 'NewModCompiler-Win32-Release.zip', data)
+        return target
+
+    def test_accepted_members_are_returned_without_extracting_archive_paths(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = self.bundle(Path(temp))
+            files, rows = P.validate_bundle(path, P.file_sha(path))
+            self.assertEqual(set(files), P.NAMES)
+            self.assertEqual(len(rows), 5)
+
+    def test_outer_digest_is_mandatory(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = self.bundle(Path(temp))
+            with self.assertRaisesRegex(ValueError, 'artifact SHA256'):
+                P.validate_bundle(path)
+
+    def test_rejects_unbound_texture_even_when_inner_hashes_match(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = self.bundle(Path(temp), bad_patch=True)
+            with self.assertRaisesRegex(ValueError, 'Texture patch'):
+                P.validate_bundle(path, P.file_sha(path))
+
+    def test_rejects_extra_or_escaping_runtime_member(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = self.bundle(Path(temp), extra=True)
+            with self.assertRaisesRegex(ValueError, 'exactly five root'):
+                P.validate_bundle(path, P.file_sha(path))
+
+    def test_rejects_tampered_runtime_despite_valid_zip_hash(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = self.bundle(Path(temp), bad_file=True)
+            with self.assertRaisesRegex(ValueError, 'Runtime file digest'):
+                P.validate_bundle(path, P.file_sha(path))
+
+    def test_documentation_exception_cannot_hide_compiler_input(self):
+        for name in ('SDK/README.md', 'recovery/src/recipe.md', 'recovery/probes/metadata.md',
+                     'recovery/scripts/BuildCompiler.ps1', '.github/workflows/refactor-core-lifecycle.yml'):
+            self.assertFalse(P.allowed_change(name), name)
+        self.assertTrue(P.allowed_change('recovery/docs/CACHE_BENCHMARK.md'))
+        self.assertTrue(P.allowed_change('recovery/scripts/BenchmarkCompilerCache.py'))
+
+    def test_input_symlink_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / 'real').write_bytes(b'data')
+            try:
+                (root / 'alias').symlink_to(root / 'real')
+            except (OSError, NotImplementedError):
+                self.skipTest('Host does not permit symlinks')
+            with self.assertRaisesRegex(ValueError, 'symlink'):
+                P.inventory(root)
+
+
+if __name__ == '__main__':
+    unittest.main()
