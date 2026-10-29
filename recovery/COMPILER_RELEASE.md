@@ -11,7 +11,12 @@
 - `artifacts/final-release/40814401237-1/NewModCompiler-Win32-Release.zip`
 - `artifacts/final-release/40814401237-1/NewModCompiler-Win32-Debug.zip`
 
-外层归档为 137119679 字节，SHA256 `6c395456add02dec40c7759e9cc5a26d34ea353f5e3ee588a12a78df3bfab044`，GitHub 元数据与上传日志一致，保留至 2027-01-27。本环境下载返回 HTTP 403，未独立打开内层清单或重新计算 ZIP 哈希，因此不填写未读取的内层 ZIP 长度/哈希。内层清单与 `release.json` 以该成功运行的原始归档为准。此候选链接不更改主线既有发行来源。
+外层归档为 137119679 字节，SHA256 `6c395456add02dec40c7759e9cc5a26d34ea353f5e3ee588a12a78df3bfab044`，GitHub 元数据、上传日志及后续本地重新计算一致，保留至 2027-01-27。首次 CLI 下载 HTTP 403 的历史保留；性能基准续接时已通过 GitHub 产物下载工具取得原始 ZIP，读取原始清单/收据，并校验完整 Release 五文件和 Texture 绑定。此候选链接不更改主线既有发行来源。
+
+| 正式 ZIP | 字节数 | SHA256 |
+| --- | ---: | --- |
+| NewModCompiler-Win32-Debug.zip | 2227129 | `e4e2df5e76c16f51406aea3ee141d72a96b0f65a1245da582fb84c7e4fce8d92` |
+| NewModCompiler-Win32-Release.zip | 1726007 | `343198bc65976bf0cbad852ef2b64419e8ee9b44add8f14c6e0fdd9fa07f9b8d` |
 
 ## 前次主线修复版工具（2026-10-27）
 

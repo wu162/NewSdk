@@ -27,6 +27,8 @@
 
 “冷”仅指编译器缓存为空；不清空 OS 文件页缓存。进程启动、JIT、链接、发布及日志成本均计入墙钟时间。样本较少，只报告中位数和 min–max；冷热结果不宣称统计显著。加速比为同 workload 的无缓存墙钟中位数除以对应行中位数，低于 1 表示更慢。缓存大小包括持久会话、资产、中间及 CDATA 状态，不含正式发布文件。
 
+开始计量前先运行独立 `doctor` 启动诊断，其耗时单列并计入总预算，不计入构建样本；所有样本因此共用已加载的 EXE/OS 页缓存状态。工作流使用与原验收相同的 x86 MSVC 环境；启动器禁用无人值守 Windows 错误对话框，运行库错误必须退出或触发原有超时上限。
+
 每个有效样本必须成功发布，实际缓存开关及计数正确，全部输出成员、长度和 SHA256 与无缓存一致，运行前后的五文件运行库、SDK Schema/配置及 MOD 输入不变。失败样本保留原记录，不纳入成绩。
 
 ## 重复运行
@@ -43,3 +45,5 @@ python recovery/scripts/BenchmarkCompilerCache.py --preparation "$env:RUNNER_TEM
 工作流为 `.github/workflows/compiler-cache-benchmark.yml`；仅显式 `[cache-benchmark]` 提交或手动触发才执行，不会触发生产重编译。最新实测结果将记录在本页及对应运行的原始产物中。
 
 首轮[运行 40819603709](https://github.com/wu162/NewSdk/actions/runs/40819603709) 的 failure 保留：18.6 秒后因 mymod 的热资产缓存活动为 0 而拒绝了成绩。该结果暴露了基准对类型适用性的错误假设；后续依据原 SDK 的类型配置分类，并增加明确适用资产缓存的 Texture 样例，生产行为未修改。
+
+[运行 40819993842](https://github.com/wu162/NewSdk/actions/runs/40819993842) 在首次 mymod 进程启动 30 秒后超时，stdout/stderr 均为空，未取得任何有效样本，保留 failure。不能将它计为编译慢或缓存收益；后续补齐原验收 x86 环境并加入显式启动诊断，未延长时间上限。

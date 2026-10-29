@@ -31,6 +31,9 @@ jobs:
           sparse-checkout: |
             /*
             !/recovery/evidence/
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
       - name: Fast benchmark correctness checks
         shell: pwsh
         run: |
@@ -63,6 +66,8 @@ jobs:
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/benchmark.json
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/benchmark.md
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/summary.csv
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/doctor-stdout.log
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/doctor-stderr.log
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/request.json
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/report.json
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/stdout.log

@@ -28,7 +28,7 @@
 
 ## 产物与覆盖边界
 
-[原始产物](https://github.com/wu162/NewSdk/actions/runs/40814401237/artifacts/12871674302) 中的 Release ZIP 为 `artifacts/final-release/40814401237-1/NewModCompiler-Win32-Release.zip`，Debug 同目录。外层归档 SHA256 `6c395456add02dec40c7759e9cc5a26d34ea353f5e3ee588a12a78df3bfab044`，来自 GitHub 元数据及上传日志，两者一致。本环境下载返回 HTTP 403，未在本地重新计算归档哈希或打开内层收据；本次核对依据成功步骤、原始任务日志和产物元数据。
+[原始产物](https://github.com/wu162/NewSdk/actions/runs/40814401237/artifacts/12871674302) 中的 Release ZIP 为 `artifacts/final-release/40814401237-1/NewModCompiler-Win32-Release.zip`，Debug 同目录。外层归档 SHA256 `6c395456add02dec40c7759e9cc5a26d34ea353f5e3ee588a12a78df3bfab044`；GitHub 元数据、上传日志及性能基准续接时本地重新计算均一致。最初 CLI 下载 HTTP 403 的记录保留；后续通过 GitHub 产物下载工具取得原始 ZIP，已读取会话、完整 mymod、发行原收据，并校验 Release 五文件及 Texture 绑定。
 
 部分保存直接验证 XML 失败后完成文档的保存及重试；真实 CtrlBreak 用例使用 `/psc:false`。原 BAB 目录导入直接验证 XML，新宿主另行验证 Deflate 冷热及切换；未增加原 BAB Deflate 导入或 `/psc:true` 取消后持久化的独立生产证明。完整游戏数据、WBData、游戏内运行和中文纹理路径未新增验收。用例映射见[缓存说明](docs/LEGACY_INCREMENTAL_CACHE.md)。
 
@@ -47,6 +47,6 @@
 
 ## 下一步
 
-交接中的验收跟进和状态整理已完成，PR 等待用户审查。若修改生产或测试输入，按受影响范围重新验证；仅文档更新不触发 Windows/SDK 构建。用户明确批准合入后才可合并至 `compiler-main`。
+交接中的验收跟进和状态整理已完成，PR 等待用户审查。用户追加的有界性能基准见[说明](docs/CACHE_BENCHMARK.md)：复用原验收 Release，生产输入及原验收测试不变；benchmark 自己的源码/运行身份单独记录。若修改生产或原验收测试输入，按受影响范围重新验证；仅文档更新不触发 Windows/SDK 构建。用户明确批准合入后才可合并至 `compiler-main`。
 
 保留失败记录，不降低原版字节差分与取消/失败断言；禁止强推，合入仍需用户明确批准。

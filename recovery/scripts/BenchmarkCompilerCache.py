@@ -207,6 +207,9 @@ def save(output, state):
 
 def run(args):
     require(os.name == 'nt', 'Execution requires Windows; Python unit checks run cross-platform')
+    # Loader/runtime errors must exit rather than opening an unattended Windows
+    # error dialog. Children inherit this mode; process timeouts remain strict.
+    ctypes.WinDLL('kernel32', use_last_error=True).SetErrorMode(0x0001 | 0x0002 | 0x8000)
     prepared = read_json(args.preparation)
     runtime = Path(prepared['runtimeDirectory']).resolve()
     require(not Path(args.output).exists(), 'Refusing to overwrite benchmark evidence')
@@ -245,6 +248,19 @@ def run(args):
     started = time.perf_counter()
     baselines = {}
     try:
+        # Check the same runtime contract as release deployment before timing
+        # builds. This also gives every mode an equally loaded EXE/page cache.
+        doctor_tick = time.perf_counter()
+        doctor_command = [str(runtime / 'NewModCompiler.exe'), 'doctor', '--sdk-root', str(sdk)]
+        with (output / 'doctor-stdout.log').open('wb') as stdout, (output / 'doctor-stderr.log').open('wb') as stderr:
+            doctor = subprocess.run(doctor_command, cwd=runtime, stdout=stdout, stderr=stderr,
+                                    timeout=min(args.timeout_seconds, args.budget_seconds))
+        state['startupDoctor'] = {'exitCode': doctor.returncode,
+                                  'wallMs': (time.perf_counter() - doctor_tick) * 1000,
+                                  'countedInBudget': True, 'countedInBuildSamples': False}
+        require(doctor.returncode == 0 and 'CORE_ENVIRONMENT_OK' in
+                (output / 'doctor-stdout.log').read_text(encoding='utf-8-sig'),
+                'Startup doctor failed; build measurements were not started')
         # Alternate mode order between rounds. Each mode owns an independent
         # output/cache root; no-cache and asset-only always get fresh intermediate.
         for round_index in range(args.hot_runs + 1):
@@ -286,6 +302,8 @@ def run(args):
                             process.wait(timeout=5)
                             sample['wallMs'] = (time.perf_counter() - tick) * 1000
                             sample['exitCode'] = process.returncode
+                            sample['eventsObserved'] = (destination / 'build.events.jsonl').exists()
+                            sample['reportObserved'] = (destination / 'build-report.json').exists()
                             sample['status'] = 'timed-out'
                             raise TimeoutError('Process timeout: ' + label)
                         sample['wallMs'] = (time.perf_counter() - tick) * 1000
