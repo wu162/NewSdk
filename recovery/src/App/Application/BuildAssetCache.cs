@@ -57,12 +57,43 @@ namespace NewModCompiler.Application
             }
             if (Directory.Exists(destination) && Directory.GetFileSystemEntries(destination).Length != 0) throw new IOException("The staging asset cache must be empty.");
             Directory.CreateDirectory(destination);
-            foreach (Entry entry in entries)
+            try
             {
-                cancellation.ThrowIfCancellationRequested();
-                string target = Path.Combine(destination, entry.Name); Directory.CreateDirectory(Path.GetDirectoryName(target));
-                File.Copy(Path.Combine(source, "files", entry.Storage), target, false);
-                if (new FileInfo(target).Length != entry.Size || Hash(target) != entry.Hash) throw new IOException("Cached asset changed while copying.");
+                // Validate exactly the bytes supplied to Core while copying them.
+                // A separate whole-payload hash pass before this copy adds no
+                // protection against a subsequent change of the source file.
+                byte[] buffer = new byte[65536];
+                using (var hash = SHA256.Create())
+                foreach (Entry entry in entries)
+                {
+                    cancellation.ThrowIfCancellationRequested();
+                    string target = Path.Combine(destination, entry.Name); Directory.CreateDirectory(Path.GetDirectoryName(target));
+                    long length = 0;
+                    using (var input = new FileStream(Path.Combine(source, "files", entry.Storage), FileMode.Open, FileAccess.Read, FileShare.Read))
+                    using (var output = new FileStream(target, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+                    {
+                        hash.Initialize(); int read;
+                        while ((read = input.Read(buffer, 0, buffer.Length)) != 0)
+                        {
+                            cancellation.ThrowIfCancellationRequested();
+                            output.Write(buffer, 0, read); hash.TransformBlock(buffer, 0, read, buffer, 0); length += read;
+                        }
+                        hash.TransformFinalBlock(buffer, 0, 0);
+                    }
+                    if (length != entry.Size || Hex(hash.Hash) != entry.Hash) throw new InvalidDataException("Cached asset payload does not match its index.");
+                }
+            }
+            catch (InvalidDataException)
+            {
+                Directory.Delete(destination, true);
+                if (replaceInvalidEntries) invalidEntries.Add(TaskName(taskKey));
+                return false;
+            }
+            catch
+            {
+                // No caller may observe a partial restore, including cancellation.
+                if (Directory.Exists(destination)) Directory.Delete(destination, true);
+                throw;
             }
             return true;
         }
@@ -255,7 +286,7 @@ namespace NewModCompiler.Application
                         if (string.IsNullOrEmpty(entry.Name) || Path.IsPathRooted(entry.Name) || entry.Name.IndexOf(':') >= 0 || entry.Size < 0 || entry.Hash.Length != 64 || !names.Add(entry.Name)) return false;
                         foreach (string part in entry.Name.Split(new[] {'\\','/'})) if (part.Length == 0 || part == "." || part == "..") return false;
                         string path = Path.Combine(root,"files",entry.Storage); RejectAncestors(path);
-                        if (!File.Exists(path) || new FileInfo(path).Length != entry.Size || Hash(path) != entry.Hash) return false;
+                        if (!File.Exists(path) || new FileInfo(path).Length != entry.Size) return false;
                         entries.Add(entry);
                     }
                     if (reader.BaseStream.Position != reader.BaseStream.Length) return false;
@@ -270,3 +301,4 @@ namespace NewModCompiler.Application
         }
     }
 }
+

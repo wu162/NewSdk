@@ -1,7 +1,7 @@
 name: MOD compiler Core lifecycle integration
 on:
   push:
-    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults]
+    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, perf/upheaval-cache-overhead]
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
@@ -302,3 +302,4 @@ jobs:
             recovery/artifacts/lifecycle-app/**/test-app.log
           include-hidden-files: true
           if-no-files-found: error
+

@@ -35,6 +35,22 @@ namespace NewModCompiler.Tests
             Check(baseline.Fingerprint.Length == 64 && baseline.FileCount == 5, "Inventory digest and file count.");
             Check(baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Identical cold/hot inventory differs.");
 
+            var shared = CacheInputSnapshot.CaptureInputs(request, runtime, CancellationToken.None);
+            Check(CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, shared).Fingerprint == baseline.Fingerprint, "Shared root inventory changed the stream namespace.");
+            string firstTask = plan.Tasks[0].Id; plan.Tasks[0].Id = "apt/other";
+            Check(CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None, shared).Fingerprint != baseline.Fingerprint, "Shared roots erased per-stream task identity.");
+            plan.Tasks[0].Id = firstTask;
+            DateTime sharedStamp = File.GetLastWriteTimeUtc(dependency);
+            Write(dependency, "CCCC"); File.SetLastWriteTimeUtc(dependency, sharedStamp);
+            Check(!shared.MatchesCurrent(request, runtime, CancellationToken.None), "Final session validation missed equal-length/equal-time changes between streams.");
+            Write(dependency, "AAAA"); File.SetLastWriteTimeUtc(dependency, sharedStamp);
+            Check(shared.MatchesCurrent(request, runtime, CancellationToken.None), "Restored shared inventory failed validation.");
+            string added = Path.Combine(request.ModRoot, "added.bin"); Write(added, "added");
+            Check(!shared.MatchesCurrent(request, runtime, CancellationToken.None), "Final shared validation missed an added file.");
+            File.Delete(added); File.Move(dependency, dependency + ".moved");
+            Check(!shared.MatchesCurrent(request, runtime, CancellationToken.None), "Final shared validation missed a renamed file.");
+            File.Move(dependency + ".moved", dependency);
+
             // A plugin payload absent from the XML task list still invalidates
             // the root inventory, including same-length/same-timestamp edits.
             DateTime timestamp = File.GetLastWriteTimeUtc(dependency);
@@ -97,3 +113,4 @@ namespace NewModCompiler.Tests
         }
     }
 }
+

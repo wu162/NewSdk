@@ -16,9 +16,9 @@ namespace NewModCompiler.Tests
         static int assertions;
         static void Check(bool value,string message) { assertions++; if (!value) throw new Exception("Session publication: "+message); }
         static void Put(string path,string value) { Directory.CreateDirectory(Path.GetDirectoryName(path)); File.WriteAllText(path,value); }
-        sealed class Compiler : IStreamCompiler
+        sealed class Compiler : IStreamCompiler, IBuildCacheInputValidator
         {
-            public string Payload="new generation", BuildId; public bool FailDispose; public Action<StreamContext> Compiling;
+            public string Payload="new generation", BuildId; public bool FailDispose, Disposed; public int Validations; public Action<StreamContext> Compiling; public Action<CancellationToken> Validating;
             public string ProviderIdentity { get { return "TEST_ONLY_PUBLICATION_EXECUTOR"; } }
             public void Initialize(BuildRequest request) { }
             public IList<Artifact> Compile(StreamContext context,CancellationToken cancellation)
@@ -29,7 +29,8 @@ namespace NewModCompiler.Tests
                 Put(Path.Combine(context.StagingDirectory,"unlisted.tmp"),"not an artifact");
                 return new[] {new Artifact {Path=path,Kind="TestOnly"}};
             }
-            public void Dispose() { if (FailDispose) throw new IOException("injected provider close failure"); }
+            public void ValidateCacheInputs(CancellationToken cancellation) { Check(Disposed,"validation ran before provider disposal"); Validations++; Check(Validations==1,"final inputs validated more than once"); if (Validating!=null) Validating(cancellation); }
+            public void Dispose() { Disposed=true; if (FailDispose) throw new IOException("injected provider close failure"); }
         }
         sealed class Sink : IBuildEventSink
         {
@@ -166,7 +167,23 @@ namespace NewModCompiler.Tests
             Directory.Delete(Path.Combine(request.OutputRoot,"published"),true); Directory.Move(recover,Path.Combine(request.OutputRoot,"published"));
             Check(File.ReadAllText(oldGeneration)=="recoverable previous generation","explicit old-generation recovery failed");
             Console.WriteLine("PASS Session publication: "+assertions+" lifecycle assertions; controlled executor, no real compiler acceptance");
+            // Final shared-input validation must veto publication, leaving an
+            // already confirmed generation intact. A cancelled validator also
+            // follows the cancellation path rather than accepting stale output.
+            var guarded=Request(Path.Combine(work,"final-input-validation"),mod,sdk);
+            var initial=new Compiler {Payload="confirmed"};
+            Check(Run(guarded,initial,new Sink())==ExitCode.Success,"validation baseline failed");
+            string confirmed=Path.Combine(guarded.OutputRoot,"published","base","Mod","payload.bin");
+            var inputRejected=new Compiler {Validating=token=>{throw new BuildFailure(ExitCode.Compilation,"CORE_CACHE_INPUT_CHANGED","input changed between streams");}};
+            Check(Run(guarded,inputRejected,new Sink())==ExitCode.Compilation,"final input change did not fail build");
+            Check(File.ReadAllText(confirmed)=="confirmed","changed inputs replaced confirmed publication");
+            FailedReport(guarded,ExitCode.Compilation,"NotPublished"); Clean(guarded,inputRejected);
+            var cancelledValidation=new Compiler {Validating=token=>{throw new OperationCanceledException();}};
+            Check(Run(guarded,cancelledValidation,new Sink())==ExitCode.Cancelled,"final validation cancellation was accepted");
+            Check(File.ReadAllText(confirmed)=="confirmed","cancelled validation replaced confirmed publication");
+            Clean(guarded,cancelledValidation);
             return assertions;
         }
     }
 }
+

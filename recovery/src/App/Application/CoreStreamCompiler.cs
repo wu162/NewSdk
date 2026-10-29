@@ -17,7 +17,7 @@ namespace NewModCompiler.Application
 {
     // Experimental in-process backend. CLI enablement and SDK/G3 acceptance are
     // separate gates; this type never launches BAB, a worker, or another EXE.
-    public sealed class CoreStreamCompiler : IStreamCompiler, IBuildCacheCompiler, IInputRootsCompiler
+    public sealed class CoreStreamCompiler : IStreamCompiler, IBuildCacheCompiler, IInputRootsCompiler, IBuildCacheInputValidator
     {
         static readonly object LeaseGate = new object();
         static CoreStreamCompiler leaseOwner;
@@ -31,12 +31,15 @@ namespace NewModCompiler.Application
         readonly List<BuildAssetCache> assetCaches = new List<BuildAssetCache>();
         readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
         public object InputRootsReport { get; private set; }
+        CacheInputSnapshot.InputInventory inputInventory;
+        string inventoryRuntime, inventoryProcessContract;
+        int inputInventoryPasses, buildCacheStages;
         BuiltinCompilers compilers;
         VerifierPluginRegistry verifiers;
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
         public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.SessionPackage" : buildCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.BuildAssetCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
-        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false }; } }
+        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false, inputInventoryPasses, buildCacheStages }; } }
 
         public void Initialize(BuildRequest request)
         {
@@ -446,18 +449,25 @@ namespace NewModCompiler.Application
                 string runtime = Path.GetDirectoryName(typeof(CoreStreamCompiler).Assembly.Location);
                 BuildPlan cachePlan = null; CacheInputSnapshot cacheInputs = null;
                 string processContract = null; BuildAssetCache assetCache = null; SessionPackage sessionPackage = null;
-                bool packageRestored = false;
+                bool packageRestored = false, assetCacheRestored = false;
                 if (buildCacheEnabled || sessionCacheEnabled)
                 {
                     inputBoundary = CacheInputBoundary.Begin(sdkRoot, modRoot, runtime);
                     cachePlan = new BuildPlan { PlanKind = "CoreCacheStream.v2", Tasks = new[] { context.Task } };
-                    cacheInputs = CacheInputSnapshot.Capture(request, cachePlan, runtime, cancellation);
                     processContract = CacheProcessContract();
+                    if (inputInventory == null)
+                    {
+                        inputInventory = CacheInputSnapshot.CaptureInputs(request, runtime, cancellation);
+                        inventoryRuntime = runtime; inventoryProcessContract = processContract; inputInventoryPasses++;
+                    }
+                    if (!string.Equals(inventoryProcessContract, processContract, StringComparison.Ordinal))
+                        throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Process resolution contract changed between streams.");
+                    cacheInputs = CacheInputSnapshot.Capture(request, cachePlan, runtime, cancellation, inputInventory);
                     if (buildCacheEnabled)
                     {
                         assetCache = new BuildAssetCache(outputRoot, CacheNamespace(cacheInputs.Fingerprint, processContract));
                         assetCaches.Add(assetCache);
-                        assetCache.PrepareStream(context.Task.Id, settings.BuildCacheDirectory, cancellation);
+                        assetCacheRestored = assetCache.PrepareStream(context.Task.Id, settings.BuildCacheDirectory, cancellation);
                     }
                     if (sessionCacheEnabled)
                     {
@@ -517,7 +527,7 @@ namespace NewModCompiler.Application
                 cancellation.ThrowIfCancellationRequested();
                 if (buildCacheEnabled || sessionCacheEnabled)
                 {
-                    if (!cacheInputs.MatchesCurrent(request, cachePlan, runtime, cancellation) || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal))
+                    if (!string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal))
                         throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Build-cache inputs or process resolution contract changed during compilation.");
                     if (sessionCacheEnabled)
                     {
@@ -526,7 +536,13 @@ namespace NewModCompiler.Application
                     }
                     if (buildCacheEnabled)
                     {
-                        assetCache.StageStream(context.Task.Id, settings.BuildCacheDirectory, cancellation);
+                        // A verified immutable entry with no new cacheable assets
+                        // needs no candidate copy/hash/install/discard round trip.
+                        if (!assetCacheRestored || processor.BuildCacheMisses != 0)
+                        {
+                            assetCache.StageStream(context.Task.Id, settings.BuildCacheDirectory, cancellation);
+                            buildCacheStages++;
+                        }
                         buildCacheHits += processor.BuildCacheHits; buildCacheMisses += processor.BuildCacheMisses;
                     }
                 }
@@ -562,6 +578,15 @@ namespace NewModCompiler.Application
             }
             if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
             return artifacts;
+        }
+
+        public void ValidateCacheInputs(CancellationToken cancellation)
+        {
+            if (inputInventory == null) return;
+            inputInventoryPasses++;
+            if (!inputInventory.MatchesCurrent(request, inventoryRuntime, cancellation) ||
+                !string.Equals(inventoryProcessContract, CacheProcessContract(), StringComparison.Ordinal))
+                throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Build-cache inputs or process resolution contract changed during compilation.");
         }
 
         // BuildSession owns these reversible writes after provider disposal.
@@ -744,3 +769,4 @@ namespace NewModCompiler.Application
     }
 }
 #endif
+

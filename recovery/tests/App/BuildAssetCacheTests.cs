@@ -71,7 +71,7 @@ namespace NewModCompiler.Tests
                 Reject<IOException>(()=>store.StageStream("inside-cache",Cache(root),CancellationToken.None),"Durable cache was accepted as staging");
             }
             Reject<ArgumentException>(()=>new BuildAssetCache(root,"../bad"),"Namespace traversal was accepted");
-            // Validate both byte corruption and unexpected files before any copy.
+            // Reject byte corruption and unexpected files without exposing a partial restore.
             string durable=Directory.GetDirectories(Cache(root)).Single(), asset=Directory.GetFiles(Path.Combine(durable,"files"),"*",SearchOption.AllDirectories).Single(path=>File.ReadAllText(path)=="asset A");
             string pending=Path.Combine(durable,"pending"); Put(pending,"abandoned transaction");
             using(var store=new BuildAssetCache(root,Namespace))
@@ -116,3 +116,4 @@ namespace NewModCompiler.Tests
         }
     }
 }
+
