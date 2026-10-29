@@ -1,3 +1,11 @@
+# DIB/BMP真彩表当前验收
+
+业务`2b23ff4c` /40821998297已完成D/R DIB六入口4866输入与完整插件50304输入/配置、432成功atlas及逐次NoOriginal。`b63f329c` /40835621765补齐NPOT原字节预检及D/R，46组件当前有效；专用PcDib三模式每模式21464资产/调用、216成功atlas、四产物与75017完整轨迹相同，5-DLL包/132源码指纹/安装回滚/唯一ID及组件输入关联均独立审计通过。
+
+该run整体failure仅因最后Git推送遇到单文件100MB限制；原artifact完整保留，已无损打包12产物、完整逐字节及原SHA复审后普通提交，原收据不改。审计见`evidence/texture/handoffs/20261029-dib/sdk-package-audit.json`，保存来源见`artifact-restoration.json`。生产SDK未替换，完整mymod未跑。
+
+以下为实现范围及当时安排的历史说明，以本页开头的实际验收为准。
+
 # 裸DIB与BMP真彩色表
 
 2026-10-29（北京时间）。旧独立接口已通过`d0a4547e` / `40816168489`；当前新增公共loader/`.dib`插件与BMP真彩biClrUsed接入，组件和专用SDK验收待运行，不提前计为集成完成。只支持PC，生产SDK未替换。

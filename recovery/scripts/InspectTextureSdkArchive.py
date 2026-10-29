@@ -29,19 +29,38 @@ def audit(directory, source):
     result = {'profile': receipt['profile'], 'sourceCommit': source, 'runId': receipt['runId'],
               'receipt': directory.as_posix(), 'products': [], 'modes': []}
     products = {}
+    stored = None
+    storage_path = directory / 'products-storage.json'
+    if storage_path.exists():
+        storage = json.loads(storage_path.read_text(encoding='utf-8-sig'))
+        assert storage['sourceCommit'] == source and str(storage['runId']) == str(receipt['runId'])
+        assert storage['archive'] == 'products.zip'
+        compressed = (directory / storage['archive']).read_bytes()
+        assert digest(compressed) == storage['archiveSha256']
+        stored = zipfile.ZipFile(io.BytesIO(compressed))
+        expected_products = {mode + '-' + name for mode in modes for name in ('mod.bin', 'mod.manifest', 'mod.imp', 'mod.relo')}
+        assert set(stored.namelist()) == expected_products and len(stored.namelist()) == 12
+        assert {item['file'] for item in storage['files']} == expected_products and len(storage['files']) == 12
+        for item in storage['files']:
+            data = stored.read(item['file'])
+            assert len(data) == item['bytes'] and digest(data) == item['sha256']
+        result['productArchiveSha256'] = digest(compressed)
     for mode in ('Original', 'Recovered', 'NoOriginal'):
         row = modes[mode]
         assert row['passed'] is True and row['uniqueAssets'] > 0 and row['actualCalls'] >= row['uniqueAssets']
         files = {f['file']: f for f in row['files']}
         assert len(row['files']) == 4 and set(files) == {'mod.bin', 'mod.manifest', 'mod.imp', 'mod.relo'}
         for name, info in files.items():
-            data = (directory / (mode + '-' + name)).read_bytes()
+            key = mode + '-' + name
+            data = stored.read(key) if stored is not None else (directory / key).read_bytes()
             assert len(data) == info['bytes'] and digest(data) == info['sha256']
             if mode == 'Original':
                 products[name] = data
                 result['products'].append({'file': name, 'bytes': len(data), 'sha256': digest(data)})
             else:
                 assert data == products[name], (mode, name, 'full product bytes')
+    if stored is not None:
+        stored.close()
     archive = (directory / 'traces.zip').read_bytes()
     assert digest(archive) == receipt['traceArchiveSha256']
     result['traceArchiveSha256'] = digest(archive)

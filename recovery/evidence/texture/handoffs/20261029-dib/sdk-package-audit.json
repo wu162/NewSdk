@@ -1,0 +1,79 @@
+{
+  "scope": "independent saved full SDK/product/trace/package/source/ID audit; no compiler/codec execution",
+  "sourceCommit": "b63f329c1ab5566dfa8a0fa57440108d71f070d4",
+  "runId": "40835621765",
+  "packageArchiveSha256": "f0c4540fb9b6998fd5ebbf131ab6bc3653c3dbab8436a44e0cbdfac1edb6f37d",
+  "packageManifestSha256": "49c80aae91a643211335ab00c6e00e3cc49342247679cf8e48bf2be6f3465774",
+  "runtimeHashes": {
+    "Recovered.BinaryAssetBuilder.TextureCompiler.dll": "f822ad5ead92ac30d8d8b3a6ef37454cb7a28380547f4956d35dde0226e673b9",
+    "Recovered.TextureDxtAlpha.dll": "a1d883163ab81fbbd0491a16b503a88b4531f735d6d92c335b472494023377c2",
+    "Recovered.TextureDxtColour.dll": "54457409d32bcde0d07b39e44d3bda7c4c53d6e9f7ccc7fae15051bf92524e97",
+    "Recovered.TextureJpeg.dll": "e25d765454504120f8bcb069e4c94e7add8ee6f836028c77e66c7964114c5807",
+    "Recovered.TexturePublicS3.dll": "9beced5ff5ae38459abe3bd24155fee76e0117aec374880e6b637d09fbba9ec6"
+  },
+  "sourceFingerprintsVerified": 132,
+  "sourceImageFamilies": {
+    "atlas": 108,
+    "raw": 498,
+    "transparent": 166
+  },
+  "actualAssetsPerMode": 21464,
+  "positiveAtlasPerMode": 216,
+  "componentSourceCommit": "2b23ff4c638c6305ff6afc98e9e4f57bba506200",
+  "componentRunId": "40821998297",
+  "globallyUniqueInstanceHashes": 21464,
+  "resolvedIdCollisions": 0,
+  "sdk": {
+    "profile": "PcDib",
+    "sourceCommit": "b63f329c1ab5566dfa8a0fa57440108d71f070d4",
+    "runId": "40835621765",
+    "receipt": "/workspace/NewSdk/recovery/evidence/texture/sdk-dib/40835621765-1",
+    "products": [
+      {
+        "file": "mod.bin",
+        "bytes": 154772956,
+        "sha256": "6bc5a7b5516eaa16064ae5cdefa5af404ab404525eb86012c315aa001f0bcba2"
+      },
+      {
+        "file": "mod.manifest",
+        "bytes": 1494265,
+        "sha256": "31bb0563b48b99fa527dca679f9b0a13db6cf45e011391998bccc0661e21f00b"
+      },
+      {
+        "file": "mod.imp",
+        "bytes": 4,
+        "sha256": "39f2086d8e6f2c5246aef838a5d2e57b7a1e4b74ddca0c4b3521e26cb8aa4ca4"
+      },
+      {
+        "file": "mod.relo",
+        "bytes": 88020,
+        "sha256": "ddeb6bfad8b55110b897c071a87b0c0c7f66b2d4c5ae48a103f255414211fcb1"
+      }
+    ],
+    "modes": [
+      {
+        "mode": "Original",
+        "uniqueAssets": 21464,
+        "actualCalls": 21464,
+        "completeTraceFiles": 75017,
+        "traceIndexSha256": "3ebd6d312cdce66d8cea15c0ff255cb01c5a3f58aa6475993148a9203dd671f7"
+      },
+      {
+        "mode": "Recovered",
+        "uniqueAssets": 21464,
+        "actualCalls": 21464,
+        "completeTraceFiles": 75017,
+        "traceIndexSha256": "3ebd6d312cdce66d8cea15c0ff255cb01c5a3f58aa6475993148a9203dd671f7"
+      },
+      {
+        "mode": "NoOriginal",
+        "uniqueAssets": 21464,
+        "actualCalls": 21464,
+        "completeTraceFiles": 75017,
+        "traceIndexSha256": "3ebd6d312cdce66d8cea15c0ff255cb01c5a3f58aa6475993148a9203dd671f7"
+      }
+    ],
+    "productArchiveSha256": "617df836146cf7fc3114ca44734d1d4ff93ce52f4134e60a00025284cddac79c",
+    "traceArchiveSha256": "d0faab9bebd40df29c0fb52e3cb87910ba1f56cb55077fe39f2f2c7c43b7b536"
+  }
+}

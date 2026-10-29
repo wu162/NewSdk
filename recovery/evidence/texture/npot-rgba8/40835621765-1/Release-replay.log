@@ -1,0 +1,1 @@
+PASS Texture NPOT RGBA8 isolated component fixtures=1012 coefficientTaps=1851 checks=1361709; complete original LoadImageA RGBA and exact native coefficients; original absent/unloaded per call; 8-bit public decoder dispatch also compared; plugin/SDK acceptance is separate

@@ -1,3 +1,14 @@
+# 当前：DIB/BMP真彩表已完成组件及专用SDK；PPM独立组件通过
+
+- **本轮完成（DIB）**：修复历史NPOT gold检出规则，四TSV明确CRLF，22系数原SHA保持不变；新规则仅作用于新增DIB证据。`b63f329c1ab5566dfa8a0fa57440108d71f070d4` / [40835621765](https://github.com/wu162/NewSdk/actions/runs/40835621765)的npot-rgba8 D/R各1012输入/1851原tap通过，其他45组件复用。前一`2b23ff4c` /40821998297的DIB六入口4866输入及dib-images各50304输入/同量NoOriginal、432成功atlas，已独立完整归档审计通过。
+- **本轮完成（专用SDK）**：同run PcDib三模式每模式21464实际资产/调用、216成功atlas、四产物及75017完整轨迹文件全部逐字节相同；完整5-DLL包、132源码指纹、安装/回滚、21464唯一原Core ID及46组件前置均独立审计通过，见`evidence/texture/handoffs/20261029-dib/sdk-package-audit.json`。生产SDK树未替换，完整mymod未跑。
+- **该run整体仍为failure**：业务测试全部passed，最后Git推送因147.6MB mod.bin超过100MB限制失败。已从原artifact 12881575467恢复完整证据，将12产物无损保存products.zip并按原收据SHA/完整字节重新审计；原收据、原hash、trace/包归档不改，不重跑SDK。新增保存helper只处理当前run的大产物；完整round-trip/失败保护检查走本次[texture-plan]，尚待Actions终态。
+- **本轮完成（PPM，独立测试分支）**：`validation/texture-public-ppm`直接适配固定IJG6b rdppm.c，保留原文件/通知及修改前后SHA。原8438输入/16876调用、6615解码/1823原错、0重复不确定已全归档审计；首版7918匹配/520差异按宽整数scaled component与原packed-channel OR规则修复。`782f6b97c726054c6067f3a8153412b55ff18398` / [40837034188](https://github.com/wu162/NewSdk/actions/runs/40837034188) success：D/R各8438 gold、Decode/Load共16876隔离调用、完整6630120 RGBA字节/原错误全等，60安全边界只调用候选；复用46旧组件。尚未正式接ImageLoader/Plugin/SDK或合入主贴图分支。
+- **下一轮计划**：先核实存储及选择Actions终态；PPM从`TEXTURE_PPM_NEXT.md`继续接实际loader/`.ppm`插件、raw/DXT3/5/完整mip/volume/atlas与必要SDK，完整受影响消费者及SDK通过后才普通合入。本轮剩余时间继续这一已授权功能。优先新能力完整反馈、再旧消费回归；成功祖先精确复用，SDK/MOD继续降频。
+- **保存与边界**：DIB/NPOT/证据修复在`recovery/texturecompiler-source`；PPM代码/原gold/成功组件在`validation/texture-public-ppm`，未启用域不提前计完成。仅PC，默认DXT1/不透明DXT1A及不确定扩展bitfields继续拒绝，禁止强推，编译测试仅Actions。
+
+以下为历史交接，当前状态以上述入口及实际sourceCommit/runId为准。
+
 # 本轮进行中：修复NPOT原字节检出，补验并启动专用PcDib
 
 - **本轮完成**：撤回历史证据区全局TSV/XML规则，只对新增DIB证据限定保存；原NPOT四份TSV明确CRLF检出。只读Windows Git过滤审计全部22系数文件与原收据SHA相同，未改原gold、SHA或比较。DIB完整D/R归档审计50304输入/配置、432成功atlas已保存于`evidence/texture/handoffs/20261029-dib/component-archive-audit.json`。
