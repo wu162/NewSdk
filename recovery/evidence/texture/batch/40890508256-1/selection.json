@@ -1,0 +1,495 @@
+{
+  "sourceCommit": "e4c67dd3597c8405d0a0a2211383d9764681f180",
+  "selected": [
+    "native-memory"
+  ],
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-dds",
+    "atlas-entry",
+    "jpeg",
+    "jpeg-images",
+    "dxt1a-blocks",
+    "dxt1a-dds",
+    "dxt1a-images",
+    "png-metadata",
+    "png-metadata-images",
+    "jpeg-metadata",
+    "jpeg-metadata-images",
+    "tga-metadata",
+    "tga-metadata-images",
+    "bmp-headers",
+    "bmp-header-images",
+    "dib",
+    "bmp-os2",
+    "dib-images",
+    "public-ppm",
+    "ppm-images",
+    "ppm-volume-boundaries",
+    "native-errors"
+  ],
+  "details": {
+    "base": {
+      "sourceCommit": "2093ea3d6aac8c8a89c83670a41570d2d5c00f86",
+      "runId": "40889408253",
+      "receipt": "recovery/evidence/texture/validation/40889408253-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "tga": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/tga/40795326615-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "formats": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/stage2/Formats/40795326615-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-helper": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/Volume/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "raw": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/Raw/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "mips": {
+      "sourceCommit": "7ae4af3769842084cd19cbff87c651c945f45888",
+      "runId": "40524039917",
+      "receipt": "recovery/evidence/texture/stage2/Mips/40524039917-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-dds": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/VolumeDds/40241188546-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-mips": {
+      "sourceCommit": "aaacb3d25fdb99eddaa8ed4ab23701437e840ec2",
+      "runId": "40526443463",
+      "receipt": "recovery/evidence/texture/stage2/VolumeMips/40526443463-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "mip-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/mip-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/volume-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-mip-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/volume-mip-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "png": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "bmp": {
+      "sourceCommit": "2b23ff4c638c6305ff6afc98e9e4f57bba506200",
+      "runId": "40821998297",
+      "receipt": "recovery/evidence/texture/bmp/40821998297-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "raster-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/raster-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcNoMip": {
+      "reason": "SDK not requested"
+    },
+    "sdk-PcMips": {
+      "reason": "SDK not requested"
+    },
+    "png-ranges": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png-ranges/40780996417-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-symbols": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-blocks": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt3-alpha": {
+      "sourceCommit": "9f8b1361148a6b76fec1b5564b3d055ba4ee62e7",
+      "runId": "40470055551",
+      "receipt": "recovery/evidence/texture/dxt3-alpha/40470055551-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-decompile": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt5-fast-alpha": {
+      "sourceCommit": "82422508cad2ad15b551be06596f8666791422c9",
+      "runId": "40490888440",
+      "receipt": "recovery/evidence/texture/dxt5-fast-alpha/40490888440-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt5-alpha": {
+      "sourceCommit": "4bf0ca8ccb74a6f670cd7ecb954483dc795fae9f",
+      "runId": "40493971846",
+      "receipt": "recovery/evidence/texture/dxt5-alpha/40493971846-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-colour-functions": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-colour-graph": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-colour-state": {
+      "sourceCommit": "2cee34462377beca4b16926eaf25d093daa02c2a",
+      "runId": "40500150864",
+      "receipt": "recovery/evidence/texture/colour-state/40500150864-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-blocks-complete": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-blocks/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-dds2d": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-dds2d/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/dxt-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcDxtNoMip": {
+      "reason": "SDK not requested"
+    },
+    "dxt-samples": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-samples/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-image-boundaries": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "sdk-PcDxtMips": {
+      "reason": "SDK not requested"
+    },
+    "dxt-volume-boundaries": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-volume-dds": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-volume-dds/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcDxtVolumes": {
+      "reason": "SDK not requested"
+    },
+    "npot-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-numeric": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-rgba8": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/npot-rgba8/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcNpotRgba8": {
+      "reason": "SDK not requested"
+    },
+    "npot-storage": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-formats": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-storage-replay": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/npot-storage-replay/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcNpotStorage": {
+      "reason": "SDK not requested"
+    },
+    "npot-storage-stress": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "atlas-prerequisites": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "npot-storage-stress-replay": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/npot-storage-stress-replay/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "atlas-dds": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/atlas-dds/40695394943-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "atlas-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "atlas-entry": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/atlas-entry/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcAtlas": {
+      "reason": "SDK not requested"
+    },
+    "jpeg-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "jpeg": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/jpeg/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "jpeg-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/jpeg-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcJpeg": {
+      "reason": "SDK not requested"
+    },
+    "sdk-PcMymod": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt1-boundary": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "public-s3-three": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "public-s3-dxt1a": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "public-s3-dxt1a-dds": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt1a-blocks": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/dxt1a-blocks/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt1a-dds": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/dxt1a-dds/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt1a-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/dxt1a-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcDxt1a": {
+      "reason": "SDK not requested"
+    },
+    "png-metadata-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "png-metadata-order": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "png-metadata": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/png-metadata/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "png-metadata-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/png-metadata-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcPngMetadata": {
+      "reason": "SDK not requested"
+    },
+    "jpeg-metadata-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "jpeg-metadata": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/jpeg-metadata/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "jpeg-metadata-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/jpeg-metadata-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcJpegMetadata": {
+      "reason": "SDK not requested"
+    },
+    "tga-metadata-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "tga-metadata": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/tga-metadata/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "tga-metadata-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/tga-metadata-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcTgaMetadata": {
+      "reason": "SDK not requested"
+    },
+    "bmp-header-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "bmp-headers": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/bmp-headers/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "bmp-header-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/bmp-header-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dib": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/dib/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcBmpHeaders": {
+      "reason": "SDK not requested"
+    },
+    "bmp-bitfields-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "bmp-indexed-header-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "bmp-os2": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/bmp-os2/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dib-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/dib-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcDib": {
+      "reason": "SDK not requested"
+    },
+    "ppm-load": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "public-ppm": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/public-ppm/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "ppm-images": {
+      "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+      "runId": "40838359589",
+      "receipt": "recovery/evidence/texture/ppm-images/40838359589-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcPpm": {
+      "reason": "SDK not requested"
+    },
+    "ppm-volume-boundaries": {
+      "sourceCommit": "b999b6677be0010562850e4077be5b7180932913",
+      "runId": "40878697072",
+      "receipt": "recovery/evidence/texture/ppm-volume-boundaries/40878697072-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "native-errors": {
+      "sourceCommit": "2093ea3d6aac8c8a89c83670a41570d2d5c00f86",
+      "runId": "40889408253",
+      "receipt": "recovery/evidence/texture/native-errors/40889408253-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "native-memory": {
+      "reason": "no complete successful ancestor evidence"
+    }
+  }
+}
