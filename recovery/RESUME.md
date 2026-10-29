@@ -2,7 +2,8 @@
 
 - **用户本轮目标**：完成此前列出的剩余任务；沿用PC/逐字节正确性/编译测试仅Actions/禁止强推规则，默认最多70分钟推进。默认DXT1、全不透明DXT1A及扩展bitfields有原版未初始化反例，不能伪造确定等价；完整原混合模式/native ABI仍独立未完成，不把功能包部署当作全DLL复刻。
 - **本轮实现**：完整mymod改用真正六DLL包并复用同run PcPpm已经验收的同一archive；保留未裁剪mymod/384真实资产/三模式/四产物/全部buffer与cdata。新增迁移SDK目录后相对receipt回滚/重装；Restore仍预检所有安装后与备份SHA。新增DeployTextureCompiler：仅当前49组件、PcPpm及完整mymod三模式和迁移回滚全部通过才安装同一包；保存原配置、六DLL精确哈希和可迁移回滚入口，不改原TextureCompiler oracle DLL。
-- **本轮正在验收**：集中实际受影响SDK，显式完整mymod；通过后普通推送SDK/tools和SDK/RecoveryTexture。部署改变SDK输入，显式dispatch下一批实际受影响组件，不能把旧49成功当新SDK输入验收，不缩小依赖或取消回归。此检查点尚未编译运行，不宣称部署完成。
+- **本轮正在验收**：221ce801 /40884132968集中17个实际受影响SDK，显式完整mymod，49成功组件复用；通过后普通推送SDK/tools和SDK/RecoveryTexture。部署改变SDK输入，显式dispatch下一批实际受影响组件，不能把旧49成功当新SDK输入验收，不缩小依赖或取消回归。此检查点尚未编译运行，不宣称部署完成。
+- **独立原生实现**：`recovery/texture-native-abi`已实现完整getErrorString状态/静态指针C ABI，以及SimpleBuffer x86 thiscall/析构flag/配套分配释放和三项既有常量/端序facade导出；两新完整组及实际受影响base已在独立分支请求Actions，未验收不计完成，也不加入生产六DLL包。详情见TEXTURE_NATIVE_ABI_NEXT.md。
 - **下一轮入口**：收本轮Actions的SDK/安装/部署及后续组件终态并独立审计同包、全部产品/轨迹、相对receipt与原配置；失败只修真实失败/变化组。继续保留原生ABI、未声明图像域和不确定DXT1等边界，不能称所有剩余功能完成。业务源码和原SDK此刻均未修改。
 
 以下为历史交接，以顶部及实际锚点为准。

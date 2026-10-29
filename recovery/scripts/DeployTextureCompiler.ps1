@@ -34,6 +34,12 @@ try{
  & "$work/InstallTextureCompiler.ps1" -PackageDirectory $work -SdkDirectory $sdk -ReceiptPath "$out/installation.json"
  $installation=Get-Content "$out/installation.json" -Raw|ConvertFrom-Json
  New-Item -ItemType Directory -Force $destination|Out-Null
+ # Only this new deployment directory and the installed config are byte-fixed;
+ # no historical gold or unrelated SDK text is renormalized.
+ '* -text'|Set-Content "$destination/.gitattributes" -Encoding ascii
+ $attributes=Join-Path "$sdk/tools" '.gitattributes'
+ $rule='BinaryAssetBuilder.exe.config -text'
+ if(!(Test-Path $attributes) -or $rule -notin @(Get-Content $attributes)){Add-Content $attributes $rule -Encoding ascii}
  Copy-Item $installation.backupDirectory "$destination/backup" -Recurse
  $installation.sdkDirectory='..';$installation.backupDirectory='backup'
  $installation|ConvertTo-Json -Depth 8|Set-Content "$destination/installation.json"
@@ -60,6 +66,7 @@ Default DXT1, fully opaque DXT1A blocks and uncertain extended BMP bitfields rem
  $deployment=@{status='installed';sourceCommit=$source;runId=$RunId;runAttempt=$RunAttempt;packageArchiveSha256=$receipts['sdk-ppm'].packageArchiveSha256;componentGroupsVerified=@($ready.reused).Count;fullMymodValidated=$true;ppmSdkValidated=$true;portableRestoreValidated=$true;originalCompilerSha256=$original;beforeConfigSha256=$beforeConfig;installedConfigSha256=(Hash "$sdk/tools/BinaryAssetBuilder.exe.config");runtimeFiles=@($manifest.runtimeFiles);targetPlatform='Win32';originalOracleRetained=$true;postDeploymentComponentValidation='required because SDK/tools inputs changed'}
  $deployment|ConvertTo-Json -Depth 12|Set-Content "$destination/deployment.json"
  $deployment|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"
+ Compress-Archive -Path "$destination/*" -DestinationPath "$out/installed-metadata.zip"
  Write-Output "PASS TextureCompiler deployed: source=$source run=$RunId; exact PPM/full-MOD tested six-DLL package; portable seven-file rollback"
 }catch{
  # An installation/packaging failure must leave the working SDK usable.

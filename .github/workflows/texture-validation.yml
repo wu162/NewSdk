@@ -139,7 +139,7 @@ jobs:
         shell: pwsh
         run: |
           if ('${{ steps.deploy.outcome }}' -eq 'success') {
-            ./recovery/scripts/SaveTextureEvidence.ps1 -Path recovery/evidence/texture -AdditionalPaths @('SDK/RecoveryTexture', 'SDK/tools/Recovered.*.dll', 'SDK/tools/BinaryAssetBuilder.exe.config') -Message "texture: activate accepted PC package and validate changed SDK inputs $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT [texture-test]"
+            ./recovery/scripts/SaveTextureEvidence.ps1 -Path recovery/evidence/texture -AdditionalPaths @('SDK/RecoveryTexture', 'SDK/tools/Recovered.*.dll', 'SDK/tools/BinaryAssetBuilder.exe.config', 'SDK/tools/.gitattributes') -Message "texture: activate accepted PC package and validate changed SDK inputs $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT [texture-test]"
           } else {
             ./recovery/scripts/SaveTextureEvidence.ps1 -Path recovery/evidence/texture -Message "texture: record batch $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           }
