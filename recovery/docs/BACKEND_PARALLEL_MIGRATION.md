@@ -40,3 +40,9 @@
 兼容调用计量移到 Core 真正调用 ProcessInstance 的边界，准备/路径失败不虚计 backendCalls；worker 故障/取消的实际调用均在安全 join 后合并。新增不同文档的同内容资产夹具，断言原 Texture/Hierarchy 只编译一次。旧 FileHashCache 反射测试两个构造点均匹配现有可选参数；drain 测试保留65536帧 native 分配/序列化，关闭与调度目标无关的二次方 key reduction 搜索，不削弱故障/取消/释放/性能计数断言。
 
 `3d655274` / Windows [40912889949](https://github.com/wu162/NewSdk/actions/runs/40912889949) 已通过要求真实 worker/overlap 的混合生产矩阵，但组件门槛仍失败，终态及日志继续保留；最终候选会统一重建，不借该组代替新版完整验收。
+
+### 测量脚本独立修正与运行时复用
+
+生产源码收敛于 `6d39f833` / Windows 40915444929；其 Debug/Release、完整组件/真实 worker 矩阵、原 BAB 小样、取消及缓存独立组已通过，后续 SDK/打包门槛和运行终态仍跟进。前两次后续尝试的剩余失败已从日志确认是 CompilerCacheContent.SchemaCases 的第二处旧反射构造，6d39f833 已修正；不把失败批次当作完整通过。
+
+性能脚本原先将 FrameRate=30 改成31.0，不符合原 xs:unsignedInt。当前测量控制器预先计划整数31，真实 Upheaval 原文件已通过44个可达原 SDK XSD 定义：[预检](../evidence/refactor/backend-parallel/local-preflight/upheaval-mutation.json)。测量源码修正不更改任何生产输入，不再为此重建 Native；DownloadAcceptedParallelRuntime 严格要求原运行全部功能/完整 mymod/五文件门槛成功，只允许独立性能步骤失败，检查源码/SDK/构建输入未变、归档 digest、EXE 和 host-bound Texture 身份，再用原 EXE 在单 VM 完成完整 A/B。实际结果和 binarySourceCommit/testSourceCommit 分开记录，修正前测量不标通过。

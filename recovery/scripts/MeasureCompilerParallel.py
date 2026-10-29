@@ -19,6 +19,26 @@ def need(value, message):
         raise AssertionError(message)
 
 
+def animation_edit(mod):
+    # FrameRate is xs:unsignedInt in the original AssetTypeW3D.xsd.
+    # Plan and parse this change before any expensive compiler measurement.
+    import xml.etree.ElementTree as ET
+    pattern = re.compile(rb'FrameRate="(\d+)"')
+    for path in sorted(mod.rglob('*')):
+        if path.suffix.lower() not in ('.w3x', '.xml'):
+            continue
+        data = path.read_bytes()
+        if b'<W3DAnimation' not in data:
+            continue
+        match = pattern.search(data)
+        if match and int(match.group(1)) < 4294967295:
+            value = str(int(match.group(1))+1).encode('ascii')
+            changed = data[:match.start(1)]+value+data[match.end(1):]
+            ET.fromstring(changed)
+            return path, data, changed
+    raise AssertionError('No real Upheaval animation available for single-asset edit')
+
+
 def run(args):
     if os.name == 'nt':
         ctypes.windll.kernel32.SetErrorMode(0x0001 | 0x0002 | 0x8000)
@@ -33,6 +53,7 @@ def run(args):
              'sampleCountCaution': 'One cold sample per jobs/mode; OS page cache uncontrolled. No-cache starts jobs1; defaults reverses order4,1,auto. Do not treat small differences as deterministic regressions.',
              'boundary': 'Process wall; fixture setup, baseline copy and comparison excluded. All samples on one Windows VM, same executable. Off samples compared only with off; detailed samples used for attribution.'}
     references = {}
+    diagnostic_references = {}
     started = time.perf_counter()
 
     def sample(label, jobs, cache, phase, performance='off', changed=False):
@@ -76,6 +97,12 @@ def run(args):
         baseline = work / ('baseline-'+group)
         for relative in content:
             need(filecmp.cmp(baseline / relative, published / relative, shallow=False), label+' raw bytes differ: '+relative)
+        counts = report['diagnosticCounts']
+        need(counts['error'] == 0, label+' reported compilation errors')
+        diagnostic_key = (group, cache, phase)
+        if diagnostic_key not in diagnostic_references:
+            diagnostic_references[diagnostic_key] = counts
+        need(counts == diagnostic_references[diagnostic_key], label+' warning/error counts differ between job limits')
         cache_report = report['cache']; parallel = cache_report.get('parallel')
         if phase == 'hot':
             need(cache_report['xmlParse'] == 0 and cache_report['instanceCompile'] == 0, label+' hot cache parsed/compiled assets')
@@ -88,7 +115,7 @@ def run(args):
         if phase == 'modified':
             need(0 < cache_report['instanceCompile'] < 100, 'Single asset mutation invalidated an unexpectedly wide closure')
         row.update(status='passed', rawOutputIdentical=True, cache=cache_report, reportElapsedMs=report['elapsedMs'],
-                   publishedBytes=sum(a['Size'] for a in report['artifacts']), errors=report.get('errorCount'), warnings=report.get('warningCount'))
+                   publishedBytes=sum(a['Size'] for a in report['artifacts']), errors=counts['error'], warnings=counts['warning'])
         write(evidence / 'sample.json', row); write(out / 'measurement.json', state)
         print(json.dumps({key:row[key] for key in ('label','status','wallMs','exitCode')}), flush=True)
 
@@ -97,6 +124,7 @@ def run(args):
         workloads = prepare(repo, work, out)
         state['workload'] = next(x for x in workloads if x['tier'] == 'large')
         mod = Path(state['workload']['modRoot'])
+        edit_path, edit_original, edit_changed = animation_edit(mod)
         state['setupSeconds'] = time.perf_counter()-setup_started
         started = time.perf_counter()
         # Same instrument level and executable for every throughput comparison.
@@ -111,22 +139,10 @@ def run(args):
             sample('diagnostic-cold-'+jobs,jobs,False,'diagnostic','detailed')
         # Same roots and inputs: a real single animation edit invalidates only its
         # existing dependency closure. Keep bytes/encoding outside the token.
-        mutation = None
-        pattern = re.compile(rb'FrameRate="(\d+(?:\.\d+)?)"')
-        for path in sorted(mod.rglob('*')):
-            if path.suffix.lower() not in ('.w3x','.xml'):
-                continue
-            data = path.read_bytes()
-            if b'<W3DAnimation' not in data:
-                continue
-            match = pattern.search(data)
-            if match:
-                value = str(float(match.group(1))+1).encode('ascii')
-                path.write_bytes(data[:match.start(1)]+value+data[match.end(1):])
-                mutation = {'path':path.relative_to(mod).as_posix(),'beforeSha256':__import__('hashlib').sha256(data).hexdigest(),'afterSha256':sha(path)}
-                break
-        need(mutation, 'No real Upheaval animation available for single-asset edit')
-        state['mutation'] = mutation
+        edit_path.write_bytes(edit_changed)
+        state['mutation'] = {'path':edit_path.relative_to(mod).as_posix(),
+                             'beforeSha256':__import__('hashlib').sha256(edit_original).hexdigest(),
+                             'afterSha256':sha(edit_path)}
         sample('modified-independent-control','1',False,'modified-control',changed=True)
         for jobs in ('1','4','auto'):
             sample('defaults-modified-'+jobs,jobs,True,'modified',changed=True)
@@ -135,7 +151,11 @@ def run(args):
         state['defaultColdSpeedupVsJobs1']={jobs:cold['1']/cold[jobs] for jobs in cold}
         return 0
     except Exception as error:
-        state.update(status='failed',error=str(error)); raise
+        state.update(status='failed',error=str(error))
+        for row in state['samples']:
+            if row['status'] == 'started':
+                row.update(status='failed',error=str(error))
+        raise
     finally:
         state['elapsedSeconds']=time.perf_counter()-started
         write(out / 'measurement.json', state)
