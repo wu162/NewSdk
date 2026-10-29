@@ -98,10 +98,10 @@ def mymod(root, directory, source):
                     for f in index:
                         b = z.read(f['path'])
                         assert len(b) == f['bytes'] and sha(b) == f['sha256']
-                    # Reconstruct the actual Windows Git checkout, retaining
-                    # the original manifest SHA and all CRLF bytes.
+                    # The archived call log is written with LF by the host.
+                    # Compare its exact saved Git blob, without checkout filters.
                     relative = (directory / (label + '-calls.tsv')).relative_to(root).as_posix()
-                    saved = original_file(root, 'HEAD', relative)
+                    saved = subprocess.check_output(['git', '-C', str(root), 'show', 'HEAD:' + relative])
                     assert saved == z.read('texture.calls.tsv')
                 calls = list(csv.DictReader(io.StringIO(z.read('texture.calls.tsv').decode('utf-8-sig')), delimiter='\t'))
                 assert not any(c['Stage'] == 'failure' for c in calls)

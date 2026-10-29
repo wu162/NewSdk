@@ -2876,6 +2876,23 @@
       "evidence": "recovery/evidence/texture/native-memory/*/validation.json",
       "sdk": false,
       "priority": -9
+    },
+    "native-device": {
+      "script": "recovery/scripts/TestTextureNativeDevice.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Native/TextureNativeDeviceApi.cpp",
+        "src/TextureCompiler/Native/TextureNativeDeviceApi.h",
+        "src/TextureCompiler/Native/TextureNativeDeviceApi.def",
+        "recovery/scripts/BuildTextureNativeDevice.ps1",
+        "recovery/scripts/TestTextureNativeDevice.ps1",
+        "recovery/tests/TextureNativeDeviceOracle.cpp",
+        "recovery/tests/TextureNativeDeviceLink.cpp",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/native-device/*/validation.json",
+      "sdk": false,
+      "priority": -8
     }
   },
   "targetPlatform": "Win32"

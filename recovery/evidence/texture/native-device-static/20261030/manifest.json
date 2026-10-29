@@ -1,0 +1,174 @@
+{
+  "scope": "read-only fixed-function byte/disassembly extraction; not native execution or production acceptance",
+  "originalPath": "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "imageBase": "0x10000000",
+  "functions": [
+    {
+      "name": "DeviceCreateThunk",
+      "rvaStart": "0x1c10",
+      "rvaEndExclusive": "0x1c15",
+      "vaStart": "0x10001c10",
+      "vaEndExclusive": "0x10001c15",
+      "fileOffset": "0x1c10",
+      "bytes": 5,
+      "sha256": "188fcdbadb38e8a07c77a6fac7df58d4183ee0e815093bbb71309aaa30ce7d3e",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "DeviceCreateThunk.asm",
+      "rawBytes": "DeviceCreateThunk.bin"
+    },
+    {
+      "name": "DeviceReleaseThunk",
+      "rvaStart": "0x1ad0",
+      "rvaEndExclusive": "0x1ad5",
+      "vaStart": "0x10001ad0",
+      "vaEndExclusive": "0x10001ad5",
+      "fileOffset": "0x1ad0",
+      "bytes": 5,
+      "sha256": "a54d4318508749287942a09279c54d99771de00e571b7fb41c74a5157ba23961",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "DeviceReleaseThunk.asm",
+      "rawBytes": "DeviceReleaseThunk.bin"
+    },
+    {
+      "name": "DeviceAllocateAligned",
+      "rvaStart": "0xe044",
+      "rvaEndExclusive": "0xe06e",
+      "vaStart": "0x1000e044",
+      "vaEndExclusive": "0x1000e06e",
+      "fileOffset": "0xe044",
+      "bytes": 42,
+      "sha256": "4b6cc592f5aaffdd01f065e81cf47ac0897eb84bfe2f8377150ea76f001eb1a8",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "DeviceAllocateAligned.asm",
+      "rawBytes": "DeviceAllocateAligned.bin"
+    },
+    {
+      "name": "DeviceAllocateZeroed",
+      "rvaStart": "0xe06e",
+      "rvaEndExclusive": "0xe097",
+      "vaStart": "0x1000e06e",
+      "vaEndExclusive": "0x1000e097",
+      "fileOffset": "0xe06e",
+      "bytes": 41,
+      "sha256": "2dc8f77cd9fe9c5d73c81411aca67dccaa3b01c8567d6573f733bf6194d27f81",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "DeviceAllocateZeroed.asm",
+      "rawBytes": "DeviceAllocateZeroed.bin"
+    },
+    {
+      "name": "DeviceCreate",
+      "rvaStart": "0xe097",
+      "rvaEndExclusive": "0xe0fe",
+      "vaStart": "0x1000e097",
+      "vaEndExclusive": "0x1000e0fe",
+      "fileOffset": "0xe097",
+      "bytes": 103,
+      "sha256": "cc9d67aad281191d3f322491052813ea0b336ab06dd16cfc500ba4f97205442a",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "DeviceCreate.asm",
+      "rawBytes": "DeviceCreate.bin"
+    },
+    {
+      "name": "DeviceInitialize",
+      "rvaStart": "0x115fe",
+      "rvaEndExclusive": "0x1165a",
+      "vaStart": "0x100115fe",
+      "vaEndExclusive": "0x1001165a",
+      "fileOffset": "0x115fe",
+      "bytes": 92,
+      "sha256": "8520d23ed2651a2ec6352e7e9f122abf51bf4912642a32fd9ed81a9f18818b34",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "DeviceInitialize.asm",
+      "rawBytes": "DeviceInitialize.bin"
+    },
+    {
+      "name": "DeviceInitializeRenderer",
+      "rvaStart": "0x1165a",
+      "rvaEndExclusive": "0x1169a",
+      "vaStart": "0x1001165a",
+      "vaEndExclusive": "0x1001169a",
+      "fileOffset": "0x1165a",
+      "bytes": 64,
+      "sha256": "d9367e5fedffc335094acf5215ffc7ef8e14c9a1bd5ab1dfb76429a0bdd308ff",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "DeviceInitializeRenderer.asm",
+      "rawBytes": "DeviceInitializeRenderer.bin"
+    },
+    {
+      "name": "DeviceRelease",
+      "rvaStart": "0xdf8a",
+      "rvaEndExclusive": "0xdfaf",
+      "vaStart": "0x1000df8a",
+      "vaEndExclusive": "0x1000dfaf",
+      "fileOffset": "0xdf8a",
+      "bytes": 37,
+      "sha256": "36a83da02b8abbb2a88c8721ca89b082a70d8d2e2895176e3b18acd220af20ab",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "DeviceRelease.asm",
+      "rawBytes": "DeviceRelease.bin"
+    },
+    {
+      "name": "DeviceDestroy",
+      "rvaStart": "0x1169a",
+      "rvaEndExclusive": "0x116ec",
+      "vaStart": "0x1001169a",
+      "vaEndExclusive": "0x100116ec",
+      "fileOffset": "0x1169a",
+      "bytes": 82,
+      "sha256": "6f0aa7146535ee92237d1f269c8f646323a75cb45a85633d3cc8694a948a9b82",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "DeviceDestroy.asm",
+      "rawBytes": "DeviceDestroy.bin"
+    },
+    {
+      "name": "DeviceFreeAligned",
+      "rvaStart": "0xdf76",
+      "rvaEndExclusive": "0xdf8a",
+      "vaStart": "0x1000df76",
+      "vaEndExclusive": "0x1000df8a",
+      "fileOffset": "0xdf76",
+      "bytes": 20,
+      "sha256": "3b69c5bf115ff3f7990f0b3c3679c86c53bde29b9dffecd58172fc02c547efaf",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "DeviceFreeAligned.asm",
+      "rawBytes": "DeviceFreeAligned.bin"
+    }
+  ],
+  "disassembler": "GNU objdump (GNU Binutils for Debian) 2.44",
+  "scopeBoundary": "Factory type!=2 (PC plugin uses type1), no bound resources or secondary allocations; type2 rendering and OOM equality not claimed",
+  "constants": [
+    {
+      "name": "deviceValueAt2a80",
+      "originalRva": "0xb8308",
+      "value": "0x1ddd4000"
+    },
+    {
+      "name": "deviceValueAt2a84",
+      "originalRva": "0xb830c",
+      "value": "0x20000"
+    }
+  ],
+  "criticalSites": [
+    {
+      "rva": "0xe097",
+      "evidence": "output cleared before allocation; six stdcall arguments; aligned zeroed object size0x5500/alignment128"
+    },
+    {
+      "rva": "0x115fe",
+      "evidence": "refcount1, two fixed global values, actual creating thread ID, VirtualAlloc 0x12c0 MEM_COMMIT PAGE_READWRITE, return nonzero iff allocation succeeds"
+    },
+    {
+      "rva": "0xe0ce",
+      "evidence": "only type2 enters rendering-state setup; other inputs/parameters ignored"
+    },
+    {
+      "rva": "0xdf8a",
+      "evidence": "refcount!=1 wraps/decrements uint32 and returns; count1 runs destruction then frees hidden GlobalAlloc base"
+    },
+    {
+      "rva": "0x1169a",
+      "evidence": "factory type!=2 has no bound-resource cleanup/current-renderer/secondary allocation; release VirtualFree command allocation"
+    }
+  ]
+}

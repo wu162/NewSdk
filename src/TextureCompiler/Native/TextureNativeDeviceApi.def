@@ -1,0 +1,4 @@
+LIBRARY Recovered.TextureNativeDevice.dll
+EXPORTS
+    TextureCreateDevice=_TextureCreateDevice@24
+    TextureDeviceRelease=_TextureDeviceRelease@4
