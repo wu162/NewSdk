@@ -1,0 +1,1 @@
+PASS native PC identity copy differential cases=32768 formats=64 sizes=4 padding=2 orientations=4 flagSets=4 regionSets=4 traceBytes=21217672; full source/destination/padding/guards, negative strides and ignored float bits; conversion/filter/unaligned/overlap paths excluded
