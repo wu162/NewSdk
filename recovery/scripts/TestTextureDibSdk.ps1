@@ -11,6 +11,15 @@ $out=(Resolve-Path $out).Path
 $r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='Dedicated PC BMP/bare DIB routes and truecolour tables, core/INFO/V2/V3/OS2/V4/V5 metadata; POT/NPOT/partial raw3/DXT3/5 standard/volume complete mip, transparent DXT1A and positive atlas base/normal; three modes/four outputs/complete actual traces; not full production MOD';profile='PcDib';targetPlatform='Win32';modes=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 60;throw "$name failed"}}
 try{
+ # A forced SDK group still requires complete component acceptance. Re-read
+ # receipts written earlier in this same batch as well as saved ancestors;
+ # failed/missing groups must stop before package build or any SDK invocation.
+ $componentPlan=Join-Path $work 'component-readiness.json'
+ Checked component-readiness {python "$PSScriptRoot/SelectTextureGroups.py" --out $componentPlan}
+ Copy-Item $componentPlan "$out/component-readiness.json"
+ $readiness=Get-Content $componentPlan -Raw|ConvertFrom-Json
+ if($readiness.sourceCommit -ne $r.sourceCommit -or @($readiness.selected).Count -ne 0 -or @($readiness.reused).Count -lt 46){throw "DIB SDK requires complete current component acceptance: $($readiness.selected -join ', ')"}
+ $r.componentGroupsVerified=@($readiness.reused).Count
  Checked package-build {& "$PSScriptRoot/BuildTextureCompiler.ps1" -Destination "$work/package" -Configuration Release}
  $package=Get-Content "$work/package/manifest.json" -Raw|ConvertFrom-Json
  Copy-Item "$work/package/manifest.json" "$out/package-manifest.json"

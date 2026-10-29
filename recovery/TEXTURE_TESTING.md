@@ -85,3 +85,5 @@ BMP探针补取51189674/40799686293已completed/success，仅执行`bmp-header-l
 `dib`扩展为裸DIB/BMP六入口和306个实际原BMP表调用；`dib-images`覆盖50304完整插件输入/配置及同量NoOriginal，432 atlas为必须成功的正向断言。原已通过独立DIB锚点仍是40816168489，新范围不可直接复用旧收据。
 
 `[texture-dib-sdk]`在同一texture-validation.yml显式选择`sdk-PcDib`，保留正常受影响组件选择，REQUEST_SDK不因此开启全部旧SDK。专用21464资产/模式，完整包/安装回滚/唯一ID/三模式四产物/全部轨迹和逐次隔离；不触发完整mymod。新公共DIB helper已登记所有loader消费者，不能靠缩小依赖省略必要回归。
+
+专用DIB SDK脚本在包构建前重新核对当前组件收据：允许本批刚写出的成功组与未变祖先，任一缺失/失败组仍被选择则立即停止，不开始SDK。保存component-readiness.json及源/运行锚点供独立审计。RESUME.md已列入集中入口的path监听，因此可在收齐组件后的交接提交显式附`[texture-dib-sdk]`；普通交接无标记仍不启动计划或Windows，不以文档提交的状态冒充组件/SDK成功。

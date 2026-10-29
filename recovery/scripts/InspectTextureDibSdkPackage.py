@@ -35,6 +35,13 @@ def audit(root, run, source):
     assert receipt['sourceCommit'] == source and str(receipt['runId']) == run
     assert receipt['status'] == 'passed' and receipt['sdkValidated'] is True
     assert receipt['packageRestoreValidated'] is True and receipt['expectedAssets'] == 21464
+    ready = json.loads((directory / 'component-readiness.json').read_text(encoding='utf-8-sig'))
+    assert ready['sourceCommit'] == source and ready['selected'] == []
+    assert len(ready['reused']) == len(set(ready['reused'])) == receipt['componentGroupsVerified'] >= 46
+    for group in ready['reused']:
+        anchor = ready['details'][group]
+        assert anchor['sourceCommit'] and anchor['runId']
+        subprocess.run(['git', '-C', str(root), 'merge-base', '--is-ancestor', anchor['sourceCommit'], source], check=True)
     sdk = audit_sdk(directory, source)  # Every full product and complete trace member.
     package_bytes = (directory / 'pc-plugin-package.zip').read_bytes()
     assert sha(package_bytes) == receipt['packageArchiveSha256']

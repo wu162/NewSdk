@@ -20,6 +20,7 @@ on:
       - 'recovery/scripts/SelectTextureGroups.py'
       - 'recovery/scripts/RunTextureBatch.ps1'
       - 'recovery/catalog/TextureTestGroups.json'
+      - 'recovery/RESUME.md'
       - '.github/workflows/texture-validation.yml'
   workflow_dispatch:
     inputs:

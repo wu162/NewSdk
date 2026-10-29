@@ -2499,7 +2499,9 @@
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
         "recovery/scripts/TestTextureDibSdk.ps1",
         "recovery/tests/TextureDibSdkFixtures.cs",
-        "recovery/tests/TextureDibConsumerFixtures.cs"
+        "recovery/tests/TextureDibConsumerFixtures.cs",
+        "recovery/scripts/SelectTextureGroups.py",
+        "recovery/catalog/TextureTestGroups.json"
       ],
       "evidence": "recovery/evidence/texture/sdk-dib/*/validation.json",
       "sdk": true
