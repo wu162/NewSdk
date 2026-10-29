@@ -1,3 +1,9 @@
+# 本轮追加：独立裸DIB加载接口（待组件验收，未接插件）
+
+- **本轮实现**：`TextureDibDecoder.Decode/Load/IsDib`复用已恢复BMP parser；原format6 dispatcher确实直接调用同一0x13f3d，完整原字节/表已保存。支持已声明core/Windows/OS2 BI_RGB与metadata，保留bitfields不确定域拒绝，真彩color-table明确未支持。未修改TextureImageLoader或Plugin.Images，不宣称XML/DIB SDK可用。
+- **当前验证**：主批次0dca148f /40813121025仍运行中，OS2/正向BMP atlas/完整PC包与22670资产三模式SDK未提前计通过。DIB仅在该OS2基线完整成功后运行一次新组，复用未变44组件，不跑SDK/MOD。
+- **下一步**：收主批次终态并只修失败项；验收DIB独立接口4560输入（4272实际原raw-DIB调用/配置、双入口与逐次NoOriginal）。后续再接`.dib`插件路由及必要完整消费/SDK。所有成果集中本分支，禁止强推。
+
 # 本轮进行中：OS/2 BMP完整真彩与正向atlas消费（统一验收待运行）
 
 - **本轮实现**：core12/OS2-64 BI_RGB16/24/32与OS2-64负高度复用原parser同一存储合同，解除旧24位/正高度限制；索引色保留原BadTextureFile。新组覆盖1944直接输入、28548插件输入及逐次NoOriginal、完整mip/volume/透明DXT1A和108成功atlas；未验收前不计支持完成。

@@ -2325,6 +2325,30 @@
       ],
       "evidence": "recovery/evidence/texture/bmp-os2/*/validation.json",
       "sdk": false
+    },
+    "dib": {
+      "script": "recovery/scripts/TestTextureDib.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "global.json",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs",
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "recovery/evidence/texture/bmp-header-load/40799686293-1/**",
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "recovery/scripts/TestTextureDib.ps1",
+        "recovery/tests/TextureDibOracle.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/evidence/texture/bmp-os2/40813121025-1/**"
+      ],
+      "evidence": "recovery/evidence/texture/dib/*/validation.json",
+      "sdk": false
     }
   },
   "targetPlatform": "Win32"

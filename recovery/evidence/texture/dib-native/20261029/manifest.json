@@ -1,0 +1,35 @@
+{
+  "scope": "read-only original raw-DIB dispatch; no runtime or production acceptance",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "imageBase": "0x10000000",
+  "dispatcher": {
+    "startRva": "0x16804",
+    "endExclusiveRva": "0x16a9f",
+    "fileOffset": "0x16804",
+    "bytes": 667,
+    "sha256": "8cdd45cd9be147c6eb0409747560a9f59d458f9241fe7063cf642606b9ecfd98"
+  },
+  "jumpTable": {
+    "rva": "0x16aa0",
+    "bytes": 36,
+    "sha256": "d1a109d168c9b0208e6419013605f7d9385c79681257df48c562199bf0f2cb02",
+    "entries": [
+      "0x168d3",
+      "0x16900",
+      "0x1693c",
+      "0x1690f",
+      "0x168f1",
+      "0x168e2",
+      "0x1694b",
+      "0x1692d",
+      "0x1691e"
+    ]
+  },
+  "rawDib": {
+    "formatIndex": 6,
+    "branchRva": "0x1694b",
+    "parserCallRva": "0x16953",
+    "parserRva": "0x13f3d",
+    "observation": "Raw DIB passes the original data pointer/size directly to the same DIB parser called by BMP after stripping14 bytes."
+  }
+}
