@@ -92,7 +92,7 @@ public class FileHashItem : IXmlSerializable
 				if (Exists)
 				{
 					_CurrentDate = File.GetLastWriteTime(_Path);
-					if (Settings.Current.FileContentHash != null) _CurrentContentHash = Settings.Current.FileContentHash(_Path);
+					if (Settings.Current != null && Settings.Current.FileContentHash != null) _CurrentContentHash = Settings.Current.FileContentHash(_Path);
 					else using (var algorithm = SHA256.Create())
 					using (var input = File.OpenRead(_Path))
 						_CurrentContentHash = Convert.ToBase64String(algorithm.ComputeHash(input));
