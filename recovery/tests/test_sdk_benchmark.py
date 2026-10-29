@@ -31,6 +31,9 @@ class ComparisonChecks(unittest.TestCase):
             self.assertEqual(commands[1][commands[1].index('--mod') + 1], '/shared/mod')
             self.assertNotEqual(next(x for x in commands[0] if x.startswith('/bcp:')),
                                 next(x for x in commands[1] if x.startswith('/bcp:')))
+            for command in commands:
+                session = next(x for x in command if x.startswith('/scd:'))
+                self.assertTrue(session.endswith('session' if B.MODES[mode][1] else 'fresh-session-1'))
 
     def test_report_rejects_reordered_or_extra_search_candidates(self):
         w = dict(modRoot='/mod', effectiveInputRoots=dict(dataRoot='/sdk',

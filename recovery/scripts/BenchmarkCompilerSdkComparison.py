@@ -37,7 +37,8 @@ def invocation(engine, workload, mode, profile, round_index, prepared, original)
              '/psc:true', '/fsc:false', '/atc:false', '/ss:true', '/pc:true', '/slowclean:true',
              '/tp:Win32', '/ls:true', '/tl:3', '/el:0']
     intermediate = profile / ('intermediate' if sc else 'fresh-' + str(round_index))
-    flags += ['/iod:' + str(intermediate), '/scd:' + str(profile / 'session'),
+    session = profile / ('session' if sc else 'fresh-session-' + str(round_index))
+    flags += ['/iod:' + str(intermediate), '/scd:' + str(session),
               '/bcp:' + str(profile / 'assets')] + root_arguments(workload['effectiveInputRoots'])
     if engine == 'new':
         return [str(Path(prepared['runtimeDirectory']) / 'NewModCompiler.exe'), 'build',
@@ -175,6 +176,7 @@ def measure(command, cwd, evidence, timeout, environment):
     row['loggedCompilerError'] = bool(re.search(r'(?im)^(?:\[[^\]]+\]\s*)?(?:Critical|Error):', text))
     row['status'] = 'exited' if process.returncode == 0 and not row['loggedCompilerError'] else 'failed'
     row['traceSessionLoaded'] = 'Cached session data available.' in text
+    row['traceStringHashesLoaded'] = 'Loading previous string hash file' in text
     row['traceAssetsCopiedFromCache'] = len(re.findall(r'copied from cache:', text))
     write_json(evidence / 'process.json', row)
     require(row['status'] == 'exited', 'Process failed: ' + evidence.name)
@@ -248,7 +250,8 @@ def run(args):
             label = 'warmup-' + engine
         evidence = output / label
         profile = work / ('warmup' if warmup else 'measured') / w['name'] / mode / engine
-        for name in ('assets', 'session', 'streams', 'product',
+        for name in ('assets', 'session' if MODES[mode][1] else 'fresh-session-' + str(round_index),
+                     'streams', 'product',
                      'intermediate' if MODES[mode][1] else 'fresh-' + str(round_index)):
             (profile / name).mkdir(parents=True, exist_ok=True)
         command = invocation(engine, w, mode, profile, round_index, prepared, original)
@@ -266,6 +269,9 @@ def run(args):
             sample['reportElapsedMs'] = report['elapsedMs']
         else:
             sample['cache'] = None  # No equivalent durable counter interface in original BAB.
+            if not MODES[mode][1]:
+                require(not sample['traceStringHashesLoaded'],
+                        'Session-disabled original run reused prior string-hash metadata')
             if phase == 'hot' and MODES[mode][1]:
                 require(sample['traceSessionLoaded'], 'Original hot session was not loaded according to its trace')
         files, paths = stream_inventory(target)
