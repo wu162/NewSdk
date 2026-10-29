@@ -1,16 +1,17 @@
-# 当前：PC整数/归一化转换已验收；s10e5/float32转换准备完整验收
+# 当前：PC完整数值转换已验收；端序与真实LockRect复制链待集中验收
 
 ## 本轮完成（2026-10-30续接）
 
-- `c5aa8cc067dcead7162de29634602d9bf4679be1` / [40961005402](https://github.com/wu162/NewSdk/actions/runs/40961005402) completed/success：native-signed-convert、native-convert、native-copy及base完整通过，55旧成功组复用。unsigned组D/R各100412输入/64,704,328字节原捕获；signed/biased/integer组各100472输入/61,620,872字节，120完整条带/7864320像素；identity各32768输入/21,217,672字节，均NoOriginal与真实导入库passed。
-- `TextureCopySurface`独立stdcall导出恢复28个布局的unsigned/signed/biased normalized及integer属性、通道映射/常量/last-wins、float32缩放/饱和和1位阈值。首版543cb4cb /40959808438的166个format3/threshold1差异已按原sign-selected half修复；失败保留。64.7MB完整原捕获已由独立Python模型审计全部输入/输出/padding/guard，原负步幅转换74592条E_OUTOFMEMORY也全量核实；signed档案审计正在完成。
-- 本次新增s10e5/float32完整转换：扩为38布局，原half exponent31为有限值、ties-to-even、饱和及极小float的x86 masked shift；float32 NaN→-Inf和负零规范化仅在转换路径，identity保留原始位。新增native-float-convert共46262输入/配置，1444格式对×8属性×4映射，54完整65536像素条带覆盖3538944像素；含全部half位模式、float32所有指数/符号与half中点两侧。**新增float实现尚未Actions验收。** 静态原函数在native-float-static/20261030。
-- 只改独立copy DLL，不加入已部署六DLL包；gamma/endian/压缩转换、packed float10、uint32数值转换、过滤、重叠及signed/biased one-bit未定义域仍明确拒绝。PC原生文件加载/资源构造与完整混合模式身份仍未恢复。SDK/MOD未变，不重复运行。
+- `c5aa8cc0` /40961005402与`6025bc3d9c127574e2cb79178841eacb9cf5c521` / [40962015217](https://github.com/wu162/NewSdk/actions/runs/40962015217)均completed/success。unsigned转换D/R各100412输入/64,704,328原字节；signed/biased/integer各100472输入/61,620,872字节；s10e5/float32各46262输入/57,859,176字节；identity及base也通过，55旧成功组复用。全部新组NoOriginal/真实导入库passed。
+- 独立 `TextureCopySurface` stdcall已恢复38布局的unsigned/signed/biased normalized/integer、原s10e5与float32、通道映射/常量/last-wins、原float32缩放/饱和、1位阈值、half有限exponent31/舍入/极小值masked shift。首版543cb4cb /40959808438的166个1位阈值差异已修正且保留失败。完整unsigned和signed原档已分别独立模型审计100412/100472条及全部源/输出/padding/guard；float原档审计正在收尾。
+- 本次继续实现所有四种byte/word endian模式，仅接受完整端序单位；静态原SwapUnit/Rows及dispatch在native-endian-static/20261030。native-endian-convert含184928输入、1444格式对×16端序对/两数值状态/映射/子区域，32完整U16/half条带/2097152像素及负步幅失败控制。**此新增端序组尚待Actions。**
+- 已接新的真实调用链组件native-copy-consumers：原12 DDS/TGA全资源/107级别/321锁解锁和全部存储仍完整保留；其中4真实raw源的40级别/120 locked views执行原版/恢复端序+swizzle→RGBA8完整复制、padding/guard和逐次NoOriginal。原生文件loader仍仅oracle输入，不属于恢复业务；新调用链也**尚待Actions**。
+- 独立ABI不加入已部署六DLL包，SDK/MOD输入未变不重跑。gamma/压缩转换、packed float10、uint32数值转换、过滤/重叠及signed/biased one-bit域仍明确拒绝；PC原生文件加载/资源构造、完整混合模式身份仍未完成。
 
 ## 下一轮计划／当前继续入口
 
-- 先收本次 `[texture-test]` 的native-float-convert完整差分与实际共享消费者native-signed-convert/native-convert/native-copy/base；55旧成功组与SDK保留各自精确祖先。失败只补失败/变化组，不能把probe或部分一致称通过。
-- 成功后独立审计float完整capture及全部新业务/源码输入锚点；测试入口TestTextureNativeFloatConvert.ps1及TextureNativeFloatConvertOracle.cpp。下一业务优先PC LoadImageA实际所需剩余转换/原生加载资源头构造。编译测试仅Actions、禁止强推。
+- 先收本次 `[texture-test]` 的native-copy-consumers、native-endian-convert及全部实际共享消费者float/signed/unsigned/identity/base。未变55组与旧SDK保留各自sourceCommit/runId；失败只补真实失败/变化组。
+- 用完整原capture独立审计新端序矩阵及真实120次复制的全部输出、原资源输入与五DLL来源；入口TestTextureNativeEndianConvert.ps1、TestTextureNativeCopyConsumers.ps1及相应Oracle.cpp。通过后下一业务优先D3DXCreateTextureFromFileA@0x13c82→0x13b53的PC原生加载与资源头构造；编译测试仅Actions、禁止强推。
 
 以下为前轮已验收状态及历史锚点。
 

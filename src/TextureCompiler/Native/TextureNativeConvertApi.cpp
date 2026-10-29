@@ -50,8 +50,8 @@ constexpr Format Formats[]={
  {57,12,4,{0,1,2,0},{0xffffffffu,0xffffffffu,0xffffffffu,0x0u},{0,0,0,0},true}
 };
 const Format* Find(U full){
- // Little endian normalized/integer, unsigned/signed/biased channels; no gamma.
- if(full&~0x3ffffe3fu)return nullptr;
+ // Normalized/integer/float, unsigned/signed/biased channels; no gamma.
+ if(full&~0x3ffffeffu)return nullptr;
  const Format* result=nullptr;
  for(const auto& f:Formats)if(f.id==(full&63))result=&f;
  if(!result)return nullptr;
@@ -132,17 +132,27 @@ extern "C" RECOVERED_TEXTURE_NATIVE_COPY_API std::int32_t __stdcall TextureCopyS
  if(origin.x<0||origin.y<0||rect.left<0||rect.top<0||rect.right<rect.left||rect.bottom<rect.top)return Unsupported;
  const U x=origin.x,y=origin.y,left=rect.left,top=rect.top,right=rect.right,bottom=rect.bottom,columns=right-left,rows=bottom-top;
  if(right>width||bottom>height||x>width||y>height||columns>width-x||rows>height-y)return Unsupported;
+ const U sourceEndian=(sourceFormat>>6)&3,destinationEndian=(destinationFormat>>6)&3;
+ const U sourceUnit=sourceEndian==0?1:sourceEndian==1?2:4,destinationUnit=destinationEndian==0?1:destinationEndian==1?2:4;
+ // The original row swap truncates incomplete units, leaving an uninitialized tail.
+ // Accept only complete endian units; do not freeze that undefined tail as gold.
+ if((columns*srcFormat->bytes)%sourceUnit||(columns*dstFormat->bytes)%destinationUnit)return Unsupported;
+ constexpr U xorMask[]={0,1,3,2};
  for(U row=0;row<rows;++row){
   auto dst=static_cast<unsigned char*>(destination)+static_cast<std::ptrdiff_t>(y+row)*destinationPitch+x*dstFormat->bytes;
   auto src=static_cast<const unsigned char*>(source)+static_cast<std::ptrdiff_t>(top+row)*sourcePitch+left*srcFormat->bytes;
   for(U column=0;column<columns;++column){
+   unsigned char decoded[16],encoded[16]={};
+   auto sourceRow=src-static_cast<std::ptrdiff_t>(column)*srcFormat->bytes;
+   for(U byte=0;byte<srcFormat->bytes;++byte)decoded[byte]=sourceRow[(column*srcFormat->bytes+byte)^xorMask[sourceEndian]];
    float physical[6]={0,0,0,0,0,1},logical[4],stored[4]={};
-   for(U c=0;c<4;++c){U word=0;std::memcpy(&word,src+srcFormat->offset[c]*srcFormat->wordBytes,srcFormat->wordBytes);U raw=(word&srcFormat->mask[c])>>srcFormat->shift[c];physical[c]=srcFormat->floating?CanonicalFloat((srcFormat->mask[c]>>srcFormat->shift[c])==0xffff?HalfBitsToFloat(raw):raw):Normalize(raw,srcFormat->mask[c]>>srcFormat->shift[c],(sourceFormat>>(9+2*c))&3,(sourceFormat&0x20000)!=0);}
+   for(U c=0;c<4;++c){U word=0;std::memcpy(&word,decoded+srcFormat->offset[c]*srcFormat->wordBytes,srcFormat->wordBytes);U raw=(word&srcFormat->mask[c])>>srcFormat->shift[c];physical[c]=srcFormat->floating?CanonicalFloat((srcFormat->mask[c]>>srcFormat->shift[c])==0xffff?HalfBitsToFloat(raw):raw):Normalize(raw,srcFormat->mask[c]>>srcFormat->shift[c],(sourceFormat>>(9+2*c))&3,(sourceFormat&0x20000)!=0);}
    for(U c=0;c<4;++c)logical[c]=physical[(sourceFormat>>(18+3*c))&7];
    // Inversion writes R, G, B, A in order: duplicate destinations are last-wins.
    for(U c=0;c<4;++c){U selector=(destinationFormat>>(18+3*c))&7;if(selector<4)stored[selector]=logical[c];}
-   std::memset(dst,0,dstFormat->bytes);
-   for(U c=0;c<4;++c){U maximum=dstFormat->mask[c]>>dstFormat->shift[c];if(!maximum)continue;U word=0;auto address=dst+dstFormat->offset[c]*dstFormat->wordBytes;std::memcpy(&word,address,dstFormat->wordBytes);U raw;if(dstFormat->floating){float value=stored[c]==0?0:stored[c];if(maximum==0xffff)raw=FloatToHalfBits(value);else std::memcpy(&raw,&value,4);}else raw=Quantize(stored[c],maximum,(destinationFormat>>(9+2*c))&3,(destinationFormat&0x20000)!=0,threshold);word|=(raw<<dstFormat->shift[c])&dstFormat->mask[c];std::memcpy(address,&word,dstFormat->wordBytes);}
+   for(U c=0;c<4;++c){U maximum=dstFormat->mask[c]>>dstFormat->shift[c];if(!maximum)continue;U word=0;auto address=encoded+dstFormat->offset[c]*dstFormat->wordBytes;std::memcpy(&word,address,dstFormat->wordBytes);U raw;if(dstFormat->floating){float value=stored[c]==0?0:stored[c];if(maximum==0xffff)raw=FloatToHalfBits(value);else std::memcpy(&raw,&value,4);}else raw=Quantize(stored[c],maximum,(destinationFormat>>(9+2*c))&3,(destinationFormat&0x20000)!=0,threshold);word|=(raw<<dstFormat->shift[c])&dstFormat->mask[c];std::memcpy(address,&word,dstFormat->wordBytes);}
+   auto destinationRow=dst-static_cast<std::ptrdiff_t>(column)*dstFormat->bytes;
+   for(U byte=0;byte<dstFormat->bytes;++byte)destinationRow[(column*dstFormat->bytes+byte)^xorMask[destinationEndian]]=encoded[byte];
    if(column+1<columns){dst+=dstFormat->bytes;src+=srcFormat->bytes;}
   }
  }

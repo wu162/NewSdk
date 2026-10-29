@@ -1,0 +1,24 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "scope": "PC XGCopySurface full-format endian-unit dispatch and complete original byte/word swap routines; incomplete units excluded as original uninitialized tails",
+  "files": [
+    {
+      "name": "SwapUnit",
+      "rva": "0x3ed3d",
+      "bytes": 330,
+      "sha256": "8455e1df4500755a0c9ed3636283660478f6beed01f5d42b3f2dbf83e04fcff0"
+    },
+    {
+      "name": "SwapRows",
+      "rva": "0x3ee8c",
+      "bytes": 91,
+      "sha256": "17aa42e0e32072aa1b7b6730acae31cece3fb8ae05cf0a46b6a6d6a6e6ccb2eb"
+    },
+    {
+      "name": "CopyEndianDispatch",
+      "rva": "0x3cef7",
+      "bytes": 178,
+      "sha256": "eae5ae278154d48397d0d04beb306f50590c02fe5af2aea6049b7813b274bbf5"
+    }
+  ]
+}

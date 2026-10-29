@@ -1,21 +1,24 @@
-# 当前：PC五组原生能力与真实消费链已验收
+# 当前：PC原生数值转换已验收；端序和真实复制消费待验收
 
-源码入口 `src/TextureCompiler/Native/TextureNative{Device,Resource,Surface,Descriptor,Copy}Api.*`，各自独立x86 DLL，保持原调用约定与结构字段；不进入已部署生产六DLL包，也不宣称完整原混合模式身份。
+入口 `src/TextureCompiler/Native/TextureNative{Device,Resource,Surface,Descriptor,Copy,Convert}Api.*`。独立x86 ABI DLL，不加入已部署六DLL包或冒充完整原混合模式身份。
 
-| 组 | 原版完整验收锚点 | 范围 |
+| 组 | 完整原版验收锚点 | 范围 |
 | --- | --- | --- |
-| native-device |44972e43 /40911147535|type!=2设备/完整对象/线程/VM/引用释放；type2明确拒绝|
-| native-resource |44972e43 /40911147535|CPU资源、父子/嵌套引用、原子操作、UnlockRect和配套释放；GPU/type9拒绝|
-| native-surface |675b00d6 /40912274334|64格式四维度全mip/packed/对齐/边框/数组和LockRect，131072完整矩阵|
-| native-descriptor |118d9500 /40913579297|135168头/405504完整32、28、60字节描述符，含4096 metadata|
-| native-consumers |118d9500 /40913579297|12真实资源、107级别、321锁解锁、全部5.83MB存储；原fixture loader非恢复业务|
-| native-copy |7f2994d7 /40916397812|32768同完整格式/块对齐identity行复制，负步幅/压缩块/边缘/padding；转换/过滤/未对齐拒绝|
+| native-device/resource |44972e43 /40911147535|非type2设备、CPU资源/所有权/引用释放，GPU/type9拒绝|
+| native-surface |675b00d6 /40912274334|131072布局及同量LockRect，packed/tiled/border/mip/array|
+| native-descriptor/consumers |118d9500 /40913579297|135168头/405504完整描述符；12真实资源/107级别/321锁及全部存储|
+| native-copy |6025bc3d /40962015217|32768完整identity输入，64格式/区域/正负步幅/flags/padding/guard|
+| native-convert |6025bc3d /40962015217|100412完整unsigned输入/64.7MB，60全16位源条带|
+| native-signed-convert |6025bc3d /40962015217|100472 signed/biased normalized/integer输入/61.6MB，120条带/7864320像素|
+| native-float-convert |6025bc3d /40962015217|46262输入/57.9MB；38布局/1444格式对/8属性/4映射；全部half、float指数/符号、signed midpoint邻点|
+| native-endian-convert |本次待验收|184928输入/16端序对/所有数值布局/子区域、32全16位条带及负步幅控制|
+| native-copy-consumers |本次待验收|五DLL/12真实资源/107级别/321锁；其中40 raw级别120视图执行端序+swizzle到RGBA8|
 
-全部Debug/Release原版差分、NoOriginal与适用真实导入库通过。完整原档独立审计在evidence/texture/handoffs/20261030-native-abi。原地址/线程先核对真实语义后仅在测试捕获中标记，其他全部字节精确比较；生产源码没有gold输出表、样本ID分派或原后端回调。中间失败保留，完整旧成功组按实际依赖复用。
+成功组均D/R原版完整字节比较、NoOriginal及适用真实导入库。543cb4cb/40959808438首版166个1位阈值差异保留；修复是原sign-selected half而非固定+0.5。unsigned与signed全原档已独立模型复审，float与新增组完整归档复核继续收取，不把第一版failure写成success。
 
-Copy最后一行后无用指针推进已移除，负步幅完整补验40916397812通过，原捕获与前一版完全相同；当前57组件均有有效祖先证据，selected为空。下一业务为原XGCopySurface转换/过滤分支@0x3cef7..0x3d969（先PC LoadImageA实际所需格式），以及D3DXCreateTextureFromFileA@0x13c82→0x13b53加载与资源头构造。独立ABI成功不能替代完整混合模式DLL或SDK新包集成门槛。
+端序源证据：原PC真实raw资源desc.format含0x80（8-in-32），canonical LoadImageA目标是0x1a200006，故新组优先补真实消费。四种端序按原0x3ed3d/0x3ee8c单位交换；不完整单位会遗留未初始化尾部，恢复版明确拒绝，不冻结随机字节。
 
-仅PC、编译测试仅Actions、禁止强推；SDK/MOD按明确里程碑降频。本轮SDK生产包/配置未变。
+保留边界：gamma/压缩转换、packed float10、uint32数值转换、过滤/重叠、signed/biased one-bit仍拒绝；D3DXCreateTextureFromFileA@0x13c82→0x13b53加载/资源头构造、设备type2/type9及完整混合模式身份未恢复。fixture loader只提供原版输入，不算恢复的图像加载器。下一功能从该PC文件加载链继续，不重复旧成功SDK/MOD；仅PC、编译测试仅Actions、禁止强推。
 
 以下为早期历史记录。
 
