@@ -2,34 +2,67 @@ using System;
 using System.IO;
 namespace Recovered.Compiler.Texture
 {
-    // Windows BITMAPINFOHEADER / BI_RGB. Other DIB revisions/compressions are
-    // separate profiles and cannot silently fall through to this decoder.
+    // PC D3DX BI_RGB storage. Each supported DIB has its own header layout;
+    // bitfields are not interchangeable with the corresponding BI_RGB pixels.
     public static class TextureBmpDecoder
     {
         public static bool IsBmp(byte[] data) { return data != null && data.Length >= 2 && data[0] == 66 && data[1] == 77; }
         private static int U16(byte[] b,int p){return b[p]|b[p+1]<<8;}
         private static uint U32(byte[] b,int p){return (uint)b[p]|(uint)b[p+1]<<8|(uint)b[p+2]<<16|(uint)b[p+3]<<24;}
         private static InvalidDataException Invalid(){return new InvalidDataException("Invalid BMP image.");}
+        private static BinaryAssetBuilder.BinaryAssetBuilderException CannotLoad(){return new BinaryAssetBuilder.BinaryAssetBuilderException(null,BinaryAssetBuilder.ErrorCode.BadTextureFile,"D3DX cannot load the texture from disk.",new object[0]);}
         public static TexturePacker.Image Decode(byte[] data)
         {
-            if(!IsBmp(data)||data.Length<54)throw Invalid();
-            if(U32(data,14)!=40)throw new NotSupportedException("Only BMP BITMAPINFOHEADER has been recovered.");
-            int width=unchecked((int)U32(data,18)),signedHeight=unchecked((int)U32(data,22));
-            int depth=U16(data,28);uint compression=U32(data,30),offset=U32(data,10),colors=U32(data,46);
-            if(compression==3)throw new BinaryAssetBuilder.BinaryAssetBuilderException(null,BinaryAssetBuilder.ErrorCode.BadTextureFile,"D3DX cannot load the texture from disk.",new object[0]);
+            if(!IsBmp(data)||data.Length<18)throw Invalid();
+            uint dib=U32(data,14);
+            if(dib!=12&&dib!=40&&dib!=52&&dib!=56&&dib!=64&&dib!=108&&dib!=124)throw new NotSupportedException("This BMP DIB revision has not been recovered.");
+            int headerEnd=14+(int)dib;
+            if(data.Length<headerEnd)throw Invalid();
+            bool core=dib==12;
+            int width=core?U16(data,18):unchecked((int)U32(data,18));
+            int signedHeight=core?U16(data,20):unchecked((int)U32(data,22));
+            int planes=U16(data,core?22:26),depth=U16(data,core?24:28);
+            uint compression=core?0:U32(data,30),offset=U32(data,10),colors=core?0:U32(data,46);
+            // The observed OS/2 profiles are bottom-up 24-bit BI_RGB. Do not
+            // silently treat their other storage/height fields as Windows DIBs.
+            if((core||dib==64)&&(depth!=24||signedHeight<0||compression!=0))throw new NotSupportedException("This OS/2 BMP storage profile has not been recovered.");
+            if(compression==3)
+            {
+                if(dib==40)throw CannotLoad();
+                // Extended-DIB 24/32-bit masks have repeat-varying original
+                // output; 16-bit masks have a separate, unresolved descriptor
+                // interpretation. Neither is a deterministic BI_RGB fallback.
+                throw new NotSupportedException("Extended-DIB BMP bitfields have not been recovered.");
+            }
+            if(compression==6)throw CannotLoad();
             if(compression!=0)throw new NotSupportedException("Compressed BMP has not been recovered.");
-            if(U16(data,26)!=1||width<=0||signedHeight==0||signedHeight==int.MinValue||width>16384||Math.Abs(signedHeight)>16384)throw Invalid();
+            if(planes!=1||width<=0||signedHeight==0||signedHeight==int.MinValue||width>16384||Math.Abs(signedHeight)>16384)throw Invalid();
             int height=Math.Abs(signedHeight);
             if((long)width*height>16777216)throw Invalid();
             if(depth!=1&&depth!=4&&depth!=8&&depth!=16&&depth!=24&&depth!=32)throw Invalid();
             bool npot=(width&(width-1))!=0||(height&(height-1))!=0;
-            if(depth<=8)throw new BinaryAssetBuilder.BinaryAssetBuilderException(null,BinaryAssetBuilder.ErrorCode.BadTextureFile,"D3DX cannot load the texture from disk.",new object[0]);
+            if(depth<=8)throw CannotLoad();
             int stride=checked(((width*depth+31)/32)*4);
             int paletteEntries=depth<=8?(colors==0?1<<depth:checked((int)colors)):0;
-            if(paletteEntries>(1<<Math.Min(depth,8))||offset<54+paletteEntries*4||offset>data.Length||(long)stride*height>data.Length-offset)throw Invalid();
-            // Legacy D3DX BI_RGB consumes pixels directly after the DIB, ignoring
-            // the BMP file header's bfOffBits (including an extra file gap).
-            offset=54;
+            long rasterBytes=(long)stride*height;
+            if(paletteEntries>(1<<Math.Min(depth,8))||offset<headerEnd+paletteEntries*4||offset>data.Length||rasterBytes>data.Length-offset||rasterBytes>data.Length-headerEnd)throw Invalid();
+            if(dib==124)
+            {
+                uint profileOffset=U32(data,126),profileBytes=U32(data,130);
+                if((profileOffset==0)!=(profileBytes==0))throw Invalid();
+                if(profileBytes!=0)
+                {
+                    // bV5ProfileData is relative to the DIB rather than the
+                    // file. Preserve the observed post-raster bounded profile;
+                    // metadata does not transform the decoded PC colors.
+                    long profileStart=14L+profileOffset;
+                    if(profileStart<offset+rasterBytes||profileStart+profileBytes>data.Length)throw Invalid();
+                }
+            }
+            // Legacy D3DX BI_RGB consumes pixels immediately after the actual
+            // DIB, ignoring bfOffBits (including any extra file gap). V4/V5
+            // gamma/color-space fields and bounded V5 ICC have no render effect.
+            offset=(uint)headerEnd;
             bool hasAlpha=depth==24;
             if(depth==32)for(int y=0;y<height;y++)for(int x=0;x<width;x++)if(data[(int)offset+y*stride+x*4+3]!=0)hasAlpha=true;
             uint[] pixels=new uint[width*height];
@@ -40,7 +73,7 @@ namespace Recovered.Compiler.Texture
                 if(depth<=8)
                 {
                     int index=(data[row+x*depth/8]>>(8-depth-x*depth%8))&((1<<depth)-1);
-                    if(index>=paletteEntries)throw Invalid();int p=54+index*4;b=data[p];g=data[p+1];r=data[p+2];
+                    if(index>=paletteEntries)throw Invalid();int p=headerEnd+index*4;b=data[p];g=data[p+1];r=data[p+2];
                 }
                 else if(depth==16)
                 {
