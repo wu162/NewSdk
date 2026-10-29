@@ -1,0 +1,1 @@
+PASS Texture mip ProcessInstance differential fixtures=870 errors=2 unsupportedResampling=0 comparedBytes=4450536; PC volume complete mips; generated horizontal strips; three buffers and full cdata; no SDK acceptance

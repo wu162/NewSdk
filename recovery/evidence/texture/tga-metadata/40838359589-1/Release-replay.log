@@ -1,0 +1,1 @@
+PASS Texture TGA metadata NoOriginal fixtures=12480 publicCalls=24960 decoded=24960 rejected=0 boundaryRejections=96 checks=1904740 comparedBytes=5616000; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate

@@ -1,0 +1,1 @@
+PASS Texture BMP DIB/metadata NoOriginal fixtures=2616 publicCalls=5232 decoded=3792 rejected=864 explicitRefusals=576 boundaryRejections=106 checks=775880 comparedBytes=2673360; full supported original RGBA/error domains; expanded-DIB bitfields refusals are not original error matches, unchanged inputs, absent/unloaded original per call; plugin/SDK separate
