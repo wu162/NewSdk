@@ -90,7 +90,8 @@ namespace NewModCompiler.Application
 
         static string Key(FileIdentity file, bool immutable)
         {
-            string identity = file.FileId.ToString("x16", CultureInfo.InvariantCulture) + "|" +
+            string identity = file.VolumeSerial.ToString("x16", CultureInfo.InvariantCulture) + "|" +
+                file.FileId.ToString("x16", CultureInfo.InvariantCulture) + "|" +
                 file.LastWriteTime.ToString("x16", CultureInfo.InvariantCulture) + "|" + file.Size.ToString("x16", CultureInfo.InvariantCulture);
             return immutable ? "inode|" + identity : "path|" + file.Path.ToUpperInvariant() + "|" + identity + "|" +
                 file.ChangeTime.ToString("x16", CultureInfo.InvariantCulture);
