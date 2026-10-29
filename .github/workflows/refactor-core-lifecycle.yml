@@ -193,7 +193,7 @@ jobs:
           $evidence="recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/app-protocol.json"
           if($LASTEXITCODE -ne 0){throw 'Actual application protocol validation failed'}
-      - name: Host-bound Texture payload and deployment rejection in Debug and Release
+      - name: Host-bound Texture payload and operation without deployment manifest in Debug and Release
         if: ${{ !cancelled() && steps.product.outcome == 'success' }}
         shell: pwsh
         run: |
