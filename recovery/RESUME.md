@@ -1,8 +1,8 @@
-# 当前进行中：TGA 12480原gold完成；共享metadata结构恢复待整批验证
+# 当前：TGA 非零 metadata 组件/完整消费通过，专用SDK待集中运行
 
-- **本轮完成**：63dcfd2b / [40793184986](https://github.com/wu162/NewSdk/actions/runs/40793184986) completed/success，12480输入/24960原调用全部解码；480上下文×26 metadata与无尾基线完整RGBA/尺寸/hasAlpha相同。包含gamma/alpha0..4、反转色彩修正、developer/table、坐标、三alpha图案/POT/NPOT/raw/RLE。原收据probe-only，不冒充恢复验收。
-- **实现检查点（未验收）**：新增有界TGA2.0尾部region验证，两个decoder共享，按原版忽略metadata渲染/坐标；保留原RLE和DevIL限定路径。已登记实际helper消费者并准备全12480输入双入口D/R逐次NoOriginal与96个损坏结构拒绝；47248输入的完整插件/atlas/透明DXT1A组已准备，与其他受影响组件统一验证；SDK稍后必要里程碑集中，未宣称新范围完成。详见[本批TGA](TEXTURE_TGA_METADATA.md)。
-- **下一步**：整组准备好后统一跑受影响完整组件；稳定后集中必要专用SDK，不默认完整MOD。上轮39组件/12 SDK保留各自锚点，不能覆盖本轮实际变动消费者。仅PC、编译测试只Actions、禁止强推。
+- **本轮完成**：原版63dcfd2b /40793184986 success：12480输入/24960原调用全解码，480上下文×26 profile完整RGBA/hasAlpha/尺寸与无尾基线相同，原收据probe-only。新增共享有界TGA2尾部结构验证，两个decoder按原版忽略gamma/alpha/developer/table及坐标；旧RLE/DevIL限定兼容保留。
+- **组件已验收**：a928f981 / [40795326615](https://github.com/wu162/NewSdk/actions/runs/40795326615) completed/success，19受影响完整组通过/22组复用。D/R各12480 gold直接/公共两入口24960调用、1904740检查、5616000字节RGBA、96个明确损坏结构拒绝；47248插件输入及同量逐次NoOriginal、432710096字节比较、0错误，含10源格式/26 metadata、raw3/DXT3/5/透明DXT1A、POT/NPOT/partial/volume/full mip、208 atlas、新旧cdata和三buffer。见[本批TGA](TEXTURE_TGA_METADATA.md)。
+- **验证中/下一步**：准备好8152资产PcTgaMetadata专用SDK，与实际受影响既有SDK集中验收；同一Windows顺序采2616输入的BMP DIB/core/V2/V3/V4/V5/OS2/gamma/ICC/bitfields/gap探针，比较结果为probe-only，BMP业务源码未改。先收终态、独立核对四产物和全部轨迹后再宣称TGA集成完成。完整MOD不自动跑、默认DXT1/不透明DXT1A拒绝、生产SDK未替换；上轮未变成功锚点保留。
 
 # 当前：PNG 与 JPEG metadata 均已完成组件、完整消费与专用SDK
 
