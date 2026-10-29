@@ -80,6 +80,7 @@ namespace NewModCompiler.Application
         }
         internal void RecordPublished(IList<Artifact> artifacts, string directory, bool unchanged)
         {
+            if (unchanged) return;
             if (!unchanged)
             {
                 string root = Path.GetFullPath(directory).TrimEnd('\\', '/'), prefix = root + Path.DirectorySeparatorChar;

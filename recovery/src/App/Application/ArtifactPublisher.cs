@@ -40,7 +40,7 @@ namespace NewModCompiler.Application
             string builds = Path.Combine(output, ".build"), destination = Path.Combine(output, destinationName);
             if (!Paths.Contains(builds, staging) || string.Equals(builds, staging, StringComparison.OrdinalIgnoreCase))
                 throw new IOException("Publication source must belong to one build below OutputRoot/.build.");
-            foreach (string input in new[] { request.ModRoot, request.SdkRoot })
+            if (!owned) foreach (string input in new[] { request.ModRoot, request.SdkRoot })
             {
                 string physicalInput = DiagnosticDirectory.ResolveInputDirectory(input);
                 string physicalOutput = DiagnosticDirectory.ResolveOutput(output);
@@ -56,7 +56,7 @@ namespace NewModCompiler.Application
             try
             {
             targetLock = PublicationLock.Acquire(DiagnosticDirectory.ResolveOutput(destination));
-            using (DiagnosticDirectory.Acquire(staging, false))
+            using (owned ? null : DiagnosticDirectory.Acquire(staging, false))
             {
                 if (File.Exists(destination)) throw new IOException("Publication destination is a file.");
                 if (!owned && Directory.Exists(destination)) RejectReparseTree(destination);

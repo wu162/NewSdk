@@ -29,7 +29,7 @@ namespace NewModCompiler.Application
             RejectLinks(this.sessionRoot);
             sessionLock = PublicationLock.Acquire(SessionPath);
         }
-        public bool Prepare(string hashes, string streams, CancellationToken cancellation, string relativeStream = null, bool copySession = true)
+        public bool Prepare(string hashes, string streams, CancellationToken cancellation, string relativeStream = null, bool copySession = true, bool copyData = true)
         {
             Active(); cancellation.ThrowIfCancellationRequested();
             string source = stagedSession;
@@ -43,11 +43,21 @@ namespace NewModCompiler.Application
             string target = Path.Combine(hashes, SessionName) + (source.EndsWith(".deflate", StringComparison.OrdinalIgnoreCase) ? ".deflate" : "");
             PreparedSessionPath = source.EndsWith(".deflate", StringComparison.OrdinalIgnoreCase) ? source.Substring(0, source.Length - 8) : source;
             if (copySession) Copy(source, target, cancellation);
+            if (!copyData) return true;
             string stagedData = Path.Combine(candidate, "cdata");
             if (Directory.Exists(stagedData)) CopyData(stagedData, streams, cancellation, false, relativeStream);
             else if (Directory.Exists(cdataRoot)) CopyData(cdataRoot, streams, cancellation, false, relativeStream);
             else if (Directory.Exists(sessionRoot)) CopyData(sessionRoot, streams, cancellation, true, relativeStream);
             return true;
+        }
+        internal string ResolveData(string relative)
+        {
+            foreach (string root in new[] { Path.Combine(candidate, "cdata"), cdataRoot, sessionRoot })
+            {
+                string path = Path.Combine(root, relative);
+                if (File.Exists(path)) return path;
+            }
+            return null;
         }
         public void Stage(string hashes, string streams, bool compressed, CancellationToken cancellation)
         {

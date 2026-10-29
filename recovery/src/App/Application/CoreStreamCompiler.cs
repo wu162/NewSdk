@@ -465,7 +465,17 @@ namespace NewModCompiler.Application
                     string root = FileNameResolver.GetDataRoot(settings.InputPath);
                     string relative = string.IsNullOrEmpty(root) ? Path.GetFileName(settings.InputPath) : FileNameResolver.GetSafeRelativePath(root, settings.InputPath);
                     relative = Path.Combine(Path.GetDirectoryName(relative), Path.GetFileNameWithoutExtension(relative));
-                    packageRestored = legacyStore.Prepare(settings.SessionCacheDirectory, settings.OutputDirectory, cancellation, relative, copySession: false);
+                    packageRestored = legacyStore.Prepare(settings.SessionCacheDirectory, settings.OutputDirectory, cancellation, relative, copySession: false, copyData: false);
+                    if (packageRestored)
+                    {
+                        settings.FindCustomData = path => legacyStore.ResolveData(path.Substring(settings.OutputDirectory.Length + 1));
+                        settings.ReuseCustomData = (logical, source) =>
+                        {
+                            if (reusedArtifacts.Any(artifact => string.Equals(artifact.Path, logical, StringComparison.OrdinalIgnoreCase))) return;
+                            reusedArtifacts.Add(new Artifact { Path = logical, BackingPath = source, Kind = "custom-data", Size = new FileInfo(source).Length,
+                                Sha256 = request.FileIdentities.Hash(source), Verified = true });
+                        };
+                    }
                 }
                 if (schemas == null) schemas = new SchemaSet(settings.StableSort);
                 hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
@@ -501,6 +511,7 @@ namespace NewModCompiler.Application
                             if (Directory.Exists(directory)) Directory.Delete(directory, true);
                         hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                         packageRestored = false;
+                        settings.FindCustomData = null; settings.ReuseCustomData = null;
                         cache = new SessionCache();
                         cache.LoadCacheFrom(packageRestored ? legacyStore.PreparedSessionPath : sessionPath, sessionPath);
                         cache.InitializeCache(new List<string>());

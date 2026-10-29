@@ -91,7 +91,7 @@ namespace NewModCompiler.Application
                 // Win32 resolves the existing Mod.manifest case-insensitively; the
                 // original script passes lowercase mod.manifest, which is also
                 // the exact embedded dependency name in both LoD manifests.
-                foreach(string source in LoDStreamBuilder.Create(Path.Combine(Path.GetDirectoryName(manifest),"mod.manifest"),cancellation)) {
+                foreach(string source in LoDStreamBuilder.Create(Path.Combine(Path.GetDirectoryName(manifest),"mod.manifest"),cancellation,Path.Combine(staging,".package-lod"))) {
                     string name="Data\\"+Path.GetFileName(source);
                     if(!names.Add(name)) throw new IOException("Case-insensitive LoD archive path collision.");
                     entries.Add(new BigArchiveEntry {Name=name,SourcePath=source});

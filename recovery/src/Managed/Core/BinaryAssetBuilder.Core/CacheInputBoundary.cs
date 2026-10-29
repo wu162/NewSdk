@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 
@@ -10,6 +11,7 @@ namespace BinaryAssetBuilder.Core;
 public static class CacheInputBoundary
 {
 	[ThreadStatic] private static string[] _Roots;
+	[ThreadStatic] private static HashSet<string> _Validated;
 
 	public static IDisposable Begin(params string[] roots)
 	{
@@ -23,6 +25,7 @@ public static class CacheInputBoundary
 			RejectReparseAncestors(normalized[index]);
 		}
 		_Roots = normalized;
+		_Validated = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 		return new Scope(Thread.CurrentThread.ManagedThreadId);
 	}
 
@@ -31,6 +34,7 @@ public static class CacheInputBoundary
 		if (_Roots == null) return;
 		if (string.IsNullOrEmpty(path) || !Path.IsPathRooted(path)) throw new IOException("Build-cache inputs must be absolute physical paths.");
 		string full = Path.GetFullPath(path);
+		if (_Validated.Contains(full)) return;
 		// An ADS is not an enumerated file in the root inventory. Device and
 		// extended paths also have normalization rules outside that contract.
 		if (full.StartsWith(@"\\?\", StringComparison.Ordinal) || full.StartsWith(@"\\.\", StringComparison.Ordinal) ||
@@ -41,6 +45,7 @@ public static class CacheInputBoundary
 			if (string.Equals(root, full, StringComparison.OrdinalIgnoreCase) || full.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) { included = true; break; }
 		if (!included) throw new IOException("Build-cache input is outside the inventoried SDK, MOD and compiler runtime roots: " + full);
 		RejectReparseAncestors(full);
+		_Validated.Add(full);
 	}
 
 	static void RejectReparseAncestors(string path)
@@ -57,7 +62,7 @@ public static class CacheInputBoundary
 		{
 			if (disposed) return;
 			if (thread != Thread.CurrentThread.ManagedThreadId) throw new InvalidOperationException("Cache input boundary must close on its owning thread.");
-			_Roots = null; disposed = true;
+			_Roots = null; _Validated = null; disposed = true;
 		}
 	}
 }

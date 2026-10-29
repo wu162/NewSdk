@@ -846,7 +846,7 @@ public class DocumentProcessor
 		{
 			AssetLocationInfo assetLocationInfo = new AssetLocationInfo();
 			assetLocationInfo.AssetOutputDirectory = asset.AssetOutputDirectory;
-			assetLocationInfo.CustomDataOutputDirectory = asset.CustomDataOutputDirectory;
+			assetLocationInfo.CustomDataOutputDirectory = asset.Instance.HasCustomData ? Path.GetDirectoryName(asset.CustomDataPath) : asset.CustomDataOutputDirectory;
 			_LastWrittenAssets.Add(asset.FileBase, assetLocationInfo);
 		}
 	}

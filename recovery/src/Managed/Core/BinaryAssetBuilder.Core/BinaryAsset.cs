@@ -131,6 +131,15 @@ public class BinaryAsset
 
 	public string CustomDataOutputDirectory => _CustomDataOutputDirectory;
 
+	public string CustomDataPath
+	{
+		get
+		{
+			string path = Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName);
+			return File.Exists(path) ? path : Settings.Current.FindCustomData?.Invoke(path) ?? path;
+		}
+	}
+
 	private void UpdateMemoryAvailability(bool forceUpdate)
 	{
 		if (_MemoryAvailability == Availability.Invalid || forceUpdate)
@@ -174,7 +183,7 @@ public class BinaryAsset
 		if (_OutputAvailability == Availability.Invalid || forceUpdate)
 		{
 			string path = Path.Combine(_AssetOutputDirectory, _AssetFileName);
-			string path2 = Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName);
+			string path2 = _Instance.HasCustomData ? CustomDataPath : null;
 			if (File.Exists(path) && (File.Exists(path2) || !_Instance.HasCustomData))
 			{
 				_OutputAvailability = Availability.Present;
@@ -426,6 +435,11 @@ public class BinaryAsset
 		if (_OutputAvailability == Availability.Missing)
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to commit asset {0}", _Instance);
+		}
+		if (Instance.HasCustomData && Settings.Current.ReuseCustomData != null)
+		{
+			string logical = Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName), source = CustomDataPath;
+			if (!string.Equals(logical, source, StringComparison.OrdinalIgnoreCase)) Settings.Current.ReuseCustomData(logical, source);
 		}
 		if (location == AssetLocation.Memory)
 		{
@@ -682,7 +696,7 @@ public class BinaryAsset
 				fileInfo = new FileInfo(text);
 				if (!fileInfo.Exists)
 				{
-					File.Copy(Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName), text);
+					File.Copy(CustomDataPath, text);
 					return;
 				}
 				FileInfo fileInfo4 = fileInfo;
