@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "fixtureCount": 4866,
+  "sourceCommit": "0fa4acd3368bfe0c058d855bbd8a71f934d084c3",
+  "originalRawDibCallsPerConfiguration": 4578,
+  "originalBmpTableCallsPerConfiguration": 306,
+  "scope": "PC raw DIB and BMP truecolour tables, direct/public array/file APIs; actual original raw-DIB/BMP full byte equivalence; core/INFO/V2/V3/OS2/V4/V5 and known NPOT/metadata/errors; explicit uncertain bitfields refusals; plugin and SDK validated separately",
+  "runId": "40893243833",
+  "originalBaselines": [
+    {
+      "runId": "40799686293",
+      "archiveSha256": "08715c9547eb6f9fb8ba1745ab3f38b954522439848caa031889c2f73deb069b",
+      "sourceCommit": "511896747c32c7863078b36ad781caae4f3763c1"
+    },
+    {
+      "runId": "40813121025",
+      "archiveSha256": "a147e3c18f1b04995bde9ffe439a5118c30049d65f68155d24ec9e8436112858",
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3"
+    }
+  ],
+  "probeOnly": false,
+  "runAttempt": "1",
+  "originalInitializationCallsPerConfiguration": 1,
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "passed": true,
+      "configuration": "Debug",
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture raw DIB differential fixtures=4866 decoded=17100 rejected=10368 explicitRefusals=1728 rawDibOriginalCalls=4578 bmpTableOriginalCalls=306 boundaries=216 checks=3254072 comparedBytes=12449484; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, direct/public array/file and BMP APIs, actual original raw-DIB/BMP table equality and per-call isolation; Plugin/SDK separate",
+        "PASS Texture raw DIB NoOriginal fixtures=4866 decoded=17100 rejected=10368 explicitRefusals=1728 rawDibOriginalCalls=0 bmpTableOriginalCalls=0 boundaries=216 checks=3174415 comparedBytes=10536696; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, direct/public array/file and BMP APIs, actual original raw-DIB/BMP table equality and per-call isolation; Plugin/SDK separate"
+      ]
+    },
+    {
+      "passed": true,
+      "configuration": "Release",
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture raw DIB differential fixtures=4866 decoded=17100 rejected=10368 explicitRefusals=1728 rawDibOriginalCalls=4578 bmpTableOriginalCalls=306 boundaries=216 checks=3254072 comparedBytes=12449484; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, direct/public array/file and BMP APIs, actual original raw-DIB/BMP table equality and per-call isolation; Plugin/SDK separate",
+        "PASS Texture raw DIB NoOriginal fixtures=4866 decoded=17100 rejected=10368 explicitRefusals=1728 rawDibOriginalCalls=0 bmpTableOriginalCalls=0 boundaries=216 checks=3174415 comparedBytes=10536696; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, direct/public array/file and BMP APIs, actual original raw-DIB/BMP table equality and per-call isolation; Plugin/SDK separate"
+      ]
+    }
+  ]
+}

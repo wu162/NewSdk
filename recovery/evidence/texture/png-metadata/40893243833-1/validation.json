@@ -1,0 +1,43 @@
+{
+  "configurations": [
+    {
+      "passed": true,
+      "configuration": "Debug",
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture PNG metadata NoOriginal fixtures=4680 publicCalls=9360 decoded=6240 rejected=3120 checks=646883 comparedBytes=1863680; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate",
+        "PASS Texture PNG metadata NoOriginal fixtures=3240 publicCalls=6480 decoded=4320 rejected=2160 checks=447843 comparedBytes=1290240; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate"
+      ]
+    },
+    {
+      "passed": true,
+      "configuration": "Release",
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture PNG metadata NoOriginal fixtures=4680 publicCalls=9360 decoded=6240 rejected=3120 checks=646883 comparedBytes=1863680; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate",
+        "PASS Texture PNG metadata NoOriginal fixtures=3240 publicCalls=6480 decoded=4320 rejected=2160 checks=447843 comparedBytes=1290240; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate"
+      ]
+    }
+  ],
+  "sourceCommit": "0fa4acd3368bfe0c058d855bbd8a71f934d084c3",
+  "scope": "PC PNG ICC/APNG default image and sRGB/gAMA precedence; full immutable RGBA/errors through direct/public decoder; original absent/unloaded per call; plugin/SDK separate",
+  "sdkValidated": false,
+  "runId": "40893243833",
+  "status": "passed",
+  "originalBaselines": [
+    {
+      "runId": "40779895712",
+      "fixtureCount": 4680,
+      "samplesSha256": "5e698ae274086468e3efa5520847fa9127acc4de62c1b96060a5ac0cbab0cac6",
+      "sourceCommit": "c812b8094a032dba0a29475d90e563cef211116e"
+    },
+    {
+      "runId": "40780410178",
+      "fixtureCount": 3240,
+      "samplesSha256": "e804e2d5099f73c6be676a87153b02806fc0237827dc0da657c48503cdbd964f",
+      "sourceCommit": "2cab493118bb33992a762ee191af392d10fe30eb"
+    }
+  ],
+  "runAttempt": "1",
+  "probeOnly": false
+}

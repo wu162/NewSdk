@@ -1,0 +1,33 @@
+{
+  "sdkValidated": false,
+  "status": "passed",
+  "configurations": [
+    {
+      "summary": [
+        "PASS native PC memory differential buffers=10 appendOperations=520 deletionFlags=8 endianValues=262144 traceBytes=1687764; original x86 layout/thiscall/callee cleanup, growth/reset/payload, ownership and constant facades; invalid pointers/OOM/full devices excluded",
+        "PASS native PC memory NoOriginal buffers=10 appendOperations=520 deletionFlags=8 endianValues=262144 traceBytes=1687764; original x86 layout/thiscall/callee cleanup, growth/reset/payload, ownership and constant facades; invalid pointers/OOM/full devices excluded"
+      ],
+      "captureSha256": "b78cda846e03743ac2d19d3846d3a5c56367c1b563255c84e0bc17717dbff9d9",
+      "nativeSha256": "0887194514aa777c2b11657980b6cc9029700a4481786db9ea5e2506c74f8d71",
+      "configuration": "Debug",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true
+    },
+    {
+      "summary": [
+        "PASS native PC memory differential buffers=10 appendOperations=520 deletionFlags=8 endianValues=262144 traceBytes=1687764; original x86 layout/thiscall/callee cleanup, growth/reset/payload, ownership and constant facades; invalid pointers/OOM/full devices excluded",
+        "PASS native PC memory NoOriginal buffers=10 appendOperations=520 deletionFlags=8 endianValues=262144 traceBytes=1687764; original x86 layout/thiscall/callee cleanup, growth/reset/payload, ownership and constant facades; invalid pointers/OOM/full devices excluded"
+      ],
+      "captureSha256": "b78cda846e03743ac2d19d3846d3a5c56367c1b563255c84e0bc17717dbff9d9",
+      "nativeSha256": "df785580ac09713115e58ae754ef83e481330f184a4bf7984944a9e7c31a959c",
+      "configuration": "Release",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true
+    }
+  ],
+  "runId": "40893243833",
+  "runAttempt": "1",
+  "scope": "Native x86 thiscall buffer/allocator/deleting-destructor and cdecl/stdcall facade ABI, complete original state/payload/endian trace and per-call isolation; no devices/invalid memory/OOM/CLI identity or production package claim",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "sourceCommit": "0fa4acd3368bfe0c058d855bbd8a71f934d084c3"
+}

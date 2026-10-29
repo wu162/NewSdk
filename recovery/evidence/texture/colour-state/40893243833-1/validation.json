@@ -1,0 +1,59 @@
+{
+  "configurations": [
+    {
+      "passed": true,
+      "configuration": "Debug",
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture Production colour state fixtures=2019 checks=29107932; complete initialized working blocks; not full DDS/plugin/SDK acceptance",
+        "PASS Texture Production colour NoOriginal fixtures=2019 checks=29105904; original DLL absent and not loaded"
+      ]
+    },
+    {
+      "passed": true,
+      "configuration": "Release",
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture Production colour state fixtures=2019 checks=29107932; complete initialized working blocks; not full DDS/plugin/SDK acceptance",
+        "PASS Texture Production colour NoOriginal fixtures=2019 checks=29105904; original DLL absent and not loaded"
+      ]
+    }
+  ],
+  "sourceCommit": "0fa4acd3368bfe0c058d855bbd8a71f934d084c3",
+  "nativeBinaries": [
+    {
+      "sha256": "c78386968953f0b24f68271291a9db5959c31c336e682be386d86a1d003aeb76",
+      "configuration": "Debug",
+      "machine": "I386",
+      "entryPoint": 0,
+      "importDirectory": 0
+    },
+    {
+      "sha256": "e7e3e1db40b9473c25e711a91a39440a9a5cc94f13d0379d1f99ede642e552fd",
+      "configuration": "Release",
+      "machine": "I386",
+      "entryPoint": 0,
+      "importDirectory": 0
+    }
+  ],
+  "scope": "PC quality71 colour working state only; no full DDS/plugin/SDK acceptance",
+  "sdkValidated": false,
+  "runId": "40893243833",
+  "status": "passed",
+  "runAttempt": "1",
+  "probeOnly": false,
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281"
+    }
+  ]
+}

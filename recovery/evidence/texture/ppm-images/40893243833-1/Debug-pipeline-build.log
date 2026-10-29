@@ -1,0 +1,2 @@
+recovery\tests\TextureBmpHeaderPipelineOracle.cs(15,35): warning CS0649: Field 'TextureBmpHeaderPipelineOracle.rejected' is never assigned to, and will always have its default value 0
+recovery\tests\TextureBmpOracle.cs(20,58): warning CS0169: The field 'TextureBmpOracle.unsupportedCount' is never used

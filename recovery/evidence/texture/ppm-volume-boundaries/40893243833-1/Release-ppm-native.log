@@ -1,0 +1,120 @@
+jcomapi.c
+jutils.c
+jerror.c
+jmemmgr.c
+jmemnobs.c
+jdapimin.c
+jdapistd.c
+jdtrans.c
+jdatasrc.c
+jdmaster.c
+jdinput.c
+jdmarker.c
+jdhuff.c
+jdphuff.c
+jdmainct.c
+jdcoefct.c
+jdpostct.c
+jddctmgr.c
+jidctfst.c
+jidctflt.c
+Generating Code...
+Compiling...
+jidctint.c
+jidctred.c
+jdsample.c
+jdcolor.c
+jquant1.c
+jquant2.c
+jdmerge.c
+jcapimin.c
+jcapistd.c
+jctrans.c
+jcparam.c
+jdatadst.c
+jcinit.c
+jcmaster.c
+jcmarker.c
+jcmainct.c
+jcprepct.c
+jccoefct.c
+jccolor.c
+jcsample.c
+Generating Code...
+Compiling...
+jchuff.c
+jcphuff.c
+jcdctmgr.c
+jfdctfst.c
+jfdctflt.c
+jfdctint.c
+Generating Code...
+TextureJpeg.c
+   Creating library TextureJpeg.lib and object TextureJpeg.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file Recovered.TextureJpeg.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureJpeg.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           1 number of functions
+           1 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureDecodeJpeg
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        9000 .rdata
+        2000 .reloc
+       26000 .text
+cjpeg.c
+rdppm.c
+rdgif.c
+rdtarga.c
+rdrle.c
+rdbmp.c
+rdswitch.c
+cdjpeg.c
+Generating Code...
+TexturePpm.c
+   Creating library D:\a\_temp\texture-ppm-volume-boundaries-20f4c845cbfb443981c9e63214e02911\ppm-Release/ppm.lib and object D:\a\_temp\texture-ppm-volume-boundaries-20f4c845cbfb443981c9e63214e02911\ppm-Release/ppm.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-ppm-volume-boundaries-20f4c845cbfb443981c9e63214e02911\ppm-Release\Recovered.TexturePpm.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TexturePpm.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           1 number of functions
+           1 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureDecodePpm
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        9000 .rdata
+        2000 .reloc
+       1B000 .text

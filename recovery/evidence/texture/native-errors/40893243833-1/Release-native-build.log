@@ -1,0 +1,29 @@
+TextureErrorStrings.cpp
+   Creating library D:\a\_temp\texture-native-errors-57d223c324dd4090af010fc1cb59f181\Release/native-api.lib and object D:\a\_temp\texture-native-errors-57d223c324dd4090af010fc1cb59f181\Release/native-api.exp
+native-api.exp : warning LNK4070: /OUT:Recovered.TextureNativeApi directive in .EXP differs from output filename 'D:\a\_temp\texture-native-errors-57d223c324dd4090af010fc1cb59f181\Release\Recovered.TextureNativeApi.dll'; ignoring directive
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-native-errors-57d223c324dd4090af010fc1cb59f181\Release\Recovered.TextureNativeApi.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeApi
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           1 number of functions
+           1 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureGetErrorString
+
+  Summary
+
+        1000 .rdata
+        1000 .reloc
+        1000 .text

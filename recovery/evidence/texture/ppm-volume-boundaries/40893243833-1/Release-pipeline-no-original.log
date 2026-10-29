@@ -1,0 +1,1 @@
+PASS Texture PPM tall-volume ProcessInstance NoOriginal fixtures=11520 originalVolumeErrors=5760 positiveStandard=5760 comparedBytes=53730400; same P3/P6 tall POT/NPOT sources; raw3/DXT3/5 full mip, two roots, three buffers/full cdata/old tails, exact original BadTextureFile and per-call NoOriginal; SDK separate

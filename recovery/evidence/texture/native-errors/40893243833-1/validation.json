@@ -1,0 +1,33 @@
+{
+  "sdkValidated": false,
+  "status": "passed",
+  "configurations": [
+    {
+      "summary": [
+        "PASS native PC status differential records=12357 aliasComparisons=10404 fullStringBytes=223266; complete -100..0 mapping, int32 boundaries and unknown fallback, static lifetime and exact spaces/NUL",
+        "PASS native PC status NoOriginal records=12357 aliasComparisons=0 fullStringBytes=223266; complete -100..0 mapping, int32 boundaries and unknown fallback, static lifetime and exact spaces/NUL"
+      ],
+      "captureSha256": "eb86f91830b8f64534f6087d103384245dbdcbb16157821addbbda033d47cf8f",
+      "nativeSha256": "357faccde86f2837cac37083d928a29d9bb01e0684079612eaaf46dd289320fd",
+      "configuration": "Debug",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true
+    },
+    {
+      "summary": [
+        "PASS native PC status differential records=12357 aliasComparisons=10404 fullStringBytes=223266; complete -100..0 mapping, int32 boundaries and unknown fallback, static lifetime and exact spaces/NUL",
+        "PASS native PC status NoOriginal records=12357 aliasComparisons=0 fullStringBytes=223266; complete -100..0 mapping, int32 boundaries and unknown fallback, static lifetime and exact spaces/NUL"
+      ],
+      "captureSha256": "eb86f91830b8f64534f6087d103384245dbdcbb16157821addbbda033d47cf8f",
+      "nativeSha256": "9e50735563cc4ef7176b363994a8b82335699a8d30fa753948006369ae4164b9",
+      "configuration": "Release",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true
+    }
+  ],
+  "runId": "40893243833",
+  "runAttempt": "1",
+  "scope": "Independent native PC getErrorString C ABI, full status strings/pointer alias/lifetime and isolated replay; not full native device/CLI ABI or production package",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "sourceCommit": "0fa4acd3368bfe0c058d855bbd8a71f934d084c3"
+}

@@ -1,0 +1,1 @@
+PASS Texture DXT5 production alpha fixtures=78144 checks=1172168; alpha subcomponent only; colour compression not implemented

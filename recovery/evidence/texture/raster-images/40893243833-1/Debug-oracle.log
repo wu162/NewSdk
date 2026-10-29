@@ -1,0 +1,1 @@
+PASS Texture image ProcessInstance differential fixtures=4608 errors=2208 unsupportedRgb16=0 comparedBytes=9946584; PC; PNG/BMP format/depth/interlace/orientation group; standard/volume and no-mip/mips; three buffers and full cdata; no SDK acceptance

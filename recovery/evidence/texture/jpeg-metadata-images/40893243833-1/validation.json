@@ -1,0 +1,196 @@
+{
+  "scope": "actual JPEG RGB/CMYK/YCCK/Adobe/ICC/Exif/XMP/COM; PC POT/NPOT raw3/DXT3/5 standard/volume full mip and atlas; full buffers/cdata and NoOriginal; SDK separate",
+  "configurations": [
+    {
+      "passed": true,
+      "configuration": "Debug",
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture JPEG colour/metadata ProcessInstance differential fixtures=32080 errors=12800 comparedBytes=224710304; RGB/CMYK/YCCK/Adobe/ICC/Exif/XMP/COM POT/NPOT raw3/DXT3/5 standard/volume full mip; 80 atlas inputs; three buffers/full cdata/old tails; SDK separate",
+        "PASS Texture JPEG colour/metadata ProcessInstance NoOriginal fixtures=32080 errors=12800 comparedBytes=224710304; RGB/CMYK/YCCK/Adobe/ICC/Exif/XMP/COM POT/NPOT raw3/DXT3/5 standard/volume full mip; 80 atlas inputs; three buffers/full cdata/old tails; SDK separate"
+      ]
+    },
+    {
+      "passed": true,
+      "configuration": "Release",
+      "withoutOriginalTextureCompiler": true,
+      "summary": [
+        "PASS Texture JPEG colour/metadata ProcessInstance differential fixtures=32080 errors=12800 comparedBytes=224710304; RGB/CMYK/YCCK/Adobe/ICC/Exif/XMP/COM POT/NPOT raw3/DXT3/5 standard/volume full mip; 80 atlas inputs; three buffers/full cdata/old tails; SDK separate",
+        "PASS Texture JPEG colour/metadata ProcessInstance NoOriginal fixtures=32080 errors=12800 comparedBytes=224710304; RGB/CMYK/YCCK/Adobe/ICC/Exif/XMP/COM POT/NPOT raw3/DXT3/5 standard/volume full mip; 80 atlas inputs; three buffers/full cdata/old tails; SDK separate"
+      ]
+    }
+  ],
+  "originalBaseline": {
+    "runId": "40783041481",
+    "samplesSha256": "ef7313c2061dcc28b580e8447c9dc8e01a8dfe7b08025fd19bab8ffe5ee5acca",
+    "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac"
+  },
+  "runId": "40893243833",
+  "status": "passed",
+  "runAttempt": "1",
+  "jpegNative": [
+    {
+      "sha256": "3dc0b84c130cda03bb9f5450cdb421ab80c102abc6b177271a946177b7e0dc01",
+      "configuration": "Debug",
+      "machine": "I386"
+    },
+    {
+      "sha256": "768023f579018598c837cc5fde667e5c508c825c6c2119c41a900b4be95543db",
+      "configuration": "Release",
+      "machine": "I386"
+    }
+  ],
+  "nativeBinaries": [
+    {
+      "sha256": "4c6e298a88d9177a8222d7cca5b2c467773dbd8235263f66e97c51eda973b4b7",
+      "configuration": "Debug",
+      "machine": "I386",
+      "entryPoint": 0,
+      "importDirectory": 0
+    },
+    {
+      "sha256": "40b45a0d2122a0f3b80c75b8ffcf87cba9a627afcdc606fbb72e40bd3e8bc7c3",
+      "configuration": "Release",
+      "machine": "I386",
+      "entryPoint": 0,
+      "importDirectory": 0
+    }
+  ],
+  "publicS3Native": [
+    {
+      "importsOtherEncoders": false,
+      "configuration": "Debug",
+      "machine": "I386",
+      "sha256": "88b41e76c423f92270316ff7136d02cd78fb883baa3682a8ae3aeba79f98290b",
+      "sourceFiles": [
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "006f68a2034a4dd053d3b54558123690581a5d84",
+          "sha256": "9bb3c07a310ade0c9bb4ab70603a557893d9b6887b972d83df8ffcfedbbdfb7e",
+          "bytes": 94548,
+          "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
+          "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
+          "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain; final wrapper uses owned inline x87 scoring/comparisons and extended intermediates; restore quick projection indices from the pre-scoring snapshot when quick wins; explicit mode3 with fixed original gray constants, three-point floor palette and opaque DXT1 black-index scoring (DXT1A excludes transparent index)",
+          "file": "s3_quant.cpp"
+        },
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/S3_quant.h",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "ba9a7180467f3e1ea744c83ba1fe5249c2928345",
+          "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
+          "bytes": 2724,
+          "file": "S3_quant.h"
+        },
+        {
+          "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608+8192 (8192 bytes)",
+          "repository": "wu162/NewSdk",
+          "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+          "blobSha": "b188483b80391cee4d7e5f9b85f01832bfa1f012",
+          "sha256": "404d173c95c2beb07625b256a544b7a1febb2590b52b667c021921121eb6e227",
+          "bytes": 7023,
+          "origin": "existing recovered fixed codec optimization data, not public S3 upstream and not corpus payloads",
+          "sourceDataSha256": "c8c04516fe9c09fd35f56b5ef96e889db56a41ab1f575385f90ee1fa2e558211",
+          "file": "LegacyGray4.inl"
+        },
+        {
+          "file": "TexturePublicS3.cpp",
+          "origin": "owned bounded PC ABI; no encoder implementation callbacks",
+          "sha256": "13a26e58d76e040ea2b774224dc9e99fbd5abfbb718fdbe4c9569f793f27b054",
+          "blobSha": "46c4b05cf9967be24d6c5ecaaa79cfdc8af70567",
+          "bytes": 3145
+        },
+        {
+          "file": "LegacyGray3.inl",
+          "origin": "existing recovered codec optimization data, not corpus payloads",
+          "repository": "wu162/NewSdk",
+          "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+          "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608 first8192 bytes",
+          "sourceDataSha256": "c9feeaf992d2457d146d414a2d27543b5178bd07f4797fd4b596d914eaa7013e",
+          "sha256": "04915b4cb6b5af4182697a5479ec9ca388b1e445762937135089d1c866e11a0b",
+          "bytes": 6934,
+          "blobSha": "160505d3cea649e811f9ace75991c7e0bb726a9f"
+        }
+      ],
+      "sourceManifestSha256": "39956cf3d81ebcb1a5fc7f74e3486174250d9fe9b3a67f96491a1844d7a601b6"
+    },
+    {
+      "importsOtherEncoders": false,
+      "configuration": "Release",
+      "machine": "I386",
+      "sha256": "afa62e8c72d5bfd533ef7f321251d43d79740e18ad04367bfe5c2cf9d1b8b6dc",
+      "sourceFiles": [
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "006f68a2034a4dd053d3b54558123690581a5d84",
+          "sha256": "9bb3c07a310ade0c9bb4ab70603a557893d9b6887b972d83df8ffcfedbbdfb7e",
+          "bytes": 94548,
+          "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
+          "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
+          "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain; final wrapper uses owned inline x87 scoring/comparisons and extended intermediates; restore quick projection indices from the pre-scoring snapshot when quick wins; explicit mode3 with fixed original gray constants, three-point floor palette and opaque DXT1 black-index scoring (DXT1A excludes transparent index)",
+          "file": "s3_quant.cpp"
+        },
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/S3_quant.h",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "ba9a7180467f3e1ea744c83ba1fe5249c2928345",
+          "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
+          "bytes": 2724,
+          "file": "S3_quant.h"
+        },
+        {
+          "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608+8192 (8192 bytes)",
+          "repository": "wu162/NewSdk",
+          "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+          "blobSha": "b188483b80391cee4d7e5f9b85f01832bfa1f012",
+          "sha256": "404d173c95c2beb07625b256a544b7a1febb2590b52b667c021921121eb6e227",
+          "bytes": 7023,
+          "origin": "existing recovered fixed codec optimization data, not public S3 upstream and not corpus payloads",
+          "sourceDataSha256": "c8c04516fe9c09fd35f56b5ef96e889db56a41ab1f575385f90ee1fa2e558211",
+          "file": "LegacyGray4.inl"
+        },
+        {
+          "file": "TexturePublicS3.cpp",
+          "origin": "owned bounded PC ABI; no encoder implementation callbacks",
+          "sha256": "13a26e58d76e040ea2b774224dc9e99fbd5abfbb718fdbe4c9569f793f27b054",
+          "blobSha": "46c4b05cf9967be24d6c5ecaaa79cfdc8af70567",
+          "bytes": 3145
+        },
+        {
+          "file": "LegacyGray3.inl",
+          "origin": "existing recovered codec optimization data, not corpus payloads",
+          "repository": "wu162/NewSdk",
+          "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+          "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608 first8192 bytes",
+          "sourceDataSha256": "c9feeaf992d2457d146d414a2d27543b5178bd07f4797fd4b596d914eaa7013e",
+          "sha256": "04915b4cb6b5af4182697a5479ec9ca388b1e445762937135089d1c866e11a0b",
+          "bytes": 6934,
+          "blobSha": "160505d3cea649e811f9ace75991c7e0bb726a9f"
+        }
+      ],
+      "sourceManifestSha256": "39956cf3d81ebcb1a5fc7f74e3486174250d9fe9b3a67f96491a1844d7a601b6"
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9"
+    },
+    {
+      "path": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281"
+    }
+  ],
+  "probeOnly": false,
+  "sdkValidated": false,
+  "sourceCommit": "0fa4acd3368bfe0c058d855bbd8a71f934d084c3"
+}

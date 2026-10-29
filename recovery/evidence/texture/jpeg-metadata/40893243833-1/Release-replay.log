@@ -1,0 +1,1 @@
+PASS Texture JPEG colour/metadata NoOriginal fixtures=4000 publicCalls=8000 decoded=2880 rejected=5120 checks=649163 comparedBytes=2000160; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate
