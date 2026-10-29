@@ -506,7 +506,8 @@ namespace NewModCompiler.Application
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
                 Settings settings = streamSettings = StreamSettings(context, staging);
                 settings.FileContentHash = request.FileIdentities.HashBase64;
-                settings.SchemaFileIdentities = FileIdentity.SchemaIdentities;
+                settings.FileContentHashFromBytes = request.FileIdentities.HashBase64;
+                settings.SchemaFileIdentities = request.FileIdentities.SchemaIdentities;
                 if (linkedOutputs == null) linkedOutputs = new LinkedOutputCache(outputRoot, request.FileIdentities);
                 string linkScope = Path.Combine(context.Task.Content, Path.GetFileNameWithoutExtension(context.Task.InputPath));
                 var reusedArtifacts = new List<Artifact>();

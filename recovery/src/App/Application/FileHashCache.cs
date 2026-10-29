@@ -36,7 +36,15 @@ namespace NewModCompiler.Application
 
         internal string HashBase64(string path)
         {
-            string hex = Hash(path); var bytes = new byte[32];
+            return Base64(Hash(path));
+        }
+        internal string HashBase64(string path, byte[] contents)
+        {
+            return Base64(Hash(Identity(Path.GetFullPath(path)), false, contents));
+        }
+        static string Base64(string hex)
+        {
+            var bytes = new byte[32];
             for (int i = 0; i < bytes.Length; i++) bytes[i] = byte.Parse(hex.Substring(i * 2, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
             return Convert.ToBase64String(bytes);
         }
@@ -45,16 +53,20 @@ namespace NewModCompiler.Application
         {
             return Hash(Identity(Path.GetFullPath(path)), immutable);
         }
-        string Hash(FileIdentity file, bool immutable)
+        string Hash(FileIdentity file, bool immutable, byte[] contents = null)
         {
             string key = Key(file, immutable), hash;
             if (used.TryGetValue(key, out hash)) {Reuses++;return hash;}
             if (!previous.TryGetValue(key, out hash))
             {
                 Reads++;BytesRead+=file.Size;
-                using (var input = File.OpenRead(file.Path))
                 using (var algorithm = SHA256.Create())
-                    hash = BitConverter.ToString(algorithm.ComputeHash(input)).Replace("-", "").ToLowerInvariant();
+                {
+                    byte[] digest;
+                    if (contents != null) digest = algorithm.ComputeHash(contents);
+                    else using (var input = File.OpenRead(file.Path)) digest = algorithm.ComputeHash(input);
+                    hash = BitConverter.ToString(digest).Replace("-", "").ToLowerInvariant();
+                }
             }
             else Reuses++;
             used.Add(key, hash);
@@ -67,6 +79,19 @@ namespace NewModCompiler.Application
             FileIdentity file;
             if (!DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file)) { hash = null; return false; }
             hash = Hash(file, false); return true;
+        }
+        internal IDictionary<string, string> SchemaIdentities(IEnumerable<string> paths)
+        {
+            // A new schema pass refreshes the metadata snapshot before any
+            // content-hash receipt is reused, including after a failed load.
+            directories.Clear();
+            var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            foreach (string path in paths)
+            {
+                FileIdentity file;
+                result[path] = DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file) ? Key(file, false) : null;
+            }
+            return result;
         }
         internal bool TryReceipt(string key,out string value)
         {

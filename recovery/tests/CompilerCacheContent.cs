@@ -121,9 +121,12 @@ public static class CompilerCacheContent
         Settings.Current = new Settings { SchemaPath = root, StringHashBinDescriptors = new StringHashBinDescriptor[0] };
         if (identityProvider)
         {
-            var stamp = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileIdentity", true)
-                .GetMethod("SchemaIdentities", BindingFlags.NonPublic | BindingFlags.Static);
-            Settings.Current.SchemaFileIdentities = (Func<IEnumerable<string>, IDictionary<string, string>>)Delegate.CreateDelegate(typeof(Func<IEnumerable<string>, IDictionary<string, string>>), stamp);
+            var type = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileHashCache", true);
+            object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { Path.Combine(work, "receipts") }, null);
+            var stamp = type.GetMethod("SchemaIdentities", BindingFlags.NonPublic | BindingFlags.Instance);
+            Settings.Current.SchemaFileIdentities = (Func<IEnumerable<string>, IDictionary<string, string>>)Delegate.CreateDelegate(typeof(Func<IEnumerable<string>, IDictionary<string, string>>), hashes, stamp);
+            var hashBytes = type.GetMethod("HashBase64", BindingFlags.NonPublic | BindingFlags.Instance, null, new[] { typeof(string), typeof(byte[]) }, null);
+            Settings.Current.FileContentHashFromBytes = (Func<string, byte[], string>)Delegate.CreateDelegate(typeof(Func<string, byte[], string>), hashes, hashBytes);
         }
         var schemas = new SchemaSet(false);
         Require(schemas.GetXmlType("KindAlpha") != null && schemas.GetXmlType("ItemAlpha") != null, "Initial real schema closure must load");

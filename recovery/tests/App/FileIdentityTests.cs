@@ -48,6 +48,15 @@ namespace NewModCompiler.Tests
             File.Delete(Path.Combine(published,"child","unexpected.bin"));hashes.RecordPublished(artifacts,published,false);
             DateTime saved=File.GetLastWriteTimeUtc(item);Thread.Sleep(30);File.WriteAllText(item,"after!");File.SetLastWriteTimeUtc(item,saved);
             Check(!hashes.MatchesPublication(artifacts,published),"Restored-mtime edit did not invalidate publication receipt");
+            string schemaReceipts=Path.Combine(root,"schema-receipts");
+            var schemaHashes=new FileHashCache(schemaReceipts);
+            byte[] schemaBytes=File.ReadAllBytes(path); string schemaHash;
+            using(var held=new FileStream(path,FileMode.Open,FileAccess.ReadWrite,FileShare.None))
+                schemaHash=schemaHashes.HashBase64(path,schemaBytes);
+            schemaHashes.Save();
+            var nextProcess=new FileHashCache(schemaReceipts);
+            using(var held=new FileStream(path,FileMode.Open,FileAccess.ReadWrite,FileShare.None))
+                Check(nextProcess.HashBase64(path,schemaBytes)==schemaHash && nextProcess.Reads==0,"Unchanged schema recomputed SHA256 instead of reusing its file-identity receipt");
             return count;
         }
     }

@@ -19,6 +19,8 @@ public class Settings : ICloneable
 	[XmlIgnore]
 	public Func<string, string> FileContentHash { get; set; }
 	[XmlIgnore]
+	public Func<string, byte[], string> FileContentHashFromBytes { get; set; }
+	[XmlIgnore]
 	public Func<IEnumerable<string>, IDictionary<string, string>> SchemaFileIdentities { get; set; }
 	[XmlIgnore]
 	public Func<string, string> FindCustomData { get; set; }

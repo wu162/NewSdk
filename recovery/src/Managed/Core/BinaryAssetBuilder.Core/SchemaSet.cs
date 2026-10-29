@@ -105,8 +105,7 @@ public class SchemaSet
 		if (_SchemaPaths.ContainsKey(schemaFile)) return;
 		byte[] contents = File.ReadAllBytes(schemaFile);
 		_SchemaPaths.Add(schemaFile, null);
-		using (var algorithm = SHA256.Create())
-			_SchemaContentHashes.Add(schemaFile, Convert.ToBase64String(algorithm.ComputeHash(contents)));
+		_SchemaContentHashes.Add(schemaFile, HashSchema(schemaFile, contents));
 		XmlSchema xmlSchema;
 		using (var input = new MemoryStream(contents, false))
 		using (var reader = new StreamReader(input))
@@ -117,6 +116,12 @@ public class SchemaSet
 		}
 		xmlSchema.Includes.Clear();
 		_Schemas.Add(xmlSchema);
+	}
+
+	private static string HashSchema(string path, byte[] contents)
+	{
+		if (Settings.Current.FileContentHashFromBytes != null) return Settings.Current.FileContentHashFromBytes(path, contents);
+		using (var algorithm = SHA256.Create()) return Convert.ToBase64String(algorithm.ComputeHash(contents));
 	}
 
 	public XmlSchemaType GetXmlType(string typeName)
@@ -325,6 +330,7 @@ public class SchemaSet
 
 	private void LoadSchemas(bool countDependencies)
 	{
+		var previousPaths = _SchemaPaths == null ? new List<string>() : new List<string>(_SchemaPaths.Keys);
 		// A failed load must not make its partially read inputs appear reusable.
 		_LoadedSchemaPath = null;
 		_ContentIdentity = null;
@@ -338,6 +344,8 @@ public class SchemaSet
 		_HashableTypes = new Dictionary<XmlSchemaType, bool>();
 		try
 		{
+			previousPaths.Add(Path.GetFullPath(Settings.Current.SchemaPath));
+			Settings.Current.SchemaFileIdentities?.Invoke(previousPaths);
 			ReadSchema(Directory.GetCurrentDirectory(), Settings.Current.SchemaPath);
 		}
 		catch (Exception innerException)
@@ -433,15 +441,11 @@ public class SchemaSet
 				string stamp = identities == null ? null : identities[schemaPath.Key];
 				if (stamp != null && stamp == schemaPath.Value) continue;
 				if (!File.Exists(schemaPath.Key)) { changed = true; break; }
-				using (var algorithm = SHA256.Create())
-				using (var input = File.OpenRead(schemaPath.Key))
+				string content = HashSchema(schemaPath.Key, File.ReadAllBytes(schemaPath.Key));
+				if (!string.Equals(content, _SchemaContentHashes[schemaPath.Key], StringComparison.Ordinal))
 				{
-					string content = Convert.ToBase64String(algorithm.ComputeHash(input));
-					if (!string.Equals(content, _SchemaContentHashes[schemaPath.Key], StringComparison.Ordinal))
-					{
-						changed = true;
-						break;
-					}
+					changed = true;
+					break;
 				}
 				refreshed.Add(schemaPath.Key, stamp);
 			}
