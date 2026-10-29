@@ -1,0 +1,1 @@
+PASS native PC s10e5/float32 conversion differential cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay

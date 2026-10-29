@@ -1,0 +1,33 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "passed",
+  "sourceCommit": "6025bc3d9c127574e2cb79178841eacb9cf5c521",
+  "scope": "XGCopySurface s10e5/float32 conversion: 38 layouts/1444 format pairs/8 numeric states, all65536 half patterns/float exponents/signed half midpoint and neighbor strips/selectors/constants/clipping/threshold/full bytes and NoOriginal; gamma/endian/compression/filter/overlap and production package excluded",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "nativeSha256": "f2cc88413caf3ea9ee50394dc89db1e49f36f3f5d361cb15fd88601a854767d2",
+      "configuration": "Debug",
+      "captureSha256": "8eb89b1953a09876aa4f6c476ddfe279a0b494938c44bdefd71b591e96da8a3d",
+      "passed": true,
+      "summary": [
+        "PASS native PC s10e5/float32 conversion differential cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC s10e5/float32 conversion NoOriginal cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay"
+      ]
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "nativeSha256": "318a7e7d488f9c55b1e71ce5f563aea70b143ba61a09a2bb858ed9e5b5bc31bb",
+      "configuration": "Release",
+      "captureSha256": "8eb89b1953a09876aa4f6c476ddfe279a0b494938c44bdefd71b591e96da8a3d",
+      "passed": true,
+      "summary": [
+        "PASS native PC s10e5/float32 conversion differential cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC s10e5/float32 conversion NoOriginal cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay"
+      ]
+    }
+  ],
+  "runId": "40962015217"
+}
