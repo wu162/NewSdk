@@ -1,0 +1,1 @@
+PROBE Texture BMP indexed headers fixtures=2025 controls=96 decoded=0 rejected=2025 unstableOriginals=0 fixtureOriginalCalls=4242 initializationControlCalls=1 originalCalls=4243 checks=8582; DIB/core/OS2 1/4/8-bit BI_RGB proper full palette, gap/reserved-alpha/POT/NPOT/orientation; full repeated original RGBA/errors; no recovered/plugin/SDK acceptance
