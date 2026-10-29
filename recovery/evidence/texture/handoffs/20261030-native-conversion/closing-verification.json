@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "planSourceCommit": "0dc2955410b5f546797bb914addd2442eac02085",
+  "runId": "40967041731",
+  "runConclusion": "success",
+  "selected": [],
+  "reusedComponentGroups": 63,
+  "windowsConclusion": "skipped",
+  "acceptedImplementationSourceCommit": "6af9af189a5fb9be63bd02fbab4577d71c583257",
+  "acceptedImplementationRunId": "40965216216",
+  "SDKUnchanged": true,
+  "scope": "Final Linux selector and boundary/storage checks; no Windows matrix rerun; implementation/SDK inputs identical to accepted 6af9af18"
+}
