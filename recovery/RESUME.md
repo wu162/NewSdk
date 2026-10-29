@@ -1,15 +1,13 @@
-# 热缓存与 StableSort 优化：续接入口
+# 热缓存、StableSort 与插件校验：续接入口
 
 工作分支仍为 `recovery/legacy-sdk-cache`，禁止强推，未合入其他分支。
 
-用户要求的前六项已实现并通过完整 Windows 验收：源码/测试 `22133880ae3cabe8be2f9f6c0c6202e6cd7f57e0`，[运行 40863166008](https://github.com/wu162/NewSdk/actions/runs/40863166008) success。Debug/Release、Core/后端/应用、真实 CLI/冷进程/取消、缓存冷热/失效/缺损修复、三种 Texture、Audio/W3X、BIG/协议、完整 mymod 原版差分及五文件发行包均通过。文件身份优先；Schema 收据跨进程复用，身份未变不重新计算内容 SHA256。实现细节见[缓存说明](docs/LEGACY_INCREMENTAL_CACHE.md)。
+用户第 1–7 项及第 8 项有界清理已经实现并通过完整 Windows 验收。生产二进制与测试来源均为 `ae4654a892446724bf870348e56f2e8072fafa58`；[40868109538](https://github.com/wu162/NewSdk/actions/runs/40868109538) success，Debug/Release、Core/后端/应用、真实 CLI/冷进程/取消、资产与会话缓存冷热/失效/缺损修复、Texture/Audio/W3X、BIG/协议、完整 mymod 原版差分及五文件发行包全部通过。[原始收据与失败记录摘要](evidence/refactor/hot-cache-second/40868109538-1/summary.json)，[实现说明](docs/LEGACY_INCREMENTAL_CACHE.md)。原归档已下载，复算摘要与 GitHub 元数据及上传日志一致。
 
-本提交继续处理用户新增第七项 `AssetDeclarationDocument.StableSort`：为依赖集合建立一次哈希索引，前缀中没有资产依赖当前项且当前比较键严格最大时直接追加；文化比较相等、逆向依赖和基础流间隙沿用原插入规则。基础 manifest 按 TypeId/InstanceId 建键索引，并一次压缩剩余列表，保留原顺序。
+文件身份优先，Schema 跨进程复用既有哈希收据；两配置热态为零 XML 解析、零资产编译、零完整文件 SHA256 读取，837 次哈希收据复用、2 个链接流复用，`publicationUnchanged=true`。StableSort 每配置 66 组原算法顺序对照通过；1024 独立资产样本的 schema 比较器调用 523,776→1,023。只报告排序辅助函数样本，未声明端到端 SDK 提速比例；基础流前缀、文化相等键、类型哈希碰撞沿用原规则。
 
-第七项及第八项的有界清理已准备，**尚待本提交 Windows 验收**，不能复用前六项的旧生产二进制作为通过证明。`CompilerStableSort` 对照 072beb3f 的冻结插入算法，覆盖随机 DAG/基础前缀/空及传递依赖/三种 culture/相等排序键，并检查 1024 个无依赖资产的比较次数；完整原 DLL 四流差分仍由既有生产验收承担。前期同大小/同 mtime Schema 用例的 ChangeTime 时钟刻度失败保留在 40860991872、40861431337、40862734658；22133880 已按既有文件身份测试方式分隔写入，并明确断言身份变化，未加回热路径全文件哈希。
+第 8 项先清理已核实的 LogicCommandSet 重复结构遍历：Core 校验完成后提供当前 XML 的只读收据，加载新 XML/校验失败时撤销；独立未校验入口维持原拒绝合同。编译器恢复范围、布局、语义和外部载荷校验继续保留，未笼统删除其它组件检查。真实 Core 已验证三缓冲区相等及非法 XSD 在插件调用前拒绝。
 
-上轮优化基线为 `84261243` / [40845943601](https://github.com/wu162/NewSdk/actions/runs/40845943601)，已有小样本同输入对照见[SDK 基准](docs/SDK_BENCHMARK.md)。本轮尚未声明端到端提速比例。
+用户新增第 9 项“删除 BIG 热缓存写入”范围尚待明确：当前热命中已经不重写 BIG/SKUDEF，`package|v1` 仅在实际重新打包后登记。已询问是只要求热态无额外缓存落盘，还是移除 BIG/SKUDEF 收据与复用功能；尚未改动第 9 项。
 
-第七项首轮 `40865913560` 的 63 个图/前缀/culture 顺序对照已通过；性能样本错误地假设旧符号哈希不会碰撞，造成重复类型键失败，原记录保留。本提交筛选 1024 个不同类型身份，并增加真实类型哈希碰撞对照；追加路径同时索引同 TypeId 的最大实例名，保持原算法在碰撞情况下的排序规则。
-
-用户第八项：Core 已完成 XSD 校验后，插件不必重复 XSD 结构检查；编译器恢复范围、布局、语义和外部载荷校验仍有独立作用。本提交先清理已核实的 LogicCommandSet：Core 在文档/实例校验完成后提供只读收据，加载新 XML 或校验失败时撤销；生产 Bridge 跳过第二遍属性/子树校验，独立 CompileXml/未校验入口维持原拒绝合同。新增真实 Core 用例对照两条入口的三缓冲区，并证明不合法 XSD 在插件调用前被拒绝。其它组件的支持范围检查尚未笼统删除。
+前六项独立里程碑 `22133880` / [40863166008](https://github.com/wu162/NewSdk/actions/runs/40863166008) 也已完整通过。Schema 时钟刻度用例及 StableSort 合成类型哈希碰撞的早期失败原终态均保留在摘要中，没有放宽顺序或原字节门槛。

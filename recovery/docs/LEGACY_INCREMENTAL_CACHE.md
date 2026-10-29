@@ -3,9 +3,9 @@
 本页记录缓存恢复与热态优化的行为、代码分工和验收范围；当前分支、准确源码及结果见 [续接入口](../RESUME.md)。旧阶段交接与验收在后文保留。
 
 
-## 第二轮热路径优化（验证中）
+## 第二轮热路径与 StableSort 优化（2026-10-29，已验收）
 
-本轮继续在 `recovery/legacy-sdk-cache` 修改，生产与测试来源 `447865078745c87188c7021e0b9a29761b4b1366`；Windows 验收尚未完成，不能用下方历史通过结果替代。
+本轮继续在 `recovery/legacy-sdk-cache` 修改，生产与测试来源 `ae4654a892446724bf870348e56f2e8072fafa58`；完整 Windows [40868109538](https://github.com/wu162/NewSdk/actions/runs/40868109538) success。原归档已下载并复算摘要，与 GitHub 和上传日志一致；[收据摘要](../evidence/refactor/hot-cache-second/40868109538-1/summary.json) 保留准确来源、排序样本、会话热态、SDK/发行收据及早期失败。
 
 - Schema 每轮按父目录批量采集文件身份；未变化的已编译闭包直接复用。新进程初次解析也复用 `.file-identities.json` 的已有收据，身份未变不重新计算 SHA256；身份变化时才核对内容。首次计算直接使用 XML 解析已读取的字节，不再为哈希另开文件。独立 Core 没有 Windows 身份提供器时保留内容校验。
 - 显式输入根的 CLI 预检结果与解析后的 SDK 配置由同一请求传给正式后端。后端按有效根、输出/诊断路径及 cwd 核对签名；边界变化重新检查。每个有效输出路径统一物理解析一次，相同根也合并解析。
@@ -14,9 +14,14 @@
 - 发布收据 v2 用目录拓扑 stamp 与批量文件身份核对精确输出；目录 stamp 不能代替文件 ChangeTime。收据失效时，reparse 检查、文件集合枚举及尺寸读取合为一次树遍历。仅真正替换时创建准备/备份路径；失败、取消和必需输出故障继续使用原事务回滚。
 - 插件在 Initialize/ReInitialize 读取 trace 配置，保留原始成功差分捕获；删除 XML 插件重复 TypeId 自检和失败输入转储包装，异常直接保留。生成器同步到简化后的分派结构，元数据与编译器路由不变。
 
+- StableSort 为一次排序建立依赖成员索引及前缀反向依赖索引；当前键严格大于所有已放置键、同 TypeId 实例名也严格靠后且前缀没有反向依赖时直接追加。其余情况保留原插入规则，包含文化比较相等、类型符号哈希碰撞和基础流前缀。常见追加路径按资产/依赖数量线性推进；初始 schema 排序不变，回退路径不宣称统一降低最坏复杂度。基础 manifest 用 TypeId/InstanceId 索引查找并一次压缩剩余列表，保持原先顺序。
+- Core 只在文档和实例校验成功后提供当前 XML 的只读校验收据；加载新 XML 或校验失败时清除，收据不写入旧会话格式。已核实的 LogicCommandSet 生产路径利用收据跳过重复属性/子树校验；直接 CompileXml/未校验 ProcessInstance 保留检查。编译器恢复范围、原字节布局及外部载荷检查继续承担各自合同，其它组件检查没有笼统删除。
+
 文件身份优先用于缓存有效性，SHA256 不再作为热态文件检查的前置步骤；协议中的 SHA256 内容收据保留兼容。原始差分、冻结/部分会话、缓存缺损修复和真正替换失败的门槛不变。
 
-## 本轮热态优化（2026-10-29，已验收）
+Debug/Release 热态原收据均为 `xmlParse=0`、`instanceCompile=0`、`fileHashReads=0`、`fileHashBytesRead=0`、`fileHashReuses=837`、`linkedStreamsRestored=2`、`publicationUnchanged=true`。StableSort 每配置通过 66 组冻结原算法顺序对照；1024 个不同类型身份的独立资产样本中，schema 比较器调用从 523,776 次变为 1,023 次。单次辅助函数样本 Debug 69.2511→0.2361 ms、Release 58.6808→0.2396 ms；排除初始 schema 排序、序列化、Native 编译和发布，不作整体 SDK 加速推断。完整未精简 mymod 原版差分及独立五文件 ZIP 均已通过。
+
+## 第一轮热态优化（历史，2026-10-29）
 
 直接开发于 `recovery/legacy-sdk-cache`，生产与测试源码 `84261243`；完整构建/生产差分 [40845943601](https://github.com/wu162/NewSdk/actions/runs/40845943601) success。独立应用、完整生产矩阵、mymod 原始字节差分和独立五文件 ZIP 均通过；[原始收据摘要](../evidence/refactor/hot-cache/40845943601-1/summary.json) 保存归档哈希及来源。两配置热态 `xmlParse=0`、`instanceCompile=0`、`fileHashReads=0`、`fileHashBytesRead=0`、`publicationUnchanged=true`，会话/CDATAs 写时间保持不变。新旧 SDK 配对 [40848391545](https://github.com/wu162/NewSdk/actions/runs/40848391545) 也已 success，具体计量见 [SDK 对照](SDK_BENCHMARK.md)。
 
