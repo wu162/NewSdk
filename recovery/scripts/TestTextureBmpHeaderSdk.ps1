@@ -127,12 +127,11 @@ try{
 }catch{$r.status='failed';$r.error=$_.Exception.Message;throw}finally{
  $env:RA3_TEXTURE_SDK_TRACE=$null
  $traces=@(Get-ChildItem $out -Directory -Filter '*-trace')
- if($traces.Count -gt 0){
+ try{if($traces.Count -gt 0){
   Compress-Archive -Path $traces.FullName -DestinationPath "$out/traces.zip"
   $r.traceArchiveSha256=(Get-FileHash "$out/traces.zip").Hash.ToLowerInvariant()
   Remove-Item $traces.FullName -Recurse -Force
- }
- $r|ConvertTo-Json -Depth 14|Set-Content "$out/validation.json"
+ }}catch{$r.traceArchiveError=$_.Exception.Message}finally{$r|ConvertTo-Json -Depth 14|Set-Content "$out/validation.json"}
 }
 
 

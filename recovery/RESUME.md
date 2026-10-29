@@ -1,3 +1,10 @@
+# 当前：BMP BI_RGB组件通过；专用SDK待修ID哈希冲突
+
+- **本轮完成**：两子代理协作，9dc5a389/40803450961完成14组、29复用，43组件有效。新增DIB BI_RGB及完整插件/NoOriginal通过。扩展bitfields读未初始化mask栈区的根因、8函数原字节和复现已保存。
+- **SDK真实状态**：6fb39059/40804823544整体failure；10个既有受影响SDK独立passed，新PcBmpHeaders失败：原Core报告Texture:BmpHeader_12000与BmpHeader_11012同hash 7c4181ec，发生在实际贴图调用前，不能声称14852资产SDK通过。finally空trace归档又遮蔽失败收据，已修工具确保finally保存receipt，尚未复验。
+- **取证完成**：同run bitfields探针probe-only通过；独立归档审计8640输入、12控制，6912解码/1728原拒绝、1025重复不稳定，完整RGBA3569664字节。保持扩展bitfields拒绝，不将探针作为生产验收。
+- **下一轮计划**：优先为SDK生成经EALA Hash检查的无冲突稳定ID（不能仅猜新前缀），仅补PcBmpHeaders必要SDK；复用已通过43组件及10个SDK。另已保存索引新DIB探针工具2121输入，未运行/未登记，不宣称支持。生产SDK未替换，完整MOD未跑，禁止强推、编译测试仅Actions。
+
 # 当前：BMP 新DIB BI_RGB组件与完整消费已通过，SDK待集中验收
 
 - **本轮实现（组件已验证）**：支持core12/INFO40/V2-52/V3-56/OS2-64/V4-108/V5-124的已声明BI_RGB，按原版从14+DIB读像素并忽略bfOffBits/gap，沿用RGB555/alpha/NPOT规则；有效V4/V5 gamma/ICC不变色，V5 profile指针有界。compression6与INFO40 bitfields匹配原BadTextureFile；扩展bitfields288输入明确NotSupported（192重复不确定、96个16bit未解语义）。生产SDK树未替换。

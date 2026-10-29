@@ -63,8 +63,9 @@ def audit(root, run, source):
         assert receipt[key] == expected, key
     archive = (directory / 'samples.zip').read_bytes()
     assert digest(archive) == receipt['samplesSha256']
-    totals, formats, by_dib_depth = Counter(), Counter(), defaultdict(Counter)
+    totals, formats, resource_types, by_dib_depth = Counter(), Counter(), Counter(), defaultdict(Counter)
     observations = defaultdict(list)
+    source_domains = {}
     corpus = expected_corpus()
     with zipfile.ZipFile(io.BytesIO(archive)) as files:
         names = [i.filename for i in files.infolist() if not i.is_dir()]
@@ -121,6 +122,7 @@ def audit(root, run, source):
                         assert struct.unpack_from('<i', descriptor, 4)[0] == int(row[np + 'Width'])
                         assert struct.unpack_from('<i', descriptor, 8)[0] == int(row[np + 'Height'])
                         assert struct.unpack_from('<I', descriptor, 16)[0] == int(row[np + 'Format'], 16)
+                        resource_types[str(struct.unpack_from('<I', descriptor, 0)[0])] += 1
                     if row[np + 'PrefixSha256']:
                         path = label + '.call' + str(index) + '.locked-prefix.bin'
                         expected_names.add(path)
@@ -186,6 +188,8 @@ def audit(root, run, source):
                 by_dib_depth[row['dib'] + '/' + row['depth']]['repeatDifferences'] += not stable
                 # Same source bytes, regardless of duplicate equivalent mask profiles.
                 observations[row['inputSha256']].extend(loaded)
+                domain = row['dib'] + '/' + row['depth']
+                assert source_domains.setdefault(row['inputSha256'], domain) == domain
             reported = receipt['processes'][process]
             assert reported['process'] == process
             for key, expected in {'fixtureLoadCalls': 8652, 'contextLoadCalls': 4320,
@@ -198,14 +202,22 @@ def audit(root, run, source):
         for label, row in labels_by_process[0].items():
             assert row['inputSha256'] == labels_by_process[1][label]['inputSha256']
         assert set(names) == expected_names, 'Missing or unexpected archived files'
-    changed_sources = sum(any(value != values[0] for value in values[1:]) for values in observations.values())
+    changed_sources = 0
+    observed_sources = defaultdict(Counter)
+    for source_hash, values in observations.items():
+        changed = any(value != values[0] for value in values[1:])
+        changed_sources += changed
+        observed_sources[source_domains[source_hash]]['uniqueInputs'] += 1
+        observed_sources[source_domains[source_hash]]['inputsWithAnyLoadedDifference'] += changed
     return {
         'scope': 'independent original snapshot archive audit; probe-only, not recovery acceptance',
         'sourceCommit': source, 'runId': run, 'archiveSha256': receipt['samplesSha256'],
         'totals': dict(totals), 'uniqueBitfieldsInputs': len(observations),
         'inputsWithAnyLoadedDifferenceAcrossRepeatsContextsProcesses': changed_sources,
         'nativeFormats': dict(sorted(formats.items())),
+        'descriptorResourceTypes': dict(sorted(resource_types.items())),
         'byDibDepth': {key: dict(value) for key, value in sorted(by_dib_depth.items())},
+        'crossObservationInputsByDibDepth': {key: dict(value) for key, value in sorted(observed_sources.items())},
         'limits': 'Native snapshots and LoadImageA use separate texture creations. Only a known-format logical first-row prefix is read, never pitch*height or trailing padding. Unknown storage formats are not dereferenced. Prefix/descriptor equality is recorded, not treated as determinism or recovery gold. All extended bitfields remain unrecovered until separate complete acceptance.'
     }
 

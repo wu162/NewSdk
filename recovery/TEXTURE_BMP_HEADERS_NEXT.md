@@ -1,3 +1,5 @@
+> 最新收尾：40804823544整体failure。10既有SDK passed；新PcBmpHeaders在原Core发现BmpHeader_12000/BmpHeader_11012的ID hash冲突7c4181ec，未取得专用SDK验收。下一步先生成并检查无冲突ID，再只补此SDK。bitfields探针已完成且独立归档审计通过，仍probe-only。完整状态见RESUME首节。
+
 # BMP DIB / V2 / V3 / V4 / V5 取证收尾与下一步
 
 2026-10-29（北京时间），`recovery/texturecompiler-source`。上次已完成中断探针收尾；本轮继续BI_RGB实现及完整消费验证。仅PC、编译测试只Actions、禁止强推。

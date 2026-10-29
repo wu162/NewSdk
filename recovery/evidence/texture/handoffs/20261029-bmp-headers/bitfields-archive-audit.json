@@ -1,0 +1,166 @@
+{
+  "scope": "independent original snapshot archive audit; probe-only, not recovery acceptance",
+  "sourceCommit": "6fb39059583ffa0f3a5418e151c9e92e13b41d26",
+  "runId": "40804823544",
+  "archiveSha256": "adb3d94c66d8ac07e32e93e61f02e71d10e61180cd0eb104a2a1092912e2c98c",
+  "totals": {
+    "lockedFirstRowPrefixBytes": 1280,
+    "loadedRgbaBytes": 3569664,
+    "controlCount": 12,
+    "fixtureCount": 8640,
+    "rejectedCount": 1728,
+    "unstableOriginals": 1025,
+    "descriptorDifferences": 0,
+    "prefixDifferences": 0,
+    "firstPrefixAbsent": 8640,
+    "repeatPrefixAbsent": 8640,
+    "decodedCount": 6912
+  },
+  "uniqueBitfieldsInputs": 1578,
+  "inputsWithAnyLoadedDifferenceAcrossRepeatsContextsProcesses": 684,
+  "nativeFormats": {
+    "108/16/1A22AAA6": 576,
+    "108/24/1A22AAA6": 576,
+    "108/32/1A22AAA6": 576,
+    "124/16/1A22AAA6": 576,
+    "124/24/1A22AAA6": 576,
+    "124/32/1A22AAA6": 576,
+    "40/16/00000000": 576,
+    "40/24/00000000": 576,
+    "40/32/00000000": 576,
+    "52/16/1A22AAA6": 576,
+    "52/24/1A22AAA6": 576,
+    "52/32/1A22AAA6": 576,
+    "56/16/1A22AAA6": 576,
+    "56/24/1A22AAA6": 576,
+    "56/32/1A22AAA6": 576
+  },
+  "descriptorResourceTypes": {
+    "3": 13848
+  },
+  "byDibDepth": {
+    "108/16": {
+      "decodedCount": 576,
+      "repeatDifferences": 0
+    },
+    "108/24": {
+      "decodedCount": 576,
+      "repeatDifferences": 156
+    },
+    "108/32": {
+      "decodedCount": 576,
+      "repeatDifferences": 116
+    },
+    "124/16": {
+      "decodedCount": 576,
+      "repeatDifferences": 0
+    },
+    "124/24": {
+      "decodedCount": 576,
+      "repeatDifferences": 149
+    },
+    "124/32": {
+      "decodedCount": 576,
+      "repeatDifferences": 102
+    },
+    "40/16": {
+      "rejectedCount": 576,
+      "repeatDifferences": 0
+    },
+    "40/24": {
+      "rejectedCount": 576,
+      "repeatDifferences": 0
+    },
+    "40/32": {
+      "rejectedCount": 576,
+      "repeatDifferences": 0
+    },
+    "52/16": {
+      "decodedCount": 576,
+      "repeatDifferences": 0
+    },
+    "52/24": {
+      "decodedCount": 576,
+      "repeatDifferences": 139
+    },
+    "52/32": {
+      "decodedCount": 576,
+      "repeatDifferences": 125
+    },
+    "56/16": {
+      "decodedCount": 576,
+      "repeatDifferences": 0
+    },
+    "56/24": {
+      "decodedCount": 576,
+      "repeatDifferences": 109
+    },
+    "56/32": {
+      "decodedCount": 576,
+      "repeatDifferences": 129
+    }
+  },
+  "crossObservationInputsByDibDepth": {
+    "108/16": {
+      "uniqueInputs": 144,
+      "inputsWithAnyLoadedDifference": 0
+    },
+    "108/24": {
+      "uniqueInputs": 42,
+      "inputsWithAnyLoadedDifference": 28
+    },
+    "108/32": {
+      "uniqueInputs": 144,
+      "inputsWithAnyLoadedDifference": 144
+    },
+    "124/16": {
+      "uniqueInputs": 144,
+      "inputsWithAnyLoadedDifference": 0
+    },
+    "124/24": {
+      "uniqueInputs": 42,
+      "inputsWithAnyLoadedDifference": 35
+    },
+    "124/32": {
+      "uniqueInputs": 144,
+      "inputsWithAnyLoadedDifference": 144
+    },
+    "40/16": {
+      "uniqueInputs": 126,
+      "inputsWithAnyLoadedDifference": 0
+    },
+    "40/24": {
+      "uniqueInputs": 42,
+      "inputsWithAnyLoadedDifference": 0
+    },
+    "40/32": {
+      "uniqueInputs": 126,
+      "inputsWithAnyLoadedDifference": 0
+    },
+    "52/16": {
+      "uniqueInputs": 126,
+      "inputsWithAnyLoadedDifference": 0
+    },
+    "52/24": {
+      "uniqueInputs": 42,
+      "inputsWithAnyLoadedDifference": 35
+    },
+    "52/32": {
+      "uniqueInputs": 126,
+      "inputsWithAnyLoadedDifference": 126
+    },
+    "56/16": {
+      "uniqueInputs": 144,
+      "inputsWithAnyLoadedDifference": 0
+    },
+    "56/24": {
+      "uniqueInputs": 42,
+      "inputsWithAnyLoadedDifference": 28
+    },
+    "56/32": {
+      "uniqueInputs": 144,
+      "inputsWithAnyLoadedDifference": 144
+    }
+  },
+  "limits": "Native snapshots and LoadImageA use separate texture creations. Only a known-format logical first-row prefix is read, never pitch*height or trailing padding. Unknown storage formats are not dereferenced. Prefix/descriptor equality is recorded, not treated as determinism or recovery gold. All extended bitfields remain unrecovered until separate complete acceptance."
+}
