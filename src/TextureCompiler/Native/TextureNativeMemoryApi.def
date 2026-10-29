@@ -1,4 +1,4 @@
-LIBRARY Recovered.TextureNativeMemory
+LIBRARY Recovered.TextureNativeMemory.dll
 EXPORTS
     TextureBufferConstruct
     TextureBufferReset

@@ -11,6 +11,8 @@ try{
  foreach($mode in @('Debug','Release')){
   Checked "$mode-native-build" {& "$PSScriptRoot/BuildTextureNativeApi.ps1" -Destination "$work/$mode" -Configuration $mode}
   $opt=if($mode -eq 'Release'){'/O2'}else{'/Od'}
+  Checked "$mode-static-link-build" {& cl /nologo /MT /EHsc $opt (Resolve-Path recovery/tests/TextureNativeStatusLink.cpp).Path /Fo"$work/$mode/status-link.obj" /Fe:"$work/$mode/TextureNativeStatusLink.exe" /link "$work/$mode/native-api.lib"}
+  Checked "$mode-static-link" {& "$work/$mode/TextureNativeStatusLink.exe"}
   Checked "$mode-oracle-build" {& cl /nologo /clr /EHa /std:c++17 $opt /Fo"$work/$mode/oracle.obj" (Resolve-Path recovery/tests/TextureNativeErrorsOracle.cpp).Path /Fe:"$work/$mode/TextureNativeErrorsOracle.exe"}
   '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/$mode/TextureNativeErrorsOracle.exe.config"
   Checked "$mode-differential" {& "$work/$mode/TextureNativeErrorsOracle.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$work/$mode/Recovered.TextureNativeApi.dll" "$out/$mode.capture"}

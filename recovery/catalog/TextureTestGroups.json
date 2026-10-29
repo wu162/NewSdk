@@ -2852,7 +2852,8 @@
         "recovery/scripts/BuildTextureNativeApi.ps1",
         "recovery/scripts/TestTextureNativeErrors.ps1",
         "recovery/tests/TextureNativeErrorsOracle.cpp",
-        "SDK/tools/*.dll"
+        "SDK/tools/*.dll",
+        "recovery/tests/TextureNativeStatusLink.cpp"
       ],
       "evidence": "recovery/evidence/texture/native-errors/*/validation.json",
       "sdk": false,
