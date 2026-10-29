@@ -1,0 +1,1 @@
+PROBE Texture TGA metadata fixtures=12480 decoded=12480 rejected=0 originalCalls=24960 checks=2857922; complete original RGBA/errors, extension/gamma/alpha/developer/tables/origins, POT/NPOT/raw/RLE; no recovered/plugin/SDK acceptance

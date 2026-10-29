@@ -1,0 +1,16 @@
+{
+  "runAttempt": "1",
+  "status": "probe-only",
+  "sourceCommit": "63dcfd2b527284ff153e07e7badc997a3d2bfb49",
+  "sdkValidated": false,
+  "evidenceOnly": true,
+  "probeOnly": true,
+  "rejectedCount": 0,
+  "decodedCount": 12480,
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "scope": "original PC LoadImageA TGA extension/gamma/alpha/developer/tables/origin full RGBA/errors and per-input repeat determinism; no recovered/plugin/SDK acceptance",
+  "samplesSha256": "e55d7f704fd1d592593843e7444fa231ff05a3824ea3895a08ba50bb4b149993",
+  "fixtureCount": 12480,
+  "runId": "40793184986",
+  "originalCalls": 24960
+}
