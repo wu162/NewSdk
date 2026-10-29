@@ -1,0 +1,127 @@
+{
+  "scope": "read-only fixed-function byte/disassembly extraction; not native execution or production acceptance",
+  "originalPath": "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "imageBase": "0x10000000",
+  "functions": [
+    {
+      "name": "ResourceAddRef",
+      "rvaStart": "0xc599",
+      "rvaEndExclusive": "0xc5d2",
+      "vaStart": "0x1000c599",
+      "vaEndExclusive": "0x1000c5d2",
+      "fileOffset": "0xc599",
+      "bytes": 57,
+      "sha256": "2b97b9c930a8469352d208cb9ecdcfcaa89a9f74f947e4e40a8ea76a9b1d1c65",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "ResourceAddRef.asm",
+      "rawBytes": "ResourceAddRef.bin"
+    },
+    {
+      "name": "ResourceReleaseThunk",
+      "rvaStart": "0x1940",
+      "rvaEndExclusive": "0x1945",
+      "vaStart": "0x10001940",
+      "vaEndExclusive": "0x10001945",
+      "fileOffset": "0x1940",
+      "bytes": 5,
+      "sha256": "78311a284268d8701fed40377c3789771fffd1cad3b177ac3b9382fec8258dfe",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "ResourceReleaseThunk.asm",
+      "rawBytes": "ResourceReleaseThunk.bin"
+    },
+    {
+      "name": "ResourceRelease",
+      "rvaStart": "0xc5d2",
+      "rvaEndExclusive": "0xc60c",
+      "vaStart": "0x1000c5d2",
+      "vaEndExclusive": "0x1000c60c",
+      "fileOffset": "0xc5d2",
+      "bytes": 58,
+      "sha256": "5b6c346b892a09152d10c836e90a2306cec215ed588baf4b907869202422b278",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "ResourceRelease.asm",
+      "rawBytes": "ResourceRelease.bin"
+    },
+    {
+      "name": "ResourceDestroy",
+      "rvaStart": "0xc3ec",
+      "rvaEndExclusive": "0xc4d0",
+      "vaStart": "0x1000c3ec",
+      "vaEndExclusive": "0x1000c4d0",
+      "fileOffset": "0xc3ec",
+      "bytes": 228,
+      "sha256": "75b180b7788db60e1855877fe1a73b161f5c67ef274f2bf33c09423538d7178e",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "ResourceDestroy.asm",
+      "rawBytes": "ResourceDestroy.bin"
+    },
+    {
+      "name": "TextureUnlockThunk",
+      "rvaStart": "0x1980",
+      "rvaEndExclusive": "0x1994",
+      "vaStart": "0x10001980",
+      "vaEndExclusive": "0x10001994",
+      "fileOffset": "0x1980",
+      "bytes": 20,
+      "sha256": "3faeaa89409f654b06807c4cc86f12a64da710c46f64bcfdd55ca6abbb82dd03",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "TextureUnlockThunk.asm",
+      "rawBytes": "TextureUnlockThunk.bin"
+    },
+    {
+      "name": "TextureUnlock",
+      "rvaStart": "0xc751",
+      "rvaEndExclusive": "0xc76f",
+      "vaStart": "0x1000c751",
+      "vaEndExclusive": "0x1000c76f",
+      "fileOffset": "0xc751",
+      "bytes": 30,
+      "sha256": "00b921dae1f9252527932ca13fff6bbbb89bd97dc761a3e98e879244913818ee",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "TextureUnlock.asm",
+      "rawBytes": "TextureUnlock.bin"
+    },
+    {
+      "name": "ResourceUnlock",
+      "rvaStart": "0xc55c",
+      "rvaEndExclusive": "0xc599",
+      "vaStart": "0x1000c55c",
+      "vaEndExclusive": "0x1000c599",
+      "fileOffset": "0xc55c",
+      "bytes": 61,
+      "sha256": "87ea67140e6e490d0064aebd2ffc79ad54231ad97087a408c4859af50b2b693c",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "ResourceUnlock.asm",
+      "rawBytes": "ResourceUnlock.bin"
+    }
+  ],
+  "disassembler": "GNU objdump (GNU Binutils for Debian) 2.44",
+  "scopeBoundary": "PC Win32 memory-resource lifetime, type0..8 except standalone GPU/context surfaces, parent views and UnlockRect; type9/GPU current-context/LockRect excluded",
+  "criticalSites": [
+    {
+      "rva": "0xc599",
+      "evidence": "InterlockedIncrement at object+4; result1 and type4/bit30 retains parent at+0x18 recursively"
+    },
+    {
+      "rva": "0xc5d2",
+      "evidence": "InterlockedDecrement at object+4; result0 and type4/bit30 releases parent recursively then dispatches destruction"
+    },
+    {
+      "rva": "0xc3ec",
+      "evidence": "type1 frees tagged+0x18; type2/7/8 frees+0x18; type3 frees masked+0x20/+0x30; type6 frees+0x20; all GlobalFree object"
+    },
+    {
+      "rva": "0xc751",
+      "evidence": "secondary storage base is resource+0x30 with low12 bits cleared; level ignored"
+    },
+    {
+      "rva": "0xc55c",
+      "evidence": "InterlockedExchangeAdd header,-256; only old lock nibble==1 sets dirty+0x14 toffff0000 and, when secondary base nonzero,+0x18"
+    },
+    {
+      "rva": "0x198f",
+      "evidence": "public UnlockRect wrapper unconditionally returns0"
+    }
+  ]
+}

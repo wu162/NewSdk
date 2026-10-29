@@ -2,8 +2,10 @@
 
 - **本轮完成**：已核实部署后51组件完整复验 `0fa4acd3368bfe0c058d855bbd8a71f934d084c3` /40893243833 success。17 SDK/完整mymod/六DLL同包/迁移回滚与实际安装字节独立归档审计通过，见 `evidence/texture/handoffs/20261030-deployment/full-archive-audit.json`；审计脚本调用记录改核对实际保存的LF原blob，未改原记录/原SHA或放宽比较。
 - **已合入**：独立native ABI DLL完整名称/导入库消费者修复及 `339656a2` /40892135472成功证据普通合入本分支；12357状态和1687764字节内存轨迹D/R已再次独立模型核对，见 `handoffs/20261030-native-abi/independent-archive-audit.json`。独立ABI库仍不加入生产六DLL包。
-- **本轮新功能（未验收）**：实现 `Recovered.TextureNativeDevice.dll` 的x86/stdcall PC非渲染设备工厂、0x5500对象/128对齐、0x12c0 VirtualAlloc、真实线程ID、引用计数及最终配套释放。原PC插件使用type1；type!=2为本组原版成功域，type2明确E_NOTIMPL，不伪造渲染设备。新增完整原版差分/NoOriginal/D/R、1024工厂输入、16同存设备、64线程输入和6引用计数边界；尚未编译运行，不宣称通过。
+- **本轮新功能（未验收）**：实现 `Recovered.TextureNativeDevice.dll` 的x86/stdcall PC非渲染设备工厂、0x5500对象/128对齐、0x12c0 VirtualAlloc、真实线程ID、引用计数及最终配套释放。原PC插件使用type1；type!=2为本组原版成功域，type2明确E_NOTIMPL，不伪造渲染设备。新增完整原版差分/NoOriginal/D/R、1024工厂输入、16同存设备、64线程输入和6引用计数边界；首次40908753738在stdcall导入库符号处失败，已补全修饰符导出；原失败保留。
 - **下一轮计划/本轮继续入口**：准备好后 `[texture-test]` 单入口优先运行native-device完整组，复用实际未变组件；收终态并独立核对保存全轨迹。随后按实际PC资源/LockRect/UnlockRect/XG连贯能力继续，type2渲染状态、资源绑定、OOM等仍未完成；生产包未变，不自动重跑SDK/MOD。仅PC、编译测试仅Actions、禁止强推。
+
+- **资源组待验收**：新增独立 `Recovered.TextureNativeResource.dll` 的原子AddRef/Release、CPU资源存储释放、父子/嵌套视图及UnlockRect原位操作。8192解锁状态、72生命周期、16父子+16嵌套视图序列、32768并发原子操作和完整uint32边界，D/R/原版/NoOriginal待Actions；不含LockRect/type9/GPU上下文。状态/内存/base在40908753738已passed，失败批次成功组保留复用。
 
 以下为历史交接，以顶部与实际锚点为准。
 

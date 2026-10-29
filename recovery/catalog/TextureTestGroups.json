@@ -2893,6 +2893,23 @@
       "evidence": "recovery/evidence/texture/native-device/*/validation.json",
       "sdk": false,
       "priority": -8
+    },
+    "native-resource": {
+      "script": "recovery/scripts/TestTextureNativeResource.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Native/TextureNativeResourceApi.cpp",
+        "src/TextureCompiler/Native/TextureNativeResourceApi.h",
+        "src/TextureCompiler/Native/TextureNativeResourceApi.def",
+        "recovery/scripts/BuildTextureNativeResource.ps1",
+        "recovery/scripts/TestTextureNativeResource.ps1",
+        "recovery/tests/TextureNativeResourceOracle.cpp",
+        "recovery/tests/TextureNativeResourceLink.cpp",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/native-resource/*/validation.json",
+      "sdk": false,
+      "priority": -7
     }
   },
   "targetPlatform": "Win32"

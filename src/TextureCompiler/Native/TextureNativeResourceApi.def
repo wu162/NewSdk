@@ -1,0 +1,5 @@
+LIBRARY Recovered.TextureNativeResource.dll
+EXPORTS
+    TextureResourceAddRef=_TextureResourceAddRef@4
+    TextureResourceRelease=_TextureResourceRelease@4
+    TextureResourceUnlockRect=_TextureResourceUnlockRect@8

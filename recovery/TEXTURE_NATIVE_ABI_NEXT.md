@@ -1,3 +1,17 @@
+# 当前：PC设备与内存资源ABI完整能力组验收中
+
+设备源码入口 `src/TextureCompiler/Native/TextureNativeDeviceApi.cpp`：x86/stdcall工厂、Win32对齐/零初始化、线程ID/VirtualAlloc、引用计数和配套最终释放。原SDK使用type1；支持type!=2成功域，type2完整渲染状态尚未恢复，明确返回E_NOTIMPL。首次40908753738的DLL构建通过，导入库缺少stdcall修饰名失败；已保留裸名且补齐真正stdcall导出，待补验。
+
+资源源码入口 `TextureNativeResourceApi.cpp`：原子引用计数、父资源0→1/1→0传递、GlobalAlloc/VirtualAlloc对象和存储所有权、原UnlockRect位操作。类型0..8的CPU资源及父子视图为成功域；type9和独立GPU/当前上下文surface最终释放显式拒绝并保留原对象。LockRect寻址/格式布局及完整混合模式身份仍待恢复。两库独立构建，不加入生产六DLL包。
+
+本组新矩阵完整比较整个对象/逻辑命令存储和全部有效资源payload；仅不可跨进程稳定的设备地址/真实线程ID先检查原生语义再以固定标记记录。支持原/恢复完整捕获、Debug/Release一致及同量逐次NoOriginal重放和导入库消费者。设备1024工厂输入/16同存对象/64线程输入/6引用计数边界；资源8192解锁、72生命周期、16父子与16嵌套视图、32768并发原子操作及uint32边界。源码未验收前不能称完成。
+
+已验收基础：部署后51组件0fa4acd3/40893243833成功；状态码/内存名称及导入库339656a2/40892135472成功且已普通合入，完整原档独立审计见handoffs/20261030-native-abi。首批新实现40908753738的native-errors/native-memory/base仍passed，按实际依赖保留这些成功锚点。
+
+下一入口：单一texture-validation工作流只补失败/新组与实际变化消费者，不重跑SDK/MOD；收终态并独立审计完整捕获。随后恢复原D3DTexture.LockRect@0x1950→0xdb40→0xd70f→0xd680和0xd24b布局链及XG描述符实际消费；必要原版探针只查未知行为，不把probe当验收。仅PC、编译测试仅Actions、禁止强推。
+
+以下为早期历史记录。
+
 # PC原生接口续接：状态码函数已实现，等待完整差分
 
 用户要求继续完成剩余任务并尽量推进70分钟。只考虑PC，原版未初始化行为仍不伪造成确定输出；完整native/混合模式ABI尚未完成。
