@@ -26,7 +26,8 @@ class ComparisonChecks(unittest.TestCase):
                            '/psc:', '/ss:', '/pc:', '/slowclean:', '/tp:', '/ls:']:
                 values = [[arg for arg in cmd if arg.startswith(prefix)] for cmd in commands]
                 self.assertEqual(values[0], values[1], (mode, prefix))
-            self.assertIn('/shared/mod/Data/Mod.xml', commands[0])
+            self.assertEqual(B.path_identity(commands[0][1]),
+                             B.path_identity(Path(w['modRoot']) / 'Data/Mod.xml'))
             self.assertEqual(commands[1][commands[1].index('--mod') + 1], '/shared/mod')
             self.assertNotEqual(next(x for x in commands[0] if x.startswith('/bcp:')),
                                 next(x for x in commands[1] if x.startswith('/bcp:')))

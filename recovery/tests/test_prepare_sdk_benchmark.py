@@ -45,12 +45,15 @@ class SdkPreparationTests(unittest.TestCase):
             for path in (sdk, mod / 'Data', sdk / 'Mods', sdk / 'SageXml', sdk / 'Art'):
                 path.mkdir(parents=True, exist_ok=True)
             roots, missing = P.effective_roots(sdk, mod, E.fromstring(self.configuration()).find('assetbuilder'))
-            self.assertEqual(roots['dataRoot'], str(sdk))
-            self.assertEqual(roots['dataPaths'], [str(mod / 'Data'), str(sdk), str(sdk / 'Mods'), str(sdk / 'SageXml')])
-            self.assertEqual(roots['artPaths'], [str(mod / 'Art'), str(sdk / 'Art')])
-            self.assertEqual(roots['audioPaths'], [str(mod / 'Audio'), str(sdk / 'Audio')])
+            # Win32 temp directories can be supplied as 8.3 aliases. Compare
+            # physical identities while retaining every ordered candidate.
+            resolved = lambda values: [Path(value).resolve() for value in values]
+            self.assertEqual(Path(roots['dataRoot']).resolve(), sdk.resolve())
+            self.assertEqual(resolved(roots['dataPaths']), resolved([mod / 'Data', sdk, sdk / 'Mods', sdk / 'SageXml']))
+            self.assertEqual(resolved(roots['artPaths']), resolved([mod / 'Art', sdk / 'Art']))
+            self.assertEqual(resolved(roots['audioPaths']), resolved([mod / 'Audio', sdk / 'Audio']))
             self.assertEqual(missing['audioPaths'], roots['audioPaths'])
-            self.assertEqual(missing['artPaths'], [str(mod / 'Art')])
+            self.assertEqual(resolved(missing['artPaths']), resolved([mod / 'Art']))
             self.assertFalse((mod / 'Audio').exists())
 
     def test_resolver_preserves_duplicate_candidates_and_config_order(self):
@@ -61,8 +64,9 @@ class SdkPreparationTests(unittest.TestCase):
             section = E.fromstring(self.configuration()).find('assetbuilder')
             section.set('defaultDataPaths', '.;.;.\\Missing;.\\Mods')
             roots, missing = P.effective_roots(sdk, mod, section)
-            self.assertEqual(roots['dataPaths'], [str(mod / 'Data'), str(sdk), str(sdk), str(sdk / 'Missing'), str(sdk / 'Mods')])
-            self.assertEqual(missing['dataPaths'], [str(mod / 'Data'), str(sdk / 'Missing'), str(sdk / 'Mods')])
+            resolved = lambda values: [Path(value).resolve() for value in values]
+            self.assertEqual(resolved(roots['dataPaths']), resolved([mod / 'Data', sdk, sdk, sdk / 'Missing', sdk / 'Mods']))
+            self.assertEqual(resolved(missing['dataPaths']), resolved([mod / 'Data', sdk / 'Missing', sdk / 'Mods']))
 
     def test_rejects_ambiguous_startup(self):
         with self.assertRaisesRegex(ValueError, 'Ambiguous'):
