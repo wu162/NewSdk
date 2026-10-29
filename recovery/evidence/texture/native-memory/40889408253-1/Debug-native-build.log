@@ -1,0 +1,41 @@
+TextureSupport.cpp
+TextureNativeMemoryApi.cpp
+Generating Code...
+   Creating library D:\a\_temp\texture-native-memory-cf382f5780b04be2afc44b33c1ccde5c\Debug/native-memory.lib and object D:\a\_temp\texture-native-memory-cf382f5780b04be2afc44b33c1ccde5c\Debug/native-memory.exp
+native-memory.exp : warning LNK4070: /OUT:Recovered.TextureNativeMemory directive in .EXP differs from output filename 'D:\a\_temp\texture-native-memory-cf382f5780b04be2afc44b33c1ccde5c\Debug\Recovered.TextureNativeMemory.dll'; ignoring directive
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-native-memory-cf382f5780b04be2afc44b33c1ccde5c\Debug\Recovered.TextureNativeMemory.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeMemory
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           9 number of functions
+           9 number of names
+
+    ordinal hint RVA      name
+
+          2    0 00001740 TextureAllocate
+          3    1 00001710 TextureBufferAppend
+          4    2 000016F0 TextureBufferConstruct
+          5    3 00001730 TextureBufferDelete
+          6    4 00001700 TextureBufferReset
+          1    5 000017A0 TextureDirect3DCreate9
+          7    6 000017C0 TextureDirect3DRelease
+          8    7 00001760 TextureFree
+          9    8 00001780 TextureReverseEndianness
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        D000 .text

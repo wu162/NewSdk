@@ -1,0 +1,52 @@
+TextureNativeMemoryOracle.cpp
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(19): error C2872: 'Buffer': ambiguous symbol
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(19): note: could be 'System::Buffer'
+D:\a\NewSdk\NewSdk\recovery\tests\../../src/TextureCompiler/Native/TextureNativeMemoryApi.h(6): note: or       'Recovered::TextureCompiler::NativeAbi::Buffer'
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(19): error C2847: cannot apply sizeof to managed type 'System::Buffer'
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(19): error C2338: static_assert failed: 'Original native object layout requires x86'
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C2872: 'Buffer': ambiguous symbol
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): note: could be 'System::Buffer'
+D:\a\NewSdk\NewSdk\recovery\tests\../../src/TextureCompiler/Native/TextureNativeMemoryApi.h(6): note: or       'Recovered::TextureCompiler::NativeAbi::Buffer'
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3699: '&': cannot use this indirection on type 'const System::Buffer'
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): note: compiler replacing '&' with '^' to continue parsing
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3821: 'b': managed type or function cannot be used in an unmanaged function
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3821: 'b': managed type or function cannot be used in an unmanaged function
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3821: 'b': managed type or function cannot be used in an unmanaged function
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3821: 'b': managed type or function cannot be used in an unmanaged function
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3821: 'b': managed type or function cannot be used in an unmanaged function
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3821: 'b': managed type or function cannot be used in an unmanaged function
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3821: 'b': managed type or function cannot be used in an unmanaged function
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3821: 'b': managed type or function cannot be used in an unmanaged function
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3821: 'b': managed type or function cannot be used in an unmanaged function
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3821: 'b': managed type or function cannot be used in an unmanaged function
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C2661: 'std::vector<unsigned char,std::allocator<_Ty>>::insert': no overloaded function takes 1 arguments
+        with
+        [
+            _Ty=unsigned char
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\vector(1265): note: could be 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Iter,_Iter)'
+        with
+        [
+            _Ty=unsigned char
+        ]
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): note: 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Iter,_Iter)': expects 3 arguments - 1 provided
+        with
+        [
+            _Ty=unsigned char
+        ]
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): note: while trying to match the argument list '(std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>)'
+        with
+        [
+            _Ty=unsigned char
+        ]
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3821: 'void `anonymous-namespace'::Trace::buffer(const System::Buffer ^)': managed type or function cannot be used in an unmanaged function
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(34): error C3645: '`anonymous-namespace'::Trace::buffer': __clrcall cannot be used on functions compiled to native code
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(45): error C2872: 'Buffer': ambiguous symbol
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(45): note: could be 'System::Buffer'
+D:\a\NewSdk\NewSdk\recovery\tests\../../src/TextureCompiler/Native/TextureNativeMemoryApi.h(6): note: or       'Recovered::TextureCompiler::NativeAbi::Buffer'
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(45): error C3821: 'System::Buffer': managed type or function cannot be used in an unmanaged function
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(45): error C3622: 'System::Buffer': a class declared as 'abstract' cannot be instantiated
+D:\a\NewSdk\NewSdk\recovery\tests\TextureNativeMemoryOracle.cpp(45): fatal error C1907: unable to recover from previous error(s); stopping compilation
+INTERNAL COMPILER ERROR in 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\bin\HostX86\x86\cl.exe'
+    Please choose the Technical Support command on the Visual C++
+    Help menu, or open the Technical Support help file for more information
