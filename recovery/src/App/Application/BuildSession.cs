@@ -124,6 +124,12 @@ namespace NewModCompiler.Application
                 } catch (OperationCanceledException e) { code=ExitCode.Cancelled; status="cancelled"; Fail(e,status,"BUILD_CANCELLED","Build cancelled before publication finalization."); }
                 catch (Exception e) { code=ExitCode.Output; status="failed"; Fail(e,status,"PUBLICATION_FAILED",e.ToString()); }
             }
+            // Changed linked groups still reference current staging here. Install
+            // reversible cache generations before disposing those source files.
+            if (code == ExitCode.Success && request.Command == "build" && cacheCompiler != null) {
+                try { cacheCompiler.CommitCache(); }
+                catch (Exception e) { code=ExitCode.Output; status="failed"; Diagnostic("CACHE_COMMIT_FAILED",e.ToString()); }
+            }
             // Neither a published build nor a failed build retains disposable staging.
             if (stagingOwned && Directory.Exists(staging)) {
                 try { Directory.Delete(staging,true); }
@@ -143,10 +149,6 @@ namespace NewModCompiler.Application
             // Cache installation is part of the same reversible outcome as
             // loose publication. A late report or sink failure revokes both.
             if (cacheCompiler != null) {
-                if (code == ExitCode.Success && request.Command == "build") {
-                    try { cacheCompiler.CommitCache(); }
-                    catch (Exception e) { code=ExitCode.Output; status="failed"; Diagnostic("CACHE_COMMIT_FAILED",e.ToString()); }
-                }
                 if (code != ExitCode.Success) {
                     RevokeCache(cacheCompiler,ref code); status="failed";
                     if (code == ExitCode.Cancelled) status="cancelled";

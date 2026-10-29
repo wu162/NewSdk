@@ -663,7 +663,7 @@ namespace NewModCompiler.Application
         static IList<Artifact> CollectArtifactsWithHashes(string output,FileHashCache hashes, IList<Artifact> reused = null)
         {
             output = Path.GetFullPath(output);
-            var files = Directory.Exists(output) ? (hashes == null ? SafeFiles(output) : Directory.EnumerateFiles(output,"*",SearchOption.AllDirectories).OrderBy(path=>path,StringComparer.Ordinal)).ToArray() : new string[0];
+            var files = hashes == null ? SafeFiles(output).ToArray() : Directory.Exists(output) ? Directory.EnumerateFiles(output,"*",SearchOption.AllDirectories).OrderBy(path=>path,StringComparer.Ordinal).ToArray() : new string[0];
             var result = reused == null ? new List<Artifact>() : new List<Artifact>(reused);
             string[] manifests = files.Where(x => x.EndsWith(".manifest", StringComparison.OrdinalIgnoreCase)).ToArray();
             if (manifests.Length == 0 && result.Count == 0) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_MISSING", "Core produced no stream manifest.");

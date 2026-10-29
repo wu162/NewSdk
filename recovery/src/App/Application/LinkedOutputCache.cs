@@ -65,6 +65,9 @@ namespace NewModCompiler.Application
         }
         internal void Stage(string scope, string streams, IList<Artifact> artifacts, CancellationToken cancellation)
         {
+            // A direct backend can successfully compile the same scope again after
+            // a failed stream. Its latest complete list replaces the earlier one.
+            foreach (string key in staged.Keys.Where(key => key.StartsWith(scope + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)).ToArray()) staged.Remove(key);
             foreach (Artifact artifact in artifacts)
             {
                 if (artifact.Kind == "custom-data") continue;
