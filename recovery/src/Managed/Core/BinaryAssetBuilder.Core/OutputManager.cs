@@ -55,8 +55,6 @@ public class OutputManager
 
 	private ManifestHeader _Header;
 
-	private static InstanceHandle breakHandle = new InstanceHandle(568797146u, 2920827972u);
-
 	private static byte[] _LinkedBuffer = new byte[65536];
 
 	public IDictionary<string, BinaryAsset> Assets => _Assets;

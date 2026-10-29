@@ -13,6 +13,7 @@ namespace NewModCompiler.Application
     {
         static readonly string[] Extensions = { ".manifest", ".bin", ".imp", ".relo" };
         readonly string destination, output;
+        readonly FileHashCache hashes;
         readonly PublicationLock targetLock;
         readonly Dictionary<string, Artifact> staged = new Dictionary<string, Artifact>(StringComparer.OrdinalIgnoreCase);
         readonly Dictionary<string, string> previous;
@@ -21,9 +22,10 @@ namespace NewModCompiler.Application
         bool repairRequired;
         public int RestoredStreams { get; private set; }
 
-        internal LinkedOutputCache(string output)
+        internal LinkedOutputCache(string output, FileHashCache hashes = null)
         {
             this.output = output;
+            this.hashes = hashes;
             destination = Path.Combine(output, ".linked-streams");
             targetLock = PublicationLock.Acquire(destination);
             try
@@ -36,7 +38,7 @@ namespace NewModCompiler.Application
         internal string Find(string scope, string streams, string stem)
         {
             string cached = Path.Combine(destination, scope, stem.Substring(streams.Length + 1));
-            foreach (string extension in Extensions) if (!File.Exists(cached + extension))
+            foreach (string extension in Extensions) if (!(hashes == null ? File.Exists(cached + extension) : hashes.Exists(cached + extension)))
             {
                 if (previous != null && previous.ContainsKey(Path.Combine(scope, stem.Substring(streams.Length + 1)) + extension)) repairRequired = true;
                 return null;
@@ -50,7 +52,7 @@ namespace NewModCompiler.Application
             {
                 string source = cached + extension;
                 artifacts.Add(new Artifact { Path = stem + extension, BackingPath = source, Kind = "stream" + extension,
-                    Size = new FileInfo(source).Length, Sha256 = hashes.Hash(source, true), Verified = true });
+                    Size = hashes.Size(source), Sha256 = hashes.Hash(source, true), Verified = true });
             }
             RestoredStreams++;
         }

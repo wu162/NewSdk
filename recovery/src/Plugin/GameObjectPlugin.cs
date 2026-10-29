@@ -8,7 +8,8 @@ namespace Recovered.GameObject
     public sealed class Plugin : IAssetBuilderPlugin
     {
         private TargetPlatform platform;
-        public void Initialize(object configObject, TargetPlatform target) { platform = target; }
+        private string trace;
+        public void Initialize(object configObject, TargetPlatform target) { platform = target; trace = Environment.GetEnvironmentVariable("RA3_RECOVERED_GAMEOBJECT_TRACE"); }
         public void ReInitialize(object configObject, TargetPlatform target) { Initialize(configObject, target); }
         // Retain original compiler metadata so serialized manifests remain comparable.
         public uint GetAllTypesHash() { return 1424942948u; }
@@ -34,7 +35,6 @@ namespace Recovered.GameObject
         {
             // The component checks type IDs and fails explicitly on other types.
             AssetBuffer result = GameObjectCompiler.ProcessInstance(instance, platform);
-            string trace = Environment.GetEnvironmentVariable("RA3_RECOVERED_GAMEOBJECT_TRACE");
             if (!String.IsNullOrEmpty(trace))
             {
                 Directory.CreateDirectory(trace);

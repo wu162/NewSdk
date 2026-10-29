@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Script.Serialization;
@@ -111,16 +112,33 @@ public static class CompilerCacheContent
         try { action(); } catch (BinaryAssetBuilderException e) { rejected = e.ErrorCode == ErrorCode.ReadingSchema; }
         Require(rejected, label + " must reject rather than reuse partial schema state");
     }
-    static void SchemaCases(string work)
+    static void SchemaCases(string work, bool identityProvider)
     {
+        Directory.CreateDirectory(work);
         string root = Path.Combine(work, "root.xsd"), helper = Path.Combine(work, "helpers.xsd");
         File.WriteAllText(root, Root("KindAlpha"), new UTF8Encoding(false));
         File.WriteAllText(helper, Helpers("ItemAlpha"), new UTF8Encoding(false));
         Settings.Current = new Settings { SchemaPath = root, StringHashBinDescriptors = new StringHashBinDescriptor[0] };
+        if (identityProvider)
+        {
+            var stamp = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileIdentity", true)
+                .GetMethod("Stamp", BindingFlags.NonPublic | BindingFlags.Static);
+            Settings.Current.FileIdentityStamp = (Func<string, string>)Delegate.CreateDelegate(typeof(Func<string, string>), stamp);
+        }
         var schemas = new SchemaSet(false);
         Require(schemas.GetXmlType("KindAlpha") != null && schemas.GetXmlType("ItemAlpha") != null, "Initial real schema closure must load");
         var original = schemas.Schemas; schemas.ReloadIfChanged(false);
         Require(Object.ReferenceEquals(original, schemas.Schemas), "Unmodified schema closure should be reused");
+        if (identityProvider)
+        {
+            File.SetLastWriteTimeUtc(root, File.GetLastWriteTimeUtc(root).AddSeconds(2));
+            schemas.ReloadIfChanged(false);
+            Require(Object.ReferenceEquals(original, schemas.Schemas), "Metadata-only schema change must retain the compiled closure");
+            using (var rootLock = new FileStream(root, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            using (var includeLock = new FileStream(helper, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                schemas.ReloadIfChanged(false);
+            Require(Object.ReferenceEquals(original, schemas.Schemas), "Unchanged identity must not open schema bodies, including after a metadata-only refresh");
+        }
         ReplacePreservingTime(root, Root("KindBravo")); schemas.ReloadIfChanged(false);
         Require(!Object.ReferenceEquals(original, schemas.Schemas) && schemas.GetXmlType("KindBravo") != null && schemas.GetXmlType("KindAlpha") == null,
             "Root schema changes with equal size and mtime must reload");
@@ -146,14 +164,15 @@ public static class CompilerCacheContent
         Require(Object.ReferenceEquals(original, schemas.Schemas), "Recovered unchanged closure must become reusable");
         schemas.ReloadIfChanged(true);
         Require(schemas.AssetDependencies != null, "Dependency-counting request must reload a closure loaded without dependency counts");
-        tests.Add("real-SchemaSet-root-and-include-equal-time-content-invalidation-root-switch-delete-malformed-repeat-repair-dependency-counting");
+        tests.Add("real-SchemaSet-" + (identityProvider ? "file-identity" : "standalone-content") + "-root-and-include-equal-time-invalidation-root-switch-delete-malformed-repeat-repair-dependency-counting");
     }
     public static int Main(string[] args)
     {
         Settings previous = Settings.Current;
         try
         {
-            Directory.CreateDirectory(args[0]); FileCases(args[0]); SchemaCases(args[0]);
+            Directory.CreateDirectory(args[0]); FileCases(args[0]);
+            SchemaCases(Path.Combine(args[0], "standalone"), false); SchemaCases(Path.Combine(args[0], "identity"), true);
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests }));
             Console.WriteLine("PASS CacheContent: " + checks + " assertions"); return 0;
         }

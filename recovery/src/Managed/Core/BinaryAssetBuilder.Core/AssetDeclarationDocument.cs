@@ -1045,21 +1045,25 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 		foreach (InstanceDeclaration selfInstance in SelfInstances)
 		{
-			ExtendedTypeInformation extendedTypeInformation = _Current.DocumentProcessor.Plugins.GetExtendedTypeInformation(selfInstance.Handle.TypeId);
-			selfInstance.HasCustomData = extendedTypeInformation.HasCustomData;
+			// Reinitialize already validated metadata for cached instances. Only a
+			// freshly loaded XML instance needs to acquire its custom-data flag.
+			if (selfInstance.XmlNode != null)
+				selfInstance.HasCustomData = _Current.DocumentProcessor.Plugins.GetExtendedTypeInformation(selfInstance.Handle.TypeId).HasCustomData;
 			BinaryAsset binaryAsset = outputManager.GetBinaryAsset(selfInstance, isOutputAsset: true);
 			if (binaryAsset != null)
 			{
-				if (binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None) == AssetLocation.None)
+				AssetLocation location = binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None);
+				if (location == AssetLocation.None)
 				{
 					CompileInstance(binaryAsset, selfInstance);
+					location = AssetLocation.Memory;
 				}
 				VerifyInstance(binaryAsset, selfInstance);
-				AssetLocation assetLocation = binaryAsset.Commit();
+				AssetLocation assetLocation = binaryAsset.Commit(location);
 				CountCommitSource(assetLocation, ref instancesCompiledCount, ref instancesCopiedFromCacheCount);
 				if (assetLocation == AssetLocation.Cache)
 					_Current.DocumentProcessor.RecordBuildCacheUse(true);
-				else if (assetLocation == AssetLocation.Memory && extendedTypeInformation.UseBuildCache && Settings.Current.BuildCache)
+				else if (assetLocation == AssetLocation.Memory && Settings.Current.BuildCache && _Current.DocumentProcessor.Plugins.GetExtendedTypeInformation(selfInstance.Handle.TypeId).UseBuildCache)
 					_Current.DocumentProcessor.RecordBuildCacheUse(false);
 				if (assetLocation != AssetLocation.BasePatchStream)
 				{
@@ -1733,7 +1737,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 				}
 				if ((location & AssetLocation.Output) == 0)
 				{
-					binaryAsset.Commit();
+					binaryAsset.Commit(location);
 				}
 				_Current.OutputInstances.Add(value);
 				if (Settings.Current.OutputAssetReport)

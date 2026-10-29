@@ -57,7 +57,12 @@ namespace NewModCompiler.Application
                     string directory=pending.Pop();
                     using(var handle=CreateFile(directory,0x81,7,IntPtr.Zero,3,0x02000000,IntPtr.Zero))
                     {
-                        if(handle.IsInvalid)throw new Win32Exception(Marshal.GetLastWin32Error(),directory);
+                        if(handle.IsInvalid)
+                        {
+                            int error=Marshal.GetLastWin32Error();
+                            if(error==2 || error==3)throw new DirectoryNotFoundException(directory);
+                            throw new Win32Exception(error,directory);
+                        }
                         if(!GetFileInformationByHandleEx(handle,18,buffer,bufferSize))throw new Win32Exception(Marshal.GetLastWin32Error(),directory);
                         long volume=Marshal.ReadInt64(buffer,0);
                         while(true)

@@ -15,6 +15,14 @@ using EALA.Metrics;
 
 namespace NewModCompiler.Application
 {
+    // A CLI preflight belongs to one effective request. Reuse its parsed SDK
+    // settings and physical-root validation after diagnostic sinks have opened.
+    internal sealed class CoreInputPreparation
+    {
+        internal string Signature;
+        internal Settings Configuration, Inputs;
+        internal object Report;
+    }
     // Experimental in-process backend. CLI enablement and SDK/G3 acceptance are
     // separate gates; this type never launches BAB, a worker, or another EXE.
     public sealed class CoreStreamCompiler : IStreamCompiler, IBuildCacheCompiler, IInputRootsCompiler
@@ -24,6 +32,8 @@ namespace NewModCompiler.Application
         readonly TraceWriteHandler traceWriter;
         BuildRequest request;
         string sdkRoot, modRoot, outputRoot, configurationXml;
+        Settings configurationSettings;
+        CoreInputPreparation inputPreparation;
         int threadId, traceLevel = 3;
         bool initialized, initializing, disposed, compiling, buildCacheEnabled, sessionCacheEnabled;
         bool stableSortEnabled = true, usePrecompiled = true, forceSlowCleanup = true;
@@ -65,7 +75,10 @@ namespace NewModCompiler.Application
                     throw new BuildFailure(ExitCode.Environment, "CORE_INPUT_ROOT_MISSING", "The SDK and MOD directories must exist.");
                 if (Paths.Contains(sdkRoot, outputRoot) || Paths.Contains(outputRoot, sdkRoot) || Paths.Contains(modRoot, outputRoot) || Paths.Contains(outputRoot, modRoot))
                     throw new BuildFailure(ExitCode.Arguments, "CORE_OUTPUT_OVERLAP", "Core output must be separate from SDK and MOD inputs.");
-                LoadSdkConfiguration();
+                inputPreparation = request.InputPreparation;
+                if (inputPreparation != null && inputPreparation.Signature == InputSignature(request))
+                    configurationSettings = inputPreparation.Configuration;
+                else { inputPreparation = null; LoadSdkConfiguration(); }
                 Settings configured = ReadSettings();
                 EffectiveOption configuredCache;
                 if (!request.Options.TryGetValue("bc", out configuredCache) || configuredCache.Source == "default" || configuredCache.Source == "sdkConfig")
@@ -87,7 +100,6 @@ namespace NewModCompiler.Application
 
         void LoadSdkConfiguration()
         {
-            if (!Directory.Exists(sdkRoot)) throw new BuildFailure(ExitCode.Environment, "CORE_SDK_MISSING", "The SDK directory does not exist.");
             string path = Path.Combine(sdkRoot, "tools", "BinaryAssetBuilder.exe.config");
             if (!File.Exists(path)) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_MISSING", "The SDK BinaryAssetBuilder configuration is missing: " + path);
             var configuration = new XmlDocument { XmlResolver = null };
@@ -222,6 +234,7 @@ namespace NewModCompiler.Application
 
         Settings ReadSettings()
         {
+            if (configurationSettings != null) return (Settings)configurationSettings.Clone();
             var xml = new XmlDocument { XmlResolver = null }; xml.LoadXml(configurationXml);
             var settings = new SerializedSectionHandler().Create(null, null, xml.DocumentElement) as Settings;
             if (settings == null) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_INVALID", "SDK assetbuilder settings could not be read.");
@@ -229,7 +242,8 @@ namespace NewModCompiler.Application
             // must never reach PluginRegistry or Type.GetType.
             settings.Plugins = new PluginDescriptor[0];
             settings.VerifierPlugins = new PluginDescriptor[0];
-            return settings;
+            configurationSettings = settings;
+            return (Settings)settings.Clone();
         }
 
         Settings StreamSettings(StreamContext context, string staging)
@@ -268,9 +282,44 @@ namespace NewModCompiler.Application
             settings.CustomPostfix = ""; settings.StreamPostfix = ""; settings.BasePatchStream = null;
             settings.TraceLevel = traceLevel; settings.ErrorLevel = 0;
             Settings.Current = settings;
-            SettingsLoader.PostProcessSettings(Path.Combine(sdkRoot, "tools"));
-            ValidateInputSettings(settings);
+            string signature = InputSignature(request);
+            if (inputPreparation == null || inputPreparation.Signature != signature)
+                inputPreparation = new CoreInputPreparation { Signature = signature, Configuration = configurationSettings };
+            if (inputPreparation.Inputs == null)
+            {
+                SettingsLoader.PostProcessSettings(Path.Combine(sdkRoot, "tools"));
+                ValidateInputSettings(settings);
+                inputPreparation.Inputs = (Settings)settings.Clone();
+                inputPreparation.Report = InputRootsReport;
+            }
+            else
+            {
+                Settings inputs = inputPreparation.Inputs;
+                settings.DataRoot = inputs.DataRoot;
+                settings.DataPaths = inputs.DataPaths; settings.ArtPaths = inputs.ArtPaths; settings.AudioPaths = inputs.AudioPaths;
+                settings.ProcessedMonitorPaths = inputs.ProcessedMonitorPaths;
+                settings.Postfix = inputs.Postfix;
+                settings.BigEndian = inputs.BigEndian;
+                InputRootsReport = inputPreparation.Report;
+            }
             return settings;
+        }
+        static string InputSignature(BuildRequest candidate)
+        {
+            using (var text = new StringWriter())
+            {
+                // Length prefixes retain empty values and option boundaries.
+                Action<string> add = value => { value = value ?? ""; text.Write(value.Length); text.Write(':'); text.Write(value); };
+                add(Directory.GetCurrentDirectory()); add(candidate.SdkRoot); add(candidate.ModRoot);
+                add(candidate.OutputRoot); add(candidate.EventsPath); add(candidate.ReportPath); add(candidate.LogPath);
+                foreach (string name in new[] { "dr", "data", "art", "audio" })
+                {
+                    EffectiveOption option;
+                    add(name); add(candidate.Options.TryGetValue(name, out option) && option != null ? option.Value : null);
+                    add(option == null ? null : option.Source);
+                }
+                return text.ToString();
+            }
         }
         string RootOption(string name, string fallback) { return RootOption(name, () => fallback); }
         string RootOption(string name, Func<string> fallback)
@@ -299,17 +348,22 @@ namespace NewModCompiler.Application
             // compiler output, including diagnostics, can replace its contents.
             var roots = new List<string> { settings.DataRoot };
             roots.AddRange(data); roots.AddRange(art); roots.AddRange(audio);
+            var resolved = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            Func<string, string> resolve = path => {
+                string full = Path.GetFullPath(path), physical;
+                if (!resolved.TryGetValue(full, out physical)) resolved.Add(full, physical = ResolveInputRoot(full));
+                return physical;
+            };
+            var outputs = new List<string>();
+            foreach (string target in new[] { request.OutputRoot, request.EventsPath, request.ReportPath, request.LogPath })
+                if (!string.IsNullOrEmpty(target))
+                    outputs.Add(Directory.Exists(target) ? resolve(target) : Path.Combine(resolve(Path.GetDirectoryName(target)), Path.GetFileName(target)));
             foreach (string root in roots)
             {
                 if (root == "*") continue;
-                string input = ResolveInputRoot(root);
-                foreach (string target in new[] { request.OutputRoot, request.EventsPath, request.ReportPath, request.LogPath })
+                string input = resolve(root);
+                foreach (string output in outputs)
                 {
-                    if (string.IsNullOrEmpty(target)) continue;
-                    // Required log files can already have an active writer here.
-                    // Resolve their directory identity without reopening that file.
-                    string output = Directory.Exists(target) ? ResolveInputRoot(target) :
-                        Path.Combine(ResolveInputRoot(Path.GetDirectoryName(target)), Path.GetFileName(target));
                     if (Paths.Contains(input, output) || Paths.Contains(output, input))
                         throw new BuildFailure(ExitCode.Arguments, "CORE_INPUT_OUTPUT_OVERLAP", "Effective input root overlaps output or diagnostics: " + root);
                 }
@@ -347,6 +401,7 @@ namespace NewModCompiler.Application
                 probe.buildCacheEnabled = false;
                 probe.LoadSdkConfiguration();
                 probe.StreamSettings(new StreamContext { Task = new BuildTask { InputPath = Path.Combine(probe.modRoot, "Data", "mod.xml") } }, Path.Combine(probe.outputRoot, ".input-preflight"));
+                candidate.InputPreparation = probe.inputPreparation;
             }
             catch (BuildFailure) { throw; }
             catch (Exception error) { throw Failure(ExitCode.Arguments, "CORE_INPUT_ROOT_INVALID", error); }
@@ -451,7 +506,8 @@ namespace NewModCompiler.Application
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
                 Settings settings = streamSettings = StreamSettings(context, staging);
                 settings.FileContentHash = request.FileIdentities.HashBase64;
-                if (linkedOutputs == null) linkedOutputs = new LinkedOutputCache(outputRoot);
+                settings.FileIdentityStamp = FileIdentity.Stamp;
+                if (linkedOutputs == null) linkedOutputs = new LinkedOutputCache(outputRoot, request.FileIdentities);
                 string linkScope = Path.Combine(context.Task.Content, Path.GetFileNameWithoutExtension(context.Task.InputPath));
                 var reusedArtifacts = new List<Artifact>();
                 if (cacheManagedBySession)

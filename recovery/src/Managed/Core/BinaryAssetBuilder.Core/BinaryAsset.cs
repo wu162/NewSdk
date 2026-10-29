@@ -19,6 +19,7 @@ public class BinaryAsset
 	private InstanceDeclaration _Instance;
 
 	private string _CacheDirectory;
+	private bool _CacheDirectoryInitialized;
 
 	private string _AssetOutputDirectory;
 
@@ -161,6 +162,7 @@ public class BinaryAsset
 		{
 			return;
 		}
+		EnsureCacheDirectory();
 		if (string.IsNullOrEmpty(_CacheDirectory))
 		{
 			_CacheAvailability = Availability.Missing;
@@ -360,7 +362,7 @@ public class BinaryAsset
 
 	private void UpdateAssetHeaderFromOldInstance(OutputAsset oldInstance)
 	{
-		if (_AssetHeader == null && GetLocation(AssetLocation.All, AssetLocationOption.None) != AssetLocation.None)
+		if (_AssetHeader == null)
 		{
 			if (oldInstance.InstanceFileSize == 0 && oldInstance.RelocationFileSize == 0 && oldInstance.ImportsFileSize == 0)
 			{
@@ -391,24 +393,31 @@ public class BinaryAsset
 		_AssetOutputDirectory = Path.Combine(_Parent.IntermediateOutputDirectory, "assets");
 		_CustomDataFileName = FileBase + ".cdata";
 		_AssetFileName = FileBase + ".asset";
+		if (oldInstance != null && GetLocation(AssetLocation.All, AssetLocationOption.None) != AssetLocation.None)
+			UpdateAssetHeaderFromOldInstance(oldInstance);
+	}
+
+	private void EnsureCacheDirectory()
+	{
+		if (_CacheDirectoryInitialized) return;
+		_CacheDirectoryInitialized = true;
 		if (!string.IsNullOrEmpty(_Parent.TargetPlatformCacheRoot))
 		{
-			ExtendedTypeInformation extendedTypeInformation = _Parent.DocumentProcessor.Plugins.GetExtendedTypeInformation(instance.Handle.TypeId);
+			ExtendedTypeInformation extendedTypeInformation = _Parent.DocumentProcessor.Plugins.GetExtendedTypeInformation(_Instance.Handle.TypeId);
 			if (extendedTypeInformation.UseBuildCache)
 			{
-				_CacheDirectory = Path.Combine(_Parent.TargetPlatformCacheRoot, $"{instance.Handle.TypeName}\\{instance.Handle.TypeHash:x8}\\{(byte)(instance.Handle.InstanceHash >> 24):x2}");
+				_CacheDirectory = Path.Combine(_Parent.TargetPlatformCacheRoot, $"{_Instance.Handle.TypeName}\\{_Instance.Handle.TypeHash:x8}\\{(byte)(_Instance.Handle.InstanceHash >> 24):x2}");
 			}
-		}
-		AssetLocation location = GetLocation(AssetLocation.All, AssetLocationOption.None);
-		if (oldInstance != null && location != AssetLocation.None)
-		{
-			UpdateAssetHeaderFromOldInstance(oldInstance);
 		}
 	}
 
 	public AssetLocation Commit()
 	{
-		AssetLocation location = GetLocation(AssetLocation.All, AssetLocationOption.None);
+		return Commit(GetLocation(AssetLocation.All, AssetLocationOption.None));
+	}
+
+	internal AssetLocation Commit(AssetLocation location)
+	{
 		switch (location)
 		{
 		case AssetLocation.Output:
@@ -428,7 +437,7 @@ public class BinaryAsset
 		case AssetLocation.BasePatchStream:
 			break;
 		}
-		if (location != AssetLocation.BasePatchStream)
+		if (location != AssetLocation.BasePatchStream && location != AssetLocation.Output)
 		{
 			UpdateOutputAvailability(forceUpdate: true);
 		}
@@ -620,13 +629,10 @@ public class BinaryAsset
 		}
 	}
 
-	private void ValidateAssetCopies()
-	{
-	}
-
 	private void TouchCache()
 	{
-		if (string.IsNullOrEmpty(_CacheDirectory) && !Directory.Exists(_CacheDirectory))
+		EnsureCacheDirectory();
+		if (string.IsNullOrEmpty(_CacheDirectory))
 		{
 			return;
 		}
@@ -661,6 +667,7 @@ public class BinaryAsset
 
 	private void CopyToCache()
 	{
+		EnsureCacheDirectory();
 		if (string.IsNullOrEmpty(_CacheDirectory))
 		{
 			return;

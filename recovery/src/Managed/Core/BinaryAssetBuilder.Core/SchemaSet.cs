@@ -46,11 +46,12 @@ public class SchemaSet
 
 	private IDictionary<XmlSchemaType, bool> _HashableTypes;
 
-	private IDictionary<string, DateTime> _SchemaPaths;
+	private IDictionary<string, string> _SchemaPaths;
 
 	private IDictionary<string, string> _SchemaContentHashes;
 
 	private string _LoadedSchemaPath;
+	private string _ContentIdentity;
 
 	private string _CurrentSchema = "<unknown>";
 
@@ -68,12 +69,13 @@ public class SchemaSet
 	{
 		get
 		{
+			if (_ContentIdentity != null) return _ContentIdentity;
 			using (var bytes = new MemoryStream())
 			using (var writer = new BinaryWriter(bytes))
 			{
 				foreach (var input in _SchemaContentHashes) { writer.Write(input.Key); writer.Write(input.Value); }
 				writer.Flush(); bytes.Position = 0;
-				using (var hash = SHA256.Create()) return Convert.ToBase64String(hash.ComputeHash(bytes));
+				using (var hash = SHA256.Create()) return _ContentIdentity = Convert.ToBase64String(hash.ComputeHash(bytes));
 			}
 		}
 	}
@@ -102,7 +104,7 @@ public class SchemaSet
 		_CurrentSchema = schemaFile;
 		if (_SchemaPaths.ContainsKey(schemaFile)) return;
 		byte[] contents = File.ReadAllBytes(schemaFile);
-		_SchemaPaths.Add(schemaFile, File.GetLastWriteTime(schemaFile));
+		_SchemaPaths.Add(schemaFile, Settings.Current.FileIdentityStamp?.Invoke(schemaFile));
 		using (var algorithm = SHA256.Create())
 			_SchemaContentHashes.Add(schemaFile, Convert.ToBase64String(algorithm.ComputeHash(contents)));
 		XmlSchema xmlSchema;
@@ -325,9 +327,10 @@ public class SchemaSet
 	{
 		// A failed load must not make its partially read inputs appear reusable.
 		_LoadedSchemaPath = null;
+		_ContentIdentity = null;
 		_AssetDependencies = null;
 		_CircularCheck = new Set<uint>();
-		_SchemaPaths = new SortedDictionary<string, DateTime>(StringComparer.OrdinalIgnoreCase);
+		_SchemaPaths = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 		_SchemaContentHashes = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 		_Schemas = new XmlSchemaSet();
 		_InheritanceMap = new SortedDictionary<string, StringCollection>();
@@ -419,13 +422,14 @@ public class SchemaSet
 			changed = true;
 		if (!changed)
 		{
-			foreach (KeyValuePair<string, DateTime> schemaPath in _SchemaPaths)
+			var refreshed = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+			foreach (var schemaPath in _SchemaPaths)
 			{
-				if (!File.Exists(schemaPath.Key) || File.GetLastWriteTime(schemaPath.Key) != schemaPath.Value)
-				{
-					changed = true;
-					break;
-				}
+				// The host stamp includes file ID, size, write time and change time.
+				// Standalone Core without an identity provider retains content checks.
+				string stamp = Settings.Current.FileIdentityStamp?.Invoke(schemaPath.Key);
+				if (stamp != null && stamp == schemaPath.Value) continue;
+				if (!File.Exists(schemaPath.Key)) { changed = true; break; }
 				using (var algorithm = SHA256.Create())
 				using (var input = File.OpenRead(schemaPath.Key))
 				{
@@ -436,7 +440,9 @@ public class SchemaSet
 						break;
 					}
 				}
+				refreshed.Add(schemaPath.Key, stamp);
 			}
+			if (!changed) foreach (var input in refreshed) _SchemaPaths[input.Key] = input.Value;
 		}
 		if (changed) LoadSchemas(countDependencies);
 	}

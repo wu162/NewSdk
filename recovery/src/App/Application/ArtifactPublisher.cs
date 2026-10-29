@@ -48,8 +48,7 @@ namespace NewModCompiler.Application
                     throw new IOException("Publication output overlaps an input directory.");
             }
             cancellation.ThrowIfCancellationRequested();
-            string prepared = Path.Combine(output, ".publish-" + Guid.NewGuid().ToString("N"));
-            string backup = Path.Combine(output, ".previous-" + Guid.NewGuid().ToString("N"));
+            string prepared = null, backup = null;
             bool preparedOwned = false;
             DiagnosticDirectory outputGuard = DiagnosticDirectory.Acquire(output, true);
             PublicationLock targetLock = null;
@@ -58,8 +57,6 @@ namespace NewModCompiler.Application
             targetLock = PublicationLock.Acquire(DiagnosticDirectory.ResolveOutput(destination));
             using (owned ? null : DiagnosticDirectory.Acquire(staging, false))
             {
-                if (File.Exists(destination)) throw new IOException("Publication destination is a file.");
-                if (!owned && Directory.Exists(destination)) RejectReparseTree(destination);
                 try
                 {
                     var result = new List<Artifact>();
@@ -87,7 +84,7 @@ namespace NewModCompiler.Application
                     bool unchanged = owned && request.FileIdentities != null && request.FileIdentities.MatchesPublication(result, destination);
                     if (!unchanged)
                     {
-                        if (owned && Directory.Exists(destination)) RejectReparseTree(destination);
+                        if (File.Exists(destination)) throw new IOException("Publication destination is a file.");
                         unchanged = Matches(destination, result, cancellation,owned ? request.FileIdentities : null);
                     }
                     if (unchanged && !owned)
@@ -95,6 +92,8 @@ namespace NewModCompiler.Application
                             if (!string.Equals(Hash(artifact.Path), artifact.Sha256, StringComparison.OrdinalIgnoreCase)) throw new IOException("Publication source hash changed.");
                     if (!unchanged)
                     {
+                        prepared = Path.Combine(output, ".publish-" + Guid.NewGuid().ToString("N"));
+                        backup = Path.Combine(output, ".previous-" + Guid.NewGuid().ToString("N"));
                         DiagnosticDirectory.CreateNewDirectory(prepared); preparedOwned = true;
                         for (int index = 0; index < artifacts.Count; index++)
                         {
@@ -123,14 +122,30 @@ namespace NewModCompiler.Application
         }
         static bool Matches(string destination, IList<Artifact> artifacts, CancellationToken cancellation,FileHashCache hashes)
         {
-            if (!Directory.Exists(destination) || Directory.GetFiles(destination, "*", SearchOption.AllDirectories).Length != artifacts.Count) return false;
+            if (!Directory.Exists(destination)) return false;
+            var files = new Dictionary<string, FileInfo>(StringComparer.OrdinalIgnoreCase);
+            InspectTree(new DirectoryInfo(destination), files, cancellation);
+            if (files.Count != artifacts.Count) return false;
             foreach (Artifact artifact in artifacts)
             {
                 cancellation.ThrowIfCancellationRequested();
-                if (!File.Exists(artifact.Path) || new FileInfo(artifact.Path).Length != artifact.Size ||
+                FileInfo file;
+                if (!files.TryGetValue(artifact.Path, out file) || file.Length != artifact.Size ||
                     !string.Equals(hashes==null ? Hash(artifact.Path) : hashes.Hash(artifact.Path), artifact.Sha256, StringComparison.OrdinalIgnoreCase)) return false;
             }
             return true;
+        }
+        static void InspectTree(DirectoryInfo directory, Dictionary<string, FileInfo> files, CancellationToken cancellation)
+        {
+            if ((directory.Attributes & FileAttributes.ReparsePoint) != 0) throw new IOException("Publication destination contains a reparse point.");
+            foreach (FileSystemInfo entry in directory.EnumerateFileSystemInfos())
+            {
+                cancellation.ThrowIfCancellationRequested();
+                if ((entry.Attributes & FileAttributes.ReparsePoint) != 0) throw new IOException("Publication destination contains a reparse point.");
+                var child = entry as DirectoryInfo;
+                if (child != null) InspectTree(child, files, cancellation);
+                else files.Add(entry.FullName, (FileInfo)entry);
+            }
         }
         static string CopyAndHash(string source, string destination)
         {

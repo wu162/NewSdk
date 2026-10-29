@@ -182,6 +182,32 @@ public static class CompilerInputRoots
         }
         tests.Add("original-cache-supports-external-effective-roots-with-real-file-payloads-and-settings-restored");
     }
+    static void PreflightReuse(Settings sentinel)
+    {
+        var request = Explicit("preflight-reuse");
+        CoreStreamCompiler.PreflightInputRoots(request);
+        Require(Object.ReferenceEquals(Settings.Current, sentinel), "Successful preflight leaked settings");
+        string configuration = Path.Combine(sdk, "tools", "BinaryAssetBuilder.exe.config");
+        using (var held = new FileStream(configuration, FileMode.Open, FileAccess.Read, FileShare.None))
+        using (var backend = new CoreStreamCompiler())
+        {
+            backend.Initialize(request);
+            Selected(Compile(backend, request, "stream", sentinel), "SelectedFirst", "SelectedMod", "SelectedSecond");
+        }
+        // A changed effective boundary cannot reuse the earlier overlap result.
+        request = Explicit("preflight-changed");
+        CoreStreamCompiler.PreflightInputRoots(request);
+        request.ReportPath = Path.Combine(anchor, "first", "data", "report.json");
+        bool rejected = false;
+        using (var backend = new CoreStreamCompiler())
+        {
+            backend.Initialize(request);
+            try { backend.Compile(Context(request, "stream"), CancellationToken.None); }
+            catch (BuildFailure error) { rejected = error.Code == "CORE_INPUT_OUTPUT_OVERLAP"; }
+        }
+        Require(rejected, "Changed diagnostic destination reused stale preflight validation");
+        tests.Add("preflight-configuration-reused-without-reopen-and-changed-request-revalidates-input-output-boundary");
+    }
     public static int Main(string[] args)
     {
         Settings previous = Settings.Current;
@@ -194,7 +220,7 @@ public static class CompilerInputRoots
             Bytes(Path.Combine(mod, "Art", "assets", "art.bin"), 41); Bytes(Path.Combine(mod, "Audio", "audio.bin"), 51);
             Write(Path.Combine(mod, "Data", "Mod.xml"), Asset("<Includes><Include type='all' source='data:choice.xml'/></Includes><AptAptData id='ArtPayload' File='art:assets/art.bin'/><AptAptData id='AudioPayload' File='audio:audio.bin'/>"));
             var sentinel = new Settings(); Settings.Current = sentinel;
-            Defaults(sentinel); ExplicitCases(sentinel); RelativeDataRoot(sentinel); FailureRetry(sentinel); PreflightPreservesInputs(sentinel); CacheBoundary(sentinel);
+            Defaults(sentinel); ExplicitCases(sentinel); RelativeDataRoot(sentinel); FailureRetry(sentinel); PreflightPreservesInputs(sentinel); PreflightReuse(sentinel); CacheBoundary(sentinel);
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests }));
             Console.WriteLine("PASS InputRoots: " + checks + " assertions"); return 0;
         }

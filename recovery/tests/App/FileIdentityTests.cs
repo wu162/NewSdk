@@ -39,6 +39,9 @@ namespace NewModCompiler.Tests
             var artifacts=new[] {new Artifact {Path=item,Kind="test",Size=6,Sha256=hashes.Hash(item)}};
             hashes.RecordPublished(artifacts,published,false);
             Check(hashes.MatchesPublication(artifacts,published),"Unchanged publication receipt did not match");
+            using(var held=new FileStream(item,FileMode.Open,FileAccess.ReadWrite,FileShare.None))
+                Check(hashes.MatchesPublication(artifacts,published),"Publication receipt opened an unchanged file body");
+            Check(!hashes.TryHash(Path.Combine(published,"missing.bin"),out string missing),"Missing package file was a hash hit");
             // Match edits between independent CLI builds, beyond the Windows clock tick.
             Thread.Sleep(30);File.WriteAllText(Path.Combine(published,"child","unexpected.bin"),"extra");
             Check(!hashes.MatchesPublication(artifacts,published),"Extra nested output did not invalidate publication receipt");

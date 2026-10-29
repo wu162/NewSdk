@@ -18,6 +18,9 @@ namespace NewModCompiler.Application
     public sealed class BuildRequest
     {
         internal FileHashCache FileIdentities { get; set; }
+#if NEWSdk_MONOLITHIC
+        internal CoreInputPreparation InputPreparation { get; set; }
+#endif
         public string Command { get; set; }
         public string ModRoot { get; set; }
         public string SdkRoot { get; set; }

@@ -142,7 +142,8 @@ namespace NewModCompiler.Application
             var result=new List<Artifact>();
             foreach(var artifact in previous.Artifacts) {
                 string path=Path.Combine(request.OutputRoot,"published",Path.GetFileName(artifact.Path));
-                if(!File.Exists(path) || request.FileIdentities.Hash(path)!=artifact.Sha256)return false;
+                string hash;
+                if(!request.FileIdentities.TryHash(path,out hash) || hash!=artifact.Sha256)return false;
                 result.Add(new Artifact {Path=path,Kind=artifact.Kind,Size=artifact.Size,Sha256=artifact.Sha256,Verified=true,Published=true});
             }
             artifacts=result.ToArray();return true;
