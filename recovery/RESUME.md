@@ -8,4 +8,6 @@
 
 原 SDK 同输入对照已通过 `40823369828`，基准源码 `1c7ff21f098e972105c410eb586c4f6c8ba32d29`：54 对/108 次计量及两次预热约 91.2 秒，全部原始输出一致。新版本默认热态端到端耗时在本轮比原版多约 25%～29%，mymod 无缓存基本相当。无会话模式已隔离原版隐式 `StringHashes.xml` 复用，物理输入、Schema、搜索顺序与存在性均相同；[完整数据及边界](docs/SDK_BENCHMARK.md)。
 
+原因分析见[报告](docs/CACHE_PERFORMANCE_ANALYSIS.md)：热态 xmlParse/instanceCompile 均为 0，publish 约 11–30.5 ms；每进程 SC 身份仍校验 826 文件，独立同算法 I/O 复现约 59.5 ms（诊断 `40826280008`，源码 `f7d69ff6f2aeefae1a32642d9854de853a95b82f`，不是生产方法直接打点）。旧工具复用未变链接输出，新宿主重新链接、三次输出哈希及事务复制。仅补分析/诊断，生产逻辑未改。
+
 先读 [交接](REFACTOR_RESUME.md)，按其中的源码提交、验证运行和待办继续；缓存行为与代码分工见 [缓存说明](docs/LEGACY_INCREMENTAL_CACHE.md)。执行规则见 [EFFICIENCY.md](EFFICIENCY.md)。
