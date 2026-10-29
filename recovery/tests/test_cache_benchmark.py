@@ -43,6 +43,29 @@ class BenchmarkChecks(unittest.TestCase):
         with self.assertRaises(ValueError):
             bench.validate_sample(report(bc=True), 'none', 'uncached')
 
+    def test_no_activity_is_valid_only_when_sdk_types_are_proven_ineligible(self):
+        inactive = report(bc=True)
+        with self.assertRaises(ValueError):
+            bench.validate_sample(inactive, 'asset', 'hot')
+        bench.validate_sample(inactive, 'asset', 'hot', asset_cache_expected=False)
+        with self.assertRaises(ValueError):
+            bench.validate_sample(report(bc=True, hits=1), 'asset', 'hot', asset_cache_expected=False)
+
+    def test_sdk_eligibility_distinguishes_omitted_flags_from_native_types(self):
+        with tempfile.TemporaryDirectory() as root:
+            root = Path(root)
+            (root / 'tools').mkdir()
+            (root / 'tools/BinaryAssetBuilder.exe.config').write_text(
+                '<configuration><assetbuilder><plugins>'
+                '<plugin assetTypes="ArmorTemplate"/>'
+                '<plugin assetTypes="Texture,OnDemandTexture" useBuildCache="true"/>'
+                '</plugins></assetbuilder></configuration>')
+            (root / 'Mod.xml').write_text('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'
+                                         '<ArmorTemplate id="a"/><Texture id="t"/></AssetDeclaration>')
+            result = bench.cache_eligibility(root, root)
+            self.assertEqual(result['declaredTypes'], ['ArmorTemplate', 'Texture'])
+            self.assertEqual(result['cacheableTypes'], ['Texture'])
+
     def test_failed_samples_do_not_contribute_to_speedup(self):
         def sample(mode, duration, status='passed'):
             return dict(workload='w', mode=mode, phase='uncached' if mode == 'none' else 'hot',

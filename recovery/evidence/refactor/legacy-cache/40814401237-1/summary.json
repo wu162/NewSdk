@@ -146,17 +146,30 @@
     "url": "https://github.com/wu162/NewSdk/actions/runs/40814401237/artifacts/12871674302",
     "sizeInBytes": 137119679,
     "sha256": "6c395456add02dec40c7759e9cc5a26d34ea353f5e3ee588a12a78df3bfab044",
-    "digestBasis": "GitHub artifact metadata and upload job log agree; not locally recomputed.",
+    "digestBasis": "GitHub metadata, upload log and locally recomputed complete archive SHA256 agree.",
     "expiresAt": "2027-01-27T03:50:36Z",
-    "archiveLocallyVerified": false,
-    "localDownloadStatus": "HTTP 403 from artifact download; archive receipts and inner ZIP manifests were not opened locally.",
+    "archiveLocallyVerified": true,
+    "localDownloadStatus": "Downloaded through GitHub download_workflow_artifact and verified in the benchmark continuation; original CLI HTTP 403 remains a historical observation.",
     "rawReceipts": [
       "evidence/refactor/session-cache/40814401237-1/validation.json",
       "evidence/refactor/sdk-mymod/40814401237-1/validation.json",
       "artifacts/final-release/40814401237-1/release.json"
     ],
     "releaseZip": "artifacts/final-release/40814401237-1/NewModCompiler-Win32-Release.zip",
-    "debugZip": "artifacts/final-release/40814401237-1/NewModCompiler-Win32-Debug.zip"
+    "debugZip": "artifacts/final-release/40814401237-1/NewModCompiler-Win32-Debug.zip",
+    "rawReceiptsLocallyRead": true,
+    "innerZips": [
+      {
+        "name": "NewModCompiler-Win32-Debug.zip",
+        "bytes": 2227129,
+        "sha256": "e4e2df5e76c16f51406aea3ee141d72a96b0f65a1245da582fb84c7e4fce8d92"
+      },
+      {
+        "name": "NewModCompiler-Win32-Release.zip",
+        "bytes": 1726007,
+        "sha256": "343198bc65976bf0cbad852ef2b64419e8ee9b44add8f14c6e0fdd9fa07f9b8d"
+      }
+    ]
   },
   "coverageLimits": [
     "Actual CtrlBreak uses psc:false; psc:true completed-document persistence is directly exercised after XML failure, not after CtrlBreak.",

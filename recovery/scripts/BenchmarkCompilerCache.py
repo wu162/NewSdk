@@ -16,6 +16,7 @@ import platform
 import statistics
 import subprocess
 import time
+import xml.etree.ElementTree as ET
 
 MODES = {
     'none': (False, False, False),
@@ -87,7 +88,30 @@ def output_inventory(destination, report):
     return actual
 
 
-def validate_sample(report, mode, phase):
+def cache_eligibility(sdk, mod):
+    plugins = ET.parse(Path(sdk) / 'tools/BinaryAssetBuilder.exe.config').getroot()
+    routes, fallback = {}, False
+    for plugin in plugins.findall('./assetbuilder/plugins/plugin'):
+        if plugin.get('enabled', 'true').lower() != 'true':
+            continue
+        cacheable = plugin.get('useBuildCache', 'false').lower() == 'true'
+        for name in plugin.get('assetTypes', '').split(','):
+            if name.strip() == '#all':
+                fallback = cacheable
+            else:
+                routes[name.strip()] = cacheable
+    types = set()
+    for path in Path(mod).rglob('*.xml'):
+        declaration = ET.parse(path).getroot()
+        if declaration.tag == '{uri:ea.com:eala:asset}AssetDeclaration':
+            types.update(c.tag.rsplit('}', 1)[-1] for c in declaration if c.get('id'))
+    require(types, 'No declared assets in benchmark workload')
+    return {'declaredTypes': sorted(types),
+            'cacheableTypes': sorted(t for t in types if routes.get(t, fallback)),
+            'basis': 'SDK plugin useBuildCache flags (omitted defaults false) and workload root asset declarations'}
+
+
+def validate_sample(report, mode, phase, asset_cache_expected=True):
     require(report.get('exitCode') == 0 and report.get('status') == 'succeeded' and
             report.get('publicationStatus') == 'PublishedDirectory' and
             report.get('executionMode') == 'InProcess' and report.get('externalTools') == [],
@@ -105,8 +129,12 @@ def validate_sample(report, mode, phase):
         require(cache['documentReuse'] > 0 and cache['instanceCompile'] == 0,
                 'Hot session did not reuse completed documents/assets')
     elif phase == 'hot' and bc:
-        require(cache['hits'] > 0 and cache['misses'] == 0,
-                'Hot asset cache did not hit independently of intermediate files')
+        if asset_cache_expected:
+            require(cache['hits'] > 0 and cache['misses'] == 0,
+                    'Hot asset cache did not hit independently of intermediate files')
+        else:
+            require(cache['hits'] == cache['misses'] == 0,
+                    'Unexpected cache activity for SDK-disabled asset types')
     elif phase == 'cold':
         require(cache['documentReuse'] == 0 and (not bc or cache['hits'] == 0),
                 'Cold run reused a nonempty cache')
@@ -124,7 +152,8 @@ def summarize(samples):
         groups.setdefault((row['workload'], row['mode'], row['phase']), []).append(row)
     results = []
     for (workload, mode, phase), rows in groups.items():
-        result = {'workload': workload, 'mode': mode, 'phase': phase, 'n': len(rows)}
+        result = {'workload': workload, 'mode': mode, 'phase': phase, 'n': len(rows),
+                  'assetCacheApplicable': rows[0].get('assetCacheApplicable', True)}
         for key in ('wallMs', 'reportElapsedMs', 'cpuMs', 'peakWorkingSetBytes', 'cacheBytes'):
             values = [r[key] for r in rows]
             result[key + 'Median'] = statistics.median(values)
@@ -151,7 +180,9 @@ def markdown(state):
     for row in state['summary']:
         ratio = row['speedupVsNoCache']
         lines.append('| {} | {} | {} | {} | {:.1f} | {:.1f}–{:.1f} | {:.1f} | {:.1f} | {:.2f} | {} |'.format(
-            row['workload'], row['mode'], row['phase'], row['n'], row['wallMsMedian'],
+            row['workload'], row['mode'] + (' (type cache disabled)' if row['mode'] == 'asset' and
+                                          not row['assetCacheApplicable'] else ''),
+            row['phase'], row['n'], row['wallMsMedian'],
             row['wallMsMin'], row['wallMsMax'], row['cpuMsMedian'],
             row['peakWorkingSetBytesMedian'] / 1048576, row['cacheBytesMedian'] / 1048576,
             '{:.2f}x'.format(ratio) if ratio else '—'))
@@ -190,6 +221,7 @@ def run(args):
     require(before_runtime == expected_runtime, 'Prepared runtime inventory changed')
     workloads = prepared['workloads']
     input_before = {w['name']: inventory(w['modRoot']) for w in workloads}
+    eligibility = {w['name']: cache_eligibility(sdk, w['modRoot']) for w in workloads}
     sdk_inputs = {'schemas': inventory(sdk / 'Schemas'),
                   'configSha256': sha(sdk / 'tools/BinaryAssetBuilder.exe.config')}
     state = {'schemaVersion': 1, 'status': 'running', 'samples': [], 'summary': [],
@@ -198,6 +230,7 @@ def run(args):
              'sourceRunId': prepared['sourceRunId'], 'runId': os.getenv('GITHUB_RUN_ID'),
              'runAttempt': os.getenv('GITHUB_RUN_ATTEMPT'), 'runtimeFiles': prepared['runtimeFiles'],
              'workloads': [{'name': w['name'], 'scope': w['scope'],
+                            'assetCacheEligibility': eligibility[w['name']],
                             'inputFiles': len(input_before[w['name']]),
                             'inputBytes': sum(v['bytes'] for v in input_before[w['name']].values())}
                            for w in workloads],
@@ -238,6 +271,7 @@ def run(args):
                     if not sc:
                         command += ['/iod:' + str(work / 'fresh-intermediate' / label)]
                     sample = {'workload': workload['name'], 'mode': mode, 'phase': phase,
+                              'assetCacheApplicable': bool(eligibility[workload['name']]['cacheableTypes']),
                               'round': round_index, 'status': 'started', 'command': command,
                               'timeoutSeconds': min(args.timeout_seconds, remaining)}
                     state['samples'].append(sample)
@@ -250,6 +284,8 @@ def run(args):
                         except subprocess.TimeoutExpired:
                             process.kill()
                             process.wait(timeout=5)
+                            sample['wallMs'] = (time.perf_counter() - tick) * 1000
+                            sample['exitCode'] = process.returncode
                             sample['status'] = 'timed-out'
                             raise TimeoutError('Process timeout: ' + label)
                         sample['wallMs'] = (time.perf_counter() - tick) * 1000
@@ -258,7 +294,7 @@ def run(args):
                     require(process.returncode == 0, 'Process failed: ' + label)
                     report = read_json(destination / 'build-report.json')
                     (evidence / 'report.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
-                    validate_sample(report, mode, phase)
+                    validate_sample(report, mode, phase, sample['assetCacheApplicable'])
                     files = output_inventory(destination, report)
                     if workload['name'] not in baselines:
                         require(mode == 'none', 'No-cache baseline must run first')

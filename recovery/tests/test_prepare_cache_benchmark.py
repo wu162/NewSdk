@@ -3,8 +3,10 @@ import importlib.util
 import io
 import json
 from pathlib import Path
+import struct
 import tempfile
 import unittest
+import xml.etree.ElementTree as E
 import zipfile
 
 SPEC = importlib.util.spec_from_file_location('prepare_cache_benchmark',
@@ -96,6 +98,28 @@ class PreparationTests(unittest.TestCase):
                 self.skipTest('Host does not permit symlinks')
             with self.assertRaisesRegex(ValueError, 'symlink'):
                 P.inventory(root)
+
+    def test_texture_workload_has_sixteen_unique_assets_and_valid_opaque_tga(self):
+        with tempfile.TemporaryDirectory() as temp:
+            stage = Path(temp) / 'stage'
+            result = P.prepare_texture_workload(stage, Path(temp) / 'final')
+            root = stage / 'workloads/texture-16/Data'
+            textures = E.parse(root / 'Mod.xml').getroot().findall('{uri:ea.com:eala:asset}Texture')
+            self.assertEqual(len(textures), 16)
+            self.assertEqual(len({node.attrib['id'] for node in textures}), 16)
+            self.assertEqual({node.attrib['File'] for node in textures}, {'probe.tga'})
+            self.assertTrue(all(node.attrib['OutputFormat'] == 'A8R8G8B8' and
+                                node.attrib['GenerateMipMaps'] == 'false' for node in textures))
+            image = (root / 'probe.tga').read_bytes()
+            header = struct.unpack('<BBBHHBHHHHBB', image[:18])
+            self.assertEqual(header, (0, 0, 2, 0, 0, 0, 0, 0, 256, 256, 32, 0x28))
+            self.assertEqual(len(image), 18 + 256 * 256 * 4)
+            self.assertEqual(image[18 + (17 * 256 + 29) * 4:18 + (17 * 256 + 29) * 4 + 4],
+                             bytes((29, 17, 12, 255)))
+            self.assertEqual(set(image[21::4]), {255})
+            self.assertEqual(result['assetCount'], 16)
+            self.assertTrue(result['synthetic'])
+            self.assertEqual(result['files'], P.inventory(root.parent))
 
 
 if __name__ == '__main__':

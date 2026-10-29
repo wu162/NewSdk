@@ -6,6 +6,7 @@ import io
 import json
 from pathlib import Path
 import shutil
+import struct
 import subprocess
 import tempfile
 import xml.etree.ElementTree as E
@@ -132,6 +133,24 @@ def inventory(root):
     return rows
 
 
+def prepare_texture_workload(stage, destination):
+    data_root = stage / 'workloads/texture-16/Data'
+    data_root.mkdir(parents=True)
+    # Same documented top-left BGRA fixture as TextureRedirect/MakeFixture.py.
+    # The benchmark owns this synthetic input; no SDK texture is replaced.
+    header = struct.pack('<BBBHHBHHHHBB', 0, 0, 2, 0, 0, 0, 0, 0, 256, 256, 32, 0x28)
+    pixels = b''.join(bytes((x, y, x ^ y, 255)) for y in range(256) for x in range(256))
+    (data_root / 'probe.tga').write_bytes(header + pixels)
+    textures = ''.join('<Texture id="BenchmarkTexture%02d" File="probe.tga" Type="StandardTexture" '
+                       'GenerateMipMaps="false" OutputFormat="A8R8G8B8" AllowAutomaticResize="false"/>' % index
+                       for index in range(16))
+    (data_root / 'Mod.xml').write_text('<AssetDeclaration xmlns="uri:ea.com:eala:asset">' + textures +
+                                      '</AssetDeclaration>\n', encoding='utf-8')
+    return dict(name='texture-16', modRoot=str(destination / 'workloads/texture-16'), assetCount=16,
+                scope='Synthetic only: sixteen independent Texture identities using a generated 256x256 top-left BGRA TGA. Not Upheaval or a complete real MOD; no Audio, GameObject, APT or packaging claim.',
+                synthetic=True, fullModInputCopy=False, files=inventory(data_root.parent))
+
+
 def prepare_workloads(repo, stage, destination):
     workloads = []
     original = repo / 'SDK/Mods/mymod'
@@ -181,6 +200,7 @@ def prepare_workloads(repo, stage, destination):
                           scope='Subset only: eleven unchanged historical Upheaval Armor.xml documents, twelve ArmorTemplate assets, generated include entry. No full Upheaval, Texture, Audio, GameObject, APT or packaging claim.',
                           sourceCommit=HISTORICAL, sourceTree=UPHEAVAL_TREE, sources=sources, assetCount=assets,
                           fullModInputCopy=False, files=inventory(armor.parent)))
+    workloads.append(prepare_texture_workload(stage, destination))
     return workloads
 
 
@@ -225,7 +245,7 @@ def main():
         state['workloads'] = prepare_workloads(repo, stage, destination)
         (stage / 'preparation.json').write_text(json.dumps(state, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
         stage.rename(destination)
-    print('Prepared accepted Release and two workloads: ' + str(destination / 'preparation.json'))
+    print('Prepared accepted Release and three workloads: ' + str(destination / 'preparation.json'))
 
 
 if __name__ == '__main__':
