@@ -4,7 +4,7 @@
 
 ## 链接与发布复用（2026-10-29）
 
-实现分支 `codex/legacy-cache-completion`，[PR #20](https://github.com/wu162/NewSdk/pull/20)；当前完整生产源码 `4ad5d0d9`，统一验收 [40836177604](https://github.com/wu162/NewSdk/actions/runs/40836177604) 正在运行。旧验收不替代本批结果。
+实现分支 `codex/legacy-cache-completion`，[PR #20](https://github.com/wu162/NewSdk/pull/20)；当前完整生产源码 `4ad5d0d9`，统一验收 [40836177604](https://github.com/wu162/NewSdk/actions/runs/40836177604) 已 success，完整 mymod 原版字节差分及独立五文件 ZIP 同时通过。[原收据核对摘要](../evidence/refactor/performance-implementation/40836177604-1/summary.json) 记录下载归档 SHA256、来源、两配置零热态 SHA 读取与实际 BIG 复用；旧验收不替代本批结果。
 
 - `LinkedOutputCache` 在输出根 `.linked-streams` 保留四流，按实际创建的 `OutputManager` 懒恢复完整四文件，沿用原 manifest/type/stream checksum 决定重写。删除的 include 不会混入输出；该能力独立于 `/sc`、`/bc`，BIG 与 loose 共用。
 - 私有四流快照优先硬链接，不支持时复制；原链接器通过 unlink、临时文件和 rename 更新四流。公开文件及恢复的 CDATA 使用独立存储。会话、安装与回滚备份改为移动，CDATA 相同则不重新安装。
@@ -17,7 +17,7 @@
 
 必需日志/报告失败、取消和真正的替换故障继续撤销未确认产物与链接缓存，`/psc` 语义保留。首轮 `40832233489` 的三个 `publication-fault` 失败保留：旧 fixture 以“锁住未变文件”要求失败，现已新增该场景的成功断言，并用额外旧文件强制真实替换后保留原失败及重试断言。
 
-验证集中于已有完整生产矩阵，另增加少量关键组件/行为断言。生产会话用例检查原链接器四项 up-to-date、原始字节、发布时间及无 CDATA 热态 `fileHashReads=0`，不以仅源码审查或运行中状态冒称通过。
+验证集中于已有完整生产矩阵，另增加少量关键组件/行为断言。生产会话用例检查原链接器四项 up-to-date、原始字节、发布时间及无 CDATA 热态 `fileHashReads=0`，Debug/Release 原收据均确认 2 个复用流、18 次哈希收据命中、0 次完整文件 SHA256 读取、0 字节 SHA256 输入，且 `publicationUnchanged=true`。BIG 热态包阶段事件直接引用 published 中的两文件。配对性能运行 `40837902446` 已通过，准确数据与小样本边界见 [SDK 对照](SDK_BENCHMARK.md)。
 
 ## 选项与目录
 
