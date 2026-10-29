@@ -122,6 +122,47 @@ def surface_archive(data):
     assert offset==len(data),('trailing/truncated',offset,len(data))
     return {'completeLayoutRecords':ordinal,'completePublicLockStateRecords':ordinal,'actualStorageRecords':16,'fullOwnedStorageBytes':16*2*0x40000}
 
+def descriptor_archive(data):
+    assert data[:8]==b'TXDSC001' and len(data)==8+135168*124
+    table=(ROOT/'recovery/evidence/texture/native-descriptor-static/20261030/XgFormatBits.bin').read_bytes()
+    mask=0xffffffff;ordinal=0
+    def verify(p,level):
+        nonlocal ordinal
+        row=struct.unpack_from('<31I',data,8+ordinal*124)
+        assert row[0]==ordinal
+        fmt=((((p[10]&0x1fff)<<10)|(p[7]&0x3fc))<<7)|((p[7]>>23)&0x100)|(p[8]&0xff);fmt&=mask
+        dimension=p[12]>>9&3;kind=20 if dimension==0 else 17 if dimension==2 else 18 if dimension==3 else 19 if p[8]&0x400 else 3
+        pad=(p[10]>>31)*2;add=pad+1;n=p[9]
+        if dimension==0:w,h,d=(n&0xffffff)+add,1,1
+        elif dimension==2:w,h,d=(n&0x7ff)+add,(n>>11&0x7ff)+add,(n>>22)+add
+        else:w,h,d=(n&0x1fff)+add,(n>>13&0x1fff)+add,1
+        if level:
+            w=(max(((w-pad)&mask)>>(level&31),1)+pad)&mask;h=(max(((h-pad)&mask)>>(level&31),1)+pad)&mask
+            d=(max(((d-pad)&mask)>>(level&31),1)+pad)&mask if dimension==2 else 1
+        assert list(row[1:9])==[fmt,kind,0,0,0,0,w,h],('complete-level',ordinal)
+        assert list(row[9:16])==[fmt,kind,0,0,w,h,d],('complete-volume',ordinal)
+        x=row[16:31];height=1 if kind==20 else h;depth=p[9]>>26 if kind==18 else d if kind==17 else 1
+        bits=table[fmt&63];f=fmt&63
+        bx,by=(2,1) if f in [11,12,40] else (4,1) if f in [39,44] else (4,4) if f in [18,19,20,49,51,52,53,58,59,60,61] else (1,1)
+        exponent=p[10]>>13&63;exponent=(exponent-64 if exponent&32 else exponent)&mask
+        assert list(x[:5])==[kind,w,height,depth,fmt],('xg-dimensions',ordinal)
+        assert list(x[7:13])==[bits,((w+bx-1)&mask)//bx,((height+by-1)&mask)//by,depth,bits*bx*by>>3,exponent],('xg-blocks',ordinal)
+        assert x[13]&~11==0 and x[13]&1==p[7]>>31 and bool(x[13]&8)==bool(p[10]>>31) and x[14]==0
+        ordinal+=1
+    for dimension in range(4):
+        for format in range(64):
+            for size in range(8):
+                for flags in range(8):
+                    for level in [0,1,2,3,4,5,7,8]:verify(header(dimension,format,size,flags),level)
+    state=0x4871bcee
+    for i in range(4096):
+        p=header(i%4,i//4%64,i//256%8,i%8)
+        for offset in [7,8,10,11,12]:state=(state*1664525+1013904223)&mask;p[offset]=state
+        verify(p,i%9)
+    assert ordinal==135168
+    return {'completeHeaderRecords':ordinal,'completeNativeOutputStructures':ordinal*3,'levelStructureBytes':32,'volumeStructureBytes':28,'xgStructureBytes':60,'metadataRecords':4096}
+
+
 def audit(group,run,source):
     directory=ROOT/'recovery/evidence/texture'/group/(run+'-1');r=json.loads((directory/'validation.json').read_text(encoding='utf-8-sig'))
     assert r['status']=='passed' and r['sourceCommit']==source and str(r['runId'])==run and not r['sdkValidated']
@@ -133,11 +174,11 @@ def audit(group,run,source):
         assert m['passed'] and m['withoutOriginalTextureCompiler'];configuration=m['configuration'];b=(directory/(configuration+'.capture')).read_bytes()
         assert sha(b)==m['captureSha256'] and (digest is None or digest==sha(b));digest=sha(b)
         if expected is not None:assert b==expected,'Complete independent model differs: '+group
-        else:details=surface_archive(b)
+        else:details=(descriptor_archive if group=='native-descriptor' else surface_archive)(b)
         dlls=list(directory.glob(configuration+'-Recovered.*.dll'));assert len(dlls)==1 and sha(dlls[0].read_bytes())==m['nativeSha256']
         dll=dlls[0].read_bytes();pe=struct.unpack_from('<I',dll,60)[0];assert dll[pe:pe+4]==b'PE\0\0' and struct.unpack_from('<H',dll,pe+4)[0]==0x14c
     return {'group':group,'sourceCommit':source,'runId':run,'completeDebugReleaseCaptureBytes':len(b),'captureSha256':digest,'independentCompleteFixtureModel':model is not None,**details}
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--group',choices=['native-device','native-resource','native-surface'],required=True);p.add_argument('--run-id',required=True);p.add_argument('--source-commit',required=True);p.add_argument('--out',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--group',choices=['native-device','native-resource','native-surface','native-descriptor'],required=True);p.add_argument('--run-id',required=True);p.add_argument('--source-commit',required=True);p.add_argument('--out',type=Path,required=True);a=p.parse_args()
     result=audit(a.group,a.run_id,a.source_commit);a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))

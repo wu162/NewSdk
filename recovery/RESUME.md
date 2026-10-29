@@ -7,6 +7,9 @@
 - **本轮继续：真实原生调用链**：新增native-consumers组使用固定12个真实DDS/TGA源，由原DLL仅生成原生资源测试输入，原/恢复各自重建完整自有分配，四个恢复ABI库连贯执行每级描述符/布局/三次Lock+Unlock/引用计数/最终释放、完整头部和所有存储；同量NoOriginal回放，不把原fixture loader说成已恢复图像加载器。该新组尚未验收，SDK/MOD与生产六DLL包不变。
 - **下一轮计划/执行入口**：收本次集中Actions native-descriptor/native-consumers及实际变化base终态，只补失败/缺失/变化组，复用前三新成功组。独立审计全部实际输入/产物后再推进原生加载与XGCopySurface或完整混合模式身份。PC type2渲染状态、type9/GPU上下文、OOM和未初始化DXT1/bitfields边界仍未完成；设备type2和不支持最终释放明确拒绝。仅PC、编译测试仅Actions、禁止强推。
 
+- **描述符与真实消费已闭环**：118d9500339b40cb70719a87f5febb0ab524e90c /40913579297 completed/success；native-descriptor及native-consumers完整D/R/NoOriginal通过。完整135168头/405504结构输出已审计；12/12真实原生资源、107全部级别、321锁/解锁对及5832704全部存储字节、输入哈希/四DLL/完整轨迹独立审计通过，见descriptor-archive-audit.json、consumer-archive-audit.json。此前描述符差分失败记录保留，不重跑已通过四库。
+- **当前继续XG复制（未验收）**：新增独立TextureCopySurfaceIdentity，仅原XGCopySurface同完整格式/块对齐/兼容flag的identity通用行复制路径，支持负步幅/压缩块/边缘；0/1位格式保持原E_NOTIMPL，格式转换/滤镜/未对齐等未实现入口明确拒绝。32768输入覆盖64格式/4尺寸/2padding/4步幅方向/4flags/4区域及float位型，完整源/目标/padding/guard待Actions；不把该子能力称为完整XGCopySurface。
+
 以下为历史交接，以顶部与实际运行锚点为准。
 
 

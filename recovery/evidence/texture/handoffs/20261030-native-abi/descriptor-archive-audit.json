@@ -1,0 +1,14 @@
+{
+  "group": "native-descriptor",
+  "sourceCommit": "118d9500339b40cb70719a87f5febb0ab524e90c",
+  "runId": "40913579297",
+  "completeDebugReleaseCaptureBytes": 16760840,
+  "captureSha256": "5e0388484276d5131dc5b16fd75f1b2f71fbf14cad727fc605503720f8975361",
+  "independentCompleteFixtureModel": false,
+  "completeHeaderRecords": 135168,
+  "completeNativeOutputStructures": 405504,
+  "levelStructureBytes": 32,
+  "volumeStructureBytes": 28,
+  "xgStructureBytes": 60,
+  "metadataRecords": 4096
+}

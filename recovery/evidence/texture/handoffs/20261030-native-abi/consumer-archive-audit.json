@@ -1,0 +1,14 @@
+{
+  "scope": "complete native resource fixtures/consumer traces and all ownership/lock-state/source fingerprints; no recovered file-loader or production-package claim",
+  "sourceCommit": "118d9500339b40cb70719a87f5febb0ab524e90c",
+  "runId": "40913579297",
+  "completeDebugReleaseCapturesIdentical": true,
+  "captureSha256": "727772ae57cfa30b7bfaf5c015518c1726ede9ef4520242b054a76d5aef16082",
+  "resourceFixtureSha256": "35df52cf2b7f6ac9fc36f755e243f8ccadeef42cdabf719af8ad61ea521ee788",
+  "allRealSources": 12,
+  "successfulNativeResources": 12,
+  "completeLevelsVerified": 107,
+  "lockUnlockPairsVerified": 321,
+  "completeOwnedStorageBytes": 5832704,
+  "allRecordsAndSourceAllocationsParsed": true
+}

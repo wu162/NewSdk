@@ -2973,6 +2973,23 @@
       "evidence": "recovery/evidence/texture/native-consumers/*/validation.json",
       "sdk": false,
       "priority": -4
+    },
+    "native-copy": {
+      "script": "recovery/scripts/TestTextureNativeCopy.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Native/TextureNativeCopyApi.cpp",
+        "src/TextureCompiler/Native/TextureNativeCopyApi.h",
+        "src/TextureCompiler/Native/TextureNativeCopyApi.def",
+        "recovery/scripts/BuildTextureNativeCopy.ps1",
+        "recovery/scripts/TestTextureNativeCopy.ps1",
+        "recovery/tests/TextureNativeCopyOracle.cpp",
+        "recovery/tests/TextureNativeCopyLink.cpp",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/native-copy/*/validation.json",
+      "sdk": false,
+      "priority": -3
     }
   },
   "targetPlatform": "Win32"
