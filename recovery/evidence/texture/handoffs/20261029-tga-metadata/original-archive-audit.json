@@ -1,0 +1,43 @@
+{
+  "scope": "independent original archive audit; probe-only, not recovered/plugin/SDK acceptance",
+  "sourceCommit": "63dcfd2b527284ff153e07e7badc997a3d2bfb49",
+  "runId": "40793184986",
+  "archiveSha256": "e55d7f704fd1d592593843e7444fa231ff05a3824ea3895a08ba50bb4b149993",
+  "fixtures": 12480,
+  "originalCalls": 24960,
+  "decoded": 12480,
+  "rejected": 0,
+  "contexts": 480,
+  "profilesPerContext": 26,
+  "completeRgbaBytes": 2808000,
+  "fullByteBaselineComparisons": 12480,
+  "formats": {
+    "rgb24": 1248,
+    "rgba32": 1248,
+    "rgba32-noattr": 1248,
+    "rgb16": 1248,
+    "rgb16-noattr": 1248,
+    "gray8": 1248,
+    "index15": 1248,
+    "index16": 1248,
+    "index24": 1248,
+    "index32": 1248
+  },
+  "alphaDistribution": {
+    "rgb24/False": 1248,
+    "rgba32/True": 832,
+    "rgba32/False": 416,
+    "rgba32-noattr/True": 832,
+    "rgba32-noattr/False": 416,
+    "rgb16/True": 312,
+    "rgb16/False": 936,
+    "rgb16-noattr/True": 312,
+    "rgb16-noattr/False": 936,
+    "gray8/False": 1248,
+    "index15/True": 1248,
+    "index16/True": 1144,
+    "index16/False": 104,
+    "index24/True": 1248,
+    "index32/True": 1248
+  }
+}
