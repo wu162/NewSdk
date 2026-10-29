@@ -108,8 +108,9 @@ namespace NewModCompiler.Application
         static void Verify(Artifact artifact,string staging)
         {
             if(artifact==null || string.IsNullOrEmpty(artifact.Path) || !Path.IsPathRooted(artifact.Path) || !Paths.Contains(staging,artifact.Path) || !File.Exists(artifact.Path)) throw new IOException("BIG input must be an accepted current staging file.");
+            if(artifact.Verified)return;
             using(DiagnosticDirectory.Acquire(Path.GetDirectoryName(artifact.Path),false)) {
-                if((File.GetAttributes(artifact.Path)&(FileAttributes.Directory|FileAttributes.ReparsePoint))!=0 || new FileInfo(artifact.Path).Length!=artifact.Size || (!artifact.Verified && Hash(artifact.Path)!=artifact.Sha256)) throw new IOException("BIG input changed after compilation.");
+                if((File.GetAttributes(artifact.Path)&(FileAttributes.Directory|FileAttributes.ReparsePoint))!=0 || new FileInfo(artifact.Path).Length!=artifact.Size || Hash(artifact.Path)!=artifact.Sha256) throw new IOException("BIG input changed after compilation.");
             }
         }
         static Artifact Describe(string path,string kind) { return new Artifact {Path=path,Kind=kind,Size=new FileInfo(path).Length,Sha256=Hash(path),Verified=true}; }

@@ -135,10 +135,11 @@ namespace NewModCompiler.Application
         }
         IEnumerable<string> DataFiles(string root, bool legacyRoot)
         {
-            RejectLinks(root);
             foreach (string path in Directory.GetFileSystemEntries(root))
             {
-                if (Directory.Exists(path))
+                FileAttributes attributes=File.GetAttributes(path);
+                if ((attributes&FileAttributes.ReparsePoint)!=0) throw new IOException("Legacy cache data cannot use reparse points.");
+                if ((attributes&FileAttributes.Directory)!=0)
                 {
                     string name = Path.GetFileName(path);
                     if (legacyRoot && (name == ".build" || name == "published" || name == "cache" || name == "assets" || name == ".NewModCompiler" || name.StartsWith(".legacy-cache-candidate-", StringComparison.Ordinal))) continue;
@@ -149,10 +150,7 @@ namespace NewModCompiler.Application
         }
         static IEnumerable<string> Files(string root)
         {
-            RejectLinks(root);
-            foreach (string path in Directory.GetFileSystemEntries(root))
-                if (Directory.Exists(path)) { foreach (string child in Files(path)) yield return child; }
-                else { RejectLinks(path); yield return path; }
+            return Directory.EnumerateFiles(root,"*",SearchOption.AllDirectories);
         }
         static void Copy(string source, string target, CancellationToken cancellation)
         {

@@ -357,8 +357,9 @@ namespace NewModCompiler.Application
         static void ValidateArtifact(Artifact artifact,string streamDirectory)
         {
             if (artifact == null || string.IsNullOrEmpty(artifact.Path) || !Paths.Contains(streamDirectory,artifact.Path) || !File.Exists(artifact.Path)) throw new BuildFailure(ExitCode.Output,"ARTIFACT_INVALID","Backend artifacts must be existing files within the current stream workspace.");
-            artifact.Path = Path.GetFullPath(artifact.Path); artifact.Size=new FileInfo(artifact.Path).Length;
+            artifact.Path = Path.GetFullPath(artifact.Path);
             if (!artifact.Verified) {
+                artifact.Size=new FileInfo(artifact.Path).Length;
                 using (var hash=SHA256.Create()) using (var input=File.OpenRead(artifact.Path)) artifact.Sha256=BitConverter.ToString(hash.ComputeHash(input)).Replace("-","").ToLowerInvariant();
                 artifact.Verified=true;
             }

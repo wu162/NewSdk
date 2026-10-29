@@ -391,9 +391,15 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $confirmed=CacheFiles $cachedOut
         $cancelled=RunCli 'actual-cancel' $mod $cachedOut $true 6 $true;CacheUnchanged $cachedOut $confirmed
         $afterCancel=RunCli 'retry-after-actual-cancel' $mod $cachedOut $true;SameOutputs $plain $afterCancel
-        $held=@($afterCancel.report.artifacts)[0].Path;$confirmed=CacheFiles $cachedOut
+        $held=@($afterCancel.report.artifacts)[0].Path
+        $lockedHot=RunCli 'unchanged-locked-output' $mod $cachedOut $true 0 $false $held;SameOutputs $plain $lockedHot
+        Need ($lockedHot.report.publicationUnchanged -eq $true) 'Locked unchanged output was unnecessarily replaced'
+        $replacementMarker=Join-Path $cachedOut 'published/obsolete-generation.tmp'
+        [IO.File]::WriteAllText($replacementMarker,'Force a genuine directory replacement while the old file is held')
+        $confirmed=CacheFiles $cachedOut
         $occupied=RunCli 'publication-fault' $mod $cachedOut $true 7 $false $held;CacheUnchanged $cachedOut $confirmed
         $afterFault=RunCli 'retry-after-publication-fault' $mod $cachedOut $true;SameOutputs $plain $afterFault
+        Need (!(Test-Path -LiteralPath $replacementMarker)) 'Replacement retry retained the obsolete generation marker'
         $script:contents='base'
         foreach($family in @('audio','w3x')){
             $payloadMod=Join-Path $modeWork $family;$payloadCache=Join-Path $modeWork ($family+'-cache');$payloadPlain=Join-Path $modeWork ($family+'-plain')

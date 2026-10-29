@@ -1,5 +1,7 @@
 # Build information protocol 1.0 (P2)
 
+`publicationUnchanged=true` means the exact published file set, lengths and SHA256 already matched this build. No publication copy or directory exchange occurred; `publicationStatus` remains `PublishedDirectory`. Required report/event/sink failures still fail the build and leave that existing generation intact. New reports include this boolean; older reports may omit it.
+
 `NewModCompiler plan --mod <directory> --sdk-root <directory> --out <directory>` discovers selected stream roots and writes UTF-8 `build.log`, `build.events.jsonl`, and `build-report.json`. `--events`, `--report`, and `--log` override their paths. Diagnostics use stderr. `--events -` is rejected pending verified native output isolation.
 
 The standalone App entry has no asset backend and rejects `build` with `BACKEND_NOT_INTEGRATED` (exit 3). The unified production EXE integrates the experimental Win32 loose Core backend (caching disabled unless `/bc:true` is requested). A successful `plan` report states `PlanOnly` and `NoCompilationRequested`. Controlled App tests inject an executor which is not shipped in production; actual Core and CLI acceptance remain separate evidence.
