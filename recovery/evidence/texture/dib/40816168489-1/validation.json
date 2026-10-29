@@ -1,0 +1,44 @@
+{
+  "runId": "40816168489",
+  "probeOnly": false,
+  "runAttempt": "1",
+  "scope": "Independent PC raw DIB Decode/Load APIs; actual original raw-DIB/BMP full byte equivalence; core/INFO/V2/V3/OS2/V4/V5 and known NPOT/metadata/errors; explicit uncertain bitfields refusals; no Plugin or SDK route",
+  "sourceCommit": "d0a4547e9cb45d35f5f22b73d23c401e97ef266d",
+  "status": "passed",
+  "originalBaselines": [
+    {
+      "runId": "40799686293",
+      "archiveSha256": "08715c9547eb6f9fb8ba1745ab3f38b954522439848caa031889c2f73deb069b",
+      "sourceCommit": "511896747c32c7863078b36ad781caae4f3763c1"
+    },
+    {
+      "runId": "40813121025",
+      "archiveSha256": "a147e3c18f1b04995bde9ffe439a5118c30049d65f68155d24ec9e8436112858",
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3"
+    }
+  ],
+  "fixtureCount": 4866,
+  "configurations": [
+    {
+      "passed": true,
+      "configuration": "Debug",
+      "summary": [
+        "PASS Texture raw DIB differential fixtures=4866 decoded=5700 rejected=3456 explicitRefusals=576 rawDibOriginalCalls=4578 checks=1388383 comparedBytes=5268348; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, array/file APIs, original raw-DIB/BMP equality and per-call isolation; Plugin/SDK routing separate",
+        "PASS Texture raw DIB NoOriginal fixtures=4866 decoded=5700 rejected=3456 explicitRefusals=576 rawDibOriginalCalls=0 checks=1073598 comparedBytes=3512232; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, array/file APIs, original raw-DIB/BMP equality and per-call isolation; Plugin/SDK routing separate"
+      ],
+      "withoutOriginalTextureCompiler": true
+    },
+    {
+      "passed": true,
+      "configuration": "Release",
+      "summary": [
+        "PASS Texture raw DIB differential fixtures=4866 decoded=5700 rejected=3456 explicitRefusals=576 rawDibOriginalCalls=4578 checks=1388383 comparedBytes=5268348; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, array/file APIs, original raw-DIB/BMP equality and per-call isolation; Plugin/SDK routing separate",
+        "PASS Texture raw DIB NoOriginal fixtures=4866 decoded=5700 rejected=3456 explicitRefusals=576 rawDibOriginalCalls=0 checks=1073598 comparedBytes=3512232; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, array/file APIs, original raw-DIB/BMP equality and per-call isolation; Plugin/SDK routing separate"
+      ],
+      "withoutOriginalTextureCompiler": true
+    }
+  ],
+  "originalRawDibCallsPerConfiguration": 4578,
+  "sdkValidated": false,
+  "originalInitializationCallsPerConfiguration": 1
+}

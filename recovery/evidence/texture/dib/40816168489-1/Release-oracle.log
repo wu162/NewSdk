@@ -1,0 +1,1 @@
+PASS Texture raw DIB differential fixtures=4866 decoded=5700 rejected=3456 explicitRefusals=576 rawDibOriginalCalls=4578 checks=1388383 comparedBytes=5268348; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, array/file APIs, original raw-DIB/BMP equality and per-call isolation; Plugin/SDK routing separate
