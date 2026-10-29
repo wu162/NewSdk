@@ -1,0 +1,1 @@
+PASS native PC consumer NoOriginal realSourceFixtures=12 traceBytes=5885996; all stored native allocations/levels/headers, three locks per level, descriptors/refcount/final release; capture loader is oracle-only, no recovered image-loader or production package claim

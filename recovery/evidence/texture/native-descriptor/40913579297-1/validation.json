@@ -1,0 +1,33 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "scope": "Native x86 CPU type3 complete level/volume/XG texture descriptor sizes and output fields, all formats/dimensions/mips plus metadata, full original captures and isolation; nontexture/mixed-mode identity/production package excluded",
+  "runId": "40913579297",
+  "sourceCommit": "118d9500339b40cb70719a87f5febb0ab524e90c",
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "status": "passed",
+  "configurations": [
+    {
+      "passed": true,
+      "captureSha256": "5e0388484276d5131dc5b16fd75f1b2f71fbf14cad727fc605503720f8975361",
+      "withoutOriginalTextureCompiler": true,
+      "nativeSha256": "5a3d35919065079b5836daf3c4becfacc9019630000947739b2dfbff74df7453",
+      "summary": [
+        "PASS native PC descriptor differential headers=135168 outputRecords=405504 formats=64 dimensions=4 metadataCases=4096 traceBytes=16760840; full level/volume/XG structure bytes/canaries/input preservation; nontexture resource descriptors excluded",
+        "PASS native PC descriptor NoOriginal headers=135168 outputRecords=405504 formats=64 dimensions=4 metadataCases=4096 traceBytes=16760840; full level/volume/XG structure bytes/canaries/input preservation; nontexture resource descriptors excluded"
+      ],
+      "configuration": "Debug"
+    },
+    {
+      "passed": true,
+      "captureSha256": "5e0388484276d5131dc5b16fd75f1b2f71fbf14cad727fc605503720f8975361",
+      "withoutOriginalTextureCompiler": true,
+      "nativeSha256": "02986be4a57a1e04aaf8fff430ce795b586c87aa1821bb6269c749143a74d086",
+      "summary": [
+        "PASS native PC descriptor differential headers=135168 outputRecords=405504 formats=64 dimensions=4 metadataCases=4096 traceBytes=16760840; full level/volume/XG structure bytes/canaries/input preservation; nontexture resource descriptors excluded",
+        "PASS native PC descriptor NoOriginal headers=135168 outputRecords=405504 formats=64 dimensions=4 metadataCases=4096 traceBytes=16760840; full level/volume/XG structure bytes/canaries/input preservation; nontexture resource descriptors excluded"
+      ],
+      "configuration": "Release"
+    }
+  ]
+}

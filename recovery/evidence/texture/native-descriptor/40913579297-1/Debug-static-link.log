@@ -1,0 +1,1 @@
+PASS native descriptor import-library consumer: all three original-size output structures and correct DLL identity; no original compiler
