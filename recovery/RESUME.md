@@ -1,3 +1,12 @@
+# 当前：PPM公开源码、实际插件与专用SDK全部通过，准备普通合入
+
+- **本轮完成**：已收齐`838b40b3` /40838359589 completed/success（29完整组passed、19复用）；新增`b999b667` /40878697072的11520条volume边界D/R及NoOriginal通过并独立审计。该run整体仍failure，SDK在旧回滚白名单处停止，原失败保留。
+- **本轮功能修复及SDK**：修复六DLL包遗漏PPM的回滚白名单，仍严格核对七文件及安装后/备份哈希。最终源码`bdecb8707c5bfa7095e5596d9d5c8fea963fdd38` / [40880308857](https://github.com/wu162/NewSdk/actions/runs/40880308857) completed/success，只补sdk-PcPpm并复用49成功组件。三模式各15712实际资产/调用、32成功atlas、四产物/54977全轨迹字节全等；六DLL包/139源码指纹/安装回滚/唯一ID/49组件实际依赖与源图关联均已独立审计，详见[PPM验收](TEXTURE_PPM_NEXT.md)。
+- **保存位置与下一轮计划**：完整成果及审计已保存独立`validation/texture-public-ppm`，必要门槛收齐后普通合入`recovery/texturecompiler-source`，合并时核对实际输入不变并保留源/运行锚点。当前PPM范围闭环，无遗留功能或强制补验；不自动重跑未变组件、旧SDK或完整mymod。后续只按实际PC输入需求开始下一完整能力组。
+- **边界**：生产SDK树仍为`1f2d71a20ce8bf7d9343c7a2246c10275abe28f9`、未替换。仅PC，默认DXT1/不透明DXT1A/不确定bitfields拒绝保留，编译测试仅Actions，禁止强推。
+
+以下为历史交接，以顶部及实际运行锚点为准。
+
 # 当前PPM：49组件通过；修复六DLL安装包回滚后补专用SDK
 
 - **本轮完成**：`b999b6677be0010562850e4077be5b7180932913` / [40878697072](https://github.com/wu162/NewSdk/actions/runs/40878697072)新增ppm-volume-boundaries D/R各11520完整输入及NoOriginal通过；5760标准成功与5760原invalid-volume错误，完整归档独立审计通过。此前48组件保留精确祖先，共49组件就绪。
