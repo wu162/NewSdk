@@ -91,7 +91,7 @@ namespace NewModCompiler.Application
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             try
             {
-                using(var stream=new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None)) { write(stream);stream.Flush(true); }
+                using(var stream=new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None)) write(stream);
                 cancellation.ThrowIfCancellationRequested();RejectLinks(output);File.Move(temporary,output);
             }
             finally { if(File.Exists(temporary)) File.Delete(temporary); }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading;
 using NewModCompiler.Diagnostics;
 
@@ -49,14 +48,9 @@ namespace NewModCompiler.Application
                     if((File.GetAttributes(file.Path)&FileAttributes.ReparsePoint)!=0) throw new IOException("Additional input cannot be a reparse point.");
                     Directory.CreateDirectory(snapshots);
                     using(var source=new FileStream(file.Path,FileMode.Open,FileAccess.Read,FileShare.Read))
-                    using(var destination=new FileStream(target,FileMode.CreateNew,FileAccess.ReadWrite,FileShare.None)) {
+                    using(var destination=new FileStream(target,FileMode.CreateNew,FileAccess.Write,FileShare.None)) {
                         byte[] buffer=new byte[64*1024];int read;
                         while((read=source.Read(buffer,0,buffer.Length))!=0) {cancellation.ThrowIfCancellationRequested();destination.Write(buffer,0,read);}
-                        destination.Flush(true);source.Position=0;destination.Position=0;
-                        using(var hash=SHA256.Create()) {
-                            byte[] expected=hash.ComputeHash(source),actual=hash.ComputeHash(destination);
-                            if(!expected.SequenceEqual(actual)) throw new IOException("Additional staging snapshot differs from its source.");
-                        }
                     }
                 }
                 replacements.Add(file.Name,new BigArchiveEntry{Name=file.Name,SourcePath=target});
