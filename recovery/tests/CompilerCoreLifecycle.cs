@@ -146,6 +146,34 @@ internal static class CompilerCoreLifecycle
         Write("cycle/b.xml", probe); Run(p, a); Clean(p, null, a, b);
         Tests.Add("real-core-circular-include-rejected-then-fixed-same-processor-cache");
     }
+    static void SchemaReceiptCase(BuiltinCompilers plugins)
+    {
+        Configure("schema-receipt"); var p = Processor(plugins);
+        string commands = "<LogicCommandSet xmlns='" + Ns + "' id='Commands'><Cmd>DoIt</Cmd><Cmd>DoIt</Cmd></LogicCommandSet>";
+        string root = Write("schema-receipt/root.xml", Asset("<LogicCommand id='DoIt'/>" + commands));
+        Run(p,root); Clean(p,null,root);
+        AssetDeclarationDocument document; p.Cache.TryGetDocument(root,null,TargetPlatform.Win32,false,out document);
+        Require(document.HasValidatedSchema,"Completed Core validation did not issue its schema receipt");
+        var xml = new XmlDocument(); xml.LoadXml(commands);
+        var ns = new XmlNamespaceManager(xml.NameTable); ns.AddNamespace("ea",Ns);
+        AssetBuffer checkedResult = Recovered.LogicCommandSetCompiler.CompileXml(xml.DocumentElement,ns,false);
+        var instance = new InstanceDeclaration(document) { XmlNode = xml.DocumentElement };
+        AssetBuffer validatedResult = Recovered.LogicCommandSetCompiler.ProcessInstance(instance,TargetPlatform.Win32);
+        Require(checkedResult.InstanceData.SequenceEqual(validatedResult.InstanceData) &&
+            checkedResult.RelocationData.SequenceEqual(validatedResult.RelocationData) && checkedResult.ImportsData.SequenceEqual(validatedResult.ImportsData),
+            "Validated Core dispatch changed LogicCommandSet payload bytes");
+        string bad = Write("schema-receipt/bad.xml",Asset("<LogicCommandSet id='Bad'><Cmd Bogus='1'>DoIt</Cmd></LogicCommandSet>"));
+        int compiled = p.InstanceCompileCount;
+        Failure(p,bad,ErrorCode.SchemaValidation); Clean(p,null,bad);
+        AssetDeclarationDocument rejected; p.Cache.TryGetDocument(bad,null,TargetPlatform.Win32,false,out rejected);
+        Require(!rejected.HasValidatedSchema && p.InstanceCompileCount==compiled,"Invalid XSD input reached a compiler or retained a schema receipt");
+        bool checkedEntryRejected=false;
+        var invalid = new XmlDocument(); invalid.LoadXml("<LogicCommandSet xmlns='"+Ns+"'><Cmd Bogus='1'>DoIt</Cmd></LogicCommandSet>");
+        try { Recovered.LogicCommandSetCompiler.CompileXml(invalid.DocumentElement,ns,false); }
+        catch(NotSupportedException) { checkedEntryRejected=true; }
+        Require(checkedEntryRejected,"Standalone CompileXml lost its unvalidated-input boundary");
+        Tests.Add("Core-XSD-receipt-validated-LogicCommandSet-payload-equality-invalid-schema-rejected-before-dispatch-and-checked-standalone-entry");
+    }
     sealed class SaveFaultCache : SessionCache
     {
         public bool Failed;
@@ -439,7 +467,7 @@ internal static class CompilerCoreLifecycle
             using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
             {
                 RetryCase(plugins, "include", false); RetryCase(plugins, "inheritance", true);
-                CycleCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins);
+                CycleCase(plugins); SchemaReceiptCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins);
                 MetricsFailureCase(plugins, true, false); MetricsFailureCase(plugins, false, true);
                 MetricsFailureCase(plugins, true, true); ProcessorStateCase(plugins);
             }

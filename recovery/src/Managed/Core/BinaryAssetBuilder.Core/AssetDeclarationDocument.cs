@@ -219,6 +219,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		public uint OutputChecksum;
 
 		public bool IsLoaded;
+		public bool SchemaValidated;
 
 		public bool Processing;
 
@@ -420,6 +421,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 	public StringDictionary Tags => _Current.Tags;
 
 	public XmlDocument XmlDocument => _Current.XmlDocument;
+
+	public bool HasValidatedSchema => _Current != null && _Current.SchemaValidated;
 
 	public XmlNamespaceManager NamespaceManager => _Current.NamespaceManager;
 
@@ -640,6 +643,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Document {0} attempted to load twice.", _Current.SourcePath);
 		}
+		_Current.SchemaValidated = false;
 		_Current.DocumentProcessor.RecordXmlParse();
 		CacheInputBoundary.Validate(_Current.SourcePath);
 		FileNameXmlResolver xmlResolver = FileNameResolver.GetXmlResolver(SourceDirectory);
@@ -832,12 +836,14 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void Validate()
 	{
+		_Current.SchemaValidated = false;
 		_Current.XmlDocument.Schemas.Add(_Current.DocumentProcessor.SchemaSet.Schemas);
 		_Current.XmlDocument.Validate(HandleValidationEvents);
 		_Current.NodeSourceInfoSet.Clear();
 		_Current.NodeSourceInfoSet = null;
 		ValidateInstances();
 		UpdateDocumentHashes();
+		_Current.SchemaValidated = true;
 	}
 
 	private bool TryGetFileHashItem(string logicalPath, out FileHashItem item)
@@ -1613,23 +1619,30 @@ public class AssetDeclarationDocument : IXmlSerializable
 	{
 		var dependencies = new Dictionary<InstanceDeclaration, HashSet<InstanceHandle>>();
 		var requiredByPrevious = new HashSet<InstanceHandle>();
+		var maximumNames = new Dictionary<uint, string>();
 		InstanceDeclaration maximum = null;
 		foreach (var instance in finalList)
 		{
 			var set = StableSort_Dependencies(instance);
 			if (set != null) { dependencies.Add(instance, set); requiredByPrevious.UnionWith(set); }
 			if (maximum == null || comparer.Compare(instance, maximum) > 0) maximum = instance;
+			string name;
+			if (!maximumNames.TryGetValue(instance.Handle.TypeId, out name) || string.Compare(instance.Handle.InstanceName, name) > 0)
+				maximumNames[instance.Handle.TypeId] = instance.Handle.InstanceName;
 		}
 		foreach (var instance in instances)
 		{
 			var set = StableSort_Dependencies(instance);
 			int order = maximum == null ? 1 : comparer.Compare(instance, maximum);
+			string name;
+			bool nameAfter = !maximumNames.TryGetValue(instance.Handle.TypeId, out name) || string.Compare(instance.Handle.InstanceName, name) > 0;
 			// In this case every step of the original insertion scan advances to
 			// the end. Equal culture keys and base-stream gaps keep its exact rules.
-			if (order > 0 && !requiredByPrevious.Contains(instance.Handle)) finalList.Add(instance);
+			if (order > 0 && nameAfter && !requiredByPrevious.Contains(instance.Handle)) finalList.Add(instance);
 			else finalList.Insert(StableSort_CalcInsertPosition(finalList, instance, comparer, set, dependencies), instance);
 			if (set != null) { dependencies.Add(instance, set); requiredByPrevious.UnionWith(set); }
 			if (order > 0) maximum = instance;
+			if (nameAfter) maximumNames[instance.Handle.TypeId] = instance.Handle.InstanceName;
 		}
 	}
 

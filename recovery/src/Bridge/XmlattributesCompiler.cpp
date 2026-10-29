@@ -21,28 +21,30 @@ public ref class LogicCommandSetCompiler abstract sealed {
             throw gcnew NotSupportedException("Unsupported LogicCommandSet attribute: " + a->Name);
         }
     }
-public:
-    static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
-        if (node == nullptr) throw gcnew ArgumentNullException("node");
-        if (namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
-        if (node->NodeType != XmlNodeType::Element || node->LocalName != "LogicCommandSet" ||
-            node->NamespaceURI != "uri:ea.com:eala:asset" ||
-            namespaces->LookupNamespace("ea") != node->NamespaceURI)
-            throw gcnew NotSupportedException("Expected asset LogicCommandSet and matching ea namespace");
-        Attributes(node, true);
-        for each (XmlNode^ child in node->ChildNodes) {
-            if (child->NodeType == XmlNodeType::Comment || child->NodeType == XmlNodeType::Whitespace ||
-                child->NodeType == XmlNodeType::SignificantWhitespace) continue;
-            if (child->NodeType != XmlNodeType::Element) {
-                if (String::IsNullOrWhiteSpace(child->Value)) continue;
-                throw gcnew NotSupportedException("LogicCommandSet contains non-element content");
+private:
+    static AssetBuffer^ CompileXmlCore(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian, bool schemaValidated) {
+        if (!schemaValidated) {
+            if (node == nullptr) throw gcnew ArgumentNullException("node");
+            if (namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
+            if (node->NodeType != XmlNodeType::Element || node->LocalName != "LogicCommandSet" ||
+                node->NamespaceURI != "uri:ea.com:eala:asset" ||
+                namespaces->LookupNamespace("ea") != node->NamespaceURI)
+                throw gcnew NotSupportedException("Expected asset LogicCommandSet and matching ea namespace");
+            Attributes(node, true);
+            for each (XmlNode^ child in node->ChildNodes) {
+                if (child->NodeType == XmlNodeType::Comment || child->NodeType == XmlNodeType::Whitespace ||
+                    child->NodeType == XmlNodeType::SignificantWhitespace) continue;
+                if (child->NodeType != XmlNodeType::Element) {
+                    if (String::IsNullOrWhiteSpace(child->Value)) continue;
+                    throw gcnew NotSupportedException("LogicCommandSet contains non-element content");
+                }
+                if (child->LocalName != "Cmd" || child->NamespaceURI != node->NamespaceURI)
+                    throw gcnew NotSupportedException("Unsupported LogicCommandSet child: " + child->Name);
+                Attributes(child, false);
+                for each (XmlNode^ part in child->ChildNodes)
+                    if (part->NodeType == XmlNodeType::Element)
+                        throw gcnew NotSupportedException("Cmd must contain only text");
             }
-            if (child->LocalName != "Cmd" || child->NamespaceURI != node->NamespaceURI)
-                throw gcnew NotSupportedException("Unsupported LogicCommandSet child: " + child->Name);
-            Attributes(child, false);
-            for each (XmlNode^ part in child->ChildNodes)
-                if (part->NodeType == XmlNodeType::Element)
-                    throw gcnew NotSupportedException("Cmd must contain only text");
         }
         XmlNodeAdapter^ adapter = gcnew XmlNodeAdapter(node->CreateNavigator(), namespaces);
         std::vector<std::string> commands;
@@ -56,11 +58,22 @@ public:
         result->ImportsData = Copy(compiled.imports);
         return result;
     }
+public:
+    // Standalone component callers retain their checked XML boundary.
+    static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
+        return CompileXmlCore(node, namespaces, bigEndian, false);
+    }
     static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration, TargetPlatform platform) {
         if (declaration == nullptr) throw gcnew ArgumentNullException("declaration");
         if (declaration->Handle->TypeId != 3959844197u)
             throw gcnew NotSupportedException("Expected LogicCommandSet TypeId 3959844197");
-        return CompileXml(declaration->Node, declaration->Document->NamespaceManager, platform != TargetPlatform::Win32);
+        bool schemaValidated = false;
+#ifdef NEWSdk_MONOLITHIC
+        // Core issues this receipt only after its document and instance validation.
+        schemaValidated = declaration->Document->HasValidatedSchema;
+#endif
+        return CompileXmlCore(declaration->Node, declaration->Document->NamespaceManager,
+            platform != TargetPlatform::Win32, schemaValidated);
     }
 };
 namespace {

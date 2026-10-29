@@ -81,13 +81,33 @@ public static class CompilerStableSort
             var equal = new List2<InstanceDeclaration>();
             equal.Add(Instance("ArmorTemplate","\u00e9")); equal.Add(Instance("ArmorTemplate","e\u0301"));
             Compare(equal,new List2<InstanceDeclaration>(),Comparer(new Dictionary<uint,int> {{equal[0].Handle.TypeId,0}}));
+            // Legacy symbol hashes can alias distinct type names. Its same-type
+            // insertion rule uses TypeId, while its schema comparer uses names.
+            var seen = new Dictionary<uint,string>(); bool collision=false;
+            for(int i=0;i<4096 && !collision;i++)
+            {
+                string type="Type"+i.ToString("D6"); uint id=InstanceHandle.GetTypeId(type); string previous;
+                if(seen.TryGetValue(id,out previous))
+                {
+                    var aliased=new List2<InstanceDeclaration>();aliased.Add(Instance(previous,"Zulu"));aliased.Add(Instance(type,"Alpha"));
+                    Compare(aliased,new List2<InstanceDeclaration>(),Comparer(new Dictionary<uint,int> {{id,0}}));collision=true;
+                }
+                else seen.Add(id,type);
+            }
+            Require(collision,"Legacy symbol-hash collision fixture no longer reproduces");
         }
     }
     static object AppendWork()
     {
         const int size=1024;
         var input=new List2<InstanceDeclaration>(); var counts=new Dictionary<uint,int>();
-        for(int i=0;i<size;i++) {var node=Instance("Type"+i.ToString("D6"),"Name");input.Add(node);counts.Add(node.Handle.TypeId,0);}
+        for(int i=0;input.Count<size && i<100000;i++)
+        {
+            var node=Instance("Type"+i.ToString("D6"),"Name");
+            if(counts.ContainsKey(node.Handle.TypeId))continue;
+            input.Add(node);counts.Add(node.Handle.TypeId,0);
+        }
+        Require(input.Count==size,"Append workload must contain 1024 distinct type identities");
         var comparer=Comparer(counts); input.Sort(comparer);
         var reference=new List2<InstanceDeclaration>(); var slow=new CountComparer(comparer);
         var clock=Stopwatch.StartNew();
@@ -99,6 +119,8 @@ public static class CompilerStableSort
         clock.Stop();double optimizedMs=clock.Elapsed.TotalMilliseconds;
         Require(reference.SequenceEqual(actual),"Append workload changed asset order");
         Require(slow.Calls==(long)size*(size-1)/2 && fast.Calls<size*4,"Append workload still scans the existing output for each asset");
+        Console.WriteLine("StableSort helper only: assets={0}; schema comparisons={1}->{2}; ms={3:F3}->{4:F3}; initial schema sort and SDK build excluded",
+            size,slow.Calls,fast.Calls,referenceMs,optimizedMs);
         return new {assets=size,referenceComparisons=slow.Calls,optimizedComparisons=fast.Calls,referenceMs,optimizedMs,
             scope="Single direct production sorting-helper sample, excluding initial schema sort, serialization, native compilation and publication; not an end-to-end SDK speedup"};
     }

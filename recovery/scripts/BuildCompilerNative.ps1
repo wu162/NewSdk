@@ -97,7 +97,7 @@ $bridgeUnity=Join-Path $generated 'CompilerBridges.cpp'
 $unityLines=@('// Explicit production Bridge unity translation unit.')
 foreach($path in $bridgeGenerated){$unityLines+=('#include "'+$path.Replace('\','/')+'"')}
 [IO.File]::WriteAllLines($bridgeUnity,[string[]]$unityLines,[Text.UTF8Encoding]::new($false))
-$unityArguments=@('/nologo','/c','/clr','/MD','/EHa','/std:c++17','/fp:precise',$optimization,('/AI'+[IO.Path]::GetDirectoryName($foundation)),('/Fo'+$bridgeUnityObject),$bridgeUnity)
+$unityArguments=@('/nologo','/c','/clr','/MD','/EHa','/std:c++17','/fp:precise','/DNEWSdk_MONOLITHIC',$optimization,('/AI'+[IO.Path]::GetDirectoryName($foundation)),('/Fo'+$bridgeUnityObject),$bridgeUnity)
 $unityLog=Join-Path $logs 'CompilerBridges.log'
 & cl.exe @unityArguments *> $unityLog
 if($LASTEXITCODE -ne 0){Get-Content $unityLog -Tail 100|ForEach-Object{Write-Host $_};throw 'Unified Bridge compilation failed'}
