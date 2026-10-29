@@ -200,7 +200,9 @@ try{
                 $input="$mod/Data/W3x.xml";$stamp=[IO.File]::GetLastWriteTimeUtc($input)
                 SameLengthMutation $input 'FrameRate="30"' 'FrameRate="31"'
             }
-            $changed=RunCli ($family+'-content-invalidated') $mod $cachedOut $true;Cache $changed 'cold';DifferentOutputs $hot $changed
+            $changed=RunCli ($family+'-content-invalidated') $mod $cachedOut $true;Cache $changed 'invalidated'
+            if($family -eq 'w3x'){Need ($changed.report.cache.hits -gt 0) 'W3X animation edit discarded its unchanged hierarchy asset'}
+            DifferentOutputs $hot $changed
             $changedPlain=RunCli ($family+'-changed-disabled') $mod $plainOut $false;Cache $changedPlain 'disabled';SameOutputs $changedPlain $changed
             $changedHot=RunCli ($family+'-changed-hot') $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
             if($family -eq 'audio'){

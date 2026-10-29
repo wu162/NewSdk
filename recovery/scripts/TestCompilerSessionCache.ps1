@@ -336,6 +336,10 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
             $plain=RunCli ($change.name+'-disabled') $mod $plainOut $false;SameOutputs $plain $changed
             $hot=RunCli ($change.name+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         }
+        $combinedChanged=RunCli 'combined-sc-bc-incremental' $mod $combinedOut $true -BuildEnabled $true;SameOutputs $plain $combinedChanged
+        Need ($combinedChanged.report.cache.sessionPackageHits -gt 0 -and $combinedChanged.report.cache.sessionPackageMisses -eq 0 -and $combinedChanged.report.cache.documentReuse -gt 0 -and $combinedChanged.report.cache.instanceCompile -gt 0 -and $combinedChanged.report.cache.misses -gt 0) 'Combined incremental caches did not retain unaffected documents and invalidate affected asset entries independently'
+        $combinedChangedHot=RunCli 'combined-sc-bc-incremental-hot' $mod $combinedOut $true -BuildEnabled $true;SameOutputs $plain $combinedChangedHot
+        Need ($combinedChangedHot.report.cache.sessionPackageHits -gt 0 -and $combinedChangedHot.report.cache.sessionPackageMisses -eq 0 -and $combinedChangedHot.report.cache.instanceCompile -eq 0 -and $combinedChangedHot.report.cache.hits -eq 0 -and $combinedChangedHot.report.cache.misses -eq 0) 'Combined updated session failed to advance to its latest hot generation'
         OriginalOracle $hot 'original-mutated'
         # Neutral same-length/same-mtime schema and configuration edits must
         # miss the content namespace while preserving all compiled bytes.

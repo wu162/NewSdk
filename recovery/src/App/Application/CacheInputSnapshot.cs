@@ -7,11 +7,10 @@ using System.Threading;
 
 namespace NewModCompiler.Application
 {
-    // A component of the new build-asset namespace, deliberately not a cache
-    // lookup or an enablement gate by itself. Production additionally requires
-    // the opt-in Core input boundary, audited cacheable providers and process
-    // resolution identity. Inventory whole SDK/MOD/runtime roots instead of
-    // trusting a caller-maintained list of XML includes.
+    // Inventory SDK/MOD/runtime roots once for a full mutation guard and a
+    // separate incremental namespace. Neither is a cache lookup or an enablement
+    // gate by itself: Core must validate document and asset dependencies inside
+    // the input boundary, with audited providers and process resolution identity.
     public sealed class CacheInputSnapshot
     {
         public const string Format = "NewModCompiler.InputInventory.v1";
