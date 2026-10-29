@@ -1,3 +1,12 @@
+# 当前：PC六DLL已正式接入；17 SDK通过，部署后组件复验运行中
+
+- **本轮完成**：221ce801 /40884132968的17个SDK profile和完整未裁剪mymod/384真实资产已全部通过；同一PcPpm/full-mymod六DLL包已由部署步骤安装，普通推送提交0fa4acd3。SDK/tools三Texture路由已激活，原TextureCompiler oracle保留；SDK/RecoveryTexture保存相对路径receipt、原配置和Restore.ps1。迁移目录回滚/重装已在完整MOD验证通过。安装文件按原包/原source/Windows Git过滤恢复并限定-text，原收据SHA不改，详见handoffs/20261029-deployment/installed-byte-audit.json。
+- **原生实现与验证**：完整getErrorString 101状态映射/静态对象，2093ea3d /40889408253 D/R各12357输入和10404指针关系及NoOriginal通过；SimpleBuffer x86 thiscall/析构flags/配套分配释放、端序与常量facade导出，e4c67dd3 /40890508256 success，D/R各10序列/520追加/8flags/262144端序及完整NoOriginal。两组完整原记录已独立模型审计，见handoffs/20261029-native-abi/independent-archive-audit.json；独立ABI DLL不加入生产六DLL包。
+- **仍运行/下一轮直接执行**：部署改变SDK/tools实际输入，工作流已显式dispatch受影响组件完整复验；先查主分支最新运行并保留逐组成功，不以部署前49组替代新SDK输入结果。独立339656a2 /40892135472正在补验完整DLL名/导入库消费者，尚未合入；先收终态，再保留新源码锚点普通合入。随后运行InspectTextureDeployment.py --run-id 40884132968 --source-commit 221ce80136cb3c7a942988a5a10d158ecca63de7 --require-deployment --out recovery/evidence/texture/handoffs/20261029-deployment/full-archive-audit.json，核对17 SDK全部产物/全轨迹、同包、完整MOD与落库字节。本轮时间上限前未完成此完整归档审计，不能称全部收尾完成。
+- **未完成业务**：完整原混合模式/设备/资源/LockRect/UnlockRect/XG原生ABI仍未实现；按TEXTURE_NATIVE_ABI_NEXT.md的CreateDevice@0xE097、初始化0x115FE/0x1165A及Release@0xDF8A/0x1169A连贯组推进。默认DXT1/不透明DXT1A和扩展bitfields仍按原版未初始化边界拒绝，未擅自改成标准输出。仅PC、编译测试仅Actions、禁止强推。
+
+以下为历史交接，以顶部及实际运行锚点为准。
+
 # 当前：正式PC部署里程碑（实现已保存，等待Actions）
 
 - **用户本轮目标**：完成此前列出的剩余任务；沿用PC/逐字节正确性/编译测试仅Actions/禁止强推规则，默认最多70分钟推进。默认DXT1、全不透明DXT1A及扩展bitfields有原版未初始化反例，不能伪造确定等价；完整原混合模式/native ABI仍独立未完成，不把功能包部署当作全DLL复刻。
