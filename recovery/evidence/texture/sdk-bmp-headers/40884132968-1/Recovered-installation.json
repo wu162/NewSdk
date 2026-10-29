@@ -1,0 +1,51 @@
+{
+  "packageSourceCommit": "221ce80136cb3c7a942988a5a10d158ecca63de7",
+  "packageManifestSha256": "5b5d247e5ec544d5c3b258228e78ae5136d7fae1167641637035ee7c3280a256",
+  "files": [
+    {
+      "installedSha256": "778222a2db2634e5ec92c8174fcde8879100c9f24827bc7e49d9d3d2362146be",
+      "file": "BinaryAssetBuilder.exe.config",
+      "beforeSha256": "c70ba3231cec9a130fa170d2866836c020659bad2777dfb1d8dc61e914b666cb",
+      "existed": true
+    },
+    {
+      "installedSha256": "e576304c80df18bce014141e9aa875b0b1fc9e6224a689b01766cb0a4b520adc",
+      "file": "Recovered.BinaryAssetBuilder.TextureCompiler.dll",
+      "beforeSha256": null,
+      "existed": false
+    },
+    {
+      "installedSha256": "09d3cde19285370c84bd11c4383d8054e003ac6f6523328a9474b796a63793d8",
+      "file": "Recovered.TextureDxtAlpha.dll",
+      "beforeSha256": null,
+      "existed": false
+    },
+    {
+      "installedSha256": "799e916bf4053228eed2e5cbe3517f4e5fa5e242239145b8c26f909f8718415c",
+      "file": "Recovered.TextureDxtColour.dll",
+      "beforeSha256": null,
+      "existed": false
+    },
+    {
+      "installedSha256": "dc2b2639bbc2e1bea0040d73b40aedef440fb4a507d0d9cf5fa0914ba3d974bc",
+      "file": "Recovered.TextureJpeg.dll",
+      "beforeSha256": null,
+      "existed": false
+    },
+    {
+      "installedSha256": "527e3777a16a4d32b9d8446ae0eefd08fb60f636ff7b35d687a8e10caa5e0421",
+      "file": "Recovered.TexturePpm.dll",
+      "beforeSha256": null,
+      "existed": false
+    },
+    {
+      "installedSha256": "435f6566e77cf8fc157236bf70d020eec657161ef11c48de7175c78c5a620e4c",
+      "file": "Recovered.TexturePublicS3.dll",
+      "beforeSha256": null,
+      "existed": false
+    }
+  ],
+  "backupDirectory": "D:\\a\\_temp\\texture-sdk-231b42d15b194c43a63e3fe499710ba2\\Recovered\\RecoveryTextureBackups\\5a8b109424a641ea97a5c0624bf20a0e",
+  "status": "installed",
+  "sdkDirectory": "D:\\a\\_temp\\texture-sdk-231b42d15b194c43a63e3fe499710ba2\\Recovered"
+}

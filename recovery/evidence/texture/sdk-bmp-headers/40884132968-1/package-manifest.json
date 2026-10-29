@@ -1,0 +1,859 @@
+{
+  "configuration": "Release",
+  "sourceFiles": [
+    {
+      "file": "recovery/reference/ijg6b/.gitattributes",
+      "sha256": "315be0c14c5a8e49483ab56d71c429449bbb018d27dd8eb390162f891883e19b",
+      "bytes": 88
+    },
+    {
+      "file": "recovery/reference/ijg6b/NOTICE.md",
+      "sha256": "c694d5c022c517c5c61e585784ea212b754f0aaff02bb9b8181127bbc9cb0c36",
+      "bytes": 471
+    },
+    {
+      "file": "recovery/reference/ijg6b/PROVENANCE.json",
+      "sha256": "753402cdc3b556e267a202915cd4498bdcacd904eed2ec2a46f445ec067747c9",
+      "bytes": 6807
+    },
+    {
+      "file": "recovery/reference/ijg6b/README",
+      "sha256": "4cf9c190f184019b61c36bcc49d4a24ffeb2a838c6f1690d6c4db14cfb2d0478",
+      "bytes": 19945
+    },
+    {
+      "file": "recovery/reference/ijg6b/cderror.h",
+      "sha256": "fff8952ba362b0decf1994221dcdce56380540cbc68817fd5cf3e1bfa52c6a7e",
+      "bytes": 5249
+    },
+    {
+      "file": "recovery/reference/ijg6b/cdjpeg.c",
+      "sha256": "7e9f5afdd367683ddac9ddc47f06d321b926df1b211d6dd71cd7e8e5241b257a",
+      "bytes": 4682
+    },
+    {
+      "file": "recovery/reference/ijg6b/cdjpeg.h",
+      "sha256": "51414d6b716c3fd47a77b4988988b2755dd3e32aea4ec7860b62b03dafd19c8a",
+      "bytes": 6123
+    },
+    {
+      "file": "recovery/reference/ijg6b/cjpeg.c",
+      "sha256": "87657ebceb24e5cb694f8c5c55fc2ecf38e9e2628e1185d5f149dda474b4446c",
+      "bytes": 19852
+    },
+    {
+      "file": "recovery/reference/ijg6b/jcapimin.c",
+      "sha256": "5d7e394ac763f51bb13d6f049c65888d3b106bf54c01253807647745acdf6eac",
+      "bytes": 9121
+    },
+    {
+      "file": "recovery/reference/ijg6b/jcapistd.c",
+      "sha256": "371517d8285ca47d286be53a6c1bf8f1a0372e12e6e7f7c84b324d7f441b6581",
+      "bytes": 5881
+    },
+    {
+      "file": "recovery/reference/ijg6b/jccoefct.c",
+      "sha256": "3ae6713a9b2a3fe717703dcdcb37f5dfdf123c19736207b71c132c4e1caa7099",
+      "bytes": 16400
+    },
+    {
+      "file": "recovery/reference/ijg6b/jccolor.c",
+      "sha256": "2c2b7417c2da845e5dcd959b4fb6264b8848c0de689d95dcc2a5b407ecaba5b5",
+      "bytes": 14848
+    },
+    {
+      "file": "recovery/reference/ijg6b/jcdctmgr.c",
+      "sha256": "58adbdb02c125057964569e56fad59df8dc7d61e751a476006c34e24c030d1dd",
+      "bytes": 12469
+    },
+    {
+      "file": "recovery/reference/ijg6b/jchuff.c",
+      "sha256": "1255c27a8fae13ad2b53d5fa17697b3b7cdb4983f6bdbf96876326189d2efba0",
+      "bytes": 28222
+    },
+    {
+      "file": "recovery/reference/ijg6b/jchuff.h",
+      "sha256": "0aa206ea4abf0e68df14745c114fbe1db7705ce5c881b0964babf5acfbc38764",
+      "bytes": 1575
+    },
+    {
+      "file": "recovery/reference/ijg6b/jcinit.c",
+      "sha256": "31aa9f72d8e6250790328512ae9c646b3c2b32887f79fa3df01af7d5345e061c",
+      "bytes": 2349
+    },
+    {
+      "file": "recovery/reference/ijg6b/jcmainct.c",
+      "sha256": "a51f469b02429189ad0c5a52fb2d789d7025c1802b87168a9fe9180fc135c07e",
+      "bytes": 9168
+    },
+    {
+      "file": "recovery/reference/ijg6b/jcmarker.c",
+      "sha256": "c4eadb83aeaa63df9a17364fbddb1df1b96fb1281f2d395dff6ec8371373cfcc",
+      "bytes": 17245
+    },
+    {
+      "file": "recovery/reference/ijg6b/jcmaster.c",
+      "sha256": "44a467046fc8eee886359e1c738fb8289a5bb3533b06de62d332d5b409ddfb2b",
+      "bytes": 19889
+    },
+    {
+      "file": "recovery/reference/ijg6b/jcomapi.c",
+      "sha256": "d8a79c2a19310e0bc918324d7174a1e1bc1b9e316f63fd90449abf46c041711d",
+      "bytes": 3110
+    },
+    {
+      "file": "recovery/reference/ijg6b/jconfig.vc",
+      "sha256": "1d0894775067d15163181f26d3039e24b34501ca7e5380dd2ddb8526dd05b250",
+      "bytes": 1333
+    },
+    {
+      "file": "recovery/reference/ijg6b/jcparam.c",
+      "sha256": "c24c98d067ba1424a578e91a0ab584533983eafbcc399d681895974225478629",
+      "bytes": 21275
+    },
+    {
+      "file": "recovery/reference/ijg6b/jcphuff.c",
+      "sha256": "7a428d6d13f786ba53d200ba96ab1fa3ff9f7dad61737ad96f3ce199b748c367",
+      "bytes": 25115
+    },
+    {
+      "file": "recovery/reference/ijg6b/jcprepct.c",
+      "sha256": "4713a51fd7ecb9cc7c7162b30bc26243342361a4e083f43f2afbd10e977a92fc",
+      "bytes": 12073
+    },
+    {
+      "file": "recovery/reference/ijg6b/jcsample.c",
+      "sha256": "8e0b73f54bafcd87f7117795de04987eb1a5a3ac74fb8d256833ceb59f8b31d4",
+      "bytes": 18859
+    },
+    {
+      "file": "recovery/reference/ijg6b/jctrans.c",
+      "sha256": "d548e4aea1e85dfd37ac1bf359df768480c82927a52ecd2356ef1ca0987f51a9",
+      "bytes": 13977
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdapimin.c",
+      "sha256": "4f6e8865e4ef356b90131327f6fa847fb12e8ef03e823bde946d3e2f9d9356c3",
+      "bytes": 12637
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdapistd.c",
+      "sha256": "1b062e70e891819f4603f83baf49462ea737255a0c39df3ef941ef543f94fbab",
+      "bytes": 9348
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdatadst.c",
+      "sha256": "733388bac2d58328f8918d23ddfc9f1fc3d60b8a97ad90eb057920005c23cfc7",
+      "bytes": 5119
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdatasrc.c",
+      "sha256": "4de71c25304b1c3a2f19f62ba176122db78c4ac7147c2fc3fdf92532dce8f80d",
+      "bytes": 7604
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdcoefct.c",
+      "sha256": "d84af1a89ea5f91d68607d5620a492f986b7515c141bc3666c5a70dc44df57db",
+      "bytes": 25155
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdcolor.c",
+      "sha256": "de64bfa0416fa45c8a55cec82c7da468b329c3c3fc9cc55eb5f56509a80332cf",
+      "bytes": 12962
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdct.h",
+      "sha256": "4cde9d7c12ffc920e1dd525c6b7f41f88a3ea573af8c66a4b6d0d6ed3d7fd770",
+      "bytes": 7041
+    },
+    {
+      "file": "recovery/reference/ijg6b/jddctmgr.c",
+      "sha256": "f50d9b1414b44782d4ef46761a53f930b06764468b4cbbf0bf0761ac0751defd",
+      "bytes": 8293
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdhuff.c",
+      "sha256": "980d1bdeb8bc631a3528560a4f01bfae28efd8f3ecce4a76d32c97a71e6d1f52",
+      "bytes": 20866
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdhuff.h",
+      "sha256": "9474219e38bd98af7fd427e25462857854f3391fe4eaf329a0d0cb5e438e56f3",
+      "bytes": 8138
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdinput.c",
+      "sha256": "f1f6b042aa907fe622aa7c94b21d71e61f7f306e10988148c42cc7d50f667e76",
+      "bytes": 13500
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdmainct.c",
+      "sha256": "f9a8331d0a58f6ae74bbfc27e9640d66afb067793586358e0bb47bdb7cb754df",
+      "bytes": 20366
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdmarker.c",
+      "sha256": "1200c42679f318768025f8e45457d02c5ce5dfecbd72b37dc0bd1da9adb4dba0",
+      "bytes": 41118
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdmaster.c",
+      "sha256": "c9f18a007511047a50db0b14c54e4d88c279571ec36824b70c3c20232ef7a8fe",
+      "bytes": 19710
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdmerge.c",
+      "sha256": "a47ca108ebf955104abbe3f9a64383532be2c70c6f956b5844b412f151f50453",
+      "bytes": 13916
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdphuff.c",
+      "sha256": "75db83bd4bf1f3f6f6fe7b1d2e195efcf5e3ab65597089807aaeeffbdb013627",
+      "bytes": 20559
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdpostct.c",
+      "sha256": "f873dd3a08eedee9a32c1e343cfbdc3380d2e245e1eab2c416d4e1a62cc9586e",
+      "bytes": 9723
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdsample.c",
+      "sha256": "acca64d28c61b87e77993dd0bd51d089ecd68f8989f93e7d17156314ca58670d",
+      "bytes": 16381
+    },
+    {
+      "file": "recovery/reference/ijg6b/jdtrans.c",
+      "sha256": "c97867f861168d81844a9c9fd8c0b643ce835534a605a93aaab758ec36c56d8a",
+      "bytes": 5090
+    },
+    {
+      "file": "recovery/reference/ijg6b/jerror.c",
+      "sha256": "f215cc7948e628f4b3bf1f153ce1f460a65b0c4f9b5d4967e9cdc7ad95a3e265",
+      "bytes": 7801
+    },
+    {
+      "file": "recovery/reference/ijg6b/jerror.h",
+      "sha256": "324f058e0dc17408ea83a8d47d0a7a1f6ba7553d653f709a9be275971f539fec",
+      "bytes": 13936
+    },
+    {
+      "file": "recovery/reference/ijg6b/jfdctflt.c",
+      "sha256": "07c7ec15785f5709515424da1b45deacfa822197b761e319f45fbaa45e17caf9",
+      "bytes": 5486
+    },
+    {
+      "file": "recovery/reference/ijg6b/jfdctfst.c",
+      "sha256": "1c28ec690d4a69bdc285eac01bef668e31866ad0018fe9b4f68bcdce8a9ec044",
+      "bytes": 7578
+    },
+    {
+      "file": "recovery/reference/ijg6b/jfdctint.c",
+      "sha256": "807dd95d59692db94d2fa23557d8a16e2a20cb4d851ba5a82f26fa1a674b52c8",
+      "bytes": 11066
+    },
+    {
+      "file": "recovery/reference/ijg6b/jidctflt.c",
+      "sha256": "0988f6ba29f57b691dabdd3f0541839fb651dc74abd36c395130b12a30937155",
+      "bytes": 8451
+    },
+    {
+      "file": "recovery/reference/ijg6b/jidctfst.c",
+      "sha256": "c864b3dcfe494f9c8bda25a6fa5fc0a330e636b32eb4bcb6febe8cb01ed1d433",
+      "bytes": 13170
+    },
+    {
+      "file": "recovery/reference/ijg6b/jidctint.c",
+      "sha256": "3b7123ba9a66c10eb1f96d7432637b051278f3538d1b06884f9d21a39fd78f9a",
+      "bytes": 14815
+    },
+    {
+      "file": "recovery/reference/ijg6b/jidctred.c",
+      "sha256": "df25adc646b0fdd69aed54361928aeb36972a8293c917f8ec1b0d62e8f764252",
+      "bytes": 13528
+    },
+    {
+      "file": "recovery/reference/ijg6b/jinclude.h",
+      "sha256": "a6433e5ea0030f4bffd41bcc2f064008afd79de4270cf28494bd43d2fbc5da06",
+      "bytes": 3250
+    },
+    {
+      "file": "recovery/reference/ijg6b/jmemansi.c",
+      "sha256": "fbcb3e54fa6e4b014321f29bf671ccae87072d5bb5ae8e5d31ab9f85e2383c4e",
+      "bytes": 4610
+    },
+    {
+      "file": "recovery/reference/ijg6b/jmemdos.c",
+      "sha256": "d98757c16fb714ebd61c0e5b0dbff9733294975dd61967e4f62b4bacdce1a1fb",
+      "bytes": 18977
+    },
+    {
+      "file": "recovery/reference/ijg6b/jmemmac.c",
+      "sha256": "0fcbd4378662b3eeb9952fa7c498ed087dd5a058daa8921f5abe1390676f4241",
+      "bytes": 9507
+    },
+    {
+      "file": "recovery/reference/ijg6b/jmemmgr.c",
+      "sha256": "2b57e48bb6dd369c2d46e5827cd1e2553d50e02b062d94c2c17725ca26b642e3",
+      "bytes": 40988
+    },
+    {
+      "file": "recovery/reference/ijg6b/jmemname.c",
+      "sha256": "c6318c7b484c26354ac3e6164c15403b6445d5eb0d81699b7e5c4106bf4e3e9e",
+      "bytes": 8314
+    },
+    {
+      "file": "recovery/reference/ijg6b/jmemnobs.c",
+      "sha256": "0605c64556d298071473fc245fa9d83cf10b60022d5c5d2821a846b94aa1a9fb",
+      "bytes": 2772
+    },
+    {
+      "file": "recovery/reference/ijg6b/jmemsys.h",
+      "sha256": "dbe87b534bc93f9ea54492589e69307b492aff8a377fa3c9c8b54a54de488397",
+      "bytes": 8230
+    },
+    {
+      "file": "recovery/reference/ijg6b/jmorecfg.h",
+      "sha256": "262138c3433e81e84e9f6811b38b5dc63e6f161e9b952afb0ff61b4a39b697a9",
+      "bytes": 12458
+    },
+    {
+      "file": "recovery/reference/ijg6b/jpegint.h",
+      "sha256": "f2fbbf47da9fe7cc9e4813235d71e1252ec4662e3ecb8823bd4d499492125153",
+      "bytes": 15712
+    },
+    {
+      "file": "recovery/reference/ijg6b/jpeglib.h",
+      "sha256": "b34b3d9897820302cc23ba60217157f75e03db8c537a7d4703ff0bc8c9fc048b",
+      "bytes": 46205
+    },
+    {
+      "file": "recovery/reference/ijg6b/jpegtran.c",
+      "sha256": "a442485777182ae80b745bdb19bf9e45bece7143d9e7828ec97c06ba81e57f21",
+      "bytes": 16227
+    },
+    {
+      "file": "recovery/reference/ijg6b/jquant1.c",
+      "sha256": "556df5715cf5d915e5190066ff4e542a9911b651e45b34d322a6f6c2b0098fbc",
+      "bytes": 31294
+    },
+    {
+      "file": "recovery/reference/ijg6b/jquant2.c",
+      "sha256": "9b6844e18480d7003618e8f473a0900743d15fc8516aee7229a77adce470eb0b",
+      "bytes": 48429
+    },
+    {
+      "file": "recovery/reference/ijg6b/jutils.c",
+      "sha256": "2cab735c6ea1bca55f4c94a72c73035a0a161378403a6bd849b350df71db92d6",
+      "bytes": 5240
+    },
+    {
+      "file": "recovery/reference/ijg6b/jversion.h",
+      "sha256": "7a8c12a9d52f62342b46b64a8d91d148ae7b0398e9663ad03da3e0b882cd2f14",
+      "bytes": 360
+    },
+    {
+      "file": "recovery/reference/ijg6b/makefile.vc",
+      "sha256": "4eb8f0680d5769996e570eed9cb09f1229fa0ee28ae981205b3d1b9275906cee",
+      "bytes": 12176
+    },
+    {
+      "file": "recovery/reference/ijg6b/rdbmp.c",
+      "sha256": "a059c7271be741d6a494d1196bfe78584524b9f56267ca238e24ba040a3886b7",
+      "bytes": 13792
+    },
+    {
+      "file": "recovery/reference/ijg6b/rdgif.c",
+      "sha256": "f632af674bc404242816be0f945203fdc87a04266ae7e8a21e870c4333e2197a",
+      "bytes": 1272
+    },
+    {
+      "file": "recovery/reference/ijg6b/rdppm.c",
+      "sha256": "4c800ecf405e821f7d350eb6fe9ea1a336940a615c1b45d15017100bdf11e7d6",
+      "bytes": 14024
+    },
+    {
+      "file": "recovery/reference/ijg6b/rdrle.c",
+      "sha256": "b6393aa4bc0eee2c52a31c67882ac1042db28616b81050ee762991e28560b3d4",
+      "bytes": 11673
+    },
+    {
+      "file": "recovery/reference/ijg6b/rdswitch.c",
+      "sha256": "e20d1272e6146d89cd30e89646d1a8c2f08dfacb3a1705661b9896b99bca3e4f",
+      "bytes": 9675
+    },
+    {
+      "file": "recovery/reference/ijg6b/rdtarga.c",
+      "sha256": "6cc6528ca9cff3dfe6b1a3897d09a9f9f86733dd3b7c65810e0d4966b5ad3e14",
+      "bytes": 14967
+    },
+    {
+      "file": "recovery/reference/ijg6b/transupp.h",
+      "sha256": "ce899a5d2a45663d7f98b2d7cf89db21a7e1aa85bb83106a287fba120c5cdd45",
+      "bytes": 5761
+    },
+    {
+      "file": "recovery/scripts/BuildTextureCompiler.ps1",
+      "sha256": "e5a0e47a9ab72e88729b1d4da846300634bbe3af9ef1b72614e55d31f30a1ce4",
+      "bytes": 9027
+    },
+    {
+      "file": "recovery/scripts/BuildTextureJpeg.ps1",
+      "sha256": "45676be10ef31022cfed5ea292fdc180b7ad61459413f1e1758d6b2b05e8361f",
+      "bytes": 2662
+    },
+    {
+      "file": "recovery/scripts/BuildTexturePpm.ps1",
+      "sha256": "5c938a93522736841a6e467ec74087db62ad28fa37a4932ef876ec4a72822e1d",
+      "bytes": 1428
+    },
+    {
+      "file": "recovery/scripts/BuildTexturePublicS3.ps1",
+      "sha256": "9ffcc295370f362248f9d9df15233659e603352c19b48ca5883754cdd189af02",
+      "bytes": 2215
+    },
+    {
+      "file": "recovery/scripts/InstallTextureCompiler.ps1",
+      "sha256": "0f0d6888efb04c9a508c2bb38e097f3badebdf284ff5dc6e81281915edae4006",
+      "bytes": 4842
+    },
+    {
+      "file": "recovery/scripts/RestoreTextureCompiler.ps1",
+      "sha256": "b6b1115c2e860f2f3548f381d4a689fdba3344ea27a10851d06ae53f5b4566b5",
+      "bytes": 2427
+    },
+    {
+      "file": "src/TextureCompiler/Colour/SOURCE_MAP.json",
+      "sha256": "0c83527ad9af1936b3f5148e9293f1b468538e6ba1721c320a39d6bb14fd3c66",
+      "bytes": 3386
+    },
+    {
+      "file": "src/TextureCompiler/Colour/TextureColour.asm",
+      "sha256": "ad7fafc0dc20f14691ad9929161948b0b2bc5456197971fd82144ae20a0c39a9",
+      "bytes": 1488640
+    },
+    {
+      "file": "src/TextureCompiler/Colour/TextureColourBridge.cpp",
+      "sha256": "2e33a8f7a309606104ab1bd3796b09c5481918c27df5cf616a790bd267f31281",
+      "bytes": 1496
+    },
+    {
+      "file": "src/TextureCompiler/Dxt/README.md",
+      "sha256": "ab32e023e8b8673f484cee52af9cda38fa15a02fc70daae15356edc8bcf4604b",
+      "bytes": 2675
+    },
+    {
+      "file": "src/TextureCompiler/Dxt/TextureAlphaQuantizer.cpp",
+      "sha256": "e00f17c387de53110e8f78e023c524f277db2b8172aad193ab5993b959e3c5ba",
+      "bytes": 50747
+    },
+    {
+      "file": "src/TextureCompiler/Jpeg/TextureJpeg.c",
+      "sha256": "b3c678d7d5724760eceeeef5e2ee16f79002e7cd340d84b11278dc042e00b68a",
+      "bytes": 3043
+    },
+    {
+      "file": "src/TextureCompiler/Managed/Plugin.Atlas.cs",
+      "sha256": "464b44bc5ef15993e8785d0b31130b6998ca519ec5804aee7b3e76dd2d55227b",
+      "bytes": 5457
+    },
+    {
+      "file": "src/TextureCompiler/Managed/Plugin.Dds.cs",
+      "sha256": "318685344fd7eb21925ad91c8e15aae02b219f9bac2f6446d4696452f3f6ad27",
+      "bytes": 5221
+    },
+    {
+      "file": "src/TextureCompiler/Managed/Plugin.Images.cs",
+      "sha256": "2be1cb14d7d6d05ad97a469b6d94aa28d40f759a2aa66dbde8678b048d1342ff",
+      "bytes": 6289
+    },
+    {
+      "file": "src/TextureCompiler/Managed/Plugin.Metadata.cs",
+      "sha256": "cf65743de09274651b516c0cdf137169fd58b204a0ffeaf85a9f197db2e2476f",
+      "bytes": 1951
+    },
+    {
+      "file": "src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj",
+      "sha256": "4a9bb8990084335f2e1f2a51c05dbd0dfd3cbf3d86e87712c8dc4e5f7899c455",
+      "bytes": 676
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureAtlasDdsEncoder.cs",
+      "sha256": "8ae860b573ec81ad33eb23222d4773e090c5f8e6c62be252f9eae4de52148b19",
+      "bytes": 3217
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+      "sha256": "ffa5d4d3a2001a3c6dc841394ca34b2f3cfefa85eccdfcbeaef4991d325f215d",
+      "bytes": 5902
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureCatalog.cs",
+      "sha256": "20993978972f37c771c44f15dfe4bbd7d446157b823bcdc412cc321ec048891f",
+      "bytes": 2125
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+      "sha256": "34d5a48c57c6464dee1f9eb40b206355b6aa5e4b8fa350c0b3f0a8ef8bb14dab",
+      "bytes": 2528
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
+      "sha256": "26a728ef4273641a602471fb6089fd732a0c6df15a5e8a42cee5793369614e6d",
+      "bytes": 5212
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs",
+      "sha256": "5c0148c0297e16db3a593ee6aed6180eb2e5ad208eabf9257de557cbe47edbb1",
+      "bytes": 741
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs",
+      "sha256": "21ac8c4b7a0ca1da47f9b030468a127b5dac26d8c8577de23a8baef7db8bb570",
+      "bytes": 14505
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureDxt5FastAlphaEncoder.cs",
+      "sha256": "d187a663098b9cee0ad5bed2e80d9619f37097a33243d99b9148b764a94a4b6e",
+      "bytes": 2256
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs",
+      "sha256": "500cc4345d032bb2feed5be16c0d40a5b00ba3e9a03742b704bd3d004555c822",
+      "bytes": 1000
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs",
+      "sha256": "f594328e3f10ff37ef36b853ca7a879fa5d91330340bcad6f3ec71122e691bc2",
+      "bytes": 5221
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
+      "sha256": "a7159c08d627b8cfc38e6f48caf68945816c156457facf2665ec287bef9c65ed",
+      "bytes": 7608
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs",
+      "sha256": "fd54465e2a852d05cdf3e72d8514cdfb15355a9c20c3d2eeb4e120eea7eaa9ad",
+      "bytes": 5898
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureImageLoader.cs",
+      "sha256": "4a3b064a3470a4a98c50699a9ce47f6e8b07e29db5d9968cc681f9398cdbb476",
+      "bytes": 1037
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureImageRules.cs",
+      "sha256": "3072b97d55478e3e5836a4fa9237702be5c59a491e30f75dc7f7fa2b6b2b7408",
+      "bytes": 9745
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureJpegDecoder.cs",
+      "sha256": "a9aadb2e7e2a067adcddaff506e352e21076d73fe10e7f884f1d959e8be0517c",
+      "bytes": 2035
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+      "sha256": "9c9251ac5b11478e951468f0ad51b160f72652be8ce960f45a95247fdc562de0",
+      "bytes": 5846
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs",
+      "sha256": "b55034426d263718ab22c1f2865ed0a005cb6ac99247707a3eaa7e0ec2ccff61",
+      "bytes": 4087
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TexturePacker.cs",
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176",
+      "bytes": 11878
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TexturePngDecoder.cs",
+      "sha256": "6fb74adfc10711b739f4e5b4b0bc6b0ff8fae078459965f01e1917d4c482ad8e",
+      "bytes": 16243
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+      "sha256": "cd17461d39ec9e7c25cb40ce1a8727daa4ff6e878fcec9ef44c2c8225bcb5ee5",
+      "bytes": 1983
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+      "sha256": "44807a0dddbc6e9287187496572cbd6eea9519de20758773cba2ea6f0a07e49a",
+      "bytes": 3711
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+      "sha256": "892957068399549d78d0b9525469ceddfb96491f1b887e3e219d221639ffe058",
+      "bytes": 7803
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
+      "sha256": "6dc00e5c07831d4ba137a02b9ea7355d26b1e9f894b1b6fd86ab4d56e895048d",
+      "bytes": 8462
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
+      "sha256": "a60f347980ced631a5fa24efc3be9de65ffe7dacb1e642a116ada93bf1986cc2",
+      "bytes": 4681
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs",
+      "sha256": "8209f4b9e8e55ef34cf08e8a44a5f77612319f5eb1a0dccb341f59718b995239",
+      "bytes": 9755
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureVolume.cs",
+      "sha256": "4d203e1fa3cddef9094c7452c3ff4ae9c971eb26b1f104e7fa8914d21cd0d85b",
+      "bytes": 6637
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs",
+      "sha256": "f6b1cf28db0f1cf49e47c2f46aef953052618cc3f51ff5414ccac2db32a8f9ba",
+      "bytes": 10624
+    },
+    {
+      "file": "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs",
+      "sha256": "d3e2f8f6894ba1f40a8662c59602c7b91e54e9d16b7457c6b58290e4267e4e6b",
+      "bytes": 3617
+    },
+    {
+      "file": "src/TextureCompiler/Native/TextureSupport.cpp",
+      "sha256": "e3e38408b85cae3fd8f714fb7813997f7170b9a1b288564eebd37387d10a369a",
+      "bytes": 2785
+    },
+    {
+      "file": "src/TextureCompiler/Native/TextureSupport.h",
+      "sha256": "aa0103a2178cf4c06f1e6750cf62c685ea31b2ff55706ea7a252ab5ad3657f52",
+      "bytes": 929
+    },
+    {
+      "file": "src/TextureCompiler/Ppm/.gitattributes",
+      "sha256": "30954d2952633a809fb09a890f8208cd1561fcb8a7a6db0bb88cd043456b715c",
+      "bytes": 29
+    },
+    {
+      "file": "src/TextureCompiler/Ppm/PROVENANCE.json",
+      "sha256": "7ec0d46828dd21ddbdc2b9a771c77407f15a2feae69435789bcf2f8b189563a4",
+      "bytes": 1419
+    },
+    {
+      "file": "src/TextureCompiler/Ppm/README.ijg",
+      "sha256": "4cf9c190f184019b61c36bcc49d4a24ffeb2a838c6f1690d6c4db14cfb2d0478",
+      "bytes": 19945
+    },
+    {
+      "file": "src/TextureCompiler/Ppm/TexturePpm.c",
+      "sha256": "43395452a5fa8cc480fa57157a06321f6ef18d001a3d96d272f32d9703c225e1",
+      "bytes": 2803
+    },
+    {
+      "file": "src/TextureCompiler/Ppm/rdppm.c",
+      "sha256": "3ecf317ef1cb01793f2d69640abc7609c97af14bc05a4594642509661485173b",
+      "bytes": 16397
+    },
+    {
+      "file": "src/TextureCompiler/PublicS3/.gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "bytes": 8
+    },
+    {
+      "file": "src/TextureCompiler/PublicS3/LegacyGray3.inl",
+      "sha256": "04915b4cb6b5af4182697a5479ec9ca388b1e445762937135089d1c866e11a0b",
+      "bytes": 6934
+    },
+    {
+      "file": "src/TextureCompiler/PublicS3/LegacyGray4.inl",
+      "sha256": "404d173c95c2beb07625b256a544b7a1febb2590b52b667c021921121eb6e227",
+      "bytes": 7023
+    },
+    {
+      "file": "src/TextureCompiler/PublicS3/PATCHES.md",
+      "sha256": "822181f5f570f0b8dd2ed6e35c888d535bcef15adacdb61a88e9ec963afb1941",
+      "bytes": 10459
+    },
+    {
+      "file": "src/TextureCompiler/PublicS3/PROVENANCE.json",
+      "sha256": "39956cf3d81ebcb1a5fc7f74e3486174250d9fe9b3a67f96491a1844d7a601b6",
+      "bytes": 3260
+    },
+    {
+      "file": "src/TextureCompiler/PublicS3/S3_quant.h",
+      "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
+      "bytes": 2724
+    },
+    {
+      "file": "src/TextureCompiler/PublicS3/TexturePublicS3.cpp",
+      "sha256": "13a26e58d76e040ea2b774224dc9e99fbd5abfbb718fdbe4c9569f793f27b054",
+      "bytes": 3145
+    },
+    {
+      "file": "src/TextureCompiler/PublicS3/s3_quant.cpp",
+      "sha256": "9bb3c07a310ade0c9bb4ab70603a557893d9b6887b972d83df8ffcfedbbdfb7e",
+      "bytes": 94548
+    },
+    {
+      "file": "src/TextureCompiler/README.md",
+      "sha256": "98c489ebd34496b894a69c192e9dd81bccc1568ecf6408517d572b93383003ef",
+      "bytes": 5295
+    }
+  ],
+  "uncommittedSource": [],
+  "assetTypes": [
+    "TerrainTextureAtlas",
+    "Texture",
+    "OnDemandTexture"
+  ],
+  "ppmDecoder": true,
+  "targetPlatform": "Win32",
+  "dirtySource": false,
+  "originalTextureCompilerDistributed": false,
+  "pluginType": "Recovered.Compiler.Texture.Plugin, Recovered.BinaryAssetBuilder.TextureCompiler",
+  "runtimeFiles": [
+    {
+      "file": "Recovered.BinaryAssetBuilder.TextureCompiler.dll",
+      "sha256": "e576304c80df18bce014141e9aa875b0b1fc9e6224a689b01766cb0a4b520adc",
+      "bytes": 74752
+    },
+    {
+      "file": "Recovered.TextureDxtAlpha.dll",
+      "sha256": "09d3cde19285370c84bd11c4383d8054e003ac6f6523328a9474b796a63793d8",
+      "bytes": 6144
+    },
+    {
+      "file": "Recovered.TextureDxtColour.dll",
+      "sha256": "799e916bf4053228eed2e5cbe3517f4e5fa5e242239145b8c26f909f8718415c",
+      "bytes": 158720
+    },
+    {
+      "file": "Recovered.TextureJpeg.dll",
+      "sha256": "dc2b2639bbc2e1bea0040d73b40aedef440fb4a507d0d9cf5fa0914ba3d974bc",
+      "bytes": 198656
+    },
+    {
+      "file": "Recovered.TexturePpm.dll",
+      "sha256": "527e3777a16a4d32b9d8446ae0eefd08fb60f636ff7b35d687a8e10caa5e0421",
+      "bytes": 153600
+    },
+    {
+      "file": "Recovered.TexturePublicS3.dll",
+      "sha256": "435f6566e77cf8fc157236bf70d020eec657161ef11c48de7175c78c5a620e4c",
+      "bytes": 182784
+    }
+  ],
+  "publicS3": {
+    "sha256": "435f6566e77cf8fc157236bf70d020eec657161ef11c48de7175c78c5a620e4c",
+    "sourceManifestSha256": "39956cf3d81ebcb1a5fc7f74e3486174250d9fe9b3a67f96491a1844d7a601b6",
+    "sourceFiles": [
+      {
+        "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
+        "repository": "Team-Resurgent/RXDK-Libs",
+        "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+        "blobSha": "006f68a2034a4dd053d3b54558123690581a5d84",
+        "sha256": "9bb3c07a310ade0c9bb4ab70603a557893d9b6887b972d83df8ffcfedbbdfb7e",
+        "bytes": 94548,
+        "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
+        "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
+        "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain; final wrapper uses owned inline x87 scoring/comparisons and extended intermediates; restore quick projection indices from the pre-scoring snapshot when quick wins; explicit mode3 with fixed original gray constants, three-point floor palette and opaque DXT1 black-index scoring (DXT1A excludes transparent index)",
+        "file": "s3_quant.cpp"
+      },
+      {
+        "upstreamPath": "libs/libxgraphics/dxtc/S3_quant.h",
+        "repository": "Team-Resurgent/RXDK-Libs",
+        "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+        "blobSha": "ba9a7180467f3e1ea744c83ba1fe5249c2928345",
+        "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
+        "bytes": 2724,
+        "file": "S3_quant.h"
+      },
+      {
+        "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608+8192 (8192 bytes)",
+        "repository": "wu162/NewSdk",
+        "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+        "blobSha": "b188483b80391cee4d7e5f9b85f01832bfa1f012",
+        "sha256": "404d173c95c2beb07625b256a544b7a1febb2590b52b667c021921121eb6e227",
+        "bytes": 7023,
+        "origin": "existing recovered fixed codec optimization data, not public S3 upstream and not corpus payloads",
+        "sourceDataSha256": "c8c04516fe9c09fd35f56b5ef96e889db56a41ab1f575385f90ee1fa2e558211",
+        "file": "LegacyGray4.inl"
+      },
+      {
+        "file": "TexturePublicS3.cpp",
+        "origin": "owned bounded PC ABI; no encoder implementation callbacks",
+        "sha256": "13a26e58d76e040ea2b774224dc9e99fbd5abfbb718fdbe4c9569f793f27b054",
+        "blobSha": "46c4b05cf9967be24d6c5ecaaa79cfdc8af70567",
+        "bytes": 3145
+      },
+      {
+        "file": "LegacyGray3.inl",
+        "origin": "existing recovered codec optimization data, not corpus payloads",
+        "repository": "wu162/NewSdk",
+        "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+        "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608 first8192 bytes",
+        "sourceDataSha256": "c9feeaf992d2457d146d414a2d27543b5178bd07f4797fd4b596d914eaa7013e",
+        "sha256": "04915b4cb6b5af4182697a5479ec9ca388b1e445762937135089d1c866e11a0b",
+        "bytes": 6934,
+        "blobSha": "160505d3cea649e811f9ace75991c7e0bb726a9f"
+      }
+    ],
+    "machine": "I386",
+    "importsOtherEncoders": false,
+    "configuration": "Release"
+  },
+  "status": "built",
+  "nativeBinaries": [
+    {
+      "entryPoint": 0,
+      "imports": [],
+      "file": "Recovered.TextureDxtAlpha.dll",
+      "importDirectory": 0,
+      "machine": "I386"
+    },
+    {
+      "entryPoint": 0,
+      "imports": [],
+      "file": "Recovered.TextureDxtColour.dll",
+      "importDirectory": 0,
+      "machine": "I386"
+    },
+    {
+      "entryPoint": 56090,
+      "imports": [
+        "KERNEL32.dll"
+      ],
+      "file": "Recovered.TextureJpeg.dll",
+      "importDirectory": 192944,
+      "machine": "I386"
+    },
+    {
+      "entryPoint": 12865,
+      "imports": [
+        "KERNEL32.dll"
+      ],
+      "file": "Recovered.TexturePpm.dll",
+      "importDirectory": 147052,
+      "machine": "I386"
+    },
+    {
+      "entryPoint": 43385,
+      "imports": [
+        "KERNEL32.dll"
+      ],
+      "file": "Recovered.TexturePublicS3.dll",
+      "importDirectory": 176236,
+      "machine": "I386"
+    }
+  ],
+  "sdkDependencies": [
+    {
+      "file": "BinaryAssetBuilder.Core.dll",
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+      "bytes": 212992
+    },
+    {
+      "file": "BinaryAssetBuilder.Utility.dll",
+      "sha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b",
+      "bytes": 63488
+    }
+  ],
+  "sourceCommit": "221ce80136cb3c7a942988a5a10d158ecca63de7"
+}

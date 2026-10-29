@@ -1,0 +1,582 @@
+Command Line: D:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\ArtOverlay-Original\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\ArtOverlay-Original\builtmods /iod:D:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\ArtOverlay-Original\builtmods /tp:Win32 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\ArtOverlay-Original\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\ArtOverlay-Original\builtmods /iod:D:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\ArtOverlay-Original\builtmods /tp:Win32 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.2346435] Cached session data not available.
+[00:00:00.2346435] Session caching enabled ('D:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\ArtOverlay-Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.2346435] Network caching enabled ('D:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\ArtOverlay-Original\builtmods\cache').
+[00:00:00.2502615] Loading 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mod.xml'.
+[00:00:00.2815158] Stream d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mod.xml references stream d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.2815158] Warning: Could not load precompiled manifest D:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\ArtOverlay-Original\builtmods\static.manifest, file not found
+[00:00:00.2815158] Loading 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\static.xml'.
+[00:00:00.2815158] Stream d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mod.xml references stream d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.2815158] Warning: Could not load precompiled manifest D:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\ArtOverlay-Original\builtmods\global.manifest, file not found
+[00:00:00.2815158] Loading 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\global.xml'.
+[00:00:00.2815158] Stream d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mod.xml references stream d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.2815158] Warning: Could not load precompiled manifest D:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\ArtOverlay-Original\builtmods\audio.manifest, file not found
+[00:00:00.2971360] Loading 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\audio.xml'.
+[00:00:00.2971360] Loading 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\commanddata.xml'.
+[00:00:00.3127635] commanddata.xml: Compiling LogicCommand:Command_Constructmytank [7d464170:3a5bda88]
+[00:00:00.3440189] commanddata.xml: Compiling LogicCommandSet:AlliedWarFactoryCommandSet [ec066d65:ec7b195e]
+[00:00:00.3440189] commanddata.xml: Compiling LogicCommandSet:mytankCommandSet [ec066d65:84fb9652]
+[00:00:00.3440189] Loading 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'.
+[00:00:00.3596362] Loading 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\sagexml\globaldata\globaldefines.xml'.
+[00:00:00.4221429] Loading 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\sagexml\baseobjects\basevehicle.xml'.
+[00:00:00.4221429] Loading 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\sagexml\baseobjects\baseobject.xml'.
+[00:00:00.4221429] baseobject.xml: Compiling GameObject:BaseObject [942fff2d:e7fad687]
+[00:00:00.4691980] basevehicle.xml: Compiling GameObject:BaseVehicle [942fff2d:3f48438d]
+[00:00:00.5004430] mytank.xml: Compiling GameObject:mytank [942fff2d:0a661d3b]
+[00:00:00.5629462] Loading 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\recoveryarmorprobe.xml'.
+[00:00:00.5629462] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_Defaults [3a6c5e8e:6e22267c]
+[00:00:00.5629462] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_NonDefault [3a6c5e8e:87ac06c4]
+[00:00:00.5629462] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_Inherited [3a6c5e8e:1ad80020]
+[00:00:00.5629462] Loading 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\recoveryweaponnuggetprobe.xml'.
+[00:00:00.5941883] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Damage [94d4d96e:b9d0b6b5]
+[00:00:00.6098208] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_DOT [94d4d96e:98c6285c]
+[00:00:00.6098208] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Grappling [94d4d96e:e2a87f23]
+[00:00:00.6098208] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LeechPercent [94d4d96e:25a2de71]
+[00:00:00.6098208] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LeechHealth [94d4d96e:c912b589]
+[00:00:00.6098208] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Line [94d4d96e:0b74928c]
+[00:00:00.6098208] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Spawn [94d4d96e:214fe4dd]
+[00:00:00.6098208] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Fire [94d4d96e:dfe23893]
+[00:00:00.6098208] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Contained [94d4d96e:7d93012c]
+[00:00:00.6098208] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Projectile [94d4d96e:0e7ba06c]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_ScatterProjectile [94d4d96e:1e941181]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_OCL [94d4d96e:117d134c]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Seed [94d4d96e:42732717]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_SpecialPower [94d4d96e:3b5679b3]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Inform [94d4d96e:3fd3d0f8]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_ContainedAttack [94d4d96e:f047cf90]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_SlavesAttack [94d4d96e:60996334]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Report [94d4d96e:10d17433]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Circular [94d4d96e:39959394]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Lift [94d4d96e:95e28f1e]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Linear [94d4d96e:82f5fc1e]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Stream [94d4d96e:f32b9e74]
+[00:00:00.6254426] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Laser [94d4d96e:4d5477ee]
+[00:00:00.6410641] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Crater [94d4d96e:336be042]
+[00:00:00.6410641] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Attach [94d4d96e:8f83366d]
+[00:00:00.6410641] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Spend [94d4d96e:3f55fad0]
+[00:00:00.6410641] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Secondary [94d4d96e:6c31f23f]
+[00:00:00.6410641] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Strip [94d4d96e:97a8caa4]
+[00:00:00.6410641] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Suppression [94d4d96e:9d0b3f89]
+[00:00:00.6410641] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LuaEvent [94d4d96e:032fa332]
+[00:00:00.6410641] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_MixedSimple [94d4d96e:aec1d0b1]
+[00:00:00.6410641] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Paralyze [94d4d96e:3643f4b9]
+[00:00:00.6410641] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Information [94d4d96e:be18984a]
+[00:00:00.6410641] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Meta [94d4d96e:6ca236b9]
+[00:00:00.6566890] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Tint [94d4d96e:72c72dac]
+[00:00:00.6566890] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Modifier [94d4d96e:7adef617]
+[00:00:00.6566890] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_All35 [94d4d96e:966da658]
+[00:00:00.6566890] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Inherited [94d4d96e:4f2a052d]
+[00:00:00.6566890] Loading 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\textureaudit.xml'.
+[00:00:00.7816880] textureaudit.xml: Compiling Texture:TextureAudit_0 [21e727da:3343d2c5]
+[00:00:00.8911395] textureaudit.xml: Compiling Texture:TextureAudit_1 [21e727da:8cebbb33]
+[00:00:01.0161401] textureaudit.xml: Compiling Texture:TextureAudit_2 [21e727da:8179fb56]
+[00:00:01.5323771] textureaudit.xml: Compiling Texture:TextureAudit_3 [21e727da:da03e854]
+[00:00:02.2988300] textureaudit.xml: Compiling Texture:TextureAudit_4 [21e727da:074a2714]
+[00:00:02.8589935] textureaudit.xml: Compiling Texture:TextureAudit_5 [21e727da:da3996e4]
+[00:00:03.6611457] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_6 [9312b9ac:ab378fef]
+[00:00:03.7548775] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_7 [9312b9ac:07f78d1d]
+[00:00:03.8652774] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_8 [9312b9ac:c6e79118]
+[00:00:04.3975485] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_9 [9312b9ac:4c9ed381]
+[00:00:05.1794640] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_10 [9312b9ac:659f847b]
+[00:00:05.7420093] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_11 [9312b9ac:4ed0f880]
+[00:00:06.5714261] textureaudit.xml: Compiling Texture:TextureAudit_12 [21e727da:a96a5c4d]
+[00:00:06.6651425] textureaudit.xml: Compiling Texture:TextureAudit_13 [21e727da:37ad8dc7]
+[00:00:06.7901416] textureaudit.xml: Compiling Texture:TextureAudit_14 [21e727da:7144e3a3]
+[00:00:07.4010681] textureaudit.xml: Compiling Texture:TextureAudit_15 [21e727da:bf192c3e]
+[00:00:08.2302332] textureaudit.xml: Compiling Texture:TextureAudit_16 [21e727da:240a4d45]
+[00:00:08.8397718] textureaudit.xml: Compiling Texture:TextureAudit_17 [21e727da:ca1a3a6a]
+[00:00:09.7162166] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_18 [9312b9ac:168201ea]
+[00:00:09.7943460] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_19 [9312b9ac:8e14b9bf]
+[00:00:09.9198395] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_20 [9312b9ac:b55b15d4]
+[00:00:10.4982762] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_21 [9312b9ac:dbdfbb82]
+[00:00:11.3282243] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_22 [9312b9ac:992f9fa5]
+[00:00:11.9380878] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_23 [9312b9ac:520ee6f2]
+[00:00:12.8139475] textureaudit.xml: Compiling Texture:TextureAudit_24 [21e727da:b539d0ff]
+[00:00:12.9078564] textureaudit.xml: Compiling Texture:TextureAudit_25 [21e727da:3985e703]
+[00:00:13.0218683] textureaudit.xml: Compiling Texture:TextureAudit_26 [21e727da:f6ac7d88]
+[00:00:13.4872025] textureaudit.xml: Compiling Texture:TextureAudit_27 [21e727da:d326317f]
+[00:00:14.1911367] textureaudit.xml: Compiling Texture:TextureAudit_28 [21e727da:d0779086]
+[00:00:14.6914452] textureaudit.xml: Compiling Texture:TextureAudit_29 [21e727da:4ae37065]
+[00:00:15.4264764] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_30 [9312b9ac:40f3db9e]
+[00:00:15.5202391] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_31 [9312b9ac:53c54f78]
+[00:00:15.6452363] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_32 [9312b9ac:9acbf822]
+[00:00:16.1140741] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_33 [9312b9ac:83b676ea]
+[00:00:16.8024208] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_34 [9312b9ac:c2e16a89]
+[00:00:17.3026098] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_35 [9312b9ac:1a3fc0b1]
+[00:00:18.0538817] textureaudit.xml: Compiling Texture:TextureAudit_36 [21e727da:88e4634e]
+[00:00:18.1320071] textureaudit.xml: Compiling Texture:TextureAudit_37 [21e727da:e2134589]
+[00:00:18.2571500] textureaudit.xml: Compiling Texture:TextureAudit_38 [21e727da:bd4a9711]
+[00:00:18.7728575] textureaudit.xml: Compiling Texture:TextureAudit_39 [21e727da:21f32caa]
+[00:00:19.5079295] textureaudit.xml: Compiling Texture:TextureAudit_40 [21e727da:1e4e9b71]
+[00:00:20.0719058] textureaudit.xml: Compiling Texture:TextureAudit_41 [21e727da:cee0b1de]
+[00:00:20.8532038] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_42 [9312b9ac:1c3b6218]
+[00:00:20.9323010] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_43 [9312b9ac:1835f519]
+[00:00:21.0573009] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_44 [9312b9ac:9ef461e2]
+[00:00:21.5731353] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_45 [9312b9ac:c9f019ed]
+[00:00:22.3080911] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_46 [9312b9ac:528ccf65]
+[00:00:22.8732761] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_47 [9312b9ac:78a1b2dc]
+[00:00:23.6533618] textureaudit.xml: Compiling Texture:TextureAudit_48 [21e727da:c4f555b2]
+[00:00:23.6689643] textureaudit.xml: Compiling Texture:TextureAudit_49 [21e727da:7c421fc9]
+[00:00:23.6845886] textureaudit.xml: Compiling Texture:TextureAudit_50 [21e727da:c998814d]
+[00:00:23.7314637] textureaudit.xml: Compiling Texture:TextureAudit_51 [21e727da:3eb25896]
+[00:00:23.7939590] textureaudit.xml: Compiling Texture:TextureAudit_52 [21e727da:ab115104]
+[00:00:23.8564551] textureaudit.xml: Compiling Texture:TextureAudit_53 [21e727da:4e9cb859]
+[00:00:23.9194512] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_54 [9312b9ac:b02ccb45]
+[00:00:23.9350810] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_55 [9312b9ac:f3917408]
+[00:00:23.9507082] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_56 [9312b9ac:3260a46c]
+[00:00:23.9975785] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_57 [9312b9ac:c4b572eb]
+[00:00:24.0756997] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_58 [9312b9ac:f96570a2]
+[00:00:24.1225760] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_59 [9312b9ac:2986897d]
+[00:00:24.2008360] textureaudit.xml: Compiling Texture:TextureAudit_60 [21e727da:36b6ede0]
+[00:00:24.2008360] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_61 [9312b9ac:a3437dc9]
+[00:00:24.2164638] textureaudit.xml: Compiling Texture:TextureAudit_62 [21e727da:78bc73aa]
+[00:00:24.2164638] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_63 [9312b9ac:ee7ddad6]
+[00:00:24.2164638] textureaudit.xml: Compiling Texture:TextureAudit_64 [21e727da:bc640dd3]
+[00:00:24.2164638] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_65 [9312b9ac:52be8182]
+[00:00:24.2164638] textureaudit.xml: Compiling Texture:TextureAudit_66 [21e727da:78237859]
+[00:00:24.2164638] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_67 [9312b9ac:f767599b]
+[00:00:24.2320802] textureaudit.xml: Compiling Texture:TextureAudit_68 [21e727da:f17210e0]
+[00:00:24.2320802] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_69 [9312b9ac:cea9491b]
+[00:00:24.2320802] textureaudit.xml: Compiling Texture:TextureAudit_70 [21e727da:468544b4]
+[00:00:24.2320802] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_71 [9312b9ac:9ec48a44]
+[00:00:24.2477161] textureaudit.xml: Compiling Texture:TextureAudit_72 [21e727da:0dab8bb8]
+[00:00:24.2477161] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_73 [9312b9ac:adaef4cd]
+[00:00:24.2477161] textureaudit.xml: Compiling Texture:TextureAudit_74 [21e727da:12a3a83c]
+[00:00:24.2477161] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_75 [9312b9ac:73a20a71]
+[00:00:24.2477161] textureaudit.xml: Compiling Texture:TextureAudit_76 [21e727da:cee9af46]
+[00:00:24.2477161] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_77 [9312b9ac:2132271e]
+[00:00:24.2633300] textureaudit.xml: Compiling Texture:TextureAudit_78 [21e727da:55631087]
+[00:00:24.2633300] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_79 [9312b9ac:20680964]
+[00:00:24.2633300] textureaudit.xml: Compiling Texture:TextureAudit_80 [21e727da:35ee265a]
+[00:00:24.2633300] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_81 [9312b9ac:958e1c70]
+[00:00:24.2633300] textureaudit.xml: Compiling Texture:TextureAudit_82 [21e727da:8ea57b07]
+[00:00:24.2789553] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_83 [9312b9ac:e18b4a5c]
+[00:00:24.2789553] textureaudit.xml: Compiling Texture:TextureAudit_84 [21e727da:dff2b339]
+[00:00:24.2789553] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_85 [9312b9ac:6089e204]
+[00:00:24.2789553] textureaudit.xml: Compiling Texture:TextureAudit_86 [21e727da:c3d86456]
+[00:00:24.2945909] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_87 [9312b9ac:e9be33a9]
+[00:00:24.2945909] textureaudit.xml: Compiling Texture:TextureAudit_88 [21e727da:9f62af69]
+[00:00:24.2945909] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_89 [9312b9ac:8c532e26]
+[00:00:24.2945909] textureaudit.xml: Compiling Texture:TextureAudit_90 [21e727da:0b25a137]
+[00:00:24.2945909] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_91 [9312b9ac:16df9645]
+[00:00:24.3102212] textureaudit.xml: Compiling Texture:TextureAudit_92 [21e727da:d62544c9]
+[00:00:24.3102212] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_93 [9312b9ac:90ae9e8a]
+[00:00:24.3102212] textureaudit.xml: Compiling Texture:TextureAudit_94 [21e727da:cf6d23c8]
+[00:00:24.3102212] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_95 [9312b9ac:d8733538]
+[00:00:24.3102212] textureaudit.xml: Compiling Texture:TextureAudit_96 [21e727da:bdbd9cab]
+[00:00:24.3258353] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_97 [9312b9ac:67843785]
+[00:00:24.3258353] textureaudit.xml: Compiling Texture:TextureAudit_98 [21e727da:8c361dd7]
+[00:00:24.3258353] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_99 [9312b9ac:f02fa856]
+[00:00:24.3258353] textureaudit.xml: Compiling Texture:TextureAudit_100 [21e727da:7c2412e3]
+[00:00:24.3414661] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_101 [9312b9ac:a0a45bf2]
+[00:00:24.3414661] textureaudit.xml: Compiling Texture:TextureAudit_102 [21e727da:88aa8ed7]
+[00:00:24.3414661] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_103 [9312b9ac:0c9b16cc]
+[00:00:24.3414661] textureaudit.xml: Compiling Texture:TextureAudit_104 [21e727da:4c9dcbaa]
+[00:00:24.3414661] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_105 [9312b9ac:c052789c]
+[00:00:24.3570934] textureaudit.xml: Compiling Texture:TextureAudit_106 [21e727da:71a0ff2c]
+[00:00:24.3570934] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_107 [9312b9ac:35d9d907]
+[00:00:24.3570934] textureaudit.xml: Compiling Texture:TextureAudit_108 [21e727da:89bbde2a]
+[00:00:24.3570934] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_109 [9312b9ac:dc98ca3c]
+[00:00:24.3570934] textureaudit.xml: Compiling Texture:TextureAudit_110 [21e727da:679f95b9]
+[00:00:24.3727093] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_111 [9312b9ac:a6971343]
+[00:00:24.3727093] textureaudit.xml: Compiling Texture:TextureAudit_112 [21e727da:88c7919a]
+[00:00:24.3727093] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_113 [9312b9ac:3739bddc]
+[00:00:24.3727093] textureaudit.xml: Compiling Texture:TextureAudit_114 [21e727da:490128cb]
+[00:00:24.3727093] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_115 [9312b9ac:437318f0]
+[00:00:24.3883390] textureaudit.xml: Compiling Texture:TextureAudit_116 [21e727da:7e7163b6]
+[00:00:24.3883390] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_117 [9312b9ac:314a01b8]
+[00:00:24.3883390] textureaudit.xml: Compiling Texture:TextureAudit_118 [21e727da:ae8cc99c]
+[00:00:24.3883390] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_119 [9312b9ac:cfe28598]
+[00:00:24.3883390] textureaudit.xml: Compiling Texture:TextureAudit_120 [21e727da:10a51868]
+[00:00:24.4039574] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_121 [9312b9ac:b5c3db44]
+[00:00:24.4039574] textureaudit.xml: Compiling Texture:TextureAudit_122 [21e727da:867f9b73]
+[00:00:24.4039574] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_123 [9312b9ac:33b8b5d6]
+[00:00:24.4039574] textureaudit.xml: Compiling Texture:TextureAudit_124 [21e727da:5d18b7ed]
+[00:00:24.4039574] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_125 [9312b9ac:c9c3c06b]
+[00:00:24.4195893] textureaudit.xml: Compiling Texture:TextureAudit_126 [21e727da:6718e842]
+[00:00:24.4195893] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_127 [9312b9ac:231be8e7]
+[00:00:24.4195893] textureaudit.xml: Compiling Texture:TextureAudit_128 [21e727da:a8c0fef5]
+[00:00:24.4195893] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_129 [9312b9ac:afbaf580]
+[00:00:24.4195893] textureaudit.xml: Compiling Texture:TextureAudit_130 [21e727da:16dfd6bc]
+[00:00:24.4352092] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_131 [9312b9ac:8588a69f]
+[00:00:24.4352092] textureaudit.xml: Compiling Texture:TextureAudit_132 [21e727da:8f2e3b82]
+[00:00:24.4352092] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_133 [9312b9ac:02354db0]
+[00:00:24.4479054] textureaudit.xml: Compiling Texture:TextureAudit_134 [21e727da:5e43d101]
+[00:00:24.4509301] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_135 [9312b9ac:d46395a4]
+[00:00:24.4509301] textureaudit.xml: Compiling Texture:TextureAudit_136 [21e727da:649d4d13]
+[00:00:24.4509301] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_137 [9312b9ac:2ded4da1]
+[00:00:24.4509301] textureaudit.xml: Compiling Texture:TextureAudit_138 [21e727da:9b1eda41]
+[00:00:24.4509301] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_139 [9312b9ac:c6308986]
+[00:00:24.4688679] textureaudit.xml: Compiling Texture:TextureAudit_140 [21e727da:753ad9c0]
+[00:00:24.4693898] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_141 [9312b9ac:bf30a335]
+[00:00:24.4693898] textureaudit.xml: Compiling Texture:TextureAudit_142 [21e727da:8b2b5a96]
+[00:00:24.4693898] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_143 [9312b9ac:04bbea71]
+[00:00:24.4693898] textureaudit.xml: Compiling Texture:TextureAudit_144 [21e727da:4e09f68c]
+[00:00:24.4819216] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_145 [9312b9ac:c2d7d1de]
+[00:00:24.4819216] textureaudit.xml: Compiling Texture:TextureAudit_146 [21e727da:6d14cfeb]
+[00:00:24.4819216] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_147 [9312b9ac:3c9f242c]
+[00:00:24.4819216] textureaudit.xml: Compiling Texture:TextureAudit_148 [21e727da:9fcca292]
+[00:00:24.4975915] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_149 [9312b9ac:c44a2f08]
+[00:00:24.4975915] textureaudit.xml: Compiling Texture:TextureAudit_150 [21e727da:71c662a1]
+[00:00:24.4975915] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_151 [9312b9ac:b1308bdf]
+[00:00:24.4975915] textureaudit.xml: Compiling Texture:TextureAudit_152 [21e727da:9097f007]
+[00:00:24.4975915] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_153 [9312b9ac:264503e4]
+[00:00:24.5132151] textureaudit.xml: Compiling Texture:TextureAudit_154 [21e727da:41c49528]
+[00:00:24.5132151] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_155 [9312b9ac:c7f0ec43]
+[00:00:24.5132151] textureaudit.xml: Compiling Texture:TextureAudit_156 [21e727da:68660f0c]
+[00:00:24.5132151] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_157 [9312b9ac:2454ab43]
+[00:00:24.5132151] textureaudit.xml: Compiling Texture:TextureAudit_158 [21e727da:b9715f86]
+[00:00:24.5288419] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_159 [9312b9ac:dc6c7b1f]
+[00:00:24.5444686] textureaudit.xml: Compiling Texture:TextureAudit_160 [21e727da:074a8af2]
+[00:00:24.5444686] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_161 [9312b9ac:8953c08b]
+[00:00:24.5444686] textureaudit.xml: Compiling Texture:TextureAudit_162 [21e727da:95ee860d]
+[00:00:24.5444686] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_163 [9312b9ac:2b894c2b]
+[00:00:24.5600918] textureaudit.xml: Compiling Texture:TextureAudit_164 [21e727da:334b35e9]
+[00:00:24.5600918] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_165 [9312b9ac:d9ff3254]
+[00:00:24.5600918] textureaudit.xml: Compiling Texture:TextureAudit_166 [21e727da:a6e65ff3]
+[00:00:24.5600918] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_167 [9312b9ac:1923ed45]
+[00:00:24.5600918] textureaudit.xml: Compiling Texture:TextureAudit_168 [21e727da:bdcc588c]
+[00:00:24.5757113] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_169 [9312b9ac:b9a61bda]
+[00:00:24.5757113] textureaudit.xml: Compiling Texture:TextureAudit_170 [21e727da:03d0c82b]
+[00:00:24.5757113] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_171 [9312b9ac:9384dce1]
+[00:00:24.5757113] textureaudit.xml: Compiling Texture:TextureAudit_172 [21e727da:980a53e6]
+[00:00:24.5757113] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_173 [9312b9ac:3b26b2de]
+[00:00:24.5913399] textureaudit.xml: Compiling Texture:TextureAudit_174 [21e727da:36cd6826]
+[00:00:24.5913399] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_175 [9312b9ac:ea7c21a8]
+[00:00:24.5913399] textureaudit.xml: Compiling Texture:TextureAudit_176 [21e727da:a95d41cf]
+[00:00:24.5913399] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_177 [9312b9ac:1cb454f2]
+[00:00:24.6069557] textureaudit.xml: Compiling Texture:TextureAudit_178 [21e727da:aaeca9c2]
+[00:00:24.6069557] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_179 [9312b9ac:af547e2c]
+[00:00:24.6069557] textureaudit.xml: Compiling Texture:TextureAudit_180 [21e727da:4cb51da9]
+[00:00:24.6069557] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_181 [9312b9ac:7d3a75a3]
+[00:00:24.6069557] textureaudit.xml: Compiling Texture:TextureAudit_182 [21e727da:a4627e27]
+[00:00:24.6225833] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_183 [9312b9ac:7adc6475]
+[00:00:24.6225833] textureaudit.xml: Compiling Texture:TextureAudit_184 [21e727da:a15bd4f2]
+[00:00:24.6225833] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_185 [9312b9ac:6c511280]
+[00:00:24.6225833] textureaudit.xml: Compiling Texture:TextureAudit_186 [21e727da:579bb79d]
+[00:00:24.6225833] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_187 [9312b9ac:4876553f]
+[00:00:24.6382136] textureaudit.xml: Compiling Texture:TextureAudit_188 [21e727da:898b6a08]
+[00:00:24.6382136] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_189 [9312b9ac:f3e76321]
+[00:00:24.6382136] textureaudit.xml: Compiling Texture:TextureAudit_190 [21e727da:5740395f]
+[00:00:24.6382136] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_191 [9312b9ac:79f2ebc8]
+[00:00:24.6382136] textureaudit.xml: Compiling Texture:TextureAudit_192 [21e727da:95b3d151]
+[00:00:24.6538378] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_193 [9312b9ac:7ed0eb16]
+[00:00:24.6538378] textureaudit.xml: Compiling Texture:TextureAudit_194 [21e727da:62ede546]
+[00:00:24.6538378] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_195 [9312b9ac:68659be1]
+[00:00:24.6538378] textureaudit.xml: Compiling Texture:TextureAudit_196 [21e727da:58206991]
+[00:00:24.6694586] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_197 [9312b9ac:4de75d24]
+[00:00:24.6694586] textureaudit.xml: Compiling Texture:TextureAudit_198 [21e727da:86047136]
+[00:00:24.6694586] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_199 [9312b9ac:e3e2d74c]
+[00:00:24.6694586] textureaudit.xml: Compiling Texture:TextureAudit_200 [21e727da:b12dc381]
+[00:00:24.6694586] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_201 [9312b9ac:3baf6f94]
+[00:00:24.6850877] textureaudit.xml: Compiling Texture:TextureAudit_202 [21e727da:7ab3e0cb]
+[00:00:24.6850877] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_203 [9312b9ac:c6d38b01]
+[00:00:24.6850877] textureaudit.xml: Compiling Texture:TextureAudit_204 [21e727da:a334e8a6]
+[00:00:24.6850877] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_205 [9312b9ac:8e07264e]
+[00:00:24.6850877] textureaudit.xml: Compiling Texture:TextureAudit_206 [21e727da:58e7ef01]
+[00:00:24.7007098] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_207 [9312b9ac:8bffd401]
+[00:00:24.7007098] textureaudit.xml: Compiling Texture:TextureAudit_208 [21e727da:42b57f6c]
+[00:00:24.7007098] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_209 [9312b9ac:fe41ad81]
+[00:00:24.7007098] textureaudit.xml: Compiling Texture:TextureAudit_210 [21e727da:b21044d3]
+[00:00:24.7163381] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_211 [9312b9ac:b8a685d8]
+[00:00:24.7163381] textureaudit.xml: Compiling Texture:TextureAudit_212 [21e727da:8a5a11b6]
+[00:00:24.7163381] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_213 [9312b9ac:ce123fe0]
+[00:00:24.7163381] textureaudit.xml: Compiling Texture:TextureAudit_214 [21e727da:a89a43b6]
+[00:00:24.7163381] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_215 [9312b9ac:8201230f]
+[00:00:24.7319597] textureaudit.xml: Compiling Texture:TextureAudit_216 [21e727da:446a11b6]
+[00:00:24.7319597] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_217 [9312b9ac:740ca725]
+[00:00:24.7319597] textureaudit.xml: Compiling Texture:TextureAudit_218 [21e727da:4d6834c3]
+[00:00:24.7319597] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_219 [9312b9ac:d206828e]
+[00:00:24.7475872] textureaudit.xml: Compiling Texture:TextureAudit_220 [21e727da:bbf26cc7]
+[00:00:24.7475872] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_221 [9312b9ac:34480eb2]
+[00:00:24.7475872] textureaudit.xml: Compiling Texture:TextureAudit_222 [21e727da:969d4dad]
+[00:00:24.7475872] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_223 [9312b9ac:b8faf6bd]
+[00:00:24.7475872] textureaudit.xml: Compiling Texture:TextureAudit_224 [21e727da:a5463c74]
+[00:00:24.7632126] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_225 [9312b9ac:9c6b0c62]
+[00:00:24.7632126] textureaudit.xml: Compiling Texture:TextureAudit_226 [21e727da:6a0cdee3]
+[00:00:24.7632126] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_227 [9312b9ac:e0752807]
+[00:00:24.7632126] textureaudit.xml: Compiling Texture:TextureAudit_228 [21e727da:483884ba]
+[00:00:24.7632126] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_229 [9312b9ac:cc59a0a3]
+[00:00:24.7788391] textureaudit.xml: Compiling Texture:TextureAudit_230 [21e727da:acada241]
+[00:00:24.7788391] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_231 [9312b9ac:3af76182]
+[00:00:24.7788391] textureaudit.xml: Compiling Texture:TextureAudit_232 [21e727da:9f77ef9b]
+[00:00:24.7788391] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_233 [9312b9ac:c5635b0e]
+[00:00:24.7788391] textureaudit.xml: Compiling Texture:TextureAudit_234 [21e727da:98161fa9]
+[00:00:24.7944535] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_235 [9312b9ac:848f58f9]
+[00:00:24.7944535] textureaudit.xml: Compiling Texture:TextureAudit_236 [21e727da:5a35279e]
+[00:00:24.7944535] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_237 [9312b9ac:8330cf4b]
+[00:00:24.7944535] textureaudit.xml: Compiling Texture:TextureAudit_238 [21e727da:5864aeb5]
+[00:00:24.8100903] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_239 [9312b9ac:c7a80074]
+[00:00:24.8100903] textureaudit.xml: Compiling Texture:TextureAudit_240 [21e727da:9cf382cc]
+[00:00:24.8100903] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_241 [9312b9ac:2f65605b]
+[00:00:24.8100903] textureaudit.xml: Compiling Texture:TextureAudit_242 [21e727da:92734260]
+[00:00:24.8100903] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_243 [9312b9ac:dff69fd6]
+[00:00:24.8257193] textureaudit.xml: Compiling Texture:TextureAudit_244 [21e727da:8a0bf1f3]
+[00:00:24.8257193] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_245 [9312b9ac:53ebfca5]
+[00:00:24.8257193] textureaudit.xml: Compiling Texture:TextureAudit_246 [21e727da:62fd3a15]
+[00:00:24.8257193] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_247 [9312b9ac:ea8d42b2]
+[00:00:24.8257193] textureaudit.xml: Compiling Texture:TextureAudit_248 [21e727da:519cc833]
+[00:00:24.8257193] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_249 [9312b9ac:c41a28c5]
+[00:00:24.8413369] textureaudit.xml: Compiling Texture:TextureAudit_250 [21e727da:b73fcb62]
+[00:00:24.8413369] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_251 [9312b9ac:32b6897c]
+[00:00:24.8413369] textureaudit.xml: Compiling Texture:TextureAudit_252 [21e727da:52ef6563]
+[00:00:24.8413369] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_253 [9312b9ac:d29072bb]
+[00:00:24.8413369] textureaudit.xml: Compiling Texture:TextureAudit_254 [21e727da:96c25e54]
+[00:00:24.8413369] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_255 [9312b9ac:91f84469]
+[00:00:24.8569619] textureaudit.xml: Compiling Texture:TextureAudit_256 [21e727da:5564773f]
+[00:00:24.8569619] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_257 [9312b9ac:ec0b6352]
+[00:00:24.8569619] textureaudit.xml: Compiling Texture:TextureAudit_258 [21e727da:6d422044]
+[00:00:24.8569619] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_259 [9312b9ac:d5869ef1]
+[00:00:24.8569619] textureaudit.xml: Compiling Texture:TextureAudit_260 [21e727da:cb85ea20]
+[00:00:24.8569619] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_261 [9312b9ac:212eaa4d]
+[00:00:24.8741275] textureaudit.xml: Compiling Texture:TextureAudit_262 [21e727da:5555b7ac]
+[00:00:24.8741275] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_263 [9312b9ac:db7c193f]
+[00:00:24.8741275] textureaudit.xml: Compiling Texture:TextureAudit_264 [21e727da:927b485a]
+[00:00:24.8741275] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_265 [9312b9ac:5a415294]
+[00:00:24.8741275] textureaudit.xml: Compiling Texture:TextureAudit_266 [21e727da:7d36713b]
+[00:00:24.8741275] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_267 [9312b9ac:f0116c10]
+[00:00:24.8892765] textureaudit.xml: Compiling Texture:TextureAudit_268 [21e727da:7378830f]
+[00:00:24.8892765] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_269 [9312b9ac:b4f02148]
+[00:00:24.8892765] textureaudit.xml: Compiling Texture:TextureAudit_270 [21e727da:c5cf406e]
+[00:00:24.8892765] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_271 [9312b9ac:13a3822f]
+[00:00:24.8892765] textureaudit.xml: Compiling Texture:TextureAudit_272 [21e727da:9ddbe4b3]
+[00:00:24.9043126] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_273 [9312b9ac:efb40474]
+[00:00:24.9043126] textureaudit.xml: Compiling Texture:TextureAudit_274 [21e727da:860981af]
+[00:00:24.9043126] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_275 [9312b9ac:47d9a171]
+[00:00:24.9043126] textureaudit.xml: Compiling Texture:TextureAudit_276 [21e727da:728ae2e4]
+[00:00:24.9043126] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_277 [9312b9ac:f1504c4c]
+[00:00:24.9199840] textureaudit.xml: Compiling Texture:TextureAudit_278 [21e727da:20fd9372]
+[00:00:24.9199840] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_279 [9312b9ac:db62bf17]
+[00:00:24.9199840] textureaudit.xml: Compiling Texture:TextureAudit_280 [21e727da:5b02aafa]
+[00:00:24.9199840] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_281 [9312b9ac:900c51e7]
+[00:00:24.9199840] textureaudit.xml: Compiling Texture:TextureAudit_282 [21e727da:a6174427]
+[00:00:24.9356020] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_283 [9312b9ac:b7ac4be7]
+[00:00:24.9356020] textureaudit.xml: Compiling Texture:TextureAudit_284 [21e727da:21c70075]
+[00:00:24.9356020] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_285 [9312b9ac:a92c2aff]
+[00:00:24.9356020] textureaudit.xml: Compiling Texture:TextureAudit_286 [21e727da:29629147]
+[00:00:24.9356020] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_287 [9312b9ac:acda2b0c]
+[00:00:24.9356020] textureaudit.xml: Compiling Texture:TextureAudit_288 [21e727da:9f253aa7]
+[00:00:24.9512289] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_289 [9312b9ac:e31f07f2]
+[00:00:24.9512289] textureaudit.xml: Compiling Texture:TextureAudit_290 [21e727da:9944277e]
+[00:00:24.9512289] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_291 [9312b9ac:930c69d9]
+[00:00:24.9512289] textureaudit.xml: Compiling Texture:TextureAudit_292 [21e727da:987b6ccb]
+[00:00:24.9512289] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_293 [9312b9ac:abd2b99c]
+[00:00:24.9668643] textureaudit.xml: Compiling Texture:TextureAudit_294 [21e727da:2b8b0bd3]
+[00:00:24.9668643] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_295 [9312b9ac:97aea5b4]
+[00:00:24.9668643] textureaudit.xml: Compiling Texture:TextureAudit_296 [21e727da:20595b26]
+[00:00:24.9668643] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_297 [9312b9ac:a1e0a17d]
+[00:00:24.9668643] textureaudit.xml: Compiling Texture:TextureAudit_298 [21e727da:9e1cc4cb]
+[00:00:24.9824794] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_299 [9312b9ac:e4f290e5]
+[00:00:24.9824794] textureaudit.xml: Compiling Texture:TextureAudit_300 [21e727da:3d25af47]
+[00:00:24.9824794] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_301 [9312b9ac:8dccb218]
+[00:00:24.9824794] textureaudit.xml: Compiling Texture:TextureAudit_302 [21e727da:2b97d682]
+[00:00:24.9824794] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_303 [9312b9ac:fd1bbd7b]
+[00:00:24.9981002] textureaudit.xml: Compiling Texture:TextureAudit_304 [21e727da:025997e2]
+[00:00:24.9981002] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_305 [9312b9ac:f88513a5]
+[00:00:24.9981002] textureaudit.xml: Compiling Texture:TextureAudit_306 [21e727da:10c8168b]
+[00:00:24.9981002] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_307 [9312b9ac:9c15d121]
+[00:00:24.9981002] textureaudit.xml: Compiling Texture:TextureAudit_308 [21e727da:f7b0cf71]
+[00:00:24.9981002] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_309 [9312b9ac:815d4b4f]
+[00:00:25.0137351] textureaudit.xml: Compiling Texture:TextureAudit_310 [21e727da:19e7b98e]
+[00:00:25.0137351] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_311 [9312b9ac:91e836fb]
+[00:00:25.0137351] textureaudit.xml: Compiling Texture:TextureAudit_312 [21e727da:5da2249c]
+[00:00:25.0137351] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_313 [9312b9ac:f24efcde]
+[00:00:25.0293550] textureaudit.xml: Compiling Texture:TextureAudit_314 [21e727da:6db57e27]
+[00:00:25.0293550] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_315 [9312b9ac:e7f56a4c]
+[00:00:25.0293550] textureaudit.xml: Compiling Texture:TextureAudit_316 [21e727da:08298f63]
+[00:00:25.0293550] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_317 [9312b9ac:95c60549]
+[00:00:25.0449790] textureaudit.xml: Compiling Texture:TextureAudit_318 [21e727da:fa775a48]
+[00:00:25.0449790] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_319 [9312b9ac:6a223229]
+[00:00:25.0449790] textureaudit.xml: Compiling Texture:TextureAudit_320 [21e727da:18adcf07]
+[00:00:25.0449790] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_321 [9312b9ac:96a8b6af]
+[00:00:25.0449790] textureaudit.xml: Compiling Texture:TextureAudit_322 [21e727da:2222fb52]
+[00:00:25.0449790] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_323 [9312b9ac:93ab67a7]
+[00:00:25.0606112] textureaudit.xml: Compiling Texture:TextureAudit_324 [21e727da:634bdd60]
+[00:00:25.0606112] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_325 [9312b9ac:f33d913e]
+[00:00:25.0606112] textureaudit.xml: Compiling Texture:TextureAudit_326 [21e727da:0c6265dd]
+[00:00:25.0606112] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_327 [9312b9ac:b894470c]
+[00:00:25.0606112] textureaudit.xml: Compiling Texture:TextureAudit_328 [21e727da:eebda1ba]
+[00:00:25.0762335] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_329 [9312b9ac:660ce15f]
+[00:00:25.0762335] textureaudit.xml: Compiling Texture:TextureAudit_330 [21e727da:0b8690e2]
+[00:00:25.0762335] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_331 [9312b9ac:960531c4]
+[00:00:25.0762335] textureaudit.xml: Compiling Texture:TextureAudit_332 [21e727da:13999e90]
+[00:00:25.0762335] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_333 [9312b9ac:9cabcf7d]
+[00:00:25.0918609] textureaudit.xml: Compiling Texture:TextureAudit_334 [21e727da:640c50f7]
+[00:00:25.0918609] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_335 [9312b9ac:ff183495]
+[00:00:25.0918609] textureaudit.xml: Compiling Texture:TextureAudit_336 [21e727da:0e1640f3]
+[00:00:25.0918609] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_337 [9312b9ac:879534a0]
+[00:00:25.0918609] textureaudit.xml: Compiling Texture:TextureAudit_338 [21e727da:edf3da10]
+[00:00:25.0918609] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_339 [9312b9ac:6f422e78]
+[00:00:25.1074837] textureaudit.xml: Compiling Texture:TextureAudit_340 [21e727da:0f1aebb5]
+[00:00:25.1074837] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_341 [9312b9ac:9ba4a948]
+[00:00:25.1074837] textureaudit.xml: Compiling Texture:TextureAudit_342 [21e727da:0d226986]
+[00:00:25.1074837] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_343 [9312b9ac:98bbaf24]
+[00:00:25.1074837] textureaudit.xml: Compiling Texture:TextureAudit_344 [21e727da:9beb52ce]
+[00:00:25.1231021] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_345 [9312b9ac:12b59927]
+[00:00:25.1231021] textureaudit.xml: Compiling Texture:TextureAudit_346 [21e727da:3aed0d6f]
+[00:00:25.1231021] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_347 [9312b9ac:81c125c1]
+[00:00:25.1231021] textureaudit.xml: Compiling Texture:TextureAudit_348 [21e727da:e8036a63]
+[00:00:25.1231021] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_349 [9312b9ac:6fee117d]
+[00:00:25.1387340] textureaudit.xml: Compiling Texture:TextureAudit_350 [21e727da:200a117a]
+[00:00:25.1699814] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_351 [9312b9ac:91f2fc78]
+[00:00:25.1741341] textureaudit.xml: Compiling Texture:TextureAudit_352 [21e727da:14e1b8ee]
+[00:00:25.1741341] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_353 [9312b9ac:a04653d4]
+[00:00:25.1741341] textureaudit.xml: Compiling Texture:TextureAudit_354 [21e727da:7cf306ad]
+[00:00:25.1741341] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_355 [9312b9ac:ec66fe10]
+[00:00:25.1741341] textureaudit.xml: Compiling Texture:TextureAudit_356 [21e727da:3a22ee9b]
+[00:00:25.1856661] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_357 [9312b9ac:8cf5d82d]
+[00:00:25.1856661] textureaudit.xml: Compiling Texture:TextureAudit_358 [21e727da:eb863f0e]
+[00:00:25.1856661] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_359 [9312b9ac:5d4bcb21]
+[00:00:25.1856661] textureaudit.xml: Compiling Texture:TextureAudit_360 [21e727da:5b613404]
+[00:00:25.1856661] textureaudit.xml: Compiling Texture:TextureAudit_361 [21e727da:916e3f41]
+[00:00:25.1856661] textureaudit.xml: Compiling Texture:TextureAudit_362 [21e727da:105dcfb8]
+[00:00:25.1856661] textureaudit.xml: Compiling Texture:TextureAudit_363 [21e727da:8e41bccf]
+[00:00:25.2013322] textureaudit.xml: Compiling Texture:TextureAudit_364 [21e727da:697323fc]
+[00:00:25.2013322] textureaudit.xml: Compiling Texture:TextureAudit_365 [21e727da:eee64616]
+[00:00:25.2013322] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_366 [9312b9ac:0595e8a1]
+[00:00:25.2013322] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_367 [9312b9ac:eeaf64a6]
+[00:00:25.2013322] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_368 [9312b9ac:24ad1936]
+[00:00:25.2013322] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_369 [9312b9ac:63f352ec]
+[00:00:25.2013322] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_370 [9312b9ac:6e36d2a8]
+[00:00:25.2169577] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_371 [9312b9ac:e881df12]
+[00:00:25.2169577] textureaudit.xml: Compiling Texture:TextureAudit_372 [21e727da:7a774bb2]
+[00:00:25.2169577] textureaudit.xml: Compiling Texture:TextureAudit_373 [21e727da:241dcd78]
+[00:00:25.2169577] textureaudit.xml: Compiling Texture:TextureAudit_374 [21e727da:21dc48ad]
+[00:00:25.2169577] textureaudit.xml: Compiling Texture:TextureAudit_375 [21e727da:8e354cc4]
+[00:00:25.2169577] textureaudit.xml: Compiling Texture:TextureAudit_376 [21e727da:8410a1ed]
+[00:00:25.2169577] textureaudit.xml: Compiling Texture:TextureAudit_377 [21e727da:f6053bbf]
+[00:00:25.2169577] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_378 [9312b9ac:281bf845]
+[00:00:25.2325752] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_379 [9312b9ac:54710902]
+[00:00:25.2325752] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_380 [9312b9ac:2915f213]
+[00:00:25.2325752] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_381 [9312b9ac:8ca0ed29]
+[00:00:25.2325752] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_382 [9312b9ac:02e55cb7]
+[00:00:25.2325752] textureaudit.xml: Compiling OnDemandTexture:TextureAudit_383 [9312b9ac:96fbc7da]
+[00:00:25.2482090] Resolving references: mods\mymod\data\mod
+[00:00:25.2482090] Warning: Unknown asset 'UnitIntro:Allied_GuardianTank_UnitIntro' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'ArmorTemplate:CryoBeamFrozenArmor' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'DamageFX:VehicleDamageFX' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'ArmorTemplate:ShrinkRayEffectArmor' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'LocomotorTemplate:TestReactiveLocomotorTANK' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'Texture:EXTnkTrack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseRenderAssetType:AUAntiVehicleVehicleTech1_SKN' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'FXParticleSystemTemplate:Allied_Target_Laser' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageSmoke' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'Texture:AUAntiVehicleVehicleTech1' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'Texture:AUAntiVehicleVehicleTech1_D' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageFire' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageFireLight' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'W3DAnimation:AUAntiVehicleVehicleTech1_MOVA' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'TerrainParticleMapping:DefaultTankTerrainParticleMapping' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'Texture:FXObeliskLaser' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'Texture:FXLaserOverlay' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseRenderAssetType:EX_Headlights' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'WeaponTemplate:CatalystInfantryDeathWeapon' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'StanceTemplate:Generic' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_02' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_04' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_06' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_08' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_10' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'WeaponTemplate:AlliedAntiVehicleVehicleTech1Cannon' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'WeaponTemplate:AlliedAntiVehicleVehicleTech1TargetPainter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'TargetingCompareList:DefaultTurretTargetingCompareList' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'FXParticleSystemTemplate:Allied_Target_LaserEnd' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'ObjectCreationList:AUAntiVehicleVehicleTech1_Die_OCL' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'FXList:FX_AlliedChieftanDie' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_ToggleTargetPainter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'ObjectFilterAsset:GenericSpecialPowerObjectFilter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterOff' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterOn' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'AttributeModifier:AttributeModifier_TargetPaintVisionBonus' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_PaintTargetTrigger' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_PaintTargetTrigger_HighTechnology' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'AttributeModifier:AttributeMod_AlliedHighTechnologyAttribute' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'TargetingCompareList:DefaultTargetingCompareList' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:SOV_MagneticSatellite_SuckedAway' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:UnitSelectFrozen' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_GuardianTank_VoiceShrunken' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceAttackPaintTarget' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterWeaponLoop' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterWeaponStart' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceCreate' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceMoveAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceMove' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceRetreat' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceSelectMS' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceSelectBattleMS' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_MoveStart' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:VehicleCrush' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'BaseAudioEventInfo:Tank_Land_MoveLoop' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'EvaEvent:UnitLost' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'EvaEvent:BuildingConstructionStarted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'EvaEvent:UnitUnderAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'EvaEvent:UnitUnderAttackFromShroudedUnit' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'EvaEvent:GenericUnitBeingBurned' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'EvaEvent:AllyUnitUnderAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'EvaEvent:UnitAmbushed' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2482090] Warning: Unknown asset 'EvaEvent:GenericEnemyUnitSighted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2638224] Warning: Unknown asset 'EvaEvent:EnemyStealthUnitDiscovered' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2638224] Warning: Unknown asset 'EvaEvent:NewConstructionOptions' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2638224] Warning: Unknown asset 'EvaEvent:BuildOnHold' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2638224] Warning: Unknown asset 'EvaEvent:BuildCancelled' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2638224] Warning: Unknown asset 'EvaEvent:UnitPromoted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\mytank.xml'
+[00:00:25.2638224] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedMiner' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\commanddata.xml'
+[00:00:25.2638224] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiInfantryVehicle_Ground' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\commanddata.xml'
+[00:00:25.2638224] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiAirVehicleTech1' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\commanddata.xml'
+[00:00:25.2638224] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiVehicleVehicleTech1' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\commanddata.xml'
+[00:00:25.2638224] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiStructureVehicle' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\commanddata.xml'
+[00:00:25.2638224] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiVehicleVehicleTech3' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\commanddata.xml'
+[00:00:25.2638224] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedMCV' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\commanddata.xml'
+[00:00:25.2638224] Warning: Unknown asset 'LogicCommand:Command_ToggleTargetPainter' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\commanddata.xml'
+[00:00:25.2638224] Warning: Unknown asset 'LogicCommand:Command_AttackMove' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\commanddata.xml'
+[00:00:25.2638224] Warning: Unknown asset 'LogicCommand:Command_MoveToPositionAndCollect' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\texture-mymod-ed994082d6d8408f9c5cf677a8cdb956\artoverlay-original\mods\mymod\data\commanddata.xml'
+[00:00:25.2638224] Stable sorting assets
+[00:00:25.2638224] Sorting by schema dependencies
+[00:00:25.2638224] Sorting by asset dependencies
+[00:00:25.2794570] Generating stream: mods\mymod\data\mod
+[00:00:25.2950745] Slow asset clean-up (expected: 431, actual: 431, old: 0, current: 431)
+[00:00:25.2950745] Slow custom data clean-up (expected: 192, actual: 192, old asset count: 0)
+[00:00:25.3107077] mods\mymod\data\mod Linking binary data
+[00:00:25.3575819] mods\mymod\data\mod Linking import data
+[00:00:25.3575819] mods\mymod\data\mod Linking relocation data
+[00:00:25.3575819] mods\mymod\data\mod Stream complete
+[00:00:25.3575819] BinaryAssetBuilder complete
+[00:00:25.3575819] Texture:
+[00:00:25.3575819]       Instances Processed: 192
+[00:00:25.3575819]       Total Processing Time: 00:00:11.9526037
+[00:00:25.3575819]       Longest Processing Time: 00:00:00.8764448 (TextureAudit_17)
+[00:00:25.3575819]       Average Processing Time: 0.0622531442708333 seconds
+[00:00:25.3575819] ArmorTemplate:
+[00:00:25.3575819]       Instances Processed: 3
+[00:00:25.3575819]       Total Processing Time: 00:00:00
+[00:00:25.3575819]       Longest Processing Time: 00:00:00 ()
+[00:00:25.3575819]       Average Processing Time: 0 seconds
+[00:00:25.3731974] LogicCommand:
+[00:00:25.3731974]       Instances Processed: 1
+[00:00:25.3731974]       Total Processing Time: 00:00:00.0312554
+[00:00:25.3731974]       Longest Processing Time: 00:00:00.0312554 (Command_Constructmytank)
+[00:00:25.3731974]       Average Processing Time: 0.0312554 seconds
+[00:00:25.3731974] OnDemandTexture:
+[00:00:25.3731974]       Instances Processed: 192
+[00:00:25.3731974]       Total Processing Time: 00:00:12.1429105
+[00:00:25.3731974]       Longest Processing Time: 00:00:00.8758597 (TextureAudit_23)
+[00:00:25.3731974]       Average Processing Time: 0.0632443255208333 seconds
+[00:00:25.3731974] GameObject:
+[00:00:25.3731974]       Instances Processed: 3
+[00:00:25.3731974]       Total Processing Time: 00:00:00.0938797
+[00:00:25.3731974]       Longest Processing Time: 00:00:00.0468803 (mytank)
+[00:00:25.3731974]       Average Processing Time: 0.0312932333333333 seconds
+[00:00:25.3731974] WeaponTemplate:
+[00:00:25.3731974]       Instances Processed: 38
+[00:00:25.3731974]       Total Processing Time: 00:00:00.0625007
+[00:00:25.3731974]       Longest Processing Time: 00:00:00.0156325 (RecoveryNugget_Damage)
+[00:00:25.3731974]       Average Processing Time: 0.00164475526315789 seconds
+[00:00:25.3731974] LogicCommandSet:
+[00:00:25.3731974]       Instances Processed: 2
+[00:00:25.3731974]       Total Processing Time: 00:00:00
+[00:00:25.3731974]       Longest Processing Time: 00:00:00 ()
+[00:00:25.3731974]       Average Processing Time: 0 seconds
+[00:00:25.3731974] Total Processing Time for All Types: 00:00:24.2831500

@@ -1,0 +1,49 @@
+{
+  "originalOracleRetained": true,
+  "postDeploymentComponentValidation": "required because SDK/tools inputs changed",
+  "portableRestoreValidated": true,
+  "ppmSdkValidated": true,
+  "installedConfigSha256": "778222a2db2634e5ec92c8174fcde8879100c9f24827bc7e49d9d3d2362146be",
+  "runAttempt": "1",
+  "originalCompilerSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "sourceCommit": "221ce80136cb3c7a942988a5a10d158ecca63de7",
+  "beforeConfigSha256": "c70ba3231cec9a130fa170d2866836c020659bad2777dfb1d8dc61e914b666cb",
+  "fullMymodValidated": true,
+  "runId": "40884132968",
+  "runtimeFiles": [
+    {
+      "file": "Recovered.BinaryAssetBuilder.TextureCompiler.dll",
+      "sha256": "e576304c80df18bce014141e9aa875b0b1fc9e6224a689b01766cb0a4b520adc",
+      "bytes": 74752
+    },
+    {
+      "file": "Recovered.TextureDxtAlpha.dll",
+      "sha256": "a47649047711a5161e9e8d7900bed1fe5cea79908d79d749a11d0964aa116377",
+      "bytes": 6144
+    },
+    {
+      "file": "Recovered.TextureDxtColour.dll",
+      "sha256": "abf84efa2a7fad37bfb900c0ac86d0b243b14030c5dadd70cbebb8179bca8fa1",
+      "bytes": 158720
+    },
+    {
+      "file": "Recovered.TextureJpeg.dll",
+      "sha256": "cd14c93f975897b4f53ea67b6dacdfdd152c1c98d721096a7409108a190e719e",
+      "bytes": 198656
+    },
+    {
+      "file": "Recovered.TexturePpm.dll",
+      "sha256": "9eecfc5d1dfb93ab4d955e1e07e95a93b7f0bcaed3983ab1ff046f4914e4f59a",
+      "bytes": 153600
+    },
+    {
+      "file": "Recovered.TexturePublicS3.dll",
+      "sha256": "98ca849c5ef620eeb33f4d656e463c5056d652ff862dd1b8bf67ad506f804c6c",
+      "bytes": 182784
+    }
+  ],
+  "targetPlatform": "Win32",
+  "componentGroupsVerified": 49,
+  "packageArchiveSha256": "51110498b214fa3e12a039886df0c834143112d205d1818946f077c18f512826",
+  "status": "installed"
+}

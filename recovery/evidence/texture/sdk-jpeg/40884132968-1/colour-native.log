@@ -1,0 +1,3 @@
+TextureColourBridge.cpp
+bridge.obj : warning LNK4229: invalid directive '/NOENTRY' encountered; ignored
+   Creating library D:\a\_temp\texture-sdk-51d378f7eba5450995b6fe9672989505/colour.lib and object D:\a\_temp\texture-sdk-51d378f7eba5450995b6fe9672989505/colour.exp
