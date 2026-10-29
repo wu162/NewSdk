@@ -21,6 +21,7 @@ function Within([string]$Directory,[string]$Path){
 function EqualBytes([string]$Left,[string]$Right){
     $leftBytes=[IO.File]::ReadAllBytes($Left);$rightBytes=[IO.File]::ReadAllBytes($Right)
     Need ($leftBytes.Length -eq $rightBytes.Length) 'No-cache/cache artifact lengths differ'
+    if([Linq.Enumerable]::SequenceEqual[byte]($leftBytes,$rightBytes)){return}
     for($i=0;$i -lt $leftBytes.Length;$i++){Need ($leftBytes[$i] -eq $rightBytes[$i]) "No-cache/cache raw artifact byte differs at $i"}
 }
 function SameOutputs($Left,$Right){
@@ -479,18 +480,21 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         # Complete one included document before a guaranteed later XML failure.
         $partialMod=Join-Path $modeWork 'partial';MakeMod $partialMod $probe
         Put "$partialMod/Data/Mod.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes><Include type="all" source="Armor.xml"/><Include type="all" source="Broken.xml"/></Includes></AssetDeclaration>'
+        $partialArmor=[IO.File]::ReadAllText("$partialMod/Data/Armor.xml")
+        Put "$partialMod/Data/Armor.xml" $partialArmor.Replace('</AssetDeclaration>','<PathMusicEvent id="CacheEvent" PathfinderEventHeader="events.h" IsXferable="true"/></AssetDeclaration>')
         Put "$partialMod/Data/Broken.xml" '<AssetDeclaration>broken'
         $partialOut=Join-Path $modeWork 'partial-cache';$noPartialOut=Join-Path $modeWork 'no-partial-cache'
         $partialFailure=RunCli 'original-partial-failure' $partialMod $partialOut $true 4 -OriginalDefaults
         Need ($partialFailure.report.cache.partialSessionsSaved -gt 0 -and (Test-Path -LiteralPath (Join-Path $partialOut 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'psc:true did not save completed document work after failure'
         $noPartialFailure=RunCli 'original-no-partial-failure' $partialMod $noPartialOut $true 4 -OriginalDefaults -Extra @('--psc=false')
         Need (!(Test-Path -LiteralPath (Join-Path $noPartialOut 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'psc:false saved an aborted session'
+        Need (@(Get-ChildItem -LiteralPath (Join-Path $noPartialOut 'cache') -Filter '*.asset' -File -Recurse).Count -gt 0) 'Original build cache did not retain successfully compiled assets from an aborted build'
         Put "$partialMod/Data/Broken.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"/>'
         $partialRetry=RunCli 'original-partial-retry' $partialMod $partialOut $true -OriginalDefaults
         $partialPlain=RunCli 'original-partial-retry-disabled' $partialMod ($partialOut+'-plain') $false;SameOutputs $partialPlain $partialRetry
         Need ($partialRetry.report.cache.documentReuse -gt 0) 'Partial retry did not reuse its completed included document'
-        $noPartialRetry=RunCli 'original-no-partial-retry' $partialMod $noPartialOut $true -OriginalDefaults -Extra @('--psc=false');SameOutputs $partialPlain $noPartialRetry
-        Need ($noPartialRetry.report.cache.documentReuse -eq 0) 'psc:false reused an unconfirmed aborted session'
+        $noPartialRetry=RunCli 'original-no-partial-retry' $partialMod $noPartialOut $true -OriginalDefaults -Extra @('--psc=false','--iod',(Join-Path $modeWork 'no-partial-fresh-intermediate'));SameOutputs $partialPlain $noPartialRetry
+        Need ($noPartialRetry.report.cache.documentReuse -eq 0 -and $noPartialRetry.report.cache.hits -gt 0) 'psc:false retry must parse source but reuse independently completed native assets'
         $modeState.passed=$true
     }
     $state.succeeded=$true;$global:LASTEXITCODE=0

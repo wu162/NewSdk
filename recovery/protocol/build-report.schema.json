@@ -72,7 +72,8 @@
             "enum": [
               "default",
               "project",
-              "commandLine"
+              "commandLine",
+              "sdkConfig"
             ]
           }
         }

@@ -34,6 +34,7 @@ function Contains([string]$Directory,[string]$Path){
 function CompareBytes([string]$Original,[string]$Backend){
     $left=[IO.File]::ReadAllBytes($Original);$right=[IO.File]::ReadAllBytes($Backend)
     if($left.Length -ne $right.Length){throw "Independent original/backend output size differs: $Original vs $Backend"}
+    if([Linq.Enumerable]::SequenceEqual[byte]($left,$right)){return}
     for($i=0;$i -lt $left.Length;$i++){if($left[$i] -ne $right[$i]){throw "Independent original/backend bytes differ at $i : $Original vs $Backend"}}
 }
 function GetOriginalTextureCustomOutputs([string]$Manifest,$Information){
