@@ -1,11 +1,13 @@
-# 当前：45组件与BMP专用SDK已验收；DIB插件/真彩色表接入实现中
+# 当前：DIB插件与BMP真彩表已实现；完整组件40821998297仍运行，专用SDK尚未启动
 
-- **本轮完成**：核实`d0a4547e9cb45d35f5f22b73d23c401e97ef266d` / [40816168489](https://github.com/wu162/NewSdk/actions/runs/40816168489) completed/success，DIB及3个DXT1A组passed、41组件复用，当前45组件有效。独立DIB D/R各4866输入、4578实际原raw-DIB调用、双入口与逐次NoOriginal通过。SDK PcBmpHeaders三模式各22670资产/调用、142成功atlas、四产物及79275完整轨迹文件/模式独立逐字节审计通过；5-DLL包/源码/安装回滚/唯一ID完整审计见`evidence/texture/handoffs/20261029-dib/bmp-sdk-package-audit.json`。
-- **证据保存修正**：历史SDK清单/XML/TSV曾被Git归一化为LF；新增该运行的CRLF检出属性，恢复后逐个匹配原收据SHA及zip内原manifest，不改写原收据/归档。后续新Texture证据以-text保存这些字节。源码包审计按Actions Windows Git过滤器重建源码字节，再严格比较原长度/哈希/完整文件。
-- **功能实现中、待验证**：公共loader识别裸DIB、插件接受`.dib`；BMP真彩biClrUsed按原parser跳过RGBQUAD，DIB envelope不再删除表或改profile指针，两者共用同一解析器。新增6入口DIB/BMP组件与50304输入整组插件消费差分；源码`2b23ff4c638c6305ff6afc98e9e4f57bba506200` / [40821998297](https://github.com/wu162/NewSdk/actions/runs/40821998297)验收中，尚未计为通过或SDK集成完成。新PcDib专用SDK21464资产/模式已准备，组件稳定后单独显式运行。
-- **工具验证已完成**：`34597df3892b721ab34e82c90014cccbd9585a39` / [40824119729](https://github.com/wu162/NewSdk/actions/runs/40824119729) completed/success，17项选择边界通过，28执行/18复用与前轮完全相同，Windows skipped。等价fnmatch合并及不可变查询缓存使两次Actions计划生成实测141.217秒→13.957秒；只是单次运行观察，不代表额度计量或减少断言，收据见`evidence/texture/selection-policy/40824119729-1/validation.json`。
-- **下一轮计划/本轮继续**：先收`40821998297`终态，核对每组实际收据；成功项复用，真实失败才定向修复。新DIB消费通过后用`InspectTextureDibArchive.py`审计全部源与三buffer/cdata、D/R完整归档，再以`[texture-dib-sdk]`仅集中PcDib专用SDK；用`InspectTextureDibSdkPackage.py`核对全部四产物/完整轨迹/包/ID及与组件源字节关联，未取得证据不计通过。该组闭环后按[PPM下一步](TEXTURE_PPM_NEXT.md)独立原gold/公开IJG候选推进；已保存624字节原函数与固定来源，当前PPM未实现/未调用原版运行。完整mymod不自动跑，未变成功组保留各自锚点，禁止强推、编译测试仅Actions、生产SDK树未替换。
-
+- **本轮完成（业务源码）**：公共TextureImageLoader识别裸DIB，Texture/OnDemandTexture接受`.dib`；BMP真彩biClrUsed按原parser跳过RGBQUAD。DIB只加私有14字节envelope，不再删除表或重定位V5 profile；两种封装共用同一有界parser，保留alpha/NPOT/metadata/原错误及不确定bitfields拒绝。业务与完整测试锚点`2b23ff4c638c6305ff6afc98e9e4f57bba506200`，后续提交未改业务/这些测试。新范围尚未计为验收通过。
+- **已核对的旧成果**：`d0a4547e9cb45d35f5f22b73d23c401e97ef266d` / [40816168489](https://github.com/wu162/NewSdk/actions/runs/40816168489) completed/success：独立DIB及3个DXT1A组passed、41组件复用，共45组件旧范围有效。旧DIB D/R各4866输入、4578实际原raw-DIB调用、双入口与逐次NoOriginal通过。PcBmpHeaders三模式每模式22670实际资产/调用、142成功atlas、四产物/79275完整轨迹文件及完整5-DLL包、源码指纹、安装回滚/唯一ID均独立审计通过；审计见`evidence/texture/handoffs/20261029-dib/bmp-sdk-package-audit.json`。这些旧锚点不冒充新DIB路由验收。
+- **本轮待收组件**：[40821998297](https://github.com/wu162/NewSdk/actions/runs/40821998297) / `2b23ff4c`，本轮最后检查仍in_progress，Windows正在顺序执行完整矩阵。实际28组执行、18组复用；新增DIB六入口4866输入、306实际原BMP表调用、216损坏表/overflow安全拒绝；dib-images D/R各50304输入及同量逐次NoOriginal，3952原错误/96主动拒绝分别计数，432 atlas必须真正成功。未收到终态及逐组收据，不能写成46组件通过；不重复启动该批次。
+- **专用SDK已准备、未运行**：PcDib每模式21464资产、216成功atlas，三模式/四产物/完整轨迹、5-DLL包、安装回滚及原Core唯一ID。`TestTextureDibSdk.ps1`在任何包构建/SDK调用前重新核对全部当前组件；缺失/失败即停止，保存component-readiness.json。组件收齐后可在RESUME交接提交显式附`[texture-dib-sdk]`，仅选择新sdk-PcDib并保留正常受影响组件选择，不自动启动旧SDK或完整mymod。该前置检查与新SDK仍待真实执行。
+- **本轮完成（工具验证）**：`34597df3892b721ab34e82c90014cccbd9585a39` / [40824119729](https://github.com/wu162/NewSdk/actions/runs/40824119729) success：17项选择边界通过，28执行/18复用与前轮完全相同、Windows skipped。等价fnmatch合并及不可变Git查询缓存的两次Actions计划实测141.217秒→13.957秒，仅是单次运行观察，不是额度计量或减少断言；收据见`evidence/texture/selection-policy/40824119729-1/validation.json`。旧SDK历史XML/TSV/manifest以CRLF检出匹配原SHA和zip内原字节；新证据以-text保存。原收据/归档未改写。
+- **下一轮计划**：先收40821998297终态、逐组validation/sourceCommit/实际日志；成功项直接复用，真实失败才定向修复。dib-images通过后用`InspectTextureDibArchive.py`审计完整D/R归档、源/三buffer/cdata，并保存为`evidence/texture/handoffs/20261029-dib/component-archive-audit.json`；再显式运行新PcDib专用SDK，以`InspectTextureDibSdkPackage.py`核对四产物/全部轨迹/来源包/ID及组件输入字节关联。完整成功后才宣布新路由集成完成。完整mymod不自动运行，未变成功项保留各自锚点。
+- **后续功能入口**：[PPM下一步](TEXTURE_PPM_NEXT.md)。本轮只保存624字节原PPM parser/dispatch与固定IJG6b公开候选身份，未实现PPM、未运行其原版gold。后续先独立validation/texture-public-ppm，原gold驱动通用规则适配，完成实际消费/必要SDK后才普通合入。
+- **保存与边界**：所有源码/测试/工具/证据集中`recovery/texturecompiler-source`，SDK前置与显式触发入口已保存于`1c9b678707f610dcb784ddd1e37f8f4c37c5dc8a`。生产SDK树仍为`1f2d71a20ce8bf7d9343c7a2246c10275abe28f9`，未替换。仅PC，默认DXT1/不透明DXT1A及不确定扩展bitfields继续拒绝，禁止强推，编译测试仅Actions。本轮按最多70分钟收尾，CI未完成部分按上述精确入口续接。
 
 # 本轮追加：独立裸DIB加载接口（待组件验收，未接插件）
 
