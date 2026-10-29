@@ -1,3 +1,12 @@
+# 当前PPM：旧回归已收齐；启动volume边界与专用SDK
+
+- **本轮完成**：2026-10-29续接已核实`838b40b3860106cdfd677438c33c062b98d6702f` / [40838359589](https://github.com/wu162/NewSdk/actions/runs/40838359589) completed/success，29选中完整组件通过、19旧组复用。此前PPM四入口和41120插件输入/配置的独立归档审计继续有效，保留各组原sourceCommit/runId，不重复旧矩阵。
+- **本轮正在验收**：显式`[texture-ppm-sdk]`仅补未验收的11520条ppm-volume-boundaries完整组，全部49组件就绪后执行sdk-PcPpm三模式、每模式15712资产/32成功atlas/完整六DLL包、安装回滚、唯一ID和四产物/全轨迹；当前提交不宣称新边界或SDK通过。按本轮最多70分钟推进，不启动旧SDK或完整mymod。
+- **下一轮计划**：收本次Actions终态，失败只修实际失败/变化组；成功后用`InspectTexturePpmSdkPackage.py`独立审计全部产物/轨迹/来源/安装回滚/ID与组件关联，通过后才普通合入`recovery/texturecompiler-source`。具体入口`TEXTURE_PPM_NEXT.md`。
+- **保存与边界**：当前仍在独立`validation/texture-public-ppm`，生产SDK树未替换；仅PC、既有DXT1/不透明DXT1A/不确定bitfields拒绝保留，编译测试仅Actions、禁止强推。
+
+以下为历史交接，当前状态以顶部及实际运行锚点为准。
+
 # 当前PPM测试分支：四入口及实际插件已通过；剩余旧回归运行中
 
 - **本轮完成**：直接适配固定IJG6b，保留原文件/通知及前后SHA。独立原gold8438输入、6615解码/1823原错误、0重复不确定；首版520个差异按宽整数打包通用规则修复。`782f6b97` /40837034188完成D/R独立双入口全量；现`838b40b3860106cdfd677438c33c062b98d6702f` / [40838359589](https://github.com/wu162/NewSdk/actions/runs/40838359589)优先两组均passed：D/R各8438 gold/33752 direct/public Decode/Load调用、13260240完整RGBA字节及60候选安全拒绝；实际ppm-images每配置41120输入/同量NoOriginal，31424成功/9664原错误/32不透明DXT1/1A拒绝，64 atlas必须成功。完整D/R源/三buffer/full cdata/旧尾已独立归档审计，见`evidence/texture/handoffs/20261029-ppm/component-archive-audit.json`。
