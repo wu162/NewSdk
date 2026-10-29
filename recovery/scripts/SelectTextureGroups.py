@@ -35,13 +35,21 @@ def changed_files(root, anchor, head):
     return frozenset(git(root, 'diff', '--name-only', anchor, head).stdout.splitlines())
 
 
-def dependencies(root, spec, ref):
+@lru_cache(maxsize=None)
+def dependency_files(root, patterns, ref):
     available = files(root, ref)
-    patterns = spec['dependencies']
-    result = {p for p in available if any(fnmatch.fnmatchcase(p, q) for q in patterns)}
+    # Match the same case-sensitive fnmatch language, but cross into the regex
+    # engine once per file rather than once per pattern. Each translated arm
+    # keeps fnmatch's complete-string anchor and DOTALL behaviour.
+    matcher = re.compile('|'.join(fnmatch.translate(p) for p in patterns)) if patterns else None
+    result = {p for p in available if matcher is not None and matcher.fullmatch(p)}
     # Explicit missing/deleted inputs remain part of the dependency set.
     result.update(p for p in patterns if not any(c in p for c in '*?['))
-    return result
+    return frozenset(result)
+
+
+def dependencies(root, spec, ref):
+    return dependency_files(root, tuple(spec['dependencies']), ref)
 
 
 def successful(row, sdk=False):

@@ -42,6 +42,15 @@ class SelectionTests(unittest.TestCase):
         self.assertEqual(self.result()['reused'],['a'])
     def test_deleted_input_runs(self):
         (self.root/'src/TextureCompiler/Managed/A.cs').unlink();self.commit();self.assertEqual(self.result()['selected'],['a'])
+    def test_glob_union_keeps_case_classes_nested_paths_and_missing_inputs(self):
+        for path in ['src/TextureCompiler/Managed/A1.cs','src/TextureCompiler/Managed/A10.cs','src/Other/A2.cs','src/Other/a3.cs']:
+            self.write(path,'fixture')
+        head=self.commit()
+        spec={'dependencies':['src/**/A?.cs','SDK/tools/[CU]ore.dll','literal/missing.input']}
+        expected={'src/TextureCompiler/Managed/A1.cs','src/Other/A2.cs','SDK/tools/Core.dll','literal/missing.input'}
+        self.assertEqual(selector.dependencies(self.root,spec,head),expected)
+        spec['dependencies'].append('src/TextureCompiler/Managed/A.cs')
+        self.assertEqual(selector.dependencies(self.root,spec,head),expected|{'src/TextureCompiler/Managed/A.cs'})
     def test_probe_and_incomplete_cannot_be_reused(self):
         self.receipt(probeOnly=True);self.assertEqual(self.result()['selected'],['a'])
         self.receipt(configurations=[{'configuration':'Debug','passed':True}]);self.assertEqual(self.result()['selected'],['a'])
