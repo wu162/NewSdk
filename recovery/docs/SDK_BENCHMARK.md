@@ -4,7 +4,23 @@
 
 `BenchmarkCompilerSdkComparison.py` 在同一台 Windows VM 上交替执行原 `BinaryAssetBuilder.exe` 和已验收的新版 Win32 Release。比较独立进程从启动到退出的端到端成本、CPU 时间、峰值工作集及缓存占用；新版还承担报告、JSONL、独立 staging 和事务发布的成本，原工具直接写出流文件。结果用于比较实际命令行使用成本。
 
-## 优化后结果（2026-10-29）
+## 六项热态优化后的结果（2026-10-29）
+
+[运行 40848391545](https://github.com/wu162/NewSdk/actions/runs/40848391545) success。生产二进制、基准源码均为 `84261243`；通过 `accepted_run=40845943601` 复用完整验收的精确五文件 Release，没有用旧二进制替代本轮变化。原归档和基准归档均已通过插件下载并在本地复算 SHA256，与 GitHub digest 相同。[来源与摘要](../evidence/refactor/sdk-benchmark/40848391545-1/summary.json)、[完整 JSON](../evidence/refactor/sdk-benchmark/40848391545-1/comparison.json)、[CSV](../evidence/refactor/sdk-benchmark/40848391545-1/comparison.csv)、[全模式表](../evidence/refactor/sdk-benchmark/40848391545-1/comparison.md)。
+
+同一台 VM、同一物理输入/Schema/有序资源根，交替启动两个编译器，独立缓存，预热排除。108 对/216 次计量及两次预热合计约 123.1 秒；所有四流/CDATAs 的成员、长度、SHA256、原始字节一致。SDK、MOD、运行库及资源根存在性均保持不变。新版耗时仍包含 JSONL、报告、staging 和发布流程，比较的是命令行启动到退出。
+
+默认 `/bc:true /sc:true /csc:true` 热态，每边 5 次中位数，单位 ms：
+
+| 工作量 | 老 SDK | 本轮新版 | 新版耗时变化 |
+| --- | ---: | ---: | ---: |
+| 完整 mymod 输入，base/loose | 450.6 | 446.1 | -1.0% |
+| Upheaval Armor 子集，12 资产 | 426.3 | 417.5 | -2.1% |
+| 合成 Texture ×16 | 429.5 | 454.5 | +5.8% |
+
+mymod 和 Armor 默认热态已略快于老 SDK；纹理仍慢约 5.8%，不能表述为所有场景均更快。其余热模式也有差异：mymod 的 XML/仅会话模式约慢 2%–3%，纹理 XML 双缓存约慢 9%，详见全模式表。mymod/Armor 类型未启用原生资产缓存，bc-only 结果不据此声称资产缓存命中。样本规模有限，OS 页缓存未受控；不同 VM 的历史绝对时间和比例变化不能作为六项改动的精确因果收益。未测完整 Upheaval、BIG 性能、游戏内行为；完整 mymod BIG/ZIP 正确性由生产验收另行覆盖。
+
+## 上一轮优化后结果（历史，2026-10-29）
 
 [运行 40837902446](https://github.com/wu162/NewSdk/actions/runs/40837902446) success；生产二进制 `4ad5d0d9` / 完整验收 `40836177604`，基准源码 `0fb98df2`，直接复用精确五文件 Release。54 对/108 次计量及两次预热约 83.4 秒，全部流/CDATAs 的成员、长度、SHA256 和原始字节相同。[CSV](../evidence/refactor/sdk-benchmark/40837902446-1/comparison.csv)、[完整 JSON](../evidence/refactor/sdk-benchmark/40837902446-1/comparison.json)、[来源与摘要](../evidence/refactor/sdk-benchmark/40837902446-1/summary.json)。
 
@@ -16,7 +32,7 @@
 | Upheaval Armor 子集 | 539.5 | 596.1 | 1.105 |
 | 合成 Texture ×16 | 547.5 | 593.9 | 1.085 |
 
-当前仍比原 SDK 慢约 6.7%–10.5%。本轮同机配对可比较当前两引擎；各边仅两个热态样本，OS 页缓存未受控。历史轮次在另一 VM 上，不能把跨轮绝对毫秒差或比例变化当作精确因果收益。BIG 复用由生产原收据另外确认，不包含在这组 loose 基准。`cacheBytes` 延续既有 asset/session 目录口径，不包含新增私有链接快照/哈希索引，不把 none 模式的 0 字节解释为完全无派生状态。
+该阶段仍比原 SDK 慢约 6.7%–10.5%。本轮同机配对可比较当前两引擎；各边仅两个热态样本，OS 页缓存未受控。历史轮次在另一 VM 上，不能把跨轮绝对毫秒差或比例变化当作精确因果收益。BIG 复用由生产原收据另外确认，不包含在这组 loose 基准。`cacheBytes` 延续既有 asset/session 目录口径，不包含新增私有链接快照/哈希索引，不把 none 模式的 0 字节解释为完全无派生状态。
 
 ## 优化前实测结论（历史，2026-10-29）
 

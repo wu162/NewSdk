@@ -1,10 +1,10 @@
 # 原 SDK 缓存：行为与实现
 
-本页记录当前缓存恢复的行为、代码分工和验收范围；分支、准确源码及待办见 [交接](../REFACTOR_RESUME.md)。运行 `40814401237` 的全部生产验收门槛已通过，具体覆盖边界见下文。
+本页记录缓存恢复与热态优化的行为、代码分工和验收范围；当前分支、准确源码及结果见 [续接入口](../RESUME.md)。旧阶段交接与验收在后文保留。
 
-## 本轮热态优化（2026-10-29，验证中）
+## 本轮热态优化（2026-10-29，已验收）
 
-直接开发于 `recovery/legacy-sdk-cache`，最新生产源码 `2040238a`，测试检查点 `d35ef078`；完整构建/生产差分运行 `40845097990` 进行中。下述为实现合同，尚未声称完整生产通过或性能收益。
+直接开发于 `recovery/legacy-sdk-cache`，生产与测试源码 `84261243`；完整构建/生产差分 [40845943601](https://github.com/wu162/NewSdk/actions/runs/40845943601) success。独立应用、完整生产矩阵、mymod 原始字节差分和独立五文件 ZIP 均通过；[原始收据摘要](../evidence/refactor/hot-cache/40845943601-1/summary.json) 保存归档哈希及来源。两配置热态 `xmlParse=0`、`instanceCompile=0`、`fileHashReads=0`、`fileHashBytesRead=0`、`publicationUnchanged=true`，会话/CDATAs 写时间保持不变。新旧 SDK 配对 [40848391545](https://github.com/wu162/NewSdk/actions/runs/40848391545) 也已 success，具体计量见 [SDK 对照](SDK_BENCHMARK.md)。
 
 - 生产插件按实际请求的类型创建；缓存版本从原 Win32 元数据取得，不为汇总版本加载 Texture/W3X/Audio 等无关实现。doctor 和显式全路由目录检查继续完整初始化；跨流只重新初始化已经加载的实现。
 - 会话 Schema 身份来自 `SchemaSet` 已读取的实际 XSD include 闭包及其内容哈希，不再递归枚举整个 `Schemas`。同一构建请求内复用已编译 Schema；未参与闭包的孤立文件不再导致冷失效。
@@ -15,9 +15,9 @@
 
 本轮新增少量关键检查：虚拟四流复用不落盘也不替换旧文件，发布收据识别嵌套新增文件和等长/恢复 mtime 编辑，真实热态会话及 CDATA 不重写。完整原版字节差分和正式 ZIP 门槛继续保留。历史验收见后文，不将其作为本轮新代码的结果。
 
-## 链接与发布复用（2026-10-29）
+## 上一轮链接与发布复用（历史，2026-10-29）
 
-实现分支 `codex/legacy-cache-completion`，[PR #20](https://github.com/wu162/NewSdk/pull/20)；当前完整生产源码 `4ad5d0d9`，统一验收 [40836177604](https://github.com/wu162/NewSdk/actions/runs/40836177604) 已 success，完整 mymod 原版字节差分及独立五文件 ZIP 同时通过。[原收据核对摘要](../evidence/refactor/performance-implementation/40836177604-1/summary.json) 记录下载归档 SHA256、来源、两配置零热态 SHA 读取与实际 BIG 复用；旧验收不替代本批结果。
+实现分支 `codex/legacy-cache-completion`，[PR #20](https://github.com/wu162/NewSdk/pull/20)；该阶段完整生产源码 `4ad5d0d9`，统一验收 [40836177604](https://github.com/wu162/NewSdk/actions/runs/40836177604) 已 success，完整 mymod 原版字节差分及独立五文件 ZIP 同时通过。[原收据核对摘要](../evidence/refactor/performance-implementation/40836177604-1/summary.json) 记录下载归档 SHA256、来源、两配置零热态 SHA 读取与实际 BIG 复用；旧验收不替代本批结果。
 
 - `LinkedOutputCache` 在输出根 `.linked-streams` 保留四流，按实际创建的 `OutputManager` 懒恢复完整四文件，沿用原 manifest/type/stream checksum 决定重写。删除的 include 不会混入输出；该能力独立于 `/sc`、`/bc`，BIG 与 loose 共用。
 - 私有四流快照优先硬链接，不支持时复制；原链接器通过 unlink、临时文件和 rename 更新四流。公开文件及恢复的 CDATA 使用独立存储。会话、安装与回滚备份改为移动，CDATA 相同则不重新安装。
