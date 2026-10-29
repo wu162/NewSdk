@@ -63,6 +63,8 @@ namespace NewModCompiler.Compatibility
         }
 
         public static LegacyTextureAdapter Load()
+        { return Load(null); }
+        internal static LegacyTextureAdapter Load(Func<string,string> hashFile)
         {
             if (IntPtr.Size != 4) throw new PlatformNotSupportedException("Legacy texture requires Windows x86.");
             Assembly owner = typeof(IAssetBuilderPlugin).Assembly;
@@ -78,15 +80,17 @@ namespace NewModCompiler.Compatibility
             Equal(Text(manifest, "originalSha256"), OriginalHash, "original input");
             Equal(Text(manifest, "assemblyRefToken"), "0x23000005", "reference token");
             Equal(Text(manifest, "targetIdentity"), owner.FullName, "EXE identity");
-            Equal(Text(manifest, "targetExeSha256"), Hash(entry.Location), "EXE bytes");
-            Equal(Text(manifest, "patchedSha256"), Hash(path), "texture bytes");
+            if(hashFile==null)hashFile=Hash;
+            Equal(Text(manifest, "targetExeSha256"), hashFile(entry.Location), "EXE bytes");
+            string textureHash=hashFile(path);
+            Equal(Text(manifest, "patchedSha256"), textureHash, "texture bytes");
             object auditValue;
             var audit = manifest.TryGetValue("protectedPeAudit", out auditValue) ? auditValue as Dictionary<string, object> : null;
             if (audit == null) throw new InvalidDataException("Texture deployment has no protected PE audit.");
             Equal(Text(audit, "status"), "passed", "PE audit status");
             Equal(Text(audit, "mode"), "redirect", "PE audit mode");
             Equal(Text(audit, "originalSha256"), OriginalHash, "PE audit original");
-            Equal(Text(audit, "outputSha256"), Hash(path), "PE audit output");
+            Equal(Text(audit, "outputSha256"), textureHash, "PE audit output");
             // A previously loaded same-identity DLL can bypass LoadFrom's path.
             Assembly assembly = Assembly.LoadFrom(path);
             Equal(Path.GetFullPath(assembly.Location).ToUpperInvariant(), Path.GetFullPath(path).ToUpperInvariant(), "loaded texture location");

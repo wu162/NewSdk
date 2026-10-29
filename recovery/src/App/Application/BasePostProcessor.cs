@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading;
 using NewModCompiler.Diagnostics;
 
@@ -78,11 +77,9 @@ namespace NewModCompiler.Application
         static void Copy(string source,string destination,CancellationToken cancellation) {
             Directory.CreateDirectory(Path.GetDirectoryName(destination));
             using(var input=new FileStream(source,FileMode.Open,FileAccess.Read,FileShare.Read))
-            using(var output=new FileStream(destination,FileMode.CreateNew,FileAccess.ReadWrite,FileShare.None)) {
+            using(var output=new FileStream(destination,FileMode.CreateNew,FileAccess.Write,FileShare.None)) {
                 byte[] buffer=new byte[64*1024];int count;
                 while((count=input.Read(buffer,0,buffer.Length))!=0) {cancellation.ThrowIfCancellationRequested();output.Write(buffer,0,count);}
-                output.Flush(true);input.Position=0;output.Position=0;
-                using(var hash=SHA256.Create())if(!hash.ComputeHash(input).SequenceEqual(hash.ComputeHash(output)))throw new IOException("Neutral repair private stream copy differs from its accepted source.");
             }
         }
     }

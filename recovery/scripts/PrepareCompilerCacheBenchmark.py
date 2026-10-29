@@ -65,15 +65,15 @@ def allowed_change(path):
     return path in BENCHMARK_FILES or path.endswith('.md') or path.startswith('recovery/evidence/')
 
 
-def verify_sources(repo, candidate):
+def verify_sources(repo, candidate, source=SOURCE):
     candidate = git(repo, 'rev-parse', '--verify', candidate + '^{commit}').stdout.decode().strip()
-    need(git(repo, 'merge-base', '--is-ancestor', SOURCE, candidate, check=False).returncode == 0,
+    need(git(repo, 'merge-base', '--is-ancestor', source, candidate, check=False).returncode == 0,
          'Accepted binary source is not an ancestor of the benchmark candidate')
     # Compare both committed closure and actual checkout, including local edits.
     changed = set()
     for target in (candidate,):
-        changed.update(git(repo, 'diff', '--name-only', '-z', SOURCE, target).stdout.decode().split('\0'))
-    changed.update(git(repo, 'diff', '--name-only', '-z', SOURCE).stdout.decode().split('\0'))
+        changed.update(git(repo, 'diff', '--name-only', '-z', source, target).stdout.decode().split('\0'))
+    changed.update(git(repo, 'diff', '--name-only', '-z', source).stdout.decode().split('\0'))
     changed.discard('')
     denied = sorted(p for p in changed if not allowed_change(p))
     need(not denied, 'Production/SDK/recipe closure changed: ' + ', '.join(denied[:8]))
@@ -87,31 +87,32 @@ def verify_sources(repo, candidate):
     return candidate, sorted(changed)
 
 
-def verify_identity(body, source_key='binarySourceCommit'):
-    need(body.get(source_key) == SOURCE and str(body.get('runId')) == RUN and str(body.get('runAttempt')) == '1',
+def verify_identity(body, source_key='binarySourceCommit', source=SOURCE, run=RUN, attempt=1):
+    need(body.get(source_key) == source and str(body.get('runId')) == str(run) and str(body.get('runAttempt')) == str(attempt),
          'Accepted source/run/attempt identity differs')
 
 
-def validate_bundle(path, expected_sha=ARCHIVE_SHA256):
+def validate_bundle(path, expected_sha=ARCHIVE_SHA256, source=SOURCE, run=RUN, attempt=1):
+    prefix = 'artifacts/final-release/%s-%s/' % (run, attempt)
     need(file_sha(path) == expected_sha, 'Pinned artifact SHA256 mismatch')
     with zipfile.ZipFile(path) as outer:
         need(len(outer.namelist()) == len(set(outer.namelist())), 'Duplicate outer archive member')
-        release = json.loads(outer.read(PREFIX + 'release.json'))
-        verify_identity(release)
-        need(release.get('succeeded') is True and release.get('sourceCommit') == SOURCE,
+        release = json.loads(outer.read(prefix + 'release.json'))
+        verify_identity(release, source=source, run=run, attempt=attempt)
+        need(release.get('succeeded') is True and release.get('sourceCommit') == source,
              'Final release did not succeed for accepted source')
         configs = release.get('configurations', [])
         need(len(configs) == 2 and {c.get('configuration') for c in configs} == {'Debug', 'Release'},
              'Final release lacks exact Debug/Release acceptance')
         need(all(c.get('rawOutputEquality') is True for c in configs), 'ZIP raw output equality did not pass')
-        manifest = json.loads(outer.read(PREFIX + 'NewModCompiler-Win32-Release.manifest.json'))
-        verify_identity(manifest)
+        manifest = json.loads(outer.read(prefix + 'NewModCompiler-Win32-Release.manifest.json'))
+        verify_identity(manifest, source=source, run=run, attempt=attempt)
         need(manifest.get('configuration') == 'Release' and manifest.get('platform') == 'Win32'
              and manifest.get('status') == 'verified-small-mod-deployment'
-             and manifest.get('packagingSourceCommit') == SOURCE, 'Release manifest identity differs')
+             and manifest.get('packagingSourceCommit') == source, 'Release manifest identity differs')
         archive = manifest['archive']
         need(archive['name'] == 'NewModCompiler-Win32-Release.zip', 'Unexpected inner ZIP name')
-        data = outer.read(PREFIX + archive['name'])
+        data = outer.read(prefix + archive['name'])
         need(len(data) == archive['bytes'] and sha(data) == archive['sha256'], 'Release ZIP digest mismatch')
         accepted = next(c for c in configs if c['configuration'] == 'Release')
         need(accepted.get('zipSha256') == archive['sha256'], 'Release receipt ZIP binding differs')
@@ -213,11 +214,28 @@ def prepare_workloads(repo, stage, destination):
     return workloads
 
 
-def download(target):
+def download(target, artifact=ARTIFACT):
     with target.open('xb') as stream:
-        result = subprocess.run(['gh', 'api', 'repos/wu162/NewSdk/actions/artifacts/' + ARTIFACT + '/zip'],
+        result = subprocess.run(['gh', 'api', 'repos/wu162/NewSdk/actions/artifacts/' + str(artifact) + '/zip'],
                                 stdout=stream, stderr=subprocess.PIPE, timeout=180)
     need(result.returncode == 0, 'Pinned artifact download failed (remote stderr withheld; exit %d)' % result.returncode)
+
+
+def accepted_run(run):
+    def api(path):
+        return json.loads(subprocess.run(['gh', 'api', 'repos/wu162/NewSdk/' + path],
+                                        check=True, capture_output=True, timeout=60).stdout)
+    result = api('actions/runs/' + str(run))
+    need(result['status'] == 'completed' and result['conclusion'] == 'success' and
+         result['path'] == '.github/workflows/refactor-core-lifecycle.yml',
+         'Benchmark requires a successful complete production acceptance run')
+    attempt = result['run_attempt']
+    artifacts = api('actions/runs/%s/artifacts' % run)['artifacts']
+    selected = [a for a in artifacts if a['name'] == 'refactor-core-lifecycle-%s-%s' % (run, attempt)]
+    need(len(selected) == 1 and not selected[0]['expired'], 'Accepted production artifact is unavailable')
+    digest = selected[0]['digest']
+    need(digest.startswith('sha256:') and len(digest) == 71, 'Accepted artifact has no SHA256 digest')
+    return result['head_sha'], attempt, str(selected[0]['id']), digest[7:]
 
 
 def main():
@@ -226,13 +244,18 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--repo', type=Path, default=Path.cwd())
     parser.add_argument('--candidate-commit', default='HEAD')
+    parser.add_argument('--accepted-run', type=int, help='Use the exact five-file Release from a successful full production run')
     args = parser.parse_args()
     repo = args.repo.resolve()
     destination = args.output.resolve()
     need(not destination.exists(), 'Refusing to replace existing preparation output')
     need(not destination.is_relative_to(repo / 'SDK') and not destination.is_relative_to(repo / 'recovery/src'),
          'Preparation output must not modify SDK or production sources')
-    candidate, changes = verify_sources(repo, args.candidate_commit)
+    source, run, attempt, artifact, archive_sha = SOURCE, RUN, 1, ARTIFACT, ARCHIVE_SHA256
+    if args.accepted_run:
+        run = str(args.accepted_run)
+        source, attempt, artifact, archive_sha = accepted_run(run)
+    candidate, changes = verify_sources(repo, args.candidate_commit, source)
     destination.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='.cache-benchmark-', dir=destination.parent) as temporary:
         stage = Path(temporary) / 'prepared'
@@ -240,15 +263,15 @@ def main():
         archive = args.archive
         if archive is None:
             archive = Path(temporary) / 'artifact.zip'
-            download(archive)
-        files, identities = validate_bundle(archive)
+            download(archive, artifact)
+        files, identities = validate_bundle(archive, archive_sha, source, run, attempt)
         runtime = stage / 'runtime'
         runtime.mkdir()
         for name, data in files.items():
             (runtime / name).write_bytes(data)
-        state = dict(schemaVersion=1, succeeded=True, binarySourceCommit=SOURCE, sourceCommit=SOURCE,
-                     benchmarkSourceCommit=candidate, sourceRunId=RUN, sourceRunAttempt=1, artifactId=ARTIFACT,
-                     archiveSha256=ARCHIVE_SHA256, runtimeDirectory=str(destination / 'runtime'),
+        state = dict(schemaVersion=1, succeeded=True, binarySourceCommit=source, sourceCommit=source,
+                     benchmarkSourceCommit=candidate, sourceRunId=run, sourceRunAttempt=attempt, artifactId=artifact,
+                     archiveSha256=archive_sha, runtimeDirectory=str(destination / 'runtime'),
                      runtimeFiles=identities, productionSourcesUnchanged=True, allowedChanges=changes,
                      sdkRoot=str(repo / 'SDK'))
         state['workloads'] = prepare_workloads(repo, stage, destination)

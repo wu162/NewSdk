@@ -71,6 +71,23 @@ function Cache($Case,[string]$Expected){
         Need ($statistics.sessionPackageHits -gt 0 -and $statistics.xmlParse -gt 0 -and $statistics.instanceCompile -gt 0) 'Missing original intermediate or CDATA was not repaired by actual recompilation'
     }else{throw "Unknown session expectation: $Expected"}
 }
+function PublishedTimes([string]$Destination){
+    $times=@{}
+    foreach($file in Get-ChildItem -LiteralPath (Join-Path $Destination 'published') -File -Recurse){$times[$file.FullName]=$file.LastWriteTimeUtc.Ticks}
+    return $times
+}
+function LinkedHot($Case,$Before){
+    Need ($Case.report.cache.linkedStreamsRestored -gt 0) 'Hot build did not restore linked output'
+    Need ($Case.report.publicationUnchanged -eq $true) 'Byte-identical hot output was republished'
+    if(@($Case.report.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq 0){Need ($Case.report.cache.fileHashReads -eq 0) 'Unchanged four-stream build reread complete files for SHA256'}
+    $after=PublishedTimes $Case.destination
+    Need ($after.Count -eq $Before.Count) 'Unchanged publication file set differs'
+    foreach($path in $Before.Keys){Need ($after[$path] -eq $Before[$path]) 'Unchanged publication rewrote a file'}
+    $log=[IO.File]::ReadAllText($Case.report.logPaths.text)
+    foreach($message in @('Old manifest is up to date.','Linked binary data up to date','Linked import data up to date','Linked relocation data up to date')){
+        Need ($log.Contains($message)) "Original linker did not skip unchanged output: $message"
+    }
+}
 function DamagePackage([string]$Destination,[string]$Kind){
     if($Kind -eq 'xml'){$paths=@(Join-Path $Destination 'BinaryAssetBuilder.SessionCache.xml')}
     elseif($Kind -eq 'intermediate'){$paths=@(Get-ChildItem -LiteralPath $Destination -Filter '*.asset' -File -Recurse|ForEach-Object FullName)}
@@ -310,7 +327,15 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $script:contents='base,apt';$script:expectedArtifacts=8
         $plain=RunCli 'disabled' $mod $plainOut $false;Cache $plain 'disabled'
         $cold=RunCli 'cold' $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $plain $cold;$script:hotParseCeiling=$cold.report.cache.xmlParse
+        $publishedBefore=PublishedTimes $cachedOut
         $hot=RunCli 'hot' $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
+        LinkedHot $hot $publishedBefore
+        $plainBefore=PublishedTimes $plainOut
+        $plainHot=RunCli 'disabled-hot-linked' $mod $plainOut $false;Cache $plainHot 'disabled';SameOutputs $plain $plainHot;LinkedHot $plainHot $plainBefore
+        $damagedLinked=Get-ChildItem -LiteralPath (Join-Path $cachedOut '.linked-streams') -Filter '*.imp' -Recurse -File|Select-Object -First 1
+        Remove-Item -LiteralPath $damagedLinked.FullName
+        $repairedLinked=RunCli 'missing-linked-group' $mod $cachedOut $true;Cache $repairedLinked 'hot';SameOutputs $plain $repairedLinked
+        Need ($repairedLinked.report.publicationUnchanged -eq $true) 'Regenerating a missing linked group changed published bytes'
         OriginalOracle $hot 'original-initial'
         $combinedOut=Join-Path $modeWork 'both'
         $combinedCold=RunCli 'combined-sc-bc-cold' $mod $combinedOut $true -BuildEnabled $true;SameOutputs $plain $combinedCold
@@ -367,9 +392,15 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $confirmed=CacheFiles $cachedOut
         $cancelled=RunCli 'actual-cancel' $mod $cachedOut $true 6 $true;CacheUnchanged $cachedOut $confirmed
         $afterCancel=RunCli 'retry-after-actual-cancel' $mod $cachedOut $true;SameOutputs $plain $afterCancel
-        $held=@($afterCancel.report.artifacts)[0].Path;$confirmed=CacheFiles $cachedOut
+        $held=@($afterCancel.report.artifacts)[0].Path
+        $lockedHot=RunCli 'unchanged-locked-output' $mod $cachedOut $true 0 $false $held;SameOutputs $plain $lockedHot
+        Need ($lockedHot.report.publicationUnchanged -eq $true) 'Locked unchanged output was unnecessarily replaced'
+        $replacementMarker=Join-Path $cachedOut 'published/obsolete-generation.tmp'
+        [IO.File]::WriteAllText($replacementMarker,'Force a genuine directory replacement while the old file is held')
+        $confirmed=CacheFiles $cachedOut
         $occupied=RunCli 'publication-fault' $mod $cachedOut $true 7 $false $held;CacheUnchanged $cachedOut $confirmed
         $afterFault=RunCli 'retry-after-publication-fault' $mod $cachedOut $true;SameOutputs $plain $afterFault
+        Need (!(Test-Path -LiteralPath $replacementMarker)) 'Replacement retry retained the obsolete generation marker'
         $script:contents='base'
         foreach($family in @('audio','w3x')){
             $payloadMod=Join-Path $modeWork $family;$payloadCache=Join-Path $modeWork ($family+'-cache');$payloadPlain=Join-Path $modeWork ($family+'-plain')
@@ -416,7 +447,9 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
             $texturePlainOut=$textureOut+'-plain'
             $texturePlain=RunCli ($type+'-disabled') $textureMod $texturePlainOut $false
             $textureCold=RunCli ($type+'-session-cold') $textureMod $textureOut $true;Cache $textureCold 'cold';SameOutputs $texturePlain $textureCold;$script:hotParseCeiling=$textureCold.report.cache.xmlParse
+            $textureBefore=PublishedTimes $textureOut
             $textureHot=RunCli ($type+'-session-hot') $textureMod $textureOut $true;Cache $textureHot 'hot';SameOutputs $texturePlain $textureHot
+            LinkedHot $textureHot $textureBefore
             $image="$textureMod/Data/probe.tga";$stamp=[IO.File]::GetLastWriteTimeUtc($image);$bytes=[IO.File]::ReadAllBytes($image);$bytes[18]=$bytes[18] -bxor 127
             [IO.File]::WriteAllBytes($image,$bytes);[IO.File]::SetLastWriteTimeUtc($image,$stamp)
             $textureChanged=RunCli ($type+'-session-invalidated') $textureMod $textureOut $true;Cache $textureChanged 'incremental';DifferentOutputs $textureHot $textureChanged

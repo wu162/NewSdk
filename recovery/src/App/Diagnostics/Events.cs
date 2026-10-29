@@ -161,20 +161,39 @@ namespace NewModCompiler.Diagnostics
         }
     }
     public interface IBuildEventSink : IDisposable { void Write(IDictionary<string, object> value); }
+    internal sealed class EventFlushPolicy
+    {
+        int nextFlush;
+        internal EventFlushPolicy() : this(Environment.TickCount) { }
+        internal EventFlushPolicy(int now) { nextFlush = unchecked(now + 250); }
+        public bool Due(IDictionary<string, object> value, int now)
+        {
+            string type = (string)value["eventType"], level = (string)value["level"];
+            if (type.EndsWith("Started", StringComparison.Ordinal) || type.EndsWith("Completed", StringComparison.Ordinal) ||
+                type == "BuildFinished" || level == "error" || level == "warning" || unchecked(now - nextFlush) >= 0)
+            {
+                nextFlush = unchecked(now + 250);
+                return true;
+            }
+            return false;
+        }
+    }
     public sealed class JsonLineSink : IBuildEventSink
     {
         readonly DiagnosticDirectory directory;
         readonly StreamWriter writer; readonly JavaScriptSerializer json = new JavaScriptSerializer { MaxJsonLength = int.MaxValue };
-        public JsonLineSink(string path) { writer = new StreamWriter(DiagnosticFiles.CreateFresh(path,out directory), new UTF8Encoding(false)); }
-        public void Write(IDictionary<string, object> value) { writer.WriteLine(json.Serialize(value)); writer.Flush(); }
+        readonly EventFlushPolicy flush = new EventFlushPolicy();
+        public JsonLineSink(string path) { writer = new StreamWriter(DiagnosticFiles.CreateFresh(path,out directory), new UTF8Encoding(false), 64 * 1024); }
+        public void Write(IDictionary<string, object> value) { writer.WriteLine(json.Serialize(value)); if (flush.Due(value, Environment.TickCount)) writer.Flush(); }
         public void Dispose() { try { writer.Dispose(); } finally { directory.Dispose(); } }
     }
     public sealed class TextLogSink : IBuildEventSink
     {
         readonly DiagnosticDirectory directory;
         readonly StreamWriter writer;
-        public TextLogSink(string path) { writer = new StreamWriter(DiagnosticFiles.CreateFresh(path,out directory), new UTF8Encoding(false)); }
-        public void Write(IDictionary<string, object> value) { writer.WriteLine("{0} [{1}] #{2} {3} {4} {5}", value["timestampUtc"],value["buildId"],value["sequence"],value["level"],value["eventType"],value.ContainsKey("message") ? value["message"] : ""); writer.Flush(); }
+        readonly EventFlushPolicy flush = new EventFlushPolicy();
+        public TextLogSink(string path) { writer = new StreamWriter(DiagnosticFiles.CreateFresh(path,out directory), new UTF8Encoding(false), 64 * 1024); }
+        public void Write(IDictionary<string, object> value) { writer.WriteLine("{0} [{1}] #{2} {3} {4} {5}", value["timestampUtc"],value["buildId"],value["sequence"],value["level"],value["eventType"],value.ContainsKey("message") ? value["message"] : ""); if (flush.Due(value, Environment.TickCount)) writer.Flush(); }
         public void Dispose() { try { writer.Dispose(); } finally { directory.Dispose(); } }
     }
     public sealed class EventDispatcher : IDisposable
@@ -201,7 +220,7 @@ namespace NewModCompiler.Diagnostics
             Exception failure = null;
             foreach (IBuildEventSink sink in sinks) { try { sink.Write(value); } catch (Exception e) { outputFailed = true; failure = e; } }
             // Console is optional; a disconnected caller must not hide the durable final result.
-            try { if (type == "Diagnostic" || type == "BuildFinished") Console.Error.WriteLine("[{0}] {1} {2}",level,code ?? type,message ?? ""); } catch (IOException) { }
+            try { if (type == "BuildFinished" || (type == "Diagnostic" && (level == "error" || level == "warning"))) Console.Error.WriteLine("[{0}] {1} {2}",level,code ?? type,message ?? ""); } catch (IOException) { }
             if (failure != null) throw new BuildFailure(ExitCode.Output,"EVENT_WRITE_FAILED",failure.Message);
         }
         public void Dispose()
@@ -234,7 +253,7 @@ namespace NewModCompiler.Diagnostics
                 DiagnosticFiles.RejectReparseFile(path);
                 using (var stream = new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None)) {
                     byte[] bytes = new UTF8Encoding(false).GetBytes(new JavaScriptSerializer { MaxJsonLength = int.MaxValue }.Serialize(report));
-                    stream.Write(bytes,0,bytes.Length); stream.Flush(true);
+                    stream.Write(bytes,0,bytes.Length);
                 }
                 if (File.Exists(path)) File.Replace(temporary,path,null); else File.Move(temporary,path);
             } finally { if (File.Exists(temporary)) File.Delete(temporary); }

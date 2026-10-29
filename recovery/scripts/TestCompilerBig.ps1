@@ -282,9 +282,14 @@ try{
         CompareBig $rebuilt $plain 'replacement-original-makebig'
         $before=CacheFiles $destination;$publishedBefore=@{};Get-ChildItem -LiteralPath $published -File|ForEach-Object{$publishedBefore[$_.Name]=Hash $_.FullName}
         $held=@($rebuilt.report.artifacts|Where-Object{$_.Kind -ceq 'package.big'})[0].Path
+        $lockedHot=RunCli 'unchanged-locked-output' $mod $destination 'base,apt,maps' 'big' 0 $false $held
+        Need ($lockedHot.report.publicationUnchanged -eq $true) 'Locked unchanged BIG was unnecessarily replaced'
+        $replacementMarker=Join-Path $published 'obsolete-generation.tmp'
+        [IO.File]::WriteAllText($replacementMarker,'Force a genuine directory replacement while the old BIG is held')
         $failed=RunCli 'publication-fault' $mod $destination 'base,apt,maps' 'big' 7 $false $held
         foreach($name in $publishedBefore.Keys){Need ((Hash (Join-Path $published $name)) -ceq $publishedBefore[$name]) 'Failed BIG publication changed the previous generation'}
         $retry=RunCli 'retry-after-publication-fault' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'publication-retry-original'
+        Need (!(Test-Path -LiteralPath $replacementMarker)) 'BIG replacement retry retained the obsolete generation marker'
         $cancelled=RunCli 'actual-cancel' $mod $destination 'base,apt,maps' 'big' 6 $true
         foreach($name in $publishedBefore.Keys){Need ((Hash (Join-Path $published $name)) -ceq $publishedBefore[$name]) 'Cancelled BIG build changed the previous generation'}
         $retry=RunCli 'retry-after-cancel' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'cancel-retry-original'

@@ -242,10 +242,15 @@ try{
         CacheUnchanged $cachedOut $confirmed
         $afterCancel=RunCli 'retry-after-actual-cancel' $mod $cachedOut $true;SameOutputs $changedPlain $afterCancel
         $held=@($afterCancel.report.artifacts)[0].Path
+        $lockedHot=RunCli 'unchanged-locked-output' $mod $cachedOut $true 0 $false $held;SameOutputs $changedPlain $lockedHot
+        Need ($lockedHot.report.publicationUnchanged -eq $true) 'Locked unchanged output was unnecessarily replaced'
+        $replacementMarker=Join-Path $cachedOut 'published/obsolete-generation.tmp'
+        [IO.File]::WriteAllText($replacementMarker,'Force a genuine directory replacement while the old file is held')
         $confirmed=CacheFiles $cachedOut
         $occupied=RunCli 'publication-fault' $mod $cachedOut $true 7 $false $held
         CacheUnchanged $cachedOut $confirmed
         $afterFault=RunCli 'retry-after-publication-fault' $mod $cachedOut $true;SameOutputs $changedPlain $afterFault
+        Need (!(Test-Path -LiteralPath $replacementMarker)) 'Replacement retry retained the obsolete generation marker'
         $modeState.passed=$true
     }
     $state.succeeded=$true;$global:LASTEXITCODE=0

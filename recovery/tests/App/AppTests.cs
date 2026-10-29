@@ -145,10 +145,13 @@ namespace NewModCompiler.Tests
                 root=Path.GetFullPath(args.Length==0 ? Path.Combine(Path.GetTempPath(),"NewModCompiler-App-"+Guid.NewGuid().ToString("N")) : args[0]);
                 if (Directory.Exists(root)) Directory.Delete(root,true); Directory.CreateDirectory(root);
                 assertions += ArtifactPublisherTests.Run(Path.Combine(root,"publisher-tests"));
+                assertions += EventBufferingTests.Run(Path.Combine(root,"event-buffering"));
                 assertions += CacheInputSnapshotTests.Run(Path.Combine(root,"cache-input-tests"));
                 assertions += BuildAssetCacheTests.Run(Path.Combine(root,"build-asset-cache"));
                 assertions += SessionPackageTests.Run(Path.Combine(root,"session-package"));
                 assertions += LegacyCacheStoreTests.Run(Path.Combine(root,"legacy-cache"));
+                assertions += LinkedOutputCacheTests.Run(Path.Combine(root,"linked-output"));
+                assertions += FileIdentityTests.Run(Path.Combine(root,"file-identity"));
                 assertions += BigArchiveWriterTests.Run(Path.Combine(root,"big-writer"));
                 assertions += BuildDefaultsTests.Run(Path.Combine(root,"build-defaults"));
                 assertions += AdditionalFilesTests.Run(Path.Combine(root,"additional-files"));

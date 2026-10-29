@@ -1,8 +1,24 @@
 # 原 SDK 与新版性能对照
 
+工作流 `compiler-sdk-benchmark.yml` 新增可选 `accepted_run`：显式指定已成功完成全部 Core lifecycle 门槛的运行，可复用该运行的五文件 Release 测量后续优化；留空继续使用原固定来源。准备器从 GitHub 成功运行及产物 digest 确认来源，再校验发行收据、五文件内容和实际生产输入闭包。二进制和测试来源分别记录，未经完整验收的运行不能用于该选项。下文区分优化后新结果与优化前历史，不混用两轮来源。
+
 `BenchmarkCompilerSdkComparison.py` 在同一台 Windows VM 上交替执行原 `BinaryAssetBuilder.exe` 和已验收的新版 Win32 Release。比较独立进程从启动到退出的端到端成本、CPU 时间、峰值工作集及缓存占用；新版还承担报告、JSONL、独立 staging 和事务发布的成本，原工具直接写出流文件。结果用于比较实际命令行使用成本。
 
-## 当前实测结论（2026-10-29）
+## 优化后结果（2026-10-29）
+
+[运行 40837902446](https://github.com/wu162/NewSdk/actions/runs/40837902446) success；生产二进制 `4ad5d0d9` / 完整验收 `40836177604`，基准源码 `0fb98df2`，直接复用精确五文件 Release。54 对/108 次计量及两次预热约 83.4 秒，全部流/CDATAs 的成员、长度、SHA256 和原始字节相同。[CSV](../evidence/refactor/sdk-benchmark/40837902446-1/comparison.csv)、[完整 JSON](../evidence/refactor/sdk-benchmark/40837902446-1/comparison.json)、[来源与摘要](../evidence/refactor/sdk-benchmark/40837902446-1/summary.json)。
+
+默认两缓存 Deflate 热态，各边 n=2，单位 ms：
+
+| 工作量 | 原 SDK | 优化版 | 新/原 |
+| --- | ---: | ---: | ---: |
+| 完整 mymod 输入，base/loose | 581.2 | 620.1 | 1.067 |
+| Upheaval Armor 子集 | 539.5 | 596.1 | 1.105 |
+| 合成 Texture ×16 | 547.5 | 593.9 | 1.085 |
+
+当前仍比原 SDK 慢约 6.7%–10.5%。本轮同机配对可比较当前两引擎；各边仅两个热态样本，OS 页缓存未受控。历史轮次在另一 VM 上，不能把跨轮绝对毫秒差或比例变化当作精确因果收益。BIG 复用由生产原收据另外确认，不包含在这组 loose 基准。`cacheBytes` 延续既有 asset/session 目录口径，不包含新增私有链接快照/哈希索引，不把 none 模式的 0 字节解释为完全无派生状态。
+
+## 优化前实测结论（历史，2026-10-29）
 
 [运行 40823369828](https://github.com/wu162/NewSdk/actions/runs/40823369828) 整体 success。基准源码 `1c7ff21f098e972105c410eb586c4f6c8ba32d29`；新版生产来源 `39039961847cd1ca9cb93743fd51741a4e5c9f49`，原版为同源树中未修改的 SDK EXE/DLL。Windows Server 2022、4 逻辑 CPU。54 对/108 个计量样本均通过，另含 2 次启动预热，计量循环合计 91.21 秒；无生产重编译。
 

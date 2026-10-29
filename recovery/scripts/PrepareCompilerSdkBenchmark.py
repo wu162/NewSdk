@@ -137,10 +137,10 @@ def verify_original_binaries(repo, tools):
         need(git_blob == blob, 'Original executable/DLL differs from accepted SDK: ' + name)
 
 
-def prepare(preparation, destination, repo):
+def prepare(preparation, destination, repo, source=SOURCE, run=RUN):
     initial = json.loads(Path(preparation).read_text(encoding='utf-8'))
-    need(initial.get('succeeded') is True and initial.get('binarySourceCommit') == SOURCE and
-         str(initial.get('sourceRunId')) == RUN, 'Shared preparation is not the accepted binary/input source')
+    need(initial.get('succeeded') is True and initial.get('binarySourceCommit') == source and
+         str(initial.get('sourceRunId')) == str(run), 'Shared preparation is not the accepted binary/input source')
     sdk = Path(initial['sdkRoot']).resolve()
     need(sdk == (repo / 'SDK').resolve(), 'Shared SDK root differs from repository SDK')
     original_config = sdk / 'tools/BinaryAssetBuilder.exe.config'
@@ -174,8 +174,8 @@ def prepare(preparation, destination, repo):
             if old['name'] != 'BinaryAssetBuilder.exe.config':
                 need(current == old, 'Original runtime copy changed an EXE/DLL/dependency')
         need(inventory(tools, 'name') == before, 'Original SDK/tools changed during preparation')
-        state = dict(schemaVersion=1, succeeded=True, binarySourceCommit=SOURCE,
-                     benchmarkSourceCommit=initial['benchmarkSourceCommit'], sourceRunId=RUN,
+        state = dict(schemaVersion=1, succeeded=True, binarySourceCommit=source,
+                     benchmarkSourceCommit=initial['benchmarkSourceCommit'], sourceRunId=run,
                      sharedPreparation=str(Path(preparation).resolve()), sharedPreparationSha256=sha(Path(preparation).read_bytes()),
                      originalExe=str(destination / 'original-runtime/BinaryAssetBuilder.exe'),
                      originalRuntimeDirectory=str(destination / 'original-runtime'), originalRuntimeFiles=files,
@@ -191,10 +191,12 @@ def prepare(preparation, destination, repo):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--preparation', type=Path, required=True)
+    parser.add_argument('--binary-source-commit', default=SOURCE)
+    parser.add_argument('--source-run-id', default=RUN)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--repo', type=Path, default=Path.cwd())
     args = parser.parse_args()
-    print(prepare(args.preparation, args.output.resolve(), args.repo.resolve()))
+    print(prepare(args.preparation, args.output.resolve(), args.repo.resolve(), args.binary_source_commit, args.source_run_id))
 
 
 if __name__ == '__main__':

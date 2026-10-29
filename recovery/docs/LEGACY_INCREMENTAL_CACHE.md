@@ -2,6 +2,23 @@
 
 本页记录当前缓存恢复的行为、代码分工和验收范围；分支、准确源码及待办见 [交接](../REFACTOR_RESUME.md)。运行 `40814401237` 的全部生产验收门槛已通过，具体覆盖边界见下文。
 
+## 链接与发布复用（2026-10-29）
+
+实现分支 `codex/legacy-cache-completion`，[PR #20](https://github.com/wu162/NewSdk/pull/20)；当前完整生产源码 `4ad5d0d9`，统一验收 [40836177604](https://github.com/wu162/NewSdk/actions/runs/40836177604) 已 success，完整 mymod 原版字节差分及独立五文件 ZIP 同时通过。[原收据核对摘要](../evidence/refactor/performance-implementation/40836177604-1/summary.json) 记录下载归档 SHA256、来源、两配置零热态 SHA 读取与实际 BIG 复用；旧验收不替代本批结果。
+
+- `LinkedOutputCache` 在输出根 `.linked-streams` 保留四流，按实际创建的 `OutputManager` 懒恢复完整四文件，沿用原 manifest/type/stream checksum 决定重写。删除的 include 不会混入输出；该能力独立于 `/sc`、`/bc`，BIG 与 loose 共用。
+- 私有四流快照优先硬链接，不支持时复制；原链接器通过 unlink、临时文件和 rename 更新四流。公开文件及恢复的 CDATA 使用独立存储。会话、安装与回滚备份改为移动，CDATA 相同则不重新安装。
+- `FileIdentity` 用 Windows 批量目录记录的卷标识、FileId、ChangeTime、mtime 和大小替代每进程 826 文件的内容 SHA256。等长且恢复 mtime 的写入仍由 ChangeTime 识别，替换由 FileId 识别。
+- `FileHashCache` 将已确认收据保存在 `.file-identities.json`，仅保留本轮使用项，内容不变时不重写。公开文件、运行库与 Additional 的键包含 ChangeTime；编译器私有且只以临时文件替换的四流按 inode/mtime/大小复用，硬链接计数变化不触发重读。CDATA 使用完整身份键。报告 `cache.fileHashReads/fileHashReuses/fileHashBytesRead` 给出实际读取量。
+- 发布核对精确文件集合和已确认身份，未变时不创建 `.publish-*`、不复制、不交换目录。报告保持 `publicationStatus=PublishedDirectory`，新增 `publicationUnchanged=true`；公开文件被修改、缺失或多出文件时仍执行完整事务。
+- BIG 的输入指纹包含当前四流/CDATAs、Additional 实际覆盖后的内容、任务布局、版本/SKUDEF 选项及宿主模块身份。相同时直接引用既有 BIG/SKUDEF，跳过 LoD、Additional 快照和 MakeBig；公开包仍通过包含 ChangeTime 的身份确认，实际覆盖 warning 与空目录碰撞保持。显式 neutral repair 继续使用实际参考输入链，不复用该包指纹。
+- 可信内部收据贯通 BuildSession、打包和发布，不重复哈希；Texture 的 EXE/DLL 校验也使用文件身份缓存。删去内置路由启动时逐项自审，插件版本按每个实际插件计算一次并按原路由数累加。
+- 全部生产源码已无 `Flush(true)`。JSONL/文本以 64 KiB 字符缓冲，控制边界、warning/error 即时刷新，正常事件按 250 ms 批量刷新；普通 trace 不再逐条同步写 stderr，仍完整保留文件。
+
+必需日志/报告失败、取消和真正的替换故障继续撤销未确认产物与链接缓存，`/psc` 语义保留。首轮 `40832233489` 的三个 `publication-fault` 失败保留：旧 fixture 以“锁住未变文件”要求失败，现已新增该场景的成功断言，并用额外旧文件强制真实替换后保留原失败及重试断言。
+
+验证集中于已有完整生产矩阵，另增加少量关键组件/行为断言。生产会话用例检查原链接器四项 up-to-date、原始字节、发布时间及无 CDATA 热态 `fileHashReads=0`，Debug/Release 原收据均确认 2 个复用流、18 次哈希收据命中、0 次完整文件 SHA256 读取、0 字节 SHA256 输入，且 `publicationUnchanged=true`。BIG 热态包阶段事件直接引用 published 中的两文件。配对性能运行 `40837902446` 已通过，准确数据与小样本边界见 [SDK 对照](SDK_BENCHMARK.md)。
+
 ## 选项与目录
 
 | 选项 | 默认值 | 行为 |
@@ -37,7 +54,7 @@ SDK 的 `buildCache`、`buildCacheRoot` 继续生效，显式命令行/项目设
 - `scripts/TestCompilerSessionCache.ps1`：会话冷热/依赖失效、缺损修复、取消/失败、三种纹理、全部高级模式与原版目录互操作。
 - `tests/CompilerLegacyCacheMetadata.cs`、`scripts/TestCompilerBackendBaseline.ps1`：原 DLL 元数据、原 BAB 字节差分及缓存导出/导入证据。
 
-## 已通过的生产验收（2026-10-29）
+## 原缓存恢复旧验收（39039961，2026-10-29）
 
 [运行 40814401237](https://github.com/wu162/NewSdk/actions/runs/40814401237) 整体 success；二进制及测试源码均为 `39039961847cd1ca9cb93743fd51741a4e5c9f49`，Debug/Release 均重新构建。[状态与日志摘要](../evidence/refactor/legacy-cache/40814401237-1/summary.json) 保留运行、任务、产物及来源，原始收据位于该运行的归档内。
 
@@ -59,4 +76,4 @@ Texture CDATA 数量由固定原 DLL 的 `HasCustomData` 确定，并非每种�
 
 同次运行还通过完整未精简 mymod 的原 BAB 四流（两配置差异均为 0）、原 LoD/MakeBig 及 SKUDEF 差分，以及独立五文件 ZIP 的生产 BIG/协议门槛。mymod 本身无 APT/maps 输入，两组覆盖来自独立生产用例；完整游戏数据、WBData、游戏内运行、完整 UI/runtime 和中文纹理路径未新增验收。
 
-本次续接未更改生产、测试或构建输入，沿用上述成功运行。归档元数据及上传日志 SHA256 一致，但本环境下载 HTTP 403，未在本地打开原始收据或复算 ZIP 哈希；这项访问限制单独记录在摘要中。
+以上为原缓存恢复阶段的历史记录。当时续接未更改生产输入，沿用运行 40814401237，且曾记录下载 HTTP 403；本轮性能实现另以顶部的 40836177604 验收，并已通过 GitHub 产物工具取得新归档、在本地复算 SHA256 和核对原始收据。

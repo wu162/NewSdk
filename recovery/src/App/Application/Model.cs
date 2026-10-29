@@ -17,6 +17,7 @@ namespace NewModCompiler.Application
     }
     public sealed class BuildRequest
     {
+        internal FileHashCache FileIdentities { get; set; }
         public string Command { get; set; }
         public string ModRoot { get; set; }
         public string SdkRoot { get; set; }
@@ -68,6 +69,8 @@ namespace NewModCompiler.Application
         public string Kind { get; set; }
         public long Size { get; set; }
         public string Sha256 { get; set; }
+        internal bool Verified { get; set; }
+        internal bool Published { get; set; }
     }
     public sealed class StreamContext
     {
@@ -75,6 +78,7 @@ namespace NewModCompiler.Application
         public BuildTask Task { get; internal set; }
         public BuildRequest Request { get; internal set; }
         public string StagingDirectory { get; internal set; }
+        internal bool CacheManagedBySession { get; set; }
     }
     // The implementation must run Core preprocessing and compilation in this process.
     // Ownership is per session, with fresh stream state per Compile invocation.

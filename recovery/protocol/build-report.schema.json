@@ -173,6 +173,7 @@
         "RollbackFailed"
       ]
     },
+    "publicationUnchanged": { "type": "boolean" },
     "publicationDirectory": {
       "type": [
         "string",

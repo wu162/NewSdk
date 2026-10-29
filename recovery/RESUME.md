@@ -1,13 +1,7 @@
-# 原 SDK 缓存恢复：续接入口
+# 性能优化与原 SDK 缓存：续接入口
 
-当前任务为原 SDK 完整缓存恢复及用户追加的有界性能基准。
+用户本轮要求补齐链接输出复用、无变化发布跳过、文件搬运去重，并反复强调性能优先、代码实现先行、整批统一验证。已按此实现跨进程文件身份/哈希复用、BIG/SKUDEF 输入指纹复用、事件缓冲和同步 trace 清理。
 
-生产矩阵、完整 mymod 原版差分和独立五文件 ZIP 已通过运行 `40814401237`；PR #19 待审查，未合并。二进制及原验收测试来源仍为 `39039961847cd1ca9cb93743fd51741a4e5c9f49`。
+当前分支 `codex/legacy-cache-completion`，生产源码 `4ad5d0d9`；[PR #20](https://github.com/wu162/NewSdk/pull/20) 目标为 `recovery/legacy-sdk-cache`，未合并。最终完整验收 [40836177604](https://github.com/wu162/NewSdk/actions/runs/40836177604) 已 success，包含完整 mymod 原版字节差分与独立五文件 ZIP；两配置热态收据均为 `fileHashReads=0`、`fileHashBytesRead=0`，BIG 直接引用既有公开包。首轮失败、阶段来源与具体代码合同见[缓存说明](docs/LEGACY_INCREMENTAL_CACHE.md)。同输入配对基准 [40837902446](https://github.com/wu162/NewSdk/actions/runs/40837902446) 已 success：复用该精确 Release，54 对/108 次约 83.4 秒，全部原始输出一致。默认热态新/原 SDK 中位数比分别为 mymod 1.067、Armor 子集 1.105、合成纹理 1.085（各边 n=2）；仍有约 6.7%–10.5% 端到端差距，不把不同 VM 的历史绝对毫秒差当作因果收益。[验收摘要](evidence/refactor/performance-implementation/40836177604-1/summary.json)，[基准摘要](evidence/refactor/sdk-benchmark/40837902446-1/summary.json)。
 
-性能基准已通过运行 `40820325416`，源码 `c39ad93eb5df7f7b7cd78f7028155d14a5094f2b`：复用已验收 Release，54 次构建及启动诊断约 39.6 秒，未重编译生产。mymod 默认热态约减少 19% 耗时，合成纹理资产热态约减少 35%；小型 Upheaval Armor 子集会话缓存略慢。精确范围、全部数据、时间上限及保留失败见[基准说明](docs/CACHE_BENCHMARK.md)。
-
-原 SDK 同输入对照已通过 `40823369828`，基准源码 `1c7ff21f098e972105c410eb586c4f6c8ba32d29`：54 对/108 次计量及两次预热约 91.2 秒，全部原始输出一致。新版本默认热态端到端耗时在本轮比原版多约 25%～29%，mymod 无缓存基本相当。无会话模式已隔离原版隐式 `StringHashes.xml` 复用，物理输入、Schema、搜索顺序与存在性均相同；[完整数据及边界](docs/SDK_BENCHMARK.md)。
-
-原因分析见[报告](docs/CACHE_PERFORMANCE_ANALYSIS.md)：热态 xmlParse/instanceCompile 均为 0，publish 约 11–30.5 ms；每进程 SC 身份仍校验 826 文件，独立同算法 I/O 复现约 59.5 ms（诊断 `40826280008`，源码 `f7d69ff6f2aeefae1a32642d9854de853a95b82f`，不是生产方法直接打点）。旧工具复用未变链接输出，新宿主重新链接、三次输出哈希及事务复制。仅补分析/诊断，生产逻辑未改。
-
-先读 [交接](REFACTOR_RESUME.md)，按其中的源码提交、验证运行和待办继续；缓存行为与代码分工见 [缓存说明](docs/LEGACY_INCREMENTAL_CACHE.md)。执行规则见 [EFFICIENCY.md](EFFICIENCY.md)。
+实现入口为 `CoreStreamCompiler`、`LinkedOutputCache`、`FileIdentity`、`FileHashCache`、`ArtifactPublisher`、`BigPackage`、`LegacyCacheStore`；日志与打包 I/O 见 `Diagnostics/Events.cs`、`AdditionalFiles`、`BigArchiveWriter`。旧缓存原始验收与分析记录仍在[交接](REFACTOR_RESUME.md)及对应能力文档；不得用旧二进制结果替代本批生产变化。
