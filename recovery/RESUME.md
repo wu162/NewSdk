@@ -1,4 +1,4 @@
-# 当前：PC原生五个能力组与真实消费已验收；同格式复制最后一行指针修正补验中
+# 当前：PC原生五个能力组与真实消费已闭环；57组件当前证据齐全
 
 ## 本轮完成
 
@@ -8,10 +8,10 @@
 - **描述符/真实调用链**：118d9500339b40cb70719a87f5febb0ab524e90c /40913579297 completed/success，135168头、405504完整level32/volume28/XG60结构输出通过；12/12真实原生资源、107全部级别、321锁/解锁对、5,832,704全部存储字节、四DLL及所有输入/轨迹独立审计通过。type18/19深度分派已按原版修正。fixture loader仅用于原版测试输入，不属于恢复的原生图像加载器。
 - **XG同格式复制**：efae485f8454a58e5c1226428c2029a9e9db4d77 /40915252008 completed/success，32768完整输入（64格式/4尺寸/2padding/4步幅方向/4flags/4区域/float位型），D/R原版差分/NoOriginal/导入库通过；21,217,672完整捕获字节、20,693,376全部源/目标/padding/guard独立行复制模型审计通过。0/1位格式保持原E_NOTIMPL，不把identity子能力称为完整XGCopySurface。
 
-## 当前补验与下一轮计划
+## 最终验证与下一轮计划
 
-- 本检查点仅修正Copy最后一行后无用的指针推进，避免负步幅时形成分配前指针；待本次Actions按同一32768完整矩阵补验并重新审计。其余已验收能力输入不变，继续保留原sourceCommit/runId，不重跑SDK/MOD。
-- 首先收本次native-copy及实际变化base终态；用InspectTextureNativePcCaptures.py --group native-copy --run-id <run> --source-commit <source> --out ...完整审计，然后核对选择计划无缺失当前组件。
+- 最终复制源码 `7f2994d7bfc4d350cd1a71e99904b73c0ab0c7c1` / [40916397812](https://github.com/wu162/NewSdk/actions/runs/40916397812) completed/success；最后一行负步幅指针修正完整补验通过，原版21,217,672字节捕获SHA与前一成功版本完全相同，D/R/NoOriginal/导入库与独立行复制模型审计通过，见copy-final-archive-audit.json。只补native-copy/base，55其他成功组复用。
+- 当前静态组件选择检查selected=[]、57完整成功组全部有效，原sourceCommit/runId逐组保留，见current-component-readiness.json。本轮所有新增能力与必要消费者已闭环；不宣称重跑57组或SDK。结束时仅再检查最终交接/审计内容不会触发Windows重验。
 - 下一业务入口：XGCopySurface@0x3ccc0的转换/过滤分支0x3cef7..0x3d969，按PC LoadImageA真正消费的格式转换优先；D3DXCreateTextureFromFileA@0x13c82→0x13b53原生加载/资源头构造及完整混合模式身份仍未实现。独立库入口为src/TextureCompiler/Native/TextureNative{Device,Resource,Surface,Descriptor,Copy}Api.*；不加入已部署生产六DLL包。
 - 保留边界：设备type2渲染状态、type9/GPU上下文、OOM、未初始化DXT1/bitfields仍未完成；不支持输入明确拒绝。仅PC、编译测试仅Actions、禁止强推。全部完整原档审计见evidence/texture/handoffs/20261030-native-abi/，中间失败保留。
 

@@ -9,11 +9,11 @@
 | native-surface |675b00d6 /40912274334|64格式四维度全mip/packed/对齐/边框/数组和LockRect，131072完整矩阵|
 | native-descriptor |118d9500 /40913579297|135168头/405504完整32、28、60字节描述符，含4096 metadata|
 | native-consumers |118d9500 /40913579297|12真实资源、107级别、321锁解锁、全部5.83MB存储；原fixture loader非恢复业务|
-| native-copy |efae485f /40915252008|32768同完整格式/块对齐identity行复制，负步幅/压缩块/边缘/padding；转换/过滤/未对齐拒绝|
+| native-copy |7f2994d7 /40916397812|32768同完整格式/块对齐identity行复制，负步幅/压缩块/边缘/padding；转换/过滤/未对齐拒绝|
 
 全部Debug/Release原版差分、NoOriginal与适用真实导入库通过。完整原档独立审计在evidence/texture/handoffs/20261030-native-abi。原地址/线程先核对真实语义后仅在测试捕获中标记，其他全部字节精确比较；生产源码没有gold输出表、样本ID分派或原后端回调。中间失败保留，完整旧成功组按实际依赖复用。
 
-当前待收：Copy仅移除最后一行后无用的指针推进，负步幅不再形成分配前指针，按同一矩阵补验；当前锚点以RESUME及本次Actions为准。完成后下一业务为原XGCopySurface转换/过滤分支@0x3cef7..0x3d969（先PC LoadImageA实际所需格式），以及D3DXCreateTextureFromFileA@0x13c82→0x13b53加载与资源头构造。独立ABI成功不能替代完整混合模式DLL或SDK新包集成门槛。
+Copy最后一行后无用指针推进已移除，负步幅完整补验40916397812通过，原捕获与前一版完全相同；当前57组件均有有效祖先证据，selected为空。下一业务为原XGCopySurface转换/过滤分支@0x3cef7..0x3d969（先PC LoadImageA实际所需格式），以及D3DXCreateTextureFromFileA@0x13c82→0x13b53加载与资源头构造。独立ABI成功不能替代完整混合模式DLL或SDK新包集成门槛。
 
 仅PC、编译测试仅Actions、禁止强推；SDK/MOD按明确里程碑降频。本轮SDK生产包/配置未变。
 
