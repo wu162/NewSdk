@@ -144,6 +144,7 @@ namespace NewModCompiler.Tests
                 if (args.Length==1 && args[0]=="--close-failure-probe") return CloseFailureProcess();
                 root=Path.GetFullPath(args.Length==0 ? Path.Combine(Path.GetTempPath(),"NewModCompiler-App-"+Guid.NewGuid().ToString("N")) : args[0]);
                 if (Directory.Exists(root)) Directory.Delete(root,true); Directory.CreateDirectory(root);
+                assertions += PerformanceTests.Run();
                 assertions += ArtifactPublisherTests.Run(Path.Combine(root,"publisher-tests"));
                 assertions += EventBufferingTests.Run(Path.Combine(root,"event-buffering"));
                 assertions += CacheInputSnapshotTests.Run(Path.Combine(root,"cache-input-tests"));
@@ -160,6 +161,25 @@ namespace NewModCompiler.Tests
                 mod=Path.Combine(root,"external mods","中文 MOD"); sdk=Path.Combine(root,"SDK"); Directory.CreateDirectory(sdk);
                 FileAt(Path.Combine(mod,"Data","Mod.xml")); FileAt(Path.Combine(mod,"Data","AptUI","b.xml")); FileAt(Path.Combine(mod,"Data","AptUI","a.xml"));
                 FileAt(Path.Combine(mod,"Data","AdditionalMaps","MapMetaData_z.xml")); FileAt(Path.Combine(mod,"Data","AdditionalMaps","Ignored.xml"));
+                Reject("CLI_PERFORMANCE","--performance","invalid");
+                Check(Request().PerformanceLevel=="off","Performance disabled by default");
+                Check(Request("base","--performance","SUMMARY").PerformanceLevel=="summary","Performance level normalization");
+                foreach (string level in new[] {"off","summary","detailed"}) {
+                    var perfRequest=Request("base","--performance",level);
+                    var perfRecord=new Recorder();
+                    Check(Run(perfRequest,null,perfRecord)==ExitCode.Success,"Profiled plan");
+                    var perfReport=Report(perfRequest);
+                    Check(perfReport.ContainsKey("performance")==(level!="off"),"Performance report switch");
+                }
+                foreach (bool cancelled in new[] {false,true}) {
+                    var perfRequest=Request("base","--performance","detailed"); perfRequest.Command="build";
+                    var perfCompiler=new Compiler {Fail=!cancelled}; var perfRecord=new Recorder();
+                    var perfCancel=new CancellationTokenSource();
+                    if(cancelled) perfCompiler.OnCompile=context=>perfCancel.Cancel();
+                    Check(Run(perfRequest,perfCompiler,perfRecord,perfCancel.Token)==(cancelled ? ExitCode.Cancelled : ExitCode.Compilation),"Profiled failure outcome");
+                    string profile=new JavaScriptSerializer().Serialize(Report(perfRequest)["performance"]);
+                    Check(profile.Contains("stream.compile") && profile.Contains("stage.compile"),"Failure/cancel timing preserved");
+                }
                 var request=Request(); var plan=Planner.Resolve(request);
                 foreach (string key in new[] {"ss","pc","slowclean"}) {
                     Check(request.Options[key].Value=="true" && request.Options[key].Source=="default","Legacy script default "+key);

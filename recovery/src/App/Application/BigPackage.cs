@@ -59,7 +59,9 @@ namespace NewModCompiler.Application
                 entries.Add(new BigArchiveEntry {Name=name,SourcePath=artifact.ContentPath});
             }
             foreach(var pair in owners) if(pair.Value.Count!=4) throw new IOException("BIG packaging requires all four linked files for every selected stream.");
-            IList<BigArchiveEntry> additional=request.IncludeAdditional ? AdditionalFiles.Inputs(request.SdkRoot,request.ModRoot,cancellation,warning) : new BigArchiveEntry[0];
+            IList<BigArchiveEntry> additional;
+            using (request.Performance.Measure("package.additional-inputs"))
+                additional=request.IncludeAdditional ? AdditionalFiles.Inputs(request.SdkRoot,request.ModRoot,cancellation,warning) : new BigArchiveEntry[0];
             // SDK/defaultscript.cs step 5 runs LoD directly when optional asset
             // repair are disabled. Neutral repair is explicit and modifies only
             // a private package copy, never Core/cache outputs.
@@ -68,7 +70,8 @@ namespace NewModCompiler.Application
                 string manifest=artifacts.Single(value=>string.Equals(Path.GetExtension(value.Path),".manifest",StringComparison.OrdinalIgnoreCase) && Paths.Contains(Path.Combine(staging,task.Content,Path.GetFileNameWithoutExtension(task.InputPath)),value.Path)).ContentPath;
                 if(request.FixNeutralAssets) {
                     string originalRoot=Path.GetDirectoryName(manifest);
-                    manifest=BasePostProcessor.Prepare(manifest,request.SdkRoot,Path.Combine(staging,".package-neutral"),cancellation);
+                    using (request.Performance.Measure("package.neutral"))
+                        manifest=BasePostProcessor.Prepare(manifest,request.SdkRoot,Path.Combine(staging,".package-neutral"),cancellation);
                     string preparedStem=Path.Combine(Path.GetDirectoryName(manifest),"mod");
                     foreach(var entry in entries) if(Paths.Contains(originalRoot,entry.SourcePath)) {
                         string extension=Path.GetExtension(entry.SourcePath);
@@ -79,6 +82,7 @@ namespace NewModCompiler.Application
                 // Win32 resolves the existing Mod.manifest case-insensitively; the
                 // original script passes lowercase mod.manifest, which is also
                 // the exact embedded dependency name in both LoD manifests.
+                using (request.Performance.Measure("package.lod"))
                 foreach(string source in LoDStreamBuilder.Create(Path.Combine(Path.GetDirectoryName(manifest),"mod.manifest"),cancellation,Path.Combine(staging,".package-lod"))) {
                     string name="Data\\"+Path.GetFileName(source);
                     if(!names.Add(name)) throw new IOException("Case-insensitive LoD archive path collision.");
@@ -100,11 +104,13 @@ namespace NewModCompiler.Application
             }
             string mod=Path.GetFileName(request.ModRoot.TrimEnd(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar));
             string big=Path.Combine(staging,mod+"_"+request.ModVersion+".big"),skudef=Path.Combine(staging,(request.SkudefName ?? mod)+"_"+request.ModVersion+".skudef");
-            if(request.IncludeAdditional) AdditionalFiles.Merge(staging,entries,additional,cancellation,warning);
-            MakeBig.Write(big,entries,cancellation);
-            BigArchiveWriter.WriteSkudef(skudef,Path.GetFileName(big),cancellation,request.GameVersion);
+            using (request.Performance.Measure("package.additional-merge"))
+                if(request.IncludeAdditional) AdditionalFiles.Merge(staging,entries,additional,cancellation,warning);
+            using (request.Performance.Measure("package.big")) MakeBig.Write(big,entries,cancellation);
+            using (request.Performance.Measure("package.skudef")) BigArchiveWriter.WriteSkudef(skudef,Path.GetFileName(big),cancellation,request.GameVersion);
             cancellation.ThrowIfCancellationRequested();
-            return new[] {Describe(big,"package.big",request.FileIdentities),Describe(skudef,"package.skudef",request.FileIdentities)};
+            using (request.Performance.Measure("package.hash"))
+                return new[] {Describe(big,"package.big",request.FileIdentities),Describe(skudef,"package.skudef",request.FileIdentities)};
         }
         static void Verify(Artifact artifact,string staging)
         {

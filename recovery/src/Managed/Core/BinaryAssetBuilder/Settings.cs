@@ -10,6 +10,9 @@ public class Settings : ICloneable
 {
 	public static Settings Current;
 
+    [XmlIgnore]
+    public Func<string, IDisposable> MeasurePerformance { get; set; }
+
 	[XmlIgnore]
 	public Action<string> PrepareLinkedOutput { get; set; }
 	[XmlIgnore]

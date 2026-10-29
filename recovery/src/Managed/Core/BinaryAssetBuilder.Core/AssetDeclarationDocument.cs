@@ -639,6 +639,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void LoadXml(bool updateDependentFiles)
 	{
+		using var performance = PerformanceScope.Measure("core.xml.parse");
 		if (_Current.XmlDocument != null)
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Document {0} attempted to load twice.", _Current.SourcePath);
@@ -836,6 +837,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void Validate()
 	{
+		using var performance = PerformanceScope.Measure("core.xml.validate");
 		_Current.SchemaValidated = false;
 		_Current.XmlDocument.Schemas.Add(_Current.DocumentProcessor.SchemaSet.Schemas);
 		_Current.XmlDocument.Validate(HandleValidationEvents);
@@ -945,6 +947,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void ProcessExpressions()
 	{
+		using var performance = PerformanceScope.Measure("core.xml.expressions");
 		IExpressionEvaluator evaluator = ExpressionEvaluatorWrapper.GetEvaluator(this);
 		if (evaluator == null)
 		{
@@ -1045,6 +1048,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void ProcessInstances(OutputManager outputManager, ref int instancesCompiledCount, ref int instancesCopiedFromCacheCount)
 	{
+		using var performance = PerformanceScope.Measure("core.assets");
 		if (ReloadedForInheritance)
 		{
 			return;
@@ -1101,6 +1105,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	private void VerifyInstance(BinaryAsset asset, InstanceDeclaration declaration)
 	{
+		using var performance = PerformanceScope.Measure("core.asset.verify");
 		if (_Current.IsLoaded)
 		{
 			IAssetBuilderVerifierPlugin plugin = _Current.DocumentProcessor.VerifierPlugins.GetPlugin(asset.Instance.Handle.TypeId);
@@ -1114,6 +1119,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	private void CompileInstance(BinaryAsset asset, InstanceDeclaration declaration)
 	{
+		using var performance = PerformanceScope.Measure("core.asset.compile");
 		_Tracer.Message("{0}: Compiling {1}", Path.GetFileName(_Current.SourcePath), asset.Instance.ToString());
 		if (asset.Instance.XmlNode == null)
 		{
@@ -1130,12 +1136,14 @@ public class AssetDeclarationDocument : IXmlSerializable
 		DateTime now = DateTime.Now;
 		IAssetBuilderPlugin plugin = _Current.DocumentProcessor.Plugins.GetPlugin(asset.Instance.Handle.TypeId);
 		_Current.DocumentProcessor.RecordInstanceCompile();
-		asset.Buffer = plugin.ProcessInstance(asset.Instance);
+		using (Settings.Current.MeasurePerformance == null ? null : PerformanceScope.Measure("core.compiler." + declaration.Handle.TypeName))
+			asset.Buffer = plugin.ProcessInstance(asset.Instance);
 		_Current.DocumentProcessor.AddCompileTime(asset.Instance.Handle, DateTime.Now - now);
 	}
 
 	public void ProcessOverrides()
 	{
+		using var performance = PerformanceScope.Measure("core.xml.overrides");
 		foreach (InstanceDeclaration selfInstance in SelfInstances)
 		{
 			OverrideInstance(selfInstance);

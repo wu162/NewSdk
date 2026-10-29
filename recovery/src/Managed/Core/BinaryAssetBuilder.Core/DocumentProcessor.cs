@@ -447,6 +447,7 @@ public class DocumentProcessor
 
 	public AssetDeclarationDocument ProcessDocumentInternal(string logicalPath, string sourcePath, OutputManager outputManager, ProcessOptions op)
 	{
+		using var performance = PerformanceScope.Measure("core.document");
 		DateTime now = DateTime.Now;
 		AssetDeclarationDocument assetDeclarationDocument = OpenDocument(sourcePath, logicalPath, op.GenerateOutput, op.Configuration);
 		int documentDepth = _CurrentDocumentStack.Count;
@@ -557,7 +558,7 @@ public class DocumentProcessor
 		{
 			DateTime now3 = DateTime.Now;
 			_Tracer.Message("Resolving references: {0}", document.SourcePathFromRoot);
-			document.PrepareOutputInstances(outputManager);
+			using (PerformanceScope.Measure("core.output.references")) document.PrepareOutputInstances(outputManager);
 			_Tracer.Message("Generating stream: {0}", document.SourcePathFromRoot);
 			outputManager.CommitManifest(document);
 			outputManager.CleanOutput();
@@ -581,6 +582,7 @@ public class DocumentProcessor
 
 	private AssetDeclarationDocument OpenDocument(string sourcePath, string logicalPath, bool generateOutput, string configuration)
 	{
+		using var performance = PerformanceScope.Measure("core.document.open");
 		if (!Path.IsPathRooted(sourcePath))
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Path for document {0} is not rooted.", sourcePath);
@@ -675,6 +677,7 @@ public class DocumentProcessor
 
 	private void ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, bool usePrecompiled)
 	{
+		using var performance = PerformanceScope.Measure("core.includes");
 		DateTime now = DateTime.Now;
 		string configuration = op.Configuration;
 		document.TentativeInstances.Clear();

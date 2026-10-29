@@ -86,7 +86,7 @@ namespace NewModCompiler.Application
                     buildCacheEnabled = configured.BuildCache;
                     request.Options["bc"] = new EffectiveOption { Value = buildCacheEnabled ? "true" : "false", Source = "sdkConfig" };
                 }
-                if (request.FileIdentities == null) request.FileIdentities = new FileHashCache(outputRoot);
+                if (request.FileIdentities == null) request.FileIdentities = new FileHashCache(outputRoot,request.Performance);
                 this.request = request;
                 lock (LeaseGate) { initialized = true; initializing = false; }
             }
@@ -190,7 +190,7 @@ namespace NewModCompiler.Application
             stableSortEnabled = usePrecompiled = forceSlowCleanup = true;
             BigPackage.ValidateRequest(candidate);
             if(candidate.Command=="build" && candidate.FixNeutralAssets) BasePostProcessor.ValidateReferences(candidate.SdkRoot);
-            var ordinary = new HashSet<string>(new[] { "profile", "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format", "mod-version", "game-version", "skudef-name", "include-additional", "fix-neutral-assets", "dr", "data", "art", "audio", "session-cache-directory", "build-cache-directory", "iod" }, StringComparer.OrdinalIgnoreCase);
+            var ordinary = new HashSet<string>(new[] { "performance", "profile", "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format", "mod-version", "game-version", "skudef-name", "include-additional", "fix-neutral-assets", "dr", "data", "art", "audio", "session-cache-directory", "build-cache-directory", "iod" }, StringComparer.OrdinalIgnoreCase);
             var disabled = new HashSet<string>(new[] { "oof", "vf", "oar", "osh", "oix", "mr" }, StringComparer.OrdinalIgnoreCase);
             foreach (var option in candidate.Options)
             {
@@ -501,7 +501,9 @@ namespace NewModCompiler.Application
                 Directory.CreateDirectory(staging);
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
-                Settings settings = streamSettings = StreamSettings(context, staging);
+                Settings settings;
+                using (request.Performance.Measure("core.settings")) settings = streamSettings = StreamSettings(context, staging);
+                settings.MeasurePerformance = request.Performance.Detailed ? (Func<string, IDisposable>)(name => request.Performance.Measure(name, true)) : null;
                 settings.FileIdentity = request.FileIdentities.CoreIdentity;
                 settings.RememberFileContentHash = request.FileIdentities.RememberCoreHash;
                 settings.FileContentHashFromBytes = request.FileIdentities.HashBase64;
@@ -517,12 +519,14 @@ namespace NewModCompiler.Application
                 else settings.PrepareLinkedOutput = stem => linkedOutputs.Restore(linkScope, settings.OutputDirectory, stem);
                 processorState = DocumentProcessor.BeginStateScope();
                 report = AssetReport.BeginScope();
-                EnsureProviders();
+                using (request.Performance.Measure("core.providers")) EnsureProviders();
                 bool packageRestored = false;
-                if (schemas == null) schemas = new SchemaSet(settings.StableSort);
+                if (schemas == null)
+                    using (request.Performance.Measure("core.schema")) schemas = new SchemaSet(settings.StableSort);
                 // All streams in this request share the same schema snapshot.
                 // A new backend/request loads a fresh closure; explicit Core
                 // ReloadIfChanged remains available to mutable standalone hosts.
+                using (request.Performance.Measure("cache.prepare"))
                 if (sessionCacheEnabled)
                 {
                     if (legacyStore == null) legacyStore = new LegacyCacheStore(outputRoot, RootOption("session-cache-directory", outputRoot), LegacyCacheIdentity(settings));
@@ -541,7 +545,8 @@ namespace NewModCompiler.Application
                         };
                     }
                 }
-                hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
+                using (request.Performance.Measure("core.string-hashes")) hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
+                using (request.Performance.Measure("cache.load")) {
                 cache = new SessionCache();
                 if (sessionCacheEnabled)
                 {
@@ -582,18 +587,22 @@ namespace NewModCompiler.Application
                     if (packageRestored) sessionPackageHits++; else sessionPackageMisses++;
                 }
                 else cache.InitializeCache(new List<string>());
+                }
                 cache.AssetCompilersVersion = compilers.Registry.AssetBuilderPluginsVersion;
                 processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
                 bool success; processingStarted = true;
-                processor.ProcessDocument(settings.InputPath, true, false, out success);
+                using (request.Performance.Measure("core.process"))
+                    processor.ProcessDocument(settings.InputPath, true, false, out success);
                 if (!success) throw new BuildFailure(ExitCode.Compilation, "CORE_COMPILE_FAILED", "Core did not complete the stream.");
                 cancellation.ThrowIfCancellationRequested();
                 if (sessionCacheEnabled && !freezeSessionCache)
                 {
                     SaveLegacySession(cache, settings, cancellation); sessionSaved = true;
                 }
-                artifacts = CollectArtifactsWithHashes(settings.OutputDirectory,request.FileIdentities,reusedArtifacts);
-                linkedOutputs.Stage(linkScope, settings.OutputDirectory, artifacts, cancellation);
+                using (request.Performance.Measure("artifacts.collect"))
+                    artifacts = CollectArtifactsWithHashes(settings.OutputDirectory,request.FileIdentities,reusedArtifacts);
+                using (request.Performance.Measure("cache.linked-stage"))
+                    linkedOutputs.Stage(linkScope, settings.OutputDirectory, artifacts, cancellation);
                 cancellation.ThrowIfCancellationRequested();
             }
             catch (Exception error)
@@ -615,6 +624,7 @@ namespace NewModCompiler.Application
                     xmlParse += processor.XmlParseCount;
                     instanceCompile += processor.InstanceCompileCount;
                 }
+                using (request.Performance.Measure("core.cleanup")) {
                 var cleanup = new List<Exception>();
                 try { if (report != null) report.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (hashes != null) hashes.Dispose(); } catch (Exception error) { cleanup.Add(error); }
@@ -630,6 +640,7 @@ namespace NewModCompiler.Application
                     try { if (Directory.Exists(staging)) Directory.Delete(staging, true); }
                     catch (Exception error) { AddCleanupFailure(ref failure, error, ExitCode.Output, "CORE_STAGING_CLEANUP_FAILED"); }
                 }
+                }
             }
             if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
             return artifacts;
@@ -637,11 +648,15 @@ namespace NewModCompiler.Application
 
         void SaveLegacySession(SessionCache cache, Settings settings, CancellationToken cancellation)
         {
+            using (request.Performance.Measure("cache.save"))
+            {
             if (!cache.HasChanges && cache.LoadedCompressed == compressedSessionCache) return;
-            cache.SaveCache(compressedSessionCache);
-            legacyStore.Stage(settings.SessionCacheDirectory, settings.OutputDirectory, compressedSessionCache, cancellation);
+            using (request.Performance.Measure("cache.serialize")) cache.SaveCache(compressedSessionCache);
+            using (request.Performance.Measure("cache.stage"))
+                legacyStore.Stage(settings.SessionCacheDirectory, settings.OutputDirectory, compressedSessionCache, cancellation);
             if (partialSessionCache) legacyStore.ConfirmPartial();
             cache.AcceptSavedChanges(compressedSessionCache);
+            }
         }
         public void CommitCache() { if (legacyStore != null) legacyStore.Commit(); if (linkedOutputs != null) linkedOutputs.Commit(); }
         public void RollbackCache()

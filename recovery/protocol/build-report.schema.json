@@ -173,7 +173,9 @@
         "RollbackFailed"
       ]
     },
-    "publicationUnchanged": { "type": "boolean" },
+    "publicationUnchanged": {
+      "type": "boolean"
+    },
     "publicationDirectory": {
       "type": [
         "string",
@@ -228,6 +230,75 @@
           ],
           "additionalProperties": {
             "type": "string"
+          }
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "level",
+        "clock",
+        "frequency",
+        "boundary",
+        "entries"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "summary",
+            "detailed"
+          ]
+        },
+        "clock": {
+          "const": "Stopwatch"
+        },
+        "frequency": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "boundary": {
+          "const": "before-report-write"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "streamId",
+              "count",
+              "totalMs",
+              "selfMs",
+              "maxMs"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "streamId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "totalMs": {
+                "type": "number",
+                "minimum": 0
+              },
+              "selfMs": {
+                "type": "number",
+                "minimum": 0
+              },
+              "maxMs": {
+                "type": "number",
+                "minimum": 0
+              }
+            }
           }
         }
       }

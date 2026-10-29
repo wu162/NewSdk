@@ -1,6 +1,12 @@
-# Schema、文件身份与 Texture 优化：完成并验收
+# 可关闭性能打点：实现完成，Windows 有界验证待跑
 
-工作分支仍为 `recovery/legacy-sdk-cache`，禁止强推，未合入其他分支。
+工作分支 `recovery/legacy-sdk-cache`，禁止强推，未合入其他分支。
+
+新增 `--performance off|summary|detailed`，默认 off；request-local 单调计时器按阶段/流/资产类型聚合 count、totalMs、selfMs、maxMs，写入构建报告可选 performance 字段。覆盖请求阶段、Schema/提供程序、缓存读写、XML/资产编译、文件身份/哈希、链接、BIG/LoD/Additional 和发布。详见 [使用及测量口径](docs/PERFORMANCE.md)。
+
+本地廉价预检：Foundation 与全部独立 App/测试源码基于 net48 引用编译通过；关闭路径 100 万次空 scope 调用零分配（Linux 微测试，不代表 Windows 生产编译开销）。Windows 新增有界工作流：Release 完整生产组合，三档冷/热、小输入原版字节差分、BIG/SKUDEF 和失败计时；测量总预算 60 秒/单进程 10 秒。待取得结果，不宣称 Windows 验收已通过。
+
+前序四项优化及历史完整验收保留：
 
 本轮四项均已实现：删除重复 Schema 检查；一个请求的全部流复用编译后的 SchemaSet 和文件身份快照；FileHashItem 从既有身份取得存在性、时间戳及 SHA 收据，变化文件一次读取同时计算 FastHash/SHA256；删除 Texture 运行时部署审核及测试宿主重复清单审核，构建时 PE 验收、类型/模块归属及载荷差分保留。独立 Core 的显式 Schema 重载仍支持可变宿主。详见 [实现说明](docs/LEGACY_INCREMENTAL_CACHE.md)。
 

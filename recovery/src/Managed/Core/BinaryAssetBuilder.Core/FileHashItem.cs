@@ -216,6 +216,7 @@ public class FileHashItem : IXmlSerializable
 
 	private void CalculateHash()
 	{
+		using var performance = PerformanceScope.Measure("core.filehash.read");
 		AsynchronousFileReader asynchronousFileReader = new AsynchronousFileReader(_Path);
 		uint hash = asynchronousFileReader.FileSize;
 		using (var algorithm = SHA256.Create())

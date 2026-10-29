@@ -17,6 +17,9 @@ namespace NewModCompiler.Application
     }
     public sealed class BuildRequest
     {
+        public string PerformanceLevel { get; set; }
+        NewModCompiler.Diagnostics.BuildPerformance performance;
+        internal NewModCompiler.Diagnostics.BuildPerformance Performance { get { return performance ?? (performance = new NewModCompiler.Diagnostics.BuildPerformance(PerformanceLevel)); } }
         internal FileHashCache FileIdentities { get; set; }
 #if NEWSdk_MONOLITHIC
         internal CoreInputPreparation InputPreparation { get; set; }
@@ -38,7 +41,7 @@ namespace NewModCompiler.Application
         public bool FixNeutralAssets { get; set; }
         public string[] Arguments { get; set; }
         public IDictionary<string, EffectiveOption> Options { get; private set; }
-        public BuildRequest() { ModVersion="1.0"; GameVersion="1.12"; Options = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal); }
+        public BuildRequest() { PerformanceLevel="off"; ModVersion="1.0"; GameVersion="1.12"; Options = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal); }
     }
     public sealed class BuildTask
     {

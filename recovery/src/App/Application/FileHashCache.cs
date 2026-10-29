@@ -17,13 +17,15 @@ namespace NewModCompiler.Application
         internal int Reuses { get; private set; }
         internal long BytesRead { get; private set; }
         readonly string cachePath;
+        readonly BuildPerformance performance;
         readonly Dictionary<string, string> previous = new Dictionary<string, string>(StringComparer.Ordinal);
         readonly Dictionary<string, string> used = new Dictionary<string, string>(StringComparer.Ordinal);
         readonly Dictionary<string, Dictionary<string, FileIdentity>> directories =
             new Dictionary<string, Dictionary<string, FileIdentity>>(StringComparer.OrdinalIgnoreCase);
 
-        internal FileHashCache(string outputRoot)
+        internal FileHashCache(string outputRoot, BuildPerformance performance = null)
         {
+            this.performance=performance;
             cachePath = Path.Combine(Path.GetFullPath(outputRoot), ".file-identities.json");
             if (!File.Exists(cachePath)) return;
             var saved = new JavaScriptSerializer { MaxJsonLength = int.MaxValue }
@@ -60,6 +62,7 @@ namespace NewModCompiler.Application
             if (!previous.TryGetValue(key, out hash))
             {
                 Reads++;BytesRead+=file.Size;
+                using (performance == null ? null : performance.Measure("identity.sha256",true))
                 using (var algorithm = SHA256.Create())
                 {
                     byte[] digest;
@@ -202,7 +205,8 @@ namespace NewModCompiler.Application
             if (!directories.TryGetValue(parent, out files))
             {
                 files = new Dictionary<string, FileIdentity>(StringComparer.OrdinalIgnoreCase);
-                try { foreach (FileIdentity file in FileIdentity.ReadDirectory(parent, false)) files.Add(file.Path, file); }
+                try { using (performance == null ? null : performance.Measure("identity.directory",true))
+                    foreach (FileIdentity file in FileIdentity.ReadDirectory(parent, false)) files.Add(file.Path, file); }
                 catch (DirectoryNotFoundException) { }
                 directories.Add(parent, files);
             }

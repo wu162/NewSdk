@@ -413,6 +413,7 @@ public class BinaryAsset
 
 	public AssetLocation Commit()
 	{
+		using var performance = PerformanceScope.Measure("core.asset.commit");
 		return Commit(GetLocation(AssetLocation.All, AssetLocationOption.None));
 	}
 

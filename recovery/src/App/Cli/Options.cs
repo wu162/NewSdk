@@ -15,7 +15,7 @@ namespace NewModCompiler.Cli
             {"bcd","build-cache-directory"}, {"bcp","build-cache-directory"}
         };
         static readonly HashSet<string> Values = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
-            "profile","mod","sdk-root","out","events","report","log","package-content","package-format","mod-version","game-version","skudef-name",
+            "performance","profile","mod","sdk-root","out","events","report","log","package-content","package-format","mod-version","game-version","skudef-name",
             "sp","dr","art","audio","data","iod","session-cache-directory","build-cache-directory",
             "bcn","tp","bps","cpf","tl","el"
         };
@@ -40,6 +40,10 @@ namespace NewModCompiler.Cli
                 bool parsed;
                 if (!bool.TryParse(value, out parsed)) throw Bad("CLI_BOOLEAN", key + " expects true or false.");
                 return parsed ? "true" : "false";
+            }
+            if (key == "performance") {
+                value = value.ToLowerInvariant();
+                if (value != "off" && value != "summary" && value != "detailed") throw Bad("CLI_PERFORMANCE", "Performance must be off, summary, or detailed.");
             }
             if (key == "tp") {
                 if (!string.Equals(value, "Win32", StringComparison.OrdinalIgnoreCase)) throw Bad("CLI_PLATFORM", "Only Win32 is supported.");
@@ -108,7 +112,8 @@ namespace NewModCompiler.Cli
             foreach (string key in new[] {"sc","bc","psc","csc"}) Default(request,key,"true");
             foreach (string key in new[] {"fsc","atc"}) Default(request,key,"false");
             Default(request,"mod-version","1.0"); Default(request,"game-version","1.12");
-            Default(request,"profile","standard");
+            Default(request,"profile","standard"); Default(request,"performance","off");
+            request.PerformanceLevel = request.Options["performance"].Value;
             Default(request,"fix-neutral-assets","false"); Default(request, "package-content", "auto");
             Default(request, "package-format", request.Options["profile"].Value == "development" ? "loose" : "big");
             // Additional is automatic only for packaging. Explicit loose calls remain valid.
@@ -196,6 +201,7 @@ namespace NewModCompiler.Cli
             "Development: --profile development defaults to loose streams for iteration. All profiles use original SDK cache defaults: sc/bc/csc/psc=true, fsc/atc=false.\n" +
             "Advanced: --profile advanced uses standard defaults; --help-advanced lists compatibility controls. Explicit options override profile defaults.\n" +
             "Save sdk-root, out, profile and package settings in MOD/newmodcompiler.json; CLI overrides the project. SDK and output paths are required from CLI or project.\n" +
+            "Performance: --performance off|summary|detailed (default off). Timings are aggregated in build-report.json.\n" +
             "NewModCompiler doctor --sdk-root <directory>\n";
         public const string AdvancedHelp = Help +
             "Selection: --package-content auto|base,apt,global-metadata (maps remains an alias); explicit selections preserve partial-build behavior.\n" +

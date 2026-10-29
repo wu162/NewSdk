@@ -229,6 +229,7 @@ public class OutputManager
 
 	public void CommitManifest(AssetDeclarationDocument document)
 	{
+		using var performance = PerformanceScope.Measure("core.output.manifest");
 		uint allTypesHash = _DocumentProcessor.Plugins.DefaultPlugin.GetAllTypesHash();
 		if (_Header != null)
 		{
@@ -397,6 +398,7 @@ public class OutputManager
 
 	public void LinkStream(AssetDeclarationDocument document)
 	{
+		using var performance = PerformanceScope.Measure("core.output.link");
 		if (_ReuseLinked)
 		{
 			_Tracer.Message("{0} Linked binary data up to date", document.SourcePathFromRoot);
@@ -509,6 +511,7 @@ public class OutputManager
 
 	public void CleanOutput()
 	{
+		using var performance = PerformanceScope.Measure("core.output.clean");
 		bool flag = Path.GetFullPath(_IntermediateOutputDirectory) == Path.GetFullPath(_OutputDirectory);
 		DirectoryInfo directoryInfo = new DirectoryInfo(_OutputDirectory);
 		if (directoryInfo.Exists)

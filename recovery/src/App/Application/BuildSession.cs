@@ -15,6 +15,7 @@ namespace NewModCompiler.Application
         readonly List<object> diagnostics = new List<object>();
         BuildPlan plan; bool executed, acceptingCoreTrace; string activeStage, activeStream; long stageStarted; string providerIdentity;
         int errorCount, warningCount;
+        IDisposable stagePerformance;
         public BuildSession(BuildRequest request, IStreamCompiler compiler, EventDispatcher events, IDependencyPlanner dependencyPlanner = null) { this.request = request; this.compiler = compiler; this.events = events; this.dependencyPlanner = dependencyPlanner; }
         public ExitCode Run(CancellationToken cancellation)
         {
@@ -44,16 +45,19 @@ namespace NewModCompiler.Application
                         stagingOwned=true;
                     } catch (IOException e) { throw new BuildFailure(ExitCode.Output,"STAGING_PATH",e.Message); }
                     catch (UnauthorizedAccessException e) { throw new BuildFailure(ExitCode.Output,"STAGING_PATH",e.Message); }
-                    request.FileIdentities=new FileHashCache(request.OutputRoot);
-                    compiler.Initialize(request); providerIdentity=compiler.ProviderIdentity;
+                    using (request.Performance.Measure("identity.load"))
+                        request.FileIdentities=new FileHashCache(request.OutputRoot,request.Performance);
+                    using (request.Performance.Measure("backend.initialize")) compiler.Initialize(request);
+                    providerIdentity=compiler.ProviderIdentity;
                     int completed = 0;
                     foreach (BuildTask task in plan.Tasks) {
                         cancellation.ThrowIfCancellationRequested();
                         string streamDirectory = Path.Combine(staging,task.Content,Path.GetFileNameWithoutExtension(task.InputPath));
                         Directory.CreateDirectory(streamDirectory);
-                        activeStream = task.Id;
+                        activeStream = task.Id; request.Performance.StreamId=task.Id;
                         events.Emit("StreamStarted",payload:new {input=task.InputPath,effectiveOptions=request.Options},streamId:task.Id,stageId:"compile");
                         try {
+                            using (request.Performance.Measure("stream.compile")) {
                             var produced = compiler.Compile(new StreamContext {BuildId=events.BuildId,Task=task,Request=request,StagingDirectory=streamDirectory,CacheManagedBySession=true},cancellation);
                             cancellation.ThrowIfCancellationRequested();
                             if (produced == null) throw new InvalidOperationException("Backend returned no artifact list.");
@@ -61,13 +65,14 @@ namespace NewModCompiler.Application
                                 ValidateArtifact(artifact,streamDirectory); artifacts.Add(artifact); events.Emit("ArtifactProduced",payload:artifact,streamId:task.Id,stageId:"compile");
                             }
                             
+                            }
                         } catch (Exception e) {
                             try { events.Emit("StreamCompleted","error",new {status = e is OperationCanceledException ? "cancelled" : "failed",artifactCount=0},streamId:task.Id,stageId:"compile"); }
                             catch (Exception outputFailure) { AttachCleanup(e, outputFailure); }
                             throw;
                         }
                         events.Emit("StreamCompleted",payload:new {status="succeeded",artifactCount=artifacts.FindAll(a => Paths.Contains(streamDirectory,a.Path)).Count},streamId:task.Id,stageId:"compile");
-                        activeStream = null;
+                        activeStream = null; request.Performance.StreamId=null;
                         events.Emit("Progress",payload:new {completed=++completed,total=plan.Tasks.Length,unit="streams"},stageId:"compile");
                     }
                     CompleteStage("succeeded",artifacts.Count);
@@ -76,9 +81,9 @@ namespace NewModCompiler.Application
             catch (BuildFailure e) { code = e.ExitCode; status="failed"; Fail(e,status,e.Code,e.Message); }
             catch (Exception e) { code = ExitCode.Internal; status="failed"; Fail(e,status,"INTERNAL_ERROR",e.ToString()); }
             finally {
-                activeStream = null;
+                activeStream = null; request.Performance.StreamId=null;
                 if (compiler != null) {
-                    try { compiler.Dispose(); }
+                    try { using (request.Performance.Measure("backend.dispose")) compiler.Dispose(); }
                     catch (Exception e) {
                         // Cleanup must not hide the original compilation failure
                         // or cancellation. A previously successful build must fail.
@@ -112,11 +117,14 @@ namespace NewModCompiler.Application
                 try {
                     StartStage("publish");
                     cancellation.ThrowIfCancellationRequested();
-                    publication = new ArtifactPublisher().PrepareOwned(request,staging,"published",artifacts,cancellation);
+                    using (request.Performance.Measure("publish.prepare"))
+                        publication = new ArtifactPublisher().PrepareOwned(request,staging,"published",artifacts,cancellation);
                     cancellation.ThrowIfCancellationRequested();
-                    publication.Commit();
-                    request.FileIdentities.RecordPublished(publication.Result.Artifacts,publication.Result.Directory,publication.Unchanged);
-                    request.FileIdentities.Save();
+                    using (request.Performance.Measure("publish.commit")) publication.Commit();
+                    using (request.Performance.Measure("identity.save")) {
+                        request.FileIdentities.RecordPublished(publication.Result.Artifacts,publication.Result.Directory,publication.Unchanged);
+                        request.FileIdentities.Save();
+                    }
                     artifacts.Clear(); artifacts.AddRange(publication.Result.Artifacts);
                     CompleteStage("succeeded",artifacts.Count);
                     cancellation.ThrowIfCancellationRequested();
@@ -127,12 +135,12 @@ namespace NewModCompiler.Application
             // Changed linked groups still reference current staging here. Install
             // reversible cache generations before disposing those source files.
             if (code == ExitCode.Success && request.Command == "build" && cacheCompiler != null) {
-                try { cacheCompiler.CommitCache(); }
+                try { using (request.Performance.Measure("cache.commit")) cacheCompiler.CommitCache(); }
                 catch (Exception e) { code=ExitCode.Output; status="failed"; Diagnostic("CACHE_COMMIT_FAILED",e.ToString()); }
             }
             // Neither a published build nor a failed build retains disposable staging.
             if (stagingOwned && Directory.Exists(staging)) {
-                try { Directory.Delete(staging,true); }
+                try { using (request.Performance.Measure("staging.cleanup")) Directory.Delete(staging,true); }
                 catch (Exception e) { code=ExitCode.Output; status="failed"; Diagnostic("STAGING_CLEANUP_FAILED",e.ToString()); ExportExceptionDetails(e); }
             }
             // Last cancellable safe boundary. Required report/event/sink finalization
@@ -167,6 +175,7 @@ namespace NewModCompiler.Application
                 {"publicationStatus",publicationStatus},{"publicationDirectory",publicationDirectory},
                 {"publicationUnchanged",code == ExitCode.Success && publication != null && publication.Unchanged}
             };
+            if (request.Performance.Enabled) report["performance"]=request.Performance.Snapshot();
             try { Reports.WriteAtomic(request.ReportPath,report); }
             catch (Exception e) { code=ExitCode.Output; status="failed"; Diagnostic("REPORT_WRITE_FAILED",e.Message); }
             try { events.Emit("BuildFinished",code == ExitCode.Success ? "info" : "error",new {status=status,exitCode=(int)code,reportPath=request.ReportPath},"Build " + status); }
@@ -258,10 +267,12 @@ namespace NewModCompiler.Application
         void StartStage(string id)
         {
             activeStage=id; stageStarted=events.ElapsedMilliseconds;
+            if (request.Performance.Enabled) stagePerformance=request.Performance.Measure("stage."+id);
             events.Emit("StageStarted",stageId:id);
         }
         void CompleteStage(string status,int count)
         {
+            if (stagePerformance!=null) { stagePerformance.Dispose(); stagePerformance=null; }
             string id=activeStage; activeStage=null;
             long elapsed=events.ElapsedMilliseconds-stageStarted;
             stages.Add(new {id=id,status=status,elapsedMs=elapsed,artifactCount=count});

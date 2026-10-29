@@ -159,3 +159,7 @@ BIG/SKUDEF 包缓存已移除；每次构建都会从本轮编译结果重新打
 `--fix-neutral-assets=true` 默认关闭，仅限包含 base 的 BIG；需要已有完整 Worldbuilder 参考文件。WBData 下载、提取和依赖其真实数据的验收已按要求取消，不会自动为你补齐。已有验证为组件差分及生产零插入链，不能当作完整游戏中立资产验收。
 
 LoD 明确修复原工具的表尾越界：完整保留逻辑名称/来源表，不复制越界产生的尾字节；详见 [兼容策略](P7_LOD_ORIGINAL_TAIL.md)。完整 UI/runtime、中文纹理路径、混合纹理会话缓存仍有未覆盖范围。AssetMerge 不属于新流程。
+
+## 性能耗时分析
+
+默认关闭，使用 `--performance summary` 查看阶段耗时，`--performance detailed` 查看内部文档/资产/哈希耗时；`--performance off` 关闭。结果聚合到构建报告的 `performance.entries`，不自动循环构建。字段口径、示例和短测试预算见 [性能打点](docs/PERFORMANCE.md)。
