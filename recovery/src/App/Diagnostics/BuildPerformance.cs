@@ -35,6 +35,16 @@ namespace NewModCompiler.Diagnostics
             return scope;
         }
 
+        // Owner merge of worker intervals; never alters the synchronous scope stack.
+        internal void RecordBackend(string name, long ticks)
+        {
+            if (!Detailed) return;
+            string key=(StreamId ?? "")+"\n"+name;
+            Entry entry;
+            if (!entries.TryGetValue(key,out entry)) entries.Add(key,entry=new Entry {Name=name,StreamId=StreamId});
+            entry.Count++; entry.Total+=ticks; entry.Self+=ticks; entry.Max=Math.Max(entry.Max,ticks);
+        }
+
         internal object Snapshot()
         {
             return new {

@@ -37,6 +37,7 @@ namespace NewModCompiler.Application
         int threadId, traceLevel = 3;
         bool initialized, initializing, disposed, compiling, buildCacheEnabled, sessionCacheEnabled;
         bool stableSortEnabled = true, usePrecompiled = true, forceSlowCleanup = true;
+        ParallelBackendMetrics parallelMetrics;
         bool compressedSessionCache = true, partialSessionCache = true, freezeSessionCache, alwaysTouchCache;
         int partialSessionsSaved;
         LegacyCacheStore legacyStore;
@@ -49,7 +50,7 @@ namespace NewModCompiler.Application
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
         public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Win32.LegacySessionCache" : buildCacheEnabled ? "NewModCompiler.Core.Win32.LegacyBuildCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
-        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionCache" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, linkedStreamsRestored = linkedOutputs == null ? linkedStreamsRestored : linkedOutputs.RestoredStreams, fileHashReads = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reads, fileHashReuses = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reuses, fileHashBytesRead = request == null || request.FileIdentities == null ? 0L : request.FileIdentities.BytesRead, textureCache = buildCacheEnabled || sessionCacheEnabled, compressedSessionCache, partialSessionCache, freezeSessionCache, alwaysTouchCache, partialSessionsSaved, sessionCacheDirectory = legacyStore == null ? null : legacyStore.SessionRoot }; } }
+        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionCache" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, linkedStreamsRestored = linkedOutputs == null ? linkedStreamsRestored : linkedOutputs.RestoredStreams, fileHashReads = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reads, fileHashReuses = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reuses, fileHashBytesRead = request == null || request.FileIdentities == null ? 0L : request.FileIdentities.BytesRead, textureCache = buildCacheEnabled || sessionCacheEnabled, compressedSessionCache, partialSessionCache, freezeSessionCache, alwaysTouchCache, partialSessionsSaved, parallel = parallelMetrics == null ? null : parallelMetrics.Snapshot(request), sessionCacheDirectory = legacyStore == null ? null : legacyStore.SessionRoot }; } }
         int linkedStreamsRestored;
         bool cacheManagedBySession;
 
@@ -190,7 +191,7 @@ namespace NewModCompiler.Application
             stableSortEnabled = usePrecompiled = forceSlowCleanup = true;
             BigPackage.ValidateRequest(candidate);
             if(candidate.Command=="build" && candidate.FixNeutralAssets) BasePostProcessor.ValidateReferences(candidate.SdkRoot);
-            var ordinary = new HashSet<string>(new[] { "performance", "profile", "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format", "mod-version", "game-version", "skudef-name", "include-additional", "fix-neutral-assets", "dr", "data", "art", "audio", "session-cache-directory", "build-cache-directory", "iod" }, StringComparer.OrdinalIgnoreCase);
+            var ordinary = new HashSet<string>(new[] { "jobs", "performance", "profile", "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format", "mod-version", "game-version", "skudef-name", "include-additional", "fix-neutral-assets", "dr", "data", "art", "audio", "session-cache-directory", "build-cache-directory", "iod" }, StringComparer.OrdinalIgnoreCase);
             var disabled = new HashSet<string>(new[] { "oof", "vf", "oar", "osh", "oix", "mr" }, StringComparer.OrdinalIgnoreCase);
             foreach (var option in candidate.Options)
             {
@@ -493,6 +494,7 @@ namespace NewModCompiler.Application
             Exception failure = null;
             IList<Artifact> artifacts = null;
             DocumentProcessor processor = null;
+            ParallelBackendScheduler execution = null;
             SessionCache cache = null; Settings streamSettings = null; bool processingStarted = false, sessionSaved = false;
             compiling = true;
             cacheManagedBySession = context.CacheManagedBySession;
@@ -590,9 +592,13 @@ namespace NewModCompiler.Application
                 }
                 cache.AssetCompilersVersion = compilers.Registry.AssetBuilderPluginsVersion;
                 processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
+                if (parallelMetrics == null) parallelMetrics = new ParallelBackendMetrics(request.Performance);
+                execution = new ParallelBackendScheduler(processor, staging, request.JobsAuto ? Math.Max(1, Environment.ProcessorCount) : request.RequestedJobs, parallelMetrics, request.Performance, cancellation);
+                processor.AssetExecution = execution;
                 bool success; processingStarted = true;
                 using (request.Performance.Measure("core.process"))
                     processor.ProcessDocument(settings.InputPath, true, false, out success);
+                execution.Flush();
                 if (!success) throw new BuildFailure(ExitCode.Compilation, "CORE_COMPILE_FAILED", "Core did not complete the stream.");
                 cancellation.ThrowIfCancellationRequested();
                 if (sessionCacheEnabled && !freezeSessionCache)
@@ -609,6 +615,8 @@ namespace NewModCompiler.Application
             {
                 failure = error is BuildFailure || error is OperationCanceledException ? error :
                     Failure(ExitCode.Compilation, "CORE_COMPILE_FAILED", error);
+                try { if (execution != null) execution.Dispose(); }
+                catch (Exception joinError) { AddCleanupFailure(ref failure, joinError, ExitCode.Compilation, "CORE_BACKEND_JOIN_FAILED"); }
                 if (processingStarted && !sessionSaved && sessionCacheEnabled && partialSessionCache && !freezeSessionCache)
                 {
                     try { SaveLegacySession(cache, streamSettings, CancellationToken.None); partialSessionsSaved++; }
@@ -626,6 +634,7 @@ namespace NewModCompiler.Application
                 }
                 using (request.Performance.Measure("core.cleanup")) {
                 var cleanup = new List<Exception>();
+                try { if (execution != null) execution.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (report != null) report.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (hashes != null) hashes.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (processorState != null) processorState.Dispose(); } catch (Exception error) { cleanup.Add(error); }

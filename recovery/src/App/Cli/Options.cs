@@ -15,7 +15,7 @@ namespace NewModCompiler.Cli
             {"bcd","build-cache-directory"}, {"bcp","build-cache-directory"}
         };
         static readonly HashSet<string> Values = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
-            "performance","profile","mod","sdk-root","out","events","report","log","package-content","package-format","mod-version","game-version","skudef-name",
+            "jobs","performance","profile","mod","sdk-root","out","events","report","log","package-content","package-format","mod-version","game-version","skudef-name",
             "sp","dr","art","audio","data","iod","session-cache-directory","build-cache-directory",
             "bcn","tp","bps","cpf","tl","el"
         };
@@ -40,6 +40,12 @@ namespace NewModCompiler.Cli
                 bool parsed;
                 if (!bool.TryParse(value, out parsed)) throw Bad("CLI_BOOLEAN", key + " expects true or false.");
                 return parsed ? "true" : "false";
+            }
+            if (key == "jobs") {
+                if (string.Equals(value,"auto",StringComparison.OrdinalIgnoreCase)) return "auto";
+                int jobs;
+                if (!int.TryParse(value,out jobs) || jobs < 1) throw Bad("CLI_JOBS", "Jobs must be auto or a positive integer.");
+                return jobs.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
             if (key == "performance") {
                 value = value.ToLowerInvariant();
@@ -114,6 +120,9 @@ namespace NewModCompiler.Cli
             Default(request,"mod-version","1.0"); Default(request,"game-version","1.12");
             Default(request,"profile","standard"); Default(request,"performance","off");
             request.PerformanceLevel = request.Options["performance"].Value;
+            Default(request,"jobs","auto");
+            request.JobsAuto=request.Options["jobs"].Value=="auto";
+            request.RequestedJobs=request.JobsAuto ? 0 : int.Parse(request.Options["jobs"].Value,System.Globalization.CultureInfo.InvariantCulture);
             Default(request,"fix-neutral-assets","false"); Default(request, "package-content", "auto");
             Default(request, "package-format", request.Options["profile"].Value == "development" ? "loose" : "big");
             // Additional is automatic only for packaging. Explicit loose calls remain valid.
@@ -186,7 +195,7 @@ namespace NewModCompiler.Cli
                 if (values == null) throw Bad("PROJECT_INVALID", "Project preset must be a JSON object.");
                 foreach (var pair in values) {
                     string key = Canonical(pair.Key);
-                    if (!new [] {"profile","sdk-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean","sc","bc","csc","psc","fsc","atc","session-cache-directory","build-cache-directory","iod"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
+                    if (!new [] {"jobs","profile","sdk-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean","sc","bc","csc","psc","fsc","atc","session-cache-directory","build-cache-directory","iod"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
                     if (!(pair.Value is IConvertible)) throw Bad("PROJECT_OPTION", "Project values must be scalar values: " + pair.Key);
                     string raw = Convert.ToString(pair.Value, System.Globalization.CultureInfo.InvariantCulture);
                     if (string.IsNullOrWhiteSpace(raw)) throw Bad("PROJECT_OPTION", "Project value must not be empty: " + pair.Key);
@@ -201,6 +210,7 @@ namespace NewModCompiler.Cli
             "Development: --profile development defaults to loose streams for iteration. All profiles use original SDK cache defaults: sc/bc/csc/psc=true, fsc/atc=false.\n" +
             "Advanced: --profile advanced uses standard defaults; --help-advanced lists compatibility controls. Explicit options override profile defaults.\n" +
             "Save sdk-root, out, profile and package settings in MOD/newmodcompiler.json; CLI overrides the project. SDK and output paths are required from CLI or project.\n" +
+            "Backends: --jobs auto|<positive integer> (default auto); jobs=1 runs on the owner. Original SDK caches remain enabled.\n" +
             "Performance: --performance off|summary|detailed (default off). Timings are aggregated in build-report.json.\n" +
             "NewModCompiler doctor --sdk-root <directory>\n";
         public const string AdvancedHelp = Help +

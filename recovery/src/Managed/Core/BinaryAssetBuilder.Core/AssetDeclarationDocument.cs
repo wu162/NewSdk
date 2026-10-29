@@ -485,6 +485,13 @@ public class AssetDeclarationDocument : IXmlSerializable
 	{
 	}
 
+	// Private worker view has no semantic processor or cache.
+	public static AssetDeclarationDocument CreateBackendView(XmlNamespaceManager namespaces, bool hasValidatedSchema = false)
+	{
+		if (namespaces == null) throw new ArgumentNullException(nameof(namespaces));
+		return new AssetDeclarationDocument { _Current = new CurrentState { NamespaceManager = namespaces, SchemaValidated = hasValidatedSchema } };
+	}
+
 	public AssetDeclarationDocument(DocumentProcessor documentProcessor, FileHashItem hashItem, string logicalPath, string configuration)
 	{
 		Open(documentProcessor, hashItem, logicalPath, configuration);
@@ -1063,6 +1070,22 @@ public class AssetDeclarationDocument : IXmlSerializable
 			if (binaryAsset != null)
 			{
 				AssetLocation location = binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None);
+				var processor = _Current.DocumentProcessor;
+				var execution = processor.AssetExecution;
+				if (execution != null && (location == AssetLocation.None || execution.HasPending))
+				{
+					var declaration = selfInstance;
+					Action<AssetLocation> committed = source => {
+						processor.RecordExecutionCommit(source);
+						RecordCommit(binaryAsset, declaration, source);
+					};
+					if (location == AssetLocation.None)
+						execution.Enqueue(binaryAsset, declaration, processor.Plugins.GetPlugin(declaration.Handle.TypeId),
+							() => CompileInstance(binaryAsset, declaration), () => VerifyInstance(binaryAsset, declaration), committed);
+					else
+						execution.EnqueueCached(() => { VerifyInstance(binaryAsset, declaration); committed(binaryAsset.Commit(location)); });
+					continue;
+				}
 				if (location == AssetLocation.None)
 				{
 					CompileInstance(binaryAsset, selfInstance);
@@ -1071,20 +1094,26 @@ public class AssetDeclarationDocument : IXmlSerializable
 				VerifyInstance(binaryAsset, selfInstance);
 				AssetLocation assetLocation = binaryAsset.Commit(location);
 				CountCommitSource(assetLocation, ref instancesCompiledCount, ref instancesCopiedFromCacheCount);
-				if (assetLocation == AssetLocation.Cache)
-					_Current.DocumentProcessor.RecordBuildCacheUse(true);
-				else if (assetLocation == AssetLocation.Memory && Settings.Current.BuildCache && _Current.DocumentProcessor.Plugins.GetExtendedTypeInformation(selfInstance.Handle.TypeId).UseBuildCache)
-					_Current.DocumentProcessor.RecordBuildCacheUse(false);
-				if (assetLocation != AssetLocation.BasePatchStream)
-				{
-					_Current.DocumentProcessor.AddLastWrittenAsset(binaryAsset);
-				}
-				if (!selfInstance.IsInheritable)
-				{
-					selfInstance.XmlNode = null;
-				}
+				RecordCommit(binaryAsset, selfInstance, assetLocation);
 			}
 		}
+	}
+
+	private void RecordCommit(BinaryAsset binaryAsset, InstanceDeclaration declaration, AssetLocation source)
+	{
+		var processor = _Current.DocumentProcessor;
+		if (source == AssetLocation.Cache)
+					processor.RecordBuildCacheUse(true);
+				else if (source == AssetLocation.Memory && Settings.Current.BuildCache && processor.Plugins.GetExtendedTypeInformation(declaration.Handle.TypeId).UseBuildCache)
+					processor.RecordBuildCacheUse(false);
+				if (source != AssetLocation.BasePatchStream)
+				{
+					processor.AddLastWrittenAsset(binaryAsset);
+				}
+				if (!declaration.IsInheritable)
+				{
+					declaration.XmlNode = null;
+				}
 	}
 
 	private void CountCommitSource(AssetLocation commitSource, ref int instancesCompiledCount, ref int instancesCopiedFromCacheCount)

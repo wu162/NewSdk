@@ -107,6 +107,14 @@ public class DocumentProcessor
 	public int DocumentReuseCount { get; private set; }
 	public int XmlParseCount { get; private set; }
 	public int InstanceCompileCount { get; private set; }
+	public IAssetExecution AssetExecution { get; set; }
+	private readonly HashSet<AssetDeclarationDocument> _PendingExecutionDocuments = new HashSet<AssetDeclarationDocument>();
+	public void RecordExecutionCompile() { InstanceCompileCount++; }
+	internal void RecordExecutionCommit(AssetLocation source)
+	{
+		if (source == AssetLocation.Memory) _InstancesCompiledCount++;
+		else if (source == AssetLocation.Local || source == AssetLocation.Cache) _InstancesCopiedFromCacheCount++;
+	}
 	private readonly HashSet<uint> _ProcessedTypeIds = new HashSet<uint>();
 	public IEnumerable<uint> ProcessedTypeIds => _ProcessedTypeIds;
 	internal void RecordXmlParse() { XmlParseCount++; }
@@ -522,6 +530,7 @@ public class DocumentProcessor
 
 	private void ProcessDocumentContents(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, bool generateOutput)
 	{
+		if (_PendingExecutionDocuments.Contains(document)) return;
 		string configuration = op.Configuration;
 		if (document.State != DocumentState.Loaded && !document.ValidateInheritFromSources())
 		{
@@ -556,6 +565,7 @@ public class DocumentProcessor
 		document.AddStreamsHints(_CurrentStreamStack.ToArray());
 		if (generateOutput)
 		{
+			if (AssetExecution != null) AssetExecution.Flush();
 			DateTime now3 = DateTime.Now;
 			_Tracer.Message("Resolving references: {0}", document.SourcePathFromRoot);
 			using (PerformanceScope.Measure("core.output.references")) document.PrepareOutputInstances(outputManager);
@@ -575,9 +585,22 @@ public class DocumentProcessor
 			_Tracer.Message("{0} Stream complete", document.SourcePathFromRoot);
 			_TotalPrepareOutputTime += DateTime.Now - now3;
 		}
+		if (AssetExecution != null && !generateOutput && AssetExecution.HasPending)
+		{
+			_PendingExecutionDocuments.Add(document);
+			var platform = Settings.Current.TargetPlatform;
+			AssetExecution.DeferCompletion(() => {
+				document.MakeComplete(); document.MakeCacheable();
+				Cache.SaveDocumentToCache(document.SourcePath, configuration, platform, document);
+				_PendingExecutionDocuments.Remove(document);
+			});
+		}
+		else
+		{
 		document.MakeComplete();
 		document.MakeCacheable();
 		Cache.SaveDocumentToCache(document.SourcePath, configuration, Settings.Current.TargetPlatform, document);
+		}
 	}
 
 	private AssetDeclarationDocument OpenDocument(string sourcePath, string logicalPath, bool generateOutput, string configuration)
@@ -599,6 +622,7 @@ public class DocumentProcessor
 			stringBuilder.AppendFormat("\n   {0}", sourcePath);
 			throw new BinaryAssetBuilderException(ErrorCode.CircularDependency, stringBuilder.ToString());
 		}
+		if (AssetExecution != null && _PendingExecutionDocuments.Contains(document)) AssetExecution.Flush();
 		document.Open(this, hashItem, logicalPath, configuration);
 		if (document.State != DocumentState.Complete)
 		{
@@ -811,7 +835,8 @@ public class DocumentProcessor
 				document.TentativeInstances.Add(document2.TentativeInstances);
 				break;
 			}
-			document2.Reset();
+			if (AssetExecution != null && _PendingExecutionDocuments.Contains(document2)) AssetExecution.DeferCompletion(document2.Reset);
+			else document2.Reset();
 			_TotalPostProcTime += DateTime.Now - now;
 		}
 		foreach (InstanceDeclaration referenceInstance in document.ReferenceInstances)

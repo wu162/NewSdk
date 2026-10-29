@@ -24,6 +24,13 @@ namespace BinaryAssetBuilder.AudioCompiler
         public Plugin() : this(new PcmWaveAudioCompiler()) { }
         public Plugin(IAudioFileCompiler compiler) { audioCompiler = compiler; }
 
+        // The injected encoder may have shared state or external reads that are
+        // outside the recovered PCM backend's parallel execution contract.
+        public bool UsesRecoveredAudioFileCompiler
+        {
+            get { return audioCompiler != null && audioCompiler.GetType() == typeof(PcmWaveAudioCompiler); }
+        }
+
         public virtual void Initialize(object configSection, TargetPlatform platform)
         {
             AudioCatalog.RequireWin32(platform);
