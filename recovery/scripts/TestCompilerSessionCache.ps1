@@ -79,6 +79,7 @@ function PublishedTimes([string]$Destination){
 function LinkedHot($Case,$Before){
     Need ($Case.report.cache.linkedStreamsRestored -gt 0) 'Hot build did not restore linked output'
     Need ($Case.report.publicationUnchanged -eq $true) 'Byte-identical hot output was republished'
+    if(@($Case.report.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq 0){Need ($Case.report.cache.fileHashReads -eq 0) 'Unchanged four-stream build reread complete files for SHA256'}
     $after=PublishedTimes $Case.destination
     Need ($after.Count -eq $Before.Count) 'Unchanged publication file set differs'
     foreach($path in $Before.Keys){Need ($after[$path] -eq $Before[$path]) 'Unchanged publication rewrote a file'}

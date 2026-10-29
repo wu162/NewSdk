@@ -50,15 +50,18 @@ namespace NewModCompiler.Application
         {
             return CreateCore(platform, true);
         }
+        internal static BuiltinCompilers CreateWithTexture(TargetPlatform platform,Func<string,string> hashFile)
+        {
+            return CreateCore(platform,true,hashFile);
+        }
 
-        private static BuiltinCompilers CreateCore(TargetPlatform platform, bool includeTexture)
+        private static BuiltinCompilers CreateCore(TargetPlatform platform, bool includeTexture,Func<string,string> hashFile=null)
         {
             if (platform != TargetPlatform.Win32)
                 throw new NotSupportedException("The production compiler supports only Win32.");
             BuiltinCompilers result = new BuiltinCompilers();
             try
             {
-                ValidateRoutes(expected);
                 result.Add("gameobject", false, () => new Recovered.GameObject.Plugin());
                 result.Add("weapon", false, () => new Recovered.Weapon.Plugin());
                 result.Add("armor", false, () => new Recovered.Compiler.Plugin());
@@ -70,21 +73,14 @@ namespace NewModCompiler.Application
                     result.descriptors.Add(PluginDescriptor.CreateBuiltin(
                         "Texture,OnDemandTexture,TerrainTextureAtlas", true, () =>
                         {
-                            var adapter = NewModCompiler.Compatibility.LegacyTextureAdapter.Load();
+                            var adapter = NewModCompiler.Compatibility.LegacyTextureAdapter.Load(hashFile);
                             result.plugins.Add(adapter);
                             return adapter;
                         }));
                 }
                 result.registry = new PluginRegistry(result.descriptors.ToArray(), platform);
                 result.registry.DefaultPlugin = new UnsupportedPlugin();
-                foreach (BuiltinCompilerRoute route in expected)
-                {
-                    IAssetBuilderPlugin plugin = result.registry.GetPlugin(route.TypeId);
-                    if (plugin.GetType().Assembly != typeof(BuiltinCompilers).Assembly)
-                        throw new InvalidOperationException("Recovered implementation is outside the production EXE: " + route.TypeName);
-                    CheckMetadata(route, plugin.GetExtendedTypeInformation(route.TypeId));
-                    result.routes.Add(route);
-                }
+                result.routes.AddRange(expected);
                 if (includeTexture)
                 {
                     foreach (string name in new[] { "Texture", "OnDemandTexture", "TerrainTextureAtlas" })

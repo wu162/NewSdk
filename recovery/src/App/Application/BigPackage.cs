@@ -4,12 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
+using System.Web.Script.Serialization;
 using NewModCompiler.Diagnostics;
 
 namespace NewModCompiler.Application
 {
-    // Consumes only this build's accepted stream artifact list. It never scans
-    // previous output, intermediate assets, MOD Additional files or cache trees.
+    // Package identity is derived from current accepted streams and Additional.
+    // A matching receipt references existing public BIG/SKUDEF files directly.
     public static class BigPackage
     {
         public static void ValidateRequest(BuildRequest request)
@@ -59,6 +60,18 @@ namespace NewModCompiler.Application
                 entries.Add(new BigArchiveEntry {Name=name,SourcePath=artifact.Path});
             }
             foreach(var pair in owners) if(pair.Value.Count!=4) throw new IOException("BIG packaging requires all four linked files for every selected stream.");
+            IList<BigArchiveEntry> additional=request.IncludeAdditional ? AdditionalFiles.Inputs(request.SdkRoot,request.ModRoot,cancellation,warning) : new BigArchiveEntry[0];
+            string fingerprint=request.FileIdentities!=null && !request.FixNeutralAssets ? Fingerprint(request,plan,staging,artifacts,additional) : null;
+            Artifact[] reused;
+            if(fingerprint!=null && Reuse(request,fingerprint,out reused)) {
+                if(request.IncludeAdditional) {
+                    var planned=new List<string>(entries.Select(entry=>entry.Name));
+                    if(plan.Tasks.Any(task=>task.Content=="base")) foreach(string suffix in new[]{"_l","_m"}) foreach(string ext in new[]{".manifest",".bin",".imp",".relo"})planned.Add("Data\\mod"+suffix+ext);
+                    foreach(var task in plan.Tasks)if(task.Content=="apt")planned.Add("Data\\AptUI\\"+Path.GetFileNameWithoutExtension(task.InputPath)+".version");
+                    AdditionalFiles.Validate(additional,planned,warning);
+                }
+                return reused;
+            }
             // SDK/defaultscript.cs step 5 runs LoD directly when optional asset
             // repair are disabled. Neutral repair is explicit and modifies only
             // a private package copy, never Core/cache outputs.
@@ -99,11 +112,40 @@ namespace NewModCompiler.Application
             }
             string mod=Path.GetFileName(request.ModRoot.TrimEnd(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar));
             string big=Path.Combine(staging,mod+"_"+request.ModVersion+".big"),skudef=Path.Combine(staging,(request.SkudefName ?? mod)+"_"+request.ModVersion+".skudef");
-            if(request.IncludeAdditional) AdditionalFiles.Merge(request.SdkRoot,request.ModRoot,staging,entries,cancellation,warning);
+            if(request.IncludeAdditional) AdditionalFiles.Merge(staging,entries,additional,cancellation,warning);
             MakeBig.Write(big,entries,cancellation);
             BigArchiveWriter.WriteSkudef(skudef,Path.GetFileName(big),cancellation,request.GameVersion);
             cancellation.ThrowIfCancellationRequested();
-            return new[] {Describe(big,"package.big"),Describe(skudef,"package.skudef")};
+            var result=new[] {Describe(big,"package.big",request.FileIdentities),Describe(skudef,"package.skudef",request.FileIdentities)};
+            if(fingerprint!=null)request.FileIdentities.Remember("package|v1",new JavaScriptSerializer().Serialize(new PackageReceipt {Fingerprint=fingerprint,Artifacts=result}));
+            return result;
+        }
+        sealed class PackageReceipt {public PackageReceipt() {} public string Fingerprint {get;set;} public Artifact[] Artifacts {get;set;} }
+        static string Fingerprint(BuildRequest request,BuildPlan plan,string staging,IList<Artifact> artifacts,IList<BigArchiveEntry> additional)
+        {
+            using(var bytes=new MemoryStream())using(var writer=new BinaryWriter(bytes)) {
+                writer.Write(typeof(BigPackage).Assembly.ManifestModule.ModuleVersionId.ToString());
+                writer.Write(Path.GetFileName(request.ModRoot.TrimEnd('\\','/')));writer.Write(request.ModVersion);writer.Write(request.GameVersion);writer.Write(request.SkudefName??"");writer.Write(request.IncludeAdditional);
+                writer.Write(plan.Tasks.Length);foreach(var task in plan.Tasks) {writer.Write(task.Content);writer.Write(Path.GetFileNameWithoutExtension(task.InputPath));}
+                writer.Write(artifacts.Count);foreach(var artifact in artifacts.OrderBy(value=>value.Path,StringComparer.Ordinal)) {writer.Write(artifact.Path.Substring(staging.Length+1));writer.Write(artifact.Kind);writer.Write(artifact.Sha256);}
+                writer.Write(additional.Count);foreach(var entry in additional) {writer.Write(entry.Name);writer.Write(request.FileIdentities.Hash(entry.SourcePath));}
+                writer.Flush();bytes.Position=0;
+                using(var hash=SHA256.Create())return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-","");
+            }
+        }
+        static bool Reuse(BuildRequest request,string fingerprint,out Artifact[] artifacts)
+        {
+            artifacts=null;string receipt;
+            if(!request.FileIdentities.TryReceipt("package|v1",out receipt))return false;
+            var previous=new JavaScriptSerializer().Deserialize<PackageReceipt>(receipt);
+            if(previous.Fingerprint!=fingerprint)return false;
+            var result=new List<Artifact>();
+            foreach(var artifact in previous.Artifacts) {
+                string path=Path.Combine(request.OutputRoot,"published",Path.GetFileName(artifact.Path));
+                if(!File.Exists(path) || request.FileIdentities.Hash(path)!=artifact.Sha256)return false;
+                result.Add(new Artifact {Path=path,Kind=artifact.Kind,Size=artifact.Size,Sha256=artifact.Sha256,Verified=true,Published=true});
+            }
+            artifacts=result.ToArray();return true;
         }
         static void Verify(Artifact artifact,string staging)
         {
@@ -113,7 +155,7 @@ namespace NewModCompiler.Application
                 if((File.GetAttributes(artifact.Path)&(FileAttributes.Directory|FileAttributes.ReparsePoint))!=0 || new FileInfo(artifact.Path).Length!=artifact.Size || Hash(artifact.Path)!=artifact.Sha256) throw new IOException("BIG input changed after compilation.");
             }
         }
-        static Artifact Describe(string path,string kind) { return new Artifact {Path=path,Kind=kind,Size=new FileInfo(path).Length,Sha256=Hash(path),Verified=true}; }
+        static Artifact Describe(string path,string kind,FileHashCache hashes) { return new Artifact {Path=path,Kind=kind,Size=new FileInfo(path).Length,Sha256=hashes==null ? Hash(path) : hashes.Hash(path,true),Verified=true}; }
         static string Hash(string path) { using(var hash=SHA256.Create()) using(var stream=File.OpenRead(path)) return BitConverter.ToString(hash.ComputeHash(stream)).Replace("-","").ToLowerInvariant(); }
     }
 }

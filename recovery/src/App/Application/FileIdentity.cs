@@ -13,7 +13,7 @@ namespace NewModCompiler.Application
     internal sealed class FileIdentity
     {
         internal string Path;
-        internal long FileId, ChangeTime, LastWriteTime, Size;
+        internal long VolumeSerial, FileId, ChangeTime, LastWriteTime, Size;
 
         [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)]
         static extern SafeFileHandle CreateFile(string path, uint access, uint sharing, IntPtr security,
@@ -32,9 +32,11 @@ namespace NewModCompiler.Application
                 while(pending.Count!=0)
                 {
                     string directory=pending.Pop();
-                    using(var handle=CreateFile(directory,1,7,IntPtr.Zero,3,0x02000000,IntPtr.Zero))
+                    using(var handle=CreateFile(directory,0x81,7,IntPtr.Zero,3,0x02000000,IntPtr.Zero))
                     {
                         if(handle.IsInvalid)throw new Win32Exception(Marshal.GetLastWin32Error(),directory);
+                        if(!GetFileInformationByHandleEx(handle,18,buffer,bufferSize))throw new Win32Exception(Marshal.GetLastWin32Error(),directory);
+                        long volume=Marshal.ReadInt64(buffer,0);
                         while(true)
                         {
                             // FILE_ID_BOTH_DIR_INFO (10), directory cursor advances.
@@ -57,7 +59,7 @@ namespace NewModCompiler.Application
                                     {
                                         if(recursive)pending.Push(path);
                                     }
-                                    else result.Add(new FileIdentity {Path=path,FileId=Marshal.ReadInt64(entry,96),
+                                    else result.Add(new FileIdentity {Path=path,VolumeSerial=volume,FileId=Marshal.ReadInt64(entry,96),
                                         ChangeTime=Marshal.ReadInt64(entry,32),LastWriteTime=Marshal.ReadInt64(entry,24),Size=Marshal.ReadInt64(entry,40)});
                                 }
                                 int next=Marshal.ReadInt32(entry,0);

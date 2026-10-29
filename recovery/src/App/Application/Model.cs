@@ -17,6 +17,7 @@ namespace NewModCompiler.Application
     }
     public sealed class BuildRequest
     {
+        internal FileHashCache FileIdentities { get; set; }
         public string Command { get; set; }
         public string ModRoot { get; set; }
         public string SdkRoot { get; set; }
@@ -69,6 +70,7 @@ namespace NewModCompiler.Application
         public long Size { get; set; }
         public string Sha256 { get; set; }
         internal bool Verified { get; set; }
+        internal bool Published { get; set; }
     }
     public sealed class StreamContext
     {

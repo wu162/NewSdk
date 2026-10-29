@@ -38,7 +38,7 @@ namespace NewModCompiler.Application
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
         public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Win32.LegacySessionCache" : buildCacheEnabled ? "NewModCompiler.Core.Win32.LegacyBuildCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
-        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionCache" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, linkedStreamsRestored = linkedOutputs == null ? linkedStreamsRestored : linkedOutputs.RestoredStreams, textureCache = buildCacheEnabled || sessionCacheEnabled, compressedSessionCache, partialSessionCache, freezeSessionCache, alwaysTouchCache, partialSessionsSaved, sessionCacheDirectory = legacyStore == null ? null : legacyStore.SessionRoot }; } }
+        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionCache" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, linkedStreamsRestored = linkedOutputs == null ? linkedStreamsRestored : linkedOutputs.RestoredStreams, fileHashReads = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reads, fileHashReuses = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reuses, fileHashBytesRead = request == null || request.FileIdentities == null ? 0L : request.FileIdentities.BytesRead, textureCache = buildCacheEnabled || sessionCacheEnabled, compressedSessionCache, partialSessionCache, freezeSessionCache, alwaysTouchCache, partialSessionsSaved, sessionCacheDirectory = legacyStore == null ? null : legacyStore.SessionRoot }; } }
         int linkedStreamsRestored;
         bool cacheManagedBySession;
 
@@ -363,7 +363,8 @@ namespace NewModCompiler.Application
             {
                 if (compilers == null)
                 {
-                    BuiltinCompilers candidate = BuiltinCompilers.CreateWithTexture(TargetPlatform.Win32);
+                    Func<string,string> hashFile=request == null || request.FileIdentities == null ? (Func<string,string>)null : path=>request.FileIdentities.Hash(path);
+                    BuiltinCompilers candidate = BuiltinCompilers.CreateWithTexture(TargetPlatform.Win32,hashFile);
                     try
                     {
                         // The old SDK XML handler was #all, so Core reads its global
@@ -513,7 +514,7 @@ namespace NewModCompiler.Application
                 {
                     SaveLegacySession(cache, settings, cancellation); sessionSaved = true;
                 }
-                artifacts = CollectArtifacts(settings.OutputDirectory);
+                artifacts = CollectArtifactsWithHashes(settings.OutputDirectory,request.FileIdentities);
                 linkedOutputs.Stage(linkScope, settings.OutputDirectory, artifacts, cancellation);
                 cancellation.ThrowIfCancellationRequested();
             }
@@ -588,7 +589,7 @@ namespace NewModCompiler.Application
                 files.AddRange(FileIdentity.ReadDirectory(runtime,false).Where(file=>new[] {".exe",".dll",".config"}.Contains(Path.GetExtension(file.Path).ToLowerInvariant())));
                 foreach (FileIdentity file in files.OrderBy(file=>file.Path,StringComparer.Ordinal))
                 {
-                    writer.Write(file.Path); writer.Write(file.FileId); writer.Write(file.ChangeTime); writer.Write(file.LastWriteTime); writer.Write(file.Size);
+                    writer.Write(file.Path); writer.Write(file.VolumeSerial); writer.Write(file.FileId); writer.Write(file.ChangeTime); writer.Write(file.LastWriteTime); writer.Write(file.Size);
                 }
                 writer.Flush(); bytes.Position = 0;
                 using (var algorithm = SHA256.Create()) return BitConverter.ToString(algorithm.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
@@ -635,6 +636,8 @@ namespace NewModCompiler.Application
             }
         }
         static IList<Artifact> CollectArtifacts(string output)
+        { return CollectArtifactsWithHashes(output,null); }
+        static IList<Artifact> CollectArtifactsWithHashes(string output,FileHashCache hashes)
         {
             output = Path.GetFullPath(output);
             var files = SafeFiles(output).ToArray();
@@ -663,7 +666,8 @@ namespace NewModCompiler.Application
                 bool custom = !stream && customDirectories.Contains(Path.GetDirectoryName(file)) && IsCustomDataFileName(Path.GetFileName(file));
                 if (!stream && !custom) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_UNEXPECTED", "Unexpected file in completed stream output: " + file);
                 string sha;
-                using (var algorithm = SHA256.Create()) using (var input = File.OpenRead(file)) sha = BitConverter.ToString(algorithm.ComputeHash(input)).Replace("-", "").ToLowerInvariant();
+                if(hashes!=null)sha=hashes.Hash(file,stream);
+                else using (var algorithm = SHA256.Create()) using (var input = File.OpenRead(file)) sha = BitConverter.ToString(algorithm.ComputeHash(input)).Replace("-", "").ToLowerInvariant();
                 result.Add(new Artifact { Path = Path.GetFullPath(file), Kind = custom ? "custom-data" : "stream" + Path.GetExtension(file), Size = new FileInfo(file).Length, Sha256 = sha, Verified = true });
             }
             return result;

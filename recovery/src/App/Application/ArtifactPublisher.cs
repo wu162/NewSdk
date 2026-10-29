@@ -70,20 +70,21 @@ namespace NewModCompiler.Application
                         if (artifact == null || string.IsNullOrEmpty(artifact.Path) || !Path.IsPathRooted(artifact.Path) || string.IsNullOrEmpty(artifact.Kind))
                             throw new IOException("Publication artifact is incomplete.");
                         string source = Path.GetFullPath(artifact.Path);
-                        if (!Paths.Contains(staging, source) || string.Equals(staging, source, StringComparison.OrdinalIgnoreCase))
+                        string sourceRoot=owned && artifact.Published ? destination : staging;
+                        if (!Paths.Contains(sourceRoot, source) || string.Equals(sourceRoot, source, StringComparison.OrdinalIgnoreCase))
                             throw new IOException("Publication artifact escaped its build staging directory.");
                         DiagnosticDirectory.ValidateSyntax(source);
                         using (owned ? null : DiagnosticDirectory.Acquire(Path.GetDirectoryName(source), false))
                         {
                             if ((File.GetAttributes(source) & (FileAttributes.ReparsePoint | FileAttributes.Directory)) != 0)
                                 throw new IOException("Publication artifact must be an ordinary file.");
-                            string relative = source.Substring(staging.TrimEnd('\\', '/').Length).TrimStart('\\', '/');
+                            string relative = source.Substring(sourceRoot.TrimEnd('\\', '/').Length).TrimStart('\\', '/');
                             if (!paths.Add(relative)) throw new IOException("Duplicate publication artifact path.");
                             if (new FileInfo(source).Length != artifact.Size) throw new IOException("Publication source size changed.");
                             result.Add(new Artifact { Path = Path.Combine(destination, relative), Kind = artifact.Kind, Size = artifact.Size, Sha256 = artifact.Sha256 });
                         }
                     }
-                    bool unchanged = Matches(destination, result, cancellation);
+                    bool unchanged = Matches(destination, result, cancellation,owned ? request.FileIdentities : null);
                     if (unchanged && !owned)
                         foreach (Artifact artifact in artifacts)
                             if (!string.Equals(Hash(artifact.Path), artifact.Sha256, StringComparison.OrdinalIgnoreCase)) throw new IOException("Publication source hash changed.");
@@ -115,14 +116,14 @@ namespace NewModCompiler.Application
             }
             } finally { if (targetLock != null) targetLock.Dispose(); if (outputGuard != null) outputGuard.Dispose(); }
         }
-        static bool Matches(string destination, IList<Artifact> artifacts, CancellationToken cancellation)
+        static bool Matches(string destination, IList<Artifact> artifacts, CancellationToken cancellation,FileHashCache hashes)
         {
             if (!Directory.Exists(destination) || Directory.GetFiles(destination, "*", SearchOption.AllDirectories).Length != artifacts.Count) return false;
             foreach (Artifact artifact in artifacts)
             {
                 cancellation.ThrowIfCancellationRequested();
                 if (!File.Exists(artifact.Path) || new FileInfo(artifact.Path).Length != artifact.Size ||
-                    !string.Equals(Hash(artifact.Path), artifact.Sha256, StringComparison.OrdinalIgnoreCase)) return false;
+                    !string.Equals(hashes==null ? Hash(artifact.Path) : hashes.Hash(artifact.Path), artifact.Sha256, StringComparison.OrdinalIgnoreCase)) return false;
             }
             return true;
         }

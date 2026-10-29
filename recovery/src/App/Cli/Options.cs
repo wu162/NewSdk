@@ -136,10 +136,12 @@ namespace NewModCompiler.Cli
                 string staging=DiagnosticDirectory.ResolveOutput(Path.Combine(request.OutputRoot,".build"));
                 string published=DiagnosticDirectory.ResolveOutput(Path.Combine(request.OutputRoot,"published"));
                 string linked=DiagnosticDirectory.ResolveOutput(Path.Combine(request.OutputRoot,".linked-streams"));
+                string identities=Path.Combine(request.OutputRoot,".file-identities.json");
                 for (int i=0;i<physical.Length;++i) {
                     if (Paths.Contains(staging,physical[i]) || Paths.Contains(physical[i],staging) ||
                         Paths.Contains(published,physical[i]) || Paths.Contains(physical[i],published) ||
-                        Paths.Contains(linked,physical[i]) || Paths.Contains(physical[i],linked))
+                        Paths.Contains(linked,physical[i]) || Paths.Contains(physical[i],linked) ||
+                        string.Equals(physical[i],identities,StringComparison.OrdinalIgnoreCase))
                         throw Bad("CLI_LOG_COLLISION","Diagnostic files must not overlap staging or publication directories.");
                     for (int j=0;j<i;++j)
                         if (Paths.Contains(physical[i],physical[j]) || Paths.Contains(physical[j],physical[i]))

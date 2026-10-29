@@ -44,6 +44,7 @@ namespace NewModCompiler.Application
                         stagingOwned=true;
                     } catch (IOException e) { throw new BuildFailure(ExitCode.Output,"STAGING_PATH",e.Message); }
                     catch (UnauthorizedAccessException e) { throw new BuildFailure(ExitCode.Output,"STAGING_PATH",e.Message); }
+                    request.FileIdentities=new FileHashCache(request.OutputRoot);
                     compiler.Initialize(request); providerIdentity=compiler.ProviderIdentity;
                     int completed = 0;
                     foreach (BuildTask task in plan.Tasks) {
@@ -114,6 +115,8 @@ namespace NewModCompiler.Application
                     publication = new ArtifactPublisher().PrepareOwned(request,staging,"published",artifacts,cancellation);
                     cancellation.ThrowIfCancellationRequested();
                     publication.Commit();
+                    request.FileIdentities.RecordPublished(publication.Result.Artifacts,publication.Result.Directory,publication.Unchanged);
+                    request.FileIdentities.Save();
                     artifacts.Clear(); artifacts.AddRange(publication.Result.Artifacts);
                     CompleteStage("succeeded",artifacts.Count);
                     cancellation.ThrowIfCancellationRequested();
