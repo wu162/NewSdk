@@ -1,3 +1,4 @@
+#define RECOVERED_TEXTURE_NATIVE_RESOURCE_API_BUILD
 #include "TextureNativeResourceApi.h"
 #include <Windows.h>
 #include <cstring>
@@ -10,12 +11,12 @@ void* Pointer(std::uint32_t p){return reinterpret_cast<void*>(static_cast<std::u
 bool View(std::uint32_t header){return (header&15)==4&&(header&0x40000000u)!=0;}
 bool UnsupportedFinal(std::uint32_t header,void* resource){return (header&15)==9||((header&15)==4&&!View(header)&&((header&0x80000000u)!=0||(Load(resource,0x20)&1)!=0));}
 }
-extern "C" __declspec(dllexport) std::uint32_t __stdcall TextureResourceAddRef(void* resource){
+extern "C" RECOVERED_TEXTURE_NATIVE_RESOURCE_API std::uint32_t __stdcall TextureResourceAddRef(void* resource){
  const auto count=static_cast<std::uint32_t>(InterlockedIncrement(AtomicWord(resource,4)));
  if(count==1&&View(Load(resource,0)))TextureResourceAddRef(Pointer(Load(resource,0x18)));
  return count;
 }
-extern "C" __declspec(dllexport) std::uint32_t __stdcall TextureResourceRelease(void* resource){
+extern "C" RECOVERED_TEXTURE_NATIVE_RESOURCE_API std::uint32_t __stdcall TextureResourceRelease(void* resource){
  const auto header=Load(resource,0);
  // These context/GPU destruction algorithms are not part of the restored PC
  // memory-resource group. Preserve the object on explicit unsupported input.
@@ -37,7 +38,7 @@ extern "C" __declspec(dllexport) std::uint32_t __stdcall TextureResourceRelease(
  GlobalFree(resource);
  return 0;
 }
-extern "C" __declspec(dllexport) std::int32_t __stdcall TextureResourceUnlockRect(void* texture,std::uint32_t){
+extern "C" RECOVERED_TEXTURE_NATIVE_RESOURCE_API std::int32_t __stdcall TextureResourceUnlockRect(void* texture,std::uint32_t){
  const auto secondary=Load(texture,0x30)&~0xfffu;
  const auto previous=static_cast<std::uint32_t>(InterlockedExchangeAdd(AtomicWord(texture,0),-256));
  if((previous&0xf00)==0x100){

@@ -1,3 +1,4 @@
+#define RECOVERED_TEXTURE_NATIVE_DEVICE_API_BUILD
 #include "TextureNativeDeviceApi.h"
 #include <Windows.h>
 #include <cstring>
@@ -16,7 +17,7 @@ void FreeObject(void* device) {
     GlobalFree(reinterpret_cast<HGLOBAL>(static_cast<std::uintptr_t>(Load(device, -4))));
 }
 }
-extern "C" __declspec(dllexport) std::int32_t __stdcall TextureCreateDevice(std::uint32_t, std::uint32_t type, void*, std::uint32_t, void*, void** output) {
+extern "C" RECOVERED_TEXTURE_NATIVE_DEVICE_API std::int32_t __stdcall TextureCreateDevice(std::uint32_t, std::uint32_t type, void*, std::uint32_t, void*, void** output) {
     *output = nullptr;
     // A real rendering device has a separate state/dispatch initialization chain.
     // Never return a partially initialized type-2 object as a successful device.
@@ -44,7 +45,7 @@ extern "C" __declspec(dllexport) std::int32_t __stdcall TextureCreateDevice(std:
     *output = device;
     return 0;
 }
-extern "C" __declspec(dllexport) std::uint32_t __stdcall TextureDeviceRelease(void* device) {
+extern "C" RECOVERED_TEXTURE_NATIVE_DEVICE_API std::uint32_t __stdcall TextureDeviceRelease(void* device) {
     const auto count = Load(device, 0x3c);
     if (count != 1) {
         Store(device, 0x3c, count - 1);

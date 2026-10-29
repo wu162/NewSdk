@@ -1,5 +1,10 @@
 #pragma once
 #include <cstdint>
+#ifdef RECOVERED_TEXTURE_NATIVE_RESOURCE_API_BUILD
+#define RECOVERED_TEXTURE_NATIVE_RESOURCE_API __declspec(dllexport)
+#else
+#define RECOVERED_TEXTURE_NATIVE_RESOURCE_API __declspec(dllimport)
+#endif
 // Raw PC resources use the original header/refcount layout and Win32 ownership:
 // GlobalAlloc object; VirtualAlloc storage (tagged pointers at original offsets).
 // Supported final destruction: types 0..8 except GPU-backed standalone type4.
@@ -9,6 +14,6 @@ namespace Recovered { namespace TextureCompiler { namespace NativeResourceAbi {
 using RefFn=std::uint32_t (__stdcall *)(void*);
 using UnlockFn=std::int32_t (__stdcall *)(void*,std::uint32_t);
 }}}
-extern "C" std::uint32_t __stdcall TextureResourceAddRef(void* resource);
-extern "C" std::uint32_t __stdcall TextureResourceRelease(void* resource);
-extern "C" std::int32_t __stdcall TextureResourceUnlockRect(void* texture,std::uint32_t level);
+extern "C" RECOVERED_TEXTURE_NATIVE_RESOURCE_API std::uint32_t __stdcall TextureResourceAddRef(void* resource);
+extern "C" RECOVERED_TEXTURE_NATIVE_RESOURCE_API std::uint32_t __stdcall TextureResourceRelease(void* resource);
+extern "C" RECOVERED_TEXTURE_NATIVE_RESOURCE_API std::int32_t __stdcall TextureResourceUnlockRect(void* texture,std::uint32_t level);

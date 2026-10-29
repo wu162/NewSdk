@@ -1,0 +1,4 @@
+LIBRARY Recovered.TextureNativeSurface.dll
+EXPORTS
+    TextureSurfaceGetLayout=_TextureSurfaceGetLayout@44
+    TextureSurfaceLockRect=_TextureSurfaceLockRect@20
