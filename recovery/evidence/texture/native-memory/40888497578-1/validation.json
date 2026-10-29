@@ -1,0 +1,11 @@
+{
+  "runId": "40888497578",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "scope": "Native x86 thiscall buffer/allocator/deleting-destructor and cdecl/stdcall facade ABI, complete original state/payload/endian trace and per-call isolation; no devices/invalid memory/OOM/CLI identity or production package claim",
+  "sourceCommit": "5c1e17a0fd2fb499272b1df39c5edb1c533a0401",
+  "status": "failed",
+  "configurations": [],
+  "error": "Native x86 memory ABI build failed"
+}

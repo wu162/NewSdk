@@ -1,0 +1,3 @@
+TextureErrorStrings.cpp
+TextureNativeApi.def : error LNK2001: unresolved external symbol _TextureGetErrorString
+D:\a\_temp\texture-native-errors-67ae8824e8064cd3b832885a98d519c1\Debug/native-api.lib : fatal error LNK1120: 1 unresolved externals
