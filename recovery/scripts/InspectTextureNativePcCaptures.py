@@ -163,6 +163,46 @@ def descriptor_archive(data):
     return {'completeHeaderRecords':ordinal,'completeNativeOutputStructures':ordinal*3,'levelStructureBytes':32,'volumeStructureBytes':28,'xgStructureBytes':60,'metadataRecords':4096}
 
 
+def copy_archive(data):
+    assert data[:8]==b'TXCPY001';offset=8;ordinal=0;payload_bytes=0
+    table=(ROOT/'recovery/evidence/texture/native-copy-static/20261030/CopyFormatBits.bin').read_bytes()
+    widths=[1,4,7,17];heights=[1,2,5,13]
+    for format in range(64):
+        bx,by=(2,1) if format in [11,12,40] else (4,1) if format in [39,44] else (4,4) if format in [18,19,20,49,51,52,53,58,59,60,61] else (1,1)
+        block_bytes=table[format]*bx*by//8
+        for size in range(4):
+            width,height=widths[size],heights[size]
+            for padding in [0,7]:
+                stride=((width+bx-1)//bx)*(block_bytes or 1)+padding;rows=(height+by-1)//by;length=stride*rows+64
+                for orientation in range(4):
+                    source_origin=32+((rows-1)*stride if orientation&1 else 0);destination_origin=32+((rows-1)*stride if orientation&2 else 0)
+                    source_pitch=-stride if orientation&1 else stride;destination_pitch=-stride if orientation&2 else stride
+                    for flags in [0,3,12,0xffffffff]:
+                        for region in range(4):
+                            row=struct.unpack_from('<4I',data,offset);offset+=16
+                            assert row==(ordinal,0x80004001 if format<2 else 0,length,length)
+                            source=bytes((i*13+ordinal*17)&255 for i in range(length));destination=bytearray((i*31+ordinal*19)&255 for i in range(length))
+                            if format>=2:
+                                left,top,right,bottom,x,y=0,0,width,height,0,0
+                                if region in [1,3]:
+                                    left=bx if width>=2*bx else 0;top=by if height>=2*by else 0
+                                    if region==3:x,y=left,top
+                                if region==2:
+                                    x=bx if width>=2*bx else 0;y=by if height>=2*by else 0
+                                    right=(width-bx)//bx*bx if width>=2*bx else 0;bottom=(height-by)//by*by if height>=2*by else 0
+                                count=(right-left+bx-1)//bx*block_bytes;copy_rows=(bottom-top+by-1)//by
+                                src=source_origin+(top//by)*source_pitch+(left//bx)*block_bytes;dst=destination_origin+(y//by)*destination_pitch+(x//bx)*block_bytes
+                                for y_index in range(copy_rows):
+                                    position=dst+y_index*destination_pitch;input_position=src+y_index*source_pitch
+                                    assert 0<=position<=length and 0<=input_position<=length
+                                    destination[position:position+count]=source[input_position:input_position+count]
+                            assert data[offset:offset+length]==source,('complete-source',ordinal);offset+=length
+                            assert data[offset:offset+length]==destination,('complete-destination-padding-guards',ordinal);offset+=length
+                            payload_bytes+=length*2;ordinal+=1
+    assert ordinal==32768 and offset==len(data)
+    return {'completeIdentityCopyRecords':ordinal,'successfulCopyRecords':31744,'originalUnsupportedOneBitRecords':1024,'completeSourceDestinationBytes':payload_bytes,'allPaddingAndGuardsVerified':True,'independentCompleteRowCopyModel':True}
+
+
 def audit(group,run,source):
     directory=ROOT/'recovery/evidence/texture'/group/(run+'-1');r=json.loads((directory/'validation.json').read_text(encoding='utf-8-sig'))
     assert r['status']=='passed' and r['sourceCommit']==source and str(r['runId'])==run and not r['sdkValidated']
@@ -174,11 +214,11 @@ def audit(group,run,source):
         assert m['passed'] and m['withoutOriginalTextureCompiler'];configuration=m['configuration'];b=(directory/(configuration+'.capture')).read_bytes()
         assert sha(b)==m['captureSha256'] and (digest is None or digest==sha(b));digest=sha(b)
         if expected is not None:assert b==expected,'Complete independent model differs: '+group
-        else:details=(descriptor_archive if group=='native-descriptor' else surface_archive)(b)
+        else:details=({'native-descriptor':descriptor_archive,'native-copy':copy_archive}.get(group,surface_archive))(b)
         dlls=list(directory.glob(configuration+'-Recovered.*.dll'));assert len(dlls)==1 and sha(dlls[0].read_bytes())==m['nativeSha256']
         dll=dlls[0].read_bytes();pe=struct.unpack_from('<I',dll,60)[0];assert dll[pe:pe+4]==b'PE\0\0' and struct.unpack_from('<H',dll,pe+4)[0]==0x14c
     return {'group':group,'sourceCommit':source,'runId':run,'completeDebugReleaseCaptureBytes':len(b),'captureSha256':digest,'independentCompleteFixtureModel':model is not None,**details}
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--group',choices=['native-device','native-resource','native-surface','native-descriptor'],required=True);p.add_argument('--run-id',required=True);p.add_argument('--source-commit',required=True);p.add_argument('--out',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--group',choices=['native-device','native-resource','native-surface','native-descriptor','native-copy'],required=True);p.add_argument('--run-id',required=True);p.add_argument('--source-commit',required=True);p.add_argument('--out',type=Path,required=True);a=p.parse_args()
     result=audit(a.group,a.run_id,a.source_commit);a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))

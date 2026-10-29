@@ -24,6 +24,10 @@ extern "C" RECOVERED_TEXTURE_NATIVE_COPY_API std::int32_t __stdcall TextureCopyS
  const U copyBytes=((columns+bx-1)/bx)*bytesPerBlock,blockRows=(rows+by-1)/by;
  auto dst=static_cast<unsigned char*>(destination)+static_cast<std::ptrdiff_t>(y/by)*destinationPitch+(x/bx)*bytesPerBlock;
  auto src=static_cast<const unsigned char*>(source)+static_cast<std::ptrdiff_t>(top/by)*sourcePitch+(left/bx)*bytesPerBlock;
- for(U row=0;row<blockRows;++row){std::memcpy(dst,src,copyBytes);dst+=destinationPitch;src+=sourcePitch;}
+ for(U row=0;row<blockRows;++row){
+  std::memcpy(dst,src,copyBytes);
+  // Do not form a pointer before the allocation after the final negative row.
+  if(row+1<blockRows){dst+=destinationPitch;src+=sourcePitch;}
+ }
  return 0;
 }

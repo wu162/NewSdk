@@ -1,16 +1,21 @@
-# 当前：设备、资源与LockRect已验收；描述符与真实原生消费链补验中
+# 当前：PC五组原生能力与真实消费链已验收
 
-本轮新增实现独立保存于 `src/TextureCompiler/Native/TextureNative{Device,Resource,Surface,Descriptor}Api.*`；不加入已部署生产六DLL包。
+源码入口 `src/TextureCompiler/Native/TextureNative{Device,Resource,Surface,Descriptor,Copy}Api.*`，各自独立x86 DLL，保持原调用约定与结构字段；不进入已部署生产六DLL包，也不宣称完整原混合模式身份。
 
-- Device：PC插件使用的type1及type!=2工厂、完整对象/线程ID/命令分配、引用计数和配套释放，44972e43/40911147535 passed，完整原档独立模型审计通过。type2渲染状态仍明确E_NOTIMPL。
-- Resource：原子AddRef/Release、CPU存储与对象所有权、父子/嵌套视图、UnlockRect，44972e43/40911147535 passed，完整原档独立模型审计通过。type9/GPU/当前上下文surface最终释放明确拒绝并保留原对象。
-- Surface：完整type3纹理布局与LockRect，64格式/四维度/mip/packed/border/tiled/array/rect/flags及实际VM读写，675b00d6/40912274334 passed。独立审计全部131072布局/同量锁状态及全部实际存储，不归一化产物。
-- Descriptor：level32/volume28/XG60完整输出已实现，40912274334因type18/19深度分派误读差分失败；完整原捕获保留。现修复type18取头部高位/type19深度1，135168输入/405504输出待补验。
-- Consumers：固定12个真实DDS/TGA，原DLL仅捕获原生资源fixture，原/恢复独立重建所有分配，四库连续执行全部级别/三种Lock+Unlock/描述符/引用与释放，完整头和所有存储逐字节比较及NoOriginal，尚未验收。这个fixture捕获器不是恢复的图像加载器。
+| 组 | 原版完整验收锚点 | 范围 |
+| --- | --- | --- |
+| native-device |44972e43 /40911147535|type!=2设备/完整对象/线程/VM/引用释放；type2明确拒绝|
+| native-resource |44972e43 /40911147535|CPU资源、父子/嵌套引用、原子操作、UnlockRect和配套释放；GPU/type9拒绝|
+| native-surface |675b00d6 /40912274334|64格式四维度全mip/packed/对齐/边框/数组和LockRect，131072完整矩阵|
+| native-descriptor |118d9500 /40913579297|135168头/405504完整32、28、60字节描述符，含4096 metadata|
+| native-consumers |118d9500 /40913579297|12真实资源、107级别、321锁解锁、全部5.83MB存储；原fixture loader非恢复业务|
+| native-copy |efae485f /40915252008|32768同完整格式/块对齐identity行复制，负步幅/压缩块/边缘/padding；转换/过滤/未对齐拒绝|
 
-当前按RESUME与最新Actions终态收证。各新组使用独立原生DLL、原DLL完整SHA与入口检查、Debug/Release完整对照/逐调用隔离和真实导入库消费者。原进程地址/线程ID先核对实际语义后在测试捕获中标记，其他全部字节精确比较；源码没有gold图像查表、样本ID分派或原DLL回调。
+全部Debug/Release原版差分、NoOriginal与适用真实导入库通过。完整原档独立审计在evidence/texture/handoffs/20261030-native-abi。原地址/线程先核对真实语义后仅在测试捕获中标记，其他全部字节精确比较；生产源码没有gold输出表、样本ID分派或原后端回调。中间失败保留，完整旧成功组按实际依赖复用。
 
-审计工具 `InspectTextureNativePcCaptures.py`，已验收完整审计位于evidence/texture/handoffs/20261030-native-abi。仅PC，编译测试仅Actions，禁止强推。下一业务为实际PC原生加载/XGCopySurface及完整混合模式ABI，不把独立辅助接口成功等同整个原DLL还原。SDK/MOD按明确里程碑降频，已部署包不因本轮独立API变更重装。
+当前待收：Copy仅移除最后一行后无用的指针推进，负步幅不再形成分配前指针，按同一矩阵补验；当前锚点以RESUME及本次Actions为准。完成后下一业务为原XGCopySurface转换/过滤分支@0x3cef7..0x3d969（先PC LoadImageA实际所需格式），以及D3DXCreateTextureFromFileA@0x13c82→0x13b53加载与资源头构造。独立ABI成功不能替代完整混合模式DLL或SDK新包集成门槛。
+
+仅PC、编译测试仅Actions、禁止强推；SDK/MOD按明确里程碑降频。本轮SDK生产包/配置未变。
 
 以下为早期历史记录。
 

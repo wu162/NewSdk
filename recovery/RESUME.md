@@ -1,14 +1,19 @@
-# 当前：PC设备/资源/LockRect已通过；描述符修复与真实原生消费链待验收
+# 当前：PC原生五个能力组与真实消费已验收；同格式复制最后一行指针修正补验中
 
-- **本轮完成：部署与旧原生**：部署后51组件`0fa4acd3` /40893243833 success；17 SDK/完整mymod/同一六DLL包/迁移回滚/实际安装字节完整归档审计通过，见handoffs/20261030-deployment/full-archive-audit.json。独立ABI名称/导入库`339656a2` /40892135472成功证据已普通合入且独立审计。SDK/原收据和原SHA未改。
-- **本轮完成：设备与资源**：`44972e435c5a90cb3ab0b0b5b71c5dbd61d76401` /40911147535的native-device与native-resource各自完整D/R/NoOriginal和导入库passed。设备1024工厂/16同存/64线程/6引用边界，资源8192解锁/72生命周期/16父子+16嵌套/32768并发原子操作；29496344和1083524完整捕获字节已独立模型审计。见handoffs/20261030-native-abi/*-archive-audit.json。整体run仍failure（当时surface宏编译错误），成功组保留复用。
-- **本轮完成：布局/LockRect**：`675b00d6932bdec969e3865f8df345cce3366b8c` /40912274334的native-surface已完整D/R/NoOriginal/导入库passed，64格式/四维度/全mip/packed/tiled/border/array/rect/flags共131072布局与同量锁、16真实存储；23069960字节完整原轨迹、全部锁状态/地址关系及8388608真实存储字节独立归档审计通过，见surface-archive-audit.json。未改矩阵/断言。
-- **当前修复待验收**：同run native-descriptor完整原捕获已保存，首差在type18/type19的XG深度分支误读；现按原分派修复：type18取头部高位，type19深度1。135168输入/405504完整level32/volume28/XG60字节输出、metadata/canary/NoOriginal/D/R尚未通过，不能计完成。
-- **本轮继续：真实原生调用链**：新增native-consumers组使用固定12个真实DDS/TGA源，由原DLL仅生成原生资源测试输入，原/恢复各自重建完整自有分配，四个恢复ABI库连贯执行每级描述符/布局/三次Lock+Unlock/引用计数/最终释放、完整头部和所有存储；同量NoOriginal回放，不把原fixture loader说成已恢复图像加载器。该新组尚未验收，SDK/MOD与生产六DLL包不变。
-- **下一轮计划/执行入口**：收本次集中Actions native-descriptor/native-consumers及实际变化base终态，只补失败/缺失/变化组，复用前三新成功组。独立审计全部实际输入/产物后再推进原生加载与XGCopySurface或完整混合模式身份。PC type2渲染状态、type9/GPU上下文、OOM和未初始化DXT1/bitfields边界仍未完成；设备type2和不支持最终释放明确拒绝。仅PC、编译测试仅Actions、禁止强推。
+## 本轮完成
 
-- **描述符与真实消费已闭环**：118d9500339b40cb70719a87f5febb0ab524e90c /40913579297 completed/success；native-descriptor及native-consumers完整D/R/NoOriginal通过。完整135168头/405504结构输出已审计；12/12真实原生资源、107全部级别、321锁/解锁对及5832704全部存储字节、输入哈希/四DLL/完整轨迹独立审计通过，见descriptor-archive-audit.json、consumer-archive-audit.json。此前描述符差分失败记录保留，不重跑已通过四库。
-- **当前继续XG复制（未验收）**：新增独立TextureCopySurfaceIdentity，仅原XGCopySurface同完整格式/块对齐/兼容flag的identity通用行复制路径，支持负步幅/压缩块/边缘；0/1位格式保持原E_NOTIMPL，格式转换/滤镜/未对齐等未实现入口明确拒绝。32768输入覆盖64格式/4尺寸/2padding/4步幅方向/4flags/4区域及float位型，完整源/目标/padding/guard待Actions；不把该子能力称为完整XGCopySurface。
+- 部署后51组件`0fa4acd3` /40893243833 success；17 SDK、完整mymod、同一六DLL包、迁移回滚与实际安装字节独立全归档审计通过。原native名称/导入库339656a2 /40892135472已普通合入并审计。见handoffs/20261030-deployment/full-archive-audit.json及20261030-native-abi/。
+- **设备/资源**：44972e435c5a90cb3ab0b0b5b71c5dbd61d76401 /40911147535，两组完整D/R/NoOriginal/真实导入库passed；设备1024工厂、16同存、64线程及引用边界；资源8192解锁、72生命周期、父子/嵌套视图和32768并发原子操作。29,496,344/1,083,524字节完整原捕获独立模型审计通过。整体run保留surface当时宏编译失败，成功组有效。
+- **布局/LockRect**：675b00d6932bdec969e3865f8df345cce3366b8c /40912274334，64格式/四维度/mip/packed/tiled/border/array/rect/flags各131072布局与同量锁、16真实存储、D/R/NoOriginal/导入库passed；23,069,960字节完整捕获与8,388,608实际存储字节已独立审计。整体run保留描述符当时失败，成功组有效。
+- **描述符/真实调用链**：118d9500339b40cb70719a87f5febb0ab524e90c /40913579297 completed/success，135168头、405504完整level32/volume28/XG60结构输出通过；12/12真实原生资源、107全部级别、321锁/解锁对、5,832,704全部存储字节、四DLL及所有输入/轨迹独立审计通过。type18/19深度分派已按原版修正。fixture loader仅用于原版测试输入，不属于恢复的原生图像加载器。
+- **XG同格式复制**：efae485f8454a58e5c1226428c2029a9e9db4d77 /40915252008 completed/success，32768完整输入（64格式/4尺寸/2padding/4步幅方向/4flags/4区域/float位型），D/R原版差分/NoOriginal/导入库通过；21,217,672完整捕获字节、20,693,376全部源/目标/padding/guard独立行复制模型审计通过。0/1位格式保持原E_NOTIMPL，不把identity子能力称为完整XGCopySurface。
+
+## 当前补验与下一轮计划
+
+- 本检查点仅修正Copy最后一行后无用的指针推进，避免负步幅时形成分配前指针；待本次Actions按同一32768完整矩阵补验并重新审计。其余已验收能力输入不变，继续保留原sourceCommit/runId，不重跑SDK/MOD。
+- 首先收本次native-copy及实际变化base终态；用InspectTextureNativePcCaptures.py --group native-copy --run-id <run> --source-commit <source> --out ...完整审计，然后核对选择计划无缺失当前组件。
+- 下一业务入口：XGCopySurface@0x3ccc0的转换/过滤分支0x3cef7..0x3d969，按PC LoadImageA真正消费的格式转换优先；D3DXCreateTextureFromFileA@0x13c82→0x13b53原生加载/资源头构造及完整混合模式身份仍未实现。独立库入口为src/TextureCompiler/Native/TextureNative{Device,Resource,Surface,Descriptor,Copy}Api.*；不加入已部署生产六DLL包。
+- 保留边界：设备type2渲染状态、type9/GPU上下文、OOM、未初始化DXT1/bitfields仍未完成；不支持输入明确拒绝。仅PC、编译测试仅Actions、禁止强推。全部完整原档审计见evidence/texture/handoffs/20261030-native-abi/，中间失败保留。
 
 以下为历史交接，以顶部与实际运行锚点为准。
 
