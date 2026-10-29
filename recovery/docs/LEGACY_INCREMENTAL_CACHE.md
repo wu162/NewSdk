@@ -16,7 +16,7 @@ Core 会话/资产缓存、链接流复用和通用未变发布跳过继续工�
 
 本轮继续在 `recovery/legacy-sdk-cache` 修改，生产与测试来源 `ae4654a892446724bf870348e56f2e8072fafa58`；完整 Windows [40868109538](https://github.com/wu162/NewSdk/actions/runs/40868109538) success。原归档已下载并复算摘要，与 GitHub 和上传日志一致；[收据摘要](../evidence/refactor/hot-cache-second/40868109538-1/summary.json) 保留准确来源、排序样本、会话热态、SDK/发行收据及早期失败。
 
-- Schema 每轮按父目录批量采集文件身份；未变化的已编译闭包直接复用。新进程初次解析也复用 `.file-identities.json` 的已有收据，身份未变不重新计算 SHA256；身份变化时才核对内容。首次计算直接使用 XML 解析已读取的字节，不再为哈希另开文件。独立 Core 没有 Windows 身份提供器时保留内容校验。
+- Schema 在每个构建请求首次加载时按父目录采集文件身份；请求内全部流直接复用同一已编译闭包。新进程初次解析也复用 `.file-identities.json` 的已有收据，身份未变不重新计算 SHA256；身份变化时才核对内容。首次计算直接使用 XML 解析已读取的字节，不再为哈希另开文件。独立 Core 没有 Windows 身份提供器时保留内容校验。
 - 显式输入根的 CLI 预检结果与解析后的 SDK 配置由同一请求传给正式后端。后端按有效根、输出/诊断路径及 cwd 核对签名；边界变化重新检查。每个有效输出路径统一物理解析一次，相同根也合并解析。
 - 缓存实例保留已确认的 HasCustomData；输出可用时不准备 BuildCache 路径或重复强制查询输出。资产提交复用调用者已取得的位置，显式 `/atc` 仍执行 touch。
 - 链接四流查询与尺寸读取共用目录元数据。当时 BIG 公共包复用合并了存在性/身份查询；该包复用功能已由用户第 9 项移除。
@@ -53,7 +53,7 @@ Debug/Release 热态原收据均为 `xmlParse=0`、`instanceCompile=0`、`fileHa
 - `FileHashCache` 将已确认收据保存在 `.file-identities.json`，仅保留本轮使用项，内容不变时不重写。公开文件、运行库与 Additional 的键包含 ChangeTime；编译器私有且只以临时文件替换的四流按 inode/mtime/大小复用，硬链接计数变化不触发重读。CDATA 使用完整身份键。报告 `cache.fileHashReads/fileHashReuses/fileHashBytesRead` 给出实际读取量。
 - 发布核对精确文件集合和已确认身份，未变时不创建 `.publish-*`、不复制、不交换目录。报告保持 `publicationStatus=PublishedDirectory`，新增 `publicationUnchanged=true`；公开文件被修改、缺失或多出文件时仍执行完整事务。
 - BIG 的输入指纹包含当前四流/CDATAs、Additional 实际覆盖后的内容、任务布局、版本/SKUDEF 选项及宿主模块身份。相同时直接引用既有 BIG/SKUDEF，跳过 LoD、Additional 快照和 MakeBig；公开包仍通过包含 ChangeTime 的身份确认，实际覆盖 warning 与空目录碰撞保持。显式 neutral repair 继续使用实际参考输入链，不复用该包指纹。
-- 可信内部收据贯通 BuildSession、打包和发布，不重复哈希；Texture 的 EXE/DLL 校验也使用文件身份缓存。删去内置路由启动时逐项自审，插件版本按每个实际插件计算一次并按原路由数累加。
+- 可信内部收据贯通 BuildSession、打包和发布，不重复哈希；Texture 的运行时 EXE/DLL 部署校验现已删除，构建时 PE 审核保留。删去内置路由启动时逐项自审，插件版本按每个实际插件计算一次并按原路由数累加。
 - 全部生产源码已无 `Flush(true)`。JSONL/文本以 64 KiB 字符缓冲，控制边界、warning/error 即时刷新，正常事件按 250 ms 批量刷新；普通 trace 不再逐条同步写 stderr，仍完整保留文件。
 
 必需日志/报告失败、取消和真正的替换故障继续撤销未确认产物与链接缓存，`/psc` 语义保留。首轮 `40832233489` 的三个 `publication-fault` 失败保留：旧 fixture 以“锁住未变文件”要求失败，现已新增该场景的成功断言，并用额外旧文件强制真实替换后保留原失败及重试断言。
@@ -126,6 +126,6 @@ Texture CDATA 数量由固定原 DLL 的 `HasCustomData` 确定，并非每种�
 
 FileHashItem 使用 Settings.FileIdentity 一次获得存在性、LastWriteTime 和已有 SHA256 收据，宿主复用 FileHashCache 的目录记录；未变输入连同跨进程持久收据均不打开文件体。确定变化的文件延迟到 Hash 访问时一起计算 FastHash 与 SHA256；时间未变且没有可用收据时，IsDirty 在一次读取中同时计算两者，Hash 提交结果时不再读文件。保留旧 FastHash 的 1 MiB 分块及游戏值，新的 SHA256 写回宿主收据，缺失/重建和旧序列化条目继续失效。
 
-LegacyTextureAdapter 直接从编译器旁加载准备好的混合 DLL，不再进行运行时部署审核（patch JSON、EXE/DLL SHA256、保护 PE 审核回执和程序集枚举）。PE 重定向与构建时审核继续用于生成可运行 DLL，Texture 原版载荷/CustomData/错误、重用与销毁差分仍执行；对应测试改为确认缺少运行时部署清单也可工作。
+LegacyTextureAdapter 直接从编译器旁加载准备好的混合 DLL，不再进行运行时部署审核（patch JSON、EXE/DLL SHA256、保护 PE 审核回执和程序集枚举）。PE 重定向与构建时审核继续用于生成可运行 DLL，Texture 原版载荷/CustomData/错误、重用与销毁差分仍执行；对应测试改为确认缺少运行时部署清单也可工作；测试宿主也删除重复清单审核，继续检查类型和程序集归属。
 
-实现检查点：Windows 生产验收及有界新旧 SDK benchmark 待跑，未把历史二进制结果计为本轮通过。
+Windows 完整验收：生产/测试来源 `639a5ff73e1df8a12ec0fa77e5b4324186bae8fb`，[40878062262](https://github.com/wu162/NewSdk/actions/runs/40878062262) success，Debug/Release 全矩阵、完整 mymod 原版差分及最终五文件 ZIP 均通过。首轮失败 40876849281 为测试宿主退场时重复读取已删除清单，修复后完整重验；保留原失败记录。有界新旧 SDK benchmark 待跑。

@@ -1,17 +1,13 @@
-# 本轮四项优化：实现完成，Windows 验收待跑
+# Schema/文件身份/Texture 四项优化：完整 Windows 验收通过，短 benchmark 待跑
 
-工作分支仍为 `recovery/legacy-sdk-cache`；本轮未合入其他分支。
+工作分支 `recovery/legacy-sdk-cache`，未合入其他分支，禁止强推。
 
-2026-10-29：已实现请求内 SchemaSet 跨流复用，删除每流 Schema 闭包复查与配置加载中的重复存在性检查；Schema 加载复用既有目录身份快照，不再在完成时重扫。FileHashItem 由宿主一次提供存在性、时间戳和已有 SHA256 收据，变化输入的 FastHash/SHA256 合并为一次读取，等长恢复 mtime、缺失/重建及旧会话升级合同保留。Texture 运行时部署审核已删除，不再读取 patch 清单、哈希 EXE/DLL 或枚举旧程序集；构建时 mixed PE 验收和原版纹理载荷差分继续保留。
+本轮生产与测试来源 `639a5ff73e1df8a12ec0fa77e5b4324186bae8fb`；[完整 Windows 运行 40878062262](https://github.com/wu162/NewSdk/actions/runs/40878062262) success。Debug/Release 的生产组合、Core/后端/应用、原版基线、无部署清单 Texture 载荷差分、真实 CLI/冷进程/取消、构建缓存、输入根、Audio/W3X、会话缓存冷热/失效/缺损修复、BIG/协议、完整 mymod 原版差分及五文件发行包全部通过。FileHashItem 宿主用例确认独占锁定下热/持久 SHA 收据可复用，以及等长恢复 mtime 的变化文件一次读取同时获得 FastHash/SHA256。
 
-已完成差异检查及 24 项 benchmark 脚本预检。首轮生产 `de95cc20` / [40876849281](https://github.com/wu162/NewSdk/actions/runs/40876849281) 的完整编译与 Core/后端/应用、原版基线通过；无清单纹理用例暴露测试宿主退场时仍重复读取部署清单，已删除该重复审核，保留程序集/类型归属及构建时字节验收；待本轮统一重验。原失败运行保留。生产二进制改变，以下历史验收不能替代本轮结果；本轮须集中运行完整 Core lifecycle（含 FileHashItem 宿主收据/单次读取、跨流 Schema 及无部署清单纹理用例），通过后使用该次 Release 做有严格时间预算的新旧 SDK benchmark。尚未宣称生产或 benchmark 通过。
+实现：删除配置加载与每流的重复 Schema 检查，一个构建请求共享编译后的 SchemaSet 与目录身份快照；FileHashItem 从既有文件身份取得存在性、时间戳和可用 SHA 收据，变化时合并两种 Hash 读取；Texture 运行时部署审核和测试宿主的重复清单审核已删除，构建时 PE 验收、类型/模块归属和原版载荷差分保留。独立 Core 的显式 Schema 重载仍支持可变宿主。详见 [缓存实现说明](docs/LEGACY_INCREMENTAL_CACHE.md)。
 
-用户第 1–7 项及第 8 项有界清理已经实现并通过完整 Windows 验收。生产二进制与测试来源均为 `ae4654a892446724bf870348e56f2e8072fafa58`；[40868109538](https://github.com/wu162/NewSdk/actions/runs/40868109538) success，Debug/Release、Core/后端/应用、真实 CLI/冷进程/取消、资产与会话缓存冷热/失效/缺损修复、Texture/Audio/W3X、BIG/协议、完整 mymod 原版差分及五文件发行包全部通过。[原始收据与失败记录摘要](evidence/refactor/hot-cache-second/40868109538-1/summary.json)，[实现说明](docs/LEGACY_INCREMENTAL_CACHE.md)。原归档已下载，复算摘要与 GitHub 元数据及上传日志一致。
+首轮 `de95cc20` / [40876849281](https://github.com/wu162/NewSdk/actions/runs/40876849281) 保留 failure 原终态：Texture 插件已完成处理，测试宿主退场审核再次读取已删除的 patch 清单而失败；其余独立 Core/CLI/缓存/输入根/BIG 组通过。修复仅涉及测试宿主重复审核，并已在上述完整成功运行统一重验。
 
-文件身份优先，Schema 跨进程复用既有哈希收据；两配置热态为零 XML 解析、零资产编译、零完整文件 SHA256 读取，837 次哈希收据复用、2 个链接流复用，`publicationUnchanged=true`。StableSort 每配置 66 组原算法顺序对照通过；1024 独立资产样本的 schema 比较器调用 523,776→1,023。只报告排序辅助函数样本，未声明端到端 SDK 提速比例；基础流前缀、文化相等键、类型哈希碰撞沿用原规则。
+接下来只用成功运行 40878062262 的 Release 执行新旧 SDK 有界对比：3 个同物理输入 workload、6 种缓存模式、每种冷态 1 次/热态 2 次，单进程 20 秒、测量总预算 120 秒；不重建生产，不把历史运行的绝对耗时差当作本轮收益。24 项 benchmark 预检及生产源码/依赖闭包校验已通过。原始验收归档、benchmark 报告及摘要待归档，尚未宣称 benchmark 已通过。
 
-第 8 项先清理已核实的 LogicCommandSet 重复结构遍历：Core 校验完成后提供当前 XML 的只读收据，加载新 XML/校验失败时撤销；独立未校验入口维持原拒绝合同。编译器恢复范围、布局、语义和外部载荷校验继续保留，未笼统删除其它组件检查。真实 Core 已验证三缓冲区相等及非法 XSD 在插件调用前拒绝。
-
-用户已明确第 9 项为移除整个 BIG/SKUDEF 包缓存。生产与测试来源均为 `7fca1e4f38c304bfc107e5301b1b72b70cbfacea`；[40872280934](https://github.com/wu162/NewSdk/actions/runs/40872280934) 完整 Windows 验收 success，前述生产矩阵、完整 mymod 原版差分和五文件发行包均再次通过。[本次验收摘要](evidence/refactor/big-cache-removal/40872280934-1/summary.json) 已核对原归档摘要。包指纹、`package|v1` 收据读写和旧包复用已删除；每次从本轮四流/CDATAs 执行 LoD、Additional 与 MakeBig，通用未变发布跳过和失败/取消回滚保留。仅供包缓存使用的 Published 标志及 TryHash 查询一并删除。应用测试通过重复打包、忽略/清退损坏旧收据及未变发布；生产 BIG 每配置 23 个用例、13 组原版对比通过，14 个成功打包用例的原事件均确认两产物来自本轮 staging。
-
-前六项独立里程碑 `22133880` / [40863166008](https://github.com/wu162/NewSdk/actions/runs/40863166008) 也已完整通过。Schema 时钟刻度用例及 StableSort 合成类型哈希碰撞的早期失败原终态均保留在摘要中，没有放宽顺序或原字节门槛。
+前序 BIG 包缓存移除里程碑：`7fca1e4f` / [40872280934](https://github.com/wu162/NewSdk/actions/runs/40872280934)；StableSort/身份缓存/LogicCommandSet 原版差分里程碑：`ae4654a8` / [40868109538](https://github.com/wu162/NewSdk/actions/runs/40868109538)。BIG/SKUDEF 继续每次正常打包，通用未变发布与失败/取消回滚保留。
