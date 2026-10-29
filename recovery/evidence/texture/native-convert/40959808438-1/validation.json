@@ -1,0 +1,11 @@
+{
+  "scope": "XGCopySurface unsigned-normalized conversion: 28 layouts/784 format pairs/selectors/constants/thresholds/full output/strides/padding/guards plus all65536 16-bit values; signed/gamma/endian/float/compression/filter/overlap and production package excluded",
+  "runId": "40959808438",
+  "sourceCommit": "543cb4cb5a72470edf9a57028bfdb324d7532588",
+  "runAttempt": "1",
+  "status": "failed",
+  "error": "Debug-differential failed",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "configurations": [],
+  "sdkValidated": false
+}

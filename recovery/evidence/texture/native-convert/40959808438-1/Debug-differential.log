@@ -1,0 +1,4 @@
+first difference offset=56570 expected=128 actual=0
+System.Runtime.InteropServices.SEHException (0x80004005): External component has thrown an exception.
+   at ?A0x3e1fc88b.Compare(Byte* , HINSTANCE__* , SByte* )
+   at main(String[] args)
