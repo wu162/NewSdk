@@ -1,0 +1,5 @@
+TextureNativeDeviceApi.cpp
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeDeviceApi.cpp(19): error C2375: 'TextureCreateDevice': redefinition; different linkage
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Native\TextureNativeDeviceApi.h(12): note: see declaration of 'TextureCreateDevice'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeDeviceApi.cpp(47): error C2375: 'TextureDeviceRelease': redefinition; different linkage
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Native\TextureNativeDeviceApi.h(13): note: see declaration of 'TextureDeviceRelease'

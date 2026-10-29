@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "2ebac7ced41aa97e030da94a00306eed522c2d81",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "error": "Native x86 PC device build failed",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "configurations": [],
+  "status": "failed",
+  "scope": "Native x86 stdcall PC type!=2 device factory/refcount/final release, complete object/command bytes, real thread ID/allocation semantics and isolated replay; no type2/resource-populated/OOM/CLI identity or production package claim",
+  "runId": "40909780346"
+}

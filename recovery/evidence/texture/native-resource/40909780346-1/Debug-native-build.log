@@ -1,0 +1,7 @@
+TextureNativeResourceApi.cpp
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeResourceApi.cpp(13): error C2375: 'TextureResourceAddRef': redefinition; different linkage
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Native\TextureNativeResourceApi.h(12): note: see declaration of 'TextureResourceAddRef'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeResourceApi.cpp(18): error C2375: 'TextureResourceRelease': redefinition; different linkage
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Native\TextureNativeResourceApi.h(13): note: see declaration of 'TextureResourceRelease'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeResourceApi.cpp(40): error C2375: 'TextureResourceUnlockRect': redefinition; different linkage
+D:\a\NewSdk\NewSdk\src\TextureCompiler\Native\TextureNativeResourceApi.h(14): note: see declaration of 'TextureResourceUnlockRect'
