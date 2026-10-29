@@ -54,7 +54,7 @@ SDK 的 `buildCache`、`buildCacheRoot` 继续生效，显式命令行/项目设
 - `scripts/TestCompilerSessionCache.ps1`：会话冷热/依赖失效、缺损修复、取消/失败、三种纹理、全部高级模式与原版目录互操作。
 - `tests/CompilerLegacyCacheMetadata.cs`、`scripts/TestCompilerBackendBaseline.ps1`：原 DLL 元数据、原 BAB 字节差分及缓存导出/导入证据。
 
-## 已通过的生产验收（2026-10-29）
+## 原缓存恢复旧验收（39039961，2026-10-29）
 
 [运行 40814401237](https://github.com/wu162/NewSdk/actions/runs/40814401237) 整体 success；二进制及测试源码均为 `39039961847cd1ca9cb93743fd51741a4e5c9f49`，Debug/Release 均重新构建。[状态与日志摘要](../evidence/refactor/legacy-cache/40814401237-1/summary.json) 保留运行、任务、产物及来源，原始收据位于该运行的归档内。
 
@@ -76,4 +76,4 @@ Texture CDATA 数量由固定原 DLL 的 `HasCustomData` 确定，并非每种�
 
 同次运行还通过完整未精简 mymod 的原 BAB 四流（两配置差异均为 0）、原 LoD/MakeBig 及 SKUDEF 差分，以及独立五文件 ZIP 的生产 BIG/协议门槛。mymod 本身无 APT/maps 输入，两组覆盖来自独立生产用例；完整游戏数据、WBData、游戏内运行、完整 UI/runtime 和中文纹理路径未新增验收。
 
-本次续接未更改生产、测试或构建输入，沿用上述成功运行。归档元数据及上传日志 SHA256 一致，但本环境下载 HTTP 403，未在本地打开原始收据或复算 ZIP 哈希；这项访问限制单独记录在摘要中。
+以上为原缓存恢复阶段的历史记录。当时续接未更改生产输入，沿用运行 40814401237，且曾记录下载 HTTP 403；本轮性能实现另以顶部的 40836177604 验收，并已通过 GitHub 产物工具取得新归档、在本地复算 SHA256 和核对原始收据。
