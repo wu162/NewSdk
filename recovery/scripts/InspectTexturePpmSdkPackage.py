@@ -30,7 +30,7 @@ def tsv(data):
 
 
 def audit(root, run, source):
-    directory = root / 'recovery/evidence/texture/sdk-dib' / (run + '-1')
+    directory = root / 'recovery/evidence/texture/sdk-ppm' / (run + '-1')
     receipt = json.loads((directory / 'validation.json').read_text(encoding='utf-8-sig'))
     assert receipt['sourceCommit'] == source and str(receipt['runId']) == run
     assert receipt['status'] == 'passed' and receipt['sdkValidated'] is True
