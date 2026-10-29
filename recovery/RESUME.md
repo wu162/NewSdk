@@ -1,3 +1,11 @@
+# 当前PPM：49组件通过；修复六DLL安装包回滚后补专用SDK
+
+- **本轮完成**：`b999b6677be0010562850e4077be5b7180932913` / [40878697072](https://github.com/wu162/NewSdk/actions/runs/40878697072)新增ppm-volume-boundaries D/R各11520完整输入及NoOriginal通过；5760标准成功与5760原invalid-volume错误，完整归档独立审计通过。此前48组件保留精确祖先，共49组件就绪。
+- **SDK真实状态与修复**：该run整体failure；Original已完成15712资产/调用，随后安装包回滚因RestoreTextureCompiler仍只允许旧5 DLL+config而拒绝新PPM第六DLL，Recovered/NoOriginal未运行，不能称SDK通过。现补齐精确七文件白名单，计数取白名单长度，保留全部安装后修改/备份哈希预检与完整恢复断言。修复后显式`[texture-ppm-sdk]`只补专用SDK，不重跑49成功组件/旧SDK/MOD。
+- **下一轮计划**：收本次补验终态，独立审计PcPpm全部产物/轨迹/六DLL来源/安装回滚/唯一ID及49组件关联，通过后才普通合入`recovery/texturecompiler-source`。PPM仍在独立`validation/texture-public-ppm`，生产SDK树未变、仅PC，编译测试仅Actions，禁止强推。
+
+以下为历史交接，以顶部及实际运行锚点为准。
+
 # 当前PPM：旧回归已收齐；启动volume边界与专用SDK
 
 - **本轮完成**：2026-10-29续接已核实`838b40b3860106cdfd677438c33c062b98d6702f` / [40838359589](https://github.com/wu162/NewSdk/actions/runs/40838359589) completed/success，29选中完整组件通过、19旧组复用。此前PPM四入口和41120插件输入/配置的独立归档审计继续有效，保留各组原sourceCommit/runId，不重复旧矩阵。
