@@ -127,7 +127,9 @@ def run(args):
                 if level == 'detailed' and round_index == 0:
                     names = {r['name'] for r in report['performance']['entries']}
                     need({'core.xml.parse', 'core.xml.validate', 'core.compiler.Texture', 'core.compiler.ArmorTemplate',
-                          'core.asset.commit', 'identity.directory', 'identity.sha256'} <= names, 'Missing cold detail phases')
+                          'core.asset.commit', 'core.schema.read', 'core.schema.compile', 'core.schema.metadata',
+                          'identity.directory', 'identity.sha256'} <= names, 'Missing cold detail phases: ' +
+                         str(sorted({'core.asset.commit', 'core.schema.read', 'core.schema.compile', 'core.schema.metadata'} - names)))
         # Independent original runtime. Only CLR startup configuration is adjusted.
         original = work / 'original'
         original.mkdir()

@@ -346,13 +346,16 @@ public class SchemaSet
 		{
 			previousPaths.Add(Path.GetFullPath(Settings.Current.SchemaPath));
 			Settings.Current.SchemaFileIdentities?.Invoke(previousPaths);
+			using (PerformanceScope.Measure("core.schema.read"))
 			ReadSchema(Directory.GetCurrentDirectory(), Settings.Current.SchemaPath);
+
 		}
 		catch (Exception innerException)
 		{
 			throw new BinaryAssetBuilderException(innerException, ErrorCode.ReadingSchema, "Error encountered in schema '{0}'", _CurrentSchema);
 		}
-		_Schemas.Compile();
+		using (PerformanceScope.Measure("core.schema.compile")) _Schemas.Compile();
+		using var performance = PerformanceScope.Measure("core.schema.metadata");
 		SetupHelperSchemaTypes();
 		IDictionary<string, StringCollection> dictionary = new SortedDictionary<string, StringCollection>();
 		dictionary.Add("BaseAssetType", new StringCollection());

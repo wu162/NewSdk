@@ -4,7 +4,7 @@
 
 新增 `--performance off|summary|detailed`，默认 off；request-local 单调计时器按阶段/流/资产类型聚合 count、totalMs、selfMs、maxMs，写入构建报告可选 performance 字段。覆盖请求阶段、Schema/提供程序、缓存读写、XML/资产编译、文件身份/哈希、链接、BIG/LoD/Additional 和发布。详见 [使用及测量口径](docs/PERFORMANCE.md)。
 
-本地廉价预检：Foundation 与全部独立 App/测试源码基于 net48 引用编译通过；关闭路径 100 万次空 scope 调用零分配（Linux 微测试，不代表 Windows 生产编译开销）。Windows 新增有界工作流：Release 完整生产组合，三档冷/热、小输入原版字节差分、BIG/SKUDEF 和失败计时；测量总预算 60 秒/单进程 10 秒。待取得结果，不宣称 Windows 验收已通过。
+本地廉价预检：Foundation 与全部独立 App/测试源码基于 net48 引用编译通过；关闭路径 100 万次空 scope 调用零分配（Linux 微测试，不代表 Windows 生产编译开销）。Windows 新增有界工作流：Release 完整生产组合，三档冷/热、小输入原版字节差分、BIG/SKUDEF 和失败计时；测量总预算 60 秒/单进程 10 秒。首轮 [40885632072](https://github.com/wu162/NewSdk/actions/runs/40885632072) 的 Release 生产构建和 App 合同通过，三档冷态字节相同；测试发现提交打点位于未调用的 public 重载，已移动到实际 internal 入口。首轮 Schema 244ms，占比高，因此 detailed 再拆读取/编译/依赖整理。修正后待重跑，首轮 failure 原终态保留。
 
 前序四项优化及历史完整验收保留：
 
