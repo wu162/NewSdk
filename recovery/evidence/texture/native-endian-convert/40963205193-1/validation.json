@@ -1,0 +1,33 @@
+{
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "summary": [
+        "PASS native PC endian conversion differential cases=184928 formatPairs=1444 endianPairs=16 numericStates=2 mappings=2 regions=2 exhaustiveStrips=32 exhaustivePixels=2097152 traceBytes=84505352; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC endian conversion NoOriginal cases=184928 formatPairs=1444 endianPairs=16 numericStates=2 mappings=2 regions=2 exhaustiveStrips=32 exhaustivePixels=2097152 traceBytes=84505352; full source/output/padding/guards, thresholds and isolated replay"
+      ],
+      "configuration": "Debug",
+      "passed": true,
+      "nativeSha256": "03189ae9243d1c0eaa08842424bb372f9346d4c23c740df689d15ba31e487d00",
+      "captureSha256": "895d0d43d1520a8a33a33c0e214c43daed90d4cfb8bcb55bc9831b7b6fdb7642",
+      "withoutOriginalTextureCompiler": true
+    },
+    {
+      "summary": [
+        "PASS native PC endian conversion differential cases=184928 formatPairs=1444 endianPairs=16 numericStates=2 mappings=2 regions=2 exhaustiveStrips=32 exhaustivePixels=2097152 traceBytes=84505352; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC endian conversion NoOriginal cases=184928 formatPairs=1444 endianPairs=16 numericStates=2 mappings=2 regions=2 exhaustiveStrips=32 exhaustivePixels=2097152 traceBytes=84505352; full source/output/padding/guards, thresholds and isolated replay"
+      ],
+      "configuration": "Release",
+      "passed": true,
+      "nativeSha256": "fc3314a0631f4a415d9d3f12620702eeeff088822c1bde9076906c7001559ef1",
+      "captureSha256": "895d0d43d1520a8a33a33c0e214c43daed90d4cfb8bcb55bc9831b7b6fdb7642",
+      "withoutOriginalTextureCompiler": true
+    }
+  ],
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "passed",
+  "runAttempt": "1",
+  "runId": "40963205193",
+  "scope": "XGCopySurface Complete PC endian conversion: 38 layouts/1444 format pairs/all16 endian pairs/normalized integer half float/mapping/subrect/row padding plus all65536 U16/half values/selectors/constants/clipping/threshold/full bytes and NoOriginal; gamma/compression/filter/overlap and production package excluded",
+  "sourceCommit": "ef1e1bbac041db5e26a6ca8cbcab1e189ede0867"
+}

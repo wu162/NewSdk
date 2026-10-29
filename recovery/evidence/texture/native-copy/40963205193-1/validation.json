@@ -1,0 +1,33 @@
+{
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "summary": [
+        "PASS native PC identity copy differential cases=32768 formats=64 sizes=4 padding=2 orientations=4 flagSets=4 regionSets=4 traceBytes=21217672; full source/destination/padding/guards, negative strides and ignored float bits; conversion/filter/unaligned/overlap paths excluded",
+        "PASS native PC identity copy NoOriginal cases=32768 formats=64 sizes=4 padding=2 orientations=4 flagSets=4 regionSets=4 traceBytes=21217672; full source/destination/padding/guards, negative strides and ignored float bits; conversion/filter/unaligned/overlap paths excluded"
+      ],
+      "configuration": "Debug",
+      "passed": true,
+      "nativeSha256": "679dd5edb163704c924a945cba867c35766c9f26533c37d82fb2ec6fee3fbbcc",
+      "captureSha256": "fec63787c512ea2c733091088d707d17b2db8bf701c8befca23a2463416124b9",
+      "withoutOriginalTextureCompiler": true
+    },
+    {
+      "summary": [
+        "PASS native PC identity copy differential cases=32768 formats=64 sizes=4 padding=2 orientations=4 flagSets=4 regionSets=4 traceBytes=21217672; full source/destination/padding/guards, negative strides and ignored float bits; conversion/filter/unaligned/overlap paths excluded",
+        "PASS native PC identity copy NoOriginal cases=32768 formats=64 sizes=4 padding=2 orientations=4 flagSets=4 regionSets=4 traceBytes=21217672; full source/destination/padding/guards, negative strides and ignored float bits; conversion/filter/unaligned/overlap paths excluded"
+      ],
+      "configuration": "Release",
+      "passed": true,
+      "nativeSha256": "7f03ce8b149d897c361e20f6c26bb697d1d67a7abc130c8c3d4fe51f9b396a7f",
+      "captureSha256": "fec63787c512ea2c733091088d707d17b2db8bf701c8befca23a2463416124b9",
+      "withoutOriginalTextureCompiler": true
+    }
+  ],
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "passed",
+  "runAttempt": "1",
+  "runId": "40963205193",
+  "scope": "Original XGCopySurface same-format/block-aligned identity row path, all64 formats/full buffers/padding/guards/strides/flags/float bits and isolation; conversion/filter/unaligned/overlap and production package excluded",
+  "sourceCommit": "ef1e1bbac041db5e26a6ca8cbcab1e189ede0867"
+}

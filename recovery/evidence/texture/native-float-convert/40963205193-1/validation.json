@@ -1,0 +1,33 @@
+{
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "summary": [
+        "PASS native PC s10e5/float32 conversion differential cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC s10e5/float32 conversion NoOriginal cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay"
+      ],
+      "configuration": "Debug",
+      "passed": true,
+      "nativeSha256": "d6a2626923518e7fbace158c8cb2b4819ff8c92fddbddb030a2aa8d5388b5278",
+      "captureSha256": "8eb89b1953a09876aa4f6c476ddfe279a0b494938c44bdefd71b591e96da8a3d",
+      "withoutOriginalTextureCompiler": true
+    },
+    {
+      "summary": [
+        "PASS native PC s10e5/float32 conversion differential cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC s10e5/float32 conversion NoOriginal cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay"
+      ],
+      "configuration": "Release",
+      "passed": true,
+      "nativeSha256": "7b62d80b89a68643f078c7513b04bf8e1d135e0b36258e24a4d87306717fc433",
+      "captureSha256": "8eb89b1953a09876aa4f6c476ddfe279a0b494938c44bdefd71b591e96da8a3d",
+      "withoutOriginalTextureCompiler": true
+    }
+  ],
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "passed",
+  "runAttempt": "1",
+  "runId": "40963205193",
+  "scope": "XGCopySurface s10e5/float32 conversion: 38 layouts/1444 format pairs/8 numeric states, all65536 half patterns/float exponents/signed half midpoint and neighbor strips/selectors/constants/clipping/threshold/full bytes and NoOriginal; gamma/endian/compression/filter/overlap and production package excluded",
+  "sourceCommit": "ef1e1bbac041db5e26a6ca8cbcab1e189ede0867"
+}

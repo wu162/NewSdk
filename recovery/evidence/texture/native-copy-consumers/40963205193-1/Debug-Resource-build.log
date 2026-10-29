@@ -1,0 +1,35 @@
+TextureNativeResourceApi.cpp
+   Creating library D:\a\_temp\texture-native-copy-consumers-45f17a078f544e16847d6c057f98021d\Debug/native-resource.lib and object D:\a\_temp\texture-native-copy-consumers-45f17a078f544e16847d6c057f98021d\Debug/native-resource.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-native-copy-consumers-45f17a078f544e16847d6c057f98021d\Debug\Recovered.TextureNativeResource.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeResource.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           6 number of functions
+           6 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureResourceAddRef
+          2    1 00001070 TextureResourceRelease
+          3    2 00001240 TextureResourceUnlockRect
+          4    3 00001000 _TextureResourceAddRef@4
+          5    4 00001070 _TextureResourceRelease@4
+          6    5 00001240 _TextureResourceUnlockRect@8
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        D000 .text

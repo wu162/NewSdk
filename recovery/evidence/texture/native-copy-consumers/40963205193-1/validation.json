@@ -1,0 +1,139 @@
+{
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "summary": [
+        "PASS native PC consumer differential realSourceFixtures=12 traceBytes=21042411; all stored native allocations/levels/headers, three locks per level, descriptors/refcount/final release; five native libraries; actual raw endian/swizzle copies=120; full conversion output/padding/guards, capture loader remains oracle-only; no recovered image-loader/production-package claim",
+        "PASS native PC consumer NoOriginal realSourceFixtures=12 traceBytes=21042411; all stored native allocations/levels/headers, three locks per level, descriptors/refcount/final release; five native libraries; actual raw endian/swizzle copies=120; full conversion output/padding/guards, capture loader remains oracle-only; no recovered image-loader/production-package claim"
+      ],
+      "configuration": "Debug",
+      "nativeFiles": [
+        {
+          "file": "Recovered.TextureNativeDevice.dll",
+          "sha256": "cc2104a1d200be06e2005885388687dfd01f75858ce45f95548356bd5854fefb"
+        },
+        {
+          "file": "Recovered.TextureNativeResource.dll",
+          "sha256": "1abc3fa680637230225d4ecf80bb9f00e2b684ff1fdf722fe73c795f3fe0d1f2"
+        },
+        {
+          "file": "Recovered.TextureNativeSurface.dll",
+          "sha256": "8b26e87ccb81d16c9c8111f38be885e08f9ab955675ee61ecdf130184aef5c72"
+        },
+        {
+          "file": "Recovered.TextureNativeDescriptor.dll",
+          "sha256": "5ad9620c6b729a39204d88861cab92b4a464ada1a941146920aaff2b9be2791b"
+        },
+        {
+          "file": "Recovered.TextureNativeCopy.dll",
+          "sha256": "f7831a7fba32a6f9e69eaf4a92b9edc396dc4a759f773a8db9561ebede83aea0"
+        }
+      ],
+      "passed": true,
+      "fixtureSha256": "35df52cf2b7f6ac9fc36f755e243f8ccadeef42cdabf719af8ad61ea521ee788",
+      "captureSha256": "4f507e9bf533ad23cedb7b61dcea14a2560bb3f18ab91d83786aab32e93d867c",
+      "withoutOriginalTextureCompiler": true
+    },
+    {
+      "summary": [
+        "PASS native PC consumer differential realSourceFixtures=12 traceBytes=21042411; all stored native allocations/levels/headers, three locks per level, descriptors/refcount/final release; five native libraries; actual raw endian/swizzle copies=120; full conversion output/padding/guards, capture loader remains oracle-only; no recovered image-loader/production-package claim",
+        "PASS native PC consumer NoOriginal realSourceFixtures=12 traceBytes=21042411; all stored native allocations/levels/headers, three locks per level, descriptors/refcount/final release; five native libraries; actual raw endian/swizzle copies=120; full conversion output/padding/guards, capture loader remains oracle-only; no recovered image-loader/production-package claim"
+      ],
+      "configuration": "Release",
+      "nativeFiles": [
+        {
+          "file": "Recovered.TextureNativeDevice.dll",
+          "sha256": "5b7fa8fc534c5513d910f5967360e4a73171f317ded2d1b7a0ed8202ce2a0934"
+        },
+        {
+          "file": "Recovered.TextureNativeResource.dll",
+          "sha256": "9e9fc1b97efb01ffdea543f095eb5c1e85b68ff0d40d20ab1d7c56a2bee8aa0b"
+        },
+        {
+          "file": "Recovered.TextureNativeSurface.dll",
+          "sha256": "4b5aa336ebbf61db0d0d54bfd981781b7592b311dbd06822d7410a99009acd83"
+        },
+        {
+          "file": "Recovered.TextureNativeDescriptor.dll",
+          "sha256": "6ace568c946e2dc4fa80353f61a1be6bb8f75673bf5855acc68bb276f8609c2f"
+        },
+        {
+          "file": "Recovered.TextureNativeCopy.dll",
+          "sha256": "578ab43acdee361157cf78e8df9f2e40ef06a5e9d9ea46b3e32e9a91d0aaa393"
+        }
+      ],
+      "passed": true,
+      "fixtureSha256": "35df52cf2b7f6ac9fc36f755e243f8ccadeef42cdabf719af8ad61ea521ee788",
+      "captureSha256": "4f507e9bf533ad23cedb7b61dcea14a2560bb3f18ab91d83786aab32e93d867c",
+      "withoutOriginalTextureCompiler": true
+    }
+  ],
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "passed",
+  "runAttempt": "1",
+  "runId": "40963205193",
+  "sourceFixtures": [
+    {
+      "bytes": 131200,
+      "sha256": "1c2c5a6a12bf4b6b03b127316769cfa3481f7cbc1172cd56065d779a9d89dd17",
+      "file": "PackedImages_097_EP1.dds"
+    },
+    {
+      "bytes": 640,
+      "sha256": "d83e7da2b70186f8857e3d7a28c221c7b076f35d1f7def77784bdb1313ba4ff4",
+      "file": "LURomania_vol.dds"
+    },
+    {
+      "bytes": 22024,
+      "sha256": "995f7ef1ecc41be00ce3d4e2a933128988b4f37a814f8e2500ff4c40a0adaa36",
+      "file": "FXAlliedFutureLaser.dds"
+    },
+    {
+      "bytes": 392,
+      "sha256": "0fad96553c29863a37966f9b85711926231c63d1932d88ebdbb976476fa0146c",
+      "file": "FXYurikoShieldFadeLUT.dds"
+    },
+    {
+      "bytes": 11080,
+      "sha256": "8b8a8b99950ef9ed96fbf5b8e45bff6f691656a28b6b6ce76769d9280b4f2a8c",
+      "file": "EXJapanArrow.dds"
+    },
+    {
+      "bytes": 22000,
+      "sha256": "42b701681043182ce335eaf43bf554f8f895d622d3c6fad83ec2d3fc65724bea",
+      "file": "JUArcherInfantry.dds"
+    },
+    {
+      "bytes": 65664,
+      "sha256": "afac628fc500868b3a4648b47e507a64ad277281fccdc5b35f4a798ca9a75323",
+      "file": "Target_Japan_ArcherBarrage.dds"
+    },
+    {
+      "bytes": 11064,
+      "sha256": "a4fdf4c1ea3f95fae662b20a7175d701b8c42a99b6b87e6a69d4babeb4394bcf",
+      "file": "AULegionnaireInfantry.dds"
+    },
+    {
+      "bytes": 349680,
+      "sha256": "bae9a02cd90785aed6ef4648a2ff2d5fcdeddaceb358dd08d150a8031f361b85",
+      "file": "SUMortarCycle.dds"
+    },
+    {
+      "bytes": 2098213,
+      "sha256": "37f7348cb10d39f1ec9ae1024eee2e4b909e63d18fcee5fa837547439e2a665f",
+      "file": "apt_tacticalhudbuildqueuepage_1.tga"
+    },
+    {
+      "bytes": 524838,
+      "sha256": "d4b50f26b6914b6d78fe74406bf0ff9fd49b45df82a87370b2b5532eaab59c37",
+      "file": "apt_tacticalhudmaincommandbar_1.tga"
+    },
+    {
+      "bytes": 786476,
+      "sha256": "5d453e31e4a5cf6e5fa30cc8ed234448e3dd98177f58a519023e464a55b3bee9",
+      "file": "map_mp_2_feasel10_ep1_art.tga"
+    }
+  ],
+  "scope": "Five independent PC native ABI libraries and actual endian/swizzle conversion consumed together on complete original-loader raw resources for all12 fixed real DDS/TGA inputs; image loader remains oracle-only, not recovered loader/mixed-mode identity/SDK or production-package acceptance",
+  "sourceCommit": "ef1e1bbac041db5e26a6ca8cbcab1e189ede0867"
+}
