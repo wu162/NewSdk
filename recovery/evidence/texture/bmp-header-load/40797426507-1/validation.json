@@ -1,0 +1,13 @@
+{
+  "error": "oracle failed",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "status": "failed",
+  "productionAccepted": false,
+  "evidenceOnly": true,
+  "runId": "40797426507",
+  "probeOnly": true,
+  "scope": "original PC LoadImageA BMP DIB/core/V2/V3/V4/V5/OS2 gamma/ICC/bitfields/gaps full RGBA/errors and per-input repeat determinism; no recovered/plugin/SDK acceptance",
+  "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e"
+}

@@ -1,0 +1,4 @@
+System.Exception: Repeated original pixel h52-d24-16x8-topTrue-p0-c3-g0-plain/17
+   at TextureBmpHeaderProbe.Check(Boolean value, String message)
+   at TextureBmpHeaderProbe.Case(MethodInfo load, StreamWriter log, String output, String icc, Int32 width, Int32 height, Int32 depth, Boolean top, Int32 pattern, Int32 dib, Int32 compression, String profile, Int32 gap)
+   at TextureBmpHeaderProbe.Main(String[] args)
