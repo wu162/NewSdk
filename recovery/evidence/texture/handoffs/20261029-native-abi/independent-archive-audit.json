@@ -1,0 +1,27 @@
+{
+  "scope": "independent complete saved native captures/fixtures/hashes; no DLL calls or full native ABI claim",
+  "groups": [
+    {
+      "group": "native-errors",
+      "sourceCommit": "2093ea3d6aac8c8a89c83670a41570d2d5c00f86",
+      "runId": "40889408253",
+      "completeDebugReleaseCapturesIdentical": true,
+      "captureSha256": "eb86f91830b8f64534f6087d103384245dbdcbb16157821addbbda033d47cf8f",
+      "records": 12357,
+      "nativeStatusTableEntries": 101,
+      "fullStringAndNulBytes": 223266
+    },
+    {
+      "group": "native-memory",
+      "sourceCommit": "e4c67dd3597c8405d0a0a2211383d9764681f180",
+      "runId": "40890508256",
+      "completeDebugReleaseCapturesIdentical": true,
+      "captureSha256": "b78cda846e03743ac2d19d3846d3a5c56367c1b563255c84e0bc17717dbff9d9",
+      "bufferSequences": 10,
+      "appendOperations": 520,
+      "deletingDestructorFlags": 8,
+      "endianValues": 262144,
+      "fullTraceBytes": 1687764
+    }
+  ]
+}
