@@ -1,0 +1,1 @@
+PASS Texture DXT1A ProcessInstance NoOriginal fixtures=768 rejected=14 errors=24 comparedBytes=3693496; PC transparent-block DXT1A TGA POT/partial/NPOT standard/volume no-mip/complete mip; three buffers/full cdata; SDK pending

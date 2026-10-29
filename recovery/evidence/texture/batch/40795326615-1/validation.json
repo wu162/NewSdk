@@ -1,0 +1,148 @@
+{
+  "selected": [
+    "tga",
+    "formats",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "raster-images",
+    "dxt-images",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-entry",
+    "jpeg",
+    "jpeg-images",
+    "dxt1a-blocks",
+    "dxt1a-dds",
+    "dxt1a-images",
+    "tga-metadata",
+    "tga-metadata-images"
+  ],
+  "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+  "runAttempt": "1",
+  "reused": [
+    "base",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "png",
+    "bmp",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "atlas-dds",
+    "png-metadata",
+    "png-metadata-images",
+    "jpeg-metadata",
+    "jpeg-metadata-images"
+  ],
+  "status": "passed",
+  "groups": [
+    {
+      "group": "tga",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "formats",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "mip-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "volume-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "volume-mip-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "raster-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "dxt-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "npot-rgba8",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "npot-storage-replay",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "npot-storage-stress-replay",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "atlas-entry",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "jpeg",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "jpeg-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "dxt1a-blocks",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "dxt1a-dds",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "dxt1a-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "tga-metadata",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "tga-metadata-images",
+      "evidenceOnly": false,
+      "passed": true
+    }
+  ],
+  "runId": "40795326615"
+}

@@ -1,0 +1,102 @@
+s3_quant.cpp
+TexturePublicS3.cpp
+Generating Code...
+   Creating library s3_quant.lib and object s3_quant.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-s3-dxt1a-dds-3c9a53a6479b4e79af8c437b8da2294c\Debug\Recovered.TexturePublicS3.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+              10026000 Import Address Table
+              10031424 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                  5EA UnhandledExceptionFilter
+                  5A8 SetUnhandledExceptionFilter
+                  23B GetCurrentProcess
+                  5C8 TerminateProcess
+                  3B5 IsProcessorFeaturePresent
+                  47E QueryPerformanceCounter
+                  23C GetCurrentProcessId
+                  240 GetCurrentThreadId
+                  313 GetSystemTimeAsFileTime
+                  391 InitializeSListHead
+                  3AD IsDebuggerPresent
+                  2FA GetStartupInfoW
+                  29F GetModuleHandleW
+                   9D CloseHandle
+                  39A InterlockedFlushSList
+                  509 RtlUnwind
+                  287 GetLastError
+                  569 SetLastError
+                  153 EnterCriticalSection
+                  3ED LeaveCriticalSection
+                  12E DeleteCriticalSection
+                  38D InitializeCriticalSectionAndSpinCount
+                  5DA TlsAlloc
+                  5DC TlsGetValue
+                  5DE TlsSetValue
+                  5DB TlsFree
+                  1CE FreeLibrary
+                  2D6 GetProcAddress
+                  3F3 LoadLibraryExW
+                  14F EncodePointer
+                  494 RaiseException
+                  2FC GetStdHandle
+                  273 GetFileType
+                  29B GetModuleFileNameW
+                  29E GetModuleHandleExW
+                  64E WriteConsoleW
+                  180 ExitProcess
+                  127 DecodePointer
+                  64F WriteFile
+                  448 OutputDebugStringW
+                  373 HeapAlloc
+                  377 HeapFree
+                  197 FindClose
+                  19D FindFirstFileExW
+                  1AE FindNextFileW
+                  3BB IsValidCodePage
+                  1D5 GetACP
+                  2BF GetOEMCP
+                  1E4 GetCPInfo
+                  1F9 GetCommandLineA
+                  1FA GetCommandLineW
+                  420 MultiByteToWideChar
+                  63B WideCharToMultiByte
+                  25B GetEnvironmentStringsW
+                  1CD FreeEnvironmentStringsW
+                  1BC FlsAlloc
+                  1BE FlsGetValue
+                  1C0 FlsSetValue
+                  1BD FlsFree
+                  38E InitializeCriticalSectionEx
+                  609 VirtualProtect
+                  3E1 LCMapStringW
+                  2DD GetProcessHeap
+                  1C2 FlushFileBuffers
+                  223 GetConsoleOutputCP
+                  21F GetConsoleMode
+                  301 GetStringTypeW
+                  37C HeapSize
+                  37A HeapReAlloc
+                  584 SetStdHandle
+                  271 GetFileSizeEx
+                  559 SetFilePointerEx
+                   E6 CreateFileW
+
+  Summary
+
+        8000 .data
+        1000 .fptable
+        C000 .rdata
+        2000 .reloc
+       25000 .text
+PASS Public S3 native Debug I386 SHA256=37f08d9dcae53cf8de1b04ea08d8b7423e388113e9f19926123fa5f5cf1d8624; copied source only, no original/recovered encoder callback
