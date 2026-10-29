@@ -14,7 +14,7 @@ internal static class TextureTgaMetadataFixtures
     static void Word(byte[] b,int at,int value){b[at]=(byte)value;b[at+1]=(byte)(value>>8);}
     static void Dword(byte[] b,int at,uint value){for(int i=0;i<4;i++)b[at+i]=(byte)(value>>(i*8));}
     static void Text(byte[] b,int at,string value){byte[] text=Encoding.ASCII.GetBytes(value);Buffer.BlockCopy(text,0,b,at,text.Length);}
-    static uint Pixel(int x,int y,int pattern){uint a=pattern==1?0u:pattern==2?127u:(uint)((x*61+y*37+17)&255);return pattern==2?0x7f2b7913u:(uint)((x*31+y*19+13)&255)|(uint)((x*17+y*67+79)&255)<<8|(uint)((x*47+y*23+181)&255)<<16|a<<24;}
+    static uint Pixel(int x,int y,int pattern){uint a=pattern==1?0u:pattern==2?127u:(uint)((x*61+y*37+17)&255);return pattern>=2?(pattern==3?0x3f2b7913u:0x7f2b7913u):(uint)((x*31+y*19+13)&255)|(uint)((x*17+y*67+79)&255)<<8|(uint)((x*47+y*23+181)&255)<<16|a<<24;}
     static byte[] Color(uint rgba,int depth){if(depth==15||depth==16){ushort v=(ushort)(((rgba&255)>>3)<<10|(((rgba>>8)&255)>>3)<<5|(((rgba>>16)&255)>>3)|(depth==16&&(rgba>>24)>=128?0x8000u:0));return new[]{(byte)v,(byte)(v>>8)};}return depth==32?new[]{(byte)(rgba>>16),(byte)(rgba>>8),(byte)rgba,(byte)(rgba>>24)}:new[]{(byte)(rgba>>16),(byte)(rgba>>8),(byte)rgba};}
     internal static byte[] Create(int width,int height,string format,bool rle,int direction,int pattern,string profile){
         if(Array.IndexOf(Formats,format)<0||Array.IndexOf(Profiles,profile)<0)throw new Exception("Unknown TGA fixture axis");
@@ -29,9 +29,9 @@ internal static class TextureTgaMetadataFixtures
             uint[] scanlines=new uint[height];
             for(int fy=0;fy<height;fy++){
                 scanlines[fy]=(uint)stream.Position;
-                for(int fx=0;fx<width;){int n=Math.Min(128,width-fx);bool repeat=rle&&pattern==2;if(rle)writer.Write((byte)((repeat?128:0)|(n-1)));
+                for(int fx=0;fx<width;){int n=Math.Min(128,width-fx);bool repeat=rle&&pattern>=2;if(rle)writer.Write((byte)((repeat?128:0)|(n-1)));
                     for(int i=0;i<(repeat?1:n);i++){int fileX=fx+i,x=(direction&16)!=0?width-1-fileX:fileX,y=(direction&32)!=0?fy:height-1-fy;uint pixel=Pixel(x,y,pattern);
-                        if(indexed)writer.Write((byte)(pattern==2?0:(x+y)&3));else if(gray)writer.Write((byte)pixel);else writer.Write(Color(pixel,depth));
+                        if(indexed)writer.Write((byte)(pattern>=2?0:(x+y)&3));else if(gray)writer.Write((byte)pixel);else writer.Write(Color(pixel,depth));
                     }fx+=n;
                 }
             }

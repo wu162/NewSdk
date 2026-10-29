@@ -66,8 +66,8 @@ namespace Recovered.Compiler.Texture
             int first = source[3] | source[4] << 8, entries = source[5] | source[6] << 8, paletteDepth = source[7];
             int width = source[12] | source[13] << 8, height = source[14] | source[15] << 8;
             if (width == 0 || height == 0 || (long)width * height >= 16777216L) throw Bad();
-            if ((descriptor & 0xC0) != 0 || source[8] != 0 || source[9] != 0 || source[10] != 0 || source[11] != 0)
-                throw new NotSupportedException("Additional TGA interleaving/origin metadata is not recovered.");
+            if ((descriptor & 0xC0) != 0)
+                throw new NotSupportedException("Additional TGA interleaving metadata is not recovered.");
             if (mapped ? source[1] != 1 || entries == 0 || (depth != 8 && depth != 16) ||
                 (paletteDepth != 15 && paletteDepth != 16 && paletteDepth != 24 && paletteDepth != 32)
                 : source[1] != 0 || first != 0 || entries != 0 || paletteDepth != 0 || (gray && depth != 8 && depth != 16)) throw Bad();
@@ -111,7 +111,8 @@ namespace Recovered.Compiler.Texture
                     position++;
                 }
             }
-            if (offset != source.Length) throw new NotSupportedException("Additional-format TGA metadata/footer support is not yet recovered.");
+            if (!TextureTgaMetadata.TryValidateTail(source,offset))
+                throw new NotSupportedException("Additional-format TGA metadata is outside the validated TGA 2.0 tail structures.");
             bool hasAlpha = mapped || depth == 16;
             if (hasAlpha)
             {

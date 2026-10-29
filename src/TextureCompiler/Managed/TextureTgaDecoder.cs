@@ -19,9 +19,9 @@ namespace Recovered.Compiler.Texture
             int idLength = source[0], colorMap = source[1], type = source[2];
             if (colorMap != 0 || (type != 2 && type != 10))
                 throw new NotSupportedException("Only unmapped true-color raw/RLE TGA images are supported.");
-            // Reject color-map declarations, nonzero coordinate metadata and
-            // interleaved images instead of silently treating them as this subset.
-            for (int i = 3; i < 12; i++)
+            // Legacy D3DX ignores the coordinate labels at bytes 8..11. Keep
+            // undeclared color-map fields and interleaved storage outside scope.
+            for (int i = 3; i < 8; i++)
                 if (source[i] != 0) throw new NotSupportedException("TGA palette/origin metadata is outside the recovered subset.");
             int width = source[12] | source[13] << 8;
             int height = source[14] | source[15] << 8;
@@ -95,6 +95,11 @@ namespace Recovered.Compiler.Texture
                 (uint)source[offset + 2] << 16 | (uint)source[offset + 3] << 24;
         }
         private static void ValidateMetadataTail(byte[] source, int offset)
+        {
+            if(TextureTgaMetadata.TryValidateTail(source,offset))return;
+            ValidateLegacyMetadataTail(source,offset);
+        }
+        private static void ValidateLegacyMetadataTail(byte[] source, int offset)
         {
             while (offset < source.Length)
             {
