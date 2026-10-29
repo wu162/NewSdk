@@ -4,13 +4,13 @@
 
 ## 当前实现检查点（验证中）
 
-`9dc5a38911b821178feea03ac90ac036c0e3ce5d` / [40803450961](https://github.com/wu162/NewSdk/actions/runs/40803450961)正在集中验收新增BI_RGB与实际消费者；尚未取得本次通过结论。实现覆盖DIB12/40/52/56/64/108/124的已声明BI_RGB，V4/V5忽略gamma/ICC渲染效果并检查V5 profile范围，compression6与INFO40 bitfields匹配原BadTextureFile。扩展bitfields288输入均NotSupported：192个24/32位不确定输入和96个16位未解语义输入，不冒充原错误匹配。
+`9dc5a38911b821178feea03ac90ac036c0e3ce5d` / [40803450961](https://github.com/wu162/NewSdk/actions/runs/40803450961)已completed/success：14个受影响完整组通过、29个成功组复用；当前43组件有效，SDK待本轮集中验收。实现覆盖DIB12/40/52/56/64/108/124的已声明BI_RGB，V4/V5忽略gamma/ICC渲染效果并检查V5 profile范围，compression6与INFO40 bitfields匹配原BadTextureFile。扩展bitfields288输入均NotSupported：192个24/32位不确定输入和96个16位未解语义输入，不冒充原错误匹配。
 
-组件`bmp-headers`全2616行双入口：1896原解码、432原拒绝、288明确拒绝，另106坏结构边界。插件`bmp-header-images`每配置37160条，其中36008原版差分与1152主动拒绝；完整NoOriginal回放，含200 atlas。组件覆盖全部原pattern；插件按固定profile/shape/pattern组合选择，不宣称所有交叉组合都重测。
+组件`bmp-headers`全2616行双入口：1896原解码、432原拒绝、288明确拒绝，另106坏结构边界；Debug/Release各775880检查、2673360字节完整对照。插件`bmp-header-images`每配置37160条，其中36008原版差分与1152主动拒绝；完整NoOriginal回放，含200 atlas；各配置5960原错误匹配/1152主动拒绝，原比较成功输出30048条，完整比较216030576字节。组件覆盖全部原pattern；插件按固定profile/shape/pattern组合选择，不宣称所有交叉组合都重测。
 
 [完整布局审计](evidence/texture/handoffs/20261029-bmp-headers/bi-rgb-layout-audit.json)已只读核对1896 BI_RGB的源像素区域、尺寸/hasAlpha及1336680完整RGBA字节，全部等于对应INFO40（含NPOT与792 metadata）。复现脚本`InspectTextureBmpLayoutArchive.py`不执行codec，只是实现依据，不能替代Actions验收。
 
-专用`PcBmpHeaders`准备356个原gold源×40消费、64个透明源×8消费及50个atlas源×2消费，共14852实际资产/模式；包含Windows各DIB的32bit零/混合/不透明alpha。此SDK尚未运行，不自动启动完整mymod。另准备`bmp-bitfields-load`原版探针，2进程×4320输入、12正对照、25946次原Load及17304份native snapshot；native snapshot与Load来自分别创建的纹理，不能称为同一个Load实例的存储。先收实际descriptor/locked storage/两次RGBA，再判断一般mask语义，probe-only不启用生产bitfields。
+专用`PcBmpHeaders`准备356个原gold源×40消费、64个透明源×8消费及50个atlas源×2消费，共14852实际资产/模式；包含Windows各DIB的32bit零/混合/不透明alpha。此SDK尚未运行，不自动启动完整mymod。另准备`bmp-bitfields-load`原版探针，2进程×4320输入、12正对照、25946次原Load及17304份native snapshot；native只读已知格式的首行逻辑字节前缀、不据pitch×height推断分配大小；未知格式不读pixels。native snapshot与Load来自分别创建的纹理，不能称为同一个Load实例的存储。先收实际descriptor/已知格式首行逻辑字节前缀/两次RGBA，再判断一般mask语义，probe-only不启用生产bitfields。
 
 ## 已完成：原版探针与独立归档审计
 

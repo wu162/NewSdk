@@ -1,8 +1,8 @@
-# 当前：BMP 新DIB BI_RGB实现已保存，组件与插件消费验证中
+# 当前：BMP 新DIB BI_RGB组件与完整消费已通过，SDK待集中验收
 
-- **本轮实现（待验证）**：支持core12/INFO40/V2-52/V3-56/OS2-64/V4-108/V5-124的已声明BI_RGB，按原版从14+DIB读像素并忽略bfOffBits/gap，沿用RGB555/alpha/NPOT规则；有效V4/V5 gamma/ICC不变色，V5 profile指针有界。compression6与INFO40 bitfields匹配原BadTextureFile；扩展bitfields288输入明确NotSupported（192重复不确定、96个16bit未解语义）。生产SDK树未替换。
-- **验证安排**：新增bmp-headers全2616输入双入口及106坏结构拒绝；bmp-header-images完整插件/raw3/DXT3/5/透明DXT1A/volume/mips/atlas/NoOriginal差分；源码9dc5a389 / [40803450961](https://github.com/wu162/NewSdk/actions/runs/40803450961)集中验证受影响组件，尚无本次成功声明。专用PcBmpHeaders SDK脚本已准备，正式接入前再集中取得必要SDK证据，不自动跑完整mymod。
-- **继续入口**：先收本批终态并修复实际失败；两个子代理分别核对bitfields原native descriptor/locked storage取证工具及验证脚本。仅PC、编译测试仅Actions、禁止强推；此前成功锚点按实际依赖复用。
+- **本轮实现（组件已验证）**：支持core12/INFO40/V2-52/V3-56/OS2-64/V4-108/V5-124的已声明BI_RGB，按原版从14+DIB读像素并忽略bfOffBits/gap，沿用RGB555/alpha/NPOT规则；有效V4/V5 gamma/ICC不变色，V5 profile指针有界。compression6与INFO40 bitfields匹配原BadTextureFile；扩展bitfields288输入明确NotSupported（192重复不确定、96个16bit未解语义）。生产SDK树未替换。
+- **验证安排**：新增bmp-headers全2616输入双入口及106坏结构拒绝；bmp-header-images完整插件/raw3/DXT3/5/透明DXT1A/volume/mips/atlas/NoOriginal差分；源码9dc5a389 / [40803450961](https://github.com/wu162/NewSdk/actions/runs/40803450961)已completed/success：14受影响完整组通过/29复用，当前43组件有效；新组件D/R各775880检查/2673360字节，插件每配置37160条（5960原错误匹配/1152主动拒绝）及同量NoOriginal、216030576字节比较。专用PcBmpHeaders SDK脚本已准备，正式接入前再集中取得必要SDK证据，不自动跑完整mymod。
+- **继续入口**：下一批集中必要SDK与bitfields原native descriptor/已知格式首行前缀/两次RGBA取证；两个子代理已完成实现、测试及交叉审查。仅PC、编译测试仅Actions、禁止强推；此前成功锚点按实际依赖复用。
 
 # 当前：TGA metadata 已验收；BMP 原版探针已收证并完成归档审计
 
