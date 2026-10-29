@@ -83,8 +83,18 @@ namespace NewModCompiler.Tests
                 Check(produced.Any(x=>((Artifact)x["payload"]).Path==source && ((Artifact)x["payload"]).Sha256==sha),"ArtifactProduced source lost its corresponding published relative path/hash");
             }
 
+            DateTime stamp=new DateTime(2001,2,3,4,5,6,DateTimeKind.Utc); File.SetLastWriteTimeUtc(payload,stamp);
+            Check(Run(request,new Compiler(),new Sink())==ExitCode.Success,"unchanged build failed");
+            Check((bool)Report(request)["publicationUnchanged"] && File.GetLastWriteTimeUtc(payload)==stamp,"unchanged build replaced published output");
+            foreach(string failure in new[] {"terminal","close"}) {
+                sink=new Sink {FailClose=failure=="close"};
+                if(failure=="terminal") sink.Writing=value=>{if((string)value["eventType"]=="BuildFinished")throw new IOException("unchanged terminal failure");};
+                Check(Run(request,new Compiler(),sink)==ExitCode.Output,"unchanged output masked required sink failure");
+                Check(File.ReadAllText(payload)=="new generation" && File.GetLastWriteTimeUtc(payload)==stamp,"unchanged failure removed the previous generation");
+            }
             Put(Path.Combine(published,"obsolete.bin"),"old extra"); compiler=new Compiler {Payload="replacement generation"};
             Check(Run(request,compiler,new Sink())==ExitCode.Success,"replacement publication failed");
+            Check(!(bool)Report(request)["publicationUnchanged"],"Changed file set was treated as unchanged");
             Check(File.ReadAllText(payload)==compiler.Payload && !File.Exists(Path.Combine(published,"obsolete.bin")),"replacement mixed generations"); Clean(request,compiler);
 
             foreach (string failure in new[] {"report","terminal","close","cancel-publish","cancel-after-commit","provider-close","occupied"})

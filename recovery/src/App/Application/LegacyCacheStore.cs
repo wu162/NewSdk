@@ -53,9 +53,9 @@ namespace NewModCompiler.Application
             cancellation.ThrowIfCancellationRequested();
             string name = SessionName + (compressed ? ".deflate" : "");
             string source = Path.Combine(hashes, name), target = Path.Combine(candidate, name);
-            Copy(source, target, cancellation); stagedSession = target;
-            if (File.Exists(source + ".old")) Copy(source + ".old", target + ".old", cancellation);
-            CopyData(streams, Path.Combine(candidate, "cdata"), cancellation);
+            Move(source, target); stagedSession = target;
+            if (File.Exists(source + ".old")) Move(source + ".old", target + ".old");
+            CopyData(streams, Path.Combine(candidate, "cdata"), cancellation, snapshot: true);
             string alternate = Path.Combine(candidate, SessionName + (compressed ? "" : ".deflate"));
             if (File.Exists(alternate)) File.Delete(alternate);
         }
@@ -99,7 +99,7 @@ namespace NewModCompiler.Application
             if (disposed) return;
             foreach (string target in installed.AsEnumerable().Reverse()) if (File.Exists(target)) File.Delete(target);
             installed.Clear();
-            foreach (var pair in backups) { Directory.CreateDirectory(Path.GetDirectoryName(pair.Key)); File.Copy(pair.Value, pair.Key, true); }
+            foreach (var pair in backups) File.Move(pair.Value, pair.Key);
             backups.Clear(); committed = false; stagedSession = null; DeleteCandidate();
         }
         public void Dispose()
@@ -110,24 +110,27 @@ namespace NewModCompiler.Application
         }
         void Install(string source, string target)
         {
-            RejectLinks(target); Backup(target); Directory.CreateDirectory(Path.GetDirectoryName(target));
-            installed.Add(target); File.Copy(source, target, true);
+            if (FileTransfer.SameContents(source, target)) return;
+            Backup(target); Directory.CreateDirectory(Path.GetDirectoryName(target));
+            installed.Add(target); File.Move(source, target);
         }
         void Backup(string target)
         {
             RejectLinks(target); if (!File.Exists(target) || backups.ContainsKey(target)) return;
             string backup = Path.Combine(candidate, "previous", backups.Count.ToString("x8"));
-            Directory.CreateDirectory(Path.GetDirectoryName(backup)); File.Copy(target, backup, false);
-            backups.Add(target, backup); File.Delete(target);
+            Directory.CreateDirectory(Path.GetDirectoryName(backup)); File.Move(target, backup);
+            backups.Add(target, backup);
         }
-        void CopyData(string root, string target, CancellationToken cancellation, bool legacyRoot = false, string relativeStream = null)
+        void CopyData(string root, string target, CancellationToken cancellation, bool legacyRoot = false, string relativeStream = null, bool snapshot = false)
         {
             if (!Directory.Exists(root)) return;
             foreach (string path in DataFiles(root, legacyRoot))
             {
                 string relative = path.Substring(root.Length + 1);
                 if (relativeStream != null && !relative.StartsWith(relativeStream + Path.DirectorySeparatorChar + "cdata" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) continue;
-                Copy(path, Path.Combine(target, relative), cancellation);
+                cancellation.ThrowIfCancellationRequested();
+                if (snapshot) FileTransfer.Snapshot(path, Path.Combine(target, relative));
+                else Copy(path, Path.Combine(target, relative), cancellation);
             }
         }
         IEnumerable<string> DataFiles(string root, bool legacyRoot)
@@ -153,8 +156,14 @@ namespace NewModCompiler.Application
         }
         static void Copy(string source, string target, CancellationToken cancellation)
         {
-            cancellation.ThrowIfCancellationRequested(); RejectLinks(source); RejectLinks(target);
+            cancellation.ThrowIfCancellationRequested();
             Directory.CreateDirectory(Path.GetDirectoryName(target)); File.Copy(source, target, true);
+        }
+        static void Move(string source, string target)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(target));
+            if (File.Exists(target)) File.Delete(target);
+            File.Move(source, target);
         }
         static void RejectLinks(string path)
         {

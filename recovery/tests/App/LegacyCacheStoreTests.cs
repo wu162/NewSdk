@@ -9,7 +9,7 @@ namespace NewModCompiler.Tests
     {
         static int count;
         static void Check(bool value, string message) { count++; if (!value) throw new Exception("Legacy cache: " + message); }
-        static void Put(string file, string value) { Directory.CreateDirectory(Path.GetDirectoryName(file)); File.WriteAllText(file, value); }
+        static void Put(string file, string value) { Directory.CreateDirectory(Path.GetDirectoryName(file)); if(File.Exists(file))File.Delete(file); File.WriteAllText(file, value); }
         public static int Run(string root)
         {
             count = 0; string output = Path.Combine(root, "output"), shared = Path.Combine(root, "network", "sessions");
@@ -23,11 +23,20 @@ namespace NewModCompiler.Tests
                 store.Stage(hashes, streams, false, CancellationToken.None); store.Commit();
                 Check(File.ReadAllText(raw).Contains("first"),"Original session filename or custom directory not honored");
                 store.Rollback(); Check(!File.Exists(raw),"Unconfirmed raw session survived rollback");
+                Put(xml, "<sc d=\"first\"/>");
                 store.Stage(hashes, streams, false, CancellationToken.None); store.ConfirmPartial();
+                Check(!File.Exists(xml),"Serialized session was copied instead of moved into its transaction");
                 Check(File.Exists(raw),"Partial-session confirmation did not persist useful work");
                 string restore = Path.Combine(root,"hot"), restoredStreams=Path.Combine(root,"hot-streams");
                 Check(store.Prepare(restore,restoredStreams,CancellationToken.None),"Original-format session did not load");
                 Check(File.ReadAllText(Path.Combine(restoredStreams,"mod","one.cdata"))=="cdata first","Session lost its CDATA closure");
+                string confirmedData=Path.Combine(shared,".NewModCompiler","cdata","mod","one.cdata");
+                DateTime stamp=new DateTime(2001,2,3,4,5,6,DateTimeKind.Utc); File.SetLastWriteTimeUtc(confirmedData,stamp);
+                Put(xml,"<sc d=\"first\"/>"); store.Stage(hashes,streams,false,CancellationToken.None); store.Commit(); store.Complete();
+                Check(File.GetLastWriteTimeUtc(confirmedData)==stamp,"Identical CDATA was installed again");
+            }
+            using (var store = new LegacyCacheStore(output, shared, "identity"))
+            {
                 Put(xml,"<sc d=\"second\"/>"); Put(data,"cdata second");
                 store.Stage(hashes, streams, false, CancellationToken.None); store.Commit(); store.Rollback();
                 Check(File.ReadAllText(raw).Contains("first"),"Failed replacement did not restore the confirmed original session");

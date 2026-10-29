@@ -86,6 +86,7 @@ public class OutputManager
 		_ManifestFile = _OutputDirectory + ".manifest";
 		_OldManifestFile = _OutputDirectory + ".old.manifest";
 		_VersionFile = _OutputDirectory.Remove(_OutputDirectory.LastIndexOf(Settings.Current.CustomPostfix)) + ".version";
+		Settings.Current.PrepareLinkedOutput?.Invoke(_OutputDirectory);
 		if (File.Exists(_OldManifestFile))
 		{
 			File.Delete(_OldManifestFile);

@@ -30,6 +30,7 @@ namespace NewModCompiler.Application
         bool compressedSessionCache = true, partialSessionCache = true, freezeSessionCache, alwaysTouchCache;
         int partialSessionsSaved;
         LegacyCacheStore legacyStore;
+        LinkedOutputCache linkedOutputs;
         int buildCacheHits, buildCacheMisses, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile;
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
@@ -37,7 +38,9 @@ namespace NewModCompiler.Application
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
         public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Win32.LegacySessionCache" : buildCacheEnabled ? "NewModCompiler.Core.Win32.LegacyBuildCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
-        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionCache" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = buildCacheEnabled || sessionCacheEnabled, compressedSessionCache, partialSessionCache, freezeSessionCache, alwaysTouchCache, partialSessionsSaved, sessionCacheDirectory = legacyStore == null ? null : legacyStore.SessionRoot }; } }
+        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionCache" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, linkedStreamsRestored = linkedOutputs == null ? linkedStreamsRestored : linkedOutputs.RestoredStreams, textureCache = buildCacheEnabled || sessionCacheEnabled, compressedSessionCache, partialSessionCache, freezeSessionCache, alwaysTouchCache, partialSessionsSaved, sessionCacheDirectory = legacyStore == null ? null : legacyStore.SessionRoot }; } }
+        int linkedStreamsRestored;
+        bool cacheManagedBySession;
 
         public void Initialize(BuildRequest request)
         {
@@ -440,12 +443,16 @@ namespace NewModCompiler.Application
             DocumentProcessor processor = null;
             SessionCache cache = null; Settings streamSettings = null; bool processingStarted = false, sessionSaved = false;
             compiling = true;
+            cacheManagedBySession = context.CacheManagedBySession;
             try
             {
                 Directory.CreateDirectory(staging);
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
                 Settings settings = streamSettings = StreamSettings(context, staging);
+                if (linkedOutputs == null) linkedOutputs = new LinkedOutputCache(outputRoot);
+                string linkScope = Path.Combine(context.Task.Content, Path.GetFileNameWithoutExtension(context.Task.InputPath));
+                settings.PrepareLinkedOutput = stem => linkedOutputs.Restore(linkScope, settings.OutputDirectory, stem);
                 processorState = DocumentProcessor.BeginStateScope();
                 report = AssetReport.BeginScope();
                 EnsureProviders();
@@ -510,6 +517,7 @@ namespace NewModCompiler.Application
                     SaveLegacySession(cache, settings, cancellation); sessionSaved = true;
                 }
                 artifacts = CollectArtifacts(settings.OutputDirectory);
+                linkedOutputs.Stage(linkScope, settings.OutputDirectory, artifacts, cancellation);
                 cancellation.ThrowIfCancellationRequested();
             }
             catch (Exception error)
@@ -557,9 +565,17 @@ namespace NewModCompiler.Application
             legacyStore.Stage(settings.SessionCacheDirectory, settings.OutputDirectory, compressedSessionCache, cancellation);
             if (partialSessionCache) legacyStore.ConfirmPartial();
         }
-        public void CommitCache() { if (legacyStore != null) legacyStore.Commit(); }
-        public void RollbackCache() { if (legacyStore != null) { legacyStore.Dispose(); legacyStore = null; } }
-        public void CompleteCache() { if (legacyStore != null) { legacyStore.Complete(); legacyStore = null; } }
+        public void CommitCache() { if (legacyStore != null) legacyStore.Commit(); if (linkedOutputs != null) linkedOutputs.Commit(); }
+        public void RollbackCache()
+        {
+            try { if (legacyStore != null) { legacyStore.Dispose(); legacyStore = null; } }
+            finally { if (linkedOutputs != null) { linkedStreamsRestored = linkedOutputs.RestoredStreams; linkedOutputs.Dispose(); linkedOutputs = null; } }
+        }
+        public void CompleteCache()
+        {
+            if (legacyStore != null) { legacyStore.Complete(); legacyStore = null; }
+            if (linkedOutputs != null) { linkedStreamsRestored = linkedOutputs.RestoredStreams; linkedOutputs.Complete(); linkedOutputs = null; }
+        }
         string LegacyCacheIdentity(Settings settings)
         {
             using (var bytes = new MemoryStream())
@@ -574,7 +590,7 @@ namespace NewModCompiler.Application
                 files.AddRange(Directory.GetFiles(runtime).Where(path => new[] {".exe", ".dll", ".config"}.Contains(Path.GetExtension(path).ToLowerInvariant())));
                 foreach (string file in files.OrderBy(path => path, StringComparer.Ordinal))
                 {
-                    RejectReparseAncestors(file); writer.Write(file);
+                    writer.Write(file);
                     using (var algorithm = SHA256.Create()) using (var input = File.OpenRead(file)) writer.Write(algorithm.ComputeHash(input));
                 }
                 writer.Flush(); bytes.Position = 0;
@@ -675,7 +691,7 @@ namespace NewModCompiler.Application
                 if (!stream && !custom) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_UNEXPECTED", "Unexpected file in completed stream output: " + file);
                 string sha;
                 using (var algorithm = SHA256.Create()) using (var input = File.OpenRead(file)) sha = BitConverter.ToString(algorithm.ComputeHash(input)).Replace("-", "").ToLowerInvariant();
-                result.Add(new Artifact { Path = Path.GetFullPath(file), Kind = custom ? "custom-data" : "stream" + Path.GetExtension(file), Size = new FileInfo(file).Length, Sha256 = sha });
+                result.Add(new Artifact { Path = Path.GetFullPath(file), Kind = custom ? "custom-data" : "stream" + Path.GetExtension(file), Size = new FileInfo(file).Length, Sha256 = sha, Verified = true });
             }
             return result;
         }
@@ -716,7 +732,7 @@ namespace NewModCompiler.Application
                 disposed = true;
             }
             try { DisposeProviders(); }
-            finally { ReleaseLease(); }
+            finally { try { if (!cacheManagedBySession) RollbackCache(); } finally { ReleaseLease(); } }
         }
         void DisposeProviders()
         {

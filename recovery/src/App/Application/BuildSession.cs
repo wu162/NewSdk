@@ -53,7 +53,7 @@ namespace NewModCompiler.Application
                         activeStream = task.Id;
                         events.Emit("StreamStarted",payload:new {input=task.InputPath,effectiveOptions=request.Options},streamId:task.Id,stageId:"compile");
                         try {
-                            var produced = compiler.Compile(new StreamContext {BuildId=events.BuildId,Task=task,Request=request,StagingDirectory=streamDirectory},cancellation);
+                            var produced = compiler.Compile(new StreamContext {BuildId=events.BuildId,Task=task,Request=request,StagingDirectory=streamDirectory,CacheManagedBySession=true},cancellation);
                             cancellation.ThrowIfCancellationRequested();
                             if (produced == null) throw new InvalidOperationException("Backend returned no artifact list.");
                             foreach (Artifact artifact in produced) {
@@ -111,7 +111,7 @@ namespace NewModCompiler.Application
                 try {
                     StartStage("publish");
                     cancellation.ThrowIfCancellationRequested();
-                    publication = new ArtifactPublisher().Prepare(request,staging,"published",artifacts,cancellation);
+                    publication = new ArtifactPublisher().PrepareOwned(request,staging,"published",artifacts,cancellation);
                     cancellation.ThrowIfCancellationRequested();
                     publication.Commit();
                     artifacts.Clear(); artifacts.AddRange(publication.Result.Artifacts);
@@ -159,7 +159,8 @@ namespace NewModCompiler.Application
                 {"externalTools",new string[0]},{"cache",cacheCompiler == null ? (object)new {status="NotImplemented",hits=0,misses=0} : cacheCompiler.CacheReport},
                 {"elapsedMs",events.ElapsedMilliseconds},{"artifacts",artifacts},{"logPaths",new {events=request.EventsPath,report=request.ReportPath,text=request.LogPath}},
                 {"executionMode",request.Command == "plan" ? "PlanOnly" : "InProcess"},
-                {"publicationStatus",publicationStatus},{"publicationDirectory",publicationDirectory}
+                {"publicationStatus",publicationStatus},{"publicationDirectory",publicationDirectory},
+                {"publicationUnchanged",code == ExitCode.Success && publication != null && publication.Unchanged}
             };
             try { Reports.WriteAtomic(request.ReportPath,report); }
             catch (Exception e) { code=ExitCode.Output; status="failed"; Diagnostic("REPORT_WRITE_FAILED",e.Message); }
@@ -185,6 +186,7 @@ namespace NewModCompiler.Application
             if (events.CloseFailed || (int)code != Convert.ToInt32(report["exitCode"]) ||
                 !string.Equals(publicationStatus,(string)report["publicationStatus"],StringComparison.Ordinal)) {
                 report["status"]=status; report["exitCode"]=(int)code; report["publicationStatus"]=publicationStatus;
+                report["publicationUnchanged"]=code == ExitCode.Success && publication != null && publication.Unchanged;
                 report["diagnosticCounts"]=new {error=errorCount,warning=warningCount}; report["elapsedMs"]=events.ElapsedMilliseconds;
                 try { Reports.WriteAtomic(request.ReportPath,report); } catch { code=ExitCode.Output; }
             }
@@ -356,7 +358,10 @@ namespace NewModCompiler.Application
         {
             if (artifact == null || string.IsNullOrEmpty(artifact.Path) || !Paths.Contains(streamDirectory,artifact.Path) || !File.Exists(artifact.Path)) throw new BuildFailure(ExitCode.Output,"ARTIFACT_INVALID","Backend artifacts must be existing files within the current stream workspace.");
             artifact.Path = Path.GetFullPath(artifact.Path); artifact.Size=new FileInfo(artifact.Path).Length;
-            using (var hash=SHA256.Create()) using (var input=File.OpenRead(artifact.Path)) artifact.Sha256=BitConverter.ToString(hash.ComputeHash(input)).Replace("-","").ToLowerInvariant();
+            if (!artifact.Verified) {
+                using (var hash=SHA256.Create()) using (var input=File.OpenRead(artifact.Path)) artifact.Sha256=BitConverter.ToString(hash.ComputeHash(input)).Replace("-","").ToLowerInvariant();
+                artifact.Verified=true;
+            }
         }
     }
 }

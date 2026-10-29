@@ -102,7 +102,6 @@ namespace NewModCompiler.Application
             if(request.IncludeAdditional) AdditionalFiles.Merge(request.SdkRoot,request.ModRoot,staging,entries,cancellation,warning);
             MakeBig.Write(big,entries,cancellation);
             BigArchiveWriter.WriteSkudef(skudef,Path.GetFileName(big),cancellation,request.GameVersion);
-            foreach(var artifact in artifacts) Verify(artifact,staging);
             cancellation.ThrowIfCancellationRequested();
             return new[] {Describe(big,"package.big"),Describe(skudef,"package.skudef")};
         }
@@ -110,10 +109,10 @@ namespace NewModCompiler.Application
         {
             if(artifact==null || string.IsNullOrEmpty(artifact.Path) || !Path.IsPathRooted(artifact.Path) || !Paths.Contains(staging,artifact.Path) || !File.Exists(artifact.Path)) throw new IOException("BIG input must be an accepted current staging file.");
             using(DiagnosticDirectory.Acquire(Path.GetDirectoryName(artifact.Path),false)) {
-                if((File.GetAttributes(artifact.Path)&(FileAttributes.Directory|FileAttributes.ReparsePoint))!=0 || new FileInfo(artifact.Path).Length!=artifact.Size || Hash(artifact.Path)!=artifact.Sha256) throw new IOException("BIG input changed after compilation.");
+                if((File.GetAttributes(artifact.Path)&(FileAttributes.Directory|FileAttributes.ReparsePoint))!=0 || new FileInfo(artifact.Path).Length!=artifact.Size || (!artifact.Verified && Hash(artifact.Path)!=artifact.Sha256)) throw new IOException("BIG input changed after compilation.");
             }
         }
-        static Artifact Describe(string path,string kind) { return new Artifact {Path=path,Kind=kind,Size=new FileInfo(path).Length,Sha256=Hash(path)}; }
+        static Artifact Describe(string path,string kind) { return new Artifact {Path=path,Kind=kind,Size=new FileInfo(path).Length,Sha256=Hash(path),Verified=true}; }
         static string Hash(string path) { using(var hash=SHA256.Create()) using(var stream=File.OpenRead(path)) return BitConverter.ToString(hash.ComputeHash(stream)).Replace("-","").ToLowerInvariant(); }
     }
 }

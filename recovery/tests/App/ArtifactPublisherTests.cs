@@ -71,6 +71,25 @@ namespace NewModCompiler.Tests
                 Check(!File.Exists(sentinel), "stale previous output remains mixed into new generation");
             }
             Check(File.Exists(asset.Path), "publisher modified staging input");
+            string published=Path.Combine(target,"apt","例 子","stream.bin");
+            DateTime stamp=new DateTime(2001,2,3,4,5,6,DateTimeKind.Utc); File.SetLastWriteTimeUtc(published,stamp);
+            using (ArtifactPublication same=publisher.Prepare(request,staging,"release",new[] {asset},CancellationToken.None))
+            {
+                Check(same.Unchanged && Directory.GetDirectories(output,".publish-*").Length==0,"Unchanged output allocated a publication copy");
+                same.Commit(); same.Rollback();
+                Check(File.ReadAllText(published)=="new payload" && File.GetLastWriteTimeUtc(published)==stamp,"Unchanged rollback touched the existing generation");
+            }
+            using (ArtifactPublication same=publisher.Prepare(request,staging,"release",new[] {asset},CancellationToken.None))
+            {
+                same.Commit(); same.Complete();
+                Check(same.Unchanged && File.GetLastWriteTimeUtc(published)==stamp,"Unchanged success replaced published output");
+            }
+            File.WriteAllText(published,"bad payload");
+            using (ArtifactPublication repair=publisher.Prepare(request,staging,"release",new[] {asset},CancellationToken.None))
+            {
+                Check(!repair.Unchanged,"Changed destination was treated as unchanged"); repair.Commit(); repair.Complete();
+            }
+            Check(File.ReadAllText(published)=="new payload","Changed destination was not repaired");
             using (ArtifactPublication retry = publisher.Prepare(request, staging, "release", new[] { asset }, CancellationToken.None))
                 Check(retry.State == "Prepared", "completed transaction did not release destination lock");
             Reject(delegate { publisher.Prepare(request, staging, "../escape", new[] { asset }, CancellationToken.None); }, "destination traversal");

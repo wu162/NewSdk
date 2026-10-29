@@ -22,6 +22,14 @@ namespace NewModCompiler.Application
     {
         public ArtifactPublication Prepare(BuildRequest request, string stagingDirectory, string destinationName,
             IList<Artifact> artifacts, CancellationToken cancellation)
+        { return Prepare(request, stagingDirectory, destinationName, artifacts, cancellation, false); }
+
+        internal ArtifactPublication PrepareOwned(BuildRequest request, string stagingDirectory, string destinationName,
+            IList<Artifact> artifacts, CancellationToken cancellation)
+        { return Prepare(request, stagingDirectory, destinationName, artifacts, cancellation, true); }
+
+        ArtifactPublication Prepare(BuildRequest request, string stagingDirectory, string destinationName,
+            IList<Artifact> artifacts, CancellationToken cancellation, bool owned)
         {
             if (request == null || artifacts == null || artifacts.Count == 0) throw new ArgumentException("Publication requires a request and a nonempty exact artifact list.");
             if (string.IsNullOrWhiteSpace(destinationName) || destinationName == "." || destinationName == ".." ||
@@ -54,7 +62,6 @@ namespace NewModCompiler.Application
                 if (Directory.Exists(destination)) RejectReparseTree(destination);
                 try
                 {
-                    DiagnosticDirectory.CreateNewDirectory(prepared); preparedOwned = true;
                     var result = new List<Artifact>();
                     var paths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                     foreach (Artifact artifact in artifacts)
@@ -66,27 +73,35 @@ namespace NewModCompiler.Application
                         if (!Paths.Contains(staging, source) || string.Equals(staging, source, StringComparison.OrdinalIgnoreCase))
                             throw new IOException("Publication artifact escaped its build staging directory.");
                         DiagnosticDirectory.ValidateSyntax(source);
-                        using (DiagnosticDirectory.Acquire(Path.GetDirectoryName(source), false))
+                        using (owned ? null : DiagnosticDirectory.Acquire(Path.GetDirectoryName(source), false))
                         {
                             if ((File.GetAttributes(source) & (FileAttributes.ReparsePoint | FileAttributes.Directory)) != 0)
                                 throw new IOException("Publication artifact must be an ordinary file.");
                             string relative = source.Substring(staging.TrimEnd('\\', '/').Length).TrimStart('\\', '/');
                             if (!paths.Add(relative)) throw new IOException("Duplicate publication artifact path.");
-                            string copy = Path.Combine(prepared, relative);
-                            using (DiagnosticDirectory.Acquire(Path.GetDirectoryName(copy), true))
-                            using (var input = new FileStream(source, FileMode.Open, FileAccess.Read, FileShare.Read))
-                            using (var target = new FileStream(copy, FileMode.CreateNew, FileAccess.Write, FileShare.None))
-                            {
-                                if (input.Length != artifact.Size) throw new IOException("Publication source size changed.");
-                                input.CopyTo(target); target.Flush(true);
-                            }
-                            string hash = Hash(copy);
-                            if (!string.Equals(hash, artifact.Sha256, StringComparison.OrdinalIgnoreCase)) throw new IOException("Publication source hash changed.");
-                            result.Add(new Artifact { Path = Path.Combine(destination, relative), Kind = artifact.Kind, Size = artifact.Size, Sha256 = hash });
+                            if (new FileInfo(source).Length != artifact.Size) throw new IOException("Publication source size changed.");
+                            result.Add(new Artifact { Path = Path.Combine(destination, relative), Kind = artifact.Kind, Size = artifact.Size, Sha256 = artifact.Sha256 });
+                        }
+                    }
+                    bool unchanged = Matches(destination, result, cancellation);
+                    if (unchanged && !owned)
+                        foreach (Artifact artifact in artifacts)
+                            if (!string.Equals(Hash(artifact.Path), artifact.Sha256, StringComparison.OrdinalIgnoreCase)) throw new IOException("Publication source hash changed.");
+                    if (!unchanged)
+                    {
+                        DiagnosticDirectory.CreateNewDirectory(prepared); preparedOwned = true;
+                        for (int index = 0; index < artifacts.Count; index++)
+                        {
+                            cancellation.ThrowIfCancellationRequested();
+                            string copy = Path.Combine(prepared, result[index].Path.Substring(destination.Length + 1));
+                            Directory.CreateDirectory(Path.GetDirectoryName(copy));
+                            if (owned) File.Copy(artifacts[index].Path, copy);
+                            else if (!string.Equals(CopyAndHash(artifacts[index].Path, copy), artifacts[index].Sha256, StringComparison.OrdinalIgnoreCase))
+                                throw new IOException("Publication source hash changed.");
                         }
                     }
                     cancellation.ThrowIfCancellationRequested();
-                    var transaction = new ArtifactPublication(destination, prepared, backup, result.ToArray(), outputGuard, targetLock);
+                    var transaction = new ArtifactPublication(destination, unchanged ? null : prepared, backup, result.ToArray(), outputGuard, targetLock);
                     preparedOwned = false; outputGuard = null; targetLock = null;
                     return transaction;
                 }
@@ -99,6 +114,32 @@ namespace NewModCompiler.Application
                 }
             }
             } finally { if (targetLock != null) targetLock.Dispose(); if (outputGuard != null) outputGuard.Dispose(); }
+        }
+        static bool Matches(string destination, IList<Artifact> artifacts, CancellationToken cancellation)
+        {
+            if (!Directory.Exists(destination) || Directory.GetFiles(destination, "*", SearchOption.AllDirectories).Length != artifacts.Count) return false;
+            foreach (Artifact artifact in artifacts)
+            {
+                cancellation.ThrowIfCancellationRequested();
+                if (!File.Exists(artifact.Path) || new FileInfo(artifact.Path).Length != artifact.Size ||
+                    !string.Equals(Hash(artifact.Path), artifact.Sha256, StringComparison.OrdinalIgnoreCase)) return false;
+            }
+            return true;
+        }
+        static string CopyAndHash(string source, string destination)
+        {
+            using (var input = File.OpenRead(source))
+            using (var output = new FileStream(destination, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+            using (var hash = SHA256.Create())
+            {
+                var buffer = new byte[65536]; int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) != 0)
+                {
+                    output.Write(buffer, 0, read); hash.TransformBlock(buffer, 0, read, buffer, 0);
+                }
+                hash.TransformFinalBlock(buffer, 0, 0);
+                return BitConverter.ToString(hash.Hash).Replace("-", "").ToLowerInvariant();
+            }
         }
         static string Hash(string path)
         {
@@ -130,9 +171,11 @@ namespace NewModCompiler.Application
         { this.destination = destination; this.prepared = prepared; this.backup = backup; this.artifacts = artifacts; this.guard = guard; this.targetLock = targetLock; }
         public string State { get { return completed ? "Completed" : disposed ? "RolledBack" : rollbackFailed ? "RollbackFailed" : committed ? "CommittedPendingFinalization" : "Prepared"; } }
         public PublicationResult Result { get; private set; }
+        public bool Unchanged { get { return prepared == null; } }
         public void Commit()
         {
             Alive(); if (committed) throw new InvalidOperationException("Publication is already committed.");
+            if (Unchanged) { committed = true; Result = new PublicationResult { Status = "CommittedPendingFinalization", Directory = destination, Artifacts = artifacts }; return; }
             if (File.Exists(destination)) throw new IOException("Publication destination is a file.");
             if (Directory.Exists(destination)) { ArtifactPublisher.RejectReparseTree(destination); Directory.Move(destination, backup); oldMoved = true; }
             try { Directory.Move(prepared, destination); committed = true; }
@@ -167,13 +210,13 @@ namespace NewModCompiler.Application
             Alive();
             try
             {
-            if (committed)
+            if (committed && !Unchanged)
             {
                 ArtifactPublisher.RejectReparseTree(destination);
                 Directory.Delete(destination, true); committed = false;
             }
             if (oldMoved) { Directory.Move(backup, destination); oldMoved = false; }
-            if (Directory.Exists(prepared)) { ArtifactPublisher.RejectReparseTree(prepared); Directory.Delete(prepared, true); }
+            if (prepared != null && Directory.Exists(prepared)) Directory.Delete(prepared, true);
             Result = null; disposed = true; rollbackFailed = false; Release();
             }
             catch (Exception error)

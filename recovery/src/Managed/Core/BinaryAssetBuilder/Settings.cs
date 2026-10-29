@@ -9,6 +9,9 @@ public class Settings : ICloneable
 {
 	public static Settings Current;
 
+	[XmlIgnore]
+	public Action<string> PrepareLinkedOutput { get; set; }
+
 	private string _SchemaPath;
 
 	private string _BuildCacheDirectory;
