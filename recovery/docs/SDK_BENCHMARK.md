@@ -2,6 +2,41 @@
 
 `BenchmarkCompilerSdkComparison.py` 在同一台 Windows VM 上交替执行原 `BinaryAssetBuilder.exe` 和已验收的新版 Win32 Release。比较独立进程从启动到退出的端到端成本、CPU 时间、峰值工作集及缓存占用；新版还承担报告、JSONL、独立 staging 和事务发布的成本，原工具直接写出流文件。结果用于比较实际命令行使用成本。
 
+## 当前实测结论（2026-10-29）
+
+[运行 40823369828](https://github.com/wu162/NewSdk/actions/runs/40823369828) 整体 success。基准源码 `1c7ff21f098e972105c410eb586c4f6c8ba32d29`；新版生产来源 `39039961847cd1ca9cb93743fd51741a4e5c9f49`，原版为同源树中未修改的 SDK EXE/DLL。Windows Server 2022、4 逻辑 CPU。54 对/108 个计量样本均通过，另含 2 次启动预热，计量循环合计 91.21 秒；无生产重编译。
+
+本次同机结果中，新版默认热缓存端到端耗时比原版约多 25%～29%；mymod 无缓存基本相当，Armor 子集与合成纹理无缓存约多 8%～9%。这是完整命令行成本对照，包含新版报告、staging 和事务发布；本轮未做纯 Core 的分段归因。
+
+墙钟中位数，单位 ms，单元格均为“老 SDK → 新版”：
+
+| 模式 | mymod（47资产） | Upheaval Armor 子集（12资产） | 合成纹理（16资产） |
+| --- | ---: | ---: | ---: |
+| 无缓存（每边3次） | 899.9 → 882.1 | 618.3 → 667.2 | 897.7 → 977.4 |
+| 仅资产冷（每边1次） | 875.3 → 839.5 | 611.3 → 673.3 | 889.1 → 968.4 |
+| 仅资产热（每边2次） | 895.6 → 879.1 | 592.4 → 672.6 | 581.9 → 658.4 |
+| 仅会话 XML 热 | 576.7 → 746.6 | 578.6 → 711.0 | 562.8 → 745.9 |
+| 仅会话 Deflate 热 | 593.2 → 724.3 | 576.2 → 731.6 | 563.2 → 734.4 |
+| 两缓存 XML 热 | 581.0 → 739.0 | 569.4 → 713.5 | 554.0 → 737.0 |
+| 默认两缓存 Deflate 冷 | 906.4 → 957.1 | 595.9 → 763.7 | 928.3 → 1097.3 |
+| 默认两缓存 Deflate 热 | 593.4 → 741.9 | 571.6 → 713.6 | 567.9 → 731.9 |
+
+mymod 和 Armor 的类型未启用原生资产缓存，bc-only 的两边均不据此声称复用；合成纹理的资产热态，原版日志每次均观察到 16 次缓存复制，新版报告也是 16 hits、0 misses、0 编译。默认热会话在两边均实际载入，新版对应 XML 解析/实例编译为 0。
+
+默认热态的 CPU/峰值工作集（同样老 → 新）：
+
+| 工作量 | CPU ms | 峰值工作集 MiB | 新/老墙钟比 |
+| --- | ---: | ---: | ---: |
+| mymod | 585.9 → 742.2 | 43.91 → 45.69 | 1.250 |
+| Armor 子集 | 570.3 → 710.9 | 44.12 → 44.39 | 1.248 |
+| 合成纹理 | 570.3 → 757.8 | 44.10 → 44.23 | 1.289 |
+
+原版与新版的三组基线均恰好四流，所有 108 个样本都与对应原版基线成员/长度/SHA256 相同，逐对原始字节比较通过。本轮未包含产生 CDATA 的输入，CDATA 性能不由本轮证明。全部共享 SDK（14715 文件、125887928 字节）、MOD 文件、原/新版运行库、资源根存在性保持不变；每个实际新报告都确认了共享路径及搜索顺序。完整旧 SDK 默认工具及业务 DLL 未替换，只适配 CLR4 startup。
+
+[完整 CSV](../evidence/refactor/sdk-benchmark/40823369828-1/comparison.csv)、[108 次原始计量 JSON](../evidence/refactor/sdk-benchmark/40823369828-1/comparison.json)、[所有统计及 min–max](../evidence/refactor/sdk-benchmark/40823369828-1/comparison.md)、[原版准备与共同路径](../evidence/refactor/sdk-benchmark/40823369828-1/original-preparation.json)、[输入摘要](../evidence/refactor/sdk-benchmark/40823369828-1/shared-inputs.summary.json)、[来源校验](../evidence/refactor/sdk-benchmark/40823369828-1/provenance.json)。完整共享输入逐文件清单、逐次请求/报告/日志和两边原始四流保存在[运行产物](https://github.com/wu162/NewSdk/actions/runs/40823369828/artifacts/12876025513)，外层归档 SHA256 `1d99621681939a5ea55c56635ae8ca67f77dc58794a89c4e7b4f8fafa0d7be8a` 已在本地复算并逐项验证。
+
+无缓存样本每边 n=3，热态 n=2，冷态 n=1；小样本只描述本次 VM 及这些工作量，不推广到完整 Upheaval。不同运行 VM 的绝对速度有差异，本表完全来自同一次配对运行，不混用先前单引擎结果。
+
 ## 输入一致性
 
 - 两边共用同一个物理 MOD 目录和同一个 `Data/Mod.xml`，不为某一边删改 XML、改类型或缩小资源。完整 mymod、11 个原始 Upheaval Armor 文档/12 资产的子集、16 个合成 Texture 分别统计；工作量沿用已有[缓存基准](CACHE_BENCHMARK.md)。
@@ -30,3 +65,9 @@ python recovery/scripts/BenchmarkCompilerSdkComparison.py --preparation "$env:RU
 ```
 
 准备器支持复用本地已下载归档，详见基础缓存基准。输出及工作目录必须不存在；原版混合工具使用短工作路径。工作流为 `.github/workflows/compiler-sdk-benchmark.yml`，显式 `[sdk-benchmark]` 提交或手动触发；不重复运行生产编译与完整 SDK 验收。
+
+## 保留的前序记录
+
+[40822449926](https://github.com/wu162/NewSdk/actions/runs/40822449926) 为 Windows 路径别名/斜杠测试断言失败，计量未启动，保留 failure。
+
+[40822714583](https://github.com/wu162/NewSdk/actions/runs/40822714583) 已 success，输入及原始输出一致，108 次计量及预热约 70.6 秒；日志复核发现 `/sc:false` 下原版仍加载前轮 `StringHashes.xml`，后续将无会话模式的元数据目录也逐轮更新。原成功终态及其[统计](../evidence/refactor/sdk-benchmark/40822714583-1/comparison.csv)保留，当前正式比较统一使用上面的修正后同机运行。

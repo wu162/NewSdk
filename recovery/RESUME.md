@@ -6,4 +6,6 @@
 
 性能基准已通过运行 `40820325416`，源码 `c39ad93eb5df7f7b7cd78f7028155d14a5094f2b`：复用已验收 Release，54 次构建及启动诊断约 39.6 秒，未重编译生产。mymod 默认热态约减少 19% 耗时，合成纹理资产热态约减少 35%；小型 Upheaval Armor 子集会话缓存略慢。精确范围、全部数据、时间上限及保留失败见[基准说明](docs/CACHE_BENCHMARK.md)。
 
+原 SDK 同输入对照已通过 `40823369828`，基准源码 `1c7ff21f098e972105c410eb586c4f6c8ba32d29`：54 对/108 次计量及两次预热约 91.2 秒，全部原始输出一致。新版本默认热态端到端耗时在本轮比原版多约 25%～29%，mymod 无缓存基本相当。无会话模式已隔离原版隐式 `StringHashes.xml` 复用，物理输入、Schema、搜索顺序与存在性均相同；[完整数据及边界](docs/SDK_BENCHMARK.md)。
+
 先读 [交接](REFACTOR_RESUME.md)，按其中的源码提交、验证运行和待办继续；缓存行为与代码分工见 [缓存说明](docs/LEGACY_INCREMENTAL_CACHE.md)。执行规则见 [EFFICIENCY.md](EFFICIENCY.md)。
