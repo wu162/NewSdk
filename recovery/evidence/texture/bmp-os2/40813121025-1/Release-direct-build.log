@@ -1,0 +1,2 @@
+recovery\tests\TextureBmpOracle.cs(20,58): warning CS0169: The field 'TextureBmpOracle.unsupportedCount' is never used
+recovery\tests\TexturePngOracle.cs(20,58): warning CS0649: Field 'TexturePngOracle.unsupportedCount' is never assigned to, and will always have its default value 0

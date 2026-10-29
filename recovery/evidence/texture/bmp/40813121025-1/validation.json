@@ -1,0 +1,77 @@
+{
+  "scope": "BMP POT BI_RGB decoding versus native LoadImageA; production dispatch and SDK not yet validated",
+  "matrixVersion": 1,
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "transcriptSha256": "3f964332b636062aa04ac5b7f76c9b948eeb49a1b64a154b1eda3cf1d168aec9",
+      "counts": {
+        "decodedMatches": 1080,
+        "mismatches": 0,
+        "assertions": 3250,
+        "originalFailures": 3240,
+        "rejectionMatches": 3240,
+        "fixtures": 4320
+      },
+      "configuration": "Debug",
+      "summary": [
+        "PASS Texture BMP fixtures=4320 decodedMatches=1080 originalFailures=3240 mismatches=0 assertions=3250 rejectionMatches=3240"
+      ],
+      "probeCompleted": false,
+      "passed": true
+    },
+    {
+      "transcriptSha256": "3f964332b636062aa04ac5b7f76c9b948eeb49a1b64a154b1eda3cf1d168aec9",
+      "counts": {
+        "decodedMatches": 1080,
+        "mismatches": 0,
+        "assertions": 3250,
+        "originalFailures": 3240,
+        "rejectionMatches": 3240,
+        "fixtures": 4320
+      },
+      "configuration": "Release",
+      "summary": [
+        "PASS Texture BMP fixtures=4320 decodedMatches=1080 originalFailures=3240 mismatches=0 assertions=3250 rejectionMatches=3240"
+      ],
+      "probeCompleted": false,
+      "passed": true
+    }
+  ],
+  "runId": "40813121025",
+  "probeOnly": false,
+  "runAttempt": "1",
+  "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+  "status": "passed",
+  "sourceFiles": [
+    {
+      "sha256": "c90a517b5b332e4dffc068a8a243ed80860c599ed160375673b369b1f5d4bb65",
+      "path": "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+    },
+    {
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176",
+      "path": "src/TextureCompiler/Managed/TexturePacker.cs"
+    },
+    {
+      "sha256": "93f9e067361970b0233e595df087506176d053e9a92a25426bb8e8ba39130e52",
+      "path": "recovery/tests/TextureBmpOracle.cs"
+    },
+    {
+      "sha256": "a986b27a720cc7ecae9085520bb75fb00f6816d22ae7d513e312d027aca6f8f0",
+      "path": "recovery/scripts/TestTextureBmp.ps1"
+    },
+    {
+      "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+      "path": "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll"
+    },
+    {
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+      "path": "SDK/tools/BinaryAssetBuilder.Core.dll"
+    },
+    {
+      "sha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b",
+      "path": "SDK/tools/BinaryAssetBuilder.Utility.dll"
+    }
+  ],
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e"
+}

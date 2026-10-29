@@ -1,0 +1,12 @@
+{
+  "profile": "PcBmpHeaders",
+  "targetPlatform": "Win32",
+  "error": "Wrong or dirty complete PC package",
+  "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+  "scope": "Dedicated PC BMP core/OS2/V2/V3/V4/V5 BI_RGB and metadata MOD: immutable POT/NPOT raw3/DXT3/5 standard/volume complete mip, transparent DXT1A, and BMP atlas base/normal; three modes/four outputs/complete actual traces; not full production MOD",
+  "runId": "40813121025",
+  "status": "failed",
+  "runAttempt": "1",
+  "modes": [],
+  "sdkValidated": false
+}

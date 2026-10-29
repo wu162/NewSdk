@@ -1,0 +1,32 @@
+{
+  "scope": "PC BMP core/DIB/OS2/gamma/ICC/gaps complete immutable original bytes/errors; direct/public BMP decoding, per-call NoOriginal; 1896 original decode/432 original rejection matches and 288 explicit unrecovered bitfields refusals; plugin/SDK separate",
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS Texture BMP DIB/metadata NoOriginal fixtures=2616 publicCalls=5232 decoded=3792 rejected=864 explicitRefusals=576 boundaryRejections=106 checks=775880 comparedBytes=2673360; full supported original RGBA/error domains; expanded-DIB bitfields refusals are not original error matches, unchanged inputs, absent/unloaded original per call; plugin/SDK separate"
+      ]
+    },
+    {
+      "configuration": "Release",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS Texture BMP DIB/metadata NoOriginal fixtures=2616 publicCalls=5232 decoded=3792 rejected=864 explicitRefusals=576 boundaryRejections=106 checks=775880 comparedBytes=2673360; full supported original RGBA/error domains; expanded-DIB bitfields refusals are not original error matches, unchanged inputs, absent/unloaded original per call; plugin/SDK separate"
+      ]
+    }
+  ],
+  "runId": "40813121025",
+  "probeOnly": false,
+  "runAttempt": "1",
+  "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+  "status": "passed",
+  "originalBaseline": {
+    "runId": "40799686293",
+    "sourceCommit": "511896747c32c7863078b36ad781caae4f3763c1",
+    "samplesSha256": "08715c9547eb6f9fb8ba1745ab3f38b954522439848caa031889c2f73deb069b"
+  }
+}

@@ -1,0 +1,1 @@
+PASS Texture BMP OS2 ProcessInstance differential fixtures=28548 errors=5256 comparedBytes=228551484; core12/OS2-64 raw3/DXT3/5/transparent DXT1A standard/volume/full mip; 108 successful atlas cases; indexed and invalid-volume original errors; three buffers/full cdata/source/old tails and per-call original isolation; SDK separate

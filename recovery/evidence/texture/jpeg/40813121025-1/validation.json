@@ -1,0 +1,46 @@
+{
+  "nativeBinaries": [
+    {
+      "sourceArchiveSha256": "75c3ec241e9996504fe02a9ed4d12f16b74ade713972f3db9e65ce95cd27e35d",
+      "configuration": "Debug",
+      "sha256": "33fa3a8ea31a1f158aeffe1e7c88c03495db5ca229ed6f1478d43bbc7191e853",
+      "machine": "I386"
+    },
+    {
+      "sourceArchiveSha256": "75c3ec241e9996504fe02a9ed4d12f16b74ade713972f3db9e65ce95cd27e35d",
+      "configuration": "Release",
+      "sha256": "5550ab8ee8738a885a8efdfaaf53b24364462f0841908d910ea776bf7110ce2e",
+      "machine": "I386"
+    }
+  ],
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS Texture JPEG public image loader fixtures=1284 decoded=1280 rejected=4 checks=23105 comparedBytes=888960; complete immutable original RGBA/metadata/errors, source invariance, per-call original absent and not loaded"
+      ]
+    },
+    {
+      "configuration": "Release",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS Texture JPEG public image loader fixtures=1284 decoded=1280 rejected=4 checks=23105 comparedBytes=888960; complete immutable original RGBA/metadata/errors, source invariance, per-call original absent and not loaded"
+      ]
+    }
+  ],
+  "probeOnly": false,
+  "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+  "scope": "PC public JPEG ImageLoader: full immutable 1284-case original pixels/metadata/errors, JPEG6b IFAST/fancy and grayscale L8 NPOT store, source invariance and per-call isolated Debug/Release",
+  "runId": "40813121025",
+  "status": "passed",
+  "originalBaseline": {
+    "runId": "40625499544",
+    "sourceCommit": "3f2351f2d0b0adccf416ba6dda7e97d49b5c92f6",
+    "samplesSha256": "b758465f88b831f5952e4700531ffe5b83a9696be6889a8b9d0defdc1eee24a1"
+  },
+  "runAttempt": "1",
+  "sdkValidated": false
+}

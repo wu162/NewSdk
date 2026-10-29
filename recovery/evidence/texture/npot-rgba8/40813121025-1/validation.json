@@ -1,0 +1,39 @@
+{
+  "originalBaselines": [
+    {
+      "runId": "40528237009",
+      "sourceCommit": "a19bb879704cd80ad55202760a160c8af57bbe2d",
+      "samplesSha256": "dca86c4ed1b16c8e118d9e4535317343ddf80866a4eb6bd2f490fc1f0a32c26d"
+    },
+    {
+      "runId": "40529918922",
+      "weightsSha256": "b56e290c73b2240648793c0aa8cf13ccb61c4fbbe6b52ea7cee90768651dd717",
+      "sourceCommit": "678db0127a2ea3620700b44e46093dd6dc2050d1"
+    }
+  ],
+  "scope": "PC D3DX RGBA8 NPOT triangle and public 8-bit decoder dispatch; immutable original LoadImageA corpus and coefficient bits; plugin/SDK acceptance is separate",
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS Texture NPOT RGBA8 isolated component fixtures=1012 coefficientTaps=1851 checks=1361709; complete original LoadImageA RGBA and exact native coefficients; original absent/unloaded per call; 8-bit public decoder dispatch also compared; plugin/SDK acceptance is separate"
+      ]
+    },
+    {
+      "configuration": "Release",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS Texture NPOT RGBA8 isolated component fixtures=1012 coefficientTaps=1851 checks=1361709; complete original LoadImageA RGBA and exact native coefficients; original absent/unloaded per call; 8-bit public decoder dispatch also compared; plugin/SDK acceptance is separate"
+      ]
+    }
+  ],
+  "runId": "40813121025",
+  "probeOnly": false,
+  "runAttempt": "1",
+  "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+  "status": "passed"
+}
