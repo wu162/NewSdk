@@ -6,6 +6,21 @@ Build on Windows with .NET Framework 4.8 targeting support:
 dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c Release
 ```
 
+To build the complete PC plugin package, use an x86 MSVC developer shell with
+the .NET 8 SDK and .NET Framework 4.8 targeting support:
+
+```powershell
+./recovery/scripts/BuildTextureCompiler.ps1 -Destination ./work/texture-pc-package -Configuration Release
+```
+
+Use a new, empty output directory. The package contains the managed plugin,
+PublicS3 and IJG6b native backends, the two independent colour/alpha API helpers,
+source/runtime fingerprints, build logs and upstream notices/provenance. It
+does not change the source SDK. Configure the existing host with the plugin
+type recorded in `manifest.json`; its README lists deployment prerequisites.
+The dedicated BMP SDK validates this actual package, separately from a build
+succeeding. Current acceptance status remains in the recovery handoff.
+
 The plugin accepts only Win32. Non-PC initialization is rejected. PS3-only mip/cubic encoders and their test/workflow entrypoints have been removed. Original SDK binaries, platform enum definitions and immutable historical evidence remain unchanged.
 
 Implemented PC scope: metadata, image rules/options, full TerrainTextureAtlas packing/DXT5+RGB555 fixed-five-level DDS/runtime and relocation, native buffer helpers, DDS passthrough, declared POT/NPOT TGA/PNG/BMP/JPEG subsets, three raw DDS formats, DXT3/5 and bounded transparent-block DXT1A compression, full 2D and volume mips, Texture/OnDemandTexture buffers and cdata. No original TextureCompiler DLL fallback.

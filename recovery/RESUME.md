@@ -3,7 +3,8 @@
 - **本轮实现**：core12/OS2-64 BI_RGB16/24/32与OS2-64负高度复用原parser同一存储合同，解除旧24位/正高度限制；索引色保留原BadTextureFile。新组覆盖1944直接输入、28548插件输入及逐次NoOriginal、完整mip/volume/透明DXT1A和108成功atlas；未验收前不计支持完成。
 - **SDK修复**：原Core哈希预检已在69e6485e/40810778444重现7c4181ec且检查14852唯一ID、消除2694碰撞。该run整体failure：原SDK随后因atlas路径没有tga而退出，非贴图编码差异。现保留BMP字节改合法.tga路径，finally保存failed收据已实测。旧bmp-header-images的200个atlas其实是原/恢复相同路径拒绝，不能称成功atlas；修正并新增明确成功断言后统一复验。
 - **取证完成**：同run bmp-indexed-header-load为probe-only：2025索引色全部稳定原拒绝、96真彩正对照、4243原调用。独立归档审计覆盖完整源/调色板/首次与重复RGBA（各24704字节），不冒充恢复或SDK验收。
-- **下一步**：一次集中[texture-test]组件及仅sdk-PcBmpHeaders，未变成功组继续复用，不跑完整mymod。下一轮功能优先，正确性保底，禁止强推、编译测试仅Actions。
+- **构建与接入**：新增完整PC插件包构建/安装/回滚工具；包含托管插件、S3、IJG、独立颜色/alpha共5 DLL与完整指纹/上游。SDK在临时副本使用实际包并验证安装→完整恢复旧状态→再次安装，不修改生产SDK。新OS2正向SDK输入189/透明27/atlas21加入原批次：总22670资产/模式，含142成功atlas。未验收前均标待验证。
+- **下一步**：一次集中组件及仅sdk-PcBmpHeaders，未变成功组继续复用，不跑完整mymod。功能优先，正确性保底，禁止强推、编译测试仅Actions。
 
 # 当前：BMP BI_RGB组件通过；专用SDK待修ID哈希冲突
 

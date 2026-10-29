@@ -16,3 +16,7 @@
 本轮修正旧BMP atlas测试覆盖：原`TexturePacker.AddTexture`检查的是两条路径中是否含`tga`，不是文件magic。旧BMP组件atlas的双方相同错误只是拒绝对照；旧专用SDK因此失败。现用合法`.tga`路径保存完全相同BMP内容，并对组件atlas增加成功断言。恢复loader仍按文件magic派发，没有将BMP转换为TGA像素或更换源图。
 
 索引色原gold为`69e6485e / 40810778444`的`bmp-indexed-header-load`：2025索引输入全部稳定BadTextureFile，96真彩控制成功，4243原调用。独立归档审计见`evidence/texture/handoffs/20261029-bmp-os2/indexed-archive-audit.json`，2121源文件1014648字节、首次/重复RGBA各24704字节；仍probe-only，不能当作恢复成功锚点。
+
+专用SDK与原BMP headers批次合并：356不可变旧源+189新OS2源，各40资产；64旧透明源+27新OS2透明源，各8资产；50旧atlas源+21新OS2源，各2资产，共22670资产/模式、142正向atlas。原模式/恢复模式/逐次NoOriginal使用完全相同哈希检查后的ID和XML。新OS2源只加原24-bit bottom范围之外的7个DIB/depth/direction变体，未为每种输入另开SDK。完整MOD不重跑。
+
+实际SDK使用`BuildTextureCompiler.ps1`产出的5-DLL包；包内带来源与源码/产物指纹，可用`InstallTextureCompiler.ps1`修改匹配SDK副本的3条贴图根路由，并用`RestoreTextureCompiler.ps1`恢复6个文件原状态。回滚先核验所有当前/备份指纹，拒绝覆盖安装后的新改动。SDK只在临时副本验证安装/回滚/再次安装和最终实际3模式对照；生产SDK树保持原样。构建成功与验收成功分开记录。

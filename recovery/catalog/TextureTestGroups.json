@@ -2224,7 +2224,14 @@
         "recovery/tests/TextureBmpOracle.cs",
         "recovery/reference/compact-icc/**",
         "recovery/tests/TextureBmpHeaderSdkFixtures.cs",
-        "recovery/tests/TextureSdkAssetIds.cs"
+        "recovery/tests/TextureSdkAssetIds.cs",
+        "recovery/scripts/BuildTextureCompiler.ps1",
+        "recovery/scripts/BuildTextureJpeg.ps1",
+        "recovery/scripts/InstallTextureCompiler.ps1",
+        "recovery/scripts/RestoreTextureCompiler.ps1",
+        "src/TextureCompiler/Jpeg/**",
+        "recovery/reference/ijg6b/**",
+        "recovery/tests/TextureBmpOs2Fixtures.cs"
       ],
       "evidence": "recovery/evidence/texture/sdk-bmp-headers/*/validation.json",
       "sdk": true

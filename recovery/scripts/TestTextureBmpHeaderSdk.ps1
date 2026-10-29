@@ -11,21 +11,16 @@ $out=(Resolve-Path $out).Path
 $r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='Dedicated PC BMP core/OS2/V2/V3/V4/V5 BI_RGB and metadata MOD: immutable POT/NPOT raw3/DXT3/5 standard/volume complete mip, transparent DXT1A, and BMP atlas base/normal; three modes/four outputs/complete actual traces; not full production MOD';profile='PcBmpHeaders';targetPlatform='Win32';modes=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 60;throw "$name failed"}}
 try{
- Checked recovered-build {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c Release -o "$work/build" --nologo}
- Checked colour-asm {& ml /nologo /c /coff /safeseh /Fo"$work/colour.obj" (Resolve-Path src/TextureCompiler/Colour/TextureColour.asm).Path}
- Checked colour-native {& cl /nologo /LD /MT /fp:strict /GS- /O2 /Fo"$work/bridge.obj" (Resolve-Path src/TextureCompiler/Colour/TextureColourBridge.cpp).Path "$work/colour.obj" /link /NODEFAULTLIB /NOENTRY /OUT:"$work/Recovered.TextureDxtColour.dll" /IMPLIB:"$work/colour.lib"}
- Checked public-s3 {& "$PSScriptRoot/BuildTexturePublicS3.ps1" -Destination $work -Configuration 'Release'}
-  $r.publicS3Native=@($r.publicS3Native|Where-Object{$_})+@((Get-Content "$work/PublicS3-native.json" -Raw|ConvertFrom-Json))
- Checked alpha-native {& cl /nologo /LD /MT /fp:strict /GS- /O2 /Fo"$work/alpha.obj" (Resolve-Path src/TextureCompiler/Dxt/TextureAlphaQuantizer.cpp).Path /link /NODEFAULTLIB /NOENTRY /OUT:"$work/Recovered.TextureDxtAlpha.dll" /IMPLIB:"$work/alpha.lib"}
- $r.nativeBinaries=@()
- foreach($name in @('Recovered.TextureDxtColour.dll','Recovered.TextureDxtAlpha.dll')){
-  $bytes=[IO.File]::ReadAllBytes("$work/$name");$pe=[BitConverter]::ToInt32($bytes,0x3c)
-  if([BitConverter]::ToUInt16($bytes,$pe+4) -ne 0x14c -or [BitConverter]::ToUInt32($bytes,$pe+40) -ne 0 -or [BitConverter]::ToUInt32($bytes,$pe+128) -ne 0){throw 'Owned native helpers must be x86 with no entry point or imports'}
-  $r.nativeBinaries+=@{name=$name;sha256=(Get-FileHash "$work/$name").Hash.ToLowerInvariant();machine='I386';entryPoint=0;importDirectory=0}
- }
+ Checked package-build {& "$PSScriptRoot/BuildTextureCompiler.ps1" -Destination "$work/package" -Configuration Release}
+ $package=Get-Content "$work/package/manifest.json" -Raw|ConvertFrom-Json
+ if($package.status -ne 'built' -or $package.dirtySource -or $package.runtimeFiles.Count -ne 5 -or $package.sourceCommit -ne $r.sourceCommit -or $package.originalTextureCompilerDistributed){throw 'Wrong or dirty complete PC package'}
+ foreach($file in $package.runtimeFiles){if((Get-FileHash "$work/package/$($file.file)").Hash.ToLowerInvariant() -ne $file.sha256){throw 'Package runtime fingerprint mismatch'}}
+ Copy-Item "$work/package/manifest.json" "$out/package-manifest.json"
+ Compress-Archive -Path "$work/package/*" -DestinationPath "$out/pc-plugin-package.zip"
+ $r.packageArchiveSha256=(Get-FileHash "$out/pc-plugin-package.zip").Hash.ToLowerInvariant();$r.publicS3Native=@($package.publicS3);$r.nativeBinaries=$package.nativeBinaries
  $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
  Copy-Item SDK/tools/*.dll $work
- Copy-Item "$work/build/Recovered.BinaryAssetBuilder.TextureCompiler.dll" $work
+ Copy-Item "$work/package/*.dll" $work
  Checked asset-id-build {& $csc /nologo /platform:x86 /r:"$work/BinaryAssetBuilder.Core.dll" /out:"$work/TextureSdkAssetIds.exe" (Resolve-Path recovery/tests/TextureSdkAssetIds.cs).Path}
  '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TextureSdkAssetIds.exe.config"
  $baseline='recovery/evidence/texture/bmp-header-load/40799686293-1'
@@ -44,9 +39,12 @@ try{
  }
  if(@(Get-ChildItem "$work/fixtures" -File).Count -ne 356){throw 'Expected356 immutable BMP header SDK inputs'}
  $r.originalBaseline=@{sourceCommit=$receipt.sourceCommit;runId=$receipt.runId;samplesSha256=$hash;selected=356;selection='compression0,16x8-or-7x5,pattern0 plus32bit/plain/gap0 all alpha patterns; all DIB/depth/direction/profile/gap combinations'}
- Checked fixture-writer-build {& $csc /nologo /unsafe /platform:x86 /r:System.Drawing.dll /r:"$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll" /main:TextureBmpHeaderSdkFixtures /out:"$work/TextureBmpHeaderSdkFixtures.exe" (Resolve-Path recovery/tests/TextureBmpHeaderSdkFixtures.cs).Path (Resolve-Path recovery/tests/TextureBmpHeaderConsumerFixtures.cs).Path (Resolve-Path recovery/tests/TextureBmpHeaderFixtures.cs).Path (Resolve-Path recovery/tests/TextureBmpOracle.cs).Path}
+ Checked fixture-writer-build {& $csc /nologo /unsafe /platform:x86 /r:System.Drawing.dll /r:"$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll" /main:TextureBmpHeaderSdkFixtures /out:"$work/TextureBmpHeaderSdkFixtures.exe" (Resolve-Path recovery/tests/TextureBmpHeaderSdkFixtures.cs).Path (Resolve-Path recovery/tests/TextureBmpOs2Fixtures.cs).Path (Resolve-Path recovery/tests/TextureBmpHeaderConsumerFixtures.cs).Path (Resolve-Path recovery/tests/TextureBmpHeaderFixtures.cs).Path (Resolve-Path recovery/tests/TextureBmpOracle.cs).Path}
  '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TextureBmpHeaderSdkFixtures.exe.config"
  Checked fixture-write {& "$work/TextureBmpHeaderSdkFixtures.exe" "$work/generated" (Resolve-Path recovery/reference/compact-icc).Path}
+ Copy-Item "$work/generated/os2-*.bmp" "$work/fixtures"
+ if(@(Get-ChildItem "$work/fixtures" -File).Count -ne 545){throw 'Expected356 immutable and189 new OS2 positive source images'}
+ $r.generatedOs2Inputs=189
  $wrapper=(Resolve-Path recovery/tests/TextureDxtSdkTracePlugin.cs).Path
  foreach($mode in @('Original','Recovered','NoOriginal')){
   $sdk=Join-Path $work $mode;Copy-Item SDK $sdk -Recurse
@@ -59,14 +57,14 @@ try{
     $nodes+="<$type id='BmpHeader_$index' File='..\Art\$name' Type='$kind' OutputFormat='$format' GenerateMipMaps='$generate' AllowAutomaticResize='false' />";$index++
    }}}}
   }
-  if($nodes.Count -ne 14240){throw 'Expected14240 BMP headers raw/DXT3/5 assets'};$r.textureAssets=14240
+  if($nodes.Count -ne 21800){throw 'Expected21800 BMP headers raw/DXT3/5 assets'};$r.textureAssets=21800
   foreach($fixture in Get-ChildItem "$work/generated" -File -Filter 'transparent-*'|Sort-Object Name){
    Copy-Item $fixture.FullName "$moddir/Art/$($fixture.Name)";$name=$fixture.Name
    foreach($kind in @('StandardTexture','VolumeTexture')){foreach($generate in @('false','true')){foreach($type in @('Texture','OnDemandTexture')){
     $nodes+="<$type id='BmpHeader_$index' File='..\Art\$name' Type='$kind' OutputFormat='DXT1A' GenerateMipMaps='$generate' AllowAutomaticResize='false' />";$index++
    }}}
   }
-  if($nodes.Count -ne 14752){throw 'Expected512 BMP headers transparent DXT1A assets'};$r.transparentDxt1aAssets=512
+  if($nodes.Count -ne 22528){throw 'Expected728 BMP headers transparent DXT1A assets'};$r.transparentDxt1aAssets=728
   foreach($fixture in Get-ChildItem "$work/generated" -File -Filter 'atlas-*'|Sort-Object Name){
    # The original packer requires "tga" in BOTH path strings, independently
    # of file magic. Keep the immutable/generated BMP payload, with a legal
@@ -76,7 +74,7 @@ try{
     $nodes+="<TerrainTextureAtlas id='BmpHeaderAtlas_$index' AtlasSize='2048' AllowLossyCompression='true'><Tile TextureID='42' BaseTexture='..\Art\$name' NormalTexture='..\Art\$normal' /></TerrainTextureAtlas>";$index++
    }
   }
-  $expectedAssets=$nodes.Count;if($expectedAssets -ne 14852){throw 'Expected14852 BMP headers texture/atlas assets'};$r.atlasAssets=100
+  $expectedAssets=$nodes.Count;if($expectedAssets -ne 22670){throw 'Expected22670 BMP headers texture/atlas assets'};$r.atlasAssets=142
 
   "<?xml version='1.0'?><AssetDeclaration xmlns='uri:ea.com:eala:asset'><Tags />$($nodes -join "`n")</AssetDeclaration>"|Set-Content "$moddir/Data/Mod.xml" -Encoding utf8
   Checked "$mode-asset-ids" {& "$work/TextureSdkAssetIds.exe" "$moddir/Data/Mod.xml" "$out/$mode-asset-ids.tsv" $expectedAssets}
@@ -85,6 +83,16 @@ try{
   if($mode -eq 'Original'){$r.assetIdManifestSha256=$idHash;$r.inputModSha256=$modHash}
   elseif($idHash -ne $r.assetIdManifestSha256 -or $modHash -ne $r.inputModSha256){throw 'Three SDK modes must use identical checked IDs and input XML'}
   $trace="$out/$mode-trace";New-Item -ItemType Directory -Force $trace|Out-Null
+  if($mode -ne 'Original'){
+   $beforeInstallHash=(Get-FileHash "$sdk/tools/BinaryAssetBuilder.exe.config").Hash
+   Checked "$mode-package-install" {& "$work/package/InstallTextureCompiler.ps1" -PackageDirectory "$work/package" -SdkDirectory $sdk -ReceiptPath "$out/$mode-installation.json"}
+   if($mode -eq 'Recovered'){
+    Checked package-restore {& "$work/package/RestoreTextureCompiler.ps1" -ReceiptPath "$out/$mode-installation.json"}
+    if((Get-FileHash "$sdk/tools/BinaryAssetBuilder.exe.config").Hash -ne $beforeInstallHash){throw 'Package restore changed prior SDK configuration'}
+    Checked package-reinstall {& "$work/package/InstallTextureCompiler.ps1" -PackageDirectory "$work/package" -SdkDirectory $sdk -ReceiptPath "$out/$mode-installation.json"}
+    $r.packageRestoreValidated=$true
+   }
+  }
   $cfg="$sdk/tools/BinaryAssetBuilder.exe.config";[xml]$xml=Get-Content $cfg -Raw
   $plugin=@($xml.configuration.assetbuilder.plugins.plugin|Where-Object {$_.assetTypes.Split(',') -contains 'Texture'})
   if($plugin.Count -ne 1){throw 'Texture plugin route is ambiguous'}
@@ -92,13 +100,13 @@ try{
    Checked "$mode-wrapper-build" {& $csc /nologo /target:library /platform:x86 /define:ORIGINAL /r:"$sdk/tools/BinaryAssetBuilder.Core.dll" /r:"$sdk/tools/BinaryAssetBuilder.Utility.dll" /r:"$sdk/tools/BinaryAssetBuilder.TextureCompiler.dll" /out:"$sdk/tools/TextureSdkTrace.dll" $wrapper}
   }else{
    $wrapperDefines=@();if($mode -eq 'NoOriginal'){$wrapperDefines=@('/define:NO_ORIGINAL')}
-   Copy-Item "$work/build/Recovered.BinaryAssetBuilder.TextureCompiler.dll","$work/Recovered.TextureDxtColour.dll","$work/Recovered.TextureDxtAlpha.dll","$work/Recovered.TexturePublicS3.dll" "$sdk/tools"
+   if($plugin[0].targetType -ne $package.pluginType){throw 'Package installer did not set the actual Texture plugin route'}
    Checked "$mode-wrapper-build" {& $csc /nologo /target:library /platform:x86 $wrapperDefines /r:"$sdk/tools/BinaryAssetBuilder.Core.dll" /r:"$sdk/tools/BinaryAssetBuilder.Utility.dll" /r:"$sdk/tools/Recovered.BinaryAssetBuilder.TextureCompiler.dll" /out:"$sdk/tools/TextureSdkTrace.dll" $wrapper}
    if($mode -eq 'NoOriginal'){Remove-Item "$sdk/tools/BinaryAssetBuilder.TextureCompiler.dll" -Force}
   }
   $plugin[0].SetAttribute('targetType','TextureSdkTracePlugin, TextureSdkTrace');$plugin[0].SetAttribute('useBuildCache','false')
-  $startup=$xml.CreateElement('startup');$startup.SetAttribute('useLegacyV2RuntimeActivationPolicy','true')
-  $runtime=$xml.CreateElement('supportedRuntime');$runtime.SetAttribute('version','v4.0');[void]$startup.AppendChild($runtime);[void]$xml.configuration.AppendChild($startup);$xml.Save($cfg)
+  $startup=$xml.configuration.startup;if($null -eq $startup){$startup=$xml.CreateElement('startup');[void]$xml.configuration.AppendChild($startup)};$startup.SetAttribute('useLegacyV2RuntimeActivationPolicy','true')
+  $runtime=$startup.supportedRuntime;if($null -eq $runtime){$runtime=$xml.CreateElement('supportedRuntime');[void]$startup.AppendChild($runtime)};$runtime.SetAttribute('version','v4.0');$xml.Save($cfg)
   Copy-Item $cfg "$out/$mode.config"
   if($mode -eq 'Original'){Copy-Item "$moddir/Data/Mod.xml" "$out/input-Mod.xml";$r.fixtureFiles=@(Get-ChildItem "$moddir/Art" -File|Sort-Object Name|ForEach-Object {@{name=$_.Name;bytes=$_.Length;sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})}
   if($mode -eq 'NoOriginal' -and (Test-Path "$sdk/tools/BinaryAssetBuilder.TextureCompiler.dll")){throw 'Original TextureCompiler present in isolated SDK'}
@@ -118,6 +126,8 @@ try{
   if(@($calls|Where-Object Stage -eq 'failure').Count -ne 0){throw "$mode plugin failure trace"}
   $success=@($calls|Where-Object Stage -eq 'success');$unique=@($success|ForEach-Object {"$($_.TypeId):$($_.InstanceId)"}|Sort-Object -Unique)
   if($unique.Count -ne $expectedAssets -or $success.Count -lt $expectedAssets){throw "$mode expected $expectedAssets unique actual Core texture calls; found $($unique.Count)"}
+  $atlasCalls=@($success|Where-Object TypeName -eq 'TerrainTextureAtlas'|ForEach-Object InstanceId|Sort-Object -Unique).Count
+  if($atlasCalls -ne 142){throw "$mode expected142 successful unique atlas calls; found $atlasCalls"}
   $r.modes+=@{mode=$mode;passed=$true;uniqueAssets=$unique.Count;actualCalls=$success.Count;withoutOriginalTextureCompiler=($mode -eq 'NoOriginal');assertedOriginalNotLoadedDuringEveryCall=($mode -eq 'NoOriginal');files=$files}
   Write-Output "PASS $mode real SDK: assets=$($unique.Count) calls=$($success.Count)"
  }
