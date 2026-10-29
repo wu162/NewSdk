@@ -1,0 +1,2 @@
+recovery\tests\TextureBmpHeaderPipelineOracle.cs(15,26): warning CS0169: The field 'TextureBmpHeaderPipelineOracle.rejected' is never used
+recovery\tests\TextureBmpOracle.cs(20,58): warning CS0169: The field 'TextureBmpOracle.unsupportedCount' is never used

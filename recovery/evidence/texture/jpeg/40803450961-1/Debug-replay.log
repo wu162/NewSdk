@@ -1,0 +1,1 @@
+PASS Texture JPEG public image loader fixtures=1284 decoded=1280 rejected=4 checks=23105 comparedBytes=888960; complete immutable original RGBA/metadata/errors, source invariance, per-call original absent and not loaded

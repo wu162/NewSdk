@@ -1,0 +1,1 @@
+PASS Texture NPOT/POT storage public decoder fixtures=4432 decoded=3952 rejected=480 checks=4893795; full original RGBA buffers and original BadTextureFile domains; original absent/unloaded per call; source unchanged; plugin/SDK acceptance separate
