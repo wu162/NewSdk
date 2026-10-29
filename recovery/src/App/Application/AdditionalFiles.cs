@@ -21,7 +21,7 @@ namespace NewModCompiler.Application
             var directories=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach(string root in new[]{sdkRoot,modRoot}) {
                 string additional=Path.Combine(Path.GetFullPath(root),"Additional");
-                if(Directory.Exists(additional)) Discover(additional,"",files,directories,cancellation,warning);
+                if(Directory.Exists(additional)) using(DiagnosticDirectory.Acquire(additional,false)) Discover(additional,"",files,directories,cancellation,warning);
                 else if(File.Exists(additional)) throw new IOException("Additional input must be a directory.");
             }
             if(files.Count==0 && directories.Count==0) return;
@@ -39,19 +39,17 @@ namespace NewModCompiler.Application
             string snapshots=Path.Combine(Path.GetFullPath(staging),".package-additional");
             if(File.Exists(snapshots) || Directory.Exists(snapshots)) throw new IOException("Additional staging directory already exists.");
             var replacements=new Dictionary<string,BigArchiveEntry>(StringComparer.OrdinalIgnoreCase);
+            var buffer=new byte[64*1024];
             int index=0;
             foreach(var file in files.Values.OrderBy(value=>value.Name,StringComparer.Ordinal)) {
                 cancellation.ThrowIfCancellationRequested();
                 if(string.Equals(Path.GetExtension(file.Name),".asset",StringComparison.OrdinalIgnoreCase)) continue;
+                if(index==0)Directory.CreateDirectory(snapshots);
                 string target=Path.Combine(snapshots,(index++).ToString(System.Globalization.CultureInfo.InvariantCulture));
-                using(var guard=DiagnosticDirectory.Acquire(Path.GetDirectoryName(file.Path),false)) {
-                    if((File.GetAttributes(file.Path)&FileAttributes.ReparsePoint)!=0) throw new IOException("Additional input cannot be a reparse point.");
-                    Directory.CreateDirectory(snapshots);
-                    using(var source=new FileStream(file.Path,FileMode.Open,FileAccess.Read,FileShare.Read))
-                    using(var destination=new FileStream(target,FileMode.CreateNew,FileAccess.Write,FileShare.None)) {
-                        byte[] buffer=new byte[64*1024];int read;
-                        while((read=source.Read(buffer,0,buffer.Length))!=0) {cancellation.ThrowIfCancellationRequested();destination.Write(buffer,0,read);}
-                    }
+                using(var source=new FileStream(file.Path,FileMode.Open,FileAccess.Read,FileShare.Read))
+                using(var destination=new FileStream(target,FileMode.CreateNew,FileAccess.Write,FileShare.None)) {
+                    int read;
+                    while((read=source.Read(buffer,0,buffer.Length))!=0) {cancellation.ThrowIfCancellationRequested();destination.Write(buffer,0,read);}
                 }
                 replacements.Add(file.Name,new BigArchiveEntry{Name=file.Name,SourcePath=target});
             }
@@ -68,20 +66,21 @@ namespace NewModCompiler.Application
         static void Discover(string directory,string relative,IDictionary<string,Input> files,ISet<string> directories,CancellationToken cancellation,Action<string> warning)
         {
             cancellation.ThrowIfCancellationRequested();
-            using(var guard=DiagnosticDirectory.Acquire(directory,false)) {
-                if(relative.Length!=0) directories.Add(Canonical(relative));
-                foreach(string file in Directory.GetFiles(directory).OrderBy(value=>value,StringComparer.Ordinal)) {
-                    cancellation.ThrowIfCancellationRequested();
-                    if((File.GetAttributes(file)&FileAttributes.ReparsePoint)!=0) throw new IOException("Additional input cannot be a reparse point.");
-                    string name=Canonical(relative+Path.GetFileName(file));
-                    Input old;
-                    if(warning!=null && files.TryGetValue(name,out old) && !string.Equals(Path.GetExtension(name),".asset",StringComparison.OrdinalIgnoreCase))
-                        warning("Additional overwrite: " + name + " (" + old.Path + " -> " + file + ")");
-                    files[name]=new Input{Name=name,Path=file};
-                }
-                foreach(string child in Directory.GetDirectories(directory).OrderBy(value=>value,StringComparer.Ordinal))
-                    Discover(child,relative+Path.GetFileName(child)+"\\",files,directories,cancellation,warning);
+            if(relative.Length!=0) {
+                if((File.GetAttributes(directory)&FileAttributes.ReparsePoint)!=0)throw new IOException("Additional input directory cannot be a reparse point.");
+                directories.Add(Canonical(relative));
             }
+            foreach(string file in Directory.GetFiles(directory).OrderBy(value=>value,StringComparer.Ordinal)) {
+                cancellation.ThrowIfCancellationRequested();
+                if((File.GetAttributes(file)&FileAttributes.ReparsePoint)!=0) throw new IOException("Additional input cannot be a reparse point.");
+                string name=Canonical(relative+Path.GetFileName(file));
+                Input old;
+                if(warning!=null && files.TryGetValue(name,out old) && !string.Equals(Path.GetExtension(name),".asset",StringComparison.OrdinalIgnoreCase))
+                    warning("Additional overwrite: " + name + " (" + old.Path + " -> " + file + ")");
+                files[name]=new Input{Name=name,Path=file};
+            }
+            foreach(string child in Directory.GetDirectories(directory).OrderBy(value=>value,StringComparer.Ordinal))
+                Discover(child,relative+Path.GetFileName(child)+"\\",files,directories,cancellation,warning);
         }
         static string Canonical(string name) { return name.Replace('/','\\').TrimEnd('\\').ToLowerInvariant(); }
     }
