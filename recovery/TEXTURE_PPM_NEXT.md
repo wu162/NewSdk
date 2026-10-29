@@ -1,3 +1,10 @@
+# PPM原gold已完成；宽整数打包修复待D/R完整回放
+
+- 原探针`7ab33356` / `40836345313`为probe-only：8438输入/16876原调用、6615解码/1823原错误、0重复不确定；候选7918匹配/520不同。完整27764文件与3315060原RGBA字节独立审计通过，归档SHA `00c9854e3f026723d378afa05c1b1241e30c23b7a37f40b718ced2885e7ee339`。全部原hasAlpha=false，NPOT向上POT；这些是原版观察而非正式PPM支持。
+- 已按原字节及完整反例修复IJG行读取器保留宽整数scaled component，按原PC移位OR后转换RGBA；解决额外P6 separator字节大于maxval时的邻通道位溢出，非样本ID分派或输出表。修改前后SHA及差分状态保存在PROVENANCE.json。
+- 本批只运行`public-ppm`完整8438 gold Decode/Load、D/R native/managed和逐次NoOriginal，另60个残缺binary/overflow/null安全拒绝只针对恢复版，不调用原未知域。旧成功46组件复用；生产ImageLoader/Plugin/5-DLL包尚未改变，PPM继续留独立测试分支。
+- 下一步核实完整回放，随后扩展实际插件/raw/DXT/mip/volume/atlas和必要SDK，再普通合入贴图主分支。编译测试仅Actions，禁止强推。
+
 # PPM公开源码适配进行中（独立测试分支，未正式接入）
 
 本轮在`validation/texture-public-ppm`直接修改固定IJG6b `rdppm.c`：保留原文件及版权，另存适配副本与修改前后SHA。使用有界内存、P3/P6判别、PC整数截断、token/comment及binary separator规则；独立native DLL与候选托管程序集，不改生产ImageLoader/项目/插件。

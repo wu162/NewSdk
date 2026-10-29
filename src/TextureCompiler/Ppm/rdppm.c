@@ -107,6 +107,7 @@ typedef struct {
   size_t buffer_width;		/* width of I/O buffer */
   JSAMPLE *rescale;		/* => maxval-remapping array, or NULL */
   unsigned int maxval;
+  unsigned int *wide_rgb; /* retain native PC overflow before packed-channel OR */
 } ppm_source_struct;
 
 typedef ppm_source_struct * ppm_source_ptr;
@@ -205,23 +206,23 @@ get_text_gray_row (j_compress_ptr cinfo, cjpeg_source_ptr sinfo)
 
 METHODDEF(JDIMENSION)
 get_text_rgb_row (j_compress_ptr cinfo, cjpeg_source_ptr sinfo)
-/* This version is for reading text-format PPM files with any maxval */
+/* IJG row traversal with PC truncation and wide intermediate components. */
 {
   ppm_source_ptr source = (ppm_source_ptr) sinfo;
   FILE * infile = source->pub.input_file;
-  register JSAMPROW ptr;
-  register JSAMPLE *rescale = source->rescale;
+  JSAMPROW ptr = source->pub.buffer[0];
+  unsigned int *wide = source->wide_rgb;
   JDIMENSION col;
-
-  ptr = source->pub.buffer[0];
+  int channel;
   for (col = cinfo->image_width; col > 0; col--) {
-    *ptr++ = rescale[read_sample(cinfo, source, infile)];
-    *ptr++ = rescale[read_sample(cinfo, source, infile)];
-    *ptr++ = rescale[read_sample(cinfo, source, infile)];
+    for (channel = 0; channel < 3; channel++) {
+      unsigned int value = read_pbm_integer(cinfo, infile) * 255U / source->maxval;
+      *wide++ = value;
+      *ptr++ = (JSAMPLE)value;
+    }
   }
   return 1;
 }
-
 
 METHODDEF(JDIMENSION)
 get_scaled_gray_row (j_compress_ptr cinfo, cjpeg_source_ptr sinfo)
@@ -246,26 +247,25 @@ get_scaled_gray_row (j_compress_ptr cinfo, cjpeg_source_ptr sinfo)
 
 METHODDEF(JDIMENSION)
 get_scaled_rgb_row (j_compress_ptr cinfo, cjpeg_source_ptr sinfo)
-/* This version is for reading raw-byte-format PPM files with any maxval */
+/* Keep the upstream bounded row input; don't narrow before PC channel packing. */
 {
   ppm_source_ptr source = (ppm_source_ptr) sinfo;
-  register JSAMPROW ptr;
-  register U_CHAR * bufferptr;
-  register JSAMPLE *rescale = source->rescale;
+  JSAMPROW ptr = source->pub.buffer[0];
+  U_CHAR *bufferptr = source->iobuffer;
+  unsigned int *wide = source->wide_rgb;
   JDIMENSION col;
-
-  if (! ReadOK(source->pub.input_file, source->iobuffer, source->buffer_width))
+  int channel;
+  if (!ReadOK(source->pub.input_file, source->iobuffer, source->buffer_width))
     ERREXIT(cinfo, JERR_INPUT_EOF);
-  ptr = source->pub.buffer[0];
-  bufferptr = source->iobuffer;
   for (col = cinfo->image_width; col > 0; col--) {
-    *ptr++ = rescale[byte_sample(cinfo, source, UCH(*bufferptr++))];
-    *ptr++ = rescale[byte_sample(cinfo, source, UCH(*bufferptr++))];
-    *ptr++ = rescale[byte_sample(cinfo, source, UCH(*bufferptr++))];
+    for (channel = 0; channel < 3; channel++) {
+      unsigned int value = UCH(*bufferptr++) * 255U / source->maxval;
+      *wide++ = value;
+      *ptr++ = (JSAMPLE)value;
+    }
   }
   return 1;
 }
-
 
 METHODDEF(JDIMENSION)
 get_raw_row (j_compress_ptr cinfo, cjpeg_source_ptr sinfo)
@@ -371,6 +371,9 @@ start_input_ppm (j_compress_ptr cinfo, cjpeg_source_ptr sinfo)
   if (w <= 0 || h <= 0 || maxval <= 0 || w > 8192 || h > 8192 || (unsigned long)w * h >= 16777216UL) /* error check */
     ERREXIT(cinfo, JERR_PPM_NOT);
 
+  source->wide_rgb = (unsigned int *)
+    (*cinfo->mem->alloc_small)((j_common_ptr)cinfo, JPOOL_IMAGE,
+                              (size_t)w * 3 * sizeof(unsigned int));
   source->maxval = maxval;
   cinfo->data_precision = BITS_IN_JSAMPLE; /* we always rescale data to this */
   cinfo->image_width = (JDIMENSION) w;

@@ -35,10 +35,25 @@ __declspec(dllexport) int __cdecl TextureDecodePpm(const unsigned char *input, i
     if ((*source->get_pixel_rows)(&info, source) != 1) ERREXIT(&info, JERR_PPM_NOT);
     for (x = 0; x < info.image_width; ++x) {
       size_t at = ((size_t)y * info.image_width + x) * 4;
-      output[at] = source->buffer[0][x * 3];
-      output[at + 1] = source->buffer[0][x * 3 + 1];
-      output[at + 2] = source->buffer[0][x * 3 + 2];
-      output[at + 3] = 255;
+      ppm_source_ptr ppm = (ppm_source_ptr)source;
+      unsigned int red, green, blue, packed;
+      if (source->get_pixel_rows == get_raw_row) {
+        red = source->buffer[0][x * 3];
+        green = source->buffer[0][x * 3 + 1];
+        blue = source->buffer[0][x * 3 + 2];
+      } else {
+        red = ppm->wide_rgb[x * 3];
+        green = ppm->wide_rgb[x * 3 + 1];
+        blue = ppm->wide_rgb[x * 3 + 2];
+      }
+      /* Native PC parser combines unmasked scaled integers before conversion
+       * to RGBA. Invalid but bounded samples above maxval can affect adjacent
+       * channels; a byte rescale table loses that information. */
+      packed = 0xff000000U | (red << 16) | (green << 8) | blue;
+      output[at] = (unsigned char)(packed >> 16);
+      output[at + 1] = (unsigned char)(packed >> 8);
+      output[at + 2] = (unsigned char)packed;
+      output[at + 3] = (unsigned char)(packed >> 24);
     }
   }
   jpeg_destroy_compress(&info); return 1;

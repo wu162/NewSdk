@@ -2530,6 +2530,29 @@
       "manual_only": true,
       "evidence_only": true,
       "priority": 0
+    },
+    "public-ppm": {
+      "script": "recovery/scripts/TestTexturePpm.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Ppm/**",
+        "src/TextureCompiler/Jpeg/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "SDK/tools/*.dll",
+        "recovery/reference/ijg6b/**",
+        "recovery/scripts/BuildTextureJpeg.ps1",
+        "recovery/scripts/BuildTexturePpm.ps1",
+        "recovery/scripts/TestTexturePpm.ps1",
+        "recovery/tests/TexturePpmReplay.cs",
+        "recovery/evidence/texture/ppm-load/40836345313-1/**"
+      ],
+      "evidence": "recovery/evidence/texture/public-ppm/*/validation.json",
+      "sdk": false,
+      "manual_only": false,
+      "evidence_only": false,
+      "priority": 0
     }
   },
   "targetPlatform": "Win32"
