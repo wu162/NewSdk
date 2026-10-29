@@ -1,0 +1,1 @@
+PASS native PC resource NoOriginal unlockCases=8192 lifetimeCases=72 parentViewSequences=16 nestedViewSequences=16 atomicOperations=32768 traceBytes=1083524; full state/storage/ownership and uint32 boundaries; type9/GPU contexts and LockRect excluded

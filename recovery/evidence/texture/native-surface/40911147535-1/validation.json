@@ -1,0 +1,11 @@
+{
+  "configurations": [],
+  "sdkValidated": false,
+  "runId": "40911147535",
+  "runAttempt": "1",
+  "error": "Native x86 PC surface build failed",
+  "scope": "Native x86 PC type3 complete mip/packed/border/tiled/array format layout and public LockRect, full state/owned-storage differential and isolation; no mixed-mode identity/nontexture descriptors or production package claim",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "sourceCommit": "44972e435c5a90cb3ab0b0b5b71c5dbd61d76401",
+  "status": "failed"
+}

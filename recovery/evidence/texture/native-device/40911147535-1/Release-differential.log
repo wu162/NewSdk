@@ -1,0 +1,1 @@
+PASS native PC device differential factoryCases=1024 liveDevices=16 workerCases=64 refcountBoundaries=6 fullObjectBytes=21760 commandBytes=4800 traceBytes=29496344; type!=2, full state and allocation lifetime; type2/resources/OOM/mixed-mode identity excluded

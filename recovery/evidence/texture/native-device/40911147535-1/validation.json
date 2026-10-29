@@ -1,0 +1,33 @@
+{
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "captureSha256": "6711806482d97a2cde2a3d5ade9a1870f1f80f2c7cb9d47cb165df8886b2a5c8",
+      "nativeSha256": "01bc1035a14a144eb3b43ad38738156a0bc3d4b42dadd9ca308099fbe0f1239a",
+      "passed": true,
+      "summary": [
+        "PASS native PC device differential factoryCases=1024 liveDevices=16 workerCases=64 refcountBoundaries=6 fullObjectBytes=21760 commandBytes=4800 traceBytes=29496344; type!=2, full state and allocation lifetime; type2/resources/OOM/mixed-mode identity excluded",
+        "PASS native PC device NoOriginal factoryCases=1024 liveDevices=16 workerCases=64 refcountBoundaries=6 fullObjectBytes=21760 commandBytes=4800 traceBytes=29496344; type!=2, full state and allocation lifetime; type2/resources/OOM/mixed-mode identity excluded"
+      ],
+      "configuration": "Debug"
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "captureSha256": "6711806482d97a2cde2a3d5ade9a1870f1f80f2c7cb9d47cb165df8886b2a5c8",
+      "nativeSha256": "d4666633ab6e1c3a7fcd18183f83f3961b59a92977e7280b296b414d73245222",
+      "passed": true,
+      "summary": [
+        "PASS native PC device differential factoryCases=1024 liveDevices=16 workerCases=64 refcountBoundaries=6 fullObjectBytes=21760 commandBytes=4800 traceBytes=29496344; type!=2, full state and allocation lifetime; type2/resources/OOM/mixed-mode identity excluded",
+        "PASS native PC device NoOriginal factoryCases=1024 liveDevices=16 workerCases=64 refcountBoundaries=6 fullObjectBytes=21760 commandBytes=4800 traceBytes=29496344; type!=2, full state and allocation lifetime; type2/resources/OOM/mixed-mode identity excluded"
+      ],
+      "configuration": "Release"
+    }
+  ],
+  "sdkValidated": false,
+  "runId": "40911147535",
+  "runAttempt": "1",
+  "scope": "Native x86 stdcall PC type!=2 device factory/refcount/final release, complete object/command bytes, real thread ID/allocation semantics and isolated replay; no type2/resource-populated/OOM/CLI identity or production package claim",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "sourceCommit": "44972e435c5a90cb3ab0b0b5b71c5dbd61d76401",
+  "status": "passed"
+}

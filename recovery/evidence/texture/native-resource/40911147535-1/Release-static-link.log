@@ -1,0 +1,1 @@
+PASS native PC resource import-library consumer: stdcall refcount and correct DLL identity; no original compiler

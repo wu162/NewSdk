@@ -1,0 +1,33 @@
+{
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "captureSha256": "2e093d64157520ca6bce613240292ecb1fdb91ea8602bbc13b7492a10afffac6",
+      "nativeSha256": "fca1ba2070221d7249fdff725abb2033a68e03ee1026d75d442d55cc860d13be",
+      "passed": true,
+      "summary": [
+        "PASS native PC resource differential unlockCases=8192 lifetimeCases=72 parentViewSequences=16 nestedViewSequences=16 atomicOperations=32768 traceBytes=1083524; full state/storage/ownership and uint32 boundaries; type9/GPU contexts and LockRect excluded",
+        "PASS native PC resource NoOriginal unlockCases=8192 lifetimeCases=72 parentViewSequences=16 nestedViewSequences=16 atomicOperations=32768 traceBytes=1083524; full state/storage/ownership and uint32 boundaries; type9/GPU contexts and LockRect excluded"
+      ],
+      "configuration": "Debug"
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "captureSha256": "2e093d64157520ca6bce613240292ecb1fdb91ea8602bbc13b7492a10afffac6",
+      "nativeSha256": "0bc3d74482ff24a3d234372f0606eb50aadedaba2a4b87be97734ee7b861b843",
+      "passed": true,
+      "summary": [
+        "PASS native PC resource differential unlockCases=8192 lifetimeCases=72 parentViewSequences=16 nestedViewSequences=16 atomicOperations=32768 traceBytes=1083524; full state/storage/ownership and uint32 boundaries; type9/GPU contexts and LockRect excluded",
+        "PASS native PC resource NoOriginal unlockCases=8192 lifetimeCases=72 parentViewSequences=16 nestedViewSequences=16 atomicOperations=32768 traceBytes=1083524; full state/storage/ownership and uint32 boundaries; type9/GPU contexts and LockRect excluded"
+      ],
+      "configuration": "Release"
+    }
+  ],
+  "sdkValidated": false,
+  "runId": "40911147535",
+  "runAttempt": "1",
+  "scope": "Native x86 PC raw memory-resource AddRef/Release/UnlockRect, complete state/payload/parent hierarchy/VM lifetime and atomic updates; no LockRect/type9/GPU context/CLI identity or production package claim",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "sourceCommit": "44972e435c5a90cb3ab0b0b5b71c5dbd61d76401",
+  "status": "passed"
+}

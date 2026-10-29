@@ -1,0 +1,17 @@
+TextureNativeSurfaceApi.cpp
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(37): error C2589: '(': illegal token on right side of '::'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(37): error C2059: syntax error: ')'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(47): error C2589: '(': illegal token on right side of '::'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(47): error C2059: syntax error: ')'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(66): error C2589: '(': illegal token on right side of '::'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(66): error C2059: syntax error: ')'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(66): error C2589: '(': illegal token on right side of '::'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(66): error C2059: syntax error: ')'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(67): error C2589: '(': illegal token on right side of '::'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(67): error C2059: syntax error: ')'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(96): error C2589: '(': illegal token on right side of '::'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(96): error C2059: syntax error: ')'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(96): error C2737: 'end': const object must be initialized
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(97): error C2589: '(': illegal token on right side of '::'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(97): error C2059: syntax error: ')'
+D:\a\NewSdk\NewSdk/src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp(97): error C2737: 'begin': const object must be initialized
