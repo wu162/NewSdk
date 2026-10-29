@@ -196,6 +196,17 @@ public class SessionCache : ISessionCache
 	// Initialization can reject an obsolete serialized session without throwing.
 	public bool HasCachedState => _Last != null;
 
+	public bool HasChanges { get; private set; }
+	public bool LoadedCompressed { get; private set; }
+	private bool _ReadOnlySource;
+
+	public void LoadCacheFrom(string source, string output)
+	{
+		_ReadOnlySource = true;
+		try { LoadCache(source); }
+		finally { _ReadOnlySource = false; _cacheFileName = output; }
+	}
+
 	public virtual uint AssetCompilersVersion
 	{
 		get
@@ -204,12 +215,14 @@ public class SessionCache : ISessionCache
 		}
 		set
 		{
+			if (_Current.AssetCompilersVersion != value) HasChanges = true;
 			_Current.AssetCompilersVersion = value;
 		}
 	}
 
 	public virtual void LoadCache(string sessionCachePath)
 	{
+		LoadedCompressed = !string.IsNullOrEmpty(sessionCachePath) && File.Exists(sessionCachePath + ".deflate");
 		if (!string.IsNullOrEmpty(sessionCachePath))
 		{
 			try
@@ -238,14 +251,14 @@ public class SessionCache : ISessionCache
 			{
 				try
 				{
-					File.Move(sessionCachePath, sessionCachePath + ".corrupt");
+					if (!_ReadOnlySource) File.Move(sessionCachePath, sessionCachePath + ".corrupt");
 				}
 				catch
 				{
 				}
 				try
 				{
-					File.Move(sessionCachePath + ".deflate", sessionCachePath + ".deflate.corrupt");
+					if (!_ReadOnlySource) File.Move(sessionCachePath + ".deflate", sessionCachePath + ".deflate.corrupt");
 				}
 				catch
 				{
@@ -263,6 +276,7 @@ public class SessionCache : ISessionCache
 
 	public virtual void InitializeCache(List<string> knownChangedFiles)
 	{
+		HasChanges = false;
 		_Current = new CurrentState();
 		_dirtyStreams = new List<string>();
 		checkFiles(knownChangedFiles);
@@ -275,6 +289,7 @@ public class SessionCache : ISessionCache
 		{
 			_Tracer.TraceInfo("Cached session data not available.");
 			_Current.FromScratch();
+			HasChanges = true;
 			_dirtyStreams = null;
 		}
 	}
@@ -333,6 +348,7 @@ public class SessionCache : ISessionCache
 					}
 				}
 			}
+			HasChanges = true;
 			num++;
 			if (!flag && !knownChangedFiles.Contains(fileItem.HashItem.Path))
 			{
@@ -376,6 +392,7 @@ public class SessionCache : ISessionCache
 			File.Move(text, text + ".old");
 		}
 		File.Move(text + ".tmp", text);
+		HasChanges = false; LoadedCompressed = compressed;
 	}
 
 	public virtual bool TryGetFile(string path, string configuration, TargetPlatform platform, out FileHashItem hashItem)
@@ -401,6 +418,7 @@ public class SessionCache : ISessionCache
 		string key = path + GetPostfix(configuration, platform);
 		if (_Current.Files.TryGetValue(key, out var value))
 		{
+			if (!Object.ReferenceEquals(value.Document, document) || document.CacheChanged) HasChanges = true;
 			value.Document = document;
 		}
 	}
@@ -429,6 +447,7 @@ public class SessionCache : ISessionCache
 			if (documentItem.HashItem.Exists)
 			{
 				_Current.Files[key] = documentItem;
+				HasChanges = true;
 				if (!_Current.FileConfigs.TryGetValue(key2, out var value))
 				{
 					value = new FileConfig();
@@ -444,6 +463,7 @@ public class SessionCache : ISessionCache
 		if (autoCreateDocument && documentItem.Document == null)
 		{
 			documentItem.Document = new AssetDeclarationDocument();
+			HasChanges = true;
 			if (!_Current.FileConfigs.TryGetValue(key2, out var value2))
 			{
 				value2 = new FileConfig();

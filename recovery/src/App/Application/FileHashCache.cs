@@ -58,6 +58,26 @@ namespace NewModCompiler.Application
         }
         internal void Remember(string key,string value) {used[key]=value;}
 
+        static string PublicationKey(IList<Artifact> artifacts, string directory)
+        {
+            using (var bytes = new MemoryStream())
+            using (var writer = new BinaryWriter(bytes))
+            {
+                writer.Write(directory);
+                foreach (var artifact in System.Linq.Enumerable.OrderBy(artifacts, value => value.Path, StringComparer.Ordinal))
+                { writer.Write(artifact.Path); writer.Write(artifact.Kind); writer.Write(artifact.Size); writer.Write(artifact.Sha256); }
+                writer.Flush(); bytes.Position = 0;
+                using (var hash = SHA256.Create()) return "publication|" + Convert.ToBase64String(hash.ComputeHash(bytes));
+            }
+        }
+        internal bool MatchesPublication(IList<Artifact> artifacts, string directory)
+        {
+            string receipt;
+            if (!TryReceipt(PublicationKey(artifacts, directory), out receipt)) return false;
+            var entries = new JavaScriptSerializer { MaxJsonLength = int.MaxValue }.Deserialize<Dictionary<string,string>>(receipt);
+            foreach (var entry in entries) if (FileIdentity.Stamp(entry.Key) != entry.Value) return false;
+            return true;
+        }
         internal void RecordPublished(IList<Artifact> artifacts, string directory, bool unchanged)
         {
             if (!unchanged)
@@ -71,6 +91,16 @@ namespace NewModCompiler.Application
             }
             foreach (Artifact artifact in artifacts)
                 used[Key(Identity(Path.GetFullPath(artifact.Path)), false)] = artifact.Sha256.ToLowerInvariant();
+            if (unchanged) return;
+            var entries = new Dictionary<string,string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var artifact in artifacts)
+            {
+                entries[artifact.Path] = FileIdentity.Stamp(artifact.Path);
+                for (string parent = Path.GetDirectoryName(artifact.Path); Paths.Contains(directory, parent); parent = Path.GetDirectoryName(parent))
+                    if (!entries.ContainsKey(parent)) entries[parent] = FileIdentity.Stamp(parent); else break;
+            }
+            entries[directory] = FileIdentity.Stamp(directory);
+            Remember(PublicationKey(artifacts, directory), new JavaScriptSerializer { MaxJsonLength = int.MaxValue }.Serialize(entries));
         }
 
         internal void Save()

@@ -34,6 +34,7 @@ namespace NewModCompiler.Application
         int buildCacheHits, buildCacheMisses, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile;
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
+        SchemaSet schemas;
         VerifierPluginRegistry verifiers;
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
@@ -364,7 +365,7 @@ namespace NewModCompiler.Application
                 if (compilers == null)
                 {
                     Func<string,string> hashFile=request == null || request.FileIdentities == null ? (Func<string,string>)null : path=>request.FileIdentities.Hash(path);
-                    BuiltinCompilers candidate = BuiltinCompilers.CreateWithTexture(TargetPlatform.Win32,hashFile);
+                    BuiltinCompilers candidate = request == null ? BuiltinCompilers.CreateWithTexture(TargetPlatform.Win32,hashFile) : BuiltinCompilers.CreateLazyWithTexture(TargetPlatform.Win32,hashFile);
                     try
                     {
                         // The old SDK XML handler was #all, so Core reads its global
@@ -450,20 +451,23 @@ namespace NewModCompiler.Application
                 Settings settings = streamSettings = StreamSettings(context, staging);
                 if (linkedOutputs == null) linkedOutputs = new LinkedOutputCache(outputRoot);
                 string linkScope = Path.Combine(context.Task.Content, Path.GetFileNameWithoutExtension(context.Task.InputPath));
-                settings.PrepareLinkedOutput = stem => linkedOutputs.Restore(linkScope, settings.OutputDirectory, stem);
+                var reusedArtifacts = new List<Artifact>();
+                settings.FindLinkedOutput = stem => linkedOutputs.Find(linkScope, settings.OutputDirectory, stem);
+                settings.ReuseLinkedOutput = (stem, cached) => linkedOutputs.Reuse(stem, cached, reusedArtifacts, request.FileIdentities);
                 processorState = DocumentProcessor.BeginStateScope();
                 report = AssetReport.BeginScope();
                 EnsureProviders();
                 bool packageRestored = false;
                 if (sessionCacheEnabled)
                 {
+                    if (schemas == null) schemas = new SchemaSet(settings.StableSort);
                     if (legacyStore == null) legacyStore = new LegacyCacheStore(outputRoot, RootOption("session-cache-directory", outputRoot), LegacyCacheIdentity(settings));
                     string root = FileNameResolver.GetDataRoot(settings.InputPath);
                     string relative = string.IsNullOrEmpty(root) ? Path.GetFileName(settings.InputPath) : FileNameResolver.GetSafeRelativePath(root, settings.InputPath);
                     relative = Path.Combine(Path.GetDirectoryName(relative), Path.GetFileNameWithoutExtension(relative));
-                    packageRestored = legacyStore.Prepare(settings.SessionCacheDirectory, settings.OutputDirectory, cancellation, relative);
+                    packageRestored = legacyStore.Prepare(settings.SessionCacheDirectory, settings.OutputDirectory, cancellation, relative, copySession: false);
                 }
-                var schemas = new SchemaSet(settings.StableSort);
+                if (schemas == null) schemas = new SchemaSet(settings.StableSort);
                 hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                 cache = new SessionCache();
                 if (sessionCacheEnabled)
@@ -471,7 +475,7 @@ namespace NewModCompiler.Application
                     string sessionPath = Path.Combine(settings.SessionCacheDirectory, LegacyCacheStore.SessionName);
                     try
                     {
-                        cache.LoadCache(sessionPath);
+                        cache.LoadCacheFrom(packageRestored ? legacyStore.PreparedSessionPath : sessionPath, sessionPath);
                         cache.InitializeCache(new List<string>());
                         if (packageRestored && !cache.HasCachedState)
                             throw new InvalidDataException("The restored session has an incompatible format.");
@@ -498,7 +502,7 @@ namespace NewModCompiler.Application
                         hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                         packageRestored = false;
                         cache = new SessionCache();
-                        cache.LoadCache(sessionPath);
+                        cache.LoadCacheFrom(packageRestored ? legacyStore.PreparedSessionPath : sessionPath, sessionPath);
                         cache.InitializeCache(new List<string>());
                     }
                     if (packageRestored) sessionPackageHits++; else sessionPackageMisses++;
@@ -514,7 +518,7 @@ namespace NewModCompiler.Application
                 {
                     SaveLegacySession(cache, settings, cancellation); sessionSaved = true;
                 }
-                artifacts = CollectArtifactsWithHashes(settings.OutputDirectory,request.FileIdentities);
+                artifacts = CollectArtifactsWithHashes(settings.OutputDirectory,request.FileIdentities,reusedArtifacts);
                 linkedOutputs.Stage(linkScope, settings.OutputDirectory, artifacts, cancellation);
                 cancellation.ThrowIfCancellationRequested();
             }
@@ -559,6 +563,7 @@ namespace NewModCompiler.Application
 
         void SaveLegacySession(SessionCache cache, Settings settings, CancellationToken cancellation)
         {
+            if (!cache.HasChanges && cache.LoadedCompressed == compressedSessionCache) return;
             cache.SaveCache(compressedSessionCache);
             legacyStore.Stage(settings.SessionCacheDirectory, settings.OutputDirectory, compressedSessionCache, cancellation);
             if (partialSessionCache) legacyStore.ConfirmPartial();
@@ -579,12 +584,12 @@ namespace NewModCompiler.Application
             using (var bytes = new MemoryStream())
             using (var writer = new BinaryWriter(bytes, System.Text.Encoding.UTF8))
             {
-                writer.Write("NewModCompiler.LegacyCache.Contract.v2.FileIdentity");
+                writer.Write("NewModCompiler.LegacyCache.Contract.v3.SchemaClosure");
                 writer.Write(settings.DataRoot);
                 writer.Write(stableSortEnabled); writer.Write(usePrecompiled); writer.Write(forceSlowCleanup);
                 string config=Path.Combine(sdkRoot,"tools","BinaryAssetBuilder.exe.config");
                 var files = new List<FileIdentity> { FileIdentity.ReadDirectory(Path.GetDirectoryName(config),false).Single(file=>string.Equals(file.Path,config,StringComparison.OrdinalIgnoreCase)) };
-                files.AddRange(FileIdentity.ReadDirectory(Path.Combine(sdkRoot,"Schemas"),true));
+                writer.Write(schemas.ContentIdentity);
                 string runtime = Path.GetDirectoryName(typeof(CoreStreamCompiler).Assembly.Location);
                 files.AddRange(FileIdentity.ReadDirectory(runtime,false).Where(file=>new[] {".exe",".dll",".config"}.Contains(Path.GetExtension(file.Path).ToLowerInvariant())));
                 foreach (FileIdentity file in files.OrderBy(file=>file.Path,StringComparer.Ordinal))
@@ -637,13 +642,13 @@ namespace NewModCompiler.Application
         }
         static IList<Artifact> CollectArtifacts(string output)
         { return CollectArtifactsWithHashes(output,null); }
-        static IList<Artifact> CollectArtifactsWithHashes(string output,FileHashCache hashes)
+        static IList<Artifact> CollectArtifactsWithHashes(string output,FileHashCache hashes, IList<Artifact> reused = null)
         {
             output = Path.GetFullPath(output);
-            var files = SafeFiles(output).ToArray();
-            var result = new List<Artifact>();
+            var files = Directory.Exists(output) ? (hashes == null ? SafeFiles(output) : Directory.EnumerateFiles(output,"*",SearchOption.AllDirectories).OrderBy(path=>path,StringComparer.Ordinal)).ToArray() : new string[0];
+            var result = reused == null ? new List<Artifact>() : new List<Artifact>(reused);
             string[] manifests = files.Where(x => x.EndsWith(".manifest", StringComparison.OrdinalIgnoreCase)).ToArray();
-            if (manifests.Length == 0) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_MISSING", "Core produced no stream manifest.");
+            if (manifests.Length == 0 && result.Count == 0) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_MISSING", "Core produced no stream manifest.");
             var accepted = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var customDirectories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (string manifest in manifests)
@@ -657,6 +662,8 @@ namespace NewModCompiler.Application
                     accepted.Add(file);
                 }
             }
+            if (reused != null) foreach (var artifact in reused)
+                if (artifact.Kind == "stream.manifest") customDirectories.Add(Path.Combine(Path.ChangeExtension(artifact.Path, null), "cdata"));
             foreach (string file in files)
             {
                 // Stream directories may themselves be named cdata. Classify

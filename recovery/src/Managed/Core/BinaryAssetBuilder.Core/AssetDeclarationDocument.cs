@@ -459,8 +459,11 @@ public class AssetDeclarationDocument : IXmlSerializable
 		return null;
 	}
 
+	public bool CacheChanged { get; private set; }
+
 	public void SetChanged(string reason)
 	{
+		CacheChanged = true;
 		_Current.ChangeReason = ((reason == null && _Current.ChangeReason == null) ? string.Empty : reason);
 		_Current.Changed = true;
 	}
@@ -779,6 +782,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 	public void ResetState()
 	{
 		_Current = null;
+		CacheChanged = false;
 	}
 
 	public override string ToString()
@@ -816,6 +820,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			if (!_Current.StreamHints.Contains(item))
 			{
 				_Current.StreamHints.Add(item);
+				CacheChanged = true;
 			}
 		}
 	}

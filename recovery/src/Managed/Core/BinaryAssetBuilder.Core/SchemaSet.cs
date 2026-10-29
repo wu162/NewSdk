@@ -64,6 +64,20 @@ public class SchemaSet
 
 	public XmlSchemaSet Schemas => _Schemas;
 
+	public string ContentIdentity
+	{
+		get
+		{
+			using (var bytes = new MemoryStream())
+			using (var writer = new BinaryWriter(bytes))
+			{
+				foreach (var input in _SchemaContentHashes) { writer.Write(input.Key); writer.Write(input.Value); }
+				writer.Flush(); bytes.Position = 0;
+				using (var hash = SHA256.Create()) return Convert.ToBase64String(hash.ComputeHash(bytes));
+			}
+		}
+	}
+
 	public XmlSchemaType XmlBaseAssetType => _XmlBaseAssetType;
 
 	public XmlSchemaType XmlBaseInheritableAsset => _XmlBaseInheritableAsset;

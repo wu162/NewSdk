@@ -22,6 +22,29 @@ namespace NewModCompiler.Application
         static extern bool GetFileInformationByHandleEx(SafeFileHandle file, int informationClass,
             IntPtr information, uint size);
 
+        // Query one known file/directory. Used by generation receipts so a hot
+        // publication does not recursively enumerate published or read bodies.
+        internal static string Stamp(string path)
+        {
+            using (var handle = CreateFile(path, 0x80, 7, IntPtr.Zero, 3, 0x02200000, IntPtr.Zero))
+            {
+                if (handle.IsInvalid) return null;
+                IntPtr buffer = Marshal.AllocHGlobal(40);
+                try
+                {
+                    if (!GetFileInformationByHandleEx(handle, 0, buffer, 40)) throw new Win32Exception(Marshal.GetLastWin32Error(), path);
+                    if (((FileAttributes)Marshal.ReadInt32(buffer, 32) & FileAttributes.ReparsePoint) != 0) throw new IOException("Cache receipt cannot use reparse points: " + path);
+                    long change = Marshal.ReadInt64(buffer, 24), write = Marshal.ReadInt64(buffer, 16);
+                    if (!GetFileInformationByHandleEx(handle, 1, buffer, 24)) throw new Win32Exception(Marshal.GetLastWin32Error(), path);
+                    long size = Marshal.ReadInt64(buffer, 8);
+                    if (!GetFileInformationByHandleEx(handle, 18, buffer, 24)) throw new Win32Exception(Marshal.GetLastWin32Error(), path);
+                    return Marshal.ReadInt64(buffer, 0).ToString("x16") + Marshal.ReadInt64(buffer, 8).ToString("x16") +
+                        Marshal.ReadInt64(buffer, 16).ToString("x16") + change.ToString("x16") + write.ToString("x16") + size.ToString("x16");
+                }
+                finally { Marshal.FreeHGlobal(buffer); }
+            }
+        }
+
         internal static IList<FileIdentity> ReadDirectory(string root, bool recursive)
         {
             var result=new List<FileIdentity>(); var pending=new Stack<string>(); pending.Push(root);

@@ -38,6 +38,8 @@ public class OutputManager
 	private string _ManifestFile;
 
 	private string _OldManifestFile;
+	private string _CachedLinkedOutput;
+	private bool _ReuseLinked;
 
 	private string _VersionFile;
 
@@ -86,8 +88,15 @@ public class OutputManager
 		_ManifestFile = _OutputDirectory + ".manifest";
 		_OldManifestFile = _OutputDirectory + ".old.manifest";
 		_VersionFile = _OutputDirectory.Remove(_OutputDirectory.LastIndexOf(Settings.Current.CustomPostfix)) + ".version";
-		Settings.Current.PrepareLinkedOutput?.Invoke(_OutputDirectory);
-		if (File.Exists(_OldManifestFile))
+		_CachedLinkedOutput = Settings.Current.FindLinkedOutput?.Invoke(_OutputDirectory);
+		if (_CachedLinkedOutput != null)
+		{
+			_OldManifestFile = _CachedLinkedOutput + ".manifest";
+			_Header = new ManifestHeader();
+			using (var input = File.OpenRead(_OldManifestFile)) _Header.LoadFromStream(input, Settings.Current.BigEndian);
+		}
+		else Settings.Current.PrepareLinkedOutput?.Invoke(_OutputDirectory);
+		if (_CachedLinkedOutput == null && File.Exists(_OldManifestFile))
 		{
 			File.Delete(_OldManifestFile);
 		}
@@ -227,11 +236,17 @@ public class OutputManager
 		{
 			if (_Header.IsLinked == Settings.Current.LinkedStreams && _Header.Version == ManifestHeader.LatestVersion && _Header.StreamChecksum == document.OutputChecksum && _Header.AllTypesHash == allTypesHash)
 			{
-				File.Move(_OldManifestFile, _ManifestFile);
-				_Tracer.TraceInfo("Old manifest is up to date.");
-				return;
+				if (_CachedLinkedOutput != null && LinkedChecksumsMatch(document.OutputChecksum))
+				{
+					_ReuseLinked = true;
+					Settings.Current.ReuseLinkedOutput(_OutputDirectory, _CachedLinkedOutput);
+					return;
+				}
+				if (_CachedLinkedOutput == null) { File.Move(_OldManifestFile, _ManifestFile); return; }
+				_Tracer.TraceInfo("Cached linked data requires regeneration.");
 			}
-			File.Delete(_OldManifestFile);
+			if (_CachedLinkedOutput == null) File.Delete(_OldManifestFile);
+			Directory.CreateDirectory(Path.GetDirectoryName(_ManifestFile));
 			_Tracer.TraceInfo("Regenerating manifest.");
 		}
 		else
@@ -369,8 +384,21 @@ public class OutputManager
 		File.Move(linkPath + ext, linkPathExisting + ext);
 	}
 
+	private bool LinkedChecksumsMatch(uint checksum)
+	{
+		foreach (string extension in new[] { ".bin", ".imp", ".relo" })
+			using (var input = File.OpenRead(_CachedLinkedOutput + extension))
+			using (var reader = new BinaryReader(input))
+			{
+				uint expected = Settings.Current.BigEndian ? ((checksum & 255) << 24) | ((checksum & 65280) << 8) | ((checksum >> 8) & 65280) | (checksum >> 24) : checksum;
+				if (input.Length < 4 || reader.ReadUInt32() != expected) return false;
+			}
+		return true;
+	}
+
 	public void LinkStream(AssetDeclarationDocument document)
 	{
+		if (_ReuseLinked) return;
 		string text = _OutputDirectory + ".temp";
 		string outputDirectory = _OutputDirectory;
 		uint num = document.OutputChecksum;

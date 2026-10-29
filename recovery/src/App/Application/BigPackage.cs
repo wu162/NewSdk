@@ -57,7 +57,7 @@ namespace NewModCompiler.Application
                 }
                 string name="Data\\"+(owner.Content=="base" ? "" : (owner.Content=="apt" ? "AptUI" : "AdditionalMaps")+"\\")+relative;
                 if(!names.Add(name)) throw new IOException("Case-insensitive BIG archive path collision.");
-                entries.Add(new BigArchiveEntry {Name=name,SourcePath=artifact.Path});
+                entries.Add(new BigArchiveEntry {Name=name,SourcePath=artifact.ContentPath});
             }
             foreach(var pair in owners) if(pair.Value.Count!=4) throw new IOException("BIG packaging requires all four linked files for every selected stream.");
             IList<BigArchiveEntry> additional=request.IncludeAdditional ? AdditionalFiles.Inputs(request.SdkRoot,request.ModRoot,cancellation,warning) : new BigArchiveEntry[0];
@@ -77,7 +77,7 @@ namespace NewModCompiler.Application
             // a private package copy, never Core/cache outputs.
             foreach(var task in plan.Tasks) if(task.Content=="base") {
                 cancellation.ThrowIfCancellationRequested();
-                string manifest=artifacts.Single(value=>string.Equals(Path.GetExtension(value.Path),".manifest",StringComparison.OrdinalIgnoreCase) && Paths.Contains(Path.Combine(staging,task.Content,Path.GetFileNameWithoutExtension(task.InputPath)),value.Path)).Path;
+                string manifest=artifacts.Single(value=>string.Equals(Path.GetExtension(value.Path),".manifest",StringComparison.OrdinalIgnoreCase) && Paths.Contains(Path.Combine(staging,task.Content,Path.GetFileNameWithoutExtension(task.InputPath)),value.Path)).ContentPath;
                 if(request.FixNeutralAssets) {
                     string originalRoot=Path.GetDirectoryName(manifest);
                     manifest=BasePostProcessor.Prepare(manifest,request.SdkRoot,Path.Combine(staging,".package-neutral"),cancellation);
@@ -149,7 +149,7 @@ namespace NewModCompiler.Application
         }
         static void Verify(Artifact artifact,string staging)
         {
-            if(artifact==null || string.IsNullOrEmpty(artifact.Path) || !Path.IsPathRooted(artifact.Path) || !Paths.Contains(staging,artifact.Path) || !File.Exists(artifact.Path)) throw new IOException("BIG input must be an accepted current staging file.");
+            if(artifact==null || string.IsNullOrEmpty(artifact.Path) || !Path.IsPathRooted(artifact.Path) || !Paths.Contains(staging,artifact.Path) || (!artifact.Verified && !File.Exists(artifact.Path))) throw new IOException("BIG input must be an accepted current staging file.");
             if(artifact.Verified)return;
             using(DiagnosticDirectory.Acquire(Path.GetDirectoryName(artifact.Path),false)) {
                 if((File.GetAttributes(artifact.Path)&(FileAttributes.Directory|FileAttributes.ReparsePoint))!=0 || new FileInfo(artifact.Path).Length!=artifact.Size || Hash(artifact.Path)!=artifact.Sha256) throw new IOException("BIG input changed after compilation.");

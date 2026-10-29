@@ -69,6 +69,8 @@ namespace NewModCompiler.Application
         public string Kind { get; set; }
         public long Size { get; set; }
         public string Sha256 { get; set; }
+        internal string BackingPath { get; set; }
+        internal string ContentPath { get { return BackingPath ?? Path; } }
         internal bool Verified { get; set; }
         internal bool Published { get; set; }
     }

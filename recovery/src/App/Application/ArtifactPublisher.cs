@@ -59,7 +59,7 @@ namespace NewModCompiler.Application
             using (DiagnosticDirectory.Acquire(staging, false))
             {
                 if (File.Exists(destination)) throw new IOException("Publication destination is a file.");
-                if (Directory.Exists(destination)) RejectReparseTree(destination);
+                if (!owned && Directory.Exists(destination)) RejectReparseTree(destination);
                 try
                 {
                     var result = new List<Artifact>();
@@ -76,15 +76,16 @@ namespace NewModCompiler.Application
                         DiagnosticDirectory.ValidateSyntax(source);
                         using (owned ? null : DiagnosticDirectory.Acquire(Path.GetDirectoryName(source), false))
                         {
-                            if ((File.GetAttributes(source) & (FileAttributes.ReparsePoint | FileAttributes.Directory)) != 0)
+                            if (!owned && (File.GetAttributes(source) & (FileAttributes.ReparsePoint | FileAttributes.Directory)) != 0)
                                 throw new IOException("Publication artifact must be an ordinary file.");
                             string relative = source.Substring(sourceRoot.TrimEnd('\\', '/').Length).TrimStart('\\', '/');
                             if (!paths.Add(relative)) throw new IOException("Duplicate publication artifact path.");
-                            if (new FileInfo(source).Length != artifact.Size) throw new IOException("Publication source size changed.");
+                            if (!owned && new FileInfo(source).Length != artifact.Size) throw new IOException("Publication source size changed.");
                             result.Add(new Artifact { Path = Path.Combine(destination, relative), Kind = artifact.Kind, Size = artifact.Size, Sha256 = artifact.Sha256 });
                         }
                     }
-                    bool unchanged = Matches(destination, result, cancellation,owned ? request.FileIdentities : null);
+                    bool unchanged = owned && request.FileIdentities != null && request.FileIdentities.MatchesPublication(result, destination);
+                    if (!unchanged) unchanged = Matches(destination, result, cancellation,owned ? request.FileIdentities : null);
                     if (unchanged && !owned)
                         foreach (Artifact artifact in artifacts)
                             if (!string.Equals(Hash(artifact.Path), artifact.Sha256, StringComparison.OrdinalIgnoreCase)) throw new IOException("Publication source hash changed.");
@@ -96,7 +97,7 @@ namespace NewModCompiler.Application
                             cancellation.ThrowIfCancellationRequested();
                             string copy = Path.Combine(prepared, result[index].Path.Substring(destination.Length + 1));
                             Directory.CreateDirectory(Path.GetDirectoryName(copy));
-                            if (owned) File.Copy(artifacts[index].Path, copy);
+                            if (owned) File.Copy(artifacts[index].ContentPath, copy);
                             else if (!string.Equals(CopyAndHash(artifacts[index].Path, copy), artifacts[index].Sha256, StringComparison.OrdinalIgnoreCase))
                                 throw new IOException("Publication source hash changed.");
                         }
@@ -178,7 +179,7 @@ namespace NewModCompiler.Application
             Alive(); if (committed) throw new InvalidOperationException("Publication is already committed.");
             if (Unchanged) { committed = true; Result = new PublicationResult { Status = "CommittedPendingFinalization", Directory = destination, Artifacts = artifacts }; return; }
             if (File.Exists(destination)) throw new IOException("Publication destination is a file.");
-            if (Directory.Exists(destination)) { ArtifactPublisher.RejectReparseTree(destination); Directory.Move(destination, backup); oldMoved = true; }
+            if (Directory.Exists(destination)) { Directory.Move(destination, backup); oldMoved = true; }
             try { Directory.Move(prepared, destination); committed = true; }
             catch (Exception error)
             {
@@ -213,7 +214,6 @@ namespace NewModCompiler.Application
             {
             if (committed && !Unchanged)
             {
-                ArtifactPublisher.RejectReparseTree(destination);
                 Directory.Delete(destination, true); committed = false;
             }
             if (oldMoved) { Directory.Move(backup, destination); oldMoved = false; }

@@ -359,7 +359,7 @@ namespace NewModCompiler.Application
         }
         static void ValidateArtifact(Artifact artifact,string streamDirectory)
         {
-            if (artifact == null || string.IsNullOrEmpty(artifact.Path) || !Paths.Contains(streamDirectory,artifact.Path) || !File.Exists(artifact.Path)) throw new BuildFailure(ExitCode.Output,"ARTIFACT_INVALID","Backend artifacts must be existing files within the current stream workspace.");
+            if (artifact == null || string.IsNullOrEmpty(artifact.Path) || !Paths.Contains(streamDirectory,artifact.Path) || (!artifact.Verified && !File.Exists(artifact.Path))) throw new BuildFailure(ExitCode.Output,"ARTIFACT_INVALID","Backend artifacts must be existing files within the current stream workspace.");
             artifact.Path = Path.GetFullPath(artifact.Path);
             if (!artifact.Verified) {
                 artifact.Size=new FileInfo(artifact.Path).Length;

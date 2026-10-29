@@ -11,6 +11,8 @@ public class Settings : ICloneable
 
 	[XmlIgnore]
 	public Action<string> PrepareLinkedOutput { get; set; }
+	public Func<string, string> FindLinkedOutput { get; set; }
+	public Action<string, string> ReuseLinkedOutput { get; set; }
 
 	private string _SchemaPath;
 

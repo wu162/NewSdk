@@ -30,6 +30,7 @@ namespace NewModCompiler.Application
         private readonly List<BuiltinCompilerRoute> routes = new List<BuiltinCompilerRoute>();
         private PluginRegistry registry;
         private bool disposed;
+        private bool lazy;
         public static IList<BuiltinCompilerRoute> ExpectedRoutes { get { return expected; } }
         public IList<BuiltinCompilerRoute> Routes { get { return routes.AsReadOnly(); } }
         public IList<IAssetBuilderPlugin> Plugins { get { return plugins.AsReadOnly(); } }
@@ -55,11 +56,16 @@ namespace NewModCompiler.Application
             return CreateCore(platform,true,hashFile);
         }
 
-        private static BuiltinCompilers CreateCore(TargetPlatform platform, bool includeTexture,Func<string,string> hashFile=null)
+        internal static BuiltinCompilers CreateLazyWithTexture(TargetPlatform platform, Func<string,string> hashFile)
+        {
+            return CreateCore(platform, true, hashFile, true);
+        }
+
+        private static BuiltinCompilers CreateCore(TargetPlatform platform, bool includeTexture,Func<string,string> hashFile=null, bool lazy=false)
         {
             if (platform != TargetPlatform.Win32)
                 throw new NotSupportedException("The production compiler supports only Win32.");
-            BuiltinCompilers result = new BuiltinCompilers();
+            BuiltinCompilers result = new BuiltinCompilers { lazy = lazy };
             try
             {
                 result.Add("gameobject", false, () => new Recovered.GameObject.Plugin());
@@ -73,7 +79,9 @@ namespace NewModCompiler.Application
                     result.descriptors.Add(PluginDescriptor.CreateBuiltin(
                         "Texture,OnDemandTexture,TerrainTextureAtlas", true, () =>
                         {
-                            var adapter = NewModCompiler.Compatibility.LegacyTextureAdapter.Load(hashFile);
+                            IAssetBuilderPlugin adapter = lazy
+                                ? (IAssetBuilderPlugin)new LazyPlugin(() => NewModCompiler.Compatibility.LegacyTextureAdapter.Load(hashFile), 4202u)
+                                : NewModCompiler.Compatibility.LegacyTextureAdapter.Load(hashFile);
                             result.plugins.Add(adapter);
                             return adapter;
                         }));
@@ -86,10 +94,10 @@ namespace NewModCompiler.Application
                     foreach (string name in new[] { "Texture", "OnDemandTexture", "TerrainTextureAtlas" })
                     {
                         uint id = InstanceHandle.GetTypeId(name);
-                        var info = result.registry.GetPlugin(id).GetExtendedTypeInformation(id);
-                        if (info == null || info.TypeId != id || info.TypeName != name)
+                        var info = lazy ? null : result.registry.GetPlugin(id).GetExtendedTypeInformation(id);
+                        if (!lazy && (info == null || info.TypeId != id || info.TypeName != name))
                             throw new InvalidOperationException("Missing texture route: " + name);
-                        result.routes.Add(new BuiltinCompilerRoute(id, name, info.TypeHash, "texture", true));
+                        result.routes.Add(new BuiltinCompilerRoute(id, name, lazy ? 0u : info.TypeHash, "texture", true));
                     }
                 }
                 return result;
@@ -110,7 +118,9 @@ namespace NewModCompiler.Application
             if (names.Count == 0) throw new InvalidOperationException("Missing built-in family: " + family);
             descriptors.Add(PluginDescriptor.CreateBuiltin(String.Join(",", names), useBuildCache, () =>
             {
-                IAssetBuilderPlugin plugin = factory();
+                uint version = family == "xml" ? 4u : family == "w3x" ? Recovered.W3x.W3xCatalog.Version(TargetPlatform.Win32) :
+                    family == "audio" ? BinaryAssetBuilder.AudioCompiler.AudioCatalog.Version(TargetPlatform.Win32) : 4100u;
+                IAssetBuilderPlugin plugin = lazy ? (IAssetBuilderPlugin)new LazyPlugin(factory, version) : factory();
                 if (plugin == null) throw new InvalidOperationException("Built-in factory returned null: " + family);
                 plugins.Add(plugin);
                 return plugin;
@@ -156,7 +166,7 @@ namespace NewModCompiler.Application
             if (platform != TargetPlatform.Win32)
                 throw new NotSupportedException("The production compiler supports only Win32.");
             registry.ReInitialize(descriptors.ToArray(), platform);
-            foreach (BuiltinCompilerRoute route in routes)
+            if (!lazy) foreach (BuiltinCompilerRoute route in routes)
                 CheckMetadata(route, registry.GetPlugin(route.TypeId).GetExtendedTypeInformation(route.TypeId));
         }
 
@@ -197,6 +207,46 @@ namespace NewModCompiler.Application
             };
             entries.AddRange(BuiltinXmlRoutes.Entries);
             return entries.AsReadOnly();
+        }
+
+        // Version metadata is the original Win32 contract. Reading aggregate cache
+        // versions must not initialize native providers for unrelated asset types.
+        private sealed class LazyPlugin : IAssetBuilderPlugin, IDisposable
+        {
+            readonly Func<IAssetBuilderPlugin> factory;
+            readonly uint version;
+            IAssetBuilderPlugin instance;
+            TargetPlatform platform;
+            object configuration;
+            bool disposed;
+            public LazyPlugin(Func<IAssetBuilderPlugin> factory, uint version) { this.factory = factory; this.version = version; }
+            IAssetBuilderPlugin Value
+            {
+                get
+                {
+                    if (disposed) throw new ObjectDisposedException("LazyPlugin");
+                    if (instance == null)
+                    {
+                        var created = factory();
+                        instance = created; // Owner disposes even when Initialize fails.
+                        created.Initialize(configuration, platform);
+                        if (created.GetVersionNumber() != version) throw new InvalidOperationException("Built-in provider version mismatch.");
+                    }
+                    return instance;
+                }
+            }
+            public void Initialize(object config, TargetPlatform target) { configuration = config; platform = target; }
+            public void ReInitialize(object config, TargetPlatform target)
+            {
+                if (disposed) throw new ObjectDisposedException("LazyPlugin");
+                configuration = config; platform = target;
+                if (instance != null) instance.ReInitialize(config, target);
+            }
+            public uint GetAllTypesHash() { return 1424942948u; }
+            public uint GetVersionNumber() { return version; }
+            public ExtendedTypeInformation GetExtendedTypeInformation(uint typeId) { return Value.GetExtendedTypeInformation(typeId); }
+            public AssetBuffer ProcessInstance(InstanceDeclaration instance) { return Value.ProcessInstance(instance); }
+            public void Dispose() { if (disposed) return; disposed = true; var owned = instance as IDisposable; if (owned != null) owned.Dispose(); }
         }
 
         private sealed class UnsupportedPlugin : IAssetBuilderPlugin
