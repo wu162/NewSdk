@@ -1,15 +1,11 @@
-# 原 SDK 缓存 + 全认证后端并行迁移（验收中）
+# 原 SDK 缓存 + 全认证后端并行：实现与验收完成
 
-成果分支 `recovery/legacy-sdk-cache`，禁止强推；不合并其他主线，不发布 Release。
+成果分支 `recovery/legacy-sdk-cache`；最终生产源码/二进制 `6d39f833bfbad40e3576b5517e1da685a995a77a`，测量控制器 `02987cbc`，后续为文档/证据归档。禁止强推；未合并其它主线，未发布 Release。
 
-本轮从 `096f60db` 定点迁入参考 `054e8d9a` 的全部已认证范围：W3X 2 类型、受控 Audio/MP3、XML 284 metadata / 62 族、APT 4 类型。默认 jobs=auto，原 SessionCache/BuildCache/csc/psc 默认与 Texture 缓存保留。缓存命中先判断位置，不创建后端私有输入或新 Key/hash。Worker 独占输入和 CDATA，owner 验证/提交；跨文档任务在引用、重复 include、manifest/link 边界汇合。无新动作缓存。
+完整资格已一次接入：W3X2、受控 Audio/MP3、XML284 metadata/62族、APT4。默认jobs=auto，原SessionCache/BuildCache及csc/psc默认、Texture缓存、LinkedOutput/FileHashCache和正常BIG/发布优化保留。命中先判位置，零并行准备/新Key/hash。Worker私有输入/CDATA，owner有序验证提交；跨文档/同资产复用屏障，失败/取消先join再部分保存和释放。
 
-实现检查点 `d9de5f69`；首个 Windows 批次 `eb35dc6b` / [40907675933](https://github.com/wu162/NewSdk/actions/runs/40907675933) 已通过 Debug/Release 构建，但组件生命周期出现失败；终态 failure 已确认仅新增 mesh 组件输入和既有 FileHashCache 反射构造测试失败；两处已修正。其 XML284×四平台、52个混合生产用例及原缓存/取消/Texture/BIG 独立组通过，但完整 mymod 与最终五文件因门槛未执行，不能宣称本轮通过。Linux Foundation/独立 App Roslyn 编译与六份混合 fixture 的 50 个原 SDK XSD 定义校验通过，仅作静态预检。
+功能 [40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929) 的Debug/Release、全部组件、64真实生产/缓存/worker用例、原BAB、CtrlBreak、完整mymod原SDK差分、BIG/Additional和五文件门槛全部通过；该run整体failure仅独立性能FrameRate测试夹具错误。修正控制器后，严格来源/输入/归档/EXE身份校验复用原二进制，性能 [40920804580](https://github.com/wu162/NewSdk/actions/runs/40920804580) success，22样本全部通过，没有重建Native。
 
-复查首批生产计量发现 LazyPlugin 包装器导致全部真实生产后端被精确类型门禁拒绝；已仅对未命中资产在 owner 解包真实内建插件，保留热态惰性优化，并新增生产真实 worker/重叠断言。15b26f4f / 40912075609 运行属于该修正前候选，不能作为最终并发证明。
+完整Upheaval同VM、off：jobs1/4/auto默认冷74.096/49.165/48.580s（减少33.6%/34.4%），无缓存冷78.095/47.084/47.192s；热中位2.898/2.918/2.908s，零解析/编译/并行准备。真实峰值1/4/4；单动画修改仅1资产/1文档，3.116/3.153/3.141s，与独立串行改变流重建原字节相同。完整BIG/SKUDEF原输入18样本相同，单改4样本相同；全部0错误、1859原警告。两份最终ZIP归档digest已下载复算匹配。
 
-3d655274 / 40912889949 已通过新增真实 worker/重叠断言的生产矩阵；最新候选另补同资产在途复用屏障、完整 owner 提交上下文、实际兼容调用计量，以及有界 native drain 测试配置，等待统一重建验收。
-
-主代理继续统一修复、完整验证及同机 Upheaval jobs1/4/auto 冷/热/单资产修改对照；性能脚本只在功能验收成功后启动，不复用旧 EXE 冒充新生产源码。详细状态与证据写在 [BACKEND_PARALLEL_MIGRATION.md](docs/BACKEND_PARALLEL_MIGRATION.md)，参数见 [COMPILER_USAGE.md](COMPILER_USAGE.md)，计量协议见 [PERFORMANCE.md](docs/PERFORMANCE.md)。旧缓存性能的历史入口为 [MOD_SCALE_TIMINGS.md](docs/MOD_SCALE_TIMINGS.md)，历史 Windows 40890949858 的冷75.286s/热2.864s不能代替新同机对照。
-
-生产候选6d39f833 / 40915444929 功能批次继续跟进。性能脚本的 FrameRate 整数预检已修正（真实原 SDK XSD通过），后续仅复用经严格来源/输入/归档校验的同一 EXE 测量，不再为控制器修改重编 Native。
+无已知迁移阻塞。未认证类型保持owner；10个大任务预算回退。冷每档一次/热两次，OS缓存未控；不宣称游戏内验收。详细来源、完整资格/调用/性能/剩余边界：[BACKEND_PARALLEL_MIGRATION.md](docs/BACKEND_PARALLEL_MIGRATION.md)。使用：[COMPILER_USAGE.md](COMPILER_USAGE.md)，计量：[PERFORMANCE.md](docs/PERFORMANCE.md)。

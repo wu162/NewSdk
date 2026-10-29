@@ -12,7 +12,7 @@
 
 ## 1. 安装与检查
 
-下载 Release ZIP，完整解压到单独目录，保留其中全部五个文件。不要只复制 EXE，也不要用 SDK 的原 Texture DLL 覆盖包内已适配的文件。
+本分支已验证的五文件 ZIP 位于 [功能验收归档40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929/artifacts/12916669037) 内 `artifacts/final-release/40915444929-1/NewModCompiler-Win32-Release.zip`（生产源码6d39f833）。本次通过 Actions 归档提供，未发布新的 Release；也可按仓库构建脚本自行编译。完整解压到单独目录，保留其中全部五个文件。不要只复制 EXE，也不要用 SDK 的原 Texture DLL 覆盖包内已适配的文件。
 
 目标机器需要 Windows x86 兼容环境、.NET Framework 4.8、x86 VC80 CRT、与编译工具链匹配的 x86 VC 运行库以及 DirectX 9/D3DX。SDK 资源和 MOD 源码单独提供；工具 ZIP 不包含完整 SDK，也不下载游戏文件。
 
