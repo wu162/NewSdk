@@ -45,9 +45,11 @@ namespace Recovered.Compiler.Texture
             bool npot=(width&(width-1))!=0||(height&(height-1))!=0;
             if(depth<=8)throw CannotLoad();
             int stride=checked(((width*depth+31)/32)*4);
-            int paletteEntries=depth<=8?(colors==0?1<<depth:checked((int)colors)):0;
+            // Native DIB parser 0x13FE8..0x1400D skips biClrUsed RGBQUADs
+            // even for direct-colour BI_RGB. They do not remap the raster.
+            long pixelStart=headerEnd+(long)colors*4;
             long rasterBytes=(long)stride*height;
-            if(paletteEntries>(1<<Math.Min(depth,8))||offset<headerEnd+paletteEntries*4||offset>data.Length||rasterBytes>data.Length-offset||rasterBytes>data.Length-headerEnd)throw Invalid();
+            if(pixelStart>data.Length||offset<pixelStart||offset>data.Length||rasterBytes>data.Length-offset||rasterBytes>data.Length-pixelStart)throw Invalid();
             if(dib==124)
             {
                 uint profileOffset=U32(data,126),profileBytes=U32(data,130);
@@ -64,7 +66,7 @@ namespace Recovered.Compiler.Texture
             // Legacy D3DX BI_RGB consumes pixels immediately after the actual
             // DIB, ignoring bfOffBits (including any extra file gap). V4/V5
             // gamma/color-space fields and bounded V5 ICC have no render effect.
-            offset=(uint)headerEnd;
+            offset=(uint)pixelStart;
             bool hasAlpha=depth==24;
             if(depth==32)for(int y=0;y<height;y++)for(int x=0;x<width;x++)if(data[(int)offset+y*stride+x*4+3]!=0)hasAlpha=true;
             uint[] pixels=new uint[width*height];
@@ -72,12 +74,7 @@ namespace Recovered.Compiler.Texture
             {
                 int row=checked((int)offset+(signedHeight<0?y:height-1-y)*stride);
                 uint r,g,b,a=255;
-                if(depth<=8)
-                {
-                    int index=(data[row+x*depth/8]>>(8-depth-x*depth%8))&((1<<depth)-1);
-                    if(index>=paletteEntries)throw Invalid();int p=headerEnd+index*4;b=data[p];g=data[p+1];r=data[p+2];
-                }
-                else if(depth==16)
+                if(depth==16)
                 {
                     int v=U16(data,row+x*2),rv=(v>>10)&31,gv=(v>>5)&31,bv=v&31;
                     r=(uint)((rv*255+15)/31);g=(uint)((gv*255+15)/31);b=(uint)((bv*255+15)/31);

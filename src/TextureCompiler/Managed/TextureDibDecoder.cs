@@ -5,7 +5,7 @@ namespace Recovered.Compiler.Texture
 {
     // Bare DIB storage, without the 14-byte BMP file header. The original image
     // dispatcher calls the same DIB parser for this representation and BMP.
-    // This independent API does not add a Plugin/TextureImageLoader route.
+    // Public image loading and the plugin share this same bounded parser.
     public static class TextureDibDecoder
     {
         private static uint U32(byte[] b,int at){return (uint)b[at]|(uint)b[at+1]<<8|(uint)b[at+2]<<16|(uint)b[at+3]<<24;}
@@ -39,25 +39,11 @@ namespace Recovered.Compiler.Texture
                     tableBytes=(int)length;
                 }
             }
-            byte[] bmp=new byte[checked(source.Length-tableBytes+14)];
-            bmp[0]=66;bmp[1]=77;Put(bmp,2,(uint)bmp.Length);Put(bmp,10,14+size);
-            Buffer.BlockCopy(source,0,bmp,14,(int)size);
-            Buffer.BlockCopy(source,(int)size+tableBytes,bmp,14+(int)size,source.Length-(int)size-tableBytes);
-            if(tableBytes!=0)
-            {
-                // The original true-colour path skips biClrUsed RGBQUADs;
-                // they do not map or transform the direct-colour pixels.
-                // Canonicalize this PRIVATE envelope for the shared decoder.
-                Put(bmp,46,0);
-                if(size==124&&U32(source,112)!=0)
-                {
-                    uint profile=U32(source,112);
-                    if(profile<size+(uint)tableBytes)throw new InvalidDataException("DIB profile overlaps its color table.");
-                    Put(bmp,126,profile-(uint)tableBytes);
-                }
-            }
-            // The 14-byte envelope does not itself move DIB-relative profiles;
-            // table removal was accounted for above. Raster/gap/alpha/NPOT semantics,
+            byte[] bmp=new byte[checked(source.Length+14)];
+            bmp[0]=66;bmp[1]=77;Put(bmp,2,(uint)bmp.Length);Put(bmp,10,14+size+(uint)tableBytes);
+            Buffer.BlockCopy(source,0,bmp,14,source.Length);
+            // The envelope does not move DIB-relative profiles or remove tables.
+            // Raster/gap/alpha/NPOT semantics,
             // deterministic original errors and bitfields quarantine stay shared.
             return TextureBmpDecoder.Decode(bmp);
         }

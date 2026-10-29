@@ -6,7 +6,7 @@ using Recovered.Compiler.Texture;
 
 internal static class TextureDibOracle
 {
-    static int fixtures,decoded,rejected,refused,originalCalls,checks,tables;static long compared;
+    static int fixtures,decoded,rejected,refused,originalCalls,originalBmpCalls,checks,tables;static long compared;
     static bool isolated;static MethodInfo originalLoad;
     static void Check(bool value,string message){checks++;if(!value)throw new Exception(message);}
     static string Hash(byte[] data){using(var sha=SHA256.Create())return BitConverter.ToString(sha.ComputeHash(data)).Replace("-","").ToLowerInvariant();}
@@ -43,9 +43,24 @@ internal static class TextureDibOracle
             Check(Error(error)==expectedError,"Original raw DIB/BMP error equality "+label+": "+Error(error));
             if(expectedError=="")Image(actual,width,height,alpha,expected,"original raw DIB "+label);else Check(actual==null,"Original rejection returned image");
         }
-        for(int entry=0;entry<2;entry++){
+        if(!isolated&&!refusal&&label.Contains("-table")){
+            string bmpPath=Path.Combine(work,"input.bmp");File.WriteAllBytes(bmpPath,bmp);originalBmpCalls++;
+            TexturePacker.Image actual=null;Exception error=null;
+            try{actual=(TexturePacker.Image)originalLoad.Invoke(null,new object[]{bmpPath});}catch(Exception e){error=e;}
+            Check(Error(error)==expectedError,"Original BMP table error "+label+": "+Error(error));
+            if(expectedError=="")Image(actual,width,height,alpha,expected,"original BMP table "+label);
+            Check(Hash(File.ReadAllBytes(bmpPath))==Hash(bmp),"Original BMP unchanged");
+        }
+        for(int entry=0;entry<6;entry++){
             TexturePacker.Image actual=null;Exception error=null;if(isolated)Isolated();
-            try{actual=entry==0?TextureDibDecoder.Decode(dib):TextureDibDecoder.Load(path);}catch(Exception e){error=e;}
+            try{switch(entry){
+                case 0:actual=TextureDibDecoder.Decode(dib);break;
+                case 1:actual=TextureDibDecoder.Load(path);break;
+                case 2:actual=TextureImageLoader.Decode(dib);break;
+                case 3:actual=TextureImageLoader.Load(path);break;
+                case 4:actual=TextureBmpDecoder.Decode(bmp);break;
+                default:actual=TextureImageLoader.Decode(bmp);break;
+            }}catch(Exception e){error=e;}
             if(isolated)Isolated();
             Check(Hash(dib)==before&&Hash(File.ReadAllBytes(path))==before,"DIB source unchanged "+label);
             if(refusal){Check(error is NotSupportedException&&actual==null,"Uncertain bitfields remain refused "+label);refused++;continue;}
@@ -85,8 +100,8 @@ internal static class TextureDibOracle
                     }Check(count==1944,"Complete OS2 source accounting");
                 }
             }
-            Check(fixtures==4866&&tables==306&&decoded==5700&&rejected==3456&&refused==576&&originalCalls==(isolated?0:4578),"Complete DIB accounting fixtures="+fixtures+" tables="+tables+" decoded="+decoded+" rejected="+rejected+" refused="+refused);
-            Console.WriteLine("PASS Texture raw DIB "+(isolated?"NoOriginal":"differential")+" fixtures="+fixtures+" decoded="+decoded+" rejected="+rejected+" explicitRefusals="+refused+" rawDibOriginalCalls="+originalCalls+" checks="+checks+" comparedBytes="+compared+"; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, array/file APIs, original raw-DIB/BMP equality and per-call isolation; Plugin/SDK routing separate");return 0;
+            Check(fixtures==4866&&tables==306&&decoded==17100&&rejected==10368&&refused==1728&&originalCalls==(isolated?0:4578)&&originalBmpCalls==(isolated?0:306),"Complete DIB accounting fixtures="+fixtures+" tables="+tables+" decoded="+decoded+" rejected="+rejected+" refused="+refused);
+            Console.WriteLine("PASS Texture raw DIB "+(isolated?"NoOriginal":"differential")+" fixtures="+fixtures+" decoded="+decoded+" rejected="+rejected+" explicitRefusals="+refused+" rawDibOriginalCalls="+originalCalls+" bmpTableOriginalCalls="+originalBmpCalls+" checks="+checks+" comparedBytes="+compared+"; core/INFO/V2/V3/OS2/V4/V5, full RGBA/alpha/NPOT/gaps/metadata, direct/public array/file and BMP APIs, actual original raw-DIB/BMP table equality and per-call isolation; Plugin/SDK separate");return 0;
         }catch(Exception error){Console.Error.WriteLine(error);return 1;}finally{if(owner!=null)owner.Dispose();}
     }
 }

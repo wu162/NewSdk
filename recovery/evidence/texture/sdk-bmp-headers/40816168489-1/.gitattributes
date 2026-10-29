@@ -1,0 +1,5 @@
+# This historical run was stored with Git LF normalization. Reconstruct its
+# exact Windows bytes; the unchanged receipt hashes verify the checkout.
+*-asset-ids.tsv text eol=crlf
+input-Mod.xml text eol=crlf
+package-manifest.json text eol=crlf

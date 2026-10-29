@@ -11,6 +11,7 @@ namespace Recovered.Compiler.Texture
             if(TextureJpegDecoder.IsJpeg(data))return TextureJpegDecoder.Decode(data);
             if(TexturePngDecoder.IsPng(data))return TexturePngDecoder.Decode(data);
             if(TextureBmpDecoder.IsBmp(data))return TextureBmpDecoder.Decode(data);
+            if(TextureDibDecoder.IsDib(data))return TextureDibDecoder.Decode(data);
             return TextureTgaAdditionalFormats.CanDecode(data) ? TextureTgaAdditionalFormats.Decode(data) : TextureTgaDecoder.Decode(data);
         }
     }

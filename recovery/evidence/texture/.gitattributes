@@ -1,0 +1,4 @@
+# Preserve exact Windows-generated evidence bytes and receipt fingerprints.
+*.tsv -text
+*.xml -text
+package-manifest.json -text

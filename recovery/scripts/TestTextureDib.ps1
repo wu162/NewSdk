@@ -3,7 +3,7 @@ $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/dib/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('texture-dib-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$false;sdkValidated=$false;scope='Independent PC raw DIB Decode/Load APIs; actual original raw-DIB/BMP full byte equivalence; core/INFO/V2/V3/OS2/V4/V5 and known NPOT/metadata/errors; explicit uncertain bitfields refusals; no Plugin or SDK route';configurations=@()}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$false;sdkValidated=$false;scope='PC raw DIB and BMP truecolour tables, direct/public array/file APIs; actual original raw-DIB/BMP full byte equivalence; core/INFO/V2/V3/OS2/V4/V5 and known NPOT/metadata/errors; explicit uncertain bitfields refusals; plugin and SDK validated separately';configurations=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 40;throw "$name failed"};Get-Content "$out/$name.log"|Where-Object{$_ -match '^PASS '}}
 try{
  $header='recovery/evidence/texture/bmp-header-load/40799686293-1'
@@ -32,5 +32,5 @@ try{
   if((Get-FileHash "$out/$mode-original.tsv").Hash -ne (Get-FileHash "$out/$mode-no-original.tsv").Hash){throw 'Original and isolated complete DIB source/outcome transcripts differ'}
   $r.configurations+=@{configuration=$mode;passed=$true;withoutOriginalTextureCompiler=$true;summary=@(Get-Content "$out/$mode-oracle.log","$out/$mode-no-original.log"|Where-Object{$_ -match '^PASS '})}
  }
- $r.status='passed';$r.fixtureCount=4866;$r.originalRawDibCallsPerConfiguration=4578;$r.originalInitializationCallsPerConfiguration=1
+ $r.status='passed';$r.fixtureCount=4866;$r.originalRawDibCallsPerConfiguration=4578;$r.originalInitializationCallsPerConfiguration=1;$r.originalBmpTableCallsPerConfiguration=306
 }catch{$r.status='failed';$r.error=$_.Exception.Message;throw}finally{$r|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"}

@@ -20,7 +20,9 @@ def sha(data):
 
 
 def original_file(root, source, name):
-    return subprocess.run(['git', '-C', str(root), 'show', source + ':' + name], check=True, capture_output=True).stdout
+    # Actions checks out text with Windows CRLF. Apply the same Git filters;
+    # callers still compare exact package bytes and recorded SHA256 values.
+    return subprocess.run(['git', '-C', str(root), '-c', 'core.autocrlf=true', 'cat-file', '--filters', source + ':' + name], check=True, capture_output=True).stdout
 
 
 def tsv(data):
