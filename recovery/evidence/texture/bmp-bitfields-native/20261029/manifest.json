@@ -1,0 +1,151 @@
+{
+  "scope": "read-only fixed-function byte/disassembly extraction; not native execution or production acceptance",
+  "originalPath": "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "imageBase": "0x10000000",
+  "functions": [
+    {
+      "name": "BmpFileHeaderReader",
+      "rvaStart": "0x167ad",
+      "rvaEndExclusive": "0x16804",
+      "vaStart": "0x100167ad",
+      "vaEndExclusive": "0x10016804",
+      "fileOffset": "0x167ad",
+      "bytes": 87,
+      "sha256": "8ffa8d28f744835eed75df49a304ee9d596ec3560290843f24c269f1d52bfc72",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "BmpFileHeaderReader.asm",
+      "rawBytes": "BmpFileHeaderReader.bin"
+    },
+    {
+      "name": "DibParser",
+      "rvaStart": "0x13f3d",
+      "rvaEndExclusive": "0x149af",
+      "vaStart": "0x10013f3d",
+      "vaEndExclusive": "0x100149af",
+      "fileOffset": "0x13f3d",
+      "bytes": 2674,
+      "sha256": "1cc305be6860b4919825a7308444fee650022e5780775d3b6a07bdd59bd958ab",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "DibParser.asm",
+      "rawBytes": "DibParser.bin"
+    },
+    {
+      "name": "BitmapInfoHeaderCopy40",
+      "rvaStart": "0x13e99",
+      "rvaEndExclusive": "0x13ee8",
+      "vaStart": "0x10013e99",
+      "vaEndExclusive": "0x10013ee8",
+      "fileOffset": "0x13e99",
+      "bytes": 79,
+      "sha256": "6eec62563034f7d32dec85135658ee8cf306bc0dafbc66547df688e9db52f05f",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "BitmapInfoHeaderCopy40.asm",
+      "rawBytes": "BitmapInfoHeaderCopy40.bin"
+    },
+    {
+      "name": "XGGetTextureDesc",
+      "rvaStart": "0x3df34",
+      "rvaEndExclusive": "0x3df4a",
+      "vaStart": "0x1003df34",
+      "vaEndExclusive": "0x1003df4a",
+      "fileOffset": "0x3df34",
+      "bytes": 22,
+      "sha256": "df9e1eab02856c5927c982c111fdd630456c1a3157658b5bed03ba11acd9baf9",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "XGGetTextureDesc.asm",
+      "rawBytes": "XGGetTextureDesc.bin"
+    },
+    {
+      "name": "XGGetTextureDescImplementation",
+      "rvaStart": "0x3dc51",
+      "rvaEndExclusive": "0x3df34",
+      "vaStart": "0x1003dc51",
+      "vaEndExclusive": "0x1003df34",
+      "fileOffset": "0x3dc51",
+      "bytes": 739,
+      "sha256": "8ea07b35f8acb55258b2ae44b59aea7d30df44e870f781cb3132c40080abebbd",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "XGGetTextureDescImplementation.asm",
+      "rawBytes": "XGGetTextureDescImplementation.bin"
+    },
+    {
+      "name": "TextureLevelDescThunk",
+      "rvaStart": "0xdb60",
+      "rvaEndExclusive": "0xdb65",
+      "vaStart": "0x1000db60",
+      "vaEndExclusive": "0x1000db65",
+      "fileOffset": "0xdb60",
+      "bytes": 5,
+      "sha256": "589e60d8d1845e64f2e7db91a673c544187b802bffe43db00f845ca648e3d3dd",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "TextureLevelDescThunk.asm",
+      "rawBytes": "TextureLevelDescThunk.bin"
+    },
+    {
+      "name": "TextureLevelDescImplementation",
+      "rvaStart": "0xd18d",
+      "rvaEndExclusive": "0xd1ec",
+      "vaStart": "0x1000d18d",
+      "vaEndExclusive": "0x1000d1ec",
+      "fileOffset": "0xd18d",
+      "bytes": 95,
+      "sha256": "f4b466144784c49da8ee787a551c14219b8928ca8bdea812f15b90b12cb05bba",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "TextureLevelDescImplementation.asm",
+      "rawBytes": "TextureLevelDescImplementation.bin"
+    },
+    {
+      "name": "FormatFromTextureHeader",
+      "rvaStart": "0xc83d",
+      "rvaEndExclusive": "0xc871",
+      "vaStart": "0x1000c83d",
+      "vaEndExclusive": "0x1000c871",
+      "fileOffset": "0xc83d",
+      "bytes": 52,
+      "sha256": "9c84c7f4139ef941eb6b6303c11fe7fb5212454c0c67f43a0fe184662e81b0f6",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "FormatFromTextureHeader.asm",
+      "rawBytes": "FormatFromTextureHeader.bin"
+    }
+  ],
+  "disassembler": "GNU objdump (GNU Binutils for Debian) 2.44",
+  "criticalSites": [
+    {
+      "rva": "0x13f61",
+      "evidence": "push 0xa/pop ecx; ebx=ebp-0x44; rep movs DWORD copies exactly 40 header bytes into local stack"
+    },
+    {
+      "rva": "0x13f67",
+      "evidence": "eax=ebx; push eax twice; helper0x13e99 receives identical destination/source local header pointers"
+    },
+    {
+      "rva": "0x13e99",
+      "evidence": "helper only self-copies fixed offsets0..0x24, ending with DWORD+0x24; no mask or appended DIB copy"
+    },
+    {
+      "rva": "0x13fc1",
+      "evidence": "noncore branch validates DIB>=40, retaining ebx=ebp-0x44; no initialization of mask-adjacent locals"
+    },
+    {
+      "rva": "0x14038",
+      "evidence": "compression3 requires size>=52, then loads masks from ebx+0x28/+0x2c/+0x30 and +0x34 for size>=56; these are beyond the copied header"
+    },
+    {
+      "rva": "0x14074",
+      "evidence": "generic fallback format0x1a22aaa6 is set before matching masks to known formats"
+    },
+    {
+      "rva": "0x3ddbc",
+      "evidence": "normal resource type3 path calls TextureLevelDescThunk0xdb60 then writes output width+4,height+8,depth+12,format+16"
+    },
+    {
+      "rva": "0xd1b9",
+      "evidence": "TextureLevelDescImplementation calls FormatFromTextureHeader0xc83d and stores returned format into level descriptor offset0 at0xd1c2"
+    },
+    {
+      "rva": "0x3dddd",
+      "evidence": "XGGetTextureDescImplementation unconditionally stores copied level format at output+0x10 on type3 path"
+    }
+  ]
+}

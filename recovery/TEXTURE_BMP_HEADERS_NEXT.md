@@ -10,7 +10,7 @@
 
 [完整布局审计](evidence/texture/handoffs/20261029-bmp-headers/bi-rgb-layout-audit.json)已只读核对1896 BI_RGB的源像素区域、尺寸/hasAlpha及1336680完整RGBA字节，全部等于对应INFO40（含NPOT与792 metadata）。复现脚本`InspectTextureBmpLayoutArchive.py`不执行codec，只是实现依据，不能替代Actions验收。
 
-专用`PcBmpHeaders`准备356个原gold源×40消费、64个透明源×8消费及50个atlas源×2消费，共14852实际资产/模式；包含Windows各DIB的32bit零/混合/不透明alpha。此SDK尚未运行，不自动启动完整mymod。另准备`bmp-bitfields-load`原版探针，2进程×4320输入、12正对照、25946次原Load及17304份native snapshot；native只读已知格式的首行逻辑字节前缀、不据pitch×height推断分配大小；未知格式不读pixels。native snapshot与Load来自分别创建的纹理，不能称为同一个Load实例的存储。先收实际descriptor/已知格式首行逻辑字节前缀/两次RGBA，再判断一般mask语义，probe-only不启用生产bitfields。
+专用`PcBmpHeaders`准备356个原gold源×40消费、64个透明源×8消费及50个atlas源×2消费，共14852实际资产/模式；包含Windows各DIB的32bit零/混合/不透明alpha。此SDK验证中（源码6fb39059 / [40804823544](https://github.com/wu162/NewSdk/actions/runs/40804823544)，尚无通过声明），不自动启动完整mymod。另准备`bmp-bitfields-load`原版探针，2进程×4320输入、12正对照、25946次原Load及17304份native snapshot；native只读已知格式的首行逻辑字节前缀、不据pitch×height推断分配大小；未知格式不读pixels。native snapshot与Load来自分别创建的纹理，不能称为同一个Load实例的存储。先收实际descriptor/已知格式首行逻辑字节前缀/两次RGBA，再判断一般mask语义，probe-only不启用生产bitfields。
 
 ## 已完成：原版探针与独立归档审计
 
@@ -30,6 +30,10 @@
 49个反例全部位于DIB52/56/108/124、24/32-bit、compression=3（BI_BITFIELDS），top/bottom两方向均有。整组192输入一起列为不确定域；其中143个重复相等不能证明该组合稳定。此次只观察同一进程内相邻两次调用，2567个`originalStable=True`不等于跨进程、跨调用上下文确定性证明。具体49个标签见审计JSON，不用标签分派生产逻辑。
 
 792个V4/V5 metadata输入（gamma1/gamma22/sRGB/calibrated、V5 embedded-sRGB2/sRGB4/gray4）与各自同DIB、尺寸、位深、方向、pattern的plain输入，完整RGBA/hasAlpha/尺寸全部相等。该结论只覆盖当前构造的有效有界profile；不外推任意ICC、损坏结构或其他组合。
+
+## 扩展 bitfields 的静态根因（不启用生产）
+
+已定点核对固定原DLL：DIB parser `0x13F3D` 只复制40字节局部header，helper `0x13E99`仅40字节自复制；compression3且DIB≥52随后却从局部header的+40/+44/+48/+52读mask，落入未初始化的邻接栈区，而非输入mask字段。影响16/24/32位，说明96个16位的两次相等也不能作为标准565支持依据。正常texture type3的XGGetTextureDesc明确写出format，排除了该路径输出descriptor预清零与否的疑点。完整8函数字节/SHA/RVA及复现见[根因与边界](TEXTURE_BMP_BITFIELDS_BOUNDARY.md)。此为静态证据，不冒充新probe或恢复验收；动态probe仍按真实终态记录。
 
 ## 输入及历史失败保留
 
