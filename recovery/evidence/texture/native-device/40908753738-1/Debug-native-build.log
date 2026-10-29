@@ -1,0 +1,31 @@
+TextureNativeDeviceApi.cpp
+   Creating library D:\a\_temp\texture-native-device-6c5a0c0aedaf41b88246683499b75ea4\Debug/native-device.lib and object D:\a\_temp\texture-native-device-6c5a0c0aedaf41b88246683499b75ea4\Debug/native-device.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-native-device-6c5a0c0aedaf41b88246683499b75ea4\Debug\Recovered.TextureNativeDevice.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeDevice.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           2 number of functions
+           2 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureCreateDevice
+          2    1 00001140 TextureDeviceRelease
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        D000 .text

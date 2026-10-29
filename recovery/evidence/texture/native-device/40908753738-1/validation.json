@@ -1,0 +1,11 @@
+{
+  "runAttempt": "1",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "configurations": [],
+  "sourceCommit": "d22ed532c4836c3f68353fbfd1e970698d50986a",
+  "runId": "40908753738",
+  "status": "failed",
+  "scope": "Native x86 stdcall PC type!=2 device factory/refcount/final release, complete object/command bytes, real thread ID/allocation semantics and isolated replay; no type2/resource-populated/OOM/CLI identity or production package claim",
+  "sdkValidated": false,
+  "error": "Debug-static-link-build failed"
+}

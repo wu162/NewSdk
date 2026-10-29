@@ -1,0 +1,40 @@
+TextureSupport.cpp
+TextureNativeMemoryApi.cpp
+Generating Code...
+   Creating library D:\a\_temp\texture-native-memory-e6db327515bf4a969af383208d6d6399\Release/native-memory.lib and object D:\a\_temp\texture-native-memory-e6db327515bf4a969af383208d6d6399\Release/native-memory.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-native-memory-e6db327515bf4a969af383208d6d6399\Release\Recovered.TextureNativeMemory.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeMemory.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           9 number of functions
+           9 number of names
+
+    ordinal hint RVA      name
+
+          2    0 000014E0 TextureAllocate
+          3    1 000014F0 TextureBufferAppend
+          4    2 00001510 TextureBufferConstruct
+          5    3 00001520 TextureBufferDelete
+          6    4 00001530 TextureBufferReset
+          1    5 00001540 TextureDirect3DCreate9
+          7    6 00001550 TextureDirect3DRelease
+          8    7 00001560 TextureFree
+          9    8 00001570 TextureReverseEndianness
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        D000 .text

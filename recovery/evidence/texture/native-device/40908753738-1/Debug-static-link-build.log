@@ -1,0 +1,4 @@
+TextureNativeDeviceLink.cpp
+device-link.obj : error LNK2019: unresolved external symbol _TextureCreateDevice@24 referenced in function _main
+device-link.obj : error LNK2019: unresolved external symbol _TextureDeviceRelease@4 referenced in function _main
+D:\a\_temp\texture-native-device-6c5a0c0aedaf41b88246683499b75ea4\Debug\TextureNativeDeviceLink.exe : fatal error LNK1120: 2 unresolved externals
