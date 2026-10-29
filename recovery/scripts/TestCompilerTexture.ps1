@@ -66,33 +66,18 @@ try{
             Invoke-Fixture $run.exe $arguments $clean "$evidence/runtime.log"
             Assert-TextureTranscript "$evidence/adapter.txt"
             if((Get-FileHash "$evidence/adapter.txt" -Algorithm SHA256).Hash.ToLowerInvariant() -cne $baseline){throw "$mode texture output, CustomData or input error differs from original"}
-            $rejects=@(
-                @{field='originalSha256';message='Texture deployment mismatch: original input'},
-                @{field='patchedSha256';message='Texture deployment mismatch: texture bytes'},
-                @{field='targetExeSha256';message='Texture deployment mismatch: EXE bytes'},
-                @{field='targetIdentity';message='Texture deployment mismatch: EXE identity'},
-                @{field='protectedPeAudit';message='Texture deployment has no protected PE audit.'}
-            )
-            foreach($rejection in $rejects){
-                $field=$rejection.field
-                try{
-                    $invalid=$saved|ConvertFrom-Json
-                    if($field -ceq 'protectedPeAudit'){$invalid.PSObject.Properties.Remove($field)}else{$invalid.$field='invalid'}
-                    $invalid|ConvertTo-Json -Depth 12|Set-Content $manifest -Encoding utf8
-                    $rejected=Join-Path $evidence "rejected-$field.txt"
-                    Push-Location $clean
-                    try{ & $run.exe $fixture (Join-Path $clean 'BinaryAssetBuilder.TextureCompiler.dll') "$work/fixture.tga" $rejected exe *> "$evidence/rejected-$field.log"; $code=$LASTEXITCODE }
-                    finally{Pop-Location}
-                    if($code -eq 0 -or (Test-Path $rejected)){throw "Invalid texture deployment reached compilation: $field"}
-                    if(!(Select-String -LiteralPath "$evidence/rejected-$field.log" -SimpleMatch -Pattern $rejection.message -Quiet)){throw "Texture deployment rejection had an unrelated cause: $field"}
-                }finally{[IO.File]::WriteAllText($manifest,$saved,[Text.UTF8Encoding]::new($false))}
-            }
+            try {
+                Remove-Item -LiteralPath $manifest
+                Invoke-Fixture $run.exe $arguments $clean "$evidence/no-deployment-manifest.log"
+                Assert-TextureTranscript "$evidence/adapter.txt"
+                if((Get-FileHash "$evidence/adapter.txt" -Algorithm SHA256).Hash.ToLowerInvariant() -cne $baseline){throw "$mode texture output without deployment manifest differs from original"}
+            } finally { [IO.File]::WriteAllText($manifest,$saved,[Text.UTF8Encoding]::new($false)) }
         }finally{$env:PATH=$oldPath}
         Complete-CompilerValidationRun $run
-        $state.configurations+=@{configuration=$mode;passed=$true;successes=6;invalidInputErrors=3;deploymentRejections=@($rejects|ForEach-Object{$_.field});singleDispose=$true;separateOracleProcess=$true;exeSha256=$run.productExeSha256;validationHostSha256=$run.validationHostSha256;hostBoundPatch=$true;protectedPeAudit=$patch.protectedPeAudit;transcriptSha256=$baseline;componentExecution='test-only host with identical production objects; host-specific texture redirect'}
+        $state.configurations+=@{configuration=$mode;passed=$true;successes=6;invalidInputErrors=3;runtimeDeploymentAuditRemoved=$true;worksWithoutManifest=$true;singleDispose=$true;separateOracleProcess=$true;exeSha256=$run.productExeSha256;validationHostSha256=$run.validationHostSha256;hostBoundPatch=$true;protectedPeAudit=$patch.protectedPeAudit;transcriptSha256=$baseline;componentExecution='test-only host with identical production objects; host-specific texture redirect'}
     }
     $state.status='passed'
     $global:LASTEXITCODE=0
-    Write-Host 'PASS production-object Texture adapter Debug/Release: original payload/CustomData/errors, reuse, single-close, five deployment rejections; not CLI MOD compilation.'
+    Write-Host 'PASS production-object Texture adapter Debug/Release: original payload/CustomData/errors, reuse, single-close, no runtime deployment manifest; not CLI MOD compilation.'
 }catch{$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally{$env:PATH=$oldPath;$state|ConvertTo-Json -Depth 14|Set-Content "$out/validation.json" -Encoding utf8;Pop-Location}

@@ -271,7 +271,9 @@ public static class CompilerBackendLifecycle
                 Require(rejected,"Concurrent backend lease was accepted"); ambient.Unchanged("Rejected Initialize");
             }
             first=Compile(backend,requestA,"Mod","first",ambient);
+            object schemaSnapshot = typeof(CoreStreamCompiler).GetField("schemas", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(backend);
             Compile(backend,requestA,"Extra","second-stream",ambient);
+            Require(Object.ReferenceEquals(schemaSnapshot, typeof(CoreStreamCompiler).GetField("schemas", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(backend)), "Streams in one request must share the compiled SchemaSet");
             Tests.Add("single-initialize-multiple-real-core-streams-staging-and-ambient-restoration");
             string failed=Path.Combine(requestA.OutputRoot,"bad-stream"); bool failedAsExpected=false;
             try { backend.Compile(Context(requestA,Task(a,"Bad"),failed),CancellationToken.None); }

@@ -118,3 +118,14 @@ Texture CDATA 数量由固定原 DLL 的 `HasCustomData` 确定，并非每种�
 同次运行还通过完整未精简 mymod 的原 BAB 四流（两配置差异均为 0）、原 LoD/MakeBig 及 SKUDEF 差分，以及独立五文件 ZIP 的生产 BIG/协议门槛。mymod 本身无 APT/maps 输入，两组覆盖来自独立生产用例；完整游戏数据、WBData、游戏内运行、完整 UI/runtime 和中文纹理路径未新增验收。
 
 以上为原缓存恢复阶段的历史记录。当时续接未更改生产输入，沿用运行 40814401237，且曾记录下载 HTTP 403；本轮性能实现另以顶部的 40836177604 验收，并已通过 GitHub 产物工具取得新归档、在本地复算 SHA256 和核对原始收据。
+
+
+## 2026-10-29：删除重复 Schema/文件检查与 Texture 部署审核
+
+一次 CoreStreamCompiler 请求持有一个已编译 SchemaSet，全部流共享该快照；新的请求重新读取闭包。删除配置加载的提前 Schema File.Exists 和每流 ReloadIfChanged，Schema 加载结束复用读取时记录的目录身份，避免第二轮枚举。独立 Core 的显式 ReloadIfChanged 仍用于可变宿主及其失效回归；它不是生产流之间的热路径。
+
+FileHashItem 使用 Settings.FileIdentity 一次获得存在性、LastWriteTime 和已有 SHA256 收据，宿主复用 FileHashCache 的目录记录；未变输入连同跨进程持久收据均不打开文件体。确定变化的文件延迟到 Hash 访问时一起计算 FastHash 与 SHA256；时间未变且没有可用收据时，IsDirty 在一次读取中同时计算两者，Hash 提交结果时不再读文件。保留旧 FastHash 的 1 MiB 分块及游戏值，新的 SHA256 写回宿主收据，缺失/重建和旧序列化条目继续失效。
+
+LegacyTextureAdapter 直接从编译器旁加载准备好的混合 DLL，不再进行运行时部署审核（patch JSON、EXE/DLL SHA256、保护 PE 审核回执和程序集枚举）。PE 重定向与构建时审核继续用于生成可运行 DLL，Texture 原版载荷/CustomData/错误、重用与销毁差分仍执行；对应测试改为确认缺少运行时部署清单也可工作。
+
+实现检查点：Windows 生产验收及有界新旧 SDK benchmark 待跑，未把历史二进制结果计为本轮通过。

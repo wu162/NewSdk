@@ -107,8 +107,6 @@ namespace NewModCompiler.Application
             XmlNode section = configuration.SelectSingleNode("/configuration/assetbuilder");
             if (section == null) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_MISSING", "The SDK configuration has no assetbuilder section.");
             configurationXml = section.OuterXml;
-            if (!File.Exists(Path.Combine(sdkRoot, "Schemas", "xsd", "CnC3Types.xsd")))
-                throw new BuildFailure(ExitCode.Environment, "CORE_SCHEMA_MISSING", "The SDK CnC3Types schema is missing.");
         }
 
         // Read-only environment initialization, not a synthetic MOD build. The
@@ -420,8 +418,7 @@ namespace NewModCompiler.Application
             {
                 if (compilers == null)
                 {
-                    Func<string,string> hashFile=request == null || request.FileIdentities == null ? (Func<string,string>)null : path=>request.FileIdentities.Hash(path);
-                    BuiltinCompilers candidate = request == null ? BuiltinCompilers.CreateWithTexture(TargetPlatform.Win32,hashFile) : BuiltinCompilers.CreateLazyWithTexture(TargetPlatform.Win32,hashFile);
+                    BuiltinCompilers candidate = request == null ? BuiltinCompilers.CreateWithTexture(TargetPlatform.Win32) : BuiltinCompilers.CreateLazyWithTexture(TargetPlatform.Win32);
                     try
                     {
                         // The old SDK XML handler was #all, so Core reads its global
@@ -505,7 +502,8 @@ namespace NewModCompiler.Application
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
                 Settings settings = streamSettings = StreamSettings(context, staging);
-                settings.FileContentHash = request.FileIdentities.HashBase64;
+                settings.FileIdentity = request.FileIdentities.CoreIdentity;
+                settings.RememberFileContentHash = request.FileIdentities.RememberCoreHash;
                 settings.FileContentHashFromBytes = request.FileIdentities.HashBase64;
                 settings.SchemaFileIdentities = request.FileIdentities.SchemaIdentities;
                 if (linkedOutputs == null) linkedOutputs = new LinkedOutputCache(outputRoot, request.FileIdentities);
@@ -522,7 +520,9 @@ namespace NewModCompiler.Application
                 EnsureProviders();
                 bool packageRestored = false;
                 if (schemas == null) schemas = new SchemaSet(settings.StableSort);
-                else schemas.ReloadIfChanged(settings.StableSort);
+                // All streams in this request share the same schema snapshot.
+                // A new backend/request loads a fresh closure; explicit Core
+                // ReloadIfChanged remains available to mutable standalone hosts.
                 if (sessionCacheEnabled)
                 {
                     if (legacyStore == null) legacyStore = new LegacyCacheStore(outputRoot, RootOption("session-cache-directory", outputRoot), LegacyCacheIdentity(settings));

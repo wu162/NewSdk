@@ -45,23 +45,17 @@ namespace NewModCompiler.Application
             return CreateCore(platform, false);
         }
 
-        // The compatibility boundary is opt-in and requires its verified deployment.
-        // Missing or invalid texture files are fatal; no SDK search path is used.
         public static BuiltinCompilers CreateWithTexture(TargetPlatform platform)
         {
             return CreateCore(platform, true);
         }
-        internal static BuiltinCompilers CreateWithTexture(TargetPlatform platform,Func<string,string> hashFile)
+
+        internal static BuiltinCompilers CreateLazyWithTexture(TargetPlatform platform)
         {
-            return CreateCore(platform,true,hashFile);
+            return CreateCore(platform, true, true);
         }
 
-        internal static BuiltinCompilers CreateLazyWithTexture(TargetPlatform platform, Func<string,string> hashFile)
-        {
-            return CreateCore(platform, true, hashFile, true);
-        }
-
-        private static BuiltinCompilers CreateCore(TargetPlatform platform, bool includeTexture,Func<string,string> hashFile=null, bool lazy=false)
+        private static BuiltinCompilers CreateCore(TargetPlatform platform, bool includeTexture, bool lazy=false)
         {
             if (platform != TargetPlatform.Win32)
                 throw new NotSupportedException("The production compiler supports only Win32.");
@@ -80,8 +74,8 @@ namespace NewModCompiler.Application
                         "Texture,OnDemandTexture,TerrainTextureAtlas", true, () =>
                         {
                             IAssetBuilderPlugin adapter = lazy
-                                ? (IAssetBuilderPlugin)new LazyPlugin(() => NewModCompiler.Compatibility.LegacyTextureAdapter.Load(hashFile), 4202u)
-                                : NewModCompiler.Compatibility.LegacyTextureAdapter.Load(hashFile);
+                                ? (IAssetBuilderPlugin)new LazyPlugin(() => NewModCompiler.Compatibility.LegacyTextureAdapter.Load(), 4202u)
+                                : NewModCompiler.Compatibility.LegacyTextureAdapter.Load();
                             result.plugins.Add(adapter);
                             return adapter;
                         }));

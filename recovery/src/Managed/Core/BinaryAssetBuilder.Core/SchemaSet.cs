@@ -104,7 +104,7 @@ public class SchemaSet
 		_CurrentSchema = schemaFile;
 		if (_SchemaPaths.ContainsKey(schemaFile)) return;
 		byte[] contents = File.ReadAllBytes(schemaFile);
-		_SchemaPaths.Add(schemaFile, null);
+		_SchemaPaths.Add(schemaFile, Settings.Current.FileIdentity?.Invoke(schemaFile).Identity);
 		_SchemaContentHashes.Add(schemaFile, HashSchema(schemaFile, contents));
 		XmlSchema xmlSchema;
 		using (var input = new MemoryStream(contents, false))
@@ -394,7 +394,9 @@ public class SchemaSet
 		{
 			FlattenInheritanceTree(key, dictionary);
 		}
-		if (Settings.Current.SchemaFileIdentities != null)
+		// Reuse the load's directory snapshot; do not enumerate every input a
+		// second time. Standalone hosts may supply only the batch callback.
+		if (Settings.Current.FileIdentity == null && Settings.Current.SchemaFileIdentities != null)
 			_SchemaPaths = Settings.Current.SchemaFileIdentities(_SchemaPaths.Keys);
 		_LoadedSchemaPath = Path.GetFullPath(Settings.Current.SchemaPath);
 	}

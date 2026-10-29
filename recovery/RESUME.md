@@ -1,6 +1,10 @@
-# 热缓存、StableSort、插件校验与 BIG 包缓存移除：续接入口
+# 本轮四项优化：实现完成，Windows 验收待跑
 
-工作分支仍为 `recovery/legacy-sdk-cache`，禁止强推，未合入其他分支。
+工作分支仍为 `recovery/legacy-sdk-cache`；本轮未合入其他分支。
+
+2026-10-29：已实现请求内 SchemaSet 跨流复用，删除每流 Schema 闭包复查与配置加载中的重复存在性检查；Schema 加载复用既有目录身份快照，不再在完成时重扫。FileHashItem 由宿主一次提供存在性、时间戳和已有 SHA256 收据，变化输入的 FastHash/SHA256 合并为一次读取，等长恢复 mtime、缺失/重建及旧会话升级合同保留。Texture 运行时部署审核已删除，不再读取 patch 清单、哈希 EXE/DLL 或枚举旧程序集；构建时 mixed PE 验收和原版纹理载荷差分继续保留。
+
+已完成差异检查及 24 项 benchmark 脚本预检。生产二进制改变，以下历史验收不能替代本轮结果；本轮须集中运行完整 Core lifecycle（含 FileHashItem 宿主收据/单次读取、跨流 Schema 及无部署清单纹理用例），通过后使用该次 Release 做有严格时间预算的新旧 SDK benchmark。尚未宣称生产或 benchmark 通过。
 
 用户第 1–7 项及第 8 项有界清理已经实现并通过完整 Windows 验收。生产二进制与测试来源均为 `ae4654a892446724bf870348e56f2e8072fafa58`；[40868109538](https://github.com/wu162/NewSdk/actions/runs/40868109538) success，Debug/Release、Core/后端/应用、真实 CLI/冷进程/取消、资产与会话缓存冷热/失效/缺损修复、Texture/Audio/W3X、BIG/协议、完整 mymod 原版差分及五文件发行包全部通过。[原始收据与失败记录摘要](evidence/refactor/hot-cache-second/40868109538-1/summary.json)，[实现说明](docs/LEGACY_INCREMENTAL_CACHE.md)。原归档已下载，复算摘要与 GitHub 元数据及上传日志一致。
 

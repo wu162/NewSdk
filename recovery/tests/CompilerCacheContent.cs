@@ -96,6 +96,46 @@ public static class CompilerCacheContent
         }
         tests.Add("real-FileHashItem-zero-small-and-multi-chunk-FastHash-equality-content-reset-XML-roundtrip-legacy-invalidation-delete-recreate");
     }
+    static object HostHashes(string output)
+    {
+        var type = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileHashCache", true);
+        object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { output }, null);
+        Settings.Current.FileIdentity = (Func<string, FileHashInfo>)Delegate.CreateDelegate(typeof(Func<string, FileHashInfo>), hashes, type.GetMethod("CoreIdentity", BindingFlags.NonPublic | BindingFlags.Instance));
+        Settings.Current.RememberFileContentHash = (Action<string, string>)Delegate.CreateDelegate(typeof(Action<string, string>), hashes, type.GetMethod("RememberCoreHash", BindingFlags.NonPublic | BindingFlags.Instance));
+        return hashes;
+    }
+    static void HostFileCases(string work)
+    {
+        Directory.CreateDirectory(work);
+        string path = Path.Combine(work, "input.bin"), output = Path.Combine(work, "receipts");
+        byte[] data = new byte[1048609]; data[data.Length - 1] = 17;
+        File.WriteAllBytes(path, data);
+        Settings.Current = new Settings();
+        object hashes = HostHashes(output);
+        var item = new FileHashItem(path, "", TargetPlatform.Win32);
+        using (var held = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            Require(item.Exists && item.IsDirty, "Known dirty input must use host metadata without reading content");
+        uint first = item.Hash;
+        Require(first == LegacyHash(data), "Host identity path changed multi-chunk FastHash");
+        item.Reset();
+        using (var held = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            Require(!item.IsDirty && item.Hash == first, "Hot FileHashItem must reuse identity and SHA receipt without opening content");
+        string saved = Serialize(item);
+        hashes.GetType().GetMethod("Save", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(hashes, null);
+        hashes = HostHashes(output);
+        var loaded = Deserialize(saved);
+        using (var held = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            Require(!loaded.IsDirty && loaded.Hash == first, "Cold-process host receipt must reuse FileHashItem content identity");
+        Thread.Sleep(30); data[data.Length - 1] ^= 91; ReplacePreservingTime(path, data);
+        hashes.GetType().GetMethod("SchemaIdentities", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(hashes, new object[] { new[] { path } });
+        loaded.Reset(); Require(loaded.IsDirty, "Host identity must invalidate a same-size restored-time edit");
+        using (var held = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            Require(loaded.Hash == LegacyHash(data) && !loaded.IsDirty, "Changed file must calculate SHA256 and FastHash in one read before Hash commits");
+        int reads = (int)hashes.GetType().GetProperty("Reads", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(hashes, null);
+        Require(reads == 1, "Changed input should record exactly one combined content read");
+        Settings.Current = null;
+        tests.Add("host-FileHashItem-directory-metadata-locked-hot-and-persisted-receipts-restored-time-invalidation-single-combined-read");
+    }
     const string Header = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:a='uri:ea.com:eala:asset' targetNamespace='uri:ea.com:eala:asset'>";
     static string Root(string kind)
     {
@@ -124,6 +164,7 @@ public static class CompilerCacheContent
         {
             var type = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileHashCache", true);
             object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { Path.Combine(work, "receipts") }, null);
+            Settings.Current.FileIdentity = (Func<string, FileHashInfo>)Delegate.CreateDelegate(typeof(Func<string, FileHashInfo>), hashes, type.GetMethod("CoreIdentity", BindingFlags.NonPublic | BindingFlags.Instance));
             var stamp = type.GetMethod("SchemaIdentities", BindingFlags.NonPublic | BindingFlags.Instance);
             Settings.Current.SchemaFileIdentities = (Func<IEnumerable<string>, IDictionary<string, string>>)Delegate.CreateDelegate(typeof(Func<IEnumerable<string>, IDictionary<string, string>>), hashes, stamp);
             var hashBytes = type.GetMethod("HashBase64", BindingFlags.NonPublic | BindingFlags.Instance, null, new[] { typeof(string), typeof(byte[]) }, null);
@@ -182,7 +223,7 @@ public static class CompilerCacheContent
         Settings previous = Settings.Current;
         try
         {
-            Directory.CreateDirectory(args[0]); FileCases(args[0]);
+            Directory.CreateDirectory(args[0]); FileCases(args[0]); HostFileCases(Path.Combine(args[0], "host-files"));
             SchemaCases(Path.Combine(args[0], "standalone"), false); SchemaCases(Path.Combine(args[0], "identity"), true);
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests }));
             Console.WriteLine("PASS CacheContent: " + checks + " assertions"); return 0;

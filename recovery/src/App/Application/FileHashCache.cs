@@ -72,13 +72,35 @@ namespace NewModCompiler.Application
             used.Add(key, hash);
             return hash;
         }
+#if NEWSdk_MONOLITHIC
+        internal BinaryAssetBuilder.Core.FileHashInfo CoreIdentity(string path)
+        {
+            path = Path.GetFullPath(path);
+            FileIdentity file;
+            if (!DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file))
+                return new BinaryAssetBuilder.Core.FileHashInfo();
+            string key = Key(file, false), hash;
+            if (used.TryGetValue(key, out hash) || previous.TryGetValue(key, out hash))
+            { used[key] = hash; Reuses++; }
+            return new BinaryAssetBuilder.Core.FileHashInfo { Exists = true,
+                LastWriteTime = DateTime.FromFileTimeUtc(file.LastWriteTime).ToLocalTime(),
+                Identity = key, ContentHash = hash == null ? null : Base64(hash) };
+        }
+        internal void RememberCoreHash(string path, string contentHash)
+        {
+            var file = Identity(Path.GetFullPath(path));
+            string key = Key(file, false);
+            if (!used.ContainsKey(key) && !previous.ContainsKey(key)) { Reads++; BytesRead += file.Size; }
+            used[key] = BitConverter.ToString(Convert.FromBase64String(contentHash)).Replace("-", "").ToLowerInvariant();
+        }
+#endif
         internal bool Exists(string path) { FileIdentity file; return DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file); }
         internal long Size(string path) { return Identity(Path.GetFullPath(path)).Size; }
         internal IDictionary<string, string> SchemaIdentities(IEnumerable<string> paths)
         {
             // A new schema pass refreshes the metadata snapshot before any
             // content-hash receipt is reused, including after a failed load.
-            directories.Clear();
+            foreach (string path in paths) directories.Remove(Path.GetDirectoryName(path));
             var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             foreach (string path in paths)
             {

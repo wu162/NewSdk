@@ -9,6 +9,16 @@ using EALA.Hash;
 
 namespace BinaryAssetBuilder.Core;
 
+// Host metadata and an optional previously computed SHA256 receipt. A null
+// receipt asks Core to calculate both hashes together when content is needed.
+public sealed class FileHashInfo
+{
+	public bool Exists;
+	public DateTime LastWriteTime;
+	public string Identity;
+	public string ContentHash;
+}
+
 [Serializable]
 public class FileHashItem : IXmlSerializable
 {
@@ -46,6 +56,15 @@ public class FileHashItem : IXmlSerializable
 	[NonSerialized]
 	private bool _Exists;
 
+	[NonSerialized]
+	private FileHashInfo _Identity;
+
+	[NonSerialized]
+	private uint _CurrentHash;
+
+	[NonSerialized]
+	private bool _CurrentHashValid;
+
 	public string Path => _Path;
 
 	public string BuildConfiguration => _BuildConfiguration;
@@ -63,7 +82,11 @@ public class FileHashItem : IXmlSerializable
 				{
 					if (Exists)
 					{
-						UpdateHash();
+						if (!_CurrentHashValid) CalculateHash();
+						_Hash = _CurrentHash;
+						_ContentHash = _CurrentContentHash;
+						_LastDate = _CurrentDate;
+						_Dirty = false;
 					}
 					else
 					{
@@ -73,6 +96,8 @@ public class FileHashItem : IXmlSerializable
 						// recompute FastHash rather than reuse this zero value.
 						_ContentHash = null;
 						_CurrentContentHash = null;
+						_Identity = null;
+						_CurrentHashValid = false;
 						_LastDate = DateTime.MinValue;
 					}
 				}
@@ -91,11 +116,13 @@ public class FileHashItem : IXmlSerializable
 			{
 				if (Exists)
 				{
-					_CurrentDate = File.GetLastWriteTime(_Path);
-					if (Settings.Current != null && Settings.Current.FileContentHash != null) _CurrentContentHash = Settings.Current.FileContentHash(_Path);
-					else using (var algorithm = SHA256.Create())
-					using (var input = File.OpenRead(_Path))
-						_CurrentContentHash = Convert.ToBase64String(algorithm.ComputeHash(input));
+					_CurrentDate = _Identity == null ? File.GetLastWriteTime(_Path) : _Identity.LastWriteTime;
+					// Known dirty inputs defer all content reads until Hash is requested.
+					if (_LastDate == _CurrentDate && _ContentHash != null)
+					{
+						_CurrentContentHash = _Identity == null ? null : _Identity.ContentHash;
+						if (_CurrentContentHash == null) CalculateHash();
+					}
 				}
 				_Dirty = !Exists || _LastDate != _CurrentDate || _ContentHash == null ||
 					!string.Equals(_ContentHash, _CurrentContentHash, StringComparison.Ordinal);
@@ -112,7 +139,8 @@ public class FileHashItem : IXmlSerializable
 			CacheInputBoundary.Validate(_Path);
 			if (_State < FileState.ExistsValid)
 			{
-				_Exists = File.Exists(_Path);
+				_Identity = Settings.Current?.FileIdentity?.Invoke(_Path);
+				_Exists = _Identity == null ? File.Exists(_Path) : _Identity.Exists;
 				_State = FileState.ExistsValid;
 			}
 			return _Exists;
@@ -137,6 +165,8 @@ public class FileHashItem : IXmlSerializable
 		_ContentHash = reader.GetAttribute("sha256");
 		_State = FileState.AllInvalid;
 		_CurrentContentHash = null;
+		_Identity = null;
+		_CurrentHashValid = false;
 		reader.MoveToAttribute("d");
 		string[] array = reader.Value.Split(';');
 		_Path = array[0];
@@ -179,10 +209,12 @@ public class FileHashItem : IXmlSerializable
 		_State = FileState.AllInvalid;
 		_CurrentDate = DateTime.MaxValue;
 		_CurrentContentHash = null;
+		_Identity = null;
+		_CurrentHashValid = false;
 		_Dirty = false;
 	}
 
-	private void UpdateHash()
+	private void CalculateHash()
 	{
 		AsynchronousFileReader asynchronousFileReader = new AsynchronousFileReader(_Path);
 		uint hash = asynchronousFileReader.FileSize;
@@ -197,11 +229,10 @@ public class FileHashItem : IXmlSerializable
 				asynchronousFileReader.EndRead();
 			}
 			algorithm.TransformFinalBlock(new byte[0], 0, 0);
-			_ContentHash = Convert.ToBase64String(algorithm.Hash);
+			_CurrentContentHash = Convert.ToBase64String(algorithm.Hash);
 		}
-		_Hash = hash;
-		_LastDate = _CurrentDate;
-		_CurrentContentHash = _ContentHash;
-		_Dirty = false;
+		_CurrentHash = hash;
+		_CurrentHashValid = true;
+		Settings.Current?.RememberFileContentHash?.Invoke(_Path, _CurrentContentHash);
 	}
 }

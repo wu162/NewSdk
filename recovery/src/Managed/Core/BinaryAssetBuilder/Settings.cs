@@ -17,7 +17,9 @@ public class Settings : ICloneable
 	[XmlIgnore]
 	public Action<string, string> ReuseLinkedOutput { get; set; }
 	[XmlIgnore]
-	public Func<string, string> FileContentHash { get; set; }
+	public Func<string, FileHashInfo> FileIdentity { get; set; }
+	[XmlIgnore]
+	public Action<string, string> RememberFileContentHash { get; set; }
 	[XmlIgnore]
 	public Func<string, byte[], string> FileContentHashFromBytes { get; set; }
 	[XmlIgnore]
