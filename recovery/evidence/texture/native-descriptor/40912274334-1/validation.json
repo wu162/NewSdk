@@ -1,0 +1,11 @@
+{
+  "runAttempt": "1",
+  "sourceCommit": "675b00d6932bdec969e3865f8df345cce3366b8c",
+  "configurations": [],
+  "error": "Debug-differential failed",
+  "scope": "Native x86 CPU type3 complete level/volume/XG texture descriptor sizes and output fields, all formats/dimensions/mips plus metadata, full original captures and isolation; nontexture/mixed-mode identity/production package excluded",
+  "status": "failed",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runId": "40912274334",
+  "sdkValidated": false
+}

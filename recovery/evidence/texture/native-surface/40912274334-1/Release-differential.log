@@ -1,0 +1,1 @@
+PASS native PC surface differential layoutCases=131072 formats=64 dimensions=4 lockCases=131072 actualStorageCases=16 traceBytes=23069960; full output/state/storage, mip/packed/tiled/border/array/rect/lock flags; invalid pointers/overflow/nontexture descriptors excluded

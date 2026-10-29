@@ -1,0 +1,4 @@
+Descriptor first difference byte=4071252 case=32832 expected=1 actual=5
+System.Runtime.InteropServices.SEHException (0x80004005): External component has thrown an exception.
+   at ?A0xbfc90193.Compare(Byte* , HINSTANCE__* , SByte* )
+   at main(String[] args)

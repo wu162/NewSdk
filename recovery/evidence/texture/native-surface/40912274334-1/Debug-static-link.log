@@ -1,0 +1,1 @@
+PASS native PC surface import-library consumer: stdcall layout/LockRect and correct DLL identity; no original compiler

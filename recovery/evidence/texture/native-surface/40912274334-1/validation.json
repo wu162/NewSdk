@@ -1,0 +1,33 @@
+{
+  "runAttempt": "1",
+  "sourceCommit": "675b00d6932bdec969e3865f8df345cce3366b8c",
+  "configurations": [
+    {
+      "captureSha256": "f0425a5303e2ae96aaf9bfe7beed77766654cb3bd4ea8480514bdb76c954005d",
+      "passed": true,
+      "summary": [
+        "PASS native PC surface differential layoutCases=131072 formats=64 dimensions=4 lockCases=131072 actualStorageCases=16 traceBytes=23069960; full output/state/storage, mip/packed/tiled/border/array/rect/lock flags; invalid pointers/overflow/nontexture descriptors excluded",
+        "PASS native PC surface NoOriginal layoutCases=131072 formats=64 dimensions=4 lockCases=131072 actualStorageCases=16 traceBytes=23069960; full output/state/storage, mip/packed/tiled/border/array/rect/lock flags; invalid pointers/overflow/nontexture descriptors excluded"
+      ],
+      "withoutOriginalTextureCompiler": true,
+      "nativeSha256": "62802a9f235f5bd4d5d5b0f117b471e8c174d88ac341877c232eb0f1f1d8204a",
+      "configuration": "Debug"
+    },
+    {
+      "captureSha256": "f0425a5303e2ae96aaf9bfe7beed77766654cb3bd4ea8480514bdb76c954005d",
+      "passed": true,
+      "summary": [
+        "PASS native PC surface differential layoutCases=131072 formats=64 dimensions=4 lockCases=131072 actualStorageCases=16 traceBytes=23069960; full output/state/storage, mip/packed/tiled/border/array/rect/lock flags; invalid pointers/overflow/nontexture descriptors excluded",
+        "PASS native PC surface NoOriginal layoutCases=131072 formats=64 dimensions=4 lockCases=131072 actualStorageCases=16 traceBytes=23069960; full output/state/storage, mip/packed/tiled/border/array/rect/lock flags; invalid pointers/overflow/nontexture descriptors excluded"
+      ],
+      "withoutOriginalTextureCompiler": true,
+      "nativeSha256": "030c5a2a6c826b93e779128aaeaf010f2e5744205378745769635a4336341352",
+      "configuration": "Release"
+    }
+  ],
+  "scope": "Native x86 PC type3 complete mip/packed/border/tiled/array format layout and public LockRect, full state/owned-storage differential and isolation; no mixed-mode identity/nontexture descriptors or production package claim",
+  "status": "passed",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runId": "40912274334",
+  "sdkValidated": false
+}
