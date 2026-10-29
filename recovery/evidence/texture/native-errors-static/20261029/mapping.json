@@ -1,0 +1,618 @@
+{
+  "status": "static-implementation-evidence; runtime acceptance pending",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "methodToken": "0x060000CC",
+  "methodRva": "0x508d0",
+  "jumpTableRva": "0x50b04",
+  "functionAndTableSha256": "42a79b916539a909655e9c4bd5b6549324036aa676f7546cc78abbce9bf191c0",
+  "defaultStringRva": "0xa201c",
+  "defaultText": "ERROR NOT DEFINED",
+  "mapping": [
+    {
+      "code": -100,
+      "targetRva": "0x50af7",
+      "stringRva": "0xa2030",
+      "text": "IMAGE_EXCEEDS_INTERNAL_SIZE   "
+    },
+    {
+      "code": -99,
+      "targetRva": "0x50af1",
+      "stringRva": "0xa2050",
+      "text": "CUBE_MAP_NEEDS_SIX_FACES   "
+    },
+    {
+      "code": -98,
+      "targetRva": "0x50aeb",
+      "stringRva": "0xa206c",
+      "text": "MEMORY_ALLOCATION_FAILED         "
+    },
+    {
+      "code": -97,
+      "targetRva": "0x50ae5",
+      "stringRva": "0xa2090",
+      "text": "UNSUPPORTED_FORMAT         "
+    },
+    {
+      "code": -96,
+      "targetRva": "0x50adf",
+      "stringRva": "0xa20ac",
+      "text": "SURFACE_IS_VOLUME_MAP        "
+    },
+    {
+      "code": -95,
+      "targetRva": "0x50ad9",
+      "stringRva": "0xa20cc",
+      "text": "SURFACE_IS_CUBE_MAP          "
+    },
+    {
+      "code": -94,
+      "targetRva": "0x50ad3",
+      "stringRva": "0xa20ec",
+      "text": "NAN                       "
+    },
+    {
+      "code": -93,
+      "targetRva": "0x50acd",
+      "stringRva": "0xa2108",
+      "text": "CANT_CREATE_EFFECT        "
+    },
+    {
+      "code": -92,
+      "targetRva": "0x50ac7",
+      "stringRva": "0xa2124",
+      "text": "FILE_FORMAT_NOT_SUPPORTED "
+    },
+    {
+      "code": -91,
+      "targetRva": "0x50ac1",
+      "stringRva": "0xa2140",
+      "text": "FILE_NOT_ENOUGH_INDICES   "
+    },
+    {
+      "code": -90,
+      "targetRva": "0x50abb",
+      "stringRva": "0xa215c",
+      "text": "FILE_BAD_INDEX            "
+    },
+    {
+      "code": -89,
+      "targetRva": "0x50afd",
+      "stringRva": "0xa201c",
+      "text": "ERROR NOT DEFINED"
+    },
+    {
+      "code": -88,
+      "targetRva": "0x50afd",
+      "stringRva": "0xa201c",
+      "text": "ERROR NOT DEFINED"
+    },
+    {
+      "code": -87,
+      "targetRva": "0x50afd",
+      "stringRva": "0xa201c",
+      "text": "ERROR NOT DEFINED"
+    },
+    {
+      "code": -86,
+      "targetRva": "0x50989",
+      "stringRva": "0xa26fc",
+      "text": "TIFF_IO_ERR              "
+    },
+    {
+      "code": -85,
+      "targetRva": "0x50ab5",
+      "stringRva": "0xa2178",
+      "text": "OUT_OF_MEMORY             "
+    },
+    {
+      "code": -84,
+      "targetRva": "0x50aaf",
+      "stringRva": "0xa2194",
+      "text": "CANT_UNLOCK_TEXTURE       "
+    },
+    {
+      "code": -83,
+      "targetRva": "0x50aa9",
+      "stringRva": "0xa21b0",
+      "text": "NEED_PIXEL_SHADER2        "
+    },
+    {
+      "code": -82,
+      "targetRva": "0x50aa3",
+      "stringRva": "0xa21cc",
+      "text": "CANT_SET_MATRIX           "
+    },
+    {
+      "code": -81,
+      "targetRva": "0x50a9d",
+      "stringRva": "0xa21e8",
+      "text": "INVALID_FILENAME          "
+    },
+    {
+      "code": -80,
+      "targetRva": "0x50a97",
+      "stringRva": "0xa2204",
+      "text": "CANT_FIND_FILE            "
+    },
+    {
+      "code": -79,
+      "targetRva": "0x50a91",
+      "stringRva": "0xa2220",
+      "text": "CANT_CLONE_MESH           "
+    },
+    {
+      "code": -78,
+      "targetRva": "0x50a8b",
+      "stringRva": "0xa223c",
+      "text": "CANT_UNLOCK_INDEX_BUFFER  "
+    },
+    {
+      "code": -77,
+      "targetRva": "0x50afd",
+      "stringRva": "0xa201c",
+      "text": "ERROR NOT DEFINED"
+    },
+    {
+      "code": -76,
+      "targetRva": "0x50a85",
+      "stringRva": "0xa2258",
+      "text": "CANT_COMPILE_EFFECT_FILE  "
+    },
+    {
+      "code": -75,
+      "targetRva": "0x50a7f",
+      "stringRva": "0xa2274",
+      "text": "LINE_AND_PLANE_PARALLEL   "
+    },
+    {
+      "code": -74,
+      "targetRva": "0x50a79",
+      "stringRva": "0xa2290",
+      "text": "LINE_ON_PLANE             "
+    },
+    {
+      "code": -73,
+      "targetRva": "0x50a73",
+      "stringRva": "0xa22ac",
+      "text": "ZERO_TRIANGLE_AREA        "
+    },
+    {
+      "code": -72,
+      "targetRva": "0x50a6d",
+      "stringRva": "0xa22c8",
+      "text": "ZERO_DIAGONAL             "
+    },
+    {
+      "code": -71,
+      "targetRva": "0x50a67",
+      "stringRva": "0xa22e4",
+      "text": "NO_CONVERGENCE            "
+    },
+    {
+      "code": -70,
+      "targetRva": "0x50a61",
+      "stringRva": "0xa2300",
+      "text": "CANT_CREATE_PRECONDITIONER  "
+    },
+    {
+      "code": -69,
+      "targetRva": "0x50afd",
+      "stringRva": "0xa201c",
+      "text": "ERROR NOT DEFINED"
+    },
+    {
+      "code": -68,
+      "targetRva": "0x50afd",
+      "stringRva": "0xa201c",
+      "text": "ERROR NOT DEFINED"
+    },
+    {
+      "code": -67,
+      "targetRva": "0x50afd",
+      "stringRva": "0xa201c",
+      "text": "ERROR NOT DEFINED"
+    },
+    {
+      "code": -66,
+      "targetRva": "0x50afd",
+      "stringRva": "0xa201c",
+      "text": "ERROR NOT DEFINED"
+    },
+    {
+      "code": -65,
+      "targetRva": "0x50afd",
+      "stringRva": "0xa201c",
+      "text": "ERROR NOT DEFINED"
+    },
+    {
+      "code": -64,
+      "targetRva": "0x50afd",
+      "stringRva": "0xa201c",
+      "text": "ERROR NOT DEFINED"
+    },
+    {
+      "code": -63,
+      "targetRva": "0x50afd",
+      "stringRva": "0xa201c",
+      "text": "ERROR NOT DEFINED"
+    },
+    {
+      "code": -62,
+      "targetRva": "0x50afd",
+      "stringRva": "0xa201c",
+      "text": "ERROR NOT DEFINED"
+    },
+    {
+      "code": -61,
+      "targetRva": "0x50a5b",
+      "stringRva": "0xa2320",
+      "text": "CHART_AVE_DISTORTION_EXCEEDED  "
+    },
+    {
+      "code": -60,
+      "targetRva": "0x50a55",
+      "stringRva": "0xa2340",
+      "text": "CHART_MAX_DISTORTION_EXCEEDED  "
+    },
+    {
+      "code": -59,
+      "targetRva": "0x50a4f",
+      "stringRva": "0xa2360",
+      "text": "CHART_NO_FACES           "
+    },
+    {
+      "code": -58,
+      "targetRva": "0x50a49",
+      "stringRva": "0xa237c",
+      "text": "CHART_OVERLAP            "
+    },
+    {
+      "code": -57,
+      "targetRva": "0x50a43",
+      "stringRva": "0xa2398",
+      "text": "CHART_NO_UNPINNED        "
+    },
+    {
+      "code": -56,
+      "targetRva": "0x50a3d",
+      "stringRva": "0xa23b4",
+      "text": "CHART_ZERO_SIZE          "
+    },
+    {
+      "code": -55,
+      "targetRva": "0x50a37",
+      "stringRva": "0xa23d0",
+      "text": "CHART_NO_POINTS_FOUND    "
+    },
+    {
+      "code": -54,
+      "targetRva": "0x50a31",
+      "stringRva": "0xa23ec",
+      "text": "CHART_CANT_OPTIMIZE      "
+    },
+    {
+      "code": -53,
+      "targetRva": "0x50a2b",
+      "stringRva": "0xa2408",
+      "text": "CHART_NO_DATA            "
+    },
+    {
+      "code": -52,
+      "targetRva": "0x50a25",
+      "stringRva": "0xa2424",
+      "text": "CHART_BAD_PERIMETER      "
+    },
+    {
+      "code": -51,
+      "targetRva": "0x50a1f",
+      "stringRva": "0xa2440",
+      "text": "CHART_CANNOT_INVERT      "
+    },
+    {
+      "code": -50,
+      "targetRva": "0x50a19",
+      "stringRva": "0xa245c",
+      "text": "CHART_FOLDED             "
+    },
+    {
+      "code": -49,
+      "targetRva": "0x50a13",
+      "stringRva": "0xa2478",
+      "text": "NOT_RING_LOOP            "
+    },
+    {
+      "code": -48,
+      "targetRva": "0x50a0d",
+      "stringRva": "0xa2494",
+      "text": "FAILED_UNLOCK            "
+    },
+    {
+      "code": -47,
+      "targetRva": "0x50a07",
+      "stringRva": "0xa24b0",
+      "text": "CANT_LOCK                "
+    },
+    {
+      "code": -46,
+      "targetRva": "0x50a01",
+      "stringRva": "0xa24cc",
+      "text": "BAD_ARG                  "
+    },
+    {
+      "code": -45,
+      "targetRva": "0x509fb",
+      "stringRva": "0xa24e8",
+      "text": "WRITE_FAILED             "
+    },
+    {
+      "code": -44,
+      "targetRva": "0x509f5",
+      "stringRva": "0xa2504",
+      "text": "READ_FAILED              "
+    },
+    {
+      "code": -43,
+      "targetRva": "0x509ef",
+      "stringRva": "0xa2520",
+      "text": "RGBA_IO_ERR              "
+    },
+    {
+      "code": -42,
+      "targetRva": "0x509e9",
+      "stringRva": "0xa253c",
+      "text": "HDR_IO_ERR               "
+    },
+    {
+      "code": -41,
+      "targetRva": "0x509e3",
+      "stringRva": "0xa2558",
+      "text": "CANT_DECOMPOSE_MATRIX    "
+    },
+    {
+      "code": -40,
+      "targetRva": "0x509dd",
+      "stringRva": "0xa2574",
+      "text": "NO_FILENAME              "
+    },
+    {
+      "code": -39,
+      "targetRva": "0x509d7",
+      "stringRva": "0xa2590",
+      "text": "PSD_IO_ERR               "
+    },
+    {
+      "code": -38,
+      "targetRva": "0x509d1",
+      "stringRva": "0xa25ac",
+      "text": "NEED_4_PLANES_FOR_RGBE   "
+    },
+    {
+      "code": -37,
+      "targetRva": "0x509cb",
+      "stringRva": "0xa25c8",
+      "text": "CANT_CREATE_VERTEX_DECL  "
+    },
+    {
+      "code": -36,
+      "targetRva": "0x509c5",
+      "stringRva": "0xa25e4",
+      "text": "CANT_CREATE_PIXEL_SHADER "
+    },
+    {
+      "code": -35,
+      "targetRva": "0x509bf",
+      "stringRva": "0xa2600",
+      "text": "CANT_CREATE_VERTEX_BUFFER  "
+    },
+    {
+      "code": -34,
+      "targetRva": "0x509b9",
+      "stringRva": "0xa261c",
+      "text": "UNKNOWN_FORMAT           "
+    },
+    {
+      "code": -33,
+      "targetRva": "0x509b3",
+      "stringRva": "0xa2638",
+      "text": "CANT_CREATE_TEXTURE      "
+    },
+    {
+      "code": -32,
+      "targetRva": "0x509ad",
+      "stringRva": "0xa2654",
+      "text": "BAD_FORMAT               "
+    },
+    {
+      "code": -31,
+      "targetRva": "0x509a7",
+      "stringRva": "0xa2670",
+      "text": "CANT_CREATE_CUBE_MAP     "
+    },
+    {
+      "code": -30,
+      "targetRva": "0x509a1",
+      "stringRva": "0xa268c",
+      "text": "CANT_CREATE_INDEX_BUFFER "
+    },
+    {
+      "code": -29,
+      "targetRva": "0x5099b",
+      "stringRva": "0xa26a8",
+      "text": "PNG_IO_ERR               "
+    },
+    {
+      "code": -28,
+      "targetRva": "0x50995",
+      "stringRva": "0xa26c4",
+      "text": "TGA_RLE_ERR              "
+    },
+    {
+      "code": -27,
+      "targetRva": "0x5098f",
+      "stringRva": "0xa26e0",
+      "text": "TGA_IO_ERR               "
+    },
+    {
+      "code": -26,
+      "targetRva": "0x50983",
+      "stringRva": "0xa2718",
+      "text": "GBM_IO_ERR               "
+    },
+    {
+      "code": -25,
+      "targetRva": "0x5097d",
+      "stringRva": "0xa2734",
+      "text": "BAD_FLAGS                "
+    },
+    {
+      "code": -24,
+      "targetRva": "0x50977",
+      "stringRva": "0xa2750",
+      "text": "EMPTY_IMAGE              "
+    },
+    {
+      "code": -23,
+      "targetRva": "0x50971",
+      "stringRva": "0xa276c",
+      "text": "CANT_INITIALIZE_CONVOLVER  "
+    },
+    {
+      "code": -22,
+      "targetRva": "0x5096b",
+      "stringRva": "0xa2788",
+      "text": "CANT_MAKE_VECTOR         "
+    },
+    {
+      "code": -21,
+      "targetRva": "0x50965",
+      "stringRva": "0xa27a4",
+      "text": "CANT_INVERT_MATRIX       "
+    },
+    {
+      "code": -20,
+      "targetRva": "0x5095f",
+      "stringRva": "0xa27c0",
+      "text": "CANT_NORMALIZE           "
+    },
+    {
+      "code": -19,
+      "targetRva": "0x50959",
+      "stringRva": "0xa27dc",
+      "text": "CANT_MAKE_MATRIX         "
+    },
+    {
+      "code": -18,
+      "targetRva": "0x50953",
+      "stringRva": "0xa27f8",
+      "text": "IMAGE_NOT_POWER_2        "
+    },
+    {
+      "code": -17,
+      "targetRva": "0x5094d",
+      "stringRva": "0xa2814",
+      "text": "DEPTH_IS_NOT_3_OR_4      "
+    },
+    {
+      "code": -16,
+      "targetRva": "0x50947",
+      "stringRva": "0xa2830",
+      "text": "INPUT_POINTER_ZERO       "
+    },
+    {
+      "code": -15,
+      "targetRva": "0x50941",
+      "stringRva": "0xa284c",
+      "text": "OUTPUT_FILE_IS_READ_ONLY "
+    },
+    {
+      "code": -14,
+      "targetRva": "0x5093b",
+      "stringRva": "0xa2868",
+      "text": "IMAGE_NOT_MULT4          "
+    },
+    {
+      "code": -13,
+      "targetRva": "0x50935",
+      "stringRva": "0xa2884",
+      "text": "CANT_OPEN_PROFILE        "
+    },
+    {
+      "code": -12,
+      "targetRva": "0x5092f",
+      "stringRva": "0xa28a0",
+      "text": "UNKNOWN_CONVERSION       "
+    },
+    {
+      "code": -11,
+      "targetRva": "0x50929",
+      "stringRva": "0xa28bc",
+      "text": "IMAGES_NOT_SAME_SIZE     "
+    },
+    {
+      "code": -10,
+      "targetRva": "0x50923",
+      "stringRva": "0xa28d8",
+      "text": "IMAGE_NOT_SQUARE         "
+    },
+    {
+      "code": -9,
+      "targetRva": "0x5091d",
+      "stringRva": "0xa28f4",
+      "text": "BAD_LIST_FILE_CONTENTS   "
+    },
+    {
+      "code": -8,
+      "targetRva": "0x50917",
+      "stringRva": "0xa2910",
+      "text": "CANT_OPEN_LIST_FILE      "
+    },
+    {
+      "code": -7,
+      "targetRva": "0x50911",
+      "stringRva": "0xa292c",
+      "text": "BAD_LIST_FILE            "
+    },
+    {
+      "code": -6,
+      "targetRva": "0x5090b",
+      "stringRva": "0xa2948",
+      "text": "CANT_DECOMPRESS_IMAGE    "
+    },
+    {
+      "code": -5,
+      "targetRva": "0x50905",
+      "stringRva": "0xa2964",
+      "text": "BAD_OUTPUT_DIRECTORY     "
+    },
+    {
+      "code": -4,
+      "targetRva": "0x508ff",
+      "stringRva": "0xa2980",
+      "text": "BAD_OPTION               "
+    },
+    {
+      "code": -3,
+      "targetRva": "0x508f9",
+      "stringRva": "0xa299c",
+      "text": "Can't Open Output File    "
+    },
+    {
+      "code": -2,
+      "targetRva": "0x508f3",
+      "stringRva": "0xa29b8",
+      "text": "Can't Open Input File     "
+    },
+    {
+      "code": -1,
+      "targetRva": "0x508ed",
+      "stringRva": "0xa29d4",
+      "text": "FAIL                     "
+    },
+    {
+      "code": 0,
+      "targetRva": "0x508e7",
+      "stringRva": "0xa29f0",
+      "text": "OK                       "
+    }
+  ]
+}

@@ -2841,6 +2841,22 @@
       "evidence": "recovery/evidence/texture/ppm-volume-boundaries/*/validation.json",
       "sdk": false,
       "priority": 0
+    },
+    "native-errors": {
+      "script": "recovery/scripts/TestTextureNativeErrors.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Native/TextureErrorStrings.cpp",
+        "src/TextureCompiler/Native/TextureNativeApi.h",
+        "src/TextureCompiler/Native/TextureNativeApi.def",
+        "recovery/scripts/BuildTextureNativeApi.ps1",
+        "recovery/scripts/TestTextureNativeErrors.ps1",
+        "recovery/tests/TextureNativeErrorsOracle.cpp",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/native-errors/*/validation.json",
+      "sdk": false,
+      "priority": -10
     }
   },
   "targetPlatform": "Win32"
