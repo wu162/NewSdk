@@ -127,7 +127,8 @@ function AudioMod([string]$Path){
 }
 function W3xMod([string]$Path){
     # Reuse the existing source-XSD-valid recovered W3X integration fixtures,
-    # retaining the exact animation node and its one hierarchy dependency.
+    # retaining its hierarchy and two cacheable animation instances. The XML
+    # provider's hierarchy itself is not eligible for the asset cache.
     [xml]$animations=[IO.File]::ReadAllText("$root/SDK/Mods/W3xRecovery/Data/Animations.xml")
     [xml]$dependencies=[IO.File]::ReadAllText("$root/SDK/Mods/W3xRecovery/Data/Dependencies.xml")
     $ns=[Xml.XmlNamespaceManager]::new($animations.NameTable);$ns.AddNamespace('ea','uri:ea.com:eala:asset')
@@ -135,10 +136,11 @@ function W3xMod([string]$Path){
     $dns=[Xml.XmlNamespaceManager]::new($dependencies.NameTable);$dns.AddNamespace('ea','uri:ea.com:eala:asset')
     $hierarchy=$dependencies.SelectSingleNode('/ea:AssetDeclaration/ea:W3DHierarchy[1]',$dns)
     Need ($null -ne $animation -and $null -ne $hierarchy -and $animation.GetAttribute('Hierarchy') -ceq $hierarchy.GetAttribute('id')) 'W3X source fixture hierarchy closure changed'
+    $unchanged=$animation.CloneNode($true);$unchanged.SetAttribute('id',$animation.GetAttribute('id')+'_Unchanged')
     Put "$Path/Data/Mod.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes><Include type="all" source="W3x.xml"/></Includes></AssetDeclaration>'
-    Put "$Path/Data/W3x.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$hierarchy.OuterXml+$animation.OuterXml+'</AssetDeclaration>')
+    Put "$Path/Data/W3x.xml" ('<AssetDeclaration xmlns="uri:ea.com:eala:asset">'+$hierarchy.OuterXml+$animation.OuterXml+$unchanged.OuterXml+'</AssetDeclaration>')
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production /bc asset-cache replay for AudioFile PCM WAVE including complete CDATA and one real W3DAnimation with hierarchy closure; disabled/cold/hot, same-length same-mtime input changes, exact four-stream and CDATA equality against independent no-cache processes; not a new original-DLL/SDK gate'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Production /bc asset-cache replay for AudioFile PCM WAVE including complete CDATA and two W3DAnimation instances with hierarchy closure; disabled/cold/hot and partial reuse after same-length same-mtime input changes, exact four-stream and CDATA equality against independent no-cache processes; not a new original-DLL/SDK gate'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
     Need (!(Test-Path -LiteralPath (Join-Path $CompilerDirectory 'reuse.json'))) 'Payload cache acceptance requires current production EXE bytes'
@@ -201,7 +203,7 @@ try{
                 SameLengthMutation $input 'FrameRate="30"' 'FrameRate="31"'
             }
             $changed=RunCli ($family+'-content-invalidated') $mod $cachedOut $true;Cache $changed 'invalidated'
-            if($family -eq 'w3x'){Need ($changed.report.cache.hits -gt 0) 'W3X animation edit discarded its unchanged hierarchy asset'}
+            if($family -eq 'w3x'){Need ($changed.report.cache.hits -eq 1 -and $changed.report.cache.misses -eq 1) 'W3X animation edit must miss the changed animation and retain exactly one unchanged animation'}
             DifferentOutputs $hot $changed
             $changedPlain=RunCli ($family+'-changed-disabled') $mod $plainOut $false;Cache $changedPlain 'disabled';SameOutputs $changedPlain $changed
             $changedHot=RunCli ($family+'-changed-hot') $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot

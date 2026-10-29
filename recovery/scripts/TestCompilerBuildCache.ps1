@@ -191,24 +191,27 @@ try{
         $cold=RunCli 'cold' $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $plain $cold
         $hot=RunCli 'hot' $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         OriginalOracle $hot 'original-initial'
+        # Armor/APT/Texture are not cacheable providers in this fixture. Editing
+        # them must change the exact output while keeping the unrelated cached
+        # PathMusicEvent hot. Only editing its events.h dependency requires a miss.
         SameLengthMutation "$mod/Data/Armor.xml" '72.5%' '12.5%'
-        $include=RunCli 'include-content-invalidated' $mod $cachedOut $true;Cache $include 'invalidated';DifferentOutputs $hot $include
+        $include=RunCli 'include-content-invalidated' $mod $cachedOut $true;Cache $include 'hot';DifferentOutputs $hot $include
         $includePlain=RunCli 'include-content-no-cache' $mod $plainOut $false;SameOutputs $includePlain $include
         $includeHot=RunCli 'include-content-hot' $mod $cachedOut $true;Cache $includeHot 'hot';SameOutputs $includePlain $includeHot
         SameLengthMutation "$mod/Data/XArmor.xml" '22.5%' '32.5%'
-        $xinclude=RunCli 'xinclude-content-invalidated' $mod $cachedOut $true;Cache $xinclude 'invalidated';DifferentOutputs $includeHot $xinclude
+        $xinclude=RunCli 'xinclude-content-invalidated' $mod $cachedOut $true;Cache $xinclude 'hot';DifferentOutputs $includeHot $xinclude
         $includePlain=RunCli 'xinclude-content-no-cache' $mod $plainOut $false;SameOutputs $includePlain $xinclude
         $includeHot=RunCli 'xinclude-content-hot' $mod $cachedOut $true;Cache $includeHot 'hot';SameOutputs $includePlain $includeHot
         $payload="$mod/Data/AptUI/payload.bin";$stamp=[IO.File]::GetLastWriteTimeUtc($payload);$bytes=[IO.File]::ReadAllBytes($payload);$bytes[0]=9
         [IO.File]::WriteAllBytes($payload,$bytes);[IO.File]::SetLastWriteTimeUtc($payload,$stamp)
         Need ((Get-Item -LiteralPath $payload).Length -eq 7 -and [IO.File]::GetLastWriteTimeUtc($payload) -eq $stamp) 'Payload mutation failed to preserve length/mtime'
-        $changed=RunCli 'payload-content-invalidated' $mod $cachedOut $true;Cache $changed 'invalidated';DifferentOutputs $includeHot $changed
+        $changed=RunCli 'payload-content-invalidated' $mod $cachedOut $true;Cache $changed 'hot';DifferentOutputs $includeHot $changed
         $changedPlain=RunCli 'payload-content-no-cache' $mod $plainOut $false;SameOutputs $changedPlain $changed
         $changedHot=RunCli 'payload-content-hot' $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
         $texture="$mod/Data/cache.tga";$stamp=[IO.File]::GetLastWriteTimeUtc($texture);$bytes=[IO.File]::ReadAllBytes($texture);$originalLength=$bytes.Length;$bytes[18]=253
         [IO.File]::WriteAllBytes($texture,$bytes);[IO.File]::SetLastWriteTimeUtc($texture,$stamp)
         Need ((Get-Item -LiteralPath $texture).Length -eq $originalLength -and [IO.File]::GetLastWriteTimeUtc($texture) -eq $stamp) 'Texture mutation failed to preserve length/mtime'
-        $textureChanged=RunCli 'texture-content-invalidated' $mod $cachedOut $true;Cache $textureChanged 'invalidated';DifferentOutputs $changedHot $textureChanged
+        $textureChanged=RunCli 'texture-content-invalidated' $mod $cachedOut $true;Cache $textureChanged 'hot';DifferentOutputs $changedHot $textureChanged
         $changedPlain=RunCli 'texture-content-no-cache' $mod $plainOut $false;SameOutputs $changedPlain $textureChanged
         $changedHot=RunCli 'texture-content-hot' $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
         SameLengthMutation "$mod/Data/events.h" '0x12345678' '0x23456789'
