@@ -1,3 +1,9 @@
+# 本轮进行中：修复NPOT原字节检出，补验并启动专用PcDib
+
+- **本轮完成**：撤回历史证据区全局TSV/XML规则，只对新增DIB证据限定保存；原NPOT四份TSV明确CRLF检出。只读Windows Git过滤审计全部22系数文件与原收据SHA相同，未改原gold、SHA或比较。DIB完整D/R归档审计50304输入/配置、432成功atlas已保存于`evidence/texture/handoffs/20261029-dib/component-archive-audit.json`。
+- **当前验证**：提交显式`[texture-dib-sdk]`，仅补失败/实际变化npot-rgba8及新sdk-PcDib，其余45成功组件继续复用。新增Linux Windows检出模拟及Windows实际检出预检，在构建前核对原DLL、完整1012输入归档与22系数文件。尚未取得本次Actions结果，专用SDK仍待验收；前置检查确保全部46组件成功后才开始SDK。
+- **下一轮计划**：核实本批终态，独立审计PcDib四产物/全部轨迹/5-DLL来源包及ID；不重跑未变成功组或完整MOD。等待时从`TEXTURE_PPM_NEXT.md`推进独立公开PPM源码适配测试分支，组件/实际消费/必要SDK通过后才合入主贴图分支。禁止强推，编译测试仅Actions。
+
 # 当前：DIB组件通过；NPOT旧gold预检待修，专用SDK尚未运行
 
 - **本次文档更新**：功能实现效率优先，先便宜预检、再新能力反馈、最后集中必要完整回归；成功组逐项复用，长CI不扩展无关辅助工作，不凑时长。已同步AGENTS/EFFICIENCY/TEXTURE_TESTING/STAGE_DURATION。本次只改文档，未修行尾或改验证编排、未跑补验/SDK；新组排序与预检前移仍待实现。

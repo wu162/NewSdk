@@ -1,0 +1,117 @@
+{
+  "scope": "read-only exact Git checkout byte audit, not codec/build acceptance",
+  "originalReceipt": "recovery/evidence/texture/npot-numeric/40529918922-1/validation.json",
+  "originalHashesUnchanged": true,
+  "files": [
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/rva-98080.bin",
+      "bytes": 64,
+      "sha256": "6c61d9fc8dd5eca3c18db8abeec5e119e0147bf766bce28d8fcaedb22fd1a929"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/rva-98080.tsv",
+      "bytes": 565,
+      "sha256": "d4e0c477546dbba8fe0c5405dc908f8faaec184481643bdf8b2f56b256b8bd41"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/rva-99280.bin",
+      "bytes": 3456,
+      "sha256": "28c282ba0a660fbd0cfff97efc59e8bdeccb424ee5f106496c997e0f4f95e871"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/rva-99280.tsv",
+      "bytes": 35227,
+      "sha256": "42237f989d31ee8d6273066d6284c4427945c840b21665f6fa7b74741f6058ca"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/rva-b8fc8.bin",
+      "bytes": 256,
+      "sha256": "bc2a0662dcc0fe1ed22293c8219dd0301fea4d41999b8b35cb69b714863ce7c2"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/rva-b8fc8.tsv",
+      "bytes": 2266,
+      "sha256": "d6832d74c825099785f25b1364a859771384f43e34bd8c6c58d2a1f9cd190875"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-1-1.bin",
+      "bytes": 16,
+      "sha256": "b92899dc2394d951cf0084b147359ffee83551651317423ca393fcf4503bc26a"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-127-128.bin",
+      "bytes": 3568,
+      "sha256": "ceff70a22c4f710f37522d33efc8a648cdd187004f20e4f3d6f859f4d5b84fd9"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-15-16.bin",
+      "bytes": 432,
+      "sha256": "aaa2b16fee9d5fcb56980c679b54641937f69158c15e83f76283cae31ceaa365"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-17-32.bin",
+      "bytes": 712,
+      "sha256": "bca82be25c61a486b1491b2d4a8db05612bef2f8c34456138d578cbd553ed1b2"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-2-2.bin",
+      "bytes": 60,
+      "sha256": "fb8e758b0a56cbae657a19af06861ba9b3bc47019ad982a63142e10a680d5a52"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-255-256.bin",
+      "bytes": 7136,
+      "sha256": "06c6d4f0e245c81d7ddb5db089ded3931a7f0d08e7a69677dc79a8a629503fe0"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-3-4.bin",
+      "bytes": 96,
+      "sha256": "73c17d00c44c1621b1822765c7a804d0e91335358ba588f6b197eb41ccf76467"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-31-32.bin",
+      "bytes": 880,
+      "sha256": "335f2c509d01b5482ba8ae1ae028c1a7345cedfa9c271ffa2f1f99771db720dc"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-33-64.bin",
+      "bytes": 1416,
+      "sha256": "21d44d43ea792c8160f0a640fce048a8e2076f93792093792b5030294586ea42"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-4-4.bin",
+      "bytes": 116,
+      "sha256": "b2825bc4780dbd1276a3f96788898b4733213b9be3aa260b4938748e4c2125f3"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-5-8.bin",
+      "bytes": 184,
+      "sha256": "dc8d956ed89763ad42780f7a7631f43542d07c3307660f92f26c8fc0265a3130"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-63-64.bin",
+      "bytes": 1776,
+      "sha256": "28f35e80ecaf6da63321cd4e74caacb27570172937e51b2d20c63c04129e19e2"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-7-8.bin",
+      "bytes": 208,
+      "sha256": "0ffbf3d2028aaff2141a9976de4582fc8c15340f86cba1b9a496dbb6213a81ec"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-8-8.bin",
+      "bytes": 228,
+      "sha256": "ea31fbd7a1189ac570672a9bb3bbdc02241f1dcd68f84702d8e2f5add39ec352"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights-9-16.bin",
+      "bytes": 360,
+      "sha256": "b8a54eaf052a77f04b4960fcab8417ca0658263216c21cca3e192353ac9dbc07"
+    },
+    {
+      "file": "recovery/evidence/texture/npot-numeric/40529918922-1/tables/weights.tsv",
+      "bytes": 63906,
+      "sha256": "b56e290c73b2240648793c0aa8cf13ccb61c4fbbe6b52ea7cee90768651dd717"
+    }
+  ]
+}

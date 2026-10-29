@@ -994,7 +994,8 @@
         "recovery/reference/ijg6b/**",
         "recovery/scripts/BuildTextureJpeg.ps1",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "recovery/scripts/InspectTextureNpotGold.py"
       ],
       "evidence": "recovery/evidence/texture/npot-rgba8/*/validation.json",
       "sdk": false

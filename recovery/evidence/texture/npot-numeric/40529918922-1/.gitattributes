@@ -1,0 +1,3 @@
+# Original Windows transcripts were committed with LF normalization.
+# Restore their exact CRLF bytes; the original receipt SHA256 values stay fixed.
+tables/*.tsv text eol=crlf

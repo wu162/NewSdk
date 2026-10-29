@@ -1,4 +1,6 @@
-# Preserve exact Windows-generated evidence bytes and receipt fingerprints.
-*.tsv -text
-*.xml -text
-package-manifest.json -text
+# Preserve only the newly introduced DIB evidence. Historical text outside
+# these paths keeps its original checkout policy and immutable receipt hashes.
+dib/40821998297-1/*.tsv -text
+sdk-dib/**/*.tsv -text
+sdk-dib/**/*.xml -text
+sdk-dib/**/package-manifest.json -text
