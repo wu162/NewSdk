@@ -18,6 +18,7 @@ namespace NewModCompiler.Application
         readonly Dictionary<string, string> previous;
         readonly HashSet<string> requested = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         ArtifactPublication publication;
+        bool repairRequired;
         public int RestoredStreams { get; private set; }
 
         internal LinkedOutputCache(string output)
@@ -35,7 +36,11 @@ namespace NewModCompiler.Application
         internal string Find(string scope, string streams, string stem)
         {
             string cached = Path.Combine(destination, scope, stem.Substring(streams.Length + 1));
-            foreach (string extension in Extensions) if (!File.Exists(cached + extension)) return null;
+            foreach (string extension in Extensions) if (!File.Exists(cached + extension))
+            {
+                if (previous != null && previous.ContainsKey(Path.Combine(scope, stem.Substring(streams.Length + 1)) + extension)) repairRequired = true;
+                return null;
+            }
             return cached;
         }
         internal void Reuse(string stem, string cached, IList<Artifact> artifacts, FileHashCache hashes)
@@ -69,7 +74,7 @@ namespace NewModCompiler.Application
         }
         internal void Commit()
         {
-            bool unchanged = previous != null && previous.Count == staged.Count;
+            bool unchanged = !repairRequired && previous != null && previous.Count == staged.Count;
             if (unchanged) foreach (var file in staged)
             {
                 string hash;

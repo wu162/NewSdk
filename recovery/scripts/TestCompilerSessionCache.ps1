@@ -328,8 +328,13 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $plain=RunCli 'disabled' $mod $plainOut $false;Cache $plain 'disabled'
         $cold=RunCli 'cold' $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $plain $cold;$script:hotParseCeiling=$cold.report.cache.xmlParse
         $publishedBefore=PublishedTimes $cachedOut
+        $cacheTimes=@{}
+        foreach($file in Get-ChildItem -LiteralPath $cachedOut -File -Recurse){
+            if($file.Name -like 'BinaryAssetBuilder.SessionCache.xml*' -or (Within (Join-Path $cachedOut '.NewModCompiler') $file.FullName)){$cacheTimes[$file.FullName]=$file.LastWriteTimeUtc.Ticks}
+        }
         $hot=RunCli 'hot' $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         LinkedHot $hot $publishedBefore
+        foreach($path in $cacheTimes.Keys){Need ([IO.File]::GetLastWriteTimeUtc($path).Ticks -eq $cacheTimes[$path]) 'Hot build rewrote unchanged SessionCache or CDATA'}
         $plainBefore=PublishedTimes $plainOut
         $plainHot=RunCli 'disabled-hot-linked' $mod $plainOut $false;Cache $plainHot 'disabled';SameOutputs $plain $plainHot;LinkedHot $plainHot $plainBefore
         $damagedLinked=Get-ChildItem -LiteralPath (Join-Path $cachedOut '.linked-streams') -Filter '*.imp' -Recurse -File|Select-Object -First 1

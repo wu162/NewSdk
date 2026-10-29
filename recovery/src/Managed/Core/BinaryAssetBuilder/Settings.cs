@@ -13,6 +13,7 @@ public class Settings : ICloneable
 	public Action<string> PrepareLinkedOutput { get; set; }
 	public Func<string, string> FindLinkedOutput { get; set; }
 	public Action<string, string> ReuseLinkedOutput { get; set; }
+	public Func<string, string> FileContentHash { get; set; }
 	public Func<string, string> FindCustomData { get; set; }
 	public Action<string, string> ReuseCustomData { get; set; }
 

@@ -33,6 +33,17 @@ namespace NewModCompiler.Tests
             Check(replaced.FileId!=changed.FileId,"Replacing an input retained its old identity");
             File.Delete(nested);
             Check(FileIdentity.ReadDirectory(root,true).Count==1,"Removed input remained in metadata closure");
+            var hashes=new FileHashCache(Path.Combine(root,"receipts"));
+            string published=Path.Combine(root,"published"), item=Path.Combine(published,"child","item.bin");
+            Directory.CreateDirectory(Path.GetDirectoryName(item));File.WriteAllText(item,"before");
+            var artifacts=new[] {new Artifact {Path=item,Kind="test",Size=6,Sha256=hashes.Hash(item)}};
+            hashes.RecordPublished(artifacts,published,false);
+            Check(hashes.MatchesPublication(artifacts,published),"Unchanged publication receipt did not match");
+            File.WriteAllText(Path.Combine(published,"child","unexpected.bin"),"extra");
+            Check(!hashes.MatchesPublication(artifacts,published),"Extra nested output did not invalidate publication receipt");
+            File.Delete(Path.Combine(published,"child","unexpected.bin"));hashes.RecordPublished(artifacts,published,false);
+            DateTime saved=File.GetLastWriteTimeUtc(item);Thread.Sleep(30);File.WriteAllText(item,"after!");File.SetLastWriteTimeUtc(item,saved);
+            Check(!hashes.MatchesPublication(artifacts,published),"Restored-mtime edit did not invalidate publication receipt");
             return count;
         }
     }

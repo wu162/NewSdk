@@ -34,6 +34,13 @@ namespace NewModCompiler.Application
                 previous.Add(entry.Key, (string)entry.Value);
         }
 
+        internal string HashBase64(string path)
+        {
+            string hex = Hash(path); var bytes = new byte[32];
+            for (int i = 0; i < bytes.Length; i++) bytes[i] = byte.Parse(hex.Substring(i * 2, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+            return Convert.ToBase64String(bytes);
+        }
+
         internal string Hash(string path, bool immutable = false)
         {
             FileIdentity file = Identity(Path.GetFullPath(path));

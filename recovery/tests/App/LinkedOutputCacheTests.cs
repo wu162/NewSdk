@@ -54,6 +54,22 @@ namespace NewModCompiler.Tests
                 Check(cache.RestoredStreams==0 && !Directory.Exists(repair),"Incomplete group was partially restored");
             }
             Check(Directory.GetDirectories(output,".linked-candidate-*").Length==0 && Directory.GetDirectories(output,".linked-previous-*").Length==0,"Linked transaction leaked temporary generations");
+            // An identical generation must not materialize virtual output or create a transaction.
+            string fastOut=Path.Combine(root,"fast-out"), fastStreams=Path.Combine(root,"fast-source"), virtualStreams=Path.Combine(root,"virtual");
+            var fastFiles=Group(fastStreams,"Mod","stable");
+            var hashes=new FileHashCache(fastOut);
+            foreach(var artifact in fastFiles) {artifact.Size=new FileInfo(artifact.Path).Length;artifact.Sha256=hashes.Hash(artifact.Path,true);}
+            using(var cache=new LinkedOutputCache(fastOut)) {cache.Stage(scope,fastStreams,fastFiles,CancellationToken.None);cache.Commit();cache.Complete();}
+            string stable=Path.Combine(fastOut,".linked-streams",scope,"Mod.bin");
+            string identity=FileIdentity.Stamp(stable);
+            using(var cache=new LinkedOutputCache(fastOut)) {
+                Check(Directory.GetDirectories(fastOut,".linked-candidate-*").Length==0,"Constructor created a candidate");
+                var reused=new List<Artifact>();string stem=Path.Combine(virtualStreams,"Mod");
+                cache.Reuse(stem,cache.Find(scope,virtualStreams,stem),reused,hashes);
+                Check(!Directory.Exists(virtualStreams) && reused.Count==4,"Reuse materialized a four-file snapshot");
+                cache.Stage(scope,virtualStreams,reused,CancellationToken.None);cache.Commit();cache.Complete();
+                Check(FileIdentity.Stamp(stable)==identity,"Identical generation replaced the cached file");
+            }
             return count;
         }
     }

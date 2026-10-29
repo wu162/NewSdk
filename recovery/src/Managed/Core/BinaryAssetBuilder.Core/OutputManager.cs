@@ -239,6 +239,7 @@ public class OutputManager
 				if (_CachedLinkedOutput != null && LinkedChecksumsMatch(document.OutputChecksum))
 				{
 					_ReuseLinked = true;
+					_Tracer.TraceInfo("Old manifest is up to date.");
 					Settings.Current.ReuseLinkedOutput(_OutputDirectory, _CachedLinkedOutput);
 					return;
 				}
@@ -398,7 +399,13 @@ public class OutputManager
 
 	public void LinkStream(AssetDeclarationDocument document)
 	{
-		if (_ReuseLinked) return;
+		if (_ReuseLinked)
+		{
+			_Tracer.Message("{0} Linked binary data up to date", document.SourcePathFromRoot);
+			_Tracer.Message("{0} Linked import data up to date", document.SourcePathFromRoot);
+			_Tracer.Message("{0} Linked relocation data up to date", document.SourcePathFromRoot);
+			return;
+		}
 		string text = _OutputDirectory + ".temp";
 		string outputDirectory = _OutputDirectory;
 		uint num = document.OutputChecksum;

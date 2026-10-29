@@ -73,6 +73,7 @@ namespace NewModCompiler.Application
                     buildCacheEnabled = configured.BuildCache;
                     request.Options["bc"] = new EffectiveOption { Value = buildCacheEnabled ? "true" : "false", Source = "sdkConfig" };
                 }
+                if (request.FileIdentities == null) request.FileIdentities = new FileHashCache(outputRoot);
                 this.request = request;
                 lock (LeaseGate) { initialized = true; initializing = false; }
             }
@@ -449,6 +450,7 @@ namespace NewModCompiler.Application
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
                 Settings settings = streamSettings = StreamSettings(context, staging);
+                settings.FileContentHash = request.FileIdentities.HashBase64;
                 if (linkedOutputs == null) linkedOutputs = new LinkedOutputCache(outputRoot);
                 string linkScope = Path.Combine(context.Task.Content, Path.GetFileNameWithoutExtension(context.Task.InputPath));
                 var reusedArtifacts = new List<Artifact>();
