@@ -1,0 +1,1 @@
+PROBE Texture BMP headers fixtures=2616 decoded=2184 rejected=432 candidateMatches=288 differences=2328 unstableOriginals=49 originalCalls=5232 checks=3050; full original/candidate RGBA/errors, DIB/core/V2/V3/V4/V5/OS2, gamma/ICC/bitfields/gaps; no recovered/plugin/SDK acceptance
