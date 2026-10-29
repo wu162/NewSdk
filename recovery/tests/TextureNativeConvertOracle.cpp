@@ -70,8 +70,18 @@ void Compare(unsigned char* original,HMODULE dll,const char* path){auto expected
  if(original){std::ofstream out(path,std::ios::binary);out.write(reinterpret_cast<const char*>(expected.bytes.data()),expected.bytes.size());Check(out.good(),"Archive copy original capture");if(actual.bytes!=expected.bytes){std::ofstream failed(std::string(path)+".actual",std::ios::binary);failed.write(reinterpret_cast<const char*>(actual.bytes.data()),actual.bytes.size());std::size_t offset=0;while(offset<actual.bytes.size()&&offset<expected.bytes.size()&&actual.bytes[offset]==expected.bytes[offset])++offset;std::cerr<<"first difference offset="<<offset<<" expected="<<(offset<expected.bytes.size()?static_cast<int>(expected.bytes[offset]):-1)<<" actual="<<(offset<actual.bytes.size()?static_cast<int>(actual.bytes[offset]):-1)<<"\n";Check(false,"Complete conversion source/output trace differs");}}
  else{std::ifstream in(path,std::ios::binary);Check(in.is_open(),"Missing conversion capture");std::vector<unsigned char> capture((std::istreambuf_iterator<char>(in)),std::istreambuf_iterator<char>());Check(!in.bad()&&actual.bytes==capture,"Complete isolated conversion replay differs");}
  auto api=Bind(nullptr,dll);unsigned char source[64]={1,2,3,4},destination[64]={9,8,7,6};auto before=std::array<unsigned char,64>{};std::memcpy(before.data(),destination,64);
- const U unsupported[]={0u,1u,13u,18u,27u,33u,6u|0x40u,6u|0x200u,6u|0x20000u,6u|Swizzle(6,1,2,3)};
+ const U unsupported[]={0u,1u,13u,18u,27u,33u,6u|0x40u,6u|0x600u,3u|0x8000u,6u|Swizzle(6,1,2,3)};
  for(U sf:unsupported){if(!original)Isolated();Check(api.copy(destination,8,1,1,26|Swizzle(0,1,2,3),nullptr,source,8,sf,nullptr,0,1)==static_cast<std::int32_t>(0x80004001u)&&std::memcmp(before.data(),destination,64)==0,"Unsupported conversion must preserve output");if(!original)Isolated();}
+ // Candidate rejection boundaries are not invoked on the undefined original domain.
+ for(U bits:{0x7fc00000u,0x7f800000u,0xff800000u,0xbf800000u,0x3f800001u}){
+  float threshold;std::memcpy(&threshold,&bits,4);if(!original)Isolated();Check(api.copy(destination,8,1,1,0x1a20001a,nullptr,source,8,0x1a200006,nullptr,0,threshold)==static_cast<std::int32_t>(0x80004001u)&&std::memcmp(before.data(),destination,64)==0,"Invalid conversion threshold changed output");if(!original)Isolated();
+ }
+ for(U flags:{1u,2u,3u,4u,8u,12u,0xffffffffu}){
+  if(!original)Isolated();Check(api.copy(destination,8,1,1,0x1a20001a,nullptr,source,8,0x1a200006,nullptr,flags,0.5f)==static_cast<std::int32_t>(0x80004001u)&&std::memcmp(before.data(),destination,64)==0,"Unimplemented conversion flags changed output");if(!original)Isolated();
+ }
+ for(Rect rect: {Rect{-1,0,1,1},Rect{0,-1,1,1},Rect{0,0,2,1},Rect{1,0,0,1}}){
+  if(!original)Isolated();Check(api.copy(destination,8,1,1,0x1a20001a,nullptr,source,8,0x1a200006,&rect,0,0.5f)==static_cast<std::int32_t>(0x80004001u)&&std::memcmp(before.data(),destination,64)==0,"Invalid conversion rectangle changed output");if(!original)Isolated();
+ }
  std::cout<<"PASS native PC normalized conversion "<<(original?"differential":"NoOriginal")<<" cases=100412 formatPairs=784 mappingPairs=16 orientations=4 regions=4 padding=2 exhaustive16BitStrips=60 exhaustivePixels=3932160 traceBytes="<<actual.bytes.size()<<"; full source/output/padding/guards, thresholds and isolated replay\n";
 }
 }

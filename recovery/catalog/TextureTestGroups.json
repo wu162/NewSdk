@@ -3012,6 +3012,30 @@
       "evidence": "recovery/evidence/texture/native-convert/*/validation.json",
       "sdk": false,
       "priority": -5
+    },
+    "native-signed-convert": {
+      "script": "recovery/scripts/TestTextureNativeSignedConvert.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Native/TextureNativeCopyApi.cpp",
+        "src/TextureCompiler/Native/TextureNativeCopyApi.h",
+        "src/TextureCompiler/Native/TextureNativeCopyApi.def",
+        "recovery/scripts/BuildTextureNativeCopy.ps1",
+        "recovery/scripts/TestTextureNativeCopy.ps1",
+        "recovery/tests/TextureNativeCopyOracle.cpp",
+        "recovery/tests/TextureNativeCopyLink.cpp",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Native/TextureNativeConvertApi.cpp",
+        "recovery/scripts/TestTextureNativeConvert.ps1",
+        "recovery/tests/TextureNativeConvertOracle.cpp",
+        "recovery/tests/TextureNativeConvertLink.cpp",
+        "recovery/scripts/TestTextureNativeSignedConvert.ps1",
+        "recovery/tests/TextureNativeSignedConvertOracle.cpp",
+        "recovery/tests/TextureNativeSignedConvertLink.cpp"
+      ],
+      "evidence": "recovery/evidence/texture/native-signed-convert/*/validation.json",
+      "sdk": false,
+      "priority": -6
     }
   },
   "targetPlatform": "Win32"

@@ -40,28 +40,50 @@ constexpr Format Formats[]={
  {62,4,4,{0,0,0,0},{0xffu,0xff00u,0xff0000u,0xff000000u},{0,8,16,24}}
 };
 const Format* Find(U full){
- // Unsigned normalized, little endian; selectors 0..3, constant zero and one.
- if(full&~0x3ffc003fu)return nullptr;
- for(U c=0;c<4;++c)if(((full>>(18+3*c))&7)>5)return nullptr;
- for(const auto& f:Formats)if(f.id==(full&63))return &f;
- return nullptr;
+ // Little endian normalized/integer, unsigned/signed/biased channels; no gamma.
+ if(full&~0x3ffffe3fu)return nullptr;
+ const Format* result=nullptr;
+ for(const auto& f:Formats)if(f.id==(full&63))result=&f;
+ if(!result)return nullptr;
+ for(U c=0;c<4;++c){
+  const U type=(full>>(9+2*c))&3;
+  if(((full>>(18+3*c))&7)>5||type==3)return nullptr;
+  // Signed/biased one-bit normalization has a zero denominator in the original.
+  if(type&&(result->mask[c]>>result->shift[c])==1)return nullptr;
+ }
+ return result;
 }
 float MultiplyAdd(float value,float scale,float bias){
  // Match the original x87 multiply/add followed by an explicit float32 store.
  volatile float result=static_cast<float>(static_cast<double>(value)*scale+bias);
  return result;
 }
-float Normalize(U value,U maximum){
+float Normalize(U value,U maximum,U type,bool integer){
  if(!maximum)return 0;
- volatile float reciprocal=static_cast<float>(1.0/static_cast<double>(maximum));
- return MultiplyAdd(static_cast<float>(value),reciprocal,0);
+ const U midpoint=(maximum>>1)+1;
+ if(type==1)value^=midpoint;
+ const float offset=type?-static_cast<float>(midpoint):0;
+ volatile float scale=integer?1:static_cast<float>(1.0/static_cast<double>(type?midpoint-1:maximum));
+ const float bias=MultiplyAdd(offset,scale,0);
+ const float result=MultiplyAdd(static_cast<float>(value),scale,bias);
+ // Source normalized signed/biased values clamp the asymmetric minimum to -1.
+ return !integer&&type&&result<-1?-1:result;
 }
-U Quantize(float value,U maximum,float threshold){
- float bias=maximum==1?static_cast<float>(0.5-static_cast<double>(threshold)):0;
- volatile float scaled=MultiplyAdd(value,static_cast<float>(maximum),bias);
- volatile float rounded=static_cast<float>(static_cast<double>(scaled)+0.5);
- return static_cast<U>(static_cast<std::int32_t>(rounded));
+U Quantize(float value,U maximum,U type,bool integer,float threshold){
+ const U midpoint=(maximum>>1)+1;
+ const float minimum=type?(integer?-static_cast<float>(midpoint-1):-1):0;
+ const float upper=integer?static_cast<float>(type?midpoint-1:maximum):1;
+ value=value<minimum?minimum:value>upper?upper:value;
+ const float scale=integer?1:static_cast<float>(type?midpoint-1:maximum);
+ const float bias=type?static_cast<float>(midpoint):0;
+ // XGCopySurface adds the one-bit alpha reference to the destination bias first.
+ volatile float combinedBias=maximum==1?static_cast<float>(static_cast<double>(bias)+static_cast<float>(0.5-static_cast<double>(threshold))):bias;
+ volatile float scaled=MultiplyAdd(value,scale,combinedBias);
+ // Original uses truncation with a sign-selected half, not ties-to-even.
+ volatile float rounded=static_cast<float>(static_cast<double>(scaled)+(scaled<0?-0.5:0.5));
+ return static_cast<U>(static_cast<std::int32_t>(rounded))^(type==1?midpoint:0);
 }
+
 }
 extern "C" RECOVERED_TEXTURE_NATIVE_COPY_API std::int32_t __stdcall TextureCopySurface(void* destination,std::int32_t destinationPitch,U width,U height,U destinationFormat,const Point* point,const void* source,std::int32_t sourcePitch,U sourceFormat,const Rect* rectangle,U flags,float threshold){
  if(destinationFormat==sourceFormat&& !((flags^(flags>>1))&5))
@@ -81,12 +103,12 @@ extern "C" RECOVERED_TEXTURE_NATIVE_COPY_API std::int32_t __stdcall TextureCopyS
   auto src=static_cast<const unsigned char*>(source)+static_cast<std::ptrdiff_t>(top+row)*sourcePitch+left*srcFormat->bytes;
   for(U column=0;column<columns;++column){
    float physical[6]={0,0,0,0,0,1},logical[4],stored[4]={};
-   for(U c=0;c<4;++c){U word=0;std::memcpy(&word,src+srcFormat->offset[c]*srcFormat->wordBytes,srcFormat->wordBytes);physical[c]=Normalize((word&srcFormat->mask[c])>>srcFormat->shift[c],srcFormat->mask[c]>>srcFormat->shift[c]);}
+   for(U c=0;c<4;++c){U word=0;std::memcpy(&word,src+srcFormat->offset[c]*srcFormat->wordBytes,srcFormat->wordBytes);physical[c]=Normalize((word&srcFormat->mask[c])>>srcFormat->shift[c],srcFormat->mask[c]>>srcFormat->shift[c],(sourceFormat>>(9+2*c))&3,(sourceFormat&0x20000)!=0);}
    for(U c=0;c<4;++c)logical[c]=physical[(sourceFormat>>(18+3*c))&7];
    // Inversion writes R, G, B, A in order: duplicate destinations are last-wins.
    for(U c=0;c<4;++c){U selector=(destinationFormat>>(18+3*c))&7;if(selector<4)stored[selector]=logical[c];}
    std::memset(dst,0,dstFormat->bytes);
-   for(U c=0;c<4;++c){U maximum=dstFormat->mask[c]>>dstFormat->shift[c];if(!maximum)continue;U word=0;auto address=dst+dstFormat->offset[c]*dstFormat->wordBytes;std::memcpy(&word,address,dstFormat->wordBytes);word|=(Quantize(stored[c],maximum,threshold)<<dstFormat->shift[c])&dstFormat->mask[c];std::memcpy(address,&word,dstFormat->wordBytes);}
+   for(U c=0;c<4;++c){U maximum=dstFormat->mask[c]>>dstFormat->shift[c];if(!maximum)continue;U word=0;auto address=dst+dstFormat->offset[c]*dstFormat->wordBytes;std::memcpy(&word,address,dstFormat->wordBytes);word|=(Quantize(stored[c],maximum,(destinationFormat>>(9+2*c))&3,(destinationFormat&0x20000)!=0,threshold)<<dstFormat->shift[c])&dstFormat->mask[c];std::memcpy(address,&word,dstFormat->wordBytes);}
    if(column+1<columns){dst+=dstFormat->bytes;src+=srcFormat->bytes;}
   }
  }
