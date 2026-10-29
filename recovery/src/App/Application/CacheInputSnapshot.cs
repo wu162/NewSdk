@@ -80,7 +80,10 @@ namespace NewModCompiler.Application
                 {
                     writer.Write(role); writer.Write(roots[role]);
                     incremental.Write(role); incremental.Write(roots[role]);
-                    Inventory(writer, incremental, roots[role], roots[role], roots[1], role == 2, cancellation, ref count);
+                    // If the SDK itself is the MOD or lies beneath it, its
+                    // framework/configuration must still retain content identity.
+                    bool pinRoot = role == 2 || role == 0 && Paths.Contains(roots[1], roots[0]);
+                    Inventory(writer, incremental, roots[role], roots[role], roots[1], pinRoot, cancellation, ref count);
                 }
                 cancellation.ThrowIfCancellationRequested(); writer.Flush(); incremental.Flush(); bytes.Position = incrementalBytes.Position = 0;
                 using (var hash = SHA256.Create()) return new CacheInputSnapshot(Hex(hash.ComputeHash(bytes)), Hex(hash.ComputeHash(incrementalBytes)), count);
@@ -109,7 +112,7 @@ namespace NewModCompiler.Application
         {
             writer.Write(value != null); if (value != null) writer.Write(value);
         }
-        static void Inventory(BinaryWriter writer, BinaryWriter incremental, string root, string directory, string modRoot, bool runtime, CancellationToken cancellation, ref int count)
+        static void Inventory(BinaryWriter writer, BinaryWriter incremental, string root, string directory, string modRoot, bool pinRoot, CancellationToken cancellation, ref int count)
         {
             cancellation.ThrowIfCancellationRequested();
             if ((File.GetAttributes(directory) & FileAttributes.ReparsePoint) != 0) throw new IOException("Input inventory does not follow reparse points.");
@@ -125,7 +128,7 @@ namespace NewModCompiler.Application
                 string relative = path.Substring(root.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length);
                 writer.Write(isDirectory); writer.Write(relative);
                 incremental.Write(isDirectory); incremental.Write(relative);
-                if (isDirectory) Inventory(writer, incremental, root, path, modRoot, runtime, cancellation, ref count);
+                if (isDirectory) Inventory(writer, incremental, root, path, modRoot, pinRoot, cancellation, ref count);
                 else
                 {
                     using (var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -135,7 +138,7 @@ namespace NewModCompiler.Application
                         writer.Write(input.Length); writer.Write(contentHash);
                         // SDK may contain the active MOD. Do not accidentally
                         // reintroduce whole-MOD invalidation via that root.
-                        bool pinned = runtime || !Paths.Contains(modRoot, path);
+                        bool pinned = pinRoot || !Paths.Contains(modRoot, path);
                         incremental.Write(pinned);
                         if (pinned) { incremental.Write(input.Length); incremental.Write(contentHash); }
                     }

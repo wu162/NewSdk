@@ -148,6 +148,7 @@ namespace NewModCompiler.Tests
                 assertions += CacheInputSnapshotTests.Run(Path.Combine(root,"cache-input-tests"));
                 assertions += BuildAssetCacheTests.Run(Path.Combine(root,"build-asset-cache"));
                 assertions += SessionPackageTests.Run(Path.Combine(root,"session-package"));
+                assertions += LegacyCacheStoreTests.Run(Path.Combine(root,"legacy-cache"));
                 assertions += BigArchiveWriterTests.Run(Path.Combine(root,"big-writer"));
                 assertions += BuildDefaultsTests.Run(Path.Combine(root,"build-defaults"));
                 assertions += AdditionalFilesTests.Run(Path.Combine(root,"additional-files"));

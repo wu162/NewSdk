@@ -105,6 +105,8 @@ namespace NewModCompiler.Cli
             }
             foreach (var pair in commandLine) request.Options[pair.Key] = pair.Value;
             Default(request,"ss","true"); Default(request,"pc","true"); Default(request,"slowclean","true");
+            foreach (string key in new[] {"sc","bc","psc","csc"}) Default(request,key,"true");
+            foreach (string key in new[] {"fsc","atc"}) Default(request,key,"false");
             Default(request,"mod-version","1.0"); Default(request,"game-version","1.12");
             Default(request,"profile","standard");
             Default(request,"fix-neutral-assets","false"); Default(request, "package-content", "auto");
@@ -166,7 +168,7 @@ namespace NewModCompiler.Cli
             } catch (IOException e) { throw Bad("CLI_LOG_PATH",e.Message); }
             return path;
         }
-        static bool IsPath(string key) { return new [] {"mod","sdk-root","out","events","report","log"}.Contains(key); }
+        static bool IsPath(string key) { return new [] {"mod","sdk-root","out","events","report","log","session-cache-directory","build-cache-directory","iod"}.Contains(key); }
         static string FullPath(string value) { try { return Path.GetFullPath(value); } catch (Exception e) { throw Bad("CLI_PATH", e.Message); } }
         static void LoadPreset(IDictionary<string, EffectiveOption> options, string file)
         {
@@ -175,7 +177,7 @@ namespace NewModCompiler.Cli
                 if (values == null) throw Bad("PROJECT_INVALID", "Project preset must be a JSON object.");
                 foreach (var pair in values) {
                     string key = Canonical(pair.Key);
-                    if (!new [] {"profile","sdk-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
+                    if (!new [] {"profile","sdk-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean","sc","bc","csc","psc","fsc","atc","session-cache-directory","build-cache-directory","iod"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
                     if (!(pair.Value is IConvertible)) throw Bad("PROJECT_OPTION", "Project values must be scalar values: " + pair.Key);
                     string raw = Convert.ToString(pair.Value, System.Globalization.CultureInfo.InvariantCulture);
                     if (string.IsNullOrWhiteSpace(raw)) throw Bad("PROJECT_OPTION", "Project value must not be empty: " + pair.Key);

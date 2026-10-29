@@ -109,6 +109,18 @@ namespace NewModCompiler.Tests
             Write(plan.Tasks[0].InputPath, "<AssetDeclaration />");
             var edited = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
             Check(nested.Fingerprint != edited.Fingerprint && nested.IncrementalFingerprint == edited.IncrementalFingerprint, "SDK inventory reintroduced whole-MOD invalidation for nested MODs.");
+            request.ModRoot = request.SdkRoot;
+            var sharedRoot = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+            Write(schema, "changed schema");
+            Check(CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None).IncrementalFingerprint != sharedRoot.IncrementalFingerprint, "MOD equal to SDK suppressed framework content invalidation.");
+            request.ModRoot = previousMod;
+            request.SdkRoot = Path.Combine(request.ModRoot, "SDK");
+            plan.Tasks[0].InputPath = entry;
+            string nestedSchema = Path.Combine(request.SdkRoot, "Schemas", "types.xsd");
+            Write(nestedSchema, "schema");
+            var nestedSdk = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+            Write(nestedSchema, "changed schema");
+            Check(CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None).IncrementalFingerprint != nestedSdk.IncrementalFingerprint, "SDK beneath MOD suppressed framework content invalidation.");
             return assertions;
         }
     }

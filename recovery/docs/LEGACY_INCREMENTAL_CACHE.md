@@ -1,13 +1,16 @@
-# 旧 SDK 增量缓存恢复
+# 原 SDK 缓存能力恢复（实现与验证中）
 
-开发分支：`recovery/legacy-sdk-cache`，基于 `compiler-main` 的 `e7396d3b`。
+分支 `recovery/legacy-sdk-cache`，基于 `compiler-main` 的 `e7396d3b`。用户于 2026-10-29 明确要求恢复原来的完整缓存能力；早期仅覆盖增量缓存的范围已被替换，不能将该子集当作交付完成。
 
-`/sc:true` 恢复上次成功会话的文档、intermediate 和 CDATA，再由原 Core 检查文档内容、XInclude、文件依赖、定义、继承和插件身份。修改 MOD 中已有文件不再把整个会话切到冷命名空间；无关文档可继续复用，链接输出仍重新生成。`/bc:true` 同样保留上次资产集合，资产是否命中仍由 Core 的类型、实例和依赖哈希判断。两个开关仍可独立使用，默认关闭。
+按原 `Settings`、`BinaryAssetBuilder.DoBuildData/InitializeSessionCache` 和 `BinaryAsset` 恢复：
 
-输入清单同时产生两种身份，文件只读取一次：完整内容指纹用于编译前后输入稳定性检查；增量命名空间忽略 MOD 文件内容，保留文件/目录名称和布局、请求/任务/参数、SDK 其余内容、运行文件与进程解析合同。MOD 位于 SDK 内时，两次枚举采用相同的排除规则。新增、删除、重命名输入保守地冷失效，以覆盖搜索路径中新出现的候选；SDK、Schema、配置、运行实现或解析合同变化也冷失效。没有删除原内容 SHA-256 检查，也不直接信任旧 BAB 缓存目录。
+- `/sc`、`/bc`、`/psc`、`/csc` 默认 true；`/fsc`、`/atc` 默认 false。旧 defaultscript 显式传入 `/csc:false`，这与 EXE 本身的默认值不同。
+- Core 逐文档、依赖、定义、继承及逐资产检查复用，不再将整个 SDK/MOD 内容清单用作缓存命名空间。已有文件修改、新增及删除均交回原解析/依赖判断。
+- Texture、OnDemandTexture、TerrainTextureAtlas 使用原 SDK 描述符的资产缓存能力，并接入会话缓存；必须以真实纹理数据和旧版输出验证，不能仅删除拒绝条件便算完成。
+- `/csc` 选择原 XML 或 Deflate 格式；`/psc` 在中止后保留已完成的可复用会话工作；`/fsc` 读取但不更新会话；`/atc` 进入原 Core 的缓存文件 touch 路径。
+- `/scd`、`/scp` 与 `/bcd`、`/bcp` 及 `/iod` 支持独立目录。默认会话文件位于输出根 `BinaryAssetBuilder.SessionCache.xml[.deflate]`，默认资产目录为输出根 `cache`，资产使用原类型/实例哈希布局，允许读取旧 SDK 格式。
+- 新宿主仍在独立 staging 生成最终 MOD 并发布。CDATA 闭包保存在会话根 `.NewModCompiler/cdata`，无新侧车的旧目录可直接导入；Schema、宿主和解析设置身份侧车用于保守冷失效。缓存根外资源搜索恢复原解析契约。
 
-每次成功编译保存最新缓存代际，避免同一命名空间永久停留在首次编译。替换前保留旧条目，发布、必需报告或事件终态失败时恢复；新条目确认前保留 durable pending 标记。完整清单、字节哈希、缺损冷重建和锁仍有效。会话恢复计数表示已恢复旧包，不表示所有文档均命中；`documentReuse`、`xmlParse`、`instanceCompile` 才反映实际增量工作。
+`/psc:false` 的会话确认仍跟随最终发布和必需输出结果；`/psc:true` 明确允许在失败/取消后保留已完成缓存，失败终态与未发布的 MOD 不改变。`/bc` 使用原生可共享缓存的独立资产写入语义。
 
-验证入口：`CacheInputSnapshotTests`、`BuildAssetCacheTests`、`SessionPackageTests` 和生产 `TestCompilerSessionCache.ps1`；后者覆盖原有冷热/失效、原 BAB 字节差分、Audio/W3X/CDATA、损坏修复和失败取消，并增加无关内容编辑、受影响/未受影响流的同时存在及更新后的热复用。由 Core lifecycle 工作流重建 Debug/Release 和运行完整受影响回归。验证结果取得前不标记为验收完成。
-
-本轮没有开放混合 Texture 会话缓存、压缩/部分/冻结模式和旧缓存目录覆盖，也没有修改缓存默认开关。新增模式需另行证明依赖闭包和旧版行为。
+已有增量、原版字节差分、失败/取消、损坏修复与原回归保留并改为针对原语义检查。另补默认值、原目录导入、压缩切换、冻结、部分恢复、touch、纹理三路及共享缓存测试。Windows Debug/Release 和完整 SDK 验收须取得新运行结果后才标记完成。

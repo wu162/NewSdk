@@ -3,9 +3,9 @@
 更新：2026-10-27（北京时间）。用户指定 `compiler-main` 为重构结果及今后开发主线。旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 已关闭且未合并，不再合回旧主线。开发主线约定不代表已修改 GitHub 网页默认分支。
 禁止强推；今后其他合并仍须用户批准；子代理数量由当轮用户指定。
 
-## 旧 SDK 增量缓存恢复（开发中，2026-10-29）
+## 原 SDK 完整缓存恢复（开发中，2026-10-29）
 
-`recovery/legacy-sdk-cache` 从 `compiler-main` 的 `e7396d3b` 拉出。恢复 MOD 内容编辑后的 Core 逐文档/逐资产判断，成功后事务式更新同一缓存代际；完整内容指纹继续用于输入稳定性检查，SDK/Schema/配置/实现和输入布局变化保守冷失效。两种缓存仍默认关闭，混合 Texture 会话缓存等原拒绝范围保留。实现与验证合同见 [LEGACY_INCREMENTAL_CACHE.md](docs/LEGACY_INCREMENTAL_CACHE.md)。Windows Debug/Release 生产重建与完整受影响回归待取得新运行结果，尚未合入主线。
+分支 `recovery/legacy-sdk-cache`，PR [#19](https://github.com/wu162/NewSdk/pull/19)，基于 `e7396d3b`。用户已明确要求原有完整缓存能力，早期的部分增量范围不作为完成结果。当前接回默认启用、原 XML/Deflate、部分/冻结会话、touch、三种纹理、原格式缓存目录及共享资产语义；验证中。准确范围和完成门槛见 [缓存恢复说明](docs/LEGACY_INCREMENTAL_CACHE.md)，不得沿用旧子集运行冒充新能力验收。
 
 ## 默认构建与参数改进（PR #14，待合入）
 
