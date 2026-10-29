@@ -16,7 +16,8 @@ using namespace System::Security::Cryptography;
 #pragma managed(push,off)
 namespace {
 using namespace Recovered::TextureCompiler::NativeAbi;
-static_assert(sizeof(Buffer)==12,"Original native object layout requires x86");
+using NativeBuffer=Recovered::TextureCompiler::NativeAbi::Buffer;
+static_assert(sizeof(NativeBuffer)==12,"Original native object layout requires x86");
 struct Api {AllocateFn alloc;FreeFn free;ConstructFn construct;ResetFn reset;AppendFn append;DeleteFn destroy;ReverseFn reverse;CreateFn create;ReleaseFn release;};
 void Check(bool c,const char* why){if(!c)throw std::runtime_error(why);}
 void Isolated(){Check(GetModuleHandleA("BinaryAssetBuilder.TextureCompiler.dll")==nullptr,"Original module loaded during isolated native memory replay");Check(GetFileAttributesA("BinaryAssetBuilder.TextureCompiler.dll")==INVALID_FILE_ATTRIBUTES,"Original file in isolated directory");}
@@ -31,7 +32,7 @@ Api Bind(unsigned char* original,HMODULE dll){
 struct Trace {
     std::vector<unsigned char> data;
     void number(std::uint32_t n){for(int i=0;i<4;++i)data.push_back(static_cast<unsigned char>(n>>(i*8)));}
-    void buffer(const Buffer& b){Check(b.size<=b.capacity&&b.size<1048576,"Buffer bounds");number(b.size);number(b.capacity);if(b.size){Check(b.data!=nullptr,"Missing buffer storage");data.insert(data.end(),b.data,b.data+b.size);}}
+    void buffer(const NativeBuffer& b){Check(b.size<=b.capacity&&b.size<1048576,"NativeBuffer bounds");number(b.size);number(b.capacity);if(b.size){Check(b.data!=nullptr,"Missing buffer storage");data.insert(data.end(),b.data,b.data+b.size);}}
 };
 template<class F> auto Call(bool isolated,F f)->decltype(f()){
     if(isolated)Isolated();
@@ -42,7 +43,7 @@ template<class F> auto Call(bool isolated,F f)->decltype(f()){
 Trace Run(const Api& a,bool isolated){
     Trace t;
     for(std::uint32_t initial:{1u,2u,3u,7u,16u,31u,64u,255u,1024u,65536u}){
-        if(isolated)Isolated();Buffer b;Check(API(a.construct(&b,initial))==&b,"Thiscall constructor return/stack");Check(b.size==0&&b.capacity==initial&&b.data,"Constructor fields");t.buffer(b);
+        if(isolated)Isolated();NativeBuffer b;Check(API(a.construct(&b,initial))==&b,"Thiscall constructor return/stack");Check(b.size==0&&b.capacity==initial&&b.data,"Constructor fields");t.buffer(b);
         for(unsigned round=0;round<4;++round){
             for(std::uint32_t count:{0u,1u,2u,3u,7u,15u,31u,64u,128u,513u,4097u,0u,17u}){
                 std::vector<unsigned char> source(count?count:1);for(std::uint32_t i=0;i<count;++i)source[i]=static_cast<unsigned char>(i*13+count*17+round*19);auto before=source;
@@ -54,7 +55,7 @@ Trace Run(const Api& a,bool isolated){
         Check(API(a.destroy(&b,0))==&b&&!b.data&&!b.size&&!b.capacity,"Thiscall destructor body");Check(API(a.destroy(&b,0))==&b,"Repeated cleared-buffer destructor");t.buffer(b);if(isolated)Isolated();
     }
     for(std::uint32_t flags=0;flags<8;++flags){
-        auto b=static_cast<Buffer*>(API(a.alloc(sizeof(Buffer))));Check(b,"Object allocator");Check(API(a.construct(b,1))==b,"Allocated-object constructor");unsigned char source[64];for(unsigned i=0;i<64;++i)source[i]=static_cast<unsigned char>(i*29);API(a.append(b,source,64));t.buffer(*b);
+        auto b=static_cast<NativeBuffer*>(API(a.alloc(sizeof(NativeBuffer))));Check(b,"Object allocator");Check(API(a.construct(b,1))==b,"Allocated-object constructor");unsigned char source[64];for(unsigned i=0;i<64;++i)source[i]=static_cast<unsigned char>(i*29);API(a.append(b,source,64));t.buffer(*b);
         Check(API(a.destroy(b,flags))==b,"Deleting-destructor return");if(!(flags&1)){Check(!b->data&&!b->size&&!b->capacity,"Nondeleting flag state");API(a.free(b));}t.number(flags);if(isolated)Isolated();
     }
     for(std::uint32_t n=0;n<65536;++n){for(std::uint32_t value:{n,n<<16,(n<<8)^0xa50000ffu,(n<<16)|n}){if(isolated)Isolated();t.number(API(a.reverse(value)));if(isolated)Isolated();}}
