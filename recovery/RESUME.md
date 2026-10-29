@@ -1,16 +1,16 @@
-# 当前：PC XGCopySurface 全数值属性转换实现已保存，完整差分待补验
+# 当前：PC整数/归一化转换已验收；s10e5/float32转换准备完整验收
 
 ## 本轮完成（2026-10-30续接）
 
-- 从018350ca继续，新增独立 `TextureCopySurface` stdcall导出，保留identity接口；实现28个8/16/32打包/64位RGBA16布局、unsigned/signed/biased normalized和integer数值属性、源/目标通道映射/常量/重复目标last-wins、float32归一化/量化、饱和及1位阈值。不调用原DLL或gold后端；静态原描述符/指令及SHA在native-convert-static/20261030。
-- 第一版543cb4cb /40959808438：identity D/R/NoOriginal/真实导入库passed；新转换100412输入的完整原捕获64,704,328字节已取得，166个差异全部是format3/threshold1负值舍入。按原指令修复sign-selected half而非固定+0.5；失败记录保留。该run completed/failure仅新转换失败，identity和base均完整passed，不宣称转换已通过。
-- 新unsigned组保留100412输入/配置与60完整16位条带/3932160像素；新增signed组100472输入/配置，784格式对×64属性状态对×2映射及120完整条带/7864320像素。完整源/输出/padding/guard、拒绝、D/R、NoOriginal与真实导入库都须Actions通过，当前新增/修正实现**尚未验收**。
-- 只改独立copy DLL，不加入已部署六DLL包；gamma/endian/float/压缩格式转换、过滤、重叠和signed/biased one-bit（原归一化零除域）仍明确拒绝。负步幅转换已在完整原捕获证实临时分配E_OUTOFMEMORY；identity保留已验收负步幅支持。SDK/MOD输入未变不重跑。
+- `c5aa8cc067dcead7162de29634602d9bf4679be1` / [40961005402](https://github.com/wu162/NewSdk/actions/runs/40961005402) completed/success：native-signed-convert、native-convert、native-copy及base完整通过，55旧成功组复用。unsigned组D/R各100412输入/64,704,328字节原捕获；signed/biased/integer组各100472输入/61,620,872字节，120完整条带/7864320像素；identity各32768输入/21,217,672字节，均NoOriginal与真实导入库passed。
+- `TextureCopySurface`独立stdcall导出恢复28个布局的unsigned/signed/biased normalized及integer属性、通道映射/常量/last-wins、float32缩放/饱和和1位阈值。首版543cb4cb /40959808438的166个format3/threshold1差异已按原sign-selected half修复；失败保留。64.7MB完整原捕获已由独立Python模型审计全部输入/输出/padding/guard，原负步幅转换74592条E_OUTOFMEMORY也全量核实；signed档案审计正在完成。
+- 本次新增s10e5/float32完整转换：扩为38布局，原half exponent31为有限值、ties-to-even、饱和及极小float的x86 masked shift；float32 NaN→-Inf和负零规范化仅在转换路径，identity保留原始位。新增native-float-convert共46262输入/配置，1444格式对×8属性×4映射，54完整65536像素条带覆盖3538944像素；含全部half位模式、float32所有指数/符号与half中点两侧。**新增float实现尚未Actions验收。** 静态原函数在native-float-static/20261030。
+- 只改独立copy DLL，不加入已部署六DLL包；gamma/endian/压缩转换、packed float10、uint32数值转换、过滤、重叠及signed/biased one-bit未定义域仍明确拒绝。PC原生文件加载/资源构造与完整混合模式身份仍未恢复。SDK/MOD未变，不重复运行。
 
 ## 下一轮计划／当前继续入口
 
-- 收下一批 `[texture-test]` 的native-signed-convert、native-convert、native-copy和base；保留未变55成功组与旧SDK精确祖先。先查新组完整差分，优先核对sign/biased/整数裁剪与float32舍入；通过后独立审计完整capture/sourceCommit/runId。
-- 入口TestTextureNative{SignedConvert,Convert}.ps1及相应Oracle.cpp；随后继续PC LoadImageA需要的其他转换/原生文件加载与资源构造。编译测试仅Actions、禁止强推，不把独立ABI成功称为混合模式DLL或生产包已集成。
+- 先收本次 `[texture-test]` 的native-float-convert完整差分与实际共享消费者native-signed-convert/native-convert/native-copy/base；55旧成功组与SDK保留各自精确祖先。失败只补失败/变化组，不能把probe或部分一致称通过。
+- 成功后独立审计float完整capture及全部新业务/源码输入锚点；测试入口TestTextureNativeFloatConvert.ps1及TextureNativeFloatConvertOracle.cpp。下一业务优先PC LoadImageA实际所需剩余转换/原生加载资源头构造。编译测试仅Actions、禁止强推。
 
 以下为前轮已验收状态及历史锚点。
 

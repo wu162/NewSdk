@@ -1,0 +1,24 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "scope": "Original finite-exponent31 s10e5 conversion, masked underflow shift, ties-to-even and saturation; direct float32 decoder",
+  "files": [
+    {
+      "name": "HalfDecode",
+      "rva": "0x3a896",
+      "bytes": 260,
+      "sha256": "79aa10038e3ccde8f67e03092b2d52a0d3e74d3d9827f369938de5b2f8249fbe"
+    },
+    {
+      "name": "HalfEncode",
+      "rva": "0x3b057",
+      "bytes": 323,
+      "sha256": "884b918ad58eb9cb2d4a03e35f4b7a7ce11c945c6a907388ef0c2a825a21c602"
+    },
+    {
+      "name": "Float32Read",
+      "rva": "0x3a0b3",
+      "bytes": 56,
+      "sha256": "770dd5df77eedf164c09ebf4517750fb6e4d8104fad374d03f18e906df8f75bd"
+    }
+  ]
+}
