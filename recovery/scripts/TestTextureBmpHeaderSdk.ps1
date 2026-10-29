@@ -26,6 +26,8 @@ try{
  $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
  Copy-Item SDK/tools/*.dll $work
  Copy-Item "$work/build/Recovered.BinaryAssetBuilder.TextureCompiler.dll" $work
+ Checked asset-id-build {& $csc /nologo /platform:x86 /r:"$work/BinaryAssetBuilder.Core.dll" /out:"$work/TextureSdkAssetIds.exe" (Resolve-Path recovery/tests/TextureSdkAssetIds.cs).Path}
+ '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TextureSdkAssetIds.exe.config"
  $baseline='recovery/evidence/texture/bmp-header-load/40799686293-1'
  $receipt=Get-Content "$baseline/validation.json" -Raw|ConvertFrom-Json
  $hash='08715c9547eb6f9fb8ba1745ab3f38b954522439848caa031889c2f73deb069b'
@@ -74,6 +76,11 @@ try{
   $expectedAssets=$nodes.Count;if($expectedAssets -ne 14852){throw 'Expected14852 BMP headers texture/atlas assets'};$r.atlasAssets=100
 
   "<?xml version='1.0'?><AssetDeclaration xmlns='uri:ea.com:eala:asset'><Tags />$($nodes -join "`n")</AssetDeclaration>"|Set-Content "$moddir/Data/Mod.xml" -Encoding utf8
+  Checked "$mode-asset-ids" {& "$work/TextureSdkAssetIds.exe" "$moddir/Data/Mod.xml" "$out/$mode-asset-ids.tsv" $expectedAssets}
+  $idHash=(Get-FileHash "$out/$mode-asset-ids.tsv").Hash.ToLowerInvariant()
+  $modHash=(Get-FileHash "$moddir/Data/Mod.xml").Hash.ToLowerInvariant()
+  if($mode -eq 'Original'){$r.assetIdManifestSha256=$idHash;$r.inputModSha256=$modHash}
+  elseif($idHash -ne $r.assetIdManifestSha256 -or $modHash -ne $r.inputModSha256){throw 'Three SDK modes must use identical checked IDs and input XML'}
   $trace="$out/$mode-trace";New-Item -ItemType Directory -Force $trace|Out-Null
   $cfg="$sdk/tools/BinaryAssetBuilder.exe.config";[xml]$xml=Get-Content $cfg -Raw
   $plugin=@($xml.configuration.assetbuilder.plugins.plugin|Where-Object {$_.assetTypes.Split(',') -contains 'Texture'})

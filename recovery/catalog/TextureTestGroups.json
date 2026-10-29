@@ -2223,7 +2223,8 @@
         "recovery/tests/TextureBmpHeaderConsumerFixtures.cs",
         "recovery/tests/TextureBmpOracle.cs",
         "recovery/reference/compact-icc/**",
-        "recovery/tests/TextureBmpHeaderSdkFixtures.cs"
+        "recovery/tests/TextureBmpHeaderSdkFixtures.cs",
+        "recovery/tests/TextureSdkAssetIds.cs"
       ],
       "evidence": "recovery/evidence/texture/sdk-bmp-headers/*/validation.json",
       "sdk": true
@@ -2246,6 +2247,27 @@
         "recovery/tests/TextureBmpBitfieldsProbe.cs"
       ],
       "evidence": "recovery/evidence/texture/bmp-bitfields-load/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
+    },
+    "bmp-indexed-header-load": {
+      "script": "recovery/scripts/InspectTextureBmpIndexedHeaders.ps1",
+      "arguments": {},
+      "dependencies": [
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TextureBmpOracle.cs",
+        "recovery/tests/TextureBmpIndexedHeaderProbe.cs",
+        "recovery/scripts/InspectTextureBmpIndexedHeaders.ps1"
+      ],
+      "evidence": "recovery/evidence/texture/bmp-indexed-header-load/*/validation.json",
       "sdk": false,
       "manual_only": true,
       "evidence_only": true

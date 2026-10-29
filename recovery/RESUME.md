@@ -1,3 +1,8 @@
+# 本轮进行中：BMP SDK ID冲突修复与索引色原版取证
+
+- **本轮完成（待Actions）**：PcBmpHeaders新增原Core INSTANCEID哈希预检，先重现7c4181ec历史冲突，再按确定顺序分配无冲突ID；保留全部14852资产，三模式强制相同ID清单与XML。此前finally失败收据保护一并复验。
+- **下一步**：仅补sdk-PcBmpHeaders并登记/运行bmp-indexed-header-load原版探针（2025索引色+96已知正对照），复用43组件与已成功专用SDK，不跑完整mymod。取证仍probe-only，未扩大生产支持。编译测试仅Actions、禁止强推。
+
 # 当前：BMP BI_RGB组件通过；专用SDK待修ID哈希冲突
 
 - **本轮完成**：两子代理协作，9dc5a389/40803450961完成14组、29复用，43组件有效。新增DIB BI_RGB及完整插件/NoOriginal通过。扩展bitfields读未初始化mask栈区的根因、8函数原字节和复现已保存。
