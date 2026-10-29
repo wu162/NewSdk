@@ -26,3 +26,9 @@
 首批终态 failure 已核实：新增 mesh 组件样本缺必需顶点流；既有 CompilerCacheContent 反射调用未随先前 FileHashCache 可选性能参数更新。两处测试均已修正，未降低原字节断言。该批 Debug/Release 的 284×四平台 XML 矩阵全部成功，混合生产52用例、原 BuildCache/SessionCache、Texture、输入根、真实 CtrlBreak、BIG/MakeBig 差分均通过；完整 mymod 和最终五文件因组件门槛失败未执行。归档 SHA256 `b440d5f8e2cb40151190b044f0c6edba58ea587298859555c8f4da92721638e3` 已下载复算匹配，[分组摘要](../evidence/refactor/backend-parallel/40907675933-1/summary.json)。
 
 最终候选还确保故障/取消 drain 中的每一次实际后端调用都由 owner 合并进 core.asset.compile/core.compiler 计数；没有通过的 Windows 新候选结果或性能数据前，不把这些检查点写成已验收。
+
+### 生产惰性包装器接线修正
+
+复查首批计量发现 `fallbackByReason.uncertified-plugin=30`、prepareMs=0、实际峰值=1：目标分支的 LazyPlugin 包装器使精确类型门禁看不到真实插件。首批生产52用例只证明字节/缓存，不能当作生产并发证明；XML组件的真实重叠也不能替代生产接线。已加入 owner-only `BuiltinCompilers.ResolveBackendPlugin`，仅在确认缓存未命中且资源允许时解包已知内建惰性包装器，再按真实实现执行同一精确资格门禁。保持热态原惰性优化，worker不访问包装器/注册表。
+
+生产矩阵新增 actual overlap 和八个认证类型的真实 worker 线程断言（资源始终允许时）；否则拒绝验收。`15b26f4f` / Windows 40912075609 是解包修正前候选，后续终态会保留但不作为最终并发验收。没有取消或掩盖旧运行。

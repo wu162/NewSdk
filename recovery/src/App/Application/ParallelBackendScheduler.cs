@@ -142,6 +142,7 @@ namespace NewModCompiler.Application
         {
             Check(); Refresh();
             if(capacity<=1) { Compatibility(declaration,compileCompatibility,verify,committed,asset,"resource-capacity"); return; }
+            plugin=BuiltinCompilers.ResolveBackendPlugin(plugin);
             string eligibilityReason;
             if (!PreparedBackendWork.CanPrepare(declaration,plugin,out eligibilityReason)) {
                 Compatibility(declaration,compileCompatibility,verify,committed,asset,eligibilityReason); return;

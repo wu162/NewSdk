@@ -203,6 +203,15 @@ namespace NewModCompiler.Application
             return entries.AsReadOnly();
         }
 
+        // Called by the owner only after Core has established a cache miss.
+        // Preserve lazy aggregate metadata on hot builds; workers receive the
+        // exact initialized implementation and never touch the lazy wrapper.
+        internal static IAssetBuilderPlugin ResolveBackendPlugin(IAssetBuilderPlugin plugin)
+        {
+            var lazyPlugin = plugin as LazyPlugin;
+            return lazyPlugin == null ? plugin : lazyPlugin.Backend;
+        }
+
         // Version metadata is the original Win32 contract. Reading aggregate cache
         // versions must not initialize native providers for unrelated asset types.
         private sealed class LazyPlugin : IAssetBuilderPlugin, IDisposable
@@ -229,6 +238,7 @@ namespace NewModCompiler.Application
                     return instance;
                 }
             }
+            internal IAssetBuilderPlugin Backend { get { return Value; } }
             public void Initialize(object config, TargetPlatform target) { configuration = config; platform = target; }
             public void ReInitialize(object config, TargetPlatform target)
             {

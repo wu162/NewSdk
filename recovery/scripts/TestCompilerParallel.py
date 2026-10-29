@@ -87,7 +87,16 @@ def run(args):
                 target.parent.mkdir(parents=True, exist_ok=True); target.write_bytes(content)
                 result[relative.as_posix()] = content
             need(len(result) >= 8, 'Mixed fixture omitted stream or Audio CDATA')
-            need(body['cache']['parallel']['backendCalls'] == body['cache']['instanceCompile'], 'Reported backend call count differs from actual Core compile count')
+            parallel = body['cache']['parallel']
+            need(parallel['backendCalls'] == body['cache']['instanceCompile'], 'Reported backend call count differs from actual Core compile count')
+            if name.startswith('sc') and '-hot' not in name and jobs != '1' and parallel['minimumEffectiveJobs'] > 1:
+                need(parallel['prepareMs'] > 0 and parallel['maxBackendConcurrency'] > 1,
+                     'Production misses admitted workers but executed no real overlapping backend calls')
+                owner_threads = {interval['threadId'] for interval in parallel['backendIntervals'] if interval['typeName'] == 'Texture'}
+                worker_types = {interval['typeName'] for interval in parallel['backendIntervals'] if interval['threadId'] not in owner_threads}
+                if parallel['minimumEffectiveJobs'] > 1 and owner_threads:
+                    need({'W3DAnimation', 'W3DMesh', 'AudioFile', 'AptAptData', 'AptConstData', 'AptDatData', 'AptGeometryData', 'W3DHierarchy'} <= worker_types,
+                         'An admitted certified family stayed behind the lazy production wrapper')
             need(not list(destination.glob('**/result.bin')) and not list(destination.glob('**/action-cache*')), 'Unexpected action cache output')
         row['passed'] = True; write(out / 'validation.json', state)
         return result, body

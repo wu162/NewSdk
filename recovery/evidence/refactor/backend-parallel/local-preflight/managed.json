@@ -21,7 +21,7 @@
     },
     {
       "path": "recovery/src/App/Application/ParallelBackendScheduler.cs",
-      "sha256": "ac9cca2ba47dc671ab1e7db3e30b7f7f054ae08f312017a1fc78137d695ac0bf"
+      "sha256": "d93239e7391b9a3fc5a4a54f4164723c6960e668188dbfacf08d5baedd1a7106"
     },
     {
       "path": "recovery/src/App/Application/PreparedBackendWork.cs",
@@ -54,6 +54,10 @@
     {
       "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/DocumentProcessor.cs",
       "sha256": "7abc351e50350415aa830e92308544c4bc0abc028c4a753f44bba60c694e4eb8"
+    },
+    {
+      "path": "recovery/src/App/Application/BuiltinCompilers.cs",
+      "sha256": "67f0b18938dbcae56e1d7b8b0bc4fe3edc910017554caae1be6c4014075895dc"
     }
   ],
   "sourceState": "Working-tree files identified below; not a Windows runtime receipt"
