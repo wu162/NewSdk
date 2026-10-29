@@ -1,5 +1,7 @@
 # 原 SDK 与新版性能对照
 
+工作流 `compiler-sdk-benchmark.yml` 新增可选 `accepted_run`：显式指定已成功完成全部 Core lifecycle 门槛的运行，可复用该运行的五文件 Release 测量后续优化；留空继续使用原固定来源。准备器从 GitHub 成功运行及产物 digest 确认来源，再校验发行收据、五文件内容和实际生产输入闭包。二进制和测试来源分别记录，未经完整验收的运行不能用于该选项。以下历史数字仍属于优化前版本；新测量完成前不据此宣称优化后速度。
+
 `BenchmarkCompilerSdkComparison.py` 在同一台 Windows VM 上交替执行原 `BinaryAssetBuilder.exe` 和已验收的新版 Win32 Release。比较独立进程从启动到退出的端到端成本、CPU 时间、峰值工作集及缓存占用；新版还承担报告、JSONL、独立 staging 和事务发布的成本，原工具直接写出流文件。结果用于比较实际命令行使用成本。
 
 ## 当前实测结论（2026-10-29）

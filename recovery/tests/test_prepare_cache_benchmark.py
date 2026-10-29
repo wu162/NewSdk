@@ -16,7 +16,7 @@ SPEC.loader.exec_module(P)
 
 
 class PreparationTests(unittest.TestCase):
-    def bundle(self, root, bad_patch=False, extra=False, bad_file=False):
+    def bundle(self, root, bad_patch=False, extra=False, bad_file=False, source=P.SOURCE, run=P.RUN, attempt=1):
         files = {name: name.encode() for name in P.NAMES}
         patch = dict(mode='redirect', targetExeSha256=P.sha(files['NewModCompiler.exe']),
             patchedSha256=P.sha(files['BinaryAssetBuilder.TextureCompiler.dll']),
@@ -35,20 +35,32 @@ class PreparationTests(unittest.TestCase):
             if extra:
                 archive.writestr('../other.dll', b'extra')
         data = inner.getvalue()
-        identity = dict(binarySourceCommit=P.SOURCE, runId=P.RUN, runAttempt='1')
-        release = dict(identity, sourceCommit=P.SOURCE, succeeded=True,
+        prefix = 'artifacts/final-release/%s-%s/' % (run, attempt)
+        identity = dict(binarySourceCommit=source, runId=run, runAttempt=str(attempt))
+        release = dict(identity, sourceCommit=source, succeeded=True,
             configurations=[dict(configuration=name, rawOutputEquality=True, zipSha256=P.sha(data))
                             for name in ('Debug', 'Release')])
         manifest = dict(identity, configuration='Release', platform='Win32',
-            status='verified-small-mod-deployment', packagingSourceCommit=P.SOURCE, texturePatch=patch,
+            status='verified-small-mod-deployment', packagingSourceCommit=source, texturePatch=patch,
             archive=dict(name='NewModCompiler-Win32-Release.zip', bytes=len(data), sha256=P.sha(data)),
             files=identities)
         target = root / 'artifact.zip'
         with zipfile.ZipFile(target, 'w') as archive:
-            archive.writestr(P.PREFIX + 'release.json', json.dumps(release))
-            archive.writestr(P.PREFIX + 'NewModCompiler-Win32-Release.manifest.json', json.dumps(manifest))
-            archive.writestr(P.PREFIX + 'NewModCompiler-Win32-Release.zip', data)
+            archive.writestr(prefix + 'release.json', json.dumps(release))
+            archive.writestr(prefix + 'NewModCompiler-Win32-Release.manifest.json', json.dumps(manifest))
+            archive.writestr(prefix + 'NewModCompiler-Win32-Release.zip', data)
         return target
+
+    def test_explicit_new_acceptance_identity_does_not_replace_historical_default(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source, run = 'a' * 40, '12345'
+            path = self.bundle(Path(temp), source=source, run=run, attempt=2)
+            files, rows = P.validate_bundle(path, P.file_sha(path), source, run, 2)
+            self.assertEqual(set(files), P.NAMES)
+            with self.assertRaises((KeyError, ValueError)):
+                P.validate_bundle(path, P.file_sha(path))
+            with self.assertRaisesRegex(ValueError, 'identity differs'):
+                P.validate_bundle(path, P.file_sha(path), 'b' * 40, run, 2)
 
     def test_accepted_members_are_returned_without_extracting_archive_paths(self):
         with tempfile.TemporaryDirectory() as temp:

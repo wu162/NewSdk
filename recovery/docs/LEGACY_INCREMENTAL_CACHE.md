@@ -2,6 +2,18 @@
 
 本页记录当前缓存恢复的行为、代码分工和验收范围；分支、准确源码及待办见 [交接](../REFACTOR_RESUME.md)。运行 `40814401237` 的全部生产验收门槛已通过，具体覆盖边界见下文。
 
+## 链接与发布复用（2026-10-29）
+
+新增实现位于 `codex/legacy-cache-completion`，首次实现检查点 `f44b49a2`；Windows 生产验收正在运行 [40832233489](https://github.com/wu162/NewSdk/actions/runs/40832233489)。旧验收不能代替本次结果。
+
+- `LinkedOutputCache` 将已完成的四流保存在输出根 `.linked-streams`。Core 仅在实际创建某个流的 `OutputManager` 时恢复该流的完整四文件，继续使用原有 manifest/type/stream checksum 判断是否重写。删除的 include 不会通过整目录恢复混入本次输出。该能力独立于 `/sc`、`/bc`，BIG 与 loose 共用；冻结会话不冻结链接输出。
+- 私有四流快照使用硬链接，文件系统不支持时退回复制。原链接器以临时文件替换二进制，并通过 rename 恢复未变 manifest；不会就地改写快照。已发布文件和恢复的 CDATA 使用独立存储，后续编辑不影响缓存。
+- 发布先比较精确文件集合、大小和 SHA256。与本轮已采集内容身份一致时，不创建 `.publish-*`，不复制、不交换目录；报告保持 `publicationStatus=PublishedDirectory`，新增 `publicationUnchanged=true`。公开文件损坏、缺失或多出文件时仍生成完整候选并执行原事务。
+- Core 产物身份只采集一次，内部 `Verified` 状态供 BuildSession/打包/发布复用，不进入协议。移除重复的输出 SHA256、已接收产物的打包后再次校验、发布副本再次哈希和逐文件 `Flush(true)`；会话身份仍覆盖文件内容，但不再逐文件重走祖先检查。
+- 会话序列化文件、安装及备份使用移动；CDATA 先建立私有快照，安装时跳过字节相同的文件。取消、编译/报告/必需日志失败仍撤销未确认的最终产物和链接缓存；`/psc` 的既有部分保存语义保留。
+
+测试入口：`LinkedOutputCacheTests`、`ArtifactPublisherTests`、`SessionPublicationTests`、`LegacyCacheStoreTests`；生产会话矩阵增加无缓存热链接、缺失链接组重建及三种纹理热链接，检查原链接器四项 up-to-date 日志、原始字节与发布文件时间。
+
 ## 选项与目录
 
 | 选项 | 默认值 | 行为 |
