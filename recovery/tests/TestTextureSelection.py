@@ -88,6 +88,19 @@ class SelectionTests(unittest.TestCase):
         row=selector.select(self.root,{'full-mod':full_mod,'ordinary-sdk':ordinary_sdk},requested=['full-mod'])
         self.assertEqual(row['selected'],['full-mod'])
         self.assertEqual(row['details']['ordinary-sdk']['reason'],'SDK not requested')
+    def test_new_capability_priority_preserves_membership_and_sdk_last(self):
+        ordinary=dict(self.group)
+        early=dict(self.group,priority=0)
+        sdk=dict(self.group,sdk=True,priority=-10)
+        self.write('src/TextureCompiler/Managed/A.cs','changed');self.commit()
+        row=selector.select(self.root,{'old':ordinary,'sdk':sdk,'new':early},sdk=True)
+        self.assertEqual(row['selected'],['new','old','sdk'])
+        self.assertEqual(set(row['details']),{'old','sdk','new'})
+        self.assertEqual(row['reused'],[])
+    def test_equal_priorities_preserve_catalog_order(self):
+        self.write('src/TextureCompiler/Managed/A.cs','changed');self.commit()
+        row=selector.select(self.root,{'b':self.group,'a':self.group})
+        self.assertEqual(row['selected'],['b','a'])
     def test_existing_nonancestor_is_rejected(self):
         foreign=self.git('commit-tree',self.git('rev-parse','HEAD^{tree}'),'-m','foreign')
         self.receipt(sourceCommit=foreign);self.assertEqual(self.result()['selected'],['a'])

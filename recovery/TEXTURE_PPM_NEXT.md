@@ -1,3 +1,11 @@
+# PPM公开源码适配进行中（独立测试分支，未正式接入）
+
+本轮在`validation/texture-public-ppm`直接修改固定IJG6b `rdppm.c`：保留原文件及版权，另存适配副本与修改前后SHA。使用有界内存、P3/P6判别、PC整数截断、token/comment及binary separator规则；独立native DLL与候选托管程序集，不改生产ImageLoader/项目/插件。
+
+新增8438个安全有界原LoadImageA探针，保存完整源/首次与重复RGBA/尺寸/alpha/错误及候选Decode/Load比较。候选初值中的alpha/channel/NPOT及边界仍以实际运行修正，probe-only绝非正式组件/SDK通过。不调用原版P6残缺/尺寸溢出域。通过唯一集中入口`[texture-ppm-load]`显式运行；新组priority只改变执行顺序、不减少选组或断言，SDK固定在组件之后。
+
+下一步取得原gold，审计归档并按差分继续修改公开源码；稳定后进行完整D/R和NoOriginal回放。随后真实DDS/mip/volume/atlas/插件与必要SDK取得完整逐字节验收才普通合入`recovery/texturecompiler-source`。禁止强推，编译测试仅Actions。
+
 # 下一独立能力：PPM（尚未实现）
 
 2026-10-29（北京时间）。本轮主线仍是DIB/BMP色表的组件与专用SDK；本页仅保存等待期间取得的下一项静态入口，不计作功能支持、原gold或SDK验收。

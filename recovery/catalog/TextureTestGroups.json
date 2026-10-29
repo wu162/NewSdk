@@ -2506,6 +2506,30 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-dib/*/validation.json",
       "sdk": true
+    },
+    "ppm-load": {
+      "script": "recovery/scripts/InspectTexturePpm.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Ppm/**",
+        "src/TextureCompiler/Jpeg/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "SDK/tools/*.dll",
+        "recovery/reference/ijg6b/**",
+        "recovery/scripts/BuildTextureJpeg.ps1",
+        "recovery/scripts/BuildTexturePpm.ps1",
+        "recovery/scripts/InspectTexturePpm.ps1",
+        "recovery/tests/TexturePpmFixtures.cs",
+        "recovery/tests/TexturePpmProbe.cs",
+        "recovery/tests/TexturePngOracle.cs"
+      ],
+      "evidence": "recovery/evidence/texture/ppm-load/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true,
+      "priority": 0
     }
   },
   "targetPlatform": "Win32"
