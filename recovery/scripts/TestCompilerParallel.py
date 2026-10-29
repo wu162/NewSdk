@@ -110,13 +110,21 @@ def run(args):
                         need(cache['xmlParse'] == 0 and cache['instanceCompile'] == 0, 'Hot jobs switch invalidated old caches')
                         need(parallel['backendCalls'] == 0 and parallel['prepareMs'] == 0, 'Hot cache performed backend preparation')
             for flag in ('csc=false', 'psc=false', 'fsc=true', 'atc=true'):
-                result, _ = invoke(mode, flag, work / mode / flag, '4', extra=('--'+flag,))
+                destination = work / mode / flag
+                if flag == 'fsc=true':
+                    warm, _ = invoke(mode, flag+'-seed', destination, '1')
+                    need(warm == reference, 'Freeze seed bytes differ')
+                result, _ = invoke(mode, flag, destination, '4', extra=('--'+flag,))
                 need(result == reference, flag + ' changed original raw outputs')
+                hot, report = invoke(mode, flag+'-hot', destination, 'auto', extra=('--'+flag,))
+                need(hot == reference and report['cache']['instanceCompile'] == 0 and report['cache']['xmlParse'] == 0,
+                     flag + ' hot cache compatibility differs')
             destination = work / mode / 'sc1-bc1-j4'
             path = mod / 'Data/ParallelAudio.xml'; original = path.read_bytes()
             path.write_bytes(original.replace(b'PCCompression="NONE"', b'PCCompression="XAS"', 1))
             changed, body = invoke(mode, 'single-asset-change', destination, '4')
             need(0 < body['cache']['instanceCompile'] < 8, 'Single Audio change recompiled unrelated assets')
+            need(set(body['cache']['parallel']['backendCallsByType']) == {'AudioFile'}, 'Single Audio edit compiled an unrelated backend type')
             control, _ = invoke(mode, 'single-asset-control', work / mode / 'changed-control', '1', False, False)
             need(changed == control, 'Incremental asset change raw bytes differ from independent owner control')
             path.write_bytes(original)
@@ -127,6 +135,8 @@ def run(args):
             ET.SubElement(root.getroot().find('{%s}Includes' % NS), '{%s}Include' % NS, {'type':'all','source':broken.name})
             root.write(entry, encoding='utf-8', xml_declaration=True)
             invoke(mode, 'partial-failure', work / mode / 'partial', '4', expected=4)
+            _, no_partial = invoke(mode, 'no-partial-failure', work / mode / 'no-partial', '4', extra=('--psc=false',), expected=4)
+            need(no_partial['cache']['partialSessionsSaved'] == 0, 'psc=false saved a partial session')
             entry.write_bytes(entry_bytes); broken.unlink()
             retry, _ = invoke(mode, 'partial-retry', work / mode / 'partial', 'auto')
             need(retry == reference, 'Partial-session retry changed bytes')

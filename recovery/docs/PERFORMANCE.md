@@ -33,6 +33,20 @@ $r.performance.entries | Sort-Object selfMs -Descending | Select-Object -First 2
 
 报告标记 `boundary: before-report-write`：范围截至最终报告写入前，不包括 CLI 参数解析、诊断通道打开、报告序列化/写出、终端事件/日志关闭与最终事务清理。它不是完整进程耗时；完整耗时需由调用方计量。不要为测报告写入而再写一遍报告。
 
+## 后端并行计量
+
+在 `recovery/legacy-sdk-cache` 中，summary/detailed 还提供 `cache.parallel`，协议 `NewModCompiler.ParallelBackend.v1`；off 为 null，不建立并行计量字典/区间或读取计量时钟。用于调度的 CPU/内存准入与 100ms 节流时钟不属于性能打点，off 下仍工作。
+
+- `requestedJobs` 为 auto 或用户上限；`effectiveJobs`、`minimumEffectiveJobs` 是资源准入，不能用来证明并发。
+- `backendCalls`、`backendCallsByType`、`maxBackendConcurrency` 来自实际 ProcessInstance 调用区间，包含 owner 兼容调用。
+- `prepareMs`、`workerWaitMs`、`workerComputeMs`、`ownerCommitMs` 分别表示输入准备、owner 等待、后端累计工作和有序验证/提交。它们可重叠，不能相加得到进程耗时。
+- `fallbackByReason` 记录实际拒绝条件；`sampledPeakPrivateBytes` 是 owner 节流采样峰值，不能冒充操作系统连续峰值。`resourceQuerySucceeded` 表示资源观测是否全部成功。
+- detailed 的 `backendIntervals` 最多 512 条，带 type/startTicks/endTicks/threadId，`clockFrequency` 给出单调时钟频率；这是有限样本，不代表全部调用。
+
+Worker 只写私有计时数据；owner 合并 `core.asset.compile` 和 `core.compiler.<Type>`，不修改同步计时 scope 栈。异步编译条目的 total/self 均是后端累计区间；不从 owner 前端 scope 的 self 中扣除可能重叠的异步时间。热态应有 backendCalls=0、prepareMs=0、xmlParse=0、instanceCompile=0。
+
+`MeasureCompilerParallel.py` 在同 VM 同生产 EXE 上运行完整历史 Upheaval：jobs1/4/auto 的无缓存冷态、默认缓存冷/热、独立冷控制与单动画修改；off 比较吞吐，另以 detailed 冷态诊断及热态零准备断言归因，所有发布输出检查实际原字节。新结果与验收状态统一记录在 [迁移记录](BACKEND_PARALLEL_MIGRATION.md)，旧结果不代替本轮生产验收。
+
 ## 有界验证
 
 `TestCompilerPerformance.py` 使用临时 MOD：两个 16×16 Texture 和一个 ArmorTemplate、一个 include；三档各冷态一次/热态两次，交替顺序，校验所有流/CDATAs 原始字节相等，并和独立原版 SDK 比较；再验证三档 BIG/SKUDEF 相等以及无效 XML 的失败计时。每进程默认 10 秒，测量阶段总预算 60 秒，不运行完整 Upheaval。Windows 工作流重新构建 Release 生产组合；构建时间独立于测量预算。

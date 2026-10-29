@@ -534,6 +534,7 @@ public static class CompilerPreparedBackend
                 ((XmlElement)owner.Node).SetAttribute("NumFrames","4096"); ((XmlElement)owner.Node).SetAttribute("FrameRate","30");
                 owner.Node.InnerXml="<Channels xmlns='uri:ea.com:eala:asset'><ChannelScalar Type='XTranslation' TypeId='1355976437' Pivot='0' FirstFrame='0'><Frame>0</Frame><Frame>1</Frame></ChannelScalar></Channels>";
             }
+            else owner.Node.InnerXml="<Vertices xmlns='uri:ea.com:eala:asset'><V X='0' Y='0' Z='0'/><V X='1' Y='0' Z='0'/><V X='0' Y='1' Z='0'/></Vertices><Triangles xmlns='uri:ea.com:eala:asset'><T><V>0</V><V>1</V><V>2</V><Nrm X='0' Y='0' Z='1'/><Dist>0</Dist></T></Triangles>";
             w3x.Add(BufferItem(work,"w3x"+i,w3xPlugin,owner));
         }
         WorkerWave(w3x,"w3x");
@@ -563,6 +564,71 @@ public static class CompilerPreparedBackend
         var mp3Owner=Declaration("AudioFileMP3Passthrough","WorkerMp3",Namespaces());((XmlElement)mp3Owner.Node).SetAttribute("File",mp3);
         WorkerWave(new List<BufferWork>{BufferItem(work,"mp3",audioPlugin,mp3Owner)},"mp3");
     }
+    static Func<T> TypedSampler<T>(Func<object> sampler) { return delegate {return (T)sampler();}; }
+    static void SchedulerDrain(string work,bool cancel)
+    {
+        var assembly=typeof(CoreStreamCompiler).Assembly;
+        Type performanceType=assembly.GetType("NewModCompiler.Diagnostics.BuildPerformance",true);
+        Type metricsType=assembly.GetType("NewModCompiler.Application.ParallelBackendMetrics",true);
+        Type schedulerType=assembly.GetType("NewModCompiler.Application.ParallelBackendScheduler",true);
+        const BindingFlags fields=BindingFlags.Instance|BindingFlags.NonPublic|BindingFlags.Public;
+        object performance=Activator.CreateInstance(performanceType,fields,null,new object[]{"detailed"},null);
+        object metrics=Activator.CreateInstance(metricsType,fields,null,new object[]{performance},null);
+        object resources=ResourcePolicy(4,4,16L*1024*1024*1024,3L*1024*1024*1024,4L*1024*1024*1024,true);
+        object sampler=typeof(CompilerPreparedBackend).GetMethod("TypedSampler",BindingFlags.NonPublic|BindingFlags.Static)
+            .MakeGenericMethod(resourcePolicy).Invoke(null,new object[]{new Func<object>(()=>resources)});
+        var processor=(DocumentProcessor)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(DocumentProcessor));
+        var plugin=new Recovered.Compiler.W3x.NativePlugin();plugin.Initialize(null,TargetPlatform.Win32);
+        var xml=new Recovered.XmlPriority.Plugin();xml.Initialize(null,TargetPlatform.Win32);
+        var captured=new List<Task>(); int verified=0,committed=0,completed=0,activeAtRequest;
+        string input=Path.Combine(work,cancel?"cancel-lease.bin":"failure-lease.bin");File.WriteAllBytes(input,new byte[1024*1024]);
+        using(var cancellation=new CancellationTokenSource())
+        {
+            var execution=(IAssetExecution)Activator.CreateInstance(schedulerType,fields,null,
+                new object[]{processor,work,4,metrics,performance,cancellation.Token,sampler},null);
+            object queue=schedulerType.GetField("pending",fields).GetValue(execution);
+            try
+            {
+                for(int i=0;i<4;i++)
+                {
+                    var declaration=Declaration(i==3?"AptAptData":"W3DAnimation","Drain"+i,Namespaces());
+                    IAssetBuilderPlugin selected=i==3?(IAssetBuilderPlugin)xml:plugin;
+                    if(i==3) ((XmlElement)declaration.Node).SetAttribute("File",input);
+                    else
+                    {
+                        ((XmlElement)declaration.Node).SetAttribute("NumFrames","65536");((XmlElement)declaration.Node).SetAttribute("FrameRate","30");
+                        declaration.Node.InnerXml="<Channels xmlns='uri:ea.com:eala:asset'><ChannelScalar Type='XTranslation' TypeId='"+
+                            (!cancel && i==0?"0":"1355976437")+"' Pivot='0' FirstFrame='0'><Frame>0</Frame><Frame>1</Frame></ChannelScalar></Channels>";
+                    }
+                    Metadata(declaration,selected);
+                    execution.Enqueue(null,declaration,selected,
+                        ()=>{throw new InvalidOperationException("Controlled generous resources must admit each certified worker");},
+                        ()=>{verified++;},source=>{committed++;});
+                }
+                foreach(object entry in (System.Collections.IEnumerable)queue)
+                    captured.Add((Task)entry.GetType().GetField("Worker",fields).GetValue(entry));
+                Require(captured.Count==4 && captured.TrueForAll(t=>t!=null),"All four drain cases must be production worker tasks");
+                execution.DeferCompletion(()=>{completed++;});
+                object gate=metricsType.GetField("gate",fields).GetValue(metrics);
+                lock(gate) activeAtRequest=(int)metricsType.GetField("active",fields).GetValue(metrics);
+                if(cancel)cancellation.Cancel();
+                Exception observed=null;
+                try {execution.Flush();} catch(Exception error){observed=error;}
+                Require(observed!=null,"Failure or cancellation must reject the pending wave");
+                if(cancel)Require(observed is OperationCanceledException,"Cancellation must retain its original exception contract");
+                else Require(observed is NotSupportedException,"Native worker failure must preserve its original backend exception");
+                ((IDisposable)execution).Dispose();
+                Require(captured.TrueForAll(t=>t.IsCompleted),"Disposal must join every previously dispatched native worker");
+                Require((int)queue.GetType().GetProperty("Count").GetValue(queue,null)==0,"Disposal must drain pending envelopes");
+                Require(verified==0 && committed==0 && completed==0,"Failed/uncommitted documents may not verify, commit or become complete");
+                using(var writer=new FileStream(input,FileMode.Open,FileAccess.Write,FileShare.None))
+                    Require(writer.CanWrite,"All external leases must be released after native drain");
+                lifecycleEvidence.Add(new {kind=cancel?"scheduler-cancellation-drain":"scheduler-native-failure-drain",dispatched=captured.Count,
+                    activeAtRequest,allWorkersJoined=true,verified,committed,completed});
+            }
+            finally {((IDisposable)execution).Dispose();}
+        }
+    }
     public static int Main(string[] args)
     {
         try
@@ -570,7 +636,7 @@ public static class CompilerPreparedBackend
             Directory.CreateDirectory(args[0]);
             AptLeaseAndFreeze(args[0]); ParallelQualification(args[0]); EnvironmentQualification(args[4]);
             ResourceBudget(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); PreparationRejectionReasons(args[0]);
-            WorkerBuffers(args[0],args[4]);
+            WorkerBuffers(args[0],args[4]); SchedulerDrain(args[0],false); SchedulerDrain(args[0],true);
             File.WriteAllText(args[1],new JavaScriptSerializer().Serialize(new {
                 succeeded=true,sourceCommit=args[2],runId=args[3],checks,lifecycleEvidence,
                 scope="Actual isolated XML/defaults/namespaces, Windows stable file leases, all four APT roots and W3X/Audio worker three-buffer equality, Audio CDATA, closed route qualification, resource policy and pre-clone budgets; component evidence only"

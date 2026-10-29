@@ -1,0 +1,59 @@
+{
+  "succeeded": true,
+  "scope": "Linux cheap managed compilation/static preflight only; not Windows native linking/runtime acceptance",
+  "sourceCommit": "eb35dc6bd4a14740cf9edaf3d1eb646b74ed33e6",
+  "compiler": "SDK8.0.415 Roslyn/csc.dll; .NETFramework.ReferenceAssemblies.net48 1.0.3",
+  "foundationCompiled": true,
+  "standaloneAppCompiled": true,
+  "monolithicNativeValidated": false,
+  "monolithicUnavailableBridgeDiagnostics": 294,
+  "monolithicOtherErrors": 0,
+  "exactReferenceXmlCertificationRegistry": true,
+  "forbiddenActionCacheDependencies": 0,
+  "sourceFiles": [
+    {
+      "path": "recovery/src/App/Application/BackendResourcePolicy.cs",
+      "sha256": "ea67156ae05c02c51197a00d0625e11f676ef08173ee28d29df3956079887c84"
+    },
+    {
+      "path": "recovery/src/App/Application/Model.cs",
+      "sha256": "c692277f83ff2f573edf97f98949ae12249a1a551eaabd64dc5e3ae6913c0f42"
+    },
+    {
+      "path": "recovery/src/App/Application/ParallelBackendScheduler.cs",
+      "sha256": "d1b3c33a056471a9d8b6ef3b91d95a4f7e8497bdb28c0b40603f062e3fc7dce0"
+    },
+    {
+      "path": "recovery/src/App/Application/PreparedBackendWork.cs",
+      "sha256": "f607b59226b0f7fba0e54e44403b1071cac892737469e7e7d201153de8116d3e"
+    },
+    {
+      "path": "recovery/src/App/Application/XmlBackendCertification.cs",
+      "sha256": "cd85ee1a8798df28c6bfb2ff6642e185661e33b520c7bea923a9e8ee31b6d4f1"
+    },
+    {
+      "path": "recovery/src/App/Application/CoreStreamCompiler.cs",
+      "sha256": "f8c553554d41f98900654b6ad773503e95e8b8f342d9aaaf2203898971c4eb50"
+    },
+    {
+      "path": "recovery/src/App/Cli/Options.cs",
+      "sha256": "80c82fd46f9489d6da6615e0f2f5a48a41f19ad179c0f128a3ed39a80b5f09b3"
+    },
+    {
+      "path": "recovery/src/App/Diagnostics/BuildPerformance.cs",
+      "sha256": "b4a74708d71e43f79c9076b3d5c746fedf00c5bc2a1d951e14d7d66f0210b600"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/IAssetExecution.cs",
+      "sha256": "f1d0c8cf936edad7792b7e970654d6e8b083155c2166cff128aabf445aa0f929"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetDeclarationDocument.cs",
+      "sha256": "20addccb5bda378f68ed262089899bbeb5fb8f5596b446834fdbac45aa9592cb"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/DocumentProcessor.cs",
+      "sha256": "b14cd8215ba0f9020e8cf0fac38b60955909dd69b39d9655a82c27c6879642c0"
+    }
+  ]
+}

@@ -729,6 +729,9 @@ public class DocumentProcessor
 		}
 		foreach (InclusionItem inclusionItem in document.InclusionItems)
 		{
+			// Reference reuse can inspect cached state or a manifest without
+			// reopening the source document. Join before that semantic boundary.
+			if (inclusionItem.Type == InclusionType.Reference && AssetExecution != null && AssetExecution.HasPending) AssetExecution.Flush();
 			StreamReference streamReference = null;
 			if (inclusionItem.Type == InclusionType.Reference && !Settings.Current.SingleFile && Settings.Current.DataRoot == null)
 			{

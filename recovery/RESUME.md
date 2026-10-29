@@ -1,11 +1,9 @@
-# 新 SDK 大中小 MOD 耗时：Windows 测量完成
+# 原 SDK 缓存 + 全认证后端并行迁移（验收中）
 
-工作分支 `recovery/legacy-sdk-cache`，禁止强推，未合入其他分支。生产逻辑未改，本轮新增测量脚本/工作流及分析归档。
+成果分支 `recovery/legacy-sdk-cache`，禁止强推；不合并其他主线，不发布 Release。
 
-来源 `629951986c1776a5fda5ad4a68bbc7b7da3a688d` / [Windows 40890949858](https://github.com/wu162/NewSdk/actions/runs/40890949858) success。Release 一次构建，默认缓存、detailed、自动全部内容、BIG/SKUDEF/Additional；三组各冷一次/热两次，9 进程，实际测量/校验 87.63 秒。冷/热最终输出一致。
+本轮从 `096f60db` 定点迁入参考 `054e8d9a` 的全部已认证范围：W3X 2 类型、受控 Audio/MP3、XML 284 metadata / 62 族、APT 4 类型。默认 jobs=auto，原 SessionCache/BuildCache/csc/psc 默认与 Texture 缓存保留。缓存命中先判断位置，不创建后端私有输入或新 Key/hash。Worker 独占输入和 CDATA，owner 验证/提交；跨文档任务在引用、重复 include、manifest/link 边界汇合。无新动作缓存。
 
-小：完整 mymod，冷 2.459s/热中位 0.587s；中：96 个真实 Upheaval Texture 子集（不是独立完整中型 MOD），1.166s/0.653s；大：完整历史 Upheaval（2,723 文件、287MiB、五流），75.286s/2.864s。大型冷态编译 3,354 资产；动画 27.11s、音频 17.71s、XML 校验 13.91s 合占约78%。热态零 XML 解析/资产编译，缓存加载 0.773s、Core 复用/引用处理 1.100s、打包 0.333s。小型第一笔冷测有启动/等待成本，三档不是纯规模伸缩实验。
+实现检查点 `d9de5f69`；首个 Windows 批次 `eb35dc6b` / [40907675933](https://github.com/wu162/NewSdk/actions/runs/40907675933) 已通过 Debug/Release 构建，但组件生命周期出现失败；独立用例继续收集。已修正新增 mesh 测试缺少顶点流的问题，仍须核对终态日志并重验，不能宣称本轮通过。Linux Foundation/独立 App Roslyn 编译与六份混合 fixture 的 50 个原 SDK XSD 定义校验通过，仅作静态预检。
 
-所有样本零错误；小型 82/大型 1,859 条默认外部引用等警告保留，不宣称游戏内验收，也未本轮做完整大型原版差分。[完整分析与图表](docs/MOD_SCALE_TIMINGS.md)、[来源/样本/摘要](evidence/refactor/mod-scale/40890949858-1/summary.json)、[CSV](evidence/refactor/mod-scale/40890949858-1/samples.csv)。原 artifact ZIP 已下载复算 SHA256 匹配，包含运行时二进制及原始报告/事件。
-
-性能打点默认 off；`--performance summary|detailed` 写入 `build-report.json` 的可选 performance.entries。[使用及计时边界](docs/PERFORMANCE.md)。前轮打点生产/测试 `23994960` / [40886567000](https://github.com/wu162/NewSdk/actions/runs/40886567000) 的 8 秒小输入原版字节验证仍保留。
+主代理继续统一修复、完整验证及同机 Upheaval jobs1/4/auto 冷/热/单资产修改对照；性能脚本只在功能验收成功后启动，不复用旧 EXE 冒充新生产源码。详细状态与证据写在 [BACKEND_PARALLEL_MIGRATION.md](docs/BACKEND_PARALLEL_MIGRATION.md)，参数见 [COMPILER_USAGE.md](COMPILER_USAGE.md)，计量协议见 [PERFORMANCE.md](docs/PERFORMANCE.md)。旧缓存性能的历史入口为 [MOD_SCALE_TIMINGS.md](docs/MOD_SCALE_TIMINGS.md)，历史 Windows 40890949858 的冷75.286s/热2.864s不能代替新同机对照。

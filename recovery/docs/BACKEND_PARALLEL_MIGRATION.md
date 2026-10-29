@@ -13,3 +13,12 @@
 `cache.parallel` 在 performance summary/detailed 提供真实调用/重叠峰值、prepare/wait/compute/commit、降级原因和采样内存；detailed 最多记录 512 个调用区间。off 不建立逐类型字典、计时或区间；调度所需资源采样仍启用。
 
 待验收：Debug/Release 生产构建、全认证矩阵、旧缓存冷热/失效/取消回滚、原字节差分、完整 BIG/SKUDEF/Additional、同机 Upheaval jobs1/4/auto 对照。旧分支证据只能说明未变后端基础，不能替代本次集成验收。
+
+## 检查点与验证中状态
+
+- `d9de5f69`：完整生产资格、调度、CLI 与旧缓存接线，未验收检查点。
+- `eb35dc6b` / Windows [40907675933](https://github.com/wu162/NewSdk/actions/runs/40907675933)：Debug/Release 生产构建通过，组件生命周期失败，独立组仍在收集；未标为通过。后续补上有效 mesh 输入、native 失败/取消 drain 用例、引用复用屏障，以及短暂内存压力结束后的资源恢复。
+- Linux 静态预检：[managed.json](../evidence/refactor/backend-parallel/local-preflight/managed.json)、[fixture-schema.json](../evidence/refactor/backend-parallel/local-preflight/fixture-schema.json)。Foundation 和独立 App 实际编译成功；六份 mixed fixture 经50个可达 SDK XSD 定义校验；这不是 Windows mixed 链接或运行证据。
+- 源参考认证审计 [XML_BACKEND_REENTRY.json](XML_BACKEND_REENTRY.json) 保留原来源 SHA 和范围，未改写为本轮新验收。
+
+资源策略只在已有 wave 期间保持较低准入；队列完全汇合后可按新观测恢复，不让一次压力尖峰永久限制后续文档。任何释放异常挂在第一原异常上，所有 worker 都先 join。此处后续会补入终态、归档 digest、实际覆盖与性能表。

@@ -80,7 +80,7 @@ namespace NewModCompiler.Application
         readonly CancellationToken cancellation;
         readonly ParallelBackendMetrics metrics;
         readonly BuildPerformance performance;
-        readonly Queue<Pending> pending=new Queue<Pending>();
+        readonly Queue<Pending> pending=new Queue<Pending>(BackendResourcePolicy.MaximumWorkers);
         readonly Queue<KeyValuePair<int,Action>> completions=new Queue<KeyValuePair<int,Action>>();
         readonly Func<BackendResourcePolicy> sampler;
         BackendResourcePolicy resources;
@@ -117,7 +117,12 @@ namespace NewModCompiler.Application
             long now=Stopwatch.GetTimestamp(); if(sampler==null && now<nextSample) return;
             nextSample=now+Math.Max(1,Stopwatch.Frequency/10);
             resources=sampler==null ? resources.RefreshMemoryBudget() : sampler();
-            capacity=Math.Min(capacity,resources.Capacity); budget=Math.Min(budget,resources.ByteBudget);
+            // Retain a tightened allowance while a wave is alive; once fully
+            // joined, recover admission from the current observation. A brief
+            // pressure spike must not pin every later document to one worker.
+            if (pending.Count==0) { capacity=resources.Capacity; budget=resources.ByteBudget; }
+            else { capacity=Math.Min(capacity,resources.Capacity); budget=Math.Min(budget,resources.ByteBudget); }
+            metrics.EffectiveJobs=Math.Max(metrics.EffectiveJobs,capacity);
             metrics.MinimumEffectiveJobs=Math.Min(metrics.MinimumEffectiveJobs,capacity); metrics.ResourceQuerySucceeded &= resources.MemoryQuerySucceeded;
             metrics.SampleMemory();
         }
@@ -188,11 +193,13 @@ namespace NewModCompiler.Application
         void CommitOne()
         {
             Pending task=pending.Dequeue();
+            Exception primary=null;
             try {
                 if(task.Worker!=null) {
                     long wait=Start(); try {task.Buffer=task.Worker.GetAwaiter().GetResult();} finally {metrics.WaitTicks+=Elapsed(wait);}
                 }
                 cancellation.ThrowIfCancellationRequested();
+                metrics.SampleMemory();
                 long start=Start();
                 try {
                     if(task.Cached!=null) task.Cached();
@@ -217,8 +224,15 @@ namespace NewModCompiler.Application
                 } finally {metrics.CommitTicks+=Elapsed(start);}
                 CompleteReady();
             }
-            catch { failed=true; throw; }
-            finally { Release(task); }
+            catch (Exception error) { primary=error; failed=true; throw; }
+            finally {
+                try { Release(task); }
+                catch (Exception cleanup) {
+                    failed=true;
+                    if(primary==null) throw;
+                    primary.Data["BackendRelease."+task.Sequence]=cleanup;
+                }
+            }
         }
         void Release(Pending task)
         {
