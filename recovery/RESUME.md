@@ -1,17 +1,16 @@
-# 当前：PC完整数值转换已验收；端序与真实LockRect复制链待集中验收
+# 当前：PC数值/端序与真实复制均已验收；补齐LoadImageA精确flags调用待最终验收
 
 ## 本轮完成（2026-10-30续接）
 
-- `c5aa8cc0` /40961005402与`6025bc3d9c127574e2cb79178841eacb9cf5c521` / [40962015217](https://github.com/wu162/NewSdk/actions/runs/40962015217)均completed/success。unsigned转换D/R各100412输入/64,704,328原字节；signed/biased/integer各100472输入/61,620,872字节；s10e5/float32各46262输入/57,859,176字节；identity及base也通过，55旧成功组复用。全部新组NoOriginal/真实导入库passed。
-- 独立 `TextureCopySurface` stdcall已恢复38布局的unsigned/signed/biased normalized/integer、原s10e5与float32、通道映射/常量/last-wins、原float32缩放/饱和、1位阈值、half有限exponent31/舍入/极小值masked shift。首版543cb4cb /40959808438的166个1位阈值差异已修正且保留失败。完整unsigned和signed原档已分别独立模型审计100412/100472条及全部源/输出/padding/guard；float原档审计正在收尾。
-- 本次继续实现所有四种byte/word endian模式，仅接受完整端序单位；静态原SwapUnit/Rows及dispatch在native-endian-static/20261030。native-endian-convert含184928输入、1444格式对×16端序对/两数值状态/映射/子区域，32完整U16/half条带/2097152像素及负步幅失败控制。**此新增端序组尚待Actions。**
-- 已接新的真实调用链组件native-copy-consumers：原12 DDS/TGA全资源/107级别/321锁解锁和全部存储仍完整保留；其中4真实raw源的40级别/120 locked views执行原版/恢复端序+swizzle→RGBA8完整复制、padding/guard和逐次NoOriginal。原生文件loader仍仅oracle输入，不属于恢复业务；新调用链也**尚待Actions**。
-- 独立ABI不加入已部署六DLL包，SDK/MOD输入未变不重跑。gamma/压缩转换、packed float10、uint32数值转换、过滤/重叠及signed/biased one-bit域仍明确拒绝；PC原生文件加载/资源构造、完整混合模式身份仍未完成。
+- `ef1e1bbac041db5e26a6ca8cbcab1e189ede0867` / [40963205193](https://github.com/wu162/NewSdk/actions/runs/40963205193) completed/success，7完整组passed、55旧组复用：unsigned100412、signed100472、float46262、endian184928、identity32768输入/配置；实际五DLL/12源/107级别/321锁与120 raw视图复制通过，D/R/NoOriginal/导入库全部passed。前序c5aa8cc0/40961005402与6025bc3d/40962015217也success；首版543cb4cb/40959808438的166个阈值差异已修复且失败保留。
+- 38布局的unsigned/signed/biased normalized/integer、s10e5/float32、四端序、swizzle/常量/last-wins、原舍入/饱和/1位阈值已恢复。unsigned64.7MB/signed61.6MB/float57.9MB/endian84.5MB完整原档全部独立模型passed；真实复制21.0MB完整capture、3772098 RGBA像素、全资源存储/状态和五DLL也独立审计passed。
+- 最后核对原LoadImageA IL@0x3214：真实调用XGCopySurface flags=0x12、threshold=0。现按原raw分支恢复所有flags的identity/forced-conversion分派，真实120次复制也改为精确0x12/0调用。新增native-flags-convert49328输入、1444格式对/12 flag sets/同格式强制归一化、80完整条带/5242880像素；原拒绝flags断言由该完整正向差分组替代，其他拒绝/断言保留。**此最后flags业务修改尚待Actions，不能沿用此前flags0的结果称当前源码全通过。** 原IL证据在native-flags-static/20261030。
+- 独立ABI未加入生产六DLL包，整个SDK树未改，未重复SDK/MOD。gamma/压缩转换、packed float10、uint32数值转换、过滤/重叠、signed/biased one-bit及不完整端序单位仍明确拒绝；原生文件loader/资源构造与完整混合模式身份仍未恢复。
 
-## 下一轮计划／当前继续入口
+## 下一轮计划／本轮继续入口
 
-- 先收本次 `[texture-test]` 的native-copy-consumers、native-endian-convert及全部实际共享消费者float/signed/unsigned/identity/base。未变55组与旧SDK保留各自sourceCommit/runId；失败只补真实失败/变化组。
-- 用完整原capture独立审计新端序矩阵及真实120次复制的全部输出、原资源输入与五DLL来源；入口TestTextureNativeEndianConvert.ps1、TestTextureNativeCopyConsumers.ps1及相应Oracle.cpp。通过后下一业务优先D3DXCreateTextureFromFileA@0x13c82→0x13b53的PC原生加载与资源头构造；编译测试仅Actions、禁止强推。
+- 收本次 `[texture-test]` 的新增native-flags-convert及7个真实共享消费者完整结果；未变55组件与旧SDK保留原锚点。用InspectTextureNativeConvertCaptures.py补查新flags完整原档，InspectTextureNativeCopyConsumers.py核对精确LoadImageA参数后的120次完整复制；不能减少组或取消旧成功回归。
+- 最后保存63组件实际就绪与源码/SDK未变核对。下一业务D3DXCreateTextureFromFileA@0x13c82→0x13b53的PC原生文件加载和资源头构造；fixture loader仍只作oracle，编译测试仅Actions、禁止强推。本轮最多70分钟，到点按真实终态交接。
 
 以下为前轮已验收状态及历史锚点。
 

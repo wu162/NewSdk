@@ -123,7 +123,7 @@ extern "C" RECOVERED_TEXTURE_NATIVE_COPY_API std::int32_t __stdcall TextureCopyS
  if(destinationFormat==sourceFormat&& !((flags^(flags>>1))&5))
   return TextureCopySurfaceIdentity(destination,destinationPitch,width,height,destinationFormat,point,source,sourcePitch,sourceFormat,rectangle,flags,threshold);
  const auto dstFormat=Find(destinationFormat),srcFormat=Find(sourceFormat);
- if(!dstFormat||!srcFormat||flags||!std::isfinite(threshold)||threshold<0||threshold>1)return Unsupported;
+ if(!dstFormat||!srcFormat||!std::isfinite(threshold)||threshold<0||threshold>1)return Unsupported;
  // Original conversion allocates unsigned temporary pitches before visiting pixels.
  // A negative signed row pitch requests at least 2 GiB in this x86 path.
  if(destinationPitch<0||sourcePitch<0)return static_cast<std::int32_t>(0x8007000eu);

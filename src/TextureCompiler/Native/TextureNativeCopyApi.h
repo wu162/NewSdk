@@ -15,7 +15,8 @@ using CopyFn=std::int32_t (__stdcall *)(void*,std::int32_t,std::uint32_t,std::ui
 extern "C" RECOVERED_TEXTURE_NATIVE_COPY_API std::int32_t __stdcall TextureCopySurfaceIdentity(void*,std::int32_t,std::uint32_t,std::uint32_t,std::uint32_t,const Recovered::TextureCompiler::NativeCopyAbi::Point*,const void*,std::int32_t,std::uint32_t,const Recovered::TextureCompiler::NativeCopyAbi::Rect*,std::uint32_t,float);
 
 // Identity plus unsigned/signed/biased normalized and integer PC format conversion (38 layouts, selectors 0..5; original s10e5 and float32 included).
-// Conversion requires flags=0, complete endian units, no gamma or signed one-bit,
+// Raw conversion follows original flags dispatch (including LoadImageA flags=0x12).
+// Conversion requires complete endian units, no gamma or signed one-bit,
 // a finite threshold in [0,1], and
 // nonoverlapping valid storage. Other format attributes are explicitly rejected.
 extern "C" RECOVERED_TEXTURE_NATIVE_COPY_API std::int32_t __stdcall TextureCopySurface(void*,std::int32_t,std::uint32_t,std::uint32_t,std::uint32_t,const Recovered::TextureCompiler::NativeCopyAbi::Point*,const void*,std::int32_t,std::uint32_t,const Recovered::TextureCompiler::NativeCopyAbi::Rect*,std::uint32_t,float);

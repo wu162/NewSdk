@@ -3144,6 +3144,39 @@
       "evidence": "recovery/evidence/texture/native-copy-consumers/*/validation.json",
       "sdk": false,
       "priority": -9
+    },
+    "native-flags-convert": {
+      "script": "recovery/scripts/TestTextureNativeFlagsConvert.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Native/TextureNativeCopyApi.cpp",
+        "src/TextureCompiler/Native/TextureNativeCopyApi.h",
+        "src/TextureCompiler/Native/TextureNativeCopyApi.def",
+        "recovery/scripts/BuildTextureNativeCopy.ps1",
+        "recovery/scripts/TestTextureNativeCopy.ps1",
+        "recovery/tests/TextureNativeCopyOracle.cpp",
+        "recovery/tests/TextureNativeCopyLink.cpp",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Native/TextureNativeConvertApi.cpp",
+        "recovery/scripts/TestTextureNativeConvert.ps1",
+        "recovery/tests/TextureNativeConvertOracle.cpp",
+        "recovery/tests/TextureNativeConvertLink.cpp",
+        "recovery/scripts/TestTextureNativeSignedConvert.ps1",
+        "recovery/tests/TextureNativeSignedConvertOracle.cpp",
+        "recovery/tests/TextureNativeSignedConvertLink.cpp",
+        "recovery/scripts/TestTextureNativeFloatConvert.ps1",
+        "recovery/tests/TextureNativeFloatConvertOracle.cpp",
+        "recovery/tests/TextureNativeFloatConvertLink.cpp",
+        "recovery/scripts/TestTextureNativeEndianConvert.ps1",
+        "recovery/tests/TextureNativeEndianConvertOracle.cpp",
+        "recovery/tests/TextureNativeEndianConvertLink.cpp",
+        "recovery/scripts/TestTextureNativeFlagsConvert.ps1",
+        "recovery/tests/TextureNativeFlagsConvertOracle.cpp",
+        "recovery/tests/TextureNativeFlagsConvertLink.cpp"
+      ],
+      "evidence": "recovery/evidence/texture/native-flags-convert/*/validation.json",
+      "sdk": false,
+      "priority": -10
     }
   },
   "targetPlatform": "Win32"

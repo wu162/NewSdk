@@ -71,7 +71,7 @@ Trace Run(Api a,bool isolated,const std::vector<unsigned char>& fixtures){Reader
     if((desc.format&63)==6){
      const U width=desc.width-(mode==1?rect.left:0),height=desc.height-(mode==1?rect.top:0),pitch=width*4+7;
      std::vector<unsigned char> converted(pitch*height+64,0xa5);
-     if(isolated)Isolated();auto result=a.copy(converted.data()+32,pitch,width,height,0x1a200006,nullptr,locked.bits,locked.pitch,desc.format,nullptr,0,0.5f);if(isolated)Isolated();Check(result==0,"Actual PC LockRect endian/swizzle copy");
+     if(isolated)Isolated();auto result=a.copy(converted.data()+32,pitch,width,height,0x1a200006,nullptr,locked.bits,locked.pitch,desc.format,nullptr,0x12,0.0f);if(isolated)Isolated();Check(result==0,"Actual PC LockRect endian/swizzle copy");
      for(U i=0;i<32;++i)Check(converted[i]==0xa5&&converted[converted.size()-32+i]==0xa5,"Actual copy destination guards");
      for(U row=0;row<height;++row)for(U byte=width*4;byte<pitch;++byte)Check(converted[32+row*pitch+byte]==0xa5,"Actual copy destination padding");
      t.number(width);t.number(height);t.number(desc.format);t.number(converted.size());t.add(converted.data(),converted.size());++copyCalls;copyPixels+=width*height;

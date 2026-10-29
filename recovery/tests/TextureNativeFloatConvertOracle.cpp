@@ -96,9 +96,6 @@ void Compare(unsigned char* original,HMODULE dll,const char* path){auto expected
  for(U bits:{0x7fc00000u,0x7f800000u,0xff800000u,0xbf800000u,0x3f800001u}){
   float threshold;std::memcpy(&threshold,&bits,4);if(!original)Isolated();Check(api.copy(destination,8,1,1,0x1a20001a,nullptr,source,8,0x1a200006,nullptr,0,threshold)==static_cast<std::int32_t>(0x80004001u)&&std::memcmp(before.data(),destination,64)==0,"Invalid conversion threshold changed output");if(!original)Isolated();
  }
- for(U flags:{1u,2u,3u,4u,8u,12u,0xffffffffu}){
-  if(!original)Isolated();Check(api.copy(destination,8,1,1,0x1a20001a,nullptr,source,8,0x1a200006,nullptr,flags,0.5f)==static_cast<std::int32_t>(0x80004001u)&&std::memcmp(before.data(),destination,64)==0,"Unimplemented conversion flags changed output");if(!original)Isolated();
- }
  for(Rect rect: {Rect{-1,0,1,1},Rect{0,-1,1,1},Rect{0,0,2,1},Rect{1,0,0,1}}){
   if(!original)Isolated();Check(api.copy(destination,8,1,1,0x1a20001a,nullptr,source,8,0x1a200006,&rect,0,0.5f)==static_cast<std::int32_t>(0x80004001u)&&std::memcmp(before.data(),destination,64)==0,"Invalid conversion rectangle changed output");if(!original)Isolated();
  }
