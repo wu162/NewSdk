@@ -1,0 +1,31 @@
+TextureNativeCopyApi.cpp
+   Creating library D:\a\_temp\texture-native-copy-6efeb0760ae844b681136d506dee60c1\Release/native-copy.lib and object D:\a\_temp\texture-native-copy-6efeb0760ae844b681136d506dee60c1\Release/native-copy.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-native-copy-6efeb0760ae844b681136d506dee60c1\Release\Recovered.TextureNativeCopy.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeCopy.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           2 number of functions
+           2 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureCopySurfaceIdentity
+          2    1 00001000 _TextureCopySurfaceIdentity@48
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        D000 .text
