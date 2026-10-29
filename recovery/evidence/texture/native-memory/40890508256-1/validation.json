@@ -1,0 +1,33 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runAttempt": "1",
+  "sourceCommit": "e4c67dd3597c8405d0a0a2211383d9764681f180",
+  "configurations": [
+    {
+      "passed": true,
+      "configuration": "Debug",
+      "summary": [
+        "PASS native PC memory differential buffers=10 appendOperations=520 deletionFlags=8 endianValues=262144 traceBytes=1687764; original x86 layout/thiscall/callee cleanup, growth/reset/payload, ownership and constant facades; invalid pointers/OOM/full devices excluded",
+        "PASS native PC memory NoOriginal buffers=10 appendOperations=520 deletionFlags=8 endianValues=262144 traceBytes=1687764; original x86 layout/thiscall/callee cleanup, growth/reset/payload, ownership and constant facades; invalid pointers/OOM/full devices excluded"
+      ],
+      "nativeSha256": "728a6d4151b909cfd2315d9109541165096b1fba2703c872e0f7efa77aaad157",
+      "captureSha256": "b78cda846e03743ac2d19d3846d3a5c56367c1b563255c84e0bc17717dbff9d9",
+      "withoutOriginalTextureCompiler": true
+    },
+    {
+      "passed": true,
+      "configuration": "Release",
+      "summary": [
+        "PASS native PC memory differential buffers=10 appendOperations=520 deletionFlags=8 endianValues=262144 traceBytes=1687764; original x86 layout/thiscall/callee cleanup, growth/reset/payload, ownership and constant facades; invalid pointers/OOM/full devices excluded",
+        "PASS native PC memory NoOriginal buffers=10 appendOperations=520 deletionFlags=8 endianValues=262144 traceBytes=1687764; original x86 layout/thiscall/callee cleanup, growth/reset/payload, ownership and constant facades; invalid pointers/OOM/full devices excluded"
+      ],
+      "nativeSha256": "61b276c25b1a581de067d2b741132ffaffd87a4ed6042d691b7f052866810e4e",
+      "captureSha256": "b78cda846e03743ac2d19d3846d3a5c56367c1b563255c84e0bc17717dbff9d9",
+      "withoutOriginalTextureCompiler": true
+    }
+  ],
+  "sdkValidated": false,
+  "runId": "40890508256",
+  "scope": "Native x86 thiscall buffer/allocator/deleting-destructor and cdecl/stdcall facade ABI, complete original state/payload/endian trace and per-call isolation; no devices/invalid memory/OOM/CLI identity or production package claim",
+  "status": "passed"
+}
