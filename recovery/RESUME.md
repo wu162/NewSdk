@@ -2,7 +2,7 @@
 
 - **本轮完成**：核实`d0a4547e9cb45d35f5f22b73d23c401e97ef266d` / [40816168489](https://github.com/wu162/NewSdk/actions/runs/40816168489) completed/success，DIB及3个DXT1A组passed、41组件复用，当前45组件有效。独立DIB D/R各4866输入、4578实际原raw-DIB调用、双入口与逐次NoOriginal通过。SDK PcBmpHeaders三模式各22670资产/调用、142成功atlas、四产物及79275完整轨迹文件/模式独立逐字节审计通过；5-DLL包/源码/安装回滚/唯一ID完整审计见`evidence/texture/handoffs/20261029-dib/bmp-sdk-package-audit.json`。
 - **证据保存修正**：历史SDK清单/XML/TSV曾被Git归一化为LF；新增该运行的CRLF检出属性，恢复后逐个匹配原收据SHA及zip内原manifest，不改写原收据/归档。后续新Texture证据以-text保存这些字节。源码包审计按Actions Windows Git过滤器重建源码字节，再严格比较原长度/哈希/完整文件。
-- **功能实现中、待验证**：公共loader识别裸DIB、插件接受`.dib`；BMP真彩biClrUsed按原parser跳过RGBQUAD，DIB envelope不再删除表或改profile指针，两者共用同一解析器。新增6入口DIB/BMP组件与整组插件消费差分，尚未计为通过或SDK集成完成。
+- **功能实现中、待验证**：公共loader识别裸DIB、插件接受`.dib`；BMP真彩biClrUsed按原parser跳过RGBQUAD，DIB envelope不再删除表或改profile指针，两者共用同一解析器。新增6入口DIB/BMP组件与50304输入整组插件消费差分；源码`2b23ff4c638c6305ff6afc98e9e4f57bba506200` / [40821998297](https://github.com/wu162/NewSdk/actions/runs/40821998297)验收中，尚未计为通过或SDK集成完成。新PcDib专用SDK21464资产/模式已准备，组件稳定后单独显式运行。
 - **下一轮计划/本轮继续**：完成新DIB/色表完整raw3/DXT3/5/透明DXT1A、mip/volume/atlas/三buffer/cdata/逐次NoOriginal矩阵与必要专用SDK，集中受影响回归。未变成功组保留原锚点；完整mymod不随本轮自动运行。所有成果集中`recovery/texturecompiler-source`，禁止强推，编译测试仅Actions，生产SDK树未替换。
 
 # 本轮追加：独立裸DIB加载接口（待组件验收，未接插件）
