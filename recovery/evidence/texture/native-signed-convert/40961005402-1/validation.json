@@ -1,0 +1,33 @@
+{
+  "runId": "40961005402",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "summary": [
+        "PASS native PC signed/biased/integer conversion differential cases=100472 formatPairs=784 attributeStatePairs=64 mappingVariants=2 exhaustive16BitStrips=120 exhaustivePixels=7864320 traceBytes=61620872; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC signed/biased/integer conversion NoOriginal cases=100472 formatPairs=784 attributeStatePairs=64 mappingVariants=2 exhaustive16BitStrips=120 exhaustivePixels=7864320 traceBytes=61620872; full source/output/padding/guards, thresholds and isolated replay"
+      ],
+      "withoutOriginalTextureCompiler": true,
+      "nativeSha256": "332e95c9748392ba3cfbeffb81a94ff42180f27488bfeb82998e4f1fc6351ec3",
+      "passed": true,
+      "captureSha256": "635a22d4dbbe1264873d0250287a66c755083b06d7382085edbe118c31090b62"
+    },
+    {
+      "configuration": "Release",
+      "summary": [
+        "PASS native PC signed/biased/integer conversion differential cases=100472 formatPairs=784 attributeStatePairs=64 mappingVariants=2 exhaustive16BitStrips=120 exhaustivePixels=7864320 traceBytes=61620872; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC signed/biased/integer conversion NoOriginal cases=100472 formatPairs=784 attributeStatePairs=64 mappingVariants=2 exhaustive16BitStrips=120 exhaustivePixels=7864320 traceBytes=61620872; full source/output/padding/guards, thresholds and isolated replay"
+      ],
+      "withoutOriginalTextureCompiler": true,
+      "nativeSha256": "6015cf9864bd23b2fdc91f09bd4f158efab0a239ec3799ceac70bcdc051d85e3",
+      "passed": true,
+      "captureSha256": "635a22d4dbbe1264873d0250287a66c755083b06d7382085edbe118c31090b62"
+    }
+  ],
+  "scope": "XGCopySurface signed/biased/unsigned normalized and integer conversion: 28 layouts/784 format pairs/64 attribute state pairs, 120 exhaustive16 strips/selectors/constants/clipping/threshold/full bytes and NoOriginal; gamma/endian/float/compression/filter/overlap and production package excluded",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "passed",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "sourceCommit": "c5aa8cc067dcead7162de29634602d9bf4679be1"
+}

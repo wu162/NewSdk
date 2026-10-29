@@ -1,0 +1,33 @@
+{
+  "runId": "40961005402",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "summary": [
+        "PASS native PC identity copy differential cases=32768 formats=64 sizes=4 padding=2 orientations=4 flagSets=4 regionSets=4 traceBytes=21217672; full source/destination/padding/guards, negative strides and ignored float bits; conversion/filter/unaligned/overlap paths excluded",
+        "PASS native PC identity copy NoOriginal cases=32768 formats=64 sizes=4 padding=2 orientations=4 flagSets=4 regionSets=4 traceBytes=21217672; full source/destination/padding/guards, negative strides and ignored float bits; conversion/filter/unaligned/overlap paths excluded"
+      ],
+      "withoutOriginalTextureCompiler": true,
+      "nativeSha256": "f9a64908fb2e5caa25a9be6986be426a3c47eeda69bc11f0a9c61a488743fe2f",
+      "passed": true,
+      "captureSha256": "fec63787c512ea2c733091088d707d17b2db8bf701c8befca23a2463416124b9"
+    },
+    {
+      "configuration": "Release",
+      "summary": [
+        "PASS native PC identity copy differential cases=32768 formats=64 sizes=4 padding=2 orientations=4 flagSets=4 regionSets=4 traceBytes=21217672; full source/destination/padding/guards, negative strides and ignored float bits; conversion/filter/unaligned/overlap paths excluded",
+        "PASS native PC identity copy NoOriginal cases=32768 formats=64 sizes=4 padding=2 orientations=4 flagSets=4 regionSets=4 traceBytes=21217672; full source/destination/padding/guards, negative strides and ignored float bits; conversion/filter/unaligned/overlap paths excluded"
+      ],
+      "withoutOriginalTextureCompiler": true,
+      "nativeSha256": "3ae7ae316a5ab9c764c3da662a2bf8a5b21fe3d0756083a4936430fae9686339",
+      "passed": true,
+      "captureSha256": "fec63787c512ea2c733091088d707d17b2db8bf701c8befca23a2463416124b9"
+    }
+  ],
+  "scope": "Original XGCopySurface same-format/block-aligned identity row path, all64 formats/full buffers/padding/guards/strides/flags/float bits and isolation; conversion/filter/unaligned/overlap and production package excluded",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "passed",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "sourceCommit": "c5aa8cc067dcead7162de29634602d9bf4679be1"
+}

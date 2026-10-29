@@ -1,0 +1,91 @@
+{
+  "runAttempt": "1",
+  "sourceCommit": "c5aa8cc067dcead7162de29634602d9bf4679be1",
+  "groups": [
+    {
+      "evidenceOnly": false,
+      "group": "native-signed-convert",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "native-convert",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "group": "native-copy",
+      "passed": true
+    },
+    {
+      "evidenceOnly": false,
+      "passed": true,
+      "group": "base"
+    }
+  ],
+  "status": "passed",
+  "runId": "40961005402",
+  "selected": [
+    "native-signed-convert",
+    "native-convert",
+    "native-copy",
+    "base"
+  ],
+  "reused": [
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-images",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-dds",
+    "atlas-entry",
+    "jpeg",
+    "jpeg-images",
+    "dxt1a-blocks",
+    "dxt1a-dds",
+    "dxt1a-images",
+    "png-metadata",
+    "png-metadata-images",
+    "jpeg-metadata",
+    "jpeg-metadata-images",
+    "tga-metadata",
+    "tga-metadata-images",
+    "bmp-headers",
+    "bmp-header-images",
+    "dib",
+    "bmp-os2",
+    "dib-images",
+    "public-ppm",
+    "ppm-images",
+    "ppm-volume-boundaries",
+    "native-errors",
+    "native-memory",
+    "native-device",
+    "native-resource",
+    "native-surface",
+    "native-descriptor",
+    "native-consumers"
+  ]
+}
