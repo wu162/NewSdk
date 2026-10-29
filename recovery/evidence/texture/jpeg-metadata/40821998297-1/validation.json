@@ -1,0 +1,44 @@
+{
+  "sdkValidated": false,
+  "probeOnly": false,
+  "nativeBinaries": [
+    {
+      "sha256": "a911829a25f2d09f2696b1b6a5e131bb929f0d5867a3dcda6e60d39a3f7e189b",
+      "configuration": "Debug",
+      "machine": "I386"
+    },
+    {
+      "sha256": "1210e233709b611a2714394abdd19aeb96b06e5ff98c6895e0c183fd2b614cfc",
+      "configuration": "Release",
+      "machine": "I386"
+    }
+  ],
+  "originalBaseline": {
+    "runId": "40783041481",
+    "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+    "samplesSha256": "ef7313c2061dcc28b580e8447c9dc8e01a8dfe7b08025fd19bab8ffe5ee5acca"
+  },
+  "sourceCommit": "2b23ff4c638c6305ff6afc98e9e4f57bba506200",
+  "status": "passed",
+  "runAttempt": "1",
+  "runId": "40821998297",
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "configuration": "Debug",
+      "summary": [
+        "PASS Texture JPEG colour/metadata NoOriginal fixtures=4000 publicCalls=8000 decoded=2880 rejected=5120 checks=649163 comparedBytes=2000160; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate"
+      ]
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "configuration": "Release",
+      "summary": [
+        "PASS Texture JPEG colour/metadata NoOriginal fixtures=4000 publicCalls=8000 decoded=2880 rejected=5120 checks=649163 comparedBytes=2000160; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate"
+      ]
+    }
+  ],
+  "scope": "PC JPEG RGB/CMYK/YCCK/Adobe/Exif/ICC/XMP/COM complete immutable original bytes/errors; direct/public JPEG decoding, per-call NoOriginal; plugin/SDK separate"
+}

@@ -1,0 +1,43 @@
+{
+  "sourceCommit": "2b23ff4c638c6305ff6afc98e9e4f57bba506200",
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "configuration": "Debug",
+      "summary": [
+        "PASS Texture PNG metadata NoOriginal fixtures=4680 publicCalls=9360 decoded=6240 rejected=3120 checks=646883 comparedBytes=1863680; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate",
+        "PASS Texture PNG metadata NoOriginal fixtures=3240 publicCalls=6480 decoded=4320 rejected=2160 checks=447843 comparedBytes=1290240; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate"
+      ]
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "configuration": "Release",
+      "summary": [
+        "PASS Texture PNG metadata NoOriginal fixtures=4680 publicCalls=9360 decoded=6240 rejected=3120 checks=646883 comparedBytes=1863680; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate",
+        "PASS Texture PNG metadata NoOriginal fixtures=3240 publicCalls=6480 decoded=4320 rejected=2160 checks=447843 comparedBytes=1290240; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate"
+      ]
+    }
+  ],
+  "runId": "40821998297",
+  "scope": "PC PNG ICC/APNG default image and sRGB/gAMA precedence; full immutable RGBA/errors through direct/public decoder; original absent/unloaded per call; plugin/SDK separate",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "probeOnly": false,
+  "status": "passed",
+  "originalBaselines": [
+    {
+      "runId": "40779895712",
+      "sourceCommit": "c812b8094a032dba0a29475d90e563cef211116e",
+      "fixtureCount": 4680,
+      "samplesSha256": "5e698ae274086468e3efa5520847fa9127acc4de62c1b96060a5ac0cbab0cac6"
+    },
+    {
+      "runId": "40780410178",
+      "sourceCommit": "2cab493118bb33992a762ee191af392d10fe30eb",
+      "fixtureCount": 3240,
+      "samplesSha256": "e804e2d5099f73c6be676a87153b02806fc0237827dc0da657c48503cdbd964f"
+    }
+  ]
+}

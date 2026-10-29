@@ -1,0 +1,154 @@
+{
+  "sdkValidated": false,
+  "probeOnly": false,
+  "sourceCommit": "2b23ff4c638c6305ff6afc98e9e4f57bba506200",
+  "corpusSha256": "bb8bbe9dddb43b8936a6786f0092ff0459bc27ba6916d3b0f684f2b907a9a07c",
+  "status": "passed",
+  "runAttempt": "1",
+  "runId": "40821998297",
+  "publicS3Native": [
+    {
+      "sourceFiles": [
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "006f68a2034a4dd053d3b54558123690581a5d84",
+          "sha256": "9bb3c07a310ade0c9bb4ab70603a557893d9b6887b972d83df8ffcfedbbdfb7e",
+          "bytes": 94548,
+          "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
+          "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
+          "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain; final wrapper uses owned inline x87 scoring/comparisons and extended intermediates; restore quick projection indices from the pre-scoring snapshot when quick wins; explicit mode3 with fixed original gray constants, three-point floor palette and opaque DXT1 black-index scoring (DXT1A excludes transparent index)",
+          "file": "s3_quant.cpp"
+        },
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/S3_quant.h",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "ba9a7180467f3e1ea744c83ba1fe5249c2928345",
+          "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
+          "bytes": 2724,
+          "file": "S3_quant.h"
+        },
+        {
+          "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608+8192 (8192 bytes)",
+          "repository": "wu162/NewSdk",
+          "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+          "blobSha": "b188483b80391cee4d7e5f9b85f01832bfa1f012",
+          "sha256": "404d173c95c2beb07625b256a544b7a1febb2590b52b667c021921121eb6e227",
+          "bytes": 7023,
+          "origin": "existing recovered fixed codec optimization data, not public S3 upstream and not corpus payloads",
+          "sourceDataSha256": "c8c04516fe9c09fd35f56b5ef96e889db56a41ab1f575385f90ee1fa2e558211",
+          "file": "LegacyGray4.inl"
+        },
+        {
+          "file": "TexturePublicS3.cpp",
+          "origin": "owned bounded PC ABI; no encoder implementation callbacks",
+          "sha256": "13a26e58d76e040ea2b774224dc9e99fbd5abfbb718fdbe4c9569f793f27b054",
+          "blobSha": "46c4b05cf9967be24d6c5ecaaa79cfdc8af70567",
+          "bytes": 3145
+        },
+        {
+          "file": "LegacyGray3.inl",
+          "origin": "existing recovered codec optimization data, not corpus payloads",
+          "repository": "wu162/NewSdk",
+          "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+          "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608 first8192 bytes",
+          "sourceDataSha256": "c9feeaf992d2457d146d414a2d27543b5178bd07f4797fd4b596d914eaa7013e",
+          "sha256": "04915b4cb6b5af4182697a5479ec9ca388b1e445762937135089d1c866e11a0b",
+          "bytes": 6934,
+          "blobSha": "160505d3cea649e811f9ace75991c7e0bb726a9f"
+        }
+      ],
+      "machine": "I386",
+      "importsOtherEncoders": false,
+      "sourceManifestSha256": "39956cf3d81ebcb1a5fc7f74e3486174250d9fe9b3a67f96491a1844d7a601b6",
+      "sha256": "6c4a212f0e63a20aeaffc9b39a648fb8b35f2f1a2e01239020615d43cfdbb58d",
+      "configuration": "Debug"
+    },
+    {
+      "sourceFiles": [
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "006f68a2034a4dd053d3b54558123690581a5d84",
+          "sha256": "9bb3c07a310ade0c9bb4ab70603a557893d9b6887b972d83df8ffcfedbbdfb7e",
+          "bytes": 94548,
+          "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
+          "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
+          "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain; final wrapper uses owned inline x87 scoring/comparisons and extended intermediates; restore quick projection indices from the pre-scoring snapshot when quick wins; explicit mode3 with fixed original gray constants, three-point floor palette and opaque DXT1 black-index scoring (DXT1A excludes transparent index)",
+          "file": "s3_quant.cpp"
+        },
+        {
+          "upstreamPath": "libs/libxgraphics/dxtc/S3_quant.h",
+          "repository": "Team-Resurgent/RXDK-Libs",
+          "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+          "blobSha": "ba9a7180467f3e1ea744c83ba1fe5249c2928345",
+          "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
+          "bytes": 2724,
+          "file": "S3_quant.h"
+        },
+        {
+          "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608+8192 (8192 bytes)",
+          "repository": "wu162/NewSdk",
+          "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+          "blobSha": "b188483b80391cee4d7e5f9b85f01832bfa1f012",
+          "sha256": "404d173c95c2beb07625b256a544b7a1febb2590b52b667c021921121eb6e227",
+          "bytes": 7023,
+          "origin": "existing recovered fixed codec optimization data, not public S3 upstream and not corpus payloads",
+          "sourceDataSha256": "c8c04516fe9c09fd35f56b5ef96e889db56a41ab1f575385f90ee1fa2e558211",
+          "file": "LegacyGray4.inl"
+        },
+        {
+          "file": "TexturePublicS3.cpp",
+          "origin": "owned bounded PC ABI; no encoder implementation callbacks",
+          "sha256": "13a26e58d76e040ea2b774224dc9e99fbd5abfbb718fdbe4c9569f793f27b054",
+          "blobSha": "46c4b05cf9967be24d6c5ecaaa79cfdc8af70567",
+          "bytes": 3145
+        },
+        {
+          "file": "LegacyGray3.inl",
+          "origin": "existing recovered codec optimization data, not corpus payloads",
+          "repository": "wu162/NewSdk",
+          "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+          "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608 first8192 bytes",
+          "sourceDataSha256": "c9feeaf992d2457d146d414a2d27543b5178bd07f4797fd4b596d914eaa7013e",
+          "sha256": "04915b4cb6b5af4182697a5479ec9ca388b1e445762937135089d1c866e11a0b",
+          "bytes": 6934,
+          "blobSha": "160505d3cea649e811f9ace75991c7e0bb726a9f"
+        }
+      ],
+      "machine": "I386",
+      "importsOtherEncoders": false,
+      "sourceManifestSha256": "39956cf3d81ebcb1a5fc7f74e3486174250d9fe9b3a67f96491a1844d7a601b6",
+      "sha256": "d6ddd5dbc469568d4d600d6673078e9b501728c577fb40e7b804eac92a6400ad",
+      "configuration": "Release"
+    }
+  ],
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "configuration": "Debug",
+      "summary": [
+        "PASS Texture BMP OS2 differential fixtures=1944 decoded=1296 rejected=2592 boundaries=36 checks=542450 comparedBytes=525528; core12/OS2-64 BI_RGB16/24/32, signed64 height, eight POT/NPOT/partial shapes, gaps/alpha/orientation; original indexed errors; source unchanged; SDK separate",
+        "PASS Texture BMP OS2 ProcessInstance differential fixtures=28548 errors=5256 comparedBytes=228551484; core12/OS2-64 raw3/DXT3/5/transparent DXT1A standard/volume/full mip; 108 successful atlas cases; indexed and invalid-volume original errors; three buffers/full cdata/source/old tails and per-call original isolation; SDK separate",
+        "PASS Texture BMP OS2 NoOriginal fixtures=1944 decoded=1296 rejected=2592 boundaries=36 checks=598182 comparedBytes=525528; core12/OS2-64 BI_RGB16/24/32, signed64 height, eight POT/NPOT/partial shapes, gaps/alpha/orientation; original indexed errors; source unchanged; SDK separate",
+        "PASS Texture BMP OS2 ProcessInstance NoOriginal fixtures=28548 errors=5256 comparedBytes=228551484; core12/OS2-64 raw3/DXT3/5/transparent DXT1A standard/volume/full mip; 108 successful atlas cases; indexed and invalid-volume original errors; three buffers/full cdata/source/old tails and per-call original isolation; SDK separate"
+      ]
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "configuration": "Release",
+      "summary": [
+        "PASS Texture BMP OS2 differential fixtures=1944 decoded=1296 rejected=2592 boundaries=36 checks=542450 comparedBytes=525528; core12/OS2-64 BI_RGB16/24/32, signed64 height, eight POT/NPOT/partial shapes, gaps/alpha/orientation; original indexed errors; source unchanged; SDK separate",
+        "PASS Texture BMP OS2 ProcessInstance differential fixtures=28548 errors=5256 comparedBytes=228551484; core12/OS2-64 raw3/DXT3/5/transparent DXT1A standard/volume/full mip; 108 successful atlas cases; indexed and invalid-volume original errors; three buffers/full cdata/source/old tails and per-call original isolation; SDK separate",
+        "PASS Texture BMP OS2 NoOriginal fixtures=1944 decoded=1296 rejected=2592 boundaries=36 checks=598182 comparedBytes=525528; core12/OS2-64 BI_RGB16/24/32, signed64 height, eight POT/NPOT/partial shapes, gaps/alpha/orientation; original indexed errors; source unchanged; SDK separate",
+        "PASS Texture BMP OS2 ProcessInstance NoOriginal fixtures=28548 errors=5256 comparedBytes=228551484; core12/OS2-64 raw3/DXT3/5/transparent DXT1A standard/volume/full mip; 108 successful atlas cases; indexed and invalid-volume original errors; three buffers/full cdata/source/old tails and per-call original isolation; SDK separate"
+      ]
+    }
+  ],
+  "scope": "PC core12/OS2-64 BI_RGB16/24/32 and indexed original rejection; direct/public full RGBA/errors and real plugin raw/DXT/transparent DXT1A/mip/volume/positive atlas/three buffers/full cdata; isolated replay each call; SDK separate"
+}

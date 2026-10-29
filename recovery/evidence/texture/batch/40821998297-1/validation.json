@@ -1,0 +1,199 @@
+{
+  "runId": "40821998297",
+  "selected": [
+    "base",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "bmp",
+    "raster-images",
+    "dxt-images",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-entry",
+    "jpeg",
+    "jpeg-images",
+    "dxt1a-blocks",
+    "dxt1a-dds",
+    "dxt1a-images",
+    "png-metadata",
+    "png-metadata-images",
+    "jpeg-metadata",
+    "jpeg-metadata-images",
+    "tga-metadata",
+    "tga-metadata-images",
+    "bmp-headers",
+    "bmp-header-images",
+    "dib",
+    "bmp-os2",
+    "dib-images"
+  ],
+  "sourceCommit": "2b23ff4c638c6305ff6afc98e9e4f57bba506200",
+  "status": "failed",
+  "runAttempt": "1",
+  "reused": [
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "png",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "atlas-dds"
+  ],
+  "groups": [
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "base"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "images"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "mip-images"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "volume-images"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "volume-mip-images"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "bmp"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "raster-images"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "dxt-images"
+    },
+    {
+      "passed": false,
+      "evidenceOnly": false,
+      "group": "npot-rgba8",
+      "error": "Original coefficient transcript hash changed"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "npot-storage-replay"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "npot-storage-stress-replay"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "atlas-entry"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "jpeg"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "jpeg-images"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "dxt1a-blocks"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "dxt1a-dds"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "dxt1a-images"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "png-metadata"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "png-metadata-images"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "jpeg-metadata"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "jpeg-metadata-images"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "tga-metadata"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "tga-metadata-images"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "bmp-headers"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "bmp-header-images"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "dib"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "bmp-os2"
+    },
+    {
+      "passed": true,
+      "evidenceOnly": false,
+      "group": "dib-images"
+    }
+  ]
+}

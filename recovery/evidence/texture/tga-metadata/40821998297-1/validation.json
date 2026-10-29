@@ -1,0 +1,32 @@
+{
+  "sdkValidated": false,
+  "probeOnly": false,
+  "originalBaseline": {
+    "runId": "40793184986",
+    "sourceCommit": "63dcfd2b527284ff153e07e7badc997a3d2bfb49",
+    "samplesSha256": "e55d7f704fd1d592593843e7444fa231ff05a3824ea3895a08ba50bb4b149993"
+  },
+  "sourceCommit": "2b23ff4c638c6305ff6afc98e9e4f57bba506200",
+  "status": "passed",
+  "runAttempt": "1",
+  "runId": "40821998297",
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "configuration": "Debug",
+      "summary": [
+        "PASS Texture TGA metadata NoOriginal fixtures=12480 publicCalls=24960 decoded=24960 rejected=0 boundaryRejections=96 checks=1904740 comparedBytes=5616000; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate"
+      ]
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "configuration": "Release",
+      "summary": [
+        "PASS Texture TGA metadata NoOriginal fixtures=12480 publicCalls=24960 decoded=24960 rejected=0 boundaryRejections=96 checks=1904740 comparedBytes=5616000; full original RGBA/error domains, unchanged inputs, absent/unloaded original per call; plugin/SDK separate"
+      ]
+    }
+  ],
+  "scope": "PC TGA extension/gamma/alpha/developer/tables/origin complete immutable original bytes/errors; direct/public TGA decoding, per-call NoOriginal; plugin/SDK separate"
+}

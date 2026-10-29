@@ -1,0 +1,3 @@
+TextureColourBridge.cpp
+bridge-Release.obj : warning LNK4229: invalid directive '/NOENTRY' encountered; ignored
+   Creating library D:\a\_temp\texture-colour-9ce705a48a994d448cb8c57f1edb56c5/colour-Release.lib and object D:\a\_temp\texture-colour-9ce705a48a994d448cb8c57f1edb56c5/colour-Release.exp
