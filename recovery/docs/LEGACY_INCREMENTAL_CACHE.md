@@ -1,16 +1,40 @@
-# 原 SDK 缓存能力恢复（实现与验证中）
+# 原 SDK 缓存：行为与实现
 
-分支 `recovery/legacy-sdk-cache`，基于 `compiler-main` 的 `e7396d3b`。用户于 2026-10-29 明确要求恢复原来的完整缓存能力；早期仅覆盖增量缓存的范围已被替换，不能将该子集当作交付完成。
+本页只记录当前缓存恢复的行为和代码分工；分支、准确源码、验证状态及待办统一见 [交接](../REFACTOR_RESUME.md)。已接入不等于完整验收通过。
 
-按原 `Settings`、`BinaryAssetBuilder.DoBuildData/InitializeSessionCache` 和 `BinaryAsset` 恢复：
+## 选项与目录
 
-- `/sc`、`/bc`、`/psc`、`/csc` 默认 true；`/fsc`、`/atc` 默认 false。旧 defaultscript 显式传入 `/csc:false`，这与 EXE 本身的默认值不同。
-- Core 逐文档、依赖、定义、继承及逐资产检查复用，不再将整个 SDK/MOD 内容清单用作缓存命名空间。已有文件修改、新增及删除均交回原解析/依赖判断。
-- Texture、OnDemandTexture、TerrainTextureAtlas 使用原 SDK 描述符的资产缓存能力，并接入会话缓存；必须以真实纹理数据和旧版输出验证，不能仅删除拒绝条件便算完成。
-- `/csc` 选择原 XML 或 Deflate 格式；`/psc` 在中止后保留已完成的可复用会话工作；`/fsc` 读取但不更新会话；`/atc` 进入原 Core 的缓存文件 touch 路径。
-- `/scd`、`/scp` 与 `/bcd`、`/bcp` 及 `/iod` 支持独立目录。默认会话文件位于输出根 `BinaryAssetBuilder.SessionCache.xml[.deflate]`，默认资产目录为输出根 `cache`，资产使用原类型/实例哈希布局，允许读取旧 SDK 格式。
-- 新宿主仍在独立 staging 生成最终 MOD 并发布。CDATA 闭包保存在会话根 `.NewModCompiler/cdata`，无新侧车的旧目录可直接导入；Schema、宿主和解析设置身份侧车用于保守冷失效。缓存根外资源搜索恢复原解析契约。
+| 选项 | 默认值 | 行为 |
+| --- | --- | --- |
+| `/sc`、`/bc` | true | 会话复用与原类型/实例哈希资产缓存，独立开关 |
+| `/csc` | true | 原 Deflate 会话格式；false 使用 XML。旧 defaultscript 显式传 `/csc:false` |
+| `/psc` | true | 中止后保留已完成的可复用会话工作 |
+| `/fsc` | false | 读取但不更新会话，不冻结资产或中间文件 |
+| `/atc` | false | 复用中间结果时也进入原资产缓存文件 touch 路径 |
+| `/scd`、`/scp` | 输出根 | 原会话目录及别名 |
+| `/bcd`、`/bcp` | 输出根 `cache` | 原资产目录及别名 |
+| `/iod` | 输出根 | 中间目录 |
 
-`/psc:false` 的会话确认仍跟随最终发布和必需输出结果；`/psc:true` 明确允许在失败/取消后保留已完成缓存，失败终态与未发布的 MOD 不改变。`/bc` 使用原生可共享缓存的独立资产写入语义。
+SDK 的 `buildCache`、`buildCacheRoot` 继续生效，显式命令行/项目设置优先。相关参数可保存在项目预设；报告中的 `sdkConfig` 来源已加入协议 Schema。
 
-已有增量、原版字节差分、失败/取消、损坏修复与原回归保留并改为针对原语义检查。另补默认值、原目录导入、压缩切换、冻结、部分恢复、touch、纹理三路及共享缓存测试。Windows Debug/Release 和完整 SDK 验收须取得新运行结果后才标记完成。
+## 生产路径
+
+- `CoreStreamCompiler` 接回原 Core 的文档、文件依赖、定义、继承和逐资产复用。不再以整个 SDK/MOD 内容清单作为缓存命名空间；外部资源根保留原解析语义。
+- Texture、OnDemandTexture、TerrainTextureAtlas 使用原描述符的会话及资产缓存。测试从固定原版 DLL 读取类型身份和 `HasCustomData`，以原版四流及完整 CDATA 字节对照验收。
+- `LegacyCacheStore` 读写 `BinaryAssetBuilder.SessionCache.xml[.deflate]`，保留原资产哈希布局，支持无新侧车的旧目录导入。新宿主的 CDATA 状态位于会话根 `.NewModCompiler/cdata`；恢复时只带入当前流，避免无关流数据混入输出。
+- Schema、宿主和解析设置的身份侧车用于会话保守冷失效。`CacheInputSnapshot`、`SessionPackage`、`BuildAssetCache` 旧包装组件仍有独立测试，但不再承担当前生产缓存路径。
+
+## 失败与确认
+
+最终 MOD 始终在独立 staging 中生成并发布；部分缓存保存不改变失败/取消终态，也不发布部分 MOD。
+
+`/psc:true` 保存已完成的可复用会话工作；`/psc:false` 的会话安装跟随发布和必需输出结果提交，可回滚。`/bc` 保留原生共享资产的独立写入语义，即使会话不保存，中止前完成的资产仍可供重试使用。
+
+## 验证入口
+
+- `tests/App/LegacyCacheStoreTests.cs`：原目录导入、格式选择、CDATA、身份失效、部分确认与替换回滚。
+- `scripts/TestCompilerBuildCache.ps1`、`TestCompilerBuildCachePayloads.ps1`：真实资产命中/失效、共享、失败重试、Audio/W3X 原始输出。
+- `scripts/TestCompilerSessionCache.ps1`：会话冷热/依赖失效、缺损修复、取消/失败、三种纹理、全部高级模式与原版目录互操作。
+- `tests/CompilerLegacyCacheMetadata.cs`、`scripts/TestCompilerBackendBaseline.ps1`：原 DLL 元数据、原 BAB 字节差分及缓存导出/导入证据。
+
+只有交接中对应完整运行及其收据取得成功后，才能将这些能力标为已验收。
