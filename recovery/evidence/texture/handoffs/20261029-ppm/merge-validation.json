@@ -1,0 +1,32 @@
+{
+  "scope": "ordinary merge input identity; no compiler/codec execution or new SDK claim",
+  "validatedBranchCommit": "e2a6f2ff7faf55da264f7482b8b43be7f3934c78",
+  "targetParentCommit": "5cd1162bea5b8f116b9907cb0c54387de18a63c3",
+  "comparedIndexTree": "c5b385d4cccd5d3d3508ebbad6f19eecdf5120ab",
+  "changedPathsFromValidatedBranch": [
+    "recovery/EFFICIENCY.md",
+    "recovery/RESUME.md",
+    "recovery/TEXTURECOMPILER.md",
+    "recovery/TEXTURE_PPM_NEXT.md",
+    "recovery/TEXTURE_TESTING.md"
+  ],
+  "identicalSubtrees": {
+    "SDK": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+    "src/TextureCompiler": "d0884499d243e6c88ce4491bcd58697e7132bdb2",
+    "recovery/tests": "df517e08a894e6dbac1c858d5822976e835325d9",
+    "recovery/scripts": "25bd7cbc818d1359b994ec44db6cc9c4ca951424",
+    "recovery/catalog": "ccd899aef0de76d9a000a5f0dd693209050b8a22",
+    "recovery/reference": "c5f45503c5cd54a2258c2b553dfe7a5f54aeed4a",
+    ".github": "4d1b69b79ae598c4fb4a73f72128c5150a317c5e"
+  },
+  "packageSourceFilesIdenticalToSdkAcceptance": 139,
+  "sdkSourceCommit": "bdecb8707c5bfa7095e5596d9d5c8fea963fdd38",
+  "sdkRunId": "40880308857",
+  "componentSourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+  "componentRunId": "40838359589",
+  "volumeSourceCommit": "b999b6677be0010562850e4077be5b7180932913",
+  "volumeRunId": "40878697072",
+  "forcePushUsed": false,
+  "productionSdkReplaced": false,
+  "mergePlanValidation": "pending Actions [texture-plan], no Windows/SDK requested"
+}

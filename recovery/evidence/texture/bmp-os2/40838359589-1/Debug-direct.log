@@ -1,0 +1,1 @@
+PASS Texture BMP OS2 differential fixtures=1944 decoded=1296 rejected=2592 boundaries=36 checks=542450 comparedBytes=525528; core12/OS2-64 BI_RGB16/24/32, signed64 height, eight POT/NPOT/partial shapes, gaps/alpha/orientation; original indexed errors; source unchanged; SDK separate

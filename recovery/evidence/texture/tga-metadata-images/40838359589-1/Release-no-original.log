@@ -1,0 +1,1 @@
+PASS Texture TGA metadata ProcessInstance NoOriginal fixtures=47248 errors=0 comparedBytes=432710096; 10 storage formats/26 metadata profiles POT/NPOT/partial raw3/DXT3/5 and transparent DXT1A standard/volume complete mip; 208 atlas inputs; three buffers/full cdata and old tails; SDK separate

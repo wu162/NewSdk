@@ -1,0 +1,36 @@
+{
+  "sdkValidated": false,
+  "runId": "40836345313",
+  "originalCalls": 16876,
+  "sourceCommit": "7ab333561a9c4fee7e37eb98d3693469b905855e",
+  "productionAccepted": false,
+  "unstableOriginals": 0,
+  "runAttempt": "1",
+  "evidenceOnly": true,
+  "rejectedCount": 1823,
+  "candidateDifferences": 520,
+  "decodedCount": 6615,
+  "status": "probe-only",
+  "scope": "Bounded original PC P3/P6/PGM syntax, maxval, NPOT and full repeated RGBA/errors; adapted pinned IJG candidate; capture only",
+  "samplesSha256": "00c9854e3f026723d378afa05c1b1241e30c23b7a37f40b718ced2885e7ee339",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "publicSource": {
+    "upstream": "https://www.ijg.org/files/jpegsrc.v6b.tar.gz",
+    "archiveSha256": "75c3ec241e9996504fe02a9ed4d12f16b74ade713972f3db9e65ce95cd27e35d",
+    "upstreamFile": "recovery/reference/ijg6b/rdppm.c",
+    "upstreamSha256": "4c800ecf405e821f7d350eb6fe9ea1a336940a615c1b45d15017100bdf11e7d6",
+    "adaptedFile": "src/TextureCompiler/Ppm/rdppm.c",
+    "adaptedSha256": "33004499c9c01f4f22b92e08fec18eb392ac57115f25c6d98dabb4477e4f0b6e",
+    "state": "independent compatibility candidate; no production routing or acceptance",
+    "changes": [
+      "bounded memory cursor instead of FILE I/O; preserve IJG row reader and source interface",
+      "PC original P3/P6 discriminator; PGM/16-bit raw rejected",
+      "comments only between tokens; six ASCII whitespace characters; delimiter left for binary handling",
+      "integer-truncated sample scaling instead of IJG round-to-nearest",
+      "bounded dimensions, numeric/sample ranges and complete binary row reads"
+    ]
+  },
+  "fixtureCount": 8438,
+  "probeOnly": true,
+  "candidateMatches": 7918
+}

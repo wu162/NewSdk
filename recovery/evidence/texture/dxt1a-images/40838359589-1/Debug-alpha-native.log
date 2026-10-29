@@ -1,0 +1,3 @@
+TextureAlphaQuantizer.cpp
+alpha-Debug.obj : warning LNK4229: invalid directive '/NOENTRY' encountered; ignored
+   Creating library D:\a\_temp\texture-colour-cccc69aaeb114ff7877df77f54a532cf/alpha-Debug.lib and object D:\a\_temp\texture-colour-cccc69aaeb114ff7877df77f54a532cf/alpha-Debug.exp

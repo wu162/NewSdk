@@ -1,7 +1,7 @@
 name: Texture batched validation
 on:
   push:
-    branches: [recovery/texturecompiler-source, validation/texture-public-jpeg, validation/texture-public-s3, validation/texture-public-s3-dxt1]
+    branches: [recovery/texturecompiler-source, validation/texture-public-ppm, validation/texture-public-jpeg, validation/texture-public-s3, validation/texture-public-s3-dxt1]
     paths:
       - 'src/TextureCompiler/**'
       - 'SDK/tools/**'
@@ -41,7 +41,7 @@ permissions:
   contents: write
 jobs:
   plan:
-    if: contains(github.event.head_commit.message, '[texture-dib-sdk]') || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[texture-test]') || contains(github.event.head_commit.message, '[texture-sdk]') || contains(github.event.head_commit.message, '[texture-plan]') || contains(github.event.head_commit.message, '[texture-bmp-bitfields]') || contains(github.event.head_commit.message, '[texture-bmp-headers]') || contains(github.event.head_commit.message, '[texture-tga-metadata]') || contains(github.event.head_commit.message, '[texture-jpeg-metadata]') || contains(github.event.head_commit.message, '[texture-png-order]') || contains(github.event.head_commit.message, '[texture-png-metadata]') || contains(github.event.head_commit.message, '[texture-s3-dxt1a]') || contains(github.event.head_commit.message, '[texture-s3-three]') || contains(github.event.head_commit.message, '[texture-dxt1-boundary]') || contains(github.event.head_commit.message, '[texture-dxt-evidence]') || contains(github.event.head_commit.message, '[texture-dxt-blocks]') || contains(github.event.head_commit.message, '[texture-dxt-volume-boundaries]') || contains(github.event.head_commit.message, '[texture-npot-load]') || contains(github.event.head_commit.message, '[texture-npot-numeric]') || contains(github.event.head_commit.message, '[texture-npot-storage]') || contains(github.event.head_commit.message, '[texture-npot-formats]') || contains(github.event.head_commit.message, '[texture-next-probes]') || contains(github.event.head_commit.message, '[texture-jpeg-load]') || contains(github.event.head_commit.message, '[texture-atlas-load]') || contains(github.event.head_commit.message, '[texture-npot-storage-stress]')
+    if: contains(github.event.head_commit.message, '[texture-ppm-sdk]') || contains(github.event.head_commit.message, '[texture-ppm-load]') || contains(github.event.head_commit.message, '[texture-dib-sdk]') || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[texture-test]') || contains(github.event.head_commit.message, '[texture-sdk]') || contains(github.event.head_commit.message, '[texture-plan]') || contains(github.event.head_commit.message, '[texture-bmp-bitfields]') || contains(github.event.head_commit.message, '[texture-bmp-headers]') || contains(github.event.head_commit.message, '[texture-tga-metadata]') || contains(github.event.head_commit.message, '[texture-jpeg-metadata]') || contains(github.event.head_commit.message, '[texture-png-order]') || contains(github.event.head_commit.message, '[texture-png-metadata]') || contains(github.event.head_commit.message, '[texture-s3-dxt1a]') || contains(github.event.head_commit.message, '[texture-s3-three]') || contains(github.event.head_commit.message, '[texture-dxt1-boundary]') || contains(github.event.head_commit.message, '[texture-dxt-evidence]') || contains(github.event.head_commit.message, '[texture-dxt-blocks]') || contains(github.event.head_commit.message, '[texture-dxt-volume-boundaries]') || contains(github.event.head_commit.message, '[texture-npot-load]') || contains(github.event.head_commit.message, '[texture-npot-numeric]') || contains(github.event.head_commit.message, '[texture-npot-storage]') || contains(github.event.head_commit.message, '[texture-npot-formats]') || contains(github.event.head_commit.message, '[texture-next-probes]') || contains(github.event.head_commit.message, '[texture-jpeg-load]') || contains(github.event.head_commit.message, '[texture-atlas-load]') || contains(github.event.head_commit.message, '[texture-npot-storage-stress]')
     runs-on: ubuntu-latest
     outputs:
       has_work: ${{ steps.select.outputs.has_work }}
@@ -56,7 +56,7 @@ jobs:
       - name: Select affected groups and preserve original acceptance anchors
         id: select
         env:
-          FORCE_GROUPS: ${{ inputs.force_groups || (contains(github.event.head_commit.message, '[texture-dib-sdk]') && 'sdk-PcDib') || (contains(github.event.head_commit.message, '[texture-bmp-bitfields]') && 'bmp-bitfields-load') || (contains(github.event.head_commit.message, '[texture-bmp-headers]') && 'bmp-header-load') || (contains(github.event.head_commit.message, '[texture-tga-metadata]') && 'tga-metadata-load') || (contains(github.event.head_commit.message, '[texture-jpeg-metadata]') && 'jpeg-metadata-load') || (contains(github.event.head_commit.message, '[texture-png-order]') && 'png-metadata-order') || (contains(github.event.head_commit.message, '[texture-png-metadata]') && 'png-metadata-load') || (contains(github.event.head_commit.message, '[texture-s3-dxt1a]') && 'public-s3-dxt1a,public-s3-dxt1a-dds') || (contains(github.event.head_commit.message, '[texture-s3-three]') && 'public-s3-three') || (contains(github.event.head_commit.message, '[texture-dxt1-boundary]') && 'dxt1-boundary') || (contains(github.event.head_commit.message, '[texture-jpeg-load]') && 'jpeg-load') || (contains(github.event.head_commit.message, '[texture-atlas-load]') && 'atlas-load') || (contains(github.event.head_commit.message, '[texture-npot-storage-stress]') && 'npot-storage-stress') || (contains(github.event.head_commit.message, '[texture-next-probes]') && 'npot-storage-stress,atlas-prerequisites') || (contains(github.event.head_commit.message, '[texture-npot-formats]') && 'npot-formats') || (contains(github.event.head_commit.message, '[texture-npot-storage]') && 'npot-storage') || (contains(github.event.head_commit.message, '[texture-npot-numeric]') && 'npot-numeric') || (contains(github.event.head_commit.message, '[texture-npot-load]') && 'npot-load') || (contains(github.event.head_commit.message, '[texture-dxt-volume-boundaries]') && 'dxt-volume-boundaries') || (contains(github.event.head_commit.message, '[texture-dxt-blocks]') && 'dxt-blocks') || (contains(github.event.head_commit.message, '[texture-dxt-evidence]') && 'dxt-symbols') || 'auto' }}
+          FORCE_GROUPS: ${{ inputs.force_groups || (contains(github.event.head_commit.message, '[texture-ppm-sdk]') && 'sdk-PcPpm') || (contains(github.event.head_commit.message, '[texture-ppm-load]') && 'ppm-load') || (contains(github.event.head_commit.message, '[texture-dib-sdk]') && 'sdk-PcDib') || (contains(github.event.head_commit.message, '[texture-bmp-bitfields]') && 'bmp-bitfields-load') || (contains(github.event.head_commit.message, '[texture-bmp-headers]') && 'bmp-header-load') || (contains(github.event.head_commit.message, '[texture-tga-metadata]') && 'tga-metadata-load') || (contains(github.event.head_commit.message, '[texture-jpeg-metadata]') && 'jpeg-metadata-load') || (contains(github.event.head_commit.message, '[texture-png-order]') && 'png-metadata-order') || (contains(github.event.head_commit.message, '[texture-png-metadata]') && 'png-metadata-load') || (contains(github.event.head_commit.message, '[texture-s3-dxt1a]') && 'public-s3-dxt1a,public-s3-dxt1a-dds') || (contains(github.event.head_commit.message, '[texture-s3-three]') && 'public-s3-three') || (contains(github.event.head_commit.message, '[texture-dxt1-boundary]') && 'dxt1-boundary') || (contains(github.event.head_commit.message, '[texture-jpeg-load]') && 'jpeg-load') || (contains(github.event.head_commit.message, '[texture-atlas-load]') && 'atlas-load') || (contains(github.event.head_commit.message, '[texture-npot-storage-stress]') && 'npot-storage-stress') || (contains(github.event.head_commit.message, '[texture-next-probes]') && 'npot-storage-stress,atlas-prerequisites') || (contains(github.event.head_commit.message, '[texture-npot-formats]') && 'npot-formats') || (contains(github.event.head_commit.message, '[texture-npot-storage]') && 'npot-storage') || (contains(github.event.head_commit.message, '[texture-npot-numeric]') && 'npot-numeric') || (contains(github.event.head_commit.message, '[texture-npot-load]') && 'npot-load') || (contains(github.event.head_commit.message, '[texture-dxt-volume-boundaries]') && 'dxt-volume-boundaries') || (contains(github.event.head_commit.message, '[texture-dxt-blocks]') && 'dxt-blocks') || (contains(github.event.head_commit.message, '[texture-dxt-evidence]') && 'dxt-symbols') || 'auto' }}
           REQUEST_SDK: ${{ inputs.run_sdk || contains(github.event.head_commit.message, '[texture-sdk]') }}
           ONLY_PLAN: ${{ inputs.plan_only || contains(github.event.head_commit.message, '[texture-plan]') }}
         run: |
@@ -80,7 +80,7 @@ jobs:
     needs: plan
     if: needs.plan.outputs.has_work == 'true'
     runs-on: windows-2022
-    timeout-minutes: 80
+    timeout-minutes: 110
     steps:
       - uses: actions/checkout@v4
         with:
@@ -98,10 +98,21 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x86
-      - name: Run selected complete groups serially
+      - name: Run new capability complete groups first
+        id: early
+        shell: pwsh
+        run: ./recovery/scripts/RunTextureBatch.ps1 -Phase priority
+      - name: Preserve early complete capability outputs
+        if: always() && steps.early.outcome != 'skipped'
+        uses: actions/upload-artifact@v4
+        with:
+          name: texture-early-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture/**/${{ github.run_id }}-${{ github.run_attempt }}/**
+      - name: Complete remaining affected groups serially
+        if: always() && steps.early.outcome != 'skipped'
         id: tests
         shell: pwsh
-        run: ./recovery/scripts/RunTextureBatch.ps1
+        run: ./recovery/scripts/RunTextureBatch.ps1 -Phase remaining
       - name: Preserve actual group outputs
         if: always()
         uses: actions/upload-artifact@v4

@@ -4,7 +4,7 @@
 
 ## 验证编排以功能反馈效率为先（2026-10-29）
 
-此节规定后续编排优化的执行要求；**本次仅改文档，现有RunTextureBatch.ps1仍按计划列表顺序执行，预检前移/新组排序尚未实现。** 不把规则修订当作工作流已经变快或功能已经验收。
+预检前移和`priority`/`remaining`分阶段执行已实现并在Actions运行：40838359589的PPM两能力组先完整通过并上传，随后完成27个受影响旧组，整run success；40878697072补volume边界，40880308857仅补专用PPM SDK并复用49组件。保留全部原始SHA、组内断言及各组源/运行锚点；此结果不是跨批性能基准。
 
 - 在耗时Windows矩阵前，集中核对所用原DLL、gold/archive/系数表SHA、检出行尾、路径和依赖；预检失败先定位，避免无效长等待。预检不调用未知越界原版路径，不替代真实业务差分。
 - 在同一集中入口/至多一个Windows作业内，优先取得新增/修改能力组及关键实际消费的完整反馈，再完成其余选中的旧消费回归。保留每组全部Debug/Release、PC平台、完整三buffer/cdata/DDS与适用NoOriginal；不把快速反馈或预检称作全部回归完成。
@@ -13,7 +13,7 @@
 - .gitattributes/行尾/归档保存规则只改必要范围，先核对历史检出字节；已有原SHA保持不变。旧gold换行问题不能用更新期望SHA、文本归一化或删断言掩盖。
 - 普通检查点不启动Windows；新能力组稳定后集中必要最终回归。SDK跨能力合批，完整mymod保持manual_only。长验证期间低频收证，按用户时间上限交接，不反复启动同一批次。
 
-40821998297的当前实际结果：27组passed、18复用，DIB与dib-images完整通过；npot-rgba8唯一失败为旧weights.tsv检出哈希预检，尚未执行该组D/R比较。下一轮先修原字节恢复/规则作用域并核对真实影响，补该失败组，保留其余45项成功锚点；新PcDib SDK仍待运行。此处不将该failure改写为整体success。
+40821998297的历史失败记录（后续DIB/NPOT及SDK已闭环，当前入口见RESUME）：27组passed、18复用，DIB与dib-images完整通过；npot-rgba8唯一失败为旧weights.tsv检出哈希预检，尚未执行该组D/R比较。下一轮先修原字节恢复/规则作用域并核对真实影响，补该失败组，保留其余45项成功锚点；新PcDib SDK仍待运行。此处不将该failure改写为整体success。
 
 ## 完整 MOD 降频补充（2026-10-28）
 
@@ -100,3 +100,7 @@ BMP探针补取51189674/40799686293已completed/success，仅执行`bmp-header-l
 `[texture-dib-sdk]`在同一texture-validation.yml显式选择`sdk-PcDib`，保留正常受影响组件选择，REQUEST_SDK不因此开启全部旧SDK。专用21464资产/模式，完整包/安装回滚/唯一ID/三模式四产物/全部轨迹和逐次隔离；不触发完整mymod。新公共DIB helper已登记所有loader消费者，不能靠缩小依赖省略必要回归。
 
 专用DIB SDK脚本在包构建前重新核对当前组件收据：允许本批刚写出的成功组与未变祖先，任一缺失/失败组仍被选择则立即停止，不开始SDK。保存component-readiness.json及源/运行锚点供独立审计。RESUME.md已列入集中入口的path监听，因此可在收齐组件后的交接提交显式附`[texture-dib-sdk]`；普通交接无标记仍不启动计划或Windows，不以文档提交的状态冒充组件/SDK成功。
+
+## PPM公共源码与六DLL SDK里程碑
+
+`public-ppm`/`ppm-images`在838b40b3/40838359589完整通过；`ppm-volume-boundaries`在b999b667/40878697072完成D/R各11520输入与NoOriginal，该run因后续SDK回滚白名单失败，不能改写整体状态。回滚修复后bdecb870/40880308857仅执行`sdk-PcPpm`，49成功组件复用；三模式各15712资产、32成功atlas、四产物/54977完整轨迹和六DLL包/安装回滚/来源均已独立审计。精确范围、普通合并输入证明见TEXTURE_PPM_NEXT.md，不自动运行旧SDK或完整mymod。

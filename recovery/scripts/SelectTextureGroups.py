@@ -129,6 +129,9 @@ def select(root, groups, head='HEAD', requested=None, sdk=False):
         else:
             selected.append(name)
             details[name] = {'reason': reason}
+    # Explicit capability priorities affect order only, never group membership.
+    # SDK always follows components, including a forced early-priority profile.
+    selected.sort(key=lambda name: (bool(groups[name].get('sdk')), groups[name].get('priority', 100)))
     return {'sourceCommit': git(root, 'rev-parse', head).stdout.strip(),
             'selected': selected, 'reused': reused, 'details': details}
 

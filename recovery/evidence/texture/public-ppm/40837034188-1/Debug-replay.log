@@ -1,0 +1,1 @@
+PASS public PPM NoOriginal fixtures=8438 calls=16876 decoded=13230 rejected=3646 boundaries=60 checks=334937 comparedBytes=6630120; complete original bytes/errors, absent/unloaded original per call, immutable inputs; plugin/SDK acceptance separate

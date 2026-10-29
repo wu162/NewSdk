@@ -1,0 +1,59 @@
+{
+  "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+  "publicSource": {
+    "upstream": "https://www.ijg.org/files/jpegsrc.v6b.tar.gz",
+    "archiveSha256": "75c3ec241e9996504fe02a9ed4d12f16b74ade713972f3db9e65ce95cd27e35d",
+    "upstreamFile": "recovery/reference/ijg6b/rdppm.c",
+    "upstreamSha256": "4c800ecf405e821f7d350eb6fe9ea1a336940a615c1b45d15017100bdf11e7d6",
+    "adaptedFile": "src/TextureCompiler/Ppm/rdppm.c",
+    "adaptedSha256": "3ecf317ef1cb01793f2d69640abc7609c97af14bc05a4594642509661485173b",
+    "state": "independent compatibility candidate; no production routing or acceptance",
+    "changes": [
+      "bounded memory cursor instead of FILE I/O; preserve IJG row reader and source interface",
+      "PC original P3/P6 discriminator; PGM/16-bit raw rejected",
+      "comments only between tokens; six ASCII whitespace characters; delimiter left for binary handling",
+      "integer-truncated sample scaling instead of IJG round-to-nearest",
+      "bounded dimensions, numeric/sample ranges and complete binary row reads",
+      "Preserve wide integer scaled components through native packed-channel OR, including bounded samples above maxval; no sample dispatch or output tables"
+    ],
+    "patchHistory": [
+      {
+        "sha256": "33004499c9c01f4f22b92e08fec18eb392ac57115f25c6d98dabb4477e4f0b6e",
+        "runId": "40836345313",
+        "matches": 7918,
+        "differences": 520,
+        "scope": "probe-only full 8438 original outcomes; no production acceptance"
+      }
+    ]
+  },
+  "productionAccepted": false,
+  "sdkValidated": false,
+  "originalBaseline": {
+    "runId": "40836345313",
+    "sourceCommit": "7ab333561a9c4fee7e37eb98d3693469b905855e",
+    "samplesSha256": "00c9854e3f026723d378afa05c1b1241e30c23b7a37f40b718ced2885e7ee339"
+  },
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS public PPM NoOriginal fixtures=8438 calls=33752 decoded=26460 rejected=7292 boundaries=60 checks=584291 comparedBytes=13260240; complete original bytes/errors, absent/unloaded original per call, immutable inputs; plugin/SDK acceptance separate"
+      ],
+      "configuration": "Debug"
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS public PPM NoOriginal fixtures=8438 calls=33752 decoded=26460 rejected=7292 boundaries=60 checks=584291 comparedBytes=13260240; complete original bytes/errors, absent/unloaded original per call, immutable inputs; plugin/SDK acceptance separate"
+      ],
+      "configuration": "Release"
+    }
+  ],
+  "status": "passed",
+  "scope": "Independent adapted IJG P3/P6 full immutable original corpus, direct/public Decode/Load, malformed binary/numeric safety, per-call NoOriginal; loader enabled on test branch; plugin/SDK acceptance separate",
+  "runAttempt": "1",
+  "runId": "40838359589",
+  "probeOnly": false
+}

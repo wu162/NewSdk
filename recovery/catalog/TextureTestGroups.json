@@ -24,7 +24,10 @@
         "src/TextureCompiler/Managed/TexturePacker.cs",
         "src/TextureCompiler/Native/**",
         "src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs",
-        "src/TextureCompiler/Managed/TexturePs3MipEncoder.cs"
+        "src/TextureCompiler/Managed/TexturePs3MipEncoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/validation/*/validation.json",
       "sdk": false
@@ -196,7 +199,10 @@
         "recovery/scripts/BuildTextureJpeg.ps1",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/images/*/validation.json",
       "sdk": false
@@ -230,7 +236,10 @@
         "recovery/scripts/BuildTextureJpeg.ps1",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/mip-images/*/validation.json",
       "sdk": false
@@ -265,7 +274,10 @@
         "recovery/scripts/BuildTextureJpeg.ps1",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/volume-images/*/validation.json",
       "sdk": false
@@ -301,7 +313,10 @@
         "recovery/scripts/BuildTextureJpeg.ps1",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/volume-mip-images/*/validation.json",
       "sdk": false
@@ -378,7 +393,10 @@
         "recovery/reference/ijg6b/**",
         "recovery/scripts/BuildTextureJpeg.ps1",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/raster-images/*/validation.json",
       "sdk": false
@@ -691,7 +709,10 @@
         "recovery/scripts/BuildTexturePublicS3.ps1",
         "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/dxt-images/*/validation.json",
       "sdk": false
@@ -747,7 +768,10 @@
         "recovery/scripts/BuildTexturePublicS3.ps1",
         "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-dxt/*/validation.json",
       "sdk": true
@@ -840,7 +864,10 @@
         "recovery/scripts/BuildTexturePublicS3.ps1",
         "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-dxt-mips/*/validation.json",
       "sdk": true
@@ -936,7 +963,10 @@
         "recovery/scripts/BuildTexturePublicS3.ps1",
         "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-dxt-volumes/*/validation.json",
       "sdk": true
@@ -995,7 +1025,10 @@
         "recovery/scripts/BuildTextureJpeg.ps1",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "recovery/scripts/InspectTextureNpotGold.py"
+        "recovery/scripts/InspectTextureNpotGold.py",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/npot-rgba8/*/validation.json",
       "sdk": false
@@ -1053,7 +1086,10 @@
         "recovery/scripts/BuildTexturePublicS3.ps1",
         "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-npot-rgba8/*/validation.json",
       "sdk": true
@@ -1111,7 +1147,10 @@
         "recovery/reference/ijg6b/**",
         "recovery/scripts/BuildTextureJpeg.ps1",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/npot-storage-replay/*/validation.json",
       "sdk": false
@@ -1169,7 +1208,10 @@
         "recovery/scripts/BuildTexturePublicS3.ps1",
         "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-npot-storage/*/validation.json",
       "sdk": true
@@ -1227,7 +1269,10 @@
         "recovery/reference/ijg6b/**",
         "recovery/scripts/BuildTextureJpeg.ps1",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/npot-storage-stress-replay/*/validation.json",
       "sdk": false
@@ -1307,7 +1352,10 @@
         "recovery/scripts/BuildTexturePublicS3.ps1",
         "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/atlas-entry/*/validation.json",
       "sdk": false
@@ -1350,7 +1398,10 @@
         "recovery/scripts/BuildTexturePublicS3.ps1",
         "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-atlas/*/validation.json",
       "sdk": true
@@ -1399,7 +1450,10 @@
         "recovery/scripts/TestTextureJpeg.ps1",
         "recovery/tests/TextureJpegReplay.cs",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/jpeg/*/validation.json",
       "sdk": false
@@ -1456,7 +1510,10 @@
         "recovery/scripts/BuildTexturePublicS3.ps1",
         "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/jpeg-images/*/validation.json",
       "sdk": false
@@ -1515,7 +1572,10 @@
         "recovery/scripts/BuildTexturePublicS3.ps1",
         "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
         "src/TextureCompiler/Managed/TextureTgaMetadata.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-jpeg/*/validation.json",
       "sdk": true
@@ -1743,7 +1803,10 @@
         "recovery/scripts/TestTexturePngMetadata.ps1",
         "recovery/tests/TexturePngMetadataReplay.cs",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/png-metadata/*/validation.json",
       "sdk": false
@@ -1788,7 +1851,10 @@
         "recovery/tests/TexturePngOracle.cs",
         "recovery/reference/compact-icc/**",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/png-metadata-images/*/validation.json",
       "sdk": false
@@ -1837,7 +1903,10 @@
         "recovery/evidence/texture/png-metadata-load/40779895712-1/**",
         "recovery/evidence/texture/png-metadata-order/40780410178-1/**",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-png-metadata/*/validation.json",
       "sdk": true
@@ -1867,7 +1936,10 @@
         "recovery/tests/TexturePngOracle.cs",
         "recovery/evidence/texture/jpeg-load/40625499544-1/**",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/jpeg-metadata-load/*/validation.json",
       "sdk": false,
@@ -1895,7 +1967,10 @@
         "recovery/scripts/TestTextureJpegMetadata.ps1",
         "recovery/tests/TextureJpegMetadataReplay.cs",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/jpeg-metadata/*/validation.json",
       "sdk": false
@@ -1944,7 +2019,10 @@
         "recovery/scripts/TestTextureJpegMetadataImages.ps1",
         "recovery/tests/TextureJpegMetadataPipelineOracle.cs",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/jpeg-metadata-images/*/validation.json",
       "sdk": false
@@ -1995,7 +2073,10 @@
         "recovery/tests/TextureJpegMetadataSdkFixtures.cs",
         "recovery/tests/TextureDxtSdkTracePlugin.cs",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-jpeg-metadata/*/validation.json",
       "sdk": true
@@ -2037,7 +2118,10 @@
         "recovery/tests/TextureTgaMetadataReplay.cs",
         "recovery/evidence/texture/tga-metadata-load/40793184986-1/**",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/tga-metadata/*/validation.json",
       "sdk": false
@@ -2083,7 +2167,10 @@
         "recovery/tests/TextureTgaMetadataFixtures.cs",
         "recovery/evidence/texture/tga-metadata-load/40793184986-1/**",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/tga-metadata-images/*/validation.json",
       "sdk": false
@@ -2131,7 +2218,10 @@
         "recovery/tests/TextureDxtSdkTracePlugin.cs",
         "recovery/evidence/texture/tga-metadata-load/40793184986-1/**",
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
-        "src/TextureCompiler/Managed/TextureBmpDecoder.cs"
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-tga-metadata/*/validation.json",
       "sdk": true
@@ -2153,7 +2243,10 @@
         "recovery/tests/TextureBmpHeaderProbe.cs",
         "recovery/scripts/InspectTextureBmpHeaders.ps1",
         "recovery/reference/compact-icc/**",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/bmp-header-load/*/validation.json",
       "sdk": false,
@@ -2177,7 +2270,10 @@
         "recovery/scripts/TestTextureBmpHeaders.ps1",
         "recovery/evidence/texture/bmp-header-load/40799686293-1/**",
         "recovery/tests/TextureBmpHeaderReplay.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/bmp-headers/*/validation.json",
       "sdk": false
@@ -2223,7 +2319,10 @@
         "recovery/tests/TextureBmpOracle.cs",
         "recovery/reference/compact-icc/**",
         "recovery/tests/TextureBmpHeaderPipelineOracle.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/bmp-header-images/*/validation.json",
       "sdk": false
@@ -2247,7 +2346,10 @@
         "recovery/scripts/TestTextureDib.ps1",
         "recovery/tests/TextureDibOracle.cs",
         "recovery/tests/TexturePngOracle.cs",
-        "recovery/evidence/texture/bmp-os2/40813121025-1/**"
+        "recovery/evidence/texture/bmp-os2/40813121025-1/**",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/dib/*/validation.json",
       "sdk": false
@@ -2303,7 +2405,10 @@
         "src/TextureCompiler/Jpeg/**",
         "recovery/reference/ijg6b/**",
         "recovery/tests/TextureBmpOs2Fixtures.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-bmp-headers/*/validation.json",
       "sdk": true
@@ -2324,7 +2429,10 @@
         "recovery/reference/compact-icc/**",
         "recovery/scripts/InspectTextureBmpBitfields.ps1",
         "recovery/tests/TextureBmpBitfieldsProbe.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/bmp-bitfields-load/*/validation.json",
       "sdk": false,
@@ -2346,7 +2454,10 @@
         "recovery/tests/TextureBmpOracle.cs",
         "recovery/tests/TextureBmpIndexedHeaderProbe.cs",
         "recovery/scripts/InspectTextureBmpIndexedHeaders.ps1",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/bmp-indexed-header-load/*/validation.json",
       "sdk": false,
@@ -2396,7 +2507,10 @@
         "recovery/tests/TextureBmpOs2Oracle.cs",
         "recovery/tests/TextureBmpOs2PipelineOracle.cs",
         "recovery/tests/TexturePngOracle.cs",
-        "src/TextureCompiler/Managed/TextureDibDecoder.cs"
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/bmp-os2/*/validation.json",
       "sdk": false
@@ -2444,7 +2558,10 @@
         "src/TextureCompiler/Managed/TextureDibDecoder.cs",
         "recovery/scripts/TestTextureDibImages.ps1",
         "recovery/tests/TextureDibConsumerFixtures.cs",
-        "recovery/tests/TextureDibPipelineOracle.cs"
+        "recovery/tests/TextureDibPipelineOracle.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/dib-images/*/validation.json",
       "sdk": false
@@ -2502,10 +2619,220 @@
         "recovery/tests/TextureDibSdkFixtures.cs",
         "recovery/tests/TextureDibConsumerFixtures.cs",
         "recovery/scripts/SelectTextureGroups.py",
-        "recovery/catalog/TextureTestGroups.json"
+        "recovery/catalog/TextureTestGroups.json",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-dib/*/validation.json",
       "sdk": true
+    },
+    "ppm-load": {
+      "script": "recovery/scripts/InspectTexturePpm.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Ppm/**",
+        "src/TextureCompiler/Jpeg/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "SDK/tools/*.dll",
+        "recovery/reference/ijg6b/**",
+        "recovery/scripts/BuildTextureJpeg.ps1",
+        "recovery/scripts/BuildTexturePpm.ps1",
+        "recovery/scripts/InspectTexturePpm.ps1",
+        "recovery/tests/TexturePpmFixtures.cs",
+        "recovery/tests/TexturePpmProbe.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs"
+      ],
+      "evidence": "recovery/evidence/texture/ppm-load/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true,
+      "priority": 0
+    },
+    "public-ppm": {
+      "script": "recovery/scripts/TestTexturePpm.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Ppm/**",
+        "src/TextureCompiler/Jpeg/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "SDK/tools/*.dll",
+        "recovery/reference/ijg6b/**",
+        "recovery/scripts/BuildTextureJpeg.ps1",
+        "recovery/scripts/BuildTexturePpm.ps1",
+        "recovery/scripts/TestTexturePpm.ps1",
+        "recovery/tests/TexturePpmReplay.cs",
+        "recovery/evidence/texture/ppm-load/40836345313-1/**",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs"
+      ],
+      "evidence": "recovery/evidence/texture/public-ppm/*/validation.json",
+      "sdk": false,
+      "manual_only": false,
+      "evidence_only": false,
+      "priority": 0
+    },
+    "ppm-images": {
+      "script": "recovery/scripts/TestTexturePpmImages.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "global.json",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolume.cs",
+        "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureAtlasDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
+        "src/TextureCompiler/Colour/**",
+        "src/TextureCompiler/Dxt/**",
+        "src/TextureCompiler/PublicS3/**",
+        "recovery/scripts/BuildTexturePublicS3.ps1",
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "recovery/tests/TextureBmpHeaderFixtures.cs",
+        "recovery/tests/TextureBmpHeaderConsumerFixtures.cs",
+        "recovery/tests/TextureBmpOracle.cs",
+        "recovery/tests/TextureBmpHeaderPipelineOracle.cs",
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1",
+        "recovery/scripts/TestTexturePpmImages.ps1",
+        "recovery/tests/TexturePpmPipelineOracle.cs",
+        "recovery/tests/TexturePpmFixtures.cs"
+      ],
+      "evidence": "recovery/evidence/texture/ppm-images/*/validation.json",
+      "sdk": false,
+      "priority": 0
+    },
+    "sdk-PcPpm": {
+      "script": "recovery/scripts/TestTexturePpmSdk.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "global.json",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolume.cs",
+        "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureAtlasDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
+        "src/TextureCompiler/Colour/**",
+        "src/TextureCompiler/Dxt/**",
+        "src/TextureCompiler/PublicS3/**",
+        "recovery/scripts/BuildTexturePublicS3.ps1",
+        "SDK/Schemas/**",
+        "recovery/tests/TextureDxtSdkTracePlugin.cs",
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "recovery/tests/TextureSdkAssetIds.cs",
+        "recovery/scripts/BuildTextureCompiler.ps1",
+        "recovery/scripts/BuildTextureJpeg.ps1",
+        "recovery/scripts/InstallTextureCompiler.ps1",
+        "recovery/scripts/RestoreTextureCompiler.ps1",
+        "src/TextureCompiler/Jpeg/**",
+        "recovery/reference/ijg6b/**",
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "recovery/scripts/SelectTextureGroups.py",
+        "recovery/catalog/TextureTestGroups.json",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1",
+        "recovery/scripts/TestTexturePpmSdk.ps1",
+        "recovery/tests/TexturePpmSdkFixtures.cs",
+        "recovery/tests/TexturePpmFixtures.cs"
+      ],
+      "evidence": "recovery/evidence/texture/sdk-ppm/*/validation.json",
+      "sdk": true
+    },
+    "ppm-volume-boundaries": {
+      "script": "recovery/scripts/TestTexturePpmVolumeBoundaries.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "global.json",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolume.cs",
+        "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt3AlphaEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt5AlphaEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtSampleBlockEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxtVolumeDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureAtlasDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureDxt1aTransparentBlockEncoder.cs",
+        "src/TextureCompiler/Colour/**",
+        "src/TextureCompiler/Dxt/**",
+        "src/TextureCompiler/PublicS3/**",
+        "recovery/scripts/BuildTexturePublicS3.ps1",
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "recovery/tests/TextureBmpHeaderFixtures.cs",
+        "recovery/tests/TextureBmpHeaderConsumerFixtures.cs",
+        "recovery/tests/TextureBmpOracle.cs",
+        "recovery/tests/TextureBmpHeaderPipelineOracle.cs",
+        "src/TextureCompiler/Managed/TextureDibDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePpmDecoder.cs",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/scripts/BuildTexturePpm.ps1",
+        "recovery/tests/TexturePpmFixtures.cs",
+        "recovery/scripts/TestTexturePpmVolumeBoundaries.ps1",
+        "recovery/tests/TexturePpmVolumeBoundaryOracle.cs"
+      ],
+      "evidence": "recovery/evidence/texture/ppm-volume-boundaries/*/validation.json",
+      "sdk": false,
+      "priority": 0
     }
   },
   "targetPlatform": "Win32"

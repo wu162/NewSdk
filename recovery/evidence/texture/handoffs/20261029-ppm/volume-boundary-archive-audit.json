@@ -1,0 +1,25 @@
+{
+  "scope": "independent saved complete PPM tall-volume original corpus audit; no codec execution",
+  "sourceCommit": "b999b6677be0010562850e4077be5b7180932913",
+  "runId": "40878697072",
+  "corpusSha256": "fac4c7ae773545bb2592a548f6b736f3b8db1c17d28ff8bf6b2954af8f48650b",
+  "fixturesPerConfiguration": 11520,
+  "originalConfigurationsByteIdentical": true,
+  "outcomes": {
+    "successfulStandard": 5760,
+    "originalVolumeError": 5760
+  },
+  "roots": {
+    "Texture": 5760,
+    "OnDemandTexture": 5760
+  },
+  "formats": {
+    "A8R8G8B8": 2304,
+    "X8R8G8B8": 2304,
+    "R5G6B5": 2304,
+    "DXT3": 2304,
+    "DXT5": 2304
+  },
+  "uniqueSourceHashes": 132,
+  "completeExpectedBufferBytesPerConfiguration": 48715200
+}

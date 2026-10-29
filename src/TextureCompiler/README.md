@@ -14,7 +14,7 @@ the .NET 8 SDK and .NET Framework 4.8 targeting support:
 ```
 
 Use a new, empty output directory. The package contains the managed plugin,
-PublicS3 and IJG6b native backends, the two independent colour/alpha API helpers,
+PublicS3 and separate IJG6b JPEG/PPM native backends, the two independent colour/alpha API helpers,
 source/runtime fingerprints, build logs and upstream notices/provenance. It
 does not change the source SDK. Configure the existing host with the plugin
 type recorded in `manifest.json`; its README lists deployment prerequisites.
@@ -32,3 +32,10 @@ Current PC boundaries: default DXT1/opaque DXT1A are demonstrably stack-dependen
 Public-source JPEG: pinned IJG6b with IFAST/fancy and original grayscale L8 NPOT storage passed full component acceptance at699479a9/run40626161229 and3216-asset three-mode real SDK at e8835cfe/run40628208308. The original32 public DXT/STB variants remain failed historical candidates on validation/texture-public-codecs. Subsequent adapted S3 source is now the accepted full PC DXT3/5 colour/alpha backend:705af338/run40649825971 passed complete affected components and867e7d38/run40650835181 passed all9 SDK profiles. See recovery/TEXTURE_PUBLIC_S3.md and its acceptance record.
 
 In an x86 MSVC GitHub Actions shell, build the new required DXT native DLL with `./recovery/scripts/BuildTexturePublicS3.ps1 -Destination <native-output> -Configuration Release`. Ship `Recovered.TexturePublicS3.dll` beside the managed plugin for these PC DXT paths. Consumer test/SDK scripts build and copy it explicitly. Existing independent recovered colour/alpha APIs retain their own helpers, but the new complete/float/partial DXT route does not call them.
+
+On validation/texture-public-ppm, P3/P6 is routed through the adapted pinned IJG
+reader in Recovered.TexturePpm.dll. Its independent 8438-input D/R full-gold
+component passed at 782f6b97/run40837034188; actual plugin consumers and the
+expanded six-DLL package are still under validation. The dedicated PcPpm SDK
+is prepared for 15712 real assets per mode but has not run. This branch is not
+merged into recovery/texturecompiler-source until full consumers/SDK pass.

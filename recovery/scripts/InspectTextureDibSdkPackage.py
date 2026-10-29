@@ -51,13 +51,15 @@ def audit(root, run, source):
         members = [n for n in package.namelist() if not n.endswith('/')]
         assert len(members) == len(set(members))
         assert all(not n.startswith('/') and '..' not in n.split('/') for n in members)
-        assert {n for n in members if n.lower().endswith('.dll')} == runtime
         manifest_bytes = package.read('manifest.json')
         assert manifest_bytes == (directory / 'package-manifest.json').read_bytes()
         manifest = json.loads(manifest_bytes.decode('utf-8-sig'))
+        if manifest.get('ppmDecoder') is True:
+            runtime.add('Recovered.TexturePpm.dll')
+        assert {n for n in members if n.lower().endswith('.dll')} == runtime
         assert manifest['status'] == 'built' and manifest['sourceCommit'] == source and manifest['dirtySource'] is False
         assert manifest['targetPlatform'] == 'Win32' and manifest['originalTextureCompilerDistributed'] is False
-        assert len(manifest['runtimeFiles']) == 5 and {f['file'] for f in manifest['runtimeFiles']} == runtime
+        assert len(manifest['runtimeFiles']) == len(runtime) and {f['file'] for f in manifest['runtimeFiles']} == runtime
         runtime_hashes = {}
         for item in manifest['runtimeFiles']:
             name = item['file']; data = package.read(name)
@@ -88,7 +90,7 @@ def audit(root, run, source):
         install = json.loads((directory / (mode + '-installation.json')).read_text(encoding='utf-8-sig'))
         assert install['status'] == 'installed' and install['packageSourceCommit'] == source
         assert install['packageManifestSha256'] == sha(manifest_bytes)
-        assert len(install['files']) == 6 and {f['file'] for f in install['files']} == runtime | {'BinaryAssetBuilder.exe.config'}
+        assert len(install['files']) == len(runtime) + 1 and {f['file'] for f in install['files']} == runtime | {'BinaryAssetBuilder.exe.config'}
         for item in install['files']:
             if item['file'] in runtime:
                 assert item['installedSha256'] == runtime_hashes[item['file']]

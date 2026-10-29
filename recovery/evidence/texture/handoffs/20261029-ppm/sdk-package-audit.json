@@ -1,0 +1,78 @@
+{
+  "scope": "independent saved full SDK/product/trace/package/source/ID audit; no compiler/codec execution",
+  "sourceCommit": "bdecb8707c5bfa7095e5596d9d5c8fea963fdd38",
+  "runId": "40880308857",
+  "packageArchiveSha256": "4c25a9fad1e043835cd5f002e1b80b55a0777cd0689fc7c321c50138593f31e3",
+  "packageManifestSha256": "d09da2b792ace69e18688fffaec2ad11b95050060e8405cffead95952808186e",
+  "runtimeHashes": {
+    "Recovered.BinaryAssetBuilder.TextureCompiler.dll": "87b5d144e5ce8e1735ba5be6e5e5c8d608b59a102a44497c7ed38b05ee344b21",
+    "Recovered.TextureDxtAlpha.dll": "4f80c7c67bc15b02a704124d867af4e92ffc0317357b8df4a6a3ca9df2920ba0",
+    "Recovered.TextureDxtColour.dll": "f2833d459725675040df1ebebbc3953f8b453c352d73d1af15de3187b3d2ddca",
+    "Recovered.TextureJpeg.dll": "918ff95c9bf1a72751d0202b63a09d2e04068d2af737536b8aab33c43e45a5a6",
+    "Recovered.TexturePpm.dll": "3be402ba590466c04f05d34440699e9fb3f7d96d667e9f9e6b36068f489bc279",
+    "Recovered.TexturePublicS3.dll": "bae5c913618dbfbe6a9d2f3efdb53ba4f05aebeb981a2c21ff7ca94c8fa42442"
+  },
+  "sourceFingerprintsVerified": 139,
+  "sourceImageFamilies": {
+    "atlas": 16,
+    "raw": 392
+  },
+  "actualAssetsPerMode": 15712,
+  "positiveAtlasPerMode": 32,
+  "componentSourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+  "componentRunId": "40838359589",
+  "globallyUniqueInstanceHashes": 15712,
+  "resolvedIdCollisions": 0,
+  "sdk": {
+    "profile": "PcPpm",
+    "sourceCommit": "bdecb8707c5bfa7095e5596d9d5c8fea963fdd38",
+    "runId": "40880308857",
+    "receipt": "/workspace/NewSdk/recovery/evidence/texture/sdk-ppm/40880308857-1",
+    "products": [
+      {
+        "file": "mod.bin",
+        "bytes": 25491596,
+        "sha256": "51551d8be28a528de427564e9046cd7799f8ad32ff814174e523de891e1a8a06"
+      },
+      {
+        "file": "mod.manifest",
+        "bytes": 1089233,
+        "sha256": "c43810f39a764e2f82908eef691dba8006611c25cca287ae6c87b4491b35e29f"
+      },
+      {
+        "file": "mod.imp",
+        "bytes": 4,
+        "sha256": "d4232715e309623bb37f0abc69a620a47aaaa225162fe5d422aea44ca705f6c8"
+      },
+      {
+        "file": "mod.relo",
+        "bytes": 63172,
+        "sha256": "67d3f4042aba615578ea439c0536e51af3908d51e71803d1c3ede336a055786d"
+      }
+    ],
+    "modes": [
+      {
+        "mode": "Original",
+        "uniqueAssets": 15712,
+        "actualCalls": 15712,
+        "completeTraceFiles": 54977,
+        "traceIndexSha256": "50f76ed19edcd97664ad486b391cedd1a457b5575515b7009eb6215a63b3c87e"
+      },
+      {
+        "mode": "Recovered",
+        "uniqueAssets": 15712,
+        "actualCalls": 15712,
+        "completeTraceFiles": 54977,
+        "traceIndexSha256": "50f76ed19edcd97664ad486b391cedd1a457b5575515b7009eb6215a63b3c87e"
+      },
+      {
+        "mode": "NoOriginal",
+        "uniqueAssets": 15712,
+        "actualCalls": 15712,
+        "completeTraceFiles": 54977,
+        "traceIndexSha256": "50f76ed19edcd97664ad486b391cedd1a457b5575515b7009eb6215a63b3c87e"
+      }
+    ],
+    "traceArchiveSha256": "2c76327efa6fab7d2bc087418694f4bee9dad35b0ef02a38be91cf157580cda4"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "scope": "preserved complete early group outputs; overall affected regression still running, no SDK acceptance",
+  "runId": "40838359589",
+  "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+  "artifactId": 12882330778,
+  "artifactName": "texture-early-40838359589-1",
+  "artifactZipSha256": "47a0ac8eeadddc35a83849002dbb8bc3194b2e15342df9285cdce8c838abe067",
+  "passedGroups": [
+    "public-ppm",
+    "ppm-images"
+  ],
+  "remainingGroups": 27,
+  "reusedGroups": 19
+}

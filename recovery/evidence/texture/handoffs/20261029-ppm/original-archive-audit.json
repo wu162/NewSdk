@@ -1,0 +1,278 @@
+{
+  "scope": "independent full recorded byte/hash/determinism audit, not component or SDK acceptance",
+  "sourceCommit": "7ab333561a9c4fee7e37eb98d3693469b905855e",
+  "runId": "40836345313",
+  "archiveSha256": "00c9854e3f026723d378afa05c1b1241e30c23b7a37f40b718ced2885e7ee339",
+  "filesVerified": 27764,
+  "originalRgbaBytes": 3315060,
+  "outcomes": {
+    "decoded": 6615,
+    "matches": 7918,
+    "rejected": 1823,
+    "differences": 520
+  },
+  "families": {
+    "syntax-scale": 8400,
+    "pgm-rejection": 28,
+    "bounded-rejection": 10
+  },
+  "originalHasAlpha": {
+    "False": 6615
+  },
+  "originalDimensions": {
+    "1x1": 945,
+    "2x2": 945,
+    "8x4": 945,
+    "16x16": 945,
+    "4x2": 945,
+    "8x8": 945,
+    "32x16": 945
+  },
+  "differenceHeaderProfiles": {
+    "3": 140,
+    "8": 175,
+    "9": 205
+  },
+  "examples": [
+    {
+      "label": "p6-1x1-m1-v0-h3",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "f4ff00ff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v0-h8",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "e0ff00ff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v0-h9",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "dfe19eff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v1-h3",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "f40000ff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v1-h8",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "e00000ff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v1-h9",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "dfe19eff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v2-h3",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "f4ffffff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v2-h8",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "e0ffffff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v2-h9",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "dfe19eff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v3-h3",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "f400ffff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v3-h8",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "e000ffff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v3-h9",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "dfe19eff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v4-h3",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "f4ff00ff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v4-h8",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "e0ff00ff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m1-v4-h9",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "dfe19eff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m2-v0-h3",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "faff00ff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m2-v0-h8",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "f0ff00ff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m2-v0-h9",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "6ff0cfff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m2-v1-h3",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "fa0000ff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m2-v1-h8",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "f00000ff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m2-v1-h9",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "6ff0cfff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m2-v2-h3",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "faffffff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m2-v2-h8",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "f0ffffff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    },
+    {
+      "label": "p6-1x1-m2-v2-h9",
+      "originalError": "",
+      "candidateError": "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.",
+      "hasAlpha": "False",
+      "dimensions": "1x1",
+      "originalPrefix": "6ff0cfff",
+      "candidatePrefix": null,
+      "completePixelsEqual": false
+    }
+  ]
+}

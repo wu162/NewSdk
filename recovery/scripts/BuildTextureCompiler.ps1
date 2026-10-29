@@ -18,7 +18,7 @@ function FileRecord([string]$path,[string]$name){@{file=$name;bytes=(Get-Item $p
 try{
  Set-Location $root
  $r.sourceCommit=(git rev-parse HEAD).Trim();if($LASTEXITCODE -ne 0){throw 'Cannot determine package source commit'}
- $sourcePaths=@('src/TextureCompiler','recovery/reference/ijg6b','recovery/scripts/BuildTextureCompiler.ps1','recovery/scripts/BuildTexturePublicS3.ps1','recovery/scripts/BuildTextureJpeg.ps1','recovery/scripts/InstallTextureCompiler.ps1','recovery/scripts/RestoreTextureCompiler.ps1')
+ $sourcePaths=@('src/TextureCompiler','recovery/reference/ijg6b','recovery/scripts/BuildTextureCompiler.ps1','recovery/scripts/BuildTexturePublicS3.ps1','recovery/scripts/BuildTextureJpeg.ps1','recovery/scripts/BuildTexturePpm.ps1','recovery/scripts/InstallTextureCompiler.ps1','recovery/scripts/RestoreTextureCompiler.ps1')
  # dotnet's default obj/bin directories are generated compilation products,
  # not source inputs. Keep tracked changes and all other untracked source
  # visible, including newly added .cs/native files outside those directories.
@@ -28,6 +28,7 @@ try{
  Checked managed {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c $Configuration -o "$work/managed" --nologo}
  Checked public-s3 {& "$PSScriptRoot/BuildTexturePublicS3.ps1" -Destination "$work/s3" -Configuration $Configuration}
  Checked jpeg {& "$PSScriptRoot/BuildTextureJpeg.ps1" -Destination "$work/jpeg" -Configuration $Configuration}
+ Checked ppm {& "$PSScriptRoot/BuildTexturePpm.ps1" -Destination "$work/ppm" -Configuration $Configuration}
  Checked colour-asm {& ml /nologo /c /coff /safeseh /Fo"$work/colour.obj" (Resolve-Path src/TextureCompiler/Colour/TextureColour.asm).Path}
  $opt=if($Configuration -eq 'Release'){'/O2'}else{'/Od'}
  Checked colour {& cl /nologo /LD /MT /fp:strict /GS- $opt /Fo"$work/colour-bridge.obj" (Resolve-Path src/TextureCompiler/Colour/TextureColourBridge.cpp).Path "$work/colour.obj" /link /NODEFAULTLIB /NOENTRY /OUT:"$work/Recovered.TextureDxtColour.dll" /IMPLIB:"$work/colour.lib"}
@@ -36,6 +37,7 @@ try{
   'Recovered.BinaryAssetBuilder.TextureCompiler.dll'="$work/managed/Recovered.BinaryAssetBuilder.TextureCompiler.dll"
   'Recovered.TexturePublicS3.dll'="$work/s3/Recovered.TexturePublicS3.dll"
   'Recovered.TextureJpeg.dll'="$work/jpeg/Recovered.TextureJpeg.dll"
+  'Recovered.TexturePpm.dll'="$work/ppm/Recovered.TexturePpm.dll"
   'Recovered.TextureDxtColour.dll'="$work/Recovered.TextureDxtColour.dll"
   'Recovered.TextureDxtAlpha.dll'="$work/Recovered.TextureDxtAlpha.dll"
  }
@@ -55,9 +57,11 @@ try{
  foreach($name in @('BinaryAssetBuilder.Core.dll','BinaryAssetBuilder.Utility.dll')){$r.sdkDependencies+=FileRecord (Join-Path "$root/SDK/tools" $name) $name}
  $sources=@(git ls-files -- $sourcePaths);if($LASTEXITCODE -ne 0){throw 'Cannot enumerate source fingerprints'}
  foreach($file in $sources){$r.sourceFiles+=FileRecord (Join-Path $root $file) $file}
+ $r.ppmDecoder=$true
  $r.publicS3=Get-Content "$work/s3/PublicS3-native.json" -Raw|ConvertFrom-Json
- New-Item -ItemType Directory -Force "$destinationPath/upstream/IJG6b","$destinationPath/upstream/PublicS3","$destinationPath/build-logs"|Out-Null
+ New-Item -ItemType Directory -Force "$destinationPath/upstream/IJG6b","$destinationPath/upstream/PublicS3","$destinationPath/upstream/Ppm","$destinationPath/build-logs"|Out-Null
  Copy-Item "$root/recovery/reference/ijg6b/README","$root/recovery/reference/ijg6b/NOTICE.md","$root/recovery/reference/ijg6b/PROVENANCE.json" "$destinationPath/upstream/IJG6b"
+ Copy-Item "$root/src/TextureCompiler/Ppm/*" "$destinationPath/upstream/Ppm"
  Copy-Item "$root/src/TextureCompiler/PublicS3/*" "$destinationPath/upstream/PublicS3"
  Copy-Item "$PSScriptRoot/InstallTextureCompiler.ps1","$PSScriptRoot/RestoreTextureCompiler.ps1" $destinationPath
  @'
@@ -70,7 +74,7 @@ prints a backup directory. To restore:
 ./RestoreTextureCompiler.ps1 -ReceiptPath <backup>/installation.json
 Restore refuses to overwrite files edited after installation.
 
-The five Recovered.*.dll files go beside the existing SDK/tools host. The SDK's
+The six Recovered.*.dll files go beside the existing SDK/tools host. The SDK's
 Core/Utility and other compiler plugins remain. The three Texture roots use:
 Recovered.Compiler.Texture.Plugin, Recovered.BinaryAssetBuilder.TextureCompiler
 
@@ -78,7 +82,7 @@ The CLR4 host startup must set useLegacyV2RuntimeActivationPolicy="true".
 Use Win32 only. Default DXT1 and opaque DXT1A blocks remain explicitly rejected;
 see recovery/RESUME.md at the manifest's sourceCommit for the accepted scope.
 The colour/alpha DLLs serve the separately exposed low-level recovered APIs.
-The complete production DXT route uses PublicS3; JPEG uses the pinned IJG6b DLL.
+The complete production DXT route uses PublicS3; JPEG and PPM use pinned IJG6b DLLs.
 
 This bundle includes original upstream notices, provenance and adapted PublicS3
 source. It does not include the original TextureCompiler, Core or Utility DLLs.

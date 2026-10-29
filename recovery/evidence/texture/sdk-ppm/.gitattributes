@@ -1,0 +1,4 @@
+# Only new PPM SDK runs: keep original Windows evidence bytes and hashes.
+*.tsv -text
+*.xml -text
+package-manifest.json -text
