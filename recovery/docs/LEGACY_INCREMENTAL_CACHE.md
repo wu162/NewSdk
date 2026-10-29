@@ -4,15 +4,20 @@
 
 ## 链接与发布复用（2026-10-29）
 
-新增实现位于 `codex/legacy-cache-completion`，首次实现检查点 `f44b49a2`；Windows 生产验收正在运行 [40832233489](https://github.com/wu162/NewSdk/actions/runs/40832233489)。旧验收不能代替本次结果。
+实现分支 `codex/legacy-cache-completion`，[PR #20](https://github.com/wu162/NewSdk/pull/20)；当前完整生产源码 `4ad5d0d9`，统一验收 [40836177604](https://github.com/wu162/NewSdk/actions/runs/40836177604) 正在运行。旧验收不替代本批结果。
 
-- `LinkedOutputCache` 将已完成的四流保存在输出根 `.linked-streams`。Core 仅在实际创建某个流的 `OutputManager` 时恢复该流的完整四文件，继续使用原有 manifest/type/stream checksum 判断是否重写。删除的 include 不会通过整目录恢复混入本次输出。该能力独立于 `/sc`、`/bc`，BIG 与 loose 共用；冻结会话不冻结链接输出。
-- 私有四流快照使用硬链接，文件系统不支持时退回复制。原链接器以临时文件替换二进制，并通过 rename 恢复未变 manifest；不会就地改写快照。已发布文件和恢复的 CDATA 使用独立存储，后续编辑不影响缓存。
-- 发布先比较精确文件集合、大小和 SHA256。与本轮已采集内容身份一致时，不创建 `.publish-*`，不复制、不交换目录；报告保持 `publicationStatus=PublishedDirectory`，新增 `publicationUnchanged=true`。公开文件损坏、缺失或多出文件时仍生成完整候选并执行原事务。
-- Core 产物身份只采集一次，内部 `Verified` 状态供 BuildSession/打包/发布复用，不进入协议。移除重复的输出 SHA256、已接收产物的打包后再次校验、发布副本再次哈希和逐文件 `Flush(true)`；会话身份仍覆盖文件内容，但不再逐文件重走祖先检查。
-- 会话序列化文件、安装及备份使用移动；CDATA 先建立私有快照，安装时跳过字节相同的文件。取消、编译/报告/必需日志失败仍撤销未确认的最终产物和链接缓存；`/psc` 的既有部分保存语义保留。
+- `LinkedOutputCache` 在输出根 `.linked-streams` 保留四流，按实际创建的 `OutputManager` 懒恢复完整四文件，沿用原 manifest/type/stream checksum 决定重写。删除的 include 不会混入输出；该能力独立于 `/sc`、`/bc`，BIG 与 loose 共用。
+- 私有四流快照优先硬链接，不支持时复制；原链接器通过 unlink、临时文件和 rename 更新四流。公开文件及恢复的 CDATA 使用独立存储。会话、安装与回滚备份改为移动，CDATA 相同则不重新安装。
+- `FileIdentity` 用 Windows 批量目录记录的卷标识、FileId、ChangeTime、mtime 和大小替代每进程 826 文件的内容 SHA256。等长且恢复 mtime 的写入仍由 ChangeTime 识别，替换由 FileId 识别。
+- `FileHashCache` 将已确认收据保存在 `.file-identities.json`，仅保留本轮使用项，内容不变时不重写。公开文件、运行库与 Additional 的键包含 ChangeTime；编译器私有且只以临时文件替换的四流按 inode/mtime/大小复用，硬链接计数变化不触发重读。CDATA 使用完整身份键。报告 `cache.fileHashReads/fileHashReuses/fileHashBytesRead` 给出实际读取量。
+- 发布核对精确文件集合和已确认身份，未变时不创建 `.publish-*`、不复制、不交换目录。报告保持 `publicationStatus=PublishedDirectory`，新增 `publicationUnchanged=true`；公开文件被修改、缺失或多出文件时仍执行完整事务。
+- BIG 的输入指纹包含当前四流/CDATAs、Additional 实际覆盖后的内容、任务布局、版本/SKUDEF 选项及宿主模块身份。相同时直接引用既有 BIG/SKUDEF，跳过 LoD、Additional 快照和 MakeBig；公开包仍通过包含 ChangeTime 的身份确认，实际覆盖 warning 与空目录碰撞保持。显式 neutral repair 继续使用实际参考输入链，不复用该包指纹。
+- 可信内部收据贯通 BuildSession、打包和发布，不重复哈希；Texture 的 EXE/DLL 校验也使用文件身份缓存。删去内置路由启动时逐项自审，插件版本按每个实际插件计算一次并按原路由数累加。
+- 全部生产源码已无 `Flush(true)`。JSONL/文本以 64 KiB 字符缓冲，控制边界、warning/error 即时刷新，正常事件按 250 ms 批量刷新；普通 trace 不再逐条同步写 stderr，仍完整保留文件。
 
-测试入口：`LinkedOutputCacheTests`、`ArtifactPublisherTests`、`SessionPublicationTests`、`LegacyCacheStoreTests`；生产会话矩阵增加无缓存热链接、缺失链接组重建及三种纹理热链接，检查原链接器四项 up-to-date 日志、原始字节与发布文件时间。
+必需日志/报告失败、取消和真正的替换故障继续撤销未确认产物与链接缓存，`/psc` 语义保留。首轮 `40832233489` 的三个 `publication-fault` 失败保留：旧 fixture 以“锁住未变文件”要求失败，现已新增该场景的成功断言，并用额外旧文件强制真实替换后保留原失败及重试断言。
+
+验证集中于已有完整生产矩阵，另增加少量关键组件/行为断言。生产会话用例检查原链接器四项 up-to-date、原始字节、发布时间及无 CDATA 热态 `fileHashReads=0`，不以仅源码审查或运行中状态冒称通过。
 
 ## 选项与目录
 
