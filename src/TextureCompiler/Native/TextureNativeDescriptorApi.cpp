@@ -44,6 +44,6 @@ extern "C" RECOVERED_TEXTURE_NATIVE_DESCRIPTOR_API void __stdcall TextureXGGetTe
  const U row=(bits*storage.w)>>3;U slice=row*height;
  if((storage.tiled||level>1||kind!=3)&&kind!=17)slice=Round(slice,4096);
  U exponent=(Load(p,0x28)>>13)&63;if(exponent&32)exponent|=0xffffffc0u;
- const U depth=kind==19?Load(p,0x24)>>26:kind==17?d.d:1;
+ const U depth=kind==18?Load(p,0x24)>>26:kind==17?d.d:1;
  *output={kind,d.w,kind==20?1u:d.h,depth,fmt,row*by,slice,bits,(d.w+bx-1)/bx,((kind==20?1u:d.h)+by-1)/by,depth,(bits*bx*by)>>3,exponent,(storage.tiled?1u:0u)|(storage.packed?2u:0u)|((Load(p,0x28)&0x80000000u)?8u:0u),0};
 }

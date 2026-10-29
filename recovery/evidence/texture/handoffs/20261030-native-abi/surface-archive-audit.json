@@ -1,0 +1,12 @@
+{
+  "group": "native-surface",
+  "sourceCommit": "675b00d6932bdec969e3865f8df345cce3366b8c",
+  "runId": "40912274334",
+  "completeDebugReleaseCaptureBytes": 23069960,
+  "captureSha256": "f0425a5303e2ae96aaf9bfe7beed77766654cb3bd4ea8480514bdb76c954005d",
+  "independentCompleteFixtureModel": false,
+  "completeLayoutRecords": 131072,
+  "completePublicLockStateRecords": 131072,
+  "actualStorageRecords": 16,
+  "fullOwnedStorageBytes": 8388608
+}

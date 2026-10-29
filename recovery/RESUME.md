@@ -1,18 +1,14 @@
-# 当前：部署归档闭环；PC原生设备生命周期实现待Actions验收
+# 当前：PC设备/资源/LockRect已通过；描述符修复与真实原生消费链待验收
 
-- **本轮完成**：已核实部署后51组件完整复验 `0fa4acd3368bfe0c058d855bbd8a71f934d084c3` /40893243833 success。17 SDK/完整mymod/六DLL同包/迁移回滚与实际安装字节独立归档审计通过，见 `evidence/texture/handoffs/20261030-deployment/full-archive-audit.json`；审计脚本调用记录改核对实际保存的LF原blob，未改原记录/原SHA或放宽比较。
-- **已合入**：独立native ABI DLL完整名称/导入库消费者修复及 `339656a2` /40892135472成功证据普通合入本分支；12357状态和1687764字节内存轨迹D/R已再次独立模型核对，见 `handoffs/20261030-native-abi/independent-archive-audit.json`。独立ABI库仍不加入生产六DLL包。
-- **本轮新功能（未验收）**：实现 `Recovered.TextureNativeDevice.dll` 的x86/stdcall PC非渲染设备工厂、0x5500对象/128对齐、0x12c0 VirtualAlloc、真实线程ID、引用计数及最终配套释放。原PC插件使用type1；type!=2为本组原版成功域，type2明确E_NOTIMPL，不伪造渲染设备。新增完整原版差分/NoOriginal/D/R、1024工厂输入、16同存设备、64线程输入和6引用计数边界；首次40908753738在stdcall导入库符号处失败，已补全修饰符导出；第二批40909780346发现MSVC声明/定义dllexport不一致，现统一构建/消费导出宏，两个原失败均保留。
-- **下一轮计划/本轮继续入口**：准备好后 `[texture-test]` 单入口优先运行native-device完整组，复用实际未变组件；收终态并独立核对保存全轨迹。随后按实际PC资源/LockRect/UnlockRect/XG连贯能力继续，type2渲染状态、资源绑定、OOM等仍未完成；生产包未变，不自动重跑SDK/MOD。仅PC、编译测试仅Actions、禁止强推。
+- **本轮完成：部署与旧原生**：部署后51组件`0fa4acd3` /40893243833 success；17 SDK/完整mymod/同一六DLL包/迁移回滚/实际安装字节完整归档审计通过，见handoffs/20261030-deployment/full-archive-audit.json。独立ABI名称/导入库`339656a2` /40892135472成功证据已普通合入且独立审计。SDK/原收据和原SHA未改。
+- **本轮完成：设备与资源**：`44972e435c5a90cb3ab0b0b5b71c5dbd61d76401` /40911147535的native-device与native-resource各自完整D/R/NoOriginal和导入库passed。设备1024工厂/16同存/64线程/6引用边界，资源8192解锁/72生命周期/16父子+16嵌套/32768并发原子操作；29496344和1083524完整捕获字节已独立模型审计。见handoffs/20261030-native-abi/*-archive-audit.json。整体run仍failure（当时surface宏编译错误），成功组保留复用。
+- **本轮完成：布局/LockRect**：`675b00d6932bdec969e3865f8df345cce3366b8c` /40912274334的native-surface已完整D/R/NoOriginal/导入库passed，64格式/四维度/全mip/packed/tiled/border/array/rect/flags共131072布局与同量锁、16真实存储；23069960字节完整原轨迹、全部锁状态/地址关系及8388608真实存储字节独立归档审计通过，见surface-archive-audit.json。未改矩阵/断言。
+- **当前修复待验收**：同run native-descriptor完整原捕获已保存，首差在type18/type19的XG深度分支误读；现按原分派修复：type18取头部高位，type19深度1。135168输入/405504完整level32/volume28/XG60字节输出、metadata/canary/NoOriginal/D/R尚未通过，不能计完成。
+- **本轮继续：真实原生调用链**：新增native-consumers组使用固定12个真实DDS/TGA源，由原DLL仅生成原生资源测试输入，原/恢复各自重建完整自有分配，四个恢复ABI库连贯执行每级描述符/布局/三次Lock+Unlock/引用计数/最终释放、完整头部和所有存储；同量NoOriginal回放，不把原fixture loader说成已恢复图像加载器。该新组尚未验收，SDK/MOD与生产六DLL包不变。
+- **下一轮计划/执行入口**：收本次集中Actions native-descriptor/native-consumers及实际变化base终态，只补失败/缺失/变化组，复用前三新成功组。独立审计全部实际输入/产物后再推进原生加载与XGCopySurface或完整混合模式身份。PC type2渲染状态、type9/GPU上下文、OOM和未初始化DXT1/bitfields边界仍未完成；设备type2和不支持最终释放明确拒绝。仅PC、编译测试仅Actions、禁止强推。
 
-- **资源组待验收**：新增独立 `Recovered.TextureNativeResource.dll` 的原子AddRef/Release、CPU资源存储释放、父子/嵌套视图及UnlockRect原位操作。8192解锁状态、72生命周期、16父子+16嵌套视图序列、32768并发原子操作和完整uint32边界，D/R/原版/NoOriginal待Actions；不含LockRect/type9/GPU上下文。状态/内存/base在40908753738已passed，失败批次成功组保留复用。
+以下为历史交接，以顶部与实际运行锚点为准。
 
-- **LockRect组待验收**：已恢复type3纹理全mip布局、64格式块/存储对齐、packed小mip、边框/四维度/数组偏移、LockRect矩形地址及原子锁计数/脏区合并。独立Surface库，131072完整布局+同量锁输入和16真实VM存储读写，原版/NoOriginal/D/R待验收；生产SDK未改。新库与两库导出声明宏一致后同批验收。
-
-- **本轮新增验收完成**：`44972e435c5a90cb3ab0b0b5b71c5dbd61d76401` /40911147535的native-device及native-resource各自完整D/R/NoOriginal和导入库消费者已passed，整体run仍failure（surface Windows min/max宏编译错误）。设备29496344字节/资源1083524字节完整原轨迹独立模型审计通过，见handoffs/20261030-native-abi/device-archive-audit.json和resource-archive-audit.json。复用这两个成功组，勿重跑。
-- **下一批待验收**：surface宏问题已修复；新增原生32字节level、28字节volume和60字节XG纹理描述符。135168头输入/405504结构输出/全字段/守卫字节/原输入保持/原版D/R/NoOriginal待验收。不含非纹理资源或完整混合模式身份；新DLL不进入生产包。
-
-以下为历史交接，以顶部与实际锚点为准。
 
 # 当前：PC六DLL已正式接入；17 SDK通过，部署后组件复验运行中
 

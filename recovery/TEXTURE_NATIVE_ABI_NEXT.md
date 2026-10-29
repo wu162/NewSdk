@@ -1,16 +1,20 @@
-# 当前：PC设备与内存资源ABI完整能力组验收中
+# 当前：设备、资源与LockRect已验收；描述符与真实原生消费链补验中
 
-设备源码入口 `src/TextureCompiler/Native/TextureNativeDeviceApi.cpp`：x86/stdcall工厂、Win32对齐/零初始化、线程ID/VirtualAlloc、引用计数和配套最终释放。原SDK使用type1；支持type!=2成功域，type2完整渲染状态尚未恢复，明确返回E_NOTIMPL。首次40908753738的DLL构建通过，导入库缺少stdcall修饰名失败；已保留裸名且补齐真正stdcall导出，待补验。
+本轮新增实现独立保存于 `src/TextureCompiler/Native/TextureNative{Device,Resource,Surface,Descriptor}Api.*`；不加入已部署生产六DLL包。
 
-资源源码入口 `TextureNativeResourceApi.cpp`：原子引用计数、父资源0→1/1→0传递、GlobalAlloc/VirtualAlloc对象和存储所有权、原UnlockRect位操作。类型0..8的CPU资源及父子视图为成功域；type9和独立GPU/当前上下文surface最终释放显式拒绝并保留原对象。LockRect寻址/格式布局及完整混合模式身份仍待恢复。两库独立构建，不加入生产六DLL包。
+- Device：PC插件使用的type1及type!=2工厂、完整对象/线程ID/命令分配、引用计数和配套释放，44972e43/40911147535 passed，完整原档独立模型审计通过。type2渲染状态仍明确E_NOTIMPL。
+- Resource：原子AddRef/Release、CPU存储与对象所有权、父子/嵌套视图、UnlockRect，44972e43/40911147535 passed，完整原档独立模型审计通过。type9/GPU/当前上下文surface最终释放明确拒绝并保留原对象。
+- Surface：完整type3纹理布局与LockRect，64格式/四维度/mip/packed/border/tiled/array/rect/flags及实际VM读写，675b00d6/40912274334 passed。独立审计全部131072布局/同量锁状态及全部实际存储，不归一化产物。
+- Descriptor：level32/volume28/XG60完整输出已实现，40912274334因type18/19深度分派误读差分失败；完整原捕获保留。现修复type18取头部高位/type19深度1，135168输入/405504输出待补验。
+- Consumers：固定12个真实DDS/TGA，原DLL仅捕获原生资源fixture，原/恢复独立重建所有分配，四库连续执行全部级别/三种Lock+Unlock/描述符/引用与释放，完整头和所有存储逐字节比较及NoOriginal，尚未验收。这个fixture捕获器不是恢复的图像加载器。
 
-本组新矩阵完整比较整个对象/逻辑命令存储和全部有效资源payload；仅不可跨进程稳定的设备地址/真实线程ID先检查原生语义再以固定标记记录。支持原/恢复完整捕获、Debug/Release一致及同量逐次NoOriginal重放和导入库消费者。设备1024工厂输入/16同存对象/64线程输入/6引用计数边界；资源8192解锁、72生命周期、16父子与16嵌套视图、32768并发原子操作及uint32边界。源码未验收前不能称完成。
+当前按RESUME与最新Actions终态收证。各新组使用独立原生DLL、原DLL完整SHA与入口检查、Debug/Release完整对照/逐调用隔离和真实导入库消费者。原进程地址/线程ID先核对实际语义后在测试捕获中标记，其他全部字节精确比较；源码没有gold图像查表、样本ID分派或原DLL回调。
 
-已验收基础：部署后51组件0fa4acd3/40893243833成功；状态码/内存名称及导入库339656a2/40892135472成功且已普通合入，完整原档独立审计见handoffs/20261030-native-abi。首批新实现40908753738的native-errors/native-memory/base仍passed，按实际依赖保留这些成功锚点。
-
-下一入口：单一texture-validation工作流只补失败/新组与实际变化消费者，不重跑SDK/MOD；收终态并独立审计完整捕获。随后恢复原D3DTexture.LockRect@0x1950→0xdb40→0xd70f→0xd680和0xd24b布局链及XG描述符实际消费；必要原版探针只查未知行为，不把probe当验收。仅PC、编译测试仅Actions、禁止强推。
+审计工具 `InspectTextureNativePcCaptures.py`，已验收完整审计位于evidence/texture/handoffs/20261030-native-abi。仅PC，编译测试仅Actions，禁止强推。下一业务为实际PC原生加载/XGCopySurface及完整混合模式ABI，不把独立辅助接口成功等同整个原DLL还原。SDK/MOD按明确里程碑降频，已部署包不因本轮独立API变更重装。
 
 以下为早期历史记录。
+
+
 
 # PC原生接口续接：状态码函数已实现，等待完整差分
 

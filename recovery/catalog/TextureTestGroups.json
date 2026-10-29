@@ -2944,6 +2944,35 @@
       "evidence": "recovery/evidence/texture/native-descriptor/*/validation.json",
       "sdk": false,
       "priority": -5
+    },
+    "native-consumers": {
+      "script": "recovery/scripts/TestTextureNativeConsumers.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/TestTextureNativeConsumers.ps1",
+        "recovery/tests/TextureNativeConsumerOracle.cpp",
+        "recovery/tests/fixtures/texture-main/**",
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Native/TextureNativeDeviceApi.cpp",
+        "src/TextureCompiler/Native/TextureNativeDeviceApi.h",
+        "src/TextureCompiler/Native/TextureNativeDeviceApi.def",
+        "recovery/scripts/BuildTextureNativeDevice.ps1",
+        "src/TextureCompiler/Native/TextureNativeResourceApi.cpp",
+        "src/TextureCompiler/Native/TextureNativeResourceApi.h",
+        "src/TextureCompiler/Native/TextureNativeResourceApi.def",
+        "recovery/scripts/BuildTextureNativeResource.ps1",
+        "src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp",
+        "src/TextureCompiler/Native/TextureNativeSurfaceApi.h",
+        "src/TextureCompiler/Native/TextureNativeSurfaceApi.def",
+        "recovery/scripts/BuildTextureNativeSurface.ps1",
+        "src/TextureCompiler/Native/TextureNativeDescriptorApi.cpp",
+        "src/TextureCompiler/Native/TextureNativeDescriptorApi.h",
+        "src/TextureCompiler/Native/TextureNativeDescriptorApi.def",
+        "recovery/scripts/BuildTextureNativeDescriptor.ps1"
+      ],
+      "evidence": "recovery/evidence/texture/native-consumers/*/validation.json",
+      "sdk": false,
+      "priority": -4
     }
   },
   "targetPlatform": "Win32"
