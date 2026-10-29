@@ -1,0 +1,16 @@
+{
+  "scope": "complete native resource fixtures/consumer traces, every copied RGBA/padding/guard byte, all ownership/lock-state/source fingerprints and five native DLLs; no recovered file-loader or production-package claim",
+  "sourceCommit": "ef1e1bbac041db5e26a6ca8cbcab1e189ede0867",
+  "runId": "40963205193",
+  "completeDebugReleaseCapturesIdentical": true,
+  "captureSha256": "4f507e9bf533ad23cedb7b61dcea14a2560bb3f18ab91d83786aab32e93d867c",
+  "resourceFixtureSha256": "35df52cf2b7f6ac9fc36f755e243f8ccadeef42cdabf719af8ad61ea521ee788",
+  "actualRawCopyCalls": 120,
+  "completeConvertedPixels": 3772098,
+  "allRealSources": 12,
+  "successfulNativeResources": 12,
+  "completeLevelsVerified": 107,
+  "lockUnlockPairsVerified": 321,
+  "completeOwnedStorageBytes": 5832704,
+  "allRecordsAndSourceAllocationsParsed": true
+}

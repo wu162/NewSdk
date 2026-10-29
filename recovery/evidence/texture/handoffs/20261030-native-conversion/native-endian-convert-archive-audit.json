@@ -1,0 +1,20 @@
+{
+  "path": "recovery/evidence/texture/native-endian-convert/40963205193-1/Debug.capture",
+  "sha256": "895d0d43d1520a8a33a33c0e214c43daed90d4cfb8bcb55bc9831b7b6fdb7642",
+  "bytes": 84505352,
+  "cases": 184928,
+  "success": 184880,
+  "outOfMemory": 48,
+  "identity": 0,
+  "convertedPixels": 5054592,
+  "exhaustivePixels": 2097152,
+  "sourceBytes": 35717248,
+  "destinationBytes": 39911552,
+  "seconds": 81.124,
+  "status": "passed",
+  "scope": "Every archived metadata/input/source/output/padding/guard byte and pixel checked with independent Python model from original descriptor metadata; no original/recovered DLL execution",
+  "group": "native-endian-convert",
+  "sourceCommit": "ef1e1bbac041db5e26a6ca8cbcab1e189ede0867",
+  "runId": "40963205193",
+  "model": "recovery/scripts/InspectTextureNativeConvertCaptures.py"
+}

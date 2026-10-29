@@ -1,0 +1,20 @@
+{
+  "path": "recovery/evidence/texture/native-flags-convert/40965216216-1/Debug.capture",
+  "sha256": "cb150a86c70928a8bc5595ad4829187dabffc8ca898f0ebe58de4198fc379c11",
+  "bytes": 39669512,
+  "cases": 49328,
+  "success": 49328,
+  "outOfMemory": 0,
+  "identity": 7296,
+  "convertedPixels": 5914112,
+  "exhaustivePixels": 5242880,
+  "sourceBytes": 18552224,
+  "destinationBytes": 18552224,
+  "seconds": 84.882,
+  "status": "passed",
+  "scope": "Every archived metadata/input/source/output/padding/guard byte and pixel checked with independent Python model from original descriptor metadata; no original/recovered DLL execution",
+  "group": "native-flags-convert",
+  "sourceCommit": "6af9af189a5fb9be63bd02fbab4577d71c583257",
+  "runId": "40965216216",
+  "model": "recovery/scripts/InspectTextureNativeConvertCaptures.py"
+}

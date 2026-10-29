@@ -1,4 +1,4 @@
-# 当前：PC原生数值转换已验收；端序和真实复制消费待验收
+# 当前：PC原生数值/端序/flags与真实复制消费均已验收
 
 入口 `src/TextureCompiler/Native/TextureNative{Device,Resource,Surface,Descriptor,Copy,Convert}Api.*`。独立x86 ABI DLL，不加入已部署六DLL包或冒充完整原混合模式身份。
 
@@ -7,16 +7,17 @@
 | native-device/resource |44972e43 /40911147535|非type2设备、CPU资源/所有权/引用释放，GPU/type9拒绝|
 | native-surface |675b00d6 /40912274334|131072布局及同量LockRect，packed/tiled/border/mip/array|
 | native-descriptor/consumers |118d9500 /40913579297|135168头/405504完整描述符；12真实资源/107级别/321锁及全部存储|
-| native-copy |6025bc3d /40962015217|32768完整identity输入，64格式/区域/正负步幅/flags/padding/guard|
-| native-convert |6025bc3d /40962015217|100412完整unsigned输入/64.7MB，60全16位源条带|
-| native-signed-convert |6025bc3d /40962015217|100472 signed/biased normalized/integer输入/61.6MB，120条带/7864320像素|
-| native-float-convert |6025bc3d /40962015217|46262输入/57.9MB；38布局/1444格式对/8属性/4映射；全部half、float指数/符号、signed midpoint邻点|
-| native-endian-convert |本次待验收|184928输入/16端序对/所有数值布局/子区域、32全16位条带及负步幅控制|
-| native-copy-consumers |本次待验收|五DLL/12真实资源/107级别/321锁；其中40 raw级别120视图执行端序+swizzle到RGBA8|
+| native-copy |6af9af18 /40965216216|32768完整identity输入，64格式/区域/正负步幅/flags/padding/guard|
+| native-convert |6af9af18 /40965216216|100412完整unsigned输入/64.7MB，60全16位源条带|
+| native-signed-convert |6af9af18 /40965216216|100472 signed/biased normalized/integer输入/61.6MB，120条带/7864320像素|
+| native-float-convert |6af9af18 /40965216216|46262输入/57.9MB；38布局/1444格式对/8属性/4映射；全部half、float指数/符号、signed midpoint邻点|
+| native-endian-convert |6af9af18 /40965216216|184928输入/16端序对/所有数值布局/子区域、32全16位条带及负步幅控制|
+| native-copy-consumers |6af9af18 /40965216216|五DLL/12真实资源/107级别/321锁；40 raw级别120视图按原LoadImageA 0x12/0调用复制3772098像素|
+| native-flags-convert |6af9af18 /40965216216|49328输入/12 flags/同格式强制归一化；80完整条带/5242880像素|
 
-成功组均D/R原版完整字节比较、NoOriginal及适用真实导入库。543cb4cb/40959808438首版166个1位阈值差异保留；修复是原sign-selected half而非固定+0.5。unsigned与signed全原档已独立模型复审，float与新增组完整归档复核继续收取，不把第一版failure写成success。
+成功组均D/R原版完整字节比较、NoOriginal及适用真实导入库。543cb4cb/40959808438首版166个1位阈值差异保留；修复是原sign-selected half而非固定+0.5。5转换组全原档均已独立模型复审；identity既有完整模型按原captureSHA保留，真实复制全部字节/资源/五DLL也通过独立审计，不把第一版failure写成success。最终8组passed/55复用/63当前组件有效，见handoffs/20261030-native-conversion/final-archive-audit.json。
 
-端序源证据：原PC真实raw资源desc.format含0x80（8-in-32），canonical LoadImageA目标是0x1a200006，故新组优先补真实消费。四种端序按原0x3ed3d/0x3ee8c单位交换；不完整单位会遗留未初始化尾部，恢复版明确拒绝，不冻结随机字节。
+端序源证据：原PC真实raw资源desc.format含0x80（8-in-32），canonical LoadImageA目标是0x1a200006，故新组优先补真实消费。LoadImageA IL还明确flags=0x12/threshold=0，最终真实调用链使用相同参数；raw flags仅按原规则切换identity或强制转换，压缩/packed特殊flag含义仍在排除域。四种端序按原0x3ed3d/0x3ee8c单位交换；不完整单位会遗留未初始化尾部，恢复版明确拒绝，不冻结随机字节。
 
 保留边界：gamma/压缩转换、packed float10、uint32数值转换、过滤/重叠、signed/biased one-bit仍拒绝；D3DXCreateTextureFromFileA@0x13c82→0x13b53加载/资源头构造、设备type2/type9及完整混合模式身份未恢复。fixture loader只提供原版输入，不算恢复的图像加载器。下一功能从该PC文件加载链继续，不重复旧成功SDK/MOD；仅PC、编译测试仅Actions、禁止强推。
 

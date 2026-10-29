@@ -1,0 +1,267 @@
+{
+  "status": "passed",
+  "sourceCommit": "6af9af189a5fb9be63bd02fbab4577d71c583257",
+  "runId": "40965216216",
+  "scope": "Seven native conversion/copy capability groups with complete original byte models, all original/recovered/NoOriginal D/R; plus base, exact PC LoadImageA flags0x12/threshold0 real native resources; not recovered file loader/mixed-mode DLL/SDK integration",
+  "groups": {
+    "native-convert": {
+      "sourceCommit": "6af9af189a5fb9be63bd02fbab4577d71c583257",
+      "runId": "40965216216",
+      "status": "passed",
+      "independentFullModel": "recovery/evidence/texture/handoffs/20261030-native-conversion/native-convert-archive-audit.json",
+      "originalCaptureIdenticalToAuditedModel": true,
+      "configurations": [
+        {
+          "configuration": "Debug",
+          "captureSha256": "72e2319378f6cc0ba53d6e17eb953e324c43f67db733859c26cdd10933d41e41",
+          "bytes": 64704328,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "7071feb6ad82c95f131bb06f3ad4673a07fef709a9441fe12da98ada80be80fe"
+            }
+          ]
+        },
+        {
+          "configuration": "Release",
+          "captureSha256": "72e2319378f6cc0ba53d6e17eb953e324c43f67db733859c26cdd10933d41e41",
+          "bytes": 64704328,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "bbb0dc7b6873dc1bdd1e81bab5fbb815ca37c72ed8726566e614b6f065d724f8"
+            }
+          ]
+        }
+      ]
+    },
+    "native-signed-convert": {
+      "sourceCommit": "6af9af189a5fb9be63bd02fbab4577d71c583257",
+      "runId": "40965216216",
+      "status": "passed",
+      "independentFullModel": "recovery/evidence/texture/handoffs/20261030-native-conversion/native-signed-convert-archive-audit.json",
+      "originalCaptureIdenticalToAuditedModel": true,
+      "configurations": [
+        {
+          "configuration": "Debug",
+          "captureSha256": "635a22d4dbbe1264873d0250287a66c755083b06d7382085edbe118c31090b62",
+          "bytes": 61620872,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "9205a7da13ec3aeef8014ce472f2c3b43f427603401511812fabaecd49ac340e"
+            }
+          ]
+        },
+        {
+          "configuration": "Release",
+          "captureSha256": "635a22d4dbbe1264873d0250287a66c755083b06d7382085edbe118c31090b62",
+          "bytes": 61620872,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "097f08607fc8952659c2e30d614680b026823e5e9e47d15f0552099ca6d651dc"
+            }
+          ]
+        }
+      ]
+    },
+    "native-float-convert": {
+      "sourceCommit": "6af9af189a5fb9be63bd02fbab4577d71c583257",
+      "runId": "40965216216",
+      "status": "passed",
+      "independentFullModel": "recovery/evidence/texture/handoffs/20261030-native-conversion/native-float-convert-archive-audit.json",
+      "originalCaptureIdenticalToAuditedModel": true,
+      "configurations": [
+        {
+          "configuration": "Debug",
+          "captureSha256": "8eb89b1953a09876aa4f6c476ddfe279a0b494938c44bdefd71b591e96da8a3d",
+          "bytes": 57859176,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "40004f3b4c49ddd8326fea5ebe1be203e356024d837196b1dab32722ffaf985e"
+            }
+          ]
+        },
+        {
+          "configuration": "Release",
+          "captureSha256": "8eb89b1953a09876aa4f6c476ddfe279a0b494938c44bdefd71b591e96da8a3d",
+          "bytes": 57859176,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "f9975ee8a37a6cfc6b769fa0c5e17b7b84373be03cdce188786d841775cefda3"
+            }
+          ]
+        }
+      ]
+    },
+    "native-endian-convert": {
+      "sourceCommit": "6af9af189a5fb9be63bd02fbab4577d71c583257",
+      "runId": "40965216216",
+      "status": "passed",
+      "independentFullModel": "recovery/evidence/texture/handoffs/20261030-native-conversion/native-endian-convert-archive-audit.json",
+      "originalCaptureIdenticalToAuditedModel": true,
+      "configurations": [
+        {
+          "configuration": "Debug",
+          "captureSha256": "895d0d43d1520a8a33a33c0e214c43daed90d4cfb8bcb55bc9831b7b6fdb7642",
+          "bytes": 84505352,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "696ad33a2e66a70320872be9f3515d5c36b11fd60fc54afad8c17f083c487265"
+            }
+          ]
+        },
+        {
+          "configuration": "Release",
+          "captureSha256": "895d0d43d1520a8a33a33c0e214c43daed90d4cfb8bcb55bc9831b7b6fdb7642",
+          "bytes": 84505352,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "1f0a215534f0167c997b4b8fb413de3963729a87992d1d63c222bdba8e7cefe2"
+            }
+          ]
+        }
+      ]
+    },
+    "native-copy-consumers": {
+      "sourceCommit": "6af9af189a5fb9be63bd02fbab4577d71c583257",
+      "runId": "40965216216",
+      "status": "passed",
+      "independentFullModel": "recovery/evidence/texture/handoffs/20261030-native-conversion/native-copy-consumers-archive-audit.json",
+      "originalCaptureIdenticalToAuditedModel": true,
+      "configurations": [
+        {
+          "configuration": "Debug",
+          "captureSha256": "4f507e9bf533ad23cedb7b61dcea14a2560bb3f18ab91d83786aab32e93d867c",
+          "bytes": 21042411,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeDevice.dll",
+              "sha256": "44cd2196d9d78e496b0deb8a75219aab079752e02c3936ac9325f5a1138f7bcb"
+            },
+            {
+              "file": "Recovered.TextureNativeResource.dll",
+              "sha256": "dcf84307a78001f7ac7f7d84b2fecf0ff902549eab60a8364ac799eac466a1a6"
+            },
+            {
+              "file": "Recovered.TextureNativeSurface.dll",
+              "sha256": "0d88670e7343f9232821f9864ebecbfd9583cf0b053e4cafdd1261c271b95227"
+            },
+            {
+              "file": "Recovered.TextureNativeDescriptor.dll",
+              "sha256": "abcb30fef22ce1b70d3e7ae624c75a888c7f2bc274afa0e993f84079c219d392"
+            },
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "e37e5a682fd34f88bcd6232ed8d074ad23ac10959ddf09e5fd9a0de1a7c6b437"
+            }
+          ]
+        },
+        {
+          "configuration": "Release",
+          "captureSha256": "4f507e9bf533ad23cedb7b61dcea14a2560bb3f18ab91d83786aab32e93d867c",
+          "bytes": 21042411,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeDevice.dll",
+              "sha256": "32cea3e2d4c04695cbd1cb48cea3d09aa8c10f056b21f8310b17831f0c4e62a1"
+            },
+            {
+              "file": "Recovered.TextureNativeResource.dll",
+              "sha256": "ea4f69e8534b126554ac68afbe6ed5534439235cd6a28db1e415cbdfab228389"
+            },
+            {
+              "file": "Recovered.TextureNativeSurface.dll",
+              "sha256": "7ef8968bf93d806d823ec28e53abe007a36f56ee6c2b34e2834dcd599e778c7c"
+            },
+            {
+              "file": "Recovered.TextureNativeDescriptor.dll",
+              "sha256": "537d1d23998b64f3addc981e6caa66ef7f0be5638374000bcc54b1a5529f65b7"
+            },
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "5ff5c3197c264734f615d077019958dd6e5c169a5551c57da287ce7bb61a852d"
+            }
+          ]
+        }
+      ]
+    },
+    "native-flags-convert": {
+      "sourceCommit": "6af9af189a5fb9be63bd02fbab4577d71c583257",
+      "runId": "40965216216",
+      "status": "passed",
+      "independentFullModel": "recovery/evidence/texture/handoffs/20261030-native-conversion/native-flags-convert-archive-audit.json",
+      "originalCaptureIdenticalToAuditedModel": true,
+      "configurations": [
+        {
+          "configuration": "Debug",
+          "captureSha256": "cb150a86c70928a8bc5595ad4829187dabffc8ca898f0ebe58de4198fc379c11",
+          "bytes": 39669512,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "90fcf5623b0c39bb2f2af96e1b7397e7efc4cd7df64af61c88a56fa4388a5c4f"
+            }
+          ]
+        },
+        {
+          "configuration": "Release",
+          "captureSha256": "cb150a86c70928a8bc5595ad4829187dabffc8ca898f0ebe58de4198fc379c11",
+          "bytes": 39669512,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "ecd1ba969c9d3570e747225fadbb9c9a35de718fa98f5a4a1190918292fb5eeb"
+            }
+          ]
+        }
+      ]
+    },
+    "native-copy": {
+      "sourceCommit": "6af9af189a5fb9be63bd02fbab4577d71c583257",
+      "runId": "40965216216",
+      "status": "passed",
+      "independentFullModel": "recovery/evidence/texture/handoffs/20261030-native-conversion/../20261030-native-abi/copy-final-archive-audit.json",
+      "originalCaptureIdenticalToAuditedModel": true,
+      "configurations": [
+        {
+          "configuration": "Debug",
+          "captureSha256": "fec63787c512ea2c733091088d707d17b2db8bf701c8befca23a2463416124b9",
+          "bytes": 21217672,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "207a7e7a0a733e0eba7db0870e46308f6bcf15b5798797c3c94400152388d7a5"
+            }
+          ]
+        },
+        {
+          "configuration": "Release",
+          "captureSha256": "fec63787c512ea2c733091088d707d17b2db8bf701c8befca23a2463416124b9",
+          "bytes": 21217672,
+          "nativeFiles": [
+            {
+              "file": "Recovered.TextureNativeCopy.dll",
+              "sha256": "be37cd7e75f4f54f5bd75de2056dc9e0a8adbdca93dee6a13d859857d0426190"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "completeBatchGroups": 8,
+  "unchangedComponentGroupsReused": 55,
+  "currentCompleteComponentGroups": 63,
+  "selected": [],
+  "SDKTree": "b38938fd7347ff0acb7cf39135b520c9db4618c7",
+  "SDKUnchangedFrom": "018350ca0c3d8bf160f10586e158f684a8413344",
+  "SDKOrMymodRerun": false,
+  "identity": "original independent full row-copy model reused only after complete capture SHA identity",
+  "modelSourceSha256": "bcb8ff4eddf0976d102dd33dc2f1c941888962232ede705431125c3f0827e9ff",
+  "consumerModelSourceSha256": "0cd377560d5fad85efc40352d2b6970dc5ed8fe8d4e3ba394fc7f0b2754d413d"
+}

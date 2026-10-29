@@ -1,0 +1,20 @@
+{
+  "path": "recovery/evidence/texture/native-signed-convert/40961005402-1/Debug.capture",
+  "sha256": "635a22d4dbbe1264873d0250287a66c755083b06d7382085edbe118c31090b62",
+  "bytes": 61620872,
+  "cases": 100472,
+  "success": 100472,
+  "outOfMemory": 0,
+  "identity": 448,
+  "convertedPixels": 8513696,
+  "exhaustivePixels": 7864320,
+  "sourceBytes": 24466944,
+  "destinationBytes": 32331264,
+  "seconds": 193.11,
+  "status": "passed",
+  "scope": "Every archived metadata/input/source/output/padding/guard byte and pixel checked with independent Python model from original descriptor metadata; no original/recovered DLL execution",
+  "group": "native-signed-convert",
+  "sourceCommit": "c5aa8cc067dcead7162de29634602d9bf4679be1",
+  "runId": "40961005402",
+  "model": "recovery/scripts/InspectTextureNativeConvertCaptures.py"
+}

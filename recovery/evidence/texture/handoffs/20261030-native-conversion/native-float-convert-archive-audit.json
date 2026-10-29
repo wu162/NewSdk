@@ -1,0 +1,20 @@
+{
+  "path": "recovery/evidence/texture/native-float-convert/40962015217-1/Debug.capture",
+  "sha256": "8eb89b1953a09876aa4f6c476ddfe279a0b494938c44bdefd71b591e96da8a3d",
+  "bytes": 57859176,
+  "cases": 46262,
+  "success": 46262,
+  "outOfMemory": 0,
+  "identity": 76,
+  "convertedPixels": 4578548,
+  "exhaustivePixels": 3538944,
+  "sourceBytes": 33389856,
+  "destinationBytes": 22248736,
+  "seconds": 133.773,
+  "status": "passed",
+  "scope": "Every archived metadata/input/source/output/padding/guard byte and pixel checked with independent Python model from original descriptor metadata; no original/recovered DLL execution",
+  "group": "native-float-convert",
+  "sourceCommit": "6025bc3d9c127574e2cb79178841eacb9cf5c521",
+  "runId": "40962015217",
+  "model": "recovery/scripts/InspectTextureNativeConvertCaptures.py"
+}
