@@ -1,9 +1,10 @@
-# 当前：TGA 非零 metadata 已完成组件、完整消费与专用 SDK
+# 当前：TGA metadata 已验收；BMP 原版探针已收证并完成归档审计
 
-- **本轮完成**：标准495-byte TGA2 extension的gamma/alpha属性、developer目录/标签、scanline/correction/stamp、chained footer及坐标字段按原版忽略其渲染效果，同时验证完整有界结构。原版63dcfd2b/40793184986为probe-only：12480输入、24960原调用，480上下文×26 profile完整RGBA/hasAlpha/尺寸均等于无尾基线。旧RLE/507-byte DevIL及异常边界保留。
+- **TGA已完成**：标准495-byte TGA2 extension的gamma/alpha属性、developer目录/标签、scanline/correction/stamp、chained footer及坐标字段按原版忽略其渲染效果，同时验证完整有界结构。原版63dcfd2b/40793184986为probe-only：12480输入、24960原调用，480上下文×26 profile完整RGBA/hasAlpha/尺寸均等于无尾基线。旧RLE/507-byte DevIL及异常边界保留。
 - **组件已验收**：a928f981 / [40795326615](https://github.com/wu162/NewSdk/actions/runs/40795326615) success，19受影响完整组通过/22复用。D/R各12480 gold双入口24960调用、1904740检查、5616000 RGBA字节、96损坏结构明确拒绝；47248插件输入/同量逐次NoOriginal、432710096字节比较、0错误，含raw3/DXT3/5/透明DXT1A、POT/NPOT/partial/volume/full mip、208 atlas、完整三buffer/cdata/旧尾。损坏结构拒绝不冒充原错误对照。
 - **SDK已验收**：278ae577 / [40797426507](https://github.com/wu162/NewSdk/actions/runs/40797426507)中11 profile全部passed，三模式每模式21576实际资产/调用、75459完整轨迹文件及四产物独立逐文件全等。新PcTgaMetadata每模式8152资产/调用、28481轨迹；41组件及两个纯PNG/JPEG metadata SDK复用原锚点。当前41组件/13专用SDK有效，SDK每模式总计35456资产/调用、124013轨迹，详见[审计及分组锚点](evidence/texture/handoffs/20261029-tga-metadata/acceptance.json)和[TGA范围](TEXTURE_TGA_METADATA.md)。整个40797426507为failure，原因是独立BMP探针原版重复不确定；不把整体失败改写为success。
-- **下一轮计划**：优先[BMP新DIB/ICC/bitfields](TEXTURE_BMP_HEADERS_NEXT.md)，生产BMP尚未修改。首批原版DIB52/24-bit/top-down/bitfields出现同输入两次像素不同，failed/partial保留；51189674 /40799686293仅重跑探针，保存两次完整输出及逐输入originalStable分类，不稳定输入不能作为确定gold。先收终态和独立归档审计，再按稳定原成功/原拒绝/不确定域整组适配、组件和实际消费，SDK继续集中而非每轮自动重跑。
+- **本轮收尾完成**：51189674 / [40799686293](https://github.com/wu162/NewSdk/actions/runs/40799686293)已核实completed/success，仅BMP原版取证、复用41组件，未跑SDK/MOD。2616输入/5232原调用；2184解码/432拒绝，当前候选288一致/2328不同。已独立核对全部归档字节、哈希、重复分类及792个metadata/plain完整RGBA对照，见[审计](evidence/texture/handoffs/20261029-bmp-headers/original-archive-audit.json)。49个不稳定反例均在扩展DIB的24/32-bit BI_BITFIELDS；整组192输入隔离，143个恰好重复相等也不充当确定gold。probe-only不等于BMP恢复验收，生产BMP未修改。
+- **下一轮计划**：按[BMP续接](TEXTURE_BMP_HEADERS_NEXT.md)从`src/TextureCompiler/Managed/TextureBmpDecoder.cs`推进确定候选的BI_RGB新DIB/metadata及原拒绝整组适配，核对bfOffBits/gap/alpha；不确定BI_BITFIELDS域须先补跨进程/调用上下文取证。随后完整组件/实际消费差分、必要SDK集中验收；41组件/13专用SDK未变成功锚点不重跑。
 - **保存与边界**：集中在`recovery/texturecompiler-source`，禁止强推、编译测试仅Actions。生产SDK树未变，完整MOD本轮未跑（5a1b8e1d/40657712486仅旧锚点），默认DXT1/不透明DXT1A继续拒绝；未变成功组不重复测试。后续文档提交不冒充新跑验收。
 
 # 当前：PNG 与 JPEG metadata 均已完成组件、完整消费与专用SDK

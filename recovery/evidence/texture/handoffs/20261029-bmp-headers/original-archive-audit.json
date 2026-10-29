@@ -1,0 +1,377 @@
+{
+  "scope": "independent immutable BMP archive audit; probe-only, no production acceptance",
+  "sourceCommit": "511896747c32c7863078b36ad781caae4f3763c1",
+  "runId": "40799686293",
+  "archiveSha256": "08715c9547eb6f9fb8ba1745ab3f38b954522439848caa031889c2f73deb069b",
+  "fixtures": 2616,
+  "originalCalls": 5232,
+  "totals": {
+    "originalRgbaBytes": 1539720,
+    "stableOriginals": 2567,
+    "repeatRgbaBytes": 1539720,
+    "candidateRgbaBytes": 152280,
+    "decoded/match": 216,
+    "rejected/match": 72,
+    "rejected/difference": 360,
+    "decoded/difference": 1968,
+    "unstableOriginals": 49
+  },
+  "classifications": {
+    "repeat-equal/decoded": 1992,
+    "repeat-equal/rejected": 432,
+    "uncertain-family/repeat-equal": 143,
+    "uncertain-family/repeat-different": 49
+  },
+  "unstableLabels": [
+    "h52-d32-7x5-topTrue-p2-c3-g0-plain",
+    "h56-d24-7x5-topFalse-p2-c3-g0-plain",
+    "h56-d24-7x5-topTrue-p2-c3-g0-plain",
+    "h56-d32-7x5-topTrue-p2-c3-g0-plain",
+    "h108-d24-7x5-topFalse-p2-c3-g0-plain",
+    "h108-d24-7x5-topTrue-p2-c3-g0-plain",
+    "h108-d32-7x5-topFalse-p2-c3-g0-plain",
+    "h124-d32-7x5-topTrue-p2-c3-g0-plain",
+    "h52-d24-1x1-topFalse-p0-c3-g0-plain",
+    "h52-d24-1x1-topTrue-p0-c3-g0-plain",
+    "h108-d24-1x1-topFalse-p0-c3-g0-plain",
+    "h124-d24-1x1-topFalse-p0-c3-g0-plain",
+    "h124-d24-1x1-topTrue-p0-c3-g0-plain",
+    "h52-d24-1x1-topFalse-p1-c3-g0-plain",
+    "h56-d24-1x1-topFalse-p1-c3-g0-plain",
+    "h56-d24-1x1-topTrue-p1-c3-g0-plain",
+    "h52-d32-1x1-topFalse-p2-c3-g0-plain",
+    "h56-d24-1x1-topFalse-p2-c3-g0-plain",
+    "h56-d24-1x1-topTrue-p2-c3-g0-plain",
+    "h56-d32-1x1-topFalse-p2-c3-g0-plain",
+    "h108-d24-1x1-topFalse-p2-c3-g0-plain",
+    "h108-d24-1x1-topTrue-p2-c3-g0-plain",
+    "h108-d32-1x1-topFalse-p2-c3-g0-plain",
+    "h108-d32-1x1-topTrue-p2-c3-g0-plain",
+    "h124-d24-1x1-topFalse-p2-c3-g0-plain",
+    "h124-d24-1x1-topTrue-p2-c3-g0-plain",
+    "h124-d32-1x1-topFalse-p2-c3-g0-plain",
+    "h124-d32-1x1-topTrue-p2-c3-g0-plain",
+    "h52-d32-32x16-topFalse-p0-c3-g0-plain",
+    "h52-d32-32x16-topTrue-p0-c3-g0-plain",
+    "h56-d32-32x16-topFalse-p0-c3-g0-plain",
+    "h56-d32-32x16-topTrue-p0-c3-g0-plain",
+    "h108-d32-32x16-topFalse-p0-c3-g0-plain",
+    "h108-d32-32x16-topTrue-p0-c3-g0-plain",
+    "h124-d32-32x16-topFalse-p0-c3-g0-plain",
+    "h124-d32-32x16-topTrue-p0-c3-g0-plain",
+    "h52-d32-32x16-topFalse-p1-c3-g0-plain",
+    "h52-d32-32x16-topTrue-p1-c3-g0-plain",
+    "h56-d32-32x16-topFalse-p1-c3-g0-plain",
+    "h56-d32-32x16-topTrue-p1-c3-g0-plain",
+    "h108-d32-32x16-topTrue-p1-c3-g0-plain",
+    "h124-d32-32x16-topFalse-p1-c3-g0-plain",
+    "h124-d32-32x16-topTrue-p1-c3-g0-plain",
+    "h52-d32-32x16-topTrue-p2-c3-g0-plain",
+    "h56-d32-32x16-topFalse-p2-c3-g0-plain",
+    "h56-d32-32x16-topTrue-p2-c3-g0-plain",
+    "h108-d32-32x16-topTrue-p2-c3-g0-plain",
+    "h124-d32-32x16-topFalse-p2-c3-g0-plain",
+    "h124-d32-32x16-topTrue-p2-c3-g0-plain"
+  ],
+  "fullByteMetadataBaselineComparisons": {
+    "gamma1": 144,
+    "gamma22": 144,
+    "srgb": 144,
+    "calibrated": 144,
+    "embedded-srgb2": 72,
+    "embedded-srgb4": 72,
+    "embedded-gray4": 72
+  },
+  "determinismLimit": "Two consecutive calls in one process only; repeat-equal is not a cross-process determinism proof. Extended-DIB 24/32-bit BI_BITFIELDS is quarantined as a whole family.",
+  "groups": {
+    "compression:0": {
+      "decoded/match": 216,
+      "decoded/difference": 1680
+    },
+    "compression:3": {
+      "rejected/match": 72,
+      "decoded/difference": 288
+    },
+    "compression:6": {
+      "rejected/difference": 360
+    },
+    "depth:16": {
+      "decoded/match": 72,
+      "rejected/match": 24,
+      "rejected/difference": 120,
+      "decoded/difference": 648
+    },
+    "depth:24": {
+      "decoded/match": 72,
+      "rejected/match": 24,
+      "rejected/difference": 120,
+      "decoded/difference": 672
+    },
+    "depth:32": {
+      "decoded/match": 72,
+      "rejected/match": 24,
+      "rejected/difference": 120,
+      "decoded/difference": 648
+    },
+    "dib-depth-compression:108/16/0": {
+      "decoded/difference": 168
+    },
+    "dib-depth-compression:108/16/3": {
+      "decoded/difference": 24
+    },
+    "dib-depth-compression:108/16/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:108/24/0": {
+      "decoded/difference": 168
+    },
+    "dib-depth-compression:108/24/3": {
+      "decoded/difference": 24
+    },
+    "dib-depth-compression:108/24/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:108/32/0": {
+      "decoded/difference": 168
+    },
+    "dib-depth-compression:108/32/3": {
+      "decoded/difference": 24
+    },
+    "dib-depth-compression:108/32/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:12/24/0": {
+      "decoded/difference": 12
+    },
+    "dib-depth-compression:124/16/0": {
+      "decoded/difference": 240
+    },
+    "dib-depth-compression:124/16/3": {
+      "decoded/difference": 24
+    },
+    "dib-depth-compression:124/16/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:124/24/0": {
+      "decoded/difference": 240
+    },
+    "dib-depth-compression:124/24/3": {
+      "decoded/difference": 24
+    },
+    "dib-depth-compression:124/24/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:124/32/0": {
+      "decoded/difference": 240
+    },
+    "dib-depth-compression:124/32/3": {
+      "decoded/difference": 24
+    },
+    "dib-depth-compression:124/32/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:40/16/0": {
+      "decoded/match": 72
+    },
+    "dib-depth-compression:40/16/3": {
+      "rejected/match": 24
+    },
+    "dib-depth-compression:40/16/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:40/24/0": {
+      "decoded/match": 72
+    },
+    "dib-depth-compression:40/24/3": {
+      "rejected/match": 24
+    },
+    "dib-depth-compression:40/24/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:40/32/0": {
+      "decoded/match": 72
+    },
+    "dib-depth-compression:40/32/3": {
+      "rejected/match": 24
+    },
+    "dib-depth-compression:40/32/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:52/16/0": {
+      "decoded/difference": 72
+    },
+    "dib-depth-compression:52/16/3": {
+      "decoded/difference": 24
+    },
+    "dib-depth-compression:52/16/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:52/24/0": {
+      "decoded/difference": 72
+    },
+    "dib-depth-compression:52/24/3": {
+      "decoded/difference": 24
+    },
+    "dib-depth-compression:52/24/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:52/32/0": {
+      "decoded/difference": 72
+    },
+    "dib-depth-compression:52/32/3": {
+      "decoded/difference": 24
+    },
+    "dib-depth-compression:52/32/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:56/16/0": {
+      "decoded/difference": 72
+    },
+    "dib-depth-compression:56/16/3": {
+      "decoded/difference": 24
+    },
+    "dib-depth-compression:56/16/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:56/24/0": {
+      "decoded/difference": 72
+    },
+    "dib-depth-compression:56/24/3": {
+      "decoded/difference": 24
+    },
+    "dib-depth-compression:56/24/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:56/32/0": {
+      "decoded/difference": 72
+    },
+    "dib-depth-compression:56/32/3": {
+      "decoded/difference": 24
+    },
+    "dib-depth-compression:56/32/6": {
+      "rejected/difference": 24
+    },
+    "dib-depth-compression:64/24/0": {
+      "decoded/difference": 12
+    },
+    "dib:108": {
+      "decoded/difference": 576,
+      "rejected/difference": 72
+    },
+    "dib:12": {
+      "decoded/difference": 12
+    },
+    "dib:124": {
+      "decoded/difference": 792,
+      "rejected/difference": 72
+    },
+    "dib:40": {
+      "decoded/match": 216,
+      "rejected/match": 72,
+      "rejected/difference": 72
+    },
+    "dib:52": {
+      "decoded/difference": 288,
+      "rejected/difference": 72
+    },
+    "dib:56": {
+      "decoded/difference": 288,
+      "rejected/difference": 72
+    },
+    "dib:64": {
+      "decoded/difference": 12
+    },
+    "gap:0": {
+      "decoded/match": 72,
+      "rejected/match": 72,
+      "rejected/difference": 360,
+      "decoded/difference": 1392
+    },
+    "gap:17": {
+      "decoded/match": 72,
+      "decoded/difference": 288
+    },
+    "gap:3": {
+      "decoded/match": 72,
+      "decoded/difference": 288
+    },
+    "profile:calibrated": {
+      "decoded/difference": 144
+    },
+    "profile:embedded-gray4": {
+      "decoded/difference": 72
+    },
+    "profile:embedded-srgb2": {
+      "decoded/difference": 72
+    },
+    "profile:embedded-srgb4": {
+      "decoded/difference": 72
+    },
+    "profile:gamma1": {
+      "decoded/difference": 144
+    },
+    "profile:gamma22": {
+      "decoded/difference": 144
+    },
+    "profile:plain": {
+      "decoded/match": 216,
+      "rejected/match": 72,
+      "rejected/difference": 360,
+      "decoded/difference": 1176
+    },
+    "profile:srgb": {
+      "decoded/difference": 144
+    },
+    "unstable:108/24/3/False": {
+      "inputs": 3
+    },
+    "unstable:108/24/3/True": {
+      "inputs": 2
+    },
+    "unstable:108/32/3/False": {
+      "inputs": 3
+    },
+    "unstable:108/32/3/True": {
+      "inputs": 4
+    },
+    "unstable:124/24/3/False": {
+      "inputs": 2
+    },
+    "unstable:124/24/3/True": {
+      "inputs": 2
+    },
+    "unstable:124/32/3/False": {
+      "inputs": 4
+    },
+    "unstable:124/32/3/True": {
+      "inputs": 5
+    },
+    "unstable:52/24/3/False": {
+      "inputs": 2
+    },
+    "unstable:52/24/3/True": {
+      "inputs": 1
+    },
+    "unstable:52/32/3/False": {
+      "inputs": 3
+    },
+    "unstable:52/32/3/True": {
+      "inputs": 4
+    },
+    "unstable:56/24/3/False": {
+      "inputs": 3
+    },
+    "unstable:56/24/3/True": {
+      "inputs": 3
+    },
+    "unstable:56/32/3/False": {
+      "inputs": 4
+    },
+    "unstable:56/32/3/True": {
+      "inputs": 4
+    }
+  },
+  "originalErrors": {
+    "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.": 432
+  }
+}

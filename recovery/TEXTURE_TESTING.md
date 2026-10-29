@@ -77,3 +77,5 @@ PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平�
 ## 2026-10-29 TGA metadata SDK 里程碑
 
 组件a928f981/40795326615的19完整组通过、22复用。SDK278ae577/40797426507的11 profile全部passed，41组件与两个纯PNG/JPEG metadata SDK复用；每模式21576实际资产/调用、75459完整轨迹文件及四产物独立全字节核对。当前41组件/13专用SDK有效，原锚点见handoffs/20261029-tga-metadata/acceptance.json。整个40797426507仍为failure：附带BMP原版探针在重复相同输入时产生不同像素，不能混作SDK失败或整体success；仅修改取证记录工具并显式重跑bmp-header-load，不重跑未变成功SDK。不稳定原输出留作不确定边界，不可当确定gold或恢复验收。
+
+BMP探针补取51189674/40799686293已completed/success，仅执行`bmp-header-load`并复用41组件，未启动SDK/MOD。独立归档审计及重复不确定域见[当前BMP入口](TEXTURE_BMP_HEADERS_NEXT.md)；该success仅证明取证完成，`probe-only`/`productionAccepted=false`不变，不可用作跳过BMP新增实现验收的证据。

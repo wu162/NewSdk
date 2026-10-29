@@ -1,6 +1,6 @@
 # TextureCompiler 当前交接
 
-2026-10-28（北京时间）。分支`recovery/texturecompiler-source`，源码根`src/TextureCompiler`。最新入口 [RESUME.md](RESUME.md)。
+2026-10-29（北京时间）。分支`recovery/texturecompiler-source`，源码根`src/TextureCompiler`。最新入口 [RESUME.md](RESUME.md)。
 
 DXT3/5默认71颜色/alpha、完整块、POT二维/volume无mip与完整float mip、两插件入口已验收。NPOT已扩至PNG灰度/GA8/RGB/RGBA8/16、Additional TGA16/灰度8/index8调色板及BI_RGB BMP16/24/32，保留原错误与量化/通道布局。业务e9292a26/40595382578的18组及7个SDK profile通过，插件隔离宿主修复9e7d671e/40597016969完成19404输入D/R/NoOriginal；两run各自总体失败原因和精确成功组保持原记录。后续abdffd97/40598190231与daf4a749/40598863269均success，前者闭环原探针并复用34组，后者完成9418存储语料D/R回放及独立atlas指定五层DDS组件。详见[当前续接](RESUME.md)、[NPOT](TEXTURE_NPOT_NEXT.md)、[atlas](TEXTURE_ATLAS_NEXT.md)。完整atlas公共入口及16资产专用SDK已在be520b8e/40607538234通过，D/R各48例、三模式四产物/实际Core调用相同；生产SDK DLL/config未替换。JPEG公共路由699479a9/40626161229及3216资产三模式SDK e8835cfe/40628208308均已验收；最初公开DXT/STB的32配置不一致，继续留测试分支；后续修改的S3源码已通过完整块、全部受影响消费与9组SDK三模式验收（705af338/40649825971、867e7d38/40650835181），现为完整PC DXT3/5后端，见TEXTURE_PUBLIC_S3.md及验收核对。
 
@@ -10,7 +10,7 @@ PNG ICC/APNG默认图与sRGB/gAMA优先级已完成组件及完整插件消费�
 
 JPEG直接RGB/APP14以及Exif/ICC/XMP/COM扩展已在dba6d305/40785653416完成4000原gold双入口、32080插件/atlas输入与9640资产专用SDK三模式；CMYK/YCCK与原版BadTextureFile拒绝相同。旧37组件/11 SDK复用，JPEG业务/native未修改。详见[JPEG新域验收](TEXTURE_JPEG_METADATA_NEXT.md)。
 
-TGA非零标准metadata已完成组件与完整消费：原版12480输入的26类尾部字段均不改变完整RGBA/hasAlpha/尺寸；共享有界结构验证支持developer、gamma/alpha、scanline/correction/stamp、chained及坐标，旧DevIL/RLE边界保留。a928f981/40795326615的19组通过、22组复用，D/R各24960直接调用及47248插件输入/同量逐次NoOriginal，96损坏结构明确拒绝。专用SDK状态见[本批TGA](TEXTURE_TGA_METADATA.md)；BMP新DIB/ICC探针另见[后续入口](TEXTURE_BMP_HEADERS_NEXT.md)，尚未扩大BMP生产支持。
+TGA非零标准metadata已完成组件与完整消费：原版12480输入的26类尾部字段均不改变完整RGBA/hasAlpha/尺寸；共享有界结构验证支持developer、gamma/alpha、scanline/correction/stamp、chained及坐标，旧DevIL/RLE边界保留。a928f981/40795326615的19组通过、22组复用，D/R各24960直接调用及47248插件输入/同量逐次NoOriginal，96损坏结构明确拒绝。专用SDK状态见[本批TGA](TEXTURE_TGA_METADATA.md)；BMP新DIB/ICC探针51189674/40799686293已completed/success并完成独立归档审计：2616输入/5232调用，49个重复不稳定反例，扩展DIB的24/32-bit BI_BITFIELDS整组192输入隔离；792个metadata与plain完整输出相等。仍为probe-only，尚未扩大BMP生产支持，具体分类及下一步见[后续入口](TEXTURE_BMP_HEADERS_NEXT.md)。
 
 ## 唯一目标：Win32 / PC
 

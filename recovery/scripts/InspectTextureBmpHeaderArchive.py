@@ -23,7 +23,8 @@ def audit(root, run, source):
     archive = (directory / 'samples.zip').read_bytes()
     assert sha(archive) == receipt['samplesSha256']
     summary, errors = defaultdict(Counter), Counter()
-    totals = Counter()
+    totals, classifications = Counter(), Counter()
+    unstable_labels = []
     with zipfile.ZipFile(io.BytesIO(archive)) as files:
         names = set(files.namelist())
         assert len(files.namelist()) == len(names)
@@ -31,13 +32,16 @@ def audit(root, run, source):
         rows = list(csv.DictReader(io.StringIO(transcript.decode('utf-8-sig')), delimiter='\t'))
         external = list(csv.DictReader((directory / 'transcript.tsv').open(encoding='utf-8-sig'), delimiter='\t'))
         assert rows == external and len(rows) == len({r['label'] for r in rows}) == receipt['fixtureCount'] == 2616
+        expected_names = {'transcript.tsv'}
         for row in rows:
             label = row['label']
+            expected_names.add(label + '.bmp')
             assert sha(files.read(label + '.bmp')) == row['inputSha256']
             decoded = not row['error']
             same = row['candidateEqual'] == 'True'
             assert row['candidateEqual'] in ('True', 'False')
             if decoded:
+                expected_names.add(label + '.rgba')
                 original = files.read(label + '.rgba')
                 assert sha(original) == row['sha256']
                 assert len(original) == int(row['bytes']) == 4 * int(row['width']) * int(row['height'])
@@ -50,11 +54,14 @@ def audit(root, run, source):
             assert row['originalStable'] in ('True', 'False')
             totals['stableOriginals' if stable else 'unstableOriginals'] += 1
             if row['repeatSha256']:
+                expected_names.add(label + '.repeat.rgba')
                 repeated = files.read(label + '.repeat.rgba')
                 assert sha(repeated) == row['repeatSha256'] and not row['repeatError']
                 assert len(repeated) == int(row['repeatBytes']) == 4 * int(row['repeatWidth']) * int(row['repeatHeight'])
+                totals['repeatRgbaBytes'] += len(repeated)
             else:
                 assert row['repeatError'] and label + '.repeat.rgba' not in names
+                assert int(row['repeatBytes']) == int(row['repeatWidth']) == int(row['repeatHeight']) == 0
             actual_stable = row['error'] == row['repeatError']
             if decoded:
                 actual_stable = actual_stable and bool(row['repeatSha256']) and all(row[a] == row[b] for a, b in [('width','repeatWidth'),('height','repeatHeight'),('hasAlpha','repeatHasAlpha')])
@@ -64,8 +71,18 @@ def audit(root, run, source):
                 actual_stable = actual_stable and not row['repeatSha256']
             assert stable == actual_stable
             if not stable:
+                unstable_labels.append(label)
                 summary['unstable:' + '/'.join(row[k] for k in ('dib', 'depth', 'compression', 'topDown'))]['inputs'] += 1
+            # A matching pair does not prove determinism for a family with observed
+            # counterexamples. Preserve all its inputs as uncertain, including pairs
+            # that happened to match in this one process.
+            uncertain_family = row['dib'] in ('52', '56', '108', '124') and row['depth'] in ('24', '32') and row['compression'] == '3'
+            classification = ('uncertain-family/' + ('repeat-equal' if stable else 'repeat-different')
+                              if uncertain_family else 'repeat-equal/' + ('decoded' if decoded else 'rejected'))
+            assert stable or uncertain_family, ('New unstable family requires review', label)
+            classifications[classification] += 1
             if row['candidateSha256']:
+                expected_names.add(label + '.candidate.rgba')
                 candidate = files.read(label + '.candidate.rgba')
                 assert sha(candidate) == row['candidateSha256'] and not row['candidateError']
                 totals['candidateRgbaBytes'] += len(candidate)
@@ -88,9 +105,27 @@ def audit(root, run, source):
         assert totals['stableOriginals'] == receipt['stableOriginals']
         assert totals['unstableOriginals'] == receipt['unstableOriginals']
         assert receipt['originalCalls'] == 5232
+        assert names == expected_names, 'Missing or unexpected archive members'
+        by_label = {row['label']: row for row in rows}
+        metadata_baselines = Counter()
+        for row in rows:
+            if row['profile'] == 'plain':
+                continue
+            baseline_label = row['label'][:-len(row['profile'])] + 'plain'
+            baseline = by_label[baseline_label]
+            assert row['originalStable'] == baseline['originalStable'] == 'True'
+            for field in ('width', 'height', 'hasAlpha', 'bytes', 'sha256', 'error'):
+                assert row[field] == baseline[field], (row['label'], 'metadata baseline', field)
+            assert not row['error']
+            assert files.read(row['label'] + '.rgba') == files.read(baseline_label + '.rgba')
+            metadata_baselines[row['profile']] += 1
+        assert sum(metadata_baselines.values()) == 792
     return dict(scope='independent immutable BMP archive audit; probe-only, no production acceptance',
                 sourceCommit=source, runId=run, archiveSha256=receipt['samplesSha256'],
                 fixtures=len(rows), originalCalls=receipt['originalCalls'], totals=dict(totals),
+                classifications=dict(classifications), unstableLabels=unstable_labels,
+                fullByteMetadataBaselineComparisons=dict(metadata_baselines),
+                determinismLimit='Two consecutive calls in one process only; repeat-equal is not a cross-process determinism proof. Extended-DIB 24/32-bit BI_BITFIELDS is quarantined as a whole family.',
                 groups={k: dict(v) for k, v in sorted(summary.items())}, originalErrors=dict(errors))
 
 
