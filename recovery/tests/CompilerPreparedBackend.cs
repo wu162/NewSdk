@@ -598,7 +598,9 @@ public static class CompilerPreparedBackend
                     else
                     {
                         ((XmlElement)declaration.Node).SetAttribute("NumFrames","65536");((XmlElement)declaration.Node).SetAttribute("FrameRate","30");
-                        declaration.Node.InnerXml="<Channels xmlns='uri:ea.com:eala:asset'><ChannelScalar Type='XTranslation' TypeId='"+
+                        // Keep the substantial native allocation/serialization,
+                        // without the unrelated quadratic key-reduction search.
+                        declaration.Node.InnerXml="<CompressionSettings xmlns='uri:ea.com:eala:asset' AllowAdaptiveDelta='false' MaxTranslationError='-1' ForceReductionRate='1'/><Channels xmlns='uri:ea.com:eala:asset'><ChannelScalar Type='XTranslation' TypeId='"+
                             (!cancel && i==0?"0":"1355976437")+"' Pivot='0' FirstFrame='0'><Frame>0</Frame><Frame>1</Frame></ChannelScalar></Channels>";
                     }
                     Metadata(declaration,selected);

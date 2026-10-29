@@ -199,6 +199,10 @@ public class OutputManager
 		}
 		else
 		{
+			// One physical asset may be discovered in distinct included documents.
+			// Finish its earlier owner operation before replacing its declaration.
+			var execution = _DocumentProcessor.AssetExecution;
+			if (execution != null && execution.HasPending) execution.FlushAsset(value);
 			value.Instance = instance;
 		}
 		if (isOutputAsset && !value.IsOutputAsset)

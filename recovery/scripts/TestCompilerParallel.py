@@ -43,6 +43,11 @@ def fixture(repo, mod):
         shutil.copy2(apt / name, data / name)
     root = ET.parse(data / 'Mod.xml')
     includes = root.getroot().find('{%s}Includes' % NS)
+    # Distinct documents may legally repeat the same physical asset. Put the
+    # duplicate immediately after its source, while its hierarchy can be pending.
+    shutil.copy2(data / 'Dependencies.xml', data / 'DuplicateDependencies.xml')
+    source_index = next(i for i, node in enumerate(includes) if node.get('source') == 'Dependencies.xml')
+    includes.insert(source_index+1, ET.Element('{%s}Include' % NS, {'type':'all','source':'DuplicateDependencies.xml'}))
     for name in ('ParallelAudio.xml', 'FixturesApt.xml'):
         ET.SubElement(includes, '{%s}Include' % NS, {'type': 'all', 'source': name})
     # Repeated include exercises the pending-document reuse barrier.
@@ -89,6 +94,9 @@ def run(args):
             need(len(result) >= 8, 'Mixed fixture omitted stream or Audio CDATA')
             parallel = body['cache']['parallel']
             need(parallel['backendCalls'] == body['cache']['instanceCompile'], 'Reported backend call count differs from actual Core compile count')
+            if name.startswith('sc') and '-hot' not in name:
+                need(parallel['backendCallsByType'].get('W3DHierarchy') == 1 and parallel['backendCallsByType'].get('Texture') == 1,
+                     'Identical assets in distinct documents were compiled more than once')
             if name.startswith('sc') and '-hot' not in name and jobs != '1' and parallel['minimumEffectiveJobs'] > 1:
                 need(parallel['prepareMs'] > 0 and parallel['maxBackendConcurrency'] > 1,
                      'Production misses admitted workers but executed no real overlapping backend calls')

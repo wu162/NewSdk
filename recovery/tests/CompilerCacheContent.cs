@@ -163,7 +163,7 @@ public static class CompilerCacheContent
         if (identityProvider)
         {
             var type = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileHashCache", true);
-            object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { Path.Combine(work, "receipts") }, null);
+            object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { Path.Combine(work, "receipts"), null }, null);
             Settings.Current.FileIdentity = (Func<string, FileHashInfo>)Delegate.CreateDelegate(typeof(Func<string, FileHashInfo>), hashes, type.GetMethod("CoreIdentity", BindingFlags.NonPublic | BindingFlags.Instance));
             var stamp = type.GetMethod("SchemaIdentities", BindingFlags.NonPublic | BindingFlags.Instance);
             Settings.Current.SchemaFileIdentities = (Func<IEnumerable<string>, IDictionary<string, string>>)Delegate.CreateDelegate(typeof(Func<IEnumerable<string>, IDictionary<string, string>>), hashes, stamp);

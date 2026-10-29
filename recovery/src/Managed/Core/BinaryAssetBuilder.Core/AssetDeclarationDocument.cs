@@ -1077,15 +1077,16 @@ public class AssetDeclarationDocument : IXmlSerializable
 					var declaration = selfInstance;
 					string sourcePath = _Current.SourcePath;
 					Action verify = () => processor.InDocumentContext(sourcePath, () => VerifyInstance(binaryAsset, declaration));
-					Action<AssetLocation> committed = source => processor.InDocumentContext(sourcePath, () => {
-						processor.RecordExecutionCommit(source);
-						RecordCommit(binaryAsset, declaration, source);
+					Action<AssetLocation> commit = source => processor.InDocumentContext(sourcePath, () => {
+						AssetLocation actual = binaryAsset.Commit(source);
+						processor.RecordExecutionCommit(actual);
+						RecordCommit(binaryAsset, declaration, actual);
 					});
 					if (location == AssetLocation.None)
 						execution.Enqueue(binaryAsset, declaration, processor.Plugins.GetPlugin(declaration.Handle.TypeId),
-							() => CompileInstance(binaryAsset, declaration), verify, committed);
+							() => CompileInstance(binaryAsset, declaration), verify, commit);
 					else
-						execution.EnqueueCached(() => processor.InDocumentContext(sourcePath, () => { VerifyInstance(binaryAsset, declaration); committed(binaryAsset.Commit(location)); }));
+						execution.EnqueueCached(binaryAsset, () => { verify(); commit(location); });
 					continue;
 				}
 				if (location == AssetLocation.None)
@@ -1105,17 +1106,13 @@ public class AssetDeclarationDocument : IXmlSerializable
 	{
 		var processor = _Current.DocumentProcessor;
 		if (source == AssetLocation.Cache)
-					processor.RecordBuildCacheUse(true);
-				else if (source == AssetLocation.Memory && Settings.Current.BuildCache && processor.Plugins.GetExtendedTypeInformation(declaration.Handle.TypeId).UseBuildCache)
-					processor.RecordBuildCacheUse(false);
-				if (source != AssetLocation.BasePatchStream)
-				{
-					processor.AddLastWrittenAsset(binaryAsset);
-				}
-				if (!declaration.IsInheritable)
-				{
-					declaration.XmlNode = null;
-				}
+			processor.RecordBuildCacheUse(true);
+		else if (source == AssetLocation.Memory && Settings.Current.BuildCache && processor.Plugins.GetExtendedTypeInformation(declaration.Handle.TypeId).UseBuildCache)
+			processor.RecordBuildCacheUse(false);
+		if (source != AssetLocation.BasePatchStream)
+			processor.AddLastWrittenAsset(binaryAsset);
+		if (!declaration.IsInheritable)
+			declaration.XmlNode = null;
 	}
 
 	private void CountCommitSource(AssetLocation commitSource, ref int instancesCompiledCount, ref int instancesCopiedFromCacheCount)
@@ -1168,7 +1165,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 		IAssetBuilderPlugin plugin = _Current.DocumentProcessor.Plugins.GetPlugin(asset.Instance.Handle.TypeId);
 		_Current.DocumentProcessor.RecordInstanceCompile();
 		using (Settings.Current.MeasurePerformance == null ? null : PerformanceScope.Measure("core.compiler." + declaration.Handle.TypeName))
-			asset.Buffer = plugin.ProcessInstance(asset.Instance);
+			asset.Buffer = _Current.DocumentProcessor.AssetExecution == null
+				? plugin.ProcessInstance(asset.Instance)
+				: _Current.DocumentProcessor.AssetExecution.ExecuteCompatibility(plugin, asset.Instance);
 		_Current.DocumentProcessor.AddCompileTime(asset.Instance.Handle, DateTime.Now - now);
 	}
 

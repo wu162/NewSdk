@@ -96,7 +96,7 @@ namespace NewModCompiler.Application
             internal Task<AssetBuffer> Worker;
             internal AssetBuffer Buffer;
             internal Action Verify, Cached;
-            internal Action<AssetLocation> Committed;
+            internal Action<AssetLocation> Commit;
             internal string Directory;
             internal long WorkTicks;
             internal bool MetricsMerged;
@@ -130,22 +130,35 @@ namespace NewModCompiler.Application
         bool Fits(long bytes) { return bytes>=0 && retained<=budget && bytes<=budget-retained; }
         long Start() { return metrics.Enabled ? Stopwatch.GetTimestamp() : 0; }
         long Elapsed(long start) { return metrics.Enabled ? Stopwatch.GetTimestamp()-start : 0; }
-        public void EnqueueCached(Action commit)
+        public void EnqueueCached(BinaryAsset asset,Action commit)
         {
             Check();
             // No cloning, file access or resource sampling for cache hits.
             while(pending.Count>=capacity) CommitOne();
-            pending.Enqueue(new Pending {Sequence=++sequence,Cached=commit});
+            pending.Enqueue(new Pending {Sequence=++sequence,Asset=asset,Cached=commit});
+        }
+        public void FlushAsset(BinaryAsset asset)
+        {
+            Check();
+            bool found=false;
+            foreach (Pending item in pending) if (Object.ReferenceEquals(item.Asset,asset)) {found=true;break;}
+            if (!found) return;
+            // Commit only through the matching operation in discovery order.
+            // Later independent documents can keep their workers in flight.
+            while (pending.Count>0) {
+                bool target=Object.ReferenceEquals(pending.Peek().Asset,asset);
+                CommitOne(); if (target) return;
+            }
         }
         public void Enqueue(BinaryAsset asset,InstanceDeclaration declaration,IAssetBuilderPlugin plugin,
-            Action compileCompatibility,Action verify,Action<AssetLocation> committed)
+            Action compileCompatibility,Action verify,Action<AssetLocation> commit)
         {
             Check(); Refresh();
-            if(capacity<=1) { Compatibility(declaration,compileCompatibility,verify,committed,asset,"resource-capacity"); return; }
+            if(capacity<=1) { Compatibility(declaration,compileCompatibility,verify,commit,asset,"resource-capacity"); return; }
             plugin=BuiltinCompilers.ResolveBackendPlugin(plugin);
             string eligibilityReason;
             if (!PreparedBackendWork.CanPrepare(declaration,plugin,out eligibilityReason)) {
-                Compatibility(declaration,compileCompatibility,verify,committed,asset,eligibilityReason); return;
+                Compatibility(declaration,compileCompatibility,verify,commit,asset,eligibilityReason); return;
             }
             long estimate=PreparedBackendWork.EstimatePreparationBytes(declaration);
             while(pending.Count>0 && (pending.Count>=capacity || !Fits(estimate))) CommitOne();
@@ -154,15 +167,15 @@ namespace NewModCompiler.Application
             long start=Start(); bool accepted;
             try { accepted=PreparedBackendWork.TryPrepareWithReason(declaration,plugin,budget/2,out prepared,out reason); }
             finally { metrics.PreparationTicks+=Elapsed(start); }
-            if(!accepted) { Compatibility(declaration,compileCompatibility,verify,committed,asset,reason); return; }
-            var task=new Pending {Asset=asset,Declaration=declaration,Prepared=prepared,Verify=verify,Committed=committed,Sequence=++sequence};
+            if(!accepted) { Compatibility(declaration,compileCompatibility,verify,commit,asset,reason); return; }
+            var task=new Pending {Asset=asset,Declaration=declaration,Prepared=prepared,Verify=verify,Commit=commit,Sequence=++sequence};
             bool enqueued=false;
             try {
                 Refresh();
                 while(pending.Count>0 && (pending.Count>=capacity || !Fits(prepared.PreparedBytes))) CommitOne();
                 if(!prepared.CanRunParallel || capacity<=1 || prepared.PreparedBytes>budget/2 || !Fits(prepared.PreparedBytes)) {
                     prepared.Dispose(); task.Prepared=null;
-                    Compatibility(declaration,compileCompatibility,verify,committed,asset,"resource-budget"); return;
+                    Compatibility(declaration,compileCompatibility,verify,commit,asset,"resource-budget"); return;
                 }
                 if(declaration.HasCustomData) {
                     task.Directory=Path.Combine(staging,"backend-work",task.Sequence.ToString("D8")); Directory.CreateDirectory(task.Directory);
@@ -176,13 +189,20 @@ namespace NewModCompiler.Application
             }
             finally { if(!enqueued && task.Prepared!=null) task.Prepared.Dispose(); }
         }
-        void Compatibility(InstanceDeclaration declaration,Action compile,Action verify,Action<AssetLocation> committed,BinaryAsset asset,string reason)
+        void Compatibility(InstanceDeclaration declaration,Action compile,Action verify,Action<AssetLocation> commit,BinaryAsset asset,string reason)
         {
             metrics.Fallback(reason); Flush(); cancellation.ThrowIfCancellationRequested();
-            long ticks;
-            metrics.Execute(declaration.Handle.TypeName,() => { compile(); return asset.Buffer; },out ticks);
-            long start=Start(); try { verify(); committed(asset.Commit(AssetLocation.Memory)); } finally { metrics.CommitTicks+=Elapsed(start); }
+            compile();
+            long start=Start(); try { verify(); commit(AssetLocation.Memory); } finally { metrics.CommitTicks+=Elapsed(start); }
             committedSequence=sequence;
+        }
+        public AssetBuffer ExecuteCompatibility(IAssetBuilderPlugin plugin,InstanceDeclaration declaration)
+        {
+            // Called at Core's actual ProcessInstance boundary, after setup.
+            // Failed setup must not be reported as an executed backend call.
+            if (!metrics.Enabled) return plugin.ProcessInstance(declaration);
+            long ticks;
+            return metrics.Execute(declaration.Handle.TypeName,() => plugin.ProcessInstance(declaration),out ticks);
         }
         public void DeferCompletion(Action complete)
         {
@@ -218,7 +238,7 @@ namespace NewModCompiler.Application
                             task.Declaration.CustomDataPath=target;
                         }
                         task.Asset.Buffer=task.Buffer;
-                        task.Verify(); task.Committed(task.Asset.Commit(AssetLocation.Memory));
+                        task.Verify(); task.Commit(AssetLocation.Memory);
                     }
                     committedSequence=task.Sequence;
                 } finally {metrics.CommitTicks+=Elapsed(start);}

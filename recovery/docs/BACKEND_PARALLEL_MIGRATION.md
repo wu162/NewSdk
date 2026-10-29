@@ -32,3 +32,11 @@
 复查首批计量发现 `fallbackByReason.uncertified-plugin=30`、prepareMs=0、实际峰值=1：目标分支的 LazyPlugin 包装器使精确类型门禁看不到真实插件。首批生产52用例只证明字节/缓存，不能当作生产并发证明；XML组件的真实重叠也不能替代生产接线。已加入 owner-only `BuiltinCompilers.ResolveBackendPlugin`，仅在确认缓存未命中且资源允许时解包已知内建惰性包装器，再按真实实现执行同一精确资格门禁。保持热态原惰性优化，worker不访问包装器/注册表。
 
 生产矩阵新增 actual overlap 和八个认证类型的真实 worker 线程断言（资源始终允许时）；否则拒绝验收。`15b26f4f` / Windows 40912075609 是解包修正前候选，后续终态会保留但不作为最终并发验收。没有取消或掩盖旧运行。
+
+### 完整 owner 提交合同及最终候选
+
+补齐两个实质异步边界：OutputManager 在复用同一 BinaryAsset 对象、替换 declaration 前，仅按发现顺序提交到该资产，后面的独立任务继续在途；缓存提交占位也参与此身份屏障。actual Commit 由捕获原文档上下文的 owner 回调执行，随后更新原缓存计数和 LastWrittenAsset；BinaryAsset 的 Commit(location) 恢复原 internal 可见性，无新的结果授权或身份链。
+
+兼容调用计量移到 Core 真正调用 ProcessInstance 的边界，准备/路径失败不虚计 backendCalls；worker 故障/取消的实际调用均在安全 join 后合并。新增不同文档的同内容资产夹具，断言原 Texture/Hierarchy 只编译一次。旧 FileHashCache 反射测试两个构造点均匹配现有可选参数；drain 测试保留65536帧 native 分配/序列化，关闭与调度目标无关的二次方 key reduction 搜索，不削弱故障/取消/释放/性能计数断言。
+
+`3d655274` / Windows [40912889949](https://github.com/wu162/NewSdk/actions/runs/40912889949) 已通过要求真实 worker/overlap 的混合生产矩阵，但组件门槛仍失败，终态及日志继续保留；最终候选会统一重建，不借该组代替新版完整验收。

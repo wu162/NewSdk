@@ -8,4 +8,6 @@
 
 复查首批生产计量发现 LazyPlugin 包装器导致全部真实生产后端被精确类型门禁拒绝；已仅对未命中资产在 owner 解包真实内建插件，保留热态惰性优化，并新增生产真实 worker/重叠断言。15b26f4f / 40912075609 运行属于该修正前候选，不能作为最终并发证明。
 
+3d655274 / 40912889949 已通过新增真实 worker/重叠断言的生产矩阵；最新候选另补同资产在途复用屏障、完整 owner 提交上下文、实际兼容调用计量，以及有界 native drain 测试配置，等待统一重建验收。
+
 主代理继续统一修复、完整验证及同机 Upheaval jobs1/4/auto 冷/热/单资产修改对照；性能脚本只在功能验收成功后启动，不复用旧 EXE 冒充新生产源码。详细状态与证据写在 [BACKEND_PARALLEL_MIGRATION.md](docs/BACKEND_PARALLEL_MIGRATION.md)，参数见 [COMPILER_USAGE.md](COMPILER_USAGE.md)，计量协议见 [PERFORMANCE.md](docs/PERFORMANCE.md)。旧缓存性能的历史入口为 [MOD_SCALE_TIMINGS.md](docs/MOD_SCALE_TIMINGS.md)，历史 Windows 40890949858 的冷75.286s/热2.864s不能代替新同机对照。
