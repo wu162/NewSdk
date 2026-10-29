@@ -64,7 +64,13 @@ namespace NewModCompiler.Application
                 if (Paths.Contains(sdkRoot, outputRoot) || Paths.Contains(outputRoot, sdkRoot) || Paths.Contains(modRoot, outputRoot) || Paths.Contains(outputRoot, modRoot))
                     throw new BuildFailure(ExitCode.Arguments, "CORE_OUTPUT_OVERLAP", "Core output must be separate from SDK and MOD inputs.");
                 LoadSdkConfiguration();
-                ReadSettings(); // Validate the real serialized contract before accepting the session.
+                Settings configured = ReadSettings();
+                EffectiveOption configuredCache;
+                if (!request.Options.TryGetValue("bc", out configuredCache) || configuredCache.Source == "default" || configuredCache.Source == "sdkConfig")
+                {
+                    buildCacheEnabled = configured.BuildCache;
+                    request.Options["bc"] = new EffectiveOption { Value = buildCacheEnabled ? "true" : "false", Source = "sdkConfig" };
+                }
                 this.request = request;
                 lock (LeaseGate) { initialized = true; initializing = false; }
             }
@@ -207,7 +213,7 @@ namespace NewModCompiler.Application
                 if (key == "el" && value == "0") continue;
                 int level;
                 if (key == "tl" && int.TryParse(value, out level) && level >= 0 && level <= 9) { traceLevel = level; continue; }
-                throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Experimental Core backend does not support option " + key + "=" + value + ". Compressed/partial/frozen session cache, precompiled, alternate output, reporting, configuration overrides and postprocessing options are not enabled.");
+                throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Core backend does not support option " + key + "=" + value + ". See CLI_COMPATIBILITY.md for the supported host and output options.");
             }
         }
 
@@ -232,7 +238,7 @@ namespace NewModCompiler.Application
             settings.OutputDirectory = Path.Combine(staging, "streams");
             settings.IntermediateOutputDirectory = RootOption("iod", outputRoot);
             settings.SessionCacheDirectory = Path.Combine(staging, "hashes");
-            settings.BuildCacheDirectory = RootOption("build-cache-directory", Path.Combine(outputRoot, "cache"));
+            settings.BuildCacheDirectory = RootOption("build-cache-directory", string.IsNullOrEmpty(settings.BuildCacheDirectory) ? Path.Combine(outputRoot, "cache") : Path.GetFullPath(settings.BuildCacheDirectory));
             settings.DefaultDataPaths = RootOption("data", () => Prepend(Path.Combine(modRoot, "Data"), settings.DefaultDataPaths));
             settings.DefaultArtPaths = RootOption("art", () => Prepend(Path.Combine(modRoot, "Art"), settings.DefaultArtPaths));
             settings.DefaultAudioPaths = RootOption("audio", () => Prepend(Path.Combine(modRoot, "Audio"), settings.DefaultAudioPaths));

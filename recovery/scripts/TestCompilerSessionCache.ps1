@@ -160,17 +160,26 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
         if(Test-Path -LiteralPath $events){Copy-Item -LiteralPath $events -Destination "$caseOut/build.events.jsonl"}
     }
 }
-function OriginalOracle($Case,[string]$Name){
+function OriginalOracle($Case,[string]$Name,$OriginalTextureInformation=$null,[string]$CacheExportDirectory=$null){
     $baseline=@();$index=0
     foreach($task in $Case.report.plan.Tasks){
         $outputs=@{};$prefix=$task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath)
-        foreach($key in $Case.files.Keys){if($key.Replace('\','/').StartsWith($prefix+'/',[StringComparison]::Ordinal)){$outputs[[IO.Path]::GetExtension($key).Substring(1)]=$Case.files[$key]}}
+        foreach($key in $Case.files.Keys){if($key.Replace('\','/').StartsWith($prefix+'/',[StringComparison]::Ordinal) -and [IO.Path]::GetExtension($key) -in @('.manifest','.bin','.imp','.relo')){$outputs[[IO.Path]::GetExtension($key).Substring(1)]=$Case.files[$key]}}
         Need ($outputs.Count -eq 4) 'Cache original oracle requires exact four files per task'
         $baseline+=,@{name=$(if($index++ -eq 0){'mod-a'}else{'mod-b'});modRoot=$Case.mod;inputPath=$task.InputPath;sdkRoot=$script:sdk;originalToolsRoot=(Join-Path $root 'SDK/tools');stagingDirectory=([IO.Path]::GetDirectoryName($outputs.manifest));outputs=$outputs;expectedTextures=@();scope='Current session-cache fixture, strict original BAB raw four-output comparison; no normalization'}
     }
+    if($OriginalTextureInformation){
+        Need ($baseline.Count -eq 1) 'Texture oracle requires one task'
+        $baseline[0].originalTextureInformation=$OriginalTextureInformation
+        $baseline[0].expectedTextures=@()
+        $baseline[0].customOutputs=@()
+        foreach($file in @($Case.files.Values|Where-Object{[IO.Path]::GetExtension($_) -ceq '.cdata'})){
+            $baseline[0].customOutputs+=,@{qualifiedName=($OriginalTextureInformation.TypeName+':SessionTexture');relativePath=([IO.Path]::GetFileNameWithoutExtension($baseline[0].outputs.manifest)+'/cdata/'+[IO.Path]::GetFileName($file));path=$file}
+        }
+    }
     $fixture=Join-Path $script:modeOut "$Name.json"
     @{succeeded=$true;sourceCommit=$script:state.sourceCommit;runId=$env:GITHUB_RUN_ID;baselineCases=$baseline;scope='Session-cache Armor/include/define/inheritance and file-backed APT stream; not full SDK'}|ConvertTo-Json -Depth 9|Set-Content $fixture
-    & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds -ExpectedCaseCount $baseline.Count
+    & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds -ExpectedCaseCount $baseline.Count -CacheExportDirectory $CacheExportDirectory
     Need ($LASTEXITCODE -eq 0) 'Build-cache independent original BAB oracle failed'
 }
 function Put([string]$Path,[string]$Text){New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($Path))|Out-Null;[IO.File]::WriteAllText($Path,$Text)}
@@ -382,11 +391,14 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         }
         $metadataExe=Join-Path $modeOut 'original-texture-metadata.exe'
         $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-        & $csc /nologo /platform:x86 /r:System.Web.Extensions.dll ("/out:"+$metadataExe) "$root/recovery/tests/CompilerLegacyCacheMetadata.cs" *> "$modeOut/texture-metadata-build.log"
+        $metadataSource=(Resolve-Path -LiteralPath (Join-Path $root 'recovery/tests/CompilerLegacyCacheMetadata.cs')).Path
+        & $csc /nologo /platform:x86 /r:System.Web.Extensions.dll ("/out:"+$metadataExe) $metadataSource *> "$modeOut/texture-metadata-build.log"
+        if($LASTEXITCODE -ne 0){Get-Content "$modeOut/texture-metadata-build.log" -Tail 40|Out-Host}
         Need ($LASTEXITCODE -eq 0) 'Original texture metadata probe did not compile'
         '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0"/></startup></configuration>'|Set-Content "$metadataExe.config"
         Need ((Hash "$root/SDK/tools/BinaryAssetBuilder.TextureCompiler.dll") -ceq '4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e') 'Original Texture metadata DLL identity changed'
         & $metadataExe "$root/SDK/tools" "$modeOut/original-texture-metadata.json" *> "$modeOut/texture-metadata.log"
+        if($LASTEXITCODE -ne 0){Get-Content "$modeOut/texture-metadata.log" -Tail 40|Out-Host}
         Need ($LASTEXITCODE -eq 0) 'Original texture metadata probe failed'
         $textureMetadata=Get-Content "$modeOut/original-texture-metadata.json" -Raw|ConvertFrom-Json
         # All original texture providers now participate in session reuse.
@@ -409,6 +421,7 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
             $textureChanged=RunCli ($type+'-session-invalidated') $textureMod $textureOut $true;Cache $textureChanged 'incremental';DifferentOutputs $textureHot $textureChanged
             $textureChangedPlain=RunCli ($type+'-changed-disabled') $textureMod $texturePlainOut $false;SameOutputs $textureChangedPlain $textureChanged
             $textureChangedHot=RunCli ($type+'-changed-hot') $textureMod $textureOut $true;Cache $textureChangedHot 'hot';SameOutputs $textureChangedPlain $textureChangedHot
+            OriginalOracle $textureChangedHot ($type+'-original-mutated') $textureMetadata.$type
             $textureBuildOut=$textureOut+'-build'
             $textureBuildCold=RunCli ($type+'-build-cold') $textureMod $textureBuildOut $false -BuildEnabled $true;SameOutputs $textureChangedPlain $textureBuildCold
             Need ($textureBuildCold.report.cache.hits -eq 0 -and $textureBuildCold.report.cache.misses -gt 0) 'Texture build cache did not record actual cold misses'
@@ -449,6 +462,20 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         Need ((Test-Path -LiteralPath (Join-Path $sessionDirectory 'BinaryAssetBuilder.SessionCache.xml.deflate')) -and @(Get-ChildItem -LiteralPath $buildDirectory -Filter '*.asset' -File -Recurse).Count -gt 0 -and @(Get-ChildItem -LiteralPath $intermediateDirectory -Filter '*.asset' -File -Recurse).Count -gt 0) 'scd/bcd/iod did not use independent original directories'
         $aliases=RunCli 'original-cache-directory-aliases' $optionsMod ($optionsOut+'-aliases') $true -OriginalDefaults -Extra @(('/scp:'+$sessionDirectory),('/bcp:'+$buildDirectory),('/iod:'+$intermediateDirectory));SameOutputs $editedPlain $aliases
         Need ($aliases.report.cache.documentReuse -gt 0 -and $aliases.report.cache.instanceCompile -eq 0) 'scp/bcp did not reuse the same original directories'
+        $configPath=Join-Path $sdk 'tools/BinaryAssetBuilder.exe.config';$configBytes=[IO.File]::ReadAllBytes($configPath)
+        try{
+            [xml]$cacheConfig=[IO.File]::ReadAllText($configPath);$section=$cacheConfig.SelectSingleNode('/configuration/assetbuilder')
+            $configuredAssets=Join-Path $modeWork 'configured-assets';$section.SetAttribute('buildCache','false');$section.SetAttribute('buildCacheRoot',$configuredAssets);$cacheConfig.Save($configPath)
+            $configured=RunCli 'original-sdk-cache-config' $optionsMod ($optionsOut+'-config') $true -OriginalDefaults;SameOutputs $editedPlain $configured
+            Need ($configured.report.effectiveOptions.bc.Value -ceq 'false' -and $configured.report.effectiveOptions.bc.Source -ceq 'sdkConfig' -and $configured.report.cache.hits -eq 0 -and $configured.report.cache.misses -eq 0) 'Original SDK buildCache setting did not override its factory default'
+            $configuredOverride=RunCli 'original-sdk-cache-config-cli-override' $optionsMod ($optionsOut+'-config-cli') $true -OriginalDefaults -Extra @('--bc=true');SameOutputs $editedPlain $configuredOverride
+            Need ($configuredOverride.report.effectiveOptions.bc.Value -ceq 'true' -and $configuredOverride.report.effectiveOptions.bc.Source -ceq 'commandLine' -and @(Get-ChildItem -LiteralPath $configuredAssets -Filter '*.asset' -File -Recurse).Count -gt 0) 'CLI did not override buildCache or SDK buildCacheRoot was ignored'
+        }finally{[IO.File]::WriteAllBytes($configPath,$configBytes)}
+        $rawExport=Join-Path $modeWork 'original-bab-cache'
+        OriginalOracle $editedPlain 'original-cache-export' -CacheExportDirectory $rawExport
+        $raw=Join-Path $rawExport 'mod-a'
+        $imported=RunCli 'original-bab-cache-import' $optionsMod ($optionsOut+'-original') $true -OriginalDefaults -Extra @(('/scd:'+(Join-Path $raw 'session')),('/bcd:'+(Join-Path $raw 'cache')),('/iod:'+(Join-Path $raw 'intermediate')));SameOutputs $editedPlain $imported
+        Need ($imported.report.cache.documentReuse -gt 0 -and $imported.report.cache.instanceCompile -eq 0) 'Production did not reuse the actual original BAB session and intermediate assets'
         # Complete one included document before a guaranteed later XML failure.
         $partialMod=Join-Path $modeWork 'partial';MakeMod $partialMod $probe
         Put "$partialMod/Data/Mod.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes><Include type="all" source="Armor.xml"/><Include type="all" source="Broken.xml"/></Includes></AssetDeclaration>'

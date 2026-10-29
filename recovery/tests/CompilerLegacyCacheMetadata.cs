@@ -16,16 +16,17 @@ public static class CompilerLegacyCacheMetadata
             var core = Assembly.LoadFrom(Path.Combine(args[0], "BinaryAssetBuilder.Core.dll"));
             var texture = Assembly.LoadFrom(Path.Combine(args[0], "BinaryAssetBuilder.TextureCompiler.dll"));
             var pluginType = texture.GetType("BinaryAssetBuilder.TextureCompiler.Plugin", true);
+            var api = core.GetType("BinaryAssetBuilder.Core.IAssetBuilderPlugin", true);
             object plugin = Activator.CreateInstance(pluginType);
             var result = new Dictionary<string, object>();
             try
             {
                 object platform = Enum.Parse(core.GetType("BinaryAssetBuilder.Core.TargetPlatform", true), "Win32");
-                pluginType.GetMethod("Initialize").Invoke(plugin, new object[] {null, platform});
+                api.GetMethod("Initialize").Invoke(plugin, new object[] {null, platform});
                 foreach (string name in new[] {"Texture", "OnDemandTexture", "TerrainTextureAtlas"})
                 {
                     object id = core.GetType("BinaryAssetBuilder.Core.InstanceHandle", true).GetMethod("GetTypeId").Invoke(null, new object[] {name});
-                    object information = pluginType.GetMethod("GetExtendedTypeInformation").Invoke(plugin, new object[] {id});
+                    object information = api.GetMethod("GetExtendedTypeInformation").Invoke(plugin, new object[] {id});
                     var fields = new Dictionary<string, object>();
                     foreach (string field in new[] {"TypeName", "TypeId", "TypeHash", "ProcessingHash", "HasCustomData"})
                         fields[field] = information.GetType().GetField(field).GetValue(information);

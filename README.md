@@ -21,8 +21,8 @@
 `--mod` 指向 MOD 文件夹。默认自动发现 base、APT UI、全局元数据，输出 BIG + SKUDEF；开发模式 `--profile development` 默认 loose。`--package-content global-metadata` 兼容旧名 `maps`。成功构建的最终文件位于输出根下 `published`，默认 BIG/SKUDEF 名称为 `<MOD目录名>_1.0`。构建同时输出日志、JSONL 事件及最终报告，适合后续界面调用；不启动旧 GUI 或 BAB 子进程。
 
 - `--mod-version 2.7-beta`、`--game-version 1.12`、`--skudef-name ExampleLauncher`：设置 BIG/SKUDEF 身份，默认值保持旧脚本行为。
-- `/bc:true`：启用构建资产缓存，默认关闭。
-- `/sc:true`：启用会话缓存，默认关闭；含混合 Texture 的流明确拒绝此选项。
+- `/bc:true|false`：构建资产缓存默认开启，保留原 SDK 类型/实例哈希布局。
+- `/sc:true|false`：会话缓存默认开启，三种 Texture 路由可复用；`/csc`、`/psc` 默认 true，`/fsc`、`/atc` 默认 false。
 - `--include-additional=false`：BIG 默认自动包含 SDK/Additional，再由 MOD/Additional 覆盖；使用 false 可关闭，排除 `.asset`，覆盖冲突记录警告。
 - `--fix-neutral-assets=true`：仅 base BIG 可用的显式中立修复；默认关闭，要求已有完整 Worldbuilder 参考四文件，缺失时报错。
 
@@ -32,6 +32,6 @@
 
 核心编译、单进程 base/apt/maps、日志/协议、构建与会话缓存、默认 BIG/SKUDEF、Additional、纯 C# MakeBig 入 EXE 和五文件包已有验收。中立修复已覆盖组件差分及生产零插入链，完整游戏插入不在已验证范围内。原工具的特定 LoD 来源表尾字节差异见 [说明](recovery/P7_LOD_ORIGINAL_TAIL.md)。
 
-AssetMerge 已按用户要求排除。WBData 下载、提取、读取器与依赖真实 WBData 的验收已取消，均不作为本次重构完成条件。完整 UI/runtime、中文纹理路径、混合纹理会话缓存仍有未覆盖范围。
+AssetMerge 已按用户要求排除。WBData 下载、提取、读取器与依赖真实 WBData 的验收已取消，均不作为本次重构完成条件。完整 UI/runtime、中文纹理路径仍有未覆盖范围；原 SDK 缓存完整恢复的当前验证状态见 [缓存说明](recovery/docs/LEGACY_INCREMENTAL_CACHE.md)。
 
-版本与必要旧参数已形成[明确合同](recovery/CLI_COMPATIBILITY.md)，LoD 对原工具越界采用完整表复制的确定性修复，专项与最终生产/ZIP验收已通过；不把这些未完成项目表述为全功能兼容。当前不支持的参数明确拒绝。压缩/部分/冻结会话缓存、旧缓存目录覆盖、预编译及替代输出/资产报告等选项尚未开放；并非每个旧 BAB 参数都已支持。开发续接见 [REFACTOR_RESUME](recovery/REFACTOR_RESUME.md)，历史实施设计见 [重构方案](recovery/NewSdk_ModCompiler_Refactor_Plan.md)。
+版本与必要旧参数已形成[明确合同](recovery/CLI_COMPATIBILITY.md)，LoD 对原工具越界采用完整表复制的确定性修复，专项与最终生产/ZIP验收已通过；不把这些未完成项目表述为全功能兼容。当前不支持的参数明确拒绝。压缩/部分/冻结会话、touch、原缓存目录和 `/iod` 已接入本分支；额外预编译及替代输出/资产报告等选项尚未开放；并非每个旧 BAB 参数都已支持。开发续接见 [REFACTOR_RESUME](recovery/REFACTOR_RESUME.md)，历史实施设计见 [重构方案](recovery/NewSdk_ModCompiler_Refactor_Plan.md)。

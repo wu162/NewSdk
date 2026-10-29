@@ -189,7 +189,7 @@ namespace NewModCompiler.Cli
         }
         public const string Help = "NewModCompiler build|plan --mod <directory> [--sdk-root <directory>] [--out <directory>] [--mod-version <version>]\n" +
             "Standard (default): auto-detect base, APT UI and global metadata; publish BIG + SKUDEF, including SDK then MOD Additional (excluding .asset). Empty MOD inputs fail.\n" +
-            "Development: --profile development defaults to loose streams for iteration. No cache settings are changed by profiles.\n" +
+            "Development: --profile development defaults to loose streams for iteration. All profiles use original SDK cache defaults: sc/bc/csc/psc=true, fsc/atc=false.\n" +
             "Advanced: --profile advanced uses standard defaults; --help-advanced lists compatibility controls. Explicit options override profile defaults.\n" +
             "Save sdk-root, out, profile and package settings in MOD/newmodcompiler.json; CLI overrides the project. SDK and output paths are required from CLI or project.\n" +
             "NewModCompiler doctor --sdk-root <directory>\n";
@@ -198,7 +198,7 @@ namespace NewModCompiler.Cli
             "Packaging: --package-format big|loose --include-additional=<true|false> --fix-neutral-assets=<true|false>\n" +
             "Identity: --mod-version <version> (1.0) --game-version <version> (1.12) --skudef-name <basename>\n" +
             "Compatibility: /ss:true /pc:true /slowclean:true are defaults; each accepts false. Win32 and linked streams are fixed runtime behavior; legacy /tp:Win32 and /ls:true remain accepted.\n" +
-            "Legacy input roots, diagnostics and supported BAB compatibility switches remain available; see CLI_COMPATIBILITY.md. Cache switches and defaults are unchanged.\n" +
+            "Cache: /sc /bc /csc /psc /fsc /atc accept true|false. /scd (/scp), /bcd (/bcp) and /iod select original session, asset and intermediate directories.\n" +
             "Additional overwrites compiled files and SDK files using old script precedence; conflicts emit warnings. Neutral repair is off by default and requires extracted reference streams. AssetMerge is not used.\n";
     }
 }

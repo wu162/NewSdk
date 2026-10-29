@@ -108,19 +108,20 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 
 稳定排序 `/ss`、预编译引用策略 `/pc` 和慢清理 `/slowclean` 默认开启，与旧编译脚本一致，通常不必手动填写；确有需要可分别传入 `/ss:false`、`/pc:false`、`/slowclean:false`。这些选项不依赖缓存开关。
 
-构建资产缓存和会话缓存默认关闭，可独立启用：
+本分支恢复原 SDK 缓存默认值：会话 `/sc`、资产 `/bc`、部分会话 `/psc`、压缩 `/csc` 均默认 true；冻结 `/fsc` 和始终 touch `/atc` 默认 false。SDK 配置中的 `buildCache` 和 `buildCacheRoot` 仍生效，显式命令行优先。旧 defaultscript 显式使用 `/csc:false`，可用相同参数输出 XML：
 
 ```powershell
-./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" --package-content base /bc:true /sc:true
+./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" /csc:false
+./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" /sc:false /bc:false
 ```
 
-`/bc` 复用合格的资产编译结果；`/sc` 恢复文档及 intermediate/CDATA 后重新生成链接输出。缓存位于输出根的 `.cache` 下，修改输入或参数会按缓存合同失效。中途失败和取消不得确认新缓存。
+`/sc` 按原文档、文件依赖、定义和继承复用解析与中间结果；`/bc` 按原类型/实例哈希复用资产，包括三种 Texture 路由。修改、新增、删除 MOD 输入均交由原 Core 判断，不再将整个 SDK/MOD 内容指纹作为冷失效开关。最终链接和发布仍重新执行。
 
-本分支恢复旧 SDK 的增量行为：修改 MOD 中已有文件后，Core 按文档和文件依赖重编译受影响内容，继续复用无关文档及资产，并在成功后保存最新会话。SDK、Schema、配置、实现、参数或输入布局变化保守地冷失效。详细边界及验证记录见 [增量缓存恢复说明](docs/LEGACY_INCREMENTAL_CACHE.md)。
+`/csc:false` 使用原 `BinaryAssetBuilder.SessionCache.xml`，true 使用 `.xml.deflate`。默认会话目录为输出根，默认资产目录为输出根 `cache`，默认中间目录与旧 SDK 一样为输出根。`/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod` 可指定独立目录，支持读取原 SDK 格式；新宿主的 CDATA 状态保存在会话根 `.NewModCompiler/cdata`，可导入没有新侧车的旧目录。以上设置也可保存到项目预设。
 
-含混合 Texture 的流目前不支持 `/sc:true`，改用 `/sc:false`；`/bc:true` 不表示贴图缓存已经开放。不要直接沿用旧 BAB 的缓存目录。需要清理时，在没有构建运行的情况下删除对应输出根的 `.cache` 即可，保留 `published` 可保留上一代产物。
+`/psc:true` 允许中止后保留已完成的会话工作，失败或取消仍返回失败/取消，且不发布部分 MOD。`/psc:false` 将会话更新跟随本次发布结果确认。`/fsc:true` 读取旧会话但不更新会话文件，资产与中间文件仍按原 Core 行为处理。`/atc:true` 即使复用中间资产也更新对应网络资产缓存文件的时间。详细实现与验证状态见 [原 SDK 缓存恢复说明](docs/LEGACY_INCREMENTAL_CACHE.md)。
 
-确需改变资源搜索位置时可使用 `/dr`、`/data`、`/art`、`/audio`。默认已前置 MOD 的相应资源目录；缓存启用时要求实际解析输入位于允许的 SDK、MOD 或编译器运行目录范围。旧参数支持范围见 [CLI 兼容表](CLI_COMPATIBILITY.md)。
+资源搜索 `/dr`、`/data`、`/art`、`/audio` 保留原根与顺序，包含配置的外部资源根。清理时可删除选定缓存目录中的会话 XML/Deflate、其 `.old`、资产文件及 `.NewModCompiler` 状态；保留 `published` 可保留上一代正式产物。
 
 ## 7. 日志、取消与自动化
 

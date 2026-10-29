@@ -149,6 +149,10 @@ jobs:
           ./recovery/scripts/TestCompilerCliOutputs.ps1 -OutputDirectory recovery/artifacts/cli-output-preflight
           if($LASTEXITCODE -ne 0){throw 'CLI output contract preflight failed'}
           ./recovery/scripts/BuildCompilerCliControl.ps1 -OutputDirectory recovery/artifacts/cli-controller-preflight
+          $metadataSource=(Resolve-Path -LiteralPath 'recovery/tests/CompilerLegacyCacheMetadata.cs').Path
+          $metadataExe=Join-Path $env:RUNNER_TEMP 'LegacyCacheMetadata.exe'
+          & "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe" /nologo /platform:x86 /r:System.Web.Extensions.dll ("/out:"+$metadataExe) $metadataSource
+          if($LASTEXITCODE -ne 0){throw 'Original cache metadata probe compilation failed before native linking'}
       - name: Build managed Foundation inputs
         if: ${{ env.CLI_REUSE != 'true' }}
         shell: pwsh
