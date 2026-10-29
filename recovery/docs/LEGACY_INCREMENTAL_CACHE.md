@@ -2,6 +2,20 @@
 
 本页记录缓存恢复与热态优化的行为、代码分工和验收范围；当前分支、准确源码及结果见 [续接入口](../RESUME.md)。旧阶段交接与验收在后文保留。
 
+
+## 第二轮热路径优化（验证中）
+
+本轮继续在 `recovery/legacy-sdk-cache` 修改，生产与测试来源 `447865078745c87188c7021e0b9a29761b4b1366`；Windows 验收尚未完成，不能用下方历史通过结果替代。
+
+- Schema 每轮按父目录批量采集文件身份；未变化的已编译闭包直接复用。新进程初次解析也复用 `.file-identities.json` 的已有收据，身份未变不重新计算 SHA256；身份变化时才核对内容。首次计算直接使用 XML 解析已读取的字节，不再为哈希另开文件。独立 Core 没有 Windows 身份提供器时保留内容校验。
+- 显式输入根的 CLI 预检结果与解析后的 SDK 配置由同一请求传给正式后端。后端按有效根、输出/诊断路径及 cwd 核对签名；边界变化重新检查。每个有效输出路径统一物理解析一次，相同根也合并解析。
+- 缓存实例保留已确认的 HasCustomData；输出可用时不准备 BuildCache 路径或重复强制查询输出。资产提交复用调用者已取得的位置，显式 `/atc` 仍执行 touch。
+- 链接四流查询与尺寸读取共用目录元数据。BIG 公共包复用不再先逐文件检查存在性后再次查询身份。
+- 发布收据 v2 用目录拓扑 stamp 与批量文件身份核对精确输出；目录 stamp 不能代替文件 ChangeTime。收据失效时，reparse 检查、文件集合枚举及尺寸读取合为一次树遍历。仅真正替换时创建准备/备份路径；失败、取消和必需输出故障继续使用原事务回滚。
+- 插件在 Initialize/ReInitialize 读取 trace 配置，保留原始成功差分捕获；删除 XML 插件重复 TypeId 自检和失败输入转储包装，异常直接保留。生成器同步到简化后的分派结构，元数据与编译器路由不变。
+
+文件身份优先用于缓存有效性，SHA256 不再作为热态文件检查的前置步骤；协议中的 SHA256 内容收据保留兼容。原始差分、冻结/部分会话、缓存缺损修复和真正替换失败的门槛不变。
+
 ## 本轮热态优化（2026-10-29，已验收）
 
 直接开发于 `recovery/legacy-sdk-cache`，生产与测试源码 `84261243`；完整构建/生产差分 [40845943601](https://github.com/wu162/NewSdk/actions/runs/40845943601) success。独立应用、完整生产矩阵、mymod 原始字节差分和独立五文件 ZIP 均通过；[原始收据摘要](../evidence/refactor/hot-cache/40845943601-1/summary.json) 保存归档哈希及来源。两配置热态 `xmlParse=0`、`instanceCompile=0`、`fileHashReads=0`、`fileHashBytesRead=0`、`publicationUnchanged=true`，会话/CDATAs 写时间保持不变。新旧 SDK 配对 [40848391545](https://github.com/wu162/NewSdk/actions/runs/40848391545) 也已 success，具体计量见 [SDK 对照](SDK_BENCHMARK.md)。

@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Web.Script.Serialization;
 using System.Xml;
 using BinaryAssetBuilder;
@@ -142,10 +143,15 @@ public static class CompilerCacheContent
                 schemas.ReloadIfChanged(false);
             Require(Object.ReferenceEquals(original, schemas.Schemas), "Unchanged identity must not open schema bodies, including after a metadata-only refresh");
         }
-        ReplacePreservingTime(root, Root("KindBravo")); schemas.ReloadIfChanged(false);
+        string rootIdentity = identityProvider ? Settings.Current.SchemaFileIdentities(new[] { root })[root] : null;
+        if (identityProvider) Thread.Sleep(30); // Match the existing FileIdentity fixture's filesystem clock boundary.
+        ReplacePreservingTime(root, Root("KindBravo"));
+        if (identityProvider) Require(Settings.Current.SchemaFileIdentities(new[] { root })[root] != rootIdentity, "Equal-time schema edit fixture did not change file identity");
+        schemas.ReloadIfChanged(false);
         Require(!Object.ReferenceEquals(original, schemas.Schemas) && schemas.GetXmlType("KindBravo") != null && schemas.GetXmlType("KindAlpha") == null,
             "Root schema changes with equal size and mtime must reload");
         original = schemas.Schemas;
+        if (identityProvider) Thread.Sleep(30);
         ReplacePreservingTime(helper, Helpers("ItemBravo")); schemas.ReloadIfChanged(false);
         Require(!Object.ReferenceEquals(original, schemas.Schemas) && schemas.GetXmlType("ItemBravo") != null && schemas.GetXmlType("ItemAlpha") == null,
             "Included schema changes with equal size and mtime must reload");
@@ -158,9 +164,11 @@ public static class CompilerCacheContent
         File.WriteAllText(helper, Helpers("ItemThird"), new UTF8Encoding(false)); schemas.ReloadIfChanged(false);
         Require(schemas.GetXmlType("ItemThird") != null && schemas.GetXmlType("KindOther") != null, "Failed include load must recover on the same SchemaSet");
         string valid = Root("KindFixed");
+        if (identityProvider) Thread.Sleep(30);
         File.WriteAllText(alternate, valid.Replace("<xs:include", "<xx:include"), new UTF8Encoding(false));
         RejectedSchema(delegate { schemas.ReloadIfChanged(false); }, "Malformed root");
         RejectedSchema(delegate { schemas.ReloadIfChanged(false); }, "Repeated malformed root");
+        if (identityProvider) Thread.Sleep(30);
         ReplacePreservingTime(alternate, valid); schemas.ReloadIfChanged(false);
         Require(schemas.GetXmlType("KindFixed") != null, "Same-size same-time repair must retry after failed load");
         original = schemas.Schemas; schemas.ReloadIfChanged(false);
