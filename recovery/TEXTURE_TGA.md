@@ -1,5 +1,7 @@
 # TGA decoder subset and original-load oracle
 
+当前新增（2026-10-29）：标准495-byte TGA2 extension的非零gamma/alpha属性、developer目录/标签、scanline/correction/postage-stamp表及chained footer已经按原版完整RGBA确认：26类metadata均不改变像素/hasAlpha/尺寸，坐标字段同样忽略。`TextureTgaMetadata.TryValidateTail`只接受有界且完整覆盖尾部的已声明结构，两个decoder共用；旧507-byte DevIL特例、RLE及原异常域保留。原版63dcfd2b/40793184986为probe-only；组件a928f981/40795326615的19组完整验收通过，新增D/R各12480 gold双入口、47248插件输入/同量逐次NoOriginal及96损坏结构拒绝。损坏结构拒绝不是原版错误对照；本批原gold全部解码。SDK状态与完整范围见[非零metadata验收](TEXTURE_TGA_METADATA.md)。以下范围为历史阶段，不再用“所有非零metadata均拒绝”描述当前实现。
+
 当前更新（2026-10-28，北京时间）：既有TGA24/32及Additional真色16、灰度8、index8配palette15/16/24/32的已声明NPOT存储路径已完成公共加载、两入口raw/DXT标准/volume/有无mip与新2560资产三模式SDK；原alpha、方向/RLE和原拒绝规则保留。 业务e9292a26/40595382578、完整入口隔离9e7d671e/40597016969及最终存储回放daf4a749/40598863269的精确收据与总体失败说明见[NPOT当前交接](TEXTURE_NPOT_NEXT.md)。下文保留历史阶段范围。
 
 > **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
