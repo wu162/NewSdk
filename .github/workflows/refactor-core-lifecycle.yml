@@ -36,6 +36,7 @@ on:
       - 'recovery/tests/CompilerCoreLifecycle.cs'
       - 'recovery/tests/CompilerCacheContent.cs'
       - 'recovery/tests/CompilerCacheBoundary.cs'
+      - 'recovery/tests/CompilerLegacyCacheMetadata.cs'
       - 'recovery/tests/CompilerInputRoots.cs'
       - 'recovery/scripts/TestCompilerInputRoots.ps1'
       - 'recovery/scripts/TestCompilerBuildCache.ps1'

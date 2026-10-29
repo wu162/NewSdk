@@ -28,7 +28,7 @@ namespace NewModCompiler.Application
             RejectLinks(this.sessionRoot);
             sessionLock = PublicationLock.Acquire(SessionPath);
         }
-        public bool Prepare(string hashes, string streams, CancellationToken cancellation)
+        public bool Prepare(string hashes, string streams, CancellationToken cancellation, string relativeStream = null)
         {
             Active(); cancellation.ThrowIfCancellationRequested();
             string source = stagedSession;
@@ -42,9 +42,9 @@ namespace NewModCompiler.Application
             string target = Path.Combine(hashes, SessionName) + (source.EndsWith(".deflate", StringComparison.OrdinalIgnoreCase) ? ".deflate" : "");
             Copy(source, target, cancellation);
             string stagedData = Path.Combine(candidate, "cdata");
-            if (Directory.Exists(stagedData)) CopyData(stagedData, streams, cancellation);
-            else if (Directory.Exists(cdataRoot)) CopyData(cdataRoot, streams, cancellation);
-            else if (Directory.Exists(sessionRoot)) CopyData(sessionRoot, streams, cancellation, true);
+            if (Directory.Exists(stagedData)) CopyData(stagedData, streams, cancellation, false, relativeStream);
+            else if (Directory.Exists(cdataRoot)) CopyData(cdataRoot, streams, cancellation, false, relativeStream);
+            else if (Directory.Exists(sessionRoot)) CopyData(sessionRoot, streams, cancellation, true, relativeStream);
             return true;
         }
         public void Stage(string hashes, string streams, bool compressed, CancellationToken cancellation)
@@ -120,11 +120,15 @@ namespace NewModCompiler.Application
             Directory.CreateDirectory(Path.GetDirectoryName(backup)); File.Copy(target, backup, false);
             backups.Add(target, backup); File.Delete(target);
         }
-        void CopyData(string root, string target, CancellationToken cancellation, bool legacyRoot = false)
+        void CopyData(string root, string target, CancellationToken cancellation, bool legacyRoot = false, string relativeStream = null)
         {
             if (!Directory.Exists(root)) return;
             foreach (string path in DataFiles(root, legacyRoot))
-                Copy(path, Path.Combine(target, path.Substring(root.Length + 1)), cancellation);
+            {
+                string relative = path.Substring(root.Length + 1);
+                if (relativeStream != null && !relative.StartsWith(relativeStream + Path.DirectorySeparatorChar + "cdata" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) continue;
+                Copy(path, Path.Combine(target, relative), cancellation);
+            }
         }
         IEnumerable<string> DataFiles(string root, bool legacyRoot)
         {

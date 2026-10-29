@@ -48,8 +48,10 @@ public static class CompilerBackendLifecycle
     static BuildRequest Request(string mod, string output)
     {
         Directory.CreateDirectory(output);
-        return new BuildRequest { Command="build", ModRoot=mod, SdkRoot=sdk, OutputRoot=output,
+        var request = new BuildRequest { Command="build", ModRoot=mod, SdkRoot=sdk, OutputRoot=output,
             Content=new[] {"base"}, PackageFormat="loose", Arguments=new string[0] };
+        foreach (string key in new[] {"sc", "bc"}) request.Options[key] = new EffectiveOption {Value="false", Source="lifecycle-fixture"};
+        return request;
     }
     static BuildTask Task(string mod, string name)
     {

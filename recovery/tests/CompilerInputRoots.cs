@@ -29,7 +29,9 @@ public static class CompilerInputRoots
     }
     static BuildRequest Request(string name)
     {
-        return new BuildRequest { Command = "build", SdkRoot = sdk, ModRoot = mod, OutputRoot = Path.Combine(output, name), Content = new[] { "base" }, PackageFormat = "loose", Arguments = new string[0] };
+        var request = new BuildRequest { Command = "build", SdkRoot = sdk, ModRoot = mod, OutputRoot = Path.Combine(output, name), Content = new[] { "base" }, PackageFormat = "loose", Arguments = new string[0] };
+        foreach (string key in new[] {"sc", "bc"}) request.Options[key] = new EffectiveOption {Value="false", Source="lifecycle-fixture"};
+        return request;
     }
     static void Option(BuildRequest request, string key, string value) { request.Options[key] = new EffectiveOption { Value = value, Source = "input-roots-fixture" }; }
     static BuildRequest Explicit(string name, bool spaced = false)
@@ -171,21 +173,14 @@ public static class CompilerInputRoots
     }
     static void CacheBoundary(Settings sentinel)
     {
-        var request = Explicit("cache-reject"); Option(request, "bc", "true");
+        var request = Explicit("cache-external"); Option(request, "bc", "true");
         using (var backend = new CoreStreamCompiler())
         {
-            bool rejected = false;
-            try { backend.Initialize(request); backend.Compile(Context(request, "stream"), CancellationToken.None); }
-            catch (BuildFailure error)
-            {
-                Require(error.Message.IndexOf("root", StringComparison.OrdinalIgnoreCase) >= 0 || error.Message.IndexOf("inventor", StringComparison.OrdinalIgnoreCase) >= 0,
-                    "External cache roots must fail for their inventory boundary: " + error);
-                rejected = true;
-            }
-            Require(rejected && Object.ReferenceEquals(Settings.Current, sentinel), "Build cache must reject non-inventoried effective roots and restore settings");
+            backend.Initialize(request);
+            Selected(Compile(backend, request, "stream", sentinel), "SelectedFirst", "SelectedMod", "SelectedSecond");
+            Require(Object.ReferenceEquals(Settings.Current, sentinel), "External cached-root compilation leaked settings");
         }
-        Require(Object.ReferenceEquals(Settings.Current, sentinel), "Rejected cache-root backend disposal leaked settings");
-        tests.Add("no-cache-external-roots-supported-build-cache-outside-inventory-rejected-with-settings-restored");
+        tests.Add("original-cache-supports-external-effective-roots-with-real-file-payloads-and-settings-restored");
     }
     public static int Main(string[] args)
     {

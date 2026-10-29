@@ -35,7 +35,7 @@ function DifferentOutputs($Left,$Right){
 function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[int]$Expected=0,[bool]$Cancel=$false,[string]$HoldReadFile=$null,[string[]]$Extra=@()){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     New-Item -ItemType Directory -Force -Path $Destination|Out-Null
-    $arguments=@('build','--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base',('--bc='+$Enabled.ToString().ToLowerInvariant()))+$Extra
+    $arguments=@('build','--sc=false','--iod',(Join-Path $caseOut 'intermediate'),'--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base',('--bc='+$Enabled.ToString().ToLowerInvariant()))+$Extra
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     $request=@{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=$events;cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}
     if($HoldReadFile){$request.holdReadFile=$HoldReadFile}
@@ -154,9 +154,9 @@ try{
         Move-Item -LiteralPath "$external/ArtA/ca/cache.saved" -Destination "$external/ArtA/ca/cache.tga"
         $retry=RunCli 'retry-external-input' $mod $destination $false -Extra $missing
         SameOutputs $a $retry
-        $rejected=RunCli 'cache-external-roots-rejected' $mod $destination $true 2 -Extra $first
-        Need (@($rejected.report.diagnostics|Where-Object{$_.code -ceq 'CORE_CACHE_INPUT_ROOT_UNSUPPORTED'}).Count -eq 1) 'Root-external cache request was not explicitly refused'
-        $final=RunCli 'retry-after-cache-root-rejection' $mod $destination $false -Extra $first;SameOutputs $a $final
+        $cached=RunCli 'cache-external-roots' $mod $destination $true -Extra $first;SameOutputs $a $cached
+        $cachedHot=RunCli 'cache-external-roots-hot' $mod $destination $true -Extra $first;SameOutputs $a $cachedHot
+        Need ($cachedHot.report.cache.hits -gt 0 -and $cachedHot.report.cache.misses -eq 0) 'Original cache did not reuse root-external Texture and Audio dependencies'
         $modeState.passed=$true
     }
     $state.succeeded=$true;$global:LASTEXITCODE=0

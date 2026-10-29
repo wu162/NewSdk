@@ -174,7 +174,7 @@ namespace NewModCompiler.Tests
                     Check(independent.Options["sc"].Value==session && independent.Options["bc"].Value==asset,"Session and build-asset switches remain independent");
                     Check(independent.Options["sc"].Source=="commandLine" && independent.Options["bc"].Source=="commandLine","Cache switches preserve provenance");
                 }
-                Check(!Request("base").Options.ContainsKey("sc") && !Request("base").Options.ContainsKey("bc"),"Cache opt-ins must not become parser defaults");
+                Check(Request("base").Options["sc"].Value=="true" && Request("base").Options["bc"].Value=="true","Original SDK session and asset caches must default on");
                 Reject("CLI_CONFLICT","/sc:true","/sc:false"); Reject("CLI_BOOLEAN","/sc:cached");
                 var paths=Request("base","/art:ART:shared;relative art","/audio:one;two","/data:relative;second","/dr:relative root","/oix:true","/mr:false");
                 Check(paths.Options["art"].Value=="ART:shared;relative art" && paths.Options["audio"].Value=="one;two" && paths.Options["data"].Value=="relative;second" && paths.Options["dr"].Value=="relative root","Legacy ordered paths and DataRoot preserved for Core");

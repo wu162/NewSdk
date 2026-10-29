@@ -447,7 +447,10 @@ namespace NewModCompiler.Application
                 if (sessionCacheEnabled)
                 {
                     if (legacyStore == null) legacyStore = new LegacyCacheStore(outputRoot, RootOption("session-cache-directory", outputRoot), LegacyCacheIdentity(settings));
-                    packageRestored = legacyStore.Prepare(settings.SessionCacheDirectory, settings.OutputDirectory, cancellation);
+                    string root = FileNameResolver.GetDataRoot(settings.InputPath);
+                    string relative = string.IsNullOrEmpty(root) ? Path.GetFileName(settings.InputPath) : FileNameResolver.GetSafeRelativePath(root, settings.InputPath);
+                    relative = Path.Combine(Path.GetDirectoryName(relative), Path.GetFileNameWithoutExtension(relative));
+                    packageRestored = legacyStore.Prepare(settings.SessionCacheDirectory, settings.OutputDirectory, cancellation, relative);
                 }
                 var schemas = new SchemaSet(settings.StableSort);
                 hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
@@ -557,8 +560,7 @@ namespace NewModCompiler.Application
             using (var writer = new BinaryWriter(bytes, System.Text.Encoding.UTF8))
             {
                 writer.Write("NewModCompiler.LegacyCache.Contract.v1");
-                writer.Write(settings.DataRoot); writer.Write(settings.DefaultDataPaths ?? "");
-                writer.Write(settings.DefaultArtPaths ?? ""); writer.Write(settings.DefaultAudioPaths ?? "");
+                writer.Write(settings.DataRoot);
                 writer.Write(stableSortEnabled); writer.Write(usePrecompiled); writer.Write(forceSlowCleanup);
                 var files = new List<string> { Path.Combine(sdkRoot, "tools", "BinaryAssetBuilder.exe.config") };
                 files.AddRange(Directory.GetFiles(Path.Combine(sdkRoot, "Schemas"), "*", SearchOption.AllDirectories));
