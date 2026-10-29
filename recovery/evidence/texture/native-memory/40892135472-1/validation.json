@@ -1,0 +1,33 @@
+{
+  "scope": "Native x86 thiscall buffer/allocator/deleting-destructor and cdecl/stdcall facade ABI, complete original state/payload/endian trace and per-call isolation; no devices/invalid memory/OOM/CLI identity or production package claim",
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "sourceCommit": "339656a295c6047875ed1d8155a57b0ee86cb1b5",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "passed",
+  "configurations": [
+    {
+      "captureSha256": "b78cda846e03743ac2d19d3846d3a5c56367c1b563255c84e0bc17717dbff9d9",
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Debug",
+      "nativeSha256": "90c5127604343acf08a6d50eb61e717b3629b925f80f8bcd5f87746311d8cdc9",
+      "passed": true,
+      "summary": [
+        "PASS native PC memory differential buffers=10 appendOperations=520 deletionFlags=8 endianValues=262144 traceBytes=1687764; original x86 layout/thiscall/callee cleanup, growth/reset/payload, ownership and constant facades; invalid pointers/OOM/full devices excluded",
+        "PASS native PC memory NoOriginal buffers=10 appendOperations=520 deletionFlags=8 endianValues=262144 traceBytes=1687764; original x86 layout/thiscall/callee cleanup, growth/reset/payload, ownership and constant facades; invalid pointers/OOM/full devices excluded"
+      ]
+    },
+    {
+      "captureSha256": "b78cda846e03743ac2d19d3846d3a5c56367c1b563255c84e0bc17717dbff9d9",
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Release",
+      "nativeSha256": "76eb0e8baa6e1833b1a9255fb1e72faf7c9c2d1368b962df20562fd5a7f1cbc9",
+      "passed": true,
+      "summary": [
+        "PASS native PC memory differential buffers=10 appendOperations=520 deletionFlags=8 endianValues=262144 traceBytes=1687764; original x86 layout/thiscall/callee cleanup, growth/reset/payload, ownership and constant facades; invalid pointers/OOM/full devices excluded",
+        "PASS native PC memory NoOriginal buffers=10 appendOperations=520 deletionFlags=8 endianValues=262144 traceBytes=1687764; original x86 layout/thiscall/callee cleanup, growth/reset/payload, ownership and constant facades; invalid pointers/OOM/full devices excluded"
+      ]
+    }
+  ],
+  "runId": "40892135472"
+}

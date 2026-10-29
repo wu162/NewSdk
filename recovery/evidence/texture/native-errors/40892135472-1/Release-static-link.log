@@ -1,0 +1,1 @@
+PASS native status import-library consumer: correct runtime DLL name and C ABI; no original compiler
