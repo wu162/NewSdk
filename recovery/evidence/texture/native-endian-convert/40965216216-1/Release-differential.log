@@ -1,0 +1,1 @@
+PASS native PC endian conversion differential cases=184928 formatPairs=1444 endianPairs=16 numericStates=2 mappings=2 regions=2 exhaustiveStrips=32 exhaustivePixels=2097152 traceBytes=84505352; full source/output/padding/guards, thresholds and isolated replay

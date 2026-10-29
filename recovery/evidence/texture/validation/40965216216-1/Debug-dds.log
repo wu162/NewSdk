@@ -1,0 +1,2 @@
+Warning: Couldn't process UnknownTextureType:DdsProbe [08fa3c24:9972f587]. No matching handler found.
+PASS DDS oracle: 695 cases; three buffers plus complete cdata; PC; preexisting tails

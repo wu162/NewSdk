@@ -1,0 +1,33 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runId": "40965216216",
+  "runAttempt": "1",
+  "scope": "XGCopySurface unsigned-normalized conversion: 28 layouts/784 format pairs/selectors/constants/thresholds/full output/strides/padding/guards plus all65536 16-bit values; signed/gamma/endian/float/compression/filter/overlap and production package excluded",
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "summary": [
+        "PASS native PC normalized conversion differential cases=100412 formatPairs=784 mappingPairs=16 orientations=4 regions=4 padding=2 exhaustive16BitStrips=60 exhaustivePixels=3932160 traceBytes=64704328; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC normalized conversion NoOriginal cases=100412 formatPairs=784 mappingPairs=16 orientations=4 regions=4 padding=2 exhaustive16BitStrips=60 exhaustivePixels=3932160 traceBytes=64704328; full source/output/padding/guards, thresholds and isolated replay"
+      ],
+      "nativeSha256": "7071feb6ad82c95f131bb06f3ad4673a07fef709a9441fe12da98ada80be80fe",
+      "configuration": "Debug",
+      "captureSha256": "72e2319378f6cc0ba53d6e17eb953e324c43f67db733859c26cdd10933d41e41",
+      "passed": true,
+      "withoutOriginalTextureCompiler": true
+    },
+    {
+      "summary": [
+        "PASS native PC normalized conversion differential cases=100412 formatPairs=784 mappingPairs=16 orientations=4 regions=4 padding=2 exhaustive16BitStrips=60 exhaustivePixels=3932160 traceBytes=64704328; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC normalized conversion NoOriginal cases=100412 formatPairs=784 mappingPairs=16 orientations=4 regions=4 padding=2 exhaustive16BitStrips=60 exhaustivePixels=3932160 traceBytes=64704328; full source/output/padding/guards, thresholds and isolated replay"
+      ],
+      "nativeSha256": "bbb0dc7b6873dc1bdd1e81bab5fbb815ca37c72ed8726566e614b6f065d724f8",
+      "configuration": "Release",
+      "captureSha256": "72e2319378f6cc0ba53d6e17eb953e324c43f67db733859c26cdd10933d41e41",
+      "passed": true,
+      "withoutOriginalTextureCompiler": true
+    }
+  ],
+  "status": "passed",
+  "sourceCommit": "6af9af189a5fb9be63bd02fbab4577d71c583257"
+}

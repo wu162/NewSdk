@@ -1,0 +1,33 @@
+TextureNativeSurfaceApi.cpp
+   Creating library D:\a\_temp\texture-native-copy-consumers-c0a4f66b2ddb4ce89470b89368e6656f\Debug/native-surface.lib and object D:\a\_temp\texture-native-copy-consumers-c0a4f66b2ddb4ce89470b89368e6656f\Debug/native-surface.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-native-copy-consumers-c0a4f66b2ddb4ce89470b89368e6656f\Debug\Recovered.TextureNativeSurface.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeSurface.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           4 number of functions
+           4 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureSurfaceGetLayout
+          2    1 00001090 TextureSurfaceLockRect
+          3    2 00001000 _TextureSurfaceGetLayout@44
+          4    3 00001090 _TextureSurfaceLockRect@20
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        E000 .text
