@@ -2927,6 +2927,23 @@
       "evidence": "recovery/evidence/texture/native-surface/*/validation.json",
       "sdk": false,
       "priority": -6
+    },
+    "native-descriptor": {
+      "script": "recovery/scripts/TestTextureNativeDescriptor.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Native/TextureNativeDescriptorApi.cpp",
+        "src/TextureCompiler/Native/TextureNativeDescriptorApi.h",
+        "src/TextureCompiler/Native/TextureNativeDescriptorApi.def",
+        "recovery/scripts/BuildTextureNativeDescriptor.ps1",
+        "recovery/scripts/TestTextureNativeDescriptor.ps1",
+        "recovery/tests/TextureNativeDescriptorOracle.cpp",
+        "recovery/tests/TextureNativeDescriptorLink.cpp",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/native-descriptor/*/validation.json",
+      "sdk": false,
+      "priority": -5
     }
   },
   "targetPlatform": "Win32"

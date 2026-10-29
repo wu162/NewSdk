@@ -1,5 +1,6 @@
 #define RECOVERED_TEXTURE_NATIVE_SURFACE_API_BUILD
 #include "TextureNativeSurfaceApi.h"
+#define NOMINMAX
 #include <Windows.h>
 #include <algorithm>
 #include <cstring>

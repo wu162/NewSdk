@@ -7,7 +7,10 @@
 
 - **资源组待验收**：新增独立 `Recovered.TextureNativeResource.dll` 的原子AddRef/Release、CPU资源存储释放、父子/嵌套视图及UnlockRect原位操作。8192解锁状态、72生命周期、16父子+16嵌套视图序列、32768并发原子操作和完整uint32边界，D/R/原版/NoOriginal待Actions；不含LockRect/type9/GPU上下文。状态/内存/base在40908753738已passed，失败批次成功组保留复用。
 
-- **LockRect组待验收**：已恢复type3纹理全mip布局、64格式块/存储对齐、packed小mip、边框/四维度/数组偏移、LockRect矩形地址及原子锁计数/脏区合并。独立Surface库，131072完整布局+同量锁输入和16真实VM存储读写，原版/NoOriginal/D/R待验收；没有改设备/资源实现输入或生产SDK。新库与两库导出声明宏一致后同批验收。
+- **LockRect组待验收**：已恢复type3纹理全mip布局、64格式块/存储对齐、packed小mip、边框/四维度/数组偏移、LockRect矩形地址及原子锁计数/脏区合并。独立Surface库，131072完整布局+同量锁输入和16真实VM存储读写，原版/NoOriginal/D/R待验收；生产SDK未改。新库与两库导出声明宏一致后同批验收。
+
+- **本轮新增验收完成**：`44972e435c5a90cb3ab0b0b5b71c5dbd61d76401` /40911147535的native-device及native-resource各自完整D/R/NoOriginal和导入库消费者已passed，整体run仍failure（surface Windows min/max宏编译错误）。设备29496344字节/资源1083524字节完整原轨迹独立模型审计通过，见handoffs/20261030-native-abi/device-archive-audit.json和resource-archive-audit.json。复用这两个成功组，勿重跑。
+- **下一批待验收**：surface宏问题已修复；新增原生32字节level、28字节volume和60字节XG纹理描述符。135168头输入/405504结构输出/全字段/守卫字节/原输入保持/原版D/R/NoOriginal待验收。不含非纹理资源或完整混合模式身份；新DLL不进入生产包。
 
 以下为历史交接，以顶部与实际锚点为准。
 

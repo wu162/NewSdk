@@ -1,0 +1,5 @@
+LIBRARY Recovered.TextureNativeDescriptor.dll
+EXPORTS
+    TextureGetLevelDesc=_TextureGetLevelDesc@12
+    TextureGetVolumeLevelDesc=_TextureGetVolumeLevelDesc@12
+    TextureXGGetTextureDesc=_TextureXGGetTextureDesc@12
