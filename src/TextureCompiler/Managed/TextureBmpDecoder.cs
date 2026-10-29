@@ -23,9 +23,11 @@ namespace Recovered.Compiler.Texture
             int signedHeight=core?U16(data,20):unchecked((int)U32(data,22));
             int planes=U16(data,core?22:26),depth=U16(data,core?24:28);
             uint compression=core?0:U32(data,30),offset=U32(data,10),colors=core?0:U32(data,46);
-            // The observed OS/2 profiles are bottom-up 24-bit BI_RGB. Do not
-            // silently treat their other storage/height fields as Windows DIBs.
-            if((core||dib==64)&&(depth!=24||signedHeight<0||compression!=0))throw new NotSupportedException("This OS/2 BMP storage profile has not been recovered.");
+            // The original core12 adapter constructs the same BI_RGB parser
+            // header used by INFO40/OS2-64. All three direct-color depths use
+            // the shared RGB555/BGR24/BGRA32 rules; OS2-64 also has signed height.
+            // Keep compressed OS/2 storage outside that BI_RGB contract.
+            if((core||dib==64)&&compression!=0)throw new NotSupportedException("Compressed OS/2 BMP storage has not been recovered.");
             if(compression==3)
             {
                 if(dib==40)throw CannotLoad();

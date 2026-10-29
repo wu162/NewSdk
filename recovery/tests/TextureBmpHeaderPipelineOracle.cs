@@ -12,14 +12,14 @@ using BinaryAssetBuilder.Core;
 internal static class TextureBmpHeaderPipelineOracle
 {
     const int ExpectedFixtures=37160;
-    static int fixtures, rejected, errors,refusals; static long compared;
-    static void Isolated(){if(File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"BinaryAssetBuilder.TextureCompiler.dll")))throw new Exception("Original present during replay");foreach(Assembly a in AppDomain.CurrentDomain.GetAssemblies())if(a.GetName().Name=="BinaryAssetBuilder.TextureCompiler")throw new Exception("Original loaded during replay");}
-    static InstanceDeclaration Declaration(string root,string file,string format,string cdata,bool mipmaps,string kind)
+    internal static int fixtures, rejected, errors,refusals; internal static long compared;
+    internal static void Isolated(){if(File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"BinaryAssetBuilder.TextureCompiler.dll")))throw new Exception("Original present during replay");foreach(Assembly a in AppDomain.CurrentDomain.GetAssemblies())if(a.GetName().Name=="BinaryAssetBuilder.TextureCompiler")throw new Exception("Original loaded during replay");}
+    internal static InstanceDeclaration Declaration(string root,string file,string format,string cdata,bool mipmaps,string kind)
     {
         var xml=new XmlDocument();var node=xml.CreateElement(root,"uri:ea.com:eala:asset");xml.AppendChild(node);
         node.SetAttribute("id","BmpHeaderPipeline");
         if(root=="TerrainTextureAtlas"){
-            node.SetAttribute("AtlasSize","2048");node.SetAttribute("AllowLossyCompression","true");var tile=xml.CreateElement("Tile",node.NamespaceURI);tile.SetAttribute("TextureID","42");tile.SetAttribute("BaseTexture",file);tile.SetAttribute("NormalTexture",format=="normal"?file:Path.Combine(Path.GetDirectoryName(file),"missing-normal.bmp"));node.AppendChild(tile);
+            node.SetAttribute("AtlasSize","2048");node.SetAttribute("AllowLossyCompression","true");var tile=xml.CreateElement("Tile",node.NamespaceURI);tile.SetAttribute("TextureID","42");tile.SetAttribute("BaseTexture",file);tile.SetAttribute("NormalTexture",format=="normal"?file:Path.Combine(Path.GetDirectoryName(file),"missing-normal.tga"));node.AppendChild(tile);
         }else{node.SetAttribute("File",file);node.SetAttribute("Type",kind);}
         node.SetAttribute("OutputFormat",format);node.SetAttribute("GenerateMipMaps",mipmaps?"true":"false");node.SetAttribute("AllowAutomaticResize","false");
         var manager=new XmlNamespaceManager(xml.NameTable);manager.AddNamespace("ea","uri:ea.com:eala:asset");
@@ -29,20 +29,21 @@ internal static class TextureBmpHeaderPipelineOracle
         var d=new InstanceDeclaration(doc);d.XmlNode=node;d.CustomDataPath=cdata;
         d.Handle.TypeHash=0x12345678u;d.Handle.InstanceHash=0x9abcdef0u;return d;
     }
-    static void Equal(byte[] expected,byte[] actual,string label)
+    internal static void Equal(byte[] expected,byte[] actual,string label)
     {
         if(expected==null||actual==null){if(expected!=actual)throw new Exception(label+" null presence");return;}
         if(expected.Length!=actual.Length)throw new Exception(label+" length original="+expected.Length+" recovered="+actual.Length);
         for(int i=0;i<expected.Length;i++)if(expected[i]!=actual[i])throw new Exception(label+" byte="+i+" original="+expected[i]+" recovered="+actual[i]);
         compared+=expected.Length;
     }
-    static void Seed(string path,bool stale){if(File.Exists(path))File.Delete(path);if(stale){byte[] b=new byte[8192];for(int i=0;i<b.Length;i++)b[i]=(byte)(i*13);File.WriteAllBytes(path,b);}}
-    static byte[] Cdata(string path){return File.Exists(path)?File.ReadAllBytes(path):null;}
-    static void Bytes(BinaryWriter w,byte[] b){w.Write(b==null?-1:b.Length);if(b!=null)w.Write(b);}
-    static byte[] Bytes(BinaryReader r){int n=r.ReadInt32();if(n==-1)return null;if(n<0||n>16777216)throw new Exception("Invalid replay length");byte[] b=r.ReadBytes(n);if(b.Length!=n)throw new Exception("Truncated replay");return b;}
-    static string Error(Exception e){if(e==null)return "";var b=e as BinaryAssetBuilderException;return e.GetType().FullName+"/"+(b==null?"":b.ErrorCode.ToString())+"/"+e.Message;}
-    static void Case(IAssetBuilderPlugin original,IAssetBuilderPlugin recovered,string work,string extension,byte[] image,string root,string format,bool stale,bool mipmaps,BinaryWriter replay,string kind="StandardTexture")
+    internal static void Seed(string path,bool stale){if(File.Exists(path))File.Delete(path);if(stale){byte[] b=new byte[8192];for(int i=0;i<b.Length;i++)b[i]=(byte)(i*13);File.WriteAllBytes(path,b);}}
+    internal static byte[] Cdata(string path){return File.Exists(path)?File.ReadAllBytes(path):null;}
+    internal static void Bytes(BinaryWriter w,byte[] b){w.Write(b==null?-1:b.Length);if(b!=null)w.Write(b);}
+    internal static byte[] Bytes(BinaryReader r){int n=r.ReadInt32();if(n==-1)return null;if(n<0||n>16777216)throw new Exception("Invalid replay length");byte[] b=r.ReadBytes(n);if(b.Length!=n)throw new Exception("Truncated replay");return b;}
+    internal static string Error(Exception e){if(e==null)return "";var b=e as BinaryAssetBuilderException;return e.GetType().FullName+"/"+(b==null?"":b.ErrorCode.ToString())+"/"+e.Message;}
+    internal static void Case(IAssetBuilderPlugin original,IAssetBuilderPlugin recovered,string work,string extension,byte[] image,string root,string format,bool stale,bool mipmaps,BinaryWriter replay,string kind="StandardTexture")
     {
+        if(root=="TerrainTextureAtlas")extension="tga";
         string file=Path.Combine(work,"generated."+extension),oa=Path.Combine(work,"original.cdata"),ra=Path.Combine(work,"recovered.cdata");
         File.WriteAllBytes(file,image);Seed(oa,stale);Seed(ra,stale);
         AssetBuffer expected=null,actual=null;Exception ea=null,eb=null;
@@ -62,6 +63,9 @@ internal static class TextureBmpHeaderPipelineOracle
         if(ea==null&&root=="TerrainTextureAtlas"){
             if(actual.InstanceData.Length<32||BitConverter.ToUInt32(actual.InstanceData,4)!=1||BitConverter.ToUInt32(actual.InstanceData,12)!=28||BitConverter.ToUInt32(actual.InstanceData,28)!=0x20534444||BitConverter.ToUInt32(actual.InstanceData,24)==0!=(format=="base-only"))throw new Exception(label+" independent atlas runtime layout");
         }
+        // These are positive atlas fixtures: matching path/format rejections
+        // cannot stand in for an actual encoded atlas and its normal DDS.
+        if(root=="TerrainTextureAtlas"&&ea!=null)throw new Exception(label+" expected successful BMP-backed atlas: "+Error(ea));
         replay.Write(extension);Bytes(replay,image);replay.Write(root);replay.Write(format);replay.Write(stale);replay.Write(mipmaps);replay.Write(kind);
         replay.Write(Error(ea));Bytes(replay,expected==null?null:expected.InstanceData);Bytes(replay,expected==null?null:expected.RelocationData);Bytes(replay,expected==null?null:expected.ImportsData);Bytes(replay,cdata);fixtures++;
     }

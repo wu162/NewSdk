@@ -68,8 +68,11 @@ try{
   }
   if($nodes.Count -ne 14752){throw 'Expected512 BMP headers transparent DXT1A assets'};$r.transparentDxt1aAssets=512
   foreach($fixture in Get-ChildItem "$work/generated" -File -Filter 'atlas-*'|Sort-Object Name){
-   Copy-Item $fixture.FullName "$moddir/Art/$($fixture.Name)";$name=$fixture.Name
-   foreach($normal in @('missing-normal.bmp',$name)){
+   # The original packer requires "tga" in BOTH path strings, independently
+   # of file magic. Keep the immutable/generated BMP payload, with a legal
+   # atlas path; renaming does not convert or replace the image bytes.
+   $name=[IO.Path]::ChangeExtension($fixture.Name,'.tga');Copy-Item $fixture.FullName "$moddir/Art/$name"
+   foreach($normal in @('missing-normal.tga',$name)){
     $nodes+="<TerrainTextureAtlas id='BmpHeaderAtlas_$index' AtlasSize='2048' AllowLossyCompression='true'><Tile TextureID='42' BaseTexture='..\Art\$name' NormalTexture='..\Art\$normal' /></TerrainTextureAtlas>";$index++
    }
   }

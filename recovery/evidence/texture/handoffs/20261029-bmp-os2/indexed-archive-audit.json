@@ -1,0 +1,137 @@
+{
+  "scope": "independent original BMP indexed archive storage/full RGBA/error audit; no codec or production acceptance",
+  "sourceCommit": "69e6485e7d3b746c4d5b683e03066959dccd1d64",
+  "runId": "40810778444",
+  "archiveSha256": "9c364d9c6ad4bb722b8c2da6f6e05fab7bbed1d5b92cb4dd11408022c558a562",
+  "samples": 2121,
+  "indexedFixtures": 2025,
+  "controls": 96,
+  "totals": {
+    "sourceBytes": 1014648,
+    "originalRgbaBytes": 24704,
+    "repeatRgbaBytes": 24704,
+    "control/decoded/repeat-equal": 96,
+    "indexed/rejected/repeat-equal": 2025
+  },
+  "originalErrors": {
+    "BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk.": 4050
+  },
+  "groups": {
+    "control/h108/d16": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h108/d24": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h108/d32": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h12/d24": {
+      "decoded/repeat-equal": 3
+    },
+    "control/h124/d16": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h124/d24": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h124/d32": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h40/d16": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h40/d24": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h40/d32": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h52/d16": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h52/d24": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h52/d32": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h56/d16": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h56/d24": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h56/d32": {
+      "decoded/repeat-equal": 6
+    },
+    "control/h64/d24": {
+      "decoded/repeat-equal": 3
+    },
+    "indexed/h108/d1": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h108/d4": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h108/d8": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h12/d1": {
+      "rejected/repeat-equal": 27
+    },
+    "indexed/h12/d4": {
+      "rejected/repeat-equal": 27
+    },
+    "indexed/h12/d8": {
+      "rejected/repeat-equal": 27
+    },
+    "indexed/h124/d1": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h124/d4": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h124/d8": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h40/d1": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h40/d4": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h40/d8": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h52/d1": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h52/d4": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h52/d8": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h56/d1": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h56/d4": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h56/d8": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h64/d1": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h64/d4": {
+      "rejected/repeat-equal": 108
+    },
+    "indexed/h64/d8": {
+      "rejected/repeat-equal": 108
+    }
+  },
+  "unstableLabels": [],
+  "determinismLimit": "Two consecutive calls in one original process only; no cross-process determinism claim."
+}
