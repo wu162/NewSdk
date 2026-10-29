@@ -805,6 +805,12 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void MakeComplete()
 	{
+		if (_Last != null)
+		{
+			if (_Last.IncludePathHash != _Current.IncludePathHash || (_Last.StreamHints == null ? 0 : _Last.StreamHints.Count) != _Current.StreamHints.Count) CacheChanged = true;
+			else for (int i = 0; i < _Current.StreamHints.Count; i++)
+				if (_Last.StreamHints[i] != _Current.StreamHints[i]) { CacheChanged = true; break; }
+		}
 		_Current.State = DocumentState.Complete;
 		foreach (InstanceDeclaration selfInstance in SelfInstances)
 		{
@@ -820,7 +826,6 @@ public class AssetDeclarationDocument : IXmlSerializable
 			if (!_Current.StreamHints.Contains(item))
 			{
 				_Current.StreamHints.Add(item);
-				CacheChanged = true;
 			}
 		}
 	}

@@ -454,8 +454,12 @@ namespace NewModCompiler.Application
                 if (linkedOutputs == null) linkedOutputs = new LinkedOutputCache(outputRoot);
                 string linkScope = Path.Combine(context.Task.Content, Path.GetFileNameWithoutExtension(context.Task.InputPath));
                 var reusedArtifacts = new List<Artifact>();
-                settings.FindLinkedOutput = stem => linkedOutputs.Find(linkScope, settings.OutputDirectory, stem);
-                settings.ReuseLinkedOutput = (stem, cached) => linkedOutputs.Reuse(stem, cached, reusedArtifacts, request.FileIdentities);
+                if (cacheManagedBySession)
+                {
+                    settings.FindLinkedOutput = stem => linkedOutputs.Find(linkScope, settings.OutputDirectory, stem);
+                    settings.ReuseLinkedOutput = (stem, cached) => linkedOutputs.Reuse(stem, cached, reusedArtifacts, request.FileIdentities);
+                }
+                else settings.PrepareLinkedOutput = stem => linkedOutputs.Restore(linkScope, settings.OutputDirectory, stem);
                 processorState = DocumentProcessor.BeginStateScope();
                 report = AssetReport.BeginScope();
                 EnsureProviders();
@@ -467,8 +471,8 @@ namespace NewModCompiler.Application
                     string root = FileNameResolver.GetDataRoot(settings.InputPath);
                     string relative = string.IsNullOrEmpty(root) ? Path.GetFileName(settings.InputPath) : FileNameResolver.GetSafeRelativePath(root, settings.InputPath);
                     relative = Path.Combine(Path.GetDirectoryName(relative), Path.GetFileNameWithoutExtension(relative));
-                    packageRestored = legacyStore.Prepare(settings.SessionCacheDirectory, settings.OutputDirectory, cancellation, relative, copySession: false, copyData: false);
-                    if (packageRestored)
+                    packageRestored = legacyStore.Prepare(settings.SessionCacheDirectory, settings.OutputDirectory, cancellation, relative, copySession: false, copyData: !cacheManagedBySession);
+                    if (packageRestored && cacheManagedBySession)
                     {
                         settings.FindCustomData = path => legacyStore.ResolveData(path.Substring(settings.OutputDirectory.Length + 1));
                         settings.ReuseCustomData = (logical, source) =>
@@ -580,6 +584,7 @@ namespace NewModCompiler.Application
             cache.SaveCache(compressedSessionCache);
             legacyStore.Stage(settings.SessionCacheDirectory, settings.OutputDirectory, compressedSessionCache, cancellation);
             if (partialSessionCache) legacyStore.ConfirmPartial();
+            cache.AcceptSavedChanges(compressedSessionCache);
         }
         public void CommitCache() { if (legacyStore != null) legacyStore.Commit(); if (linkedOutputs != null) linkedOutputs.Commit(); }
         public void RollbackCache()

@@ -85,7 +85,11 @@ namespace NewModCompiler.Application
                         }
                     }
                     bool unchanged = owned && request.FileIdentities != null && request.FileIdentities.MatchesPublication(result, destination);
-                    if (!unchanged) unchanged = Matches(destination, result, cancellation,owned ? request.FileIdentities : null);
+                    if (!unchanged)
+                    {
+                        if (owned && Directory.Exists(destination)) RejectReparseTree(destination);
+                        unchanged = Matches(destination, result, cancellation,owned ? request.FileIdentities : null);
+                    }
                     if (unchanged && !owned)
                         foreach (Artifact artifact in artifacts)
                             if (!string.Equals(Hash(artifact.Path), artifact.Sha256, StringComparison.OrdinalIgnoreCase)) throw new IOException("Publication source hash changed.");

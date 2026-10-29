@@ -392,8 +392,10 @@ public class SessionCache : ISessionCache
 			File.Move(text, text + ".old");
 		}
 		File.Move(text + ".tmp", text);
-		HasChanges = false; LoadedCompressed = compressed;
+
 	}
+
+	public void AcceptSavedChanges(bool compressed) { HasChanges = false; LoadedCompressed = compressed; }
 
 	public virtual bool TryGetFile(string path, string configuration, TargetPlatform platform, out FileHashItem hashItem)
 	{
