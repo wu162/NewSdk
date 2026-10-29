@@ -1,5 +1,13 @@
 # Upheaval 新旧编译器 benchmark
 
+## 缓存路径优化后的三版本实测（2026-10-29）
+
+[报告](../../docs/UPHEAVAL_CACHE_OPTIMIZATION.md)及[持久计量](../../docs/UPHEAVAL_CACHE_OPTIMIZATION_RESULT.json)：生产源 `c0f3880e2f5dd72ed0017316dce1b023ac220e00` 重新通过完整受影响回归（run40788966635），三版本计量 run40789589030 成功。两台 VM 各 5 组，旧 SDK / 优化前 / 优化后分别为：冷建 83.098 / 74.244 / 65.249 秒，热建 21.630 / 40.761 / 29.830 秒；改动使冷/热耗时减少 12.12% / 26.82%，无缓存没有可分辨变化。热建仍慢于老 SDK。
+
+新入口 `.github/workflows/benchmark-cache-overhead.yml` 使用 `prepare_cache_speed.py`，分别核验优化前旧验收包和优化后新验收包；`cache_speed.py` 测量，`aggregate_cache_speed.py` 核验独立 runner ID 并按 VM 分层配对 bootstrap。它不放宽下文历史 `prepare.py` 的旧源码闭包门槛。新生产输入必须先重新验收，不能拿旧包冒充候选版本。复跑标记 `[upheaval-cache-speed]` 或手动选择已成功验收的 source/run；没有标记的文档推送只执行轻量检查。
+
+本轮每 VM 54 次完整构建，配置偏重；后续定向迭代应先 3 轮冷热和少量无缓存对照，再按波动追加，避免常规迭代直接重复整套三版本矩阵。本轮已接受结果不重跑。以上报告不改写下方旧版本的历史成绩。
+
 ## 已完成的扩展结果
 
 [完整报告](../../docs/UPHEAVAL_EXPANDED.md)与[持久计量JSON](../../docs/UPHEAVAL_EXPANDED_RESULT.json)已保存：每场景两台独立VM，整套12个VM作业、12个正式场景、92对计时；JSON另保留430次原始构建观察。新版无生成缓存/直接出包速度约为旧版1.20/1.206倍；BC热建和真实单文件迭代旧SDK更快。全部性能样本通过产物身份门槛；故障注入发现旧Texture缓存错误字节以及新版持久坏缓存未修复，保留负向终态，不称整轮正确性全部通过。
@@ -74,3 +82,4 @@ python recovery/benchmarks/upheaval/benchmark.py --runtime recovery/artifacts/up
 准备器需要 `gh`、`GH_TOKEN` 和完整 git 历史；测量需要 Windows、原 SDK 及正式包已有的 .NET/VC/DirectX 前置依赖。输出目录必须不存在，避免覆盖历史结果。正式结果自动出现在 Actions Summary，并上传 raw logs、每次命令/计量/输出清单、输入清单、首对原始流和来源收据。
 
 原直接输出尝试40725824993在PowerShell参数转发初始化失败，未进入计时；263fa8088e312acd33ca3a7db3d7bac1c89997a4改为显式原生参数调用，新实测[40741198404](https://github.com/wu162/NewSdk/actions/runs/40741198404)独立记录。原40720756791已终态，后续只读重汇总排除有环境混淆的旧增量和含额外复制的旧打包，保留真实缓存/SC组及负向正确性发现。
+

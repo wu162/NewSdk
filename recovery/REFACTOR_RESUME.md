@@ -1,3 +1,14 @@
+# 缓存路径优化：已验收并完成双 VM 计量（待 PR 审查）
+
+2026-10-29。分支 `perf/upheaval-cache-overhead`，[PR #18](https://github.com/wu162/NewSdk/pull/18)，未合入 `compiler-main`。
+生产源 `c0f3880e2f5dd72ed0017316dce1b023ac220e00`，完整受影响 Debug/Release、Core/CLI/缓存/SC/BIG/mymod 及发行包验收 run40788966635 成功。
+输入全库哈希从五流 10 遍合并为初始/发布前共 2 遍；SHA256 实例复用；缓存复制与校验合并；全命中 base 不再生成候选缓存。保留内容变化、损坏缓存及事务回滚门槛。
+三版本正式计量 run40789589030 成功：两 VM 各 5 组，冷建 74.244→65.249 秒（-12.12%），热建 40.761→29.830 秒（-26.82%），无缓存无可靠变化；老 SDK 同机冷/热 83.098/21.630 秒，热建仍领先。108 份完整输出清单一致。
+[报告](docs/UPHEAVAL_CACHE_OPTIMIZATION.md)和[持久完整计量](docs/UPHEAVAL_CACHE_OPTIMIZATION_RESULT.json)保留置信区间、逐 VM 数据、CPU/内存及原始观察。Texture BC、单资产失效粒度和坏 BC 持久修复未扩展。
+用户反馈本轮计量过长：后续定向迭代优先三轮冷热、少量无缓存对照，按波动追加；已有有效结果不重复运行。
+
+---
+
 # MOD 编译器：结果主线与续接入口
 
 更新：2026-10-27（北京时间）。用户指定 `compiler-main` 为重构结果及今后开发主线。旧 `refactor/modcompiler-p0-p3` 保留历史，PR #13 已关闭且未合并，不再合回旧主线。开发主线约定不代表已修改 GitHub 网页默认分支。
@@ -83,3 +94,4 @@
 | 执行与验证 | `recovery/EFFICIENCY.md`、`.github/workflows/refactor-core-lifecycle.yml`、`recovery/scripts/PublishCompiler.ps1` |
 
 效率优先，正确性是底线；保留原始差分和失败终态，复用有效证据。长任务每约10–15分钟保存检查点，低频跟进Actions到终态；交接直接说明新增能力、验证、剩余范围和下一步。
+
