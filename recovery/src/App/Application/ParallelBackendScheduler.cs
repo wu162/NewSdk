@@ -136,6 +136,10 @@ namespace NewModCompiler.Application
         {
             Check(); Refresh();
             if(capacity<=1) { Compatibility(declaration,compileCompatibility,verify,committed,asset,"resource-capacity"); return; }
+            string eligibilityReason;
+            if (!PreparedBackendWork.CanPrepare(declaration,plugin,out eligibilityReason)) {
+                Compatibility(declaration,compileCompatibility,verify,committed,asset,eligibilityReason); return;
+            }
             long estimate=PreparedBackendWork.EstimatePreparationBytes(declaration);
             while(pending.Count>0 && (pending.Count>=capacity || !Fits(estimate))) CommitOne();
             PreparedBackendWork prepared;

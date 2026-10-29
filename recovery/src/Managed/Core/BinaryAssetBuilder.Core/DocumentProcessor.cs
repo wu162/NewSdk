@@ -163,6 +163,14 @@ public class DocumentProcessor
 
 	public VerifierPluginRegistry VerifierPlugins => _VerifierPluginRegistry;
 
+	// Deferred owner callbacks retain the originating diagnostic context.
+	internal void InDocumentContext(string sourcePath, Action action)
+	{
+		_CurrentDocumentStack.Push(Path.GetFileName(sourcePath) + ":");
+		try { action(); }
+		finally { _CurrentDocumentStack.Pop(); }
+	}
+
 	public static string CurrentDocument => _CurrentDocumentStack.Peek();
 
     private static readonly object StateScopeGate = new object();

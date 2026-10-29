@@ -161,6 +161,10 @@ namespace NewModCompiler.Tests
                 mod=Path.Combine(root,"external mods","中文 MOD"); sdk=Path.Combine(root,"SDK"); Directory.CreateDirectory(sdk);
                 FileAt(Path.Combine(mod,"Data","Mod.xml")); FileAt(Path.Combine(mod,"Data","AptUI","b.xml")); FileAt(Path.Combine(mod,"Data","AptUI","a.xml"));
                 FileAt(Path.Combine(mod,"Data","AdditionalMaps","MapMetaData_z.xml")); FileAt(Path.Combine(mod,"Data","AdditionalMaps","Ignored.xml"));
+                Reject("CLI_JOBS","--jobs","0"); Reject("CLI_JOBS","--jobs","-1"); Reject("CLI_JOBS","--jobs","2147483648");
+                Check(Request().JobsAuto,"Jobs defaults to auto with original caches");
+                Check(Request("base","--jobs","AUTO").JobsAuto,"Auto normalization");
+                Check(!Request("base","--jobs","4").JobsAuto && Request("base","--jobs=4").RequestedJobs==4,"Explicit jobs parsing");
                 Reject("CLI_PERFORMANCE","--performance","invalid");
                 Check(Request().PerformanceLevel=="off","Performance disabled by default");
                 Check(Request("base","--performance","SUMMARY").PerformanceLevel=="summary","Performance level normalization");

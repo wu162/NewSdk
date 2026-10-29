@@ -1,0 +1,146 @@
+#!/usr/bin/env python3
+"""Production legacy-cache/parallel matrix; archives reports and exact output bytes."""
+import argparse
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import time
+import wave
+import xml.etree.ElementTree as ET
+
+NS = 'uri:ea.com:eala:asset'
+ET.register_namespace('', NS)
+
+
+def need(value, message):
+    if not value:
+        raise AssertionError(message)
+
+
+def write(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, indent=2) + '\n', encoding='utf-8')
+
+
+def fixture(repo, mod):
+    shutil.copytree(repo / 'SDK/Mods/W3xRecovery', mod)
+    data = mod / 'Data'
+    audio = ET.Element('{%s}AssetDeclaration' % NS)
+    for index in range(4):
+        source = mod / ('Audio/probe%d.wav' % index)
+        source.parent.mkdir(exist_ok=True)
+        with wave.open(str(source), 'wb') as stream:
+            stream.setparams((2, 2, 22050, 0, 'NONE', 'not compressed'))
+            stream.writeframes(b'\x00\x00\x01\x00\xff\xff\x02\x00' * 65536)
+        ET.SubElement(audio, '{%s}AudioFile' % NS,
+                      {'id': 'ParallelAudio%d' % index, 'File': '../Audio/' + source.name,
+                       'PCCompression': 'NONE' if index % 2 == 0 else 'XAS', 'IsStreamedOnPC': 'false'})
+    ET.ElementTree(audio).write(data / 'ParallelAudio.xml', encoding='utf-8', xml_declaration=True)
+    apt = repo / 'SDK/Mods/XmlCompilerRecoveryApt/Data'
+    for name in ('FixturesApt.xml', 'fixture.bin', 'fixture-odd.bin', 'fixture-empty.bin'):
+        shutil.copy2(apt / name, data / name)
+    root = ET.parse(data / 'Mod.xml')
+    includes = root.getroot().find('{%s}Includes' % NS)
+    for name in ('ParallelAudio.xml', 'FixturesApt.xml'):
+        ET.SubElement(includes, '{%s}Include' % NS, {'type': 'all', 'source': name})
+    # Repeated include exercises the pending-document reuse barrier.
+    ET.SubElement(includes, '{%s}Include' % NS, {'type': 'all', 'source': 'ParallelAudio.xml'})
+    root.write(data / 'Mod.xml', encoding='utf-8', xml_declaration=True)
+
+
+def run(args):
+    repo, products, work, out = (Path(x).resolve() for x in (args.repo, args.products, args.work, args.output))
+    need(not work.exists() and not out.exists(), 'Refusing to overwrite evidence/work')
+    work.mkdir(parents=True); out.mkdir(parents=True)
+    mod = work / 'mixed'
+    fixture(repo, mod)
+    state = {'sourceCommit': args.source_commit, 'runId': os.environ.get('GITHUB_RUN_ID'),
+             'succeeded': False, 'cases': [], 'scope': 'Current production mixed W3X/Texture/XML/APT/Audio, cache/jobs switches, raw output bytes; full MOD and component certification separate'}
+
+    def invoke(mode, name, destination, jobs, sc=True, bc=True, extra=(), expected=0):
+        exe = products / mode / 'bin/NewModCompiler.exe'
+        evidence = out / mode / name
+        evidence.mkdir(parents=True)
+        command = [str(exe), 'build', '--mod', str(mod), '--sdk-root', str(repo / 'SDK'),
+                   '--out', str(destination), '--jobs', str(jobs), '--performance', 'detailed',
+                   '--sc=' + str(sc).lower(), '--bc=' + str(bc).lower(), '--package-content', 'base',
+                   '--package-format', 'loose'] + list(extra)
+        tick = time.perf_counter()
+        with (evidence / 'stdout.log').open('wb') as stdout, (evidence / 'stderr.log').open('wb') as stderr:
+            process = subprocess.run(command, cwd=exe.parent, stdout=stdout, stderr=stderr, timeout=180)
+        report_path = destination / 'build-report.json'
+        if report_path.exists():
+            shutil.copy2(report_path, evidence / report_path.name)
+        body = json.loads(report_path.read_text(encoding='utf-8-sig'))
+        row = {'mode': mode, 'name': name, 'command': command, 'exitCode': process.returncode,
+               'wallMs': (time.perf_counter()-tick)*1000, 'cache': body.get('cache'), 'passed': False}
+        state['cases'].append(row); write(out / 'validation.json', state)
+        need(process.returncode == expected and body['exitCode'] == expected, name + ' exit/report differs')
+        result = {}
+        if expected == 0:
+            for artifact in body['artifacts']:
+                path = Path(artifact['Path']); relative = path.relative_to(destination / 'published')
+                content = path.read_bytes()
+                target = evidence / 'artifacts' / relative
+                target.parent.mkdir(parents=True, exist_ok=True); target.write_bytes(content)
+                result[relative.as_posix()] = content
+            need(len(result) >= 8, 'Mixed fixture omitted stream or Audio CDATA')
+            need(body['cache']['parallel']['backendCalls'] == body['cache']['instanceCompile'], 'Reported backend call count differs from actual Core compile count')
+            need(not list(destination.glob('**/result.bin')) and not list(destination.glob('**/action-cache*')), 'Unexpected action cache output')
+        row['passed'] = True; write(out / 'validation.json', state)
+        return result, body
+
+    try:
+        for mode in ('Debug', 'Release'):
+            reference = None
+            for sc, bc in ((False, False), (False, True), (True, False), (True, True)):
+                for jobs in ('1', '4', 'auto'):
+                    label = 'sc%d-bc%d-j%s' % (sc, bc, jobs)
+                    destination = work / mode / label
+                    outputs, body = invoke(mode, label, destination, jobs, sc, bc)
+                    if reference is None:
+                        reference = outputs
+                    need(outputs == reference, label + ' serial/parallel/cache raw outputs differ')
+                    if sc:
+                        hot, report = invoke(mode, label + '-hot-switch', destination, '4' if jobs == '1' else 'auto', sc, bc)
+                        need(hot == reference, 'Hot jobs switch changed raw bytes')
+                        cache = report['cache']; parallel = cache['parallel']
+                        need(cache['xmlParse'] == 0 and cache['instanceCompile'] == 0, 'Hot jobs switch invalidated old caches')
+                        need(parallel['backendCalls'] == 0 and parallel['prepareMs'] == 0, 'Hot cache performed backend preparation')
+            for flag in ('csc=false', 'psc=false', 'fsc=true', 'atc=true'):
+                result, _ = invoke(mode, flag, work / mode / flag, '4', extra=('--'+flag,))
+                need(result == reference, flag + ' changed original raw outputs')
+            destination = work / mode / 'sc1-bc1-j4'
+            path = mod / 'Data/ParallelAudio.xml'; original = path.read_bytes()
+            path.write_bytes(original.replace(b'PCCompression="NONE"', b'PCCompression="XAS"', 1))
+            changed, body = invoke(mode, 'single-asset-change', destination, '4')
+            need(0 < body['cache']['instanceCompile'] < 8, 'Single Audio change recompiled unrelated assets')
+            control, _ = invoke(mode, 'single-asset-control', work / mode / 'changed-control', '1', False, False)
+            need(changed == control, 'Incremental asset change raw bytes differ from independent owner control')
+            path.write_bytes(original)
+            # Native tasks from preceding includes must join before partial-save/retry.
+            broken = mod / 'Data/ParallelBroken.xml'
+            broken.write_text('<AssetDeclaration xmlns="'+NS+'"><AudioFile id="Broken" File="missing.wav" PCCompression="NONE"/></AssetDeclaration>')
+            entry = mod / 'Data/Mod.xml'; entry_bytes = entry.read_bytes(); root = ET.parse(entry)
+            ET.SubElement(root.getroot().find('{%s}Includes' % NS), '{%s}Include' % NS, {'type':'all','source':broken.name})
+            root.write(entry, encoding='utf-8', xml_declaration=True)
+            invoke(mode, 'partial-failure', work / mode / 'partial', '4', expected=4)
+            entry.write_bytes(entry_bytes); broken.unlink()
+            retry, _ = invoke(mode, 'partial-retry', work / mode / 'partial', 'auto')
+            need(retry == reference, 'Partial-session retry changed bytes')
+        state['succeeded'] = True
+        return 0
+    except Exception as error:
+        state['error'] = str(error)
+        raise
+    finally:
+        write(out / 'validation.json', state)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    for key in ('repo', 'products', 'work', 'output', 'source-commit'):
+        parser.add_argument('--'+key, required=True)
+    raise SystemExit(run(parser.parse_args()))

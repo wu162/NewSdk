@@ -33,6 +33,9 @@ on:
       - 'recovery/scripts/BuildCompiler*.ps1'
       - 'recovery/scripts/BuildManagedFoundation.ps1'
       - 'recovery/tests/CompilerValidationEntry.cpp'
+      - 'recovery/tests/CompilerPreparedBackend.cs'
+      - 'recovery/tests/CompilerXmlBackendBatch.cs'
+      - 'recovery/scripts/TestCompilerParallel.py'
       - 'recovery/tests/CompilerCoreLifecycle.cs'
       - 'recovery/tests/CompilerCacheContent.cs'
       - 'recovery/tests/CompilerStableSort.cs'
@@ -179,6 +182,12 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Full certified backend production cache and jobs matrix
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          python recovery/scripts/TestCompilerParallel.py --repo . --products recovery/artifacts/core-lifecycle-product --work "$env:RUNNER_TEMP/parallel-matrix" --output "recovery/evidence/refactor/backend-parallel/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" --source-commit $env:GITHUB_SHA
+          if($LASTEXITCODE -ne 0){throw 'Backend parallel production/cache matrix failed'}
       - name: Isolated original BAB baseline for the two targeted backend cases
         if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
         shell: pwsh
@@ -284,6 +293,7 @@ jobs:
         with:
           name: refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
+            recovery/evidence/refactor/backend-parallel/**
             recovery/artifacts/final-release/**
             recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/big-fixture-preflight/**

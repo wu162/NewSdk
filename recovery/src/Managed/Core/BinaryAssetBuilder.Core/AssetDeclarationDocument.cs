@@ -1075,15 +1075,17 @@ public class AssetDeclarationDocument : IXmlSerializable
 				if (execution != null && (location == AssetLocation.None || execution.HasPending))
 				{
 					var declaration = selfInstance;
-					Action<AssetLocation> committed = source => {
+					string sourcePath = _Current.SourcePath;
+					Action verify = () => processor.InDocumentContext(sourcePath, () => VerifyInstance(binaryAsset, declaration));
+					Action<AssetLocation> committed = source => processor.InDocumentContext(sourcePath, () => {
 						processor.RecordExecutionCommit(source);
 						RecordCommit(binaryAsset, declaration, source);
-					};
+					});
 					if (location == AssetLocation.None)
 						execution.Enqueue(binaryAsset, declaration, processor.Plugins.GetPlugin(declaration.Handle.TypeId),
-							() => CompileInstance(binaryAsset, declaration), () => VerifyInstance(binaryAsset, declaration), committed);
+							() => CompileInstance(binaryAsset, declaration), verify, committed);
 					else
-						execution.EnqueueCached(() => { VerifyInstance(binaryAsset, declaration); committed(binaryAsset.Commit(location)); });
+						execution.EnqueueCached(() => processor.InDocumentContext(sourcePath, () => { VerifyInstance(binaryAsset, declaration); committed(binaryAsset.Commit(location)); }));
 					continue;
 				}
 				if (location == AssetLocation.None)
