@@ -1,11 +1,11 @@
-# 当前：DIB/BMP真彩表已完成组件及专用SDK；PPM独立组件通过
+# 当前：DIB/NPOT与专用SDK闭环；PPM实际插件已在独立分支通过
 
-- **本轮完成（DIB）**：修复历史NPOT gold检出规则，四TSV明确CRLF，22系数原SHA保持不变；新规则仅作用于新增DIB证据。`b63f329c1ab5566dfa8a0fa57440108d71f070d4` / [40835621765](https://github.com/wu162/NewSdk/actions/runs/40835621765)的npot-rgba8 D/R各1012输入/1851原tap通过，其他45组件复用。前一`2b23ff4c` /40821998297的DIB六入口4866输入及dib-images各50304输入/同量NoOriginal、432成功atlas，已独立完整归档审计通过。
-- **本轮完成（专用SDK）**：同run PcDib三模式每模式21464实际资产/调用、216成功atlas、四产物及75017完整轨迹文件全部逐字节相同；完整5-DLL包、132源码指纹、安装/回滚、21464唯一原Core ID及46组件前置均独立审计通过，见`evidence/texture/handoffs/20261029-dib/sdk-package-audit.json`。生产SDK树未替换，完整mymod未跑。
-- **该run整体仍为failure**：业务测试全部passed，最后Git推送因147.6MB mod.bin超过100MB限制失败。已从原artifact 12881575467恢复完整证据，将12产物无损保存products.zip并按原收据SHA/完整字节重新审计；原收据、原hash、trace/包归档不改，不重跑SDK。新增保存helper只处理当前run的大产物；完整round-trip/失败保护检查走本次[texture-plan]，尚待Actions终态。
-- **本轮完成（PPM，独立测试分支）**：`validation/texture-public-ppm`直接适配固定IJG6b rdppm.c，保留原文件/通知及修改前后SHA。原8438输入/16876调用、6615解码/1823原错、0重复不确定已全归档审计；首版7918匹配/520差异按宽整数scaled component与原packed-channel OR规则修复。`782f6b97c726054c6067f3a8153412b55ff18398` / [40837034188](https://github.com/wu162/NewSdk/actions/runs/40837034188) success：D/R各8438 gold、Decode/Load共16876隔离调用、完整6630120 RGBA字节/原错误全等，60安全边界只调用候选；复用46旧组件。尚未正式接ImageLoader/Plugin/SDK或合入主贴图分支。
-- **下一轮计划**：先核实存储及选择Actions终态；PPM从`TEXTURE_PPM_NEXT.md`继续接实际loader/`.ppm`插件、raw/DXT3/5/完整mip/volume/atlas与必要SDK，完整受影响消费者及SDK通过后才普通合入。本轮剩余时间继续这一已授权功能。优先新能力完整反馈、再旧消费回归；成功祖先精确复用，SDK/MOD继续降频。
-- **保存与边界**：DIB/NPOT/证据修复在`recovery/texturecompiler-source`；PPM代码/原gold/成功组件在`validation/texture-public-ppm`，未启用域不提前计完成。仅PC，默认DXT1/不透明DXT1A及不确定扩展bitfields继续拒绝，禁止强推，编译测试仅Actions。
+- **本轮完成（主线）**：修复历史NPOT gold行尾作用域，22原系数SHA不改；`b63f329c1ab5566dfa8a0fa57440108d71f070d4` / [40835621765](https://github.com/wu162/NewSdk/actions/runs/40835621765)补齐npot-rgba8 D/R，复用45组件，共46当前组件有效。DIB六入口4866输入与50304插件输入/配置、432成功atlas均已完整归档审计；同run PcDib三模式每模式21464实际资产/调用、216成功atlas、四产物/75017完整轨迹、5-DLL来源包/132源码指纹、安装回滚与原Core唯一ID全部独立审计通过。
+- **证据状态**：该run整体仍是failure，仅最后Git推送因147.6MB产物超过100MB限制失败；已从artifact12881575467恢复，12产物无损压缩且按原收据SHA和完整字节复审，原收据和原hash不改，不重跑成功SDK。保存于f952cb27；[40837687073](https://github.com/wu162/NewSdk/actions/runs/40837687073)已success，17选择边界+3存储round-trip/失败保护检查通过，46组件复用、Windows skipped。审计及来源见`evidence/texture/handoffs/20261029-dib/`。
+- **本轮完成（PPM独立测试分支）**：`validation/texture-public-ppm`直接适配固定IJG6b公开源码、保留原文件/通知及修改前后SHA。独立`782f6b97` /40837034188通过8438 gold D/R双入口；接实际ImageLoader/`.ppm`后，`838b40b3860106cdfd677438c33c062b98d6702f` / [40838359589](https://github.com/wu162/NewSdk/actions/runs/40838359589)优先两组passed：D/R各8438 gold四入口33752调用，以及41120插件输入/同量NoOriginal、64成功atlas；完整源/三buffer/full cdata/旧尾/原错误已独立归档审计。PPM成果与早期成功收据已普通推送，未合入本分支。
+- **当前未完成**：同run仍在执行其余27受影响旧组，19组复用；不能当整批success。另已准备独立11520竖长条带volume边界、完整六DLL包/安装回滚及新PcPpm SDK（每模式15712资产/32成功atlas），尚未运行，全部49组件门槛收齐后才SDK。
+- **下一轮计划**：到`validation/texture-public-ppm`先收40838359589终态并保留逐组成功锚点，再在该分支RESUME交接提交显式`[texture-ppm-sdk]`，只补新增volume边界和实际失败/变化组并接新sdk-PcPpm。用`InspectTexturePpmSdkPackage.py`审计产物/全部轨迹/六DLL来源/安装回滚/ID与组件输入关联，全部必要门槛通过后再普通合入主贴图分支。具体入口见[PPM续接](TEXTURE_PPM_NEXT.md)；不自动跑旧SDK或完整mymod。
+- **保存与边界**：DIB/NPOT/证据修复在`recovery/texturecompiler-source`，PPM在独立`validation/texture-public-ppm`。两分支生产SDK树均保持`1f2d71a20ce8bf7d9343c7a2246c10275abe28f9`，仅PC、原不确定DXT1/不透明DXT1A/扩展bitfields拒绝，编译测试仅Actions，禁止强推。
 
 以下为历史交接，当前状态以上述入口及实际sourceCommit/runId为准。
 
