@@ -1,0 +1,355 @@
+{
+  "scope": "independent component receipt/log/archive identity audit; SDK and new DIB API acceptance remain separate",
+  "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+  "runId": "40813121025",
+  "workflowConclusion": "failure",
+  "failedGroups": [
+    "sdk-PcBmpHeaders"
+  ],
+  "executedPassed": 15,
+  "reusedPassed": 29,
+  "acceptedComponentCount": 44,
+  "anchors": {
+    "bmp": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/bmp/40813121025-1/validation.json",
+      "receiptSha256": "bf89ed9dc5f67daea387f067f7a6d2c4141d22dc4c08f64cb207564e007cd454",
+      "mode": "executed"
+    },
+    "raster-images": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/raster-images/40813121025-1/validation.json",
+      "receiptSha256": "d1cd0a1d832c0d20d1500cc5e5139466f3a6c8cbaa8613911eac54e5ee35e180",
+      "mode": "executed"
+    },
+    "dxt-images": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/dxt-images/40813121025-1/validation.json",
+      "receiptSha256": "35ef21d170495354157d12648bd7b03ca1d6732c4f443f334bc241719dc54ece",
+      "mode": "executed"
+    },
+    "npot-rgba8": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/npot-rgba8/40813121025-1/validation.json",
+      "receiptSha256": "2b5dd5b62c476e22a3e71481d6fdb6dc8e589b3e8286d699f583ab1fa48edd2e",
+      "mode": "executed"
+    },
+    "npot-storage-replay": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/npot-storage-replay/40813121025-1/validation.json",
+      "receiptSha256": "13cca455dcda9c0d365fb52a36b961c9fbbf48d0f3b589e6e737ffb0f6e7465a",
+      "mode": "executed"
+    },
+    "npot-storage-stress-replay": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/npot-storage-stress-replay/40813121025-1/validation.json",
+      "receiptSha256": "929f043ac9b8020b30884c7157e6913438ad6b9c7198ad9fd16bb026d95c93f7",
+      "mode": "executed"
+    },
+    "atlas-entry": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/atlas-entry/40813121025-1/validation.json",
+      "receiptSha256": "0623823992dcf9a89b19ec9b880acea8be4b45beda982ff5bed6d7f45a91fc17",
+      "mode": "executed"
+    },
+    "jpeg": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/jpeg/40813121025-1/validation.json",
+      "receiptSha256": "fc0f9df7c841ab99688fc1d4c475a912c34b5a73414025b81c15d8b72ecf76db",
+      "mode": "executed"
+    },
+    "jpeg-images": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/jpeg-images/40813121025-1/validation.json",
+      "receiptSha256": "62e6228aa0ef77d760221d5a3a5b6aa3899f71946ea5c6488131e9ffa6a0fc7d",
+      "mode": "executed"
+    },
+    "dxt1a-blocks": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/dxt1a-blocks/40813121025-1/validation.json",
+      "receiptSha256": "05ddd8c552f000ca82a1c3e7035d3221175f418527e1b84663039fdf284ea072",
+      "mode": "executed"
+    },
+    "dxt1a-dds": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/dxt1a-dds/40813121025-1/validation.json",
+      "receiptSha256": "65e2599dd5109d459666759b4509d8042f87ebd06f132d22bc7e0e012821d9f3",
+      "mode": "executed"
+    },
+    "dxt1a-images": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/dxt1a-images/40813121025-1/validation.json",
+      "receiptSha256": "353cbcb7adf3b61dfa4db91ba88fbbffdc22376f59b2ed3bba128965c6c540a1",
+      "mode": "executed"
+    },
+    "bmp-headers": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/bmp-headers/40813121025-1/validation.json",
+      "receiptSha256": "b5fbecc85a9c9b773254f061ae6522b13a51622f96647e760c2d9ce699c151cb",
+      "mode": "executed"
+    },
+    "bmp-header-images": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/bmp-header-images/40813121025-1/validation.json",
+      "receiptSha256": "75ec93fc210d4951a840f5724c5e6454c3b63dd3fc118c6e655ae4ec4ad3eaba",
+      "mode": "executed"
+    },
+    "bmp-os2": {
+      "sourceCommit": "0dca148f4c43419ab53d97f132f764a06140abd3",
+      "runId": "40813121025",
+      "receipt": "recovery/evidence/texture/bmp-os2/40813121025-1/validation.json",
+      "receiptSha256": "6910b5977de175ca736b9adb1a433235dff16db7f81a9e2e3051db4daefc126f",
+      "mode": "executed"
+    },
+    "base": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/validation/40695394943-1/validation.json",
+      "receiptSha256": "def63c38017f146e3349390d840c30561527f8bd9a9efc5850fd8aba861a1b19",
+      "mode": "reused"
+    },
+    "tga": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/tga/40795326615-1/validation.json",
+      "receiptSha256": "a0e1cbe4d9c603dec19fb23cd6e7b763e4c3f521d02c6eaa00cb5b3ab39b271d",
+      "mode": "reused"
+    },
+    "formats": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/stage2/Formats/40795326615-1/validation.json",
+      "receiptSha256": "264c8bd6732873271756b51e2a6fded1be1f7a52132ff7585a70ceb12567fe4f",
+      "mode": "reused"
+    },
+    "volume-helper": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/Volume/40241188546-1/validation.json",
+      "receiptSha256": "3fbd73f9da6ce0c34b2b20aa915e78ab22c5d1a4002d9106cefa6f84051650d0",
+      "mode": "reused"
+    },
+    "raw": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/Raw/40241188546-1/validation.json",
+      "receiptSha256": "15dde51c984a4bcbdad1e257f8de723619aa941c78430c9063ba2688099cede0",
+      "mode": "reused"
+    },
+    "mips": {
+      "sourceCommit": "7ae4af3769842084cd19cbff87c651c945f45888",
+      "runId": "40524039917",
+      "receipt": "recovery/evidence/texture/stage2/Mips/40524039917-1/validation.json",
+      "receiptSha256": "c9641303229529d90391c12614c264f64a2c9668c8f31893c9cbe44f50fed3e0",
+      "mode": "reused"
+    },
+    "volume-dds": {
+      "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+      "runId": "40241188546",
+      "receipt": "recovery/evidence/texture/stage2/VolumeDds/40241188546-1/validation.json",
+      "receiptSha256": "1fe4f11fcba48d5b2d3132ab768c8d9bd5a50f364ff80a7b6b086f900c2e8a20",
+      "mode": "reused"
+    },
+    "volume-mips": {
+      "sourceCommit": "aaacb3d25fdb99eddaa8ed4ab23701437e840ec2",
+      "runId": "40526443463",
+      "receipt": "recovery/evidence/texture/stage2/VolumeMips/40526443463-1/validation.json",
+      "receiptSha256": "7ff360b18dade14b408dd8ea30bd85f8137066e1a4523788ac13eaf9fae4086f",
+      "mode": "reused"
+    },
+    "images": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/images/40795326615-1/validation.json",
+      "receiptSha256": "05843913721906eceffdbef1bb23944d20646f6a36e63d0cf1e4ff9e052f5878",
+      "mode": "reused"
+    },
+    "mip-images": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/mip-images/40795326615-1/validation.json",
+      "receiptSha256": "c29d1f63d29af7da2cfc982db3444a1a42d623133a9b4371d3aa83bf6cde642a",
+      "mode": "reused"
+    },
+    "volume-images": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/volume-images/40795326615-1/validation.json",
+      "receiptSha256": "16b446bc6dcd5567bcaaee289366d6439952e8d892b0629bc392c525a2bacf5b",
+      "mode": "reused"
+    },
+    "volume-mip-images": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/volume-mip-images/40795326615-1/validation.json",
+      "receiptSha256": "fb0df9ea5b67252344c8ed9517e0bf038b6f5d8c73de97fc83d775ebda164e23",
+      "mode": "reused"
+    },
+    "png": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png/40780996417-1/validation.json",
+      "receiptSha256": "6eeef0deb83ee72158e06591daf55ffade66843b1a22120c21577435523f0ffe",
+      "mode": "reused"
+    },
+    "png-ranges": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png-ranges/40780996417-1/validation.json",
+      "receiptSha256": "1be54d77cede05c6b36c814afcde630e40f9c9a3fa74c9003b46320a11379d27",
+      "mode": "reused"
+    },
+    "dxt3-alpha": {
+      "sourceCommit": "9f8b1361148a6b76fec1b5564b3d055ba4ee62e7",
+      "runId": "40470055551",
+      "receipt": "recovery/evidence/texture/dxt3-alpha/40470055551-1/validation.json",
+      "receiptSha256": "1c8e5049d97db8e63d684b6924490badcf1e9e50b9db2e487102ecb54e69711a",
+      "mode": "reused"
+    },
+    "dxt5-fast-alpha": {
+      "sourceCommit": "82422508cad2ad15b551be06596f8666791422c9",
+      "runId": "40490888440",
+      "receipt": "recovery/evidence/texture/dxt5-fast-alpha/40490888440-1/validation.json",
+      "receiptSha256": "d2a67ce15ffdc60b7f90bed78d7ab276089c83c5166bc703c129b69b4c3c8d14",
+      "mode": "reused"
+    },
+    "dxt5-alpha": {
+      "sourceCommit": "4bf0ca8ccb74a6f670cd7ecb954483dc795fae9f",
+      "runId": "40493971846",
+      "receipt": "recovery/evidence/texture/dxt5-alpha/40493971846-1/validation.json",
+      "receiptSha256": "8856608b6b6c6a2026c8cb50576b6483aa526f2d8c9d377e1db9a7b37efaf7e9",
+      "mode": "reused"
+    },
+    "dxt-colour-state": {
+      "sourceCommit": "2cee34462377beca4b16926eaf25d093daa02c2a",
+      "runId": "40500150864",
+      "receipt": "recovery/evidence/texture/colour-state/40500150864-1/validation.json",
+      "receiptSha256": "a04c0b7156abe38e3d27b4ff76c2489fbd1257c8187ce114f9c504e00f9c62a9",
+      "mode": "reused"
+    },
+    "dxt-blocks-complete": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-blocks/40695394943-1/validation.json",
+      "receiptSha256": "e2ddadddbdfe0dc9cc08cc0e72c06b88518865b284ed6cea10a1774d29c31439",
+      "mode": "reused"
+    },
+    "dxt-dds2d": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-dds2d/40695394943-1/validation.json",
+      "receiptSha256": "2363d7838bec7f435b78b4a9938b6db9acbf2ed3483f6d75257b7272f09c4b72",
+      "mode": "reused"
+    },
+    "dxt-samples": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-samples/40695394943-1/validation.json",
+      "receiptSha256": "ff16b9bd68fbe2375854c325f20b448be5c2c310f4c1558bb5f167a34cbe17c7",
+      "mode": "reused"
+    },
+    "dxt-volume-dds": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/dxt-volume-dds/40695394943-1/validation.json",
+      "receiptSha256": "e097253a15cf047b6d0eb05f1fb34c67610b58655defc6b6ad2fe9c7a546889f",
+      "mode": "reused"
+    },
+    "atlas-dds": {
+      "sourceCommit": "5882d9afc2cc9f98ce2203a9846379cf0b932508",
+      "runId": "40695394943",
+      "receipt": "recovery/evidence/texture/atlas-dds/40695394943-1/validation.json",
+      "receiptSha256": "cc6094f6ba27e57f02ea5ed20d81e6c6f0476f5477f347c76b3f328f27a23343",
+      "mode": "reused"
+    },
+    "png-metadata": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png-metadata/40780996417-1/validation.json",
+      "receiptSha256": "9971a296cae04136122b3d0dbe55b23ab0ba990daf8f71ee65a02b4048af95da",
+      "mode": "reused"
+    },
+    "png-metadata-images": {
+      "sourceCommit": "1cff9256c8af926121cd47f44b82b34200ff24e1",
+      "runId": "40780996417",
+      "receipt": "recovery/evidence/texture/png-metadata-images/40780996417-1/validation.json",
+      "receiptSha256": "85e38485143f56f537193c5daf6c0f0967df48034280ff82c996a610fda52186",
+      "mode": "reused"
+    },
+    "jpeg-metadata": {
+      "sourceCommit": "dba6d3050bf33db791144e00f54129f769226714",
+      "runId": "40785653416",
+      "receipt": "recovery/evidence/texture/jpeg-metadata/40785653416-1/validation.json",
+      "receiptSha256": "36e4a24f39a70fc35df135c2a10b4143c5a29d9ddb28d00b2d9d3599c27d0f73",
+      "mode": "reused"
+    },
+    "jpeg-metadata-images": {
+      "sourceCommit": "dba6d3050bf33db791144e00f54129f769226714",
+      "runId": "40785653416",
+      "receipt": "recovery/evidence/texture/jpeg-metadata-images/40785653416-1/validation.json",
+      "receiptSha256": "35bcd26861962b5fd65271e163cc0f66d1cccaa741709ca8149aa7d63c51193e",
+      "mode": "reused"
+    },
+    "tga-metadata": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/tga-metadata/40795326615-1/validation.json",
+      "receiptSha256": "1311cc35aca1806d517462c86ac11a58c7feb9f7d4086b68d12ef8b68d4e5d18",
+      "mode": "reused"
+    },
+    "tga-metadata-images": {
+      "sourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+      "runId": "40795326615",
+      "receipt": "recovery/evidence/texture/tga-metadata-images/40795326615-1/validation.json",
+      "receiptSha256": "7c991eb5ded5fc57ccf78cddfad2a21b58a86d20153ecb7f81f7f4202992b24d",
+      "mode": "reused"
+    }
+  },
+  "os2": {
+    "directFixturesPerConfiguration": 1944,
+    "directApiCalls": 3888,
+    "pluginFixturesPerConfiguration": 28548,
+    "pluginOriginalErrorsPerConfiguration": 5256,
+    "successfulAtlasPerConfiguration": 108,
+    "pluginComparedBytesPerStage": 228551484
+  },
+  "bmpHeaders": {
+    "pluginFixturesPerConfiguration": 37160,
+    "originalErrors": 5760,
+    "explicitRefusals": 1152,
+    "successfulAtlas": 200,
+    "comparedBytesPerStage": 355753376
+  },
+  "nextRun": {
+    "runId": "40816168489",
+    "sourceCommit": "d0a4547e9cb45d35f5f22b73d23c401e97ef266d",
+    "requestedGroups": [
+      "dib",
+      "sdk-PcBmpHeaders"
+    ],
+    "status": "in_progress_at_handoff_preparation",
+    "selectedGroups": [
+      "dxt1a-blocks",
+      "dxt1a-dds",
+      "dxt1a-images",
+      "dib",
+      "sdk-PcBmpHeaders"
+    ],
+    "reusedComponents": 41,
+    "selectionNote": "The three DXT1A groups declare Managed/** dependencies; adding the independent DIB class changes those inputs. Other41 accepted components are reused."
+  }
+}

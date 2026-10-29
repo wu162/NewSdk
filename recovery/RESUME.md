@@ -1,9 +1,10 @@
-# 当前：OS2与正向BMP atlas组件通过；DIB与专用SDK集中补验
+# 当前：44组件已验收；DIB及SDK补验40816168489运行中
 
 - **本轮完成**：0dca148f /40813121025的15受影响组件全部passed、29复用，当前44组件有效。OS2直接1944输入双入口、完整插件28548输入，各D/R与逐次NoOriginal、108成功atlas均通过；旧BMP header插件37160输入及200正向atlas通过（每配置355753376字节）。此前atlas只是匹配路径拒绝的缺口已补齐。整个run仍failure，唯一失败SDK不能改写为整体success。
 - **SDK工具问题已修**：完整5-DLL包已实际构建，但构建器将已有dotnet obj中间文件误报dirty，SDK在BAB调用前停止；现仅排除默认Managed/bin与obj中间目录，保留其他未提交源码检查，收据先保存manifest便于定位。只补sdk-PcBmpHeaders，不重跑44组件。安装/回滚与22670资产三模式仍待真实SDK验收，不提前声明。
 - **DIB功能已实现、待验收**：独立Decode/Load/IsDib、共享原parser、真彩biClrUsed表跳过与V5 profile偏移修正。4866输入/306色表变体，4578实际原raw-DIB调用/配置、数组/文件入口与逐次NoOriginal；未接TextureImageLoader/XML插件。只验新增dib组。
-- **下一轮计划**：优先收本轮补验终态与各组原始收据，成功项复用，真实失败才定向修复。DIB接口通过后把裸DIB插件路由与BMP真彩非零biClrUsed修正合为下一能力组，再一次集中必要消费/SDK；默认DXT1和扩展bitfields原不确定域仍拒绝。生产SDK树1f2d71a2未改，完整MOD本轮未跑，禁止强推。
+- **补验锚点**：源码`d0a4547e9cb45d35f5f22b73d23c401e97ef266d` / [40816168489](https://github.com/wu162/NewSdk/actions/runs/40816168489)，当前in_progress；显式请求dib与sdk-PcBmpHeaders；实际选择额外3个DXT1A组（其Managed/**依赖因新增DIB类变化），另41组件复用，不改依赖绕过验证。完整44组锚点与归档核对见`evidence/texture/handoffs/20261029-bmp-os2/component-acceptance.json`。未取得终态前不把DIB或SDK计为通过。
+- **下一轮计划**：先核对40816168489终态及每组validation/sourceCommit和实际日志；如已通过直接沿用，不重新触发。SDK通过后运行InspectTextureBmpSdkPackage.py核对全部四产物/完整轨迹/包和ID。成功项复用，真实失败才定向修复。DIB接口通过后把裸DIB插件路由与BMP真彩非零biClrUsed修正合为下一能力组，再一次集中必要消费/SDK；默认DXT1和扩展bitfields原不确定域仍拒绝。生产SDK树1f2d71a2未改，完整MOD本轮未跑，禁止强推。
 
 # 本轮追加：独立裸DIB加载接口（待组件验收，未接插件）
 
