@@ -1940,6 +1940,23 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-jpeg-metadata/*/validation.json",
       "sdk": true
+    },
+    "tga-metadata-load": {
+      "script": "recovery/scripts/InspectTextureTgaMetadata.ps1",
+      "arguments": {},
+      "dependencies": [
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TextureTgaMetadataFixtures.cs",
+        "recovery/tests/TextureTgaMetadataProbe.cs",
+        "recovery/scripts/InspectTextureTgaMetadata.ps1"
+      ],
+      "evidence": "recovery/evidence/texture/tga-metadata-load/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"

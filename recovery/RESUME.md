@@ -1,3 +1,8 @@
+# 当前进行中：TGA 非零 metadata 原版取证
+
+- **本轮准备**：从91aafaef继续，既有PNG/JPEG的39组件/12 SDK输入未变，保留原锚点。新增12480个TGA输入，覆盖10种已声明存储格式、POT/NPOT、raw/逐行RLE、两个方向、三种像素/alpha图案及26种header/extension/footer/developer/table组合；每输入原版连续两次完整RGBA/错误核对。仅取证，尚无恢复/插件/SDK验收。
+- **下一步**：先收显式tga-metadata-load探针，按原像素/hasAlpha/错误确定gamma、alpha、色彩修正及坐标规则，再按完整能力组实现与集中差分。入口[本批TGA metadata](TEXTURE_TGA_METADATA.md)；不默认完整MOD，编译测试只在Actions，禁止强推。
+
 # 当前：PNG 与 JPEG metadata 均已完成组件、完整消费与专用SDK
 
 - **本轮完成（PNG）**：ICC/APNG按原版取IDAT默认图，有效sRGB优先于前/后gAMA。组件1cff9256 / [40780996417](https://github.com/wu162/NewSdk/actions/runs/40780996417) success：15组通过/22复用，D/R各7920 gold双入口和34880插件输入/同量逐次NoOriginal，0错误；SDK源码7ff6dc66 / [40783041481](https://github.com/wu162/NewSdk/actions/runs/40783041481) success，11 profile三模式每模式17664实际资产/调用、四产物与61811完整轨迹文件独立核对，37组件复用。PcPngMetadata每模式4240资产，含透明DXT1A/atlas/volume/mips。详见[PNG metadata](TEXTURE_PNG_METADATA.md)。
