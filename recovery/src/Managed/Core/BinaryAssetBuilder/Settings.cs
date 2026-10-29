@@ -11,10 +11,15 @@ public class Settings : ICloneable
 
 	[XmlIgnore]
 	public Action<string> PrepareLinkedOutput { get; set; }
+	[XmlIgnore]
 	public Func<string, string> FindLinkedOutput { get; set; }
+	[XmlIgnore]
 	public Action<string, string> ReuseLinkedOutput { get; set; }
+	[XmlIgnore]
 	public Func<string, string> FileContentHash { get; set; }
+	[XmlIgnore]
 	public Func<string, string> FindCustomData { get; set; }
+	[XmlIgnore]
 	public Action<string, string> ReuseCustomData { get; set; }
 
 	private string _SchemaPath;

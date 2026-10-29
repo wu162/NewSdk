@@ -353,7 +353,7 @@ def main():
     parser.add_argument('--work-directory', required=True)
     parser.add_argument('--timeout-seconds', type=int, choices=range(5, 61), default=30)
     parser.add_argument('--budget-seconds', type=int, choices=range(30, 301), default=180)
-    parser.add_argument('--hot-runs', type=int, choices=range(1, 4), default=2)
+    parser.add_argument('--hot-runs', type=int, choices=range(1, 8), default=2)
     args = parser.parse_args()
     return 0 if run(args)['status'] == 'passed' else 1
 

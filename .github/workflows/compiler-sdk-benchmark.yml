@@ -25,7 +25,7 @@ jobs:
   benchmark:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[sdk-benchmark]')
     runs-on: windows-2022
-    timeout-minutes: 8
+    timeout-minutes: 10
     env:
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
@@ -59,11 +59,11 @@ jobs:
           python recovery/scripts/PrepareCompilerSdkBenchmark.py --preparation "$env:RUNNER_TEMP/cb/preparation.json" --output "$env:RUNNER_TEMP/ob" --repo . --binary-source-commit $prepared.binarySourceCommit --source-run-id $prepared.sourceRunId
           if($LASTEXITCODE -ne 0){throw 'Original SDK/shared-input preparation failed'}
       - name: Paired original and new SDK cache matrix with strict budgets
-        timeout-minutes: 4
+        timeout-minutes: 5
         shell: pwsh
         run: |
           $out="recovery/evidence/refactor/sdk-benchmark/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          python recovery/scripts/BenchmarkCompilerSdkComparison.py --preparation "$env:RUNNER_TEMP/cb/preparation.json" --original-preparation "$env:RUNNER_TEMP/ob/original-preparation.json" --output $out --work-directory "$env:RUNNER_TEMP/sbw" --timeout-seconds 30 --budget-seconds 180 --hot-runs 2
+          python recovery/scripts/BenchmarkCompilerSdkComparison.py --preparation "$env:RUNNER_TEMP/cb/preparation.json" --original-preparation "$env:RUNNER_TEMP/ob/original-preparation.json" --output $out --work-directory "$env:RUNNER_TEMP/sbw" --timeout-seconds 30 --budget-seconds 240 --hot-runs 5
           $comparisonExit=$LASTEXITCODE
           if(Test-Path $out){
             Copy-Item "$env:RUNNER_TEMP/cb/preparation.json" "$out/preparation.json"
