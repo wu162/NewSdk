@@ -2857,6 +2857,24 @@
       "evidence": "recovery/evidence/texture/native-errors/*/validation.json",
       "sdk": false,
       "priority": -10
+    },
+    "native-memory": {
+      "script": "recovery/scripts/TestTextureNativeMemory.ps1",
+      "arguments": {},
+      "dependencies": [
+        "src/TextureCompiler/Native/TextureSupport.cpp",
+        "src/TextureCompiler/Native/TextureSupport.h",
+        "src/TextureCompiler/Native/TextureNativeMemoryApi.cpp",
+        "src/TextureCompiler/Native/TextureNativeMemoryApi.h",
+        "src/TextureCompiler/Native/TextureNativeMemoryApi.def",
+        "recovery/scripts/BuildTextureNativeMemory.ps1",
+        "recovery/scripts/TestTextureNativeMemory.ps1",
+        "recovery/tests/TextureNativeMemoryOracle.cpp",
+        "SDK/tools/*.dll"
+      ],
+      "evidence": "recovery/evidence/texture/native-memory/*/validation.json",
+      "sdk": false,
+      "priority": -9
     }
   },
   "targetPlatform": "Win32"

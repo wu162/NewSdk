@@ -1,0 +1,12 @@
+TextureSupport.cpp
+TextureNativeMemoryApi.cpp
+Generating Code...
+TextureNativeMemoryApi.def : error LNK2001: unresolved external symbol _TextureAllocate
+TextureNativeMemoryApi.def : error LNK2001: unresolved external symbol _TextureBufferAppend
+TextureNativeMemoryApi.def : error LNK2001: unresolved external symbol _TextureBufferConstruct
+TextureNativeMemoryApi.def : error LNK2001: unresolved external symbol _TextureBufferDelete
+TextureNativeMemoryApi.def : error LNK2001: unresolved external symbol _TextureBufferReset
+TextureNativeMemoryApi.def : error LNK2001: unresolved external symbol _TextureDirect3DRelease
+TextureNativeMemoryApi.def : error LNK2001: unresolved external symbol _TextureFree
+TextureNativeMemoryApi.def : error LNK2001: unresolved external symbol _TextureReverseEndianness
+D:\a\_temp\texture-native-memory-a98c2c629ffa4c8e838b2795b5f5ce16\Debug/native-memory.lib : fatal error LNK1120: 8 unresolved externals

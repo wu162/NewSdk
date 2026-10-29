@@ -1,0 +1,11 @@
+LIBRARY Recovered.TextureNativeMemory
+EXPORTS
+    TextureBufferConstruct
+    TextureBufferReset
+    TextureBufferAppend
+    TextureBufferDelete
+    TextureAllocate
+    TextureFree
+    TextureReverseEndianness
+    TextureDirect3DCreate9=_TextureDirect3DCreate9@4
+    TextureDirect3DRelease
