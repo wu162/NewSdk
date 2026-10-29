@@ -22,6 +22,30 @@ namespace NewModCompiler.Application
         static extern bool GetFileInformationByHandleEx(SafeFileHandle file, int informationClass,
             IntPtr information, uint size);
 
+        // Schema closures share a few directories. Read each directory once per
+        // validation pass rather than opening every XSD for its identity.
+        internal static IDictionary<string, string> SchemaIdentities(IEnumerable<string> paths)
+        {
+            var directories = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase);
+            var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            foreach (string path in paths)
+            {
+                string parent = System.IO.Path.GetDirectoryName(path);
+                Dictionary<string, string> files;
+                if (!directories.TryGetValue(parent, out files))
+                {
+                    files = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                    try { foreach (var file in ReadDirectory(parent, false)) files.Add(file.Path, FileHashCache.Key(file, false)); }
+                    catch (DirectoryNotFoundException) { }
+                    directories.Add(parent, files);
+                }
+                string identity;
+                files.TryGetValue(path, out identity);
+                result.Add(path, identity);
+            }
+            return result;
+        }
+
         // Query one known file/directory. Used by generation receipts so a hot
         // publication does not recursively enumerate published or read bodies.
         internal static string Stamp(string path)

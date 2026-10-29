@@ -506,7 +506,7 @@ namespace NewModCompiler.Application
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
                 Settings settings = streamSettings = StreamSettings(context, staging);
                 settings.FileContentHash = request.FileIdentities.HashBase64;
-                settings.FileIdentityStamp = FileIdentity.Stamp;
+                settings.SchemaFileIdentities = FileIdentity.SchemaIdentities;
                 if (linkedOutputs == null) linkedOutputs = new LinkedOutputCache(outputRoot, request.FileIdentities);
                 string linkScope = Path.Combine(context.Task.Content, Path.GetFileNameWithoutExtension(context.Task.InputPath));
                 var reusedArtifacts = new List<Artifact>();
@@ -520,9 +520,10 @@ namespace NewModCompiler.Application
                 report = AssetReport.BeginScope();
                 EnsureProviders();
                 bool packageRestored = false;
+                if (schemas == null) schemas = new SchemaSet(settings.StableSort);
+                else schemas.ReloadIfChanged(settings.StableSort);
                 if (sessionCacheEnabled)
                 {
-                    if (schemas == null) schemas = new SchemaSet(settings.StableSort);
                     if (legacyStore == null) legacyStore = new LegacyCacheStore(outputRoot, RootOption("session-cache-directory", outputRoot), LegacyCacheIdentity(settings));
                     string root = FileNameResolver.GetDataRoot(settings.InputPath);
                     string relative = string.IsNullOrEmpty(root) ? Path.GetFileName(settings.InputPath) : FileNameResolver.GetSafeRelativePath(root, settings.InputPath);
@@ -539,7 +540,6 @@ namespace NewModCompiler.Application
                         };
                     }
                 }
-                if (schemas == null) schemas = new SchemaSet(settings.StableSort);
                 hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                 cache = new SessionCache();
                 if (sessionCacheEnabled)

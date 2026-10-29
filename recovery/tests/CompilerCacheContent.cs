@@ -122,8 +122,8 @@ public static class CompilerCacheContent
         if (identityProvider)
         {
             var stamp = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileIdentity", true)
-                .GetMethod("Stamp", BindingFlags.NonPublic | BindingFlags.Static);
-            Settings.Current.FileIdentityStamp = (Func<string, string>)Delegate.CreateDelegate(typeof(Func<string, string>), stamp);
+                .GetMethod("SchemaIdentities", BindingFlags.NonPublic | BindingFlags.Static);
+            Settings.Current.SchemaFileIdentities = (Func<IEnumerable<string>, IDictionary<string, string>>)Delegate.CreateDelegate(typeof(Func<IEnumerable<string>, IDictionary<string, string>>), stamp);
         }
         var schemas = new SchemaSet(false);
         Require(schemas.GetXmlType("KindAlpha") != null && schemas.GetXmlType("ItemAlpha") != null, "Initial real schema closure must load");

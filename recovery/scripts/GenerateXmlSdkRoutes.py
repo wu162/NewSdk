@@ -29,15 +29,14 @@ s=s[:a]+'''            switch (typeId)
 '''+''.join(f'                case {r["typeId"]}u: info.TypeName = "{r["name"]}"; info.TypeHash = {r["typeHash"]}u; break;\n' for r in rows)+'''                default: throw new NotSupportedException("XmlPriority supports only its generated recovered scope; excluded roots remain unsupported.");
             }
 '''+s[b:]
-a=s.index('                switch (typeId)',s.index('public AssetBuffer ProcessInstance'));b=s.index('            catch (Exception error)',a)
-s=s[:a]+'''                switch (typeId)
-                {
-'''+''.join(f'''                    case {r['typeId']}u:
-                        typeName = "{r['name']}";
-                        result = global::Recovered.{r['compiler']}.ProcessInstance(compilationInstance, platform);
-                        break;
-''' for r in rows)+'''                    default: throw new NotSupportedException("XmlPriority supports only its generated recovered scope; excluded roots remain unsupported.");
-                }
+a=s.index('            switch (typeId)',s.index('public AssetBuffer ProcessInstance'));b=s.index('            if (!String.IsNullOrEmpty(trace))',a)
+s=s[:a]+'''            switch (typeId)
+            {
+'''+''.join(f'''                case {r['typeId']}u:
+                    typeName = "{r['name']}";
+                    result = global::Recovered.{r['compiler']}.ProcessInstance(compilationInstance, platform);
+                    break;
+''' for r in rows)+'''                default: throw new NotSupportedException("XmlPriority supports only its generated recovered scope; excluded roots remain unsupported.");
             }
 '''+s[b:]
 p.write_text(s)

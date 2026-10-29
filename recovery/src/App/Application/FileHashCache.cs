@@ -168,7 +168,7 @@ namespace NewModCompiler.Application
             return files;
         }
 
-        static string Key(FileIdentity file, bool immutable)
+        internal static string Key(FileIdentity file, bool immutable)
         {
             string identity = file.VolumeSerial.ToString("x16", CultureInfo.InvariantCulture) + "|" +
                 file.FileId.ToString("x16", CultureInfo.InvariantCulture) + "|" +

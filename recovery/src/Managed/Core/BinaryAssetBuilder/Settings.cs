@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using BinaryAssetBuilder.Core;
 
@@ -18,7 +19,7 @@ public class Settings : ICloneable
 	[XmlIgnore]
 	public Func<string, string> FileContentHash { get; set; }
 	[XmlIgnore]
-	public Func<string, string> FileIdentityStamp { get; set; }
+	public Func<IEnumerable<string>, IDictionary<string, string>> SchemaFileIdentities { get; set; }
 	[XmlIgnore]
 	public Func<string, string> FindCustomData { get; set; }
 	[XmlIgnore]

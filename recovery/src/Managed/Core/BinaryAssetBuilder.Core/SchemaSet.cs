@@ -104,7 +104,7 @@ public class SchemaSet
 		_CurrentSchema = schemaFile;
 		if (_SchemaPaths.ContainsKey(schemaFile)) return;
 		byte[] contents = File.ReadAllBytes(schemaFile);
-		_SchemaPaths.Add(schemaFile, Settings.Current.FileIdentityStamp?.Invoke(schemaFile));
+		_SchemaPaths.Add(schemaFile, null);
 		using (var algorithm = SHA256.Create())
 			_SchemaContentHashes.Add(schemaFile, Convert.ToBase64String(algorithm.ComputeHash(contents)));
 		XmlSchema xmlSchema;
@@ -386,6 +386,8 @@ public class SchemaSet
 		{
 			FlattenInheritanceTree(key, dictionary);
 		}
+		if (Settings.Current.SchemaFileIdentities != null)
+			_SchemaPaths = Settings.Current.SchemaFileIdentities(_SchemaPaths.Keys);
 		_LoadedSchemaPath = Path.GetFullPath(Settings.Current.SchemaPath);
 	}
 
@@ -422,12 +424,13 @@ public class SchemaSet
 			changed = true;
 		if (!changed)
 		{
+			var identities = Settings.Current.SchemaFileIdentities?.Invoke(_SchemaPaths.Keys);
 			var refreshed = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 			foreach (var schemaPath in _SchemaPaths)
 			{
 				// The host stamp includes file ID, size, write time and change time.
 				// Standalone Core without an identity provider retains content checks.
-				string stamp = Settings.Current.FileIdentityStamp?.Invoke(schemaPath.Key);
+				string stamp = identities == null ? null : identities[schemaPath.Key];
 				if (stamp != null && stamp == schemaPath.Value) continue;
 				if (!File.Exists(schemaPath.Key)) { changed = true; break; }
 				using (var algorithm = SHA256.Create())
