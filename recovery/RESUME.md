@@ -1,4 +1,4 @@
-# 热缓存、StableSort 与插件校验：续接入口
+# 热缓存、StableSort、插件校验与 BIG 包缓存移除：续接入口
 
 工作分支仍为 `recovery/legacy-sdk-cache`，禁止强推，未合入其他分支。
 
@@ -8,6 +8,6 @@
 
 第 8 项先清理已核实的 LogicCommandSet 重复结构遍历：Core 校验完成后提供当前 XML 的只读收据，加载新 XML/校验失败时撤销；独立未校验入口维持原拒绝合同。编译器恢复范围、布局、语义和外部载荷校验继续保留，未笼统删除其它组件检查。真实 Core 已验证三缓冲区相等及非法 XSD 在插件调用前拒绝。
 
-用户已明确第 9 项为移除整个 BIG/SKUDEF 包缓存。本提交删除包指纹、`package|v1` 收据读写和旧包复用；每次从本轮四流/CDATAs 执行 LoD、Additional 与 MakeBig，通用未变发布跳过和失败/取消回滚保留。附带删除仅供包缓存使用的 Published 标志及 TryHash 查询。新增重复打包、忽略/清退旧收据与包阶段 staging 来源检查。**本提交生产/测试已变，Windows 验证中；上面的成功结果仅代表移除前版本。**
+用户已明确第 9 项为移除整个 BIG/SKUDEF 包缓存。生产与测试来源均为 `7fca1e4f38c304bfc107e5301b1b72b70cbfacea`；[40872280934](https://github.com/wu162/NewSdk/actions/runs/40872280934) 完整 Windows 验收 success，前述生产矩阵、完整 mymod 原版差分和五文件发行包均再次通过。[本次验收摘要](evidence/refactor/big-cache-removal/40872280934-1/summary.json) 已核对原归档摘要。包指纹、`package|v1` 收据读写和旧包复用已删除；每次从本轮四流/CDATAs 执行 LoD、Additional 与 MakeBig，通用未变发布跳过和失败/取消回滚保留。仅供包缓存使用的 Published 标志及 TryHash 查询一并删除。应用测试通过重复打包、忽略/清退损坏旧收据及未变发布；生产 BIG 每配置 23 个用例、13 组原版对比通过，14 个成功打包用例的原事件均确认两产物来自本轮 staging。
 
 前六项独立里程碑 `22133880` / [40863166008](https://github.com/wu162/NewSdk/actions/runs/40863166008) 也已完整通过。Schema 时钟刻度用例及 StableSort 合成类型哈希碰撞的早期失败原终态均保留在摘要中，没有放宽顺序或原字节门槛。

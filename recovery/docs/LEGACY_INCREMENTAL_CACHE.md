@@ -4,11 +4,13 @@
 
 
 
-## BIG/SKUDEF 包缓存移除（第 9 项，验证中）
+## BIG/SKUDEF 包缓存移除（第 9 项，已验收）
 
 用户最新明确要求移除整个功能，本提交删除 `BigPackage` 的包指纹计算、`package|v1` 收据读写和 published BIG/SKUDEF 复用路径。每次正常打包，包括 LoD、Additional 合并、MakeBig 与 SKUDEF 生成；不再为了包指纹额外计算 Additional 文件哈希。原缓存目录中的旧包收据不会被读取，并随正常文件身份缓存维护清退。
 
-Core 会话/资产缓存、链接流复用和通用未变发布跳过继续工作；打包完成后仍按实际新产物确认是否需要替换 published，失败/取消保持原回滚合同。本次生产源码已经改变，下面历史验收不替代本次 Windows 验证。原版 MakeBig/LoD、Additional、锁定未变输出、真实替换故障及重试用例均保留；增加包阶段两产物必须来自本轮 staging、不得持久化包收据的断言。
+Core 会话/资产缓存、链接流复用和通用未变发布跳过继续工作；打包完成后仍按实际新产物确认是否需要替换 published，失败/取消保持原回滚合同。原版 MakeBig/LoD、Additional、锁定未变输出、真实替换故障及重试用例均保留；增加包阶段两产物必须来自本轮 staging、不得持久化包收据的断言。
+
+生产二进制与测试来源均为 `7fca1e4f38c304bfc107e5301b1b72b70cbfacea`；完整 Windows [40872280934](https://github.com/wu162/NewSdk/actions/runs/40872280934) success。Debug/Release 应用测试均通过重复构建、忽略损坏旧包收据、正常清退旧收据和未变发布。生产 BIG 每配置 23 个用例、13 组原版对比通过；归档原事件独立核对每配置 14 个成功 BIG 用例，两份包均来自对应 buildId 的 staging，包括锁定未变公开包时重新打包且跳过发布替换。完整 mymod 原版差分为零差异，独立五文件发行包也再次通过。[验收与归档核对摘要](../evidence/refactor/big-cache-removal/40872280934-1/summary.json) 保存准确来源及有界原收据；下文旧包复用结果仅属历史。
 
 ## 第二轮热路径与 StableSort 优化（第 9 项之前，历史验收）
 
