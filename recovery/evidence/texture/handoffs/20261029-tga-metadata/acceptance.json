@@ -1,0 +1,105 @@
+{
+  "scope": "current dedicated SDK acceptance across valid dependency-specific anchors; reused profiles retain original source/run; not full MOD or production deployment",
+  "profiles": [
+    {
+      "profile": "PcAtlas",
+      "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+      "runId": "40797426507",
+      "receipt": "recovery/evidence/texture/sdk-atlas/40797426507-1/validation.json"
+    },
+    {
+      "profile": "PcDxtNoMip",
+      "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+      "runId": "40797426507",
+      "receipt": "recovery/evidence/texture/sdk-dxt/40797426507-1/validation.json"
+    },
+    {
+      "profile": "PcDxtMips",
+      "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+      "runId": "40797426507",
+      "receipt": "recovery/evidence/texture/sdk-dxt-mips/40797426507-1/validation.json"
+    },
+    {
+      "profile": "PcDxtVolumes",
+      "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+      "runId": "40797426507",
+      "receipt": "recovery/evidence/texture/sdk-dxt-volumes/40797426507-1/validation.json"
+    },
+    {
+      "profile": "PcDxt1a",
+      "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+      "runId": "40797426507",
+      "receipt": "recovery/evidence/texture/sdk-dxt1a/40797426507-1/validation.json"
+    },
+    {
+      "profile": "PcJpeg",
+      "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+      "runId": "40797426507",
+      "receipt": "recovery/evidence/texture/sdk-jpeg/40797426507-1/validation.json"
+    },
+    {
+      "profile": "PcNpotRgba8",
+      "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+      "runId": "40797426507",
+      "receipt": "recovery/evidence/texture/sdk-npot-rgba8/40797426507-1/validation.json"
+    },
+    {
+      "profile": "PcNpotStorage",
+      "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+      "runId": "40797426507",
+      "receipt": "recovery/evidence/texture/sdk-npot-storage/40797426507-1/validation.json"
+    },
+    {
+      "profile": "PcMips",
+      "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+      "runId": "40797426507",
+      "receipt": "recovery/evidence/texture/sdk-rasters/PcMips/40797426507-1/validation.json"
+    },
+    {
+      "profile": "PcNoMip",
+      "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+      "runId": "40797426507",
+      "receipt": "recovery/evidence/texture/sdk-rasters/PcNoMip/40797426507-1/validation.json"
+    },
+    {
+      "profile": "PcTgaMetadata",
+      "sourceCommit": "278ae5774226853ad5ac5df5de9db67c935755bf",
+      "runId": "40797426507",
+      "receipt": "recovery/evidence/texture/sdk-tga-metadata/40797426507-1/validation.json"
+    },
+    {
+      "profile": "PcPngMetadata",
+      "sourceCommit": "7ff6dc66e8d847718fcaf4926b7eecdce46c05ac",
+      "runId": "40783041481",
+      "receipt": "recovery/evidence/texture/sdk-png-metadata/40783041481-1/validation.json"
+    },
+    {
+      "profile": "PcJpegMetadata",
+      "sourceCommit": "dba6d3050bf33db791144e00f54129f769226714",
+      "runId": "40785653416",
+      "receipt": "recovery/evidence/texture/sdk-jpeg-metadata/40785653416-1/validation.json"
+    }
+  ],
+  "totalsPerMode": {
+    "Original": {
+      "uniqueAssets": 35456,
+      "actualCalls": 35456,
+      "completeTraceFiles": 124013
+    },
+    "Recovered": {
+      "uniqueAssets": 35456,
+      "actualCalls": 35456,
+      "completeTraceFiles": 124013
+    },
+    "NoOriginal": {
+      "uniqueAssets": 35456,
+      "actualCalls": 35456,
+      "completeTraceFiles": 124013
+    }
+  },
+  "componentSourceCommit": "a928f9819a483f94256c3e16a450f7dd1034107a",
+  "componentRunId": "40795326615",
+  "componentGroups": 41,
+  "fullModRunThisRound": false,
+  "productionSdkModified": false
+}

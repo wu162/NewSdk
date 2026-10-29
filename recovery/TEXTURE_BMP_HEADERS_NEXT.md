@@ -13,3 +13,5 @@
 `TextureBmpHeaderProbe.cs`固定原DLL/allocator/token、Initialize PC和TGA正对照；每输入原调用两次并逐字节比较RGBA/descriptor/hasAlpha或完整原错误，保存当前ImageLoader候选的完整RGBA/错误。探针即使comparison全部相同仍为probe-only、productionAccepted=false，不能作为恢复/插件/SDK验收。
 
 集中入口`InspectTextureBmpHeaders.ps1`，`bmp-header-load`为manual_only/evidence_only，标记`[texture-bmp-headers]`显式选择。先完成本轮TGA组件，再在同一必要SDK Windows批次顺序采此探针，减少重复安装/拉取；原完整MOD不自动选择。根据真实结果继续整组适配，不能把未知DIB当INFO40默默回落，也不把原拒绝当缺失成功支持。
+
+首批278ae577 /40797426507在`h52-d24-16x8-topTrue-p0-c3-g0-plain`检测到原版同输入两次RGBA不一致而停止，保留failed/partial归档；同批11 SDK全部通过，不受此失败影响。探针随后改为保存两次完整RGBA/尺寸/hasAlpha/错误并逐输入标记`originalStable`，不稳定输入独立分类、绝不作为确定gold或恢复验收。只显式重跑bmp-header-load，不重跑已通过SDK；生产BMP仍未修改。

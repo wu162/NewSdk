@@ -46,6 +46,25 @@ def audit(root, run, source):
                 assert not row['sha256'] and int(row['bytes']) == 0
                 assert label + '.rgba' not in names
                 errors[row['error']] += 1
+            stable = row['originalStable'] == 'True'
+            assert row['originalStable'] in ('True', 'False')
+            totals['stableOriginals' if stable else 'unstableOriginals'] += 1
+            if row['repeatSha256']:
+                repeated = files.read(label + '.repeat.rgba')
+                assert sha(repeated) == row['repeatSha256'] and not row['repeatError']
+                assert len(repeated) == int(row['repeatBytes']) == 4 * int(row['repeatWidth']) * int(row['repeatHeight'])
+            else:
+                assert row['repeatError'] and label + '.repeat.rgba' not in names
+            actual_stable = row['error'] == row['repeatError']
+            if decoded:
+                actual_stable = actual_stable and bool(row['repeatSha256']) and all(row[a] == row[b] for a, b in [('width','repeatWidth'),('height','repeatHeight'),('hasAlpha','repeatHasAlpha')])
+                if actual_stable:
+                    actual_stable = original == repeated
+            else:
+                actual_stable = actual_stable and not row['repeatSha256']
+            assert stable == actual_stable
+            if not stable:
+                summary['unstable:' + '/'.join(row[k] for k in ('dib', 'depth', 'compression', 'topDown'))]['inputs'] += 1
             if row['candidateSha256']:
                 candidate = files.read(label + '.candidate.rgba')
                 assert sha(candidate) == row['candidateSha256'] and not row['candidateError']
@@ -66,6 +85,8 @@ def audit(root, run, source):
         assert sum(v for k, v in totals.items() if k.startswith('rejected/')) == receipt['rejectedCount']
         assert sum(v for k, v in totals.items() if k.endswith('/match')) == receipt['candidateMatches']
         assert sum(v for k, v in totals.items() if k.endswith('/difference')) == receipt['candidateDifferences']
+        assert totals['stableOriginals'] == receipt['stableOriginals']
+        assert totals['unstableOriginals'] == receipt['unstableOriginals']
         assert receipt['originalCalls'] == 5232
     return dict(scope='independent immutable BMP archive audit; probe-only, no production acceptance',
                 sourceCommit=source, runId=run, archiveSha256=receipt['samplesSha256'],

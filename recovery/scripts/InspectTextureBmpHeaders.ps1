@@ -19,7 +19,7 @@ try{
  $count=2616
  $rows=Import-Csv "$out/transcript.tsv" -Delimiter "`t";if($rows.Count -ne $count){throw 'Incomplete BMP header corpus'}
  $r.candidateMatches=@($rows|Where-Object candidateEqual -eq 'True').Count;$r.candidateDifferences=@($rows|Where-Object candidateEqual -eq 'False').Count
- $r.fixtureCount=$rows.Count;$r.decodedCount=@($rows|Where-Object error -eq '').Count;$r.rejectedCount=@($rows|Where-Object error -ne '').Count;$r.originalCalls=$rows.Count*2
+ $r.unstableOriginals=@($rows|Where-Object originalStable -eq 'False').Count;$r.stableOriginals=@($rows|Where-Object originalStable -eq 'True').Count;if($r.unstableOriginals+$r.stableOriginals -ne $count){throw 'Missing original stability classifications'};$r.fixtureCount=$rows.Count;$r.decodedCount=@($rows|Where-Object error -eq '').Count;$r.rejectedCount=@($rows|Where-Object error -ne '').Count;$r.originalCalls=$rows.Count*2
  Compress-Archive -Path "$work/samples/*" -DestinationPath "$out/samples.zip"
  $r.samplesSha256=(Get-FileHash "$out/samples.zip").Hash.ToLowerInvariant();$r.status='probe-only'
 }catch{$r.status='failed';$r.error=$_.Exception.Message;throw}finally{
