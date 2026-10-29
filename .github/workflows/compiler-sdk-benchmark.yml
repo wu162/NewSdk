@@ -1,0 +1,70 @@
+name: Bounded original and new SDK comparison
+on:
+  push:
+    branches: [recovery/legacy-sdk-cache, compiler-main]
+    paths:
+      - '.github/workflows/compiler-sdk-benchmark.yml'
+      - 'recovery/scripts/BenchmarkCompilerSdkComparison.py'
+      - 'recovery/scripts/PrepareCompilerSdkBenchmark.py'
+      - 'recovery/scripts/PrepareCompilerCacheBenchmark.py'
+      - 'recovery/tests/test_sdk_benchmark.py'
+      - 'recovery/tests/test_prepare_sdk_benchmark.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: sdk-benchmark-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  benchmark:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[sdk-benchmark]')
+    runs-on: windows-2022
+    timeout-minutes: 8
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Fast shared-input and byte-comparison checks
+        shell: pwsh
+        run: |
+          python -m unittest discover -s recovery/tests -p '*benchmark.py' -v
+          if($LASTEXITCODE -ne 0){throw 'Benchmark preflight failed'}
+      - name: Verify accepted Release and original SDK against the same inputs
+        timeout-minutes: 2
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/scripts/PrepareCompilerCacheBenchmark.py --repo . --candidate-commit $env:GITHUB_SHA --output "$env:RUNNER_TEMP/cb"
+          if($LASTEXITCODE -ne 0){throw 'Accepted Release preparation failed'}
+          python recovery/scripts/PrepareCompilerSdkBenchmark.py --preparation "$env:RUNNER_TEMP/cb/preparation.json" --output "$env:RUNNER_TEMP/ob" --repo .
+          if($LASTEXITCODE -ne 0){throw 'Original SDK/shared-input preparation failed'}
+      - name: Paired original and new SDK cache matrix with strict budgets
+        timeout-minutes: 4
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/refactor/sdk-benchmark/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/BenchmarkCompilerSdkComparison.py --preparation "$env:RUNNER_TEMP/cb/preparation.json" --original-preparation "$env:RUNNER_TEMP/ob/original-preparation.json" --output $out --work-directory "$env:RUNNER_TEMP/sbw" --timeout-seconds 30 --budget-seconds 180 --hot-runs 2
+          $comparisonExit=$LASTEXITCODE
+          if(Test-Path $out){
+            Copy-Item "$env:RUNNER_TEMP/cb/preparation.json" "$out/preparation.json"
+            Copy-Item "$env:RUNNER_TEMP/ob/original-preparation.json" "$out/original-preparation.json"
+          }
+          if(Test-Path "$out/comparison.md"){Get-Content "$out/comparison.md"|Add-Content $env:GITHUB_STEP_SUMMARY}
+          if($comparisonExit -ne 0){throw 'Comparison failed or exceeded budget; original evidence retained'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compiler-sdk-benchmark-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**
