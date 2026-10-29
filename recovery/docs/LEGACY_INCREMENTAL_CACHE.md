@@ -128,4 +128,17 @@ FileHashItem 使用 Settings.FileIdentity 一次获得存在性、LastWriteTime 
 
 LegacyTextureAdapter 直接从编译器旁加载准备好的混合 DLL，不再进行运行时部署审核（patch JSON、EXE/DLL SHA256、保护 PE 审核回执和程序集枚举）。PE 重定向与构建时审核继续用于生成可运行 DLL，Texture 原版载荷/CustomData/错误、重用与销毁差分仍执行；对应测试改为确认缺少运行时部署清单也可工作；测试宿主也删除重复清单审核，继续检查类型和程序集归属。
 
-Windows 完整验收：生产/测试来源 `639a5ff73e1df8a12ec0fa77e5b4324186bae8fb`，[40878062262](https://github.com/wu162/NewSdk/actions/runs/40878062262) success，Debug/Release 全矩阵、完整 mymod 原版差分及最终五文件 ZIP 均通过。首轮失败 40876849281 为测试宿主退场时重复读取已删除清单，修复后完整重验；保留原失败记录。有界新旧 SDK benchmark 待跑。
+Windows 完整验收：生产/测试来源 `639a5ff73e1df8a12ec0fa77e5b4324186bae8fb`，[40878062262](https://github.com/wu162/NewSdk/actions/runs/40878062262) success，Debug/Release 全矩阵、完整 mymod 原版差分及最终五文件 ZIP 均通过。首轮失败 40876849281 为测试宿主退场时重复读取已删除清单，修复后完整重验；保留原失败记录。有界新旧 SDK benchmark 已通过，见下表和原始报告。
+
+
+短 benchmark：二进制来源 `639a5ff73e1df8a12ec0fa77e5b4324186bae8fb`，测量脚本来源 `0c6ea99fe2973fe3e3e0232ab9e1e3e9f7ea9fc6`；[40880915003](https://github.com/wu162/NewSdk/actions/runs/40880915003) success。测量实际 49.06 秒，108 次/54 对，同一物理 SDK、Schema、MOD、顺序一致的搜索根，原版仅调整 CLR4 启动配置。全部流/CDATAs 成员、长度、SHA256 和原始字节相等。默认 both-deflate：
+
+| workload | 老 SDK 冷态 ms | 新 SDK 冷态 ms | 老 SDK 热态 ms | 新 SDK 热态 ms | 新版热态耗时变化 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| mymod | 502.76 | 485.05 | 316.98 | 328.16 | +3.5% |
+| upheaval-armor | 323.37 | 343.63 | 317.69 | 295.75 | -6.9% |
+| texture-16 | 518.96 | 546.75 | 328.27 | 335.51 | +2.2% |
+
+冷态 n=1、热态 n=2/engine，中位数；OS 页缓存不受控，仅编译器缓存清空。mymod 为完整输入副本的 base 流，Upheaval 仅 11 个 Armor 文档/12 个资产，texture-16 为合成样例；未测完整 Upheaval、BIG、增量编辑或跨流整体耗时。新 CLI 包含 JSONL/报告、staging 与原子发布，原 BAB 直接输出四流。三组默认热态新 SDK 均为零 XML 解析、零资产编译、零完整文件哈希读取；这些小样本没有显示普遍端到端提速。不得将本次与不同 VM 的历史绝对耗时差解释为本轮优化因果收益。
+
+[全部缓存模式报告](../evidence/refactor/sdk-benchmark/40880915003-1/comparison.md)、[CSV](../evidence/refactor/sdk-benchmark/40880915003-1/comparison.csv)、[来源/归档 SHA256/热态计数](../evidence/refactor/sdk-benchmark/40880915003-1/summary.json)。原 benchmark ZIP 和完整 Windows ZIP 均已下载并复算摘要，与 GitHub artifact digest 一致。
