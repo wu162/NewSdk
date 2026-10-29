@@ -19,3 +19,5 @@ python recovery/scripts/InspectTexturePpmSdkPackage.py --run-id 40880308857 --so
 ```
 
 当前PPM范围已闭环，无遗留实现或验收任务；合并输入一致性证明见`evidence/texture/handoffs/20261029-ppm/merge-validation.json`，不重复未变成功组件/SDK。后续新增PC实际输入需求按完整能力组推进，来源适配仍先独立测试分支、完整逐字节组件/消费与必要SDK通过后才合入；不自动运行旧SDK或完整mymod。默认DXT1/全不透明DXT1A与不确定扩展bitfields继续明确拒绝，原PGM等错误保持相同。
+
+合并提交`05797db560a507f7ac8dd25460a495617471060f` / [40881954710](https://github.com/wu162/NewSdk/actions/runs/40881954710)已completed/success；Linux选择/无损存储检查通过，49组件复用、selected为空、Windows skipped。完整计划artifact12899894197及其原SHA已保存到同一handoff目录，不把计划检查说成新跑组件或SDK。

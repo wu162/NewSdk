@@ -28,5 +28,15 @@
   "volumeRunId": "40878697072",
   "forcePushUsed": false,
   "productionSdkReplaced": false,
-  "mergePlanValidation": "pending Actions [texture-plan], no Windows/SDK requested"
+  "mergePlanValidation": {
+    "status": "passed",
+    "sourceCommit": "05797db560a507f7ac8dd25460a495617471060f",
+    "runId": "40881954710",
+    "selected": [],
+    "reusedComponentGroups": 49,
+    "windowsJob": "skipped",
+    "artifactId": 12899894197,
+    "artifactDigest": "sha256:b5178d22947fb90fd6be0c7b42dda3de9e0c6931b1eac4871dc9e37507a8042b",
+    "savedArtifact": "merge-plan-40881954710.zip"
+  }
 }

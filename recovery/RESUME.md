@@ -2,7 +2,7 @@
 
 - **本轮完成**：已收齐`838b40b3` /40838359589 completed/success（29完整组passed、19复用）；新增`b999b667` /40878697072的11520条volume边界D/R及NoOriginal通过并独立审计。该run整体仍failure，SDK在旧回滚白名单处停止，原失败保留。
 - **本轮功能修复及SDK**：修复六DLL包遗漏PPM的回滚白名单，仍严格核对七文件及安装后/备份哈希。最终源码`bdecb8707c5bfa7095e5596d9d5c8fea963fdd38` / [40880308857](https://github.com/wu162/NewSdk/actions/runs/40880308857) completed/success，只补sdk-PcPpm并复用49成功组件。三模式各15712实际资产/调用、32成功atlas、四产物/54977全轨迹字节全等；六DLL包/139源码指纹/安装回滚/唯一ID/49组件实际依赖与源图关联均已独立审计，详见[PPM验收](TEXTURE_PPM_NEXT.md)。
-- **保存位置与下一轮计划**：完整成果及审计保留于独立`validation/texture-public-ppm`，已普通合入`recovery/texturecompiler-source`；源码/测试/工作流/打包输入与已验收分支逐文件一致，保留实际源/运行锚点，见`evidence/texture/handoffs/20261029-ppm/merge-validation.json`。合并只做Linux计划检查，不重跑未变Windows矩阵。当前PPM范围闭环，无遗留功能或强制补验；不自动重跑未变组件、旧SDK或完整mymod。后续只按实际PC输入需求开始下一完整能力组。
+- **保存位置与下一轮计划**：完整成果及审计保留于独立`validation/texture-public-ppm`，已普通合入`recovery/texturecompiler-source`；源码/测试/工作流/打包输入与已验收分支逐文件一致，保留实际源/运行锚点，见`evidence/texture/handoffs/20261029-ppm/merge-validation.json`。合并提交`05797db5` / [40881954710](https://github.com/wu162/NewSdk/actions/runs/40881954710)的Linux计划检查已success：49组件复用、selected为空、Windows skipped；未重跑未变矩阵。当前PPM范围闭环，无遗留功能或强制补验；不自动重跑未变组件、旧SDK或完整mymod。后续只按实际PC输入需求开始下一完整能力组。
 - **边界**：生产SDK树仍为`1f2d71a20ce8bf7d9343c7a2246c10275abe28f9`、未替换。仅PC，默认DXT1/不透明DXT1A/不确定bitfields拒绝保留，编译测试仅Actions，禁止强推。
 
 以下为历史交接，以顶部及实际运行锚点为准。
