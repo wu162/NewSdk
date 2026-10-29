@@ -1,0 +1,28 @@
+{
+  "scope": "static original PPM dispatch/parser bytes and public-source candidate only; no original runtime calls or recovered/SDK acceptance",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "parserStartRva": "0x15240",
+  "parserEndExclusiveRva": "0x154b0",
+  "parserBytes": 624,
+  "parserSha256": "228dd7f21f043aa57c1618c8e98a64d3e15c9fc2be4b5998937631605989508a",
+  "dispatch": {
+    "formatIndex": 5,
+    "branchRva": "0x168e2",
+    "callRva": "0x168ea",
+    "parserRva": "0x15240"
+  },
+  "publicCandidate": {
+    "file": "recovery/reference/ijg6b/rdppm.c",
+    "sha256": "4c800ecf405e821f7d350eb6fe9ea1a336940a615c1b45d15017100bdf11e7d6",
+    "upstreamArchive": "https://www.ijg.org/files/jpegsrc.v6b.tar.gz",
+    "archiveSha256": "75c3ec241e9996504fe02a9ed4d12f16b74ade713972f3db9e65ce95cd27e35d",
+    "state": "unmodified source already retained; no PPM candidate implemented or accepted"
+  },
+  "staticObservations": [
+    "Only P3 and P6 signatures enter this parser; runtime LoadImageA behaviour still needs full gold.",
+    "Original decimal scanner requires digits and handles comments between tokens; ASCII divides sample*255 by maxval with integer truncation.",
+    "P6 rejects maxval>255, skips one separator or CRLF, and consumes exactly three bytes per pixel; no standard 16-bit fallback.",
+    "Original parser rejects zero width/height/maxval but does not bound allocation arithmetic or truncated binary reads; quarantine overflow/truncation before probing.",
+    "hasAlpha, channel order and NPOT conversion remain runtime questions, not inferred acceptance."
+  ]
+}

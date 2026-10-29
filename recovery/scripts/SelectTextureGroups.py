@@ -18,6 +18,23 @@ def files(root, ref):
     return frozenset(git(root, 'ls-tree', '-r', '--name-only', ref).stdout.splitlines())
 
 
+@lru_cache(maxsize=None)
+def is_ancestor(root, anchor, head):
+    return git(root, 'merge-base', '--is-ancestor', anchor, head, check=False).returncode == 0
+
+
+@lru_cache(maxsize=None)
+def historical_catalog(root, anchor):
+    return git(root, 'show', anchor + ':recovery/catalog/TextureTestGroups.json', check=False)
+
+
+@lru_cache(maxsize=None)
+def changed_files(root, anchor, head):
+    # select() resolves HEAD before reaching this cache. The repository and both
+    # immutable commit IDs are keys; never cache a mutable branch/worktree diff.
+    return frozenset(git(root, 'diff', '--name-only', anchor, head).stdout.splitlines())
+
+
 def dependencies(root, spec, ref):
     available = files(root, ref)
     patterns = spec['dependencies']
@@ -75,17 +92,17 @@ def select(root, groups, head='HEAD', requested=None, sdk=False):
             anchor = row.get('sourceCommit', '')
             if not re.fullmatch('[0-9a-fA-F]{40}', anchor):
                 continue
-            if git(root, 'merge-base', '--is-ancestor', anchor, head, check=False).returncode:
+            if not is_ancestor(root, anchor, head):
                 continue
             old_spec=spec
-            old_catalog=git(root,'show',anchor+':recovery/catalog/TextureTestGroups.json',check=False)
+            old_catalog=historical_catalog(root, anchor)
             if old_catalog.returncode==0:
                 try:old_spec=json.loads(old_catalog.stdout)['groups'].get(name,spec)
                 except (ValueError,KeyError,TypeError):
                     reason='unreadable historical dependency catalog'
                     continue
             inputs = dependencies(root, spec, head) | dependencies(root, old_spec, anchor)
-            changed = set(git(root, 'diff', '--name-only', anchor, head).stdout.splitlines())
+            changed = changed_files(root, anchor, head)
             # New/unmapped implementation files fail safe. Mapping a new helper
             # must also update every actual consumer group, or all groups rerun.
             unmanaged = {p for p in changed if p.startswith(('src/TextureCompiler/Managed/',

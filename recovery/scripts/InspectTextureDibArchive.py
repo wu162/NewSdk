@@ -16,7 +16,7 @@ def sha(data):
 
 class Replay:
     def __init__(self, data):
-        self.stream = io.BytesIO(data)
+        self.stream = data if hasattr(data, 'read') else io.BytesIO(data)
 
     def read(self, count):
         assert 0 <= count <= 16777216
@@ -60,70 +60,79 @@ def audit(root, run, source):
         names = [n for n in files.namelist() if not n.endswith('/')]
         assert len(names) == len(set(names)) == 2
         assert set(names) == {'Debug-pipeline.replay', 'Release-pipeline.replay'}
-        debug = files.read('Debug-pipeline.replay')
-        assert debug == files.read('Release-pipeline.replay'), 'Full original D/R corpus differs'
-    reader = Replay(debug)
-    assert reader.integer() == 50304
-    outcomes, extensions, roots, depths, tables = (Counter() for _ in range(5))
-    input_files, payloads = {}, set()
-    compared = 0
-    for ordinal in range(50304):
-        ext, image, kind, fmt = reader.string(), reader.blob(), reader.string(), reader.string()
-        stale, mip, texture_type = reader.boolean(), reader.boolean(), reader.string()
-        error = reader.string()
-        instance, relocation, imports, cdata = [reader.blob() for _ in range(4)]
-        assert ext in {'bmp', 'dib', 'tga'} and image
-        assert kind in {'Texture', 'OnDemandTexture', 'TerrainTextureAtlas'}
-        assert texture_type in {'StandardTexture', 'VolumeTexture'}
-        if image.startswith(b'BM'):
-            dib = image[14:]
-        else:
-            dib = image
-        header = struct.unpack_from('<I', dib)[0]
-        assert header in {12, 40, 52, 56, 64, 108, 124}
-        depth = struct.unpack_from('<H', dib, 10 if header == 12 else 14)[0]
-        table = 0 if header == 12 else struct.unpack_from('<I', dib, 32)[0]
-        depths[depth] += 1
-        if depth > 8:
-            tables[table] += 1
-        payloads.add(sha(dib))
-        input_files[(ext, sha(image))] = len(image)
-        extensions[ext] += 1
-        roots[kind] += 1
-        if error:
-            assert instance is relocation is imports is None
-            if error.startswith('System.NotSupportedException/'):
-                outcomes['explicitRefusal'] += 1
+        debug_size = 0
+        debug_digest = hashlib.sha256()
+        with files.open('Debug-pipeline.replay') as debug, files.open('Release-pipeline.replay') as release:
+            while True:
+                part = debug.read(65536)
+                assert part == release.read(65536), 'Full original D/R corpus differs'
+                if not part:
+                    break
+                debug_digest.update(part)
+                debug_size += len(part)
+        reader = Replay(files.open('Debug-pipeline.replay'))
+        assert reader.integer() == 50304
+        outcomes, extensions, roots, depths, tables = (Counter() for _ in range(5))
+        input_files, payloads = {}, set()
+        compared = 0
+        for ordinal in range(50304):
+            ext, image, kind, fmt = reader.string(), reader.blob(), reader.string(), reader.string()
+            stale, mip, texture_type = reader.boolean(), reader.boolean(), reader.string()
+            error = reader.string()
+            instance, relocation, imports, cdata = [reader.blob() for _ in range(4)]
+            assert ext in {'bmp', 'dib', 'tga'} and image
+            assert kind in {'Texture', 'OnDemandTexture', 'TerrainTextureAtlas'}
+            assert texture_type in {'StandardTexture', 'VolumeTexture'}
+            if image.startswith(b'BM'):
+                dib = image[14:]
             else:
-                assert error.startswith('BinaryAssetBuilder.BinaryAssetBuilderException/')
-                outcomes['originalError'] += 1
-            if kind == 'TerrainTextureAtlas':
-                raise AssertionError('Atlas must actually succeed')
-        else:
-            outcomes['success'] += 1
-            assert relocation is not None and imports == b''
-            assert instance is not None
-            if kind == 'Texture':
-                assert struct.unpack_from('<I', instance, 4)[0] == 12 and instance[12:16] == b'DDS '
-                assert (cdata is not None) == stale
-            elif kind == 'OnDemandTexture':
-                assert len(instance) == 8 and cdata is not None and cdata[40:44] == b'DDS '
+                dib = image
+            header = struct.unpack_from('<I', dib)[0]
+            assert header in {12, 40, 52, 56, 64, 108, 124}
+            depth = struct.unpack_from('<H', dib, 10 if header == 12 else 14)[0]
+            table = 0 if header == 12 else struct.unpack_from('<I', dib, 32)[0]
+            depths[depth] += 1
+            if depth > 8:
+                tables[table] += 1
+            payloads.add(sha(dib))
+            input_files[(ext, sha(image))] = len(image)
+            extensions[ext] += 1
+            roots[kind] += 1
+            if error:
+                assert instance is relocation is imports is None
+                if error.startswith('System.NotSupportedException/'):
+                    outcomes['explicitRefusal'] += 1
+                else:
+                    assert error.startswith('BinaryAssetBuilder.BinaryAssetBuilderException/')
+                    outcomes['originalError'] += 1
+                if kind == 'TerrainTextureAtlas':
+                    raise AssertionError('Atlas must actually succeed')
             else:
-                assert struct.unpack_from('<I', instance, 4)[0] == 1 and instance[28:32] == b'DDS '
-                assert fmt in {'normal', 'base-only'} and not mip
-                assert (struct.unpack_from('<I', instance, 24)[0] == 0) == (fmt == 'base-only')
-        compared += sum(len(b) for b in (instance, relocation, imports, cdata) if b is not None)
-    assert reader.stream.read(1) == b'', 'Unaccounted replay bytes'
-    assert outcomes == {'success': 46256, 'originalError': 3952, 'explicitRefusal': 96}
-    assert roots['TerrainTextureAtlas'] == extensions['tga'] == 432
-    assert set(depths) == {1, 4, 8, 16, 24, 32} and set(tables) == {0, 1, 3, 17}
-    return dict(scope='independent complete recorded original replay/source/layout audit; no compiler/codec execution; not SDK acceptance',
-                sourceCommit=source, runId=run, corpusSha256=sha(archive),
-                originalConfigurationsByteIdentical=True, originalReplayBytes=len(debug), originalReplaySha256=sha(debug),
-                fixturesPerConfiguration=50304, outcomes=dict(outcomes), roots=dict(roots), extensions=dict(extensions),
-                sourceDepthCases=dict(depths), sourceTableCases=dict(tables), distinctSourceFiles=len(input_files),
-                distinctDibPayloads=len(payloads), completeExpectedBufferBytesPerConfiguration=compared,
-                sourceFiles=[dict(extension=k[0], sha256=k[1], bytes=v) for k, v in sorted(input_files.items())])
+                outcomes['success'] += 1
+                assert relocation is not None and imports == b''
+                assert instance is not None
+                if kind == 'Texture':
+                    assert struct.unpack_from('<I', instance, 4)[0] == 12 and instance[12:16] == b'DDS '
+                    assert (cdata is not None) == stale
+                elif kind == 'OnDemandTexture':
+                    assert len(instance) == 8 and cdata is not None and cdata[40:44] == b'DDS '
+                else:
+                    assert struct.unpack_from('<I', instance, 4)[0] == 1 and instance[28:32] == b'DDS '
+                    assert fmt in {'normal', 'base-only'} and not mip
+                    assert (struct.unpack_from('<I', instance, 24)[0] == 0) == (fmt == 'base-only')
+            compared += sum(len(b) for b in (instance, relocation, imports, cdata) if b is not None)
+        assert reader.stream.read(1) == b'', 'Unaccounted replay bytes'
+        reader.stream.close()
+        assert outcomes == {'success': 46256, 'originalError': 3952, 'explicitRefusal': 96}
+        assert roots['TerrainTextureAtlas'] == extensions['tga'] == 432
+        assert set(depths) == {1, 4, 8, 16, 24, 32} and set(tables) == {0, 1, 3, 17}
+        return dict(scope='independent complete recorded original replay/source/layout audit; no compiler/codec execution; not SDK acceptance',
+                    sourceCommit=source, runId=run, corpusSha256=sha(archive),
+                    originalConfigurationsByteIdentical=True, originalReplayBytes=debug_size, originalReplaySha256=debug_digest.hexdigest(),
+                    fixturesPerConfiguration=50304, outcomes=dict(outcomes), roots=dict(roots), extensions=dict(extensions),
+                    sourceDepthCases=dict(depths), sourceTableCases=dict(tables), distinctSourceFiles=len(input_files),
+                    distinctDibPayloads=len(payloads), completeExpectedBufferBytesPerConfiguration=compared,
+                    sourceFiles=[dict(extension=k[0], sha256=k[1], bytes=v) for k, v in sorted(input_files.items())])
 
 
 if __name__ == '__main__':

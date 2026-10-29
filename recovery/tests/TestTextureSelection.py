@@ -30,6 +30,16 @@ class SelectionTests(unittest.TestCase):
     def test_reuse_unchanged_complete_success(self):self.assertEqual(self.result()['reused'],['a'])
     def test_changed_dependency_runs(self):
         self.write('src/TextureCompiler/Managed/A.cs','changed');self.commit();self.assertEqual(self.result()['selected'],['a'])
+    def test_repeated_selection_tracks_new_heads_and_new_acceptance_anchor(self):
+        self.assertEqual(self.result()['reused'],['a'])
+        self.write('src/TextureCompiler/Managed/A.cs','new implementation');self.commit()
+        self.assertEqual(self.result()['selected'],['a'])
+        self.anchor=self.git('rev-parse','HEAD');self.receipt(runId='2')
+        self.assertEqual(self.result()['reused'],['a'])
+        (self.root/'src/TextureCompiler/Managed/A.cs').unlink();self.commit()
+        self.assertEqual(self.result()['selected'],['a'])
+        self.write('src/TextureCompiler/Managed/A.cs','new implementation');self.commit()
+        self.assertEqual(self.result()['reused'],['a'])
     def test_deleted_input_runs(self):
         (self.root/'src/TextureCompiler/Managed/A.cs').unlink();self.commit();self.assertEqual(self.result()['selected'],['a'])
     def test_probe_and_incomplete_cannot_be_reused(self):
