@@ -28,17 +28,36 @@ namespace Recovered.Compiler.Texture
             if(!IsDib(source))throw new NotSupportedException("This raw DIB revision has not been recovered.");
             uint size=U32(source,0);
             if(source.Length<size)throw new InvalidDataException("DIB header is truncated.");
+            int tableBytes=0;
             if(size!=12)
             {
                 int depth=source[14]|source[15]<<8;
                 if((depth==16||depth==24||depth==32)&&U32(source,32)!=0)
-                    throw new NotSupportedException("True-colour DIB color tables have not been recovered.");
+                {
+                    long length=(long)U32(source,32)*4;
+                    if(length>source.Length-size)throw new InvalidDataException("DIB color table is truncated.");
+                    tableBytes=(int)length;
+                }
             }
-            byte[] bmp=new byte[checked(source.Length+14)];
+            byte[] bmp=new byte[checked(source.Length-tableBytes+14)];
             bmp[0]=66;bmp[1]=77;Put(bmp,2,(uint)bmp.Length);Put(bmp,10,14+size);
-            Buffer.BlockCopy(source,0,bmp,14,source.Length);
-            // V5 profile offsets are relative to the DIB and therefore survive
-            // the private envelope unchanged. Raster/gap/alpha/NPOT semantics,
+            Buffer.BlockCopy(source,0,bmp,14,(int)size);
+            Buffer.BlockCopy(source,(int)size+tableBytes,bmp,14+(int)size,source.Length-(int)size-tableBytes);
+            if(tableBytes!=0)
+            {
+                // The original true-colour path skips biClrUsed RGBQUADs;
+                // they do not map or transform the direct-colour pixels.
+                // Canonicalize this PRIVATE envelope for the shared decoder.
+                Put(bmp,46,0);
+                if(size==124&&U32(source,112)!=0)
+                {
+                    uint profile=U32(source,112);
+                    if(profile<size+(uint)tableBytes)throw new InvalidDataException("DIB profile overlaps its color table.");
+                    Put(bmp,126,profile-(uint)tableBytes);
+                }
+            }
+            // The 14-byte envelope does not itself move DIB-relative profiles;
+            // table removal was accounted for above. Raster/gap/alpha/NPOT semantics,
             // deterministic original errors and bitfields quarantine stay shared.
             return TextureBmpDecoder.Decode(bmp);
         }

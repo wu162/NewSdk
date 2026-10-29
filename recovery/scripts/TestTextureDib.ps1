@@ -32,5 +32,5 @@ try{
   if((Get-FileHash "$out/$mode-original.tsv").Hash -ne (Get-FileHash "$out/$mode-no-original.tsv").Hash){throw 'Original and isolated complete DIB source/outcome transcripts differ'}
   $r.configurations+=@{configuration=$mode;passed=$true;withoutOriginalTextureCompiler=$true;summary=@(Get-Content "$out/$mode-oracle.log","$out/$mode-no-original.log"|Where-Object{$_ -match '^PASS '})}
  }
- $r.status='passed';$r.fixtureCount=4560;$r.originalRawDibCallsPerConfiguration=4272;$r.originalInitializationCallsPerConfiguration=1
+ $r.status='passed';$r.fixtureCount=4866;$r.originalRawDibCallsPerConfiguration=4578;$r.originalInitializationCallsPerConfiguration=1
 }catch{$r.status='failed';$r.error=$_.Exception.Message;throw}finally{$r|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"}
