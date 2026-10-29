@@ -18,7 +18,7 @@ try{
  Checked component-readiness {python "$PSScriptRoot/SelectTextureGroups.py" --out $componentPlan}
  Copy-Item $componentPlan "$out/component-readiness.json"
  $readiness=Get-Content $componentPlan -Raw|ConvertFrom-Json
- if($readiness.sourceCommit -ne $r.sourceCommit -or @($readiness.selected).Count -ne 0 -or @($readiness.reused).Count -lt 48){throw "PPM SDK requires complete current component acceptance: $($readiness.selected -join ', ')"}
+ if($readiness.sourceCommit -ne $r.sourceCommit -or @($readiness.selected).Count -ne 0 -or @($readiness.reused).Count -lt 49){throw "PPM SDK requires complete current component acceptance: $($readiness.selected -join ', ')"}
  $r.componentGroupsVerified=@($readiness.reused).Count
  Checked package-build {& "$PSScriptRoot/BuildTextureCompiler.ps1" -Destination "$work/package" -Configuration Release}
  $package=Get-Content "$work/package/manifest.json" -Raw|ConvertFrom-Json

@@ -1,3 +1,9 @@
+# 最新：PPM公共四入口与实际插件已通过，待旧回归和专用SDK
+
+`838b40b3` /40838359589的优先两组已通过：D/R各8438 gold四入口33752调用与41120实际插件/同量NoOriginal，31424成功/9664原错误/32明确拒绝，64 atlas成功。早期artifact12882330778完整D/R归档独立审计通过，SHA/完整源与三buffer/full cdata见handoffs/20261029-ppm/component-archive-audit.json；不是整批或SDK通过。其余27受影响组仍运行、19复用，CI当前源码输入不再改动。
+
+额外竖长条带单独加入自动ppm-volume-boundaries：11520完整矩阵（5760标准正向/5760原invalid-volume），尚未编译运行，不修改已通过组的代码/fixture。新SDK前置要求全部49组件。下一步收主run终态，再显式[texture-ppm-sdk]：仅补此新边界及实际失败/变化组，接着跑新PcPpm15712资产/模式、32成功atlas、六DLL包/安装回滚/原Core唯一ID/四产物/全轨迹；不重跑未变成功组或完整MOD。业务及必要SDK全验收后才普通合入主分支。详见RESUME。
+
 # PPM当前：独立组件通过，实际loader/plugin与完整消费验证中
 
 - 原gold和首次成功：`7ab33356` /40836345313（probe-only，8438输入/16876原调用、6615解码/1823原错误、0不确定），独立27764文件/3315060原RGBA字节审计通过；`782f6b97` /40837034188 success，D/R各双入口16876调用、6630120完整RGBA字节及原错误全等、60安全边界/逐次NoOriginal。

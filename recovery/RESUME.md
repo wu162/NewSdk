@@ -1,3 +1,13 @@
+# 当前PPM测试分支：四入口及实际插件已通过；剩余旧回归运行中
+
+- **本轮完成**：直接适配固定IJG6b，保留原文件/通知及前后SHA。独立原gold8438输入、6615解码/1823原错误、0重复不确定；首版520个差异按宽整数打包通用规则修复。`782f6b97` /40837034188完成D/R独立双入口全量；现`838b40b3860106cdfd677438c33c062b98d6702f` / [40838359589](https://github.com/wu162/NewSdk/actions/runs/40838359589)优先两组均passed：D/R各8438 gold/33752 direct/public Decode/Load调用、13260240完整RGBA字节及60候选安全拒绝；实际ppm-images每配置41120输入/同量NoOriginal，31424成功/9664原错误/32不透明DXT1/1A拒绝，64 atlas必须成功。完整D/R源/三buffer/full cdata/旧尾已独立归档审计，见`evidence/texture/handoffs/20261029-ppm/component-archive-audit.json`。
+- **当前验证**：同run余下27受影响旧组仍运行，19旧组复用；Linux19选择边界+3无损存储检查通过。新组确实先跑并上传texture-early artifact12882330778；已恢复并按Windows Git规则保存早期成功收据，不等旧回归才得到首次反馈。整体run尚无终态，不宣称完整当前组件或SDK通过。
+- **已准备但未跑**：六DLL包/安装回滚与`TestTexturePpmSdk.ps1`（392 raw+16 atlas源，三模式每模式15712资产/32成功atlas/原Core唯一ID/四产物/全轨迹）。补充独立ppm-volume-boundaries组11520矩阵：同144个POT/NPOT竖长PPM源，5760标准成功正对照与5760实际原invalid-volume错误；不修改本批任何已验收业务/fixture输入。新补充组尚未编译测试，暂不宣称已覆盖该边界。
+- **下一轮计划（直接执行）**：先收40838359589终态并保留逐组成功锚点；以`[texture-ppm-sdk]`显式入口自动只补新volume边界及实际失败/变化组件，再在全部49组件就绪后执行新sdk-PcPpm。SDK脚本保存component-readiness.json，缺失/失败即停止构包/调用；不跑旧SDK或完整mymod。随后独立审计新SDK完整产物/轨迹/六DLL包/源码/ID及组件输入关联，全部门槛过后才普通合入recovery/texturecompiler-source。若本批有失败只补失败或实际输入变化组，不重复通过组。
+- **保存与边界**：所有PPM业务/原gold/组件成功/待验收包与SDK集中`validation/texture-public-ppm`，未合入主贴图分支。DIB主线b63f329c/40835621765已完整业务验收并独立审计；原run只在Git大文件推送阶段failure，f952cb27/40837687073已无损恢复证据且存储/选择检查success、Windows skipped。生产SDK树未替换；仅PC，默认DXT1/不透明DXT1A和不确定扩展bitfields拒绝，编译测试仅Actions，禁止强推。
+
+以下为阶段历史，当前状态以上述实际锚点为准。
+
 # PPM测试分支：已接公共loader/插件，完整消费待Actions
 
 - **本轮完成**：独立PPM组件`782f6b97` /40837034188已D/R 8438 gold双入口/NoOriginal全等，6615原解码/1823原错及60安全边界。现将同一适配器接TextureImageLoader和`.ppm`，扩展四入口完整回放；native保持已验证宽整数打包规则。新增ppm-images 41120实际插件输入/配置和同量NoOriginal，含512 raw/DXT输入、64成功atlas、PGM/非法头/volume原错误、32不透明DXT1/1A明确拒绝，保留三buffer/full cdata/旧尾完整断言。

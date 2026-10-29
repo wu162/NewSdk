@@ -1,0 +1,70 @@
+{
+  "sourceCommit": "838b40b3860106cdfd677438c33c062b98d6702f",
+  "reused": [
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "png",
+    "bmp",
+    "png-ranges",
+    "dxt3-alpha",
+    "dxt5-fast-alpha",
+    "dxt5-alpha",
+    "dxt-colour-state",
+    "dxt-blocks-complete",
+    "dxt-dds2d",
+    "dxt-samples",
+    "dxt-volume-dds",
+    "atlas-dds"
+  ],
+  "selected": [
+    "public-ppm",
+    "ppm-images",
+    "base",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "raster-images",
+    "dxt-images",
+    "npot-rgba8",
+    "npot-storage-replay",
+    "npot-storage-stress-replay",
+    "atlas-entry",
+    "jpeg",
+    "jpeg-images",
+    "dxt1a-blocks",
+    "dxt1a-dds",
+    "dxt1a-images",
+    "png-metadata",
+    "png-metadata-images",
+    "jpeg-metadata",
+    "jpeg-metadata-images",
+    "tga-metadata",
+    "tga-metadata-images",
+    "bmp-headers",
+    "bmp-header-images",
+    "dib",
+    "bmp-os2",
+    "dib-images"
+  ],
+  "runId": "40838359589",
+  "status": "priority-passed",
+  "runAttempt": "1",
+  "groups": [
+    {
+      "group": "public-ppm",
+      "passed": true,
+      "evidenceOnly": false
+    },
+    {
+      "group": "ppm-images",
+      "passed": true,
+      "evidenceOnly": false
+    }
+  ]
+}
