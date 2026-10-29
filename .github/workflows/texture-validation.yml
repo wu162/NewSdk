@@ -80,7 +80,7 @@ jobs:
     needs: plan
     if: needs.plan.outputs.has_work == 'true'
     runs-on: windows-2022
-    timeout-minutes: 80
+    timeout-minutes: 110
     steps:
       - uses: actions/checkout@v4
         with:
@@ -98,10 +98,21 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x86
-      - name: Run selected complete groups serially
+      - name: Run new capability complete groups first
+        id: early
+        shell: pwsh
+        run: ./recovery/scripts/RunTextureBatch.ps1 -Phase priority
+      - name: Preserve early complete capability outputs
+        if: always() && steps.early.outcome != 'skipped'
+        uses: actions/upload-artifact@v4
+        with:
+          name: texture-early-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture/**/${{ github.run_id }}-${{ github.run_attempt }}/**
+      - name: Complete remaining affected groups serially
+        if: always() && steps.early.outcome != 'skipped'
         id: tests
         shell: pwsh
-        run: ./recovery/scripts/RunTextureBatch.ps1
+        run: ./recovery/scripts/RunTextureBatch.ps1 -Phase remaining
       - name: Preserve actual group outputs
         if: always()
         uses: actions/upload-artifact@v4

@@ -18,9 +18,8 @@ try{
  Copy-Item "$work/managed/Recovered.BinaryAssetBuilder.TextureCompiler.dll" $work
  $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
  $references=@("/r:$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll","/r:$work/BinaryAssetBuilder.Core.dll")
- Checked candidate-build {& $csc /nologo /target:library /platform:x86 /optimize+ @references /out:"$work/Recovered.TexturePpm.Candidate.dll" (Resolve-Path src/TextureCompiler/Ppm/TexturePpmDecoder.cs).Path}
  $sources=@('TexturePpmProbe.cs','TexturePpmFixtures.cs','TexturePngOracle.cs')|ForEach-Object{(Resolve-Path "recovery/tests/$_").Path}
- Checked probe-build {& $csc /nologo /unsafe /platform:x86 /optimize+ /main:TexturePpmProbe /r:System.Drawing.dll @references /r:"$work/Recovered.TexturePpm.Candidate.dll" /out:"$work/TexturePpmProbe.exe" $sources}
+ Checked probe-build {& $csc /nologo /unsafe /platform:x86 /optimize+ /main:TexturePpmProbe /r:System.Drawing.dll @references /out:"$work/TexturePpmProbe.exe" $sources}
  '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TexturePpmProbe.exe.config"
  Checked oracle {& "$work/TexturePpmProbe.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$work/samples"}
  Copy-Item "$work/samples/transcript.tsv" "$out/transcript.tsv"

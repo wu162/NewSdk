@@ -4,14 +4,19 @@ using System.Runtime.InteropServices;
 using BinaryAssetBuilder;
 using Recovered.Compiler.Texture;
 
-namespace Recovered.Compiler.Texture.Candidates
+namespace Recovered.Compiler.Texture
 {
-    // Separate candidate assembly; the production loader does not dispatch here.
+    // Pinned, adapted IJG6b P3/P6 reader with PC packing and NPOT semantics.
     public static class TexturePpmDecoder
     {
         [DllImport("Recovered.TexturePpm.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern int TextureDecodePpm([In] byte[] input, int count,
             [Out] byte[] output, int capacity, out int width, out int height);
+        public static bool IsPpm(byte[] source)
+        {
+            return source != null && source.Length >= 2 && source[0] == 'P' &&
+                (source[1] == '2' || source[1] == '3' || source[1] == '5' || source[1] == '6');
+        }
         private static Exception Bad()
         {
             return new BinaryAssetBuilderException(ErrorCode.BadTextureFile,

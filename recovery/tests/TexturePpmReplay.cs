@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using Recovered.Compiler.Texture;
-using Recovered.Compiler.Texture.Candidates;
 
 internal static class TexturePpmReplay
 {
@@ -24,12 +23,12 @@ internal static class TexturePpmReplay
         var code = e.GetType().GetProperty("ErrorCode");
         return (e.GetType().FullName + "/" + (code == null ? "" : Convert.ToString(code.GetValue(e, null))) + "/" + e.Message).Replace('\t', ' ').Replace('\r', ' ').Replace('\n', ' ');
     }
-    static void Case(string directory, string[] row, bool file)
+    static void Case(string directory, string[] row, bool file, bool dispatch)
     {
         string path = Path.Combine(directory, row[0] + ".ppm"); byte[] source = File.ReadAllBytes(path);
         Check(Hash(source) == row[8], "Immutable source " + row[0]);
         TexturePacker.Image image = null; Exception error = null;
-        Isolated(); try { image = file ? TexturePpmDecoder.Load(path) : TexturePpmDecoder.Decode(source); } catch (Exception e) { error = e; } Isolated();
+        Isolated(); try { image = dispatch ? (file ? TextureImageLoader.Load(path) : TextureImageLoader.Decode(source)) : (file ? TexturePpmDecoder.Load(path) : TexturePpmDecoder.Decode(source)); } catch (Exception e) { error = e; } Isolated();
         Check(Hash(source) == row[8] && Hash(File.ReadAllBytes(path)) == row[8], "Source changed " + row[0]);
         bool equal = Error(error) == row[7];
         if (row[7].Length != 0) { equal = equal && image == null; rejected++; }
@@ -41,7 +40,7 @@ internal static class TexturePpmReplay
             if (equal) for (int i = 0; i < image.Pixels.Length; i++) if (image.Pixels[i] != BitConverter.ToUInt32(expected, i * 4)) { equal = false; break; }
             compared += expected.Length; decoded++;
         }
-        if (!equal) { differences++; if (differences <= 24) Console.WriteLine("DIFF " + row[0] + " file=" + file + " expectedError=" + row[7] + " actualError=" + Error(error)); }
+        if (!equal) { differences++; if (differences <= 24) Console.WriteLine("DIFF " + row[0] + " file=" + file + " public=" + dispatch + " expectedError=" + row[7] + " actualError=" + Error(error)); }
     }
     static void Boundaries()
     {
@@ -73,11 +72,11 @@ internal static class TexturePpmReplay
             {
                 string[] row = lines[i].Split('\t'); Check(row.Length == 15 && labels.Add(row[0]), "Unique complete row");
                 Check(row[12] == "True" && row[6] == row[13] && row[7] == row[14], "Stable original required");
-                foreach (bool file in new[] { false, true }) Case(directory, row, file); fixtures++;
+                foreach (bool file in new[] { false, true }) foreach (bool dispatch in new[] { false, true }) Case(directory, row, file, dispatch); fixtures++;
             }
-            Boundaries(); Check(fixtures == 8438 && decoded + rejected == fixtures * 2, "Complete dual-entry accounting");
+            Boundaries(); Check(fixtures == 8438 && decoded + rejected == fixtures * 4, "Complete dual-entry accounting");
             Check(differences == 0, "Full original PPM differences=" + differences);
-            Console.WriteLine("PASS public PPM NoOriginal fixtures=" + fixtures + " calls=" + fixtures * 2 + " decoded=" + decoded + " rejected=" + rejected + " boundaries=" + boundaries + " checks=" + checks + " comparedBytes=" + compared + "; complete original bytes/errors, absent/unloaded original per call, immutable inputs; plugin/SDK acceptance separate");
+            Console.WriteLine("PASS public PPM NoOriginal fixtures=" + fixtures + " calls=" + fixtures * 4 + " decoded=" + decoded + " rejected=" + rejected + " boundaries=" + boundaries + " checks=" + checks + " comparedBytes=" + compared + "; complete original bytes/errors, absent/unloaded original per call, immutable inputs; plugin/SDK acceptance separate");
             return 0;
         }
         catch (Exception e) { Console.Error.WriteLine(e); return 1; }

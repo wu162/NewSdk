@@ -3,7 +3,7 @@ $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/public-ppm/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('texture-ppm-replay-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$false;sdkValidated=$false;productionAccepted=$false;scope='Independent adapted IJG P3/P6 full immutable original corpus, Decode/Load, malformed binary/numeric safety, per-call NoOriginal; production loader/plugin/SDK not enabled';configurations=@()}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$false;sdkValidated=$false;productionAccepted=$false;scope='Independent adapted IJG P3/P6 full immutable original corpus, direct/public Decode/Load, malformed binary/numeric safety, per-call NoOriginal; loader enabled on test branch; plugin/SDK acceptance separate';configurations=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 50;throw "$name failed"};Get-Content "$out/$name.log"|Where-Object{$_ -match '^PASS '}}
 try{
  # All cheap immutable input checks precede native/managed builds.
@@ -25,8 +25,7 @@ try{
   Copy-Item "$work/build-$mode/Recovered.BinaryAssetBuilder.TextureCompiler.dll" $work -Force
   $opt=if($mode -eq 'Release'){'/optimize+'}else{'/optimize-'}
   $references=@("/r:$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll","/r:$work/BinaryAssetBuilder.Core.dll")
-  Checked "$mode-candidate-build" {& $csc /nologo /target:library /platform:x86 $opt @references /out:"$work/Recovered.TexturePpm.Candidate.dll" (Resolve-Path src/TextureCompiler/Ppm/TexturePpmDecoder.cs).Path}
-  Checked "$mode-replay-build" {& $csc /nologo /platform:x86 $opt @references /r:"$work/Recovered.TexturePpm.Candidate.dll" /out:"$work/TexturePpmReplay.exe" (Resolve-Path recovery/tests/TexturePpmReplay.cs).Path}
+  Checked "$mode-replay-build" {& $csc /nologo /platform:x86 $opt @references /out:"$work/TexturePpmReplay.exe" (Resolve-Path recovery/tests/TexturePpmReplay.cs).Path}
   '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TexturePpmReplay.exe.config"
   Checked "$mode-replay" {& "$work/TexturePpmReplay.exe" "$work/samples"}
   $r.configurations+=@{configuration=$mode;passed=$true;withoutOriginalTextureCompiler=$true;summary=@(Get-Content "$out/$mode-replay.log"|Where-Object{$_ -match '^PASS '})}

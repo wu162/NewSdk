@@ -23,7 +23,7 @@ try{
  Checked package-build {& "$PSScriptRoot/BuildTextureCompiler.ps1" -Destination "$work/package" -Configuration Release}
  $package=Get-Content "$work/package/manifest.json" -Raw|ConvertFrom-Json
  Copy-Item "$work/package/manifest.json" "$out/package-manifest.json"
- if($package.status -ne 'built' -or $package.dirtySource -or $package.runtimeFiles.Count -ne 5 -or $package.sourceCommit -ne $r.sourceCommit -or $package.originalTextureCompilerDistributed){throw "Wrong or dirty complete PC package: status=$($package.status) dirty=$($package.dirtySource) runtimeFiles=$($package.runtimeFiles.Count) uncommitted=$($package.uncommittedSource -join ', ')"}
+ if($package.status -ne 'built' -or $package.dirtySource -or $package.runtimeFiles.Count -ne 6 -or $package.sourceCommit -ne $r.sourceCommit -or $package.originalTextureCompilerDistributed){throw "Wrong or dirty complete PC package: status=$($package.status) dirty=$($package.dirtySource) runtimeFiles=$($package.runtimeFiles.Count) uncommitted=$($package.uncommittedSource -join ', ')"}
  foreach($file in $package.runtimeFiles){if((Get-FileHash "$work/package/$($file.file)").Hash.ToLowerInvariant() -ne $file.sha256){throw 'Package runtime fingerprint mismatch'}}
  Compress-Archive -Path "$work/package/*" -DestinationPath "$out/pc-plugin-package.zip"
  $r.packageArchiveSha256=(Get-FileHash "$out/pc-plugin-package.zip").Hash.ToLowerInvariant();$r.publicS3Native=@($package.publicS3);$r.nativeBinaries=$package.nativeBinaries

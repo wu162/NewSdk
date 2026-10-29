@@ -29,8 +29,8 @@ namespace Recovered.Compiler.Texture
             }
             bool mipmaps = bool.Parse(declaration.Node.Attributes["GenerateMipMaps"].Value);
             string textureType = declaration.Node.Attributes["Type"].Value;
-            if (!file.EndsWith(".tga", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".dib", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
-                throw new NotSupportedException("Only the declared TGA/PNG/BMP/DIB/JPEG image decoder subsets have been recovered.");
+            if (!file.EndsWith(".tga", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".dib", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".ppm", StringComparison.OrdinalIgnoreCase))
+                throw new NotSupportedException("Only the declared TGA/PNG/BMP/DIB/JPEG/PPM image decoder subsets have been recovered.");
 
             TexturePacker.Image image;
             try { image = TextureImageLoader.Load(file); }

@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using Recovered.Compiler.Texture;
-using Recovered.Compiler.Texture.Candidates;
 
 // Capture only. Differences remain evidence; a completed probe is not acceptance.
 internal static class TexturePpmProbe

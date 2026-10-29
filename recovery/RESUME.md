@@ -1,3 +1,10 @@
+# PPM测试分支：已接公共loader/插件，完整消费待Actions
+
+- **本轮完成**：独立PPM组件`782f6b97` /40837034188已D/R 8438 gold双入口/NoOriginal全等，6615原解码/1823原错及60安全边界。现将同一适配器接TextureImageLoader和`.ppm`，扩展四入口完整回放；native保持已验证宽整数打包规则。新增ppm-images 41120实际插件输入/配置和同量NoOriginal，含512 raw/DXT输入、64成功atlas、PGM/非法头/volume原错误、32不透明DXT1/1A明确拒绝，保留三buffer/full cdata/旧尾完整断言。
+- **包接入**：新增Recovered.TexturePpm.dll第六运行依赖，安装/回滚仍验证完整预期文件集，来源包保留PPM适配源码/通知/前后SHA。此接入与包改动尚未验收，不合入主贴图分支。
+- **验证安排**：依赖表登记所有实际loader/plugin消费者；两新/修改组优先完整执行并提前上传，随后继续所有受影响旧组；SDK仍须完整组件门槛，完整mymod不自动跑。长批次约需70–90分钟，当前用户轮次仍严格最多70分钟，到点保存实际状态，不延长等CI。
+- **下一步**：先核对PPM四入口和实际插件完整早期结果，失败只修失败/输入变化组；整批成功后再专用PPM SDK三模式/完整包及产物，所有必要门槛完成才普通合入。DIB/NPOT主线已在b63f329c/40835621765完成业务验收与独立审计，f952cb27/40837687073的存储/选择检查success且Windows skipped。
+
 # 当前：DIB/BMP真彩表已完成组件及专用SDK；PPM独立组件通过
 
 - **本轮完成（DIB）**：修复历史NPOT gold检出规则，四TSV明确CRLF，22系数原SHA保持不变；新规则仅作用于新增DIB证据。`b63f329c1ab5566dfa8a0fa57440108d71f070d4` / [40835621765](https://github.com/wu162/NewSdk/actions/runs/40835621765)的npot-rgba8 D/R各1012输入/1851原tap通过，其他45组件复用。前一`2b23ff4c` /40821998297的DIB六入口4866输入及dib-images各50304输入/同量NoOriginal、432成功atlas，已独立完整归档审计通过。
