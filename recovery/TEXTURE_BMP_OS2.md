@@ -20,3 +20,5 @@
 专用SDK与原BMP headers批次合并：356不可变旧源+189新OS2源，各40资产；64旧透明源+27新OS2透明源，各8资产；50旧atlas源+21新OS2源，各2资产，共22670资产/模式、142正向atlas。原模式/恢复模式/逐次NoOriginal使用完全相同哈希检查后的ID和XML。新OS2源只加原24-bit bottom范围之外的7个DIB/depth/direction变体，未为每种输入另开SDK。完整MOD不重跑。
 
 实际SDK使用`BuildTextureCompiler.ps1`产出的5-DLL包；包内带来源与源码/产物指纹，可用`InstallTextureCompiler.ps1`修改匹配SDK副本的3条贴图根路由，并用`RestoreTextureCompiler.ps1`恢复6个文件原状态。回滚先核验所有当前/备份指纹，拒绝覆盖安装后的新改动。SDK只在临时副本验证安装/回滚/再次安装和最终实际3模式对照；生产SDK树保持原样。构建成功与验收成功分开记录。
+
+本轮组件验收：0dca148f /40813121025，15完整组passed、29复用，44组件有效。OS2 D/R各1944直接输入与28548插件输入及同量隔离重放；直接RGBA每配置每阶段525528字节，插件每阶段228551484字节，原错误5256（含索引与非法volume），108atlas成功。旧BMP header插件每配置每阶段37160输入、5760原错误、1152明确拒绝、355753376比较字节；200atlas全部成功。SDK唯一失败为包构建后的dirty检查误计obj文件，发生在BAB前；仅修构建工具并补SDK，不能称该run整体success或SDK已验收。

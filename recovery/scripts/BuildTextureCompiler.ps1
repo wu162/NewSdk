@@ -19,7 +19,12 @@ try{
  Set-Location $root
  $r.sourceCommit=(git rev-parse HEAD).Trim();if($LASTEXITCODE -ne 0){throw 'Cannot determine package source commit'}
  $sourcePaths=@('src/TextureCompiler','recovery/reference/ijg6b','recovery/scripts/BuildTextureCompiler.ps1','recovery/scripts/BuildTexturePublicS3.ps1','recovery/scripts/BuildTextureJpeg.ps1','recovery/scripts/InstallTextureCompiler.ps1','recovery/scripts/RestoreTextureCompiler.ps1')
- $r.dirtySource=@(git status --porcelain -- $sourcePaths).Count -ne 0;if($LASTEXITCODE -ne 0){throw 'Cannot inspect package source status'}
+ # dotnet's default obj/bin directories are generated compilation products,
+ # not source inputs. Keep tracked changes and all other untracked source
+ # visible, including newly added .cs/native files outside those directories.
+ $r.uncommittedSource=@(git status --porcelain --untracked-files=all -- $sourcePaths|Where-Object{$_.Substring(3).Trim('"') -notmatch '^src/TextureCompiler/Managed/(?:obj|bin)/'})
+ if($LASTEXITCODE -ne 0){throw 'Cannot inspect package source status'}
+ $r.dirtySource=$r.uncommittedSource.Count -ne 0
  Checked managed {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c $Configuration -o "$work/managed" --nologo}
  Checked public-s3 {& "$PSScriptRoot/BuildTexturePublicS3.ps1" -Destination "$work/s3" -Configuration $Configuration}
  Checked jpeg {& "$PSScriptRoot/BuildTextureJpeg.ps1" -Destination "$work/jpeg" -Configuration $Configuration}

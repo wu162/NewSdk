@@ -1,3 +1,10 @@
+# 当前：OS2与正向BMP atlas组件通过；DIB与专用SDK集中补验
+
+- **本轮完成**：0dca148f /40813121025的15受影响组件全部passed、29复用，当前44组件有效。OS2直接1944输入双入口、完整插件28548输入，各D/R与逐次NoOriginal、108成功atlas均通过；旧BMP header插件37160输入及200正向atlas通过（每配置355753376字节）。此前atlas只是匹配路径拒绝的缺口已补齐。整个run仍failure，唯一失败SDK不能改写为整体success。
+- **SDK工具问题已修**：完整5-DLL包已实际构建，但构建器将已有dotnet obj中间文件误报dirty，SDK在BAB调用前停止；现仅排除默认Managed/bin与obj中间目录，保留其他未提交源码检查，收据先保存manifest便于定位。只补sdk-PcBmpHeaders，不重跑44组件。安装/回滚与22670资产三模式仍待真实SDK验收，不提前声明。
+- **DIB功能已实现、待验收**：独立Decode/Load/IsDib、共享原parser、真彩biClrUsed表跳过与V5 profile偏移修正。4866输入/306色表变体，4578实际原raw-DIB调用/配置、数组/文件入口与逐次NoOriginal；未接TextureImageLoader/XML插件。只验新增dib组。
+- **下一轮计划**：优先收本轮补验终态与各组原始收据，成功项复用，真实失败才定向修复。DIB接口通过后把裸DIB插件路由与BMP真彩非零biClrUsed修正合为下一能力组，再一次集中必要消费/SDK；默认DXT1和扩展bitfields原不确定域仍拒绝。生产SDK树1f2d71a2未改，完整MOD本轮未跑，禁止强推。
+
 # 本轮追加：独立裸DIB加载接口（待组件验收，未接插件）
 
 - **本轮实现**：`TextureDibDecoder.Decode/Load/IsDib`复用已恢复BMP parser；原format6 dispatcher确实直接调用同一0x13f3d，完整原字节/表已保存。支持已声明core/Windows/OS2 BI_RGB与metadata，保留bitfields不确定域拒绝，新增truecolor biClrUsed色表跳过与V5 profile相对偏移修正（306变体待验收）。未修改TextureImageLoader或Plugin.Images，不宣称XML/DIB SDK可用。
