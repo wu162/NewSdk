@@ -41,7 +41,7 @@ jobs:
         run: |
           python recovery/scripts/PrepareCompilerCacheBenchmark.py --repo . --candidate-commit $env:GITHUB_SHA --output "$env:RUNNER_TEMP/cb"
           if($LASTEXITCODE -ne 0){throw 'Accepted diagnostic runtime preparation failed'}
-      - name: Compile test-only helper and measure read-only methods
+      - name: Compile test-only helper and measure equivalent identity filesystem work
         shell: pwsh
         timeout-minutes: 1
         run: |

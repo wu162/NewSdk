@@ -49,7 +49,7 @@ $info.WorkingDirectory=$sdk
 $info.UseShellExecute=$false
 $info.RedirectStandardOutput=$true
 $info.RedirectStandardError=$true
-foreach($argument in @($runtime,$sdk,$mod,$profilePath)){$info.ArgumentList.Add($argument)}
+foreach($argument in @($runtime,$sdk,$profilePath)){$info.ArgumentList.Add($argument)}
 $process=[Diagnostics.Process]::new();$process.StartInfo=$info
 $stdout=$null;$stderr=$null;$started=$false;$timedOut=$false;$exitCode=$null
 try{
@@ -74,6 +74,9 @@ if(Test-Path -LiteralPath $profilePath){$profile=Get-Content -LiteralPath $profi
 else{$profile=@{schemaVersion=1;status=$(if($timedOut){'timed-out'}else{'failed'});error='Helper did not produce a complete profile'}}
 $profile.binarySourceCommit='39039961847cd1ca9cb93743fd51741a4e5c9f49'
 $profile.sourceRunId='40814401237'
+$profile.productionMethodDirectlyMeasured=$false
+$profile.preflightMeasured=$false
+$profile.method='source-equivalent filesystem microbenchmark, NOT production method invocation'
 $profile.diagnosticRunId=$env:GITHUB_RUN_ID
 $profile.diagnosticRunAttempt=$env:GITHUB_RUN_ATTEMPT
 $profile.diagnosticSourceCommit=(& git -C $root rev-parse HEAD).Trim()
