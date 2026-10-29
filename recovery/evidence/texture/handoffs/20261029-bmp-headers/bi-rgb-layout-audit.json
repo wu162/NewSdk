@@ -1,0 +1,21 @@
+{
+  "scope": "independent original archived BI_RGB storage/descriptor/full RGBA comparison; not production or SDK acceptance",
+  "sourceCommit": "511896747c32c7863078b36ad781caae4f3763c1",
+  "runId": "40799686293",
+  "archiveSha256": "08715c9547eb6f9fb8ba1745ab3f38b954522439848caa031889c2f73deb069b",
+  "fixtures": 1896,
+  "byDib": {
+    "40": 216,
+    "52": 216,
+    "56": 216,
+    "108": 504,
+    "124": 720,
+    "12": 12,
+    "64": 12
+  },
+  "fullSourceStorageBytesCompared": 965736,
+  "fullOriginalRgbaBytesCompared": 1336680,
+  "baselineRule": "INFO40 with the same dimensions/depth/direction/pattern/gap; metadata replaced by plain",
+  "observation": "Bytes at 14+DIB and full original dimensions/hasAlpha/RGBA match INFO40 for all 1896 BI_RGB inputs, including NPOT and 792 bounded metadata profiles.",
+  "limits": "Recorded corpus only; malformed/other OS2 storage and all extended-DIB bitfields remain separate boundaries. No codec executed."
+}

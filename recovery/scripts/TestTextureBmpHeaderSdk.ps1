@@ -35,13 +35,13 @@ try{
  foreach($row in Import-Csv "$work/samples/transcript.tsv" -Delimiter "`t"){
   # Every supported DIB/depth/direction/metadata/gap combination at both focused
   # POT/NPOT shapes. Rejections and all bitfields are outside this positive SDK.
-  if($row.compression -eq '0' -and $row.label -match '-(16x8|7x5)-top' -and $row.label -match '-p0-'){
+  if($row.compression -eq '0' -and $row.label -match '-(16x8|7x5)-top' -and ($row.label -match '-p0-' -or ($row.depth -eq '32' -and $row.profile -eq 'plain' -and $row.gap -eq '0'))){
    if($row.error -ne '' -or $row.originalStable -ne 'True'){throw 'BMP SDK focused input is not a repeat-equal original success'}
    $file="$work/samples/$($row.label).bmp";if((Get-FileHash $file).Hash.ToLowerInvariant() -ne $row.inputSha256){throw 'BMP input hash mismatch'};Copy-Item $file "$work/fixtures"
   }
  }
- if(@(Get-ChildItem "$work/fixtures" -File).Count -ne 316){throw 'Expected316 immutable BMP header SDK inputs'}
- $r.originalBaseline=@{sourceCommit=$receipt.sourceCommit;runId=$receipt.runId;samplesSha256=$hash;selected=316;selection='compression0,16x8-or-7x5,pattern0; all DIB/depth/direction/profile/gap combinations'}
+ if(@(Get-ChildItem "$work/fixtures" -File).Count -ne 356){throw 'Expected356 immutable BMP header SDK inputs'}
+ $r.originalBaseline=@{sourceCommit=$receipt.sourceCommit;runId=$receipt.runId;samplesSha256=$hash;selected=356;selection='compression0,16x8-or-7x5,pattern0 plus32bit/plain/gap0 all alpha patterns; all DIB/depth/direction/profile/gap combinations'}
  Checked fixture-writer-build {& $csc /nologo /unsafe /platform:x86 /r:System.Drawing.dll /r:"$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll" /main:TextureBmpHeaderSdkFixtures /out:"$work/TextureBmpHeaderSdkFixtures.exe" (Resolve-Path recovery/tests/TextureBmpHeaderSdkFixtures.cs).Path (Resolve-Path recovery/tests/TextureBmpHeaderConsumerFixtures.cs).Path (Resolve-Path recovery/tests/TextureBmpHeaderFixtures.cs).Path (Resolve-Path recovery/tests/TextureBmpOracle.cs).Path}
  '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TextureBmpHeaderSdkFixtures.exe.config"
  Checked fixture-write {& "$work/TextureBmpHeaderSdkFixtures.exe" "$work/generated" (Resolve-Path recovery/reference/compact-icc).Path}
@@ -57,21 +57,21 @@ try{
     $nodes+="<$type id='BmpHeader_$index' File='..\Art\$name' Type='$kind' OutputFormat='$format' GenerateMipMaps='$generate' AllowAutomaticResize='false' />";$index++
    }}}}
   }
-  if($nodes.Count -ne 12640){throw 'Expected12640 BMP headers raw/DXT3/5 assets'};$r.textureAssets=12640
+  if($nodes.Count -ne 14240){throw 'Expected14240 BMP headers raw/DXT3/5 assets'};$r.textureAssets=14240
   foreach($fixture in Get-ChildItem "$work/generated" -File -Filter 'transparent-*'|Sort-Object Name){
    Copy-Item $fixture.FullName "$moddir/Art/$($fixture.Name)";$name=$fixture.Name
    foreach($kind in @('StandardTexture','VolumeTexture')){foreach($generate in @('false','true')){foreach($type in @('Texture','OnDemandTexture')){
     $nodes+="<$type id='BmpHeader_$index' File='..\Art\$name' Type='$kind' OutputFormat='DXT1A' GenerateMipMaps='$generate' AllowAutomaticResize='false' />";$index++
    }}}
   }
-  if($nodes.Count -ne 13152){throw 'Expected512 BMP headers transparent DXT1A assets'};$r.transparentDxt1aAssets=512
+  if($nodes.Count -ne 14752){throw 'Expected512 BMP headers transparent DXT1A assets'};$r.transparentDxt1aAssets=512
   foreach($fixture in Get-ChildItem "$work/generated" -File -Filter 'atlas-*'|Sort-Object Name){
    Copy-Item $fixture.FullName "$moddir/Art/$($fixture.Name)";$name=$fixture.Name
    foreach($normal in @('missing-normal.bmp',$name)){
     $nodes+="<TerrainTextureAtlas id='BmpHeaderAtlas_$index' AtlasSize='2048' AllowLossyCompression='true'><Tile TextureID='42' BaseTexture='..\Art\$name' NormalTexture='..\Art\$normal' /></TerrainTextureAtlas>";$index++
    }
   }
-  $expectedAssets=$nodes.Count;if($expectedAssets -ne 13252){throw 'Expected13252 BMP headers texture/atlas assets'};$r.atlasAssets=100
+  $expectedAssets=$nodes.Count;if($expectedAssets -ne 14852){throw 'Expected14852 BMP headers texture/atlas assets'};$r.atlasAssets=100
 
   "<?xml version='1.0'?><AssetDeclaration xmlns='uri:ea.com:eala:asset'><Tags />$($nodes -join "`n")</AssetDeclaration>"|Set-Content "$moddir/Data/Mod.xml" -Encoding utf8
   $trace="$out/$mode-trace";New-Item -ItemType Directory -Force $trace|Out-Null

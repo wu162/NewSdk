@@ -2227,6 +2227,28 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-bmp-headers/*/validation.json",
       "sdk": true
+    },
+    "bmp-bitfields-load": {
+      "script": "recovery/scripts/InspectTextureBmpBitfields.ps1",
+      "arguments": {},
+      "dependencies": [
+        "SDK/tools/*.dll",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TextureNpotRgba8Resampler.cs",
+        "src/TextureCompiler/Managed/TextureNpotStorageResampler.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TextureBmpOracle.cs",
+        "recovery/reference/compact-icc/**",
+        "recovery/scripts/InspectTextureBmpBitfields.ps1",
+        "recovery/tests/TextureBmpBitfieldsProbe.cs"
+      ],
+      "evidence": "recovery/evidence/texture/bmp-bitfields-load/*/validation.json",
+      "sdk": false,
+      "manual_only": true,
+      "evidence_only": true
     }
   },
   "targetPlatform": "Win32"
