@@ -66,6 +66,18 @@ namespace NewModCompiler.Tests
                 store.StageStream("base/Mod",source,CancellationToken.None); store.Commit(); store.Rollback();
             }
             Check(Restore(output,"after-preserved"),"Rollback removed previously confirmed package");
+            string next=Stage(output,"next-generation"); Fixture(next);
+            string nextAsset=Path.Combine(next,"intermediate","Win32","ArmorTemplate","one.asset");
+            Put(nextAsset,"asset next");
+            using(var store=new SessionPackage(output,Fingerprint)) {
+                store.StageStream("base/Mod",next,CancellationToken.None); store.Commit(); store.Rollback();
+            }
+            Check(File.ReadAllText(Payload(output,"asset A"))=="asset A","Failed incremental update lost the confirmed predecessor");
+            Install(output,next);
+            Check(Restore(output,"updated-hot"),"Confirmed incremental generation was not reusable");
+            Check(File.ReadAllText(Path.Combine(Stage(output,"updated-hot"),"intermediate","Win32","ArmorTemplate","one.asset"))=="asset next","Healthy package remained frozen at its first generation");
+            // Return to the original fixture before the independent corruption matrix.
+            Install(output,source);
             using(var other=new SessionPackage(output,new string('d',64)))
                 Check(!other.PrepareStream("base/Mod",Stage(output,"other-namespace"),CancellationToken.None),"Input/implementation identities leaked");
             using(var assets=new BuildAssetCache(output,Fingerprint))

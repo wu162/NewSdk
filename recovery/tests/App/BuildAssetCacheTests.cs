@@ -38,6 +38,21 @@ namespace NewModCompiler.Tests
                 store.StageStream("base/Mod",source,CancellationToken.None); store.Commit(); store.Complete();
             }
             Check(Entries(root)==1,"Confirmed cache was discarded by Dispose");
+            string updated=Staging(root,"updated"), updatedFile=Path.Combine(updated,"Win32","ArmorTemplate","ab","two.asset");
+            Put(updatedFile,"asset next");
+            using(var store=new BuildAssetCache(root,Namespace,false,true)) {
+                store.StageStream("base/Mod",updated,CancellationToken.None); store.Commit(); store.Rollback();
+            }
+            using(var store=new BuildAssetCache(root,Namespace,false,true)) {
+                Check(store.PrepareStream("base/Mod",Staging(root,"rolled-back-update"),CancellationToken.None),"Incremental rollback lost its predecessor");
+                Check(File.Exists(Path.Combine(Staging(root,"rolled-back-update"),"Win32","ArmorTemplate","ab","one.asset")),"Incremental rollback retained new generation");
+                store.StageStream("base/Mod",updated,CancellationToken.None); store.Commit(); store.Complete();
+            }
+            using(var store=new BuildAssetCache(root,Namespace,false,true)) {
+                string restored=Staging(root,"updated-hot");
+                Check(store.PrepareStream("base/Mod",restored,CancellationToken.None) && File.ReadAllText(Path.Combine(restored,"Win32","ArmorTemplate","ab","two.asset"))=="asset next","Incremental cache did not advance its confirmed generation");
+                store.StageStream("base/Mod",source,CancellationToken.None); store.Commit(); store.Complete();
+            }
             string hot=Staging(root,"hot");
             using(var store=new BuildAssetCache(root,Namespace)) {
                 Check(store.PrepareStream("base/Mod",hot,CancellationToken.None),"Identical namespace/task did not restore assets");

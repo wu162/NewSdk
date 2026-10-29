@@ -19,7 +19,7 @@ namespace NewModCompiler.Application
         public SessionPackage(string outputRoot, string namespaceFingerprint)
         {
             this.outputRoot = Path.GetFullPath(outputRoot);
-            storage = new BuildAssetCache(outputRoot, namespaceFingerprint, true);
+            storage = new BuildAssetCache(outputRoot, namespaceFingerprint, true, true);
         }
 
         public bool PrepareStream(string taskKey, string stagingRoot, CancellationToken cancellation)

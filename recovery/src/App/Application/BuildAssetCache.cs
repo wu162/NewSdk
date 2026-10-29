@@ -14,6 +14,7 @@ namespace NewModCompiler.Application
     {
         readonly string format;
         readonly bool replaceInvalidEntries;
+        readonly bool refreshExistingEntries;
         readonly HashSet<string> invalidEntries = new HashSet<string>(StringComparer.Ordinal);
         readonly Dictionary<string,string> replaced = new Dictionary<string,string>(StringComparer.Ordinal);
         const string IndexName = "index.bin";
@@ -28,7 +29,8 @@ namespace NewModCompiler.Application
         public BuildAssetCache(string outputRoot, string namespaceFingerprint) : this(outputRoot, namespaceFingerprint, false) { }
         // Session packages use the same reversible integrity store, but never
         // share its directory, format, locks or task entries with /bc assets.
-        internal BuildAssetCache(string outputRoot, string namespaceFingerprint, bool sessionPackage)
+        internal BuildAssetCache(string outputRoot, string namespaceFingerprint, bool sessionPackage) : this(outputRoot, namespaceFingerprint, sessionPackage, false) { }
+        internal BuildAssetCache(string outputRoot, string namespaceFingerprint, bool sessionPackage, bool refreshExistingEntries)
         {
             if (string.IsNullOrWhiteSpace(outputRoot)) throw new ArgumentException("An output root is required.");
             if (namespaceFingerprint == null || namespaceFingerprint.Length != 64) throw new ArgumentException("A SHA-256 namespace is required.");
@@ -37,6 +39,7 @@ namespace NewModCompiler.Application
             RejectAncestors(this.outputRoot);
             this.namespaceFingerprint = namespaceFingerprint;
             replaceInvalidEntries = sessionPackage;
+            this.refreshExistingEntries = refreshExistingEntries;
             format = sessionPackage ? "NewModCompiler.SessionPackage.v1" : "NewModCompiler.BuildAssets.v2";
             cacheRoot = Path.Combine(this.outputRoot, ".cache", sessionPackage ? "session-packages-v1" : "build-assets-v2");
             candidateRoot = Path.Combine(this.outputRoot, ".cache-candidate-" + owner);
@@ -101,8 +104,8 @@ namespace NewModCompiler.Application
             if (!replaceInvalidEntries || committed) throw new InvalidOperationException("Only an uncommitted session package may be invalidated.");
             invalidEntries.Add(TaskName(taskKey));
         }
-        // Existing /bc assets and healthy sessions remain immutable. Invalid
-        // sessions are repaired transactionally after a successful cold build.
+        // Incremental namespaces advance to the latest successful generation.
+        // Its predecessor remains recoverable until publication is confirmed.
         public void Commit()
         {
             Active(); EnsureLock(); if (committed) return;
@@ -114,7 +117,7 @@ namespace NewModCompiler.Application
                     string destination = Path.Combine(cacheRoot, pair.Key); RejectAncestors(destination);
                     if (Directory.Exists(destination) || File.Exists(destination))
                     {
-                        if (!replaceInvalidEntries || !invalidEntries.Contains(pair.Key) || !Directory.Exists(destination)) continue;
+                        if ((!refreshExistingEntries && (!replaceInvalidEntries || !invalidEntries.Contains(pair.Key))) || !Directory.Exists(destination)) continue;
                         string backup = Path.Combine(candidateRoot,"replaced",pair.Key);
                         RejectAncestors(backup); Directory.CreateDirectory(Path.GetDirectoryName(backup));
                         Directory.Move(destination,backup); replaced.Add(destination,backup);

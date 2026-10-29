@@ -57,6 +57,8 @@ function Cache($Case,[string]$Expected){
         Need ($statistics.sessionPackageHits -eq 0 -and $statistics.sessionPackageMisses -gt 0 -and $statistics.documentReuse -eq 0 -and $statistics.xmlParse -gt 0 -and $statistics.instanceCompile -gt 0) 'Cold session cache did not parse and compile actual assets'
     }elseif($Expected -eq 'hot'){
         Need ($statistics.sessionPackageHits -gt 0 -and $statistics.sessionPackageMisses -eq 0 -and $statistics.documentReuse -gt 0 -and $statistics.xmlParse -lt $script:hotParseCeiling -and $statistics.instanceCompile -eq 0) 'Hot session package did not reduce XML parsing and reuse compiled instances'
+    }elseif($Expected -eq 'incremental'){
+        Need ($statistics.sessionPackageHits -gt 0 -and $statistics.sessionPackageMisses -eq 0 -and $statistics.xmlParse -gt 0 -and $statistics.instanceCompile -gt 0) 'Changed MOD did not restore its session and rebuild the affected assets'
     }else{throw "Unknown session expectation: $Expected"}
 }
 function SessionEntries([string]$Destination){
@@ -104,6 +106,7 @@ function DamagePackage([string]$Destination,[string]$Kind){
     return $selected
 }
 function MakeMod([string]$Path,[string]$Probe){
+    Put "$Path/unused.txt" 'unused A'
     Put "$Path/Data/Armor.xml" $Probe
     Put "$Path/Data/Defs.xml" '<Defines xmlns="uri:ea.com:eala:asset"><Define name="SESSION_SCALE" value="83.25"/></Defines>'
     Put "$Path/Data/XArmor.xml" '<ArmorTemplate xmlns="uri:ea.com:eala:asset" id="SessionXIncludeArmor" Default="22.5%"/>'
@@ -320,13 +323,16 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         Need ($combinedCold.report.cache.sessionCache -and $combinedCold.report.cache.sessionPackageMisses -gt 0 -and $combinedCold.report.cache.documentReuse -eq 0 -and $combinedCold.report.cache.misses -gt 0 -and $combinedCold.report.cache.hits -eq 0) 'Combined cold session/build cache did not record independent actual misses'
         $combinedHot=RunCli 'combined-sc-bc-hot' $mod $combinedOut $true -BuildEnabled $true;SameOutputs $plain $combinedHot
         Need ($combinedHot.report.cache.sessionPackageHits -gt 0 -and $combinedHot.report.cache.sessionPackageMisses -eq 0 -and $combinedHot.report.cache.documentReuse -gt 0 -and $combinedHot.report.cache.instanceCompile -eq 0 -and $combinedHot.report.cache.hits -eq 0 -and $combinedHot.report.cache.misses -eq 0) 'Combined hot cache conflated session reuse with asset-cache hits'
+        SameLengthMutation "$mod/unused.txt" 'unused A' 'unused B'
+        $unrelated=RunCli 'unreferenced-content-edit' $mod $cachedOut $true;Cache $unrelated 'hot';SameOutputs $plain $unrelated
         foreach($change in @(
             @{name='include-inheritance';path="$mod/Data/Armor.xml";from='72.5%';to='12.5%'},
             @{name='xinclude';path="$mod/Data/XArmor.xml";from='22.5%';to='32.5%'},
             @{name='define-expression';path="$mod/Data/Defs.xml";from='83.25';to='93.25'},
             @{name='file-reference';path="$mod/Data/events.h";from='0x12345678';to='0x23456789'})){
             SameLengthMutation $change.path $change.from $change.to
-            $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed 'cold';DifferentOutputs $hot $changed;$script:hotParseCeiling=$changed.report.cache.xmlParse
+            $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed 'incremental';DifferentOutputs $hot $changed
+            Need ($changed.report.cache.documentReuse -gt 0 -and $changed.report.cache.instanceCompile -lt $cold.report.cache.instanceCompile) 'MOD edit recompiled the unaffected stream instead of retaining partial reuse'
             $plain=RunCli ($change.name+'-disabled') $mod $plainOut $false;SameOutputs $plain $changed
             $hot=RunCli ($change.name+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         }
@@ -380,7 +386,7 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
                 $bytes[44]=0x34;$bytes[45]=0x12;[IO.File]::WriteAllBytes($input,$bytes);[IO.File]::SetLastWriteTimeUtc($input,$stamp)
                 Need ((Get-Item -LiteralPath $input).Length -eq $length -and [IO.File]::GetLastWriteTimeUtc($input) -eq $stamp) 'Audio mutation failed to preserve length/mtime'
             }else{SameLengthMutation "$payloadMod/Data/W3x.xml" 'FrameRate="30"' 'FrameRate="31"'}
-            $changed=RunCli ($family+'-invalidated') $payloadMod $payloadCache $true;Cache $changed 'cold';DifferentOutputs $payloadHot $changed;$script:hotParseCeiling=$changed.report.cache.xmlParse
+            $changed=RunCli ($family+'-invalidated') $payloadMod $payloadCache $true;Cache $changed 'incremental';DifferentOutputs $payloadHot $changed
             $changedPlain=RunCli ($family+'-changed-disabled') $payloadMod $payloadPlain $false;SameOutputs $changedPlain $changed
             $changedHot=RunCli ($family+'-changed-hot') $payloadMod $payloadCache $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot;Need ($changedHot.report.cache.xmlParse -eq 0) 'Changed-hot Audio/W3X unexpectedly parsed XML'
             if($family -eq 'w3x'){OriginalOracle $changedHot 'original-w3x'}

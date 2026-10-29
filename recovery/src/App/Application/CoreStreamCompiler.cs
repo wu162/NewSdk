@@ -455,13 +455,13 @@ namespace NewModCompiler.Application
                     processContract = CacheProcessContract();
                     if (buildCacheEnabled)
                     {
-                        assetCache = new BuildAssetCache(outputRoot, CacheNamespace(cacheInputs.Fingerprint, processContract));
+                        assetCache = new BuildAssetCache(outputRoot, CacheNamespace(cacheInputs.IncrementalFingerprint, processContract), false, true);
                         assetCaches.Add(assetCache);
                         assetCache.PrepareStream(context.Task.Id, settings.BuildCacheDirectory, cancellation);
                     }
                     if (sessionCacheEnabled)
                     {
-                        sessionPackage = new SessionPackage(outputRoot, CacheNamespace(cacheInputs.Fingerprint, processContract));
+                        sessionPackage = new SessionPackage(outputRoot, CacheNamespace(cacheInputs.IncrementalFingerprint, processContract));
                         sessionPackages.Add(sessionPackage);
                         packageRestored = sessionPackage.PrepareStream(context.Task.Id, staging, cancellation);
                     }

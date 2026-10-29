@@ -30,6 +30,8 @@ namespace NewModCompiler.Tests
             var plan = new BuildPlan { Tasks = new[] { new BuildTask { Id = "base/mod", Content = "base", InputPath = entry, OutputName = "base/mod", Dependencies = new string[0] } } };
             request.Options["tp"] = new EffectiveOption { Value = "Win32", Source = "commandLine" };
             var baseline = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+            string incremental = baseline.IncrementalFingerprint;
+            Check(incremental.Length == 64 && incremental != baseline.Fingerprint, "Incremental identity must be versioned separately from the whole-input guard.");
             Check(!baseline.CanAuthorizeCacheReuse, "An inventory must never authorize production cache reuse.");
             Check(CacheInputSnapshot.CoverageLimitations.Contains("Root-external"), "Missing inventory scope explanation.");
             Check(baseline.Fingerprint.Length == 64 && baseline.FileCount == 5, "Inventory digest and file count.");
@@ -40,24 +42,29 @@ namespace NewModCompiler.Tests
             DateTime timestamp = File.GetLastWriteTimeUtc(dependency);
             Write(dependency, "BBBB"); File.SetLastWriteTimeUtc(dependency, timestamp);
             Check(!baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Payload content change was missed.");
+            Check(CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None).IncrementalFingerprint == incremental, "MOD content edit discarded dependency-aware Core reuse.");
             Write(dependency, "AAAA"); File.SetLastWriteTimeUtc(dependency, timestamp);
             Check(baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Restored input bytes should reproduce the fingerprint.");
             foreach (string file in new[] { entry, schema, config, compiler })
             {
                 string previous = File.ReadAllText(file); Write(file, previous + "changed");
                 Check(!baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Root input change was missed: " + file);
+                Check((CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None).IncrementalFingerprint == incremental) == (file == entry), "Only MOD content edits may retain incremental namespace: " + file);
                 Write(file, previous);
             }
             string indirect = Path.Combine(request.ModRoot, "includes", "nested", "indirect.xml");
             Write(indirect, "new dependency");
             Check(!baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Added nested dependency was missed.");
+            Check(CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None).IncrementalFingerprint != incremental, "Added resolver candidate retained incremental namespace.");
             File.Delete(indirect); Directory.Delete(Path.GetDirectoryName(indirect)); Directory.Delete(Path.GetDirectoryName(Path.GetDirectoryName(indirect)));
             Check(baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Removed dependency tree did not restore inventory.");
             File.Move(dependency, dependency + ".renamed");
             Check(!baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Renamed payload was missed.");
+            Check(CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None).IncrementalFingerprint != incremental, "Renamed resolver candidate retained incremental namespace.");
             File.Move(dependency + ".renamed", dependency);
             request.Options["tp"].Value = "Xbox360";
             Check(!baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Platform change was missed.");
+            Check(CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None).IncrementalFingerprint != incremental, "Changed platform retained incremental namespace.");
             request.Options["tp"].Value = "Win32";
             request.Options["unrecognized-future-option"] = new EffectiveOption { Value = "yes", Source = "commandLine" };
             Check(!baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "New effective option was missed.");
@@ -93,6 +100,15 @@ namespace NewModCompiler.Tests
             Reject<IOException>(() => CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None), "Output was allowed inside inputs.");
             request.OutputRoot = output;
             Check(baseline.MatchesCurrent(request, plan, runtime, CancellationToken.None), "Validation failure polluted retry.");
+            // A common layout is SDK/Mods/<active mod>. Both inventory roles
+            // must agree that editing that MOD is handled by Core dependencies.
+            request.ModRoot = Path.Combine(request.SdkRoot, "Mods", "nested");
+            plan.Tasks[0].InputPath = Path.Combine(request.ModRoot, "Data", "Mod.xml");
+            Write(plan.Tasks[0].InputPath, "<AssetDeclaration/>");
+            var nested = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+            Write(plan.Tasks[0].InputPath, "<AssetDeclaration />");
+            var edited = CacheInputSnapshot.Capture(request, plan, runtime, CancellationToken.None);
+            Check(nested.Fingerprint != edited.Fingerprint && nested.IncrementalFingerprint == edited.IncrementalFingerprint, "SDK inventory reintroduced whole-MOD invalidation for nested MODs.");
             return assertions;
         }
     }

@@ -17,9 +17,15 @@ namespace NewModCompiler.Application
         public const string Format = "NewModCompiler.InputInventory.v1";
         public const string CoverageLimitations = "Only SDK, MOD and compiler-runtime roots are inventoried. Root-external references, environment-dependent resolution and toolchain identity still require a verified resolver contract before this fingerprint can authorize cache reuse. This component neither stores nor loads cached results.";
         readonly string fingerprint;
+        readonly string incrementalFingerprint;
         readonly int fileCount;
-        private CacheInputSnapshot(string fingerprint, int fileCount) { this.fingerprint = fingerprint; this.fileCount = fileCount; }
+        private CacheInputSnapshot(string fingerprint, string incrementalFingerprint, int fileCount) { this.fingerprint = fingerprint; this.incrementalFingerprint = incrementalFingerprint; this.fileCount = fileCount; }
         public string Fingerprint { get { return fingerprint; } }
+        // Core owns MOD document/file dependency invalidation. Keep compiler,
+        // SDK and resolver topology identity stable across MOD content edits,
+        // so the previous session can actually reach those dependency checks.
+        // Like Fingerprint, this value alone never authorizes an asset hit.
+        public string IncrementalFingerprint { get { return incrementalFingerprint; } }
         public int FileCount { get { return fileCount; } }
         public bool CanAuthorizeCacheReuse { get { return false; } }
 
@@ -35,6 +41,8 @@ namespace NewModCompiler.Application
             int count = 0;
             using (var bytes = new MemoryStream())
             using (var writer = new BinaryWriter(bytes, new UTF8Encoding(false, true)))
+            using (var incrementalBytes = new MemoryStream())
+            using (var incremental = new BinaryWriter(incrementalBytes, new UTF8Encoding(false, true)))
             {
                 // BinaryWriter's length-prefixed strings prevent delimiter and
                 // concatenation collisions. Enumeration uses ordinal sorting.
@@ -66,13 +74,17 @@ namespace NewModCompiler.Application
                 }
                 // Full root identities intentionally isolate two different MODs
                 // even when their current bytes happen to be identical.
+                writer.Flush();
+                incremental.Write("NewModCompiler.LegacyIncremental.v1");
+                incremental.Write(bytes.ToArray());
                 for (int role = 0; role < roots.Length; ++role)
                 {
                     writer.Write(role); writer.Write(roots[role]);
-                    Inventory(writer, roots[role], roots[role], cancellation, ref count);
+                    incremental.Write(role); incremental.Write(roots[role]);
+                    Inventory(writer, incremental, roots[role], roots[role], roots[1], role == 2, cancellation, ref count);
                 }
-                cancellation.ThrowIfCancellationRequested(); writer.Flush(); bytes.Position = 0;
-                using (var hash = SHA256.Create()) return new CacheInputSnapshot(Hex(hash.ComputeHash(bytes)), count);
+                cancellation.ThrowIfCancellationRequested(); writer.Flush(); incremental.Flush(); bytes.Position = incrementalBytes.Position = 0;
+                using (var hash = SHA256.Create()) return new CacheInputSnapshot(Hex(hash.ComputeHash(bytes)), Hex(hash.ComputeHash(incrementalBytes)), count);
             }
         }
 
@@ -98,26 +110,35 @@ namespace NewModCompiler.Application
         {
             writer.Write(value != null); if (value != null) writer.Write(value);
         }
-        static void Inventory(BinaryWriter writer, string root, string directory, CancellationToken cancellation, ref int count)
+        static void Inventory(BinaryWriter writer, BinaryWriter incremental, string root, string directory, string modRoot, bool runtime, CancellationToken cancellation, ref int count)
         {
             cancellation.ThrowIfCancellationRequested();
             if ((File.GetAttributes(directory) & FileAttributes.ReparsePoint) != 0) throw new IOException("Input inventory does not follow reparse points.");
             string[] entries = Directory.GetFileSystemEntries(directory); Array.Sort(entries, StringComparer.Ordinal);
             writer.Write(entries.Length);
+            incremental.Write(entries.Length);
             foreach (string path in entries)
             {
                 cancellation.ThrowIfCancellationRequested();
                 FileAttributes attributes = File.GetAttributes(path);
                 if ((attributes & FileAttributes.ReparsePoint) != 0) throw new IOException("Input inventory does not follow reparse points.");
                 bool isDirectory = (attributes & FileAttributes.Directory) != 0;
-                writer.Write(isDirectory); writer.Write(path.Substring(root.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length));
-                if (isDirectory) Inventory(writer, root, path, cancellation, ref count);
+                string relative = path.Substring(root.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length);
+                writer.Write(isDirectory); writer.Write(relative);
+                incremental.Write(isDirectory); incremental.Write(relative);
+                if (isDirectory) Inventory(writer, incremental, root, path, modRoot, runtime, cancellation, ref count);
                 else
                 {
                     using (var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
                     using (var hash = SHA256.Create())
                     {
-                        writer.Write(input.Length); writer.Write(hash.ComputeHash(input));
+                        byte[] contentHash = hash.ComputeHash(input);
+                        writer.Write(input.Length); writer.Write(contentHash);
+                        // SDK may contain the active MOD. Do not accidentally
+                        // reintroduce whole-MOD invalidation via that root.
+                        bool pinned = runtime || !Paths.Contains(modRoot, path);
+                        incremental.Write(pinned);
+                        if (pinned) { incremental.Write(input.Length); incremental.Write(contentHash); }
                     }
                     checked { ++count; }
                 }
