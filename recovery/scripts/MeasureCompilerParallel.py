@@ -25,11 +25,10 @@ def run(args):
     repo, exe, work, out = (Path(x).resolve() for x in (args.repo, args.exe, args.work, args.output))
     need(not work.exists() and not out.exists(), 'Refusing to overwrite measurement')
     work.mkdir(parents=True); out.mkdir(parents=True)
-    workloads = prepare(repo, work, out)
-    mod = Path(next(x['modRoot'] for x in workloads if x['tier'] == 'large'))
+    mod = None
     state = {'schemaVersion': 1, 'sourceCommit': args.source_commit, 'binarySourceCommit': args.binary_source_commit or args.source_commit,
              'binarySha256': sha(exe), 'runId': os.environ.get('GITHUB_RUN_ID'), 'status': 'started',
-             'workload': next(x for x in workloads if x['tier'] == 'large'), 'samples': [],
+             'workload': None, 'samples': [],
              'comparison': 'Actual published bytes compared with filecmp(shallow=False); all report artifact hashes independently checked.',
              'sampleCountCaution': 'One cold sample per jobs/mode; OS page cache uncontrolled. No-cache starts jobs1; defaults reverses order4,1,auto. Do not treat small differences as deterministic regressions.',
              'boundary': 'Process wall; fixture setup, baseline copy and comparison excluded. All samples on one Windows VM, same executable. Off samples compared only with off; detailed samples used for attribution.'}
@@ -94,6 +93,12 @@ def run(args):
         print(json.dumps({key:row[key] for key in ('label','status','wallMs','exitCode')}), flush=True)
 
     try:
+        setup_started = time.perf_counter()
+        workloads = prepare(repo, work, out)
+        state['workload'] = next(x for x in workloads if x['tier'] == 'large')
+        mod = Path(state['workload']['modRoot'])
+        state['setupSeconds'] = time.perf_counter()-setup_started
+        started = time.perf_counter()
         # Same instrument level and executable for every throughput comparison.
         for jobs in ('1','4','auto'):
             sample('nocache-cold-'+jobs,jobs,False,'cold')

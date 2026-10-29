@@ -99,7 +99,7 @@ public static class CompilerCacheContent
     static object HostHashes(string output)
     {
         var type = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileHashCache", true);
-        object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { output }, null);
+        object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { output, null }, null);
         Settings.Current.FileIdentity = (Func<string, FileHashInfo>)Delegate.CreateDelegate(typeof(Func<string, FileHashInfo>), hashes, type.GetMethod("CoreIdentity", BindingFlags.NonPublic | BindingFlags.Instance));
         Settings.Current.RememberFileContentHash = (Action<string, string>)Delegate.CreateDelegate(typeof(Action<string, string>), hashes, type.GetMethod("RememberCoreHash", BindingFlags.NonPublic | BindingFlags.Instance));
         return hashes;

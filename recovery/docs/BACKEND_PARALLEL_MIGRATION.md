@@ -22,3 +22,7 @@
 - 源参考认证审计 [XML_BACKEND_REENTRY.json](XML_BACKEND_REENTRY.json) 保留原来源 SHA 和范围，未改写为本轮新验收。
 
 资源策略只在已有 wave 期间保持较低准入；队列完全汇合后可按新观测恢复，不让一次压力尖峰永久限制后续文档。任何释放异常挂在第一原异常上，所有 worker 都先 join。此处后续会补入终态、归档 digest、实际覆盖与性能表。
+
+首批终态 failure 已核实：新增 mesh 组件样本缺必需顶点流；既有 CompilerCacheContent 反射调用未随先前 FileHashCache 可选性能参数更新。两处测试均已修正，未降低原字节断言。该批 Debug/Release 的 284×四平台 XML 矩阵全部成功，混合生产52用例、原 BuildCache/SessionCache、Texture、输入根、真实 CtrlBreak、BIG/MakeBig 差分均通过；完整 mymod 和最终五文件因组件门槛失败未执行。归档 SHA256 `b440d5f8e2cb40151190b044f0c6edba58ea587298859555c8f4da92721638e3` 已下载复算匹配，[分组摘要](../evidence/refactor/backend-parallel/40907675933-1/summary.json)。
+
+最终候选还确保故障/取消 drain 中的每一次实际后端调用都由 owner 合并进 core.asset.compile/core.compiler 计数；没有通过的 Windows 新候选结果或性能数据前，不把这些检查点写成已验收。

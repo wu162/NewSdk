@@ -377,6 +377,7 @@ public static class CompilerPreparedBackend
         RejectedPreparation(apt, null, budget, "invalid-input");
         RejectedPreparation(apt, new UncertifiedAudioPlugin(), budget, "uncertified-plugin");
         RejectedPreparation(apt, xml, 0, "preparation-budget-exceeded");
+        RejectedPreparation(apt, xml, budget, "external-input-path-missing");
         ((XmlElement)apt.Node).SetAttribute("File", "");
         RejectedPreparation(apt, xml, budget, "external-input-path-missing");
         ((XmlElement)apt.Node).SetAttribute("File", Path.Combine(work, "absent-prepared.bin"));
@@ -619,6 +620,12 @@ public static class CompilerPreparedBackend
                 else Require(observed is NotSupportedException,"Native worker failure must preserve its original backend exception");
                 ((IDisposable)execution).Dispose();
                 Require(captured.TrueForAll(t=>t.IsCompleted),"Disposal must join every previously dispatched native worker");
+                var serializer=new JavaScriptSerializer();
+                var snapshot=serializer.Deserialize<Dictionary<string,object>>(serializer.Serialize(performanceType.GetMethod("Snapshot",fields).Invoke(performance,null)));
+                int measured=0;
+                foreach(Dictionary<string,object> entry in (System.Collections.IEnumerable)snapshot["entries"])
+                    if((string)entry["name"]=="core.asset.compile")measured+=Convert.ToInt32(entry["count"]);
+                Require(measured==4,"Failed/cancelled native calls must remain in Core performance counts after join");
                 Require((int)queue.GetType().GetProperty("Count").GetValue(queue,null)==0,"Disposal must drain pending envelopes");
                 Require(verified==0 && committed==0 && completed==0,"Failed/uncommitted documents may not verify, commit or become complete");
                 using(var writer=new FileStream(input,FileMode.Open,FileAccess.Write,FileShare.None))

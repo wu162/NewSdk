@@ -229,7 +229,7 @@ namespace NewModCompiler.Application
             uint type = original.Handle.TypeId;
             if (!IsApt(type)) return true;
             XmlAttribute file = original.Node.Attributes["File"];
-            if (file == null) return true;
+            if (file == null) return Reject("external-input-path-missing", out reason);
             // Native APT uses narrow fopen. ASCII preserves the exact pathname
             // shared by the managed lease; other paths use owner compatibility.
             if (Environment.OSVersion.Platform != PlatformID.Win32NT)

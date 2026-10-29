@@ -99,6 +99,7 @@ namespace NewModCompiler.Application
             internal Action<AssetLocation> Committed;
             internal string Directory;
             internal long WorkTicks;
+            internal bool MetricsMerged;
         }
         internal ParallelBackendScheduler(DocumentProcessor processor,string staging,int requestedJobs,
             ParallelBackendMetrics metrics,BuildPerformance performance,CancellationToken cancellation,Func<BackendResourcePolicy> sampler=null)
@@ -196,7 +197,9 @@ namespace NewModCompiler.Application
             Exception primary=null;
             try {
                 if(task.Worker!=null) {
-                    long wait=Start(); try {task.Buffer=task.Worker.GetAwaiter().GetResult();} finally {metrics.WaitTicks+=Elapsed(wait);}
+                    long wait=Start();
+                    try { task.Buffer=task.Worker.GetAwaiter().GetResult(); }
+                    finally { metrics.WaitTicks+=Elapsed(wait); MergeWorkerMetrics(task); }
                 }
                 cancellation.ThrowIfCancellationRequested();
                 metrics.SampleMemory();
@@ -214,10 +217,6 @@ namespace NewModCompiler.Application
                             task.Declaration.CustomDataPath=target;
                         }
                         task.Asset.Buffer=task.Buffer;
-                        if(performance.Detailed) {
-                            performance.RecordBackend("core.asset.compile",task.WorkTicks);
-                            performance.RecordBackend("core.compiler."+task.Declaration.Handle.TypeName,task.WorkTicks);
-                        }
                         task.Verify(); task.Committed(task.Asset.Commit(AssetLocation.Memory));
                     }
                     committedSequence=task.Sequence;
@@ -234,6 +233,13 @@ namespace NewModCompiler.Application
                 }
             }
         }
+        void MergeWorkerMetrics(Pending task)
+        {
+            if (!performance.Detailed || task.Worker==null || task.MetricsMerged) return;
+            task.MetricsMerged=true;
+            performance.RecordBackend("core.asset.compile",task.WorkTicks);
+            performance.RecordBackend("core.compiler."+task.Declaration.Handle.TypeName,task.WorkTicks);
+        }
         void Release(Pending task)
         {
             if(task.Prepared!=null) {retained-=task.Prepared.PreparedBytes; task.Prepared.Dispose();}
@@ -249,7 +255,12 @@ namespace NewModCompiler.Application
                 var task=pending.Dequeue();
                 try {if(task.Worker!=null) task.Worker.GetAwaiter().GetResult();}
                 catch(Exception error) {if(failure==null) failure=error;else failure.Data["BackendJoin."+task.Sequence]=error;}
-                finally {try {Release(task);} catch(Exception error) {if(failure==null) failure=error;else failure.Data["BackendRelease."+task.Sequence]=error;}}
+                finally {
+                    try { MergeWorkerMetrics(task); }
+                    catch(Exception error) {if(failure==null) failure=error;else failure.Data["BackendMetrics."+task.Sequence]=error;}
+                    try { Release(task); }
+                    catch(Exception error) {if(failure==null) failure=error;else failure.Data["BackendRelease."+task.Sequence]=error;}
+                }
             }
             completions.Clear();
             if(failure!=null) System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(failure).Throw();
