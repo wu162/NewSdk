@@ -1,0 +1,1 @@
+PROBE Texture PPM fixtures=8438 decoded=6615 rejected=1823 candidateMatches=7918 differences=520 unstableOriginals=0 originalCalls=16876 checks=18701; full source/repeated original/candidate RGBA and errors; not production or SDK acceptance
