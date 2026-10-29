@@ -39,7 +39,8 @@ namespace NewModCompiler.Tests
             var artifacts=new[] {new Artifact {Path=item,Kind="test",Size=6,Sha256=hashes.Hash(item)}};
             hashes.RecordPublished(artifacts,published,false);
             Check(hashes.MatchesPublication(artifacts,published),"Unchanged publication receipt did not match");
-            File.WriteAllText(Path.Combine(published,"child","unexpected.bin"),"extra");
+            // Match edits between independent CLI builds, beyond the Windows clock tick.
+            Thread.Sleep(30);File.WriteAllText(Path.Combine(published,"child","unexpected.bin"),"extra");
             Check(!hashes.MatchesPublication(artifacts,published),"Extra nested output did not invalidate publication receipt");
             File.Delete(Path.Combine(published,"child","unexpected.bin"));hashes.RecordPublished(artifacts,published,false);
             DateTime saved=File.GetLastWriteTimeUtc(item);Thread.Sleep(30);File.WriteAllText(item,"after!");File.SetLastWriteTimeUtc(item,saved);
