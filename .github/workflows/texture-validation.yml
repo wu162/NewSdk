@@ -37,8 +37,13 @@ on:
         description: 'Inspect selection without running Windows tests'
         type: boolean
         default: false
+      deploy_pc:
+        description: 'After current PPM/full-mymod gates pass, activate their identical six-DLL package in SDK'
+        type: boolean
+        default: false
 permissions:
   contents: write
+  actions: write
 jobs:
   plan:
     if: contains(github.event.head_commit.message, '[texture-ppm-sdk]') || contains(github.event.head_commit.message, '[texture-ppm-load]') || contains(github.event.head_commit.message, '[texture-dib-sdk]') || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[texture-test]') || contains(github.event.head_commit.message, '[texture-sdk]') || contains(github.event.head_commit.message, '[texture-plan]') || contains(github.event.head_commit.message, '[texture-bmp-bitfields]') || contains(github.event.head_commit.message, '[texture-bmp-headers]') || contains(github.event.head_commit.message, '[texture-tga-metadata]') || contains(github.event.head_commit.message, '[texture-jpeg-metadata]') || contains(github.event.head_commit.message, '[texture-png-order]') || contains(github.event.head_commit.message, '[texture-png-metadata]') || contains(github.event.head_commit.message, '[texture-s3-dxt1a]') || contains(github.event.head_commit.message, '[texture-s3-three]') || contains(github.event.head_commit.message, '[texture-dxt1-boundary]') || contains(github.event.head_commit.message, '[texture-dxt-evidence]') || contains(github.event.head_commit.message, '[texture-dxt-blocks]') || contains(github.event.head_commit.message, '[texture-dxt-volume-boundaries]') || contains(github.event.head_commit.message, '[texture-npot-load]') || contains(github.event.head_commit.message, '[texture-npot-numeric]') || contains(github.event.head_commit.message, '[texture-npot-storage]') || contains(github.event.head_commit.message, '[texture-npot-formats]') || contains(github.event.head_commit.message, '[texture-next-probes]') || contains(github.event.head_commit.message, '[texture-jpeg-load]') || contains(github.event.head_commit.message, '[texture-atlas-load]') || contains(github.event.head_commit.message, '[texture-npot-storage-stress]')
@@ -59,7 +64,12 @@ jobs:
           FORCE_GROUPS: ${{ inputs.force_groups || (contains(github.event.head_commit.message, '[texture-ppm-sdk]') && 'sdk-PcPpm') || (contains(github.event.head_commit.message, '[texture-ppm-load]') && 'ppm-load') || (contains(github.event.head_commit.message, '[texture-dib-sdk]') && 'sdk-PcDib') || (contains(github.event.head_commit.message, '[texture-bmp-bitfields]') && 'bmp-bitfields-load') || (contains(github.event.head_commit.message, '[texture-bmp-headers]') && 'bmp-header-load') || (contains(github.event.head_commit.message, '[texture-tga-metadata]') && 'tga-metadata-load') || (contains(github.event.head_commit.message, '[texture-jpeg-metadata]') && 'jpeg-metadata-load') || (contains(github.event.head_commit.message, '[texture-png-order]') && 'png-metadata-order') || (contains(github.event.head_commit.message, '[texture-png-metadata]') && 'png-metadata-load') || (contains(github.event.head_commit.message, '[texture-s3-dxt1a]') && 'public-s3-dxt1a,public-s3-dxt1a-dds') || (contains(github.event.head_commit.message, '[texture-s3-three]') && 'public-s3-three') || (contains(github.event.head_commit.message, '[texture-dxt1-boundary]') && 'dxt1-boundary') || (contains(github.event.head_commit.message, '[texture-jpeg-load]') && 'jpeg-load') || (contains(github.event.head_commit.message, '[texture-atlas-load]') && 'atlas-load') || (contains(github.event.head_commit.message, '[texture-npot-storage-stress]') && 'npot-storage-stress') || (contains(github.event.head_commit.message, '[texture-next-probes]') && 'npot-storage-stress,atlas-prerequisites') || (contains(github.event.head_commit.message, '[texture-npot-formats]') && 'npot-formats') || (contains(github.event.head_commit.message, '[texture-npot-storage]') && 'npot-storage') || (contains(github.event.head_commit.message, '[texture-npot-numeric]') && 'npot-numeric') || (contains(github.event.head_commit.message, '[texture-npot-load]') && 'npot-load') || (contains(github.event.head_commit.message, '[texture-dxt-volume-boundaries]') && 'dxt-volume-boundaries') || (contains(github.event.head_commit.message, '[texture-dxt-blocks]') && 'dxt-blocks') || (contains(github.event.head_commit.message, '[texture-dxt-evidence]') && 'dxt-symbols') || 'auto' }}
           REQUEST_SDK: ${{ inputs.run_sdk || contains(github.event.head_commit.message, '[texture-sdk]') }}
           ONLY_PLAN: ${{ inputs.plan_only || contains(github.event.head_commit.message, '[texture-plan]') }}
+          DEPLOY_PC: ${{ inputs.deploy_pc || false }}
         run: |
+          if [[ "$DEPLOY_PC" == true ]]; then
+            if [[ "$ONLY_PLAN" == true ]]; then echo 'Deployment requires actual SDK tests'; exit 1; fi
+            if [[ "$FORCE_GROUPS" == auto ]]; then FORCE_GROUPS='sdk-PcPpm,sdk-PcMymod'; else FORCE_GROUPS="$FORCE_GROUPS,sdk-PcPpm,sdk-PcMymod"; fi
+          fi
           args=(--out plan.json --groups "$FORCE_GROUPS")
           if [[ "$REQUEST_SDK" == true ]]; then args+=(--sdk); fi
           python recovery/scripts/SelectTextureGroups.py "${args[@]}"
@@ -113,6 +123,11 @@ jobs:
         id: tests
         shell: pwsh
         run: ./recovery/scripts/RunTextureBatch.ps1 -Phase remaining
+      - name: Activate the fully tested PC package and preserve portable rollback
+        if: inputs.deploy_pc && steps.early.outcome == 'success' && steps.tests.outcome == 'success'
+        id: deploy
+        shell: pwsh
+        run: ./recovery/scripts/DeployTextureCompiler.ps1
       - name: Preserve actual group outputs
         if: always()
         uses: actions/upload-artifact@v4
@@ -123,6 +138,16 @@ jobs:
         if: always() && steps.tests.outcome != 'skipped'
         shell: pwsh
         run: |
-          ./recovery/scripts/SaveTextureEvidence.ps1 -Path recovery/evidence/texture -Message "texture: record batch $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ('${{ steps.deploy.outcome }}' -eq 'success') {
+            ./recovery/scripts/SaveTextureEvidence.ps1 -Path recovery/evidence/texture -AdditionalPaths @('SDK/RecoveryTexture', 'SDK/tools/Recovered.*.dll', 'SDK/tools/BinaryAssetBuilder.exe.config') -Message "texture: activate accepted PC package and validate changed SDK inputs $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT [texture-test]"
+          } else {
+            ./recovery/scripts/SaveTextureEvidence.ps1 -Path recovery/evidence/texture -Message "texture: record batch $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          }
+      - name: Validate every affected component after SDK deployment
+        if: steps.deploy.outcome == 'success'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run texture-validation.yml --repo $env:GITHUB_REPOSITORY --ref $env:GITHUB_REF_NAME -f force_groups=auto -f run_sdk=false -f plan_only=false -f deploy_pc=false
 
 

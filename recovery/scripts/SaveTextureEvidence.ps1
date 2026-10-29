@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][string]$Path,[Parameter(Mandatory=$true)][string]$Message)
+param([Parameter(Mandatory=$true)][string]$Path,[Parameter(Mandatory=$true)][string]$Message,[string[]]$AdditionalPaths=@())
 $ErrorActionPreference='Stop'
 # The uploaded Actions artifact retains raw outputs. Before staging only this
 # run's directories, round-trip oversized SDK products into a lossless archive;
@@ -12,7 +12,7 @@ if($env:GITHUB_RUN_ID -and $env:GITHUB_RUN_ATTEMPT){
 }
 git config user.name 'github-actions[bot]'
 git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-git add -- $Path
+git add -- $Path @AdditionalPaths
 if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
 git diff --cached --quiet
 if ($LASTEXITCODE -eq 0) { exit 0 }

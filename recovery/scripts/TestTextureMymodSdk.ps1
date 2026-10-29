@@ -22,13 +22,27 @@ function Inventory([string]$directory){
  @(Get-ChildItem $directory -File -Recurse|Sort-Object FullName|ForEach-Object{@{path=$_.FullName.Substring($directory.Length+1).Replace('\','/');bytes=$_.Length;sha256=(Hash $_.FullName)}})
 }
 try{
- Checked recovered-build {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c Release -o "$work/build" --nologo}
- Checked public-s3 {& "$PSScriptRoot/BuildTexturePublicS3.ps1" -Destination $work -Configuration Release}
- $r.publicS3Native=Get-Content "$work/PublicS3-native.json" -Raw|ConvertFrom-Json
- # No JPEG input is added here; building its helper also validates the complete
- # deployment dependency set without falling back to the original plugin.
- Checked jpeg-native {& "$PSScriptRoot/BuildTextureJpeg.ps1" -Destination "$work/jpeg" -Configuration Release}
- $r.nativeBinaries=@(@{name='Recovered.TextureJpeg.dll';sha256=(Hash "$work/jpeg/Recovered.TextureJpeg.dll")})
+ # Formal integration consumes the exact six-DLL package, not a hand-copied
+ # subset. When the PPM SDK ran first, reuse its fully tested package bytes.
+ $ppm=Join-Path $root "recovery/evidence/texture/sdk-ppm/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+ $packagePath=Join-Path $work 'package'
+ if(Test-Path "$ppm/validation.json"){
+  $previous=Get-Content "$ppm/validation.json" -Raw|ConvertFrom-Json
+  if($previous.status -ne 'passed' -or !$previous.sdkValidated -or $previous.sourceCommit -ne $r.sourceCommit){throw 'Current PPM SDK package has not passed'}
+  if((Hash "$ppm/pc-plugin-package.zip") -ne $previous.packageArchiveSha256){throw 'PPM tested package archive changed'}
+  Expand-Archive "$ppm/pc-plugin-package.zip" $packagePath
+  Copy-Item "$ppm/pc-plugin-package.zip" "$out/pc-plugin-package.zip"
+  $r.reusedPpmPackage=$true
+ }else{
+  Checked package-build {& "$PSScriptRoot/BuildTextureCompiler.ps1" -Destination $packagePath -Configuration Release}
+  Compress-Archive -Path "$packagePath/*" -DestinationPath "$out/pc-plugin-package.zip"
+ }
+ $package=Get-Content "$packagePath/manifest.json" -Raw|ConvertFrom-Json
+ if($package.status -ne 'built' -or $package.dirtySource -or $package.runtimeFiles.Count -ne 6 -or $package.sourceCommit -ne $r.sourceCommit -or $package.originalTextureCompilerDistributed){throw 'Wrong complete PC package'}
+ foreach($file in $package.runtimeFiles){if((Hash "$packagePath/$($file.file)") -ne $file.sha256){throw 'Package fingerprint mismatch'}}
+ Copy-Item "$packagePath/manifest.json" "$out/package-manifest.json"
+ $r.packageArchiveSha256=Hash "$out/pc-plugin-package.zip"
+ $r.publicS3Native=@($package.publicS3);$r.nativeBinaries=$package.nativeBinaries
  $r.inputMymod=Inventory (Join-Path $root 'SDK/Mods/mymod')
  $r.defaultscriptSha256=Hash 'SDK/defaultscript.cs'
  $sources=@(Get-ChildItem "$root/SDK/Art" -File -Recurse|Where-Object {$_.Extension.ToLowerInvariant() -in @('.dds','.tga')}|Sort-Object FullName)
@@ -79,20 +93,37 @@ try{
      Copy-Item "$moddir/Data/TextureAudit.xml" "$out/overlay-TextureAudit.xml"
     }
    }
+   $defines=@();$implementation="$sdk/tools/BinaryAssetBuilder.TextureCompiler.dll"
+   if($mode -eq 'Original'){$defines=@('/define:ORIGINAL')}else{
+    Checked "$label-package-install" {& "$packagePath/InstallTextureCompiler.ps1" -PackageDirectory $packagePath -SdkDirectory $sdk -ReceiptPath "$out/$label-installation.json"}
+    if($mode -eq 'Recovered'){
+     # Exercise rollback after relocating the SDK, from a different directory.
+     $portable=Join-Path $sdk 'RecoveryTextureInstallation';New-Item -ItemType Directory -Force $portable|Out-Null
+     $installation=Get-Content "$out/$label-installation.json" -Raw|ConvertFrom-Json
+     $installation.backupDirectory=[IO.Path]::GetRelativePath($portable,$installation.backupDirectory)
+     $installation.sdkDirectory='..';$installation|ConvertTo-Json -Depth 8|Set-Content "$portable/installation.json"
+     $moved=$sdk+'-relocated';Move-Item $sdk $moved;$sdk=$moved;$moddir=Join-Path $sdk 'Mods/mymod'
+     Checked "$label-package-restore" {& "$packagePath/RestoreTextureCompiler.ps1" -ReceiptPath "$sdk/RecoveryTextureInstallation/installation.json"}
+     foreach($file in $installation.files){
+      $path=Join-Path "$sdk/tools" $file.file
+      if($file.existed){if((Hash $path) -ne $file.beforeSha256){throw 'Relocated SDK rollback changed prior bytes'}}
+      elseif(Test-Path $path){throw 'Relocated SDK rollback retained a runtime DLL'}
+     }
+     Checked "$label-package-reinstall" {& "$packagePath/InstallTextureCompiler.ps1" -PackageDirectory $packagePath -SdkDirectory $sdk -ReceiptPath "$out/$label-installation.json"}
+     $r.packageRestoreValidated=$true;$r.portableRestoreValidated=$true
+    }
+    $implementation="$sdk/tools/Recovered.BinaryAssetBuilder.TextureCompiler.dll"
+    if($mode -eq 'NoOriginal'){$defines=@('/define:NO_ORIGINAL');Remove-Item "$sdk/tools/BinaryAssetBuilder.TextureCompiler.dll" -Force}
+   }
    $trace=Join-Path $work "$label-trace";New-Item -ItemType Directory -Force $trace|Out-Null
    $cfg="$sdk/tools/BinaryAssetBuilder.exe.config";[xml]$xml=Get-Content $cfg -Raw
    $plugin=@($xml.configuration.assetbuilder.plugins.plugin|Where-Object {$_.assetTypes.Split(',') -contains 'Texture'})
    if($plugin.Count -ne 1){throw 'Texture plugin route is ambiguous'}
-   $defines=@();$implementation="$sdk/tools/BinaryAssetBuilder.TextureCompiler.dll"
-   if($mode -eq 'Original'){$defines=@('/define:ORIGINAL')}else{
-    Copy-Item "$work/build/Recovered.BinaryAssetBuilder.TextureCompiler.dll","$work/Recovered.TexturePublicS3.dll","$work/jpeg/Recovered.TextureJpeg.dll" "$sdk/tools"
-    $implementation="$sdk/tools/Recovered.BinaryAssetBuilder.TextureCompiler.dll"
-    if($mode -eq 'NoOriginal'){$defines=@('/define:NO_ORIGINAL');Remove-Item "$sdk/tools/BinaryAssetBuilder.TextureCompiler.dll" -Force}
-   }
+   if($mode -ne 'Original' -and $plugin[0].targetType -ne $package.pluginType){throw 'Actual installed Texture route differs'}
    Checked "$label-wrapper-build" {& $csc /nologo /target:library /platform:x86 $defines /r:"$sdk/tools/BinaryAssetBuilder.Core.dll" /r:"$sdk/tools/BinaryAssetBuilder.Utility.dll" /r:$implementation /out:"$sdk/tools/TextureSdkTrace.dll" $wrapper}
    $plugin[0].SetAttribute('targetType','TextureSdkTracePlugin, TextureSdkTrace');$plugin[0].SetAttribute('useBuildCache','false')
-   $startup=$xml.CreateElement('startup');$startup.SetAttribute('useLegacyV2RuntimeActivationPolicy','true')
-   $runtime=$xml.CreateElement('supportedRuntime');$runtime.SetAttribute('version','v4.0');[void]$startup.AppendChild($runtime);[void]$xml.configuration.AppendChild($startup);$xml.Save($cfg)
+   $startup=$xml.configuration.startup;if($null -eq $startup){$startup=$xml.CreateElement('startup');[void]$xml.configuration.AppendChild($startup)};$startup.SetAttribute('useLegacyV2RuntimeActivationPolicy','true')
+   $runtime=$startup.supportedRuntime;if($null -eq $runtime){$runtime=$xml.CreateElement('supportedRuntime');[void]$startup.AppendChild($runtime)};$runtime.SetAttribute('version','v4.0');$xml.Save($cfg)
    Copy-Item $cfg "$out/$label.config"
    $env:RA3_TEXTURE_SDK_TRACE=$trace
    $output=Join-Path $sdk 'builtmods';New-Item -ItemType Directory -Force $output|Out-Null

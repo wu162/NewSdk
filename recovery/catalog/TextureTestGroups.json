@@ -1600,11 +1600,19 @@
         "recovery/reference/ijg6b/**",
         "src/TextureCompiler/Managed/**",
         "src/TextureCompiler/PublicS3/**",
-        "src/TextureCompiler/Jpeg/**"
+        "src/TextureCompiler/Jpeg/**",
+        "src/TextureCompiler/Ppm/**",
+        "src/TextureCompiler/Colour/**",
+        "src/TextureCompiler/Dxt/**",
+        "recovery/scripts/BuildTextureCompiler.ps1",
+        "recovery/scripts/BuildTexturePpm.ps1",
+        "recovery/scripts/InstallTextureCompiler.ps1",
+        "recovery/scripts/RestoreTextureCompiler.ps1"
       ],
       "evidence": "recovery/evidence/texture/sdk-mymod/*/validation.json",
       "sdk": true,
-      "manual_only": true
+      "manual_only": true,
+      "priority": 101
     },
     "dxt1-boundary": {
       "script": "recovery/scripts/InspectTextureDxt1Boundary.ps1",

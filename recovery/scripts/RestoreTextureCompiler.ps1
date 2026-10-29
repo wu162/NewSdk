@@ -1,9 +1,16 @@
 param([Parameter(Mandatory=$true)][string]$ReceiptPath)
 $ErrorActionPreference='Stop'
-$r=Get-Content $ReceiptPath -Raw|ConvertFrom-Json
+$receipt=(Resolve-Path $ReceiptPath).Path
+$receiptDirectory=Split-Path $receipt -Parent
+$r=Get-Content $receipt -Raw|ConvertFrom-Json
 if($r.status -ne 'installed'){throw 'An installed package receipt is required'}
-$tools=Join-Path (Resolve-Path $r.sdkDirectory).Path 'tools'
-$backup=(Resolve-Path $r.backupDirectory).Path
+# Deployment receipts travel with the SDK. Existing absolute receipts retain
+# their meaning; relative paths are anchored to the receipt, never the shell.
+$sdkPath=$r.sdkDirectory;$backupPath=$r.backupDirectory
+if(-not [IO.Path]::IsPathRooted($sdkPath)){$sdkPath=Join-Path $receiptDirectory $sdkPath}
+if(-not [IO.Path]::IsPathRooted($backupPath)){$backupPath=Join-Path $receiptDirectory $backupPath}
+$tools=Join-Path (Resolve-Path $sdkPath).Path 'tools'
+$backup=(Resolve-Path $backupPath).Path
 $allowed=@('BinaryAssetBuilder.exe.config','Recovered.BinaryAssetBuilder.TextureCompiler.dll','Recovered.TextureDxtAlpha.dll','Recovered.TextureDxtColour.dll','Recovered.TextureJpeg.dll','Recovered.TexturePpm.dll','Recovered.TexturePublicS3.dll')
 if($r.files.Count -ne $allowed.Count -or @((Compare-Object ($allowed|Sort-Object) @($r.files.file|Sort-Object))).Count -ne 0){throw 'Unexpected restore file set'}
 # Preflight every file before touching any of them. A later user edit must not
