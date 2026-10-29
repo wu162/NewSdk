@@ -75,7 +75,6 @@ namespace NewModCompiler.Application
         internal string BackingPath { get; set; }
         internal string ContentPath { get { return BackingPath ?? Path; } }
         internal bool Verified { get; set; }
-        internal bool Published { get; set; }
     }
     public sealed class StreamContext
     {

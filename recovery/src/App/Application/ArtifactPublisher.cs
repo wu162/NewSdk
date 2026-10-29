@@ -67,15 +67,14 @@ namespace NewModCompiler.Application
                         if (artifact == null || string.IsNullOrEmpty(artifact.Path) || !Path.IsPathRooted(artifact.Path) || string.IsNullOrEmpty(artifact.Kind))
                             throw new IOException("Publication artifact is incomplete.");
                         string source = Path.GetFullPath(artifact.Path);
-                        string sourceRoot=owned && artifact.Published ? destination : staging;
-                        if (!Paths.Contains(sourceRoot, source) || string.Equals(sourceRoot, source, StringComparison.OrdinalIgnoreCase))
+                        if (!Paths.Contains(staging, source) || string.Equals(staging, source, StringComparison.OrdinalIgnoreCase))
                             throw new IOException("Publication artifact escaped its build staging directory.");
                         DiagnosticDirectory.ValidateSyntax(source);
                         using (owned ? null : DiagnosticDirectory.Acquire(Path.GetDirectoryName(source), false))
                         {
                             if (!owned && (File.GetAttributes(source) & (FileAttributes.ReparsePoint | FileAttributes.Directory)) != 0)
                                 throw new IOException("Publication artifact must be an ordinary file.");
-                            string relative = source.Substring(sourceRoot.TrimEnd('\\', '/').Length).TrimStart('\\', '/');
+                            string relative = source.Substring(staging.TrimEnd('\\', '/').Length).TrimStart('\\', '/');
                             if (!paths.Add(relative)) throw new IOException("Duplicate publication artifact path.");
                             if (!owned && new FileInfo(source).Length != artifact.Size) throw new IOException("Publication source size changed.");
                             result.Add(new Artifact { Path = Path.Combine(destination, relative), Kind = artifact.Kind, Size = artifact.Size, Sha256 = artifact.Sha256 });

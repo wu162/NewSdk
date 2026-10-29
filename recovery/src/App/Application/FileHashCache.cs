@@ -74,12 +74,6 @@ namespace NewModCompiler.Application
         }
         internal bool Exists(string path) { FileIdentity file; return DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file); }
         internal long Size(string path) { return Identity(Path.GetFullPath(path)).Size; }
-        internal bool TryHash(string path, out string hash)
-        {
-            FileIdentity file;
-            if (!DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file)) { hash = null; return false; }
-            hash = Hash(file, false); return true;
-        }
         internal IDictionary<string, string> SchemaIdentities(IEnumerable<string> paths)
         {
             // A new schema pass refreshes the metadata snapshot before any

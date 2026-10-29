@@ -14,6 +14,7 @@ namespace NewModCompiler.Tests
     internal static class BigPackageTests
     {
         static int checks;
+        static readonly List<string> packagePaths=new List<string>();
         static void Check(bool value,string message) {++checks;if(!value)throw new Exception("BIG package: "+message);}
         static void Put(string path,string value){Directory.CreateDirectory(Path.GetDirectoryName(path));File.WriteAllText(path,value);}
         sealed class Backend:IStreamCompiler
@@ -53,6 +54,7 @@ namespace NewModCompiler.Tests
             public string Mode;public BuildRequest Request;public CancellationTokenSource Cancellation;
             public void Write(IDictionary<string,object> row) {
                 string type=(string)row["eventType"];
+                if(type=="ArtifactProduced" && (string)row["stageId"]=="package") packagePaths.Add(((Artifact)row["payload"]).Path);
                 if(Mode=="cancel" && type=="StageStarted" && (string)row["stageId"]=="package") Cancellation.Cancel();
                 if(Mode=="report" && type=="StageCompleted" && (string)row["stageId"]=="package") Directory.CreateDirectory(Request.ReportPath);
                 if(Mode=="terminal" && type=="BuildFinished")throw new IOException("terminal");
@@ -60,6 +62,7 @@ namespace NewModCompiler.Tests
             public void Dispose(){if(Mode=="close")throw new IOException("close");}
         }
         static ExitCode Run(BuildRequest request,string mode,CancellationTokenSource cancellation) {
+            packagePaths.Clear();
             var sink=new Sink{Request=request,Mode=mode,Cancellation=cancellation};
             using(var events=new EventDispatcher(Guid.NewGuid().ToString("N"),new IBuildEventSink[]{sink}))
                 return new BuildSession(request,new Backend{Extra=mode=="unexpected"},events).Run(cancellation.Token);
@@ -119,6 +122,22 @@ namespace NewModCompiler.Tests
                 Check(File.ReadAllText(sku)=="mod-game 1.12\r\nadd-big package-mod_1.0.big\r\n","skudef does not reference the current BIG");
                 var report=new JavaScriptSerializer().Deserialize<Dictionary<string,object>>(File.ReadAllText(request.ReportPath));
                 Check(new JavaScriptSerializer().Serialize(report["artifacts"]).Contains("package.big") && ((System.Collections.ICollection)report["artifacts"]).Count==2,"Report did not switch to the final package allowlist");
+                if(mode=="success") {
+                    string identities=Path.Combine(output,".file-identities.json");
+                    var serializer=new JavaScriptSerializer {MaxJsonLength=int.MaxValue};
+                    var saved=serializer.Deserialize<Dictionary<string,object>>(File.ReadAllText(identities));
+                    var entries=(Dictionary<string,object>)saved["entries"];
+                    Check(!entries.ContainsKey("package|v1"),"BIG build wrote a package cache receipt");
+                    // An obsolete receipt must never be read, even if malformed.
+                    entries["package|v1"]="obsolete BIG cache receipt: not JSON";
+                    File.WriteAllText(identities,serializer.Serialize(saved));
+                    using(var repeat=new CancellationTokenSource()) Check(Run(request,"success",repeat)==ExitCode.Success,"Repeated BIG build read the removed package cache");
+                    Check(packagePaths.Count==2 && packagePaths.All(path=>Paths.Contains(Path.Combine(output,".build"),path)),"Repeated BIG build reused published package files instead of packaging current streams");
+                    saved=serializer.Deserialize<Dictionary<string,object>>(File.ReadAllText(identities));
+                    Check(!((Dictionary<string,object>)saved["entries"]).ContainsKey("package|v1"),"Obsolete BIG package receipt survived normal cache maintenance");
+                    report=serializer.Deserialize<Dictionary<string,object>>(File.ReadAllText(request.ReportPath));
+                    Check((bool)report["publicationUnchanged"],"Normal publication no longer skips identical rebuilt BIG output");
+                }
             }
             Put(Path.Combine(mod,"Data","Mod.xml"),"<AssetDeclaration/>");
             foreach(string selection in new[]{"base","base,apt,maps"}) {

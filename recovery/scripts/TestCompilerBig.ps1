@@ -88,6 +88,14 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[string]$Selecti
         $files=@{};$archived=Join-Path $caseOut 'artifacts';New-Item -ItemType Directory -Path $archived|Out-Null
         if($Expected -eq 0){
             Need ($body.publicationStatus -ceq 'PublishedDirectory' -and @($body.artifacts).Count -eq $(if($Format -ceq 'big'){2}else{$script:expectedArtifacts})) 'Session fixture did not publish exact stream/CDATAs count'
+            if($Format -ceq 'big'){
+                $packaged=@($rows|Where-Object{$_.eventType -ceq 'ArtifactProduced' -and $_.stageId -ceq 'package'})
+                Need ($packaged.Count -eq 2) 'BIG build did not produce a current BIG/SKUDEF pair'
+                $buildRoot=Join-Path $Destination ('.build/'+$body.buildId)
+                foreach($row in $packaged){Need (Within $buildRoot $row.payload.Path) 'BIG build reused a previously published package'}
+                $identities=Get-Content -LiteralPath (Join-Path $Destination '.file-identities.json') -Raw|ConvertFrom-Json
+                Need ($null -eq $identities.entries.PSObject.Properties['package|v1']) 'BIG build persisted a removed package-cache receipt'
+            }
             $published=Join-Path $Destination 'published'
             foreach($artifact in $body.artifacts){
                 Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
