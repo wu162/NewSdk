@@ -1,0 +1,28 @@
+{
+  "baselineCommit": "8f854606ac20ce372045e3661b38e58e4e933ca2",
+  "component": {
+    "status": "passed",
+    "sourceCommit": "25aedf8b8ebfcde211e735c7f8113850bd68770d",
+    "runId": 41138099602,
+    "artifactId": 13017665755,
+    "archiveSha256": "db1585e822b8383b4bbd33acb4639660bcd5eb51adf2cf7a1c7453ffc028edc8",
+    "hostExitCode": 0,
+    "downloadedAndRehashed": true
+  },
+  "product": {
+    "status": "in_progress",
+    "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299",
+    "runId": 41138338003
+  },
+  "fullModComparison": {
+    "status": "not_run"
+  },
+  "failedRuns": [
+    41137058730,
+    41137277732,
+    41137544777,
+    41137876172,
+    41137876257,
+    41136790449
+  ]
+}
