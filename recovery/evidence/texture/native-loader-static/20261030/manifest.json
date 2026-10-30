@@ -13,7 +13,7 @@
       "fileOffset": "0x13c82",
       "bytes": 37,
       "sha256": "c5a14249eebb80ad66ae871d302a32bf153bb975f6aca1a401084d92a9f18935",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "FileEntry.asm",
       "rawBytes": "FileEntry.bin"
     },
@@ -26,7 +26,7 @@
       "fileOffset": "0x13b53",
       "bytes": 101,
       "sha256": "c304a03f735fa68e44ec89a3546e5d37fb97822e5a1e2369c9b904bebb9ef4e9",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "FileReadWrapper.asm",
       "rawBytes": "FileReadWrapper.bin"
     },
@@ -39,7 +39,7 @@
       "fileOffset": "0x13a9b",
       "bytes": 61,
       "sha256": "ee35b109400abb406c2161745a4b2f66b79f86b7c85172cc63f8e80ed2fd721d",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "Memory2DWrapper.asm",
       "rawBytes": "Memory2DWrapper.bin"
     },
@@ -52,7 +52,7 @@
       "fileOffset": "0x134b8",
       "bytes": 1507,
       "sha256": "07d69b992a061196d19ad573675d45b7c83c27d16596a5342987e9175e050225",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "TextureFromMemory.asm",
       "rawBytes": "TextureFromMemory.bin"
     },
@@ -65,7 +65,7 @@
       "fileOffset": "0x16bff",
       "bytes": 299,
       "sha256": "f1772611c7e01e17194fbee28ce32cd695d1ec47c4038c7b4234e0de0575761f",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "FileRead.asm",
       "rawBytes": "FileRead.bin"
     },
@@ -78,7 +78,7 @@
       "fileOffset": "0x16d2a",
       "bytes": 56,
       "sha256": "df9b20b3e743ebc02c9170afe15d1e5a05e2d10136bbb107739518fea3408975",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "FileClose.asm",
       "rawBytes": "FileClose.bin"
     },
@@ -91,7 +91,7 @@
       "fileOffset": "0xdc78",
       "bytes": 201,
       "sha256": "de81ae43f52023ce385f79d4ec548753f9696c20e789da529f9b44db5e4ba7ab",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "CpuTextureCreate.asm",
       "rawBytes": "CpuTextureCreate.bin"
     },
@@ -104,7 +104,7 @@
       "fileOffset": "0xd7ea",
       "bytes": 725,
       "sha256": "a09f82cf213c7d8b7902da054a095807fd04bec35c20b168df95a350383501bb",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "CpuTextureHeader.asm",
       "rawBytes": "CpuTextureHeader.bin"
     },
@@ -117,7 +117,7 @@
       "fileOffset": "0xc9f6",
       "bytes": 744,
       "sha256": "5c53217684e4da77e634d655fb2dbeb457d33771e5a5569484149668dc03ebca",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "TextureAllocation.asm",
       "rawBytes": "TextureAllocation.bin"
     },
@@ -130,7 +130,7 @@
       "fileOffset": "0xc91d",
       "bytes": 217,
       "sha256": "d4606c3cf0efd0e1a4026fca47d1eb65f1019848e40867bf0d675e378b301022",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "StorageAlign.asm",
       "rawBytes": "StorageAlign.bin"
     },
@@ -143,7 +143,7 @@
       "fileOffset": "0x13173",
       "bytes": 837,
       "sha256": "0182ff5367d2ad8a9c2b9c770720c9ac9af5763f9a8f5b6420645c03b77248bd",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "DefaultMipFilter.asm",
       "rawBytes": "DefaultMipFilter.bin"
     },
@@ -156,7 +156,7 @@
       "fileOffset": "0x17825",
       "bytes": 394,
       "sha256": "876020fd87d6b24827d4233fdd362f2a1352bcfd06f259c2b47882e4fd3fb47d",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "Box2DDispatch.asm",
       "rawBytes": "Box2DDispatch.bin"
     },
@@ -169,20 +169,20 @@
       "fileOffset": "0x179af",
       "bytes": 475,
       "sha256": "51323a90e85192ea30b09579f4765dc9f0d0e7953ad93361cc437bd4f52ed8a4",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "BoxFloatRows.asm",
       "rawBytes": "BoxFloatRows.bin"
     },
     {
       "name": "Rgba8RowStore",
       "rvaStart": "0x1cfd0",
-      "rvaEndExclusive": "0x1d391",
+      "rvaEndExclusive": "0x1d39d",
       "vaStart": "0x1001cfd0",
-      "vaEndExclusive": "0x1001d391",
+      "vaEndExclusive": "0x1001d39d",
       "fileOffset": "0x1cfd0",
-      "bytes": 961,
-      "sha256": "6a9644a15f71f7e917f56ce4e32de3c719594c37ca85156c98a6bf85cb68c74f",
-      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "bytes": 973,
+      "sha256": "88cdf1a750591baf57aa66b53954f2d15350a1bda41a3a94f75493e0b1cb926c",
+      "boundary": "fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds",
       "disassembly": "Rgba8RowStore.asm",
       "rawBytes": "Rgba8RowStore.bin"
     }

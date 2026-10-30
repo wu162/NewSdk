@@ -332,4 +332,10 @@ Disassembly of section .text:
 1001d385:	0f 82 37 fd ff ff    	jb     0x1001d0c2
 1001d38b:	dd d8                	fstp   st(0)
 1001d38d:	8b 46 7c             	mov    eax,DWORD PTR [esi+0x7c]
-1001d390:	89                   	.byte 0x89
+1001d390:	89 45 10             	mov    DWORD PTR [ebp+0x10],eax
+1001d393:	d9 6d 10             	fldcw  WORD PTR [ebp+0x10]
+1001d396:	5f                   	pop    edi
+1001d397:	5e                   	pop    esi
+1001d398:	5b                   	pop    ebx
+1001d399:	c9                   	leave
+1001d39a:	c2 0c 00             	ret    0xc

@@ -18,7 +18,7 @@ FUNCTIONS=[
  ('DefaultMipFilter',0x13173,0x134b8),
  ('Box2DDispatch',0x17825,0x179af),
  ('BoxFloatRows',0x179af,0x17b8a),
- ('Rgba8RowStore',0x1cfd0,0x1d391)]
+ ('Rgba8RowStore',0x1cfd0,0x1d39d)]
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--root',type=Path,default=ROOT);p.add_argument('--out',type=Path,default=ROOT/'work/native-loader/evidence');args=p.parse_args()
 source=args.root/'SDK/tools/BinaryAssetBuilder.TextureCompiler.dll';raw=source.read_bytes();assert hashlib.sha256(raw).hexdigest()==EXPECTED
 pe=struct.unpack_from('<I',raw,0x3c)[0];assert raw[pe:pe+4]==b'PE\0\0';sections=struct.unpack_from('<H',raw,pe+6)[0];sizeopt=struct.unpack_from('<H',raw,pe+20)[0];optional=pe+24;assert struct.unpack_from('<H',raw,optional)[0]==0x10b
@@ -35,7 +35,7 @@ for name,start,end in FUNCTIONS:
  offset=file_offset(start);count=end-start;assert file_offset(end-1)==offset+count-1;body=raw[offset:offset+count];(args.out/(name+'.bin')).write_bytes(body)
  result=subprocess.run(['objdump','-d','-Mintel','--start-address='+hex(base+start),'--stop-address='+hex(base+end),str(source)],capture_output=True,text=True,check=True)
  (args.out/(name+'.asm')).write_text(result.stdout)
- manifest['functions'].append({'name':name,'rvaStart':hex(start),'rvaEndExclusive':hex(end),'vaStart':hex(base+start),'vaEndExclusive':hex(base+end),'fileOffset':hex(offset),'bytes':len(body),'sha256':hashlib.sha256(body).hexdigest(),'boundary':'fixed entry range to the next known function entry; body ends in return or tail jump','disassembly':name+'.asm','rawBytes':name+'.bin'})
+ manifest['functions'].append({'name':name,'rvaStart':hex(start),'rvaEndExclusive':hex(end),'vaStart':hex(base+start),'vaEndExclusive':hex(base+end),'fileOffset':hex(offset),'bytes':len(body),'sha256':hashlib.sha256(body).hexdigest(),'boundary':'fixed selected instruction range; dispatch excerpts may end inside their enclosing function, as shown by explicit RVA bounds','disassembly':name+'.asm','rawBytes':name+'.bin'})
 manifest['scopeBoundary']='PC non-rendering file IO/default ordinary2D CPU texture creation and packed mip storage; read-only original evidence, no execution or production acceptance'
 manifest['criticalSites']=[
  {'rva':'0x13c82','evidence':'default2D file call: dimensions/levels/format/filter default -1, usage0, pool1, output last'},

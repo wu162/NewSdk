@@ -1,22 +1,19 @@
 # TextureCompiler：PC续接
 
-分支：`recovery/texturecompiler-source`。本次仅精简交接，业务源码、测试与验收证据不变。
+分支：`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试仅Actions。
 
-## 当前成果
+## 本轮完成的实现（2026-10-30）
 
-- PC生产六DLL包已部署；新增独立原生ABI尚未加入生产包，完整混合模式DLL身份未恢复。
-- 原生设备/资源、布局/锁定、描述符及复制已完成当前声明范围；转换支持38种布局的数值/浮点、四端序、swizzle和原LoadImageA flags调用。
-- 验收源码：`6af9af189a5fb9be63bd02fbab4577d71c583257`；[40965216216](https://github.com/wu162/NewSdk/actions/runs/40965216216)成功，8组通过、55组复用，63组件证据有效，无待收结果或强制补验。
-- 详细证据：[最终审计](evidence/texture/handoffs/20261030-native-conversion/final-archive-audit.json)、[组件就绪清单](evidence/texture/handoffs/20261030-native-conversion/current-component-readiness.json)。各组保留原sourceCommit/runId。
+- 新增独立x86 `TextureNativeLoaderApi`：52字节资源头、主/secondary VM及packed-tail所有权；raw DDS A8/X8部分/完整mip与缺层生成，POT TGA24/32 raw/RLE/metadata；接通LockRect→既有Copy→UnlockRect→引用/最终释放。
+- 修复原LoadImageA实际format清除`0x1c0`后flags12/threshold0的消费契约；TGA全零alpha选择X8但保留基础alpha0；BOX退化轴使用原浮点存储/向零量化，不能统一整数平均。
+- 压缩DDS仍未恢复：原版会重新编码已提供的2×2/1×1尾mip，基础轴小于4也会扩展/重压缩。全部样本保留，105个原版成功压缩资源另存完整取证；恢复版明确拒绝，不能称作原版拒绝匹配或压缩验收完成。
+- 业务源码 `5fc678b050dcc5aff5a8a25365a406a09ca2f4c8`，集中补验[40999035840](https://github.com/wu162/NewSdk/actions/runs/40999035840)进行中，**尚未取得该批完整成功**。之前四次失败收据原样保留。矩阵为6860构造、2789文件（2684支持范围完整对照+105明确未支持压缩边界）及另5拒绝；D/R、NoOriginal、完整header/全部VM/消费/释放门槛不变。
+- 新ABI未加入生产六DLL包，完整混合模式身份未恢复；SDK/tools及生产配置本轮未改。详细范围见[原生文件加载](TEXTURE_NATIVE_FILE_LOAD.md)。
 
 ## 下一轮计划
 
-1. 恢复 `D3DXCreateTextureFromFileA@0x13c82 → 0x13b53` 的PC文件加载、资源头构造及存储所有权，接入已恢复复制链。
-2. 先核对实际调用参数、格式/端序、分配与释放，再连续实现整条消费链。当前fixture loader仅提供原版测试输入，不算已恢复业务。
-3. 源码与契约入口见[原生续接](TEXTURE_NATIVE_ABI_NEXT.md)；历史过程不作为当前待办。
+1. 先收上述补验：只有完整D/R、NoOriginal与本批成功收据齐全，才能标为已验证；若失败只修失败/实际改变输入，不重跑未变旧组或SDK/MOD。
+2. raw加载链闭环后，优先接入已有8位NPOT权重/精度，或按实际格式接入更多raster解码。保持原生格式和存储精度，不能只比最终RGBA。
+3. 压缩DDS另恢复D3DX重编码/压缩转raw消费，不能用现有nvDDS压缩器近似替换；生产集成另取必要SDK证据。
 
-## 执行约束
-
-仅PC，禁止强推，编译测试仅Actions。普通检查点只保存；稳定后默认每轮一次完整验收，保留原版逐字节比较、D/R和NoOriginal。CI期间可继续编码，旧结果只认证旧提交。未变组复用；不默认追加审计器、收尾plan或SDK/MOD。
-
-具体规则按需查[AGENTS.md](../AGENTS.md)、[效率规则](EFFICIENCY.md)、[测试规则](TEXTURE_TESTING.md)。历史交接保留在Git历史，原始证据留在`evidence/`，无需全量读取。
+旧转换验收锚点：`6af9af189a5fb9be63bd02fbab4577d71c583257` / [40965216216](https://github.com/wu162/NewSdk/actions/runs/40965216216)，63组件旧声明范围成功。旧锚点不证明新loader。当前补验选择native-loader/base，其他62组保留各自原sourceCommit/runId。具体按[执行规则](../AGENTS.md)、[测试规则](TEXTURE_TESTING.md)执行；不默认追加收尾plan或完整MOD。
