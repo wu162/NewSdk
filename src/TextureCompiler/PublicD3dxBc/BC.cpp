@@ -1066,7 +1066,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR*
 
     float fAlphaA, fAlphaB;
     FileRounding optimizeRounding(dds);
-    OptimizeAlpha<false>(&fAlphaA, &fAlphaB, fAlpha, uSteps);
+    OptimizeAlpha<false>(&fAlphaA, &fAlphaB, fAlpha, uSteps, dds);
     optimizeRounding.restore();
 
     FileRounding endpointRounding(dds);

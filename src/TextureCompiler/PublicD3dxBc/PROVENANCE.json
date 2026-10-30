@@ -3,7 +3,7 @@
   "commit": "ec66b78b37389e8373a8e14ccc3cd29be94146b3",
   "license": "MIT; upstream/LICENSE retained",
   "scope": "isolated scalar x86 BC1/2/3 XG and D3DX file codecs, owned PC DDS resource/file/NPOT/mip/actual-copy consumers; no production routing",
-  "acceptance": "unbuilt/unvalidated; requires Actions original/gold complete block and native DDS/actual-copy acceptance",
+  "acceptance": "isolated candidate; current source requires complete default DDS/actual-copy D/R and NoOriginal acceptance; see recovery/RESUME.md",
   "files": [
     {
       "path": ".gitattributes",
@@ -12,13 +12,13 @@
     },
     {
       "path": "BC.cpp",
-      "bytes": 38931,
-      "sha256": "8999566eee87d7e3565b46e93c18bcda8c025852a5cc5e48a9bb23ef2ebeaf71"
+      "bytes": 38936,
+      "sha256": "7a5239006cf6f1ddf8bf29bf6e838256966c8642a76228a9dea0ad32401dfdca"
     },
     {
       "path": "BC.h",
-      "bytes": 13472,
-      "sha256": "0bc3fa56da49c8fcb4fe1f95f9bdd4ee76aeb95f93adb4e9569dc5f3d454d9aa"
+      "bytes": 14354,
+      "sha256": "1e3818ce048365264b26a5a84d59e510ce25558f28e6a7255dd7c12787f3318e"
     },
     {
       "path": "TextureBcP.h",

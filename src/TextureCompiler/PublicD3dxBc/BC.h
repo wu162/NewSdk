@@ -178,8 +178,9 @@ namespace DirectX
 #pragma warning(push)
 #pragma warning(disable : 4127)
     template<bool bRange>
-    void OptimizeAlpha(float* pX, float* pY, const float* pPoints, uint32_t cSteps) noexcept
+    void OptimizeAlpha(float* pX, float* pY, const float* pPoints, uint32_t cSteps, bool dds = false) noexcept
     {
+        auto store = [](double value) { volatile float result = static_cast<float>(value); return static_cast<float>(result); };
         static const float pC6[] = { 5.0f / 5.0f, 4.0f / 5.0f, 3.0f / 5.0f, 2.0f / 5.0f, 1.0f / 5.0f, 0.0f / 5.0f };
         static const float pD6[] = { 0.0f / 5.0f, 1.0f / 5.0f, 2.0f / 5.0f, 3.0f / 5.0f, 4.0f / 5.0f, 5.0f / 5.0f };
         static const float pC8[]
@@ -230,16 +231,16 @@ namespace DirectX
 
         for (size_t iIteration = 0; iIteration < 8; iIteration++)
         {
-            if ((fY - fX) < (1.0f / 256.0f))
+            if ((dds ? (static_cast<double>(fY) - fX) : (fY - fX)) < (1.0f / 256.0f))
                 break;
 
-            float const fScale = fSteps / (fY - fX);
+            float const fScale = dds ? store(static_cast<double>(fSteps) / (static_cast<double>(fY) - fX)) : fSteps / (fY - fX);
 
             // Calculate new steps
             float pSteps[8];
 
             for (size_t iStep = 0; iStep < cSteps; iStep++)
-                pSteps[iStep] = pC[iStep] * fX + pD[iStep] * fY;
+                pSteps[iStep] = dds ? store(static_cast<double>(pC[iStep]) * fX + static_cast<double>(pD[iStep]) * fY) : pC[iStep] * fX + pD[iStep] * fY;
 
             if (6 == cSteps)
             {
@@ -255,7 +256,7 @@ namespace DirectX
 
             for (size_t iPoint = 0; iPoint < NUM_PIXELS_PER_BLOCK; iPoint++)
             {
-                const float fDot = (pPoints[iPoint] - fX) * fScale;
+                const float fDot = dds ? store((static_cast<double>(pPoints[iPoint]) - fX) * fScale) : (pPoints[iPoint] - fX) * fScale;
 
                 uint32_t iStep;
                 if (fDot <= 0.0f)
@@ -269,7 +270,7 @@ namespace DirectX
                 }
                 else
                 {
-                    iStep = uint32_t(fDot + 0.5f);
+                    iStep = uint32_t(dds ? store(static_cast<double>(fDot) + 0.5) : fDot + 0.5f);
                 }
 
                 if (iStep < cSteps)
@@ -278,20 +279,20 @@ namespace DirectX
                     // this fix improves RMS of the alpha component
                     const float fDiff = pPoints[iPoint] - pSteps[iStep]; // Preserve old D3DX gradient sign
 
-                    dX += pC[iStep] * fDiff;
-                    d2X += pC[iStep] * pC[iStep];
+                    dX = dds ? store(static_cast<double>(pC[iStep]) * fDiff + dX) : dX + pC[iStep] * fDiff;
+                    d2X = dds ? store(static_cast<double>(pC[iStep]) * pC[iStep] + d2X) : d2X + pC[iStep] * pC[iStep];
 
-                    dY += pD[iStep] * fDiff;
-                    d2Y += pD[iStep] * pD[iStep];
+                    dY = dds ? store(static_cast<double>(pD[iStep]) * fDiff + dY) : dY + pD[iStep] * fDiff;
+                    d2Y = dds ? store(static_cast<double>(pD[iStep]) * pD[iStep] + d2Y) : d2Y + pD[iStep] * pD[iStep];
                 }
             }
 
             // Move endpoints
             if (d2X > 0.0f)
-                fX -= dX / d2X;
+                fX = dds ? store(static_cast<double>(fX) - static_cast<double>(dX) / d2X) : fX - dX / d2X;
 
             if (d2Y > 0.0f)
-                fY -= dY / d2Y;
+                fY = dds ? store(static_cast<double>(fY) - static_cast<double>(dY) / d2Y) : fY - dY / d2Y;
 
             if (fX > fY)
             {
