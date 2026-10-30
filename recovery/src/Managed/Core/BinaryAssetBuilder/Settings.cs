@@ -13,6 +13,9 @@ public class Settings : ICloneable
     [XmlIgnore]
     public Func<string, IDisposable> MeasurePerformance { get; set; }
 
+    [XmlIgnore]
+    public Action<string, long, bool> RecordPerformanceCounter { get; set; }
+
 	[XmlIgnore]
 	public Action<string> PrepareLinkedOutput { get; set; }
 	[XmlIgnore]

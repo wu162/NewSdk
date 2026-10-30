@@ -303,12 +303,14 @@ public class SessionCache : ISessionCache
 		}
 		if (_Last.Version != 18)
 		{
+			PerformanceScope.Count("cache.session.formatChanged");
 			_Tracer.TraceInfo("Session cache outdated. Version is {0}. Expected version is {1}.", _Last.Version, 18u);
 			_Last = null;
 			return;
 		}
 		if (_Last.DocumentProcessorVersion != 11)
 		{
+			PerformanceScope.Count("cache.session.processorChanged");
 			_Tracer.TraceInfo("DocumentProcessor version mismatch. Version is {0}. Expected version is {1}.", _Last.DocumentProcessorVersion, 11u);
 			_Last = null;
 			return;

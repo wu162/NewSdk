@@ -25,6 +25,7 @@ namespace NewModCompiler.Tests
             var off = new BuildPerformance("off");
             if (off.Measure("ignored") != null || off.Measure("ignored", true) != null)
                 throw new Exception("Disabled performance collection created a scope.");
+            off.RecordCounter("ignored");
             var summary = new BuildPerformance("summary");
             using (summary.Measure("phase")) Work();
             if (summary.Measure("detail", true) != null || Rows(summary).Length != 1)
@@ -56,7 +57,24 @@ namespace NewModCompiler.Tests
             rows = Rows(detailed);
             if (rows.Length != 4 || Convert.ToInt64(rows.Single(r => (string)r["name"] == "recursive")["count"]) != 2)
                 throw new Exception("Recursive or multi-stream aggregation differs.");
-            return 5;
+            // Counters are independent of timing entries and available at both
+            // profiling levels. Repeated visits sum; graph depth takes a max.
+            summary.StreamId = "base/Mod";
+            summary.RecordCounter("cache.invalidation.contentChanged");
+            summary.RecordCounter("cache.invalidation.contentChanged", 2);
+            summary.RecordCounter("dependency.include.maxDepth", 3, true);
+            summary.RecordCounter("dependency.include.maxDepth", 1, true);
+            summary.StreamId = "apt/UI";
+            summary.RecordCounter("cache.invalidation.contentChanged", 4);
+            var serializer = new JavaScriptSerializer();
+            var snapshot = serializer.Deserialize<Dictionary<string, object>>(serializer.Serialize(summary.Snapshot()));
+            var counters = ((System.Collections.IEnumerable)snapshot["counters"]).Cast<Dictionary<string, object>>().ToArray();
+            if (counters.Length != 3 || Rows(summary).Length != 1 ||
+                Convert.ToInt64(counters.Single(c => (string)c["streamId"] == "base/Mod" && (string)c["name"] == "cache.invalidation.contentChanged")["value"]) != 3 ||
+                Convert.ToInt64(counters.Single(c => (string)c["name"] == "dependency.include.maxDepth")["value"]) != 3 ||
+                (string)counters.Single(c => (string)c["name"] == "dependency.include.maxDepth")["aggregation"] != "max")
+                throw new Exception("Counter sum/max or stream isolation differs.");
+            return 6;
         }
     }
 }

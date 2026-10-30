@@ -18,6 +18,7 @@ namespace NewModCompiler.Application
         PublicationLock sessionLock;
         string stagedSession;
         public string PreparedSessionPath { get; private set; }
+        internal string PrepareMissReason { get; private set; }
         bool committed, disposed;
         public string SessionRoot { get { return sessionRoot; } }
         public string SessionPath { get { return Path.Combine(sessionRoot, SessionName); } }
@@ -32,13 +33,14 @@ namespace NewModCompiler.Application
         public bool Prepare(string hashes, string streams, CancellationToken cancellation, string relativeStream = null, bool copySession = true, bool copyData = true)
         {
             Active(); cancellation.ThrowIfCancellationRequested();
+            PrepareMissReason = null;
             string source = stagedSession;
             if (source == null)
             {
                 string stamp = Path.Combine(sessionRoot, ".NewModCompiler", "session.identity");
-                if (File.Exists(stamp) && File.ReadAllText(stamp) != identity) return false;
+                if (File.Exists(stamp) && File.ReadAllText(stamp) != identity) { PrepareMissReason = "cache.session.identityChanged"; return false; }
                 source = File.Exists(SessionPath + ".deflate") ? SessionPath + ".deflate" : SessionPath;
-                if (!File.Exists(source)) return false;
+                if (!File.Exists(source)) { PrepareMissReason = "cache.session.notFound"; return false; }
             }
             string target = Path.Combine(hashes, SessionName) + (source.EndsWith(".deflate", StringComparison.OrdinalIgnoreCase) ? ".deflate" : "");
             PreparedSessionPath = source.EndsWith(".deflate", StringComparison.OrdinalIgnoreCase) ? source.Substring(0, source.Length - 8) : source;

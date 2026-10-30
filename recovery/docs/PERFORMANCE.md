@@ -49,6 +49,34 @@ Worker 只写私有计时数据；owner 合并 `core.asset.compile` 和 `core.co
 
 ## 有界验证
 
+### 热缓存范围与失效传播计数
+
+summary/detailed 的 `performance.counters` 以 `streamId/name/value/aggregation` 输出聚合计数，`sum` 求和、`max` 取最大值，未出现的计数视为零。按流隔离；off 不创建计数集合或回调，不增加哈希、文件检查、依赖扫描或逐事件日志。detailed 同时提供 `core.cache.reinitialize`、`core.dependencies.files/defines/inheritance` 耗时；Include 沿用 `core.includes`。
+
+| 计数 | 含义 |
+| --- | --- |
+| `cache.session.notFound/identityChanged/documentMissing/invalidState/formatChanged/processorChanged/disabled` | 实际会话查找/加载/初始化分支；notFound 和 disabled 是冷态/配置状态，不算文档内容失效 |
+| `cache.document.new` | 首次加载文档，不混入失效数 |
+| `cache.invalidation.contentChanged/dependentFileChanged/outputMissing/typeChanged/pluginChanged/inheritanceChanged/definesChanged/other` | 实际重载原因，计数单位为重载决策；同一文档可因不同原因重载多次 |
+| `cache.invalidation.reloads/documents/selfInstances` | 重载事件总数、当前处理器中去重的失效文档数、这些文档首次失效前的自有资产数；selfInstances 不等于实际重编译数，实际值仍看 cache.instanceCompile |
+| `cache.reload.inheritanceTarget` | 为继承准备 XML 的重载，独立列出，不冒充内容失效 |
+| `cache.asset.keyMiss` | 实际提交时确认的持久资产键未命中；可能为首次构建，不自动推断内容失效 |
+| `dependency.file.checks` | 现有依赖文件哈希比较链访问数，不附加读取 |
+| `dependency.define/inheritance.checks/changes` | 已执行的定义/继承检查及遇到的首个变化；短路检查不推算未访问的变化数 |
+| `dependency.propagation.reloads/documents/selfInstances` | 依赖文件、定义或继承变化触发的实际重载、去重文档及首次传播重载前自有资产数；不含仅为继承取 XML 的重载 |
+| `dependency.include.visits/affectedVisits/affectedDocuments/maxDepth` | 实际 Include 访问、涉及失效子文档或其上游传播的访问次数、去重的受影响父文档数、最大 Include 边深度（根到直接子文档为1） |
+
+文档去重范围是每流的实际 DocumentProcessor；重复 Include 会增加访问次数，不重复增加同一父文档数。传播计数沿现有遍历观察，不新建全图，也不把资产引用的传递闭包冒充本轮 Include/定义/继承统计。失败发生前收集的计数仍保留在失败报告中。
+
+```powershell
+$r.performance.counters | Where-Object name -Like 'cache.invalidation.*' | Format-Table streamId,name,value
+$r.performance.counters | Where-Object name -Like 'dependency.*' | Format-Table streamId,name,value,aggregation
+```
+
+`TestCompilerHotCache.py` 在当前重建 Release 上补充短矩阵：32/256/2048 Armor，4/32/128 文档；中档增加8个纹理、2个PCM音频、2个动画与1个层级，以及跨文档定义/继承链。代表性覆盖五种有效缓存组合、jobs1/4/auto、off/summary/detailed、loose/BIG，每组合一次冷态和两次热态，轮次反转顺序；保留原短测试的无缓存和原BAB对照。分别修改 XML、TGA、PCM、动画、继承源和定义，保持等长及mtime，再与每代独立无缓存实际字节对照；验证失效原因、上游传播和修改后重新变热，并修复缺失发布文件及损坏会话。
+
+每进程默认15秒，测量与字节核对共用120秒硬预算，最后一个进程受剩余预算限制；超时失败并保存部分证据，不降低覆盖后报成功。准备和生产重建单列，不计入测量。性能报告与 Actions 摘要同时列出失效/传播统计。本轮不是完整MOD或游戏内验收，结果待 Windows 工作流确认。
+
 `TestCompilerPerformance.py` 使用临时 MOD：两个 16×16 Texture 和一个 ArmorTemplate、一个 include；三档各冷态一次/热态两次，交替顺序，校验所有流/CDATAs 原始字节相等，并和独立原版 SDK 比较；再验证三档 BIG/SKUDEF 相等以及无效 XML 的失败计时。每进程默认 10 秒，测量阶段总预算 60 秒，不运行完整 Upheaval。Windows 工作流重新构建 Release 生产组合；构建时间独立于测量预算。
 
 App 合同同时覆盖默认关闭、CLI 值校验、嵌套/递归自身耗时、跨流汇总、异常与取消。Linux 的 Foundation/独立 App 编译只作廉价预检，不能代替 Windows 混合 EXE 运行验收。具体结果以 `RESUME.md` 和对应运行的 `validation.json` 为准。

@@ -1,13 +1,16 @@
 name: Bounded compiler performance instrumentation
 on:
   push:
-    branches: [recovery/legacy-sdk-cache]
+    branches: [recovery/legacy-sdk-cache, test/hot-cache-coverage]
     paths:
       - '.github/workflows/compiler-performance.yml'
       - 'recovery/src/App/**'
       - 'recovery/src/Managed/Core/**'
       - 'recovery/tests/App/**'
       - 'recovery/scripts/TestCompilerPerformance.py'
+      - 'recovery/scripts/TestCompilerHotCache.py'
+      - 'recovery/tests/test_compiler_hot_cache.py'
+      - 'recovery/protocol/build-report.schema.json'
   workflow_dispatch:
 permissions:
   contents: read
@@ -40,6 +43,11 @@ jobs:
       - name: Fast standalone application contracts
         shell: pwsh
         run: ./recovery/scripts/TestApp.ps1 -Configuration Release -OutputDirectory recovery/artifacts/performance-app
+      - name: Fast hot-cache fixture and controller preflight
+        shell: pwsh
+        run: |
+          python -m unittest discover -s recovery/tests -p 'test_compiler_hot_cache.py' -v
+          if($LASTEXITCODE -ne 0){throw 'Hot-cache preflight failed'}
       - name: Rebuild Release production compiler with timing scopes
         shell: pwsh
         run: ./recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory recovery/artifacts/performance-product
@@ -49,12 +57,21 @@ jobs:
         run: |
           python recovery/scripts/TestCompilerPerformance.py --exe recovery/artifacts/performance-product/bin/NewModCompiler.exe --sdk SDK --output recovery/evidence/refactor/performance --work "$env:RUNNER_TEMP/performance-work" --source-commit $env:GITHUB_SHA --budget 60 --timeout 10
           if($LASTEXITCODE -ne 0){throw 'Bounded performance validation failed'}
+      - name: Expanded hot-cache sizes and invalidation propagation within 120 seconds
+        timeout-minutes: 3
+        shell: pwsh
+        run: |
+          python recovery/scripts/TestCompilerHotCache.py --build-directory recovery/artifacts/performance-product --work "$env:RUNNER_TEMP/hot-cache-work" --output recovery/evidence/refactor/hot-cache --source-commit $env:GITHUB_SHA --budget 120 --timeout 15
+          $result=$LASTEXITCODE
+          if(Test-Path recovery/evidence/refactor/hot-cache/validation.md){Get-Content recovery/evidence/refactor/hot-cache/validation.md|Add-Content $env:GITHUB_STEP_SUMMARY}
+          if($result -ne 0){throw 'Expanded hot-cache matrix failed; partial evidence retained'}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: compiler-performance-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             recovery/evidence/refactor/performance/**
+            recovery/evidence/refactor/hot-cache/**
             recovery/artifacts/performance-app/*.log
             recovery/artifacts/performance-product/*.log
             recovery/artifacts/performance-product/*.json
