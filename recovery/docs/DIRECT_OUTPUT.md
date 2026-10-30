@@ -1,19 +1,20 @@
 # 直接产物与原 SDK 缓存
 
-基于 `recovery/legacy-sdk-cache` 的 `5c1843ae`，实现分支 `perf/direct-sdk-output`。本轮删除整代 Staging 与 MOD 发布事务；验收结果及同机性能计量在本页末尾更新。历史成功证据不能代替本轮改动的验证。
+基于 `recovery/legacy-sdk-cache` 的 `5c1843ae`，实现分支 `perf/direct-sdk-output`。本轮删除整代 Staging 与 MOD 发布事务；最终验证及同机性能计量见本页下方，早期失败记录保留。
 
 ## 当前路径与完成条件
 
 - `OutputRoot/published/<content>/<entry>/streams`：Core 实际四流与 CDATA 输出，也用于下次链接复用。它不是另一个待复制或整体搬走的 Staging。BIG 模式保留这些工作流文件，但最终报告只列本轮 BIG/SKUDEF。
 - `OutputRoot/published/*.big`、`*.skudef`：正式 MOD 文件。BigArchiveWriter 在同一最终目录用既有 `.tmp-*` 写入，完成后 `File.Replace` 覆盖目标，无备份文件。一次 BIG 内容写入，无完整 BIG 发布复制。
-- `OutputRoot/assets`，或 `/iod` 指定的中间目录：原 BAB 的逐流中间资产，供依赖、增量编译和重新链接使用。
+- `/iod`（默认 `OutputRoot`）下按 Core 相对流路径分开的 `assets/`：原 BAB 的逐流中间资产，例如 `<iod>/mod/assets`，具体层级由数据根决定，供依赖、增量编译和重新链接使用。
+- `published/<content>/<entry>/backend-work/<sequence>`：并行后端生成 CDATA 时需要的原有单任务隔离目录；owner 完成后把单个 CDATA 搬到真实流目录，任务目录在完成/取消时删除，不保存整套 MOD。
 - `session-cache-directory`，默认 `OutputRoot`：原 `BinaryAssetBuilder.SessionCache.xml[.deflate]`、原序列化的 `.tmp/.old` 和字符串哈希。原 BAB 的单缓存文件临时写入及 `.old` 保留；它们不属于 MOD 发布事务。
 - `build-cache-directory`：原 BAB `BuildAssetCache` 原生类型/实例键与 Win32 资产，不引入新包缓存。保留原 `/bc`、`/atc` 行为。
 - `<session-root>/.NewModCompiler/cdata`：已有的原生键 CDATA 存储，支持不同输出目录复用共享会话、重建丢失输出和导入原 BAB 缓存。仅新键创建快照，已有键不逐字节比较；缺失当前 CDATA 时按需导入，供 Core 修改的副本独立存储。
 - `OutputRoot/.file-identities.json`：仅保留输入与 Schema 的文件身份和必要内容哈希，维持等长/恢复 mtime 编辑的失效能力。已移除发布收据、整代目录拓扑记录、输出 inode 身份缓存。
 - `.package-lod`、`.package-versions`，以及显式中立修复需要的 `.package-neutral`：仅保存确实生成的 LoD、APT 三字节版本文件和中立修复输入，打包后删除各自目录。没有共同的每次构建暂存根，没有完整 MOD 复制。Additional 直接读取 SDK/MOD 当前文件，沿原顺序覆盖同名成员。
 
-Core 在流开始时登记所触及的流，在四流链接全部完成时接受它们；CDATA 在实际提交后登记。本轮返回列表不依赖任何输出目录扫描。未选择的流、已移除的引用及任意旧文件不会加入新 BIG。Core 原有资产/CDAT​​A 清理仍限定于实际处理的流；失败仅移除本轮触及流的四文件，不递归清空输出根。
+Core 在流开始时登记所触及的流，在四流链接全部完成时接受它们；CDATA 在实际提交后登记。本轮返回列表不依赖任何输出目录扫描。未选择的流、已移除的引用及任意旧文件不会加入新 BIG。Core 原有资产/CDATA 清理仍限定于实际处理的流；失败仅移除本轮触及流的四文件，不递归清空输出根。
 
 完整四流用原 manifest 的版本、类型哈希和流校验和，以及三文件头校验和复用。组不完整或校验和不一致时重新链接，避免只重建 IMP/RELO 而缺少 BIN 链接阶段填充的缓冲区。成功不再要求 `.linked-streams` 的第二份快照、索引和事务代际目录。
 
@@ -46,6 +47,7 @@ Core 在流开始时登记所触及的流，在四流链接全部完成时接受
 | 工作 | 修改前 | 修改后 |
 | --- | --- | --- |
 | 正常 BIG 内容生成 | 1 次 | 1 次，最终目录内临时写入后替换 |
+| 完整 BIG 落盘（含发布副本） | 新产物/变化时 2 次，未变热态 1 次 | 始终 1 次 |
 | 完整 BIG 发布复制 | 新产物/变化时 1 次，未变热态 0 次 | 0 次 |
 | 完整 BIG SHA256 | 每次新打包 1 次（首次检查旧输出可能再读旧 BIG） | 0 次 |
 | Additional 完整输入快照 | 每次 1 次，读 A、写 A | 0 次 |
@@ -58,7 +60,9 @@ Core 在流开始时登记所触及的流，在四流链接全部完成时接受
 
 ## 本轮验证
 
-首个实现检查点 `a1f5a059`：本地五项热缓存控制器预检通过，Windows Debug/Release App 合同通过；完整产品构建及生产验证仍在进行。后续删除未用输入快照并简化输入身份接口，须使用最终源码重新验收，不能复用此检查点的生产结论。
+最终生产/测试来源 `784920357d1a268360a082cd3e51b42a5fa69356`，[运行 41049481674](https://github.com/wu162/NewSdk/actions/runs/41049481674)：Debug/Release App、完整 Win32 产品、Core 生命周期、CLI 真实取消/重试和完整 UI fixture、会话与资产缓存、Audio/W3X 载荷、BIG/LoD/Additional/SKUDEF 原工具字节对照、完整未精简 mymod 原 SDK 差分、56 样本热缓存/编辑/修复矩阵及两配置报告协议均已通过。后续仅整理文档和原收据，没有变更生产或测试输入。原始归档和二进制身份核对见[最终收据](../evidence/refactor/direct-output/41049481674-1/summary.json)。
+
+首个实现检查点 `a1f5a059` 的 App 和 Win32 构建通过，但冷输出目录初始化错误使生产用例失败；错误已修复，[失败来源](../evidence/refactor/direct-output/41045720372-1/summary.json) 保留，不把该轮标为通过。
 
 第二轮生产/计量来源 `f6c3c009`，[41046820725](https://github.com/wu162/NewSdk/actions/runs/41046820725)：Core、两类原缓存、Audio/W3X 载荷及完整 mymod 原 SDK 差分两配置通过；CLI 浅克隆 fixture、BIG 旧路径断言和资产缓存恢复 CDATA 的旧发布时间戳断言失败，均已保留并修正测试。完整归档已下载复算，见[原收据与独立通过范围](../evidence/refactor/direct-output/41046820725-1/summary.json)。
 
