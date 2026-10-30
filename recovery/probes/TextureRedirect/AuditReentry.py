@@ -25,6 +25,12 @@ def audit(path):
               and any(str(row.Name).endswith('.' + name) for name in
                       ('g_Buffer', 'g_Bundler', 'g_pD3D', 'g_pD3DDevice'))}
     field_rvas = {row.Field.row_index: row.Rva for row in pe.net.mdtables.FieldRva}
+    field_attributes = {index: [] for index in fields}
+    for attribute in pe.net.mdtables.CustomAttribute:
+        if attribute.Parent.table.name == 'Field' and attribute.Parent.row_index in fields:
+            constructor = attribute.Type.row
+            owner = getattr(constructor, 'Class', None)
+            field_attributes[attribute.Parent.row_index].append(str(owner.row.TypeName) if owner else str(constructor.Name))
     sites, methods = [], []
 
     def operand(value):
@@ -53,7 +59,9 @@ def audit(path):
                                  'operand': operand(i.operand)} for i in body.instructions]})
     return {'originalSha256': digest,
             'globals': [{'token': hex(0x04000000 + index), 'name': str(row.Name),
-                         'static': row.Flags.fdStatic, 'threadStatic': False,
+                         'static': row.Flags.fdStatic,
+                         'threadStatic': 'ThreadStaticAttribute' in field_attributes[index],
+                         'customAttributes': field_attributes[index],
                          'nativeStorageRva': hex(field_rvas[index])} for index, row in fields.items()],
             'useSites': sites, 'methods': methods,
             'finding': '2D and 3D compression reset, populate via callback user data, and embed the same process-global SimpleBuffer. Multiple Plugin instances share this native storage.',

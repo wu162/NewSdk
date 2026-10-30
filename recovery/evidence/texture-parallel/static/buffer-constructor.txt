@@ -1,0 +1,21 @@
+
+SDK/tools/BinaryAssetBuilder.TextureCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+10001c20 <.text+0xc20>:
+10001c20:	8b 44 24 04          	mov    eax,DWORD PTR [esp+0x4]
+10001c24:	56                   	push   esi
+10001c25:	8b f1                	mov    esi,ecx
+10001c27:	50                   	push   eax
+10001c28:	c7 46 04 00 00 00 00 	mov    DWORD PTR [esi+0x4],0x0
+10001c2f:	89 46 08             	mov    DWORD PTR [esi+0x8],eax
+10001c32:	e8 15 cb 04 00       	call   0x1004e74c
+10001c37:	89 06                	mov    DWORD PTR [esi],eax
+10001c39:	83 c4 04             	add    esp,0x4
+10001c3c:	8b c6                	mov    eax,esi
+10001c3e:	5e                   	pop    esi
+10001c3f:	c2 04 00             	ret    0x4
+10001c42:	cc                   	int3
+10001c43:	cc                   	int3

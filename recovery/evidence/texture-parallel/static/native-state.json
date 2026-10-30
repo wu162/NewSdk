@@ -6,6 +6,7 @@
       "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3D",
       "static": true,
       "threadStatic": false,
+      "customAttributes": [],
       "nativeStorageRva": "0xbf6b4"
     },
     {
@@ -13,6 +14,7 @@
       "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler",
       "static": true,
       "threadStatic": false,
+      "customAttributes": [],
       "nativeStorageRva": "0xbf3c0"
     },
     {
@@ -20,6 +22,7 @@
       "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer",
       "static": true,
       "threadStatic": false,
+      "customAttributes": [],
       "nativeStorageRva": "0xbf3c4"
     },
     {
@@ -27,6 +30,7 @@
       "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3DDevice",
       "static": true,
       "threadStatic": false,
+      "customAttributes": [],
       "nativeStorageRva": "0xbf6b8"
     }
   ],
