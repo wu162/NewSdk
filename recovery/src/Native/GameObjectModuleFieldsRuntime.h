@@ -1,73 +1,85 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
+// Process-lifetime metadata avoids mixed-mode CRT destructor callbacks after
+// CLR shutdown. The native InitOnce barrier publishes only a complete index.
+using ModuleIndex=std::unordered_map<U32,const ModuleChoice*>;
+INIT_ONCE ModuleIndexOnce=INIT_ONCE_STATIC_INIT;
+const ModuleIndex* moduleIndex=nullptr;
+BOOL CALLBACK InitializeModuleIndex(PINIT_ONCE,PVOID,PVOID*) {
+    try {
+        std::unique_ptr<ModuleIndex> index(new ModuleIndex);
+        index->reserve(320);
+        // emplace keeps the original first-match precedence across families.
+        for(const auto& choice:drawModelChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:drawBeamChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:containRestChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:containChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:slowChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:controlChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:supportChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:areaChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:utilityChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:attachChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:abilityFinishChoices) index->emplace(choice.type,&choice);
+        index->emplace(abilityToggleChoice.type,&abilityToggleChoice);
+        for(const auto& choice:abilityResourceChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:abilityRoutingChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:abilityStateChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:abilityMovementChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:powerCreationChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:abilityWeaponChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:abilityChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:powerRoutingChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:specialDerivedChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:specialPowerChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:motionCleanupChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:modelConditionChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:stateEventChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:resourceAlliesChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:wallEncloseChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:tiberiumChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:stealthVisionChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:statusEffectsChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:combatResponseChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:structureWallChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:economyPowerChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:queueParkingChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:buildingStructureChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:crateWatcherChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:spawnChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:assistChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:economyChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:aiUpdateChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:crateChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:healingChoices) index->emplace(choice.type,&choice);
+        index->emplace(weaponSetChoice.type,&weaponSetChoice);
+        for(const auto& choice:reactiveChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:flightChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:motionChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:beamChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:weaponChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:visionChoices) index->emplace(choice.type,&choice);
+        index->emplace(receiverChoice.type,&receiverChoice);
+        index->emplace(slavedChoice.type,&slavedChoice);
+        for(const auto& choice:createChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:productionChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:remainingChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:upgradeChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:dieChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:lifecycleChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:selectorChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:moduleChoices) index->emplace(choice.type,&choice);
+        moduleIndex=index.release();
+        return TRUE;
+    } catch(...) {
+        SetLastError(ERROR_NOT_ENOUGH_MEMORY);
+        return FALSE;
+    }
+}
 const ModuleChoice* FindModule(U32 type) {
-    // Layout tables are immutable. emplace retains the original first-match
-    // precedence when an inherited type occurs in more than one family.
-    static const auto choices=[] {
-        std::unordered_map<U32,const ModuleChoice*> index;
-        index.reserve(320);
-        for(const auto& choice:drawModelChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:drawBeamChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:containRestChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:containChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:slowChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:controlChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:supportChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:areaChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:utilityChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:attachChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:abilityFinishChoices) index.emplace(choice.type,&choice);
-        index.emplace(abilityToggleChoice.type,&abilityToggleChoice);
-        for(const auto& choice:abilityResourceChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:abilityRoutingChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:abilityStateChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:abilityMovementChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:powerCreationChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:abilityWeaponChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:abilityChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:powerRoutingChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:specialDerivedChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:specialPowerChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:motionCleanupChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:modelConditionChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:stateEventChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:resourceAlliesChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:wallEncloseChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:tiberiumChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:stealthVisionChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:statusEffectsChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:combatResponseChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:structureWallChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:economyPowerChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:queueParkingChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:buildingStructureChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:crateWatcherChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:spawnChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:assistChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:economyChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:aiUpdateChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:crateChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:healingChoices) index.emplace(choice.type,&choice);
-        index.emplace(weaponSetChoice.type,&weaponSetChoice);
-        for(const auto& choice:reactiveChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:flightChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:motionChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:beamChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:weaponChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:visionChoices) index.emplace(choice.type,&choice);
-        index.emplace(receiverChoice.type,&receiverChoice);
-        index.emplace(slavedChoice.type,&slavedChoice);
-        for(const auto& choice:createChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:productionChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:remainingChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:upgradeChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:dieChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:lifecycleChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:selectorChoices) index.emplace(choice.type,&choice);
-        for(const auto& choice:moduleChoices) index.emplace(choice.type,&choice);
-        return index;
-    }();
-    auto found=choices.find(type);
-    return found==choices.end()?nullptr:found->second;
+    if(!InitOnceExecuteOnce(&ModuleIndexOnce,InitializeModuleIndex,nullptr,nullptr))
+        throw std::runtime_error("GameObject module index initialization failed.");
+    auto found=moduleIndex->find(type);
+    return found==moduleIndex->end()?nullptr:found->second;
 }
 
 void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,const ModuleFieldSet& fields,Relo::Tracker& data) {

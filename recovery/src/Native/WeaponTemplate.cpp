@@ -8,6 +8,10 @@
 #include <sstream>
 #include <algorithm>
 #include <cctype>
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
 #ifdef _MANAGED
 #pragma managed(push, off)
 #endif
@@ -205,20 +209,33 @@ U32 Lookup(const std::string& group, const std::string& text) {
     if (group == "FXTriggerType") return 1u;
     throw std::logic_error("Unknown recovered enum group");
 }
+struct BitsetGroup { std::vector<EnumNameValue> names; int unknown; };
+using BitsetGroups=std::map<std::string,BitsetGroup>;
+INIT_ONCE BitsetGroupsOnce=INIT_ONCE_STATIC_INIT;
+const BitsetGroups* bitsetGroups=nullptr;
+BOOL CALLBACK InitializeBitsetGroups(PINIT_ONCE,PVOID,PVOID*) {
+    try {
+        std::unique_ptr<BitsetGroups> groups(new BitsetGroups);
+        for(const auto& entry:enumEntries)
+            (*groups)[entry.group].names.push_back({entry.name,static_cast<int>(entry.value)});
+        for(auto& entry:*groups) entry.second.unknown=static_cast<int>(Lookup(entry.first,""));
+        // Native process-lifetime tables must not register CLR shutdown destructors.
+        bitsetGroups=groups.release();
+        return TRUE;
+    } catch(...) {
+        SetLastError(ERROR_NOT_ENOUGH_MEMORY);
+        return FALSE;
+    }
+}
 U32 Bits(const std::string& group, const std::string& text) {
-    struct Group { std::vector<EnumNameValue> names; int unknown; };
-    static const auto groups = [] {
-        std::map<std::string, Group> result;
-        for (const auto& entry : enumEntries)
-            result[entry.group].names.push_back({ entry.name, static_cast<int>(entry.value) });
-        for (auto& entry : result) entry.second.unknown = static_cast<int>(Lookup(entry.first, ""));
-        return result;
-    }();
-    const auto& values = groups.at(group);
-    U32 result = 0;
-    MarshalEnumBitset(text, values.names.data(), values.names.size(), values.unknown, 32, &result);
+    if(!InitOnceExecuteOnce(&BitsetGroupsOnce,InitializeBitsetGroups,nullptr,nullptr))
+        throw std::runtime_error("Weapon bitset table initialization failed.");
+    const auto& values=bitsetGroups->at(group);
+    U32 result=0;
+    MarshalEnumBitset(text,values.names.data(),values.names.size(),values.unknown,32,&result);
     return result;
 }
+
 void Swap(void* at) {
     auto p = static_cast<unsigned char*>(at);
     std::swap(p[0], p[3]); std::swap(p[1], p[2]);

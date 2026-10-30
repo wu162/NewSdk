@@ -10,6 +10,10 @@
 #include <algorithm>
 #include <cmath>
 #include <unordered_map>
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
 #ifdef _MANAGED
 #pragma managed(push, off)
 #endif
