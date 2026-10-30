@@ -20,7 +20,7 @@ $project=Join-Path $out 'oracle/Oracle.csproj'
 & dotnet build $project -c Release -o $bin *> "$out/oracle/build.log"
 if($LASTEXITCODE -ne 0){Get-Content "$out/oracle/build.log" -Tail 50;throw 'Jonwil RA3 plugin oracle build failed'}
 Copy-Item "$upstream/audio.dll" $bin
-Copy-Item "$out/Release/bin/AudioEaLayer3Host.exe" $bin
+Copy-Item "$out/Release/bin/AudioEaLayer3Host.exe*" $bin
 Copy-Item SDK/tools/*.dll $bin -Exclude BinaryAssetBuilder.AudioCompiler.dll
 [xml]$xml=Get-Content "$out/fixtures/assets.xml" -Raw
 foreach($node in @($xml.DocumentElement.ChildNodes)) {

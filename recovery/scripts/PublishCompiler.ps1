@@ -115,6 +115,12 @@ try {
     $state.controller=Get-Content -LiteralPath (Join-Path $out 'evidence/controller/build.json') -Raw|ConvertFrom-Json
     Need ($state.controller.succeeded -and $state.controller.controllerSha256 -ceq (Hash $script:control)) 'Release controller identity differs'
     $env:PATH=(@($oldPath -split ';'|Where-Object{$_ -notmatch '[\\/]SDK[\\/]tools'}) -join ';')
+    # GPL EALayer3 is linked into the compiler. Ship the complete matching
+    # integration/build source alongside every binary release candidate.
+    $sourceArchive=Join-Path $out ('NewModCompiler-source-'+$binarySource+'.zip')
+    & git -C $root archive --format=zip "--output=$sourceArchive" $binarySource recovery/src recovery/build recovery/scripts recovery/tests SDK/tools .gitattributes
+    if($LASTEXITCODE -ne 0){throw 'Cannot package matching EALayer3 corresponding source'}
+    $state.correspondingSource=@{path=$sourceArchive;sourceCommit=$binarySource;sha256=(Hash $sourceArchive);license='GPL-3.0-or-later; third-party notices retained in source'}
     foreach($mode in @('Debug','Release')){
         $buildRoot=Join-Path $CompilerDirectory $mode;$sourceBin=Join-Path $buildRoot 'bin'
         $build=Get-Content -LiteralPath (Join-Path $buildRoot 'build.json') -Raw|ConvertFrom-Json

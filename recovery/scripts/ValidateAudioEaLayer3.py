@@ -34,7 +34,7 @@ def run(root,decoder):
                 need(((head0>>18)&63)+1==case['channels'] and head0&0x3ffff==case['rate'],f'{name}: SNR rate/channel mismatch')
                 need((head1>>30)==int(case['stream']) and bool(head1&0x20000000)==case['loop'],f'{name}: SNR play/loop mode differs')
                 ratio=case['rate']/case['sourceRate'];frames=int(case['frames']*ratio)
-                loop_start=int(case['loopStart']*ratio);loop_end=int(case['loopEnd']*ratio)
+                loop_start=int(case['loopStart']*ratio+0.5);loop_end=int(case['loopEnd']*ratio+0.5)
                 count=loop_end+1 if case['loop'] else frames
                 need(head1&0x1fffffff==count,f'{name}: SNR sample count differs')
                 need(struct.unpack_from('<II',runtime,12)==(frames,case['rate']) and runtime[28]==case['channels'],f'{name}: runtime metadata differs')

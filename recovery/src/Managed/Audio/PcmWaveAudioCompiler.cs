@@ -5,7 +5,7 @@ using BinaryAssetBuilder.Core;
 
 namespace BinaryAssetBuilder.AudioCompiler
 {
-    // Fully managed backend for the recovered integral WAVE/AIFF input
+    // AudioFile backend for the recovered integral WAVE/AIFF input
     // subset, including supported forward loops and filter 120 rate conversion. Unsupported codec/filter/input combinations are explicit.
     public sealed class PcmWaveAudioCompiler : IAudioFileCompiler
     {
