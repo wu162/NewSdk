@@ -66,6 +66,7 @@ System::Collections::Generic::List<XmlNode^>^ XmlattributesChildren(XmlNode^ nod
     return result;
 }
 void XmlattributesRoot(XmlNode^ node, XmlNamespaceManager^ ns, String^ name) {
+        if(ns == nullptr) throw gcnew ArgumentNullException("namespaces");
     if(node == nullptr) throw gcnew ArgumentNullException("node");
 
 }
@@ -98,7 +99,7 @@ public:
     }
     static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration, TargetPlatform platform) {
         if(declaration == nullptr) throw gcnew ArgumentNullException("declaration");
-
+        if(declaration->Handle->TypeId != 3319822471u) throw gcnew NotSupportedException("Expected AttributeModifier TypeId 3319822471");
         return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform != TargetPlatform::Win32);
     }
 };

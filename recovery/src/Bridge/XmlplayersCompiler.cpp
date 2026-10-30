@@ -28,6 +28,7 @@ ref class XmlplayersBridge abstract sealed {
     }
 public:
     static AssetBuffer^ Compile(XmlNode^ node,XmlNamespaceManager^ ns,bool big,String^ name){
+        if(ns==nullptr)throw gcnew ArgumentNullException("namespaces");
         if(node==nullptr)throw gcnew ArgumentNullException("node");
 
         if(node->LocalName!=name)throw gcnew NotSupportedException("Incorrect player root");

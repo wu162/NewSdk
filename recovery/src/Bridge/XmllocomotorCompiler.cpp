@@ -47,6 +47,7 @@ public ref class LocomotorTemplateCompiler abstract sealed {
     }
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
+        if (namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
         if (node == nullptr) throw gcnew ArgumentNullException("node");
 
         Attributes(node, true); Children(node, true);

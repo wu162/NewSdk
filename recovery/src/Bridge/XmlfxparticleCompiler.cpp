@@ -292,6 +292,7 @@ public:
 public ref class FXParticleSystemTemplateCompiler abstract sealed {
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
+        if(namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
         XmlfxparticleXml::Root(node, "FXParticleSystemTemplate");
 
         XmlfxparticleXml::Attributes(node, gcnew array<String^>{"id","inheritFrom","TypeId","Priority","Shader","Type","ParticleTexture","Drawable","SlaveSystem","PerParticleAttachedSystem","SystemLifetime","SortLevel","EmitterSound","IsOneShot","IsGroundAligned","IsEmitAboveGroundOnly","IsParticleUpTowardsEmitter","UseMaximumHeight"});

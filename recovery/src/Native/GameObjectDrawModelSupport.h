@@ -1,5 +1,3 @@
-bool DrawMainHasField(const ModuleFieldSet& set,const std::string& attribute){for(unsigned i=0;i<set.count;++i)if(attribute==set.fields[i].name)return true;return false;}
-
 unsigned DrawModelNodeKind(unsigned kind,const std::string& path){
     if(path=="ModelConditionState" || path=="AnimationState" || path=="AttachModel" || path=="EmbedPortal")return 2;
     if(path=="AttachModel/Model")return 1;

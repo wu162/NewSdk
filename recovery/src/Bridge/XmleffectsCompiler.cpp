@@ -266,6 +266,7 @@ public:
 public ref class FXListCompiler abstract sealed {
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
+        if (namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
         XmleffectsXml::Root(node, "FXList");
 
         array<String^>^ allowed = {"id", "TypeId", "PlayEvenIfShrouded", "Tailorable", "CullTracking", "CullTrackingMin", "CullTrackingMax"};

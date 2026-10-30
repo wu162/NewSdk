@@ -134,6 +134,7 @@ public ref class WeaponCompiler abstract sealed {
     }
 public:
     static array<UInt32>^ MarshalModelCondition(String^ text, array<UInt32>^ initial) {
+        if (text == nullptr) throw gcnew ArgumentNullException("text");
 
         if (initial == nullptr || initial->Length != 15) throw gcnew ArgumentException("ModelCondition requires fifteen words.", "initial");
         std::uint32_t words[15];
@@ -145,6 +146,7 @@ public:
     }
     // Direct inline helper, including accumulation into a previously populated mask.
     static array<UInt32>^ MarshalObjectStatus(String^ text, array<UInt32>^ initial) {
+        if (text == nullptr) throw gcnew ArgumentNullException("text");
 
         if (initial == nullptr || initial->Length != 7) throw gcnew ArgumentException("ObjectStatus requires seven words.", "initial");
         std::uint32_t words[7];
