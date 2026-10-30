@@ -1,0 +1,52 @@
+{
+  "sourceCommit": "5fc678b050dcc5aff5a8a25365a406a09ca2f4c8",
+  "runId": "40999035840",
+  "status": "passed",
+  "scope": "PC owned 2D resource constructor and raw DDS/TGA file loader; compressed DDS remains explicitly unsupported",
+  "constructorCasesPerConfiguration": 6860,
+  "supportedFileCasesPerConfiguration": 2684,
+  "originalSuccessUnsupportedCompressedCasesPerConfiguration": 105,
+  "additionalExplicitRejectionsPerConfiguration": 5,
+  "completeDebugReleaseAndNoOriginal": true,
+  "completeAcceptedDebugReleaseCaptureIdentical": true,
+  "selectedPassed": [
+    "native-loader",
+    "base"
+  ],
+  "reusedComponents": 62,
+  "readyComponentsAtSource": 64,
+  "selectionReceipt": "recovery/evidence/texture/batch/40999035840-1/selection.json",
+  "archive": "recovery/evidence/texture/native-loader/40999035840-1/captures.zip",
+  "archiveSha256": "5d14bc7167b7502da5bffdd4c6f7efe31acb79ab8f3b30b412f1db7db26132dd",
+  "verifiedArchiveMembers": [
+    {
+      "file": "Debug.capture",
+      "bytes": 275197311,
+      "sha256": "3c46dafb8871969dd7291fc992e1e8609bf9cc24f3bf022b6210bd998b97b485",
+      "scope": "accepted raw/resource trace"
+    },
+    {
+      "file": "Debug.unsupported-original",
+      "bytes": 2548078,
+      "sha256": "d0eb20ea4357252d1aa2ddf466652785a0daf0257dbc9a7e58af99435ff34b3f",
+      "scope": "original compressed probe only; recovered explicitly unsupported"
+    },
+    {
+      "file": "Release.capture",
+      "bytes": 275197311,
+      "sha256": "3c46dafb8871969dd7291fc992e1e8609bf9cc24f3bf022b6210bd998b97b485",
+      "scope": "accepted raw/resource trace"
+    },
+    {
+      "file": "Release.unsupported-original",
+      "bytes": 2548078,
+      "sha256": "d0eb20ea4357252d1aa2ddf466652785a0daf0257dbc9a7e58af99435ff34b3f",
+      "scope": "original compressed probe only; recovered explicitly unsupported"
+    }
+  ],
+  "allTwelveX86DllHashesVerified": true,
+  "sdkValidated": false,
+  "productionPackageChanged": false,
+  "compressedOriginalSnapshotsAreAcceptedBusinessEvidence": false,
+  "unsupportedOriginalDebugReleaseIdentical": true
+}

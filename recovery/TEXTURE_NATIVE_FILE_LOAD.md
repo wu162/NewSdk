@@ -15,8 +15,13 @@
 
 `native-loader`组（`TestTextureNativeLoader.ps1`、`TextureNativeLoaderOracle.cpp`）保留6860个构造、2789个文件输入（2684个支持范围成功对照、105个原版成功但需压缩重编码的明确未支持边界）、另5个明确拒绝，并检查固定总数；完整52字节header、全部主/secondary VM字节（含padding与tail间隙）、所有mip布局/描述符、每层三个锁定视图、raw两个完整RGBA视图、引用及最终释放；Debug/Release、独立NoOriginal和完整capture SHA。原版fingerprint为`4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`。
 
-本组尚在失败修复后的集中补验，当前source/run与是否通过统一看[RESUME](RESUME.md)，不可引用历史失败作完成。静态证据在`evidence/texture/native-loader-static/20261030/`，脚本只读取/反汇编原DLL，不执行编译器。
+本组已在源码`5fc678b050dcc5aff5a8a25365a406a09ca2f4c8` / [40999035840](https://github.com/wu162/NewSdk/actions/runs/40999035840)完整通过D/R及NoOriginal；每配置完整trace275197311字节相同。归档四个原始成员SHA和12份x86库指纹已核对，见[收据索引](evidence/texture/handoffs/20261030-native-loader/acceptance.json)。本轮native-loader/base两组通过、62组复用，未运行SDK/MOD。当前续接统一看[RESUME](RESUME.md)。静态证据在`evidence/texture/native-loader-static/20261030/`，脚本只读取/反汇编原DLL，不执行编译器。
 
 未恢复：NPOT文件重采样、全部压缩DDS文件加载（包含已提供的2×2/1×1尾mip重新编码、基础轴小于4的扩展/重压缩、缺失mip重压缩）、更多DDS布局、PNG/JPEG/BMP/DIB/PPM与低位深/调色板TGA、GPU/渲染/体积/数组/cube文件路径。构造NPOT资源不等于恢复NPOT文件加载。12个真实代表输入全部保留：raw DDS与3个TGA共4个进入完整成功差分；8个压缩DDS明确拒绝。矩阵中的105个原版成功压缩资源完整存储另存独立归档，绝不把恢复版拒绝称为原版拒绝匹配。该归档为后续重编码取证，不认证压缩业务完成，也不把其可能的不确定字节冻成业务gold。
 
 下一批优先接入已独立验收的8位NPOT权重/精度或实际消费所需raster格式，保留原生格式和存储精度；压缩缺层不能套用nvDDS压缩输出冒充D3DX一致。正式接入生产包前另取必要SDK集成证据，普通检查点和每轮收尾不触发完整MOD。
+
+
+## 本轮效率复盘
+
+早期从DDS头及基础块相同推断完整mip可直接复制，遗漏原版对partial尾层的重新编码，造成额外失败补验。下一批先核对完整资源每层的实际产物与调用条件，再决定复用边界，不能只查level0。此次保留全部输入、失败与原版完整资源，不放宽支持范围的逐字节比较；未恢复压缩域明确分离为取证，业务未近似启用。最终仍只选择两组、复用62旧组，无SDK/MOD或收尾plan；后续实现继续连续合批。

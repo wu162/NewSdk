@@ -1,5 +1,7 @@
 # TextureCompiler recovery — Win32 / PC only
 
+Current PC status is maintained in [RESUME](../../recovery/RESUME.md); older acceptance paragraphs below retain their historical scope. The separate x86 native loader now accepts owned CPU 2D resources and bounded raw DDS/TGA loading, including complete mip storage and actual copy/release consumers, at `5fc678b0` / [40999035840](https://github.com/wu162/NewSdk/actions/runs/40999035840) (Debug/Release and NoOriginal). Compressed DDS file loading, NPOT files and production mixed-mode integration remain outside this new ABI; see [native file scope](../../recovery/TEXTURE_NATIVE_FILE_LOAD.md).
+
 Build on Windows with .NET Framework 4.8 targeting support:
 
 ```powershell
