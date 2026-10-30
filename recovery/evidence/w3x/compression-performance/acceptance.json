@@ -8,7 +8,7 @@
   "productionAndExistingValidationInputsChangedSinceAcceptance": [],
   "fullModMeasurementSourceCommit": "300812cd6b2f372cbc6ee72f8bc89058b922f079",
   "fullModMeasurementRunId": 41004795406,
-  "fullModMeasurementStatus": "running; no acceptance claim",
+  "fullModMeasurementStatus": "success; four complete builds and two raw published-byte comparisons passed",
   "note": "New standalone historical measurement was separately executed; the old broad W3x* test-union checker reports its added source and is not represented as an unchanged full test tree.",
   "recovery/srcTreeHash": "c25e298d0796f409a015a7f6f585746145c8ded4",
   "SDKTreeHash": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9"
