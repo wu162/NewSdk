@@ -19,13 +19,13 @@ Trace LogicalPixels(Api api,void* resource){
   ::Recovered::TextureCompiler::NativeDescriptorAbi::LevelDesc desc{};api.level(resource,level,&desc);
   ::Recovered::TextureCompiler::NativeSurfaceAbi::LockedRect locked{};Check(api.lock(resource,level,&locked,nullptr,1)==0,"BC actual-consumer lock");
   for(U mask:{~0x1c0u,0xffffffffu}){
-   const U pitch=desc.width*4+7;std::vector<unsigned char> rgba(std::size_t(pitch)*desc.height+64,0xa5);
-   Check(api.copy(rgba.data()+32,pitch,desc.width,desc.height,0x1a200006,nullptr,locked.bits,locked.pitch,desc.format&mask,nullptr,0x12,0)==0,"BC actual masked/physical LoadImageA copy");
+   Isolation(api);const U pitch=desc.width*4+7;std::vector<unsigned char> rgba(std::size_t(pitch)*desc.height+64,0xa5);
+   Check(api.copy(rgba.data()+32,pitch,desc.width,desc.height,0x1a200006,nullptr,locked.bits,locked.pitch,desc.format&mask,nullptr,0x12,0)==0,"BC actual masked/physical LoadImageA copy");Isolation(api);
    for(U i=0;i<32;++i)Check(rgba[i]==0xa5&&rgba[rgba.size()-1-i]==0xa5,"BC actual-copy guard");
    for(U y=0;y<desc.height;++y)for(U x=desc.width*4;x<pitch;++x)Check(rgba[32+std::size_t(y)*pitch+x]==0xa5,"BC actual-copy row padding");
    t.number(static_cast<U>(rgba.size()));t.add(rgba.data(),rgba.size());
   }
-  Check(api.unlock(resource,level)==0,"BC actual-consumer unlock");
+  Check(api.unlock(resource,level)==0,"BC actual-consumer unlock");Isolation(api);
  }
  return t;
 }
@@ -114,18 +114,23 @@ void Diagnostic(unsigned char* original,const std::string& libs,const std::strin
  }
  Check(recovered.deviceRelease(recoveredDevice)==0,"Default DDS recovered device release");
  std::cout<<"PROBE default DDS cases="<<defaultCases<<" mismatches="<<defaultMismatch<<"\n";
- Check(baseline.deviceRelease(device)==0,"Diagnostic original device release");Check(blockCases==1536&&ddsBlockCases==1536&&ddsCases==168,"Complete diagnostic corpus");capture.close();
+ Check(baseline.deviceRelease(device)==0,"Diagnostic original device release");Check(blockCases==1536&&ddsBlockCases==1536&&ddsCases==168&&defaultCases==1572,"Complete diagnostic corpus");capture.close();
  std::cout<<"PROBE D3DX file blockCases="<<ddsBlockCases<<" decodeBitMismatches="<<ddsDecodeMismatch<<"\n";
  for(U policy=0;policy<8;++policy)std::cout<<"FILE_POLICY flags="<<std::hex<<(policy<<16)<<std::dec<<" encodeMismatch="<<ddsEncodeMismatch[policy]<<" ditherMismatch="<<ddsDitherMismatch[policy]<<"\n";
  std::cout<<"PROBE public D3DX BC blockCases="<<blockCases<<" ddsCases="<<ddsCases<<" decodeBitMismatches="<<decodeMismatch<<" originalUnstable="<<unstable<<"; diagnostic only, no production acceptance or NoOriginal claim\n";
  for(U policy=0;policy<8;++policy)std::cout<<"POLICY flags="<<std::hex<<(policy<<16)<<std::dec<<" encodeMismatch="<<encodeMismatch[policy]<<" ddsWrapMismatch="<<ddsMismatch[policy]<<" ddsClampMismatch="<<ddsMismatch[8+policy]<<"\n";
  FreeLibrary(codec);for(auto m:modules)FreeLibrary(m);
 }
+#include "TexturePublicBcReplay.h"
 }
 #pragma managed(pop)
 int main(array<String^>^ args){
  try{
   if(IntPtr::Size!=4||args->Length!=3)throw gcnew Exception("Usage: x86 original.dll native-dir prefix");
+  if(args[0]=="--no-original"){
+   auto directory=Marshal::StringToHGlobalAnsi(Path::GetFullPath(args[1]));auto path=Marshal::StringToHGlobalAnsi(Path::GetFullPath(args[2]));
+   ReplayPublicBc(static_cast<const char*>(directory.ToPointer()),static_cast<const char*>(path.ToPointer()));Marshal::FreeHGlobal(directory);Marshal::FreeHGlobal(path);return 0;
+  }
   auto sha=SHA256::Create();auto digest=BitConverter::ToString(sha->ComputeHash(File::ReadAllBytes(args[0])))->Replace("-","")->ToLowerInvariant();delete sha;
   if(digest!="4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e")throw gcnew Exception("Original fingerprint");
   auto assembly=Assembly::LoadFrom(Path::GetFullPath(args[0]));auto h=Marshal::GetHINSTANCE(assembly->ManifestModule);if(h==IntPtr::Zero||h==IntPtr(-1))throw gcnew Exception("Original module handle");

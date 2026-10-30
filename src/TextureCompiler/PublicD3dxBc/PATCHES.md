@@ -122,3 +122,16 @@ instead of clamping or rejecting an otherwise valid file. The current source
 also applies original toward-zero phases to file BC1/2 alpha dither and BC3
 A8 quantization, endpoint packing and bitmap diffusion. Full resource and
 NoOriginal acceptance remain pending; no production route is changed.
+
+
+bb8032e9/41012948892 completed both configurations, identical266136903-byte
+captures af988086...; XG and file decode/encode plus file dither all1536/1536.
+The new1572 default-file inputs remain1226 matches/346 differences, without
+original instability. Static verification now also identifies the original
+Newton solver RC_CHOP intervals (RGB28b2e..28e11, alpha28601..287f3); current
+source applies those only to D3DX file encodes, preserving the XG backend.
+A strict NoOriginal replay and manual native-bc-files acceptance entry are
+prepared but must not be called passed while default-file differences remain.
+Failure captures now archive losslessly in finally, including interrupted
+matrices that exceed GitHub's single-file limit. No old inputs/assertions or
+production/SDK routes were removed.

@@ -94,7 +94,7 @@ namespace
         _Out_ HDRColorA*                                  pY,
         _In_reads_(NUM_PIXELS_PER_BLOCK) const HDRColorA* pPoints,
         uint32_t                                          cSteps,
-        uint32_t                                          flags) noexcept
+        uint32_t                                          flags, bool dds) noexcept
     {
         constexpr float    fEpsilon = (0.25f / 64.0f) * (0.25f / 64.0f);
         static const float pC3[]    = { 2.0f / 2.0f, 1.0f / 2.0f, 0.0f / 2.0f };
@@ -243,6 +243,7 @@ namespace
         // Use Newton's Method to find local minima of sum-of-squares error.
         const auto fSteps = static_cast<float>(cSteps - 1);
 
+        FileRounding newtonRounding(dds);
         for (size_t iIteration = 0; iIteration < 8; iIteration++)
         {
             // Calculate new steps
@@ -529,7 +530,7 @@ namespace
         // Then quantize and sort the endpoints depending on mode.
         HDRColorA ColorA, ColorB, ColorC, ColorD;
 
-        OptimizeRGB(&ColorA, &ColorB, Color, uSteps, flags);
+        OptimizeRGB(&ColorA, &ColorB, Color, uSteps, flags, dds);
 
         if (flags & BC_FLAGS_UNIFORM)
         {
@@ -1064,7 +1065,9 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR*
     const uint32_t uSteps = ((0.0f == fMinAlpha) || (1.0f == fMaxAlpha)) ? 6u : 8u;
 
     float fAlphaA, fAlphaB;
+    FileRounding optimizeRounding(dds);
     OptimizeAlpha<false>(&fAlphaA, &fAlphaB, fAlpha, uSteps);
+    optimizeRounding.restore();
 
     FileRounding endpointRounding(dds);
     const auto bAlphaA = static_cast<uint8_t>(static_cast<int32_t>(fAlphaA * 255.0f + 0.5f));
