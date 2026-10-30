@@ -16,12 +16,22 @@
 // #define COLOR_AVG_0WEIGHTS
 
 #include "BC.h"
+#include <float.h>
 
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 
 namespace
 {
+    // D3DX's file encoder changes only x87 rounding while quantizing and
+    // diffusing errors, then restores it before optimizing the endpoints.
+    // Preserve the caller's mode, including on the equal-endpoint return.
+    struct FileRounding {
+        unsigned int saved = 0; bool active = false;
+        explicit FileRounding(bool enabled) noexcept { if (enabled) { _controlfp_s(&saved, 0, 0); unsigned int ignored; _controlfp_s(&ignored, _RC_CHOP, _MCW_RC); active = true; } }
+        void restore() noexcept { if (active) { unsigned int ignored; _controlfp_s(&ignored, saved, _MCW_RC); active = false; } }
+        ~FileRounding() { restore(); }
+    };
     float LegacyByte(unsigned int value) noexcept
     {
         // The stored float reciprocal is part of the old row contract. A
@@ -61,8 +71,9 @@ namespace
         pColor->a = 1.0f;
     }
 
-    inline uint16_t Encode565(_In_ const HDRColorA* pColor) noexcept
+    inline uint16_t Encode565(_In_ const HDRColorA* pColor, bool dds = false) noexcept
     {
+        FileRounding rounding(dds);
         HDRColorA Color;
 
         Color.r = (pColor->r < 0.0f) ? 0.0f : (pColor->r > 1.0f) ? 1.0f : pColor->r;
@@ -394,7 +405,7 @@ namespace
         _In_reads_(NUM_PIXELS_PER_BLOCK) const HDRColorA* pColor,
         bool                                              bColorKey,
         float                                             threshold,
-        uint32_t                                          flags) noexcept
+        uint32_t                                          flags, bool dds) noexcept
     {
         assert(pBC && pColor);
         static_assert(sizeof(D3DX_BC1) == 8, "D3DX_BC1 should be 8 bytes");
@@ -437,6 +448,7 @@ namespace
             memset(Error, 0x00, NUM_PIXELS_PER_BLOCK * sizeof(HDRColorA));
 
         size_t i;
+        FileRounding initialRounding(dds);
         for (i = 0; i < NUM_PIXELS_PER_BLOCK; ++i)
         {
             HDRColorA Clr;
@@ -511,6 +523,8 @@ namespace
             }
         }
 
+        initialRounding.restore();
+
         // Perform 6D root finding function to find two endpoints of color axis.
         // Then quantize and sort the endpoints depending on mode.
         HDRColorA ColorA, ColorB, ColorC, ColorD;
@@ -535,8 +549,8 @@ namespace
             ColorD.a = ColorB.a;
         }
 
-        const uint16_t wColorA = Encode565(&ColorC);
-        const uint16_t wColorB = Encode565(&ColorD);
+        const uint16_t wColorA = Encode565(&ColorC, dds);
+        const uint16_t wColorB = Encode565(&ColorD, dds);
 
         if ((uSteps == 4) && (wColorA == wColorB))
         {
@@ -618,6 +632,7 @@ namespace
         Dir.b *= fScale;
 
         // Encode colors
+        FileRounding indexRounding(dds);
         uint32_t dw = 0;
         if (flags & BC_FLAGS_DITHER_RGB)
             memset(Error, 0x00, NUM_PIXELS_PER_BLOCK * sizeof(HDRColorA));
@@ -754,7 +769,7 @@ _Use_decl_annotations_ void DirectX::D3DXDecodeBC1(XMVECTOR* pColor, const uint8
     DecodeBC1(pColor, pBC1, true);
 }
 
-_Use_decl_annotations_ void DirectX::D3DXEncodeBC1(uint8_t* pBC, const XMVECTOR* pColor, float threshold, uint32_t flags) noexcept
+_Use_decl_annotations_ void DirectX::D3DXEncodeBC1(uint8_t* pBC, const XMVECTOR* pColor, float threshold, uint32_t flags, bool dds) noexcept
 {
     assert(pBC && pColor);
 
@@ -810,7 +825,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC1(uint8_t* pBC, const XMVECTOR*
     }
 
     auto pBC1 = reinterpret_cast<D3DX_BC1*>(pBC);
-    EncodeBC1(pBC1, Color, true, threshold, flags);
+    EncodeBC1(pBC1, Color, true, threshold, flags, dds);
 }
 
 //-------------------------------------------------------------------------------------
@@ -841,7 +856,7 @@ _Use_decl_annotations_ void DirectX::D3DXDecodeBC2(XMVECTOR* pColor, const uint8
         pColor[i] = XMVectorSetW(pColor[i], (dds ? static_cast<float>(static_cast<double>(dw & 0xf) * 0.06666667014360428) : LegacyByte((dw & 0xf) * 17)));
 }
 
-_Use_decl_annotations_ void DirectX::D3DXEncodeBC2(uint8_t* pBC, const XMVECTOR* pColor, uint32_t flags) noexcept
+_Use_decl_annotations_ void DirectX::D3DXEncodeBC2(uint8_t* pBC, const XMVECTOR* pColor, uint32_t flags, bool dds) noexcept
 {
     assert(pBC && pColor);
     static_assert(sizeof(D3DX_BC2) == 16, "D3DX_BC2 should be 16 bytes");
@@ -907,7 +922,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC2(uint8_t* pBC, const XMVECTOR*
     }
 #endif // COLOR_WEIGHTS
 
-    EncodeBC1(&pBC2->bc1, Color, false, 0.f, flags);
+    EncodeBC1(&pBC2->bc1, Color, false, 0.f, flags, dds);
 }
 
 //-------------------------------------------------------------------------------------
@@ -954,7 +969,7 @@ _Use_decl_annotations_ void DirectX::D3DXDecodeBC3(XMVECTOR* pColor, const uint8
         pColor[i] = XMVectorSetW(pColor[i], fAlpha[dw & 0x7]);
 }
 
-_Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR* pColor, uint32_t flags) noexcept
+_Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR* pColor, uint32_t flags, bool dds) noexcept
 {
     assert(pBC && pColor);
     static_assert(sizeof(D3DX_BC3) == 16, "D3DX_BC3 should be 16 bytes");
@@ -1028,7 +1043,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR*
 #endif
 
     // RGB part
-    EncodeBC1(&pBC3->bc1, Color, false, 0.f, flags);
+    EncodeBC1(&pBC3->bc1, Color, false, 0.f, flags, dds);
 
     // Alpha part
     if (1.0f == fMinAlpha)

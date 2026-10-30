@@ -14,7 +14,7 @@ bool Pixels(const float* rgba) {
     for (U i = 0; i < 64; ++i) if (!std::isfinite(rgba[i]) || rgba[i] < 0 || rgba[i] > 1) return false;
     return true;
 }
-void Decode(const void* block, U format, float* rgba, bool dds = false) {
+void Decode(const void* block, U format, float* rgba, bool dds = false, bool unpremultiply = true) {
     DirectX::XMVECTOR color[16];
     auto source = static_cast<const std::uint8_t*>(block);
     if (format == 18) DirectX::D3DXDecodeBC1(color, source);
@@ -22,13 +22,13 @@ void Decode(const void* block, U format, float* rgba, bool dds = false) {
     else DirectX::D3DXDecodeBC3(color, source, dds);
     for (U i = 0; i < 16; ++i) {
         DirectX::XMFLOAT4 pixel; DirectX::XMStoreFloat4(&pixel, color[i]);
-        if (format != 18) {
+        if (format != 18 && unpremultiply) {
             // Original PC XG compressed row contract unpremultiplies with a
             // STORED float reciprocal, then stores each product and clamps.
             // Direct division differs in 3055 captured RGB channels; this
             // general reciprocal rule matches every non-three-color test.
             volatile float inverse = pixel.w > 0 ? static_cast<float>(1.0 / static_cast<double>(pixel.w)) : 0;
-            auto channel = [&](float value) { volatile float result = static_cast<float>(static_cast<double>(value) * inverse); return std::min(1.f, std::max(0.f, static_cast<float>(result))); };
+            auto channel = [&](float value) { if (dds && value >= pixel.w && pixel.w > 0) return 1.f; volatile float result = static_cast<float>(static_cast<double>(value) * inverse); return std::min(1.f, std::max(0.f, static_cast<float>(result))); };
             pixel.x = channel(pixel.x); pixel.y = channel(pixel.y); pixel.z = channel(pixel.z);
         }
         std::memcpy(rgba + i * 4, &pixel, sizeof(pixel));
@@ -47,9 +47,9 @@ void Encode(void* block, U format, const float* rgba, U flags, float threshold, 
         color[i] = DirectX::XMLoadFloat4(&pixel);
     }
     auto target = static_cast<std::uint8_t*>(block);
-    if (format == 18) DirectX::D3DXEncodeBC1(target, color, threshold, flags);
-    else if (format == 19) DirectX::D3DXEncodeBC2(target, color, flags);
-    else DirectX::D3DXEncodeBC3(target, color, flags);
+    if (format == 18) DirectX::D3DXEncodeBC1(target, color, threshold, flags, dds);
+    else if (format == 19) DirectX::D3DXEncodeBC2(target, color, flags, dds);
+    else DirectX::D3DXEncodeBC3(target, color, flags, dds);
 }
 bool Layout(U w, U h, U format, std::int32_t blockPitch, std::int32_t rgbaPitch) {
     return w && h && w <= 8192 && h <= 8192 && std::uint64_t(w) * h < 16777216 &&
@@ -66,11 +66,11 @@ extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcEncodeBlo
     if (!block || !rgba || !BlockSize(format) || !Encoding(flags, threshold) || !Pixels(rgba)) return Invalid;
     Encode(block, format, rgba, flags, threshold); return 0;
 }
-static std::int32_t DecodeImage(const void* blocks, std::int32_t blockPitch, U width, U height, U format, float* rgba, std::int32_t rgbaPitch, bool dds) {
+static std::int32_t DecodeImage(const void* blocks, std::int32_t blockPitch, U width, U height, U format, float* rgba, std::int32_t rgbaPitch, bool dds, bool unpremultiply = true) {
     if (!blocks || !rgba || !Layout(width, height, format, blockPitch, rgbaPitch)) return Invalid;
     auto input = static_cast<const unsigned char*>(blocks); auto output = reinterpret_cast<unsigned char*>(rgba);
     for (U by = 0; by < height; by += 4) for (U bx = 0; bx < width; bx += 4) {
-        float pixels[64]; Decode(input + std::size_t(by / 4) * blockPitch + bx / 4 * BlockSize(format), format, pixels, dds);
+        float pixels[64]; Decode(input + std::size_t(by / 4) * blockPitch + bx / 4 * BlockSize(format), format, pixels, dds, unpremultiply);
         for (U y = 0; y < std::min(4u, height - by); ++y)
             std::memcpy(output + std::size_t(by + y) * rgbaPitch + bx * 16, pixels + y * 16, std::min(4u, width - bx) * 16);
     }
@@ -107,4 +107,8 @@ extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcEncodeIma
 }
 extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcEncodeDdsImage(void* blocks, std::int32_t blockPitch, U width, U height, U format, const float* rgba, std::int32_t rgbaPitch, U flags, float threshold, U edgePolicy) {
     return EncodeImage(blocks, blockPitch, width, height, format, rgba, rgbaPitch, flags, threshold, edgePolicy, true);
+}
+
+extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcDecodeStoredImage(const void* blocks, std::int32_t blockPitch, U width, U height, U format, float* rgba, std::int32_t rgbaPitch, U flags) {
+    return DecodeImage(blocks, blockPitch, width, height, format, rgba, rgbaPitch, false, (flags & 2) != 0);
 }

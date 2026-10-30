@@ -9,7 +9,7 @@ if($LASTEXITCODE -ne 0){throw 'Public BC resource consumer dependencies failed'}
 $opt=if($Configuration -eq 'Release'){'/O2'}else{'/Od'}
 Push-Location $destinationPath
 try{
- & cl /nologo /LD /MT /EHsc /std:c++17 $opt /arch:IA32 /fp:strict /D_XM_NO_INTRINSICS_ "$source/BC.cpp" "$source/TexturePublicBcApi.cpp" "$source/TexturePublicBcDds.cpp" "$source/TexturePublicBcCopy.cpp" /link "$destinationPath/native-loader.lib" "$destinationPath/native-resource.lib" "$destinationPath/native-surface.lib" "$destinationPath/native-copy.lib" /DEF:"$source/TexturePublicBcApi.def" /OUT:"$destinationPath/Recovered.TexturePublicBc.dll" /IMPLIB:"$destinationPath/public-bc.lib" /MACHINE:X86
+ & cl /nologo /LD /MT /EHsc /std:c++17 $opt /arch:IA32 /fp:strict /D_XM_NO_INTRINSICS_ "$source/BC.cpp" "$source/TexturePublicBcApi.cpp" "$source/TexturePublicBcDds.cpp" "$source/TexturePublicBcCopy.cpp" "$source/TexturePublicBcResize.cpp" /link "$destinationPath/native-loader.lib" "$destinationPath/native-resource.lib" "$destinationPath/native-surface.lib" "$destinationPath/native-copy.lib" /DEF:"$source/TexturePublicBcApi.def" /OUT:"$destinationPath/Recovered.TexturePublicBc.dll" /IMPLIB:"$destinationPath/public-bc.lib" /MACHINE:X86
  if($LASTEXITCODE -ne 0){throw 'Public D3DX BC candidate build failed'}
  $bytes=[IO.File]::ReadAllBytes("$destinationPath/Recovered.TexturePublicBc.dll");$pe=[BitConverter]::ToInt32($bytes,0x3c)
  if([BitConverter]::ToUInt16($bytes,$pe+4) -ne 0x14c){throw 'Public BC requires I386'}

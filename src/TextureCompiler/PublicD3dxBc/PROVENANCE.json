@@ -2,7 +2,7 @@
   "repository": "microsoft/DirectXTex",
   "commit": "ec66b78b37389e8373a8e14ccc3cd29be94146b3",
   "license": "MIT; upstream/LICENSE retained",
-  "scope": "isolated scalar x86 BC1/2/3 block/image and owned POT DDS resource/mip consumer; no production routing",
+  "scope": "isolated scalar x86 BC1/2/3 XG and D3DX file codecs, owned PC DDS resource/file/NPOT/mip/actual-copy consumers; no production routing",
   "acceptance": "unbuilt/unvalidated; requires Actions original/gold complete block and native DDS/actual-copy acceptance",
   "files": [
     {
@@ -12,13 +12,13 @@
     },
     {
       "path": "BC.cpp",
-      "bytes": 37575,
-      "sha256": "a071c70d86c74287e8ac49abe4fd170f1a3906b64d6f3ab2838d8fe4ff276f48"
+      "bytes": 38494,
+      "sha256": "ff199205504360c4b2ac9ab18b1d76e5239de624412ecf8626ad095a496d5f94"
     },
     {
       "path": "BC.h",
-      "bytes": 13418,
-      "sha256": "f3a77db474cb13b6295e03000278301569e548c1265ed6a09208b56a042f8764"
+      "bytes": 13472,
+      "sha256": "0bc3fa56da49c8fcb4fe1f95f9bdd4ee76aeb95f93adb4e9569dc5f3d454d9aa"
     },
     {
       "path": "TextureBcP.h",
@@ -27,28 +27,28 @@
     },
     {
       "path": "TexturePublicBcApi.cpp",
-      "bytes": 7364,
-      "sha256": "11f07821a84cfbf1cc3bee869d75eaa732374dffa4a42c99eb31ba0927baec2b"
+      "bytes": 7844,
+      "sha256": "64318e687bcf7c583467daf001322a76ed67c1a670bb936ec484b5de9b5bb713"
     },
     {
       "path": "TexturePublicBcApi.def",
-      "bytes": 530,
-      "sha256": "7156acfa3a1453e9cef0615028408b2f79d444b433fefe3b511d71611cb30468"
+      "bytes": 682,
+      "sha256": "5da59a507f8d4cc378ec2b8e16299082936c38d5dc72afa915f3d87596dd80c4"
     },
     {
       "path": "TexturePublicBcApi.h",
-      "bytes": 3343,
-      "sha256": "0938896095641592a006c2efdef14c87627fe606344abc92670468694b0cd5a3"
+      "bytes": 3850,
+      "sha256": "cf943d8ee54e7e10513e6af0f744b87059161b396ae616dabeb9088c21a18d12"
     },
     {
       "path": "TexturePublicBcCopy.cpp",
-      "bytes": 3720,
-      "sha256": "90b17bf970bf70a1eaff198252ff9e1001000879a88781a33588086533cab7bd"
+      "bytes": 3733,
+      "sha256": "b33aea30c2ff3284d8ea511ff36a83757993301c8b280f93220cdc92fb210038"
     },
     {
       "path": "TexturePublicBcDds.cpp",
-      "bytes": 6606,
-      "sha256": "faae0af920a6e31a3f0ec6a380cf1aace4cbbe7b86951d00ef81eaa8c94d01fb"
+      "bytes": 9017,
+      "sha256": "45180445064eab15368751be0a2c18dbf7fbf2f75a3e2d1c9fc602a5d515d647"
     },
     {
       "path": "upstream/BC.cpp",
@@ -64,6 +64,22 @@
       "path": "upstream/LICENSE",
       "bytes": 1141,
       "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+    },
+    {
+      "path": "TexturePublicBcResize.cpp",
+      "bytes": 5112,
+      "sha256": "a43993566dc1010cf12bece0547558adbcd20558a0979902a886147b953965cc"
+    },
+    {
+      "path": "TexturePublicBcResize.h",
+      "bytes": 291,
+      "sha256": "2ee3286dbe5e5b519f59229a05ffd0fa5e5d3191fb1a10d2f673480d4b6d63f9"
     }
-  ]
+  ],
+  "derivedFloatTriangle": {
+    "from": "../PublicDirectXTex/TexturePublicTriangle.cpp",
+    "fromSha256": "1a799e630606d01529caee8f6502f7dc9406e26e5c94c4b461a18809c45c243b",
+    "upstreamCommit": "ec66b78b37389e8373a8e14ccc3cd29be94146b3",
+    "changes": "normalized float IO; same wrap triangle kernels, order, active-row reuse and float stores; existing BGRA8 implementation unchanged"
+  }
 }

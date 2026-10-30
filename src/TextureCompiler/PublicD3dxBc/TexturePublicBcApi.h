@@ -25,8 +25,8 @@ extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcEncodeIma
     void* blocks, std::int32_t blockPitch, std::uint32_t width, std::uint32_t height,
     std::uint32_t format, const float* rgba, std::int32_t rgbaPitch,
     std::uint32_t flags, float threshold, std::uint32_t edgePolicy);
-// Experimental full owned-resource consumer for ordinary POT DXT1/3/5 DDS
-// with each base axis >=4. Explicit encoder policy; not the accepted default
+// Experimental owned-resource DXT1/3/5 DDS consumer. Base axes round up
+// to POT and clamp to4;0x80000000 selects actual file/mip defaults. Not the accepted default
 // file loader. Copies complete provided blocks, re-encodes provided partial
 // tails and recursively filters/re-encodes missing mips from stored blocks.
 // Release a successful resource with TextureResourceRelease.
@@ -48,3 +48,11 @@ extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcDecodeDds
 extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcEncodeDdsImage(
     void*, std::int32_t, std::uint32_t, std::uint32_t, std::uint32_t,
     const float*, std::int32_t, std::uint32_t, float, std::uint32_t);
+
+extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcDecodeStoredImage(
+    const void*, std::int32_t, std::uint32_t, std::uint32_t, std::uint32_t,
+    float*, std::int32_t, std::uint32_t);
+// Isolated real file entry; compressed DDS uses only this public BC candidate.
+// Other accepted formats delegate to the unchanged accepted native loader.
+extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcCreateTextureFromFileA(
+    void*, const char*, void**);

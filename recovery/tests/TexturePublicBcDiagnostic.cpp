@@ -34,7 +34,8 @@ void Diagnostic(unsigned char* original,const std::string& libs,const std::strin
  auto codec=LoadLibraryA((libs+"/Recovered.TexturePublicBc.dll").c_str());Check(codec!=nullptr,"Public BC candidate load");
  auto decode=reinterpret_cast<DecodeBlock>(GetProcAddress(codec,"TexturePublicBcDecodeBlock"));
  auto encode=reinterpret_cast<EncodeBlock>(GetProcAddress(codec,"TexturePublicBcEncodeBlock"));
- auto create=reinterpret_cast<CreateDds>(GetProcAddress(codec,"TexturePublicBcCreateFromDds"));Check(decode&&encode&&create,"Public BC ABI exports");
+ auto loadDds=reinterpret_cast<NativeLoaderAbi::LoadFn>(GetProcAddress(codec,"TexturePublicBcCreateTextureFromFileA"));
+ auto create=reinterpret_cast<CreateDds>(GetProcAddress(codec,"TexturePublicBcCreateFromDds"));Check(decode&&encode&&create&&loadDds,"Public BC ABI exports");
  recovered.copy=reinterpret_cast<::Recovered::TextureCompiler::NativeCopyAbi::CopyFn>(GetProcAddress(codec,"TexturePublicBcCopySurface"));Check(recovered.copy!=nullptr,"Public compressed actual-consumer copy");
  auto decodeDds=reinterpret_cast<DecodeImage>(GetProcAddress(codec,"TexturePublicBcDecodeDdsImage"));
  auto encodeDds=reinterpret_cast<EncodeImage>(GetProcAddress(codec,"TexturePublicBcEncodeDdsImage"));Check(decodeDds&&encodeDds,"D3DX file codec interfaces");
@@ -92,6 +93,26 @@ void Diagnostic(unsigned char* original,const std::string& libs,const std::strin
    Check(Read(path)==bytes,"DDS diagnostic source changed");record(t);++ddsCases;
   }
  }
+ // Actual default file entry, all supplied-level counts, small bases and
+ // NPOT. Full original repeats and every physical/logical mip/VM byte remain
+ // captured; this remains diagnostic until the complete fixed policy agrees.
+ void* recoveredDevice=nullptr;Check(recovered.device(0,1,nullptr,0,nullptr,&recoveredDevice)==0&&recoveredDevice,"Default DDS recovered device");
+ U defaultCases=0,defaultMismatch=0;
+ const std::array<U,2> shapes[]={{{1,1}},{{1,8}},{{8,1}},{{2,4}},{{4,2}},{{2,2}},{{3,1}},{{1,3}},{{3,2}},{{2,3}},{{3,3}},{{5,3}},{{3,5}},{{7,9}},{{9,7}},{{17,35}},{{35,17}},{{31,65}},{{65,31}},{{127,5}},{{5,127}},{{129,1}},{{1,129}},{{4,4}},{{4,8}},{{8,4}},{{8,8}},{{16,32}},{{32,16}},{{64,64}}};
+ for(auto shape:shapes)for(U format:{1u,2u,3u})for(U pattern:{0u,1u,2u,31u}){
+  U levels=1;for(U n=std::max(shape[0],shape[1]);n>1;n>>=1)++levels;
+  for(U provided=1;provided<=levels;++provided){
+   current="bc-default-dds-"+std::to_string(shape[0])+"x"+std::to_string(shape[1])+"-f"+std::to_string(format)+"-p"+std::to_string(pattern)+"-levels"+std::to_string(provided);
+   const auto bytes=Dds(shape[0],shape[1],format,provided,pattern);const auto path=prefix+"-input.dds";Save(path,bytes);void* p=nullptr;
+   Check(baseline.load(device,path.c_str(),&p)==0&&p,"Original default compressed DDS");auto expected=LogicalPixels(baseline,p);{const auto storage=Consume(baseline,p,false);expected.add(storage.data.data(),storage.data.size());}p=nullptr;
+   Check(baseline.load(device,path.c_str(),&p)==0&&p,"Original repeat default compressed DDS");auto repeated=LogicalPixels(baseline,p);{const auto storage=Consume(baseline,p,false);repeated.add(storage.data.data(),storage.data.size());}if(expected.data!=repeated.data)++unstable;p=nullptr;
+   Check(loadDds(recoveredDevice,path.c_str(),&p)==0&&p,"Candidate default DDS file entry");auto output=LogicalPixels(recovered,p);{const auto storage=Consume(recovered,p,false);output.add(storage.data.data(),storage.data.size());}if(output.data!=expected.data)++defaultMismatch;
+   Trace t;t.number(static_cast<U>(bytes.size()));t.add(bytes.data(),bytes.size());t.number(static_cast<U>(expected.data.size()));t.add(expected.data.data(),expected.data.size());t.add(repeated.data.data(),repeated.data.size());t.number(static_cast<U>(output.data.size()));t.add(output.data.data(),output.data.size());record(t);++defaultCases;
+   Check(Read(path)==bytes,"Default DDS source changed");
+  }
+ }
+ Check(recovered.deviceRelease(recoveredDevice)==0,"Default DDS recovered device release");
+ std::cout<<"PROBE default DDS cases="<<defaultCases<<" mismatches="<<defaultMismatch<<"\n";
  Check(baseline.deviceRelease(device)==0,"Diagnostic original device release");Check(blockCases==1536&&ddsBlockCases==1536&&ddsCases==168,"Complete diagnostic corpus");capture.close();
  std::cout<<"PROBE D3DX file blockCases="<<ddsBlockCases<<" decodeBitMismatches="<<ddsDecodeMismatch<<"\n";
  for(U policy=0;policy<8;++policy)std::cout<<"FILE_POLICY flags="<<std::hex<<(policy<<16)<<std::dec<<" encodeMismatch="<<ddsEncodeMismatch[policy]<<" ditherMismatch="<<ddsDitherMismatch[policy]<<"\n";

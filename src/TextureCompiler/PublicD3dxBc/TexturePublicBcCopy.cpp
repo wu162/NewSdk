@@ -45,7 +45,7 @@ extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcCopySurfa
         for (U row = 0; row < rows; ++row) for (U byte = 0; byte < rowBytes; ++byte)
             little[std::size_t(row) * rowBytes + byte] = input[std::size_t(row) * sourcePitch + (byte ^ xorMask[endian])];
         std::vector<float> pixels(std::size_t(right) * bottom * 4);
-        const auto status = TexturePublicBcDecodeImage(little.data(), rowBytes, right, bottom, format, pixels.data(), right * 16);
+        const auto status = TexturePublicBcDecodeStoredImage(little.data(), rowBytes, right, bottom, format, pixels.data(), right * 16, flags);
         if (status < 0) return status;
         const U floatSourceFormat = (sourceFormat & 0x3ffc0000u) | 0x0002aa26u;
         return TextureCopySurface(destination, destinationPitch, width, height, destinationFormat, point,

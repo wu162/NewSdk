@@ -330,13 +330,13 @@ namespace DirectX
     void D3DXEncodeBC1(_Out_writes_(8) uint8_t*          pBC,
         _In_reads_(NUM_PIXELS_PER_BLOCK) const XMVECTOR* pColor,
         _In_ float                                       threshold,
-        _In_ uint32_t                                    flags) noexcept;
+        _In_ uint32_t                                    flags, bool dds = false) noexcept;
     // BC1 requires one additional parameter, so it doesn't match signature of BC_ENCODE above
 
     void
-    D3DXEncodeBC2(_Out_writes_(16) uint8_t* pBC, _In_reads_(NUM_PIXELS_PER_BLOCK) const XMVECTOR* pColor, _In_ uint32_t flags) noexcept;
+    D3DXEncodeBC2(_Out_writes_(16) uint8_t* pBC, _In_reads_(NUM_PIXELS_PER_BLOCK) const XMVECTOR* pColor, _In_ uint32_t flags, bool dds = false) noexcept;
     void
-    D3DXEncodeBC3(_Out_writes_(16) uint8_t* pBC, _In_reads_(NUM_PIXELS_PER_BLOCK) const XMVECTOR* pColor, _In_ uint32_t flags) noexcept;
+    D3DXEncodeBC3(_Out_writes_(16) uint8_t* pBC, _In_reads_(NUM_PIXELS_PER_BLOCK) const XMVECTOR* pColor, _In_ uint32_t flags, bool dds = false) noexcept;
     void
     D3DXEncodeBC4U(_Out_writes_(8) uint8_t* pBC, _In_reads_(NUM_PIXELS_PER_BLOCK) const XMVECTOR* pColor, _In_ uint32_t flags) noexcept;
     void

@@ -91,3 +91,22 @@ all old XG and full-resource comparisons and adds1536 complete direct file
 codec comparisons (including original repeated no-dither/dither outputs) to
 locate any remaining general-rule differences. This checkpoint is unvalidated;
 no production backend or acceptance boundary changes.
+
+
+2026-10-30 second implementation checkpoint (unvalidated): direct file codec
+2b79fee9/41011190751 matches all1536 decode and no-dither encode blocks; dither
+has6 colour differences (all in premultiplied uniform planes), with D/R
+identical53e01cd9... captures. Full DDS flags0 improves141/168. The current
+source adds the original x87 toward-zero phases around file colour quantization,
+565 endpoint packing and index/error diffusion (28e46/2842b; caller CW restored).
+It also separates default file upload RGB/alpha dither from BOX mip generation.
+
+The isolated default file ABI now consumes small/NPOT DDS: base axes clamp4 and
+round upward to POT; each provided level is decoded with the file codec and
+resized using the accepted upstream triangle specialization, complete aligned
+blocks remain verbatim, and missing levels decode the actual preceding stored
+blocks before BOX/encode. New float-IO triangle files derive from the unchanged
+accepted PublicDirectXTex source, recorded in PROVENANCE.json. The diagnostic
+adds all provided-level counts for30 small/NPOT/POT shapes through the actual
+file ABI. Its result remains pending; production compressed loading still rejects.
+XG compressed-to-raw now honors its explicit flag2 unpremultiplication bit.
