@@ -26,7 +26,7 @@ namespace {
 using namespace Recovered::TextureCompiler;using U=std::uint32_t;
 using OriginalCreate=void* (__stdcall *)(U,U,U,U,U,U,U,U);
 struct Api{NativeDeviceAbi::CreateFn device;NativeDeviceAbi::ReleaseFn deviceRelease;NativeResourceAbi::RefFn add,release;NativeResourceAbi::UnlockFn unlock;NativeSurfaceAbi::LayoutFn layout;NativeSurfaceAbi::LockFn lock;NativeDescriptorAbi::LevelFn level;NativeDescriptorAbi::TextureFn describe;NativeCopyAbi::CopyFn copy;NativeLoaderAbi::CreateFn create;NativeLoaderAbi::LoadFn load;OriginalCreate originalCreate;bool isolated=false;};
-U constructorCases=0,fileCases=0,copyCases=0,rejections=0,mismatches=0,subblockBoundaries=0;std::string current,failurePath;
+U constructorCases=0,fileCases=0,copyCases=0,rejections=0,mismatches=0,compressedBoundaries=0;std::string current,failurePath;
 void Check(bool c,const char* why){if(!c)throw std::runtime_error(current+": "+why);}
 void Isolation(const Api& api){if(api.isolated){Check(!GetModuleHandleA("BinaryAssetBuilder.TextureCompiler.dll"),"Original loaded during loader replay");Check(GetFileAttributesA("BinaryAssetBuilder.TextureCompiler.dll")==INVALID_FILE_ATTRIBUTES,"Original file during loader replay");}}
 U Address(const void* p){return static_cast<U>(reinterpret_cast<std::uintptr_t>(p));}
@@ -114,13 +114,13 @@ std::vector<unsigned char> Dds(U w,U h,U format,U provided,U pattern){
 }
 void FileCase(Api recovered,Api original,bool hasOriginal,Gold& gold,void* rd,void* od,const std::string& path){
  auto input=Read(path);void* p=nullptr;Isolation(recovered);const auto status=recovered.load(rd,path.c_str(),&p);Isolation(recovered);Trace actual;actual.number(static_cast<U>(status));
- const bool subblock=input.size()>=128&&Load(input.data(),0)==0x20534444&&(Load(input.data(),80)&4)&&(Load(input.data(),84)==0x31545844||Load(input.data(),84)==0x33545844||Load(input.data(),84)==0x35545844)&&(Load(input.data(),12)<4||Load(input.data(),16)<4);
- if(subblock){
-  Check(status==static_cast<std::int32_t>(0x80004001u)&&!p,"Sub-block compressed base must explicitly reject unrecovered expansion/recompression");
-  if(hasOriginal){void* originalResource=nullptr;Check(original.load(od,path.c_str(),&originalResource)==0&&originalResource,"Original sub-block source must remain a successful oracle, not a matching rejection");auto probe=Consume(original,originalResource,false);unsupportedOriginal.name(current);unsupportedOriginal.number(static_cast<U>(probe.data.size()));unsupportedOriginal.add(probe.data.data(),probe.data.size());}
+ const bool compressed=input.size()>=128&&Load(input.data(),0)==0x20534444&&(Load(input.data(),80)&4)&&(Load(input.data(),84)==0x31545844||Load(input.data(),84)==0x33545844||Load(input.data(),84)==0x35545844);
+ if(compressed){
+  Check(status==static_cast<std::int32_t>(0x80004001u)&&!p,"Compressed DDS must explicitly reject unrecovered base/tail recompression");
+  if(hasOriginal){void* originalResource=nullptr;Check(original.load(od,path.c_str(),&originalResource)==0&&originalResource,"Original compressed source must remain a successful oracle, not a matching rejection");auto probe=Consume(original,originalResource,false);unsupportedOriginal.name(current);unsupportedOriginal.number(static_cast<U>(probe.data.size()));unsupportedOriginal.add(probe.data.data(),probe.data.size());}
   // This record proves the explicit unsupported boundary, NOT byte equality
   // to original success. Its full original resource is preserved separately.
-  Trace boundary;boundary.number(static_cast<U>(0x80004001u));gold.record(std::move(actual),hasOriginal?&boundary:nullptr);Check(Read(path)==input,"Sub-block boundary modified source");++fileCases;++subblockBoundaries;return;
+  Trace boundary;boundary.number(static_cast<U>(0x80004001u));gold.record(std::move(actual),hasOriginal?&boundary:nullptr);Check(Read(path)==input,"Compressed boundary modified source");++fileCases;++compressedBoundaries;return;
  }
  if(status>=0){auto trace=Consume(recovered,p,true);actual.add(trace.data.data(),trace.data.size());}else Check(!p,"Rejected load returned a resource");
  Trace expected;if(hasOriginal){p=nullptr;const auto result=original.load(od,path.c_str(),&p);Check(result==0&&p,"Declared supported original file must load successfully");expected.number(static_cast<U>(result));if(result>=0){auto trace=Consume(original,p,true);expected.add(trace.data.data(),trace.data.size());}else Check(!p,"Rejected original returned resource");}
@@ -153,8 +153,8 @@ void Files(Api recovered,Api original,bool hasOriginal,Gold& gold,const std::str
 }
 void Run(unsigned char* original,const std::string& libs,const std::string& fixtures,const std::string& prefix){
  failurePath=prefix;std::vector<HMODULE> modules;auto recovered=Recovered(libs,modules,!original);Api baseline{};if(original)baseline=Original(original);Gold gold;std::vector<unsigned char> replay;if(!original){replay=Read(prefix+".capture");gold.replay=&replay;}
- Constructors(recovered,baseline,original!=nullptr,gold);Files(recovered,baseline,original!=nullptr,gold,fixtures,prefix+"-inputs");std::cerr<<"COMPLETE constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" mismatches="<<mismatches<<"\n";Check(constructorCases==6860&&fileCases==2789&&rejections==5&&subblockBoundaries==55,"Complete declared constructor/file/rejection matrix count");if(mismatches)throw std::runtime_error("Complete loader mismatches="+std::to_string(mismatches)+" constructorCases="+std::to_string(constructorCases)+" fileCases="+std::to_string(fileCases));if(original){Save(prefix+".capture",gold.output.data);Save(prefix+".unsupported-original",unsupportedOriginal.data);}else Check(gold.offset==replay.size(),"Trailing loader capture bytes");for(auto m:modules)FreeLibrary(m);
- std::cout<<"PASS PC native loader "<<(original?"differential":"NoOriginal")<<" constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" rgbaCopies="<<copyCases<<" supportedFiles="<<(fileCases-subblockBoundaries)<<" originalSuccessUnsupportedSubblocks="<<subblockBoundaries<<" explicitRejections="<<rejections<<" completeBytes="<<gold.output.data.size()<<"; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity\n";
+ Constructors(recovered,baseline,original!=nullptr,gold);Files(recovered,baseline,original!=nullptr,gold,fixtures,prefix+"-inputs");std::cerr<<"COMPLETE constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" mismatches="<<mismatches<<"\n";Check(constructorCases==6860&&fileCases==2789&&rejections==5&&compressedBoundaries==105,"Complete declared constructor/file/rejection matrix count");if(mismatches)throw std::runtime_error("Complete loader mismatches="+std::to_string(mismatches)+" constructorCases="+std::to_string(constructorCases)+" fileCases="+std::to_string(fileCases));if(original){Save(prefix+".capture",gold.output.data);Save(prefix+".unsupported-original",unsupportedOriginal.data);}else Check(gold.offset==replay.size(),"Trailing loader capture bytes");for(auto m:modules)FreeLibrary(m);
+ std::cout<<"PASS PC native loader "<<(original?"differential":"NoOriginal")<<" constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" rgbaCopies="<<copyCases<<" supportedFiles="<<(fileCases-compressedBoundaries)<<" originalSuccessUnsupportedCompressed="<<compressedBoundaries<<" explicitRejections="<<rejections<<" completeBytes="<<gold.output.data.size()<<"; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity\n";
 }
 }
 #pragma managed(pop)

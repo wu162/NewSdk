@@ -99,9 +99,12 @@ std::int32_t GenerateRawMips(void* resource,U first,U levels,U width,U height,U 
 }
 std::int32_t LoadDds(const std::vector<unsigned char>& bytes,void** output){
  if(bytes.size()<128||Load(bytes.data(),4)!=124||Load(bytes.data(),76)!=32)return InvalidData;
- const U flags=Load(bytes.data(),80),fourCC=Load(bytes.data(),84),bits=Load(bytes.data(),88),r=Load(bytes.data(),92),g=Load(bytes.data(),96),b=Load(bytes.data(),100),a=Load(bytes.data(),104);
+ const U flags=Load(bytes.data(),80),bits=Load(bytes.data(),88),r=Load(bytes.data(),92),g=Load(bytes.data(),96),b=Load(bytes.data(),100),a=Load(bytes.data(),104);
  U format=0;
- if(flags&4){if(fourCC==0x31545844)format=0x1a200052;else if(fourCC==0x33545844)format=0x1a200053;else if(fourCC==0x35545844)format=0x1a200054;else return Unsupported;}
+ // Original D3DX re-encodes even PROVIDED 2x2/1x1 compressed tail mips.
+ // The recovered copy ABI has no compression backend. Preserve that explicit
+ // boundary instead of returning a superficially correct but different block.
+ if(flags&4)return Unsupported;
  else if((flags&0x40)&&bits==32&&r==0xff0000&&g==0xff00&&b==0xff&&(a==0xff000000||a==0))format=a?0x18280086:0x28280086;
  else return Unsupported;
  const U width=Load(bytes.data(),16),height=Load(bytes.data(),12),sourceLevels=std::max(1u,Load(bytes.data(),28));
@@ -109,13 +112,8 @@ std::int32_t LoadDds(const std::vector<unsigned char>& bytes,void** output){
  // D3DXCreateTextureFromFileA requests ordinary 2D even when caps2 carries
  // volume metadata. The native parser's multi-slice/cube paths are separate.
  if((Load(bytes.data(),112)&0xfe00)||Load(bytes.data(),24)>1)return Unsupported;
- // D3DX requirements enlarge compressed base axes below4 and RECOMPRESS
- // even the base block, rather than copying its unused texels. This is the
- // same unrecovered compression/filter boundary as missing compressed mips.
- if((format&63)>=18&&(format&63)<=20&&(width<4||height<4))return Unsupported;
  const U levels=Log(std::max(width,height))+1;
  if(sourceLevels>levels)return Unsupported;
- if(sourceLevels<levels&&(format&63)!=6)return Unsupported; // compressed missing-level recompression is not restored
  Resource resource;resource.p=TextureCreateCpuTexture(width,height,levels,format);if(!resource.p)return OutOfMemory;
  U offset=128;const U f=format&63;U bx,by;Blocks(f,bx,by);U w=width,h=height;
  for(U level=0;level<sourceLevels;++level){
