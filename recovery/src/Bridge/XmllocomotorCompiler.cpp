@@ -14,12 +14,8 @@ public ref class LocomotorTemplateCompiler abstract sealed {
             IntPtr(const_cast<unsigned char*>(source.data())), result, 0, result->Length);
         return result;
     }
-    static bool NamespaceAttribute(XmlAttribute^ attribute) {
-        return attribute->NamespaceURI == "http://www.w3.org/2000/xmlns/";
-    }
-    static void Attributes(XmlNode^ node, bool root) {
 
-    }
+
     static void Read(XmlNodeAdapter^ node, const Native::Xmllocomotor::Field* fields,
         unsigned count, std::map<std::string,std::string>& values) {
         for (unsigned i = 0; i < count; ++i) {
@@ -27,30 +23,12 @@ public ref class LocomotorTemplateCompiler abstract sealed {
             if (value != nullptr) values[fields[i].name] = marshal_as<std::string>(value);
         }
     }
-    static void Children(XmlNode^ node, bool root) {
-        bool bounce = false, jet = false;
-        for each (XmlNode^ child in node->ChildNodes) {
-            if (child->NodeType != XmlNodeType::Element) {
 
-                continue;
-            }
-            ;
-            if (child->LocalName == "JetLocomotorData" && !jet) {
-                jet = true; Attributes(child, false); Children(child, false);
-
-            } else if (child->LocalName == "BounceKickTerrainMap" && !bounce) {
-                bounce = true;
-
-                Children(child, false);
-            }
-        }
-    }
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
         if (namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
         if (node == nullptr) throw gcnew ArgumentNullException("node");
 
-        Attributes(node, true); Children(node, true);
         try {
             Native::Xmllocomotor::Input input;
             XmlNodeAdapter^ adapter = gcnew XmlNodeAdapter(node->CreateNavigator(), namespaces);
