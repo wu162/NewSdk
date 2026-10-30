@@ -1,0 +1,33 @@
+name: RA3 EALayer3 V1
+on:
+  push:
+    branches: [feature/ra3-ealayer3]
+    paths: ['recovery/src/**', 'recovery/build/**', 'recovery/scripts/*EaLayer3*', 'recovery/tests/AudioEaLayer3*', '.github/workflows/audio-ealayer3.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  targeted:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: ilammy/msvc-dev-cmd@v1
+        with: {arch: x86}
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '8.0.x'}
+      - name: Build and encode real AudioFile assets, jobs 1 and 4, independently decode
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioEaLayer3.ps1
+      - name: Existing NONE XAS MP3Passthrough and PathMusic byte regressions
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioPlugin.ps1 -Groups business,pcm,xas,main,loops,aiffloops -IncludeMp3
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ealayer3-${{ github.run_id }}
+          path: |
+            recovery/evidence/audio/ealayer3/**
+            recovery/evidence/audio/plugin-validation/**
+          if-no-files-found: error
