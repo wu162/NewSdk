@@ -8,9 +8,8 @@ using NewModCompiler.Diagnostics;
 
 namespace NewModCompiler.Application
 {
-    // Directory records are fetched once per parent. Public files include
-    // ChangeTime; immutable private four-stream snapshots survive hard-link
-    // creation without rereading their content merely because ChangeTime moved.
+    // Input identities are fetched once per parent. ChangeTime preserves
+    // invalidation for same-length edits with restored modification times.
     internal sealed class FileHashCache
     {
         internal int Reads { get; private set; }
@@ -42,7 +41,7 @@ namespace NewModCompiler.Application
         }
         internal string HashBase64(string path, byte[] contents)
         {
-            return Base64(Hash(Identity(Path.GetFullPath(path)), false, contents));
+            return Base64(Hash(Identity(Path.GetFullPath(path)), contents));
         }
         static string Base64(string hex)
         {
@@ -51,13 +50,13 @@ namespace NewModCompiler.Application
             return Convert.ToBase64String(bytes);
         }
 
-        internal string Hash(string path, bool immutable = false)
+        internal string Hash(string path)
         {
-            return Hash(Identity(Path.GetFullPath(path)), immutable);
+            return Hash(Identity(Path.GetFullPath(path)));
         }
-        string Hash(FileIdentity file, bool immutable, byte[] contents = null)
+        string Hash(FileIdentity file, byte[] contents = null)
         {
-            string key = Key(file, immutable), hash;
+            string key = Key(file), hash;
             if (used.TryGetValue(key, out hash)) {Reuses++;return hash;}
             if (!previous.TryGetValue(key, out hash))
             {
@@ -82,7 +81,7 @@ namespace NewModCompiler.Application
             FileIdentity file;
             if (!DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file))
                 return new BinaryAssetBuilder.Core.FileHashInfo();
-            string key = Key(file, false), hash;
+            string key = Key(file), hash;
             if (used.TryGetValue(key, out hash) || previous.TryGetValue(key, out hash))
             { used[key] = hash; Reuses++; }
             return new BinaryAssetBuilder.Core.FileHashInfo { Exists = true,
@@ -92,13 +91,11 @@ namespace NewModCompiler.Application
         internal void RememberCoreHash(string path, string contentHash)
         {
             var file = Identity(Path.GetFullPath(path));
-            string key = Key(file, false);
+            string key = Key(file);
             if (!used.ContainsKey(key) && !previous.ContainsKey(key)) { Reads++; BytesRead += file.Size; }
             used[key] = BitConverter.ToString(Convert.FromBase64String(contentHash)).Replace("-", "").ToLowerInvariant();
         }
 #endif
-        internal bool Exists(string path) { FileIdentity file; return DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file); }
-        internal long Size(string path) { return Identity(Path.GetFullPath(path)).Size; }
         internal IDictionary<string, string> SchemaIdentities(IEnumerable<string> paths)
         {
             // A new schema pass refreshes the metadata snapshot before any
@@ -108,7 +105,7 @@ namespace NewModCompiler.Application
             foreach (string path in paths)
             {
                 FileIdentity file;
-                result[path] = DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file) ? Key(file, false) : null;
+                result[path] = DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file) ? Key(file) : null;
             }
             return result;
         }
@@ -146,12 +143,12 @@ namespace NewModCompiler.Application
             return files;
         }
 
-        internal static string Key(FileIdentity file, bool immutable)
+        internal static string Key(FileIdentity file)
         {
             string identity = file.VolumeSerial.ToString("x16", CultureInfo.InvariantCulture) + "|" +
                 file.FileId.ToString("x16", CultureInfo.InvariantCulture) + "|" +
                 file.LastWriteTime.ToString("x16", CultureInfo.InvariantCulture) + "|" + file.Size.ToString("x16", CultureInfo.InvariantCulture);
-            return immutable ? "inode|" + identity : "path|" + file.Path.ToUpperInvariant() + "|" + identity + "|" +
+            return "path|" + file.Path.ToUpperInvariant() + "|" + identity + "|" +
                 file.ChangeTime.ToString("x16", CultureInfo.InvariantCulture);
         }
     }

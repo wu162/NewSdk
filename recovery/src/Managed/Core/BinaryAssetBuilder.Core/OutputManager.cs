@@ -86,6 +86,7 @@ public class OutputManager
 		_ManifestFile = _OutputDirectory + ".manifest";
 		_OldManifestFile = _OutputDirectory + ".old.manifest";
 		_VersionFile = _OutputDirectory.Remove(_OutputDirectory.LastIndexOf(Settings.Current.CustomPostfix)) + ".version";
+        Directory.CreateDirectory(Path.GetDirectoryName(_OutputDirectory));
         Settings.Current.StreamOutputStarted?.Invoke(_OutputDirectory);
         bool complete = true;
         foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo" })

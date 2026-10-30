@@ -147,7 +147,6 @@ namespace NewModCompiler.Tests
                 assertions += PerformanceTests.Run();
 
                 assertions += EventBufferingTests.Run(Path.Combine(root,"event-buffering"));
-                assertions += CacheInputSnapshotTests.Run(Path.Combine(root,"cache-input-tests"));
 
 
                 assertions += LegacyCacheStoreTests.Run(Path.Combine(root,"legacy-cache"));

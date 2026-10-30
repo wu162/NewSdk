@@ -17,7 +17,7 @@ $r.performance.entries | Sort-Object selfMs -Descending | Select-Object -First 2
 | 档位 | 粒度 |
 | --- | --- |
 | off | 无新增性能报告；不读取性能时钟、不分配计时 scope、不建立计时字典。保留既有构建阶段事件与缓存计数。 |
-| summary | plan/compile/package/publish；身份收据加载/保存；后端初始化/销毁；每流设置、提供程序、Schema、字符串哈希、缓存准备/读取/保存（序列化和 staging 分开）、Core 主处理、产物采集、清理；BIG/LoD/Additional/中立资产修复及发布准备/提交。 |
+| summary | plan/compile/package；输入身份加载/保存；后端初始化/销毁；每流设置、提供程序、Schema、字符串哈希、缓存准备/读取/保存（原格式序列化）、Core 主处理、产物采集、清理；BIG/LoD/Additional/中立资产修复，无事务发布阶段。 |
 | detailed | summary 加 Schema 读取解析/编译/依赖整理、文档打开/递归包含、XML 解析/表达式/覆盖/校验、资产处理/编译/验证/提交、按资产类型汇总的编译器调用、输出引用解析/manifest/link/清理、真实目录枚举及 SHA256、Core 一次读取 FastHash+SHA256。 |
 
 `streamId` 对应构建计划的流 ID。名称固定到阶段/资产类型，不含文件名、实例名，重复调用只累加计数，不生成每文件事件。热态没有执行的操作不生成条目，例如复用成功时可能没有 `core.compiler.Texture`；结合原有 `cache.xmlParse`、`instanceCompile`、`fileHashReads` 判断。
@@ -31,7 +31,7 @@ $r.performance.entries | Sort-Object selfMs -Descending | Select-Object -First 2
 
 不同层级的 `totalMs` 有重叠，不可相加；递归文档/包含也会把子调用时间计入父调用。`selfMs` 只扣掉已开启的子打点，因此 summary 与 detailed 的 self 值不能直接当作同一口径比较。计时本身的管理开销可能计入外层 self；detailed 用于定位，关闭后测最终吞吐。
 
-报告标记 `boundary: before-report-write`：范围截至最终报告写入前，不包括 CLI 参数解析、诊断通道打开、报告序列化/写出、终端事件/日志关闭与最终事务清理。它不是完整进程耗时；完整耗时需由调用方计量。不要为测报告写入而再写一遍报告。
+报告标记 `boundary: before-report-write`：范围截至最终报告写入前，不包括 CLI 参数解析、诊断通道打开、报告序列化/写出、终端事件/日志关闭。它不是完整进程耗时；完整耗时需由调用方计量。不要为测报告写入而再写一遍报告。
 
 ## 后端并行计量
 

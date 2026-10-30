@@ -52,6 +52,29 @@ jobs:
             ./recovery/scripts/BuildCompiler.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/direct-product/$mode"
             ./recovery/scripts/BuildCompilerValidationHost.ps1 -ProductBuildDirectory "recovery/artifacts/direct-product/$mode" -OutputDirectory "recovery/artifacts/direct-product/$mode/validation"
           }
+      - uses: actions/checkout@v4
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        with:
+          ref: 5c1843aea5f9b0cdcbe04325b251a8a944ed0fae
+          path: work/baseline
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Rebuild the original branch head for same VM comparison
+        id: baseline
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./work/baseline/recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory "$env:RUNNER_TEMP/direct-before"
+      - name: Paired BIG bytes, logical process I/O and publication time
+        if: ${{ !cancelled() && steps.baseline.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/scripts/MeasureDirectOutput.py --before "$env:RUNNER_TEMP/direct-before/bin/NewModCompiler.exe" --after recovery/artifacts/direct-product/Release/bin/NewModCompiler.exe --work "$env:RUNNER_TEMP/direct-paired" --output recovery/artifacts/direct-tests/paired --source-commit $env:GITHUB_SHA --baseline-commit 5c1843aea5f9b0cdcbe04325b251a8a944ed0fae
+          if($LASTEXITCODE -ne 0){throw 'Paired direct-output measurement or bytes failed'}
+          Copy-Item "$env:RUNNER_TEMP/direct-before/build.json" recovery/artifacts/direct-tests/paired/baseline-build.json
+          Copy-Item "$env:RUNNER_TEMP/direct-before/link-inputs.json" recovery/artifacts/direct-tests/paired/baseline-link-inputs.json
       - name: Targeted Core lifecycle and application pipeline
         if: ${{ !cancelled() && steps.product.outcome == 'success' }}
         shell: pwsh
@@ -84,6 +107,14 @@ jobs:
         run: |
           python recovery/scripts/TestCompilerHotCache.py --build-directory recovery/artifacts/direct-product/Release --work "$env:RUNNER_TEMP/direct-hot" --output recovery/artifacts/direct-tests/hot --source-commit $env:GITHUB_SHA --budget 120 --timeout 15
           if($LASTEXITCODE -ne 0){throw 'Hot-cache matrix failed'}
+      - name: Validate actual Debug and Release protocol records
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          foreach($scope in @('lifecycle','cli','session','assets','payloads','big','sdk')) {
+            python recovery/scripts/ValidateAppProtocol.py "recovery/artifacts/direct-tests/$scope" --source-commit $env:GITHUB_SHA --output "recovery/artifacts/direct-tests/$scope-protocol.json"
+            if($LASTEXITCODE -ne 0){throw "Protocol validation failed: $scope"}
+          }
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -259,29 +259,26 @@ try {
         # Reuse exactly the same destination across actual production processes.
         # Late report/terminal/close failures are separately injected by App contracts.
         if($script:publicationEnabled){
-            $firstPublication=RunCli 'publication-first' 'build' $mod $sdk 'base' 0 1
+            $firstPublication=RunCli 'direct-first' 'build' $mod $sdk 'base' 0 1
             $publicationOut=$firstPublication.destination;$generation=Join-Path $publicationOut 'published'
-            [IO.File]::WriteAllText((Join-Path $generation 'obsolete.bin'),'must not survive replacement')
-            $replacement=RunCli 'publication-replace' 'build' $mod $sdk 'apt' 0 2 -ReuseDestination $publicationOut
-            Need (!(Test-Path -LiteralPath (Join-Path $generation 'obsolete.bin')) -and !(Test-Path -LiteralPath (Join-Path $generation 'base'))) 'Replacement retained old generation files'
-            Need (@(Get-ChildItem -LiteralPath $generation -File -Recurse).Count -eq 8) 'Replacement did not publish the exact artifact allowlist'
+            $unrelated=Join-Path $generation 'unrelated.keep'
+            [IO.File]::WriteAllText($unrelated,'preserve unrelated output')
+            $replacement=RunCli 'direct-next-selection' 'build' $mod $sdk 'apt' 0 2 -ReuseDestination $publicationOut
+            Need ((Test-Path -LiteralPath (Join-Path $generation 'base')) -and [IO.File]::ReadAllText($unrelated) -ceq 'preserve unrelated output') 'Direct build removed unselected output'
+            Need (@($replacement.report.artifacts).Count -eq 8 -and @($replacement.report.artifacts|Where-Object{$_.Path -like '*published*base*'}).Count -eq 0) 'Current selection accepted old stream files'
             EqualTask $combined $replacement 'apt'
-            $generationSnapshot=Snapshot $generation
-            $cancelPublication=RunCli 'publication-cancel-retains' 'build' $mod $sdk 'base,apt,maps' 6 1 $true -ReuseDestination $publicationOut
-            Unchanged $generation $generationSnapshot
+            $cancelPublication=RunCli 'direct-cancel' 'build' $mod $sdk 'base,apt,maps' 6 1 $true -ReuseDestination $publicationOut
+            Need (@($cancelPublication.report.artifacts).Count -eq 0) 'Cancelled build accepted previous output'
             [IO.File]::WriteAllText((Join-Path $badMod 'Data/Mod.xml'),'<AssetDeclaration>broken')
-            $failedPublication=RunCli 'publication-compile-failure-retains' 'build' $badMod $sdk 'base' 4 1 -ReuseDestination $publicationOut
-            Unchanged $generation $generationSnapshot
+            $failedPublication=RunCli 'direct-compile-failure' 'build' $badMod $sdk 'base' 4 1 -ReuseDestination $publicationOut
+            Need (@($failedPublication.report.artifacts).Count -eq 0 -and [IO.File]::ReadAllText($unrelated) -ceq 'preserve unrelated output') 'Failed build accepted old output or removed unrelated files'
             [IO.File]::WriteAllText((Join-Path $badMod 'Data/Mod.xml'),$probe)
             $heldArtifact=@($replacement.report.artifacts)[0].Path
-            $occupiedPublication=RunCli 'publication-occupied-retains' 'build' $mod $sdk 'base' 7 1 -HoldReadFile $heldArtifact -ReuseDestination $publicationOut
-            Need ($occupiedPublication.report.publicationStatus -ceq 'NotPublished') 'Occupied output was accepted as a publication'
-            Need ($occupiedPublication.report.exitCode -eq 7 -and $modeState.cases[-1].control.readLockHeld -and $modeState.cases[-1].control.readLockPath -ceq $heldArtifact) 'Publication fault did not hold an actual prior generation artifact'
-            Unchanged $generation $generationSnapshot
-            $publicationRetry=RunCli 'publication-retry' 'build' $mod $sdk 'base' 0 1 -ReuseDestination $publicationOut
-            Need (@(Get-ChildItem -LiteralPath $generation -File -Recurse).Count -eq 4 -and !(Test-Path -LiteralPath (Join-Path $generation 'apt'))) 'Publication retry mixed old/new selections'
+            $publicationRetry=RunCli 'locked-unselected-output' 'build' $mod $sdk 'base' 0 1 -HoldReadFile $heldArtifact -ReuseDestination $publicationOut
+            Need (@($publicationRetry.report.artifacts).Count -eq 4 -and (Test-Path -LiteralPath (Join-Path $generation 'apt'))) 'Direct retry mixed current and unselected streams'
             EqualTask $combined $publicationRetry 'base'
-            $modeState.publicationAcceptance=@{passed=$true;directory=$generation;first=$firstPublication.name;replacement=$replacement.name;cancel=$cancelPublication.name;compilationFailure=$failedPublication.name;occupied=$occupiedPublication.name;retry=$publicationRetry.name;lateOutputFailures='Separate controlled App lifecycle contracts; no real CLI late failure injection claimed'}
+            $modeState.publicationAcceptance=@{passed=$true;directory=$generation;first=$firstPublication.name;replacement=$replacement.name;cancel=$cancelPublication.name;compilationFailure=$failedPublication.name;retry=$publicationRetry.name;scope='Direct output; current allowlist excludes old selections, unrelated files remain, no whole-MOD rollback'}
+
         }
         foreach($selection in @(@{name='mod-a';task=@($ascii.report.plan.Tasks|Where-Object{$_.Content -ceq 'base'})[0]},@{name='mod-b';task=@($ascii.report.plan.Tasks|Where-Object{$_.Content -ceq 'apt'})[0]})){
             $task=$selection.task;$prefix=Join-Path (ArtifactRoot $ascii.destination $ascii.report) ($task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath));$outputs=@{}
