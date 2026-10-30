@@ -35,7 +35,11 @@ concurrency:
   cancel-in-progress: false
 jobs:
   preflight:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-2022]
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 3
     env:
       PYTHONDONTWRITEBYTECODE: '1'
