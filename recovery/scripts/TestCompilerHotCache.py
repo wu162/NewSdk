@@ -100,11 +100,13 @@ def prepare(repo, work):
     ET.SubElement(root.find('{%s}Includes' % NS), '{%s}Include' % NS, {'type': 'all', 'source': 'native.xml'})
     for node in ET.fromstring(declaration(textures + audio_xml)):
         root.append(node)
-    # A shared definition/inheritance dependency on a separate document gives
-    # edits a real two-edge propagation chain while all Armor siblings stay hot.
+    # A separate defines file bypasses the instance-include file-hash check:
+    # expression changes then propagate through the cached inheritance chain.
+    (data / 'defines.xml').write_text(declaration(
+        '<Defines><Define name="HOT_SCALE" value="83.25"/></Defines>'), encoding='utf-8')
     (data / 'base.xml').write_text(declaration(
-        '<Defines><Define name="HOT_SCALE" value="83.25"/></Defines>'
-        '<ArmorTemplate id="HotBase" Default="72.5%"/>'), encoding='utf-8')
+        '<Includes><Include type="all" source="defines.xml"/></Includes>'
+        '<ArmorTemplate id="HotBase" Default="72.5%" DamageScalar="=$HOT_SCALE"/>'), encoding='utf-8')
     (data / 'derived.xml').write_text(declaration(
         '<Includes><Include type="instance" source="base.xml"/></Includes>'
         '<ArmorTemplate id="HotDerived" inheritFrom="HotBase" DamageScalar="=$HOT_SCALE"/>'), encoding='utf-8')
@@ -309,7 +311,7 @@ def run(args):
         for round_index in range(3):
             for name, tier, mode, jobs, fmt, performance in (scenarios if round_index % 2 == 0 else reversed(scenarios)):
                 sample(name, tier, mode, 'cold' if round_index == 0 else 'hot' + str(round_index), jobs, fmt, performance)
-        # Four independent content boundaries; edits accumulate in the same MOD
+        # Six content boundaries; edits accumulate in the same MOD
         # and each generation gets a new no-cache control before cache reuse.
         data = Path(workloads['medium']['modRoot']) / 'Data'
         edits = [('xml', data / 'armor-000.xml', lambda b: b.replace(b'72.5%', b'62.5%', 1)),
@@ -317,7 +319,7 @@ def run(args):
                  ('audio', data / 'probe.wav', lambda b: b[:44] + bytes([b[44] ^ 1]) + b[45:]),
                  ('animation', data / 'native.xml', lambda b: b.replace(b'FrameRate="30"', b'FrameRate="31"', 1)),
                  ('inheritance', data / 'base.xml', lambda b: b.replace(b'72.5%', b'62.5%', 1)),
-                 ('defines', data / 'base.xml', lambda b: b.replace(b'83.25', b'73.25', 1))]
+                 ('defines', data / 'defines.xml', lambda b: b.replace(b'83.25', b'73.25', 1))]
         generation = 'original'
         for generation, path, transform in edits:
             state['mutations'].append(same_stamp_edit(path, transform))
@@ -330,9 +332,15 @@ def run(args):
             if generation in ('xml', 'animation', 'inheritance', 'defines'):
                 need(counts.get('dependency.include.affectedDocuments', 0) > 0, 'Include change did not report propagation')
             if generation in ('inheritance', 'defines'):
-                need(counts.get('cache.invalidation.' + ('inheritanceChanged' if generation == 'inheritance' else 'definesChanged'), 0) > 0,
+                # An instance Include is itself a file dependency: that earlier
+                # check must win when base.xml bytes change. A definitions-only
+                # all Include instead reaches the defines/inheritance checks.
+                need(counts.get('cache.invalidation.' + ('dependentFileChanged' if generation == 'inheritance' else 'definesChanged'), 0) > 0,
                      'Missing dependency-driven reload reason: ' + generation)
                 need(counts.get('dependency.propagation.documents', 0) > 0, 'Missing dependency-invalidated documents')
+                if generation == 'defines':
+                    need(counts.get('cache.invalidation.inheritanceChanged', 0) > 0,
+                         'Evaluated base asset change did not report inheritance propagation')
             sample('medium-default', 'medium', 'both-deflate', 'hot-after-' + generation, performance='summary', generation=generation)
         destination = work / 'builds/medium-default'
         missing = next((destination / 'published').rglob('*.bin'))

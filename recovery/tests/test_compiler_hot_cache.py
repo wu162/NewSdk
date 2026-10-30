@@ -1,6 +1,5 @@
 """Cheap fixture, observation and deadline checks before the Windows build."""
 import copy
-import importlib.util
 import json
 from pathlib import Path
 import sys
@@ -43,6 +42,9 @@ class HotCacheTests(unittest.TestCase):
             derived = ET.parse(data / 'derived.xml').getroot().find(ns + 'ArmorTemplate')
             self.assertEqual(derived.get('inheritFrom'), 'HotBase')
             self.assertEqual(derived.get('DamageScalar'), '=$HOT_SCALE')
+            base = ET.parse(data / 'base.xml').getroot()
+            self.assertEqual(base.find(ns + 'ArmorTemplate').get('DamageScalar'), '=$HOT_SCALE')
+            self.assertEqual(base.find(ns + 'Includes/' + ns + 'Include').get('type'), 'all')
 
     def test_mutation_preserves_length_and_timestamp_and_rejects_noop(self):
         with tempfile.TemporaryDirectory() as temp:

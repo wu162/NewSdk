@@ -4,6 +4,8 @@
 
 summary/detailed 新增按流聚合的 `performance.counters`：实际缓存失效原因、唯一失效文档和原 self-instance 数、Include 传播、定义/继承/文件依赖检查及传播重载；off 不建计数字典，不追加文件读取或依赖扫描。见 [性能说明](docs/PERFORMANCE.md)。本地五项 Python 预检通过；生产改动必须重建，旧二进制不作本轮新验收，Windows 结果待记录。禁止强推，未经批准不合并。
 
+首轮 `90e81710` / [41009339596](https://github.com/wu162/NewSdk/actions/runs/41009339596) 已保留失败：App、当前Release、原14样本通过，扩展48样本通过后因继承用例误要求晚于文件依赖检查的原因而拒绝。实际输出相等、直接失效1文档并传播至第2文档；控制器已按真实先后顺序修复，并分离定义文件以独立触发定义与继承链。原收据及归档复算身份在 [证据目录](evidence/refactor/hot-cache/41009339596-1)。生产源码未随修复改变，新矩阵结果仍待运行。
+
 # 当前：W3DAnimation 压缩优化（功能及真实通道计量已通过）
 
 分支 `optimize/w3d-animation-compression` / [PR #22](https://github.com/wu162/NewSdk/pull/22)，基于 `recovery/legacy-sdk-cache` 的 `436115db`。Timecoded 邻接索引/局部最小堆、AdaptiveDelta 有界搜索/常量快路/步长复用、生产逐帧去拷贝已完成，精度及输出不变。

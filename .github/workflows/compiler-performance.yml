@@ -75,6 +75,7 @@ jobs:
             recovery/artifacts/performance-app/*.log
             recovery/artifacts/performance-product/*.log
             recovery/artifacts/performance-product/*.json
+            recovery/artifacts/performance-product/bin/*
             recovery/artifacts/performance-product/obj/foundation/*.log
             recovery/artifacts/performance-product/obj/foundation/*.json
             recovery/artifacts/performance-product/obj/native/logs/*.log
