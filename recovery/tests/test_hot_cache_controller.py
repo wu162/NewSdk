@@ -126,6 +126,26 @@ class ReplayAndReportTests(unittest.TestCase):
             self.assertFalse((mod / 'new.xml').exists())
             self.assertEqual((out / 'cache').read_text(), str(mod / 'input.xml'))
 
+    def test_snapshot_replays_same_stamp_changes_and_removes_added_search_roots(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            mod, out = root / 'mod', root / 'out'
+            mod.mkdir(); out.mkdir()
+            source = mod / 'input.xml'
+            source.write_bytes(b'original')
+            (out / 'cache').write_bytes(b'baseline')
+            snapshot = B.Snapshot(mod, out, root / 'snapshot', B.Budget('common'))
+            stamp = source.stat()
+            source.write_bytes(b'modified')
+            B.os.utime(source, ns=(stamp.st_atime_ns, stamp.st_mtime_ns))
+            (mod / 'override').mkdir()
+            (mod / 'override/leaf').write_bytes(b'new')
+            snapshot.mark_changed(dict(changedPaths=['input.xml', 'override/leaf']))
+            snapshot.restore()
+            self.assertEqual(source.read_bytes(), b'original')
+            self.assertFalse((mod / 'override').exists())
+            self.assertEqual(source.stat().st_mtime_ns, stamp.st_mtime_ns)
+
     def test_detailed_failed_and_under8_samples_never_enter_off_medians(self):
         before, _ = sample()
         modified, _ = sample(wall=12000, phase='modified')
@@ -152,7 +172,7 @@ class ReplayAndReportTests(unittest.TestCase):
             samples.append(dict(case=case['id'], formal=formal, performance='off', status='qualified'))
         runner = SimpleNamespace(state=dict(samples=samples), workload={}, destination=Path('unused'),
                                  sample=record, budget=SimpleNamespace(check=lambda: None))
-        snapshot = SimpleNamespace(restore=lambda: events.append('restore'))
+        snapshot = SimpleNamespace(restore=lambda: events.append('restore'), mark_changed=lambda mutation: None)
         case = dict(id='C01')
         with patch.object(B, 'apply_case', side_effect=lambda *args: events.append('edit') or {}):
             B.run_case(runner, case, snapshot)
@@ -170,7 +190,7 @@ class ReplayAndReportTests(unittest.TestCase):
             return row
         runner = SimpleNamespace(state=dict(samples=samples), workload={}, destination=Path('unused'),
                                  sample=record, budget=SimpleNamespace(check=lambda: None))
-        snapshot = SimpleNamespace(restore=lambda: None)
+        snapshot = SimpleNamespace(restore=lambda: None, mark_changed=lambda mutation: None)
         with patch.object(B, 'apply_case', return_value={}):
             B.full_modes(runner, snapshot, cases)
         self.assertEqual(sum(s['formal'] for s in samples), 17)

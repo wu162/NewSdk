@@ -508,7 +508,8 @@ def cases(workload):
         case('F01-rename', '32 个无引用资产 ID 改名', 'Full', assets=32, docs=4, minInstanceCompile=32),
         case('F01-move', '8 份文档移动并更新 Include', 'Full', assets=64, docs=8, expected='frontend', minXmlParse=8),
         case('F01-entry', '8 个新入口 Include / 32 个资产', 'Full', assets=32, docs=8, minInstanceCompile=32),
-        case('F02', '继承与共享 Define 扇出', 'Full', assets=16, docs=18, affectedAssets=256, minInstanceCompile=256),
+        case('F02', '继承与共享 Define 扇出（200 个实际资产）', 'Full', assets=8, docs=11,
+             affectedAssets=192, minInstanceCompile=200),
         case('F02-depth', '8 个父实例经 4 层继承边影响 152 个后代', 'Full', assets=8, docs=8,
              affectedAssets=152, inheritanceDepth=4, minInstanceCompile=160),
         case('F03-independent', '64 个独立音频输入（含 XAS）', 'Full', assets=64, docs=1, materials=64, minInstanceCompile=64),
@@ -641,12 +642,12 @@ def apply_case(workload, case, destination):
             node.set('value', '84.25' if node.get('name') == 'L8_SCALE' else '75.25')
         return len(values)
 
-    def parents(siblings=False):
+    def parents(siblings=False, documents=16):
         nonlocal affected
-        edit_armor(sorted(data.glob('parent-*.xml')), predicate=lambda node:
+        edit_armor(sorted(data.glob('parent-*.xml'))[:documents], predicate=lambda node:
                    node.get('id', '').startswith('L8_Sibling_' if siblings else 'L8_Parent_'))
         if not siblings:
-            affected += 128
+            affected += documents * 8
 
     def new_assets():
         nonlocal assets
@@ -777,7 +778,7 @@ def apply_case(workload, case, destination):
     elif identifier in ('F01-move', 'F09-move'):
         move_docs(8 if identifier == 'F01-move' else 16)
     elif identifier == 'F02':
-        parents()
+        parents(documents=8)
         shared_defines()
     elif identifier == 'F02-depth':
         edit_armor(sorted(data.glob('depth-root-*.xml')))

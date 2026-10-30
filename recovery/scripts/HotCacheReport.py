@@ -94,6 +94,15 @@ def save(output, state):
              '正式成绩仅采用 performance=off、正常退出、目标路径已执行，且单次 wallMs 与编译器 elapsedMs 均严格 >8000 的样本。'
              '每次启动独立进程；准备、快照恢复、预热和报告均计入总预算。OS 页缓存未受控，样本数较少。', '',
              'L8 为完整固定版本 Upheaval 加合法扩容分区的混合性能负载，区别于原始未修改 Upheaval。', '']
+    workload = state.get('workload') or {}
+    if workload:
+        original = workload.get('originalUpheaval', {})
+        lines += ['L8 输入库存：%s 文档、%s 声明、%.2f MiB；实际计划 %s 个流；发布 %.2f MiB。' %
+                  (workload.get('documents'), workload.get('assets'), workload.get('inputBytes', 0) / 1048576,
+                   len(state.get('actualStreamIds', workload.get('streams', []))), state.get('publishedBytes', 0) / 1048576),
+                  'L8 指纹：`%s`。原始 Upheaval 库存：%s 文档、%s 声明、%.2f MiB，指纹 `%s`。' %
+                  (workload.get('fingerprint', ''), original.get('documents'), original.get('assets'),
+                   original.get('inputBytes', 0) / 1048576, original.get('fingerprint', '')), '']
     feasible = state.get('feasibility', {})
     if feasible.get('fullExtensionCanFitStrictLowerBound') is False:
         lines += ['Full 扩展预算不可达：%s 个条件、%s 个正式进程的严格理论下限 >%s 秒，超过 %s 秒阶段预算；'

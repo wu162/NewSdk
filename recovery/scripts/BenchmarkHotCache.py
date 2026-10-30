@@ -127,18 +127,41 @@ class Snapshot:
     def __init__(self, mod, destination, store, budget):
         self.mod, self.destination, self.store = Path(mod), Path(destination), Path(store)
         self.budget = budget
+        self.dirty_source = set()
+        self.indices = {}
         self.store.mkdir()
         for name, source in (('source', self.mod), ('output', self.destination)):
             budget.check()
             shutil.copytree(source, self.store / name)
+            self.indices[name] = {p.relative_to(source).as_posix(): (p.stat().st_size, p.stat().st_mtime_ns)
+                                  for p in source.rglob('*') if p.is_file()}
         budget.check()
+
+    def mark_changed(self, mutation):
+        # Equal-length/same-mtime edits cannot be detected by metadata alone.
+        self.dirty_source.update(mutation.get('changedPaths', []))
 
     def restore(self):
         for name, target in (('source', self.mod), ('output', self.destination)):
             self.budget.check()
-            if target.exists():
-                shutil.rmtree(target)
-            shutil.copytree(self.store / name, target)
+            baseline = self.indices[name]
+            current = {p.relative_to(target).as_posix(): p for p in target.rglob('*') if p.is_file()}
+            for relative in current.keys() - baseline.keys():
+                current[relative].unlink()
+            for index, (relative, stamp) in enumerate(baseline.items()):
+                if index % 256 == 0:
+                    self.budget.check()
+                path = target / relative
+                observed = path.stat() if path.is_file() else None
+                forced = name == 'source' and relative in self.dirty_source
+                if forced or observed is None or (observed.st_size, observed.st_mtime_ns) != stamp:
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(self.store / name / relative, path)
+            # Empty added search roots can change resolver behavior too.
+            for directory in sorted((p for p in target.rglob('*') if p.is_dir()), reverse=True):
+                if not (self.store / name / directory.relative_to(target)).is_dir():
+                    directory.rmdir()
+        self.dirty_source.clear()
         self.budget.check()
 
 
@@ -261,6 +284,7 @@ def run_case(runner, case, snapshot, repeats=2, mode='both-deflate', jobs='auto'
         snapshot.restore()
         runner.sample(case, 'hot_before', repeat, True, mode=mode, jobs=jobs)
         mutation = apply_case(runner.workload, case, runner.destination)
+        snapshot.mark_changed(mutation)
         runner.budget.check()
         runner.sample(case, 'modified', repeat, True, mode=mode, jobs=jobs, mutation=mutation)
         runner.sample(case, 'hot_after', repeat, True, mode=mode, jobs=jobs,
@@ -277,6 +301,7 @@ def diagnostics(runner, snapshot, cases, identifiers=('C08', 'C09', 'C12')):
             continue
         snapshot.restore()
         mutation = apply_case(runner.workload, case, runner.destination)
+        snapshot.mark_changed(mutation)
         runner.sample(case, 'modified', performance='detailed', mutation=mutation)
 
 
