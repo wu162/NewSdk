@@ -13,6 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with: {persist-credentials: false}
+      - uses: actions/checkout@v4
+        with:
+          repository: jonwil/ealayer3compilerplugin
+          ref: ed407302ae63cd6ba849af586ef765c03ca008b3
+          path: work/ra3-oracle
+          persist-credentials: false
       - uses: ilammy/msvc-dev-cmd@v1
         with: {arch: x86}
       - uses: actions/setup-dotnet@v4
@@ -20,14 +26,21 @@ jobs:
       - name: Build and encode real AudioFile assets, jobs 1 and 4, independently decode
         shell: pwsh
         run: ./recovery/scripts/TestAudioEaLayer3.ps1
+      - name: Compare format and decoded signal with jonwil RA3 plugin
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioEaLayer3Oracle.ps1 -UpstreamDirectory work/ra3-oracle
       - name: Existing NONE XAS MP3Passthrough and PathMusic byte regressions
         shell: pwsh
         run: ./recovery/scripts/TestAudioPlugin.ps1 -Groups business,pcm,xas,main,loops,aiffloops -IncludeMp3
+      - name: Package matching corresponding source and licenses
+        if: always()
+        shell: pwsh
+        run: git archive --format=zip -o recovery/evidence/audio/ealayer3/corresponding-source.zip HEAD recovery/src recovery/build recovery/scripts .gitattributes
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: ealayer3-${{ github.run_id }}
           path: |
             recovery/evidence/audio/ealayer3/**
-            recovery/evidence/audio/plugin-validation/**
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**
           if-no-files-found: error

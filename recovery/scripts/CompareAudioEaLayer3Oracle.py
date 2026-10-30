@@ -1,0 +1,26 @@
+import argparse,json,subprocess
+from pathlib import Path
+from ValidateAudioEaLayer3 import need,wav
+p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--decoder',required=True);a=p.parse_args();rows=[]
+for header in (a.root/'oracle/assets').glob('*.snr'):
+    candidate=a.root/'Release/jobs1'/header.name
+    expected=subprocess.run([a.decoder,'-m','-I',str(header)],capture_output=True,text=True,check=True,timeout=20)
+    original=json.loads(expected.stdout);new=json.loads(candidate.with_suffix('.info.json').read_text())
+    for key in ('sampleRate','channels','numberOfSamples','loopingInfo','encoding'):
+        need(original[key]==new[key],f'{header.stem}: reference {key} differs ({original[key]} / {new[key]})')
+    need(header.read_bytes()[:8]==candidate.read_bytes()[:8],f'{header.stem}: reference SNR descriptor differs')
+    decoded=header.with_suffix('.decoded.wav')
+    subprocess.run([a.decoder,'-i','-o',str(decoded),str(header)],capture_output=True,check=True,timeout=20)
+    ch,rate,reference=wav(decoded);ch2,rate2,actual=wav(candidate.with_suffix('.decoded.wav'))
+    need((ch,rate,len(reference))==(ch2,rate2,len(actual)),f'{header.stem}: reference decode dimensions differ')
+    # Lossy implementations need not have identical bytes. Signal correlation
+    # against the input was independently checked by ValidateAudioEaLayer3.
+    if len(reference)>2048:
+        import math
+        dot=sum(x*y for x,y in zip(reference,actual));power=sum(x*x for x in reference)*sum(x*x for x in actual)
+        correlation=dot/math.sqrt(max(1,power))
+        need(correlation>0.85,f'{header.stem}: reference/candidate signals differ ({correlation})')
+    else:correlation=None
+    rows.append({'id':header.stem,'metadataEqual':True,'signalCorrelation':correlation,'referenceBytes':header.with_suffix('.cdata').stat().st_size,'candidateBytes':candidate.with_suffix('.cdata').stat().st_size})
+need(len(rows)>=20,'Reference comparison cases absent')
+(a.root/'oracle/comparison.json').write_text(json.dumps({'passed':True,'cases':rows},indent=2));print('PASS jonwil RA3 plugin reference:',len(rows),'formats/decoded signals')

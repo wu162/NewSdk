@@ -29,5 +29,5 @@ foreach($file in $files) {
     if($LASTEXITCODE -ne 0){Get-Content $log -Tail 60|Out-Host;throw "EALayer3 compile failed: $($file.Name)"}
     $objects+=$object
 }
-& link.exe /nologo /DLL /MACHINE:X86 "/OUT:$out/NewSdk.EaLayer3.dll" @objects *> (Join-Path $obj 'link.log')
+& link.exe /nologo /DLL /MACHINE:X86 "/OUT:$out/NewSdk.EaLayer3.dll" "/IMPLIB:$obj/EaLayer3Exports.lib" @objects *> (Join-Path $obj 'link.log')
 if($LASTEXITCODE -ne 0){Get-Content (Join-Path $obj 'link.log')|Out-Host;throw 'EALayer3 link failed'}

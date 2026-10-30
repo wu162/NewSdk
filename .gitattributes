@@ -1,0 +1,3 @@
+# Embedded license bytes have a stable identity on Windows and Unix checkouts.
+recovery/src/Native/Audio/EaLayer3/COPYING* -text
+recovery/src/Native/Audio/EaLayer3/NOTICE.md -text
