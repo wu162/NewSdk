@@ -1,0 +1,33 @@
+name: Texture native reentry experiment
+on:
+  push:
+    branches: [test/texture-parallel]
+    paths:
+      - '.github/workflows/texture-parallel-probe.yml'
+      - 'recovery/tests/TextureParallelProbe.cs'
+      - 'recovery/scripts/TestTextureParallel.ps1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            SDK/tools
+            recovery/tests/TextureParallelProbe.cs
+            recovery/scripts/TestTextureParallel.ps1
+          sparse-checkout-cone-mode: false
+      - name: Compare simultaneous Texture calls with serial original bytes
+        shell: pwsh
+        run: ./recovery/scripts/TestTextureParallel.ps1 -OutputDirectory "recovery/evidence/texture-parallel/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: texture-parallel-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture-parallel
+          if-no-files-found: error
