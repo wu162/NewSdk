@@ -1,12 +1,15 @@
 #pragma once
 #include <cstdint>
 #include "../Native/TextureNativeCopyApi.h"
-#ifdef TEXTURE_PUBLIC_BC_BUILD
+#if defined(TEXTURE_PUBLIC_BC_STATIC)
+#define TEXTURE_PUBLIC_BC_API
+#elif defined(TEXTURE_PUBLIC_BC_BUILD)
 #define TEXTURE_PUBLIC_BC_API __declspec(dllexport)
 #else
 #define TEXTURE_PUBLIC_BC_API __declspec(dllimport)
 #endif
-// Isolated PC candidate, not the production XGCopySurface backend.
+// PC core for the standalone ABI or compile-time embedding. Each embedded
+// native consumer requires its own complete acceptance before activation.
 // format is the existing PC base format: 18=DXT1,19=DXT3,20=DXT5.
 // Pixel IO is normalized float RGBA, retaining precision for DDS/mip consumers.
 // Flags use public DirectXTex bits 0x10000/0x20000/0x40000; mapping the original

@@ -5,7 +5,13 @@ foreach($kind in @('Resource','Surface','Copy')){& "$PSScriptRoot/BuildTextureNa
 $opt=if($Configuration -eq 'Release'){'/O2'}else{'/Od'}
 Push-Location $destinationPath
 try{
- & cl /nologo /LD /MT /EHsc /std:c++17 $opt /fp:strict "$root/src/TextureCompiler/Native/TextureNativeLoaderApi.cpp" "$root/src/TextureCompiler/PublicDirectXTex/TexturePublicTriangle.cpp" "$root/src/TextureCompiler/PublicStbBmp/TexturePublicBmp.cpp" /link "$destinationPath/native-resource.lib" "$destinationPath/native-surface.lib" "$destinationPath/native-copy.lib" /DEF:"$root/src/TextureCompiler/Native/TextureNativeLoaderApi.def" /OUT:"$destinationPath/Recovered.TextureNativeLoader.dll" /IMPLIB:"$destinationPath/native-loader.lib" /MACHINE:X86
+ $publicBc="$root/src/TextureCompiler/PublicD3dxBc";$bcObjects=@()
+ foreach($name in @('BC','TexturePublicBcApi','TexturePublicBcDds','TexturePublicBcResize')){
+  $object="$destinationPath/loader-public-$name.obj"
+  & cl /nologo /c /MT /EHsc /std:c++17 $opt /arch:IA32 /fp:strict /D_XM_NO_INTRINSICS_ /DTEXTURE_PUBLIC_BC_STATIC /DRECOVERED_TEXTURE_NATIVE_LOADER_API_BUILD "$publicBc/$name.cpp" "/Fo$object"
+  if($LASTEXITCODE -ne 0){throw "Embedded loader BC build failed: $name"};$bcObjects+=$object
+ }
+ & cl /nologo /LD /MT /EHsc /std:c++17 $opt /fp:strict /DTEXTURE_PUBLIC_BC_STATIC "$root/src/TextureCompiler/Native/TextureNativeLoaderApi.cpp" "$root/src/TextureCompiler/PublicDirectXTex/TexturePublicTriangle.cpp" "$root/src/TextureCompiler/PublicStbBmp/TexturePublicBmp.cpp" /link $bcObjects "$destinationPath/native-resource.lib" "$destinationPath/native-surface.lib" "$destinationPath/native-copy.lib" /DEF:"$root/src/TextureCompiler/Native/TextureNativeLoaderApi.def" /OUT:"$destinationPath/Recovered.TextureNativeLoader.dll" /IMPLIB:"$destinationPath/native-loader.lib" /MACHINE:X86
  if($LASTEXITCODE -ne 0){throw 'Native x86 PC loader build failed'}
  $data=[IO.File]::ReadAllBytes("$destinationPath/Recovered.TextureNativeLoader.dll");$pe=[BitConverter]::ToInt32($data,0x3c)
  if([BitConverter]::ToUInt16($data,$pe+4) -ne 0x14c){throw 'Loader ABI requires I386'}

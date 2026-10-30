@@ -2986,7 +2986,9 @@
         "recovery/tests/TextureNativeCopyOracle.cpp",
         "recovery/tests/TextureNativeCopyLink.cpp",
         "SDK/tools/*.dll",
-        "src/TextureCompiler/Native/TextureNativeConvertApi.cpp"
+        "src/TextureCompiler/Native/TextureNativeConvertApi.cpp",
+        "src/TextureCompiler/Native/TextureNativeCopyInternal.h",
+        "src/TextureCompiler/PublicD3dxBc/**"
       ],
       "evidence": "recovery/evidence/texture/native-copy/*/validation.json",
       "sdk": false,
@@ -3007,7 +3009,9 @@
         "src/TextureCompiler/Native/TextureNativeConvertApi.cpp",
         "recovery/scripts/TestTextureNativeConvert.ps1",
         "recovery/tests/TextureNativeConvertOracle.cpp",
-        "recovery/tests/TextureNativeConvertLink.cpp"
+        "recovery/tests/TextureNativeConvertLink.cpp",
+        "src/TextureCompiler/Native/TextureNativeCopyInternal.h",
+        "src/TextureCompiler/PublicD3dxBc/**"
       ],
       "evidence": "recovery/evidence/texture/native-convert/*/validation.json",
       "sdk": false,
@@ -3031,7 +3035,9 @@
         "recovery/tests/TextureNativeConvertLink.cpp",
         "recovery/scripts/TestTextureNativeSignedConvert.ps1",
         "recovery/tests/TextureNativeSignedConvertOracle.cpp",
-        "recovery/tests/TextureNativeSignedConvertLink.cpp"
+        "recovery/tests/TextureNativeSignedConvertLink.cpp",
+        "src/TextureCompiler/Native/TextureNativeCopyInternal.h",
+        "src/TextureCompiler/PublicD3dxBc/**"
       ],
       "evidence": "recovery/evidence/texture/native-signed-convert/*/validation.json",
       "sdk": false,
@@ -3058,7 +3064,9 @@
         "recovery/tests/TextureNativeSignedConvertLink.cpp",
         "recovery/scripts/TestTextureNativeFloatConvert.ps1",
         "recovery/tests/TextureNativeFloatConvertOracle.cpp",
-        "recovery/tests/TextureNativeFloatConvertLink.cpp"
+        "recovery/tests/TextureNativeFloatConvertLink.cpp",
+        "src/TextureCompiler/Native/TextureNativeCopyInternal.h",
+        "src/TextureCompiler/PublicD3dxBc/**"
       ],
       "evidence": "recovery/evidence/texture/native-float-convert/*/validation.json",
       "sdk": false,
@@ -3088,7 +3096,9 @@
         "recovery/tests/TextureNativeFloatConvertLink.cpp",
         "recovery/scripts/TestTextureNativeEndianConvert.ps1",
         "recovery/tests/TextureNativeEndianConvertOracle.cpp",
-        "recovery/tests/TextureNativeEndianConvertLink.cpp"
+        "recovery/tests/TextureNativeEndianConvertLink.cpp",
+        "src/TextureCompiler/Native/TextureNativeCopyInternal.h",
+        "src/TextureCompiler/PublicD3dxBc/**"
       ],
       "evidence": "recovery/evidence/texture/native-endian-convert/*/validation.json",
       "sdk": false,
@@ -3139,7 +3149,9 @@
         "src/TextureCompiler/Native/TextureNativeResourceApi.h",
         "src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp",
         "src/TextureCompiler/Native/TextureNativeSurfaceApi.def",
-        "src/TextureCompiler/Native/TextureNativeSurfaceApi.h"
+        "src/TextureCompiler/Native/TextureNativeSurfaceApi.h",
+        "src/TextureCompiler/Native/TextureNativeCopyInternal.h",
+        "src/TextureCompiler/PublicD3dxBc/**"
       ],
       "evidence": "recovery/evidence/texture/native-copy-consumers/*/validation.json",
       "sdk": false,
@@ -3172,7 +3184,9 @@
         "recovery/tests/TextureNativeEndianConvertLink.cpp",
         "recovery/scripts/TestTextureNativeFlagsConvert.ps1",
         "recovery/tests/TextureNativeFlagsConvertOracle.cpp",
-        "recovery/tests/TextureNativeFlagsConvertLink.cpp"
+        "recovery/tests/TextureNativeFlagsConvertLink.cpp",
+        "src/TextureCompiler/Native/TextureNativeCopyInternal.h",
+        "src/TextureCompiler/PublicD3dxBc/**"
       ],
       "evidence": "recovery/evidence/texture/native-flags-convert/*/validation.json",
       "sdk": false,
@@ -3212,7 +3226,9 @@
         "src/TextureCompiler/Native/TextureNativeResourceApi.h",
         "src/TextureCompiler/Native/TextureNativeSurfaceApi.cpp",
         "src/TextureCompiler/Native/TextureNativeSurfaceApi.def",
-        "src/TextureCompiler/Native/TextureNativeSurfaceApi.h"
+        "src/TextureCompiler/Native/TextureNativeSurfaceApi.h",
+        "src/TextureCompiler/Native/TextureNativeCopyInternal.h",
+        "src/TextureCompiler/PublicD3dxBc/**"
       ],
       "evidence": "recovery/evidence/texture/native-loader/*/validation.json",
       "sdk": false,
@@ -3257,7 +3273,8 @@
         "src/TextureCompiler/PublicD3dxBc/**",
         "src/TextureCompiler/PublicDirectXTex/**",
         "src/TextureCompiler/PublicStbBmp/**",
-        "recovery/tests/TexturePublicBcReplay.h"
+        "recovery/tests/TexturePublicBcReplay.h",
+        "src/TextureCompiler/Native/TextureNativeCopyInternal.h"
       ],
       "evidence": "recovery/evidence/texture/public-d3dx-bc/*/validation.json",
       "sdk": false,
@@ -3305,7 +3322,8 @@
         "src/TextureCompiler/PublicDirectXTex/**",
         "src/TextureCompiler/PublicStbBmp/**",
         "recovery/tests/TexturePublicBcReplay.h",
-        "recovery/scripts/TestTexturePublicBc.ps1"
+        "recovery/scripts/TestTexturePublicBc.ps1",
+        "src/TextureCompiler/Native/TextureNativeCopyInternal.h"
       ],
       "evidence": "recovery/evidence/texture/native-bc-files/*/validation.json",
       "sdk": false,

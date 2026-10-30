@@ -10,11 +10,20 @@
 - 当前实现 `ac6f8af69177ddeda86eb0b9abe09ed9798f7e2c` 再固定RGB/解码系数位模式，并将原版重复稳定性列为硬断言。本轮一次正式 `native-bc-files` [41027020522](https://github.com/wu162/NewSdk/actions/runs/41027020522) **completed/success**：完整D/R及逐次NoOriginal全部通过，捕获仍为同一296270063字节/SHA；完整归档、全部原/重复/固定候选记录、EOF和两份I386 DLL指纹已核对，见[验收收据](evidence/texture/handoffs/20261030-native-bc/acceptance.json)。仅补新组，复用64组件，未跑SDK/MOD。
 - 正式native-loader仍拒绝压缩DDS，候选ABI尚未进入生产六DLL包。详细来源、修正与剩余门槛见[压缩DDS专页](TEXTURE_PUBLIC_D3DX_BC.md)。旧失败/partial capture及原锚点保留，不作为float gold。
 
+## 当前继续实现：正式原生入口接入（未验证）
+
+独立分支 `validation/texture-native-bc-integration` 从已验收恢复头989a89c2继续，已将公开BC静态嵌入正式NativeLoader/NativeCopy：文件入口调用同一DDS资源/mip消费，Copy仅开放已比较的LoadImageA flags0x12/threshold0/RGBA8完整锁定行路径。内部raw转换与压缩桥分开，避免递归，保留raw宿主编译参数和BC的scalar IA32参数。无运行时原版/系统D3D依赖。
+
+已准备正式入口的完整矩阵：原14606文件全部保留，105压缩边界改为成功全字节对照，原两个缺层真实文件新增成功对照，另加1572完整BC文件；目标16180文件（1679压缩）、6860构造、19拒绝，三锁定视图/两RGBA/VM/所有权/NoOriginal不减。实际共享BuildNativeCopy的10组登记新增BC/私有头依赖。**这批源码、计数和接入尚未运行最终差分，不得标为支持或合入恢复分支。**
+
+集中工作流新增显式手动 `native_bc_build_only=true`，仅编译D/R六Native DLL、独立BC DLL及两个完整宿主，并检查依赖选择边界；收据另存native-bc-build/compilation.json，status compiled-only，不能用于复用组件成功。普通测试/SDK选择规则不变，也不新增自动入口。本轮不再次启动完整矩阵或SDK；先用此定向编译解除新静态链接阻塞，再交接下一批完整验收。
+
 ## 下一轮计划
 
-1. 本批独立BC组件已闭环；保留 `ac6f8af6` / `41027020522` 的精确成功收据，未变输入不重复验收。候选已准备普通合入恢复分支，不强推。
-2. 组件闭环后，在独立实现分支接入正式native-loader及实际压缩CopySurface消费，优先复用这批公开BC核心；更新旧105个压缩未支持边界为原版成功完整对照，并保留原raw/BMP/TGA矩阵。共享native-copy的真实消费者需要最终受影响回归，不能照搬旧收据。
-3. 新ABI正式进入生产包前，再在明确集成里程碑取得适用SDK证据。普通收尾不跑SDK/MOD；不扩展非PC。
+1. 先收取独立接入分支的编译诊断（若仍运行核对sourceCommit/runId）；编译通过仅解除构建阻塞。下一批稳定后通过同一集中入口执行实际受影响原生组的完整D/R/NoOriginal，保留SDK门槛；不得用旧组件或compiled-only跳过。
+2. 本批独立BC组件已闭环；保留 `ac6f8af6` / `41027020522` 的精确成功收据，未变输入不重复验收。已普通合入恢复分支 `989a89c2b9f8bb6a6cb845904f10e6815142d239`，未启用生产包。
+3. 接入实现继续保持独立分支；有构建或差分失败只修真实原因，全部必要消费者通过前不合入/启用。
+4. 新ABI正式进入生产包前，再在明确集成里程碑取得适用SDK证据。普通收尾不跑SDK/MOD；不扩展非PC。
 
 ## 已验收基础（2026-10-30，公开原生加载批次）
 

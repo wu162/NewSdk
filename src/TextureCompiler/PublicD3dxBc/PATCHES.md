@@ -159,3 +159,15 @@ also feeds every4x4 block of every actual original float plane into both file
 encoders:16632 additional blocks, complete fixed plain/dither outputs, original
 repeats, source immutability, eight candidate policies and strict replay. Old
 1536 XG/file blocks,168 resource policies and1572 default files remain intact.
+
+
+Native integration checkpoint (unvalidated): TEXTURE_PUBLIC_BC_STATIC embeds
+the same public core without exporting/importing an intermediate BC DLL.
+Native Copy embeds only the block/image core and compressed bridge; its bridge
+calls the private raw conversion entry to avoid dispatch recursion. Native
+Loader embeds file/resource/triangle code and calls the same accepted DDS
+consumer. Raw host compiler options remain unchanged; BC objects retain scalar
+IA32 /fp:strict options. Formal dispatch initially admits only the accepted
+LoadImageA flags0x12/threshold0/full locked rows/RGBA8 destination contract.
+The ac6f8af6/41027020522 acceptance still proves the standalone source at that
+commit only, not these changed native builds or expanded real-file consumers.

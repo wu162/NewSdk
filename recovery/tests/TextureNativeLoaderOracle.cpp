@@ -26,7 +26,7 @@ namespace {
 using namespace Recovered::TextureCompiler;using U=std::uint32_t;
 using OriginalCreate=void* (__stdcall *)(U,U,U,U,U,U,U,U);
 struct Api{NativeDeviceAbi::CreateFn device;NativeDeviceAbi::ReleaseFn deviceRelease;NativeResourceAbi::RefFn add,release;NativeResourceAbi::UnlockFn unlock;NativeSurfaceAbi::LayoutFn layout;NativeSurfaceAbi::LockFn lock;NativeDescriptorAbi::LevelFn level;NativeDescriptorAbi::TextureFn describe;NativeCopyAbi::CopyFn copy;NativeLoaderAbi::CreateFn create;NativeLoaderAbi::LoadFn load;OriginalCreate originalCreate;bool isolated=false;};
-U constructorCases=0,fileCases=0,copyCases=0,rejections=0,mismatches=0,compressedBoundaries=0,npotCases=0,bmpCases=0;std::string current,failurePath;
+U constructorCases=0,fileCases=0,copyCases=0,rejections=0,mismatches=0,compressedFiles=0,bcFileCases=0,npotCases=0,bmpCases=0;std::string current,failurePath;
 void Check(bool c,const char* why){if(!c)throw std::runtime_error(current+": "+why);}
 void Isolation(const Api& api){if(api.isolated){Check(!GetModuleHandleA("BinaryAssetBuilder.TextureCompiler.dll"),"Original loaded during loader replay");Check(GetFileAttributesA("BinaryAssetBuilder.TextureCompiler.dll")==INVALID_FILE_ATTRIBUTES,"Original file during loader replay");}}
 U Address(const void* p){return static_cast<U>(reinterpret_cast<std::uintptr_t>(p));}
@@ -58,7 +58,7 @@ Trace Consume(Api api,void* p,bool pixels){
   for(U mode=0;mode<3;++mode){
    NativeSurfaceAbi::LockedRect locked{};NativeSurfaceAbi::Rect rect{desc.width>=8?4:0,desc.height>=8?4:0,static_cast<std::int32_t>(desc.width),static_cast<std::int32_t>(desc.height)};
    Check(api.lock(p,level,&locked,mode==1?&rect:nullptr,mode==2?1:mode==1?0x10:0)==0,"Loaded texture lock");Isolation(api);t.number(locked.pitch);t.number(Normalize(s,locked.bits));Header(t,p,s);
-   if(pixels&&(desc.format&63)==6){
+   if(pixels&&((desc.format&63)==6||((desc.format&63)>=18&&(desc.format&63)<=20))){
     const U w=desc.width-(mode==1?rect.left:0),h=desc.height-(mode==1?rect.top:0),pitch=w*4+7;
     // Both the exact managed LoadImageA source-format mask and the physical
     // descriptor/endian view are compared, with actual flags0x12/threshold0.
@@ -80,7 +80,6 @@ void Equal(const Trace& actual,const Trace& expected){if(actual.data!=expected.d
  if(mismatches<=30){std::cerr<<current<<" first difference="<<at<<" actualSize="<<actual.data.size()<<" originalSize="<<expected.data.size();if(at<actual.data.size()&&at<expected.data.size())std::cerr<<" actualByte="<<U(actual.data[at])<<" originalByte="<<U(expected.data[at]);std::cerr<<"\n";}
  if(mismatches<=16){Save(failurePath+"-"+std::to_string(mismatches)+".actual",actual.data);Save(failurePath+"-"+std::to_string(mismatches)+".expected",expected.data);}
  }}
-Trace unsupportedOriginal;
 // Stream complete records rather than retaining two growing complete captures
 // in a 32-bit process. Every byte/name/record and final EOF is still checked.
 struct Gold{
@@ -140,13 +139,7 @@ std::vector<unsigned char> Bmp(U w,U h,U depth,bool top,U pattern,U dib,U colors
 void FileCase(Api recovered,Api original,bool hasOriginal,Gold& gold,void* rd,void* od,const std::string& path){
  auto input=Read(path);void* p=nullptr;Isolation(recovered);const auto status=recovered.load(rd,path.c_str(),&p);Isolation(recovered);Trace actual;actual.number(static_cast<U>(status));
  const bool compressed=input.size()>=128&&Load(input.data(),0)==0x20534444&&(Load(input.data(),80)&4)&&(Load(input.data(),84)==0x31545844||Load(input.data(),84)==0x33545844||Load(input.data(),84)==0x35545844);
- if(compressed){
-  Check(status==static_cast<std::int32_t>(0x80004001u)&&!p,"Compressed DDS must explicitly reject unrecovered base/tail recompression");
-  if(hasOriginal){void* originalResource=nullptr;Check(original.load(od,path.c_str(),&originalResource)==0&&originalResource,"Original compressed source must remain a successful oracle, not a matching rejection");auto probe=Consume(original,originalResource,false);unsupportedOriginal.name(current);unsupportedOriginal.number(static_cast<U>(probe.data.size()));unsupportedOriginal.add(probe.data.data(),probe.data.size());}
-  // This record proves the explicit unsupported boundary, NOT byte equality
-  // to original success. Its full original resource is preserved separately.
-  Trace boundary;boundary.number(static_cast<U>(0x80004001u));gold.record(std::move(actual),hasOriginal?&boundary:nullptr);Check(Read(path)==input,"Compressed boundary modified source");++fileCases;++compressedBoundaries;return;
- }
+ if(compressed)++compressedFiles;
  if(status>=0){auto trace=Consume(recovered,p,true);actual.add(trace.data.data(),trace.data.size());}else Check(!p,"Rejected load returned a resource");
  Trace expected;if(hasOriginal){p=nullptr;const auto result=original.load(od,path.c_str(),&p);Check(result==0&&p,"Declared supported original file must load successfully");expected.number(static_cast<U>(result));if(result>=0){auto trace=Consume(original,p,true);expected.add(trace.data.data(),trace.data.size());}else Check(!p,"Rejected original returned resource");}
  Check(Read(path)==input,"File loader modified source bytes");gold.record(std::move(actual),hasOriginal?&expected:nullptr);++fileCases;
@@ -204,9 +197,18 @@ void Files(Api recovered,Api original,bool hasOriginal,Gold& gold,const std::str
  }
  for(auto size:{std::array<U,2>{3,5},std::array<U,2>{5,3}})for(U value=0;value<256;++value)for(U depth:{24u,32u})for(bool top:{false,true})bmpCase(size[0],size[1],depth,top,value+4,40,0,0,0);
  for(const auto* name:{"AULegionnaireInfantry.dds","EXJapanArrow.dds","FXAlliedFutureLaser.dds","FXYurikoShieldFadeLUT.dds","JUArcherInfantry.dds","PackedImages_097_EP1.dds","SUMortarCycle.dds","apt_tacticalhudbuildqueuepage_1.tga","apt_tacticalhudmaincommandbar_1.tga","map_mp_2_feasel10_ep1_art.tga"}){current=std::string("real-")+name;FileCase(recovered,original,hasOriginal,gold,rd,od,fixtures+"/"+name);}
- // Missing compressed mip recompression is an explicit remaining boundary,
- // with real files retained in the corpus rather than misreported as loaded.
- for(const auto* name:{"LURomania_vol.dds","Target_Japan_ArcherBarrage.dds"}){current=std::string("unsupported-")+name;void* p=nullptr;Check(recovered.load(rd,(fixtures+"/"+name).c_str(),&p)==static_cast<std::int32_t>(0x80004001u)&&!p,"Missing compressed mip generation must reject");Isolation(recovered);++rejections;}
+ // Both formerly unsupported real files now execute the full successful
+ // original/actual/no-original resource and every mip-copy comparison.
+ for(const auto* name:{"LURomania_vol.dds","Target_Japan_ArcherBarrage.dds"}){current=std::string("real-")+name;FileCase(recovered,original,hasOriginal,gold,rd,od,fixtures+"/"+name);}
+ // Exact accepted public-BC corpus through the FORMAL file and copy exports.
+ const std::array<U,2> bcSizes[]={{{1,1}},{{1,8}},{{8,1}},{{2,4}},{{4,2}},{{2,2}},{{3,1}},{{1,3}},{{3,2}},{{2,3}},{{3,3}},{{5,3}},{{3,5}},{{7,9}},{{9,7}},{{17,35}},{{35,17}},{{31,65}},{{65,31}},{{127,5}},{{5,127}},{{129,1}},{{1,129}},{{4,4}},{{4,8}},{{8,4}},{{8,8}},{{16,32}},{{32,16}},{{64,64}}};
+ for(auto size:bcSizes)for(U format:{1u,2u,3u})for(U pattern:{0u,1u,2u,31u}){
+  U levels=1;for(U n=std::max(size[0],size[1]);n>1;n>>=1)++levels;
+  for(U provided=1;provided<=levels;++provided){
+   current="formal-bc-dds-"+std::to_string(size[0])+"x"+std::to_string(size[1])+"-f"+std::to_string(format)+"-p"+std::to_string(pattern)+"-levels"+std::to_string(provided);
+   const auto path=scratch+"/bc.dds";Save(path,Dds(size[0],size[1],format,provided,pattern));FileCase(recovered,original,hasOriginal,gold,rd,od,path);++bcFileCases;
+  }
+ }
  current="missing-file";void* p=nullptr;const auto missing=scratch+"/absent.tga";const auto missingStatus=recovered.load(rd,missing.c_str(),&p);Check(missingStatus==static_cast<std::int32_t>(0x88760b59u)&&!p,"Missing-file HRESULT/output");if(hasOriginal){p=nullptr;Check(original.load(od,missing.c_str(),&p)==missingStatus&&!p,"Original missing-file HRESULT/output");}
  // Deliberately unsupported codecs, tiled/native dimensions and
  // malformed metadata are only sent to recovered, never unsafe original paths.
@@ -220,13 +222,18 @@ void Files(Api recovered,Api original,bool hasOriginal,Gold& gold,const std::str
   if(mode==0)bytes.resize(22);else if(mode==1)Store(bytes.data(),30,3);else if(mode==2)bytes[28]=8;else if(mode==3)Store(bytes.data(),10,0);else if(mode==4)Store(bytes.data(),46,0xffffffffu);else if(mode==5)bytes.resize(60);else if(mode==6)Store(bytes.data(),126,124);else{bytes=Bmp(4,4,24,false,0,40);bytes.resize(54+48);Store(bytes.data(),2,static_cast<U>(bytes.size()));}
   const auto path=scratch+"/invalid.bmp";Save(path,bytes);p=nullptr;Check(recovered.load(rd,path.c_str(),&p)<0&&!p,"Unsupported/malformed BMP must not transfer resource");Isolation(recovered);++rejections;
  }
+ for(U variant=0;variant<8;++variant){
+  current="rejected-bc-"+std::to_string(variant);auto bytes=Dds(4,4,3,3,2);
+  if(variant==0)bytes.resize(127);else if(variant==1)bytes.pop_back();else if(variant==2)Store(bytes.data(),84,0x30315844);else if(variant==3)Store(bytes.data(),112,0x200);else if(variant==4)Store(bytes.data(),24,2);else if(variant==5)Store(bytes.data(),16,0);else if(variant==6)Store(bytes.data(),12,0);else Store(bytes.data(),28,16);
+  const auto path=scratch+"/invalid.dds";Save(path,bytes);p=reinterpret_cast<void*>(0x13579);Isolation(recovered);Check(recovered.load(rd,path.c_str(),&p)<0&&p==reinterpret_cast<void*>(0x13579),"Rejected BC must preserve borrowed output ownership");Isolation(recovered);Check(Read(path)==bytes,"Rejected BC changed source");++rejections;
+ }
  current="invalid-loader-pointers";Check(recovered.load(rd,nullptr,&p)<0&&recovered.load(rd,missing.c_str(),nullptr)<0&&recovered.load(nullptr,missing.c_str(),&p)<0,"Invalid loader arguments must reject");Isolation(recovered);
  Check(recovered.deviceRelease(rd)==0,"Loader device release");if(hasOriginal)Check(original.deviceRelease(od)==0,"Original loader device release");Isolation(recovered);
 }
 void Run(unsigned char* original,const std::string& libs,const std::string& fixtures,const std::string& prefix){
  failurePath=prefix;std::vector<HMODULE> modules;auto recovered=Recovered(libs,modules,!original);Api baseline{};if(original)baseline=Original(original);Gold gold;gold.open(prefix+".capture",original!=nullptr);
- Constructors(recovered,baseline,original!=nullptr,gold);Files(recovered,baseline,original!=nullptr,gold,fixtures,prefix+"-inputs");gold.finish();std::cerr<<"COMPLETE constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" mismatches="<<mismatches<<"\n";Check(constructorCases==6860&&fileCases==14606&&npotCases==5665&&bmpCases==6152&&rejections==13&&compressedBoundaries==105,"Complete declared constructor/file/rejection matrix count");if(mismatches)throw std::runtime_error("Complete loader mismatches="+std::to_string(mismatches)+" constructorCases="+std::to_string(constructorCases)+" fileCases="+std::to_string(fileCases));if(original)Save(prefix+".unsupported-original",unsupportedOriginal.data);for(auto m:modules)FreeLibrary(m);
- std::cout<<"PASS PC native loader "<<(original?"differential":"NoOriginal")<<" constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" npotCases="<<npotCases<<" bmpCases="<<bmpCases<<" rgbaCopies="<<copyCases<<" supportedFiles="<<(fileCases-compressedBoundaries)<<" originalSuccessUnsupportedCompressed="<<compressedBoundaries<<" explicitRejections="<<rejections<<" completeBytes="<<gold.bytes<<"; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity\n";
+ Constructors(recovered,baseline,original!=nullptr,gold);Files(recovered,baseline,original!=nullptr,gold,fixtures,prefix+"-inputs");gold.finish();std::cerr<<"COMPLETE constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" mismatches="<<mismatches<<"\n";Check(constructorCases==6860&&fileCases==16180&&npotCases==5665&&bmpCases==6152&&rejections==19&&compressedFiles==1679&&bcFileCases==1572,"Complete declared constructor/file/rejection matrix count");if(mismatches)throw std::runtime_error("Complete loader mismatches="+std::to_string(mismatches)+" constructorCases="+std::to_string(constructorCases)+" fileCases="+std::to_string(fileCases));for(auto m:modules)FreeLibrary(m);
+ std::cout<<"PASS PC native loader "<<(original?"differential":"NoOriginal")<<" constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" npotCases="<<npotCases<<" bmpCases="<<bmpCases<<" rgbaCopies="<<copyCases<<" supportedFiles="<<fileCases<<" supportedCompressedFiles="<<compressedFiles<<" formalBcCases="<<bcFileCases<<" explicitRejections="<<rejections<<" completeBytes="<<gold.bytes<<"; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity\n";
 }
 }
 #pragma managed(pop)

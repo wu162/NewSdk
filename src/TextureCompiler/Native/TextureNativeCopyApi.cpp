@@ -1,5 +1,6 @@
 #define RECOVERED_TEXTURE_NATIVE_COPY_API_BUILD
 #include "TextureNativeCopyApi.h"
+#include "TextureNativeCopyInternal.h"
 #include <cstddef>
 #include <cstring>
 using namespace Recovered::TextureCompiler::NativeCopyAbi;
@@ -8,6 +9,16 @@ using U=std::uint32_t;
 constexpr U Bits[]={1,1,8,16,16,16,32,32,8,8,16,16,16,32,32,16,32,32,4,8,8,64,32,32,16,32,64,16,32,64,16,32,64,32,64,128,32,64,128,8,16,16,32,8,8,16,16,16,32,8,32,4,8,8,32,32,32,96,4,4,4,4,32,32};
 void Blocks(U f,U& x,U& y){if(f==11||f==12||f==40){x=2;y=1;}else if(f==39||f==44){x=4;y=1;}else if((f>=18&&f<=20)||f==49||(f>=51&&f<=53)||(f>=58&&f<=61)){x=y=4;}else{x=y=1;}}
 constexpr std::int32_t Unsupported=static_cast<std::int32_t>(0x80004001u);
+}
+extern "C" RECOVERED_TEXTURE_NATIVE_COPY_API std::int32_t __stdcall TextureCopySurface(void* destination,std::int32_t destinationPitch,U width,U height,U destinationFormat,const Point* point,const void* source,std::int32_t sourcePitch,U sourceFormat,const Rect* rectangle,U flags,float threshold){
+ // Limit the new conversion route to the exact LoadImageA contract accepted
+ // by native-bc-files: both descriptor-endian and masked source views, full
+ // locked rows, RGBA8 target, flags0x12 and threshold0. Other conversions keep
+ // the existing raw/identity boundaries until separately verified.
+ const U format=sourceFormat&63;
+ if(format>=18&&format<=20&&destinationFormat==0x1a200006u&&flags==0x12&&threshold==0&&!point&&!rectangle)
+  return TexturePublicBcCopySurface(destination,destinationPitch,width,height,destinationFormat,point,source,sourcePitch,sourceFormat,rectangle,flags,threshold);
+ return TextureCopySurfaceUncompressed(destination,destinationPitch,width,height,destinationFormat,point,source,sourcePitch,sourceFormat,rectangle,flags,threshold);
 }
 extern "C" RECOVERED_TEXTURE_NATIVE_COPY_API std::int32_t __stdcall TextureCopySurfaceIdentity(void* destination,std::int32_t destinationPitch,U width,U height,U destinationFormat,const Point* point,const void* source,std::int32_t sourcePitch,U sourceFormat,const Rect* rectangle,U flags,float){
  const U format=destinationFormat&63;

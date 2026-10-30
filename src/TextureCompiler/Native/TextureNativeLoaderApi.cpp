@@ -5,6 +5,7 @@
 #include "TextureNativeCopyApi.h"
 #include "../PublicDirectXTex/TexturePublicTriangle.h"
 #include "../PublicStbBmp/TexturePublicBmp.h"
+#include "../PublicD3dxBc/TexturePublicBcApi.h"
 #define NOMINMAX
 #include <Windows.h>
 #include <algorithm>
@@ -113,10 +114,9 @@ std::int32_t LoadDds(const std::vector<unsigned char>& bytes,void** output){
  if(bytes.size()<128||Load(bytes.data(),4)!=124||Load(bytes.data(),76)!=32)return InvalidData;
  const U flags=Load(bytes.data(),80),bits=Load(bytes.data(),88),r=Load(bytes.data(),92),g=Load(bytes.data(),96),b=Load(bytes.data(),100),a=Load(bytes.data(),104);
  U format=0;
- // Original D3DX re-encodes even PROVIDED 2x2/1x1 compressed tail mips.
- // The recovered copy ABI has no compression backend. Preserve that explicit
- // boundary instead of returning a superficially correct but different block.
- if(flags&4)return Unsupported;
+ // Reuse the fully compared public BC file/resource path, including provided
+ // partial tails, NPOT triangle, small bases and actual-storage BOX mips.
+ if(flags&4)return TexturePublicBcCreateFromDds(bytes.data(),static_cast<U>(bytes.size()),0x80000000u,0.5f,0,output);
  else if((flags&0x40)&&bits==32&&r==0xff0000&&g==0xff00&&b==0xff&&(a==0xff000000||a==0))format=a?0x18280086:0x28280086;
  else return Unsupported;
  const U width=Load(bytes.data(),16),height=Load(bytes.data(),12),sourceLevels=std::max(1u,Load(bytes.data(),28));

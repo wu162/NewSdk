@@ -1,5 +1,9 @@
 #define TEXTURE_PUBLIC_BC_BUILD
 #include "TexturePublicBcApi.h"
+#ifdef TEXTURE_PUBLIC_BC_EMBEDDED_COPY
+#include "../Native/TextureNativeCopyInternal.h"
+#define TextureCopySurface TextureCopySurfaceUncompressed
+#endif
 #include <cmath>
 #include <cstring>
 #include <new>
