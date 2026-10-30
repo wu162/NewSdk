@@ -27,3 +27,5 @@
 先读最新 float 阶段结果与完整 capture。若 float 本身不同，按上游 triangle/解码的真实存储顺序适配；若 float 一致，集中修文件编码的量化/求解/平局规则。保留原回归及所有完整字节，不做样本ID或gold查表分派；不因一次候选失配放弃公开实现。当前还未取得最终 D/R + NoOriginal，不合入/启用候选；SDK只在后续正式 ABI 接入里程碑运行。
 
 源码/来源：`src/TextureCompiler/PublicD3dxBc/`；诊断：`recovery/scripts/InspectTexturePublicBc.ps1`、`recovery/tests/TexturePublicBcDiagnostic.cpp`；严格回放：`TexturePublicBcReplay.h` / `TestTexturePublicBc.ps1`。静态原版参考：Newton alpha2851b..2885a、RGB2885a..28e46；文件解码29895/2a4f4/2a507，编码29cee/2a51a/2a532；全局b8914初值1，预乘4c901、去预乘28385。最后结果只绑定各自sourceCommit，不能继承给新源码。
+
+最后定向运行：[41016298705](https://github.com/wu162/NewSdk/actions/runs/41016298705)，不可变源 `a0fb7d2557927cb99882b2f384962cc9ecd580ba`。本轮交接时在后台运行，未取得终态，不将其计为成功。
