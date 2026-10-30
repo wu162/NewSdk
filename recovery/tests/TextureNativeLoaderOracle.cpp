@@ -56,10 +56,20 @@ Trace Consume(Api api,void* p,bool pixels){
   NativeDescriptorAbi::LevelDesc desc{};NativeDescriptorAbi::TextureDesc texture{};api.level(p,level,&desc);api.describe(p,level,&texture);Isolation(api);t.add(&desc,sizeof(desc));t.add(&texture,sizeof(texture));
   std::array<U,7> layout{};void* address=nullptr;api.layout(p,0,level,&layout[0],&layout[1],&layout[2],&layout[3],&layout[4],&layout[5],&layout[6],&address);Isolation(api);t.add(layout.data(),sizeof(layout));t.number(Normalize(s,address));
   for(U mode=0;mode<3;++mode){
-   NativeSurfaceAbi::LockedRect locked{};NativeSurfaceAbi::Rect rect{desc.width>=8?4:0,desc.height>=8?4:0,static_cast<std::int32_t>(desc.width),static_cast<std::int32_t>(desc.height)};
+   const U format=desc.format&63;const bool compressed=format>=18&&format<=20;
+   const U cropX=mode==1&&desc.width>=8?4:0,cropY=mode==1&&desc.height>=8?4:0;
+   // Original LockRect offsets BC rectangles in raw pitch/bit units, not
+   // ordinary texels: left16/top1 encodes the same logical block crop4/4.
+   // The independent surface matrix retains arbitrary raw rect ABI checks.
+   NativeSurfaceAbi::LockedRect locked{};NativeSurfaceAbi::Rect rect{static_cast<std::int32_t>(compressed?cropX*4:cropX),static_cast<std::int32_t>(compressed?cropY/4:cropY),static_cast<std::int32_t>(desc.width),static_cast<std::int32_t>(desc.height)};
    Check(api.lock(p,level,&locked,mode==1?&rect:nullptr,mode==2?1:mode==1?0x10:0)==0,"Loaded texture lock");Isolation(api);t.number(locked.pitch);t.number(Normalize(s,locked.bits));Header(t,p,s);
    if(pixels&&((desc.format&63)==6||((desc.format&63)>=18&&(desc.format&63)<=20))){
-    const U w=desc.width-(mode==1?rect.left:0),h=desc.height-(mode==1?rect.top:0),pitch=w*4+7;
+    const U w=desc.width-cropX,h=desc.height-cropY,pitch=w*4+7;
+    const U rows=compressed?(h+3)/4:h,rowBytes=compressed?((w+3)/4)*(format==18?8:16):w*(format==2?1:4);
+    Check(locked.pitch>=static_cast<std::int32_t>(rowBytes),"Loaded copy source row exceeds pitch");
+    const std::uint64_t start=Address(locked.bits),span=std::uint64_t(rows-1)*locked.pitch+rowBytes;
+    const auto contained=[&](void* base,U bytes){return base&&start>=Address(base)&&start+span<=std::uint64_t(Address(base))+bytes;};
+    Check(contained(s.primary,s.psize)||contained(s.secondary,s.ssize),"Loaded copy source span outside owned VM");
     // Both the exact managed LoadImageA source-format mask and the physical
     // descriptor/endian view are compared, with actual flags0x12/threshold0.
     for(U mask:{~0x1c0u,0xffffffffu}){
