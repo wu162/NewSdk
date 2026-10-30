@@ -1,6 +1,6 @@
 # 当前：L8 热缓存 Benchmark（实现与 Windows 标定验证中）
 
-分支 `benchmark/l8-hot-cache`，基于 `recovery/legacy-sdk-cache` / `8f854606`；[草稿 PR #32](https://github.com/wu162/NewSdk/pull/32)。新增完整 Upheaval + 合法扩容分区、严格 wall/elapsed 同时 >8 秒的单进程成绩门槛、差量快照恢复、Common/Full 调度及中文原始计时报告；未修改生产算法。说明见 [HOT_CACHE_BENCHMARK](docs/HOT_CACHE_BENCHMARK.md)。Windows/Linux 各 33 项预检通过。旧复制版 Common 41133537865 标定热态约 11.9 秒，C00–C06/40 个正式样本合格，但 18 分钟采样预算耗尽，状态 budget_exhausted；差量恢复新版 41135980179 正在单独验证。Full 未运行，Environment 配置被当前集成权限拒绝，且全变体双重复的理论下限已超阶段预算，不能声称通过。禁止强推，未经用户批准不合并。
+分支 `benchmark/l8-hot-cache`，基于 `recovery/legacy-sdk-cache` / `8f854606`；[草稿 PR #32](https://github.com/wu162/NewSdk/pull/32)。新增完整 Upheaval + 合法扩容分区、严格 wall/elapsed 同时 >8 秒的单进程成绩门槛、差量快照恢复、Common/Full 调度及中文原始计时报告；未修改生产算法。说明见 [HOT_CACHE_BENCHMARK](docs/HOT_CACHE_BENCHMARK.md)。Windows/Linux 各 33 项预检通过。第三轮完成 C00–C06/40 个合格正式样本，第四轮 41135980179 完成 C00–C09/62 个；两轮均在 18 分钟采样限到达后如实 budget_exhausted，未作跨 VM 毫秒对比。目录枚举元数据和约 10.5 秒标定点的第五轮 41139062989 正在验证。Full 未运行，Environment 配置被当前集成权限拒绝，且全变体双重复的理论下限已超阶段预算，不能声称通过。禁止强推，未经用户批准不合并。
 
 # 当前：AudioFile 全设置并行与低预算（组合验收通过）
 
