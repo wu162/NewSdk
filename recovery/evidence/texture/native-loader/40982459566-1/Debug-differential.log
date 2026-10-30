@@ -1,0 +1,32 @@
+tga-1x8-depth24-origin32-rle0-pattern2-tail0 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin32-rle0-pattern2-tail1 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin32-rle0-pattern2-tail2 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin32-rle0-pattern2-tail3 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin32-rle0-pattern3-tail0 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin32-rle0-pattern3-tail1 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin32-rle0-pattern3-tail2 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin32-rle0-pattern3-tail3 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin32-rle1-pattern2-tail0 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin32-rle1-pattern2-tail1 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin32-rle1-pattern2-tail2 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin32-rle1-pattern2-tail3 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin32-rle1-pattern3-tail0 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin32-rle1-pattern3-tail1 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin32-rle1-pattern3-tail2 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin32-rle1-pattern3-tail3 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin48-rle0-pattern2-tail0 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin48-rle0-pattern2-tail1 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin48-rle0-pattern2-tail2 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin48-rle0-pattern2-tail3 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin48-rle0-pattern3-tail0 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin48-rle0-pattern3-tail1 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin48-rle0-pattern3-tail2 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin48-rle0-pattern3-tail3 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin48-rle1-pattern2-tail0 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin48-rle1-pattern2-tail1 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin48-rle1-pattern2-tail2 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin48-rle1-pattern2-tail3 first difference=1620 actualSize=12634 originalSize=12634 actualByte=147 originalByte=146
+tga-1x8-depth24-origin48-rle1-pattern3-tail0 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+tga-1x8-depth24-origin48-rle1-pattern3-tail1 first difference=1607 actualSize=12634 originalSize=12634 actualByte=133 originalByte=132
+COMPLETE constructorCases=6860 fileCases=2789 mismatches=275
+invalid-loader-pointers: Complete loader mismatches=275 constructorCases=6860 fileCases=2789 constructors=6860 files=2789 mismatches=275

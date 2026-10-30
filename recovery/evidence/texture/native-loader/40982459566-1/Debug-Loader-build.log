@@ -1,0 +1,136 @@
+TextureNativeResourceApi.cpp
+   Creating library D:\a\_temp\texture-native-loader-070d903bfa7d451c9e302f9bcaf81655\Debug/native-resource.lib and object D:\a\_temp\texture-native-loader-070d903bfa7d451c9e302f9bcaf81655\Debug/native-resource.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-native-loader-070d903bfa7d451c9e302f9bcaf81655\Debug\Recovered.TextureNativeResource.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeResource.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           6 number of functions
+           6 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureResourceAddRef
+          2    1 00001070 TextureResourceRelease
+          3    2 00001240 TextureResourceUnlockRect
+          4    3 00001000 _TextureResourceAddRef@4
+          5    4 00001070 _TextureResourceRelease@4
+          6    5 00001240 _TextureResourceUnlockRect@8
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        D000 .text
+TextureNativeSurfaceApi.cpp
+   Creating library D:\a\_temp\texture-native-loader-070d903bfa7d451c9e302f9bcaf81655\Debug/native-surface.lib and object D:\a\_temp\texture-native-loader-070d903bfa7d451c9e302f9bcaf81655\Debug/native-surface.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-native-loader-070d903bfa7d451c9e302f9bcaf81655\Debug\Recovered.TextureNativeSurface.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeSurface.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           4 number of functions
+           4 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureSurfaceGetLayout
+          2    1 00001090 TextureSurfaceLockRect
+          3    2 00001000 _TextureSurfaceGetLayout@44
+          4    3 00001090 _TextureSurfaceLockRect@20
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        E000 .text
+TextureNativeCopyApi.cpp
+TextureNativeConvertApi.cpp
+Generating Code...
+   Creating library D:\a\_temp\texture-native-loader-070d903bfa7d451c9e302f9bcaf81655\Debug/native-copy.lib and object D:\a\_temp\texture-native-loader-070d903bfa7d451c9e302f9bcaf81655\Debug/native-copy.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-native-loader-070d903bfa7d451c9e302f9bcaf81655\Debug\Recovered.TextureNativeCopy.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeCopy.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           4 number of functions
+           4 number of names
+
+    ordinal hint RVA      name
+
+          1    0 000013D0 TextureCopySurface
+          2    1 00001000 TextureCopySurfaceIdentity
+          3    2 000013D0 _TextureCopySurface@48
+          4    3 00001000 _TextureCopySurfaceIdentity@48
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        E000 .text
+TextureNativeLoaderApi.cpp
+   Creating library D:\a\_temp\texture-native-loader-070d903bfa7d451c9e302f9bcaf81655\Debug/native-loader.lib and object D:\a\_temp\texture-native-loader-070d903bfa7d451c9e302f9bcaf81655\Debug/native-loader.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-native-loader-070d903bfa7d451c9e302f9bcaf81655\Debug\Recovered.TextureNativeLoader.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeLoader.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           4 number of functions
+           4 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureCreateCpuTexture
+          2    1 00001450 TextureCreateTextureFromFileA
+          3    2 00001000 _TextureCreateCpuTexture@16
+          4    3 00001450 _TextureCreateTextureFromFileA@12
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        2000 .reloc
+       13000 .text
