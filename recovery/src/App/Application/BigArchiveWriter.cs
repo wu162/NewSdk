@@ -24,7 +24,6 @@ namespace NewModCompiler.Application
             if (entries == null) throw new ArgumentNullException("entries");
             string output=Output(path); cancellation.ThrowIfCancellationRequested();
             var inputs=new List<Input>();var names=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            var checkedDirectories=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             long indexLength=24, payloadLength=0;
             foreach(var entry in entries)
             {
@@ -33,7 +32,7 @@ namespace NewModCompiler.Application
                 string name=NormalizeName(entry.Name);
                 if(!names.Add(name)) throw new InvalidDataException("Duplicate BIG entry (case insensitive): "+name);
                 if(string.IsNullOrEmpty(entry.SourcePath) || !Path.IsPathRooted(entry.SourcePath)) throw new ArgumentException("A BIG source must be an absolute file path.");
-                string source=Path.GetFullPath(entry.SourcePath);RejectLinks(source,checkedDirectories);
+                string source=Path.GetFullPath(entry.SourcePath);
                 if(string.Equals(output,source,StringComparison.OrdinalIgnoreCase)) throw new IOException("A BIG archive cannot overwrite its source.");
                 var file=new FileInfo(source);
                 if(!file.Exists) throw new FileNotFoundException("A listed BIG input is missing.",source);
@@ -82,7 +81,8 @@ namespace NewModCompiler.Application
         static string Output(string path)
         {
             if(string.IsNullOrEmpty(path) || !Path.IsPathRooted(path)) throw new ArgumentException("A BIG/SKUDEF output path must be absolute.");
-            string result=Path.GetFullPath(path);RejectLinks(result);
+            string result=Path.GetFullPath(path);
+            NewModCompiler.Diagnostics.DiagnosticDirectory.CheckDirectory(Path.GetDirectoryName(result));
             if(Directory.Exists(result)) throw new IOException("BIG/SKUDEF output is a directory.");
             return result;
         }
@@ -98,15 +98,6 @@ namespace NewModCompiler.Application
                 else File.Move(temporary, output);
             }
             finally { if(File.Exists(temporary)) File.Delete(temporary); }
-        }
-        static void RejectLinks(string path,ISet<string> checkedDirectories=null)
-        {
-            for(var item=new DirectoryInfo(path);item!=null;item=item.Parent)
-            {
-                if(checkedDirectories!=null && !checkedDirectories.Add(item.FullName))break;
-                if(item.Exists && (item.Attributes&FileAttributes.ReparsePoint)!=0) throw new IOException("BIG input/output paths cannot use reparse points.");
-            }
-            if(File.Exists(path) && (File.GetAttributes(path)&FileAttributes.ReparsePoint)!=0) throw new IOException("BIG input/output files cannot use reparse points.");
         }
     }
 }

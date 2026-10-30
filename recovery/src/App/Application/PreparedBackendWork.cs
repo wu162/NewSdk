@@ -22,7 +22,6 @@ namespace NewModCompiler.Application
         bool disposed;
 
         public string Family { get; private set; }
-        public bool CanRunParallel { get; private set; }
         public long PreparedBytes { get; private set; }
         public long ExternalReadBytes { get; private set; }
         public InstanceDeclaration Declaration { get { return declaration; } }
@@ -32,7 +31,7 @@ namespace NewModCompiler.Application
         {
             Family = family; this.plugin = plugin; this.declaration = declaration;
             this.inputLeases = inputLeases;
-            PreparedBytes = preparedBytes; CanRunParallel = true;
+            PreparedBytes = preparedBytes;
             if (inputLeases != null)
                 foreach (FileStream input in inputLeases) ExternalReadBytes = checked(ExternalReadBytes + input.Length);
         }
@@ -61,7 +60,8 @@ namespace NewModCompiler.Application
             string family;
             if (!Eligibility(original, plugin, out family, out reason)) return false;
 
-            long preparationEstimate = EstimatePreparationBytes(original);
+            long nodes = 0;
+            long preparationEstimate = EstimatePreparationBytes(original, ref nodes);
             // Bound the bridge's native input, scratch and output allocation.
             // Sharing the DOM does not eliminate that per-call working set.
             if (preparationEstimate > preparationBudget) return Reject("preparation-budget-exceeded", out reason);
@@ -74,7 +74,7 @@ namespace NewModCompiler.Application
                 if (family == "xml" && !PrepareXmlReads(original, leases, out reason)) return false;
                 if (family == "audio" && !PrepareAudio(original, leases, out reason)) return false;
                 long retained = preparationEstimate;
-                if (family == "w3x") retained = W3xBudget(original.Node, retained);
+                if (family == "w3x") retained = W3xBudget(original.Node, nodes, retained);
                 else if (family == "xml") retained = ExternalReadBudget(leases, retained, 4L);
                 else if (family == "audio") retained = ExternalReadBudget(leases, retained,
                     original.Handle.TypeId == AudioCatalog.AudioFileTypeId ? 64L : 4L);
@@ -94,13 +94,6 @@ namespace NewModCompiler.Application
             {
                 if (leases != null) foreach (FileStream lease in leases) lease.Dispose();
             }
-        }
-
-        // Cheap route gates: no XML traversal, clone, allocation or external I/O.
-        public static bool CanPrepare(InstanceDeclaration original, IAssetBuilderPlugin plugin, out string reason)
-        {
-            string family;
-            return Eligibility(original, plugin, out family, out reason);
         }
 
         static bool Eligibility(InstanceDeclaration original, IAssetBuilderPlugin plugin, out string family, out string reason)
@@ -163,23 +156,30 @@ namespace NewModCompiler.Application
 
         public static long EstimatePreparationBytes(InstanceDeclaration original)
         {
+            long nodes = 0;
+            return EstimatePreparationBytes(original, ref nodes);
+        }
+
+        static long EstimatePreparationBytes(InstanceDeclaration original, ref long nodes)
+        {
             if (original == null || original.Node == null) return 0;
             // The bridges still marshal strings, maps, vectors and output buffers.
             // Tokenized modules additionally emit data and procedure trees.
             uint type = original.Handle.TypeId;
             long multiplier = type == 2486173485u || type == 2496977262u || type == 980180622u ? 4L : 1L;
-            try { return checked(4096L + EstimateNode(original.Node) * multiplier); }
+            try { return checked(4096L + EstimateNode(original.Node, ref nodes) * multiplier); }
             catch (OverflowException) { return long.MaxValue; }
         }
 
-        static long EstimateNode(XmlNode node)
+        static long EstimateNode(XmlNode node, ref long nodes)
         {
+            if (node.NodeType != XmlNodeType.Attribute && node.ParentNode?.NodeType != XmlNodeType.Attribute) nodes++;
             string value = node.Value;
             long characters = (long)node.Name.Length + node.NamespaceURI.Length + (value == null ? 0L : value.Length);
             long bytes = checked(512L + characters * 8L);
             if (node.Attributes != null)
-                foreach (XmlAttribute attribute in node.Attributes) bytes = checked(bytes + EstimateNode(attribute));
-            foreach (XmlNode child in node.ChildNodes) bytes = checked(bytes + EstimateNode(child));
+                foreach (XmlAttribute attribute in node.Attributes) bytes = checked(bytes + EstimateNode(attribute, ref nodes));
+            foreach (XmlNode child in node.ChildNodes) bytes = checked(bytes + EstimateNode(child, ref nodes));
             return bytes;
         }
 
@@ -284,28 +284,21 @@ namespace NewModCompiler.Application
             catch (NotSupportedException) { return Reject("external-input-path-invalid", out reason); }
         }
 
-        static long W3xBudget(XmlNode root, long minimum)
+        static long W3xBudget(XmlNode root, long nodes, long minimum)
         {
             // Worst-case channel/frame expansion is much larger than its XML.
             // Count every element and apply a conservative per-node allowance;
             // declared-frame animation expansion is covered independently.
-            long nodes = CountNodes(root);
             long frames = 0;
             XmlAttribute numFrames = root.Attributes["NumFrames"];
-            uint value;
+            uint value = 0;
             if (numFrames != null && !uint.TryParse(numFrames.Value, out value)) return long.MaxValue;
-            if (numFrames != null) frames = uint.Parse(numFrames.Value, System.Globalization.CultureInfo.InvariantCulture);
+            frames = value;
             long channels = root.SelectNodes("*[local-name()='Channels']/*").Count;
             try { return checked(minimum + nodes * 1024L + frames * Math.Max(1L, channels) * 256L); }
             catch (OverflowException) { return long.MaxValue; }
         }
 
-        static long CountNodes(XmlNode root)
-        {
-            long result = 1;
-            foreach (XmlNode child in root.ChildNodes) result += CountNodes(child);
-            return result;
-        }
     }
 }
 #endif

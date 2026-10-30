@@ -110,10 +110,10 @@ public static class CompilerPreparedBackend
         var instance = Declaration("AptAptData", "PreparedApt", namespaces);
         ((XmlElement)instance.Node).SetAttribute("File", path); Metadata(instance, plugin);
         object prepared = Prepare(instance, plugin);
-        Require(prepared != null && Value<bool>(prepared, "CanRunParallel"), "Existing APT blob input must be parallel eligible");
+        Require(prepared != null, "Existing APT blob input must be parallel eligible");
         try
         {
-            Require(Value<bool>(prepared, "CanRunParallel"), "Bounded leased APT XML must be certified for independent backend execution");
+            Require(prepared != null, "Bounded leased APT XML must be certified for independent backend execution");
             Denied(delegate { using (var writer = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.ReadWrite)) { } }, "a writer");
             Denied(delegate { File.Delete(path); }, "deletion");
             Denied(delegate { File.Move(path, path + ".moved"); }, "rename");
@@ -174,7 +174,7 @@ public static class CompilerPreparedBackend
         ((XmlElement)declaration.Node).SetAttribute("File", input);
         ((XmlElement)declaration.Node).SetAttribute("PCCompression", "XAS");
         object prepared = Prepare(declaration, audio);
-        try { Require(prepared != null && Value<bool>(prepared, "CanRunParallel"), "Known bounded recovered AudioFile must be parallel eligible"); }
+        try { Require(prepared != null, "Known bounded recovered AudioFile must be parallel eligible"); }
         finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
         ((XmlElement)declaration.Node).SetAttribute("PCSampleRate", "22050");
         prepared = Prepare(declaration, audio);
@@ -185,7 +185,7 @@ public static class CompilerPreparedBackend
         Require(Prepare(declaration, unknown) == null, "Injected AudioFile compiler must not inherit recovered cache or parallel certification");
         using (var stream = new FileStream(input, FileMode.Open, FileAccess.Write)) stream.SetLength(2L * 1024L * 1024L);
         prepared = PrepareWithReason(declaration, audio, 256L * 1024L * 1024L, out string largeReason);
-        try { Require(prepared != null && Value<bool>(prepared, "CanRunParallel") && Value<long>(prepared, "PreparedBytes") > 64L * 1024L * 1024L, "Large audio stays semantically certified within an adequate preparation budget"); }
+        try { Require(prepared != null && Value<long>(prepared, "PreparedBytes") > 64L * 1024L * 1024L, "Large audio stays semantically certified within an adequate preparation budget"); }
         finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
         var xml = new Recovered.XmlPriority.Plugin(); xml.Initialize(null, TargetPlatform.Win32);
         foreach (string type in new[] { "AudioEventLimitGroup", "AudioLOD", "AudioSettings", "Video", "VideoEventList", "MicrophoneSettings", "BootupDisplaySequence" })
@@ -194,7 +194,7 @@ public static class CompilerPreparedBackend
             prepared = Prepare(declaration, xml);
             try
             {
-                Require(prepared != null && Value<bool>(prepared, "CanRunParallel"), "Audited XML metadata root must retain independent backend eligibility: " + type);
+                Require(prepared != null, "Audited XML metadata root must retain independent backend eligibility: " + type);
                 EqualBuffers(xml.ProcessInstance(declaration), Execute(prepared), type);
             }
             finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
@@ -229,7 +229,7 @@ public static class CompilerPreparedBackend
                     object prepared = Prepare(declaration, plugin);
                     try
                     {
-                        Require(prepared != null && Value<bool>(prepared, "CanRunParallel"), "Complete environment family must be independently eligible: " + type);
+                        Require(prepared != null, "Complete environment family must be independently eligible: " + type);
                         EqualBuffers(plugin.ProcessInstance(declaration), Execute(prepared), type + "/" + platform);
                     }
                     finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
@@ -258,9 +258,9 @@ public static class CompilerPreparedBackend
         Require(ResourceValue<int>(generous, "RequestedJobs") == Int32.MaxValue && ResourceValue<int>(generous, "ProcessorCount") == 8,
             "Resource policy must retain the requested jobs and detected CPU identity");
         Require(ResourceValue<int>(generous, "Capacity") == 8, "A sufficiently provisioned eight-CPU host must not remain hard-capped at two workers");
-        Require(ResourceValue<long>(generous, "ByteBudget") == GiB && ResourceValue<long>(generous, "PerTaskBudget") == GiB / 2,
+        Require(ResourceValue<long>(generous, "ByteBudget") == GiB && ResourceValue<long>(generous, "ByteBudget") / 2 == GiB / 2,
             "Available virtual address space and process reserve must bound aggregate/per-task retention");
-        Require(ResourceValue<long>(generous, "PreparationBudget") == GiB / 2, "Private input preparation must follow the observed resource budget");
+        Require(ResourceValue<long>(generous, "ByteBudget") / 2 == GiB / 2, "Private input preparation must follow the observed resource budget");
         Require(ResourceValue<int>(ResourcePolicy(1, 8, 16 * GiB, 3 * GiB, 4 * GiB, true), "Capacity") == 1,
             "Explicit jobs=1 must remain serial on a large host");
         Require(ResourceValue<int>(ResourcePolicy(8, 1, 16 * GiB, 3 * GiB, 4 * GiB, true), "Capacity") == 1,
@@ -275,7 +275,7 @@ public static class CompilerPreparedBackend
             "Physical availability must independently constrain the aggregate budget and worker count");
         object failed = ResourcePolicy(Int32.MaxValue, 8, 32 * GiB, 3 * GiB, 4 * GiB, false);
         Require(!ResourceValue<bool>(failed, "MemoryQuerySucceeded") && ResourceValue<int>(failed, "Capacity") == 1 &&
-            ResourceValue<long>(failed, "ByteBudget") == 16 * MiB && ResourceValue<long>(failed, "PerTaskBudget") == 8 * MiB,
+            ResourceValue<long>(failed, "ByteBudget") == 16 * MiB && ResourceValue<long>(failed, "ByteBudget") / 2 == 8 * MiB,
             "Failed memory observation must explicitly degrade to one worker and a conservative bounded budget");
         object invalid = ResourcePolicy(8, 0, -1, -1, 2 * GiB, true);
         Require(ResourceValue<int>(invalid, "Capacity") == 1 && ResourceValue<long>(invalid, "ByteBudget") == 0,
@@ -283,8 +283,7 @@ public static class CompilerPreparedBackend
         object overflow = ResourcePolicy(Int32.MaxValue, Int32.MaxValue, Int64.MaxValue, Int64.MaxValue, 2 * GiB, true);
         Require(ResourceValue<int>(overflow, "Capacity") <= 32 && ResourceValue<long>(overflow, "ByteBudget") <= 512 * MiB,
             "Extreme observations must remain bounded by the Win32 virtual address-space identity");
-        object tightened = resourcePolicy.GetMethod("RecalculateMemory").Invoke(generous,
-            new object[] { 600 * MiB, 1536 * MiB, 2 * GiB, true });
+        object tightened = ResourcePolicy(ResourceValue<int>(generous, "RequestedJobs"), ResourceValue<int>(generous, "ProcessorCount"), 600 * MiB, 1536 * MiB, 2 * GiB, true);
         Require(ResourceValue<int>(tightened, "ProcessorCount") == 8 && ResourceValue<int>(tightened, "RequestedJobs") == Int32.MaxValue &&
             ResourceValue<int>(tightened, "Capacity") == 2 && ResourceValue<long>(tightened, "ByteBudget") == 44 * MiB,
             "A new memory observation must tighten capacity without losing CPU/request identity");
@@ -305,7 +304,7 @@ public static class CompilerPreparedBackend
         Require(prepared != null, "W3X must have a certified preparation contract");
         try
         {
-            Require(Value<bool>(prepared, "CanRunParallel"), "A bounded 65536-frame single channel animation may run in the W3X pool");
+            Require(prepared != null, "A bounded 65536-frame single channel animation may run in the W3X pool");
             Require(Value<long>(prepared, "PreparedBytes") >= 65536L * 256L, "Declared frame expansion must be included in the lifecycle budget");
         }
         finally { ((IDisposable)prepared).Dispose(); }

@@ -1,4 +1,21 @@
-# 直接产物与原 SDK 缓存
+# 冗余安全清理（2026-10-30，验证中）
+
+本轮基线为重新获取的 `recovery/legacy-sdk-cache` / `b89fbadb669a8abb3ba01c5bdd031a8c3a2e405b`，实现分支 `cleanup/redundant-defenses`。当前实现已成组完成，Windows 构建、原字节和性能验收尚未取得结果；下方旧章节仅是历史证据，不代表本轮已验证。
+
+删除未激活的 CacheInputBoundary、运行目录 EXE/DLL/config 身份扫描、session.identity、.file-identities.json 的全部读写、FileHashItem.sha256、ANTLR 运行期固定摘要、诊断目录/文件的长期原生句柄固定、BIG 逐成员祖先复查、重复资格判断及 W3X 重复遍历。没有增加替代侧车、发布事务或回滚。
+
+原 BAB FastHash、会话格式/压缩/部分保存/冻结、CDATA、资产缓存、依赖传播和实际 I/O 失败保留。文件 ID/ChangeTime/mtime/长度直接保存在已有 FileHashItem XML 可选属性中；旧 BAB 项首次使用建立元数据，之后无需哈希收据即可热复用。已有批量目录元数据查询仍限于一个请求内。
+
+保留的窄 Schema 检查有实际调用链：`AssetDeclarationDocument.Reinitialize` 可直接复用已验证、已注入默认值的实例，只比较文档/文件依赖和插件 TypeHash/ProcessingHash；XSD 默认值变化不会改变这些插件常量。SchemaSet 对已读入的完整闭包计算原 FastHash，把身份写入现有 BAB 会话根的可选属性；变化时重新解析。生产验收增加等长、恢复 mtime 的 DamageScalar 默认值修改，与关闭缓存重建逐字节对照。无单独收据。
+
+并行仍限制于已审查的内建实现。Audio 非 NONE/XAS 路径写共享 `PcmWaveAudioCompiler.compressionWarning`，其它 Audio 路由调用要求 owner 线程的 Tracer；显式采样率可扩大输出（400→96000 的倍率超过现有外部输入预算），本轮没有为了放开它新增准备读取/估算机制。保留 Win32 虚拟内存限额、输入读租约和失败/取消 join。Texture 混合 DLL 构建/发行验收未删除。
+
+最终报告在唯一 BuildFinished 和事件关闭之后序列化一次，包含必需通道关闭的失败。报告写失败只能通过 stderr/退出码告知，不能保证损坏通道自身有最终记录；消费者仍结合进程退出码、事件和报告。文本日志可选，JSONL/报告必需。后续诊断错误不会删除已生成 BIG/SKUDEF。
+
+验收统一使用 `compiler-defensive-cleanup.yml`：两配置 App/完整产品、Core、真实 CLI 取消、SessionCache/BuildAssetCache/旧缓存导入/Audio/Texture/W3X、并行矩阵、BIG/SKUDEF 原字节、完整 mymod 原 BAB 对照、热态编辑/依赖传播与协议。基线和当前 Release 在同一 Windows VM 各执行 18 次相同输入（36 次配对轮次采样）；计时样本使用 GetProcessIoCounters，另外四次 Process Monitor 样本记录文件打开/目录查询/侧车操作，采样开销不混入耗时对比。未验证前不宣称通过或加速。
+
+
+# 历史：直接产物与原 SDK 缓存
 
 基于 `recovery/legacy-sdk-cache` 的 `5c1843ae`，实现分支 `perf/direct-sdk-output`。本轮删除整代 Staging 与 MOD 发布事务；最终验证及同机性能计量见本页下方，早期失败记录保留。
 

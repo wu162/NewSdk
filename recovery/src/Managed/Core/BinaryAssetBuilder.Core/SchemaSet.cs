@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
-using System.Security.Cryptography;
+using EALA.Hash;
 using System.Xml;
 using System.Xml.Schema;
 
@@ -75,7 +75,7 @@ public class SchemaSet
 			{
 				foreach (var input in _SchemaContentHashes) { writer.Write(input.Key); writer.Write(input.Value); }
 				writer.Flush(); bytes.Position = 0;
-				using (var hash = SHA256.Create()) return _ContentIdentity = Convert.ToBase64String(hash.ComputeHash(bytes));
+				return _ContentIdentity = FastHash.GetHashCode(bytes.ToArray()).ToString("x8", System.Globalization.CultureInfo.InvariantCulture);
 			}
 		}
 	}
@@ -100,7 +100,6 @@ public class SchemaSet
 	private void ReadSchema(string baseDirectory, string schemaFile)
 	{
 		schemaFile = (Path.IsPathRooted(schemaFile) ? Path.GetFullPath(schemaFile) : Path.GetFullPath(Path.Combine(baseDirectory, schemaFile)));
-		CacheInputBoundary.Validate(schemaFile);
 		_CurrentSchema = schemaFile;
 		if (_SchemaPaths.ContainsKey(schemaFile)) return;
 		byte[] contents = File.ReadAllBytes(schemaFile);
@@ -120,8 +119,7 @@ public class SchemaSet
 
 	private static string HashSchema(string path, byte[] contents)
 	{
-		if (Settings.Current.FileContentHashFromBytes != null) return Settings.Current.FileContentHashFromBytes(path, contents);
-		using (var algorithm = SHA256.Create()) return Convert.ToBase64String(algorithm.ComputeHash(contents));
+		return FastHash.GetHashCode(contents).ToString("x8", System.Globalization.CultureInfo.InvariantCulture);
 	}
 
 	public XmlSchemaType GetXmlType(string typeName)

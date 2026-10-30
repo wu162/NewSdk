@@ -1,3 +1,9 @@
+# 当前：冗余安全清理，Windows 验证中
+
+`cleanup/redundant-defenses` 基于刷新后的 `b89fbadb`。整批实现和相应测试已完成，尚未通过本轮 Windows 验收。删除机制、保留依据和统一验证入口见 [DIRECT_OUTPUT](docs/DIRECT_OUTPUT.md)。无合并、强推或规则修改。
+
+以下为历史交接，不代表本轮实现或验收结果。
+
 # 当前：插件重复 schema 校验已移除（验收通过，PR #26 待审）
 
 用户指定基线 `recovery/legacy-sdk-cache` / `5c1843ae`；成果在 `refactor/remove-plugin-schema-validation` / [PR #26](https://github.com/wu162/NewSdk/pull/26)。删除 XML、GameObject、Weapon、Effects/Particle、Locomotor 及生成代码中的属性/子节点白名单、文本、单例、结构和命名空间校验及专用遍历/数组分配。Core 统一 XSD、依赖元数据及类型路由继续工作；Audio/W3X 的编码器数据检查保留。

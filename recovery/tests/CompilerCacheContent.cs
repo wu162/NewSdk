@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Web.Script.Serialization;
@@ -66,14 +65,9 @@ public static class CompilerCacheContent
             item.Reset(); Require(!item.IsDirty && item.Hash == first, "Unmodified contents must remain clean after reset");
             string serialized = Serialize(item);
             var xml = new XmlDocument(); xml.LoadXml(serialized);
-            using (var sha = SHA256.Create())
-                Require(xml.DocumentElement.GetAttribute("sha256") == Convert.ToBase64String(sha.ComputeHash(data)), "Serialized fingerprint must describe actual bytes");
+            Require(!xml.DocumentElement.HasAttribute("sha256"), "BAB hash records must not persist a second content hash");
             var loaded = Deserialize(serialized);
-            Require(!loaded.IsDirty && loaded.Hash == first, "Persisted unchanged content identity must be reusable");
-            xml.DocumentElement.RemoveAttribute("sha256");
-            var old = Deserialize(xml.OuterXml);
-            Require(old.IsDirty, "Legacy timestamp-only entries must be conservatively invalidated");
-            Require(old.Hash == first && !old.IsDirty, "Legacy entry recomputation must preserve the game hash");
+            Require(!loaded.IsDirty && loaded.Hash == first, "Persisted unchanged FastHash must be reusable");
             if (length != 0)
             {
                 data[length - 1] ^= 91;
@@ -99,9 +93,8 @@ public static class CompilerCacheContent
     static object HostHashes(string output)
     {
         var type = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileHashCache", true);
-        object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { output, null }, null);
+        object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { null }, null);
         Settings.Current.FileIdentity = (Func<string, FileHashInfo>)Delegate.CreateDelegate(typeof(Func<string, FileHashInfo>), hashes, type.GetMethod("CoreIdentity", BindingFlags.NonPublic | BindingFlags.Instance));
-        Settings.Current.RememberFileContentHash = (Action<string, string>)Delegate.CreateDelegate(typeof(Action<string, string>), hashes, type.GetMethod("RememberCoreHash", BindingFlags.NonPublic | BindingFlags.Instance));
         return hashes;
     }
     static void HostFileCases(string work)
@@ -119,22 +112,20 @@ public static class CompilerCacheContent
         Require(first == LegacyHash(data), "Host identity path changed multi-chunk FastHash");
         item.Reset();
         using (var held = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-            Require(!item.IsDirty && item.Hash == first, "Hot FileHashItem must reuse identity and SHA receipt without opening content");
+            Require(!item.IsDirty && item.Hash == first, "Hot FileHashItem must reuse identity and metadata without opening content");
         string saved = Serialize(item);
-        hashes.GetType().GetMethod("Save", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(hashes, null);
         hashes = HostHashes(output);
         var loaded = Deserialize(saved);
         using (var held = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-            Require(!loaded.IsDirty && loaded.Hash == first, "Cold-process host receipt must reuse FileHashItem content identity");
+            Require(!loaded.IsDirty && loaded.Hash == first, "Cold-process BAB metadata must reuse FileHashItem content identity");
         Thread.Sleep(30); data[data.Length - 1] ^= 91; ReplacePreservingTime(path, data);
         hashes.GetType().GetMethod("SchemaIdentities", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(hashes, new object[] { new[] { path } });
         loaded.Reset(); Require(loaded.IsDirty, "Host identity must invalidate a same-size restored-time edit");
-        using (var held = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-            Require(loaded.Hash == LegacyHash(data) && !loaded.IsDirty, "Changed file must calculate SHA256 and FastHash in one read before Hash commits");
+        Require(loaded.Hash == LegacyHash(data) && !loaded.IsDirty, "Changed file must calculate the original FastHash once when requested");
         int reads = (int)hashes.GetType().GetProperty("Reads", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(hashes, null);
-        Require(reads == 1, "Changed input should record exactly one combined content read");
+        Require(reads == 1, "Changed input should record exactly one FastHash content read");
         Settings.Current = null;
-        tests.Add("host-FileHashItem-directory-metadata-locked-hot-and-persisted-receipts-restored-time-invalidation-single-combined-read");
+        tests.Add("host-FileHashItem-directory-metadata-locked-hot-and-persisted-metadata-restored-time-invalidation-single-FastHash-read");
     }
     const string Header = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:a='uri:ea.com:eala:asset' targetNamespace='uri:ea.com:eala:asset'>";
     static string Root(string kind)
@@ -163,12 +154,10 @@ public static class CompilerCacheContent
         if (identityProvider)
         {
             var type = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileHashCache", true);
-            object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { Path.Combine(work, "receipts"), null }, null);
+            object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { null }, null);
             Settings.Current.FileIdentity = (Func<string, FileHashInfo>)Delegate.CreateDelegate(typeof(Func<string, FileHashInfo>), hashes, type.GetMethod("CoreIdentity", BindingFlags.NonPublic | BindingFlags.Instance));
             var stamp = type.GetMethod("SchemaIdentities", BindingFlags.NonPublic | BindingFlags.Instance);
             Settings.Current.SchemaFileIdentities = (Func<IEnumerable<string>, IDictionary<string, string>>)Delegate.CreateDelegate(typeof(Func<IEnumerable<string>, IDictionary<string, string>>), hashes, stamp);
-            var hashBytes = type.GetMethod("HashBase64", BindingFlags.NonPublic | BindingFlags.Instance, null, new[] { typeof(string), typeof(byte[]) }, null);
-            Settings.Current.FileContentHashFromBytes = (Func<string, byte[], string>)Delegate.CreateDelegate(typeof(Func<string, byte[], string>), hashes, hashBytes);
         }
         var schemas = new SchemaSet(false);
         Require(schemas.GetXmlType("KindAlpha") != null && schemas.GetXmlType("ItemAlpha") != null, "Initial real schema closure must load");

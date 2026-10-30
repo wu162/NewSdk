@@ -33,15 +33,6 @@ namespace NewModCompiler.Tests
             Check(replaced.FileId!=changed.FileId,"Replacing an input retained its old identity");
             File.Delete(nested);
             Check(FileIdentity.ReadDirectory(root).Concat(FileIdentity.ReadDirectory(Path.Combine(root,"child"))).ToList().Count==1,"Removed input remained in metadata closure");
-            string schemaReceipts=Path.Combine(root,"schema-receipts");
-            var schemaHashes=new FileHashCache(schemaReceipts);
-            byte[] schemaBytes=File.ReadAllBytes(path); string schemaHash;
-            using(var held=new FileStream(path,FileMode.Open,FileAccess.ReadWrite,FileShare.None))
-                schemaHash=schemaHashes.HashBase64(path,schemaBytes);
-            schemaHashes.Save();
-            var nextProcess=new FileHashCache(schemaReceipts);
-            using(var held=new FileStream(path,FileMode.Open,FileAccess.ReadWrite,FileShare.None))
-                Check(nextProcess.HashBase64(path,schemaBytes)==schemaHash && nextProcess.Reads==0,"Unchanged schema recomputed SHA256 instead of reusing its file-identity receipt");
             return count;
         }
     }

@@ -132,16 +132,9 @@ namespace NewModCompiler.Tests
             Junction(late,mod);
             try { try { using (var sink=new JsonLineSink(Path.Combine(late,"events.jsonl"))) { } throw new Exception("Post-parse junction accepted"); } catch (IOException) { } }
             finally { Directory.Delete(late); }
-            string pinned=Path.Combine(work,"pinned"), moved=Path.Combine(work,"moved");
-            using (var sink=new TextLogSink(Path.Combine(pinned,"text.log"))) {
-                bool rejected=false;
-                try { Directory.Move(pinned,moved); } catch (IOException) { rejected=true; } catch (UnauthorizedAccessException) { rejected=true; }
-                Require(rejected,"active sink allowed ancestor rename");
-            }
-            Directory.Move(pinned,moved); Require(Directory.Exists(moved),"directory handles leaked after sink disposal");
             OutputJunction(work,mod,sdk,mod,"mod"); OutputJunction(work,mod,sdk,sdk,"sdk");
             Require(File.ReadAllText(input)==original,"input changed across diagnostic matrix");
-            Console.WriteLine("PASS Diagnostic path matrix: ancestor/output collisions, Unicode, ADS rejection, JSONL/text/report hard links, MOD/SDK junctions, post-parse junction and pinned-parent rename");
+            Console.WriteLine("PASS Diagnostic path matrix: ancestor/output collisions, Unicode, ADS rejection, JSONL/text/report hard links, MOD/SDK junctions, post-parse junction");
         }
     }
 }

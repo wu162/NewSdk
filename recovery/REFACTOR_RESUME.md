@@ -1,3 +1,9 @@
+# 当前：冗余安全清理，Windows 验证中
+
+`cleanup/redundant-defenses` 基于刷新后的 `b89fbadb`。整批实现和相应测试已完成，尚未通过本轮 Windows 验收。删除机制、保留依据和统一验证入口见 [DIRECT_OUTPUT](docs/DIRECT_OUTPUT.md)。无合并、强推或规则修改。
+
+以下为历史交接，不代表本轮实现或验收结果。
+
 # 当前：直接产物与原 SDK 缓存（已验证，PR #27 待审）
 
 分支 `perf/direct-sdk-output`，基于 `recovery/legacy-sdk-cache` 的 `5c1843ae`。正式产物直接写 `OutputRoot/published`；删除整代 `.build`、发布事务/备份/回滚、独立四流快照、输出 SHA256 与发布收据，以及未接入生产的 App 事务缓存。原 BAB SessionCache/BuildAssetCache、中间资产、依赖失效和 CDATA 复用保留。日志/报告/事件失败仍报错，已生成 MOD 和缓存不回滚。

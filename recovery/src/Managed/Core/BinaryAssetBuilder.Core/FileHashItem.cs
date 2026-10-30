@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Security.Cryptography;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -9,14 +8,12 @@ using EALA.Hash;
 
 namespace BinaryAssetBuilder.Core;
 
-// Host metadata and an optional previously computed SHA256 receipt. A null
-// receipt asks Core to calculate both hashes together when content is needed.
+// Host metadata, obtained without opening the file body.
 public sealed class FileHashInfo
 {
 	public bool Exists;
 	public DateTime LastWriteTime;
 	public string Identity;
-	public string ContentHash;
 }
 
 [Serializable]
@@ -39,13 +36,10 @@ public class FileHashItem : IXmlSerializable
 
 	private DateTime _LastDate = DateTime.MinValue;
 
-	// A cache identity, separate from the game's legacy FastHash value. Old
-	// serialized entries have no content identity and must be revalidated.
+	// Persist metadata in the existing BAB record. Imported original caches
+	// lack this field and are hashed once before establishing a baseline.
 	[OptionalField]
-	private string _ContentHash;
-
-	[NonSerialized]
-	private string _CurrentContentHash;
+	private string _LastIdentity;
 
 	[NonSerialized]
 	private bool _Dirty;
@@ -75,7 +69,6 @@ public class FileHashItem : IXmlSerializable
 	{
 		get
 		{
-			CacheInputBoundary.Validate(_Path);
 			if (_State < FileState.HashValid)
 			{
 				if (IsDirty)
@@ -84,7 +77,7 @@ public class FileHashItem : IXmlSerializable
 					{
 						if (!_CurrentHashValid) CalculateHash();
 						_Hash = _CurrentHash;
-						_ContentHash = _CurrentContentHash;
+						_LastIdentity = _Identity?.Identity;
 						_LastDate = _CurrentDate;
 						_Dirty = false;
 					}
@@ -92,10 +85,9 @@ public class FileHashItem : IXmlSerializable
 					{
 						_Hash = 0u;
 						// The missing-file result no longer has the previous
-						// content hash's identity. A same-time recreation must
+						// metadata identity. A same-time recreation must
 						// recompute FastHash rather than reuse this zero value.
-						_ContentHash = null;
-						_CurrentContentHash = null;
+						_LastIdentity = null;
 						_Identity = null;
 						_CurrentHashValid = false;
 						_LastDate = DateTime.MinValue;
@@ -111,21 +103,15 @@ public class FileHashItem : IXmlSerializable
 	{
 		get
 		{
-			CacheInputBoundary.Validate(_Path);
 			if (_State < FileState.DateValid)
 			{
 				if (Exists)
 				{
 					_CurrentDate = _Identity == null ? File.GetLastWriteTime(_Path) : _Identity.LastWriteTime;
-					// Known dirty inputs defer all content reads until Hash is requested.
-					if (_LastDate == _CurrentDate && _ContentHash != null)
-					{
-						_CurrentContentHash = _Identity == null ? null : _Identity.ContentHash;
-						if (_CurrentContentHash == null) CalculateHash();
-					}
+					if (_Identity == null && _LastDate == _CurrentDate) CalculateHash();
 				}
-				_Dirty = !Exists || _LastDate != _CurrentDate || _ContentHash == null ||
-					!string.Equals(_ContentHash, _CurrentContentHash, StringComparison.Ordinal);
+				_Dirty = !Exists || _LastDate != _CurrentDate ||
+					(_Identity != null ? _LastIdentity != _Identity.Identity : _CurrentHash != _Hash);
 				_State = FileState.DateValid;
 			}
 			return _Dirty;
@@ -136,7 +122,6 @@ public class FileHashItem : IXmlSerializable
 	{
 		get
 		{
-			CacheInputBoundary.Validate(_Path);
 			if (_State < FileState.ExistsValid)
 			{
 				_Identity = Settings.Current?.FileIdentity?.Invoke(_Path);
@@ -156,15 +141,14 @@ public class FileHashItem : IXmlSerializable
 	{
 		writer.WriteStartElement("hi");
 		writer.WriteAttributeString("d", $"{_Path};{_Hash};{_LastDate.ToBinary()};{_BuildConfiguration};{(int)_TargetPlatform}");
-		if (_ContentHash != null) writer.WriteAttributeString("sha256", _ContentHash);
+		if (_LastIdentity != null) writer.WriteAttributeString("identity", _LastIdentity);
 		writer.WriteEndElement();
 	}
 
 	public void ReadXml(XmlReader reader)
 	{
-		_ContentHash = reader.GetAttribute("sha256");
+		_LastIdentity = reader.GetAttribute("identity");
 		_State = FileState.AllInvalid;
-		_CurrentContentHash = null;
 		_Identity = null;
 		_CurrentHashValid = false;
 		reader.MoveToAttribute("d");
@@ -208,7 +192,6 @@ public class FileHashItem : IXmlSerializable
 	{
 		_State = FileState.AllInvalid;
 		_CurrentDate = DateTime.MaxValue;
-		_CurrentContentHash = null;
 		_Identity = null;
 		_CurrentHashValid = false;
 		_Dirty = false;
@@ -219,21 +202,13 @@ public class FileHashItem : IXmlSerializable
 		using var performance = PerformanceScope.Measure("core.filehash.read");
 		AsynchronousFileReader asynchronousFileReader = new AsynchronousFileReader(_Path);
 		uint hash = asynchronousFileReader.FileSize;
-		using (var algorithm = SHA256.Create())
+		while (asynchronousFileReader.BeginRead())
 		{
-			while (asynchronousFileReader.BeginRead())
-			{
-				byte[] data = asynchronousFileReader.CurrentChunk.Data;
-				int count = asynchronousFileReader.CurrentChunk.BytesRead;
-				hash = FastHash.GetHashCode(hash, data, count);
-				algorithm.TransformBlock(data, 0, count, data, 0);
-				asynchronousFileReader.EndRead();
-			}
-			algorithm.TransformFinalBlock(new byte[0], 0, 0);
-			_CurrentContentHash = Convert.ToBase64String(algorithm.Hash);
+			hash = FastHash.GetHashCode(hash, asynchronousFileReader.CurrentChunk.Data, asynchronousFileReader.CurrentChunk.BytesRead);
+			asynchronousFileReader.EndRead();
 		}
 		_CurrentHash = hash;
 		_CurrentHashValid = true;
-		Settings.Current?.RememberFileContentHash?.Invoke(_Path, _CurrentContentHash);
+		Settings.Current?.FileHashRead?.Invoke(asynchronousFileReader.FileSize);
 	}
 }

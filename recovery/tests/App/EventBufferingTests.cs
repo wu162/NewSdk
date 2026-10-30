@@ -44,6 +44,14 @@ namespace NewModCompiler.Tests
             string[] rows=File.ReadAllLines(json);Check(rows.Length==260 && File.ReadAllLines(text).Length==260,"Batching omitted or duplicated events");
             var serializer=new JavaScriptSerializer();int sequence=0;
             foreach(string row in rows)Check(Convert.ToInt32(serializer.Deserialize<Dictionary<string,object>>(row)["sequence"])==++sequence,"Batching changed event order");
+            var optional = new TextLogSink(Path.Combine(root,"optional.log")); optional.Dispose();
+            string required = Path.Combine(root,"required.jsonl");
+            using (var dispatcher = new EventDispatcher("optional-log-failure",new IBuildEventSink[] {optional,new JsonLineSink(required)})) {
+                dispatcher.Emit("BuildStarted"); dispatcher.Emit("BuildFinished");
+                dispatcher.Dispose();
+                Check(!dispatcher.OutputFailed && !dispatcher.CloseFailed,"Optional text failure changed the required output outcome");
+            }
+            Check(File.ReadAllLines(required).Length==2,"Optional text failure lost required JSONL events");
             TextWriter previous=Console.Error;var console=new StringWriter();
             try {
                 Console.SetError(console);

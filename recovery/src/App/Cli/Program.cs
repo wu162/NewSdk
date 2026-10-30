@@ -32,7 +32,10 @@ namespace NewModCompiler.Cli
 #endif
                 // Invalidate a previous report before opening any required output channels.
                 Reports.RemoveStale(request.ReportPath);
-                sinks.Add(new JsonLineSink(request.EventsPath)); sinks.Add(new TextLogSink(request.LogPath));
+                sinks.Add(new JsonLineSink(request.EventsPath));
+                try { sinks.Add(new TextLogSink(request.LogPath)); }
+                catch (IOException error) { Console.Error.WriteLine("Optional text log unavailable: " + error.Message); }
+                catch (UnauthorizedAccessException error) { Console.Error.WriteLine("Optional text log unavailable: " + error.Message); }
                 // Transfer ownership so partial-startup cleanup cannot close successful
                 // session sinks a second time after the exit code has been finalized.
                 var ownedSinks=sinks.ToArray(); sinks.Clear();

@@ -135,23 +135,23 @@ namespace NewModCompiler.Cli
                 request.OutputRoot = FullPath(request.Options["out"].Value);
                 if (Paths.Contains(request.ModRoot, request.OutputRoot) || Paths.Contains(request.OutputRoot, request.ModRoot) || Paths.Contains(request.SdkRoot, request.OutputRoot) || Paths.Contains(request.OutputRoot, request.SdkRoot))
                     throw Bad("CLI_OUTPUT_OVERLAP", "Output must not overlap the MOD or SDK input directories.");
+                string mod, sdk;
                 try {
                     if (File.Exists(request.OutputRoot)) throw Bad("CLI_OUTPUT_PATH", "Output must name a directory, not an existing file.");
                     string output=DiagnosticDirectory.ResolveOutput(request.OutputRoot);
-                    string mod=DiagnosticDirectory.ResolveInputDirectory(request.ModRoot), sdk=DiagnosticDirectory.ResolveInputDirectory(request.SdkRoot);
+                    mod=DiagnosticDirectory.ResolveInputDirectory(request.ModRoot); sdk=DiagnosticDirectory.ResolveInputDirectory(request.SdkRoot);
                     if (Paths.Contains(mod,output) || Paths.Contains(output,mod) || Paths.Contains(sdk,output) || Paths.Contains(output,sdk))
                         throw Bad("CLI_OUTPUT_OVERLAP", "Output physically overlaps the MOD or SDK inputs.");
+                    request.OutputRoot = output;
                 } catch (IOException e) { throw Bad("CLI_OUTPUT_PATH",e.Message); }
-                request.EventsPath = ResolveDiagnostic(request, "events", "build.events.jsonl");
-                request.ReportPath = ResolveDiagnostic(request, "report", "build-report.json");
-                request.LogPath = ResolveDiagnostic(request, "log", "build.log");
+                request.EventsPath = ResolveDiagnostic(request, "events", "build.events.jsonl", mod, sdk);
+                request.ReportPath = ResolveDiagnostic(request, "report", "build-report.json", mod, sdk);
+                request.LogPath = ResolveDiagnostic(request, "log", "build.log", mod, sdk);
                 string[] diagnostics=new [] {request.EventsPath,request.ReportPath,request.LogPath};
-                string[] physical=diagnostics.Select(DiagnosticDirectory.ResolveOutput).ToArray();
-                string published=DiagnosticDirectory.ResolveOutput(Path.Combine(request.OutputRoot,"published"));
-                string identities=Path.Combine(request.OutputRoot,".file-identities.json");
+                string[] physical=diagnostics;
+                string published=Path.Combine(request.OutputRoot,"published");
                 for (int i=0;i<physical.Length;++i) {
-                    if (Paths.Contains(published,physical[i]) || Paths.Contains(physical[i],published) ||
-                        string.Equals(physical[i],identities,StringComparison.OrdinalIgnoreCase))
+                    if (Paths.Contains(published,physical[i]) || Paths.Contains(physical[i],published))
                         throw Bad("CLI_LOG_COLLISION","Diagnostic files must not overlap compiler output.");
                     for (int j=0;j<i;++j)
                         if (Paths.Contains(physical[i],physical[j]) || Paths.Contains(physical[j],physical[i]))
@@ -167,7 +167,7 @@ namespace NewModCompiler.Cli
             return request;
         }
         static void Default(BuildRequest request, string key, string value) { if (!request.Options.ContainsKey(key)) request.Options[key] = new EffectiveOption { Value = value, Source = "default" }; }
-        static string ResolveDiagnostic(BuildRequest request, string key, string fallback)
+        static string ResolveDiagnostic(BuildRequest request, string key, string fallback, string mod, string sdk)
         {
             Default(request, key, Path.Combine(request.OutputRoot, fallback));
             string path = request.Options[key].Value;
@@ -177,8 +177,9 @@ namespace NewModCompiler.Cli
             try {
                 if (Directory.Exists(path)) throw Bad("CLI_LOG_PATH", "Diagnostic output must name a file, not an existing directory.");
                 string physical=DiagnosticDirectory.ResolveOutput(path);
-                if (Paths.Contains(DiagnosticDirectory.ResolveInputDirectory(request.ModRoot),physical) || Paths.Contains(DiagnosticDirectory.ResolveInputDirectory(request.SdkRoot),physical))
+                if (Paths.Contains(mod,physical) || Paths.Contains(sdk,physical))
                     throw Bad("CLI_LOG_INPUT","Diagnostic output physically overlaps inputs.");
+                path = physical;
             } catch (IOException e) { throw Bad("CLI_LOG_PATH",e.Message); }
             return path;
         }

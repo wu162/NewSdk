@@ -366,16 +366,30 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $combinedChangedHot=RunCli 'combined-sc-bc-incremental-hot' $mod $combinedOut $true -BuildEnabled $true;SameOutputs $plain $combinedChangedHot
         Need ($combinedChangedHot.report.cache.sessionPackageHits -gt 0 -and $combinedChangedHot.report.cache.sessionPackageMisses -eq 0 -and $combinedChangedHot.report.cache.instanceCompile -eq 0 -and $combinedChangedHot.report.cache.hits -eq 0 -and $combinedChangedHot.report.cache.misses -eq 0) 'Combined updated session failed to advance to its latest hot generation'
         OriginalOracle $hot 'original-mutated'
-        # Neutral same-length/same-mtime schema and configuration edits must
-        # miss the content namespace while preserving all compiled bytes.
+        # Schema content changes revalidate cached defaulted XML. Unrelated SDK
+        # and runtime configuration quoting edits leave the session hot.
         foreach($change in @(
             @{name='schema';path="$sdk/Schemas/xsd/AssetTypeTexture.xsd";from='elementFormDefault="qualified"';to="elementFormDefault='qualified'"},
             @{name='sdk-config';path="$sdk/tools/BinaryAssetBuilder.exe.config";from='monitorPaths="..\"';to="monitorPaths='..\'"},
             @{name='runtime-config';path="$runtime/NewModCompiler.exe.config";from='version="v4.0"';to="version='v4.0'"})){
             SameLengthMutation $change.path $change.from $change.to
-            $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed 'revalidated';SameOutputs $plain $changed;$script:hotParseCeiling=$changed.report.cache.xmlParse
+            $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed $(if($change.name -eq 'schema'){'revalidated'}else{'hot'});SameOutputs $plain $changed;$script:hotParseCeiling=$changed.report.cache.xmlParse
             $hot=RunCli ($change.name+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         }
+        Need (!(Test-Path (Join-Path $cachedOut '.file-identities.json')) -and !(Test-Path (Join-Path $cachedOut '.NewModCompiler/session.identity'))) 'Removed hash/session sidecar was recreated'
+        Put "$runtime/unrelated.dll" 'Unloaded runtime neighbor A'
+        Put "$runtime/unrelated.config" 'Unloaded runtime configuration'
+        $neighbor=RunCli 'unrelated-runtime-files' $mod $cachedOut $true;Cache $neighbor 'hot';SameOutputs $plain $neighbor
+        SameLengthMutation "$runtime/unrelated.dll" 'neighbor A' 'neighbor B'
+        $neighborEdited=RunCli 'unrelated-runtime-edit' $mod $cachedOut $true;Cache $neighborEdited 'hot';SameOutputs $plain $neighborEdited
+        $armorSchema=Join-Path $sdk 'Schemas/xsd/AssetTypeArmorTemplate.xsd'
+        SameLengthMutation $armorSchema 'name="DamageScalar" type="Percentage" default="100"' 'name="DamageScalar" type="Percentage" default="050"'
+        $schemaDefault=RunCli 'schema-default-invalidated' $mod $cachedOut $true;Cache $schemaDefault 'revalidated'
+        $schemaPlain=RunCli 'schema-default-disabled' $mod $plainOut $false
+        SameOutputs $schemaPlain $schemaDefault;DifferentOutputs $plain $schemaDefault
+        $schemaHot=RunCli 'schema-default-hot' $mod $cachedOut $true;Cache $schemaHot 'hot';SameOutputs $schemaPlain $schemaHot
+        SameLengthMutation $armorSchema 'name="DamageScalar" type="Percentage" default="050"' 'name="DamageScalar" type="Percentage" default="100"'
+        $hot=RunCli 'schema-default-restored' $mod $cachedOut $true;Cache $hot 'revalidated';SameOutputs $plain $hot
         $other=Join-Path $modeWork 'b';MakeMod $other ($probe.Replace('72.5%','32.5%'))
         $otherCold=RunCli 'second-mod' $other $cachedOut $true;Cache $otherCold 'cold'
         $otherPlain=RunCli 'second-mod-disabled' $other $plainOut $false;SameOutputs $otherPlain $otherCold
