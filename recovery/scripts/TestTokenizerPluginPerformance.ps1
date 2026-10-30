@@ -1,12 +1,12 @@
 [CmdletBinding()]
-param([string]$BaselineCommit='8f854606ac20ce372045e3661b38e58e4e933ca2')
+param([string]$BaselineCommit='7cfdd4314d8cafa2f2c7313e64f5ffbacf94eaf9')
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $out=Join-Path $root "recovery/evidence/refactor/tokenizer-plugin-performance/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP 'tokenizer-plugin-performance'
 if((Test-Path $out) -or (Test-Path $work)){throw 'Refusing to overwrite performance evidence'}
 New-Item -ItemType Directory -Force $out,$work|Out-Null
-$state=@{status='started';sourceCommit=$env:GITHUB_SHA;baselineCommit=$BaselineCommit;runId=$env:GITHUB_RUN_ID;scope='Isolated original and before/after C++/CLI plugin components, Release /O2 x86. Four synthetic prepared-XML fixtures; both byte orders compared; five alternating Win32 measurement pairs. XML parsing, Core preparation, caches and full MOD compilation excluded. managedAllocatedBytes excludes native heap allocations.'}
+$state=@{status='started';sourceCommit=$env:GITHUB_SHA;baselineCommit=$BaselineCommit;runId=$env:GITHUB_RUN_ID;scope='Isolated original and before/after C++/CLI plugin components, Release /O2 x86. Five synthetic prepared-XML fixtures; both byte orders compared; five alternating Win32 measurement pairs. XML parsing, Core preparation, caches and full MOD compilation excluded. managedAllocatedBytes excludes native heap allocations.'}
 Push-Location $root
 try {
     $archive=Join-Path $work 'baseline.tar'

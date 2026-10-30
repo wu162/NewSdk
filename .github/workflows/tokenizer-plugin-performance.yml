@@ -9,6 +9,12 @@ on:
       - 'recovery/src/Native/GameObject.cpp'
       - 'recovery/src/Native/GameObjectModuleFieldsRuntime.h'
       - 'recovery/src/Native/WeaponTemplate.cpp'
+      - 'recovery/src/Native/WeaponNugget.cpp'
+      - 'recovery/src/Native/Relocation*'
+      - 'recovery/src/Native/EnumBitset*'
+      - 'recovery/src/Native/AttributeMap.h'
+      - 'recovery/src/Native/GameObject*Runtime.h'
+      - 'recovery/src/Native/GameObjectChildGroups.h'
       - 'recovery/tests/TokenizerPluginPerformance.cs'
       - 'recovery/scripts/TestTokenizerPluginPerformance.ps1'
   workflow_dispatch:

@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <cstring>
 #include <stdexcept>
+#include <type_traits>
 #ifdef _MANAGED
 #pragma managed(push, off)
 #endif
@@ -397,20 +398,25 @@ void EndianBase(BaseNugget& object) {
     if(object.special) EndianObjectFilter(object.special);
     EndianWords(object.required);EndianWords(object.forbidden);
 }
-struct Field { const char* name;const char* fallback;unsigned offset;char kind; };
+struct Field {
+    const char* name;const char* fallback;unsigned offset;char kind;
+    bool damageEnum;unsigned scalarSize;U32 defaultWord;
+    Field(const char* name,const char* fallback,unsigned offset,char kind,bool damageEnum=false);
+};
+static_assert(std::is_trivially_destructible<Field>::value,"Nugget defaults must not own CRT shutdown state");
 const Field damageFields[] = {
-    {"Damage","0",40,'f'},{"DamageTaperOff","-1.0",44,'f'},
-    {"MinRadius","0.0",48,'f'},{"DamageArc","360d",52,'a'},
-    {"DamageArcInverted","false",144,'b'},{"DamageMaxHeight","-1",56,'f'},
-    {"DamageMaxHeightAboveTerrain","-1",60,'f'},{"AcceptDamageAdd","true",145,'b'},
-    {"FlankingBonus","0",64,'f'},{"FlankedScalar","1",68,'f'},{"DelayTimeSeconds","0s",72,'t'},
-    {"DamageType","UNDEFINED",76,'e'},{"DeathType","NORMAL",80,'e'},
-    {"DamageFXType","UNDEFINED",84,'e'},{"DamageSubType","NORMAL",88,'e'},
-    {"OnlyKillOwnerWhenTriggered","false",146,'b'},{"DrainLifeMultiplier","1",92,'f'},
-    {"DrainLife","false",147,'b'},{"DamageSpeed","0",96,'f'},
-    {"UnderAttackOverrideEvaEvent","",100,'r'},{"VictimShroudRevealer",nullptr,104,'r'},
-    {"NotifyOwnerOnVictimDeath","false",148,'b'},{"NotifyObserversOnPreDamageEffectPosition","false",149,'b'},
-    {"ForceFXPositionToVictim","false",150,'b'},{"RadiusAffectsBridges","false",151,'b'}
+    {"Damage","0",40,'f',true},{"DamageTaperOff","-1.0",44,'f',true},
+    {"MinRadius","0.0",48,'f',true},{"DamageArc","360d",52,'a',true},
+    {"DamageArcInverted","false",144,'b',true},{"DamageMaxHeight","-1",56,'f',true},
+    {"DamageMaxHeightAboveTerrain","-1",60,'f',true},{"AcceptDamageAdd","true",145,'b',true},
+    {"FlankingBonus","0",64,'f',true},{"FlankedScalar","1",68,'f',true},{"DelayTimeSeconds","0s",72,'t',true},
+    {"DamageType","UNDEFINED",76,'e',true},{"DeathType","NORMAL",80,'e',true},
+    {"DamageFXType","UNDEFINED",84,'e',true},{"DamageSubType","NORMAL",88,'e',true},
+    {"OnlyKillOwnerWhenTriggered","false",146,'b',true},{"DrainLifeMultiplier","1",92,'f',true},
+    {"DrainLife","false",147,'b',true},{"DamageSpeed","0",96,'f',true},
+    {"UnderAttackOverrideEvaEvent","",100,'r',true},{"VictimShroudRevealer",nullptr,104,'r',true},
+    {"NotifyOwnerOnVictimDeath","false",148,'b',true},{"NotifyObserversOnPreDamageEffectPosition","false",149,'b',true},
+    {"ForceFXPositionToVictim","false",150,'b',true},{"RadiusAffectsBridges","false",151,'b',true}
 };
 const EnumNameValue ParalyzeEffectType[]={{"EMP",0},{"HELD",3},{"NONE",4},{"UNMANNED",2},{"USER_PARALYZE",1}};
 const EnumNameValue ModifierCategory[]={{"BUFF",7},{"DEBUFF",8},{"FORMATION",2},{"INNATE_ARMOR",10},{"INNATE_AUTOHEAL",13},{"INNATE_DAMAGEMULT",11},{"INNATE_HEALTH",14},{"INNATE_VISION",12},{"LEADERSHIP",1},{"LEVEL",6},{"NONE",0},{"SPELL",3},{"STRUCTURE",5},{"STUN",9},{"WEAPON",4}};
@@ -504,6 +510,42 @@ const SimpleSpec simpleSpecs[]={
     {AttachId,44,attachMembers,1},{SpendId,44,spendMembers,1},{SecondaryId,52,secondaryMembers,3},
     {StripId,56,stripMembers,4},{SuppressionId,60,suppressionMembers,5},{LuaId,52,luaMembers,4}
 };
+unsigned NuggetScalarSize(char kind) {
+    switch(kind) {
+    case 'b':return 1;
+    case 'f':case 'a':case 't':case 'p':case 'i':case 'h':case 'q':case 'd':case 'e':case 'x':return 4;
+    default:return 0;
+    }
+}
+U32 DecodeNuggetScalar(const Field& field,const std::string& text) {
+    float number=0;U32 word=0;
+    switch(field.kind) {
+    case 'b':return ParseBoolean(text)?1:0;
+    case 'i':return static_cast<U32>(ParseSigned(text));
+    case 'h':return HashAssetId(text);
+    case 'q':return Enum(text,ParalyzeEffectType,0);
+    case 'd':return Enum(text,DamageType,38);
+    case 'x':return Enum(text,DamageFXType,35);
+    case 'e':
+        if(!field.damageEnum)return Enum(text,DeathType,33);
+        return field.offset==76?Enum(text,DamageType,38):field.offset==80?Enum(text,DeathType,33):field.offset==84?Enum(text,DamageFXType,35):Enum(text,DamageSubType,1);
+    case 'a':number=InitializeAngle(text.c_str());break;
+    case 't':number=InitializeTime(text.c_str());break;
+    case 'p':number=ParsePercentage(text);break;
+    case 'f':number=ParseFloat(text);break;
+    default:throw std::logic_error("Expected scalar nugget field");
+    }
+    std::memcpy(&word,&number,4);return word;
+}
+Field::Field(const char* fieldName,const char* defaultText,unsigned fieldOffset,char fieldKind,bool damage)
+    :name(fieldName),fallback(defaultText),offset(fieldOffset),kind(fieldKind),damageEnum(damage),scalarSize(NuggetScalarSize(fieldKind)),defaultWord(0) {
+    if(fallback && scalarSize)defaultWord=DecodeNuggetScalar(*this,std::string(fallback));
+}
+struct DamageStatusDefaults {
+    U32 words[7]{};
+    DamageStatusDefaults(){MarshalObjectStatus("INSIDE_GARRISON UNATTACKABLE UNDER_IRON_CURTAIN",words);}
+};
+const DamageStatusDefaults damageStatusDefaults;
 const SimpleSpec* FindSimple(U32 id) {for(const auto& spec:simpleSpecs) if(spec.id==id) return &spec;return nullptr;}
 U32 NonDamageSize(U32 id) {
     auto simple=FindSimple(id);if(simple) return simple->size;
@@ -530,9 +572,15 @@ void MarshalNonDamageNugget(const WeaponNuggetInput& src,BaseNugget* base,Relo::
                 }
                 continue;
             }
-            if(!field.fallback && !src.attributes.count(field.name)) continue;
-            auto text=Text(src,field.name,field.fallback?field.fallback:"");
+            auto found=src.attributes.find(field.name);
+            if(!field.fallback && found==src.attributes.end())continue;
             auto at=reinterpret_cast<unsigned char*>(base)+field.offset;
+            if(field.scalarSize) {
+                U32 word=found==src.attributes.end()?field.defaultWord:DecodeNuggetScalar(field,found->second);
+                std::memcpy(at,&word,field.scalarSize);continue;
+            }
+            std::string fallback;if(found==src.attributes.end())fallback=field.fallback;
+            const std::string& text=found==src.attributes.end()?fallback:found->second;
             if(field.kind=='r') {MarshalReference(data,at,text);continue;}
             if(field.kind=='s') {MarshalString(data,at,text);continue;}
             if(field.kind=='b') {*at=ParseBoolean(text);continue;}
@@ -673,19 +721,18 @@ void EndianNonDamageNugget(BaseNugget* base) {
 
 void MarshalDamage(const WeaponNuggetInput& input,DamageNugget& object,Relo::Tracker& data) {
     for(const auto& field:damageFields) {
-        if(!field.fallback && !input.attributes.count(field.name)) continue;
-        auto text=Text(input,field.name,field.fallback ? field.fallback : "");
+        auto found=input.attributes.find(field.name);
+        if(found==input.attributes.end() && !field.fallback)continue;
         auto at=reinterpret_cast<unsigned char*>(&object)+field.offset;
-        if(field.kind=='b') { *at=ParseBoolean(text);continue; }
-        if(field.kind=='r') { MarshalReference(data,at,text);continue; }
-        if(field.kind=='e') {
-            U32 word=field.offset==76 ? Enum(text,DamageType,38) : field.offset==80 ? Enum(text,DeathType,33) : field.offset==84 ? Enum(text,DamageFXType,35) : Enum(text,DamageSubType,1);
-            std::memcpy(at,&word,4);continue;
-        }
-        float value=field.kind=='a' ? InitializeAngle(text.c_str()) : field.kind=='t' ? InitializeTime(text.c_str()) : ParseFloat(text);
-        std::memcpy(at,&value,4);
+        if(field.scalarSize) {
+            U32 word=found==input.attributes.end()?field.defaultWord:DecodeNuggetScalar(field,found->second);
+            std::memcpy(at,&word,field.scalarSize);
+        } else if(found==input.attributes.end())MarshalReference(data,at,std::string(field.fallback));
+        else MarshalReference(data,at,found->second);
     }
-    MarshalObjectStatus(Text(input,"InvalidTargetStatus","INSIDE_GARRISON UNATTACKABLE UNDER_IRON_CURTAIN"),object.invalidStatus);
+    auto invalidStatus=input.attributes.find("InvalidTargetStatus");
+    if(invalidStatus==input.attributes.end())std::memcpy(object.invalidStatus,damageStatusDefaults.words,sizeof(object.invalidStatus));
+    else MarshalObjectStatus(invalidStatus->second,object.invalidStatus);
     object.scalars.count=static_cast<U32>(input.damageScalars.size());
     if(object.scalars.count) {
         data.Push(reinterpret_cast<void**>(&object.scalars.values),124,object.scalars.count);

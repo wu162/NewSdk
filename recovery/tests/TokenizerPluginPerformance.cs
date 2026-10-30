@@ -92,6 +92,15 @@ static class TokenizerPluginPerformance
             }
             modules.Append("</Draws>");
             fixtures.Add(new Fixture("gameobject-nested-draws", "GameObject", "KindOf='VEHICLE SELECTABLE'", modules.ToString(), 160));
+            var wide = new StringBuilder("<Draws><ScriptedModelDraw TypeId='1322199627' id='Wide'>");
+            for (int state = 0; state < 8; ++state) {
+                wide.Append("<ModelConditionState Name='Wide" + state + "' ConditionsYes='DAMAGED'>");
+                for (int item = 0; item < 12; ++item)
+                    wide.Append("<Model Name='model\\1'/><Texture Original='texture\\2' New='texture\\3'/><SubObject>Turret</SubObject>");
+                wide.Append("</ModelConditionState>");
+            }
+            wide.Append("</ScriptedModelDraw></Draws>");
+            fixtures.Add(new Fixture("gameobject-wide-state", "GameObject", "", wide.ToString(), 160));
             fixtures.Add(new Fixture("weapon-default", "WeaponTemplate", "", "", 4000));
             var nuggets = new StringBuilder("<Nuggets>");
             for (int i = 0; i < 32; ++i)
@@ -125,7 +134,7 @@ static class TokenizerPluginPerformance
                     }
                 }
             }
-            Console.WriteLine("PASS original/before/after three-buffer equivalence for all four fixtures, both byte orders; five paired Win32 rounds.");
+            Console.WriteLine("PASS original/before/after three-buffer equivalence for all five fixtures, both byte orders; five paired Win32 rounds.");
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }

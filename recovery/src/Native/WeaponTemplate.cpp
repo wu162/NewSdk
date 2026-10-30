@@ -8,6 +8,7 @@
 #include <sstream>
 #include <algorithm>
 #include <cctype>
+#include <type_traits>
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
@@ -240,6 +241,38 @@ void Swap(void* at) {
     auto p = static_cast<unsigned char*>(at);
     std::swap(p[0], p[3]); std::swap(p[1], p[2]);
 }
+bool WeaponScalarDefault(WeaponValue value) {
+    return value==WeaponValue::AssetId || value==WeaponValue::Boolean || value==WeaponValue::Integer ||
+        value==WeaponValue::Enum || value==WeaponValue::Bits || value==WeaponValue::Float ||
+        value==WeaponValue::Angle || value==WeaponValue::Time || value==WeaponValue::Percentage;
+}
+U32 DecodeWeaponScalar(const WeaponField& field,const std::string& text) {
+    float number=0;U32 word=0;
+    switch(field.value) {
+    case WeaponValue::AssetId:return HashAssetId(text);
+    case WeaponValue::Boolean:return ParseBoolean(text)?1:0;
+    case WeaponValue::Integer:return static_cast<U32>(ParseSigned(text));
+    case WeaponValue::Enum:return Lookup(field.enumGroup,text);
+    case WeaponValue::Bits:return Bits(field.enumGroup,text);
+    case WeaponValue::Float:number=ParseFloat(text);break;
+    case WeaponValue::Angle:number=InitializeAngle(text.c_str());break;
+    case WeaponValue::Time:number=InitializeTime(text.c_str());break;
+    case WeaponValue::Percentage:number=ParsePercentage(text);break;
+    default:throw std::logic_error("Expected scalar Weapon field");
+    }
+    std::memcpy(&word,&number,4);return word;
+}
+struct WeaponRootDefaults {
+    unsigned char bytes[328]{};
+    WeaponRootDefaults() {
+        for(const auto& field:fields)if(field.fallback && WeaponScalarDefault(field.value)) {
+            U32 word=DecodeWeaponScalar(field,std::string(field.fallback));
+            std::memcpy(bytes+field.offset,&word,field.value==WeaponValue::Boolean?1:4);
+        }
+    }
+};
+static_assert(std::is_trivially_destructible<WeaponRootDefaults>::value,"Root defaults must not own exit-time state");
+const WeaponRootDefaults rootDefaults;
 struct Procedure { U32 name, type; void* offset; };
 static_assert(sizeof(Procedure) == 12, "Weapon serializer requires x86");
 struct Root { unsigned char bytes[328]; };
@@ -258,44 +291,32 @@ Relo::Chunk CompileWeapon(const AttributeMap& attributes,
     Relo::Tracker data, tokens;
     Root* root = nullptr;
     data.Push(reinterpret_cast<void**>(&root), sizeof(Root), 1);
+    std::memcpy(root->bytes,rootDefaults.bytes,sizeof(Root));
     std::map<U32, void*> referenceBlocks;
-    for (const auto& field : fields) {
-        if (field.value == WeaponValue::Absent) continue;
-        auto found = attributes.find(field.name);
-        if (found == attributes.end() && field.fallback == nullptr) continue;
-        const std::string text = found == attributes.end() ? field.fallback : found->second;
-        unsigned char* at = root->bytes + field.offset;
-        float number = 0;
-        U32 word = 0;
-        switch (field.value) {
-        case WeaponValue::String:
-            MarshalString(data, at, text); continue;
-        case WeaponValue::Reference:
-            MarshalReference(data, at, text); continue;
+    for(const auto& field:fields) {
+        if(field.value==WeaponValue::Absent)continue;
+        auto found=attributes.find(field.name);
+        if(found==attributes.end() && (!field.fallback || WeaponScalarDefault(field.value)))continue;
+        std::string fallback;if(found==attributes.end())fallback=field.fallback;
+        const std::string& text=found==attributes.end()?fallback:found->second;
+        auto at=root->bytes+field.offset;
+        if(WeaponScalarDefault(field.value)) {
+            U32 word=DecodeWeaponScalar(field,text);
+            std::memcpy(at,&word,field.value==WeaponValue::Boolean?1:4);continue;
+        }
+        switch(field.value) {
+        case WeaponValue::String:MarshalString(data,at,text);break;
+        case WeaponValue::Reference:MarshalReference(data,at,text);break;
         case WeaponValue::ReferencePointer: {
-            auto block = data.Push(reinterpret_cast<void**>(at), 4, 1);
-            MarshalReference(data, block, text);
-            referenceBlocks[field.offset] = block;
-            data.Pop(); continue;
+            auto block=data.Push(reinterpret_cast<void**>(at),4,1);MarshalReference(data,block,text);
+            referenceBlocks[field.offset]=block;data.Pop();break;
         }
         case WeaponValue::StatusPointer: {
-            auto block = static_cast<U32*>(data.Push(reinterpret_cast<void**>(at), 28, 1));
-            MarshalObjectStatus(text, block);
-            referenceBlocks[field.offset] = block;
-            data.Pop(); continue;
+            auto block=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),28,1));MarshalObjectStatus(text,block);
+            referenceBlocks[field.offset]=block;data.Pop();break;
         }
-        case WeaponValue::AssetId: word = HashAssetId(text); break;
-        case WeaponValue::Boolean: *at = ParseBoolean(text) ? 1 : 0; continue;
-        case WeaponValue::Integer: word = static_cast<U32>(ParseSigned(text)); break;
-        case WeaponValue::Enum: word = Lookup(field.enumGroup, text); break;
-        case WeaponValue::Bits: word = Bits(field.enumGroup, text); break;
-        case WeaponValue::Float: number = ParseFloat(text); std::memcpy(&word, &number, 4); break;
-        case WeaponValue::Angle: number = InitializeAngle(text.c_str()); std::memcpy(&word, &number, 4); break;
-        case WeaponValue::Time: number = InitializeTime(text.c_str()); std::memcpy(&word, &number, 4); break;
-        case WeaponValue::Percentage: number = ParsePercentage(text); std::memcpy(&word, &number, 4); break;
-        default: throw std::logic_error("Unimplemented Weapon value");
+        default:throw std::logic_error("Unimplemented Weapon value");
         }
-        std::memcpy(at, &word, 4);
     }
     struct SoundOrEvaEvent { void* sound; U32 eva; };
     SoundOrEvaEvent* soundBlocks[2] = {};

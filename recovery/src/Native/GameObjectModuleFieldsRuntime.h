@@ -86,19 +86,16 @@ void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,co
     for(unsigned i=0;i<fields.count;++i) {
         const auto& f=fields.fields[i];
         auto found=input.attributes.find(f.name);if(found==input.attributes.end() && !f.fallback) continue;
-        std::string value=found==input.attributes.end()?f.fallback:found->second;auto at=output+f.offset;float number=0;U32 word=0;
-        switch(f.kind) {
-        case ModuleValue::Float:case ModuleValue::Percent:
-            number=ParseFloat(value);if(f.kind==ModuleValue::Percent) number*=0.01f;std::memcpy(at,&number,4);break;
-        case ModuleValue::FrameSpeed:number=static_cast<float>(static_cast<double>(weaponSecondsPerLogicFrame)*static_cast<double>(ParseFloat(value)));std::memcpy(at,&number,4);break;
-        case ModuleValue::Angle:number=InitializeAngle(value.c_str());std::memcpy(at,&number,4);break;
-        case ModuleValue::DeathBits:MarshalEnumBitset(value,lifecycleDeathNames,34,33,34,reinterpret_cast<U32*>(at));break;
-        case ModuleValue::Duration: {
-            const float scaled=static_cast<float>(static_cast<double>(0.005f)*static_cast<double>(ParseFloat(value)));
-            const double wide=static_cast<double>(static_cast<float>(std::ceil(static_cast<double>(scaled))));
-            word=(wide>=-9223372036854775808.0 && wide<9223372036854775808.0)?static_cast<U32>(static_cast<std::int64_t>(wide)):0u;
-            std::memcpy(at,&word,4);break;
+        auto at=output+f.offset;
+        if(f.scalarSize) {
+            if(found==input.attributes.end())std::memcpy(at,&f.defaultWord,f.scalarSize);
+            else DecodeModuleScalar(f,found->second,at);
+            continue;
         }
+        std::string fallback;if(found==input.attributes.end())fallback=f.fallback;
+        const std::string& value=found==input.attributes.end()?fallback:found->second;
+        switch(f.kind) {
+        case ModuleValue::DeathBits:MarshalEnumBitset(value,lifecycleDeathNames,34,33,34,reinterpret_cast<U32*>(at));break;
         case ModuleValue::NullableAssetId:
             {auto target=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),4,1));*target=HashAssetId(value);data.Pop();}break;
         case ModuleValue::NullableSigned:
@@ -106,9 +103,7 @@ void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,co
         case ModuleValue::ObjectStatus:MarshalObjectStatus(value,reinterpret_cast<U32*>(at));break;
         case ModuleValue::NullableObjectStatus:
             {auto words=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),28,1));MarshalObjectStatus(value,words);data.Pop();}break;
-        case ModuleValue::StringHash:word=ExactStringHash(value);std::memcpy(at,&word,4);break;
         case ModuleValue::NullableStringHash:{auto target=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),4,1));*target=ExactStringHash(value);data.Pop();}break;
-        case ModuleValue::AssetId:word=HashAssetId(value);std::memcpy(at,&word,4);break;
         case ModuleValue::ModelCondition:MarshalModelCondition(value,reinterpret_cast<U32*>(at));break;
         case ModuleValue::NullableModelCondition:
             {auto words=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),60,1));MarshalModelCondition(value,words);data.Pop();}break;
@@ -136,20 +131,11 @@ void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,co
             if(list->count) {if(f.kind==ModuleValue::StringList) {auto values=static_cast<ReloString*>(data.Push(&list->data,8,list->count));for(U32 j=0;j<list->count;++j) MarshalString(data,values+j,tokens[j]);}else {auto words=static_cast<U32*>(data.Push(&list->data,4,list->count));for(U32 j=0;j<list->count;++j) if(f.kind==ModuleValue::FloatList) {float n=ParseFloat(tokens[j]);std::memcpy(words+j,&n,4);}else words[j]=static_cast<U32>(ParseSigned(tokens[j]));}data.Pop();}
             break;
         }
-        case ModuleValue::Signed:word=static_cast<U32>(ParseSigned(value));std::memcpy(at,&word,4);break;
-        case ModuleValue::Unsigned:word=ParseUnsigned(value);std::memcpy(at,&word,4);break;
-        case ModuleValue::Short:{auto narrow=static_cast<std::uint16_t>(ParseUnsigned(value));std::memcpy(at,&narrow,2);}break;
-        case ModuleValue::Time:number=InitializeTime(value.c_str());std::memcpy(at,&number,4);break;
-        case ModuleValue::Byte:*at=static_cast<unsigned char>(ParseUnsigned(value));break;
-        case ModuleValue::Boolean:*at=ParseBoolean(value)?1:0;break;
         case ModuleValue::String:MarshalString(data,at,value);break;
         case ModuleValue::Reference:MarshalReference(data,at,value);break;
         case ModuleValue::NullableReference:
             {auto reference=data.Push(reinterpret_cast<void**>(at),4,1);MarshalReference(data,reference,value);data.Pop();}break;
-        case ModuleValue::Enum:
-            word=static_cast<U32>(f.values->unknown);
-            for(unsigned j=0;j<f.values->count;++j) if(value==f.values->names[j].name) {word=static_cast<U32>(f.values->names[j].value);break;}
-            std::memcpy(at,&word,4);break;
+
         }
     }
 }
