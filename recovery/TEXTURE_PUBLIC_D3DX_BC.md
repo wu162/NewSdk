@@ -1,6 +1,6 @@
 # PC 原生压缩 DDS：DirectXTex 候选续接
 
-仅 PC；候选分支 `validation/texture-public-d3dx-bc`。正式分支仍不调用本候选，压缩原生加载仍明确拒绝；生产六 DLL 包与 SDK/MOD 未改。本页记录实现范围和定位入口，不能当验收收据。
+仅 PC；候选分支 `validation/texture-public-d3dx-bc`。独立BC组件已取得完整验收；正式native-loader仍不调用该入口、压缩加载仍明确拒绝，生产六DLL包与SDK/MOD未改。正式收据见[acceptance.json](evidence/texture/handoffs/20261030-native-bc/acceptance.json)。
 
 ## 当前续接（2026-10-30，本轮）
 
@@ -9,7 +9,7 @@
 - 候选实际x86 `/fp:strict` 指令暴露运行时1.f/N除法与系数表懒初始化。原版使用预舍入float倒数的double常量（98080、99c80/88/90、99cb0、9d330），且scaled+.5先写float再FISTP。适配文件RGB565/BC2/BC3量化、565还原、alpha/颜色插值，并冻结系数表；XG数值路径保留。不是扩大Newton迭代或按样本调参。
 - `f1b3865d` / `41025554191`：1536文件块的decode/plain/dither全等，31条BC3回归消失；1572默认DDS差异降至7，均为BC1缺层链。D/R完整SHA `7e27f677c8a8eea79a790900711bc260821137e40ae671f1369efc629347783d`。
 - `6b12ff3c` / `41026301123` completed/success，**probe-only**：1572默认文件、360 float平面、1536 XG块及18168文件块（额外16632为每份原float平面的全部4×4块）固定plain/dither全部完整匹配；原重复稳定，D/R各296270063字节，SHA `b664deb00c0448bc77c7a7ef9b307aa3ece83581b560330f0647884f1811b13e`。完整8策略/168旧资源扫描保留为诊断，不能将非默认策略差异误计为默认加载失败。
-- 当前不可变源码 `ac6f8af69177ddeda86eb0b9abe09ed9798f7e2c` 再固定RGB/解码常量，并硬断言原版重复稳定。正式 `native-bc-files` [41027020522](https://github.com/wu162/NewSdk/actions/runs/41027020522) 在运行，**未取得终态，不是已验收**；完整逐次NoOriginal精确要求1536 XG、18168文件块、1572默认文件、360 float、168策略记录、9拒绝及EOF。仅选该新组件，旧64成功组件/SDK未变。
+- 当前不可变源码 `ac6f8af69177ddeda86eb0b9abe09ed9798f7e2c` 再固定RGB/解码常量，并硬断言原版重复稳定。正式 `native-bc-files` [41027020522](https://github.com/wu162/NewSdk/actions/runs/41027020522) **completed/success**；D/R完整逐次NoOriginal通过1536 XG、18168文件块、1572默认文件、360 float、168策略记录、9拒绝及EOF。归档SHA `67dd5e6aa8ff15771016052df97180e8d15a033f329a1de265871af3d7b48194`；两原始成员均296270063字节/SHA b664deb0，全部记录与DLL指纹已独立核对。仅选该新组件，64旧组件复用，未跑SDK/MOD。正式native-loader接入是下一独立实现批次，不把组件成功写成生产启用。
 
 下面保留上一轮实现与失败记录；其中旧“下一优先入口”和差异计数已被上面的当前入口替代。
 

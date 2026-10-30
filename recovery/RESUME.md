@@ -7,12 +7,12 @@
 - 在 `validation/texture-public-d3dx-bc` 继续适配固定 DirectXTex BC1/2/3：修正原surface-memory ABI的源指针/格式次序和源尺寸；文件量化使用原预舍入倒数、转整数前float存储；端点还原/调色板插值保留原存储顺序；最终float行饱和，固定系数表避免首次调用舍入模式改变常量。没有样本ID分派、gold查表或原版后端回调。
 - `598b9d10854d4c184e8a1e372a2068228c307949` / `41024955646` 完成真正360份原float对照（80差异）；`f1b3865db42201594ef9ef688275ccf1c8da6fb2` / `41025554191` 消除31条BC3回归，默认DDS差异323→7。
 - `6b12ff3c457a93a1a466eb09a4d9d2fab508af94` / [41026301123](https://github.com/wu162/NewSdk/actions/runs/41026301123) **probe-only**：1572默认DDS、360完整float平面、1536 XG块、18168文件块（含16632实际过滤块）在固定plain/dither策略全部逐字节匹配；D/R各296270063字节捕获SHA `b664deb00c0448bc77c7a7ef9b307aa3ece83581b560330f0647884f1811b13e`，原版重复稳定。旧168策略扫描仍为定位资料，不要求任意候选策略等于默认文件策略。
-- 当前实现 `ac6f8af69177ddeda86eb0b9abe09ed9798f7e2c` 再固定RGB/解码系数位模式，并将原版重复稳定性列为硬断言。本轮一次正式 `native-bc-files` 完整D/R/逐次NoOriginal验收 [41027020522](https://github.com/wu162/NewSdk/actions/runs/41027020522) **运行中，未取得终态**；不能用上面的probe或旧提交成功替代当前源验收。未变64组件、SDK/MOD不重跑。
+- 当前实现 `ac6f8af69177ddeda86eb0b9abe09ed9798f7e2c` 再固定RGB/解码系数位模式，并将原版重复稳定性列为硬断言。本轮一次正式 `native-bc-files` [41027020522](https://github.com/wu162/NewSdk/actions/runs/41027020522) **completed/success**：完整D/R及逐次NoOriginal全部通过，捕获仍为同一296270063字节/SHA；完整归档、全部原/重复/固定候选记录、EOF和两份I386 DLL指纹已核对，见[验收收据](evidence/texture/handoffs/20261030-native-bc/acceptance.json)。仅补新组，复用64组件，未跑SDK/MOD。
 - 正式native-loader仍拒绝压缩DDS，候选ABI尚未进入生产六DLL包。详细来源、修正与剩余门槛见[压缩DDS专页](TEXTURE_PUBLIC_D3DX_BC.md)。旧失败/partial capture及原锚点保留，不作为float gold。
 
 ## 下一轮计划
 
-1. 先收取 `ac6f8af6` / `41027020522` 的正式终态，核对完整D/R、NoOriginal、原始归档SHA和选择器实际选组。失败只补真实失败/变化输入；成功后普通合入候选，不强推。
+1. 本批独立BC组件已闭环；保留 `ac6f8af6` / `41027020522` 的精确成功收据，未变输入不重复验收。候选已准备普通合入恢复分支，不强推。
 2. 组件闭环后，在独立实现分支接入正式native-loader及实际压缩CopySurface消费，优先复用这批公开BC核心；更新旧105个压缩未支持边界为原版成功完整对照，并保留原raw/BMP/TGA矩阵。共享native-copy的真实消费者需要最终受影响回归，不能照搬旧收据。
 3. 新ABI正式进入生产包前，再在明确集成里程碑取得适用SDK证据。普通收尾不跑SDK/MOD；不扩展非PC。
 

@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-30",
+  "scope": "standalone native PC BC1/2/3 DDS file/resource consumer and actual masked/physical RGBA; production loader and six-DLL package unchanged",
+  "sourceCommit": "ac6f8af69177ddeda86eb0b9abe09ed9798f7e2c",
+  "runId": "41027020522",
+  "runAttempt": "1",
+  "runConclusion": "success",
+  "componentPassed": true,
+  "debugReleasePassed": true,
+  "perCallNoOriginalPassed": true,
+  "sdkValidated": false,
+  "productionActivated": false,
+  "selected": [
+    "native-bc-files"
+  ],
+  "reusedComponentCount": 64,
+  "completeRecordCounts": {
+    "xgBlocks": 1536,
+    "fileBlocks": 18168,
+    "diagnosticPolicies": 168,
+    "floatPlanes": 360,
+    "defaultFiles": 1572
+  },
+  "rejectionsPerConfiguration": 9,
+  "captureMembers": [
+    {
+      "name": "Debug.capture",
+      "bytes": 296270063,
+      "sha256": "b664deb00c0448bc77c7a7ef9b307aa3ece83581b560330f0647884f1811b13e"
+    },
+    {
+      "name": "Release.capture",
+      "bytes": 296270063,
+      "sha256": "b664deb00c0448bc77c7a7ef9b307aa3ece83581b560330f0647884f1811b13e"
+    }
+  ],
+  "archiveSha256": "67dd5e6aa8ff15771016052df97180e8d15a033f329a1de265871af3d7b48194",
+  "candidateDlls": [
+    {
+      "configuration": "Debug",
+      "sha256": "0be4186bab58591a86871061a2bb9f39dc907674510718fb60f6a66451dbbeab",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Release",
+      "sha256": "b46866e020065518143e92b0559be6d499935ede3fef478f38bafd136ed78099",
+      "machine": "I386"
+    }
+  ],
+  "sourceInputsEqualThroughCommit": "bfc5580ffd2b389bc9c962066a86b31f872a546a",
+  "audit": "All archive members and candidate DLL fingerprints checked; every Debug record parsed to EOF with full original/repeat/fixed-candidate bytes compared; Release entire raw capture SHA identical; both isolated replay receipts verified; no selected dependency differs from sourceCommit.",
+  "next": "Integrate accepted public BC into formal native loader and compressed CopySurface in an isolated branch; final affected native consumer and applicable SDK gates remain."
+}

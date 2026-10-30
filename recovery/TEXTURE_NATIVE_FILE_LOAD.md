@@ -31,10 +31,10 @@
 
 正式loader仍拒绝所有压缩DDS，包括已有2x2/1x1尾层重新编码、小base扩展、缺层重压缩；105原版成功资源另存完整诊断，绝不能算匹配拒绝或压缩验收。其1x1输入原生base是4x4、levels3，不能直接复制DDS头/基础块推定成功。
 
-下一独立候选 `validation/texture-public-d3dx-bc` 已有公开DirectXTex BC1/2/3核心、float块/图像ABI和POT base双轴>=4的完整owned DDS资源/mip消费；原flags/精度/端点/索引、partial打包与实际压缩→raw消费尚待适配和完整验收，不被正式loader/生产包调用。定向诊断入口`InspectTexturePublicBc.ps1`只取证，不等于组件/NoOriginal/SDK完成。
+公开DirectXTex BC1/2/3独立文件/资源/实际Copy消费者已取得 `ac6f8af6` / `41027020522` 的完整D/R和逐次NoOriginal验收：1572默认DDS、360 float平面、1536 XG和18168文件块；完整资源/VM/每层masked与physical RGBA、引用释放、9拒绝及EOF全部通过，详见[BC验收](TEXTURE_PUBLIC_D3DX_BC.md)。这使小base、NPOT、全部已提供尾层和缺层重编码具有可接入的公开核心，但正式native-loader尚未接入，不能把旧105拒绝升级为支持。下一独立批次将复用该核心接入原native入口及实际压缩Copy，保留raw/TGA/BMP全部输入与共享依赖的最终回归。
 
 更多DDS布局、PNG/JPEG/PPM、低位深/灰度/调色板TGA、GPU/渲染/体积/数组/cube原生文件加载仍未接通。继续优先复用公开源码，稳定后按真实影响集中验收；新ABI进入生产包前另取适用SDK证据，未变组及完整MOD不按每轮重复跑。最新状态见[RESUME](RESUME.md)。
 
 ## 同轮BC续接结果
 
-独立候选已保存至 `validation/texture-public-d3dx-bc` / `ce16e990192672b46ed8f6bb4870ed791d009e64`。已运行源d50b04a9/41009041890为probe-only，D/R各89979984字节完整诊断一致，固定flags0的1536个完整BC1/2/3编码块全部相同；976个decode块位模式、最佳flags0/wrap的86/168完整DDS仍不同。新实际消费包含每层masked/physical RGBA和完整VM/锁定/释放。后续显式字节倒数与BC3 alpha存储顺序精度补丁尚未Actions验证，不继承旧run或升级为支持；下一轮从新块位模式与FourCC/XG的三色/去预乘语义差异继续。当前正式loader仍明确拒绝所有压缩DDS，64已验收组件及SDK输入不变。
+独立公开BC组件已完整验收；精确sourceCommit/runId、归档与未启用边界按[当前BC入口](TEXTURE_PUBLIC_D3DX_BC.md)及[收据](evidence/texture/handoffs/20261030-native-bc/acceptance.json)。历史ce16e990、d50b04a9等探针只证明其各自旧范围，保留于提交与证据目录，不冒充正式native-loader或SDK验收。
