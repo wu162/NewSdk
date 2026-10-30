@@ -20,6 +20,11 @@ public static class TextureParallelProbe
     static readonly object gate = new object();
     static int active, maximum;
     static readonly List<object> calls = new List<object>();
+    static object Memory()
+    {
+        using(var process=Process.GetCurrentProcess())
+            return new {privateBytes=process.PrivateMemorySize64,virtualBytes=process.VirtualMemorySize64,workingSet=process.WorkingSet64};
+    }
     static string Hash(byte[] bytes)
     { using (var sha = SHA256.Create()) return BitConverter.ToString(sha.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant(); }
     static void Require(bool value, string message)
@@ -81,13 +86,15 @@ public static class TextureParallelProbe
         // DLL, output root, route|mixed, unsafe|locked|isolated, rounds.
         string output=Path.GetFullPath(args[1]); Directory.CreateDirectory(output);
         var result=new Dictionary<string,object> {{"status","started"},{"route",args[2]},{"mode",args[3]},
-            {"sourceCommit",Environment.GetEnvironmentVariable("GITHUB_SHA")},{"runId",Environment.GetEnvironmentVariable("GITHUB_RUN_ID")}};
+            {"sourceCommit",Environment.GetEnvironmentVariable("GITHUB_SHA")},{"runId",Environment.GetEnvironmentVariable("GITHUB_RUN_ID")},
+            {"coreOwner",typeof(IAssetBuilderPlugin).Assembly.Location},{"beforeInitialize",Memory()}};
         IAssetBuilderPlugin plugin=null;
         var isolatedPlugins=new List<IAssetBuilderPlugin>();
         var serializer=new JavaScriptSerializer {MaxJsonLength=int.MaxValue};
         try {
             plugin=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(Path.GetFullPath(args[0])).GetType("BinaryAssetBuilder.TextureCompiler.Plugin",true));
             plugin.Initialize(null,TargetPlatform.Win32);
+            result["afterInitialize"]=Memory();
             int workers=4,rounds=int.Parse(args[4]);
             string[] routes=args[2]=="mixed"?new[] {"Texture","OnDemandTexture","TerrainTextureAtlas","Texture"}:Enumerable.Repeat(args[2],workers).ToArray();
             var files=new string[workers]; var expected=new byte[workers][][]; var baseline=new List<object>();
@@ -97,6 +104,7 @@ public static class TextureParallelProbe
                 baseline.Add(new {typeName=routes[i],index=i,inputSha256=Hash(File.ReadAllBytes(files[i])),buffers=Save(Path.Combine(output,"reference"+i),expected[i])});
             }
             result["baseline"]=baseline;
+            result["afterSerialBaseline"]=Memory();
             if(args[3]=="isolated") {
                 var modules=new List<object>();
                 var nativeHandles=new HashSet<IntPtr>();
@@ -113,12 +121,17 @@ public static class TextureParallelProbe
                     var instance=(IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.TextureCompiler.Plugin",true));
                     instance.Initialize(null,TargetPlatform.Win32);isolatedPlugins.Add(instance);
                 }
+                result["afterIsolatedInitialize"]=Memory();
             }
             File.WriteAllText(Path.Combine(output,"result.json"),serializer.Serialize(result));
             calls.Clear(); maximum=0;
             var comparisons=new List<object>();
+            var roundsEvidence=new List<object>();
             for(int round=0;round<rounds;round++) {
                 var actual=new byte[workers][][];
+                plugin.ReInitialize(null,TargetPlatform.Win32);
+                foreach(var instance in isolatedPlugins) instance.ReInitialize(null,TargetPlatform.Win32);
+                long waveStart=Stopwatch.GetTimestamp();
                 using(var barrier=new Barrier(workers)) {
                     var tasks=new Task[workers];
                     for(int i=0;i<workers;i++) {
@@ -132,13 +145,17 @@ public static class TextureParallelProbe
                     }
                     Task.WaitAll(tasks);
                 }
+                roundsEvidence.Add(new {round,wallTicks=Stopwatch.GetTimestamp()-waveStart});
+                result["rounds"]=roundsEvidence;
+                bool allEqual=true;
                 for(int i=0;i<workers;i++) {
                     string[] hashes=Save(Path.Combine(output,"round"+round+"-worker"+i),actual[i]);
                     bool equal=Enumerable.Range(0,4).All(b=>expected[i][b]==null?actual[i][b]==null:actual[i][b]!=null && expected[i][b].SequenceEqual(actual[i][b]));
                     comparisons.Add(new {round,index=i,typeName=routes[i],equal,buffers=hashes});
                     result["comparisons"]=comparisons;
-                    Require(equal,"Concurrent output differs from serial: "+routes[i]+" round="+round+" worker="+i);
+                    allEqual &= equal;
                 }
+                Require(allEqual,"Concurrent output differs from serial: "+args[2]+" round="+round);
             }
             Require(maximum==(args[3]=="locked"?1:workers),"Probe did not exercise requested overlap");
             result["status"]="passed"; return 0;
@@ -146,10 +163,13 @@ public static class TextureParallelProbe
         catch(Exception error) {result["status"]="failed";result["error"]=error.ToString();Console.Error.WriteLine(error);return 1;}
         finally {
             result["maximumConcurrency"]=maximum;result["calls"]=calls;result["clockFrequency"]=Stopwatch.Frequency;
+            result["afterExecution"]=Memory();
             // Save evidence before Dispose: native corruption may crash finalization.
             File.WriteAllText(Path.Combine(output,"result.json"),serializer.Serialize(result));
             foreach(var instance in isolatedPlugins) ((IDisposable)instance).Dispose();
             if(plugin!=null) ((IDisposable)plugin).Dispose();
+            result["afterDispose"]=Memory();
+            File.WriteAllText(Path.Combine(output,"result.json"),serializer.Serialize(result));
         }
     }
 }
