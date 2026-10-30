@@ -230,6 +230,7 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     const std::map<std::string, ObjectFilterInput>& filters,
     const std::vector<WeaponScatterInput>& scatter,
     const std::vector<WeaponNuggetInput>& nuggets, bool bigEndian) {
+    const char* durationNames[] = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
 
     Relo::Tracker data, tokens;
     Root* root = nullptr;

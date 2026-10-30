@@ -58,6 +58,8 @@ on:
       - 'recovery/tests/CompilerBackendLifecycle.cs'
       - 'recovery/tests/CompilerApplicationBuild.cs'
       - 'recovery/src/App/**'
+      - 'recovery/src/Native/**'
+      - 'recovery/src/Bridge/**'
       - 'recovery/src/Managed/Core/**'
       - 'recovery/src/Managed/Metrics/**'
       - 'recovery/scripts/PrepareLegacyTexture.ps1'
