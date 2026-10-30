@@ -109,6 +109,10 @@ std::int32_t LoadDds(const std::vector<unsigned char>& bytes,void** output){
  // D3DXCreateTextureFromFileA requests ordinary 2D even when caps2 carries
  // volume metadata. The native parser's multi-slice/cube paths are separate.
  if((Load(bytes.data(),112)&0xfe00)||Load(bytes.data(),24)>1)return Unsupported;
+ // D3DX requirements enlarge compressed base axes below4 and RECOMPRESS
+ // even the base block, rather than copying its unused texels. This is the
+ // same unrecovered compression/filter boundary as missing compressed mips.
+ if((format&63)>=18&&(format&63)<=20&&(width<4||height<4))return Unsupported;
  const U levels=Log(std::max(width,height))+1;
  if(sourceLevels>levels)return Unsupported;
  if(sourceLevels<levels&&(format&63)!=6)return Unsupported; // compressed missing-level recompression is not restored
