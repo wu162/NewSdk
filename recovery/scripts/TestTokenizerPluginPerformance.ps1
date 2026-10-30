@@ -32,7 +32,7 @@ try {
         }
     }
     $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-    & $csc /nologo /platform:x86 "/r:$work/BinaryAssetBuilder.Core.dll" "/out:$work/TokenizerPluginPerformance.exe" recovery/tests/TokenizerPluginPerformance.cs *> "$out/host-build.log"
+    & $csc /nologo /platform:x86 "/r:$work/BinaryAssetBuilder.Core.dll" "/out:$work/TokenizerPluginPerformance.exe" (Resolve-Path recovery/tests/TokenizerPluginPerformance.cs) *> "$out/host-build.log"
     if($LASTEXITCODE -ne 0){Get-Content "$out/host-build.log";throw 'Performance host build failed'}
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TokenizerPluginPerformance.exe.config"
     & "$work/TokenizerPluginPerformance.exe" $work "$out/measurements.csv" *> "$out/measurement.log"
