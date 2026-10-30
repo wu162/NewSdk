@@ -1,0 +1,73 @@
+{
+  "runId": "40997588231",
+  "sourceFixtures": [
+    {
+      "sha256": "1c2c5a6a12bf4b6b03b127316769cfa3481f7cbc1172cd56065d779a9d89dd17",
+      "bytes": 131200,
+      "file": "PackedImages_097_EP1.dds"
+    },
+    {
+      "sha256": "d83e7da2b70186f8857e3d7a28c221c7b076f35d1f7def77784bdb1313ba4ff4",
+      "bytes": 640,
+      "file": "LURomania_vol.dds"
+    },
+    {
+      "sha256": "995f7ef1ecc41be00ce3d4e2a933128988b4f37a814f8e2500ff4c40a0adaa36",
+      "bytes": 22024,
+      "file": "FXAlliedFutureLaser.dds"
+    },
+    {
+      "sha256": "0fad96553c29863a37966f9b85711926231c63d1932d88ebdbb976476fa0146c",
+      "bytes": 392,
+      "file": "FXYurikoShieldFadeLUT.dds"
+    },
+    {
+      "sha256": "8b8a8b99950ef9ed96fbf5b8e45bff6f691656a28b6b6ce76769d9280b4f2a8c",
+      "bytes": 11080,
+      "file": "EXJapanArrow.dds"
+    },
+    {
+      "sha256": "42b701681043182ce335eaf43bf554f8f895d622d3c6fad83ec2d3fc65724bea",
+      "bytes": 22000,
+      "file": "JUArcherInfantry.dds"
+    },
+    {
+      "sha256": "afac628fc500868b3a4648b47e507a64ad277281fccdc5b35f4a798ca9a75323",
+      "bytes": 65664,
+      "file": "Target_Japan_ArcherBarrage.dds"
+    },
+    {
+      "sha256": "a4fdf4c1ea3f95fae662b20a7175d701b8c42a99b6b87e6a69d4babeb4394bcf",
+      "bytes": 11064,
+      "file": "AULegionnaireInfantry.dds"
+    },
+    {
+      "sha256": "bae9a02cd90785aed6ef4648a2ff2d5fcdeddaceb358dd08d150a8031f361b85",
+      "bytes": 349680,
+      "file": "SUMortarCycle.dds"
+    },
+    {
+      "sha256": "37f7348cb10d39f1ec9ae1024eee2e4b909e63d18fcee5fa837547439e2a665f",
+      "bytes": 2098213,
+      "file": "apt_tacticalhudbuildqueuepage_1.tga"
+    },
+    {
+      "sha256": "d4b50f26b6914b6d78fe74406bf0ff9fd49b45df82a87370b2b5532eaab59c37",
+      "bytes": 524838,
+      "file": "apt_tacticalhudmaincommandbar_1.tga"
+    },
+    {
+      "sha256": "5d453e31e4a5cf6e5fa30cc8ed234448e3dd98177f58a519023e464a55b3bee9",
+      "bytes": 786476,
+      "file": "map_mp_2_feasel10_ep1_art.tga"
+    }
+  ],
+  "sdkValidated": false,
+  "configurations": [],
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "failed",
+  "runAttempt": "1",
+  "sourceCommit": "05bc783afdb4bb86a0c278354b9253a1a7826634",
+  "error": "Debug-differential failed",
+  "scope": "PC owned 2D CPU resource creation and actual DDS complete-chain/raw missing-mip and TGA24/32 raw/RLE file loading; full original native headers/VM/packed tails/BOX mips/descriptors/locks/copies/release, Debug/Release and independent NoOriginal; compressed missing mip/NPOT/additional codecs/production SDK/mixed-mode identity excluded"
+}
