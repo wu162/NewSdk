@@ -206,11 +206,17 @@ U32 Lookup(const std::string& group, const std::string& text) {
     throw std::logic_error("Unknown recovered enum group");
 }
 U32 Bits(const std::string& group, const std::string& text) {
+    struct Group { std::vector<EnumNameValue> names; int unknown; };
+    static const auto groups = [] {
+        std::map<std::string, Group> result;
+        for (const auto& entry : enumEntries)
+            result[entry.group].names.push_back({ entry.name, static_cast<int>(entry.value) });
+        for (auto& entry : result) entry.second.unknown = static_cast<int>(Lookup(entry.first, ""));
+        return result;
+    }();
+    const auto& values = groups.at(group);
     U32 result = 0;
-    std::vector<EnumNameValue> names;
-    for (const auto& entry : enumEntries) if (group == entry.group)
-        names.push_back({ entry.name, static_cast<int>(entry.value) });
-    MarshalEnumBitset(text, names.data(), names.size(), static_cast<int>(Lookup(group, "")), 32, &result);
+    MarshalEnumBitset(text, values.names.data(), values.names.size(), values.unknown, 32, &result);
     return result;
 }
 void Swap(void* at) {

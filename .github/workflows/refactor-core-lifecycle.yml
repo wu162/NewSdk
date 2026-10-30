@@ -1,7 +1,7 @@
 name: MOD compiler Core lifecycle integration
 on:
   push:
-    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache, refactor/remove-plugin-schema-validation, perf/audiofile-parallel]
+    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache, refactor/remove-plugin-schema-validation, perf/audiofile-parallel, perf/gameobject-weapon-plugins]
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
@@ -178,6 +178,14 @@ jobs:
           $receipt=Get-Content "recovery/evidence/refactor/core-lifecycle-deployment/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -Raw|ConvertFrom-Json
           $enabled=(@($receipt.modes).Count -eq 2 -and @($receipt.modes|Where-Object{$_.backendIntegrated -ne $true}).Count -eq 0)
           "cliEnabled=$($enabled.ToString().ToLowerInvariant())"|Add-Content $env:GITHUB_OUTPUT
+      - name: Complete GameObject original byte and tokenizer matrices
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' && contains(github.event.head_commit.message, '[plugin-tokenizers]') }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerGameObject.ps1 -CompilerBuildDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/plugin-gameobject/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Complete Weapon original byte and tokenizer matrices
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' && contains(github.event.head_commit.message, '[plugin-tokenizers]') }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerWeapon.ps1 -CompilerBuildDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/plugin-weapon/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Targeted real Core, backend and application pipeline in Debug and Release
         id: lifecycle
         if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
@@ -305,6 +313,8 @@ jobs:
         with:
           name: refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/backend-parallel-performance/**
             recovery/evidence/refactor/backend-parallel/**
             recovery/artifacts/final-release/**

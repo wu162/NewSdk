@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <cmath>
+#include <unordered_map>
 #ifdef _MANAGED
 #pragma managed(push, off)
 #endif

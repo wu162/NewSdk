@@ -1,5 +1,6 @@
 #include <msclr/marshal_cppstd.h>
 #include <stdexcept>
+#include <utility>
 #include "XmlNodeAdapter.h"
 #include "../Native/WeaponTemplate.h"
 #include "../Native/EnumBitset.h"
@@ -33,10 +34,8 @@ public ref class WeaponCompiler abstract sealed {
         while (children->MoveNext()) {
             auto child = children->Current;
 
-            auto attr = child->Clone();
-
             auto value = marshal_as<std::string>(child->Value);
-            if (child->LocalName == "IncludeThing") result.includeThings.push_back(value); else result.excludeThings.push_back(value);
+            if (child->LocalName == "IncludeThing") result.includeThings.push_back(std::move(value)); else result.excludeThings.push_back(std::move(value));
         }
         return result;
     }
@@ -56,7 +55,7 @@ public ref class WeaponCompiler abstract sealed {
             auto child=children->Current;
 
             if(child->LocalName == "Filter") {
-                auto filter=ReadFilter(child);if(!result.hasFilter) {result.filter=filter;result.hasFilter=true;}
+                auto filter=ReadFilter(child);if(!result.hasFilter) {result.filter=std::move(filter);result.hasFilter=true;}
             } else if(child->LocalName == "RequiredUpgrade") result.requiredUpgrades.push_back(ReadUpgrade(child));
 
         }
@@ -86,29 +85,29 @@ public ref class WeaponCompiler abstract sealed {
             auto child=children->Current;
 
             if(child->LocalName == "SpecialObjectFilter") {
-                auto filter=ReadFilter(child);if(!result.hasSpecialFilter) {result.specialFilter=filter;result.hasSpecialFilter=true;}
+                auto filter=ReadFilter(child);if(!result.hasSpecialFilter) {result.specialFilter=std::move(filter);result.hasSpecialFilter=true;}
             } else if(child->LocalName == "RequiredUpgrade") result.requiredUpgrades.push_back(ReadUpgrade(child));
             else if(child->LocalName == "ForbiddenUpgrade") result.forbiddenUpgrades.push_back(ReadUpgrade(child));
             else if(child->LocalName == "AttackOffset") {
-                auto value=ReadProjectileAttributes(child);if(!result.hasAttackOffset) {result.attackOffset=value;result.hasAttackOffset=true;}
+                auto value=ReadProjectileAttributes(child);if(!result.hasAttackOffset) {result.attackOffset=std::move(value);result.hasAttackOffset=true;}
             } else if(child->LocalName == "SpecificBarrelOverride") {
-                auto value=ReadUpgrade(child);if(!result.hasBarrel) {result.barrel=value;result.hasBarrel=true;}
+                auto value=ReadUpgrade(child);if(!result.hasBarrel) {result.barrel=std::move(value);result.hasBarrel=true;}
             } else if(child->LocalName == "VeterancyProjectiles") {
-                Native::VeteranProjectileInput value;value.attributes=ReadProjectileAttributes(child);result.veterans.push_back(value);
+                Native::VeteranProjectileInput value;value.attributes=ReadProjectileAttributes(child);result.veterans.push_back(std::move(value));
             }
             else if(child->LocalName == "DamageScalarDetails") result.damageScalars.push_back(ReadScalar(child));
             else if(child->LocalName == "SpawnTemplate") {
-                auto value=ReadUpgrade(child);if(!result.hasSpawnTemplate) {result.spawnTemplate=value;result.hasSpawnTemplate=true;}
+                auto value=ReadUpgrade(child);if(!result.hasSpawnTemplate) {result.spawnTemplate=std::move(value);result.hasSpawnTemplate=true;}
             } else if(child->LocalName == "Filter") {
-                auto value=ReadFilter(child);if(!result.hasTargetFilter) {result.targetFilter=value;result.hasTargetFilter=true;}
+                auto value=ReadFilter(child);if(!result.hasTargetFilter) {result.targetFilter=std::move(value);result.hasTargetFilter=true;}
             } else if(child->LocalName == "DamageObjectFilter") {
-                auto value=ReadFilter(child);if(!result.hasDamageFilter) {result.damageFilter=value;result.hasDamageFilter=true;}
+                auto value=ReadFilter(child);if(!result.hasDamageFilter) {result.damageFilter=std::move(value);result.hasDamageFilter=true;}
             } else if(child->LocalName == "KillObjectFilter") {
-                auto value=ReadFilter(child);if(!result.hasKillFilter) {result.killFilter=value;result.hasKillFilter=true;}
+                auto value=ReadFilter(child);if(!result.hasKillFilter) {result.killFilter=std::move(value);result.hasKillFilter=true;}
             } else if(child->LocalName == "Color") {
                 auto value=ReadProjectileAttributes(child);
 
-                if(!result.hasColor) {result.color=value;result.hasColor=true;}
+                if(!result.hasColor) {result.color=std::move(value);result.hasColor=true;}
             }
             else throw gcnew NotSupportedException("Unrecovered nugget child: "+child->Name);
         }
@@ -128,7 +127,7 @@ public ref class WeaponCompiler abstract sealed {
             auto child = children->Current;
 
             auto filter = ReadFilter(child);
-            if (!result.hasFilter) { result.filter = filter; result.hasFilter = true; }
+            if (!result.hasFilter) { result.filter=std::move(filter); result.hasFilter = true; }
         }
         return result;
     }
@@ -159,69 +158,49 @@ public:
     // Partial WeaponTemplate entry point. Unsupported structures are rejected.
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
         if (node == nullptr) throw gcnew ArgumentNullException("node");
-        auto adapter = gcnew XmlNodeAdapter(node->CreateNavigator(), namespaces);
-        auto children = adapter->Children(nullptr);
-        array<String^>^ durationNames = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
-
-        array<String^>^ hintAttributes = { "IsAntiGarrisonWeapon", "MaxSpeedOfTarget", "UseLongLockOnTimeCode", "UseAsWarheadForDamageCalculations" };
+        auto children = node->CreateNavigator()->SelectChildren(XPathNodeType::Element);
+        String^ assetNamespace = node->NamespaceURI;
+        String^ modifierNamespace = namespaces->LookupNamespace("ea");
+        std::map<std::string, Native::WeaponDurationInput> durations;
+        std::map<std::string, Native::WeaponOptionalInput> optionalBlocks;
         std::map<std::string, Native::ObjectFilterInput> filters;
         std::vector<Native::WeaponScatterInput> scatter;
-        std::vector<Native::WeaponNuggetInput> nuggets;bool readNuggets=false;
+        std::vector<Native::WeaponNuggetInput> nuggets;
+        std::vector<std::string> incompatibleModifiers;
+        bool readNuggets = false;
+        // Read each child once. Native marshaling still emits schema order,
+        // and singleton blocks retain the first matching sibling.
         while (children->MoveNext()) {
             auto child = children->Current;
-            if(child->LocalName == "Nuggets" && child->NamespaceURI == node->NamespaceURI) {
-
-                std::vector<Native::WeaponNuggetInput> entries;
-                auto list=child->SelectChildren(XPathNodeType::Element);
-                while(list->MoveNext()) {
-
-                    entries.push_back(ReadNugget(list->Current));
+            String^ name = child->LocalName;
+            if (name == "IncompatibleAttributeModifier" && child->NamespaceURI == modifierNamespace)
+                incompatibleModifiers.push_back(marshal_as<std::string>(child->Value));
+            if (child->NamespaceURI != assetNamespace) continue;
+            if (name == "Nuggets") {
+                if (!readNuggets) {
+                    auto list = child->SelectChildren(XPathNodeType::Element);
+                    while (list->MoveNext()) nuggets.push_back(ReadNugget(list->Current));
+                    readNuggets = true;
                 }
-                if(!readNuggets) {nuggets=entries;readNuggets=true;}
-                continue;
+            } else if (name == "ScatterRadiusVsType") {
+                scatter.push_back(ReadScatter(child));
+            } else if (name == "SurpriseAttackObjectFilter" || name == "CombinedAttackObjectFilter" || name == "HitStoredObjectFilter") {
+                auto key = marshal_as<std::string>(name);
+                if (!filters.count(key)) filters.emplace(std::move(key), ReadFilter(child));
+            } else if (name == "PreAttackDelay" || name == "FiringDuration" || name == "CoolDownDelayBetweenShots" || name == "ClipReloadTime") {
+                auto key = marshal_as<std::string>(name);
+                if (!durations.count(key)) {
+                    Native::WeaponDurationInput duration;
+                    // An absent or empty duration attribute both marshal as zero.
+                    duration.minSeconds = marshal_as<std::string>(child->GetAttribute("MinSeconds", ""));
+                    duration.maxSeconds = marshal_as<std::string>(child->GetAttribute("MaxSeconds", ""));
+                    durations.emplace(std::move(key), std::move(duration));
+                }
+            } else if (name == "OverrideVoiceAttackSound" || name == "OverrideVoiceEnterStateAttackSound" || name == "WeaponAiHintInfo") {
+                auto key = marshal_as<std::string>(name);
+                if (!optionalBlocks.count(key)) optionalBlocks.emplace(std::move(key), ReadProjectileAttributes(child));
             }
-            if (child->LocalName == "ScatterRadiusVsType" && child->NamespaceURI == node->NamespaceURI) {
-                scatter.push_back(ReadScatter(child)); continue;
-            }
-            bool filter = child->LocalName == "SurpriseAttackObjectFilter" || child->LocalName == "CombinedAttackObjectFilter" || child->LocalName == "HitStoredObjectFilter";
-            if (filter && child->NamespaceURI == node->NamespaceURI) {
-                auto input = ReadFilter(child); auto name = marshal_as<std::string>(child->LocalName);
-                if (!filters.count(name)) filters[name] = input;
-                continue;
-            }
-            bool duration = Array::IndexOf<String^>(durationNames, child->LocalName) >= 0;
-
-            bool hint = child->LocalName == "WeaponAiHintInfo";
-            bool modifier = child->LocalName == "IncompatibleAttributeModifier";
-
-            auto attributes = child->Clone();
-
         }
-        std::map<std::string, Native::WeaponDurationInput> durations;
-        for each (String^ name in durationNames) {
-            auto child = adapter->Child(name, nullptr);
-            if (child == nullptr) continue;
-            Native::WeaponDurationInput duration;
-            duration.minSeconds = marshal_as<std::string>(child->Attribute("MinSeconds", "0s"));
-            duration.maxSeconds = marshal_as<std::string>(child->Attribute("MaxSeconds", "0s"));
-            durations[marshal_as<std::string>(name)] = duration;
-        }
-        std::map<std::string, Native::WeaponOptionalInput> optionalBlocks;
-        array<String^>^ blockNames = { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound", "WeaponAiHintInfo" };
-        for each (String^ name in blockNames) {
-            auto child = adapter->Child(name, nullptr);
-            if (child == nullptr) continue;
-            Native::WeaponOptionalInput input;
-            array<String^>^ names = name == "WeaponAiHintInfo" ? hintAttributes : gcnew array<String^> { "Sound", "EvaEvent" };
-            for each (String^ attrName in names) {
-                String^ value = child->Attribute(attrName, nullptr);
-                if (value != nullptr) input[marshal_as<std::string>(attrName)] = marshal_as<std::string>(value);
-            }
-            optionalBlocks[marshal_as<std::string>(name)] = input;
-        }
-        std::vector<std::string> incompatibleModifiers;
-        auto modifierList = adapter->Children("IncompatibleAttributeModifier");
-        while (modifierList->MoveNext()) incompatibleModifiers.push_back(marshal_as<std::string>(modifierList->Current->Value));
         std::map<std::string, std::string> attributes;
         for each (XmlAttribute^ attribute in node->Attributes) {
             if (attribute->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
