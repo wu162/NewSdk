@@ -16,7 +16,7 @@ public:
     // Core validates the document before plugin dispatch.
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
         if (node == nullptr) throw gcnew ArgumentNullException("node");
-        if (namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
+
         XmlNodeAdapter^ adapter = gcnew XmlNodeAdapter(node->CreateNavigator(), namespaces);
         std::vector<std::string> commands;
         XPathNodeIterator^ children = adapter->Children("Cmd");
@@ -38,7 +38,7 @@ public:
     }
 };
 namespace {
-Native::XmlattributesValues XmlattributesRead(XmlNode^ node, array<String^>^ allowed, bool metadata) {
+Native::XmlattributesValues XmlattributesRead(XmlNode^ node, bool metadata) {
     Native::XmlattributesValues result;
     for each (XmlAttribute^ a in node->Attributes) {
         if (a->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
@@ -50,7 +50,7 @@ Native::XmlattributesValues XmlattributesRead(XmlNode^ node, array<String^>^ all
     }
     return result;
 }
-System::Collections::Generic::List<XmlNode^>^ XmlattributesChildren(XmlNode^ node, array<String^>^ allowed) {
+System::Collections::Generic::List<XmlNode^>^ XmlattributesChildren(XmlNode^ node) {
     auto result=gcnew System::Collections::Generic::List<XmlNode^>();
     for each (XmlNode^ c in node->ChildNodes) {
         if (c->NodeType == XmlNodeType::Comment || c->NodeType == XmlNodeType::Whitespace ||
@@ -88,12 +88,10 @@ public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ ns, bool big) {
         XmlattributesRoot(node,ns,"AttributeModifier");
         Native::XmlattributesInput input;
-        input.attributes=XmlattributesRead(node,gcnew array<String^>{
-            "Category","Duration","ReplaceInCategoryIfLongest","IgnoreIfAnticategoryActive","RemoveWhenDisabledByTypes",
-            "StartFX","EndFX","ModelConditionsSet","ModelConditionsClear","ObjectStatusToSet","StackingLimit","ArmorSetType","Shader"},true);
-        for each(XmlNode^ c in XmlattributesChildren(node,gcnew array<String^>{"Modifier"})) {
-            auto item=XmlattributesRead(c,gcnew array<String^>{"Type","Value"},false);
-            XmlattributesChildren(c,gcnew array<String^>(0));
+        input.attributes=XmlattributesRead(node,true);
+        for each(XmlNode^ c in XmlattributesChildren(node)) {
+            auto item=XmlattributesRead(c,false);
+
             input.modifiers.push_back(item);
         }
         return XmlattributesBuffer(Native::CompileXmlattributesAttributeModifier(input,big));
@@ -109,30 +107,24 @@ public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ ns, bool big) {
         XmlattributesRoot(node,ns,"UpgradeTemplate");
         Native::XmlattributesInput input;
-        input.attributes=XmlattributesRead(node,gcnew array<String^>{
-            "DisplayName","Description","TypeDescription","AcquireHint","Type","BuildTime","BuildCost","ResearchSound",
-            "ResearchCompleteEvaEvent","UnitSpecificSound","UpgradeFX","LocalPlayerGainsUpgradeEvaEvent",
-            "AlliedPlayerGainsUpgradeEvaEvent","EnemyPlayerGainsUpgradeEvaEvent","LocalPlayerLosesUpgradeEvaEvent",
-            "AlliedPlayerLosesUpgradeEvaEvent","EnemyPlayerLosesUpgradeEvaEvent","LocalPlayerProductionStartedEvaEvent",
-            "LocalPlayerBuildOnHoldEvaEvent","LocalPlayerBuildCancelledEvaEvent","UseObjectTemplateForCostDiscount",
-            "GroupName","GroupOrder","SkirmishAIHeuristic","Options","IconImage","WaypointQueueable"},true);
-        for each(XmlNode^ c in XmlattributesChildren(node,gcnew array<String^>{"GameDependency"})) {
+        input.attributes=XmlattributesRead(node,true);
+        for each(XmlNode^ c in XmlattributesChildren(node)) {
 
             input.hasDependency=true;
-            input.dependency=XmlattributesRead(c,gcnew array<String^>{"RequiredModelConditionsAny","ForbiddenModelConditions","RequiredObjectStatusAny"},false);
-            for each(XmlNode^ item in XmlattributesChildren(c,gcnew array<String^>{"RequiredObject","ForbiddenUpgrade","NeededUpgrade","ObjectFilter"})) {
+            input.dependency=XmlattributesRead(c,false);
+            for each(XmlNode^ item in XmlattributesChildren(c)) {
                 if(item->LocalName == "ObjectFilter") {
 
                     input.hasFilter=true;
-                    input.filter=XmlattributesRead(item,gcnew array<String^>{"id","Rule","Relationship","Alignment","Include","Exclude","StatusBitFlags","StatusBitFlagsExclude"},false);
-                    for each(XmlNode^ entry in XmlattributesChildren(item,gcnew array<String^>{"IncludeThing","ExcludeThing"})) {
-                        XmlattributesRead(entry,gcnew array<String^>(0),false);
+                    input.filter=XmlattributesRead(item,false);
+                    for each(XmlNode^ entry in XmlattributesChildren(item)) {
+
 
                         input.filterLists[entry->LocalName == "IncludeThing"?0:1].push_back(marshal_as<std::string>(entry->InnerText));
                     }
                     continue;
                 }
-                XmlattributesRead(item,gcnew array<String^>(0),false);
+
 
                 int index=item->LocalName == "RequiredObject"?0:item->LocalName == "ForbiddenUpgrade"?1:2;
                 input.dependencyLists[index].push_back(marshal_as<std::string>(item->InnerText));

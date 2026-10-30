@@ -69,7 +69,6 @@ public ref class GameObjectCompiler abstract sealed {
     static Native::GameObjectChild ReadPlacementGroup(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
         bool crusher=node->LocalName=="CrusherInfo";
-        array<String^>^ crushAttributes={"CrusherLevel","CrushableLevel","CrushKnockback","CrushZFactor","CrushEqualLevelProps","UseCrushAttack","CrushOnlyWhileCharging","MinCrushVelocityPercent","CrushDecelerationPercent","CrushAllies","CrushWeapon","CrushWhileStationary"};
 
         auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
             if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
@@ -200,7 +199,7 @@ public ref class GameObjectCompiler abstract sealed {
         while(rows->MoveNext()){
             auto row=rows->Current;Native::GameObjectChild entry;entry.name=marshal_as<std::string>(row->LocalName);
             auto attrs=row->Clone();if(attrs->MoveToFirstAttribute())do{if(IsXmlContextAttribute(attrs))continue;entry.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);}while(attrs->MoveToNextAttribute());
-            auto type=entry.attributes.find("TypeId");auto id=type==entry.attributes.end()?0:Native::ParseUnsigned(type->second);unsigned count=0;
+            auto type=entry.attributes.find("TypeId");auto id=type==entry.attributes.end()?0:Native::ParseUnsigned(type->second);
             NoStructuredText(row);auto values=row->SelectChildren(XPathNodeType::Element);while(values->MoveNext()){
                 auto value=values->Current;
                 auto va=value->Clone();
@@ -307,8 +306,6 @@ public:
             auto child=nodes->Current;
             auto name=child->LocalName;
 
-            bool repeated=name=="ProjectedBuildabilityInfo" || name=="ArmorSet" || name=="LocomotorSet" || name=="EquivalentTo" || name=="UpgradeCameo" || name=="DisplayUpgrade";
-
             if(name=="AudioArrayVoice" || name=="AudioArraySound" || name=="EvaEventArray") {children.push_back(ReadAudioArray(child));continue;}
             if(name=="Draws" || name=="Behaviors" || name=="AI" || name=="Body" || name=="ClientUpdates" || name=="ClientBehaviors") {children.push_back(ReadModules(child));continue;}
             if(name=="SkirmishAIInformation") {children.push_back(ReadSkirmishAI(child));continue;}
@@ -349,10 +346,7 @@ public:
             } while(a->MoveToNextAttribute());
 
             children.push_back(item);
-            if(name=="UpgradeCameo" || name=="DisplayUpgrade") {
-                unsigned count=0;for(const auto& c:children) if(c.name==item.name) ++count;
 
-            }
         }
         try {
             auto compiled=Native::CompileGameObject(input,children,bigEndian);auto buffer=gcnew AssetBuffer();
@@ -368,4 +362,3 @@ public:
     }
 };
 }
-

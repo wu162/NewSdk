@@ -1,3 +1,9 @@
+# 当前：移除插件重复 schema 校验（验证中）
+
+用户指定基线 `recovery/legacy-sdk-cache` / `5c1843ae`；工作分支 `refactor/remove-plugin-schema-validation`。删除 XML、GameObject、Weapon 插件及生成代码的属性/子节点白名单、文本/单例/结构校验和仅用于校验的遍历；Core 的 XSD 入口、预处理及依赖元数据继续工作。Audio/W3X 的编码器数值/缓冲区检查不属于 schema 校验。
+
+组件 oracle 的无效 XML 样本改经共享 SDK schema 边界，合法输入仍直接调用插件做原 DLL 三缓冲区差分。Core 生命周期增加“无效 schema 在插件前拒绝、直接插件调用不重复 schema 校验”的断言。静态路由审计及 26 项组选择测试通过；Windows 完整构建、Core/SDK 和 63 组 XML 矩阵尚在执行，未标记验收通过。首个检查点 `43fec4d8` 已保存，后续修正生成器与 include 文件同步。禁止强推，未经批准不合并。
+
 # 当前：有界热缓存扩展与失效/依赖计数（已验证，PR #23 待审）
 
 分支 `test/hot-cache-coverage`，基于 `8a6b7a70`。扩展三档 Armor 规模（32/256/2048 资产、4/32/128 文档），中档混合 Texture/PCM Audio/W3X，代表性缓存模式、压缩、jobs、BIG、等长同mtime编辑与输出/会话修复。单进程15秒、整轮120秒，不做全维度笛卡尔积。

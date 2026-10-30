@@ -224,11 +224,7 @@ public:
         Attributes(node,attrs->ToArray());
         Children(node,children->ToArray(),true);
         // Only the disabled enum list is repeatable. Other scalar children must be unique.
-        for each(String^ name in children) if(name != "SourceMustNotHaveBeenDisabledThisFrameByType") {
-            int count=0;
-            for each(XmlNode^ c in node->ChildNodes) if(c->NodeType==XmlNodeType::Element && c->LocalName==name) ++count;
 
-        }
         array<String^>^ conditions={"RequiredSecondaryModelConditions","ExcludedSecondaryModelConditions","RequiredSourceModelConditions","ExcludedSourceModelConditions"};
         XmlNodeAdapter^ baseAdapter=gcnew XmlNodeAdapter(node->CreateNavigator(),nullptr);
         for(int i=0;i<4;++i) {
@@ -315,4 +311,3 @@ public:
     }
 };
 }
-

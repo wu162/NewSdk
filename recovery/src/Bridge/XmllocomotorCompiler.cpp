@@ -18,15 +18,7 @@ public ref class LocomotorTemplateCompiler abstract sealed {
         return attribute->NamespaceURI == "http://www.w3.org/2000/xmlns/";
     }
     static void Attributes(XmlNode^ node, bool root) {
-        for each (XmlAttribute^ a in node->Attributes) {
-            if (NamespaceAttribute(a)) continue;
 
-            if (a->Name == "TypeId") continue; // BAB schema-type metadata; never a locomotor field.
-            if (root && (a->Name == "id" || a->Name == "inheritFrom")) continue;
-
-            const unsigned count = root ? Native::Xmllocomotor::FieldCount : Native::Xmllocomotor::JetFieldCount;
-
-        }
     }
     static void Read(XmlNodeAdapter^ node, const Native::Xmllocomotor::Field* fields,
         unsigned count, std::map<std::string,std::string>& values) {
