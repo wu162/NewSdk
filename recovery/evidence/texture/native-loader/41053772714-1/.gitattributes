@@ -1,0 +1,4 @@
+validation.json -text
+captures-storage.json -text
+captures-parts/** -text
+.gitattributes -text

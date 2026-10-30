@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "scope": "lossless binary storage only; original ZIP and validation receipt bytes unchanged",
+  "validationSha256": "c7a345566d08d3304044553b3d5006a0a516a7010533e8c7c773d896afb13f3b",
+  "archives": [
+    {
+      "file": "captures.zip",
+      "bytes": 105409158,
+      "sha256": "7845ea10203fc36585450f88711977629fa736242f42f557a566ae795cee5168",
+      "chunkBytes": 67108864,
+      "parts": [
+        {
+          "file": "captures-parts/captures.zip.part0001",
+          "bytes": 67108864,
+          "sha256": "e2dcb07cf450760448e6c7dadaf653816189293fcf81eaa6d0acd954789b5f8a"
+        },
+        {
+          "file": "captures-parts/captures.zip.part0002",
+          "bytes": 38300294,
+          "sha256": "431401deb72eb49f9a108f6d299ff5effd3a51ce05f5f492388df7d1e2512c54"
+        }
+      ]
+    }
+  ]
+}
