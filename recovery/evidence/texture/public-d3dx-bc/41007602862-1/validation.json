@@ -1,0 +1,49 @@
+{
+  "status": "probe-only",
+  "scope": "public D3DX BC1/2/3 diagnostic: complete float/block bytes and complete owned DDS resource/VM/mip/lock/release; eight fixed encoder policies and wrap/clamp aggregates, not per-sample policy selection; no NoOriginal or production acceptance",
+  "productionAccepted": false,
+  "sdkValidated": false,
+  "sourceCommit": "165184daa2a776b8b96e707ac8e3ccf0c5203932",
+  "archiveSha256": "4703231777d14001526b000b12a45bada58a6d924b48f8a850eeabccc3463517",
+  "probeOnly": true,
+  "runAttempt": "1",
+  "runId": "41007602862",
+  "configurations": [
+    {
+      "captureSha256": "a674899a29290574d9b1ccf2439d73d04eff4634819e210e7773b41541b95ec6",
+      "captureBytes": 62109936,
+      "configuration": "Debug",
+      "comparisonCompleted": true,
+      "candidateSha256": "5a19005f4d6cadbb2106aa6cbf7c95a97a872dd3bba2b046ad6fc628d383cdcc",
+      "summary": [
+        "PROBE public D3DX BC blockCases=1536 ddsCases=168 decodeBitMismatches=1022 originalUnstable=0; diagnostic only, no production acceptance or NoOriginal claim",
+        "POLICY flags=0 encodeMismatch=504 ddsWrapMismatch=114 ddsClampMismatch=121",
+        "POLICY flags=10000 encodeMismatch=1281 ddsWrapMismatch=124 ddsClampMismatch=126",
+        "POLICY flags=20000 encodeMismatch=983 ddsWrapMismatch=114 ddsClampMismatch=121",
+        "POLICY flags=30000 encodeMismatch=1407 ddsWrapMismatch=124 ddsClampMismatch=126",
+        "POLICY flags=40000 encodeMismatch=1512 ddsWrapMismatch=117 ddsClampMismatch=121",
+        "POLICY flags=50000 encodeMismatch=1533 ddsWrapMismatch=124 ddsClampMismatch=126",
+        "POLICY flags=60000 encodeMismatch=1518 ddsWrapMismatch=117 ddsClampMismatch=121",
+        "POLICY flags=70000 encodeMismatch=1533 ddsWrapMismatch=124 ddsClampMismatch=126"
+      ]
+    },
+    {
+      "captureSha256": "a674899a29290574d9b1ccf2439d73d04eff4634819e210e7773b41541b95ec6",
+      "captureBytes": 62109936,
+      "configuration": "Release",
+      "comparisonCompleted": true,
+      "candidateSha256": "38731d7682c11d86e4582fa32759b26091c20c76d39cdbd6a1b806c09b569641",
+      "summary": [
+        "PROBE public D3DX BC blockCases=1536 ddsCases=168 decodeBitMismatches=1022 originalUnstable=0; diagnostic only, no production acceptance or NoOriginal claim",
+        "POLICY flags=0 encodeMismatch=504 ddsWrapMismatch=114 ddsClampMismatch=121",
+        "POLICY flags=10000 encodeMismatch=1281 ddsWrapMismatch=124 ddsClampMismatch=126",
+        "POLICY flags=20000 encodeMismatch=983 ddsWrapMismatch=114 ddsClampMismatch=121",
+        "POLICY flags=30000 encodeMismatch=1407 ddsWrapMismatch=124 ddsClampMismatch=126",
+        "POLICY flags=40000 encodeMismatch=1512 ddsWrapMismatch=117 ddsClampMismatch=121",
+        "POLICY flags=50000 encodeMismatch=1533 ddsWrapMismatch=124 ddsClampMismatch=126",
+        "POLICY flags=60000 encodeMismatch=1518 ddsWrapMismatch=117 ddsClampMismatch=121",
+        "POLICY flags=70000 encodeMismatch=1533 ddsWrapMismatch=124 ddsClampMismatch=126"
+      ]
+    }
+  ]
+}
