@@ -2,6 +2,10 @@
 
 分支：`recovery/texturecompiler-source`；仅PC、禁止强推、编译测试仅Actions。所有后续贴图还原优先复用公开实现并适配原版，见[公开实现入口](TEXTURE_UPSTREAM.md)。先连续实现实际消费链，稳定后集中验收；普通检查点不触发完整测试/SDK/MOD。
 
+## 最新精度检查点（保存，不追加Windows）
+
+BC3 alpha palette已改为float系数、先存右项乘积，再做左项扩展乘加的一般规则；对41007602862的全部8192个原alpha通道位模式静态数值核对一致。此新增源码尚未Actions验证。正在运行的41009041890只绑定d50b04a94db5c201bbac853a5eee0fa22c25158d，不能为本检查点背书。下一轮先读该run终态，再用当前源码集中补齐实际消费/BC块位模式/完整DDS与NoOriginal门槛；未变64组件及SDK不重跑。
+
 ## 此独立BC分支的当前检查点（未正式验收）
 
 上一诊断165184da/41007602862已probe-only完成，D/R原始capture一致、原版重复稳定：flags0完整匹配DXT1/DXT3块编码，DXT5 alpha504差异；BC1 decode512块全等，BC2/3各511差异。现按一般规则适配：恢复BC2/3三色解码、A4经byte17/255展开、存储float倒数后去预乘、旧OptimizeAlpha梯度及pD8最后8/7系数；BC3 alpha插值精度仍待修正。新增真正压缩→raw的endian/swizzle/矩形/pitch适配，并对每个DDS mip的逻辑与物理RGBA、完整VM/锁定/释放一起诊断。完整原版/D/R/NoOriginal验收及小base/NPOT仍未完成，正式loader/生产包继续明确拒绝压缩。

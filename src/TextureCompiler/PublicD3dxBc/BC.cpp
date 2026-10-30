@@ -22,6 +22,19 @@ using namespace DirectX::PackedVector;
 
 namespace
 {
+    // Original PC alpha-palette arithmetic: normalized endpoints and float
+    // coefficient weights, store the right product BEFORE the extended left
+    // multiply/add. Derived against all8192 original BC3 alpha channels in
+    // immutable diagnostic41007602862; do not collapse this to weighted-sum
+    // division, one lerp, or two independently rounded products.
+    float LegacyAlphaPalette(float left, float right, size_t i, size_t denominator) noexcept
+    {
+        volatile float c0 = static_cast<float>(static_cast<double>(denominator - i) / denominator);
+        volatile float c1 = static_cast<float>(static_cast<double>(i) / denominator);
+        volatile float product = static_cast<float>(static_cast<double>(right) * c1);
+        volatile float result = static_cast<float>(static_cast<double>(left) * c0 + product);
+        return result;
+    }
     //-------------------------------------------------------------------------------------
     // Constants
     //-------------------------------------------------------------------------------------
@@ -912,12 +925,12 @@ _Use_decl_annotations_ void DirectX::D3DXDecodeBC3(XMVECTOR* pColor, const uint8
     if (pBC3->alpha[0] > pBC3->alpha[1])
     {
         for (size_t i = 1; i < 7; ++i)
-            fAlpha[i + 1] = (fAlpha[0] * float(7u - i) + fAlpha[1] * float(i)) * (1.0f / 7.0f);
+            fAlpha[i + 1] = LegacyAlphaPalette(fAlpha[0], fAlpha[1], i, 7);
     }
     else
     {
         for (size_t i = 1; i < 5; ++i)
-            fAlpha[i + 1] = (fAlpha[0] * float(5u - i) + fAlpha[1] * float(i)) * (1.0f / 5.0f);
+            fAlpha[i + 1] = LegacyAlphaPalette(fAlpha[0], fAlpha[1], i, 5);
 
         fAlpha[6] = 0.0f;
         fAlpha[7] = 1.0f;

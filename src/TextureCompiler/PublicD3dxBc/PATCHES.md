@@ -8,7 +8,11 @@ patches restore BC2/3 three-color decode, A4 expansion through byte17/255, the
 old OptimizeAlpha reversed gradient and pD8 last coefficient8/7 (original RVA
 2851b/table9d250). The wrapper unpremultiplies BC2/3 via a stored float reciprocal
 then stored products/clamp, following every applicable captured original RGB
-channel. Remaining BC3 alpha interpolation precision is not claimed solved. The build explicitly selects scalar DirectXMath and x86
+channel. BC3 alpha interpolation now explicitly stores the right weighted product
+before its extended left multiply/add, matching all8192 original alpha-channel
+bit patterns in the immutable41007602862 capture by numeric analysis. This
+latest source patch is not yet Actions-validated and cannot inherit the prior
+source commit's diagnostic result. The build explicitly selects scalar DirectXMath and x86
 x87 strict arithmetic. Windows SDK DirectXMath is a build prerequisite.
 
 The isolated DLL exposes actual public D3DX BC1/2/3 encoders and decoders via
