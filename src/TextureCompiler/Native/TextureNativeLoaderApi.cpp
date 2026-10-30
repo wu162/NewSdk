@@ -3,6 +3,7 @@
 #include "TextureNativeSurfaceApi.h"
 #include "TextureNativeResourceApi.h"
 #include "TextureNativeCopyApi.h"
+#include "../PublicDirectXTex/TexturePublicTriangle.h"
 #define NOMINMAX
 #include <Windows.h>
 #include <algorithm>
@@ -79,6 +80,15 @@ unsigned char GenericBoxByte(unsigned char tl,unsigned char tr,unsigned char bl,
  const float scaled=TruncateFloat(static_cast<double>(average)*255.0);
  return static_cast<unsigned char>(std::min(255,std::max(0,static_cast<int>(TruncateFloat(static_cast<double>(scaled)+0.5)))));
 }
+std::int32_t UploadRawLevel(void* resource,U level,const unsigned char* source,U sourcePitch,U sw,U sh,U tw,U th,U format){
+ Recovered::TextureCompiler::NativeSurfaceAbi::LockedRect locked{};
+ auto status=TextureSurfaceLockRect(resource,level,&locked,nullptr,0);if(status<0)return status;
+ try{
+  if(sw==tw&&sh==th)status=TextureCopySurface(locked.bits,locked.pitch,tw,th,format&~0x1c0u,nullptr,source,sourcePitch,format&~0x1c0u,nullptr,0,0.0f);
+  else Recovered::TextureCompiler::PublicDirectXTex::ResizeBgra8(source,sourcePitch,sw,sh,static_cast<unsigned char*>(locked.bits),locked.pitch,tw,th,((format>>27)&7)!=5);
+ }catch(...){TextureResourceUnlockRect(resource,level);throw;}
+ TextureResourceUnlockRect(resource,level);return status;
+}
 std::int32_t GenerateRawMips(void* resource,U first,U levels,U width,U height,U format){
  for(U level=first;level<levels;++level){
   const U sw=std::max(1u,width>>(level-1)),sh=std::max(1u,height>>(level-1)),w=std::max(1u,sw>>1),h=std::max(1u,sh>>1),nx=sw>1?2:1,ny=sh>1?2:1,count=nx*ny;
@@ -108,27 +118,27 @@ std::int32_t LoadDds(const std::vector<unsigned char>& bytes,void** output){
  else if((flags&0x40)&&bits==32&&r==0xff0000&&g==0xff00&&b==0xff&&(a==0xff000000||a==0))format=a?0x18280086:0x28280086;
  else return Unsupported;
  const U width=Load(bytes.data(),16),height=Load(bytes.data(),12),sourceLevels=std::max(1u,Load(bytes.data(),28));
- if(!width||!height||width>8192||height>8192||(width&(width-1))||(height&(height-1)))return Unsupported;
+ if(!width||!height||width>8192||height>8192)return Unsupported;
+ const U targetWidth=1u<<Log(width),targetHeight=1u<<Log(height);
+ if((targetWidth!=width||targetHeight!=height)&&std::uint64_t(targetWidth)*targetHeight>=16777216)return Unsupported;
  // D3DXCreateTextureFromFileA requests ordinary 2D even when caps2 carries
  // volume metadata. The native parser's multi-slice/cube paths are separate.
  if((Load(bytes.data(),112)&0xfe00)||Load(bytes.data(),24)>1)return Unsupported;
- const U levels=Log(std::max(width,height))+1;
- if(sourceLevels>levels)return Unsupported;
- Resource resource;resource.p=TextureCreateCpuTexture(width,height,levels,format);if(!resource.p)return OutOfMemory;
- U offset=128;const U f=format&63;U bx,by;Blocks(f,bx,by);U w=width,h=height;
+ const U levels=Log(std::max(targetWidth,targetHeight))+1;
+ U sourceMaximum=1;for(U n=std::max(width,height);n>1;n>>=1)++sourceMaximum;
+ if(sourceLevels>sourceMaximum)return Unsupported;
+ Resource resource;resource.p=TextureCreateCpuTexture(targetWidth,targetHeight,levels,format);if(!resource.p)return OutOfMemory;
+ U offset=128;const U f=format&63;U bx,by;Blocks(f,bx,by);U w=width,h=height,tw=targetWidth,th=targetHeight;
  for(U level=0;level<sourceLevels;++level){
   const U rowBytes=((w+bx-1)/bx)*(Bits[f]*bx*by/8),rows=(h+by-1)/by,levelBytes=rowBytes*rows;
   if(offset>bytes.size()||levelBytes>bytes.size()-offset)return InvalidData;
-  Recovered::TextureCompiler::NativeSurfaceAbi::LockedRect locked{};
-  auto status=TextureSurfaceLockRect(resource.p,level,&locked,nullptr,0);if(status<0)return status;
   // CPU file uploads keep the file's little-endian representation. The
   // descriptor still carries the original 0x40/0x80 endian tags. LoadImageA
   // clears bits 0x1c0 before its flags=0x12 logical conversion (IL token17).
-  status=TextureCopySurface(locked.bits,locked.pitch,w,h,format&~0x1c0u,nullptr,bytes.data()+offset,rowBytes,format&~0x1c0u,nullptr,0,0.0f);
-  if(status<0){TextureResourceUnlockRect(resource.p,level);return status;}
-  TextureResourceUnlockRect(resource.p,level);offset+=levelBytes;w=std::max(1u,w>>1);h=std::max(1u,h>>1);
+  const auto status=UploadRawLevel(resource.p,level,bytes.data()+offset,rowBytes,w,h,tw,th,format);if(status<0)return status;
+  offset+=levelBytes;w=std::max(1u,w>>1);h=std::max(1u,h>>1);tw=std::max(1u,tw>>1);th=std::max(1u,th>>1);
  }
- if(sourceLevels<levels)GenerateRawMips(resource.p,sourceLevels,levels,width,height,format);
+ if(sourceLevels<levels)GenerateRawMips(resource.p,sourceLevels,levels,targetWidth,targetHeight,format);
  *output=resource.detach();return 0;
 }
 }
@@ -185,7 +195,9 @@ std::int32_t LoadTga(const std::vector<unsigned char>& bytes,void** output){
  const U width=Word(bytes,12),height=Word(bytes,14),depth=bytes[16],descriptor=bytes[17],attributes=descriptor&15;
  if((descriptor&0xc0)||(depth==24&&attributes)||(depth==32&&attributes!=0&&attributes!=8))return Unsupported;
  if(!width||!height)return InvalidData;
- if(width>8192||height>8192||std::uint64_t(width)*height>=16777216||(width&(width-1))||(height&(height-1)))return Unsupported;
+ if(width>8192||height>8192)return Unsupported;
+ const U targetWidth=1u<<Log(width),targetHeight=1u<<Log(height);
+ if(std::uint64_t(targetWidth)*targetHeight>=16777216)return Unsupported;
  const U count=width*height,stride=depth/8;U offset=18+bytes[0];if(offset>bytes.size())return InvalidData;
  std::vector<unsigned char> pixels(count*4);U position=0;
  while(position<count){
@@ -205,10 +217,8 @@ std::int32_t LoadTga(const std::vector<unsigned char>& bytes,void** output){
  // Original TGA parser changes an entirely zero alpha plane to X8. The
  // stored base bytes stay zero; only the logical alpha selector becomes one.
  const U format=alpha?0x18280086:0x28280086,levels=Log(std::max(width,height))+1;
- Resource resource;resource.p=TextureCreateCpuTexture(width,height,levels,format);if(!resource.p)return OutOfMemory;
- Recovered::TextureCompiler::NativeSurfaceAbi::LockedRect locked{};TextureSurfaceLockRect(resource.p,0,&locked,nullptr,0);
- auto status=TextureCopySurface(locked.bits,locked.pitch,width,height,format&~0x1c0u,nullptr,pixels.data(),width*4,format&~0x1c0u,nullptr,0,0.0f);
- TextureResourceUnlockRect(resource.p,0);if(status<0)return status;
- GenerateRawMips(resource.p,1,levels,width,height,format);*output=resource.detach();return 0;
+ Resource resource;resource.p=TextureCreateCpuTexture(targetWidth,targetHeight,levels,format);if(!resource.p)return OutOfMemory;
+ const auto status=UploadRawLevel(resource.p,0,pixels.data(),width*4,width,height,targetWidth,targetHeight,format);if(status<0)return status;
+ GenerateRawMips(resource.p,1,levels,targetWidth,targetHeight,format);*output=resource.detach();return 0;
 }
 }

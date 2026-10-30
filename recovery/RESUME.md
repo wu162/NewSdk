@@ -2,6 +2,10 @@
 
 分支：`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试仅Actions。
 
+## 本轮候选检查点（2026-10-30）
+
+`validation/texture-public-native-npot`：已接入固定 DirectXTex triangle 源码适配，原生 TGA24/32 与 raw A8/X8 DDS 的 NPOT/逐已提供层重采样及缺层 BOX 已实现；新增5664个完整资源差分输入，保留全部旧6860构造/2789文件与压缩拒绝边界。当前未验证、未合入恢复主分支、未进入生产包。下一步继续同批原生加载消费补全，稳定后一次集中 D/R/NoOriginal 验收；未改旧组及SDK不重复触发。
+
 ## 后续默认路线（2026-10-30 用户明确要求）
 
 **所有贴图还原优先复用网上已有实现并适配原版行为，不能默认从零重写。** 先读[公开实现入口](TEXTURE_UPSTREAM.md)：DirectXTex/Wine优先用于D3DX编解码、加载/转换及过滤/mip，已有格式先复用仓库已接入源码。原样不匹配继续修改一般规则；只有具体未覆盖/不适合的部分才记录原因并补写。独立候选分支、来源/固定提交/通知、完整逐字节与实际消费/D/R/NoOriginal/适用SDK门槛保持。

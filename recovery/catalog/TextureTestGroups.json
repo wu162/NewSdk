@@ -3187,6 +3187,7 @@
         "recovery/scripts/BuildTextureNativeDescriptor.ps1",
         "recovery/scripts/BuildTextureNativeDevice.ps1",
         "recovery/scripts/BuildTextureNativeLoader.ps1",
+        "src/TextureCompiler/PublicDirectXTex/**",
         "recovery/scripts/BuildTextureNativeResource.ps1",
         "recovery/scripts/BuildTextureNativeSurface.ps1",
         "recovery/scripts/TestTextureNativeLoader.ps1",
