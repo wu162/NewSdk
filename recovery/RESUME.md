@@ -22,9 +22,10 @@
 
 ### 当前执行检查点（2026-10-30，JPEG/PPM原生链，尚未验证）
 
-- BC正式接入的集中验收已启动：[41051807572](https://github.com/wu162/NewSdk/actions/runs/41051807572)，固定源码`e5e2c97981f4369331807cb17f76165d8509eab5`，显式native-bc-files并保留全部自动受影响组；结果待收，不以旧compiled-only替代。
+- BC正式接入首轮[41051807572](https://github.com/wu162/NewSdk/actions/runs/41051807572)固定源码`e5e2c97981f4369331807cb17f76165d8509eab5`：native-bc-files和其余8组通过，native-loader在首张128×128真实DDS的宿主压缩crop越界。原LockRect按raw pitch/bit单位偏移；已修为逻辑crop4/4编码left16/top1并增加完整源span硬检查，不改生产Surface ABI、不删三锁定/双RGBA。补验[41053772714](https://github.com/wu162/NewSdk/actions/runs/41053772714)固定`2883373b6a4e27cb120399824244d65d5d9ae297`，仅补真实失败/变化组，结果待收。
 - 继续实现保存在独立`validation/texture-native-raster-integration`：静态采用已验收固定IJG6b JPEG/PPM wrapper，接通原尺寸BGRA/X8和JPEG灰度L8；JPEG基础X=0、PPM基础X=FF分别保留。L8复用固定DirectXTex triangle并适配原luminance存储，双轴BOX整数路径与退化轴float路径分开。无新增运行decoder DLL或原DLL回调。
-- 此检查点仅实现，原生资源/VM/mip/实际Copy消费矩阵仍在准备，尚未编译或差分，不合入恢复分支、不启用生产包。下一步补齐固定JPEG/PPM全语料原生消费、D/R与逐次NoOriginal，再按实际影响集中验收；先收BC批次结果，失败只修真实原因。
+- 已准备`TestTextureNativeRaster.ps1`及同一完整消费宿主的五参模式：固定3份归档、13722全部源文件（9335原成功/4387原错误）、JPEG灰度L8及彩色X8/PPM的完整HRESULT/VM/各层/三锁/两RGBA/释放、D/R与逐次NoOriginal；四参仍保留16180文件/6860构造/19拒绝。新native-raster与所有实际BuildNativeLoader消费者登记新源码、IJG/PPM及gold依赖。
+- 此检查点仅实现和矩阵准备，尚未编译或差分，不合入恢复分支、不启用生产包。先收BC失败修复的补验；新JPEG/PPM完整稳定批次再集中最终验收，旧RGBA gold不冒充原生VM gold，普通收尾不跑SDK/MOD。
 
 1. 接入批次已通过构建，下一轮直接从 `validation/texture-native-bc-integration` 的 `TestTextureNativeLoader.ps1` / `TextureNativeLoaderOracle.cpp` 继续。集中入口显式 `force_groups=native-bc-files, native_bc_build_only=false, run_sdk=false, plan_only=false`（各为独立输入）；保留自动叠加的所有受影响原生组，不把force_groups当只跑指定组。执行16180文件/6860构造/19拒绝、完整D/R及逐次NoOriginal，并补齐共享NativeCopy的真实消费；compiled-only不能跳过任何组件门槛。
 2. 本批独立BC组件已闭环；保留 `ac6f8af6` / `41027020522` 的精确成功收据，未变输入不重复验收。已普通合入恢复分支 `989a89c2b9f8bb6a6cb845904f10e6815142d239`，未启用生产包。

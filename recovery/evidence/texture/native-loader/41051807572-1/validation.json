@@ -1,0 +1,208 @@
+{
+  "sdkValidated": false,
+  "sourceFixtures": [
+    {
+      "bytes": 131200,
+      "sha256": "1c2c5a6a12bf4b6b03b127316769cfa3481f7cbc1172cd56065d779a9d89dd17",
+      "file": "PackedImages_097_EP1.dds"
+    },
+    {
+      "bytes": 640,
+      "sha256": "d83e7da2b70186f8857e3d7a28c221c7b076f35d1f7def77784bdb1313ba4ff4",
+      "file": "LURomania_vol.dds"
+    },
+    {
+      "bytes": 22024,
+      "sha256": "995f7ef1ecc41be00ce3d4e2a933128988b4f37a814f8e2500ff4c40a0adaa36",
+      "file": "FXAlliedFutureLaser.dds"
+    },
+    {
+      "bytes": 392,
+      "sha256": "0fad96553c29863a37966f9b85711926231c63d1932d88ebdbb976476fa0146c",
+      "file": "FXYurikoShieldFadeLUT.dds"
+    },
+    {
+      "bytes": 11080,
+      "sha256": "8b8a8b99950ef9ed96fbf5b8e45bff6f691656a28b6b6ce76769d9280b4f2a8c",
+      "file": "EXJapanArrow.dds"
+    },
+    {
+      "bytes": 22000,
+      "sha256": "42b701681043182ce335eaf43bf554f8f895d622d3c6fad83ec2d3fc65724bea",
+      "file": "JUArcherInfantry.dds"
+    },
+    {
+      "bytes": 65664,
+      "sha256": "afac628fc500868b3a4648b47e507a64ad277281fccdc5b35f4a798ca9a75323",
+      "file": "Target_Japan_ArcherBarrage.dds"
+    },
+    {
+      "bytes": 11064,
+      "sha256": "a4fdf4c1ea3f95fae662b20a7175d701b8c42a99b6b87e6a69d4babeb4394bcf",
+      "file": "AULegionnaireInfantry.dds"
+    },
+    {
+      "bytes": 349680,
+      "sha256": "bae9a02cd90785aed6ef4648a2ff2d5fcdeddaceb358dd08d150a8031f361b85",
+      "file": "SUMortarCycle.dds"
+    },
+    {
+      "bytes": 2098213,
+      "sha256": "37f7348cb10d39f1ec9ae1024eee2e4b909e63d18fcee5fa837547439e2a665f",
+      "file": "apt_tacticalhudbuildqueuepage_1.tga"
+    },
+    {
+      "bytes": 524838,
+      "sha256": "d4b50f26b6914b6d78fe74406bf0ff9fd49b45df82a87370b2b5532eaab59c37",
+      "file": "apt_tacticalhudmaincommandbar_1.tga"
+    },
+    {
+      "bytes": 786476,
+      "sha256": "5d453e31e4a5cf6e5fa30cc8ed234448e3dd98177f58a519023e464a55b3bee9",
+      "file": "map_mp_2_feasel10_ep1_art.tga"
+    }
+  ],
+  "sourceCommit": "e5e2c97981f4369331807cb17f76165d8509eab5",
+  "runId": "41051807572",
+  "status": "failed",
+  "runAttempt": "1",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "scope": "PC formal owned 2D CPU resource/file loader: all old raw DDS/TGA/BMP matrices plus DirectXTex BC1/2/3 small/POT/NPOT, provided partial tails and BOX missing mips; 16180 successful files including1679 compressed,6860 constructors and19 explicit rejections; full original header/VM/mips/three locks/masked and physical RGBA/ownership, Debug/Release and per-call NoOriginal; not production package/SDK/mixed-mode identity",
+  "publicSources": [
+    {
+      "files": [
+        {
+          "path": "upstream/filters.h",
+          "bytes": 17587,
+          "sha256": "369bb5d2cf6f74ad1cc5a3fa6b52c4e1c2ecd77ca566377a2612269526517f08"
+        },
+        {
+          "path": "upstream/DirectXTexResize.cpp",
+          "bytes": 36719,
+          "sha256": "de781d528d28bf2b4516820c9b181c4eb003580d58dde1fdcccae4b81a9a7d60"
+        },
+        {
+          "path": "upstream/LICENSE",
+          "bytes": 1141,
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        },
+        {
+          "path": "TexturePublicTriangle.h",
+          "bytes": 526,
+          "sha256": "df64acb7f4796bef1228ec5a43d52f6cf6b0806b77f4277fa0ca30466d9a39c9"
+        },
+        {
+          "path": "TexturePublicTriangle.cpp",
+          "bytes": 6361,
+          "sha256": "1a799e630606d01529caee8f6502f7dc9406e26e5c94c4b461a18809c45c243b"
+        }
+      ],
+      "repository": "microsoft/DirectXTex",
+      "commit": "ec66b78b37389e8373a8e14ccc3cd29be94146b3"
+    },
+    {
+      "files": [
+        {
+          "path": "upstream/stb_image.h",
+          "bytes": 283010,
+          "sha256": "594c2fe35d49488b4382dbfaec8f98366defca819d916ac95becf3e75f4200b3"
+        },
+        {
+          "path": "stb_image.h",
+          "bytes": 283043,
+          "sha256": "1500e9610ca5e3ee6fc496554f8f8d9e4c83d9513ec17cbaa34a6d193fead0f2"
+        },
+        {
+          "path": "TexturePublicBmp.h",
+          "bytes": 403,
+          "sha256": "501b75ddba8f5d75cceb134a7f072fcc7a85ad76699e7b41d61eab889508c277"
+        },
+        {
+          "path": "TexturePublicBmp.cpp",
+          "bytes": 5053,
+          "sha256": "fa228e8d02a3c55087365b3370079aeeb7d22607b95d14efafa0912bf992999e"
+        }
+      ],
+      "repository": "nothings/stb",
+      "commit": "003501f6d7a8668ce8b6d875e34dd97ad0d5d5b5"
+    },
+    {
+      "files": [
+        {
+          "path": ".gitattributes",
+          "bytes": 8,
+          "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+        },
+        {
+          "path": "BC.cpp",
+          "bytes": 41723,
+          "sha256": "754933478bb5af54d5d1b1c9bf517efab2129bbd41fa8cfab1dba15d0d738971"
+        },
+        {
+          "path": "BC.h",
+          "bytes": 14526,
+          "sha256": "14815dd461edeb7e914ecb1d98878fcb52bd9eef2f9272b9ba84efffcf8d224c"
+        },
+        {
+          "path": "TextureBcP.h",
+          "bytes": 457,
+          "sha256": "bc4747ba7d266a8cafd135ee625e13b1bef5a5c630bfad811d107b62cf077f3f"
+        },
+        {
+          "path": "TexturePublicBcApi.cpp",
+          "bytes": 8187,
+          "sha256": "96206fb70cef5d4096db47c5ef1cb6f6f3473c990809758bc4d380193f5930c1"
+        },
+        {
+          "path": "TexturePublicBcApi.def",
+          "bytes": 759,
+          "sha256": "16343c8a50f5013ab251fb12c63a1520e66a12e3cfed2e237952f3ae22318966"
+        },
+        {
+          "path": "TexturePublicBcApi.h",
+          "bytes": 4308,
+          "sha256": "e6e1a2033666a7172510a438f545550696e2ef38a7e4cfd4150153f47457df08"
+        },
+        {
+          "path": "TexturePublicBcCopy.cpp",
+          "bytes": 3886,
+          "sha256": "582d63a48d7883f33d86bab1eb5c982bfc2d9060c2dd2d38a3f5e070076ceb71"
+        },
+        {
+          "path": "TexturePublicBcDds.cpp",
+          "bytes": 10285,
+          "sha256": "d0ac3c8a3248d7037841e2012317d9ad060902964ad1e0afbc137dda2105faea"
+        },
+        {
+          "path": "upstream/BC.cpp",
+          "bytes": 35953,
+          "sha256": "7554b64224f39e68ff99f9b070394dfddee811593a1b3d7c8004c5c2f94a47b0"
+        },
+        {
+          "path": "upstream/BC.h",
+          "bytes": 13347,
+          "sha256": "498e86defa9e46f207a54aff2fbda814467c2d6d608e9d678ffff5e1cd142a49"
+        },
+        {
+          "path": "upstream/LICENSE",
+          "bytes": 1141,
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        },
+        {
+          "path": "TexturePublicBcResize.cpp",
+          "bytes": 5644,
+          "sha256": "af65945a27a5277cbabced55f662aad86f5c146b3f112a3b3a0d1236956e4ff1"
+        },
+        {
+          "path": "TexturePublicBcResize.h",
+          "bytes": 291,
+          "sha256": "2ee3286dbe5e5b519f59229a05ffd0fa5e5d3191fb1a10d2f673480d4b6d63f9"
+        }
+      ],
+      "repository": "microsoft/DirectXTex",
+      "commit": "ec66b78b37389e8373a8e14ccc3cd29be94146b3"
+    }
+  ],
+  "error": "Debug-differential failed",
+  "configurations": []
+}

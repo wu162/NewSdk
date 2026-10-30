@@ -1,0 +1,33 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "passed",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "nativeSha256": "af4aaba3fb8df33ebc70a387cc8dbca15dc249c5823d553f6ee673624d50af9c",
+      "captureSha256": "635a22d4dbbe1264873d0250287a66c755083b06d7382085edbe118c31090b62",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS native PC signed/biased/integer conversion differential cases=100472 formatPairs=784 attributeStatePairs=64 mappingVariants=2 exhaustive16BitStrips=120 exhaustivePixels=7864320 traceBytes=61620872; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC signed/biased/integer conversion NoOriginal cases=100472 formatPairs=784 attributeStatePairs=64 mappingVariants=2 exhaustive16BitStrips=120 exhaustivePixels=7864320 traceBytes=61620872; full source/output/padding/guards, thresholds and isolated replay"
+      ]
+    },
+    {
+      "configuration": "Release",
+      "nativeSha256": "cef145c3e39d1c199246d9131f099ef6f32f646d572453b9bc3b1a3414cfca10",
+      "captureSha256": "635a22d4dbbe1264873d0250287a66c755083b06d7382085edbe118c31090b62",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS native PC signed/biased/integer conversion differential cases=100472 formatPairs=784 attributeStatePairs=64 mappingVariants=2 exhaustive16BitStrips=120 exhaustivePixels=7864320 traceBytes=61620872; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC signed/biased/integer conversion NoOriginal cases=100472 formatPairs=784 attributeStatePairs=64 mappingVariants=2 exhaustive16BitStrips=120 exhaustivePixels=7864320 traceBytes=61620872; full source/output/padding/guards, thresholds and isolated replay"
+      ]
+    }
+  ],
+  "sourceCommit": "e5e2c97981f4369331807cb17f76165d8509eab5",
+  "runAttempt": "1",
+  "scope": "XGCopySurface signed/biased/unsigned normalized and integer conversion: 28 layouts/784 format pairs/64 attribute state pairs, 120 exhaustive16 strips/selectors/constants/clipping/threshold/full bytes and NoOriginal; gamma/endian/float/compression/filter/overlap and production package excluded",
+  "runId": "41051807572",
+  "sdkValidated": false
+}

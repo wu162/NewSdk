@@ -1,0 +1,1 @@
+PASS native PC flags dispatch differential cases=49328 formatPairs=1444 flagSets=12 sameFormatStates=8 endianSets=4 mappings=4 exhaustiveStrips=80 exhaustivePixels=5242880 traceBytes=39669512; full source/output/padding/guards, thresholds and isolated replay

@@ -27,6 +27,7 @@ using namespace Recovered::TextureCompiler;using U=std::uint32_t;
 using OriginalCreate=void* (__stdcall *)(U,U,U,U,U,U,U,U);
 struct Api{NativeDeviceAbi::CreateFn device;NativeDeviceAbi::ReleaseFn deviceRelease;NativeResourceAbi::RefFn add,release;NativeResourceAbi::UnlockFn unlock;NativeSurfaceAbi::LayoutFn layout;NativeSurfaceAbi::LockFn lock;NativeDescriptorAbi::LevelFn level;NativeDescriptorAbi::TextureFn describe;NativeCopyAbi::CopyFn copy;NativeLoaderAbi::CreateFn create;NativeLoaderAbi::LoadFn load;OriginalCreate originalCreate;bool isolated=false;};
 U constructorCases=0,fileCases=0,copyCases=0,rejections=0,mismatches=0,compressedFiles=0,bcFileCases=0,npotCases=0,bmpCases=0;std::string current,failurePath;
+U rasterDecoded=0,rasterRejected=0;
 void Check(bool c,const char* why){if(!c)throw std::runtime_error(current+": "+why);}
 void Isolation(const Api& api){if(api.isolated){Check(!GetModuleHandleA("BinaryAssetBuilder.TextureCompiler.dll"),"Original loaded during loader replay");Check(GetFileAttributesA("BinaryAssetBuilder.TextureCompiler.dll")==INVALID_FILE_ATTRIBUTES,"Original file during loader replay");}}
 U Address(const void* p){return static_cast<U>(reinterpret_cast<std::uintptr_t>(p));}
@@ -56,10 +57,20 @@ Trace Consume(Api api,void* p,bool pixels){
   NativeDescriptorAbi::LevelDesc desc{};NativeDescriptorAbi::TextureDesc texture{};api.level(p,level,&desc);api.describe(p,level,&texture);Isolation(api);t.add(&desc,sizeof(desc));t.add(&texture,sizeof(texture));
   std::array<U,7> layout{};void* address=nullptr;api.layout(p,0,level,&layout[0],&layout[1],&layout[2],&layout[3],&layout[4],&layout[5],&layout[6],&address);Isolation(api);t.add(layout.data(),sizeof(layout));t.number(Normalize(s,address));
   for(U mode=0;mode<3;++mode){
-   NativeSurfaceAbi::LockedRect locked{};NativeSurfaceAbi::Rect rect{desc.width>=8?4:0,desc.height>=8?4:0,static_cast<std::int32_t>(desc.width),static_cast<std::int32_t>(desc.height)};
+   const U format=desc.format&63;const bool compressed=format>=18&&format<=20;
+   const U cropX=mode==1&&desc.width>=8?4:0,cropY=mode==1&&desc.height>=8?4:0;
+   // Original LockRect offsets BC rectangles in raw pitch/bit units, not
+   // ordinary texels: left16/top1 encodes the same logical block crop4/4.
+   // The independent surface matrix retains arbitrary raw rect ABI checks.
+   NativeSurfaceAbi::LockedRect locked{};NativeSurfaceAbi::Rect rect{static_cast<std::int32_t>(compressed?cropX*4:cropX),static_cast<std::int32_t>(compressed?cropY/4:cropY),static_cast<std::int32_t>(desc.width),static_cast<std::int32_t>(desc.height)};
    Check(api.lock(p,level,&locked,mode==1?&rect:nullptr,mode==2?1:mode==1?0x10:0)==0,"Loaded texture lock");Isolation(api);t.number(locked.pitch);t.number(Normalize(s,locked.bits));Header(t,p,s);
-   if(pixels&&((desc.format&63)==6||((desc.format&63)>=18&&(desc.format&63)<=20))){
-    const U w=desc.width-(mode==1?rect.left:0),h=desc.height-(mode==1?rect.top:0),pitch=w*4+7;
+   if(pixels&&((desc.format&63)==2||(desc.format&63)==6||((desc.format&63)>=18&&(desc.format&63)<=20))){
+    const U w=desc.width-cropX,h=desc.height-cropY,pitch=w*4+7;
+    const U rows=compressed?(h+3)/4:h,rowBytes=compressed?((w+3)/4)*(format==18?8:16):w*(format==2?1:4);
+    Check(locked.pitch>=static_cast<std::int32_t>(rowBytes),"Loaded copy source row exceeds pitch");
+    const std::uint64_t start=Address(locked.bits),span=std::uint64_t(rows-1)*locked.pitch+rowBytes;
+    const auto contained=[&](void* base,U bytes){return base&&start>=Address(base)&&start+span<=std::uint64_t(Address(base))+bytes;};
+    Check(contained(s.primary,s.psize)||contained(s.secondary,s.ssize),"Loaded copy source span outside owned VM");
     // Both the exact managed LoadImageA source-format mask and the physical
     // descriptor/endian view are compared, with actual flags0x12/threshold0.
     for(U mask:{~0x1c0u,0xffffffffu}){
@@ -143,6 +154,46 @@ void FileCase(Api recovered,Api original,bool hasOriginal,Gold& gold,void* rd,vo
  if(status>=0){auto trace=Consume(recovered,p,true);actual.add(trace.data.data(),trace.data.size());}else Check(!p,"Rejected load returned a resource");
  Trace expected;if(hasOriginal){p=nullptr;const auto result=original.load(od,path.c_str(),&p);Check(result==0&&p,"Declared supported original file must load successfully");expected.number(static_cast<U>(result));if(result>=0){auto trace=Consume(original,p,true);expected.add(trace.data.data(),trace.data.size());}else Check(!p,"Rejected original returned resource");}
  Check(Read(path)==input,"File loader modified source bytes");gold.record(std::move(actual),hasOriginal?&expected:nullptr);++fileCases;
+}
+void FileOutcomeCase(Api recovered,Api original,bool hasOriginal,Gold& gold,void* rd,void* od,const std::string& path){
+ const auto input=Read(path);void* p=nullptr;Isolation(recovered);
+ const auto status=recovered.load(rd,path.c_str(),&p);Isolation(recovered);Trace actual;actual.number(static_cast<U>(status));
+ if(status>=0){Check(status==0&&p,"Successful raster load must transfer a resource");auto trace=Consume(recovered,p,true);actual.add(trace.data.data(),trace.data.size());++rasterDecoded;}
+ else{Check(!p,"Rejected raster load transferred a resource");++rasterRejected;}
+ Trace expected;
+ if(hasOriginal){
+  p=nullptr;const auto result=original.load(od,path.c_str(),&p);expected.number(static_cast<U>(result));
+  if(result>=0){Check(result==0&&p,"Successful original raster load must transfer a resource");auto trace=Consume(original,p,true);expected.add(trace.data.data(),trace.data.size());}
+  else Check(!p,"Rejected original raster load transferred a resource");
+ }
+ Check(Read(path)==input,"Raster loader modified immutable source bytes");Isolation(recovered);
+ gold.record(std::move(actual),hasOriginal?&expected:nullptr);++fileCases;
+}
+std::vector<std::string> RasterNames(const std::string& directory,const char* extension){
+ WIN32_FIND_DATAA data{};const auto search=FindFirstFileA((directory+"/*"+extension).c_str(),&data);
+ Check(search!=INVALID_HANDLE_VALUE,"Missing declared raster corpus");std::vector<std::string> result;
+ do{if(!(data.dwFileAttributes&FILE_ATTRIBUTE_DIRECTORY)){Check(std::string(data.cFileName)!="encoded.jpg","Temporary encoder output must not enter immutable corpus");result.push_back(data.cFileName);}}while(FindNextFileA(search,&data));
+ const auto error=GetLastError();FindClose(search);Check(error==ERROR_NO_MORE_FILES,"Raster corpus enumeration failed");
+ std::sort(result.begin(),result.end());return result;
+}
+void RunRaster(unsigned char* original,const std::string& libs,const std::string& corpus,const std::string& prefix){
+ failurePath=prefix;std::vector<HMODULE> modules;auto recovered=Recovered(libs,modules,!original);Api baseline{};if(original)baseline=Original(original);
+ Gold gold;gold.open(prefix+".capture",original!=nullptr);
+ void* rd=nullptr;void* od=nullptr;Check(recovered.device(0,1,nullptr,0,nullptr,&rd)==0&&rd,"Raster recovered device");
+ if(original)Check(baseline.device(0,1,nullptr,0,nullptr,&od)==0&&od,"Raster original device");
+ struct Corpus{const char* name;const char* extension;U count,decoded,rejected;};
+ bool outcomeCountsMatch=true;
+ for(const auto& source:{Corpus{"ppm",".ppm",8438,6615,1823},Corpus{"jpeg",".jpg",1284,1280,4},Corpus{"jpeg-metadata",".jpg",4000,1440,2560}}){
+  const auto directory=corpus+"/"+source.name;const auto names=RasterNames(directory,source.extension);
+  Check(names.size()==source.count,"Complete immutable raster source count");const U decoded=rasterDecoded,rejected=rasterRejected;
+  for(const auto& name:names){current=std::string(source.name)+"/"+name;FileOutcomeCase(recovered,baseline,original!=nullptr,gold,rd,od,directory+"/"+name);}
+  outcomeCountsMatch=outcomeCountsMatch&&rasterDecoded-decoded==source.decoded&&rasterRejected-rejected==source.rejected;
+  std::cerr<<"COMPLETE corpus="<<source.name<<" files="<<names.size()<<" decoded="<<rasterDecoded-decoded<<" rejected="<<rasterRejected-rejected<<" mismatches="<<mismatches<<"\n";
+ }
+ gold.finish();Check(outcomeCountsMatch&&fileCases==13722&&rasterDecoded==9335&&rasterRejected==4387&&constructorCases==0,"Complete JPEG/PPM raster outcome matrix");
+ Check(recovered.deviceRelease(rd)==0,"Raster recovered device release");if(original)Check(baseline.deviceRelease(od)==0,"Raster original device release");Isolation(recovered);
+ if(mismatches)throw std::runtime_error("Complete raster mismatches="+std::to_string(mismatches));for(auto module:modules)FreeLibrary(module);
+ std::cout<<"PASS PC native raster "<<(original?"differential":"NoOriginal")<<" fileCases="<<fileCases<<" decoded="<<rasterDecoded<<" rejected="<<rasterRejected<<" rgbaCopies="<<copyCases<<" completeBytes="<<gold.bytes<<"; complete HRESULTs, headers/VM/all mips/three locks, L8+X8 masked/physical RGBA, source invariance, resource ownership and per-call isolation; immutable known-safe original inputs only; not base regression, production package or SDK acceptance\n";
 }
 void Files(Api recovered,Api original,bool hasOriginal,Gold& gold,const std::string& fixtures,const std::string& scratch){
  void* rd=nullptr;void* od=nullptr;Check(recovered.device(0,1,nullptr,0,nullptr,&rd)==0&&rd,"Loader recovered device");if(hasOriginal)Check(original.device(0,1,nullptr,0,nullptr,&od)==0&&od,"Loader original device");
@@ -239,8 +290,11 @@ void Run(unsigned char* original,const std::string& libs,const std::string& fixt
 #pragma managed(pop)
 int main(array<String^>^ args){
  try{
-  if(IntPtr::Size!=4||args->Length!=4)throw gcnew Exception("Usage: x86 original.dll|isolated native-dir fixtures capture-prefix");unsigned char* original=nullptr;
+  if(IntPtr::Size!=4||(args->Length!=4&&args->Length!=5))throw gcnew Exception("Usage: x86 original.dll|isolated native-dir fixtures capture-prefix [raster-corpus]");unsigned char* original=nullptr;
   if(args[0]!="isolated"){auto sha=SHA256::Create();auto digest=BitConverter::ToString(sha->ComputeHash(File::ReadAllBytes(args[0])))->Replace("-","")->ToLowerInvariant();delete sha;if(digest!="4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e")throw gcnew Exception("Original loader DLL fingerprint");auto assembly=Assembly::LoadFrom(Path::GetFullPath(args[0]));auto h=Marshal::GetHINSTANCE(assembly->ManifestModule);if(h==IntPtr::Zero||h==IntPtr(-1))throw gcnew Exception("Original loader module handle");original=static_cast<unsigned char*>(h.ToPointer());}
-  Directory::CreateDirectory(Path::GetFullPath(args[3])+"-inputs");auto libs=Marshal::StringToHGlobalAnsi(Path::GetFullPath(args[1]));auto fixtures=Marshal::StringToHGlobalAnsi(Path::GetFullPath(args[2]));auto prefix=Marshal::StringToHGlobalAnsi(Path::GetFullPath(args[3]));Run(original,static_cast<const char*>(libs.ToPointer()),static_cast<const char*>(fixtures.ToPointer()),static_cast<const char*>(prefix.ToPointer()));Marshal::FreeHGlobal(libs);Marshal::FreeHGlobal(fixtures);Marshal::FreeHGlobal(prefix);return 0;
+  Directory::CreateDirectory(Path::GetFullPath(args[3])+"-inputs");auto libs=Marshal::StringToHGlobalAnsi(Path::GetFullPath(args[1]));auto fixtures=Marshal::StringToHGlobalAnsi(Path::GetFullPath(args[2]));auto prefix=Marshal::StringToHGlobalAnsi(Path::GetFullPath(args[3]));
+  if(args->Length==5){auto corpus=Marshal::StringToHGlobalAnsi(Path::GetFullPath(args[4]));RunRaster(original,static_cast<const char*>(libs.ToPointer()),static_cast<const char*>(corpus.ToPointer()),static_cast<const char*>(prefix.ToPointer()));Marshal::FreeHGlobal(corpus);}
+  else Run(original,static_cast<const char*>(libs.ToPointer()),static_cast<const char*>(fixtures.ToPointer()),static_cast<const char*>(prefix.ToPointer()));
+  Marshal::FreeHGlobal(libs);Marshal::FreeHGlobal(fixtures);Marshal::FreeHGlobal(prefix);return 0;
  }catch(const std::exception& e){std::cerr<<current<<": "<<e.what()<<" constructors="<<constructorCases<<" files="<<fileCases<<" mismatches="<<mismatches<<"\n";}catch(Exception^ e){Console::Error->WriteLine(e);std::cerr<<"FAILED current="<<current<<" constructors="<<constructorCases<<" files="<<fileCases<<" mismatches="<<mismatches<<"\n";}return 1;
 }
