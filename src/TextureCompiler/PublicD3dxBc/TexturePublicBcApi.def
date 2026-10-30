@@ -1,0 +1,6 @@
+LIBRARY Recovered.TexturePublicBc
+EXPORTS
+ TexturePublicBcDecodeBlock=_TexturePublicBcDecodeBlock@12
+ TexturePublicBcEncodeBlock=_TexturePublicBcEncodeBlock@20
+ TexturePublicBcDecodeImage=_TexturePublicBcDecodeImage@28
+ TexturePublicBcEncodeImage=_TexturePublicBcEncodeImage@40

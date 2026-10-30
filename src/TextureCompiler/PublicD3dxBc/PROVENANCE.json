@@ -1,0 +1,59 @@
+{
+  "repository": "microsoft/DirectXTex",
+  "commit": "ec66b78b37389e8373a8e14ccc3cd29be94146b3",
+  "license": "MIT; upstream/LICENSE retained",
+  "scope": "isolated scalar x86 BC1/2/3 candidate; no production routing",
+  "acceptance": "unbuilt/unvalidated; requires Actions original/gold complete block and native DDS/actual-copy acceptance",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": "BC.cpp",
+      "bytes": 35952,
+      "sha256": "1a59f51f5659ddfb7d62f2c3bcfd1b8c4e92a57064a872ddb5d11e5405d7a54d"
+    },
+    {
+      "path": "BC.h",
+      "bytes": 13347,
+      "sha256": "498e86defa9e46f207a54aff2fbda814467c2d6d608e9d678ffff5e1cd142a49"
+    },
+    {
+      "path": "TextureBcP.h",
+      "bytes": 457,
+      "sha256": "bc4747ba7d266a8cafd135ee625e13b1bef5a5c630bfad811d107b62cf077f3f"
+    },
+    {
+      "path": "TexturePublicBcApi.cpp",
+      "bytes": 4889,
+      "sha256": "fbbcb228598a98f0832e8c37afd9621a4a13db5e4f775facab167410bb2cab16"
+    },
+    {
+      "path": "TexturePublicBcApi.def",
+      "bytes": 278,
+      "sha256": "440d809445d521270a047349459f02c621a2eda3f8d62e1400698fdff7a00444"
+    },
+    {
+      "path": "TexturePublicBcApi.h",
+      "bytes": 1659,
+      "sha256": "18d9aa04ac2a5a3575187d834e2c8229162b4f5528d2ff334cf2aa1e786b57c1"
+    },
+    {
+      "path": "upstream/BC.cpp",
+      "bytes": 35953,
+      "sha256": "7554b64224f39e68ff99f9b070394dfddee811593a1b3d7c8004c5c2f94a47b0"
+    },
+    {
+      "path": "upstream/BC.h",
+      "bytes": 13347,
+      "sha256": "498e86defa9e46f207a54aff2fbda814467c2d6d608e9d678ffff5e1cd142a49"
+    },
+    {
+      "path": "upstream/LICENSE",
+      "bytes": 1141,
+      "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+    }
+  ]
+}

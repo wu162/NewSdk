@@ -2,6 +2,10 @@
 
 分支：`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试仅Actions。
 
+## D3DX BC 下一批源码检查点（未构建/未验证）
+
+此分支 `validation/texture-public-d3dx-bc` 已保存固定DirectXTex BC1/2/3原源码、标量x86适配和归一化float块/图像编解码ABI（含partial块和pitch）。入口 `src/TextureCompiler/PublicD3dxBc/PATCHES.md`、`recovery/scripts/BuildTexturePublicBc.ps1`。没有原DLL/既有恢复后端回调，没有生产调用，未启动本候选验收；完整压缩DDS加载仍明确拒绝。下一轮先核对原XGCopySurface的压缩→float与重编码flags/threshold，再接完整DDS小尾mip/缺层消费，对一般浮点/端点/索引规则继续适配并集中验收。1×1压缩DDS原生base实际4×4、levels3，证据为原native-loader105资源快照。
+
 ## 本轮候选检查点（2026-10-30）
 
 `validation/texture-public-native-npot`：已接入固定 DirectXTex triangle 源码适配，原生 TGA24/32 与 raw A8/X8 DDS 的 NPOT/逐已提供层重采样及缺层 BOX 已实现；接入固定stb_image BMP24/32的七种BI_RGB DIB修订及原版offset/alpha规则。完整矩阵为6860构造、14606文件（含5665个NPOT和6152个BMP新增输入、105压缩未支持边界）、另13拒绝；保留旧矩阵与全部原产物字节比较。首轮34946af5/41005120850失败：BMP24原版按源DWORD扫描alpha（不是解码后alpha）及宿主x86累计trace内存耗尽。已按RVA143d2..14421修正源扫描/越界拒绝，确定性BMP24语料显式提供尾部扫描字节，全部形状/字段/断言保留；gold改流式完整写盘/逐条NoOriginal/EOF核对。尚未合入恢复主分支、未进入生产包；下一步补验失败组，未变成功组/SDK复用。
