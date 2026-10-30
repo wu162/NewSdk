@@ -18,7 +18,7 @@ if($LASTEXITCODE -ne 0){Get-Content "$out/build.log";throw 'Probe build failed'}
 $summary=@{sourceCommit=$env:GITHUB_SHA;runId=$env:GITHUB_RUN_ID;status='started';scope='Original Win32 Texture DLL thread reentry experiment, not production certification';cases=@()}
 $failures=@()
 foreach($route in @('Texture','OnDemandTexture','TerrainTextureAtlas','mixed')) {
-    foreach($mode in @('unsafe','locked')) {
+    foreach($mode in @('unsafe','locked','isolated')) {
         $case=(New-Item -ItemType Directory "$out/$route-$mode").FullName
         $info=[Diagnostics.ProcessStartInfo]::new($exe)
         $info.UseShellExecute=$false;$info.WorkingDirectory=$oracle

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Threading;
@@ -77,11 +78,12 @@ public static class TextureParallelProbe
     }
     public static int Main(string[] args)
     {
-        // DLL, output root, route|mixed, serial|unsafe|locked, rounds.
+        // DLL, output root, route|mixed, unsafe|locked|isolated, rounds.
         string output=Path.GetFullPath(args[1]); Directory.CreateDirectory(output);
         var result=new Dictionary<string,object> {{"status","started"},{"route",args[2]},{"mode",args[3]},
             {"sourceCommit",Environment.GetEnvironmentVariable("GITHUB_SHA")},{"runId",Environment.GetEnvironmentVariable("GITHUB_RUN_ID")}};
         IAssetBuilderPlugin plugin=null;
+        var isolatedPlugins=new List<IAssetBuilderPlugin>();
         var serializer=new JavaScriptSerializer {MaxJsonLength=int.MaxValue};
         try {
             plugin=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(Path.GetFullPath(args[0])).GetType("BinaryAssetBuilder.TextureCompiler.Plugin",true));
@@ -95,6 +97,23 @@ public static class TextureParallelProbe
                 baseline.Add(new {typeName=routes[i],index=i,inputSha256=Hash(File.ReadAllBytes(files[i])),buffers=Save(Path.Combine(output,"reference"+i),expected[i])});
             }
             result["baseline"]=baseline;
+            if(args[3]=="isolated") {
+                var modules=new List<object>();
+                var nativeHandles=new HashSet<IntPtr>();
+                nativeHandles.Add(Marshal.GetHINSTANCE(plugin.GetType().Module));
+                for(int i=0;i<workers;i++) {
+                    string copyDirectory=Path.Combine(output,"module"+i);Directory.CreateDirectory(copyDirectory);
+                    string copy=Path.Combine(copyDirectory,Path.GetFileName(args[0]));
+                    File.Copy(args[0],copy);
+                    var assembly=Assembly.LoadFile(copy);
+                    IntPtr handle=Marshal.GetHINSTANCE(assembly.ManifestModule);
+                    modules.Add(new {index=i,assembly.Location,nativeHandle=handle.ToInt64(),assembly.FullName});
+                    result["isolatedModules"]=modules;
+                    Require(handle!=IntPtr.Zero && handle!=new IntPtr(-1) && nativeHandles.Add(handle),"LoadFile did not create independent native storage");
+                    var instance=(IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.TextureCompiler.Plugin",true));
+                    instance.Initialize(null,TargetPlatform.Win32);isolatedPlugins.Add(instance);
+                }
+            }
             File.WriteAllText(Path.Combine(output,"result.json"),serializer.Serialize(result));
             calls.Clear(); maximum=0;
             var comparisons=new List<object>();
@@ -108,7 +127,7 @@ public static class TextureParallelProbe
                             Require(barrier.SignalAndWait(30000),"Worker start barrier timed out");
                             string directory=Path.Combine(output,"round"+iteration+"-worker"+index);
                             if(args[3]=="locked") lock(gate) actual[index]=Execute(plugin,routes[index],files[index],directory,index);
-                            else actual[index]=Execute(plugin,routes[index],files[index],directory,index);
+                            else actual[index]=Execute(args[3]=="isolated"?isolatedPlugins[index]:plugin,routes[index],files[index],directory,index);
                         },CancellationToken.None,TaskCreationOptions.LongRunning,TaskScheduler.Default);
                     }
                     Task.WaitAll(tasks);
@@ -129,6 +148,7 @@ public static class TextureParallelProbe
             result["maximumConcurrency"]=maximum;result["calls"]=calls;result["clockFrequency"]=Stopwatch.Frequency;
             // Save evidence before Dispose: native corruption may crash finalization.
             File.WriteAllText(Path.Combine(output,"result.json"),serializer.Serialize(result));
+            foreach(var instance in isolatedPlugins) ((IDisposable)instance).Dispose();
             if(plugin!=null) ((IDisposable)plugin).Dispose();
         }
     }
