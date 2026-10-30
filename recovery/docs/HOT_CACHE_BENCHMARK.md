@@ -51,4 +51,8 @@ F11 只对六种缓存模式各做少量热态吞吐对照（新增模式 n=1）
 
 第四轮 [41135980179](https://github.com/wu162/NewSdk/actions/runs/41135980179)（源码 `873271d3`，差量恢复但仍逐路径查询元数据）在另一台 VM 标定为 8 分区、3265 份输入文档、71037 个输入声明。完成 C00–C09，62 个正式样本合格；C10 第二次再热在采样余量耗尽时终止，总计 21.64 分钟，状态 `budget_exhausted`。本机 C07 首次修改重编 144 个实例、C08 仅重编 64 个兄弟实例；C10 丢失元数据后解析 3236 份 XML、后端编译 0，修改进程约 37.3 秒，说明这部分成本来自元数据重建而非资产插件重编。[原始计时与收据](../evidence/refactor/l8-hot-cache/41135980179-1)。不同 VM 和负载指纹不作速度 A/B。
 
-使用目录枚举元数据、10.5 秒调参点的 [第五轮 Common 41139062989](https://github.com/wu162/NewSdk/actions/runs/41139062989) 另行验证。未取得终态前不声称完成全部 75 个正式进程。
+使用目录枚举元数据的 [第五轮 Common 41139062989](https://github.com/wu162/NewSdk/actions/runs/41139062989) **success**（测量源码 `a286062ffcde48c097ecc8db6fb7f598dfdb0137`，Release 来源仍为 `cc10391b`）。Windows job **18 分 20 秒**，脚本全局 18.06 分钟；负载/快照 68.90 秒、标定 123.26 秒、75 个正式样本及其恢复共 825.49 秒、3 个独立 detailed 样本 39.32 秒，均在对应上限内。C00 三次及 C01–C12 各两组三阶段全部完成，**75/75 正式样本 qualified**，最小 wall 9269.14 ms、最小编译器 elapsed 9169 ms，全部严格 >8000 ms；detailed 没有混入中位数。[中文最终报告](../evidence/refactor/l8-hot-cache/41139062989-1/report.md)、[原始计时](../evidence/refactor/l8-hot-cache/41139062989-1/measurements.csv)、[场景汇总](../evidence/refactor/l8-hot-cache/41139062989-1/scenarios.csv)、[阶段归因](../evidence/refactor/l8-hot-cache/41139062989-1/phases.csv)、[来源/归档收据](../evidence/refactor/l8-hot-cache/41139062989-1/execution.json)。归档实际下载并复算 SHA256 `2b67bef1b3d28131ea9a39f1c3787bdffdea29a0466fe838a2d8065c265cd663`。
+
+本轮共同负载为 6 分区、2753 份输入文档、54653 个声明、5 流，指纹 `d893b3ac0deeabed72b63e655d81cb92cfca41a2ec564bff81b920931ff16cf2`。**三轮标定最终热态最低 9.198 秒、正式纯热态 wall 中位 9.342 秒，未达到约 10–14 秒的软目标；硬性 >8 秒门槛完整满足。**`targetReached=false` 原样保留，不能把 10.5 秒调参点当作实测结果。不同机器/负载的旧结果不计算速度收益。
+
+本机较大增量为 C10：保留中间结果但删除会话元数据后，modified 中位 36.110 秒，较 hot_before 增加 26.786 秒；解析 2724 份 XML、后端编译 0。C11 仅最终 BIG 缺失约 9.370 秒，后端 0。C12 三流混合更新实际影响 256 个资产，modified 中位 13.624 秒，较热前增加 4.248 秒。C07/C08 分别重编 144/64 个实例，证实有效继承变化与无关兄弟变化走了不同后端范围。它们是这一台机器的性能记录，不代表功能或游戏内验收。

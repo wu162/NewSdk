@@ -103,6 +103,11 @@ def save(output, state):
                   'L8 指纹：`%s`。原始 Upheaval 库存：%s 文档、%s 声明、%.2f MiB，指纹 `%s`。' %
                   (workload.get('fingerprint', ''), original.get('documents'), original.get('assets'),
                    original.get('inputBytes', 0) / 1048576, original.get('fingerprint', '')), '']
+    calibration = state.get('calibration') or []
+    if calibration and not calibration[-1].get('targetReached'):
+        lines += ['有限标定轮次的最终热态最低值为 %.2f 秒，尚未达到约 10–14 秒的调参目标；'
+                  '该目标与严格 >8 秒的成绩门槛分开记录，正式样本仍逐条核验。' %
+                  (calibration[-1]['minimumMs'] / 1000), '']
     feasible = state.get('feasibility', {})
     if feasible.get('fullExtensionCanFitStrictLowerBound') is False:
         lines += ['Full 扩展预算不可达：%s 个条件、%s 个正式进程的严格理论下限 >%s 秒，超过 %s 秒阶段预算；'
