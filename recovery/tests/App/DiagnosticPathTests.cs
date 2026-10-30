@@ -114,7 +114,7 @@ namespace NewModCompiler.Tests
             // publication must leave it intact and release every pinned parent.
             string failedParent=Path.Combine(work,"failed-publish"), failedTarget=Path.Combine(failedParent,"events.jsonl"), failedMoved=Path.Combine(work,"failed-publish-moved");
             Directory.CreateDirectory(failedTarget);
-            try { using (var sink=new JsonLineSink(failedTarget)) { } throw new Exception("Directory destination accepted"); } catch (IOException) { }
+            try { using (var sink=new JsonLineSink(failedTarget)) { } throw new Exception("Directory destination accepted"); } catch (IOException) { } catch (UnauthorizedAccessException) { }
             Require(Directory.Exists(failedTarget) && Directory.GetFiles(failedParent).Length==0,"failed publication changed directory or leaked temporary file");
             Directory.Move(failedParent,failedMoved); Require(Directory.Exists(failedMoved),"failed publication leaked directory handles");
             foreach (string target in new [] {mod,sdk}) {
