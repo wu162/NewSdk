@@ -1,8 +1,14 @@
-# 当前：移除插件重复 schema 校验（验证中）
+# 当前：插件重复 schema 校验已移除（验收通过，PR #26 待审）
 
-用户指定基线 `recovery/legacy-sdk-cache` / `5c1843ae`；工作分支 `refactor/remove-plugin-schema-validation`。删除 XML、GameObject、Weapon 插件及生成代码的属性/子节点白名单、文本/单例/结构校验和仅用于校验的遍历；Core 的 XSD 入口、预处理及依赖元数据继续工作。Audio/W3X 的编码器数值/缓冲区检查不属于 schema 校验。
+用户指定基线 `recovery/legacy-sdk-cache` / `5c1843ae`；成果在 `refactor/remove-plugin-schema-validation` / [PR #26](https://github.com/wu162/NewSdk/pull/26)。删除 XML、GameObject、Weapon、Effects/Particle、Locomotor 及生成代码中的属性/子节点白名单、文本、单例、结构和命名空间校验及专用遍历/数组分配。Core 统一 XSD、依赖元数据及类型路由继续工作；Audio/W3X 的编码器数据检查保留。
 
-组件 oracle 的无效 XML 样本改经共享 SDK schema 边界，合法输入仍直接调用插件做原 DLL 三缓冲区差分。Core 生命周期增加“无效 schema 在插件前拒绝、直接插件调用不重复 schema 校验”的断言。静态路由审计及 26 项组选择测试通过；Windows 完整构建、Core/SDK 和 63 组 XML 矩阵尚在执行，未标记验收通过。首个检查点 `43fec4d8` 已保存，后续修正生成器与 include 文件同步。禁止强推，未经批准不合并。
+生产源码验收入口 `e3272ffd`；最新 `822007a5` 仅补齐测试源清单/流程和旧断言，生产源码、SDK、构建目录和类型目录的 Git tree 均相同。Core 的专门用例验证非法 XSD 在派发前失败，直接插件调用不重复校验。组件拒绝用例使用统一 SDK schema 测试边界，原始字节与 ABI 断言继续保留。
+
+- [Core 41037021490](https://github.com/wu162/NewSdk/actions/runs/41037021490) **success**：Debug/Release、CLI、缓存、完整 mymod 原 SDK 差分、独立五文件包和 Upheaval 22 样本对照通过。
+- [XML 41037565236](https://github.com/wu162/NewSdk/actions/runs/41037565236) 的 XML 步骤及原收据 **passed**：Debug/Release 各 63 组、四平台，合计 1,918,904 样本/11,064,384 缓冲区比较。该运行整体 **failure** 来自随后 GameObject/Weapon 测试源清单未登记共享助手；此部分已在下面的独立运行修复验收，XML 成功范围及输入未变。
+- [GameObject/Weapon 41042830679](https://github.com/wu162/NewSdk/actions/runs/41042830679) **success**：完整原版字节/tokenizer 矩阵、Debug/Release、完整既有样本集及隔离运行通过；该专项复用上面的独立 XML 成功范围。
+
+三份归档已实际下载并复算 SHA256；原收据、来源、运行文件身份及复用边界见 [验收摘要](evidence/refactor/plugin-schema-removal/summary.json)。本地路由审计、26 项组选择测试、测试源清单及两个 UIConfig 生成器精确复现通过。未经用户批准不合并，禁止强推。
 
 # 当前：有界热缓存扩展与失效/依赖计数（已验证，PR #23 待审）
 
