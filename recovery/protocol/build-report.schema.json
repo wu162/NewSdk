@@ -300,6 +300,41 @@
               }
             }
           }
+        },
+        "counters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "streamId",
+              "name",
+              "value",
+              "aggregation"
+            ],
+            "properties": {
+              "streamId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "value": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "aggregation": {
+                "enum": [
+                  "sum",
+                  "max"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
         }
       }
     }

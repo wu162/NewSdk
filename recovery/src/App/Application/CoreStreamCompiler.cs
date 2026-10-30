@@ -506,6 +506,7 @@ namespace NewModCompiler.Application
                 Settings settings;
                 using (request.Performance.Measure("core.settings")) settings = streamSettings = StreamSettings(context, staging);
                 settings.MeasurePerformance = request.Performance.Detailed ? (Func<string, IDisposable>)(name => request.Performance.Measure(name, true)) : null;
+                settings.RecordPerformanceCounter = request.Performance.Enabled ? (Action<string, long, bool>)request.Performance.RecordCounter : null;
                 settings.FileIdentity = request.FileIdentities.CoreIdentity;
                 settings.RememberFileContentHash = request.FileIdentities.RememberCoreHash;
                 settings.FileContentHashFromBytes = request.FileIdentities.HashBase64;
@@ -536,6 +537,7 @@ namespace NewModCompiler.Application
                     string relative = string.IsNullOrEmpty(root) ? Path.GetFileName(settings.InputPath) : FileNameResolver.GetSafeRelativePath(root, settings.InputPath);
                     relative = Path.Combine(Path.GetDirectoryName(relative), Path.GetFileNameWithoutExtension(relative));
                     packageRestored = legacyStore.Prepare(settings.SessionCacheDirectory, settings.OutputDirectory, cancellation, relative, copySession: false, copyData: !cacheManagedBySession);
+                    if (!packageRestored) request.Performance.RecordCounter(legacyStore.PrepareMissReason);
                     if (packageRestored && cacheManagedBySession)
                     {
                         settings.FindCustomData = path => legacyStore.ResolveData(path.Substring(settings.OutputDirectory.Length + 1));
@@ -564,6 +566,7 @@ namespace NewModCompiler.Application
                             AssetDeclarationDocument previousDocument;
                             cache.TryGetDocument(settings.InputPath, null, settings.TargetPlatform, false, out previousDocument);
                             packageRestored = previousDocument != null;
+                            if (!packageRestored) request.Performance.RecordCounter("cache.session.documentMissing");
                         }
                     }
                     catch (OperationCanceledException) { throw; }
@@ -572,6 +575,7 @@ namespace NewModCompiler.Application
                         // Preserve conditional recovery while avoiding exception-
                         // filter IL in the mixed C++/CLI link input.
                         if (!packageRestored) throw;
+                        request.Performance.RecordCounter("cache.session.invalidState");
                         // Treat malformed serialized state as one cold miss. No
                         // intermediate/cdata bytes from the bad package survive.
                         // Loading older document data can register strings before
@@ -588,7 +592,7 @@ namespace NewModCompiler.Application
                     }
                     if (packageRestored) sessionPackageHits++; else sessionPackageMisses++;
                 }
-                else cache.InitializeCache(new List<string>());
+                else { request.Performance.RecordCounter("cache.session.disabled"); cache.InitializeCache(new List<string>()); }
                 }
                 cache.AssetCompilersVersion = compilers.Registry.AssetBuilderPluginsVersion;
                 processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };

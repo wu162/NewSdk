@@ -463,6 +463,55 @@ public class AssetDeclarationDocument : IXmlSerializable
 	}
 
 	public bool CacheChanged { get; private set; }
+	// Request-local observations only; excluded from the explicit XML cache format.
+	internal bool CacheInvalidated { get; private set; }
+	internal bool DependencyAffected { get; private set; }
+	private bool _DependencyInvalidated;
+
+	internal void RecordDependencyAffected()
+	{
+		if (!PerformanceScope.CountersEnabled || DependencyAffected) return;
+		DependencyAffected = true;
+		PerformanceScope.Count("dependency.include.affectedDocuments");
+	}
+
+	private void RecordReload(string reason)
+	{
+		if (!PerformanceScope.CountersEnabled) return;
+		string counter;
+		switch (reason)
+		{
+		case "New Document": PerformanceScope.Count("cache.document.new"); return;
+		case "content changed": counter = "cache.invalidation.contentChanged"; break;
+		case "dependent file changed": counter = "cache.invalidation.dependentFileChanged"; break;
+		case "previous output missing": counter = "cache.invalidation.outputMissing"; break;
+		case "type hash changed": counter = "cache.invalidation.typeChanged"; break;
+		case "plugin output changed": counter = "cache.invalidation.pluginChanged"; break;
+		case "inheritFrom target changed": counter = "cache.reload.inheritanceTarget"; break;
+		case "inheritFrom source changed": counter = "cache.invalidation.inheritanceChanged"; break;
+		case "used definitions changed": counter = "cache.invalidation.definesChanged"; break;
+		default: counter = "cache.invalidation.other"; break;
+		}
+		PerformanceScope.Count(counter);
+		// Reloading a cached inheritance source to obtain its XML is preparation,
+		// not evidence that its contents or output have become invalid.
+		if (reason == "inheritFrom target changed") return;
+		PerformanceScope.Count("cache.invalidation.reloads");
+		if (!CacheInvalidated) {
+			CacheInvalidated = true;
+			PerformanceScope.Count("cache.invalidation.documents");
+			PerformanceScope.Count("cache.invalidation.selfInstances", _Current.SelfInstances.Count);
+		}
+		if (reason == "dependent file changed" || reason == "inheritFrom source changed" || reason == "used definitions changed")
+		{
+			PerformanceScope.Count("dependency.propagation.reloads");
+			if (!_DependencyInvalidated) {
+				_DependencyInvalidated = true;
+				PerformanceScope.Count("dependency.propagation.documents");
+				PerformanceScope.Count("dependency.propagation.selfInstances", _Current.SelfInstances.Count);
+			}
+		}
+	}
 
 	public void SetChanged(string reason)
 	{
@@ -499,6 +548,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void Reinitialize(OutputManager outputManager)
 	{
+		using var performance = PerformanceScope.Measure("core.cache.reinitialize");
 		if (_Current.HashItem == null)
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.DependencyCacheFailure, "File hashing information for cached document missing: {0}", _Current.SourcePath);
@@ -601,6 +651,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	private void UpdateDocumentHashes()
 	{
+		using var performance = PerformanceScope.Measure("core.dependencies.files");
 		if (_Current.DependentFiles.Count == 0)
 		{
 			_Current.DependentFileHash = 0u;
@@ -611,6 +662,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
 			foreach (string dependentFile in _Current.DependentFiles)
 			{
+				PerformanceScope.Count("dependency.file.checks");
 				FileHashItem item = null;
 				if (TryGetFileHashItem(dependentFile, out item))
 				{
@@ -709,11 +761,13 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void InplaceLoad(string reason)
 	{
+		RecordReload(reason);
 		InternalLoad(reason, LoadType.InplaceLoad);
 	}
 
 	private void Load(string reason)
 	{
+		RecordReload(reason);
 		_Current.FromScratch();
 		InternalLoad(reason, LoadType.FromScratch);
 	}
@@ -747,6 +801,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Prevalidation load for {0} was called because of '{1}' when document has not been previously validated", SourcePath, reason);
 		}
+		RecordReload(reason);
 		LoadXml(updateDependentFiles: false);
 		GatherUnvalidatedTags();
 		GatherDefines();
@@ -795,6 +850,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 	{
 		_Current = null;
 		CacheChanged = false;
+		CacheInvalidated = DependencyAffected = false;
+		_DependencyInvalidated = false;
 	}
 
 	public override string ToString()
@@ -896,10 +953,13 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public bool ValidateCachedDefines()
 	{
+		using var performance = PerformanceScope.Measure("core.dependencies.defines");
 		foreach (KeyValuePair<string, string> usedDefine in UsedDefines)
 		{
+			PerformanceScope.Count("dependency.define.checks");
 			if (usedDefine.Value != AllDefines.GetEvaluatedValue(usedDefine.Key))
 			{
+				PerformanceScope.Count("dependency.define.changes");
 				return false;
 			}
 		}
@@ -908,12 +968,14 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public bool ValidateInheritFromSources()
 	{
+		using var performance = PerformanceScope.Measure("core.dependencies.inheritance");
 		foreach (InstanceDeclaration selfInstance in SelfInstances)
 		{
 			if (selfInstance.InheritFromHandle == null)
 			{
 				continue;
 			}
+			PerformanceScope.Count("dependency.inheritance.checks");
 			FindLocation location = FindLocation.None;
 			InstanceDeclaration instanceDeclaration = FindInstance(selfInstance.InheritFromHandle, (selfInstance.InheritFromHandle == selfInstance.Handle) ? FindLocation.Self : FindLocation.None, out location);
 			if (instanceDeclaration == null)
@@ -946,6 +1008,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			}
 			if (instanceDeclaration.PrevalidationXmlHash != selfInstance.InheritFromXmlHash)
 			{
+				PerformanceScope.Count("dependency.inheritance.changes");
 				return false;
 			}
 		}

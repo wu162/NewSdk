@@ -11,6 +11,7 @@ namespace NewModCompiler.Diagnostics
     {
         readonly string level;
         readonly Dictionary<string, Entry> entries;
+        readonly Dictionary<string, Dictionary<string, Counter>> counters;
         Scope current;
         internal string StreamId { get; set; }
         internal bool Enabled { get { return level != "off"; } }
@@ -19,7 +20,25 @@ namespace NewModCompiler.Diagnostics
         internal BuildPerformance(string level)
         {
             this.level = level ?? "off";
-            if (Enabled) entries = new Dictionary<string, Entry>(StringComparer.Ordinal);
+            if (Enabled) {
+                entries = new Dictionary<string, Entry>(StringComparer.Ordinal);
+                counters = new Dictionary<string, Dictionary<string, Counter>>(StringComparer.Ordinal);
+            }
+        }
+
+        // Owner-only observations from existing cache decisions. No clocks,
+        // paths, per-asset records or additional dependency walks are collected.
+        internal void RecordCounter(string name, long value = 1, bool maximum = false)
+        {
+            if (!Enabled) return;
+            string stream = StreamId ?? "";
+            Dictionary<string, Counter> group;
+            if (!counters.TryGetValue(stream, out group))
+                counters.Add(stream, group = new Dictionary<string, Counter>(StringComparer.Ordinal));
+            Counter counter;
+            if (!group.TryGetValue(name, out counter))
+                group.Add(name, counter = new Counter { Maximum = maximum });
+            counter.Value = maximum ? Math.Max(counter.Value, value) : counter.Value + value;
         }
 
         internal IDisposable Measure(string name, bool detailed = false)
@@ -53,7 +72,12 @@ namespace NewModCompiler.Diagnostics
                 entries = entries.Values.OrderBy(e => e.StreamId, StringComparer.Ordinal).ThenBy(e => e.Name, StringComparer.Ordinal).Select(e => new {
                     name = e.Name, streamId = e.StreamId, count = e.Count,
                     totalMs = Milliseconds(e.Total), selfMs = Milliseconds(e.Self), maxMs = Milliseconds(e.Max)
-                }).ToArray()
+                }).ToArray(),
+                counters = counters.OrderBy(g => g.Key, StringComparer.Ordinal).SelectMany(g =>
+                    g.Value.OrderBy(c => c.Key, StringComparer.Ordinal).Select(c => new {
+                        streamId = g.Key.Length == 0 ? null : g.Key, name = c.Key,
+                        value = c.Value.Value, aggregation = c.Value.Maximum ? "max" : "sum"
+                    })).ToArray()
             };
         }
         static double Milliseconds(long ticks) { return ticks * (1000.0 / Stopwatch.Frequency); }
@@ -62,6 +86,11 @@ namespace NewModCompiler.Diagnostics
         {
             internal string Name, StreamId;
             internal long Count, Total, Self, Max;
+        }
+        sealed class Counter
+        {
+            internal long Value;
+            internal bool Maximum;
         }
         sealed class Scope : IDisposable
         {

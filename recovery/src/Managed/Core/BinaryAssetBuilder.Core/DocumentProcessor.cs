@@ -128,7 +128,7 @@ public class DocumentProcessor
 	internal void RecordBuildCacheUse(bool hit)
 	{
 		if (hit) BuildCacheHits++;
-		else BuildCacheMisses++;
+		else { BuildCacheMisses++; PerformanceScope.Count("cache.asset.keyMiss"); }
 	}
 
 	public ISessionCache Cache
@@ -729,6 +729,8 @@ public class DocumentProcessor
 		}
 		foreach (InclusionItem inclusionItem in document.InclusionItems)
 		{
+			PerformanceScope.Count("dependency.include.visits");
+			PerformanceScope.Count("dependency.include.maxDepth", _DocumentStack.Count, maximum: true);
 			// Reference reuse can inspect cached state or a manifest without
 			// reopening the source document. Join before that semantic boundary.
 			if (inclusionItem.Type == InclusionType.Reference && AssetExecution != null && AssetExecution.HasPending) AssetExecution.Flush();
@@ -828,6 +830,10 @@ public class DocumentProcessor
 				document2 = ProcessDocumentInternal(inclusionItem.LogicalPath, inclusionItem.PhysicalPath, flag3 ? null : outputManager, processOptions);
 				now = DateTime.Now;
 				inclusionItem.Document = document2;
+				if (document2.CacheInvalidated || document2.DependencyAffected) {
+					PerformanceScope.Count("dependency.include.affectedVisits");
+					document.RecordDependencyAffected();
+				}
 				document.AllDefines.AddDefinitions(document2.AllDefines);
 			}
 			switch (inclusionItem.Type)
