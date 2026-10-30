@@ -1,3 +1,7 @@
+# 当前：L8 热缓存 Benchmark（Common 通过，PR 待审）
+
+分支 `benchmark/l8-hot-cache`，基于 `recovery/legacy-sdk-cache` / `8f854606`；[PR #32](https://github.com/wu162/NewSdk/pull/32)。Benchmark 脚本/工作流已实施，未修改生产算法。Windows/Linux 各 33 项预检通过；[Common 41139062989](https://github.com/wu162/NewSdk/actions/runs/41139062989) success，测量源 `a286062f`、Release 源 `cc10391b`，整个 Windows job 18 分 20 秒，C00–C12 全部完成，75/75 正式样本 wall/elapsed 均 >8 秒，另有 3 个独立 detailed 样本。实际纯热态约 9.34 秒，未达 10–14 秒软目标，未把调参点当成绩。详见 [报告/原始计时/范围](docs/HOT_CACHE_BENCHMARK.md)。旧失败/预算耗尽结果保留，不作跨 VM A/B。Full 未运行，Environment 配置受集成权限限制，且 28 个扩展条件的双重复理论下限 >22.4 分钟、超过其 16 分钟阶段预算，不能声称整组完成。禁止强推，未经用户批准不合并。
+
 # 当前：AudioFile 全设置并行与低预算（组合验收通过）
 
 [PR #30](https://github.com/wu162/NewSdk/pull/30) 已获用户批准合入 `recovery/legacy-sdk-cache`。成果在 `perf/audiofile-parallel`，现已同步目标分支 `d85b8c8c`（已合入的 PR #28）。保留其重复状态清理和预算估算，适配 AudioFile 测试；显式采样率及压缩诊断可并行，外部输入预算由 64 倍降至 4 倍，压缩提示进程内仅一次。
