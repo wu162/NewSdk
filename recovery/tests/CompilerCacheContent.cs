@@ -95,6 +95,7 @@ public static class CompilerCacheContent
         var type = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileHashCache", true);
         object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { null }, null);
         Settings.Current.FileIdentity = (Func<string, FileHashInfo>)Delegate.CreateDelegate(typeof(Func<string, FileHashInfo>), hashes, type.GetMethod("CoreIdentity", BindingFlags.NonPublic | BindingFlags.Instance));
+        Settings.Current.FileHashRead = (Action<long>)Delegate.CreateDelegate(typeof(Action<long>), hashes, type.GetMethod("RecordRead", BindingFlags.NonPublic | BindingFlags.Instance));
         return hashes;
     }
     static void HostFileCases(string work)

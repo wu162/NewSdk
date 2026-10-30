@@ -12,7 +12,6 @@ namespace NewModCompiler.Application
     {
         static readonly Dictionary<uint,string> families = Build();
         public static int TypeCount { get { return families.Count; } }
-        public static int FamilyCount { get { return 62; } }
         public static bool IsCertified(uint type) { return families.ContainsKey(type); }
         public static string FamilyFor(uint type) { string family; return families.TryGetValue(type, out family) ? family : null; }
         static Dictionary<uint,string> Build()

@@ -373,7 +373,7 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
             @{name='sdk-config';path="$sdk/tools/BinaryAssetBuilder.exe.config";from='monitorPaths="..\"';to="monitorPaths='..\'"},
             @{name='runtime-config';path="$runtime/NewModCompiler.exe.config";from='version="v4.0"';to="version='v4.0'"})){
             SameLengthMutation $change.path $change.from $change.to
-            $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed $(if($change.name -eq 'schema'){'revalidated'}else{'hot'});SameOutputs $plain $changed;$script:hotParseCeiling=$changed.report.cache.xmlParse
+            $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed $(if($change.name -eq 'schema'){'revalidated'}else{'hot'});SameOutputs $plain $changed;if($change.name -eq 'schema'){$script:hotParseCeiling=$changed.report.cache.xmlParse}
             $hot=RunCli ($change.name+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         }
         Need (!(Test-Path (Join-Path $cachedOut '.file-identities.json')) -and !(Test-Path (Join-Path $cachedOut '.NewModCompiler/session.identity'))) 'Removed hash/session sidecar was recreated'

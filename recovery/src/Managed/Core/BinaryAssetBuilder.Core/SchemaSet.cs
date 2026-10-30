@@ -104,7 +104,7 @@ public class SchemaSet
 		if (_SchemaPaths.ContainsKey(schemaFile)) return;
 		byte[] contents = File.ReadAllBytes(schemaFile);
 		_SchemaPaths.Add(schemaFile, Settings.Current.FileIdentity?.Invoke(schemaFile).Identity);
-		_SchemaContentHashes.Add(schemaFile, HashSchema(schemaFile, contents));
+		_SchemaContentHashes.Add(schemaFile, HashSchema(contents));
 		XmlSchema xmlSchema;
 		using (var input = new MemoryStream(contents, false))
 		using (var reader = new StreamReader(input))
@@ -117,7 +117,7 @@ public class SchemaSet
 		_Schemas.Add(xmlSchema);
 	}
 
-	private static string HashSchema(string path, byte[] contents)
+	private static string HashSchema(byte[] contents)
 	{
 		return FastHash.GetHashCode(contents).ToString("x8", System.Globalization.CultureInfo.InvariantCulture);
 	}
@@ -444,7 +444,7 @@ public class SchemaSet
 				string stamp = identities == null ? null : identities[schemaPath.Key];
 				if (stamp != null && stamp == schemaPath.Value) continue;
 				if (!File.Exists(schemaPath.Key)) { changed = true; break; }
-				string content = HashSchema(schemaPath.Key, File.ReadAllBytes(schemaPath.Key));
+				string content = HashSchema(File.ReadAllBytes(schemaPath.Key));
 				if (!string.Equals(content, _SchemaContentHashes[schemaPath.Key], StringComparison.Ordinal))
 				{
 					changed = true;

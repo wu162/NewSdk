@@ -17,7 +17,7 @@ namespace NewModCompiler.Application
         readonly Dictionary<string, Dictionary<string, FileIdentity>> directories =
             new Dictionary<string, Dictionary<string, FileIdentity>>(StringComparer.OrdinalIgnoreCase);
         internal FileHashCache(BuildPerformance performance = null) { this.performance = performance; }
-        internal void RecordRead(long length) { Reads++; BytesRead += length; }
+        internal void RecordRead(long length) { Reads++; Reuses--; BytesRead += length; }
 #if NEWSdk_MONOLITHIC
         internal BinaryAssetBuilder.Core.FileHashInfo CoreIdentity(string path)
         {

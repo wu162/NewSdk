@@ -34,8 +34,8 @@ namespace NewModCompiler.Cli
                 Reports.RemoveStale(request.ReportPath);
                 sinks.Add(new JsonLineSink(request.EventsPath));
                 try { sinks.Add(new TextLogSink(request.LogPath)); }
-                catch (IOException error) { Console.Error.WriteLine("Optional text log unavailable: " + error.Message); }
-                catch (UnauthorizedAccessException error) { Console.Error.WriteLine("Optional text log unavailable: " + error.Message); }
+                catch (IOException error) { try { Console.Error.WriteLine("Optional text log unavailable: " + error.Message); } catch (IOException) { } }
+                catch (UnauthorizedAccessException error) { try { Console.Error.WriteLine("Optional text log unavailable: " + error.Message); } catch (IOException) { } }
                 // Transfer ownership so partial-startup cleanup cannot close successful
                 // session sinks a second time after the exit code has been finalized.
                 var ownedSinks=sinks.ToArray(); sinks.Clear();

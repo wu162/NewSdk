@@ -176,7 +176,15 @@ namespace NewModCompiler.Cli
             if (Paths.Contains(request.ModRoot, path) || Paths.Contains(request.SdkRoot, path)) throw Bad("CLI_LOG_INPUT", "Diagnostic output must not overwrite inputs.");
             try {
                 if (Directory.Exists(path)) throw Bad("CLI_LOG_PATH", "Diagnostic output must name a file, not an existing directory.");
-                string physical=DiagnosticDirectory.ResolveOutput(path);
+                string physical;
+                if (Paths.Contains(request.OutputRoot,path)) {
+                    // OutputRoot was already physically resolved above. Only
+                    // existing descendants can add another junction boundary.
+                    string parent=Path.GetDirectoryName(path);
+                    if (!string.Equals(parent,request.OutputRoot,StringComparison.OrdinalIgnoreCase)) DiagnosticDirectory.CheckDirectory(parent,request.OutputRoot);
+                    DiagnosticFiles.RejectReparseFile(path);
+                    physical=path;
+                } else physical=DiagnosticDirectory.ResolveOutput(path);
                 if (Paths.Contains(mod,physical) || Paths.Contains(sdk,physical))
                     throw Bad("CLI_LOG_INPUT","Diagnostic output physically overlaps inputs.");
                 path = physical;
