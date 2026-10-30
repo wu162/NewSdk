@@ -1,0 +1,83 @@
+{
+  "status": "probe-only",
+  "runAttempt": "1",
+  "scope": "public D3DX BC1/2/3 diagnostic: full block/file-codec/default DDS resource/VM/mip/lock/release/actual-copy; eight fixed encoder policies and wrap/clamp aggregates; no production acceptance",
+  "captureMembers": [
+    {
+      "bytes": 266136903,
+      "name": "Debug.capture",
+      "sha256": "2249028a4f0fa6083c44441060535afd6b79ee5fa0fd9e688a97e660f2f22c06"
+    },
+    {
+      "bytes": 266136903,
+      "name": "Release.capture",
+      "sha256": "2249028a4f0fa6083c44441060535afd6b79ee5fa0fd9e688a97e660f2f22c06"
+    }
+  ],
+  "sourceCommit": "824da4e822041382685da158ab86ce0d33827f01",
+  "runId": "41014720897",
+  "archiveSha256": "25f68e127faa397099b99ffc44dc8d3823bf1acc45204b5bb91f6f41009f75f2",
+  "productionAccepted": false,
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "comparisonCompleted": true,
+      "configuration": "Debug",
+      "candidateSha256": "9612641c8c8258a82fd66d75560e8eda29df7a0d3322e7aaeaa414cde1d47b45",
+      "captureSha256": "2249028a4f0fa6083c44441060535afd6b79ee5fa0fd9e688a97e660f2f22c06",
+      "summary": [
+        "PROBE completed file blocks=1536 decode=0 encode0=31 dither30000=31",
+        "PROBE default DDS cases=1572 mismatches=323",
+        "PROBE D3DX file blockCases=1536 decodeBitMismatches=0",
+        "FILE_POLICY flags=0 encodeMismatch=31 ditherMismatch=1500",
+        "FILE_POLICY flags=10000 encodeMismatch=1086 ditherMismatch=1462",
+        "FILE_POLICY flags=20000 encodeMismatch=1462 ditherMismatch=1121",
+        "FILE_POLICY flags=30000 encodeMismatch=1500 ditherMismatch=31",
+        "FILE_POLICY flags=40000 encodeMismatch=1512 ditherMismatch=1531",
+        "FILE_POLICY flags=50000 encodeMismatch=1527 ditherMismatch=1529",
+        "FILE_POLICY flags=60000 encodeMismatch=1524 ditherMismatch=1530",
+        "FILE_POLICY flags=70000 encodeMismatch=1531 ditherMismatch=1522",
+        "PROBE public D3DX BC blockCases=1536 ddsCases=168 decodeBitMismatches=0 originalUnstable=0; diagnostic only, no production acceptance or NoOriginal claim",
+        "POLICY flags=0 encodeMismatch=0 ddsWrapMismatch=25 ddsClampMismatch=68",
+        "POLICY flags=10000 encodeMismatch=1156 ddsWrapMismatch=49 ddsClampMismatch=84",
+        "POLICY flags=20000 encodeMismatch=983 ddsWrapMismatch=58 ddsClampMismatch=79",
+        "POLICY flags=30000 encodeMismatch=1407 ddsWrapMismatch=46 ddsClampMismatch=84",
+        "POLICY flags=40000 encodeMismatch=1512 ddsWrapMismatch=39 ddsClampMismatch=69",
+        "POLICY flags=50000 encodeMismatch=1533 ddsWrapMismatch=63 ddsClampMismatch=84",
+        "POLICY flags=60000 encodeMismatch=1518 ddsWrapMismatch=58 ddsClampMismatch=79",
+        "POLICY flags=70000 encodeMismatch=1533 ddsWrapMismatch=63 ddsClampMismatch=84"
+      ],
+      "captureBytes": 266136903
+    },
+    {
+      "comparisonCompleted": true,
+      "configuration": "Release",
+      "candidateSha256": "794aa8d23e5b40040fefa1e478b79134363109e28256fbbef89de5d5a6d3aef0",
+      "captureSha256": "2249028a4f0fa6083c44441060535afd6b79ee5fa0fd9e688a97e660f2f22c06",
+      "summary": [
+        "PROBE completed file blocks=1536 decode=0 encode0=31 dither30000=31",
+        "PROBE default DDS cases=1572 mismatches=323",
+        "PROBE D3DX file blockCases=1536 decodeBitMismatches=0",
+        "FILE_POLICY flags=0 encodeMismatch=31 ditherMismatch=1500",
+        "FILE_POLICY flags=10000 encodeMismatch=1086 ditherMismatch=1462",
+        "FILE_POLICY flags=20000 encodeMismatch=1462 ditherMismatch=1121",
+        "FILE_POLICY flags=30000 encodeMismatch=1500 ditherMismatch=31",
+        "FILE_POLICY flags=40000 encodeMismatch=1512 ditherMismatch=1531",
+        "FILE_POLICY flags=50000 encodeMismatch=1527 ditherMismatch=1529",
+        "FILE_POLICY flags=60000 encodeMismatch=1524 ditherMismatch=1530",
+        "FILE_POLICY flags=70000 encodeMismatch=1531 ditherMismatch=1522",
+        "PROBE public D3DX BC blockCases=1536 ddsCases=168 decodeBitMismatches=0 originalUnstable=0; diagnostic only, no production acceptance or NoOriginal claim",
+        "POLICY flags=0 encodeMismatch=0 ddsWrapMismatch=25 ddsClampMismatch=68",
+        "POLICY flags=10000 encodeMismatch=1156 ddsWrapMismatch=49 ddsClampMismatch=84",
+        "POLICY flags=20000 encodeMismatch=983 ddsWrapMismatch=58 ddsClampMismatch=79",
+        "POLICY flags=30000 encodeMismatch=1407 ddsWrapMismatch=46 ddsClampMismatch=84",
+        "POLICY flags=40000 encodeMismatch=1512 ddsWrapMismatch=39 ddsClampMismatch=69",
+        "POLICY flags=50000 encodeMismatch=1533 ddsWrapMismatch=63 ddsClampMismatch=84",
+        "POLICY flags=60000 encodeMismatch=1518 ddsWrapMismatch=58 ddsClampMismatch=79",
+        "POLICY flags=70000 encodeMismatch=1533 ddsWrapMismatch=63 ddsClampMismatch=84"
+      ],
+      "captureBytes": 266136903
+    }
+  ],
+  "probeOnly": true
+}

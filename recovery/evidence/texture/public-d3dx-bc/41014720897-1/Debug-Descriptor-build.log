@@ -1,0 +1,35 @@
+TextureNativeDescriptorApi.cpp
+   Creating library D:\a\_temp\texture-public-bc-7f1c66886f854ef98b05ead8a53e1144\Debug/native-descriptor.lib and object D:\a\_temp\texture-public-bc-7f1c66886f854ef98b05ead8a53e1144\Debug/native-descriptor.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-public-bc-7f1c66886f854ef98b05ead8a53e1144\Debug\Recovered.TextureNativeDescriptor.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeDescriptor.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           6 number of functions
+           6 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureGetLevelDesc
+          2    1 000010A0 TextureGetVolumeLevelDesc
+          3    2 00001140 TextureXGGetTextureDesc
+          4    3 00001000 _TextureGetLevelDesc@12
+          5    4 000010A0 _TextureGetVolumeLevelDesc@12
+          6    5 00001140 _TextureXGGetTextureDesc@12
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        E000 .text
