@@ -1,0 +1,32 @@
+dds-8x8-format1-pattern1-provided4 first difference=1916 actualSize=10100 originalSize=10100 actualByte=255 originalByte=0
+dds-8x8-format1-pattern2-provided4 first difference=1920 actualSize=10100 originalSize=10100 actualByte=98 originalByte=34
+dds-8x8-format2-pattern1-provided4 first difference=1932 actualSize=18292 originalSize=18292 actualByte=255 originalByte=0
+dds-8x8-format2-pattern2-provided4 first difference=1925 actualSize=18292 originalSize=18292 actualByte=195 originalByte=142
+dds-8x8-format3-pattern0-provided4 first difference=1924 actualSize=18292 originalSize=18292 actualByte=0 originalByte=255
+dds-8x8-format3-pattern1-provided4 first difference=1926 actualSize=18292 originalSize=18292 actualByte=255 originalByte=0
+dds-8x8-format3-pattern2-provided4 first difference=1924 actualSize=18292 originalSize=18292 actualByte=142 originalByte=143
+dds-16x32-format1-pattern1-provided6 first difference=3084 actualSize=11020 originalSize=11020 actualByte=255 originalByte=0
+dds-16x32-format1-pattern2-provided6 first difference=3084 actualSize=11020 originalSize=11020 actualByte=99 originalByte=233
+dds-16x32-format2-pattern1-provided6 first difference=3348 actualSize=19212 originalSize=19212 actualByte=255 originalByte=0
+dds-16x32-format2-pattern2-provided6 first difference=3340 actualSize=19212 originalSize=19212 actualByte=99 originalByte=51
+dds-16x32-format3-pattern0-provided6 first difference=3340 actualSize=19212 originalSize=19212 actualByte=0 originalByte=255
+dds-16x32-format3-pattern1-provided6 first difference=3342 actualSize=19212 originalSize=19212 actualByte=255 originalByte=0
+dds-16x32-format3-pattern2-provided6 first difference=3340 actualSize=19212 originalSize=19212 actualByte=99 originalByte=160
+dds-32x16-format1-pattern1-provided6 first difference=2836 actualSize=11020 originalSize=11020 actualByte=255 originalByte=0
+dds-32x16-format1-pattern2-provided6 first difference=2836 actualSize=11020 originalSize=11020 actualByte=99 originalByte=233
+dds-32x16-format2-pattern1-provided6 first difference=2852 actualSize=19212 originalSize=19212 actualByte=255 originalByte=0
+dds-32x16-format2-pattern2-provided6 first difference=2844 actualSize=19212 originalSize=19212 actualByte=99 originalByte=51
+dds-32x16-format3-pattern0-provided6 first difference=2844 actualSize=19212 originalSize=19212 actualByte=0 originalByte=255
+dds-32x16-format3-pattern1-provided6 first difference=2846 actualSize=19212 originalSize=19212 actualByte=255 originalByte=0
+dds-32x16-format3-pattern2-provided6 first difference=2844 actualSize=19212 originalSize=19212 actualByte=99 originalByte=160
+dds-32x32-format1-pattern1-provided6 first difference=11276 actualSize=19212 originalSize=19212 actualByte=255 originalByte=0
+dds-32x32-format1-pattern2-provided6 first difference=11276 actualSize=19212 originalSize=19212 actualByte=99 originalByte=233
+dds-32x32-format2-pattern1-provided6 first difference=19732 actualSize=35596 originalSize=35596 actualByte=255 originalByte=0
+dds-32x32-format2-pattern2-provided6 first difference=19724 actualSize=35596 originalSize=35596 actualByte=99 originalByte=51
+dds-32x32-format3-pattern0-provided6 first difference=19724 actualSize=35596 originalSize=35596 actualByte=0 originalByte=255
+dds-32x32-format3-pattern1-provided6 first difference=19726 actualSize=35596 originalSize=35596 actualByte=255 originalByte=0
+dds-32x32-format3-pattern2-provided6 first difference=19724 actualSize=35596 originalSize=35596 actualByte=99 originalByte=160
+dds-64x64-format1-pattern1-provided7 first difference=19928 actualSize=27864 originalSize=27864 actualByte=255 originalByte=0
+dds-64x64-format1-pattern2-provided7 first difference=19928 actualSize=27864 originalSize=27864 actualByte=170 originalByte=142
+COMPLETE constructorCases=6860 fileCases=2789 mismatches=40
+invalid-loader-pointers: Complete loader mismatches=40 constructorCases=6860 fileCases=2789 constructors=6860 files=2789 mismatches=40
