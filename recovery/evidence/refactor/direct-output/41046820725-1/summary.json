@@ -1,0 +1,40 @@
+{
+  "binarySourceCommit": "f6c3c009ac67775b273ec0f1ac45c68fd613da7c",
+  "originalTestSourceCommit": "f6c3c009ac67775b273ec0f1ac45c68fd613da7c",
+  "baselineCommit": "5c1843aea5f9b0cdcbe04325b251a8a944ed0fae",
+  "runId": "41046820725",
+  "runAttempt": "1",
+  "overallStatus": "failed",
+  "artifactId": "12973433324",
+  "artifactSha256": "eb05601adfa445a66b8316a3730b68e6211fc748bb557d4dfa41b9098428dd80",
+  "artifactDownloadedAndVerified": true,
+  "independentPassed": [
+    "Debug/Release App",
+    "Debug/Release production and validation hosts",
+    "Core lifecycle",
+    "Legacy session cache",
+    "Native build asset cache",
+    "Audio/W3X payload cache",
+    "Full unchanged mymod original SDK bytes",
+    "36 paired same-VM BIG/SKUDEF bytes and logical I/O"
+  ],
+  "failures": {
+    "cli": "Main checkout was shallow; fixed ancestor UI export could not satisfy merge-base. Current workflow fetches full history.",
+    "big": "Obsolete assertion required package event paths below .build, despite final path generation. Corrected to published.",
+    "hot": "27-medium-asset-hot2 correctly restored CDATA from /bc with fresh intermediate and /sc:false. Full bytes already matched; an obsolete whole-publication mtime assertion rejected native CDATA writes. Current check requires four-file mtime reuse and preserves strict session-hot checks.",
+    "protocol": "CLI Release records absent due earlier fixture setup failure. Lifecycle records passed both configurations."
+  },
+  "pairedCachePreconditionsRevalidated": true,
+  "pairedPreconditionScriptSha256": "c91837989718884ab68a07685a597c16f692c53867cb40954f93c25dc6ed9334",
+  "rawRecordsSha256": {
+    "lifecycle.validation.json": "a66bb014cb7f2ae5afaeb43014810027a136fc971710a8a62a0a884aaaa4d663",
+    "session.validation.json": "6164154a2fe191a03884620e0c8ed2fbd10728f257fc5263fa26744f842596a4",
+    "assets.validation.json": "43ac21f491a957005c0c5a6e7cb8e405194a9c0a311612c2e7a570215e999fd4",
+    "payloads.validation.json": "77904e9a39ffe6ef19b17a8096d33c9a86b5fe5d7faf6d72171dab36766c059d",
+    "sdk.validation.json": "9160f7a8b4c16866c686d45dae36db2cfdaa11d56c7c5f10000f6783ea74068f",
+    "measurement.json": "ad6da2aec869fc65f5398c69cad7f7e634e3f7f36ace9946b3c66a1e780c3556",
+    "measurement.md": "4a9bc222e69b504506d5adcf255b7c23002ff202e687b6009f306acd7e9d4058",
+    "baseline-build.json": "51032fed5594d46ec4cd5cda881fc4ba50225f3a299619088643fc20dd15fac9"
+  },
+  "note": "Subsequent final source removes dead publication metadata helpers; this receipt is not claimed as that final binary acceptance."
+}

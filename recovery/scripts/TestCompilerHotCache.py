@@ -149,6 +149,11 @@ def published(destination, report):
     return current
 
 
+def linked_timestamps(values):
+    return {path: stamp for path, stamp in values.items()
+            if Path(path).suffix.lower() in ('.manifest', '.bin', '.imp', '.relo')}
+
+
 def validate_hot(report, mode, fmt, before, after, has_payload):
     validate_sample(report, mode, 'hot')
     if MODES[mode][1]:
@@ -159,7 +164,14 @@ def validate_hot(report, mode, fmt, before, after, has_payload):
             need(cache['fileHashReads'] == cache['fileHashBytesRead'] == 0,
                  'Unchanged XML-only hot build reread complete files for SHA256')
     if fmt == 'loose':
-        need(before == after, 'Hot stream reuse rewrote files')
+        if MODES[mode][1]:
+            need(before == after, 'Hot session reuse rewrote files')
+        else:
+            # With /sc:false and a fresh intermediate directory BAB restores
+            # CDATA from its asset cache. That copy may change mtime; the linked
+            # quartet must still reuse its existing checksum-matched output.
+            linked_before = linked_timestamps(before)
+            need(linked_before and linked_before == linked_timestamps(after), 'Hot linking rewrote the four-file output')
     if fmt == 'big':
         need(any(row['name'] == 'package.big' and row['count'] > 0
                  for row in report['performance']['entries']), 'Hot BIG must still run normal packaging')
@@ -293,7 +305,8 @@ def run(args):
                 validate_hot(report, mode, fmt, before, after, tier == 'medium')
             if phase == 'modified':
                 need(report['cache']['instanceCompile'] > 0, 'Content edit did not invalidate any compiled asset')
-            row.update(status='passed', cache=report['cache'], streamFilesUnchanged=before == after,
+            row.update(status='passed', cache=report['cache'], streamFilesUnchanged=linked_timestamps(before) == linked_timestamps(after),
+                       outputTimestampsUnchanged=before == after,
                        rawBytesEqual=True, outputFiles=len(content), outputBytes=sum(map(len, content.values())))
             save(out, state)
             print(label + ' passed (%.1f ms)' % row['wallMs'], flush=True)

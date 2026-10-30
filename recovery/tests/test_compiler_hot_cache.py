@@ -81,6 +81,18 @@ class HotCacheTests(unittest.TestCase):
         with self.assertRaises(AssertionError):
             hot.validate_hot(report, 'both-deflate', 'loose', {'f': 1}, {'f': 2}, False)
 
+    def test_asset_only_allows_native_cdata_restore_but_keeps_linked_output(self):
+        report = dict(exitCode=0, status='succeeded', publicationStatus='PublishedDirectory',
+                      executionMode='InProcess', externalTools=[],
+                      effectiveOptions={'bc': {'Value': 'true'}},
+                      cache=dict(hits=1, misses=0, sessionCache=False, documentReuse=0,
+                                 xmlParse=1, instanceCompile=1))
+        before = {'f.manifest': 1, 'f.bin': 1, 'f.imp': 1, 'f.relo': 1, 'f/cdata/a.cdata': 1}
+        restored = dict(before, **{'f/cdata/a.cdata': 2})
+        hot.validate_hot(report, 'asset', 'loose', before, restored, True)
+        with self.assertRaises(AssertionError):
+            hot.validate_hot(report, 'asset', 'loose', before, dict(restored, **{'f.bin': 2}), True)
+
     def test_counter_schema_rejects_negative_counts_and_bad_aggregation(self):
         from jsonschema import Draft202012Validator
         schema = json.loads((SCRIPTS.parent / 'protocol/build-report.schema.json').read_text())
