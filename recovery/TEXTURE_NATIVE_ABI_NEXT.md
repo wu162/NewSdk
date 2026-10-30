@@ -1,5 +1,7 @@
 # 当前：PC原生数值/端序/flags与真实复制消费均已验收
 
+2026-10-30执行规则：下一批按PC文件加载、资源构造与真实复制消费链连续实现，开工先核对全部调用参数/端序/所有权；普通检查点不触发Windows，稳定后一次集中验收。CI期间可继续修改共享代码，但旧结果只认证原提交；当前输入须在后续稳定批次通过。不要逐helper建大矩阵、默认追加审计器或收尾plan。当前已验收锚点保留；本次仅更新文档，无新业务验收。见[效率规则](EFFICIENCY.md)。
+
 入口 `src/TextureCompiler/Native/TextureNative{Device,Resource,Surface,Descriptor,Copy,Convert}Api.*`。独立x86 ABI DLL，不加入已部署六DLL包或冒充完整原混合模式身份。
 
 | 组 | 完整原版验收锚点 | 范围 |
