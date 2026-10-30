@@ -11,8 +11,7 @@ public:
 
     static void Root(XmlNode^ node, String^ name) {
         if (node == nullptr) throw gcnew ArgumentNullException("node");
-        if (node->NodeType != XmlNodeType::Element || node->LocalName != name ||
-            node->NamespaceURI != "uri:ea.com:eala:asset")
+        if (node->LocalName != name)
             throw gcnew NotSupportedException("Expected particle root " + name);
     }
     static array<Byte>^ Copy(const std::vector<unsigned char>& src) {
