@@ -12,7 +12,10 @@ using DecodeImage=std::int32_t (__stdcall *)(const void*,std::int32_t,U,U,U,floa
 using EncodeImage=std::int32_t (__stdcall *)(void*,std::int32_t,U,U,U,const float*,std::int32_t,U,float,U);
 using ResizeDds=std::int32_t (__stdcall *)(const void*,std::int32_t,U,U,U,float*,std::int32_t,U,U);
 using SurfaceView=void* (__stdcall *)(void*,U);
-using SurfaceMemory=std::int32_t (__stdcall *)(void*,const void*,const void*,U,const void*,U,const void*,const NativeCopyAbi::Rect*,U,U,U,U,U);
+// RVA1210e: dst, dstPalette, dstRect, srcMemory, srcFormat,
+// srcPitch, srcPalette, srcRect, srcTiled, srcWidth, srcHeight, filter, key.
+// Unlike XGCopySurface, the source pointer precedes its format here.
+using SurfaceMemory=std::int32_t (__stdcall *)(void*,const void*,const void*,const void*,U,U,const void*,const NativeCopyAbi::Rect*,U,U,U,U,U);
 using DdsDecode=std::int32_t (__stdcall *)(float*,const void*);
 using DdsEncode=std::int32_t (__stdcall *)(void*,const float*,U);
 using CreateDds=std::int32_t (__stdcall *)(const void*,U,U,float,U,void**);
@@ -119,7 +122,9 @@ void Diagnostic(unsigned char* original,const std::string& libs,const std::strin
     const U nativeFormat=format==1?18:format==2?19:20,pitch=((shape[0]+3)/4)*(format==1?8:16);
     p=Construct(baseline,tw,th,1,0x1a22aa26);Check(p!=nullptr,"Original explicit float CPU resource");
     auto surface=surfaceView(p,0);Check(surface!=nullptr,"Original float surface view");NativeCopyAbi::Rect sourceRect{0,0,static_cast<std::int32_t>(shape[0]),static_cast<std::int32_t>(shape[1])};
-    Check(surfaceMemory(surface,nullptr,nullptr,0x1a200000|nativeFormat,bytes.data()+128,pitch,nullptr,&sourceRect,0,0x1a22aa26,1,0x80004,0)==0,"Original compressed-to-float surface consumer");
+    const auto floatStatus=surfaceMemory(surface,nullptr,nullptr,bytes.data()+128,0x1a200000|nativeFormat,pitch,nullptr,&sourceRect,0,shape[0],shape[1],0x80004,0);
+    if(floatStatus!=0)std::cerr<<"Original surface-memory HRESULT="<<std::hex<<static_cast<U>(floatStatus)<<std::dec<<std::endl;
+    Check(floatStatus==0,"Original compressed-to-float surface consumer");
     Check(baseline.release(surface)==0,"Original float surface view release");NativeDescriptorAbi::LevelDesc floatDesc{};baseline.level(p,0,&floatDesc);Check((floatDesc.format&63)==38&&floatDesc.width==tw&&floatDesc.height==th,"Original float format and dimensions must remain explicit");
     std::vector<float> expectedFloat(std::size_t(tw)*th*4),actualFloat(expectedFloat.size());
     NativeSurfaceAbi::LockedRect locked{};Check(baseline.lock(p,0,&locked,nullptr,1)==0,"Original float file lock");Check(locked.pitch>=static_cast<std::int32_t>(tw*16),"Original float pitch");
