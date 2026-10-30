@@ -1,0 +1,68 @@
+name: Texture native reentry experiment
+on:
+  push:
+    branches: [test/texture-parallel]
+    paths:
+      - '.github/workflows/texture-parallel-probe.yml'
+      - 'recovery/tests/TextureParallelProbe.cs'
+      - 'recovery/scripts/TestTextureParallel.ps1'
+      - 'recovery/scripts/BuildTextureParallelHost.ps1'
+      - 'recovery/probes/TextureRedirect/TextureParallelEntry.cpp'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            SDK/tools
+            recovery/tests
+            recovery/scripts
+            recovery/build
+            recovery/src/Managed
+            recovery/probes/TextureRedirect
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Install original mixed PE audit dependencies
+        shell: pwsh
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
+      - name: Compare simultaneous Texture calls with serial original bytes
+        shell: pwsh
+        run: ./recovery/scripts/TestTextureParallel.ps1 -OutputDirectory "recovery/evidence/texture-parallel/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/original"
+      - name: Build Core-owning Debug and Release hosts with audited bound Texture DLLs
+        shell: pwsh
+        run: ./recovery/scripts/BuildTextureParallelHost.ps1 -OutputDirectory "$env:RUNNER_TEMP/texture-parallel-hosts"
+      - name: Verify EXE-bound native isolation, reinitialization and all raw original outputs
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/texture-parallel/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          $original=Get-Content "$out/original/validation.json" -Raw|ConvertFrom-Json
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/TestTextureParallel.ps1 -HostDirectory "$env:RUNNER_TEMP/texture-parallel-hosts/$mode/bin" -OutputDirectory "$out/$mode"
+            $candidate=Get-Content "$out/$mode/validation.json" -Raw|ConvertFrom-Json
+            foreach($case in $candidate.cases) {
+              $expected=@($original.cases|Where-Object{$_.route -eq $case.route -and $_.mode -eq 'locked'})[0]
+              if(($case.result.baseline|ConvertTo-Json -Depth 10 -Compress) -cne ($expected.result.baseline|ConvertTo-Json -Depth 10 -Compress)){throw "Host-bound original bytes differ: $mode/$($case.route)/$($case.mode)"}
+              if([IO.Path]::GetFileName($case.result.coreOwner) -cne 'NewModCompiler.exe'){throw 'Core does not belong to the final host EXE'}
+            }
+            New-Item -ItemType Directory "$out/$mode/build"|Out-Null
+            Copy-Item "$env:RUNNER_TEMP/texture-parallel-hosts/$mode/*.log" "$out/$mode/build"
+            Copy-Item "$env:RUNNER_TEMP/texture-parallel-hosts/$mode/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json" "$out/$mode/build"
+            Copy-Item "$env:RUNNER_TEMP/texture-parallel-hosts/$mode/quarantined-obj/foundation/build.json" "$out/$mode/build/foundation.json"
+          }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: texture-parallel-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture-parallel
+          if-no-files-found: error

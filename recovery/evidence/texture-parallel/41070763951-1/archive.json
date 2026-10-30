@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "39b39b49e1d71609b4f7514dc7ce99a0732db40e",
+  "runId": 41070763951,
+  "workflowConclusion": "failure",
+  "artifactId": 12984887761,
+  "archiveSha256": "2f81011e5da1423eb33dee9b80ced09ca9607a3eea925a31bb67aa34728c1e43",
+  "archiveDownloadedAndHashVerified": true,
+  "rawBytes": "Full successful and failing output buffers remain in the workflow artifact; this directory retains unmodified receipts and process logs."
+}

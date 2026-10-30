@@ -1,0 +1,2019 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "globals": [
+    {
+      "token": "0x4000036",
+      "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3D",
+      "static": true,
+      "threadStatic": false,
+      "customAttributes": [],
+      "nativeStorageRva": "0xbf6b4"
+    },
+    {
+      "token": "0x4000037",
+      "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler",
+      "static": true,
+      "threadStatic": false,
+      "customAttributes": [],
+      "nativeStorageRva": "0xbf3c0"
+    },
+    {
+      "token": "0x4000038",
+      "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer",
+      "static": true,
+      "threadStatic": false,
+      "customAttributes": [],
+      "nativeStorageRva": "0xbf3c4"
+    },
+    {
+      "token": "0x4000039",
+      "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3DDevice",
+      "static": true,
+      "threadStatic": false,
+      "customAttributes": [],
+      "nativeStorageRva": "0xbf6b8"
+    }
+  ],
+  "useSites": [
+    {
+      "methodToken": "0x6000017",
+      "method": "BinaryAssetBuilder.TextureCompiler.LoadImageA",
+      "methodRva": "0x3214",
+      "offset": "0xc",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000039",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3DDevice"
+      }
+    },
+    {
+      "methodToken": "0x60000fd",
+      "method": "!Plugin",
+      "methodRva": "0x1a58",
+      "offset": "0xc",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000039",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3DDevice"
+      }
+    },
+    {
+      "methodToken": "0x60000fd",
+      "method": "!Plugin",
+      "methodRva": "0x1a58",
+      "offset": "0x13",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000039",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3DDevice"
+      }
+    },
+    {
+      "methodToken": "0x60000fd",
+      "method": "!Plugin",
+      "methodRva": "0x1a58",
+      "offset": "0x1e",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000036",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3D"
+      }
+    },
+    {
+      "methodToken": "0x60000fd",
+      "method": "!Plugin",
+      "methodRva": "0x1a58",
+      "offset": "0x2b",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000037",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler"
+      }
+    },
+    {
+      "methodToken": "0x60000fd",
+      "method": "!Plugin",
+      "methodRva": "0x1a58",
+      "offset": "0x32",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000037",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler"
+      }
+    },
+    {
+      "methodToken": "0x60000fd",
+      "method": "!Plugin",
+      "methodRva": "0x1a58",
+      "offset": "0x3e",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x60000fd",
+      "method": "!Plugin",
+      "methodRva": "0x1a58",
+      "offset": "0x45",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x60000fd",
+      "method": "!Plugin",
+      "methodRva": "0x1a58",
+      "offset": "0x52",
+      "opcode": "stsfld",
+      "field": {
+        "token": "0x4000039",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3DDevice"
+      }
+    },
+    {
+      "methodToken": "0x60000fd",
+      "method": "!Plugin",
+      "methodRva": "0x1a58",
+      "offset": "0x58",
+      "opcode": "stsfld",
+      "field": {
+        "token": "0x4000036",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3D"
+      }
+    },
+    {
+      "methodToken": "0x60000fe",
+      "method": "Initialize",
+      "methodRva": "0x1ad8",
+      "offset": "0x2a",
+      "opcode": "stsfld",
+      "field": {
+        "token": "0x4000036",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3D"
+      }
+    },
+    {
+      "methodToken": "0x60000fe",
+      "method": "Initialize",
+      "methodRva": "0x1ad8",
+      "offset": "0x8d",
+      "opcode": "ldsflda",
+      "field": {
+        "token": "0x4000039",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3DDevice"
+      }
+    },
+    {
+      "methodToken": "0x60000fe",
+      "method": "Initialize",
+      "methodRva": "0x1ad8",
+      "offset": "0xc2",
+      "opcode": "stsfld",
+      "field": {
+        "token": "0x4000037",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler"
+      }
+    },
+    {
+      "methodToken": "0x60000fe",
+      "method": "Initialize",
+      "methodRva": "0x1ad8",
+      "offset": "0xec",
+      "opcode": "stsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x6000101",
+      "method": "CompressAndEmbed",
+      "methodRva": "0x5604",
+      "offset": "0xc",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x6000101",
+      "method": "CompressAndEmbed",
+      "methodRva": "0x5604",
+      "offset": "0x1e",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x6000101",
+      "method": "CompressAndEmbed",
+      "methodRva": "0x5604",
+      "offset": "0x66",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x6000101",
+      "method": "CompressAndEmbed",
+      "methodRva": "0x5604",
+      "offset": "0x92",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x6000101",
+      "method": "CompressAndEmbed",
+      "methodRva": "0x5604",
+      "offset": "0xa1",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x6000102",
+      "method": "CompressAndEmbed3D",
+      "methodRva": "0x56b8",
+      "offset": "0xc",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x6000102",
+      "method": "CompressAndEmbed3D",
+      "methodRva": "0x56b8",
+      "offset": "0x1e",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x6000102",
+      "method": "CompressAndEmbed3D",
+      "methodRva": "0x56b8",
+      "offset": "0x89",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x6000102",
+      "method": "CompressAndEmbed3D",
+      "methodRva": "0x56b8",
+      "offset": "0xb5",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x6000102",
+      "method": "CompressAndEmbed3D",
+      "methodRva": "0x56b8",
+      "offset": "0xc4",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000038",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+      }
+    },
+    {
+      "methodToken": "0x6000106",
+      "method": "ProcessTexture",
+      "methodRva": "0x57d0",
+      "offset": "0x273",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000037",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler"
+      }
+    },
+    {
+      "methodToken": "0x6000106",
+      "method": "ProcessTexture",
+      "methodRva": "0x57d0",
+      "offset": "0x27a",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000039",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3DDevice"
+      }
+    },
+    {
+      "methodToken": "0x6000106",
+      "method": "ProcessTexture",
+      "methodRva": "0x57d0",
+      "offset": "0x2f5",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000037",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler"
+      }
+    },
+    {
+      "methodToken": "0x6000106",
+      "method": "ProcessTexture",
+      "methodRva": "0x57d0",
+      "offset": "0x3d3",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000037",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler"
+      }
+    },
+    {
+      "methodToken": "0x6000106",
+      "method": "ProcessTexture",
+      "methodRva": "0x57d0",
+      "offset": "0x3ff",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000037",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler"
+      }
+    },
+    {
+      "methodToken": "0x6000109",
+      "method": "HandleTerrainTextureAtlas",
+      "methodRva": "0x69f4",
+      "offset": "0x1f2",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000037",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler"
+      }
+    },
+    {
+      "methodToken": "0x6000109",
+      "method": "HandleTerrainTextureAtlas",
+      "methodRva": "0x69f4",
+      "offset": "0x20d",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000037",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler"
+      }
+    },
+    {
+      "methodToken": "0x6000109",
+      "method": "HandleTerrainTextureAtlas",
+      "methodRva": "0x69f4",
+      "offset": "0x22c",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000037",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler"
+      }
+    },
+    {
+      "methodToken": "0x6000109",
+      "method": "HandleTerrainTextureAtlas",
+      "methodRva": "0x69f4",
+      "offset": "0x249",
+      "opcode": "ldsfld",
+      "field": {
+        "token": "0x4000037",
+        "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "token": "0x6000027",
+      "name": "BinaryAssetBuilder.TextureCompiler.nvDXTWriteCallback",
+      "rva": "0x19e8",
+      "instructions": [
+        {
+          "offset": "0xc",
+          "opcode": "ldarg.3",
+          "operand": null
+        },
+        {
+          "offset": "0xd",
+          "opcode": "ldarg.0",
+          "operand": null
+        },
+        {
+          "offset": "0xe",
+          "opcode": "ldarg.1",
+          "operand": null
+        },
+        {
+          "offset": "0xf",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000c9",
+            "name": "BinaryAssetBuilder.TextureCompiler.SimpleBuffer.Append"
+          }
+        },
+        {
+          "offset": "0x14",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x15",
+          "opcode": "ret",
+          "operand": null
+        }
+      ]
+    },
+    {
+      "token": "0x60000fe",
+      "name": "Initialize",
+      "rva": "0x1ad8",
+      "instructions": [
+        {
+          "offset": "0xc",
+          "opcode": "ldarg.0",
+          "operand": null
+        },
+        {
+          "offset": "0xd",
+          "opcode": "dup",
+          "operand": null
+        },
+        {
+          "offset": "0xe",
+          "opcode": "call",
+          "operand": {
+            "token": "0xa000035",
+            "name": "GetType"
+          }
+        },
+        {
+          "offset": "0x13",
+          "opcode": "call",
+          "operand": {
+            "token": "0xa000017",
+            "name": "GetTypeHash"
+          }
+        },
+        {
+          "offset": "0x18",
+          "opcode": "stfld",
+          "operand": {
+            "token": "0x400013d",
+            "name": "_HashCode"
+          }
+        },
+        {
+          "offset": "0x1d",
+          "opcode": "ldarg.0",
+          "operand": null
+        },
+        {
+          "offset": "0x1e",
+          "opcode": "ldarg.2",
+          "operand": null
+        },
+        {
+          "offset": "0x1f",
+          "opcode": "stfld",
+          "operand": {
+            "token": "0x400013e",
+            "name": "_Platform"
+          }
+        },
+        {
+          "offset": "0x24",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x25",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000c0",
+            "name": "?A0x749b4e39.Direct3DCreate9"
+          }
+        },
+        {
+          "offset": "0x2a",
+          "opcode": "stsfld",
+          "operand": {
+            "token": "0x4000036",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3D"
+          }
+        },
+        {
+          "offset": "0x2f",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x31",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x32",
+          "opcode": "ldc.i4.s",
+          "operand": "124"
+        },
+        {
+          "offset": "0x34",
+          "opcode": "initblk",
+          "operand": null
+        },
+        {
+          "offset": "0x36",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x38",
+          "opcode": "ldc.i4",
+          "operand": "640"
+        },
+        {
+          "offset": "0x3d",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x3e",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x40",
+          "opcode": "ldc.i4.4",
+          "operand": null
+        },
+        {
+          "offset": "0x41",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x42",
+          "opcode": "ldc.i4",
+          "operand": "480"
+        },
+        {
+          "offset": "0x47",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x48",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x4a",
+          "opcode": "ldc.i4.8",
+          "operand": null
+        },
+        {
+          "offset": "0x4b",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x4c",
+          "opcode": "ldc.i4",
+          "operand": "405275014"
+        },
+        {
+          "offset": "0x51",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x52",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x54",
+          "opcode": "ldc.i4.s",
+          "operand": "16"
+        },
+        {
+          "offset": "0x56",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x57",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x58",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x59",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x5b",
+          "opcode": "ldc.i4.s",
+          "operand": "20"
+        },
+        {
+          "offset": "0x5d",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x5e",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x5f",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x60",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x62",
+          "opcode": "ldc.i4.s",
+          "operand": "12"
+        },
+        {
+          "offset": "0x64",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x65",
+          "opcode": "ldc.i4.1",
+          "operand": null
+        },
+        {
+          "offset": "0x66",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x67",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x69",
+          "opcode": "ldc.i4.s",
+          "operand": "36"
+        },
+        {
+          "offset": "0x6b",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x6c",
+          "opcode": "ldc.i4.1",
+          "operand": null
+        },
+        {
+          "offset": "0x6d",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x6e",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x70",
+          "opcode": "ldc.i4.s",
+          "operand": "40"
+        },
+        {
+          "offset": "0x72",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x73",
+          "opcode": "ldc.i4",
+          "operand": "757072278"
+        },
+        {
+          "offset": "0x78",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x79",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x7b",
+          "opcode": "ldc.i4.s",
+          "operand": "24"
+        },
+        {
+          "offset": "0x7d",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x7e",
+          "opcode": "ldc.i4.1",
+          "operand": null
+        },
+        {
+          "offset": "0x7f",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x80",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x82",
+          "opcode": "ldc.i4.s",
+          "operand": "52"
+        },
+        {
+          "offset": "0x84",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x85",
+          "opcode": "ldc.i4.1",
+          "operand": null
+        },
+        {
+          "offset": "0x86",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x87",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x88",
+          "opcode": "ldc.i4.1",
+          "operand": null
+        },
+        {
+          "offset": "0x89",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x8a",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x8b",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x8d",
+          "opcode": "ldsflda",
+          "operand": {
+            "token": "0x4000039",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_pD3DDevice"
+          }
+        },
+        {
+          "offset": "0x92",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000c2",
+            "name": "Direct3D.CreateDevice"
+          }
+        },
+        {
+          "offset": "0x97",
+          "opcode": "pop",
+          "operand": null
+        },
+        {
+          "offset": "0x98",
+          "opcode": "ldc.i4.s",
+          "operand": "24"
+        },
+        {
+          "offset": "0x9a",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000cd",
+            "name": "new"
+          }
+        },
+        {
+          "offset": "0x9f",
+          "opcode": "stloc.1",
+          "operand": null
+        },
+        {
+          "offset": "0xa0",
+          "opcode": "ldloc.1",
+          "operand": null
+        },
+        {
+          "offset": "0xa1",
+          "opcode": "brfalse.s",
+          "operand": "182"
+        },
+        {
+          "offset": "0xa3",
+          "opcode": "ldloc.1",
+          "operand": null
+        },
+        {
+          "offset": "0xa4",
+          "opcode": "ldc.i4",
+          "operand": "102400"
+        },
+        {
+          "offset": "0xa9",
+          "opcode": "ldc.i4",
+          "operand": "1048576"
+        },
+        {
+          "offset": "0xae",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000e4",
+            "name": "XenonBundler.{ctor}"
+          }
+        },
+        {
+          "offset": "0xb3",
+          "opcode": "stloc.3",
+          "operand": null
+        },
+        {
+          "offset": "0xb4",
+          "opcode": "leave.s",
+          "operand": "193"
+        },
+        {
+          "offset": "0xb6",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0xb7",
+          "opcode": "stloc.3",
+          "operand": null
+        },
+        {
+          "offset": "0xb8",
+          "opcode": "leave.s",
+          "operand": "193"
+        },
+        {
+          "offset": "0xba",
+          "opcode": "ldloc.1",
+          "operand": null
+        },
+        {
+          "offset": "0xbb",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000d7",
+            "name": "delete"
+          }
+        },
+        {
+          "offset": "0xc0",
+          "opcode": "endfinally",
+          "operand": null
+        },
+        {
+          "offset": "0xc1",
+          "opcode": "ldloc.3",
+          "operand": null
+        },
+        {
+          "offset": "0xc2",
+          "opcode": "stsfld",
+          "operand": {
+            "token": "0x4000037",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Bundler"
+          }
+        },
+        {
+          "offset": "0xc7",
+          "opcode": "ldc.i4.s",
+          "operand": "12"
+        },
+        {
+          "offset": "0xc9",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000cd",
+            "name": "new"
+          }
+        },
+        {
+          "offset": "0xce",
+          "opcode": "stloc.0",
+          "operand": null
+        },
+        {
+          "offset": "0xcf",
+          "opcode": "ldloc.0",
+          "operand": null
+        },
+        {
+          "offset": "0xd0",
+          "opcode": "brfalse.s",
+          "operand": "224"
+        },
+        {
+          "offset": "0xd2",
+          "opcode": "ldloc.0",
+          "operand": null
+        },
+        {
+          "offset": "0xd3",
+          "opcode": "ldc.i4",
+          "operand": "67108864"
+        },
+        {
+          "offset": "0xd8",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000c7",
+            "name": "BinaryAssetBuilder.TextureCompiler.SimpleBuffer.{ctor}"
+          }
+        },
+        {
+          "offset": "0xdd",
+          "opcode": "stloc.2",
+          "operand": null
+        },
+        {
+          "offset": "0xde",
+          "opcode": "leave.s",
+          "operand": "235"
+        },
+        {
+          "offset": "0xe0",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0xe1",
+          "opcode": "stloc.2",
+          "operand": null
+        },
+        {
+          "offset": "0xe2",
+          "opcode": "leave.s",
+          "operand": "235"
+        },
+        {
+          "offset": "0xe4",
+          "opcode": "ldloc.0",
+          "operand": null
+        },
+        {
+          "offset": "0xe5",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000d7",
+            "name": "delete"
+          }
+        },
+        {
+          "offset": "0xea",
+          "opcode": "endfinally",
+          "operand": null
+        },
+        {
+          "offset": "0xeb",
+          "opcode": "ldloc.2",
+          "operand": null
+        },
+        {
+          "offset": "0xec",
+          "opcode": "stsfld",
+          "operand": {
+            "token": "0x4000038",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+          }
+        },
+        {
+          "offset": "0xf1",
+          "opcode": "ret",
+          "operand": null
+        }
+      ]
+    },
+    {
+      "token": "0x6000101",
+      "name": "CompressAndEmbed",
+      "rva": "0x5604",
+      "instructions": [
+        {
+          "offset": "0xc",
+          "opcode": "ldsfld",
+          "operand": {
+            "token": "0x4000038",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+          }
+        },
+        {
+          "offset": "0x11",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000c8",
+            "name": "BinaryAssetBuilder.TextureCompiler.SimpleBuffer.Reset"
+          }
+        },
+        {
+          "offset": "0x16",
+          "opcode": "ldarg.s",
+          "operand": "argument(0x0004)"
+        },
+        {
+          "offset": "0x18",
+          "opcode": "ldc.i4",
+          "operand": "1640"
+        },
+        {
+          "offset": "0x1d",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x1e",
+          "opcode": "ldsfld",
+          "operand": {
+            "token": "0x4000038",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+          }
+        },
+        {
+          "offset": "0x23",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x24",
+          "opcode": "ldarg.3",
+          "operand": null
+        },
+        {
+          "offset": "0x25",
+          "opcode": "ldarg.s",
+          "operand": "argument(0x0004)"
+        },
+        {
+          "offset": "0x27",
+          "opcode": "ldsfld",
+          "operand": {
+            "token": "0x4000060",
+            "name": "__unep@?nvDXTWriteCallback@TextureCompiler@BinaryAssetBuilder@@$$FYA?AW4NV_ERROR_CODE@@PBXIPBUMIPMapData@@PAX@Z"
+          }
+        },
+        {
+          "offset": "0x2c",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x2d",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000dc",
+            "name": "nvDDS.nvDXTcompress"
+          }
+        },
+        {
+          "offset": "0x32",
+          "opcode": "stloc.0",
+          "operand": null
+        },
+        {
+          "offset": "0x33",
+          "opcode": "ldloc.0",
+          "operand": null
+        },
+        {
+          "offset": "0x34",
+          "opcode": "brfalse.s",
+          "operand": "102"
+        },
+        {
+          "offset": "0x36",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x38",
+          "opcode": "ldloc.0",
+          "operand": null
+        },
+        {
+          "offset": "0x39",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000cc",
+            "name": "getErrorString"
+          }
+        },
+        {
+          "offset": "0x3e",
+          "opcode": "call",
+          "operand": {
+            "token": "0xa000030",
+            "name": ".ctor"
+          }
+        },
+        {
+          "offset": "0x43",
+          "opcode": "ldloc.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x45",
+          "opcode": "call",
+          "operand": {
+            "token": "0xa00003c",
+            "name": "PtrToStringAnsi"
+          }
+        },
+        {
+          "offset": "0x4a",
+          "opcode": "stloc.3",
+          "operand": null
+        },
+        {
+          "offset": "0x4b",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x4c",
+          "opcode": "newarr",
+          "operand": {
+            "token": "0x100001a",
+            "name": ""
+          }
+        },
+        {
+          "offset": "0x51",
+          "opcode": "stloc.2",
+          "operand": null
+        },
+        {
+          "offset": "0x52",
+          "opcode": "ldnull",
+          "operand": null
+        },
+        {
+          "offset": "0x53",
+          "opcode": "ldc.i4.1",
+          "operand": null
+        },
+        {
+          "offset": "0x54",
+          "opcode": "ldstr",
+          "operand": "string token(0x70000970)"
+        },
+        {
+          "offset": "0x59",
+          "opcode": "ldloc.3",
+          "operand": null
+        },
+        {
+          "offset": "0x5a",
+          "opcode": "call",
+          "operand": {
+            "token": "0xa000045",
+            "name": "Concat"
+          }
+        },
+        {
+          "offset": "0x5f",
+          "opcode": "ldloc.2",
+          "operand": null
+        },
+        {
+          "offset": "0x60",
+          "opcode": "newobj",
+          "operand": {
+            "token": "0xa000012",
+            "name": ".ctor"
+          }
+        },
+        {
+          "offset": "0x65",
+          "opcode": "throw",
+          "operand": null
+        },
+        {
+          "offset": "0x66",
+          "opcode": "ldsfld",
+          "operand": {
+            "token": "0x4000038",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+          }
+        },
+        {
+          "offset": "0x6b",
+          "opcode": "ldc.i4.4",
+          "operand": null
+        },
+        {
+          "offset": "0x6c",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x6d",
+          "opcode": "ldind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x6e",
+          "opcode": "brtrue.s",
+          "operand": "134"
+        },
+        {
+          "offset": "0x70",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x71",
+          "opcode": "newarr",
+          "operand": {
+            "token": "0x100001a",
+            "name": ""
+          }
+        },
+        {
+          "offset": "0x76",
+          "opcode": "stloc.1",
+          "operand": null
+        },
+        {
+          "offset": "0x77",
+          "opcode": "ldnull",
+          "operand": null
+        },
+        {
+          "offset": "0x78",
+          "opcode": "ldc.i4.s",
+          "operand": "17"
+        },
+        {
+          "offset": "0x7a",
+          "opcode": "ldstr",
+          "operand": "string token(0x700009A0)"
+        },
+        {
+          "offset": "0x7f",
+          "opcode": "ldloc.1",
+          "operand": null
+        },
+        {
+          "offset": "0x80",
+          "opcode": "newobj",
+          "operand": {
+            "token": "0xa000012",
+            "name": ".ctor"
+          }
+        },
+        {
+          "offset": "0x85",
+          "opcode": "throw",
+          "operand": null
+        },
+        {
+          "offset": "0x86",
+          "opcode": "ldarg.0",
+          "operand": null
+        },
+        {
+          "offset": "0x87",
+          "opcode": "ldfld",
+          "operand": {
+            "token": "0x400013e",
+            "name": "_Platform"
+          }
+        },
+        {
+          "offset": "0x8c",
+          "opcode": "ldc.i4.2",
+          "operand": null
+        },
+        {
+          "offset": "0x8d",
+          "opcode": "bne.un.s",
+          "operand": "158"
+        },
+        {
+          "offset": "0x8f",
+          "opcode": "ldarg.0",
+          "operand": null
+        },
+        {
+          "offset": "0x90",
+          "opcode": "ldarg.1",
+          "operand": null
+        },
+        {
+          "offset": "0x91",
+          "opcode": "ldarg.2",
+          "operand": null
+        },
+        {
+          "offset": "0x92",
+          "opcode": "ldsfld",
+          "operand": {
+            "token": "0x4000038",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+          }
+        },
+        {
+          "offset": "0x97",
+          "opcode": "call",
+          "operand": {
+            "token": "0x6000104",
+            "name": "EmbedPS3Texture"
+          }
+        },
+        {
+          "offset": "0x9c",
+          "opcode": "br.s",
+          "operand": "171"
+        },
+        {
+          "offset": "0x9e",
+          "opcode": "ldarg.0",
+          "operand": null
+        },
+        {
+          "offset": "0x9f",
+          "opcode": "ldarg.1",
+          "operand": null
+        },
+        {
+          "offset": "0xa0",
+          "opcode": "ldarg.2",
+          "operand": null
+        },
+        {
+          "offset": "0xa1",
+          "opcode": "ldsfld",
+          "operand": {
+            "token": "0x4000038",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+          }
+        },
+        {
+          "offset": "0xa6",
+          "opcode": "call",
+          "operand": {
+            "token": "0x6000103",
+            "name": "EmbedPCTexture"
+          }
+        },
+        {
+          "offset": "0xab",
+          "opcode": "ret",
+          "operand": null
+        }
+      ]
+    },
+    {
+      "token": "0x6000102",
+      "name": "CompressAndEmbed3D",
+      "rva": "0x56b8",
+      "instructions": [
+        {
+          "offset": "0xc",
+          "opcode": "ldsfld",
+          "operand": {
+            "token": "0x4000038",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+          }
+        },
+        {
+          "offset": "0x11",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000c8",
+            "name": "BinaryAssetBuilder.TextureCompiler.SimpleBuffer.Reset"
+          }
+        },
+        {
+          "offset": "0x16",
+          "opcode": "ldarg.s",
+          "operand": "argument(0x0004)"
+        },
+        {
+          "offset": "0x18",
+          "opcode": "ldc.i4",
+          "operand": "1640"
+        },
+        {
+          "offset": "0x1d",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x1e",
+          "opcode": "ldsfld",
+          "operand": {
+            "token": "0x4000038",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+          }
+        },
+        {
+          "offset": "0x23",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x24",
+          "opcode": "ldarg.s",
+          "operand": "argument(0x0004)"
+        },
+        {
+          "offset": "0x26",
+          "opcode": "ldc.i4",
+          "operand": "472"
+        },
+        {
+          "offset": "0x2b",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x2c",
+          "opcode": "ldc.i4.2",
+          "operand": null
+        },
+        {
+          "offset": "0x2d",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x2e",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0005)"
+        },
+        {
+          "offset": "0x30",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x31",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x32",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0005)"
+        },
+        {
+          "offset": "0x34",
+          "opcode": "ldc.i4.4",
+          "operand": null
+        },
+        {
+          "offset": "0x35",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x36",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x37",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x38",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0005)"
+        },
+        {
+          "offset": "0x3a",
+          "opcode": "ldc.i4.8",
+          "operand": null
+        },
+        {
+          "offset": "0x3b",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x3c",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x3d",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x3e",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0005)"
+        },
+        {
+          "offset": "0x40",
+          "opcode": "ldarg.3",
+          "operand": null
+        },
+        {
+          "offset": "0x41",
+          "opcode": "call",
+          "operand": {
+            "token": "0x600001d",
+            "name": "BinaryAssetBuilder.TextureCompiler.CreateVolumeRGBAImage"
+          }
+        },
+        {
+          "offset": "0x46",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0005)"
+        },
+        {
+          "offset": "0x48",
+          "opcode": "ldarg.s",
+          "operand": "argument(0x0004)"
+        },
+        {
+          "offset": "0x4a",
+          "opcode": "ldsfld",
+          "operand": {
+            "token": "0x4000060",
+            "name": "__unep@?nvDXTWriteCallback@TextureCompiler@BinaryAssetBuilder@@$$FYA?AW4NV_ERROR_CODE@@PBXIPBUMIPMapData@@PAX@Z"
+          }
+        },
+        {
+          "offset": "0x4f",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x50",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000db",
+            "name": "nvDDS.nvDXTcompress"
+          }
+        },
+        {
+          "offset": "0x55",
+          "opcode": "stloc.0",
+          "operand": null
+        },
+        {
+          "offset": "0x56",
+          "opcode": "ldloc.0",
+          "operand": null
+        },
+        {
+          "offset": "0x57",
+          "opcode": "brfalse.s",
+          "operand": "137"
+        },
+        {
+          "offset": "0x59",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x5b",
+          "opcode": "ldloc.0",
+          "operand": null
+        },
+        {
+          "offset": "0x5c",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000cc",
+            "name": "getErrorString"
+          }
+        },
+        {
+          "offset": "0x61",
+          "opcode": "call",
+          "operand": {
+            "token": "0xa000030",
+            "name": ".ctor"
+          }
+        },
+        {
+          "offset": "0x66",
+          "opcode": "ldloc.s",
+          "operand": "local(0x0004)"
+        },
+        {
+          "offset": "0x68",
+          "opcode": "call",
+          "operand": {
+            "token": "0xa00003c",
+            "name": "PtrToStringAnsi"
+          }
+        },
+        {
+          "offset": "0x6d",
+          "opcode": "stloc.3",
+          "operand": null
+        },
+        {
+          "offset": "0x6e",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x6f",
+          "opcode": "newarr",
+          "operand": {
+            "token": "0x100001a",
+            "name": ""
+          }
+        },
+        {
+          "offset": "0x74",
+          "opcode": "stloc.2",
+          "operand": null
+        },
+        {
+          "offset": "0x75",
+          "opcode": "ldnull",
+          "operand": null
+        },
+        {
+          "offset": "0x76",
+          "opcode": "ldc.i4.1",
+          "operand": null
+        },
+        {
+          "offset": "0x77",
+          "opcode": "ldstr",
+          "operand": "string token(0x70000970)"
+        },
+        {
+          "offset": "0x7c",
+          "opcode": "ldloc.3",
+          "operand": null
+        },
+        {
+          "offset": "0x7d",
+          "opcode": "call",
+          "operand": {
+            "token": "0xa000045",
+            "name": "Concat"
+          }
+        },
+        {
+          "offset": "0x82",
+          "opcode": "ldloc.2",
+          "operand": null
+        },
+        {
+          "offset": "0x83",
+          "opcode": "newobj",
+          "operand": {
+            "token": "0xa000012",
+            "name": ".ctor"
+          }
+        },
+        {
+          "offset": "0x88",
+          "opcode": "throw",
+          "operand": null
+        },
+        {
+          "offset": "0x89",
+          "opcode": "ldsfld",
+          "operand": {
+            "token": "0x4000038",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+          }
+        },
+        {
+          "offset": "0x8e",
+          "opcode": "ldc.i4.4",
+          "operand": null
+        },
+        {
+          "offset": "0x8f",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0x90",
+          "opcode": "ldind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0x91",
+          "opcode": "brtrue.s",
+          "operand": "169"
+        },
+        {
+          "offset": "0x93",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0x94",
+          "opcode": "newarr",
+          "operand": {
+            "token": "0x100001a",
+            "name": ""
+          }
+        },
+        {
+          "offset": "0x99",
+          "opcode": "stloc.1",
+          "operand": null
+        },
+        {
+          "offset": "0x9a",
+          "opcode": "ldnull",
+          "operand": null
+        },
+        {
+          "offset": "0x9b",
+          "opcode": "ldc.i4.s",
+          "operand": "17"
+        },
+        {
+          "offset": "0x9d",
+          "opcode": "ldstr",
+          "operand": "string token(0x700009A0)"
+        },
+        {
+          "offset": "0xa2",
+          "opcode": "ldloc.1",
+          "operand": null
+        },
+        {
+          "offset": "0xa3",
+          "opcode": "newobj",
+          "operand": {
+            "token": "0xa000012",
+            "name": ".ctor"
+          }
+        },
+        {
+          "offset": "0xa8",
+          "opcode": "throw",
+          "operand": null
+        },
+        {
+          "offset": "0xa9",
+          "opcode": "ldarg.0",
+          "operand": null
+        },
+        {
+          "offset": "0xaa",
+          "opcode": "ldfld",
+          "operand": {
+            "token": "0x400013e",
+            "name": "_Platform"
+          }
+        },
+        {
+          "offset": "0xaf",
+          "opcode": "ldc.i4.2",
+          "operand": null
+        },
+        {
+          "offset": "0xb0",
+          "opcode": "bne.un.s",
+          "operand": "193"
+        },
+        {
+          "offset": "0xb2",
+          "opcode": "ldarg.0",
+          "operand": null
+        },
+        {
+          "offset": "0xb3",
+          "opcode": "ldarg.1",
+          "operand": null
+        },
+        {
+          "offset": "0xb4",
+          "opcode": "ldarg.2",
+          "operand": null
+        },
+        {
+          "offset": "0xb5",
+          "opcode": "ldsfld",
+          "operand": {
+            "token": "0x4000038",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+          }
+        },
+        {
+          "offset": "0xba",
+          "opcode": "call",
+          "operand": {
+            "token": "0x6000104",
+            "name": "EmbedPS3Texture"
+          }
+        },
+        {
+          "offset": "0xbf",
+          "opcode": "br.s",
+          "operand": "206"
+        },
+        {
+          "offset": "0xc1",
+          "opcode": "ldarg.0",
+          "operand": null
+        },
+        {
+          "offset": "0xc2",
+          "opcode": "ldarg.1",
+          "operand": null
+        },
+        {
+          "offset": "0xc3",
+          "opcode": "ldarg.2",
+          "operand": null
+        },
+        {
+          "offset": "0xc4",
+          "opcode": "ldsfld",
+          "operand": {
+            "token": "0x4000038",
+            "name": "BinaryAssetBuilder.TextureCompiler.?A0x749b4e39.g_Buffer"
+          }
+        },
+        {
+          "offset": "0xc9",
+          "opcode": "call",
+          "operand": {
+            "token": "0x6000103",
+            "name": "EmbedPCTexture"
+          }
+        },
+        {
+          "offset": "0xce",
+          "opcode": "leave.s",
+          "operand": "222"
+        },
+        {
+          "offset": "0xd0",
+          "opcode": "ldftn",
+          "operand": {
+            "token": "0x6000004",
+            "name": "RGBAMipMappedVolumeMap.{dtor}"
+          }
+        },
+        {
+          "offset": "0xd6",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0005)"
+        },
+        {
+          "offset": "0xd8",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000a5",
+            "name": "___CxxCallUnwindDtor"
+          }
+        },
+        {
+          "offset": "0xdd",
+          "opcode": "endfinally",
+          "operand": null
+        },
+        {
+          "offset": "0xde",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0005)"
+        },
+        {
+          "offset": "0xe0",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0xe1",
+          "opcode": "call",
+          "operand": {
+            "token": "0x600002f",
+            "name": "nvVector<nvVector<nvImage<rgba_t> > >.resize"
+          }
+        },
+        {
+          "offset": "0xe6",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0005)"
+        },
+        {
+          "offset": "0xe8",
+          "opcode": "ldc.i4.8",
+          "operand": null
+        },
+        {
+          "offset": "0xe9",
+          "opcode": "add",
+          "operand": null
+        },
+        {
+          "offset": "0xea",
+          "opcode": "ldc.i4.0",
+          "operand": null
+        },
+        {
+          "offset": "0xeb",
+          "opcode": "stind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0xec",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0005)"
+        },
+        {
+          "offset": "0xee",
+          "opcode": "ldind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0xef",
+          "opcode": "brfalse.s",
+          "operand": "249"
+        },
+        {
+          "offset": "0xf1",
+          "opcode": "ldloca.s",
+          "operand": "local(0x0005)"
+        },
+        {
+          "offset": "0xf3",
+          "opcode": "ldind.i4",
+          "operand": null
+        },
+        {
+          "offset": "0xf4",
+          "opcode": "call",
+          "operand": {
+            "token": "0x60000e0",
+            "name": "free"
+          }
+        },
+        {
+          "offset": "0xf9",
+          "opcode": "ret",
+          "operand": null
+        }
+      ]
+    }
+  ],
+  "finding": "2D and 3D compression reset, populate via callback user data, and embed the same process-global SimpleBuffer. Multiple Plugin instances share this native storage.",
+  "scope": "Pinned managed CIL and native-storage metadata only; not an exhaustive native-code audit."
+}

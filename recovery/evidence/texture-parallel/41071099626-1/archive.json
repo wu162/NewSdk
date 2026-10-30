@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "101538e463fea6b1f2335a6b46c89dab98c0faeb",
+  "runId": 41071099626,
+  "workflowConclusion": "failure",
+  "artifactId": 12983814828,
+  "archiveSha256": "21593d0fc4c7e88a971d02781bb431b11296926411c3bb45ca6449e96d1f77e5",
+  "archiveDownloadedAndHashVerified": true,
+  "scope": "Shared/locked/independent-native-module original DLL component experiment; raw buffers retained in workflow artifact."
+}

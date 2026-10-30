@@ -1,0 +1,21 @@
+System.AggregateException: One or more errors occurred. ---> BinaryAssetBuilder.BinaryAssetBuilderException: Texture data has length 0
+   at BinaryAssetBuilder.TextureCompiler.Plugin.CompressAndEmbed(Tracker* tracker, TextureFileData* textureData, nvImage<rgba_t>* image, nvCompressionOptions* options)
+   at BinaryAssetBuilder.TextureCompiler.Plugin.HandleTerrainTextureAtlas(gcroot<BinaryAssetBuilder::Core::InstanceDeclaration ^>* declaration, gcroot<BinaryAssetBuilder::Core::AssetBuffer ^>* buffer)
+   at BinaryAssetBuilder.TextureCompiler.Plugin.ProcessInstance(InstanceDeclaration declaration)
+   at TextureParallelProbe.Execute(IAssetBuilderPlugin plugin, String type, String file, String directory, Int32 index)
+   at TextureParallelProbe.<>c__DisplayClass14.<Main>b__a()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.WaitAll(Task[] tasks, Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.WaitAll(Task[] tasks, Int32 millisecondsTimeout)
+   at TextureParallelProbe.Main(String[] args)
+---> (Inner Exception #0) BinaryAssetBuilder.BinaryAssetBuilderException: Texture data has length 0
+   at BinaryAssetBuilder.TextureCompiler.Plugin.CompressAndEmbed(Tracker* tracker, TextureFileData* textureData, nvImage<rgba_t>* image, nvCompressionOptions* options)
+   at BinaryAssetBuilder.TextureCompiler.Plugin.HandleTerrainTextureAtlas(gcroot<BinaryAssetBuilder::Core::InstanceDeclaration ^>* declaration, gcroot<BinaryAssetBuilder::Core::AssetBuffer ^>* buffer)
+   at BinaryAssetBuilder.TextureCompiler.Plugin.ProcessInstance(InstanceDeclaration declaration)
+   at TextureParallelProbe.Execute(IAssetBuilderPlugin plugin, String type, String file, String directory, Int32 index)
+   at TextureParallelProbe.<>c__DisplayClass14.<Main>b__a()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()<---
+
