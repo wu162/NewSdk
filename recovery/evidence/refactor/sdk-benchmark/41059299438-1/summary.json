@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "binarySourceCommit": "b89fbadb669a8abb3ba01c5bdd031a8c3a2e405b",
+  "benchmarkSourceCommit": "6648ecd8badd4dfc0c85b87513109ab1adf2ea2d",
+  "acceptanceRunId": "41055959839",
+  "benchmarkRunId": "41059299438",
+  "benchmarkRunAttempt": "1",
+  "artifact": {
+    "id": 12977644224,
+    "bytes": 8130719,
+    "sha256": "65135b4641382e3bbe44d8c81dbbf17d23048f3127793e09a8912e4e95ca9eb1",
+    "downloadedAndRehashed": true
+  },
+  "sampleCount": 216,
+  "pairCount": 108,
+  "warmupCount": 2,
+  "elapsedSeconds": 146.1603162,
+  "allMembersLengthsHashesAndRawBytesEqual": true,
+  "sharedInputsAndRuntimesUnchanged": true,
+  "releaseMatchesVerifiedAcceptance": true,
+  "independentChecks": [
+    "Archive SHA256",
+    "Five-file Release identities match accepted core archive",
+    "Recomputed all summary statistics",
+    "216 process exit/status and 108 raw-equality receipts",
+    "All new reports confirm identical ordered input roots",
+    "Archived baseline members and raw bytes independently compared"
+  ],
+  "defaultHot": [
+    {
+      "workload": "mymod",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "nPerEngine": 5,
+      "originalWallMsMedian": 559.602400000017,
+      "originalCpuMsMedian": 546.875,
+      "originalPeakWorkingSetBytesMedian": 46088192,
+      "originalCacheBytesMedian": 262703,
+      "originalWallMsMin": 553.266600000029,
+      "originalWallMsMax": 594.8577999999998,
+      "newWallMsMedian": 540.198900000064,
+      "newCpuMsMedian": 546.875,
+      "newPeakWorkingSetBytesMedian": 45740032,
+      "newCacheBytesMedian": 238071,
+      "newWallMsMin": 531.7464999999402,
+      "newWallMsMax": 590.5298999999786,
+      "newOverOriginalWallRatio": 0.9653262745121314
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "nPerEngine": 5,
+      "originalWallMsMedian": 544.2577999999685,
+      "originalCpuMsMedian": 531.25,
+      "originalPeakWorkingSetBytesMedian": 46297088,
+      "originalCacheBytesMedian": 14150,
+      "originalWallMsMin": 538.2926999999427,
+      "originalWallMsMax": 558.44019999995,
+      "newWallMsMedian": 525.8971000000656,
+      "newCpuMsMedian": 546.875,
+      "newPeakWorkingSetBytesMedian": 45629440,
+      "newCacheBytesMedian": 12081,
+      "newWallMsMin": 516.2358999999697,
+      "newWallMsMax": 536.040899999989,
+      "newOverOriginalWallRatio": 0.9662647002947795
+    },
+    {
+      "workload": "texture-16",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "nPerEngine": 5,
+      "originalWallMsMedian": 546.0268000000497,
+      "originalCpuMsMedian": 531.25,
+      "originalPeakWorkingSetBytesMedian": 46309376,
+      "originalCacheBytesMedian": 8397592,
+      "originalWallMsMin": 539.2881000000216,
+      "originalWallMsMax": 558.9129999999614,
+      "newWallMsMedian": 559.3450999999732,
+      "newCpuMsMedian": 578.125,
+      "newPeakWorkingSetBytesMedian": 47235072,
+      "newCacheBytesMedian": 8395321,
+      "newWallMsMin": 552.9166999999688,
+      "newWallMsMax": 580.7049000000006,
+      "newOverOriginalWallRatio": 1.0243912936140174
+    }
+  ],
+  "uncached": [
+    {
+      "workload": "mymod",
+      "mode": "none",
+      "phase": "uncached",
+      "nPerEngine": 6,
+      "originalWallMsMedian": 868.844050000007,
+      "originalCpuMsMedian": 859.375,
+      "originalPeakWorkingSetBytesMedian": 56676352.0,
+      "originalCacheBytesMedian": 0.0,
+      "originalWallMsMin": 855.0076000000217,
+      "originalWallMsMax": 876.2464000000136,
+      "newWallMsMedian": 726.878700000043,
+      "newCpuMsMedian": 960.9375,
+      "newPeakWorkingSetBytesMedian": 53547008.0,
+      "newCacheBytesMedian": 0.0,
+      "newWallMsMin": 715.1810999999952,
+      "newWallMsMax": 761.0461000000441,
+      "newOverOriginalWallRatio": 0.8366043365320129
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "none",
+      "phase": "uncached",
+      "nPerEngine": 6,
+      "originalWallMsMedian": 578.8473000000067,
+      "originalCpuMsMedian": 578.125,
+      "originalPeakWorkingSetBytesMedian": 49035264.0,
+      "originalCacheBytesMedian": 0.0,
+      "originalWallMsMin": 578.3372999999301,
+      "originalWallMsMax": 586.944600000038,
+      "newWallMsMedian": 561.0240000000317,
+      "newCpuMsMedian": 625.0,
+      "newPeakWorkingSetBytesMedian": 48359424.0,
+      "newCacheBytesMedian": 0.0,
+      "newWallMsMin": 550.1640000001089,
+      "newWallMsMax": 584.0078999999605,
+      "newOverOriginalWallRatio": 0.9692089779118348
+    },
+    {
+      "workload": "texture-16",
+      "mode": "none",
+      "phase": "uncached",
+      "nPerEngine": 6,
+      "originalWallMsMedian": 853.8893500000313,
+      "originalCpuMsMedian": 859.375,
+      "originalPeakWorkingSetBytesMedian": 50685952.0,
+      "originalCacheBytesMedian": 0.0,
+      "originalWallMsMin": 841.6004000000612,
+      "originalWallMsMax": 873.8354000000754,
+      "newWallMsMedian": 899.5366999999419,
+      "newCpuMsMedian": 906.25,
+      "newPeakWorkingSetBytesMedian": 52893696.0,
+      "newCacheBytesMedian": 0.0,
+      "newWallMsMin": 897.0801000000392,
+      "newWallMsMax": 932.0272999999588,
+      "newOverOriginalWallRatio": 1.0534581559073304
+    }
+  ],
+  "limitations": [
+    "OS page cache uncontrolled; compiler cold means empty per-engine cache",
+    "Small sample counts on one VM, no significance claim",
+    "No full Upheaval, BIG packaging or incremental edit timings",
+    "Original cache trace observations are not equivalent to new durable counters"
+  ],
+  "receipts": [
+    {
+      "path": "comparison.json.gz",
+      "archiveMember": "comparison.json",
+      "bytes": 817960,
+      "sha256": "65db29733dcaa0933159ff257a121aa5f33f448ddec442c9f9b6aa6178dc6a67"
+    },
+    {
+      "path": "comparison.csv",
+      "archiveMember": "comparison.csv",
+      "bytes": 6924,
+      "sha256": "e924af791277fb4d97765e9a01f96d69089bc3b50af704caea5f20845ffb256d"
+    },
+    {
+      "path": "comparison.md",
+      "archiveMember": "comparison.md",
+      "bytes": 2665,
+      "sha256": "3a4244ec1f9edaac0730890e1bb1c75d783b2074ffc6d606d5ba538072cccd24"
+    },
+    {
+      "path": "preparation.json",
+      "archiveMember": "preparation.json",
+      "bytes": 10174,
+      "sha256": "3e8d2e67434cdf2ca300db3d72472a7ce3821d06729bd5aa8a367d0b241d81b2"
+    },
+    {
+      "path": "original-preparation.json",
+      "archiveMember": "original-preparation.json",
+      "bytes": 163845,
+      "sha256": "2126ea2c4268b0c81d1366f4baf45586cbf46398e46214b39d146dfe28b33a52"
+    },
+    {
+      "path": "shared-inputs.json.gz",
+      "archiveMember": "shared-inputs.json",
+      "bytes": 2441573,
+      "sha256": "301102125242f9c3ecbba94e0e0a69fb430527125304bf001b7b515ad54e5bf6"
+    }
+  ]
+}
