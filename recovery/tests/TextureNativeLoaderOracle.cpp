@@ -81,10 +81,20 @@ void Equal(const Trace& actual,const Trace& expected){if(actual.data!=expected.d
  if(mismatches<=16){Save(failurePath+"-"+std::to_string(mismatches)+".actual",actual.data);Save(failurePath+"-"+std::to_string(mismatches)+".expected",expected.data);}
  }}
 Trace unsupportedOriginal;
-struct Gold{Trace output;const std::vector<unsigned char>* replay=nullptr;std::size_t offset=0;void record(Trace actual,const Trace* original){
- output.name(current);output.number(static_cast<U>(actual.data.size()));output.add(actual.data.data(),actual.data.size());
- if(original)Equal(actual,*original);else{Check(replay&&offset+4<=replay->size(),"Truncated loader gold");U length=Load(replay->data(),static_cast<U>(offset));offset+=4;Check(offset+length<=replay->size(),"Truncated loader gold name");Check(std::string(replay->begin()+offset,replay->begin()+offset+length)==current,"Loader gold label");offset+=length;Check(offset+4<=replay->size(),"Truncated loader gold length");length=Load(replay->data(),static_cast<U>(offset));offset+=4;Check(offset+length<=replay->size(),"Truncated loader gold record");Trace expected;expected.data.assign(replay->begin()+offset,replay->begin()+offset+length);offset+=length;Equal(actual,expected);}
- }};
+// Stream complete records rather than retaining two growing complete captures
+// in a 32-bit process. Every byte/name/record and final EOF is still checked.
+struct Gold{
+ std::ofstream capture;std::ifstream replay;std::uint64_t bytes=0;bool recording=false;
+ void open(const std::string& path,bool original){recording=original;if(original){capture.open(path,std::ios::binary);Check(capture.is_open(),"Cannot create loader capture");}else{replay.open(path,std::ios::binary);Check(replay.is_open(),"Missing loader capture");}}
+ void write(const void* p,std::size_t count){capture.write(static_cast<const char*>(p),static_cast<std::streamsize>(count));Check(capture.good(),"Loader capture write failed");}
+ U number(){U n=0;replay.read(reinterpret_cast<char*>(&n),4);Check(replay.good(),"Truncated loader capture number");return n;}
+ void record(Trace actual,const Trace* original){
+  bytes+=8+current.size()+actual.data.size();
+  if(original){Equal(actual,*original);U length=static_cast<U>(current.size());write(&length,4);write(current.data(),current.size());length=static_cast<U>(original->data.size());write(&length,4);write(original->data.data(),original->data.size());}
+  else{U length=number();Check(length==current.size(),"Loader gold name length");std::string name(length,'\0');replay.read(&name[0],length);Check(replay.good()&&name==current,"Loader gold label");length=number();Trace expected;expected.data.resize(length);replay.read(reinterpret_cast<char*>(expected.data.data()),length);Check(replay.good(),"Truncated loader gold record");Equal(actual,expected);}
+ }
+ void finish(){if(recording){capture.flush();Check(capture.good(),"Loader capture flush failed");capture.close();}else Check(replay.peek()==std::char_traits<char>::eof(),"Trailing loader capture bytes");}
+};
 void* Construct(Api api,U w,U h,U levels,U format){Isolation(api);auto p=api.originalCreate?api.originalCreate(w,h,1,levels,0,format,1,3):api.create(w,h,levels,format);Isolation(api);return p;}
 void Constructors(Api recovered,Api original,bool hasOriginal,Gold& gold){
  const U formats[]={2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,41,42,43,45,46,47,48,50,54,55,56,57,62,63};
@@ -114,7 +124,10 @@ std::vector<unsigned char> Dds(U w,U h,U format,U provided,U pattern){
 }
 std::vector<unsigned char> Bmp(U w,U h,U depth,bool top,U pattern,U dib,U colors=0,U gap=0,U profile=0){
  const bool core=dib==12;const U header=14+dib,stride=(w*(depth/8)+3)&~3u,start=header+colors*4,raster=stride*h;
- std::vector<unsigned char> b(start+gap+raster+(profile?17:0));b[0]='B';b[1]='M';Store(b.data(),2,static_cast<U>(b.size()));Store(b.data(),10,start+gap);Store(b.data(),14,dib);
+ // D3DX's pre-expansion DWORD alpha scan also visits byte3 of BGR24
+ // DWORDs. Explicit zero trailing storage bounds that scan for every shape;
+ // it is file data, not dependence on original heap contents past EOF.
+ std::vector<unsigned char> b(start+gap+raster+(profile?17:0)+(depth==24?w:0));b[0]='B';b[1]='M';Store(b.data(),2,static_cast<U>(b.size()));Store(b.data(),10,start+gap);Store(b.data(),14,dib);
  if(core){b[18]=static_cast<unsigned char>(w);b[19]=static_cast<unsigned char>(w>>8);b[20]=static_cast<unsigned char>(h);b[21]=static_cast<unsigned char>(h>>8);b[22]=1;b[24]=static_cast<unsigned char>(depth);}
  else{Store(b.data(),18,w);Store(b.data(),22,top?0u-h:h);b[26]=1;b[28]=static_cast<unsigned char>(depth);Store(b.data(),34,raster);Store(b.data(),46,colors);}
  for(U i=0;i<colors*4;++i)b[header+i]=static_cast<unsigned char>(i*71+19);
@@ -202,18 +215,18 @@ void Files(Api recovered,Api original,bool hasOriginal,Gold& gold,const std::str
   current="rejected-input-"+std::to_string(rejectionIndex++);if(rejectionIndex==3)bytes.resize(20);const auto path=scratch+"/invalid.bin";Save(path,bytes);p=nullptr;
   Check(recovered.load(rd,path.c_str(),&p)<0&&!p,"Unsupported/truncated source must reject without resource");Isolation(recovered);++rejections;
  }
- for(U mode=0;mode<7;++mode){
+ for(U mode=0;mode<8;++mode){
   current="rejected-bmp-"+std::to_string(mode);auto bytes=Bmp(3,5,32,false,2,mode==6?124:40);
-  if(mode==0)bytes.resize(22);else if(mode==1)Store(bytes.data(),30,3);else if(mode==2)bytes[28]=8;else if(mode==3)Store(bytes.data(),10,0);else if(mode==4)Store(bytes.data(),46,0xffffffffu);else if(mode==5)bytes.resize(60);else Store(bytes.data(),126,124);
+  if(mode==0)bytes.resize(22);else if(mode==1)Store(bytes.data(),30,3);else if(mode==2)bytes[28]=8;else if(mode==3)Store(bytes.data(),10,0);else if(mode==4)Store(bytes.data(),46,0xffffffffu);else if(mode==5)bytes.resize(60);else if(mode==6)Store(bytes.data(),126,124);else{bytes=Bmp(4,4,24,false,0,40);bytes.resize(54+48);Store(bytes.data(),2,static_cast<U>(bytes.size()));}
   const auto path=scratch+"/invalid.bmp";Save(path,bytes);p=nullptr;Check(recovered.load(rd,path.c_str(),&p)<0&&!p,"Unsupported/malformed BMP must not transfer resource");Isolation(recovered);++rejections;
  }
  current="invalid-loader-pointers";Check(recovered.load(rd,nullptr,&p)<0&&recovered.load(rd,missing.c_str(),nullptr)<0&&recovered.load(nullptr,missing.c_str(),&p)<0,"Invalid loader arguments must reject");Isolation(recovered);
  Check(recovered.deviceRelease(rd)==0,"Loader device release");if(hasOriginal)Check(original.deviceRelease(od)==0,"Original loader device release");Isolation(recovered);
 }
 void Run(unsigned char* original,const std::string& libs,const std::string& fixtures,const std::string& prefix){
- failurePath=prefix;std::vector<HMODULE> modules;auto recovered=Recovered(libs,modules,!original);Api baseline{};if(original)baseline=Original(original);Gold gold;std::vector<unsigned char> replay;if(!original){replay=Read(prefix+".capture");gold.replay=&replay;}
- Constructors(recovered,baseline,original!=nullptr,gold);Files(recovered,baseline,original!=nullptr,gold,fixtures,prefix+"-inputs");std::cerr<<"COMPLETE constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" mismatches="<<mismatches<<"\n";Check(constructorCases==6860&&fileCases==14606&&npotCases==5665&&bmpCases==6152&&rejections==12&&compressedBoundaries==105,"Complete declared constructor/file/rejection matrix count");if(mismatches)throw std::runtime_error("Complete loader mismatches="+std::to_string(mismatches)+" constructorCases="+std::to_string(constructorCases)+" fileCases="+std::to_string(fileCases));if(original){Save(prefix+".capture",gold.output.data);Save(prefix+".unsupported-original",unsupportedOriginal.data);}else Check(gold.offset==replay.size(),"Trailing loader capture bytes");for(auto m:modules)FreeLibrary(m);
- std::cout<<"PASS PC native loader "<<(original?"differential":"NoOriginal")<<" constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" npotCases="<<npotCases<<" bmpCases="<<bmpCases<<" rgbaCopies="<<copyCases<<" supportedFiles="<<(fileCases-compressedBoundaries)<<" originalSuccessUnsupportedCompressed="<<compressedBoundaries<<" explicitRejections="<<rejections<<" completeBytes="<<gold.output.data.size()<<"; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity\n";
+ failurePath=prefix;std::vector<HMODULE> modules;auto recovered=Recovered(libs,modules,!original);Api baseline{};if(original)baseline=Original(original);Gold gold;gold.open(prefix+".capture",original!=nullptr);
+ Constructors(recovered,baseline,original!=nullptr,gold);Files(recovered,baseline,original!=nullptr,gold,fixtures,prefix+"-inputs");gold.finish();std::cerr<<"COMPLETE constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" mismatches="<<mismatches<<"\n";Check(constructorCases==6860&&fileCases==14606&&npotCases==5665&&bmpCases==6152&&rejections==13&&compressedBoundaries==105,"Complete declared constructor/file/rejection matrix count");if(mismatches)throw std::runtime_error("Complete loader mismatches="+std::to_string(mismatches)+" constructorCases="+std::to_string(constructorCases)+" fileCases="+std::to_string(fileCases));if(original)Save(prefix+".unsupported-original",unsupportedOriginal.data);for(auto m:modules)FreeLibrary(m);
+ std::cout<<"PASS PC native loader "<<(original?"differential":"NoOriginal")<<" constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" npotCases="<<npotCases<<" bmpCases="<<bmpCases<<" rgbaCopies="<<copyCases<<" supportedFiles="<<(fileCases-compressedBoundaries)<<" originalSuccessUnsupportedCompressed="<<compressedBoundaries<<" explicitRejections="<<rejections<<" completeBytes="<<gold.bytes<<"; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity\n";
 }
 }
 #pragma managed(pop)

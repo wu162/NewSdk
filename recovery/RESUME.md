@@ -4,7 +4,7 @@
 
 ## 本轮候选检查点（2026-10-30）
 
-`validation/texture-public-native-npot`：已接入固定 DirectXTex triangle 源码适配，原生 TGA24/32 与 raw A8/X8 DDS 的 NPOT/逐已提供层重采样及缺层 BOX 已实现；接入固定stb_image BMP24/32的七种BI_RGB DIB修订及原版offset/alpha规则。完整矩阵为6860构造、14606文件（含5665个NPOT和6152个BMP新增输入、105压缩未支持边界）、另12拒绝；保留旧矩阵与全部原产物字节比较。当前未验证、未合入恢复主分支、未进入生产包。下一步集中 native-loader/base 的 D/R/NoOriginal 验收并复用未改旧组；SDK不重复触发。
+`validation/texture-public-native-npot`：已接入固定 DirectXTex triangle 源码适配，原生 TGA24/32 与 raw A8/X8 DDS 的 NPOT/逐已提供层重采样及缺层 BOX 已实现；接入固定stb_image BMP24/32的七种BI_RGB DIB修订及原版offset/alpha规则。完整矩阵为6860构造、14606文件（含5665个NPOT和6152个BMP新增输入、105压缩未支持边界）、另13拒绝；保留旧矩阵与全部原产物字节比较。首轮34946af5/41005120850失败：BMP24原版按源DWORD扫描alpha（不是解码后alpha）及宿主x86累计trace内存耗尽。已按RVA143d2..14421修正源扫描/越界拒绝，确定性BMP24语料显式提供尾部扫描字节，全部形状/字段/断言保留；gold改流式完整写盘/逐条NoOriginal/EOF核对。尚未合入恢复主分支、未进入生产包；下一步补验失败组，未变成功组/SDK复用。
 
 ## 后续默认路线（2026-10-30 用户明确要求）
 

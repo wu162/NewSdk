@@ -19,9 +19,16 @@ immediately after the true DIB plus color table, ignoring the declared file
 gap, rendering fields and profile colors. The wrapper preserves that general
 rule and uses stb's pixel extraction, channel decoding, row padding and flip.
 
-stb produces RGBA; the host swaps R/B for native BGRA storage. BMP24 selects
-A8; BMP32 selects A8 if any alpha byte is nonzero, otherwise X8 while retaining
-the base's alpha0 bytes. Shared DirectXTex triangle and existing BOX generation
+stb produces RGBA; the host swaps R/B for native BGRA storage. Original BI_RGB selects A8 if any byte3 from a source DWORD scan is nonzero,
+otherwise X8. RVA143d2..14421 scans before BGR24 expansion using four-byte X
+steps even for 24-bit source rows; bounded trailing file bytes can therefore
+affect the native descriptor. The adapter scans those exact in-file bytes and
+rejects a scan that would depend on uninitialized bytes beyond EOF. BMP24 still
+stores synthesized alphaFF in the base, while BMP32 preserves source alpha.
+The deterministic BMP24 test corpus explicitly appends zero scan storage, with
+all original shapes/header/orientation/pattern cases retained and an added
+explicit beyond-EOF rejection. The first failing corpus remains in run
+41005120850 and its immutable source commit. Shared DirectXTex triangle and existing BOX generation
 handle NPOT and missing mips, with explicit X8 packing. Other bit depths,
 bitfields, compression and unbounded metadata remain explicitly unsupported.
 

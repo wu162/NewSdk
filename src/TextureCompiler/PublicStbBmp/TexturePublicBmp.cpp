@@ -61,11 +61,21 @@ std::int32_t Decode(const std::vector<unsigned char>& bytes, Image& image) {
     int dw = 0, dh = 0, channels = 0;
     std::unique_ptr<stbi_uc, decltype(&stbi_image_free)> decoded(stbi_load_from_memory(canonical.data(), static_cast<int>(canonical.size()), &dw, &dh, &channels, 4), stbi_image_free);
     if (!decoded || dw != static_cast<int>(w) || dh != static_cast<int>(h)) return InvalidData;
-    image.width = w; image.height = h; image.alpha = depth == 24;
+    image.width = w; image.height = h; image.alpha = false;
+    // Original BI_RGB parser RVA143d2..14421 scans DWORD byte3 even for
+    // 24-bit source rows, BEFORE expanding BGR24 to BGRA. Preserve that
+    // storage-format choice, including reads into declared trailing bytes.
+    // Never infer it from stb's synthesized opaque alpha. If an all-zero
+    // scan would leave the file, the original depends on uninitialized heap
+    // bytes; keep that undefined domain explicitly unsupported.
+    for (U y = 0; y < h && !image.alpha; ++y) for (U x = 0; x < w; ++x) {
+        const std::uint64_t at = pixelStart + std::uint64_t(y) * stride + x * 4 + 3;
+        if (at >= bytes.size()) return Unsupported;
+        if (bytes[static_cast<std::size_t>(at)]) { image.alpha = true; break; }
+    }
     image.bgra.assign(decoded.get(), decoded.get() + std::size_t(w) * h * 4);
     for (std::size_t at = 0; at < image.bgra.size(); at += 4) {
         std::swap(image.bgra[at], image.bgra[at + 2]);
-        if (depth == 32 && image.bgra[at + 3]) image.alpha = true;
     }
     return 0;
 }
