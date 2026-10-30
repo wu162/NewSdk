@@ -25,3 +25,11 @@
 先实现文件加载、资源构造和实际消费的连贯批次；普通检查点不触发Windows，稳定后集中验收。最终保留原版完整产物比较、D/R、NoOriginal及必要实际消费验证；当前未变成功组和SDK/MOD不重跑。正式接入生产包前再取得对应集成证据。
 
 当前验收锚点与63组件状态统一见[RESUME](RESUME.md)，避免重复维护。详细调度规则见[EFFICIENCY](EFFICIENCY.md)和[TEXTURE_TESTING](TEXTURE_TESTING.md)。
+
+## 本轮实现检查点（2026-10-30，验收前）
+
+已新增独立 `TextureNativeLoaderApi`：CPU二维资源头/主存储/mip尾区所有权、DDS已提供完整mip及raw缺失BOX mip、POT TGA24/32 raw/RLE，调用既有Surface/Copy/Resource接口。首个检查点`d9b53c40`尚未验证，生产包未接入。
+
+关键修正：原LoadImageA在复制前将资源格式与`0xfffffe3f`相与，清除`0x1c0`；CPU文件上传保留小端内容，不能因描述符`0x80`直接交换上传字节。新验收同时对照清除标签后的实际LoadImageA视图与带端序标签的物理视图。
+
+下一步：完成`native-loader`整组原版资源/完整存储/BOX mip/消费/释放差分、D/R和NoOriginal。NPOT、压缩DDS缺失mip重压缩、更多文件格式保持明确拒绝，不能把这些范围或新ABI称为已部署。

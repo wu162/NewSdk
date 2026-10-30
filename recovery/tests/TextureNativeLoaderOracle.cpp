@@ -1,0 +1,158 @@
+#include "../../src/TextureCompiler/Native/TextureNativeLoaderApi.h"
+#include "../../src/TextureCompiler/Native/TextureNativeDeviceApi.h"
+#include "../../src/TextureCompiler/Native/TextureNativeResourceApi.h"
+#include "../../src/TextureCompiler/Native/TextureNativeSurfaceApi.h"
+#include "../../src/TextureCompiler/Native/TextureNativeDescriptorApi.h"
+#include "../../src/TextureCompiler/Native/TextureNativeCopyApi.h"
+#define NOMINMAX
+#include <Windows.h>
+#include <algorithm>
+#include <array>
+#include <cstring>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <stdexcept>
+#include <string>
+#include <vector>
+#using <System.dll>
+using namespace System;
+using namespace System::IO;
+using namespace System::Reflection;
+using namespace System::Runtime::InteropServices;
+using namespace System::Security::Cryptography;
+#pragma managed(push,off)
+namespace {
+using namespace Recovered::TextureCompiler;using U=std::uint32_t;
+using OriginalCreate=void* (__stdcall *)(U,U,U,U,U,U,U,U);
+struct Api{NativeDeviceAbi::CreateFn device;NativeDeviceAbi::ReleaseFn deviceRelease;NativeResourceAbi::RefFn add,release;NativeResourceAbi::UnlockFn unlock;NativeSurfaceAbi::LayoutFn layout;NativeSurfaceAbi::LockFn lock;NativeDescriptorAbi::LevelFn level;NativeDescriptorAbi::TextureFn describe;NativeCopyAbi::CopyFn copy;NativeLoaderAbi::CreateFn create;NativeLoaderAbi::LoadFn load;OriginalCreate originalCreate;bool isolated=false;};
+U constructorCases=0,fileCases=0,copyCases=0,rejections=0,mismatches=0;std::string current,failurePath;
+void Check(bool c,const char* why){if(!c)throw std::runtime_error(current+": "+why);}
+void Isolation(const Api& api){if(api.isolated){Check(!GetModuleHandleA("BinaryAssetBuilder.TextureCompiler.dll"),"Original loaded during loader replay");Check(GetFileAttributesA("BinaryAssetBuilder.TextureCompiler.dll")==INVALID_FILE_ATTRIBUTES,"Original file during loader replay");}}
+U Address(const void* p){return static_cast<U>(reinterpret_cast<std::uintptr_t>(p));}
+U Load(const void* p,U at){U n;std::memcpy(&n,static_cast<const unsigned char*>(p)+at,4);return n;}
+void Store(void* p,U at,U n){std::memcpy(static_cast<unsigned char*>(p)+at,&n,4);}
+Api Original(unsigned char* p){return {reinterpret_cast<NativeDeviceAbi::CreateFn>(p+0x1c10),reinterpret_cast<NativeDeviceAbi::ReleaseFn>(p+0x1ad0),reinterpret_cast<NativeResourceAbi::RefFn>(p+0xc599),reinterpret_cast<NativeResourceAbi::RefFn>(p+0x1940),reinterpret_cast<NativeResourceAbi::UnlockFn>(p+0x1980),reinterpret_cast<NativeSurfaceAbi::LayoutFn>(p+0xd24b),reinterpret_cast<NativeSurfaceAbi::LockFn>(p+0x1950),reinterpret_cast<NativeDescriptorAbi::LevelFn>(p+0xdb60),reinterpret_cast<NativeDescriptorAbi::TextureFn>(p+0x3df34),reinterpret_cast<NativeCopyAbi::CopyFn>(p+0x3ccc0),nullptr,reinterpret_cast<NativeLoaderAbi::LoadFn>(p+0x13c82),reinterpret_cast<OriginalCreate>(p+0xdc78),false};}
+Api Recovered(const std::string& directory,std::vector<HMODULE>& modules,bool isolated){
+ auto module=[&](const char* name){auto m=LoadLibraryA((directory+"/Recovered.TextureNative"+name+".dll").c_str());Check(m!=nullptr,"Native loader dependency load");modules.push_back(m);return m;};
+ auto device=module("Device"),resource=module("Resource"),surface=module("Surface"),descriptor=module("Descriptor"),copy=module("Copy"),loader=module("Loader");
+ Api a{reinterpret_cast<NativeDeviceAbi::CreateFn>(GetProcAddress(device,"TextureCreateDevice")),reinterpret_cast<NativeDeviceAbi::ReleaseFn>(GetProcAddress(device,"TextureDeviceRelease")),reinterpret_cast<NativeResourceAbi::RefFn>(GetProcAddress(resource,"TextureResourceAddRef")),reinterpret_cast<NativeResourceAbi::RefFn>(GetProcAddress(resource,"TextureResourceRelease")),reinterpret_cast<NativeResourceAbi::UnlockFn>(GetProcAddress(resource,"TextureResourceUnlockRect")),reinterpret_cast<NativeSurfaceAbi::LayoutFn>(GetProcAddress(surface,"TextureSurfaceGetLayout")),reinterpret_cast<NativeSurfaceAbi::LockFn>(GetProcAddress(surface,"TextureSurfaceLockRect")),reinterpret_cast<NativeDescriptorAbi::LevelFn>(GetProcAddress(descriptor,"TextureGetLevelDesc")),reinterpret_cast<NativeDescriptorAbi::TextureFn>(GetProcAddress(descriptor,"TextureXGGetTextureDesc")),reinterpret_cast<NativeCopyAbi::CopyFn>(GetProcAddress(copy,"TextureCopySurface")),reinterpret_cast<NativeLoaderAbi::CreateFn>(GetProcAddress(loader,"TextureCreateCpuTexture")),reinterpret_cast<NativeLoaderAbi::LoadFn>(GetProcAddress(loader,"TextureCreateTextureFromFileA")),nullptr,isolated};
+ Check(a.device&&a.deviceRelease&&a.add&&a.release&&a.unlock&&a.layout&&a.lock&&a.level&&a.describe&&a.copy&&a.create&&a.load,"Missing native loader ABI export");return a;
+}
+struct Trace{std::vector<unsigned char> data;void number(U n){for(U i=0;i<4;++i)data.push_back(static_cast<unsigned char>(n>>(8*i)));}void add(const void* p,std::size_t count){auto b=static_cast<const unsigned char*>(p);data.insert(data.end(),b,b+count);}void name(const std::string& text){number(static_cast<U>(text.size()));add(text.data(),text.size());}};
+void Save(const std::string& path,const std::vector<unsigned char>& bytes){std::ofstream file(path,std::ios::binary);file.write(reinterpret_cast<const char*>(bytes.data()),bytes.size());Check(file.good(),"Cannot write input/capture");}
+std::vector<unsigned char> Read(const std::string& path){std::ifstream file(path,std::ios::binary);Check(file.is_open(),"Missing input/capture");return {(std::istreambuf_iterator<char>(file)),std::istreambuf_iterator<char>()};}
+struct Storage{void* primary;void* secondary;U psize,ssize;};
+U Region(void* p){if(!p)return 0;MEMORY_BASIC_INFORMATION info{};Check(VirtualQuery(p,&info,sizeof(info))==sizeof(info)&&info.BaseAddress==p&&info.AllocationBase==p&&info.State==MEM_COMMIT&&info.RegionSize<=0x10000000,"Texture allocation pairing/bounds");return static_cast<U>(info.RegionSize);}
+Storage Owned(void* p){auto primary=reinterpret_cast<void*>(Load(p,0x20)&~0xfffu),secondary=reinterpret_cast<void*>(Load(p,0x30)&~0xfffu);Check(primary&&primary!=secondary,"Owned nonaliased allocations");return {primary,secondary,Region(primary),Region(secondary)};}
+U Normalize(const Storage& s,const void* pointer){U p=Address(pointer);if(p>=Address(s.primary)&&p-Address(s.primary)<s.psize)return 0x10000000u+p-Address(s.primary);if(s.secondary&&p>=Address(s.secondary)&&p-Address(s.secondary)<s.ssize)return 0x20000000u+p-Address(s.secondary);throw std::runtime_error(current+": Level address outside owned allocations");}
+void Header(Trace& trace,const void* p,const Storage& s){std::array<unsigned char,52> h;std::memcpy(h.data(),p,52);Store(h.data(),0x20,(Load(p,0x20)&0xfff)|0x10000000);Store(h.data(),0x30,(Load(p,0x30)&0xfff)|(s.secondary?0x20000000:0));trace.add(h.data(),h.size());}
+void Release(Api api,void* p,const Storage& s){Isolation(api);Check(api.release(p)==0,"Final loader resource release");Isolation(api);for(auto address:{s.primary,s.secondary})if(address){MEMORY_BASIC_INFORMATION info{};Check(VirtualQuery(address,&info,sizeof(info))==sizeof(info)&&info.State==MEM_FREE,"Loader allocation not freed");}}
+Trace Consume(Api api,void* p,bool pixels){
+ Trace t;Isolation(api);Check(p&&(Load(p,0)&15)==3&&Load(p,4)==1,"Created resource header/refcount");auto s=Owned(p);t.number(s.psize);t.number(s.ssize);Header(t,p,s);
+ Check(api.add(p)==2&&api.release(p)==1,"Created resource add/release ownership");Isolation(api);
+ const U levels=((Load(p,0x2c)>>6)&15)+1;t.number(levels);
+ for(U level=0;level<levels;++level){
+  NativeDescriptorAbi::LevelDesc desc{};NativeDescriptorAbi::TextureDesc texture{};api.level(p,level,&desc);api.describe(p,level,&texture);Isolation(api);t.add(&desc,sizeof(desc));t.add(&texture,sizeof(texture));
+  std::array<U,7> layout{};void* address=nullptr;api.layout(p,0,level,&layout[0],&layout[1],&layout[2],&layout[3],&layout[4],&layout[5],&layout[6],&address);Isolation(api);t.add(layout.data(),sizeof(layout));t.number(Normalize(s,address));
+  for(U mode=0;mode<3;++mode){
+   NativeSurfaceAbi::LockedRect locked{};NativeSurfaceAbi::Rect rect{desc.width>=8?4:0,desc.height>=8?4:0,static_cast<std::int32_t>(desc.width),static_cast<std::int32_t>(desc.height)};
+   Check(api.lock(p,level,&locked,mode==1?&rect:nullptr,mode==2?1:mode==1?0x10:0)==0,"Loaded texture lock");Isolation(api);t.number(locked.pitch);t.number(Normalize(s,locked.bits));Header(t,p,s);
+   if(pixels&&(desc.format&63)==6){
+    const U w=desc.width-(mode==1?rect.left:0),h=desc.height-(mode==1?rect.top:0),pitch=w*4+7;
+    // Both the exact managed LoadImageA source-format mask and the physical
+    // descriptor/endian view are compared, with actual flags0x12/threshold0.
+    for(U mask:{~0x1c0u,0xffffffffu}){
+     std::vector<unsigned char> rgba(pitch*h+64,0xa5);Check(api.copy(rgba.data()+32,pitch,w,h,0x1a200006,nullptr,locked.bits,locked.pitch,desc.format&mask,nullptr,0x12,0.0f)==0,"Loaded texture actual LoadImageA conversion");Isolation(api);
+     for(U i=0;i<32;++i)Check(rgba[i]==0xa5&&rgba[rgba.size()-1-i]==0xa5,"Loaded copy guard");for(U y=0;y<h;++y)for(U x=w*4;x<pitch;++x)Check(rgba[32+y*pitch+x]==0xa5,"Loaded copy row padding");
+     t.number(static_cast<U>(rgba.size()));t.add(rgba.data(),rgba.size());++copyCases;
+    }
+   }
+   Check(api.unlock(p,level)==0,"Loaded texture unlock");Isolation(api);Header(t,p,s);
+  }
+ }
+ // Compare all allocation bytes, including untouched zero pages, row padding,
+ // packed-tail gaps and both base/secondary storage, not just visible RGBA.
+ t.add(s.primary,s.psize);if(s.secondary)t.add(s.secondary,s.ssize);Release(api,p,s);return t;
+}
+void Equal(const Trace& actual,const Trace& expected){if(actual.data!=expected.data){
+ ++mismatches;std::size_t at=0;while(at<std::min(actual.data.size(),expected.data.size())&&actual.data[at]==expected.data[at])++at;
+ if(mismatches<=30){std::cerr<<current<<" first difference="<<at<<" actualSize="<<actual.data.size()<<" originalSize="<<expected.data.size();if(at<actual.data.size()&&at<expected.data.size())std::cerr<<" actualByte="<<U(actual.data[at])<<" originalByte="<<U(expected.data[at]);std::cerr<<"\n";}
+ if(mismatches<=16){Save(failurePath+"-"+std::to_string(mismatches)+".actual",actual.data);Save(failurePath+"-"+std::to_string(mismatches)+".expected",expected.data);}
+ }}
+struct Gold{Trace output;const std::vector<unsigned char>* replay=nullptr;std::size_t offset=0;void record(Trace actual,const Trace* original){
+ output.name(current);output.number(static_cast<U>(actual.data.size()));output.add(actual.data.data(),actual.data.size());
+ if(original)Equal(actual,*original);else{Check(replay&&offset+4<=replay->size(),"Truncated loader gold");U length=Load(replay->data(),static_cast<U>(offset));offset+=4;Check(offset+length<=replay->size(),"Truncated loader gold name");Check(std::string(replay->begin()+offset,replay->begin()+offset+length)==current,"Loader gold label");offset+=length;Check(offset+4<=replay->size(),"Truncated loader gold length");length=Load(replay->data(),static_cast<U>(offset));offset+=4;Check(offset+length<=replay->size(),"Truncated loader gold record");Trace expected;expected.data.assign(replay->begin()+offset,replay->begin()+offset+length);offset+=length;Equal(actual,expected);}
+ }};
+void* Construct(Api api,U w,U h,U levels,U format){Isolation(api);auto p=api.originalCreate?api.originalCreate(w,h,1,levels,0,format,1,3):api.create(w,h,levels,format);Isolation(api);return p;}
+void Constructors(Api recovered,Api original,bool hasOriginal,Gold& gold){
+ const U formats[]={2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,41,42,43,45,46,47,48,50,54,55,56,57,62,63};
+ const std::array<U,2> sizes[]={{{1,1}},{{2,4}},{{4,2}},{{8,32}},{{16,64}},{{32,16}},{{32,32}},{{64,128}},{{128,64}},{{3,7}},{{17,35}},{{65,33}}};
+ for(U base:formats)for(U endian:{0u,0x40u,0x80u,0xc0u})for(auto size:sizes)for(U levels:{0u,1u,2u}){
+  if(levels==2&&size[0]==1&&size[1]==1)continue;
+  U format=0x1a200000|endian|base;
+  current="constructor-"+std::to_string(size[0])+"x"+std::to_string(size[1])+"-f"+std::to_string(format)+"-levels"+std::to_string(levels);
+  auto actual=Consume(recovered,Construct(recovered,size[0],size[1],levels,format),false);Trace expected;if(hasOriginal)expected=Consume(original,Construct(original,size[0],size[1],levels,format),false);gold.record(std::move(actual),hasOriginal?&expected:nullptr);++constructorCases;
+ }
+ for(auto size:{std::array<U,2>{0,1},std::array<U,2>{1,0},std::array<U,2>{8193,1},std::array<U,2>{1,8193}})Check(recovered.create(size[0],size[1],0,0x18280086)==nullptr,"Unsupported constructor dimensions must reject");
+ Check(!recovered.create(8,8,17,0x18280086)&&!recovered.create(8,8,0,0x18280186)&&!recovered.create(8,8,0,0x1a200001),"Unsupported constructor levels/tiled/sub-byte must reject");Isolation(recovered);
+}
+std::vector<unsigned char> Tga(U w,U h,U depth,U origin,bool rle,U pattern,U tail){
+ std::vector<unsigned char> b(18);b[0]=3;b[2]=rle?10:2;b[12]=static_cast<unsigned char>(w);b[13]=static_cast<unsigned char>(w>>8);b[14]=static_cast<unsigned char>(h);b[15]=static_cast<unsigned char>(h>>8);b[16]=static_cast<unsigned char>(depth);b[17]=static_cast<unsigned char>(origin|(depth==32?8:0));b.insert(b.end(),{'i','d','!'});
+ for(U y=0;y<h;++y)for(U x=0;x<w;++x){if(rle)b.push_back(pattern==0?0x80:0);for(U c=0;c<depth/8;++c)b.push_back(static_cast<unsigned char>(pattern==0?0:pattern==1?255:pattern==2?((x*37+y*61+c*83)&255):((x^y^(c*31))*17)&255));}
+ if(tail){const U extension=static_cast<U>(b.size());if(tail>=2){b.resize(b.size()+495);b[extension]=0xef;b[extension+1]=1;b[extension+494]=3;if(tail==3){b[extension+478]=22;b[extension+480]=10;}}
+  U footer=static_cast<U>(b.size());b.resize(b.size()+26);Store(b.data(),footer,tail>=2?extension:0);std::memcpy(b.data()+footer+8,"TRUEVISION-XFILE.\0",18);
+ }
+ return b;
+}
+std::vector<unsigned char> Dds(U w,U h,U format,U provided,U pattern){
+ std::vector<unsigned char> b(128);Store(b.data(),0,0x20534444);Store(b.data(),4,124);Store(b.data(),8,0x2100f);Store(b.data(),12,h);Store(b.data(),16,w);Store(b.data(),28,provided);Store(b.data(),76,32);Store(b.data(),108,provided>1?0x401008:0x1000);
+ bool compressed=format<=3;Store(b.data(),80,compressed?4:format==4?0x41:0x40);if(compressed)Store(b.data(),84,format==1?0x31545844:format==2?0x33545844:0x35545844);else{Store(b.data(),88,32);Store(b.data(),92,0xff0000);Store(b.data(),96,0xff00);Store(b.data(),100,0xff);Store(b.data(),104,format==4?0xff000000:0);}
+ for(U level=0;level<provided;++level){U count=compressed?((w+3)/4)*((h+3)/4)*(format==1?8:16):w*h*4;for(U i=0;i<count;++i)b.push_back(static_cast<unsigned char>(pattern==0?0:pattern==1?255:(i*53+level*71+(i>>3)*29)&255));w=std::max(1u,w>>1);h=std::max(1u,h>>1);}
+ return b;
+}
+void FileCase(Api recovered,Api original,bool hasOriginal,Gold& gold,void* rd,void* od,const std::string& path){
+ auto input=Read(path);void* p=nullptr;Isolation(recovered);const auto status=recovered.load(rd,path.c_str(),&p);Isolation(recovered);Trace actual;actual.number(static_cast<U>(status));
+ if(status>=0){auto trace=Consume(recovered,p,true);actual.add(trace.data.data(),trace.data.size());}else Check(!p,"Rejected load returned a resource");
+ Trace expected;if(hasOriginal){p=nullptr;const auto result=original.load(od,path.c_str(),&p);Check(result==0&&p,"Declared supported original file must load successfully");expected.number(static_cast<U>(result));if(result>=0){auto trace=Consume(original,p,true);expected.add(trace.data.data(),trace.data.size());}else Check(!p,"Rejected original returned resource");}
+ Check(Read(path)==input,"File loader modified source bytes");gold.record(std::move(actual),hasOriginal?&expected:nullptr);++fileCases;
+}
+void Files(Api recovered,Api original,bool hasOriginal,Gold& gold,const std::string& fixtures,const std::string& scratch){
+ void* rd=nullptr;void* od=nullptr;Check(recovered.device(0,1,nullptr,0,nullptr,&rd)==0&&rd,"Loader recovered device");if(hasOriginal)Check(original.device(0,1,nullptr,0,nullptr,&od)==0&&od,"Loader original device");
+ const std::array<U,2> sizes[]={{{1,1}},{{1,8}},{{8,1}},{{2,4}},{{4,2}},{{8,8}},{{16,32}},{{32,16}},{{32,32}},{{64,64}}};
+ for(auto size:sizes)for(U depth:{24u,32u})for(U origin:{0u,0x10u,0x20u,0x30u})for(bool rle:{false,true})for(U pattern:{0u,1u,2u,3u})for(U tail:{0u,1u,2u,3u}){
+  current="tga-"+std::to_string(size[0])+"x"+std::to_string(size[1])+"-depth"+std::to_string(depth)+"-origin"+std::to_string(origin)+"-rle"+std::to_string(rle)+"-pattern"+std::to_string(pattern)+"-tail"+std::to_string(tail);const auto path=scratch+"/input.tga";Save(path,Tga(size[0],size[1],depth,origin,rle,pattern,tail));FileCase(recovered,original,hasOriginal,gold,rd,od,path);
+ }
+ for(auto size:sizes)for(U format:{1u,2u,3u,4u,5u})for(U pattern:{0u,1u,2u}){
+  U levels=1;for(U n=std::max(size[0],size[1]);n>1;n>>=1)++levels;
+  for(U provided:{1u,levels}){if(format<=3&&provided!=levels)continue;current="dds-"+std::to_string(size[0])+"x"+std::to_string(size[1])+"-format"+std::to_string(format)+"-pattern"+std::to_string(pattern)+"-provided"+std::to_string(provided);const auto path=scratch+"/input.dds";Save(path,Dds(size[0],size[1],format,provided,pattern));FileCase(recovered,original,hasOriginal,gold,rd,od,path);}
+ }
+ for(const auto* name:{"AULegionnaireInfantry.dds","EXJapanArrow.dds","FXAlliedFutureLaser.dds","FXYurikoShieldFadeLUT.dds","JUArcherInfantry.dds","PackedImages_097_EP1.dds","SUMortarCycle.dds","apt_tacticalhudbuildqueuepage_1.tga","apt_tacticalhudmaincommandbar_1.tga","map_mp_2_feasel10_ep1_art.tga"}){current=std::string("real-")+name;FileCase(recovered,original,hasOriginal,gold,rd,od,fixtures+"/"+name);}
+ // Missing compressed mip recompression is an explicit remaining boundary,
+ // with real files retained in the corpus rather than misreported as loaded.
+ for(const auto* name:{"LURomania_vol.dds","Target_Japan_ArcherBarrage.dds"}){current=std::string("unsupported-")+name;void* p=nullptr;Check(recovered.load(rd,(fixtures+"/"+name).c_str(),&p)==static_cast<std::int32_t>(0x80004001u)&&!p,"Missing compressed mip generation must reject");Isolation(recovered);++rejections;}
+ current="missing-file";void* p=nullptr;const auto missing=scratch+"/absent.tga";const auto missingStatus=recovered.load(rd,missing.c_str(),&p);Check(missingStatus==static_cast<std::int32_t>(0x88760b59u)&&!p,"Missing-file HRESULT/output");if(hasOriginal){p=nullptr;Check(original.load(od,missing.c_str(),&p)==missingStatus&&!p,"Original missing-file HRESULT/output");}
+ // Deliberately unsupported codecs, NPOT, tiled/native dimensions and
+ // malformed metadata are only sent to recovered, never unsafe original paths.
+ U rejectionIndex=0;
+ for(auto bytes:{std::vector<unsigned char>{'P','6','\n'},Tga(3,4,32,0,false,2,0),Tga(4,4,32,0,false,2,0)}){
+  current="rejected-input-"+std::to_string(rejectionIndex++);if(rejectionIndex==3)bytes.resize(20);const auto path=scratch+"/invalid.bin";Save(path,bytes);p=nullptr;
+  Check(recovered.load(rd,path.c_str(),&p)<0&&!p,"Unsupported/truncated source must reject without resource");Isolation(recovered);++rejections;
+ }
+ current="invalid-loader-pointers";Check(recovered.load(rd,nullptr,&p)<0&&recovered.load(rd,missing.c_str(),nullptr)<0&&recovered.load(nullptr,missing.c_str(),&p)<0,"Invalid loader arguments must reject");Isolation(recovered);
+ Check(recovered.deviceRelease(rd)==0,"Loader device release");if(hasOriginal)Check(original.deviceRelease(od)==0,"Original loader device release");Isolation(recovered);
+}
+void Run(unsigned char* original,const std::string& libs,const std::string& fixtures,const std::string& prefix){
+ failurePath=prefix;std::vector<HMODULE> modules;auto recovered=Recovered(libs,modules,!original);Api baseline{};if(original)baseline=Original(original);Gold gold;std::vector<unsigned char> replay;if(!original){replay=Read(prefix+".capture");gold.replay=&replay;}
+ Constructors(recovered,baseline,original!=nullptr,gold);Files(recovered,baseline,original!=nullptr,gold,fixtures,prefix+"-inputs");if(mismatches)throw std::runtime_error("Complete loader mismatches="+std::to_string(mismatches)+" constructorCases="+std::to_string(constructorCases)+" fileCases="+std::to_string(fileCases));if(original)Save(prefix+".capture",gold.output.data);else Check(gold.offset==replay.size(),"Trailing loader capture bytes");for(auto m:modules)FreeLibrary(m);
+ std::cout<<"PASS PC native loader "<<(original?"differential":"NoOriginal")<<" constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" rgbaCopies="<<copyCases<<" explicitRejections="<<rejections<<" completeBytes="<<gold.output.data.size()<<"; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity\n";
+}
+}
+#pragma managed(pop)
+int main(array<String^>^ args){
+ try{
+  if(IntPtr::Size!=4||args->Length!=4)throw gcnew Exception("Usage: x86 original.dll|isolated native-dir fixtures capture-prefix");unsigned char* original=nullptr;
+  if(args[0]!="isolated"){auto sha=SHA256::Create();auto digest=BitConverter::ToString(sha->ComputeHash(File::ReadAllBytes(args[0])))->Replace("-","")->ToLowerInvariant();delete sha;if(digest!="4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e")throw gcnew Exception("Original loader DLL fingerprint");auto assembly=Assembly::LoadFrom(Path::GetFullPath(args[0]));auto h=Marshal::GetHINSTANCE(assembly->ManifestModule);if(h==IntPtr::Zero||h==IntPtr(-1))throw gcnew Exception("Original loader module handle");original=static_cast<unsigned char*>(h.ToPointer());}
+  Directory::CreateDirectory(Path::GetFullPath(args[3])+"-inputs");auto libs=Marshal::StringToHGlobalAnsi(Path::GetFullPath(args[1]));auto fixtures=Marshal::StringToHGlobalAnsi(Path::GetFullPath(args[2]));auto prefix=Marshal::StringToHGlobalAnsi(Path::GetFullPath(args[3]));Run(original,static_cast<const char*>(libs.ToPointer()),static_cast<const char*>(fixtures.ToPointer()),static_cast<const char*>(prefix.ToPointer()));Marshal::FreeHGlobal(libs);Marshal::FreeHGlobal(fixtures);Marshal::FreeHGlobal(prefix);return 0;
+ }catch(Exception^ e){Console::Error->WriteLine(e);}catch(const std::exception& e){std::cerr<<e.what()<<"\n";}return 1;
+}

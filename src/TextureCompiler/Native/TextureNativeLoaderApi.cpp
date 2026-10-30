@@ -23,7 +23,7 @@ U Log(U n){U e=0;for(U p=1;p<n;p<<=1)++e;return e;}
 void Blocks(U f,U& x,U& y){if(f==11||f==12||f==40){x=2;y=1;}else if(f==39||f==44){x=4;y=1;}else if((f>=18&&f<=20)||f==49||(f>=51&&f<=53)||(f>=58&&f<=61)){x=y=4;}else{x=y=1;}}
 struct Size{U width,height,bytes;};
 Size Aligned(U w,U h,U f){U bx,by;Blocks(f,bx,by);const U bytes=bx*by*Bits[f]/8,multiple=bytes?std::max(32u,256/bytes):32u;w=Round(w,bx*multiple);h=Round(h,by*32);return {w,h,Round(w*Bits[f]/8*h,4096)};}
-bool Format(U f){return (f&63)>=2&&!(f&0xc0000000u);}
+bool Format(U f){return (f&63)>=2&&!(f&0xc0000100u);}
 struct File{HANDLE value=INVALID_HANDLE_VALUE;~File(){if(value!=INVALID_HANDLE_VALUE)CloseHandle(value);}};
 std::int32_t ReadFileBytes(const char* path,std::vector<unsigned char>& bytes){
  if(!path)return Invalid;
@@ -48,7 +48,8 @@ extern "C" RECOVERED_TEXTURE_NATIVE_LOADER_API void* __stdcall TextureCreateCpuT
  for(U level=1;level<levels;++level){if(packed&&(x<=4||y<=4))break;if(x)--x;if(y)--y;secondaryBytes+=Aligned(1u<<x,1u<<y,f).bytes;}
  // All computations are bounded by 8192 dimensions and 128 bits/texel.
  auto p=GlobalAlloc(GMEM_ZEROINIT,52);if(!p)return nullptr;
- auto primary=VirtualAlloc(nullptr,base.bytes,MEM_COMMIT,PAGE_READWRITE);if(!primary){GlobalFree(p);return nullptr;}
+ U primaryBytes=base.bytes;if(!packed){U bx,by;Blocks(f,bx,by);primaryBytes=Round(base.width*Bits[f]/8*Round(height,by),4096);}
+ auto primary=VirtualAlloc(nullptr,primaryBytes,MEM_COMMIT,PAGE_READWRITE);if(!primary){GlobalFree(p);return nullptr;}
  void* secondary=nullptr;if(secondaryBytes){secondary=VirtualAlloc(nullptr,secondaryBytes,MEM_COMMIT,PAGE_READWRITE);if(!secondary){VirtualFree(primary,0,MEM_RELEASE);GlobalFree(p);return nullptr;}}
  Store(p,0,0x100003);Store(p,4,1);Store(p,0x14,0xffff0000u);Store(p,0x18,0xffff0000u);
  Store(p,0x1c,2|((base.width>>5)<<22)|((format>>7)&0x3fc)|((format&0x100)<<23));

@@ -1,0 +1,183 @@
+{
+  "scope": "read-only fixed-function byte/disassembly extraction; not native execution or production acceptance",
+  "originalPath": "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "imageBase": "0x10000000",
+  "functions": [
+    {
+      "name": "FileEntry",
+      "rvaStart": "0x13c82",
+      "rvaEndExclusive": "0x13ca7",
+      "vaStart": "0x10013c82",
+      "vaEndExclusive": "0x10013ca7",
+      "fileOffset": "0x13c82",
+      "bytes": 37,
+      "sha256": "c5a14249eebb80ad66ae871d302a32bf153bb975f6aca1a401084d92a9f18935",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "FileEntry.asm",
+      "rawBytes": "FileEntry.bin"
+    },
+    {
+      "name": "FileReadWrapper",
+      "rvaStart": "0x13b53",
+      "rvaEndExclusive": "0x13bb8",
+      "vaStart": "0x10013b53",
+      "vaEndExclusive": "0x10013bb8",
+      "fileOffset": "0x13b53",
+      "bytes": 101,
+      "sha256": "c304a03f735fa68e44ec89a3546e5d37fb97822e5a1e2369c9b904bebb9ef4e9",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "FileReadWrapper.asm",
+      "rawBytes": "FileReadWrapper.bin"
+    },
+    {
+      "name": "Memory2DWrapper",
+      "rvaStart": "0x13a9b",
+      "rvaEndExclusive": "0x13ad8",
+      "vaStart": "0x10013a9b",
+      "vaEndExclusive": "0x10013ad8",
+      "fileOffset": "0x13a9b",
+      "bytes": 61,
+      "sha256": "ee35b109400abb406c2161745a4b2f66b79f86b7c85172cc63f8e80ed2fd721d",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "Memory2DWrapper.asm",
+      "rawBytes": "Memory2DWrapper.bin"
+    },
+    {
+      "name": "TextureFromMemory",
+      "rvaStart": "0x134b8",
+      "rvaEndExclusive": "0x13a9b",
+      "vaStart": "0x100134b8",
+      "vaEndExclusive": "0x10013a9b",
+      "fileOffset": "0x134b8",
+      "bytes": 1507,
+      "sha256": "07d69b992a061196d19ad573675d45b7c83c27d16596a5342987e9175e050225",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "TextureFromMemory.asm",
+      "rawBytes": "TextureFromMemory.bin"
+    },
+    {
+      "name": "FileRead",
+      "rvaStart": "0x16bff",
+      "rvaEndExclusive": "0x16d2a",
+      "vaStart": "0x10016bff",
+      "vaEndExclusive": "0x10016d2a",
+      "fileOffset": "0x16bff",
+      "bytes": 299,
+      "sha256": "f1772611c7e01e17194fbee28ce32cd695d1ec47c4038c7b4234e0de0575761f",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "FileRead.asm",
+      "rawBytes": "FileRead.bin"
+    },
+    {
+      "name": "FileClose",
+      "rvaStart": "0x16d2a",
+      "rvaEndExclusive": "0x16d62",
+      "vaStart": "0x10016d2a",
+      "vaEndExclusive": "0x10016d62",
+      "fileOffset": "0x16d2a",
+      "bytes": 56,
+      "sha256": "df9b20b3e743ebc02c9170afe15d1e5a05e2d10136bbb107739518fea3408975",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "FileClose.asm",
+      "rawBytes": "FileClose.bin"
+    },
+    {
+      "name": "CpuTextureCreate",
+      "rvaStart": "0xdc78",
+      "rvaEndExclusive": "0xdd41",
+      "vaStart": "0x1000dc78",
+      "vaEndExclusive": "0x1000dd41",
+      "fileOffset": "0xdc78",
+      "bytes": 201,
+      "sha256": "de81ae43f52023ce385f79d4ec548753f9696c20e789da529f9b44db5e4ba7ab",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "CpuTextureCreate.asm",
+      "rawBytes": "CpuTextureCreate.bin"
+    },
+    {
+      "name": "CpuTextureHeader",
+      "rvaStart": "0xd7ea",
+      "rvaEndExclusive": "0xdabf",
+      "vaStart": "0x1000d7ea",
+      "vaEndExclusive": "0x1000dabf",
+      "fileOffset": "0xd7ea",
+      "bytes": 725,
+      "sha256": "a09f82cf213c7d8b7902da054a095807fd04bec35c20b168df95a350383501bb",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "CpuTextureHeader.asm",
+      "rawBytes": "CpuTextureHeader.bin"
+    },
+    {
+      "name": "TextureAllocation",
+      "rvaStart": "0xc9f6",
+      "rvaEndExclusive": "0xccde",
+      "vaStart": "0x1000c9f6",
+      "vaEndExclusive": "0x1000ccde",
+      "fileOffset": "0xc9f6",
+      "bytes": 744,
+      "sha256": "5c53217684e4da77e634d655fb2dbeb457d33771e5a5569484149668dc03ebca",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "TextureAllocation.asm",
+      "rawBytes": "TextureAllocation.bin"
+    },
+    {
+      "name": "StorageAlign",
+      "rvaStart": "0xc91d",
+      "rvaEndExclusive": "0xc9f6",
+      "vaStart": "0x1000c91d",
+      "vaEndExclusive": "0x1000c9f6",
+      "fileOffset": "0xc91d",
+      "bytes": 217,
+      "sha256": "d4606c3cf0efd0e1a4026fca47d1eb65f1019848e40867bf0d675e378b301022",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "StorageAlign.asm",
+      "rawBytes": "StorageAlign.bin"
+    },
+    {
+      "name": "DefaultMipFilter",
+      "rvaStart": "0x13173",
+      "rvaEndExclusive": "0x134b8",
+      "vaStart": "0x10013173",
+      "vaEndExclusive": "0x100134b8",
+      "fileOffset": "0x13173",
+      "bytes": 837,
+      "sha256": "0182ff5367d2ad8a9c2b9c770720c9ac9af5763f9a8f5b6420645c03b77248bd",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "DefaultMipFilter.asm",
+      "rawBytes": "DefaultMipFilter.bin"
+    }
+  ],
+  "disassembler": "GNU objdump (GNU Binutils for Debian) 2.44",
+  "scopeBoundary": "PC non-rendering file IO/default ordinary2D CPU texture creation and packed mip storage; read-only original evidence, no execution or production acceptance",
+  "criticalSites": [
+    {
+      "rva": "0x13c82",
+      "evidence": "default2D file call: dimensions/levels/format/filter default -1, usage0, pool1, output last"
+    },
+    {
+      "rva": "0x16c9e",
+      "evidence": "CreateFileA GENERIC_READ FILE_SHARE_READ OPEN_EXISTING FILE_FLAG_SEQUENTIAL_SCAN; file/read failure88760b59"
+    },
+    {
+      "rva": "0xdc7e",
+      "evidence": "GlobalAlloc GMEM_ZEROINIT52-byte object; VirtualAlloc MEM_COMMIT/PAGE_READWRITE primary and optional secondary; exact cleanup on OOM"
+    },
+    {
+      "rva": "0xd855",
+      "evidence": "packing2 becomes levels>1; original header stores stride in units32texels and dimensions-minus1"
+    },
+    {
+      "rva": "0xc9f6",
+      "evidence": "ordinary2D oneface, power-of-two packed-tail storage; stop mip allocations when either exponent<=4; every allocation page rounded"
+    },
+    {
+      "rva": "0x13268",
+      "evidence": "POT default mip filter5 BOX; recursive stored byte rounding verified by preserved original resource captures"
+    },
+    {
+      "managedToken": "0x06000017",
+      "evidence": "LoadImageA clears source format bits0x1c0 with fffffe3f, then XGCopySurface destination1a200006 flags12 threshold0; resource header endian tag does not imply a CPU file-upload byte swap"
+    }
+  ]
+}
