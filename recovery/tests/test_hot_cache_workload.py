@@ -258,9 +258,14 @@ class WorkloadChecks(unittest.TestCase):
     def test_partial_session_preserves_other_streams_and_hash_collection(self):
         selected = next(row for row in self.load['streamFixtures'] if row['streamId'].startswith('apt/'))
         source = str((self.mod / selected['path']).resolve())
+        entry = str(next(path for identifier, path in W.stream_entries(self.mod)
+                         if identifier == selected['streamId']).resolve())
         for compressed in (False, True):
-            payload = ('<sc d="created;18;11;1"><fic c="2"><fi><hi d="' + source +
-                       ';1;0;default;0"/><ad marker="selected"/></fi><fi><hi d="other;1;0;default;0"/>'
+            payload = ('<sc d="created;18;11;1"><fic c="4"><fi><hi d="' + source +
+                       ';1;0;default;0"/><ad marker="selected"/></fi>'
+                       '<fi><hi d="exclusive;1;0;default;0"/><ad marker="exclusive"><dsf>' + entry + '</dsf></ad></fi>'
+                       '<fi><hi d="shared;1;0;default;0"/><ad marker="shared"><dsf>' + entry + ';another-stream</dsf></ad></fi>'
+                       '<fi><hi d="other;1;0;default;0"/>'
                        '<ad marker="other"/></fi></fic></sc>').encode()
             path = self.output / ('BinaryAssetBuilder.SessionCache.xml' + ('.deflate' if compressed else ''))
             if compressed:
@@ -270,11 +275,10 @@ class WorkloadChecks(unittest.TestCase):
             result = self.apply('F07-session-partial')
             rewritten = path.read_bytes()
             root = ET.fromstring(zlib.decompress(rewritten, -15) if compressed else rewritten)
-            self.assertEqual(root.find('fic').get('c'), '2')
-            self.assertEqual(len(root.findall('./fic/fi/hi')), 2)
-            self.assertEqual(len(root.findall('./fic/fi/ad')), 1)
-            self.assertEqual(root.find('./fic/fi/ad').get('marker'), 'other')
-            self.assertEqual(result['metadataDocumentsRemoved'], 1)
+            self.assertEqual(root.find('fic').get('c'), '4')
+            self.assertEqual(len(root.findall('./fic/fi/hi')), 4)
+            self.assertEqual({node.get('marker') for node in root.findall('./fic/fi/ad')}, {'shared', 'other'})
+            self.assertEqual(result['metadataDocumentsRemoved'], 2)
             self.assertEqual(result['metadataStreamId'], selected['streamId'])
             path.unlink()
 

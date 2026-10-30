@@ -706,6 +706,8 @@ def apply_case(workload, case, destination):
                         if item['streamId'].startswith('apt/')), None)
         need(fixture is not None, 'No actual APT stream available for partial metadata loss')
         selected = str((mod / fixture['path']).resolve()).replace('\\', '/').casefold()
+        entry = next(path for identifier, path in stream_entries(mod) if identifier == fixture['streamId'])
+        selected_entry = str(entry.resolve()).replace('\\', '/').casefold()
         candidates = sorted(p for p in destination.rglob('BinaryAssetBuilder.SessionCache.xml*')
                             if p.name in ('BinaryAssetBuilder.SessionCache.xml',
                                           'BinaryAssetBuilder.SessionCache.xml.deflate'))
@@ -715,8 +717,13 @@ def apply_case(workload, case, destination):
             document = ET.fromstring(zlib.decompress(payload, -15) if compressed else payload)
             for item in document.findall('./fic/fi'):
                 identity, state = item.find('hi'), item.find('ad')
-                if identity is not None and state is not None and \
-                   identity.get('d', '').split(';')[0].replace('\\', '/').casefold() == selected:
+                if identity is None or state is None:
+                    continue
+                source = identity.get('d', '').split(';')[0].replace('\\', '/').casefold()
+                hints = {hint.replace('\\', '/').casefold() for hint in (state.findtext('dsf') or '').split(';') if hint}
+                # Drop the selected stream's exclusive document state. Shared
+                # documents retain their metadata for the other real streams.
+                if source in (selected, selected_entry) or hints == {selected_entry}:
                     item.remove(state)
                     metadata_documents += 1
             if metadata_documents:
