@@ -1,0 +1,1 @@
+PASS native PC consumer NoOriginal realSourceFixtures=12 traceBytes=21042411; all stored native allocations/levels/headers, three locks per level, descriptors/refcount/final release; five native libraries; actual raw endian/swizzle copies=120; full conversion output/padding/guards, capture loader remains oracle-only; no recovered image-loader/production-package claim

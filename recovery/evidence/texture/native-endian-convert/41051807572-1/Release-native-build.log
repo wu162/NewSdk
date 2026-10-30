@@ -1,0 +1,38 @@
+BC.cpp
+TexturePublicBcApi.cpp
+TexturePublicBcCopy.cpp
+TextureNativeCopyApi.cpp
+TextureNativeConvertApi.cpp
+Generating Code...
+   Creating library D:\a\_temp\texture-native-endian-convert-2474caeb468745b9af0bd335df2d4c66\Release/native-copy.lib and object D:\a\_temp\texture-native-endian-convert-2474caeb468745b9af0bd335df2d4c66\Release/native-copy.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-native-endian-convert-2474caeb468745b9af0bd335df2d4c66\Release\Recovered.TextureNativeCopy.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeCopy.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           4 number of functions
+           4 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00002AB0 TextureCopySurface
+          2    1 00002B60 TextureCopySurfaceIdentity
+          3    2 00002AB0 _TextureCopySurface@48
+          4    3 00002B60 _TextureCopySurfaceIdentity@48
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        9000 .rdata
+        2000 .reloc
+       18000 .text

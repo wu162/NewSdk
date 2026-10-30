@@ -1,0 +1,33 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "passed",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "nativeSha256": "08d930c8f2977c0292980364524d34b22f88a3e25b7b4628a2fbebc4e1d10ae2",
+      "captureSha256": "8eb89b1953a09876aa4f6c476ddfe279a0b494938c44bdefd71b591e96da8a3d",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS native PC s10e5/float32 conversion differential cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC s10e5/float32 conversion NoOriginal cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay"
+      ]
+    },
+    {
+      "configuration": "Release",
+      "nativeSha256": "c2d5b39d525e1b70729cef6fe5f2cb8fc2a6734ff6c61f985433106ecc441bb2",
+      "captureSha256": "8eb89b1953a09876aa4f6c476ddfe279a0b494938c44bdefd71b591e96da8a3d",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS native PC s10e5/float32 conversion differential cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC s10e5/float32 conversion NoOriginal cases=46262 formatPairs=1444 numericStates=8 mappings=4 exhaustiveStrips=54 exhaustivePixels=3538944 traceBytes=57859176; full source/output/padding/guards, thresholds and isolated replay"
+      ]
+    }
+  ],
+  "sourceCommit": "e5e2c97981f4369331807cb17f76165d8509eab5",
+  "runAttempt": "1",
+  "scope": "XGCopySurface s10e5/float32 conversion: 38 layouts/1444 format pairs/8 numeric states, all65536 half patterns/float exponents/signed half midpoint and neighbor strips/selectors/constants/clipping/threshold/full bytes and NoOriginal; gamma/endian/compression/filter/overlap and production package excluded",
+  "runId": "41051807572",
+  "sdkValidated": false
+}

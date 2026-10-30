@@ -1,0 +1,5 @@
+
+Unhandled Exception: System.AccessViolationException: Attempted to read or write protected memory. This is often an indication that other memory is corrupt.
+   at ?A0x35f9ccfc.Run(Byte* , basic_string<char\,std::char_traits<char>\,std::allocator<char> >* , basic_string<char\,std::char_traits<char>\,std::allocator<char> >* , basic_string<char\,std::char_traits<char>\,std::allocator<char> >* )
+   at main(String[] args)
+   at mainCRTStartupStrArray(String[] arguments)

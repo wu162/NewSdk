@@ -1,0 +1,22 @@
+PROBE completed file blocks=1536 decode=0 encode0=0 dither30000=0
+PROBE filtered file blocks=16632 decode=0 encode0=0 dither30000=0
+PROBE float DDS filter cases=360 mismatches=0
+PROBE default DDS cases=1572 mismatches=0
+PROBE D3DX file blockCases=1536 decodeBitMismatches=0
+FILE_POLICY flags=0 encodeMismatch=0 ditherMismatch=1500
+FILE_POLICY flags=10000 encodeMismatch=1086 ditherMismatch=1462
+FILE_POLICY flags=20000 encodeMismatch=1462 ditherMismatch=1121
+FILE_POLICY flags=30000 encodeMismatch=1500 ditherMismatch=0
+FILE_POLICY flags=40000 encodeMismatch=1512 ditherMismatch=1531
+FILE_POLICY flags=50000 encodeMismatch=1527 ditherMismatch=1529
+FILE_POLICY flags=60000 encodeMismatch=1524 ditherMismatch=1530
+FILE_POLICY flags=70000 encodeMismatch=1531 ditherMismatch=1522
+PROBE public D3DX BC blockCases=1536 ddsCases=168 decodeBitMismatches=0 originalUnstable=0; diagnostic only, no production acceptance or NoOriginal claim
+POLICY flags=0 encodeMismatch=0 ddsWrapMismatch=23 ddsClampMismatch=68
+POLICY flags=10000 encodeMismatch=1156 ddsWrapMismatch=47 ddsClampMismatch=84
+POLICY flags=20000 encodeMismatch=983 ddsWrapMismatch=57 ddsClampMismatch=79
+POLICY flags=30000 encodeMismatch=1407 ddsWrapMismatch=42 ddsClampMismatch=84
+POLICY flags=40000 encodeMismatch=1512 ddsWrapMismatch=38 ddsClampMismatch=69
+POLICY flags=50000 encodeMismatch=1533 ddsWrapMismatch=62 ddsClampMismatch=84
+POLICY flags=60000 encodeMismatch=1518 ddsWrapMismatch=57 ddsClampMismatch=79
+POLICY flags=70000 encodeMismatch=1533 ddsWrapMismatch=62 ddsClampMismatch=84
