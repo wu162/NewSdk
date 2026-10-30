@@ -1,8 +1,30 @@
-# TextureCompiler 可复用公开实现核查（2026-10-25）
+# TextureCompiler 公开实现优先与来源索引
+
+## 当前执行路线（2026-10-30）
+
+**所有后续贴图还原，优先用网上已有实现来适配。** 不默认从零重写，也不只查到源码后把它当参考材料另写一遍。先使用本索引和仓库已有复用成果，再为具体缺口补查上游；候选须在实际采用时固定提交与文件指纹。下列是优先核查入口，不代表其默认输出已与原版一致，也不表示本次文档更新已开始接入。
+
+| 能力 | 优先核查的公开实现 |
+| --- | --- |
+| BC1/2/3（DXT1/3/5）编解码、D3DX重编码 | [Microsoft DirectXTex BC.cpp](https://github.com/microsoft/DirectXTex/blob/main/DirectXTex/BC.cpp)、[BC.h](https://github.com/microsoft/DirectXTex/blob/main/DirectXTex/BC.h)；其接口包含D3DXEncode/DecodeBC1/2/3，应优先适配到原版 |
+| 文件加载、格式转换、缩放/NPOT、过滤/mip | [Wine d3dx9_36](https://github.com/wine-mirror/wine/tree/master/dlls/d3dx9_36)、[DirectXTex](https://github.com/microsoft/DirectXTex/tree/main/DirectXTex)中的相关实现 |
+| TGA/PNG/BMP/JPEG等raster解码 | DirectXTex TGA/WIC、[stb_image](https://github.com/nothings/stb/blob/master/stb_image.h)、libpng、IJG/libjpeg；先核对并复用仓库已接入的对应源码 |
+| 已有兼容成果 | [公开复用结果](TEXTURE_PUBLIC_REUSE_RESULTS.md)与当前各格式交接；已通过的上游适配无需重复从头调查 |
+
+执行顺序：
+
+1. 确认真实输入、调用参数和完整输出，选择现成实现；记录上游URL、固定提交、通知与原始指纹，不按许可类型直接排除候选。
+2. 在独立测试分支接入源码，优先调整一般性的包装、布局、浮点/量化、过滤、端点搜索/误差平局与索引规范化。原版反编译和探针用于解释差异，不替代公开实现路线。
+3. 原样输出不匹配时继续兼容修改，不能据一次结果放弃；禁止样本ID特判、gold查表、回调原DLL或既有恢复编解码后端冒充上游适配。只对确实缺失或具体适配后仍不适合的部分记录原因并手写补齐。
+4. 连贯消费链稳定后集中取得完整逐字节差分、D/R、NoOriginal与必要实际消费/SDK证据，再普通合入并启用；未通过的候选继续留在测试分支，不把同格式或视觉一致算作还原完成。禁止强推。
+
+仅PC范围、验证降频与正式正确性门槛按[AGENTS](../AGENTS.md)和[测试规则](TEXTURE_TESTING.md)执行。用户仅提问时不自动下载/改代码；仅改文档时不运行验证。当前成果与下一任务统一见[RESUME](RESUME.md)。
+
+## 2026-10-25 历史调研
 
 > **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
 
-本轮按用户要求阅读公开源码，以下为实际适配判断；没有把仅提供头文件或静态库的项目误记为压缩核心源码。当前恢复实现仍以原DLL的IL/native差分为准，未直接引入下列第三方代码或二进制。
+以下保留2026-10-25时点的调查结论，不能据此断言当前尚未复用第三方源码，或把旧的未匹配结论当作不再适配的理由。仅提供头文件/静态库不等于公开压缩核心源码；当前复用成果按上方入口及RESUME核实。
 
 ## 旧 NVIDIA DDS Utilities：准确 ABI 依据，核心未开源
 
