@@ -16,7 +16,8 @@ public:
     // Core validates the document before plugin dispatch.
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
         if (node == nullptr) throw gcnew ArgumentNullException("node");
-
+        if (namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
+        if (node->LocalName != "LogicCommandSet") throw gcnew NotSupportedException("Expected LogicCommandSet root");
         XmlNodeAdapter^ adapter = gcnew XmlNodeAdapter(node->CreateNavigator(), namespaces);
         std::vector<std::string> commands;
         XPathNodeIterator^ children = adapter->Children("Cmd");
@@ -66,9 +67,9 @@ System::Collections::Generic::List<XmlNode^>^ XmlattributesChildren(XmlNode^ nod
     return result;
 }
 void XmlattributesRoot(XmlNode^ node, XmlNamespaceManager^ ns, String^ name) {
-        if(ns == nullptr) throw gcnew ArgumentNullException("namespaces");
+    if(ns == nullptr) throw gcnew ArgumentNullException("namespaces");
     if(node == nullptr) throw gcnew ArgumentNullException("node");
-
+    if(node->LocalName != name) throw gcnew NotSupportedException("Expected " + name + " root");
 }
 array<Byte>^ XmlattributesCopy(const std::vector<unsigned char>& source) {
     auto result=gcnew array<Byte>(static_cast<int>(source.size()));
@@ -120,12 +121,10 @@ public:
                     input.filter=XmlattributesRead(item,false);
                     for each(XmlNode^ entry in XmlattributesChildren(item)) {
 
-
                         input.filterLists[entry->LocalName == "IncludeThing"?0:1].push_back(marshal_as<std::string>(entry->InnerText));
                     }
                     continue;
                 }
-
 
                 int index=item->LocalName == "RequiredObject"?0:item->LocalName == "ForbiddenUpgrade"?1:2;
                 input.dependencyLists[index].push_back(marshal_as<std::string>(item->InnerText));

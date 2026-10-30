@@ -23,7 +23,6 @@ struct Layout { unsigned size,typeId;const Field* fields;unsigned fieldCount;con
 #include "XmlplayersEnums.inc"
 bool Metadata(const std::string& name) { return name=="TypeId"; }
 
-bool HasText(const XmlplayersNode& node) { return node.value.find_first_not_of(" \t\r\n")!=std::string::npos; }
 void Swap(void* p) { auto b=static_cast<unsigned char*>(p);std::swap(b[0],b[3]);std::swap(b[1],b[2]); }
 XmlaiNode AiNode(const XmlplayersNode& node) {
     XmlaiNode a;a.name=node.name;a.value=node.value;a.attributes=node.attributes;

@@ -8,9 +8,7 @@ using namespace msclr::interop;
 namespace Recovered {
 ref class XmleffectsXml abstract sealed {
 public:
-    static void Attributes(XmlNode^ node, array<String^>^ allowed) {
 
-    }
     static void Root(XmlNode^ node, String^ name) {
         if (node == nullptr) throw gcnew ArgumentNullException("node");
         if (node->NodeType != XmlNodeType::Element || node->LocalName != name ||
@@ -31,9 +29,6 @@ public:
         return result;
     }
 
-    static void Children(XmlNode^ node, array<String^>^ allowed, bool repeated) {
-
-    }
     static XmlNode^ Child(XmlNode^ node, String^ name) {
         for each(XmlNode^ child in node->ChildNodes)
             if(child->NodeType == XmlNodeType::Element && child->LocalName == name && child->NamespaceURI == node->NamespaceURI) return child;
@@ -58,7 +53,7 @@ public:
         XmlNode^ child=Child(owner,name);
         if(child == nullptr) return;
         array<String^>^ axes=rgb ? gcnew array<String^>{"R","G","B"} : gcnew array<String^>{"x","y","z"};
-        Attributes(child,axes); Empty(child);
+
         String^ fallback = nullptr;
         if (!rgb) fallback = "0.0";
         for(int i=0;i<3;++i) Field(child,axes[i],fallback,offset+4*i,Native::EffectFloat,nullptr,input);
@@ -67,7 +62,7 @@ public:
     static void NuggetRandom(XmlNode^ owner, String^ name, unsigned int offset, Native::XmleffectsNuggetInput& input) {
         XmlNode^ node=Child(owner,name);
         if(node==nullptr) return;
-        Attributes(node,gcnew array<String^>{"Type","Low","High"}); Empty(node);
+
         Field(node,"Type","UNIFORM",offset,Native::EffectEnum,"DistributionType",input);
         Field(node,"Low",nullptr,offset+4,Native::EffectFloat,nullptr,input);
         Field(node,"High",nullptr,offset+8,Native::EffectFloat,nullptr,input);
@@ -145,7 +140,7 @@ public:
             Field(node,"Type","RANDOM",44,Native::EffectEnum,"TerrainScorchType",input);
             Field(node,"Radius",nullptr,48,Native::EffectFloat,nullptr,input);
             if(Child(node,"RandomRange") != nullptr) {
-                XmlNode^ range=Child(node,"RandomRange"); Attributes(range,gcnew array<String^>{"Low","High"}); Empty(range);
+                XmlNode^ range=Child(node,"RandomRange");
                 input.hasRange=true; input.rangeLow=Attr(range,"Low","SCORCH_1"); input.rangeHigh=Attr(range,"High","SCORCH_4");
             } break;
 
@@ -177,7 +172,7 @@ public:
             Field(node,"Lifetime",nullptr,88,Native::EffectTime,nullptr,input);
             Field(node,"AllowOnObjects","true",105,Native::EffectBoolean,nullptr,input);
             if(Child(node,"Color")!=nullptr) {
-                XmlNode^ color=Child(node,"Color"); Attributes(color,gcnew array<String^>{"R","G","B","A"}); Empty(color);
+                XmlNode^ color=Child(node,"Color");
                 input.hasPackedColor=true;
                 array<String^>^ channels={"R","G","B","A"};
                 for(int i=0;i<4;++i) {
@@ -187,7 +182,7 @@ public:
                 }
             }
             if(Child(node,"Offset")!=nullptr) {
-                XmlNode^ offset=Child(node,"Offset"); Attributes(offset,gcnew array<String^>{"x","y"}); Empty(offset);
+                XmlNode^ offset=Child(node,"Offset");
                 Field(offset,"x","0.0",96,Native::EffectFloat,nullptr,input); Field(offset,"y","0.0",100,Native::EffectFloat,nullptr,input);
             } break;
         }
@@ -207,12 +202,12 @@ public:
             Field(node,"SetTargetMatrix",nullptr,144,Native::EffectBoolean,nullptr,input);
             Field(node,"OnlyIfOnWater",nullptr,145,Native::EffectBoolean,nullptr,input);
             if(Child(node,"Rotate")!=nullptr) {
-                XmlNode^ rotate=Child(node,"Rotate"); Attributes(rotate,gcnew array<String^>{"X","Y","Z"}); Empty(rotate);
+                XmlNode^ rotate=Child(node,"Rotate");
                 Field(rotate,"X",nullptr,76,Native::EffectAngle,nullptr,input); Field(rotate,"Y",nullptr,80,Native::EffectAngle,nullptr,input); Field(rotate,"Z",nullptr,84,Native::EffectAngle,nullptr,input);
             }
             Vector(node,"Offset",88,false,input);
             if(Child(node,"TargetOffset")!=nullptr) {
-                XmlNode^ offset=Child(node,"TargetOffset"); Attributes(offset,gcnew array<String^>{"x","y","z"}); Empty(offset);
+                XmlNode^ offset=Child(node,"TargetOffset");
                 input.hasTargetOffset=true;
                 array<String^>^ axes={"x","y","z"};
                 for(int i=0;i<3;++i) input.targetOffset[i]=Attr(offset,axes[i],"0.0");
@@ -221,8 +216,7 @@ public:
         }
         default: input.size=44; break; // Original unknown-polymorphic base fallback writes TypeId zero.
         }
-        Attributes(node,attrs->ToArray());
-        Children(node,children->ToArray(),true);
+
         // Only the disabled enum list is repeatable. Other scalar children must be unique.
 
         array<String^>^ conditions={"RequiredSecondaryModelConditions","ExcludedSecondaryModelConditions","RequiredSourceModelConditions","ExcludedSourceModelConditions"};
@@ -241,27 +235,21 @@ public:
             XmlNode^ filter=Child(node,filterNames[i]);
             if(filter==nullptr) continue;
             input.hasFilters[i]=true;
-            Attributes(filter,gcnew array<String^>{"id","Rule","Relationship","Alignment","Include","Exclude","StatusBitFlags","StatusBitFlagsExclude"});
-            Children(filter,gcnew array<String^>{"IncludeThing","ExcludeThing"},true);
+
             for each(XmlAttribute^ attr in filter->Attributes) if(attr->NamespaceURI->Length==0 && attr->LocalName!="TypeId")
                 input.filters[i].attributes[marshal_as<std::string>(attr->LocalName)]=marshal_as<std::string>(attr->Value);
             for each(XmlNode^ child in filter->ChildNodes) if(child->NodeType==XmlNodeType::Element) {
-                Attributes(child,gcnew array<String^>(0));
 
                 if(child->LocalName=="IncludeThing") input.filters[i].includeThings.push_back(marshal_as<std::string>(child->InnerText));
                 else input.filters[i].excludeThings.push_back(marshal_as<std::string>(child->InnerText));
             }
         }
         for each(XmlNode^ child in node->ChildNodes) if(child->NodeType==XmlNodeType::Element && child->LocalName=="SourceMustNotHaveBeenDisabledThisFrameByType") {
-            Attributes(child,gcnew array<String^>(0));
 
             input.disabled.push_back(marshal_as<std::string>(child->InnerText));
         }
     }
 
-    static void Empty(XmlNode^ node) {
-
-    }
 };
 public ref class FXListCompiler abstract sealed {
 public:
@@ -269,22 +257,12 @@ public:
         if (namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
         XmleffectsXml::Root(node, "FXList");
 
-        array<String^>^ allowed = {"id", "TypeId", "PlayEvenIfShrouded", "Tailorable", "CullTracking", "CullTrackingMin", "CullTrackingMax"};
-        XmleffectsXml::Attributes(node, allowed);
         // BAB annotates the root as well as polymorphic children. It is
         // metadata, not a serialized FXList field; reject mismatched routing.
         XmlAttribute^ rootTypeId=node->Attributes["TypeId"];
         if(rootTypeId!=nullptr && Native::ParseUnsigned(marshal_as<std::string>(rootTypeId->Value))!=2254974584u)
             throw gcnew NotSupportedException("Mismatched FXList root TypeId");
 
-        for each (XmlNode^ child in node->ChildNodes) {
-            if (child->NodeType == XmlNodeType::Element) {
-
-                XmleffectsXml::Attributes(child, gcnew array<String^>(0));
-                // Each child is dispatched by its schema-preprocessed numeric TypeId.
-
-            } else ;
-        }
         XmlNodeAdapter^ adapter = gcnew XmlNodeAdapter(node->CreateNavigator(), namespaces);
         Native::XmleffectsFXListInput input;
         XmlNode^ listNode = XmleffectsXml::Child(node,"NuggetList");
