@@ -79,7 +79,15 @@ function PublishedTimes([string]$Destination){
 function LinkedHot($Case,$Before){
     Need ($Case.report.cache.linkedStreamsRestored -gt 0) 'Hot build did not restore linked output'
 
-    if(@($Case.report.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq 0){Need ($Case.report.cache.fileHashReads -eq 0) 'Unchanged four-stream build reread complete files for SHA256'}
+    if(@($Case.report.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq 0){
+        if($Case.report.cache.sessionCache){
+            Need ($Case.report.cache.fileHashReads -eq 0) 'Unchanged BAB session reread file contents'
+        } else {
+            # Without SessionCache every FileHashItem is new. The original game
+            # FastHash is required; the old receipt counter hid these real reads.
+            Need ($Case.report.cache.fileHashReads -gt 0) 'Disabled session did not compute required input FastHashes'
+        }
+    }
     $after=PublishedTimes $Case.destination
     Need ($after.Count -eq $Before.Count) 'Unchanged publication file set differs'
     foreach($path in $Before.Keys){Need ($after[$path] -eq $Before[$path]) 'Unchanged publication rewrote a file'}

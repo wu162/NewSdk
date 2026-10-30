@@ -62,7 +62,7 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
         } elseif($Name -eq 'log-directory-rejected') {
             Need ($Expected -eq 2 -and (Get-Content (Join-Path $caseOut 'stderr.log') -Raw).Contains('CLI_LOG_PATH')) 'Diagnostic directory must be refused during argument parsing'
             Need ($null -eq $body -and $rows.Count -eq 0) 'Invalid diagnostic path started a build'
-        } elseif($Name -eq 'required-log-fault') {
+        } elseif($Name -eq 'required-events-fault') {
             Need ($audit.readLockHeld -and $audit.readLockPath -ceq $HoldReadFile) 'External controller did not hold the real required-output file against replacement'
             Need ($Expected -eq 7 -and (Get-Content (Join-Path $caseOut 'stderr.log') -Raw).Contains('OUTPUT_FAILED')) 'Required output channel failure must explicitly fail output with exit7'
         } else {
@@ -247,11 +247,14 @@ try {
         # A read handle permits read-only parsing/physical-path inspection, but
         # withholds FILE_SHARE_DELETE so the real sink cannot replace its file.
         $fault=Join-Path $modeWork 'blocked-log.txt';[IO.File]::WriteAllText($fault,'held output')
-        $logFault=RunCli 'required-log-fault' 'build' $mod $sdk 'base' 7 0 $false @('--log',$fault) $fault
-        Need ([IO.File]::ReadAllText($fault) -ceq 'held output') 'Required-log fault truncated or replaced the held file'
+        $logFault=RunCli 'required-events-fault' 'build' $mod $sdk 'base' 7 0 $false @('--events',$fault) $fault
+        Need ([IO.File]::ReadAllText($fault) -ceq 'held output') 'Required event fault truncated or replaced the held file'
+        $optionalLogFault=RunCli 'optional-log-fault' 'build' $mod $sdk 'base' 0 1 $false @('--log',$fault) $fault
+        Need ([IO.File]::ReadAllText($fault) -ceq 'held output') 'Optional-log fault truncated or replaced the held file'
+        EqualTask $combined $optionalLogFault 'base'
         $afterLogFault=RunCli 'retry-after-log-fault' 'build' $mod $sdk 'base' 0 1 $false @('--log',$fault)
         EqualTask $combined $afterLogFault 'base'
-        Need ([IO.File]::ReadAllText($fault).Contains('BuildFinished')) 'Retry did not reuse the released required log path'
+        Need ([IO.File]::ReadAllText($fault).Contains('BuildFinished')) 'Retry did not reuse the released optional log path'
         $cancelled=RunCli 'ctrl-break' 'build' $mod $sdk 'base,apt,maps' 6 1 $true
         Need ($cancelled.report.status -ceq 'cancelled' -and @($cancelled.report.artifacts).Count -eq 0) 'Actual cancellation report accepted output'
         $afterCancel=RunCli 'retry-after-cancel' 'build' $mod $sdk 'base' 0 1

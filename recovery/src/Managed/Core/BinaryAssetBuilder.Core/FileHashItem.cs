@@ -201,7 +201,8 @@ public class FileHashItem : IXmlSerializable
 	{
 		using var performance = PerformanceScope.Measure("core.filehash.read");
 		AsynchronousFileReader asynchronousFileReader = new AsynchronousFileReader(_Path);
-		uint hash = asynchronousFileReader.FileSize;
+		uint size = asynchronousFileReader.FileSize;
+		uint hash = size;
 		while (asynchronousFileReader.BeginRead())
 		{
 			hash = FastHash.GetHashCode(hash, asynchronousFileReader.CurrentChunk.Data, asynchronousFileReader.CurrentChunk.BytesRead);
@@ -209,6 +210,6 @@ public class FileHashItem : IXmlSerializable
 		}
 		_CurrentHash = hash;
 		_CurrentHashValid = true;
-		Settings.Current?.FileHashRead?.Invoke(asynchronousFileReader.FileSize);
+		Settings.Current?.FileHashRead?.Invoke(size);
 	}
 }

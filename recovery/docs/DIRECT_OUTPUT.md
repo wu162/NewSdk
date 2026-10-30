@@ -10,9 +10,13 @@
 
 并行仍限制于已审查的内建实现。Audio 非 NONE/XAS 路径写共享 `PcmWaveAudioCompiler.compressionWarning`，其它 Audio 路由的 Tracer 回调直接修改未同步的 BuildSession 诊断列表和 EventDispatcher 序号/写入器；显式采样率可扩大输出（400→96000 的倍率超过现有外部输入预算），本轮没有为了放开它新增准备读取/估算机制。保留 Win32 虚拟内存限额、输入读租约和失败/取消 join。Texture 混合 DLL 构建/发行验收未删除。
 
+关闭 SessionCache 时，新的 FileHashItem 仍必须读取输入以产生原版 FastHash；被删 SHA 收据以前没有统计这部分真实读取。本轮将 fileHashReads/fileHashBytesRead 对齐到实际 Core 读取，基准另外分别记录 Core FastHash 次数与 SHA256 次数，不能把两种旧/新计数直接当作相同指标。开启会话的热态仍严格要求零内容读取。
+
 最终报告在唯一 BuildFinished 和事件关闭之后序列化一次，包含必需通道关闭的失败。报告写失败只能通过 stderr/退出码告知，不能保证损坏通道自身有最终记录；消费者仍结合进程退出码、事件和报告。文本日志可选，JSONL/报告必需。后续诊断错误不会删除已生成 BIG/SKUDEF。
 
 验收统一使用 `compiler-defensive-cleanup.yml`：两配置 App/完整产品、Core、真实 CLI 取消、SessionCache/BuildAssetCache/旧缓存导入/Audio/Texture/W3X、并行矩阵、BIG/SKUDEF 原字节、完整 mymod 原 BAB 对照、热态编辑/依赖传播与协议。基线和当前 Release 在同一 Windows VM 各执行 18 次相同输入（36 次配对轮次采样）；计时样本使用 GetProcessIoCounters，另外四次 Process Monitor 样本记录文件打开/目录查询/侧车操作，采样开销不混入耗时对比。未验证前不宣称通过或加速。
+
+首轮 `273c48ce` / [41055297401](https://github.com/wu162/NewSdk/actions/runs/41055297401) 的完整 mymod 原 SDK 差分、原资产缓存/载荷、并行/Texture、56 样本热缓存及全部 36 正常计时字节对照通过，但整轮失败：缺少测试的读取计数回调、把可选文本日志仍当必需输出、读取已删侧车的旧 BIG 断言、关闭会话时误将原 FastHash 读取视为 SHA 审核，以及 Process Monitor 第二实例 `/WaitForIdle` 超时。原失败保留；已集中修正。读取字节计数在异步读取器关闭前保存长度，避免结束后 FileSize 返回 0。最终候选仍待独立验收。
 
 
 # 历史：直接产物与原 SDK 缓存

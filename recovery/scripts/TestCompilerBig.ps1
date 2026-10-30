@@ -88,8 +88,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[string]$Selecti
                     Need ([IO.Path]::GetDirectoryName([string]$row.payload.Path) -ceq $publishedRoot) 'BIG/SKUDEF was not generated in the final directory'
                     Need (@($body.artifacts|Where-Object{$_.Path -ceq $row.payload.Path -and $_.Size -eq $row.payload.Size}).Count -eq 1) 'Package event and current report differ'
                 }
-                $identities=Get-Content -LiteralPath (Join-Path $Destination '.file-identities.json') -Raw|ConvertFrom-Json
-                Need ($null -eq $identities.entries.PSObject.Properties['package|v1']) 'BIG build persisted a removed package-cache receipt'
+                Need (!(Test-Path -LiteralPath (Join-Path $Destination '.file-identities.json'))) 'BIG build recreated the removed file-hash sidecar'
             }
             $published=Join-Path $Destination 'published'
             foreach($artifact in $body.artifacts){
