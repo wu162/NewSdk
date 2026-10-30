@@ -180,4 +180,5 @@ jobs:
       - name: Save compilation diagnostics with an ordinary push
         if: always()
         shell: pwsh
-        run: ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/native-bc-build/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record native BC compile-only diagnostics $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+        run: |
+          ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/native-bc-build/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record native BC compile-only diagnostics $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
