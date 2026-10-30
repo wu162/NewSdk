@@ -70,24 +70,30 @@ void Diagnostic(unsigned char* original,const std::string& libs,const std::strin
  // Compare the distinct D3DX file codec, including its premultiply wrapper,
  // against the actual original entry points. Keep all full floats/blocks and
  // every fixed policy, independent of the existing XG contract above.
- U ddsDecodeMismatch=0,ddsBlockCases=0;std::array<U,8> ddsEncodeMismatch{},ddsDitherMismatch{};
- for(U format:{18u,19u,20u})for(U sample=0;sample<512;++sample){
-  current="bc-file-block-f"+std::to_string(format)+"-"+std::to_string(sample);const U size=format==18?8:16;
-  std::array<unsigned char,16> block;for(auto& byte:block)byte=static_cast<unsigned char>(sample==0?0:sample==1?255:next()>>24);
-  std::array<float,64> a{},b{},actual{},pixels{};for(U i=0;i<64;++i)pixels[i]=sample<8?static_cast<float>((sample*37)&255)/255.f:static_cast<float>(next()&255)/255.f;
+ U ddsDecodeMismatch=0,ddsBlockCases=0,filteredDecodeMismatch=0,filteredBlockCases=0;
+ std::array<U,8> ddsEncodeMismatch{},ddsDitherMismatch{},filteredEncodeMismatch{},filteredDitherMismatch{};
+ auto fileBlock=[&](U format,const void* sourceBlock,const float* pixels,bool derived){
+  const U size=format==18?8:16;std::array<float,64> a{},b{},actual{},before{};std::memcpy(before.data(),pixels,256);
   const U drva=format==18?0x29895:format==19?0x2a4f4:0x2a507,erva=format==18?0x29cee:format==19?0x2a51a:0x2a532;
   const auto originalDecode=reinterpret_cast<DdsDecode>(original+drva);const auto originalEncode=reinterpret_cast<DdsEncode>(original+erva);
-  Check(originalDecode(a.data(),block.data())==0&&originalDecode(b.data(),block.data())==0,"Original D3DX file block decode");
-  Check(decodeDds(block.data(),size,4,4,format,actual.data(),64)==0,"Candidate file decode");
-  Trace t;t.number(format);t.add(block.data(),size);t.add(a.data(),sizeof(a));t.add(b.data(),sizeof(b));t.add(actual.data(),sizeof(actual));t.add(pixels.data(),sizeof(pixels));
-  if(std::memcmp(a.data(),b.data(),sizeof(a)))++unstable;if(std::memcmp(a.data(),actual.data(),sizeof(a)))++ddsDecodeMismatch;
+  Check(originalDecode(a.data(),sourceBlock)==0&&originalDecode(b.data(),sourceBlock)==0,"Original D3DX file block decode");
+  Check(decodeDds(sourceBlock,size,4,4,format,actual.data(),64)==0,"Candidate file decode");
+  Trace t;t.number(format);t.add(sourceBlock,size);t.add(a.data(),sizeof(a));t.add(b.data(),sizeof(b));t.add(actual.data(),sizeof(actual));t.add(pixels,256);
+  if(std::memcmp(a.data(),b.data(),sizeof(a)))++unstable;if(std::memcmp(a.data(),actual.data(),sizeof(a)))++(derived?filteredDecodeMismatch:ddsDecodeMismatch);
   std::array<unsigned char,16> encoded{},dither{},repeat{},repeatDither{};
-  Check(originalEncode(encoded.data(),pixels.data(),0)==0&&originalEncode(repeat.data(),pixels.data(),0)==0,"Original D3DX file encode");
-  Check(originalEncode(dither.data(),pixels.data(),1)==0&&originalEncode(repeatDither.data(),pixels.data(),1)==0,"Original D3DX file dither encode");
+  Check(originalEncode(encoded.data(),pixels,0)==0&&originalEncode(repeat.data(),pixels,0)==0,"Original D3DX file encode");
+  Check(originalEncode(dither.data(),pixels,1)==0&&originalEncode(repeatDither.data(),pixels,1)==0,"Original D3DX file dither encode");
   if(std::memcmp(encoded.data(),repeat.data(),size)||std::memcmp(dither.data(),repeatDither.data(),size))++unstable;
   t.add(encoded.data(),size);t.add(repeat.data(),size);t.add(dither.data(),size);t.add(repeatDither.data(),size);
-  for(U policy=0;policy<8;++policy){std::array<unsigned char,16> output{};Check(encodeDds(output.data(),size,4,4,format,pixels.data(),64,policy<<16,0.5f,0)==0,"Candidate file encode");if(std::memcmp(encoded.data(),output.data(),size))++ddsEncodeMismatch[policy];if(std::memcmp(dither.data(),output.data(),size))++ddsDitherMismatch[policy];t.number(policy<<16);t.add(output.data(),size);}
-  record(t);++ddsBlockCases;
+  for(U policy=0;policy<8;++policy){std::array<unsigned char,16> output{};Check(encodeDds(output.data(),size,4,4,format,pixels,64,policy<<16,0.5f,0)==0,"Candidate file encode");if(std::memcmp(encoded.data(),output.data(),size))++(derived?filteredEncodeMismatch[policy]:ddsEncodeMismatch[policy]);if(std::memcmp(dither.data(),output.data(),size))++(derived?filteredDitherMismatch[policy]:ddsDitherMismatch[policy]);t.number(policy<<16);t.add(output.data(),size);}
+  Check(!std::memcmp(before.data(),pixels,256),"File block encoder modified input");
+  record(t);++(derived?filteredBlockCases:ddsBlockCases);
+ };
+ for(U format:{18u,19u,20u})for(U sample=0;sample<512;++sample){
+  current="bc-file-block-f"+std::to_string(format)+"-"+std::to_string(sample);
+  std::array<unsigned char,16> block;for(auto& byte:block)byte=static_cast<unsigned char>(sample==0?0:sample==1?255:next()>>24);
+  std::array<float,64> pixels{};for(U i=0;i<64;++i)pixels[i]=sample<8?static_cast<float>((sample*37)&255)/255.f:static_cast<float>(next()&255)/255.f;
+  fileBlock(format,block.data(),pixels.data(),false);
  }
  std::cout<<"PROBE completed file blocks="<<ddsBlockCases<<" decode="<<ddsDecodeMismatch<<" encode0="<<ddsEncodeMismatch[0]<<" dither30000="<<ddsDitherMismatch[3]<<std::endl;
  void* device=nullptr;Check(baseline.device(0,1,nullptr,0,nullptr,&device)==0&&device,"Diagnostic original device");
@@ -132,7 +138,17 @@ void Diagnostic(unsigned char* original,const std::string& libs,const std::strin
     Check(baseline.unlock(p,0)==0,"Original float file unlock");auto storage=Owned(p);Release(baseline,p,storage);p=nullptr;
     Check(resizeDds&&resizeDds(bytes.data()+128,pitch,shape[0],shape[1],nativeFormat,actualFloat.data(),tw*16,tw,th)==0,"Candidate decoded/resized float consumer");
     if(std::memcmp(expectedFloat.data(),actualFloat.data(),expectedFloat.size()*4))++floatMismatch;
-    auto label=current;current="bc-filter-float-"+label.substr(15);Trace f;f.number(static_cast<U>(bytes.size()));f.add(bytes.data(),bytes.size());f.number(tw);f.number(th);f.add(expectedFloat.data(),expectedFloat.size()*4);f.add(actualFloat.data(),actualFloat.size()*4);record(f);current=label;++floatCases;
+    auto label=current;current="bc-filter-float-"+label.substr(15);Trace f;f.number(static_cast<U>(bytes.size()));f.add(bytes.data(),bytes.size());f.number(tw);f.number(th);f.add(expectedFloat.data(),expectedFloat.size()*4);f.add(actualFloat.data(),actualFloat.size()*4);record(f);++floatCases;
+    // Exercise the codec on every actual original filtered float block,
+    // including non-byte fractions. Random byte-normalized blocks alone miss
+    // the quantizer/solver ties reached by the file consumer.
+    for(U by=0;by<th;by+=4)for(U bx=0;bx<tw;bx+=4){
+     std::array<float,64> pixels{};
+     for(U y=0;y<4;++y)for(U x=0;x<4;++x)std::memcpy(pixels.data()+(y*4+x)*4,expectedFloat.data()+(std::size_t(by+y)*tw+bx+x)*4,16);
+     current="bc-file-block-filter-"+label.substr(15)+"-"+std::to_string(bx)+"x"+std::to_string(by);
+     fileBlock(nativeFormat,bytes.data()+128,pixels.data(),true);
+    }
+    current=label;
    }
    Check(baseline.load(device,path.c_str(),&p)==0&&p,"Original default compressed DDS");auto expected=LogicalPixels(baseline,p);{const auto storage=Consume(baseline,p,false);expected.add(storage.data.data(),storage.data.size());}p=nullptr;
    Check(baseline.load(device,path.c_str(),&p)==0&&p,"Original repeat default compressed DDS");auto repeated=LogicalPixels(baseline,p);{const auto storage=Consume(baseline,p,false);repeated.add(storage.data.data(),storage.data.size());}if(expected.data!=repeated.data)++unstable;p=nullptr;
@@ -142,9 +158,10 @@ void Diagnostic(unsigned char* original,const std::string& libs,const std::strin
   }
  }
  Check(recovered.deviceRelease(recoveredDevice)==0,"Default DDS recovered device release");
+ std::cout<<"PROBE filtered file blocks="<<filteredBlockCases<<" decode="<<filteredDecodeMismatch<<" encode0="<<filteredEncodeMismatch[0]<<" dither30000="<<filteredDitherMismatch[3]<<std::endl;
  std::cout<<"PROBE float DDS filter cases="<<floatCases<<" mismatches="<<floatMismatch<<std::endl;
  std::cout<<"PROBE default DDS cases="<<defaultCases<<" mismatches="<<defaultMismatch<<"\n";
- Check(baseline.deviceRelease(device)==0,"Diagnostic original device release");Check(blockCases==1536&&ddsBlockCases==1536&&ddsCases==168&&defaultCases==1572&&floatCases==360,"Complete diagnostic corpus");capture.close();
+ Check(baseline.deviceRelease(device)==0,"Diagnostic original device release");Check(blockCases==1536&&ddsBlockCases==1536&&ddsCases==168&&defaultCases==1572&&floatCases==360&&filteredBlockCases==16632,"Complete diagnostic corpus");capture.close();
  std::cout<<"PROBE D3DX file blockCases="<<ddsBlockCases<<" decodeBitMismatches="<<ddsDecodeMismatch<<"\n";
  for(U policy=0;policy<8;++policy)std::cout<<"FILE_POLICY flags="<<std::hex<<(policy<<16)<<std::dec<<" encodeMismatch="<<ddsEncodeMismatch[policy]<<" ditherMismatch="<<ddsDitherMismatch[policy]<<"\n";
  std::cout<<"PROBE public D3DX BC blockCases="<<blockCases<<" ddsCases="<<ddsCases<<" decodeBitMismatches="<<decodeMismatch<<" originalUnstable="<<unstable<<"; diagnostic only, no production acceptance or NoOriginal claim\n";

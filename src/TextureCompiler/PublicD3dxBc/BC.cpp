@@ -71,12 +71,22 @@ namespace
     //-------------------------------------------------------------------------------------
     // Decode/Encode RGB 5/6/5 colors
     //-------------------------------------------------------------------------------------
-    inline void Decode565(_Out_ HDRColorA* pColor, _In_ const uint16_t w565) noexcept
+    inline void Decode565(_Out_ HDRColorA* pColor, _In_ const uint16_t w565, bool dds = false) noexcept
     {
-        pColor->r = static_cast<float>((w565 >> 11) & 31) * (1.0f / 31.0f);
-        pColor->g = static_cast<float>((w565 >> 5) & 63) * (1.0f / 63.0f);
-        pColor->b = static_cast<float>((w565 >> 0) & 31) * (1.0f / 31.0f);
+        pColor->r = dds ? FileStore(static_cast<double>((w565 >> 11) & 31) * 0.032258063554763794) : static_cast<float>((w565 >> 11) & 31) * (1.0f / 31.0f);
+        pColor->g = dds ? FileStore(static_cast<double>((w565 >> 5) & 63) * 0.01587301678955555) : static_cast<float>((w565 >> 5) & 63) * (1.0f / 63.0f);
+        pColor->b = dds ? FileStore(static_cast<double>((w565 >> 0) & 31) * 0.032258063554763794) : static_cast<float>((w565 >> 0) & 31) * (1.0f / 31.0f);
         pColor->a = 1.0f;
+    }
+    void FileLerp(HDRColorA* output, const HDRColorA* a, const HDRColorA* b, double scale) noexcept
+    {
+        const float dr = FileStore(static_cast<double>(b->r) - a->r);
+        const float dg = FileStore(static_cast<double>(b->g) - a->g);
+        const float db = FileStore(static_cast<double>(b->b) - a->b);
+        output->r = FileStore(static_cast<double>(a->r) + dr * scale);
+        output->g = FileStore(static_cast<double>(a->g) + dg * scale);
+        output->b = FileStore(static_cast<double>(a->b) + db * scale);
+        output->a = 1.f;
     }
 
     inline uint16_t Encode565(_In_ const HDRColorA* pColor, bool dds = false) noexcept
@@ -570,8 +580,8 @@ namespace
             return;
         }
 
-        Decode565(&ColorC, wColorA);
-        Decode565(&ColorD, wColorB);
+        Decode565(&ColorC, wColorA, dds);
+        Decode565(&ColorD, wColorB, dds);
 
         if (flags & BC_FLAGS_UNIFORM)
         {
@@ -617,14 +627,20 @@ namespace
         {
             pSteps = pSteps3;
 
-            HDRColorALerp(&Step[2], &Step[0], &Step[1], 0.5f);
+            if (dds) FileLerp(&Step[2], &Step[0], &Step[1], 0.5);
+            else HDRColorALerp(&Step[2], &Step[0], &Step[1], 0.5f);
         }
         else
         {
             pSteps = pSteps4;
 
-            HDRColorALerp(&Step[2], &Step[0], &Step[1], 1.0f / 3.0f);
-            HDRColorALerp(&Step[3], &Step[0], &Step[1], 2.0f / 3.0f);
+            if (dds) {
+                FileLerp(&Step[2], &Step[0], &Step[1], 0.3333333432674408);
+                FileLerp(&Step[3], &Step[0], &Step[1], 0.6666666865348816);
+            } else {
+                HDRColorALerp(&Step[2], &Step[0], &Step[1], 1.0f / 3.0f);
+                HDRColorALerp(&Step[3], &Step[0], &Step[1], 2.0f / 3.0f);
+            }
         }
 
         // Calculate color direction

@@ -12,8 +12,8 @@
     },
     {
       "path": "BC.cpp",
-      "bytes": 40552,
-      "sha256": "d39233f5c5ed8838f2f6e02154497266696c3bd92e8ccf53013e6302736ce2ee"
+      "bytes": 41669,
+      "sha256": "7fe9f8bff5cfcb34ca24e35611931e70394b993d11cf692607a1798b443fe9c1"
     },
     {
       "path": "BC.h",
@@ -67,8 +67,8 @@
     },
     {
       "path": "TexturePublicBcResize.cpp",
-      "bytes": 5112,
-      "sha256": "a43993566dc1010cf12bece0547558adbcd20558a0979902a886147b953965cc"
+      "bytes": 5644,
+      "sha256": "af65945a27a5277cbabced55f662aad86f5c146b3f112a3b3a0d1236956e4ff1"
     },
     {
       "path": "TexturePublicBcResize.h",

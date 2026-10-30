@@ -147,3 +147,15 @@ so first-call rounding cannot change the original table bits. Numeric analysis
 of the full immutable bc-file-block-f20-23 input reproduces original alpha
 endpoints ff0d with these rules, whereas the previous candidate emitted ff02.
 This is not current-source validation or production acceptance.
+
+Follow-up implementation (unvalidated): original float-stage diagnostic
+598b9d10/41024955646 now completes all360 inputs with D/R byte-identical
+274864241-byte captures. All12125 differing channels in80 planes are solely
+upper saturation: applying [0,1] to completed rows matches every original float
+bit. The float-IO triangle now saturates at that final store only. RGB565
+re-decode uses original28339 constants, and file color interpolation retains
+its stored differences and fixed1/3,2/3 constants (29379..295xx). The diagnostic
+also feeds every4x4 block of every actual original float plane into both file
+encoders:16632 additional blocks, complete fixed plain/dither outputs, original
+repeats, source immutability, eight candidate policies and strict replay. Old
+1536 XG/file blocks,168 resource policies and1572 default files remain intact.

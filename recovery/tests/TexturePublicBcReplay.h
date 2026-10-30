@@ -61,7 +61,7 @@ void ReplayPublicBc(const std::string& directory,const std::string& path){
    for(U i=0;i<16;++i){Check(c.number()==i/8&&c.number()==(i%8)<<16,"DDS diagnostic policy order");const U count=c.number();c.take(count);}c.end();++diagnosticPolicies;
   }else Check(false,"Unknown BC capture record");
  }
- Check(capture.eof()&&blocks==1536&&fileBlocks>=1536&&files==1572&&floatRows==360&&diagnosticPolicies==168,"Incomplete BC replay/EOF");
+ Check(capture.eof()&&blocks==1536&&fileBlocks==18168&&files==1572&&floatRows==360&&diagnosticPolicies==168,"Incomplete BC replay/EOF");
  current="isolated-bc-rejections";
  for(U variant=0;variant<8;++variant){
   auto input=Dds(4,4,3,3,2);if(variant==0)input.resize(127);else if(variant==1)input.pop_back();else if(variant==2)Store(input.data(),84,0x30315844);else if(variant==3)Store(input.data(),112,0x200);else if(variant==4)Store(input.data(),24,2);else if(variant==5)Store(input.data(),16,0);else if(variant==6)Store(input.data(),12,0);else Store(input.data(),28,16);

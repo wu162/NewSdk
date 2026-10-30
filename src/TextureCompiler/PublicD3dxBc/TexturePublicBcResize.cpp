@@ -95,6 +95,13 @@ void ResizeRgbaFloat(const float* source, U sourceWidth, U sourceHeight,
             auto& rowAcc = rowActive[to.u];
             assert(rowAcc.remaining);
             if (!--rowAcc.remaining) {
+                // Match the actual D3DX surface-memory float consumer's row
+                // store, after all triangle contributions. Its normalized
+                // file path saturates channels here, including a constant
+                // alpha plane whose accumulated weights exceed one by ulps.
+                // Do not clamp individual taps or partially accumulated rows.
+                for (auto& pixel : rowAcc.scanline) for (auto& channel : pixel)
+                    channel = std::min(1.f, std::max(0.f, channel));
                 std::memcpy(target + std::size_t(to.u) * targetWidth * 4, rowAcc.scanline.data(), std::size_t(targetWidth) * sizeof(Pixel));
                 rowFree.push_back(&rowAcc);
             }
