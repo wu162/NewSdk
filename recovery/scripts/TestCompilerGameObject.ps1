@@ -1,5 +1,6 @@
 param([Parameter(Mandatory=$true)][string]$CompilerBuildDirectory,[Parameter(Mandatory=$true)][string]$OutputDirectory)
 $ErrorActionPreference='Stop'
+$env:NEWSdk_PLUGIN_TEST_SCHEMA=(Resolve-Path "$PSScriptRoot/../../SDK/Schemas/xsd/CnC3Types.xsd").Path
 . "$PSScriptRoot/CompilerValidation.Common.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerBuildDirectory=(Resolve-Path $CompilerBuildDirectory).Path
@@ -78,7 +79,7 @@ try {
     $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
     $config='<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8"/></startup></configuration>'
     $originalHost=Join-Path $oracle 'GameObjectTranscriptOracle.exe'
-    & $csc /nologo /codepage:65001 /platform:x86 /define:GO_TRANSCRIPT_ORACLE /r:System.Xml.dll "/r:$oracle/BinaryAssetBuilder.Core.dll" "/out:$originalHost" $sources *> "$out/original-build.log"
+    & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /codepage:65001 /platform:x86 /define:GO_TRANSCRIPT_ORACLE /r:System.Xml.dll "/r:$oracle/BinaryAssetBuilder.Core.dll" "/out:$originalHost" $sources *> "$out/original-build.log"
     if($LASTEXITCODE -ne 0){Get-Content "$out/original-build.log";throw 'Original full GameObject transcript host compilation failed'}
     $config|Set-Content "$originalHost.config"
     $transcript=Join-Path $out 'original-gameobject.bin.gz'
@@ -98,7 +99,7 @@ try {
         $validationRun=Initialize-CompilerValidationRun (Join-Path $CompilerBuildDirectory $mode) $clean $mode $state.sourceCommit
         $exe=Join-Path $clean 'NewModCompiler.exe'
         $replayHost=Join-Path $clean 'GameObjectProductReplay.exe'
-        & $csc /nologo /codepage:65001 /platform:x86 /define:GO_TRANSCRIPT_PRODUCT /r:System.Xml.dll "/r:$exe" "/out:$replayHost" $sources *> "$out/$mode-build.log"
+        & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /codepage:65001 /platform:x86 /define:GO_TRANSCRIPT_PRODUCT /r:System.Xml.dll "/r:$exe" "/out:$replayHost" $sources *> "$out/$mode-build.log"
         if($LASTEXITCODE -ne 0){Get-Content "$out/$mode-build.log";throw "Product GameObject $mode replay host compilation failed"}
         $config|Set-Content "$replayHost.config"
         $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','GameObjectProductReplay.exe','GameObjectProductReplay.exe.config')

@@ -230,28 +230,7 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     const std::map<std::string, ObjectFilterInput>& filters,
     const std::vector<WeaponScatterInput>& scatter,
     const std::vector<WeaponNuggetInput>& nuggets, bool bigEndian) {
-    const char* durationNames[] = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
-    for (const auto& duration : durations) {
-        bool known = false;
-        for (const char* name : durationNames) if (duration.first == name) known = true;
-        if (!known) throw std::invalid_argument("Unsupported WeaponTemplate duration: " + duration.first);
-    }
-    for (const auto& entry : optionalBlocks) {
-        bool sound = entry.first == "OverrideVoiceAttackSound" || entry.first == "OverrideVoiceEnterStateAttackSound";
-        if (!sound && entry.first != "WeaponAiHintInfo") throw std::invalid_argument("Unsupported optional block: " + entry.first);
-        for (const auto& attr : entry.second) {
-            bool known = sound ? (attr.first == "Sound" || attr.first == "EvaEvent") :
-                (attr.first == "IsAntiGarrisonWeapon" || attr.first == "MaxSpeedOfTarget" || attr.first == "UseLongLockOnTimeCode" || attr.first == "UseAsWarheadForDamageCalculations");
-            if (!known) throw std::invalid_argument("Unsupported optional attribute: " + attr.first);
-        }
-    }
-    // Validate before allocation: unsupported input must never silently produce zero data.
-    for (const auto& attr : attributes) {
-        const WeaponField* field = nullptr;
-        for (const auto& candidate : fields) if (attr.first == candidate.name) { field = &candidate; break; }
-        if (!field || field->value == WeaponValue::Absent)
-            throw std::invalid_argument("Unsupported WeaponTemplate field: " + attr.first);
-    }
+
     Relo::Tracker data, tokens;
     Root* root = nullptr;
     data.Push(reinterpret_cast<void**>(&root), sizeof(Root), 1);
@@ -349,10 +328,7 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         auto block = static_cast<ObjectFilter*>(data.Push(reinterpret_cast<void**>(root->bytes+264+4*i), 112, 1));
         MarshalObjectFilter(found->second, block, data); filterBlocks[i] = block; data.Pop();
     }
-    for (const auto& filter : filters) {
-        bool known = false; for (const char* name : filterNames) if (filter.first == name) known = true;
-        if (!known) throw std::invalid_argument("Unsupported WeaponTemplate filter: "+filter.first);
-    }
+    ;
     // Scatter elements are inline 176-byte structures; absent Filter stays zero.
     struct ScatterRadius { float radius; U32 conditions[15]; ObjectFilter filter; };
     static_assert(sizeof(ScatterRadius) == 176, "Original ScatterRadiusType layout");

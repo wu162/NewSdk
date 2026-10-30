@@ -7,6 +7,7 @@ param(
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/CompilerValidation.Common.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
+$env:NEWSdk_PLUGIN_TEST_SCHEMA=(Resolve-Path "$root/SDK/Schemas/xsd/CnC3Types.xsd").Path
 $CompilerDirectory=(Resolve-Path $CompilerDirectory).Path
 if(Test-Path $OutputDirectory){throw "Refusing to overwrite XML matrix evidence: $OutputDirectory"}
 New-Item -ItemType Directory -Force $OutputDirectory|Out-Null

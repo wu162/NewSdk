@@ -1,7 +1,7 @@
 name: MOD compiler Core lifecycle integration
 on:
   push:
-    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache]
+    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache, refactor/remove-plugin-schema-validation]
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'

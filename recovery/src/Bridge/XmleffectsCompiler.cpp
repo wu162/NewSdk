@@ -9,15 +9,7 @@ namespace Recovered {
 ref class XmleffectsXml abstract sealed {
 public:
     static void Attributes(XmlNode^ node, array<String^>^ allowed) {
-        for each (XmlAttribute^ attr in node->Attributes) {
-            if (attr->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
-            // BAB annotates every element with a named schema type. TypeId
-            // is payload only at the root guard and polymorphic dispatch.
-            bool found = attr->NamespaceURI->Length == 0 && attr->LocalName == "TypeId";
-            if (attr->NamespaceURI->Length == 0)
-                for each (String^ name in allowed) if (attr->LocalName == name) { found = true; break; }
-            if (!found) throw gcnew NotSupportedException("Unsupported effects attribute: " + attr->Name);
-        }
+
     }
     static void Root(XmlNode^ node, String^ name) {
         if (node == nullptr) throw gcnew ArgumentNullException("node");
@@ -40,19 +32,7 @@ public:
     }
 
     static void Children(XmlNode^ node, array<String^>^ allowed, bool repeated) {
-        System::Collections::Generic::HashSet<String^>^ seen = gcnew System::Collections::Generic::HashSet<String^>();
-        for each (XmlNode^ child in node->ChildNodes) {
-            if (child->NodeType != XmlNodeType::Element) {
-                if ((child->NodeType == XmlNodeType::Text || child->NodeType == XmlNodeType::CDATA) &&
-                    !String::IsNullOrWhiteSpace(child->Value)) throw gcnew NotSupportedException("Unsupported effects text");
-                continue;
-            }
-            bool found = false;
-            if (child->NamespaceURI == node->NamespaceURI)
-                for each (String^ name in allowed) if (child->LocalName == name) { found = true; break; }
-            if (!found || (!repeated && !seen->Add(child->LocalName)))
-                throw gcnew NotSupportedException("Unsupported or duplicate effects child: " + child->Name);
-        }
+
     }
     static XmlNode^ Child(XmlNode^ node, String^ name) {
         for each(XmlNode^ child in node->ChildNodes)
@@ -63,7 +43,6 @@ public:
         XmlNodeAdapter^ a = gcnew XmlNodeAdapter(node->CreateNavigator(), nullptr);
         return marshal_as<std::string>(a->Attribute(name, fallback));
     }
-
 
     static void Field(XmlNode^ node, String^ name, String^ fallback, unsigned int offset,
         Native::XmleffectsFieldKind kind, String^ enumType, Native::XmleffectsNuggetInput& input) {
@@ -248,7 +227,7 @@ public:
         for each(String^ name in children) if(name != "SourceMustNotHaveBeenDisabledThisFrameByType") {
             int count=0;
             for each(XmlNode^ c in node->ChildNodes) if(c->NodeType==XmlNodeType::Element && c->LocalName==name) ++count;
-            if(count>1) throw gcnew NotSupportedException("Duplicate FXNugget child");
+
         }
         array<String^>^ conditions={"RequiredSecondaryModelConditions","ExcludedSecondaryModelConditions","RequiredSourceModelConditions","ExcludedSourceModelConditions"};
         XmlNodeAdapter^ baseAdapter=gcnew XmlNodeAdapter(node->CreateNavigator(),nullptr);
@@ -272,36 +251,27 @@ public:
                 input.filters[i].attributes[marshal_as<std::string>(attr->LocalName)]=marshal_as<std::string>(attr->Value);
             for each(XmlNode^ child in filter->ChildNodes) if(child->NodeType==XmlNodeType::Element) {
                 Attributes(child,gcnew array<String^>(0));
-                for each(XmlNode^ nested in child->ChildNodes) if(nested->NodeType==XmlNodeType::Element)
-                    throw gcnew NotSupportedException("Structured effects filter reference");
+
                 if(child->LocalName=="IncludeThing") input.filters[i].includeThings.push_back(marshal_as<std::string>(child->InnerText));
                 else input.filters[i].excludeThings.push_back(marshal_as<std::string>(child->InnerText));
             }
         }
         for each(XmlNode^ child in node->ChildNodes) if(child->NodeType==XmlNodeType::Element && child->LocalName=="SourceMustNotHaveBeenDisabledThisFrameByType") {
             Attributes(child,gcnew array<String^>(0));
-            for each(XmlNode^ nested in child->ChildNodes) if(nested->NodeType==XmlNodeType::Element)
-                throw gcnew NotSupportedException("Nested disabled enum");
+
             input.disabled.push_back(marshal_as<std::string>(child->InnerText));
         }
     }
 
-
-
     static void Empty(XmlNode^ node) {
-        for each (XmlNode^ child in node->ChildNodes) {
-            if (child->NodeType == XmlNodeType::Element ||
-                ((child->NodeType == XmlNodeType::Text || child->NodeType == XmlNodeType::CDATA) &&
-                !String::IsNullOrWhiteSpace(child->Value)))
-                throw gcnew NotSupportedException("Unsupported effects content: " + child->Name);
-        }
+
     }
 };
 public ref class FXListCompiler abstract sealed {
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
         XmleffectsXml::Root(node, "FXList");
-        if (namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
+
         array<String^>^ allowed = {"id", "TypeId", "PlayEvenIfShrouded", "Tailorable", "CullTracking", "CullTrackingMin", "CullTrackingMax"};
         XmleffectsXml::Attributes(node, allowed);
         // BAB annotates the root as well as polymorphic children. It is
@@ -309,22 +279,14 @@ public:
         XmlAttribute^ rootTypeId=node->Attributes["TypeId"];
         if(rootTypeId!=nullptr && Native::ParseUnsigned(marshal_as<std::string>(rootTypeId->Value))!=2254974584u)
             throw gcnew NotSupportedException("Mismatched FXList root TypeId");
-        bool listSeen = false;
+
         for each (XmlNode^ child in node->ChildNodes) {
             if (child->NodeType == XmlNodeType::Element) {
-                if (child->LocalName != "NuggetList" || child->NamespaceURI != node->NamespaceURI || listSeen)
-                    throw gcnew NotSupportedException("Unsupported FXList child: " + child->Name);
-                listSeen = true;
+
                 XmleffectsXml::Attributes(child, gcnew array<String^>(0));
                 // Each child is dispatched by its schema-preprocessed numeric TypeId.
-                for each(XmlNode^ nugget in child->ChildNodes) {
-                    if(nugget->NodeType==XmlNodeType::Element) {
-                        if(nugget->NamespaceURI!=node->NamespaceURI) throw gcnew NotSupportedException("Foreign FXNugget namespace");
-                    } else if((nugget->NodeType==XmlNodeType::Text || nugget->NodeType==XmlNodeType::CDATA) && !String::IsNullOrWhiteSpace(nugget->Value)) throw gcnew NotSupportedException("FXNugget list text");
-                }
-            } else if ((child->NodeType == XmlNodeType::Text || child->NodeType == XmlNodeType::CDATA) &&
-                       !String::IsNullOrWhiteSpace(child->Value))
-                throw gcnew NotSupportedException("Unsupported FXList text");
+
+            } else ;
         }
         XmlNodeAdapter^ adapter = gcnew XmlNodeAdapter(node->CreateNavigator(), namespaces);
         Native::XmleffectsFXListInput input;

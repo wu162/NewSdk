@@ -1,5 +1,6 @@
 param([Parameter(Mandatory=$true)][string]$CompilerBuildDirectory,[Parameter(Mandatory=$true)][string]$OutputDirectory)
 $ErrorActionPreference='Stop'
+$env:NEWSdk_PLUGIN_TEST_SCHEMA=(Resolve-Path "$PSScriptRoot/../../SDK/Schemas/xsd/CnC3Types.xsd").Path
 . "$PSScriptRoot/CompilerValidation.Common.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerBuildDirectory=(Resolve-Path $CompilerBuildDirectory).Path
@@ -35,7 +36,7 @@ try {
     $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
     $config='<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8"/></startup></configuration>'
     $originalHost=Join-Path $oracle 'WeaponTranscriptOracle.exe'
-    & $csc /nologo /unsafe /codepage:65001 /platform:x86 /define:WEAPON_TRANSCRIPT_ORACLE /r:System.Xml.dll "/r:$oracle/BinaryAssetBuilder.Core.dll" "/out:$originalHost" $sources *> "$out/original-build.log"
+    & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /unsafe /codepage:65001 /platform:x86 /define:WEAPON_TRANSCRIPT_ORACLE /r:System.Xml.dll "/r:$oracle/BinaryAssetBuilder.Core.dll" "/out:$originalHost" $sources *> "$out/original-build.log"
     if($LASTEXITCODE -ne 0){Get-Content "$out/original-build.log";throw 'Original full Weapon transcript host compilation failed'}
     $config|Set-Content "$originalHost.config"
     $transcript=Join-Path $out 'original-weapon.bin.gz'
@@ -54,7 +55,7 @@ try {
         $exe=Join-Path $clean 'NewModCompiler.exe'
         # The helper verifies the distinct production and validation executable hashes.
         $replayHost=Join-Path $clean 'WeaponProductReplay.exe'
-        & $csc /nologo /unsafe /codepage:65001 /platform:x86 /define:WEAPON_TRANSCRIPT_PRODUCT /r:System.Xml.dll "/r:$exe" "/out:$replayHost" $sources *> "$out/$mode-build.log"
+        & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /unsafe /codepage:65001 /platform:x86 /define:WEAPON_TRANSCRIPT_PRODUCT /r:System.Xml.dll "/r:$exe" "/out:$replayHost" $sources *> "$out/$mode-build.log"
         if($LASTEXITCODE -ne 0){Get-Content "$out/$mode-build.log";throw "Product Weapon $mode replay host compilation failed"}
         $config|Set-Content "$replayHost.config"
         $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','WeaponProductReplay.exe','WeaponProductReplay.exe.config')

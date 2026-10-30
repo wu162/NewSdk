@@ -509,30 +509,7 @@ U32 NonDamageSize(U32 id) {
     auto simple=FindSimple(id);if(simple) return simple->size;
     return id==ProjectileId?68:id==SeedId?56:BaseOnly(id)?40:id==SpecialPowerId?44:48;
 }
-void ValidateNonDamage(const WeaponNuggetInput& input) {
-    if(input.hasKillFilter && input.typeId!=MetaId) throw std::invalid_argument("KillObjectFilter belongs to MetaImpactNugget");
-    if(input.hasColor && input.typeId!=TintId) throw std::invalid_argument("Color belongs to TintObjectsNugget");
-    if(input.hasSpawnTemplate || input.hasTargetFilter || input.hasDamageFilter || !input.damageScalars.empty())
-        throw std::invalid_argument("Damage-only child on reference nugget");
-    if(input.typeId!=ProjectileId && (input.hasAttackOffset || input.hasBarrel || !input.veterans.empty()))
-        throw std::invalid_argument("Projectile-only child on other nugget");
-    for(const auto& attr:input.attributes) {
-        bool known=attr.first=="PartitionFilterTestType" || attr.first=="Radius" || attr.first=="ForbiddenTargetObjectStatus" || attr.first=="ForbiddenTargetModelCondition";
-        if(input.typeId==ProjectileId && (attr.first=="WarheadTemplate" || attr.first=="ProjectileTemplate" || attr.first=="WeaponLaunchBoneSlotOverride")) known=true;
-        if(input.typeId==ScatterProjectileId && (attr.first=="ScatterMin" || attr.first=="ScatterMax")) known=true;
-        if((input.typeId==OclId || input.typeId==SeedId) && (attr.first=="WeaponOCL" || attr.first=="TargetAsPrimaryObject")) known=true;
-        if(input.typeId==SeedId && (attr.first=="FieldAmount" || attr.first=="SpawnedInFieldBonus")) known=true;
-        if(input.typeId==SpecialPowerId && attr.first=="SpecialPowerTemplate") known=true;
-        if(input.typeId==InformId && (attr.first=="MinTimeToImpactFudgeFactor" || attr.first=="MaxTimeToImpactFudgeFactor")) known=true;
-        auto simple=FindSimple(input.typeId);if(simple) for(unsigned i=0;i<simple->count;++i)
-            if(simple->members[i].field.kind!='k' && simple->members[i].field.kind!='c' && attr.first==simple->members[i].field.name) known=true;
-        if(!known) throw std::invalid_argument("Unsupported reference nugget attribute: "+attr.first);
-    }
-    for(const auto& attr:input.attackOffset) if(attr.first!="x" && attr.first!="y" && attr.first!="z") throw std::invalid_argument("Unsupported AttackOffset attribute");
-    for(const auto& attr:input.color) if(attr.first!="R" && attr.first!="G" && attr.first!="B") throw std::invalid_argument("Unsupported RGBColor attribute");
-    for(const auto& veteran:input.veterans) for(const auto& attr:veteran.attributes)
-        if(attr.first!="VeterancyLevel" && attr.first!="ProjectileTemplate") throw std::invalid_argument("Unsupported VeterancyProjectiles attribute");
-}
+
 void MarshalNonDamageNugget(const WeaponNuggetInput& src,BaseNugget* base,Relo::Tracker& data) {
     auto simple=FindSimple(src.typeId);
     if(simple) {
@@ -693,36 +670,7 @@ void EndianNonDamageNugget(BaseNugget* base) {
     }
     EndianBase(*base);
 }
-void Validate(const WeaponNuggetInput& input) {
-    if(!KnownType(input.typeId)) {
-        if(input.hasKillFilter || input.hasColor || input.hasAttackOffset || input.hasBarrel || !input.veterans.empty() ||
-            input.hasDamageFilter || input.hasSpawnTemplate || input.hasTargetFilter || !input.damageScalars.empty())
-            throw std::invalid_argument("Derived child on unknown nugget base");
-        for(const auto& attr:input.attributes)
-            if(attr.first!="PartitionFilterTestType" && attr.first!="Radius" && attr.first!="ForbiddenTargetObjectStatus" && attr.first!="ForbiddenTargetModelCondition")
-                throw std::invalid_argument("Unsupported unknown nugget attribute: "+attr.first);
-        return;
-    }
-    if(NonDamageFamily(input.typeId)) {ValidateNonDamage(input);return;}
-    if(input.hasKillFilter || input.hasColor) throw std::invalid_argument("Effect-only child on Damage family");
-    if(input.hasAttackOffset || input.hasBarrel || !input.veterans.empty()) throw std::invalid_argument("Projectile child on Damage family");
-    if(input.typeId!=DamageId && input.typeId!=DotId && input.typeId!=GrapplingId && input.typeId!=LeechPercentId && input.typeId!=LeechHealthId && input.typeId!=LineId && input.typeId!=SpawnId && input.typeId!=FireId && input.typeId!=ContainedId)
-        throw std::invalid_argument("Unrecovered WeaponEffectNugget TypeId");
-    if(input.hasDamageFilter && input.typeId!=ContainedId) throw std::invalid_argument("DamageObjectFilter belongs to DamageContainedNugget");
-    if(input.hasSpawnTemplate && input.typeId!=SpawnId) throw std::invalid_argument("SpawnTemplate belongs to DamageAndSpawnNugget");
-    if(input.hasTargetFilter && input.typeId!=FireId) throw std::invalid_argument("Filter belongs to FireOnObjectsNugget");
-    for(const auto& attr:input.attributes) {
-        bool known=attr.first=="PartitionFilterTestType" || attr.first=="Radius" || attr.first=="ForbiddenTargetObjectStatus" || attr.first=="ForbiddenTargetModelCondition" || attr.first=="InvalidTargetStatus";
-        for(const auto& field:damageFields) if(attr.first==field.name) known=true;
-        if(input.typeId==DotId && (attr.first=="DamageInterval" || attr.first=="DamageDuration" || attr.first=="RemoveIfHealed")) known=true;
-        if((input.typeId==LeechPercentId && attr.first=="PercentMaxHealthToTake") || (input.typeId==LeechHealthId && attr.first=="PercentDamageToHeal")) known=true;
-        if(input.typeId==LineId && (attr.first=="OffsetAngle" || attr.first=="LineWidth" || attr.first=="LineLengthLeadIn" || attr.first=="LineLengthLeadOut" || attr.first=="UseDynamicLineLength" || attr.first=="OverShootDistance")) known=true;
-        if(input.typeId==SpawnId && (attr.first=="SpawnProbability" || attr.first=="SpawnedModelConditionFlags")) known=true;
-        if(input.typeId==FireId && (attr.first=="Weapon" || attr.first=="FireOnVictimObject" || attr.first=="VictimMustBeAlive")) known=true;
-        if(input.typeId==ContainedId && (attr.first=="MaxUnitsToDamage" || attr.first=="WindowBlastFX")) known=true;
-        if(!known) throw std::invalid_argument("Unsupported damage nugget attribute: "+attr.first);
-    }
-}
+
 void MarshalDamage(const WeaponNuggetInput& input,DamageNugget& object,Relo::Tracker& data) {
     for(const auto& field:damageFields) {
         if(!field.fallback && !input.attributes.count(field.name)) continue;
@@ -782,7 +730,7 @@ void EndianDamage(DamageNugget& object) {
 }
 }
 void MarshalWeaponNuggets(const std::vector<WeaponNuggetInput>& input,WeaponNuggetList* list,Relo::Tracker& data) {
-    for(const auto& value:input) Validate(value);
+
     list->count=static_cast<U32>(input.size());
     if(!list->count) return;
     data.Push(reinterpret_cast<void**>(&list->elements),4,list->count);
@@ -913,6 +861,4 @@ void EndianWeaponNuggets(WeaponNuggetList* list) {
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
-
-
 

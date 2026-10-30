@@ -316,26 +316,11 @@ U32 ExactStringHash(const std::string& text) {
 }
 const GameObjectField* GameObjectFields() { return fields; }
 unsigned GameObjectFieldCount() { return sizeof(fields)/sizeof(fields[0]); }
-bool GameObjectLeafAttributeSupported(const std::string& name,const std::string& attribute) {
-    for(const auto& leaf:leafLayouts) if(name==leaf.name)
-        for(unsigned i=0;i<leaf.count;++i) if(attribute==leaf.fields[i].name) return true;
-    return false;
-}
-bool GameObjectAIAttributeSupported(const std::string& name,const std::string& attribute) {
-    unsigned index=name=="SkirmishAIInformation"?0:name=="AIContextualPower"?1:name=="SpecialPowerWeapon"?3:2;
-    if(index==1 && attribute=="id") return true;
-    const auto& layout=aiLayouts[index];for(unsigned i=0;i<layout.count;++i) if(attribute==layout.fields[i].name) return true;
-    return false;
-}
+
 #include "GameObjectDrawModelSupport.h"
 #include "GameObjectModuleSupport.h"
 Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes,const std::vector<GameObjectChild>& children,bool bigEndian) {
-    for(const auto& a:attributes) {
-        const GameObjectField* match=nullptr;
-        for(const auto& f:fields) if(a.first==f.name) {match=&f;break;}
-        if(!match)
-            throw std::invalid_argument("Unsupported GameObject attribute: "+a.first);
-    }
+
     Relo::Tracker data, procedures;
     unsigned char* root=nullptr;
     data.Push(reinterpret_cast<void**>(&root),592,1);
@@ -1036,15 +1021,4 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
-
-
-
-
-
-
-
-
-
-
-
 

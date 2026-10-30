@@ -47,7 +47,7 @@ def prepare(root, output):
     for oracle in groups:
         group = oracle.stem.removesuffix('Oracle')
         adapted, dynamic = adapt(oracle.read_text(encoding='utf-8-sig'))
-        sources = [oracle] + sorted(tests.glob(group + '*Cases.cs'))
+        sources = [oracle] + sorted(tests.glob(group + '*Cases.cs')) + [tests / 'PluginSchemaBoundary.cs']
         folder = output / group
         folder.mkdir()
         written = []

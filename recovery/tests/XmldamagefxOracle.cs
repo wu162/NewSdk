@@ -59,7 +59,7 @@ class XmldamagefxOracle {
         }catch(Exception e){throw new Exception(label+" platform="+(int)p+" xml="+d.OuterXml,e);}
     }
     static AssetBuffer Test(string label,string xml,TargetPlatform p){return TestDoc(label,Parse(xml),p);}
-    static void Reject(string label,string xml){XmlDocument d=Parse(xml);try{XmldamagefxCompiler.CompileXml(d.DocumentElement,Namespaces(d),false);}catch(NotSupportedException){++rejections;return;}throw new Exception("Expected rejection: "+label);}
+    static void Reject(string label,string xml){XmlDocument d=Parse(xml);try{ PluginSchemaBoundary.Validate(d); XmldamagefxCompiler.CompileXml(d.DocumentElement,Namespaces(d),false);}catch(NotSupportedException){++rejections;return;}throw new Exception("Expected rejection: "+label);}
 
     static void OneAttribute(string name,string value,TargetPlatform p) {
         Test("group/"+name+"/"+value,Root("DamageFX","","<FXGroup "+name+"='"+Escape(value)+"'/>"),p);

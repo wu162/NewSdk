@@ -9,16 +9,7 @@ namespace Recovered {
 ref class XmlfxparticleXml abstract sealed {
 public:
     static void Attributes(XmlNode^ node, array<String^>^ allowed) {
-        for each (XmlAttribute^ attr in node->Attributes) {
-            if (attr->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
-            // BAB attaches TypeId to every named schema type, including structural
-            // children. Their original Marshal methods ignore this metadata.
-            if (attr->NamespaceURI->Length == 0 && attr->LocalName == "TypeId") continue;
-            bool found = false;
-            if (attr->NamespaceURI->Length == 0)
-                for each (String^ name in allowed) if (attr->LocalName == name) { found = true; break; }
-            if (!found) throw gcnew NotSupportedException("Unsupported particle attribute: " + attr->Name);
-        }
+
     }
     static void Root(XmlNode^ node, String^ name) {
         if (node == nullptr) throw gcnew ArgumentNullException("node");
@@ -41,19 +32,7 @@ public:
     }
 
     static void Children(XmlNode^ node, array<String^>^ allowed, bool repeated) {
-        System::Collections::Generic::HashSet<String^>^ seen = gcnew System::Collections::Generic::HashSet<String^>();
-        for each (XmlNode^ child in node->ChildNodes) {
-            if (child->NodeType != XmlNodeType::Element) {
-                if ((child->NodeType == XmlNodeType::Text || child->NodeType == XmlNodeType::CDATA) &&
-                    !String::IsNullOrWhiteSpace(child->Value)) throw gcnew NotSupportedException("Unsupported particle text");
-                continue;
-            }
-            bool found = false;
-            if (child->NamespaceURI == node->NamespaceURI)
-                for each (String^ name in allowed) if (child->LocalName == name) { found = true; break; }
-            if (!found || (!repeated && !seen->Add(child->LocalName)))
-                throw gcnew NotSupportedException("Unsupported or duplicate particle child: " + child->Name);
-        }
+
     }
     static XmlNode^ Child(XmlNode^ node, String^ name) {
         for each(XmlNode^ child in node->ChildNodes)
@@ -104,9 +83,9 @@ public:
         XmlNode^ node=nullptr;
         for each(XmlNode^ child in container->ChildNodes) {
             if(child->NodeType==XmlNodeType::Element) {
-                if(child->NamespaceURI!=container->NamespaceURI || node!=nullptr) throw gcnew NotSupportedException("Multiple/foreign particle modules");
+
                 node=child;
-            } else if((child->NodeType==XmlNodeType::Text || child->NodeType==XmlNodeType::CDATA) && !String::IsNullOrWhiteSpace(child->Value)) throw gcnew NotSupportedException("Module text");
+            } else ;
         }
         if(node==nullptr) return;
         ModuleNode(node,input);
@@ -294,7 +273,7 @@ public:
             Field(node,"EventFX",nullptr,4,Native::ParticleReference,nullptr,values);
             Field(node,"PerParticle",nullptr,8,Native::ParticleBoolean,nullptr,values);
             Field(node,"KillAfterEvent",nullptr,9,Native::ParticleBoolean,nullptr,values);
-            
+
             ModuleRandom(node,"EventTime",12,input);
             break;
         }
@@ -307,19 +286,14 @@ public:
         input.fields=values.fields;
     }
     static void Empty(XmlNode^ node) {
-        for each (XmlNode^ child in node->ChildNodes) {
-            if (child->NodeType == XmlNodeType::Element ||
-                ((child->NodeType == XmlNodeType::Text || child->NodeType == XmlNodeType::CDATA) &&
-                !String::IsNullOrWhiteSpace(child->Value)))
-                throw gcnew NotSupportedException("Unsupported particle content: " + child->Name);
-        }
+
     }
 };
 public ref class FXParticleSystemTemplateCompiler abstract sealed {
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
         XmlfxparticleXml::Root(node, "FXParticleSystemTemplate");
-        if(namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
+
         XmlfxparticleXml::Attributes(node, gcnew array<String^>{"id","inheritFrom","TypeId","Priority","Shader","Type","ParticleTexture","Drawable","SlaveSystem","PerParticleAttachedSystem","SystemLifetime","SortLevel","EmitterSound","IsOneShot","IsGroundAligned","IsEmitAboveGroundOnly","IsParticleUpTowardsEmitter","UseMaximumHeight"});
         XmlfxparticleXml::Children(node, gcnew array<String^>{"SlavePosOffset","Lifetime","Size","StartSizeRate","BurstDelay","BurstCount","InitialDelay","Alphas","Colors","Wind","Physics","Draw","Volume","Velocity","Event","Update"}, false);
         // BAB inserts the root TypeId during preprocessing. The original root ignores
@@ -373,11 +347,11 @@ public:
             XmlfxparticleXml::Children(colors,gcnew array<String^>{"Color","ColorScale"},true);
             input.houseColor = XmlfxparticleXml::Attr(colors,"UseHouseColor","false");
             input.saturation = XmlfxparticleXml::Attr(colors,"HouseColorSaturation","1.0");
-            bool scaleSeen = false;
+
             for each(XmlNode^ color in colors->ChildNodes) if(color->NodeType == XmlNodeType::Element) {
                 if(color->LocalName == "ColorScale") {
-                    if(scaleSeen) throw gcnew NotSupportedException("Duplicate ColorScale");
-                    scaleSeen = true; XmlfxparticleXml::Random(color,input.colorScale); continue;
+
+                     XmlfxparticleXml::Random(color,input.colorScale); continue;
                 }
                 XmlfxparticleXml::Attributes(color,gcnew array<String^>{"RelativeAge","Frame"});
                 XmlfxparticleXml::Children(color,gcnew array<String^>{"Color"},false);
@@ -406,11 +380,10 @@ public:
             XmlfxparticleXml::Attributes(events,gcnew array<String^>(0));
             for each(XmlNode^ item in events->ChildNodes) {
                 if(item->NodeType==XmlNodeType::Element) {
-                    if(item->NamespaceURI!=events->NamespaceURI) throw gcnew NotSupportedException("Foreign particle event");
+
                     Native::XmlfxparticleModuleInput eventInput;
                     XmlfxparticleXml::ModuleNode(item,eventInput); input.events.push_back(eventInput);
-                } else if((item->NodeType==XmlNodeType::Text || item->NodeType==XmlNodeType::CDATA) && !String::IsNullOrWhiteSpace(item->Value))
-                    throw gcnew NotSupportedException("Particle event text");
+                } else ;
             }
         }
         array<String^>^ moduleNames={"Physics","Draw","Volume","Velocity","Update"};
@@ -425,6 +398,4 @@ public:
     }
 };
 }
-
-
 

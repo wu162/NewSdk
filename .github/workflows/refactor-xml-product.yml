@@ -1,7 +1,7 @@
 name: MOD compiler linked XML matrices
 on:
   push:
-    branches: [compiler-main, refactor/modcompiler-p0-p3]
+    branches: [compiler-main, refactor/modcompiler-p0-p3, refactor/remove-plugin-schema-validation]
     paths:
       - '.github/workflows/refactor-xml-product.yml'
       - 'recovery/scripts/TestCompilerXmlMatrices.ps1'
