@@ -6,7 +6,7 @@
 
 原 BAB FastHash、会话格式/压缩/部分保存/冻结、CDATA、资产缓存、依赖传播和实际 I/O 失败保留。文件 ID/ChangeTime/mtime/长度直接保存在已有 FileHashItem XML 可选属性中；旧 BAB 项首次使用建立元数据，之后无需哈希收据即可热复用。已有批量目录元数据查询仍限于一个请求内。
 
-保留的窄 Schema 检查有实际调用链：`AssetDeclarationDocument.Reinitialize` 可直接复用已验证、已注入默认值的实例，只比较文档/文件依赖和插件 TypeHash/ProcessingHash；XSD 默认值变化不会改变这些插件常量。SchemaSet 对已读入的完整闭包计算原 FastHash，把身份写入现有 BAB 会话根的可选属性；变化时重新解析。生产验收增加等长、恢复 mtime 的 DamageScalar 默认值修改，与关闭缓存重建逐字节对照。无单独收据。
+保留的窄 Schema 检查有实际调用链：`AssetDeclarationDocument.Reinitialize` 可直接复用已完成实例并跳过 XSD 校验，只比较文档/文件依赖和插件 TypeHash/ProcessingHash；XSD 新增必填属性不会改变这些插件常量。SchemaSet 对已读入的完整闭包计算原 FastHash，把身份写入现有 BAB 会话根的可选属性；变化时重新解析。生产验收用等长、恢复 mtime 的编辑去除 DamageScalar 默认值并设为必填；省略该属性的原输入在缓存及无缓存构建中都必须返回编译失败，恢复 XSD 后继续精确原字节对照。无单独收据。
 
 并行仍限制于已审查的内建实现。Audio 非 NONE/XAS 路径写共享 `PcmWaveAudioCompiler.compressionWarning`，其它 Audio 路由的 Tracer 回调直接修改未同步的 BuildSession 诊断列表和 EventDispatcher 序号/写入器；显式采样率可扩大输出（400→96000 的倍率超过现有外部输入预算），本轮没有为了放开它新增准备读取/估算机制。保留 Win32 虚拟内存限额、输入读租约和失败/取消 join。Texture 混合 DLL 构建/发行验收未删除。
 
@@ -99,3 +99,11 @@ Core 在流开始时登记所触及的流，在四流链接全部完成时接受
 | 混合资产 + 16 MiB Additional | 热 | 744.25→694.20 | 50.35→18.07 | 32.52→16.32 | 26.09→0.00 |
 
 36 次均比较完整 BIG/SKUDEF 字节，并从原报告复核了关闭/冷/热的真实缓存计数。小输入冷态完整耗时 1037.40→1039.67 ms（约 +0.22%），如实保留；不能仅凭删除发布阶段推断所有输入都会整体加速。加入 16 MiB Additional 的冷态逻辑读减少约 72.56%、逻辑写减少约 65.37%；它是该合成场景，不代表完整 MOD 的通用比例。完整计量见[原始 JSON](../evidence/refactor/direct-output/41046820725-1/measurement.json)。
+
+## 中间候选 a90c0f08 的实测与纠正
+
+[41058433551](https://github.com/wu162/NewSdk/actions/runs/41058433551) 的全部 40 次 BIG/SKUDEF 对照、Debug/Release 产品、Core、CLI 取消及必需/可选日志、并行/Texture、资产缓存/Audio/W3X、完整 mymod 和热态依赖矩阵均通过。会话组因新增的“DamageScalar 默认值必须改变该场景字节”假设不成立而失败，未放宽断言；改为真实 XSD 必填约束的失败/恢复场景。此运行不作为最终完整通过。
+
+该候选的三对中位数：混合输入冷 987.84→962.43 ms、热 666.81→635.74 ms；16 MiB Additional 冷 948.49→941.71 ms、热 626.56→648.50 ms（后者退化约 3.5%，保留）。冷态输入 FastHash 读取 39→39，SHA256 815→0，热态两者均 0。初步 Trace 的部分进程尾部未采齐，最终采样增加退出后排空并严格要求 Process Start/Exit 成对，不能把不完整次数当作精确计数。
+
+真实 I/O 暴露报告 StreamWriter 默认小缓冲产生过多 WriteFile；改为与事件日志一致的 64 KiB 缓冲。日志仅在开启时 unlink 旧目录项后 move 新文件，保留硬链接源保护及普通文件共享错误，删除 ReplaceFile 的日志元数据合并开销；最终报告继续原子替换。无发布事务或新增侧车。最终源码须重新验收。

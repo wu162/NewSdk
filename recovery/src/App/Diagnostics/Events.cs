@@ -99,7 +99,8 @@ namespace NewModCompiler.Diagnostics
                 // Replace the directory entry instead of truncating an existing
                 // inode: a diagnostic destination may be a hard link to input.
                 using (var stream = new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None)) { }
-                if (File.Exists(path)) File.Replace(temporary,path,null); else File.Move(temporary,path);
+                File.Delete(path);
+                File.Move(temporary,path);
                 return new FileStream(path,FileMode.Open,FileAccess.Write,FileShare.Read);
             }
             finally { if (File.Exists(temporary)) File.Delete(temporary); }
@@ -205,7 +206,7 @@ namespace NewModCompiler.Diagnostics
             {
                 DiagnosticFiles.RejectReparseFile(path);
                 using (var stream = new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None))
-                using (var writer = new StreamWriter(stream,new UTF8Encoding(false)))
+                using (var writer = new StreamWriter(stream,new UTF8Encoding(false),64 * 1024))
                     writer.Write(new JavaScriptSerializer { MaxJsonLength = int.MaxValue }.Serialize(report));
                 if (File.Exists(path)) File.Replace(temporary,path,null); else File.Move(temporary,path);
             }

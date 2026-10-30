@@ -391,13 +391,17 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         SameLengthMutation "$runtime/unrelated.dll" 'neighbor A' 'neighbor B'
         $neighborEdited=RunCli 'unrelated-runtime-edit' $mod $cachedOut $true;Cache $neighborEdited 'hot';SameOutputs $plain $neighborEdited
         $armorSchema=Join-Path $sdk 'Schemas/xsd/AssetTypeArmorTemplate.xsd'
-        SameLengthMutation $armorSchema 'name="DamageScalar" type="Percentage" default="100"' 'name="DamageScalar" type="Percentage" default="050"'
-        $schemaDefault=RunCli 'schema-default-invalidated' $mod $cachedOut $true;Cache $schemaDefault 'revalidated'
-        $schemaPlain=RunCli 'schema-default-disabled' $mod $plainOut $false
-        SameOutputs $schemaPlain $schemaDefault;DifferentOutputs $plain $schemaDefault
-        $schemaHot=RunCli 'schema-default-hot' $mod $cachedOut $true;Cache $schemaHot 'hot';SameOutputs $schemaPlain $schemaHot
-        SameLengthMutation $armorSchema 'name="DamageScalar" type="Percentage" default="050"' 'name="DamageScalar" type="Percentage" default="100"'
-        $hot=RunCli 'schema-default-restored' $mod $cachedOut $true;Cache $hot 'revalidated';SameOutputs $plain $hot
+        $schemaOptional='name="DamageScalar" type="Percentage" default="100" balance:snapshot="true"'
+        $schemaRequired=('name="DamageScalar" type="Percentage" use="required"').PadRight($schemaOptional.Length)
+        SameLengthMutation $armorSchema $schemaOptional $schemaRequired
+        $schemaPlain=RunCli 'schema-required-disabled' $mod $plainOut $false 4
+        $schemaChanged=RunCli 'schema-required-invalidated' $mod $cachedOut $true 4
+        Need ($schemaChanged.report.cache.xmlParse -gt 0 -and $schemaChanged.report.cache.sessionPackageMisses -gt 0) 'Changed XSD constraint reused a completed document without validation'
+        foreach($case in @($schemaPlain,$schemaChanged)){
+            Need (($case.report.diagnostics|ConvertTo-Json -Depth 12).Contains('DamageScalar')) 'Schema failure did not identify the newly required attribute'
+        }
+        SameLengthMutation $armorSchema $schemaRequired $schemaOptional
+        $hot=RunCli 'schema-required-restored' $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         $other=Join-Path $modeWork 'b';MakeMod $other ($probe.Replace('72.5%','32.5%'))
         $otherCold=RunCli 'second-mod' $other $cachedOut $true;Cache $otherCold 'cold'
         $otherPlain=RunCli 'second-mod-disabled' $other $plainOut $false;SameOutputs $otherPlain $otherCold

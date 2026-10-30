@@ -112,6 +112,11 @@ def measure(args):
                     need(api.GetProcessIoCounters(int(child._handle), ctypes.byref(counters)), 'GetProcessIoCounters failed')
                     exit_code = child.returncode
                     process_id = child.pid
+            if trace:
+                child._handle.Close()
+                # Process Monitor consumes kernel events asynchronously. Let it
+                # drain the process exit before stopping this separate trace.
+                time.sleep(0.5)
         operations = None
         if trace:
             exported = evidence / 'file-operations.csv'
@@ -130,7 +135,7 @@ def measure(args):
                         counts['CreateFileSuccess'] += 1
                     if any(name in event['Path'] for name in ('.file-identities.json', 'session.identity')):
                         sidecars[event['Operation']] += 1
-            need(counts['CreateFile'] > 0, 'Process Monitor did not capture compiler file opens')
+            need(counts['CreateFile'] > 0 and counts['Process Start'] == counts['Process Exit'] == 1, 'Process Monitor did not capture the complete compiler lifetime')
             operations = {'operations': dict(counts), 'removedSidecars': dict(sidecars), 'processId': process_id}
             # Keep the bounded per-process aggregate; the raw CSV/PML contains
             # unrelated runner processes and is not uploaded as task evidence.

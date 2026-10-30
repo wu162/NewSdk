@@ -288,9 +288,9 @@ public class SessionCache : ISessionCache
 
 	public void InitializeCache(List<string> knownChangedFiles, string schemaIdentity)
 	{
-		// Reinitialize can reuse cached XML with schema-inserted defaults even
-		// when plugin TypeHash/ProcessingHash stay constant. Reparse on a real
-		// schema-content change; original BAB imports have no schema attribute.
+		// Completed documents can skip XSD validation while plugin TypeHash /
+		// ProcessingHash stay constant. Revalidate changed schema constraints;
+		// original BAB imports have no schema attribute.
 		if (_Last?.SchemaIdentity != null && schemaIdentity != null && _Last.SchemaIdentity != schemaIdentity)
 		{
 			PerformanceScope.Count("cache.session.schemaChanged");
