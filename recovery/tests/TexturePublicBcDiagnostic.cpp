@@ -161,7 +161,7 @@ void Diagnostic(unsigned char* original,const std::string& libs,const std::strin
  std::cout<<"PROBE filtered file blocks="<<filteredBlockCases<<" decode="<<filteredDecodeMismatch<<" encode0="<<filteredEncodeMismatch[0]<<" dither30000="<<filteredDitherMismatch[3]<<std::endl;
  std::cout<<"PROBE float DDS filter cases="<<floatCases<<" mismatches="<<floatMismatch<<std::endl;
  std::cout<<"PROBE default DDS cases="<<defaultCases<<" mismatches="<<defaultMismatch<<"\n";
- Check(baseline.deviceRelease(device)==0,"Diagnostic original device release");Check(blockCases==1536&&ddsBlockCases==1536&&ddsCases==168&&defaultCases==1572&&floatCases==360&&filteredBlockCases==16632,"Complete diagnostic corpus");capture.close();
+ Check(baseline.deviceRelease(device)==0,"Diagnostic original device release");Check(blockCases==1536&&ddsBlockCases==1536&&ddsCases==168&&defaultCases==1572&&floatCases==360&&filteredBlockCases==16632,"Complete diagnostic corpus");Check(unstable==0,"Original BC corpus must be repeat-stable");capture.close();
  std::cout<<"PROBE D3DX file blockCases="<<ddsBlockCases<<" decodeBitMismatches="<<ddsDecodeMismatch<<"\n";
  for(U policy=0;policy<8;++policy)std::cout<<"FILE_POLICY flags="<<std::hex<<(policy<<16)<<std::dec<<" encodeMismatch="<<ddsEncodeMismatch[policy]<<" ditherMismatch="<<ddsDitherMismatch[policy]<<"\n";
  std::cout<<"PROBE public D3DX BC blockCases="<<blockCases<<" ddsCases="<<ddsCases<<" decodeBitMismatches="<<decodeMismatch<<" originalUnstable="<<unstable<<"; diagnostic only, no production acceptance or NoOriginal claim\n";

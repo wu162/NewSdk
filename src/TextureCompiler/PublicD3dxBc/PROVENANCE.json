@@ -12,13 +12,13 @@
     },
     {
       "path": "BC.cpp",
-      "bytes": 41669,
-      "sha256": "7fe9f8bff5cfcb34ca24e35611931e70394b993d11cf692607a1798b443fe9c1"
+      "bytes": 41723,
+      "sha256": "754933478bb5af54d5d1b1c9bf517efab2129bbd41fa8cfab1dba15d0d738971"
     },
     {
       "path": "BC.h",
-      "bytes": 14370,
-      "sha256": "3c25fd9d645a7bb09dee6a102b655c825db44a92b9b601757d5521fd2dd5a6b6"
+      "bytes": 14526,
+      "sha256": "14815dd461edeb7e914ecb1d98878fcb52bd9eef2f9272b9ba84efffcf8d224c"
     },
     {
       "path": "TextureBcP.h",

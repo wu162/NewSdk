@@ -116,10 +116,10 @@ namespace
         uint32_t                                          flags, bool dds) noexcept
     {
         constexpr float    fEpsilon = (0.25f / 64.0f) * (0.25f / 64.0f);
-        static const float pC3[]    = { 2.0f / 2.0f, 1.0f / 2.0f, 0.0f / 2.0f };
-        static const float pD3[]    = { 0.0f / 2.0f, 1.0f / 2.0f, 2.0f / 2.0f };
-        static const float pC4[]    = { 3.0f / 3.0f, 2.0f / 3.0f, 1.0f / 3.0f, 0.0f / 3.0f };
-        static const float pD4[]    = { 0.0f / 3.0f, 1.0f / 3.0f, 2.0f / 3.0f, 3.0f / 3.0f };
+        static constexpr float pC3[]    = { 2.0f / 2.0f, 1.0f / 2.0f, 0.0f / 2.0f };
+        static constexpr float pD3[]    = { 0.0f / 2.0f, 1.0f / 2.0f, 2.0f / 2.0f };
+        static constexpr float pC4[]    = { 3.0f / 3.0f, 2.0f / 3.0f, 1.0f / 3.0f, 0.0f / 3.0f };
+        static constexpr float pD4[]    = { 0.0f / 3.0f, 1.0f / 3.0f, 2.0f / 3.0f, 3.0f / 3.0f };
 
         const float* pC = (3 == cSteps) ? pC3 : pC4;
         const float* pD = (3 == cSteps) ? pD3 : pD4;
@@ -378,7 +378,7 @@ namespace
         assert(pColor && pBC);
         static_assert(sizeof(D3DX_BC1) == 8, "D3DX_BC1 should be 8 bytes");
 
-        static XMVECTORF32 s_Scale = { { { 1.f / 31.f, 1.f / 63.f, 1.f / 31.f, 1.f } } };
+        static const XMVECTORF32 s_Scale = { { { 0.032258063554763794f, 0.01587301678955555f, 0.032258063554763794f, 1.f } } };
 
         XMVECTOR clr0 = XMLoadU565(reinterpret_cast<const XMU565*>(&pBC->rgb[0]));
         XMVECTOR clr1 = XMLoadU565(reinterpret_cast<const XMU565*>(&pBC->rgb[1]));
