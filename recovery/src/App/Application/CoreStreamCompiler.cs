@@ -41,7 +41,6 @@ namespace NewModCompiler.Application
         bool compressedSessionCache = true, partialSessionCache = true, freezeSessionCache, alwaysTouchCache;
         int partialSessionsSaved;
         LegacyCacheStore legacyStore;
-        LinkedOutputCache linkedOutputs;
         int buildCacheHits, buildCacheMisses, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile;
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
@@ -50,9 +49,8 @@ namespace NewModCompiler.Application
         PluginDescriptor[] verifierDescriptors;
         public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
         public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Win32.LegacySessionCache" : buildCacheEnabled ? "NewModCompiler.Core.Win32.LegacyBuildCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
-        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionCache" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, linkedStreamsRestored = linkedOutputs == null ? linkedStreamsRestored : linkedOutputs.RestoredStreams, fileHashReads = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reads, fileHashReuses = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reuses, fileHashBytesRead = request == null || request.FileIdentities == null ? 0L : request.FileIdentities.BytesRead, textureCache = buildCacheEnabled || sessionCacheEnabled, compressedSessionCache, partialSessionCache, freezeSessionCache, alwaysTouchCache, partialSessionsSaved, parallel = parallelMetrics == null ? null : parallelMetrics.Snapshot(request), sessionCacheDirectory = legacyStore == null ? null : legacyStore.SessionRoot }; } }
+        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionCache" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, linkedStreamsRestored = linkedStreamsRestored, fileHashReads = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reads, fileHashReuses = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reuses, fileHashBytesRead = request == null || request.FileIdentities == null ? 0L : request.FileIdentities.BytesRead, textureCache = buildCacheEnabled || sessionCacheEnabled, compressedSessionCache, partialSessionCache, freezeSessionCache, alwaysTouchCache, partialSessionsSaved, parallel = parallelMetrics == null ? null : parallelMetrics.Snapshot(request), sessionCacheDirectory = legacyStore == null ? null : legacyStore.SessionRoot }; } }
         int linkedStreamsRestored;
-        bool cacheManagedBySession;
 
         public void Initialize(BuildRequest request)
         {
@@ -245,15 +243,15 @@ namespace NewModCompiler.Application
             return (Settings)settings.Clone();
         }
 
-        Settings StreamSettings(StreamContext context, string staging)
+        Settings StreamSettings(StreamContext context, string output)
         {
             Settings settings = ReadSettings();
             settings.InputPath = Path.GetFullPath(context.Task.InputPath);
             settings.SchemaPath = Path.Combine(sdkRoot, "Schemas", "xsd", "CnC3Types.xsd");
             settings.DataRoot = RootOption("dr", sdkRoot);
-            settings.OutputDirectory = Path.Combine(staging, "streams");
+            settings.OutputDirectory = Path.Combine(output, "streams");
             settings.IntermediateOutputDirectory = RootOption("iod", outputRoot);
-            settings.SessionCacheDirectory = Path.Combine(staging, "hashes");
+            settings.SessionCacheDirectory = RootOption("session-cache-directory", outputRoot);
             settings.BuildCacheDirectory = RootOption("build-cache-directory", string.IsNullOrEmpty(settings.BuildCacheDirectory) ? Path.Combine(outputRoot, "cache") : Path.GetFullPath(settings.BuildCacheDirectory));
             settings.DefaultDataPaths = RootOption("data", () => Prepend(Path.Combine(modRoot, "Data"), settings.DefaultDataPaths));
             settings.DefaultArtPaths = RootOption("art", () => Prepend(Path.Combine(modRoot, "Art"), settings.DefaultArtPaths));
@@ -261,8 +259,7 @@ namespace NewModCompiler.Application
             settings.BuildConfigurationName = null;
             settings.BuildConfigurations = new BuildConfiguration[0];
             settings.TargetPlatform = TargetPlatform.Win32;
-            // Every stream owns a new SessionCache and a private restored package.
-            // BuildSession confirms both caches only after required output succeeds.
+            // Use BAB's persistent cache layout directly; it is independent of MOD output.
             settings.SessionCache = sessionCacheEnabled;
             settings.PartialSessionCache = partialSessionCache;
             settings.FreezeSessionCache = freezeSessionCache;
@@ -478,14 +475,12 @@ namespace NewModCompiler.Application
             if (context == null || context.Task == null || !Object.ReferenceEquals(context.Request, request))
                 throw new BuildFailure(ExitCode.Arguments, "CORE_CONTEXT_INVALID", "Stream context must belong to the initialized request.");
             cancellation.ThrowIfCancellationRequested();
-            if (string.IsNullOrEmpty(context.StagingDirectory) || !Path.IsPathRooted(context.StagingDirectory))
-                throw new BuildFailure(ExitCode.Arguments, "CORE_STAGING_INVALID", "The stream workspace must be an absolute directory.");
-            string staging = Path.GetFullPath(context.StagingDirectory);
-            if (!Paths.Contains(outputRoot, staging) || Paths.Contains(staging, outputRoot) || Paths.Contains(sdkRoot, staging) || Paths.Contains(modRoot, staging))
-                throw new BuildFailure(ExitCode.Output, "CORE_STAGING_INVALID", "The stream workspace must be beneath the isolated output root.");
-            RejectReparseAncestors(staging);
-            if (Directory.Exists(staging) && Directory.EnumerateFileSystemEntries(staging).Any())
-                throw new BuildFailure(ExitCode.Output, "CORE_STAGING_NOT_EMPTY", "The stream workspace must be new or empty.");
+            if (string.IsNullOrEmpty(context.OutputDirectory) || !Path.IsPathRooted(context.OutputDirectory))
+                throw new BuildFailure(ExitCode.Arguments, "CORE_OUTPUT_INVALID", "The stream workspace must be an absolute directory.");
+            string output = Path.GetFullPath(context.OutputDirectory);
+            if (!Paths.Contains(outputRoot, output) || Paths.Contains(output, outputRoot) || Paths.Contains(sdkRoot, output) || Paths.Contains(modRoot, output))
+                throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_INVALID", "The stream workspace must be beneath the isolated output root.");
+            RejectReparseAncestors(output);
             if (string.IsNullOrEmpty(context.Task.InputPath) || !Path.IsPathRooted(context.Task.InputPath) || !Paths.Contains(modRoot, context.Task.InputPath) || !File.Exists(context.Task.InputPath) || !string.Equals(Path.GetExtension(context.Task.InputPath), ".xml", StringComparison.OrdinalIgnoreCase))
                 throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "The experimental backend requires an existing XML stream entry.");
             Settings previousSettings = Settings.Current;
@@ -496,30 +491,28 @@ namespace NewModCompiler.Application
             DocumentProcessor processor = null;
             ParallelBackendScheduler execution = null;
             SessionCache cache = null; Settings streamSettings = null; bool processingStarted = false, sessionSaved = false;
+            var currentFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var startedStreams = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             compiling = true;
-            cacheManagedBySession = context.CacheManagedBySession;
             try
             {
-                Directory.CreateDirectory(staging);
+                Directory.CreateDirectory(output);
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
                 Settings settings;
-                using (request.Performance.Measure("core.settings")) settings = streamSettings = StreamSettings(context, staging);
+                using (request.Performance.Measure("core.settings")) settings = streamSettings = StreamSettings(context, output);
                 settings.MeasurePerformance = request.Performance.Detailed ? (Func<string, IDisposable>)(name => request.Performance.Measure(name, true)) : null;
                 settings.RecordPerformanceCounter = request.Performance.Enabled ? (Action<string, long, bool>)request.Performance.RecordCounter : null;
                 settings.FileIdentity = request.FileIdentities.CoreIdentity;
                 settings.RememberFileContentHash = request.FileIdentities.RememberCoreHash;
                 settings.FileContentHashFromBytes = request.FileIdentities.HashBase64;
                 settings.SchemaFileIdentities = request.FileIdentities.SchemaIdentities;
-                if (linkedOutputs == null) linkedOutputs = new LinkedOutputCache(outputRoot, request.FileIdentities);
-                string linkScope = Path.Combine(context.Task.Content, Path.GetFileNameWithoutExtension(context.Task.InputPath));
-                var reusedArtifacts = new List<Artifact>();
-                if (cacheManagedBySession)
-                {
-                    settings.FindLinkedOutput = stem => linkedOutputs.Find(linkScope, settings.OutputDirectory, stem);
-                    settings.ReuseLinkedOutput = (stem, cached) => linkedOutputs.Reuse(stem, cached, reusedArtifacts, request.FileIdentities);
-                }
-                else settings.PrepareLinkedOutput = stem => linkedOutputs.Restore(linkScope, settings.OutputDirectory, stem);
+                settings.StreamOutputStarted = stem => startedStreams.Add(stem);
+                settings.StreamOutputCompleted = (stem, reused) => {
+                    foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo" }) currentFiles.Add(stem + extension);
+                    if (reused) linkedStreamsRestored++;
+                };
+                settings.CustomDataOutput = path => currentFiles.Add(path);
                 processorState = DocumentProcessor.BeginStateScope();
                 report = AssetReport.BeginScope();
                 using (request.Performance.Measure("core.providers")) EnsureProviders();
@@ -532,22 +525,12 @@ namespace NewModCompiler.Application
                 using (request.Performance.Measure("cache.prepare"))
                 if (sessionCacheEnabled)
                 {
-                    if (legacyStore == null) legacyStore = new LegacyCacheStore(outputRoot, RootOption("session-cache-directory", outputRoot), LegacyCacheIdentity(settings));
-                    string root = FileNameResolver.GetDataRoot(settings.InputPath);
-                    string relative = string.IsNullOrEmpty(root) ? Path.GetFileName(settings.InputPath) : FileNameResolver.GetSafeRelativePath(root, settings.InputPath);
-                    relative = Path.Combine(Path.GetDirectoryName(relative), Path.GetFileNameWithoutExtension(relative));
-                    packageRestored = legacyStore.Prepare(settings.SessionCacheDirectory, settings.OutputDirectory, cancellation, relative, copySession: false, copyData: !cacheManagedBySession);
+                    if (legacyStore == null) legacyStore = new LegacyCacheStore(settings.SessionCacheDirectory, LegacyCacheIdentity(settings));
+                    packageRestored = legacyStore.CanLoad();
                     if (!packageRestored) request.Performance.RecordCounter(legacyStore.PrepareMissReason);
-                    if (packageRestored && cacheManagedBySession)
-                    {
-                        settings.FindCustomData = path => legacyStore.ResolveData(path.Substring(settings.OutputDirectory.Length + 1));
-                        settings.ReuseCustomData = (logical, source) =>
-                        {
-                            if (reusedArtifacts.Any(artifact => string.Equals(artifact.Path, logical, StringComparison.OrdinalIgnoreCase))) return;
-                            reusedArtifacts.Add(new Artifact { Path = logical, BackingPath = source, Kind = "custom-data", Size = new FileInfo(source).Length,
-                                Sha256 = request.FileIdentities.Hash(source), Verified = true });
-                        };
-                    }
+                    if (packageRestored)
+                        settings.FindCustomData = path => legacyStore.RestoreData(path.Substring(settings.OutputDirectory.Length + 1), path, cancellation);
+
                 }
                 using (request.Performance.Measure("core.string-hashes")) hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                 using (request.Performance.Measure("cache.load")) {
@@ -557,7 +540,7 @@ namespace NewModCompiler.Application
                     string sessionPath = Path.Combine(settings.SessionCacheDirectory, LegacyCacheStore.SessionName);
                     try
                     {
-                        cache.LoadCacheFrom(packageRestored ? legacyStore.PreparedSessionPath : sessionPath, sessionPath);
+                        cache.LoadCacheFrom(packageRestored ? legacyStore.SessionPath : null, sessionPath);
                         cache.InitializeCache(new List<string>());
                         if (packageRestored && !cache.HasCachedState)
                             throw new InvalidDataException("The restored session has an incompatible format.");
@@ -581,13 +564,11 @@ namespace NewModCompiler.Application
                         // Loading older document data can register strings before
                         // a later malformed node fails. Recreate that scope too.
                         hashes.Dispose(); hashes = null;
-                        foreach (string directory in new[] {settings.SessionCacheDirectory, settings.OutputDirectory})
-                            if (Directory.Exists(directory)) Directory.Delete(directory, true);
                         hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                         packageRestored = false;
-                        settings.FindCustomData = null; settings.ReuseCustomData = null;
+                        settings.FindCustomData = null;
                         cache = new SessionCache();
-                        cache.LoadCacheFrom(packageRestored ? legacyStore.PreparedSessionPath : sessionPath, sessionPath);
+                        cache.LoadCacheFrom(packageRestored ? legacyStore.SessionPath : null, sessionPath);
                         cache.InitializeCache(new List<string>());
                     }
                     if (packageRestored) sessionPackageHits++; else sessionPackageMisses++;
@@ -597,7 +578,7 @@ namespace NewModCompiler.Application
                 cache.AssetCompilersVersion = compilers.Registry.AssetBuilderPluginsVersion;
                 processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
                 if (parallelMetrics == null) parallelMetrics = new ParallelBackendMetrics(request.Performance);
-                execution = new ParallelBackendScheduler(processor, staging, request.JobsAuto ? Math.Max(1, Environment.ProcessorCount) : request.RequestedJobs, parallelMetrics, request.Performance, cancellation);
+                execution = new ParallelBackendScheduler(processor, output, request.JobsAuto ? Math.Max(1, Environment.ProcessorCount) : request.RequestedJobs, parallelMetrics, request.Performance, cancellation);
                 processor.AssetExecution = execution;
                 bool success; processingStarted = true;
                 using (request.Performance.Measure("core.process"))
@@ -607,12 +588,13 @@ namespace NewModCompiler.Application
                 cancellation.ThrowIfCancellationRequested();
                 if (sessionCacheEnabled && !freezeSessionCache)
                 {
-                    SaveLegacySession(cache, settings, cancellation); sessionSaved = true;
+                    SaveLegacySession(cache, settings, currentFiles, cancellation); sessionSaved = true;
                 }
                 using (request.Performance.Measure("artifacts.collect"))
-                    artifacts = CollectArtifactsWithHashes(settings.OutputDirectory,request.FileIdentities,reusedArtifacts);
-                using (request.Performance.Measure("cache.linked-stage"))
-                    linkedOutputs.Stage(linkScope, settings.OutputDirectory, artifacts, cancellation);
+                    artifacts = currentFiles.OrderBy(path => path, StringComparer.Ordinal).Select(path => new Artifact {
+                        Path = path, Kind = path.EndsWith(".cdata", StringComparison.OrdinalIgnoreCase) ? "custom-data" : "stream" + Path.GetExtension(path),
+                        Size = new FileInfo(path).Length }).ToList();
+                if (artifacts.Count == 0) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_MISSING", "Core produced no stream output.");
                 cancellation.ThrowIfCancellationRequested();
             }
             catch (Exception error)
@@ -623,7 +605,7 @@ namespace NewModCompiler.Application
                 catch (Exception joinError) { AddCleanupFailure(ref failure, joinError, ExitCode.Compilation, "CORE_BACKEND_JOIN_FAILED"); }
                 if (processingStarted && !sessionSaved && sessionCacheEnabled && partialSessionCache && !freezeSessionCache)
                 {
-                    try { SaveLegacySession(cache, streamSettings, CancellationToken.None); partialSessionsSaved++; }
+                    try { SaveLegacySession(cache, streamSettings, currentFiles, CancellationToken.None); partialSessionsSaved++; }
                     catch (Exception saveError) { AddCleanupFailure(ref failure, saveError, ExitCode.Output, "CORE_PARTIAL_CACHE_SAVE_FAILED"); }
                 }
             }
@@ -650,8 +632,12 @@ namespace NewModCompiler.Application
                 foreach (Exception error in cleanup) AddCleanupFailure(ref failure, error, ExitCode.Internal, "CORE_CLEANUP_FAILED");
                 if (failure != null)
                 {
-                    try { if (Directory.Exists(staging)) Directory.Delete(staging, true); }
-                    catch (Exception error) { AddCleanupFailure(ref failure, error, ExitCode.Output, "CORE_STAGING_CLEANUP_FAILED"); }
+                    // A failed stream must never authorize a later four-file hit.
+                    // Keep intermediate assets and useful partial BAB cache work.
+                    foreach (string stem in startedStreams)
+                        foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo" })
+                            try { File.Delete(stem + extension); }
+                            catch (Exception error) { AddCleanupFailure(ref failure, error, ExitCode.Output, "CORE_OUTPUT_CLEANUP_FAILED"); }
                 }
                 }
             }
@@ -659,28 +645,16 @@ namespace NewModCompiler.Application
             return artifacts;
         }
 
-        void SaveLegacySession(SessionCache cache, Settings settings, CancellationToken cancellation)
+        void SaveLegacySession(SessionCache cache, Settings settings, IEnumerable<string> currentFiles, CancellationToken cancellation)
         {
             using (request.Performance.Measure("cache.save"))
             {
             if (!cache.HasChanges && cache.LoadedCompressed == compressedSessionCache) return;
+            legacyStore.SaveData(settings.OutputDirectory, currentFiles.Where(path => path.EndsWith(".cdata", StringComparison.OrdinalIgnoreCase)), cancellation);
             using (request.Performance.Measure("cache.serialize")) cache.SaveCache(compressedSessionCache);
-            using (request.Performance.Measure("cache.stage"))
-                legacyStore.Stage(settings.SessionCacheDirectory, settings.OutputDirectory, compressedSessionCache, cancellation);
-            if (partialSessionCache) legacyStore.ConfirmPartial();
+            legacyStore.Saved(compressedSessionCache);
             cache.AcceptSavedChanges(compressedSessionCache);
             }
-        }
-        public void CommitCache() { if (legacyStore != null) legacyStore.Commit(); if (linkedOutputs != null) linkedOutputs.Commit(); }
-        public void RollbackCache()
-        {
-            try { if (legacyStore != null) { legacyStore.Dispose(); legacyStore = null; } }
-            finally { if (linkedOutputs != null) { linkedStreamsRestored = linkedOutputs.RestoredStreams; linkedOutputs.Dispose(); linkedOutputs = null; } }
-        }
-        public void CompleteCache()
-        {
-            if (legacyStore != null) { legacyStore.Complete(); legacyStore = null; }
-            if (linkedOutputs != null) { linkedStreamsRestored = linkedOutputs.RestoredStreams; linkedOutputs.Complete(); linkedOutputs = null; }
         }
         string LegacyCacheIdentity(Settings settings)
         {
@@ -723,80 +697,8 @@ namespace NewModCompiler.Application
         {
             for (var directory = new DirectoryInfo(path); directory != null; directory = directory.Parent)
                 if (directory.Exists && (directory.Attributes & FileAttributes.ReparsePoint) != 0)
-                    throw new BuildFailure(ExitCode.Output, "CORE_STAGING_REPARSE", "The stream workspace cannot use reparse points.");
+                    throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_REPARSE", "The stream workspace cannot use reparse points.");
         }
-        static IEnumerable<string> SafeFiles(string directory)
-        {
-            // Check the root as well as discovered children. A caller-supplied
-            // junction must never turn an otherwise relative traversal into a
-            // scan of files outside this stream's output directory.
-            FileAttributes rootAttributes = File.GetAttributes(directory);
-            if ((rootAttributes & FileAttributes.ReparsePoint) != 0)
-                throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_REPARSE", "Core output contains a reparse point.");
-            if ((rootAttributes & FileAttributes.Directory) == 0)
-                throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_INVALID", "Core output must be a directory.");
-            foreach (string entry in Directory.GetFileSystemEntries(directory).OrderBy(x => x, StringComparer.Ordinal))
-            {
-                FileAttributes attributes = File.GetAttributes(entry);
-                if ((attributes & FileAttributes.ReparsePoint) != 0) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_REPARSE", "Core output contains a reparse point.");
-                if ((attributes & FileAttributes.Directory) != 0) { foreach (string file in SafeFiles(entry)) yield return file; }
-                else yield return entry;
-            }
-        }
-        static IList<Artifact> CollectArtifacts(string output)
-        { return CollectArtifactsWithHashes(output,null); }
-        static IList<Artifact> CollectArtifactsWithHashes(string output,FileHashCache hashes, IList<Artifact> reused = null)
-        {
-            output = Path.GetFullPath(output);
-            var files = hashes == null ? SafeFiles(output).ToArray() : Directory.Exists(output) ? Directory.EnumerateFiles(output,"*",SearchOption.AllDirectories).OrderBy(path=>path,StringComparer.Ordinal).ToArray() : new string[0];
-            var result = reused == null ? new List<Artifact>() : new List<Artifact>(reused);
-            string[] manifests = files.Where(x => x.EndsWith(".manifest", StringComparison.OrdinalIgnoreCase)).ToArray();
-            if (manifests.Length == 0 && result.Count == 0) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_MISSING", "Core produced no stream manifest.");
-            var accepted = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            var customDirectories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (string manifest in manifests)
-            {
-                string stem = manifest.Substring(0, manifest.Length - ".manifest".Length);
-                customDirectories.Add(Path.Combine(stem, "cdata"));
-                foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo" })
-                {
-                    string file = stem + extension;
-                    if (!File.Exists(file)) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_INCOMPLETE", "Core output is missing " + file);
-                    accepted.Add(file);
-                }
-            }
-            if (reused != null) foreach (var artifact in reused)
-                if (artifact.Kind == "stream.manifest") customDirectories.Add(Path.Combine(Path.ChangeExtension(artifact.Path, null), "cdata"));
-            foreach (string file in files)
-            {
-                // Stream directories may themselves be named cdata. Classify
-                // their four files by the exact stream paths first; a directory
-                // component alone says nothing about the artifact's role.
-                bool stream = accepted.Contains(file);
-                bool custom = !stream && customDirectories.Contains(Path.GetDirectoryName(file)) && IsCustomDataFileName(Path.GetFileName(file));
-                if (!stream && !custom) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_UNEXPECTED", "Unexpected file in completed stream output: " + file);
-                string sha;
-                if(hashes!=null)sha=hashes.Hash(file,stream);
-                else using (var algorithm = SHA256.Create()) using (var input = File.OpenRead(file)) sha = BitConverter.ToString(algorithm.ComputeHash(input)).Replace("-", "").ToLowerInvariant();
-                result.Add(new Artifact { Path = Path.GetFullPath(file), Kind = custom ? "custom-data" : "stream" + Path.GetExtension(file), Size = new FileInfo(file).Length, Sha256 = sha, Verified = true });
-            }
-            return result;
-        }
-
-        static bool IsCustomDataFileName(string name)
-        {
-            // BinaryAsset/InstanceHandle.FileBase writes four 32-bit fields in
-            // this exact layout. This is a path/layout check, not a second
-            // manifest parser or proof that the payload matches its asset.
-            if (name.Length != 41 || !name.EndsWith(".cdata", StringComparison.OrdinalIgnoreCase)) return false;
-            for (int index = 0; index < 35; index++)
-            {
-                if (index == 8 || index == 17 || index == 26) { if (name[index] != '.') return false; }
-                else if (!((name[index] >= '0' && name[index] <= '9') || (name[index] >= 'a' && name[index] <= 'f') || (name[index] >= 'A' && name[index] <= 'F'))) return false;
-            }
-            return true;
-        }
-
         void CheckOwner()
         {
             lock (LeaseGate)
@@ -819,7 +721,12 @@ namespace NewModCompiler.Application
                 disposed = true;
             }
             try { DisposeProviders(); }
-            finally { try { if (!cacheManagedBySession) RollbackCache(); } finally { ReleaseLease(); } }
+            finally {
+                try {
+                    if (legacyStore != null) legacyStore.Dispose();
+                    if (request != null && request.FileIdentities != null) request.FileIdentities.Save();
+                } finally { ReleaseLease(); }
+            }
         }
         void DisposeProviders()
         {

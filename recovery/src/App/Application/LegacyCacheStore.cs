@@ -1,189 +1,67 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 
 namespace NewModCompiler.Application
 {
-    // The original BAB layout and native asset keys are the public cache
-    // contract. Session serialization stays in Core, including .deflate and
-    // partial/frozen sessions. Only final artifact publication is transactional.
+    // BAB owns session serialization and its native asset cache. This adapter
+    // only validates the implementation identity and imports immutable CDATA.
     public sealed class LegacyCacheStore : IDisposable
     {
         public const string SessionName = "BinaryAssetBuilder.SessionCache.xml";
-        readonly string output, sessionRoot, identity, candidate, cdataRoot;
-        readonly Dictionary<string, string> backups = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        readonly List<string> installed = new List<string>();
-        PublicationLock sessionLock;
-        string stagedSession;
-        public string PreparedSessionPath { get; private set; }
+        readonly string identity, cdataRoot;
+        readonly CacheLock sessionLock;
+        public string SessionRoot { get; private set; }
+        public string SessionPath { get { return Path.Combine(SessionRoot, SessionName); } }
         internal string PrepareMissReason { get; private set; }
-        bool committed, disposed;
-        public string SessionRoot { get { return sessionRoot; } }
-        public string SessionPath { get { return Path.Combine(sessionRoot, SessionName); } }
-        public LegacyCacheStore(string outputRoot, string sessionRoot, string identity)
+        public LegacyCacheStore(string sessionRoot, string identity)
         {
-            output = Path.GetFullPath(outputRoot); this.sessionRoot = Path.GetFullPath(sessionRoot); this.identity = identity;
-            candidate = Path.Combine(output, ".legacy-cache-candidate-" + Guid.NewGuid().ToString("N"));
-            cdataRoot = Path.Combine(this.sessionRoot, ".NewModCompiler", "cdata");
-            RejectLinks(this.sessionRoot);
-            sessionLock = PublicationLock.Acquire(SessionPath);
+            SessionRoot = Path.GetFullPath(sessionRoot); this.identity = identity;
+            cdataRoot = Path.Combine(SessionRoot, ".NewModCompiler", "cdata");
+            sessionLock = CacheLock.Acquire(SessionPath);
         }
-        public bool Prepare(string hashes, string streams, CancellationToken cancellation, string relativeStream = null, bool copySession = true, bool copyData = true)
+        public bool CanLoad()
         {
-            Active(); cancellation.ThrowIfCancellationRequested();
+            string stamp = Path.Combine(SessionRoot, ".NewModCompiler", "session.identity");
             PrepareMissReason = null;
-            string source = stagedSession;
-            if (source == null)
-            {
-                string stamp = Path.Combine(sessionRoot, ".NewModCompiler", "session.identity");
-                if (File.Exists(stamp) && File.ReadAllText(stamp) != identity) { PrepareMissReason = "cache.session.identityChanged"; return false; }
-                source = File.Exists(SessionPath + ".deflate") ? SessionPath + ".deflate" : SessionPath;
-                if (!File.Exists(source)) { PrepareMissReason = "cache.session.notFound"; return false; }
-            }
-            string target = Path.Combine(hashes, SessionName) + (source.EndsWith(".deflate", StringComparison.OrdinalIgnoreCase) ? ".deflate" : "");
-            PreparedSessionPath = source.EndsWith(".deflate", StringComparison.OrdinalIgnoreCase) ? source.Substring(0, source.Length - 8) : source;
-            if (copySession) Copy(source, target, cancellation);
-            if (!copyData) return true;
-            string stagedData = Path.Combine(candidate, "cdata");
-            if (Directory.Exists(stagedData)) CopyData(stagedData, streams, cancellation, false, relativeStream);
-            else if (Directory.Exists(cdataRoot)) CopyData(cdataRoot, streams, cancellation, false, relativeStream);
-            else if (Directory.Exists(sessionRoot)) CopyData(sessionRoot, streams, cancellation, true, relativeStream);
+            if (File.Exists(stamp) && File.ReadAllText(stamp) != identity) { PrepareMissReason = "cache.session.identityChanged"; return false; }
+            if (!File.Exists(SessionPath) && !File.Exists(SessionPath + ".deflate")) { PrepareMissReason = "cache.session.notFound"; return false; }
             return true;
         }
-        internal string ResolveData(string relative)
+        internal string RestoreData(string relative, string target, CancellationToken cancellation)
         {
-            foreach (string root in new[] { Path.Combine(candidate, "cdata"), cdataRoot, sessionRoot })
+            foreach (string root in new[] { cdataRoot, SessionRoot })
             {
-                string path = Path.Combine(root, relative);
-                if (File.Exists(path)) return path;
+                string source = Path.Combine(root, relative);
+                if (!File.Exists(source)) continue;
+                cancellation.ThrowIfCancellationRequested();
+                Directory.CreateDirectory(Path.GetDirectoryName(target));
+                // A restored file can be rewritten by Core; keep cache storage independent.
+                File.Copy(source, target, true);
+                return target;
             }
             return null;
         }
-        public void Stage(string hashes, string streams, bool compressed, CancellationToken cancellation)
+        internal void SaveData(string streams, IEnumerable<string> files, CancellationToken cancellation)
         {
-            Active(); if (committed) throw new InvalidOperationException("A legacy session is already committed.");
-            cancellation.ThrowIfCancellationRequested();
-            string name = SessionName + (compressed ? ".deflate" : "");
-            string source = Path.Combine(hashes, name), target = Path.Combine(candidate, name);
-            Move(source, target); stagedSession = target;
-            if (File.Exists(source + ".old")) Move(source + ".old", target + ".old");
-            CopyData(streams, Path.Combine(candidate, "cdata"), cancellation, snapshot: true);
-            string alternate = Path.Combine(candidate, SessionName + (compressed ? "" : ".deflate"));
-            if (File.Exists(alternate)) File.Delete(alternate);
-        }
-        public void Commit()
-        {
-            Active(); if (committed || stagedSession == null) return;
-            try
+            foreach (string source in files)
             {
-                Install(stagedSession, Path.Combine(sessionRoot, Path.GetFileName(stagedSession)));
-                if (File.Exists(stagedSession + ".old")) Install(stagedSession + ".old", Path.Combine(sessionRoot, Path.GetFileName(stagedSession)) + ".old");
-                string alternate = SessionPath + (stagedSession.EndsWith(".deflate", StringComparison.OrdinalIgnoreCase) ? "" : ".deflate");
-                Backup(alternate);
-                string stamp = Path.Combine(candidate, "session.identity");
-                File.WriteAllText(stamp, identity);
-                Install(stamp, Path.Combine(sessionRoot, ".NewModCompiler", "session.identity"));
-                string data = Path.Combine(candidate, "cdata");
-                if (Directory.Exists(data)) foreach (string file in Files(data))
-                    Install(file, Path.Combine(cdataRoot, file.Substring(data.Length + 1)));
-                committed = true;
-            }
-            catch { Rollback(); throw; }
-        }
-        // /psc:true deliberately keeps completed cache work even if the build
-        // later aborts. This never publishes a partial MOD or changes its exit code.
-        public void ConfirmPartial() { Commit(); Confirm(); }
-        public void Complete()
-        {
-            if (disposed) return;
-            try { Confirm(); }
-            catch (IOException) { } catch (UnauthorizedAccessException) { }
-            finally { if (sessionLock != null) sessionLock.Dispose(); sessionLock = null; disposed = true; }
-        }
-        void Confirm()
-        {
-            if (!committed) return;
-            backups.Clear(); installed.Clear(); committed = false; stagedSession = null;
-            DeleteCandidate();
-        }
-        public void Rollback()
-        {
-            if (disposed) return;
-            foreach (string target in installed.AsEnumerable().Reverse()) if (File.Exists(target)) File.Delete(target);
-            installed.Clear();
-            foreach (var pair in backups) File.Move(pair.Value, pair.Key);
-            backups.Clear(); committed = false; stagedSession = null; DeleteCandidate();
-        }
-        public void Dispose()
-        {
-            if (disposed) return;
-            try { Rollback(); }
-            finally { if (sessionLock != null) sessionLock.Dispose(); sessionLock = null; disposed = true; }
-        }
-        void Install(string source, string target)
-        {
-            if (FileTransfer.SameContents(source, target)) return;
-            Backup(target); Directory.CreateDirectory(Path.GetDirectoryName(target));
-            installed.Add(target); File.Move(source, target);
-        }
-        void Backup(string target)
-        {
-            RejectLinks(target); if (!File.Exists(target) || backups.ContainsKey(target)) return;
-            string backup = Path.Combine(candidate, "previous", backups.Count.ToString("x8"));
-            Directory.CreateDirectory(Path.GetDirectoryName(backup)); File.Move(target, backup);
-            backups.Add(target, backup);
-        }
-        void CopyData(string root, string target, CancellationToken cancellation, bool legacyRoot = false, string relativeStream = null, bool snapshot = false)
-        {
-            if (!Directory.Exists(root)) return;
-            foreach (string path in legacyRoot ? DataFiles(root, true) : Directory.EnumerateFiles(root,"*.cdata",SearchOption.AllDirectories))
-            {
-                string relative = path.Substring(root.Length + 1);
-                if (relativeStream != null && !relative.StartsWith(relativeStream + Path.DirectorySeparatorChar + "cdata" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) continue;
                 cancellation.ThrowIfCancellationRequested();
-                if (snapshot) FileTransfer.Snapshot(path, Path.Combine(target, relative));
-                else Copy(path, Path.Combine(target, relative), cancellation);
+                string target = Path.Combine(cdataRoot, source.Substring(streams.Length + 1));
+                // BAB's custom-data name contains the native asset identity.
+                // Existing immutable entries need no content comparison or copy.
+                if (!File.Exists(target)) FileTransfer.Snapshot(source, target);
             }
         }
-        IEnumerable<string> DataFiles(string root, bool legacyRoot)
+        public void Saved(bool compressed)
         {
-            foreach (string path in Directory.GetFileSystemEntries(root))
-            {
-                FileAttributes attributes=File.GetAttributes(path);
-                if ((attributes&FileAttributes.ReparsePoint)!=0) throw new IOException("Legacy cache data cannot use reparse points.");
-                if ((attributes&FileAttributes.Directory)!=0)
-                {
-                    string name = Path.GetFileName(path);
-                    if (legacyRoot && (name == ".build" || name == "published" || name == "cache" || name == "assets" || name == ".NewModCompiler" || name.StartsWith(".legacy-cache-candidate-", StringComparison.Ordinal))) continue;
-                    foreach (string child in DataFiles(path, legacyRoot)) yield return child;
-                }
-                else if (string.Equals(Path.GetExtension(path), ".cdata", StringComparison.OrdinalIgnoreCase)) yield return path;
-            }
+            string alternate = SessionPath + (compressed ? "" : ".deflate");
+            if (File.Exists(alternate)) File.Delete(alternate);
+            string stamp = Path.Combine(SessionRoot, ".NewModCompiler", "session.identity");
+            Directory.CreateDirectory(Path.GetDirectoryName(stamp));
+            if (!File.Exists(stamp) || File.ReadAllText(stamp) != identity) File.WriteAllText(stamp, identity);
         }
-        static IEnumerable<string> Files(string root)
-        {
-            return Directory.EnumerateFiles(root,"*",SearchOption.AllDirectories);
-        }
-        static void Copy(string source, string target, CancellationToken cancellation)
-        {
-            cancellation.ThrowIfCancellationRequested();
-            Directory.CreateDirectory(Path.GetDirectoryName(target)); File.Copy(source, target, true);
-        }
-        static void Move(string source, string target)
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(target));
-            if (File.Exists(target)) File.Delete(target);
-            File.Move(source, target);
-        }
-        static void RejectLinks(string path)
-        {
-            if (File.Exists(path) && (File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0) throw new IOException("Legacy cache files cannot use reparse points.");
-            for (var directory = new DirectoryInfo(path); directory != null; directory = directory.Parent)
-                if (directory.Exists && (directory.Attributes & FileAttributes.ReparsePoint) != 0) throw new IOException("Legacy cache directories cannot use reparse points.");
-        }
-        void DeleteCandidate() { if (Directory.Exists(candidate)) Directory.Delete(candidate, true); }
-        void Active() { if (disposed) throw new ObjectDisposedException("LegacyCacheStore"); }
+        public void Dispose() { sessionLock.Dispose(); }
     }
 }

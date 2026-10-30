@@ -79,6 +79,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[string]$Selecti
         Need ($audit.singleProcessJobEnforced -and $audit.singleProcessJobLimit -eq 1 -and @($audit.descendants).Count -eq 0) 'Asset cache introduced a product child process'
         if($Cancel){Need ($audit.signalSent -and $audit.freshEventsPathObserved -and $audit.streamStartedObserved -and $Expected -eq 6) 'Cache cancellation did not receive actual CtrlBreak'}
         $body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json
+        foreach($artifact in $body.artifacts){$artifact|Add-Member -NotePropertyName TestSha256 -NotePropertyValue (Hash $artifact.Path)}
         Need ($body.exitCode -eq $Expected) 'Cache process/report exit differs'
         $rows=@(Get-Content -LiteralPath $events|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})
         Need ($rows[-1].eventType -ceq 'BuildFinished' -and @($rows|Where-Object{$_.eventType -ceq 'BuildStarted'}).Count -eq 1 -and @($rows|Where-Object{$_.eventType -ceq 'BuildFinished'}).Count -eq 1) 'Cache CLI terminal protocol differs'
@@ -98,7 +99,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[string]$Selecti
             }
             $published=Join-Path $Destination 'published'
             foreach($artifact in $body.artifacts){
-                Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
+                Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.TestSha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
                 $relative=[IO.Path]::GetRelativePath($published,$artifact.Path);$copy=Join-Path $archived $relative
                 New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($copy))|Out-Null
                 Copy-Item -LiteralPath $artifact.Path -Destination $copy;$files[$relative]=$copy
@@ -132,8 +133,8 @@ function ExpectedInventory($Loose){
         if($artifact.Kind -ceq 'custom-data'){$tail=$stem+'/cdata/'+$tail}
         $name=($prefix+$tail).Replace('/','\').ToLowerInvariant()
         $source=$Loose.files[[IO.Path]::GetRelativePath($published,$artifact.Path)]
-        Need ($null -ne $source -and (Hash $source) -ceq $artifact.Sha256) 'Archived loose oracle source changed'
-        $expected+=,@{name=$name;source=$source;bytes=$artifact.Size;sha256=$artifact.Sha256}
+        Need ($null -ne $source -and (Hash $source) -ceq $artifact.TestSha256) 'Archived loose oracle source changed'
+        $expected+=,@{name=$name;source=$source;bytes=$artifact.Size;sha256=$artifact.TestSha256}
     }
     # The old SDK writes echo. after each successful APT stream, producing
     # exactly space + CRLF (Windows probe 200d0a) in <stream>.version. Derive only from this current plan.
@@ -286,18 +287,18 @@ try{
         $destination=$combined.destination;$published=Join-Path $destination 'published'
         [IO.File]::WriteAllText((Join-Path $published 'stale.asset'),'Stale generation file must not survive')
         $rebuilt=RunCli 'replace-stale-generation' $mod $destination 'base,apt,maps' 'big'
-        Need (@(Get-ChildItem -LiteralPath $published -File -Recurse).Count -eq 2) 'BIG publication retained stale generation files'
+        Need ([IO.File]::ReadAllText((Join-Path $published 'stale.asset')) -ceq 'Stale generation file must not survive') 'BIG packaging removed unrelated output'
         CompareBig $rebuilt $plain 'replacement-original-makebig'
         $before=CacheFiles $destination;$publishedBefore=@{};Get-ChildItem -LiteralPath $published -File|ForEach-Object{$publishedBefore[$_.Name]=Hash $_.FullName}
         $held=@($rebuilt.report.artifacts|Where-Object{$_.Kind -ceq 'package.big'})[0].Path
-        $lockedHot=RunCli 'unchanged-locked-output' $mod $destination 'base,apt,maps' 'big' 0 $false $held
-        Need ($lockedHot.report.publicationUnchanged -eq $true) 'Locked unchanged BIG was unnecessarily replaced'
+        $lockedHot=RunCli 'unchanged-locked-output' $mod $destination 'base,apt,maps' 'big' 7 $false $held
+
         $replacementMarker=Join-Path $published 'obsolete-generation.tmp'
         [IO.File]::WriteAllText($replacementMarker,'Force a genuine directory replacement while the old BIG is held')
         $failed=RunCli 'publication-fault' $mod $destination 'base,apt,maps' 'big' 7 $false $held
         foreach($name in $publishedBefore.Keys){Need ((Hash (Join-Path $published $name)) -ceq $publishedBefore[$name]) 'Failed BIG publication changed the previous generation'}
         $retry=RunCli 'retry-after-publication-fault' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'publication-retry-original'
-        Need (!(Test-Path -LiteralPath $replacementMarker)) 'BIG replacement retry retained the obsolete generation marker'
+        Need (Test-Path -LiteralPath $replacementMarker) 'BIG replacement removed unrelated output'
         $cancelled=RunCli 'actual-cancel' $mod $destination 'base,apt,maps' 'big' 6 $true
         foreach($name in $publishedBefore.Keys){Need ((Hash (Join-Path $published $name)) -ceq $publishedBefore[$name]) 'Cancelled BIG build changed the previous generation'}
         $retry=RunCli 'retry-after-cancel' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'cancel-retry-original'

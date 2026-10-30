@@ -67,7 +67,7 @@ class HotCacheTests(unittest.TestCase):
 
     def test_hot_observations_reject_fake_reuse_and_republication(self):
         report = dict(exitCode=0, status='succeeded', publicationStatus='PublishedDirectory',
-                      publicationUnchanged=True, executionMode='InProcess', externalTools=[],
+                      executionMode='InProcess', externalTools=[],
                       effectiveOptions={'bc': {'Value': 'true'}},
                       cache=dict(hits=0, misses=0, sessionCache=True, compressedSessionCache=True,
                                  documentReuse=3, xmlParse=0, instanceCompile=0,

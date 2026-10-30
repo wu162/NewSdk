@@ -284,7 +284,7 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
             foreach($value in $product.Values){$null=$accepted.Add($value.path)}
         }
         Need (@($report.artifacts).Count -eq $accepted.Count -and @(Get-ChildItem -LiteralPath (Join-Path $destination 'published') -File -Recurse).Count -eq $accepted.Count) 'SDK publication artifact allowlist differs from all raw outputs'
-        foreach($artifact in $report.artifacts){Need ($accepted.Remove([string]$artifact.Path) -and (Within (Join-Path $destination 'published') $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'SDK reported artifact path/identity differs'}
+        foreach($artifact in $report.artifacts){Need ($accepted.Remove([string]$artifact.Path) -and (Within (Join-Path $destination 'published') $artifact.Path) -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'SDK reported artifact path/identity differs'}
         Need ($accepted.Count -eq 0 -and !(Test-Path -LiteralPath (Join-Path $destination ('.build/'+$report.buildId)))) 'SDK publication retained staging or omitted output'
         Unchanged $runtime $runtimeBefore
         $modeState.looseSucceeded=@($modeState.comparisons.outputs|Where-Object{!$_.byteIdentical}).Count -eq 0

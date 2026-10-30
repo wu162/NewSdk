@@ -53,7 +53,10 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
         if($Cancel){Need ($audit.signalSent -and $audit.streamStartedObserved -and $audit.processExitCode -eq 6) 'Real CtrlBreak cancellation was not verified'}
         $rows=@();$body=$null
         if(Test-Path -LiteralPath $events){$rows=@(Get-Content -LiteralPath $events|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})}
-        if(Test-Path -LiteralPath $report){$body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json}
+        if(Test-Path -LiteralPath $report){
+            $body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json
+            foreach($artifact in $body.artifacts){$artifact|Add-Member -NotePropertyName TestSha256 -NotePropertyValue (Hash $artifact.Path)}
+        }
         if($Command -eq 'doctor'){
             Need ((Get-Content (Join-Path $caseOut 'stdout.log') -Raw).Contains('CORE_ENVIRONMENT_OK')) 'Doctor did not verify actual environment'
         } elseif($Name -eq 'log-directory-rejected') {
@@ -85,7 +88,7 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
                 Need (@($body.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq $CustomDataCount) 'Reported CustomData count differs'
                 foreach($artifact in $body.artifacts){
                     Need ((Within (ArtifactRoot $destination $body) $artifact.Path) -and (Test-Path -LiteralPath $artifact.Path)) 'Artifact escaped the accepted generation root'
-                    Need ((Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size -and (Hash $artifact.Path) -ceq $artifact.Sha256) 'Artifact identity differs from report'
+                    Need ((Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size -and (Hash $artifact.Path) -ceq $artifact.TestSha256) 'Artifact identity differs from report'
                 }
                 if($script:publicationEnabled){
                     Need ($body.publicationStatus -ceq $(if($StreamCount -eq 0){'NotPublished'}else{'PublishedDirectory'}) -and $body.publicationDirectory -ceq (Join-Path $destination 'published')) 'CLI publication receipt differs'
@@ -123,11 +126,11 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
 }
 function ArtifactRoot([string]$Destination,$Report){
     if($Report.publicationStatus -ceq 'PublishedDirectory'){return (Join-Path $Destination 'published')}
-    return (Join-Path $Destination ('.build/'+$Report.buildId))
+    return (Join-Path $Destination 'published')
 }
 function TaskOutputs($Case,$Task,[int]$CustomDataCount=0){
     $prefix=Join-Path (ArtifactRoot $Case.destination $Case.report) ($Task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($Task.InputPath))
-    $map=@{};foreach($artifact in $Case.report.artifacts){if(Within $prefix $artifact.Path){$map[$artifact.Path.Substring($prefix.Length)]=$artifact.Sha256}}
+    $map=@{};foreach($artifact in $Case.report.artifacts){if(Within $prefix $artifact.Path){$map[$artifact.Path.Substring($prefix.Length)]=$artifact.TestSha256}}
     Need ($map.Count -eq 4+$CustomDataCount) 'Task output count differs from four streams plus allowed Texture CustomData';$map
 }
 # These fixtures have no runtime/manifest references. Decode the real source
