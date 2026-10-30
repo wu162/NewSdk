@@ -1,3 +1,7 @@
+# 当前：AudioFile 全设置并行与低预算（验证中）
+
+基于 `recovery/legacy-sdk-cache` / `b89fbadb`，成果在 `perf/audiofile-parallel`。移除 AudioFile 的显式采样率和压缩诊断串行门槛，外部输入预算由 64 倍降至 4 倍，压缩提示以原子标记保持进程内一次。输入租约、CDATA 隔离及通用资源调度继续工作。八类音频组件和生产夹具已接入既有完整回归；本地 Python/SDK XSD 预检通过，Windows 新构建与验收待执行。见[实现与验证范围](docs/AUDIOFILE_PARALLEL.md)。禁止强推，未经用户批准不合并。
+
 # 当前：插件重复 schema 校验已移除（验收通过，PR #26 待审）
 
 用户指定基线 `recovery/legacy-sdk-cache` / `5c1843ae`；成果在 `refactor/remove-plugin-schema-validation` / [PR #26](https://github.com/wu162/NewSdk/pull/26)。删除 XML、GameObject、Weapon、Effects/Particle、Locomotor 及生成代码中的属性/子节点白名单、文本、单例、结构和命名空间校验及专用遍历/数组分配。Core 统一 XSD、依赖元数据及类型路由继续工作；Audio/W3X 的编码器数据检查保留。
