@@ -2,9 +2,11 @@
 
 分支：`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试仅Actions。
 
-## D3DX BC 下一批源码检查点（未构建/未验证）
+## D3DX BC 下一批候选（待定向诊断，不是验收）
 
-此分支 `validation/texture-public-d3dx-bc` 已保存固定DirectXTex BC1/2/3原源码、标量x86适配和归一化float块/图像编解码ABI（含partial块和pitch）。入口 `src/TextureCompiler/PublicD3dxBc/PATCHES.md`、`recovery/scripts/BuildTexturePublicBc.ps1`。没有原DLL/既有恢复后端回调，没有生产调用，未启动本候选验收；完整压缩DDS加载仍明确拒绝。下一轮先核对原XGCopySurface的压缩→float与重编码flags/threshold，再接完整DDS小尾mip/缺层消费，对一般浮点/端点/索引规则继续适配并集中验收。1×1压缩DDS原生base实际4×4、levels3，证据为原native-loader105资源快照。
+`validation/texture-public-d3dx-bc` 已接通固定DirectXTex BC1/2/3原源码、标量x86的float块/图像编解码，以及POT base>=4的完整原生DDS资源消费：provided完整块复制、小尾重编码、从实际前层压缩存储解码后BOX生成缺层。新模块未被正式loader/生产包调用，flags/阈值/partial打包仍待原版适配。
+
+本检查点通过已有集中入口显式触发 `public-d3dx-bc` 定向原版诊断（1536块、168完整原生DDS，各8固定编码策略和wrap/clamp完整聚合，不按样本选择策略）；它只解除未知参数/精度差异，不提供业务验收或NoOriginal声明。入口 `PublicD3dxBc/PATCHES.md`、`InspectTexturePublicBc.ps1`。正式启用前仍需修正一般规则并取得完整受影响D/R/NoOriginal及适用SDK。已验收loader源d0a3147/41006229811随普通合并保留，本轮主成果见恢复分支。
 
 ## 本轮候选检查点（2026-10-30）
 

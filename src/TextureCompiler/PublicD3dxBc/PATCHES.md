@@ -14,6 +14,15 @@ packing for later original-contract comparison. All encode input is validated
 before the first output write. There is no original DLL, recovered codec
 callback, gold lookup or input-label dispatch.
 
+An isolated `TexturePublicBcCreateFromDds` consumer now constructs owned PC
+resources for ordinary POT DXT1/3/5 bases with both axes >=4. It checks all
+provided storage, copies complete blocks, decodes/re-encodes provided small
+tails, and generates each missing mip by decoding the ACTUAL previous stored
+compressed level, applying ordered float BOX and re-encoding. Lock/resource
+RAII preserves ownership on failure. Encoder flags/threshold/partial policy
+remain explicit until original mapping is proved. Small base axes and NPOT
+remain explicit boundaries; no approximated clamp/resize is enabled.
+
 This is an unbuilt/unvalidated continuation checkpoint, **not restored DDS
 support**. The current accepted/pending native loader continues to reject
 compressed files. No production module calls this candidate. No new validation

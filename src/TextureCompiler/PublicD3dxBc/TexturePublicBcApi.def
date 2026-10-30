@@ -4,3 +4,4 @@ EXPORTS
  TexturePublicBcEncodeBlock=_TexturePublicBcEncodeBlock@20
  TexturePublicBcDecodeImage=_TexturePublicBcDecodeImage@28
  TexturePublicBcEncodeImage=_TexturePublicBcEncodeImage@40
+ TexturePublicBcCreateFromDds=_TexturePublicBcCreateFromDds@24

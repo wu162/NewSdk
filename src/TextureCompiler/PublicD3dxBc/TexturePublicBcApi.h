@@ -24,3 +24,11 @@ extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcEncodeIma
     void* blocks, std::int32_t blockPitch, std::uint32_t width, std::uint32_t height,
     std::uint32_t format, const float* rgba, std::int32_t rgbaPitch,
     std::uint32_t flags, float threshold, std::uint32_t edgePolicy);
+// Experimental full owned-resource consumer for ordinary POT DXT1/3/5 DDS
+// with each base axis >=4. Explicit encoder policy; not the accepted default
+// file loader. Copies complete provided blocks, re-encodes provided partial
+// tails and recursively filters/re-encodes missing mips from stored blocks.
+// Release a successful resource with TextureResourceRelease.
+extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcCreateFromDds(
+    const void* data, std::uint32_t byteCount, std::uint32_t flags,
+    float threshold, std::uint32_t edgePolicy, void** output);

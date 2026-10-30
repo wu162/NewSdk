@@ -2,7 +2,7 @@
   "repository": "microsoft/DirectXTex",
   "commit": "ec66b78b37389e8373a8e14ccc3cd29be94146b3",
   "license": "MIT; upstream/LICENSE retained",
-  "scope": "isolated scalar x86 BC1/2/3 candidate; no production routing",
+  "scope": "isolated scalar x86 BC1/2/3 block/image and owned POT DDS resource/mip consumer; no production routing",
   "acceptance": "unbuilt/unvalidated; requires Actions original/gold complete block and native DDS/actual-copy acceptance",
   "files": [
     {
@@ -32,13 +32,18 @@
     },
     {
       "path": "TexturePublicBcApi.def",
-      "bytes": 278,
-      "sha256": "440d809445d521270a047349459f02c621a2eda3f8d62e1400698fdff7a00444"
+      "bytes": 341,
+      "sha256": "f615747eae05e80b8a853faa074f14ce2c47fe79eb66629c695fcc638c76143a"
     },
     {
       "path": "TexturePublicBcApi.h",
-      "bytes": 1659,
-      "sha256": "18d9aa04ac2a5a3575187d834e2c8229162b4f5528d2ff334cf2aa1e786b57c1"
+      "bytes": 2245,
+      "sha256": "b72706c5247086cd91fb8f909da521749189344ed881f35a0cdfde6286a94c4d"
+    },
+    {
+      "path": "TexturePublicBcDds.cpp",
+      "bytes": 6594,
+      "sha256": "d17a6911b8cf3b824b4adf0ff4f276297607bd73bbe8064981a57341d00cdda4"
     },
     {
       "path": "upstream/BC.cpp",
