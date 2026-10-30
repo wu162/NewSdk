@@ -167,12 +167,13 @@ internal static class CompilerCoreLifecycle
         Failure(p,bad,ErrorCode.SchemaValidation); Clean(p,null,bad);
         AssetDeclarationDocument rejected; p.Cache.TryGetDocument(bad,null,TargetPlatform.Win32,false,out rejected);
         Require(!rejected.HasValidatedSchema && p.InstanceCompileCount==compiled,"Invalid XSD input reached a compiler or retained a schema receipt");
-        bool checkedEntryRejected=false;
         var invalid = new XmlDocument(); invalid.LoadXml("<LogicCommandSet xmlns='"+Ns+"'><Cmd Bogus='1'>DoIt</Cmd></LogicCommandSet>");
-        try { Recovered.LogicCommandSetCompiler.CompileXml(invalid.DocumentElement,ns,false); }
-        catch(NotSupportedException) { checkedEntryRejected=true; }
-        Require(checkedEntryRejected,"Standalone CompileXml lost its unvalidated-input boundary");
-        Tests.Add("Core-XSD-receipt-validated-LogicCommandSet-payload-equality-invalid-schema-rejected-before-dispatch-and-checked-standalone-entry");
+        AssetBuffer direct = Recovered.LogicCommandSetCompiler.CompileXml(invalid.DocumentElement,ns,false);
+        invalid.DocumentElement.FirstChild.Attributes.RemoveNamedItem("Bogus");
+        AssetBuffer plain = Recovered.LogicCommandSetCompiler.CompileXml(invalid.DocumentElement,ns,false);
+        Require(direct.InstanceData.SequenceEqual(plain.InstanceData) && direct.RelocationData.SequenceEqual(plain.RelocationData) &&
+            direct.ImportsData.SequenceEqual(plain.ImportsData),"Plugin repeated Core schema validation or changed the payload");
+        Tests.Add("Core-XSD-invalid-input-rejected-before-dispatch-plugin-serializes-without-repeating-schema-validation");
     }
     sealed class SaveFaultCache : SessionCache
     {

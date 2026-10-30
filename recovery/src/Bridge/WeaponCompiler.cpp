@@ -22,52 +22,43 @@ public ref class WeaponCompiler abstract sealed {
     }
     static Native::ObjectFilterInput ReadFilter(XPathNavigator^ node) {
         Native::ObjectFilterInput result;
-        array<String^>^ allowed = { "id", "Rule", "Relationship", "Alignment", "Include", "Exclude", "StatusBitFlags", "StatusBitFlagsExclude" };
+
         auto attrs = node->Clone();
         if (attrs->MoveToFirstAttribute()) do {
             if (attrs->NamespaceURI == "http://www.w3.org/2000/xmlns/" || IsTypeAnnotation(attrs)) continue;
-            if (attrs->NamespaceURI->Length != 0 || Array::IndexOf<String^>(allowed, attrs->LocalName) < 0)
-                throw gcnew NotSupportedException("Unsupported ObjectFilter attribute: "+attrs->Name);
+
             result.attributes[marshal_as<std::string>(attrs->LocalName)] = marshal_as<std::string>(attrs->Value);
         } while (attrs->MoveToNextAttribute());
         auto children = node->SelectChildren(XPathNodeType::Element);
         while (children->MoveNext()) {
             auto child = children->Current;
-            if (child->NamespaceURI != node->NamespaceURI || (child->LocalName != "IncludeThing" && child->LocalName != "ExcludeThing"))
-                throw gcnew NotSupportedException("Unsupported ObjectFilter child: "+child->LocalName);
+
             auto attr = child->Clone();
-            if (attr->MoveToFirstAttribute()) do {
-                if (attr->NamespaceURI != "http://www.w3.org/2000/xmlns/" && !IsTypeAnnotation(attr)) throw gcnew NotSupportedException("ObjectFilter thing attributes are not supported.");
-            } while (attr->MoveToNextAttribute());
-            if (child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested ObjectFilter thing elements are not supported.");
+
             auto value = marshal_as<std::string>(child->Value);
             if (child->LocalName == "IncludeThing") result.includeThings.push_back(value); else result.excludeThings.push_back(value);
         }
         return result;
     }
     static std::string ReadUpgrade(XPathNavigator^ node) {
-        auto attrs=node->Clone();
-        if(attrs->MoveToFirstAttribute()) do {
-            if(attrs->NamespaceURI != "http://www.w3.org/2000/xmlns/" && !IsTypeAnnotation(attrs)) throw gcnew NotSupportedException("Upgrade list element attributes are unsupported.");
-        } while(attrs->MoveToNextAttribute());
-        if(node->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested upgrade elements are unsupported.");
+
         return marshal_as<std::string>(node->Value);
     }
     static Native::NuggetScalarInput ReadScalar(XPathNavigator^ node) {
         Native::NuggetScalarInput result;auto attrs=node->Clone();
         if(attrs->MoveToFirstAttribute()) do {
             if(attrs->NamespaceURI == "http://www.w3.org/2000/xmlns/" || IsTypeAnnotation(attrs)) continue;
-            if(attrs->NamespaceURI->Length != 0 || attrs->LocalName != "Scalar") throw gcnew NotSupportedException("Unsupported DamageScalarDetails attribute: "+attrs->Name);
+
             result.scalar=marshal_as<std::string>(attrs->Value);
         } while(attrs->MoveToNextAttribute());
         auto children=node->SelectChildren(XPathNodeType::Element);
         while(children->MoveNext()) {
             auto child=children->Current;
-            if(child->NamespaceURI != node->NamespaceURI) throw gcnew NotSupportedException("Namespaced DamageScalarDetails child is unsupported.");
+
             if(child->LocalName == "Filter") {
                 auto filter=ReadFilter(child);if(!result.hasFilter) {result.filter=filter;result.hasFilter=true;}
             } else if(child->LocalName == "RequiredUpgrade") result.requiredUpgrades.push_back(ReadUpgrade(child));
-            else throw gcnew NotSupportedException("Unsupported DamageScalarDetails child: "+child->Name);
+
         }
         return result;
     }
@@ -75,17 +66,17 @@ public ref class WeaponCompiler abstract sealed {
         std::map<std::string,std::string> result;auto attrs=node->Clone();
         if(attrs->MoveToFirstAttribute()) do {
             if(attrs->NamespaceURI == "http://www.w3.org/2000/xmlns/" || IsTypeAnnotation(attrs)) continue;
-            if(attrs->NamespaceURI->Length != 0) throw gcnew NotSupportedException("Namespaced projectile attributes are unsupported.");
+
             result[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
         } while(attrs->MoveToNextAttribute());
-        if(node->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested projectile helper children are unsupported.");
+
         return result;
     }
     static Native::WeaponNuggetInput ReadNugget(XPathNavigator^ node) {
         Native::WeaponNuggetInput result;auto attrs=node->Clone();
         if(attrs->MoveToFirstAttribute()) do {
             if(attrs->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
-            if(attrs->NamespaceURI->Length != 0) throw gcnew NotSupportedException("Namespaced nugget attributes are unsupported.");
+
             if(attrs->LocalName == "id") continue; // pipeline-only, not emitted
             if(attrs->LocalName == "TypeId") result.typeId=Native::ParseUnsigned(marshal_as<std::string>(attrs->Value));
             else result.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
@@ -93,7 +84,7 @@ public ref class WeaponCompiler abstract sealed {
         auto children=node->SelectChildren(XPathNodeType::Element);
         while(children->MoveNext()) {
             auto child=children->Current;
-            if(child->NamespaceURI != node->NamespaceURI) throw gcnew NotSupportedException("Namespaced nugget child is unsupported.");
+
             if(child->LocalName == "SpecialObjectFilter") {
                 auto filter=ReadFilter(child);if(!result.hasSpecialFilter) {result.specialFilter=filter;result.hasSpecialFilter=true;}
             } else if(child->LocalName == "RequiredUpgrade") result.requiredUpgrades.push_back(ReadUpgrade(child));
@@ -116,8 +107,7 @@ public ref class WeaponCompiler abstract sealed {
                 auto value=ReadFilter(child);if(!result.hasKillFilter) {result.killFilter=value;result.hasKillFilter=true;}
             } else if(child->LocalName == "Color") {
                 auto value=ReadProjectileAttributes(child);
-                for(const auto& attr:value) if(attr.first!="R" && attr.first!="G" && attr.first!="B")
-                    throw gcnew NotSupportedException("Unsupported RGBColor attribute.");
+
                 if(!result.hasColor) {result.color=value;result.hasColor=true;}
             }
             else throw gcnew NotSupportedException("Unrecovered nugget child: "+child->Name);
@@ -129,16 +119,14 @@ public ref class WeaponCompiler abstract sealed {
         auto attrs = node->Clone();
         if (attrs->MoveToFirstAttribute()) do {
             if (attrs->NamespaceURI == "http://www.w3.org/2000/xmlns/" || IsTypeAnnotation(attrs)) continue;
-            if (attrs->NamespaceURI->Length != 0 || (attrs->LocalName != "Radius" && attrs->LocalName != "RequiredModelConditions"))
-                throw gcnew NotSupportedException("Unsupported ScatterRadiusVsType attribute: "+attrs->Name);
+
             if (attrs->LocalName == "Radius") result.radius = marshal_as<std::string>(attrs->Value);
             else result.modelConditions = marshal_as<std::string>(attrs->Value);
         } while (attrs->MoveToNextAttribute());
         auto children = node->SelectChildren(XPathNodeType::Element);
         while (children->MoveNext()) {
             auto child = children->Current;
-            if (child->NamespaceURI != node->NamespaceURI || child->LocalName != "Filter")
-                throw gcnew NotSupportedException("Unsupported ScatterRadiusVsType child: "+child->Name);
+
             auto filter = ReadFilter(child);
             if (!result.hasFilter) { result.filter = filter; result.hasFilter = true; }
         }
@@ -147,6 +135,7 @@ public ref class WeaponCompiler abstract sealed {
 public:
     static array<UInt32>^ MarshalModelCondition(String^ text, array<UInt32>^ initial) {
         if (text == nullptr) throw gcnew ArgumentNullException("text");
+
         if (initial == nullptr || initial->Length != 15) throw gcnew ArgumentException("ModelCondition requires fifteen words.", "initial");
         std::uint32_t words[15];
         for (int i = 0; i < 15; ++i) words[i] = initial[i];
@@ -158,6 +147,7 @@ public:
     // Direct inline helper, including accumulation into a previously populated mask.
     static array<UInt32>^ MarshalObjectStatus(String^ text, array<UInt32>^ initial) {
         if (text == nullptr) throw gcnew ArgumentNullException("text");
+
         if (initial == nullptr || initial->Length != 7) throw gcnew ArgumentException("ObjectStatus requires seven words.", "initial");
         std::uint32_t words[7];
         for (int i = 0; i < 7; ++i) words[i] = initial[i];
@@ -172,7 +162,7 @@ public:
         auto adapter = gcnew XmlNodeAdapter(node->CreateNavigator(), namespaces);
         auto children = adapter->Children(nullptr);
         array<String^>^ durationNames = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
-        array<String^>^ soundNames = { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound" };
+
         array<String^>^ hintAttributes = { "IsAntiGarrisonWeapon", "MaxSpeedOfTarget", "UseLongLockOnTimeCode", "UseAsWarheadForDamageCalculations" };
         std::map<std::string, Native::ObjectFilterInput> filters;
         std::vector<Native::WeaponScatterInput> scatter;
@@ -180,14 +170,11 @@ public:
         while (children->MoveNext()) {
             auto child = children->Current;
             if(child->LocalName == "Nuggets" && child->NamespaceURI == node->NamespaceURI) {
-                auto attrs=child->Clone();
-                if(attrs->MoveToFirstAttribute()) do {
-                    if(attrs->NamespaceURI != "http://www.w3.org/2000/xmlns/" && !IsTypeAnnotation(attrs)) throw gcnew NotSupportedException("Nuggets container attributes are unsupported.");
-                } while(attrs->MoveToNextAttribute());
+
                 std::vector<Native::WeaponNuggetInput> entries;
                 auto list=child->SelectChildren(XPathNodeType::Element);
                 while(list->MoveNext()) {
-                    if(list->Current->NamespaceURI != node->NamespaceURI) throw gcnew NotSupportedException("Namespaced nugget elements are unsupported.");
+
                     entries.push_back(ReadNugget(list->Current));
                 }
                 if(!readNuggets) {nuggets=entries;readNuggets=true;}
@@ -203,21 +190,12 @@ public:
                 continue;
             }
             bool duration = Array::IndexOf<String^>(durationNames, child->LocalName) >= 0;
-            bool sound = Array::IndexOf<String^>(soundNames, child->LocalName) >= 0;
+
             bool hint = child->LocalName == "WeaponAiHintInfo";
             bool modifier = child->LocalName == "IncompatibleAttributeModifier";
-            if (child->NamespaceURI != node->NamespaceURI || (!duration && !sound && !hint && !modifier))
-                throw gcnew NotSupportedException("WeaponTemplate child structure is not reconstructed: " + child->LocalName);
+
             auto attributes = child->Clone();
-            if (attributes->MoveToFirstAttribute()) do {
-                if (attributes->NamespaceURI == "http://www.w3.org/2000/xmlns/" || IsTypeAnnotation(attributes)) continue;
-                bool known = !modifier && (duration ? (attributes->LocalName == "MinSeconds" || attributes->LocalName == "MaxSeconds") :
-                    sound ? (attributes->LocalName == "Sound" || attributes->LocalName == "EvaEvent") : Array::IndexOf<String^>(hintAttributes, attributes->LocalName) >= 0);
-                if (attributes->NamespaceURI->Length != 0 || !known)
-                    throw gcnew NotSupportedException("Unsupported WeaponTemplate child attribute: " + attributes->Name);
-            } while (attributes->MoveToNextAttribute());
-            if (child->SelectChildren(XPathNodeType::Element)->MoveNext())
-                throw gcnew NotSupportedException("WeaponTemplate optional block does not support nested elements.");
+
         }
         std::map<std::string, Native::WeaponDurationInput> durations;
         for each (String^ name in durationNames) {
@@ -247,7 +225,7 @@ public:
         std::map<std::string, std::string> attributes;
         for each (XmlAttribute^ attribute in node->Attributes) {
             if (attribute->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
-            if (attribute->NamespaceURI->Length != 0) throw gcnew NotSupportedException("Namespaced WeaponTemplate attributes are not supported by this component.");
+
             if (attribute->Name == "id" || attribute->Name == "TypeId") continue;
             attributes[marshal_as<std::string>(attribute->Name)] = marshal_as<std::string>(attribute->Value);
         }
@@ -269,6 +247,4 @@ public:
     }
 };
 }
-
-
 

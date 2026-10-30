@@ -1,3 +1,15 @@
+# 当前：插件重复 schema 校验已移除（验收通过，PR #26 待审）
+
+用户指定基线 `recovery/legacy-sdk-cache` / `5c1843ae`；成果在 `refactor/remove-plugin-schema-validation` / [PR #26](https://github.com/wu162/NewSdk/pull/26)。删除 XML、GameObject、Weapon、Effects/Particle、Locomotor 及生成代码中的属性/子节点白名单、文本、单例、结构和命名空间校验及专用遍历/数组分配。Core 统一 XSD、依赖元数据及类型路由继续工作；Audio/W3X 的编码器数据检查保留。
+
+生产源码验收入口 `e3272ffd`；最新 `822007a5` 仅补齐测试源清单/流程和旧断言，生产源码、SDK、构建目录和类型目录的 Git tree 均相同。Core 的专门用例验证非法 XSD 在派发前失败，直接插件调用不重复校验。组件拒绝用例使用统一 SDK schema 测试边界，原始字节与 ABI 断言继续保留。
+
+- [Core 41037021490](https://github.com/wu162/NewSdk/actions/runs/41037021490) **success**：Debug/Release、CLI、缓存、完整 mymod 原 SDK 差分、独立五文件包和 Upheaval 22 样本对照通过。
+- [XML 41037565236](https://github.com/wu162/NewSdk/actions/runs/41037565236) 的 XML 步骤及原收据 **passed**：Debug/Release 各 63 组、四平台，合计 1,918,904 样本/11,064,384 缓冲区比较。该运行整体 **failure** 来自随后 GameObject/Weapon 测试源清单未登记共享助手；此部分已在下面的独立运行修复验收，XML 成功范围及输入未变。
+- [GameObject/Weapon 41042830679](https://github.com/wu162/NewSdk/actions/runs/41042830679) **success**：完整原版字节/tokenizer 矩阵、Debug/Release、完整既有样本集及隔离运行通过；该专项复用上面的独立 XML 成功范围。
+
+三份归档已实际下载并复算 SHA256；原收据、来源、运行文件身份及复用边界见 [验收摘要](evidence/refactor/plugin-schema-removal/summary.json)。本地路由审计、26 项组选择测试、测试源清单及两个 UIConfig 生成器精确复现通过。未经用户批准不合并，禁止强推。
+
 # 当前：有界热缓存扩展与失效/依赖计数（已验证，PR #23 待审）
 
 分支 `test/hot-cache-coverage`，基于 `8a6b7a70`。扩展三档 Armor 规模（32/256/2048 资产、4/32/128 文档），中档混合 Texture/PCM Audio/W3X，代表性缓存模式、压缩、jobs、BIG、等长同mtime编辑与输出/会话修复。单进程15秒、整轮120秒，不做全维度笛卡尔积。
