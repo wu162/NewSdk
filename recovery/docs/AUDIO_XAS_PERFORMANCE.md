@@ -19,4 +19,6 @@ Windows 计量使用 net472 x86 Release 和 AppDomain.MonitoringTotalAllocatedMe
 
 ## 当前状态
 
-实现已完成；本地 .NET 8 Linux 预检通过 3280 个前后边界比较、现有 262 个原机器码 XAS 块差分。Windows 原版差分和同机 CLR x86 长音频计量待集中运行；在成功前不宣称整批验收完成。Linux 预检不能替代 Windows x86 浮点验收。
+生产源码和测试来源 `b8e37a2e957f7a2465ad303110b92eec3269df4d`。本地 .NET 8 Linux 预检通过 3280 个前后边界比较、现有 262 个原机器码 XAS 块差分。
+
+[Windows 运行 40996371215](https://github.com/wu162/NewSdk/actions/runs/40996371215) 的七组原版插件 Debug/Release x86 差分，以及 PCM/XAS 组件、原 XAS 块和浮点精度回归步骤均已成功；同机 CLR x86 长音频三轮计量正在进行，结束后补充原始收据和汇总。未执行完整 SDK。

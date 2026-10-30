@@ -1,6 +1,6 @@
 # 当前：AudioFile XAS 性能优化（验证中）
 
-基于 `recovery/legacy-sdk-cache` 的 `45d485d8`，实现分支 `perf/audio-xas-ranges`。六项优化已成组实现：原数组区间读取、最终数组直接写入、完整块零复制、Loop 区间独立分段、复用 float[30]、预测器共用一次转换。仅修改 Audio 编码器。Windows 原版逐字节差分和长音频同机计量验证中，不执行完整 SDK；[方法和状态](docs/AUDIO_XAS_PERFORMANCE.md)。禁止强推；须 PR，未经用户批准不合并。
+基于 `recovery/legacy-sdk-cache` 的 `45d485d8`，实现分支 `perf/audio-xas-ranges`。六项优化已成组实现：原数组区间读取、最终数组直接写入、完整块零复制、Loop 区间独立分段、复用 float[30]、预测器共用一次转换。仅修改 Audio 编码器。Windows 运行 [40996371215](https://github.com/wu162/NewSdk/actions/runs/40996371215) 的 Debug/Release x86 原版插件、编码器组件及精度回归已通过，长音频同机计量进行中，不执行完整 SDK；[方法和状态](docs/AUDIO_XAS_PERFORMANCE.md)。禁止强推；须 PR，未经用户批准不合并。
 
 ## 上一批：Tokenizer 并行与输入准备去拷贝（已验收）
 
