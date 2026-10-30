@@ -28,15 +28,22 @@ def fixture(repo, mod):
     shutil.copytree(repo / 'SDK/Mods/W3xRecovery', mod)
     data = mod / 'Data'
     audio = ET.Element('{%s}AssetDeclaration' % NS)
-    for index in range(4):
+    for index in range(8):
         source = mod / ('Audio/probe%d.wav' % index)
         source.parent.mkdir(exist_ok=True)
         with wave.open(str(source), 'wb') as stream:
             stream.setparams((2, 2, 22050, 0, 'NONE', 'not compressed'))
             stream.writeframes(b'\x00\x00\x01\x00\xff\xff\x02\x00' * 65536)
-        ET.SubElement(audio, '{%s}AudioFile' % NS,
-                      {'id': 'ParallelAudio%d' % index, 'File': '../Audio/' + source.name,
-                       'PCCompression': 'NONE' if index % 2 == 0 else 'XAS', 'IsStreamedOnPC': 'false'})
+        attrs = {'id': 'ParallelAudio%d' % index, 'File': '../Audio/' + source.name,
+                 'IsStreamedOnPC': 'true' if index >= 4 else 'false'}
+        compression = ('NONE', 'XAS', 'EALAYER3', None)[index % 4]
+        if compression is not None:
+            attrs['PCCompression'] = compression
+        if index >= 4:
+            attrs['PCSampleRate'] = '44100' if index % 2 == 0 else '11025'
+        elif index == 1:
+            attrs['PCSampleRate'] = '22050'
+        ET.SubElement(audio, '{%s}AudioFile' % NS, attrs)
     ET.ElementTree(audio).write(data / 'ParallelAudio.xml', encoding='utf-8', xml_declaration=True)
     tokenizers = ET.Element('{%s}AssetDeclaration' % NS)
     for index in range(8):
@@ -120,6 +127,11 @@ def run(args):
                 if parallel['minimumEffectiveJobs'] > 1 and owner_threads:
                     need({'GameObject', 'WeaponTemplate', 'ArmorTemplate', 'W3DAnimation', 'W3DMesh', 'AudioFile', 'AptAptData', 'AptConstData', 'AptDatData', 'AptGeometryData', 'W3DHierarchy'} <= worker_types,
                          'An admitted certified family stayed behind the lazy production wrapper')
+                    audio_intervals = [interval for interval in parallel['backendIntervals'] if interval['typeName'] == 'AudioFile']
+                    need(len(audio_intervals) == 8 and all(interval['threadId'] not in owner_threads for interval in audio_intervals),
+                         'Every AudioFile setting, including rate conversion and EALAYER3, must execute on a worker')
+                    need(not {'audio-explicit-sample-rate', 'audio-compression-diagnostic'} & set(parallel['fallbackByReason']),
+                         'Removed AudioFile gates still caused serial fallback')
             need(not list(destination.glob('**/result.bin')) and not list(destination.glob('**/action-cache*')), 'Unexpected action cache output')
         row['passed'] = True; write(out / 'validation.json', state)
         return result, body

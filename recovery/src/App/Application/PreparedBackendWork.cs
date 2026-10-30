@@ -76,8 +76,9 @@ namespace NewModCompiler.Application
                 long retained = preparationEstimate;
                 if (family == "w3x") retained = W3xBudget(original.Node, nodes, retained);
                 else if (family == "xml") retained = ExternalReadBudget(leases, retained, 4L);
-                else if (family == "audio") retained = ExternalReadBudget(leases, retained,
-                    original.Handle.TypeId == AudioCatalog.AudioFileTypeId ? 64L : 4L);
+                // Audio keeps per-call input, PCM and encoded buffers. Charge
+                // four input copies instead of the old 64-copy allowance.
+                else if (family == "audio") retained = ExternalReadBudget(leases, retained, 4L);
                 if (retained > preparationBudget) return Reject("preparation-budget-exceeded", out reason);
                 // ProcessExpressions/ProcessOverrides/Validate finish before
                 // ProcessInstances. Pending documents cannot be reopened or made
@@ -125,11 +126,6 @@ namespace NewModCompiler.Application
                 {
                     if (!((BinaryAssetBuilder.AudioCompiler.Plugin)plugin).UsesRecoveredAudioFileCompiler)
                         return Reject("uncertified-audio-compiler", out reason);
-                    if (original.Node.Attributes["PCSampleRate"] != null)
-                        return Reject("audio-explicit-sample-rate", out reason);
-                    XmlAttribute compression = original.Node.Attributes["PCCompression"];
-                    if (compression != null && compression.Value != "NONE" && compression.Value != "XAS")
-                        return Reject("audio-compression-diagnostic", out reason);
                 }
                 else if (type != AudioCatalog.Mp3PassthroughTypeId)
                     return Reject("uncertified-audio-type", out reason);
@@ -195,7 +191,7 @@ namespace NewModCompiler.Application
             // uses a stateless exact encoder, readonly tables and private CDATA.
             // Tokenizers also use per-call native inputs/trackers/buffers and
             // serialize only their optional shared trace index. Other routes
-            // remain owner barriers, including Audio's Tracer paths.
+            // remain owner barriers, including PathMusic's Tracer paths.
             return plugin.ProcessInstance(declaration);
         }
 

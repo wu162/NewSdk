@@ -178,15 +178,22 @@ public static class CompilerPreparedBackend
         finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
         ((XmlElement)declaration.Node).SetAttribute("PCSampleRate", "22050");
         prepared = Prepare(declaration, audio);
-        try { Require(prepared == null, "Explicit sample-rate processing must retain its original owner-only input"); }
+        try { Require(prepared != null, "Explicit sample-rate processing must be parallel eligible"); }
+        finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
+        ((XmlElement)declaration.Node).SetAttribute("PCSampleRate", "44100");
+        ((XmlElement)declaration.Node).SetAttribute("PCCompression", "EALAYER3");
+        prepared = Prepare(declaration, audio);
+        try { Require(prepared != null, "Rate conversion and compression diagnostics must be parallel eligible together"); }
         finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
         ((XmlElement)declaration.Node).RemoveAttribute("PCSampleRate");
         var unknown = new BinaryAssetBuilder.AudioCompiler.Plugin(new UnknownAudioCompiler()); unknown.Initialize(null, TargetPlatform.Win32);
         Require(Prepare(declaration, unknown) == null, "Injected AudioFile compiler must not inherit recovered cache or parallel certification");
         using (var stream = new FileStream(input, FileMode.Open, FileAccess.Write)) stream.SetLength(2L * 1024L * 1024L);
-        prepared = PrepareWithReason(declaration, audio, 256L * 1024L * 1024L, out string largeReason);
-        try { Require(prepared != null && Value<long>(prepared, "PreparedBytes") > 64L * 1024L * 1024L, "Large audio stays semantically certified within an adequate preparation budget"); }
+        const long MiB = 1024L * 1024L;
+        prepared = PrepareWithReason(declaration, audio, 16L * MiB, out string largeReason);
+        try { Require(prepared != null && Value<long>(prepared, "PreparedBytes") >= 8L * MiB && Value<long>(prepared, "PreparedBytes") < 9L * MiB, "A 2 MiB AudioFile must fit a 16 MiB preparation budget with its reduced working-set charge"); }
         finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
+        RejectedPreparation(declaration, audio, 8L * MiB, "preparation-budget-exceeded");
         var xml = new Recovered.XmlPriority.Plugin(); xml.Initialize(null, TargetPlatform.Win32);
         foreach (string type in new[] { "AudioEventLimitGroup", "AudioLOD", "AudioSettings", "Video", "VideoEventList", "MicrophoneSettings", "BootupDisplaySequence" })
         {
@@ -422,8 +429,6 @@ public static class CompilerPreparedBackend
         ((XmlElement)audioFile.Node).SetAttribute("File", path);
         var unknown = new BinaryAssetBuilder.AudioCompiler.Plugin(new UnknownAudioCompiler()); unknown.Initialize(null, TargetPlatform.Win32);
         RejectedPreparation(audioFile, unknown, budget, "uncertified-audio-compiler");
-        ((XmlElement)audioFile.Node).SetAttribute("PCCompression", "EALAYER3");
-        RejectedPreparation(audioFile, audio, budget, "audio-compression-diagnostic");
         ((XmlElement)audioFile.Node).SetAttribute("PCCompression", "NONE");
         ((XmlElement)audioFile.Node).RemoveAttribute("File");
         RejectedPreparation(audioFile, audio, budget, "external-input-path-missing");
@@ -435,7 +440,7 @@ public static class CompilerPreparedBackend
         lifecycleEvidence.Add(new { kind = "preparation-rejected-reasons", firstActualGate = true,
             reasons = new[] { "invalid-input", "uncertified-plugin", "preparation-budget-exceeded", "external-input-path-missing",
                 "external-input-unavailable", "native-path-non-ascii", "external-input-reparse-point", "uncertified-audio-compiler",
-                "audio-compression-diagnostic", "uncertified-audio-type" },
+                "uncertified-audio-type" },
             rejectedUnknownXmlWithoutLeases = true, successfulRetryReasonCleared = true,
             scope = "Windows production host; unsupported-platform remains a source-certified gate" });
     }
@@ -590,7 +595,7 @@ public static class CompilerPreparedBackend
         WorkerWave(w3x,"w3x");
         var audioPlugin=new BinaryAssetBuilder.AudioCompiler.Plugin();audioPlugin.Initialize(null,TargetPlatform.Win32);
         var audio=new List<BufferWork>();
-        for(int i=0;i<4;i++)
+        for(int i=0;i<8;i++)
         {
             string wave=Path.Combine(work,"worker"+i+".wav");
             using(var writer=new BinaryWriter(File.Create(wave)))
@@ -603,10 +608,28 @@ public static class CompilerPreparedBackend
                 for(int n=0;n<samples;n++)writer.Write((short)(n*127+i));
             }
             var owner=Declaration("AudioFile","WorkerAudio"+i,Namespaces());
-            ((XmlElement)owner.Node).SetAttribute("File",wave);((XmlElement)owner.Node).SetAttribute("PCCompression",i==0?"NONE":"XAS");
+            var node=(XmlElement)owner.Node;
+            node.SetAttribute("File",wave);
+            string compression=new[]{"NONE","XAS","EALAYER3",null}[i%4];
+            if(compression!=null) node.SetAttribute("PCCompression",compression);
+            if(i>=4) {
+                node.SetAttribute("PCSampleRate",i%2==0?"44100":"11025");
+                node.SetAttribute("IsStreamedOnPC","true");
+            }
             audio.Add(BufferItem(work,"audio"+i,audioPlugin,owner));
         }
-        WorkerWave(audio,"audio");
+        // Owner baselines above have already emitted the process-wide warning.
+        // Reset only in this isolated test host to exercise simultaneous first use.
+        typeof(BinaryAssetBuilder.AudioCompiler.PcmWaveAudioCompiler).GetField("compressionWarning",BindingFlags.Static|BindingFlags.NonPublic).SetValue(null,0);
+        TextWriter console=Console.Out;
+        using(var warning=new StringWriter()) {
+            Console.SetOut(warning);
+            try { WorkerWave(audio,"audio"); }
+            finally { Console.SetOut(console); }
+            string message="WARNING: MP3-style compression unavailable due to legal restrictions. Files will not be compressed";
+            Require(warning.ToString()==message+Environment.NewLine,"Concurrent compression diagnostics must emit exactly one complete process-wide warning");
+            lifecycleEvidence.Add(new {kind="audio-parallel-settings",assets=audio.Count,compressionSettings=new[]{"NONE","XAS","EALAYER3","default"},sampleRates=new[]{22050,44100,11025},compressionWarnings=1});
+        }
         string fixture=File.ReadAllText(Path.Combine(sdk,"../recovery/tests/AudioMp3Fixtures.cs"));
         var match=Regex.Match(fixture,"public const string Mono = \\\"([^\\\"]+)\\\"");
         Require(match.Success,"Existing real MP3 fixture must be present");

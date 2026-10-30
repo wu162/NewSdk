@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading;
 using System.Xml;
 using BinaryAssetBuilder.Core;
 
@@ -9,7 +10,7 @@ namespace BinaryAssetBuilder.AudioCompiler
     // subset, including supported forward loops and filter 120 rate conversion. Unsupported codec/filter/input combinations are explicit.
     public sealed class PcmWaveAudioCompiler : IAudioFileCompiler
     {
-        private static bool compressionWarning;
+        private static int compressionWarning;
         public AssetBuffer CompileAudioFile(InstanceDeclaration declaration, TargetPlatform platform)
         {
             AudioCatalog.RequireWin32(platform);
@@ -20,10 +21,9 @@ namespace BinaryAssetBuilder.AudioCompiler
             string streamedKey = "IsStreamedOn" + prefix;
             bool? streamed = attrs[streamedKey] == null ? (bool?)null : Bool(attrs[streamedKey].Value);
             AudioEncodingPolicy policy = AudioEncodingPolicy.Select((int)platform, file, compression, streamed);
-            if (policy.CompressionWarning && !compressionWarning)
+            if (policy.CompressionWarning && Interlocked.CompareExchange(ref compressionWarning, 1, 0) == 0)
             {
                 Console.WriteLine("WARNING: MP3-style compression unavailable due to legal restrictions. Files will not be compressed");
-                compressionWarning = true;
             }
             byte[] wave;
             try { wave = File.ReadAllBytes(file); }

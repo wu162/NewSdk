@@ -1,10 +1,16 @@
-# 当前：冗余安全清理完成，PR #28 待审
+# 当前：AudioFile 全设置并行与低预算（组合验收通过）
+
+[PR #30](https://github.com/wu162/NewSdk/pull/30) 已获用户批准合入 `recovery/legacy-sdk-cache`。成果在 `perf/audiofile-parallel`，现已同步目标分支 `d85b8c8c`（已合入的 PR #28）。保留其重复状态清理和预算估算，适配 AudioFile 测试；显式采样率及压缩诊断可并行，外部输入预算由 64 倍降至 4 倍，压缩提示进程内仅一次。
+
+组合源码/二进制/测试来源 `cc10391be67dda57c7efa7fc06256b99e9372d9a`，[41068958541](https://github.com/wu162/NewSdk/actions/runs/41068958541) **success**：Debug/Release 新构建，八种音频设置 worker 三缓冲/CDATA、64 生产缓存/jobs 用例、CLI/CtrlBreak、全部缓存组、完整 mymod 原 SDK 和五文件包通过；完整 Upheaval 22 样本原字节一致，均 0 错误/1859 原警告。新归档、两个发布 ZIP/十个运行文件均已下载复算；14 份原收据身份见[组合验收摘要](evidence/refactor/audiofile-parallel/41068958541-1/summary.json)。独立 AudioFile 分支的 `6c2f0869`/41058436061 证据作为历史保留。后续只补文档/证据，无新游戏内验收。详见[实现与验证范围](docs/AUDIOFILE_PARALLEL.md)。禁止强推。
+
+# 当前：冗余安全清理已合入（PR #28）
 
 `cleanup/redundant-defenses` 基于刷新后的 `b89fbadb`，生产/测试源码 `ecd2bf1d`。[Windows 41062149232](https://github.com/wu162/NewSdk/actions/runs/41062149232) 全部 success：Debug/Release、Core/CLI、SessionCache 108×2、两类原缓存/导入、Audio/Texture/W3X、BIG/SKUDEF/完整 mymod 原字节、并行/热态依赖/协议与 40 次配对输出均通过。后续仅文档/证据。
 
 已删除 CacheInputBoundary、运行目录身份扫描、session.identity、.file-identities.json/SHA 收据、ANTLR 固定审核、诊断句柄固定及重复后端状态。原缓存语义、实际依赖、ChangeTime、窄 XSD 约束失效及必要 worker 预算保留；没有新侧车/发布事务。混合冷 1010.75→969.61 ms、热 652.69→634.27 ms；准备 5.29→7.79 ms、目录查询各 +3 的不利数据也保留。
 
-源码依据、完整计量/范围和原始失败见 [DIRECT_OUTPUT](docs/DIRECT_OUTPUT.md)。[PR #28](https://github.com/wu162/NewSdk/pull/28) 未合并；未强推或修改授权/合入规则。无正确性阻塞问题，准备阶段及目录查询仍可继续精简。
+源码依据、完整计量/范围和原始失败见 [DIRECT_OUTPUT](docs/DIRECT_OUTPUT.md)。[PR #28](https://github.com/wu162/NewSdk/pull/28) 已合入；未强推或修改授权/合入规则。无正确性阻塞问题，准备阶段及目录查询仍可继续精简。
 
 以下为历史交接，不代表本轮实现或验收结果。
 
