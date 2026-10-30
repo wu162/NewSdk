@@ -2,7 +2,18 @@
 
 仅 PC；候选分支 `validation/texture-public-d3dx-bc`。正式分支仍不调用本候选，压缩原生加载仍明确拒绝；生产六 DLL 包与 SDK/MOD 未改。本页记录实现范围和定位入口，不能当验收收据。
 
-## 本轮实现（2026-10-30）
+## 当前续接（2026-10-30，本轮）
+
+- 上轮 `a0fb7d25` / `41016298705` 已completed/failure，失败于第一例surface-memory调用。原RVA1210e的13参数顺序是 dst/palette/rect/**sourceMemory/sourceFormat**/pitch/palette/sourceRect/tiled/sourceWidth/sourceHeight/filter/key；上轮交换了源指针与格式，并把目标float格式放在源宽度位置。`598b9d10` 修正后真实float入口完整跑通；没有忽略格式/尺寸/stride断言。
+- `598b9d10` / `41024955646`：360 float中80差异，共12125个通道，全部仅为最终值略高于1；最终行饱和后全部位模式等于原版。保留原triangle所有tap、累加次序与完整行存储，未提前钳制贡献项。
+- 候选实际x86 `/fp:strict` 指令暴露运行时1.f/N除法与系数表懒初始化。原版使用预舍入float倒数的double常量（98080、99c80/88/90、99cb0、9d330），且scaled+.5先写float再FISTP。适配文件RGB565/BC2/BC3量化、565还原、alpha/颜色插值，并冻结系数表；XG数值路径保留。不是扩大Newton迭代或按样本调参。
+- `f1b3865d` / `41025554191`：1536文件块的decode/plain/dither全等，31条BC3回归消失；1572默认DDS差异降至7，均为BC1缺层链。D/R完整SHA `7e27f677c8a8eea79a790900711bc260821137e40ae671f1369efc629347783d`。
+- `6b12ff3c` / `41026301123` completed/success，**probe-only**：1572默认文件、360 float平面、1536 XG块及18168文件块（额外16632为每份原float平面的全部4×4块）固定plain/dither全部完整匹配；原重复稳定，D/R各296270063字节，SHA `b664deb00c0448bc77c7a7ef9b307aa3ece83581b560330f0647884f1811b13e`。完整8策略/168旧资源扫描保留为诊断，不能将非默认策略差异误计为默认加载失败。
+- 当前不可变源码 `ac6f8af69177ddeda86eb0b9abe09ed9798f7e2c` 再固定RGB/解码常量，并硬断言原版重复稳定。正式 `native-bc-files` [41027020522](https://github.com/wu162/NewSdk/actions/runs/41027020522) 在运行，**未取得终态，不是已验收**；完整逐次NoOriginal精确要求1536 XG、18168文件块、1572默认文件、360 float、168策略记录、9拒绝及EOF。仅选该新组件，旧64成功组件/SDK未变。
+
+下面保留上一轮实现与失败记录；其中旧“下一优先入口”和差异计数已被上面的当前入口替代。
+
+## 前一轮实现（2026-10-30）
 
 - 固定 Microsoft DirectXTex `ec66b78b37389e8373a8e14ccc3cd29be94146b3`，继续适配 BC1/2/3。XG 与 D3DX 文件编解码共享公开核心，明确区分 A4 的 byte17/255 与 nibble/15、BC3 alpha 的不同存储/插值规则、文件编码预乘和解码去预乘。
 - 独立 `TexturePublicBcCreateTextureFromFileA` 已接通实际 DDS 文件入口；完整提供块原样上传，partial 尾层解码后重编码；小 base 每轴至少4再上取2幂，NPOT 各已提供层先解码再用现有 DirectXTex triangle 的 float-IO 特化重采样，缺层从实际上一压缩存储解码、BOX、重编码。保留原生52字节 header、packed tail、主/secondary VM、锁定与释放。
@@ -22,10 +33,10 @@
 
 上述运行只显式选 `public-d3dx-bc`，复用64未变成功组件，无 SDK/MOD；全部为定位探针，不能冒充完整组件验收。正式入口为同一集中工作流显式 `force_groups=native-bc-files`，只在相应固定业务输出完整相同时使用。
 
-## 下一优先入口
+## 前一轮定位入口（已完成本轮修正）
 
 先读最新 float 阶段结果与完整 capture。若 float 本身不同，按上游 triangle/解码的真实存储顺序适配；若 float 一致，集中修文件编码的量化/求解/平局规则。保留原回归及所有完整字节，不做样本ID或gold查表分派；不因一次候选失配放弃公开实现。当前还未取得最终 D/R + NoOriginal，不合入/启用候选；SDK只在后续正式 ABI 接入里程碑运行。
 
 源码/来源：`src/TextureCompiler/PublicD3dxBc/`；诊断：`recovery/scripts/InspectTexturePublicBc.ps1`、`recovery/tests/TexturePublicBcDiagnostic.cpp`；严格回放：`TexturePublicBcReplay.h` / `TestTexturePublicBc.ps1`。静态原版参考：Newton alpha2851b..2885a、RGB2885a..28e46；文件解码29895/2a4f4/2a507，编码29cee/2a51a/2a532；全局b8914初值1，预乘4c901、去预乘28385。最后结果只绑定各自sourceCommit，不能继承给新源码。
 
-最后定向运行：[41016298705](https://github.com/wu162/NewSdk/actions/runs/41016298705)，不可变源 `a0fb7d2557927cb99882b2f384962cc9ecd580ba`。本轮交接时在后台运行，未取得终态，不将其计为成功。
+前一轮最后定向运行：[41016298705](https://github.com/wu162/NewSdk/actions/runs/41016298705)，不可变源 `a0fb7d2557927cb99882b2f384962cc9ecd580ba`。此前交接时在后台运行；现已确认failure，详见当前续接，不能计为成功。
