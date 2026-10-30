@@ -76,8 +76,7 @@ namespace NewModCompiler.Application
                 long retained = preparationEstimate;
                 if (family == "w3x") retained = W3xBudget(original.Node, retained);
                 else if (family == "xml") retained = ExternalReadBudget(leases, retained, 4L);
-                else if (family == "audio") retained = ExternalReadBudget(leases, retained,
-                    original.Handle.TypeId == AudioCatalog.AudioFileTypeId ? 64L : 4L);
+                else if (family == "audio") retained = AudioBudget(original, leases, retained);
                 if (retained > preparationBudget) return Reject("preparation-budget-exceeded", out reason);
                 // ProcessExpressions/ProcessOverrides/Validate finish before
                 // ProcessInstances. Pending documents cannot be reopened or made
@@ -132,8 +131,6 @@ namespace NewModCompiler.Application
                 {
                     if (!((BinaryAssetBuilder.AudioCompiler.Plugin)plugin).UsesRecoveredAudioFileCompiler)
                         return Reject("uncertified-audio-compiler", out reason);
-                    if (original.Node.Attributes["PCSampleRate"] != null)
-                        return Reject("audio-explicit-sample-rate", out reason);
                     XmlAttribute compression = original.Node.Attributes["PCCompression"];
                     if (compression != null && compression.Value != "NONE" && compression.Value != "XAS")
                         return Reject("audio-compression-diagnostic", out reason);
@@ -261,6 +258,84 @@ namespace NewModCompiler.Application
                 return Reject("unsupported-platform", out reason);
             XmlAttribute file = original.Node.Attributes["File"];
             return LeaseInputPath(file == null ? null : file.Value, leases, out reason);
+        }
+
+        static long AudioBudget(InstanceDeclaration original, List<FileStream> leases, long minimum)
+        {
+            if (original.Handle.TypeId != AudioCatalog.AudioFileTypeId)
+                return ExternalReadBudget(leases, minimum, 4L);
+            long multiplier = 64L;
+            XmlAttribute requested = original.Node.Attributes["PCSampleRate"];
+            if (requested != null)
+            {
+                // The existing source-byte allowance covers importer/encoder
+                // storage. Rate conversion also retains expanded PCM and FFT
+                // scratch. Read only chunk metadata through the held lease;
+                // never decode or copy the sample payload during preparation.
+                int target = PcmWaveAudioCompiler.ParseCInt(requested.Value);
+                try
+                {
+                    int source = AudioSourceRate(leases[0]);
+                    if (source <= 0) return long.MaxValue;
+                    if (target != source && target >= 400 && target <= 96000)
+                    {
+                        multiplier = checked(multiplier * Math.Max(1L, ((long)target + source - 1L) / source));
+                        minimum = checked(minimum + 1024L * 1024L);
+                    }
+                }
+                catch (IOException) { return long.MaxValue; }
+                catch (OverflowException) { return long.MaxValue; }
+            }
+            return ExternalReadBudget(leases, minimum, multiplier);
+        }
+
+        static uint AudioWord(BinaryReader reader, bool bigEndian)
+        {
+            uint value = reader.ReadUInt32();
+            return bigEndian ? (value >> 24) | ((value >> 8) & 0xff00u) |
+                ((value << 8) & 0xff0000u) | (value << 24) : value;
+        }
+
+        static int AudioSourceRate(FileStream input)
+        {
+            input.Position = 0;
+            using (var reader = new BinaryReader(input, System.Text.Encoding.ASCII, true))
+            {
+                uint magic = reader.ReadUInt32();
+                bool aiff = magic == 0x4d524f46u; // FORM
+                long end = 8L + AudioWord(reader, aiff);
+                uint kind = reader.ReadUInt32();
+                bool wave = magic == 0x46464952u && kind == 0x45564157u; // RIFF/WAVE
+                if ((!wave && !(aiff && (kind == 0x46464941u || kind == 0x43464941u))) ||
+                    end < 12 || end > input.Length) return 0;
+                int rate = 0;
+                // Match the importer's last fmt/COMM selection and padded
+                // chunk traversal, including non-canonical chunk order.
+                for (long at = 12; at + 8 <= end; )
+                {
+                    input.Position = at;
+                    uint tag = reader.ReadUInt32(), size = AudioWord(reader, aiff);
+                    long next = at + 8 + size;
+                    if (next > end) return 0;
+                    if (wave && tag == 0x20746d66u && size >= 16) // fmt
+                    {
+                        input.Position = at + 12;
+                        uint value = AudioWord(reader, false);
+                        rate = value <= 0x3ffffu ? (int)value : 0;
+                    }
+                    else if (aiff && tag == 0x4d4d4f43u && size >= 18) // COMM
+                    {
+                        input.Position = at + 16;
+                        int exponent = (reader.ReadByte() << 8) | reader.ReadByte();
+                        int shift = 0x401e - exponent;
+                        uint high = AudioWord(reader, true);
+                        uint value = shift >= 0 && shift <= 31 ? high >> shift : 0;
+                        rate = value <= 0x3ffffu ? (int)value : 0;
+                    }
+                    at = next + (size & 1u);
+                }
+                return rate;
+            }
         }
 
         static bool LeaseInputPath(string value, List<FileStream> leases, out string reason)

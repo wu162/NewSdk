@@ -178,7 +178,7 @@ public static class CompilerPreparedBackend
         finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
         ((XmlElement)declaration.Node).SetAttribute("PCSampleRate", "22050");
         prepared = Prepare(declaration, audio);
-        try { Require(prepared == null, "Explicit sample-rate processing must retain its original owner-only input"); }
+        try { Require(prepared != null && Value<bool>(prepared, "CanRunParallel"), "Explicit sample-rate processing must be parallel eligible"); }
         finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
         ((XmlElement)declaration.Node).RemoveAttribute("PCSampleRate");
         var unknown = new BinaryAssetBuilder.AudioCompiler.Plugin(new UnknownAudioCompiler()); unknown.Initialize(null, TargetPlatform.Win32);
@@ -202,6 +202,43 @@ public static class CompilerPreparedBackend
         // File length affects retention even though this fixture never executes
         // invalid large WAV contents. Only the lease/qualification is exercised.
         File.Delete(input);
+    }
+    static void ResamplingBudget(string work)
+    {
+        var plugin = new BinaryAssetBuilder.AudioCompiler.Plugin(); plugin.Initialize(null, TargetPlatform.Win32);
+        foreach (bool aiff in new[] { false, true })
+        {
+            string path = Path.Combine(work, "expanded-" + aiff + ".bin");
+            AudioInputFormatCases.Write(path, aiff, 8, 1, 4096);
+            byte[] bytes = File.ReadAllBytes(path);
+            if (aiff) Array.Copy(new byte[] { 0x40, 0x07, 0xc8, 0, 0, 0, 0, 0, 0, 0 }, 0, bytes, 28, 10);
+            else Array.Copy(BitConverter.GetBytes(400), 0, bytes, 24, 4);
+            File.WriteAllBytes(path, bytes);
+            var owner = Declaration("AudioFile", "Expanded" + aiff, Namespaces()); Metadata(owner, plugin);
+            ((XmlElement)owner.Node).SetAttribute("File", path);
+            ((XmlElement)owner.Node).SetAttribute("PCCompression", "NONE");
+            // C integer parsing is shared with the real encoder: hexadecimal
+            // requests must have the same expansion allowance as decimal ones.
+            ((XmlElement)owner.Node).SetAttribute("PCSampleRate", "0x17700");
+            RejectedPreparation(owner, plugin, 16L * 1024L * 1024L, "preparation-budget-exceeded");
+            using (var writer = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.None))
+                Require(writer.CanWrite, "Budget refusal must release its metadata/input lease");
+            string reason;
+            object prepared = PrepareWithReason(owner, plugin, 128L * 1024L * 1024L, out reason);
+            try
+            {
+                Require(prepared != null && Value<long>(prepared, "PreparedBytes") >= bytes.Length * 64L * 240L,
+                    "400-to-96000 expansion must be charged before worker admission for both container byte orders");
+            }
+            finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
+            ((XmlElement)owner.Node).SetAttribute("PCSampleRate", "400");
+            prepared = PrepareWithReason(owner, plugin, 1024L * 1024L, out reason);
+            try { Require(prepared != null, "An unchanged explicit rate must not reserve expanded PCM or FFT scratch"); }
+            finally { if (prepared != null) ((IDisposable)prepared).Dispose(); }
+            File.Delete(path);
+        }
+        lifecycleEvidence.Add(new { kind = "audio-rate-expansion-budget", sourceRate = 400, destinationRate = 96000,
+            containers = new[] { "WAVE", "AIFF" }, metadataOnly = true, rejectedBudgetMiB = 16, acceptedBudgetMiB = 128 });
     }
     static void EnvironmentQualification(string sdk)
     {
@@ -442,7 +479,7 @@ public static class CompilerPreparedBackend
     }
     sealed class BufferWork
     {
-        public string Type;
+        public string Type,Label;
         public IAssetBuilderPlugin Plugin;
         public InstanceDeclaration Owner;
         public object Prepared;
@@ -491,9 +528,9 @@ public static class CompilerPreparedBackend
                     int overlap=0;
                     foreach(var other in items) if(other.Start<=item.Start && other.End>item.Start) overlap++;
                     maximum=Math.Max(maximum,overlap);
-                    intervals.Add(new {type=item.Type,startTicks=item.Start,endTicks=item.End,threadId=item.ThreadId});
+                    intervals.Add(new {type=item.Type,fixture=item.Label,startTicks=item.Start,endTicks=item.End,threadId=item.ThreadId});
                 }
-                if(label=="audio" && count>1) Require(maximum>1,"Four substantial PCM encodes must show actual worker interval overlap on a multi-CPU host");
+                if(label.StartsWith("audio",StringComparison.Ordinal) && count>1) Require(maximum>1,"Four substantial PCM encodes must show actual worker interval overlap on a multi-CPU host");
                 lifecycleEvidence.Add(new {kind="prepared-worker-wave",family=label,workerCount=count,maximumConcurrency=maximum,intervals,clockFrequency=Stopwatch.Frequency});
             }
             finally
@@ -519,7 +556,32 @@ public static class CompilerPreparedBackend
             input.CustomDataPath=Path.Combine(work,label+"-worker.cdata");
             Require(input.CustomDataPath != owner.CustomDataPath, "CDATA pathname must be private: " + label);
         }
-        return new BufferWork {Type=owner.Handle.TypeName,Plugin=plugin,Owner=owner,Prepared=prepared,Expected=plugin.ProcessInstance(owner),XmlBefore=owner.Node.OuterXml};
+        return new BufferWork {Type=owner.Handle.TypeName,Label=label,Plugin=plugin,Owner=owner,Prepared=prepared,Expected=plugin.ProcessInstance(owner),XmlBefore=owner.Node.OuterXml};
+    }
+    static void ResampledAudioWorkers(string work)
+    {
+        var plugin=new BinaryAssetBuilder.AudioCompiler.Plugin();plugin.Initialize(null,TargetPlatform.Win32);
+        foreach(bool aiff in new[]{false,true})
+        foreach(string rate in new[]{"11025","22050","44100","0xac44"})
+        {
+            var items=new List<BufferWork>();
+            for(int i=0;i<4;i++)
+            {
+                int channels=new[]{1,2,4,6}[i],bits=new[]{8,16,24,16}[i];
+                string label="resample-"+(aiff?"aiff":"wav")+"-"+rate+"-"+i;
+                string path=Path.Combine(work,label+(aiff?".aiff":".wav"));
+                if(i%2==0) AudioInputFormatCases.Write(path,aiff,bits,channels,8192);
+                else if(aiff) AudioAiffLoopCases.Write(path,bits,channels,8192,129,8191,false);
+                else AudioLoopProbeCases.Wave(path,channels,8192,129,8191);
+                var owner=Declaration("AudioFile",label,Namespaces());
+                var xml=(XmlElement)owner.Node;
+                xml.SetAttribute("File",path);xml.SetAttribute("PCSampleRate",rate);
+                xml.SetAttribute("PCCompression",i<2?"NONE":"XAS");
+                xml.SetAttribute("IsStreamedOnPC",i%2==0?"false":"true");
+                items.Add(BufferItem(work,label,plugin,owner));
+            }
+            WorkerWave(items,"audio-"+(aiff?"aiff":"wav")+"-rate-"+rate);
+        }
     }
     static void TokenizerWorkers(string work)
     {
@@ -693,9 +755,9 @@ public static class CompilerPreparedBackend
         try
         {
             Directory.CreateDirectory(args[0]);
-            AptLeaseAndBorrow(args[0]); ParallelQualification(args[0]); EnvironmentQualification(args[4]);
+            AptLeaseAndBorrow(args[0]); ParallelQualification(args[0]); ResamplingBudget(args[0]); EnvironmentQualification(args[4]);
             ResourceBudget(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); PreparationRejectionReasons(args[0]);
-            WorkerBuffers(args[0],args[4]); TokenizerWorkers(args[0]); SchedulerDrain(args[0],false); SchedulerDrain(args[0],true);
+            WorkerBuffers(args[0],args[4]); ResampledAudioWorkers(args[0]); TokenizerWorkers(args[0]); SchedulerDrain(args[0],false); SchedulerDrain(args[0],true);
             File.WriteAllText(args[1],new JavaScriptSerializer().Serialize(new {
                 succeeded=true,sourceCommit=args[2],runId=args[3],checks,lifecycleEvidence,
                 scope="Borrowed finalized XML/defaults/namespaces/metadata, Windows stable file leases, APT/W3X/Audio worker three-buffer equality, isolated Audio CDATA pathname, three tokenizers on four platforms with shared DOM and concurrent trace, closed route qualification and resource budgets; component evidence only"

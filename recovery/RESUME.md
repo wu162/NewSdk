@@ -1,4 +1,8 @@
-# 当前：有界热缓存扩展与失效/依赖计数（已验证，PR #23 待审）
+# 当前：带 PCSampleRate 的 WAV/AIFF 并行（已验收，PR #25 待审）
+
+分支 `feature/audio-sample-rate-parallel` / [PR #25](https://github.com/wu162/NewSdk/pull/25)，基于 `recovery/legacy-sdk-cache` 的 `5c1843ae`。生产/二进制/测试来源 `8faba4e9`：显式采样率不再拦截worker，准备阶段只读格式头并计入升采样/FFT预算，原缓存及有序提交保持。[Windows 41028084011](https://github.com/wu162/NewSdk/actions/runs/41028084011) 全部success：Debug/Release新建生产、每配置32个新增worker用例均峰值4、10106条原版音频输出相等及8条原拒绝、64生产缓存/jobs、取消/失败/重试、完整mymod原SDK/BIG及五文件部署、22次完整Upheaval回归通过。250607352字节原ZIP已下载复算SHA256匹配，两配置五文件逐一与生产相同；[原收据与摘要](evidence/refactor/audio-rate-parallel/41028084011-1)。[范围与边界](docs/AUDIO_RATE_PARALLEL.md)；后续仅归档文档，禁止强推，未经用户批准不合并。
+
+# 上一批：有界热缓存扩展与失效/依赖计数（已验证，PR #23 已合入）
 
 分支 `test/hot-cache-coverage`，基于 `8a6b7a70`。扩展三档 Armor 规模（32/256/2048 资产、4/32/128 文档），中档混合 Texture/PCM Audio/W3X，代表性缓存模式、压缩、jobs、BIG、等长同mtime编辑与输出/会话修复。单进程15秒、整轮120秒，不做全维度笛卡尔积。
 

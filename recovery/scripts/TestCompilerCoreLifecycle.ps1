@@ -73,6 +73,9 @@ try {
     $state.fixtures=@($fixtures|ForEach-Object{
         @{name=$_.name;path=('recovery/tests/'+$_.name+'.cs');sha256=(Hash ('recovery/tests/'+$_.name+'.cs'))}
     })
+    $state.preparedAudioFixtures=@('AudioInputFormatCases','AudioLoopProbeCases','AudioAiffLoopCases')|ForEach-Object{
+        @{path=('recovery/tests/'+$_.ToString()+'.cs');sha256=(Hash ('recovery/tests/'+$_.ToString()+'.cs'))}
+    }
     $state.sdkFixtureInputs=@('Mods/mymod/Data/RecoveryArmorProbe.xml','tools/BinaryAssetBuilder.exe.config'|ForEach-Object{
         @{path=$_;sha256=(Hash (Join-Path $sdk $_))}
     })
@@ -135,6 +138,11 @@ try {
             $arguments+=$(if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'})
             foreach($name in $frameworkReferences){$arguments+=('/r:'+(Join-Path $refs ($name+'.dll')))}
             $arguments+=$source
+            if($fixture.name -eq 'CompilerPreparedBackend') {
+                foreach($name in @('AudioInputFormatCases','AudioLoopProbeCases','AudioAiffLoopCases')) {
+                    $arguments+=(Resolve-Path ('recovery/tests/'+$name+'.cs')).Path
+                }
+            }
             try {
             & $csc @arguments *> "$fixtureOut/fixture-build.log"
             if($LASTEXITCODE -ne 0){Get-Content "$fixtureOut/fixture-build.log" -Tail 100|Out-Host;throw "$mode $($fixture.name) fixture compilation failed"}
