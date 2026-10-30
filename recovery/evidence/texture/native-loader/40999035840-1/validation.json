@@ -1,0 +1,151 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runAttempt": "1",
+  "scope": "PC owned 2D CPU resource creation and actual raw DDS partial/complete-chain/BOX missing-mip and TGA24/32 raw/RLE file loading; 105 compressed DDS original successes remain explicitly unsupported with separate full original snapshots; full original native headers/VM/packed tails/BOX mips/descriptors/locks/copies/release, Debug/Release and independent NoOriginal; compressed missing mip/NPOT/additional codecs/production SDK/mixed-mode identity excluded",
+  "configurations": [
+    {
+      "summary": [
+        "PASS PC native loader differential constructorCases=6860 fileCases=2789 rgbaCopies=141984 supportedFiles=2684 originalSuccessUnsupportedCompressed=105 explicitRejections=5 completeBytes=275197311; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity",
+        "PASS PC native loader NoOriginal constructorCases=6860 fileCases=2789 rgbaCopies=70992 supportedFiles=2684 originalSuccessUnsupportedCompressed=105 explicitRejections=5 completeBytes=275197311; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity"
+      ],
+      "configuration": "Debug",
+      "captureBytes": 275197311,
+      "passed": true,
+      "withoutOriginalTextureCompiler": true,
+      "nativeFiles": [
+        {
+          "sha256": "6db7d4cdc0e535565093cfb1c5fe6a2ead77ad3b19964ca55dabf306af97c620",
+          "file": "Recovered.TextureNativeDevice.dll"
+        },
+        {
+          "sha256": "c5cad7f9df3b6227eb22dd4e7cf0c864b2506537c921522e0e81c6c016940845",
+          "file": "Recovered.TextureNativeResource.dll"
+        },
+        {
+          "sha256": "1f74eebedaa3478aeb4e0839849cdf6a7e3c772d288dc7bbf5a851ecb3a58ad6",
+          "file": "Recovered.TextureNativeSurface.dll"
+        },
+        {
+          "sha256": "4c84fdf1d5ebca42959364b3a3f10986b4c4fdc476127b03a6c98a1b1c8f6782",
+          "file": "Recovered.TextureNativeDescriptor.dll"
+        },
+        {
+          "sha256": "4a8a9e7d77e1ca44763b4c35bdda03e7709474bb47e376e3eea2952f595aefcc",
+          "file": "Recovered.TextureNativeCopy.dll"
+        },
+        {
+          "sha256": "c3fb7444872e29149e52b54aefbfb0ae5990c03e8b06bea9743cd7d4b5b40d2e",
+          "file": "Recovered.TextureNativeLoader.dll"
+        }
+      ],
+      "captureSha256": "3c46dafb8871969dd7291fc992e1e8609bf9cc24f3bf022b6210bd998b97b485",
+      "unsupportedOriginalSha256": "d0eb20ea4357252d1aa2ddf466652785a0daf0257dbc9a7e58af99435ff34b3f"
+    },
+    {
+      "summary": [
+        "PASS PC native loader differential constructorCases=6860 fileCases=2789 rgbaCopies=141984 supportedFiles=2684 originalSuccessUnsupportedCompressed=105 explicitRejections=5 completeBytes=275197311; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity",
+        "PASS PC native loader NoOriginal constructorCases=6860 fileCases=2789 rgbaCopies=70992 supportedFiles=2684 originalSuccessUnsupportedCompressed=105 explicitRejections=5 completeBytes=275197311; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity"
+      ],
+      "configuration": "Release",
+      "captureBytes": 275197311,
+      "passed": true,
+      "withoutOriginalTextureCompiler": true,
+      "nativeFiles": [
+        {
+          "sha256": "15a51a644dc8ae38da97011080f6d9d9a19dc8d3bfbbeba6ba970b47d2a2e59b",
+          "file": "Recovered.TextureNativeDevice.dll"
+        },
+        {
+          "sha256": "36b8d80f794bc0a42d8e8651aadbe69ae09c1945483a021c8d2b0354a1c88372",
+          "file": "Recovered.TextureNativeResource.dll"
+        },
+        {
+          "sha256": "2614a60cb51833fa9ec283aceeb8ee3ddb51fbc0a0dc73041aa59595c6f8b37f",
+          "file": "Recovered.TextureNativeSurface.dll"
+        },
+        {
+          "sha256": "47ae4d3b4009ceb4813a99649ae5065d7b429be033d30dfcf2f00ed7cec1deea",
+          "file": "Recovered.TextureNativeDescriptor.dll"
+        },
+        {
+          "sha256": "6a5f970c71534abae02b18f536755483da245e91157c72fa4ee9ce95e34eea62",
+          "file": "Recovered.TextureNativeCopy.dll"
+        },
+        {
+          "sha256": "88696fe96bfa59d7515d4d719b704aa2efed8c9cc8eb063370476249df06ef13",
+          "file": "Recovered.TextureNativeLoader.dll"
+        }
+      ],
+      "captureSha256": "3c46dafb8871969dd7291fc992e1e8609bf9cc24f3bf022b6210bd998b97b485",
+      "unsupportedOriginalSha256": "d0eb20ea4357252d1aa2ddf466652785a0daf0257dbc9a7e58af99435ff34b3f"
+    }
+  ],
+  "sdkValidated": false,
+  "status": "passed",
+  "runId": "40999035840",
+  "sourceCommit": "5fc678b050dcc5aff5a8a25365a406a09ca2f4c8",
+  "captureArchiveSha256": "5d14bc7167b7502da5bffdd4c6f7efe31acb79ab8f3b30b412f1db7db26132dd",
+  "unsupportedOriginalDebugReleaseIdentical": true,
+  "sourceFixtures": [
+    {
+      "sha256": "1c2c5a6a12bf4b6b03b127316769cfa3481f7cbc1172cd56065d779a9d89dd17",
+      "bytes": 131200,
+      "file": "PackedImages_097_EP1.dds"
+    },
+    {
+      "sha256": "d83e7da2b70186f8857e3d7a28c221c7b076f35d1f7def77784bdb1313ba4ff4",
+      "bytes": 640,
+      "file": "LURomania_vol.dds"
+    },
+    {
+      "sha256": "995f7ef1ecc41be00ce3d4e2a933128988b4f37a814f8e2500ff4c40a0adaa36",
+      "bytes": 22024,
+      "file": "FXAlliedFutureLaser.dds"
+    },
+    {
+      "sha256": "0fad96553c29863a37966f9b85711926231c63d1932d88ebdbb976476fa0146c",
+      "bytes": 392,
+      "file": "FXYurikoShieldFadeLUT.dds"
+    },
+    {
+      "sha256": "8b8a8b99950ef9ed96fbf5b8e45bff6f691656a28b6b6ce76769d9280b4f2a8c",
+      "bytes": 11080,
+      "file": "EXJapanArrow.dds"
+    },
+    {
+      "sha256": "42b701681043182ce335eaf43bf554f8f895d622d3c6fad83ec2d3fc65724bea",
+      "bytes": 22000,
+      "file": "JUArcherInfantry.dds"
+    },
+    {
+      "sha256": "afac628fc500868b3a4648b47e507a64ad277281fccdc5b35f4a798ca9a75323",
+      "bytes": 65664,
+      "file": "Target_Japan_ArcherBarrage.dds"
+    },
+    {
+      "sha256": "a4fdf4c1ea3f95fae662b20a7175d701b8c42a99b6b87e6a69d4babeb4394bcf",
+      "bytes": 11064,
+      "file": "AULegionnaireInfantry.dds"
+    },
+    {
+      "sha256": "bae9a02cd90785aed6ef4648a2ff2d5fcdeddaceb358dd08d150a8031f361b85",
+      "bytes": 349680,
+      "file": "SUMortarCycle.dds"
+    },
+    {
+      "sha256": "37f7348cb10d39f1ec9ae1024eee2e4b909e63d18fcee5fa837547439e2a665f",
+      "bytes": 2098213,
+      "file": "apt_tacticalhudbuildqueuepage_1.tga"
+    },
+    {
+      "sha256": "d4b50f26b6914b6d78fe74406bf0ff9fd49b45df82a87370b2b5532eaab59c37",
+      "bytes": 524838,
+      "file": "apt_tacticalhudmaincommandbar_1.tga"
+    },
+    {
+      "sha256": "5d453e31e4a5cf6e5fa30cc8ed234448e3dd98177f58a519023e464a55b3bee9",
+      "bytes": 786476,
+      "file": "map_mp_2_feasel10_ep1_art.tga"
+    }
+  ]
+}

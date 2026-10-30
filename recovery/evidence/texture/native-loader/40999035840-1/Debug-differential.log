@@ -1,0 +1,2 @@
+COMPLETE constructorCases=6860 fileCases=2789 mismatches=0
+PASS PC native loader differential constructorCases=6860 fileCases=2789 rgbaCopies=141984 supportedFiles=2684 originalSuccessUnsupportedCompressed=105 explicitRejections=5 completeBytes=275197311; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity
