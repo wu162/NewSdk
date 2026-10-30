@@ -120,7 +120,11 @@ class XmlgamemapOracle {
         Reject("root unknownattr",Root(RootName,"Unknown='1'",""));Reject("root unknownchild",Root(RootName,"","<Bogus/>"));Reject("root text",Root(RootName,"","payload"));Reject("foreign root",Root(RootName,"","").Replace(NS,"urn:wrong"));Reject("qualified attr",Root(RootName,"xmlns:q='urn:q' q:Unknown='1'",""));Reject("unknown root",Root("Bogus","",""));
         bool rejected=false;try{XmlgamemapCompiler.ProcessInstance(null,p);}catch(ArgumentNullException){rejected=true;}Check(rejected,"null declaration");++rejections;
         XmlDocument wrong=Parse(Root(RootName,"",""));InstanceDeclaration dec=Declaration(wrong);dec.Handle.TypeName="EvaSettings";rejected=false;try{XmlgamemapCompiler.ProcessInstance(dec,p);}catch(NotSupportedException){rejected=true;}Check(rejected,"handle mismatch");++rejections;
-        rejected=false;try{XmlgamemapCompiler.CompileXml(wrong.DocumentElement,new XmlNamespaceManager(wrong.NameTable),false);}catch(NotSupportedException){rejected=true;}Check(rejected,"missing ea binding");++rejections;
+        var unboundSchemaResult=XmlgamemapCompiler.CompileXml(wrong.DocumentElement,new XmlNamespaceManager(wrong.NameTable),false);
+        var boundSchemaResult=XmlgamemapCompiler.CompileXml(wrong.DocumentElement,Namespaces(wrong),false);
+        Check(Convert.ToBase64String(unboundSchemaResult.InstanceData)==Convert.ToBase64String(boundSchemaResult.InstanceData) &&
+            Convert.ToBase64String(unboundSchemaResult.RelocationData)==Convert.ToBase64String(boundSchemaResult.RelocationData) &&
+            Convert.ToBase64String(unboundSchemaResult.ImportsData)==Convert.ToBase64String(boundSchemaResult.ImportsData),"plugin does not repeat Core namespace validation");++layouts;
         Abi(p);
     }
     static int Main(string[] args) {
