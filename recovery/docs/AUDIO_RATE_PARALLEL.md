@@ -1,6 +1,6 @@
 # AudioFile 显式采样率并行
 
-基于 `recovery/legacy-sdk-cache` 的 `5c1843ae`，开发分支 `feature/audio-sample-rate-parallel`。当前代码已实现，Windows 统一验收待执行；禁止强推，合入须经 PR 和用户明确批准。
+基于 `recovery/legacy-sdk-cache` 的 `5c1843ae`，开发分支 `feature/audio-sample-rate-parallel` / [PR #25](https://github.com/wu162/NewSdk/pull/25)。当前代码已实现，Windows 统一验收中；禁止强推，合入须经 PR 和用户明确批准。
 
 `PCSampleRate` 不再直接导致 owner 回退。资格仍要求精确内建 `PcmWaveAudioCompiler`，NONE/XAS 或原默认策略、Win32 稳定只读输入租约和私有 CDATA；EALAYER3 诊断、注入编码器和其它未认证类型保持原边界。原编码器、重采样数值顺序、拒绝行为、类型/版本哈希、缓存身份均不变。
 
@@ -17,3 +17,9 @@
 - 原有完整 Core 生命周期、mymod 原 SDK 四流及 BIG/SKUDEF、五文件包和完整 Upheaval 串并行验收保持。
 
 Linux 只能完成轻量预检，不能替代 Win32 混合模块、原 DLL 和 SDK 验收。验证终态及来源随后登记。
+
+## 验证进度（2026-10-30 北京时间 16:53）
+
+源码/二进制/测试来源 `8faba4e9f7efe470b95fdc7f2be43ed069e3a670`，[运行41028084011](https://github.com/wu162/NewSdk/actions/runs/41028084011) 仍在进行。Debug/Release 完整生产构建、Core 生命周期（含上述32个worker用例和倍率预算）、64个生产缓存/jobs用例步骤已success；原版完整音频差分执行中，后续SDK、包和完整MOD步骤尚待完成。运行整体及原始归档未标通过，终态后下载核验。
+
+完整 Upheaval 历史输入 `5551fc26a6f96b62613443e0d0fa2958c14cbce0` 的14份音频文档共1289个 AudioFile，均没有显式 PCSampleRate。其全MOD测量属于整体回归，不能用来量化本次新增显式采样率并行的收益。新资格由专项worker与生产缓存矩阵证明。
