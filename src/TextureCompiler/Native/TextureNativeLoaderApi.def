@@ -1,0 +1,4 @@
+LIBRARY Recovered.TextureNativeLoader.dll
+EXPORTS
+    TextureCreateCpuTexture=_TextureCreateCpuTexture@16
+    TextureCreateTextureFromFileA=_TextureCreateTextureFromFileA@12
