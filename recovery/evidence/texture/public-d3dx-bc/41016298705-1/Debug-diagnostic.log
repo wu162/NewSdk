@@ -1,0 +1,2 @@
+PROBE completed file blocks=1536 decode=0 encode0=31 dither30000=31
+bc-default-dds-1x1-f1-p0-levels1: bc-default-dds-1x1-f1-p0-levels1: Original compressed-to-float surface consumer

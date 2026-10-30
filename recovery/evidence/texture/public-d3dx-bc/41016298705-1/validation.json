@@ -1,0 +1,20 @@
+{
+  "archiveSha256": "31aebd3f874508338ea88477cd562cc348e02cd0c728f99cb49fb7d7deb14ac2",
+  "productionAccepted": false,
+  "sourceCommit": "a0fb7d2557927cb99882b2f384962cc9ecd580ba",
+  "error": "Debug-diagnostic failed",
+  "configurations": [],
+  "probeOnly": true,
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "status": "failed",
+  "runId": "41016298705",
+  "scope": "public D3DX BC1/2/3 diagnostic: full block/file-codec/default DDS resource/VM/mip/lock/release/actual-copy; eight fixed encoder policies and wrap/clamp aggregates; no production acceptance",
+  "captureMembers": [
+    {
+      "bytes": 91918598,
+      "name": "Debug.capture",
+      "sha256": "17fc2091a4fad28cf59983927ba5c6f3d738e6cb8d2fb6b156ad64018b01851a"
+    }
+  ]
+}
