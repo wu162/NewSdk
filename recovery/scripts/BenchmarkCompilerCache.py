@@ -83,7 +83,12 @@ def output_inventory(destination, report):
         require(path.stat().st_size == row['Size'], 'Reported output length differs')
         expected[name] = {'bytes': row['Size'], 'sha256': sha(path)}
     require(expected, 'No current completed output')
-    actual = expected
+    # Direct output also keeps BAB intermediate assets under published. Compare
+    # every linked stream/CDATA member, without treating those assets as output.
+    actual = {p.relative_to(published).as_posix(): {'bytes': p.stat().st_size, 'sha256': sha(p)}
+              for p in published.rglob('*') if p.is_file()
+              and p.suffix.lower() in ('.manifest', '.bin', '.imp', '.relo', '.cdata')}
+    require(actual == expected, 'Linked output members or bytes differ from report')
     require({Path(p).suffix for p in actual} >= {'.manifest', '.bin', '.imp', '.relo'},
             'Linked output is incomplete')
     return actual

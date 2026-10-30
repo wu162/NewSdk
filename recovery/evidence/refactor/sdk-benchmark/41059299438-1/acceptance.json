@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "binarySourceCommit": "b89fbadb669a8abb3ba01c5bdd031a8c3a2e405b",
+  "acceptanceRunId": "41055959839",
+  "acceptanceRunAttempt": 1,
+  "acceptanceSucceeded": true,
+  "artifact": {
+    "id": 12976909492,
+    "bytes": 153326968,
+    "sha256": "838c495ac7214c3671b5481c18a5b92b96e184631830aecf9781cfd8993c18e1",
+    "downloadedAndRehashed": true,
+    "fiveFileReleaseVerified": true
+  },
+  "sdk": {
+    "fullMymod": true,
+    "inputsUnchanged": true,
+    "emptyOptionalGroups": [
+      "apt",
+      "maps"
+    ],
+    "modes": [
+      {
+        "configuration": "Debug",
+        "streamOutputs": 4,
+        "rawStreamEquality": true,
+        "bigMemberRawEquality": true,
+        "bigArchiveEquality": true
+      },
+      {
+        "configuration": "Release",
+        "streamOutputs": 4,
+        "rawStreamEquality": true,
+        "bigMemberRawEquality": true,
+        "bigArchiveEquality": true
+      }
+    ]
+  },
+  "upheaval": {
+    "samples": 22,
+    "allPassed": true,
+    "elapsedSeconds": 423.3834532999999
+  },
+  "receipts": [
+    {
+      "path": "sdk.validation.json.gz",
+      "archiveMember": "evidence/refactor/sdk-mymod/41055959839-1/validation.json",
+      "bytes": 3081139,
+      "sha256": "2a978df3549e58854b4e7ba1b89598f69f5a05bb64b1a4b44cd49e208b898ef1"
+    },
+    {
+      "path": "release.json.gz",
+      "archiveMember": "artifacts/final-release/41055959839-1/release.json",
+      "bytes": 230915,
+      "sha256": "209f491d9bb68d85024fc5d22b1397eb8106c40969045132c10775b452db869c"
+    },
+    {
+      "path": "upheaval.measurement.json.gz",
+      "archiveMember": "evidence/refactor/backend-parallel-performance/41055959839-1/measurement.json",
+      "bytes": 332757,
+      "sha256": "3d8073f2e5aa26b9f3cd488a95a3d74e890114074c73c344216612cd111a9266"
+    },
+    {
+      "path": "upheaval.measurement.md",
+      "archiveMember": "evidence/refactor/backend-parallel-performance/41055959839-1/measurement.md",
+      "bytes": 1479,
+      "sha256": "62ab4a261629c645ce41b00b05ed61c2a0f443e40d1cc55a7c93dc61d63e17cc"
+    },
+    {
+      "path": "release.manifest.json",
+      "archiveMember": "artifacts/final-release/41055959839-1/NewModCompiler-Win32-Release.manifest.json",
+      "bytes": 20502,
+      "sha256": "328d5264150ffc066bda8f6a3a6e2add3b0e023a4cb7609657a04bd2d742031f"
+    }
+  ]
+}

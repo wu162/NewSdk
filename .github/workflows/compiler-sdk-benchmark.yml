@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       accepted_run:
-        description: 'Successful full Core lifecycle run to measure; empty reuses the historical pinned Release'
+        description: 'Successful full Core lifecycle run for the current production source closure; empty uses the pinned current acceptance'
         type: string
         default: ''
 permissions:
@@ -25,7 +25,7 @@ jobs:
   benchmark:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[sdk-benchmark]')
     runs-on: windows-2022
-    timeout-minutes: 10
+    timeout-minutes: 20
     env:
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
@@ -46,25 +46,26 @@ jobs:
           python -m unittest discover -s recovery/tests -p '*benchmark.py' -v
           if($LASTEXITCODE -ne 0){throw 'Benchmark preflight failed'}
       - name: Verify accepted Release and original SDK against the same inputs
-        timeout-minutes: 2
+        timeout-minutes: 5
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
           # Measure this optimization's accepted production objects, never the old pinned build.
-          ACCEPTED_RUN: ${{ inputs.accepted_run || '40878062262' }}
+          ACCEPTED_RUN: ${{ inputs.accepted_run || '41055959839' }}
         run: |
-          $accepted=@();if($env:ACCEPTED_RUN){$accepted=@('--accepted-run',$env:ACCEPTED_RUN)}
+          if(!$env:ACCEPTED_RUN){throw 'Specify the current successful full Core lifecycle accepted_run; historical fallback is disabled'}
+          $accepted=@('--accepted-run',$env:ACCEPTED_RUN)
           python recovery/scripts/PrepareCompilerCacheBenchmark.py --repo . --candidate-commit $env:GITHUB_SHA --output "$env:RUNNER_TEMP/cb" @accepted
           if($LASTEXITCODE -ne 0){throw 'Accepted Release preparation failed'}
           $prepared=Get-Content "$env:RUNNER_TEMP/cb/preparation.json" -Raw|ConvertFrom-Json
           python recovery/scripts/PrepareCompilerSdkBenchmark.py --preparation "$env:RUNNER_TEMP/cb/preparation.json" --output "$env:RUNNER_TEMP/ob" --repo . --binary-source-commit $prepared.binarySourceCommit --source-run-id $prepared.sourceRunId
           if($LASTEXITCODE -ne 0){throw 'Original SDK/shared-input preparation failed'}
       - name: Paired original and new SDK cache matrix with strict budgets
-        timeout-minutes: 3
+        timeout-minutes: 6
         shell: pwsh
         run: |
           $out="recovery/evidence/refactor/sdk-benchmark/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          python recovery/scripts/BenchmarkCompilerSdkComparison.py --preparation "$env:RUNNER_TEMP/cb/preparation.json" --original-preparation "$env:RUNNER_TEMP/ob/original-preparation.json" --output $out --work-directory "$env:RUNNER_TEMP/sbw" --timeout-seconds 20 --budget-seconds 120 --hot-runs 2
+          python recovery/scripts/BenchmarkCompilerSdkComparison.py --preparation "$env:RUNNER_TEMP/cb/preparation.json" --original-preparation "$env:RUNNER_TEMP/ob/original-preparation.json" --output $out --work-directory "$env:RUNNER_TEMP/sbw" --timeout-seconds 60 --budget-seconds 300 --hot-runs 5
           $comparisonExit=$LASTEXITCODE
           if(Test-Path $out){
             Copy-Item "$env:RUNNER_TEMP/cb/preparation.json" "$out/preparation.json"

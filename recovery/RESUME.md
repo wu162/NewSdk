@@ -1,3 +1,11 @@
+# 当前：最新集成版本与原 SDK 对照已通过（2026-10-30）
+
+用户指定 `recovery/legacy-sdk-cache`；测试生产源码固定为 `b89fbadb`。完整 Windows [Core 41055959839](https://github.com/wu162/NewSdk/actions/runs/41055959839) success：重新构建 Debug/Release，完整 mymod 原版四流/BIG/ZIP、缓存/取消/协议及完整 Upheaval 22 样本通过。精确 Release 的 [原 SDK 同机对照 41059299438](https://github.com/wu162/NewSdk/actions/runs/41059299438) success：108 对/216 次全部输出原字节一致。
+
+默认热缓存每边 n=5：mymod 新版耗时 -3.47%，Armor 子集 -3.37%，Texture×16 +2.44%；无缓存 n=6 分别 -16.34%、-3.08%、+5.35%。完整 Upheaval 只作新版并行/缓存对照，不冒充老新版完整 MOD 配对速度。来源、两份下载归档复算、原始收据和范围见 [SDK 对照说明](docs/SDK_BENCHMARK.md) 与 [摘要](evidence/refactor/sdk-benchmark/41059299438-1/summary.json)。
+
+测试入口及证据在 `test/legacy-sdk-comparison` / [PR #29](https://github.com/wu162/NewSdk/pull/29)，未修改生产源码、未合并。基准测试源码 `6648ecd8`，后续仅归档与文档；未来生产变化须重新验收，不能沿用本轮二进制。禁止强推，合入仍需用户明确批准。
+
 # 当前：插件重复 schema 校验已移除（验收通过，PR #26 待审）
 
 用户指定基线 `recovery/legacy-sdk-cache` / `5c1843ae`；成果在 `refactor/remove-plugin-schema-validation` / [PR #26](https://github.com/wu162/NewSdk/pull/26)。删除 XML、GameObject、Weapon、Effects/Particle、Locomotor 及生成代码中的属性/子节点白名单、文本、单例、结构和命名空间校验及专用遍历/数组分配。Core 统一 XSD、依赖元数据及类型路由继续工作；Audio/W3X 的编码器数据检查保留。

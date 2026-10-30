@@ -89,6 +89,8 @@ class BenchmarkChecks(unittest.TestCase):
                 artifacts.append(dict(Path=str(path), Size=8, Sha256=bench.sha(path)))
             result = dict(artifacts=artifacts)
             self.assertEqual(len(bench.output_inventory(root, result)), 4)
+            (published / 'intermediate.asset').write_bytes(b'BAB intermediate')
+            self.assertEqual(len(bench.output_inventory(root, result)), 4)
             (published / 'extra.cdata').write_bytes(b'unreported')
             with self.assertRaises(ValueError):
                 bench.output_inventory(root, result)

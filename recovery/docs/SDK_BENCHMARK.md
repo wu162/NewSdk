@@ -1,8 +1,33 @@
 # 原 SDK 与新版性能对照
 
-工作流 `compiler-sdk-benchmark.yml` 新增可选 `accepted_run`：显式指定已成功完成全部 Core lifecycle 门槛的运行，可复用该运行的五文件 Release 测量后续优化；留空继续使用原固定来源。准备器从 GitHub 成功运行及产物 digest 确认来源，再校验发行收据、五文件内容和实际生产输入闭包。二进制和测试来源分别记录，未经完整验收的运行不能用于该选项。下文区分优化后新结果与优化前历史，不混用两轮来源。
+工作流 `compiler-sdk-benchmark.yml` 的 `accepted_run` 指定已成功完成全部 Core lifecycle 门槛的运行，复用该运行的精确五文件 Release；当前留空固定使用本轮最新集成验收 `41055959839`。后续生产源码改变时必须重新取得适用验收，来源闭包检查会拒绝旧二进制。准备器从 GitHub 成功运行及产物 digest 确认来源，再校验发行收据、五文件内容和实际生产输入闭包。二进制和测试来源分别记录，未经完整验收的运行不能用于该选项。下文区分优化后新结果与优化前历史，不混用两轮来源。
 
-`BenchmarkCompilerSdkComparison.py` 在同一台 Windows VM 上交替执行原 `BinaryAssetBuilder.exe` 和已验收的新版 Win32 Release。比较独立进程从启动到退出的端到端成本、CPU 时间、峰值工作集及缓存占用；新版还承担报告、JSONL、独立 staging 和事务发布的成本，原工具直接写出流文件。结果用于比较实际命令行使用成本。
+`BenchmarkCompilerSdkComparison.py` 在同一台 Windows VM 上交替执行原 `BinaryAssetBuilder.exe` 和已验收的新版 Win32 Release。比较独立进程从启动到退出的端到端成本、CPU 时间、峰值工作集及缓存占用；当前新版承担报告和 JSONL 成本，并直接输出；原工具直接写出流文件。历史版本的 staging/事务发布成本仅适用于下文对应历史运行。结果用于比较实际命令行使用成本。
+
+## 最新集成版本对照（2026-10-30）
+
+生产源码为 `b89fbadb669a8abb3ba01c5bdd031a8c3a2e405b`，即用户指定分支合入 schema 校验清理及直接输出后的实际分支头。本轮重新完成 [Core lifecycle 41055959839](https://github.com/wu162/NewSdk/actions/runs/41055959839)，再在 [同机对照 41059299438](https://github.com/wu162/NewSdk/actions/runs/41059299438) 复用该轮精确五文件 Release；两轮整体均为 **success**。基准源码独立记录为 `6648ecd8badd4dfc0c85b87513109ab1adf2ea2d`，只修改测试与工作流，未修改生产源码。
+
+同一 Windows VM、同一物理 MOD/SDK/Schema/有序资源根，交替启动两个编译器，独立缓存。六种缓存模式共 108 对/216 个计量进程，另有 2 次排除计量的启动预热；计量循环合计 146.16 秒。每边无缓存 n=6、每种冷态 n=1、热态 n=5。所有输出成员、长度、SHA256 和原始字节均相同，共享 SDK/MOD/运行库与资源根存在性均未变。
+
+端到端墙钟中位数，单位 ms；负值表示新版耗时减少：
+
+| 工作量 | 模式 | 老 SDK | 最新编译器 | 新版耗时变化 |
+| --- | --- | ---: | ---: | ---: |
+| 完整 mymod（base/loose） | 无缓存 | 868.8 | 726.9 | -16.34% |
+| Upheaval Armor 子集（12 资产） | 无缓存 | 578.8 | 561.0 | -3.08% |
+| 合成 Texture ×16 | 无缓存 | 853.9 | 899.5 | +5.35% |
+| 完整 mymod（base/loose） | 默认热缓存 | 559.6 | 540.2 | -3.47% |
+| Upheaval Armor 子集（12 资产） | 默认热缓存 | 544.3 | 525.9 | -3.37% |
+| 合成 Texture ×16 | 默认热缓存 | 546.0 | 559.3 | +2.44% |
+
+默认热态 mymod/Armor 略快，纹理仍慢；无缓存纹理同样回退，不宣称所有工作量都快。CPU、峰值工作集、缓存占用及全部模式/min–max 见 [完整表](../evidence/refactor/sdk-benchmark/41059299438-1/comparison.md)、[CSV](../evidence/refactor/sdk-benchmark/41059299438-1/comparison.csv)、[来源及核对摘要](../evidence/refactor/sdk-benchmark/41059299438-1/summary.json)。OS 页缓存未控，小样本只描述本机及这些工作量；本组性能不包含完整 Upheaval、BIG 或编辑计量。
+
+完整生产正确性由本轮新编译的 Debug/Release 另行通过：完整未精简 mymod 四流差异均为 0，BIG 整包字节相同、SKUDEF 合同通过，实际缓存/载荷/失效/取消/协议矩阵和独立五文件 ZIP 通过。mymod 的 APT/maps 输入为空，不据此宣称该 MOD 覆盖真实 APT/maps。完整历史 Upheaval 新版的 22 个并行/缓存/修改样本全部输出一致；默认 jobs4/auto 冷态 36.253/36.283 秒，非诊断两次热态各约 2.3 秒，单动画修改只编译 1 个资产。该组是新版内部 jobs 对照，不能当作老 SDK/新版的完整 Upheaval 配对速度。见 [原始计量](../evidence/refactor/sdk-benchmark/41059299438-1/upheaval.measurement.md) 和 [生产验收摘要](../evidence/refactor/sdk-benchmark/41059299438-1/acceptance.json)。
+
+两份原始 Actions ZIP 均已实际下载并复算 SHA256：生产归档 `838c495ac7214c3671b5481c18a5b92b96e184631830aecf9781cfd8993c18e1`，性能归档 `65135b4641382e3bbe44d8c81dbbf17d23048f3127793e09a8912e4e95ca9eb1`。独立核对五运行文件与验收绑定、216 次成功状态、108 对原始比较收据、每份新版报告的共享资源根和基线原始字节，并从样本重算全部统计。大收据以 gzip 保存原始字节，解压后长度及 SHA256 见摘要。
+
+同时修复基准在直接输出设计后漏检额外链接文件的问题：枚举全部四流/CDATA，与报告清单核对，保留 BAB 中间 `.asset`；24 项本地预检通过。提高本轮热态次数及时间预算，并更新当前直接输出的成本描述。[PR #29](https://github.com/wu162/NewSdk/pull/29) 保存测试入口及证据，未合并。
 
 ## 六项热态优化后的结果（2026-10-29）
 
