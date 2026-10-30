@@ -2,7 +2,21 @@
 
 分支：`recovery/texturecompiler-source`；仅PC、禁止强推、编译测试仅Actions。所有后续贴图还原优先复用公开实现并适配原版，见[公开实现入口](TEXTURE_UPSTREAM.md)。先连续实现实际消费链，稳定后集中验收；普通检查点不触发完整测试/SDK/MOD。
 
-## 本轮完成（2026-10-30，公开原生加载批次）
+## 本轮完成（2026-10-30，压缩原生 DDS 候选）
+
+- 继续独立分支 `validation/texture-public-d3dx-bc`，最新业务/探针修正检查点 `a0fb7d25`。固定 DirectXTex BC1/2/3 已接通文件编解码差异、预乘/去预乘、真实 DDS 文件入口、完整 provided 块/partial 尾层、从实际上一存储解码的 BOX 缺层、小 base 至少4/NPOT 上取2幂的公开 triangle float 适配、原生资源所有权与实际 masked/physical RGBA 消费。**候选未验收，未合入业务源码，正式 native loader 仍拒绝压缩 DDS。**
+- `ce16e990` / `41010488699` 首先确认1536 XG float decode及flags0完整encode块 D/R全部相同。文件分流和量化舍入后 `bb8032e9` / `41012948892` 文件1536 decode/无抖动/抖动完整块全部相同；新增1572默认DDS中1226完整匹配/346差异，D/R每配置266136903字节相同、原版重复稳定。
+- 最近完整探针 `824da4e8` / `41014720897` 为 probe-only：补 Newton 舍入后1572默认文件1249匹配/323差异，文件BC3编码另有31记录回归（重复输入入口 `bc-file-block-f20-23`）；XG块和文件decode仍全相同。显式扩展算术没有改变完整capture SHA，不能说已修复。来源、完整锚点和下一定位见 [候选专页](TEXTURE_PUBLIC_D3DX_BC.md)。
+- 已写严格 `native-bc-files` 手动组件/NoOriginal逐次隔离回放，保留完整原 float/block、默认文件/VM/每层实际RGBA、EOF及拒绝所有权；**尚未通过，不运行它来冒充验收**。所有定位只选`public-d3dx-bc`、复用64旧成功组件，没有 SDK/MOD 或生产六DLL替换。
+- `2904039f` / `41011903071` 的范围检查失败及超100MiB归档失败均保留：107556655字节原partial capture已从原Actions artifact无损压缩保存；finally归档已修复。新float阶段 `9f61058d` / `41015245262` 在`Original float pitch`失败，原FileEx格式协商不能当固定float输出，**其partial float字节不是业务gold**。最新已改为原CPU构造+surface view+文件实际surface-memory入口，并断言真实float格式/尺寸；当前源未验证。
+
+## 下一轮计划
+
+1. 先收取 `a0fb7d25` 的最后定向 Actions（运行号见候选专页最新补充），核实真正的 sourceCommit/终态。显式CPU float入口若仍失败，修原ABI/格式/尺寸契约，不能忽略断言或将非float缓冲区冻结成gold。
+2. 根据360份真正float阶段的完整结果区分解码/triangle与文件编码误差。保留1572默认DDS及旧1536 XG/1536文件块/168策略矩阵；文件BC3的31重复记录需查通用量化/solver存储规则，禁止样本分派。当前仍323默认文件差异，不能直接启用压缩加载。
+3. 连贯消费固定规则全部匹配后，再集中运行`native-bc-files`完整D/R/逐次NoOriginal及必要实际消费，满足门槛后普通合入；新ABI正式进入生产包前另取适用SDK证据。未变64组件和旧SDK不重复跑。继续所有贴图优先适配公开实现；不扩展非PC。
+
+## 已验收基础（2026-10-30，公开原生加载批次）
 
 - 复用固定Microsoft DirectXTex triangle，接通原生TGA24/32和raw A8/X8 DDS的NPOT加载；各轴向上取2幂，DDS逐已提供层重采样，再从已上传层BOX生成缺失mip。保留X8物理未使用字节与端序、52字节header、主/secondary VM及packed tail所有权。
 - 复用固定stb_image BMP，支持BI_RGB24/32的core12、INFO40、52、56、OS2-64、V4-108、V5-124，含方向、padding、真彩色表、忽略bfOffBits的原版实际像素位置及有界V5 profile。原版在BGR24展开前按源DWORD扫描alpha；适配器保留有界扫描规则，对会越过文件末尾而依赖未初始化堆字节的输入明确拒绝。来源/通知/修改前后SHA在`PublicDirectXTex`/`PublicStbBmp`。
@@ -15,10 +29,3 @@
 本轮后续已实现完整POT base>=4压缩DDS资源/mip和实际压缩→raw的masked/physical-endian消费。d50b04a9/41009041890已probe-only完成，D/R完整capture各89979984字节相同，原版重复稳定；固定flags0完整匹配全部1536个BC1/2/3编码块。仍有976个decode块位模式差异，以及最佳flags0/wrap下86/168完整DDS差异，绝不能算压缩支持。
 
 此最新源码又补精度规则：字节归一化显式使用原存储float倒数并落盘，BC3 alpha palette先存右项乘积再做左项扩展乘加。后者静态数值核对全部8192个原alpha通道一致；这些新补丁未Actions验证，不能继承d50b04a9结果。正式loader和生产包未调用候选；尚无当前源码的完整NoOriginal/SDK验收。下一轮先验证此最新精度源码的完整块位模式，再区分文件FourCC与原XG格式对三色/去预乘的语义，定位全部DDS尾mip/缺层及两RGBA视图。小base>=4限制、NPOT等边界仍需完成。64旧成功组件及SDK未变，不重复跑。
-
-## 下一轮计划
-
-1. 优先继续 `validation/texture-public-d3dx-bc`，源码检查点 `165184daa2a776b8b96e707ac8e3ccf0c5203932`。已接入固定DirectXTex BC1/2/3核心及独立x86 float块/图像接口；POT且base双轴>=4的DDS候选已接通完整provided块、尾层重编码、从实际前层压缩存储解码后BOX/重编码缺层和原生资源/锁定/释放。**未被正式loader或生产包调用，尚未还原完成。**
-2. 本轮为该新核心准备并显式启动 `public-d3dx-bc` 定向诊断：1536块、168完整DDS，各8固定编码策略及wrap/clamp完整聚合；通过现有集中入口，不能把probe-only/任务成功或部分策略匹配当作业务验收。入口 `src/TextureCompiler/PublicD3dxBc/PATCHES.md`、`recovery/scripts/InspectTexturePublicBc.ps1`。先检查该分支最新收据/运行，核对原XGCopySurface真实flags/阈值及float精度，再修改一般端点/索引/量化规则，保留完整输出。
-3. 1×1压缩DDS原生base实际4×4、levels3；源依据为 `native-loader/40999035840-1/captures.zip` 的105份完整原版资源（诊断资料，不能直接当确定性业务gold）。候选当前仍拒绝小base/NPOT，不可静默近似扩展。接通完整压缩→raw实际消费和边界后集中取得受影响D/R、NoOriginal及适用SDK，再普通合入。
-4. 未变64组件和旧SDK不重复运行；新ABI正式进入生产包前另取必要SDK集成证据。更多PNG/JPEG、低位深/灰度/调色板TGA等原生加载同样先复用现成源码；不能用已有托管最终RGBA推断原生存储格式/字节。
