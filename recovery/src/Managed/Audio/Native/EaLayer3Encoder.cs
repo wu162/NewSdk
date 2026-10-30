@@ -9,16 +9,31 @@ namespace BinaryAssetBuilder.AudioCompiler
     public static class EaLayer3Encoder
     {
 #if NEWSdk_MONOLITHIC
-        private const string Library = "NewModCompiler.exe";
+        [DllImport("kernel32.dll", EntryPoint = "GetModuleHandleW", CharSet = CharSet.Unicode)]
+        private static extern IntPtr GetModuleHandle(string name);
+        [DllImport("kernel32.dll", CharSet = CharSet.Ansi, ExactSpelling = true)]
+        private static extern IntPtr GetProcAddress(IntPtr module, string name);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private unsafe delegate IntPtr Encode(float* samples, int frames, int channels,
+            int rate, int quality, int streamed, int loopStart, int loopEnd,
+            out IntPtr data, out int size, out IntPtr error, out int loopByteOffset);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate void Free(IntPtr result);
+        // Bind exports in the current mixed EXE, including the production link
+        // recipe's validation host. Delegates are immutable; streams stay native.
+        private static readonly Encode NewSdkEaEncode = Marshal.GetDelegateForFunctionPointer<Encode>(
+            GetProcAddress(GetModuleHandle(null), "NewSdkEaEncode"));
+        private static readonly Free NewSdkEaFree = Marshal.GetDelegateForFunctionPointer<Free>(
+            GetProcAddress(GetModuleHandle(null), "NewSdkEaFree"));
 #else
         private const string Library = "NewSdk.EaLayer3.dll";
-#endif
         [DllImport(Library, CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         private static extern unsafe IntPtr NewSdkEaEncode(float* samples, int frames, int channels,
             int rate, int quality, int streamed, int loopStart, int loopEnd,
             out IntPtr data, out int size, out IntPtr error, out int loopByteOffset);
         [DllImport(Library, CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         private static extern void NewSdkEaFree(IntPtr result);
+#endif
 
         internal static unsafe PcmEncodingResult EncodeSamples(float[] samples, int channels,
             int rate, bool streamed, int quality, bool hasLoop, int loopStart, int loopEnd)

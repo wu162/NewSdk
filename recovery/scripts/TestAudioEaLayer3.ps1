@@ -12,7 +12,7 @@ foreach($mode in @('Debug','Release')) {
     if($LASTEXITCODE -ne 0){Get-Content "$out/$mode-build.log" -Tail 70;throw 'EALayer3 AudioCompiler build failed'}
     Copy-Item SDK/tools/*.dll $bin -Exclude BinaryAssetBuilder.AudioCompiler.dll
     $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-    & $csc /nologo /platform:x86 /r:System.Core.dll /r:"$bin/BinaryAssetBuilder.Core.dll" /out:"$bin/AudioEaLayer3Host.exe" recovery/tests/AudioEaLayer3Host.cs
+    & $csc /nologo /platform:x86 /r:System.Core.dll /r:"$bin/BinaryAssetBuilder.Core.dll" /out:"$bin/AudioEaLayer3Host.exe" (Resolve-Path recovery/tests/AudioEaLayer3Host.cs).Path
     if($LASTEXITCODE -ne 0){throw 'EALayer3 host build failed'}
     foreach($jobs in @(1,4)) {
         & "$bin/AudioEaLayer3Host.exe" "$bin/BinaryAssetBuilder.AudioCompiler.dll" BinaryAssetBuilder.AudioCompiler.Plugin "$fixtures/assets.xml" "$out/$mode/jobs$jobs" $jobs *> "$out/$mode-jobs$jobs.log"
