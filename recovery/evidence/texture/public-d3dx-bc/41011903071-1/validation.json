@@ -1,0 +1,27 @@
+{
+  "runId": "41011903071",
+  "scope": "public D3DX BC1/2/3 diagnostic: complete float/block bytes and complete owned DDS resource/VM/mip/lock/release; eight fixed encoder policies and wrap/clamp aggregates, not per-sample policy selection; no NoOriginal or production acceptance",
+  "configurations": [],
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "error": "Debug-diagnostic failed",
+  "sourceCommit": "2904039f13acc641d39b962161ac674dd8b16628",
+  "productionAccepted": false,
+  "probeOnly": true,
+  "status": "failed",
+  "archiveSha256": "a23ac2e54247b53135457a66982e67109b87798cc55d4577ad9040916e3a9395",
+  "captureMembers": [
+    {
+      "name": "Debug.capture",
+      "bytes": 107556655,
+      "sha256": "f6c6beb6e7eb597bb32c3923bcce11cc683d29cabb9f47f085f3773ba1d5e8d2"
+    }
+  ],
+  "preservation": {
+    "method": "lossless archive of original Actions artifact; original failed receipt retained",
+    "artifactId": 12958057711,
+    "artifactZipSha256": "94e7021fa3752a5d5784edfc30a92612498f3f2091ee9222374a9ddfa026c9c7",
+    "workflowConclusion": "failure",
+    "pushFailure": "raw Debug.capture102.57MiB exceeded GitHub100MiB; archived without re-executing the failed probe"
+  }
+}
