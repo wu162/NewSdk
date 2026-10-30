@@ -1,0 +1,841 @@
+{
+  "sourceCommit": "8faba4e9f7efe470b95fdc7f2be43ed069e3a670",
+  "binarySourceCommit": "8faba4e9f7efe470b95fdc7f2be43ed069e3a670",
+  "testSourceCommit": "8faba4e9f7efe470b95fdc7f2be43ed069e3a670",
+  "runId": 41028084011,
+  "archiveSha256": "bd9981b61f677b122e6956f2d3da8a7e8eea99476ebf6c9ee9888ad01aa9cc02",
+  "archiveDigestRecomputed": true,
+  "receipts": [
+    {
+      "path": "evidence/audio/rate-parallel/41028084011-1/validation.json",
+      "sha256": "e545de196d492b72ec5bcecac126a9a49897b2e54110864cd76b5d4b277959f7",
+      "status": "passed",
+      "succeeded": null,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/backend-parallel-performance/41028084011-1/measurement.json",
+      "sha256": "ffdd8ff41575b737a83ff5d30fce01159da851c456f10928b20142c590b95a78",
+      "status": "passed",
+      "succeeded": null,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/backend-parallel/41028084011-1/validation.json",
+      "sha256": "4eef73113556e5ab21cb892bf3d4844c13d7ae24c89e0f7a5c090897b9725eef",
+      "status": null,
+      "succeeded": true,
+      "passed": null
+    },
+    {
+      "path": "artifacts/final-release/41028084011-1/NewModCompiler-Win32-Debug.manifest.json",
+      "sha256": "282d3669ce9872069371887884c6d4c98e8ba8a40f2546d44dd459e5f14e8f7a",
+      "status": "verified-small-mod-deployment",
+      "succeeded": null,
+      "passed": null
+    },
+    {
+      "path": "artifacts/final-release/41028084011-1/NewModCompiler-Win32-Release.manifest.json",
+      "sha256": "0e5bb070eb570189b2c73594899059026e53cd5b5b446aad1f1657ccb2daeb87",
+      "status": "verified-small-mod-deployment",
+      "succeeded": null,
+      "passed": null
+    },
+    {
+      "path": "artifacts/final-release/41028084011-1/release.json",
+      "sha256": "703c3a25d6142a10a56688ca5070732978d338b9d13e15b6090ac8b57f8e114e",
+      "status": "verified-small-mod-deployment",
+      "succeeded": true,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/big/41028084011-1/validation.json",
+      "sha256": "aea3882539b7bc4b68ca91063dc12d5b758a16726569639d45f4a6ad947adce8",
+      "status": null,
+      "succeeded": true,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/sdk-mymod/41028084011-1/validation.json",
+      "sha256": "aa7a344ff503319d5fdadce44c1bc36ef156eef9c2b363b5d64aed371f22a597",
+      "status": null,
+      "succeeded": true,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/session-cache/41028084011-1/validation.json",
+      "sha256": "bf7ae024a55fb1075d94405d5446c00e498b1c4cd124b1e62f556da3d7a5f428",
+      "status": null,
+      "succeeded": true,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/cache-payloads/41028084011-1/validation.json",
+      "sha256": "c12ebf31e32011a4f3e438fa93e744dac21d229036bb6f107eb701422606b1b2",
+      "status": null,
+      "succeeded": true,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/input-roots/41028084011-1/validation.json",
+      "sha256": "266ae685d2079aae853555685cd32444a824dfc52ef7ad8a336940fcc5b97771",
+      "status": null,
+      "succeeded": true,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/build-cache/41028084011-1/validation.json",
+      "sha256": "9c6d00c9c9f331cbfff938731a3af0c2c03085aacdd4b7eb492844d6952ef920",
+      "status": null,
+      "succeeded": true,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/core-lifecycle-deployment/41028084011-1/validation.json",
+      "sha256": "3e7123f8fbeee75dc23cf09a257c219a528b79dcb18c1edf811c512d7f7e1c56",
+      "status": "passed",
+      "succeeded": null,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/core-lifecycle/41028084011-1/Debug/CompilerPreparedBackend/result.json",
+      "sha256": "b84692c0933b49459b48de906d5fc648ecadcf60d6a76588f68cdb348bdc630d",
+      "status": null,
+      "succeeded": true,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/core-lifecycle/41028084011-1/Release/CompilerPreparedBackend/result.json",
+      "sha256": "7d383afa298204dc7c046164b0503c51ae828a8bc4c4ecb81fcb4da292fd2775",
+      "status": null,
+      "succeeded": true,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/core-lifecycle/41028084011-1/validation.json",
+      "sha256": "953ce5c38f87fd037f85fc9e55521484a47e73974e39292c58114c3e5cbab62d",
+      "status": "passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate",
+      "succeeded": true,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/core-lifecycle-texture/41028084011-1/validation.json",
+      "sha256": "7e07103b97306583ca687064a89580fdbd11d87198ca251da3c71ec63b17a9aa",
+      "status": "passed",
+      "succeeded": null,
+      "passed": null
+    },
+    {
+      "path": "evidence/refactor/core-cli/41028084011-1/validation.json",
+      "sha256": "d25c7c707933a221517474a17b51d9fc643d30ba4279df26b78f8cb52003d15e",
+      "status": null,
+      "succeeded": true,
+      "passed": null
+    }
+  ],
+  "preparedAudio": [
+    {
+      "mode": "Debug",
+      "cases": 32,
+      "waves": [
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-wav-rate-11025",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-11025-0",
+              "startTicks": 11730337729,
+              "endTicks": 11730601368,
+              "threadId": 7
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-11025-1",
+              "startTicks": 11730338290,
+              "endTicks": 11730823840,
+              "threadId": 10
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-11025-2",
+              "startTicks": 11730338615,
+              "endTicks": 11731138377,
+              "threadId": 9
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-11025-3",
+              "startTicks": 11730338787,
+              "endTicks": 11731582558,
+              "threadId": 8
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-wav-rate-22050",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-22050-0",
+              "startTicks": 11731869255,
+              "endTicks": 11731884330,
+              "threadId": 4
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-22050-1",
+              "startTicks": 11731869604,
+              "endTicks": 11731885342,
+              "threadId": 7
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-22050-2",
+              "startTicks": 11731869646,
+              "endTicks": 11731953854,
+              "threadId": 6
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-22050-3",
+              "startTicks": 11731869657,
+              "endTicks": 11732016103,
+              "threadId": 5
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-wav-rate-44100",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-44100-0",
+              "startTicks": 11734898107,
+              "endTicks": 11735335889,
+              "threadId": 13
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-44100-1",
+              "startTicks": 11734898480,
+              "endTicks": 11735601438,
+              "threadId": 10
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-44100-2",
+              "startTicks": 11734898559,
+              "endTicks": 11736107066,
+              "threadId": 12
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-44100-3",
+              "startTicks": 11734898627,
+              "endTicks": 11736433817,
+              "threadId": 11
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-wav-rate-0xac44",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-0xac44-0",
+              "startTicks": 11739265098,
+              "endTicks": 11739600047,
+              "threadId": 7
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-0xac44-1",
+              "startTicks": 11739265472,
+              "endTicks": 11739797929,
+              "threadId": 4
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-0xac44-2",
+              "startTicks": 11739265515,
+              "endTicks": 11740257063,
+              "threadId": 5
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-0xac44-3",
+              "startTicks": 11739265525,
+              "endTicks": 11740735862,
+              "threadId": 6
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-aiff-rate-11025",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-11025-0",
+              "startTicks": 11743050827,
+              "endTicks": 11743298159,
+              "threadId": 12
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-11025-1",
+              "startTicks": 11743051374,
+              "endTicks": 11743538197,
+              "threadId": 4
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-11025-2",
+              "startTicks": 11743051524,
+              "endTicks": 11743894085,
+              "threadId": 5
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-11025-3",
+              "startTicks": 11743051641,
+              "endTicks": 11744220575,
+              "threadId": 6
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-aiff-rate-22050",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-22050-0",
+              "startTicks": 11744501046,
+              "endTicks": 11744524167,
+              "threadId": 8
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-22050-1",
+              "startTicks": 11744501410,
+              "endTicks": 11744524846,
+              "threadId": 11
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-22050-2",
+              "startTicks": 11744501418,
+              "endTicks": 11744604535,
+              "threadId": 10
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-22050-3",
+              "startTicks": 11744501446,
+              "endTicks": 11744620560,
+              "threadId": 7
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-aiff-rate-44100",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-44100-0",
+              "startTicks": 11747361319,
+              "endTicks": 11747640534,
+              "threadId": 9
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-44100-1",
+              "startTicks": 11747361975,
+              "endTicks": 11747910621,
+              "threadId": 4
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-44100-2",
+              "startTicks": 11747362233,
+              "endTicks": 11748318927,
+              "threadId": 5
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-44100-3",
+              "startTicks": 11747362394,
+              "endTicks": 11748829320,
+              "threadId": 6
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-aiff-rate-0xac44",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-0xac44-0",
+              "startTicks": 11751658838,
+              "endTicks": 11751926543,
+              "threadId": 8
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-0xac44-1",
+              "startTicks": 11751659423,
+              "endTicks": 11752240601,
+              "threadId": 6
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-0xac44-2",
+              "startTicks": 11751659566,
+              "endTicks": 11752697941,
+              "threadId": 5
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-0xac44-3",
+              "startTicks": 11751659595,
+              "endTicks": 11753118926,
+              "threadId": 4
+            }
+          ],
+          "clockFrequency": 10000000
+        }
+      ],
+      "budgets": [
+        {
+          "kind": "audio-rate-expansion-budget",
+          "sourceRate": 400,
+          "destinationRate": 96000,
+          "containers": [
+            "WAVE",
+            "AIFF"
+          ],
+          "metadataOnly": true,
+          "rejectedBudgetMiB": 16,
+          "acceptedBudgetMiB": 128
+        }
+      ]
+    },
+    {
+      "mode": "Release",
+      "cases": 32,
+      "waves": [
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-wav-rate-11025",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-11025-0",
+              "startTicks": 12050087846,
+              "endTicks": 12050348835,
+              "threadId": 11
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-11025-1",
+              "startTicks": 12050088246,
+              "endTicks": 12050511326,
+              "threadId": 14
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-11025-2",
+              "startTicks": 12050088479,
+              "endTicks": 12050899880,
+              "threadId": 12
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-11025-3",
+              "startTicks": 12050088565,
+              "endTicks": 12051245728,
+              "threadId": 13
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-wav-rate-22050",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-22050-0",
+              "startTicks": 12051501451,
+              "endTicks": 12051515699,
+              "threadId": 8
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-22050-1",
+              "startTicks": 12051501802,
+              "endTicks": 12051516185,
+              "threadId": 11
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-22050-2",
+              "startTicks": 12051501825,
+              "endTicks": 12051577207,
+              "threadId": 10
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-22050-3",
+              "startTicks": 12051501845,
+              "endTicks": 12051631794,
+              "threadId": 9
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-wav-rate-44100",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-44100-0",
+              "startTicks": 12054353295,
+              "endTicks": 12054613692,
+              "threadId": 11
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-44100-1",
+              "startTicks": 12054353654,
+              "endTicks": 12054810551,
+              "threadId": 8
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-44100-2",
+              "startTicks": 12054353694,
+              "endTicks": 12055449160,
+              "threadId": 9
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-44100-3",
+              "startTicks": 12054353708,
+              "endTicks": 12055876115,
+              "threadId": 10
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-wav-rate-0xac44",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-0xac44-0",
+              "startTicks": 12058560965,
+              "endTicks": 12058882236,
+              "threadId": 6
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-0xac44-1",
+              "startTicks": 12058561523,
+              "endTicks": 12059081545,
+              "threadId": 5
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-0xac44-2",
+              "startTicks": 12058561696,
+              "endTicks": 12059550541,
+              "threadId": 4
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-wav-0xac44-3",
+              "startTicks": 12058561767,
+              "endTicks": 12060031143,
+              "threadId": 7
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-aiff-rate-11025",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-11025-0",
+              "startTicks": 12062271115,
+              "endTicks": 12062508603,
+              "threadId": 7
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-11025-1",
+              "startTicks": 12062271739,
+              "endTicks": 12062711787,
+              "threadId": 6
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-11025-2",
+              "startTicks": 12062271930,
+              "endTicks": 12063166548,
+              "threadId": 5
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-11025-3",
+              "startTicks": 12062272082,
+              "endTicks": 12063577824,
+              "threadId": 4
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-aiff-rate-22050",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-22050-0",
+              "startTicks": 12063831388,
+              "endTicks": 12063839269,
+              "threadId": 8
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-22050-1",
+              "startTicks": 12063831725,
+              "endTicks": 12063893302,
+              "threadId": 11
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-22050-2",
+              "startTicks": 12063831742,
+              "endTicks": 12063926896,
+              "threadId": 10
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-22050-3",
+              "startTicks": 12063831757,
+              "endTicks": 12063939868,
+              "threadId": 9
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-aiff-rate-44100",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-44100-0",
+              "startTicks": 12066651894,
+              "endTicks": 12066911529,
+              "threadId": 7
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-44100-1",
+              "startTicks": 12066652524,
+              "endTicks": 12067164471,
+              "threadId": 8
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-44100-2",
+              "startTicks": 12066652754,
+              "endTicks": 12067565236,
+              "threadId": 9
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-44100-3",
+              "startTicks": 12066652915,
+              "endTicks": 12068068378,
+              "threadId": 10
+            }
+          ],
+          "clockFrequency": 10000000
+        },
+        {
+          "kind": "prepared-worker-wave",
+          "family": "audio-aiff-rate-0xac44",
+          "workerCount": 4,
+          "maximumConcurrency": 4,
+          "intervals": [
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-0xac44-0",
+              "startTicks": 12070738904,
+              "endTicks": 12071006783,
+              "threadId": 5
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-0xac44-1",
+              "startTicks": 12070739575,
+              "endTicks": 12071218811,
+              "threadId": 7
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-0xac44-2",
+              "startTicks": 12070739841,
+              "endTicks": 12071732260,
+              "threadId": 9
+            },
+            {
+              "type": "AudioFile",
+              "fixture": "resample-aiff-0xac44-3",
+              "startTicks": 12070740010,
+              "endTicks": 12072166691,
+              "threadId": 8
+            }
+          ],
+          "clockFrequency": 10000000
+        }
+      ],
+      "budgets": [
+        {
+          "kind": "audio-rate-expansion-budget",
+          "sourceRate": 400,
+          "destinationRate": 96000,
+          "containers": [
+            "WAVE",
+            "AIFF"
+          ],
+          "metadataOnly": true,
+          "rejectedBudgetMiB": 16,
+          "acceptedBudgetMiB": 128
+        }
+      ]
+    }
+  ],
+  "verifiedPackages": [
+    {
+      "mode": "Debug",
+      "zip": "NewModCompiler-Win32-Debug.zip",
+      "sha256": "23397b34aa784c0b84d08ec2a7ce392e3ee3314dc9894bb2ce0388100998bc77",
+      "files": [
+        {
+          "name": "NewModCompiler.exe",
+          "sha256": "c1f7222271a3b674b0b5eea5d077d843ab0823e1adf5285a2de48c9215ad07c0",
+          "bytes": 6655488
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "bytes": 201
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "bytes": 99328
+        },
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler.dll",
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+          "bytes": 917504
+        },
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+          "sha256": "dfc80f99fd24e2341552daf2372a6632a2c3df2c7d718672445279e8caab2849",
+          "bytes": 14326
+        }
+      ]
+    },
+    {
+      "mode": "Release",
+      "zip": "NewModCompiler-Win32-Release.zip",
+      "sha256": "c7cd00440f829de29b1734e76e3ba6615f344858d451d87e5b21d8a1cc083bba",
+      "files": [
+        {
+          "name": "NewModCompiler.exe",
+          "sha256": "f1485eb996d010752de76f87177be7722316159e924dba5d6f5f6c18933cb587",
+          "bytes": 4208128
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "bytes": 201
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "bytes": 99328
+        },
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler.dll",
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+          "bytes": 917504
+        },
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+          "sha256": "29dd0944155cfe3d1602f14b64f4f599aa376ee8c9c47b50b464adff339afe91",
+          "bytes": 14326
+        }
+      ]
+    }
+  ],
+  "receiptBundle": {
+    "path": "receipts.zip",
+    "sha256": "d972df6f92ab13b9cc0d4b8adf1fa7deb9a857f69986e9be78b72c3e9ef402ee",
+    "preservesRawReceiptBytes": true
+  }
+}

@@ -1,0 +1,339 @@
+{
+  "sourceCommit": "8faba4e9f7efe470b95fdc7f2be43ed069e3a670",
+  "binarySourceCommit": "8faba4e9f7efe470b95fdc7f2be43ed069e3a670",
+  "testSourceCommit": "8faba4e9f7efe470b95fdc7f2be43ed069e3a670",
+  "runId": 41028084011,
+  "archiveSha256": "bd9981b61f677b122e6956f2d3da8a7e8eea99476ebf6c9ee9888ad01aa9cc02",
+  "archiveDigestRecomputed": true,
+  "succeeded": true,
+  "runConclusion": "success",
+  "artifactId": 12966923428,
+  "archiveBytes": 250607352,
+  "productionCases": 64,
+  "preparedAudio": [
+    {
+      "configuration": "Debug",
+      "cases": 32,
+      "waves": [
+        {
+          "family": "audio-wav-rate-11025",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-wav-rate-22050",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-wav-rate-44100",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-wav-rate-0xac44",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-aiff-rate-11025",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-aiff-rate-22050",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-aiff-rate-44100",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-aiff-rate-0xac44",
+          "workers": 4,
+          "maximumConcurrency": 4
+        }
+      ],
+      "budgets": [
+        {
+          "kind": "audio-rate-expansion-budget",
+          "sourceRate": 400,
+          "destinationRate": 96000,
+          "containers": [
+            "WAVE",
+            "AIFF"
+          ],
+          "metadataOnly": true,
+          "rejectedBudgetMiB": 16,
+          "acceptedBudgetMiB": 128
+        }
+      ]
+    },
+    {
+      "configuration": "Release",
+      "cases": 32,
+      "waves": [
+        {
+          "family": "audio-wav-rate-11025",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-wav-rate-22050",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-wav-rate-44100",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-wav-rate-0xac44",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-aiff-rate-11025",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-aiff-rate-22050",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-aiff-rate-44100",
+          "workers": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "family": "audio-aiff-rate-0xac44",
+          "workers": 4,
+          "maximumConcurrency": 4
+        }
+      ],
+      "budgets": [
+        {
+          "kind": "audio-rate-expansion-budget",
+          "sourceRate": 400,
+          "destinationRate": 96000,
+          "containers": [
+            "WAVE",
+            "AIFF"
+          ],
+          "metadataOnly": true,
+          "rejectedBudgetMiB": 16,
+          "acceptedBudgetMiB": 128
+        }
+      ]
+    }
+  ],
+  "originalAudio": [
+    {
+      "configuration": "Debug",
+      "group": "rates",
+      "records": 2,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "eed85c4617265180feda4fdea090884953dc3fe5a176c4477432ff8d5f71ffed",
+      "passed": true
+    },
+    {
+      "configuration": "Debug",
+      "group": "formats",
+      "records": 1200,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "790138646bfc3e822b366de8584b890a0978cd8047a2da0d239b179a18cd6e6d",
+      "passed": true
+    },
+    {
+      "configuration": "Debug",
+      "group": "loops",
+      "records": 216,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "ab2e2ac08a2f3ee92c33e7406e44059fb2cf2eed2eec9ad04ad26bf9278e13dc",
+      "passed": true
+    },
+    {
+      "configuration": "Debug",
+      "group": "aiffloops",
+      "records": 200,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "9f4dedc8997d8c8d366454ae538f12f8c3337476f49522be737f49a50164f92e",
+      "passed": true
+    },
+    {
+      "configuration": "Debug",
+      "group": "resample-full",
+      "records": 424,
+      "candidateSafetyRejections": 8,
+      "transcriptSha256": "b0a194ec8b927eb057662df4299ec80b44727e8a0ba9c48aedabbf435087ddcc",
+      "passed": true
+    },
+    {
+      "configuration": "Debug",
+      "group": "multichannel",
+      "records": 1728,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "d984ede43e31ec97254cc155583b16806612483ed5effcd226f858026dae0abc",
+      "passed": true
+    },
+    {
+      "configuration": "Debug",
+      "group": "multichannel-aiff",
+      "records": 6336,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "4a6d4f0ca4397795636bda7c03bb0424295445ba74c0a536d6b14ecda46a5959",
+      "passed": true
+    },
+    {
+      "configuration": "Release",
+      "group": "rates",
+      "records": 2,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "eed85c4617265180feda4fdea090884953dc3fe5a176c4477432ff8d5f71ffed",
+      "passed": true
+    },
+    {
+      "configuration": "Release",
+      "group": "formats",
+      "records": 1200,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "790138646bfc3e822b366de8584b890a0978cd8047a2da0d239b179a18cd6e6d",
+      "passed": true
+    },
+    {
+      "configuration": "Release",
+      "group": "loops",
+      "records": 216,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "ab2e2ac08a2f3ee92c33e7406e44059fb2cf2eed2eec9ad04ad26bf9278e13dc",
+      "passed": true
+    },
+    {
+      "configuration": "Release",
+      "group": "aiffloops",
+      "records": 200,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "9f4dedc8997d8c8d366454ae538f12f8c3337476f49522be737f49a50164f92e",
+      "passed": true
+    },
+    {
+      "configuration": "Release",
+      "group": "resample-full",
+      "records": 424,
+      "candidateSafetyRejections": 8,
+      "transcriptSha256": "b0a194ec8b927eb057662df4299ec80b44727e8a0ba9c48aedabbf435087ddcc",
+      "passed": true
+    },
+    {
+      "configuration": "Release",
+      "group": "multichannel",
+      "records": 1728,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "d984ede43e31ec97254cc155583b16806612483ed5effcd226f858026dae0abc",
+      "passed": true
+    },
+    {
+      "configuration": "Release",
+      "group": "multichannel-aiff",
+      "records": 6336,
+      "candidateSafetyRejections": 0,
+      "transcriptSha256": "4a6d4f0ca4397795636bda7c03bb0424295445ba74c0a536d6b14ecda46a5959",
+      "passed": true
+    }
+  ],
+  "verifiedPackages": [
+    {
+      "mode": "Debug",
+      "zip": "NewModCompiler-Win32-Debug.zip",
+      "sha256": "23397b34aa784c0b84d08ec2a7ce392e3ee3314dc9894bb2ce0388100998bc77",
+      "files": [
+        {
+          "name": "NewModCompiler.exe",
+          "sha256": "c1f7222271a3b674b0b5eea5d077d843ab0823e1adf5285a2de48c9215ad07c0",
+          "bytes": 6655488
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "bytes": 201
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "bytes": 99328
+        },
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler.dll",
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+          "bytes": 917504
+        },
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+          "sha256": "dfc80f99fd24e2341552daf2372a6632a2c3df2c7d718672445279e8caab2849",
+          "bytes": 14326
+        }
+      ]
+    },
+    {
+      "mode": "Release",
+      "zip": "NewModCompiler-Win32-Release.zip",
+      "sha256": "c7cd00440f829de29b1734e76e3ba6615f344858d451d87e5b21d8a1cc083bba",
+      "files": [
+        {
+          "name": "NewModCompiler.exe",
+          "sha256": "f1485eb996d010752de76f87177be7722316159e924dba5d6f5f6c18933cb587",
+          "bytes": 4208128
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "bytes": 201
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "bytes": 99328
+        },
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler.dll",
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+          "bytes": 917504
+        },
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+          "sha256": "29dd0944155cfe3d1602f14b64f4f599aa376ee8c9c47b50b464adff339afe91",
+          "bytes": 14326
+        }
+      ]
+    }
+  ],
+  "fullUpheaval": {
+    "samples": 22,
+    "allRawOutputsEqual": true,
+    "allExitCodes": 0,
+    "explicitPCSampleRateAssets": 0,
+    "audioAssets": 1289,
+    "scope": "Overall regression only; cannot quantify the new explicit-rate parallel feature"
+  },
+  "acceptance": [
+    "Debug/Release production rebuild",
+    "Core/worker lifetime and resource budgets",
+    "original AudioFile bytes and retained rejections",
+    "64 production cache/jobs cases",
+    "CLI/cold process/CtrlBreak",
+    "build/session caches and payload replay",
+    "original BAB/MakeBig and complete mymod SDK",
+    "five-file deployment",
+    "full Upheaval raw output regression"
+  ],
+  "receiptBundle": {
+    "path": "receipts.zip",
+    "sha256": "d972df6f92ab13b9cc0d4b8adf1fa7deb9a857f69986e9be78b72c3e9ef402ee",
+    "preservesRawReceiptBytes": true
+  }
+}
