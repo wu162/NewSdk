@@ -83,6 +83,7 @@ namespace NewModCompiler.Application
             if(string.IsNullOrEmpty(path) || !Path.IsPathRooted(path)) throw new ArgumentException("A BIG/SKUDEF output path must be absolute.");
             string result=Path.GetFullPath(path);
             NewModCompiler.Diagnostics.DiagnosticDirectory.CheckDirectory(Path.GetDirectoryName(result));
+            NewModCompiler.Diagnostics.DiagnosticFiles.RejectReparseFile(result);
             if(Directory.Exists(result)) throw new IOException("BIG/SKUDEF output is a directory.");
             return result;
         }

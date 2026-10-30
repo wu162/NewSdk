@@ -95,6 +95,7 @@ namespace NewModCompiler.Diagnostics
             string temporary=path+"."+Guid.NewGuid().ToString("N")+".tmp";
             try
             {
+                RejectReparseFile(path);
                 // Replace the directory entry instead of truncating an existing
                 // inode: a diagnostic destination may be a hard link to input.
                 using (var stream = new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None)) { }
@@ -202,6 +203,7 @@ namespace NewModCompiler.Diagnostics
             string temporary = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
             try
             {
+                DiagnosticFiles.RejectReparseFile(path);
                 using (var stream = new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None))
                 using (var writer = new StreamWriter(stream,new UTF8Encoding(false)))
                     writer.Write(new JavaScriptSerializer { MaxJsonLength = int.MaxValue }.Serialize(report));

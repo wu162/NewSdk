@@ -8,7 +8,7 @@
 
 保留的窄 Schema 检查有实际调用链：`AssetDeclarationDocument.Reinitialize` 可直接复用已验证、已注入默认值的实例，只比较文档/文件依赖和插件 TypeHash/ProcessingHash；XSD 默认值变化不会改变这些插件常量。SchemaSet 对已读入的完整闭包计算原 FastHash，把身份写入现有 BAB 会话根的可选属性；变化时重新解析。生产验收增加等长、恢复 mtime 的 DamageScalar 默认值修改，与关闭缓存重建逐字节对照。无单独收据。
 
-并行仍限制于已审查的内建实现。Audio 非 NONE/XAS 路径写共享 `PcmWaveAudioCompiler.compressionWarning`，其它 Audio 路由调用要求 owner 线程的 Tracer；显式采样率可扩大输出（400→96000 的倍率超过现有外部输入预算），本轮没有为了放开它新增准备读取/估算机制。保留 Win32 虚拟内存限额、输入读租约和失败/取消 join。Texture 混合 DLL 构建/发行验收未删除。
+并行仍限制于已审查的内建实现。Audio 非 NONE/XAS 路径写共享 `PcmWaveAudioCompiler.compressionWarning`，其它 Audio 路由的 Tracer 回调直接修改未同步的 BuildSession 诊断列表和 EventDispatcher 序号/写入器；显式采样率可扩大输出（400→96000 的倍率超过现有外部输入预算），本轮没有为了放开它新增准备读取/估算机制。保留 Win32 虚拟内存限额、输入读租约和失败/取消 join。Texture 混合 DLL 构建/发行验收未删除。
 
 最终报告在唯一 BuildFinished 和事件关闭之后序列化一次，包含必需通道关闭的失败。报告写失败只能通过 stderr/退出码告知，不能保证损坏通道自身有最终记录；消费者仍结合进程退出码、事件和报告。文本日志可选，JSONL/报告必需。后续诊断错误不会删除已生成 BIG/SKUDEF。
 

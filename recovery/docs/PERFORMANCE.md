@@ -17,8 +17,8 @@ $r.performance.entries | Sort-Object selfMs -Descending | Select-Object -First 2
 | 档位 | 粒度 |
 | --- | --- |
 | off | 无新增性能报告；不读取性能时钟、不分配计时 scope、不建立计时字典。保留既有构建阶段事件与缓存计数。 |
-| summary | plan/compile/package；输入身份加载/保存；后端初始化/销毁；每流设置、提供程序、Schema、字符串哈希、缓存准备/读取/保存（原格式序列化）、Core 主处理、产物采集、清理；BIG/LoD/Additional/中立资产修复，无事务发布阶段。 |
-| detailed | summary 加 Schema 读取解析/编译/依赖整理、文档打开/递归包含、XML 解析/表达式/覆盖/校验、资产处理/编译/验证/提交、按资产类型汇总的编译器调用、输出引用解析/manifest/link/清理、真实目录枚举及 SHA256、Core 一次读取 FastHash+SHA256。 |
+| summary | plan/compile/package；输入元数据初始化；后端初始化/销毁；每流设置、提供程序、Schema、字符串哈希、缓存准备/读取/保存（原格式序列化）、Core 主处理、产物采集、清理；BIG/LoD/Additional/中立资产修复，无事务发布阶段。 |
+| detailed | summary 加 Schema 读取解析/编译/依赖整理、文档打开/递归包含、XML 解析/表达式/覆盖/校验、资产处理/编译/验证/提交、按资产类型汇总的编译器调用、输出引用解析/manifest/link/清理、真实目录枚举、Core 按需读取原 FastHash（无 SHA256、无哈希侧车）。 |
 
 `streamId` 对应构建计划的流 ID。名称固定到阶段/资产类型，不含文件名、实例名，重复调用只累加计数，不生成每文件事件。热态没有执行的操作不生成条目，例如复用成功时可能没有 `core.compiler.Texture`；结合原有 `cache.xmlParse`、`instanceCompile`、`fileHashReads` 判断。
 
