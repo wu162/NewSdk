@@ -57,6 +57,18 @@ Worker 只写私有计时数据；owner 合并 `core.asset.compile` 和 `core.co
 
 数据生成、预热和两次热态及结果核对共用120秒硬预算，单进程最多100秒并受剩余预算限制；超时或未达门槛都失败并保留证据。原已验收Release以运行41010073140及归档SHA256固定复用，同时校验生产/SDK/构建输入未变；下载与身份准备单列，工作流测试步骤3分钟封顶。工作流 `compiler-hot-cache-load.yml` 仅显式 `[hot-cache-load]` 或手动运行，验证状态见RESUME。它是大量Armor/XML的合成压力，不等同于完整MOD性能。
 
+测试/生成器来源 `b77eb980b243086ca9cfd312c120e83d0cf1335b`，二进制来源 `91b040d271b7a3cc25d32f0f923c018c740edf4a`；[Windows 41015396894](https://github.com/wu162/NewSdk/actions/runs/41015396894) **success**。每个样本都是一个新的CLI进程，由正常计划处理3条独立输入流；未在计时内重复调用build或等待凑时。
+
+| 样本 | 单进程秒 | XML解析 | 资产编译 | 文档复用 | 链接流恢复 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 唯一预热 | 73.689 | 18435 | 73728 | 0 | 0 |
+| 热态1 | **9.373** | 0 | 0 | 18435 | 3 |
+| 热态确认 | **9.264** | 0 | 0 | 18435 | 3 |
+
+测量包含数据生成、预热、两次热态和完整字节核对，共 **95.664秒**；下载/复用身份准备另5.178秒，本轮合计100.842秒。预热峰值工作集1261.46MiB，热态310.20/312.35MiB。两次热态均零完整文件SHA读取、零失效，全部12个四流成员与预热实际原字节相同，发布mtime不变。新压力测试通过后停止，不追加旧56样本矩阵或生产重编译。
+
+[原收据](../evidence/refactor/hot-cache-load/41015396894-1/load.json)、[报告](../evidence/refactor/hot-cache-load/41015396894-1/load.md)、[来源/核对](../evidence/refactor/hot-cache-load/41015396894-1/execution.json)。原ZIP已下载复算SHA256 `7f1d584d0afc06c6f67d2c3829459109569ee56bd3b6d078c3f344b60678daf8`；三份报告Schema及原验收归档内五运行文件身份均独立核对。此前ID碰撞、总预算截停、单流Win32 Schema验证OOM三次失败完整保留，不计作达标结果；生产哈希和编译代码未改。达标表示此合成负载的单次时长下限，不能推广为所有MOD的耗时。
+
 ### 热缓存范围与失效传播计数
 
 summary/detailed 的 `performance.counters` 以 `streamId/name/value/aggregation` 输出聚合计数，`sum` 求和、`max` 取最大值，未出现的计数视为零。按流隔离；off 不创建计数集合或回调，不增加哈希、文件检查、依赖扫描或逐事件日志。detailed 同时提供 `core.cache.reinitialize`、`core.dependencies.files/defines/inheritance` 耗时；Include 沿用 `core.includes`。
