@@ -9,6 +9,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 import xml.etree.ElementTree as ET
+import zlib
 
 SCRIPTS = Path(__file__).resolve().parents[1] / 'scripts'
 sys.path.insert(0, str(SCRIPTS))
@@ -71,9 +72,39 @@ class WorkloadChecks(unittest.TestCase):
         self.assertTrue(generated <= paths)
         ids = [node.get('id') for path in generated for node in ET.parse(path).getroot() if node.get('id')]
         self.assertEqual(len(ids), len(set(ids)))
+        self.assertEqual(len(ids), len({W.instance_hash(identifier) for identifier in ids}))
+        # Generated hierarchy/parent references must follow the renamed ids.
+        references = [node.get(key) for path in generated for node in ET.parse(path).getroot().iter()
+                      for key in ('inheritFrom', 'Hierarchy') if node.get(key)]
+        self.assertTrue(set(references) <= set(ids))
         self.assertEqual(self.load['streamCount'], 3)
         self.assertGreater(self.load['assets'], 8192)
         self.assertEqual(self.load['originalUpheaval']['assets'], 0)
+
+    def test_native_hash_known_collision_and_salted_allocator_retry(self):
+        first, second = 'L8_Scale_000_001_00', 'L8_Scale_000_000_12'
+        self.assertEqual(W.instance_hash(first), 0x1DA8CF5A)
+        self.assertEqual(W.instance_hash(second), 0x1DA8CF5A)
+        occupied = {}
+        identifier = W.allocate_id(first, occupied)
+        occupied_again = dict(occupied)
+        retried = W.allocate_id(first, occupied_again)
+        self.assertNotEqual(W.instance_hash(identifier), W.instance_hash(retried))
+        self.assertEqual(W.allocate_id(first, {}), identifier)
+
+    def test_expand_only_adds_reachable_documents_and_preserves_existing_inputs(self):
+        existing = self.mod / 'Data/L8/scale-000-000.xml'
+        original = existing.read_bytes(), existing.stat().st_mtime_ns
+        workload = copy.deepcopy(self.load)
+        result = W.expand(workload, 2)
+        self.assertEqual(result['modRoot'], self.load['modRoot'])
+        self.assertEqual((existing.read_bytes(), existing.stat().st_mtime_ns), original)
+        self.assertEqual(result['assets'], self.load['assets'] + 8192)
+        self.assertEqual(result['documents'], self.load['documents'] + 256)
+        self.assertNotEqual(result['fingerprint'], self.load['fingerprint'])
+        ids = [node.get('id') for path in (self.mod / 'Data/L8').glob('*.xml')
+               for node in ET.parse(path).getroot() if node.get('id')]
+        self.assertEqual(len(ids), len({W.instance_hash(identifier) for identifier in ids}))
 
     def test_dense_and_spread_really_edit_equal_asset_counts(self):
         spread = self.apply('C01')
@@ -169,6 +200,29 @@ class WorkloadChecks(unittest.TestCase):
         self.assertTrue((self.output / 'base/stream.bin').exists())
         result = self.apply('F07-linked')
         self.assertEqual(result['deletedPaths'], ['base/stream.bin'])
+
+    def test_partial_session_preserves_other_streams_and_hash_collection(self):
+        selected = next(row for row in self.load['streamFixtures'] if row['streamId'].startswith('apt/'))
+        source = str((self.mod / selected['path']).resolve())
+        for compressed in (False, True):
+            payload = ('<sc d="created;18;11;1"><fic c="2"><fi><hi d="' + source +
+                       ';1;0;default;0"/><ad marker="selected"/></fi><fi><hi d="other;1;0;default;0"/>'
+                       '<ad marker="other"/></fi></fic></sc>').encode()
+            path = self.output / ('BinaryAssetBuilder.SessionCache.xml' + ('.deflate' if compressed else ''))
+            if compressed:
+                compressor = zlib.compressobj(wbits=-15)
+                payload = compressor.compress(payload) + compressor.flush()
+            path.write_bytes(payload)
+            result = self.apply('F07-session-partial')
+            rewritten = path.read_bytes()
+            root = ET.fromstring(zlib.decompress(rewritten, -15) if compressed else rewritten)
+            self.assertEqual(root.find('fic').get('c'), '2')
+            self.assertEqual(len(root.findall('./fic/fi/hi')), 2)
+            self.assertEqual(len(root.findall('./fic/fi/ad')), 1)
+            self.assertEqual(root.find('./fic/fi/ad').get('marker'), 'other')
+            self.assertEqual(result['metadataDocumentsRemoved'], 1)
+            self.assertEqual(result['metadataStreamId'], selected['streamId'])
+            path.unlink()
 
     def test_stress_uses_quarter_of_whole_load_across_material_types(self):
         result = self.apply('F10')

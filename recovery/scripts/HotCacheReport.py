@@ -18,6 +18,10 @@ def summarize(samples):
     rows = []
     for (case, mode, jobs), samples in groups.items():
         row = dict(case=case, mode=mode, jobs=jobs)
+        modified_samples = [s for s in samples if s['phase'] == 'modified']
+        for key in ('changedAssets', 'affectedAssets', 'changedDocuments', 'changedMaterials'):
+            values = [s.get('mutation', {}).get(key, 0) for s in modified_samples]
+            row[key] = statistics.median(values) if values else 0
         for phase in PHASES:
             good = [s for s in samples if s['phase'] == phase and s['status'] == 'qualified']
             values = [s['wallMs'] for s in good]
@@ -26,6 +30,8 @@ def summarize(samples):
                 row[phase + suffix] = function(values) if values else None
             for key in ('reportElapsedMs', 'cpuMs'):
                 row[phase + key[0].upper() + key[1:]] = statistics.median(s[key] for s in good) if good else None
+            for key in ('xmlParse', 'instanceCompile', 'documentReuse', 'hits', 'misses'):
+                row[phase + key[0].upper() + key[1:]] = statistics.median(s['cache'][key] for s in good) if good else None
         before, modified, after = (row[p + 'MedianMs'] for p in PHASES)
         row['firstChangeExtraMs'] = modified - before if modified is not None and before is not None else None
         row['reheatedChangeMs'] = after - before if after is not None and before is not None else None
@@ -69,11 +75,11 @@ def save(output, state):
                                    totalMs=parallel[key]))
     fields = ['label', 'case', 'phase', 'repeat', 'formal', 'performance', 'mode', 'jobs', 'status',
               'wallMs', 'reportElapsedMs', 'cpuMs', 'over8s', 'pathExercised', 'exitCode',
-              'changedAssets', 'changedDocuments', 'changedMaterials', 'changedCaches', 'changedOutputs',
+              'changedAssets', 'affectedAssets', 'changedDocuments', 'changedMaterials', 'changedCaches', 'changedOutputs',
               'streamIds', 'workerWaitMs', 'workerComputeMs', 'ownerCommitMs', *CACHE_KEYS, 'error']
     write_csv(output / 'measurements.csv', measurements, fields)
-    scenario_fields = ['case', 'mode', 'jobs'] + [p + suffix for p in PHASES for suffix in
-                      ('N', 'MedianMs', 'MinMs', 'MaxMs', 'ReportElapsedMs', 'CpuMs')]
+    scenario_fields = ['case', 'mode', 'jobs', 'changedAssets', 'affectedAssets', 'changedDocuments', 'changedMaterials'] + [p + suffix for p in PHASES for suffix in
+                      ('N', 'MedianMs', 'MinMs', 'MaxMs', 'ReportElapsedMs', 'CpuMs', 'XmlParse', 'InstanceCompile', 'DocumentReuse', 'Hits', 'Misses')]
     write_csv(output / 'scenarios.csv', state['summary'], scenario_fields + ['firstChangeExtraMs', 'reheatedChangeMs'])
     write_csv(output / 'phases.csv', phases, ['sample', 'case', 'phase', 'performance', 'kind', 'streamId',
               'name', 'count', 'totalMs', 'selfMs', 'maxMs', 'value', 'aggregation'])
@@ -98,6 +104,12 @@ def save(output, state):
         values += ['%s / %s' % (row[p + 'N'], number(row[p + 'MedianMs'])) for p in PHASES]
         values += [number(row[k]) for k in ('firstChangeExtraMs', 'reheatedChangeMs')]
         lines.append('| ' + ' | '.join(values) + ' |')
+    lines += ['', '## 实际改动与失效范围', '',
+              '| 场景 | 直接改动资产 | 素材/依赖影响资产 | 改动文档 | 素材文件 | 修改后 xmlParse | 修改后 instanceCompile |',
+              '| --- | ---: | ---: | ---: | ---: | ---: | ---: |']
+    for row in state['summary']:
+        lines.append('| %s | %s | %s | %s | %s | %s | %s |' % (row['case'], *(number(row[k]) for k in
+                     ('changedAssets', 'affectedAssets', 'changedDocuments', 'changedMaterials', 'modifiedXmlParse', 'modifiedInstanceCompile'))))
     ranked = sorted((r for r in state['summary'] if r['firstChangeExtraMs'] is not None),
                     key=lambda r: r['firstChangeExtraMs'], reverse=True)[:5]
     lines += ['', '## 较大增量来源（本机）', '']
@@ -107,6 +119,12 @@ def save(output, state):
     hot = next((r for r in state['summary'] if r['case'] == 'C00'), None)
     lines += ['', '纯热态成本：%s ms（n=%s）。' %
               (number(hot['hot_beforeMedianMs']), hot['hot_beforeN']) if hot else '纯热态成本尚无合格成绩。', '',
+              '## detailed 耗时 Top（独立诊断）', '',
+              '| 样本 | streamId | 阶段 | 累计 ms | self ms |', '| --- | --- | --- | ---: | ---: |']
+    for entry in sorted((p for p in phases if p['kind'] == 'timing'), key=lambda p: p.get('selfMs', 0), reverse=True)[:12]:
+        lines.append('| %s | %s | %s | %s | %s |' % (entry['sample'], entry.get('streamId') or '全局',
+                     entry['name'], number(entry.get('totalMs')), number(entry.get('selfMs'))))
+    lines += ['',
               '## 未纳入成绩的正式样本', '', '| 样本 | 状态 | wall ms | elapsed ms | 原因 |',
               '| --- | --- | ---: | ---: | --- |']
     for sample in state['samples']:

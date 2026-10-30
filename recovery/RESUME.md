@@ -1,3 +1,7 @@
+# 当前：L8 热缓存 Benchmark（实现与 Windows 标定验证中）
+
+分支 `benchmark/l8-hot-cache`，基于 `recovery/legacy-sdk-cache` / `8f854606`；[草稿 PR #32](https://github.com/wu162/NewSdk/pull/32)。新增完整 Upheaval + 合法扩容分区、严格 wall/elapsed 同时 >8 秒的单进程成绩门槛、快照恢复、Common/Full 调度及中文原始计时报告；未修改生产算法。说明见 [HOT_CACHE_BENCHMARK](docs/HOT_CACHE_BENCHMARK.md)。本地预检通过，Windows 首轮预热暴露生成 ID 的真实 FastHash 碰撞，已修复后继续验证；未宣称正式性能通过。Full 未运行，受保护 Environment 配置被当前集成权限拒绝，保持禁用。禁止强推，未经用户批准不合并。
+
 # 当前：AudioFile 全设置并行与低预算（组合验收通过）
 
 [PR #30](https://github.com/wu162/NewSdk/pull/30) 已获用户批准合入 `recovery/legacy-sdk-cache`。成果在 `perf/audiofile-parallel`，现已同步目标分支 `d85b8c8c`（已合入的 PR #28）。保留其重复状态清理和预算估算，适配 AudioFile 测试；显式采样率及压缩诊断可并行，外部输入预算由 64 倍降至 4 倍，压缩提示进程内仅一次。

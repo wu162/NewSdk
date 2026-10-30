@@ -1,5 +1,7 @@
 # 可关闭的构建性能打点
 
+大型混合负载的单次 `>8s` 热缓存 Benchmark、35/60 分钟预算及手动运行入口见 [L8 Benchmark](HOT_CACHE_BENCHMARK.md)。旧短矩阵的计时不能替代 L8 负载标定。
+
 默认 `--performance off`。开启后仍执行正常构建，不自动循环、不更改缓存策略或产物；性能结果位于原有 `build-report.json` 的可选 `performance` 字段。普通日志/JSONL 不逐次记录打点。
 
 ```powershell

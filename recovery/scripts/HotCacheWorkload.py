@@ -16,6 +16,7 @@ import subprocess
 import tarfile
 import wave
 import xml.etree.ElementTree as ET
+import zlib
 
 NS = 'uri:ea.com:eala:asset'
 XI = 'http://www.w3.org/2001/XInclude'
@@ -64,6 +65,110 @@ def armor(identifier, **attributes):
 def sha(path):
     with path.open('rb') as stream:
         return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+
+def instance_hash(identifier):
+    """ASCII InstanceId hash from EALA.Hash.FastHash, with UInt32 arithmetic."""
+    data = identifier.lower().encode('ascii')
+    value, offset = len(data), 0
+    mask = 0xFFFFFFFF
+    while offset + 4 <= len(data):
+        value = (value + int.from_bytes(data[offset:offset + 2], 'little')) & mask
+        value ^= ((int.from_bytes(data[offset + 2:offset + 4], 'little') ^
+                   ((value << 5) & mask)) << 11) & mask
+        offset += 4
+        value = (value + (value >> 11)) & mask
+    remaining = len(data) - offset
+    if remaining == 3:
+        value = (value + int.from_bytes(data[offset:offset + 2], 'little')) & mask
+        value ^= (((data[offset + 2] << 2) ^ value) << 16) & mask
+        value = (value + (value >> 11)) & mask
+    elif remaining == 2:
+        value = (value + int.from_bytes(data[offset:offset + 2], 'little')) & mask
+        value ^= (value << 11) & mask
+        value = (value + (value >> 17)) & mask
+    elif remaining == 1:
+        value = (value + data[offset]) & mask
+        value ^= (value << 10) & mask
+        value = (value + (value >> 1)) & mask
+    value ^= (value << 3) & mask
+    value = (value + (value >> 5)) & mask
+    value ^= (value << 2) & mask
+    value = (value + (value >> 15)) & mask
+    return (value ^ (value << 10)) & mask
+
+
+def allocate_id(logical, occupied):
+    salt = 0
+    while True:
+        suffix = hashlib.sha256((logical + ':' + str(salt)).encode('ascii')).hexdigest()[:16]
+        candidate = logical + '_' + suffix
+        value = instance_hash(candidate)
+        if value not in occupied:
+            occupied[value] = candidate
+            return candidate
+        salt += 1
+
+
+def reserved_instance_hashes(repo, mod, exclude=()):
+    excluded = {path.resolve() for path in exclude}
+    occupied = {}
+    for base in (repo / 'SDK', mod):
+        for path in base.rglob('*'):
+            if path.suffix.lower() not in ('.xml', '.w3x') or path.resolve() in excluded:
+                continue
+            try:
+                root = ET.parse(path).getroot()
+            except (ET.ParseError, OSError):
+                continue
+            if root.tag != '{%s}AssetDeclaration' % NS:
+                continue
+            for node in root:
+                identifier = node.get('id')
+                if identifier and identifier.isascii():
+                    occupied[instance_hash(identifier)] = identifier
+    return occupied
+
+
+def protect_generated_ids(repo, mod):
+    """Allocate collision-free native InstanceIds and rewrite their references.
+
+    String uniqueness alone is insufficient for the legacy 32-bit FastHash:
+    sequential scale ids can collide systematically. Reserve existing source
+    declarations, then allocate deterministic salted names for this load and
+    its later added/renamed assets before starting any compiler process.
+    """
+    generated = list((mod / 'Data/L8').glob('*.xml')) + list((mod / 'Data/L8Shadow').glob('*.xml'))
+    occupied = reserved_instance_hashes(repo, mod, generated)
+    roots = {path: ET.parse(path).getroot() for path in generated}
+    mapping = {}
+    for root in roots.values():
+        for node in root:
+            identifier = node.get('id')
+            if identifier:
+                need(identifier not in mapping, 'Duplicate logical L8 asset id: ' + identifier)
+                mapping[identifier] = allocate_id(identifier, occupied)
+    # Stream-specific fixture declarations are also generated and referenced
+    # only from their stream entry includes, so they are in this same map.
+    for path, root in roots.items():
+        for node in root.iter():
+            for key, value in list(node.attrib.items()):
+                if value in mapping:
+                    node.set(key, mapping[value])
+        save_xml(path, root)
+    future = {}
+    for doc in range(8):
+        for i in range(4):
+            logical = 'L8_Added_%02d_%02d' % (doc, i)
+            future[logical] = allocate_id(logical, occupied)
+    for doc in range(4):
+        for i in range(8):
+            logical = 'L8_Spread_%02d_%02d' % (doc, i)
+            future[mapping[logical]] = allocate_id(logical + '_Renamed', occupied)
+    return {'algorithm': 'Native EALA.Hash.FastHash ASCII case-insensitive InstanceId',
+            'generatedIds': len(mapping), 'reservedHashes': len(occupied),
+            'mappingFingerprint': hashlib.sha256(json.dumps(mapping, sort_keys=True).encode()).hexdigest(),
+            'futureIds': future}
 
 
 def inventory(mod):
@@ -297,15 +402,55 @@ def prepare(repo, work, partitions):
         add_include(root, os.path.relpath(target, entry.parent).replace(os.sep, '/'))
         save_xml(entry, root)
         stream_fixtures.append({'streamId': stream_id, 'path': target.relative_to(mod).as_posix(), 'assets': 32})
+    identifiers = protect_generated_ids(repo, mod)
     dimensions = inventory(mod)
     result = dict(modRoot=str(mod), sdkRoot=str(repo / 'SDK'), partitions=partitions, originalUpheaval=original,
                   sourceCommit=HISTORICAL, sourceTree=UPHEAVAL_TREE,
                   scope='Complete real Upheaval + reachable independent expanded mixed benchmark load; not unmodified original Upheaval',
                   streams=[row[0] for row in entries], streamCount=len(entries),
                   streamBasis='Entry discovery matching Planner; actual build plan/report must confirm',
-                  streamFixtures=stream_fixtures, **dimensions)
+                  streamFixtures=stream_fixtures, instanceIds=identifiers, **dimensions)
     result['cases'] = cases(result)
     return result
+
+
+def expand(workload, partitions):
+    """Append scale partitions without touching existing sources/cache paths.
+
+    Rewarming only the genuinely new assets avoids repeatedly paying for the
+    unchanged full Upheaval cold compile during bounded calibration. Callers
+    must still run a warmup and two real hot processes after every expansion.
+    """
+    need(type(partitions) is int and partitions > workload['partitions'],
+         'Expansion must increase the integer partition count')
+    mod, repo = Path(workload['modRoot']), Path(workload['sdkRoot']).parent
+    data = mod / 'Data/L8'
+    occupied = reserved_instance_hashes(repo, mod)
+    for identifier in workload['instanceIds']['futureIds'].values():
+        occupied[instance_hash(identifier)] = identifier
+    root = ET.parse(data / 'index.xml').getroot()
+    mapping = {}
+    for partition in range(workload['partitions'], partitions):
+        for doc in range(256):
+            name = 'scale-%03d-%03d.xml' % (partition, doc)
+            nodes = []
+            for i in range(32):
+                logical = 'L8_Scale_%03d_%03d_%02d' % (partition, doc, i)
+                actual = allocate_id(logical, occupied)
+                mapping[logical] = actual
+                nodes.append(armor(actual))
+            need(not (data / name).exists(), 'Expansion would overwrite existing source')
+            save_xml(data / name, declaration(*nodes))
+            add_include(root, name)
+    save_xml(data / 'index.xml', root)
+    workload['partitions'] = partitions
+    workload['instanceIds']['generatedIds'] += len(mapping)
+    workload['instanceIds']['reservedHashes'] = len(occupied)
+    workload['instanceIds']['mappingFingerprint'] = hashlib.sha256((
+        workload['instanceIds']['mappingFingerprint'] + json.dumps(mapping, sort_keys=True)).encode()).hexdigest()
+    workload.update(inventory(mod))
+    workload['cases'] = cases(workload)
+    return workload
 
 
 def cases(workload):
@@ -322,10 +467,11 @@ def cases(workload):
         case('C05', '32 个独立音频输入更新（含 XAS）', assets=32, docs=1, materials=32, minInstanceCompile=32),
         case('C06', '32 个 W3DAnimation 更新', assets=32, docs=8, minInstanceCompile=32),
         case('C07', '16 个有效继承父字段影响 128 后代', assets=16, docs=16, affectedAssets=128, minInstanceCompile=128),
-        case('C08', 'instance 父文件的 64 无关兄弟更新', expected='frontend', assets=64, docs=16, minXmlParse=16),
+        case('C08', 'instance 父文件的 64 无关兄弟更新', expected='frontend', assets=64, docs=16,
+             minXmlParse=16, maxInstanceCompile=64),
         case('C09', '共享 Define + XInclude 影响 32 宿主/128 资产', assets=128, docs=2, affectedDocuments=32, minInstanceCompile=128),
         case('C10', '一个实际流 SessionCache 元数据丢失', expected='session', minXmlParse=1),
-        case('C11', '一个最终 BIG/SKUDEF 丢失', expected='output'),
+        case('C11', '一个最终 BIG/SKUDEF 丢失', expected='output', maxInstanceCompile=0),
         case('C12', '完整混合负载跨 XML/纹理/音频/动画修改', assets=224, docs=26, materials=64, minInstanceCompile=224),
         case('F01-delete', '删除 32 个资产', 'Full', assets=32, docs=1, expected='frontend', minXmlParse=1),
         case('F01-rename', '32 个无引用资产 ID 改名', 'Full', assets=32, docs=4, minInstanceCompile=32),
@@ -378,6 +524,7 @@ def apply_case(workload, case, destination):
     identifier = case['id']
     changed, assets, materials = set(), 0, 0
     affected, deleted, extra_args = 0, [], []
+    metadata_documents, metadata_stream, modified_caches = 0, None, 0
 
     def edit_xml(path, transform):
         root = ET.parse(path).getroot()
@@ -460,7 +607,8 @@ def apply_case(workload, case, destination):
         root = ET.parse(data / 'index.xml').getroot()
         for i in range(8):
             name = 'added-%02d.xml' % i
-            save_xml(data / name, declaration(*(armor('L8_Added_%02d_%02d' % (i, j)) for j in range(4))))
+            save_xml(data / name, declaration(*(armor(workload['instanceIds']['futureIds'][
+                     'L8_Added_%02d_%02d' % (i, j)]) for j in range(4))))
             changed.add('Data/L8/' + name)
             add_include(root, name)
             assets += 4
@@ -502,9 +650,42 @@ def apply_case(workload, case, destination):
         parents(siblings=True)
     elif identifier == 'C09':
         shared_defines()
-    elif identifier in ('C10', 'F07-session-partial', 'F07-session-all'):
+    elif identifier == 'F07-session-partial':
+        # One SessionCache may contain all five streams. Remove a selected
+        # stream's serialized document state, preserving file hashes and every
+        # other stream; deleting this shared file would falsely test all-stream
+        # loss again. FileItem explicitly allows its optional ad to be absent.
+        fixture = next((item for item in workload['streamFixtures']
+                        if item['streamId'].startswith('apt/')), None)
+        need(fixture is not None, 'No actual APT stream available for partial metadata loss')
+        selected = str((mod / fixture['path']).resolve()).replace('\\', '/').casefold()
+        candidates = sorted(p for p in destination.rglob('BinaryAssetBuilder.SessionCache.xml*')
+                            if p.name in ('BinaryAssetBuilder.SessionCache.xml',
+                                          'BinaryAssetBuilder.SessionCache.xml.deflate'))
+        for path in candidates:
+            payload = path.read_bytes()
+            compressed = path.suffix == '.deflate'
+            document = ET.fromstring(zlib.decompress(payload, -15) if compressed else payload)
+            for item in document.findall('./fic/fi'):
+                identity, state = item.find('hi'), item.find('ad')
+                if identity is not None and state is not None and \
+                   identity.get('d', '').split(';')[0].replace('\\', '/').casefold() == selected:
+                    item.remove(state)
+                    metadata_documents += 1
+            if metadata_documents:
+                payload = ET.tostring(document, encoding='utf-8')
+                if compressed:
+                    compressor = zlib.compressobj(wbits=-15)
+                    payload = compressor.compress(payload) + compressor.flush()
+                path.write_bytes(payload)
+                modified_caches += 1
+                metadata_stream = fixture['streamId']
+                break
+        need(metadata_documents > 0, 'Selected actual stream has no serialized document metadata')
+    elif identifier in ('C10', 'F07-session-all'):
         paths = sorted(destination.rglob('BinaryAssetBuilder.SessionCache.xml*'))
-        paths = [p for p in paths if p.is_file() and not p.name.endswith('.lock')]
+        paths = [p for p in paths if p.is_file() and p.name in
+                 ('BinaryAssetBuilder.SessionCache.xml', 'BinaryAssetBuilder.SessionCache.xml.deflate')]
         need(paths, 'No real SessionCache metadata found')
         if identifier != 'F07-session-all':
             parent = paths[0].parent
@@ -537,7 +718,7 @@ def apply_case(workload, case, destination):
         def rename(root):
             nodes = [node for node in root if node.tag == '{%s}ArmorTemplate' % NS]
             for node in nodes:
-                node.set('id', node.get('id') + '_Renamed')
+                node.set('id', workload['instanceIds']['futureIds'][node.get('id')])
             return len(nodes)
         for path in sorted(data.glob('spread-*.xml'))[:4]:
             assets += edit_xml(path, rename)
@@ -586,9 +767,14 @@ def apply_case(workload, case, destination):
         save_xml(data / 'include-wide.xml', wide)
         changed.add('Data/L8/include-wide.xml')
     elif identifier == 'F07-assets':
-        paths = sorted(p for p in destination.rglob('*') if p.is_file() and
-                       'published' not in p.relative_to(destination).parts and p.suffix.lower() in ('.asset', '.cdata'))
-        need(len(paths) >= 32, 'Fewer than 32 actual intermediate asset/CDATAs available')
+        # Native asset-cache entries need not be consulted by a fully linked
+        # hot build. Remove actual stream CDATA, keeping the session backup so
+        # the successful fallback restoration path is really required.
+        paths = sorted(p for p in destination.rglob('*.cdata') if p.is_file() and
+                       'streams' in p.relative_to(destination).parts and
+                       'published' not in p.relative_to(destination).parts and
+                       '.NewModCompiler' not in p.relative_to(destination).parts)
+        need(len(paths) >= 32, 'Fewer than 32 actual stream CDATAs available')
         for path in paths[:32]:
             deleted.append(path.relative_to(destination).as_posix())
             path.unlink()
@@ -633,5 +819,6 @@ def apply_case(workload, case, destination):
             'changedDocuments': len(xml_paths), 'changedMaterials': materials,
             'changedPaths': sorted(changed), 'deletedPaths': deleted,
             'extraArgs': extra_args,
-            'changedCaches': len(deleted) if identifier != 'C11' else 0,
+            'metadataDocumentsRemoved': metadata_documents, 'metadataStreamId': metadata_stream,
+            'changedCaches': (len(deleted) if identifier != 'C11' else 0) + modified_caches,
             'changedOutputs': len(deleted) if identifier == 'C11' else 0}

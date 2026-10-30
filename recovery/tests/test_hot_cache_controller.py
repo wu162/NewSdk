@@ -18,6 +18,7 @@ def sample(wall=9000, elapsed=9000, phase='hot_before', performance='off', forma
     row = dict(case='C01', mode='both-deflate', jobs='auto', phase=phase, wallMs=wall,
                reportElapsedMs=elapsed, cpuMs=42, exitCode=0, status='qualified',
                formal=formal, performance=performance, label='sample', repeat=1)
+    row['cache'] = dict(xmlParse=0, instanceCompile=0, documentReuse=20, hits=0, misses=0)
     report = dict(exitCode=0, status='succeeded', elapsedMs=elapsed,
                   effectiveOptions={k: dict(Value='true') for k in ('bc', 'sc', 'csc')},
                   cache=dict(xmlParse=0, instanceCompile=0, documentReuse=20, hits=0, misses=0))
@@ -25,6 +26,10 @@ def sample(wall=9000, elapsed=9000, phase='hot_before', performance='off', forma
 
 
 class AdmissionTests(unittest.TestCase):
+    def test_stream_ids_come_from_actual_cli_plan_tasks(self):
+        self.assertEqual(B.stream_ids(dict(plan=dict(Tasks=[dict(Id='base/Mod'), dict(Id='apt/HUD')]))),
+                         ['apt/HUD', 'base/Mod'])
+
     def test_each_clock_must_strictly_exceed_eight_seconds(self):
         for wall, elapsed in ((8000, 9000), (9000, 8000), (7000, 12000), (12000, 7000)):
             row, report = sample(wall, elapsed)

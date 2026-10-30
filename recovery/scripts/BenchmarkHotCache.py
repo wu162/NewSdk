@@ -66,7 +66,7 @@ class Budget:
 
 def stream_ids(report):
     plan = report.get('plan') or {}
-    streams = plan.get('streams', plan.get('Streams', []))
+    streams = plan.get('Tasks', plan.get('tasks', plan.get('streams', plan.get('Streams', []))))
     found = {str(s.get('id', s.get('Id', s.get('streamId', '')))) for s in streams}
     found.update(str(e.get('streamId') or '') for e in (report.get('performance') or {}).get('entries', []))
     return sorted(found - {''})
@@ -193,6 +193,8 @@ class Runner:
             row.update(reportElapsedMs=report.get('elapsedMs'), cache=report.get('cache', {}),
                        streamIds=stream_ids(report), reportPerformance=report.get('performance'),
                        publishedBytes=sum(a['Size'] for a in report.get('artifacts', [])))
+            if set(row['streamIds']) != set(self.workload['streams']):
+                raise ValueError('Actual build plan does not match the workload stream inventory')
             row['status'], row['over8s'], row['error'] = admission(row, report, case)
             row['pathExercised'] = row['status'] in ('qualified', 'under_8s')
             if not formal and phase in ('warmup', 'mode_warmup') and row['exitCode'] == 0 and report.get('status') == 'succeeded':
@@ -362,6 +364,9 @@ def execute(args):
         return 2
     finally:
         for case in state['cases']:
+            if args.group == 'common' and case['id'].startswith('F'):
+                case['status'] = 'not_selected'
+                continue
             if case.get('status', 'pending') in ('pending', 'running'):
                 case['status'] = 'budget_exhausted' if state['status'] == 'budget_exhausted' else 'not_completed'
         state['elapsedSeconds'] = budget.elapsed()
