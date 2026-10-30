@@ -1,10 +1,12 @@
-# 当前：W3DAnimation 压缩性能优化（Windows 验证待完成）
+# 当前：W3DAnimation 压缩优化（功能及真实通道计量已通过）
 
-基于 `recovery/legacy-sdk-cache` 的 `436115db`，工作分支 `optimize/w3d-animation-compression`。
-Timecoded 邻接索引/局部最小堆、AdaptiveDelta 有界滤波器搜索/步长复用和生产逐帧去拷贝已实现。
-本地既有检查与13376个新旧完整输出用例通过。第一轮 Windows 原版差分/正式插件/计量/产品构建/CLI缓存通过；产品重放因工作流漏建验证宿主未执行，已补齐并准备新源码统一重验。
-另补充194个真实 Upheaval 动画/7390条通道的独立同机计量，待 Windows 结果。
-细节见 [W3X 压缩说明](docs/W3X_COMPRESSION_PERFORMANCE.md)。禁止强推；未经用户批准不合并。
+分支 `optimize/w3d-animation-compression` / [PR #22](https://github.com/wu162/NewSdk/pull/22)，基于 `recovery/legacy-sdk-cache` 的 `436115db`。Timecoded 邻接索引/局部最小堆、AdaptiveDelta 有界搜索/常量快路/步长复用、生产逐帧去拷贝已完成，精度及输出不变。
+
+生产/功能验收源码 `4e9c9a27`，Windows [41003661518](https://github.com/wu162/NewSdk/actions/runs/41003661518) success：Od/O2原版组件、正式插件、13376新旧完整输出、Debug/Release产品完整三缓冲区重放及真实CLI缓存矩阵通过。第一轮漏建验证宿主的失败已保留并修复。
+
+真实源计量源码 `12848f8e`，[41004166786](https://github.com/wu162/NewSdk/actions/runs/41004166786) success：194动画/7390通道/468946展开帧，同VM三对中位数25.161→8.449秒，约2.98倍；选中编码全部逐字节相同。它是压缩阶段，不能当作完整MOD收益。生产源码及既有功能验收输入随后未变；分别保留功能与计量来源。
+
+完整未精简Upheaval端到端对照 [41004795406](https://github.com/wu162/NewSdk/actions/runs/41004795406) 正在运行，尚未验收。原始收据、完整输出对照及artifact哈希已下载核对并归档；[详细说明](docs/W3X_COMPRESSION_PERFORMANCE.md)。禁止强推，未经用户批准不合并。
 
 # 当前：AudioFile XAS 性能优化（已验收，PR 待审）
 
