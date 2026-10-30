@@ -12,9 +12,8 @@ on:
   workflow_dispatch:
     inputs:
       accepted_run:
-        description: 'Successful full Core lifecycle run for the current production source closure'
+        description: 'Successful full Core lifecycle run for the current production source closure; empty uses the pinned current acceptance'
         type: string
-        required: true
         default: ''
 permissions:
   contents: read
@@ -52,7 +51,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           # Measure this optimization's accepted production objects, never the old pinned build.
-          ACCEPTED_RUN: ${{ inputs.accepted_run }}
+          ACCEPTED_RUN: ${{ inputs.accepted_run || '41055959839' }}
         run: |
           if(!$env:ACCEPTED_RUN){throw 'Specify the current successful full Core lifecycle accepted_run; historical fallback is disabled'}
           $accepted=@('--accepted-run',$env:ACCEPTED_RUN)
