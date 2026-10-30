@@ -7,6 +7,10 @@ on:
       - 'recovery/scripts/TestCompilerXmlMatrices.ps1'
       - 'recovery/scripts/PrepareCompilerXmlMatrices.py'
       - 'recovery/tests/XmlProductOracleTransport.cs'
+      - 'recovery/tests/Xml*Oracle.cs'
+      - 'recovery/tests/PluginSchemaBoundary.cs'
+      - 'recovery/src/Native/**'
+      - 'recovery/src/Bridge/**'
   workflow_dispatch:
 permissions:
   contents: read
