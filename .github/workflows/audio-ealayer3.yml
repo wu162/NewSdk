@@ -32,10 +32,6 @@ jobs:
       - name: Existing NONE XAS MP3Passthrough and PathMusic byte regressions
         shell: pwsh
         run: ./recovery/scripts/TestAudioPlugin.ps1 -Groups business,pcm,xas,main,loops,aiffloops -IncludeMp3
-      - name: Package matching corresponding source and licenses
-        if: always()
-        shell: pwsh
-        run: git archive --format=zip -o recovery/evidence/audio/ealayer3/corresponding-source.zip HEAD recovery/src recovery/build recovery/scripts .gitattributes
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -74,10 +70,6 @@ jobs:
       - name: One complete mymod integration acceptance against original SDK
         shell: pwsh
         run: ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/ealayer3-product -OutputDirectory recovery/evidence/audio/ealayer3-full-sdk
-      - name: Package complete matching source with compiler binaries
-        if: always()
-        shell: pwsh
-        run: git archive --format=zip -o recovery/artifacts/ealayer3-product/corresponding-source.zip HEAD recovery/src recovery/build recovery/scripts .gitattributes
       - uses: actions/upload-artifact@v4
         if: always()
         with:

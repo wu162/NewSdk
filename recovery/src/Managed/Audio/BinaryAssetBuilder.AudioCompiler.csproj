@@ -14,7 +14,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="../../Native/Audio/EaLayer3/COPYING*;../../Native/Audio/EaLayer3/NOTICE.md" />
     <EaLayer3Native Include="../../Native/Audio/**/*.cpp;../../Native/Audio/**/*.h" />
     <Content Include="$(IntermediateOutputPath)native/NewSdk.EaLayer3.dll" Link="NewSdk.EaLayer3.dll"
              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"

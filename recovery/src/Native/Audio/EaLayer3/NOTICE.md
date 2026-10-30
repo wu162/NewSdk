@@ -31,5 +31,5 @@ distribute a binary-only compiler release. This notice does not grant rights
 to game data or separately supplied third-party SDK binaries. Their existing
 rights/notices remain applicable. The repository contains the selected source
 and build instructions; any redistribution must include the matching source
-revision and licenses. The validation workflow uploads these sources with its
-binaries. Full license texts are also embedded in the production EXE.
+revision and licenses. Binary distributions must identify the matching public source revision.
+License text is not embedded in the EXE or added to the runtime deployment.

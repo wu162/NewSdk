@@ -57,21 +57,6 @@
       "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude.SR.resources",
       "logicalName": "Mvp.Xml.XInclude.SR.resources",
       "expectedSha256": "0ef800084cbdf48a5a0b2de121f52737410aaa1356a6325fae779a8b56a77f6c"
-    },
-    {
-      "path": "recovery/src/Native/Audio/EaLayer3/COPYING.GPL-3.0",
-      "logicalName": "NewSdk.EaLayer3.COPYING.GPL-3.0",
-      "expectedSha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
-    },
-    {
-      "path": "recovery/src/Native/Audio/EaLayer3/COPYING.LGPL-2.0",
-      "logicalName": "NewSdk.EaLayer3.COPYING.LGPL-2.0",
-      "expectedSha256": "d245807f90032872d1438d741ed21e2490e1175dc8aa3afa5ddb6c8e529b58e5"
-    },
-    {
-      "path": "recovery/src/Native/Audio/EaLayer3/NOTICE.md",
-      "logicalName": "NewSdk.EaLayer3.NOTICE.md",
-      "expectedSha256": "7242532c27752f44616025c24f64166d51760b61139f3051e35e94078861073c"
     }
   ]
 }
