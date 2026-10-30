@@ -27,3 +27,14 @@ No original DLL or recovered resampler callbacks, output lookup tables or input
 labels are used. This candidate needs full native-resource/mip/actual-copy
 Debug/Release and NoOriginal differential acceptance before merging. Production
 six-DLL packaging and SDK integration are separate gates.
+
+The native JPEG/PPM integration additionally retains L8 grayscale storage.
+`ResizeL8` uses the same upstream triangle/scatter implementation and original
+byte normalization, then applies the accepted source-storage luminance writer
+(RGB coefficients, toward-zero float stores and serpentine ordered dither).
+The unchanged BGRA8 entry still uses its existing channel writer. Original
+adapted fingerprints before this extension remain in commit `e5e2c979`;
+`PROVENANCE.json` records the new source fingerprints. This L8 extension is
+unvalidated until its complete native resources, every mip and actual Copy
+consumer pass Debug/Release and isolated replay; old RGBA acceptance does not
+certify the new path.

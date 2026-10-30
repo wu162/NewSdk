@@ -3228,7 +3228,13 @@
         "src/TextureCompiler/Native/TextureNativeSurfaceApi.def",
         "src/TextureCompiler/Native/TextureNativeSurfaceApi.h",
         "src/TextureCompiler/Native/TextureNativeCopyInternal.h",
-        "src/TextureCompiler/PublicD3dxBc/**"
+        "src/TextureCompiler/PublicD3dxBc/**",
+        "src/TextureCompiler/Native/TextureNativeRaster.h",
+        "src/TextureCompiler/Native/TextureNativeRaster.cpp",
+        "src/TextureCompiler/Jpeg/TextureJpeg.c",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/reference/ijg6b/**",
+        "recovery/scripts/BuildTextureJpeg.ps1"
       ],
       "evidence": "recovery/evidence/texture/native-loader/*/validation.json",
       "sdk": false,
@@ -3274,7 +3280,13 @@
         "src/TextureCompiler/PublicDirectXTex/**",
         "src/TextureCompiler/PublicStbBmp/**",
         "recovery/tests/TexturePublicBcReplay.h",
-        "src/TextureCompiler/Native/TextureNativeCopyInternal.h"
+        "src/TextureCompiler/Native/TextureNativeCopyInternal.h",
+        "src/TextureCompiler/Native/TextureNativeRaster.h",
+        "src/TextureCompiler/Native/TextureNativeRaster.cpp",
+        "src/TextureCompiler/Jpeg/TextureJpeg.c",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/reference/ijg6b/**",
+        "recovery/scripts/BuildTextureJpeg.ps1"
       ],
       "evidence": "recovery/evidence/texture/public-d3dx-bc/*/validation.json",
       "sdk": false,
@@ -3323,7 +3335,13 @@
         "src/TextureCompiler/PublicStbBmp/**",
         "recovery/tests/TexturePublicBcReplay.h",
         "recovery/scripts/TestTexturePublicBc.ps1",
-        "src/TextureCompiler/Native/TextureNativeCopyInternal.h"
+        "src/TextureCompiler/Native/TextureNativeCopyInternal.h",
+        "src/TextureCompiler/Native/TextureNativeRaster.h",
+        "src/TextureCompiler/Native/TextureNativeRaster.cpp",
+        "src/TextureCompiler/Jpeg/TextureJpeg.c",
+        "src/TextureCompiler/Ppm/**",
+        "recovery/reference/ijg6b/**",
+        "recovery/scripts/BuildTextureJpeg.ps1"
       ],
       "evidence": "recovery/evidence/texture/native-bc-files/*/validation.json",
       "sdk": false,

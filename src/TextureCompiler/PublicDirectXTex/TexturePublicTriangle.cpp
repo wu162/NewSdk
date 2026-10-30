@@ -66,7 +66,7 @@ Filter CreateTriangleFilter(U source, U dest) {
     return result;
 }
 
-void StoreScanline(unsigned char* target, const std::vector<Pixel>& row, U y, bool alpha) {
+void StoreScanline(unsigned char* target, const std::vector<Pixel>& row, U y, bool alpha, bool luminance) {
     // D3DX RGBA8 row writer: ordered dither, serpentine X lookup, toward-zero
     // float stores. X8 packing has no alpha mask, so its unused byte is zero.
     constexpr float dither[] = {31.f/32,15.f/32,27.f/32,11.f/32,7.f/32,23.f/32,3.f/32,19.f/32,
@@ -74,6 +74,17 @@ void StoreScanline(unsigned char* target, const std::vector<Pixel>& row, U y, bo
     const U width = static_cast<U>(row.size());
     for (U x = 0; x < width; ++x) {
         const double bias = dither[(y & 3) * 4 + (((y & 1) ? width - 1 - x : x) & 3)];
+        if (luminance) {
+            // D3DX L8 writer first stores its weighted RGB luminance toward
+            // zero, even when all three source channels came from one byte.
+            const float value = Truncate(static_cast<double>(row[x][1]) * 0.715399980545044 +
+                static_cast<double>(row[x][0]) * 0.21250000596046448 +
+                static_cast<double>(row[x][2]) * 0.072099998593330383);
+            const float scaled = Truncate(std::max(0.0, std::min(1.0, static_cast<double>(value))) * 255.0);
+            target[x] = static_cast<unsigned char>(std::min(255, std::max(0,
+                static_cast<int>(Truncate(static_cast<double>(scaled) + bias)))));
+            continue;
+        }
         for (U c = 0; c < 4; ++c) {
             if (c == 3 && !alpha) { target[x * 4 + c] = 0; continue; }
             const double value = std::max(0.0, std::min(1.0, static_cast<double>(row[x][c])));
@@ -83,12 +94,11 @@ void StoreScanline(unsigned char* target, const std::vector<Pixel>& row, U y, bo
         }
     }
 }
-}
 
 // DirectXTex ResizeTriangleFilter's scatter, active-row counts, completed-row
 // write and row reuse, with scalar BGRA8 IO instead of DXGI/DirectXMath.
-void ResizeBgra8(const unsigned char* source, U sourcePitch, U sourceWidth, U sourceHeight,
-    unsigned char* target, U targetPitch, U targetWidth, U targetHeight, bool alpha) {
+void Resize(const unsigned char* source, U sourcePitch, U sourceWidth, U sourceHeight,
+    unsigned char* target, U targetPitch, U targetWidth, U targetHeight, bool alpha, bool luminance) {
     assert(source && target && sourceWidth && sourceHeight && targetWidth && targetHeight);
     const Filter tfX = CreateTriangleFilter(sourceWidth, targetWidth);
     const Filter tfY = CreateTriangleFilter(sourceHeight, targetHeight);
@@ -108,7 +118,7 @@ void ResizeBgra8(const unsigned char* source, U sourcePitch, U sourceWidth, U so
         for (U x = 0; x < sourceWidth; ++x) {
             Pixel pixel;
             for (U c = 0; c < 4; ++c) pixel[c] = c == 3 && !alpha ? 1.f :
-                Store(source[y * sourcePitch + x * 4 + c] * 0.0039215688593685627);
+                Store(source[y * sourcePitch + (luminance ? x : x * 4 + c)] * 0.0039215688593685627);
             for (const auto& vy : yFrom) for (const auto& vx : tfX[x]) {
                 const float weight = Store(static_cast<double>(vy.weight) * vx.weight);
                 auto& acc = rowActive[vy.u].scanline[vx.u];
@@ -119,10 +129,19 @@ void ResizeBgra8(const unsigned char* source, U sourcePitch, U sourceWidth, U so
             auto& rowAcc = rowActive[to.u];
             assert(rowAcc.remaining);
             if (!--rowAcc.remaining) {
-                StoreScanline(target + to.u * targetPitch, rowAcc.scanline, to.u, alpha);
+                StoreScanline(target + to.u * targetPitch, rowAcc.scanline, to.u, alpha, luminance);
                 rowFree.push_back(&rowAcc);
             }
         }
     }
+}
+}
+void ResizeBgra8(const unsigned char* source, U sourcePitch, U sourceWidth, U sourceHeight,
+    unsigned char* target, U targetPitch, U targetWidth, U targetHeight, bool alpha) {
+    Resize(source, sourcePitch, sourceWidth, sourceHeight, target, targetPitch, targetWidth, targetHeight, alpha, false);
+}
+void ResizeL8(const unsigned char* source, U sourcePitch, U sourceWidth, U sourceHeight,
+    unsigned char* target, U targetPitch, U targetWidth, U targetHeight) {
+    Resize(source, sourcePitch, sourceWidth, sourceHeight, target, targetPitch, targetWidth, targetHeight, false, true);
 }
 }}}

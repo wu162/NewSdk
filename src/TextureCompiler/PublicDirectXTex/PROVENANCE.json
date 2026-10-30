@@ -22,13 +22,13 @@
     },
     {
       "path": "TexturePublicTriangle.h",
-      "bytes": 526,
-      "sha256": "df64acb7f4796bef1228ec5a43d52f6cf6b0806b77f4277fa0ca30466d9a39c9"
+      "bytes": 911,
+      "sha256": "73876a4831b63174fbf96ffc3d715809cc860817368d5833933de519d22d3958"
     },
     {
       "path": "TexturePublicTriangle.cpp",
-      "bytes": 6361,
-      "sha256": "1a799e630606d01529caee8f6502f7dc9406e26e5c94c4b461a18809c45c243b"
+      "bytes": 7724,
+      "sha256": "41e26aeba4de54d1fcba46de3b7b85b45084ccf1748e1df1f71460bf99c7caae"
     }
   ]
 }

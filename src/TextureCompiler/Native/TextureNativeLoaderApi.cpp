@@ -3,6 +3,7 @@
 #include "TextureNativeSurfaceApi.h"
 #include "TextureNativeResourceApi.h"
 #include "TextureNativeCopyApi.h"
+#include "TextureNativeRaster.h"
 #include "../PublicDirectXTex/TexturePublicTriangle.h"
 #include "../PublicStbBmp/TexturePublicBmp.h"
 #include "../PublicD3dxBc/TexturePublicBcApi.h"
@@ -41,6 +42,7 @@ struct Resource{void* p=nullptr;~Resource(){if(p)TextureResourceRelease(p);}void
 std::int32_t LoadDds(const std::vector<unsigned char>& bytes,void** output);
 std::int32_t LoadTga(const std::vector<unsigned char>& bytes,void** output);
 std::int32_t LoadBmp(const std::vector<unsigned char>& bytes,void** output);
+std::int32_t LoadRaster(const std::vector<unsigned char>& bytes,void** output);
 }
 extern "C" RECOVERED_TEXTURE_NATIVE_LOADER_API void* __stdcall TextureCreateCpuTexture(U width,U height,U levels,U format){
  if(!width||!height||width>8192||height>8192||!Format(format))return nullptr;
@@ -65,13 +67,13 @@ extern "C" RECOVERED_TEXTURE_NATIVE_LOADER_API std::int32_t __stdcall TextureCre
  if(!output)return Invalid;
  // The file-open wrapper returns before touching output on an open/read error.
  if(!device||!path)return Invalid;
- try{std::vector<unsigned char> bytes;auto status=ReadFileBytes(path,bytes);if(status<0)return status;if(bytes.size()>=4&&Load(bytes.data(),0)==0x20534444)return LoadDds(bytes,output);if(bytes.size()>=2&&bytes[0]=='B'&&bytes[1]=='M')return LoadBmp(bytes,output);return LoadTga(bytes,output);}
+ try{std::vector<unsigned char> bytes;auto status=ReadFileBytes(path,bytes);if(status<0)return status;if(bytes.size()>=4&&Load(bytes.data(),0)==0x20534444)return LoadDds(bytes,output);if(bytes.size()>=2&&bytes[0]=='B'&&bytes[1]=='M')return LoadBmp(bytes,output);if(bytes.size()>=2&&((bytes[0]==0xff&&bytes[1]==0xd8)||(bytes[0]=='P'&&(bytes[1]=='2'||bytes[1]=='3'||bytes[1]=='5'||bytes[1]=='6'))))return LoadRaster(bytes,output);return LoadTga(bytes,output);}
  catch(const std::bad_alloc&){return OutOfMemory;}
 }
 namespace {
 float FloatStore(double value){volatile float result=static_cast<float>(value);return result;}
 float TruncateFloat(double value){float rounded=FloatStore(value);U bits;std::memcpy(&bits,&rounded,4);if(static_cast<double>(rounded)>value){--bits;std::memcpy(&rounded,&bits,4);}return rounded;}
-unsigned char GenericBoxByte(unsigned char tl,unsigned char tr,unsigned char bl,unsigned char br){
+unsigned char GenericBoxByte(unsigned char tl,unsigned char tr,unsigned char bl,unsigned char br,bool luminance=false){
  // RVA17825 fast byte BOX requires BOTH source axes>=2. A collapsed axis
  // uses the normalized float row interface, duplicates that axis, performs
  // three sequential float32 adds, then a float32 quarter store (17a89..b1e).
@@ -79,7 +81,8 @@ unsigned char GenericBoxByte(unsigned char tl,unsigned char tr,unsigned char bl,
  constexpr double inverse=0.0039215688593685627;
  const float a=FloatStore(tl*inverse),b=FloatStore(tr*inverse),c=FloatStore(bl*inverse),d=FloatStore(br*inverse);
  const float first=FloatStore(static_cast<double>(b)+a),second=FloatStore(static_cast<double>(c)+first),third=FloatStore(static_cast<double>(d)+second);
- const float average=FloatStore(static_cast<double>(third)*0.25);
+ float average=FloatStore(static_cast<double>(third)*0.25);
+ if(luminance)average=TruncateFloat(static_cast<double>(average)*0.715399980545044+static_cast<double>(average)*0.21250000596046448+static_cast<double>(average)*0.072099998593330383);
  const float scaled=TruncateFloat(static_cast<double>(average)*255.0);
  return static_cast<unsigned char>(std::min(255,std::max(0,static_cast<int>(TruncateFloat(static_cast<double>(scaled)+0.5)))));
 }
@@ -88,23 +91,25 @@ std::int32_t UploadRawLevel(void* resource,U level,const unsigned char* source,U
  auto status=TextureSurfaceLockRect(resource,level,&locked,nullptr,0);if(status<0)return status;
  try{
   if(sw==tw&&sh==th)status=TextureCopySurface(locked.bits,locked.pitch,tw,th,format&~0x1c0u,nullptr,source,sourcePitch,format&~0x1c0u,nullptr,0,0.0f);
+  else if((format&63)==2)Recovered::TextureCompiler::PublicDirectXTex::ResizeL8(source,sourcePitch,sw,sh,static_cast<unsigned char*>(locked.bits),locked.pitch,tw,th);
   else Recovered::TextureCompiler::PublicDirectXTex::ResizeBgra8(source,sourcePitch,sw,sh,static_cast<unsigned char*>(locked.bits),locked.pitch,tw,th,((format>>27)&7)!=5);
  }catch(...){TextureResourceUnlockRect(resource,level);throw;}
  TextureResourceUnlockRect(resource,level);return status;
 }
 std::int32_t GenerateRawMips(void* resource,U first,U levels,U width,U height,U format){
+ const bool luminance=(format&63)==2;const U channels=luminance?1:4;
  for(U level=first;level<levels;++level){
   const U sw=std::max(1u,width>>(level-1)),sh=std::max(1u,height>>(level-1)),w=std::max(1u,sw>>1),h=std::max(1u,sh>>1),nx=sw>1?2:1,ny=sh>1?2:1,count=nx*ny;
   Recovered::TextureCompiler::NativeSurfaceAbi::LockedRect source{},target{};
   TextureSurfaceLockRect(resource,level-1,&source,nullptr,1);TextureSurfaceLockRect(resource,level,&target,nullptr,0);
   const auto input=static_cast<const unsigned char*>(source.bits);auto output=static_cast<unsigned char*>(target.bits);
-  for(U y=0;y<h;++y)for(U x=0;x<w;++x)for(U c=0;c<4;++c){
-   U sum=0;for(U dy=0;dy<ny;++dy)for(U dx=0;dx<nx;++dx)sum+=input[(y*ny+dy)*source.pitch+(x*nx+dx)*4+c];
+  for(U y=0;y<h;++y)for(U x=0;x<w;++x)for(U c=0;c<channels;++c){
+   U sum=0;for(U dy=0;dy<ny;++dy)for(U dx=0;dx<nx;++dx)sum+=input[(y*ny+dy)*source.pitch+(x*nx+dx)*channels+c];
    // The two-axis byte BOX fast path rounds half up. X8's
    // unused byte is zero in generated levels, independently of base padding.
-   if(c==3&&((format>>27)&7)==5)output[y*target.pitch+x*4+c]=0;
-   else if(sw>=2&&sh>=2)output[y*target.pitch+x*4+c]=static_cast<unsigned char>((sum+2)/4);
-   else output[y*target.pitch+x*4+c]=GenericBoxByte(input[(y*ny)*source.pitch+(x*nx)*4+c],input[(y*ny)*source.pitch+(x*nx+nx-1)*4+c],input[(y*ny+ny-1)*source.pitch+(x*nx)*4+c],input[(y*ny+ny-1)*source.pitch+(x*nx+nx-1)*4+c]);
+   if(c==3&&((format>>27)&7)==5)output[y*target.pitch+x*channels+c]=0;
+   else if(sw>=2&&sh>=2)output[y*target.pitch+x*channels+c]=static_cast<unsigned char>((sum+2)/4);
+   else output[y*target.pitch+x*channels+c]=GenericBoxByte(input[(y*ny)*source.pitch+(x*nx)*channels+c],input[(y*ny)*source.pitch+(x*nx+nx-1)*channels+c],input[(y*ny+ny-1)*source.pitch+(x*nx)*channels+c],input[(y*ny+ny-1)*source.pitch+(x*nx+nx-1)*channels+c],luminance);
   }
   TextureResourceUnlockRect(resource,level);TextureResourceUnlockRect(resource,level-1);
  }
@@ -191,13 +196,21 @@ bool TgaTail(const std::vector<unsigned char>& data,U start){
  }
  return true;
 }
-std::int32_t LoadRawImage(const std::vector<unsigned char>& pixels,U width,U height,bool alpha,void** output){
+std::int32_t LoadRawStorage(const std::vector<unsigned char>& pixels,U width,U height,U format,void** output){
  const U targetWidth=1u<<Log(width),targetHeight=1u<<Log(height);
  if(std::uint64_t(targetWidth)*targetHeight>=16777216)return Unsupported;
- const U format=alpha?0x18280086:0x28280086,levels=Log(std::max(targetWidth,targetHeight))+1;
+ const U levels=Log(std::max(targetWidth,targetHeight))+1,channels=(format&63)==2?1:4;
  Resource resource;resource.p=TextureCreateCpuTexture(targetWidth,targetHeight,levels,format);if(!resource.p)return OutOfMemory;
- const auto status=UploadRawLevel(resource.p,0,pixels.data(),width*4,width,height,targetWidth,targetHeight,format);if(status<0)return status;
+ const auto status=UploadRawLevel(resource.p,0,pixels.data(),width*channels,width,height,targetWidth,targetHeight,format);if(status<0)return status;
  GenerateRawMips(resource.p,1,levels,targetWidth,targetHeight,format);*output=resource.detach();return 0;
+}
+std::int32_t LoadRawImage(const std::vector<unsigned char>& pixels,U width,U height,bool alpha,void** output){
+ return LoadRawStorage(pixels,width,height,alpha?0x18280086:0x28280086,output);
+}
+std::int32_t LoadRaster(const std::vector<unsigned char>& bytes,void** output){
+ Recovered::TextureCompiler::NativeRaster::Image image;
+ const auto status=Recovered::TextureCompiler::NativeRaster::Decode(bytes,image);if(status<0)return status;
+ return LoadRawStorage(image.pixels,image.width,image.height,image.format,output);
 }
 std::int32_t LoadBmp(const std::vector<unsigned char>& bytes,void** output){
  Recovered::TextureCompiler::PublicStbBmp::Image image;
