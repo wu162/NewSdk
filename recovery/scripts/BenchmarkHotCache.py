@@ -14,7 +14,7 @@ import time
 
 from BenchmarkCompilerCache import MODES, process_metrics, read_json, sha
 from HotCacheReport import save
-from HotCacheWorkload import prepare, apply_case
+from HotCacheWorkload import prepare, expand, apply_case
 
 LIMITS = {'common': (2100, 1920), 'full': (3600, 3360)}
 
@@ -221,10 +221,10 @@ def calibrate(runner):
     for attempt in range(args.calibration_rounds):
         fixture = Path(args.work) / 'fixture'
         with budget.phase('workload', 420):
-            for path in (fixture, runner.destination):
-                if path.exists():
-                    shutil.rmtree(path)
-            runner.workload = prepare(Path(args.repo), fixture, partitions)
+            if attempt == 0:
+                runner.workload = prepare(Path(args.repo), fixture, partitions)
+            else:
+                runner.workload = expand(runner.workload, partitions)
             state['workload'] = runner.workload
             state['cases'] = runner.workload['cases']
         case = dict(id='calibration', expectedPath='backend')
