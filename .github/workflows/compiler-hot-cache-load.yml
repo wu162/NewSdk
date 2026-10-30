@@ -40,7 +40,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          python recovery/scripts/TestCompilerHotCacheLoad.py --work "$env:RUNNER_TEMP/hot-load" --output recovery/evidence/refactor/hot-cache-load --minimum-hot-seconds 8 --budget 120 --timeout 60
+          python recovery/scripts/TestCompilerHotCacheLoad.py --work "$env:RUNNER_TEMP/hot-load" --output recovery/evidence/refactor/hot-cache-load --minimum-hot-seconds 8 --budget 120 --timeout 100
           $result=$LASTEXITCODE
           if(Test-Path recovery/evidence/refactor/hot-cache-load/load.md){Get-Content recovery/evidence/refactor/hot-cache-load/load.md|Add-Content $env:GITHUB_STEP_SUMMARY}
           if($result -ne 0){throw 'Hot-cache duration floor not satisfied; partial evidence retained'}

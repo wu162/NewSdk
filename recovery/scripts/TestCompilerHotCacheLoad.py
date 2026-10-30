@@ -18,7 +18,9 @@ BINARY_SOURCE = '91b040d271b7a3cc25d32f0f923c018c740edf4a'
 SOURCE_RUN = 41010073140
 ARTIFACT_ID = 12957004213
 ARCHIVE_SHA256 = '9f8b1ad1bba8c3f330475586496722773714fa99143d75adf136ae464493680c'
-DOCUMENT_LEVELS = (8192, 16384, 32768)
+# The bounded calibration measured 3.491s at 8192 documents and 6.767s
+# at 16384. Use one selected load, avoiding repeated calibration warmups.
+DOCUMENT_LEVELS = (21504,)
 ASSETS_PER_DOCUMENT = 4
 
 
@@ -249,5 +251,5 @@ if __name__ == '__main__':
     parser.add_argument('--output', required=True)
     parser.add_argument('--minimum-hot-seconds', type=float, default=8)
     parser.add_argument('--budget', type=int, choices=range(30, 181), default=120)
-    parser.add_argument('--timeout', type=int, choices=range(10, 91), default=60)
+    parser.add_argument('--timeout', type=int, choices=range(10, 121), default=100)
     raise SystemExit(run(parser.parse_args()))

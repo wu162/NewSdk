@@ -1,0 +1,10 @@
+{
+  "status": "failed",
+  "runId": 41013312889,
+  "sourceCommit": "61e38121d9637af6d1d39876785ae51257a54e4e",
+  "binarySourceCommit": "91b040d271b7a3cc25d32f0f923c018c740edf4a",
+  "artifactId": 12958691206,
+  "archiveSha256": "be9af4367f324ef5a9218a0d4c4fc1932cdc185893931e8d7d7d4b53fa09f246",
+  "archiveDownloadedAndHashed": true,
+  "reason": "Fixture IDs LoadArmor001016 and LoadArmor000008 collide at existing FastHash d5b4a3c1. Product correctly rejected input; no qualified hot sample. Fixture generator fixed without changing production hashing."
+}

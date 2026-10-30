@@ -1,0 +1,10 @@
+{
+  "status": "failed",
+  "runId": 41013666803,
+  "sourceCommit": "5557e0bd5fba59a07b661519255e740b24d31282",
+  "binarySourceCommit": "91b040d271b7a3cc25d32f0f923c018c740edf4a",
+  "artifactId": 12958019046,
+  "archiveSha256": "30e4e1621aa15ca7459ad25e205fa3289dff27c0af1bdffa612f9ed04ed48f45",
+  "archiveDownloadedAndHashed": true,
+  "reason": "8192/16384 documents produced individual hot processes of 3.491/6.767 seconds. Larger warmup hit the shared 120-second budget; no qualifying result accepted. Select a single 21504-document load and eliminate repeated calibration warmups."
+}
