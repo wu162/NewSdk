@@ -1,0 +1,189 @@
+TextureNativeResourceApi.cpp
+   Creating library D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug/native-resource.lib and object D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug/native-resource.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug\Recovered.TextureNativeResource.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeResource.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           6 number of functions
+           6 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureResourceAddRef
+          2    1 00001070 TextureResourceRelease
+          3    2 00001240 TextureResourceUnlockRect
+          4    3 00001000 _TextureResourceAddRef@4
+          5    4 00001070 _TextureResourceRelease@4
+          6    5 00001240 _TextureResourceUnlockRect@8
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        D000 .text
+TextureNativeSurfaceApi.cpp
+   Creating library D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug/native-surface.lib and object D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug/native-surface.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug\Recovered.TextureNativeSurface.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeSurface.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           4 number of functions
+           4 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001000 TextureSurfaceGetLayout
+          2    1 00001090 TextureSurfaceLockRect
+          3    2 00001000 _TextureSurfaceGetLayout@44
+          4    3 00001090 _TextureSurfaceLockRect@20
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        E000 .text
+TextureNativeCopyApi.cpp
+TextureNativeConvertApi.cpp
+Generating Code...
+   Creating library D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug/native-copy.lib and object D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug/native-copy.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug\Recovered.TextureNativeCopy.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeCopy.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           4 number of functions
+           4 number of names
+
+    ordinal hint RVA      name
+
+          1    0 000013D0 TextureCopySurface
+          2    1 00001000 TextureCopySurfaceIdentity
+          3    2 000013D0 _TextureCopySurface@48
+          4    3 00001000 _TextureCopySurfaceIdentity@48
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        E000 .text
+TextureNativeLoaderApi.cpp
+TexturePublicTriangle.cpp
+TexturePublicBmp.cpp
+Generating Code...
+   Creating library D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug/native-loader.lib and object D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug/native-loader.exp
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug\Recovered.TextureNativeLoader.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TextureNativeLoader.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           4 number of functions
+           4 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001020 TextureCreateCpuTexture
+          2    1 00001470 TextureCreateTextureFromFileA
+          3    2 00001020 _TextureCreateCpuTexture@16
+          4    3 00001470 _TextureCreateTextureFromFileA@12
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        9000 .rdata
+        2000 .reloc
+       24000 .text
+BC.cpp
+TexturePublicBcApi.cpp
+TexturePublicBcDds.cpp
+TexturePublicBcCopy.cpp
+Generating Code...
+   Creating library D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug/public-bc.lib and object D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug/public-bc.exp
+public-bc.exp : warning LNK4070: /OUT:Recovered.TexturePublicBc directive in .EXP differs from output filename 'D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug\Recovered.TexturePublicBc.dll'; ignoring directive
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\_temp\texture-public-bc-ec2b913507d2451c8ad197dade1d4f4f\Debug\Recovered.TexturePublicBc.dll
+
+File Type: DLL
+
+  Section contains the following exports for Recovered.TexturePublicBc
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+          16 number of functions
+          16 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00008F10 TexturePublicBcCopySurface
+          2    1 00007270 TexturePublicBcCreateFromDds
+          3    2 00006380 TexturePublicBcDecodeBlock
+          4    3 000064C0 TexturePublicBcDecodeDdsImage
+          5    4 00006450 TexturePublicBcDecodeImage
+          6    5 000063D0 TexturePublicBcEncodeBlock
+          7    6 000064F0 TexturePublicBcEncodeDdsImage
+          8    7 00006480 TexturePublicBcEncodeImage
+          9    8 00008F10 _TexturePublicBcCopySurface@48
+         10    9 00007270 _TexturePublicBcCreateFromDds@24
+         11    A 00006380 _TexturePublicBcDecodeBlock@12
+         12    B 000064C0 _TexturePublicBcDecodeDdsImage@28
+         13    C 00006450 _TexturePublicBcDecodeImage@28
+         14    D 000063D0 _TexturePublicBcEncodeBlock@20
+         15    E 000064F0 _TexturePublicBcEncodeDdsImage@40
+         16    F 00006480 _TexturePublicBcEncodeImage@40
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        9000 .rdata
+        2000 .reloc
+       1E000 .text

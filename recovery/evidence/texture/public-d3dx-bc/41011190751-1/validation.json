@@ -1,0 +1,67 @@
+{
+  "scope": "public D3DX BC1/2/3 diagnostic: complete float/block bytes and complete owned DDS resource/VM/mip/lock/release; eight fixed encoder policies and wrap/clamp aggregates, not per-sample policy selection; no NoOriginal or production acceptance",
+  "probeOnly": true,
+  "runAttempt": "1",
+  "configurations": [
+    {
+      "summary": [
+        "PROBE D3DX file blockCases=1536 decodeBitMismatches=0",
+        "FILE_POLICY flags=0 encodeMismatch=0 ditherMismatch=1500",
+        "FILE_POLICY flags=10000 encodeMismatch=1086 ditherMismatch=1465",
+        "FILE_POLICY flags=20000 encodeMismatch=1462 ditherMismatch=1121",
+        "FILE_POLICY flags=30000 encodeMismatch=1500 ditherMismatch=6",
+        "FILE_POLICY flags=40000 encodeMismatch=1512 ditherMismatch=1531",
+        "FILE_POLICY flags=50000 encodeMismatch=1527 ditherMismatch=1529",
+        "FILE_POLICY flags=60000 encodeMismatch=1524 ditherMismatch=1530",
+        "FILE_POLICY flags=70000 encodeMismatch=1531 ditherMismatch=1522",
+        "PROBE public D3DX BC blockCases=1536 ddsCases=168 decodeBitMismatches=0 originalUnstable=0; diagnostic only, no production acceptance or NoOriginal claim",
+        "POLICY flags=0 encodeMismatch=0 ddsWrapMismatch=27 ddsClampMismatch=69",
+        "POLICY flags=10000 encodeMismatch=1156 ddsWrapMismatch=49 ddsClampMismatch=84",
+        "POLICY flags=20000 encodeMismatch=983 ddsWrapMismatch=57 ddsClampMismatch=79",
+        "POLICY flags=30000 encodeMismatch=1407 ddsWrapMismatch=44 ddsClampMismatch=84",
+        "POLICY flags=40000 encodeMismatch=1512 ddsWrapMismatch=38 ddsClampMismatch=69",
+        "POLICY flags=50000 encodeMismatch=1533 ddsWrapMismatch=62 ddsClampMismatch=84",
+        "POLICY flags=60000 encodeMismatch=1518 ddsWrapMismatch=57 ddsClampMismatch=79",
+        "POLICY flags=70000 encodeMismatch=1533 ddsWrapMismatch=62 ddsClampMismatch=84"
+      ],
+      "captureSha256": "53e01cd998c6599d7eb451fdf014a412ffb0a1db9a875e050220456b6ae5d3d7",
+      "configuration": "Debug",
+      "candidateSha256": "c0a13fc75a5a8a810a88cff30c89898ed199f329062ab16cd3f8f1d03ac2e248",
+      "comparisonCompleted": true,
+      "captureBytes": 91918598
+    },
+    {
+      "summary": [
+        "PROBE D3DX file blockCases=1536 decodeBitMismatches=0",
+        "FILE_POLICY flags=0 encodeMismatch=0 ditherMismatch=1500",
+        "FILE_POLICY flags=10000 encodeMismatch=1086 ditherMismatch=1465",
+        "FILE_POLICY flags=20000 encodeMismatch=1462 ditherMismatch=1121",
+        "FILE_POLICY flags=30000 encodeMismatch=1500 ditherMismatch=6",
+        "FILE_POLICY flags=40000 encodeMismatch=1512 ditherMismatch=1531",
+        "FILE_POLICY flags=50000 encodeMismatch=1527 ditherMismatch=1529",
+        "FILE_POLICY flags=60000 encodeMismatch=1524 ditherMismatch=1530",
+        "FILE_POLICY flags=70000 encodeMismatch=1531 ditherMismatch=1522",
+        "PROBE public D3DX BC blockCases=1536 ddsCases=168 decodeBitMismatches=0 originalUnstable=0; diagnostic only, no production acceptance or NoOriginal claim",
+        "POLICY flags=0 encodeMismatch=0 ddsWrapMismatch=27 ddsClampMismatch=69",
+        "POLICY flags=10000 encodeMismatch=1156 ddsWrapMismatch=49 ddsClampMismatch=84",
+        "POLICY flags=20000 encodeMismatch=983 ddsWrapMismatch=57 ddsClampMismatch=79",
+        "POLICY flags=30000 encodeMismatch=1407 ddsWrapMismatch=44 ddsClampMismatch=84",
+        "POLICY flags=40000 encodeMismatch=1512 ddsWrapMismatch=38 ddsClampMismatch=69",
+        "POLICY flags=50000 encodeMismatch=1533 ddsWrapMismatch=62 ddsClampMismatch=84",
+        "POLICY flags=60000 encodeMismatch=1518 ddsWrapMismatch=57 ddsClampMismatch=79",
+        "POLICY flags=70000 encodeMismatch=1533 ddsWrapMismatch=62 ddsClampMismatch=84"
+      ],
+      "captureSha256": "53e01cd998c6599d7eb451fdf014a412ffb0a1db9a875e050220456b6ae5d3d7",
+      "configuration": "Release",
+      "candidateSha256": "4b8fd15b82b272a2cf1a1d7521698b04d6e1cba75a4eb468ab412929166c4fae",
+      "comparisonCompleted": true,
+      "captureBytes": 91918598
+    }
+  ],
+  "status": "probe-only",
+  "sourceCommit": "2b79fee92c0fc41e0de65dab1193ce6dc7bc15e2",
+  "archiveSha256": "d2585410087b07d85b2e2c77f1dbf4c9b9a6e226bb2c6be1888c38b2244f6f40",
+  "runId": "41011190751",
+  "sdkValidated": false,
+  "productionAccepted": false
+}
