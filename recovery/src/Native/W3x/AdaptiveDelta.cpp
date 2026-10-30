@@ -143,14 +143,21 @@ bool Compress(std::uint32_t type,std::uint16_t pivot,
     candidate.type=type; candidate.pivot=pivot; candidate.scale=R4(static_cast<double>(greatest)/7.0);
     candidate.initial=Values(samples[0]);
     const std::size_t blocks=(samples.size()+15u)>>4;
+    if (greatest==0.0f) {
+        // Every candidate reconstructs a constant finite channel exactly at
+        // scale zero. Strict ties select filter 0, whose low delta bytes are
+        // all zero even for CLR's integer-indefinite quantization result.
+        if (maxError<0.0f) return false;
+        candidate.bits=4;
+        candidate.frames.assign(blocks*width,AdaptiveDeltaFrame{});
+        output=std::move(candidate);
+        return true;
+    }
     candidate.frames.reserve(blocks*width);
     for (unsigned bits=4;bits<12;bits+=4) {
         candidate.bits=bits; candidate.frames.clear();
         std::array<float,256> steps,inverses;
-        for (unsigned filter=0;filter<256;++filter) {
-            steps[filter]=Step(filter,candidate.scale,bits);
-            inverses[filter]=R4(1.0/static_cast<double>(steps[filter]));
-        }
+        unsigned cached=0;
         std::vector<float> previous=candidate.initial;
         bool excess=false;
         for (std::size_t block=0;block<blocks;++block) {
@@ -165,6 +172,11 @@ bool Compress(std::uint32_t type,std::uint16_t pivot,
                 unsigned selected=0;
                 bool found=false;
                 for (unsigned filter=0;filter<256;++filter) {
+                    if (filter==cached) {
+                        steps[filter]=Step(filter,candidate.scale,bits);
+                        inverses[filter]=R4(1.0/static_cast<double>(steps[filter]));
+                        ++cached;
+                    }
                     const float error=Frame<false>(0,values,steps[filter],inverses[filter],
                         bits==4?8:128,smallest,0,0,0.0f);
                     if (static_cast<double>(error)<static_cast<double>(smallest)) {

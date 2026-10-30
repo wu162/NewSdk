@@ -202,6 +202,10 @@ TimecodedChannel CompressTimecoded(std::uint32_t type, std::uint16_t pivot,
     if (frames.empty()) return output;
     const std::uint32_t minimum=TimecodedReductionLimit(static_cast<std::uint32_t>(frames.size()),forceRate);
     float error= type==3 ? rotationError : type==4 ? visibilityError : translationError;
+    if (frames.size()==1 || !(frames.size()>minimum || error>=0.f)) {
+        output.frames=frames;
+        return output;
+    }
     std::vector<FrameLinks> links(frames.size());
     for (std::size_t i=0;i<frames.size();++i) {
         links[i].previous=i?i-1:frames.size(); links[i].next=i+1;
@@ -216,8 +220,15 @@ TimecodedChannel CompressTimecoded(std::uint32_t type, std::uint16_t pivot,
             if (RemoveLast(frames[0],frames[last],error,type==3)) index=last;
         } else if (remaining>2) {
             if (error<0.f) {
-                if (!heap) heap.reset(new ReductionHeap(frames,links,type==3));
-                index=heap->Best();
+                if (remaining==3 && !heap) {
+                    const std::size_t middle=links[0].next, last=links[middle].next;
+                    if (!frames[0].binaryMove && !frames[last].binaryMove &&
+                        RemovalError(frames[0],frames[middle],frames[last],type==3)<std::numeric_limits<float>::max())
+                        index=middle;
+                } else {
+                    if (!heap) heap.reset(new ReductionHeap(frames,links,type==3));
+                    index=heap->Best();
+                }
             } else {
                 // Earlier rejected triples are unchanged. Resume at the
                 // predecessor after each deletion instead of scanning again.

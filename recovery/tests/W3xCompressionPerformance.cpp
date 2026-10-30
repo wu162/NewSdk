@@ -84,7 +84,9 @@ std::vector<std::vector<float> > Samples(unsigned count,unsigned width,unsigned 
     std::vector<std::vector<float> > source(count,std::vector<float>(width));
     for (unsigned i=0;i<count;++i) for (unsigned j=0;j<width;++j)
         source[i][j]=pattern==0?2.f:pattern==1?float(std::sin(double(i)*.037+j)):
-            pattern==2?Random():float(i+j)*.125f;
+            pattern==2?Random():pattern==3?float(i+j)*.125f:pattern==4?-2.f:
+            pattern==5?((i+j)%2?-0.f:0.f):pattern==6?std::numeric_limits<float>::denorm_min():
+            (j%2?-std::numeric_limits<float>::max():std::numeric_limits<float>::max());
     return source;
 }
 }
@@ -105,9 +107,9 @@ int main(int argc,char** argv) {
                 for (float error:errors) for (float rate:rates) Timecoded("matrix-timecoded",type,source,error,rate);
             }
             for (unsigned count:{0u,1u,2u,15u,16u,17u,31u,32u,33u,65u,129u})
-                for (unsigned width=1;width<=4;++width) for (unsigned pattern=0;pattern<4;++pattern) {
+                for (unsigned width=1;width<=4;++width) for (unsigned pattern=0;pattern<8;++pattern) {
                     const auto source=Samples(count,width,pattern);
-                    for (float error:{0.f,.03f,1.f,nan,-inf}) Delta("matrix-delta",source,error);
+                    for (float error:{0.f,-0.f,.03f,1.f,-1.f,nan,inf,-inf}) Delta("matrix-delta",source,error);
                 }
         } else if (std::string(argv[1])=="long") {
             Timecoded("timecoded-scalar-threshold-16384",0,Frames(16384,0,0),.001f,1.f);

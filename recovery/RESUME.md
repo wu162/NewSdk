@@ -2,7 +2,7 @@
 
 基于 `recovery/legacy-sdk-cache` 的 `436115db`，工作分支 `optimize/w3d-animation-compression`。
 Timecoded 邻接索引/局部最小堆、AdaptiveDelta 有界滤波器搜索/步长复用和生产逐帧去拷贝已实现。
-本地既有检查与11440个新旧完整输出用例通过；Windows 原版差分、产品重放及缓存矩阵待本次 Actions 运行确认。
+本地既有检查与13376个新旧完整输出用例通过。第一轮 Windows 原版差分/正式插件/计量/产品构建/CLI缓存通过；产品重放因工作流漏建验证宿主未执行，已补齐并准备新源码统一重验。
 细节见 [W3X 压缩说明](docs/W3X_COMPRESSION_PERFORMANCE.md)。禁止强推；未经用户批准不合并。
 
 # 当前：AudioFile XAS 性能优化（已验收，PR 待审）

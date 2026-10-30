@@ -56,6 +56,7 @@ jobs:
         run: |
           foreach($mode in @('Debug','Release')) {
             ./recovery/scripts/BuildCompiler.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/w3x-compression-product/$mode"
+            ./recovery/scripts/BuildCompilerValidationHost.ps1 -ProductBuildDirectory "recovery/artifacts/w3x-compression-product/$mode" -OutputDirectory "recovery/artifacts/w3x-compression-product/$mode/validation"
           }
       - name: Complete captured ProcessInstance matrix against current product EXEs
         if: ${{ !cancelled() && steps.native.outcome == 'success' && steps.product.outcome == 'success' }}
@@ -73,5 +74,7 @@ jobs:
             recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/w3x-compression-product/*/build.json
             recovery/artifacts/w3x-compression-product/*/bin/*
+            recovery/artifacts/w3x-compression-product/*/validation/build.json
+            recovery/artifacts/w3x-compression-product/*/validation/bin/*
             recovery/artifacts/w3x-compression-product/**/*.log
           if-no-files-found: error
