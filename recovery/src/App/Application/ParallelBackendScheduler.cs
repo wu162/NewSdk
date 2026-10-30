@@ -160,8 +160,9 @@ namespace NewModCompiler.Application
             if (!PreparedBackendWork.CanPrepare(declaration,plugin,out eligibilityReason)) {
                 Compatibility(declaration,compileCompatibility,verify,commit,asset,eligibilityReason); return;
             }
-            long estimate=PreparedBackendWork.EstimatePreparationBytes(declaration);
-            while(pending.Count>0 && (pending.Count>=capacity || !Fits(estimate))) CommitOne();
+            // Preparation borrows the existing DOM. Estimate native working
+            // memory once inside TryPrepare, then admit against retained bytes.
+            while(pending.Count>=capacity) CommitOne();
             PreparedBackendWork prepared;
             string reason;
             long start=Start(); bool accepted;

@@ -95,7 +95,7 @@ public static class CompilerPreparedBackend
         catch (UnauthorizedAccessException) { denied = true; }
         Require(denied, "Prepared input must reject " + operation + " while its content lease is held");
     }
-    static void AptLeaseAndFreeze(string work)
+    static void AptLeaseAndBorrow(string work)
     {
         string inputDirectory = Path.Combine(work, "prepared-input-lease");
         Directory.CreateDirectory(inputDirectory);
@@ -118,15 +118,12 @@ public static class CompilerPreparedBackend
             Denied(delegate { File.Delete(path); }, "deletion");
             Denied(delegate { File.Move(path, path + ".moved"); }, "rename");
             Denied(delegate { Directory.Move(inputDirectory, inputDirectory + ".moved"); }, "ancestor directory rename");
-            // Native fopen must still be allowed to read while the owner holds
-            // FileShare.Read. Neither a new XML value nor a namespace mutation
-            // may alter the actual private representation being executed.
-            ((XmlElement)instance.Node).SetAttribute("File", alternate);
-            namespaces.AddNamespace("ea", "urn:changed-after-prepare");
+            // Core finalizes XML before enqueue and joins before reuse/mutation.
+            // Borrow that tree and its namespace table without a DOM copy.
             var frozen = Value<InstanceDeclaration>(prepared, "Declaration");
-            Require(frozen.Node.Attributes["File"].Value == path, "Prepared XML must be independent of owner mutation");
-            Require(frozen.Document.NamespaceManager.LookupNamespace("ea") == "uri:ea.com:eala:asset", "Namespace table must be private");
-            Require(!Object.ReferenceEquals(frozen.Node.OwnerDocument, instance.Node.OwnerDocument), "XML document and name table must be private");
+            Require(Object.ReferenceEquals(frozen, instance), "Read-only APT must reuse the finalized declaration");
+            Require(Object.ReferenceEquals(frozen.Node, instance.Node), "APT must borrow the original XML node");
+            Require(Object.ReferenceEquals(frozen.Document.NamespaceManager, namespaces), "Finalized namespace bindings must be borrowed");
             var result = Execute(prepared);
             Require(result != null && Contains(result.InstanceData, first) && !Contains(result.InstanceData, second), "Native APT consumption must match the held version");
         }
@@ -338,8 +335,10 @@ public static class CompilerPreparedBackend
         {
             var frozen = Value<InstanceDeclaration>(prepared, "Declaration");
             Require(frozen.Node.Attributes["Limit"] != null && frozen.Node.Attributes["Limit"].Value == "100",
-                "The actual backend input must preserve schema default values during detachment");
-            Require(Execute(prepared) != null, "The detached default-bearing XML declaration must execute through the real backend");
+                "The borrowed backend input must preserve schema default values");
+            Require(Object.ReferenceEquals(frozen.Node, xml.DocumentElement) && !frozen.Node.Attributes["Limit"].Specified,
+                "Borrowing must preserve the original unspecified default attribute itself");
+            Require(Execute(prepared) != null, "The default-bearing XML declaration must execute through the real backend");
         }
         finally { ((IDisposable)prepared).Dispose(); }
     }
@@ -448,6 +447,7 @@ public static class CompilerPreparedBackend
         public InstanceDeclaration Owner;
         public object Prepared;
         public AssetBuffer Expected,Actual;
+        public string XmlBefore;
         public long Start,End;
         public int ThreadId;
     }
@@ -478,6 +478,7 @@ public static class CompilerPreparedBackend
                 foreach(var item in items)
                 {
                     EqualBuffers(item.Expected,item.Actual,label+"/"+item.Type);
+                    Require(item.Owner.Node.OuterXml == item.XmlBefore, "Certified worker mutated its borrowed DOM: " + item.Type);
                     Require(item.ThreadId!=Thread.CurrentThread.ManagedThreadId,"Backend invocation must run on a real worker");
                     if(item.Owner.HasCustomData)
                     {
@@ -509,8 +510,57 @@ public static class CompilerPreparedBackend
         owner.CustomDataPath=Path.Combine(work,label+"-owner.cdata");
         object prepared=Prepare(owner,plugin);
         Require(prepared!=null,"Worker fixture must be certified: "+label);
-        Value<InstanceDeclaration>(prepared,"Declaration").CustomDataPath=Path.Combine(work,label+"-worker.cdata");
-        return new BufferWork {Type=owner.Handle.TypeName,Plugin=plugin,Owner=owner,Prepared=prepared,Expected=plugin.ProcessInstance(owner)};
+        var input=Value<InstanceDeclaration>(prepared,"Declaration");
+        Require(Object.ReferenceEquals(input.Node,owner.Node) && Object.ReferenceEquals(input.Handle,owner.Handle) &&
+            Object.ReferenceEquals(input.Document,owner.Document) && Object.ReferenceEquals(input.ReferencedInstances,owner.ReferencedInstances),
+            "Prepared input must not copy XML, document, handle or references: " + label);
+        Require(Object.ReferenceEquals(input,owner) != owner.HasCustomData, "Only CDATA writers need separate declaration state: " + label);
+        if(owner.HasCustomData) {
+            input.CustomDataPath=Path.Combine(work,label+"-worker.cdata");
+            Require(input.CustomDataPath != owner.CustomDataPath, "CDATA pathname must be private: " + label);
+        }
+        return new BufferWork {Type=owner.Handle.TypeName,Plugin=plugin,Owner=owner,Prepared=prepared,Expected=plugin.ProcessInstance(owner),XmlBefore=owner.Node.OuterXml};
+    }
+    static void TokenizerWorkers(string work)
+    {
+        foreach(var platform in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99})
+        {
+            var items=new List<BufferWork>();
+            IAssetBuilderPlugin[] plugins={new Recovered.GameObject.Plugin(),new Recovered.Weapon.Plugin(),new Recovered.Compiler.Plugin()};
+            string[] types={"GameObject","WeaponTemplate","ArmorTemplate"};
+            string[] variables={"RA3_RECOVERED_GAMEOBJECT_TRACE","RA3_RECOVERED_WEAPON_TRACE","RA3_RECOVERED_ARMOR_TRACE"};
+            var saved=new string[3];
+            try {
+                var document=new XmlDocument {XmlResolver=null};
+                document.LoadXml("<AssetDeclaration xmlns='uri:ea.com:eala:asset'/>");
+                var namespaces=new XmlNamespaceManager(document.NameTable);namespaces.AddNamespace("ea","uri:ea.com:eala:asset");
+                for(int type=0;type<3;type++) {
+                    saved[type]=Environment.GetEnvironmentVariable(variables[type]);
+                    string trace=Path.Combine(work,"token-trace-"+(int)platform+"-"+type);
+                    Environment.SetEnvironmentVariable(variables[type],trace);
+                    plugins[type].Initialize(null,platform);
+                    for(int i=0;i<12;i++) {
+                        var node=document.CreateElement(types[type],"uri:ea.com:eala:asset");
+                        node.SetAttribute("id","Token"+type+"_"+i);document.DocumentElement.AppendChild(node);
+                        if(type==0){node.SetAttribute("Description","shared DOM "+i);node.SetAttribute("Scale","1.25");}
+                        else if(type==1){node.SetAttribute("AttackRange","42");node.InnerXml="<PreAttackDelay xmlns='uri:ea.com:eala:asset' MinSeconds='1s' MaxSeconds='2s'/>";}
+                        else {node.SetAttribute("Default","50%");node.InnerXml="<Armor xmlns='uri:ea.com:eala:asset' Damage='GUN' Percent='25%'/>";}
+                        var owner=new InstanceDeclaration(AssetDeclarationDocument.CreateBackendView(namespaces));owner.XmlNode=node;
+                        items.Add(BufferItem(work,"token-"+(int)platform+"-"+type+"-"+i,plugins[type],owner));
+                    }
+                    var wrong=Declaration(types[(type+1)%3],"WrongType",Namespaces());
+                    RejectedPreparation(wrong,plugins[type],128L*1024L*1024L,"uncertified-tokenizer-type");
+                }
+                WorkerWave(items,"tokenizers-"+(int)platform);
+                for(int type=0;type<3;type++)
+                    Require(File.ReadAllLines(Path.Combine(work,"token-trace-"+(int)platform+"-"+type,"calls.tsv")).Length==24,
+                        "Concurrent optional tokenizer trace lost or interleaved index writes: "+types[type]);
+            }
+            finally {
+                foreach(var item in items)((IDisposable)item.Prepared).Dispose();
+                for(int type=0;type<3;type++)Environment.SetEnvironmentVariable(variables[type],saved[type]);
+            }
+        }
     }
     static void WorkerBuffers(string work,string sdk)
     {
@@ -643,12 +693,12 @@ public static class CompilerPreparedBackend
         try
         {
             Directory.CreateDirectory(args[0]);
-            AptLeaseAndFreeze(args[0]); ParallelQualification(args[0]); EnvironmentQualification(args[4]);
+            AptLeaseAndBorrow(args[0]); ParallelQualification(args[0]); EnvironmentQualification(args[4]);
             ResourceBudget(args[0]); W3xBudget(); SchemaDefaults(); PreparationBudget(); PreparationRejectionReasons(args[0]);
-            WorkerBuffers(args[0],args[4]); SchedulerDrain(args[0],false); SchedulerDrain(args[0],true);
+            WorkerBuffers(args[0],args[4]); TokenizerWorkers(args[0]); SchedulerDrain(args[0],false); SchedulerDrain(args[0],true);
             File.WriteAllText(args[1],new JavaScriptSerializer().Serialize(new {
                 succeeded=true,sourceCommit=args[2],runId=args[3],checks,lifecycleEvidence,
-                scope="Actual isolated XML/defaults/namespaces, Windows stable file leases, all four APT roots and W3X/Audio worker three-buffer equality, Audio CDATA, closed route qualification, resource policy and pre-clone budgets; component evidence only"
+                scope="Borrowed finalized XML/defaults/namespaces/metadata, Windows stable file leases, APT/W3X/Audio worker three-buffer equality, isolated Audio CDATA pathname, three tokenizers on four platforms with shared DOM and concurrent trace, closed route qualification and resource budgets; component evidence only"
             }));
             Console.WriteLine("PASS PreparedBackendWork: "+checks+" assertions"); return 0;
         }

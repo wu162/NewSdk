@@ -126,6 +126,8 @@ public class InstanceDeclaration : IXmlSerializable
 			Document = document;
 		}
 
+		public CurrentState CreateBackendView() => (CurrentState)MemberwiseClone();
+
 		public void FromLast(LastState last)
 		{
 			Handle = last.Handle;
@@ -325,6 +327,15 @@ public class InstanceDeclaration : IXmlSerializable
 	public InstanceDeclaration(AssetDeclarationDocument document)
 	{
 		Initialize(document);
+	}
+
+	// Only certified read-only backends may borrow this finalized input. A shallow
+	// state view isolates the CDATA pathname; XML, namespaces, handle and reference
+	// collections remain owned by Core until its scheduler joins the operation.
+	// Bypass XmlNode's semantic setter (which removes inheritFrom and rehashes IDs).
+	public InstanceDeclaration CreateBackendView()
+	{
+		return new InstanceDeclaration { _Current = _Current.CreateBackendView() };
 	}
 
 	public void Initialize(AssetDeclarationDocument document)

@@ -9,6 +9,7 @@ namespace Recovered.GameObject
     {
         private TargetPlatform platform;
         private string trace;
+        private static readonly object TraceGate = new object();
         public void Initialize(object configObject, TargetPlatform target) { platform = target; trace = Environment.GetEnvironmentVariable("RA3_RECOVERED_GAMEOBJECT_TRACE"); }
         public void ReInitialize(object configObject, TargetPlatform target) { Initialize(configObject, target); }
         // Retain original compiler metadata so serialized manifests remain comparable.
@@ -44,7 +45,7 @@ namespace Recovered.GameObject
                 File.WriteAllBytes(stem + ".bin", result.InstanceData);
                 File.WriteAllBytes(stem + ".relo", result.RelocationData);
                 File.WriteAllBytes(stem + ".imp", result.ImportsData);
-                File.AppendAllText(Path.Combine(trace, "calls.tsv"),
+                lock (TraceGate) File.AppendAllText(Path.Combine(trace, "calls.tsv"),
                     instance.Node.Attributes["id"].Value + "\t" + Path.GetFileName(stem) +
                     "\t" + (int)platform + Environment.NewLine);
             }

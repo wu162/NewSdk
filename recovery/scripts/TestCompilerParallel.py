@@ -38,6 +38,19 @@ def fixture(repo, mod):
                       {'id': 'ParallelAudio%d' % index, 'File': '../Audio/' + source.name,
                        'PCCompression': 'NONE' if index % 2 == 0 else 'XAS', 'IsStreamedOnPC': 'false'})
     ET.ElementTree(audio).write(data / 'ParallelAudio.xml', encoding='utf-8', xml_declaration=True)
+    tokenizers = ET.Element('{%s}AssetDeclaration' % NS)
+    for index in range(8):
+        game_object = ET.SubElement(tokenizers, '{%s}GameObject' % NS,
+                                    {'id': 'ParallelObject%d' % index, 'Description': 'borrowed input', 'Scale': '1.25'})
+        body = ET.SubElement(game_object, '{%s}Body' % NS)
+        ET.SubElement(body, '{%s}ActiveBody' % NS, {'id': 'Body', 'MaxHealth': '100'})
+        ET.SubElement(tokenizers, '{%s}WeaponTemplate' % NS,
+                      {'id': 'ParallelWeapon%d' % index, 'AttackRange': str(42 + index)})
+        armor = ET.SubElement(tokenizers, '{%s}ArmorTemplate' % NS,
+                              {'id': 'ParallelArmor%d' % index, 'Default': '50%'})
+        ET.SubElement(armor, '{%s}Armor' % NS, {'Damage': 'GUN', 'Percent': '25%'})
+    ET.ElementTree(tokenizers).write(data / 'ParallelTokenizers.xml', encoding='utf-8', xml_declaration=True)
+    shutil.copy2(data / 'ParallelTokenizers.xml', data / 'DuplicateTokenizers.xml')
     apt = repo / 'SDK/Mods/XmlCompilerRecoveryApt/Data'
     for name in ('FixturesApt.xml', 'fixture.bin', 'fixture-odd.bin', 'fixture-empty.bin'):
         shutil.copy2(apt / name, data / name)
@@ -48,7 +61,7 @@ def fixture(repo, mod):
     shutil.copy2(data / 'Dependencies.xml', data / 'DuplicateDependencies.xml')
     source_index = next(i for i, node in enumerate(includes) if node.get('source') == 'Dependencies.xml')
     includes.insert(source_index+1, ET.Element('{%s}Include' % NS, {'type':'all','source':'DuplicateDependencies.xml'}))
-    for name in ('ParallelAudio.xml', 'FixturesApt.xml'):
+    for name in ('ParallelAudio.xml', 'FixturesApt.xml', 'ParallelTokenizers.xml', 'DuplicateTokenizers.xml'):
         ET.SubElement(includes, '{%s}Include' % NS, {'type': 'all', 'source': name})
     # Repeated include exercises the pending-document reuse barrier.
     ET.SubElement(includes, '{%s}Include' % NS, {'type': 'all', 'source': 'ParallelAudio.xml'})
@@ -62,7 +75,7 @@ def run(args):
     mod = work / 'mixed'
     fixture(repo, mod)
     state = {'sourceCommit': args.source_commit, 'runId': os.environ.get('GITHUB_RUN_ID'),
-             'succeeded': False, 'cases': [], 'scope': 'Current production mixed W3X/Texture/XML/APT/Audio, cache/jobs switches, raw output bytes; full MOD and component certification separate'}
+             'succeeded': False, 'cases': [], 'scope': 'Current production mixed GameObject/Weapon/Armor/W3X/Texture/XML/APT/Audio, cache/jobs switches, raw output bytes; full MOD and component certification separate'}
 
     def invoke(mode, name, destination, jobs, sc=True, bc=True, extra=(), expected=0):
         exe = products / mode / 'bin/NewModCompiler.exe'
@@ -97,13 +110,15 @@ def run(args):
             if name.startswith('sc') and '-hot' not in name:
                 need(parallel['backendCallsByType'].get('W3DHierarchy') == 1 and parallel['backendCallsByType'].get('Texture') == 1,
                      'Identical assets in distinct documents were compiled more than once')
+                need(all(parallel['backendCallsByType'].get(kind) == 8 for kind in ('GameObject', 'WeaponTemplate', 'ArmorTemplate')),
+                     'Repeated tokenizer assets were compiled more than once or omitted')
             if name.startswith('sc') and '-hot' not in name and jobs != '1' and parallel['minimumEffectiveJobs'] > 1:
                 need(parallel['prepareMs'] > 0 and parallel['maxBackendConcurrency'] > 1,
                      'Production misses admitted workers but executed no real overlapping backend calls')
                 owner_threads = {interval['threadId'] for interval in parallel['backendIntervals'] if interval['typeName'] == 'Texture'}
                 worker_types = {interval['typeName'] for interval in parallel['backendIntervals'] if interval['threadId'] not in owner_threads}
                 if parallel['minimumEffectiveJobs'] > 1 and owner_threads:
-                    need({'W3DAnimation', 'W3DMesh', 'AudioFile', 'AptAptData', 'AptConstData', 'AptDatData', 'AptGeometryData', 'W3DHierarchy'} <= worker_types,
+                    need({'GameObject', 'WeaponTemplate', 'ArmorTemplate', 'W3DAnimation', 'W3DMesh', 'AudioFile', 'AptAptData', 'AptConstData', 'AptDatData', 'AptGeometryData', 'W3DHierarchy'} <= worker_types,
                          'An admitted certified family stayed behind the lazy production wrapper')
             need(not list(destination.glob('**/result.bin')) and not list(destination.glob('**/action-cache*')), 'Unexpected action cache output')
         row['passed'] = True; write(out / 'validation.json', state)

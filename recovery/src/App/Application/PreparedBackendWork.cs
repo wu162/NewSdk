@@ -11,8 +11,9 @@ namespace NewModCompiler.Application
 {
     // This is a backend input, not a serialized replacement for Core's semantic
     // front end. Prepare runs on the owner after schema/reference processing.
-    // The certified bridges consume XML + namespace bindings + type identity;
-    // none reads schema objects, another asset's payload or its owning processor.
+    // Certified backends only read the finalized XML, namespace bindings and
+    // type identity. Core keeps these alive through ordered commit/join; only
+    // CDATA writers need a separate declaration for their output pathname.
     internal sealed class PreparedBackendWork : IDisposable
     {
         readonly IAssetBuilderPlugin plugin;
@@ -32,7 +33,8 @@ namespace NewModCompiler.Application
             Family = family; this.plugin = plugin; this.declaration = declaration;
             this.inputLeases = inputLeases;
             PreparedBytes = preparedBytes; CanRunParallel = true;
-            foreach (FileStream input in inputLeases) ExternalReadBytes = checked(ExternalReadBytes + input.Length);
+            if (inputLeases != null)
+                foreach (FileStream input in inputLeases) ExternalReadBytes = checked(ExternalReadBytes + input.Length);
         }
 
         public static bool TryPrepare(InstanceDeclaration original, IAssetBuilderPlugin plugin,
@@ -60,12 +62,11 @@ namespace NewModCompiler.Application
             if (!Eligibility(original, plugin, out family, out reason)) return false;
 
             long preparationEstimate = EstimatePreparationBytes(original);
-            // Avoid first allocating an enormous private representation and
-            // only then discovering that the task exceeds the preparation pool.
-            // The owner compatibility path retains the original input contract.
+            // Bound the bridge's native input, scratch and output allocation.
+            // Sharing the DOM does not eliminate that per-call working set.
             if (preparationEstimate > preparationBudget) return Reject("preparation-budget-exceeded", out reason);
 
-            var leases = new List<FileStream>();
+            var leases = family == "audio" || (family == "xml" && IsApt(original.Handle.TypeId)) ? new List<FileStream>() : null;
             try
             {
                 // Only the certified backend's actual reopened files require
@@ -75,33 +76,17 @@ namespace NewModCompiler.Application
                 long retained = preparationEstimate;
                 if (family == "w3x") retained = W3xBudget(original.Node, retained);
                 else if (family == "xml") retained = ExternalReadBudget(leases, retained, 4L);
-                else retained = ExternalReadBudget(leases, retained,
+                else if (family == "audio") retained = ExternalReadBudget(leases, retained,
                     original.Handle.TypeId == AudioCatalog.AudioFileTypeId ? 64L : 4L);
                 if (retained > preparationBudget) return Reject("preparation-budget-exceeded", out reason);
-                var document = new XmlDocument { XmlResolver = null, PreserveWhitespace = true };
-                // Import into a private document and name table. All type IDs,
-                // reference slots, defaults and evaluated values were installed
-                // by the existing front end before this immutable copy is taken.
-                XmlNode node = CopyBackendXml(document, original.Node);
-                document.AppendChild(node);
-                var namespaces = new XmlNamespaceManager(document.NameTable);
-                var bindings = original.Document.NamespaceManager.GetNamespacesInScope(XmlNamespaceScope.All);
-                var prefixes = new List<string>(bindings.Keys);
-                foreach (string prefix in prefixes)
-                    if (prefix != "xml" && prefix != "xmlns") namespaces.AddNamespace(prefix, bindings[prefix]);
-                var frozen = new InstanceDeclaration(AssetDeclarationDocument.CreateBackendView(namespaces, original.Document.HasValidatedSchema));
-                frozen.XmlNode = node;
-                frozen.Handle.TypeHash = original.Handle.TypeHash;
-                frozen.Handle.InstanceHash = original.Handle.InstanceHash;
-                frozen.ProcessingHash = original.ProcessingHash;
-                frozen.HasCustomData = original.HasCustomData;
-                frozen.IsInheritable = original.IsInheritable;
-                frozen.CustomDataPath = original.CustomDataPath;
-                CopyReferences(original.ReferencedInstances, frozen.ReferencedInstances);
-                CopyReferences(original.WeakReferencedInstances, frozen.WeakReferencedInstances);
-                foreach (string file in original.ReferencedFiles) frozen.ReferencedFiles.Add(file);
-
-                prepared = new PreparedBackendWork(family, plugin, frozen, leases, retained);
+                // ProcessExpressions/ProcessOverrides/Validate finish before
+                // ProcessInstances. Pending documents cannot be reopened or made
+                // cacheable until their workers join; repeated assets flush before
+                // reassignment. No certified backend mutates XML, namespace bindings,
+                // handles or reference metadata. Keep that original input directly,
+                // including unspecified schema defaults and inherited XML context.
+                var input = original.HasCustomData ? original.CreateBackendView() : original;
+                prepared = new PreparedBackendWork(family, plugin, input, leases, retained);
                 leases = null; // Ownership moves to the envelope through commit.
                 return true;
             }
@@ -156,6 +141,21 @@ namespace NewModCompiler.Application
                 else if (type != AudioCatalog.Mp3PassthroughTypeId)
                     return Reject("uncertified-audio-type", out reason);
             }
+            else if (implementation == typeof(Recovered.GameObject.Plugin))
+            {
+                family = "gameobject";
+                if (original.Handle.TypeId != 2486173485u) return Reject("uncertified-tokenizer-type", out reason);
+            }
+            else if (implementation == typeof(Recovered.Weapon.Plugin))
+            {
+                family = "weapon";
+                if (original.Handle.TypeId != 2496977262u) return Reject("uncertified-tokenizer-type", out reason);
+            }
+            else if (implementation == typeof(Recovered.Compiler.Plugin))
+            {
+                family = "armor";
+                if (original.Handle.TypeId != 980180622u) return Reject("uncertified-tokenizer-type", out reason);
+            }
             else return Reject("uncertified-plugin", out reason);
 
             return true;
@@ -164,15 +164,18 @@ namespace NewModCompiler.Application
         public static long EstimatePreparationBytes(InstanceDeclaration original)
         {
             if (original == null || original.Node == null) return 0;
-            // Count the existing tree before allocating the private DOM. The
-            // allowance covers private node/string storage and reference metadata.
-            try { return checked(4096L + EstimateNode(original.Node)); }
+            // The bridges still marshal strings, maps, vectors and output buffers.
+            // Tokenized modules additionally emit data and procedure trees.
+            uint type = original.Handle.TypeId;
+            long multiplier = type == 2486173485u || type == 2496977262u || type == 980180622u ? 4L : 1L;
+            try { return checked(4096L + EstimateNode(original.Node) * multiplier); }
             catch (OverflowException) { return long.MaxValue; }
         }
 
         static long EstimateNode(XmlNode node)
         {
-            long characters = (long)node.Name.Length + node.NamespaceURI.Length + (node.Value == null ? 0L : node.Value.Length);
+            string value = node.Value;
+            long characters = (long)node.Name.Length + node.NamespaceURI.Length + (value == null ? 0L : value.Length);
             long bytes = checked(512L + characters * 8L);
             if (node.Attributes != null)
                 foreach (XmlAttribute attribute in node.Attributes) bytes = checked(bytes + EstimateNode(attribute));
@@ -184,37 +187,23 @@ namespace NewModCompiler.Application
         {
             if (disposed) throw new ObjectDisposedException("PreparedBackendWork");
             // W3X's initialized plugin only reads its immutable platform field;
-            // its backend consumes this private node/namespace view. Native
+            // its backend reads the finalized node/namespace bindings. Native
             // scratch and outputs are per-call; the only lazy native table is
             // const and built with C++17's thread-safe static initialization.
             // Certified XML routes use a per-call bridge tree and Relo::Tracker;
             // XmlPriority's optional trace writes already hold TraceGate. Audio
             // uses a stateless exact encoder, readonly tables and private CDATA.
-            // Other routes remain owner barriers, including Audio's Tracer paths.
+            // Tokenizers also use per-call native inputs/trackers/buffers and
+            // serialize only their optional shared trace index. Other routes
+            // remain owner barriers, including Audio's Tracer paths.
             return plugin.ProcessInstance(declaration);
         }
 
         public void Dispose()
         {
             if (disposed) return;
-            foreach (FileStream lease in inputLeases) lease.Dispose();
+            if (inputLeases != null) foreach (FileStream lease in inputLeases) lease.Dispose();
             disposed = true;
-        }
-
-        static XmlNode CopyBackendXml(XmlDocument document, XmlNode source)
-        {
-            if (source.NodeType != XmlNodeType.Element) return document.ImportNode(source, true);
-            XmlElement copy = document.CreateElement(source.Prefix, source.LocalName, source.NamespaceURI);
-            // XmlDocument.ImportNode deliberately drops unspecified default
-            // attributes. Schema validation has already made their values part
-            // of the real backend input, so copy every effective attribute.
-            foreach (XmlAttribute attribute in source.Attributes)
-            {
-                XmlAttribute value = document.CreateAttribute(attribute.Prefix, attribute.LocalName, attribute.NamespaceURI);
-                value.Value = attribute.Value; copy.Attributes.Append(value);
-            }
-            foreach (XmlNode child in source.ChildNodes) copy.AppendChild(CopyBackendXml(document, child));
-            return copy;
         }
 
         static bool Reject(string value, out string reason)
@@ -254,6 +243,7 @@ namespace NewModCompiler.Application
 
         static long ExternalReadBudget(List<FileStream> leases, long minimum, long multiplier)
         {
+            if (leases == null) return minimum;
             try
             {
                 long bytes = minimum;
@@ -292,16 +282,6 @@ namespace NewModCompiler.Application
             catch (UnauthorizedAccessException) { return Reject("external-input-unavailable", out reason); }
             catch (ArgumentException) { return Reject("external-input-path-invalid", out reason); }
             catch (NotSupportedException) { return Reject("external-input-path-invalid", out reason); }
-        }
-
-        static void CopyReferences(IEnumerable<InstanceHandle> source, List2<InstanceHandle> destination)
-        {
-            foreach (InstanceHandle handle in source)
-            {
-                var copy = new InstanceHandle(handle.TypeName, handle.InstanceName);
-                copy.TypeHash = handle.TypeHash; copy.InstanceHash = handle.InstanceHash;
-                destination.Add(copy);
-            }
         }
 
         static long W3xBudget(XmlNode root, long minimum)

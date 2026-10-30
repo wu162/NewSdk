@@ -114,11 +114,10 @@ public static class CompilerXmlBackendBatch
                 XmlNamespaceManager ignored;
                 var control = Declaration(route.TypeName, plugin, out ignored);
                 var frozen = (InstanceDeclaration)Prepared.GetProperty("Declaration").GetValue(envelope, null);
-                Need(!Object.ReferenceEquals(frozen.Node.OwnerDocument, declaration.Node.OwnerDocument), "Shared mutable input DOM: " + route.TypeName);
+                Need(Object.ReferenceEquals(frozen, declaration) && Object.ReferenceEquals(frozen.Node.OwnerDocument, declaration.Node.OwnerDocument) &&
+                    Object.ReferenceEquals(frozen.Document.NamespaceManager, namespaces), "Finalized metadata input was unnecessarily copied: " + route.TypeName);
                 // Worker execution comes first, including cold native module
-                // initialization. Owner mutations cannot reach its detached tree.
-                ((XmlElement)declaration.Node).SetAttribute("UnrecognizedOwnerMutation", "true");
-                namespaces.AddNamespace("ea", "urn:mutated-owner");
+                // initialization. Core leaves borrowed input unchanged until join.
                 work.Add(new Work { TypeName = route.TypeName, Family = (string)Policy.GetMethod("FamilyFor").Invoke(null, new object[] { route.TypeId }), Envelope = envelope, Control = control });
             }
             var expectedOwners = new HashSet<string>(new[] { "AptAptData", "AptConstData", "AptDatData", "AptGeometryData", "TestTexture" }, StringComparer.Ordinal);
@@ -178,7 +177,7 @@ public static class CompilerXmlBackendBatch
             var matrices = new List<object>();
             foreach (var platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) matrices.Add(Matrix(platform));
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, matrices,
-                scope = "Reviewed XML metadata modules: private minimal DOMs, cold bounded worker wave followed by serial owner raw three-buffer or exact rejection parity on four platforms. Minimal invalid inputs are explicitly recorded as rejection checks. This does not replace historical complex original-DLL matrices or prove every type is SDK-global or simultaneously overlaps in production." }));
+                scope = "Reviewed XML metadata modules: borrowed finalized minimal DOMs, cold bounded worker wave followed by serial owner raw three-buffer or exact rejection parity on four platforms. Minimal invalid inputs are explicitly recorded as rejection checks. This does not replace historical complex original-DLL matrices or prove every type is SDK-global or simultaneously overlaps in production." }));
             Console.WriteLine("PASS XmlBackendBatch: " + checks + " assertions"); return 0;
         }
         catch (Exception error) { Console.Error.WriteLine(error); return 1; }
