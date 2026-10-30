@@ -1,0 +1,10 @@
+{
+  "status": "failed",
+  "runId": 41014520586,
+  "sourceCommit": "e7cc584a08bd26375c2a8f64178c4eacceb54599",
+  "binarySourceCommit": "91b040d271b7a3cc25d32f0f923c018c740edf4a",
+  "artifactId": 12959660067,
+  "archiveSha256": "54bac4cf6b7004cad88140a5bd6b3400990bddad7813223353760b36418dacda",
+  "archiveDownloadedAndHashed": true,
+  "reason": "Single-stream fresh validation exhausted Win32 memory at 14110 parsed documents (schema-set copying); no hot result accepted. Split representative load into independent normal planner streams within one CLI build, retaining all duration and cache assertions."
+}

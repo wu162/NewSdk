@@ -26,18 +26,23 @@ class LoadChecks(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             mod = Path(temp)
             first = load.grow_fixture(mod, 0, 2)
-            before = {p.name: p.read_bytes() for p in (mod / 'Data').glob('armor-*.xml')}
+            before = {p.relative_to(mod): p.read_bytes() for p in (mod / 'Data').rglob('armor-*.xml')}
             second = load.grow_fixture(mod, 2, 4)
             for name, data in before.items():
-                self.assertEqual((mod / 'Data' / name).read_bytes(), data)
+                self.assertEqual((mod / name).read_bytes(), data)
             ns = '{uri:ea.com:eala:asset}'
-            includes = ET.parse(mod / 'Data/Mod.xml').getroot().findall(ns + 'Includes/' + ns + 'Include')
-            self.assertEqual(len(includes), 4)
-            nodes = [n for p in (mod / 'Data').glob('armor-*.xml') for n in ET.parse(p).getroot()]
+            entries = list((mod / 'Data/AdditionalMaps').glob('MapMetaData_*.xml'))
+            self.assertEqual(len(entries), load.STREAMS)
+            for entry in entries:
+                includes = ET.parse(entry).getroot().findall(ns + 'Includes/' + ns + 'Include')
+                self.assertEqual(len(includes), 4)
+                for node in includes:
+                    self.assertTrue((entry.parent / node.get('source')).is_file())
+            nodes = [n for p in (mod / 'Data').rglob('armor-*.xml') for n in ET.parse(p).getroot()]
             self.assertEqual(len(nodes), second['assets'])
             self.assertEqual(len({n.get('id') for n in nodes}), second['assets'])
-            self.assertEqual(first['assets'], 8)
-            self.assertEqual(second['newDocuments'], 2)
+            self.assertEqual(first['assets'], 8 * load.STREAMS)
+            self.assertEqual(second['newDocuments'], 2 * load.STREAMS)
 
 
 if __name__ == '__main__':

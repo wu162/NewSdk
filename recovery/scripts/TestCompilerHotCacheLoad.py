@@ -18,9 +18,10 @@ BINARY_SOURCE = '91b040d271b7a3cc25d32f0f923c018c740edf4a'
 SOURCE_RUN = 41010073140
 ARTIFACT_ID = 12957004213
 ARCHIVE_SHA256 = '9f8b1ad1bba8c3f330475586496722773714fa99143d75adf136ae464493680c'
-# The bounded calibration measured 3.491s at 8192 documents and 6.767s
-# at 16384. Use one selected load, avoiding repeated calibration warmups.
-DOCUMENT_LEVELS = (21504,)
+# Keep each stream below the observed Win32 schema-validation memory boundary.
+# One CLI build discovers all independent input streams through normal planning.
+DOCUMENT_LEVELS = (6144,)
+STREAMS = 3
 ASSETS_PER_DOCUMENT = 4
 
 
@@ -96,23 +97,30 @@ def prepare_runtime(repo, work):
     return stage_runtime(build, BINARY_SOURCE, work / 'runtime')
 
 
-def grow_fixture(mod, previous, documents, asset_names=None):
+def grow_fixture(mod, previous, documents, asset_names=None, streams=STREAMS):
     """Append documents/assets; keep prior documents byte-identical for reuse."""
     need(0 <= previous < documents, 'Fixture must grow')
-    data = mod / 'Data'
+    data = mod / 'Data/AdditionalMaps'
     data.mkdir(parents=True, exist_ok=True)
     asset_names = asset_names or AssetNames()
-    names = asset_names.extend(documents * ASSETS_PER_DOCUMENT)
-    for index in range(previous, documents):
-        assets = ''.join('<ArmorTemplate id="%s" Default="72.5%%"/>' % names[asset]
-                         for asset in range(index * ASSETS_PER_DOCUMENT, (index + 1) * ASSETS_PER_DOCUMENT))
-        (data / ('armor-%05d.xml' % index)).write_text(declaration(assets), encoding='utf-8')
-    includes = ''.join('<Include type="all" source="armor-%05d.xml"/>' % i for i in range(documents))
-    (data / 'Mod.xml').write_text(declaration('<Includes>' + includes + '</Includes>'), encoding='utf-8')
-    return {'documents': documents + 1, 'armorDocuments': documents,
-            'assets': documents * ASSETS_PER_DOCUMENT, 'newDocuments': documents - previous,
+    names = asset_names.extend(streams * documents * ASSETS_PER_DOCUMENT)
+    for stream in range(streams):
+        directory = data / ('load-%02d' % stream)
+        directory.mkdir(exist_ok=True)
+        for index in range(previous, documents):
+            # Interleave streams so appending documents preserves existing IDs.
+            first = (index * streams + stream) * ASSETS_PER_DOCUMENT
+            assets = ''.join('<ArmorTemplate id="%s" Default="72.5%%"/>' % names[asset]
+                             for asset in range(first, first + ASSETS_PER_DOCUMENT))
+            (directory / ('armor-%05d.xml' % index)).write_text(declaration(assets), encoding='utf-8')
+        includes = ''.join('<Include type="all" source="load-%02d/armor-%05d.xml"/>' % (stream, i)
+                           for i in range(documents))
+        (data / ('MapMetaData_Load%02d.xml' % stream)).write_text(declaration('<Includes>' + includes + '</Includes>'), encoding='utf-8')
+    return {'documents': streams * (documents + 1), 'armorDocuments': streams * documents,
+            'streams': streams, 'documentsPerStream': documents,
+            'assets': streams * documents * ASSETS_PER_DOCUMENT, 'newDocuments': streams * (documents - previous),
             'hashCollisionsSkipped': asset_names.skipped,
-            'scope': 'Synthetic Armor document/asset scale, loose base stream; not full Upheaval or a complete MOD'}
+            'scope': 'Synthetic Armor metadata streams, one CLI build, loose outputs; not full Upheaval or a complete MOD'}
 
 
 def meets_minimum(durations, minimum):
@@ -123,7 +131,7 @@ def save(out, state):
     write(out / 'load.json', state)
     lines = ['# Hot-cache workload duration floor', '', 'Status: ' + state['status'], '',
              'Each hot sample is one fresh compiler process with real retained caches. No sleep or inner repetition.',
-             'Summary profiling; loose base stream. Wall time includes startup/build/publication, excludes byte comparison.',
+             'Summary profiling; independent metadata streams in one CLI build, loose outputs. Wall includes startup/build/publication, excludes byte comparison.',
              'Fixture growth, preparation, warmups, comparisons and all hot samples share the total load budget.', '',
              '| Documents | Assets | Phase | Process seconds | XML parses | Compiles | Reused documents |',
              '| ---: | ---: | --- | ---: | ---: | ---: | ---: |']
@@ -170,13 +178,13 @@ def run(args):
             evidence = out / label
             evidence.mkdir()
             command = [str(runtime / 'NewModCompiler.exe'), 'build', '--sdk-root', str(repo / 'SDK'),
-                       '--mod', str(mod), '--out', str(destination), '--package-content', 'base',
+                       '--mod', str(mod), '--out', str(destination), '--package-content', 'maps',
                        '--package-format', 'loose', '--include-additional=false', '--jobs', '4', '--performance', 'summary']
             row = {'label': label, 'phase': phase, 'fixture': fixture, 'status': 'started', 'command': command}
             state['samples'].append(row)
             write(evidence / 'request.json', row)
             save(out, state)
-            before = {p.name: p.stat().st_mtime_ns for p in (destination / 'published').rglob('*') if p.is_file()}
+            before = {p.relative_to(destination).as_posix(): p.stat().st_mtime_ns for p in (destination / 'published').rglob('*') if p.is_file()}
             tick = time.perf_counter()
             try:
                 with (evidence / 'stdout.log').open('wb') as stdout, (evidence / 'stderr.log').open('wb') as stderr:
@@ -199,12 +207,13 @@ def run(args):
             validate_sample(report, 'both-deflate', 'hot' if phase.startswith('hot') else 'warmup')
             need(report['diagnosticCounts']['error'] == 0, 'Compilation errors')
             content = published(destination, report)
-            need(len(content) == 4 and {Path(p).suffix for p in content} == {'.manifest', '.bin', '.imp', '.relo'},
-                 'Expected exactly four linked output files')
+            need(len(content) == 4 * fixture['streams'] and {Path(p).suffix for p in content} == {'.manifest', '.bin', '.imp', '.relo'},
+                 'Expected exactly four linked output files per independent stream')
             row['counters'] = report['performance']['counters']
             if phase.startswith('hot'):
-                after = {p.name: p.stat().st_mtime_ns for p in (destination / 'published').rglob('*') if p.is_file()}
+                after = {p.relative_to(destination).as_posix(): p.stat().st_mtime_ns for p in (destination / 'published').rglob('*') if p.is_file()}
                 validate_hot(report, 'both-deflate', 'loose', before, after, has_payload=False)
+                need(report['cache']['linkedStreamsRestored'] == fixture['streams'], 'Not all streams restored hot linked output')
                 need(content == baseline, 'Hot output raw bytes differ from warmup')
                 need(not any(c['name'] == 'cache.invalidation.reloads' and c['value'] for c in row['counters']),
                      'Hot workload contained invalidations')
