@@ -816,7 +816,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC1(uint8_t* pBC, const XMVECTOR*
 //-------------------------------------------------------------------------------------
 // BC2 Compression
 //-------------------------------------------------------------------------------------
-_Use_decl_annotations_ void DirectX::D3DXDecodeBC2(XMVECTOR* pColor, const uint8_t* pBC) noexcept
+_Use_decl_annotations_ void DirectX::D3DXDecodeBC2(XMVECTOR* pColor, const uint8_t* pBC, bool dds) noexcept
 {
     assert(pColor && pBC);
     static_assert(sizeof(D3DX_BC2) == 16, "D3DX_BC2 should be 16 bytes");
@@ -832,13 +832,13 @@ _Use_decl_annotations_ void DirectX::D3DXDecodeBC2(XMVECTOR* pColor, const uint8
     for (size_t i = 0; i < 8; ++i, dw >>= 4)
     {
 #pragma prefast(suppress : 22103, "writing blocks in two halves confuses tool")
-        pColor[i] = XMVectorSetW(pColor[i], LegacyByte((dw & 0xf) * 17));
+        pColor[i] = XMVectorSetW(pColor[i], (dds ? static_cast<float>(static_cast<double>(dw & 0xf) * 0.06666667014360428) : LegacyByte((dw & 0xf) * 17)));
     }
 
     dw = pBC2->bitmap[1];
 
     for (size_t i = 8; i < NUM_PIXELS_PER_BLOCK; ++i, dw >>= 4)
-        pColor[i] = XMVectorSetW(pColor[i], LegacyByte((dw & 0xf) * 17));
+        pColor[i] = XMVectorSetW(pColor[i], (dds ? static_cast<float>(static_cast<double>(dw & 0xf) * 0.06666667014360428) : LegacyByte((dw & 0xf) * 17)));
 }
 
 _Use_decl_annotations_ void DirectX::D3DXEncodeBC2(uint8_t* pBC, const XMVECTOR* pColor, uint32_t flags) noexcept
@@ -913,7 +913,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC2(uint8_t* pBC, const XMVECTOR*
 //-------------------------------------------------------------------------------------
 // BC3 Compression
 //-------------------------------------------------------------------------------------
-_Use_decl_annotations_ void DirectX::D3DXDecodeBC3(XMVECTOR* pColor, const uint8_t* pBC) noexcept
+_Use_decl_annotations_ void DirectX::D3DXDecodeBC3(XMVECTOR* pColor, const uint8_t* pBC, bool dds) noexcept
 {
     assert(pColor && pBC);
     static_assert(sizeof(D3DX_BC3) == 16, "D3DX_BC3 should be 16 bytes");
@@ -932,12 +932,12 @@ _Use_decl_annotations_ void DirectX::D3DXDecodeBC3(XMVECTOR* pColor, const uint8
     if (pBC3->alpha[0] > pBC3->alpha[1])
     {
         for (size_t i = 1; i < 7; ++i)
-            fAlpha[i + 1] = LegacyAlphaPalette(fAlpha[0], fAlpha[1], i, 7);
+            fAlpha[i + 1] = dds ? static_cast<float>((static_cast<double>(fAlpha[0]) * (7 - i) + static_cast<double>(fAlpha[1]) * i) * 0.1428571492433548) : LegacyAlphaPalette(fAlpha[0], fAlpha[1], i, 7);
     }
     else
     {
         for (size_t i = 1; i < 5; ++i)
-            fAlpha[i + 1] = LegacyAlphaPalette(fAlpha[0], fAlpha[1], i, 5);
+            fAlpha[i + 1] = dds ? static_cast<float>((static_cast<double>(fAlpha[0]) * (5 - i) + static_cast<double>(fAlpha[1]) * i) * 0.20000000298023224) : LegacyAlphaPalette(fAlpha[0], fAlpha[1], i, 5);
 
         fAlpha[6] = 0.0f;
         fAlpha[7] = 1.0f;

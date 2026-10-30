@@ -317,8 +317,8 @@ namespace DirectX
     typedef void (*BC_ENCODE)(uint8_t* pDXT, const XMVECTOR* pColor, uint32_t flags);
 
     void D3DXDecodeBC1(_Out_writes_(NUM_PIXELS_PER_BLOCK) XMVECTOR* pColor, _In_reads_(8) const uint8_t* pBC) noexcept;
-    void D3DXDecodeBC2(_Out_writes_(NUM_PIXELS_PER_BLOCK) XMVECTOR* pColor, _In_reads_(16) const uint8_t* pBC) noexcept;
-    void D3DXDecodeBC3(_Out_writes_(NUM_PIXELS_PER_BLOCK) XMVECTOR* pColor, _In_reads_(16) const uint8_t* pBC) noexcept;
+    void D3DXDecodeBC2(_Out_writes_(NUM_PIXELS_PER_BLOCK) XMVECTOR* pColor, _In_reads_(16) const uint8_t* pBC, bool dds = false) noexcept;
+    void D3DXDecodeBC3(_Out_writes_(NUM_PIXELS_PER_BLOCK) XMVECTOR* pColor, _In_reads_(16) const uint8_t* pBC, bool dds = false) noexcept;
     void D3DXDecodeBC4U(_Out_writes_(NUM_PIXELS_PER_BLOCK) XMVECTOR* pColor, _In_reads_(8) const uint8_t* pBC) noexcept;
     void D3DXDecodeBC4S(_Out_writes_(NUM_PIXELS_PER_BLOCK) XMVECTOR* pColor, _In_reads_(8) const uint8_t* pBC) noexcept;
     void D3DXDecodeBC5U(_Out_writes_(NUM_PIXELS_PER_BLOCK) XMVECTOR* pColor, _In_reads_(16) const uint8_t* pBC) noexcept;

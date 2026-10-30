@@ -39,3 +39,12 @@ extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcCopySurfa
     void*, std::int32_t, std::uint32_t, std::uint32_t, std::uint32_t,
     const Recovered::TextureCompiler::NativeCopyAbi::Point*, const void*, std::int32_t,
     std::uint32_t, const Recovered::TextureCompiler::NativeCopyAbi::Rect*, std::uint32_t, float);
+
+// D3DX file/mip rows use A4/15 and weighted-sum BC3 alpha, then the
+// original stored-reciprocal unpremultiplication. D3DX encode premultiplies.
+extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcDecodeDdsImage(
+    const void*, std::int32_t, std::uint32_t, std::uint32_t, std::uint32_t,
+    float*, std::int32_t);
+extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcEncodeDdsImage(
+    void*, std::int32_t, std::uint32_t, std::uint32_t, std::uint32_t,
+    const float*, std::int32_t, std::uint32_t, float, std::uint32_t);

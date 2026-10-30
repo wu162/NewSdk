@@ -6,3 +6,5 @@ EXPORTS
  TexturePublicBcEncodeImage=_TexturePublicBcEncodeImage@40
  TexturePublicBcCreateFromDds=_TexturePublicBcCreateFromDds@24
  TexturePublicBcCopySurface=_TexturePublicBcCopySurface@48
+ TexturePublicBcDecodeDdsImage=_TexturePublicBcDecodeDdsImage@28
+ TexturePublicBcEncodeDdsImage=_TexturePublicBcEncodeDdsImage@40

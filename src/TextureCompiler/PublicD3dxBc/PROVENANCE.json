@@ -12,13 +12,13 @@
     },
     {
       "path": "BC.cpp",
-      "bytes": 37132,
-      "sha256": "0d40f620e1cc0a29165c5f54eba3a91d7e4677055ef1b49e10764ce0312ebd86"
+      "bytes": 37575,
+      "sha256": "a071c70d86c74287e8ac49abe4fd170f1a3906b64d6f3ab2838d8fe4ff276f48"
     },
     {
       "path": "BC.h",
-      "bytes": 13382,
-      "sha256": "1380b2a9ced176044d40060d43d56b587dec9300568c6f87a4c79164562a45b4"
+      "bytes": 13418,
+      "sha256": "f3a77db474cb13b6295e03000278301569e548c1265ed6a09208b56a042f8764"
     },
     {
       "path": "TextureBcP.h",
@@ -27,18 +27,18 @@
     },
     {
       "path": "TexturePublicBcApi.cpp",
-      "bytes": 5634,
-      "sha256": "b996f98274a88dbdd8553cf9aeaa55625e9a6c86e367115f6b44c827519369a4"
+      "bytes": 7364,
+      "sha256": "11f07821a84cfbf1cc3bee869d75eaa732374dffa4a42c99eb31ba0927baec2b"
     },
     {
       "path": "TexturePublicBcApi.def",
-      "bytes": 400,
-      "sha256": "7db02b6c3f1293137ea90e11b44361cc398e8722fd70590511d24f72dce22c10"
+      "bytes": 530,
+      "sha256": "7156acfa3a1453e9cef0615028408b2f79d444b433fefe3b511d71611cb30468"
     },
     {
       "path": "TexturePublicBcApi.h",
-      "bytes": 2778,
-      "sha256": "b047ebf133ef27b8ddf2c2f7ae2a7afb788d201de0dfbfc7fd328fad4b411df2"
+      "bytes": 3343,
+      "sha256": "0938896095641592a006c2efdef14c87627fe606344abc92670468694b0cd5a3"
     },
     {
       "path": "TexturePublicBcCopy.cpp",
@@ -47,8 +47,8 @@
     },
     {
       "path": "TexturePublicBcDds.cpp",
-      "bytes": 6594,
-      "sha256": "d17a6911b8cf3b824b4adf0ff4f276297607bd73bbe8064981a57341d00cdda4"
+      "bytes": 6606,
+      "sha256": "faae0af920a6e31a3f0ec6a380cf1aace4cbbe7b86951d00ef81eaa8c94d01fb"
     },
     {
       "path": "upstream/BC.cpp",

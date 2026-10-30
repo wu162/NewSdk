@@ -85,8 +85,8 @@ extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcCreateFro
                     std::memcpy(static_cast<unsigned char*>(target.rect.bits) + std::size_t(row) * target.rect.pitch, bytes + offset + std::size_t(row) * pitch, pitch);
             } else {
                 std::vector<float> pixels(std::size_t(w) * h * 4);
-                status = TexturePublicBcDecodeImage(bytes + offset, pitch, w, h, format, pixels.data(), w * 16); if (status < 0) return status;
-                status = TexturePublicBcEncodeImage(target.rect.bits, target.rect.pitch, w, h, format, pixels.data(), w * 16, flags, threshold, edgePolicy); if (status < 0) return status;
+                status = TexturePublicBcDecodeDdsImage(bytes + offset, pitch, w, h, format, pixels.data(), w * 16); if (status < 0) return status;
+                status = TexturePublicBcEncodeDdsImage(target.rect.bits, target.rect.pitch, w, h, format, pixels.data(), w * 16, flags, threshold, edgePolicy); if (status < 0) return status;
             }
             offset += pitch * rows; w = std::max(1u, w >> 1); h = std::max(1u, h >> 1);
         }
@@ -95,12 +95,12 @@ extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcCreateFro
             std::vector<float> pixels(std::size_t(sw) * sh * 4);
             {
                 Lock previous(resource.p, level - 1); auto status = previous.acquire(); if (status < 0) return status;
-                status = TexturePublicBcDecodeImage(previous.rect.bits, previous.rect.pitch, sw, sh, format, pixels.data(), sw * 16); if (status < 0) return status;
+                status = TexturePublicBcDecodeDdsImage(previous.rect.bits, previous.rect.pitch, sw, sh, format, pixels.data(), sw * 16); if (status < 0) return status;
             }
             auto filtered = Box(pixels, sw, sh);
             Lock target(resource.p, level); auto status = target.acquire(); if (status < 0) return status;
             const U tw = std::max(1u, sw >> 1), th = std::max(1u, sh >> 1);
-            status = TexturePublicBcEncodeImage(target.rect.bits, target.rect.pitch, tw, th, format, filtered.data(), tw * 16, flags, threshold, edgePolicy); if (status < 0) return status;
+            status = TexturePublicBcEncodeDdsImage(target.rect.bits, target.rect.pitch, tw, th, format, filtered.data(), tw * 16, flags, threshold, edgePolicy); if (status < 0) return status;
         }
         *output = resource.detach(); return 0;
     } catch (const std::bad_alloc&) { return OutOfMemory; }

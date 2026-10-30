@@ -77,3 +77,17 @@ The latest unvalidated source now forces the exact stored float byte inverse
 this avoids x87 retaining the 1.f/255.f division until multiplication. Together
 with the right-product store, it needs current-source Actions verification.
 No extra diagnostic or final matrix was triggered for the saved precision fix.
+
+
+2026-10-30 continuation: ce16e990/41010488699 verifies all1536 complete XG
+float decode blocks and all1536 flags0 encode blocks in D/R, with identical
+capture3c56bb03...; full DDS still86 wrap mismatches. New unvalidated adaptation
+separates file-codec A4/15 and weighted-sum BC3 alpha from XG byte-normalized
+alpha, and includes the original D3DX premultiply wrapper on file encodes.
+The original static global at RVA b8914 is1: D3DX decodes unpremultiply and
+encodes premultiply (28385/4c901), independently of XG's flags0x12.
+BC1 file encoding uses the original0.5 alpha threshold. The diagnostic retains
+all old XG and full-resource comparisons and adds1536 complete direct file
+codec comparisons (including original repeated no-dither/dither outputs) to
+locate any remaining general-rule differences. This checkpoint is unvalidated;
+no production backend or acceptance boundary changes.
