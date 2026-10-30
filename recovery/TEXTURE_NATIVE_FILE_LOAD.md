@@ -45,3 +45,5 @@
 首轮41051807572宿主对子矩形错误使用普通像素单位，首张128×128 DXT1读取越过8192字节VM。原LockRect按`top*returnedPitch+left*Bits/8`偏移；正确同一逻辑crop4/4编码为left16/top1，解码宽高仍各减4。修正消费宿主并硬断言每次读取span位于owned VM，三种锁定、双完整RGBA、全部原矩阵保留，独立surface任意raw矩形ABI矩阵不改。
 
 下一独立分支`validation/texture-native-raster-integration`已实现JPEG/PPM与灰度L8，并在75bcf843/41054121354仅编译通过；13722源的原生资源/消费全差分尚未运行，不能把现有managed JPEG/PPM成功或该compiled-only升级为原生支持。新ABI未进入生产六DLL包，本轮无SDK/MOD。
+
+存储修复`7609c0b6`已普通保存，Linux计划41056117290成功：11项存储/19项选择器检查通过、64组件复用、Windows skipped；原source2883373b的实际受影响输入与收据原字节均保持相同。

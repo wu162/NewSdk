@@ -157,5 +157,19 @@
       }
     ]
   },
-  "componentAcceptanceInputsUnchangedAfterStorageRecovery": true
+  "componentAcceptanceInputsUnchangedAfterStorageRecovery": true,
+  "storageRecovery": {
+    "commit": "7609c0b6086f46ce11df5e50a7e8297c3ef1ba6c",
+    "ordinaryPushSaved": true,
+    "linuxOnlyRunId": "41056117290",
+    "linuxOnlyConclusion": "success",
+    "storageTests": 11,
+    "selectionTests": 19,
+    "selected": [],
+    "reusedComponents": 64,
+    "windowsExecuted": false,
+    "artifactId": 12976393109,
+    "artifactSha256": "823780e27b71dd80c6575fafa22c2242c7eff1f9d8edcc6b7e6e79a2e4b8ceab"
+  },
+  "sourceInputsUnchangedThroughCommit": "7609c0b6086f46ce11df5e50a7e8297c3ef1ba6c"
 }
