@@ -1,5 +1,7 @@
 # 原 SDK 缓存分支：全认证后端并行实现与验收
 
+> 此页为6d39f833旧实现的历史快照。当前5be40ac4已开放GameObject/Weapon/Armor并删除准备阶段深拷贝，且统一验收通过；见[本轮结果](TOKENIZER_PARALLEL_INPUT.md)与[续接入口](../RESUME.md)。
+
 2026-10-30（上海时间）。成果集中在 `recovery/legacy-sdk-cache`。生产源码/二进制来源 **`6d39f833bfbad40e3576b5517e1da685a995a77a`**；性能控制器来源 **`02987cbc41e6d4ba62469c62aa22fc73830b5a28`**；后续提交只归档文档与证据。起点 `096f60db`，参考 `054e8d9a`。未合并其它主分支，未强推，未发布 Release。
 
 ## 实际交付

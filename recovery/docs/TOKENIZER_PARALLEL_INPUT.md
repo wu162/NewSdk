@@ -1,6 +1,6 @@
 # Tokenizer 并行与借用后端输入
 
-2026-10-30，`recovery/legacy-sdk-cache`。本轮基于 fbf51cee；实现与测试已提交后由生命周期工作流统一重建验证。旧实现的二进制与验收见 [历史记录](BACKEND_PARALLEL_MIGRATION.md)，不能代替本轮结果。
+2026-10-30，`recovery/legacy-sdk-cache`。本轮基于 fbf51cee；生产源码、测试和新编译二进制均为 `5be40ac421fa4562654d34cc3d62050eca7a389e`，统一验收 [40983673225](https://github.com/wu162/NewSdk/actions/runs/40983673225) **success**。旧实现的二进制与验收见 [历史记录](BACKEND_PARALLEL_MIGRATION.md)，不能代替本轮结果。
 
 ## 开放的三种类型
 
@@ -30,4 +30,23 @@
 
 ## 集中验证范围
 
-新增生产夹具的24个 tokenizer 资产及其重复文档已通过原 SDK aggregate Schema；缓存/jobs 矩阵要求每类只编译8次，并确认三类都实际进入 worker。组件用同一 DOM/NameTable 的36次 tokenizer 调用覆盖四平台0/1/2/99，比较三缓冲、DOM 未修改及 trace 索引24条/类型；原 XML284×四平台矩阵继续执行。原缓存热态零准备、部分失败/重试、真实 CtrlBreak/native drain、mymod 原 BAB 四流/BIG/SKUDEF 与完整 Upheaval 同 VM jobs1/4/auto 均由既有生命周期工作流统一执行。最终运行来源和真实通过范围回填 RESUME。
+新增生产夹具的24个 tokenizer 资产及其重复文档已通过原 SDK aggregate Schema；缓存/jobs 矩阵要求每类只编译8次，并确认三类都实际进入 worker。组件用同一 DOM/NameTable 的36次 tokenizer 调用覆盖四平台0/1/2/99，比较三缓冲、DOM 未修改及 trace 索引24条/类型；原 XML284×四平台矩阵继续执行。原缓存热态零准备、部分失败/重试、真实 CtrlBreak/native drain、mymod 原 BAB 四流/BIG/SKUDEF 与完整 Upheaval 同 VM jobs1/4/auto 均由既有生命周期工作流统一执行。以上范围均已在本轮 Debug/Release 新构建上通过；完整结果见下文。
+
+
+## 新验收与性能结果
+
+来源：源码/测试/二进制 `5be40ac4`，运行40983673225，artifact12947247376。原ZIP归档SHA256 `8b4be2840e1feb7b27c48135139f81cf890a89e53630053d2f9701f1837288c5` 已实际下载复算匹配。Release五文件ZIP SHA256 `0a79bdf99ac31d3b365fdaafc3fec5f4c263dd48d975b58766ced1e1b8f75638`；二进制和每个原收据身份见[摘要](../evidence/refactor/tokenizer-parallel/40983673225-1/summary.json)。完整原收据、日志、对照输出及二进制保留在[运行归档](https://github.com/wu162/NewSdk/actions/runs/40983673225/artifacts/12947247376)。
+
+- 三 tokenizer 同一DOM/NameTable worker波在Debug/Release、平台0/1/2/99均真实峰值4，三缓冲逐字节一致、原DOM未修改、trace索引完整。XML284×四平台保持全部通过。
+- 64个生产缓存/jobs用例通过，三类8资产各只编译8次，重复文档/同资产复用屏障和worker路由均验证。原BAB差分、实际CtrlBreak、native失败/取消join、全部缓存组、完整mymod原SDK四流/BIG/SKUDEF/Additional和独立五文件包门槛全部通过。
+- 完整Upheaval仍为2,723文件/5流/每冷3354后端调用；121 GameObject、108 WeaponTemplate、12 ArmorTemplate加入worker。非认证插件回退117次，正好为115 Texture+2 OnDemandTexture；10次大任务预算回退保留。旧358次非认证回退减少241次，由此次路由范围直接解释。
+
+| jobs | 无缓存冷秒 | 默认冷秒 | 默认热中位秒 | 单资产修改秒 | detailed准备秒 | 后端峰值 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 70.480 | 73.489 | 2.823 | 3.092 | 0 | 1 |
+| 4 | 41.610 | 43.611 | 2.868 | 3.098 | 2.126 | 4 |
+| auto | 41.716 | 43.632 | 2.823 | 3.104 | 2.029 | 4 |
+
+本轮同VM默认冷jobs4比jobs1耗时减少40.7%。22样本全部0错误、1859原警告；18个原输入样本完整BIG/SKUDEF一致，4个修改样本与独立串行改变流重建一致；热缓存三档均xmlParse/instanceCompile/prepareMs为0。单动画修改只重编译1资产、解析1文档。
+
+旧实现准备阶段jobs4/auto为4.561/4.710秒，本轮2.126/2.029秒；旧结果来自不同VM，不能把差值当作严格的去拷贝收益。此次确定删除的是复制操作本身，吞吐表比较的是同一新二进制的jobs档位。每档冷一次、热两次，未控制OS页缓存；off用于吞吐、detailed用于归因，累计阶段不可相加。派生[计量摘要](../evidence/refactor/tokenizer-parallel/40983673225-1/measurement-summary.json)、[生产矩阵](../evidence/refactor/tokenizer-parallel/40983673225-1/production-cases.json)和两配置组件收据均已归档；摘要明确记录原始归档路径和原收据SHA256，原始完整报告保留在运行ZIP。

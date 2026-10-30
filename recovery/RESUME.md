@@ -1,9 +1,11 @@
-# Tokenizer 并行与准备阶段去拷贝：实现完成，Windows 验证待运行
+# Tokenizer 并行与输入准备去拷贝：实现及统一验收完成
 
-成果分支仍为 `recovery/legacy-sdk-cache`，本轮基于 `fbf51cee`。直接开放精确内建 GameObject、WeaponTemplate、ArmorTemplate 的 worker 资格；未改变类型/处理哈希、旧缓存格式或 jobs 身份。三种插件可选 trace 的共享索引写入已同步。
+成果分支 `recovery/legacy-sdk-cache`；生产源码/二进制/测试来源 `5be40ac421fa4562654d34cc3d62050eca7a389e`。本轮基于 `fbf51cee`，后续提交仅归档文档和证据。禁止强推；未合并其它主线，未发布 Release。
 
-根据 Core 生命周期和实际后端读取闭包，删除 XML DOM、NameTable、namespace bindings、句柄和引用集合的深拷贝；无 CDATA 的任务直接使用原声明，CDATA 任务只浅拷贝声明状态以隔离输出路径。删除调度器重复的整树估算和无外部输入任务的租约列表分配。原生字符串/输入树、Tracker、输出三缓冲及外部文件租约继续保留，原因见 [本轮源码依据](docs/TOKENIZER_PARALLEL_INPUT.md)。
+已开放精确内建 GameObject、WeaponTemplate、ArmorTemplate worker 资格；按 Core 生命周期直接删除 XML DOM、NameTable、namespace bindings、句柄和引用集合深拷贝。普通任务使用原声明，CDATA 任务只浅拷贝状态以隔离输出路径。删除调度器重复整树估算和无文件任务的租约集合。三种可选 trace 共享索引写入已同步，旧缓存/哈希及 owner 验证提交/失败取消 join 保留。
 
-本地已通过 Python 语法、新增生产 fixture 的原 SDK Schema 预检及 diff 检查。四平台 worker/trace、284 XML 路由、Debug/Release 生产缓存/jobs 矩阵、失败取消、原 BAB/mymod 和完整 Upheaval 性能由 `[refactor-core-lifecycle]` 统一重建验证；当前尚未取得本轮 Windows 结果，不能复用旧二进制冒充通过。
+统一新验收 [40983673225](https://github.com/wu162/NewSdk/actions/runs/40983673225) **success**：Debug/Release 完整构建、三 tokenizer×四平台 worker/trace/三缓冲、XML284×四平台、64生产缓存/jobs用例、原BAB、CtrlBreak、缓存冷热/失效/重试、完整未裁剪mymod原SDK四流/BIG/Additional和五文件包全部通过，没有复用旧二进制。原归档8b4be284…已实际下载复算匹配。
 
-上一轮已验收生产源码 `6d39f833`、功能运行 [40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929) 与性能 [40920804580](https://github.com/wu162/NewSdk/actions/runs/40920804580) 只适用于旧实现。原验收与计量保留于 [历史迁移记录](docs/BACKEND_PARALLEL_MIGRATION.md)。禁止强推；未合并其它主线，未发布 Release。
+完整 Upheaval 同VM 22样本全部0错误、1859原警告、输出原字节一致。默认冷jobs1/4/auto为73.489/43.611/43.632秒，jobs4比jobs1耗时减少40.7%；无缓存冷70.480/41.610/41.716秒。三类实际调用121/108/12全部取得worker资格，未知插件owner回退从旧记录358降至117；10个大任务预算回退保留。准备阶段本轮jobs4/auto为2.126/2.029秒；旧4.561/4.710秒来自不同VM，不作为严格前后性能对照。热态零解析/编译/准备，单动画修改仅编译1资产并与独立串行重建一致。
+
+[源码依据和完整新结果](docs/TOKENIZER_PARALLEL_INPUT.md)；[新收据摘要](evidence/refactor/tokenizer-parallel/40983673225-1/summary.json)；[计量](evidence/refactor/tokenizer-parallel/40983673225-1/measurement.md)。冷每档一次/热两次，OS缓存未控；不宣称游戏内验收。旧实现与证据保留于[历史迁移记录](docs/BACKEND_PARALLEL_MIGRATION.md)。
