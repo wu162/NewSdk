@@ -1,9 +1,14 @@
 $ErrorActionPreference='Stop';$root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/native-loader/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT";$work=Join-Path $env:RUNNER_TEMP ('texture-native-loader-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='PC owned 2D CPU resource creation and actual raw DDS partial/complete-chain/BOX missing-mip and POT/NPOT TGA24/32 raw/RLE plus raw DDS per-provided-level DirectXTex triangle file loading; 105 compressed DDS original successes remain explicitly unsupported with separate full original snapshots; full original native headers/VM/packed tails/BOX mips/descriptors/locks/copies/release, Debug/Release and independent NoOriginal; compressed missing mip/additional codecs/production SDK/mixed-mode identity excluded';configurations=@();sourceFixtures=@()}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='PC owned 2D CPU resource creation and actual raw DDS partial/complete-chain/BOX missing-mip and POT/NPOT TGA24/32 raw/RLE, stb BMP24/32 BI_RGB seven DIB revisions/colors/gap/profile, plus raw DDS per-provided-level DirectXTex triangle file loading; 105 compressed DDS original successes remain explicitly unsupported with separate full original snapshots; full original native headers/VM/packed tails/BOX mips/descriptors/locks/copies/release, Debug/Release and independent NoOriginal; compressed missing mip/additional codecs/production SDK/mixed-mode identity excluded';configurations=@();sourceFixtures=@();publicSources=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 70;throw "$name failed"};Get-Content "$out/$name.log"|Where-Object{$_ -match '^PASS '}}
 try{
+ foreach($provider in @('PublicDirectXTex','PublicStbBmp')){
+  $providerPath="src/TextureCompiler/$provider";$provenance=Get-Content "$providerPath/PROVENANCE.json" -Raw|ConvertFrom-Json
+  foreach($file in $provenance.files){$path=Join-Path $providerPath $file.path;if((Get-Item $path).Length -ne $file.bytes -or (Get-FileHash $path).Hash.ToLowerInvariant() -ne $file.sha256){throw "Public source fingerprint mismatch: $provider/$($file.path)"}}
+  $r.publicSources+=@(@{repository=$provenance.repository;commit=$provenance.commit;files=$provenance.files})
+ }
  Copy-Item SDK/tools/*.dll $work
  $r.originalSha256=(Get-FileHash "$work/BinaryAssetBuilder.TextureCompiler.dll").Hash.ToLowerInvariant()
  if($r.originalSha256 -ne '4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e'){throw 'Original loader SHA mismatch'}

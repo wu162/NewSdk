@@ -4,7 +4,7 @@
 
 ## 本轮候选检查点（2026-10-30）
 
-`validation/texture-public-native-npot`：已接入固定 DirectXTex triangle 源码适配，原生 TGA24/32 与 raw A8/X8 DDS 的 NPOT/逐已提供层重采样及缺层 BOX 已实现；新增5664个完整资源差分输入，保留全部旧6860构造/2789文件与压缩拒绝边界。当前未验证、未合入恢复主分支、未进入生产包。下一步继续同批原生加载消费补全，稳定后一次集中 D/R/NoOriginal 验收；未改旧组及SDK不重复触发。
+`validation/texture-public-native-npot`：已接入固定 DirectXTex triangle 源码适配，原生 TGA24/32 与 raw A8/X8 DDS 的 NPOT/逐已提供层重采样及缺层 BOX 已实现；接入固定stb_image BMP24/32的七种BI_RGB DIB修订及原版offset/alpha规则。完整矩阵为6860构造、14606文件（含5665个NPOT和6152个BMP新增输入、105压缩未支持边界）、另12拒绝；保留旧矩阵与全部原产物字节比较。当前未验证、未合入恢复主分支、未进入生产包。下一步集中 native-loader/base 的 D/R/NoOriginal 验收并复用未改旧组；SDK不重复触发。
 
 ## 后续默认路线（2026-10-30 用户明确要求）
 

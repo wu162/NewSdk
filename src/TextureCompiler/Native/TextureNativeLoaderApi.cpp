@@ -4,6 +4,7 @@
 #include "TextureNativeResourceApi.h"
 #include "TextureNativeCopyApi.h"
 #include "../PublicDirectXTex/TexturePublicTriangle.h"
+#include "../PublicStbBmp/TexturePublicBmp.h"
 #define NOMINMAX
 #include <Windows.h>
 #include <algorithm>
@@ -38,6 +39,7 @@ std::int32_t ReadFileBytes(const char* path,std::vector<unsigned char>& bytes){
 struct Resource{void* p=nullptr;~Resource(){if(p)TextureResourceRelease(p);}void* detach(){auto value=p;p=nullptr;return value;}};
 std::int32_t LoadDds(const std::vector<unsigned char>& bytes,void** output);
 std::int32_t LoadTga(const std::vector<unsigned char>& bytes,void** output);
+std::int32_t LoadBmp(const std::vector<unsigned char>& bytes,void** output);
 }
 extern "C" RECOVERED_TEXTURE_NATIVE_LOADER_API void* __stdcall TextureCreateCpuTexture(U width,U height,U levels,U format){
  if(!width||!height||width>8192||height>8192||!Format(format))return nullptr;
@@ -62,7 +64,7 @@ extern "C" RECOVERED_TEXTURE_NATIVE_LOADER_API std::int32_t __stdcall TextureCre
  if(!output)return Invalid;
  // The file-open wrapper returns before touching output on an open/read error.
  if(!device||!path)return Invalid;
- try{std::vector<unsigned char> bytes;auto status=ReadFileBytes(path,bytes);if(status<0)return status;if(bytes.size()>=4&&Load(bytes.data(),0)==0x20534444)return LoadDds(bytes,output);return LoadTga(bytes,output);}
+ try{std::vector<unsigned char> bytes;auto status=ReadFileBytes(path,bytes);if(status<0)return status;if(bytes.size()>=4&&Load(bytes.data(),0)==0x20534444)return LoadDds(bytes,output);if(bytes.size()>=2&&bytes[0]=='B'&&bytes[1]=='M')return LoadBmp(bytes,output);return LoadTga(bytes,output);}
  catch(const std::bad_alloc&){return OutOfMemory;}
 }
 namespace {
@@ -189,6 +191,19 @@ bool TgaTail(const std::vector<unsigned char>& data,U start){
  }
  return true;
 }
+std::int32_t LoadRawImage(const std::vector<unsigned char>& pixels,U width,U height,bool alpha,void** output){
+ const U targetWidth=1u<<Log(width),targetHeight=1u<<Log(height);
+ if(std::uint64_t(targetWidth)*targetHeight>=16777216)return Unsupported;
+ const U format=alpha?0x18280086:0x28280086,levels=Log(std::max(targetWidth,targetHeight))+1;
+ Resource resource;resource.p=TextureCreateCpuTexture(targetWidth,targetHeight,levels,format);if(!resource.p)return OutOfMemory;
+ const auto status=UploadRawLevel(resource.p,0,pixels.data(),width*4,width,height,targetWidth,targetHeight,format);if(status<0)return status;
+ GenerateRawMips(resource.p,1,levels,targetWidth,targetHeight,format);*output=resource.detach();return 0;
+}
+std::int32_t LoadBmp(const std::vector<unsigned char>& bytes,void** output){
+ Recovered::TextureCompiler::PublicStbBmp::Image image;
+ const auto status=Recovered::TextureCompiler::PublicStbBmp::Decode(bytes,image);if(status<0)return status;
+ return LoadRawImage(image.bgra,image.width,image.height,image.alpha,output);
+}
 std::int32_t LoadTga(const std::vector<unsigned char>& bytes,void** output){
  if(bytes.size()<18||bytes[1]||(bytes[2]!=2&&bytes[2]!=10)||(bytes[16]!=24&&bytes[16]!=32))return Unsupported;
  for(U at=3;at<8;++at)if(bytes[at])return Unsupported;
@@ -216,9 +231,6 @@ std::int32_t LoadTga(const std::vector<unsigned char>& bytes,void** output){
  bool alpha=false;if(depth==32)for(U pixel=0;pixel<count;++pixel)if(pixels[pixel*4+3]){alpha=true;break;}
  // Original TGA parser changes an entirely zero alpha plane to X8. The
  // stored base bytes stay zero; only the logical alpha selector becomes one.
- const U format=alpha?0x18280086:0x28280086,levels=Log(std::max(width,height))+1;
- Resource resource;resource.p=TextureCreateCpuTexture(targetWidth,targetHeight,levels,format);if(!resource.p)return OutOfMemory;
- const auto status=UploadRawLevel(resource.p,0,pixels.data(),width*4,width,height,targetWidth,targetHeight,format);if(status<0)return status;
- GenerateRawMips(resource.p,1,levels,targetWidth,targetHeight,format);*output=resource.detach();return 0;
+ return LoadRawImage(pixels,width,height,alpha,output);
 }
 }
