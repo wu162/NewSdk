@@ -1,29 +1,18 @@
 # TextureCompiler：PC续接
 
-分支：`recovery/texturecompiler-source`，仅PC，禁止强推，编译测试仅Actions。
+分支：`recovery/texturecompiler-source`；仅PC、禁止强推、编译测试仅Actions。所有后续贴图还原优先复用公开实现并适配原版，见[公开实现入口](TEXTURE_UPSTREAM.md)。先连续实现实际消费链，稳定后集中验收；普通检查点不触发完整测试/SDK/MOD。
 
-## 本轮候选检查点（2026-10-30）
+## 本轮完成（2026-10-30，公开原生加载批次）
 
-`validation/texture-public-native-npot`：已接入固定 DirectXTex triangle 源码适配，原生 TGA24/32 与 raw A8/X8 DDS 的 NPOT/逐已提供层重采样及缺层 BOX 已实现；接入固定stb_image BMP24/32的七种BI_RGB DIB修订及原版offset/alpha规则。完整矩阵为6860构造、14606文件（含5665个NPOT和6152个BMP新增输入、105压缩未支持边界）、另13拒绝；保留旧矩阵与全部原产物字节比较。首轮34946af5/41005120850失败：BMP24原版按源DWORD扫描alpha（不是解码后alpha）及宿主x86累计trace内存耗尽。已按RVA143d2..14421修正源扫描/越界拒绝，确定性BMP24语料显式提供尾部扫描字节，全部形状/字段/断言保留；gold改流式完整写盘/逐条NoOriginal/EOF核对。尚未合入恢复主分支、未进入生产包；下一步补验失败组，未变成功组/SDK复用。
-
-## 后续默认路线（2026-10-30 用户明确要求）
-
-**所有贴图还原优先复用网上已有实现并适配原版行为，不能默认从零重写。** 先读[公开实现入口](TEXTURE_UPSTREAM.md)：DirectXTex/Wine优先用于D3DX编解码、加载/转换及过滤/mip，已有格式先复用仓库已接入源码。原样不匹配继续修改一般规则；只有具体未覆盖/不适合的部分才记录原因并补写。独立候选分支、来源/固定提交/通知、完整逐字节与实际消费/D/R/NoOriginal/适用SDK门槛保持。
-
-本次仅更新执行文档，业务源码、测试、验收锚点和生产包未改，未下载新候选或启动编译/Actions/SDK/MOD。下方保存上一实现批次的已验证成果。
-
-## 上一实现批次成果（2026-10-30）
-
-- 新增独立x86 `TextureNativeLoaderApi`：52字节资源头、主/secondary VM及packed-tail所有权；raw DDS A8/X8部分/完整mip与缺层生成，POT TGA24/32 raw/RLE/metadata；接通LockRect→既有Copy→UnlockRect→引用/最终释放。
-- 修复原LoadImageA实际format清除`0x1c0`后flags12/threshold0的消费契约；TGA全零alpha选择X8但保留基础alpha0；BOX退化轴使用原浮点存储/向零量化，不能统一整数平均。
-- 压缩DDS仍未恢复：原版会重新编码已提供的2×2/1×1尾mip，基础轴小于4也会扩展/重压缩。全部样本保留，105个原版成功压缩资源另存完整取证；恢复版明确拒绝，不能称作原版拒绝匹配或压缩验收完成。
-- 业务源码 `5fc678b050dcc5aff5a8a25365a406a09ca2f4c8`，集中验收[40999035840](https://github.com/wu162/NewSdk/actions/runs/40999035840)已completed/success，native-loader/base两组通过、62组复用，当前64组件收据有效。之前四次失败收据原样保留。矩阵为6860构造、2789文件（2684支持范围完整对照+105明确未支持压缩边界）及另5拒绝；Debug/Release及NoOriginal全部通过，每配置275197311字节完整trace相同；归档成员、原始SHA及12份x86 DLL指纹已核对，见[收据索引](evidence/texture/handoffs/20261030-native-loader/acceptance.json)。
-- 新ABI未加入生产六DLL包，完整混合模式身份未恢复；SDK/tools及生产配置本轮未改。详细范围见[原生文件加载](TEXTURE_NATIVE_FILE_LOAD.md)。
+- 复用固定Microsoft DirectXTex triangle，接通原生TGA24/32和raw A8/X8 DDS的NPOT加载；各轴向上取2幂，DDS逐已提供层重采样，再从已上传层BOX生成缺失mip。保留X8物理未使用字节与端序、52字节header、主/secondary VM及packed tail所有权。
+- 复用固定stb_image BMP，支持BI_RGB24/32的core12、INFO40、52、56、OS2-64、V4-108、V5-124，含方向、padding、真彩色表、忽略bfOffBits的原版实际像素位置及有界V5 profile。原版在BGR24展开前按源DWORD扫描alpha；适配器保留有界扫描规则，对会越过文件末尾而依赖未初始化堆字节的输入明确拒绝。来源/通知/修改前后SHA在`PublicDirectXTex`/`PublicStbBmp`。
+- 业务源 `d0a31471906307690863e24784ca7384ef2371bf` / [41006229811](https://github.com/wu162/NewSdk/actions/runs/41006229811) completed/success：6860构造、14606文件（14501支持范围完整成功对照，包含5665新增NPOT与6152 BMP；105压缩DDS原版成功仍明确未支持）、另13拒绝。D/R及逐次NoOriginal全部通过；每配置634070359字节完整trace相同，四个归档原始成员SHA和12份x86 DLL指纹已独立核对，见[收据](evidence/texture/handoffs/20261030-native-public/acceptance.json)。
+- 本次只补native-loader，复用63组；base保留 `34946af55168a43edd350ea12b8329833b16b8bb` / [41005120850](https://github.com/wu162/NewSdk/actions/runs/41005120850) 的完整成功收据。该首轮整体failure保留：BMP源alpha契约与宿主x86累计trace内存耗尽；修复后完整流式写盘/逐条NoOriginal读取/EOF核对，不减少样本或字节断言。当前64组件收据有效。
+- 已普通合入恢复分支（合并提交 `710bae1200efe5f09067dcb90c0c8380b468fd72`），未启用生产六DLL包，未宣称完整混合模式身份或SDK集成；本轮未跑SDK/MOD。详细范围与边界见[原生文件加载](TEXTURE_NATIVE_FILE_LOAD.md)。
 
 ## 下一轮计划
 
-1. 下一实现轮先按公开实现路线选择原生NPOT/加载和D3DX重编码的候选，以DirectXTex/Wine为优先入口；复用已验收`TextureNpotRgba8Resampler`作为原版契约依据，适配权重/浮点存储、完整资源/mip与实际消费。注意X8的NPOT未使用字节不能由最终RGBA255反推。
-2. 后续更多raster及压缩DDS同样先接入现成源码，再适配原生格式、存储精度和D3DX重编码/压缩转raw消费；不能直接用nvDDS近似替换，也不能把公开实现首次不匹配当作结束复用路线的理由。
-3. 新ABI正式接入生产包前另取必要SDK集成证据；新能力稳定后集中验收，普通检查点不重跑未变旧组或SDK/MOD。
-
-旧转换验收锚点：`6af9af189a5fb9be63bd02fbab4577d71c583257` / [40965216216](https://github.com/wu162/NewSdk/actions/runs/40965216216)，63组件旧声明范围成功。旧锚点不证明新loader。本轮选择native-loader/base，其他62组保留各自原sourceCommit/runId。业务/测试输入在验收后未改，后续仅更新收据与文档。具体按[执行规则](../AGENTS.md)、[测试规则](TEXTURE_TESTING.md)执行；不默认追加收尾plan或完整MOD。
+1. 优先继续 `validation/texture-public-d3dx-bc`，源码检查点 `165184daa2a776b8b96e707ac8e3ccf0c5203932`。已接入固定DirectXTex BC1/2/3核心及独立x86 float块/图像接口；POT且base双轴>=4的DDS候选已接通完整provided块、尾层重编码、从实际前层压缩存储解码后BOX/重编码缺层和原生资源/锁定/释放。**未被正式loader或生产包调用，尚未还原完成。**
+2. 本轮为该新核心准备并显式启动 `public-d3dx-bc` 定向诊断：1536块、168完整DDS，各8固定编码策略及wrap/clamp完整聚合；通过现有集中入口，不能把probe-only/任务成功或部分策略匹配当作业务验收。入口 `src/TextureCompiler/PublicD3dxBc/PATCHES.md`、`recovery/scripts/InspectTexturePublicBc.ps1`。先检查该分支最新收据/运行，核对原XGCopySurface真实flags/阈值及float精度，再修改一般端点/索引/量化规则，保留完整输出。
+3. 1×1压缩DDS原生base实际4×4、levels3；源依据为 `native-loader/40999035840-1/captures.zip` 的105份完整原版资源（诊断资料，不能直接当确定性业务gold）。候选当前仍拒绝小base/NPOT，不可静默近似扩展。接通完整压缩→raw实际消费和边界后集中取得受影响D/R、NoOriginal及适用SDK，再普通合入。
+4. 未变64组件和旧SDK不重复运行；新ABI正式进入生产包前另取必要SDK集成证据。更多PNG/JPEG、低位深/灰度/调色板TGA等原生加载同样先复用现成源码；不能用已有托管最终RGBA推断原生存储格式/字节。

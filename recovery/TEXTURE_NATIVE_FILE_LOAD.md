@@ -1,27 +1,36 @@
 # PC原生资源与文件加载
 
-入口：`src/TextureCompiler/Native/TextureNativeLoaderApi.{h,cpp,def}`；独立x86 `Recovered.TextureNativeLoader.dll`，通过`BuildTextureNativeLoader.ps1`构建。依赖已恢复Resource/Surface/Copy ABI；设备和描述符由实际消费者联合使用。**未进入生产六DLL包，也不代表完整混合模式身份恢复。**
+入口：`src/TextureCompiler/Native/TextureNativeLoaderApi.{h,cpp,def}`；独立x86 `Recovered.TextureNativeLoader.dll`，由`BuildTextureNativeLoader.ps1`构建。依赖已恢复Resource/Surface/Copy ABI，实际消费联合核对Device/Descriptor。**未进入生产六DLL包，不代表完整混合模式身份或SDK集成。**
 
 ## 当前实现
 
-- `TextureCreateCpuTexture(width,height,levels,format)`：普通、linear、单面二维资源；POT/NPOT尺寸，levels0为完整链，也可指定受限层数。52字节GlobalAlloc对象和VirtualAlloc主/secondary存储遵守原header/引用/释放协议；small mip在原packed-tail布局中存放，四端序标签保留。tiled、sub-byte、无效尺寸/层数明确拒绝。
-- `TextureCreateTextureFromFileA(device,path,output)`：非渲染type1设备；CreateFileA的ANSI路径、只读/共享读/OPEN_EXISTING/FILE_FLAG_RANDOM_ACCESS，有界读取不超过256MiB。成功资源由调用者使用`TextureResourceRelease`释放，失败不转交部分资源；原版缺文件HRESULT为88760b59。
-- 文件范围：A8/X8 raw32 DDS已有部分或完整mip链，缺层按原BOX补齐；POT TGA24/32 raw/RLE、ID、四个原点方向、已声明TGA2 metadata/旧DevIL扩展。
-- 上传调用已有LockRect/TextureCopySurface/UnlockRect，实际消费者继续核对AddRef/Release及最终VM释放。CPU上传保留文件小端字节；原LoadImageA随后对描述符format与`0xfffffe3f`相与、再以目标`1a200006`、flags`12`、threshold0复制。带端序标签的物理视图另外比较。
-- 全零alpha的32位TGA选择X8，基础存储仍保留alpha0；24位TGA基础alphaFF；生成mip的X8未使用字节0。
-- BOX双轴均≥2时为整数快速路径；任一轴为1时为归一化float行接口，重复退化轴、三次顺序float32加法/乘四分之一，再经x87向零的缩放与半偏置存储。不可统一为整数平均或一般ties-to-even。
+- `TextureCreateCpuTexture(width,height,levels,format)`：普通linear单面二维资源，POT/NPOT、levels0完整链或受限层数。52字节GlobalAlloc对象和VirtualAlloc主/secondary存储、四端序标签、small mip packed-tail、引用与最终释放遵守原契约；tiled/sub-byte/无效尺寸或层数明确拒绝。
+- `TextureCreateTextureFromFileA(device,path,output)`：非渲染type1设备；ANSI路径、只读/共享读/OPEN_EXISTING/FILE_FLAG_RANDOM_ACCESS、有界读取256MiB。成功转交资源所有权，失败不转交部分资源；缺文件HRESULT88760b59。
+- raw A8/X8 DDS已有部分/完整mip、缺层BOX；支持POT/NPOT，NPOT各轴向上取2幂，逐已提供层分别重采样。未提供层从实际已上传的前层生成，不把文件中的旧源尺寸当目标尺寸。
+- TGA24/32 raw/RLE、四原点方向、ID、已声明TGA2 metadata/旧DevIL扩展，支持POT/NPOT。全零alpha32选择X8但POT基础alpha0字节保留；24位基础alphaFF；生成/重采样的X8未使用字节0。
+- BMP BI_RGB24/32：core12、INFO40、52、56、OS2-64、V4-108、V5-124，正/负高度、行padding、真彩色biClrUsed RGBQUAD、文件gap及有界V5 post-raster profile。原版从真实DIB后加色表处读取像素，忽略bfOffBits实际偏移和色彩metadata；外层仍检查其边界。裸DIB、低位深、bitfields与压缩BMP未接通。
+- BMP原版RVA143d2..14421在BGR24展开前以每X四字节扫描byte3，决定A8/X8；会读取行padding/下一行或有界尾数据。不能用stb合成alphaFF或最终RGBA判断descriptor。适配器只做原文件内相同扫描；若全零扫描继续将越过EOF，原版依赖未初始化堆字节，该域明确拒绝。BMP24基础仍存alphaFF，BMP32基础保留源alpha；确定性BMP24语料显式提供零尾扫描存储，保留全部形状/字段/断言，并另验越界拒绝。静态依据见`evidence/texture/native-public-static/20261030/`。
+- 原LoadImageA随后对format与`0xfffffe3f`相与，目标`1a200006`、flags12、threshold0；矩阵同时核对该逻辑视图和完整端序物理视图。上传/消费保留LockRect→Copy→Unlock→引用→最终VM释放。
+- BOX双轴均>=2为整数快速路径；退化轴重复采样并依序float32累加、quarter存储，再按x87向零缩放/半偏置。不能统一为整数平均或ties-to-even。
 
-## 验收入口与边界
+## 实际复用的公开源码
 
-`native-loader`组（`TestTextureNativeLoader.ps1`、`TextureNativeLoaderOracle.cpp`）保留6860个构造、2789个文件输入（2684个支持范围成功对照、105个原版成功但需压缩重编码的明确未支持边界）、另5个明确拒绝，并检查固定总数；完整52字节header、全部主/secondary VM字节（含padding与tail间隙）、所有mip布局/描述符、每层三个锁定视图、raw两个完整RGBA视图、引用及最终释放；Debug/Release、独立NoOriginal和完整capture SHA。原版fingerprint为`4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`。
+`PublicDirectXTex`固定 `microsoft/DirectXTex@ec66b78b37389e8373a8e14ccc3cd29be94146b3`，实际采用CreateTriangleFilter与ResizeTriangleFilter的核、回绕、scatter、active-row计数/复用和完成行写出；适配原x87浮点存储、归一化、蛇形有序抖动及X8 packing。不是仅阅读后另写替代算法。
 
-本组已在源码`5fc678b050dcc5aff5a8a25365a406a09ca2f4c8` / [40999035840](https://github.com/wu162/NewSdk/actions/runs/40999035840)完整通过D/R及NoOriginal；每配置完整trace275197311字节相同。归档四个原始成员SHA和12份x86库指纹已核对，见[收据索引](evidence/texture/handoffs/20261030-native-loader/acceptance.json)。本轮native-loader/base两组通过、62组复用，未运行SDK/MOD。当前续接统一看[RESUME](RESUME.md)。静态证据在`evidence/texture/native-loader-static/20261030/`，脚本只读取/反汇编原DLL，不执行编译器。
+`PublicStbBmp`固定 `nothings/stb@003501f6d7a8668ce8b6d875e34dd97ad0d5d5b5`，实际使用stb像素/通道/方向/padding解码；宿主归一化DIB容器以适配原像素起点及metadata契约，通用开关保留全零alpha物理字节。上游完整文件、通知、补丁说明和修改前后SHA均保留，Windows检出用-text固定字节，验收预检逐一核对。禁止回调原/既有恢复编码器或样本查表。
 
-未恢复：NPOT文件重采样、全部压缩DDS文件加载（包含已提供的2×2/1×1尾mip重新编码、基础轴小于4的扩展/重压缩、缺失mip重压缩）、更多DDS布局、PNG/JPEG/BMP/DIB/PPM与低位深/调色板TGA、GPU/渲染/体积/数组/cube文件路径。构造NPOT资源不等于恢复NPOT文件加载。12个真实代表输入全部保留：raw DDS与3个TGA共4个进入完整成功差分；8个压缩DDS明确拒绝。矩阵中的105个原版成功压缩资源完整存储另存独立归档，绝不把恢复版拒绝称为原版拒绝匹配。该归档为后续重编码取证，不认证压缩业务完成，也不把其可能的不确定字节冻成业务gold。
+## 当前验收与保存
 
-下一批优先接入已独立验收的8位NPOT权重/精度或实际消费所需raster格式，保留原生格式和存储精度；压缩缺层不能套用nvDDS压缩输出冒充D3DX一致。正式接入生产包前另取必要SDK集成证据，普通检查点和每轮收尾不触发完整MOD。
+业务源 `d0a31471906307690863e24784ca7384ef2371bf` / [41006229811](https://github.com/wu162/NewSdk/actions/runs/41006229811) completed/success。D/R各6860构造、14606文件（14501支持成功、105原版成功压缩边界），另13拒绝，独立NoOriginal全量回放；5665新增NPOT和6152 BMP。完整52字节header、全部主/secondary VM和padding/tail空隙、每层descriptor/layout/三锁定视图、两完整RGBA消费视图、AddRef/Release/最终VM释放全部逐字节比较。
 
+每配置完整trace634070359字节，SHA256 `53565024fd9fb747a029a8f0f0ae0e2c2927de55a5b20ffd255d42695822b68d`。流式捕获/逐条回放仍核对完整label/length/payload和最终EOF，避免x86累计全部trace导致内存耗尽。归档四原始成员SHA与12份I386 DLL指纹已独立审计，见`evidence/texture/handoffs/20261030-native-public/acceptance.json`。
 
-## 本轮效率复盘
+本次补native-loader、复用63组；base保留34946af5/41005120850完整成功结果，该首轮整体failure保留。普通合并710bae12进入恢复分支；生产六DLL/SDK输入未改，无SDK/MOD或收尾plan。上一原生raw加载验收5fc678b0/40999035840及失败记录原样保留，不把旧范围升级为本轮证据。
 
-早期从DDS头及基础块相同推断完整mip可直接复制，遗漏原版对partial尾层的重新编码，造成额外失败补验。下一批先核对完整资源每层的实际产物与调用条件，再决定复用边界，不能只查level0。此次保留全部输入、失败与原版完整资源，不放宽支持范围的逐字节比较；未恢复压缩域明确分离为取证，业务未近似启用。最终仍只选择两组、复用62旧组，无SDK/MOD或收尾plan；后续实现继续连续合批。
+## 未恢复与下一入口
+
+正式loader仍拒绝所有压缩DDS，包括已有2x2/1x1尾层重新编码、小base扩展、缺层重压缩；105原版成功资源另存完整诊断，绝不能算匹配拒绝或压缩验收。其1x1输入原生base是4x4、levels3，不能直接复制DDS头/基础块推定成功。
+
+下一独立候选 `validation/texture-public-d3dx-bc` 已有公开DirectXTex BC1/2/3核心、float块/图像ABI和POT base双轴>=4的完整owned DDS资源/mip消费；原flags/精度/端点/索引、partial打包与实际压缩→raw消费尚待适配和完整验收，不被正式loader/生产包调用。定向诊断入口`InspectTexturePublicBc.ps1`只取证，不等于组件/NoOriginal/SDK完成。
+
+更多DDS布局、PNG/JPEG/PPM、低位深/灰度/调色板TGA、GPU/渲染/体积/数组/cube原生文件加载仍未接通。继续优先复用公开源码，稳定后按真实影响集中验收；新ABI进入生产包前另取适用SDK证据，未变组及完整MOD不按每轮重复跑。最新状态见[RESUME](RESUME.md)。

@@ -1,0 +1,102 @@
+{
+  "sourceCommit": "d0a31471906307690863e24784ca7384ef2371bf",
+  "runId": "41006229811",
+  "runStatus": "completed/success",
+  "scope": "read-only audit of uploaded complete captures and native binaries; no re-execution or new matrix",
+  "archiveSha256": "1869e2e14e9b58a97e492ac25766d7ed27bd97b01263a28709986ad601413dc0",
+  "members": [
+    {
+      "name": "Debug.capture",
+      "bytes": 634070359,
+      "sha256": "53565024fd9fb747a029a8f0f0ae0e2c2927de55a5b20ffd255d42695822b68d",
+      "constructors": 6860,
+      "files": 14606,
+      "unsupportedCompressed": 105,
+      "npot": 5665,
+      "bmp": 6152
+    },
+    {
+      "name": "Debug.unsupported-original",
+      "bytes": 2548078,
+      "sha256": "d0eb20ea4357252d1aa2ddf466652785a0daf0257dbc9a7e58af99435ff34b3f"
+    },
+    {
+      "name": "Release.capture",
+      "bytes": 634070359,
+      "sha256": "53565024fd9fb747a029a8f0f0ae0e2c2927de55a5b20ffd255d42695822b68d",
+      "constructors": 6860,
+      "files": 14606,
+      "unsupportedCompressed": 105,
+      "npot": 5665,
+      "bmp": 6152
+    },
+    {
+      "name": "Release.unsupported-original",
+      "bytes": 2548078,
+      "sha256": "d0eb20ea4357252d1aa2ddf466652785a0daf0257dbc9a7e58af99435ff34b3f"
+    }
+  ],
+  "nativeFiles": [
+    {
+      "file": "Debug-Recovered.TextureNativeDevice.dll",
+      "sha256": "62909ae9a9cbb1cdc2bd7b3a1b026ac50430dcd13ce45f680c959952edb02e92",
+      "machine": "I386"
+    },
+    {
+      "file": "Debug-Recovered.TextureNativeResource.dll",
+      "sha256": "96262e3f3772ca468b1da689f5548f873fb8f66d9a0d52be16a600e9dcdfeb3c",
+      "machine": "I386"
+    },
+    {
+      "file": "Debug-Recovered.TextureNativeSurface.dll",
+      "sha256": "d26ec1b4fc03260b03e9355b707c4c4eef49f526b6b9f205c0bd91c45733b448",
+      "machine": "I386"
+    },
+    {
+      "file": "Debug-Recovered.TextureNativeDescriptor.dll",
+      "sha256": "9c38254fb3b92f3c739d596feebadcbd8f84f6fbaac10173b4267cfa3d7f56c5",
+      "machine": "I386"
+    },
+    {
+      "file": "Debug-Recovered.TextureNativeCopy.dll",
+      "sha256": "534251439547b29e19eb2617dca6f6c741f8bce8df9f3c367d7ff22a65580653",
+      "machine": "I386"
+    },
+    {
+      "file": "Debug-Recovered.TextureNativeLoader.dll",
+      "sha256": "58f27cf989836961c72a3308ff0017820f582968c1877b3cb498061d8200b1c7",
+      "machine": "I386"
+    },
+    {
+      "file": "Release-Recovered.TextureNativeDevice.dll",
+      "sha256": "5ea8a14a2e008eb903076f7ba6b77a5f0f2e5701bf68e67c202e5a0693df674b",
+      "machine": "I386"
+    },
+    {
+      "file": "Release-Recovered.TextureNativeResource.dll",
+      "sha256": "7066107b68269e820f4d65ecf45fbbc07cb91f1562ba9a3b1ba2941dd659689c",
+      "machine": "I386"
+    },
+    {
+      "file": "Release-Recovered.TextureNativeSurface.dll",
+      "sha256": "6c24cd5482651051883ec6ad8bf853819416f60d120b27c6db80c891fd0ea9c6",
+      "machine": "I386"
+    },
+    {
+      "file": "Release-Recovered.TextureNativeDescriptor.dll",
+      "sha256": "5285c2e8c591d9b2363e6035955a5f3b1db2afcd50456bc0d271468648bfc4bd",
+      "machine": "I386"
+    },
+    {
+      "file": "Release-Recovered.TextureNativeCopy.dll",
+      "sha256": "f3e53c374f73825a86da4355c5a73005ec46773bf4a1bbf6d68e765fef8f5813",
+      "machine": "I386"
+    },
+    {
+      "file": "Release-Recovered.TextureNativeLoader.dll",
+      "sha256": "0a03cb861e8f2bdc840f94922359d5e6fe824adad6a61d5e5ed4f508a178afe0",
+      "machine": "I386"
+    }
+  ],
+  "productionSdkEnabled": false
+}
