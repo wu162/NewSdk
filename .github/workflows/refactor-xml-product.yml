@@ -47,6 +47,7 @@ jobs:
             ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/native-foundation/$mode"
           }
       - name: Build and inspect the full production combination
+        id: product
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/native-foundation -BuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
@@ -60,6 +61,16 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerXmlMatrices.ps1 -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-xml-matrices/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Complete GameObject original byte and tokenizer matrices
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerGameObject.ps1 -CompilerBuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-gameobject/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Complete Weapon original byte and tokenizer matrices
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerWeapon.ps1 -CompilerBuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-weapon/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -68,6 +79,8 @@ jobs:
             recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/native-foundation/**/build.json
             recovery/artifacts/native-product/**/build.json
             recovery/artifacts/native-product/**/link-inputs.json
