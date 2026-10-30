@@ -105,12 +105,12 @@ public static class CompilerXmlBackendBatch
                         // Read-dependent APT keeps its separate real leased-file
                         // matrix. All other unreviewed XML remains owner-only.
                         bool apt = route.TypeName == "AptAptData" || route.TypeName == "AptConstData" || route.TypeName == "AptDatData" || route.TypeName == "AptGeometryData";
-                        Need(apt || !(bool)Prepared.GetProperty("CanRunParallel").GetValue(envelope, null), "Unreviewed metadata route became parallel: " + route.TypeName);
+                        Need(apt || envelope == null, "Unreviewed metadata route became parallel: " + route.TypeName);
                         ((IDisposable)envelope).Dispose();
                     }
                     retainedOwners.Add(route.TypeName); continue;
                 }
-                Need(envelope != null && (bool)Prepared.GetProperty("CanRunParallel").GetValue(envelope, null), "Reviewed module route was not prepared for workers: " + route.TypeName);
+                Need(envelope != null, "Reviewed module route was not prepared for workers: " + route.TypeName);
                 XmlNamespaceManager ignored;
                 var control = Declaration(route.TypeName, plugin, out ignored);
                 var frozen = (InstanceDeclaration)Prepared.GetProperty("Declaration").GetValue(envelope, null);

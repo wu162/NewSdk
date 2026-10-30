@@ -1,3 +1,13 @@
+# 当前：冗余安全清理完成，PR #28 待审
+
+`cleanup/redundant-defenses` 基于刷新后的 `b89fbadb`，生产/测试源码 `ecd2bf1d`。[Windows 41062149232](https://github.com/wu162/NewSdk/actions/runs/41062149232) 全部 success：Debug/Release、Core/CLI、SessionCache 108×2、两类原缓存/导入、Audio/Texture/W3X、BIG/SKUDEF/完整 mymod 原字节、并行/热态依赖/协议与 40 次配对输出均通过。后续仅文档/证据。
+
+已删除 CacheInputBoundary、运行目录身份扫描、session.identity、.file-identities.json/SHA 收据、ANTLR 固定审核、诊断句柄固定及重复后端状态。原缓存语义、实际依赖、ChangeTime、窄 XSD 约束失效及必要 worker 预算保留；没有新侧车/发布事务。混合冷 1010.75→969.61 ms、热 652.69→634.27 ms；准备 5.29→7.79 ms、目录查询各 +3 的不利数据也保留。
+
+源码依据、完整计量/范围和原始失败见 [DIRECT_OUTPUT](docs/DIRECT_OUTPUT.md)。[PR #28](https://github.com/wu162/NewSdk/pull/28) 未合并；未强推或修改授权/合入规则。无正确性阻塞问题，准备阶段及目录查询仍可继续精简。
+
+以下为历史交接，不代表本轮实现或验收结果。
+
 # 当前：插件重复 schema 校验已移除（验收通过，PR #26 待审）
 
 用户指定基线 `recovery/legacy-sdk-cache` / `5c1843ae`；成果在 `refactor/remove-plugin-schema-validation` / [PR #26](https://github.com/wu162/NewSdk/pull/26)。删除 XML、GameObject、Weapon、Effects/Particle、Locomotor 及生成代码中的属性/子节点白名单、文本、单例、结构和命名空间校验及专用遍历/数组分配。Core 统一 XSD、依赖元数据及类型路由继续工作；Audio/W3X 的编码器数据检查保留。

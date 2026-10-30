@@ -1,3 +1,13 @@
+# 当前：冗余安全清理完成，PR #28 待审
+
+`cleanup/redundant-defenses` 基于刷新后的 `b89fbadb`，生产/测试源码 `ecd2bf1d`。[Windows 41062149232](https://github.com/wu162/NewSdk/actions/runs/41062149232) 全部 success：Debug/Release、Core/CLI、SessionCache 108×2、两类原缓存/导入、Audio/Texture/W3X、BIG/SKUDEF/完整 mymod 原字节、并行/热态依赖/协议与 40 次配对输出均通过。后续仅文档/证据。
+
+已删除 CacheInputBoundary、运行目录身份扫描、session.identity、.file-identities.json/SHA 收据、ANTLR 固定审核、诊断句柄固定及重复后端状态。原缓存语义、实际依赖、ChangeTime、窄 XSD 约束失效及必要 worker 预算保留；没有新侧车/发布事务。混合冷 1010.75→969.61 ms、热 652.69→634.27 ms；准备 5.29→7.79 ms、目录查询各 +3 的不利数据也保留。
+
+源码依据、完整计量/范围和原始失败见 [DIRECT_OUTPUT](docs/DIRECT_OUTPUT.md)。[PR #28](https://github.com/wu162/NewSdk/pull/28) 未合并；未强推或修改授权/合入规则。无正确性阻塞问题，准备阶段及目录查询仍可继续精简。
+
+以下为历史交接，不代表本轮实现或验收结果。
+
 # 当前：直接产物与原 SDK 缓存（已验证，PR #27 待审）
 
 分支 `perf/direct-sdk-output`，基于 `recovery/legacy-sdk-cache` 的 `5c1843ae`。正式产物直接写 `OutputRoot/published`；删除整代 `.build`、发布事务/备份/回滚、独立四流快照、输出 SHA256 与发布收据，以及未接入生产的 App 事务缓存。原 BAB SessionCache/BuildAssetCache、中间资产、依赖失效和 CDATA 复用保留。日志/报告/事件失败仍报错，已生成 MOD 和缓存不回滚。

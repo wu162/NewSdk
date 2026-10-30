@@ -79,7 +79,15 @@ function PublishedTimes([string]$Destination){
 function LinkedHot($Case,$Before){
     Need ($Case.report.cache.linkedStreamsRestored -gt 0) 'Hot build did not restore linked output'
 
-    if(@($Case.report.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq 0){Need ($Case.report.cache.fileHashReads -eq 0) 'Unchanged four-stream build reread complete files for SHA256'}
+    if(@($Case.report.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq 0){
+        if($Case.report.cache.sessionCache){
+            Need ($Case.report.cache.fileHashReads -eq 0) 'Unchanged BAB session reread file contents'
+        } else {
+            # Without SessionCache every FileHashItem is new. The original game
+            # FastHash is required; the old receipt counter hid these real reads.
+            Need ($Case.report.cache.fileHashReads -gt 0) 'Disabled session did not compute required input FastHashes'
+        }
+    }
     $after=PublishedTimes $Case.destination
     Need ($after.Count -eq $Before.Count) 'Unchanged publication file set differs'
     foreach($path in $Before.Keys){Need ($after[$path] -eq $Before[$path]) 'Unchanged publication rewrote a file'}
@@ -366,16 +374,34 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $combinedChangedHot=RunCli 'combined-sc-bc-incremental-hot' $mod $combinedOut $true -BuildEnabled $true;SameOutputs $plain $combinedChangedHot
         Need ($combinedChangedHot.report.cache.sessionPackageHits -gt 0 -and $combinedChangedHot.report.cache.sessionPackageMisses -eq 0 -and $combinedChangedHot.report.cache.instanceCompile -eq 0 -and $combinedChangedHot.report.cache.hits -eq 0 -and $combinedChangedHot.report.cache.misses -eq 0) 'Combined updated session failed to advance to its latest hot generation'
         OriginalOracle $hot 'original-mutated'
-        # Neutral same-length/same-mtime schema and configuration edits must
-        # miss the content namespace while preserving all compiled bytes.
+        # Schema content changes revalidate cached defaulted XML. Unrelated SDK
+        # and runtime configuration quoting edits leave the session hot.
         foreach($change in @(
             @{name='schema';path="$sdk/Schemas/xsd/AssetTypeTexture.xsd";from='elementFormDefault="qualified"';to="elementFormDefault='qualified'"},
             @{name='sdk-config';path="$sdk/tools/BinaryAssetBuilder.exe.config";from='monitorPaths="..\"';to="monitorPaths='..\'"},
             @{name='runtime-config';path="$runtime/NewModCompiler.exe.config";from='version="v4.0"';to="version='v4.0'"})){
             SameLengthMutation $change.path $change.from $change.to
-            $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed 'revalidated';SameOutputs $plain $changed;$script:hotParseCeiling=$changed.report.cache.xmlParse
+            $changed=RunCli ($change.name+'-invalidated') $mod $cachedOut $true;Cache $changed $(if($change.name -eq 'schema'){'revalidated'}else{'hot'});SameOutputs $plain $changed;if($change.name -eq 'schema'){$script:hotParseCeiling=$changed.report.cache.xmlParse}
             $hot=RunCli ($change.name+'-hot') $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         }
+        Need (!(Test-Path (Join-Path $cachedOut '.file-identities.json')) -and !(Test-Path (Join-Path $cachedOut '.NewModCompiler/session.identity'))) 'Removed hash/session sidecar was recreated'
+        Put "$runtime/unrelated.dll" 'Unloaded runtime neighbor A'
+        Put "$runtime/unrelated.config" 'Unloaded runtime configuration'
+        $neighbor=RunCli 'unrelated-runtime-files' $mod $cachedOut $true;Cache $neighbor 'hot';SameOutputs $plain $neighbor
+        SameLengthMutation "$runtime/unrelated.dll" 'neighbor A' 'neighbor B'
+        $neighborEdited=RunCli 'unrelated-runtime-edit' $mod $cachedOut $true;Cache $neighborEdited 'hot';SameOutputs $plain $neighborEdited
+        $armorSchema=Join-Path $sdk 'Schemas/xsd/AssetTypeArmorTemplate.xsd'
+        $schemaOptional='name="DamageScalar" type="Percentage" default="100" balance:snapshot="true"'
+        $schemaRequired=('name="DamageScalar" type="Percentage" use="required"').PadRight($schemaOptional.Length)
+        SameLengthMutation $armorSchema $schemaOptional $schemaRequired
+        $schemaPlain=RunCli 'schema-required-disabled' $mod $plainOut $false 4
+        $schemaChanged=RunCli 'schema-required-invalidated' $mod $cachedOut $true 4
+        Need ($schemaChanged.report.cache.xmlParse -gt 0 -and $schemaChanged.report.cache.sessionPackageMisses -gt 0) 'Changed XSD constraint reused a completed document without validation'
+        foreach($case in @($schemaPlain,$schemaChanged)){
+            Need (($case.report.diagnostics|ConvertTo-Json -Depth 12).Contains('DamageScalar')) 'Schema failure did not identify the newly required attribute'
+        }
+        SameLengthMutation $armorSchema $schemaRequired $schemaOptional
+        $hot=RunCli 'schema-required-restored' $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         $other=Join-Path $modeWork 'b';MakeMod $other ($probe.Replace('72.5%','32.5%'))
         $otherCold=RunCli 'second-mod' $other $cachedOut $true;Cache $otherCold 'cold'
         $otherPlain=RunCli 'second-mod-disabled' $other $plainOut $false;SameOutputs $otherPlain $otherCold
