@@ -19,7 +19,7 @@ not copied into production.
 
 Local changes (2026-10-31): explicit local includes; allocator adapter instead
 of the audio registry; extracted Bit_Reserve methods; per-instance decoder
-Huffman count descriptors; automatic SSE scratch; scalar startup decoder;
+Huffman count descriptors; automatic scalar/SSE synthesis scratch; scalar startup decoder;
 once-only initialization of shared fixed LAME tables and constant masking
 limits; initialized allocation pointer for exception cleanup. All per-stream
 state stays in task-owned objects. The Windows x86 build remains the target.

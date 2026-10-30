@@ -518,7 +518,7 @@ static float const cos4_0 = 0.70710678118654746f;
 
 static void dct64(float* out0, float* out1, float* samples)
 {
-    static float bufs[2][32];
+    float bufs[2][32];
     bufs[0][0x00] = samples[0x00] + samples[0x1F];
     bufs[0][0x1F] = (samples[0x00] - samples[0x1F]) * cos64_0;
     bufs[0][0x01] = samples[0x01] + samples[0x1E];
