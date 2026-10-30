@@ -123,6 +123,7 @@ class Snapshot:
     BAB stores absolute source/intermediate paths. Each case/repeat exclusively
     owns a full reset of this namespace, avoiding relocation-induced cache misses.
     Copies are outside process timing and inside the active phase/global budget.
+    Register every source mutation with mark_changed, including same-stamp writes.
     """
     def __init__(self, mod, destination, store, budget):
         self.mod, self.destination, self.store = Path(mod), Path(destination), Path(store)

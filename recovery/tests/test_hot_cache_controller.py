@@ -121,6 +121,7 @@ class ReplayAndReportTests(unittest.TestCase):
             (mod / 'input.xml').write_text('modified')
             (mod / 'new.xml').write_text('new')
             (out / 'cache').unlink()
+            snapshot.mark_changed(dict(changedPaths=['input.xml', 'new.xml']))
             snapshot.restore()
             self.assertEqual((mod / 'input.xml').read_text(), 'baseline')
             self.assertFalse((mod / 'new.xml').exists())
