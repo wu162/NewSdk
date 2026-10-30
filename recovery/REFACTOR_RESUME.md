@@ -1,3 +1,7 @@
+# 当前插件优化入口
+
+本轮 `perf/gameobject-weapon-plugins` / [PR #33](https://github.com/wu162/NewSdk/pull/33) 基于用户指定的 `recovery/legacy-sdk-cache`，产品与 SDK 验收及完整 MOD 配对均通过。源码、计量、失败与下一批研究见 [RESUME](RESUME.md) 和[插件报告](docs/TOKENIZER_PLUGIN_PERFORMANCE.md)。PR 未合并，禁止强推。
+
 # 当前：冗余安全清理完成，PR #28 待审
 
 `cleanup/redundant-defenses` 基于刷新后的 `b89fbadb`，生产/测试源码 `ecd2bf1d`。[Windows 41062149232](https://github.com/wu162/NewSdk/actions/runs/41062149232) 全部 success：Debug/Release、Core/CLI、SessionCache 108×2、两类原缓存/导入、Audio/Texture/W3X、BIG/SKUDEF/完整 mymod 原字节、并行/热态依赖/协议与 40 次配对输出均通过。后续仅文档/证据。

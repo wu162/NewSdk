@@ -1,3 +1,13 @@
+# 当前：GameObject / Weapon 插件编译优化（验收通过，PR #33 待审）
+
+用户指定 `recovery/legacy-sdk-cache` / `8f854606`，成果在 `perf/gameobject-weapon-plugins` / [PR #33](https://github.com/wu162/NewSdk/pull/33)。移动嵌套输入树、只读模块索引、Weapon 单遍读取和枚举表复用已接入；仅五个插件 Bridge/Native 生产文件改变。原生 InitOnce 修复混合运行时关闭，失败均保留。
+
+组件源码 `25aedf8b`，[41138099602](https://github.com/wu162/NewSdk/actions/runs/41138099602) success；同生产源码的完整产品 `9f9d1767`，[41138338003](https://github.com/wu162/NewSdk/actions/runs/41138338003) success：Debug/Release、完整原字节/tokenizer、64 worker/cache、Core/CLI/缓存/取消、完整 mymod 原 SDK、两个五文件 ZIP、完整 Upheaval 22 样本通过。归档、十个运行文件及 ZIP 已下载复算。
+
+同 VM 完整 Upheaval 三轮前后配对 [41141062587](https://github.com/wu162/NewSdk/actions/runs/41141062587) success，全部发布字节相同；中位数 22.185→21.638 秒，耗时减少 2.47%，第三对较慢及 OS 页缓存边界保留。插件合成负载中空 GameObject 慢约 6%，复杂 GameObject/Weapon 改善；详见[实现与计量](docs/TOKENIZER_PLUGIN_PERFORMANCE.md)。
+
+追加的[深入源码研究](docs/TOKENIZER_PLUGIN_NEXT_OPTIMIZATIONS.md)已保存原型与 Linux 算法数据；下一批优先属性异构查找和 member offset 区间索引，尚未接入生产。未经用户批准不合并，禁止强推。
+
 # 当前：AudioFile 全设置并行与低预算（组合验收通过）
 
 [PR #30](https://github.com/wu162/NewSdk/pull/30) 已获用户批准合入 `recovery/legacy-sdk-cache`。成果在 `perf/audiofile-parallel`，现已同步目标分支 `d85b8c8c`（已合入的 PR #28）。保留其重复状态清理和预算估算，适配 AudioFile 测试；显式采样率及压缩诊断可并行，外部输入预算由 64 倍降至 4 倍，压缩提示进程内仅一次。
