@@ -11,7 +11,8 @@ using EncodeBlock=std::int32_t (__stdcall *)(void*,U,const float*,U,float);
 using DecodeImage=std::int32_t (__stdcall *)(const void*,std::int32_t,U,U,U,float*,std::int32_t);
 using EncodeImage=std::int32_t (__stdcall *)(void*,std::int32_t,U,U,U,const float*,std::int32_t,U,float,U);
 using ResizeDds=std::int32_t (__stdcall *)(const void*,std::int32_t,U,U,U,float*,std::int32_t,U,U);
-using FileEx=std::int32_t (__stdcall *)(void*,const char*,U,U,U,U,U,U,U,U,U,void*,void*,void**);
+using SurfaceView=void* (__stdcall *)(void*,U);
+using SurfaceMemory=std::int32_t (__stdcall *)(void*,const void*,const void*,U,const void*,U,const void*,const NativeCopyAbi::Rect*,U,U,U,U,U);
 using DdsDecode=std::int32_t (__stdcall *)(float*,const void*);
 using DdsEncode=std::int32_t (__stdcall *)(void*,const float*,U);
 using CreateDds=std::int32_t (__stdcall *)(const void*,U,U,float,U,void**);
@@ -40,7 +41,8 @@ void Diagnostic(unsigned char* original,const std::string& libs,const std::strin
  auto create=reinterpret_cast<CreateDds>(GetProcAddress(codec,"TexturePublicBcCreateFromDds"));Check(decode&&encode&&create&&loadDds,"Public BC ABI exports");
  recovered.copy=reinterpret_cast<::Recovered::TextureCompiler::NativeCopyAbi::CopyFn>(GetProcAddress(codec,"TexturePublicBcCopySurface"));Check(recovered.copy!=nullptr,"Public compressed actual-consumer copy");
  auto resizeDds=reinterpret_cast<ResizeDds>(GetProcAddress(codec,"TexturePublicBcDecodeResizeDdsImage"));
- auto fileEx=reinterpret_cast<FileEx>(original+0x13b53);
+ auto surfaceView=reinterpret_cast<SurfaceView>(original+0xdad0);
+ auto surfaceMemory=reinterpret_cast<SurfaceMemory>(original+0x1210e);
  auto decodeDds=reinterpret_cast<DecodeImage>(GetProcAddress(codec,"TexturePublicBcDecodeDdsImage"));
  auto encodeDds=reinterpret_cast<EncodeImage>(GetProcAddress(codec,"TexturePublicBcEncodeDdsImage"));Check(decodeDds&&encodeDds,"D3DX file codec interfaces");
  std::ofstream capture(prefix+".capture",std::ios::binary);Check(capture.is_open(),"Diagnostic capture open");
@@ -111,12 +113,18 @@ void Diagnostic(unsigned char* original,const std::string& libs,const std::strin
    const auto bytes=Dds(shape[0],shape[1],format,provided,pattern);const auto path=prefix+"-input.dds";Save(path,bytes);void* p=nullptr;
    if(provided==1){
     U tw=4,th=4;while(tw<shape[0])tw<<=1;while(th<shape[1])th<<=1;
-    Check(fileEx(device,path.c_str(),tw,th,1,0,0x1a22aa26,1,0x80004,5,0,nullptr,nullptr,&p)==0&&p,"Original DDS-to-float triangle consumer");
+    // FileEx's format negotiation silently substitutes a supported device
+    // format. Bypass that negotiation with the already audited CPU resource
+    // constructor, then call the SAME surface-memory entry used by file IO.
+    const U nativeFormat=format==1?18:format==2?19:20,pitch=((shape[0]+3)/4)*(format==1?8:16);
+    p=Construct(baseline,tw,th,1,0x1a22aa26);Check(p!=nullptr,"Original explicit float CPU resource");
+    auto surface=surfaceView(p,0);Check(surface!=nullptr,"Original float surface view");NativeCopyAbi::Rect sourceRect{0,0,static_cast<std::int32_t>(shape[0]),static_cast<std::int32_t>(shape[1])};
+    Check(surfaceMemory(surface,nullptr,nullptr,0x1a200000|nativeFormat,bytes.data()+128,pitch,nullptr,&sourceRect,0,0x1a22aa26,1,0x80004,0)==0,"Original compressed-to-float surface consumer");
+    Check(baseline.release(surface)==0,"Original float surface view release");NativeDescriptorAbi::LevelDesc floatDesc{};baseline.level(p,0,&floatDesc);Check((floatDesc.format&63)==38&&floatDesc.width==tw&&floatDesc.height==th,"Original float format and dimensions must remain explicit");
     std::vector<float> expectedFloat(std::size_t(tw)*th*4),actualFloat(expectedFloat.size());
     NativeSurfaceAbi::LockedRect locked{};Check(baseline.lock(p,0,&locked,nullptr,1)==0,"Original float file lock");Check(locked.pitch>=static_cast<std::int32_t>(tw*16),"Original float pitch");
     for(U y=0;y<th;++y)std::memcpy(expectedFloat.data()+std::size_t(y)*tw*4,static_cast<const unsigned char*>(locked.bits)+std::size_t(y)*locked.pitch,tw*16);
     Check(baseline.unlock(p,0)==0,"Original float file unlock");auto storage=Owned(p);Release(baseline,p,storage);p=nullptr;
-    const U nativeFormat=format==1?18:format==2?19:20,pitch=((shape[0]+3)/4)*(format==1?8:16);
     Check(resizeDds&&resizeDds(bytes.data()+128,pitch,shape[0],shape[1],nativeFormat,actualFloat.data(),tw*16,tw,th)==0,"Candidate decoded/resized float consumer");
     if(std::memcmp(expectedFloat.data(),actualFloat.data(),expectedFloat.size()*4))++floatMismatch;
     auto label=current;current="bc-filter-float-"+label.substr(15);Trace f;f.number(static_cast<U>(bytes.size()));f.add(bytes.data(),bytes.size());f.number(tw);f.number(th);f.add(expectedFloat.data(),expectedFloat.size()*4);f.add(actualFloat.data(),actualFloat.size()*4);record(f);current=label;++floatCases;
