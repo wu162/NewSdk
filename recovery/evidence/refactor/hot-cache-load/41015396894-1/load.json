@@ -1,0 +1,452 @@
+{
+  "status": "passed",
+  "samples": [
+    {
+      "label": "00-warmup",
+      "phase": "warmup",
+      "fixture": {
+        "documents": 18435,
+        "armorDocuments": 18432,
+        "streams": 3,
+        "documentsPerStream": 6144,
+        "assets": 73728,
+        "newDocuments": 18432,
+        "hashCollisionsSkipped": 1,
+        "scope": "Synthetic Armor metadata streams, one CLI build, loose outputs; not full Upheaval or a complete MOD"
+      },
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-load\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-load\\LoadMod",
+        "--out",
+        "D:\\a\\_temp\\hot-load\\build",
+        "--package-content",
+        "maps",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary"
+      ],
+      "wallSeconds": 73.68888920000006,
+      "exitCode": 0,
+      "cpuMs": 77609.375,
+      "peakWorkingSetBytes": 1322737664,
+      "counters": [
+        {
+          "streamId": "maps/MapMetaData_Load00",
+          "name": "cache.document.new",
+          "value": 6145,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load00",
+          "name": "cache.session.notFound",
+          "value": 1,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load00",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load00",
+          "name": "dependency.include.visits",
+          "value": 6144,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load01",
+          "name": "cache.document.new",
+          "value": 6145,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load01",
+          "name": "cache.session.documentMissing",
+          "value": 1,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load01",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load01",
+          "name": "dependency.include.visits",
+          "value": 6144,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load02",
+          "name": "cache.document.new",
+          "value": 6145,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load02",
+          "name": "cache.session.documentMissing",
+          "value": 1,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load02",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load02",
+          "name": "dependency.include.visits",
+          "value": 6144,
+          "aggregation": "sum"
+        }
+      ],
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 3,
+        "documentReuse": 0,
+        "xmlParse": 18435,
+        "instanceCompile": 73728,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 19262,
+        "fileHashReuses": 18435,
+        "fileHashBytesRead": 23837486,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 3,
+          "backendCalls": 73728,
+          "backendCallsByType": {
+            "ArmorTemplate": 73728
+          },
+          "maxBackendConcurrency": 4,
+          "prepareMs": 584.2142,
+          "workerWaitMs": 37.976,
+          "workerComputeMs": 1896.7457000000002,
+          "ownerCommitMs": 21043.698500000002,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 1314013184,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-load\\build"
+      },
+      "rawBytesEqual": false,
+      "outputBytes": 16072884
+    },
+    {
+      "label": "01-hot-calibration",
+      "phase": "hot-calibration",
+      "fixture": {
+        "documents": 18435,
+        "armorDocuments": 18432,
+        "streams": 3,
+        "documentsPerStream": 6144,
+        "assets": 73728,
+        "newDocuments": 18432,
+        "hashCollisionsSkipped": 1,
+        "scope": "Synthetic Armor metadata streams, one CLI build, loose outputs; not full Upheaval or a complete MOD"
+      },
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-load\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-load\\LoadMod",
+        "--out",
+        "D:\\a\\_temp\\hot-load\\build",
+        "--package-content",
+        "maps",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary"
+      ],
+      "wallSeconds": 9.37289290000001,
+      "exitCode": 0,
+      "cpuMs": 9062.5,
+      "peakWorkingSetBytes": 325263360,
+      "counters": [
+        {
+          "streamId": "maps/MapMetaData_Load00",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load00",
+          "name": "dependency.include.visits",
+          "value": 6144,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load01",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load01",
+          "name": "dependency.include.visits",
+          "value": 6144,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load02",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load02",
+          "name": "dependency.include.visits",
+          "value": 6144,
+          "aggregation": "sum"
+        }
+      ],
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 3,
+        "sessionPackageMisses": 0,
+        "documentReuse": 18435,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 3,
+        "fileHashReads": 0,
+        "fileHashReuses": 56947,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-load\\build"
+      },
+      "rawBytesEqual": true,
+      "outputBytes": 16072884
+    },
+    {
+      "label": "02-hot-confirmation",
+      "phase": "hot-confirmation",
+      "fixture": {
+        "documents": 18435,
+        "armorDocuments": 18432,
+        "streams": 3,
+        "documentsPerStream": 6144,
+        "assets": 73728,
+        "newDocuments": 18432,
+        "hashCollisionsSkipped": 1,
+        "scope": "Synthetic Armor metadata streams, one CLI build, loose outputs; not full Upheaval or a complete MOD"
+      },
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-load\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-load\\LoadMod",
+        "--out",
+        "D:\\a\\_temp\\hot-load\\build",
+        "--package-content",
+        "maps",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary"
+      ],
+      "wallSeconds": 9.263588499999969,
+      "exitCode": 0,
+      "cpuMs": 9218.75,
+      "peakWorkingSetBytes": 327524352,
+      "counters": [
+        {
+          "streamId": "maps/MapMetaData_Load00",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load00",
+          "name": "dependency.include.visits",
+          "value": 6144,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load01",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load01",
+          "name": "dependency.include.visits",
+          "value": 6144,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load02",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "maps/MapMetaData_Load02",
+          "name": "dependency.include.visits",
+          "value": 6144,
+          "aggregation": "sum"
+        }
+      ],
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 3,
+        "sessionPackageMisses": 0,
+        "documentReuse": 18435,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 3,
+        "fileHashReads": 0,
+        "fileHashReuses": 56947,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-load\\build"
+      },
+      "rawBytesEqual": true,
+      "outputBytes": 16072884
+    }
+  ],
+  "binarySourceCommit": "91b040d271b7a3cc25d32f0f923c018c740edf4a",
+  "testSourceCommit": "b77eb980b243086ca9cfd312c120e83d0cf1335b",
+  "runId": "41015396894",
+  "runAttempt": "1",
+  "sourceRunId": 41010073140,
+  "sourceArtifactId": 12957004213,
+  "sourceArchiveSha256": "9f8b1ad1bba8c3f330475586496722773714fa99143d75adf136ae464493680c",
+  "limits": {
+    "minimumHotSeconds": 8.0,
+    "totalSeconds": 120,
+    "perProcessSeconds": 100,
+    "maximumCalibrationLevels": 1
+  },
+  "scope": "Duration floor for a large synthetic hot-cache load; does not represent full-MOD performance",
+  "runtimeFiles": {
+    "antlr.runtime.dll": {
+      "bytes": 99328,
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    "BinaryAssetBuilder.TextureCompiler.dll": {
+      "bytes": 917504,
+      "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+    },
+    "BinaryAssetBuilder.TextureCompiler.dll.patch.json": {
+      "bytes": 14326,
+      "sha256": "ac385f78683ff05bf39ffc6272b961613fcc9ce25580fe4d413cd1878e32beb9"
+    },
+    "NewModCompiler.exe": {
+      "bytes": 4207616,
+      "sha256": "cde25cd9ee6fc6d9ebe96a03abb2bc3a28a45053b5fa6acba2ab7ac4510ce188"
+    },
+    "NewModCompiler.exe.config": {
+      "bytes": 201,
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    }
+  },
+  "runtimePreparationSeconds": 5.178372500000023,
+  "selectedFixture": {
+    "documents": 18435,
+    "armorDocuments": 18432,
+    "streams": 3,
+    "documentsPerStream": 6144,
+    "assets": 73728,
+    "newDocuments": 18432,
+    "hashCollisionsSkipped": 1,
+    "scope": "Synthetic Armor metadata streams, one CLI build, loose outputs; not full Upheaval or a complete MOD"
+  },
+  "qualifiedHotSeconds": [
+    9.37289290000001,
+    9.263588499999969
+  ],
+  "elapsedSeconds": 95.66352489999997
+}

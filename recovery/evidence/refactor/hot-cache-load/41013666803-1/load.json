@@ -1,0 +1,494 @@
+{
+  "status": "failed",
+  "samples": [
+    {
+      "label": "00-warmup",
+      "phase": "warmup",
+      "fixture": {
+        "documents": 8193,
+        "armorDocuments": 8192,
+        "assets": 32768,
+        "newDocuments": 8192,
+        "hashCollisionsSkipped": 0,
+        "scope": "Synthetic Armor document/asset scale, loose base stream; not full Upheaval or a complete MOD"
+      },
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-load\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-load\\LoadMod",
+        "--out",
+        "D:\\a\\_temp\\hot-load\\build",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary"
+      ],
+      "wallSeconds": 34.04574619999997,
+      "exitCode": 0,
+      "cpuMs": 31125.0,
+      "peakWorkingSetBytes": 1168044032,
+      "counters": [
+        {
+          "streamId": "base/Mod",
+          "name": "cache.document.new",
+          "value": 8193,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "base/Mod",
+          "name": "cache.session.notFound",
+          "value": 1,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "base/Mod",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "base/Mod",
+          "name": "dependency.include.visits",
+          "value": 8192,
+          "aggregation": "sum"
+        }
+      ],
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 8193,
+        "instanceCompile": 32768,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 9012,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 11182594,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 32768,
+          "backendCallsByType": {
+            "ArmorTemplate": 32768
+          },
+          "maxBackendConcurrency": 4,
+          "prepareMs": 198.2125,
+          "workerWaitMs": 9.2165,
+          "workerComputeMs": 821.5992,
+          "ownerCommitMs": 8783.1513,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 1105985536,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-load\\build"
+      },
+      "rawBytesEqual": false,
+      "outputBytes": 6955068
+    },
+    {
+      "label": "01-hot-calibration",
+      "phase": "hot-calibration",
+      "fixture": {
+        "documents": 8193,
+        "armorDocuments": 8192,
+        "assets": 32768,
+        "newDocuments": 8192,
+        "hashCollisionsSkipped": 0,
+        "scope": "Synthetic Armor document/asset scale, loose base stream; not full Upheaval or a complete MOD"
+      },
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-load\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-load\\LoadMod",
+        "--out",
+        "D:\\a\\_temp\\hot-load\\build",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary"
+      ],
+      "wallSeconds": 3.491412700000012,
+      "exitCode": 0,
+      "cpuMs": 3390.625,
+      "peakWorkingSetBytes": 154537984,
+      "counters": [
+        {
+          "streamId": "base/Mod",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "base/Mod",
+          "name": "dependency.include.visits",
+          "value": 8192,
+          "aggregation": "sum"
+        }
+      ],
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 8193,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 9827,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-load\\build"
+      },
+      "rawBytesEqual": true,
+      "outputBytes": 6955068
+    },
+    {
+      "label": "02-warmup",
+      "phase": "warmup",
+      "fixture": {
+        "documents": 16385,
+        "armorDocuments": 16384,
+        "assets": 65536,
+        "newDocuments": 8192,
+        "hashCollisionsSkipped": 1,
+        "scope": "Synthetic Armor document/asset scale, loose base stream; not full Upheaval or a complete MOD"
+      },
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-load\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-load\\LoadMod",
+        "--out",
+        "D:\\a\\_temp\\hot-load\\build",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary"
+      ],
+      "wallSeconds": 33.41200509999999,
+      "exitCode": 0,
+      "cpuMs": 36640.625,
+      "peakWorkingSetBytes": 1294127104,
+      "counters": [
+        {
+          "streamId": "base/Mod",
+          "name": "cache.document.new",
+          "value": 8192,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "base/Mod",
+          "name": "cache.invalidation.contentChanged",
+          "value": 1,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "base/Mod",
+          "name": "cache.invalidation.documents",
+          "value": 1,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "base/Mod",
+          "name": "cache.invalidation.reloads",
+          "value": 1,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "base/Mod",
+          "name": "cache.invalidation.selfInstances",
+          "value": 0,
+          "aggregation": "sum"
+        },
+        {
+          "streamId": "base/Mod",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "base/Mod",
+          "name": "dependency.include.visits",
+          "value": 16384,
+          "aggregation": "sum"
+        }
+      ],
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 8192,
+        "xmlParse": 8193,
+        "instanceCompile": 32768,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 8197,
+        "fileHashReuses": 9822,
+        "fileHashBytesRead": 16998550,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 32768,
+          "backendCallsByType": {
+            "ArmorTemplate": 32768
+          },
+          "maxBackendConcurrency": 4,
+          "prepareMs": 186.2298,
+          "workerWaitMs": 15.0859,
+          "workerComputeMs": 804.8852,
+          "ownerCommitMs": 9477.511900000001,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 1199222784,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-load\\build"
+      },
+      "rawBytesEqual": false,
+      "outputBytes": 13910076
+    },
+    {
+      "label": "03-hot-calibration",
+      "phase": "hot-calibration",
+      "fixture": {
+        "documents": 16385,
+        "armorDocuments": 16384,
+        "assets": 65536,
+        "newDocuments": 8192,
+        "hashCollisionsSkipped": 1,
+        "scope": "Synthetic Armor document/asset scale, loose base stream; not full Upheaval or a complete MOD"
+      },
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-load\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-load\\LoadMod",
+        "--out",
+        "D:\\a\\_temp\\hot-load\\build",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary"
+      ],
+      "wallSeconds": 6.766691100000003,
+      "exitCode": 0,
+      "cpuMs": 6859.375,
+      "peakWorkingSetBytes": 270708736,
+      "counters": [
+        {
+          "streamId": "base/Mod",
+          "name": "dependency.include.maxDepth",
+          "value": 1,
+          "aggregation": "max"
+        },
+        {
+          "streamId": "base/Mod",
+          "name": "dependency.include.visits",
+          "value": 16384,
+          "aggregation": "sum"
+        }
+      ],
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 16385,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 18019,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-load\\build"
+      },
+      "rawBytesEqual": true,
+      "outputBytes": 13910076
+    },
+    {
+      "label": "04-warmup",
+      "phase": "warmup",
+      "fixture": {
+        "documents": 32769,
+        "armorDocuments": 32768,
+        "assets": 131072,
+        "newDocuments": 16384,
+        "hashCollisionsSkipped": 1,
+        "scope": "Synthetic Armor document/asset scale, loose base stream; not full Upheaval or a complete MOD"
+      },
+      "status": "timed-out",
+      "command": [
+        "D:\\a\\_temp\\hot-load\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-load\\LoadMod",
+        "--out",
+        "D:\\a\\_temp\\hot-load\\build",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary"
+      ]
+    }
+  ],
+  "binarySourceCommit": "91b040d271b7a3cc25d32f0f923c018c740edf4a",
+  "testSourceCommit": "5557e0bd5fba59a07b661519255e740b24d31282",
+  "runId": "41013666803",
+  "runAttempt": "1",
+  "sourceRunId": 41010073140,
+  "sourceArtifactId": 12957004213,
+  "sourceArchiveSha256": "9f8b1ad1bba8c3f330475586496722773714fa99143d75adf136ae464493680c",
+  "limits": {
+    "minimumHotSeconds": 8.0,
+    "totalSeconds": 120,
+    "perProcessSeconds": 60,
+    "maximumCalibrationLevels": 3
+  },
+  "scope": "Duration floor for a large synthetic hot-cache load; does not represent full-MOD performance",
+  "runtimeFiles": {
+    "antlr.runtime.dll": {
+      "bytes": 99328,
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    "BinaryAssetBuilder.TextureCompiler.dll": {
+      "bytes": 917504,
+      "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+    },
+    "BinaryAssetBuilder.TextureCompiler.dll.patch.json": {
+      "bytes": 14326,
+      "sha256": "ac385f78683ff05bf39ffc6272b961613fcc9ce25580fe4d413cd1878e32beb9"
+    },
+    "NewModCompiler.exe": {
+      "bytes": 4207616,
+      "sha256": "cde25cd9ee6fc6d9ebe96a03abb2bc3a28a45053b5fa6acba2ab7ac4510ce188"
+    },
+    "NewModCompiler.exe.config": {
+      "bytes": 201,
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    }
+  },
+  "runtimePreparationSeconds": 4.740189200000003,
+  "error": "TimeoutExpired: Command '['D:\\\\a\\\\_temp\\\\hot-load\\\\runtime\\\\NewModCompiler.exe', 'build', '--sdk-root', 'D:\\\\a\\\\NewSdk\\\\NewSdk\\\\SDK', '--mod', 'D:\\\\a\\\\_temp\\\\hot-load\\\\LoadMod', '--out', 'D:\\\\a\\\\_temp\\\\hot-load\\\\build', '--package-content', 'base', '--package-format', 'loose', '--include-additional=false', '--jobs', '4', '--performance', 'summary']' timed out after 36.6646178 seconds",
+  "elapsedSeconds": 120.06705350000001
+}

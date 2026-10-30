@@ -1,8 +1,16 @@
-# 当前：有界热缓存扩展与失效/依赖计数（已验证，PR #23 待审）
+# 当前：单次至少8秒的热缓存重负载（已验证，PR #24 待审）
+
+用户澄清目标为**单次热缓存编译至少8秒**，而非压到8秒以内。分支 `test/hot-cache-duration` 基于已合入PR#23的 `5c1843ae`，生产代码不变。新增独立有界压力测试：3条独立元数据流，每流6144份Armor文档/24576资产，合计18432份文档/73728资产，只预热一次、热测两次，要求每次独立进程均>=8秒。数据生成、预热、热态及字节核对总预算120秒，单进程最多100秒且受剩余预算限制；不sleep、不把多次构建相加冒充单次。复用91b040d2已验收Release及固定SHA256归档，不重编、不重跑原56样本。
+
+测试来源 `b77eb980` / [41015396894](https://github.com/wu162/NewSdk/actions/runs/41015396894) success：预热73.689秒，两次独立热构建 **9.373/9.264秒** 均达标；负载测量95.664秒，运行文件准备另5.178秒，合计100.842秒。每次热态3流全部恢复、18435文档复用、解析/编译/完整文件SHA读取均0、12输出实际字节相等且不重写发布。三份报告Schema、原运行归档摘要及五运行文件身份已下载复核。[原收据/报告](evidence/refactor/hot-cache-load/41015396894-1)，[PR #24](https://github.com/wu162/NewSdk/pull/24)待审，未经明确批准不合并。
+
+初始生成ID发生真实FastHash碰撞，产品正确拒绝；仅修fixture为哈希唯一。后续有界校准41013666803在8192/16384文档分别测得单次热态3.491/6.767秒，继续放大时120秒预算截停，未冒称达标。按曲线选择的21504文档单流在41014520586预热触发Win32 Schema验证内存上限，原失败保留；改为3条独立流，由一次CLI构建处理，去掉重复校准预热，固定负载待验证。
+
+# 已合入：有界热缓存扩展与失效/依赖计数
 
 分支 `test/hot-cache-coverage`，基于 `8a6b7a70`。扩展三档 Armor 规模（32/256/2048 资产、4/32/128 文档），中档混合 Texture/PCM Audio/W3X，代表性缓存模式、压缩、jobs、BIG、等长同mtime编辑与输出/会话修复。单进程15秒、整轮120秒，不做全维度笛卡尔积。
 
-summary/detailed 新增按流聚合的 `performance.counters`：实际缓存失效原因、唯一失效文档和原 self-instance 数、Include 传播、定义/继承/文件依赖检查及传播重载；off 不建计数字典，不追加文件读取或依赖扫描。见 [性能说明](docs/PERFORMANCE.md)。[PR #23](https://github.com/wu162/NewSdk/pull/23)，禁止强推，未经批准不合并。
+summary/detailed 新增按流聚合的 `performance.counters`：实际缓存失效原因、唯一失效文档和原 self-instance 数、Include 传播、定义/继承/文件依赖检查及传播重载；off 不建计数字典，不追加文件读取或依赖扫描。见 [性能说明](docs/PERFORMANCE.md)。[PR #23](https://github.com/wu162/NewSdk/pull/23) 已合入 `5c1843ae`。其它PR仍须明确批准后合并，禁止强推。
 
 生产二进制/测试来源 `91b040d2`，[41010073140](https://github.com/wu162/NewSdk/actions/runs/41010073140) success：重建Release、App合同、本地及Windows五项Python预检、原14样本（9.98秒）及扩展56样本（42.85秒）通过。全输出与每代独立无缓存原字节相同，定义修改实际记录 contentChanged→definesChanged→inheritanceChanged，3失效文档/2依赖传播文档；Include最大深度3，访问与去重文档分别统计，修改后热态零失效/解析/编译。五运行文件和原归档SHA256已下载复算，69份报告Schema通过。[原收据与摘要](evidence/refactor/hot-cache/41010073140-1)。未新增Debug、完整MOD或游戏内验收；后续仅文档/证据更新。
 

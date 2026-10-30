@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "testSourceCommit": "b77eb980b243086ca9cfd312c120e83d0cf1335b",
+  "binarySourceCommit": "91b040d271b7a3cc25d32f0f923c018c740edf4a",
+  "runId": 41015396894,
+  "runAttempt": 1,
+  "artifactId": 12959098650,
+  "archiveSha256": "7f1d584d0afc06c6f67d2c3829459109569ee56bd3b6d078c3f344b60678daf8",
+  "archiveDownloadedAndHashed": true,
+  "sourceArchiveAndFiveRuntimeIdentitiesVerified": true,
+  "reportsSchemaValidated": 3,
+  "oneProcessPerSample": true,
+  "streamsPerBuild": 3,
+  "armorDocuments": 18432,
+  "assets": 73728,
+  "hotSeconds": [
+    9.37289290000001,
+    9.263588499999969
+  ],
+  "totalLoadSeconds": 95.66352489999997,
+  "runtimePreparationSeconds": 5.178372500000023,
+  "scope": "Synthetic three-stream metadata workload, summary profiling, loose outputs, one warmup and two hot processes; production unchanged; not complete MOD/game-runtime acceptance"
+}
