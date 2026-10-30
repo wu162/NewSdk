@@ -41,4 +41,8 @@ F11 只对六种缓存模式各做少量热态吞吐对照（新增模式 n=1）
 
 本地控制器/负载预检及 actionlint 通过。新增分区用完整 SDK XSD 做了廉价合法性检查（在内存中适配 Windows 路径及原 Schema QName 尾空格，没有修改 SDK）；这不等于 Windows 编译成功。
 
+[Windows/Linux 预检 41135332298](https://github.com/wu162/NewSdk/actions/runs/41135332298) 两个平台各 33 项通过（源码 `873271d3`），包括差量恢复、同 mtime 输入和新增搜索根清理；[收据](../evidence/refactor/l8-hot-cache/preflight-41135332298.json)。中文报告读取显式 UTF-8；每个源变更按真实调用合同登记，不依赖 NTFS 两次快速写入一定取得不同时间戳。
+
 首轮 Common [41131918949](https://github.com/wu162/NewSdk/actions/runs/41131918949) 在预热阶段暴露生成 ID 的 FastHash 碰撞；第二轮 [41132655545](https://github.com/wu162/NewSdk/actions/runs/41132655545) 暴露直接 XInclude Defines 的全局重复定义。这两轮均未产生正式成绩。已修为真实哈希分配和共同定义文档，后续实际状态以对应运行的报告为准。
+
+第三轮 [41133537865](https://github.com/wu162/NewSdk/actions/runs/41133537865)（源码 `e667ea70`，仍使用完整目录复制恢复）成功标定 13 个扩容分区：4545 份输入文档、111997 个输入声明、301.54 MiB、5 个实际流。两个标定热态 elapsed 为 11931/11856 ms，wall 为 12001.56/11923.84 ms，双门槛均满足。完成 C00–C06，保留 40 个合格正式样本；第 41 个正式样本 C07/modified 在 18 分钟采样阶段余量耗尽时终止。总计 21.16 分钟，状态为 `budget_exhausted`，未把必选场景缺失记为通过。[原始数据与收据](../evidence/refactor/l8-hot-cache/41133537865-1)。新版差量恢复的 [Common 41135980179](https://github.com/wu162/NewSdk/actions/runs/41135980179) 另行验证，不能把旧运行当作新版性能成绩。
