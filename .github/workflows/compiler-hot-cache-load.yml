@@ -1,0 +1,52 @@
+name: Bounded eight-second hot-cache load
+on:
+  push:
+    branches: [recovery/legacy-sdk-cache, test/hot-cache-duration]
+    paths:
+      - '.github/workflows/compiler-hot-cache-load.yml'
+      - 'recovery/scripts/TestCompilerHotCacheLoad.py'
+      - 'recovery/tests/test_compiler_hot_cache_load.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: hot-cache-load-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  load:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[hot-cache-load]')
+    runs-on: windows-2022
+    timeout-minutes: 6
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Fast duration-floor and fixture checks
+        shell: pwsh
+        run: |
+          python -m unittest discover -s recovery/tests -p 'test_compiler_hot_cache_load.py' -v
+          if($LASTEXITCODE -ne 0){throw 'Hot-cache load preflight failed'}
+      - name: Reuse accepted Release and calibrate real hot-cache load within 120 seconds
+        timeout-minutes: 3
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/scripts/TestCompilerHotCacheLoad.py --work "$env:RUNNER_TEMP/hot-load" --output recovery/evidence/refactor/hot-cache-load --minimum-hot-seconds 8 --budget 120 --timeout 60
+          $result=$LASTEXITCODE
+          if(Test-Path recovery/evidence/refactor/hot-cache-load/load.md){Get-Content recovery/evidence/refactor/hot-cache-load/load.md|Add-Content $env:GITHUB_STEP_SUMMARY}
+          if($result -ne 0){throw 'Hot-cache duration floor not satisfied; partial evidence retained'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hot-cache-load-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/refactor/hot-cache-load/**
+          if-no-files-found: warn

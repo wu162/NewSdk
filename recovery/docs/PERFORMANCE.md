@@ -49,6 +49,14 @@ Worker 只写私有计时数据；owner 合并 `core.asset.compile` 和 `core.co
 
 ## 有界验证
 
+### 单次至少8秒的重负载
+
+用户要求的8秒是测试**负载下限**，不是性能优化上限。`TestCompilerHotCacheLoad.py` 独立提供大量文档/资产的真实缓存恢复负载；原56样本继续覆盖功能维度，不把其42.85秒总耗时当作单次构建耗时。
+
+校准档位为8192/16384/32768份Armor文档，每份4个资产；每档只有一次预热和一次独立进程热态，热态达到8秒才追加确认，必须两次单独进程均>=8秒。后续档只追加新文档，复用前档已有缓存，避免每档全冷重做。没有sleep、内层重复构建或故意降低编译器性能。summary性能报告、缓存命中/零解析/零编译、完整四流实际字节和发布时间均验证。
+
+数据生成、预热、全部校准进程、结果核对共用120秒硬预算，单进程最多60秒并受剩余预算限制；最多3档，超时或未达门槛都失败并保留证据。原已验收Release以运行41010073140及归档SHA256固定复用，同时校验生产/SDK/构建输入未变；下载与身份准备单列，工作流测试步骤3分钟封顶。工作流 `compiler-hot-cache-load.yml` 仅显式 `[hot-cache-load]` 或手动运行，验证状态见RESUME。它是大量Armor/XML的合成压力，不等同于完整MOD性能。
+
 ### 热缓存范围与失效传播计数
 
 summary/detailed 的 `performance.counters` 以 `streamId/name/value/aggregation` 输出聚合计数，`sum` 求和、`max` 取最大值，未出现的计数视为零。按流隔离；off 不创建计数集合或回调，不增加哈希、文件检查、依赖扫描或逐事件日志。detailed 同时提供 `core.cache.reinitialize`、`core.dependencies.files/defines/inheritance` 耗时；Include 沿用 `core.includes`。

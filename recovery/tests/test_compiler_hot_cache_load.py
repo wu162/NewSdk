@@ -1,0 +1,37 @@
+import sys
+from pathlib import Path
+import tempfile
+import unittest
+import xml.etree.ElementTree as ET
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
+import TestCompilerHotCacheLoad as load
+
+
+class LoadChecks(unittest.TestCase):
+    def test_requires_two_individual_samples_not_their_sum(self):
+        self.assertFalse(load.meets_minimum([4.1, 4.2], 8))
+        self.assertFalse(load.meets_minimum([8.1, 7.9], 8))
+        self.assertFalse(load.meets_minimum([9], 8))
+        self.assertTrue(load.meets_minimum([8, 8.2], 8))
+
+    def test_growth_preserves_prior_inputs_and_exact_include_closure(self):
+        with tempfile.TemporaryDirectory() as temp:
+            mod = Path(temp)
+            first = load.grow_fixture(mod, 0, 2)
+            before = {p.name: p.read_bytes() for p in (mod / 'Data').glob('armor-*.xml')}
+            second = load.grow_fixture(mod, 2, 4)
+            for name, data in before.items():
+                self.assertEqual((mod / 'Data' / name).read_bytes(), data)
+            ns = '{uri:ea.com:eala:asset}'
+            includes = ET.parse(mod / 'Data/Mod.xml').getroot().findall(ns + 'Includes/' + ns + 'Include')
+            self.assertEqual(len(includes), 4)
+            nodes = [n for p in (mod / 'Data').glob('armor-*.xml') for n in ET.parse(p).getroot()]
+            self.assertEqual(len(nodes), second['assets'])
+            self.assertEqual(len({n.get('id') for n in nodes}), second['assets'])
+            self.assertEqual(first['assets'], 8)
+            self.assertEqual(second['newDocuments'], 2)
+
+
+if __name__ == '__main__':
+    unittest.main()
