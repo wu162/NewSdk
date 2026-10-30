@@ -1,0 +1,33 @@
+tga-1x1-depth32-origin0-rle0-pattern0-tail0 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin0-rle0-pattern0-tail1 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin0-rle0-pattern0-tail2 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin0-rle0-pattern0-tail3 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin0-rle1-pattern0-tail0 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin0-rle1-pattern0-tail1 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin0-rle1-pattern0-tail2 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin0-rle1-pattern0-tail3 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin16-rle0-pattern0-tail0 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin16-rle0-pattern0-tail1 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin16-rle0-pattern0-tail2 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin16-rle0-pattern0-tail3 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin16-rle1-pattern0-tail0 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin16-rle1-pattern0-tail1 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin16-rle1-pattern0-tail2 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin16-rle1-pattern0-tail3 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin32-rle0-pattern0-tail0 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin32-rle0-pattern0-tail1 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin32-rle0-pattern0-tail2 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin32-rle0-pattern0-tail3 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin32-rle1-pattern0-tail0 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin32-rle1-pattern0-tail1 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin32-rle1-pattern0-tail2 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin32-rle1-pattern0-tail3 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin48-rle0-pattern0-tail0 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin48-rle0-pattern0-tail1 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin48-rle0-pattern0-tail2 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin48-rle0-pattern0-tail3 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin48-rle1-pattern0-tail0 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+tga-1x1-depth32-origin48-rle1-pattern0-tail1 first difference=53 actualSize=5098 originalSize=5098 actualByte=12 originalByte=20
+System.Runtime.InteropServices.SEHException (0x80004005): External component has thrown an exception.
+   at ?A0x35f9ccfc.Run(Byte* , basic_string<char\,std::char_traits<char>\,std::allocator<char> >* , basic_string<char\,std::char_traits<char>\,std::allocator<char> >* , basic_string<char\,std::char_traits<char>\,std::allocator<char> >* )
+   at main(String[] args)
