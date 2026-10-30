@@ -185,7 +185,7 @@ namespace DirectX
         static const float pC8[]
             = { 7.0f / 7.0f, 6.0f / 7.0f, 5.0f / 7.0f, 4.0f / 7.0f, 3.0f / 7.0f, 2.0f / 7.0f, 1.0f / 7.0f, 0.0f / 7.0f };
         static const float pD8[]
-            = { 0.0f / 7.0f, 1.0f / 7.0f, 2.0f / 7.0f, 3.0f / 7.0f, 4.0f / 7.0f, 5.0f / 7.0f, 6.0f / 7.0f, 7.0f / 7.0f };
+            = { 0.0f / 7.0f, 1.0f / 7.0f, 2.0f / 7.0f, 3.0f / 7.0f, 4.0f / 7.0f, 5.0f / 7.0f, 6.0f / 7.0f, 8.0f / 7.0f };
 
         const float* pC = (6 == cSteps) ? pC6 : pC8;
         const float* pD = (6 == cSteps) ? pD6 : pD8;
@@ -276,7 +276,7 @@ namespace DirectX
                 {
                     // D3DX had this computation backwards (pPoints[iPoint] - pSteps[iStep])
                     // this fix improves RMS of the alpha component
-                    const float fDiff = pSteps[iStep] - pPoints[iPoint];
+                    const float fDiff = pPoints[iPoint] - pSteps[iStep]; // Preserve old D3DX gradient sign
 
                     dX += pC[iStep] * fDiff;
                     d2X += pC[iStep] * pC[iStep];

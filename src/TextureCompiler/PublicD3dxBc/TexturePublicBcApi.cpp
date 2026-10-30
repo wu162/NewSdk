@@ -22,6 +22,15 @@ void Decode(const void* block, U format, float* rgba) {
     else DirectX::D3DXDecodeBC3(color, source);
     for (U i = 0; i < 16; ++i) {
         DirectX::XMFLOAT4 pixel; DirectX::XMStoreFloat4(&pixel, color[i]);
+        if (format != 18) {
+            // Original PC XG compressed row contract unpremultiplies with a
+            // STORED float reciprocal, then stores each product and clamps.
+            // Direct division differs in 3055 captured RGB channels; this
+            // general reciprocal rule matches every non-three-color test.
+            volatile float inverse = pixel.w > 0 ? static_cast<float>(1.0 / static_cast<double>(pixel.w)) : 0;
+            auto channel = [&](float value) { volatile float result = static_cast<float>(static_cast<double>(value) * inverse); return std::min(1.f, std::max(0.f, static_cast<float>(result))); };
+            pixel.x = channel(pixel.x); pixel.y = channel(pixel.y); pixel.z = channel(pixel.z);
+        }
         std::memcpy(rgba + i * 4, &pixel, sizeof(pixel));
     }
 }

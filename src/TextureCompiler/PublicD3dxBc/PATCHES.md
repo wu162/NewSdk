@@ -2,9 +2,13 @@
 
 Fixed source: Microsoft DirectXTex `ec66b78b37389e8373a8e14ccc3cd29be94146b3`.
 Original BC.cpp/BC.h and MIT notice are under `upstream/`. All source/adapter
-fingerprints are in PROVENANCE.json. BC.cpp's only source patch replaces its
-private whole-library precompiled header with the minimal `TextureBcP.h`;
-BC.h is unmodified. The build explicitly selects scalar DirectXMath and x86
+fingerprints are in PROVENANCE.json. BC.cpp replaces its private whole-library precompiled header with minimal
+`TextureBcP.h`. After original diagnostic 165184da/41007602862, compatibility
+patches restore BC2/3 three-color decode, A4 expansion through byte17/255, the
+old OptimizeAlpha reversed gradient and pD8 last coefficient8/7 (original RVA
+2851b/table9d250). The wrapper unpremultiplies BC2/3 via a stored float reciprocal
+then stored products/clamp, following every applicable captured original RGB
+channel. Remaining BC3 alpha interpolation precision is not claimed solved. The build explicitly selects scalar DirectXMath and x86
 x87 strict arithmetic. Windows SDK DirectXMath is a build prerequisite.
 
 The isolated DLL exposes actual public D3DX BC1/2/3 encoders and decoders via
@@ -23,7 +27,13 @@ RAII preserves ownership on failure. Encoder flags/threshold/partial policy
 remain explicit until original mapping is proved. Small base axes and NPOT
 remain explicit boundaries; no approximated clamp/resize is enabled.
 
-This is an unbuilt/unvalidated continuation checkpoint, **not restored DDS
+The actual compressed-to-raw consumer now uses public BC decode and the
+accepted native float-row conversion, preserving source endian/swizzle and
+rect/pitch/guard semantics. The diagnostic compares both masked LoadImageA and
+physical-endian RGBA for EVERY mip plus all native storage; it still does not
+provide formal NoOriginal acceptance.
+
+This is a component-unvalidated continuation checkpoint, **not restored DDS
 support**. The current accepted/pending native loader continues to reject
 compressed files. No production module calls this candidate. No new validation
 matrix was launched for this checkpoint.
@@ -44,3 +54,11 @@ Only complete original/gold byte equality, D/R, independent NoOriginal and
 the complete affected native consumer chain may justify merge. SDK activation
 remains a separate integration gate. First-candidate mismatch requires general
 compatibility changes; it is not a reason to abandon public-source reuse.
+
+Initial diagnostic 41007602862 completed with identical D/R captures (62,109,936
+bytes), 1536 blocks and168 DDS, original repeats stable. flags0 matched all
+DXT1/DXT3 encodes; DXT5 alpha had504 block differences. BC1 float decode matched
+all512; BC2/3 had511 differences each, now under compatibility adaptation.
+Its success proves comparison completed only; no policy passed the whole DDS
+consumer. The updated actual-copy consumer requires a new diagnostic before
+any claim. No production loader or accepted NPOT/BMP input is changed.

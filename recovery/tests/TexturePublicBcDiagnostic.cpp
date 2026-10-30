@@ -9,12 +9,29 @@ namespace {
 using DecodeBlock=std::int32_t (__stdcall *)(const void*,U,float*);
 using EncodeBlock=std::int32_t (__stdcall *)(void*,U,const float*,U,float);
 using CreateDds=std::int32_t (__stdcall *)(const void*,U,U,float,U,void**);
+Trace LogicalPixels(Api api,void* resource){
+ Trace t;const U levels=((Load(resource,0x2c)>>6)&15)+1;
+ for(U level=0;level<levels;++level){
+  ::Recovered::TextureCompiler::NativeDescriptorAbi::LevelDesc desc{};api.level(resource,level,&desc);
+  ::Recovered::TextureCompiler::NativeSurfaceAbi::LockedRect locked{};Check(api.lock(resource,level,&locked,nullptr,1)==0,"BC actual-consumer lock");
+  for(U mask:{~0x1c0u,0xffffffffu}){
+   const U pitch=desc.width*4+7;std::vector<unsigned char> rgba(std::size_t(pitch)*desc.height+64,0xa5);
+   Check(api.copy(rgba.data()+32,pitch,desc.width,desc.height,0x1a200006,nullptr,locked.bits,locked.pitch,desc.format&mask,nullptr,0x12,0)==0,"BC actual masked/physical LoadImageA copy");
+   for(U i=0;i<32;++i)Check(rgba[i]==0xa5&&rgba[rgba.size()-1-i]==0xa5,"BC actual-copy guard");
+   for(U y=0;y<desc.height;++y)for(U x=desc.width*4;x<pitch;++x)Check(rgba[32+std::size_t(y)*pitch+x]==0xa5,"BC actual-copy row padding");
+   t.number(static_cast<U>(rgba.size()));t.add(rgba.data(),rgba.size());
+  }
+  Check(api.unlock(resource,level)==0,"BC actual-consumer unlock");
+ }
+ return t;
+}
 void Diagnostic(unsigned char* original,const std::string& libs,const std::string& prefix){
- failurePath=prefix;std::vector<HMODULE> modules;const auto baseline=Original(original),recovered=Recovered(libs,modules,false);
+ failurePath=prefix;std::vector<HMODULE> modules;const auto baseline=Original(original);auto recovered=Recovered(libs,modules,false);
  auto codec=LoadLibraryA((libs+"/Recovered.TexturePublicBc.dll").c_str());Check(codec!=nullptr,"Public BC candidate load");
  auto decode=reinterpret_cast<DecodeBlock>(GetProcAddress(codec,"TexturePublicBcDecodeBlock"));
  auto encode=reinterpret_cast<EncodeBlock>(GetProcAddress(codec,"TexturePublicBcEncodeBlock"));
  auto create=reinterpret_cast<CreateDds>(GetProcAddress(codec,"TexturePublicBcCreateFromDds"));Check(decode&&encode&&create,"Public BC ABI exports");
+ recovered.copy=reinterpret_cast<::Recovered::TextureCompiler::NativeCopyAbi::CopyFn>(GetProcAddress(codec,"TexturePublicBcCopySurface"));Check(recovered.copy!=nullptr,"Public compressed actual-consumer copy");
  std::ofstream capture(prefix+".capture",std::ios::binary);Check(capture.is_open(),"Diagnostic capture open");
  auto record=[&](const Trace& t){Trace head;head.name(current);head.number(static_cast<U>(t.data.size()));capture.write(reinterpret_cast<const char*>(head.data.data()),head.data.size());capture.write(reinterpret_cast<const char*>(t.data.data()),t.data.size());Check(capture.good(),"Diagnostic capture write");};
  U decodeMismatch=0,blockCases=0,ddsCases=0,unstable=0;std::array<U,8> encodeMismatch{};std::array<U,16> ddsMismatch{};
@@ -40,10 +57,10 @@ void Diagnostic(unsigned char* original,const std::string& libs,const std::strin
   for(U provided:{1u,levels}){
    current="bc-dds-"+std::to_string(shape[0])+"x"+std::to_string(shape[1])+"-f"+std::to_string(format)+"-p"+std::to_string(pattern)+"-levels"+std::to_string(provided);
    const auto bytes=Dds(shape[0],shape[1],format,provided,pattern);const auto path=prefix+"-input.dds";Save(path,bytes);void* p=nullptr;
-   Check(baseline.load(device,path.c_str(),&p)==0&&p,"Original compressed DDS");const auto expected=Consume(baseline,p,false);p=nullptr;
-   Check(baseline.load(device,path.c_str(),&p)==0&&p,"Original repeat compressed DDS");const auto repeated=Consume(baseline,p,false);if(expected.data!=repeated.data)++unstable;
+   Check(baseline.load(device,path.c_str(),&p)==0&&p,"Original compressed DDS");auto expected=LogicalPixels(baseline,p);{const auto storage=Consume(baseline,p,false);expected.add(storage.data.data(),storage.data.size());}p=nullptr;
+   Check(baseline.load(device,path.c_str(),&p)==0&&p,"Original repeat compressed DDS");auto repeated=LogicalPixels(baseline,p);{const auto storage=Consume(baseline,p,false);repeated.add(storage.data.data(),storage.data.size());}if(expected.data!=repeated.data)++unstable;
    Trace t;t.number(static_cast<U>(bytes.size()));t.add(bytes.data(),bytes.size());t.number(static_cast<U>(expected.data.size()));t.add(expected.data.data(),expected.data.size());t.add(repeated.data.data(),repeated.data.size());
-   for(U edge=0;edge<2;++edge)for(U policy=0;policy<8;++policy){p=nullptr;const auto status=create(bytes.data(),static_cast<U>(bytes.size()),policy<<16,0,edge,&p);Check(status==0&&p,"Candidate full DDS resource");const auto output=Consume(recovered,p,false);if(output.data!=expected.data)++ddsMismatch[edge*8+policy];t.number(edge);t.number(policy<<16);t.number(static_cast<U>(output.data.size()));t.add(output.data.data(),output.data.size());}
+   for(U edge=0;edge<2;++edge)for(U policy=0;policy<8;++policy){p=nullptr;const auto status=create(bytes.data(),static_cast<U>(bytes.size()),policy<<16,0,edge,&p);Check(status==0&&p,"Candidate full DDS resource");auto output=LogicalPixels(recovered,p);{const auto storage=Consume(recovered,p,false);output.add(storage.data.data(),storage.data.size());}if(output.data!=expected.data)++ddsMismatch[edge*8+policy];t.number(edge);t.number(policy<<16);t.number(static_cast<U>(output.data.size()));t.add(output.data.data(),output.data.size());}
    Check(Read(path)==bytes,"DDS diagnostic source changed");record(t);++ddsCases;
   }
  }

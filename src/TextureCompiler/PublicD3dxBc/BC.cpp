@@ -804,7 +804,7 @@ _Use_decl_annotations_ void DirectX::D3DXDecodeBC2(XMVECTOR* pColor, const uint8
     auto pBC2 = reinterpret_cast<const D3DX_BC2*>(pBC);
 
     // RGB part
-    DecodeBC1(pColor, &pBC2->bc1, false);
+    DecodeBC1(pColor, &pBC2->bc1, true); // Legacy PC D3DX three-color rule, including BC2/3
 
     // 4-bit alpha part
     uint32_t dw = pBC2->bitmap[0];
@@ -812,13 +812,13 @@ _Use_decl_annotations_ void DirectX::D3DXDecodeBC2(XMVECTOR* pColor, const uint8
     for (size_t i = 0; i < 8; ++i, dw >>= 4)
     {
 #pragma prefast(suppress : 22103, "writing blocks in two halves confuses tool")
-        pColor[i] = XMVectorSetW(pColor[i], static_cast<float>(dw & 0xf) * (1.0f / 15.0f));
+        pColor[i] = XMVectorSetW(pColor[i], static_cast<float>((dw & 0xf) * 17) * (1.0f / 255.0f));
     }
 
     dw = pBC2->bitmap[1];
 
     for (size_t i = 8; i < NUM_PIXELS_PER_BLOCK; ++i, dw >>= 4)
-        pColor[i] = XMVectorSetW(pColor[i], static_cast<float>(dw & 0xf) * (1.0f / 15.0f));
+        pColor[i] = XMVectorSetW(pColor[i], static_cast<float>((dw & 0xf) * 17) * (1.0f / 255.0f));
 }
 
 _Use_decl_annotations_ void DirectX::D3DXEncodeBC2(uint8_t* pBC, const XMVECTOR* pColor, uint32_t flags) noexcept
@@ -901,7 +901,7 @@ _Use_decl_annotations_ void DirectX::D3DXDecodeBC3(XMVECTOR* pColor, const uint8
     auto pBC3 = reinterpret_cast<const D3DX_BC3*>(pBC);
 
     // RGB part
-    DecodeBC1(pColor, &pBC3->bc1, false);
+    DecodeBC1(pColor, &pBC3->bc1, true); // Legacy PC D3DX three-color rule, including BC2/3
 
     // Adaptive 3-bit alpha part
     float fAlpha[8];

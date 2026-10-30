@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include "../Native/TextureNativeCopyApi.h"
 #ifdef TEXTURE_PUBLIC_BC_BUILD
 #define TEXTURE_PUBLIC_BC_API __declspec(dllexport)
 #else
@@ -32,3 +33,9 @@ extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcEncodeIma
 extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcCreateFromDds(
     const void* data, std::uint32_t byteCount, std::uint32_t flags,
     float threshold, std::uint32_t edgePolicy, void** output);
+// Experimental actual LoadImageA consumer: public BC decode -> normalized
+// float native row conversion, with source endian and swizzle preserved.
+extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcCopySurface(
+    void*, std::int32_t, std::uint32_t, std::uint32_t, std::uint32_t,
+    const Recovered::TextureCompiler::NativeCopyAbi::Point*, const void*, std::int32_t,
+    std::uint32_t, const Recovered::TextureCompiler::NativeCopyAbi::Rect*, std::uint32_t, float);
