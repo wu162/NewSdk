@@ -27,7 +27,7 @@ bool Format(U f){return (f&63)>=2&&!(f&0xc0000100u);}
 struct File{HANDLE value=INVALID_HANDLE_VALUE;~File(){if(value!=INVALID_HANDLE_VALUE)CloseHandle(value);}};
 std::int32_t ReadFileBytes(const char* path,std::vector<unsigned char>& bytes){
  if(!path)return Invalid;
- File file;file.value=CreateFileA(path,GENERIC_READ,FILE_SHARE_READ,nullptr,OPEN_EXISTING,FILE_FLAG_SEQUENTIAL_SCAN,nullptr);
+ File file;file.value=CreateFileA(path,GENERIC_READ,FILE_SHARE_READ,nullptr,OPEN_EXISTING,FILE_FLAG_RANDOM_ACCESS,nullptr);
  if(file.value==INVALID_HANDLE_VALUE)return BadFile;
  LARGE_INTEGER size{};if(!GetFileSizeEx(file.value,&size)||size.QuadPart<0||size.QuadPart>0x10000000)return BadFile;
  bytes.resize(static_cast<std::size_t>(size.QuadPart));DWORD count=0;
@@ -183,7 +183,10 @@ std::int32_t LoadTga(const std::vector<unsigned char>& bytes,void** output){
   if(repeat)offset+=stride;
  }
  if(!TgaTail(bytes,offset))return Unsupported;
- const U format=depth==32?0x18280086:0x28280086,levels=Log(std::max(width,height))+1;
+ bool alpha=false;if(depth==32)for(U pixel=0;pixel<count;++pixel)if(pixels[pixel*4+3]){alpha=true;break;}
+ // Original TGA parser changes an entirely zero alpha plane to X8. The
+ // stored base bytes stay zero; only the logical alpha selector becomes one.
+ const U format=alpha?0x18280086:0x28280086,levels=Log(std::max(width,height))+1;
  Resource resource;resource.p=TextureCreateCpuTexture(width,height,levels,format);if(!resource.p)return OutOfMemory;
  Recovered::TextureCompiler::NativeSurfaceAbi::LockedRect locked{};TextureSurfaceLockRect(resource.p,0,&locked,nullptr,0);
  auto status=TextureCopySurface(locked.bits,locked.pitch,width,height,format&~0x1c0u,nullptr,pixels.data(),width*4,format&~0x1c0u,nullptr,0,0.0f);

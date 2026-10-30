@@ -157,7 +157,7 @@
     },
     {
       "rva": "0x16c9e",
-      "evidence": "CreateFileA GENERIC_READ FILE_SHARE_READ OPEN_EXISTING FILE_FLAG_SEQUENTIAL_SCAN; file/read failure88760b59"
+      "evidence": "CreateFileA GENERIC_READ FILE_SHARE_READ OPEN_EXISTING FILE_FLAG_RANDOM_ACCESS; file/read failure88760b59"
     },
     {
       "rva": "0xdc7e",

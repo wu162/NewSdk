@@ -36,7 +36,7 @@ for name,start,end in FUNCTIONS:
 manifest['scopeBoundary']='PC non-rendering file IO/default ordinary2D CPU texture creation and packed mip storage; read-only original evidence, no execution or production acceptance'
 manifest['criticalSites']=[
  {'rva':'0x13c82','evidence':'default2D file call: dimensions/levels/format/filter default -1, usage0, pool1, output last'},
- {'rva':'0x16c9e','evidence':'CreateFileA GENERIC_READ FILE_SHARE_READ OPEN_EXISTING FILE_FLAG_SEQUENTIAL_SCAN; file/read failure88760b59'},
+ {'rva':'0x16c9e','evidence':'CreateFileA GENERIC_READ FILE_SHARE_READ OPEN_EXISTING FILE_FLAG_RANDOM_ACCESS; file/read failure88760b59'},
  {'rva':'0xdc7e','evidence':'GlobalAlloc GMEM_ZEROINIT52-byte object; VirtualAlloc MEM_COMMIT/PAGE_READWRITE primary and optional secondary; exact cleanup on OOM'},
  {'rva':'0xd855','evidence':'packing2 becomes levels>1; original header stores stride in units32texels and dimensions-minus1'},
  {'rva':'0xc9f6','evidence':'ordinary2D oneface, power-of-two packed-tail storage; stop mip allocations when either exponent<=4; every allocation page rounded'},
