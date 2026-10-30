@@ -1,0 +1,8 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "scope": "static read/disassembly only; BI_RGB source DWORD alpha scan and BGR24 expansion; no compiler execution",
+  "files": {
+    "BmpScanAndDecode.asm": "849d24c310e738fe503c233222d27e2fda758650a6dffc0c04285429ceac0149",
+    "BmpHeaderAndAlpha.asm": "8c7cfd54750f92a50cfe4b43d9866a9e2bc445e31ff762fc7b820e4403a7041a"
+  }
+}

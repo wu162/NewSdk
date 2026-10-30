@@ -1,0 +1,29 @@
+{
+  "repository": "nothings/stb",
+  "commit": "003501f6d7a8668ce8b6d875e34dd97ad0d5d5b5",
+  "url": "https://github.com/nothings/stb/tree/003501f6d7a8668ce8b6d875e34dd97ad0d5d5b5",
+  "acceptance": "See recovery/RESUME.md; provenance does not assert acceptance",
+  "productionSdkEnabled": false,
+  "files": [
+    {
+      "path": "upstream/stb_image.h",
+      "bytes": 283010,
+      "sha256": "594c2fe35d49488b4382dbfaec8f98366defca819d916ac95becf3e75f4200b3"
+    },
+    {
+      "path": "stb_image.h",
+      "bytes": 283043,
+      "sha256": "1500e9610ca5e3ee6fc496554f8f8d9e4c83d9513ec17cbaa34a6d193fead0f2"
+    },
+    {
+      "path": "TexturePublicBmp.h",
+      "bytes": 403,
+      "sha256": "501b75ddba8f5d75cceb134a7f072fcc7a85ad76699e7b41d61eab889508c277"
+    },
+    {
+      "path": "TexturePublicBmp.cpp",
+      "bytes": 5053,
+      "sha256": "fa228e8d02a3c55087365b3370079aeeb7d22607b95d14efafa0912bf992999e"
+    }
+  ]
+}

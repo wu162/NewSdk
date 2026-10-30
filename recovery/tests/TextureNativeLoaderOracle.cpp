@@ -26,7 +26,7 @@ namespace {
 using namespace Recovered::TextureCompiler;using U=std::uint32_t;
 using OriginalCreate=void* (__stdcall *)(U,U,U,U,U,U,U,U);
 struct Api{NativeDeviceAbi::CreateFn device;NativeDeviceAbi::ReleaseFn deviceRelease;NativeResourceAbi::RefFn add,release;NativeResourceAbi::UnlockFn unlock;NativeSurfaceAbi::LayoutFn layout;NativeSurfaceAbi::LockFn lock;NativeDescriptorAbi::LevelFn level;NativeDescriptorAbi::TextureFn describe;NativeCopyAbi::CopyFn copy;NativeLoaderAbi::CreateFn create;NativeLoaderAbi::LoadFn load;OriginalCreate originalCreate;bool isolated=false;};
-U constructorCases=0,fileCases=0,copyCases=0,rejections=0,mismatches=0,compressedBoundaries=0;std::string current,failurePath;
+U constructorCases=0,fileCases=0,copyCases=0,rejections=0,mismatches=0,compressedBoundaries=0,npotCases=0,bmpCases=0;std::string current,failurePath;
 void Check(bool c,const char* why){if(!c)throw std::runtime_error(current+": "+why);}
 void Isolation(const Api& api){if(api.isolated){Check(!GetModuleHandleA("BinaryAssetBuilder.TextureCompiler.dll"),"Original loaded during loader replay");Check(GetFileAttributesA("BinaryAssetBuilder.TextureCompiler.dll")==INVALID_FILE_ATTRIBUTES,"Original file during loader replay");}}
 U Address(const void* p){return static_cast<U>(reinterpret_cast<std::uintptr_t>(p));}
@@ -81,10 +81,20 @@ void Equal(const Trace& actual,const Trace& expected){if(actual.data!=expected.d
  if(mismatches<=16){Save(failurePath+"-"+std::to_string(mismatches)+".actual",actual.data);Save(failurePath+"-"+std::to_string(mismatches)+".expected",expected.data);}
  }}
 Trace unsupportedOriginal;
-struct Gold{Trace output;const std::vector<unsigned char>* replay=nullptr;std::size_t offset=0;void record(Trace actual,const Trace* original){
- output.name(current);output.number(static_cast<U>(actual.data.size()));output.add(actual.data.data(),actual.data.size());
- if(original)Equal(actual,*original);else{Check(replay&&offset+4<=replay->size(),"Truncated loader gold");U length=Load(replay->data(),static_cast<U>(offset));offset+=4;Check(offset+length<=replay->size(),"Truncated loader gold name");Check(std::string(replay->begin()+offset,replay->begin()+offset+length)==current,"Loader gold label");offset+=length;Check(offset+4<=replay->size(),"Truncated loader gold length");length=Load(replay->data(),static_cast<U>(offset));offset+=4;Check(offset+length<=replay->size(),"Truncated loader gold record");Trace expected;expected.data.assign(replay->begin()+offset,replay->begin()+offset+length);offset+=length;Equal(actual,expected);}
- }};
+// Stream complete records rather than retaining two growing complete captures
+// in a 32-bit process. Every byte/name/record and final EOF is still checked.
+struct Gold{
+ std::ofstream capture;std::ifstream replay;std::uint64_t bytes=0;bool recording=false;
+ void open(const std::string& path,bool original){recording=original;if(original){capture.open(path,std::ios::binary);Check(capture.is_open(),"Cannot create loader capture");}else{replay.open(path,std::ios::binary);Check(replay.is_open(),"Missing loader capture");}}
+ void write(const void* p,std::size_t count){capture.write(static_cast<const char*>(p),static_cast<std::streamsize>(count));Check(capture.good(),"Loader capture write failed");}
+ U number(){U n=0;replay.read(reinterpret_cast<char*>(&n),4);Check(replay.good(),"Truncated loader capture number");return n;}
+ void record(Trace actual,const Trace* original){
+  bytes+=8+current.size()+actual.data.size();
+  if(original){Equal(actual,*original);U length=static_cast<U>(current.size());write(&length,4);write(current.data(),current.size());length=static_cast<U>(original->data.size());write(&length,4);write(original->data.data(),original->data.size());}
+  else{U length=number();Check(length==current.size(),"Loader gold name length");std::string name(length,'\0');replay.read(&name[0],length);Check(replay.good()&&name==current,"Loader gold label");length=number();Trace expected;expected.data.resize(length);replay.read(reinterpret_cast<char*>(expected.data.data()),length);Check(replay.good(),"Truncated loader gold record");Equal(actual,expected);}
+ }
+ void finish(){if(recording){capture.flush();Check(capture.good(),"Loader capture flush failed");capture.close();}else Check(replay.peek()==std::char_traits<char>::eof(),"Trailing loader capture bytes");}
+};
 void* Construct(Api api,U w,U h,U levels,U format){Isolation(api);auto p=api.originalCreate?api.originalCreate(w,h,1,levels,0,format,1,3):api.create(w,h,levels,format);Isolation(api);return p;}
 void Constructors(Api recovered,Api original,bool hasOriginal,Gold& gold){
  const U formats[]={2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,41,42,43,45,46,47,48,50,54,55,56,57,62,63};
@@ -100,7 +110,7 @@ void Constructors(Api recovered,Api original,bool hasOriginal,Gold& gold){
 }
 std::vector<unsigned char> Tga(U w,U h,U depth,U origin,bool rle,U pattern,U tail){
  std::vector<unsigned char> b(18);b[0]=3;b[2]=rle?10:2;b[12]=static_cast<unsigned char>(w);b[13]=static_cast<unsigned char>(w>>8);b[14]=static_cast<unsigned char>(h);b[15]=static_cast<unsigned char>(h>>8);b[16]=static_cast<unsigned char>(depth);b[17]=static_cast<unsigned char>(origin|(depth==32?8:0));b.insert(b.end(),{'i','d','!'});
- for(U y=0;y<h;++y)for(U x=0;x<w;++x){if(rle)b.push_back(pattern==0?0x80:0);for(U c=0;c<depth/8;++c)b.push_back(static_cast<unsigned char>(pattern==0?0:pattern==1?255:pattern==2?((x*37+y*61+c*83)&255):((x^y^(c*31))*17)&255));}
+ for(U y=0;y<h;++y)for(U x=0;x<w;++x){if(rle)b.push_back(pattern==0?0x80:0);for(U c=0;c<depth/8;++c)b.push_back(static_cast<unsigned char>(pattern>=4?pattern-4:pattern==0?0:pattern==1?255:pattern==2?((x*37+y*61+c*83)&255):((x^y^(c*31))*17)&255));}
  if(tail){const U extension=static_cast<U>(b.size());if(tail>=2){b.resize(b.size()+495);b[extension]=0xef;b[extension+1]=1;b[extension+494]=3;if(tail==3){b[extension+478]=22;b[extension+480]=10;}}
   U footer=static_cast<U>(b.size());b.resize(b.size()+26);Store(b.data(),footer,tail>=2?extension:0);std::memcpy(b.data()+footer+8,"TRUEVISION-XFILE.\0",18);
  }
@@ -109,7 +119,22 @@ std::vector<unsigned char> Tga(U w,U h,U depth,U origin,bool rle,U pattern,U tai
 std::vector<unsigned char> Dds(U w,U h,U format,U provided,U pattern){
  std::vector<unsigned char> b(128);Store(b.data(),0,0x20534444);Store(b.data(),4,124);Store(b.data(),8,0x2100f);Store(b.data(),12,h);Store(b.data(),16,w);Store(b.data(),28,provided);Store(b.data(),76,32);Store(b.data(),108,provided>1?0x401008:0x1000);
  bool compressed=format<=3;Store(b.data(),80,compressed?4:format==4?0x41:0x40);if(compressed)Store(b.data(),84,format==1?0x31545844:format==2?0x33545844:0x35545844);else{Store(b.data(),88,32);Store(b.data(),92,0xff0000);Store(b.data(),96,0xff00);Store(b.data(),100,0xff);Store(b.data(),104,format==4?0xff000000:0);}
- for(U level=0;level<provided;++level){U count=compressed?((w+3)/4)*((h+3)/4)*(format==1?8:16):w*h*4;for(U i=0;i<count;++i)b.push_back(static_cast<unsigned char>(pattern==0?0:pattern==1?255:(i*53+level*71+(i>>3)*29)&255));w=std::max(1u,w>>1);h=std::max(1u,h>>1);}
+ for(U level=0;level<provided;++level){U count=compressed?((w+3)/4)*((h+3)/4)*(format==1?8:16):w*h*4;for(U i=0;i<count;++i)b.push_back(static_cast<unsigned char>(pattern>=4?pattern-4:pattern==0?0:pattern==1?255:(i*53+level*71+(i>>3)*29)&255));w=std::max(1u,w>>1);h=std::max(1u,h>>1);}
+ return b;
+}
+std::vector<unsigned char> Bmp(U w,U h,U depth,bool top,U pattern,U dib,U colors=0,U gap=0,U profile=0){
+ const bool core=dib==12;const U header=14+dib,stride=(w*(depth/8)+3)&~3u,start=header+colors*4,raster=stride*h;
+ // D3DX's pre-expansion DWORD alpha scan also visits byte3 of BGR24
+ // DWORDs. Explicit zero trailing storage bounds that scan for every shape;
+ // it is file data, not dependence on original heap contents past EOF.
+ std::vector<unsigned char> b(start+gap+raster+(profile?17:0)+(depth==24?w:0));b[0]='B';b[1]='M';Store(b.data(),2,static_cast<U>(b.size()));Store(b.data(),10,start+gap);Store(b.data(),14,dib);
+ if(core){b[18]=static_cast<unsigned char>(w);b[19]=static_cast<unsigned char>(w>>8);b[20]=static_cast<unsigned char>(h);b[21]=static_cast<unsigned char>(h>>8);b[22]=1;b[24]=static_cast<unsigned char>(depth);}
+ else{Store(b.data(),18,w);Store(b.data(),22,top?0u-h:h);b[26]=1;b[28]=static_cast<unsigned char>(depth);Store(b.data(),34,raster);Store(b.data(),46,colors);}
+ for(U i=0;i<colors*4;++i)b[header+i]=static_cast<unsigned char>(i*71+19);
+ // Deliberately make the extra gap/raster distinguishable. D3DX consumes at
+ // start rather than bfOffBits, including the first gap bytes as pixels.
+ for(U i=0;i<gap+raster;++i)b[start+i]=static_cast<unsigned char>(pattern>=4?pattern-4:pattern==0?0:pattern==1?255:pattern==2?(i*53+(i>>3)*29)&255:((i^31)*17)&255);
+ if(profile){const U at=start+gap+raster;Store(b.data(),126,at-14);Store(b.data(),130,17);for(U i=0;i<17;++i)b[at+i]=static_cast<unsigned char>(i*41+7);}
  return b;
 }
 void FileCase(Api recovered,Api original,bool hasOriginal,Gold& gold,void* rd,void* od,const std::string& path){
@@ -136,25 +161,72 @@ void Files(Api recovered,Api original,bool hasOriginal,Gold& gold,const std::str
   U levels=1;for(U n=std::max(size[0],size[1]);n>1;n>>=1)++levels;
   for(U provided:{1u,levels}){if(format<=3&&provided!=levels)continue;current="dds-"+std::to_string(size[0])+"x"+std::to_string(size[1])+"-format"+std::to_string(format)+"-pattern"+std::to_string(pattern)+"-provided"+std::to_string(provided);const auto path=scratch+"/input.dds";Save(path,Dds(size[0],size[1],format,provided,pattern));FileCase(recovered,original,hasOriginal,gold,rd,od,path);}
  }
+ // Public DirectXTex adaptation: preserve every old case above and compare
+ // complete new resources, including X8 physical bytes, all provided levels,
+ // missing BOX levels, packed tails and the actual masked LoadImageA copy.
+ const std::array<U,2> npotSizes[]={{{3,1}},{{1,3}},{{3,2}},{{2,3}},{{3,3}},{{5,3}},{{3,5}},{{7,9}},{{9,7}},{{17,35}},{{35,17}},{{31,65}},{{65,31}},{{127,5}},{{5,127}},{{129,1}},{{1,129}}};
+ for(auto size:npotSizes){
+  for(U depth:{24u,32u})for(U origin:{0u,0x10u,0x20u,0x30u})for(bool rle:{false,true})for(U pattern:{0u,1u,2u,3u}){
+   current="npot-tga-"+std::to_string(size[0])+"x"+std::to_string(size[1])+"-depth"+std::to_string(depth)+"-origin"+std::to_string(origin)+"-rle"+std::to_string(rle)+"-pattern"+std::to_string(pattern);
+   const auto path=scratch+"/npot.tga";Save(path,Tga(size[0],size[1],depth,origin,rle,pattern,0));FileCase(recovered,original,hasOriginal,gold,rd,od,path);++npotCases;
+  }
+  U sourceLevels=1;for(U n=std::max(size[0],size[1]);n>1;n>>=1)++sourceLevels;
+  for(U format:{4u,5u})for(U pattern:{0u,1u,2u})for(U provided=1;provided<=sourceLevels;++provided){
+   current="npot-dds-"+std::to_string(size[0])+"x"+std::to_string(size[1])+"-format"+std::to_string(format)+"-pattern"+std::to_string(pattern)+"-provided"+std::to_string(provided);
+   const auto path=scratch+"/npot.dds";Save(path,Dds(size[0],size[1],format,provided,pattern));FileCase(recovered,original,hasOriginal,gold,rd,od,path);++npotCases;
+  }
+ }
+ // All byte quantization values, two transposed shapes and every existing
+ // source level count. Uniform planes expose reciprocal/float/dither ties.
+ for(auto size:{std::array<U,2>{3,5},std::array<U,2>{5,3}})for(U value=0;value<256;++value){
+  for(U depth:{24u,32u}){
+   current="npot-uniform-tga-"+std::to_string(size[0])+"x"+std::to_string(size[1])+"-depth"+std::to_string(depth)+"-byte"+std::to_string(value);
+   const auto path=scratch+"/uniform.tga";Save(path,Tga(size[0],size[1],depth,0x20,false,value+4,0));FileCase(recovered,original,hasOriginal,gold,rd,od,path);++npotCases;
+  }
+  for(U format:{4u,5u})for(U provided=1;provided<=3;++provided){
+   current="npot-uniform-dds-"+std::to_string(size[0])+"x"+std::to_string(size[1])+"-format"+std::to_string(format)+"-provided"+std::to_string(provided)+"-byte"+std::to_string(value);
+   const auto path=scratch+"/uniform.dds";Save(path,Dds(size[0],size[1],format,provided,value+4));FileCase(recovered,original,hasOriginal,gold,rd,od,path);++npotCases;
+  }
+ }
+ current="npot-previous-rejected-tga-3x4";Save(scratch+"/previous-npot.tga",Tga(3,4,32,0,false,2,0));FileCase(recovered,original,hasOriginal,gold,rd,od,scratch+"/previous-npot.tga");++npotCases;
+ auto bmpCase=[&](U w,U h,U depth,bool top,U pattern,U dib,U colors,U gap,U profile){
+  current="bmp-"+std::to_string(w)+"x"+std::to_string(h)+"-depth"+std::to_string(depth)+"-top"+std::to_string(top)+"-pattern"+std::to_string(pattern)+"-dib"+std::to_string(dib)+"-colors"+std::to_string(colors)+"-gap"+std::to_string(gap)+"-profile"+std::to_string(profile);
+  const auto path=scratch+"/input.bmp";Save(path,Bmp(w,h,depth,top,pattern,dib,colors,gap,profile));FileCase(recovered,original,hasOriginal,gold,rd,od,path);++bmpCases;
+ };
+ for(const auto& shapes:{std::vector<std::array<U,2>>(std::begin(sizes),std::end(sizes)),std::vector<std::array<U,2>>(std::begin(npotSizes),std::end(npotSizes))})for(auto size:shapes)
+  for(U dib:{12u,40u,52u,56u,64u,108u,124u})for(U depth:{24u,32u})for(bool top:{false,true})for(U pattern:{0u,1u,2u,3u}){
+   if(dib==12&&top)continue;bmpCase(size[0],size[1],depth,top,pattern,dib,0,0,0);
+  }
+ for(auto size:{std::array<U,2>{4,8},std::array<U,2>{3,5},std::array<U,2>{35,17}}){
+  for(U dib:{40u,52u,56u,64u,108u,124u})for(U depth:{24u,32u})for(bool top:{false,true})for(U pattern:{0u,1u,2u,3u})for(U colors:{1u,4u})for(U gap:{0u,7u})bmpCase(size[0],size[1],depth,top,pattern,dib,colors,gap,0);
+  for(U depth:{24u,32u})for(U pattern:{0u,1u,2u,3u})for(U gap:{1u,7u})bmpCase(size[0],size[1],depth,false,pattern,12,0,gap,0);
+  for(U depth:{24u,32u})for(bool top:{false,true})for(U pattern:{0u,1u,2u,3u})for(U gap:{0u,7u})bmpCase(size[0],size[1],depth,top,pattern,124,4,gap,1);
+ }
+ for(auto size:{std::array<U,2>{3,5},std::array<U,2>{5,3}})for(U value=0;value<256;++value)for(U depth:{24u,32u})for(bool top:{false,true})bmpCase(size[0],size[1],depth,top,value+4,40,0,0,0);
  for(const auto* name:{"AULegionnaireInfantry.dds","EXJapanArrow.dds","FXAlliedFutureLaser.dds","FXYurikoShieldFadeLUT.dds","JUArcherInfantry.dds","PackedImages_097_EP1.dds","SUMortarCycle.dds","apt_tacticalhudbuildqueuepage_1.tga","apt_tacticalhudmaincommandbar_1.tga","map_mp_2_feasel10_ep1_art.tga"}){current=std::string("real-")+name;FileCase(recovered,original,hasOriginal,gold,rd,od,fixtures+"/"+name);}
  // Missing compressed mip recompression is an explicit remaining boundary,
  // with real files retained in the corpus rather than misreported as loaded.
  for(const auto* name:{"LURomania_vol.dds","Target_Japan_ArcherBarrage.dds"}){current=std::string("unsupported-")+name;void* p=nullptr;Check(recovered.load(rd,(fixtures+"/"+name).c_str(),&p)==static_cast<std::int32_t>(0x80004001u)&&!p,"Missing compressed mip generation must reject");Isolation(recovered);++rejections;}
  current="missing-file";void* p=nullptr;const auto missing=scratch+"/absent.tga";const auto missingStatus=recovered.load(rd,missing.c_str(),&p);Check(missingStatus==static_cast<std::int32_t>(0x88760b59u)&&!p,"Missing-file HRESULT/output");if(hasOriginal){p=nullptr;Check(original.load(od,missing.c_str(),&p)==missingStatus&&!p,"Original missing-file HRESULT/output");}
- // Deliberately unsupported codecs, NPOT, tiled/native dimensions and
+ // Deliberately unsupported codecs, tiled/native dimensions and
  // malformed metadata are only sent to recovered, never unsafe original paths.
  U rejectionIndex=0;
- for(auto bytes:{std::vector<unsigned char>{'P','6','\n'},Tga(3,4,32,0,false,2,0),Tga(4,4,32,0,false,2,0)}){
+ for(auto bytes:{std::vector<unsigned char>{'P','6','\n'},Tga(8193,1,32,0,false,2,0),Tga(4,4,32,0,false,2,0)}){
   current="rejected-input-"+std::to_string(rejectionIndex++);if(rejectionIndex==3)bytes.resize(20);const auto path=scratch+"/invalid.bin";Save(path,bytes);p=nullptr;
   Check(recovered.load(rd,path.c_str(),&p)<0&&!p,"Unsupported/truncated source must reject without resource");Isolation(recovered);++rejections;
+ }
+ for(U mode=0;mode<8;++mode){
+  current="rejected-bmp-"+std::to_string(mode);auto bytes=Bmp(3,5,32,false,2,mode==6?124:40);
+  if(mode==0)bytes.resize(22);else if(mode==1)Store(bytes.data(),30,3);else if(mode==2)bytes[28]=8;else if(mode==3)Store(bytes.data(),10,0);else if(mode==4)Store(bytes.data(),46,0xffffffffu);else if(mode==5)bytes.resize(60);else if(mode==6)Store(bytes.data(),126,124);else{bytes=Bmp(4,4,24,false,0,40);bytes.resize(54+48);Store(bytes.data(),2,static_cast<U>(bytes.size()));}
+  const auto path=scratch+"/invalid.bmp";Save(path,bytes);p=nullptr;Check(recovered.load(rd,path.c_str(),&p)<0&&!p,"Unsupported/malformed BMP must not transfer resource");Isolation(recovered);++rejections;
  }
  current="invalid-loader-pointers";Check(recovered.load(rd,nullptr,&p)<0&&recovered.load(rd,missing.c_str(),nullptr)<0&&recovered.load(nullptr,missing.c_str(),&p)<0,"Invalid loader arguments must reject");Isolation(recovered);
  Check(recovered.deviceRelease(rd)==0,"Loader device release");if(hasOriginal)Check(original.deviceRelease(od)==0,"Original loader device release");Isolation(recovered);
 }
 void Run(unsigned char* original,const std::string& libs,const std::string& fixtures,const std::string& prefix){
- failurePath=prefix;std::vector<HMODULE> modules;auto recovered=Recovered(libs,modules,!original);Api baseline{};if(original)baseline=Original(original);Gold gold;std::vector<unsigned char> replay;if(!original){replay=Read(prefix+".capture");gold.replay=&replay;}
- Constructors(recovered,baseline,original!=nullptr,gold);Files(recovered,baseline,original!=nullptr,gold,fixtures,prefix+"-inputs");std::cerr<<"COMPLETE constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" mismatches="<<mismatches<<"\n";Check(constructorCases==6860&&fileCases==2789&&rejections==5&&compressedBoundaries==105,"Complete declared constructor/file/rejection matrix count");if(mismatches)throw std::runtime_error("Complete loader mismatches="+std::to_string(mismatches)+" constructorCases="+std::to_string(constructorCases)+" fileCases="+std::to_string(fileCases));if(original){Save(prefix+".capture",gold.output.data);Save(prefix+".unsupported-original",unsupportedOriginal.data);}else Check(gold.offset==replay.size(),"Trailing loader capture bytes");for(auto m:modules)FreeLibrary(m);
- std::cout<<"PASS PC native loader "<<(original?"differential":"NoOriginal")<<" constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" rgbaCopies="<<copyCases<<" supportedFiles="<<(fileCases-compressedBoundaries)<<" originalSuccessUnsupportedCompressed="<<compressedBoundaries<<" explicitRejections="<<rejections<<" completeBytes="<<gold.output.data.size()<<"; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity\n";
+ failurePath=prefix;std::vector<HMODULE> modules;auto recovered=Recovered(libs,modules,!original);Api baseline{};if(original)baseline=Original(original);Gold gold;gold.open(prefix+".capture",original!=nullptr);
+ Constructors(recovered,baseline,original!=nullptr,gold);Files(recovered,baseline,original!=nullptr,gold,fixtures,prefix+"-inputs");gold.finish();std::cerr<<"COMPLETE constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" mismatches="<<mismatches<<"\n";Check(constructorCases==6860&&fileCases==14606&&npotCases==5665&&bmpCases==6152&&rejections==13&&compressedBoundaries==105,"Complete declared constructor/file/rejection matrix count");if(mismatches)throw std::runtime_error("Complete loader mismatches="+std::to_string(mismatches)+" constructorCases="+std::to_string(constructorCases)+" fileCases="+std::to_string(fileCases));if(original)Save(prefix+".unsupported-original",unsupportedOriginal.data);for(auto m:modules)FreeLibrary(m);
+ std::cout<<"PASS PC native loader "<<(original?"differential":"NoOriginal")<<" constructorCases="<<constructorCases<<" fileCases="<<fileCases<<" npotCases="<<npotCases<<" bmpCases="<<bmpCases<<" rgbaCopies="<<copyCases<<" supportedFiles="<<(fileCases-compressedBoundaries)<<" originalSuccessUnsupportedCompressed="<<compressedBoundaries<<" explicitRejections="<<rejections<<" completeBytes="<<gold.bytes<<"; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity\n";
 }
 }
 #pragma managed(pop)

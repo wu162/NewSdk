@@ -1,0 +1,132 @@
+{
+  "status": "failed",
+  "sdkValidated": false,
+  "sourceCommit": "34946af55168a43edd350ea12b8329833b16b8bb",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runId": "41005120850",
+  "configurations": [],
+  "publicSources": [
+    {
+      "repository": "microsoft/DirectXTex",
+      "commit": "ec66b78b37389e8373a8e14ccc3cd29be94146b3",
+      "files": [
+        {
+          "path": "upstream/filters.h",
+          "bytes": 17587,
+          "sha256": "369bb5d2cf6f74ad1cc5a3fa6b52c4e1c2ecd77ca566377a2612269526517f08"
+        },
+        {
+          "path": "upstream/DirectXTexResize.cpp",
+          "bytes": 36719,
+          "sha256": "de781d528d28bf2b4516820c9b181c4eb003580d58dde1fdcccae4b81a9a7d60"
+        },
+        {
+          "path": "upstream/LICENSE",
+          "bytes": 1141,
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        },
+        {
+          "path": "TexturePublicTriangle.h",
+          "bytes": 526,
+          "sha256": "df64acb7f4796bef1228ec5a43d52f6cf6b0806b77f4277fa0ca30466d9a39c9"
+        },
+        {
+          "path": "TexturePublicTriangle.cpp",
+          "bytes": 6361,
+          "sha256": "1a799e630606d01529caee8f6502f7dc9406e26e5c94c4b461a18809c45c243b"
+        }
+      ]
+    },
+    {
+      "repository": "nothings/stb",
+      "commit": "003501f6d7a8668ce8b6d875e34dd97ad0d5d5b5",
+      "files": [
+        {
+          "path": "upstream/stb_image.h",
+          "bytes": 283010,
+          "sha256": "594c2fe35d49488b4382dbfaec8f98366defca819d916ac95becf3e75f4200b3"
+        },
+        {
+          "path": "stb_image.h",
+          "bytes": 283043,
+          "sha256": "1500e9610ca5e3ee6fc496554f8f8d9e4c83d9513ec17cbaa34a6d193fead0f2"
+        },
+        {
+          "path": "TexturePublicBmp.h",
+          "bytes": 403,
+          "sha256": "501b75ddba8f5d75cceb134a7f072fcc7a85ad76699e7b41d61eab889508c277"
+        },
+        {
+          "path": "TexturePublicBmp.cpp",
+          "bytes": 4391,
+          "sha256": "a2d438c98ec229f0389a2ec5fabac608cdb3def585dfc9b0a23deca17d825d40"
+        }
+      ]
+    }
+  ],
+  "runAttempt": "1",
+  "scope": "PC owned 2D CPU resource creation and actual raw DDS partial/complete-chain/BOX missing-mip and POT/NPOT TGA24/32 raw/RLE, stb BMP24/32 BI_RGB seven DIB revisions/colors/gap/profile, plus raw DDS per-provided-level DirectXTex triangle file loading; 105 compressed DDS original successes remain explicitly unsupported with separate full original snapshots; full original native headers/VM/packed tails/BOX mips/descriptors/locks/copies/release, Debug/Release and independent NoOriginal; compressed missing mip/additional codecs/production SDK/mixed-mode identity excluded",
+  "error": "Debug-differential failed",
+  "sourceFixtures": [
+    {
+      "sha256": "1c2c5a6a12bf4b6b03b127316769cfa3481f7cbc1172cd56065d779a9d89dd17",
+      "bytes": 131200,
+      "file": "PackedImages_097_EP1.dds"
+    },
+    {
+      "sha256": "d83e7da2b70186f8857e3d7a28c221c7b076f35d1f7def77784bdb1313ba4ff4",
+      "bytes": 640,
+      "file": "LURomania_vol.dds"
+    },
+    {
+      "sha256": "995f7ef1ecc41be00ce3d4e2a933128988b4f37a814f8e2500ff4c40a0adaa36",
+      "bytes": 22024,
+      "file": "FXAlliedFutureLaser.dds"
+    },
+    {
+      "sha256": "0fad96553c29863a37966f9b85711926231c63d1932d88ebdbb976476fa0146c",
+      "bytes": 392,
+      "file": "FXYurikoShieldFadeLUT.dds"
+    },
+    {
+      "sha256": "8b8a8b99950ef9ed96fbf5b8e45bff6f691656a28b6b6ce76769d9280b4f2a8c",
+      "bytes": 11080,
+      "file": "EXJapanArrow.dds"
+    },
+    {
+      "sha256": "42b701681043182ce335eaf43bf554f8f895d622d3c6fad83ec2d3fc65724bea",
+      "bytes": 22000,
+      "file": "JUArcherInfantry.dds"
+    },
+    {
+      "sha256": "afac628fc500868b3a4648b47e507a64ad277281fccdc5b35f4a798ca9a75323",
+      "bytes": 65664,
+      "file": "Target_Japan_ArcherBarrage.dds"
+    },
+    {
+      "sha256": "a4fdf4c1ea3f95fae662b20a7175d701b8c42a99b6b87e6a69d4babeb4394bcf",
+      "bytes": 11064,
+      "file": "AULegionnaireInfantry.dds"
+    },
+    {
+      "sha256": "bae9a02cd90785aed6ef4648a2ff2d5fcdeddaceb358dd08d150a8031f361b85",
+      "bytes": 349680,
+      "file": "SUMortarCycle.dds"
+    },
+    {
+      "sha256": "37f7348cb10d39f1ec9ae1024eee2e4b909e63d18fcee5fa837547439e2a665f",
+      "bytes": 2098213,
+      "file": "apt_tacticalhudbuildqueuepage_1.tga"
+    },
+    {
+      "sha256": "d4b50f26b6914b6d78fe74406bf0ff9fd49b45df82a87370b2b5532eaab59c37",
+      "bytes": 524838,
+      "file": "apt_tacticalhudmaincommandbar_1.tga"
+    },
+    {
+      "sha256": "5d453e31e4a5cf6e5fa30cc8ed234448e3dd98177f58a519023e464a55b3bee9",
+      "bytes": 786476,
+      "file": "map_mp_2_feasel10_ep1_art.tga"
+    }
+  ]
+}

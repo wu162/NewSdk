@@ -1,7 +1,7 @@
 name: Texture batched validation
 on:
   push:
-    branches: [recovery/texturecompiler-source, validation/texture-public-ppm, validation/texture-public-jpeg, validation/texture-public-s3, validation/texture-public-s3-dxt1]
+    branches: [recovery/texturecompiler-source, validation/texture-public-ppm, validation/texture-public-jpeg, validation/texture-public-s3, validation/texture-public-s3-dxt1, validation/texture-public-native-npot]
     paths:
       - 'src/TextureCompiler/**'
       - 'SDK/tools/**'

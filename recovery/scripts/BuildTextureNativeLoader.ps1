@@ -5,7 +5,7 @@ foreach($kind in @('Resource','Surface','Copy')){& "$PSScriptRoot/BuildTextureNa
 $opt=if($Configuration -eq 'Release'){'/O2'}else{'/Od'}
 Push-Location $destinationPath
 try{
- & cl /nologo /LD /MT /EHsc /std:c++17 $opt /fp:strict "$root/src/TextureCompiler/Native/TextureNativeLoaderApi.cpp" /link "$destinationPath/native-resource.lib" "$destinationPath/native-surface.lib" "$destinationPath/native-copy.lib" /DEF:"$root/src/TextureCompiler/Native/TextureNativeLoaderApi.def" /OUT:"$destinationPath/Recovered.TextureNativeLoader.dll" /IMPLIB:"$destinationPath/native-loader.lib" /MACHINE:X86
+ & cl /nologo /LD /MT /EHsc /std:c++17 $opt /fp:strict "$root/src/TextureCompiler/Native/TextureNativeLoaderApi.cpp" "$root/src/TextureCompiler/PublicDirectXTex/TexturePublicTriangle.cpp" "$root/src/TextureCompiler/PublicStbBmp/TexturePublicBmp.cpp" /link "$destinationPath/native-resource.lib" "$destinationPath/native-surface.lib" "$destinationPath/native-copy.lib" /DEF:"$root/src/TextureCompiler/Native/TextureNativeLoaderApi.def" /OUT:"$destinationPath/Recovered.TextureNativeLoader.dll" /IMPLIB:"$destinationPath/native-loader.lib" /MACHINE:X86
  if($LASTEXITCODE -ne 0){throw 'Native x86 PC loader build failed'}
  $data=[IO.File]::ReadAllBytes("$destinationPath/Recovered.TextureNativeLoader.dll");$pe=[BitConverter]::ToInt32($data,0x3c)
  if([BitConverter]::ToUInt16($data,$pe+4) -ne 0x14c){throw 'Loader ABI requires I386'}
