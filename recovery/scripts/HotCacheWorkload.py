@@ -1,0 +1,637 @@
+#!/usr/bin/env python3
+"""Pinned full Upheaval plus reachable, independent L8 benchmark partitions.
+
+Only benchmark work directories are written. No compile or artificial delay is
+performed here; the controller must calibrate actual fresh-process hot builds.
+"""
+import copy
+import hashlib
+import json
+import math
+import os
+from pathlib import Path
+import shutil
+import struct
+import subprocess
+import tarfile
+import wave
+import xml.etree.ElementTree as ET
+
+NS = 'uri:ea.com:eala:asset'
+XI = 'http://www.w3.org/2001/XInclude'
+HISTORICAL = 'bacfc69fc3e71c8116d1f22b933b8b6173170ecf'
+UPHEAVAL_TREE = '5551fc26a6f96b62613443e0d0fa2958c14cbce0'
+ET.register_namespace('', NS)
+ET.register_namespace('xi', XI)
+
+
+def need(value, message):
+    if not value:
+        raise ValueError(message)
+
+
+def element(local_name, **attributes):
+    return ET.Element('{%s}%s' % (NS, local_name), attributes)
+
+
+def save_xml(path, root):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    ET.ElementTree(root).write(path, encoding='utf-8', xml_declaration=True)
+
+
+def declaration(*nodes):
+    root = element('AssetDeclaration')
+    root.extend(nodes)
+    return root
+
+
+def includes(root):
+    found = root.find('{%s}Includes' % NS)
+    if found is None:
+        found = element('Includes')
+        root.insert(0, found)
+    return found
+
+
+def add_include(root, source, kind='all'):
+    includes(root).append(element('Include', type=kind, source=source))
+
+
+def armor(identifier, **attributes):
+    return element('ArmorTemplate', id=identifier, Default='72.5%', **attributes)
+
+
+def sha(path):
+    with path.open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+
+def inventory(mod):
+    rows = []
+    assets = documents = 0
+    for path in sorted(mod.rglob('*')):
+        if not path.is_file():
+            continue
+        rows.append({'path': path.relative_to(mod).as_posix(), 'bytes': path.stat().st_size,
+                     'sha256': sha(path)})
+        if path.suffix.lower() in ('.xml', '.w3x'):
+            try:
+                root = ET.parse(path).getroot()
+            except ET.ParseError:
+                continue
+            if root.tag == '{%s}AssetDeclaration' % NS:
+                documents += 1
+                assets += sum(node.get('id') is not None for node in root)
+    return {'fingerprint': hashlib.sha256(json.dumps(rows, sort_keys=True).encode()).hexdigest(),
+            'documents': documents, 'assets': assets,
+            'inputBytes': sum(row['bytes'] for row in rows), 'inputFiles': len(rows)}
+
+
+def extract_upheaval(repo, work):
+    tree = subprocess.check_output(['git', '-C', str(repo), 'rev-parse',
+                                    HISTORICAL + ':SDK/Mods/Upheaval'], text=True).strip()
+    need(tree == UPHEAVAL_TREE, 'Pinned historical Upheaval tree differs')
+    archive = work / 'upheaval.tar'
+    with archive.open('wb') as stream:
+        subprocess.run(['git', '-C', str(repo), 'archive', HISTORICAL,
+                        'SDK/Mods/Upheaval'], stdout=stream, check=True, timeout=120)
+    extracted = work / 'historical'
+    extracted.mkdir()
+    with tarfile.open(archive) as stream:
+        stream.extractall(extracted, filter='data')
+    archive.unlink()
+    return extracted / 'SDK/Mods/Upheaval'
+
+
+def dds():
+    # Uncompressed 32-bit BGRA DDS, no mipmaps. Header is DDS_HEADER (124 bytes).
+    header = [124, 0x100F, 64, 64, 256, 0, 0] + [0] * 11
+    header += [32, 0x41, 0, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000]
+    header += [0x1000, 0, 0, 0, 0]
+    return b'DDS ' + struct.pack('<31I', *header) + bytes((30, 60, 90, 255)) * 4096
+
+
+def write_wave(path):
+    with wave.open(str(path), 'wb') as output:
+        output.setparams((2, 2, 22050, 0, 'NONE', 'not compressed'))
+        output.writeframes(struct.pack('<hhhh', 0, 1234, -1234, 32767) * 8192)
+
+
+def stream_entries(mod):
+    values = [('base/Mod', mod / 'Data/Mod.xml')]
+    values += [('apt/' + p.stem, p) for p in sorted((mod / 'Data/AptUI').glob('*.xml'))]
+    values += [('maps/' + p.stem, p) for p in sorted((mod / 'Data/AdditionalMaps').glob('MapMetaData_*.xml'))]
+    return values
+
+
+def prepare(repo, work, partitions):
+    """Return serializable workload metadata; ``work`` must be new/empty.
+
+    Partitions is a scale parameter, never evidence that the 8-second gate has
+    been met. The unchanged original inventory is captured before augmentation.
+    """
+    repo, work = Path(repo).resolve(), Path(work).resolve()
+    need(type(partitions) is int and partitions > 0, 'partitions must be positive')
+    need(not work.exists() or not any(work.iterdir()), 'Workload work directory is not empty')
+    work.mkdir(parents=True, exist_ok=True)
+    mod = extract_upheaval(repo, work)
+    original = inventory(mod)
+    original.update(sourceCommit=HISTORICAL, sourceTree=UPHEAVAL_TREE,
+                    scope='Unmodified complete original Upheaval before augmentation')
+    main = ET.parse(mod / 'Data/Mod.xml').getroot()
+    need(not any(node.get('id', '').startswith('L8_') for node in main), 'L8 prefix collision')
+    index = declaration()
+    generated = mod / 'Data/L8'
+    generated.mkdir()
+    for partition in range(partitions):
+        # Every filler document is Include-all reachable; ids do not collide
+        # across partitions. No unused files are counted as expanded load.
+        for doc in range(256):
+            name = 'scale-%03d-%03d.xml' % (partition, doc)
+            save_xml(generated / name, declaration(*(armor('L8_Scale_%03d_%03d_%02d' %
+                     (partition, doc, i)) for i in range(32))))
+            add_include(index, name)
+    for doc in range(16):
+        name = 'spread-%02d.xml' % doc
+        save_xml(generated / name, declaration(*(armor('L8_Spread_%02d_%02d' % (doc, i))
+                                               for i in range(8))))
+        add_include(index, name)
+    save_xml(generated / 'dense.xml', declaration(*(armor('L8_Dense_%03d' % i) for i in range(256))))
+    add_include(index, 'dense.xml')
+
+    image = struct.pack('<BBBHHBHHHHBB', 0, 0, 2, 0, 0, 0, 0, 0, 64, 64, 32, 0x28)
+    materials = generated / 'materials'
+    materials.mkdir()
+    for kind, count, extension in [('texture', 96, 'dds'), ('audio', 64, 'wav')]:
+        names = []
+        for i in range(count):
+            name = '%s-%03d.%s' % (kind, i, extension)
+            target = materials / name
+            if kind == 'texture':
+                target.write_bytes(dds())
+            else:
+                write_wave(target)
+            names.append(name)
+        shutil.copy2(materials / names[0], materials / ('shared.' + extension))
+    # Common Texture edits use independently referenced TGA; Full adds DDS
+    # independent/shared references, avoiding a mislabeled TGA-only DDS test.
+    for i in range(32):
+        (materials / ('common-%03d.tga' % i)).write_bytes(image + bytes((30, 60, 90, 255)) * 4096)
+    for doc in range(8):
+        root = declaration()
+        for i in range(doc * 4, doc * 4 + 4):
+            root.append(element('Texture', id='L8_CommonTexture_%03d' % i,
+                                File='materials/common-%03d.tga' % i,
+                                Type='StandardTexture', GenerateMipMaps='false',
+                                OutputFormat='A8R8G8B8', AllowAutomaticResize='false'))
+        save_xml(generated / ('textures-%02d.xml' % doc), root)
+        add_include(index, 'textures-%02d.xml' % doc)
+    for shared in (False, True):
+        root = declaration()
+        for i in range(96):
+            root.append(element('Texture', id='L8_Dds_%s_%03d' % (shared, i),
+                                File='materials/' + ('shared.dds' if shared else 'texture-%03d.dds' % i),
+                                Type='StandardTexture', GenerateMipMaps='false', OutputFormat='A8R8G8B8',
+                                AllowAutomaticResize='false'))
+        name = 'dds-%s.xml' % ('shared' if shared else 'independent')
+        save_xml(generated / name, root)
+        add_include(index, name)
+    for shared in (False, True):
+        root = declaration()
+        for i in range(64):
+            root.append(element('AudioFile', id='L8_Audio_%s_%03d' % (shared, i),
+                                File='materials/' + ('shared.wav' if shared else 'audio-%03d.wav' % i),
+                                PCCompression='XAS' if i % 4 == 0 or shared else 'NONE',
+                                IsStreamedOnPC='false'))
+        name = 'audio-%s.xml' % ('shared' if shared else 'independent')
+        save_xml(generated / name, root)
+        add_include(index, name)
+
+    hierarchy = ET.parse(repo / 'SDK/Mods/W3xRecovery/Data/Dependencies.xml').getroot().find('{%s}W3DHierarchy' % NS)
+    animation = ET.parse(repo / 'SDK/Mods/W3xRecovery/Data/Animations.xml').getroot().find('{%s}W3DAnimation' % NS)
+    need(hierarchy is not None and animation is not None and
+         hierarchy.get('id') == animation.get('Hierarchy'), 'Existing W3X closure differs')
+    hierarchy = copy.deepcopy(hierarchy)
+    hierarchy.set('id', 'L8_Hierarchy')
+    save_xml(generated / 'hierarchy.xml', declaration(hierarchy))
+    add_include(index, 'hierarchy.xml')
+    for doc in range(8):
+        root = declaration()
+        add_include(root, 'hierarchy.xml')
+        for i in range(doc * 4, doc * 4 + 4):
+            node = copy.deepcopy(animation)
+            node.set('id', 'L8_Animation_%03d' % i)
+            node.set('Hierarchy', 'L8_Hierarchy')
+            root.append(node)
+        name = 'animations-%02d.xml' % doc
+        save_xml(generated / name, root)
+        add_include(index, name)
+
+    for doc in range(16):
+        base_id = 'L8_Parent_%02d' % doc
+        parent = declaration(armor(base_id), *(armor('L8_Sibling_%02d_%02d' % (doc, i)) for i in range(4)))
+        parent_name, child_name = 'parent-%02d.xml' % doc, 'children-%02d.xml' % doc
+        save_xml(generated / parent_name, parent)
+        child = declaration()
+        add_include(child, parent_name, 'instance')
+        for i in range(8):
+            # Do not override Default: changing the parent really changes each
+            # descendant's expanded input rather than only its source file.
+            child.append(element('ArmorTemplate', id='L8_Child_%02d_%02d' % (doc, i), inheritFrom=base_id))
+        save_xml(generated / child_name, child)
+        add_include(index, parent_name)
+        add_include(index, child_name)
+
+    define = declaration(element('Defines'))
+    define[0].append(element('Define', name='L8_SCALE', value='83.25'))
+    save_xml(generated / 'defines.xml', define)
+    # Same direct-Defines XInclude contract as MvpXmlOracle.SdkLoader.
+    fragment = element('Defines')
+    fragment.append(element('Define', name='L8_XI_SCALE', value='74.25'))
+    save_xml(generated / 'fragment.xml', fragment)
+    for doc in range(32):
+        root = declaration()
+        add_include(root, 'defines.xml')
+        root.append(ET.Element('{%s}include' % XI, {'href': 'fragment.xml'}))
+        for i in range(4):
+            root.append(armor('L8_Define_%02d_%02d' % (doc, i), DamageScalar='=$L8_SCALE + $L8_XI_SCALE'))
+        name = 'defines-host-%02d.xml' % doc
+        save_xml(generated / name, root)
+        add_include(index, name)
+
+    # A wider instance-include graph provides a separate frontend path test.
+    width_index = declaration()
+    for doc in range(32):
+        name = 'include-parent-%02d.xml' % doc
+        save_xml(generated / name, declaration(armor('L8_IncludeParent_%02d' % doc)))
+        add_include(width_index, name)
+    for doc in range(64):
+        root = declaration()
+        add_include(root, 'include-parent-%02d.xml' % (doc % 32), 'instance')
+        for i in range(2):
+            root.append(element('ArmorTemplate', id='L8_Include_%02d_%02d' % (doc, i),
+                                inheritFrom='L8_IncludeParent_%02d' % (doc % 32)))
+        name = 'include-host-%02d.xml' % doc
+        save_xml(generated / name, root)
+        add_include(width_index, name)
+    save_xml(generated / 'include-wide.xml', width_index)
+    add_include(index, 'include-wide.xml')
+    # DATA:-root resolution is deliberate; the shadow case introduces another
+    # search root ahead of Data only after the hot-before sample.
+    for doc in range(16):
+        save_xml(mod / 'Data/L8Shadow' / ('leaf-%02d.xml' % doc), declaration(*(
+            armor('L8_Shadow_%02d_%02d' % (doc, i)) for i in range(4))))
+        add_include(index, 'DATA:L8Shadow/leaf-%02d.xml' % doc)
+    save_xml(generated / 'index.xml', index)
+    add_include(main, 'L8/index.xml')
+    save_xml(mod / 'Data/Mod.xml', main)
+
+    entries = stream_entries(mod)
+    stream_fixtures = []
+    for stream_index, (stream_id, entry) in enumerate(entries):
+        # Keep the original stream entries and data, append legal independent
+        # Armor declarations through a relative include into every real stream.
+        target = generated / ('stream-%02d.xml' % stream_index)
+        save_xml(target, declaration(*(armor('L8_Stream_%02d_%02d' % (stream_index, i)) for i in range(32))))
+        root = ET.parse(entry).getroot()
+        add_include(root, os.path.relpath(target, entry.parent).replace(os.sep, '/'))
+        save_xml(entry, root)
+        stream_fixtures.append({'streamId': stream_id, 'path': target.relative_to(mod).as_posix(), 'assets': 32})
+    dimensions = inventory(mod)
+    result = dict(modRoot=str(mod), sdkRoot=str(repo / 'SDK'), partitions=partitions, originalUpheaval=original,
+                  sourceCommit=HISTORICAL, sourceTree=UPHEAVAL_TREE,
+                  scope='Complete real Upheaval + reachable independent expanded mixed benchmark load; not unmodified original Upheaval',
+                  streams=[row[0] for row in entries], streamCount=len(entries),
+                  streamBasis='Entry discovery matching Planner; actual build plan/report must confirm',
+                  streamFixtures=stream_fixtures, **dimensions)
+    result['cases'] = cases(result)
+    return result
+
+
+def cases(workload):
+    def case(identifier, name, group='Common', expected='backend', assets=0, docs=0, materials=0, **other):
+        return dict(id=identifier, family=identifier.split('-')[0], name=name, group=group,
+                    expectedPath=expected, changedAssets=assets, changedDocuments=docs,
+                    changedMaterials=materials, **other)
+    rows = [
+        case('C00', '完全无修改热态', expected='hot'),
+        case('C01', '分散玩法 XML 批量修改', assets=128, docs=16, minInstanceCompile=128),
+        case('C02', '密集 XML 等量修改', assets=128, docs=1, minInstanceCompile=128),
+        case('C03', '新增资产与 Include', assets=32, docs=8, minInstanceCompile=32),
+        case('C04', '32 个独立 TGA 输入更新', assets=32, docs=8, materials=32, minInstanceCompile=32),
+        case('C05', '32 个独立音频输入更新（含 XAS）', assets=32, docs=1, materials=32, minInstanceCompile=32),
+        case('C06', '32 个 W3DAnimation 更新', assets=32, docs=8, minInstanceCompile=32),
+        case('C07', '16 个有效继承父字段影响 128 后代', assets=16, docs=16, affectedAssets=128, minInstanceCompile=128),
+        case('C08', 'instance 父文件的 64 无关兄弟更新', expected='frontend', assets=64, docs=16, minXmlParse=16),
+        case('C09', '共享 Define + XInclude 影响 32 宿主/128 资产', assets=128, docs=2, affectedDocuments=32, minInstanceCompile=128),
+        case('C10', '一个实际流 SessionCache 元数据丢失', expected='session', minXmlParse=1),
+        case('C11', '一个最终 BIG/SKUDEF 丢失', expected='output'),
+        case('C12', '完整混合负载跨 XML/纹理/音频/动画修改', assets=224, docs=26, materials=64, minInstanceCompile=224),
+        case('F01-delete', '删除 32 个资产', 'Full', assets=32, docs=1, expected='frontend', minXmlParse=1),
+        case('F01-rename', '32 个无引用资产 ID 改名', 'Full', assets=32, docs=4, minInstanceCompile=32),
+        case('F01-move', '8 份文档移动并更新 Include', 'Full', assets=64, docs=8, expected='frontend', minXmlParse=8),
+        case('F01-entry', '8 个新入口 Include / 32 个资产', 'Full', assets=32, docs=8, minInstanceCompile=32),
+        case('F02', '继承与共享 Define 扇出', 'Full', assets=16, docs=18, affectedAssets=256, minInstanceCompile=256),
+        case('F03-independent', '64 个独立音频输入（含 XAS）', 'Full', assets=64, docs=1, materials=64, minInstanceCompile=64),
+        case('F03-shared', '64 个共享 WAV 的 XAS AudioFile', 'Full', assets=64, docs=1, materials=1, minInstanceCompile=64),
+        case('F04-independent', '96 个独立 DDS 输入', 'Full', assets=96, docs=1, materials=96, minInstanceCompile=96),
+        case('F04-shared', '96 个共享 DDS Texture', 'Full', assets=96, docs=1, materials=1, minInstanceCompile=96),
+        case('F05', '共享层级影响 32 个动画', 'Full', assets=1, docs=1, affectedAssets=32, minInstanceCompile=32),
+        case('F06', '64 份 instance Include 宿主宽深变化及合法目标重载', 'Full', assets=128, docs=101, expected='frontend', minXmlParse=64),
+        case('F07-session-partial', '部分流 SessionCache 丢失', 'Full', expected='session', minXmlParse=1),
+        case('F07-session-all', '全流 SessionCache 丢失', 'Full', expected='session', minXmlParse=1),
+        case('F07-assets', '32 个中间 .asset/.cdata 丢失', 'Full', expected='intermediate'),
+        case('F07-linked', '一个链接流 .bin 丢失', 'Full', expected='linked'),
+        case('F09-move', '16 个叶子 XML 移动并更新 Include', 'Full', assets=128, docs=16, expected='frontend', minXmlParse=16),
+        case('F09-mtime', '16 个叶子 XML 只更新时间戳', 'Full', docs=16, expected='timestamp'),
+        case('F09-same-stamp', '16 个叶子 XML 等长内容变化并保留 mtime', 'Full', assets=128, docs=16, minInstanceCompile=128),
+        case('F09-shadow', '16 个叶子 XML 搜索根路径遮蔽', 'Full', assets=64, docs=16, minInstanceCompile=64),
+        case('F10', '完整可编辑声明的 25% 混合压力', 'Full', assets=math.ceil(workload['assets'] * .25), minInstanceCompile=1),
+        case('F12', 'Schema/TypeHash/ProcessingHash 合法版本变化', 'Full', availability='not_applicable',
+             reason='未提供合法可运行且确实改变身份的另一版本，不模拟身份哈希'),
+    ]
+    for fixture in workload['streamFixtures']:
+        rows.append(case('F08-' + fixture['streamId'].replace('/', '-'), '实际流局部更新 ' + fixture['streamId'],
+                         'Full', assets=32, docs=1, minInstanceCompile=32, streamId=fixture['streamId'], paths=[fixture['path']]))
+    rows.append(case('F08-cross', '实际多个流组合更新', 'Full', assets=32 * workload['streamCount'],
+                     docs=workload['streamCount'], minInstanceCompile=32 * workload['streamCount'],
+                     paths=[fixture['path'] for fixture in workload['streamFixtures']]))
+    # The controller owns per-mode cold preparation and independent baselines.
+    from BenchmarkCompilerCache import MODES
+    for mode in MODES:
+        rows.append(case('F11-mode-' + mode, '代表负载缓存模式 ' + mode, 'Full', expected='mode', mode=mode))
+    for jobs in ('1', '4', 'auto'):
+        rows.append(case('F11-jobs-' + jobs, '音频更新 jobs=' + jobs, 'Full', assets=32, docs=1,
+                         materials=32, minInstanceCompile=32, jobs=jobs))
+    return rows
+
+
+def apply_case(workload, case, destination):
+    """Mutate a restored working baseline, returning actual changed-input counts.
+
+    Source/cache snapshots must be restored by the caller before each repeat.
+    Counts distinguish directly edited declarations from affected declarations;
+    external-input edits report their dependent assets separately.
+    """
+    mod, destination = Path(workload['modRoot']), Path(destination)
+    data = mod / 'Data/L8'
+    identifier = case['id']
+    changed, assets, materials = set(), 0, 0
+    affected, deleted, extra_args = 0, [], []
+
+    def edit_xml(path, transform):
+        root = ET.parse(path).getroot()
+        count = transform(root)
+        need(count > 0, 'No actual XML edits: ' + str(path))
+        save_xml(path, root)
+        changed.add(path.relative_to(mod).as_posix())
+        return count
+
+    def edit_armor(paths, limit=None, predicate=lambda node: True, preserve=False):
+        nonlocal assets
+        for path in paths:
+            stamp = path.stat()
+            before = path.read_bytes()
+            def transform(root):
+                nonlocal assets
+                count = 0
+                for node in root:
+                    if node.tag == '{%s}ArmorTemplate' % NS and predicate(node) and (limit is None or assets < limit):
+                        node.set('Default', '73.5%')
+                        assets += 1
+                        count += 1
+                return count
+            edit_xml(path, transform)
+            if preserve:
+                need(len(before) == path.stat().st_size, 'Same-stamp mutation changed length')
+                os.utime(path, ns=(stamp.st_atime_ns, stamp.st_mtime_ns))
+            if limit is not None and assets >= limit:
+                break
+
+    def edit_material(paths, count_affected):
+        nonlocal materials, affected
+        for path in paths:
+            payload = bytearray(path.read_bytes())
+            offset = 128 if path.suffix == '.dds' else (18 if path.suffix == '.tga' else 44)
+            need(len(payload) > offset + 1, 'Material input is empty')
+            payload[offset] ^= 1
+            path.write_bytes(payload)
+            changed.add(path.relative_to(mod).as_posix())
+            materials += 1
+        affected += count_affected
+
+    def animations(count):
+        nonlocal assets
+        for path in sorted(data.glob('animations-*.xml')):
+            def transform(root):
+                nonlocal assets
+                changed_count = 0
+                for node in root:
+                    if node.tag == '{%s}W3DAnimation' % NS and assets < count:
+                        node.set('FrameRate', str(int(node.get('FrameRate')) + 1))
+                        assets += 1
+                        changed_count += 1
+                return changed_count
+            edit_xml(path, transform)
+            if assets >= count:
+                break
+
+    def shared_defines():
+        nonlocal affected
+        for name in ('defines.xml', 'fragment.xml'):
+            edit_xml(data / name, lambda root: change_defines(root))
+        affected += 128
+
+    def change_defines(root):
+        values = root.findall('.//{%s}Define' % NS)
+        for node in values:
+            node.set('value', '84.25' if node.get('name') == 'L8_SCALE' else '75.25')
+        return len(values)
+
+    def parents(siblings=False):
+        nonlocal affected
+        edit_armor(sorted(data.glob('parent-*.xml')), predicate=lambda node:
+                   node.get('id', '').startswith('L8_Sibling_' if siblings else 'L8_Parent_'))
+        if not siblings:
+            affected += 128
+
+    def new_assets():
+        nonlocal assets
+        root = ET.parse(data / 'index.xml').getroot()
+        for i in range(8):
+            name = 'added-%02d.xml' % i
+            save_xml(data / name, declaration(*(armor('L8_Added_%02d_%02d' % (i, j)) for j in range(4))))
+            changed.add('Data/L8/' + name)
+            add_include(root, name)
+            assets += 4
+        save_xml(data / 'index.xml', root)
+        changed.add('Data/L8/index.xml')
+
+    def move_docs(count):
+        index = ET.parse(data / 'index.xml').getroot()
+        nodes = {node.get('source'): node for node in includes(index)}
+        for source in sorted(data.glob('spread-*.xml'))[:count]:
+            relative = 'moved/' + source.name
+            target = data / relative
+            target.parent.mkdir(exist_ok=True)
+            source.rename(target)
+            nodes[source.name].set('source', relative)
+            changed.add(source.relative_to(mod).as_posix())
+            changed.add(target.relative_to(mod).as_posix())
+        save_xml(data / 'index.xml', index)
+        changed.add('Data/L8/index.xml')
+
+    if identifier == 'C00' or identifier.startswith('F11-mode-'):
+        pass
+    elif identifier in ('C01', 'F09-same-stamp'):
+        edit_armor(sorted(data.glob('spread-*.xml')), preserve=identifier == 'F09-same-stamp')
+    elif identifier == 'C02':
+        edit_armor([data / 'dense.xml'], limit=128)
+    elif identifier in ('C03', 'F01-entry'):
+        new_assets()
+    elif identifier == 'C04':
+        edit_material(sorted((data / 'materials').glob('common-*.tga')), 32)
+    elif identifier in ('C05', 'F03-independent') or identifier.startswith('F11-jobs-'):
+        count = 64 if identifier == 'F03-independent' else 32
+        edit_material(sorted((data / 'materials').glob('audio-*.wav'))[:count], count)
+    elif identifier == 'C06':
+        animations(32)
+    elif identifier == 'C07':
+        parents()
+    elif identifier == 'C08':
+        parents(siblings=True)
+    elif identifier == 'C09':
+        shared_defines()
+    elif identifier in ('C10', 'F07-session-partial', 'F07-session-all'):
+        paths = sorted(destination.rglob('BinaryAssetBuilder.SessionCache.xml*'))
+        paths = [p for p in paths if p.is_file() and not p.name.endswith('.lock')]
+        need(paths, 'No real SessionCache metadata found')
+        if identifier != 'F07-session-all':
+            parent = paths[0].parent
+            paths = [p for p in paths if p.parent == parent]
+        for path in paths:
+            deleted.append(path.relative_to(destination).as_posix())
+            path.unlink()
+    elif identifier == 'C11':
+        paths = sorted(p for p in (destination / 'published').rglob('*')
+                       if p.is_file() and p.suffix.lower() in ('.big', '.skudef'))
+        need(paths, 'No final BIG/SKUDEF exists; C11 requires normal BIG packaging')
+        paths[0].unlink()
+        deleted.append(paths[0].relative_to(destination).as_posix())
+    elif identifier == 'C12':
+        edit_armor(sorted(data.glob('spread-*.xml')))
+        edit_material(sorted((data / 'materials').glob('common-*.tga')), 32)
+        edit_material(sorted((data / 'materials').glob('audio-*.wav'))[:32], 32)
+        old_count = assets
+        assets = 0
+        animations(32)
+        assets += old_count
+    elif identifier == 'F01-delete':
+        def remove(root):
+            nodes = [node for node in root if node.tag == '{%s}ArmorTemplate' % NS][:32]
+            for node in nodes:
+                root.remove(node)
+            return len(nodes)
+        assets = edit_xml(data / 'scale-000-000.xml', remove)
+    elif identifier == 'F01-rename':
+        def rename(root):
+            nodes = [node for node in root if node.tag == '{%s}ArmorTemplate' % NS]
+            for node in nodes:
+                node.set('id', node.get('id') + '_Renamed')
+            return len(nodes)
+        for path in sorted(data.glob('spread-*.xml'))[:4]:
+            assets += edit_xml(path, rename)
+    elif identifier in ('F01-move', 'F09-move'):
+        move_docs(8 if identifier == 'F01-move' else 16)
+    elif identifier == 'F02':
+        parents()
+        shared_defines()
+    elif identifier == 'F03-shared':
+        edit_material([data / 'materials/shared.wav'], 64)
+    elif identifier == 'F04-independent':
+        edit_material(sorted((data / 'materials').glob('texture-*.dds')), 96)
+    elif identifier == 'F04-shared':
+        edit_material([data / 'materials/shared.dds'], 96)
+    elif identifier == 'F05':
+        def hierarchy_edit(root):
+            root.find('.//{%s}Translation' % NS).set('Z', '2')
+            return 1
+        assets = edit_xml(data / 'hierarchy.xml', hierarchy_edit)
+        affected = 32
+    elif identifier == 'F06':
+        moved = data / 'include-moved'
+        moved.mkdir()
+        for parent in sorted(data.glob('include-parent-*.xml')):
+            parent.rename(moved / parent.name)
+            changed.add(parent.relative_to(mod).as_posix())
+            changed.add((moved / parent.name).relative_to(mod).as_posix())
+        for host in sorted(data.glob('include-host-*.xml')):
+            def retarget(root):
+                nodes = list(includes(root))
+                for node in nodes:
+                    node.set('source', 'include-moved/' + node.get('source'))
+                return len(nodes)
+            edit_xml(host, retarget)
+        wide = declaration()
+        for parent in sorted(moved.glob('*.xml')):
+            add_include(wide, 'include-moved/' + parent.name)
+        for branch in range(4):
+            branch_root = declaration()
+            for doc in range(branch * 16, branch * 16 + 16):
+                add_include(branch_root, '../include-host-%02d.xml' % doc)
+            name = 'include-depth/branch-%02d.xml' % branch
+            save_xml(data / name, branch_root)
+            changed.add('Data/L8/' + name)
+            add_include(wide, name)
+        save_xml(data / 'include-wide.xml', wide)
+        changed.add('Data/L8/include-wide.xml')
+    elif identifier == 'F07-assets':
+        paths = sorted(p for p in destination.rglob('*') if p.is_file() and
+                       'published' not in p.relative_to(destination).parts and p.suffix.lower() in ('.asset', '.cdata'))
+        need(len(paths) >= 32, 'Fewer than 32 actual intermediate asset/CDATAs available')
+        for path in paths[:32]:
+            deleted.append(path.relative_to(destination).as_posix())
+            path.unlink()
+    elif identifier == 'F07-linked':
+        paths = sorted(p for p in destination.rglob('*.bin') if 'published' not in p.relative_to(destination).parts)
+        need(paths, 'No actual linked-stream .bin found')
+        paths[0].unlink()
+        deleted.append(paths[0].relative_to(destination).as_posix())
+    elif identifier.startswith('F08-'):
+        edit_armor([mod / path for path in case['paths']])
+    elif identifier == 'F09-mtime':
+        for path in sorted(data.glob('spread-*.xml')):
+            stamp = path.stat()
+            os.utime(path, ns=(stamp.st_atime_ns, stamp.st_mtime_ns + 2_000_000_000))
+            changed.add(path.relative_to(mod).as_posix())
+    elif identifier == 'F09-shadow':
+        shadow = mod / 'Data/L8ShadowOverride'
+        for source in sorted((mod / 'Data/L8Shadow').glob('*.xml')):
+            target = shadow / 'L8Shadow' / source.name
+            root = ET.parse(source).getroot()
+            for node in root:
+                node.set('Default', '73.5%')
+                assets += 1
+            save_xml(target, root)
+            changed.add(target.relative_to(mod).as_posix())
+        sdk = Path(workload['sdkRoot'])
+        extra_args = ['--data', ';'.join(str(path) for path in
+                      (shadow, mod / 'Data', sdk, sdk / 'Mods', sdk / 'SAGEXML'))]
+    elif identifier == 'F10':
+        # Use 25% of the *whole* workload declaration inventory, not 25% of
+        # only our generated subset; include XML + texture/audio/animation.
+        target = case['changedAssets']
+        edit_material(sorted((data / 'materials').glob('common-*.tga')), 32)
+        edit_material(sorted((data / 'materials').glob('audio-*.wav'))[:32], 32)
+        animations(32)
+        edit_armor(sorted(data.glob('scale-*.xml')), limit=target - affected)
+        need(assets + affected == target, 'Insufficient independent declarations for 25% stress')
+    else:
+        raise ValueError('No available implementation for ' + identifier)
+    xml_paths = {p for p in changed if Path(p).suffix.lower() in ('.xml', '.w3x')}
+    return {'changedAssets': assets, 'affectedAssets': affected,
+            'changedDocuments': len(xml_paths), 'changedMaterials': materials,
+            'changedPaths': sorted(changed), 'deletedPaths': deleted,
+            'extraArgs': extra_args,
+            'changedCaches': len(deleted) if identifier != 'C11' else 0,
+            'changedOutputs': len(deleted) if identifier == 'C11' else 0}
