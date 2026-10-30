@@ -1,6 +1,6 @@
 # 当前插件优化入口
 
-本轮 `perf/gameobject-weapon-plugins` / [PR #33](https://github.com/wu162/NewSdk/pull/33) 基于用户指定的 `recovery/legacy-sdk-cache`，产品与 SDK 验收及完整 MOD 配对均通过。源码、计量、失败与下一批研究见 [RESUME](RESUME.md) 和[插件报告](docs/TOKENIZER_PLUGIN_PERFORMANCE.md)。PR 未合并，禁止强推。
+本轮 `perf/gameobject-weapon-plugins` / [PR #33](https://github.com/wu162/NewSdk/pull/33) 的第二阶段六项原生优化已编码、Windows 七类组件通过；完整产品、共享 XML63 与 SDK 仍在验收。以 [RESUME](RESUME.md) 和[第二阶段报告](docs/TOKENIZER_NATIVE_STAGE2.md) 为准，不能以第一阶段成功代替。PR 未合并，禁止强推。
 
 # 当前：冗余安全清理完成，PR #28 待审
 

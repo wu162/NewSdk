@@ -1,6 +1,8 @@
-# 当前：进一步原生优化正在实现
+# 当前：第二阶段六项插件原生优化（产品验收中）
 
-用户要求把六项研究继续落实。当前在 `perf/gameobject-weapon-plugins` / PR #33：属性异构查找、批量 member offset 索引、掩码范围解析、子节点分组及最终缓冲直写已编码，默认值预解码已覆盖根属性、模块及 Nugget，六项已成组编码。**本阶段尚未验收**；下方成功运行仅属于上一阶段，不代表当前修改。完整能力组准备好后统一取得原字节/共享 XML/SDK 及性能结果。禁止强推，未经批准不合并。
+源码 `d60904bc`，分支 `perf/gameobject-weapon-plugins` / [PR #33](https://github.com/wu162/NewSdk/pull/33)。六项均已接入：透明属性查找、member 地址索引、mask 范围解析、标量默认值预解码、Draw 子节点分组、最终缓冲直写。Windows [七类专项 41146357838](https://github.com/wu162/NewSdk/actions/runs/41146357838) success，原版/前后大小端三缓冲区一致、真实退出 0。Schema 默认 GameObject/Weapon 耗时中位数减少约25%/27%，不是完整 MOD 加速。
+
+[共享 XML63 41145352024](https://github.com/wu162/NewSdk/actions/runs/41145352024) 和[最终产品/SDK 41146357892](https://github.com/wu162/NewSdk/actions/runs/41146357892) 尚在运行，**本阶段尚未验收**。前者源码 `d457f99a`；后续四个 GO/Weapon 文件的默认文本快路不改变63组递归输入，成功后可复用其独立范围。详细实现与结果见 [第二阶段报告](docs/TOKENIZER_NATIVE_STAGE2.md)。禁止强推，未经批准不合并。
 
 # 当前：GameObject / Weapon 插件编译优化（验收通过，PR #33 待审）
 
@@ -10,7 +12,7 @@
 
 同 VM 完整 Upheaval 三轮前后配对 [41141062587](https://github.com/wu162/NewSdk/actions/runs/41141062587) success，全部发布字节相同；中位数 22.185→21.638 秒，耗时减少 2.47%，第三对较慢及 OS 页缓存边界保留。插件合成负载中空 GameObject 慢约 6%，复杂 GameObject/Weapon 改善；详见[实现与计量](docs/TOKENIZER_PLUGIN_PERFORMANCE.md)。
 
-追加的[深入源码研究](docs/TOKENIZER_PLUGIN_NEXT_OPTIMIZATIONS.md)已保存原型与 Linux 算法数据；下一批优先属性异构查找和 member offset 区间索引，尚未接入生产。未经用户批准不合并，禁止强推。
+追加的[深入源码研究](docs/TOKENIZER_PLUGIN_NEXT_OPTIMIZATIONS.md)保留原型与 Linux 算法数据；六个方向随后已实施，当前状态以上方第二阶段入口为准。未经用户批准不合并，禁止强推。
 
 # 当前：AudioFile 全设置并行与低预算（组合验收通过）
 

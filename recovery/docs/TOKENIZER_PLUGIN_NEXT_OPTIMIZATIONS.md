@@ -1,6 +1,6 @@
 # GameObject / Weapon 原生编译层进一步优化研究
 
-依据：`9f9d176761ff28cee993c27ba61b864041a26299` 的源码；本轮已实现部分见 [插件计量](TOKENIZER_PLUGIN_PERFORMANCE.md)。以下是**尚未接入正式插件**的下一批方向，附临时算法原型与本地结果。研究不改变正在验收的生产源码。
+依据：`9f9d176761ff28cee993c27ba61b864041a26299` 的源码；本轮已实现部分见 [插件计量](TOKENIZER_PLUGIN_PERFORMANCE.md)。以下保留当时的研究与原型依据。用户授权继续后，六个方向现已接入正式插件，最终源码为 `d60904bc`，实现范围及 Windows 实测见 [第二阶段报告](TOKENIZER_NATIVE_STAGE2.md)。下面的 Linux 算法数据仍是历史研究，不能替代正式插件或完整 MOD 成绩。
 
 ## 优先顺序
 

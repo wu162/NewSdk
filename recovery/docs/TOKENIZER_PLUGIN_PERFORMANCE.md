@@ -1,6 +1,6 @@
 # GameObject / Weapon 插件编译优化
 
-基线：`recovery/legacy-sdk-cache` / `8f854606ac20ce372045e3661b38e58e4e933ca2`。成果分支：`perf/gameobject-weapon-plugins`，PR #33。仅五个 GameObject/Weapon Bridge、Native 生产文件改变；Core、调度器、缓存、Schema 和其它插件的生产源码未改。
+基线：`recovery/legacy-sdk-cache` / `8f854606ac20ce372045e3661b38e58e4e933ca2`。成果分支：`perf/gameobject-weapon-plugins`，PR #33。本页记录第一阶段的五个 GameObject/Weapon Bridge、Native 生产文件改动。后续六项原生优化涉及共享助手，见 [第二阶段报告](TOKENIZER_NATIVE_STAGE2.md)；第一阶段成功证据不能代替新源码验收。
 
 ## 实现
 
@@ -61,4 +61,4 @@
 
 ## 进一步优化研究
 
-用户追加的源码深入研究见 [下一批可优化点](TOKENIZER_PLUGIN_NEXT_OPTIMIZATIONS.md)：优先属性异构查找、member offset 地址索引；其次处理已排序 mask、纯标量缺省值、子节点重复扫描及最终缓冲直写。原型与算法数据尚未接入正式插件，不混入本轮已实现收益。
+用户追加的源码深入研究见 [下一批可优化点](TOKENIZER_PLUGIN_NEXT_OPTIMIZATIONS.md)：优先属性异构查找、member offset 地址索引；其次处理已排序 mask、纯标量缺省值、子节点重复扫描及最终缓冲直写。六个方向随后已接入正式插件，Windows 实测与共享助手回归范围单独记在 [第二阶段报告](TOKENIZER_NATIVE_STAGE2.md)。
