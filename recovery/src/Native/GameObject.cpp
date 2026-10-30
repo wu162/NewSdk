@@ -577,7 +577,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
     };
     for(const auto& child:children) if(child.name=="Geometry") {
         geometry=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(root+492),28,1));
-        auto small=child.attributes.find("IsSmall");geometry[24]=small!=child.attributes.end() && ParseBoolean(small->second)?1:0;
+        auto isSmall=child.attributes.find("IsSmall");geometry[24]=isSmall!=child.attributes.end() && ParseBoolean(isSmall->second)?1:0;
         for(const auto& c:child.children) if(c.name=="RotationAnchorOffset") {auto vector=data.Push(reinterpret_cast<void**>(geometry),8,1);marshalVector(c,vector,2);data.Pop();}
         for(const auto& c:child.children) if(c.name=="PlacementShape") {auto shape=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(geometry+4),48,1));marshalShape(c,shape);data.Pop();}
         geometryShapes=reinterpret_cast<NativeList*>(geometry+8);contactPoints=reinterpret_cast<NativeList*>(geometry+16);
