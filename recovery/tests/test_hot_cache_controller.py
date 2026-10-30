@@ -163,7 +163,7 @@ class ReplayAndReportTests(unittest.TestCase):
             for name in ('measurements.csv', 'scenarios.csv', 'phases.csv'):
                 with (Path(temp) / name).open(encoding='utf-8-sig') as stream:
                     self.assertTrue(next(csv.reader(stream)))
-            self.assertIn('under_8s', (Path(temp) / 'report.md').read_text())
+            self.assertIn('under_8s', (Path(temp) / 'report.md').read_text(encoding='utf-8'))
 
     def test_independent_repeats_restore_before_each_three_phase_chain(self):
         samples, events = [], []
