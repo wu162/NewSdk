@@ -272,7 +272,7 @@ public:
     static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
         if(node==nullptr) throw gcnew ArgumentNullException("node");
 
-        auto nav=node->CreateNavigator();auto attrs=nav->Clone();std::map<std::string,std::string> input;
+        auto nav=node->CreateNavigator();auto attrs=nav->Clone();Native::AttributeMap input;
         if(attrs->MoveToFirstAttribute()) do {
             if(IsXmlContextAttribute(attrs)) continue;
 

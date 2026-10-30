@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "GameObjectChildGroups.h"
 #include "ScalarParsing.h"
 #include "DataInitializers.h"
 #include "ResourceMarshaling.h"
@@ -324,7 +325,7 @@ unsigned GameObjectFieldCount() { return sizeof(fields)/sizeof(fields[0]); }
 
 #include "GameObjectDrawModelSupport.h"
 #include "GameObjectModuleSupport.h"
-Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes,const std::vector<GameObjectChild>& children,bool bigEndian) {
+Relo::Chunk CompileGameObject(const AttributeMap& attributes,const std::vector<GameObjectChild>& children,bool bigEndian) {
 
     Relo::Tracker data, procedures;
     unsigned char* root=nullptr;
@@ -373,7 +374,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
                 ?static_cast<U32>(static_cast<std::int64_t>(wide)):0u;
             break;
         }
-        case GameObjectValue::Bits: MarshalEnumBitset(text,kindOfEntries,284,149,284,reinterpret_cast<U32*>(at));continue;
+        case GameObjectValue::Bits: MarshalEnumBitset(text,kindOfEntries,284,149,284,reinterpret_cast<U32*>(at),true);continue;
         case GameObjectValue::AssetId: word=HashAssetId(text);break;
         case GameObjectValue::Reference: MarshalReference(data,at,text);continue;
         case GameObjectValue::Enum: word=EnumValue(f.name,text);break;
@@ -1015,11 +1016,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         for(unsigned at=4;at<576;at+=4) Swap(root+at);
         std::swap(root[576],root[577]);std::swap(root[578],root[579]);
     }
-    auto prefix=procedures.MakeRelocatable(bigEndian,0);
-    procedures.FixupMemberOffsets(data,prefix,bigEndian);
-    auto result=data.MakeRelocatable(bigEndian,static_cast<U32>(prefix.instance.size()));
-    if(bigEndian) for(unsigned at=0;at<prefix.instance.size();at+=12) {Swap(prefix.instance.data()+at);Swap(prefix.instance.data()+at+4);}
-    prefix.instance.insert(prefix.instance.end(),result.instance.begin(),result.instance.end());result.instance=std::move(prefix.instance);
+    auto result=procedures.MakeTokenized(data,bigEndian);
     result.imports.clear();return result;
 }
 }}

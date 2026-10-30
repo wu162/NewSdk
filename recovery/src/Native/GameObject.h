@@ -1,4 +1,5 @@
 #pragma once
+#include "AttributeMap.h"
 #include "Relocation.h"
 #include <map>
 #include <string>
@@ -19,10 +20,10 @@ unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path);
 bool GameObjectMotionMovePaths(const std::string& typeId);
 struct GameObjectChild {
     std::string name, text;
-    std::map<std::string,std::string> attributes;
+    AttributeMap attributes;
     std::vector<GameObjectChild> children;
 };
 // Restricted component; unsupported attributes and child blocks are rejected.
-Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes, const std::vector<GameObjectChild>& children, bool bigEndian);
+Relo::Chunk CompileGameObject(const AttributeMap& attributes, const std::vector<GameObjectChild>& children, bool bigEndian);
 }}
 

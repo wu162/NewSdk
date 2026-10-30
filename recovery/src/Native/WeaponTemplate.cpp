@@ -232,7 +232,7 @@ U32 Bits(const std::string& group, const std::string& text) {
         throw std::runtime_error("Weapon bitset table initialization failed.");
     const auto& values=bitsetGroups->at(group);
     U32 result=0;
-    MarshalEnumBitset(text,values.names.data(),values.names.size(),values.unknown,32,&result);
+    MarshalEnumBitset(text,values.names.data(),values.names.size(),values.unknown,32,&result,true);
     return result;
 }
 
@@ -246,7 +246,7 @@ struct Root { unsigned char bytes[328]; };
 }
 const WeaponField* WeaponFields() { return fields; }
 unsigned WeaponFieldCount() { return sizeof(fields) / sizeof(fields[0]); }
-Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
+Relo::Chunk CompileWeapon(const AttributeMap& attributes,
     const std::map<std::string, WeaponDurationInput>& durations,
     const std::map<std::string, WeaponOptionalInput>& optionalBlocks,
     const std::vector<std::string>& incompatibleModifiers,
@@ -260,8 +260,8 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     data.Push(reinterpret_cast<void**>(&root), sizeof(Root), 1);
     std::map<U32, void*> referenceBlocks;
     for (const auto& field : fields) {
-        auto found = attributes.find(field.name);
         if (field.value == WeaponValue::Absent) continue;
+        auto found = attributes.find(field.name);
         if (found == attributes.end() && field.fallback == nullptr) continue;
         const std::string text = found == attributes.end() ? field.fallback : found->second;
         unsigned char* at = root->bytes + field.offset;
@@ -458,16 +458,8 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         if (maxSpeed) Swap(maxSpeed);
         for (auto block : durationBlocks) if (block) { Swap(&block->minSeconds); Swap(&block->maxSeconds); }
     }
-    auto tokenChunk = tokens.MakeRelocatable(bigEndian, 0);
-    tokens.FixupMemberOffsets(data, tokenChunk, bigEndian);
-    auto result = data.MakeRelocatable(bigEndian, static_cast<U32>(tokenChunk.instance.size()));
-    if (bigEndian) for (unsigned at = 0; at < tokenChunk.instance.size(); at += 12) {
-        Swap(tokenChunk.instance.data() + at); Swap(tokenChunk.instance.data() + at + 4);
-    }
-    tokenChunk.instance.insert(tokenChunk.instance.end(), result.instance.begin(), result.instance.end());
-    result.instance = std::move(tokenChunk.instance);
-    result.imports.clear();
-    return result;
+    auto result=tokens.MakeTokenized(data,bigEndian);
+    result.imports.clear();return result;
 }
 }}
 #ifdef _MANAGED

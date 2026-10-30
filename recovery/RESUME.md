@@ -1,3 +1,7 @@
+# 当前：进一步原生优化正在实现
+
+用户要求把六项研究继续落实。当前在 `perf/gameobject-weapon-plugins` / PR #33：属性异构查找、批量 member offset 索引、掩码范围解析、子节点分组及最终缓冲直写已编码，默认值预解码继续实现。**本阶段尚未验收**；下方成功运行仅属于上一阶段，不代表当前修改。完整能力组准备好后统一取得原字节/共享 XML/SDK 及性能结果。禁止强推，未经批准不合并。
+
 # 当前：GameObject / Weapon 插件编译优化（验收通过，PR #33 待审）
 
 用户指定 `recovery/legacy-sdk-cache` / `8f854606`，成果在 `perf/gameobject-weapon-plugins` / [PR #33](https://github.com/wu162/NewSdk/pull/33)。移动嵌套输入树、只读模块索引、Weapon 单遍读取和枚举表复用已接入；仅五个插件 Bridge/Native 生产文件改变。原生 InitOnce 修复混合运行时关闭，失败均保留。

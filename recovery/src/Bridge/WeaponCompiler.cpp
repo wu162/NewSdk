@@ -61,8 +61,8 @@ public ref class WeaponCompiler abstract sealed {
         }
         return result;
     }
-    static std::map<std::string,std::string> ReadProjectileAttributes(XPathNavigator^ node) {
-        std::map<std::string,std::string> result;auto attrs=node->Clone();
+    static Native::AttributeMap ReadProjectileAttributes(XPathNavigator^ node) {
+        Native::AttributeMap result;auto attrs=node->Clone();
         if(attrs->MoveToFirstAttribute()) do {
             if(attrs->NamespaceURI == "http://www.w3.org/2000/xmlns/" || IsTypeAnnotation(attrs)) continue;
 
@@ -201,7 +201,7 @@ public:
                 if (!optionalBlocks.count(key)) optionalBlocks.emplace(std::move(key), ReadProjectileAttributes(child));
             }
         }
-        std::map<std::string, std::string> attributes;
+        Native::AttributeMap attributes;
         for each (XmlAttribute^ attribute in node->Attributes) {
             if (attribute->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
 
