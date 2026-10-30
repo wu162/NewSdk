@@ -36,7 +36,8 @@ try {
     if($LASTEXITCODE -ne 0){Get-Content "$out/host-build.log";throw 'Performance host build failed'}
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'|Set-Content "$work/TokenizerPluginPerformance.exe.config"
     & "$work/TokenizerPluginPerformance.exe" $work "$out/measurements.csv" *> "$out/measurement.log"
-    if($LASTEXITCODE -ne 0){Get-Content "$out/measurement.log" -Tail 60;throw 'Component byte equivalence or measurement failed'}
+    $state.hostExitCode=$LASTEXITCODE
+    if($LASTEXITCODE -ne 0){Get-Content "$out/measurement.log" -Tail 60;throw "Component host failed with exit code $LASTEXITCODE"}
     Get-Content "$out/measurement.log" -Tail 5
     $state.inputs=@(Get-ChildItem $work -File|Where-Object{$_.Extension -in @('.dll','.exe','.config')}|Sort-Object Name|ForEach-Object{@{name=$_.Name;sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
     $state.compiler=$env:VCToolsVersion
