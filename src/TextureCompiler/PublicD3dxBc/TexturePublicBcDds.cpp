@@ -55,6 +55,25 @@ std::vector<float> Box(const std::vector<float>& source, U sw, U sh) {
 }
 }
 
+extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcDecodeResizeDdsImage(
+    const void* blocks, std::int32_t blockPitch, U sw, U sh, U format, float* output,
+    std::int32_t outputPitch, U tw, U th) {
+    const U blockSize = format == 18 ? 8 : format == 19 || format == 20 ? 16 : 0;
+    if (!blocks || !output || !blockSize || !sw || !sh || !tw || !th || sw > 8192 || sh > 8192 || tw > 8192 || th > 8192 ||
+        std::uint64_t(sw) * sh >= 16777216 || std::uint64_t(tw) * th >= 16777216 ||
+        blockPitch < static_cast<std::int32_t>(((sw + 3) / 4) * blockSize) || outputPitch < static_cast<std::int32_t>(tw * 16) ||
+        (outputPitch & 3) || std::uint64_t(blockPitch) * ((sh + 3) / 4) > 0x7fffffffu || std::uint64_t(outputPitch) * th > 0x7fffffffu) return Invalid;
+    if (sw == tw && sh == th) return TexturePublicBcDecodeDdsImage(blocks, blockPitch, sw, sh, format, output, outputPitch);
+    try {
+        std::vector<float> pixels(std::size_t(sw) * sh * 4), resized(std::size_t(tw) * th * 4);
+        const auto status = TexturePublicBcDecodeDdsImage(blocks, blockPitch, sw, sh, format, pixels.data(), sw * 16);
+        if (status < 0) return status;
+        Recovered::TextureCompiler::PublicD3dxBc::ResizeRgbaFloat(pixels.data(), sw, sh, resized.data(), tw, th);
+        for (U y = 0; y < th; ++y) std::memcpy(reinterpret_cast<unsigned char*>(output) + std::size_t(y) * outputPitch, resized.data() + std::size_t(y) * tw * 4, tw * 16);
+        return 0;
+    } catch (const std::bad_alloc&) { return OutOfMemory; }
+}
+
 extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcCreateFromDds(
     const void* data, U byteCount, U flags, float threshold, U edgePolicy, void** output) {
     if (!data || !output || (flags != 0x80000000u && (flags & ~0x70000u)) || !std::isfinite(threshold) || threshold < 0 || threshold > 1 || edgePolicy > 1) return Invalid;
@@ -95,13 +114,8 @@ extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcCreateFro
                 for (U row = 0; row < rows; ++row)
                     std::memcpy(static_cast<unsigned char*>(target.rect.bits) + std::size_t(row) * target.rect.pitch, bytes + offset + std::size_t(row) * pitch, pitch);
             } else {
-                std::vector<float> pixels(std::size_t(w) * h * 4);
-                status = TexturePublicBcDecodeDdsImage(bytes + offset, pitch, w, h, format, pixels.data(), w * 16); if (status < 0) return status;
-                if (w != tw || h != th) {
-                    std::vector<float> resized(std::size_t(tw) * th * 4);
-                    Recovered::TextureCompiler::PublicD3dxBc::ResizeRgbaFloat(pixels.data(), w, h, resized.data(), tw, th);
-                    pixels.swap(resized);
-                }
+                std::vector<float> pixels(std::size_t(tw) * th * 4);
+                status = TexturePublicBcDecodeResizeDdsImage(bytes + offset, pitch, w, h, format, pixels.data(), tw * 16, tw, th); if (status < 0) return status;
                 status = TexturePublicBcEncodeDdsImage(target.rect.bits, target.rect.pitch, tw, th, format, pixels.data(), tw * 16, uploadFlags, threshold, edgePolicy); if (status < 0) return status;
             }
             offset += pitch * rows; w = std::max(1u, w >> 1); h = std::max(1u, h >> 1);

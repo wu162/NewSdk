@@ -13,13 +13,14 @@ void ReplayPublicBc(const std::string& directory,const std::string& path){
  auto encode=reinterpret_cast<EncodeBlock>(GetProcAddress(codec,"TexturePublicBcEncodeBlock"));
  auto decodeDds=reinterpret_cast<DecodeImage>(GetProcAddress(codec,"TexturePublicBcDecodeDdsImage"));
  auto encodeDds=reinterpret_cast<EncodeImage>(GetProcAddress(codec,"TexturePublicBcEncodeDdsImage"));
+ auto resize=reinterpret_cast<ResizeDds>(GetProcAddress(codec,"TexturePublicBcDecodeResizeDdsImage"));
  auto load=reinterpret_cast<NativeLoaderAbi::LoadFn>(GetProcAddress(codec,"TexturePublicBcCreateTextureFromFileA"));
  api.copy=reinterpret_cast<NativeCopyAbi::CopyFn>(GetProcAddress(codec,"TexturePublicBcCopySurface"));
- Check(decode&&encode&&decodeDds&&encodeDds&&load&&api.copy,"Isolated BC exports");
+ Check(decode&&encode&&decodeDds&&encodeDds&&load&&resize&&api.copy,"Isolated BC exports");
  void* device=nullptr;Check(api.device(0,1,nullptr,0,nullptr,&device)==0&&device,"Isolated BC device");Isolation(api);
  std::ifstream capture(path,std::ios::binary);Check(capture.is_open(),"Missing BC original capture");
  auto number=[&](){U n=0;capture.read(reinterpret_cast<char*>(&n),4);Check(capture.good(),"Truncated BC capture number");return n;};
- U blocks=0,fileBlocks=0,files=0,diagnosticPolicies=0;
+ U blocks=0,fileBlocks=0,files=0,diagnosticPolicies=0,floatRows=0;
  const std::string inputPath=path+"-replay.dds";
  while(capture.peek()!=std::char_traits<char>::eof()){
   U n=number();Check(n<512,"BC replay name bound");current.assign(n,'\0');capture.read(&current[0],n);Check(capture.good(),"Truncated BC capture label");
@@ -43,6 +44,10 @@ void ReplayPublicBc(const std::string& directory,const std::string& path){
     Check(!std::memcmp(input.data(),pixels,256),"Isolated BC encoder changed input");
    }
    c.end();if(file)++fileBlocks;else ++blocks;
+  }else if(current.rfind("bc-filter-float-",0)==0){
+   const U size=c.number();auto source=c.take(size);const U tw=c.number(),th=c.number(),sw=Load(source,16),sh=Load(source,12),fourcc=Load(source,84),format=fourcc==0x31545844?18:fourcc==0x33545844?19:20;
+   const std::size_t bytes=std::size_t(tw)*th*16;auto expected=c.take(bytes),saved=c.take(bytes);c.end();Check(!std::memcmp(expected,saved,bytes),"DDS float filter diagnostic has an unresolved difference");
+   std::vector<float> output(std::size_t(tw)*th*4);Isolation(api);Check(resize(source+128,((sw+3)/4)*(format==18?8:16),sw,sh,format,output.data(),tw*16,tw,th)==0,"Isolated float file consumer");Isolation(api);Check(!std::memcmp(expected,output.data(),bytes),"Isolated full float file filter differs from original");++floatRows;
   }else if(current.rfind("bc-default-dds-",0)==0){
    const U size=c.number();auto source=c.take(size);const U expectedSize=c.number();auto expected=c.take(expectedSize),repeat=c.take(expectedSize);const U savedSize=c.number();auto saved=c.take(savedSize);c.end();
    Check(!std::memcmp(expected,repeat,expectedSize),"Original default DDS was unstable");Check(savedSize==expectedSize&&!std::memcmp(saved,expected,expectedSize),"Default DDS diagnostic has an unresolved difference");
@@ -56,7 +61,7 @@ void ReplayPublicBc(const std::string& directory,const std::string& path){
    for(U i=0;i<16;++i){Check(c.number()==i/8&&c.number()==(i%8)<<16,"DDS diagnostic policy order");const U count=c.number();c.take(count);}c.end();++diagnosticPolicies;
   }else Check(false,"Unknown BC capture record");
  }
- Check(capture.eof()&&blocks==1536&&fileBlocks>=1536&&files==1572&&diagnosticPolicies==168,"Incomplete BC replay/EOF");
+ Check(capture.eof()&&blocks==1536&&fileBlocks>=1536&&files==1572&&floatRows==360&&diagnosticPolicies==168,"Incomplete BC replay/EOF");
  current="isolated-bc-rejections";
  for(U variant=0;variant<8;++variant){
   auto input=Dds(4,4,3,3,2);if(variant==0)input.resize(127);else if(variant==1)input.pop_back();else if(variant==2)Store(input.data(),84,0x30315844);else if(variant==3)Store(input.data(),112,0x200);else if(variant==4)Store(input.data(),24,2);else if(variant==5)Store(input.data(),16,0);else if(variant==6)Store(input.data(),12,0);else Store(input.data(),28,16);

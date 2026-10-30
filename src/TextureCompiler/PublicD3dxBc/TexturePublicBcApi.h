@@ -56,3 +56,8 @@ extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcDecodeSto
 // Other accepted formats delegate to the unchanged accepted native loader.
 extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcCreateTextureFromFileA(
     void*, const char*, void**);
+
+// The actual provided-level float consumer before file BC quantization.
+extern "C" TEXTURE_PUBLIC_BC_API std::int32_t __stdcall TexturePublicBcDecodeResizeDdsImage(
+    const void*, std::int32_t, std::uint32_t, std::uint32_t, std::uint32_t,
+    float*, std::int32_t, std::uint32_t, std::uint32_t);

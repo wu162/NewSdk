@@ -10,3 +10,4 @@ EXPORTS
  TexturePublicBcEncodeDdsImage=_TexturePublicBcEncodeDdsImage@40
  TexturePublicBcDecodeStoredImage=_TexturePublicBcDecodeStoredImage@32
  TexturePublicBcCreateTextureFromFileA=_TexturePublicBcCreateTextureFromFileA@12
+ TexturePublicBcDecodeResizeDdsImage=_TexturePublicBcDecodeResizeDdsImage@36
