@@ -5,7 +5,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Web.Script.Serialization;
 
-// Source-equivalent filesystem microbenchmark, NOT production method invocation.
+// HISTORICAL pre-cleanup filesystem microbenchmark, NOT the current production path.
 // The mixed production EXE is intentionally never loaded or modified.
 public static class CompilerCacheIdentityProfile
 {

@@ -1,3 +1,5 @@
+> 历史记录：本页的句柄固定、SHA 收据、侧车及发布事务不代表当前实现。当前路径与缓存合同见 [DIRECT_OUTPUT](docs/DIRECT_OUTPUT.md)。
+
 # 路径集中审计（2026-10-26 交接）
 
 本页为代码调用链审计；除已列 Windows 证据外，不把静态复现推导标成动态验证。本轮临时恢复 CLI 候选以取得完整 Windows 证据，未通过前不代表生产入口验收。已完整核对的候选 App/Core/真实业务 CLI/Texture 两配置均通过，包含原版逐字节对照和协议原始文件。三份真实 UI 的完整原始闭包均已取得两配置当前原版严格四流对照，含两份 manifest 绑定内联 DDS；固定 Texture 元数据为 HasCustomData=false，不能将其误称 cdata。Unicode混合纹理路径独立探针已定位原 DLL ANSI 加载失败，整组未通过，详见下文。

@@ -17,3 +17,5 @@ AudioFile 外部文件的调度预算由 `文件长度 × 64 + XML 估算` 改�
 - 完整 Upheaval 22 个样本全部 0 错误、1859 原警告，BIG/SKUDEF 字节一致。冷态 1289 次 AudioFile 调用，jobs4 实际峰值 4；仍有 117 个未知插件和 10 个任务的一般准备预算回退。该验证比较同一新二进制的 jobs 档位，不用于推算修改前后的收益。
 
 171,240,197 字节[原归档](https://github.com/wu162/NewSdk/actions/runs/41058436061/artifacts/12979545672)已实际下载，SHA256 复算为 `7f821d56c940144c94f1d367c3426b34771bb6e92e9fa631a6c5d377d7e55ad2`，与 GitHub 元数据及上传日志一致。两个发布 ZIP 和十个运行文件均复算匹配。14 份原收据身份、组件原收据、生产矩阵及计量边界见[验收摘要](../evidence/refactor/audiofile-parallel/41058436061-1/summary.json)和[完整 MOD 计量](../evidence/refactor/audiofile-parallel/41058436061-1/measurement.md)。无新游戏内验收；[PR #30](https://github.com/wu162/NewSdk/pull/30) 待用户审查，未经批准不合并。
+
+合入准备时已同步目标分支 `d85b8c8c`（PR #28），保留清理后的预算估算和调度实现，测试改用成功准备结果判断资格。上面的 `6c2f0869` 是独立分支验收；组合源码的新构建和回归待完成，不以旧结果冒充。

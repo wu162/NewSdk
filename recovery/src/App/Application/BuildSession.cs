@@ -21,10 +21,8 @@ namespace NewModCompiler.Application
             if (executed) throw new InvalidOperationException("BuildSession can only be executed once."); executed = true; acceptingCoreTrace = true;
             IBuildCacheCompiler cacheCompiler = compiler as IBuildCacheCompiler;
             string published = Path.Combine(request.OutputRoot,"published");
-            DiagnosticDirectory outputGuard = null;
             ExitCode code = ExitCode.Success; string status = "succeeded";
             bool generated = false;
-            try {
             try {
                 Reports.RemoveStale(request.ReportPath);
                 events.Emit("BuildStarted",payload:new { request = request, toolVersion = typeof(BuildSession).Assembly.GetName().Version.ToString(), processId = System.Diagnostics.Process.GetCurrentProcess().Id });
@@ -35,9 +33,9 @@ namespace NewModCompiler.Application
                 if (request.Command == "build") {
                     if (compiler == null) throw new BuildFailure(ExitCode.Environment,"BACKEND_NOT_INTEGRATED","This P2 application skeleton has no integrated compilation backend. No stream was compiled.");
                     cancellation.ThrowIfCancellationRequested(); StartStage("compile");
-                    outputGuard=DiagnosticDirectory.Acquire(published,true);
+                    DiagnosticDirectory.PrepareDirectory(published);
                     using (request.Performance.Measure("identity.load"))
-                        request.FileIdentities=new FileHashCache(request.OutputRoot,request.Performance);
+                        request.FileIdentities=new FileHashCache(request.Performance);
                     using (request.Performance.Measure("backend.initialize")) compiler.Initialize(request);
                     providerIdentity=compiler.ProviderIdentity;
                     int completed = 0;
@@ -99,6 +97,12 @@ namespace NewModCompiler.Application
             generated = code == ExitCode.Success && request.Command == "build" && artifacts.Count != 0;
             if (!generated) artifacts.Clear();
             if (events.OutputFailed) { code=ExitCode.Output; status="failed"; }
+            try { events.Emit("BuildFinished",code == ExitCode.Success ? "info" : "error",new {status=status,exitCode=(int)code,reportPath=request.ReportPath},"Build " + status); }
+            catch { code=ExitCode.Output; status="failed"; }
+            events.Dispose();
+            if (events.OutputFailed) { code=ExitCode.Output; status="failed"; }
+            if (events.CloseFailed)
+                AddReportDiagnostic("EVENT_CLOSE_FAILED",events.CloseFailureMessage,"error",null,null,null,null);
             var report = new Dictionary<string, object> {
                 {"schemaVersion","1.0"},{"buildId",events.BuildId},{"status",status},{"exitCode",(int)code},
                 {"requestArguments",request.Arguments},{"effectiveOptions",request.Options},{"selectedContent",request.Content},
@@ -113,22 +117,12 @@ namespace NewModCompiler.Application
             };
             if (request.Performance.Enabled) report["performance"]=request.Performance.Snapshot();
             try { Reports.WriteAtomic(request.ReportPath,report); }
-            catch (Exception e) { code=ExitCode.Output; status="failed"; Diagnostic("REPORT_WRITE_FAILED",e.Message); }
-            try { events.Emit("BuildFinished",code == ExitCode.Success ? "info" : "error",new {status=status,exitCode=(int)code,reportPath=request.ReportPath},"Build " + status); }
-            catch { code=ExitCode.Output; status="failed"; }
-            events.Dispose();
-            if (events.OutputFailed) { code=ExitCode.Output; status="failed"; }
-            if (events.CloseFailed) {
-                AddReportDiagnostic("EVENT_CLOSE_FAILED",events.CloseFailureMessage,"error",null,null,null,null);
-                try { Console.Error.WriteLine("EVENT_CLOSE_FAILED: " + events.CloseFailureMessage); } catch (Exception) { }
-            }
-            if (events.CloseFailed || (int)code != Convert.ToInt32(report["exitCode"])) {
-                report["status"]=status; report["exitCode"]=(int)code;
-                report["diagnosticCounts"]=new {error=errorCount,warning=warningCount}; report["elapsedMs"]=events.ElapsedMilliseconds;
-                try { Reports.WriteAtomic(request.ReportPath,report); } catch { code=ExitCode.Output; }
+            catch (Exception error)
+            {
+                code=ExitCode.Output;
+                try { Console.Error.WriteLine("REPORT_WRITE_FAILED: " + error.Message); } catch (IOException) { }
             }
             return code;
-            } finally { if (outputGuard != null) outputGuard.Dispose(); }
         }
         void StartStage(string id)
         {

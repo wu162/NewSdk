@@ -28,6 +28,8 @@ public class SessionCache : ISessionCache
 
 		public uint AssetCompilersVersion;
 
+		public string SchemaIdentity;
+
 		public void FromScratch()
 		{
 			FileConfigs = new SortedDictionary<string, FileConfig>();
@@ -42,6 +44,7 @@ public class SessionCache : ISessionCache
 			Files = new SortedDictionary<string, FileItem>();
 			Created = last.Created;
 			AssetCompilersVersion = last.AssetCompilersVersion;
+			SchemaIdentity = last.SchemaIdentity;
 			FileItem[] files = last.Files;
 			foreach (FileItem fileItem in files)
 			{
@@ -65,6 +68,7 @@ public class SessionCache : ISessionCache
 	[Serializable]
 	private class LastState
 	{
+		public string SchemaIdentity;
 		private FileItem[] _files;
 
 		private uint _version;
@@ -147,10 +151,12 @@ public class SessionCache : ISessionCache
 			Version = 18u;
 			DocumentProcessorVersion = 11u;
 			_assetCompilersVersion = current.AssetCompilersVersion;
+			SchemaIdentity = current.SchemaIdentity;
 		}
 
 		public void ReadXml(XmlReader reader)
 		{
+			SchemaIdentity = reader.GetAttribute("schema");
 			reader.MoveToAttribute("d");
 			string[] array = reader.Value.Split(';');
 			Created = Convert.ToDateTime(array[0]);
@@ -166,6 +172,7 @@ public class SessionCache : ISessionCache
 		public void WriteXml(XmlWriter writer)
 		{
 			writer.WriteStartElement("sc");
+			if (SchemaIdentity != null) writer.WriteAttributeString("schema", SchemaIdentity);
 			writer.WriteAttributeString("d", $"{Created};{Version};{DocumentProcessorVersion};{AssetCompilersVersion}");
 			XmlHelper.WriteCollection(writer, "fic", Files);
 			writer.WriteEndElement();
@@ -276,6 +283,19 @@ public class SessionCache : ISessionCache
 
 	public virtual void InitializeCache(List<string> knownChangedFiles)
 	{
+		InitializeCache(knownChangedFiles, null);
+	}
+
+	public void InitializeCache(List<string> knownChangedFiles, string schemaIdentity)
+	{
+		// Completed documents can skip XSD validation while plugin TypeHash /
+		// ProcessingHash stay constant. Revalidate changed schema constraints;
+		// original BAB imports have no schema attribute.
+		if (_Last?.SchemaIdentity != null && schemaIdentity != null && _Last.SchemaIdentity != schemaIdentity)
+		{
+			PerformanceScope.Count("cache.session.schemaChanged");
+			_Last = null;
+		}
 		HasChanges = false;
 		_Current = new CurrentState();
 		_dirtyStreams = new List<string>();
@@ -292,6 +312,9 @@ public class SessionCache : ISessionCache
 			HasChanges = true;
 			_dirtyStreams = null;
 		}
+
+		if (_Current.SchemaIdentity != schemaIdentity) HasChanges = true;
+		_Current.SchemaIdentity = schemaIdentity;
 	}
 
 	private void checkFiles(List<string> knownChangedFiles)

@@ -1,3 +1,5 @@
+> 历史记录：本页的句柄固定、SHA 收据、侧车及发布事务不代表当前实现。当前路径与缓存合同见 [DIRECT_OUTPUT](DIRECT_OUTPUT.md)。
+
 # 原 SDK 缓存：行为与实现
 
 当前实现见[直接产物与原 SDK 缓存](DIRECT_OUTPUT.md)：已删除 MOD 发布事务、整代 Staging、独立四流快照及输出哈希/收据。原 BAB SessionCache/BuildAssetCache 与依赖失效仍保留。下面为既往版本的验证历史；涉及回滚、发布去重或旧暂存目录的描述不适用于当前实现。

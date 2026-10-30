@@ -60,7 +60,6 @@ try {
         @{name='CompilerXmlBackendBatch';marker='PASS XmlBackendBatch:';timeoutSeconds=300},
         @{name='CompilerCacheContent';marker='PASS CacheContent:'},
         @{name='CompilerStableSort';marker='PASS StableSort:'},
-        @{name='CompilerCacheBoundary';marker='PASS CacheBoundary:'},
         @{name='CompilerInputRoots';marker='PASS InputRoots:'},
         @{name='CompilerCorePaths';marker='PASS CorePaths:'},
         @{name='CompilerUnicodeSettings';marker='PASS UnicodeSettings:'},

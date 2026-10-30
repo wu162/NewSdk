@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Xml;
 using BinaryAssetBuilder;
@@ -85,7 +84,7 @@ namespace NewModCompiler.Application
                     buildCacheEnabled = configured.BuildCache;
                     request.Options["bc"] = new EffectiveOption { Value = buildCacheEnabled ? "true" : "false", Source = "sdkConfig" };
                 }
-                if (request.FileIdentities == null) request.FileIdentities = new FileHashCache(outputRoot,request.Performance);
+                if (request.FileIdentities == null) request.FileIdentities = new FileHashCache(request.Performance);
                 this.request = request;
                 lock (LeaseGate) { initialized = true; initializing = false; }
             }
@@ -150,7 +149,6 @@ namespace NewModCompiler.Application
                 settings.SessionCacheDirectory = namespaceOnly;
                 hashes = HashProvider.BeginStringHashScope(namespaceOnly);
                 MetricManager.Enabled = false;
-                VerifyAntlrRuntime();
                 new SchemaSet(settings.StableSort);
                 ExpressionEvaluatorWrapper.LoadAssembly();
                 XIncludingReaderWrapper.LoadAssembly();
@@ -169,17 +167,6 @@ namespace NewModCompiler.Application
                 lock (LeaseGate) { probe.disposed = true; probe.initializing = false; probe.ReleaseLease(); }
             }
             if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
-        }
-
-        static void VerifyAntlrRuntime()
-        {
-            Assembly runtime = typeof(antlr.LLkParser).Assembly;
-            string expected = Path.Combine(Path.GetDirectoryName(typeof(CoreStreamCompiler).Assembly.Location), "antlr.runtime.dll");
-            if (runtime.GetName().Name != "antlr.runtime" || !string.Equals(Path.GetFullPath(runtime.Location),Path.GetFullPath(expected),StringComparison.OrdinalIgnoreCase))
-                throw new InvalidDataException("ANTLR must load from the current compiler directory.");
-            using (var algorithm = SHA256.Create()) using (var input = File.OpenRead(runtime.Location))
-                if (BitConverter.ToString(algorithm.ComputeHash(input)).Replace("-", "").ToLowerInvariant() != "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a")
-                    throw new InvalidDataException("ANTLR runtime differs from the pinned compiler input.");
         }
 
         void ValidateOptions(BuildRequest candidate)
@@ -480,12 +467,11 @@ namespace NewModCompiler.Application
             string output = Path.GetFullPath(context.OutputDirectory);
             if (!Paths.Contains(outputRoot, output) || Paths.Contains(output, outputRoot) || Paths.Contains(sdkRoot, output) || Paths.Contains(modRoot, output))
                 throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_INVALID", "The stream workspace must be beneath the isolated output root.");
-            RejectReparseAncestors(output);
             if (string.IsNullOrEmpty(context.Task.InputPath) || !Path.IsPathRooted(context.Task.InputPath) || !Paths.Contains(modRoot, context.Task.InputPath) || !File.Exists(context.Task.InputPath) || !string.Equals(Path.GetExtension(context.Task.InputPath), ".xml", StringComparison.OrdinalIgnoreCase))
                 throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "The experimental backend requires an existing XML stream entry.");
             Settings previousSettings = Settings.Current;
             bool previousMetrics = MetricManager.Enabled;
-            IDisposable hashes = null, tracing = null, report = null, processorState = null, inputBoundary = null;
+            IDisposable hashes = null, tracing = null, report = null, processorState = null;
             Exception failure = null;
             IList<Artifact> artifacts = null;
             DocumentProcessor processor = null;
@@ -496,7 +482,7 @@ namespace NewModCompiler.Application
             compiling = true;
             try
             {
-                Directory.CreateDirectory(output);
+                NewModCompiler.Diagnostics.DiagnosticDirectory.PrepareDirectory(output, outputRoot);
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
                 Settings settings;
@@ -504,8 +490,7 @@ namespace NewModCompiler.Application
                 settings.MeasurePerformance = request.Performance.Detailed ? (Func<string, IDisposable>)(name => request.Performance.Measure(name, true)) : null;
                 settings.RecordPerformanceCounter = request.Performance.Enabled ? (Action<string, long, bool>)request.Performance.RecordCounter : null;
                 settings.FileIdentity = request.FileIdentities.CoreIdentity;
-                settings.RememberFileContentHash = request.FileIdentities.RememberCoreHash;
-                settings.FileContentHashFromBytes = request.FileIdentities.HashBase64;
+                settings.FileHashRead = request.FileIdentities.RecordRead;
                 settings.SchemaFileIdentities = request.FileIdentities.SchemaIdentities;
                 settings.StreamOutputStarted = stem => startedStreams.Add(stem);
                 settings.StreamOutputCompleted = (stem, reused) => {
@@ -525,7 +510,7 @@ namespace NewModCompiler.Application
                 using (request.Performance.Measure("cache.prepare"))
                 if (sessionCacheEnabled)
                 {
-                    if (legacyStore == null) legacyStore = new LegacyCacheStore(settings.SessionCacheDirectory, LegacyCacheIdentity(settings));
+                    if (legacyStore == null) legacyStore = new LegacyCacheStore(settings.SessionCacheDirectory);
                     packageRestored = legacyStore.CanLoad();
                     if (!packageRestored) request.Performance.RecordCounter(legacyStore.PrepareMissReason);
                     if (packageRestored)
@@ -541,7 +526,7 @@ namespace NewModCompiler.Application
                     try
                     {
                         cache.LoadCacheFrom(packageRestored ? legacyStore.SessionPath : null, sessionPath);
-                        cache.InitializeCache(new List<string>());
+                        cache.InitializeCache(new List<string>(), schemas.ContentIdentity);
                         if (packageRestored && !cache.HasCachedState)
                             throw new InvalidDataException("The restored session has an incompatible format.");
                         if (packageRestored)
@@ -569,11 +554,11 @@ namespace NewModCompiler.Application
                         settings.FindCustomData = null;
                         cache = new SessionCache();
                         cache.LoadCacheFrom(packageRestored ? legacyStore.SessionPath : null, sessionPath);
-                        cache.InitializeCache(new List<string>());
+                        cache.InitializeCache(new List<string>(), schemas.ContentIdentity);
                     }
                     if (packageRestored) sessionPackageHits++; else sessionPackageMisses++;
                 }
-                else { request.Performance.RecordCounter("cache.session.disabled"); cache.InitializeCache(new List<string>()); }
+                else { request.Performance.RecordCounter("cache.session.disabled"); cache.InitializeCache(new List<string>(), schemas.ContentIdentity); }
                 }
                 cache.AssetCompilersVersion = compilers.Registry.AssetBuilderPluginsVersion;
                 processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
@@ -625,7 +610,6 @@ namespace NewModCompiler.Application
                 try { if (hashes != null) hashes.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (processorState != null) processorState.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (tracing != null) tracing.Dispose(); } catch (Exception error) { cleanup.Add(error); }
-                try { if (inputBoundary != null) inputBoundary.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 Settings.Current = previousSettings;
                 MetricManager.Enabled = previousMetrics;
                 compiling = false;
@@ -656,27 +640,6 @@ namespace NewModCompiler.Application
             cache.AcceptSavedChanges(compressedSessionCache);
             }
         }
-        string LegacyCacheIdentity(Settings settings)
-        {
-            using (var bytes = new MemoryStream())
-            using (var writer = new BinaryWriter(bytes, System.Text.Encoding.UTF8))
-            {
-                writer.Write("NewModCompiler.LegacyCache.Contract.v3.SchemaClosure");
-                writer.Write(settings.DataRoot);
-                writer.Write(stableSortEnabled); writer.Write(usePrecompiled); writer.Write(forceSlowCleanup);
-                string config=Path.Combine(sdkRoot,"tools","BinaryAssetBuilder.exe.config");
-                var files = new List<FileIdentity> { FileIdentity.ReadDirectory(Path.GetDirectoryName(config)).Single(file=>string.Equals(file.Path,config,StringComparison.OrdinalIgnoreCase)) };
-                writer.Write(schemas.ContentIdentity);
-                string runtime = Path.GetDirectoryName(typeof(CoreStreamCompiler).Assembly.Location);
-                files.AddRange(FileIdentity.ReadDirectory(runtime).Where(file=>new[] {".exe",".dll",".config"}.Contains(Path.GetExtension(file.Path).ToLowerInvariant())));
-                foreach (FileIdentity file in files.OrderBy(file=>file.Path,StringComparer.Ordinal))
-                {
-                    writer.Write(file.Path); writer.Write(file.VolumeSerial); writer.Write(file.FileId); writer.Write(file.ChangeTime); writer.Write(file.LastWriteTime); writer.Write(file.Size);
-                }
-                writer.Flush(); bytes.Position = 0;
-                using (var algorithm = SHA256.Create()) return BitConverter.ToString(algorithm.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
-            }
-        }
         static BuildFailure Failure(ExitCode exitCode, string code, Exception error)
         {
             var failure = new BuildFailure(exitCode, code, error.ToString());
@@ -693,12 +656,6 @@ namespace NewModCompiler.Application
             failures.Add(secondary);
         }
 
-        static void RejectReparseAncestors(string path)
-        {
-            for (var directory = new DirectoryInfo(path); directory != null; directory = directory.Parent)
-                if (directory.Exists && (directory.Attributes & FileAttributes.ReparsePoint) != 0)
-                    throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_REPARSE", "The stream workspace cannot use reparse points.");
-        }
         void CheckOwner()
         {
             lock (LeaseGate)
@@ -724,7 +681,6 @@ namespace NewModCompiler.Application
             finally {
                 try {
                     if (legacyStore != null) legacyStore.Dispose();
-                    if (request != null && request.FileIdentities != null) request.FileIdentities.Save();
                 } finally { ReleaseLease(); }
             }
         }

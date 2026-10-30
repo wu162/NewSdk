@@ -122,7 +122,7 @@ namespace NewModCompiler.Application
         }
         static void Verify(Artifact artifact,string output)
         {
-            if(artifact==null || string.IsNullOrEmpty(artifact.Path) || !Path.IsPathRooted(artifact.Path) || !Paths.Contains(output,artifact.Path) || !File.Exists(artifact.Path)) throw new IOException("BIG input must be an accepted current output file.");
+            if(artifact==null || string.IsNullOrEmpty(artifact.Path) || !Path.IsPathRooted(artifact.Path) || !Paths.Contains(output,artifact.Path)) throw new IOException("BIG input must be an accepted current output file.");
         }
         static Artifact Describe(string path,string kind) { return new Artifact {Path=path,Kind=kind,Size=new FileInfo(path).Length}; }
     }

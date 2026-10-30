@@ -21,8 +21,6 @@ namespace NewModCompiler.Application
         public int ProcessorCount { get; private set; }
         public int Capacity { get; private set; }
         public long ByteBudget { get; private set; }
-        public long PerTaskBudget { get; private set; }
-        public long PreparationBudget { get; private set; }
         public bool MemoryQuerySucceeded { get; private set; }
         public long AvailablePhysicalBytes { get; private set; }
         public long AvailableVirtualBytes { get; private set; }
@@ -66,8 +64,6 @@ namespace NewModCompiler.Application
             // A large number of CPUs must not make an otherwise safe individual
             // task inadmissible. Actual retained-byte accounting determines how
             // many such tasks can coexist within the shared budget.
-            result.PerTaskBudget = result.ByteBudget / 2L;
-            result.PreparationBudget = result.ByteBudget / 2L;
             return result;
         }
 
@@ -82,13 +78,6 @@ namespace NewModCompiler.Application
             // ceiling. The owner may additionally retain the lowest observation
             // to avoid oscillation while existing work consumes its allowance.
             return Observe(RequestedJobs, ProcessorCount);
-        }
-
-        public BackendResourcePolicy RecalculateMemory(long availablePhysicalBytes,
-            long availableVirtualBytes, long totalVirtualBytes, bool memoryQuerySucceeded = true)
-        {
-            return Calculate(RequestedJobs, ProcessorCount, availablePhysicalBytes,
-                availableVirtualBytes, totalVirtualBytes, memoryQuerySucceeded);
         }
 
         static BackendResourcePolicy Observe(int requestedJobs, int processorCount)

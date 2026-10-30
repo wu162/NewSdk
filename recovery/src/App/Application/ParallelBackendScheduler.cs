@@ -107,6 +107,7 @@ namespace NewModCompiler.Application
             this.processor=processor; this.staging=staging; this.metrics=metrics; this.performance=performance; this.cancellation=cancellation; this.sampler=sampler;
             resources=sampler==null ? BackendResourcePolicy.Capture(requestedJobs) : sampler();
             capacity=resources.Capacity; budget=resources.ByteBudget;
+            nextSample=Stopwatch.GetTimestamp()+Math.Max(1,Stopwatch.Frequency/10);
             metrics.EffectiveJobs=Math.Max(metrics.EffectiveJobs,capacity);
             metrics.MinimumEffectiveJobs=metrics.MinimumEffectiveJobs==0 ? capacity : Math.Min(metrics.MinimumEffectiveJobs,capacity);
             metrics.ResourceQuerySucceeded &= resources.MemoryQuerySucceeded;
@@ -156,10 +157,6 @@ namespace NewModCompiler.Application
             Check(); Refresh();
             if(capacity<=1) { Compatibility(declaration,compileCompatibility,verify,commit,asset,"resource-capacity"); return; }
             plugin=BuiltinCompilers.ResolveBackendPlugin(plugin);
-            string eligibilityReason;
-            if (!PreparedBackendWork.CanPrepare(declaration,plugin,out eligibilityReason)) {
-                Compatibility(declaration,compileCompatibility,verify,commit,asset,eligibilityReason); return;
-            }
             // Preparation borrows the existing DOM. Estimate native working
             // memory once inside TryPrepare, then admit against retained bytes.
             while(pending.Count>=capacity) CommitOne();
@@ -174,7 +171,7 @@ namespace NewModCompiler.Application
             try {
                 Refresh();
                 while(pending.Count>0 && (pending.Count>=capacity || !Fits(prepared.PreparedBytes))) CommitOne();
-                if(!prepared.CanRunParallel || capacity<=1 || prepared.PreparedBytes>budget/2 || !Fits(prepared.PreparedBytes)) {
+                if(capacity<=1 || prepared.PreparedBytes>budget/2 || !Fits(prepared.PreparedBytes)) {
                     prepared.Dispose(); task.Prepared=null;
                     Compatibility(declaration,compileCompatibility,verify,commit,asset,"resource-budget"); return;
                 }

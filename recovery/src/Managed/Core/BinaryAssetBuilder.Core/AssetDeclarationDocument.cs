@@ -705,7 +705,6 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 		_Current.SchemaValidated = false;
 		_Current.DocumentProcessor.RecordXmlParse();
-		CacheInputBoundary.Validate(_Current.SourcePath);
 		FileNameXmlResolver xmlResolver = FileNameResolver.GetXmlResolver(SourceDirectory);
 		if (!File.Exists(_Current.SourcePath))
 		{

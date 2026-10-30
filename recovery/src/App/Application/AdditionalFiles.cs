@@ -31,7 +31,7 @@ namespace NewModCompiler.Application
             var directories=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach(string root in new[]{sdkRoot,modRoot}) {
                 string additional=Path.Combine(Path.GetFullPath(root),"Additional");
-                if(Directory.Exists(additional)) using(DiagnosticDirectory.Acquire(additional,false)) Discover(additional,"",files,directories,cancellation,warning);
+                if(Directory.Exists(additional)) Discover(additional,"",files,directories,cancellation,warning);
                 else if(File.Exists(additional)) throw new IOException("Additional input must be a directory.");
             }
             var result=new InputList(directories,files.Keys);
