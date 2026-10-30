@@ -1,6 +1,10 @@
-# 当前：AudioFile XAS 性能优化（验证中）
+# 当前：AudioFile XAS 性能优化（已验收，PR 待审）
 
-基于 `recovery/legacy-sdk-cache` 的 `45d485d8`，实现分支 `perf/audio-xas-ranges`。六项优化已成组实现：原数组区间读取、最终数组直接写入、完整块零复制、Loop 区间独立分段、复用 float[30]、预测器共用一次转换。仅修改 Audio 编码器。Windows 运行 [40996371215](https://github.com/wu162/NewSdk/actions/runs/40996371215) 的 Debug/Release x86 原版插件、编码器组件及精度回归已通过，长音频同机计量进行中，不执行完整 SDK；[方法和状态](docs/AUDIO_XAS_PERFORMANCE.md)。禁止强推；须 PR，未经用户批准不合并。
+基于 `recovery/legacy-sdk-cache` 的 `45d485d8`，成果在 `perf/audio-xas-ranges` / [PR #21](https://github.com/wu162/NewSdk/pull/21)。六项优化一次完成：原数组偏移读取、最终数组直写、完整128帧块零复制、Loop区间独立分段、复用float[30]、四预测器共用一次转换。只修改 Audio 三个编码器，未修改其它插件。
+
+源码/二进制/测试来源 `b8e37a2e957f7a2465ad303110b92eec3269df4d`；后续只有结果归档。Windows [40996371215](https://github.com/wu162/NewSdk/actions/runs/40996371215) success：Debug/Release x86 各8924原版完整输出一致、既有拒绝和块/精度矩阵通过；同机3280边界+21长音频完整输出对照通过。未执行完整SDK。完整ZIP已下载复算SHA256，原版输出压缩保留于仓库。
+
+同机CLR x86三轮中位数：120秒双声道RAM 46.243→2.788秒，分配336.078→6.523MiB，GC33/3/1→0/0/0；Loop RAM约16倍。600秒streamed分配1081.368→32.744MiB、GC184/2/0→0/0/0，耗时13.629→13.936秒（增加2.3%，如实保留）。[完整方法和计量](docs/AUDIO_XAS_PERFORMANCE.md)。禁止强推；未经用户批准不合并。
 
 ## 上一批：Tokenizer 并行与输入准备去拷贝（已验收）
 
