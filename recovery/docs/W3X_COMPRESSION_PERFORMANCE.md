@@ -33,3 +33,12 @@ BinaryMove、平台字节序、原估算公式及格式选择；不改变有损�
 缓存矩阵全部通过；整轮失败保留：产品捕获重放缺少 `validation/build.json`，尚未开始
 字节比较。专用工作流补建既有 `BuildCompilerValidationHost.ps1` 宿主，不修改验收断言。
 随后补充常量通道直接编码、步长懒计算和小帧/无缩减快路径，需以新源码重跑受影响组。
+
+## 真实源通道计量（进行中）
+
+另加 `w3x-historical-compression.yml`，固定原始 Upheaval 源 `bacfc69fc3e71c8116d1f22b933b8b6173170ecf`
+及 MOD 树 `5551fc26a6f96b62613443e0d0fa2958c14cbce0`，覆盖全部194个 W3DAnimation、7390条通道、
+468946个展开帧。记录全部原 XML SHA256 与展开输入身份。原/新内核使用相同源数据和设置，
+按原规则选择 Timecoded/Delta；完整选中编码在 LE/BE 对照。预热一次，交替顺序测三对，
+计时含原生产转换拷贝及压缩/格式选择，排除 XML 解析、展开和 wire 写出。它是实际源数据的
+通道计量，不代表完整 MOD/SDK 或整机端到端耗时。生产与正式回归输入不变。
