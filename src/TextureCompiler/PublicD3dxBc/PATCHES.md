@@ -66,3 +66,14 @@ all512; BC2/3 had511 differences each, now under compatibility adaptation.
 Its success proves comparison completed only; no policy passed the whole DDS
 consumer. The updated actual-copy consumer requires a new diagnostic before
 any claim. No production loader or accepted NPOT/BMP input is changed.
+
+Diagnostic d50b04a9/41009041890 completed D/R with identical89,979,984-byte
+captures and original repeats stable. All1536 complete BC1/2/3 encodes match
+under one fixed flags0 policy (not just alpha subblocks). Actual-copy and full
+DDS remain mismatched (best flags0/wrap86 of168); decode had976 block bit
+differences, including A4 byte normalization and BC3 alpha interpolation.
+The latest unvalidated source now forces the exact stored float byte inverse
+0.0039215688593685627 with an explicit store before palette/unpremultiply;
+this avoids x87 retaining the 1.f/255.f division until multiplication. Together
+with the right-product store, it needs current-source Actions verification.
+No extra diagnostic or final matrix was triggered for the saved precision fix.

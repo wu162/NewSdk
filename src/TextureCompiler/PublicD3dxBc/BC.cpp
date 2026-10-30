@@ -22,6 +22,13 @@ using namespace DirectX::PackedVector;
 
 namespace
 {
+    float LegacyByte(unsigned int value) noexcept
+    {
+        // The stored float reciprocal is part of the old row contract. A
+        // 1.f/255.f expression may retain x87 division precision until use.
+        volatile float result = static_cast<float>(static_cast<double>(value) * 0.0039215688593685627);
+        return result;
+    }
     // Original PC alpha-palette arithmetic: normalized endpoints and float
     // coefficient weights, store the right product BEFORE the extended left
     // multiply/add. Derived against all8192 original BC3 alpha channels in
@@ -825,13 +832,13 @@ _Use_decl_annotations_ void DirectX::D3DXDecodeBC2(XMVECTOR* pColor, const uint8
     for (size_t i = 0; i < 8; ++i, dw >>= 4)
     {
 #pragma prefast(suppress : 22103, "writing blocks in two halves confuses tool")
-        pColor[i] = XMVectorSetW(pColor[i], static_cast<float>((dw & 0xf) * 17) * (1.0f / 255.0f));
+        pColor[i] = XMVectorSetW(pColor[i], LegacyByte((dw & 0xf) * 17));
     }
 
     dw = pBC2->bitmap[1];
 
     for (size_t i = 8; i < NUM_PIXELS_PER_BLOCK; ++i, dw >>= 4)
-        pColor[i] = XMVectorSetW(pColor[i], static_cast<float>((dw & 0xf) * 17) * (1.0f / 255.0f));
+        pColor[i] = XMVectorSetW(pColor[i], LegacyByte((dw & 0xf) * 17));
 }
 
 _Use_decl_annotations_ void DirectX::D3DXEncodeBC2(uint8_t* pBC, const XMVECTOR* pColor, uint32_t flags) noexcept
@@ -919,8 +926,8 @@ _Use_decl_annotations_ void DirectX::D3DXDecodeBC3(XMVECTOR* pColor, const uint8
     // Adaptive 3-bit alpha part
     float fAlpha[8];
 
-    fAlpha[0] = static_cast<float>(pBC3->alpha[0]) * (1.0f / 255.0f);
-    fAlpha[1] = static_cast<float>(pBC3->alpha[1]) * (1.0f / 255.0f);
+    fAlpha[0] = LegacyByte(pBC3->alpha[0]);
+    fAlpha[1] = LegacyByte(pBC3->alpha[1]);
 
     if (pBC3->alpha[0] > pBC3->alpha[1])
     {
