@@ -75,7 +75,21 @@ $r.performance.counters | Where-Object name -Like 'dependency.*' | Format-Table 
 
 `TestCompilerHotCache.py` 在当前重建 Release 上补充短矩阵：32/256/2048 Armor，4/32/128 文档；中档增加8个纹理、2个PCM音频、2个动画与1个层级，以及跨文档定义/继承链。代表性覆盖五种有效缓存组合、jobs1/4/auto、off/summary/detailed、loose/BIG，每组合一次冷态和两次热态，轮次反转顺序；保留原短测试的无缓存和原BAB对照。分别修改 XML、TGA、PCM、动画、继承源和定义，保持等长及mtime，再与每代独立无缓存实际字节对照；验证失效原因、上游传播和修改后重新变热，并修复缺失发布文件及损坏会话。
 
-每进程默认15秒，测量与字节核对共用120秒硬预算，最后一个进程受剩余预算限制；超时失败并保存部分证据，不降低覆盖后报成功。准备和生产重建单列，不计入测量。性能报告与 Actions 摘要同时列出失效/传播统计。本轮不是完整MOD或游戏内验收，结果待 Windows 工作流确认。
+每进程默认15秒，测量与字节核对共用120秒硬预算，最后一个进程受剩余预算限制；超时失败并保存部分证据，不降低覆盖后报成功。准备和生产重建单列，不计入测量。性能报告与 Actions 摘要同时列出失效/传播统计。
+
+[Windows 41010073140](https://github.com/wu162/NewSdk/actions/runs/41010073140) success，生产/二进制/测试来源 `91b040d271b7a3cc25d32f0f923c018c740edf4a`。Release重建、App合同、5项快速预检、原14个打点/原BAB/打包/失败样本通过；扩展56样本 **42.85秒**，加原短测9.98秒，均在各自预算内。所有扩展输出与每代独立无缓存实际字节相等；热态不重写发布文件，BIG仍正常打包，缺失发布文件和损坏会话修复后重新变热。
+
+| 修改 | 实际文档重载原因 | 失效文档 | 依赖触发重载文档 | 受影响Include父文档 |
+| --- | --- | ---: | ---: | ---: |
+| XML | contentChanged | 1 | 0 | 1 |
+| TGA / PCM（分别运行） | dependentFileChanged | 各1 | 各1 | 0 |
+| 单动画 | contentChanged | 1 | 0 | 1 |
+| 继承源XML | contentChanged + dependentFileChanged | 2 | 1 | 2 |
+| 单独定义文件 | contentChanged + definesChanged + inheritanceChanged | 3 | 2 | 3 |
+
+定义用例Include访问39次，其中6次受影响，去重父文档3个、最大深度3；重复访问不冒充更多受影响文档。随后热态这些失效/传播计数为零，XML解析与资产编译也为零。继承源XML的instance Include先由依赖文件哈希拒绝；单独定义文件经all Include传播，才能独立到达定义和继承检查。这是实际判定优先级，不据测试名称伪造原因。
+
+[完整收据/性能报告](../evidence/refactor/hot-cache/41010073140-1/validation.md)、[JSON](../evidence/refactor/hot-cache/41010073140-1/validation.json)、[来源及归档核对](../evidence/refactor/hot-cache/41010073140-1/execution.json)。原ZIP已下载复算SHA256 `9f8b1ad1bba8c3f330475586496722773714fa99143d75adf136ae464493680c`，五运行文件身份与产物一致，69份报告Schema通过。首轮41009339596因错误要求晚于文件依赖检查的继承原因而失败，原字节比较与48样本已保留；只修测试和归档配置，生产源码未变。本轮没有新增Debug、完整MOD或游戏内验收，小样本不用于宣称一般性能收益。
 
 `TestCompilerPerformance.py` 使用临时 MOD：两个 16×16 Texture 和一个 ArmorTemplate、一个 include；三档各冷态一次/热态两次，交替顺序，校验所有流/CDATAs 原始字节相等，并和独立原版 SDK 比较；再验证三档 BIG/SKUDEF 相等以及无效 XML 的失败计时。每进程默认 10 秒，测量阶段总预算 60 秒，不运行完整 Upheaval。Windows 工作流重新构建 Release 生产组合；构建时间独立于测量预算。
 
