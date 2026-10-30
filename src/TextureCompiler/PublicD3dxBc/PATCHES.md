@@ -135,3 +135,15 @@ prepared but must not be called passed while default-file differences remain.
 Failure captures now archive losslessly in finally, including interrupted
 matrices that exceed GitHub's single-file limit. No old inputs/assertions or
 production/SDK routes were removed.
+
+2026-10-30 next continuation (unvalidated): the actual x86 /fp:strict
+candidate disassembly contains runtime divisions for 1.f/N and lazy coefficient
+array initialization. D3DX instead multiplies pre-rounded float reciprocals held
+as doubles (98080,99c80/88/90,99cb0,9d330), and stores the scaled half-offset
+before integer conversion. File quantization now explicitly preserves these
+stores/constants for RGB565, BC2 alpha and BC3 quantization, endpoints and palette;
+XG arithmetic remains separate. Alpha solver coefficient arrays are constexpr,
+so first-call rounding cannot change the original table bits. Numeric analysis
+of the full immutable bc-file-block-f20-23 input reproduces original alpha
+endpoints ff0d with these rules, whereas the previous candidate emitted ff02.
+This is not current-source validation or production acceptance.

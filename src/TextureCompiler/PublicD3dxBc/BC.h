@@ -181,11 +181,11 @@ namespace DirectX
     void OptimizeAlpha(float* pX, float* pY, const float* pPoints, uint32_t cSteps, bool dds = false) noexcept
     {
         auto store = [](double value) { volatile float result = static_cast<float>(value); return static_cast<float>(result); };
-        static const float pC6[] = { 5.0f / 5.0f, 4.0f / 5.0f, 3.0f / 5.0f, 2.0f / 5.0f, 1.0f / 5.0f, 0.0f / 5.0f };
-        static const float pD6[] = { 0.0f / 5.0f, 1.0f / 5.0f, 2.0f / 5.0f, 3.0f / 5.0f, 4.0f / 5.0f, 5.0f / 5.0f };
-        static const float pC8[]
+        static constexpr float pC6[] = { 5.0f / 5.0f, 4.0f / 5.0f, 3.0f / 5.0f, 2.0f / 5.0f, 1.0f / 5.0f, 0.0f / 5.0f };
+        static constexpr float pD6[] = { 0.0f / 5.0f, 1.0f / 5.0f, 2.0f / 5.0f, 3.0f / 5.0f, 4.0f / 5.0f, 5.0f / 5.0f };
+        static constexpr float pC8[]
             = { 7.0f / 7.0f, 6.0f / 7.0f, 5.0f / 7.0f, 4.0f / 7.0f, 3.0f / 7.0f, 2.0f / 7.0f, 1.0f / 7.0f, 0.0f / 7.0f };
-        static const float pD8[]
+        static constexpr float pD8[]
             = { 0.0f / 7.0f, 1.0f / 7.0f, 2.0f / 7.0f, 3.0f / 7.0f, 4.0f / 7.0f, 5.0f / 7.0f, 6.0f / 7.0f, 8.0f / 7.0f };
 
         const float* pC = (6 == cSteps) ? pC6 : pC8;

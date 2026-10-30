@@ -32,6 +32,14 @@ namespace
         void restore() noexcept { if (active) { unsigned int ignored; _controlfp_s(&ignored, saved, _MCW_RC); active = false; } }
         ~FileRounding() { restore(); }
     };
+    float FileStore(double value) noexcept { volatile float result = static_cast<float>(value); return result; }
+    int32_t FileQuantize(float value, double scale) noexcept
+    {
+        // D3DX stores the scaled half-offset before FISTP. /fp:strict does
+        // not fold float divisions, so use its stored reciprocal constants,
+        // not a runtime 1.f/N which remains extended on the x87 stack.
+        return static_cast<int32_t>(FileStore(static_cast<double>(value) * scale + 0.5));
+    }
     float LegacyByte(unsigned int value) noexcept
     {
         // The stored float reciprocal is part of the old row contract. A
@@ -83,6 +91,7 @@ namespace
 
         uint16_t w;
 
+        if (dds) return static_cast<uint16_t>((FileQuantize(Color.r, 31.0) << 11) | (FileQuantize(Color.g, 63.0) << 5) | FileQuantize(Color.b, 31.0));
         w = static_cast<uint16_t>((static_cast<int32_t>(Color.r * 31.0f + 0.5f) << 11) | (static_cast<int32_t>(Color.g * 63.0f + 0.5f) << 5)
                                   | (static_cast<int32_t>(Color.b * 31.0f + 0.5f) << 0));
 
@@ -465,9 +474,9 @@ namespace
                 Clr.b += Error[i].b;
             }
 
-            Color[i].r = static_cast<float>(static_cast<int32_t>(Clr.r * 31.0f + 0.5f)) * (1.0f / 31.0f);
-            Color[i].g = static_cast<float>(static_cast<int32_t>(Clr.g * 63.0f + 0.5f)) * (1.0f / 63.0f);
-            Color[i].b = static_cast<float>(static_cast<int32_t>(Clr.b * 31.0f + 0.5f)) * (1.0f / 31.0f);
+            Color[i].r = dds ? FileStore(static_cast<double>(FileQuantize(Clr.r, 31.0)) * 0.032258063554763794) : static_cast<float>(static_cast<int32_t>(Clr.r * 31.0f + 0.5f)) * (1.0f / 31.0f);
+            Color[i].g = dds ? FileStore(static_cast<double>(FileQuantize(Clr.g, 63.0)) * 0.01587301678955555) : static_cast<float>(static_cast<int32_t>(Clr.g * 63.0f + 0.5f)) * (1.0f / 63.0f);
+            Color[i].b = dds ? FileStore(static_cast<double>(FileQuantize(Clr.b, 31.0)) * 0.032258063554763794) : static_cast<float>(static_cast<int32_t>(Clr.b * 31.0f + 0.5f)) * (1.0f / 31.0f);
 
 #ifdef COLOR_WEIGHTS
             Color[i].a = pColor[i].a;
@@ -884,14 +893,14 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC2(uint8_t* pBC, const XMVECTOR*
         if (flags & BC_FLAGS_DITHER_A)
             fAlph += fError[i];
 
-        const auto u = static_cast<uint32_t>(fAlph * 15.0f + 0.5f);
+        const auto u = dds ? static_cast<uint32_t>(FileQuantize(fAlph, 15.0)) : static_cast<uint32_t>(fAlph * 15.0f + 0.5f);
 
         pBC2->bitmap[i >> 3] >>= 4;
         pBC2->bitmap[i >> 3] |= (u << 28);
 
         if (flags & BC_FLAGS_DITHER_A)
         {
-            const float fDiff = fAlph - float(u) * (1.0f / 15.0f);
+            const float fDiff = dds ? FileStore(static_cast<double>(fAlph) - static_cast<double>(u) * 0.06666667014360428) : fAlph - float(u) * (1.0f / 15.0f);
 
             if (3 != (i & 3))
             {
@@ -1003,7 +1012,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR*
         if (flags & BC_FLAGS_DITHER_A)
             fAlph += fError[i];
 
-        fAlpha[i] = static_cast<float>(static_cast<int32_t>(fAlph * 255.0f + 0.5f)) * (1.0f / 255.0f);
+        fAlpha[i] = dds ? FileStore(static_cast<double>(FileQuantize(fAlph, 255.0)) * 0.0039215688593685627) : static_cast<float>(static_cast<int32_t>(fAlph * 255.0f + 0.5f)) * (1.0f / 255.0f);
 
         if (fAlpha[i] < fMinAlpha)
             fMinAlpha = fAlpha[i];
@@ -1070,12 +1079,12 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR*
     optimizeRounding.restore();
 
     FileRounding endpointRounding(dds);
-    const auto bAlphaA = static_cast<uint8_t>(static_cast<int32_t>(fAlphaA * 255.0f + 0.5f));
-    const auto bAlphaB = static_cast<uint8_t>(static_cast<int32_t>(fAlphaB * 255.0f + 0.5f));
+    const auto bAlphaA = static_cast<uint8_t>(dds ? FileQuantize(fAlphaA, 255.0) : static_cast<int32_t>(fAlphaA * 255.0f + 0.5f));
+    const auto bAlphaB = static_cast<uint8_t>(dds ? FileQuantize(fAlphaB, 255.0) : static_cast<int32_t>(fAlphaB * 255.0f + 0.5f));
 
     endpointRounding.restore();
-    fAlphaA = static_cast<float>(bAlphaA) * (1.0f / 255.0f);
-    fAlphaB = static_cast<float>(bAlphaB) * (1.0f / 255.0f);
+    fAlphaA = dds ? FileStore(static_cast<double>(bAlphaA) * 0.0039215688593685627) : static_cast<float>(bAlphaA) * (1.0f / 255.0f);
+    fAlphaB = dds ? FileStore(static_cast<double>(bAlphaB) * 0.0039215688593685627) : static_cast<float>(bAlphaB) * (1.0f / 255.0f);
 
     // Setup block
     if ((8 == uSteps) && (bAlphaA == bAlphaB))
@@ -1101,7 +1110,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR*
         fStep[1] = fAlphaB;
 
         for (size_t i = 1; i < 5; ++i)
-            fStep[i + 1] = (fStep[0] * float(5u - i) + fStep[1] * float(i)) * (1.0f / 5.0f);
+            fStep[i + 1] = dds ? FileStore((static_cast<double>(fStep[0]) * (5u - i) + static_cast<double>(fStep[1]) * i) * 0.20000000298023224) : (fStep[0] * float(5u - i) + fStep[1] * float(i)) * (1.0f / 5.0f);
 
         fStep[6] = 0.0f;
         fStep[7] = 1.0f;
@@ -1117,7 +1126,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR*
         fStep[1] = fAlphaA;
 
         for (size_t i = 1; i < 7; ++i)
-            fStep[i + 1] = (fStep[0] * float(7u - i) + fStep[1] * float(i)) * (1.0f / 7.0f);
+            fStep[i + 1] = dds ? FileStore((static_cast<double>(fStep[0]) * (7u - i) + static_cast<double>(fStep[1]) * i) * 0.1428571492433548) : (fStep[0] * float(7u - i) + fStep[1] * float(i)) * (1.0f / 7.0f);
 
         pSteps = pSteps8;
     }
