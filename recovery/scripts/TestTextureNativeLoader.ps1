@@ -1,10 +1,10 @@
 $ErrorActionPreference='Stop';$root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/native-loader/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT";$work=Join-Path $env:RUNNER_TEMP ('texture-native-loader-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='PC owned 2D CPU resource creation and actual raw DDS partial/complete-chain/BOX missing-mip and POT/NPOT TGA24/32 raw/RLE, stb BMP24/32 BI_RGB seven DIB revisions/colors/gap/profile, plus raw DDS per-provided-level DirectXTex triangle file loading; 105 compressed DDS original successes remain explicitly unsupported with separate full original snapshots; full original native headers/VM/packed tails/BOX mips/descriptors/locks/copies/release, Debug/Release and independent NoOriginal; compressed missing mip/additional codecs/production SDK/mixed-mode identity excluded';configurations=@();sourceFixtures=@();publicSources=@()}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='PC formal owned 2D CPU resource/file loader: all old raw DDS/TGA/BMP matrices plus DirectXTex BC1/2/3 small/POT/NPOT, provided partial tails and BOX missing mips; 16180 successful files including1679 compressed,6860 constructors and19 explicit rejections; full original header/VM/mips/three locks/masked and physical RGBA/ownership, Debug/Release and per-call NoOriginal; not production package/SDK/mixed-mode identity';configurations=@();sourceFixtures=@();publicSources=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 70;throw "$name failed"};Get-Content "$out/$name.log"|Where-Object{$_ -match '^PASS '}}
 try{
- foreach($provider in @('PublicDirectXTex','PublicStbBmp')){
+ foreach($provider in @('PublicDirectXTex','PublicStbBmp','PublicD3dxBc')){
   $providerPath="src/TextureCompiler/$provider";$provenance=Get-Content "$providerPath/PROVENANCE.json" -Raw|ConvertFrom-Json
   foreach($file in $provenance.files){$path=Join-Path $providerPath $file.path;if((Get-Item $path).Length -ne $file.bytes -or (Get-FileHash $path).Hash.ToLowerInvariant() -ne $file.sha256){throw "Public source fingerprint mismatch: $provider/$($file.path)"}}
   $r.publicSources+=@(@{repository=$provenance.repository;commit=$provenance.commit;files=$provenance.files})
@@ -26,18 +26,15 @@ try{
   Push-Location $isolated
   try{Checked "$mode-no-original" {& "$isolated/TextureNativeLoaderOracle.exe" isolated $isolated $fixtures "$out/$mode"}}finally{Pop-Location}
   $dlls=@();foreach($kind in @('Device','Resource','Surface','Descriptor','Copy','Loader')){$name="Recovered.TextureNative$kind.dll";Copy-Item "$work/$mode/$name" "$out/$mode-$name";$dlls+=@{file=$name;sha256=(Get-FileHash "$out/$mode-$name").Hash.ToLowerInvariant()}}
-  $r.configurations+=@{configuration=$mode;passed=$true;withoutOriginalTextureCompiler=$true;summary=@(Get-Content "$out/$mode-differential.log","$out/$mode-no-original.log"|Where-Object{$_ -match '^PASS '});captureSha256=(Get-FileHash "$out/$mode.capture").Hash.ToLowerInvariant();captureBytes=(Get-Item "$out/$mode.capture").Length;unsupportedOriginalSha256=(Get-FileHash "$out/$mode.unsupported-original").Hash.ToLowerInvariant();nativeFiles=$dlls}
+  $r.configurations+=@{configuration=$mode;passed=$true;withoutOriginalTextureCompiler=$true;summary=@(Get-Content "$out/$mode-differential.log","$out/$mode-no-original.log"|Where-Object{$_ -match '^PASS '});captureSha256=(Get-FileHash "$out/$mode.capture").Hash.ToLowerInvariant();captureBytes=(Get-Item "$out/$mode.capture").Length;nativeFiles=$dlls}
  }
- $r.unsupportedOriginalDebugReleaseIdentical=(Get-FileHash "$out/Debug.unsupported-original").Hash -eq (Get-FileHash "$out/Release.unsupported-original").Hash
- # Original compressed snapshots are probe-only boundaries, not restored
- # outputs; record repeat differences without weakening the supported matrix.
  if((Get-FileHash "$out/Debug.capture").Hash -ne (Get-FileHash "$out/Release.capture").Hash){throw 'Complete original Debug/Release loader capture differs'}
  # Preserve every original byte losslessly, with a receipt hash for each raw
  # capture. Compression is storage only, never comparison normalization.
- Compress-Archive -Path "$out/Debug.capture","$out/Release.capture","$out/Debug.unsupported-original","$out/Release.unsupported-original" -DestinationPath "$out/captures.zip"
+ Compress-Archive -Path "$out/Debug.capture","$out/Release.capture" -DestinationPath "$out/captures.zip"
  $r.captureArchiveSha256=(Get-FileHash "$out/captures.zip").Hash.ToLowerInvariant()
- Remove-Item "$out/Debug.capture","$out/Release.capture","$out/Debug.unsupported-original","$out/Release.unsupported-original";Get-ChildItem $out -Directory -Filter '*-inputs'|Remove-Item -Recurse
- $r.status='passed'
+ Remove-Item "$out/Debug.capture","$out/Release.capture";Get-ChildItem $out -Directory -Filter '*-inputs'|Remove-Item -Recurse
+ $r.matrix=@{constructors=6860;successfulFiles=16180;compressedSuccessfulFiles=1679;formalBcFiles=1572;rawNpotFiles=5665;bmpFiles=6152;explicitRejections=19};$r.status='passed'
 }catch{$r.status='failed';$r.error=$_.Exception.Message;throw}finally{
  # Failed full-byte traces are also kept compressed, avoiding oversized Git
  # objects while retaining the exact mismatch for diagnosis.

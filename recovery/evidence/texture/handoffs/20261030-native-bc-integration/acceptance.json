@@ -1,0 +1,175 @@
+{
+  "date": "2026-10-30",
+  "scope": "PC formal NativeLoader/NativeCopy BC1/2/3 integration; read-only complete capture and I386 audit",
+  "sourceCommit": "2883373b6a4e27cb120399824244d65d5d9ae297",
+  "runId": "41053772714",
+  "runAttempt": "1",
+  "workflowConclusion": "failure",
+  "workflowFailure": "Evidence ordinary push rejected: captures.zip 105409158 bytes exceeds GitHub 100 MiB. All validation steps and component receipts passed; no Windows rerun required for storage recovery.",
+  "componentStatus": "passed",
+  "debugReleasePassed": true,
+  "perCallNoOriginalPassed": true,
+  "sdkValidated": false,
+  "productionActivated": false,
+  "selected": [
+    "native-loader"
+  ],
+  "reusedComponentCount": 63,
+  "matrix": {
+    "rawNpotFiles": 5665,
+    "bmpFiles": 6152,
+    "compressedSuccessfulFiles": 1679,
+    "explicitRejections": 19,
+    "formalBcFiles": 1572,
+    "constructors": 6860,
+    "successfulFiles": 16180
+  },
+  "captureArchiveBytes": 105409158,
+  "captureArchiveSha256": "7845ea10203fc36585450f88711977629fa736242f42f557a566ae795cee5168",
+  "members": [
+    {
+      "name": "Debug.capture",
+      "bytes": 750231011,
+      "sha256": "b6dfff7000d2bcc260ec3a6afd784a5097f0ae144495522243592532adb434db",
+      "counts": {
+        "constructors": 6860,
+        "files": 16180,
+        "npot": 5665,
+        "bmp": 6152,
+        "formalBc": 1572
+      },
+      "fullyParsedToEof": true
+    },
+    {
+      "name": "Release.capture",
+      "bytes": 750231011,
+      "sha256": "b6dfff7000d2bcc260ec3a6afd784a5097f0ae144495522243592532adb434db",
+      "counts": {
+        "constructors": 6860,
+        "files": 16180,
+        "npot": 5665,
+        "bmp": 6152,
+        "formalBc": 1572
+      },
+      "fullyParsedToEof": true
+    }
+  ],
+  "nativeFiles": [
+    {
+      "configuration": "Debug",
+      "file": "Debug-Recovered.TextureNativeDevice.dll",
+      "sha256": "0d3cf9224c51ea6ff55572a37a4a764907e1e87dd40ab1db85ff10080aa78e7e",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Debug",
+      "file": "Debug-Recovered.TextureNativeResource.dll",
+      "sha256": "4a7f5ab9418bc5e0cf965dc36ee1b42045244dfc0e6c857f79451f15265b7501",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Debug",
+      "file": "Debug-Recovered.TextureNativeSurface.dll",
+      "sha256": "48d29696484f16d983d5592a27b095eff0f003df3b916b07b206d4bc72db5fab",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Debug",
+      "file": "Debug-Recovered.TextureNativeDescriptor.dll",
+      "sha256": "102592bd29e7c72e2171d301867b8bf2faf7759b222a2285a7301a61cc4f7f13",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Debug",
+      "file": "Debug-Recovered.TextureNativeCopy.dll",
+      "sha256": "a57811b38c4395a5be994ab6a34f95d6e228cddd80db4a552ec394c87ebb284b",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Debug",
+      "file": "Debug-Recovered.TextureNativeLoader.dll",
+      "sha256": "6d90496810791183de7f00381c543f55b7d3bbd0107127ef70d3e3f312ae9166",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Release",
+      "file": "Release-Recovered.TextureNativeDevice.dll",
+      "sha256": "1480adf6b9e546dc35f70fd04e48a54c788be946587c26b5ba5b0e7176f53905",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Release",
+      "file": "Release-Recovered.TextureNativeResource.dll",
+      "sha256": "784dd76af01061da4f3def2541e59792f6d2c93f749e3da5dd9987e79ecdd996",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Release",
+      "file": "Release-Recovered.TextureNativeSurface.dll",
+      "sha256": "abde6fb864e344bb1ab9c9221fd0d8fc987ac88e3037ca75eb3cc41c647d4d9c",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Release",
+      "file": "Release-Recovered.TextureNativeDescriptor.dll",
+      "sha256": "e74fb0a36d96a4be701e6010181818cb688749fa0952626c8e52f9cad5ce335e",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Release",
+      "file": "Release-Recovered.TextureNativeCopy.dll",
+      "sha256": "7595aa9c9e52802f6e6a8dfea2cb67196659c8ec976789fadb2cf69211222732",
+      "machine": "I386"
+    },
+    {
+      "configuration": "Release",
+      "file": "Release-Recovered.TextureNativeLoader.dll",
+      "sha256": "9ba3913a16753f6b8e077759b50486042a115d6fd92b34935956d91b9e10b97c",
+      "machine": "I386"
+    }
+  ],
+  "priorFailure": {
+    "sourceCommit": "e5e2c97981f4369331807cb17f76165d8509eab5",
+    "runId": "41051807572",
+    "reason": "Unsafe BC crop in test consumer: original LockRect raw bit/pitch units; corrected logical crop4/4 to encoded left16/top1, retaining all three locks and both RGBA views; every source VM span now asserted.",
+    "partialCaptureBytes": 602567304,
+    "completeRecords": 21456,
+    "lastCompleteRecord": "bmp-5x3-depth32-top1-pattern259-dib40-colors0-gap0-profile0",
+    "otherSelectedGroupsPassed": 9
+  },
+  "artifactId": 12975828489,
+  "artifactSha256": "ed9d3b0d6051ad236df87f66ed3e70c644b7d71d7a6929fb0f318c55efe19a01",
+  "storage": {
+    "manifest": "recovery/evidence/texture/native-loader/41053772714-1/captures-storage.json",
+    "originalZipBytesUnchanged": true,
+    "originalReceiptBytesUnchanged": true,
+    "roundTripSha256": "7845ea10203fc36585450f88711977629fa736242f42f557a566ae795cee5168",
+    "parts": [
+      {
+        "file": "captures-parts/captures.zip.part0001",
+        "bytes": 67108864,
+        "sha256": "e2dcb07cf450760448e6c7dadaf653816189293fcf81eaa6d0acd954789b5f8a"
+      },
+      {
+        "file": "captures-parts/captures.zip.part0002",
+        "bytes": 38300294,
+        "sha256": "431401deb72eb49f9a108f6d299ff5effd3a51ce05f5f492388df7d1e2512c54"
+      }
+    ]
+  },
+  "componentAcceptanceInputsUnchangedAfterStorageRecovery": true,
+  "storageRecovery": {
+    "commit": "7609c0b6086f46ce11df5e50a7e8297c3ef1ba6c",
+    "ordinaryPushSaved": true,
+    "linuxOnlyRunId": "41056117290",
+    "linuxOnlyConclusion": "success",
+    "storageTests": 11,
+    "selectionTests": 19,
+    "selected": [],
+    "reusedComponents": 64,
+    "windowsExecuted": false,
+    "artifactId": 12976393109,
+    "artifactSha256": "823780e27b71dd80c6575fafa22c2242c7eff1f9d8edcc6b7e6e79a2e4b8ceab"
+  },
+  "sourceInputsUnchangedThroughCommit": "7609c0b6086f46ce11df5e50a7e8297c3ef1ba6c"
+}

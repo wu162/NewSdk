@@ -1,0 +1,2 @@
+COMPLETE constructorCases=6860 fileCases=16180 mismatches=0
+PASS PC native loader NoOriginal constructorCases=6860 fileCases=16180 npotCases=5665 bmpCases=6152 rgbaCopies=461658 supportedFiles=16180 supportedCompressedFiles=1679 formalBcCases=1572 explicitRejections=19 completeBytes=750231011; complete headers/VM/padding/packed mips/three locks, exact LoadImageA mask+flags and physical endian views, add/release/final storage ownership; not production SDK or mixed-mode identity

@@ -1,0 +1,33 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "passed",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "nativeSha256": "f783063719e966259ceb10cf34ae449c00f77d4c3f3df567194a4220d236c9c0",
+      "captureSha256": "cb150a86c70928a8bc5595ad4829187dabffc8ca898f0ebe58de4198fc379c11",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS native PC flags dispatch differential cases=49328 formatPairs=1444 flagSets=12 sameFormatStates=8 endianSets=4 mappings=4 exhaustiveStrips=80 exhaustivePixels=5242880 traceBytes=39669512; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC flags dispatch NoOriginal cases=49328 formatPairs=1444 flagSets=12 sameFormatStates=8 endianSets=4 mappings=4 exhaustiveStrips=80 exhaustivePixels=5242880 traceBytes=39669512; full source/output/padding/guards, thresholds and isolated replay"
+      ]
+    },
+    {
+      "configuration": "Release",
+      "nativeSha256": "3d161e5f971de4b74cb3b40e18d2501b39200db13fdac1d48278506bff533d42",
+      "captureSha256": "cb150a86c70928a8bc5595ad4829187dabffc8ca898f0ebe58de4198fc379c11",
+      "withoutOriginalTextureCompiler": true,
+      "passed": true,
+      "summary": [
+        "PASS native PC flags dispatch differential cases=49328 formatPairs=1444 flagSets=12 sameFormatStates=8 endianSets=4 mappings=4 exhaustiveStrips=80 exhaustivePixels=5242880 traceBytes=39669512; full source/output/padding/guards, thresholds and isolated replay",
+        "PASS native PC flags dispatch NoOriginal cases=49328 formatPairs=1444 flagSets=12 sameFormatStates=8 endianSets=4 mappings=4 exhaustiveStrips=80 exhaustivePixels=5242880 traceBytes=39669512; full source/output/padding/guards, thresholds and isolated replay"
+      ]
+    }
+  ],
+  "sourceCommit": "e5e2c97981f4369331807cb17f76165d8509eab5",
+  "runAttempt": "1",
+  "scope": "XGCopySurface Original raw flags dispatch: 38 layouts/1444 format pairs/12 flag sets including LoadImageA0x12 and threshold0; same-format forced normalization versus identity, 80 complete16/float strips/selectors/constants/clipping/threshold/full bytes and NoOriginal; gamma/endian/compression/filter/overlap and production package excluded",
+  "runId": "41051807572",
+  "sdkValidated": false
+}

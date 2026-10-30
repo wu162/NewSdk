@@ -1,5 +1,6 @@
 #define RECOVERED_TEXTURE_NATIVE_COPY_API_BUILD
 #include "TextureNativeCopyApi.h"
+#include "TextureNativeCopyInternal.h"
 #include <cmath>
 #include <cstddef>
 #include <cstring>
@@ -119,7 +120,7 @@ U FloatToHalfBits(float value){
 }
 
 }
-extern "C" RECOVERED_TEXTURE_NATIVE_COPY_API std::int32_t __stdcall TextureCopySurface(void* destination,std::int32_t destinationPitch,U width,U height,U destinationFormat,const Point* point,const void* source,std::int32_t sourcePitch,U sourceFormat,const Rect* rectangle,U flags,float threshold){
+extern "C" std::int32_t __stdcall TextureCopySurfaceUncompressed(void* destination,std::int32_t destinationPitch,U width,U height,U destinationFormat,const Point* point,const void* source,std::int32_t sourcePitch,U sourceFormat,const Rect* rectangle,U flags,float threshold){
  if(destinationFormat==sourceFormat&& !((flags^(flags>>1))&5))
   return TextureCopySurfaceIdentity(destination,destinationPitch,width,height,destinationFormat,point,source,sourcePitch,sourceFormat,rectangle,flags,threshold);
  const auto dstFormat=Find(destinationFormat),srcFormat=Find(sourceFormat);
