@@ -1,0 +1,284 @@
+{
+  "sourceCommit": "0dc6027b0eac86f79bc6e72f6f8bfff12e1e402c",
+  "runId": 41071696527,
+  "workflowConclusion": "success",
+  "artifactId": 12986600064,
+  "archiveSha256": "9330ecc9b9104fb3822dc42aaf6c9d9fc30cfeaf234a13192d6d1f3abd62ef32",
+  "archiveDownloadedAndHashVerified": true,
+  "crossRuntimeRawBuffersCompared": 848,
+  "crossRuntimeRawBytesEqual": true,
+  "isolatedCallsCompared": 144,
+  "lockedCallsCompared": 144,
+  "sharedModuleReentry": "rejected",
+  "memory": [
+    {
+      "runtime": "original",
+      "route": "Texture",
+      "beforeInitializePrivateBytes": 13254656,
+      "afterInitializePrivateBytes": 83087360,
+      "beforeExtraModulesPrivateBytes": 91099136,
+      "afterExtraModulesPrivateBytes": 368660480,
+      "afterExecutionPrivateBytes": 373297152,
+      "afterDisposePrivateBytes": 31252480
+    },
+    {
+      "runtime": "original",
+      "route": "OnDemandTexture",
+      "beforeInitializePrivateBytes": 13266944,
+      "afterInitializePrivateBytes": 83013632,
+      "beforeExtraModulesPrivateBytes": 91648000,
+      "afterExtraModulesPrivateBytes": 368816128,
+      "afterExecutionPrivateBytes": 374222848,
+      "afterDisposePrivateBytes": 31936512
+    },
+    {
+      "runtime": "original",
+      "route": "TerrainTextureAtlas",
+      "beforeInitializePrivateBytes": 13246464,
+      "afterInitializePrivateBytes": 83103744,
+      "beforeExtraModulesPrivateBytes": 93954048,
+      "afterExtraModulesPrivateBytes": 371376128,
+      "afterExecutionPrivateBytes": 389472256,
+      "afterDisposePrivateBytes": 48373760
+    },
+    {
+      "runtime": "original",
+      "route": "mixed",
+      "beforeInitializePrivateBytes": 13185024,
+      "afterInitializePrivateBytes": 82923520,
+      "beforeExtraModulesPrivateBytes": 92012544,
+      "afterExtraModulesPrivateBytes": 369512448,
+      "afterExecutionPrivateBytes": 376504320,
+      "afterDisposePrivateBytes": 34488320
+    },
+    {
+      "runtime": "Debug",
+      "route": "Texture",
+      "beforeInitializePrivateBytes": 13369344,
+      "afterInitializePrivateBytes": 83009536,
+      "beforeExtraModulesPrivateBytes": 91045888,
+      "afterExtraModulesPrivateBytes": 368451584,
+      "afterExecutionPrivateBytes": 373235712,
+      "afterDisposePrivateBytes": 30994432
+    },
+    {
+      "runtime": "Debug",
+      "route": "OnDemandTexture",
+      "beforeInitializePrivateBytes": 13410304,
+      "afterInitializePrivateBytes": 83103744,
+      "beforeExtraModulesPrivateBytes": 91426816,
+      "afterExtraModulesPrivateBytes": 368861184,
+      "afterExecutionPrivateBytes": 373157888,
+      "afterDisposePrivateBytes": 30924800
+    },
+    {
+      "runtime": "Debug",
+      "route": "TerrainTextureAtlas",
+      "beforeInitializePrivateBytes": 13385728,
+      "afterInitializePrivateBytes": 82972672,
+      "beforeExtraModulesPrivateBytes": 93884416,
+      "afterExtraModulesPrivateBytes": 371273728,
+      "afterExecutionPrivateBytes": 389910528,
+      "afterDisposePrivateBytes": 47960064
+    },
+    {
+      "runtime": "Debug",
+      "route": "mixed",
+      "beforeInitializePrivateBytes": 13373440,
+      "afterInitializePrivateBytes": 83107840,
+      "beforeExtraModulesPrivateBytes": 91942912,
+      "afterExtraModulesPrivateBytes": 369491968,
+      "afterExecutionPrivateBytes": 378175488,
+      "afterDisposePrivateBytes": 35676160
+    },
+    {
+      "runtime": "Release",
+      "route": "Texture",
+      "beforeInitializePrivateBytes": 13352960,
+      "afterInitializePrivateBytes": 83001344,
+      "beforeExtraModulesPrivateBytes": 91025408,
+      "afterExtraModulesPrivateBytes": 368463872,
+      "afterExecutionPrivateBytes": 373248000,
+      "afterDisposePrivateBytes": 30920704
+    },
+    {
+      "runtime": "Release",
+      "route": "OnDemandTexture",
+      "beforeInitializePrivateBytes": 13373440,
+      "afterInitializePrivateBytes": 83099648,
+      "beforeExtraModulesPrivateBytes": 91312128,
+      "afterExtraModulesPrivateBytes": 368828416,
+      "afterExecutionPrivateBytes": 373841920,
+      "afterDisposePrivateBytes": 31834112
+    },
+    {
+      "runtime": "Release",
+      "route": "TerrainTextureAtlas",
+      "beforeInitializePrivateBytes": 13369344,
+      "afterInitializePrivateBytes": 83087360,
+      "beforeExtraModulesPrivateBytes": 93892608,
+      "afterExtraModulesPrivateBytes": 371265536,
+      "afterExecutionPrivateBytes": 389009408,
+      "afterDisposePrivateBytes": 47185920
+    },
+    {
+      "runtime": "Release",
+      "route": "mixed",
+      "beforeInitializePrivateBytes": 13398016,
+      "afterInitializePrivateBytes": 83156992,
+      "beforeExtraModulesPrivateBytes": 91951104,
+      "afterExtraModulesPrivateBytes": 369364992,
+      "afterExecutionPrivateBytes": 376090624,
+      "afterDisposePrivateBytes": 34062336
+    }
+  ],
+  "waveTiming": [
+    {
+      "runtime": "original",
+      "route": "Texture",
+      "mode": "locked",
+      "waveMedianMs": 1021.6602
+    },
+    {
+      "runtime": "original",
+      "route": "Texture",
+      "mode": "isolated",
+      "waveMedianMs": 422.5133
+    },
+    {
+      "runtime": "original",
+      "route": "OnDemandTexture",
+      "mode": "locked",
+      "waveMedianMs": 1022.3008
+    },
+    {
+      "runtime": "original",
+      "route": "OnDemandTexture",
+      "mode": "isolated",
+      "waveMedianMs": 407.7754
+    },
+    {
+      "runtime": "original",
+      "route": "TerrainTextureAtlas",
+      "mode": "locked",
+      "waveMedianMs": 1948.2244
+    },
+    {
+      "runtime": "original",
+      "route": "TerrainTextureAtlas",
+      "mode": "isolated",
+      "waveMedianMs": 779.6854
+    },
+    {
+      "runtime": "original",
+      "route": "mixed",
+      "mode": "locked",
+      "waveMedianMs": 1251.8721
+    },
+    {
+      "runtime": "original",
+      "route": "mixed",
+      "mode": "isolated",
+      "waveMedianMs": 632.5013
+    },
+    {
+      "runtime": "Debug",
+      "route": "Texture",
+      "mode": "locked",
+      "waveMedianMs": 1018.1038
+    },
+    {
+      "runtime": "Debug",
+      "route": "Texture",
+      "mode": "isolated",
+      "waveMedianMs": 407.135
+    },
+    {
+      "runtime": "Debug",
+      "route": "OnDemandTexture",
+      "mode": "locked",
+      "waveMedianMs": 1026.0104
+    },
+    {
+      "runtime": "Debug",
+      "route": "OnDemandTexture",
+      "mode": "isolated",
+      "waveMedianMs": 407.3446
+    },
+    {
+      "runtime": "Debug",
+      "route": "TerrainTextureAtlas",
+      "mode": "locked",
+      "waveMedianMs": 1960.928
+    },
+    {
+      "runtime": "Debug",
+      "route": "TerrainTextureAtlas",
+      "mode": "isolated",
+      "waveMedianMs": 780.4078
+    },
+    {
+      "runtime": "Debug",
+      "route": "mixed",
+      "mode": "locked",
+      "waveMedianMs": 1267.0566
+    },
+    {
+      "runtime": "Debug",
+      "route": "mixed",
+      "mode": "isolated",
+      "waveMedianMs": 632.7671
+    },
+    {
+      "runtime": "Release",
+      "route": "Texture",
+      "mode": "locked",
+      "waveMedianMs": 1022.897
+    },
+    {
+      "runtime": "Release",
+      "route": "Texture",
+      "mode": "isolated",
+      "waveMedianMs": 411.7379
+    },
+    {
+      "runtime": "Release",
+      "route": "OnDemandTexture",
+      "mode": "locked",
+      "waveMedianMs": 1022.7349
+    },
+    {
+      "runtime": "Release",
+      "route": "OnDemandTexture",
+      "mode": "isolated",
+      "waveMedianMs": 409.4604
+    },
+    {
+      "runtime": "Release",
+      "route": "TerrainTextureAtlas",
+      "mode": "locked",
+      "waveMedianMs": 1945.8125
+    },
+    {
+      "runtime": "Release",
+      "route": "TerrainTextureAtlas",
+      "mode": "isolated",
+      "waveMedianMs": 768.7645
+    },
+    {
+      "runtime": "Release",
+      "route": "mixed",
+      "mode": "locked",
+      "waveMedianMs": 1253.2821
+    },
+    {
+      "runtime": "Release",
+      "route": "mixed",
+      "mode": "isolated",
+      "waveMedianMs": 635.1843
+    }
+  ],
+  "scope": "Component EXE/Core binding, native module isolation, ReInitialize and Dispose only; no production scheduler enablement or full MOD acceptance.",
+  "rawBuffersComparedToOriginal": 1272,
+  "originalRuntimeRawBuffersCompared": 424
+}

@@ -1,3 +1,13 @@
+# 当前：Texture 全路由并行可行性验证完成（未启用生产）
+
+基于用户指定 `recovery/legacy-sdk-cache` / `d85b8c8c`，实验分支 `test/texture-parallel` / [PR #31](https://github.com/wu162/NewSdk/pull/31)。共享原 DLL 实测会错写 InstanceData/CDATA、零长度异常、访问冲突或卡死；每 worker 独立原生模块的方案可行。
+
+测试/宿主源码 `0dc6027b`，[Windows 41071696527](https://github.com/wu162/NewSdk/actions/runs/41071696527) 全部 success：原版、新 Core-owning Debug/Release EXE，三路与混合组均四路同时执行；144 次隔离调用和 144 次加锁调用相同，下载归档后 1,272 个原版/新宿主实际缓冲区文件逐字节一致。完整原字节归档已下载复算 SHA256；失败运行如实保留。
+
+仅组件验证，生产源码/资格表未改，没有完整 MOD、缓存/jobs、取消或性能验收。原生缓冲区每模块初始 64 MiB，四额外模块实测 private 增加约 264.3–264.7 MiB；后续生产接入需有界模块池、内存准入、文件租约与既有提交/join。详见 [可行性与覆盖边界](docs/TEXTURE_PARALLEL_FEASIBILITY.md)。PR 未合并，禁止强推。
+
+以下保留既有交接；本轮结果以上述 sourceCommit/runId 为准。
+
 # 当前：冗余安全清理完成，PR #28 待审
 
 `cleanup/redundant-defenses` 基于刷新后的 `b89fbadb`，生产/测试源码 `ecd2bf1d`。[Windows 41062149232](https://github.com/wu162/NewSdk/actions/runs/41062149232) 全部 success：Debug/Release、Core/CLI、SessionCache 108×2、两类原缓存/导入、Audio/Texture/W3X、BIG/SKUDEF/完整 mymod 原字节、并行/热态依赖/协议与 40 次配对输出均通过。后续仅文档/证据。

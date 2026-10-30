@@ -1,0 +1,935 @@
+{
+  "moduleSha256": "c7616a4271ffba92b73ff4b63ef421ebc44f96c4104ad576eba2f0f4882ca995",
+  "allowedBusinessReferences": [
+    "antlr.runtime"
+  ],
+  "target": "net48/Win32",
+  "module": "Managed.Foundation.netmodule",
+  "intermediateModulePlatform": "AnyCPU",
+  "sourceCommit": "0dc6027b0eac86f79bc6e72f6f8bfff12e1e402c",
+  "sourceFiles": [
+    {
+      "path": "recovery/src/Managed/Audio/AudioAiffLoopReader.cs",
+      "sha256": "7ba2d5af2175693af35beef88afa4619ed64c193a23e52a77c665ace61d68c75"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/AudioCatalog.cs",
+      "sha256": "959e37a3d128883862b9d1c1307abd8e130e2f7cec2b2efb8027f77384bc4e83"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/AudioPcmInputReader.cs",
+      "sha256": "6039bf447c762dddce4d4d1aa530ae2381095b0b1fd2e5b07fe47302eba1eaf5"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/AudioResampling.cs",
+      "sha256": "7ecaf07625f66df03e3e72a0ef8d4f07decb1d0d01cc4b3ae86e81185d6e601a"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/AutoCleanUpTempFiles.cs",
+      "sha256": "b736af52d285f15ad2b3aab9dc599d74c0258968ad647d758562226f56437c86"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/MpegPassthrough.cs",
+      "sha256": "d3631e58cdee4c41eb0c6706f827c5a24c3af357ba3ed1c812141d0c7639bb87"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/Native/Adp4Decoder.cs",
+      "sha256": "b99bc524a631206a4d6632ca3bd65e6f9902451e20d39331be6faba5cfae8c97"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/Native/AudioPolicy.cs",
+      "sha256": "9ae7b6290d7ff06ff8d1c4902c0f6eaca9376669921b293e7c322ecfc14078eb"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/Native/LoopPcmEncoder.cs",
+      "sha256": "d272dc55e151ede67b44e4d6d3ae356572c40b1b1e813024a750327a66c616e4"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/Native/Pcm16Encoder.cs",
+      "sha256": "dc1a4f9df6fec7d1966d7646e95f42798c5fcf16bded3ba53b30ba21a2874d6d"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/Native/ResamplerCoefficients.cs",
+      "sha256": "bf7f2723f64484ac01330cf557b43d762891035511b061613b87cf2c42d4fd8d"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/Native/ResamplerFft.cs",
+      "sha256": "6b038af05a065f39d8a703aaab5678f179830118f41053e328691b431c13cadf"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/Native/ResamplerFilter.cs",
+      "sha256": "0ff052618f8609371216a19e0460001b19eca3fbc6116e8b6780a53920f82863"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/Native/ResamplerScheduler.cs",
+      "sha256": "bd095a46d7c51eb6d396c38a3aee9fa4a0b25571d871221b23d03fcede685b71"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/Native/Xas1Encoder.cs",
+      "sha256": "18932847d38237b6faeaf6865bb393279a7e11447496c400af180b58acd7b8b8"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/PathMusicBuilder.cs",
+      "sha256": "309542fac232191c2751187ff439b4bd17b7bf2de2c73bf6950706244b4f47fa"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/PathMusicHeader.cs",
+      "sha256": "9b1149ee5c6a962ef28e978ecca06ea3ff9d7a80631e8c13cc3c6876234a10f8"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/PcmWaveAudioCompiler.cs",
+      "sha256": "53309edd1ee0409ffd426ae4962d9f7f37e6127c85286b2ac9a9ff3adae263d6"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/Plugin.cs",
+      "sha256": "206026cb88489a74b8cac5ba00e0197aa9abbc56098120b4589913ee5e749250"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetBuffer.cs",
+      "sha256": "f043457fc9bbd4d6f4b7b4bfdeb50f609bb327bf759f3793b290b5f57c44791b"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetDeclarationDocument.cs",
+      "sha256": "4560618cf1aaf528afa31f0f28f2e345ae5ab480e6945dab5908cf336b471133"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetLocation.cs",
+      "sha256": "ac96710df387b235fde84fc389268ff42b9ec31b081ad14ebc6c738da697848b"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetLocationInfo.cs",
+      "sha256": "2a8f2ae67fc603987ad7a349f0949d382b185c7d40380e905b41be28babb34e5"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetLocationOption.cs",
+      "sha256": "a70e3b201096c840fad93a0789407a2d7332c3d681c48a0c1261755287b44452"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetReport.cs",
+      "sha256": "53909f304fbbaf559e0bd5e6ac8a2f62ff4b3730f165253145928df93497d1c7"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AsynchronousFileReader.cs",
+      "sha256": "665de6937d4a18f00fef8f8bd1d1b1551702ddcfa62de73d0288efacd364c01c"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AutoComplete.cs",
+      "sha256": "cf0fcff281892fb0fc0a6915a870535a00c0598ed2d603f81eed016f1e5253ad"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/BinaryAsset.cs",
+      "sha256": "e1660796b8a803023098e1319497615a25c97991c721d4405205c1d41aac296c"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/BuiltinManagedPlugins.cs",
+      "sha256": "e0a1e9e97995b348484f78a0f0379aa9ba0ee0cd8b68fcd5203acfcafccbc51d"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/Chunk.cs",
+      "sha256": "bc964d9ad7cdd7ebad6d5ffbd4b6652fbb0c3ac42344eed1b538d686661fa438"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/Collection2.cs",
+      "sha256": "815907778b9dfce6a43cbe2b7fd6efb66a7baf85444760a2d3531a1ea0125ea3"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/Definition.cs",
+      "sha256": "de79721e5f22d1a2bf98cf5caeaeb00b65df11c978845107736c6d0f494fd889"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/DefinitionPair.cs",
+      "sha256": "69d129df6450b8bf27de59779f89219e4c5905e7c057623776af6b99e330c1fc"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/DefinitionSet.cs",
+      "sha256": "cafab412815073447a1a2559981a312339204529b8414bfe7a38d3ab4d4c55fc"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/DocumentProcessor.cs",
+      "sha256": "c929adad0b73674a9a9c908f7f7224c42e7c7193ba4ac2ac4f921d5a477f7256"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/DocumentState.cs",
+      "sha256": "c0cbe5e91f3743e254e22287e80c4b2ba8f492e6868397770accd1e83b961f3b"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/ExpressionEvaluatorWrapper.cs",
+      "sha256": "b4f09e7efccf408d193a79e86e89716925d905e1c015bc19f47e18ff9b1c5f34"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/ExtendedTypeInformation.cs",
+      "sha256": "dc68cb30d24ea4448ce98d7989f83325c03827e4e898efebaad96e05d7359d86"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/FileHashItem.cs",
+      "sha256": "3585a9ab57bfdad0ffec7a1375525c7203d9e1898ea86c3917bc9d955245736a"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/FileItem.cs",
+      "sha256": "cfeea5ce562fab220feabc2a0d7f6761833e349d62ccd0b86aab5401672f1857"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/FileNameResolver.cs",
+      "sha256": "e1c36b4ed3adf8c515d6bc823fd7cc2bad1d19ad31fb8fcad640122fd2f38416"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/FileNameXmlResolver.cs",
+      "sha256": "0dd82b409f28b4976c2af0d7b9fc2d4bf50b7840f8a791ed819f227ca41601fa"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/FileState.cs",
+      "sha256": "fb1d58f584e22f7479815ea00596c1914de7721c0138a22f655a9e3b0b95b461"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/FindLocation.cs",
+      "sha256": "be6550e12b9c6fc84823e26d766eade7d36310a007f8361be389c829d0ebfde3"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/HashingWriter.cs",
+      "sha256": "0ee5bfb7dfe428d06482e55dbdb9b5a4e0cde36868d8e3d5b0a30934a7184dfc"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/HashProvider.cs",
+      "sha256": "e30df8ded438eb6656ba45a8109a6569b2633fe6115da3851bfb4a5b5522469e"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/IAssetBuilderPlugin.cs",
+      "sha256": "d4164ad0eca8019b470829e593049fb064bfd29eec9b2040872c9f3eee60d764"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/IAssetBuilderVerifierPlugin.cs",
+      "sha256": "f6ffd5fedd1f810db7c6d3045f460d72d83fbf4d700a54693e5086581d8e2132"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/IAssetExecution.cs",
+      "sha256": "f8b562679200a15f9f074c639eb40eb5c6771ab4044f4e0333403455a1ab657e"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/IExpressionEvaluator.cs",
+      "sha256": "f73cc5f1974f5b70597bbe2a28f8d1a6e21010909199df76530f397efb34391f"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/InclusionItem.cs",
+      "sha256": "b078f2ce60fb4a7310324f46335749a5f9020422256167ff0245db6fc783e72d"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/InclusionType.cs",
+      "sha256": "c403be5f9000555ba80941e3e9c9d9457b05d573f4fcc8a4665869b3aa86a7e5"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/InstanceDeclaration.cs",
+      "sha256": "dd50408aca17af63eed56425048caf22aca0a5abf66d2f3793bdc5e4d3baaf9d"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/InstanceHandle.cs",
+      "sha256": "560c2f53b608cdbe15e0a24c5a0ad75ef9eda43fb417f9959a6f3a7232741d0d"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/InstanceHandleSet.cs",
+      "sha256": "85b15c0ce0c194eb2441a31a338ce8deabd895f5500c968aae4f211f11e418ed"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/InstanceSet.cs",
+      "sha256": "e994c05497c6369c3d122c71c479d75853d3a3dd624d02398698a5a7744d2bec"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/ISessionCache.cs",
+      "sha256": "59aadad43d1572f7586fa44bb619d5e3d87dfadee26194f91960fc7bbdfb06f7"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/KeyedCollection2.cs",
+      "sha256": "8d35c2da2eca029e7f93be3753a6e2e7a477fbbc0270a7791b2b919bdae167b0"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/List2.cs",
+      "sha256": "845f0818781d9dcc6692ea4d7b62151a8f261fb8b4bf8305cb44deb35ae88b51"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/NodeJoiner.cs",
+      "sha256": "fdb67cd21efc070dbe7ef41a4adc4f0dfb39b1623c59ff358693183894d2329d"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/OutputAsset.cs",
+      "sha256": "5d46fe73f073dbff00d0f8744327f017d3bbd768a1ff6ea7ce16a78035da5bd2"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/OutputManager.cs",
+      "sha256": "30e04c68b667282b832a8615a99f83b9815c970e76df0eb7b90d179f1f32fc19"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/PathCharType.cs",
+      "sha256": "e9ce1cab15a2ae2bada8b09ddaf573465e2a873efa6e0dd9a7f43b76e281f8a3"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/PathMapItem.cs",
+      "sha256": "bb49032c9a2306c7d1d5ced52fcbaf5809cec857e226d5c74c07c8f1744c621f"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/PathMonitor.cs",
+      "sha256": "d286716e24add66d8d68221ed2e35a16e23d29f41596651f58fad3cf0c930f8e"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/PerformanceScope.cs",
+      "sha256": "3ecc363e9e5e7ed7e2e23ac99433ddc62418f5fdedac8af154d0f8a1a109143f"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/PluginRegistry.cs",
+      "sha256": "70ec41dd60ab9c0e63c73c8d74d5278b163166893168ed19259c1f56e4d5f29c"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/SchemaSet.cs",
+      "sha256": "fc690b70fac8baced24cc6afb7296e2169e487fdb7a2f99447de3e68495dfdb7"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/SessionCache.cs",
+      "sha256": "fac741a0f6682b0de5e038aba051b29851f260d3c5e8dedc18c4fa5875780cf1"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/Set.cs",
+      "sha256": "50ba94edc31125166567f4c1359310629e156af23d4337f95a605089c5a9499c"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/SettingsLoader.cs",
+      "sha256": "8db96c14e5bfbc94beeba8632fb12955db113895c67c8e5dfb9f14e8bbcf3239"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/ShPath.cs",
+      "sha256": "5f214fe615aae79c5cb1cb03c220d0b20cc178e381485f3ac882282bfa7a5437"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/StringHashBin.cs",
+      "sha256": "705c4e44948f8c452f80109c86cfcb41bdfacc8ce8f9d411b229a690e2042bc2"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/StringHashBinDescriptor.cs",
+      "sha256": "4eaa74c7f4354779acc9a2d5a2a9358c3ca192b30d4c8bb005c54175d9f77612"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/TargetPlatform.cs",
+      "sha256": "e5d16345c66454c3b60aadf967039daefcce858add93a5c971e06cd1bf3f42df"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/TraceKind.cs",
+      "sha256": "9f44eac14e7675a374143d7660fecb2bd8edad01f439e1cc3ca5d164b77fcfde"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/Tracer.cs",
+      "sha256": "1050f694412bcf3f7a81577a31a8b7f1367225af15b8baac3f39fc5f8a362b6e"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/TraceWriteHandler.cs",
+      "sha256": "bbbbe475fefe65e099332baddfb03c066fe4023e297eb26e6ca968a9847041d7"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/VerifierPluginRegistry.cs",
+      "sha256": "af322f1b35c152bbd3b5e6f32c39ed99353da41bdfabc60e278160b7eb392648"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/XIncludingReaderWrapper.cs",
+      "sha256": "5c1131fa99b9f14aadcdd87e416f9597aa0766973eefbb427e2eebc53e06955a"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/XmlHelper.cs",
+      "sha256": "b944903953521c71ec1ba5b5d1f78fbeeaa27ed13268b1fdb564273c19de9976"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Project/BinaryAssetBuilderProject.cs",
+      "sha256": "2afe9efe60956c8b9eeb09457b558cfd2eba945b6ce58ccbe32f05dd8bfa6463"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Project/BinaryStream.cs",
+      "sha256": "913bf280a7ab3d9708e8a19ee58b6e2943f13a7c22727e236b2150fadd8dfb37"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Project/StreamConfiguration.cs",
+      "sha256": "fd36a842948d000f7bbbd682a472c0b1d522e5657abab6081be7752faade1af5"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Project/StreamReference.cs",
+      "sha256": "d930d8af7152251c317388870b6144afb8da464431a19d093116676c9bb6710f"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder/BinaryAssetBuilderException.cs",
+      "sha256": "60a5a82fd8310d535be82ec6183686f4d9665c3a3e441ab94aadcdad64d05a73"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder/BuildConfiguration.cs",
+      "sha256": "51740993fd7f389e362a757b8a4c5ac8e5ef521c3e11896b10917f806213e3b5"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder/CommandLineOptionAttribute.cs",
+      "sha256": "9551cae017e2c84411b55433c0954af7271ffc55396b24a6339294df0bf2b851"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder/CommandLineOptionProcessor.cs",
+      "sha256": "3967b24ff4268fb51ad3596736b842047315983846fbe88aff980931c2a3e0eb"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder/ErrorCode.cs",
+      "sha256": "8c41196071a7c866ed7d5739f3f56e69aa18e238e8d7bef165798d2f1f3ca0dd"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder/IAssetBuilderPluginBase.cs",
+      "sha256": "a81db6bcd0a62f8da450821d9fa44ebcb900dae27def329d6ed893833e73e220"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder/OptionalCommandLineOptionAttribute.cs",
+      "sha256": "eb91e246df20d4ced7abf91b8e5b99465dcd94b979ff3e078d168348602424e3"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder/OrderedCommandLineOptionAttribute.cs",
+      "sha256": "046f4fc1df12232b55c28039ecc61c98e0b8b471e02ef3fe6c3d8f93697b51a2"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder/PluginDescriptor.cs",
+      "sha256": "f5e1449aa296859a0c39f21c6853b639ece6653188d5dfe3a4f03f150713d2e5"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder/SerializedSectionHandler.cs",
+      "sha256": "888fbe5a2831cb1fb6f2abe782ef8e7958af3e0a0f34bbf5028d52e9ec5f2451"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder/Settings.cs",
+      "sha256": "fdb7ea739d37928acd5430fc97ee30e72baf3e5366f602621370574473aced7d"
+    },
+    {
+      "path": "recovery/src/Managed/ExpressionEval/BinaryAssetBuilder.ExpressionEval/ExpressionEvaluator.cs",
+      "sha256": "0d6a2fd92322ab07e132633a14f5b9f01f4fa2985ebccd53e92f5a68eee22167"
+    },
+    {
+      "path": "recovery/src/Managed/ExpressionEval/BinaryAssetBuilder.ExpressionEval/ExpressionValue.cs",
+      "sha256": "d5c6eef1b34b65b335841e2f5b6e3b6fe5b654ca5f66cddfcf830788e672d0c2"
+    },
+    {
+      "path": "recovery/src/Managed/ExpressionEval/ExpressionLexer.cs",
+      "sha256": "bbafc0552605926bda9d6d606061aa14044e14ba33ad480d4926c72b435d640f"
+    },
+    {
+      "path": "recovery/src/Managed/ExpressionEval/ExpressionParser.cs",
+      "sha256": "1be774022babae02ceffceaf67f7d156810594bb1e483589f5848c4356eea3f8"
+    },
+    {
+      "path": "recovery/src/Managed/ExpressionEval/ExpressionParserTokenTypes.cs",
+      "sha256": "4fb1bad55176399994dd4c64c383cbe927a60640e2d94be44cbaf70aa3a128a0"
+    },
+    {
+      "path": "recovery/src/Managed/GameDataVerifier/BinaryAssetBuilder.GameDataVerifier/Plugin.cs",
+      "sha256": "3228cb49319f7a359a215f870a4243a83cbbaf368450ef062491056dd3aef64c"
+    },
+    {
+      "path": "recovery/src/Managed/Hash/FastHash.cs",
+      "sha256": "21736a7603157490c2ef1e8da7b085be877867d8d8256b003df1024a9199bdd1"
+    },
+    {
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/ConsoleMetricsListener.cs",
+      "sha256": "747e6b460373fb5b2d311e96e569679facf1afc1c2a7bf1c55c89e9314bb7719"
+    },
+    {
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/IMetricsListener.cs",
+      "sha256": "1c3ab5a973b8e495fb6e42c8e828562a404b087177ffc17569e9082ae040cd04"
+    },
+    {
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/ListMetric.cs",
+      "sha256": "ba961579480977b1f11cc16fa031a3ca4b502ba47685dd63d179ac7550abd4ec"
+    },
+    {
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/Metric.cs",
+      "sha256": "7f42ae0b477360e243147b76c957fa433964b3c83482569360805e95c46e6817"
+    },
+    {
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricApplicationData.cs",
+      "sha256": "d4c07a6586717f1a14f00a1fa24bafb3279fb6acdf25bdaa949a9470930d55e1"
+    },
+    {
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricDescriptor.cs",
+      "sha256": "3a699d3b647cd91712fc5505d2a5d8cbb06d82b183eac7725b61690956eae7cc"
+    },
+    {
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricManager.cs",
+      "sha256": "ae3b60774e578a43702b531bf7e1ce7dbf632cc08ebd3cb4fd14e9e2d089207e"
+    },
+    {
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricTimer.cs",
+      "sha256": "fef835e4574f1d354578cb512fb37f995ef9c6d14c0fa19599ee726829cc6e38"
+    },
+    {
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricType.cs",
+      "sha256": "711d2cb5765b70d8d450476c618aab1677e70f14df935edd2f1868849449634c"
+    },
+    {
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/ReportMetrics.cs",
+      "sha256": "809b996049bfa9f68beb2e7b051b4798ee40799ca5f6a945f281dcb0df7aabec"
+    },
+    {
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/SqlMetricsListener.cs",
+      "sha256": "a01cd564fb52186b7f4f72178340f4f81f741b58154ae00286c20e5fbdabc107"
+    },
+    {
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/SqlMetricsWriter.cs",
+      "sha256": "0c67df76f8e22817fce0604048d06d2efc26fd2d1678d2840f614a2f256e9356"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/CacheKeyFactory.cs",
+      "sha256": "143917d0e85a0334abb99462cf18d0dfd8bb0c025e8988b6bb3789a2ca09bf3c"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/PerfCounterInstaller.cs",
+      "sha256": "b94811ce3db68fb5ae28f78384ea3219b18046f661466c18b1ff17823a214a02"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/PerfCounterManager.cs",
+      "sha256": "ead328d8c65d2f39ae09ef64fd2ab7623ecdb611ffcfc097b8ad8aceb3691fd5"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/SerializerCacheDelegate.cs",
+      "sha256": "29ec9d89063e0cdf6779b4641f2d57933ffffb8fc925f2fdb8c714bd7341131b"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/SignatureExtractor.cs",
+      "sha256": "156e2c20a019ae7e300e3eae0fe5505f51cb024f61705585a1264d9fd0b5ebbd"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/StringSorter.cs",
+      "sha256": "1f70a5b7efed8f1894251f0b2357eb6cc0cf82fdc0e371d27c260120ed4c9acf"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/XmlAttributeOverridesThumbprinter.cs",
+      "sha256": "f71cb13bf87b4e50709d8fd603520e175cbbbcfb972e3b0b9610b7c952cec161"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Serialization/XmlSerializerCache.cs",
+      "sha256": "a97a8164d043aec8d1fee8219613d7b4d26586d3d0c6dbbbc97fa8a9f4c1cba6"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/DynamicContext.cs",
+      "sha256": "3630bb2fa7503c493bf022269ca146f65acbffa18fbf179660b2fa168bb71406"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/EmptyXPathNodeIterator.cs",
+      "sha256": "c22589acd4771c7acecd8fbfb49bd71b4412b4fbfe65d156a4899ad6263117a5"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/IHasXPathNavigator.cs",
+      "sha256": "e2f625b9557c5db92e9ac13ef6a691a9c10ae4891deb3adcfb5047151d1f4d9c"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/IndexingXPathNavigator.cs",
+      "sha256": "495c31b723c49e2e9ea38bb96b7d806267c420a8247e82ab094133f1119eabba"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/SingletonXPathNodeIterator.cs",
+      "sha256": "def72cfb75b18cb8563880dccc6323695c900a0b943dd3602677bc2ba6a4a19e"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/SubtreeXPathNavigator.cs",
+      "sha256": "a300d50e7531d751fe0517b7a33058df7fa14b9418a8e5334ff8df5e9cce7c6e"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/XPathCache.cs",
+      "sha256": "b61805033956cac75e025793c2f258cefa257bbbab967579e80ed658fae11fd6"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/XPathIteratorReader.cs",
+      "sha256": "eb086d44ddff536df69be31db10def3b0f480437cffe46d6f1fd9b6ebd924111"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/XPathNavigatorIterator.cs",
+      "sha256": "8cd8af9a97112218bd1733fc5e9126964e5ac0a4e4bb2fdb32ab74d6de230757"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.XPath/XPathVariable.cs",
+      "sha256": "428bac455ab7975eb57b30b44b2ba1f434e86217a837ed3b1a8664e22fea4caf"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Xsl/DefaultXmlResolver.cs",
+      "sha256": "8def0ed0d22dfcb14487d7ae6748983805376fddca7c91e418a2a25837cdfb05"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Xsl/IXmlTransform.cs",
+      "sha256": "8a896e353a1ccb766d023e4ef69f4ea0cd105bd85cfaee697c505fdbe41bee93"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Xsl/MvpXslTransform.cs",
+      "sha256": "bc25e163d7734ab71545b0f9497b394d1a2804ad023701555ab836011aa1c7cb"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Xsl/XmlInput.cs",
+      "sha256": "2de7d05b3b222fef6b236a0b78160651da3ae83bc758d59c4b3dd1414b180c36"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Xsl/XmlOutput.cs",
+      "sha256": "83b1adfb968c15e5d2dae00585ce6a2c08b195b4d120928cf217bc461dbbff0e"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common.Xsl/XslReader.cs",
+      "sha256": "e71a070725a5b8aec07cf2a86c178ee0206e972872a69b79538c05251da404c6"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/SR.cs",
+      "sha256": "eca68bd6ca25f51059989314e2a88c75d0c7419e2451435e0f0c8587187823a7"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlBaseAwareXmlTextReader.cs",
+      "sha256": "dd12d64e637d0be1739b7669ac231bd7a587428627779adabe89f80288f6b3ca"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlBaseState.cs",
+      "sha256": "5c1fbd8efb284c71ebbf641515d4f01bc788f6d09badbd15ef4501ac67dfe34f"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlFirstLowerWriter.cs",
+      "sha256": "60a847370c7d0eedcc74445750ee791325e35d4e9eb28a24e2e4bae4bff65a7f"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlFirstUpperReader.cs",
+      "sha256": "8296ae061b082160df58b88d50ca11e9f9e364240ab37506ebd4f16bb7635b0c"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlFragmentStream.cs",
+      "sha256": "8c8dd18936cb3c44d0e334cc68ba070dea43337b0dea8008a815595f5bc00ee6"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlNamespaces.cs",
+      "sha256": "ed898a634951f8a6de4ab72fa64ce0d676a60debc4cb2dd0b517fd8685474461"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlNodeFactory.cs",
+      "sha256": "dc01c4d90f370dfc475b4f8a447bb8f8b242a2f9328e88256aa5d4eae9147603"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlNodeListFactory.cs",
+      "sha256": "536112985abc6b4a518af825dad65cc00904b46b098253162eae068ee5795f23"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Common/XmlPrefix.cs",
+      "sha256": "8d8feaa53a7b208141d8b25d44cbdd17404bb937fb5b4d06351b86e957fe9be4"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/auxEXSLT.cs",
+      "sha256": "2d22b61ecb54add2dd857e2b832c84cf026da39ea2dddc023ebce887321c91df"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltContext.cs",
+      "sha256": "5adde30b9a97e0e19761cdaa436c14b6bc46e0b1f348874d13433092f540d98e"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltContextFunction.cs",
+      "sha256": "094d36a119195f14ed70f4993a45bb2afbce11b2c7e1a69cd12fd2caa310a1e9"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltDatesAndTimes.cs",
+      "sha256": "9ad32fc5c0881fd01fcba277cb926d8faaaf5049f34c49836573cc4c2133d64c"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltFunctionNamespace.cs",
+      "sha256": "d10d04a99448c4d87cfb997d6cceafaec7b082c73253ebed7b629f630c31e8fa"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltMath.cs",
+      "sha256": "a9ad9248d1ded0e3dad950d4017f152469288cb807f3fb49d574acf4444cb7e5"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltNamespaces.cs",
+      "sha256": "45c542780af556d330ae42371a266f2e5689e56f930c608cd5c3439d4478ec19"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltRandom.cs",
+      "sha256": "a18b7f037a27ad60d78b077db23f369cb8d19ae07eab2cd436d23f982ae16fa7"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltRegularExpressions.cs",
+      "sha256": "dae0f2184d267c1cb1c9255f2afc8aa83b000ed5ae6cf16f67856bced72d399b"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltSets.cs",
+      "sha256": "d72b700fa5f4d9d95cfc9f77a68def37cd714d12acdba1136add3ba2c1404a07"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltStrings.cs",
+      "sha256": "e8b32188f1b25dfaa7a2af31b64fccf40d73fd11f29b826fc040c3ea2edd6898"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/ExsltTransform.cs",
+      "sha256": "9cbe06f811fe341b9344506cd359f9f514661035a2617af0e74f789213486229"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/GDNDatesAndTimes.cs",
+      "sha256": "bfbd27c0eb07753a0737cc698175a0c3ae07df7b392c6273a2adf7872c5f590c"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/GDNDynamic.cs",
+      "sha256": "cc023e6af13a9362275d3d0dafece513fcd9cd4697bdf9b79d2bf7a6d4823435"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/GDNMath.cs",
+      "sha256": "d9a7b4a56740318f147aa9963646d91e5f781671b59b81cf28bb4cd30bf3758b"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/GDNRegularExpressions.cs",
+      "sha256": "f3b69fde65a99e65ad5a0aa892f468e5aa50d82f401136378991d01bdd62d940"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/GDNSets.cs",
+      "sha256": "5193832129831df0b0cc8949e1570e1c9fa39fed87f73faf4b6d845d93de5aa5"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/GDNStrings.cs",
+      "sha256": "e196633a27b2b71ed7bb995241cc1f9d1bb0a791a7440adf514c57cd9c28c3d8"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/MultiXmlTextWriter.cs",
+      "sha256": "16bfd9a6d2a659ac717e7bbf57559b8fc29cc1073701c8d533e0512e3b89e1c1"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/OutputMethod.cs",
+      "sha256": "b10b34c6135d9daf4b7f10ba73d172cc5aa07db0483c7a24948e7f8e927eb97d"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/OutputState.cs",
+      "sha256": "5e77f6bc9e3fa2132a308275f89b720ce91ee1172d88ee920216f90d50d584bc"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.Exslt/RedirectState.cs",
+      "sha256": "e948cd38951912b1020787fdc542ea49a54e86756ac0a32efacbb686b38355eb"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/AttributeOrNamespaceInIncludeLocationError.cs",
+      "sha256": "20d528216a44fe84fd6e91af2d1d0fcc3c239b8a8e0cd33bc13792f41a233d38"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/CircularInclusionException.cs",
+      "sha256": "4d969d34c29063561deb604b1bb8b58e5084c5f66a85bd46486ef1d6513f0b65"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/FallbackState.cs",
+      "sha256": "3cd24569ffea70fd6c3c6232e23b68a84f170e52a4f437b464aaa07f64dd7566"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/FatalException.cs",
+      "sha256": "27cf45b0f5fdacb2d27fb3fd1228d353c1c372d27c135676fd7ea03c71a5b26f"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/FatalResourceException.cs",
+      "sha256": "a14c17f71a060c349b0ec73288b92b50dfef4a7b85e106c259c99c4e30ce85a8"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/InvalidAcceptHTTPHeaderValueError.cs",
+      "sha256": "d32957acaa55098605449f14b7f47e9faa96926cf9150e445ef5d4474c150e71"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/MalformedXInclusionResultError.cs",
+      "sha256": "4b178efdaa8b57915ad5e2d45758c8d092b26c564e4a9658690d0006f37082f0"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/NonXmlCharacterException.cs",
+      "sha256": "6f56229bd0a3763c8035dec791f1a96c87d112296c602e63d1063321239c5056"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/ResourceException.cs",
+      "sha256": "6fddd90346248927403172ad7ad8300fcba97ca38c4e177faf2fd96427fc2eb5"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/SR.cs",
+      "sha256": "9dea29b68cb7b979feefa7e3f56377dfd1c8ec96df2b9faec2ea2441285e8b6e"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/TextIncludingReader.cs",
+      "sha256": "fc8cfa6a035d0a364e7acbc70281c5f8abfa32ec8fb6c0a48ae5f73fe5c9247d"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/TextUtils.cs",
+      "sha256": "0f7e934dbb262b71795702e7fc5e28d393d59b98904f056230393bf0790d29b0"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/XIncludeException.cs",
+      "sha256": "788c7c02182fd984e188f789bed5f0cae91f7cb763fb0d5f388a800129c903f3"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/XIncludeKeywords.cs",
+      "sha256": "79b375eeb9341dc4a83cd8a10ee65840cbe0ebe08b2b8280abf9446f5e0a7409"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/XIncludeSyntaxError.cs",
+      "sha256": "81a11e620326e6933dbb775cf5ba6ce07c371463b15bbf362611329808f92301"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/XIncludingReader.cs",
+      "sha256": "d62ec27c81fd4f34b789b4f95737e111e5a0c314b88595274edc012aed9f3ea6"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XInclude/XIncludingReaderState.cs",
+      "sha256": "937c9502f1fce9e131f35fc736180b6be99eefa4943fabe3cb90d575a5729779"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/ElementSchemaPointerPart.cs",
+      "sha256": "35a4b8e6a9aa6fd4e05fd6f6194bd4f1ccfd5fa337d9fb556eeab14cf6000c6f"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/LexUtils.cs",
+      "sha256": "16fa5d1012e00ed268c02090f33c5cfdb7922d520e8f9633b50f3406202ca612"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/NoSubresourcesIdentifiedException.cs",
+      "sha256": "bdf2f48d764ba6124e18e6120080a016ee8449c5d742a15c9924fb7c0ca8ae2f"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/Pointer.cs",
+      "sha256": "49720cb1be9002241e686c87582e56b9b8106fd5f3a3aca909b70949d66e2458"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/PointerPart.cs",
+      "sha256": "4f436bdbca2e108adf946c395143d9259822dec1fc773aa72e0329e2a4cbb60d"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/SchemaBasedPointer.cs",
+      "sha256": "80275694c369fa534ef84b1390e46b0fcc100b841826898a9fdd4808d4c4ee26"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/ShorthandPointer.cs",
+      "sha256": "95d2ee356d8d030b93f0cae8638b3a2bb573ecaaa89706ee7496e1c6f1db3c38"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/SR.cs",
+      "sha256": "41539f012fd14f51a9d1c7c7cb5f8ffbea8413c60b0300b56dec3fc9adc306ea"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XmlnsSchemaPointerPart.cs",
+      "sha256": "b1b69b21595d851f1b19227d784158ccca4e143ef140358b1374393948aecd52"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPath1SchemaPointerPart.cs",
+      "sha256": "c059c47fa80da5cd0669832abdd487e6abf862506f8e139287c0cb23c8aa896e"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerException.cs",
+      "sha256": "e1adf12b866a91e025849fcf62a55500657c845927e7efafcd4ce61571a52879"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerLexer.cs",
+      "sha256": "f4237ca7a707be6b7fa4f7b01ef0410bf69787fc8c6d49028fae4d7b1ccde147"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerParser.cs",
+      "sha256": "3516042439377625641c691916a8c43e5fc091f89c44bd3bf4ff3f7e6befd7d9"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerReader.cs",
+      "sha256": "5c22756871e5199107cbc69ac8840d54a83a88781ce8e418622e18ad143b3609"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerSchema.cs",
+      "sha256": "cdc03a7b4a260b7fbb4e6acf68c094754fc6d49c48433d5d925e913a8fce5f35"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerSchemaPointerPart.cs",
+      "sha256": "c06b183e7ece502b627a934421aedf9a0c74923e567757f2fa92daa09a9bd6b9"
+    },
+    {
+      "path": "recovery/src/Managed/MvpXml/Mvp.Xml.XPointer/XPointerSyntaxException.cs",
+      "sha256": "515fa31d991d5ef0d2b85889931fd9492e92b1da7d1ac5c1e0fcc516cbd012fa"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/AssetStream/AssetEntry.cs",
+      "sha256": "51b6bf6cf724116f8b7c51950d5753545197fd778a2dc18b78514979288befc0"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/AssetStream/AssetHeader.cs",
+      "sha256": "c3c9e5114534595e7098bf8925de83bc9bfbab17613bd4f2c215941c0ecef09f"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/AssetStream/AssetId.cs",
+      "sha256": "d47db3b7ce3e8e5e65182053bff8e156c9c4f5e9eb75b972ddfacdda622af870"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/AssetStream/ManifestHeader.cs",
+      "sha256": "833a2d972e6d08c929649671aae9bb498dc02dedbf9883c991c7504496301563"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/Asset.cs",
+      "sha256": "fe424625a5f70daad46d7fbedcabfec84aae3e848da72a9681961744f7cda177"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/AssetEntry.cs",
+      "sha256": "55d44b663ee56bb1b6015ecabd10e4da04beef66615260789d6bca69567ee5cc"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/AssetHandle.cs",
+      "sha256": "9bc4ac5831a554d6aef0681a0f84547a7ffba0a7d3a33b48fb4ac3c50d16bb7d"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/AssetHeader.cs",
+      "sha256": "8c5e23ea96eff2f99a56daf9fe781f2ecf81978ec24ff00f1174950919815419"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/FileSystemUtils.cs",
+      "sha256": "09d008a676e52ba7987354c5170c391aa158a724041230880625c7ec3c257b8f"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/Manifest.cs",
+      "sha256": "988d6fb4326e4583534daa932cc3bbd57d09c06493ccc361be42b0537aa8879f"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/ManifestHeader.cs",
+      "sha256": "a181e93c8a73d2ccc43d130b4b782a3ac03a66844e40b38c92f258ab3f361d11"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/NameBuffer.cs",
+      "sha256": "e1dd93c891da00ff063f534e8c8f09dd1bde4aa94fc1d7b2acb7bd3f5f7f3e9a"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/ReferencedFileBuffer.cs",
+      "sha256": "07da276f2491624afd2ee681bbd584a3dc8d9695664f476a18c018979884c950"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/ReferencedManifest.cs",
+      "sha256": "b0c26aeaebbe0917ba96f89acea3cb7bd0acc7470a8a4007e67efa2f6c51a5b4"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/ReferenceHandle.cs",
+      "sha256": "0875ced3e78c9fc3f07789f4918e31df836ada6b58afff2ae37c2c6ea7a1a703"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/StructWrapper-AssetStream.cs",
+      "sha256": "ec08a2cc6b191b82677c548bc2a173f7968d5f51d621d1ea55044f3cb9dd976e"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/UInt32Buffer.cs",
+      "sha256": "277f45b9420792fef1de96e6e7138b44c18bd464aff94f54b94bd1f08463f3c5"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/UtilityEndian.cs",
+      "sha256": "bbc6fdca840e77b3331a00f9a0821e9d42b9c7507c015b075f711af0678737c5"
+    }
+  ],
+  "formatVersion": 1,
+  "singleExeValidated": false,
+  "resources": [
+    {
+      "logicalName": "BinaryAssetBuilderProject.xsd",
+      "sha256": "3ffe9a0f876bc76deaf28d2e0302f32d63b0c842d719f3d9c428dc961b7616c1",
+      "path": "D:\\a\\_temp\\texture-parallel-hosts\\Release\\obj\\foundation\\resources\\BinaryAssetBuilderProject.xsd"
+    },
+    {
+      "logicalName": "Mvp.Xml.Common.SR.resources",
+      "sha256": "65bc06e64351f384b3f8658d273a36d7dcb2af167e458adc0f9579bb2cf0a1cb",
+      "path": "D:\\a\\_temp\\texture-parallel-hosts\\Release\\obj\\foundation\\resources\\Mvp.Xml.Common.SR.resources"
+    },
+    {
+      "logicalName": "Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources",
+      "sha256": "a3237a994521c1904b0367691fdafc8b4b309371b845157bd149f27b53849d76",
+      "path": "D:\\a\\_temp\\texture-parallel-hosts\\Release\\obj\\foundation\\resources\\Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources"
+    },
+    {
+      "logicalName": "Mvp.Xml.XPointer.SR.resources",
+      "sha256": "fb2b9ea0745131e0ba26b9c7967a4f74885427d73dbeb6ad68114c8a3bacb1de",
+      "path": "D:\\a\\_temp\\texture-parallel-hosts\\Release\\obj\\foundation\\resources\\Mvp.Xml.XPointer.SR.resources"
+    },
+    {
+      "logicalName": "Mvp.Xml.XInclude.SR.resources",
+      "sha256": "0ef800084cbdf48a5a0b2de121f52737410aaa1356a6325fae779a8b56a77f6c",
+      "path": "D:\\a\\_temp\\texture-parallel-hosts\\Release\\obj\\foundation\\resources\\Mvp.Xml.XInclude.SR.resources"
+    }
+  ],
+  "configuration": "Release",
+  "compiler": "Microsoft.Net.Compilers.Toolset/4.0.1"
+}

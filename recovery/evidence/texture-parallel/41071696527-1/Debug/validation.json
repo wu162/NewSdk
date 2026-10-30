@@ -1,0 +1,2808 @@
+{
+  "cases": [
+    {
+      "mode": "locked",
+      "passed": true,
+      "result": {
+        "status": "passed",
+        "route": "Texture",
+        "mode": "locked",
+        "sourceCommit": "0dc6027b0eac86f79bc6e72f6f8bfff12e1e402c",
+        "runId": "41071696527",
+        "coreOwner": "D:\\a\\_temp\\texture-parallel-c3029a0cf74e4ced8cf48ff16131ff2c\\oracle\\NewModCompiler.exe",
+        "beforeInitialize": {
+          "privateBytes": 13340672,
+          "virtualBytes": 166289408,
+          "workingSet": 15052800
+        },
+        "afterInitialize": {
+          "privateBytes": 82989056,
+          "virtualBytes": 254345216,
+          "workingSet": 20189184
+        },
+        "baseline": [
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "inputSha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "Texture",
+            "index": 1,
+            "inputSha256": "116e7886952d6cd293303e143ee8ea86272d14a271335a57e701f9c3ae91c7e9",
+            "buffers": [
+              "938bb312382fa67f7309521980378793082c4f1abe6ed381fd7c337369c9c149",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "Texture",
+            "index": 2,
+            "inputSha256": "27071310714ba2e69a095fb558a32232caee6b74a512ba46b476d8ff6f6a8b56",
+            "buffers": [
+              "faeec040988eeef7eaef9879313bf0c60e98e35a5eb8bf07b07394f7a8730535",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "inputSha256": "9016508bb249f9ff0a2e013e99362b24e2d9d08af3d0cd60090f6a139c733c92",
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          }
+        ],
+        "afterSerialBaseline": {
+          "privateBytes": 90943488,
+          "virtualBytes": 284102656,
+          "workingSet": 29925376
+        },
+        "rounds": [
+          {
+            "round": 0,
+            "wallTicks": 10234302
+          },
+          {
+            "round": 1,
+            "wallTicks": 10176701
+          },
+          {
+            "round": 2,
+            "wallTicks": 10181038
+          }
+        ],
+        "comparisons": [
+          {
+            "round": 0,
+            "index": 0,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 1,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "938bb312382fa67f7309521980378793082c4f1abe6ed381fd7c337369c9c149",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 2,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "faeec040988eeef7eaef9879313bf0c60e98e35a5eb8bf07b07394f7a8730535",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 3,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 0,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 1,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "938bb312382fa67f7309521980378793082c4f1abe6ed381fd7c337369c9c149",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 2,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "faeec040988eeef7eaef9879313bf0c60e98e35a5eb8bf07b07394f7a8730535",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 3,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 0,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 1,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "938bb312382fa67f7309521980378793082c4f1abe6ed381fd7c337369c9c149",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 2,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "faeec040988eeef7eaef9879313bf0c60e98e35a5eb8bf07b07394f7a8730535",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 3,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          }
+        ],
+        "maximumConcurrency": 1,
+        "calls": [
+          {
+            "typeName": "Texture",
+            "index": 2,
+            "startTicks": 9965311835,
+            "endTicks": 9967855150,
+            "threadId": 7
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "startTicks": 9967858462,
+            "endTicks": 9970390698,
+            "threadId": 8
+          },
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "startTicks": 9970394189,
+            "endTicks": 9972920995,
+            "threadId": 5
+          },
+          {
+            "typeName": "Texture",
+            "index": 1,
+            "startTicks": 9972924229,
+            "endTicks": 9975484985,
+            "threadId": 6
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "startTicks": 9975568203,
+            "endTicks": 9978102774,
+            "threadId": 12
+          },
+          {
+            "typeName": "Texture",
+            "index": 1,
+            "startTicks": 9978106109,
+            "endTicks": 9980646596,
+            "threadId": 10
+          },
+          {
+            "typeName": "Texture",
+            "index": 2,
+            "startTicks": 9980649889,
+            "endTicks": 9983191800,
+            "threadId": 11
+          },
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "startTicks": 9983194908,
+            "endTicks": 9985732267,
+            "threadId": 9
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "startTicks": 9985799045,
+            "endTicks": 9988330467,
+            "threadId": 16
+          },
+          {
+            "typeName": "Texture",
+            "index": 2,
+            "startTicks": 9988333578,
+            "endTicks": 9990886487,
+            "threadId": 15
+          },
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "startTicks": 9990889931,
+            "endTicks": 9993417808,
+            "threadId": 13
+          },
+          {
+            "typeName": "Texture",
+            "index": 1,
+            "startTicks": 9993421113,
+            "endTicks": 9995967492,
+            "threadId": 14
+          }
+        ],
+        "clockFrequency": 10000000,
+        "afterExecution": {
+          "privateBytes": 94519296,
+          "virtualBytes": 292761600,
+          "workingSet": 35442688
+        },
+        "afterDispose": {
+          "privateBytes": 26120192,
+          "virtualBytes": 224546816,
+          "workingSet": 35360768
+        }
+      },
+      "route": "Texture",
+      "timeout": false,
+      "exitCode": 0
+    },
+    {
+      "mode": "isolated",
+      "passed": true,
+      "result": {
+        "status": "passed",
+        "route": "Texture",
+        "mode": "isolated",
+        "sourceCommit": "0dc6027b0eac86f79bc6e72f6f8bfff12e1e402c",
+        "runId": "41071696527",
+        "coreOwner": "D:\\a\\_temp\\texture-parallel-c3029a0cf74e4ced8cf48ff16131ff2c\\oracle\\NewModCompiler.exe",
+        "beforeInitialize": {
+          "privateBytes": 13369344,
+          "virtualBytes": 165617664,
+          "workingSet": 14843904
+        },
+        "afterInitialize": {
+          "privateBytes": 83009536,
+          "virtualBytes": 253689856,
+          "workingSet": 19980288
+        },
+        "baseline": [
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "inputSha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "Texture",
+            "index": 1,
+            "inputSha256": "116e7886952d6cd293303e143ee8ea86272d14a271335a57e701f9c3ae91c7e9",
+            "buffers": [
+              "938bb312382fa67f7309521980378793082c4f1abe6ed381fd7c337369c9c149",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "Texture",
+            "index": 2,
+            "inputSha256": "27071310714ba2e69a095fb558a32232caee6b74a512ba46b476d8ff6f6a8b56",
+            "buffers": [
+              "faeec040988eeef7eaef9879313bf0c60e98e35a5eb8bf07b07394f7a8730535",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "inputSha256": "9016508bb249f9ff0a2e013e99362b24e2d9d08af3d0cd60090f6a139c733c92",
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          }
+        ],
+        "afterSerialBaseline": {
+          "privateBytes": 91045888,
+          "virtualBytes": 283447296,
+          "workingSet": 29716480
+        },
+        "isolatedModules": [
+          {
+            "index": 0,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\Texture-isolated\\module0\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 174063616,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          },
+          {
+            "index": 1,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\Texture-isolated\\module1\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 246415360,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          },
+          {
+            "index": 2,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\Texture-isolated\\module2\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 248512512,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          },
+          {
+            "index": 3,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\Texture-isolated\\module3\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 251658240,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          }
+        ],
+        "afterIsolatedInitialize": {
+          "privateBytes": 368451584,
+          "virtualBytes": 564830208,
+          "workingSet": 33386496
+        },
+        "rounds": [
+          {
+            "round": 0,
+            "wallTicks": 4251518
+          },
+          {
+            "round": 1,
+            "wallTicks": 4026523
+          },
+          {
+            "round": 2,
+            "wallTicks": 4071350
+          }
+        ],
+        "comparisons": [
+          {
+            "round": 0,
+            "index": 0,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 1,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "938bb312382fa67f7309521980378793082c4f1abe6ed381fd7c337369c9c149",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 2,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "faeec040988eeef7eaef9879313bf0c60e98e35a5eb8bf07b07394f7a8730535",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 3,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 0,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 1,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "938bb312382fa67f7309521980378793082c4f1abe6ed381fd7c337369c9c149",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 2,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "faeec040988eeef7eaef9879313bf0c60e98e35a5eb8bf07b07394f7a8730535",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 3,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 0,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 1,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "938bb312382fa67f7309521980378793082c4f1abe6ed381fd7c337369c9c149",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 2,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "faeec040988eeef7eaef9879313bf0c60e98e35a5eb8bf07b07394f7a8730535",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 3,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          }
+        ],
+        "maximumConcurrency": 4,
+        "calls": [
+          {
+            "typeName": "Texture",
+            "index": 1,
+            "startTicks": 10009039706,
+            "endTicks": 10013203629,
+            "threadId": 6
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "startTicks": 10009038900,
+            "endTicks": 10013203656,
+            "threadId": 8
+          },
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "startTicks": 10009038886,
+            "endTicks": 10013222471,
+            "threadId": 5
+          },
+          {
+            "typeName": "Texture",
+            "index": 2,
+            "startTicks": 10009038240,
+            "endTicks": 10013226858,
+            "threadId": 7
+          },
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "startTicks": 10013308136,
+            "endTicks": 10017284948,
+            "threadId": 9
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "startTicks": 10013307437,
+            "endTicks": 10017315390,
+            "threadId": 12
+          },
+          {
+            "typeName": "Texture",
+            "index": 1,
+            "startTicks": 10013309178,
+            "endTicks": 10017320192,
+            "threadId": 10
+          },
+          {
+            "typeName": "Texture",
+            "index": 2,
+            "startTicks": 10013308495,
+            "endTicks": 10017321467,
+            "threadId": 11
+          },
+          {
+            "typeName": "Texture",
+            "index": 2,
+            "startTicks": 10017416423,
+            "endTicks": 10021427816,
+            "threadId": 15
+          },
+          {
+            "typeName": "Texture",
+            "index": 1,
+            "startTicks": 10017418511,
+            "endTicks": 10021437181,
+            "threadId": 14
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "startTicks": 10017391083,
+            "endTicks": 10021447817,
+            "threadId": 16
+          },
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "startTicks": 10017416411,
+            "endTicks": 10021449153,
+            "threadId": 13
+          }
+        ],
+        "clockFrequency": 10000000,
+        "afterExecution": {
+          "privateBytes": 373235712,
+          "virtualBytes": 593530880,
+          "workingSet": 41291776
+        },
+        "afterDispose": {
+          "privateBytes": 30994432,
+          "virtualBytes": 252293120,
+          "workingSet": 40595456
+        }
+      },
+      "route": "Texture",
+      "timeout": false,
+      "exitCode": 0
+    },
+    {
+      "mode": "locked",
+      "passed": true,
+      "result": {
+        "status": "passed",
+        "route": "OnDemandTexture",
+        "mode": "locked",
+        "sourceCommit": "0dc6027b0eac86f79bc6e72f6f8bfff12e1e402c",
+        "runId": "41071696527",
+        "coreOwner": "D:\\a\\_temp\\texture-parallel-c3029a0cf74e4ced8cf48ff16131ff2c\\oracle\\NewModCompiler.exe",
+        "beforeInitialize": {
+          "privateBytes": 13406208,
+          "virtualBytes": 165617664,
+          "workingSet": 14876672
+        },
+        "afterInitialize": {
+          "privateBytes": 83050496,
+          "virtualBytes": 254730240,
+          "workingSet": 20033536
+        },
+        "baseline": [
+          {
+            "typeName": "OnDemandTexture",
+            "index": 0,
+            "inputSha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "b3bab33d66014d01bdc7d29ffef6bb50286420558654314371e125012896f799"
+            ]
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "inputSha256": "116e7886952d6cd293303e143ee8ea86272d14a271335a57e701f9c3ae91c7e9",
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 2,
+            "inputSha256": "27071310714ba2e69a095fb558a32232caee6b74a512ba46b476d8ff6f6a8b56",
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "7db42f6ae10577bf16f430f4ea67ff663dff66c774bddf1450cbc020fd4f1575"
+            ]
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 3,
+            "inputSha256": "9016508bb249f9ff0a2e013e99362b24e2d9d08af3d0cd60090f6a139c733c92",
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "dd91ec5c1455b3aee5ed4b69a325e6c6d166376649cf3ddc91903d3935e64a7b"
+            ]
+          }
+        ],
+        "afterSerialBaseline": {
+          "privateBytes": 91422720,
+          "virtualBytes": 283439104,
+          "workingSet": 30212096
+        },
+        "rounds": [
+          {
+            "round": 0,
+            "wallTicks": 10346621
+          },
+          {
+            "round": 1,
+            "wallTicks": 10260104
+          },
+          {
+            "round": 2,
+            "wallTicks": 10202708
+          }
+        ],
+        "comparisons": [
+          {
+            "round": 0,
+            "index": 0,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "b3bab33d66014d01bdc7d29ffef6bb50286420558654314371e125012896f799"
+            ]
+          },
+          {
+            "round": 0,
+            "index": 1,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "round": 0,
+            "index": 2,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "7db42f6ae10577bf16f430f4ea67ff663dff66c774bddf1450cbc020fd4f1575"
+            ]
+          },
+          {
+            "round": 0,
+            "index": 3,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "dd91ec5c1455b3aee5ed4b69a325e6c6d166376649cf3ddc91903d3935e64a7b"
+            ]
+          },
+          {
+            "round": 1,
+            "index": 0,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "b3bab33d66014d01bdc7d29ffef6bb50286420558654314371e125012896f799"
+            ]
+          },
+          {
+            "round": 1,
+            "index": 1,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "round": 1,
+            "index": 2,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "7db42f6ae10577bf16f430f4ea67ff663dff66c774bddf1450cbc020fd4f1575"
+            ]
+          },
+          {
+            "round": 1,
+            "index": 3,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "dd91ec5c1455b3aee5ed4b69a325e6c6d166376649cf3ddc91903d3935e64a7b"
+            ]
+          },
+          {
+            "round": 2,
+            "index": 0,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "b3bab33d66014d01bdc7d29ffef6bb50286420558654314371e125012896f799"
+            ]
+          },
+          {
+            "round": 2,
+            "index": 1,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "round": 2,
+            "index": 2,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "7db42f6ae10577bf16f430f4ea67ff663dff66c774bddf1450cbc020fd4f1575"
+            ]
+          },
+          {
+            "round": 2,
+            "index": 3,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "dd91ec5c1455b3aee5ed4b69a325e6c6d166376649cf3ddc91903d3935e64a7b"
+            ]
+          }
+        ],
+        "maximumConcurrency": 1,
+        "calls": [
+          {
+            "typeName": "OnDemandTexture",
+            "index": 2,
+            "startTicks": 10033642797,
+            "endTicks": 10036195684,
+            "threadId": 7
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 3,
+            "startTicks": 10036198246,
+            "endTicks": 10038771716,
+            "threadId": 8
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 0,
+            "startTicks": 10038774291,
+            "endTicks": 10041378711,
+            "threadId": 5
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "startTicks": 10041381351,
+            "endTicks": 10043929654,
+            "threadId": 6
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 3,
+            "startTicks": 10044013541,
+            "endTicks": 10046552224,
+            "threadId": 12
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "startTicks": 10046554929,
+            "endTicks": 10049092622,
+            "threadId": 10
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 2,
+            "startTicks": 10049095357,
+            "endTicks": 10051685581,
+            "threadId": 11
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 0,
+            "startTicks": 10051688478,
+            "endTicks": 10054260764,
+            "threadId": 9
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 3,
+            "startTicks": 10054330328,
+            "endTicks": 10056871463,
+            "threadId": 6
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 2,
+            "startTicks": 10056874292,
+            "endTicks": 10059427087,
+            "threadId": 7
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "startTicks": 10059430157,
+            "endTicks": 10061976124,
+            "threadId": 8
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 0,
+            "startTicks": 10061978799,
+            "endTicks": 10064520856,
+            "threadId": 10
+          }
+        ],
+        "clockFrequency": 10000000,
+        "afterExecution": {
+          "privateBytes": 94605312,
+          "virtualBytes": 292093952,
+          "workingSet": 35643392
+        },
+        "afterDispose": {
+          "privateBytes": 26480640,
+          "virtualBytes": 223870976,
+          "workingSet": 35557376
+        }
+      },
+      "route": "OnDemandTexture",
+      "timeout": false,
+      "exitCode": 0
+    },
+    {
+      "mode": "isolated",
+      "passed": true,
+      "result": {
+        "status": "passed",
+        "route": "OnDemandTexture",
+        "mode": "isolated",
+        "sourceCommit": "0dc6027b0eac86f79bc6e72f6f8bfff12e1e402c",
+        "runId": "41071696527",
+        "coreOwner": "D:\\a\\_temp\\texture-parallel-c3029a0cf74e4ced8cf48ff16131ff2c\\oracle\\NewModCompiler.exe",
+        "beforeInitialize": {
+          "privateBytes": 13410304,
+          "virtualBytes": 165617664,
+          "workingSet": 14880768
+        },
+        "afterInitialize": {
+          "privateBytes": 83103744,
+          "virtualBytes": 254717952,
+          "workingSet": 20074496
+        },
+        "baseline": [
+          {
+            "typeName": "OnDemandTexture",
+            "index": 0,
+            "inputSha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "b3bab33d66014d01bdc7d29ffef6bb50286420558654314371e125012896f799"
+            ]
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "inputSha256": "116e7886952d6cd293303e143ee8ea86272d14a271335a57e701f9c3ae91c7e9",
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 2,
+            "inputSha256": "27071310714ba2e69a095fb558a32232caee6b74a512ba46b476d8ff6f6a8b56",
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "7db42f6ae10577bf16f430f4ea67ff663dff66c774bddf1450cbc020fd4f1575"
+            ]
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 3,
+            "inputSha256": "9016508bb249f9ff0a2e013e99362b24e2d9d08af3d0cd60090f6a139c733c92",
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "dd91ec5c1455b3aee5ed4b69a325e6c6d166376649cf3ddc91903d3935e64a7b"
+            ]
+          }
+        ],
+        "afterSerialBaseline": {
+          "privateBytes": 91426816,
+          "virtualBytes": 283426816,
+          "workingSet": 30261248
+        },
+        "isolatedModules": [
+          {
+            "index": 0,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\OnDemandTexture-isolated\\module0\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 168755200,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          },
+          {
+            "index": 1,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\OnDemandTexture-isolated\\module1\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 240975872,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          },
+          {
+            "index": 2,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\OnDemandTexture-isolated\\module2\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 243073024,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          },
+          {
+            "index": 3,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\OnDemandTexture-isolated\\module3\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 246153216,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          }
+        ],
+        "afterIsolatedInitialize": {
+          "privateBytes": 368861184,
+          "virtualBytes": 564731904,
+          "workingSet": 33918976
+        },
+        "rounds": [
+          {
+            "round": 0,
+            "wallTicks": 4284184
+          },
+          {
+            "round": 1,
+            "wallTicks": 4073446
+          },
+          {
+            "round": 2,
+            "wallTicks": 4059381
+          }
+        ],
+        "comparisons": [
+          {
+            "round": 0,
+            "index": 0,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "b3bab33d66014d01bdc7d29ffef6bb50286420558654314371e125012896f799"
+            ]
+          },
+          {
+            "round": 0,
+            "index": 1,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "round": 0,
+            "index": 2,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "7db42f6ae10577bf16f430f4ea67ff663dff66c774bddf1450cbc020fd4f1575"
+            ]
+          },
+          {
+            "round": 0,
+            "index": 3,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "dd91ec5c1455b3aee5ed4b69a325e6c6d166376649cf3ddc91903d3935e64a7b"
+            ]
+          },
+          {
+            "round": 1,
+            "index": 0,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "b3bab33d66014d01bdc7d29ffef6bb50286420558654314371e125012896f799"
+            ]
+          },
+          {
+            "round": 1,
+            "index": 1,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "round": 1,
+            "index": 2,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "7db42f6ae10577bf16f430f4ea67ff663dff66c774bddf1450cbc020fd4f1575"
+            ]
+          },
+          {
+            "round": 1,
+            "index": 3,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "dd91ec5c1455b3aee5ed4b69a325e6c6d166376649cf3ddc91903d3935e64a7b"
+            ]
+          },
+          {
+            "round": 2,
+            "index": 0,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "b3bab33d66014d01bdc7d29ffef6bb50286420558654314371e125012896f799"
+            ]
+          },
+          {
+            "round": 2,
+            "index": 1,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "round": 2,
+            "index": 2,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "7db42f6ae10577bf16f430f4ea67ff663dff66c774bddf1450cbc020fd4f1575"
+            ]
+          },
+          {
+            "round": 2,
+            "index": 3,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "dd91ec5c1455b3aee5ed4b69a325e6c6d166376649cf3ddc91903d3935e64a7b"
+            ]
+          }
+        ],
+        "maximumConcurrency": 4,
+        "calls": [
+          {
+            "typeName": "OnDemandTexture",
+            "index": 3,
+            "startTicks": 10077116702,
+            "endTicks": 10081266847,
+            "threadId": 8
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 0,
+            "startTicks": 10077115673,
+            "endTicks": 10081293840,
+            "threadId": 5
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "startTicks": 10077115673,
+            "endTicks": 10081332327,
+            "threadId": 6
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 2,
+            "startTicks": 10077114635,
+            "endTicks": 10081337861,
+            "threadId": 7
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 0,
+            "startTicks": 10081420642,
+            "endTicks": 10085466974,
+            "threadId": 9
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 3,
+            "startTicks": 10081419829,
+            "endTicks": 10085468761,
+            "threadId": 12
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "startTicks": 10081421654,
+            "endTicks": 10085470876,
+            "threadId": 10
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 2,
+            "startTicks": 10081421007,
+            "endTicks": 10085481548,
+            "threadId": 11
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 3,
+            "startTicks": 10085549896,
+            "endTicks": 10089542053,
+            "threadId": 5
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "startTicks": 10085551304,
+            "endTicks": 10089561000,
+            "threadId": 7
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 0,
+            "startTicks": 10085550246,
+            "endTicks": 10089563870,
+            "threadId": 8
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 2,
+            "startTicks": 10085550582,
+            "endTicks": 10089597154,
+            "threadId": 6
+          }
+        ],
+        "clockFrequency": 10000000,
+        "afterExecution": {
+          "privateBytes": 373157888,
+          "virtualBytes": 593375232,
+          "workingSet": 41418752
+        },
+        "afterDispose": {
+          "privateBytes": 30924800,
+          "virtualBytes": 252235776,
+          "workingSet": 40669184
+        }
+      },
+      "route": "OnDemandTexture",
+      "timeout": false,
+      "exitCode": 0
+    },
+    {
+      "mode": "locked",
+      "passed": true,
+      "result": {
+        "status": "passed",
+        "route": "TerrainTextureAtlas",
+        "mode": "locked",
+        "sourceCommit": "0dc6027b0eac86f79bc6e72f6f8bfff12e1e402c",
+        "runId": "41071696527",
+        "coreOwner": "D:\\a\\_temp\\texture-parallel-c3029a0cf74e4ced8cf48ff16131ff2c\\oracle\\NewModCompiler.exe",
+        "beforeInitialize": {
+          "privateBytes": 13283328,
+          "virtualBytes": 165617664,
+          "workingSet": 14757888
+        },
+        "afterInitialize": {
+          "privateBytes": 82948096,
+          "virtualBytes": 253681664,
+          "workingSet": 19906560
+        },
+        "baseline": [
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 0,
+            "inputSha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+            "buffers": [
+              "fdd6424afc94bc2731df3a0ee2f2cba14ca55eab1216678b92c7dfb0d8fe3429",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 1,
+            "inputSha256": "116e7886952d6cd293303e143ee8ea86272d14a271335a57e701f9c3ae91c7e9",
+            "buffers": [
+              "89f100a22c47bf3339bdf074feee05103273a1ceb7c819ae7cec3281ab3bbc73",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "inputSha256": "27071310714ba2e69a095fb558a32232caee6b74a512ba46b476d8ff6f6a8b56",
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 3,
+            "inputSha256": "9016508bb249f9ff0a2e013e99362b24e2d9d08af3d0cd60090f6a139c733c92",
+            "buffers": [
+              "c0e0aa4cff02e44e268fee8b3e1506312da81a7efc86452bceb2448ced4fb0af",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          }
+        ],
+        "afterSerialBaseline": {
+          "privateBytes": 93958144,
+          "virtualBytes": 300019712,
+          "workingSet": 33538048
+        },
+        "rounds": [
+          {
+            "round": 0,
+            "wallTicks": 19697704
+          },
+          {
+            "round": 1,
+            "wallTicks": 19494269
+          },
+          {
+            "round": 2,
+            "wallTicks": 19609280
+          }
+        ],
+        "comparisons": [
+          {
+            "round": 0,
+            "index": 0,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "fdd6424afc94bc2731df3a0ee2f2cba14ca55eab1216678b92c7dfb0d8fe3429",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 1,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "89f100a22c47bf3339bdf074feee05103273a1ceb7c819ae7cec3281ab3bbc73",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 2,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 3,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "c0e0aa4cff02e44e268fee8b3e1506312da81a7efc86452bceb2448ced4fb0af",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 0,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "fdd6424afc94bc2731df3a0ee2f2cba14ca55eab1216678b92c7dfb0d8fe3429",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 1,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "89f100a22c47bf3339bdf074feee05103273a1ceb7c819ae7cec3281ab3bbc73",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 2,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 3,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "c0e0aa4cff02e44e268fee8b3e1506312da81a7efc86452bceb2448ced4fb0af",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 0,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "fdd6424afc94bc2731df3a0ee2f2cba14ca55eab1216678b92c7dfb0d8fe3429",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 1,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "89f100a22c47bf3339bdf074feee05103273a1ceb7c819ae7cec3281ab3bbc73",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 2,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 3,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "c0e0aa4cff02e44e268fee8b3e1506312da81a7efc86452bceb2448ced4fb0af",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          }
+        ],
+        "maximumConcurrency": 1,
+        "calls": [
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 0,
+            "startTicks": 10111757623,
+            "endTicks": 10116733286,
+            "threadId": 5
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "startTicks": 10116737925,
+            "endTicks": 10121637509,
+            "threadId": 7
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 3,
+            "startTicks": 10121640398,
+            "endTicks": 10126535677,
+            "threadId": 8
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 1,
+            "startTicks": 10126538636,
+            "endTicks": 10131395700,
+            "threadId": 6
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 3,
+            "startTicks": 10131942921,
+            "endTicks": 10136823060,
+            "threadId": 12
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "startTicks": 10136826311,
+            "endTicks": 10141697592,
+            "threadId": 11
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 0,
+            "startTicks": 10141700758,
+            "endTicks": 10146562530,
+            "threadId": 9
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 1,
+            "startTicks": 10146565834,
+            "endTicks": 10151424026,
+            "threadId": 10
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 3,
+            "startTicks": 10151949546,
+            "endTicks": 10156837315,
+            "threadId": 16
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 1,
+            "startTicks": 10156840636,
+            "endTicks": 10161701693,
+            "threadId": 14
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "startTicks": 10161704879,
+            "endTicks": 10166694513,
+            "threadId": 15
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 0,
+            "startTicks": 10166697988,
+            "endTicks": 10171546256,
+            "threadId": 13
+          }
+        ],
+        "clockFrequency": 10000000,
+        "afterExecution": {
+          "privateBytes": 108232704,
+          "virtualBytes": 309985280,
+          "workingSet": 49221632
+        },
+        "afterDispose": {
+          "privateBytes": 39837696,
+          "virtualBytes": 241762304,
+          "workingSet": 48476160
+        }
+      },
+      "route": "TerrainTextureAtlas",
+      "timeout": false,
+      "exitCode": 0
+    },
+    {
+      "mode": "isolated",
+      "passed": true,
+      "result": {
+        "status": "passed",
+        "route": "TerrainTextureAtlas",
+        "mode": "isolated",
+        "sourceCommit": "0dc6027b0eac86f79bc6e72f6f8bfff12e1e402c",
+        "runId": "41071696527",
+        "coreOwner": "D:\\a\\_temp\\texture-parallel-c3029a0cf74e4ced8cf48ff16131ff2c\\oracle\\NewModCompiler.exe",
+        "beforeInitialize": {
+          "privateBytes": 13385728,
+          "virtualBytes": 165617664,
+          "workingSet": 14860288
+        },
+        "afterInitialize": {
+          "privateBytes": 82972672,
+          "virtualBytes": 253661184,
+          "workingSet": 19972096
+        },
+        "baseline": [
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 0,
+            "inputSha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+            "buffers": [
+              "fdd6424afc94bc2731df3a0ee2f2cba14ca55eab1216678b92c7dfb0d8fe3429",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 1,
+            "inputSha256": "116e7886952d6cd293303e143ee8ea86272d14a271335a57e701f9c3ae91c7e9",
+            "buffers": [
+              "89f100a22c47bf3339bdf074feee05103273a1ceb7c819ae7cec3281ab3bbc73",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "inputSha256": "27071310714ba2e69a095fb558a32232caee6b74a512ba46b476d8ff6f6a8b56",
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 3,
+            "inputSha256": "9016508bb249f9ff0a2e013e99362b24e2d9d08af3d0cd60090f6a139c733c92",
+            "buffers": [
+              "c0e0aa4cff02e44e268fee8b3e1506312da81a7efc86452bceb2448ced4fb0af",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          }
+        ],
+        "afterSerialBaseline": {
+          "privateBytes": 93884416,
+          "virtualBytes": 299999232,
+          "workingSet": 33480704
+        },
+        "isolatedModules": [
+          {
+            "index": 0,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\TerrainTextureAtlas-isolated\\module0\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 164495360,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          },
+          {
+            "index": 1,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\TerrainTextureAtlas-isolated\\module1\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 266272768,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          },
+          {
+            "index": 2,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\TerrainTextureAtlas-isolated\\module2\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 337772544,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          },
+          {
+            "index": 3,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\TerrainTextureAtlas-isolated\\module3\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 408223744,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          }
+        ],
+        "afterIsolatedInitialize": {
+          "privateBytes": 371273728,
+          "virtualBytes": 581332992,
+          "workingSet": 37097472
+        },
+        "rounds": [
+          {
+            "round": 0,
+            "wallTicks": 7893989
+          },
+          {
+            "round": 1,
+            "wallTicks": 7804078
+          },
+          {
+            "round": 2,
+            "wallTicks": 7728028
+          }
+        ],
+        "comparisons": [
+          {
+            "round": 0,
+            "index": 0,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "fdd6424afc94bc2731df3a0ee2f2cba14ca55eab1216678b92c7dfb0d8fe3429",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 1,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "89f100a22c47bf3339bdf074feee05103273a1ceb7c819ae7cec3281ab3bbc73",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 2,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 3,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "c0e0aa4cff02e44e268fee8b3e1506312da81a7efc86452bceb2448ced4fb0af",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 0,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "fdd6424afc94bc2731df3a0ee2f2cba14ca55eab1216678b92c7dfb0d8fe3429",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 1,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "89f100a22c47bf3339bdf074feee05103273a1ceb7c819ae7cec3281ab3bbc73",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 2,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 3,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "c0e0aa4cff02e44e268fee8b3e1506312da81a7efc86452bceb2448ced4fb0af",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 0,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "fdd6424afc94bc2731df3a0ee2f2cba14ca55eab1216678b92c7dfb0d8fe3429",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 1,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "89f100a22c47bf3339bdf074feee05103273a1ceb7c819ae7cec3281ab3bbc73",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 2,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 3,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "c0e0aa4cff02e44e268fee8b3e1506312da81a7efc86452bceb2448ced4fb0af",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          }
+        ],
+        "maximumConcurrency": 4,
+        "calls": [
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 3,
+            "startTicks": 10193923658,
+            "endTicks": 10201661753,
+            "threadId": 8
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 1,
+            "startTicks": 10193922459,
+            "endTicks": 10201690404,
+            "threadId": 6
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 0,
+            "startTicks": 10193923657,
+            "endTicks": 10201738619,
+            "threadId": 5
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "startTicks": 10193924634,
+            "endTicks": 10201757660,
+            "threadId": 7
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 3,
+            "startTicks": 10202321522,
+            "endTicks": 10209938097,
+            "threadId": 12
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 1,
+            "startTicks": 10202323078,
+            "endTicks": 10210073557,
+            "threadId": 10
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "startTicks": 10202321987,
+            "endTicks": 10210102724,
+            "threadId": 11
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 0,
+            "startTicks": 10202322376,
+            "endTicks": 10210107242,
+            "threadId": 9
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 1,
+            "startTicks": 10210631765,
+            "endTicks": 10218110682,
+            "threadId": 14
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 3,
+            "startTicks": 10210632572,
+            "endTicks": 10218212810,
+            "threadId": 16
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "startTicks": 10210631140,
+            "endTicks": 10218332531,
+            "threadId": 15
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 0,
+            "startTicks": 10210629342,
+            "endTicks": 10218341417,
+            "threadId": 13
+          }
+        ],
+        "clockFrequency": 10000000,
+        "afterExecution": {
+          "privateBytes": 389910528,
+          "virtualBytes": 691634176,
+          "workingSet": 58892288
+        },
+        "afterDispose": {
+          "privateBytes": 47960064,
+          "virtualBytes": 350539776,
+          "workingSet": 55296000
+        }
+      },
+      "route": "TerrainTextureAtlas",
+      "timeout": false,
+      "exitCode": 0
+    },
+    {
+      "mode": "locked",
+      "passed": true,
+      "result": {
+        "status": "passed",
+        "route": "mixed",
+        "mode": "locked",
+        "sourceCommit": "0dc6027b0eac86f79bc6e72f6f8bfff12e1e402c",
+        "runId": "41071696527",
+        "coreOwner": "D:\\a\\_temp\\texture-parallel-c3029a0cf74e4ced8cf48ff16131ff2c\\oracle\\NewModCompiler.exe",
+        "beforeInitialize": {
+          "privateBytes": 13299712,
+          "virtualBytes": 165617664,
+          "workingSet": 14770176
+        },
+        "afterInitialize": {
+          "privateBytes": 83030016,
+          "virtualBytes": 253698048,
+          "workingSet": 19894272
+        },
+        "baseline": [
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "inputSha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "inputSha256": "116e7886952d6cd293303e143ee8ea86272d14a271335a57e701f9c3ae91c7e9",
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "inputSha256": "27071310714ba2e69a095fb558a32232caee6b74a512ba46b476d8ff6f6a8b56",
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "inputSha256": "9016508bb249f9ff0a2e013e99362b24e2d9d08af3d0cd60090f6a139c733c92",
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          }
+        ],
+        "afterSerialBaseline": {
+          "privateBytes": 91901952,
+          "virtualBytes": 300101632,
+          "workingSet": 31444992
+        },
+        "rounds": [
+          {
+            "round": 0,
+            "wallTicks": 12672002
+          },
+          {
+            "round": 1,
+            "wallTicks": 12537236
+          },
+          {
+            "round": 2,
+            "wallTicks": 12670566
+          }
+        ],
+        "comparisons": [
+          {
+            "round": 0,
+            "index": 0,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 1,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "round": 0,
+            "index": 2,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 3,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 0,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 1,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "round": 1,
+            "index": 2,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 3,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 0,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 1,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "round": 2,
+            "index": 2,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 3,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          }
+        ],
+        "maximumConcurrency": 1,
+        "calls": [
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "startTicks": 10233493166,
+            "endTicks": 10238361317,
+            "threadId": 7
+          },
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "startTicks": 10238364684,
+            "endTicks": 10240944940,
+            "threadId": 5
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "startTicks": 10240948392,
+            "endTicks": 10243486391,
+            "threadId": 8
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "startTicks": 10243489449,
+            "endTicks": 10246107632,
+            "threadId": 6
+          },
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "startTicks": 10246306770,
+            "endTicks": 10248843174,
+            "threadId": 7
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "startTicks": 10248846189,
+            "endTicks": 10251387560,
+            "threadId": 11
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "startTicks": 10251391472,
+            "endTicks": 10253933860,
+            "threadId": 9
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "startTicks": 10253936323,
+            "endTicks": 10258830788,
+            "threadId": 10
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "startTicks": 10259012951,
+            "endTicks": 10261562276,
+            "threadId": 15
+          },
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "startTicks": 10261565480,
+            "endTicks": 10264236678,
+            "threadId": 12
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "startTicks": 10264240959,
+            "endTicks": 10269128615,
+            "threadId": 14
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "startTicks": 10269131927,
+            "endTicks": 10271670941,
+            "threadId": 13
+          }
+        ],
+        "clockFrequency": 10000000,
+        "afterExecution": {
+          "privateBytes": 97636352,
+          "virtualBytes": 310853632,
+          "workingSet": 38932480
+        },
+        "afterDispose": {
+          "privateBytes": 28815360,
+          "virtualBytes": 242614272,
+          "workingSet": 38227968
+        }
+      },
+      "route": "mixed",
+      "timeout": false,
+      "exitCode": 0
+    },
+    {
+      "mode": "isolated",
+      "passed": true,
+      "result": {
+        "status": "passed",
+        "route": "mixed",
+        "mode": "isolated",
+        "sourceCommit": "0dc6027b0eac86f79bc6e72f6f8bfff12e1e402c",
+        "runId": "41071696527",
+        "coreOwner": "D:\\a\\_temp\\texture-parallel-c3029a0cf74e4ced8cf48ff16131ff2c\\oracle\\NewModCompiler.exe",
+        "beforeInitialize": {
+          "privateBytes": 13373440,
+          "virtualBytes": 165617664,
+          "workingSet": 14835712
+        },
+        "afterInitialize": {
+          "privateBytes": 83107840,
+          "virtualBytes": 253689856,
+          "workingSet": 19947520
+        },
+        "baseline": [
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "inputSha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "inputSha256": "116e7886952d6cd293303e143ee8ea86272d14a271335a57e701f9c3ae91c7e9",
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "inputSha256": "27071310714ba2e69a095fb558a32232caee6b74a512ba46b476d8ff6f6a8b56",
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "inputSha256": "9016508bb249f9ff0a2e013e99362b24e2d9d08af3d0cd60090f6a139c733c92",
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          }
+        ],
+        "afterSerialBaseline": {
+          "privateBytes": 91942912,
+          "virtualBytes": 300093440,
+          "workingSet": 31473664
+        },
+        "isolatedModules": [
+          {
+            "index": 0,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\mixed-isolated\\module0\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 178520064,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          },
+          {
+            "index": 1,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\mixed-isolated\\module1\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 265617408,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          },
+          {
+            "index": 2,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\mixed-isolated\\module2\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 337707008,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          },
+          {
+            "index": 3,
+            "Location": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture-parallel\\41071696527-1\\Debug\\mixed-isolated\\module3\\BinaryAssetBuilder.TextureCompiler.dll",
+            "nativeHandle": 407961600,
+            "FullName": "BinaryAssetBuilder.TextureCompiler, Version=1.0.3492.22451, Culture=neutral, PublicKeyToken=null"
+          }
+        ],
+        "afterIsolatedInitialize": {
+          "privateBytes": 369491968,
+          "virtualBytes": 581345280,
+          "workingSet": 35172352
+        },
+        "rounds": [
+          {
+            "round": 0,
+            "wallTicks": 6611287
+          },
+          {
+            "round": 1,
+            "wallTicks": 6322272
+          },
+          {
+            "round": 2,
+            "wallTicks": 6327671
+          }
+        ],
+        "comparisons": [
+          {
+            "round": 0,
+            "index": 0,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 1,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "round": 0,
+            "index": 2,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 0,
+            "index": 3,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 0,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 1,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "round": 1,
+            "index": 2,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 1,
+            "index": 3,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 0,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "7a16032c07035a8bda7a1edf3ab30f4c8e79e574c5b237bc2ecb6c795cf771a9",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 1,
+            "typeName": "OnDemandTexture",
+            "equal": true,
+            "buffers": [
+              "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "45d60baaff2385cf074a21f942cb44f99ef90501cf7664ef4c23ee5ef9a3527f"
+            ]
+          },
+          {
+            "round": 2,
+            "index": 2,
+            "typeName": "TerrainTextureAtlas",
+            "equal": true,
+            "buffers": [
+              "d8a348845489f4c8d9eb9a4ed688982086da746528478a5e971f672ec54bda09",
+              "c0a09fc0078bdc36046fd1d9e2911acb1d3646dcffe20b4b59f99c82b802d9ef",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          },
+          {
+            "round": 2,
+            "index": 3,
+            "typeName": "Texture",
+            "equal": true,
+            "buffers": [
+              "a922daa021865f66b78e546f1b0bd3afd03e38ecd143e1f349727418a12bbaa6",
+              "de90601ff97a17f261fa494b261e46bcbcf7ccc8a7859acc7054e1410b63013e",
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              null
+            ]
+          }
+        ],
+        "maximumConcurrency": 4,
+        "calls": [
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "startTicks": 10286658661,
+            "endTicks": 10290749603,
+            "threadId": 8
+          },
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "startTicks": 10286657474,
+            "endTicks": 10290821348,
+            "threadId": 5
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "startTicks": 10286658661,
+            "endTicks": 10290835944,
+            "threadId": 6
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "startTicks": 10286657307,
+            "endTicks": 10293204757,
+            "threadId": 7
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "startTicks": 10293400207,
+            "endTicks": 10297366259,
+            "threadId": 9
+          },
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "startTicks": 10293400665,
+            "endTicks": 10297380214,
+            "threadId": 6
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "startTicks": 10293401005,
+            "endTicks": 10297401807,
+            "threadId": 5
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "startTicks": 10293401732,
+            "endTicks": 10299708559,
+            "threadId": 8
+          },
+          {
+            "typeName": "Texture",
+            "index": 0,
+            "startTicks": 10299888838,
+            "endTicks": 10303830342,
+            "threadId": 10
+          },
+          {
+            "typeName": "OnDemandTexture",
+            "index": 1,
+            "startTicks": 10299890351,
+            "endTicks": 10303902398,
+            "threadId": 11
+          },
+          {
+            "typeName": "Texture",
+            "index": 3,
+            "startTicks": 10299889365,
+            "endTicks": 10303905584,
+            "threadId": 13
+          },
+          {
+            "typeName": "TerrainTextureAtlas",
+            "index": 2,
+            "startTicks": 10299890154,
+            "endTicks": 10306203078,
+            "threadId": 12
+          }
+        ],
+        "clockFrequency": 10000000,
+        "afterExecution": {
+          "privateBytes": 378175488,
+          "virtualBytes": 609988608,
+          "workingSet": 46895104
+        },
+        "afterDispose": {
+          "privateBytes": 35676160,
+          "virtualBytes": 268816384,
+          "workingSet": 45125632
+        }
+      },
+      "route": "mixed",
+      "timeout": false,
+      "exitCode": 0
+    }
+  ],
+  "sharedModuleReentry": "not-retested",
+  "exeSha256": "c10b0738437c5c9452ef46f2f6d6e48e55f502d02de02ad0103034446a229116",
+  "textureSha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+  "scope": "Win32 Texture DLL thread reentry experiment, not production certification",
+  "status": "isolation-passed",
+  "sourceCommit": "0dc6027b0eac86f79bc6e72f6f8bfff12e1e402c",
+  "runId": "41071696527",
+  "hostBound": true
+}
