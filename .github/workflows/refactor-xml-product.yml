@@ -57,7 +57,8 @@ jobs:
         run: |
           ./recovery/scripts/TestCompilerXmlSmoke.ps1 -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-xml-smoke/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: All 63 complete XML group differential matrices
-        if: ${{ !cancelled() && success() }}
+        # Tokenizer fixture-only follow-ups reuse the independent XML matrix run.
+        if: ${{ !cancelled() && success() && !contains(github.event.head_commit.message, '[plugin-tokenizers]') }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerXmlMatrices.ps1 -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-xml-matrices/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"

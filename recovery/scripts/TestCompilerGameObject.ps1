@@ -15,6 +15,7 @@ Push-Location $root
 try {
     $state.sourceCommit=(git rev-parse HEAD).Trim()
     $fixturePaths=@(
+        'recovery/tests/PluginSchemaBoundary.cs',
         'recovery/tests/GameObjectOracle.cs',
         'recovery/tests/GameObjectCases.cs',
         'recovery/tests/GameObjectKindOf.cs',
@@ -68,6 +69,7 @@ try {
     $sources=@($fixturePaths|ForEach-Object{(Resolve-Path $_).Path})
     $sources+=(Resolve-Path 'recovery/tests/GameObjectTranscript.cs').Path
     $state.fixtureInputs=@($sources|ForEach-Object{@{path=([IO.Path]::GetFullPath($_).Substring($root.Length+1).Replace('\','/'));sha256=(Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant()}})
+    $state.pluginSchemaInputs=@(Get-ChildItem "$root/SDK/Schemas/xsd" -Recurse -Filter *.xsd -File|Sort-Object FullName|ForEach-Object{@{path=$_.FullName.Substring($root.Length+1).Replace('\','/');sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
     # PointerStringLists reads schema data. Keep this separate from both DLL
     # directories so fixture data cannot introduce a business assembly search path.
     $fixtureData=Join-Path $work 'fixture-data'
@@ -79,7 +81,7 @@ try {
     $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
     $config='<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8"/></startup></configuration>'
     $originalHost=Join-Path $oracle 'GameObjectTranscriptOracle.exe'
-    & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /codepage:65001 /platform:x86 /define:GO_TRANSCRIPT_ORACLE /r:System.Xml.dll "/r:$oracle/BinaryAssetBuilder.Core.dll" "/out:$originalHost" $sources *> "$out/original-build.log"
+    & $csc /nologo /codepage:65001 /platform:x86 /define:GO_TRANSCRIPT_ORACLE /r:System.Xml.dll "/r:$oracle/BinaryAssetBuilder.Core.dll" "/out:$originalHost" $sources *> "$out/original-build.log"
     if($LASTEXITCODE -ne 0){Get-Content "$out/original-build.log";throw 'Original full GameObject transcript host compilation failed'}
     $config|Set-Content "$originalHost.config"
     $transcript=Join-Path $out 'original-gameobject.bin.gz'
@@ -99,7 +101,7 @@ try {
         $validationRun=Initialize-CompilerValidationRun (Join-Path $CompilerBuildDirectory $mode) $clean $mode $state.sourceCommit
         $exe=Join-Path $clean 'NewModCompiler.exe'
         $replayHost=Join-Path $clean 'GameObjectProductReplay.exe'
-        & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /codepage:65001 /platform:x86 /define:GO_TRANSCRIPT_PRODUCT /r:System.Xml.dll "/r:$exe" "/out:$replayHost" $sources *> "$out/$mode-build.log"
+        & $csc /nologo /codepage:65001 /platform:x86 /define:GO_TRANSCRIPT_PRODUCT /r:System.Xml.dll "/r:$exe" "/out:$replayHost" $sources *> "$out/$mode-build.log"
         if($LASTEXITCODE -ne 0){Get-Content "$out/$mode-build.log";throw "Product GameObject $mode replay host compilation failed"}
         $config|Set-Content "$replayHost.config"
         $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','GameObjectProductReplay.exe','GameObjectProductReplay.exe.config')
