@@ -413,7 +413,11 @@ Relo::Chunk CompileGameObject(const AttributeMap& attributes,const std::vector<G
         if(found==attributes.end()) {
             if(!f.fallback || RootScalarDefault(f.kind))continue;
             MarshalGameObjectRootField(f,std::string(f.fallback),root+f.offset,data);
-        } else MarshalGameObjectRootField(f,found->second,root+f.offset,data);
+        } else {
+            // Core/XSD can materialize the same defaults as explicit attributes.
+            if(f.fallback && RootScalarDefault(f.kind) && f.kind!=GameObjectValue::DurationDefault && found->second==f.fallback)continue;
+            MarshalGameObjectRootField(f,found->second,root+f.offset,data);
+        }
     }
     ReloString* displayNames[2]={nullptr,nullptr};
     // Original allocation order is schema order, independent of XML order.

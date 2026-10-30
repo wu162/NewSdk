@@ -88,7 +88,7 @@ void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,co
         auto found=input.attributes.find(f.name);if(found==input.attributes.end() && !f.fallback) continue;
         auto at=output+f.offset;
         if(f.scalarSize) {
-            if(found==input.attributes.end())std::memcpy(at,&f.defaultWord,f.scalarSize);
+            if(found==input.attributes.end() || (f.fallback && found->second==f.fallback))std::memcpy(at,&f.defaultWord,f.scalarSize);
             else DecodeModuleScalar(f,found->second,at);
             continue;
         }

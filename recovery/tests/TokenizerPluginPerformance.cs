@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
+using System.Xml.Schema;
 using BinaryAssetBuilder.Core;
 
 // Component measurement only: parsed, BAB-style annotated XML; no Core cache,
@@ -28,6 +29,18 @@ static class TokenizerPluginPerformance
             Namespaces = new XmlNamespaceManager(Document.NameTable);
             Namespaces.AddNamespace("ea", "uri:ea.com:eala:asset");
         }
+    }
+    static Fixture SchemaDefaults(string type)
+    {
+        var fixture = new Fixture(type == "GameObject" ? "gameobject-schema-defaults" : "weapon-schema-defaults", type, "", "", 4000);
+        var schemas = new XmlSchemaSet(); schemas.XmlResolver = new XmlUrlResolver();
+        schemas.Add(null, Path.GetFullPath("SDK/Schemas/xsd/CnC3Types.xsd")); schemas.Compile();
+        var definition = (XmlSchemaComplexType)schemas.GlobalTypes[new XmlQualifiedName(type, "uri:ea.com:eala:asset")];
+        if (definition == null) throw new Exception("Missing schema type " + type);
+        foreach (XmlSchemaAttribute attribute in definition.AttributeUses.Values)
+            if (attribute.DefaultValue != null && attribute.QualifiedName.Namespace.Length == 0)
+                fixture.Document.DocumentElement.SetAttribute(attribute.QualifiedName.Name, attribute.DefaultValue);
+        return fixture;
     }
     static Compile Load(string directory, string revision, string type)
     {
@@ -108,6 +121,8 @@ static class TokenizerPluginPerformance
             nuggets.Append("</Nuggets>");
             fixtures.Add(new Fixture("weapon-nuggets", "WeaponTemplate", "AttackRange='125' FireSound='sound\\5' Flags='LENGTH_SCATTER'", nuggets.ToString() +
                 "<ClipReloadTime MinSeconds='4s'/><FiringDuration MinSeconds='2s'/><PreAttackDelay MinSeconds='1s'/><CoolDownDelayBetweenShots MinSeconds='3s'/><OverrideVoiceAttackSound Sound='sound\\6'/><WeaponAiHintInfo MaxSpeedOfTarget='33.5'/><ScatterRadiusVsType Radius='1.25'><Filter Include='VEHICLE'/></ScatterRadiusVsType><IncompatibleAttributeModifier>modifier\\7</IncompatibleAttributeModifier>", 240));
+            fixtures.Add(SchemaDefaults("GameObject"));
+            fixtures.Add(SchemaDefaults("WeaponTemplate"));
             var original = (IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(Path.Combine(args[0], "BinaryAssetBuilder.Tokenizer.dll")).GetType("BinaryAssetBuilder.Tokenizer.Plugin", true));
             using (var csv = new StreamWriter(args[1], false, new UTF8Encoding(false))) {
                 csv.WriteLine("fixture,revision,round,iterations,milliseconds,managedAllocatedBytes,gen0,gen1,gen2");
@@ -134,7 +149,7 @@ static class TokenizerPluginPerformance
                     }
                 }
             }
-            Console.WriteLine("PASS original/before/after three-buffer equivalence for all five fixtures, both byte orders; five paired Win32 rounds.");
+            Console.WriteLine("PASS original/before/after three-buffer equivalence for all seven fixtures, both byte orders; five paired Win32 rounds.");
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }

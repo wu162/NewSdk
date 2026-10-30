@@ -576,7 +576,7 @@ void MarshalNonDamageNugget(const WeaponNuggetInput& src,BaseNugget* base,Relo::
             if(!field.fallback && found==src.attributes.end())continue;
             auto at=reinterpret_cast<unsigned char*>(base)+field.offset;
             if(field.scalarSize) {
-                U32 word=found==src.attributes.end()?field.defaultWord:DecodeNuggetScalar(field,found->second);
+                U32 word=(found==src.attributes.end() || (field.fallback && found->second==field.fallback))?field.defaultWord:DecodeNuggetScalar(field,found->second);
                 std::memcpy(at,&word,field.scalarSize);continue;
             }
             std::string fallback;if(found==src.attributes.end())fallback=field.fallback;
@@ -725,7 +725,7 @@ void MarshalDamage(const WeaponNuggetInput& input,DamageNugget& object,Relo::Tra
         if(found==input.attributes.end() && !field.fallback)continue;
         auto at=reinterpret_cast<unsigned char*>(&object)+field.offset;
         if(field.scalarSize) {
-            U32 word=found==input.attributes.end()?field.defaultWord:DecodeNuggetScalar(field,found->second);
+            U32 word=(found==input.attributes.end() || (field.fallback && found->second==field.fallback))?field.defaultWord:DecodeNuggetScalar(field,found->second);
             std::memcpy(at,&word,field.scalarSize);
         } else if(found==input.attributes.end())MarshalReference(data,at,std::string(field.fallback));
         else MarshalReference(data,at,found->second);

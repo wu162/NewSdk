@@ -297,6 +297,7 @@ Relo::Chunk CompileWeapon(const AttributeMap& attributes,
         if(field.value==WeaponValue::Absent)continue;
         auto found=attributes.find(field.name);
         if(found==attributes.end() && (!field.fallback || WeaponScalarDefault(field.value)))continue;
+        if(found!=attributes.end() && field.fallback && WeaponScalarDefault(field.value) && found->second==field.fallback)continue;
         std::string fallback;if(found==attributes.end())fallback=field.fallback;
         const std::string& text=found==attributes.end()?fallback:found->second;
         auto at=root->bytes+field.offset;
