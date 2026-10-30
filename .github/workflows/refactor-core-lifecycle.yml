@@ -178,6 +178,8 @@ jobs:
           $receipt=Get-Content "recovery/evidence/refactor/core-lifecycle-deployment/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -Raw|ConvertFrom-Json
           $enabled=(@($receipt.modes).Count -eq 2 -and @($receipt.modes|Where-Object{$_.backendIntegrated -ne $true}).Count -eq 0)
           "cliEnabled=$($enabled.ToString().ToLowerInvariant())"|Add-Content $env:GITHUB_OUTPUT
+      # Plugin matrices share the freshly built products with all downstream
+      # Core/cache/SDK gates, including a real zero-exit process requirement.
       - name: Complete GameObject original byte and tokenizer matrices
         if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' && contains(github.event.head_commit.message, '[plugin-tokenizers]') }}
         shell: pwsh
