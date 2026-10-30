@@ -1,0 +1,9 @@
+PROBE public D3DX BC blockCases=1536 ddsCases=168 decodeBitMismatches=976 originalUnstable=0; diagnostic only, no production acceptance or NoOriginal claim
+POLICY flags=0 encodeMismatch=0 ddsWrapMismatch=86 ddsClampMismatch=93
+POLICY flags=10000 encodeMismatch=1156 ddsWrapMismatch=96 ddsClampMismatch=98
+POLICY flags=20000 encodeMismatch=983 ddsWrapMismatch=86 ddsClampMismatch=93
+POLICY flags=30000 encodeMismatch=1407 ddsWrapMismatch=96 ddsClampMismatch=98
+POLICY flags=40000 encodeMismatch=1512 ddsWrapMismatch=89 ddsClampMismatch=93
+POLICY flags=50000 encodeMismatch=1533 ddsWrapMismatch=96 ddsClampMismatch=98
+POLICY flags=60000 encodeMismatch=1518 ddsWrapMismatch=89 ddsClampMismatch=93
+POLICY flags=70000 encodeMismatch=1533 ddsWrapMismatch=96 ddsClampMismatch=98
