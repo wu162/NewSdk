@@ -92,15 +92,14 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
                 }
                 if($script:publicationEnabled){
                     Need ($body.publicationStatus -ceq $(if($StreamCount -eq 0){'NotPublished'}else{'PublishedDirectory'}) -and $body.publicationDirectory -ceq (Join-Path $destination 'published')) 'CLI publication receipt differs'
-                    Need (!(Test-Path -LiteralPath (Join-Path $destination ('.build/'+$body.buildId)))) 'Published CLI retained owned staging'
-                    Need (@(Get-ChildItem -LiteralPath $destination -Directory|Where-Object{$_.Name -like '.publish-*' -or $_.Name -like '.previous-*'}).Count -eq 0) 'CLI retained unlocked preparation/backup'
+                    Need (!(Test-Path -LiteralPath (Join-Path $destination '.build'))) 'Direct CLI build created the removed .build root'
                 }else{Need ($body.publicationStatus -ceq 'IsolatedStagingOnly') 'Historical runtime publication contract differs'}
                 Need ($body.executionMode -ceq 'InProcess') 'CLI claimed external execution'
             } elseif($Command -eq 'plan'){
                 Need (@($body.artifacts).Count -eq 0 -and $body.executionMode -ceq 'PlanOnly') 'Plan compiled assets'
             } else {
                 Need (@($body.artifacts).Count -eq 0) 'Failed/cancelled CLI accepted artifacts'
-                Need (!(Test-Path -LiteralPath (Join-Path $destination ('.build/'+$body.buildId)))) 'Failed/cancelled CLI retained this build staging'
+                Need (!(Test-Path -LiteralPath (Join-Path $destination '.build'))) 'Failed/cancelled CLI created the removed .build root'
             }
         }
         $entry.passed=$true;$entry.report=$body;$entry.eventCount=$rows.Count
@@ -384,8 +383,8 @@ try {
     Unchanged (Join-Path $sourceSdk 'Schemas/xsd') $schemaSnapshot
     Need ((Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config')) -ceq $configHash -and (Hash $probeFile) -ceq $probeHash) 'Original SDK inputs changed'
     $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus all three complete original UI entries, combined/cold byte equality and current original BAB four-stream/inline Texture DDS comparison; full SDK/cache acceptance remain separate'
-    if($script:publicationEnabled){$state.scope+='; transactional published generation first/replacement, occupied output, compilation failure/cancellation preserving old generation and same-path retry passed; injected late-output rollback remains the separate controlled App lifecycle group'}
-    if($reuse){$state.scope+='; current transactional publication acceptance was not performed; these current tests executed the explicitly recorded historical binarySourceCommit, not a rebuilt current candidate'}
+    if($script:publicationEnabled){$state.scope+='; direct same-path output, selection isolation, unrelated-file preservation, failure/cancellation retry and held unselected-output acceptance passed; injected late-output persistence is checked by controlled App contracts'}
+    if($reuse){$state.scope+='; current direct-output acceptance was not performed; these tests executed the explicitly recorded historical binarySourceCommit, not a rebuilt current candidate'}
     $global:LASTEXITCODE=0
 } catch {$state.error=$_.Exception.ToString();throw}
 finally {

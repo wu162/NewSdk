@@ -1,11 +1,3 @@
-# 当前：移除事务发布与整代 Staging（验证中）
-
-分支 `perf/direct-sdk-output`，基于 `recovery/legacy-sdk-cache` 的 `5c1843ae`。已删除 ArtifactPublisher/ArtifactPublication、LinkedOutputCache 事务、App 中未接入生产的 BuildAssetCache/SessionPackage 事务与相应测试。真实 BAB BuildAssetCache、SessionCache、输入身份和增量失效保留。
-
-Core 在 `published/<content>/<stream>/streams` 原地生成与复用四流；当前成功输出由 Core 回调收集，不扫描旧输出推断成功。BIG/SKUDEF 通过已有临时文件在最终目录逐文件替换；不再整体复制、哈希或回滚 MOD。会话直接使用原 BAB 目录和序列化，CDATA 按需导入，缓存持久化与诊断输出解耦。
-
-首轮 `a1f5a059` / Actions `41045720372`：本地五项 Python 预检、Windows Debug/Release App 合同和完整产品构建通过；生产矩阵因首次四流输出的父目录尚未创建时 File.Delete 抛异常而失败。该冷启动缺陷已集中修复，并补全旧测试的直接输出语义、删除未用指纹代码；下一批将重建并同机对比基线。未经验证的实现检查点，不能标为验收完成。禁止强推；后续先 PR，合入仍需用户批准。
-
 # 当前：有界热缓存扩展与失效/依赖计数（已验证，PR #23 待审）
 
 分支 `test/hot-cache-coverage`，基于 `8a6b7a70`。扩展三档 Armor 规模（32/256/2048 资产、4/32/128 文档），中档混合 Texture/PCM Audio/W3X，代表性缓存模式、压缩、jobs、BIG、等长同mtime编辑与输出/会话修复。单进程15秒、整轮120秒，不做全维度笛卡尔积。

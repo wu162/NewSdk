@@ -136,7 +136,7 @@ namespace NewModCompiler.Application
             {
                 files = new Dictionary<string, FileIdentity>(StringComparer.OrdinalIgnoreCase);
                 try { using (performance == null ? null : performance.Measure("identity.directory",true))
-                    foreach (FileIdentity file in FileIdentity.ReadDirectory(parent, false)) files.Add(file.Path, file); }
+                    foreach (FileIdentity file in FileIdentity.ReadDirectory(parent)) files.Add(file.Path, file); }
                 catch (DirectoryNotFoundException) { }
                 directories.Add(parent, files);
             }

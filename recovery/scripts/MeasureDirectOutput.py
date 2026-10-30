@@ -28,6 +28,19 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def validate_cache(cache, phase, label):
+    if phase == 'disabled':
+        need(not cache['sessionCache'] and cache['hits'] == cache['misses'] == 0,
+             label + ' did not disable the native caches')
+    elif phase == 'cold':
+        need(cache['sessionCache'] and cache['sessionPackageMisses'] > 0 and
+             cache['documentReuse'] == 0 and cache['instanceCompile'] > 0 and cache['hits'] == 0,
+             label + ' did not exercise a cold cache')
+    else:
+        need(cache['sessionPackageHits'] > 0 and cache['xmlParse'] == cache['instanceCompile'] == 0 and
+             cache['linkedStreamsRestored'] > 0, label + ' did not exercise hot document/four-stream reuse')
+
+
 def measure(args):
     need(os.name == 'nt', 'Windows process I/O counters are required')
     repo = Path(__file__).resolve().parents[2]
@@ -62,11 +75,17 @@ def measure(args):
                    '--out', str(destination), '--package-content', 'base', '--package-format', 'big',
                    '--include-additional=true', '--jobs=4', '--performance=summary',
                    '--bc=' + str(enabled).lower(), '--sc=' + str(enabled).lower()]
-        need(time.perf_counter() - started < args.budget, 'Benchmark budget exhausted')
+        remaining = args.budget - (time.perf_counter() - started)
+        need(remaining > 0, 'Benchmark budget exhausted')
         tick = time.perf_counter()
         with (evidence / 'stdout.log').open('wb') as stdout, (evidence / 'stderr.log').open('wb') as stderr:
             with subprocess.Popen(command, cwd=executables[engine].parent, stdout=stdout, stderr=stderr) as child:
-                child.wait(timeout=args.timeout)
+                try:
+                    child.wait(timeout=min(args.timeout, remaining))
+                except subprocess.TimeoutExpired:
+                    child.kill()
+                    child.wait()
+                    raise
                 elapsed = (time.perf_counter() - tick) * 1000
                 counters = IoCounters()
                 need(api.GetProcessIoCounters(int(child._handle), ctypes.byref(counters)), 'GetProcessIoCounters failed')
@@ -83,6 +102,7 @@ def measure(args):
         if scenario not in expected:
             expected[scenario] = packages
         need(packages == expected[scenario], label + ' BIG/SKUDEF bytes differ')
+        validate_cache(report['cache'], phase, label)
         entries = report['performance']['entries']
         row['publicationMs'] = sum(entry['totalMs'] for entry in entries if entry['name'] == 'stage.publish')
         row['packageMs'] = sum(entry['totalMs'] for entry in entries if entry['name'] == 'stage.package')

@@ -104,7 +104,9 @@ namespace NewModCompiler.Tests
                     Check(code==(success?ExitCode.Success:mode=="cancel"?ExitCode.Cancelled:ExitCode.Output),"Wrong packaging/finalization outcome for "+mode);
                 }
                 if(!success) {
-                    Check(File.ReadAllText(previous)=="previous","Failed BIG build replaced previous publication");
+                    Check(File.ReadAllText(previous)=="previous","Failed BIG build removed unrelated output");
+                    if(mode=="terminal" || mode=="close" || mode=="report")
+                        Check(File.Exists(Path.Combine(output,"published","package-mod_1.0.big")) && File.Exists(Path.Combine(output,"published","package-mod_1.0.skudef")),"Late diagnostic failure removed completed BIG/SKUDEF");
                     if(Directory.Exists(request.ReportPath))Directory.Delete(request.ReportPath);
                     using(var retry=new CancellationTokenSource())Check(Run(request,"success",retry)==ExitCode.Success,"Same-path BIG retry failed after "+mode);
                 }

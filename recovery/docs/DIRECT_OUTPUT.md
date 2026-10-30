@@ -31,7 +31,7 @@ Core 在流开始时登记所触及的流，在四流链接全部完成时接受
 | `Application/SessionPackage.cs` | 未接入生产的会话包包装、整包恢复/复制、候选与回滚。保留真实 BAB `SessionCache`。 |
 | `Application/CacheInputSnapshot.cs` | 上述未使用包装的整树指纹和扫描。 |
 | `BuildSession` | `.build/<BuildId>` 的创建/销毁；正式产物 Prepare/Commit/Complete/Rollback；缓存事务参与者调用；发布/缓存撤销逻辑与相应性能阶段。 |
-| `FileHashCache` | PublicationKey/PublicationReceipt、MatchesPublication/RecordPublished、通用收据入口、输出 inode 缓存。 |
+| `FileHashCache` | PublicationKey/PublicationReceipt、MatchesPublication/RecordPublished、通用收据入口、输出 inode 缓存，以及 FileIdentity.Stamp 和仅供已删除指纹使用的递归枚举。 |
 | `LegacyCacheStore` | candidate/previous/installed/backups、Stage/Commit/ConfirmPartial/Complete/Rollback、整树 CDATA 扫描和重复内容比较。使用小型 `CacheLock` 保持原会话目录的进程排他访问，无发布生命周期。 |
 | `Artifact` / `StreamContext` / `IBuildCacheCompiler` | 输出 SHA256、虚拟 BackingPath/Verified、StagingDirectory/CacheManagedBySession，以及 CommitCache/RollbackCache/CompleteCache。缓存接口仅报告实际统计。 |
 | 打包与协议 | `package.hash`、输出完整文件 SHA256、`publicationUnchanged`、发布回滚状态、Additional 整份快照复制。验证器在外部采集字节身份。 |

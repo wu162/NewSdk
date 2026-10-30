@@ -665,10 +665,10 @@ namespace NewModCompiler.Application
                 writer.Write(settings.DataRoot);
                 writer.Write(stableSortEnabled); writer.Write(usePrecompiled); writer.Write(forceSlowCleanup);
                 string config=Path.Combine(sdkRoot,"tools","BinaryAssetBuilder.exe.config");
-                var files = new List<FileIdentity> { FileIdentity.ReadDirectory(Path.GetDirectoryName(config),false).Single(file=>string.Equals(file.Path,config,StringComparison.OrdinalIgnoreCase)) };
+                var files = new List<FileIdentity> { FileIdentity.ReadDirectory(Path.GetDirectoryName(config)).Single(file=>string.Equals(file.Path,config,StringComparison.OrdinalIgnoreCase)) };
                 writer.Write(schemas.ContentIdentity);
                 string runtime = Path.GetDirectoryName(typeof(CoreStreamCompiler).Assembly.Location);
-                files.AddRange(FileIdentity.ReadDirectory(runtime,false).Where(file=>new[] {".exe",".dll",".config"}.Contains(Path.GetExtension(file.Path).ToLowerInvariant())));
+                files.AddRange(FileIdentity.ReadDirectory(runtime).Where(file=>new[] {".exe",".dll",".config"}.Contains(Path.GetExtension(file.Path).ToLowerInvariant())));
                 foreach (FileIdentity file in files.OrderBy(file=>file.Path,StringComparer.Ordinal))
                 {
                     writer.Write(file.Path); writer.Write(file.VolumeSerial); writer.Write(file.FileId); writer.Write(file.ChangeTime); writer.Write(file.LastWriteTime); writer.Write(file.Size);

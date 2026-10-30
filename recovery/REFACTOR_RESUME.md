@@ -1,3 +1,12 @@
+# 当前：移除事务发布与整代 Staging（验证中）
+
+分支 `perf/direct-sdk-output`，基于 `recovery/legacy-sdk-cache` 的 `5c1843ae`。已删除 ArtifactPublisher/ArtifactPublication、LinkedOutputCache 事务、App 中未接入生产的 BuildAssetCache/SessionPackage 事务与相应测试。真实 BAB BuildAssetCache、SessionCache、输入身份和增量失效保留。
+
+Core 在 `published/<content>/<stream>/streams` 原地生成与复用四流；当前成功输出由 Core 回调收集，不扫描旧输出推断成功。BIG/SKUDEF 通过已有临时文件在最终目录逐文件替换；不再整体复制、哈希或回滚 MOD。会话直接使用原 BAB 目录和序列化，CDATA 按需导入，缓存持久化与诊断输出解耦。
+
+首轮 `a1f5a059` / `41045720372` 的冷输出父目录错误已修。第二轮生产来源 `f6c3c009` / `41046820725`：Debug/Release App、完整 Win32 构建、Core 生命周期、原会话缓存、原资产缓存与 Audio/W3X 载荷矩阵已通过，同机36份 BIG/SKUDEF 配对计量原字节一致；其余步骤仍待终态，CLI/旧BIG路径断言在核对修正。当前进一步删除完全无调用的 FileIdentity.Stamp 和仅为已删指纹服务的递归枚举，最终二进制需要重建，不能把 f6 验收写成最终源码验收。禁止强推；PR #27 尚未合入。
+
+
 # 原 SDK 完整缓存恢复：交接
 
 本轮性能实现以 [RESUME](RESUME.md) 为当前入口：`codex/legacy-cache-completion` / PR #20，完整生产源码 `4ad5d0d9`，最终验收运行 `40836177604` 和同输入配对基准 `40837902446` 均已 success；当前实现与证据以 RESUME 为准。下面保留原缓存恢复及优化前证据；不能用旧源码通过结果代替新文件身份、哈希收据、BIG/发布复用和缓冲日志的验收。
