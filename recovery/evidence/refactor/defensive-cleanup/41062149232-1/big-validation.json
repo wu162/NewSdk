@@ -1,6 +1,6 @@
 {
   "sourceReceipt": "big-validation.json",
-  "fullReceiptSha256": "92dce52e31d65bdd4001154219d921f53c9f79a30f6c78854b6c0486d8e93f10",
+  "fullReceiptSha256": "5df1bc316a890578cb68624bc46e872cc939c8fd0ed5c397cc5c301e8d967bba",
   "archivePath": "direct-tests/big/validation.json",
   "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
   "runId": "41062149232",

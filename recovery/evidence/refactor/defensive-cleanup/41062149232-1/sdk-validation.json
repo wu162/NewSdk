@@ -1,6 +1,6 @@
 {
   "sourceReceipt": "sdk-validation.json",
-  "fullReceiptSha256": "0f4574234a10b1eb031ee3763c228797ee27d304aafa5daea91aab0ff50b667d",
+  "fullReceiptSha256": "f543dd447be7eeefb5c9f81a744e18e7a5acf0ad0941574864b642e0352ee212",
   "archivePath": "direct-tests/sdk/validation.json",
   "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
   "runId": "41062149232",

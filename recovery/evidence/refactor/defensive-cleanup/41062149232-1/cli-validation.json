@@ -1,6 +1,6 @@
 {
   "sourceReceipt": "cli-validation.json",
-  "fullReceiptSha256": "cf9fd4b1af2a308efef9d1dcd6f499d576d0773154a08ca1d55045b6d967b581",
+  "fullReceiptSha256": "0564f681f054f93588ac569fbb9e4e291311f1c07df71797da31df0d482eef92",
   "archivePath": "direct-tests/cli/validation.json",
   "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
   "runId": "41062149232",
