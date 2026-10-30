@@ -1,8 +1,8 @@
-# 当前：AudioFile 全设置并行与低预算（PR #30 合入验证中）
+# 当前：AudioFile 全设置并行与低预算（组合验收通过）
 
-基于 `recovery/legacy-sdk-cache` / `b89fbadb`，成果在 `perf/audiofile-parallel` / [PR #30](https://github.com/wu162/NewSdk/pull/30)。移除 AudioFile 的显式采样率和压缩诊断串行门槛，外部输入预算由 64 倍降至 4 倍，压缩提示以原子标记保持进程内一次。输入租约、CDATA 隔离及通用资源调度继续工作。
+[PR #30](https://github.com/wu162/NewSdk/pull/30) 已获用户批准合入 `recovery/legacy-sdk-cache`。成果在 `perf/audiofile-parallel`，现已同步目标分支 `d85b8c8c`（已合入的 PR #28）。保留其重复状态清理和预算估算，适配 AudioFile 测试；显式采样率及压缩诊断可并行，外部输入预算由 64 倍降至 4 倍，压缩提示进程内仅一次。
 
-源码/二进制/测试来源 `6c2f0869`，[41058436061](https://github.com/wu162/NewSdk/actions/runs/41058436061) **success**：Debug/Release 新构建，八种音频设置 worker 三缓冲/CDATA、64 生产缓存/jobs 用例、CLI/CtrlBreak、全部缓存组、完整 mymod 原 SDK 和五文件包通过；完整 Upheaval 22 样本原字节一致，均 0 错误/1859 原警告。原归档及两个发布 ZIP/十个运行文件已下载复算；14 份原收据身份见[摘要](evidence/refactor/audiofile-parallel/41058436061-1/summary.json)。上述是 AudioFile 独立分支验收；现已同步目标分支的 PR #28 清理，保留已删除的重复状态并适配测试，组合新构建待验收。未做新游戏内验收。见[实现与验证范围](docs/AUDIOFILE_PARALLEL.md)。禁止强推，未经用户批准不合并。
+组合源码/二进制/测试来源 `cc10391be67dda57c7efa7fc06256b99e9372d9a`，[41068958541](https://github.com/wu162/NewSdk/actions/runs/41068958541) **success**：Debug/Release 新构建，八种音频设置 worker 三缓冲/CDATA、64 生产缓存/jobs 用例、CLI/CtrlBreak、全部缓存组、完整 mymod 原 SDK 和五文件包通过；完整 Upheaval 22 样本原字节一致，均 0 错误/1859 原警告。新归档、两个发布 ZIP/十个运行文件均已下载复算；14 份原收据身份见[组合验收摘要](evidence/refactor/audiofile-parallel/41068958541-1/summary.json)。独立 AudioFile 分支的 `6c2f0869`/41058436061 证据作为历史保留。后续只补文档/证据，无新游戏内验收。详见[实现与验证范围](docs/AUDIOFILE_PARALLEL.md)。禁止强推。
 
 # 当前：冗余安全清理已合入（PR #28）
 

@@ -16,6 +16,10 @@ AudioFile 外部文件的调度预算由 `文件长度 × 64 + XML 估算` 改�
 - 64 个生产缓存/jobs 用例通过，其中 16 个冷态并行用例每次八个 AudioFile 均在 worker；冷热/修改/失败重试保持原字节。实际 CLI/CtrlBreak、原 BAB、缓存载荷与会话、完整 mymod 原 SDK 差分、BIG/Additional/SKUDEF 和独立五文件包全部通过。
 - 完整 Upheaval 22 个样本全部 0 错误、1859 原警告，BIG/SKUDEF 字节一致。冷态 1289 次 AudioFile 调用，jobs4 实际峰值 4；仍有 117 个未知插件和 10 个任务的一般准备预算回退。该验证比较同一新二进制的 jobs 档位，不用于推算修改前后的收益。
 
-171,240,197 字节[原归档](https://github.com/wu162/NewSdk/actions/runs/41058436061/artifacts/12979545672)已实际下载，SHA256 复算为 `7f821d56c940144c94f1d367c3426b34771bb6e92e9fa631a6c5d377d7e55ad2`，与 GitHub 元数据及上传日志一致。两个发布 ZIP 和十个运行文件均复算匹配。14 份原收据身份、组件原收据、生产矩阵及计量边界见[验收摘要](../evidence/refactor/audiofile-parallel/41058436061-1/summary.json)和[完整 MOD 计量](../evidence/refactor/audiofile-parallel/41058436061-1/measurement.md)。无新游戏内验收；[PR #30](https://github.com/wu162/NewSdk/pull/30) 待用户审查，未经批准不合并。
+171,240,197 字节[原归档](https://github.com/wu162/NewSdk/actions/runs/41058436061/artifacts/12979545672)已实际下载，SHA256 复算为 `7f821d56c940144c94f1d367c3426b34771bb6e92e9fa631a6c5d377d7e55ad2`，与 GitHub 元数据及上传日志一致。两个发布 ZIP 和十个运行文件均复算匹配。14 份原收据身份、组件原收据、生产矩阵及计量边界见[验收摘要](../evidence/refactor/audiofile-parallel/41058436061-1/summary.json)和[完整 MOD 计量](../evidence/refactor/audiofile-parallel/41058436061-1/measurement.md)。无新游戏内验收；用户随后已批准 [PR #30](https://github.com/wu162/NewSdk/pull/30) 合入。
 
-合入准备时已同步目标分支 `d85b8c8c`（PR #28），保留清理后的预算估算和调度实现，测试改用成功准备结果判断资格。上面的 `6c2f0869` 是独立分支验收；组合源码的新构建和回归待完成，不以旧结果冒充。
+合入准备时已同步目标分支 `d85b8c8c`（PR #28），保留清理后的预算估算和调度实现，测试改用成功准备结果判断资格。上面的 `6c2f0869` 是独立分支验收。
+
+组合源码/二进制/测试来源 `cc10391be67dda57c7efa7fc06256b99e9372d9a`，[Windows 41068958541](https://github.com/wu162/NewSdk/actions/runs/41068958541) **success**：Debug/Release 全量新构建、八种音频设置的 worker 三缓冲/CDATA、64 生产缓存/jobs 用例、CLI/CtrlBreak、原 BAB、缓存载荷/会话、完整 mymod、BIG/Additional/SKUDEF 和独立五文件部署均通过；完整 Upheaval 22 样本仍全部 0 错误/1859 原警告，输出原字节一致。
+
+新归档 167,579,889 字节已实际下载，SHA256 `13464d2e0bb1207538dd883fb86e3774f1ddcb0671901245a27970d9edf87adb` 与 GitHub 元数据匹配，两个发布 ZIP 和十个运行文件已复算匹配。[新摘要和 14 份原收据身份](../evidence/refactor/audiofile-parallel/41068958541-1/summary.json)、两配置组件原收据及[同候选 MOD 计量](../evidence/refactor/audiofile-parallel/41068958541-1/measurement.md)另行保存；旧收据不代替本次组合源码的新结果。用户已批准通过 PR #30 合入，禁止强推。
