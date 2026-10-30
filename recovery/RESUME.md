@@ -7,8 +7,8 @@
 - 在 `validation/texture-public-d3dx-bc` 继续适配固定 DirectXTex BC1/2/3：修正原surface-memory ABI的源指针/格式次序和源尺寸；文件量化使用原预舍入倒数、转整数前float存储；端点还原/调色板插值保留原存储顺序；最终float行饱和，固定系数表避免首次调用舍入模式改变常量。没有样本ID分派、gold查表或原版后端回调。
 - `598b9d10854d4c184e8a1e372a2068228c307949` / `41024955646` 完成真正360份原float对照（80差异）；`f1b3865db42201594ef9ef688275ccf1c8da6fb2` / `41025554191` 消除31条BC3回归，默认DDS差异323→7。
 - `6b12ff3c457a93a1a466eb09a4d9d2fab508af94` / [41026301123](https://github.com/wu162/NewSdk/actions/runs/41026301123) **probe-only**：1572默认DDS、360完整float平面、1536 XG块、18168文件块（含16632实际过滤块）在固定plain/dither策略全部逐字节匹配；D/R各296270063字节捕获SHA `b664deb00c0448bc77c7a7ef9b307aa3ece83581b560330f0647884f1811b13e`，原版重复稳定。旧168策略扫描仍为定位资料，不要求任意候选策略等于默认文件策略。
-- 当前实现 `ac6f8af69177ddeda86eb0b9abe09ed9798f7e2c` 再固定RGB/解码系数位模式，并将原版重复稳定性列为硬断言。本轮一次正式 `native-bc-files` [41027020522](https://github.com/wu162/NewSdk/actions/runs/41027020522) **completed/success**：完整D/R及逐次NoOriginal全部通过，捕获仍为同一296270063字节/SHA；完整归档、全部原/重复/固定候选记录、EOF和两份I386 DLL指纹已核对，见[验收收据](evidence/texture/handoffs/20261030-native-bc/acceptance.json)。仅补新组，复用64组件，未跑SDK/MOD。
-- 正式native-loader仍拒绝压缩DDS，候选ABI尚未进入生产六DLL包。详细来源、修正与剩余门槛见[压缩DDS专页](TEXTURE_PUBLIC_D3DX_BC.md)。旧失败/partial capture及原锚点保留，不作为float gold。
+- 本批已验收独立BC源码 `ac6f8af69177ddeda86eb0b9abe09ed9798f7e2c` 再固定RGB/解码系数位模式，并将原版重复稳定性列为硬断言。本轮一次正式 `native-bc-files` [41027020522](https://github.com/wu162/NewSdk/actions/runs/41027020522) **completed/success**：完整D/R及逐次NoOriginal全部通过，捕获仍为同一296270063字节/SHA；完整归档、全部原/重复/固定候选记录、EOF和两份I386 DLL指纹已核对，见[验收收据](evidence/texture/handoffs/20261030-native-bc/acceptance.json)。仅补新组，复用64组件，未跑SDK/MOD。
+- 恢复分支的正式native-loader仍拒绝压缩DDS，候选ABI尚未进入生产六DLL包。详细来源、修正与剩余门槛见[压缩DDS专页](TEXTURE_PUBLIC_D3DX_BC.md)。旧失败/partial capture及原锚点保留，不作为float gold。
 
 ## 当前继续实现：正式原生入口接入（未验证）
 
@@ -16,11 +16,11 @@
 
 已准备正式入口的完整矩阵：原14606文件全部保留，105压缩边界改为成功全字节对照，原两个缺层真实文件新增成功对照，另加1572完整BC文件；目标16180文件（1679压缩）、6860构造、19拒绝，三锁定视图/两RGBA/VM/所有权/NoOriginal不减。实际共享BuildNativeCopy的10组登记新增BC/私有头依赖。**这批源码、计数和接入尚未运行最终差分，不得标为支持或合入恢复分支。**
 
-集中工作流新增显式手动 `native_bc_build_only=true`，仅编译D/R六Native DLL、独立BC DLL及两个完整宿主，并检查依赖选择边界；收据另存native-bc-build/compilation.json，status compiled-only，不能用于复用组件成功。普通测试/SDK选择规则不变，也不新增自动入口。本轮不再次启动完整矩阵或SDK；先用此定向编译解除新静态链接阻塞，再交接下一批完整验收。
+该独立分支的集中工作流新增显式手动 `native_bc_build_only=true`，仅编译D/R六Native DLL、独立BC DLL及两个完整宿主，并检查依赖选择边界；收据另存native-bc-build/compilation.json，status compiled-only，不能用于复用组件成功。普通测试/SDK选择规则不变，也不新增自动入口。编译源码 `d7766971738a12f31e2ec67d01bf9c1b5c2a2f28` / [41029403480](https://github.com/wu162/NewSdk/actions/runs/41029403480) **completed/success**：D/R各六Native DLL+独立BC DLL均I386，两个验证宿主均编译成功，19项依赖选择边界检查通过，plan/validate均skipped。[编译收据](https://github.com/wu162/NewSdk/blob/01926aa11a6d0d5351334450f71fafe6117281f1/recovery/evidence/texture/native-bc-build/41029403480-1/compilation.json) status=compiled-only，differentialExecuted/noOriginalExecuted均false。首个96994fea的41029238956仅因YAML scalar失败、未编译，失败保留；上述修正run不冒充最终差分。源码与证据保存于独立分支，尚未合入恢复分支或生产包。
 
 ## 下一轮计划
 
-1. 先收取独立接入分支的编译诊断（若仍运行核对sourceCommit/runId）；编译通过仅解除构建阻塞。下一批稳定后通过同一集中入口执行实际受影响原生组的完整D/R/NoOriginal，保留SDK门槛；不得用旧组件或compiled-only跳过。
+1. 接入批次已通过构建，下一轮直接从 `validation/texture-native-bc-integration` 的 `TestTextureNativeLoader.ps1` / `TextureNativeLoaderOracle.cpp` 继续。集中入口显式 `force_groups=native-bc-files, native_bc_build_only=false, run_sdk=false, plan_only=false`（各为独立输入）；保留自动叠加的所有受影响原生组，不把force_groups当只跑指定组。执行16180文件/6860构造/19拒绝、完整D/R及逐次NoOriginal，并补齐共享NativeCopy的真实消费；compiled-only不能跳过任何组件门槛。
 2. 本批独立BC组件已闭环；保留 `ac6f8af6` / `41027020522` 的精确成功收据，未变输入不重复验收。已普通合入恢复分支 `989a89c2b9f8bb6a6cb845904f10e6815142d239`，未启用生产包。
 3. 接入实现继续保持独立分支；有构建或差分失败只修真实原因，全部必要消费者通过前不合入/启用。
 4. 新ABI正式进入生产包前，再在明确集成里程碑取得适用SDK证据。普通收尾不跑SDK/MOD；不扩展非PC。
