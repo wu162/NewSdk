@@ -80,6 +80,7 @@ void Diagnostic(unsigned char* original,const std::string& libs,const std::strin
   for(U policy=0;policy<8;++policy){std::array<unsigned char,16> output{};Check(encodeDds(output.data(),size,4,4,format,pixels.data(),64,policy<<16,0.5f,0)==0,"Candidate file encode");if(std::memcmp(encoded.data(),output.data(),size))++ddsEncodeMismatch[policy];if(std::memcmp(dither.data(),output.data(),size))++ddsDitherMismatch[policy];t.number(policy<<16);t.add(output.data(),size);}
   record(t);++ddsBlockCases;
  }
+ std::cout<<"PROBE completed file blocks="<<ddsBlockCases<<" decode="<<ddsDecodeMismatch<<" encode0="<<ddsEncodeMismatch[0]<<" dither30000="<<ddsDitherMismatch[3]<<std::endl;
  void* device=nullptr;Check(baseline.device(0,1,nullptr,0,nullptr,&device)==0&&device,"Diagnostic original device");
  for(auto shape:{std::array<U,2>{4,4},std::array<U,2>{4,8},std::array<U,2>{8,4},std::array<U,2>{8,8},std::array<U,2>{16,32},std::array<U,2>{32,16},std::array<U,2>{64,64}})for(U format:{1u,2u,3u})for(U pattern:{0u,1u,2u,31u}){
   U levels=1;for(U n=std::max(shape[0],shape[1]);n>1;n>>=1)++levels;

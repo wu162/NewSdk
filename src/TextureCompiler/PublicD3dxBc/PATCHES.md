@@ -110,3 +110,15 @@ accepted PublicDirectXTex source, recorded in PROVENANCE.json. The diagnostic
 adds all provided-level counts for30 small/NPOT/POT shapes through the actual
 file ABI. Its result remains pending; production compressed loading still rejects.
 XG compressed-to-raw now honors its explicit flag2 unpremultiplication bit.
+
+
+2904039f/41011903071 stopped in Debug on the5x3 default file input before
+completing the expanded matrix. The complete preceding file block captures
+show0 decode/no-dither/dither differences: the6 grey cases are fixed by the
+rounding-phase adaptation. This is not a passed matrix. The failure exposed
+triangle alpha accumulating a few ulps above1; current file encoding retains
+those finite floats as original D3DX does, with safe integer-conversion bounds,
+instead of clamping or rejecting an otherwise valid file. The current source
+also applies original toward-zero phases to file BC1/2 alpha dither and BC3
+A8 quantization, endpoint packing and bitmap diffusion. Full resource and
+NoOriginal acceptance remain pending; no production route is changed.

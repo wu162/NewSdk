@@ -88,7 +88,11 @@ static std::int32_t EncodeImage(void* blocks, std::int32_t blockPitch, U width, 
     // Validate the complete input before writing the first destination block.
     for (U y = 0; y < height; ++y) for (U x = 0; x < width * 4; ++x) {
         float v; std::memcpy(&v, input + std::size_t(y) * rgbaPitch + x * 4, 4);
-        if (!std::isfinite(v) || v < 0 || v > 1) return Invalid;
+        // Triangle accumulation can exceed1 by a few float ulps. D3DX's
+        // file encoder consumes that float directly (clamping only at its
+        // own quantization sites); pre-clamping changes endpoint/index ties.
+        // Keep integer conversions bounded even for direct hostile callers.
+        if (!std::isfinite(v) || (dds ? (v <= -65536 || v >= 65536) : (v < 0 || v > 1))) return Invalid;
     }
     for (U by = 0; by < height; by += 4) for (U bx = 0; bx < width; bx += 4) {
         float pixels[64];

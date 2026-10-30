@@ -775,6 +775,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC1(uint8_t* pBC, const XMVECTOR*
 
     HDRColorA Color[NUM_PIXELS_PER_BLOCK];
 
+    FileRounding alphaRounding(dds);
     if (flags & BC_FLAGS_DITHER_A)
     {
         float fError[NUM_PIXELS_PER_BLOCK] = {};
@@ -824,6 +825,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC1(uint8_t* pBC, const XMVECTOR*
         }
     }
 
+    alphaRounding.restore();
     auto pBC1 = reinterpret_cast<D3DX_BC1*>(pBC);
     EncodeBC1(pBC1, Color, true, threshold, flags, dds);
 }
@@ -873,6 +875,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC2(uint8_t* pBC, const XMVECTOR*
     pBC2->bitmap[0] = 0;
     pBC2->bitmap[1] = 0;
 
+    FileRounding alphaRounding(dds);
     float fError[NUM_PIXELS_PER_BLOCK] = {};
     for (size_t i = 0; i < NUM_PIXELS_PER_BLOCK; ++i)
     {
@@ -913,6 +916,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC2(uint8_t* pBC, const XMVECTOR*
         }
     }
 
+    alphaRounding.restore();
     // RGB part
 #ifdef COLOR_WEIGHTS
     if (!pBC2->bitmap[0] && !pBC2->bitmap[1])
@@ -991,6 +995,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR*
     float fMinAlpha = Color[0].a;
     float fMaxAlpha = Color[0].a;
 
+    FileRounding alphaRounding(dds);
     for (size_t i = 0; i < NUM_PIXELS_PER_BLOCK; ++i)
     {
         float fAlph = Color[i].a;
@@ -1032,6 +1037,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR*
         }
     }
 
+    alphaRounding.restore();
 #ifdef COLOR_WEIGHTS
     if (0.0f == fMaxAlpha)
     {
@@ -1060,9 +1066,11 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR*
     float fAlphaA, fAlphaB;
     OptimizeAlpha<false>(&fAlphaA, &fAlphaB, fAlpha, uSteps);
 
+    FileRounding endpointRounding(dds);
     const auto bAlphaA = static_cast<uint8_t>(static_cast<int32_t>(fAlphaA * 255.0f + 0.5f));
     const auto bAlphaB = static_cast<uint8_t>(static_cast<int32_t>(fAlphaB * 255.0f + 0.5f));
 
+    endpointRounding.restore();
     fAlphaA = static_cast<float>(bAlphaA) * (1.0f / 255.0f);
     fAlphaB = static_cast<float>(bAlphaB) * (1.0f / 255.0f);
 
@@ -1118,6 +1126,7 @@ _Use_decl_annotations_ void DirectX::D3DXEncodeBC3(uint8_t* pBC, const XMVECTOR*
     if (flags & BC_FLAGS_DITHER_A)
         memset(fError, 0x00, NUM_PIXELS_PER_BLOCK * sizeof(float));
 
+    FileRounding bitmapRounding(dds);
     for (size_t iSet = 0; iSet < 2; iSet++)
     {
         uint32_t dw = 0;

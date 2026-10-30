@@ -12,8 +12,8 @@
     },
     {
       "path": "BC.cpp",
-      "bytes": 38494,
-      "sha256": "ff199205504360c4b2ac9ab18b1d76e5239de624412ecf8626ad095a496d5f94"
+      "bytes": 38802,
+      "sha256": "b37ea828adce9e7004974c84aee35a4f2e31103ffab17a37afa035eb64b8ff8d"
     },
     {
       "path": "BC.h",
@@ -27,8 +27,8 @@
     },
     {
       "path": "TexturePublicBcApi.cpp",
-      "bytes": 7844,
-      "sha256": "64318e687bcf7c583467daf001322a76ed67c1a670bb936ec484b5de9b5bb713"
+      "bytes": 8187,
+      "sha256": "96206fb70cef5d4096db47c5ef1cb6f6f3473c990809758bc4d380193f5930c1"
     },
     {
       "path": "TexturePublicBcApi.def",
