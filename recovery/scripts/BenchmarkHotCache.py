@@ -17,6 +17,7 @@ from HotCacheReport import save
 from HotCacheWorkload import prepare, expand, apply_case
 
 LIMITS = {'common': (2100, 1920), 'full': (3600, 3360)}
+CALIBRATION_TARGET_MS = 10500
 
 
 class BudgetExhausted(TimeoutError):
@@ -117,6 +118,28 @@ def admission(row, report, case):
     return 'qualified', True, ''
 
 
+def tree_metadata(root):
+    """Use directory-entry metadata already returned by Win32 enumeration.
+
+    Path.rglob followed by repeated Path.stat calls opens every file again on
+    Python 3.12/Windows. No content hashes or per-file trace are needed here.
+    """
+    files, directories = {}, set()
+    pending = [(str(root), '')]
+    while pending:
+        directory, prefix = pending.pop()
+        with os.scandir(directory) as entries:
+            for entry in entries:
+                relative = prefix + entry.name
+                if entry.is_dir(follow_symlinks=False):
+                    directories.add(relative)
+                    pending.append((entry.path, relative + '/'))
+                elif entry.is_file(follow_symlinks=False):
+                    stamp = entry.stat(follow_symlinks=False)
+                    files[relative] = (stamp.st_size, stamp.st_mtime_ns)
+    return files, directories
+
+
 class Snapshot:
     """Replay one immutable warm baseline at original absolute paths.
 
@@ -130,12 +153,12 @@ class Snapshot:
         self.budget = budget
         self.dirty_source = set()
         self.indices = {}
+        self.directories = {}
         self.store.mkdir()
         for name, source in (('source', self.mod), ('output', self.destination)):
             budget.check()
             shutil.copytree(source, self.store / name)
-            self.indices[name] = {p.relative_to(source).as_posix(): (p.stat().st_size, p.stat().st_mtime_ns)
-                                  for p in source.rglob('*') if p.is_file()}
+            self.indices[name], self.directories[name] = tree_metadata(source)
         budget.check()
 
     def mark_changed(self, mutation):
@@ -145,23 +168,25 @@ class Snapshot:
     def restore(self):
         for name, target in (('source', self.mod), ('output', self.destination)):
             self.budget.check()
+            if name == 'source' and not self.dirty_source:
+                continue
             baseline = self.indices[name]
-            current = {p.relative_to(target).as_posix(): p for p in target.rglob('*') if p.is_file()}
+            current, directories = tree_metadata(target)
             for relative in current.keys() - baseline.keys():
-                current[relative].unlink()
+                (target / relative).unlink()
+            for relative in self.directories[name] - directories:
+                (target / relative).mkdir(parents=True, exist_ok=True)
             for index, (relative, stamp) in enumerate(baseline.items()):
                 if index % 256 == 0:
                     self.budget.check()
-                path = target / relative
-                observed = path.stat() if path.is_file() else None
                 forced = name == 'source' and relative in self.dirty_source
-                if forced or observed is None or (observed.st_size, observed.st_mtime_ns) != stamp:
+                if forced or current.get(relative) != stamp:
+                    path = target / relative
                     path.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(self.store / name / relative, path)
             # Empty added search roots can change resolver behavior too.
-            for directory in sorted((p for p in target.rglob('*') if p.is_dir()), reverse=True):
-                if not (self.store / name / directory.relative_to(target)).is_dir():
-                    directory.rmdir()
+            for relative in sorted(directories - self.directories[name], key=lambda p: p.count('/'), reverse=True):
+                (target / relative).rmdir()
         self.dirty_source.clear()
         self.budget.check()
 
@@ -242,6 +267,7 @@ class Runner:
 
 def calibrate(runner):
     budget, args, state = runner.budget, runner.args, runner.state
+    state['calibrationTargetMs'] = CALIBRATION_TARGET_MS
     partitions = args.initial_partitions
     for attempt in range(args.calibration_rounds):
         fixture = Path(args.work) / 'fixture'
@@ -266,7 +292,7 @@ def calibrate(runner):
             state['publishedBytes'] = hot[-1]['publishedBytes']
             return True
         # Measured ratio chooses a new common load; no fixed expansion multiplier.
-        partitions = max(partitions + 1, math.ceil(partitions * 12000 / max(1, minimum)))
+        partitions = max(partitions + 1, math.ceil(partitions * CALIBRATION_TARGET_MS / max(1, minimum)))
         if partitions > 64:
             break
     state['status'] = 'under_8s'
