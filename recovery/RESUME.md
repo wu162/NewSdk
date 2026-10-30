@@ -1,6 +1,8 @@
-# 当前：AudioFile 全设置并行与低预算（验证中）
+# 当前：AudioFile 全设置并行与低预算（已验收，PR #30 待审）
 
-基于 `recovery/legacy-sdk-cache` / `b89fbadb`，成果在 `perf/audiofile-parallel`。移除 AudioFile 的显式采样率和压缩诊断串行门槛，外部输入预算由 64 倍降至 4 倍，压缩提示以原子标记保持进程内一次。输入租约、CDATA 隔离及通用资源调度继续工作。八类音频组件和生产夹具已接入既有完整回归；本地 Python/SDK XSD 预检通过，Windows 新构建与验收待执行。见[实现与验证范围](docs/AUDIOFILE_PARALLEL.md)。禁止强推，未经用户批准不合并。
+基于 `recovery/legacy-sdk-cache` / `b89fbadb`，成果在 `perf/audiofile-parallel` / [PR #30](https://github.com/wu162/NewSdk/pull/30)。移除 AudioFile 的显式采样率和压缩诊断串行门槛，外部输入预算由 64 倍降至 4 倍，压缩提示以原子标记保持进程内一次。输入租约、CDATA 隔离及通用资源调度继续工作。
+
+源码/二进制/测试来源 `6c2f0869`，[41058436061](https://github.com/wu162/NewSdk/actions/runs/41058436061) **success**：Debug/Release 新构建，八种音频设置 worker 三缓冲/CDATA、64 生产缓存/jobs 用例、CLI/CtrlBreak、全部缓存组、完整 mymod 原 SDK 和五文件包通过；完整 Upheaval 22 样本原字节一致，均 0 错误/1859 原警告。原归档及两个发布 ZIP/十个运行文件已下载复算；14 份原收据身份见[摘要](evidence/refactor/audiofile-parallel/41058436061-1/summary.json)。后续仅补文档/证据，未做新游戏内验收。见[实现与验证范围](docs/AUDIOFILE_PARALLEL.md)。禁止强推，未经用户批准不合并。
 
 # 当前：插件重复 schema 校验已移除（验收通过，PR #26 待审）
 
