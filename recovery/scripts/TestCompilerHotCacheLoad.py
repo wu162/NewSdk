@@ -22,6 +22,54 @@ DOCUMENT_LEVELS = (8192, 16384, 32768)
 ASSETS_PER_DOCUMENT = 4
 
 
+def asset_hash(name):
+    """The existing FastHash ASCII arithmetic; only used to prepare valid IDs."""
+    data = name.lower().encode('ascii')
+    mask = 0xffffffff
+    value = len(data)
+    offset = 0
+    while offset + 4 <= len(data):
+        value = (value + int.from_bytes(data[offset:offset + 2], 'little')) & mask
+        value ^= ((int.from_bytes(data[offset + 2:offset + 4], 'little') ^ (value << 5)) << 11) & mask
+        value = (value + (value >> 11)) & mask
+        offset += 4
+    tail = data[offset:]
+    if len(tail) == 3:
+        value = (value + int.from_bytes(tail[:2], 'little')) & mask
+        value ^= (((tail[2] << 2) ^ value) << 16) & mask
+        value = (value + (value >> 11)) & mask
+    elif len(tail) == 2:
+        value = (value + int.from_bytes(tail, 'little')) & mask
+        value ^= (value << 11) & mask
+        value = (value + (value >> 17)) & mask
+    elif tail:
+        value = (value + tail[0]) & mask
+        value ^= (value << 10) & mask
+        value = (value + (value >> 1)) & mask
+    value ^= (value << 3) & mask
+    value = (value + (value >> 5)) & mask
+    value ^= (value << 2) & mask
+    value = (value + (value >> 15)) & mask
+    return value ^ ((value << 10) & mask)
+
+
+class AssetNames:
+    def __init__(self):
+        self.names, self.hashes, self.cursor, self.skipped = [], set(), 0, 0
+
+    def extend(self, count):
+        while len(self.names) < count:
+            name = 'Load' + hashlib.sha256(str(self.cursor).encode('ascii')).hexdigest()[:12]
+            self.cursor += 1
+            identity = asset_hash(name)
+            if identity in self.hashes:
+                self.skipped += 1
+                continue
+            self.hashes.add(identity)
+            self.names.append(name)
+        return self.names
+
+
 def prepare_runtime(repo, work):
     # Production inputs are unchanged: reuse the exact already accepted bytes.
     subprocess.run(['git', '-C', str(repo), 'merge-base', '--is-ancestor', BINARY_SOURCE, 'HEAD'], check=True)
@@ -46,19 +94,22 @@ def prepare_runtime(repo, work):
     return stage_runtime(build, BINARY_SOURCE, work / 'runtime')
 
 
-def grow_fixture(mod, previous, documents):
+def grow_fixture(mod, previous, documents, asset_names=None):
     """Append documents/assets; keep prior documents byte-identical for reuse."""
     need(0 <= previous < documents, 'Fixture must grow')
     data = mod / 'Data'
     data.mkdir(parents=True, exist_ok=True)
+    asset_names = asset_names or AssetNames()
+    names = asset_names.extend(documents * ASSETS_PER_DOCUMENT)
     for index in range(previous, documents):
-        assets = ''.join('<ArmorTemplate id="LoadArmor%06d" Default="72.5%%"/>' % asset
+        assets = ''.join('<ArmorTemplate id="%s" Default="72.5%%"/>' % names[asset]
                          for asset in range(index * ASSETS_PER_DOCUMENT, (index + 1) * ASSETS_PER_DOCUMENT))
         (data / ('armor-%05d.xml' % index)).write_text(declaration(assets), encoding='utf-8')
     includes = ''.join('<Include type="all" source="armor-%05d.xml"/>' % i for i in range(documents))
     (data / 'Mod.xml').write_text(declaration('<Includes>' + includes + '</Includes>'), encoding='utf-8')
     return {'documents': documents + 1, 'armorDocuments': documents,
             'assets': documents * ASSETS_PER_DOCUMENT, 'newDocuments': documents - previous,
+            'hashCollisionsSkipped': asset_names.skipped,
             'scope': 'Synthetic Armor document/asset scale, loose base stream; not full Upheaval or a complete MOD'}
 
 
@@ -162,9 +213,10 @@ def run(args):
             return content
 
         previous = 0
+        asset_names = AssetNames()
         for documents in DOCUMENT_LEVELS:
             remaining_timeout(started, args.budget, args.timeout)
-            fixture = grow_fixture(mod, previous, documents)
+            fixture = grow_fixture(mod, previous, documents, asset_names)
             previous = documents
             # Later warmups are incremental growth, not independent cold builds.
             baseline = sample(fixture, 'warmup')

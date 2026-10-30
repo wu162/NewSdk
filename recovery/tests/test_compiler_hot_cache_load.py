@@ -9,6 +9,13 @@ import TestCompilerHotCacheLoad as load
 
 
 class LoadChecks(unittest.TestCase):
+    def test_fixture_ids_respect_the_actual_case_insensitive_hash(self):
+        # These two names were rejected by the actual product in the first run.
+        self.assertEqual(load.asset_hash('LoadArmor001016'), 0xd5b4a3c1)
+        self.assertEqual(load.asset_hash('LoadArmor000008'), 0xd5b4a3c1)
+        names = load.AssetNames().extend(2048)
+        self.assertEqual(len({load.asset_hash(name) for name in names}), 2048)
+
     def test_requires_two_individual_samples_not_their_sum(self):
         self.assertFalse(load.meets_minimum([4.1, 4.2], 8))
         self.assertFalse(load.meets_minimum([8.1, 7.9], 8))
