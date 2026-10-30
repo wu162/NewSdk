@@ -8,9 +8,8 @@ using NewModCompiler.Diagnostics;
 
 namespace NewModCompiler.Application
 {
-    // Directory records are fetched once per parent. Public files include
-    // ChangeTime; immutable private four-stream snapshots survive hard-link
-    // creation without rereading their content merely because ChangeTime moved.
+    // Input identities are fetched once per parent. ChangeTime preserves
+    // invalidation for same-length edits with restored modification times.
     internal sealed class FileHashCache
     {
         internal int Reads { get; private set; }
@@ -42,7 +41,7 @@ namespace NewModCompiler.Application
         }
         internal string HashBase64(string path, byte[] contents)
         {
-            return Base64(Hash(Identity(Path.GetFullPath(path)), false, contents));
+            return Base64(Hash(Identity(Path.GetFullPath(path)), contents));
         }
         static string Base64(string hex)
         {
@@ -51,13 +50,13 @@ namespace NewModCompiler.Application
             return Convert.ToBase64String(bytes);
         }
 
-        internal string Hash(string path, bool immutable = false)
+        internal string Hash(string path)
         {
-            return Hash(Identity(Path.GetFullPath(path)), immutable);
+            return Hash(Identity(Path.GetFullPath(path)));
         }
-        string Hash(FileIdentity file, bool immutable, byte[] contents = null)
+        string Hash(FileIdentity file, byte[] contents = null)
         {
-            string key = Key(file, immutable), hash;
+            string key = Key(file), hash;
             if (used.TryGetValue(key, out hash)) {Reuses++;return hash;}
             if (!previous.TryGetValue(key, out hash))
             {
@@ -82,7 +81,7 @@ namespace NewModCompiler.Application
             FileIdentity file;
             if (!DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file))
                 return new BinaryAssetBuilder.Core.FileHashInfo();
-            string key = Key(file, false), hash;
+            string key = Key(file), hash;
             if (used.TryGetValue(key, out hash) || previous.TryGetValue(key, out hash))
             { used[key] = hash; Reuses++; }
             return new BinaryAssetBuilder.Core.FileHashInfo { Exists = true,
@@ -92,13 +91,11 @@ namespace NewModCompiler.Application
         internal void RememberCoreHash(string path, string contentHash)
         {
             var file = Identity(Path.GetFullPath(path));
-            string key = Key(file, false);
+            string key = Key(file);
             if (!used.ContainsKey(key) && !previous.ContainsKey(key)) { Reads++; BytesRead += file.Size; }
             used[key] = BitConverter.ToString(Convert.FromBase64String(contentHash)).Replace("-", "").ToLowerInvariant();
         }
 #endif
-        internal bool Exists(string path) { FileIdentity file; return DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file); }
-        internal long Size(string path) { return Identity(Path.GetFullPath(path)).Size; }
         internal IDictionary<string, string> SchemaIdentities(IEnumerable<string> paths)
         {
             // A new schema pass refreshes the metadata snapshot before any
@@ -108,77 +105,10 @@ namespace NewModCompiler.Application
             foreach (string path in paths)
             {
                 FileIdentity file;
-                result[path] = DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file) ? Key(file, false) : null;
+                result[path] = DirectoryEntries(Path.GetDirectoryName(path)).TryGetValue(path, out file) ? Key(file) : null;
             }
             return result;
         }
-        internal bool TryReceipt(string key,out string value)
-        {
-            if(used.TryGetValue(key,out value))return true;
-            if(!previous.TryGetValue(key,out value))return false;
-            used[key]=value;return true;
-        }
-        internal void Remember(string key,string value) {used[key]=value;}
-
-        static string PublicationKey(IList<Artifact> artifacts, string directory)
-        {
-            using (var bytes = new MemoryStream())
-            using (var writer = new BinaryWriter(bytes))
-            {
-                writer.Write(directory);
-                foreach (var artifact in System.Linq.Enumerable.OrderBy(artifacts, value => value.Path, StringComparer.Ordinal))
-                { writer.Write(artifact.Path); writer.Write(artifact.Kind); writer.Write(artifact.Size); writer.Write(artifact.Sha256); }
-                writer.Flush(); bytes.Position = 0;
-                using (var hash = SHA256.Create()) return "publication|v2|" + Convert.ToBase64String(hash.ComputeHash(bytes));
-            }
-        }
-        internal bool MatchesPublication(IList<Artifact> artifacts, string directory)
-        {
-            string receipt;
-            if (!TryReceipt(PublicationKey(artifacts, directory), out receipt)) return false;
-            var entries = new JavaScriptSerializer { MaxJsonLength = int.MaxValue }.Deserialize<PublicationReceipt>(receipt);
-            foreach (var entry in entries.Directories) if (FileIdentity.Stamp(entry.Key) != entry.Value) return false;
-            // One directory query validates all its files, including in-place
-            // writes. Directory stamps alone only detect topology changes.
-            var refreshed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (var entry in entries.Files)
-            {
-                string parent = Path.GetDirectoryName(entry.Key);
-                if (refreshed.Add(parent)) directories.Remove(parent);
-                FileIdentity file;
-                if (!DirectoryEntries(parent).TryGetValue(entry.Key, out file) || Key(file, false) != entry.Value) return false;
-            }
-            foreach (var artifact in artifacts) used[entries.Files[artifact.Path]] = artifact.Sha256.ToLowerInvariant();
-            return true;
-        }
-        sealed class PublicationReceipt
-        {
-            public PublicationReceipt() { }
-            public Dictionary<string, string> Directories { get; set; }
-            public Dictionary<string, string> Files { get; set; }
-        }
-        internal void RecordPublished(IList<Artifact> artifacts, string directory, bool unchanged)
-        {
-            if (unchanged) return;
-            string root = Path.GetFullPath(directory).TrimEnd('\\', '/'), prefix = root + Path.DirectorySeparatorChar;
-            var stale = new List<string>();
-            foreach (string parent in directories.Keys)
-                if (string.Equals(parent, root, StringComparison.OrdinalIgnoreCase) || parent.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-                    stale.Add(parent);
-            foreach (string parent in stale) directories.Remove(parent);
-            var entries = new PublicationReceipt { Directories = new Dictionary<string,string>(StringComparer.OrdinalIgnoreCase), Files = new Dictionary<string,string>(StringComparer.OrdinalIgnoreCase) };
-            foreach (var artifact in artifacts)
-            {
-                string key = Key(Identity(Path.GetFullPath(artifact.Path)), false);
-                entries.Files.Add(artifact.Path, key);
-                used[key] = artifact.Sha256.ToLowerInvariant();
-                for (string parent = Path.GetDirectoryName(artifact.Path); Paths.Contains(directory, parent); parent = Path.GetDirectoryName(parent))
-                    if (!entries.Directories.ContainsKey(parent)) entries.Directories[parent] = FileIdentity.Stamp(parent); else break;
-            }
-            if (!entries.Directories.ContainsKey(directory)) entries.Directories[directory] = FileIdentity.Stamp(directory);
-            Remember(PublicationKey(artifacts, directory), new JavaScriptSerializer { MaxJsonLength = int.MaxValue }.Serialize(entries));
-        }
-
         internal void Save()
         {
             bool same = previous.Count == used.Count;
@@ -206,19 +136,19 @@ namespace NewModCompiler.Application
             {
                 files = new Dictionary<string, FileIdentity>(StringComparer.OrdinalIgnoreCase);
                 try { using (performance == null ? null : performance.Measure("identity.directory",true))
-                    foreach (FileIdentity file in FileIdentity.ReadDirectory(parent, false)) files.Add(file.Path, file); }
+                    foreach (FileIdentity file in FileIdentity.ReadDirectory(parent)) files.Add(file.Path, file); }
                 catch (DirectoryNotFoundException) { }
                 directories.Add(parent, files);
             }
             return files;
         }
 
-        internal static string Key(FileIdentity file, bool immutable)
+        internal static string Key(FileIdentity file)
         {
             string identity = file.VolumeSerial.ToString("x16", CultureInfo.InvariantCulture) + "|" +
                 file.FileId.ToString("x16", CultureInfo.InvariantCulture) + "|" +
                 file.LastWriteTime.ToString("x16", CultureInfo.InvariantCulture) + "|" + file.Size.ToString("x16", CultureInfo.InvariantCulture);
-            return immutable ? "inode|" + identity : "path|" + file.Path.ToUpperInvariant() + "|" + identity + "|" +
+            return "path|" + file.Path.ToUpperInvariant() + "|" + identity + "|" +
                 file.ChangeTime.ToString("x16", CultureInfo.InvariantCulture);
         }
     }

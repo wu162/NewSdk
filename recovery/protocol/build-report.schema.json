@@ -125,8 +125,7 @@
         "required": [
           "Path",
           "Kind",
-          "Size",
-          "Sha256"
+          "Size"
         ],
         "properties": {
           "Path": {
@@ -141,10 +140,6 @@
           "Size": {
             "type": "integer",
             "minimum": 0
-          },
-          "Sha256": {
-            "type": "string",
-            "pattern": "^[0-9a-f]{64}$"
           }
         }
       }
@@ -166,15 +161,9 @@
     "publicationStatus": {
       "enum": [
         "NoCompilationRequested",
-        "IsolatedStagingOnly",
         "PublishedDirectory",
-        "NotPublished",
-        "RolledBack",
-        "RollbackFailed"
+        "NotPublished"
       ]
-    },
-    "publicationUnchanged": {
-      "type": "boolean"
     },
     "publicationDirectory": {
       "type": [

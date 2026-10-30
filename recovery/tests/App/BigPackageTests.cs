@@ -26,7 +26,7 @@ namespace NewModCompiler.Tests
             public IList<Artifact> Compile(StreamContext context,CancellationToken token)
             {
                 string stem=Path.GetFileNameWithoutExtension(context.Task.InputPath);
-                string prefix=Path.Combine(context.StagingDirectory,"streams","mods","fixture","data",context.Task.Content,stem);
+                string prefix=Path.Combine(context.OutputDirectory,"streams","mods","fixture","data",context.Task.Content,stem);
                 var result=new List<Artifact>();
                 foreach(string extension in new[]{".manifest",".bin",".imp",".relo"}) {
                     string path=prefix+extension;
@@ -44,7 +44,7 @@ namespace NewModCompiler.Tests
                     string path=Path.Combine(prefix,"cdata","00000000.11111111.22222222.33333333.cdata");Put(path,"custom");result.Add(new Artifact{Path=path,Kind="custom-data"});
                 }
                 // A stale unlisted file must never enter the archive.
-                Put(Path.Combine(context.StagingDirectory,"stale.asset"),"unlisted old data");
+                Put(Path.Combine(context.OutputDirectory,"stale.asset"),"unlisted old data");
                 if(Extra) {string path=prefix+".asset";Put(path,"unexpected");result.Add(new Artifact{Path=path,Kind="unexpected"});}
                 return result;
             }
@@ -104,13 +104,15 @@ namespace NewModCompiler.Tests
                     Check(code==(success?ExitCode.Success:mode=="cancel"?ExitCode.Cancelled:ExitCode.Output),"Wrong packaging/finalization outcome for "+mode);
                 }
                 if(!success) {
-                    Check(File.ReadAllText(previous)=="previous","Failed BIG build replaced previous publication");
+                    Check(File.ReadAllText(previous)=="previous","Failed BIG build removed unrelated output");
+                    if(mode=="terminal" || mode=="close" || mode=="report")
+                        Check(File.Exists(Path.Combine(output,"published","package-mod_1.0.big")) && File.Exists(Path.Combine(output,"published","package-mod_1.0.skudef")),"Late diagnostic failure removed completed BIG/SKUDEF");
                     if(Directory.Exists(request.ReportPath))Directory.Delete(request.ReportPath);
                     using(var retry=new CancellationTokenSource())Check(Run(request,"success",retry)==ExitCode.Success,"Same-path BIG retry failed after "+mode);
                 }
                 string published=Path.Combine(output,"published"),big=Path.Combine(published,"package-mod_1.0.big"),sku=Path.Combine(published,"package-mod_1.0.skudef");
-                Check(Directory.GetFiles(published,"*",SearchOption.AllDirectories).Length==2 && File.Exists(big) && File.Exists(sku),"BIG publication is not the exact two-file set");
-                Check(!File.Exists(previous),"Successful BIG replacement retained old files");
+                Check(File.Exists(big) && File.Exists(sku),"BIG publication is not the exact two-file set");
+                Check(File.ReadAllText(previous)=="previous","BIG packaging removed unrelated output");
                 string[] names=Names(big);
                 Check(names.Length==10 && names.Distinct(StringComparer.OrdinalIgnoreCase).Count()==10,"BIG duplicated/lost current artifacts or included stale files");
                 foreach(string extension in new[]{"manifest","bin","imp","relo"}) {
@@ -123,20 +125,11 @@ namespace NewModCompiler.Tests
                 var report=new JavaScriptSerializer().Deserialize<Dictionary<string,object>>(File.ReadAllText(request.ReportPath));
                 Check(new JavaScriptSerializer().Serialize(report["artifacts"]).Contains("package.big") && ((System.Collections.ICollection)report["artifacts"]).Count==2,"Report did not switch to the final package allowlist");
                 if(mode=="success") {
-                    string identities=Path.Combine(output,".file-identities.json");
-                    var serializer=new JavaScriptSerializer {MaxJsonLength=int.MaxValue};
-                    var saved=serializer.Deserialize<Dictionary<string,object>>(File.ReadAllText(identities));
-                    var entries=(Dictionary<string,object>)saved["entries"];
-                    Check(!entries.ContainsKey("package|v1"),"BIG build wrote a package cache receipt");
-                    // An obsolete receipt must never be read, even if malformed.
-                    entries["package|v1"]="obsolete BIG cache receipt: not JSON";
-                    File.WriteAllText(identities,serializer.Serialize(saved));
-                    using(var repeat=new CancellationTokenSource()) Check(Run(request,"success",repeat)==ExitCode.Success,"Repeated BIG build read the removed package cache");
-                    Check(packagePaths.Count==2 && packagePaths.All(path=>Paths.Contains(Path.Combine(output,".build"),path)),"Repeated BIG build reused published package files instead of packaging current streams");
-                    saved=serializer.Deserialize<Dictionary<string,object>>(File.ReadAllText(identities));
-                    Check(!((Dictionary<string,object>)saved["entries"]).ContainsKey("package|v1"),"Obsolete BIG package receipt survived normal cache maintenance");
-                    report=serializer.Deserialize<Dictionary<string,object>>(File.ReadAllText(request.ReportPath));
-                    Check((bool)report["publicationUnchanged"],"Normal publication no longer skips identical rebuilt BIG output");
+                    byte[] before=File.ReadAllBytes(big);
+                    using(var repeat=new CancellationTokenSource()) Check(Run(request,"success",repeat)==ExitCode.Success,"Repeated same-path BIG build failed");
+                    Check(packagePaths.Count==2 && packagePaths.All(path=>Path.GetDirectoryName(path)==published),"BIG/SKUDEF were not written directly in the final directory");
+                    Check(File.ReadAllBytes(big).SequenceEqual(before),"Repeated BIG bytes differ");
+
                 }
             }
             Put(Path.Combine(mod,"Data","Mod.xml"),"<AssetDeclaration/>");

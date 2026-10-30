@@ -71,7 +71,7 @@
 
 `--package-content base|apt|global-metadata` 或逗号组合仍提供原有的部分编译，旧名 `maps` 完全兼容。显式选择为空的可选组时继续保留上一代，不生成空 BIG；没有改变部分编译和完整打包机制。
 
-成功产物位于输出根的 `published` 目录；具体流文件路径和 SHA256 从 `build-report.json` 的 `artifacts` 获取。成功非空构建替换整个已发布目录，请勿手动放入需要长期保留的文件。受控失败、取消或发布故障会回滚上一代。
+成功产物位于输出根的 `published` 目录；本轮产物路径、类别和长度从 `build-report.json` 的 `artifacts` 获取。BIG/SKUDEF 在最终目录逐文件替换同名文件，Core 流文件保留用于增量复用。编译器不递归清空输出根，也不维护整个 MOD 的事务回滚；日志或报告失败仍报错，但保留已生成的文件。见[直接产物与目录说明](docs/DIRECT_OUTPUT.md)。
 
 ## 4. 包名、版本和附加文件
 
@@ -123,13 +123,13 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 ./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\Example" /sc:false /bc:false
 ```
 
-`/sc` 按原文档、文件依赖、定义和继承复用解析与中间结果；`/bc` 按原类型/实例哈希复用资产，包括三种 Texture 路由。修改、新增、删除 MOD 输入均交由原 Core 判断，不再将整个 SDK/MOD 内容指纹作为冷失效开关。最终链接和发布仍重新执行。
+`/sc` 按原文档、文件依赖、定义和继承复用解析与中间结果；`/bc` 按原类型/实例哈希复用资产，包括三种 Texture 路由。修改、新增、删除 MOD 输入均交由原 Core 判断，不再将整个 SDK/MOD 内容指纹作为冷失效开关。四流按原清单/流校验和原地复用；BIG 每次重新打包。
 
 `/csc:false` 使用原 `BinaryAssetBuilder.SessionCache.xml`，true 使用 `.xml.deflate`。默认会话目录为输出根，默认资产目录为输出根 `cache`，默认中间目录与旧 SDK 一样为输出根。`/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod` 可指定独立目录，支持读取原 SDK 格式；新宿主的 CDATA 状态保存在会话根 `.NewModCompiler/cdata`，可导入没有新侧车的旧目录。以上设置也可保存到项目预设。
 
-`/psc:true` 允许中止后保留已完成的会话工作，失败或取消仍返回失败/取消，且不发布部分 MOD。`/psc:false` 将会话更新跟随本次发布结果确认。`/fsc:true` 读取旧会话但不更新会话文件，资产与中间文件仍按原 Core 行为处理。`/atc:true` 即使复用中间资产也更新对应网络资产缓存文件的时间。详细实现与验证状态见 [原 SDK 缓存恢复说明](docs/LEGACY_INCREMENTAL_CACHE.md)。
+`/psc:true` 允许中止后保留已完成的会话工作，失败或取消仍返回失败/取消。`/psc:false` 不在失败流中保存部分会话；成功流的会话保存与日志/报告输出解耦。`/fsc:true` 读取旧会话但不更新会话文件，资产与中间文件仍按原 Core 行为处理。`/atc:true` 即使复用中间资产也更新对应网络资产缓存文件的时间。详细实现与验证状态见 [原 SDK 缓存恢复说明](docs/LEGACY_INCREMENTAL_CACHE.md)。
 
-BIG/SKUDEF 包缓存已移除；每次构建都会从本轮编译结果重新打包，`/sc`、`/bc` 不会跳过打包。若新包与已发布文件相同，通用发布流程仍可保留现有输出；失败或取消继续回滚。
+BIG/SKUDEF 包缓存已移除；每次构建都会从本轮编译结果重新打包，`/sc`、`/bc` 不会跳过打包。打包后直接替换同名最终文件，不做整包哈希或发布去重，也不回滚整个 MOD。
 
 资源搜索 `/dr`、`/data`、`/art`、`/audio` 保留原根与顺序，包含配置的外部资源根。清理时可删除选定缓存目录中的会话 XML/Deflate、其 `.old`、资产文件及 `.NewModCompiler` 状态；保留 `published` 可保留上一代正式产物。
 

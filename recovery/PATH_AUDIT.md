@@ -27,7 +27,7 @@
 - 诊断路径明确拒绝文件/目录类型冲突；CLI sink 故障改用真实持锁文件，目录参数拒绝和释放锁后同路径重试独立断言。
 - alias XInclude 由本地绝对路径构造 URI，不拼接 file://；真实 data/art/audio XInclude 增加中文、空格、#、%23 搜索根。
 - BuildSession 晚期报告/终态写入/关闭失败及后端吞 sink 异常会晚改 exit7，原先清理阶段已结束；现撤销已产物、清理拥有的 staging 并重写报告。四例均证明编译已成功再失败，当前 App 两配置通过；不能把 plan-only close 测试当作已编译产物清理证据。
-- Options 解析后 .build 被换成 MOD/SDK junction，曾导致先写输入再沿别名清理输入。现先获取真实 .build 祖先保护，原子创建全新 staging 后才标记所有权；不接管既有目录，失败只清理拥有的 staging，父保护覆盖晚期失败清理。MOD/SDK sentinel、未初始化后端及 existing-staging 保留测试在当前 App 两配置通过；不宣称完全消除了任意恶意并发文件系统竞态。
+- 本轮已移除 `.build` 和整代清理。BuildSession 固定实际 `published` 目录后才调用后端，Core 检查输出祖先；本次 App 验证仍检查解析后换成 MOD/SDK junction 时不进入后端、不写输入。失败只使实际触及的四流失效，不沿整代目录做递归清理。
 
 ## 已区分的未验边界
 

@@ -103,11 +103,11 @@ try {
                 $started=@($events|Where-Object{$_.eventType -ceq 'BuildStarted'})[0];Need ($started.payload.processId -eq $audit.processId) 'UI build PID differs from actual process'
                 Need (@($events|Where-Object{$_.eventType -ceq 'StreamStarted'}).Count -eq 3 -and @($events|Where-Object{$_.eventType -ceq 'StreamCompleted'}).Count -eq 3) 'UI actual stream event counts differ'
                 $sequence=0;foreach($event in $events){$sequence++;Need ($event.sequence -eq $sequence -and $event.buildId -ceq $report.buildId) 'UI event identity/sequence differs'}
-                $map=@{};$buildPrefix=Join-Path $destination ('.build/'+$report.buildId)
+                $map=@{};$buildPrefix=Join-Path $destination 'published'
                 foreach($artifact in $report.artifacts){
                     $relative=[IO.Path]::GetRelativePath($buildPrefix,$artifact.Path)
-                    Need (!$relative.StartsWith('..') -and ![IO.Path]::IsPathRooted($relative) -and !$map.ContainsKey($relative) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'UI artifact containment/identity differs'
-                    $map[$relative]=$artifact.Path;$caseState.artifacts+=,@{relativePath=$relative;path=$artifact.Path;bytes=$artifact.Size;sha256=$artifact.Sha256;archive=(Join-Path $caseOut ('output/.build/'+$report.buildId+'/'+$relative))}
+                    Need (!$relative.StartsWith('..') -and ![IO.Path]::IsPathRooted($relative) -and !$map.ContainsKey($relative) -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'UI artifact containment/identity differs'
+                    $map[$relative]=$artifact.Path;$caseState.artifacts+=,@{relativePath=$relative;path=$artifact.Path;bytes=$artifact.Size;sha256=(Hash $artifact.Path);archive=(Join-Path $caseOut ('output/published/'+$relative))}
                 }
                 $customCount=0;$inlineCount=0
                 foreach($task in $report.plan.Tasks){

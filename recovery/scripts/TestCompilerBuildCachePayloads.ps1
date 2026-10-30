@@ -76,6 +76,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
         Need ($audit.singleProcessJobEnforced -and $audit.singleProcessJobLimit -eq 1 -and @($audit.descendants).Count -eq 0) 'Asset cache introduced a product child process'
         if($Cancel){Need ($audit.signalSent -and $audit.freshEventsPathObserved -and $audit.streamStartedObserved -and $Expected -eq 6) 'Cache cancellation did not receive actual CtrlBreak'}
         $body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json
+        foreach($artifact in $body.artifacts){$artifact|Add-Member -NotePropertyName TestSha256 -NotePropertyValue (Hash $artifact.Path)}
         Need ($body.exitCode -eq $Expected) 'Cache process/report exit differs'
         $rows=@(Get-Content -LiteralPath $events|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})
         Need ($rows[-1].eventType -ceq 'BuildFinished' -and @($rows|Where-Object{$_.eventType -ceq 'BuildStarted'}).Count -eq 1 -and @($rows|Where-Object{$_.eventType -ceq 'BuildFinished'}).Count -eq 1) 'Cache CLI terminal protocol differs'
@@ -88,14 +89,14 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
             Need (@($body.artifacts|Where-Object{$_.Kind -ceq 'custom-data' -and [IO.Path]::GetExtension($_.Path) -ceq '.cdata'}).Count -eq $script:expectedCustomData) 'Payload fixture CustomData count differs'
             $published=Join-Path $Destination 'published'
             foreach($artifact in $body.artifacts){
-                Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
+                Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.TestSha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
                 $relative=[IO.Path]::GetRelativePath($published,$artifact.Path);$copy=Join-Path $archived $relative
                 New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($copy))|Out-Null
                 Copy-Item -LiteralPath $artifact.Path -Destination $copy;$files[$relative]=$copy
             }
         }else{Need (@($body.artifacts).Count -eq 0) 'Failed/cancelled cache build accepted artifacts'}
-        Need (!(Test-Path -LiteralPath (Join-Path $Destination ('.build/'+$body.buildId)))) 'Cache build retained owned staging'
-        Need (@(Get-ChildItem -LiteralPath $Destination -Directory|Where-Object{$_.Name -like '.cache-candidate-*'}).Count -eq 0) 'Asset-cache transaction retained its candidate directory'
+        Need (!(Test-Path -LiteralPath (Join-Path $Destination '.build'))) 'Direct build created the removed .build staging root'
+
         $entry.passed=$true;$entry.cache=$body.cache;$entry.buildId=$body.buildId
         return @{name=$Name;report=$body;files=$files;mod=$Mod;caseOut=$caseOut;destination=$Destination}
     }catch{

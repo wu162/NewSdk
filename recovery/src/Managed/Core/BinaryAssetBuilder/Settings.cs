@@ -16,12 +16,12 @@ public class Settings : ICloneable
     [XmlIgnore]
     public Action<string, long, bool> RecordPerformanceCounter { get; set; }
 
-	[XmlIgnore]
-	public Action<string> PrepareLinkedOutput { get; set; }
-	[XmlIgnore]
-	public Func<string, string> FindLinkedOutput { get; set; }
-	[XmlIgnore]
-	public Action<string, string> ReuseLinkedOutput { get; set; }
+    [XmlIgnore]
+    public Action<string> StreamOutputStarted { get; set; }
+    [XmlIgnore]
+    public Action<string, bool> StreamOutputCompleted { get; set; }
+    [XmlIgnore]
+    public Action<string> CustomDataOutput { get; set; }
 	[XmlIgnore]
 	public Func<string, FileHashInfo> FileIdentity { get; set; }
 	[XmlIgnore]
@@ -32,8 +32,6 @@ public class Settings : ICloneable
 	public Func<IEnumerable<string>, IDictionary<string, string>> SchemaFileIdentities { get; set; }
 	[XmlIgnore]
 	public Func<string, string> FindCustomData { get; set; }
-	[XmlIgnore]
-	public Action<string, string> ReuseCustomData { get; set; }
 
 	private string _SchemaPath;
 

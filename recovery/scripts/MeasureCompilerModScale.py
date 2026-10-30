@@ -143,8 +143,8 @@ def comparison_key(report, destination):
     for artifact in report['artifacts']:
         path = Path(artifact['Path'])
         need(path.is_relative_to(destination / 'published'), 'Published artifact escaped output root')
-        need(path.stat().st_size == artifact['Size'] and sha(path) == artifact['Sha256'], 'Reported output bytes differ')
-        found[path.relative_to(destination / 'published').as_posix().lower()] = (artifact['Size'], artifact['Sha256'])
+        need(path.stat().st_size == artifact['Size'], 'Reported output bytes differ')
+        found[path.relative_to(destination / 'published').as_posix().lower()] = (artifact['Size'], sha(path))
     need(found, 'No published artifacts')
     return found
 

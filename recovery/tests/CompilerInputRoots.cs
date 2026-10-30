@@ -47,7 +47,7 @@ public static class CompilerInputRoots
         string staging = Path.Combine(request.OutputRoot, name); Directory.CreateDirectory(staging);
         var task = new BuildTask { Id = "base/Mod", Content = "base", InputPath = Path.Combine(mod, "Data", "Mod.xml"), OutputName = "base/Mod", Reason = "InputRootsFixture", Dependencies = new string[0] };
         var context = new StreamContext();
-        foreach (var pair in new Dictionary<string, object> { { "BuildId", "input-roots-fixture" }, { "Request", request }, { "Task", task }, { "StagingDirectory", staging } })
+        foreach (var pair in new Dictionary<string, object> { { "BuildId", "input-roots-fixture" }, { "Request", request }, { "Task", task }, { "OutputDirectory", staging } })
             typeof(StreamContext).GetProperty(pair.Key).GetSetMethod(true).Invoke(context, new[] { pair.Value });
         return context;
     }

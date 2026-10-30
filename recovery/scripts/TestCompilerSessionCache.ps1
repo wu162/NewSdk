@@ -78,7 +78,7 @@ function PublishedTimes([string]$Destination){
 }
 function LinkedHot($Case,$Before){
     Need ($Case.report.cache.linkedStreamsRestored -gt 0) 'Hot build did not restore linked output'
-    Need ($Case.report.publicationUnchanged -eq $true) 'Byte-identical hot output was republished'
+
     if(@($Case.report.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq 0){Need ($Case.report.cache.fileHashReads -eq 0) 'Unchanged four-stream build reread complete files for SHA256'}
     $after=PublishedTimes $Case.destination
     Need ($after.Count -eq $Before.Count) 'Unchanged publication file set differs'
@@ -91,7 +91,7 @@ function LinkedHot($Case,$Before){
 function DamagePackage([string]$Destination,[string]$Kind){
     if($Kind -eq 'xml'){$paths=@(Join-Path $Destination 'BinaryAssetBuilder.SessionCache.xml')}
     elseif($Kind -eq 'intermediate'){$paths=@(Get-ChildItem -LiteralPath $Destination -Filter '*.asset' -File -Recurse|ForEach-Object FullName)}
-    elseif($Kind -eq 'cdata'){$paths=@(Get-ChildItem -LiteralPath (Join-Path $Destination '.NewModCompiler/cdata') -Filter '*.cdata' -File -Recurse|ForEach-Object FullName)}
+    elseif($Kind -eq 'cdata'){$paths=@(Get-ChildItem -LiteralPath $Destination -Filter '*.cdata' -File -Recurse|ForEach-Object FullName)}
     else{throw 'Unknown original cache corruption kind'}
     Need ($paths.Count -gt 0) "Original session omitted required $Kind data"
     $selected=@()
@@ -149,6 +149,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
         Need ($audit.singleProcessJobEnforced -and $audit.singleProcessJobLimit -eq 1 -and @($audit.descendants).Count -eq 0) 'Asset cache introduced a product child process'
         if($Cancel){Need ($audit.signalSent -and $audit.freshEventsPathObserved -and $audit.streamStartedObserved -and $Expected -eq 6) 'Cache cancellation did not receive actual CtrlBreak'}
         $body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json
+        foreach($artifact in $body.artifacts){$artifact|Add-Member -NotePropertyName TestSha256 -NotePropertyValue (Hash $artifact.Path)}
         Need ($body.exitCode -eq $Expected) 'Cache process/report exit differs'
         $rows=@(Get-Content -LiteralPath $events|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})
         Need ($rows[-1].eventType -ceq 'BuildFinished' -and @($rows|Where-Object{$_.eventType -ceq 'BuildStarted'}).Count -eq 1 -and @($rows|Where-Object{$_.eventType -ceq 'BuildFinished'}).Count -eq 1) 'Cache CLI terminal protocol differs'
@@ -160,14 +161,14 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
             Need ($body.publicationStatus -ceq 'PublishedDirectory' -and @($body.artifacts).Count -eq $script:expectedArtifacts) 'Session fixture did not publish exact stream/CDATAs count'
             $published=Join-Path $Destination 'published'
             foreach($artifact in $body.artifacts){
-                Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
+                Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.TestSha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
                 $relative=[IO.Path]::GetRelativePath($published,$artifact.Path);$copy=Join-Path $archived $relative
                 New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($copy))|Out-Null
                 Copy-Item -LiteralPath $artifact.Path -Destination $copy;$files[$relative]=$copy
             }
         }else{Need (@($body.artifacts).Count -eq 0) 'Failed/cancelled cache build accepted artifacts'}
-        Need (!(Test-Path -LiteralPath (Join-Path $Destination ('.build/'+$body.buildId)))) 'Cache build retained owned staging'
-        Need (@(Get-ChildItem -LiteralPath $Destination -Directory|Where-Object{$_.Name -like '.cache-candidate-*' -or $_.Name -like '.legacy-cache-candidate-*'}).Count -eq 0) 'Session-cache transaction retained its candidate directory'
+        Need (!(Test-Path -LiteralPath (Join-Path $Destination '.build'))) 'Direct build created the removed .build staging root'
+
         $entry.passed=$true;$entry.cache=$body.cache;$entry.buildId=$body.buildId
         return @{name=$Name;report=$body;files=$files;mod=$Mod;caseOut=$caseOut;destination=$Destination}
     }catch{
@@ -337,10 +338,10 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         foreach($path in $cacheTimes.Keys){Need ([IO.File]::GetLastWriteTimeUtc($path).Ticks -eq $cacheTimes[$path]) 'Hot build rewrote unchanged SessionCache or CDATA'}
         $plainBefore=PublishedTimes $plainOut
         $plainHot=RunCli 'disabled-hot-linked' $mod $plainOut $false;Cache $plainHot 'disabled';SameOutputs $plain $plainHot;LinkedHot $plainHot $plainBefore
-        $damagedLinked=Get-ChildItem -LiteralPath (Join-Path $cachedOut '.linked-streams') -Filter '*.imp' -Recurse -File|Select-Object -First 1
+        $damagedLinked=Get-ChildItem -LiteralPath (Join-Path $cachedOut 'published') -Filter '*.imp' -Recurse -File|Select-Object -First 1
         Remove-Item -LiteralPath $damagedLinked.FullName
         $repairedLinked=RunCli 'missing-linked-group' $mod $cachedOut $true;Cache $repairedLinked 'hot';SameOutputs $plain $repairedLinked
-        Need ($repairedLinked.report.publicationUnchanged -eq $true) 'Regenerating a missing linked group changed published bytes'
+
         OriginalOracle $hot 'original-initial'
         $combinedOut=Join-Path $modeWork 'both'
         $combinedCold=RunCli 'combined-sc-bc-cold' $mod $combinedOut $true -BuildEnabled $true;SameOutputs $plain $combinedCold
@@ -399,13 +400,12 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $afterCancel=RunCli 'retry-after-actual-cancel' $mod $cachedOut $true;SameOutputs $plain $afterCancel
         $held=@($afterCancel.report.artifacts)[0].Path
         $lockedHot=RunCli 'unchanged-locked-output' $mod $cachedOut $true 0 $false $held;SameOutputs $plain $lockedHot
-        Need ($lockedHot.report.publicationUnchanged -eq $true) 'Locked unchanged output was unnecessarily replaced'
-        $replacementMarker=Join-Path $cachedOut 'published/obsolete-generation.tmp'
-        [IO.File]::WriteAllText($replacementMarker,'Force a genuine directory replacement while the old file is held')
-        $confirmed=CacheFiles $cachedOut
-        $occupied=RunCli 'publication-fault' $mod $cachedOut $true 7 $false $held;CacheUnchanged $cachedOut $confirmed
-        $afterFault=RunCli 'retry-after-publication-fault' $mod $cachedOut $true;SameOutputs $plain $afterFault
-        Need (!(Test-Path -LiteralPath $replacementMarker)) 'Replacement retry retained the obsolete generation marker'
+
+        $unrelated=Join-Path $cachedOut 'published/unrelated.keep'
+        [IO.File]::WriteAllText($unrelated,'preserve unrelated output')
+        $repeat=RunCli 'repeat-with-unrelated-output' $mod $cachedOut $true
+        SameOutputs $plain $repeat
+        Need ([IO.File]::ReadAllText($unrelated) -ceq 'preserve unrelated output') 'Repeated compilation removed unrelated output'
         $script:contents='base'
         foreach($family in @('audio','w3x')){
             $payloadMod=Join-Path $modeWork $family;$payloadCache=Join-Path $modeWork ($family+'-cache');$payloadPlain=Join-Path $modeWork ($family+'-plain')

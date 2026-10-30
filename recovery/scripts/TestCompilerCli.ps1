@@ -53,7 +53,10 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
         if($Cancel){Need ($audit.signalSent -and $audit.streamStartedObserved -and $audit.processExitCode -eq 6) 'Real CtrlBreak cancellation was not verified'}
         $rows=@();$body=$null
         if(Test-Path -LiteralPath $events){$rows=@(Get-Content -LiteralPath $events|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})}
-        if(Test-Path -LiteralPath $report){$body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json}
+        if(Test-Path -LiteralPath $report){
+            $body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json
+            foreach($artifact in $body.artifacts){$artifact|Add-Member -NotePropertyName TestSha256 -NotePropertyValue (Hash $artifact.Path)}
+        }
         if($Command -eq 'doctor'){
             Need ((Get-Content (Join-Path $caseOut 'stdout.log') -Raw).Contains('CORE_ENVIRONMENT_OK')) 'Doctor did not verify actual environment'
         } elseif($Name -eq 'log-directory-rejected') {
@@ -85,19 +88,18 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
                 Need (@($body.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq $CustomDataCount) 'Reported CustomData count differs'
                 foreach($artifact in $body.artifacts){
                     Need ((Within (ArtifactRoot $destination $body) $artifact.Path) -and (Test-Path -LiteralPath $artifact.Path)) 'Artifact escaped the accepted generation root'
-                    Need ((Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size -and (Hash $artifact.Path) -ceq $artifact.Sha256) 'Artifact identity differs from report'
+                    Need ((Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size -and (Hash $artifact.Path) -ceq $artifact.TestSha256) 'Artifact identity differs from report'
                 }
                 if($script:publicationEnabled){
                     Need ($body.publicationStatus -ceq $(if($StreamCount -eq 0){'NotPublished'}else{'PublishedDirectory'}) -and $body.publicationDirectory -ceq (Join-Path $destination 'published')) 'CLI publication receipt differs'
-                    Need (!(Test-Path -LiteralPath (Join-Path $destination ('.build/'+$body.buildId)))) 'Published CLI retained owned staging'
-                    Need (@(Get-ChildItem -LiteralPath $destination -Directory|Where-Object{$_.Name -like '.publish-*' -or $_.Name -like '.previous-*'}).Count -eq 0) 'CLI retained unlocked preparation/backup'
+                    Need (!(Test-Path -LiteralPath (Join-Path $destination '.build'))) 'Direct CLI build created the removed .build root'
                 }else{Need ($body.publicationStatus -ceq 'IsolatedStagingOnly') 'Historical runtime publication contract differs'}
                 Need ($body.executionMode -ceq 'InProcess') 'CLI claimed external execution'
             } elseif($Command -eq 'plan'){
                 Need (@($body.artifacts).Count -eq 0 -and $body.executionMode -ceq 'PlanOnly') 'Plan compiled assets'
             } else {
                 Need (@($body.artifacts).Count -eq 0) 'Failed/cancelled CLI accepted artifacts'
-                Need (!(Test-Path -LiteralPath (Join-Path $destination ('.build/'+$body.buildId)))) 'Failed/cancelled CLI retained this build staging'
+                Need (!(Test-Path -LiteralPath (Join-Path $destination '.build'))) 'Failed/cancelled CLI created the removed .build root'
             }
         }
         $entry.passed=$true;$entry.report=$body;$entry.eventCount=$rows.Count
@@ -123,11 +125,11 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
 }
 function ArtifactRoot([string]$Destination,$Report){
     if($Report.publicationStatus -ceq 'PublishedDirectory'){return (Join-Path $Destination 'published')}
-    return (Join-Path $Destination ('.build/'+$Report.buildId))
+    return (Join-Path $Destination 'published')
 }
 function TaskOutputs($Case,$Task,[int]$CustomDataCount=0){
     $prefix=Join-Path (ArtifactRoot $Case.destination $Case.report) ($Task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($Task.InputPath))
-    $map=@{};foreach($artifact in $Case.report.artifacts){if(Within $prefix $artifact.Path){$map[$artifact.Path.Substring($prefix.Length)]=$artifact.Sha256}}
+    $map=@{};foreach($artifact in $Case.report.artifacts){if(Within $prefix $artifact.Path){$map[$artifact.Path.Substring($prefix.Length)]=$artifact.TestSha256}}
     Need ($map.Count -eq 4+$CustomDataCount) 'Task output count differs from four streams plus allowed Texture CustomData';$map
 }
 # These fixtures have no runtime/manifest references. Decode the real source
@@ -256,29 +258,26 @@ try {
         # Reuse exactly the same destination across actual production processes.
         # Late report/terminal/close failures are separately injected by App contracts.
         if($script:publicationEnabled){
-            $firstPublication=RunCli 'publication-first' 'build' $mod $sdk 'base' 0 1
+            $firstPublication=RunCli 'direct-first' 'build' $mod $sdk 'base' 0 1
             $publicationOut=$firstPublication.destination;$generation=Join-Path $publicationOut 'published'
-            [IO.File]::WriteAllText((Join-Path $generation 'obsolete.bin'),'must not survive replacement')
-            $replacement=RunCli 'publication-replace' 'build' $mod $sdk 'apt' 0 2 -ReuseDestination $publicationOut
-            Need (!(Test-Path -LiteralPath (Join-Path $generation 'obsolete.bin')) -and !(Test-Path -LiteralPath (Join-Path $generation 'base'))) 'Replacement retained old generation files'
-            Need (@(Get-ChildItem -LiteralPath $generation -File -Recurse).Count -eq 8) 'Replacement did not publish the exact artifact allowlist'
+            $unrelated=Join-Path $generation 'unrelated.keep'
+            [IO.File]::WriteAllText($unrelated,'preserve unrelated output')
+            $replacement=RunCli 'direct-next-selection' 'build' $mod $sdk 'apt' 0 2 -ReuseDestination $publicationOut
+            Need ((Test-Path -LiteralPath (Join-Path $generation 'base')) -and [IO.File]::ReadAllText($unrelated) -ceq 'preserve unrelated output') 'Direct build removed unselected output'
+            Need (@($replacement.report.artifacts).Count -eq 8 -and @($replacement.report.artifacts|Where-Object{$_.Path -like '*published*base*'}).Count -eq 0) 'Current selection accepted old stream files'
             EqualTask $combined $replacement 'apt'
-            $generationSnapshot=Snapshot $generation
-            $cancelPublication=RunCli 'publication-cancel-retains' 'build' $mod $sdk 'base,apt,maps' 6 1 $true -ReuseDestination $publicationOut
-            Unchanged $generation $generationSnapshot
+            $cancelPublication=RunCli 'direct-cancel' 'build' $mod $sdk 'base,apt,maps' 6 1 $true -ReuseDestination $publicationOut
+            Need (@($cancelPublication.report.artifacts).Count -eq 0) 'Cancelled build accepted previous output'
             [IO.File]::WriteAllText((Join-Path $badMod 'Data/Mod.xml'),'<AssetDeclaration>broken')
-            $failedPublication=RunCli 'publication-compile-failure-retains' 'build' $badMod $sdk 'base' 4 1 -ReuseDestination $publicationOut
-            Unchanged $generation $generationSnapshot
+            $failedPublication=RunCli 'direct-compile-failure' 'build' $badMod $sdk 'base' 4 1 -ReuseDestination $publicationOut
+            Need (@($failedPublication.report.artifacts).Count -eq 0 -and [IO.File]::ReadAllText($unrelated) -ceq 'preserve unrelated output') 'Failed build accepted old output or removed unrelated files'
             [IO.File]::WriteAllText((Join-Path $badMod 'Data/Mod.xml'),$probe)
             $heldArtifact=@($replacement.report.artifacts)[0].Path
-            $occupiedPublication=RunCli 'publication-occupied-retains' 'build' $mod $sdk 'base' 7 1 -HoldReadFile $heldArtifact -ReuseDestination $publicationOut
-            Need ($occupiedPublication.report.publicationStatus -ceq 'NotPublished') 'Occupied output was accepted as a publication'
-            Need ($occupiedPublication.report.exitCode -eq 7 -and $modeState.cases[-1].control.readLockHeld -and $modeState.cases[-1].control.readLockPath -ceq $heldArtifact) 'Publication fault did not hold an actual prior generation artifact'
-            Unchanged $generation $generationSnapshot
-            $publicationRetry=RunCli 'publication-retry' 'build' $mod $sdk 'base' 0 1 -ReuseDestination $publicationOut
-            Need (@(Get-ChildItem -LiteralPath $generation -File -Recurse).Count -eq 4 -and !(Test-Path -LiteralPath (Join-Path $generation 'apt'))) 'Publication retry mixed old/new selections'
+            $publicationRetry=RunCli 'locked-unselected-output' 'build' $mod $sdk 'base' 0 1 -HoldReadFile $heldArtifact -ReuseDestination $publicationOut
+            Need (@($publicationRetry.report.artifacts).Count -eq 4 -and (Test-Path -LiteralPath (Join-Path $generation 'apt'))) 'Direct retry mixed current and unselected streams'
             EqualTask $combined $publicationRetry 'base'
-            $modeState.publicationAcceptance=@{passed=$true;directory=$generation;first=$firstPublication.name;replacement=$replacement.name;cancel=$cancelPublication.name;compilationFailure=$failedPublication.name;occupied=$occupiedPublication.name;retry=$publicationRetry.name;lateOutputFailures='Separate controlled App lifecycle contracts; no real CLI late failure injection claimed'}
+            $modeState.publicationAcceptance=@{passed=$true;directory=$generation;first=$firstPublication.name;replacement=$replacement.name;cancel=$cancelPublication.name;compilationFailure=$failedPublication.name;retry=$publicationRetry.name;scope='Direct output; current allowlist excludes old selections, unrelated files remain, no whole-MOD rollback'}
+
         }
         foreach($selection in @(@{name='mod-a';task=@($ascii.report.plan.Tasks|Where-Object{$_.Content -ceq 'base'})[0]},@{name='mod-b';task=@($ascii.report.plan.Tasks|Where-Object{$_.Content -ceq 'apt'})[0]})){
             $task=$selection.task;$prefix=Join-Path (ArtifactRoot $ascii.destination $ascii.report) ($task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath));$outputs=@{}
@@ -384,8 +383,8 @@ try {
     Unchanged (Join-Path $sourceSdk 'Schemas/xsd') $schemaSnapshot
     Need ((Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config')) -ceq $configHash -and (Hash $probeFile) -ceq $probeHash) 'Original SDK inputs changed'
     $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus all three complete original UI entries, combined/cold byte equality and current original BAB four-stream/inline Texture DDS comparison; full SDK/cache acceptance remain separate'
-    if($script:publicationEnabled){$state.scope+='; transactional published generation first/replacement, occupied output, compilation failure/cancellation preserving old generation and same-path retry passed; injected late-output rollback remains the separate controlled App lifecycle group'}
-    if($reuse){$state.scope+='; current transactional publication acceptance was not performed; these current tests executed the explicitly recorded historical binarySourceCommit, not a rebuilt current candidate'}
+    if($script:publicationEnabled){$state.scope+='; direct same-path output, selection isolation, unrelated-file preservation, failure/cancellation retry and held unselected-output acceptance passed; injected late-output persistence is checked by controlled App contracts'}
+    if($reuse){$state.scope+='; current direct-output acceptance was not performed; these tests executed the explicitly recorded historical binarySourceCommit, not a rebuilt current candidate'}
     $global:LASTEXITCODE=0
 } catch {$state.error=$_.Exception.ToString();throw}
 finally {

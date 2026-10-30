@@ -122,8 +122,8 @@ public static class CompilerApplicationBuild
             string source = Text(artifact["Path"]);
             string destination = Path.Combine(evidence, "compiled", "b" + number, (++artifactNumber) + Path.GetExtension(source));
             Directory.CreateDirectory(Path.GetDirectoryName(destination)); File.Copy(source, destination, true);
-            Require(Hash(destination) == Text(artifact["Sha256"]), "Archived application artifact differs from actual output");
-            copies.Add(new { originalPath = source, archivedPath = destination, sha256 = Text(artifact["Sha256"]) });
+            Require(Hash(destination) == Hash(source), "Archived application artifact differs from actual output");
+            copies.Add(new { originalPath = source, archivedPath = destination, sha256 = Hash(destination) });
         }
         ProtocolCases.Add(new { name = name, events = Path.Combine(archive, "build.events.jsonl"), report = Path.Combine(archive, "build-report.json"),
             originalEventsPath = request.EventsPath, originalReportPath = request.ReportPath, originalOutputRoot = output, buildId = id,
@@ -203,9 +203,9 @@ public static class CompilerApplicationBuild
         {
             var artifact = Map(value); string path = Text(artifact["Path"]);
             Require(Paths.Contains(published, path) && paths.Add(path) && File.Exists(path), "Artifact escaped this build's published directory");
-            Require(new FileInfo(path).Length == Convert.ToInt64(artifact["Size"]) && Hash(path) == Text(artifact["Sha256"]), "Reported artifact identity differs from actual output");
-            var emitted = Events(run, "ArtifactProduced").Select(e => Map(e["payload"])).Single(a => Text(a["Path"]) == Path.Combine(staging, path.Substring(published.Length).TrimStart('\\', '/')));
-            Require(Text(emitted["Sha256"]) == Text(artifact["Sha256"]) && Convert.ToInt64(emitted["Size"]) == Convert.ToInt64(artifact["Size"]), "Artifact event and report disagree");
+            Require(new FileInfo(path).Length == Convert.ToInt64(artifact["Size"]), "Reported artifact identity differs from actual output");
+            var emitted = Events(run, "ArtifactProduced").Select(e => Map(e["payload"])).Single(a => Text(a["Path"]) == path);
+            Require(Convert.ToInt64(emitted["Size"]) == Convert.ToInt64(artifact["Size"]), "Artifact event and report disagree");
         }
         foreach (BuildTask task in run.Expected.Tasks)
         {

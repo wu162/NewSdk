@@ -83,7 +83,7 @@ namespace NewModCompiler.Application
         {
             if(string.IsNullOrEmpty(path) || !Path.IsPathRooted(path)) throw new ArgumentException("A BIG/SKUDEF output path must be absolute.");
             string result=Path.GetFullPath(path);RejectLinks(result);
-            if(File.Exists(result) || Directory.Exists(result)) throw new IOException("BIG/SKUDEF output already exists.");
+            if(Directory.Exists(result)) throw new IOException("BIG/SKUDEF output is a directory.");
             return result;
         }
         static void Atomic(string output,CancellationToken cancellation,Action<FileStream> write)
@@ -93,7 +93,9 @@ namespace NewModCompiler.Application
             try
             {
                 using(var stream=new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None)) write(stream);
-                cancellation.ThrowIfCancellationRequested();File.Move(temporary,output);
+                cancellation.ThrowIfCancellationRequested();
+                if (File.Exists(output)) File.Replace(temporary, output, null);
+                else File.Move(temporary, output);
             }
             finally { if(File.Exists(temporary)) File.Delete(temporary); }
         }

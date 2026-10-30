@@ -138,16 +138,20 @@ def remaining_timeout(started, budget, per_process):
 
 def published(destination, report):
     root = destination / 'published'
-    actual = inventory(root)
-    expected = {}
+    current = {}
     for item in report['artifacts']:
         path = Path(item['Path']).resolve()
-        need(path.is_relative_to(root.resolve()), 'Reported artifact escaped publication')
+        need(path.is_relative_to(root.resolve()), 'Reported artifact escaped output')
         relative = path.relative_to(root.resolve()).as_posix()
-        need(relative not in expected, 'Duplicate reported artifact')
-        expected[relative] = {'bytes': item['Size'], 'sha256': item['Sha256']}
-    need(actual and actual == expected, 'Complete published inventory differs from report')
-    return {name: (root / name).read_bytes() for name in actual}
+        need(relative not in current and path.stat().st_size == item['Size'], 'Invalid current artifact')
+        current[relative] = path.read_bytes()
+    need(current, 'No current artifacts')
+    return current
+
+
+def linked_timestamps(values):
+    return {path: stamp for path, stamp in values.items()
+            if Path(path).suffix.lower() in ('.manifest', '.bin', '.imp', '.relo')}
 
 
 def validate_hot(report, mode, fmt, before, after, has_payload):
@@ -159,7 +163,15 @@ def validate_hot(report, mode, fmt, before, after, has_payload):
         if not has_payload:
             need(cache['fileHashReads'] == cache['fileHashBytesRead'] == 0,
                  'Unchanged XML-only hot build reread complete files for SHA256')
-    need(report['publicationUnchanged'] and before == after, 'Unchanged hot publication rewrote files')
+    if fmt == 'loose':
+        if MODES[mode][1]:
+            need(before == after, 'Hot session reuse rewrote files')
+        else:
+            # With /sc:false and a fresh intermediate directory BAB restores
+            # CDATA from its asset cache. That copy may change mtime; the linked
+            # quartet must still reuse its existing checksum-matched output.
+            linked_before = linked_timestamps(before)
+            need(linked_before and linked_before == linked_timestamps(after), 'Hot linking rewrote the four-file output')
     if fmt == 'big':
         need(any(row['name'] == 'package.big' and row['count'] > 0
                  for row in report['performance']['entries']), 'Hot BIG must still run normal packaging')
@@ -293,7 +305,8 @@ def run(args):
                 validate_hot(report, mode, fmt, before, after, tier == 'medium')
             if phase == 'modified':
                 need(report['cache']['instanceCompile'] > 0, 'Content edit did not invalidate any compiled asset')
-            row.update(status='passed', cache=report['cache'], publicationUnchanged=report['publicationUnchanged'],
+            row.update(status='passed', cache=report['cache'], streamFilesUnchanged=linked_timestamps(before) == linked_timestamps(after),
+                       outputTimestampsUnchanged=before == after,
                        rawBytesEqual=True, outputFiles=len(content), outputBytes=sum(map(len, content.values())))
             save(out, state)
             print(label + ' passed (%.1f ms)' % row['wallMs'], flush=True)

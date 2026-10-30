@@ -86,19 +86,25 @@ public class OutputManager
 		_ManifestFile = _OutputDirectory + ".manifest";
 		_OldManifestFile = _OutputDirectory + ".old.manifest";
 		_VersionFile = _OutputDirectory.Remove(_OutputDirectory.LastIndexOf(Settings.Current.CustomPostfix)) + ".version";
-		_CachedLinkedOutput = Settings.Current.FindLinkedOutput?.Invoke(_OutputDirectory);
+        Directory.CreateDirectory(Path.GetDirectoryName(_OutputDirectory));
+        Settings.Current.StreamOutputStarted?.Invoke(_OutputDirectory);
+        bool complete = true;
+        foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo" })
+            if (!File.Exists(_OutputDirectory + extension)) { complete = false; break; }
+        _CachedLinkedOutput = complete ? _OutputDirectory : null;
+        if (!complete)
+            foreach (string extension in new[] { ".bin", ".imp", ".relo" }) File.Delete(_OutputDirectory + extension);
 		if (_CachedLinkedOutput != null)
 		{
 			_OldManifestFile = _CachedLinkedOutput + ".manifest";
 			_Header = new ManifestHeader();
 			using (var input = File.OpenRead(_OldManifestFile)) _Header.LoadFromStream(input, Settings.Current.BigEndian);
 		}
-		else Settings.Current.PrepareLinkedOutput?.Invoke(_OutputDirectory);
 		if (_CachedLinkedOutput == null && File.Exists(_OldManifestFile))
 		{
 			File.Delete(_OldManifestFile);
 		}
-		if (File.Exists(_ManifestFile))
+		if (_CachedLinkedOutput == null && File.Exists(_ManifestFile))
 		{
 			try
 			{
@@ -243,7 +249,6 @@ public class OutputManager
 				{
 					_ReuseLinked = true;
 					_Tracer.TraceInfo("Old manifest is up to date.");
-					Settings.Current.ReuseLinkedOutput(_OutputDirectory, _CachedLinkedOutput);
 					return;
 				}
 				if (_CachedLinkedOutput == null) { File.Move(_OldManifestFile, _ManifestFile); return; }
@@ -261,6 +266,9 @@ public class OutputManager
 				Directory.CreateDirectory(directoryName);
 			}
 		}
+        // If any checksum differs, regenerate all linked payloads together.
+        // Import/relocation buffers are populated while linking the binary file.
+        foreach (string extension in new[] { ".bin", ".imp", ".relo" }) File.Delete(_OutputDirectory + extension);
 		_Header = new ManifestHeader();
 		MemoryStream memoryStream = new MemoryStream();
 		uint num = 0u;
@@ -408,6 +416,7 @@ public class OutputManager
 			_Tracer.Message("{0} Linked binary data up to date", document.SourcePathFromRoot);
 			_Tracer.Message("{0} Linked import data up to date", document.SourcePathFromRoot);
 			_Tracer.Message("{0} Linked relocation data up to date", document.SourcePathFromRoot);
+            Settings.Current.StreamOutputCompleted?.Invoke(_OutputDirectory, true);
 			return;
 		}
 		string text = _OutputDirectory + ".temp";
@@ -509,6 +518,7 @@ public class OutputManager
 		{
 			_Tracer.Message("{0} Linked relocation data up to date", document.SourcePathFromRoot);
 		}
+        Settings.Current.StreamOutputCompleted?.Invoke(_OutputDirectory, false);
 		memoryStream2.Close();
 		memoryStream.Close();
 	}

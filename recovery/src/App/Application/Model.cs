@@ -76,18 +76,13 @@ namespace NewModCompiler.Application
         public string Path { get; set; }
         public string Kind { get; set; }
         public long Size { get; set; }
-        public string Sha256 { get; set; }
-        internal string BackingPath { get; set; }
-        internal string ContentPath { get { return BackingPath ?? Path; } }
-        internal bool Verified { get; set; }
     }
     public sealed class StreamContext
     {
         public string BuildId { get; internal set; }
         public BuildTask Task { get; internal set; }
         public BuildRequest Request { get; internal set; }
-        public string StagingDirectory { get; internal set; }
-        internal bool CacheManagedBySession { get; set; }
+        public string OutputDirectory { get; internal set; }
     }
     // The implementation must run Core preprocessing and compilation in this process.
     // Ownership is per session, with fresh stream state per Compile invocation.
@@ -97,15 +92,10 @@ namespace NewModCompiler.Application
         void Initialize(BuildRequest request);
         IList<Artifact> Compile(StreamContext context, System.Threading.CancellationToken cancellation);
     }
-    // Optional participant owned by BuildSession after provider disposal. Commit
-    // must remain reversible until all required output channels have closed.
+    // Cache persistence belongs to Core, independently of diagnostic output.
     public interface IBuildCacheCompiler
     {
         object CacheReport { get; }
-        void CommitCache();
-        void RollbackCache();
-        // Cleanup only, idempotent and non-throwing. No new cache writes here.
-        void CompleteCache();
     }
     public interface IInputRootsCompiler
     {

@@ -45,7 +45,7 @@ def validate_profile(report, level):
         need(row['count'] > 0 and 0 <= row['selfMs'] <= row['totalMs'] and
              0 <= row['maxMs'] <= row['totalMs'], 'Invalid timing arithmetic')
     names = {r['name'] for r in rows}
-    need({'stage.plan', 'stage.compile', 'core.process', 'stage.publish'} <= names,
+    need({'stage.plan', 'stage.compile', 'core.process'} <= names,
          'Missing main build phases')
     need(any(r['streamId'] == 'base/Mod' and r['name'] == 'core.process' for r in rows),
          'Missing stream identity')
@@ -157,7 +157,7 @@ def run(args):
                 big_baseline = content
             need(content == big_baseline, 'Profiling changed BIG/SKUDEF bytes')
             if level != 'off':
-                need({'stage.package', 'package.big', 'package.lod', 'package.hash'} <=
+                need({'stage.package', 'package.big', 'package.lod'} <=
                      {r['name'] for r in report['performance']['entries']}, 'Missing packaging timings')
         (data / 'probe.xml').write_text('<broken>', encoding='utf-8')
         build('detailed', 'invalid-xml', broken=True)

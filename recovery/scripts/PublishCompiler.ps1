@@ -64,10 +64,10 @@ function BuildOutputs([string]$Runtime,[string]$Sdk,[string]$Mod,[string]$Destin
     foreach($artifact in $report.artifacts){
         Need ((Within $published $artifact.Path) -and (Test-Path -LiteralPath $artifact.Path -PathType Leaf)) 'Release artifact escaped its publication'
         $file=Get-Item -LiteralPath $artifact.Path
-        Need ($file.Length -eq $artifact.Size -and (Hash $file.FullName) -ceq $artifact.Sha256) 'Release artifact differs from report'
+        Need ($file.Length -eq $artifact.Size) 'Release artifact differs from report'
         $relative=[IO.Path]::GetRelativePath($published,$file.FullName).Replace('\','/')
         Need ([IO.Path]::GetExtension($relative) -cin @('.manifest','.bin','.imp','.relo') -and !$outputs.ContainsKey($relative)) 'Release probe returned an unexpected linked output'
-        $outputs[$relative]=@{path=$file.FullName;bytes=$file.Length;sha256=$artifact.Sha256}
+        $outputs[$relative]=@{path=$file.FullName;bytes=$file.Length;sha256=(Hash $file.FullName)}
     }
     Need (@($outputs.Keys|ForEach-Object{[IO.Path]::GetExtension($_)}|Sort-Object -Unique).Count -eq 4 -and @($outputs.Keys|ForEach-Object{$_.Substring(0,$_.Length-[IO.Path]::GetExtension($_).Length)}|Sort-Object -Unique).Count -eq 1) 'Release probe did not return one complete four-file stream'
     Need (@(Get-ChildItem -LiteralPath $Destination -File -Recurse -Filter '*.tmp').Count -eq 0 -and !(Test-Path -LiteralPath (Join-Path $Destination ('.build/'+$report.buildId)))) 'Release left uncommitted build staging or temporary reports'

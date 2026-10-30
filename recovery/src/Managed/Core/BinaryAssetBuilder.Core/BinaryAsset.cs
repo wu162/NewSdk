@@ -446,11 +446,7 @@ public class BinaryAsset
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to commit asset {0}", _Instance);
 		}
-		if (Instance.HasCustomData && Settings.Current.ReuseCustomData != null)
-		{
-			string logical = Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName), source = CustomDataPath;
-			if (!string.Equals(logical, source, StringComparison.OrdinalIgnoreCase)) Settings.Current.ReuseCustomData(logical, source);
-		}
+        if (Instance.HasCustomData && location != AssetLocation.BasePatchStream) Settings.Current.CustomDataOutput?.Invoke(Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName));
 		if (location == AssetLocation.Memory)
 		{
 			CopyToCache();

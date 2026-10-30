@@ -19,10 +19,10 @@ namespace NewModCompiler.Application
             internal InputList(HashSet<string> directories,IEnumerable<string> names)
             { Directories=directories;Names=new HashSet<string>(names,StringComparer.OrdinalIgnoreCase); }
         }
-        public static void Merge(string sdkRoot,string modRoot,string staging,IList<BigArchiveEntry> entries,CancellationToken cancellation,Action<string> warning = null)
+        public static void Merge(string sdkRoot,string modRoot,IList<BigArchiveEntry> entries,CancellationToken cancellation,Action<string> warning = null)
         {
             if(entries==null) throw new ArgumentNullException("entries");
-            Merge(staging,entries,Inputs(sdkRoot,modRoot,cancellation,warning),cancellation,warning);
+            Merge(entries,Inputs(sdkRoot,modRoot,cancellation,warning),cancellation,warning);
         }
         internal static IList<BigArchiveEntry> Inputs(string sdkRoot,string modRoot,CancellationToken cancellation,Action<string> warning = null)
         {
@@ -66,31 +66,13 @@ namespace NewModCompiler.Application
                 }
             }
         }
-        internal static void Merge(string staging,IList<BigArchiveEntry> entries,IList<BigArchiveEntry> inputs,CancellationToken cancellation,Action<string> warning = null)
+        internal static void Merge(IList<BigArchiveEntry> entries,IList<BigArchiveEntry> inputs,CancellationToken cancellation,Action<string> warning = null)
         {
             cancellation.ThrowIfCancellationRequested();
             var discovered=(InputList)inputs;
             if(discovered.Names.Count==0 && discovered.Directories.Count==0)return;
             Validate(inputs,entries.Select(entry=>entry.Name),warning);
-            string snapshots=Path.Combine(Path.GetFullPath(staging),".package-additional");
-            if(File.Exists(snapshots) || Directory.Exists(snapshots)) throw new IOException("Additional staging directory already exists.");
-            var replacements=new Dictionary<string,BigArchiveEntry>(StringComparer.OrdinalIgnoreCase);
-            var buffer=new byte[64*1024];
-            int index=0;
-            foreach(var file in inputs) {
-                cancellation.ThrowIfCancellationRequested();
-                if(index==0)Directory.CreateDirectory(snapshots);
-                string target=Path.Combine(snapshots,(index++).ToString(System.Globalization.CultureInfo.InvariantCulture));
-                using(var source=new FileStream(file.SourcePath,FileMode.Open,FileAccess.Read,FileShare.Read))
-                using(var destination=new FileStream(target,FileMode.CreateNew,FileAccess.Write,FileShare.None)) {
-                    int read;
-                    while((read=source.Read(buffer,0,buffer.Length))!=0) {cancellation.ThrowIfCancellationRequested();destination.Write(buffer,0,read);}
-                }
-                replacements.Add(file.Name,new BigArchiveEntry{Name=file.Name,SourcePath=target});
-            }
-            cancellation.ThrowIfCancellationRequested();
-            // Switch only after the entire current input set has been copied
-            // and checked; no source directory or stale output is reused.
+            var replacements=inputs.ToDictionary(file=>file.Name,file=>file,StringComparer.OrdinalIgnoreCase);
             for(int i=0;i<entries.Count;i++) {
                 BigArchiveEntry replacement;
                 string name=Canonical(entries[i].Name);

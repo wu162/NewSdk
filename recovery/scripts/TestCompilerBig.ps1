@@ -48,15 +48,6 @@ function TreeUnchanged([string]$Directory,$Before){
     $after=TreeSnapshot $Directory;Need ($after.Count -eq $Before.Count) 'Neutral build changed source/reference file count'
     foreach($name in $Before.Keys){Need ($after.ContainsKey($name) -and $after[$name] -ceq $Before[$name]) "Neutral build changed source/reference bytes: $name"}
 }
-function CacheFiles([string]$Destination){
-    $files=@{};$cache=Join-Path $Destination '.cache'
-    if(Test-Path -LiteralPath $cache){Get-ChildItem -LiteralPath $cache -File -Recurse|ForEach-Object{$files[$_.FullName.Substring($cache.Length)]=Hash $_.FullName}}
-    return $files
-}
-function CacheUnchanged([string]$Destination,$Before){
-    $after=CacheFiles $Destination;Need ($after.Count -eq $Before.Count) 'Failed/cancelled build persisted additional session-cache files'
-    foreach($key in $Before.Keys){Need ($after.ContainsKey($key) -and $after[$key] -ceq $Before[$key]) 'Failed/cancelled build changed previously confirmed session-cache bytes'}
-}
 function RunCli([string]$Name,[string]$Mod,[string]$Destination,[string]$Selection,[string]$Format,[int]$Expected=0,[bool]$Cancel=$false,[string]$HoldReadFile=$null,[string[]]$Extra=@(),[switch]$Defaults){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     New-Item -ItemType Directory -Force -Path $Destination|Out-Null
@@ -79,6 +70,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[string]$Selecti
         Need ($audit.singleProcessJobEnforced -and $audit.singleProcessJobLimit -eq 1 -and @($audit.descendants).Count -eq 0) 'Asset cache introduced a product child process'
         if($Cancel){Need ($audit.signalSent -and $audit.freshEventsPathObserved -and $audit.streamStartedObserved -and $Expected -eq 6) 'Cache cancellation did not receive actual CtrlBreak'}
         $body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json
+        foreach($artifact in $body.artifacts){$artifact|Add-Member -NotePropertyName TestSha256 -NotePropertyValue (Hash $artifact.Path)}
         Need ($body.exitCode -eq $Expected) 'Cache process/report exit differs'
         $rows=@(Get-Content -LiteralPath $events|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})
         Need ($rows[-1].eventType -ceq 'BuildFinished' -and @($rows|Where-Object{$_.eventType -ceq 'BuildStarted'}).Count -eq 1 -and @($rows|Where-Object{$_.eventType -ceq 'BuildFinished'}).Count -eq 1) 'Cache CLI terminal protocol differs'
@@ -91,21 +83,24 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[string]$Selecti
             if($Format -ceq 'big'){
                 $packaged=@($rows|Where-Object{$_.eventType -ceq 'ArtifactProduced' -and $_.stageId -ceq 'package'})
                 Need ($packaged.Count -eq 2) 'BIG build did not produce a current BIG/SKUDEF pair'
-                $buildRoot=Join-Path $Destination ('.build/'+$body.buildId)
-                foreach($row in $packaged){Need (Within $buildRoot $row.payload.Path) 'BIG build reused a previously published package'}
+                $publishedRoot=Join-Path $Destination 'published'
+                foreach($row in $packaged){
+                    Need ([IO.Path]::GetDirectoryName([string]$row.payload.Path) -ceq $publishedRoot) 'BIG/SKUDEF was not generated in the final directory'
+                    Need (@($body.artifacts|Where-Object{$_.Path -ceq $row.payload.Path -and $_.Size -eq $row.payload.Size}).Count -eq 1) 'Package event and current report differ'
+                }
                 $identities=Get-Content -LiteralPath (Join-Path $Destination '.file-identities.json') -Raw|ConvertFrom-Json
                 Need ($null -eq $identities.entries.PSObject.Properties['package|v1']) 'BIG build persisted a removed package-cache receipt'
             }
             $published=Join-Path $Destination 'published'
             foreach($artifact in $body.artifacts){
-                Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
+                Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.TestSha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
                 $relative=[IO.Path]::GetRelativePath($published,$artifact.Path);$copy=Join-Path $archived $relative
                 New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($copy))|Out-Null
                 Copy-Item -LiteralPath $artifact.Path -Destination $copy;$files[$relative]=$copy
             }
         }else{Need (@($body.artifacts).Count -eq 0) 'Failed/cancelled cache build accepted artifacts'}
-        Need (!(Test-Path -LiteralPath (Join-Path $Destination ('.build/'+$body.buildId)))) 'Cache build retained owned staging'
-        Need (@(Get-ChildItem -LiteralPath $Destination -Directory|Where-Object{$_.Name -like '.cache-candidate-*'}).Count -eq 0) 'Session-cache transaction retained its candidate directory'
+        Need (!(Test-Path -LiteralPath (Join-Path $Destination '.build'))) 'Direct build created the removed .build staging root'
+
         $entry.passed=$true;$entry.buildId=$body.buildId
         return @{name=$Name;report=$body;files=$files;mod=$Mod;caseOut=$caseOut;destination=$Destination}
     }catch{
@@ -132,8 +127,8 @@ function ExpectedInventory($Loose){
         if($artifact.Kind -ceq 'custom-data'){$tail=$stem+'/cdata/'+$tail}
         $name=($prefix+$tail).Replace('/','\').ToLowerInvariant()
         $source=$Loose.files[[IO.Path]::GetRelativePath($published,$artifact.Path)]
-        Need ($null -ne $source -and (Hash $source) -ceq $artifact.Sha256) 'Archived loose oracle source changed'
-        $expected+=,@{name=$name;source=$source;bytes=$artifact.Size;sha256=$artifact.Sha256}
+        Need ($null -ne $source -and (Hash $source) -ceq $artifact.TestSha256) 'Archived loose oracle source changed'
+        $expected+=,@{name=$name;source=$source;bytes=$artifact.Size;sha256=$artifact.TestSha256}
     }
     # The old SDK writes echo. after each successful APT stream, producing
     # exactly space + CRLF (Windows probe 200d0a) in <stream>.version. Derive only from this current plan.
@@ -221,7 +216,7 @@ function PrepareFixture([string]$Path,[string]$Log){
     & python -c $check $root $Path *>> $Log;Need ($LASTEXITCODE -eq 0) 'BIG OnDemand/CDATAs fixture source-XSD preflight failed'
     [IO.File]::WriteAllText("$Path/Data/AptUI/not-listed.asset",'Must never be included by directory globbing')
 }
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production P7 BIG apt/maps selected and combined, exact current loose member bytes and independent original MakeBig format/content oracle, skudef, CDATA, cancellation/failure/publication rollback; default base LoD, explicit SDK-then-MOD Additional overlays, and optional neutral actual hash repair with no-insertion original oracle; component insertion evidence remains separate; final distribution and game runtime acceptance excluded'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production P7 BIG apt/maps selected and combined, exact current loose member bytes and independent original MakeBig format/content oracle, skudef, CDATA, cancellation/failure, atomic single-file replacement and retry without MOD rollback; default base LoD, explicit SDK-then-MOD Additional overlays, and optional neutral actual hash repair with no-insertion original oracle; component insertion evidence remains separate; final distribution and game runtime acceptance excluded'}
 try{
     & python "$PSScriptRoot/ValidateCompilerBig.py" --self-test *> "$out/parser-preflight.json";Need ($LASTEXITCODE -eq 0) 'Independent BIG parser preflight failed'
     $fixture=Join-Path $short 'preflight-business'
@@ -284,22 +279,22 @@ try{
         CompareBig $versioned $plain 'versioned-original-makebig' $false $null '2.7-beta' '1.12' 'ExampleLauncher'
         Need (@($plain.report.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq 2) 'BIG fixture did not exercise actual complete base and APT CDATAs'
         $destination=$combined.destination;$published=Join-Path $destination 'published'
-        [IO.File]::WriteAllText((Join-Path $published 'stale.asset'),'Stale generation file must not survive')
-        $rebuilt=RunCli 'replace-stale-generation' $mod $destination 'base,apt,maps' 'big'
-        Need (@(Get-ChildItem -LiteralPath $published -File -Recurse).Count -eq 2) 'BIG publication retained stale generation files'
+        [IO.File]::WriteAllText((Join-Path $published 'stale.asset'),'Unrelated output must remain outside the BIG')
+        $rebuilt=RunCli 'rebuild-with-unrelated-output' $mod $destination 'base,apt,maps' 'big'
+        Need ([IO.File]::ReadAllText((Join-Path $published 'stale.asset')) -ceq 'Unrelated output must remain outside the BIG') 'BIG packaging removed unrelated output'
         CompareBig $rebuilt $plain 'replacement-original-makebig'
-        $before=CacheFiles $destination;$publishedBefore=@{};Get-ChildItem -LiteralPath $published -File|ForEach-Object{$publishedBefore[$_.Name]=Hash $_.FullName}
+        $publishedBefore=@{};Get-ChildItem -LiteralPath $published -File|ForEach-Object{$publishedBefore[$_.Name]=Hash $_.FullName}
         $held=@($rebuilt.report.artifacts|Where-Object{$_.Kind -ceq 'package.big'})[0].Path
-        $lockedHot=RunCli 'unchanged-locked-output' $mod $destination 'base,apt,maps' 'big' 0 $false $held
-        Need ($lockedHot.report.publicationUnchanged -eq $true) 'Locked unchanged BIG was unnecessarily replaced'
+        $lockedHot=RunCli 'unchanged-locked-output' $mod $destination 'base,apt,maps' 'big' 7 $false $held
+
         $replacementMarker=Join-Path $published 'obsolete-generation.tmp'
-        [IO.File]::WriteAllText($replacementMarker,'Force a genuine directory replacement while the old BIG is held')
-        $failed=RunCli 'publication-fault' $mod $destination 'base,apt,maps' 'big' 7 $false $held
-        foreach($name in $publishedBefore.Keys){Need ((Hash (Join-Path $published $name)) -ceq $publishedBefore[$name]) 'Failed BIG publication changed the previous generation'}
-        $retry=RunCli 'retry-after-publication-fault' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'publication-retry-original'
-        Need (!(Test-Path -LiteralPath $replacementMarker)) 'BIG replacement retry retained the obsolete generation marker'
+        [IO.File]::WriteAllText($replacementMarker,'Unrelated marker remains while the BIG is replaced')
+        $failed=RunCli 'locked-big-fault' $mod $destination 'base,apt,maps' 'big' 7 $false $held
+        foreach($name in $publishedBefore.Keys){Need ((Hash (Join-Path $published $name)) -ceq $publishedBefore[$name]) 'A failed atomic BIG replacement changed completed package bytes'}
+        $retry=RunCli 'retry-after-locked-big' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'locked-big-retry-original'
+        Need (Test-Path -LiteralPath $replacementMarker) 'BIG replacement removed unrelated output'
         $cancelled=RunCli 'actual-cancel' $mod $destination 'base,apt,maps' 'big' 6 $true
-        foreach($name in $publishedBefore.Keys){Need ((Hash (Join-Path $published $name)) -ceq $publishedBefore[$name]) 'Cancelled BIG build changed the previous generation'}
+        foreach($name in $publishedBefore.Keys){Need ((Hash (Join-Path $published $name)) -ceq $publishedBefore[$name]) 'Cancellation before packaging changed completed package bytes'}
         $retry=RunCli 'retry-after-cancel' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'cancel-retry-original'
         $additionalBig=RunCli 'all-with-additional' $mod (Join-Path $modeWork 'all-additional') 'base,apt,maps' 'big' 0 $false $null @('--include-additional=true')
         CompareBig $additionalBig $plain 'additional-original-copy-makebig' $true

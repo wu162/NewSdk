@@ -74,15 +74,16 @@ def process_metrics(process):
 
 def output_inventory(destination, report):
     published = (Path(destination) / 'published').resolve()
-    actual = inventory(published)
     expected = {}
     for row in report['artifacts']:
         path = Path(row['Path']).resolve()
         require(path.is_relative_to(published), 'Reported artifact escaped published directory')
         name = path.relative_to(published).as_posix()
         require(name not in expected, 'Duplicate reported artifact')
-        expected[name] = {'bytes': row['Size'], 'sha256': row['Sha256']}
-    require(actual and actual == expected, 'Published bytes differ from report inventory')
+        require(path.stat().st_size == row['Size'], 'Reported output length differs')
+        expected[name] = {'bytes': row['Size'], 'sha256': sha(path)}
+    require(expected, 'No current completed output')
+    actual = expected
     require({Path(p).suffix for p in actual} >= {'.manifest', '.bin', '.imp', '.relo'},
             'Linked output is incomplete')
     return actual
