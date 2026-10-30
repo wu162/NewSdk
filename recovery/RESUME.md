@@ -1,4 +1,8 @@
-# 当前：有界热缓存扩展与失效/依赖计数（已验证，PR #23 待审）
+# 当前：带 PCSampleRate 的 WAV/AIFF 并行（实现完成，待统一验证）
+
+分支 `feature/audio-sample-rate-parallel`，基于 `recovery/legacy-sdk-cache` 的 `5c1843ae`。删除显式采样率资格拦截，按输入头计入升采样展开/FFT预算；精确编码器、诊断回退、输入租约、私有CDATA、原缓存哈希和有序提交保持。已补32个真实worker原字节用例、极端倍率预算和生产冷热/jobs矩阵；完整Windows/原版/SDK验收待执行。见[范围和验证入口](docs/AUDIO_RATE_PARALLEL.md)。禁止强推，未经用户批准不合并。
+
+# 上一批：有界热缓存扩展与失效/依赖计数（已验证，PR #23 已合入）
 
 分支 `test/hot-cache-coverage`，基于 `8a6b7a70`。扩展三档 Armor 规模（32/256/2048 资产、4/32/128 文档），中档混合 Texture/PCM Audio/W3X，代表性缓存模式、压缩、jobs、BIG、等长同mtime编辑与输出/会话修复。单进程15秒、整轮120秒，不做全维度笛卡尔积。
 

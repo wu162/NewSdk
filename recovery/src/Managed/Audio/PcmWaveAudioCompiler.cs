@@ -88,7 +88,7 @@ namespace BinaryAssetBuilder.AudioCompiler
             return text.Length > 0 && (text[0] == '1' || text[0] == 't' || text[0] == 'T');
         }
 
-        private static int ParseCInt(string text)
+        internal static int ParseCInt(string text)
         {
             int at = 0;
             while (at < text.Length && (text[at] == ' ' || (text[at] >= '\t' && text[at] <= '\r'))) ++at;

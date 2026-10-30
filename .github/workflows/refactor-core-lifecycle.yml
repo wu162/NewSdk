@@ -1,7 +1,7 @@
 name: MOD compiler Core lifecycle integration
 on:
   push:
-    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache]
+    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache, feature/audio-sample-rate-parallel]
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
@@ -34,6 +34,9 @@ on:
       - 'recovery/scripts/BuildManagedFoundation.ps1'
       - 'recovery/tests/CompilerValidationEntry.cpp'
       - 'recovery/tests/CompilerPreparedBackend.cs'
+      - 'recovery/tests/AudioInputFormatCases.cs'
+      - 'recovery/tests/AudioLoopProbeCases.cs'
+      - 'recovery/tests/AudioAiffLoopCases.cs'
       - 'recovery/tests/CompilerXmlBackendBatch.cs'
       - 'recovery/scripts/TestCompilerParallel.py'
       - 'recovery/scripts/MeasureCompilerParallel.py'
@@ -189,6 +192,11 @@ jobs:
         run: |
           python recovery/scripts/TestCompilerParallel.py --repo . --products recovery/artifacts/core-lifecycle-product --work "$env:RUNNER_TEMP/parallel-matrix" --output "recovery/evidence/refactor/backend-parallel/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" --source-commit $env:GITHUB_SHA
           if($LASTEXITCODE -ne 0){throw 'Backend parallel production/cache matrix failed'}
+      - name: Original AudioFile rate and container byte differential
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && contains(github.event.head_commit.message, '[audio-rate-parallel]') }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestAudioPlugin.ps1 -Groups @('rates','formats','loops','aiffloops','resample-full','multichannel','multichannel-aiff') -OutputDirectory "recovery/evidence/audio/rate-parallel/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Isolated original BAB baseline for the two targeted backend cases
         if: ${{ !cancelled() && steps.lifecycle.outcome == 'success' }}
         shell: pwsh
@@ -304,6 +312,7 @@ jobs:
         with:
           name: refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
+            recovery/evidence/audio/rate-parallel/**
             recovery/evidence/refactor/backend-parallel-performance/**
             recovery/evidence/refactor/backend-parallel/**
             recovery/artifacts/final-release/**

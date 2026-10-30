@@ -6,7 +6,7 @@
 
 `--jobs auto|<正整数>` 默认 auto，表示 CPU 和当前 Win32 可用内存共同约束的 worker 上限；`--jobs 1` 保留 owner 串行对照，`--jobs 4` 允许最多四个已认证后端任务。三个 profile、plan/build 和 `newmodcompiler.json` 的 `"jobs": "auto"` 或整数均支持。修改 jobs 不改变原缓存身份。
 
-并行资格包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（无显式 PCSampleRate）、MP3 passthrough、284 个认证 XML metadata TypeId 和四类 APT。资源不足、外部输入无法取得只读租约、APT 非 ASCII 路径，以及未认证后端均自动走原 owner 路径。Core XML 前端、验证、缓存及输出提交保持 owner 顺序。
+并行资格包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（含带 PCSampleRate 的 WAV/AIFF）、MP3 passthrough、284 个认证 XML metadata TypeId 和四类 APT。音频升采样按输入头的源采样率计入展开后的内存预算；资源不足、外部输入无法取得只读租约、APT 非 ASCII 路径，以及未认证后端均自动走原 owner 路径。Core XML 前端、验证、缓存及输出提交保持 owner 顺序。
 
 默认 `/sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false` 不变，Texture 原 SDK 缓存继续正常使用；无需关闭 SessionCache 来使用多 worker。`--sc=false --bc=false --jobs 1|4` 可作纯冷态吞吐对照。没有新增动作缓存、额外持久结果或文件哈希体系。
 
