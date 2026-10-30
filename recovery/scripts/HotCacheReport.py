@@ -57,6 +57,7 @@ def save(output, state):
         row.pop('parallel', None)
         row.update(sample.get('mutation', {}))
         row['streamIds'] = ';'.join(sample.get('streamIds', []))
+        row['touchedStreamIds'] = ';'.join(sample.get('mutation', {}).get('streamIdsTouched', []))
         parallel = sample.get('cache', {}).get('parallel') or {}
         for key in ('workerWaitMs', 'workerComputeMs', 'ownerCommitMs'):
             row[key] = parallel.get(key)
@@ -73,10 +74,10 @@ def save(output, state):
                 phases.append(dict(sample=sample['label'], case=sample['case'], phase=sample['phase'],
                                    performance=sample['performance'], kind='parallel', name='cache.parallel.' + key,
                                    totalMs=parallel[key]))
-    fields = ['label', 'case', 'phase', 'repeat', 'formal', 'performance', 'mode', 'jobs', 'status',
+    fields = ['label', 'case', 'phase', 'repeat', 'formal', 'performance', 'mode', 'jobs', 'status', 'workloadFingerprint',
               'wallMs', 'reportElapsedMs', 'cpuMs', 'over8s', 'pathExercised', 'exitCode',
               'changedAssets', 'affectedAssets', 'changedDocuments', 'changedMaterials', 'changedCaches', 'changedOutputs',
-              'streamIds', 'workerWaitMs', 'workerComputeMs', 'ownerCommitMs', *CACHE_KEYS, 'error']
+              'streamIds', 'touchedStreamIds', 'workerWaitMs', 'workerComputeMs', 'ownerCommitMs', *CACHE_KEYS, 'error']
     write_csv(output / 'measurements.csv', measurements, fields)
     scenario_fields = ['case', 'mode', 'jobs', 'changedAssets', 'affectedAssets', 'changedDocuments', 'changedMaterials'] + [p + suffix for p in PHASES for suffix in
                       ('N', 'MedianMs', 'MinMs', 'MaxMs', 'ReportElapsedMs', 'CpuMs', 'XmlParse', 'InstanceCompile', 'DocumentReuse', 'Hits', 'Misses')]
@@ -92,8 +93,14 @@ def save(output, state):
              (state.get('sourceCommit', ''), state.get('binarySourceCommit', ''), state.get('exeSha256', '')), '',
              '正式成绩仅采用 performance=off、正常退出、目标路径已执行，且单次 wallMs 与编译器 elapsedMs 均严格 >8000 的样本。'
              '每次启动独立进程；准备、快照恢复、预热和报告均计入总预算。OS 页缓存未受控，样本数较少。', '',
-             'L8 为完整固定版本 Upheaval 加合法扩容分区的混合性能负载，区别于原始未修改 Upheaval。', '',
-             '## 场景完成程度', '', '| 场景 | 状态 | 说明 |', '| --- | --- | --- |']
+             'L8 为完整固定版本 Upheaval 加合法扩容分区的混合性能负载，区别于原始未修改 Upheaval。', '']
+    feasible = state.get('feasibility', {})
+    if feasible.get('fullExtensionCanFitStrictLowerBound') is False:
+        lines += ['Full 扩展预算不可达：%s 个条件、%s 个正式进程的严格理论下限 >%s 秒，超过 %s 秒阶段预算；'
+                        '保持双重复与修改幅度时不能声称 Full 完成。' %
+                       (feasible['fullExtensionConditions'], feasible['fullExtensionFormalProcesses'],
+                        feasible['fullExtensionStrictLowerBoundSeconds'], feasible['fullExtensionPhaseSeconds']), '']
+    lines += ['## 场景完成程度', '', '| 场景 | 状态 | 说明 |', '| --- | --- | --- |']
     for case in state.get('cases', []):
         lines.append('| %s | %s | %s |' % (case['id'], case.get('status', 'pending'), case.get('reason', '')))
     lines += ['', '## 三阶段耗时', '',

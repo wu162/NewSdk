@@ -347,16 +347,47 @@ def prepare(repo, work, partitions):
         add_include(index, parent_name)
         add_include(index, child_name)
 
+    # A separate four-edge inheritance chain keeps Full depth comparisons
+    # independent from Common's one-edge parent/sibling partition. Every level
+    # is a real included asset and no descendant overrides the changed field.
+    for branch in range(8):
+        previous_id = 'L8_Depth_Root_%02d' % branch
+        previous_name = 'depth-root-%02d.xml' % branch
+        save_xml(generated / previous_name, declaration(armor(previous_id)))
+        add_include(index, previous_name)
+        for level in range(1, 4):
+            current_id = 'L8_Depth_Level_%02d_%d' % (branch, level)
+            current_name = 'depth-level-%02d-%d.xml' % (branch, level)
+            root = declaration()
+            add_include(root, previous_name, 'instance')
+            root.append(element('ArmorTemplate', id=current_id, inheritFrom=previous_id))
+            save_xml(generated / current_name, root)
+            add_include(index, current_name)
+            previous_id, previous_name = current_id, current_name
+        root = declaration()
+        add_include(root, previous_name, 'instance')
+        for leaf in range(16):
+            root.append(element('ArmorTemplate', id='L8_Depth_Leaf_%02d_%02d' % (branch, leaf),
+                                inheritFrom=previous_id))
+        name = 'depth-leaves-%02d.xml' % branch
+        save_xml(generated / name, root)
+        add_include(index, name)
+
     define = declaration(element('Defines'))
     define[0].append(element('Define', name='L8_SCALE', value='83.25'))
     save_xml(generated / 'defines.xml', define)
-    # Same direct-Defines XInclude contract as MvpXmlOracle.SdkLoader.
-    fragment = element('Defines')
-    fragment.append(element('Define', name='L8_XI_SCALE', value='74.25'))
+    # XInclude contributes Include directives, not Define declarations: directly
+    # injecting a Define into every host makes its global source identity differ
+    # per host. Ordinary Includes preserve one shared defining document.
+    xi_defines = declaration(element('Defines'))
+    xi_defines[0].append(element('Define', name='L8_XI_SCALE', value='74.25'))
+    save_xml(generated / 'xi-defines-a.xml', xi_defines)
+    fragment = element('Includes')
+    fragment.append(element('Include', type='all', source='defines.xml'))
+    fragment.append(element('Include', type='all', source='xi-defines-a.xml'))
     save_xml(generated / 'fragment.xml', fragment)
     for doc in range(32):
         root = declaration()
-        add_include(root, 'defines.xml')
         root.append(ET.Element('{%s}include' % XI, {'href': 'fragment.xml'}))
         for i in range(4):
             root.append(armor('L8_Define_%02d_%02d' % (doc, i), DamageScalar='=$L8_SCALE + $L8_XI_SCALE'))
@@ -469,15 +500,17 @@ def cases(workload):
         case('C07', '16 个有效继承父字段影响 128 后代', assets=16, docs=16, affectedAssets=128, minInstanceCompile=128),
         case('C08', 'instance 父文件的 64 无关兄弟更新', expected='frontend', assets=64, docs=16,
              minXmlParse=16, maxInstanceCompile=64),
-        case('C09', '共享 Define + XInclude 影响 32 宿主/128 资产', assets=128, docs=2, affectedDocuments=32, minInstanceCompile=128),
+        case('C09', '共享 Define + XInclude 影响 32 宿主/128 资产', assets=128, docs=3, affectedDocuments=32, minInstanceCompile=128),
         case('C10', '一个实际流 SessionCache 元数据丢失', expected='session', minXmlParse=1),
         case('C11', '一个最终 BIG/SKUDEF 丢失', expected='output', maxInstanceCompile=0),
-        case('C12', '完整混合负载跨 XML/纹理/音频/动画修改', assets=224, docs=26, materials=64, minInstanceCompile=224),
+        case('C12', '完整混合负载跨 XML/纹理/音频/动画和多个流修改', assets=256, docs=22, materials=64, minInstanceCompile=256),
         case('F01-delete', '删除 32 个资产', 'Full', assets=32, docs=1, expected='frontend', minXmlParse=1),
         case('F01-rename', '32 个无引用资产 ID 改名', 'Full', assets=32, docs=4, minInstanceCompile=32),
         case('F01-move', '8 份文档移动并更新 Include', 'Full', assets=64, docs=8, expected='frontend', minXmlParse=8),
         case('F01-entry', '8 个新入口 Include / 32 个资产', 'Full', assets=32, docs=8, minInstanceCompile=32),
         case('F02', '继承与共享 Define 扇出', 'Full', assets=16, docs=18, affectedAssets=256, minInstanceCompile=256),
+        case('F02-depth', '8 个父实例经 4 层继承边影响 152 个后代', 'Full', assets=8, docs=8,
+             affectedAssets=152, inheritanceDepth=4, minInstanceCompile=160),
         case('F03-independent', '64 个独立音频输入（含 XAS）', 'Full', assets=64, docs=1, materials=64, minInstanceCompile=64),
         case('F03-shared', '64 个共享 WAV 的 XAS AudioFile', 'Full', assets=64, docs=1, materials=1, minInstanceCompile=64),
         case('F04-independent', '96 个独立 DDS 输入', 'Full', assets=96, docs=1, materials=96, minInstanceCompile=96),
@@ -492,7 +525,9 @@ def cases(workload):
         case('F09-mtime', '16 个叶子 XML 只更新时间戳', 'Full', docs=16, expected='timestamp'),
         case('F09-same-stamp', '16 个叶子 XML 等长内容变化并保留 mtime', 'Full', assets=128, docs=16, minInstanceCompile=128),
         case('F09-shadow', '16 个叶子 XML 搜索根路径遮蔽', 'Full', assets=64, docs=16, minInstanceCompile=64),
-        case('F10', '完整可编辑声明的 25% 混合压力', 'Full', assets=math.ceil(workload['assets'] * .25), minInstanceCompile=1),
+        case('F09-entry', '一个真实 APT 流入口改名', 'Full', docs=1, expected='frontend', minXmlParse=1),
+        case('F10', '完整可编辑声明的 25% 混合压力', 'Full', assets=math.ceil(workload['assets'] * .25),
+             minInstanceCompile=math.ceil(workload['assets'] * .25)),
         case('F12', 'Schema/TypeHash/ProcessingHash 合法版本变化', 'Full', availability='not_applicable',
              reason='未提供合法可运行且确实改变身份的另一版本，不模拟身份哈希'),
     ]
@@ -523,7 +558,7 @@ def apply_case(workload, case, destination):
     data = mod / 'Data/L8'
     identifier = case['id']
     changed, assets, materials = set(), 0, 0
-    affected, deleted, extra_args = 0, [], []
+    affected, deleted, extra_args, touched_streams = 0, [], [], []
     metadata_documents, metadata_stream, modified_caches = 0, None, 0
 
     def edit_xml(path, transform):
@@ -585,8 +620,19 @@ def apply_case(workload, case, destination):
 
     def shared_defines():
         nonlocal affected
-        for name in ('defines.xml', 'fragment.xml'):
-            edit_xml(data / name, lambda root: change_defines(root))
+        edit_xml(data / 'defines.xml', change_defines)
+        root = ET.parse(data / 'xi-defines-a.xml').getroot()
+        change_defines(root)
+        save_xml(data / 'xi-defines-b.xml', root)
+        changed.add('Data/L8/xi-defines-b.xml')
+        def retarget_fragment(root):
+            count = 0
+            for node in root:
+                if node.get('source') == 'xi-defines-a.xml':
+                    node.set('source', 'xi-defines-b.xml')
+                    count += 1
+            return count
+        edit_xml(data / 'fragment.xml', retarget_fragment)
         affected += 128
 
     def change_defines(root):
@@ -700,13 +746,19 @@ def apply_case(workload, case, destination):
         paths[0].unlink()
         deleted.append(paths[0].relative_to(destination).as_posix())
     elif identifier == 'C12':
-        edit_armor(sorted(data.glob('spread-*.xml')))
+        edit_armor(sorted(data.glob('spread-*.xml'))[:12])
         edit_material(sorted((data / 'materials').glob('common-*.tga')), 32)
         edit_material(sorted((data / 'materials').glob('audio-*.wav'))[:32], 32)
         old_count = assets
         assets = 0
         animations(32)
         assets += old_count
+        streams = [fixture for fixture in workload['streamFixtures']
+                   if not fixture['streamId'].startswith('base/')][:2]
+        need(len(streams) == 2, 'C12 needs two real non-base streams')
+        edit_armor([mod / fixture['path'] for fixture in streams])
+        touched_streams = [stream for stream in workload['streams'] if stream.startswith('base/')]
+        touched_streams += [fixture['streamId'] for fixture in streams]
     elif identifier == 'F01-delete':
         def remove(root):
             nodes = [node for node in root if node.tag == '{%s}ArmorTemplate' % NS][:32]
@@ -727,6 +779,9 @@ def apply_case(workload, case, destination):
     elif identifier == 'F02':
         parents()
         shared_defines()
+    elif identifier == 'F02-depth':
+        edit_armor(sorted(data.glob('depth-root-*.xml')))
+        affected = 152
     elif identifier == 'F03-shared':
         edit_material([data / 'materials/shared.wav'], 64)
     elif identifier == 'F04-independent':
@@ -803,6 +858,16 @@ def apply_case(workload, case, destination):
         sdk = Path(workload['sdkRoot'])
         extra_args = ['--data', ';'.join(str(path) for path in
                       (shadow, mod / 'Data', sdk, sdk / 'Mods', sdk / 'SAGEXML'))]
+    elif identifier == 'F09-entry':
+        selected = next(((stream, path) for stream, path in stream_entries(mod)
+                         if stream.startswith('apt/')), None)
+        need(selected is not None, 'No actual APT entry is available to rename')
+        old_stream, source = selected
+        target = source.with_name(source.stem + '_L8Renamed.xml')
+        need(not target.exists(), 'APT entry rename would overwrite another input')
+        source.rename(target)
+        changed.add(source.relative_to(mod).as_posix())
+        changed.add(target.relative_to(mod).as_posix())
     elif identifier == 'F10':
         # Use 25% of the *whole* workload declaration inventory, not 25% of
         # only our generated subset; include XML + texture/audio/animation.
@@ -815,10 +880,18 @@ def apply_case(workload, case, destination):
     else:
         raise ValueError('No available implementation for ' + identifier)
     xml_paths = {p for p in changed if Path(p).suffix.lower() in ('.xml', '.w3x')}
-    return {'changedAssets': assets, 'affectedAssets': affected,
+    result = {'changedAssets': assets, 'affectedAssets': affected,
             'changedDocuments': len(xml_paths), 'changedMaterials': materials,
             'changedPaths': sorted(changed), 'deletedPaths': deleted,
             'extraArgs': extra_args,
+            'streamIdsTouched': touched_streams,
             'metadataDocumentsRemoved': metadata_documents, 'metadataStreamId': metadata_stream,
             'changedCaches': (len(deleted) if identifier != 'C11' else 0) + modified_caches,
             'changedOutputs': len(deleted) if identifier == 'C11' else 0}
+    if identifier == 'F09-entry':
+        result['changedDocuments'] = 1
+        result['expectedStreams'] = sorted('apt/' + target.stem if stream == old_stream else stream
+                                           for stream in workload['streams'])
+        result['renamedStreamFrom'] = old_stream
+        result['renamedStreamTo'] = 'apt/' + target.stem
+    return result

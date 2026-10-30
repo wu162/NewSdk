@@ -129,19 +129,54 @@ class WorkloadChecks(unittest.TestCase):
         self.assertEqual(row['changedAssets'], 16)
         self.assertGreaterEqual(row['affectedAssets'], 128)
 
+    def test_full_depth_has_four_real_inheritance_edges_and_152_descendants(self):
+        roots = []
+        graph = {}
+        for path in (self.mod / 'Data/L8').glob('depth-*.xml'):
+            for node in ET.parse(path).getroot():
+                if not node.get('id'):
+                    continue
+                graph[node.get('id')] = node.get('inheritFrom')
+                if node.get('inheritFrom'):
+                    self.assertIsNone(node.get('Default'))
+                else:
+                    roots.append(node.get('id'))
+        self.assertEqual(len(roots), 8)
+        self.assertEqual(len(graph) - len(roots), 152)
+        depths = []
+        for identifier in graph:
+            depth, parent = 0, graph[identifier]
+            while parent:
+                depth += 1
+                parent = graph[parent]
+            depths.append(depth)
+        self.assertEqual(max(depths), 4)
+        self.assertEqual(depths.count(4), 128)
+        result = self.apply('F02-depth')
+        self.assertEqual(result['changedAssets'], 8)
+        self.assertEqual(result['affectedAssets'], 152)
+        self.assertEqual(result['changedDocuments'], 8)
+
     def test_defines_and_xinclude_are_shared_by_32_real_hosts(self):
         hosts = sorted((self.mod / 'Data/L8').glob('defines-host-*.xml'))
         self.assertEqual(len(hosts), 32)
         for path in hosts:
             root = ET.parse(path).getroot()
             self.assertIsNotNone(root.find('{%s}include' % W.XI))
+            self.assertIsNone(root.find('{%s}Includes' % W.NS))
             nodes = root.findall('{%s}ArmorTemplate' % W.NS)
             self.assertEqual(len(nodes), 4)
             self.assertTrue(all('$L8_SCALE' in node.get('DamageScalar') and
                                 '$L8_XI_SCALE' in node.get('DamageScalar') for node in nodes))
         result = self.apply('C09')
         self.assertEqual(result['affectedAssets'], 128)
-        self.assertEqual(result['changedDocuments'], 2)
+        self.assertEqual(result['changedDocuments'], 3)
+        fragment = ET.parse(self.mod / 'Data/L8/fragment.xml').getroot()
+        self.assertEqual(fragment.tag, '{%s}Includes' % W.NS)
+        self.assertEqual([node.get('source') for node in fragment], ['defines.xml', 'xi-defines-b.xml'])
+        self.assertFalse(any(node.tag == '{%s}Define' % W.NS for node in fragment.iter()))
+        self.assertEqual(ET.parse(self.mod / 'Data/L8/xi-defines-a.xml').getroot()[0][0].get('value'), '74.25')
+        self.assertEqual(ET.parse(self.mod / 'Data/L8/xi-defines-b.xml').getroot()[0][0].get('value'), '75.25')
 
     def test_material_updates_preserve_valid_headers_and_mixed_load_counts(self):
         texture = self.mod / 'Data/L8/materials/texture-000.dds'
@@ -152,9 +187,13 @@ class WorkloadChecks(unittest.TestCase):
         self.apply('F04-independent')
         self.assertEqual(texture.read_bytes()[:128], before[:128])
         result = self.apply('C12')
-        self.assertEqual(result['changedAssets'] + result['affectedAssets'], 224)
+        self.assertEqual(result['changedAssets'] + result['affectedAssets'], 256)
         self.assertEqual(result['changedMaterials'], 64)
-        self.assertEqual(result['changedAssets'], 160)
+        self.assertEqual(result['changedAssets'], 192)
+        self.assertEqual(result['changedDocuments'], 22)
+        self.assertEqual(len(result['streamIdsTouched']), 3)
+        self.assertEqual(result['streamIdsTouched'][0], 'base/Mod')
+        self.assertEqual(set(result['streamIdsTouched'][1:]), {'apt/Screen', 'maps/MapMetaData_Global'})
 
     def test_same_stamp_changes_real_content_at_same_length(self):
         target = self.mod / 'Data/L8/spread-00.xml'
@@ -175,6 +214,21 @@ class WorkloadChecks(unittest.TestCase):
         self.assertEqual(row['extraArgs'][0], '--data')
         first = Path(row['extraArgs'][1].split(';')[0])
         self.assertEqual(ET.parse(first / 'L8Shadow/leaf-00.xml').getroot()[0].get('Default'), '73.5%')
+
+    def test_full_entry_renames_actual_apt_stream_without_relocating_include_roots(self):
+        old_stream, entry = next((stream, path) for stream, path in W.stream_entries(self.mod)
+                                 if stream.startswith('apt/'))
+        before, parent = entry.read_bytes(), entry.parent
+        result = self.apply('F09-entry')
+        self.assertFalse(entry.exists())
+        new_entry = parent / (entry.stem + '_L8Renamed.xml')
+        self.assertEqual(new_entry.read_bytes(), before)
+        actual_streams = sorted(stream for stream, path in W.stream_entries(self.mod))
+        self.assertEqual(result['expectedStreams'], actual_streams)
+        self.assertNotIn(old_stream, result['expectedStreams'])
+        self.assertEqual(result['changedDocuments'], 1)
+        self.assertEqual(result['changedPaths'], sorted([entry.relative_to(self.mod).as_posix(),
+                                                        new_entry.relative_to(self.mod).as_posix()]))
 
     def test_include_target_move_keeps_unique_declarations_and_deepens_graph(self):
         row = self.apply('F06')

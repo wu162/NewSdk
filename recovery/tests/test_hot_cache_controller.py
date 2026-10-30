@@ -75,6 +75,12 @@ class AdmissionTests(unittest.TestCase):
 
 
 class BudgetTests(unittest.TestCase):
+    def test_impossible_full_matrix_is_reported_before_claiming_completion(self):
+        cases = [dict(id='F%02d-case' % i) for i in range(1, 27)]
+        result = B.feasibility(cases)
+        self.assertFalse(result['fullExtensionCanFitStrictLowerBound'])
+        self.assertGreater(result['fullExtensionStrictLowerBoundSeconds'], 960)
+
     def test_timeout_is_minimum_of_process_phase_and_whole_job(self):
         clock = [0]
         budget = B.Budget('common', clock=lambda: clock[0])
@@ -152,6 +158,25 @@ class ReplayAndReportTests(unittest.TestCase):
             B.run_case(runner, case, snapshot)
         self.assertEqual(events, ['restore', 'hot_before', 'edit', 'modified', 'hot_after'] * 2)
         self.assertEqual(case['status'], 'complete')
+
+    def test_full_contrasts_reuse_common_controls_without_duplicate_samples(self):
+        samples = []
+        cases = [dict(id='C00', status='complete'), dict(id='C05', status='complete')]
+        cases += [dict(id='F11-mode-' + mode, mode=mode) for mode in B.MODES]
+        cases += [dict(id='F11-jobs-' + jobs, jobs=jobs) for jobs in ('1', '4', 'auto')]
+        def record(case, phase, repeat=0, formal=False, **kwargs):
+            row = dict(case=case['id'], phase=phase, formal=formal, performance='off', status='qualified')
+            samples.append(row)
+            return row
+        runner = SimpleNamespace(state=dict(samples=samples), workload={}, destination=Path('unused'),
+                                 sample=record, budget=SimpleNamespace(check=lambda: None))
+        snapshot = SimpleNamespace(restore=lambda: None)
+        with patch.object(B, 'apply_case', return_value={}):
+            B.full_modes(runner, snapshot, cases)
+        self.assertEqual(sum(s['formal'] for s in samples), 17)
+        self.assertEqual(sum(s['phase'] == 'mode_warmup' for s in samples), 2)
+        self.assertTrue(all(c['status'] == 'complete' for c in cases))
+        self.assertEqual(cases[-1]['reusedCase'], 'C05')
 
 
 class ApprovalTests(unittest.TestCase):

@@ -168,7 +168,8 @@ class Runner:
         mutation['deletedPaths'] = [str(self.destination / p) for p in mutation.get('deletedPaths', [])]
         row = dict(label=label, case=case['id'], phase=phase, repeat=repeat, formal=formal,
                    performance=performance, mode=mode, jobs=str(jobs), status='started', command=command,
-                   timeoutSeconds=timeout, mutation=mutation, cacheNamespace=case['id'] + '/' + str(repeat))
+                   timeoutSeconds=timeout, mutation=mutation, cacheNamespace=case['id'] + '/' + str(repeat),
+                   workloadFingerprint=self.workload['fingerprint'])
         self.state['samples'].append(row)
         (evidence / 'request.json').write_text(json.dumps(row, indent=2), encoding='utf-8')
         save(self.output, self.state)
@@ -193,7 +194,7 @@ class Runner:
             row.update(reportElapsedMs=report.get('elapsedMs'), cache=report.get('cache', {}),
                        streamIds=stream_ids(report), reportPerformance=report.get('performance'),
                        publishedBytes=sum(a['Size'] for a in report.get('artifacts', [])))
-            if set(row['streamIds']) != set(self.workload['streams']):
+            if set(row['streamIds']) != set(mutation.get('expectedStreams', self.workload['streams'])):
                 raise ValueError('Actual build plan does not match the workload stream inventory')
             row['status'], row['over8s'], row['error'] = admission(row, report, case)
             row['pathExercised'] = row['status'] in ('qualified', 'under_8s')
@@ -263,14 +264,14 @@ def run_case(runner, case, snapshot, repeats=2, mode='both-deflate', jobs='auto'
         runner.budget.check()
         runner.sample(case, 'modified', repeat, True, mode=mode, jobs=jobs, mutation=mutation)
         runner.sample(case, 'hot_after', repeat, True, mode=mode, jobs=jobs,
-                      mutation={'extraArgs': mutation.get('extraArgs', [])})
+                      mutation={k: mutation[k] for k in ('extraArgs', 'expectedStreams') if k in mutation})
     rows = [r for r in runner.state['samples'] if r['case'] == case['id'] and r['formal'] and r['performance'] == 'off']
     case['status'] = 'complete' if len(rows) == repeats * 3 and all(r['status'] == 'qualified' for r in rows) else 'partial'
 
 
-def diagnostics(runner, snapshot, cases):
+def diagnostics(runner, snapshot, cases, identifiers=('C08', 'C09', 'C12')):
     # Instrumented attribution never contributes to off medians.
-    for identifier in ('C08', 'C09', 'C12'):
+    for identifier in identifiers:
         case = next((c for c in cases if c['id'] == identifier and c.get('status') == 'complete'), None)
         if not case:
             continue
@@ -282,15 +283,37 @@ def diagnostics(runner, snapshot, cases):
 def full_modes(runner, snapshot, cases):
     for case in [c for c in cases if c['id'].startswith('F11-mode-')]:
         mode = case['mode']
+        if mode == 'both-deflate':
+            baseline = next(c for c in cases if c['id'] == 'C00')
+            case.update(status=baseline['status'], reusedCase='C00',
+                        reason='复用本次同指纹 C00 的默认模式三次热态，未增加独立样本')
+            continue
         snapshot.restore()
-        runner.sample(case, 'mode_warmup', mode=mode)
-        # Mode-specific hot cache baselines, from the same calibrated inputs.
-        store = Path(runner.args.work) / ('snapshot-' + mode)
-        mode_snapshot = Snapshot(runner.workload['modRoot'], runner.destination, store, runner.budget)
-        run_case(runner, case, mode_snapshot, repeats=2, mode=mode)
+        # The baseline already warmed native bc and compressed sc. Only an
+        # XML session mode needs one conversion before measuring steady state.
+        if MODES[mode][1] and not MODES[mode][2]:
+            runner.sample(case, 'mode_warmup', mode=mode)
+        row = runner.sample(case, 'hot_before', repeat=1, formal=True, mode=mode)
+        case.update(status='complete' if row['status'] == 'qualified' else 'partial',
+                    reason='缓存模式吞吐对照 n=1；独立恢复同一负载/缓存基线，不重复无修改三段链')
     # Only one audio scenario, avoiding a size/mode/jobs Cartesian product.
     for case in [c for c in cases if c['id'].startswith('F11-jobs-')]:
-        run_case(runner, case, snapshot, repeats=2, jobs=case['jobs'])
+        if case['jobs'] == 'auto':
+            baseline = next(c for c in cases if c['id'] == 'C05')
+            case.update(status=baseline['status'], reusedCase='C05',
+                        reason='复用本次 C05 同输入/同模式的 auto 两组三阶段，未增加独立样本')
+        else:
+            run_case(runner, case, snapshot, repeats=2, jobs=case['jobs'])
+
+
+def feasibility(cases):
+    expanded = [c for c in cases if c['id'].startswith('F') and
+                not c['id'].startswith(('F11', 'F12')) and c.get('availability') != 'not_applicable']
+    processes = len(expanded) * 2 * 3
+    return dict(commonFormalProcesses=75, fullExtensionConditions=len(expanded),
+                fullExtensionFormalProcesses=processes, fullExtensionStrictLowerBoundSeconds=processes * 8,
+                fullExtensionPhaseSeconds=960, fullExtensionCanFitStrictLowerBound=processes * 8 < 960,
+                note='Lower bound excludes setup/snapshots and assumes every real compile is only just above 8s; no coverage/repeats are silently removed')
 
 
 def execute(args):
@@ -310,7 +333,8 @@ def execute(args):
     prepared = read_json(args.preparation)
     state = dict(schemaVersion=1, status='running', group=args.group, samples=[], cases=[],
                  sourceCommit=prepared['benchmarkSourceCommit'], binarySourceCommit=prepared['binarySourceCommit'],
-                 sourceRunId=prepared['sourceRunId'], machine=dict(system=platform.platform(), cpu=platform.processor(),
+                 sourceRunId=prepared['sourceRunId'], runId=os.environ.get('GITHUB_RUN_ID'),
+                 runAttempt=os.environ.get('GITHUB_RUN_ATTEMPT'), machine=dict(system=platform.platform(), cpu=platform.processor(),
                  runnerImage=os.environ.get('ImageVersion')), limits=dict(totalSeconds=budget.total,
                  stopStartingProcessesSeconds=budget.stop), calibrated=False)
     runner = Runner(args, prepared, budget, state)
@@ -322,6 +346,7 @@ def execute(args):
         if not calibrate(runner):
             return 2
         state['cases'] = runner.workload['cases']
+        state['feasibility'] = feasibility(state['cases'])
         for case in state['cases']:
             if case.get('availability') in ('unavailable', 'not_applicable'):
                 case['status'] = case['availability']
@@ -351,6 +376,8 @@ def execute(args):
                         run_case(runner, case, snapshot)
             with budget.phase('full_modes', 300):
                 full_modes(runner, snapshot, state['cases'])
+            with budget.phase('full_diagnostics', 120):
+                diagnostics(runner, snapshot, state['cases'], ('F03-shared', 'F05', 'F10'))
         required = [c for c in state['cases'] if (args.group == 'full' or c['id'].startswith('C')) and c.get('status') != 'not_applicable']
         state['status'] = 'passed' if common_complete and all(c.get('status') == 'complete' for c in required) else 'partial'
         if any(r.get('formal') and r['status'] == 'under_8s' for r in state['samples']):
