@@ -65,6 +65,20 @@ extern "C" RECOVERED_TEXTURE_NATIVE_LOADER_API std::int32_t __stdcall TextureCre
  catch(const std::bad_alloc&){return OutOfMemory;}
 }
 namespace {
+float FloatStore(double value){volatile float result=static_cast<float>(value);return result;}
+float TruncateFloat(double value){float rounded=FloatStore(value);U bits;std::memcpy(&bits,&rounded,4);if(static_cast<double>(rounded)>value){--bits;std::memcpy(&rounded,&bits,4);}return rounded;}
+unsigned char GenericBoxByte(unsigned char tl,unsigned char tr,unsigned char bl,unsigned char br){
+ // RVA17825 fast byte BOX requires BOTH source axes>=2. A collapsed axis
+ // uses the normalized float row interface, duplicates that axis, performs
+ // three sequential float32 adds, then a float32 quarter store (17a89..b1e).
+ // The RGBA8 row writer1cfd0 uses x87 toward-zero stores before adding .5.
+ constexpr double inverse=0.0039215688593685627;
+ const float a=FloatStore(tl*inverse),b=FloatStore(tr*inverse),c=FloatStore(bl*inverse),d=FloatStore(br*inverse);
+ const float first=FloatStore(static_cast<double>(b)+a),second=FloatStore(static_cast<double>(c)+first),third=FloatStore(static_cast<double>(d)+second);
+ const float average=FloatStore(static_cast<double>(third)*0.25);
+ const float scaled=TruncateFloat(static_cast<double>(average)*255.0);
+ return static_cast<unsigned char>(std::min(255,std::max(0,static_cast<int>(TruncateFloat(static_cast<double>(scaled)+0.5)))));
+}
 std::int32_t GenerateRawMips(void* resource,U first,U levels,U width,U height,U format){
  for(U level=first;level<levels;++level){
   const U sw=std::max(1u,width>>(level-1)),sh=std::max(1u,height>>(level-1)),w=std::max(1u,sw>>1),h=std::max(1u,sh>>1),nx=sw>1?2:1,ny=sh>1?2:1,count=nx*ny;
@@ -73,9 +87,11 @@ std::int32_t GenerateRawMips(void* resource,U first,U levels,U width,U height,U 
   const auto input=static_cast<const unsigned char*>(source.bits);auto output=static_cast<unsigned char*>(target.bits);
   for(U y=0;y<h;++y)for(U x=0;x<w;++x)for(U c=0;c<4;++c){
    U sum=0;for(U dy=0;dy<ny;++dy)for(U dx=0;dx<nx;++dx)sum+=input[(y*ny+dy)*source.pitch+(x*nx+dx)*4+c];
-   // D3DX_FILTER_BOX rounds each stored byte half up at every mip. X8's
+   // The two-axis byte BOX fast path rounds half up. X8's
    // unused byte is zero in generated levels, independently of base padding.
-   output[y*target.pitch+x*4+c]=c==3&&((format>>27)&7)==5?0:static_cast<unsigned char>((sum+count/2)/count);
+   if(c==3&&((format>>27)&7)==5)output[y*target.pitch+x*4+c]=0;
+   else if(sw>=2&&sh>=2)output[y*target.pitch+x*4+c]=static_cast<unsigned char>((sum+2)/4);
+   else output[y*target.pitch+x*4+c]=GenericBoxByte(input[(y*ny)*source.pitch+(x*nx)*4+c],input[(y*ny)*source.pitch+(x*nx+nx-1)*4+c],input[(y*ny+ny-1)*source.pitch+(x*nx)*4+c],input[(y*ny+ny-1)*source.pitch+(x*nx+nx-1)*4+c]);
   }
   TextureResourceUnlockRect(resource,level);TextureResourceUnlockRect(resource,level-1);
  }

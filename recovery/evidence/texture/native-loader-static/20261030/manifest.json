@@ -146,6 +146,45 @@
       "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
       "disassembly": "DefaultMipFilter.asm",
       "rawBytes": "DefaultMipFilter.bin"
+    },
+    {
+      "name": "Box2DDispatch",
+      "rvaStart": "0x17825",
+      "rvaEndExclusive": "0x179af",
+      "vaStart": "0x10017825",
+      "vaEndExclusive": "0x100179af",
+      "fileOffset": "0x17825",
+      "bytes": 394,
+      "sha256": "876020fd87d6b24827d4233fdd362f2a1352bcfd06f259c2b47882e4fd3fb47d",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "Box2DDispatch.asm",
+      "rawBytes": "Box2DDispatch.bin"
+    },
+    {
+      "name": "BoxFloatRows",
+      "rvaStart": "0x179af",
+      "rvaEndExclusive": "0x17b8a",
+      "vaStart": "0x100179af",
+      "vaEndExclusive": "0x10017b8a",
+      "fileOffset": "0x179af",
+      "bytes": 475,
+      "sha256": "51323a90e85192ea30b09579f4765dc9f0d0e7953ad93361cc437bd4f52ed8a4",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "BoxFloatRows.asm",
+      "rawBytes": "BoxFloatRows.bin"
+    },
+    {
+      "name": "Rgba8RowStore",
+      "rvaStart": "0x1cfd0",
+      "rvaEndExclusive": "0x1d391",
+      "vaStart": "0x1001cfd0",
+      "vaEndExclusive": "0x1001d391",
+      "fileOffset": "0x1cfd0",
+      "bytes": 961,
+      "sha256": "6a9644a15f71f7e917f56ce4e32de3c719594c37ca85156c98a6bf85cb68c74f",
+      "boundary": "fixed entry range to the next known function entry; body ends in return or tail jump",
+      "disassembly": "Rgba8RowStore.asm",
+      "rawBytes": "Rgba8RowStore.bin"
     }
   ],
   "disassembler": "GNU objdump (GNU Binutils for Debian) 2.44",
@@ -173,7 +212,7 @@
     },
     {
       "rva": "0x13268",
-      "evidence": "POT default mip filter5 BOX; recursive stored byte rounding verified by preserved original resource captures"
+      "evidence": "POT default mip filter5 BOX; optimized byte2D path requires both source axes>=2; collapsed axis uses three sequential normalized float32 adds/quarter, RGBA8 writer sets x87 toward-zero for scaled and half-biased stores"
     },
     {
       "managedToken": "0x06000017",

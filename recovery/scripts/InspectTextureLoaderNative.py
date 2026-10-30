@@ -15,7 +15,10 @@ FUNCTIONS=[
  ('CpuTextureHeader',0xd7ea,0xdabf),
  ('TextureAllocation',0xc9f6,0xccde),
  ('StorageAlign',0xc91d,0xc9f6),
- ('DefaultMipFilter',0x13173,0x134b8)]
+ ('DefaultMipFilter',0x13173,0x134b8),
+ ('Box2DDispatch',0x17825,0x179af),
+ ('BoxFloatRows',0x179af,0x17b8a),
+ ('Rgba8RowStore',0x1cfd0,0x1d391)]
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--root',type=Path,default=ROOT);p.add_argument('--out',type=Path,default=ROOT/'work/native-loader/evidence');args=p.parse_args()
 source=args.root/'SDK/tools/BinaryAssetBuilder.TextureCompiler.dll';raw=source.read_bytes();assert hashlib.sha256(raw).hexdigest()==EXPECTED
 pe=struct.unpack_from('<I',raw,0x3c)[0];assert raw[pe:pe+4]==b'PE\0\0';sections=struct.unpack_from('<H',raw,pe+6)[0];sizeopt=struct.unpack_from('<H',raw,pe+20)[0];optional=pe+24;assert struct.unpack_from('<H',raw,optional)[0]==0x10b
@@ -40,6 +43,6 @@ manifest['criticalSites']=[
  {'rva':'0xdc7e','evidence':'GlobalAlloc GMEM_ZEROINIT52-byte object; VirtualAlloc MEM_COMMIT/PAGE_READWRITE primary and optional secondary; exact cleanup on OOM'},
  {'rva':'0xd855','evidence':'packing2 becomes levels>1; original header stores stride in units32texels and dimensions-minus1'},
  {'rva':'0xc9f6','evidence':'ordinary2D oneface, power-of-two packed-tail storage; stop mip allocations when either exponent<=4; every allocation page rounded'},
- {'rva':'0x13268','evidence':'POT default mip filter5 BOX; recursive stored byte rounding verified by preserved original resource captures'},
+ {'rva':'0x13268','evidence':'POT default mip filter5 BOX; optimized byte2D path requires both source axes>=2; collapsed axis uses three sequential normalized float32 adds/quarter, RGBA8 writer sets x87 toward-zero for scaled and half-biased stores'},
  {'managedToken':'0x06000017','evidence':'LoadImageA clears source format bits0x1c0 with fffffe3f, then XGCopySurface destination1a200006 flags12 threshold0; resource header endian tag does not imply a CPU file-upload byte swap'}]
 (args.out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n');print(json.dumps({'originalSha256':EXPECTED,'functions':len(FUNCTIONS),'output':str(args.out)}))
