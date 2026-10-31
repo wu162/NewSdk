@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "productionSourceCommit": "d60904bcb4fcdc6b02ff78db6b66410568543f57",
+  "baselineProductionSourceCommit": "7cfdd4314d8cafa2f2c7313e64f5ffbacf94eaf9",
+  "componentRun": 41146357838,
+  "finalProductAndSdkRun": 41146357892,
+  "sharedXml": {
+    "runId": 41145352024,
+    "sourceCommit": "d457f99a56c3fb4a1baf94bb84c0466f243a4d95",
+    "workflowConclusion": "cancelled",
+    "acceptedSteps": [
+      "joint route smoke",
+      "all 63 complete matrices Debug and Release"
+    ],
+    "remainingDuplicateProductChecksReplacedBy": 41146357892,
+    "inputIdentity": "xml-input-identity.json",
+    "cancellationControllerRun": 41149921242
+  },
+  "fullModPairedRun": 41148441137,
+  "performanceScope": "Incremental versus accepted first phase; synthetic plugin timing separated from full MOD timing",
+  "allRawArchivesDownloadedAndRehashed": true,
+  "merged": false
+}

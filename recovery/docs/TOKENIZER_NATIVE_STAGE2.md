@@ -1,6 +1,6 @@
 # GameObject / Weapon 第二阶段原生优化
 
-分支 `perf/gameobject-weapon-plugins`，沿用 [PR #33](https://github.com/wu162/NewSdk/pull/33)。本阶段基线为上一阶段已验收的 `7cfdd4314d8cafa2f2c7313e64f5ffbacf94eaf9`，候选源码 `d60904bcb4fcdc6b02ff78db6b66410568543f57`。研究提出的六个方向均已接入插件；产品验收与完整 MOD 计量正在进行，不能以专项成绩替代。
+分支 `perf/gameobject-weapon-plugins`，沿用 [PR #33](https://github.com/wu162/NewSdk/pull/33)。本阶段基线为上一阶段已验收的 `7cfdd4314d8cafa2f2c7313e64f5ffbacf94eaf9`，候选源码 `d60904bcb4fcdc6b02ff78db6b66410568543f57`。研究提出的六个方向均已接入插件；插件专项、最终产品/SDK、共享 XML63 与完整 MOD 配对均已取得成功范围。PR 待审，未合并。
 
 ## 已接入的实现
 
@@ -31,8 +31,37 @@
 | Schema 默认 GameObject | 4000 | 233.129 | 174.530 | 25.14% |
 | Schema 默认 Weapon | 4000 | 226.733 | 165.626 | 26.95% |
 
-每类前后托管分配相同；没有以此推断原生堆分配量。Schema fixture 从 SDK XSD 根类型 AttributeUses 获取并展开默认属性，不包含完整 Core 预处理。原始 CSV、编译/计量日志、输入 DLL 身份及原收据在 [证据目录](../evidence/refactor/tokenizer-native-stage2/41146357838/validation.json)，4627 字节外层归档已下载复算 SHA256。产品/SDK 与完整 MOD 成绩仍待成功原收据。
+计时在 DLL 加载、默认元数据初始化和预热之后进行；完整 MOD 配对另行包含进程启动。每类前后托管分配相同；没有以此推断原生堆分配量。Schema fixture 从 SDK XSD 根类型 AttributeUses 获取并展开默认属性，不包含完整 Core 预处理。原始 CSV、编译/计量日志、输入 DLL 身份及原收据在 [证据目录](../evidence/refactor/tokenizer-native-stage2/41146357838/validation.json)，4627 字节外层归档已下载复算 SHA256。完整 MOD 配对成绩另列。
 
 共享 XML 的完整 63 组在祖先 `d457f99a` 独立验证；后续候选只改四个 GO/Weapon cpp/runtime 文件及专项 CS/PS。使用 SelectXmlComponentGroups.py 的递归依赖闭包比较，63 组实际输入均未变，SDK、Schema、生成代码及构建参数也未变。仅在祖先完整 XML 原收据成功后复用该范围；最终产品、GO/Weapon 与 SDK 仍使用最终候选重新构建并独立验收。
 
 第一阶段结果与失败保留在 [原插件报告](TOKENIZER_PLUGIN_PERFORMANCE.md)。未合并、禁止强推；本轮不包含游戏内验收。
+
+## 最终产品与 SDK
+
+[41146357892](https://github.com/wu162/NewSdk/actions/runs/41146357892) 整体 success，源码/二进制/测试均为 `d60904bc`：Debug/Release 新构建，完整 GameObject/Weapon 四平台原版矩阵，64 worker/cache，Core/CLI/真实取消、两类缓存、载荷/输入根/BIG、完整 mymod 原 SDK、两个五文件 ZIP 和完整 Upheaval 22 样本通过。22 样本全部实际输出原字节相同、0 错误/1859 原警告。
+
+265,450,740 字节原归档已下载复算 SHA256 `619fd795ec556fdbb81d18f103823e082cc0157024484b7e7308cc414d7be4e3`；十个运行文件及两个内层 ZIP 内容已核验。14 份主收据、两份原 BAB 基线及发布收据连同输入身份保存在 [original-receipts.zip](../evidence/refactor/tokenizer-native-stage2/41146357892/original-receipts.zip)，详见 [archive.json](../evidence/refactor/tokenizer-native-stage2/41146357892/archive.json)。
+
+## 共享 XML63 的独立成功与复用
+
+祖先源码 `d457f99a` 的 [41145352024](https://github.com/wu162/NewSdk/actions/runs/41145352024) 中，路由 smoke 与 XML 完整矩阵步骤 **success**：Debug/Release 各 63 组、四平台含 99，合计 1,918,904 样本 / 11,064,384 缓冲区比较。原始 validation、每组宿主/原 oracle 日志及构建收据在 [original-xml-receipts.zip](../evidence/refactor/tokenizer-native-stage2/41145352024/original-xml-receipts.zip)。127,209,348 字节完整原归档已下载复算。
+
+该运行整体终态为 **cancelled**，不是完整产品通过：XML 独立成功后，一次性 [控制作业 41149921242](https://github.com/wu162/NewSdk/actions/runs/41149921242) 核实最终产品 41146357892 已 success，停止后面的重复产品检查，由既有 always-upload 保存证据。取消中的 GO 检查与未运行的后续组均不复用；最终产品/SDK 只使用上节独立全新成功运行。一次性控制工作流在归档后删除。
+
+[递归输入身份](../evidence/refactor/tokenizer-native-stage2/xml-input-identity.json) 记录 d457f99a→d60904bc 的全部六个变更文件与63组闭包：全部未受影响。两次构建的 MSVC 14.44.35207、Windows SDK 10.0.26100.0、Roslyn 4.0.1、Foundation/App 身份也已核对；构建参数/Schema/原 DLL/生成器无变更。XML 与最终产品的 EXE 不同，分别记录二进制来源，不冒称在最终 EXE 重跑了63组。
+
+## 完整 MOD 三轮配对
+
+[41148441137](https://github.com/wu162/NewSdk/actions/runs/41148441137) success；控制器源码 `324db4c8`，重建精确基线 `7cfdd431`，复用最终验收 `d60904bc` 的 Release，EXE 身份与最终产品一致。严格核对20个生产改动文件；同一 Windows VM、完整历史 Upheaval、jobs4、双缓存关闭、每次全新输出、三轮交替顺序。
+
+| 配对 | 基线秒 | 优化后秒 |
+| --- | ---: | ---: |
+| 1（基线先） | 36.409 | 34.659 |
+| 2（优化后先） | 34.766 | 35.127 |
+| 3（基线先） | 34.452 | 34.089 |
+| 中位数 | 34.766 | 34.659 |
+
+完整编译中位耗时减少 **0.31%**，基本持平；第二对优化后慢约1.04%。不按插件合成负载外推完整 MOD 加速，也不与第一阶段不同 VM 的绝对秒数拼接。六次全部0错误/1859原警告，BIG/SKUDEF/Additional 的实际字节相同。只有每方三次样本、没有预热、OS 页缓存未控制，不作通用性能保证。
+
+814,673 字节原归档已下载复算；[原始 measurement](../evidence/refactor/tokenizer-native-stage2/41148441137/measurement.json)、六份报告和发布清单保存在 [original-evidence.zip](../evidence/refactor/tokenizer-native-stage2/41148441137/original-evidence.zip)。没有新增游戏内验收。

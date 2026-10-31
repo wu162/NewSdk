@@ -1,6 +1,6 @@
 # 当前插件优化入口
 
-本轮 `perf/gameobject-weapon-plugins` / [PR #33](https://github.com/wu162/NewSdk/pull/33) 的第二阶段六项原生优化已编码、Windows 七类组件通过；完整产品、共享 XML63 与 SDK 仍在验收。以 [RESUME](RESUME.md) 和[第二阶段报告](docs/TOKENIZER_NATIVE_STAGE2.md) 为准，不能以第一阶段成功代替。PR 未合并，禁止强推。
+本轮 `perf/gameobject-weapon-plugins` / [PR #33](https://github.com/wu162/NewSdk/pull/33) 的第二阶段六项原生优化已接入并验收；生产源码 `d60904bc`。组件、最终产品/SDK、共享 XML63 的独立成功及完整 MOD 配对来源见 [RESUME](RESUME.md) 和[第二阶段报告](docs/TOKENIZER_NATIVE_STAGE2.md)。完整 MOD 中位耗时减少0.31%，基本持平；不得用组件收益替代。PR 待审，未合并，禁止强推。
 
 # 当前：冗余安全清理完成，PR #28 待审
 

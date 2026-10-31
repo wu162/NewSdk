@@ -1,8 +1,14 @@
-# 当前：第二阶段六项插件原生优化（产品验收中）
+# 当前：六项插件原生优化已验收，PR #33 待审
 
-源码 `d60904bc`，分支 `perf/gameobject-weapon-plugins` / [PR #33](https://github.com/wu162/NewSdk/pull/33)。六项均已接入：透明属性查找、member 地址索引、mask 范围解析、标量默认值预解码、Draw 子节点分组、最终缓冲直写。Windows [七类专项 41146357838](https://github.com/wu162/NewSdk/actions/runs/41146357838) success，原版/前后大小端三缓冲区一致、真实退出 0。Schema 默认 GameObject/Weapon 耗时中位数减少约25%/27%，不是完整 MOD 加速。
+分支 `perf/gameobject-weapon-plugins` / [PR #33](https://github.com/wu162/NewSdk/pull/33)，最终生产源码 `d60904bc`。透明属性查找、member 地址索引、mask 范围解析、标量默认值预解码、Draw 子节点分组及最终缓冲直写均已接入。以 [第二阶段报告](docs/TOKENIZER_NATIVE_STAGE2.md) 为准。
 
-[共享 XML63 41145352024](https://github.com/wu162/NewSdk/actions/runs/41145352024) 和[最终产品/SDK 41146357892](https://github.com/wu162/NewSdk/actions/runs/41146357892) 尚在运行，**本阶段尚未验收**。前者源码 `d457f99a`；后续四个 GO/Weapon 文件的默认文本快路不改变63组递归输入，成功后可复用其独立范围。详细实现与结果见 [第二阶段报告](docs/TOKENIZER_NATIVE_STAGE2.md)。禁止强推，未经批准不合并。
+[七类组件 41146357838](https://github.com/wu162/NewSdk/actions/runs/41146357838) success，原 DLL/前后组件大小端三缓冲一致、真实退出0。相对上一阶段，Schema 默认 GO/Weapon 中位耗时减少25.14%/26.95%，32 Nuggets 减少57.37%；是插件负载，不是完整 MOD 收益。
+
+[最终产品 41146357892](https://github.com/wu162/NewSdk/actions/runs/41146357892) 整体 success：Debug/Release、GO/Weapon 完整四平台原字节/tokenizer、Core/CLI/取消/缓存/64 worker矩阵、完整 mymod 原 SDK、五文件包、Upheaval22样本通过。十个运行文件和两个ZIP身份已下载核对。
+
+[共享 XML63 41145352024](https://github.com/wu162/NewSdk/actions/runs/41145352024) 的路由及完整矩阵步骤 success（1,918,904样本/11,064,384比较）；后续重复产品检查停止，整体 cancelled。仅复用其独立 XML 范围，d457f99a→d60904bc 的63组依赖闭包和实际工具链/托管宿主身份未变；最终产品另取上面的完整成功运行。
+
+[完整 MOD 三轮配对 41148441137](https://github.com/wu162/NewSdk/actions/runs/41148441137) success，全部发布字节相同、六次0错误/1859警告；中位34.766→34.659秒（减少0.31%，基本持平），第二对稍慢。原始证据均已下载复算，较慢样本保留。未经批准不合并，禁止强推。
 
 # 当前：GameObject / Weapon 插件编译优化（验收通过，PR #33 待审）
 

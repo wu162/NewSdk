@@ -329,5 +329,17 @@
   "all63DependencyClosuresUnchanged": true,
   "tool": "recovery/scripts/SelectXmlComponentGroups.py",
   "sdkSchemaAndBuildToolchainChanges": [],
-  "note": "Input identity check only; acceptance additionally requires original successful ancestor XML receipts and artifact identities."
+  "note": "Input identity check only; acceptance additionally requires original successful ancestor XML receipts and artifact identities.",
+  "verifiedBuildIdentityFields": {
+    "windowsSdkVersion": "10.0.26100.0\\",
+    "vcToolsVersion": "14.44.35207",
+    "compiler": "Microsoft.Net.Compilers.Toolset/4.0.1",
+    "configuration": "Release",
+    "foundationSha256": "f32e3aaeffc0ac849afeb63087e4ac269f7ffbd767ae3039ef940bf0117cfc93",
+    "applicationSha256": "c4db821e63ad270f1db59903b9acbdf14b3eab1ae60ff368f48f8aeacd0dcf67",
+    "hostingSource": {
+      "sha256": "e5265339c7b98edfe590c7e09193368c422a2ad74f3e70e769133561953213c8",
+      "path": "recovery/src/Hosting/CompilerEntry.cpp"
+    }
+  }
 }
