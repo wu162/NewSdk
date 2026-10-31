@@ -1,6 +1,10 @@
-# 当前：PR #38 已获合入批准，组合验收待完成
+# 当前：缓存优化与源码纹理组合验收通过，PR #38 已获合入批准
 
-已同步目标 `recovery/legacy-sdk-cache` / `53ace331` 的源码Texture及三路并行成果，保留此前冷热优化和用户要求的 `c85d4a97` 回退；父快照、窄instance依赖和新增引用去重保持撤回。唯一文本冲突为本续接入口，以下两边有效记录均保留。组合产品需要新的Windows构建验收，不能继续把e2或Texture独立产品当作当前组合二进制。用户已明确批准PR #38合入，必要检查通过后完成合并；禁止强推。
+已同步目标 `recovery/legacy-sdk-cache` / `53ace331`（PR #39源码Texture/原身份/三路并行），保留此前会话/Schema共享、XML哈希与冷热优化，以及用户要求的 `c85d4a97` 回退；父快照、窄instance依赖和新增引用去重保持撤回。组合生产源码 `b385337e463bddebdb267946d9edb1b3b6ee5f0a`，新的 [Windows验收41192817627](https://github.com/wu162/NewSdk/actions/runs/41192817627) 全success。
+
+Debug/Release新构建、Core/CLI/CtrlBreak、64worker、完整缓存/搜索根/会话、Texture原三路与常见格式、完整mymod原SDK、两份三文件ZIP、Upheaval22均通过。新full归档仅下载核验一次；六份运行文件、两个ZIP、build/link身份与doctor/BIG部署核对通过。[组合身份收据](evidence/refactor/cache-texture-merge/41192817627-1/runtime-package-verification.json)。后续仅验收记录，不代表再次构建；旧e2与8fe独立产物不冒充当前组合EXE。
+
+用户已明确批准PR #38合入，生产与必要验收已完成；后续从 `recovery/legacy-sdk-cache` 续接，合并状态以 [PR #38](https://github.com/wu162/NewSdk/pull/38) 为准。新前端并行方案尚未实现。以下两边历史记录保留，禁止强推。
 
 # 已合入：Texture 原身份与并行编译（PR #39）
 
