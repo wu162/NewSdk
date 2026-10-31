@@ -277,6 +277,60 @@ internal static class CompilerCoreLifecycle
         Run(p, input); Clean(p, null, input);
         Tests.Add("real-cache-save-fault-propagates-cleans-frames-then-same-processor-fresh-cache-success");
     }
+    sealed class VersionSaveCache : SessionCache
+    {
+        internal readonly List<AssetDeclarationDocument> Saved = new List<AssetDeclarationDocument>();
+        public override void SaveDocumentToCache(string path, string configuration, TargetPlatform platform, AssetDeclarationDocument document)
+        {
+            Saved.Add(document); base.SaveDocumentToCache(path, configuration, platform, document);
+        }
+    }
+    static void DeferredVersionCacheCase(BuiltinCompilers plugins)
+    {
+        Configure("deferred-version"); var p = Processor(plugins);
+        var cache = new VersionSaveCache(); cache.InitializeCache(new List<string>()); p.Cache = cache;
+        string input = Write("deferred-version/root.xml", probe); Run(p, input);
+        AssetDeclarationDocument previous;
+        Require(cache.TryGetDocument(input, null, TargetPlatform.Win32, false, out previous) && previous != null,
+            "Completed document missing before deferred version fixture");
+        XmlDocument retained = previous.XmlDocument;
+        Require(retained != null, "Deferred fixture must hold a real completed document DOM");
+        var versions = (IDictionary)Field(p, "_ExecutionDocuments"); object version = versions[previous];
+        Type versionType = version.GetType();
+        Action<string,object> setVersion = (name,value) => versionType.GetField(name, BindingFlags.Instance|BindingFlags.NonPublic|BindingFlags.Public).SetValue(version,value);
+        var outputs = (IDictionary)versionType.GetField("Outputs", BindingFlags.Instance|BindingFlags.NonPublic).GetValue(version);
+        object completed = versionType.GetField("CompletedOutputs", BindingFlags.Instance|BindingFlags.NonPublic).GetValue(version);
+        var addCompleted = completed.GetType().GetMethod("Add");
+        var firstOutput = new OutputManager(p, null, Path.Combine(work,"deferred-version/one/stream"), Path.Combine(work,"deferred-version/one/intermediate"), null,null,null);
+        var secondOutput = new OutputManager(p, null, Path.Combine(work,"deferred-version/two/stream"), Path.Combine(work,"deferred-version/two/intermediate"), null,null,null);
+        var first = new AssetExecutionDocument(); var second = new AssetExecutionDocument();
+        Action<AssetExecutionDocument,string,object> setScope = (scope,name,value) => typeof(AssetExecutionDocument).GetProperty(name).SetValue(scope,value,null);
+        foreach(var scope in new[]{first,second})
+        {
+            setScope(scope,"Document",previous);setScope(scope,"IsClosed",true);
+            setScope(scope,"PendingAssetWorks",1);setScope(scope,"ReadOnlyInputReferences",1);
+        }
+        outputs.Add(firstOutput,first);outputs.Add(secondOutput,second);
+        setVersion("Finalized",false);setVersion("ResetRequested",true);
+        setScope(first,"PendingAssetWorks",0);setScope(first,"ReadOnlyInputReferences",0);setScope(first,"IsCompleted",true);
+        addCompleted.Invoke(completed,new object[]{first});
+        MethodInfo finish=typeof(DocumentProcessor).GetMethod("TryCompleteDocumentVersion",Private);
+        finish.Invoke(p,new[]{(object)previous,version});
+        Require(Object.ReferenceEquals(previous.XmlDocument,retained) && second.ReadOnlyInputReferences==1,
+            "One completed output must not reset a document still borrowed by another output");
+        FileHashItem hash;cache.TryGetFile(input,null,TargetPlatform.Win32,out hash);
+        var replacement=new AssetDeclarationDocument(p,hash,input,null);
+        Require(cache.ReplaceDocumentForExecution(input,null,TargetPlatform.Win32,previous,replacement),
+            "Owner could not register a distinct mutable document version");
+        cache.Saved.Clear();cache.SaveDocumentToCache(input,null,TargetPlatform.Win32,replacement);
+        setScope(second,"PendingAssetWorks",0);setScope(second,"ReadOnlyInputReferences",0);setScope(second,"IsCompleted",true);
+        addCompleted.Invoke(completed,new object[]{second});finish.Invoke(p,new[]{(object)previous,version});
+        AssetDeclarationDocument current;cache.TryGetDocument(input,null,TargetPlatform.Win32,false,out current);
+        Require(Object.ReferenceEquals(current,replacement) && cache.Saved.Count==1 && Object.ReferenceEquals(cache.Saved[0],replacement),
+            "Late completion of an old version overwrote the replacement SessionCache entry");
+        Require(previous.XmlDocument==null,"Old DOM must release after all output users have completed");
+        Tests.Add("two-output-document-retention-old-version-late-completion-preserves-current-cache-identity");
+    }
     sealed class CompletionMetricFault : IMetricsListener
     {
         internal bool FailFinal, FailTimer;
@@ -545,7 +599,7 @@ internal static class CompilerCoreLifecycle
             using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
             {
                 RetryCase(plugins, "include", false); RetryCase(plugins, "inheritance", true);
-                CycleCase(plugins); SchemaReceiptCase(plugins); SavedSessionMemoryCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins);
+                CycleCase(plugins); SchemaReceiptCase(plugins); SavedSessionMemoryCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins); DeferredVersionCacheCase(plugins);
                 MetricsFailureCase(plugins, true, false); MetricsFailureCase(plugins, false, true);
                 MetricsFailureCase(plugins, true, true); ProcessorStateCase(plugins);
             }

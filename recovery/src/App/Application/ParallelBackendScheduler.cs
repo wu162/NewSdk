@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 using NewModCompiler.Diagnostics;
 
@@ -26,6 +27,9 @@ namespace NewModCompiler.Application
         long nextSample;
         internal int BackendCalls, MaximumConcurrency, EffectiveJobs, MinimumEffectiveJobs;
         internal long PreparationTicks, WaitTicks, WorkTicks, CommitTicks, PeakPrivateBytes;
+        internal long FrontendTicks, FrontendComputeTicks, VerificationTicks, IoTicks, CpuWaitTicks, MemoryWaitTicks, IoQueueTicks;
+        internal long PeakRetainedBytes;
+        internal int PeakCpuTasks, PeakIoTasks, PeakAwaitingOwner, MaximumIoCapacity;
         internal bool ResourceQuerySucceeded = true;
         internal readonly Dictionary<string,int> CallsByType;
         internal readonly Dictionary<string,int> FallbackByReason;
@@ -68,8 +72,8 @@ namespace NewModCompiler.Application
             if (!enabled) return null;
             return new { protocol="NewModCompiler.ParallelBackend.v1", requestedJobs=request.JobsAuto ? "auto" : request.RequestedJobs.ToString(System.Globalization.CultureInfo.InvariantCulture),
                 effectiveJobs=EffectiveJobs,minimumEffectiveJobs=MinimumEffectiveJobs,backendCalls=BackendCalls,backendCallsByType=CallsByType,maxBackendConcurrency=MaximumConcurrency,
-                prepareMs=Ms(PreparationTicks),workerWaitMs=Ms(WaitTicks),workerComputeMs=Ms(WorkTicks),ownerCommitMs=Ms(CommitTicks),fallbackByReason=FallbackByReason,
-                sampledPeakPrivateBytes=PeakPrivateBytes,resourceQuerySucceeded=ResourceQuerySucceeded,backendIntervals=Intervals,intervalSampleLimit=512,clockFrequency=Stopwatch.Frequency };
+                prepareMs=Ms(PreparationTicks),xmlFrontendMs=Ms(FrontendTicks),frontendComputeMs=Ms(FrontendComputeTicks),cpuResourceWaitMs=Ms(CpuWaitTicks),memoryResourceWaitMs=Ms(MemoryWaitTicks),ioQueueWaitMs=Ms(IoQueueTicks),workerVerificationMs=Ms(VerificationTicks),workerWaitMs=Ms(WaitTicks),workerComputeMs=Ms(WorkTicks),assetIoMs=Ms(IoTicks),ownerCommitMs=Ms(CommitTicks),fallbackByReason=FallbackByReason,
+                peakCpuTasks=PeakCpuTasks,peakIoTasks=PeakIoTasks,peakAwaitingOwner=PeakAwaitingOwner,peakRetainedResultBytes=PeakRetainedBytes,ioCapacity=MaximumIoCapacity,sampledPeakPrivateBytes=PeakPrivateBytes,resourceQuerySucceeded=ResourceQuerySucceeded,backendIntervals=Intervals,intervalSampleLimit=512,clockFrequency=Stopwatch.Frequency };
         }
     }
 
@@ -80,212 +84,680 @@ namespace NewModCompiler.Application
         readonly CancellationToken cancellation;
         readonly ParallelBackendMetrics metrics;
         readonly BuildPerformance performance;
-        readonly Queue<Pending> pending=new Queue<Pending>(BackendResourcePolicy.MaximumWorkers);
-        readonly Queue<KeyValuePair<int,Action>> completions=new Queue<KeyValuePair<int,Action>>();
         readonly Func<BackendResourcePolicy> sampler;
+        // OutputManager creates exactly one stable BinaryAsset for a complete
+        // FileBase. Its reference is therefore the (OutputManager, FileBase) key.
+        readonly Dictionary<BinaryAsset, PhysicalWork> registry = new Dictionary<BinaryAsset, PhysicalWork>();
+        readonly List<PhysicalWork> active = new List<PhysicalWork>();
+        readonly List<Subscription> verifying = new List<Subscription>();
+        readonly List<AssetExecutionDocument> documents = new List<AssetExecutionDocument>();
+        readonly List<Task> frontendTasks = new List<Task>();
         BackendResourcePolicy resources;
-        int capacity, sequence, committedSequence;
+        int capacity, ioCapacity, nextIdentity;
         long budget, retained, nextSample;
-        bool disposed, failed;
-        sealed class Pending
+        bool disposed, failed, pumping, completingAcceptedOnly;
+
+        enum WorkState { Running, Ready, Committing, Completed }
+        sealed class PhysicalWork
         {
-            internal int Sequence;
+            internal int Identity;
             internal BinaryAsset Asset;
+            internal IAssetBuilderPlugin Plugin;
             internal InstanceDeclaration Declaration;
             internal PreparedBackendWork Prepared;
-            internal Task<AssetBuffer> Worker;
+            internal Task<Computed> Compute;
+            internal Task IO;
             internal AssetBuffer Buffer;
-            internal Action Verify, Cached;
-            internal Action<AssetLocation> Commit;
-            internal string Directory;
-            internal long WorkTicks;
-            internal bool MetricsMerged;
+            internal BinaryAssetCommitWork Commit;
+            internal AssetLocation Location;
+            internal Action<AssetLocation> Committed;
+            internal readonly List<Subscription> Subscribers = new List<Subscription>();
+            internal Tracer.DiagnosticCapture Diagnostics;
+            internal string Directory, SourcePath;
+            internal long ReservedBytes, WorkTicks, IoTicks, ReadySince;
+            internal bool MetricsMerged, Released, Encoded, CompileCountMerged;
+            internal WorkState State;
         }
-        internal ParallelBackendScheduler(DocumentProcessor processor,string staging,int requestedJobs,
-            ParallelBackendMetrics metrics,BuildPerformance performance,CancellationToken cancellation,Func<BackendResourcePolicy> sampler=null)
+        sealed class Computed
         {
-            this.processor=processor; this.staging=staging; this.metrics=metrics; this.performance=performance; this.cancellation=cancellation; this.sampler=sampler;
-            resources=sampler==null ? BackendResourcePolicy.Capture(requestedJobs) : sampler();
-            capacity=resources.Capacity; budget=resources.ByteBudget;
-            nextSample=Stopwatch.GetTimestamp()+Math.Max(1,Stopwatch.Frequency/10);
-            metrics.EffectiveJobs=Math.Max(metrics.EffectiveJobs,capacity);
-            metrics.MinimumEffectiveJobs=metrics.MinimumEffectiveJobs==0 ? capacity : Math.Min(metrics.MinimumEffectiveJobs,capacity);
-            metrics.ResourceQuerySucceeded &= resources.MemoryQuerySucceeded;
+            internal bool Verified;
+            internal AssetBuffer Buffer;
         }
-        public bool HasPending { get { return pending.Count!=0; } }
-        void Check() { if(disposed || failed) throw new InvalidOperationException("Backend scheduler is closed."); cancellation.ThrowIfCancellationRequested(); }
+        sealed class Subscription
+        {
+            internal AssetExecutionDocument Document;
+            internal PhysicalWork Physical;
+            internal string SourcePath;
+            internal Func<bool> Verify;
+            internal Action<bool> PublishVerification;
+            internal Task<bool> Verification;
+            internal Tracer.DiagnosticCapture Diagnostics;
+            internal long VerifyTicks;
+            internal bool Verified, Finished;
+        }
+
+        internal ParallelBackendScheduler(DocumentProcessor processor, string staging, int requestedJobs,
+            ParallelBackendMetrics metrics, BuildPerformance performance, CancellationToken cancellation,
+            Func<BackendResourcePolicy> sampler = null)
+        {
+            this.processor = processor; this.staging = staging; this.metrics = metrics;
+            this.performance = performance; this.cancellation = cancellation; this.sampler = sampler;
+            resources = sampler == null ? BackendResourcePolicy.Capture(requestedJobs) : sampler();
+            capacity = resources.Capacity; ioCapacity = resources.IoCapacity; budget = resources.ByteBudget;
+            nextSample = Stopwatch.GetTimestamp() + Math.Max(1, Stopwatch.Frequency / 10);
+            RecordResources();
+        }
+
+        public bool HasPending { get { return active.Count != 0 || verifying.Count != 0 || frontendTasks.Count != 0; } }
+        void Check()
+        {
+            if (disposed || failed) throw new InvalidOperationException("Backend scheduler is closed.");
+            cancellation.ThrowIfCancellationRequested();
+        }
+        long Start() { return metrics.Enabled ? Stopwatch.GetTimestamp() : 0; }
+        long Elapsed(long start) { return metrics.Enabled ? Stopwatch.GetTimestamp() - start : 0; }
+        void RecordResources()
+        {
+            metrics.EffectiveJobs = Math.Max(metrics.EffectiveJobs, capacity);
+            metrics.MinimumEffectiveJobs = metrics.MinimumEffectiveJobs == 0 ? capacity : Math.Min(metrics.MinimumEffectiveJobs, capacity);
+            metrics.ResourceQuerySucceeded &= resources.MemoryQuerySucceeded;
+            metrics.MaximumIoCapacity = Math.Max(metrics.MaximumIoCapacity, ioCapacity);
+        }
         void Refresh()
         {
-            long now=Stopwatch.GetTimestamp(); if(sampler==null && now<nextSample) return;
-            nextSample=now+Math.Max(1,Stopwatch.Frequency/10);
-            resources=sampler==null ? resources.RefreshMemoryBudget() : sampler();
-            // Retain a tightened allowance while a wave is alive; once fully
-            // joined, recover admission from the current observation. A brief
-            // pressure spike must not pin every later document to one worker.
-            if (pending.Count==0) { capacity=resources.Capacity; budget=resources.ByteBudget; }
-            else { capacity=Math.Min(capacity,resources.Capacity); budget=Math.Min(budget,resources.ByteBudget); }
-            metrics.EffectiveJobs=Math.Max(metrics.EffectiveJobs,capacity);
-            metrics.MinimumEffectiveJobs=Math.Min(metrics.MinimumEffectiveJobs,capacity); metrics.ResourceQuerySucceeded &= resources.MemoryQuerySucceeded;
-            metrics.SampleMemory();
+            long now = Stopwatch.GetTimestamp();
+            if (sampler == null && now < nextSample) return;
+            nextSample = now + Math.Max(1, Stopwatch.Frequency / 10);
+            resources = sampler == null ? resources.RefreshMemoryBudget() : sampler();
+            capacity = resources.Capacity; ioCapacity = resources.IoCapacity; budget = resources.ByteBudget;
+            RecordResources(); metrics.SampleMemory();
         }
-        bool Fits(long bytes) { return bytes>=0 && retained<=budget && bytes<=budget-retained; }
-        long Start() { return metrics.Enabled ? Stopwatch.GetTimestamp() : 0; }
-        long Elapsed(long start) { return metrics.Enabled ? Stopwatch.GetTimestamp()-start : 0; }
-        public void EnqueueCached(BinaryAsset asset,Action commit)
+        bool Fits(long bytes) { return bytes >= 0 && retained <= budget && bytes <= budget - retained; }
+        int RunningCpu()
         {
-            Check();
-            // No cloning, file access or resource sampling for cache hits.
-            while(pending.Count>=capacity) CommitOne();
-            pending.Enqueue(new Pending {Sequence=++sequence,Asset=asset,Cached=commit});
+            int count = 0;
+            foreach (var work in active) if (work.Compute != null && !work.Compute.IsCompleted) count++;
+            foreach (var request in verifying) if (request.Verification != null && !request.Verification.IsCompleted) count++;
+            foreach (var task in frontendTasks) if (!task.IsCompleted) count++;
+            return count;
         }
-        public void FlushAsset(BinaryAsset asset)
+        int RunningIO()
         {
-            Check();
-            bool found=false;
-            foreach (Pending item in pending) if (Object.ReferenceEquals(item.Asset,asset)) {found=true;break;}
-            if (!found) return;
-            // Commit only through the matching operation in discovery order.
-            // Later independent documents can keep their workers in flight.
-            while (pending.Count>0) {
-                bool target=Object.ReferenceEquals(pending.Peek().Asset,asset);
-                CommitOne(); if (target) return;
+            int count = 0;
+            foreach (var work in active) if (work.IO != null && !work.IO.IsCompleted) count++;
+            return count;
+        }
+        List<Task> CpuTasks()
+        {
+            var tasks = new List<Task>();
+            foreach (var work in active) if (work.Compute != null && !work.Compute.IsCompleted) tasks.Add(work.Compute);
+            foreach (var request in verifying) if (request.Verification != null && !request.Verification.IsCompleted) tasks.Add(request.Verification);
+            foreach (var task in frontendTasks) if (!task.IsCompleted) tasks.Add(task);
+            return tasks;
+        }
+        List<Task> ResourceTasks()
+        {
+            // A completed task still owns its result until the owner harvests
+            // it. Keep it in the wait set: completion can race the preceding
+            // DrainReady call, and WhenAny must then return immediately.
+            var tasks = new List<Task>();
+            foreach (var work in active)
+            {
+                if (work.Compute != null) tasks.Add(work.Compute);
+                if (work.IO != null) tasks.Add(work.IO);
+            }
+            foreach (var request in verifying) if (request.Verification != null) tasks.Add(request.Verification);
+            return tasks;
+        }
+        void WaitAny(IList<Task> tasks, int resource = 0)
+        {
+            if (tasks.Count == 0) return;
+            long start = Start();
+            try { Task.WhenAny(tasks).GetAwaiter().GetResult(); }
+            finally { long ticks = Elapsed(start); metrics.WaitTicks += ticks; if (resource == 1) metrics.CpuWaitTicks += ticks; else if (resource == 2) metrics.MemoryWaitTicks += ticks; }
+            cancellation.ThrowIfCancellationRequested();
+        }
+        void AdmitCpu()
+        {
+            DrainReady(); Refresh();
+            while (RunningCpu() >= capacity)
+            {
+                WaitAny(CpuTasks(), 1); DrainReady(); Refresh();
             }
         }
-        public void Enqueue(BinaryAsset asset,InstanceDeclaration declaration,IAssetBuilderPlugin plugin,
-            Action compileCompatibility,Action verify,Action<AssetLocation> commit)
+        void AdmitMemory(long bytes)
         {
-            Check(); Refresh();
-            if(capacity<=1) { Compatibility(declaration,compileCompatibility,verify,commit,asset,"resource-capacity"); return; }
-            plugin=BuiltinCompilers.ResolveBackendPlugin(plugin);
-            // Preparation borrows the existing DOM. Estimate native working
-            // memory once inside TryPrepare, then admit against retained bytes.
-            while(pending.Count>=capacity) CommitOne();
-            PreparedBackendWork prepared;
-            string reason;
-            long start=Start(); bool accepted;
-            try { accepted=PreparedBackendWork.TryPrepareWithReason(declaration,plugin,budget/2,out prepared,out reason); }
-            finally { metrics.PreparationTicks+=Elapsed(start); }
-            if(!accepted) { Compatibility(declaration,compileCompatibility,verify,commit,asset,reason); return; }
-            var task=new Pending {Asset=asset,Declaration=declaration,Prepared=prepared,Verify=verify,Commit=commit,Sequence=++sequence};
-            bool enqueued=false;
-            try {
-                Refresh();
-                while(pending.Count>0 && (pending.Count>=capacity || !Fits(prepared.PreparedBytes))) CommitOne();
-                if(capacity<=1 || prepared.PreparedBytes>budget/2 || !Fits(prepared.PreparedBytes)) {
-                    prepared.Dispose(); task.Prepared=null;
-                    Compatibility(declaration,compileCompatibility,verify,commit,asset,"resource-budget"); return;
+            DrainReady(); Refresh();
+            while (retained > 0 && !Fits(bytes))
+            {
+                var tasks = new List<Task>();
+                foreach (var work in active)
+                {
+                    if (work.ReservedBytes == 0) continue;
+                    if (work.Compute != null) tasks.Add(work.Compute);
+                    if (work.IO != null) tasks.Add(work.IO);
                 }
-                if(declaration.HasCustomData) {
-                    task.Directory=Path.Combine(staging,"backend-work",task.Sequence.ToString("D8")); Directory.CreateDirectory(task.Directory);
-                    prepared.Declaration.CustomDataPath=Path.Combine(task.Directory,"payload.cdata");
-                }
-                cancellation.ThrowIfCancellationRequested();
-                processor.RecordExecutionCompile();
-                string typeName=declaration.Handle.TypeName;
-                task.Worker=Task.Factory.StartNew(() => metrics.Execute(typeName,prepared.Execute,out task.WorkTicks),CancellationToken.None,TaskCreationOptions.None,TaskScheduler.Default);
-                pending.Enqueue(task); retained+=prepared.PreparedBytes; enqueued=true;
+                if (tasks.Count == 0) break;
+                WaitAny(tasks, 2); DrainReady(); Refresh();
             }
-            finally { if(!enqueued && task.Prepared!=null) task.Prepared.Dispose(); }
         }
-        void Compatibility(InstanceDeclaration declaration,Action compile,Action verify,Action<AssetLocation> commit,BinaryAsset asset,string reason)
+
+        public AssetExecutionDocument BeginDocument(AssetDeclarationDocument document, OutputManager outputManager)
         {
-            metrics.Fallback(reason); Flush(); cancellation.ThrowIfCancellationRequested();
-            compile();
-            long start=Start(); try { verify(); commit(AssetLocation.Memory); } finally { metrics.CommitTicks+=Elapsed(start); }
-            committedSequence=sequence;
+            Check(); DrainReady();
+            var version = new AssetExecutionDocument { Document = document, OutputManager = outputManager };
+            documents.Add(version);
+            return version;
         }
-        public AssetBuffer ExecuteCompatibility(IAssetBuilderPlugin plugin,InstanceDeclaration declaration)
+        Subscription Subscribe(AssetExecutionDocument document, PhysicalWork physical,
+            Func<bool> verify, Action<bool> publishVerification, string sourcePath)
         {
-            // Called at Core's actual ProcessInstance boundary, after setup.
-            // Failed setup must not be reported as an executed backend call.
-            if (!metrics.Enabled) return plugin.ProcessInstance(declaration);
-            long ticks;
-            return metrics.Execute(declaration.Handle.TypeName,() => plugin.ProcessInstance(declaration),out ticks);
+            if (document.IsClosed) throw new InvalidOperationException("Cannot register work after closing a document version.");
+            var request = new Subscription { Document = document, Physical = physical,
+                Verify = verify, PublishVerification = publishVerification, SourcePath = sourcePath };
+            document.PendingAssetWorks++; document.ReadOnlyInputReferences++;
+            physical.Subscribers.Add(request);
+            return request;
         }
-        public void DeferCompletion(Action complete)
+        public void Enqueue(AssetExecutionDocument document, BinaryAsset asset, InstanceDeclaration declaration,
+            IAssetBuilderPlugin plugin, Action compileCompatibility, Func<bool> verify,
+            Action<bool> publishVerification, Action<AssetLocation> committed, bool parallelVerification = true, bool parallelCompilation = true)
         {
-            Check(); completions.Enqueue(new KeyValuePair<int,Action>(sequence,complete)); CompleteReady();
+            Check();
+            try { Register(document, asset, declaration, plugin, compileCompatibility, AssetLocation.None,
+                verify, publishVerification, committed, parallelVerification, parallelCompilation); }
+            catch { Fail(); throw; }
         }
-        void CompleteReady()
-        { while(completions.Count>0 && completions.Peek().Key<=committedSequence) completions.Dequeue().Value(); }
-        public void Flush()
-        { Check(); while(pending.Count>0) CommitOne(); CompleteReady(); }
-        void CommitOne()
+        public void EnqueueCached(AssetExecutionDocument document, BinaryAsset asset, InstanceDeclaration declaration,
+            AssetLocation location, Func<bool> verify, Action<bool> publishVerification,
+            Action<AssetLocation> committed, bool parallelVerification = true)
         {
-            Pending task=pending.Dequeue();
-            Exception primary=null;
-            try {
-                if(task.Worker!=null) {
-                    long wait=Start();
-                    try { task.Buffer=task.Worker.GetAwaiter().GetResult(); }
-                    finally {
-                        metrics.WaitTicks+=Elapsed(wait); MergeWorkerMetrics(task);
-                        task.Prepared.FlushDiagnostics();
+            Check();
+            try { Register(document, asset, declaration, null, null, location,
+                verify, publishVerification, committed, parallelVerification, false); }
+            catch { Fail(); throw; }
+        }
+        void Register(AssetExecutionDocument document, BinaryAsset asset, InstanceDeclaration declaration,
+            IAssetBuilderPlugin plugin, Action compileCompatibility, AssetLocation location,
+            Func<bool> verify, Action<bool> publishVerification, Action<AssetLocation> committed, bool parallelVerification, bool parallelCompilation)
+        {
+            DrainReady();
+            PhysicalWork work;
+            if (registry.TryGetValue(asset, out work))
+            {
+                var duplicate = Subscribe(document, work, verify, publishVerification, declaration.Document.SourcePath);
+                ScheduleVerification(duplicate, parallelVerification);
+                FinishSubscriptions(work);
+                return;
+            }
+            work = new PhysicalWork { Identity = ++nextIdentity, Asset = asset, Declaration = declaration,
+                Location = location, Committed = committed, SourcePath = declaration.Document.SourcePath,
+                State = WorkState.Running };
+            registry.Add(asset, work); active.Add(work);
+            var first = Subscribe(document, work, verify, publishVerification, declaration.Document.SourcePath);
+            if (location != AssetLocation.None)
+            {
+                // Cache transfer never reserves an encoder slot. A loaded
+                // declaration may still require its own semantic verifier.
+                work.State = WorkState.Ready; work.ReadySince = Start();
+                ScheduleVerification(first, parallelVerification);
+                DrainReady();
+                return;
+            }
+            Refresh();
+            if (parallelCompilation) plugin = BuiltinCompilers.ResolveBackendPlugin(plugin);
+            work.Plugin = plugin;
+            PreparedBackendWork prepared = null;
+            string reason = parallelCompilation ? "resource-capacity" : "frontend-expanded";
+            bool accepted = false;
+            long preparationBytes = 0;
+            if (parallelCompilation && capacity > 1)
+            {
+                long start = Start();
+                try { accepted = PreparedBackendWork.TryPrepareForScheduling(declaration, plugin, budget / 2, out prepared, out reason, out preparationBytes); }
+                finally { metrics.PreparationTicks += Elapsed(start); }
+            }
+            if (accepted)
+            {
+                work.Prepared = prepared;
+                AdmitMemory(prepared.PreparedBytes); AdmitCpu(); Refresh();
+                if (capacity <= 1 || prepared.PreparedBytes > budget / 2 || !Fits(prepared.PreparedBytes))
+                {
+                    prepared.Dispose(); work.Prepared = null; accepted = false; reason = "resource-budget";
+                }
+            }
+            if (!accepted)
+            {
+                metrics.Fallback(reason);
+                // Uncertified code runs on its owner. It does not require
+                // unrelated physical assets or documents to finish first.
+                if (parallelCompilation) AdmitCpu();
+                if (reason == "uncertified-plugin") WaitPlugin(plugin, work);
+                PublishVerification(first, RunVerification(first));
+                if (parallelCompilation)
+                {
+                    if (preparationBytes == 0) preparationBytes = PreparedBackendWork.EstimatePreparationBytes(declaration);
+                    // An owner encoder competes with retained IO results just
+                    // like a worker. An oversized single item may run alone,
+                    // after the previous reservations have actually released.
+                    AdmitMemory(preparationBytes);
+                    work.ReservedBytes = preparationBytes; retained += preparationBytes;
+                    SampleState();
+                }
+                compileCompatibility();
+                work.Buffer = asset.Buffer;
+                work.Location = AssetLocation.Memory; work.State = WorkState.Ready; work.ReadySince = Start();
+                long resultBytes = BufferBytes(work.Buffer);
+                retained += resultBytes - work.ReservedBytes; work.ReservedBytes = resultBytes;
+                DrainReady(); return;
+            }
+            if (declaration.HasCustomData)
+            {
+                work.Directory = Path.Combine(staging, "backend-work", work.Identity.ToString("D8"));
+                Directory.CreateDirectory(work.Directory);
+                prepared.Declaration.CustomDataPath = Path.Combine(work.Directory, "payload.cdata");
+            }
+            // Owner-only verifiers run before the certified encoder. A known
+            // reentrant verifier runs in the same CPU call before encoding.
+            if (!parallelVerification) PublishVerification(first, RunVerification(first));
+            work.ReservedBytes = prepared.PreparedBytes; retained += work.ReservedBytes;
+            cancellation.ThrowIfCancellationRequested();
+            work.Compute = Task.Factory.StartNew(() => {
+                work.Diagnostics = Tracer.CaptureDiagnostics();
+                using (work.Diagnostics)
+                {
+                    bool verified = first.Verified || RunVerification(first);
+                    if (!verified) return new Computed { Verified = false };
+                    work.Encoded = true;
+                    return new Computed { Verified = true,
+                        Buffer = metrics.Execute(declaration.Handle.TypeName, prepared.Execute, out work.WorkTicks) };
+                }
+            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
+            SampleState();
+        }
+        static long BufferBytes(AssetBuffer buffer)
+        {
+            if (buffer == null) return 0;
+            return (long)(buffer.InstanceData == null ? 0 : buffer.InstanceData.Length)
+                + (buffer.RelocationData == null ? 0 : buffer.RelocationData.Length)
+                + (buffer.ImportsData == null ? 0 : buffer.ImportsData.Length);
+        }
+        bool RunVerification(Subscription request)
+        {
+            long start = Start();
+            try { return request.Verify == null || request.Verify(); }
+            finally { request.VerifyTicks += Elapsed(start); }
+        }
+        void ScheduleVerification(Subscription request, bool parallel)
+        {
+            if (!parallel || request.Verify == null)
+            {
+                PublishVerification(request, RunVerification(request)); return;
+            }
+            AdmitCpu();
+            verifying.Add(request);
+            request.Verification = Task.Factory.StartNew(() => {
+                request.Diagnostics = Tracer.CaptureDiagnostics();
+                using (request.Diagnostics) return RunVerification(request);
+            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
+        }
+        void PublishVerification(Subscription request, bool result)
+        {
+            metrics.VerificationTicks += request.VerifyTicks;
+            if (performance.Detailed) performance.RecordBackend("core.asset.verify", request.VerifyTicks);
+            request.VerifyTicks = 0;
+            request.PublishVerification?.Invoke(result);
+            if (!result) throw new BinaryAssetBuilderException(ErrorCode.GameDataVerification,
+                "FATAL: An asset failed the Game Data Verification step. See previous output.");
+            request.Verified = true;
+        }
+        void Replay(Tracer.DiagnosticCapture diagnostics, string sourcePath)
+        {
+            if (diagnostics == null) return;
+            processor.InDocumentContext(sourcePath, diagnostics.Replay);
+        }
+        public void DrainReady()
+        {
+            Check();
+            if (pumping) return;
+            pumping = true;
+            SampleState();
+            try
+            {
+                bool progress;
+                do
+                {
+                    progress = false;
+                    for (int index = verifying.Count - 1; index >= 0; index--)
+                    {
+                        var request = verifying[index];
+                        if (request.Verification == null || !request.Verification.IsCompleted) continue;
+                        bool result;
+                        try { result = request.Verification.GetAwaiter().GetResult(); }
+                        finally { Replay(request.Diagnostics, request.SourcePath); }
+                        request.Diagnostics = null; request.Verification = null; verifying.RemoveAt(index);
+                        PublishVerification(request, result); FinishSubscriptions(request.Physical); progress = true;
                     }
-                }
-                cancellation.ThrowIfCancellationRequested();
-                metrics.SampleMemory();
-                long start=Start();
-                try {
-                    if(task.Cached!=null) task.Cached();
-                    else {
-                        if(task.Declaration.HasCustomData) {
-                            string target=Path.Combine(task.Asset.CustomDataOutputDirectory,task.Asset.FileBase+".cdata");
-                            Directory.CreateDirectory(task.Asset.CustomDataOutputDirectory);
-                            if (File.Exists(task.Prepared.Declaration.CustomDataPath)) {
-                                if(File.Exists(target)) File.Delete(target);
-                                File.Move(task.Prepared.Declaration.CustomDataPath,target);
+                    for (int index = active.Count - 1; index >= 0; index--)
+                    {
+                        var work = active[index];
+                        if (work.Compute != null && work.Compute.IsCompleted)
+                        {
+                            Computed result;
+                            try { result = work.Compute.GetAwaiter().GetResult(); }
+                            finally
+                            {
+                                Replay(work.Diagnostics, work.SourcePath); work.Diagnostics = null;
+                                processor.InDocumentContext(work.SourcePath, work.Prepared.FlushDiagnostics); MergeWorkerMetrics(work);
                             }
-                            task.Declaration.CustomDataPath=target;
+                            work.Compute = null;
+                            if (!work.Subscribers[0].Verified) PublishVerification(work.Subscribers[0], result.Verified);
+                            work.Buffer = result.Buffer; work.Location = AssetLocation.Memory; work.State = WorkState.Ready; work.ReadySince = Start();
+                            long bytes = Math.Max(work.ReservedBytes, BufferBytes(work.Buffer));
+                            retained += bytes - work.ReservedBytes; work.ReservedBytes = bytes;
+                            progress = true;
                         }
-                        task.Asset.Buffer=task.Buffer;
-                        task.Verify(); task.Commit(AssetLocation.Memory);
+                        if (work.IO != null && work.IO.IsCompleted)
+                        {
+                            try { work.IO.GetAwaiter().GetResult(); }
+                            finally { processor.InDocumentContext(work.SourcePath, work.Commit.FlushDiagnostics); }
+                            metrics.IoTicks += work.IoTicks;
+                            if (performance.Detailed) performance.RecordBackend("core.asset.io", work.IoTicks);
+                            long start = Start();
+                            try
+                            {
+                                processor.InDocumentContext(work.SourcePath, () => {
+                                    AssetLocation source = work.Asset.PublishCommit(work.Commit);
+                                    work.Committed?.Invoke(source);
+                                });
+                                work.State = WorkState.Completed;
+                            }
+                            finally { metrics.CommitTicks += Elapsed(start); }
+                            work.IO = null; work.Commit = null; work.Buffer = null;
+                            Release(work); active.RemoveAt(index);
+                            FinishSubscriptions(work); progress = true;
+                        }
                     }
-                    committedSequence=task.Sequence;
-                } finally {metrics.CommitTicks+=Elapsed(start);}
-                CompleteReady();
+                    // Completed encoders have already relinquished CPU slots.
+                    // Fill IO independently, skipping work still being verified.
+                    int slots = ioCapacity - RunningIO();
+                    if (slots > 0)
+                    {
+                        foreach (var work in active)
+                        {
+                            if (slots == 0) break;
+                            if (work.State != WorkState.Ready || !work.Subscribers[0].Verified) continue;
+                            if (completingAcceptedOnly && !RequiredForPartialCompletion(work)) continue;
+                            string cdata = work.Prepared == null ? work.Declaration.CustomDataPath : work.Prepared.Declaration.CustomDataPath;
+                            long start = Start();
+                            try { work.Commit = work.Asset.PrepareCommit(work.Location, work.Buffer, cdata); }
+                            finally { metrics.CommitTicks += Elapsed(start); }
+                            long bytes = Math.Max(work.ReservedBytes, work.Commit.RetainedBytes);
+                            retained += bytes - work.ReservedBytes; work.ReservedBytes = bytes;
+                            metrics.IoQueueTicks += Elapsed(work.ReadySince);
+                            work.State = WorkState.Committing;
+                            work.IO = Task.Factory.StartNew(() => {
+                                long ioStart = Start();
+                                try { work.Commit.ExecuteIO(); }
+                                finally { work.IoTicks = Elapsed(ioStart); }
+                            }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
+                            slots--; progress = true;
+                        }
+                    }
+                } while (progress);
+                SampleState(); metrics.SampleMemory();
             }
-            catch (Exception error) { primary=error; failed=true; throw; }
-            finally {
-                try { Release(task); }
-                catch (Exception cleanup) {
-                    failed=true;
-                    if(primary==null) throw;
-                    primary.Data["BackendRelease."+task.Sequence]=cleanup;
+            catch { Fail(); throw; }
+            finally { pumping = false; }
+        }
+        void FinishSubscriptions(PhysicalWork work)
+        {
+            if (work.State != WorkState.Completed) return;
+            for (int index = work.Subscribers.Count - 1; index >= 0; index--)
+            {
+                var request = work.Subscribers[index];
+                if (!request.Verified || request.Finished) continue;
+                request.Finished = true; request.Verify = null; request.PublishVerification = null;
+                var document = request.Document;
+                document.PendingAssetWorks--; document.ReadOnlyInputReferences--;
+                work.Subscribers.RemoveAt(index);
+                request.Document = null; request.Physical = null;
+                CompleteReady(document);
+            }
+            if (work.Subscribers.Count == 0) { work.Declaration = null; work.Plugin = null; }
+        }
+        public void CompleteDocument(AssetExecutionDocument document, Action complete)
+        {
+            Check();
+            if (document.IsClosed) throw new InvalidOperationException("Document version is already closed.");
+            if (complete != null) document.Completions.Add(complete);
+            document.IsClosed = true; DrainReady(); CompleteReady(document);
+        }
+        public void DeferCompletion(AssetExecutionDocument document, Action complete)
+        {
+            Check();
+            if (!document.IsCompleted) { document.Completions.Add(complete); return; }
+            try { complete(); }
+            catch { document.IsCompleted = false; document.IsFailed = true; Fail(); throw; }
+        }
+        void CompleteReady(AssetExecutionDocument document)
+        {
+            if (!document.IsClosed || document.IsCompleted || document.IsFailed || document.PendingAssetWorks != 0) return;
+            document.IsCompleted = true;
+            Action[] callbacks = document.Completions.ToArray(); document.Completions.Clear();
+            try { foreach (var complete in callbacks) complete(); }
+            catch { document.IsCompleted = false; document.IsFailed = true; Fail(); throw; }
+        }
+        public void WaitDocument(AssetExecutionDocument document)
+        {
+            Check(); DrainReady();
+            while (document.PendingAssetWorks != 0)
+            {
+                var tasks = new List<Task>();
+                bool waitsForIoSlot = false;
+                foreach (var work in active)
+                {
+                    bool required = false;
+                    foreach (var request in work.Subscribers) if (ReferenceEquals(request.Document, document) && !request.Finished) { required = true; break; }
+                    if (!required) continue;
+                    if (work.State == WorkState.Ready)
+                    {
+                        waitsForIoSlot = true;
+                        // A shared cache transfer first verifies its original
+                        // declaration, which may belong to another document.
+                        // That verifier is a real dependency of every subscriber.
+                        var initial = work.Subscribers[0];
+                        if (initial.Verification != null) tasks.Add(initial.Verification);
+                    }
+                    if (work.Compute != null) tasks.Add(work.Compute);
+                    if (work.IO != null) tasks.Add(work.IO);
                 }
+                foreach (var request in verifying)
+                    if (ReferenceEquals(request.Document, document) && request.Verification != null) tasks.Add(request.Verification);
+                // A required result may be ready for an IO slot. Wait for any
+                // current IO that can free that resource, never a FIFO head.
+                if (tasks.Count == 0 || waitsForIoSlot)
+                    foreach (var work in active) if (work.IO != null) tasks.Add(work.IO);
+                if (tasks.Count == 0) throw new InvalidOperationException("Document has pending work without an executable dependency.");
+                WaitAny(tasks); DrainReady();
+            }
+            CompleteReady(document);
+        }
+        public void WaitOutput(OutputManager outputManager)
+        {
+            Check();
+            foreach (var document in documents.ToArray())
+                if (ReferenceEquals(document.OutputManager, outputManager)) WaitDocument(document);
+        }
+        // An owner XML failure can occur after an included document has closed
+        // its frontend. Finish that already accepted work before partial-session
+        // saving; failed/cancelled workers still take the discard-and-join path.
+        // This boundary never registers work or publishes a stream manifest.
+        internal void CompleteAcceptedWorkOnFailure()
+        {
+            if (disposed || failed || cancellation.IsCancellationRequested) return;
+            completingAcceptedOnly = true;
+            try
+            {
+                foreach (var document in documents.ToArray())
+                    if (document.IsClosed && !document.IsCompleted && !document.IsFailed) WaitDocument(document);
+            }
+            finally { completingAcceptedOnly = false; }
+        }
+        bool RequiredForPartialCompletion(PhysicalWork work)
+        {
+            foreach (var request in work.Subscribers)
+                if (request.Document.IsClosed && !request.Document.IsFailed) return true;
+            return false;
+        }
+        public void Flush()
+        {
+            Check(); DrainReady();
+            while (active.Count != 0 || verifying.Count != 0)
+            {
+                var tasks = ResourceTasks();
+                if (tasks.Count == 0) throw new InvalidOperationException("Asset work has no executable dependency.");
+                WaitAny(tasks); DrainReady();
             }
         }
-        void MergeWorkerMetrics(Pending task)
+        public IList<T> ExecuteFrontend<T>(IList<Func<T>> work)
         {
-            if (!performance.Detailed || task.Worker==null || task.MetricsMerged) return;
-            task.MetricsMerged=true;
-            performance.RecordBackend("core.asset.compile",task.WorkTicks);
-            performance.RecordBackend("core.compiler."+task.Declaration.Handle.TypeName,task.WorkTicks);
+            Check();
+            var result = new T[work.Count];
+            var tasks = new Dictionary<Task<T>, int>();
+            long start = Start();
+            try
+            {
+                for (int index = 0; index < work.Count; index++)
+                {
+                    AdmitCpu();
+                    if (capacity <= 1) { long computeStart = Start(); try { result[index] = work[index](); } finally { metrics.FrontendComputeTicks += Elapsed(computeStart); } continue; }
+                    Func<T> compute = work[index];
+                    var task = Task.Factory.StartNew(() => {
+                        long computeStart = Start();
+                        try { return compute(); }
+                        finally { Interlocked.Add(ref metrics.FrontendComputeTicks, Elapsed(computeStart)); }
+                    }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
+                    tasks.Add(task, index); frontendTasks.Add(task);
+                    CollectFrontend(tasks, result);
+                }
+                while (tasks.Count != 0)
+                {
+                    var waits = new List<Task>(); foreach (var task in tasks.Keys) if (!task.IsCompleted) waits.Add(task);
+                    WaitAny(waits); CollectFrontend(tasks, result); DrainReady();
+                }
+                return result;
+            }
+            catch
+            {
+                // Owner must not resume mutating this DOM while another pure
+                // computation from the failed read-only batch still uses it.
+                foreach (var task in tasks.Keys)
+                {
+                    try { task.GetAwaiter().GetResult(); } catch { }
+                    frontendTasks.Remove(task);
+                }
+                Fail(); throw;
+            }
+            finally { metrics.FrontendTicks += Elapsed(start); }
         }
-        void Release(Pending task)
+        void CollectFrontend<T>(Dictionary<Task<T>, int> tasks, T[] results)
         {
-            if(task.Prepared!=null) {retained-=task.Prepared.PreparedBytes; task.Prepared.Dispose();}
-            if(task.Directory!=null && Directory.Exists(task.Directory)) Directory.Delete(task.Directory,true);
+            var done = new List<Task<T>>();
+            foreach (var item in tasks)
+            {
+                if (!item.Key.IsCompleted) continue;
+                results[item.Value] = item.Key.GetAwaiter().GetResult(); done.Add(item.Key);
+            }
+            foreach (var task in done) { tasks.Remove(task); frontendTasks.Remove(task); }
         }
-        // Failure/cancellation joins every native call without committing unverified
-        // work or completing its document. Core state and leases stay alive here.
+        public AssetBuffer ExecuteCompatibility(IAssetBuilderPlugin plugin, InstanceDeclaration declaration)
+        {
+            long ticks;
+            return metrics.Execute(declaration.Handle.TypeName, () => plugin.ProcessInstance(declaration), out ticks);
+        }
+        void MergeWorkerMetrics(PhysicalWork work)
+        {
+            if (work.Encoded && !work.CompileCountMerged) { processor.RecordExecutionCompile(); work.CompileCountMerged = true; }
+            if (!performance.Detailed || work.Compute == null || work.MetricsMerged) return;
+            work.MetricsMerged = true;
+            performance.RecordBackend("core.asset.compile", work.WorkTicks);
+            performance.RecordBackend("core.compiler." + work.Declaration.Handle.TypeName, work.WorkTicks);
+        }
+        void WaitPlugin(IAssetBuilderPlugin plugin, PhysicalWork current)
+        {
+            while (true)
+            {
+                var calls = new List<Task>();
+                foreach (var work in active)
+                    if (!ReferenceEquals(work, current) && ReferenceEquals(work.Plugin, plugin) && work.Compute != null && !work.Compute.IsCompleted)
+                        calls.Add(work.Compute);
+                if (calls.Count == 0) return;
+                WaitAny(calls, 1); DrainReady();
+            }
+        }
+        void SampleState()
+        {
+            if (!metrics.Enabled) return;
+            metrics.PeakCpuTasks = Math.Max(metrics.PeakCpuTasks, RunningCpu());
+            metrics.PeakIoTasks = Math.Max(metrics.PeakIoTasks, RunningIO());
+            metrics.PeakRetainedBytes = Math.Max(metrics.PeakRetainedBytes, retained);
+            int awaiting = 0;
+            foreach (var work in active)
+                if ((work.Compute != null && work.Compute.IsCompleted) || (work.IO != null && work.IO.IsCompleted)) awaiting++;
+            foreach (var request in verifying) if (request.Verification != null && request.Verification.IsCompleted) awaiting++;
+            metrics.PeakAwaitingOwner = Math.Max(metrics.PeakAwaitingOwner, awaiting);
+        }
+        void Release(PhysicalWork work)
+        {
+            if (work.Released) return;
+            work.Released = true;
+            retained -= work.ReservedBytes; work.ReservedBytes = 0;
+            if (work.Prepared != null) { work.Prepared.Dispose(); work.Prepared = null; }
+            work.Buffer = null; work.Compute = null; work.Commit = null; work.Committed = null;
+            if (work.Directory != null && Directory.Exists(work.Directory)) Directory.Delete(work.Directory, true);
+        }
+        void Fail()
+        {
+            failed = true;
+            foreach (var document in documents)
+                if (!document.IsCompleted) { document.IsFailed = true; document.Completions.Clear(); }
+        }
+        // Native calls cannot be interrupted safely. Join every started CPU/IO
+        // operation before releasing its input lease or immutable document view.
         public void Dispose()
         {
-            if(disposed) return; disposed=true;
-            Exception failure=null;
-            while(pending.Count>0) {
-                var task=pending.Dequeue();
-                try {if(task.Worker!=null) task.Worker.GetAwaiter().GetResult();}
-                catch(Exception error) {if(failure==null) failure=error;else failure.Data["BackendJoin."+task.Sequence]=error;}
-                finally {
-                    try { MergeWorkerMetrics(task); }
-                    catch(Exception error) {if(failure==null) failure=error;else failure.Data["BackendMetrics."+task.Sequence]=error;}
-                    try { Release(task); }
-                    catch(Exception error) {if(failure==null) failure=error;else failure.Data["BackendRelease."+task.Sequence]=error;}
-                }
+            if (disposed) return;
+            disposed = true;
+            Exception failure = null;
+            foreach (var request in verifying)
+            {
+                try { if (request.Verification != null) request.Verification.GetAwaiter().GetResult(); }
+                catch (Exception error) { Accumulate(ref failure, error, "BackendVerification"); }
+                try { Replay(request.Diagnostics, request.SourcePath); }
+                catch (Exception error) { Accumulate(ref failure, error, "BackendDiagnostic"); }
             }
-            completions.Clear();
-            if(failure!=null) System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(failure).Throw();
+            foreach (var work in active)
+            {
+                try { if (work.Compute != null) work.Compute.GetAwaiter().GetResult(); }
+                catch (Exception error) { Accumulate(ref failure, error, "BackendJoin"); }
+                try { Replay(work.Diagnostics, work.SourcePath); if (work.Prepared != null) processor.InDocumentContext(work.SourcePath, work.Prepared.FlushDiagnostics); MergeWorkerMetrics(work); }
+                catch (Exception error) { Accumulate(ref failure, error, "BackendDiagnostic"); }
+                try { if (work.IO != null) work.IO.GetAwaiter().GetResult(); }
+                catch (Exception error) { Accumulate(ref failure, error, "BackendIO"); }
+                try { if (work.Commit != null) processor.InDocumentContext(work.SourcePath, work.Commit.FlushDiagnostics); }
+                catch (Exception error) { Accumulate(ref failure, error, "BackendDiagnostic"); }
+                try { Release(work); }
+                catch (Exception error) { Accumulate(ref failure, error, "BackendRelease"); }
+            }
+            foreach (var document in documents) if (!document.IsCompleted) { document.IsFailed = true; document.PendingAssetWorks = 0; document.ReadOnlyInputReferences = 0; document.Completions.Clear(); }
+            active.Clear(); verifying.Clear(); registry.Clear(); documents.Clear(); frontendTasks.Clear();
+            if (failure != null) System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(failure).Throw();
+        }
+        static void Accumulate(ref Exception failure, Exception error, string key)
+        {
+            if (failure == null) failure = error;
+            else if (!ReferenceEquals(failure, error)) failure.Data[key + "." + failure.Data.Count] = error;
         }
     }
 }

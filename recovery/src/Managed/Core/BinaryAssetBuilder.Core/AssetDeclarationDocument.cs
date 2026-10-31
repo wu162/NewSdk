@@ -893,6 +893,21 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 
+
+	// Capture the small document context read by certified backends. The DOM
+	// remains shared and read-only; changing the owner's current version cannot
+	// redirect an in-flight declaration to a different namespace/path context.
+	public AssetDeclarationDocument CreateBackendView()
+	{
+		return new AssetDeclarationDocument { _Current = new CurrentState {
+			NamespaceManager = _Current.NamespaceManager, SchemaValidated = _Current.SchemaValidated,
+			IsLoaded = _Current.IsLoaded, XmlDocument = _Current.XmlDocument,
+			SourcePath = _Current.SourcePath, SourceDirectory = _Current.SourceDirectory,
+			SourcePathFromRoot = _Current.SourcePathFromRoot, LogicalSourcePath = _Current.LogicalSourcePath,
+			ConfigurationName = _Current.ConfigurationName, State = _Current.State
+		} };
+	}
+
 	[NonSerialized]
 	private Dictionary<InstanceDeclaration, AssetBuffer> _ExpandedBuffers;
 
@@ -943,6 +958,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		_Current.State = DocumentState.Complete;
 		foreach (InstanceDeclaration selfInstance in SelfInstances)
 		{
+			if (!selfInstance.IsInheritable) selfInstance.XmlNode = null;
 			selfInstance.MakeComplete();
 		}
 		_Last = null;
@@ -1186,51 +1202,61 @@ public class AssetDeclarationDocument : IXmlSerializable
 	public void ProcessInstances(OutputManager outputManager, ref int instancesCompiledCount, ref int instancesCopiedFromCacheCount)
 	{
 		using var performance = PerformanceScope.Measure("core.assets");
-		if (ReloadedForInheritance)
-		{
-			return;
-		}
+		if (ReloadedForInheritance) return;
+		var processor = _Current.DocumentProcessor;
+		var execution = processor.AssetExecution;
+		var scope = execution == null ? null : processor.GetExecutionDocument(this, outputManager);
 		foreach (InstanceDeclaration selfInstance in SelfInstances)
 		{
-			// Reinitialize already validated metadata for cached instances. Only a
-			// freshly loaded XML instance needs to acquire its custom-data flag.
 			if (selfInstance.XmlNode != null && (_ExpandedBuffers == null || !_ExpandedBuffers.ContainsKey(selfInstance)))
-				selfInstance.HasCustomData = _Current.DocumentProcessor.Plugins.GetExtendedTypeInformation(selfInstance.Handle.TypeId).HasCustomData;
+				selfInstance.HasCustomData = processor.Plugins.GetExtendedTypeInformation(selfInstance.Handle.TypeId).HasCustomData;
 			BinaryAsset binaryAsset = outputManager.GetBinaryAsset(selfInstance, isOutputAsset: true);
-			if (binaryAsset != null)
+			if (binaryAsset == null) continue;
+			AssetLocation location = binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None);
+			if (execution != null)
 			{
-				AssetLocation location = binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None);
-				var processor = _Current.DocumentProcessor;
-				var execution = processor.AssetExecution;
-				bool expanded = _ExpandedBuffers != null && _ExpandedBuffers.ContainsKey(selfInstance);
-				if (expanded && execution != null && execution.HasPending) execution.Flush();
-				if (!expanded && execution != null && (location == AssetLocation.None || execution.HasPending))
-				{
-					var declaration = selfInstance;
-					string sourcePath = _Current.SourcePath;
-					Action verify = () => processor.InDocumentContext(sourcePath, () => VerifyInstance(binaryAsset, declaration));
-					Action<AssetLocation> commit = source => processor.InDocumentContext(sourcePath, () => {
-						AssetLocation actual = binaryAsset.Commit(source);
-						processor.RecordExecutionCommit(actual);
-						RecordCommit(binaryAsset, declaration, actual);
-					});
-					if (location == AssetLocation.None)
-						execution.Enqueue(binaryAsset, declaration, processor.Plugins.GetPlugin(declaration.Handle.TypeId),
-							() => CompileInstance(binaryAsset, declaration), verify, commit);
-					else
-						execution.EnqueueCached(binaryAsset, () => { verify(); commit(location); });
-					continue;
-				}
+				var declaration = selfInstance;
+				var version = _Current;
+				string sourcePath = version.SourcePath;
+				bool verificationRequired = version.IsLoaded && version.State != DocumentState.Complete;
+				var verifier = verificationRequired ? processor.VerifierPlugins.GetPlugin(declaration.Handle.TypeId) : null;
+				bool parallelVerification = verificationRequired && verifier is IConcurrentAssetBuilderVerifierPlugin;
+				var verificationInput = parallelVerification ? declaration.CreateBackendView() : declaration;
+				Func<bool> verify = verificationRequired ? (Func<bool>)(() => {
+					if (parallelVerification) return verifier.VerifyInstance(verificationInput);
+					bool valid = false;
+					processor.InDocumentContext(sourcePath, () => valid = verifier.VerifyInstance(declaration));
+					return valid;
+				}) : null;
+				Action<bool> publishVerification = valid => processor.InDocumentContext(sourcePath, () => {
+					if (!valid) {
+						version.VerificationErrors = true;
+						throw new BinaryAssetBuilderException(ErrorCode.GameDataVerification,
+							"FATAL: An asset failed the Game Data Verification step.  See previous output.");
+					}
+				});
+				Action<AssetLocation> committed = source => processor.InDocumentContext(sourcePath, () => {
+					processor.RecordExecutionCommit(source);
+					RecordCommit(binaryAsset, declaration, source);
+				});
 				if (location == AssetLocation.None)
-				{
-					CompileInstance(binaryAsset, selfInstance);
-					location = AssetLocation.Memory;
-				}
-				VerifyInstance(binaryAsset, selfInstance);
-				AssetLocation assetLocation = binaryAsset.Commit(location);
-				CountCommitSource(assetLocation, ref instancesCompiledCount, ref instancesCopiedFromCacheCount);
-				RecordCommit(binaryAsset, selfInstance, assetLocation);
+					execution.Enqueue(scope, binaryAsset, declaration, processor.Plugins.GetPlugin(declaration.Handle.TypeId),
+						() => processor.InDocumentContext(sourcePath, () => CompileInstance(binaryAsset, declaration)),
+						verify, publishVerification, committed, parallelVerification,
+						parallelCompilation: _ExpandedBuffers == null || !_ExpandedBuffers.ContainsKey(declaration));
+				else
+					execution.EnqueueCached(scope, binaryAsset, declaration, location, verify, publishVerification, committed, parallelVerification);
+				continue;
 			}
+			VerifyInstance(binaryAsset, selfInstance);
+			if (location == AssetLocation.None)
+			{
+				CompileInstance(binaryAsset, selfInstance);
+				location = AssetLocation.Memory;
+			}
+			AssetLocation assetLocation = binaryAsset.Commit(location);
+			CountCommitSource(assetLocation, ref instancesCompiledCount, ref instancesCopiedFromCacheCount);
+			RecordCommit(binaryAsset, selfInstance, assetLocation);
 		}
 	}
 
@@ -1243,8 +1269,6 @@ public class AssetDeclarationDocument : IXmlSerializable
 			processor.RecordBuildCacheUse(false);
 		if (source != AssetLocation.BasePatchStream)
 			processor.AddLastWrittenAsset(binaryAsset);
-		if (!declaration.IsInheritable)
-			declaration.XmlNode = null;
 	}
 
 	private void CountCommitSource(AssetLocation commitSource, ref int instancesCompiledCount, ref int instancesCopiedFromCacheCount)
@@ -1268,7 +1292,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		using var performance = PerformanceScope.Measure("core.asset.verify");
 		if (_Current.IsLoaded)
 		{
-			IAssetBuilderVerifierPlugin plugin = _Current.DocumentProcessor.VerifierPlugins.GetPlugin(asset.Instance.Handle.TypeId);
+			IAssetBuilderVerifierPlugin plugin = _Current.DocumentProcessor.VerifierPlugins.GetPlugin(declaration.Handle.TypeId);
 			if (!plugin.VerifyInstance(declaration))
 			{
 				_Current.VerificationErrors = true;
@@ -1280,10 +1304,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 	private void CompileInstance(BinaryAsset asset, InstanceDeclaration declaration)
 	{
 		using var performance = PerformanceScope.Measure("core.asset.compile");
-		_Tracer.Message("{0}: Compiling {1}", Path.GetFileName(_Current.SourcePath), asset.Instance.ToString());
-		if (asset.Instance.XmlNode == null)
+		_Tracer.Message("{0}: Compiling {1}", Path.GetFileName(_Current.SourcePath), declaration.ToString());
+		if (declaration.XmlNode == null)
 		{
-			throw new BinaryAssetBuilderException(ErrorCode.DependencyCacheFailure, "Need to compile instance {0} but XML is not loaded. This is a bug. Please notify cnc3technicalarchitecture@ea.com.", asset.Instance);
+			throw new BinaryAssetBuilderException(ErrorCode.DependencyCacheFailure, "Need to compile instance {0} but XML is not loaded. This is a bug. Please notify cnc3technicalarchitecture@ea.com.", declaration);
 		}
 		if (declaration.HasCustomData)
 		{
@@ -1294,20 +1318,20 @@ public class AssetDeclarationDocument : IXmlSerializable
 			}
 		}
 		DateTime now = DateTime.Now;
-		IAssetBuilderPlugin plugin = _Current.DocumentProcessor.Plugins.GetPlugin(asset.Instance.Handle.TypeId);
+		IAssetBuilderPlugin plugin = _Current.DocumentProcessor.Plugins.GetPlugin(declaration.Handle.TypeId);
 		_Current.DocumentProcessor.RecordInstanceCompile();
 		AssetBuffer expanded;
 		if (_ExpandedBuffers != null && _ExpandedBuffers.TryGetValue(declaration, out expanded))
 		{
 			asset.Buffer = expanded;
-			_Current.DocumentProcessor.AddCompileTime(asset.Instance.Handle, DateTime.Now - now);
+			_Current.DocumentProcessor.AddCompileTime(declaration.Handle, DateTime.Now - now);
 			return;
 		}
 		using (Settings.Current.MeasurePerformance == null ? null : PerformanceScope.Measure("core.compiler." + declaration.Handle.TypeName))
 			asset.Buffer = _Current.DocumentProcessor.AssetExecution == null
-				? plugin.ProcessInstance(asset.Instance)
-				: _Current.DocumentProcessor.AssetExecution.ExecuteCompatibility(plugin, asset.Instance);
-		_Current.DocumentProcessor.AddCompileTime(asset.Instance.Handle, DateTime.Now - now);
+				? plugin.ProcessInstance(declaration)
+				: _Current.DocumentProcessor.AssetExecution.ExecuteCompatibility(plugin, declaration);
+		_Current.DocumentProcessor.AddCompileTime(declaration.Handle, DateTime.Now - now);
 	}
 
 	public void ProcessOverrides()
@@ -1389,73 +1413,229 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 
-	private void ValidateInstances()
+	// Frontend workers receive values and schema facts captured by the owner.
+	// Only the initial XML hash reads DOM: the whole batch joins before any
+	// reference rewrite or TypeId attribute is applied to this document.
+	private sealed class FrontendReference
 	{
-		StringCollection derivedTypes = _Current.DocumentProcessor.SchemaSet.GetDerivedTypes("BaseInheritableAsset");
-		foreach (InstanceDeclaration selfInstance in _Current.SelfInstances)
+		internal XPathNavigator Target;
+		internal SchemaSet.InstanceValueKind Kind;
+		internal XmlSchemaType SchemaType, ActualType, RequiredType;
+		internal string Value, ReferenceType, TypeIdText;
+		internal bool IsTypeId;
+	}
+
+	private sealed class FrontendReferenceResult
+	{
+		internal string Text;
+		internal InstanceHandle Handle;
+		internal uint ReferenceTypeHash;
+	}
+
+	private sealed class FrontendInput
+	{
+		internal InstanceDeclaration Declaration;
+		internal XmlNode Node;
+		internal string Name, SchemaTypeName;
+		internal uint TypeHash, ProcessingHash;
+		internal bool IsInheritable;
+		internal readonly List<FrontendReference> References = new List<FrontendReference>();
+	}
+
+	private sealed class FrontendResult
+	{
+		internal uint XmlHash;
+		internal FrontendReferenceResult[] References;
+	}
+
+	private FrontendReference CaptureFrontendReference(InstanceDeclaration declaration, XPathNavigator navigator)
+	{
+		var type = navigator.SchemaInfo?.SchemaType;
+		if (type == null)
+			throw new BinaryAssetBuilderException(ErrorCode.InternalError,
+				"Element {0} in instance {1} doesn't have a schema type.", navigator.Name, declaration);
+		var schemas = _Current.DocumentProcessor.SchemaSet;
+		var kind = schemas.GetInstanceTypeMetadata(type).Kind;
+		if (kind != SchemaSet.InstanceValueKind.WeakReference && kind != SchemaSet.InstanceValueKind.AssetReference &&
+			kind != SchemaSet.InstanceValueKind.FileReference && kind != SchemaSet.InstanceValueKind.Hashable) return null;
+		var result = new FrontendReference { Target = navigator.Clone(), Kind = kind, SchemaType = type, Value = navigator.Value };
+		if (kind == SchemaSet.InstanceValueKind.AssetReference || kind == SchemaSet.InstanceValueKind.WeakReference)
 		{
-			ExtendedTypeInformation extendedTypeInformation = _Current.DocumentProcessor.Plugins.GetExtendedTypeInformation(selfInstance.Handle.TypeId);
-			selfInstance.Handle.TypeHash = extendedTypeInformation.TypeHash;
-			using (PerformanceScope.Measure("core.xml.instance.hash"))
+			string text = navigator.Value.Trim().Split('\\')[0];
+			if (!string.IsNullOrEmpty(text))
 			{
-				uint textHash = HashProvider.GetTextHash(extendedTypeInformation.ProcessingHash, 11u.ToString());
-				XmlNode node = selfInstance.XmlNode;
-				selfInstance.Handle.InstanceHash = HashProvider.GetXmlHash(textHash, ref node);
-			}
-			selfInstance.ProcessingHash = extendedTypeInformation.ProcessingHash;
-			if (derivedTypes != null)
-			{
-				selfInstance.IsInheritable = derivedTypes.Contains(selfInstance.XmlNode.SchemaInfo.SchemaType.Name);
-			}
-			if (selfInstance.Handle.TypeName != selfInstance.XmlNode.SchemaInfo.SchemaType.Name)
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.SchemaValidation, "Type name and element name do not match for {0}.", selfInstance.Handle);
-			}
-			if (selfInstance.Handle.TypeHash == 0)
-			{
-				_Tracer.TraceWarning("No type hash found for type {0}.", selfInstance.Handle.TypeName);
-			}
-			if (Settings.Current.OutputIntermediateXml)
-			{
-				OutputIntermediateXml(selfInstance);
-			}
-			using (PerformanceScope.Measure("core.xml.instance.references"))
-			{
-				XPathNavigator xPathNavigator = selfInstance.XmlNode.CreateNavigator();
-				XPathNodeIterator xPathNodeIterator = xPathNavigator.SelectDescendants("", "uri:ea.com:eala:asset", matchSelf: true);
-				MemoryStream memoryStream = new MemoryStream();
-				BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
-				foreach (XPathNavigator item2 in xPathNodeIterator)
+				result.ReferenceType = GetReferenceTypeName(navigator);
+				if (kind == SchemaSet.InstanceValueKind.AssetReference)
 				{
-					HandleReferenceType(selfInstance, item2, binaryWriter);
-					if (item2.HasAttributes)
+					string[] name = text.Split(':');
+					if (name.Length == 2)
 					{
-						item2.MoveToFirstAttribute();
-						do
-						{
-							HandleReferenceType(selfInstance, item2, binaryWriter);
-						}
-						while (item2.MoveToNextAttribute());
-						item2.MoveToParent();
+						result.ActualType = schemas.GetXmlType(name[0]);
+						if (result.ReferenceType != null) result.RequiredType = schemas.GetXmlType(result.ReferenceType);
 					}
-					var schemaType = item2.SchemaInfo?.SchemaType;
-					if (schemaType != null && schemaType.Name != null)
-					{
-						item2.CreateAttribute("", "TypeId", "", _Current.DocumentProcessor.SchemaSet.GetInstanceTypeMetadata(schemaType).TypeIdText);
-					}
-				}
-				foreach (string referencedFile in selfInstance.ReferencedFiles)
-				{
-					FileHashItem item = null;
-					TryGetFileHashItem(referencedFile, out item);
-					binaryWriter.Write(item.Hash);
-				}
-				if (memoryStream.Length > 0)
-				{
-					selfInstance.Handle.InstanceHash ^= FastHash.GetHashCode(memoryStream.GetBuffer());
 				}
 			}
 		}
+		return result;
+	}
+
+	private string GetReferenceTypeName(XPathNavigator navigator)
+	{
+		var info = navigator.SchemaInfo;
+		var schemas = _Current.DocumentProcessor.SchemaSet;
+		string name = null;
+		if (info.SchemaElement != null) name = schemas.GetReferenceTypeName(info.SchemaElement);
+		else if (info.SchemaAttribute != null) name = schemas.GetReferenceTypeName(info.SchemaAttribute);
+		if (name == null && info.SchemaType != null)
+		{
+			name = schemas.GetReferenceTypeName(info.SchemaType);
+			if (name == null && info.SchemaType.DerivedBy == XmlSchemaDerivationMethod.Extension)
+				name = schemas.GetReferenceTypeName(info.SchemaType.BaseXmlSchemaType);
+		}
+		return name;
+	}
+
+	private static FrontendResult ComputeFrontend(FrontendInput input)
+	{
+		var node = input.Node;
+		var result = new FrontendResult {
+			XmlHash = HashProvider.GetXmlHash(HashProvider.GetTextHash(input.ProcessingHash, 11u.ToString()), ref node),
+			References = new FrontendReferenceResult[input.References.Count]
+		};
+		for (int i = 0; i < input.References.Count; i++)
+		{
+			var reference = input.References[i];
+			if (reference.IsTypeId || (reference.Kind != SchemaSet.InstanceValueKind.AssetReference &&
+				reference.Kind != SchemaSet.InstanceValueKind.WeakReference)) continue;
+			string text = reference.Value.Trim().Split('\\')[0];
+			if (string.IsNullOrEmpty(text)) continue;
+			var handle = new InstanceHandle(text);
+			if (reference.ReferenceType == null)
+				throw new BinaryAssetBuilderException(ErrorCode.ReferencingError,
+					"Asset reference to '{0}' in '{1}' does not have type (xas:refType missing in schema).", text, input.Name);
+			uint referenceTypeHash = HashProvider.GetCaseSensitiveSymbolHash(reference.ReferenceType);
+			if (handle.TypeId == 0) handle.TypeName = reference.ReferenceType;
+			else if (reference.Kind == SchemaSet.InstanceValueKind.AssetReference)
+			{
+				if (reference.RequiredType == null)
+					throw new BinaryAssetBuilderException(ErrorCode.ReferencingError,
+						"Unable to establish schema type of underlying reference type '{0}'. Make sure it is defined and included in the schema set.", reference.ReferenceType);
+				if (reference.ActualType == null)
+					throw new BinaryAssetBuilderException(ErrorCode.ReferencingError,
+						"Unable to establish schema type of referenced instance '{0}'. Make sure it is defined and included in the schema set.", handle.Name);
+				if (!XmlSchemaType.IsDerivedFrom(reference.ActualType, reference.RequiredType, XmlSchemaDerivationMethod.None))
+					throw new BinaryAssetBuilderException(ErrorCode.ReferencingError,
+						"Type of instance '{0}' referenced from '{1}' does not appear to be equal to or derived from required reference type '{2}'.", handle.Name, input.Name, reference.ReferenceType);
+			}
+			result.References[i] = new FrontendReferenceResult { Text = text, Handle = handle, ReferenceTypeHash = referenceTypeHash };
+		}
+		return result;
+	}
+
+	private void ValidateInstances()
+	{
+		var processor = _Current.DocumentProcessor;
+		StringCollection derivedTypes = processor.SchemaSet.GetDerivedTypes("BaseInheritableAsset");
+		var inputs = new List<FrontendInput>();
+		var work = new List<Func<FrontendResult>>();
+		using (PerformanceScope.Measure("core.xml.instance.prepare"))
+		foreach (InstanceDeclaration instance in _Current.SelfInstances)
+		{
+			var metadata = processor.Plugins.GetExtendedTypeInformation(instance.Handle.TypeId);
+			var input = new FrontendInput { Declaration = instance, Node = instance.XmlNode, Name = instance.Handle.Name,
+				TypeHash = metadata.TypeHash, ProcessingHash = metadata.ProcessingHash,
+				SchemaTypeName = instance.XmlNode.SchemaInfo.SchemaType.Name,
+				IsInheritable = derivedTypes == null ? instance.IsInheritable : derivedTypes.Contains(instance.XmlNode.SchemaInfo.SchemaType.Name) };
+			var descendants = instance.XmlNode.CreateNavigator().SelectDescendants("", "uri:ea.com:eala:asset", matchSelf: true);
+			foreach (XPathNavigator navigator in descendants)
+			{
+				var reference = CaptureFrontendReference(instance, navigator);
+				if (reference != null) input.References.Add(reference);
+				if (navigator.HasAttributes)
+				{
+					navigator.MoveToFirstAttribute();
+					do {
+						reference = CaptureFrontendReference(instance, navigator);
+						if (reference != null) input.References.Add(reference);
+					} while (navigator.MoveToNextAttribute());
+					navigator.MoveToParent();
+				}
+				var schemaType = navigator.SchemaInfo?.SchemaType;
+				if (schemaType != null && schemaType.Name != null)
+					input.References.Add(new FrontendReference { Target = navigator.Clone(), IsTypeId = true,
+						TypeIdText = processor.SchemaSet.GetInstanceTypeMetadata(schemaType).TypeIdText });
+			}
+			inputs.Add(input);
+			work.Add(() => ComputeFrontend(input));
+		}
+		IList<FrontendResult> results;
+		using (PerformanceScope.Measure("core.xml.instance.hash"))
+		{
+			if (processor.AssetExecution != null) results = processor.AssetExecution.ExecuteFrontend(work);
+			else {
+				var serial = new List<FrontendResult>(work.Count);
+				foreach (var compute in work) serial.Add(compute());
+				results = serial;
+			}
+		}
+		// Owner-only publication preserves the original declaration, reference,
+		// file dependency and DOM rewrite order. No worker is reading this DOM.
+		var tailWork = new List<Func<uint>>();
+		var tailInstances = new List<InstanceDeclaration>();
+		using (PerformanceScope.Measure("core.xml.instance.references"))
+		for (int i = 0; i < inputs.Count; i++)
+		{
+			var input = inputs[i];
+			var result = results[i];
+			var instance = input.Declaration;
+			instance.Handle.TypeHash = input.TypeHash;
+			instance.Handle.InstanceHash = result.XmlHash;
+			instance.ProcessingHash = input.ProcessingHash;
+			instance.IsInheritable = input.IsInheritable;
+			if (instance.Handle.TypeName != input.SchemaTypeName)
+				throw new BinaryAssetBuilderException(ErrorCode.SchemaValidation, "Type name and element name do not match for {0}.", instance.Handle);
+			if (input.TypeHash == 0) _Tracer.TraceWarning("No type hash found for type {0}.", instance.Handle.TypeName);
+			if (Settings.Current.OutputIntermediateXml) OutputIntermediateXml(instance);
+			using var references = new MemoryStream();
+			using var writer = new BinaryWriter(references);
+			for (int n = 0; n < input.References.Count; n++)
+			{
+				var reference = input.References[n];
+				if (reference.IsTypeId) reference.Target.CreateAttribute("", "TypeId", "", reference.TypeIdText);
+				else if (reference.Kind == SchemaSet.InstanceValueKind.FileReference)
+					HandleFileReferenceType(reference.Target, ref instance);
+				else if (reference.Kind == SchemaSet.InstanceValueKind.Hashable)
+					HashProvider.RecordHash(reference.SchemaType, reference.Value);
+				else {
+					var value = result.References[n];
+					if (value == null) continue;
+					writer.Write(value.ReferenceTypeHash);
+					if (reference.Kind == SchemaSet.InstanceValueKind.AssetReference) {
+						instance.ReferencedInstances.Add(value.Handle);
+						reference.Target.SetValue($"{value.Text}\\{instance.ReferencedInstances.Count - 1}");
+					} else instance.WeakReferencedInstances.Add(value.Handle);
+				}
+			}
+			foreach (string file in instance.ReferencedFiles) {
+				FileHashItem identity = null;
+				TryGetFileHashItem(file, out identity);
+				writer.Write(identity.Hash);
+			}
+			// Keep GetBuffer's capacity/zero padding, part of the SDK hash contract.
+			if (references.Length > 0) {
+				byte[] tail = references.GetBuffer();
+				tailInstances.Add(instance);
+				tailWork.Add(() => FastHash.GetHashCode(tail));
+			}
+		}
+		IList<uint> tails;
+		if (processor.AssetExecution != null) tails = processor.AssetExecution.ExecuteFrontend(tailWork);
+		else {
+			var serial = new List<uint>(tailWork.Count);
+			foreach (var compute in tailWork) serial.Add(compute());
+			tails = serial;
+		}
+		for (int i = 0; i < tailInstances.Count; i++) tailInstances[i].Handle.InstanceHash ^= tails[i];
 	}
 
 	private static IEnumerable<string> EnumerateUiSources(string directory)
@@ -1588,28 +1768,6 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 
-	private void HandleReferenceType(InstanceDeclaration instance, XPathNavigator navigator, BinaryWriter refTypeIds)
-	{
-		var type = navigator.SchemaInfo?.SchemaType;
-		if (type == null)
-		{
-			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Element {0} in instance {1} doesn't have a schema type.", navigator.Name, instance);
-		}
-		var kind = _Current.DocumentProcessor.SchemaSet.GetInstanceTypeMetadata(type).Kind;
-		if (kind == SchemaSet.InstanceValueKind.WeakReference || kind == SchemaSet.InstanceValueKind.AssetReference)
-		{
-			HandleAssetReferenceType(navigator, ref instance, refTypeIds, kind == SchemaSet.InstanceValueKind.AssetReference);
-		}
-		else if (kind == SchemaSet.InstanceValueKind.FileReference)
-		{
-			HandleFileReferenceType(navigator, ref instance);
-		}
-		else if (kind == SchemaSet.InstanceValueKind.Hashable)
-		{
-			HashProvider.RecordHash(type, navigator.Value);
-		}
-	}
-
 	private void HandleFileReferenceType(XPathNavigator navigator, ref InstanceDeclaration instance)
 	{
 		string text = navigator.Value.Trim().ToLower();
@@ -1632,71 +1790,6 @@ public class AssetDeclarationDocument : IXmlSerializable
 		_Current.DependentFiles.Add(text);
 		navigator.SetValue(value);
 		instance.ReferencedFiles.Add(text);
-	}
-
-	private void HandleAssetReferenceType(XPathNavigator navigator, ref InstanceDeclaration instance, BinaryWriter refTypeIds, bool isAssetRef)
-	{
-		string[] array = navigator.Value.Trim().Split('\\');
-		string text = array[0];
-		if (string.IsNullOrEmpty(text))
-		{
-			return;
-		}
-		InstanceHandle instanceHandle = new InstanceHandle(text);
-		string text2 = null;
-		var info = navigator.SchemaInfo;
-		var schemas = _Current.DocumentProcessor.SchemaSet;
-		if (info.SchemaElement != null)
-		{
-			text2 = schemas.GetReferenceTypeName(info.SchemaElement);
-		}
-		else if (info.SchemaAttribute != null)
-		{
-			text2 = schemas.GetReferenceTypeName(info.SchemaAttribute);
-		}
-		if (text2 == null && info.SchemaType != null)
-		{
-			text2 = schemas.GetReferenceTypeName(info.SchemaType);
-			if (text2 == null && info.SchemaType.DerivedBy == XmlSchemaDerivationMethod.Extension)
-			{
-				text2 = schemas.GetReferenceTypeName(info.SchemaType.BaseXmlSchemaType);
-			}
-		}
-		if (text2 == null)
-		{
-			throw new BinaryAssetBuilderException(ErrorCode.ReferencingError, "Asset reference to '{0}' in '{1}' does not have type (xas:refType missing in schema).", text, instance);
-		}
-		refTypeIds.Write(HashProvider.GetCaseSensitiveSymbolHash(text2));
-		if (instanceHandle.TypeId == 0)
-		{
-			instanceHandle.TypeName = text2;
-		}
-		else if (isAssetRef)
-		{
-			XmlSchemaType xmlType = _Current.DocumentProcessor.SchemaSet.GetXmlType(instanceHandle.TypeName);
-			XmlSchemaType xmlType2 = _Current.DocumentProcessor.SchemaSet.GetXmlType(text2);
-			if (xmlType2 == null)
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.ReferencingError, "Unable to establish schema type of underlying reference type '{0}'. Make sure it is defined and included in the schema set.", text2);
-			}
-			if (xmlType == null)
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.ReferencingError, "Unable to establish schema type of referenced instance '{0}'. Make sure it is defined and included in the schema set.", instanceHandle.Name);
-			}
-			if (!XmlSchemaType.IsDerivedFrom(xmlType, xmlType2, XmlSchemaDerivationMethod.None))
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.ReferencingError, "Type of instance '{0}' referenced from '{1}' does not appear to be equal to or derived from required reference type '{2}'.", instanceHandle.Name, instance.Handle.Name, text2);
-			}
-		}
-		if (isAssetRef)
-		{
-			instance.ReferencedInstances.Add(instanceHandle);
-			navigator.SetValue($"{text}\\{instance.ReferencedInstances.Count - 1}");
-		}
-		else
-		{
-			instance.WeakReferencedInstances.Add(instanceHandle);
-		}
 	}
 
 	public InstanceDeclaration FindInstance(InstanceHandle handle, FindLocation skipLocation, out FindLocation location)

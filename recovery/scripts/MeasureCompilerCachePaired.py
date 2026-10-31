@@ -19,15 +19,13 @@ from HotCacheWorkload import (HISTORICAL, UPHEAVAL_TREE, add_include, allocate_i
                               reserved_instance_hashes, save_xml)
 from MeasureCompilerModScale import phases, sha, write
 
-BASELINE_HEAD = '074bf768fe58e042bfec3ea94d830156990823d6'
-BASELINE_BINARY_SOURCE = '75d29895be464d9a560f5f946d612e359bf4b396'
-BASELINE_RUN = '41165126334'
+BASELINE_HEAD = '1810fff87727b70779f31328740bb0c2133157d2'
+BASELINE_BINARY_SOURCE = 'b385337e463bddebdb267946d9edb1b3b6ee5f0a'
+BASELINE_RUN = '41192817627'
 BASELINE_FILES = {
-    'NewModCompiler.exe': 'd3893f1d6a8327755f89714bb7b85e322cfb3278d25247cfd80edaa5768b9892',
+    'NewModCompiler.exe': '8cc060e45a962604f06ea6ef73fa53c518cb173bd3ab72f3b66f7196b3485157',
     'NewModCompiler.exe.config': '94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68',
     'antlr.runtime.dll': 'febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a',
-    'BinaryAssetBuilder.TextureCompiler.dll': '076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48',
-    'BinaryAssetBuilder.TextureCompiler.dll.patch.json': '8101a936dee79718662c93f50a89735eabaa6d5601ea1e0a3da8b3f82c76794d',
 }
 
 
@@ -45,9 +43,10 @@ def product(directory, source, pinned=None):
     need(receipt['sourceCommit'] == source and receipt['configuration'] == 'Release',
          'Production build identity differs: ' + str(directory))
     runtime = directory / 'bin'
-    actual = {name: sha(runtime / name) for name in BASELINE_FILES}
+    names = pinned.keys() if pinned else receipt['runtimeFiles']
+    actual = {name: sha(runtime / name) for name in names}
     need(actual['NewModCompiler.exe'] == receipt['exeSha256'], 'EXE differs from build receipt')
-    need(set(p.name for p in runtime.iterdir() if p.is_file()) == set(actual), 'Expected five runtime files')
+    need(set(p.name for p in runtime.iterdir() if p.is_file()) == set(actual), 'Runtime file set differs from accepted identity or production receipt')
     if pinned:
         need(actual == pinned, 'Accepted baseline runtime identity changed')
     return runtime / 'NewModCompiler.exe', actual
@@ -149,9 +148,10 @@ def run(args):
         need(not git(repo, 'diff', '--name-only', BASELINE_BINARY_SOURCE, BASELINE_HEAD, '--', *closure),
              'Pinned accepted baseline differs from requested base production inputs')
         changes = git(repo, 'diff', '--name-only', BASELINE_HEAD, source, '--', *closure).splitlines()
-        allowed = ('recovery/src/App/', 'recovery/src/Managed/Core/', 'recovery/src/Managed/Metrics/')
+        allowed = ('recovery/src/App/', 'recovery/src/Managed/Core/', 'recovery/src/Managed/Metrics/',
+                   'recovery/src/Managed/GameDataVerifier/')
         need(changes and all(path.startswith(allowed) for path in changes),
-             'Expected only recorded App/Core/Metrics production changes: ' + repr(changes))
+             'Expected only recorded asset pipeline production changes: ' + repr(changes))
         state['productionChanges'] = changes
         binaries, runtime_hashes = {}, {}
         for label, directory, commit, pinned in (
