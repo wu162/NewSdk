@@ -22,6 +22,8 @@ PREFIX = 'artifacts/final-release/40814401237-1/'
 NAMES = frozenset(('NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll',
                    'BinaryAssetBuilder.TextureCompiler.dll', 'BinaryAssetBuilder.TextureCompiler.dll.patch.json'))
 BENCHMARK_FILES = frozenset(('recovery/scripts/PrepareCompilerCacheBenchmark.py',
+                            'recovery/scripts/BenchmarkFullUpheaval.py',
+                            'recovery/tests/test_full_upheaval_benchmark.py',
                             'recovery/scripts/BenchmarkCompilerCache.py',
                             'recovery/tests/test_prepare_cache_benchmark.py',
                             'recovery/tests/test_cache_benchmark.py',
@@ -282,3 +284,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
