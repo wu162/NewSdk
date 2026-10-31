@@ -117,7 +117,8 @@ namespace NewModCompiler.Application
                     family == "audio" ? BinaryAssetBuilder.AudioCompiler.AudioCatalog.Version(TargetPlatform.Win32) : 4100u;
                 // Source expansion happens before backend dispatch, so its UI
                 // interface must remain available even on a lazy Core session.
-                IAssetBuilderPlugin plugin = lazy && family != "ui" ? (IAssetBuilderPlugin)new LazyPlugin(factory, version) : factory();
+                IAssetBuilderPlugin plugin = lazy && family != "ui" ?
+                    (family == "audio" ? (IAssetBuilderPlugin)new LazyAudioPlugin(factory, version) : new LazyPlugin(factory, version)) : factory();
                 if (plugin == null) throw new InvalidOperationException("Built-in factory returned null: " + family);
                 plugins.Add(plugin);
                 return plugin;
@@ -222,7 +223,7 @@ namespace NewModCompiler.Application
 
         // Version metadata is the original Win32 contract. Reading aggregate cache
         // versions must not initialize native providers for unrelated asset types.
-        private sealed class LazyPlugin : IAssetBuilderPlugin, IInstanceProcessingHash, IDisposable
+        private class LazyPlugin : IAssetBuilderPlugin, IDisposable
         {
             readonly Func<IAssetBuilderPlugin> factory;
             readonly uint version;
@@ -247,17 +248,6 @@ namespace NewModCompiler.Application
                 }
             }
             internal IAssetBuilderPlugin Backend { get { return Value; } }
-            public uint GetProcessingHash(InstanceDeclaration declaration)
-            {
-                var policy = Value as IInstanceProcessingHash;
-                return policy != null ? policy.GetProcessingHash(declaration) : Value.GetExtendedTypeInformation(declaration.Handle.TypeId).ProcessingHash;
-            }
-            public bool IsProcessingHashCurrent(uint typeId, uint processingHash, bool compilerVersionChanged)
-            {
-                var policy = Value as IInstanceProcessingHash;
-                return policy != null ? policy.IsProcessingHashCurrent(typeId, processingHash, compilerVersionChanged) :
-                    processingHash == Value.GetExtendedTypeInformation(typeId).ProcessingHash;
-            }
             public void Initialize(object config, TargetPlatform target) { configuration = config; platform = target; }
             public void ReInitialize(object config, TargetPlatform target)
             {
@@ -270,6 +260,21 @@ namespace NewModCompiler.Application
             public ExtendedTypeInformation GetExtendedTypeInformation(uint typeId) { return Value.GetExtendedTypeInformation(typeId); }
             public AssetBuffer ProcessInstance(InstanceDeclaration instance) { return Value.ProcessInstance(instance); }
             public void Dispose() { if (disposed) return; disposed = true; var owned = instance as IDisposable; if (owned != null) owned.Dispose(); }
+        }
+
+        // Only audio has per-instance identities. Other lazy routes keep the
+        // registry's cached type metadata on cold and hot paths.
+        private sealed class LazyAudioPlugin : LazyPlugin, IInstanceProcessingHash
+        {
+            public LazyAudioPlugin(Func<IAssetBuilderPlugin> factory, uint version) : base(factory, version) { }
+            public uint GetProcessingHash(InstanceDeclaration declaration)
+            {
+                return ((IInstanceProcessingHash)Backend).GetProcessingHash(declaration);
+            }
+            public bool IsProcessingHashCurrent(uint typeId, uint processingHash, bool compilerVersionChanged)
+            {
+                return ((IInstanceProcessingHash)Backend).IsProcessingHashCurrent(typeId, processingHash, compilerVersionChanged);
+            }
         }
 
         private sealed class UnsupportedPlugin : IAssetBuilderPlugin
