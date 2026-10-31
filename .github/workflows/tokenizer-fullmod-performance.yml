@@ -27,7 +27,7 @@ jobs:
             !/recovery/evidence/
       - uses: actions/checkout@v4
         with:
-          ref: 8f854606ac20ce372045e3661b38e58e4e933ca2
+          ref: 7cfdd4314d8cafa2f2c7313e64f5ffbacf94eaf9
           path: work/baseline
           persist-credentials: false
           sparse-checkout-cone-mode: false
@@ -45,10 +45,17 @@ jobs:
       - name: Rebuild exact baseline Release
         shell: pwsh
         run: ./work/baseline/recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory recovery/artifacts/tokenizer-before
+      - name: Wait for final production acceptance before reusing its Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run watch 41146357892 --repo wu162/NewSdk --interval 20 --exit-status
+          if ($LASTEXITCODE -ne 0) { throw 'Final production acceptance did not succeed' }
       - uses: actions/download-artifact@v4
         with:
-          name: refactor-core-lifecycle-41138338003-1
-          run-id: 41138338003
+          name: refactor-core-lifecycle-41146357892-1
+          run-id: 41146357892
           github-token: ${{ github.token }}
           path: recovery/artifacts/tokenizer-accepted
       - name: Three paired full MOD builds and raw published byte comparisons
@@ -58,13 +65,28 @@ jobs:
           --pairs 3
           --baseline-build recovery/artifacts/tokenizer-before
           --optimized-build recovery/artifacts/tokenizer-accepted/artifacts/core-lifecycle-product/Release
-          --baseline-source 8f854606ac20ce372045e3661b38e58e4e933ca2
-          --optimized-source 9f9d176761ff28cee993c27ba61b864041a26299
+          --baseline-source 7cfdd4314d8cafa2f2c7313e64f5ffbacf94eaf9
+          --optimized-source d60904bcb4fcdc6b02ff78db6b66410568543f57
           --production-file recovery/src/Bridge/GameObjectCompiler.cpp
           --production-file recovery/src/Bridge/WeaponCompiler.cpp
+          --production-file recovery/src/Native/AttributeMap.h
+          --production-file recovery/src/Native/EnumBitset.cpp
+          --production-file recovery/src/Native/EnumBitset.h
           --production-file recovery/src/Native/GameObject.cpp
+          --production-file recovery/src/Native/GameObject.h
+          --production-file recovery/src/Native/GameObjectChildGroups.h
+          --production-file recovery/src/Native/GameObjectDrawAnimationRuntime.h
+          --production-file recovery/src/Native/GameObjectDrawModelConditionsRuntime.h
+          --production-file recovery/src/Native/GameObjectModuleDispatchRuntime.h
           --production-file recovery/src/Native/GameObjectModuleFieldsRuntime.h
+          --production-file recovery/src/Native/GameObjectScalarDefaultsRuntime.h
+          --production-file recovery/src/Native/ObjectFilter.h
+          --production-file recovery/src/Native/Relocation.cpp
+          --production-file recovery/src/Native/Relocation.h
+          --production-file recovery/src/Native/WeaponNugget.cpp
+          --production-file recovery/src/Native/WeaponNugget.h
           --production-file recovery/src/Native/WeaponTemplate.cpp
+          --production-file recovery/src/Native/WeaponTemplate.h
           --work "$env:RUNNER_TEMP/tokenizer-fullmod"
           --output "recovery/evidence/refactor/tokenizer-fullmod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - uses: actions/upload-artifact@v4
