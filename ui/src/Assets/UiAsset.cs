@@ -38,7 +38,7 @@ namespace BinaryAssetBuilder.UiCompiler
     }
     internal static class UiCatalog
     {
-        internal const uint ProcessingHash = 0x55493803;
+        internal const uint ProcessingHash = 0x55493804;
         internal static readonly Tuple<string, uint, uint>[] Types = {
             Tuple.Create("AptAptData", 1816258268u, 3795385027u), Tuple.Create("AptConstData", 983359664u, 3876251416u),
             Tuple.Create("AptDatData", 1110676961u, 230038576u), Tuple.Create("AptGeometryData", 1034587168u, 1390234602u),

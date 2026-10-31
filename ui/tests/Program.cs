@@ -66,7 +66,7 @@ if (args.Length == 0)
         string collision = Path.Combine(testRoot, "collision"); File.WriteAllBytes(collision + ".bin", new byte[] { 1, 2, 3 }); Directory.CreateDirectory(collision + ".relo");
         Reject(() => second.WriteTo(collision), "invalid stream destination fails");
         Check(File.ReadAllBytes(collision + ".bin").SequenceEqual(new byte[] { 1, 2, 3 }), "destination failure preserves existing binary");
-        foreach (string rejected in Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "fixtures", "rejected"), "*.fla")) Reject(() => FlaDocument.Read(File.ReadAllBytes(rejected)), "non-Flash-8 FLA rejected");
+        foreach (string rejected in Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "fixtures", "rejected"), "*.fla")) Reject(() => FlaDocument.Read(File.ReadAllBytes(rejected)), "unsupported binary FLA revision rejected");
         Reject(() => FlaDocument.Read(new byte[512]), "renamed non-CFB input rejected");
         Console.WriteLine("Folder/AS/include/class/four-stream checks passed.");
     }

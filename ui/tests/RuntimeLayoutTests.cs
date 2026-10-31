@@ -1,6 +1,7 @@
 using BinaryAssetBuilder.UiCompiler;
 using BinaryAssetBuilder.UiCompiler.Compilation;
 using BinaryAssetBuilder.UiCompiler.Runtime;
+using BinaryAssetBuilder.UiCompiler.Fla;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -12,6 +13,14 @@ internal static class RuntimeLayoutTests
         List<CompiledUiAsset> assets;
         try { File.WriteAllText(Path.Combine(directory, "ui", "Panel.as"), LayoutDocument.ClassSource); var scene = new FlaCompiler(LayoutDocument.Create(), new SourceProject(directory), Path.Combine(directory, "Layout.fla")).Compile(); assets = new AssetEncoder(scene).Build("Layout", "Layout.fla"); }
         finally { Directory.Delete(directory, true); }
+        var emptyDoc = LayoutDocument.Create();
+        var emptyField = new FlaRecord("CPicText");
+        emptyField.set("bounds", new List<int> { 0, 800, 0, 400 }); emptyField.set("textFlags", 3);
+        var emptyStyle = new FlaRecord("textStyle"); emptyStyle.set("fontFamily", "_sans"); emptyStyle.set("fontSize", 240);
+        emptyField.set("defaultStyle", emptyStyle);
+        var emptyCompiler = new FlaCompiler(emptyDoc);
+        int emptyId = new TextCompiler(emptyCompiler).Compile(emptyField);
+        check(emptyCompiler.Model.Symbols[emptyId] is TextSymbol blank && blank.InitialText == "" && blank.HeightTwips == 240, "Empty dynamic text retains its FLA default style");
         int I(byte[] bytes, int at) => BitConverter.ToInt32(bytes, at);
         string Str(byte[] bytes, int at) { int end = at; while (bytes[end] != 0) end++; return Encoding.UTF8.GetString(bytes, at, end - at); }
         var runtime = RuntimeFixture.Payload(assets[0]); var constants = RuntimeFixture.Payload(assets[1]); int main = I(constants, 20), table = I(runtime, main + 24), count = I(runtime, main + 20);

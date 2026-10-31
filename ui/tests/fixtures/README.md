@@ -18,3 +18,6 @@ the same old implementation, with the in-memory source records described in
 `LayoutDocument.cs`. This covers button states/hit tests, dynamic Chinese
 text, a linked AS2 class, event handlers and a premultiplied source bitmap.
 Only final asset hashes are retained, not old conversion code or files.
+
+`mx2004-empty.fla` is the upstream Flash MX 2004 empty document. It is accepted
+as revision 0x38; CS3 remains an explicit unsupported-version fixture.

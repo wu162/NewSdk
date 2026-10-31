@@ -14,6 +14,7 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
         private readonly Dictionary<string, As2Class> compiledClasses = new Dictionary<string, As2Class>(StringComparer.Ordinal);
         private readonly Dictionary<string, string> sourceCache = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private readonly HashSet<string> compiling = new HashSet<string>(StringComparer.Ordinal);
+        private readonly HashSet<string> pendingClasses = new HashSet<string>(StringComparer.Ordinal);
         internal readonly List<string> Inputs = new List<string>();
         internal readonly List<As2Class> ClassOrder = new List<As2Class>();
         private static readonly Regex Include = new Regex(@"(?m)^[\t ]*#include[\t ]+[""']([^""'\r\n]+)[""'][\t ]*;?[\t ]*(?://[^\r\n]*)?\r?$", RegexOptions.CultureInvariant);
@@ -38,13 +39,13 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
         internal string Embedded(string source, string flaPath) => Prepare(Expand(source, Path.GetFullPath(flaPath), new HashSet<string>(StringComparer.OrdinalIgnoreCase)), flaPath);
         private string Prepare(string source, string path)
         {
-            string mask = Mask(source); var imports = Regex.Matches(mask, @"\bimport\s+([\w.$]+(?:\.\*)?)\s*;", RegexOptions.CultureInvariant);
+            string mask = Mask(source); var imports = Regex.Matches(mask, @"\bimport[\t ]+([\w.$]+(?:\.\*)?)[\t ]*;?", RegexOptions.CultureInvariant);
             var aliases = new Dictionary<string, string>(StringComparer.Ordinal);
             foreach (Match import in imports)
             {
                 string name = import.Groups[1].Value;
-                if (name.EndsWith(".*", StringComparison.Ordinal)) { string prefix = name.Substring(0, name.Length - 1); foreach (string type in classes.Keys.Where(k => k.StartsWith(prefix, StringComparison.Ordinal) && k.IndexOf('.', prefix.Length) < 0)) { RequireClass(type); aliases.Add(type.Substring(type.LastIndexOf('.') + 1), type); } }
-                else { RequireClass(name); aliases.Add(name.Substring(name.LastIndexOf('.') + 1), name); }
+                if (name.EndsWith(".*", StringComparison.Ordinal)) { string prefix = name.Substring(0, name.Length - 1); foreach (string type in classes.Keys.Where(k => k.StartsWith(prefix, StringComparison.Ordinal) && k.IndexOf('.', prefix.Length) < 0)) { ReferenceClass(type); aliases.Add(type.Substring(type.LastIndexOf('.') + 1), type); } }
+                else { ReferenceClass(name); aliases.Add(name.Substring(name.LastIndexOf('.') + 1), name); }
             }
             // Import aliases are lexical compiler input, never global variables.
             foreach (Match import in imports.Cast<Match>().Reverse())
@@ -63,15 +64,30 @@ namespace BinaryAssetBuilder.UiCompiler.Compilation
             if (!classes.TryGetValue(name, out string path))
             { if (As2Class.IsBuiltin(name)) return null; throw new InvalidDataException("Missing AS2 class '" + name + "' under " + root); }
             if (!compiling.Add(name)) throw new InvalidDataException("Circular AS2 class dependency: " + name);
+            As2Class result;
             try
             {
                 string source = Prepare(Expand(Read(path), path, new HashSet<string>(StringComparer.OrdinalIgnoreCase)), path);
                 string prefix = name.LastIndexOf('.') < 0 ? "" : name.Substring(0, name.LastIndexOf('.') + 1);
                 var implicitTypes = classes.Keys.Where(k => k.StartsWith(prefix, StringComparison.Ordinal) && k.IndexOf('.', prefix.Length) < 0).ToDictionary(k => k.Substring(prefix.Length), k => k, StringComparer.Ordinal);
-                var result = ActionScriptCompiler.CompileClass(source, RequireClass, implicitTypes); if (result.Name != name) throw new InvalidDataException("AS2 class name mismatch.");
-                compiledClasses.Add(name, result); ClassOrder.Add(result); return result;
+                result = ActionScriptCompiler.CompileClass(source, ReferenceClass, implicitTypes, RequireClass); if (result.Name != name) throw new InvalidDataException("AS2 class name mismatch.");
+                compiledClasses.Add(name, result); ClassOrder.Add(result);
             }
             finally { compiling.Remove(name); }
+            // Imports and method references may be mutual. Compile them after
+            // the current inheritance chain is complete; only extends is a
+            // strict dependency and must reject a cycle.
+            if (compiling.Count == 0)
+                while (pendingClasses.Count != 0)
+                { string next = pendingClasses.OrderBy(p => p, StringComparer.Ordinal).First(); pendingClasses.Remove(next); RequireClass(next); }
+            return result;
+        }
+        private As2Class ReferenceClass(string name)
+        {
+            if (compiledClasses.TryGetValue(name, out var result)) return result;
+            if (!classes.ContainsKey(name)) { if (As2Class.IsBuiltin(name)) return null; throw new InvalidDataException("Missing AS2 class '" + name + "' under " + root); }
+            if (compiling.Count == 0) return RequireClass(name);
+            pendingClasses.Add(name); return null;
         }
         private string Expand(string source, string owner, HashSet<string> stack)
         {

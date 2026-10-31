@@ -40,7 +40,7 @@ namespace BinaryAssetBuilder.UiCompiler
         }
         public virtual void ReInitialize(object configSection, TargetPlatform platform) => Initialize(configSection, platform);
         public virtual uint GetAllTypesHash() { Alive(); return UiCatalog.AllTypesHash; }
-        public virtual uint GetVersionNumber() { Alive(); return 0x00010000; }
+        public virtual uint GetVersionNumber() { Alive(); return 0x00010001; }
         public virtual ExtendedTypeInformation GetExtendedTypeInformation(uint typeId) { Alive(); return UiCatalog.Find(typeId); }
         public virtual AssetBuffer ProcessInstance(InstanceDeclaration declaration)
         {

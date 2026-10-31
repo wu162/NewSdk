@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+#if NEWSdk_MONOLITHIC
+using System.Linq;
+#endif
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
@@ -97,6 +100,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 		public List2<string> DependentFiles;
 
+		public List2<string> UiSourceDirectories;
+
 		public uint IncludePathHash;
 
 		public List2<InclusionItem> InclusionItems;
@@ -118,6 +123,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			InclusionItems = ((current.InclusionItems.Count > 0) ? new List2<InclusionItem>(current.InclusionItems) : null);
 			DependentFileHash = current.DependentFileHash;
 			DependentFiles = ((current.DependentFiles.Count > 0) ? new List2<string>(current.DependentFiles) : null);
+			UiSourceDirectories = current.UiSourceDirectories.Count > 0 ? new List2<string>(current.UiSourceDirectories) : null;
 			OutputAssets = ((current.OutputAssets.Count > 0) ? new List2<OutputAsset>(current.OutputAssets) : null);
 			SelfDefines = ((current.SelfDefines.Count > 0) ? new List2<Definition>(current.SelfDefines) : null);
 			SelfInstances = ((current.SelfInstances.Count > 0) ? new List2<InstanceDeclaration>(current.SelfInstances) : null);
@@ -147,6 +153,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 				ReadOldStrings(reader);
 				object obj = XmlHelper.ReadStringArrayElement(reader, "sf");
 				DependentFiles = ((obj == null) ? null : new List2<string>(obj as string[]));
+				obj = XmlHelper.ReadStringArrayElement(reader, "uidir");
+				UiSourceDirectories = obj == null ? null : new List2<string>(obj as string[]);
 				obj = XmlHelper.ReadStringArrayElement(reader, "dsf");
 				StreamHints = ((obj == null) ? null : new List2<string>(obj as string[]));
 				obj = XmlHelper.ReadCollection(reader, "iic", typeof(InclusionItem));
@@ -190,6 +198,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			writer.WriteStartElement("ad");
 			writer.WriteAttributeString("d", $"{DocumentHash};{DependentFileHash};{IncludePathHash}");
 			XmlHelper.WriteStringArrayElement(writer, "sf", (DependentFiles == null) ? null : DependentFiles.ToArray());
+			XmlHelper.WriteStringArrayElement(writer, "uidir", UiSourceDirectories == null ? null : UiSourceDirectories.ToArray());
 			XmlHelper.WriteStringArrayElement(writer, "dsf", (StreamHints == null) ? null : StreamHints.ToArray());
 			XmlHelper.WriteCollection(writer, "iic", InclusionItems);
 			XmlHelper.WriteCollection(writer, "oac", OutputAssets);
@@ -234,6 +243,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 		public InstanceSet SelfInstances;
 
 		public List2<string> DependentFiles;
+
+		public List2<string> UiSourceDirectories;
 
 		public List2<InclusionItem> InclusionItems;
 
@@ -314,6 +325,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			InclusionItems = ((last.InclusionItems != null) ? new List2<InclusionItem>(last.InclusionItems) : new List2<InclusionItem>());
 			DependentFiles = ((last.DependentFiles != null) ? new List2<string>(last.DependentFiles) : new List2<string>());
+			UiSourceDirectories = last.UiSourceDirectories != null ? new List2<string>(last.UiSourceDirectories) : new List2<string>();
 			StreamHints = ((last.StreamHints != null) ? new List2<string>(last.StreamHints) : new List2<string>());
 			UsedDefines = new SortedDictionary<string, string>();
 			if (last.UsedDefines != null)
@@ -341,6 +353,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			InclusionItems = new List2<InclusionItem>();
 			DependentFiles = new List2<string>();
+			UiSourceDirectories = new List2<string>();
 			UsedDefines = new SortedDictionary<string, string>();
 			SelfDefines = new List2<Definition>();
 			SelfInstances = new InstanceSet();
@@ -652,7 +665,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 	private void UpdateDocumentHashes()
 	{
 		using var performance = PerformanceScope.Measure("core.dependencies.files");
-		if (_Current.DependentFiles.Count == 0)
+		if (_Current.DependentFiles.Count == 0 && _Current.UiSourceDirectories.Count == 0)
 		{
 			_Current.DependentFileHash = 0u;
 		}
@@ -669,6 +682,15 @@ public class AssetDeclarationDocument : IXmlSerializable
 					binaryWriter.Write(HashProvider.GetTextHash(item.Path.ToLower()));
 					binaryWriter.Write(item.Hash);
 				}
+			}
+			// SourceProject discovers all AS files under the movie folder. The
+			// inventory is a dependency too: adding a class or timeline sidecar
+			// must invalidate a previously cached FLA group.
+			foreach (string directory in _Current.UiSourceDirectories)
+			{
+				binaryWriter.Write(directory);
+				if (Directory.Exists(directory))
+					foreach (string file in EnumerateUiSources(directory)) binaryWriter.Write(file.ToLowerInvariant());
 			}
 			byte[] array = memoryStream.ToArray();
 			if (array.Length > 0)
@@ -845,8 +867,12 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 
+	[NonSerialized]
+	private Dictionary<InstanceDeclaration, AssetBuffer> _ExpandedBuffers;
+
 	public void ResetState()
 	{
+		_ExpandedBuffers = null;
 		_Current = null;
 		CacheChanged = false;
 		CacheInvalidated = DependencyAffected = false;
@@ -873,6 +899,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void MakeComplete()
 	{
+		_ExpandedBuffers = null;
 		if (_Last != null)
 		{
 			if (_Last.IncludePathHash != _Current.IncludePathHash || (_Last.StreamHints == null ? 0 : _Last.StreamHints.Count) != _Current.StreamHints.Count) CacheChanged = true;
@@ -907,6 +934,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 		_Current.NodeSourceInfoSet.Clear();
 		_Current.NodeSourceInfoSet = null;
 		ValidateInstances();
+#if NEWSdk_MONOLITHIC
+		ExpandUiSources();
+#endif
 		UpdateDocumentHashes();
 		_Current.SchemaValidated = true;
 	}
@@ -1126,7 +1156,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			// Reinitialize already validated metadata for cached instances. Only a
 			// freshly loaded XML instance needs to acquire its custom-data flag.
-			if (selfInstance.XmlNode != null)
+			if (selfInstance.XmlNode != null && (_ExpandedBuffers == null || !_ExpandedBuffers.ContainsKey(selfInstance)))
 				selfInstance.HasCustomData = _Current.DocumentProcessor.Plugins.GetExtendedTypeInformation(selfInstance.Handle.TypeId).HasCustomData;
 			BinaryAsset binaryAsset = outputManager.GetBinaryAsset(selfInstance, isOutputAsset: true);
 			if (binaryAsset != null)
@@ -1134,7 +1164,9 @@ public class AssetDeclarationDocument : IXmlSerializable
 				AssetLocation location = binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None);
 				var processor = _Current.DocumentProcessor;
 				var execution = processor.AssetExecution;
-				if (execution != null && (location == AssetLocation.None || execution.HasPending))
+				bool expanded = _ExpandedBuffers != null && _ExpandedBuffers.ContainsKey(selfInstance);
+				if (expanded && execution != null && execution.HasPending) execution.Flush();
+				if (!expanded && execution != null && (location == AssetLocation.None || execution.HasPending))
 				{
 					var declaration = selfInstance;
 					string sourcePath = _Current.SourcePath;
@@ -1226,6 +1258,13 @@ public class AssetDeclarationDocument : IXmlSerializable
 		DateTime now = DateTime.Now;
 		IAssetBuilderPlugin plugin = _Current.DocumentProcessor.Plugins.GetPlugin(asset.Instance.Handle.TypeId);
 		_Current.DocumentProcessor.RecordInstanceCompile();
+		AssetBuffer expanded;
+		if (_ExpandedBuffers != null && _ExpandedBuffers.TryGetValue(declaration, out expanded))
+		{
+			asset.Buffer = expanded;
+			_Current.DocumentProcessor.AddCompileTime(asset.Instance.Handle, DateTime.Now - now);
+			return;
+		}
 		using (Settings.Current.MeasurePerformance == null ? null : PerformanceScope.Measure("core.compiler." + declaration.Handle.TypeName))
 			asset.Buffer = _Current.DocumentProcessor.AssetExecution == null
 				? plugin.ProcessInstance(asset.Instance)
@@ -1289,6 +1328,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	private void GatherUnvalidatedInstances()
 	{
+		_ExpandedBuffers = null;
 		SelfInstances.Clear();
 		XmlNodeList xmlNodeList = _Current.XmlDocument.SelectNodes("/ea:AssetDeclaration/child::*", _Current.NamespaceManager);
 		foreach (XmlNode item in xmlNodeList)
@@ -1372,6 +1412,70 @@ public class AssetDeclarationDocument : IXmlSerializable
 			}
 		}
 	}
+
+	private static IEnumerable<string> EnumerateUiSources(string directory)
+	{
+		string[] files = Directory.GetFiles(directory, "*", SearchOption.AllDirectories);
+		Array.Sort(files, StringComparer.Ordinal);
+		foreach (string file in files)
+			if (String.Equals(Path.GetExtension(file), ".as", StringComparison.OrdinalIgnoreCase) ||
+				String.Equals(Path.GetExtension(file), ".fla", StringComparison.OrdinalIgnoreCase)) yield return file;
+	}
+
+#if NEWSdk_MONOLITHIC
+	private void ExpandUiSources()
+	{
+		// Run after the ordinary schema/path validation, before dependency and
+		// instance hashes become cache keys. No output is committed until every
+		// source in this document has compiled successfully.
+		var sources = new List<InstanceDeclaration>();
+		foreach (InstanceDeclaration instance in SelfInstances)
+			if (instance.Handle.TypeName == "AptAptData" &&
+				String.Equals(Path.GetExtension(instance.XmlNode.Attributes["File"]?.Value), ".fla", StringComparison.OrdinalIgnoreCase)) sources.Add(instance);
+		foreach (InstanceDeclaration source in sources)
+		{
+			var compiler = _Current.DocumentProcessor.Plugins.GetPlugin(source.Handle.TypeId) as BinaryAssetBuilder.UiCompiler.IUiFileCompiler;
+			if (compiler == null) throw new InvalidOperationException("The AptAptData plugin does not support FLA expansion.");
+			var group = compiler.CompileUiFile(source, Settings.Current.TargetPlatform);
+			uint sourceHash = source.Handle.InstanceHash;
+			string directory = Path.GetDirectoryName(source.XmlNode.Attributes["File"].Value);
+			foreach (string input in group.InputFiles)
+			{
+				FileHashItem identity;
+				if (!TryGetFileHashItem(input, out identity)) throw new FileNotFoundException("UI source input is missing.", input);
+				sourceHash = HashProvider.GetTextHash(sourceHash, FileNameResolver.GetSafeRelativePath(directory, identity.Path).Replace('\\', '/').ToLowerInvariant());
+				sourceHash = HashProvider.GetTextHash(sourceHash, identity.Hash.ToString(System.Globalization.CultureInfo.InvariantCulture));
+				if (!_Current.DependentFiles.Contains(input)) _Current.DependentFiles.Add(input);
+				if (!source.ReferencedFiles.Contains(input)) source.ReferencedFiles.Add(input);
+			}
+			if (!_Current.UiSourceDirectories.Contains(directory)) _Current.UiSourceDirectories.Add(directory);
+			if (_ExpandedBuffers == null) _ExpandedBuffers = new Dictionary<InstanceDeclaration, AssetBuffer>();
+			bool foundSource = false;
+			foreach (var compiled in group)
+			{
+				InstanceDeclaration declaration;
+				if (compiled.TypeId == source.Handle.TypeId && compiled.InstanceId == source.Handle.InstanceId)
+				{
+					declaration = source;
+					foundSource = true;
+				}
+				else
+				{
+					XmlElement node = _Current.XmlDocument.CreateElement(compiled.TypeName, Settings.Current.AssetNamespace);
+					node.SetAttribute("id", compiled.Name);
+					declaration = new InstanceDeclaration(this) { XmlNode = node };
+					if (!SelfInstances.TryAdd(declaration)) throw new BinaryAssetBuilderException(ErrorCode.DuplicateInstance, "Duplicate generated UI instance: {0}", declaration.Handle);
+					declaration.ProcessingHash = _Current.DocumentProcessor.Plugins.GetExtendedTypeInformation(compiled.TypeId).ProcessingHash;
+				}
+				declaration.HasCustomData = false;
+				declaration.Handle.TypeHash = compiled.TypeHash;
+				declaration.Handle.InstanceHash = HashProvider.GetTextHash(sourceHash, compiled.InstanceHash.ToString(System.Globalization.CultureInfo.InvariantCulture));
+				_ExpandedBuffers.Add(declaration, compiled.Buffer);
+			}
+			if (!foundSource) throw new InvalidDataException("The UI compiler did not return its source AptAptData asset.");
+		}
+	}
+#endif
 
 	private void OutputIntermediateXml(InstanceDeclaration instance)
 	{
@@ -1472,6 +1576,19 @@ public class AssetDeclarationDocument : IXmlSerializable
 	private void HandleFileReferenceType(XPathNavigator navigator, ref InstanceDeclaration instance)
 	{
 		string text = navigator.Value.Trim().ToLower();
+#if NEWSdk_MONOLITHIC
+		if (instance.Handle.TypeName == "AptAptData" && navigator.LocalName == "File" &&
+			_Current.DocumentProcessor.Plugins.GetPlugin(instance.Handle.TypeId) is BinaryAssetBuilder.UiCompiler.IUiFileCompiler)
+		{
+			string source = FileNameResolver.ResolvePath(SourceDirectory, text);
+			if (Directory.Exists(source))
+			{
+				string[] movies = Directory.GetFiles(source).Where(p => Path.GetExtension(p).Equals(".fla", StringComparison.OrdinalIgnoreCase)).ToArray();
+				if (movies.Length != 1) throw new InvalidDataException("A UI source folder must contain exactly one Flash 8 FLA.");
+				text = movies[0];
+			}
+		}
+#endif
 		FileHashItem item = null;
 		TryGetFileHashItem(text, out item);
 		string value = item.Path.ToLower();
