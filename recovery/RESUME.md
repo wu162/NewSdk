@@ -1,3 +1,11 @@
+# 当前：新编译器与原 SDK 配对性能（2026-10-31，已验证）
+
+基于 `recovery/legacy-sdk-cache` / `665468cb`，复用完整 Core 验收 `41158645404` 的精确 Release。基准源码 `f9ca739b`，[Windows 41164065611](https://github.com/wu162/NewSdk/actions/runs/41164065611) success：108 对/216 次计量及两次预热，全部输出原字节一致；归档已下载复算，统计及 109 份新版报告核对通过。修复仅在基准文件清单检查，生产未改。
+
+默认热态（n=5/边）mymod 556.49→540.75 ms（-2.83%）、Armor 子集 538.52→529.97 ms（-1.59%）、合成纹理16项 533.65→557.82 ms（+4.53%）。mymod 无缓存 844.52→730.81 ms（-13.47%，n=6），但累计 CPU 增加约21.2%。不利 XML 冷态单样本、完整六模式、来源及限制见 [SDK 对照报告](docs/SDK_BENCHMARK.md)。未测完整 Upheaval/BIG/编辑性能，不能概括为全场景更快。
+
+成果在 `benchmark/current-sdk-comparison` / [PR #37](https://github.com/wu162/NewSdk/pull/37)，未合入，禁止强推。
+
 # 当前：PR #33 组合验收通过，已获用户合入批准
 
 已同步 `recovery/legacy-sdk-cache` 的 `0d7b685c`（含已合入 PR #32、#34），只解决续接文档冲突，保留两边生产实现。组合源码 `1a3e4bc6`，[Windows 41152199159](https://github.com/wu162/NewSdk/actions/runs/41152199159) 整体 success：Debug/Release 新构建、Core/CLI/取消、64 worker/cache、完整缓存/载荷/输入根/BIG、完整 mymod 原 SDK、五文件 ZIP 及 Upheaval22样本原字节通过。归档已下载复算，十个运行文件/两个 ZIP 身份已核对。
