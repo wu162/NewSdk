@@ -8,7 +8,7 @@
 运行目录只有 `NewModCompiler.exe`、`NewModCompiler.exe.config` 和
 `antlr.runtime.dll`，不再生成或加载原纹理 DLL、补丁清单或独立纹理 codec DLL。
 原 `SDK/tools` 二进制保留为隔离对照输入。三种纹理路由现已接入 worker：owner
-只准备只读文件/目录租约并按输入头、DDS 长度及图集工作量预算，解码、过滤和
+只准备只读文件租约、检查目录并按输入头、DDS 长度及图集工作量预算，解码、过滤和
 编码在 worker 执行。S3 scratch、插值策略及懒初始化表改为线程局部存储，
 托管临时数组和 GDI+ 图像对象按调用独有；诊断按任务收集，由 owner 按提交顺序
 输出。租约不可用、头部无法识别或预算不足时回到 owner，不在编码阶段加全局锁。
