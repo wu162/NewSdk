@@ -68,3 +68,22 @@ AS2 类/继承、互相 import，以及时间轴、矢量、位图、按钮和�
 路由、两附件混合 MOD 四流、源缓存失效/失败重试、原 Core/CLI/会话缓存及完整 mymod
 原 SDK 差分。当前运行状态以 Actions 实际终态和归档收据为准，不能将本地组件通过
 视为正式产品或游戏内验收。未新增游戏内 UI 播放验收。
+
+## 本轮验收结果
+
+生产/测试源码 `75d29895be464d9a560f5f946d612e359bf4b396`，
+[Windows 41165126334](https://github.com/wu162/NewSdk/actions/runs/41165126334) 整体 success。
+Debug/Release 均为本轮新构建，精确五文件部署、全部路由、两附件混合四流和裸 FLA
+自动发现通过；每模式 15 个真实 UI CLI 用例，热态零实例编译，AS 等长同 mtime
+修改、新增、删除、失败清理及重试原字节一致。原 Core、CLI/取消、完整会话缓存、
+完整 mymod 原 SDK 四流/打包差分和两个独立运行 ZIP 均通过。
+
+原始归档 SHA256 为 `e88d0b947f89e6e1cdf98444d675372dc6a7b3ff7803da1e139acecbb5bacf10`；
+已实际下载复算，十个运行文件及两个 ZIP 均与产品收据/发布清单一致。
+[身份摘要与原收据](../evidence/ui/fla-validation/41165126334-1/summary.json) 保留二进制、
+源码、测试和运行来源；较大的原收据仅做 gzip 压缩，解压后原始 SHA256 不变。
+[历史失败](../evidence/ui/fla-validation/history.json) 保留按钮兼容修复及新增测试错误预期的原因，
+没有放宽生产错误退出、依赖失效或重试字节断言。后续文档提交不改变已验收生产输入。
+
+[下载构建产物（含 Debug / Release ZIP）](https://github.com/wu162/NewSdk/actions/runs/41165126334/artifacts/13028968508)，
+通常使用其中 `ui-tests/release/NewModCompiler-Win32-Release.zip`。未合并 PR，未新增游戏内验收。

@@ -1,3 +1,18 @@
+# 当前：FLA / AS 直接 MOD 四流插件（验收通过，PR #36 待审）
+
+用户指定 `recovery/legacy-sdk-cache` / `665468cb`；成果在 `feat/fla-direct-mod`，
+[PR #36](https://github.com/wu162/NewSdk/pull/36)。生产/测试源码 `75d29895`，
+[Windows 41165126334](https://github.com/wu162/NewSdk/actions/runs/41165126334) 整体 success：
+Debug/Release 新构建、精确五文件部署、两份原附件（3 / 62 资产）、混合 MOD 与裸 FLA
+自动发现、30 个真实 CLI 源依赖/缓存/失败清理重试用例、原 Core/CLI/会话缓存及完整
+mymod 原 SDK 差分、两个独立 ZIP 通过。归档、十个运行文件及两个 ZIP 已下载复算。
+
+支持二进制 MX2004 / Flash8 FLA 和 AS1/AS2，直接进入 Core 多资产链接；旧二进制
+APT 及其 worker 资格保留。三个固定 UI 库嵌入 EXE。操作、边界及失败合同见
+[FLA UI 文档](docs/FLA_UI_COMPILER.md)，[验收身份及原收据](evidence/ui/fla-validation/41165126334-1/summary.json)。
+首轮按钮兼容问题和错误测试预期的失败记录保留；未新增游戏内 UI 播放验收。
+未经用户批准不合并，禁止强推。以下为历史交接。
+
 # 当前插件优化入口
 
 用户已批准 [PR #33](https://github.com/wu162/NewSdk/pull/33) 合入 `recovery/legacy-sdk-cache`。已同步目标 `0d7b685c`，组合源码 `1a3e4bc6` 的新 [Windows/Core/SDK 41152199159](https://github.com/wu162/NewSdk/actions/runs/41152199159) 整体 success；未变插件/XML 组件复用独立成功范围。以 [RESUME](RESUME.md) 和[第二阶段报告](docs/TOKENIZER_NATIVE_STAGE2.md) 为准。禁止强推。
