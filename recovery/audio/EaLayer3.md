@@ -20,7 +20,8 @@ V2 PCM/spike、TW 的旧 EALayer3、Xbox/XMA 不在实现中。
 - RA3 插件 `jonwil/ealayer3compilerplugin` / `ed407302ae63cd6ba849af586ef765c03ca008b3`：
   其源码选择 codec31，但随附 audio.dll（SHA256 `149de43e1e7c914b8e44dd5e0cdcbed45de33890ebd2708c8223b278874a610f`）
   实测输出 SNR6/V2 PCM；保留原样的元数据/波形对照，并另以 codec30 及对应质量分支生成
-  明确标记的 V1 参照。质量默认 75、范围 0–100，RAM/streamed 的资产合同沿用原插件。
+  明确标记的 V1 参照。V2 quality0 的参考/候选波形相关系数约 0.67，保留测量，
+  不声称跨变体波形等价；候选自身必须通过对源波形的独立严格检查。质量默认 75、范围 0–100，RAM/streamed 的资产合同沿用原插件。
 - `jonwil/snrtool` / `34308631b0bf94a57d1d254b651ee191346377ab`：
   `ealayer3_int=30` → SNR5、`ealayer3pcm_int=31` → SNR6、流式块、下一 64 字节边界填充和循环段。
 - `jonwil/lame-3.96` / `ed9d6f623109775b89159ed506c20afb1e8f20b4`：核对 LAME 来源。
