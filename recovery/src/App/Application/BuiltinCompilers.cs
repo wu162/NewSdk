@@ -74,11 +74,11 @@ namespace NewModCompiler.Application
                     result.descriptors.Add(PluginDescriptor.CreateBuiltin(
                         "Texture,OnDemandTexture,TerrainTextureAtlas", true, () =>
                         {
-                            IAssetBuilderPlugin adapter = lazy
-                                ? (IAssetBuilderPlugin)new LazyPlugin(() => NewModCompiler.Compatibility.LegacyTextureAdapter.Load(), 4202u)
-                                : NewModCompiler.Compatibility.LegacyTextureAdapter.Load();
-                            result.plugins.Add(adapter);
-                            return adapter;
+                            IAssetBuilderPlugin plugin = lazy
+                                ? (IAssetBuilderPlugin)new LazyPlugin(() => new Recovered.Compiler.Texture.Plugin(), Recovered.Compiler.Texture.TextureCatalog.Version(TargetPlatform.Win32))
+                                : new Recovered.Compiler.Texture.Plugin();
+                            result.plugins.Add(plugin);
+                            return plugin;
                         }));
                 }
                 result.registry = new PluginRegistry(result.descriptors.ToArray(), platform);

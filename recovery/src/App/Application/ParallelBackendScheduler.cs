@@ -218,7 +218,10 @@ namespace NewModCompiler.Application
                 if(task.Worker!=null) {
                     long wait=Start();
                     try { task.Buffer=task.Worker.GetAwaiter().GetResult(); }
-                    finally { metrics.WaitTicks+=Elapsed(wait); MergeWorkerMetrics(task); }
+                    finally {
+                        metrics.WaitTicks+=Elapsed(wait); MergeWorkerMetrics(task);
+                        task.Prepared.FlushDiagnostics();
+                    }
                 }
                 cancellation.ThrowIfCancellationRequested();
                 metrics.SampleMemory();

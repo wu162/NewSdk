@@ -14,11 +14,12 @@ namespace NewModCompiler.Application
     // Certified backends only read the finalized XML, namespace bindings and
     // type identity. Core keeps these alive through ordered commit/join; only
     // CDATA writers need a separate declaration for their output pathname.
-    internal sealed class PreparedBackendWork : IDisposable
+    internal sealed partial class PreparedBackendWork : IDisposable
     {
         readonly IAssetBuilderPlugin plugin;
         readonly InstanceDeclaration declaration;
         readonly List<FileStream> inputLeases;
+        readonly List<TextureMessage> textureMessages;
         bool disposed;
 
         public string Family { get; private set; }
@@ -31,6 +32,7 @@ namespace NewModCompiler.Application
         {
             Family = family; this.plugin = plugin; this.declaration = declaration;
             this.inputLeases = inputLeases;
+            if (family == "texture") textureMessages = new List<TextureMessage>();
             PreparedBytes = preparedBytes;
             if (inputLeases != null)
                 foreach (FileStream input in inputLeases) ExternalReadBytes = checked(ExternalReadBytes + input.Length);
@@ -66,7 +68,7 @@ namespace NewModCompiler.Application
             // Sharing the DOM does not eliminate that per-call working set.
             if (preparationEstimate > preparationBudget) return Reject("preparation-budget-exceeded", out reason);
 
-            var leases = family == "audio" || (family == "xml" && IsApt(original.Handle.TypeId)) ? new List<FileStream>() : null;
+            var leases = family == "audio" || family == "texture" || (family == "xml" && IsApt(original.Handle.TypeId)) ? new List<FileStream>() : null;
             try
             {
                 // Only the certified backend's actual reopened files require
@@ -74,7 +76,11 @@ namespace NewModCompiler.Application
                 if (family == "xml" && !PrepareXmlReads(original, leases, out reason)) return false;
                 if (family == "audio" && !PrepareAudio(original, leases, out reason)) return false;
                 long retained = preparationEstimate;
-                if (family == "w3x") retained = W3xBudget(original.Node, nodes, retained);
+                if (family == "texture")
+                {
+                    if (!PrepareTexture(original, leases, retained, out retained, out reason)) return false;
+                }
+                else if (family == "w3x") retained = W3xBudget(original.Node, nodes, retained);
                 else if (family == "xml") retained = ExternalReadBudget(leases, retained, 4L);
                 // Audio keeps per-call input, PCM and encoded buffers. Charge
                 // four input copies instead of the old 64-copy allowance.
@@ -135,6 +141,15 @@ namespace NewModCompiler.Application
                 family = "gameobject";
                 if (original.Handle.TypeId != 2486173485u) return Reject("uncertified-tokenizer-type", out reason);
             }
+            else if (implementation == typeof(Recovered.Compiler.Texture.Plugin))
+            {
+                family = "texture";
+                uint type = original.Handle.TypeId;
+                if (type != Recovered.Compiler.Texture.TextureCatalog.TextureTypeId &&
+                    type != Recovered.Compiler.Texture.TextureCatalog.OnDemandTextureTypeId &&
+                    type != Recovered.Compiler.Texture.TextureCatalog.TerrainTextureAtlasTypeId)
+                    return Reject("uncertified-texture-type", out reason);
+            }
             else if (implementation == typeof(Recovered.Weapon.Plugin))
             {
                 family = "weapon";
@@ -182,6 +197,10 @@ namespace NewModCompiler.Application
         public AssetBuffer Execute()
         {
             if (disposed) throw new ObjectDisposedException("PreparedBackendWork");
+            if (textureMessages != null)
+                return ((Recovered.Compiler.Texture.Plugin)plugin).ProcessInstance(declaration,
+                    message => textureMessages.Add(new TextureMessage(true, message)),
+                    message => textureMessages.Add(new TextureMessage(false, message)));
             // W3X's initialized plugin only reads its immutable platform field;
             // its backend reads the finalized node/namespace bindings. Native
             // scratch and outputs are per-call; the only lazy native table is
@@ -193,6 +212,23 @@ namespace NewModCompiler.Application
             // serialize only their optional shared trace index. Other routes
             // remain owner barriers, including PathMusic's Tracer paths.
             return plugin.ProcessInstance(declaration);
+        }
+
+        sealed class TextureMessage
+        {
+            internal readonly bool Warning;
+            internal readonly string Text;
+            internal TextureMessage(bool warning, string text) { Warning = warning; Text = text; }
+        }
+
+        // Called only by the owner after this worker joins, in asset order.
+        // Workers never mutate BuildSession diagnostics or the event writer.
+        internal void FlushDiagnostics()
+        {
+            if (textureMessages == null) return;
+            var texture = (Recovered.Compiler.Texture.Plugin)plugin;
+            foreach (var message in textureMessages) texture.EmitPreparedTrace(message.Warning, message.Text);
+            textureMessages.Clear();
         }
 
         public void Dispose()
@@ -259,7 +295,7 @@ namespace NewModCompiler.Application
             return LeaseInputPath(file == null ? null : file.Value, leases, out reason);
         }
 
-        static bool LeaseInputPath(string value, List<FileStream> leases, out string reason)
+        static bool LeaseInputPath(string value, List<FileStream> leases, out string reason, HashSet<string> checkedDirectories = null)
         {
             reason = null;
             if (string.IsNullOrEmpty(value)) return Reject("external-input-path-missing", out reason);
@@ -267,8 +303,11 @@ namespace NewModCompiler.Application
             {
                 string path = Path.GetFullPath(value);
                 for (var parent = new FileInfo(path).Directory; parent != null; parent = parent.Parent)
+                {
+                    if (checkedDirectories != null && !checkedDirectories.Add(parent.FullName)) break;
                     if (parent.Exists && (parent.Attributes & FileAttributes.ReparsePoint) != 0)
                         return Reject("external-input-reparse-point", out reason);
+                }
                 if ((File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0)
                     return Reject("external-input-reparse-point", out reason);
                 leases.Add(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read));

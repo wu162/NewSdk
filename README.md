@@ -4,13 +4,16 @@
 
 ## 获取工具
 
-最终工具由 [Core lifecycle 工作流](https://github.com/wu162/NewSdk/actions/workflows/refactor-core-lifecycle.yml?query=branch%3Acompiler-main) 在 Windows 构建。仅成功通过生产与独立 ZIP 验收后，产物中的 `final-release` 目录才有正式 Debug/Release ZIP 和哈希清单；通常使用 Release。运行编号及固定下载入口见 [发行说明](recovery/COMPILER_RELEASE.md)。本次新主线最终构建与独立ZIP验收已成功：[运行40429363386](https://github.com/wu162/NewSdk/actions/runs/40429363386)。二进制来自新增版本/LoD收尾后的源码，文档整理随后提交，不改变运行文件。
+生产/测试源码 `8fe12ca9b` 的 [Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 已整体通过：Debug/Release 构建、原元数据完整转录、组件与实际四 worker 并行、缓存、完整 mymod 原版对照、两个独立三文件 ZIP，以及完整 Upheaval 22 样本。插件版本 `4202` 和三个 ProcessingHash 保留原 DLL 值。
+[常见格式与并行 CLI 收据](recovery/evidence/texture/plugin-validation/41185772818-1/common-summary.json)已入库：D/R 各31组件结果与上一轮原字节相同，16个真实CLI用例通过。本轮 Debug/Release 包见[本轮产物归档](https://github.com/wu162/NewSdk/actions/runs/41185772818/artifacts/13037167160)；最终归档已下载复算，Debug/Release 六份运行文件及两个三文件 ZIP 均与生产构建和发布清单核对通过，详见[完整验收摘要](recovery/evidence/texture/plugin-validation/41185772818-1/full-summary.json)。上一轮 `4c74bf64b` 的[验收记录](https://github.com/wu162/NewSdk/actions/runs/41180859852)保留为历史，历史 `compiler-main` 发行见[发行说明](recovery/COMPILER_RELEASE.md)。
 
-每个工具 ZIP 解压后只有五个运行文件：EXE、EXE.config、antlr.runtime.dll、TextureCompiler.dll 和其补丁身份清单。SDK、MOD 源码和系统运行库单独准备。要求 Windows x86 兼容环境、.NET Framework 4.8、x86 VC80/构建工具链 VC 运行库及 DirectX 9/D3DX；先运行 doctor 检查环境。
+本分支将 Texture 编译器源码内建到 EXE，新构建的工具 ZIP 只有三个运行文件：NewModCompiler.exe、NewModCompiler.exe.config、antlr.runtime.dll。SDK、MOD 源码和系统运行库单独准备。要求 Windows x86 兼容环境、.NET Framework 4.8 及与构建工具链匹配的 x86 VC 运行库；Texture 不再依赖原 DLL、VC80 或 DirectX 9/D3DX。先运行 doctor 检查环境。更早使用原 DLL 的历史包仍保留五文件布局；本次能力与边界见 [Texture 说明](recovery/docs/TEXTURE_PLUGIN.md)。
 
 ## 使用
 
 完整操作步骤见 [新编译器使用说明](recovery/COMPILER_USAGE.md)，开发和历史资料见 [文档入口](recovery/README.md)。
+
+本分支将 [Texture 编译插件](recovery/docs/TEXTURE_PLUGIN.md) 直接编入 EXE，覆盖常见图像输入及七种 SDK 输出格式。`Texture`、`OnDemandTexture`、`TerrainTextureAtlas` 根据输入租约与内存预算进入 worker，S3 状态按线程隔离；资源不足或无法识别输入头时回到 owner 执行。切换纹理实现时可使用干净或独立的缓存、中间目录，避免复用具有相同原身份但 BC1 编码字节不同的既有产物；当前验收状态见该文档。
 
 本分支内建 [FLA/AS UI 编译插件](recovery/docs/FLA_UI_COMPILER.md)：可自动发现 `Data/AptUI/` 下的二进制 Flash MX 2004/8 FLA，与对应 AS 直接编译为 MOD 四流，也可由 `AptAptData` XML 声明与其他资产混合编译。
 
@@ -32,7 +35,7 @@
 
 ## 已完成与范围
 
-核心编译、单进程 base/apt/maps、日志/协议、构建与会话缓存、默认 BIG/SKUDEF、Additional、纯 C# MakeBig 入 EXE 和五文件包已有验收。中立修复已覆盖组件差分及生产零插入链，完整游戏插入不在已验证范围内。原工具的特定 LoD 来源表尾字节差异见 [说明](recovery/P7_LOD_ORIGINAL_TAIL.md)。
+核心编译、单进程 base/apt/maps、日志/协议、构建与会话缓存、默认 BIG/SKUDEF、Additional、纯 C# MakeBig 入 EXE 已有历史验收。当前源码 Texture 三文件产品及并行改动的状态见 [Texture 说明](recovery/docs/TEXTURE_PLUGIN.md)。中立修复已覆盖组件差分及生产零插入链，完整游戏插入不在已验证范围内。原工具的特定 LoD 来源表尾字节差异见 [说明](recovery/P7_LOD_ORIGINAL_TAIL.md)。
 
 AssetMerge 已按用户要求排除。WBData 下载、提取、读取器与依赖真实 WBData 的验收已取消，均不作为本次重构完成条件。完整 UI/runtime、中文纹理路径仍有未覆盖范围；原 SDK 缓存完整恢复的当前验证状态见 [缓存说明](recovery/docs/LEGACY_INCREMENTAL_CACHE.md)。
 

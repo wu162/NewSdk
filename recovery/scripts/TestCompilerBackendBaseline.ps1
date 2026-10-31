@@ -226,7 +226,7 @@ try {
             $caseState.originalExeSha256=Hash $exe;$caseState.originalConfigSha256=Hash (Join-Path $tools 'BinaryAssetBuilder.exe.config')
             $caseState.effectiveConfigSha256=Hash $configPath
             $caseState.runtimeInputs=@(Inventory $oracle)
-            $caseState.effectiveSettings=@{schema=$schema;dataRoot=$dataRoot;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=[bool]$CacheExportDirectory;buildCache=[bool]$CacheExportDirectory;partialSessionCache=[bool]$CacheExportDirectory;compressedSessionCache=([bool]$CacheExportDirectory -and [bool]$CompressedCacheExport);precompiled=$true;resident=$false;linked=$true;stableSort=$true;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected fixture stream; original built-in plugin routes retained'}
+            $caseState.effectiveSettings=@{schema=$schema;dataRoot=$dataRoot;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=[bool]$CacheExportDirectory;buildCache=[bool]$CacheExportDirectory;partialSessionCache=[bool]$CacheExportDirectory;compressedSessionCache=([bool]$CacheExportDirectory -and [bool]$CompressedCacheExport);precompiled=$true;resident=$false;linked=$true;stableSort=$true;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected fixture stream; original built-in plugin routes, codec, layout and metadata retained'}
             $caseState.process=InvokeOriginal $exe $arguments $sdk $caseOut
             $actual=@(Get-ChildItem -LiteralPath $streams -File -Recurse)
             $expectedTextures=@($case.expectedTextures|Where-Object{$null -ne $_})

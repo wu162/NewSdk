@@ -153,7 +153,7 @@ namespace NewModCompiler.Application
                 new SchemaSet(settings.StableSort);
                 ExpressionEvaluatorWrapper.LoadAssembly();
                 XIncludingReaderWrapper.LoadAssembly();
-                probe.EnsureProviders(); // Includes the pinned, EXE-bound texture adapter and verifier.
+                probe.EnsureProviders(); // Includes the built-in texture compiler and verifier.
             }
             catch (Exception error)
             {

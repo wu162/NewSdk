@@ -22,7 +22,7 @@ namespace NewModCompiler.Cli
                 if (request.Command == "doctor") {
 #if NEWSdk_MONOLITHIC
                     CoreStreamCompiler.ProbeEnvironment(request.SdkRoot);
-                    Console.WriteLine("CORE_ENVIRONMENT_OK: SDK configuration/schema, Win32 providers/verifier, ANTLR and EXE-bound texture initialized. No stream compiled.");
+                    Console.WriteLine("CORE_ENVIRONMENT_OK: SDK configuration/schema, Win32 providers/verifier, ANTLR and built-in texture initialized. No stream compiled.");
                     return (int)ExitCode.Success;
 #else
                     Console.Error.WriteLine("SDK directory exists: " + request.SdkRoot);

@@ -212,7 +212,7 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
 
     $env:PATH=(@($oldPath -split ';'|Where-Object{$_ -notmatch '[\\/]SDK[\\/]tools'}) -join ';')
     foreach($item in @(Get-ChildItem Env:|Where-Object{$_.Name -like 'RA3_RECOVERED_*' -or $_.Name -eq 'RECOVERED_W3X_TRACE_DIRECTORY'})){$removedEnvironment[$item.Name]=$item.Value;[Environment]::SetEnvironmentVariable($item.Name,$null,'Process')}
-    # The original oracle runs first with untouched original plugin routes.
+    # The original oracle runs first with untouched original plugin routes and metadata.
     $oracleTools=(New-Item -ItemType Directory -Path (Join-Path $short 't')).FullName
     Copy-Item -Path (Join-Path $sdk 'tools/*') -Destination $oracleTools -Recurse
     $originalExe=Join-Path $oracleTools 'BinaryAssetBuilder.exe';$config=Join-Path $oracleTools 'BinaryAssetBuilder.exe.config'
@@ -259,10 +259,15 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
                 Need ($identity.Count -eq 1 -and $identity[0].sha256 -ceq (Hash (Join-Path $runtime $file))) 'SDK runtime differs from verified historical bytes'
             }
         }
-        & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> (Join-Path $modeOut 'prepare-texture.log');Need ($LASTEXITCODE -eq 0) 'SDK texture deployment failed'
-        $patch=Get-Content (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll.patch.json') -Raw|ConvertFrom-Json
-        Need ($patch.targetExeSha256 -ceq (Hash $exe) -and $patch.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll')) -and $patch.protectedPeAudit.status -ceq 'passed') 'Texture runtime does not bind production EXE'
-        Need (@(Get-ChildItem -LiteralPath $runtime -File).Count -eq 5) 'SDK production deployment is not the exact five-file runtime'
+        if($state.runtimeReuse){
+            & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> (Join-Path $modeOut 'prepare-texture.log');Need ($LASTEXITCODE -eq 0) 'Historical SDK texture deployment failed'
+            $patch=Get-Content (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll.patch.json') -Raw|ConvertFrom-Json
+            Need ($patch.targetExeSha256 -ceq (Hash $exe) -and $patch.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll')) -and $patch.protectedPeAudit.status -ceq 'passed') 'Historical Texture runtime does not bind its EXE'
+            Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 5) 'Historical SDK deployment is not the exact five-file runtime'
+        }else{
+            Need ($build.texturePlugin.implementation -ceq 'built-in-source' -and @($build.texturePlugin.externalRuntimeFiles).Count -eq 0) 'SDK build requires the source texture plugin'
+            Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 3) 'SDK production deployment is not the exact three-file runtime'
+        }
         $runtimeBefore=Snapshot $runtime;$destination=Join-Path $short ($mode.Substring(0,1)+'out');New-Item -ItemType Directory -Path $destination|Out-Null
         $arguments=@('build','--mod',$mod,'--sdk-root',$sdk,'--out',$destination,'--package-content','base,apt,maps','--package-format','loose','/sc:false','/bc:false',"/data:$data","/art:$art","/audio:$audio")
         $audit=InvokeControlled $mode $exe $arguments $runtime (Join-Path $destination 'build.events.jsonl') (Join-Path $modeOut 'process')

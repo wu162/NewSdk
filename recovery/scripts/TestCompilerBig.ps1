@@ -248,15 +248,15 @@ try{
         $sourceBin=Join-Path $CompilerDirectory "$mode/bin"
         if(Test-Path -LiteralPath $p7Replay){Need ($replay.modeExeSha256.$mode -ceq (Hash (Join-Path $sourceBin 'NewModCompiler.exe'))) 'P7 replay mode EXE differs from independently accepted original bytes'}
         $runtimeFiles=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
+        if(Test-Path -LiteralPath $p7Replay){$runtimeFiles+=@('BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')}
         if($UsePackagedRuntime){
-            $runtimeFiles+=@('BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')
             $sourceBefore=RuntimeSnapshot $sourceBin
-            Need ($sourceBefore.Count -eq 5 -and @($sourceBefore.Keys|Where-Object{$_ -cnotin $runtimeFiles}).Count -eq 0) 'Packaged BIG runtime must contain exact five runtime files'
+            Need ($sourceBefore.Count -eq $runtimeFiles.Count -and @($sourceBefore.Keys|Where-Object{$_ -cnotin $runtimeFiles}).Count -eq 0) 'Packaged BIG runtime file inventory differs'
         }
         foreach($file in $runtimeFiles){Copy-Item -LiteralPath (Join-Path $sourceBin $file) -Destination $runtime}
         if($UsePackagedRuntime){$runtimeBefore=RuntimeSnapshot $runtime;RuntimeUnchanged $runtime $sourceBefore}
         $script:exe=Join-Path $runtime 'NewModCompiler.exe'
-        if(!$UsePackagedRuntime){& "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log";Need ($LASTEXITCODE -eq 0) 'BIG runtime Texture deployment failed'}
+        if(!$UsePackagedRuntime -and (Test-Path -LiteralPath $p7Replay)){& "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log";Need ($LASTEXITCODE -eq 0) 'BIG runtime Texture deployment failed'}
         $script:modeState=@{configuration=$mode;passed=$false;exeSha256=(Hash $exe);cases=@();comparisons=@()};$state.modes+=,$modeState
         $script:sdk=(New-Item -ItemType Directory -Path (Join-Path $modeWork 's')).FullName
         New-Item -ItemType Directory -Path "$sdk/tools","$sdk/Schemas"|Out-Null
