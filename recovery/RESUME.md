@@ -8,9 +8,9 @@
 
 当前生产/测试源码 `4c74bf64b`，
 [运行41180859852](https://github.com/wu162/NewSdk/actions/runs/41180859852) 进行中。
-本地22个独立解码运行检查、net48编译、PS语法及fixture预检通过。此前Windows
-产品/原三路纹理/Core/CLI/缓存/BIG独立门槛通过；原整体失败和修复已留档，
-当前完整格式、mymod、独立ZIP结果仍待本次运行确认，未标整体完成。
+当前Windows常见格式D/R各31例及12个真实CLI用例通过，原收据已下载复算入库。
+Core/原三路纹理/CLI/缓存/BIG通过；完整mymod和独立三文件ZIP步骤成功，最后
+Upheaval及整个运行终态/完整归档复算仍待完成，未标整体结束。原失败均留档。
 
 范围、来源、身份对齐和失败记录见 [TEXTURE_PLUGIN](docs/TEXTURE_PLUGIN.md)。
 下一步：跟进运行、集中修复全部独立失败，验收成功后归档并更新PR。

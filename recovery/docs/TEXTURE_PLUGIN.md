@@ -45,8 +45,11 @@ DXT3/5 链接参考分支的公开 S3 源码及其兼容适配；DXT1/1A 使用�
 
 当前完整验收源码 `4c74bf64b`，运行
 [41180859852](https://github.com/wu162/NewSdk/actions/runs/41180859852) 进行中。
-本地 22 个独立像素/BC1/mip/NPOT 运行检查及 net48 编译通过；Windows
-Drawing、DXT3/5 和完整产品验收仍以本次运行的实际收据为准。
+Windows Debug/Release 各31个常见格式组件用例、完整mip与半透明边界、
+中文路径及12个真实CLI缓存/失效/失败重试用例通过；两份组件结果原字节相同。
+[原始收据和下载复算摘要](../evidence/texture/plugin-validation/41180859852-1/common-summary.json)
+已入库。当前mymod原版对照和独立三文件ZIP步骤成功，最后Upheaval回归、
+整个工作流终态及完整归档复算仍待完成。
 
 此前 Windows 构建、三文件部署、Core/CLI/取消、缓存、原纹理三路字节及 BIG
 差分通过；整体运行因控制器残留变量、跨扫描行 RLE 测试输入及 indexed BMP
@@ -54,4 +57,4 @@ Drawing、DXT3/5 和完整产品验收仍以本次运行的实际收据为准。
 原 direct-color 解码器保留。原失败记录与已下载复算的归档身份见
 [evidence/texture/plugin-validation](../evidence/texture/plugin-validation)。
 常见格式矩阵现按独立用例集中收集失败，任一失败仍拒绝整组；没有降低像素阈值
-或原始四流/CDATA 差分要求。尚未标记本轮完整 SDK、独立 ZIP 或游戏内验收通过。
+或原始四流/CDATA 差分要求。尚未将运行中表述为整体成功；未新增游戏内验收。
