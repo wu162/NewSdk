@@ -71,8 +71,21 @@ jobs:
           if($env:CANDIDATE_RUN -notmatch '^\d+$' -or $env:CANDIDATE_SOURCE -notmatch '^[0-9a-f]{40}$'){throw 'Invalid run ID or full source SHA'}
           $run=gh api "repos/wu162/NewSdk/actions/runs/$env:CANDIDATE_RUN" | ConvertFrom-Json
           if($LASTEXITCODE -ne 0){throw 'Cannot read candidate run'}
-          if($run.status -ne 'completed' -or $run.conclusion -ne 'success' -or $run.head_sha -cne $env:CANDIDATE_SOURCE -or $run.path -ne '.github/workflows/refactor-core-lifecycle.yml'){throw 'Candidate is not the specified successful Core lifecycle source'}
-          "artifact=refactor-core-lifecycle-$env:CANDIDATE_RUN-$($run.run_attempt)" | Add-Content $env:GITHUB_OUTPUT
+          if($run.status -ne 'completed' -or $run.conclusion -ne 'success'){throw 'Candidate acceptance run did not succeed'}
+          if($run.path -eq '.github/workflows/refactor-core-lifecycle.yml'){
+            if($run.head_sha -cne $env:CANDIDATE_SOURCE){throw 'Core lifecycle binary source differs'}
+            $artifact="refactor-core-lifecycle-$env:CANDIDATE_RUN-$($run.run_attempt)"
+          }elseif($run.path -eq '.github/workflows/compiler-hot-edit-validation.yml'){
+            git merge-base --is-ancestor $env:CANDIDATE_SOURCE $run.head_sha
+            if($LASTEXITCODE -ne 0){throw 'Repair validation source is not a descendant of the binary source'}
+            $changed=git diff --name-only $env:CANDIDATE_SOURCE $run.head_sha -- SDK recovery/src recovery/build recovery/probes ui 'recovery/scripts/Build*' recovery/scripts/PrepareLegacyTexture.ps1 recovery/scripts/RestoreUiDependencies.ps1 recovery/tests/CompilerValidationEntry.cpp
+            if($LASTEXITCODE -ne 0 -or $changed){throw 'Repair validation source changed production inputs'}
+            $artifact="compiler-hot-edit-validation-$env:CANDIDATE_RUN-$($run.run_attempt)"
+            "repair=true"|Add-Content $env:GITHUB_OUTPUT
+          }else{throw 'Unsupported candidate acceptance workflow'}
+          "artifact=$artifact"|Add-Content $env:GITHUB_OUTPUT
+          "attempt=$($run.run_attempt)"|Add-Content $env:GITHUB_OUTPUT
+          "validationSource=$($run.head_sha)"|Add-Content $env:GITHUB_OUTPUT
       - uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.measurement_mode == 'incremental' && 'refactor-core-lifecycle-41169755141-1' || 'ui-fla-41165126334-1' }}
@@ -85,6 +98,26 @@ jobs:
           run-id: ${{ inputs.candidate_run_id }}
           github-token: ${{ github.token }}
           path: work/cache-paired-candidate
+      - name: Verify explicit repair acceptance and unchanged candidate runtime
+        if: steps.candidate.outputs.repair == 'true'
+        env:
+          REPAIR_ATTEMPT: ${{ steps.candidate.outputs.attempt }}
+          VALIDATION_SOURCE: ${{ steps.candidate.outputs.validationSource }}
+        shell: pwsh
+        run: |
+          $base='work/cache-paired-candidate'
+          $path="$base/evidence/refactor/hot-edit-repair/$env:CANDIDATE_RUN-$env:REPAIR_ATTEMPT/repair.json"
+          $repair=Get-Content $path -Raw|ConvertFrom-Json
+          if($repair.status -ne 'passed' -or $repair.binarySourceCommit -cne $env:CANDIDATE_SOURCE -or $repair.testSourceCommit -cne $env:VALIDATION_SOURCE -or !$repair.productionClosureUnchanged){throw 'Repair acceptance source or production closure differs'}
+          if($repair.originalRunId -notmatch '^\d+$' -or $repair.originalArtifact.id -le 0 -or $repair.originalArtifact.workflow_run.head_sha -cne $env:CANDIDATE_SOURCE){throw 'Original production artifact provenance differs'}
+          foreach($gate in @('repaired-core','performance','original-backend-Debug','original-backend-Release','original-core-protocol','complete-mymod','five-file-packages','complete-Upheaval')){
+            if(!$repair.completedGates.$gate){throw "Repair did not finish required gate: $gate"}
+            $member=$repair.completedGates.$gate.path -replace '^recovery/',''
+            if((Get-FileHash "$base/$member" -Algorithm SHA256).Hash.ToLowerInvariant() -cne $repair.completedGates.$gate.sha256){throw "Repair gate receipt differs: $gate"}
+          }
+          foreach($file in $repair.runtimeFiles.Release.PSObject.Properties){
+            if((Get-FileHash "$base/artifacts/core-lifecycle-product/Release/bin/$($file.Name)" -Algorithm SHA256).Hash.ToLowerInvariant() -cne $file.Value){throw 'Candidate runtime differs from accepted repair identity'}
+          }
       - name: Paired throughput or representative warm-cache edit diagnostics
         timeout-minutes: ${{ inputs.measurement_mode == 'incremental' && 5 || 13 }}
         shell: pwsh

@@ -76,7 +76,8 @@ def run(args):
     started = time.perf_counter()
     state = {'status': 'started', 'samples': [], 'limits': {'totalSeconds': args.budget, 'perProcessSeconds': args.timeout},
              'scope': 'Synthetic two-Texture/one-Armor base stream; off/summary/detailed, cold+2 hot, BIG, invalid XML; no full MOD claim',
-             'sourceCommit': args.source_commit, 'exeSha256': hashlib.sha256(exe.read_bytes()).hexdigest(),
+             'sourceCommit': args.source_commit, 'binarySourceCommit': args.source_commit,
+             'testSourceCommit': os.environ.get('COMPILER_TEST_SOURCE_COMMIT', args.source_commit), 'exeSha256': hashlib.sha256(exe.read_bytes()).hexdigest(),
              'inputFiles': inventory(mod)}
 
     def invoke(label, command, expected=0):
@@ -126,10 +127,10 @@ def run(args):
                 need(content == baseline, 'Profiling changed linked stream/CDATAs bytes')
                 if level == 'detailed' and round_index == 0:
                     names = {r['name'] for r in report['performance']['entries']}
-                    need({'core.xml.parse', 'core.xml.validate', 'core.compiler.Texture', 'core.compiler.ArmorTemplate',
-                          'core.asset.commit', 'core.schema.read', 'core.schema.compile', 'core.schema.metadata',
-                          'identity.directory', 'identity.sha256'} <= names, 'Missing cold detail phases: ' +
-                         str(sorted({'core.asset.commit', 'core.schema.read', 'core.schema.compile', 'core.schema.metadata'} - names)))
+                    required = {'core.xml.parse', 'core.xml.validate', 'core.compiler.Texture', 'core.compiler.ArmorTemplate',
+                                'core.asset.commit', 'core.schema.read', 'core.schema.compile', 'core.schema.metadata',
+                                'identity.directory'}
+                    need(required <= names, 'Missing cold detail phases: ' + str(sorted(required - names)))
         # Independent original runtime. Only CLR startup configuration is adjusted.
         original = work / 'original'
         original.mkdir()

@@ -22,12 +22,35 @@ internal static class CompilerInheritanceSnapshot
     static readonly List<string> tests = new List<string>();
     static readonly Dictionary<string,long> counters = new Dictionary<string,long>();
     static readonly Dictionary<string,double> phaseMilliseconds = new Dictionary<string,double>();
+    static readonly FieldInfo DocumentFrames=typeof(DocumentProcessor).GetField("_CurrentDocumentStack",BindingFlags.Static|BindingFlags.NonPublic);
+    static readonly string[] ParentPhases={"core.xml.parse","core.xml.expressions","core.xml.overrides","core.xml.schema.validate",
+        "core.xml.instances.validate","core.xml.instance.hash","core.xml.instance.references"};
     static double Milliseconds(string key) { double value; return phaseMilliseconds.TryGetValue(key,out value) ? value : 0; }
+    static bool InParentDocument()
+    {
+        // A newly opened root parses before pushing its own frame. Check Count
+        // before Peek so the test collector also handles that initial parse.
+        var frames=(Stack<string>)DocumentFrames.GetValue(null);
+        return frames.Count!=0 && frames.Peek()=="parent.xml:";
+    }
+    static Dictionary<string,double> ParentSample()
+    {
+        return ParentPhases.ToDictionary(name=>name,name=>Milliseconds("parent."+name));
+    }
+    static Dictionary<string,double> ParentDelta(Dictionary<string,double> before)
+    {
+        return ParentPhases.ToDictionary(name=>name,name=>Milliseconds("parent."+name)-before[name]);
+    }
     sealed class Phase : IDisposable
     {
-        readonly string name; readonly Stopwatch clock=Stopwatch.StartNew();
-        internal Phase(string name) { this.name=name; }
-        public void Dispose() { phaseMilliseconds[name]=Milliseconds(name)+clock.Elapsed.TotalMilliseconds; }
+        readonly string name; readonly bool parent; readonly Stopwatch clock=Stopwatch.StartNew();
+        internal Phase(string name,bool parent) { this.name=name; this.parent=parent; }
+        public void Dispose()
+        {
+            double milliseconds=clock.Elapsed.TotalMilliseconds;
+            phaseMilliseconds[name]=Milliseconds(name)+milliseconds;
+            if(parent) phaseMilliseconds["parent."+name]=Milliseconds("parent."+name)+milliseconds;
+        }
     }
     static void CopyDirectory(string source,string destination)
     {
@@ -69,7 +92,9 @@ internal static class CompilerInheritanceSnapshot
         settings.LinkedStreams=true; settings.OutputAssetReport=false; settings.OutputStringHashes=false;
         settings.ErrorLevel=1; settings.UsePrecompiled=false; settings.StreamHints=false; settings.StableSort=false;
         settings.MeasurePerformance=delegate(string name) {
-            return name=="core.xml.parse" || name=="core.xml.inheritance.frontend" ? (IDisposable)new Phase(name) : null;
+            if(!name.StartsWith("core.xml.",StringComparison.Ordinal)) return null;
+            bool parent=InParentDocument();
+            return parent || name=="core.xml.parse" || name=="core.xml.inheritance.frontend" ? (IDisposable)new Phase(name,parent) : null;
         };
         settings.RecordPerformanceCounter=delegate(string name,long value,bool maximum) {
             long previous=Count(name); counters[name]=maximum ? Math.Max(previous,value) : previous+value;
@@ -152,9 +177,11 @@ internal static class CompilerInheritanceSnapshot
         Require(Object.ReferenceEquals(retainedNode,source),"Snapshot retained a copied or different inheritance source");
         CountRetained(retainedNode.OwnerDocument);
         double candidateParseStart=Milliseconds("core.xml.parse"),candidateFrontendStart=Milliseconds("core.xml.inheritance.frontend");
+        var candidateParentStart=ParentSample();
         var candidateClock=Stopwatch.StartNew(); var two=Processor(plugins,schemas,cache); Run(two,second); candidateClock.Stop();
         double candidateParseMs=Milliseconds("core.xml.parse")-candidateParseStart;
         double candidateFrontendMs=Milliseconds("core.xml.inheritance.frontend")-candidateFrontendStart;
+        var candidateParentMs=ParentDelta(candidateParentStart);
         var restored=Document(cache,parent).SelfInstances[0];
         Require(two.XmlParseCount==2 && two.InstanceCompileCount==1,"Snapshot stream repeated the parent's XML frontend or backend: parse="+two.XmlParseCount+" compile="+two.InstanceCompileCount);
         Require(Count("cache.inheritanceSnapshot.reloadAvoided")==avoided+1 && Count("cache.reload.inheritanceTarget")==reloads,
@@ -177,21 +204,24 @@ internal static class CompilerInheritanceSnapshot
         controlCache.InitializeCache(new List<string>(),schemas.ContentIdentity);
         long controlReloadStart=Count("cache.reload.inheritanceTarget");
         double controlParseStart=Milliseconds("core.xml.parse"),controlFrontendStart=Milliseconds("core.xml.inheritance.frontend");
+        var controlParentStart=ParentSample();
         var controlClock=Stopwatch.StartNew(); var control=Processor(plugins,schemas,controlCache); Run(control,second); controlClock.Stop();
         double controlParseMs=Milliseconds("core.xml.parse")-controlParseStart;
         double controlFrontendMs=Milliseconds("core.xml.inheritance.frontend")-controlFrontendStart;
+        var controlParentMs=ParentDelta(controlParentStart);
         Require(control.XmlParseCount==3 && control.InstanceCompileCount==1 && Count("cache.reload.inheritanceTarget")==controlReloadStart+1,
             "Serialized-session control did not reproduce the one-parent frontend reload: parse="+control.XmlParseCount+" compile="+control.InstanceCompileCount);
-        Require(candidateFrontendMs==0 && controlFrontendMs>0,"Parent frontend attribution did not match actual reload work");
+        Require(candidateParentMs.Values.All(value=>value==0) && controlParentMs["core.xml.parse"]>0 && controlParentMs["core.xml.schema.validate"]>0,
+            "Parent-only XML parse/schema attribution did not match actual reload work");
         Equal(expected,Four(settings.OutputDirectory,"second"));
         snapshotEvidence=new {candidate=new {xmlParse=two.XmlParseCount,instanceCompile=two.InstanceCompileCount,wallMs=candidateClock.Elapsed.TotalMilliseconds,
-                xmlParseMs=candidateParseMs,inheritanceFrontendMs=candidateFrontendMs,reloadsAvoided=candidateAvoided},
+                xmlParseMs=candidateParseMs,prevalidatedLoadFrontendMs=candidateFrontendMs,parentPhasesMs=candidateParentMs,reloadsAvoided=candidateAvoided},
             serializedSessionControl=new {xmlParse=control.XmlParseCount,instanceCompile=control.InstanceCompileCount,wallMs=controlClock.Elapsed.TotalMilliseconds,
-                xmlParseMs=controlParseMs,inheritanceFrontendMs=controlFrontendMs,inheritanceTargetReloads=Count("cache.reload.inheritanceTarget")-controlReloadStart},
+                xmlParseMs=controlParseMs,prevalidatedLoadFrontendMs=controlFrontendMs,parentPhasesMs=controlParentMs,inheritanceTargetReloads=Count("cache.reload.inheritanceTarget")-controlReloadStart},
             publishedInstances=candidatePublished,publishedDocuments=candidateDocuments,retainedDocumentCount=1,retainedNodeCount=retainedNodes,
             retainedAttributeCount=retainedAttributes,retainedDocumentXmlCharacters=retainedCharacters,
             memoryScope="Original source node retains its OwnerDocument; counts describe this tiny fixture, not managed-memory bytes",
-            timingScope="One detailed diagnostic pair with identical input and first-generation backend assets; not a stable throughput estimate"};
+            timingScope="One detailed diagnostic pair with identical input and first-generation backend assets; parentPhasesMs uses the parent.xml traversal frame. prevalidatedLoadFrontendMs covers only PrevalidatedLoad, not Shallow Load. Not a stable throughput estimate"};
         settings.OutputDirectory=output; settings.IntermediateOutputDirectory=intermediate; settings.BuildCacheDirectory=buildCache;
         cache.SaveCache(false);
         // A fresh cache has no snapshot and provides the same-input byte oracle.
