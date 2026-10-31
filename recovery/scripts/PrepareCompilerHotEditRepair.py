@@ -22,6 +22,7 @@ def main():
  p=argparse.ArgumentParser(description=__doc__)
  for key in ('repo','original-root','output'):p.add_argument('--'+key,type=Path,required=True)
  for key in ('production-source','validation-source','original-run'):p.add_argument('--'+key,required=True)
+ p.add_argument('--previous-repair-root',type=Path)
  a=p.parse_args();repo=a.repo.resolve();original=a.original_root.resolve();out=a.output.resolve()
  need(not out.exists(),'Repair preparation already exists');out.mkdir(parents=True)
  source,test=a.production_source,a.validation_source
@@ -60,6 +61,29 @@ def main():
   path=item['path'];content=overlays.get(path,(repo/path).read_bytes());same=hashlib.sha256(content).hexdigest()==item['sha256']
   rows=[row for mode in core['modes'] for row in mode['fixtures'] if row['name']==item['name']]
   (reused if same and len(rows)==2 and all(row['passed'] for row in rows) else selected).append(item['name'])
+ prior=None;prior_fixtures={}
+ if a.previous_repair_root:
+  previous=a.previous_repair_root.resolve();prun=read(previous/'previous-run.json');partifact=read(previous/'previous-artifact.json')
+  need(prun['status']=='completed' and prun['path']=='.github/workflows/compiler-hot-edit-validation.yml','Previous repair run identity differs')
+  need(not git(repo,'diff','--name-only',source,prun['head_sha'],'--',*PRODUCTION),'Previous repair changed production inputs')
+  ptag=str(prun['id'])+'-'+str(prun['run_attempt'])
+  pprep=read(previous/'evidence/refactor/hot-edit-repair'/ptag/'preparation.json')
+  pcore=read(previous/'evidence/refactor/core-lifecycle'/ptag/'validation.json')
+  need(pprep['binarySourceCommit']==source and pprep['originalRunId']==a.original_run and pprep['runtimeFiles']==runtime,'Previous repair used a different production artifact')
+  need(pcore['binarySourceCommit']==source and pcore['testSourceCommit']==prun['head_sha'],'Previous Core fixture sources differ')
+  need(partifact['workflow_run']['head_sha']==prun['head_sha'] and partifact['name']=='compiler-hot-edit-validation-'+ptag,'Previous repair artifact differs')
+  for name in list(selected):
+   item=next(row for row in core['fixtures'] if row['name']==name);current=overlays.get(item['path'],(repo/item['path']).read_bytes())
+   pitem=next((row for row in pcore['fixtures'] if row['name']==name),None)
+   rows=[row for mode in pcore['modes'] for row in mode['fixtures'] if row['name']==name]
+   if pitem and hashlib.sha256(current).hexdigest()==pitem['sha256'] and len(rows)==2 and all(row['passed'] for row in rows):
+    results={}
+    for mode in ('Debug','Release'):
+     path=previous/'evidence/refactor/core-lifecycle'/ptag/mode/name/'result.json';value=read(path)
+     need(value['succeeded'] and value['binarySourceCommit']==source and value['testSourceCommit']==prun['head_sha'],'Previous successful fixture identity differs')
+     results[mode]=dict(path=str(path),member=path.relative_to(previous).as_posix(),sha256=sha(path))
+    selected.remove(name);prior_fixtures[name]=dict(sourceSha256=pitem['sha256'],results=results)
+  prior=dict(runId=str(prun['id']),runAttempt=str(prun['run_attempt']),conclusion=prun['conclusion'],testSourceCommit=prun['head_sha'],artifact=partifact)
  need(selected,'No failed or changed fixture requires repair')
  receipts={}
  for group,filename in REUSED.items():
@@ -90,7 +114,8 @@ def main():
  state=dict(schemaVersion=1,status='prepared',binarySourceCommit=source,testSourceCommit=test,originalRunId=a.original_run,originalRunAttempt=attempt,
             originalRunConclusion=run['conclusion'],originalArtifact=artifact,productionClosureUnchanged=True,
             productionTrees={name:git(repo,'rev-parse',source+':'+name) for name in ('SDK','recovery/src','recovery/build','recovery/probes')},
-            runtimeFiles=runtime,selectedFixtures=selected,reusedFixtures=reused,reusedScopes=receipts,backendTransports=adapters,
+            runtimeFiles=runtime,selectedFixtures=selected,reusedFixtures=reused,allFixtureNames=[row['name'] for row in core['fixtures']],
+            previousRepair=prior,reusedSuccessfulRepairFixtures=prior_fixtures,reusedScopes=receipts,backendTransports=adapters,
             overlays={name:hashlib.sha256(content).hexdigest() for name,content in overlays.items()},originalRoot=str(original),productDirectory=str(product),
             scope='Exact original production and validation hosts; only named validation fixes overlaid; original failed terminal status remains unchanged')
  (out/'preparation.json').write_text(json.dumps(state,indent=2)+'\n')

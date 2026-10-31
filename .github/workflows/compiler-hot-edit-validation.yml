@@ -22,6 +22,10 @@ on:
         description: Exact production source SHA from that run; validation-only fixes must preserve its input closure
         required: true
         type: string
+      previous_repair_run_id:
+        description: Optional completed repair run containing independently successful unchanged fixtures
+        required: false
+        type: string
 permissions:
   contents: read
   actions: read
@@ -37,6 +41,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       ORIGINAL_RUN: ${{ inputs.original_run_id || '41174952443' }}
       PRODUCTION_SOURCE: ${{ inputs.production_source || '8e8cf766df1016c6095158b62ea18f48a5c37cfe' }}
+      PREVIOUS_REPAIR_RUN: ${{ github.event_name == 'push' && '41176937044' || inputs.previous_repair_run_id }}
       VALIDATION_SOURCE: ${{ github.sha }}
       COMPILER_TEST_SOURCE_COMMIT: ${{ github.sha }}
       PYTHONDONTWRITEBYTECODE: '1'
@@ -74,6 +79,29 @@ jobs:
           run-id: ${{ env.ORIGINAL_RUN }}
           github-token: ${{ github.token }}
           path: work/hot-edit-original
+      - name: Select prior independent successful fixture evidence
+        if: env.PREVIOUS_REPAIR_RUN != ''
+        id: previous
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force work/hot-edit-previous|Out-Null
+          gh api "repos/wu162/NewSdk/actions/runs/$env:PREVIOUS_REPAIR_RUN" | Set-Content work/hot-edit-previous/previous-run.json
+          if($LASTEXITCODE -ne 0){throw 'Cannot read previous repair run'}
+          $run=Get-Content work/hot-edit-previous/previous-run.json -Raw|ConvertFrom-Json
+          $listing=gh api "repos/wu162/NewSdk/actions/runs/$env:PREVIOUS_REPAIR_RUN/artifacts?per_page=100" | ConvertFrom-Json
+          if($LASTEXITCODE -ne 0){throw 'Cannot read previous repair artifacts'}
+          $name="compiler-hot-edit-validation-$env:PREVIOUS_REPAIR_RUN-$($run.run_attempt)"
+          $artifact=@($listing.artifacts|Where-Object{$_.name -ceq $name -and !$_.expired})
+          if($artifact.Count -ne 1){throw 'Expected exactly one previous fixture artifact'}
+          $artifact[0]|ConvertTo-Json -Depth 12|Set-Content work/hot-edit-previous/previous-artifact.json
+          "artifact=$name"|Add-Content $env:GITHUB_OUTPUT
+      - uses: actions/download-artifact@v4
+        if: env.PREVIOUS_REPAIR_RUN != ''
+        with:
+          name: ${{ steps.previous.outputs.artifact }}
+          run-id: ${{ env.PREVIOUS_REPAIR_RUN }}
+          github-token: ${{ github.token }}
+          path: work/hot-edit-previous
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -87,21 +115,28 @@ jobs:
         id: prepare
         shell: pwsh
         run: |
-          python recovery/scripts/PrepareCompilerHotEditRepair.py --repo . --original-root work/hot-edit-original --output "recovery/evidence/refactor/hot-edit-repair/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" --production-source $env:PRODUCTION_SOURCE --validation-source $env:VALIDATION_SOURCE --original-run $env:ORIGINAL_RUN
+          $previous=@()
+          if($env:PREVIOUS_REPAIR_RUN){$previous=@('--previous-repair-root','work/hot-edit-previous')}
+          python recovery/scripts/PrepareCompilerHotEditRepair.py --repo . --original-root work/hot-edit-original --output "recovery/evidence/refactor/hot-edit-repair/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" --production-source $env:PRODUCTION_SOURCE --validation-source $env:VALIDATION_SOURCE --original-run $env:ORIGINAL_RUN @previous
           if($LASTEXITCODE -ne 0){throw 'Unchanged production reuse was rejected'}
       - name: Repair only failed or changed Core fixtures in Debug and Release
+        id: core
         env:
           FIXTURES: ${{ steps.prepare.outputs.fixtures }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -FixtureNames ($env:FIXTURES -split ',')
       - name: Repaired existing bounded performance gate without rebuilding
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        id: performance
         timeout-minutes: 2
         shell: pwsh
         run: |
           python recovery/scripts/TestCompilerPerformance.py --exe recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe --sdk SDK --output "recovery/evidence/refactor/performance/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" --work "$env:RUNNER_TEMP/performance-repair" --source-commit $env:PRODUCTION_SOURCE --budget 60 --timeout 10
           if($LASTEXITCODE -ne 0){throw 'Bounded performance gate still failed'}
       - name: Complete missing original BAB oracles using transported successful fixture inputs
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        id: bab
         shell: pwsh
         run: |
           $prep="recovery/evidence/refactor/hot-edit-repair/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
@@ -109,6 +144,8 @@ jobs:
             ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "$prep/$mode-backend-transport.json" -FixtureRunId $env:ORIGINAL_RUN -OutputDirectory "recovery/evidence/refactor/core-backend-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/$mode" -TimeoutSeconds 180
           }
       - name: Validate original successful application fixture outputs against current protocol
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        id: protocol
         shell: pwsh
         run: |
           $original=Get-Content work/hot-edit-original/original-run.json -Raw|ConvertFrom-Json
@@ -116,6 +153,7 @@ jobs:
           python recovery/scripts/ValidateAppProtocol.py $path --source-commit $env:PRODUCTION_SOURCE --output "recovery/evidence/refactor/hot-edit-repair/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/original-core-protocol.json"
           if($LASTEXITCODE -ne 0){throw 'Original application fixture public protocol failed'}
       - name: Complete previously unexecuted unchanged mymod original SDK differential
+        if: ${{ !cancelled() && steps.core.outcome == 'success' && steps.performance.outcome == 'success' && steps.bab.outcome == 'success' && steps.protocol.outcome == 'success' }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/sdk-mymod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TimeoutSeconds 600

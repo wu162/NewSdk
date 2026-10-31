@@ -34,6 +34,8 @@ def main():
  need(len(release['configurations'])==2 and release['bigDeployment']['succeeded'],'Final package acceptance is incomplete')
  measure=receipt('complete-Upheaval',repo/'recovery/evidence/refactor/backend-parallel-performance'/tag/'measurement.json')
  need(len(measure['samples'])==22 and all(row['status']=='passed' for row in measure['samples']),'Complete Upheaval matrix did not finish')
+ covered=set(prep['selectedFixtures'])|set(prep['reusedFixtures'])|set(prep['reusedSuccessfulRepairFixtures'])
+ need(covered==set(prep['allFixtureNames']),'Composed Core acceptance omitted fixtures')
  reused={}
  with zipfile.ZipFile(out/'reused-original-receipts.zip','w',zipfile.ZIP_DEFLATED) as z:
   for label,row in prep['reusedScopes'].items():
@@ -45,6 +47,10 @@ def main():
    for name in prep['reusedFixtures']:
     path=original/'evidence/refactor/core-lifecycle'/(prep['originalRunId']+'-'+prep['originalRunAttempt'])/mode/name/'result.json'
     if path.exists():z.writestr(path.relative_to(original).as_posix(),path.read_bytes())
+  for name,fixture in prep['reusedSuccessfulRepairFixtures'].items():
+   for mode,row in fixture['results'].items():
+    path=Path(row['path']);need(sha(path)==row['sha256'],'Previous successful fixture receipt changed: '+name)
+    z.writestr(row['member'],path.read_bytes())
  for mode in ('Debug','Release'):
   actual={p.name:sha(p) for p in (product/mode/'bin').iterdir() if p.is_file()}
   need(actual==prep['runtimeFiles'][mode],'Reused runtime changed during repair')
@@ -52,6 +58,7 @@ def main():
             originalRunId=prep['originalRunId'],originalRunAttempt=prep['originalRunAttempt'],originalRunConclusion=prep['originalRunConclusion'],
             originalArtifact=prep['originalArtifact'],productionClosureUnchanged=True,productionTrees=prep['productionTrees'],
             runtimeFiles=prep['runtimeFiles'],overlays=prep['overlays'],selectedFixtures=prep['selectedFixtures'],reusedFixtures=prep['reusedFixtures'],
+            previousRepair=prep['previousRepair'],reusedSuccessfulRepairFixtures=prep['reusedSuccessfulRepairFixtures'],
             reusedScopes=reused,completedGates=completed,reusedReceiptArchiveSha256=sha(out/'reused-original-receipts.zip'),
             scope='Composed acceptance of the unchanged original production binary: successful original scopes reused, failed validation fixtures repaired, all missing original SDK/package/complete MOD gates completed; original failed run retained')
  (out/'repair.json').write_text(json.dumps(state,indent=2,ensure_ascii=False)+'\n');print(json.dumps({k:state[k] for k in ('status','binarySourceCommit','testSourceCommit','selectedFixtures','reusedFixtures')},indent=2))

@@ -52,7 +52,15 @@ internal static class CompilerInstanceIncludeCache
         Directory.CreateDirectory(settings.OutputDirectory); Directory.CreateDirectory(settings.IntermediateOutputDirectory);
         Directory.CreateDirectory(settings.SessionCacheDirectory); return settings;
     }
-    static DocumentProcessor Processor(BuiltinCompilers plugins, SchemaSet schemas = null, SessionCache cache = null)
+    sealed class RequestState
+    {
+        internal BuiltinCompilers Plugins;
+        internal SchemaSet SchemaSet;
+        internal VerifierPluginRegistry Verifiers;
+        internal SessionCache Cache;
+        internal int XmlParseCount, InstanceCompileCount;
+    }
+    static RequestState Processor(BuiltinCompilers plugins, SchemaSet schemas = null, SessionCache cache = null)
     {
         schemas = schemas ?? new SchemaSet(false);
         HashProvider.InitializeStringHashes(Settings.Current.SessionCacheDirectory);
@@ -61,13 +69,17 @@ internal static class CompilerInstanceIncludeCache
         verifiers.DefaultPlugin = (IAssetBuilderVerifierPlugin)Activator.CreateInstance(
             typeof(DocumentProcessor).Assembly.GetType("BinaryAssetBuilder.GameDataVerifier.Plugin", true), true);
         verifiers.DefaultPlugin.Initialize(null, TargetPlatform.Win32);
-        return new DocumentProcessor(Settings.Current, plugins.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
+        return new RequestState { Plugins = plugins, Cache = cache, SchemaSet = schemas, Verifiers = verifiers };
     }
-    static void Run(DocumentProcessor processor, string root)
+    static void Run(RequestState processor, string root)
     {
         // Each call is a new request: reset input observations after any edit.
-        ((SessionCache)processor.Cache).InitializeCache(new List<string>(), processor.SchemaSet.ContentIdentity);
-        bool success; processor.ProcessDocument(root, true, false, out success); Need(success, "Core did not complete " + root);
+        processor.Cache.InitializeCache(new List<string>(), processor.SchemaSet.ContentIdentity);
+        // CoreStreamCompiler creates a processor for every stream/request. Its
+        // traversal requirements and output lookup tables are request-local.
+        var current = new DocumentProcessor(Settings.Current, processor.Plugins.Registry, processor.Verifiers) { Cache = processor.Cache, SchemaSet = processor.SchemaSet };
+        try { bool success; current.ProcessDocument(root, true, false, out success); Need(success, "Core did not complete " + root); }
+        finally { processor.XmlParseCount += current.XmlParseCount; processor.InstanceCompileCount += current.InstanceCompileCount; }
     }
     static Dictionary<string, string> Outputs(string root)
     {
@@ -84,7 +96,7 @@ internal static class CompilerInstanceIncludeCache
     {
         Need(expected.Count == actual.Count && expected.All(pair => actual.ContainsKey(pair.Key) && actual[pair.Key] == pair.Value), label + ": publication bytes differ");
     }
-    static Dictionary<string, string> ColdControl(BuiltinCompilers plugins, DocumentProcessor current, string root, string generation)
+    static Dictionary<string, string> ColdControl(BuiltinCompilers plugins, RequestState current, string root, string generation)
     {
         Settings settings = Settings.Current; string output = settings.OutputDirectory, intermediate = settings.IntermediateOutputDirectory;
         var actual = Outputs(output);
@@ -98,22 +110,22 @@ internal static class CompilerInstanceIncludeCache
         finally { settings.OutputDirectory = output; settings.IntermediateOutputDirectory = intermediate; }
         return actual;
     }
-    static void Next(SessionCache cache, DocumentProcessor processor)
+    static void Next(SessionCache cache, RequestState processor)
     {
         cache.SaveCache(false);
     }
-    static void Hot(SessionCache cache, DocumentProcessor processor, string root)
+    static void Hot(SessionCache cache, RequestState processor, string root)
     {
         Next(cache, processor); int parsed = processor.XmlParseCount, compiled = processor.InstanceCompileCount;
         Run(processor, root);
-        Need(processor.XmlParseCount == parsed && processor.InstanceCompileCount == compiled, "Completed generation did not become 0-parse/0-compile hot");
+        Need(processor.XmlParseCount == parsed && processor.InstanceCompileCount == compiled, "Completed generation did not become hot: parse=" + (processor.XmlParseCount - parsed) + " compile=" + (processor.InstanceCompileCount - compiled));
     }
     static SessionCache Cache(string name, SchemaSet schemas)
     {
         var cache = new SessionCache(); cache.LoadCacheFrom(null, Path.Combine(Settings.Current.SessionCacheDirectory, "session.xml"));
         cache.InitializeCache(new List<string>(), schemas.ContentIdentity); return cache;
     }
-    static void Reject(DocumentProcessor processor, string root, ErrorCode expected)
+    static void Reject(RequestState processor, string root, ErrorCode expected)
     {
         int compiled = processor.InstanceCompileCount;
         try { Run(processor, root); }
