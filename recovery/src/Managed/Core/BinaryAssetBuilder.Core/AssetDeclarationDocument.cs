@@ -1329,10 +1329,13 @@ public class AssetDeclarationDocument : IXmlSerializable
 		foreach (InstanceDeclaration selfInstance in _Current.SelfInstances)
 		{
 			ExtendedTypeInformation extendedTypeInformation = _Current.DocumentProcessor.Plugins.GetExtendedTypeInformation(selfInstance.Handle.TypeId);
-			uint textHash = HashProvider.GetTextHash(extendedTypeInformation.ProcessingHash, 11u.ToString());
 			selfInstance.Handle.TypeHash = extendedTypeInformation.TypeHash;
-			XmlNode node = selfInstance.XmlNode;
-			selfInstance.Handle.InstanceHash = HashProvider.GetXmlHash(textHash, ref node);
+			using (PerformanceScope.Measure("core.xml.instance.hash"))
+			{
+				uint textHash = HashProvider.GetTextHash(extendedTypeInformation.ProcessingHash, 11u.ToString());
+				XmlNode node = selfInstance.XmlNode;
+				selfInstance.Handle.InstanceHash = HashProvider.GetXmlHash(textHash, ref node);
+			}
 			selfInstance.ProcessingHash = extendedTypeInformation.ProcessingHash;
 			if (derivedTypes != null)
 			{
@@ -1350,37 +1353,41 @@ public class AssetDeclarationDocument : IXmlSerializable
 			{
 				OutputIntermediateXml(selfInstance);
 			}
-			XPathNavigator xPathNavigator = selfInstance.XmlNode.CreateNavigator();
-			XPathNodeIterator xPathNodeIterator = xPathNavigator.SelectDescendants("", "uri:ea.com:eala:asset", matchSelf: true);
-			MemoryStream memoryStream = new MemoryStream();
-			BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
-			foreach (XPathNavigator item2 in xPathNodeIterator)
+			using (PerformanceScope.Measure("core.xml.instance.references"))
 			{
-				HandleReferenceType(selfInstance, item2, binaryWriter);
-				if (item2.HasAttributes)
+				XPathNavigator xPathNavigator = selfInstance.XmlNode.CreateNavigator();
+				XPathNodeIterator xPathNodeIterator = xPathNavigator.SelectDescendants("", "uri:ea.com:eala:asset", matchSelf: true);
+				MemoryStream memoryStream = new MemoryStream();
+				BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+				foreach (XPathNavigator item2 in xPathNodeIterator)
 				{
-					item2.MoveToFirstAttribute();
-					do
+					HandleReferenceType(selfInstance, item2, binaryWriter);
+					if (item2.HasAttributes)
 					{
-						HandleReferenceType(selfInstance, item2, binaryWriter);
+						item2.MoveToFirstAttribute();
+						do
+						{
+							HandleReferenceType(selfInstance, item2, binaryWriter);
+						}
+						while (item2.MoveToNextAttribute());
+						item2.MoveToParent();
 					}
-					while (item2.MoveToNextAttribute());
-					item2.MoveToParent();
+					var schemaType = item2.SchemaInfo?.SchemaType;
+					if (schemaType != null && schemaType.Name != null)
+					{
+						item2.CreateAttribute("", "TypeId", "", _Current.DocumentProcessor.SchemaSet.GetInstanceTypeMetadata(schemaType).TypeIdText);
+					}
 				}
-				if (item2.SchemaInfo != null && item2.SchemaInfo.SchemaType != null && item2.SchemaInfo.SchemaType.Name != null)
+				foreach (string referencedFile in selfInstance.ReferencedFiles)
 				{
-					item2.CreateAttribute("", "TypeId", "", HashProvider.GetCaseSensitiveSymbolHash(item2.SchemaInfo.SchemaType.Name).ToString());
+					FileHashItem item = null;
+					TryGetFileHashItem(referencedFile, out item);
+					binaryWriter.Write(item.Hash);
 				}
-			}
-			foreach (string referencedFile in selfInstance.ReferencedFiles)
-			{
-				FileHashItem item = null;
-				TryGetFileHashItem(referencedFile, out item);
-				binaryWriter.Write(item.Hash);
-			}
-			if (memoryStream.Length > 0)
-			{
-				selfInstance.Handle.InstanceHash ^= FastHash.GetHashCode(memoryStream.GetBuffer());
+				if (memoryStream.Length > 0)
+				{
+					selfInstance.Handle.InstanceHash ^= FastHash.GetHashCode(memoryStream.GetBuffer());
+				}
 			}
 		}
 	}
@@ -1443,41 +1450,25 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 
-	private string GetRefTypeName(XmlAttribute[] unhandledAttributes)
-	{
-		if (unhandledAttributes != null)
-		{
-			foreach (XmlAttribute xmlAttribute in unhandledAttributes)
-			{
-				string localName;
-				if (xmlAttribute.NamespaceURI == "uri:ea.com:eala:asset:schema" && (localName = xmlAttribute.LocalName) != null && localName == "refType")
-				{
-					return xmlAttribute.Value;
-				}
-			}
-		}
-		return null;
-	}
-
 	private void HandleReferenceType(InstanceDeclaration instance, XPathNavigator navigator, BinaryWriter refTypeIds)
 	{
-		if (navigator.SchemaInfo == null || navigator.SchemaInfo.SchemaType == null)
+		var type = navigator.SchemaInfo?.SchemaType;
+		if (type == null)
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Element {0} in instance {1} doesn't have a schema type.", navigator.Name, instance);
 		}
-		bool flag = XmlSchemaType.IsDerivedFrom(navigator.SchemaInfo.SchemaType, _Current.DocumentProcessor.SchemaSet.XmlWeakReferenceType, XmlSchemaDerivationMethod.None);
-		bool flag2 = !flag && XmlSchemaType.IsDerivedFrom(navigator.SchemaInfo.SchemaType, _Current.DocumentProcessor.SchemaSet.XmlAssetReferenceType, XmlSchemaDerivationMethod.None);
-		if (flag || flag2)
+		var kind = _Current.DocumentProcessor.SchemaSet.GetInstanceTypeMetadata(type).Kind;
+		if (kind == SchemaSet.InstanceValueKind.WeakReference || kind == SchemaSet.InstanceValueKind.AssetReference)
 		{
-			HandleAssetReferenceType(navigator, ref instance, refTypeIds, flag2);
+			HandleAssetReferenceType(navigator, ref instance, refTypeIds, kind == SchemaSet.InstanceValueKind.AssetReference);
 		}
-		else if (XmlSchemaType.IsDerivedFrom(navigator.SchemaInfo.SchemaType, _Current.DocumentProcessor.SchemaSet.XmlFileReferenceType, XmlSchemaDerivationMethod.None))
+		else if (kind == SchemaSet.InstanceValueKind.FileReference)
 		{
 			HandleFileReferenceType(navigator, ref instance);
 		}
-		else if (_Current.DocumentProcessor.SchemaSet.IsHashableType(navigator.SchemaInfo.SchemaType))
+		else if (kind == SchemaSet.InstanceValueKind.Hashable)
 		{
-			HashProvider.RecordHash(navigator.SchemaInfo.SchemaType, navigator.Value);
+			HashProvider.RecordHash(type, navigator.Value);
 		}
 	}
 
@@ -1502,20 +1493,22 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 		InstanceHandle instanceHandle = new InstanceHandle(text);
 		string text2 = null;
-		if (navigator.SchemaInfo.SchemaElement != null)
+		var info = navigator.SchemaInfo;
+		var schemas = _Current.DocumentProcessor.SchemaSet;
+		if (info.SchemaElement != null)
 		{
-			text2 = GetRefTypeName(navigator.SchemaInfo.SchemaElement.UnhandledAttributes);
+			text2 = schemas.GetReferenceTypeName(info.SchemaElement);
 		}
-		else if (navigator.SchemaInfo.SchemaAttribute != null)
+		else if (info.SchemaAttribute != null)
 		{
-			text2 = GetRefTypeName(navigator.SchemaInfo.SchemaAttribute.UnhandledAttributes);
+			text2 = schemas.GetReferenceTypeName(info.SchemaAttribute);
 		}
-		if (text2 == null && navigator.SchemaInfo.SchemaType != null)
+		if (text2 == null && info.SchemaType != null)
 		{
-			text2 = GetRefTypeName(navigator.SchemaInfo.SchemaType.UnhandledAttributes);
-			if (text2 == null && navigator.SchemaInfo.SchemaType.DerivedBy == XmlSchemaDerivationMethod.Extension)
+			text2 = schemas.GetReferenceTypeName(info.SchemaType);
+			if (text2 == null && info.SchemaType.DerivedBy == XmlSchemaDerivationMethod.Extension)
 			{
-				text2 = GetRefTypeName(navigator.SchemaInfo.SchemaType.BaseXmlSchemaType.UnhandledAttributes);
+				text2 = schemas.GetReferenceTypeName(info.SchemaType.BaseXmlSchemaType);
 			}
 		}
 		if (text2 == null)

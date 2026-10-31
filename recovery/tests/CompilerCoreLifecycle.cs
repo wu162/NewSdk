@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Web.Script.Serialization;
 using System.Xml;
@@ -204,6 +205,52 @@ internal static class CompilerCoreLifecycle
         Require(p.InstanceCompileCount == compiled, "Reentering a saved in-memory session recompiled unchanged assets");
         Equal(expected, Outputs(settings.OutputDirectory));
         Tests.Add("saved-session-memory-reentry-clears-transient-references-and-cdata-preserves-bytes");
+    }
+    static uint LegacyXmlTextHash(uint seed, string text)
+    {
+        for (int offset=0; offset<text.Length; offset+=512)
+            seed=HashProvider.GetTextHash(seed,text.Substring(offset,Math.Min(512,text.Length-offset)));
+        return seed;
+    }
+    sealed class XmlText : StringWriter
+    {
+        public override Encoding Encoding { get { return Encoding.Default; } }
+    }
+    static void XmlHashBlocksCase()
+    {
+        Type type=typeof(HashProvider).Assembly.GetType("BinaryAssetBuilder.Core.HashingWriter",true);
+        MethodInfo final=type.GetMethod("GetFinalHash");
+        foreach (uint seed in new[] {0u,1u,0xdeadbeefu})
+        foreach (int length in new[] {0,1,511,512,513,1023,1024,1025})
+        foreach (string tail in new[] {"", "\0", "é汉", "\ud83d\ude00"})
+        {
+            string text=new string('x',length)+tail;
+            var writer=(TextWriter)Activator.CreateInstance(type,new object[] {seed});
+            for(int offset=0; offset<text.Length;)
+            {
+                int count=Math.Min(37,text.Length-offset);
+                if(offset%3==0) { writer.Write(text[offset]); count=1; }
+                else if(offset%3==1) writer.Write(text.Substring(offset,count));
+                else writer.Write(text.ToCharArray(),offset,count);
+                offset+=count;
+            }
+            uint expected=LegacyXmlTextHash(seed,text);
+            Require((uint)final.Invoke(writer,null)==expected && (uint)final.Invoke(writer,null)==expected,
+                "XML hash changed ANSI/NUL/512-character block or repeated-finalization behavior");
+            writer.Write("append");
+            Require((uint)final.Invoke(writer,null)==LegacyXmlTextHash(seed,text+"append"),
+                "XML hash finalization consumed the pending block");
+            writer.Dispose();
+        }
+        foreach(string text in new[] {new string('a',511)+"汉字",new string('b',511)+"\ud83d\ude00",new string('c',1025)+"é"})
+        {
+            var xml=new XmlDocument();var node=xml.CreateElement("HashCase");node.SetAttribute("text",text);node.InnerText=text;
+            var serialized=new XmlText();using(var writer=XmlWriter.Create(serialized)) node.WriteTo(writer);
+            XmlNode hashNode=node;
+            Require(HashProvider.GetXmlHash(0x12345678u,ref hashNode)==LegacyXmlTextHash(0x12345678u,serialized.ToString()),
+                "XML hash differs from legacy XML serialization and ANSI block hashing");
+        }
+        Tests.Add("legacy-XML-hash-seeds-ANSI-NUL-512-boundaries-fragmented-writes-finalize-append");
     }
     sealed class SaveFaultCache : SessionCache
     {
@@ -491,7 +538,7 @@ internal static class CompilerCoreLifecycle
             if (args.Length != 5 || IntPtr.Size != 4) throw new Exception("Expected work result sourceCommit runId sdk (x86)");
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
             probe = File.ReadAllText(Path.Combine(sdk, "Mods/mymod/Data/RecoveryArmorProbe.xml"));
-            UnicodePathCase();
+            UnicodePathCase(); XmlHashBlocksCase();
             Require(typeof(DocumentProcessor).Assembly == typeof(BuiltinCompilers).Assembly, "Core is outside product assembly");
             // Configuration precedes built-in initialization, just as a real build requires.
             Configure("initialize");
