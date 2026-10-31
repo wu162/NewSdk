@@ -43,18 +43,24 @@ DXT3/5 链接参考分支的公开 S3 源码及其兼容适配；DXT1/1A 使用�
 - Core lifecycle 工作流：Debug/Release、新生产对象、CLI/取消、缓存、完整
   mymod 原版差分和独立三文件 ZIP 验收。
 
-当前完整验收源码 `4c74bf64b`，运行
-[41180859852](https://github.com/wu162/NewSdk/actions/runs/41180859852) 进行中。
-Windows Debug/Release 各31个常见格式组件用例、完整mip与半透明边界、
-中文路径及12个真实CLI缓存/失效/失败重试用例通过；两份组件结果原字节相同。
-[原始收据和下载复算摘要](../evidence/texture/plugin-validation/41180859852-1/common-summary.json)
-已入库。当前mymod原版对照和独立三文件ZIP步骤成功，最后Upheaval回归、
-整个工作流终态及完整归档复算仍待完成。
+生产/测试源码 `4c74bf64b`，
+[Windows 41180859852](https://github.com/wu162/NewSdk/actions/runs/41180859852) 整体 **success**。
+Debug/Release 各31个常见格式组件用例、完整mip与半透明边界、中文路径及
+12个真实CLI缓存/失效/失败重试用例通过；两份组件结果原字节相同。
+原三路纹理差分、Core/CLI/取消、64后端/cache用例、全部缓存组、完整mymod
+原版四流/BIG/SKUDEF、两个独立三文件ZIP及完整Upheaval22样本通过。
 
+[完整收据与归档复算摘要](../evidence/texture/plugin-validation/41180859852-1/full-summary.json)、
+[常见格式原始收据](../evidence/texture/plugin-validation/41180859852-1/common-summary.json)
+已入库。两个原归档已下载复算；六份运行文件和两个ZIP逐字节核对构建、
+发布清单与common收据，原版/恢复版纹理转录按原字节压缩保存并去重。
+[下载归档](https://github.com/wu162/NewSdk/actions/runs/41180859852/artifacts/13035436860)中
+`artifacts/final-release/41180859852-1/` 含 Debug/Release ZIP 和身份清单。
+后续仅整理文档/收据；未新增游戏内验收。
 此前 Windows 构建、三文件部署、Core/CLI/取消、缓存、原纹理三路字节及 BIG
 差分通过；整体运行因控制器残留变量、跨扫描行 RLE 测试输入及 indexed BMP
 颜色问题失败。控制器/生成器已修正；标准 1/4/8-bit BI_RGB 调色板改为显式读取，
 原 direct-color 解码器保留。原失败记录与已下载复算的归档身份见
 [evidence/texture/plugin-validation](../evidence/texture/plugin-validation)。
 常见格式矩阵现按独立用例集中收集失败，任一失败仍拒绝整组；没有降低像素阈值
-或原始四流/CDATA 差分要求。尚未将运行中表述为整体成功；未新增游戏内验收。
+或原始四流/CDATA 差分要求。原失败不冒充成功，最终验收使用本次新构建产品。

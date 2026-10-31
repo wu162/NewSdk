@@ -1,6 +1,6 @@
 # NewModCompiler 使用说明
 
-适用开发分支：`recovery/legacy-sdk-cache`（本轮状态见 [续接入口](RESUME.md)，源码依据见 [并行输入说明](docs/TOKENIZER_PARALLEL_INPUT.md)）；历史发行主线为 `compiler-main`。目标平台为 Windows/Win32、.NET Framework 4.8；本工具负责从现有 MOD 源码生成流文件或 BIG/SKUDEF，不包含旧 GUI。最终发行状态与下载链接见 [发行说明](COMPILER_RELEASE.md)。新增包版本参数的最终验收结果以该页为准。
+适用开发分支：`feat/texture-plugin`（基于 `recovery/legacy-sdk-cache`）（本轮状态见 [续接入口](RESUME.md)，源码依据见 [并行输入说明](docs/TOKENIZER_PARALLEL_INPUT.md)）；历史发行主线为 `compiler-main`。目标平台为 Windows/Win32、.NET Framework 4.8；本工具负责从现有 MOD 源码生成流文件或 BIG/SKUDEF，不包含旧 GUI。最终发行状态与下载链接见 [发行说明](COMPILER_RELEASE.md)。新增包版本参数的最终验收结果以该页为准。
 
 ## 后端并行与旧缓存
 
@@ -12,7 +12,7 @@
 
 ## 1. 安装与检查
 
-本分支新构建将 Texture 编译器源码内建到 EXE，ZIP 只有三个运行文件：`NewModCompiler.exe`、`NewModCompiler.exe.config`、`antlr.runtime.dll`。完整解压到单独目录，保留三个文件；新实现的验收状态见 [续接入口](RESUME.md)。历史五文件包仍可从 [功能验收归档40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929/artifacts/12916669037) 内 `artifacts/final-release/40915444929-1/NewModCompiler-Win32-Release.zip` 获取（生产源码6d39f833）；该包使用原 Texture DLL 和补丁清单，保留其原布局。
+本分支新构建将 Texture 编译器源码内建到 EXE，ZIP 只有三个运行文件：`NewModCompiler.exe`、`NewModCompiler.exe.config`、`antlr.runtime.dll`。完整解压到单独目录，保留三个文件。已验收的[三文件产物归档](https://github.com/wu162/NewSdk/actions/runs/41180859852/artifacts/13035436860)中，Release 包位于 `artifacts/final-release/41180859852-1/NewModCompiler-Win32-Release.zip`（源码 `4c74bf64b`）；[范围与原收据](docs/TEXTURE_PLUGIN.md)。历史五文件包仍可从 [功能验收归档40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929/artifacts/12916669037) 内 `artifacts/final-release/40915444929-1/NewModCompiler-Win32-Release.zip` 获取（生产源码6d39f833）；该包使用原 Texture DLL 和补丁清单，保留其原布局。
 
 目标机器需要 Windows x86 兼容环境、.NET Framework 4.8，以及与编译工具链匹配的 x86 VC 运行库。新构建的 Texture 不再需要原 DLL、VC80 CRT 或 DirectX 9/D3DX；历史五文件包仍需要这些依赖。SDK 资源和 MOD 源码单独提供；工具 ZIP 不包含完整 SDK，也不下载游戏文件。
 
