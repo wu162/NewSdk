@@ -84,6 +84,7 @@ def save(out, state):
              'All five streams, base/APT/global metadata, loose outputs including CDATA/version files.',
              'Same physical inputs and roots, separate caches. Original runs sequential BAB processes; new uses one process and jobs=auto.',
              'Launch-to-exit costs include reporting; preparation and output verification are outside timing. No BIG/LoD packaging or game-runtime timing.', '',
+             'Cross-engine output differences fail acceptance even when timings complete; timings with different outputs are descriptive only.', '',
              '| Phase | n/engine | Old ms | New ms | New change |', '| --- | ---: | ---: | ---: | ---: |']
     for r in rows:
         lines.append('| {phase} | {nPerEngine} | {originalWallMsMedian:.2f} | {newWallMsMedian:.2f} | {newWallChangePercent:+.2f}% |'.format(**r))
@@ -131,7 +132,7 @@ def run(args):
              'scope': 'Complete untouched historical Upheaval, all five streams and assets, loose output. No BIG/LoD packaging.',
              'limitations': ['OS page cache uncontrolled; compiler cold means empty compiler caches',
                              'Small sample counts on one Windows VM', 'New default jobs=auto versus original sequential BAB',
-                             'Original total sums process launch-to-exit times; Python bookkeeping and version-marker writes excluded',
+                             'Original total sums process launch-to-exit times; Python bookkeeping excluded',
                              'No game-runtime or BIG/LoD packaging timings; no warmup'], 'samples': [], 'pairs': []}
     environment = os.environ.copy()
     for key in list(environment):
@@ -140,7 +141,7 @@ def run(args):
     environment['PATH'] = os.pathsep.join(p for p in environment.get('PATH', '').split(os.pathsep)
                                           if '/sdk/tools' not in p.replace('\\', '/').lower())
     started = time.perf_counter()
-    baseline = None
+    baselines = {}
 
     def sample(engine, phase, index):
         mode = 'none' if phase == 'uncached' else 'both-deflate'
@@ -182,10 +183,6 @@ def run(args):
                 require(phase != 'hot' or row['traceSessionLoaded'], 'Original hot stream session was not loaded')
                 require(mode != 'none' or not row['traceStringHashesLoaded'], 'Original no-cache reused string hashes')
                 process_rows.append(row)
-                if task['content'] == 'apt':
-                    manifest = list((task_profile / 'streams').rglob('*.manifest'))
-                    require(len(manifest) == 1, 'Original APT output ambiguous')
-                    manifest[0].with_suffix('.version').write_bytes(b'\r\n')
             directory = profile
             # Collect only output streams; caches remain outside the compared output directory.
             directory = profile / 'all-streams'
@@ -208,21 +205,45 @@ def run(args):
             order = ('original', 'new') if pair_index % 2 == 0 else ('new', 'original')
             pair = {engine: sample(engine, phase, index) for engine in order}
             left, right = pair['original'], pair['new']
-            compare_pair(left[0]['outputFiles'], right[0]['outputFiles'], left[1], right[1])
-            if baseline is None:
-                baseline = left[0]['outputFiles']
-                for engine in order:
+            a, b = left[0]['outputFiles'], right[0]['outputFiles']
+            equal = a == b
+            if equal:
+                compare_pair(a, b, left[1], right[1])
+            else:
+                # Retain strict cross-engine failure while still measuring the independent cases.
+                difference = {'phase': phase, 'round': index, 'onlyOriginal': sorted(a.keys() - b.keys()),
+                              'onlyNew': sorted(b.keys() - a.keys()),
+                              'changed': [k for k in sorted(a.keys() & b.keys()) if a[k] != b[k]]}
+                # Diagnostic only: compare CDATA payloads by type/processing/instance identity,
+                # retaining the original differing filenames and all raw bytes as failures.
+                def cdata_identity(key):
+                    return key.rsplit('/', 1)[0] + '/' + '.'.join(key.rsplit('/', 1)[-1].split('.')[:3])
+                ca = {cdata_identity(k): k for k in a if k.endswith('.cdata')}
+                cb = {cdata_identity(k): k for k in b if k.endswith('.cdata')}
+                require(len(ca) == sum(k.endswith('.cdata') for k in a) and
+                        len(cb) == sum(k.endswith('.cdata') for k in b), 'Ambiguous CDATA diagnostic identity')
+                common = ca.keys() & cb.keys()
+                difference['cdataDiagnostic'] = {'originalCount': len(ca), 'newCount': len(cb),
+                    'commonLogicalIdentities': len(common),
+                    'equalPayloads': sum(left[1][ca[k]].read_bytes() == right[1][cb[k]].read_bytes() for k in common)}
+                state.setdefault('outputDifferences', []).append(difference)
+            for engine in order:
+                current = pair[engine][0]['outputFiles']
+                if engine not in baselines:
+                    baselines[engine] = current
                     for name, path in pair[engine][1].items():
                         target = out / 'baseline-outputs' / engine / name
                         target.parent.mkdir(parents=True, exist_ok=True)
                         shutil.copyfile(path, target)
-            require(left[0]['outputFiles'] == baseline, 'Full cold/hot output changed')
+                require(current == baselines[engine], 'Full cold/hot output changed within engine: ' + engine)
             for engine in order:
                 pair[engine][0]['status'] = 'passed'
-            state['pairs'].append({'phase': phase, 'round': index, 'order': order, 'rawBytesEqual': True})
+            state['pairs'].append({'phase': phase, 'round': index, 'order': order, 'rawBytesEqual': equal})
             save(out, state)
             print('FULL_UPHEAVAL_PAIR ' + json.dumps({'phase': phase, 'round': index, 'oldMs': left[0]['wallMs'], 'newMs': right[0]['wallMs']}), flush=True)
-        state['status'] = 'passed'
+        state['timingCompleted'] = True
+        state['rawOutputEquality'] = all(p['rawBytesEqual'] for p in state['pairs'])
+        state['status'] = 'passed' if state['rawOutputEquality'] else 'output-differs'
     except Exception as error:
         state['status'], state['error'] = 'failed', type(error).__name__ + ': ' + str(error)
     finally:
