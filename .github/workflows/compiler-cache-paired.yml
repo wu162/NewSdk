@@ -12,6 +12,10 @@ on:
         required: false
         type: string
         default: throughput
+      scenario_group:
+        required: false
+        type: string
+        default: single
       armor_partitions:
         required: false
         type: string
@@ -27,11 +31,17 @@ on:
         required: true
         type: string
       measurement_mode:
-        description: 'Throughput cold/hot builds or bounded warm-cache edit diagnostics'
+        description: 'Cold/hot throughput, bounded synthetic edits, or complete Upheaval large edits'
         required: false
         type: choice
-        options: [throughput, incremental]
+        options: [throughput, incremental, upheaval-edits]
         default: throughput
+      scenario_group:
+        description: 'Complete Upheaval edit group (the registered benchmark entry runs both groups)'
+        required: false
+        type: choice
+        options: [single, A, B]
+        default: single
       armor_partitions:
         description: Additional reachable Armor partitions (0 is untouched full Upheaval; 6 adds 49152 assets)
         required: true
@@ -42,12 +52,12 @@ permissions:
   contents: read
   actions: read
 concurrency:
-  group: compiler-cache-paired-${{ github.ref }}-${{ inputs.candidate_run_id }}-${{ inputs.armor_partitions }}-${{ inputs.measurement_mode }}
+  group: compiler-cache-paired-${{ github.ref }}-${{ inputs.candidate_run_id }}-${{ inputs.armor_partitions }}-${{ inputs.measurement_mode }}-${{ inputs.scenario_group }}
   cancel-in-progress: false
 jobs:
   measure:
     runs-on: windows-2022
-    timeout-minutes: ${{ inputs.measurement_mode == 'incremental' && 8 || 15 }}
+    timeout-minutes: ${{ inputs.measurement_mode == 'upheaval-edits' && 45 || (inputs.measurement_mode == 'incremental' && 8 || 15) }}
     env:
       GH_TOKEN: ${{ github.token }}
       PYTHONDONTWRITEBYTECODE: '1'
@@ -55,6 +65,7 @@ jobs:
       CANDIDATE_SOURCE: ${{ inputs.candidate_source }}
       ARMOR_PARTITIONS: ${{ inputs.armor_partitions }}
       MEASUREMENT_MODE: ${{ inputs.measurement_mode }}
+      SCENARIO_GROUP: ${{ inputs.scenario_group }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -64,6 +75,15 @@ jobs:
           sparse-checkout: |
             /*
             !/recovery/evidence/
+      - name: Complete Upheaval edit fixture preflight
+        if: inputs.measurement_mode == 'upheaval-edits'
+        shell: pwsh
+        run: |
+          if($env:SCENARIO_GROUP -notin @('A','B')){throw 'Select Upheaval edit group A or B via the registered benchmark entry'}
+          python -m pip install -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+          if($LASTEXITCODE -ne 0){throw 'Pinned edit validation dependencies failed'}
+          python -m unittest discover -s recovery/tests -p 'test_upheaval_edit_workload.py' -v
+          if($LASTEXITCODE -ne 0){throw 'Complete Upheaval edit fixture preflight failed'}
       - name: Verify candidate acceptance and select its current successful artifact
         id: candidate
         shell: pwsh
@@ -88,8 +108,8 @@ jobs:
           "validationSource=$($run.head_sha)"|Add-Content $env:GITHUB_OUTPUT
       - uses: actions/download-artifact@v4
         with:
-          name: ${{ inputs.measurement_mode == 'incremental' && 'refactor-core-lifecycle-41169755141-1' || 'ui-fla-41165126334-1' }}
-          run-id: ${{ inputs.measurement_mode == 'incremental' && '41169755141' || '41165126334' }}
+          name: ${{ inputs.measurement_mode != 'throughput' && 'refactor-core-lifecycle-41169755141-1' || 'ui-fla-41165126334-1' }}
+          run-id: ${{ inputs.measurement_mode != 'throughput' && '41169755141' || '41165126334' }}
           github-token: ${{ github.token }}
           path: work/cache-paired-baseline
       - uses: actions/download-artifact@v4
@@ -119,21 +139,26 @@ jobs:
             if((Get-FileHash "$base/artifacts/core-lifecycle-product/Release/bin/$($file.Name)" -Algorithm SHA256).Hash.ToLowerInvariant() -cne $file.Value){throw 'Candidate runtime differs from accepted repair identity'}
           }
       - name: Paired throughput or representative warm-cache edit diagnostics
-        timeout-minutes: ${{ inputs.measurement_mode == 'incremental' && 5 || 13 }}
+        timeout-minutes: ${{ inputs.measurement_mode == 'upheaval-edits' && 40 || (inputs.measurement_mode == 'incremental' && 5 || 13) }}
         shell: pwsh
         run: |
           $out="recovery/evidence/refactor/cache-paired/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          if($env:MEASUREMENT_MODE -eq 'incremental'){
+          if($env:MEASUREMENT_MODE -eq 'upheaval-edits'){
+            $out="recovery/evidence/refactor/upheaval-edits/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT-$env:SCENARIO_GROUP"
+            python recovery/scripts/MeasureCompilerUpheavalEdits.py --baseline-build work/cache-paired-baseline/artifacts/core-lifecycle-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --pairs 3 --scenario-group $env:SCENARIO_GROUP --work "$env:RUNNER_TEMP/upheaval-edits-$env:SCENARIO_GROUP" --output $out --budget 2100 --timeout 240
+          }elseif($env:MEASUREMENT_MODE -eq 'incremental'){
             python recovery/scripts/MeasureCompilerIncrementalPaired.py --baseline-build work/cache-paired-baseline/artifacts/core-lifecycle-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --pairs 3 --work "$env:RUNNER_TEMP/cache-incremental" --output $out --budget 240 --timeout 30
-          }else{
+          }elseif($env:MEASUREMENT_MODE -eq 'throughput'){
           python recovery/scripts/MeasureCompilerCachePaired.py --baseline-build work/cache-paired-baseline/ui-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --armor-partitions $env:ARMOR_PARTITIONS --work "$env:RUNNER_TEMP/cache-paired" --output $out --budget 720 --timeout 180
-          }
+          }else{throw 'Unsupported paired measurement mode'}
           $result=$LASTEXITCODE
           if(Test-Path "$out/report.md"){Get-Content "$out/report.md" -Encoding UTF8 | Add-Content $env:GITHUB_STEP_SUMMARY}
           if($result -ne 0){throw 'Paired cache measurement failed; partial evidence retained'}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: compiler-cache-paired-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/refactor/cache-paired/**
+          name: ${{ inputs.measurement_mode == 'upheaval-edits' && format('compiler-upheaval-edits-{0}-{1}-{2}', github.run_id, github.run_attempt, inputs.scenario_group) || format('compiler-cache-paired-{0}-{1}', github.run_id, github.run_attempt) }}
+          path: |
+            recovery/evidence/refactor/cache-paired/**
+            recovery/evidence/refactor/upheaval-edits/**
           if-no-files-found: warn
