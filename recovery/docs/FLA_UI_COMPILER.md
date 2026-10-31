@@ -14,7 +14,7 @@ NewModCompiler.exe build --mod C:\Mods\CoronaUI --sdk-root C:\NewSdk\SDK --out C
 ```
 
 例如 `Data/AptUI/CoronaUIMain/CoronaUIMain.fla` 生成
-`published/apt/CoronaUIMain.manifest`、`.bin`、`.relo`、`.imp`。
+`published/apt/CoronaUIMain/CoronaUIMain.manifest`、`.bin`、`.relo`、`.imp`。
 源目录不需要现成 SWF、APT、CONST、DAT、DDS 或外部 Flash 程序。
 同名的顶层 XML 保留为原入口；所选 XML 及其 Include 已引用的 FLA 不再自动生成第二个任务。
 同名独立影片仍按现有流名冲突规则报错。

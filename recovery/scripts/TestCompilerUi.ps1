@@ -135,6 +135,8 @@ try{
         Need (@($bare.report.plan.Tasks).Count -eq 1 -and $bare.report.plan.Tasks[0].Content -ceq 'apt') 'Bare FLA was not planned as one APT source task'
         $bareHot=Run 'bare-fla-hot' (Join-Path $modeWork 'bare-output');Equal $bare.files $bareHot.files
         Need ($bareHot.report.cache.instanceCompile -eq 0) 'Bare FLA hot build recompiled unchanged source'
+        $barePlain=Run 'bare-fla-independent-output' (Join-Path $modeWork 'bare-plain') $false
+        Equal $bare.files $barePlain.files
         $script:mod=$mixedMod
         $modeState.passed=$true
     }

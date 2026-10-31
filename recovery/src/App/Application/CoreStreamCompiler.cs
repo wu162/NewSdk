@@ -285,6 +285,14 @@ namespace NewModCompiler.Application
                 settings.BigEndian = inputs.BigEndian;
                 InputRootsReport = inputPreparation.Report;
             }
+            if (string.Equals(Path.GetExtension(context.Task.InputPath), ".fla", StringComparison.OrdinalIgnoreCase))
+            {
+                // Keep a stable DATA:movie.xml source name in the manifest.
+                // The wrapper lives under the output root, so its physical
+                // pathname must not become the published source identity.
+                // Copy the array to leave shared preparation unchanged.
+                settings.DataPaths = settings.DataPaths.Concat(new[] { Path.GetDirectoryName(settings.InputPath) }).ToArray();
+            }
             return settings;
         }
 
