@@ -22,8 +22,12 @@ namespace BinaryAssetBuilder.UiCompiler
     {
         UiAssetGroup CompileUiFile(InstanceDeclaration declaration, TargetPlatform platform);
     }
+    public interface IUiFolderCompiler
+    {
+        ModStreams CompileFolder(string sourceDirectory, string outputBase);
+    }
     /// <summary>AudioCompiler-compatible lifecycle plus a multi-asset FLA build entry.</summary>
-    public class Plugin : IAssetBuilderPlugin, IUiFileCompiler, IDisposable
+    public class Plugin : IAssetBuilderPlugin, IUiFileCompiler, IUiFolderCompiler, IDisposable
     {
         private bool initialized, disposed;
         private UiCompilerConfiguration configuration;

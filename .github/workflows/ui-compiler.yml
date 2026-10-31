@@ -1,0 +1,26 @@
+name: Flash 8 UI compiler
+on:
+  push:
+    branches: [feat/flash8-fla-to-swf]
+    paths: ['ui/**', '.github/workflows/ui-compiler.yml']
+  pull_request:
+    paths: ['ui/**', '.github/workflows/ui-compiler.yml']
+  workflow_dispatch:
+jobs:
+  verify:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Build plugin and verify folder compilation
+        shell: pwsh
+        run: ./ui/build/Verify.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UiCompiler-${{ matrix.os }}
+          path: ui/artifacts/UiCompiler.zip

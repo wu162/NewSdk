@@ -52,7 +52,7 @@ using (var plugin = new Plugin())
 
 ```text
 dotnet build ui/BinaryAssetBuilder.UiCompiler.csproj -c Release -f net472
-dotnet run --project ui/tests/UiCompiler.Tests.csproj
+dotnet run --project ui/tests/UiCompiler.Tests.csproj -f net8.0
 ```
 
 部署 `ui/bin/Release/net472/` 的插件、LibTessDotNet 和 StbImageSharp 到宿主目录。Core 由 SDK/宿主提供。`net8.0` 用于跨平台组件测试；字体轮廓测试需要 Windows。

@@ -51,7 +51,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         private As2Class classContext;
         private ActionScriptCompiler(string source) { Lex(source); }
         internal static byte[] Compile(string source) { var c = new ActionScriptCompiler(source); c.Imports(null); while (!c.At("<eof>")) c.Statement(); return c.code.Finish(true); }
-        private Token Current => tokens[cursor];
+        private Token Current => tokens[Math.Min(cursor, tokens.Count - 1)];
         private bool At(string text) => Current.Text == text;
         private bool Eat(string text) { if (!At(text)) return false; cursor++; return true; }
         private void Need(string text) { if (!Eat(text)) throw Error("Expected '" + text + "', found '" + Current.Text + "'."); }
@@ -77,7 +77,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
             if (Eat("for")) { For(); return; }
             if (Eat("function")) { string name = Identifier(); EmitFunction(Function(name)); return; }
             if (Eat("return")) { if (At(";") || At("}") || At("<eof>") || Current.Line > tokens[cursor - 1].Line) code.Push(Undefined.Value); else Emit(Expression()); code.Op(0x3e); Semicolon(); return; }
-            if (Eat("break") || Eat("continue")) { bool cont = tokens[cursor - 1].Text == "continue"; if (loops.Count == 0 || cont && loops.Peek().Item2 < 0) throw Error("No enclosing loop."); code.Jump(0x99, cont ? loops.Peek().Item2 : loops.Peek().Item1); Semicolon(); return; }
+            if (Eat("break") || Eat("continue")) { bool cont = tokens[cursor - 1].Text == "continue"; var target = cont ? loops.FirstOrDefault(l => l.Item2 >= 0) : loops.FirstOrDefault(); if (target == null) throw Error("No enclosing loop."); code.Jump(0x99, cont ? target.Item2 : target.Item1); Semicolon(); return; }
             if (Eat("throw")) { Emit(Expression()); code.Op(0x2a); Semicolon(); return; }
             if (Eat("switch")) { Switch(); return; }
             if (At("class") || At("interface") || At("import") || At("#include") || At("try") || At("with")) throw Error("Unsupported AS2 construct '" + Current.Text + "'.");
@@ -91,6 +91,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
             Node iterator = declaration ? new Node("variable", Identifier()) : At(";") ? null : Expression(11); if (declaration) TypeAnnotation();
             if (iterator != null && Eat("in"))
             {
+                if (declaration) { code.Push(iterator.Name); code.Op(0x41); }
                 Emit(Expression()); Need(")"); code.Op(0x55); int next = code.Label(), cleanup = code.Label(), done = code.Label(); code.Mark(next); code.Op(0x4c); code.Push(null); code.Op(0x49); code.Jump(0x9d, cleanup);
                 code.Store(0); code.Op(0x17); iterator = Resolve(iterator); Target(iterator, false); code.Register(0); code.Op(iterator.Kind == "variable" ? 0x1d : 0x4f);
                 loops.Push(Tuple.Create(cleanup, next)); Statement(); loops.Pop(); code.Jump(0x99, next);

@@ -16,7 +16,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
         private readonly HashSet<string> compiling = new HashSet<string>(StringComparer.Ordinal);
         internal readonly List<string> Inputs = new List<string>();
         internal readonly List<As2Class> ClassOrder = new List<As2Class>();
-        private static readonly Regex Include = new Regex(@"(?m)^[\t ]*#include[\t ]+[""']([^""'\r\n]+)[""'][\t ]*;?[^\r\n]*", RegexOptions.CultureInvariant);
+        private static readonly Regex Include = new Regex(@"(?m)^[\t ]*#include[\t ]+[""']([^""'\r\n]+)[""'][\t ]*;?[\t ]*(?://[^\r\n]*)?\r?$", RegexOptions.CultureInvariant);
         internal SourceProject(string directory)
         {
             root = Path.GetFullPath(directory).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
@@ -76,7 +76,7 @@ namespace BinaryAssetBuilder.UiCompiler.Swf
             if (!stack.Add(owner)) throw new InvalidDataException("Circular #include: " + owner);
             try
             {
-                string mask = Mask(source, false);
+                string mask = Mask(source);
                 return Include.Replace(source, match =>
                 {
                     int hash = source.IndexOf('#', match.Index, match.Length); if (hash < 0 || mask[hash] != '#') return match.Value;
