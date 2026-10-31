@@ -1,3 +1,9 @@
+# 当前：音频输出身份修复验证中，PR #41
+
+`benchmark/original-sdk-current` / `8050f22d`：NONE/XAS 等旧音频恢复原 ProcessingHash，仅新 EALayer3 保留独立实例身份。使用已有会话编译器版本迁移旧音频声明，保留独立 Audio DLL 的原 BAB 类型级策略；音频 lazy 路由已接线，其它路由不增加元数据分配。编码器没有修改。
+
+[Windows 41244132060](https://github.com/wu162/NewSdk/actions/runs/41244132060) 正在新构建 Debug/Release 并执行完整适用回归，包含混合 NONE/XAS/EALayer3、上一版真实会话升级与热态检查；尚未验收通过。此前 `5d31c596` 的首次运行仍保留，不取消或冒充最终候选。之后用新验收产物重跑完整 Upheaval 原 SDK 字节对照，旧 41212813051 的失败和速度数字保留为历史。[音频缓存规则](audio/EaLayer3.md)。[PR #41](https://github.com/wu162/NewSdk/pull/41) 未合并，禁止强推。
+
 # 当前：原 SDK 与当前编译器 Benchmark 已执行，PR #41
 
 用户指定 `recovery/legacy-sdk-cache` / `1a73017a`（PR #40 已合入）。复用生产 `12c82011` / `41204304969` 的已验收 Release，生产/SDK/构建输入闭包和三份运行文件核对一致，没有重建。[本轮 41212813051](https://github.com/wu162/NewSdk/actions/runs/41212813051) 已完成 20 配对/40 进程，全部编译退出0；工作流 **failure / outputs-differ**，不能称整组通过。[PR #41](https://github.com/wu162/NewSdk/pull/41) 保存复现脚本与证据，未合并。
