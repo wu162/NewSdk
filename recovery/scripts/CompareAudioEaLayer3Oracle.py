@@ -1,14 +1,16 @@
 import argparse,json,subprocess
 from pathlib import Path
 from ValidateAudioEaLayer3 import need,wav
-p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--decoder',required=True);a=p.parse_args();rows=[]
-for header in (a.root/'oracle/assets').glob('*.snr'):
+p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--decoder',required=True);p.add_argument('--reference',default='oracle');p.add_argument('--reference-codec',type=int,required=True);a=p.parse_args();rows=[]
+for header in (a.root/a.reference/'assets').glob('*.snr'):
     candidate=a.root/'Release/jobs1'/header.name
     expected=subprocess.run([a.decoder,'-m','-I',str(header)],capture_output=True,text=True,check=True,timeout=20)
     original=json.loads(expected.stdout);new=json.loads(candidate.with_suffix('.info.json').read_text())
     for key in ('sampleRate','channels','numberOfSamples','loopingInfo','encoding'):
         need(original[key]==new[key],f'{header.stem}: reference {key} differs ({original[key]} / {new[key]})')
-    need(header.read_bytes()[:8]==candidate.read_bytes()[:8],f'{header.stem}: reference SNR descriptor differs')
+    source_header=header.read_bytes();new_header=candidate.read_bytes()
+    need(source_header[0]==a.reference_codec and new_header[0]==5,f'{header.stem}: reference/candidate variant differs from declared comparison')
+    need(source_header[1:8]==new_header[1:8],f'{header.stem}: reference SNR channel/rate/play/loop/sample descriptor differs')
     decoded=header.with_suffix('.decoded.wav')
     subprocess.run([a.decoder,'-i','-o',str(decoded),str(header)],capture_output=True,check=True,timeout=20)
     ch,rate,reference=wav(decoded);ch2,rate2,actual=wav(candidate.with_suffix('.decoded.wav'))
@@ -21,6 +23,6 @@ for header in (a.root/'oracle/assets').glob('*.snr'):
         correlation=dot/math.sqrt(max(1,power))
         need(correlation>0.85,f'{header.stem}: reference/candidate signals differ ({correlation})')
     else:correlation=None
-    rows.append({'id':header.stem,'metadataEqual':True,'signalCorrelation':correlation,'referenceBytes':header.with_suffix('.cdata').stat().st_size,'candidateBytes':candidate.with_suffix('.cdata').stat().st_size})
+    rows.append({'id':header.stem,'metadataEqual':True,'referenceCodec':a.reference_codec,'candidateCodec':5,'signalCorrelation':correlation,'referenceBytes':header.with_suffix('.cdata').stat().st_size,'candidateBytes':candidate.with_suffix('.cdata').stat().st_size})
 need(len(rows)>=20,'Reference comparison cases absent')
-(a.root/'oracle/comparison.json').write_text(json.dumps({'passed':True,'cases':rows},indent=2));print('PASS jonwil RA3 plugin reference:',len(rows),'formats/decoded signals')
+(a.root/a.reference/'comparison.json').write_text(json.dumps({'passed':True,'cases':rows},indent=2));print('PASS jonwil RA3 plugin reference:',len(rows),'formats/decoded signals')

@@ -5,7 +5,7 @@
 
 ## 编码与来源
 
-`AudioFile PCCompression="EALAYER3"` 现在选择 SIMEX representation 31，输出 SNR
+`AudioFile PCCompression="EALAYER3"` 现在选择 AudioPolicy representation 31，输出 SNR
 codec **5 / EL31 / EALayer3 V1b**，不再输出 PCM 降级警告或 PCM 替代数据。
 V2 PCM/spike、TW 的旧 EALayer3、Xbox/XMA 不在实现中。
 
@@ -18,9 +18,11 @@ V2 PCM/spike、TW 的旧 EALayer3、Xbox/XMA 不在实现中。
 参考与验证：
 
 - RA3 插件 `jonwil/ealayer3compilerplugin` / `ed407302ae63cd6ba849af586ef765c03ca008b3`：
-  codec31、质量默认 75/范围 0–100、RAM/streamed 的 CustomData 及运行时元数据合同。
+  其源码选择 codec31，但随附 audio.dll（SHA256 `149de43e1e7c914b8e44dd5e0cdcbed45de33890ebd2708c8223b278874a610f`）
+  实测输出 SNR6/V2 PCM；保留原样的元数据/波形对照，并另以 codec30 及对应质量分支生成
+  明确标记的 V1 参照。质量默认 75、范围 0–100，RAM/streamed 的资产合同沿用原插件。
 - `jonwil/snrtool` / `34308631b0bf94a57d1d254b651ee191346377ab`：
-  representation31 → SNR5、流式块、下一 64 字节边界填充和循环段。
+  `ealayer3_int=30` → SNR5、`ealayer3pcm_int=31` → SNR6、流式块、下一 64 字节边界填充和循环段。
 - `jonwil/lame-3.96` / `ed9d6f623109775b89159ed506c20afb1e8f20b4`：核对 LAME 来源。
 - vgmstream r2168：独立解码 EL31b。Windows ZIP SHA256
   `692d45070852a35c1fa42726aa3c9de528e44eec925d37d99b1074256b99a229`。

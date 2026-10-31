@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace BinaryAssetBuilder.AudioCompiler
 {
-    // SNR codec 5 (EL31 / EALayer3 V1b), SIMEX representation 31.
+    // SNR codec 5 (EL31 / EALayer3 V1b), AudioPolicy representation 31.
     // The original interleaved samples are pinned, not marshalled/copied.
     public static class EaLayer3Encoder
     {
