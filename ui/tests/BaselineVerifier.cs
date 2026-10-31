@@ -3,11 +3,21 @@ using System.Security.Cryptography;
 
 internal static class BaselineVerifier
 {
-    internal static void Capture(ModStreams streams)
+    // Captured before removal of the old FLA->SWF->APT path (commit e235cede).
+    // These are final AssetBuffer digests, including runtime root and padding.
+    private static readonly Dictionary<string, string> Expected = File.ReadAllLines(Path.Combine(AppContext.BaseDirectory, "fixtures", "legacy-assets.sha256")).Where(l => l.Length > 0).Select(l => l.Split('\t')).ToDictionary(p => p[0], p => p[1]);
+    private static readonly HashSet<string> Seen = new HashSet<string>();
+    internal static void Complete(Action<bool, string> check) => check(Seen.SetEquals(Expected.Keys), "All 54 legacy final assets verified");
+    internal static void Verify(ModStreams streams, Action<bool, string> check)
     {
-        string path = Environment.GetEnvironmentVariable("UI_CAPTURE_BASELINE"); if (string.IsNullOrEmpty(path)) return;
         using var sha = SHA256.Create();
         foreach (var asset in streams.Assets)
-        { string hash = BitConverter.ToString(sha.ComputeHash(asset.Buffer.InstanceData)).Replace("-", "").ToLowerInvariant(); File.AppendAllText(path, asset.Source + ":" + asset.TypeName + ":" + asset.Name + "\t" + hash + "\n"); }
+        {
+            string key = asset.Source + ":" + asset.TypeName + ":" + asset.Name;
+            if (!Expected.TryGetValue(key, out string expected)) continue;
+            Seen.Add(key);
+            string hash = BitConverter.ToString(sha.ComputeHash(asset.Buffer.InstanceData)).Replace("-", "").ToLowerInvariant();
+            check(hash == expected, "Legacy final asset identity " + key + ": " + hash);
+        }
     }
 }

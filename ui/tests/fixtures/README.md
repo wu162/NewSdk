@@ -5,10 +5,10 @@ They are redistributed under LGPL-2.1-or-later; see
 `0001_empty_doc.fla`. These are real binary Flash 8 source documents, not
 renamed SWF or ZIP/XFL files.
 
-`CoronaUIMain.swf` is a reference **test input**, copied from NewSdk's
-`feature/swf-direct-compiler` at `148681ad7bfecf571b2ba5c49c000594539bc17a`.
-Its SHA-256 is checked before conversion. The APT/const/DAT golden digests
-come from that commit's `ui/evidence/source-consistency.json`, run
-`40288873546`, where the unchanged attachment-matched .NET 8 x86 tool was
-executed with `ra3=true,optimize=false`. The product neither accepts this
-SWF fixture as input nor generates intermediate files.
+`legacy-assets.sha256` contains 54 SHA-256 digests of the **final**
+root-prefixed AssetBuffers produced at commit
+`e235cededd385a6895895ceb354f46a6667caaa3`, before removing the intermediate
+SWF/APT pipeline. Keys are `source-file:asset-type:asset-name`. The baseline
+covers all the Flash 8 fixtures plus the source-folder/include/AS2-class
+scenario in `Program.cs` after the include changes. Tests compare the direct
+compiler's final buffers without retaining the old intermediate encoders.

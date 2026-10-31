@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using BinaryAssetBuilder.Core;
 using BinaryAssetBuilder.UiCompiler.Fla;
-using BinaryAssetBuilder.UiCompiler.Swf;
+using BinaryAssetBuilder.UiCompiler.Compilation;
+using BinaryAssetBuilder.UiCompiler.Runtime;
 
 namespace BinaryAssetBuilder.UiCompiler
 {
@@ -88,12 +89,8 @@ namespace BinaryAssetBuilder.UiCompiler
             {
                 System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
                 var document = FlaDocument.Read(File.ReadAllBytes(path)); var project = new SourceProject(Path.GetDirectoryName(Path.GetFullPath(path)));
-                // These are memory buffers only. The APT bytes are the game's
-                // runtime payload and go straight into the final linked .bin.
-                var movie = new eaf2apt.AptConverter().Convert(new FlaCompiler(document, project, path).Compile());
-                var assets = new List<CompiledUiAsset> { new CompiledUiAsset("AptAptData", name + "_apt", source, movie.Apt), new CompiledUiAsset("AptConstData", name + "_const", source, movie.Constants), new CompiledUiAsset("AptDatData", name + "_dat", source, movie.Dat) };
-                foreach (var geometry in movie.Geometry) assets.Add(new CompiledUiAsset("AptGeometryData", name + "_" + geometry.Key, source, geometry.Value, geometry.Key));
-                foreach (var texture in movie.Textures) assets.Add(new CompiledUiAsset("Texture", "apt_" + name + "_" + texture.Key, source, TextureBuilder.Dds(texture.Value)));
+                var scene = new FlaCompiler(document, project, path).Compile();
+                var assets = new AssetEncoder(scene).Build(name, source);
                 return new UiAssetGroup(assets, new[] { Path.GetFullPath(path) }.Concat(project.Inputs).Distinct(StringComparer.OrdinalIgnoreCase).OrderBy(p => p, StringComparer.Ordinal).ToArray());
             }
             catch (Exception ex) when (ex is InvalidDataException || ex is NotSupportedException || ex is EndOfStreamException)

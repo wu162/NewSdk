@@ -9,11 +9,11 @@ void Reject(Action action, string message)
 Check(SageHash.Symbol("AptAptData") == 1816258268u, "SAGE type hash");
 Check(SageHash.Symbol("AptGeometryData") == 1034587168u, "SAGE geometry type hash");
 Check(SageHash.Symbol("Texture") != 0, "Texture type ID");
-AptOracle.Verify(Check);
+RuntimeFixture.VerifyArchitecture(Check);
 GeometryTests.Run(Check);
 void RunScript(string source, string expected)
 {
-    var machine = new Avm1Machine(); machine.Run(BinaryAssetBuilder.UiCompiler.Swf.ActionScriptCompiler.Compile(source));
+    var machine = new Avm1Machine(); machine.Run(BinaryAssetBuilder.UiCompiler.Compilation.ActionScriptCompiler.Compile(source));
     Check(string.Join(",", machine.Traces) == expected, "AS2 execution: " + source);
 }
 RunScript("var x=1; x+=2; trace(x); trace(x++); trace(++x);", "3,3,5");
@@ -36,9 +36,9 @@ if (args.Length == 0)
         File.WriteAllText(Path.Combine(source, "Main.as"), "import logic.Controller;\n#include \"setup.as\"\nvar controller:Controller = new Controller(); controller.advance(2); stop();");
         File.WriteAllText(Path.Combine(source, "setup.as"), "var count:Number = 0; for(var i:Number=0;i<3;i++){count+=i;} trace(count);");
         File.WriteAllText(Path.Combine(source, "logic", "Controller.as"), "class logic.Controller extends MovieClip { private var count:Number=0; public static var STEP:Number=2; function Controller(){super();} public function advance(count:Number):Number {this.count += count; return this.count;} public function get value():Number{return count;} public function set value(n:Number):Void{count=n;} public function inspect():Number {var f=function(){var count=42;}; return count;} }");
-        var project = new BinaryAssetBuilder.UiCompiler.Swf.SourceProject(source);
+        var project = new BinaryAssetBuilder.UiCompiler.Compilation.SourceProject(source);
         var cls = project.RequireClass("logic.Controller"); var vm = new Avm1Machine(); vm.Run(cls.Code);
-        vm.Run(BinaryAssetBuilder.UiCompiler.Swf.ActionScriptCompiler.Compile("import logic.Controller; var c=new Controller(); trace(c.advance(2)); c.value=9; trace(c.value); trace(Controller.STEP); trace(c.inspect());"));
+        vm.Run(BinaryAssetBuilder.UiCompiler.Compilation.ActionScriptCompiler.Compile("import logic.Controller; var c=new Controller(); trace(c.advance(2)); c.value=9; trace(c.value); trace(Controller.STEP); trace(c.inspect());"));
         Check(string.Join(",", vm.Traces) == "2,9,2,9", "AS2 members, parameter/nested local scopes, accessors and static fields");
         using var plugin = new Plugin(); plugin.Initialize(null, TargetPlatform.Win32);
         string output = Path.Combine(testRoot, "output", "Mod");
@@ -47,7 +47,7 @@ if (args.Length == 0)
         Check(first.InputFiles.Count == 4, "FLA and all AS dependencies");
         File.AppendAllText(Path.Combine(source, "setup.as"), "\ntrace(\"changed\");");
         var second = plugin.CompileFolder(source, output);
-        BaselineVerifier.Capture(second);
+        BaselineVerifier.Verify(second, Check);
         Check(!first.Binary.SequenceEqual(second.Binary), "External AS change rebuilds the stream");
         Check(first.Assets.Count == 3, "Script-only movie still emits all three APT assets");
         StreamVerifier.Verify(second, Check);
@@ -77,17 +77,16 @@ foreach (string file in samples)
     FlaDocument document = FlaDocument.Read(File.ReadAllBytes(file));
     Check(document.Contents.Number("revision") == 0x3f, "Flash 8 revision");
     Check(document.Scenes.Any(), "Scene list");
-    byte[] swf = new BinaryAssetBuilder.UiCompiler.Swf.FlaCompiler(document).Compile();
-    Check(swf[3] == 8, "SWF 8 version");
-    var apt = new eaf2apt.AptConverter().Convert(swf);
-    Check(apt.Apt.Length > 16 && apt.Constants.Length > 16, "APT output");
+    var scene = new BinaryAssetBuilder.UiCompiler.Compilation.FlaCompiler(document).Compile();
+    Check(scene.Frames.Count > 0, "Direct timeline model");
     using var plugin = new Plugin(); plugin.Initialize(null, TargetPlatform.Win32);
     var streams = plugin.CompileMod(file, "UiTest");
-    BaselineVerifier.Capture(streams);
-    Check(streams.Assets.Count == 3 + apt.Geometry.Count + apt.Textures.Count, "Complete asset group");
+    BaselineVerifier.Verify(streams, Check);
+    Check(streams.Assets.Count == 3 + scene.Symbols.Values.Count(s => s is BinaryAssetBuilder.UiCompiler.Compilation.MeshSymbol || s is BinaryAssetBuilder.UiCompiler.Compilation.ImageSymbol), "Complete asset group");
     Check(streams.Manifest[1] == 1 && streams.Manifest[2] == 6, "Linked manifest v6");
     Check(BitConverter.ToUInt32(streams.Manifest, 4) == BitConverter.ToUInt32(streams.Binary, 0), "Binary checksum");
     StreamVerifier.Verify(streams, Check);
-    Console.WriteLine("Compiled " + Path.GetFileName(file) + ": " + document.Pages.Count + " pages, " + document.Payloads.Count + " media; SWF=" + swf.Length + ", APT=" + apt.Apt.Length + ", geometry=" + apt.Geometry.Count + ", textures=" + apt.Textures.Count);
+    Console.WriteLine("Compiled " + Path.GetFileName(file) + ": " + document.Pages.Count + " pages, " + document.Payloads.Count + " media; assets=" + streams.Assets.Count);
 }
+if (args.Length == 0) BaselineVerifier.Complete(Check);
 Console.WriteLine(passed + " checks passed.");

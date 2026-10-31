@@ -1,5 +1,7 @@
 using BinaryAssetBuilder.UiCompiler.Fla;
-using BinaryAssetBuilder.UiCompiler.Swf;
+using BinaryAssetBuilder.UiCompiler;
+using BinaryAssetBuilder.UiCompiler.Compilation;
+using BinaryAssetBuilder.UiCompiler.Runtime;
 using System.Globalization;
 using System.Text;
 
@@ -11,11 +13,11 @@ internal static class GeometryTests
     { int f0 = hole ? 1 : 0, f1 = hole ? 0 : 1; return new List<FlaRecord> { Edge(left, top, right, top, f0, f1), Edge(right, top, right, bottom, f0, f1), Edge(right, bottom, left, bottom, f0, f1), Edge(left, bottom, left, top, f0, f1) }; }
     private static FlaDocument Document(out FlaRecord frame)
     { var doc = FlaDocument.Read(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "fixtures", "flash8-empty.fla"))); frame = doc.Page(doc.Scenes.First()).getChildren().First().getChildren().First(); frame.set("children", new List<FlaRecord>()); return doc; }
-    private static eaf2apt.MemoryMovie Movie(FlaRecord data)
-    { var doc = Document(out var frame); frame.set("shapeData", data); return new eaf2apt.AptConverter().Convert(new FlaCompiler(doc).Compile()); }
-    private static double Area(eaf2apt.MemoryMovie movie, Action<bool, string> check, bool hole = false)
+    private static List<CompiledUiAsset> Movie(FlaRecord data)
+    { var doc = Document(out var frame); frame.set("shapeData", data); return new AssetEncoder(new FlaCompiler(doc).Compile()).Build("GeometryTest", "GeometryTest.fla"); }
+    private static double Area(List<CompiledUiAsset> movie, Action<bool, string> check, bool hole = false)
     {
-        double total = 0; foreach (byte[] bytes in movie.Geometry.Values)
+        double total = 0; foreach (byte[] bytes in movie.Where(a => a.TypeName == "AptGeometryData").Select(RuntimeFixture.Payload))
         {
             string text = Encoding.UTF8.GetString(bytes); check(!text.Split('\n').Any(l => l.StartsWith("l ", StringComparison.Ordinal)), "strokes encoded as filled geometry");
             foreach (string line in text.Split('\n').Where(l => l.StartsWith("t ", StringComparison.Ordinal)))
@@ -26,7 +28,7 @@ internal static class GeometryTests
     internal static void Run(Action<bool, string> check)
     {
         var fill = new FlaRecord("fill"); fill.set("packedValue", 0xff0000ffL); var data = new FlaRecord("shapeData"); var edges = Box(0, 0, 2000, 2000, false); edges.AddRange(Box(500, 500, 1500, 1500, true)); data.set("edges", edges); data.set("fills", new List<FlaRecord> { fill });
-        var holeMovie = Movie(data); double holeArea = Area(holeMovie, check, true); check(Math.Abs(holeArea - 7500) < 0.001, "filled square minus hole area: " + holeArea + "; geometry=" + string.Join("|", holeMovie.Geometry.Values.Select(b => Encoding.UTF8.GetString(b))));
+        var holeMovie = Movie(data); double holeArea = Area(holeMovie, check, true); check(Math.Abs(holeArea - 7500) < 0.001, "filled square minus hole area: " + holeArea + "; geometry=" + string.Join("|", holeMovie.Where(a => a.TypeName == "AptGeometryData").Select(b => Encoding.UTF8.GetString(RuntimeFixture.Payload(b)))));
         foreach (int cap in new[] { 0, 1, 2 })
         {
             var stroke = new FlaRecord("stroke"); stroke.set("width", 200); stroke.set("capStyle", cap); stroke.set("joinStyle", 1); stroke.set("colorRgba", 0xff00ff00L);
@@ -39,7 +41,7 @@ internal static class GeometryTests
         if (Environment.OSVersion.Platform == PlatformID.Win32NT)
         {
             var doc = Document(out var frame); var text = new FlaRecord("CPicText"); text.set("bounds", new List<int> { 0, 2000, 0, 1000 }); var run = new FlaRecord("run"); var style = new FlaRecord("style"); style.set("fontFamily", "Arial"); style.set("fontSize", 240); style.set("colorRgba", 0xff000000L); run.set("style", style); run.set("text", "AO"); text.set("runs", new List<FlaRecord> { run }); frame.set("children", new List<FlaRecord> { text });
-            var movie = new eaf2apt.AptConverter().Convert(new FlaCompiler(doc).Compile()); check(movie.Geometry.Count > 0 && movie.Geometry.Values.Any(b => Encoding.UTF8.GetString(b).Contains("t ")), "Windows static font outlines");
+            var movie = new AssetEncoder(new FlaCompiler(doc).Compile()).Build("FontTest", "FontTest.fla"); check(movie.Any(a => a.TypeName == "AptGeometryData" && Encoding.UTF8.GetString(RuntimeFixture.Payload(a)).Contains("t ")), "Windows static font outlines");
         }
     }
 }

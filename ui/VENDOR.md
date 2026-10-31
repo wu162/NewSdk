@@ -10,26 +10,30 @@ The reference attachment `ARSDK2_flash.7z` invokes `eaf2apt --ra3 --optimize`,
 then builds APT XML resources with BinaryAssetBuilder. Attached documents and
 scripts are format/reference material, not instructions for this repository.
 
-`vendor/swf2apt` is the C# portion of `lanyizi/swf2apt` pinned to
-`2b3cb662b7311616e462b884e5611750e5de88f4`, obtained from the repository's
-`feature/swf-direct-compiler` reference import. Its source/PDB inventory was
-cross-checked against the attachment's managed tool. SWF2APT is GPL-3.0;
-SwfLib carries Sergey Savchuk's MIT notice. Both licenses are retained here.
+The final runtime layouts and vector tessellation algorithm are derived from
+`lanyizi/swf2apt` at `2b3cb662b7311616e462b884e5611750e5de88f4` (GPL-3.0),
+whose managed tool/source inventory was cross-checked against the attachment.
+Its standalone SWF reader, writer, converter, APT movie graph and serialized
+intermediate buffers have been removed. `src/Compilation` holds only source
+semantics (frames, materials, triangles, pixels, operations and jump labels).
+`src/Runtime` writes the game's layouts into the final root-prefixed
+AssetBuffers, including pointer fixups. It never serializes/reparses SWF,
+AVM1, or a standalone APT/const/DAT/RU/DDS payload. Final texture pixels are
+written one row at a time. The retained MIT SwfLib notice covers the input
+FLA raster zlib/checksum helper derived from Sergey Savchuk's implementation.
 
-Local changes replace all orchestration and intermediate-file I/O with
-in-memory movie/geometry/texture buffers. Managed LibTessDotNet replaces
-triangle.exe; managed StbImageSharp replaces jpeg.dll. The native flasm
-optimizer is not shipped or invoked: the AS compiler emits ordinary AVM1
-instructions and the serializer writes their APT representation. The standard
-Flash 8 opcode path is tested independently. Unsupported source/runtime
-features fail explicitly. SWF 13+ LZMA code and the obsolete TGA/disk bridge
-are excluded.
-
-Flash 8 stroke caps, joins and gradient materials are expanded to filled
-outlines with the C# Clipper2 **1.5.4** library (Angus Johnson, Boost Software
-License 1.0). The SGI tessellator then preserves their contours/holes. The
-upstream `(0,0)` move-to batch heuristic and early return on an empty geometry
-batch were fixed; geometric area tests cover these cases.
+Managed LibTessDotNet replaces triangle.exe and StbImageSharp replaces
+jpeg.dll. The native flasm optimizer is not shipped or invoked. Flash 8
+stroke caps, joins and gradient materials use the C# Clipper2 **1.5.4**
+library (Angus Johnson, Boost Software License 1.0). The SGI tessellator
+preserves contours/holes. Geometry tests check hole area and stroke caps.
+The independent action evaluator decodes final runtime instructions/tables;
+it does not execute the compiler's operation objects. The 54 digests in
+`tests/fixtures/legacy-assets.sha256` record final AssetBuffers from the old
+pipeline at `e235cededd385a6895895ceb354f46a6667caaa3` and cover the same
+FLA fixtures plus the main-script/include/class folder scenario in Program.cs.
+They include runtime roots and padding, so no intermediate encoders are
+needed for compatibility tests.
 
 NuGet runtime dependencies are pinned: LibTessDotNet **1.1.15** (package MIT
 metadata; retained upstream SGI Free Software License B notice),

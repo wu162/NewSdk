@@ -14,12 +14,23 @@ namespace BinaryAssetBuilder.UiCompiler
         public uint InstanceId { get; }
         public uint InstanceHash { get; }
         public AssetBuffer Buffer { get; }
-        internal CompiledUiAsset(string type, string name, string source, byte[] payload, int aptId = 0)
+        internal CompiledUiAsset(string type, string name, string source, Action<Stream> writePayload, int aptId = 0)
         {
             if (string.IsNullOrWhiteSpace(name) || name.IndexOf('\0') >= 0) throw new ArgumentException("An asset name is required.", nameof(name));
             TypeName = type; Name = name; Source = source; var metadata = UiCatalog.Find(type); TypeId = metadata.TypeId; TypeHash = metadata.TypeHash; InstanceId = SageHash.Symbol(name.ToLowerInvariant());
-            int rootSize = type == "AptGeometryData" ? 16 : 12; var instance = new byte[checked(rootSize + ((payload.Length + 3) & ~3))];
-            Word(instance, 4, (uint)rootSize); Word(instance, 8, (uint)payload.Length); if (rootSize == 16) Word(instance, 12, unchecked((uint)aptId)); System.Buffer.BlockCopy(payload, 0, instance, rootSize, payload.Length);
+            int rootSize = type == "AptGeometryData" ? 16 : 12;
+            byte[] instance;
+            using (var finalAsset = new MemoryStream())
+            {
+                finalAsset.SetLength(rootSize); finalAsset.Position = rootSize;
+                var payload = new AssetPayloadStream(finalAsset, rootSize);
+                writePayload(payload); int payloadSize = checked((int)payload.Length);
+                finalAsset.Position = finalAsset.Length;
+                while ((finalAsset.Length & 3) != 0) finalAsset.WriteByte(0);
+                instance = finalAsset.ToArray();
+                Word(instance, 4, (uint)rootSize); Word(instance, 8, (uint)payloadSize);
+                if (rootSize == 16) Word(instance, 12, unchecked((uint)aptId));
+            }
             Buffer = new AssetBuffer { InstanceData = instance, RelocationData = new byte[] { 4, 0, 0, 0, 255, 255, 255, 255 }, ImportsData = Array.Empty<byte>() };
             InstanceHash = SageHash.Data(instance);
         }
@@ -27,7 +38,7 @@ namespace BinaryAssetBuilder.UiCompiler
     }
     internal static class UiCatalog
     {
-        internal const uint ProcessingHash = 0x55493802;
+        internal const uint ProcessingHash = 0x55493803;
         internal static readonly Tuple<string, uint, uint>[] Types = {
             Tuple.Create("AptAptData", 1816258268u, 3795385027u), Tuple.Create("AptConstData", 983359664u, 3876251416u),
             Tuple.Create("AptDatData", 1110676961u, 230038576u), Tuple.Create("AptGeometryData", 1034587168u, 1390234602u),

@@ -2,7 +2,7 @@
 
 纯 C# 类库，源码、依赖来源、测试均在根目录 `ui/`。不需要安装 Flash 8、Java、Python，也不启动 eaf2apt、flasm 或 triangle 进程。
 
-输入是同一个素材目录里的二进制 Flash 8 `.fla` 和配套 `.as`。输出只有最终 Mod 的 `.manifest/.bin/.relo/.imp`。转换数据在进程内存中直接进入资产缓冲区；不生成 SWF、APT、const、dat、ru、TGA、DDS 或 XML 中间文件。贴图以 DDS 运行时数据嵌入 `.bin`，无需另建 cdata 文件。
+输入是同一个素材目录里的二进制 Flash 8 `.fla` 和配套 `.as`。输出只有最终 Mod 的 `.manifest/.bin/.relo/.imp`。编译路径为 `FLA/AS → 时间轴、网格、像素、指令对象 → 最终 AssetBuffer → 四流`。内存中也不创建独立 SWF、APT、const、dat、RU、DDS 或编码后的 AVM1 中间缓冲区，不进行 SWF 序列化与重解析。游戏需要的 APT、常量表、几何和纹理运行时布局直接写入最终资产并链接到 `.bin`；这些是最终产物的组成部分。无需另建 cdata 文件。
 
 ## 宿主入口
 
@@ -57,4 +57,6 @@ dotnet run --project ui/tests/UiCompiler.Tests.csproj -f net8.0
 
 部署 `ui/bin/Release/net472/` 的插件、LibTessDotNet、Clipper2Lib 和 StbImageSharp 到宿主目录。Core 由 SDK/宿主提供。`net8.0` 用于跨平台组件测试；字体轮廓测试需要 Windows。`ui/build/Verify.ps1` 运行验证并在 `ui/artifacts/UiCompiler.zip` 打包部署文件。
 
-APT 序列化依据附件工具对应的 SWF2APT 源码；资产布局、类型哈希、重定位和 v6 四流逻辑依据指定 recovery 分支。固定来源、许可及移植修改见 [VENDOR.md](VENDOR.md)。自动化验证不能代替游戏内 UI 验收。
+最终资产编码依据附件工具对应的 SWF2APT 运行时布局；资产布局、类型哈希、重定位和 v6 四流逻辑依据指定 recovery 分支。固定来源、许可及移植修改见 [VENDOR.md](VENDOR.md)。自动化验证不能代替游戏内 UI 验收。
+
+回归测试直接解析最终 AssetBuffer 并执行其中的 AS 指令、检查几何孔洞/描边面积与四流布局；54 个最终资产的 SHA-256 与删除中间格式前的基线逐一比对。产品程序集不再包含 SwfLib、SWF 读写器或 SWF→APT 转换器。
