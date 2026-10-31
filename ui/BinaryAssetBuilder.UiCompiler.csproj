@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net472;net8.0</TargetFrameworks>
     <AssemblyName>BinaryAssetBuilder.UiCompiler</AssemblyName>
     <RootNamespace>BinaryAssetBuilder.UiCompiler</RootNamespace>
     <LangVersion>latest</LangVersion>
@@ -10,4 +10,16 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
   <ItemGroup><Compile Include="src/**/*.cs" /></ItemGroup>
+  <ItemGroup>
+    <Compile Include="vendor/swf2apt/**/*.cs" Exclude="vendor/swf2apt/SwfLib/FlashLzipStream.cs" />
+    <PackageReference Include="LibTessDotNet" Version="1.1.15" />
+    <PackageReference Include="StbImageSharp" Version="2.30.15" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.21" Condition="'$(TargetFramework)' == 'net8.0'" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.3" PrivateAssets="all" Condition="'$(TargetFramework)' == 'net472'" />
+    <Reference Include="System.Drawing" Condition="'$(TargetFramework)' == 'net472'" />
+    <Reference Include="BinaryAssetBuilder.Core">
+      <HintPath>../SDK/tools/BinaryAssetBuilder.Core.dll</HintPath>
+      <Private Condition="'$(TargetFramework)' == 'net472'">false</Private>
+    </Reference>
+  </ItemGroup>
 </Project>

@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using BinaryAssetBuilder.Core;
+using BinaryAssetBuilder.UiCompiler.Fla;
+using BinaryAssetBuilder.UiCompiler.Swf;
+
+namespace BinaryAssetBuilder.UiCompiler
+{
+    /// <summary>The host collects the whole sibling group before writing its manifest.</summary>
+    public interface IUiAssetCollector
+    {
+        void Collect(IReadOnlyList<CompiledUiAsset> assets);
+    }
+    public sealed class UiCompilerConfiguration
+    {
+        public IUiAssetCollector Collector { get; set; }
+    }
+    public interface IUiFileCompiler
+    {
+        IReadOnlyList<CompiledUiAsset> CompileUiFile(InstanceDeclaration declaration, TargetPlatform platform);
+    }
+    /// <summary>AudioCompiler-compatible lifecycle plus a multi-asset FLA build entry.</summary>
+    public class Plugin : IAssetBuilderPlugin, IUiFileCompiler, IDisposable
+    {
+        private bool initialized, disposed;
+        private UiCompilerConfiguration configuration;
+        public virtual void Initialize(object configSection, TargetPlatform platform)
+        {
+            Alive(); RequireWin32(platform);
+            if (configSection != null && !(configSection is UiCompilerConfiguration)) throw new ArgumentException("Expected UiCompilerConfiguration.", nameof(configSection));
+            configuration = (UiCompilerConfiguration)configSection; initialized = true;
+        }
+        public virtual void ReInitialize(object configSection, TargetPlatform platform) => Initialize(configSection, platform);
+        public virtual uint GetAllTypesHash() { Alive(); return UiCatalog.AllTypesHash; }
+        public virtual uint GetVersionNumber() { Alive(); return 0x00010000; }
+        public virtual ExtendedTypeInformation GetExtendedTypeInformation(uint typeId) { Alive(); return UiCatalog.Find(typeId); }
+        public virtual AssetBuffer ProcessInstance(InstanceDeclaration declaration)
+        {
+            Ready(); if (declaration == null) throw new ArgumentNullException(nameof(declaration));
+            if (declaration.Handle.TypeId != UiCatalog.Find("AptAptData").TypeId) throw new NotSupportedException("Submit an AptAptData declaration referencing the source FLA, or use CompileMod.");
+            if (configuration?.Collector == null) throw new InvalidOperationException("FLA produces multiple assets. Configure IUiAssetCollector, use CompileUiFile in the host's expansion stage, or call CompileMod to write the final four streams.");
+            var assets = CompileUiFile(declaration, TargetPlatform.Win32);
+            // One AssetBuffer cannot contain sibling assets. The host explicitly
+            // collects their real type IDs and buffers; no synthetic runtime type.
+            configuration.Collector.Collect(assets.Skip(1).ToArray()); return assets[0].Buffer;
+        }
+        public IReadOnlyList<CompiledUiAsset> CompileUiFile(InstanceDeclaration declaration, TargetPlatform platform)
+        {
+            Ready(); RequireWin32(platform); if (declaration == null) throw new ArgumentNullException(nameof(declaration));
+            if (declaration.Handle.TypeId != UiCatalog.Find("AptAptData").TypeId) throw new NotSupportedException("FLA source declaration must be AptAptData.");
+            string name = declaration.XmlNode.Attributes["id"]?.Value ?? throw new InvalidDataException("Missing UI asset id.");
+            if (!name.EndsWith("_apt", StringComparison.Ordinal)) throw new InvalidDataException("FLA declaration id must end in _apt (for example MainMenu_apt).");
+            string file = declaration.XmlNode.Attributes["File"]?.Value ?? throw new InvalidDataException("Missing source FLA File.");
+            return CompileAssets(file, name.Substring(0, name.Length - 4));
+        }
+        /// <summary>Compiles directly to the final in-memory Mod streams.</summary>
+        public ModStreams CompileMod(string flaPath, string movieName)
+        { Ready(); return new ModStreams(CompileAssets(flaPath, movieName)); }
+        /// <summary>Compiles and writes only the final manifest/bin/relo/imp files.</summary>
+        public ModStreams CompileMod(string flaPath, string movieName, string outputBase)
+        { var streams = CompileMod(flaPath, movieName); streams.WriteTo(outputBase); return streams; }
+        private IReadOnlyList<CompiledUiAsset> CompileAssets(string path, string name)
+        {
+            if (path == null) throw new ArgumentNullException(nameof(path));
+            if (!Path.GetExtension(path).Equals(".fla", StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException("The UI plugin accepts binary Flash 8 .fla source files.");
+            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("A movie name is required.", nameof(name)); SageHash.Symbol(name);
+            string source = Path.GetFileName(path); if (source.IndexOf('\0') >= 0) throw new ArgumentException("Invalid source path.", nameof(path));
+            var previousCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
+            try
+            {
+                System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+                var document = FlaDocument.Read(File.ReadAllBytes(path));
+                // These are memory buffers only. The APT bytes are the game's
+                // runtime payload and go straight into the final linked .bin.
+                var movie = new eaf2apt.AptConverter().Convert(new FlaCompiler(document).Compile());
+                var assets = new List<CompiledUiAsset> { new CompiledUiAsset("AptAptData", name + "_apt", source, movie.Apt), new CompiledUiAsset("AptConstData", name + "_const", source, movie.Constants), new CompiledUiAsset("AptDatData", name + "_dat", source, movie.Dat) };
+                foreach (var geometry in movie.Geometry) assets.Add(new CompiledUiAsset("AptGeometryData", name + "_" + geometry.Key, source, geometry.Value, geometry.Key));
+                foreach (var texture in movie.Textures) assets.Add(new CompiledUiAsset("Texture", "apt_" + name + "_" + texture.Key, source, TextureBuilder.Dds(texture.Value)));
+                return assets.AsReadOnly();
+            }
+            catch (Exception ex) when (ex is InvalidDataException || ex is NotSupportedException || ex is EndOfStreamException)
+            { throw new InvalidDataException("Could not compile Flash 8 FLA '" + path + "': " + ex.Message, ex); }
+            finally { System.Threading.Thread.CurrentThread.CurrentCulture = previousCulture; }
+        }
+        private void Ready() { Alive(); if (!initialized) throw new InvalidOperationException("Call Initialize before compiling UI assets."); }
+        private void Alive() { if (disposed) throw new ObjectDisposedException(nameof(Plugin)); }
+        private static void RequireWin32(TargetPlatform platform) { if (platform != TargetPlatform.Win32) throw new PlatformNotSupportedException("RA3 UI streams target Win32."); }
+        public void Dispose() { disposed = true; configuration = null; }
+    }
+}

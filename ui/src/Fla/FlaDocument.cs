@@ -65,6 +65,7 @@ namespace BinaryAssetBuilder.UiCompiler.Fla
                         if (count == 0 && image.Length > 16 && image[0] == 255 && image[1] == 216 && image[2] == 255 && image[3] == 224) count = image.Length - 16;
                         BitmapRecordDecoder.payload(a, payload, count); break;
                     case "CMediaSound": MediaPayloadRecordDecoder.sound(a, payload, descriptor); break;
+                    case "CSwfPage": payload.set("opaque", a.readData(a.getRemaining())); break;
                     case "CMediaVideoStream": MediaPayloadRecordDecoder.video(a, payload); break;
                     default: throw a.error("Unsupported library media: " + descriptor.ClassName);
                 }

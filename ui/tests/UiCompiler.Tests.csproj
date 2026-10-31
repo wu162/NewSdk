@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>UiCompiler.Tests</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../BinaryAssetBuilder.UiCompiler.csproj" /></ItemGroup>
+  <ItemGroup><Reference Include="BinaryAssetBuilder.Core"><HintPath>../../SDK/tools/BinaryAssetBuilder.Core.dll</HintPath></Reference></ItemGroup>
+</Project>
