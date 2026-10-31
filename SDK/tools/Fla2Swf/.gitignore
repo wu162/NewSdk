@@ -1,0 +1,4 @@
+/lib/
+/build/
+/*.jar
+__pycache__/
