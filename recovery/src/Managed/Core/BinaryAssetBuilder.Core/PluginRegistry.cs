@@ -152,4 +152,18 @@ public class PluginRegistry
 		}
 		return value;
 	}
+
+	public uint GetProcessingHash(InstanceDeclaration instance)
+	{
+		var policy = GetPlugin(instance.Handle.TypeId) as IInstanceProcessingHash;
+		return policy != null ? policy.GetProcessingHash(instance) : GetExtendedTypeInformation(instance.Handle.TypeId).ProcessingHash;
+	}
+
+	public bool IsProcessingHashCurrent(InstanceDeclaration instance, bool compilerVersionChanged)
+	{
+		var policy = GetPlugin(instance.Handle.TypeId) as IInstanceProcessingHash;
+		return policy != null ? policy.IsProcessingHashCurrent(instance.Handle.TypeId, instance.ProcessingHash, compilerVersionChanged) :
+			instance.ProcessingHash == GetExtendedTypeInformation(instance.Handle.TypeId).ProcessingHash;
+	}
 }
+

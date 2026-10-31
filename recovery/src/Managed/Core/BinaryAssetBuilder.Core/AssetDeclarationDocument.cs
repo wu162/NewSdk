@@ -620,7 +620,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 						text = "type hash changed";
 						break;
 					}
-					if (selfInstance.ProcessingHash != extendedTypeInformation.ProcessingHash)
+					if (!_Current.DocumentProcessor.Plugins.IsProcessingHashCurrent(selfInstance,
+						(_Current.DocumentProcessor.Cache as SessionCache)?.AssetCompilersVersionChanged == true))
 					{
 						text = "plugin output changed";
 						break;
@@ -1543,7 +1544,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			var metadata = processor.Plugins.GetExtendedTypeInformation(instance.Handle.TypeId);
 			var input = new FrontendInput { Declaration = instance, Node = instance.XmlNode, Name = instance.Handle.Name,
-				TypeHash = metadata.TypeHash, ProcessingHash = metadata.ProcessingHash,
+				TypeHash = metadata.TypeHash, ProcessingHash = processor.Plugins.GetProcessingHash(instance),
 				SchemaTypeName = instance.XmlNode.SchemaInfo.SchemaType.Name,
 				IsInheritable = derivedTypes == null ? instance.IsInheritable : derivedTypes.Contains(instance.XmlNode.SchemaInfo.SchemaType.Name) };
 			var descendants = instance.XmlNode.CreateNavigator().SelectDescendants("", "uri:ea.com:eala:asset", matchSelf: true);
@@ -2193,3 +2194,4 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 	}
 }
+

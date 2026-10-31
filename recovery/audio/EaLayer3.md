@@ -64,10 +64,17 @@ GPL/LGPL 的源码分发条件仍适用，分发二进制时应标明匹配的�
 独立 AudioCompiler csproj 自动构建、复制并 publish `NewSdk.EaLayer3.dll`；机器需
 正常 Windows MSVC x86 构建工具，不要求用户另装编码器。
 
-缓存：仅 AudioCatalog 插件版本 548405252→548405253、AudioFile ProcessingHash
-2414318214→2414318215。原 TypeHash/SessionCache18/DocumentProcessor11 不改。
-旧 AudioFile 缓存（包括旧 EALAYER3→PCM）通过现有 processing hash 比较失效；
-这会使旧 NONE/XAS AudioFile 也首次重编译。其它格式的编码算法和数据合同不改。
+缓存身份按宿主区分。独立 AudioCompiler DLL 供原 BAB 使用，仍保留插件版本
+548405253、类型级 AudioFile ProcessingHash 2414318215，原 BAB 无实例级扩展入口。
+
+单进程 EXE 让 NONE/XAS/默认压缩恢复原 ProcessingHash 2414318214；只有显式
+`PCCompression="EALAYER3"` 的实例使用 2414318215。Core 在 XSD/继承展开完成后选择
+实例身份，正常 CDATA 文件名与原 SDK 保持一致，新 EALayer3 不会命中旧 PCM 降级键。
+EXE Audio 插件版本为 548405254：沿用会话中已有的 AssetCompilersVersion，版本变化时
+只让缓存音频声明重新加载，以区分前一版统一哈希和原 SDK 的旧 EALayer3；新会话再次
+热构建可复用两种实例身份。其它资产继续按原 TypeHash/ProcessingHash 检查，不增加
+缓存格式或侧车。TypeHash、SessionCache18、DocumentProcessor11、编码算法及数据合同不改。
+本次修复的生产源码为 `8050f22d`，正在执行 [Windows 新验收 41244132060](https://github.com/wu162/NewSdk/actions/runs/41244132060)，完成后再更新正式结论。
 
 ## 验证
 
