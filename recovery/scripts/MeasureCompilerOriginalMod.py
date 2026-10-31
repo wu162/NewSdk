@@ -45,7 +45,7 @@ def discover_tasks(mod, contents='base,apt,global-metadata'):
                                         ('maps', 'Data/AdditionalMaps', 'MapMetaData_*.xml')):
         if content not in selected:
             continue
-        entries = sorted((mod / directory).glob(pattern), key=lambda p: (str(p).casefold(), str(p)))
+        entries = sorted((mod / directory).glob(pattern), key=lambda p: (str(p).upper(), str(p)))
         need(entries, 'Requested content has no source entries: ' + content)
         tasks.extend(dict(id=content + '/' + p.stem, content=content, inputPath=str(p), stem=p.stem)
                      for p in entries)
