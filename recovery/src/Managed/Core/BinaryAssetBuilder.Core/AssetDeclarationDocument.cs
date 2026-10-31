@@ -847,6 +847,14 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	public void ResetState()
 	{
+		// Match the transient state of an XML-deserialized session when the
+		// saved object graph is reused by the next stream in this request.
+		if (_Last?.SelfInstances != null)
+			foreach (InstanceDeclaration instance in _Last.SelfInstances) instance.ResetState();
+		if (_Last?.SelfDefines != null)
+			foreach (Definition definition in _Last.SelfDefines) { definition.OriginalValue = null; definition.Document = null; }
+		if (_Last?.InclusionItems != null)
+			foreach (InclusionItem inclusion in _Last.InclusionItems) inclusion.Document = null;
 		_Current = null;
 		CacheChanged = false;
 		CacheInvalidated = DependencyAffected = false;
@@ -1862,7 +1870,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 			foreach (InstanceDeclaration instance in Instances)
 			{
 				AddOutputInstance(instance);
-		}
+			}
 		}
 		using (PerformanceScope.Measure("core.output.availability"))
 		{
@@ -1890,18 +1898,18 @@ public class AssetDeclarationDocument : IXmlSerializable
 						AssetReport.RecordAsset(value, binaryAsset);
 					}
 				}
-		}
+			}
 		}
 		using (PerformanceScope.Measure("core.output.order"))
 		{
 			if (Settings.Current.StableSort)
 			{
 				StableSort(outputManager);
-		}
-		else
-		{
-			_Current.OutputInstances.Sort(new DependencyComparer());
-		}
+			}
+			else
+			{
+				_Current.OutputInstances.Sort(new DependencyComparer());
+			}
 		}
 		MemoryStream memoryStream = new MemoryStream();
 		BinaryWriter binaryWriter = new BinaryWriter(memoryStream);

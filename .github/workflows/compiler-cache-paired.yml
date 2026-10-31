@@ -1,0 +1,79 @@
+name: Paired compiler cold and hot cache performance
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_run_id:
+        description: Successful Core lifecycle run containing the candidate Release
+        required: true
+        type: string
+      candidate_source:
+        description: Full candidate production source commit SHA from that run
+        required: true
+        type: string
+      armor_partitions:
+        description: Additional reachable Armor partitions (0 is untouched full Upheaval; 6 adds 49152 assets)
+        required: true
+        type: choice
+        options: ['0', '1', '2', '4', '6', '8']
+        default: '0'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: compiler-cache-paired-${{ github.ref }}-${{ inputs.candidate_run_id }}-${{ inputs.armor_partitions }}
+  cancel-in-progress: false
+jobs:
+  measure:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PYTHONDONTWRITEBYTECODE: '1'
+      CANDIDATE_RUN: ${{ inputs.candidate_run_id }}
+      CANDIDATE_SOURCE: ${{ inputs.candidate_source }}
+      ARMOR_PARTITIONS: ${{ inputs.armor_partitions }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Verify candidate acceptance and select its current successful artifact
+        id: candidate
+        shell: pwsh
+        run: |
+          if($env:CANDIDATE_RUN -notmatch '^\d+$' -or $env:CANDIDATE_SOURCE -notmatch '^[0-9a-f]{40}$'){throw 'Invalid run ID or full source SHA'}
+          $run=gh api "repos/wu162/NewSdk/actions/runs/$env:CANDIDATE_RUN" | ConvertFrom-Json
+          if($LASTEXITCODE -ne 0){throw 'Cannot read candidate run'}
+          if($run.status -ne 'completed' -or $run.conclusion -ne 'success' -or $run.head_sha -cne $env:CANDIDATE_SOURCE -or $run.path -ne '.github/workflows/refactor-core-lifecycle.yml'){throw 'Candidate is not the specified successful Core lifecycle source'}
+          "artifact=refactor-core-lifecycle-$env:CANDIDATE_RUN-$($run.run_attempt)" | Add-Content $env:GITHUB_OUTPUT
+      - uses: actions/download-artifact@v4
+        with:
+          name: refactor-core-lifecycle-41152199159-1
+          run-id: 41152199159
+          github-token: ${{ github.token }}
+          path: work/cache-paired-baseline
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.candidate.outputs.artifact }}
+          run-id: ${{ inputs.candidate_run_id }}
+          github-token: ${{ github.token }}
+          path: work/cache-paired-candidate
+      - name: Three independent cold pairs, two hot processes each, no-cache and detailed attribution
+        timeout-minutes: 13
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/refactor/cache-paired/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/MeasureCompilerCachePaired.py --baseline-build work/cache-paired-baseline/artifacts/core-lifecycle-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --armor-partitions $env:ARMOR_PARTITIONS --work "$env:RUNNER_TEMP/cache-paired" --output $out --budget 720 --timeout 180
+          $result=$LASTEXITCODE
+          if(Test-Path "$out/report.md"){Get-Content "$out/report.md" -Encoding UTF8 | Add-Content $env:GITHUB_STEP_SUMMARY}
+          if($result -ne 0){throw 'Paired cache measurement failed; partial evidence retained'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compiler-cache-paired-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/refactor/cache-paired/**
+          if-no-files-found: warn

@@ -180,6 +180,31 @@ internal static class CompilerCoreLifecycle
             "A rejected document damaged the processor's shared compiled schema snapshot");
         Tests.Add("Core-XSD-invalid-input-rejected-before-dispatch-plugin-serializes-without-repeating-schema-validation");
     }
+    static void SavedSessionMemoryCase(BuiltinCompilers plugins)
+    {
+        var settings = Configure("memory-session"); settings.SessionCache = true;
+        var p = Processor(plugins);
+        var cache = new SessionCache();
+        cache.LoadCacheFrom(null, Path.Combine(settings.SessionCacheDirectory, "session.xml"));
+        cache.InitializeCache(new List<string>(), p.SchemaSet.ContentIdentity); p.Cache = cache;
+        string leaf = Write("memory-session/leaf.xml", probe);
+        string root = Write("memory-session/root.xml", Asset(Include("leaf.xml") + "<Defines><Define name='MEMORY_VALUE' value='17'/></Defines>"));
+        Run(p, root); Clean(p, null, root, leaf); cache.SaveCache(false);
+        var expected = Outputs(settings.OutputDirectory);
+        AssetDeclarationDocument document; cache.TryGetDocument(leaf,null,TargetPlatform.Win32,false,out document);
+        document.SelfInstances[0].CustomDataPath = "previous-stream-only";
+        document.SelfInstances[0].ReferencedInstances.Add(new InstanceHandle("ArmorTemplate", "PreviousStreamOnly"));
+        int compiled = p.InstanceCompileCount;
+        cache.InitializeCache(new List<string>(), p.SchemaSet.ContentIdentity);
+        Run(p, root); Clean(p, null, root, leaf);
+        cache.TryGetDocument(leaf,null,TargetPlatform.Win32,false,out document);
+        Require(document.SelfInstances[0].CustomDataPath != "previous-stream-only" &&
+            !document.SelfInstances[0].ReferencedInstances.Any(value => value.InstanceName == "PreviousStreamOnly"),
+            "Saved in-memory session retained a previous stream's transient asset state");
+        Require(p.InstanceCompileCount == compiled, "Reentering a saved in-memory session recompiled unchanged assets");
+        Equal(expected, Outputs(settings.OutputDirectory));
+        Tests.Add("saved-session-memory-reentry-clears-transient-references-and-cdata-preserves-bytes");
+    }
     sealed class SaveFaultCache : SessionCache
     {
         public bool Failed;
@@ -473,7 +498,7 @@ internal static class CompilerCoreLifecycle
             using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
             {
                 RetryCase(plugins, "include", false); RetryCase(plugins, "inheritance", true);
-                CycleCase(plugins); SchemaReceiptCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins);
+                CycleCase(plugins); SchemaReceiptCase(plugins); SavedSessionMemoryCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins);
                 MetricsFailureCase(plugins, true, false); MetricsFailureCase(plugins, false, true);
                 MetricsFailureCase(plugins, true, true); ProcessorStateCase(plugins);
             }
