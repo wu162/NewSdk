@@ -83,7 +83,8 @@ def output_inventory(destination, report):
         require(path.stat().st_size == row['Size'], 'Reported output length differs')
         expected[name] = {'bytes': row['Size'], 'sha256': sha(path)}
     require(expected, 'No current completed output')
-    actual = expected
+    actual = inventory(published)
+    require(actual == expected, 'Published files differ from reported output members or bytes')
     require({Path(p).suffix for p in actual} >= {'.manifest', '.bin', '.imp', '.relo'},
             'Linked output is incomplete')
     return actual
@@ -365,3 +366,4 @@ def main():
 
 if __name__ == '__main__':
     raise SystemExit(main())
+

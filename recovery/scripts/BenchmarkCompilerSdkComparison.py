@@ -128,7 +128,7 @@ def summaries(samples):
 def markdown(state):
     lines = ['# Original/new SDK paired benchmark', '', 'Status: ' + state['status'] + '.', '',
              'Same physical inputs, Schema and ordered search roots; separate compiler caches.',
-             'Fresh processes, warmup excluded, uncontrolled OS page cache. New CLI includes reporting and atomic publication; original BAB writes streams directly.', '',
+             'Fresh processes, warmup excluded, uncontrolled OS page cache. New CLI includes JSONL/report generation and direct publication; original BAB writes streams directly.', '',
              '| Workload | Mode | Phase | n/engine | Original ms | New ms | New/original |',
              '| --- | --- | --- | ---: | ---: | ---: | ---: |']
     for row in state['summary']:
@@ -226,7 +226,7 @@ def run(args):
              'limits': {'perProcessSeconds': args.timeout_seconds, 'totalSeconds': args.budget_seconds,
                         'hotRuns': args.hot_runs},
              'machine': {'platform': platform.platform(), 'cpuCount': os.cpu_count(), 'processor': platform.processor()},
-             'comparisonScope': 'End-to-end fresh processes. New CLI includes JSONL/report generation, staging and atomic publication; original BAB directly writes streams. Not a pure Core microbenchmark.',
+             'comparisonScope': 'End-to-end fresh processes. New CLI includes JSONL/report generation and direct publication; original BAB directly writes streams. Not a pure Core microbenchmark.',
              'originalAdaptation': 'Only CLR4 startup configuration adapted. Original EXE/DLL and assetbuilder settings preserved; res/gui/metrics disabled in both hosts.',
              'timing': 'Launch to exit, excludes preparation/hash checks; warmup one identical no-cache build per engine excluded from samples but included in total budget.',
              'limitations': ['OS page cache uncontrolled; compiler cold means empty per-engine cache',
@@ -360,3 +360,4 @@ def main():
 
 if __name__ == '__main__':
     raise SystemExit(main())
+
