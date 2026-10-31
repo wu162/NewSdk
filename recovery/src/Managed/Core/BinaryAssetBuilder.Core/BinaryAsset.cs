@@ -422,7 +422,6 @@ public class BinaryAsset
 
     internal AssetLocation Commit(AssetLocation location)
     {
-        using var performance = PerformanceScope.Measure("core.asset.commit");
         BinaryAssetCommitWork work = PrepareCommit(location);
         try { work.ExecuteIO(); }
         finally { work.FlushDiagnostics(); }
@@ -476,6 +475,7 @@ public class BinaryAsset
     // calls host callbacks or updates the processor's statistics.
     public AssetLocation PublishCommit(BinaryAssetCommitWork work)
     {
+        using var performance = PerformanceScope.Measure("core.asset.commit");
         work.FlushDiagnostics();
         if (work.Header != null) _AssetHeader = work.Header;
         if (work.Location != AssetLocation.BasePatchStream)
@@ -557,7 +557,9 @@ public sealed class BinaryAssetCommitWork
         {
             switch (Location)
             {
-                case AssetLocation.BasePatchStream: return;
+                case AssetLocation.BasePatchStream:
+                    if (updateCache && alwaysTouchCache) TouchCache();
+                    return;
                 case AssetLocation.Memory: CommitMemory(); break;
                 case AssetLocation.Local:
                     if (!CopyAsset(sourceAssetPath, sourceCustomDataPath))

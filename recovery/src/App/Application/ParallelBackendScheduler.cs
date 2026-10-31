@@ -195,10 +195,18 @@ namespace NewModCompiler.Application
             foreach (var task in frontendTasks) if (!task.IsCompleted) tasks.Add(task);
             return tasks;
         }
-        List<Task> ResourceTasks(bool cpuOnly)
+        List<Task> ResourceTasks()
         {
-            var tasks = CpuTasks();
-            if (!cpuOnly) foreach (var work in active) if (work.IO != null && !work.IO.IsCompleted) tasks.Add(work.IO);
+            // A completed task still owns its result until the owner harvests
+            // it. Keep it in the wait set: completion can race the preceding
+            // DrainReady call, and WhenAny must then return immediately.
+            var tasks = new List<Task>();
+            foreach (var work in active)
+            {
+                if (work.Compute != null) tasks.Add(work.Compute);
+                if (work.IO != null) tasks.Add(work.IO);
+            }
+            foreach (var request in verifying) if (request.Verification != null) tasks.Add(request.Verification);
             return tasks;
         }
         void WaitAny(IList<Task> tasks, int resource = 0)
@@ -226,8 +234,8 @@ namespace NewModCompiler.Application
                 foreach (var work in active)
                 {
                     if (work.ReservedBytes == 0) continue;
-                    if (work.Compute != null && !work.Compute.IsCompleted) tasks.Add(work.Compute);
-                    if (work.IO != null && !work.IO.IsCompleted) tasks.Add(work.IO);
+                    if (work.Compute != null) tasks.Add(work.Compute);
+                    if (work.IO != null) tasks.Add(work.IO);
                 }
                 if (tasks.Count == 0) break;
                 WaitAny(tasks, 2); DrainReady(); Refresh();
@@ -551,16 +559,24 @@ namespace NewModCompiler.Application
                     bool required = false;
                     foreach (var request in work.Subscribers) if (ReferenceEquals(request.Document, document) && !request.Finished) { required = true; break; }
                     if (!required) continue;
-                    if (work.State == WorkState.Ready) waitsForIoSlot = true;
-                    if (work.Compute != null && !work.Compute.IsCompleted) tasks.Add(work.Compute);
-                    if (work.IO != null && !work.IO.IsCompleted) tasks.Add(work.IO);
+                    if (work.State == WorkState.Ready)
+                    {
+                        waitsForIoSlot = true;
+                        // A shared cache transfer first verifies its original
+                        // declaration, which may belong to another document.
+                        // That verifier is a real dependency of every subscriber.
+                        var initial = work.Subscribers[0];
+                        if (initial.Verification != null) tasks.Add(initial.Verification);
+                    }
+                    if (work.Compute != null) tasks.Add(work.Compute);
+                    if (work.IO != null) tasks.Add(work.IO);
                 }
                 foreach (var request in verifying)
-                    if (ReferenceEquals(request.Document, document) && request.Verification != null && !request.Verification.IsCompleted) tasks.Add(request.Verification);
+                    if (ReferenceEquals(request.Document, document) && request.Verification != null) tasks.Add(request.Verification);
                 // A required result may be ready for an IO slot. Wait for any
                 // current IO that can free that resource, never a FIFO head.
                 if (tasks.Count == 0 || waitsForIoSlot)
-                    foreach (var work in active) if (work.IO != null && !work.IO.IsCompleted) tasks.Add(work.IO);
+                    foreach (var work in active) if (work.IO != null) tasks.Add(work.IO);
                 if (tasks.Count == 0) throw new InvalidOperationException("Document has pending work without an executable dependency.");
                 WaitAny(tasks); DrainReady();
             }
@@ -577,7 +593,7 @@ namespace NewModCompiler.Application
             Check(); DrainReady();
             while (active.Count != 0 || verifying.Count != 0)
             {
-                var tasks = ResourceTasks(false);
+                var tasks = ResourceTasks();
                 if (tasks.Count == 0) throw new InvalidOperationException("Asset work has no executable dependency.");
                 WaitAny(tasks); DrainReady();
             }

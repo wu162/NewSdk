@@ -667,10 +667,22 @@ public class DocumentProcessor
 		finally
 		{
 			assetDeclarationDocument.Processing = processing;
-			if (_ExecutionDocuments.TryGetValue(assetDeclarationDocument, out var version)) TryCompleteDocumentVersion(assetDeclarationDocument, version);
-			while (_DocumentStack.Count > inclusionDepth) _DocumentStack.RemoveAt(_DocumentStack.Count - 1);
-			while (_CurrentDocumentStack.Count > documentDepth) _CurrentDocumentStack.Pop();
-			while (_CurrentStreamStack.Count > streamDepth) _CurrentStreamStack.Pop();
+			try
+			{
+				if (_ExecutionDocuments.TryGetValue(assetDeclarationDocument, out var version))
+				{
+					try { TryCompleteDocumentVersion(assetDeclarationDocument, version); }
+					catch { version.Failed = true; throw; }
+				}
+			}
+			finally
+			{
+				// Completion can fail while saving the session. Its exception
+				// must not retain this invocation's traversal/diagnostic frames.
+				while (_DocumentStack.Count > inclusionDepth) _DocumentStack.RemoveAt(_DocumentStack.Count - 1);
+				while (_CurrentDocumentStack.Count > documentDepth) _CurrentDocumentStack.Pop();
+				while (_CurrentStreamStack.Count > streamDepth) _CurrentStreamStack.Pop();
+			}
 		}
 	}
 
@@ -760,8 +772,17 @@ public class DocumentProcessor
 			stringBuilder.AppendFormat("\n   {0}", sourcePath);
 			throw new BinaryAssetBuilderException(ErrorCode.CircularDependency, stringBuilder.ToString());
 		}
-		if (_ExecutionDocuments.TryGetValue(document, out var version) && version.FrontendPrepared && !version.Finalized && !version.Failed)
-			return document;
+		if (_ExecutionDocuments.TryGetValue(document, out var version))
+		{
+			foreach (var scope in version.Outputs.Values)
+				if (scope.IsFailed) { version.Failed = true; break; }
+			if (version.FrontendPrepared && !version.Finalized && !version.Failed && document.State != DocumentState.None)
+				return document;
+		}
+		// Open replaces Current whenever the document is incomplete. A saved
+		// wrapper can also have been ResetState by cache initialization; neither
+		// current may reuse the preceding version's front-end completion receipt.
+		if (document.State != DocumentState.Complete) _ExecutionDocuments.Remove(document);
 		document.Open(this, hashItem, logicalPath, configuration);
 		if (document.State != DocumentState.Complete)
 		{

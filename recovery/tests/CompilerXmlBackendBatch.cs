@@ -116,8 +116,12 @@ public static class CompilerXmlBackendBatch
                 XmlNamespaceManager ignored;
                 var control = Declaration(route.TypeName, plugin, out ignored);
                 var frozen = (InstanceDeclaration)Prepared.GetProperty("Declaration").GetValue(envelope, null);
-                Need(Object.ReferenceEquals(frozen, declaration) && Object.ReferenceEquals(frozen.Node.OwnerDocument, declaration.Node.OwnerDocument) &&
-                    Object.ReferenceEquals(frozen.Document.NamespaceManager, namespaces), "Finalized metadata input was unnecessarily copied: " + route.TypeName);
+                Need(!Object.ReferenceEquals(frozen, declaration) && !Object.ReferenceEquals(frozen.Document, declaration.Document) &&
+                    Object.ReferenceEquals(frozen.Node, declaration.Node) && Object.ReferenceEquals(frozen.Handle, declaration.Handle) &&
+                    Object.ReferenceEquals(frozen.ReferencedInstances, declaration.ReferencedInstances) &&
+                    Object.ReferenceEquals(frozen.Node.OwnerDocument, declaration.Node.OwnerDocument) &&
+                    Object.ReferenceEquals(frozen.Document.NamespaceManager, namespaces),
+                    "Metadata workers must own stable declaration/document views while borrowing finalized XML and identity: " + route.TypeName);
                 // Worker execution comes first, including cold native module
                 // initialization. Core leaves borrowed input unchanged until join.
                 work.Add(new Work { TypeName = route.TypeName, Family = (string)Policy.GetMethod("FamilyFor").Invoke(null, new object[] { route.TypeId }), Envelope = envelope, Control = control });

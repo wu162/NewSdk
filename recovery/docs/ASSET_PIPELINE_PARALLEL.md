@@ -55,4 +55,25 @@ LinkStream 和 BIG/SKUDEF 沿用最终输出阶段及原格式；失败回收所
 报告在 `cache.parallel` 中分别输出 XML 前端/纯计算、验证、编码、资产 IO、
 Owner 确认、CPU/内存资源等待及 IO 排队耗时，另含 CPU/IO/Owner 待收割和在途
 结果字节峰值。各 Worker 累计耗时可重叠，不作为端到端墙钟耗时相加。
+`core.asset.commit` 在新流程记录 Owner 的状态确认，文件 IO 见 `assetIoMs` 和
+`core.asset.io`；旧流程该阶段包含同步 IO，因此不能直接用该单阶段的前后差值
+声称提速。跨版本比较以完整进程计量和原字节输出为准。
 最终结果和实测限制取得后再更新本页，不预设提升百分比。
+
+## 首次正式运行及修复
+
+候选 `408458b8` 的 [Windows 41201449133](https://github.com/wu162/NewSdk/actions/runs/41201449133)
+失败，保留 [归档身份和逐组结果](../evidence/refactor/asset-pipeline/41201449133-1/summary.json)。
+Debug/Release 新原生构建、Prepared 工作/去重/完成顺序、验证器并发诊断、真实 CLI/
+CtrlBreak、构建缓存、输入根原 BAB 差分、音频/W3X 缓存载荷及纹理检查已通过；
+不能据此将完整运行标为通过。
+
+集中修复：等待集合保留已完成但尚未 Owner 回收的任务，消除完成时机竞态；
+共享物理任务还须等待首次声明的验证依赖；缓存保存回调抛错时仍恢复三组遍历栈；
+异步 Owner 确认补回原 `core.asset.commit` 计量。XML 批次测试改为检查私有声明/
+文档视图及借用的原 Node/Handle，保留原字节断言。另修正同 Processor 失败重试的
+旧版本记录，以及 BasePatchStream 的 AlwaysTouchCache 分支。
+
+首轮未到达完整 mymod 原 SDK、最终三文件 ZIP 和完整 Upheaval 22 组，修复后必须
+取得新候选的完整成功结果。新增旧版本回调测试也因前面的保存失败用例提前失败而
+未执行，不计为正式通过。
