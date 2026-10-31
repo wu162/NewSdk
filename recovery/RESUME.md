@@ -1,6 +1,12 @@
-# 当前：修改后构建依赖/快照/引用优化已实现，集中验收中
+# 当前：缓存后编辑的依赖/父快照/引用优化已验收，PR #38 待审
 
-继续同一 `perf/compiler-cold-hot-cache` / [PR #38](https://github.com/wu162/NewSdk/pull/38)，仍未合并。生产组 `8e8cf766`；[首轮 41174952443](https://github.com/wu162/NewSdk/actions/runs/41174952443) failed 保留（既有独立组通过，三新探针和旧性能断言需修正）。测试已修、生产闭包未变，[41176937044](https://github.com/wu162/NewSdk/actions/runs/41176937044) 的父快照/引用 D/R 已通过、Include 热态探针仍需修正，原 failed 保留；复用原 D/R 产物的[补验 41177598230](https://github.com/wu162/NewSdk/actions/runs/41177598230) 运行中，整体尚未验收；`e2dba3c3` 仍是已验收基线。已接入实际父实例/祖先物理绑定闭包、旧 v18 安全读取及 v19 写入、成功原节点请求内快照、引用遍历/Schema 类型及路径复用。快照仍保留父 OwnerDocument；局部 XML 仍整文档前端。详见[本轮短报告](docs/HOT_CACHE_EDIT_OPTIMIZATION.md)。待验收终态后复用同一 Release 做父有效字段/无关兄弟各三组同机 off 配对；未通过不标完成。禁止强推，未经用户明确批准不合并。
+`perf/compiler-cold-hot-cache` / [PR #38](https://github.com/wu162/NewSdk/pull/38)，未合并。生产二进制 `8e8cf766`，后续仅测试/文档。组合验收 [41178094135](https://github.com/wu162/NewSdk/actions/runs/41178094135) success：原D/R与12既有Core/CLI/取消/缓存等有效组复用，Include D/R各140检查/4组、完整mymod原SDK、五文件ZIP、Upheaval22全通过；父快照/引用D/R成功结果按实际输入闭包复用。原失败终态和修复来源保留。
+
+实际父实例/祖先/文件物理闭包替代instance整文件内容依赖（XInclude/真实文件仍保留）；旧v18相关文档安全重载、写v19；请求内成功原节点快照和引用DOM/Schema/类型对/路径复用均已落地。无关父兄弟2→1解析，受控父快照3→2解析/1→0继承重载、后端不变；快照仍保留整父DOM，局部XML仍按整文档前端。
+
+同机编辑配对 [41178837554](https://github.com/wu162/NewSdk/actions/runs/41178837554) 80/80、每代原字节及再热0/0通过。off各三对：有效父518.893→511.192ms（减少1.48%），无关兄弟490.765→493.781ms（增加0.61%）；小负载纯热n12增加2.52%。**没有稳定端到端编辑提速结论**，不以解析减少代替总耗时收益，不与旧完整MOD纯热数字混算。必要验收已完成，不再扩大测试。
+
+[本轮实现/数据/验收/未测](docs/HOT_CACHE_EDIT_OPTIMIZATION.md)、[下一步入口](docs/HOT_CACHE_REFERENCE_RECONCILIATION.md)。后续优先实例级表达式/继承/引用阶段复用与实际XSD/启动成本，父DOM持有成本另做证据；完整XSD、失败/取消和跨流清理保留。禁止强推，未经用户明确批准不合并。
 
 # 上轮：冷/热缓存性能优化已验收，PR #38 待审
 
