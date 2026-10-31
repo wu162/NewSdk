@@ -55,7 +55,7 @@ try {
     $optimization=if($Configuration -eq 'Release'){'/O2'}else{'/Od'}
     Invoke-CompilerTool 'cl.exe' @('/nologo','/c','/clr','/MD','/EHa','/fp:precise',$optimization,('/AI'+$obj),('/AI'+$FoundationDirectory),('/Fo'+$hostObject),$hostingSource) (Join-Path $out 'host-build.log')
     $exe=Join-Path $bin 'NewModCompiler.exe'
-    $linkArguments=@('/nologo','/LTCG','/MACHINE:X86','/SUBSYSTEM:CONSOLE','/ENTRY:NewModCompiler.Hosting.CompilerEntry.Main',('/OUT:'+$exe),$hostObject,$foundation,$application)
+    $linkArguments=@('/nologo','/LTCG','/MACHINE:X86','/SUBSYSTEM:CONSOLE','/ENTRY:NewModCompiler.Hosting.CompilerEntry.Main',('/OUT:'+$exe),('/IMPLIB:'+(Join-Path $obj 'EaLayer3Exports.lib')),$hostObject,$foundation,$application)
     $linkArguments+=@($nativeBuild.objects)
     $resources=@(Get-Content (Join-Path $FoundationDirectory 'resources.json') -Raw|ConvertFrom-Json)
     foreach($resource in $resources){$linkArguments+=('/ASSEMBLYRESOURCE:'+$resource.path+','+$resource.logicalName)}

@@ -1,3 +1,21 @@
+# 当前：RA3 EALayer3 V1（Windows 验收通过，PR 待审）
+
+用户指定基线 `recovery/legacy-sdk-cache` / `eb503513`；开发分支 `feature/ra3-ealayer3`，
+[PR #34](https://github.com/wu162/NewSdk/pull/34)。源码/二进制 `4ddac274`，
+[Windows 41149785200](https://github.com/wu162/NewSdk/actions/runs/41149785200) **success**：
+176 实际编码/88 候选解码、jobs1/4、原有格式 D/R 各521原字节、正式 BAB 44资产、
+正常产品 D/R、热态0编译/修改WAV仅1编译/独立重建、完整 mymod/LoD/BIG/SKUDEF通过。
+
+EALAYER3 选择真实 EL31/V1b/SNR5，复用选定 sagetools/LAME3.96 源码，保留现有
+输入/重采样/Loop/资产/SessionCache/worker；旧 AudioFile processing hash 已更新。
+1/2/4/6声道、六种16–48kHz MPEG采样率、0–100质量、Loop、RAM/streamed通过；
+8/11.025/12kHz、V2及游戏内播放未完成。原插件随附库 codec31 实测为 V2；显式 V1
+LSF 参照不可用的25条数据明确保留，只有4条可用 V1 参照计为波形对照通过。
+
+范围/来源/限制见 [audio/EaLayer3.md](audio/EaLayer3.md)，原收据和下载复算身份见
+[ealayer3 summary](evidence/audio/ealayer3-validation/41149785200-1/summary.json)。
+许可只在源码保留，不嵌入或加入部署包。后续提交仅文档/收据；禁止强推，未经用户批准不合并。
+
 # 当前：L8 热缓存 Benchmark（Common 通过，PR 待审）
 
 分支 `benchmark/l8-hot-cache`，基于 `recovery/legacy-sdk-cache` / `8f854606`；[PR #32](https://github.com/wu162/NewSdk/pull/32)。Benchmark 脚本/工作流已实施，未修改生产算法。Windows/Linux 各 33 项预检通过；[Common 41139062989](https://github.com/wu162/NewSdk/actions/runs/41139062989) success，测量源 `a286062f`、Release 源 `cc10391b`，整个 Windows job 18 分 20 秒，C00–C12 全部完成，75/75 正式样本 wall/elapsed 均 >8 秒，另有 3 个独立 detailed 样本。实际纯热态约 9.34 秒，未达 10–14 秒软目标，未把调参点当成绩。详见 [报告/原始计时/范围](docs/HOT_CACHE_BENCHMARK.md)。旧失败/预算耗尽结果保留，不作跨 VM A/B。Full 未运行，Environment 配置受集成权限限制，且 28 个扩展条件的双重复理论下限 >22.4 分钟、超过其 16 分钟阶段预算，不能声称整组完成。禁止强推，未经用户批准不合并。

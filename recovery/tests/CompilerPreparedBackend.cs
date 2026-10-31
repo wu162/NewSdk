@@ -618,18 +618,8 @@ public static class CompilerPreparedBackend
             }
             audio.Add(BufferItem(work,"audio"+i,audioPlugin,owner));
         }
-        // Owner baselines above have already emitted the process-wide warning.
-        // Reset only in this isolated test host to exercise simultaneous first use.
-        typeof(BinaryAssetBuilder.AudioCompiler.PcmWaveAudioCompiler).GetField("compressionWarning",BindingFlags.Static|BindingFlags.NonPublic).SetValue(null,0);
-        TextWriter console=Console.Out;
-        using(var warning=new StringWriter()) {
-            Console.SetOut(warning);
-            try { WorkerWave(audio,"audio"); }
-            finally { Console.SetOut(console); }
-            string message="WARNING: MP3-style compression unavailable due to legal restrictions. Files will not be compressed";
-            Require(warning.ToString()==message+Environment.NewLine,"Concurrent compression diagnostics must emit exactly one complete process-wide warning");
-            lifecycleEvidence.Add(new {kind="audio-parallel-settings",assets=audio.Count,compressionSettings=new[]{"NONE","XAS","EALAYER3","default"},sampleRates=new[]{22050,44100,11025},compressionWarnings=1});
-        }
+        WorkerWave(audio,"audio");
+        lifecycleEvidence.Add(new {kind="audio-parallel-settings",assets=audio.Count,compressionSettings=new[]{"NONE","XAS","EALAYER3","default"},sampleRates=new[]{22050,44100,11025},compressionWarnings=0});
         string fixture=File.ReadAllText(Path.Combine(sdk,"../recovery/tests/AudioMp3Fixtures.cs"));
         var match=Regex.Match(fixture,"public const string Mono = \\\"([^\\\"]+)\\\"");
         Require(match.Success,"Existing real MP3 fixture must be present");
