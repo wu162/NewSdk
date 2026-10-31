@@ -7,6 +7,7 @@ param(
     [ValidatePattern('^[0-9a-f]{40}$')][string]$BinarySourceCommit
 )
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/PrepareTextureOracle.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite SDK evidence: $OutputDirectory"}
@@ -212,7 +213,7 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
 
     $env:PATH=(@($oldPath -split ';'|Where-Object{$_ -notmatch '[\\/]SDK[\\/]tools'}) -join ';')
     foreach($item in @(Get-ChildItem Env:|Where-Object{$_.Name -like 'RA3_RECOVERED_*' -or $_.Name -eq 'RECOVERED_W3X_TRACE_DIRECTORY'})){$removedEnvironment[$item.Name]=$item.Value;[Environment]::SetEnvironmentVariable($item.Name,$null,'Process')}
-    # The original oracle runs first with untouched original plugin routes.
+    # Original codecs run first; only the deliberate new Texture cache identity is aligned below.
     $oracleTools=(New-Item -ItemType Directory -Path (Join-Path $short 't')).FullName
     Copy-Item -Path (Join-Path $sdk 'tools/*') -Destination $oracleTools -Recurse
     $originalExe=Join-Path $oracleTools 'BinaryAssetBuilder.exe';$config=Join-Path $oracleTools 'BinaryAssetBuilder.exe.config'
@@ -229,6 +230,9 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
     $state.legacyParameterContract=@{script='SDK/defaultscript.cs';sha256=(Hash $legacyScript);matchingCalls=3;cacheException=@('/bc:false','/sc:false','/psc:false','/csc:false','/fsc:false','/atc:false');enabled=@('/ls:true','/pc:true','/res:true','/slowclean:true','/ss:true');searchPaths=@{data=$data;art=$art;audio=$audio};originalBuildConfigurationsPreserved=$true;outputIsolation='Fresh separate output/intermediate/hash/cache directories; no input SDK changes'}
 
     $section.SetAttribute('schema',$schema);$section.SetAttribute('dataRoot',$sdk);$section.SetAttribute('defaultDataPaths',$data);$section.SetAttribute('defaultArtPaths',$art);$section.SetAttribute('defaultAudioPaths',$audio)
+    if(!$state.runtimeReuse){
+        $state.textureIdentityAlignment=Enable-TextureOracleIdentity -Configuration $xml -OracleDirectory $oracleTools -EvidenceDirectory (Join-Path $out 'texture-identity')
+    }
     # Keep the original LowLOD/MediumLOD configuration table from the SDK script environment.
     $startup=$xml.SelectSingleNode('/configuration/startup');if(!$startup){$startup=$xml.CreateElement('startup');$null=$xml.configuration.AppendChild($startup)}
     $startup.RemoveAll();$startup.SetAttribute('useLegacyV2RuntimeActivationPolicy','true');$version=$xml.CreateElement('supportedRuntime');$version.SetAttribute('version','v4.0');$null=$startup.AppendChild($version);$xml.Save($config)

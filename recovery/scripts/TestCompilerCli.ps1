@@ -297,7 +297,7 @@ try {
         }
         @{succeeded=$true;sourceCommit=$state.sourceCommit;runId=$state.runId;baselineCases=$modeState.baselineCases;scope='Real production CLI base plus first APT task only'}|ConvertTo-Json -Depth 8|Set-Content "$modeOut/cli-result.json"
         # Baseline comparison is an independent original-tool step, never a product child.
-        & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult "$modeOut/cli-result.json" -OutputDirectory "$modeOut/original-baseline" -TimeoutSeconds $TimeoutSeconds
+        & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult "$modeOut/cli-result.json" -OutputDirectory "$modeOut/original-baseline" -TimeoutSeconds $TimeoutSeconds -AlignTextureIdentity:(!$reuse)
         Need ($LASTEXITCODE -eq 0) 'Independent original BAB CLI task baseline failed'
         # Exercise actual business roots in the same production process, then
         # compare every selected stream against a fresh single-group process.
@@ -331,7 +331,7 @@ try {
             }
             # This is a request for the independent oracle, not its success claim.
             @{succeeded=$true;sourceCommit=$state.sourceCommit;runId=$state.runId;baselineCases=$businessReceipt.baselineCases;scope=$businessReceipt.scope}|ConvertTo-Json -Depth 8|Set-Content "$modeOut/business-result.json"
-            & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult "$modeOut/business-result.json" -OutputDirectory "$modeOut/business-original-baseline" -TimeoutSeconds $TimeoutSeconds
+            & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult "$modeOut/business-result.json" -OutputDirectory "$modeOut/business-original-baseline" -TimeoutSeconds $TimeoutSeconds -AlignTextureIdentity:(!$reuse)
             Need ($LASTEXITCODE -eq 0) 'Independent original BAB real APT/MapMetaData baseline failed'
             Unchanged $businessMod $businessSnapshot
             foreach($inputFile in $prepared.sourceInputs){Need ((Hash (Join-Path $root $inputFile.path)) -ceq $inputFile.sha256) 'Business fixture source input changed'}
@@ -382,7 +382,7 @@ try {
                 } finally {foreach($wrapper in $wrappers){$saved=Join-Path $hidden $wrapper.Name;if(Test-Path -LiteralPath $saved){Move-Item -LiteralPath $saved -Destination $wrapper.FullName}}}
             }
             @{succeeded=$true;sourceCommit=$state.sourceCommit;runId=$state.runId;baselineCases=$uiReceipt.baselineCases;scope=$uiReceipt.scope}|ConvertTo-Json -Depth 10|Set-Content "$modeOut/real-ui-result.json"
-            & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult "$modeOut/real-ui-result.json" -OutputDirectory "$modeOut/real-ui-original-baseline" -TimeoutSeconds $TimeoutSeconds -ExpectedCaseCount 3
+            & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult "$modeOut/real-ui-result.json" -OutputDirectory "$modeOut/real-ui-original-baseline" -TimeoutSeconds $TimeoutSeconds -ExpectedCaseCount 3 -AlignTextureIdentity:(!$reuse)
             Need ($LASTEXITCODE -eq 0) 'Independent original BAB complete three-UI baseline failed'
             Unchanged $uiMod $uiSnapshot
             foreach($inputFile in $uiPrepared.sourceInputs){Need ((Hash (Join-Path $root $inputFile.path)) -ceq $inputFile.sha256) 'Real UI preparation source changed'}

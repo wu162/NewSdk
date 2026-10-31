@@ -136,7 +136,7 @@ function OriginalOracle($Case,[string]$Name){
     }
     $fixture=Join-Path $script:modeOut "$Name.json"
     @{succeeded=$true;sourceCommit=$script:state.sourceCommit;runId=$env:GITHUB_RUN_ID;baselineCases=$baseline;scope='One Armor/include stream and one file-backed APT stream, not full SDK'}|ConvertTo-Json -Depth 9|Set-Content $fixture
-    & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds
+    & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds -AlignTextureIdentity:($replayFiles.Count -eq 0)
     Need ($LASTEXITCODE -eq 0) 'Build-cache independent original BAB oracle failed'
 }
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production /bc asset-cache CLI acceptance using cacheable Audio-family PathMusicEvent plus noncached Texture, Armor Include/XInclude and file-backed APT streams; raw four outputs, actual asset hits/misses, same-length/same-mtime dependency invalidation, MOD isolation, actual cancellation and failure/retry; AudioFile codec/CustomData, /sc and complete SDK remain separate'}

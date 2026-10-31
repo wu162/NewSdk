@@ -8,7 +8,7 @@
 
 并行资格包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（无显式 PCSampleRate）、MP3 passthrough、284 个认证 XML metadata TypeId 和四类 APT。资源不足、外部输入无法取得只读租约、APT 非 ASCII 路径，以及未认证后端均自动走原 owner 路径。Core XML 前端、验证、缓存及输出提交保持 owner 顺序。
 
-默认 `/sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false` 不变，Texture 原 SDK 缓存继续正常使用；无需关闭 SessionCache 来使用多 worker。`--sc=false --bc=false --jobs 1|4` 可作纯冷态吞吐对照。没有新增动作缓存、额外持久结果或文件哈希体系。
+默认 `/sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false` 不变，Texture 继续使用原 SDK 缓存布局；新源码插件更新了处理身份，首次使用会重建旧纹理缓存，随后按原冷热/失效规则复用。无需关闭 SessionCache 来使用多 worker。`--sc=false --bc=false --jobs 1|4` 可作纯冷态吞吐对照。没有新增动作缓存、额外持久结果或文件哈希体系。
 
 ## 1. 安装与检查
 

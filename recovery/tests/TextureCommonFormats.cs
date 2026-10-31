@@ -162,6 +162,25 @@ public static class TextureCommonFormats
         try { Plugin.ProcessInstance(Declare(Path.Combine(Root, file), "A8R8G8B8", false, false, textureType)); } catch (Exception) { rejected = true; }
         Need(rejected, "Invalid input was accepted: " + file + "/" + textureType);
     }
+    static void SolidMips(string format)
+    {
+        byte[] dds = Compile("solid.png", format, true, false, "StandardTexture"); Dds(dds, format, true, 16, 16);
+        bool compressed = format.StartsWith("DXT", StringComparison.Ordinal);
+        int at = 128, levels = 0;
+        for (int width = 16, height = 16; ; width = Math.Max(1, width / 2), height = Math.Max(1, height / 2))
+        {
+            int length = compressed ? Math.Max(1, (width + 3) / 4) * Math.Max(1, (height + 3) / 4) * (format == "DXT1" ? 8 : 16) : width * height * 4;
+            byte[] view = new byte[128 + length]; Buffer.BlockCopy(dds, 0, view, 0, 128); Buffer.BlockCopy(dds, at, view, 128, length);
+            Buffer.BlockCopy(BitConverter.GetBytes(width), 0, view, 16, 4); Buffer.BlockCopy(BitConverter.GetBytes(height), 0, view, 12, 4);
+            byte[] expected = new byte[width * height * 4];
+            for (int i = 0; i < expected.Length; i += 4) { expected[i] = 71; expected[i + 1] = 131; expected[i + 2] = 191; expected[i + 3] = 255; }
+            Pixels(expected, Decode(view, format), compressed ? 8 : 0, 0, "solid mip " + levels + "/" + format);
+            at += length; ++levels;
+            if (width == 1 && height == 1) break;
+        }
+        Need(at == dds.Length, "Solid mip decoder consumed complete DDS");
+        Cases.Add(new { file = "solid.png", outputFormat = format, decodedMipLevels = levels, ddsSha256 = Hash(dds) });
+    }
     public static int Main(string[] args)
     {
         var state = new Dictionary<string, object>();
@@ -178,7 +197,7 @@ public static class TextureCommonFormats
             Plugin = new Recovered.Compiler.Texture.Plugin(); Plugin.Initialize(null, TargetPlatform.Win32);
             try
             {
-                foreach (string file in new[] { "opaque.png", "opaque.tga", "rle.tga", "opaque.bmp", "opaque.dib" })
+                foreach (string file in new[] { "opaque.png", "opaque.tga", "rle.tga", "opaque.bmp", "opaque.dib", "indexed.png", "indexed.bmp", "indexed.dib" })
                     Check(file, "A8R8G8B8", "opaque.rgba", false, false, 0, 0);
                 Check("alpha.png", "A8R8G8B8", "alpha.rgba", true, true, 0, 0);
                 foreach (string format in new[] { "X8R8G8B8", "R5G6B5", "DXT1", "DXT3", "DXT5" })
@@ -187,6 +206,7 @@ public static class TextureCommonFormats
                 Check("alpha.png", "DXT5", "alpha.rgba", true, true, 8, 32);
                 Check("binary-alpha.png", "DXT1A", "binary-alpha.rgba", true, false, 0, 0);
                 Check("solid.jpg", "A8R8G8B8", "solid.rgba", false, false, 8, 0);
+                foreach (string format in new[] { "A8R8G8B8", "DXT1", "DXT3", "DXT5" }) SolidMips(format);
                 foreach (string file in new[] { "preserve.dds", "preserve.DDS" }) foreach (bool demand in new[] { false, true })
                 {
                     byte[] input = File.ReadAllBytes(Path.Combine(Root, file));
@@ -195,7 +215,7 @@ public static class TextureCommonFormats
                 }
                 byte[] npot = Compile("npot.png", "DXT1", true, false, "StandardTexture");
                 int w = (int)U32(npot, 16), h = (int)U32(npot, 12);
-                Need(w > 0 && h > 0 && (w & (w - 1)) == 0 && (h & (h - 1)) == 0, "NPOT source must resize to powers of two"); Dds(npot, "DXT1", true, w, h);
+                Need(w == 16 && h == 16, "13x9 NPOT source must round up to 16x16"); Dds(npot, "DXT1", true, w, h);
                 Cases.Add(new { file = "npot.png", resizedWidth = w, resizedHeight = h, ddsSha256 = Hash(npot) });
                 foreach (var pair in new[] { new[] { "opaque.png", "DXT1" }, new[] { "binary-alpha.png", "DXT3" }, new[] { "alpha.png", "DXT5" } })
                 {
@@ -211,6 +231,6 @@ public static class TextureCommonFormats
             Console.WriteLine("PASS built-in texture common formats: " + Cases.Count + " cases, " + Checks + " assertions"); return 0;
         }
         catch (Exception error) { state["status"] = "failed"; state["error"] = error.ToString(); Console.Error.WriteLine(error); return 1; }
-        finally { if (args.Length == 2) File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(state), new UTF8Encoding(false)); }
+        finally { state["cases"] = Cases; state["assertions"] = Checks; if (args.Length == 2) File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(state), new UTF8Encoding(false)); }
     }
 }

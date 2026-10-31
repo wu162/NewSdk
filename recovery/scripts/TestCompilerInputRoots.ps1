@@ -89,7 +89,7 @@ function OriginalOracle($Case,[string]$Name){
     $fixture=Join-Path $script:modeOut "$Name.json"
     $case=@{name='mod-a';modRoot=$Case.mod;inputPath=$Case.report.plan.Tasks[0].InputPath;sdkRoot=$script:sdk;originalToolsRoot=(Join-Path $root 'SDK/tools');stagingDirectory=([IO.Path]::GetDirectoryName($outputs.manifest));outputs=$outputs;expectedTextures=@('Texture:InputRootsTexture');effectiveInputRoots=$Case.report.inputRoots;scope='Explicit effective input roots and unchanged source paths; original BAB raw four-output oracle'}
     @{succeeded=$true;sourceCommit=$script:state.sourceCommit;runId=$env:GITHUB_RUN_ID;baselineCases=@($case);scope='One Armor/Texture/PathMusicEvent stream with explicit roots; not full SDK'}|ConvertTo-Json -Depth 10|Set-Content $fixture
-    & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds -ExpectedCaseCount 1
+    & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult $fixture -OutputDirectory (Join-Path $script:modeOut $Name) -TimeoutSeconds $TimeoutSeconds -ExpectedCaseCount 1 -AlignTextureIdentity:$true
     Need ($LASTEXITCODE -eq 0) 'Input-root independent original BAB oracle failed'
 }
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Current production explicit /dr /data /art /audio order, CLI-over-SDK and MOD-prepend defaults, root-external legal inputs with cache disabled, failure/retry and cache-boundary refusal; strict current original BAB four-file oracle, not full SDK'}

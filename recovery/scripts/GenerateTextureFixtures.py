@@ -40,6 +40,23 @@ def bmp(width, height, rgba, dib=False):
     return (b'' if dib else b'BM' + struct.pack('<IHHI', 14 + len(info) + len(data), 0, 0, 54)) + info + data
 
 
+def indexed(width=16, height=16, kind='png'):
+    palette = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 255)]
+    rows = [bytes(((x // 4) + (y // 4)) % 4 for x in range(width)) for y in range(height)]
+    if kind == 'png':
+        def chunk(name, data):
+            return struct.pack('>I', len(data)) + name + data + struct.pack('>I', zlib.crc32(name + data))
+        return (b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB', width, height, 8, 3, 0, 0, 0))
+                + chunk(b'PLTE', bytes(c for color in palette for c in color))
+                + chunk(b'IDAT', zlib.compress(b''.join(b'\0' + row for row in rows))) + chunk(b'IEND', b''))
+    stride = (width + 3) & ~3
+    data = b''.join(row + bytes(stride - width) for row in reversed(rows))
+    info = struct.pack('<IiiHHIIiiII', 40, width, height, 1, 8, 0, len(data), 2835, 2835, len(palette), 0)
+    table = bytes(c for r, g, b in palette for c in (b, g, r, 0))
+    offset = 14 + len(info) + len(table)
+    return (b'' if kind == 'dib' else b'BM' + struct.pack('<IHHI', offset + len(data), 0, 0, offset)) + info + table + data
+
+
 def dds(width, height, rgba):
     header = bytearray(128)
     header[:4] = b'DDS '
@@ -63,7 +80,8 @@ def generate(destination):
              'preserve.dds': dds(16, 16, opaque), 'preserve.DDS': dds(16, 16, opaque),
              'npot.png': png(13, 9, pixels(13, 9)), 'broken.png': b'\x89PNG\r\n\x1a\nnot an image'}
     solid = bytes((71, 131, 191, 255)) * 256
-    files.update({'solid.bmp': bmp(16, 16, solid), 'solid.rgba': solid})
+    files.update({'solid.bmp': bmp(16, 16, solid), 'solid.png': png(16, 16, solid), 'solid.rgba': solid})
+    files.update({'indexed.png': indexed(), 'indexed.bmp': indexed(kind='bmp'), 'indexed.dib': indexed(kind='dib')})
     for name, data in files.items():
         (destination / name).write_bytes(data)
     (destination / 'fixtures.json').write_text(json.dumps({'width': 16, 'height': 16, 'files': list(files)}, indent=2) + '\n')

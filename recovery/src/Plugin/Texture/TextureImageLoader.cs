@@ -15,21 +15,56 @@ namespace Recovered.Compiler.Texture
             if (data == null) throw new ArgumentNullException("data");
             if (data.Length == 0) throw new InvalidDataException("Image file is empty.");
             if (data.Length > 2 && data[0] == 'P' && (data[1] == '3' || data[1] == '6')) return DecodePpm(data);
+            bool dib = TextureDibDecoder.IsDib(data);
             try
             {
                 if (TexturePngDecoder.IsPng(data)) return TexturePngDecoder.Decode(data);
                 if (TextureBmpDecoder.IsBmp(data)) return TextureBmpDecoder.Decode(data);
-                if (TextureDibDecoder.IsDib(data)) return TextureDibDecoder.Decode(data);
+                if (dib) return TextureDibDecoder.Decode(data);
             }
             catch (NotSupportedException)
             {
-                // The recovered byte-compatible subsets are preferred. GDI+
-                // handles other standard PNG/BMP variants and common JPEG/GIF/TIFF.
-                return DecodeDrawing(data);
+                // The recovered subsets are preferred; other standard variants
+                // (including indexed BMP/PNG) use Windows GDI+.
+                return DecodeDrawing(dib ? DibEnvelope(data) : data);
+            }
+            catch (BinaryAssetBuilder.BinaryAssetBuilderException)
+            {
+                // The reference decoders also use BadTextureFile for valid
+                // indexed/bitfield profiles outside their recovered subsets.
+                return DecodeDrawing(dib ? DibEnvelope(data) : data);
             }
             if (IsDrawingFormat(data)) return DecodeDrawing(data);
             return TextureTgaAdditionalFormats.CanDecode(data) ? TextureTgaAdditionalFormats.Decode(data) : TextureTgaDecoder.Decode(data);
         }
+        private static byte[] DibEnvelope(byte[] data)
+        {
+            // A bare DIB needs a BMP file header before Windows can decode it.
+            if (data.Length < 4) throw new InvalidDataException("DIB header is truncated.");
+            uint size = Read32(data, 0);
+            if (size > data.Length || size < 12) throw new InvalidDataException("Invalid DIB header size.");
+            int depth = size == 12 ? data[10] | data[11] << 8 : data[14] | data[15] << 8;
+            uint colors = size == 12 ? 0 : Read32(data, 32);
+            if (colors == 0 && depth <= 8) colors = 1u << depth;
+            long pixelOffset = 14L + size + (long)colors * (size == 12 ? 3 : 4);
+            if (size == 40)
+            {
+                uint compression = Read32(data, 16);
+                if (compression == 3) pixelOffset += 12;
+                else if (compression == 6) pixelOffset += 16;
+            }
+            if (pixelOffset > data.Length + 14L) throw new InvalidDataException("DIB palette/masks are truncated.");
+            byte[] bmp = new byte[checked(data.Length + 14)]; bmp[0] = 66; bmp[1] = 77;
+            Put32(bmp, 2, (uint)bmp.Length); Put32(bmp, 10, (uint)pixelOffset);
+            Buffer.BlockCopy(data, 0, bmp, 14, data.Length);
+            return bmp;
+        }
+        private static uint Read32(byte[] data, int at)
+        {
+            if (at > data.Length - 4) throw new InvalidDataException("DIB header is truncated.");
+            return (uint)data[at] | (uint)data[at + 1] << 8 | (uint)data[at + 2] << 16 | (uint)data[at + 3] << 24;
+        }
+        private static void Put32(byte[] data, int at, uint value) { for (int i = 0; i < 4; i++) data[at + i] = (byte)(value >> (i * 8)); }
         private static bool IsDrawingFormat(byte[] data)
         {
             return data.Length >= 2 && data[0] == 0xff && data[1] == 0xd8 ||
