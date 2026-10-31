@@ -1,8 +1,8 @@
-# 当前：音频输出身份修复验证中，PR #41
+# 当前：音频身份修复完整验收通过，原 SDK 配对验证中
 
-`benchmark/original-sdk-current` / `8050f22d`：NONE/XAS 等旧音频恢复原 ProcessingHash，仅新 EALayer3 保留独立实例身份。使用已有会话编译器版本迁移旧音频声明，保留独立 Audio DLL 的原 BAB 类型级策略；音频 lazy 路由已接线，其它路由不增加元数据分配。编码器没有修改。
+`benchmark/original-sdk-current`，生产源码 `8050f22d`。[Windows 41244132060](https://github.com/wu162/NewSdk/actions/runs/41244132060) 整体 success：Debug/Release 新构建、Core/CLI/取消、后端/缓存/会话、Audio 混合 NONE/XAS/EALayer3 及旧会话升级、完整 mymod 原 SDK、两个三文件 ZIP、完整 Upheaval 22 样本均通过。正常音频恢复原 ProcessingHash，新 EALayer3 实例独立，旧会话迁移后可回到零解析/零编译热态。
 
-[Windows 41244132060](https://github.com/wu162/NewSdk/actions/runs/41244132060) 正在新构建 Debug/Release 并执行完整适用回归，包含混合 NONE/XAS/EALayer3、上一版真实会话升级与热态检查；尚未验收通过。此前 `5d31c596` 的首次运行仍保留，不取消或冒充最终候选。之后用新验收产物重跑完整 Upheaval 原 SDK 字节对照，旧 41212813051 的失败和速度数字保留为历史。[音频缓存规则](audio/EaLayer3.md)。[PR #41](https://github.com/wu162/NewSdk/pull/41) 未合并，禁止强推。
+[正式归档和 D/R/ZIP 单次下载复算](evidence/refactor/audio-identity/41244132060-1/accepted-summary.json) 已完成，Release EXE SHA256 `2e04db720b2860bf337a66557572eb7ad2bc667b950e5a2ec69d81181c222b43`。音频专项详细 JSON 未被初轮上传路径包含，原成功日志保留；已修正上传范围，并在 [原 SDK 配对 41245972797](https://github.com/wu162/NewSdk/actions/runs/41245972797) 用同一已验收二进制补收详细收据。该配对仍在运行，不能提前称 Upheaval 跨工具字节相同；旧 41212813051 的失败保持不变。后续仅测试/证据，不代表再次构建生产。[音频缓存规则](audio/EaLayer3.md)。[PR #41](https://github.com/wu162/NewSdk/pull/41) 未合并，禁止强推。
 
 # 当前：原 SDK 与当前编译器 Benchmark 已执行，PR #41
 
