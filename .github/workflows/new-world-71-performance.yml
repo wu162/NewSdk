@@ -1,0 +1,66 @@
+name: The New World 7.1 original and new SDK benchmark
+on:
+  push:
+    branches: [benchmark/new-world-71-sdk]
+    paths:
+      - '.github/workflows/new-world-71-performance.yml'
+      - 'recovery/scripts/DownloadNewWorld71.py'
+      - 'recovery/scripts/MeasureCompilerOriginalMod.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: new-world-71-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  measure:
+    runs-on: windows-2022
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Verify accepted Release source and measurement syntax
+        shell: pwsh
+        run: |
+          $run=gh api repos/wu162/NewSdk/actions/runs/41244132060 | ConvertFrom-Json
+          if($LASTEXITCODE -ne 0 -or $run.status -ne 'completed' -or $run.conclusion -ne 'success' -or $run.head_sha -cne '8050f22de81539c65aeca3903e9b48f53a572068' -or $run.run_attempt -ne 1){throw 'Accepted production source/run differs'}
+          python -m py_compile recovery/scripts/MeasureCompilerOriginalMod.py recovery/scripts/DownloadNewWorld71.py
+          if($LASTEXITCODE -ne 0){throw 'Measurement script syntax failed'}
+      - uses: actions/download-artifact@v4
+        with:
+          name: refactor-core-lifecycle-41244132060-1
+          run-id: 41244132060
+          github-token: ${{ github.token }}
+          path: work/new-world-accepted
+      - name: Download and verify complete 7.1 source under SDK Mods
+        shell: pwsh
+        run: |
+          python recovery/scripts/DownloadNewWorld71.py --sdk-root SDK --archive "$env:RUNNER_TEMP/The_New_World_7.1Source_Code.7z" --output "recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/source.json"
+          if($LASTEXITCODE -ne 0){throw 'Source download or extraction failed'}
+      - name: Paired cold hot and real XML edit builds on the same Windows VM
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/measurement"
+          python recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-accepted/artifacts/core-lifecycle-product/Release --mod "SDK/Mods/The New World" --mod-schema "SDK/Mods/The New World/xsd" --edit-file Data/AutoAndBoat/AM_BOAT03.xml --edit-old 'MaxHealth="300"' --edit-new 'MaxHealth="301"' --requested-head c7647a130c779e84b3ec669cb7235599488048b2 --work "$env:RUNNER_TEMP/new-world-benchmark" --output $out --pairs 3 --timeout-seconds 600 --budget-seconds 2400
+          $result=$LASTEXITCODE
+          if(Test-Path "$out/report.md"){Get-Content "$out/report.md" -Encoding UTF8 | Add-Content $env:GITHUB_STEP_SUMMARY}
+          if($result -ne 0){throw 'Benchmark did not fully pass; raw results retained'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: new-world-71-performance-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**
+          if-no-files-found: error
