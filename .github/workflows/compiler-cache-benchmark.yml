@@ -18,6 +18,12 @@ on:
         description: 'Full production source SHA from the paired candidate run'
         required: false
         type: string
+      measurement_mode:
+        description: 'Throughput cold/hot builds or bounded warm-cache edit diagnostics'
+        required: false
+        type: choice
+        options: [throughput, incremental]
+        default: throughput
       armor_partitions:
         description: 'Additional reachable Armor partitions for paired mode (0 is untouched full Upheaval)'
         required: false
@@ -28,7 +34,7 @@ permissions:
   contents: read
   actions: read
 concurrency:
-  group: cache-benchmark-${{ github.ref }}-${{ github.sha }}-${{ inputs.candidate_run_id }}-${{ inputs.armor_partitions }}
+  group: cache-benchmark-${{ github.ref }}-${{ github.sha }}-${{ inputs.candidate_run_id }}-${{ inputs.armor_partitions }}-${{ inputs.measurement_mode }}
   cancel-in-progress: false
 jobs:
   paired:
@@ -38,6 +44,7 @@ jobs:
       candidate_run_id: ${{ inputs.candidate_run_id }}
       candidate_source: ${{ inputs.candidate_source }}
       armor_partitions: ${{ inputs.armor_partitions }}
+      measurement_mode: ${{ inputs.measurement_mode }}
   benchmark:
     if: (github.event_name == 'workflow_dispatch' && inputs.candidate_run_id == '') || contains(github.event.head_commit.message, '[cache-benchmark]')
     runs-on: windows-2022

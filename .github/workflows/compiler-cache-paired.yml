@@ -8,6 +8,10 @@ on:
       candidate_source:
         required: true
         type: string
+      measurement_mode:
+        required: false
+        type: string
+        default: throughput
       armor_partitions:
         required: false
         type: string
@@ -22,6 +26,12 @@ on:
         description: Full candidate production source commit SHA from that run
         required: true
         type: string
+      measurement_mode:
+        description: 'Throughput cold/hot builds or bounded warm-cache edit diagnostics'
+        required: false
+        type: choice
+        options: [throughput, incremental]
+        default: throughput
       armor_partitions:
         description: Additional reachable Armor partitions (0 is untouched full Upheaval; 6 adds 49152 assets)
         required: true
@@ -32,18 +42,19 @@ permissions:
   contents: read
   actions: read
 concurrency:
-  group: compiler-cache-paired-${{ github.ref }}-${{ inputs.candidate_run_id }}-${{ inputs.armor_partitions }}
+  group: compiler-cache-paired-${{ github.ref }}-${{ inputs.candidate_run_id }}-${{ inputs.armor_partitions }}-${{ inputs.measurement_mode }}
   cancel-in-progress: false
 jobs:
   measure:
     runs-on: windows-2022
-    timeout-minutes: 15
+    timeout-minutes: ${{ inputs.measurement_mode == 'incremental' && 8 || 15 }}
     env:
       GH_TOKEN: ${{ github.token }}
       PYTHONDONTWRITEBYTECODE: '1'
       CANDIDATE_RUN: ${{ inputs.candidate_run_id }}
       CANDIDATE_SOURCE: ${{ inputs.candidate_source }}
       ARMOR_PARTITIONS: ${{ inputs.armor_partitions }}
+      MEASUREMENT_MODE: ${{ inputs.measurement_mode }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -74,12 +85,16 @@ jobs:
           run-id: ${{ inputs.candidate_run_id }}
           github-token: ${{ github.token }}
           path: work/cache-paired-candidate
-      - name: Three independent cold pairs, two hot processes each, no-cache and detailed attribution
-        timeout-minutes: 13
+      - name: Paired throughput or representative warm-cache edit diagnostics
+        timeout-minutes: ${{ inputs.measurement_mode == 'incremental' && 5 || 13 }}
         shell: pwsh
         run: |
           $out="recovery/evidence/refactor/cache-paired/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          python recovery/scripts/MeasureCompilerCachePaired.py --baseline-build work/cache-paired-baseline/artifacts/core-lifecycle-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --armor-partitions $env:ARMOR_PARTITIONS --work "$env:RUNNER_TEMP/cache-paired" --output $out --budget 720 --timeout 180
+          if($env:MEASUREMENT_MODE -eq 'incremental'){
+            python recovery/scripts/MeasureCompilerIncrementalPaired.py --baseline-build work/cache-paired-baseline/artifacts/core-lifecycle-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --work "$env:RUNNER_TEMP/cache-incremental" --output $out --budget 240 --timeout 30
+          }else{
+            python recovery/scripts/MeasureCompilerCachePaired.py --baseline-build work/cache-paired-baseline/artifacts/core-lifecycle-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --armor-partitions $env:ARMOR_PARTITIONS --work "$env:RUNNER_TEMP/cache-paired" --output $out --budget 720 --timeout 180
+          }
           $result=$LASTEXITCODE
           if(Test-Path "$out/report.md"){Get-Content "$out/report.md" -Encoding UTF8 | Add-Content $env:GITHUB_STEP_SUMMARY}
           if($result -ne 0){throw 'Paired cache measurement failed; partial evidence retained'}
