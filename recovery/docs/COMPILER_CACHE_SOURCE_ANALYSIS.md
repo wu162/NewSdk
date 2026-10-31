@@ -2,7 +2,7 @@
 
 本轮入口为 `recovery/legacy-sdk-cache` / `665468cb`，成果分支 `perf/compiler-cold-hot-cache`、[PR #38](https://github.com/wu162/NewSdk/pull/38)。先据真实计时定位，再决定改动；以下阶段耗时用于排序，不能直接当作可节省时间或端到端收益。
 
-第一轮生产源码 `4d732a14` 的 [Windows 41165490728](https://github.com/wu162/NewSdk/actions/runs/41165490728) 已完整成功。第二轮源码 `d3b3150f` 已提交，[Windows 41167799236](https://github.com/wu162/NewSdk/actions/runs/41167799236) 正在构建和执行原字节与缓存回归；不以第一轮成功替代第二轮验收。完整原始 MOD 与扩容 MOD 的同机测量也分别报告，详见[优化与计量说明](COMPILER_COLD_HOT_OPTIMIZATION.md)。
+第一轮生产源码 `4d732a14` 的 [Windows 41165490728](https://github.com/wu162/NewSdk/actions/runs/41165490728) 已完整成功。第二轮源码 `d3b3150f` 已提交，[Windows 41167799236](https://github.com/wu162/NewSdk/actions/runs/41167799236) 已完整success，原归档已复算；随后同步074bf768的组合e2dba3c3正在[41169755141](https://github.com/wu162/NewSdk/actions/runs/41169755141)重新验收；不以第一轮成功替代第二轮验收。完整原始 MOD 与扩容 MOD 的同机测量也分别报告，详见[优化与计量说明](COMPILER_COLD_HOT_OPTIMIZATION.md)。
 
 ## 当前主次与计时边界
 
@@ -18,6 +18,8 @@
 | 热态同组：删除只写的 FileConfig | `SessionCache.CurrentState.FromLast` 反复构建额外路径索引和列表，但实际查找与保存只用 `Files`。 | 第二轮实施中；删除纯写索引，保留 `Files` 的排序、序列化与失效检查。 |
 | 次优：解析诊断元数据 | 每个 XML 节点插入都分配元数据对象及链表节点，成功校验后丢弃；现有错误查找还存在相等比较缺陷。 | 已定位，暂不与本组主改动混合。 |
 | 暂缓的结构性改变 | 共享 NameTable、复用/替换 XML validator、继承合并索引、重写排序。 | 需要进一步分段和正确性证据，不在当前组冒进。 |
+
+第二组新增打点已确认：其独立完整MOD诊断中，实例hash约910.61ms、引用处理5889.47ms、实际XSD5955.83ms，热态cache.load合计271.32ms。这是第二组自身分段，不能与另一VM第一轮毫秒直接算速度收益。下一层应优先拆解XPath/SchemaInfo遍历、字符串hash登记、显式强引用的类型对判断与文件路径解析；进一步削减不足1秒的hash微成本优先级降低。
 
 ## 两次 XML 哈希的真实来源
 

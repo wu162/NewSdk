@@ -1,6 +1,6 @@
 # 热缓存参考文档与当前源码对照
 
-参考资料为用户上传的 `NewSdk_hot_cache_session_summary_2026-10-30.md`，其调查固定提交是 `5c1843aea5f9b0cdcbe04325b251a8a944ed0fae`。上传参考文件 SHA256 为 `a29ceb7751aeae6b8175ace5ffc58d283ce3693e61c392e583476ef730650055`。它用于提供机制和真实编辑方式，历史计划不替代本轮任务，也不把定性发生频率换算成百分比。当前对照源码为本轮第二组 `d3b3150f`；实现和验收状态见[性能说明](COMPILER_COLD_HOT_OPTIMIZATION.md)。
+参考资料为用户上传的 `NewSdk_hot_cache_session_summary_2026-10-30.md`，其调查固定提交是 `5c1843aea5f9b0cdcbe04325b251a8a944ed0fae`。上传参考文件 SHA256 为 `a29ceb7751aeae6b8175ace5ffc58d283ce3693e61c392e583476ef730650055`。它用于提供机制和真实编辑方式，历史计划不替代本轮任务，也不把定性发生频率换算成百分比。当前对照以本轮第二组 `d3b3150f` 为基础，随后组合了新FLA基线 `074bf768`（组合 `e2dba3c3`）；实现和验收状态见[性能说明](COMPILER_COLD_HOT_OPTIMIZATION.md)。
 
 ## 仍然成立的核心判断
 
@@ -17,7 +17,7 @@
 
 ## 已过时或应收窄的说法
 
-参考文档第4.1节把应用层“运行文件身份、SDK 配置、部分选项”等整份包身份列为会话失效条件。这不再准确描述当前入口：当前 [LegacyCacheStore.CanLoad](../src/App/Application/LegacyCacheStore.cs) 只检查原 XML/Deflate 会话是否存在；此前 `session.identity`、全文件 SHA256 收据和重复输入边界防御已被删除。实际 Schema 内容身份、会话格式/处理器版本、类型/插件版本及文件内容身份仍由 Core 分层检查。不能据旧包身份流程重新引入热路径全树哈希。
+参考文档第4.1节把应用层“运行文件身份、SDK 配置、部分选项”等整份包身份列为会话失效条件。这不再准确描述当前入口：当前 [LegacyCacheStore.CanLoad](../src/App/Application/LegacyCacheStore.cs) 只检查原 XML/Deflate 会话是否存在；此前 `session.identity`、全文件 SHA256 收据和重复输入边界防御已被删除。实际 Schema 内容身份、会话格式/处理器版本、类型/插件版本及文件内容身份仍由 Core 分层检查。不能据旧包身份流程重新引入热路径全树哈希。同期FLA能力另有UI来源目录及编译器版本依赖（uidir/uiv），属于实际UI输入层，不等于恢复旧全运行文件身份封包。
 
 参考文档第5.2节提到每个顶层流新建 SessionCache。本轮 [CoreStreamCompiler](../src/App/Application/CoreStreamCompiler.cs) 已在成功保存后复用请求内 `savedSessionCache`。但它仍为每流创建 DocumentProcessor，并调用 `InitializeCache` 重置文档、实例、定义和 Include 的瞬态状态。因此跨流 DOM 保留尚未实现；“复用会话元数据”不能写成“任意父 XML 已跨流保留”。冻结、失败和部分保存也不授权这条内存复用路径。
 

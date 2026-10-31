@@ -1,6 +1,6 @@
 # 编译器冷、热缓存性能优化
 
-本轮从 `recovery/legacy-sdk-cache` / `665468cb` 拉出 `perf/compiler-cold-hot-cache`，范围是编译器冷缓存与热缓存的主要重复工作。第一轮生产源码 `4d732a14` 已完成验收与同机测量。深入分析后继续实现第二组，最终候选生产源码为 `d3b3150fba886708cf3e34fcce3ec55d145e27a8`，正在运行新的完整 Windows 验收；第一轮数据不代表最终版本收益。
+本轮从 `recovery/legacy-sdk-cache` / `665468cb` 拉出 `perf/compiler-cold-hot-cache`，范围是编译器冷缓存与热缓存的主要重复工作。第一轮生产源码 `4d732a14` 已完成验收与同机测量。深入分析后继续实现第二组，第二组 `d3b3150f` 也已完整验收。远端同期合入FLA支持后，已同步 `074bf768`，最终组合源码为 `e2dba3c321504752438b4e940d651bbfcdb58fff`，正在运行含真实FLA/AS的新组合验收；第一轮数据不代表最终组合收益。
 
 ## 优先级与实现
 
@@ -26,7 +26,9 @@
 
 ## 同机测量方法
 
-[已登记的 Benchmark 入口](../../.github/workflows/compiler-cache-benchmark.yml)在指定 `candidate_run_id` 后调用[配对工作流](../../.github/workflows/compiler-cache-paired.yml)和 [MeasureCompilerCachePaired.py](../scripts/MeasureCompilerCachePaired.py)，只有指定源码的 Core lifecycle 运行完整成功后才接受其候选 Release。基线复用 [41152199159](https://github.com/wu162/NewSdk/actions/runs/41152199159) 的已验收 Release，二进制源码为 `1a3e4bc6`；脚本核对它与本轮起点 `665468cb` 的生产输入闭包未变，并固定校验五个运行文件身份。
+[已登记的 Benchmark 入口](../../.github/workflows/compiler-cache-benchmark.yml)在指定 `candidate_run_id` 后调用[配对工作流](../../.github/workflows/compiler-cache-paired.yml)和 [MeasureCompilerCachePaired.py](../scripts/MeasureCompilerCachePaired.py)，只有指定源码的 Core lifecycle 运行完整成功后才接受其候选 Release。第一轮基线复用 [41152199159](https://github.com/wu162/NewSdk/actions/runs/41152199159) 的已验收 Release，二进制源码为 `1a3e4bc6`；脚本核对它与本轮起点 `665468cb` 的生产输入闭包未变，并固定校验五个运行文件身份。
+
+最终组合改用已验收UI基线 `75d29895` / [41165126334](https://github.com/wu162/NewSdk/actions/runs/41165126334)，与 `074bf768` 的SDK/Core/build/ui/恢复脚本闭包相同；[原归档、十运行文件与两个ZIP](../evidence/refactor/cache-paired/baseline-41165126334/archive.json)已重新下载复算。这样最终对照只反映优化差异，不混入同期FLA功能。旧665基线的历史结果单独保留。
 
 - 每组配对在同一 Windows VM、同一 SDK、同一份完整历史 Upheaval 输入上固定 `--jobs 4`；默认不扩容。可另跑可达 Armor 分区扩容，但各负载分别报告。
 - 默认三组独立冷态配对，交替基线/候选先后顺序；每个全新输出/编译器缓存目录之后各跑两个全新热态进程。两个热态样本共用同一冷态命名空间，并非独立冷态重复。
@@ -80,7 +82,8 @@
 | 第一轮 Windows 全门槛 | [41165490728](https://github.com/wu162/NewSdk/actions/runs/41165490728) success；D/R、Core/CLI/缓存/SDK/ZIP与22个完整Upheaval样本通过；[归档及十运行文件/两个ZIP身份](../evidence/refactor/cache-paired/acceptance-41165490728/archive.json)已下载核对 |
 | 较早检查点 | [41165381586](https://github.com/wu162/NewSdk/actions/runs/41165381586) success；随后补齐会话瞬态重置及专门重入回归，最终验收使用后一运行 |
 | 第二组源码 | `d3b3150fba886708cf3e34fcce3ec55d145e27a8`：512字符XML哈希缓冲、Schema事实预分类、删除纯写FileConfigs |
-| 第二组 Windows | [41167799236](https://github.com/wu162/NewSdk/actions/runs/41167799236) 正在运行；第一轮成功不替代此版本验收 |
+| 第二组 Windows | [41167799236](https://github.com/wu162/NewSdk/actions/runs/41167799236) success；[原归档/十文件/两ZIP](../evidence/refactor/cache-paired/acceptance-41167799236/archive.json)重新下载核对 |
+| 最新分支组合 | 已同步FLA基线074bf768；组合e2dba3c3，[41169755141](https://github.com/wu162/NewSdk/actions/runs/41169755141)运行中，新增真实FLA/AS集成门槛 |
 | 第二组同机最终收益 | 待新验收成功后，以相同负载重新配对，不沿用第一轮速度比例 |
 
 [深入源码分析](COMPILER_CACHE_SOURCE_ANALYSIS.md)记录新打点、优先级、已实施和暂缓方案、兼容边界及后续验证。失败/旧运行与所有较慢样本保留。未经用户明确批准不得合并，禁止强推。
