@@ -1,0 +1,88 @@
+name: RA3 EALayer3 V1
+on:
+  push:
+    branches: [feature/ra3-ealayer3]
+    paths: ['recovery/src/**', 'recovery/build/**', 'recovery/scripts/*EaLayer3*', 'recovery/tests/AudioEaLayer3*', '.github/workflows/audio-ealayer3.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  targeted:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/checkout@v4
+        with:
+          repository: jonwil/ealayer3compilerplugin
+          ref: ed407302ae63cd6ba849af586ef765c03ca008b3
+          path: work/ra3-oracle
+          persist-credentials: false
+      - uses: ilammy/msvc-dev-cmd@v1
+        with: {arch: x86}
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '8.0.x'}
+      - name: Build and encode real AudioFile assets, jobs 1 and 4, independently decode
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioEaLayer3.ps1
+      - name: Compare format and decoded signal with jonwil RA3 plugin
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioEaLayer3Oracle.ps1 -UpstreamDirectory work/ra3-oracle
+      - name: Existing NONE XAS MP3Passthrough and PathMusic byte regressions
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestAudioMetadata.ps1 -OutputDirectory recovery/evidence/audio/ealayer3/metadata
+          ./recovery/scripts/TestAudioPlugin.ps1 -Groups business,pcm,xas,main,loops,aiffloops -IncludeMp3
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ealayer3-${{ github.run_id }}
+          path: |
+            recovery/evidence/audio/ealayer3/**
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**
+          if-no-files-found: error
+  integration:
+    needs: targeted
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false, fetch-depth: 0}
+      - uses: ilammy/msvc-dev-cmd@v1
+        with: {arch: x86}
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '8.0.x'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install existing protected-PE and protocol audit dependencies
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: ealayer3-${{ github.run_id }}
+          path: work/targeted
+      - name: Official BAB loads and compiles with new AudioCompiler DLL
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioEaLayer3Sdk.ps1 -AudioBinDirectory work/targeted/ealayer3/Release/bin
+      - name: Normal production Debug and Release builds with statically linked EALayer3
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/BuildCompiler.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/ealayer3-product/$mode"
+          }
+      - name: Production CLI jobs, cold/hot cache, changed audio, independent rebuild
+        shell: pwsh
+        run: python recovery/scripts/TestAudioEaLayer3Integration.py --repo . --exe recovery/artifacts/ealayer3-product/Release/bin/NewModCompiler.exe --work "$env:RUNNER_TEMP/ea-cli" --output recovery/evidence/audio/ealayer3-cli
+      - name: One complete mymod integration acceptance against original SDK
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/ealayer3-product -OutputDirectory recovery/evidence/audio/ealayer3-full-sdk
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ealayer3-integration-${{ github.run_id }}
+          path: |
+            recovery/evidence/audio/ealayer3-sdk/**
+            recovery/evidence/audio/ealayer3-cli/**
+            recovery/evidence/audio/ealayer3-full-sdk/**
+            recovery/artifacts/ealayer3-product/**
+          if-no-files-found: error

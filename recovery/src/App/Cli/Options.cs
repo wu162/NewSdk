@@ -15,7 +15,7 @@ namespace NewModCompiler.Cli
             {"bcd","build-cache-directory"}, {"bcp","build-cache-directory"}
         };
         static readonly HashSet<string> Values = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
-            "profile","mod","sdk-root","out","events","report","log","package-content","package-format","mod-version","game-version","skudef-name",
+            "jobs","performance","profile","mod","sdk-root","out","events","report","log","package-content","package-format","mod-version","game-version","skudef-name",
             "sp","dr","art","audio","data","iod","session-cache-directory","build-cache-directory",
             "bcn","tp","bps","cpf","tl","el"
         };
@@ -40,6 +40,16 @@ namespace NewModCompiler.Cli
                 bool parsed;
                 if (!bool.TryParse(value, out parsed)) throw Bad("CLI_BOOLEAN", key + " expects true or false.");
                 return parsed ? "true" : "false";
+            }
+            if (key == "jobs") {
+                if (string.Equals(value,"auto",StringComparison.OrdinalIgnoreCase)) return "auto";
+                int jobs;
+                if (!int.TryParse(value,out jobs) || jobs < 1) throw Bad("CLI_JOBS", "Jobs must be auto or a positive integer.");
+                return jobs.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            }
+            if (key == "performance") {
+                value = value.ToLowerInvariant();
+                if (value != "off" && value != "summary" && value != "detailed") throw Bad("CLI_PERFORMANCE", "Performance must be off, summary, or detailed.");
             }
             if (key == "tp") {
                 if (!string.Equals(value, "Win32", StringComparison.OrdinalIgnoreCase)) throw Bad("CLI_PLATFORM", "Only Win32 is supported.");
@@ -105,8 +115,14 @@ namespace NewModCompiler.Cli
             }
             foreach (var pair in commandLine) request.Options[pair.Key] = pair.Value;
             Default(request,"ss","true"); Default(request,"pc","true"); Default(request,"slowclean","true");
+            foreach (string key in new[] {"sc","bc","psc","csc"}) Default(request,key,"true");
+            foreach (string key in new[] {"fsc","atc"}) Default(request,key,"false");
             Default(request,"mod-version","1.0"); Default(request,"game-version","1.12");
-            Default(request,"profile","standard");
+            Default(request,"profile","standard"); Default(request,"performance","off");
+            request.PerformanceLevel = request.Options["performance"].Value;
+            Default(request,"jobs","auto");
+            request.JobsAuto=request.Options["jobs"].Value=="auto";
+            request.RequestedJobs=request.JobsAuto ? 0 : int.Parse(request.Options["jobs"].Value,System.Globalization.CultureInfo.InvariantCulture);
             Default(request,"fix-neutral-assets","false"); Default(request, "package-content", "auto");
             Default(request, "package-format", request.Options["profile"].Value == "development" ? "loose" : "big");
             // Additional is automatic only for packaging. Explicit loose calls remain valid.
@@ -119,24 +135,24 @@ namespace NewModCompiler.Cli
                 request.OutputRoot = FullPath(request.Options["out"].Value);
                 if (Paths.Contains(request.ModRoot, request.OutputRoot) || Paths.Contains(request.OutputRoot, request.ModRoot) || Paths.Contains(request.SdkRoot, request.OutputRoot) || Paths.Contains(request.OutputRoot, request.SdkRoot))
                     throw Bad("CLI_OUTPUT_OVERLAP", "Output must not overlap the MOD or SDK input directories.");
+                string mod, sdk;
                 try {
                     if (File.Exists(request.OutputRoot)) throw Bad("CLI_OUTPUT_PATH", "Output must name a directory, not an existing file.");
                     string output=DiagnosticDirectory.ResolveOutput(request.OutputRoot);
-                    string mod=DiagnosticDirectory.ResolveInputDirectory(request.ModRoot), sdk=DiagnosticDirectory.ResolveInputDirectory(request.SdkRoot);
+                    mod=DiagnosticDirectory.ResolveInputDirectory(request.ModRoot); sdk=DiagnosticDirectory.ResolveInputDirectory(request.SdkRoot);
                     if (Paths.Contains(mod,output) || Paths.Contains(output,mod) || Paths.Contains(sdk,output) || Paths.Contains(output,sdk))
                         throw Bad("CLI_OUTPUT_OVERLAP", "Output physically overlaps the MOD or SDK inputs.");
+                    request.OutputRoot = output;
                 } catch (IOException e) { throw Bad("CLI_OUTPUT_PATH",e.Message); }
-                request.EventsPath = ResolveDiagnostic(request, "events", "build.events.jsonl");
-                request.ReportPath = ResolveDiagnostic(request, "report", "build-report.json");
-                request.LogPath = ResolveDiagnostic(request, "log", "build.log");
+                request.EventsPath = ResolveDiagnostic(request, "events", "build.events.jsonl", mod, sdk);
+                request.ReportPath = ResolveDiagnostic(request, "report", "build-report.json", mod, sdk);
+                request.LogPath = ResolveDiagnostic(request, "log", "build.log", mod, sdk);
                 string[] diagnostics=new [] {request.EventsPath,request.ReportPath,request.LogPath};
-                string[] physical=diagnostics.Select(DiagnosticDirectory.ResolveOutput).ToArray();
-                string staging=DiagnosticDirectory.ResolveOutput(Path.Combine(request.OutputRoot,".build"));
-                string published=DiagnosticDirectory.ResolveOutput(Path.Combine(request.OutputRoot,"published"));
+                string[] physical=diagnostics;
+                string published=Path.Combine(request.OutputRoot,"published");
                 for (int i=0;i<physical.Length;++i) {
-                    if (Paths.Contains(staging,physical[i]) || Paths.Contains(physical[i],staging) ||
-                        Paths.Contains(published,physical[i]) || Paths.Contains(physical[i],published))
-                        throw Bad("CLI_LOG_COLLISION","Diagnostic files must not overlap staging or publication directories.");
+                    if (Paths.Contains(published,physical[i]) || Paths.Contains(physical[i],published))
+                        throw Bad("CLI_LOG_COLLISION","Diagnostic files must not overlap compiler output.");
                     for (int j=0;j<i;++j)
                         if (Paths.Contains(physical[i],physical[j]) || Paths.Contains(physical[j],physical[i]))
                             throw Bad("CLI_LOG_COLLISION","Diagnostic paths must be distinct files, without ancestor/descendant overlap.");
@@ -151,7 +167,7 @@ namespace NewModCompiler.Cli
             return request;
         }
         static void Default(BuildRequest request, string key, string value) { if (!request.Options.ContainsKey(key)) request.Options[key] = new EffectiveOption { Value = value, Source = "default" }; }
-        static string ResolveDiagnostic(BuildRequest request, string key, string fallback)
+        static string ResolveDiagnostic(BuildRequest request, string key, string fallback, string mod, string sdk)
         {
             Default(request, key, Path.Combine(request.OutputRoot, fallback));
             string path = request.Options[key].Value;
@@ -160,13 +176,22 @@ namespace NewModCompiler.Cli
             if (Paths.Contains(request.ModRoot, path) || Paths.Contains(request.SdkRoot, path)) throw Bad("CLI_LOG_INPUT", "Diagnostic output must not overwrite inputs.");
             try {
                 if (Directory.Exists(path)) throw Bad("CLI_LOG_PATH", "Diagnostic output must name a file, not an existing directory.");
-                string physical=DiagnosticDirectory.ResolveOutput(path);
-                if (Paths.Contains(DiagnosticDirectory.ResolveInputDirectory(request.ModRoot),physical) || Paths.Contains(DiagnosticDirectory.ResolveInputDirectory(request.SdkRoot),physical))
+                string physical;
+                if (Paths.Contains(request.OutputRoot,path)) {
+                    // OutputRoot was already physically resolved above. Only
+                    // existing descendants can add another junction boundary.
+                    string parent=Path.GetDirectoryName(path);
+                    if (!string.Equals(parent,request.OutputRoot,StringComparison.OrdinalIgnoreCase)) DiagnosticDirectory.CheckDirectory(parent,request.OutputRoot);
+                    DiagnosticFiles.RejectReparseFile(path);
+                    physical=path;
+                } else physical=DiagnosticDirectory.ResolveOutput(path);
+                if (Paths.Contains(mod,physical) || Paths.Contains(sdk,physical))
                     throw Bad("CLI_LOG_INPUT","Diagnostic output physically overlaps inputs.");
+                path = physical;
             } catch (IOException e) { throw Bad("CLI_LOG_PATH",e.Message); }
             return path;
         }
-        static bool IsPath(string key) { return new [] {"mod","sdk-root","out","events","report","log"}.Contains(key); }
+        static bool IsPath(string key) { return new [] {"mod","sdk-root","out","events","report","log","session-cache-directory","build-cache-directory","iod"}.Contains(key); }
         static string FullPath(string value) { try { return Path.GetFullPath(value); } catch (Exception e) { throw Bad("CLI_PATH", e.Message); } }
         static void LoadPreset(IDictionary<string, EffectiveOption> options, string file)
         {
@@ -175,7 +200,7 @@ namespace NewModCompiler.Cli
                 if (values == null) throw Bad("PROJECT_INVALID", "Project preset must be a JSON object.");
                 foreach (var pair in values) {
                     string key = Canonical(pair.Key);
-                    if (!new [] {"profile","sdk-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
+                    if (!new [] {"jobs","profile","sdk-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean","sc","bc","csc","psc","fsc","atc","session-cache-directory","build-cache-directory","iod"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
                     if (!(pair.Value is IConvertible)) throw Bad("PROJECT_OPTION", "Project values must be scalar values: " + pair.Key);
                     string raw = Convert.ToString(pair.Value, System.Globalization.CultureInfo.InvariantCulture);
                     if (string.IsNullOrWhiteSpace(raw)) throw Bad("PROJECT_OPTION", "Project value must not be empty: " + pair.Key);
@@ -187,16 +212,18 @@ namespace NewModCompiler.Cli
         }
         public const string Help = "NewModCompiler build|plan --mod <directory> [--sdk-root <directory>] [--out <directory>] [--mod-version <version>]\n" +
             "Standard (default): auto-detect base, APT UI and global metadata; publish BIG + SKUDEF, including SDK then MOD Additional (excluding .asset). Empty MOD inputs fail.\n" +
-            "Development: --profile development defaults to loose streams for iteration. No cache settings are changed by profiles.\n" +
+            "Development: --profile development defaults to loose streams for iteration. All profiles use original SDK cache defaults: sc/bc/csc/psc=true, fsc/atc=false.\n" +
             "Advanced: --profile advanced uses standard defaults; --help-advanced lists compatibility controls. Explicit options override profile defaults.\n" +
             "Save sdk-root, out, profile and package settings in MOD/newmodcompiler.json; CLI overrides the project. SDK and output paths are required from CLI or project.\n" +
+            "Backends: --jobs auto|<positive integer> (default auto); jobs=1 runs on the owner. Original SDK caches remain enabled.\n" +
+            "Performance: --performance off|summary|detailed (default off). Timings are aggregated in build-report.json.\n" +
             "NewModCompiler doctor --sdk-root <directory>\n";
         public const string AdvancedHelp = Help +
             "Selection: --package-content auto|base,apt,global-metadata (maps remains an alias); explicit selections preserve partial-build behavior.\n" +
             "Packaging: --package-format big|loose --include-additional=<true|false> --fix-neutral-assets=<true|false>\n" +
             "Identity: --mod-version <version> (1.0) --game-version <version> (1.12) --skudef-name <basename>\n" +
             "Compatibility: /ss:true /pc:true /slowclean:true are defaults; each accepts false. Win32 and linked streams are fixed runtime behavior; legacy /tp:Win32 and /ls:true remain accepted.\n" +
-            "Legacy input roots, diagnostics and supported BAB compatibility switches remain available; see CLI_COMPATIBILITY.md. Cache switches and defaults are unchanged.\n" +
+            "Cache: /sc /bc /csc /psc /fsc /atc accept true|false. /scd (/scp), /bcd (/bcp) and /iod select original session, asset and intermediate directories.\n" +
             "Additional overwrites compiled files and SDK files using old script precedence; conflicts emit warnings. Neutral repair is off by default and requires extracted reference streams. AssetMerge is not used.\n";
     }
 }

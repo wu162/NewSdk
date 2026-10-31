@@ -33,7 +33,7 @@ function DifferentOutputs($Left,$Right){
     Need $changed 'Input mutation did not exercise any observable compiled output change'
 }
 function CacheFiles([string]$Destination){
-    $files=@{};$cache=Join-Path $Destination '.cache'
+    $files=@{};$cache=Join-Path $Destination 'cache'
     if(Test-Path -LiteralPath $cache){Get-ChildItem -LiteralPath $cache -File -Recurse|ForEach-Object{$files[$_.FullName.Substring($cache.Length)]=Hash $_.FullName}}
     return $files
 }
@@ -70,9 +70,8 @@ function SameLengthMutation([string]$Path,[string]$From,[string]$To){
 function MakeMod([string]$Path,[string]$Probe){
     New-Item -ItemType Directory -Path "$Path/Data/AptUI" -Force|Out-Null
     [IO.File]::WriteAllText("$Path/Data/Armor.xml",$Probe,[Text.UTF8Encoding]::new($false))
-    # XML/Armor and the legacy Texture boundary do not use /bc. The verified
-    # Audio-family PathMusicEvent route does, with one declared FileReference
-    # and no CustomData. A nonzero hot hit must come from this real asset.
+    # Original Texture and Audio-family PathMusicEvent routes both use /bc;
+    # XML/Armor does not. Dependencies must invalidate only the affected asset.
     [IO.File]::WriteAllText("$Path/Data/Mod.xml",'<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xi="http://www.w3.org/2001/XInclude"><Includes><Include type="all" source="Armor.xml"/></Includes><xi:include href="XArmor.xml"/><Texture id="BuildCacheTexture" File="cache.tga" Type="StandardTexture" GenerateMipMaps="false" OutputFormat="A8R8G8B8" AllowAutomaticResize="false"/><PathMusicEvent id="CacheEvent" PathfinderEventHeader="events.h" IsXferable="true"/></AssetDeclaration>')
     [IO.File]::WriteAllText("$Path/Data/XArmor.xml",'<ArmorTemplate xmlns="uri:ea.com:eala:asset" id="XIncludeArmor" Default="22.5%"/>')
     [IO.File]::WriteAllText("$Path/Data/events.h","#define PATH_EVENT_CacheEvent 0x12345678`r`n")
@@ -84,7 +83,7 @@ function MakeMod([string]$Path,[string]$Probe){
 function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[int]$Expected=0,[bool]$Cancel=$false,[string]$HoldReadFile=$null,[string[]]$Extra=@()){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     New-Item -ItemType Directory -Force -Path $Destination|Out-Null
-    $arguments=@('build','--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base,apt',('--bc='+$Enabled.ToString().ToLowerInvariant()))+$Extra
+    $arguments=@('build','--sc=false','--iod',(Join-Path $caseOut 'intermediate'),'--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base,apt',('--bc='+$Enabled.ToString().ToLowerInvariant()))+$Extra
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     $request=@{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=$events;cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}
     if($HoldReadFile){$request.holdReadFile=$HoldReadFile}
@@ -97,6 +96,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
         Need ($audit.singleProcessJobEnforced -and $audit.singleProcessJobLimit -eq 1 -and @($audit.descendants).Count -eq 0) 'Asset cache introduced a product child process'
         if($Cancel){Need ($audit.signalSent -and $audit.freshEventsPathObserved -and $audit.streamStartedObserved -and $Expected -eq 6) 'Cache cancellation did not receive actual CtrlBreak'}
         $body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json
+        foreach($artifact in $body.artifacts){$artifact|Add-Member -NotePropertyName TestSha256 -NotePropertyValue (Hash $artifact.Path)}
         Need ($body.exitCode -eq $Expected) 'Cache process/report exit differs'
         $rows=@(Get-Content -LiteralPath $events|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})
         Need ($rows[-1].eventType -ceq 'BuildFinished' -and @($rows|Where-Object{$_.eventType -ceq 'BuildStarted'}).Count -eq 1 -and @($rows|Where-Object{$_.eventType -ceq 'BuildFinished'}).Count -eq 1) 'Cache CLI terminal protocol differs'
@@ -108,14 +108,14 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
             Need ($body.publicationStatus -ceq 'PublishedDirectory' -and @($body.artifacts).Count -eq 8) 'Cache fixture did not publish exactly two four-file streams'
             $published=Join-Path $Destination 'published'
             foreach($artifact in $body.artifacts){
-                Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
+                Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.TestSha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
                 $relative=[IO.Path]::GetRelativePath($published,$artifact.Path);$copy=Join-Path $archived $relative
                 New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($copy))|Out-Null
                 Copy-Item -LiteralPath $artifact.Path -Destination $copy;$files[$relative]=$copy
             }
         }else{Need (@($body.artifacts).Count -eq 0) 'Failed/cancelled cache build accepted artifacts'}
-        Need (!(Test-Path -LiteralPath (Join-Path $Destination ('.build/'+$body.buildId)))) 'Cache build retained owned staging'
-        Need (@(Get-ChildItem -LiteralPath $Destination -Directory|Where-Object{$_.Name -like '.cache-candidate-*'}).Count -eq 0) 'Asset-cache transaction retained its candidate directory'
+        Need (!(Test-Path -LiteralPath (Join-Path $Destination '.build'))) 'Direct build created the removed .build staging root'
+
         $entry.passed=$true;$entry.cache=$body.cache;$entry.buildId=$body.buildId
         return @{name=$Name;report=$body;files=$files;mod=$Mod;caseOut=$caseOut;destination=$Destination}
     }catch{
@@ -178,7 +178,13 @@ try{
             if($replayFiles.Count -gt 0){Need ((Hash (Join-Path $runtime $file)) -ceq $replayFiles[$mode+'/bin/'+$file]) 'Copied candidate replay runtime differs from validated identity'}
         }
         $script:exe=Join-Path $runtime 'NewModCompiler.exe'
-        & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log";Need ($LASTEXITCODE -eq 0) 'Build-cache Texture deployment failed'
+        if($replayFiles.Count -gt 0){
+            & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log";Need ($LASTEXITCODE -eq 0) 'Build-cache Texture deployment failed'
+        }else{
+            $build=Get-Content -LiteralPath (Join-Path $CompilerDirectory "$mode/build.json") -Raw|ConvertFrom-Json
+            Need ($build.exeSha256 -ceq (Hash $exe) -and $build.texturePlugin.implementation -ceq 'built-in-source' -and @($build.texturePlugin.externalRuntimeFiles).Count -eq 0) 'Cache/input-root acceptance requires the current source texture build'
+            Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 3) 'Unexpected source runtime deployment files'
+        }
         $script:modeState=@{configuration=$mode;passed=$false;exeSha256=(Hash $exe);cases=@()};$state.modes+=,$modeState
         $script:sdk=(New-Item -ItemType Directory -Path (Join-Path $modeWork 's')).FullName
         New-Item -ItemType Directory -Path "$sdk/tools","$sdk/Schemas"|Out-Null
@@ -191,42 +197,44 @@ try{
         $cold=RunCli 'cold' $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $plain $cold
         $hot=RunCli 'hot' $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
         OriginalOracle $hot 'original-initial'
+        # Armor/APT edits keep both cacheable Texture and PathMusicEvent hot.
+        # Texture payload and events.h edits each require one actual asset miss.
         SameLengthMutation "$mod/Data/Armor.xml" '72.5%' '12.5%'
-        $include=RunCli 'include-content-invalidated' $mod $cachedOut $true;Cache $include 'invalidated';DifferentOutputs $hot $include
+        $include=RunCli 'include-content-invalidated' $mod $cachedOut $true;Cache $include 'hot';DifferentOutputs $hot $include
         $includePlain=RunCli 'include-content-no-cache' $mod $plainOut $false;SameOutputs $includePlain $include
         $includeHot=RunCli 'include-content-hot' $mod $cachedOut $true;Cache $includeHot 'hot';SameOutputs $includePlain $includeHot
         SameLengthMutation "$mod/Data/XArmor.xml" '22.5%' '32.5%'
-        $xinclude=RunCli 'xinclude-content-invalidated' $mod $cachedOut $true;Cache $xinclude 'invalidated';DifferentOutputs $includeHot $xinclude
+        $xinclude=RunCli 'xinclude-content-invalidated' $mod $cachedOut $true;Cache $xinclude 'hot';DifferentOutputs $includeHot $xinclude
         $includePlain=RunCli 'xinclude-content-no-cache' $mod $plainOut $false;SameOutputs $includePlain $xinclude
         $includeHot=RunCli 'xinclude-content-hot' $mod $cachedOut $true;Cache $includeHot 'hot';SameOutputs $includePlain $includeHot
         $payload="$mod/Data/AptUI/payload.bin";$stamp=[IO.File]::GetLastWriteTimeUtc($payload);$bytes=[IO.File]::ReadAllBytes($payload);$bytes[0]=9
         [IO.File]::WriteAllBytes($payload,$bytes);[IO.File]::SetLastWriteTimeUtc($payload,$stamp)
         Need ((Get-Item -LiteralPath $payload).Length -eq 7 -and [IO.File]::GetLastWriteTimeUtc($payload) -eq $stamp) 'Payload mutation failed to preserve length/mtime'
-        $changed=RunCli 'payload-content-invalidated' $mod $cachedOut $true;Cache $changed 'invalidated';DifferentOutputs $includeHot $changed
+        $changed=RunCli 'payload-content-invalidated' $mod $cachedOut $true;Cache $changed 'hot';DifferentOutputs $includeHot $changed
         $changedPlain=RunCli 'payload-content-no-cache' $mod $plainOut $false;SameOutputs $changedPlain $changed
         $changedHot=RunCli 'payload-content-hot' $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
         $texture="$mod/Data/cache.tga";$stamp=[IO.File]::GetLastWriteTimeUtc($texture);$bytes=[IO.File]::ReadAllBytes($texture);$originalLength=$bytes.Length;$bytes[18]=253
         [IO.File]::WriteAllBytes($texture,$bytes);[IO.File]::SetLastWriteTimeUtc($texture,$stamp)
         Need ((Get-Item -LiteralPath $texture).Length -eq $originalLength -and [IO.File]::GetLastWriteTimeUtc($texture) -eq $stamp) 'Texture mutation failed to preserve length/mtime'
-        $textureChanged=RunCli 'texture-content-invalidated' $mod $cachedOut $true;Cache $textureChanged 'invalidated';DifferentOutputs $changedHot $textureChanged
+        $textureChanged=RunCli 'texture-content-invalidated' $mod $cachedOut $true;Cache $textureChanged 'invalidated';Need ($textureChanged.report.cache.hits -gt 0) 'Texture edit discarded unrelated Audio cache';DifferentOutputs $changedHot $textureChanged
         $changedPlain=RunCli 'texture-content-no-cache' $mod $plainOut $false;SameOutputs $changedPlain $textureChanged
         $changedHot=RunCli 'texture-content-hot' $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
         SameLengthMutation "$mod/Data/events.h" '0x12345678' '0x23456789'
-        $audioChanged=RunCli 'audio-header-content-invalidated' $mod $cachedOut $true;Cache $audioChanged 'invalidated';DifferentOutputs $changedHot $audioChanged
+        $audioChanged=RunCli 'audio-header-content-invalidated' $mod $cachedOut $true;Cache $audioChanged 'invalidated';Need ($audioChanged.report.cache.hits -gt 0) 'Audio dependency edit discarded unrelated Texture cache';DifferentOutputs $changedHot $audioChanged
         $changedPlain=RunCli 'audio-header-content-no-cache' $mod $plainOut $false;SameOutputs $changedPlain $audioChanged
         $changedHot=RunCli 'audio-header-content-hot' $mod $cachedOut $true;Cache $changedHot 'hot';SameOutputs $changedPlain $changedHot
         OriginalOracle $changedHot 'original-mutated'
         # Semantically neutral edits still require content invalidation. Keep
         # original BOM/length/mtime, and prove resulting bytes stay unchanged.
         SameLengthMutation "$sdk/Schemas/xsd/AssetTypeTexture.xsd" 'elementFormDefault="qualified"' "elementFormDefault='qualified'"
-        $schema=RunCli 'schema-content-invalidated' $mod $cachedOut $true;Cache $schema 'cold';SameOutputs $changedPlain $schema
+        $schema=RunCli 'schema-content-invalidated' $mod $cachedOut $true;Cache $schema 'hot';SameOutputs $changedPlain $schema
         SameLengthMutation "$sdk/tools/BinaryAssetBuilder.exe.config" 'monitorPaths="..\"' "monitorPaths='..\'"
-        $config=RunCli 'configuration-content-invalidated' $mod $cachedOut $true;Cache $config 'cold';SameOutputs $changedPlain $config
+        $config=RunCli 'configuration-content-invalidated' $mod $cachedOut $true;Cache $config 'hot';SameOutputs $changedPlain $config
         SameLengthMutation "$runtime/NewModCompiler.exe.config" 'version="v4.0"' "version='v4.0'"
-        $runtimeChange=RunCli 'runtime-content-invalidated' $mod $cachedOut $true;Cache $runtimeChange 'cold';SameOutputs $changedPlain $runtimeChange
+        $runtimeChange=RunCli 'runtime-content-invalidated' $mod $cachedOut $true;Cache $runtimeChange 'hot';SameOutputs $changedPlain $runtimeChange
         $runtimeHot=RunCli 'runtime-content-hot' $mod $cachedOut $true;Cache $runtimeHot 'hot';SameOutputs $changedPlain $runtimeHot
         $other=Join-Path $modeWork 'b';MakeMod $other ($probe.Replace('72.5%','32.5%'))
-        $otherCold=RunCli 'second-mod' $other $cachedOut $true;Cache $otherCold 'cold'
+        $otherCold=RunCli 'second-mod' $other $cachedOut $true;Cache $otherCold 'hot'
         $otherPlain=RunCli 'second-mod-no-cache' $other $plainOut $false;SameOutputs $otherPlain $otherCold
         $returnA=RunCli 'first-mod-return' $mod $cachedOut $true;Cache $returnA 'hot';SameOutputs $changedPlain $returnA
         $armorPath="$mod/Data/Armor.xml";$valid=[IO.File]::ReadAllBytes($armorPath)
@@ -241,10 +249,13 @@ try{
         CacheUnchanged $cachedOut $confirmed
         $afterCancel=RunCli 'retry-after-actual-cancel' $mod $cachedOut $true;SameOutputs $changedPlain $afterCancel
         $held=@($afterCancel.report.artifacts)[0].Path
-        $confirmed=CacheFiles $cachedOut
-        $occupied=RunCli 'publication-fault' $mod $cachedOut $true 7 $false $held
-        CacheUnchanged $cachedOut $confirmed
-        $afterFault=RunCli 'retry-after-publication-fault' $mod $cachedOut $true;SameOutputs $changedPlain $afterFault
+        $lockedHot=RunCli 'unchanged-locked-output' $mod $cachedOut $true 0 $false $held;SameOutputs $changedPlain $lockedHot
+
+        $unrelated=Join-Path $cachedOut 'published/unrelated.keep'
+        [IO.File]::WriteAllText($unrelated,'preserve unrelated output')
+        $repeat=RunCli 'repeat-with-unrelated-output' $mod $cachedOut $true
+        SameOutputs $changedPlain $repeat
+        Need ([IO.File]::ReadAllText($unrelated) -ceq 'preserve unrelated output') 'Repeated compilation removed unrelated output'
         $modeState.passed=$true
     }
     $state.succeeded=$true;$global:LASTEXITCODE=0

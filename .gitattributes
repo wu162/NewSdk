@@ -1,0 +1,3 @@
+# Keep pinned codec sources and their SHA256 provenance identical on Windows.
+recovery/src/Plugin/Texture/** -text
+recovery/src/Native/Texture/PublicS3/** -text

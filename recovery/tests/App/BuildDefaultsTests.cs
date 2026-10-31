@@ -27,7 +27,8 @@ namespace NewModCompiler.Tests
                 var request=parse(new[]{"--profile",profile});
                 Check(request.PackageFormat==(profile=="development"?"loose":"big"),"Profile output format");
                 Check(request.IncludeAdditional==(profile!="development"),"Additional follows format");
-                Check(!request.Options.ContainsKey("sc") && !request.Options.ContainsKey("bc"),"Profiles must not introduce cache options");
+                foreach(string key in new[]{"sc","bc","psc","csc"}) Check(request.Options[key].Value=="true","Original SDK cache default "+key);
+                foreach(string key in new[]{"fsc","atc"}) Check(request.Options[key].Value=="false","Original SDK cache default "+key);
                 foreach(string key in new[]{"ss","pc","slowclean"}) Check(request.Options[key].Value=="true","Legacy script default "+key);
             }
             Check(!parse(new[]{"--package-format","loose"}).IncludeAdditional,"Explicit loose remains usable");

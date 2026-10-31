@@ -1,4 +1,4 @@
-> 参数设计更新（2026-10-27）：标准构建默认 BIG/SKUDEF、自动发现输入并包含 Additional；开发模式 `--profile development` 默认 loose，高级模式 `--profile advanced` 使用标准默认值。显式选项与项目预设优先于模式默认值。`global-metadata` 是新名称，`maps` 为兼容别名；内部任务 ID/报告/输出目录保持 `maps`。`--help-advanced` 查看高级入口。缓存参数、默认值和实现未变。项目还可保存 SDK/输出路径、模式及 ss/pc/slowclean。最新操作见 [使用说明](COMPILER_USAGE.md)。
+> 参数设计更新（2026-10-27）：标准构建默认 BIG/SKUDEF、自动发现输入并包含 Additional；开发模式 `--profile development` 默认 loose，高级模式 `--profile advanced` 使用标准默认值。显式选项与项目预设优先于模式默认值。`global-metadata` 是新名称，`maps` 为兼容别名；内部任务 ID/报告/输出目录保持 `maps`。`--help-advanced` 查看高级入口。本分支已接回原 SDK 缓存默认值与高级能力，验证状态见 docs/LEGACY_INCREMENTAL_CACHE.md。项目还可保存 SDK/输出路径、模式及 ss/pc/slowclean。最新操作见 [使用说明](COMPILER_USAGE.md)。
 
 # 当前命令行与旧参数范围
 
@@ -11,15 +11,15 @@
 | 内容 / 格式 | `--package-content base,apt,maps`、`--package-format loose|big` |
 | 输入根 | `/dr`、`/data`、`/art`、`/audio`，保留原根搜索语义并有原工具差分 |
 | 旧脚本输出策略 | `/ss:true|false`、`/pc:true|false`、`/slowclean:true|false` 均默认 true，独立于缓存；分别控制稳定排序、引用流预编译策略和慢清理 |
-| 两种缓存 | `/bc:true|false`、`/sc:true|false`，默认关闭；混合 Texture 不支持会话缓存 |
+| 两种缓存 | `/bc:true|false`、`/sc:true|false`，默认开启；三种 Texture 路由支持资产与会话缓存 |
 | 平台 / 链接 | `/tp:Win32`、`/ls:true`；其他平台、非链接流明确拒绝 |
 | 诊断级别 | `/tl:0..9`、`/el:0`；`/el:1` 未开放 |
 | MOD 包版本 | `--mod-version 2.7-beta`，默认 `1.0`；对应旧脚本 GUI 的 modversion，不把 `/vf` 当作此参数 |
 | SKUDEF 基名 | `--skudef-name Launcher`，默认 MOD 目录名；对应旧脚本 GUI 的 skudefname |
 | 游戏版本字段 | `--game-version 1.12`，默认与旧脚本常量相同；仅控制 SKUDEF 的 mod-game 字段，不能证明其他游戏版本已兼容 |
 | Additional / 中立修复 | Additional 在 BIG 中默认开启，可用 `--include-additional=false` 关闭；`--fix-neutral-assets=true` 仍为显式启用，默认关闭，详细输入条件见 P7_PACKAGING |
-| 缓存高级模式 | `/csc`、`/psc`、`/fsc`、旧缓存目录覆盖及 touch 等尚未开放；不因旧解析器认识该名称而宣称已实现 |
-| 其他旧后端能力 | 自定义 Schema/中间目录、BuildConfiguration、基础补丁流、自定义后缀、非链接、替代输出、资产报告/字符串哈希等非默认请求明确拒绝；另行需求驱动实现 |
+| 缓存高级模式 | `/csc`、`/psc` 默认 true；`/fsc`、`/atc` 默认 false；`/scd`/`/scp`、`/bcd`/`/bcp`、`/iod` 支持原目录和格式 |
+| 其他旧后端能力 | 自定义 Schema、BuildConfiguration、基础补丁流、自定义后缀、非链接、替代输出、资产报告/字符串哈希等非默认请求明确拒绝；另行需求驱动实现 |
 | 旧宿主 | GUI、驻留、监视、出错暂停、旧单文件入口不纳入此产品 |
 
 `/pc:true` 使用原 Core 的引用策略：优先尝试预编译引用，缺失时沿原逻辑处理引用而不额外发布它们。它不代表自动导入游戏数据或 WBData；当前私有工作区里不存在的参考 manifest 不会凭空生成。`/pc:false` 可恢复编译并输出引用流的旧选项行为；含多个输出流的 BIG 仍受现有打包合同约束。
