@@ -1,3 +1,11 @@
+# 当前：原 SDK 与当前编译器 Benchmark 已执行，PR #41
+
+用户指定 `recovery/legacy-sdk-cache` / `1a73017a`（PR #40 已合入）。复用生产 `12c82011` / `41204304969` 的已验收 Release，生产/SDK/构建输入闭包和三份运行文件核对一致，没有重建。[本轮 41212813051](https://github.com/wu162/NewSdk/actions/runs/41212813051) 已完成 20 配对/40 进程，全部编译退出0；工作流 **failure / outputs-differ**，不能称整组通过。[PR #41](https://github.com/wu162/NewSdk/pull/41) 保存复现脚本与证据，未合并。
+
+同一4逻辑CPU Windows VM、完整MOD输入、base loose流，新版jobs4/原版串行；默认压缩双缓存冷n3/热n6中位秒：mymod冷0.858703→0.711169（少17.18%）、热0.547668→0.548666（多0.18%）；Upheaval冷92.655592→28.497811（少69.24%，3.25×）、热2.399294→1.332181（少44.48%，1.80×）。无缓存各n1、CPU/内存/缓存占用、首次mymod较慢样本和所有原始计时均保留。
+
+mymod 10/10原字节相同。Upheaval两边均编译3235资产，CDATA按资产身份分组后1291份负载的长度/SHA256多重集相同，但1289份AudioFile文件名身份及四流原字节不同；已登记的AudioFile ProcessingHash升级见 `audio/EaLayer3.md`，**未证明四流差异仅由该升级引起或归一化后等价**。各自冷/热/无缓存原字节稳定，SDK/MOD/运行文件/搜索根存在性未变。[复算摘要/全部40样本](evidence/refactor/original-mod/41212813051-1/summary.json)、[原始报告](evidence/refactor/original-mod/41212813051-1/report.md)、[原始归档](https://github.com/wu162/NewSdk/actions/runs/41212813051/artifacts/13047262637)。只测base，不含APT/全局元数据/BIG/SKUDEF，OS页缓存未控、无排除预热；不冒充全MOD端到端或原字节等价性能验收。禁止强推，合入仍需用户批准。
+
 # 当前：资产全流程并行已验收，PR #40 待审
 
 分支 `feat/asset-pipeline-parallel`，基线 `1810fff`；[PR #40](https://github.com/wu162/NewSdk/pull/40) 待审，未合并。生产源码 `12c82011` 的 [Windows 41204304969](https://github.com/wu162/NewSdk/actions/runs/41204304969) 整体 success：Debug/Release 新构建、Core/CLI/取消、完整缓存/会话（各108用例，含部分保存重试）、原 SDK、BIG、两份三文件 ZIP 与完整 Upheaval 22样本均通过。XML 资产纯计算、认证验证/编码、独立 IO、完成优先调度、物理去重及文档版本已接通。[实现/身份/原始计量与范围](docs/ASSET_PIPELINE_PARALLEL.md)。
