@@ -18,7 +18,7 @@
 
 已实际下载并复算当前生产基线 [41152199159](https://github.com/wu162/NewSdk/actions/runs/41152199159) 的归档，SHA256 为 `2ba381a049201eacf2de5ba6668e9f6061d81ccdf1eb878bda3af8d8d593138b`，五个 Release 文件也与原收据一致。[完整 Upheaval、jobs4 冷态 detailed](../evidence/refactor/cache-paired/baseline-41152199159/diagnostic-cold-4.json)中，报告总耗时 34.718 秒，925 份 XML/3354 次编译，base `core.xml.validate` 自耗时 **14.064 秒**（910 份文档）；GameObject 插件累计仅 0.302 秒。Audio/Animation 后端累计工作分别为 17.089/12.636 秒，可与前端或其他 worker 重叠，不能相加为总耗时。这份最近证据比旧 13.48 秒记录更直接支持本轮的冷态优先级，但仍不作为跨 VM 收益对照。
 
-同一归档的[纯热态 detailed](../evidence/refactor/cache-paired/baseline-41152199159/defaults-hot-diagnostic-4.json)报告总耗时 2.210 秒，零解析/编译；五流 `cache.load` 合计约 0.821 秒，base 引用阶段约 0.307 秒。它说明原始完整 MOD 与下面 L8 扩容负载的规模差异，不将两者绝对值混用。
+同一归档的[纯热态 detailed](../evidence/refactor/cache-paired/baseline-41152199159/defaults-hot-diagnostic-4.json)报告总耗时 2.210 秒，零解析/编译；五流 `cache.load` 合计约 0.812 秒，base 引用阶段约 0.307 秒。它说明原始完整 MOD 与下面 L8 扩容负载的规模差异，不将两者绝对值混用。
 
 [L8 41139062989](https://github.com/wu162/NewSdk/actions/runs/41139062989) 的三个 `detailed` 样本是 **C08/C09/C12 修改后的增量构建**。其五流 `cache.load` 合计约 2.9–3.0 秒，base 的 `core.output.references` 约 2.46–2.58 秒，缓存文档重初始化 self 约 1.18–1.27 秒。计时来自旧二进制 `cc10391b`、扩容负载和另一台 VM；它们支持调查方向，不能解释为纯热态的阶段拆分，也不能与本轮结果直接计算收益。原始数据见 [L8 phases.csv](../evidence/refactor/l8-hot-cache/41139062989-1/phases.csv)及[负载/采样说明](HOT_CACHE_BENCHMARK.md)。
 
