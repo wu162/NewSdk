@@ -1,15 +1,38 @@
 using System;
+using System.Collections.Generic;
+
 namespace BinaryAssetBuilder.Core;
-// All callbacks execute on the semantic owner. The commit callback performs
-// BinaryAsset.Commit at the supplied known location, inside its document context.
+
+// One owner-published, read-only document version. A repeated include subscribes
+// to this version; a later mutable version receives a new scope.
+public sealed class AssetExecutionDocument
+{
+    public AssetDeclarationDocument Document { get; internal set; }
+    public OutputManager OutputManager { get; internal set; }
+    public int PendingAssetWorks { get; internal set; }
+    public int ReadOnlyInputReferences { get; internal set; }
+    public bool IsClosed { get; internal set; }
+    public bool IsCompleted { get; internal set; }
+    public bool IsFailed { get; internal set; }
+    internal readonly List<Action> Completions = new List<Action>();
+}
+
 public interface IAssetExecution
 {
     bool HasPending { get; }
-    void Enqueue(BinaryAsset asset, InstanceDeclaration declaration, IAssetBuilderPlugin plugin,
-        Action compileCompatibility, Action verify, Action<AssetLocation> commit);
+    AssetExecutionDocument BeginDocument(AssetDeclarationDocument document, OutputManager outputManager);
+    void Enqueue(AssetExecutionDocument document, BinaryAsset asset, InstanceDeclaration declaration,
+        IAssetBuilderPlugin plugin, Action compileCompatibility, Func<bool> verify,
+        Action<bool> publishVerification, Action<AssetLocation> committed, bool parallelVerification = true, bool parallelCompilation = true);
+    void EnqueueCached(AssetExecutionDocument document, BinaryAsset asset, InstanceDeclaration declaration,
+        AssetLocation location, Func<bool> verify, Action<bool> publishVerification,
+        Action<AssetLocation> committed, bool parallelVerification = true);
+    IList<T> ExecuteFrontend<T>(IList<Func<T>> work);
     AssetBuffer ExecuteCompatibility(IAssetBuilderPlugin plugin, InstanceDeclaration declaration);
-    void EnqueueCached(BinaryAsset asset, Action commit);
-    void FlushAsset(BinaryAsset asset);
+    void CompleteDocument(AssetExecutionDocument document, Action complete);
+    void DeferCompletion(AssetExecutionDocument document, Action complete);
+    void WaitDocument(AssetExecutionDocument document);
+    void WaitOutput(OutputManager outputManager);
+    void DrainReady();
     void Flush();
-    void DeferCompletion(Action complete);
 }

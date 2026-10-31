@@ -108,8 +108,8 @@ jobs:
           "validationSource=$($run.head_sha)"|Add-Content $env:GITHUB_OUTPUT
       - uses: actions/download-artifact@v4
         with:
-          name: ${{ inputs.measurement_mode != 'throughput' && 'refactor-core-lifecycle-41169755141-1' || 'ui-fla-41165126334-1' }}
-          run-id: ${{ inputs.measurement_mode != 'throughput' && '41169755141' || '41165126334' }}
+          name: ${{ inputs.measurement_mode != 'throughput' && 'refactor-core-lifecycle-41169755141-1' || 'refactor-core-lifecycle-41192817627-1' }}
+          run-id: ${{ inputs.measurement_mode != 'throughput' && '41169755141' || '41192817627' }}
           github-token: ${{ github.token }}
           path: work/cache-paired-baseline
       - uses: actions/download-artifact@v4
@@ -149,7 +149,7 @@ jobs:
           }elseif($env:MEASUREMENT_MODE -eq 'incremental'){
             python recovery/scripts/MeasureCompilerIncrementalPaired.py --baseline-build work/cache-paired-baseline/artifacts/core-lifecycle-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --pairs 3 --work "$env:RUNNER_TEMP/cache-incremental" --output $out --budget 240 --timeout 30
           }elseif($env:MEASUREMENT_MODE -eq 'throughput'){
-          python recovery/scripts/MeasureCompilerCachePaired.py --baseline-build work/cache-paired-baseline/ui-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --armor-partitions $env:ARMOR_PARTITIONS --work "$env:RUNNER_TEMP/cache-paired" --output $out --budget 720 --timeout 180
+          python recovery/scripts/MeasureCompilerCachePaired.py --baseline-build work/cache-paired-baseline/artifacts/core-lifecycle-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --armor-partitions $env:ARMOR_PARTITIONS --work "$env:RUNNER_TEMP/cache-paired" --output $out --budget 720 --timeout 180
           }else{throw 'Unsupported paired measurement mode'}
           $result=$LASTEXITCODE
           if(Test-Path "$out/report.md"){Get-Content "$out/report.md" -Encoding UTF8 | Add-Content $env:GITHUB_STEP_SUMMARY}

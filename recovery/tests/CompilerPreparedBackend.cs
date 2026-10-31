@@ -121,7 +121,8 @@ public static class CompilerPreparedBackend
             // Core finalizes XML before enqueue and joins before reuse/mutation.
             // Borrow that tree and its namespace table without a DOM copy.
             var frozen = Value<InstanceDeclaration>(prepared, "Declaration");
-            Require(Object.ReferenceEquals(frozen, instance), "Read-only APT must reuse the finalized declaration");
+            Require(!Object.ReferenceEquals(frozen, instance) && !Object.ReferenceEquals(frozen.Document, instance.Document),
+                "APT must retain private declaration and document metadata views");
             Require(Object.ReferenceEquals(frozen.Node, instance.Node), "APT must borrow the original XML node");
             Require(Object.ReferenceEquals(frozen.Document.NamespaceManager, namespaces), "Finalized namespace bindings must be borrowed");
             var result = Execute(prepared);
@@ -264,6 +265,7 @@ public static class CompilerPreparedBackend
         object generous = ResourcePolicy(Int32.MaxValue, 8, 16 * GiB, 3 * GiB, 4 * GiB, true);
         Require(ResourceValue<int>(generous, "RequestedJobs") == Int32.MaxValue && ResourceValue<int>(generous, "ProcessorCount") == 8,
             "Resource policy must retain the requested jobs and detected CPU identity");
+        Require(ResourceValue<int>(generous, "IoCapacity") > 0 && ResourceValue<int>(generous, "IoCapacity") <= 8, "IO concurrency must have a separately bounded allowance");
         Require(ResourceValue<int>(generous, "Capacity") == 8, "A sufficiently provisioned eight-CPU host must not remain hard-capped at two workers");
         Require(ResourceValue<long>(generous, "ByteBudget") == GiB && ResourceValue<long>(generous, "ByteBudget") / 2 == GiB / 2,
             "Available virtual address space and process reserve must bound aggregate/per-task retention");
@@ -516,9 +518,10 @@ public static class CompilerPreparedBackend
         Require(prepared!=null,"Worker fixture must be certified: "+label);
         var input=Value<InstanceDeclaration>(prepared,"Declaration");
         Require(Object.ReferenceEquals(input.Node,owner.Node) && Object.ReferenceEquals(input.Handle,owner.Handle) &&
-            Object.ReferenceEquals(input.Document,owner.Document) && Object.ReferenceEquals(input.ReferencedInstances,owner.ReferencedInstances),
-            "Prepared input must not copy XML, document, handle or references: " + label);
-        Require(Object.ReferenceEquals(input,owner) != owner.HasCustomData, "Only CDATA writers need separate declaration state: " + label);
+            Object.ReferenceEquals(input.Document.NamespaceManager,owner.Document.NamespaceManager) && Object.ReferenceEquals(input.ReferencedInstances,owner.ReferencedInstances),
+            "Prepared input must borrow XML, namespace bindings, handle and references: " + label);
+        Require(!Object.ReferenceEquals(input,owner) && !Object.ReferenceEquals(input.Document,owner.Document),
+            "Every prepared work must retain private declaration and document metadata state: " + label);
         if(owner.HasCustomData) {
             input.CustomDataPath=Path.Combine(work,label+"-worker.cdata");
             Require(input.CustomDataPath != owner.CustomDataPath, "CDATA pathname must be private: " + label);
@@ -735,19 +738,121 @@ public static class CompilerPreparedBackend
         finally{if(prepared!=null)((IDisposable)prepared).Dispose();plugin.Dispose();}
     }
     static Func<T> TypedSampler<T>(Func<object> sampler) { return delegate {return (T)sampler();}; }
+    sealed class SchedulerFixture : IDisposable
+    {
+        internal readonly object Metrics, Performance;
+        internal readonly Type SchedulerType, PerformanceType;
+        internal readonly IAssetExecution Execution;
+        internal readonly DocumentProcessor Processor;
+        internal readonly OutputManager Output;
+        readonly Settings previous;
+        internal const BindingFlags Fields = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
+        internal SchedulerFixture(string work, int jobs, CancellationToken cancellation)
+        {
+            previous = Settings.Current;
+            Settings.Current = new Settings { BuildCache = false, TargetPlatform = TargetPlatform.Win32 };
+            var assembly = typeof(CoreStreamCompiler).Assembly;
+            PerformanceType = assembly.GetType("NewModCompiler.Diagnostics.BuildPerformance", true);
+            Type metricsType = assembly.GetType("NewModCompiler.Application.ParallelBackendMetrics", true);
+            SchedulerType = assembly.GetType("NewModCompiler.Application.ParallelBackendScheduler", true);
+            Performance = Activator.CreateInstance(PerformanceType, Fields, null, new object[] { "detailed" }, null);
+            Metrics = Activator.CreateInstance(metricsType, Fields, null, new[] { Performance }, null);
+            object resources = ResourcePolicy(jobs, jobs, 16L*1024*1024*1024, 3L*1024*1024*1024, 4L*1024*1024*1024, true);
+            object sampler = typeof(CompilerPreparedBackend).GetMethod("TypedSampler", BindingFlags.NonPublic | BindingFlags.Static)
+                .MakeGenericMethod(resourcePolicy).Invoke(null, new object[] { new Func<object>(() => resources) });
+            Processor = (DocumentProcessor)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(DocumentProcessor));
+            Output = new OutputManager(Processor, null, Path.Combine(work, "output", "stream"), Path.Combine(work, "intermediate"), null, null, null);
+            Execution = (IAssetExecution)Activator.CreateInstance(SchedulerType, Fields, null,
+                new object[] { Processor, work, jobs, Metrics, Performance, cancellation, sampler }, null);
+        }
+        internal BinaryAsset Asset(InstanceDeclaration declaration) { return Output.GetBinaryAsset(declaration, true); }
+        internal void Until(Func<bool> predicate, string message)
+        {
+            var timeout = Stopwatch.StartNew();
+            while (!predicate() && timeout.ElapsedMilliseconds < 10000) { Execution.DrainReady(); Thread.Sleep(1); }
+            Require(predicate(), message);
+        }
+        public void Dispose()
+        {
+            try { ((IDisposable)Execution).Dispose(); }
+            finally { Settings.Current = previous; }
+        }
+    }
+    static void SchedulerCompletion(string work)
+    {
+        var plugin = new Recovered.XmlPriority.Plugin(); plugin.Initialize(null, TargetPlatform.Win32);
+        using (var slowGate = new ManualResetEventSlim())
+        using (var slowStarted = new ManualResetEventSlim())
+        using (var cacheGate = new ManualResetEventSlim())
+        using (var cacheStarted = new CountdownEvent(2))
+        using (var fixture = new SchedulerFixture(Path.Combine(work, "completion-driven"), 2, CancellationToken.None))
+        {
+            IAssetExecution execution = fixture.Execution;
+            int fastVerified = 0, fastCommitted = 0, slowCommitted = 0, cacheCommitted = 0;
+            var slow = Declaration("AudioLOD", "SlowFirst", Namespaces()); Metadata(slow, plugin);
+            var fast = Declaration("AudioLOD", "FastLater", Namespaces()); Metadata(fast, plugin);
+            var duplicate = Declaration("AudioLOD", "FastLater", Namespaces()); Metadata(duplicate, plugin);
+            var slowScope = execution.BeginDocument(slow.Document, fixture.Output);
+            var fastScope = execution.BeginDocument(fast.Document, fixture.Output);
+            var duplicateScope = execution.BeginDocument(duplicate.Document, fixture.Output);
+            BinaryAsset fastAsset = fixture.Asset(fast);
+            try
+            {
+                Action unexpected = () => { throw new InvalidOperationException("Certified lightweight backend unexpectedly used owner compatibility"); };
+                execution.Enqueue(slowScope, fixture.Asset(slow), slow, plugin, unexpected,
+                    () => { slowStarted.Set(); slowGate.Wait(); return true; }, valid => Require(valid, "Slow declaration verification failed"), source => slowCommitted++);
+                execution.CompleteDocument(slowScope, () => { });
+                execution.Enqueue(fastScope, fastAsset, fast, plugin, unexpected,
+                    () => { Interlocked.Increment(ref fastVerified); return true; }, valid => Require(valid, "Fast declaration verification failed"), source => fastCommitted++);
+                execution.CompleteDocument(fastScope, () => { });
+                execution.Enqueue(duplicateScope, fixture.Asset(duplicate), duplicate, plugin, unexpected,
+                    () => { Interlocked.Increment(ref fastVerified); return true; }, valid => Require(valid, "Duplicate declaration verification failed"), source => fastCommitted++);
+                execution.CompleteDocument(duplicateScope, () => { });
+                Require(slowStarted.Wait(10000), "Slow first verification did not actually enter a worker");
+                fixture.Until(() => fastScope.IsCompleted && duplicateScope.IsCompleted, "Completed later documents remained blocked by the slow first asset");
+                Require(!slowScope.IsCompleted && slowCommitted == 0, "Slow document completed before its own worker released its input");
+                Require(fastVerified == 2 && fastCommitted == 1 && fixture.Processor.InstanceCompileCount == 1,
+                    "Same physical asset must verify both declarations but compile and publish only once: verify="+fastVerified+",commit="+fastCommitted+",compile="+fixture.Processor.InstanceCompileCount);
+                Require(Object.ReferenceEquals(fastAsset, fixture.Asset(duplicate)) && Object.ReferenceEquals(fastAsset.Instance, fast),
+                    "Physical deduplication must retain its first stable declaration");
+                Require(File.Exists(Path.Combine(fastAsset.AssetOutputDirectory, fastAsset.AssetFileName)), "Fast later asset IO must finish before owner publication");
+                Require(slowScope.ReadOnlyInputReferences > 0 && fastScope.ReadOnlyInputReferences == 0 && duplicateScope.ReadOnlyInputReferences == 0,
+                    "Document input leases must follow actual users rather than discovery order");
+                slowGate.Set(); execution.WaitDocument(slowScope);
+                Require(slowCommitted == 1 && fixture.Processor.InstanceCompileCount == 2 && slowScope.PendingAssetWorks == 0 && slowScope.ReadOnlyInputReferences == 0,
+                    "Document-specific wait must release its pending count and retained inputs");
+
+                // Both encoding slots are occupied by real worker verification.
+                // A fully reusable cache asset needs no fresh semantic validation.
+                for (int i = 0; i < 2; i++)
+                {
+                    var blocked = Declaration("AudioLOD", "CacheOverlap"+i, Namespaces()); Metadata(blocked, plugin);
+                    var scope = execution.BeginDocument(blocked.Document, fixture.Output);
+                    execution.Enqueue(scope, fixture.Asset(blocked), blocked, plugin, unexpected,
+                        () => { cacheStarted.Signal(); cacheGate.Wait(); return true; }, valid => Require(valid, "Blocked declaration verification failed"), source => { });
+                    execution.CompleteDocument(scope, () => { });
+                }
+                Require(cacheStarted.Wait(10000), "Both CPU slots must be occupied before testing cache IO admission");
+                var cached = Declaration("AudioLOD", "IndependentCache", Namespaces()); Metadata(cached, plugin);
+                BinaryAsset cachedAsset = fixture.Asset(cached);
+                BinaryAssetCommitWork prepared = cachedAsset.PrepareCommit(AssetLocation.Memory, plugin.ProcessInstance(cached));
+                prepared.ExecuteIO(); cachedAsset.PublishCommit(prepared);
+                var cachedScope = execution.BeginDocument(cached.Document, fixture.Output);
+                execution.EnqueueCached(cachedScope, cachedAsset, cached, AssetLocation.Output, () => true,
+                    valid => Require(valid, "Cached declaration validation failed"), source => cacheCommitted++, parallelVerification:false);
+                execution.CompleteDocument(cachedScope, () => { });
+                fixture.Until(() => cachedScope.IsCompleted, "Cached physical IO incorrectly waited for an encoding CPU slot");
+                Require(cacheCommitted == 1 && !cacheGate.IsSet, "Cache IO must complete while both encoding slots remain occupied");
+                cacheGate.Set(); execution.WaitOutput(fixture.Output);
+                Require(!execution.HasPending, "Output-specific barrier retained completed work");
+                lifecycleEvidence.Add(new { kind="completion-driven-scheduler", slowFirstReleasedAfterFast=true,
+                    fastVerified,fastCommitted,onePhysicalCompile=true,cacheIoDuringCpuSaturation=true,documentInputLeasesReleased=true });
+            }
+            finally { slowGate.Set(); cacheGate.Set(); }
+        }
+    }
     static void SchedulerDrain(string work,bool cancel,bool textureFailure=false)
     {
-        var assembly=typeof(CoreStreamCompiler).Assembly;
-        Type performanceType=assembly.GetType("NewModCompiler.Diagnostics.BuildPerformance",true);
-        Type metricsType=assembly.GetType("NewModCompiler.Application.ParallelBackendMetrics",true);
-        Type schedulerType=assembly.GetType("NewModCompiler.Application.ParallelBackendScheduler",true);
-        const BindingFlags fields=BindingFlags.Instance|BindingFlags.NonPublic|BindingFlags.Public;
-        object performance=Activator.CreateInstance(performanceType,fields,null,new object[]{"detailed"},null);
-        object metrics=Activator.CreateInstance(metricsType,fields,null,new object[]{performance},null);
-        object resources=ResourcePolicy(4,4,16L*1024*1024*1024,3L*1024*1024*1024,4L*1024*1024*1024,true);
-        object sampler=typeof(CompilerPreparedBackend).GetMethod("TypedSampler",BindingFlags.NonPublic|BindingFlags.Static)
-            .MakeGenericMethod(resourcePolicy).Invoke(null,new object[]{new Func<object>(()=>resources)});
-        var processor=(DocumentProcessor)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(DocumentProcessor));
         var plugin=new Recovered.Compiler.W3x.NativePlugin();plugin.Initialize(null,TargetPlatform.Win32);
         var xml=new Recovered.XmlPriority.Plugin();xml.Initialize(null,TargetPlatform.Win32);
         var texture=new Recovered.Compiler.Texture.Plugin();texture.Initialize(null,TargetPlatform.Win32);
@@ -758,13 +863,14 @@ public static class CompilerPreparedBackend
             WriteTextureTga(textureInput,256,256);byte[] header=new byte[18];Buffer.BlockCopy(File.ReadAllBytes(textureInput),0,header,0,header.Length);File.WriteAllBytes(invalidTexture,header);
         }
         var privateTextureDirectories=new List<string>();
-        var captured=new List<Task>(); int verified=0,committed=0,completed=0,activeAtRequest;
+        var captured=new List<Task>(); var scopes=new List<AssetExecutionDocument>();
+        int verified=0,committed=0,completed=0;
         string input=Path.Combine(work,cancel?"cancel-lease.bin":"failure-lease.bin");File.WriteAllBytes(input,new byte[1024*1024]);
+        using(var dispatchGate=new ManualResetEventSlim())
         using(var cancellation=new CancellationTokenSource())
+        using(var fixture=new SchedulerFixture(Path.Combine(work,textureFailure?"texture-drain":cancel?"cancel-drain":"native-drain"),4,cancellation.Token))
         {
-            var execution=(IAssetExecution)Activator.CreateInstance(schedulerType,fields,null,
-                new object[]{processor,work,4,metrics,performance,cancellation.Token,sampler},null);
-            object queue=schedulerType.GetField("pending",fields).GetValue(execution);
+            var execution=fixture.Execution;
             try
             {
                 for(int i=0;i<4;i++)
@@ -775,45 +881,48 @@ public static class CompilerPreparedBackend
                     else if(!textureFailure)
                     {
                         ((XmlElement)declaration.Node).SetAttribute("NumFrames","65536");((XmlElement)declaration.Node).SetAttribute("FrameRate","30");
-                        // Keep the substantial native allocation/serialization,
-                        // without the unrelated quadratic key-reduction search.
                         declaration.Node.InnerXml="<CompressionSettings xmlns='uri:ea.com:eala:asset' AllowAdaptiveDelta='false' MaxTranslationError='-1' ForceReductionRate='1'/><Channels xmlns='uri:ea.com:eala:asset'><ChannelScalar Type='XTranslation' TypeId='"+
                             (!cancel && i==0?"0":"1355976437")+"' Pivot='0' FirstFrame='0'><Frame>0</Frame><Frame>1</Frame></ChannelScalar></Channels>";
                     }
                     Metadata(declaration,selected);
-                    execution.Enqueue(null,declaration,selected,
+                    var scope=execution.BeginDocument(declaration.Document,fixture.Output);scopes.Add(scope);
+                    execution.Enqueue(scope,fixture.Asset(declaration),declaration,selected,
                         ()=>{throw new InvalidOperationException("Controlled generous resources must admit each certified worker");},
-                        ()=>{verified++;},source=>{committed++;});
+                        ()=>{Interlocked.Increment(ref verified);dispatchGate.Wait();return true;}, valid=>Require(valid,"Drain declaration verification failed"),source=>{committed++;});
+                    execution.CompleteDocument(scope,()=>{completed++;});
                 }
-                foreach(object entry in (System.Collections.IEnumerable)queue)
+                // Capture all registered native calls, including completed calls;
+                // no queue order or active-list shape participates in assertions.
+                var registry=(System.Collections.IDictionary)fixture.SchedulerType.GetField("registry",SchedulerFixture.Fields).GetValue(execution);
+                foreach(object entry in registry.Values)
                 {
-                    captured.Add((Task)entry.GetType().GetField("Worker",fields).GetValue(entry));
-                    string directory=(string)entry.GetType().GetField("Directory",fields).GetValue(entry);
+                    Task compute=(Task)entry.GetType().GetField("Compute",SchedulerFixture.Fields).GetValue(entry);
+                    if(compute!=null)captured.Add(compute);
+                    string directory=(string)entry.GetType().GetField("Directory",SchedulerFixture.Fields).GetValue(entry);
                     if(directory!=null)privateTextureDirectories.Add(directory);
                 }
-                Require(captured.Count==4 && captured.TrueForAll(t=>t!=null),"All four drain cases must be production worker tasks");
-                execution.DeferCompletion(()=>{completed++;});
-                object gate=metricsType.GetField("gate",fields).GetValue(metrics);
-                lock(gate) activeAtRequest=(int)metricsType.GetField("active",fields).GetValue(metrics);
+                Require(captured.Count==4,"All four drain cases must dispatch production worker tasks");
                 if(cancel)cancellation.Cancel();
+                dispatchGate.Set();
                 Exception observed=null;
                 try {execution.Flush();} catch(Exception error){observed=error;}
                 Require(observed!=null,"Failure or cancellation must reject the pending wave");
                 if(cancel)Require(observed is OperationCanceledException,"Cancellation must retain its original exception contract");
                 else if(textureFailure)Require(observed is BinaryAssetBuilderException,"Texture worker failure must preserve its original backend exception");
                 else Require(observed is NotSupportedException,"Native worker failure must preserve its original backend exception");
-                ((IDisposable)execution).Dispose();
+                try { ((IDisposable)execution).Dispose(); }
+                catch(Exception cleanup) { Require(Object.ReferenceEquals(cleanup,observed),"Drain must preserve the original worker failure identity"); }
                 Require(captured.TrueForAll(t=>t.IsCompleted),"Disposal must join every previously dispatched native worker");
+                Require(!execution.HasPending,"Disposal must drain active envelopes");
+                Require(scopes.Exists(scope=>scope.IsFailed) && scopes.Exists(scope=>!scope.IsCompleted),"A failed document version must never become successfully complete");
+                Require(committed<=3 && completed<=3,"A failed or cancelled physical asset may not publish its state or document");
                 var serializer=new JavaScriptSerializer();
-                var snapshot=serializer.Deserialize<Dictionary<string,object>>(serializer.Serialize(performanceType.GetMethod("Snapshot",fields).Invoke(performance,null)));
+                var snapshot=serializer.Deserialize<Dictionary<string,object>>(serializer.Serialize(fixture.PerformanceType.GetMethod("Snapshot",SchedulerFixture.Fields).Invoke(fixture.Performance,null)));
                 int measured=0;
                 foreach(Dictionary<string,object> entry in (System.Collections.IEnumerable)snapshot["entries"])
                     if((string)entry["name"]=="core.asset.compile")measured+=Convert.ToInt32(entry["count"]);
                 Require(measured==4,"Failed/cancelled native calls must remain in Core performance counts after join");
-                Require((int)queue.GetType().GetProperty("Count").GetValue(queue,null)==0,"Disposal must drain pending envelopes");
-                Require(verified==0 && committed==0 && completed==0,"Failed/uncommitted documents may not verify, commit or become complete");
-                using(var writer=new FileStream(input,FileMode.Open,FileAccess.Write,FileShare.None))
-                    Require(writer.CanWrite,"All external leases must be released after native drain");
+                using(var writer=new FileStream(input,FileMode.Open,FileAccess.Write,FileShare.None))Require(writer.CanWrite,"All external leases must be released after native drain");
                 if(textureFailure)
                 {
                     Require(privateTextureDirectories.Count==3,"Texture failure wave must isolate all three CDATA paths");
@@ -822,9 +931,9 @@ public static class CompilerPreparedBackend
                     using(var writer=new FileStream(invalidTexture,FileMode.Open,FileAccess.Write,FileShare.None))Require(writer.CanWrite,"Texture failure drain retained failing source lease");
                 }
                 lifecycleEvidence.Add(new {kind=textureFailure?"scheduler-texture-failure-drain":cancel?"scheduler-cancellation-drain":"scheduler-native-failure-drain",dispatched=captured.Count,
-                    activeAtRequest,allWorkersJoined=true,verified,committed,completed});
+                    allWorkersJoined=true,verified,committed,completed,failedDocumentNotCompleted=true});
             }
-            finally {((IDisposable)execution).Dispose();texture.Dispose();}
+            finally {dispatchGate.Set();try{((IDisposable)execution).Dispose();}finally{texture.Dispose();}}
         }
     }
     public static int Main(string[] args)
@@ -837,7 +946,7 @@ public static class CompilerPreparedBackend
             run("apt-leases",()=>AptLeaseAndBorrow(args[0]));run("qualification",()=>ParallelQualification(args[0]));run("environment",()=>EnvironmentQualification(args[4]));
             run("resource-budget",()=>ResourceBudget(args[0]));run("w3x-budget",W3xBudget);run("schema-defaults",SchemaDefaults);run("preparation-budget",PreparationBudget);run("rejection-reasons",()=>PreparationRejectionReasons(args[0]));
             run("worker-buffers",()=>WorkerBuffers(args[0],args[4]));run("tokenizer-workers",()=>TokenizerWorkers(args[0]));run("texture-workers",()=>TextureWorkers(args[0]));run("texture-owner-diagnostics",()=>TextureOwnerDiagnostics(args[0]));
-            run("native-failure-drain",()=>SchedulerDrain(args[0],false));run("cancellation-drain",()=>SchedulerDrain(args[0],true));run("texture-failure-drain",()=>SchedulerDrain(args[0],false,true));
+            run("completion-driven",()=>SchedulerCompletion(args[0]));run("native-failure-drain",()=>SchedulerDrain(args[0],false));run("cancellation-drain",()=>SchedulerDrain(args[0],true));run("texture-failure-drain",()=>SchedulerDrain(args[0],false,true));
             File.WriteAllText(args[1],new JavaScriptSerializer().Serialize(new {
                 succeeded=failures.Count==0,sourceCommit=args[2],runId=args[3],checks,lifecycleEvidence,failures,
                 scope="Borrowed finalized XML/defaults/namespaces/metadata, Windows stable file leases, APT/W3X/Audio/Texture worker three-buffer equality, cold S3 gray-table overlap, isolated Audio/OnDemand CDATA, atlas source leases, native/texture failure cleanup, three tokenizers on four platforms, closed route qualification and resource budgets; component evidence only"

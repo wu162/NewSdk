@@ -20,6 +20,7 @@ namespace NewModCompiler.Application
         public int RequestedJobs { get; private set; }
         public int ProcessorCount { get; private set; }
         public int Capacity { get; private set; }
+        public int IoCapacity { get; private set; }
         public long ByteBudget { get; private set; }
         public bool MemoryQuerySucceeded { get; private set; }
         public long AvailablePhysicalBytes { get; private set; }
@@ -48,6 +49,7 @@ namespace NewModCompiler.Application
                 // allowance is a conservative fallback, not observed free RAM.
                 result.Capacity = 1;
                 result.ByteBudget = FallbackByteBudget;
+                result.IoCapacity = 1;
             }
             else
             {
@@ -61,6 +63,8 @@ namespace NewModCompiler.Application
                 result.Capacity = (int)Math.Max(1L, Math.Min(Math.Min((long)requestedJobs,
                     result.ProcessorCount), Math.Min((long)MaximumWorkers, memoryWorkers)));
             }
+            // IO has its own ceiling; a completed encoder immediately releases its CPU slot.
+            if (memoryQuerySucceeded) result.IoCapacity = Math.Max(1, Math.Min(4, Math.Min(MaximumWorkers, requestedJobs)));
             // A large number of CPUs must not make an otherwise safe individual
             // task inadmissible. Actual retained-byte accounting determines how
             // many such tasks can coexist within the shared budget.

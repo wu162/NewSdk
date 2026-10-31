@@ -12,8 +12,8 @@ namespace NewModCompiler.Application
     // This is a backend input, not a serialized replacement for Core's semantic
     // front end. Prepare runs on the owner after schema/reference processing.
     // Certified backends only read the finalized XML, namespace bindings and
-    // type identity. Core keeps these alive through ordered commit/join; only
-    // CDATA writers need a separate declaration for their output pathname.
+    // type identity. The document version retains the finalized XML through IO;
+    // each operation has its own declaration state and CDATA pathname.
     internal sealed partial class PreparedBackendWork : IDisposable
     {
         readonly IAssetBuilderPlugin plugin;
@@ -86,13 +86,11 @@ namespace NewModCompiler.Application
                 // four input copies instead of the old 64-copy allowance.
                 else if (family == "audio") retained = ExternalReadBudget(leases, retained, 4L);
                 if (retained > preparationBudget) return Reject("preparation-budget-exceeded", out reason);
-                // ProcessExpressions/ProcessOverrides/Validate finish before
-                // ProcessInstances. Pending documents cannot be reopened or made
-                // cacheable until their workers join; repeated assets flush before
-                // reassignment. No certified backend mutates XML, namespace bindings,
-                // handles or reference metadata. Keep that original input directly,
-                // including unspecified schema defaults and inherited XML context.
-                var input = original.HasCustomData ? original.CreateBackendView() : original;
+                // The version is read-only before publication. A private state
+                // view captures document metadata and the CDATA pathname while
+                // borrowing the original schema-annotated node and references.
+                // This avoids a full DOM copy and preserves inherited context.
+                var input = original.CreateBackendView();
                 prepared = new PreparedBackendWork(family, plugin, input, leases, retained);
                 leases = null; // Ownership moves to the envelope through commit.
                 return true;
@@ -221,7 +219,7 @@ namespace NewModCompiler.Application
             internal TextureMessage(bool warning, string text) { Warning = warning; Text = text; }
         }
 
-        // Called only by the owner after this worker joins, in asset order.
+        // Called only by the owner after this worker joins.
         // Workers never mutate BuildSession diagnostics or the event writer.
         internal void FlushDiagnostics()
         {

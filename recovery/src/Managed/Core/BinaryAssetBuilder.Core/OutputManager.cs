@@ -205,16 +205,12 @@ public class OutputManager
 			value = new BinaryAsset(this, value2, instance);
 			_Assets.Add(fileBase, value);
 		}
-		else
-		{
-			// One physical asset may be discovered in distinct included documents.
-			// Finish its earlier owner operation before replacing its declaration.
-			var execution = _DocumentProcessor.AssetExecution;
-			if (execution != null && execution.HasPending) execution.FlushAsset(value);
-			value.Instance = instance;
-		}
 		if (isOutputAsset && !value.IsOutputAsset)
 		{
+			// Availability probes can precede an XML reload. Bind the actual
+			// declaration once at first output registration, before any worker
+			// exists; later requests retain this stable physical input.
+			value.Instance = instance;
 			_OldOutputInstances.Remove(value.FileBase);
 			value.IsOutputAsset = true;
 			_AssetFileCount++;

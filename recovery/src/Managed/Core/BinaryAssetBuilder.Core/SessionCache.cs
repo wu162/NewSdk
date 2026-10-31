@@ -432,6 +432,21 @@ public class SessionCache : ISessionCache
 		}
 	}
 
+	// Owner-only version replacement. The previous document can remain alive in
+	// execution scopes while a new version gets its own declarations and DOM.
+	// This does not make the replacement cacheable or record compilation success;
+	// only the completed version's SaveDocumentToCache call does that.
+	public virtual bool ReplaceDocumentForExecution(string path, string configuration, TargetPlatform platform,
+		AssetDeclarationDocument expected, AssetDeclarationDocument replacement)
+	{
+		if (replacement == null) throw new ArgumentNullException(nameof(replacement));
+		string key = path.ToLower() + GetPostfix(configuration?.ToLower(), platform);
+		if (!_Current.Files.TryGetValue(key, out var item) || !Object.ReferenceEquals(item.Document, expected))
+			return false;
+		item.Document = replacement;
+		return true;
+	}
+
 	private static string GetPostfix(string configuration, TargetPlatform platform)
 	{
 		string text = (string.IsNullOrEmpty(configuration) ? "" : (":" + configuration));
