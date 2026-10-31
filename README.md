@@ -12,6 +12,8 @@
 
 完整操作步骤见 [新编译器使用说明](recovery/COMPILER_USAGE.md)，开发和历史资料见 [文档入口](recovery/README.md)。
 
+本分支内建 [FLA/AS UI 编译插件](recovery/docs/FLA_UI_COMPILER.md)：可自动发现 `Data/AptUI/` 下的二进制 Flash MX 2004/8 FLA，与对应 AS 直接编译为 MOD 四流，也可由 `AptAptData` XML 声明与其他资产混合编译。
+
 ```powershell
 ./NewModCompiler.exe doctor --sdk-root C:\NewSdk\SDK
 ./NewModCompiler.exe plan --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example
