@@ -29,23 +29,27 @@ def main():
     parser.add_argument('--sdk-root', type=Path, required=True)
     parser.add_argument('--archive', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--source-url', help='Fresh direct mirror redirect when ModDB blocks the runner IP')
     parser.add_argument('--sevenzip', default=shutil.which('7z') or '7z')
     args = parser.parse_args()
     archive = args.archive.resolve()
     archive.parent.mkdir(parents=True, exist_ok=True)
     if not archive.is_file():
-        request = urllib.request.Request('https://www.moddb.com/downloads/start/240820/all',
-                                         headers={'User-Agent': 'curl/8.7.1'})
-        with urllib.request.urlopen(request, timeout=60) as response:
-            page = response.read().decode('utf-8')
-        mirrors = list(dict.fromkeys(html.unescape(s) for s in
-            re.findall(r'[/]downloads/mirror/240820/[^"\s<>]+', page)))
+        if args.source_url:
+            mirrors = [args.source_url]
+        else:
+            request = urllib.request.Request('https://www.moddb.com/downloads/start/240820/all',
+                                             headers={'User-Agent': 'curl/8.7.1'})
+            with urllib.request.urlopen(request, timeout=60) as response:
+                page = response.read().decode('utf-8')
+            mirrors = list(dict.fromkeys('https://www.moddb.com' + html.unescape(s) for s in
+                re.findall(r'[/]downloads/mirror/240820/[^"\s<>]+', page)))
         if not mirrors:
             raise ValueError('ModDB did not provide any source mirrors')
         errors = []
         for mirror in mirrors:
             try:
-                request = urllib.request.Request('https://www.moddb.com' + mirror,
+                request = urllib.request.Request(mirror,
                                                  headers={'User-Agent': 'curl/8.7.1'})
                 with urllib.request.urlopen(request, timeout=120) as response, archive.open('wb') as stream:
                     shutil.copyfileobj(response, stream, 1024 * 1024)
