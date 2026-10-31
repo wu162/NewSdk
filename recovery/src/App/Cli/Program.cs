@@ -11,6 +11,9 @@ namespace NewModCompiler.Cli
     {
         public static int Main(string[] args)
         {
+#if NEWSdk_MONOLITHIC
+            BinaryAssetBuilder.UiCompiler.UiEmbeddedDependencies.Initialize();
+#endif
             if (args.Length == 1 && (args[0] == "--help" || args[0] == "-h")) { Console.WriteLine(Options.Help); return 0; }
             if (args.Length == 1 && args[0] == "--help-advanced") { Console.WriteLine(Options.AdvancedHelp); return 0; }
             var sinks = new List<IBuildEventSink>();

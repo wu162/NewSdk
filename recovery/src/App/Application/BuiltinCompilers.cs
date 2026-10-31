@@ -66,6 +66,7 @@ namespace NewModCompiler.Application
                 result.Add("weapon", false, () => new Recovered.Weapon.Plugin());
                 result.Add("armor", false, () => new Recovered.Compiler.Plugin());
                 result.Add("xml", false, () => new Recovered.XmlPriority.Plugin());
+                result.Add("ui", false, () => new UiAptPlugin());
                 result.Add("w3x", true, () => new Recovered.Compiler.W3x.NativePlugin());
                 result.Add("audio", true, () => new BinaryAssetBuilder.AudioCompiler.Plugin());
                 if (includeTexture)
@@ -114,7 +115,9 @@ namespace NewModCompiler.Application
             {
                 uint version = family == "xml" ? 4u : family == "w3x" ? Recovered.W3x.W3xCatalog.Version(TargetPlatform.Win32) :
                     family == "audio" ? BinaryAssetBuilder.AudioCompiler.AudioCatalog.Version(TargetPlatform.Win32) : 4100u;
-                IAssetBuilderPlugin plugin = lazy ? (IAssetBuilderPlugin)new LazyPlugin(factory, version) : factory();
+                // Source expansion happens before backend dispatch, so its UI
+                // interface must remain available even on a lazy Core session.
+                IAssetBuilderPlugin plugin = lazy && family != "ui" ? (IAssetBuilderPlugin)new LazyPlugin(factory, version) : factory();
                 if (plugin == null) throw new InvalidOperationException("Built-in factory returned null: " + family);
                 plugins.Add(plugin);
                 return plugin;
@@ -199,7 +202,10 @@ namespace NewModCompiler.Application
                 new BuiltinCompilerRoute(2802565590u, "PathMusicTrack", 2668810035u, "audio", true),
                 new BuiltinCompilerRoute(2590317961u, "PathMusicEvent", 1993395951u, "audio", true)
             };
-            entries.AddRange(BuiltinXmlRoutes.Entries);
+            foreach (var route in BuiltinXmlRoutes.Entries)
+                entries.Add(route.TypeName == "AptAptData"
+                    ? new BuiltinCompilerRoute(route.TypeId, route.TypeName, route.TypeHash, "ui", route.SchemaGlobal)
+                    : route);
             return entries.AsReadOnly();
         }
 

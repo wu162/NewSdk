@@ -74,7 +74,7 @@ try {
             Copy-Item "$destination/build.events.jsonl" "$modeOut/$command-events.jsonl"
         }
         Complete-CompilerValidationRun $validationRun
-        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;componentExecution='test-only host using identical production inputs';configuration=$mode;passed=$true;exeSha256=(Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant();runtimeFiles=$allowed;typeInventoryVerified=$true;exactResourcesVerified=$true;productContainsTests=$false;moduleInputsQuarantined=$true;builtinRouteCount=299;builtinPluginCount=6;routeMetadataVerified=$true;componentDifferentialPassed=$false;planExit=0;doctorExit=3;buildExit=3;backendIntegrated=$true;fakeSdkRejected=$true;modCompilationValidated=$false}
+        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;componentExecution='test-only host using identical production inputs';configuration=$mode;passed=$true;exeSha256=(Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant();runtimeFiles=$allowed;typeInventoryVerified=$true;exactResourcesVerified=$true;productContainsTests=$false;moduleInputsQuarantined=$true;builtinRouteCount=299;builtinPluginCount=7;routeMetadataVerified=$true;componentDifferentialPassed=$false;planExit=0;doctorExit=3;buildExit=3;backendIntegrated=$true;fakeSdkRejected=$true;modCompilationValidated=$false}
         Write-Host "PASS production $mode clean directory: metadata/types/resources, all built-in routes/rejections, help, plan/events/report, specific missing-SDK-configuration rejection with integrated backend"
     }
     $state.status='passed'
