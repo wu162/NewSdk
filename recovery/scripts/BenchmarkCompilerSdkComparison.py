@@ -66,24 +66,31 @@ def validate_shared_report(report, workload, sdk):
         require([path_identity(p) for p in roots[key]] == [path_identity(p) for p in expected[key]],
                 'Actual search root membership/order differs: ' + key)
     tasks = report['plan']['Tasks']
-    require(len(tasks) == 1 and path_identity(tasks[0]['InputPath']) ==
-            path_identity(Path(workload['modRoot']) / 'Data/Mod.xml'), 'Stream entry differs')
+    expected_tasks = workload.get('tasks')
+    if expected_tasks:
+        require([(task['Content'], path_identity(task['InputPath'])) for task in tasks] ==
+                [(task['content'], path_identity(task['inputPath'])) for task in expected_tasks],
+                'Complete stream entry membership/order differs')
+    else:
+        require(len(tasks) == 1 and path_identity(tasks[0]['InputPath']) ==
+                path_identity(Path(workload['modRoot']) / 'Data/Mod.xml'), 'Stream entry differs')
 
 
-def stream_inventory(directory):
+def stream_inventory(directory, stem='mod'):
     """Strip only the host's stream-directory prefix; never rewrite bytes."""
     root = Path(directory)
     paths = [p for p in root.rglob('*') if p.is_file()]
     manifests = [p for p in paths if p.suffix == '.manifest']
-    require(len(manifests) == 1 and manifests[0].name == 'mod.manifest',
+    stem = stem.lower()
+    require(len(manifests) == 1 and manifests[0].name == stem + '.manifest',
             'Expected exactly the selected Mod stream; extra/missing reference streams')
     parent = manifests[0].parent
-    accepted = {parent / ('mod' + suffix) for suffix in ('.manifest', '.bin', '.imp', '.relo')}
+    accepted = {parent / (stem + suffix) for suffix in ('.manifest', '.bin', '.imp', '.relo')}
     require(all(p.is_file() for p in accepted), 'Incomplete linked stream')
     result, sources = {}, {}
     for path in paths:
         if path not in accepted:
-            require(path.parent == parent / 'mod/cdata' and
+            require(path.parent == parent / (stem + '/cdata') and
                     re.fullmatch(r'[0-9a-fA-F]{8}(?:\.[0-9a-fA-F]{8}){3}\.cdata', path.name),
                     'Unexpected output member: ' + str(path))
         name = path.relative_to(parent).as_posix()

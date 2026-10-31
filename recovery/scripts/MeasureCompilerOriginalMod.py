@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import platform
 import shutil
+import statistics
 import subprocess
 import time
 
@@ -36,12 +37,62 @@ def git(repo, *args):
     return subprocess.check_output(['git', '-C', str(repo), *args], text=True).strip()
 
 
+def discover_tasks(mod):
+    tasks = [dict(id='base/Mod', content='base', inputPath=str(mod / 'Data/Mod.xml'), stem='Mod')]
+    for content, directory, pattern in (('apt', 'Data/AptUI', '*.xml'),
+                                        ('maps', 'Data/AdditionalMaps', 'MapMetaData_*.xml')):
+        entries = sorted((mod / directory).glob(pattern), key=lambda p: (str(p).casefold(), str(p)))
+        need(entries, 'Requested content has no source entries: ' + content)
+        tasks.extend(dict(id=content + '/' + p.stem, content=content, inputPath=str(p), stem=p.stem)
+                     for p in entries)
+    return tasks
+
+
+def full_inventory(directory, tasks):
+    result, paths = {}, {}
+    for task in tasks:
+        files, sources = stream_inventory(directory / task['id'], task['stem'])
+        prefix = task['id'].lower() + '/'
+        result.update({prefix + name: row for name, row in files.items()})
+        paths.update({prefix + name: path for name, path in sources.items()})
+    return result, paths
+
+
+def stream_times(product, tasks):
+    events = [json.loads(line) for line in (product / 'build.events.jsonl').read_text(encoding='utf-8-sig').splitlines()]
+    starts, result = {}, {group: 0 for group in ('base', 'apt', 'maps')}
+    expected = {task['id'] for task in tasks}
+    completed = set()
+    for event in events:
+        if event['eventType'] == 'StreamStarted':
+            starts[event['streamId']] = event['elapsedMs']
+        elif event['eventType'] == 'StreamCompleted':
+            stream = event['streamId']
+            need(stream in expected and stream not in completed and event['payload']['status'] == 'succeeded',
+                 'Incomplete or duplicate full-MOD stream event')
+            result[stream.split('/')[0]] += event['elapsedMs'] - starts[stream]
+            completed.add(stream)
+    need(completed == expected, 'Not all requested streams completed')
+    return result
+
+
 def report(out, state):
     state['summary'] = summaries(state['samples'])
+    parts = {}
+    for row in state['samples']:
+        if row.get('status') == 'passed':
+            for part, milliseconds in row.get('partWallMs', {}).items():
+                key = row['mode'], row['phase'], part
+                parts.setdefault(key, {}).setdefault(row['engine'], []).append(milliseconds)
+    state['partSummary'] = [dict(mode=mode, phase=phase, content=part,
+        nPerEngine=len(values['original']), originalMsMedian=statistics.median(values['original']),
+        newMsMedian=statistics.median(values['new'])) for (mode, phase, part), values in parts.items()
+        if set(values) == {'original', 'new'} and len(values['original']) == len(values['new'])]
     write(out / 'measurement.json', state)
     lines = ['# Original SDK versus current compiler', '', 'Status: ' + state['status'], '',
         state['scope'],
-        'Base stream only, loose output. No BIG/SKUDEF, APT or global-metadata timing.',
+        ('All base, APT and global-data streams, loose output; no BIG/SKUDEF packaging.' if state.get('fullContent')
+         else 'Base stream only, loose output. No BIG/SKUDEF, APT or global-metadata timing.'),
         'Same Windows VM, SDK, physical MOD input, Schema, cwd and ordered search roots. Separate caches.',
         'Fresh process per sample, process launch through exit includes CLI/report overhead. Hash checks excluded.',
         'Cold = initially absent compiler cache/output namespace; OS page cache is uncontrolled.',
@@ -53,6 +104,14 @@ def report(out, state):
             r['workload'], r['mode'], r['phase'], r['nPerEngine'],
             r['originalWallMsMedian'] / 1000, r['newWallMsMedian'] / 1000,
             100 * (r['newOverOriginalWallRatio'] - 1)))
+    if state.get('fullContent'):
+        lines += ['', 'Original total/parts sum each sequential BAB process launch-to-exit; new total is one complete CLI process.',
+            'New parts use normal StreamStarted/StreamCompleted monotonic elapsedMs events. Shared startup/disposal/report overhead is included only in the new total.',
+            '', '| Mode | Phase | Content | n/engine | Original seconds | New stream seconds |',
+            '| --- | --- | --- | ---: | ---: | ---: |']
+        for row in state['partSummary']:
+            lines.append('| %s | %s | %s | %d | %.6f | %.6f |' % (row['mode'], row['phase'],
+                row['content'], row['nPerEngine'], row['originalMsMedian']/1000, row['newMsMedian']/1000))
     lines += ['', 'All raw samples, CPU/peak working set and output identities are in measurement.json.',
         'All cache-state repeats must match their own engine baseline byte for byte.',
         'Cross-engine differences, if present, are retained below; such results do not establish equivalent output.',
@@ -85,6 +144,7 @@ def main():
     parser.add_argument('--timeout-seconds', type=float, default=180)
     parser.add_argument('--budget-seconds', type=float, default=900)
     parser.add_argument('--requested-head', default=HEAD)
+    parser.add_argument('--content', choices=('base', 'base,apt,global-metadata'), default='base')
     args = parser.parse_args()
     need(os.name == 'nt', 'Execution requires Windows')
     ctypes.WinDLL('kernel32', use_last_error=True).SetErrorMode(0x0001 | 0x0002 | 0x8000)
@@ -98,7 +158,8 @@ def main():
         machine=dict(platform=platform.platform(), processor=platform.processor(),
                      cpuCount=os.cpu_count(), imageVersion=os.environ.get('ImageVersion')),
         scope='Complete mymod and untouched full historical Upheaval inputs, base loose stream only.',
-        samples=[], pairs=[], errors=[], jobs=4, performance='off')
+        samples=[], pairs=[], errors=[], jobs=4, performance='off',
+        fullContent=args.content != 'base', contentSelection=args.content)
     started = time.perf_counter()
     schema_backup = None
     edit_path = None
@@ -164,6 +225,10 @@ def main():
         workloads = [dict(name=name, modRoot=str(mod), files=file_rows(mod),
             scope='Complete input copy; base loose stream timing only',
             sourceCommit=source, sourceTree=tree) for name, mod, source, tree in selected]
+        if state['fullContent']:
+            for workload in workloads:
+                workload['tasks'] = discover_tasks(Path(workload['modRoot']))
+                workload['scope'] = 'All base, APT and global-data source entries, without source omissions'
         prep = dict(succeeded=True, binarySourceCommit=SOURCE, sourceRunId=RUN,
             benchmarkSourceCommit=state['measurementSource'], sdkRoot=str(repo / 'SDK'),
             runtimeDirectory=str(runtime), runtimeFiles=file_rows(runtime, 'name'), workloads=workloads)
@@ -190,6 +255,47 @@ def main():
             if '/sdk/tools' not in p.replace('\\', '/').lower())
         baselines = {}
 
+        def execute(engine, w, mode, profile, round_index, label):
+            command = invocation(engine, w, mode, profile, round_index, prep, original)
+            remaining = args.budget_seconds - (time.perf_counter() - started)
+            need(remaining > 1, 'Total benchmark budget exhausted')
+            if engine == 'new':
+                command[command.index('--package-content') + 1] = args.content
+                command += ['--jobs', '4', '--performance', 'off']
+            if not state['fullContent'] or engine == 'new':
+                return measure(command, sdk, out / label, min(args.timeout_seconds, remaining), environment)
+            rows, failures = [], []
+            for task in w['tasks']:
+                current = command.copy()
+                current[1] = task['inputPath']
+                stream_root = profile / 'streams' / task['id']
+                stream_root.mkdir(parents=True, exist_ok=True)
+                current = ['/od:' + str(stream_root) if argument.startswith('/od:') else argument
+                           for argument in current]
+                remaining = args.budget_seconds - (time.perf_counter() - started)
+                need(remaining > 1, 'Total benchmark budget exhausted')
+                evidence = out / label / task['id']
+                try:
+                    row = measure(current, sdk, evidence, min(args.timeout_seconds, remaining), environment)
+                except Exception as error:
+                    receipt = evidence / 'process.json'
+                    row = json.loads(receipt.read_text(encoding='utf-8')) if receipt.is_file() else dict(status='failed')
+                    failures.append(task['id'] + ': ' + str(error))
+                row.update(taskId=task['id'], content=task['content'])
+                rows.append(row)
+            aggregate = dict(command=[row.get('command') for row in rows], cwd=str(sdk), streams=rows,
+                wallMs=sum(row.get('wallMs', 0) for row in rows), cpuMs=sum(row.get('cpuMs', 0) for row in rows),
+                peakWorkingSetBytes=max(row.get('peakWorkingSetBytes', 0) for row in rows),
+                status='failed' if failures else 'exited', exitCode=1 if failures else 0,
+                traceSessionLoaded=all(row.get('traceSessionLoaded') for row in rows),
+                traceStringHashesLoaded=any(row.get('traceStringHashesLoaded') for row in rows),
+                traceAssetsCopiedFromCache=sum(row.get('traceAssetsCopiedFromCache', 0) for row in rows),
+                partWallMs={group: sum(row.get('wallMs', 0) for row in rows if row['content'] == group)
+                            for group in ('base', 'apt', 'maps')}, errors=failures)
+            write(out / label / 'process.json', aggregate)
+            need(not failures, 'Original SDK stream failures: ' + '; '.join(failures))
+            return aggregate
+
         def one(engine, w, trial, mode, phase, round_index):
             profile = work / 'builds' / w['name'] / ('%s-%d' % (mode, trial)) / engine
             if phase in ('cold', 'uncached', 'edited-uncached'):
@@ -197,13 +303,8 @@ def main():
             for name in ('assets', 'session', 'streams', 'product', 'intermediate',
                          'fresh-' + str(round_index), 'fresh-session-' + str(round_index)):
                 (profile / name).mkdir(parents=True, exist_ok=True)
-            command = invocation(engine, w, mode, profile, round_index, prep, original)
-            if engine == 'new':
-                command += ['--jobs', '4', '--performance', 'off']
             label = '%s-%d-%s-%s-%d-%s' % (w['name'], trial, mode, phase, round_index, engine)
-            remaining = args.budget_seconds - (time.perf_counter() - started)
-            need(remaining > 1, 'Total benchmark budget exhausted')
-            row = measure(command, sdk, out / label, min(args.timeout_seconds, remaining), environment)
+            row = execute(engine, w, mode, profile, round_index, label)
             row.update(engine=engine, workload=w['name'], trial=trial, mode=mode, phase=phase, round=round_index)
             state['samples'].append(row)
             report(out, state)
@@ -215,6 +316,9 @@ def main():
                 validate_shared_report(build_report, w, sdk)
                 output_inventory(profile / 'product', build_report)
                 row.update(cache=build_report['cache'], reportElapsedMs=build_report['elapsedMs'])
+                if state['fullContent']:
+                    row['partWallMs'] = stream_times(profile / 'product', w['tasks'])
+                    row['sharedOverheadMs'] = row['wallMs'] - sum(row['partWallMs'].values())
                 if phase in ('hot', 'hot-edited'):
                     need(row['cache']['xmlParse'] == 0, 'Hot build unexpectedly parsed XML')
                 if phase == 'edited':
@@ -223,7 +327,9 @@ def main():
                 need(row['traceSessionLoaded'], 'Original hot process did not load session')
             elif mode == 'none':
                 need(not row['traceStringHashesLoaded'], 'No-session original reused string hashes')
-            files, paths = stream_inventory(profile / ('product/published' if engine == 'new' else 'streams'))
+            destination = profile / ('product/published' if engine == 'new' else 'streams')
+            files, paths = (full_inventory(destination, w['tasks']) if state['fullContent']
+                            else stream_inventory(destination))
             row['outputFiles'] = files
             input_state = 'modified' if phase in ('edited', 'hot-edited', 'edited-uncached') else 'original'
             row['inputState'] = input_state
@@ -258,14 +364,23 @@ def main():
                     elif phase == 'restored':
                         edit_path.write_bytes(edit_original)
                     engines = ('original', 'new') if (trial + index) % 2 == 0 else ('new', 'original')
-                    pair = {engine: one(engine, w, trial, mode, phase, index) for engine in engines}
+                    pair, failures = {}, []
+                    for engine in engines:
+                        try:
+                            pair[engine] = one(engine, w, trial, mode, phase, index)
+                        except Exception as error:
+                            failure = dict(engine=engine, trial=trial, mode=mode, phase=phase,
+                                           error=type(error).__name__ + ': ' + str(error))
+                            state['errors'].append(failure)
+                            failures.append(failure)
+                    need(not failures, 'Paired build failed: ' + json.dumps(failures))
                     a, b = pair['original'], pair['new']
                     differences = sorted(n for n in a[0]['outputFiles'].keys() | b[0]['outputFiles'].keys()
                         if a[0]['outputFiles'].get(n) != b[0]['outputFiles'].get(n))
                     if trial == 0 and phase == 'cold':
                         for engine in ('original', 'new'):
                             for member, path in pair[engine][1].items():
-                                if '/' not in member:
+                                if '/' not in member or state['fullContent'] and '/cdata/' not in member:
                                     target = out / 'baseline-streams' / w['name'] / engine / member
                                     target.parent.mkdir(parents=True, exist_ok=True)
                                     shutil.copy2(path, target)

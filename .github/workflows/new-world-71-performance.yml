@@ -22,7 +22,7 @@ jobs:
   measure:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[new-world-benchmark]')
     runs-on: windows-2022
-    timeout-minutes: 60
+    timeout-minutes: 70
     env:
       GH_TOKEN: ${{ github.token }}
       PYTHONDONTWRITEBYTECODE: '1'
@@ -43,7 +43,7 @@ jobs:
         run: |
           $run=gh api repos/wu162/NewSdk/actions/runs/41244132060 | ConvertFrom-Json
           if($LASTEXITCODE -ne 0 -or $run.status -ne 'completed' -or $run.conclusion -ne 'success' -or $run.head_sha -cne '8050f22de81539c65aeca3903e9b48f53a572068' -or $run.run_attempt -ne 1){throw 'Accepted production source/run differs'}
-          python -m py_compile recovery/scripts/MeasureCompilerOriginalMod.py recovery/scripts/DownloadNewWorld71.py
+          python -m py_compile recovery/scripts/MeasureCompilerOriginalMod.py recovery/scripts/DownloadNewWorld71.py recovery/scripts/BenchmarkCompilerSdkComparison.py
           if($LASTEXITCODE -ne 0){throw 'Measurement script syntax failed'}
       - uses: actions/download-artifact@v4
         with:
@@ -60,11 +60,11 @@ jobs:
           if($env:NEW_WORLD_SOURCE_URL){$arguments+=@('--source-url',$env:NEW_WORLD_SOURCE_URL)}
           python @arguments
           if($LASTEXITCODE -ne 0){throw 'Source download or extraction failed'}
-      - name: Paired cold hot and real XML edit builds on the same Windows VM
+      - name: Compile all base APT and global-data streams with paired cold hot and XML edit measurements
         shell: pwsh
         run: |
           $out="recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/measurement"
-          python recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-accepted/artifacts/core-lifecycle-product/Release --mod "SDK/Mods/The New World" --mod-schema "SDK/Mods/The New World/xsd" --edit-file Data/AutoAndBoat/AM_BOAT03.xml --edit-old 'MaxHealth="300"' --edit-new 'MaxHealth="301"' --requested-head c7647a130c779e84b3ec669cb7235599488048b2 --work "$env:RUNNER_TEMP/new-world-benchmark" --output $out --pairs 3 --timeout-seconds 600 --budget-seconds 2400
+          python recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/new-world-accepted/artifacts/core-lifecycle-product/Release --mod "SDK/Mods/The New World" --mod-schema "SDK/Mods/The New World/xsd" --content base,apt,global-metadata --edit-file Data/AutoAndBoat/AM_BOAT03.xml --edit-old 'MaxHealth="300"' --edit-new 'MaxHealth="301"' --requested-head c7647a130c779e84b3ec669cb7235599488048b2 --work "$env:RUNNER_TEMP/new-world-benchmark" --output $out --pairs 3 --timeout-seconds 900 --budget-seconds 3600
           $result=$LASTEXITCODE
           if(Test-Path "$out/report.md"){Get-Content "$out/report.md" -Encoding UTF8 | Add-Content $env:GITHUB_STEP_SUMMARY}
           if($result -ne 0){throw 'Benchmark did not fully pass; raw results retained'}
