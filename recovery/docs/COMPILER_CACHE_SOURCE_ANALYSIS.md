@@ -50,6 +50,6 @@
 
 **复用 XML validator。** 实际 XSD 的 5.54 秒是重要残余，但 `XmlDocument.Validate` 还负责默认属性、PSVI/SchemaInfo、身份约束、错误 SourceObject 等。直接复用一个 `XmlSchemaValidator` 或用简化遍历替换，不是删除重复检查；它要求重现 BCL wrapper 合同。当前保留统一完整 XSD，避免把功能裁剪计作性能收益。
 
-**StableSort。** 新计时给出原 MOD 排序约 117 毫秒，完整输出仍需稳定的依赖、base manifest 前缀、同类型/同名和 culture 相等行为。哈希查询可保持独立列表顺序，整体重排则可能改变 manifest/link。扩容负载若证明这里成为主要瓶颈，再按完整 legacy 顺序参照验证；不能把总引用阶段全部算成排序收益。
+**StableSort：优先级随规模变化。** 原 MOD 的排序约117毫秒，是次要项；第一轮同机扩容候选的详细热样本报告4870毫秒，其中 `core.output.order` 为1720.16毫秒，已成为大型负载主要残余。这是独立detailed归因，不混入off中位数。完整输出仍需稳定的依赖、base manifest前缀、TypeId哈希别名及culture相等行为；`List2.Sort` 按16384块排序并稳定合并，直接换排序器会改变跨块相等项顺序。下一步可先原型化请求内culture sort key缓存，比较原comparer的逐对结果与完整排序序列，再测NLS比较/分配收益；尚未实现或测得加速。保留原数值排序输入与legacy插入规则，不能把总引用阶段全部算给排序。
 
 上述分析的优化上限受所在独占阶段、阶段重叠与真实负载限制。第二轮收益需以新的同机测量确认，所有较慢样本和未通过/未测范围均保留。
