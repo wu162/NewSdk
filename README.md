@@ -6,7 +6,7 @@
 
 最终工具由 [Core lifecycle 工作流](https://github.com/wu162/NewSdk/actions/workflows/refactor-core-lifecycle.yml?query=branch%3Acompiler-main) 在 Windows 构建。仅成功通过生产与独立 ZIP 验收后，产物中的 `final-release` 目录才有正式 Debug/Release ZIP 和哈希清单；通常使用 Release。运行编号及固定下载入口见 [发行说明](recovery/COMPILER_RELEASE.md)。本次新主线最终构建与独立ZIP验收已成功：[运行40429363386](https://github.com/wu162/NewSdk/actions/runs/40429363386)。二进制来自新增版本/LoD收尾后的源码，文档整理随后提交，不改变运行文件。
 
-每个工具 ZIP 解压后只有五个运行文件：EXE、EXE.config、antlr.runtime.dll、TextureCompiler.dll 和其补丁身份清单。SDK、MOD 源码和系统运行库单独准备。要求 Windows x86 兼容环境、.NET Framework 4.8、x86 VC80/构建工具链 VC 运行库及 DirectX 9/D3DX；先运行 doctor 检查环境。
+本分支将 Texture 编译器源码内建到 EXE，新构建的工具 ZIP 只有三个运行文件：NewModCompiler.exe、NewModCompiler.exe.config、antlr.runtime.dll。SDK、MOD 源码和系统运行库单独准备。要求 Windows x86 兼容环境、.NET Framework 4.8 及与构建工具链匹配的 x86 VC 运行库；Texture 不再依赖原 DLL、VC80 或 DirectX 9/D3DX。先运行 doctor 检查环境。上面的历史验收包仍保留五文件布局，新实现的验收状态见 [续接入口](recovery/RESUME.md)。
 
 ## 使用
 

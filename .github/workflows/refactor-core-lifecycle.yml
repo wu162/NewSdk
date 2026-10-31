@@ -1,7 +1,7 @@
 name: MOD compiler Core lifecycle integration
 on:
   push:
-    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache, refactor/remove-plugin-schema-validation, perf/audiofile-parallel, perf/gameobject-weapon-plugins]
+    branches: [compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache, refactor/remove-plugin-schema-validation, perf/audiofile-parallel, perf/gameobject-weapon-plugins, feat/texture-plugin]
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
@@ -222,11 +222,15 @@ jobs:
           $evidence="recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/app-protocol.json"
           if($LASTEXITCODE -ne 0){throw 'Actual application protocol validation failed'}
-      - name: Host-bound Texture payload and operation without deployment manifest in Debug and Release
+      - name: Built-in Texture original payload differential in Debug and Release
         if: ${{ !cancelled() && steps.product.outcome == 'success' }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerTexture.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle-texture/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Common texture input and output formats in Debug and Release
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestTextureCommonFormats.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/texture/common-formats/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Real production CLI, cold processes and actual CtrlBreak cancellation
         id: cli
         if: ${{ !cancelled() && (steps.reuse.outcome == 'success' || (steps.product.outcome == 'success' && steps.product.outputs.cliEnabled == 'true')) }}
@@ -302,12 +306,12 @@ jobs:
         run: |
           ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/sdk-mymod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TimeoutSeconds 600
           if($LASTEXITCODE -ne 0){throw 'Complete mymod SDK differential failed'}
-      - name: Publish final five-file packages after complete production acceptance
+      - name: Publish final three-file packages after complete production acceptance
         if: ${{ success() && steps.big.outcome == 'success' && steps.cli.outcome == 'success' && env.CLI_REUSE != 'true' }}
         shell: pwsh
         run: |
           ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -AcceptanceReceipt "recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -VerifyBigDeployment -OutputDirectory "recovery/artifacts/final-release/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          if($LASTEXITCODE -ne 0){throw 'Final five-file ZIP deployment validation failed'}
+          if($LASTEXITCODE -ne 0){throw 'Final three-file ZIP deployment validation failed'}
       - name: One full Upheaval jobs 1 4 auto cold hot and modified A/B after acceptance
         if: ${{ success() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
         timeout-minutes: 24
@@ -340,6 +344,7 @@ jobs:
             recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/core-cli-reuse-product/reuse.json

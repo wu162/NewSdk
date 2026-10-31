@@ -6,41 +6,19 @@ using namespace System::IO;
 using namespace System::Reflection;
 namespace NewModCompiler { namespace Validation {
 public ref class ValidationEntry abstract sealed {
-    // Build scripts verify the prepared DLL bytes before the fixture starts.
-    // Retain module/contract ownership checks without repeating deployment audits.
-    static void VerifyTexture(Assembly^ own, Assembly^ texture) {
-        String^ path = Path::Combine(Path::GetDirectoryName(own->Location), "BinaryAssetBuilder.TextureCompiler.dll");
-        if (!String::Equals(Path::GetFullPath(texture->Location), Path::GetFullPath(path), StringComparison::OrdinalIgnoreCase))
-            throw gcnew InvalidOperationException("Loaded texture escaped the entry EXE directory");
-        Type^ contract = own->GetType("BinaryAssetBuilder.Core.IAssetBuilderPlugin", true);
-        Type^ plugin = texture->GetType("BinaryAssetBuilder.TextureCompiler.Plugin", true);
-        if (!contract->IsAssignableFrom(plugin))
-            throw gcnew InvalidOperationException("Loaded texture does not implement entry-owned Core contracts");
-        int references = 0;
-        for each (AssemblyName^ reference in texture->GetReferencedAssemblies()) {
-            if (reference->FullName == own->FullName) ++references;
-            if (reference->Name == "BinaryAssetBuilder.Core")
-                throw gcnew InvalidOperationException("Loaded texture still references old Core");
-        }
-        if (references != 1)
-            throw gcnew InvalidOperationException("Loaded texture has no unique current entry reference");
-    }
     static void VerifyOwnership() {
         Assembly^ own = Assembly::GetEntryAssembly();
         if (own->GetName()->Name != "NewModCompiler" || own->GetModules()->Length != 1)
             throw gcnew InvalidOperationException("Validation must enter a single physical NewModCompiler EXE");
         for each (String^ name in gcnew array<String^> {
             "BinaryAssetBuilder.Core.AssetBuffer", "Recovered.ArmorCompiler",
-            "NewModCompiler.Application.BuiltinCompilers", "Recovered.Compiler.W3x.Plugin" }) {
+            "NewModCompiler.Application.BuiltinCompilers", "Recovered.Compiler.W3x.Plugin",
+            "Recovered.Compiler.Texture.Plugin" }) {
             if (own->GetType(name, true)->Assembly != own)
                 throw gcnew InvalidOperationException("Business type escaped entry module: " + name);
         }
         for each (Assembly^ loaded in AppDomain::CurrentDomain->GetAssemblies()) {
             String^ name = loaded->GetName()->Name;
-            if (name == "BinaryAssetBuilder.TextureCompiler") {
-                VerifyTexture(own, loaded);
-                continue;
-            }
             if (name->StartsWith("BinaryAssetBuilder.", StringComparison::Ordinal) ||
                 name->StartsWith("Recovered.", StringComparison::Ordinal) ||
                 name->StartsWith("EALA.", StringComparison::Ordinal) || name == "Mvp.Xml" ||

@@ -35,18 +35,23 @@ def stage_runtime(build, source_commit, destination):
     receipt = json.loads((build / 'build.json').read_text(encoding='utf-8-sig'))
     need(receipt['sourceCommit'] == source_commit and receipt['configuration'] == 'Release'
          and receipt['backendIntegrated'], 'Current production build identity differs')
-    names = {'NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll',
-             'BinaryAssetBuilder.TextureCompiler.dll', 'BinaryAssetBuilder.TextureCompiler.dll.patch.json'}
+    names = {'NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll'}
+    source_texture = receipt.get('texturePlugin')
+    if source_texture is not None:
+        need(source_texture == {'implementation': 'built-in-source', 'externalRuntimeFiles': []}, 'Source texture receipt differs')
+    else:
+        names.update(('BinaryAssetBuilder.TextureCompiler.dll', 'BinaryAssetBuilder.TextureCompiler.dll.patch.json'))
     need(set(receipt['runtimeFiles']) == names, 'Runtime deployment set differs')
     destination.mkdir()
     for name in sorted(names):
         shutil.copy2(build / 'bin' / name, destination / name)
     identities = inventory(destination)
     need(identities['NewModCompiler.exe']['sha256'] == receipt['exeSha256'], 'Current EXE digest differs')
-    patch = json.loads((destination / 'BinaryAssetBuilder.TextureCompiler.dll.patch.json').read_text(encoding='utf-8-sig'))
-    need(patch['targetExeSha256'] == receipt['exeSha256'] and
-         patch['patchedSha256'] == identities['BinaryAssetBuilder.TextureCompiler.dll']['sha256'],
-         'Texture binding differs')
+    if source_texture is None:
+        patch = json.loads((destination / 'BinaryAssetBuilder.TextureCompiler.dll.patch.json').read_text(encoding='utf-8-sig'))
+        need(patch['targetExeSha256'] == receipt['exeSha256'] and
+             patch['patchedSha256'] == identities['BinaryAssetBuilder.TextureCompiler.dll']['sha256'],
+             'Historical Texture binding differs')
     return receipt, identities
 
 

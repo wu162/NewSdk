@@ -11,7 +11,7 @@ if(Test-Path $OutputDirectory){throw "Refusing to overwrite product texture evid
 $out=(New-Item -ItemType Directory $OutputDirectory).FullName
 $work=Join-Path ([IO.Path]::GetTempPath()) ('compiler-texture-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory $work|Out-Null
-$state=@{schemaVersion=1;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';configurations=@();scope='G2 C texture payload in test-only host using identical production Native/Bridge/Foundation/Application objects; not production CLI MOD compilation'}
+$state=@{schemaVersion=2;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';configurations=@();scope='Built-in texture payload in test-only host using identical production objects; raw original buffers/CDATA/errors, with explicitly different cache version; not production CLI MOD compilation'}
 $oldPath=$env:PATH
 function Invoke-Fixture([string]$Command,[string[]]$Arguments,[string]$Directory,[string]$Log){
     Push-Location $Directory
@@ -46,38 +46,27 @@ try{
         $evidence=(New-Item -ItemType Directory "$out/$mode").FullName
         $clean=Join-Path $work "$mode/clean"
         $run=Initialize-CompilerValidationRun (Join-Path $CompilerDirectory $mode) $clean $mode $state.sourceCommit
-        # Generate a fresh deployment bound to the validation EXE's own bytes.
-        # The production EXE's patch manifest is never reused for this host.
-        & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $run.exe *> "$evidence/prepare-texture.log"
-        if($LASTEXITCODE -ne 0){Get-Content "$evidence/prepare-texture.log" -Tail 80|Out-Host;throw 'Validation-host texture preparation failed'}
         $fixture=Join-Path $clean 'TextureFixture.exe'
-        Invoke-Fixture $csc @('/nologo','/codepage:65001','/platform:x86','/define:TEXTURE_ADAPTER_PROBE','/r:System.Core.dll','/r:System.Xml.dll',"/r:$($run.exe)","/out:$fixture",$source) $root "$evidence/fixture-build.log"
-        $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json','TextureFixture.exe')
+        Invoke-Fixture $csc @('/nologo','/codepage:65001','/platform:x86','/define:TEXTURE_SOURCE_PROBE','/r:System.Core.dll','/r:System.Xml.dll',"/r:$($run.exe)","/out:$fixture",$source) $root "$evidence/fixture-build.log"
+        $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','TextureFixture.exe')
         if(@(Get-ChildItem -LiteralPath $clean -Force|Where-Object{$_.PSIsContainer -or $_.Name -notin $allowed}).Count -ne 0){throw 'Unexpected product texture validation deployment entry'}
-        $manifest=Join-Path $clean 'BinaryAssetBuilder.TextureCompiler.dll.patch.json'
-        $saved=[IO.File]::ReadAllText($manifest)
-        $patch=$saved|ConvertFrom-Json
-        if($patch.targetExeSha256 -cne $run.validationHostSha256 -or $patch.originalSha256 -cne $state.originalInputs[0].sha256 -or
-            $patch.protectedPeAudit.status -cne 'passed' -or $patch.protectedPeAudit.mode -cne 'redirect'){throw 'Texture patch is not the audited validation-host deployment'}
-        Copy-Item $manifest "$evidence/texture.patch.json"
-        $arguments=@($fixture,(Join-Path $clean 'BinaryAssetBuilder.TextureCompiler.dll'),"$work/fixture.tga","$evidence/adapter.txt",'exe')
+        $arguments=@($fixture,'built-in',"$work/fixture.tga","$evidence/source.txt",'exe')
         $env:PATH="$env:WINDIR/System32;$env:WINDIR;$env:WINDIR/Microsoft.NET/Framework/v4.0.30319"
         try{
             Invoke-Fixture $run.exe $arguments $clean "$evidence/runtime.log"
-            Assert-TextureTranscript "$evidence/adapter.txt"
-            if((Get-FileHash "$evidence/adapter.txt" -Algorithm SHA256).Hash.ToLowerInvariant() -cne $baseline){throw "$mode texture output, CustomData or input error differs from original"}
-            try {
-                Remove-Item -LiteralPath $manifest
-                Invoke-Fixture $run.exe $arguments $clean "$evidence/no-deployment-manifest.log"
-                Assert-TextureTranscript "$evidence/adapter.txt"
-                if((Get-FileHash "$evidence/adapter.txt" -Algorithm SHA256).Hash.ToLowerInvariant() -cne $baseline){throw "$mode texture output without deployment manifest differs from original"}
-            } finally { [IO.File]::WriteAllText($manifest,$saved,[Text.UTF8Encoding]::new($false)) }
+            Assert-TextureTranscript "$evidence/source.txt"
+            $originalLines=@(Get-Content -LiteralPath "$out/original.txt")
+            $sourceLines=@(Get-Content -LiteralPath "$evidence/source.txt")
+            if($originalLines[0] -cne 'metadata:1424942948:4202' -or $sourceLines[0] -cne 'metadata:1424942948:4300'){throw 'Unexpected original/source Texture catalog version'}
+            for($i=1;$i -lt $originalLines.Count;$i++){
+                if($sourceLines[$i] -cne $originalLines[$i]){throw "$mode raw texture buffers, CustomData or input error differs from original at case $i"}
+            }
         }finally{$env:PATH=$oldPath}
         Complete-CompilerValidationRun $run
-        $state.configurations+=@{configuration=$mode;passed=$true;successes=6;invalidInputErrors=3;runtimeDeploymentAuditRemoved=$true;worksWithoutManifest=$true;singleDispose=$true;separateOracleProcess=$true;exeSha256=$run.productExeSha256;validationHostSha256=$run.validationHostSha256;hostBoundPatch=$true;protectedPeAudit=$patch.protectedPeAudit;transcriptSha256=$baseline;componentExecution='test-only host with identical production objects; host-specific texture redirect'}
+        $state.configurations+=@{configuration=$mode;passed=$true;successes=6;invalidInputErrors=3;externalTextureDll=$false;singleDispose=$true;separateOracleProcess=$true;exeSha256=$run.productExeSha256;validationHostSha256=$run.validationHostSha256;originalVersion=4202;sourceVersion=4300;originalTranscriptSha256=$baseline;sourceTranscriptSha256=(Get-FileHash "$evidence/source.txt" -Algorithm SHA256).Hash.ToLowerInvariant();componentExecution='test-only host with identical production objects; source-linked texture';textureDeployment=@{implementation='built-in-source';externalRuntimeFiles=@()}}
     }
     $state.status='passed'
     $global:LASTEXITCODE=0
-    Write-Host 'PASS production-object Texture adapter Debug/Release: original payload/CustomData/errors, reuse, single-close, no runtime deployment manifest; not CLI MOD compilation.'
+    Write-Host 'PASS production-object source Texture Debug/Release: original raw payload/CustomData/errors, reuse and single-close, no external texture runtime; cache version intentionally changed; not CLI MOD compilation.'
 }catch{$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally{$env:PATH=$oldPath;$state|ConvertTo-Json -Depth 14|Set-Content "$out/validation.json" -Encoding utf8;Pop-Location}

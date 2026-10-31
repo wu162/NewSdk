@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+"""Small, deterministic texture inputs. No image package is needed."""
+import argparse
+import json
+from pathlib import Path
+import struct
+import zlib
+
+
+def pixels(width=16, height=16, alpha=False):
+    colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 255)]
+    return bytes(c for y in range(height) for x in range(width)
+                 for c in (*colors[((x // 4) + (y // 4)) % 4],
+                           (x * 17 if alpha else 255)))
+
+
+def png(width, height, rgba):
+    def chunk(kind, data):
+        return struct.pack('>I', len(data)) + kind + data + struct.pack('>I', zlib.crc32(kind + data))
+    scan = b''.join(b'\0' + rgba[y * width * 4:(y + 1) * width * 4] for y in range(height))
+    return (b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB', width, height, 8, 6, 0, 0, 0))
+            + chunk(b'IDAT', zlib.compress(scan)) + chunk(b'IEND', b''))
+
+
+def tga(width, height, rgba, rle=False):
+    header = struct.pack('<BBBHHBHHHHBB', 0, 0, 10 if rle else 2, 0, 0, 0, 0, 0, width, height, 32, 0x28)
+    bgra = b''.join(bytes((rgba[i + 2], rgba[i + 1], rgba[i], rgba[i + 3])) for i in range(0, len(rgba), 4))
+    if rle:
+        bgra = b''.join(bytes((min(128, width * height - at) - 1,)) + bgra[at * 4:(at + 128) * 4]
+                        for at in range(0, width * height, 128))
+    return header + bgra
+
+
+def bmp(width, height, rgba, dib=False):
+    stride = (width * 3 + 3) & ~3
+    data = b''.join(b''.join(bytes((rgba[(y * width + x) * 4 + 2], rgba[(y * width + x) * 4 + 1],
+                                    rgba[(y * width + x) * 4])) for x in range(width))
+                    + bytes(stride - width * 3) for y in reversed(range(height)))
+    info = struct.pack('<IiiHHIIiiII', 40, width, height, 1, 24, 0, len(data), 2835, 2835, 0, 0)
+    return (b'' if dib else b'BM' + struct.pack('<IHHI', 14 + len(info) + len(data), 0, 0, 54)) + info + data
+
+
+def dds(width, height, rgba):
+    header = bytearray(128)
+    header[:4] = b'DDS '
+    for offset, value in {4: 124, 8: 0x100F, 12: height, 16: width, 20: width * 4,
+                          76: 32, 80: 0x41, 88: 32, 92: 0xFF0000, 96: 0xFF00,
+                          100: 0xFF, 104: 0xFF000000, 108: 0x1000}.items():
+        struct.pack_into('<I', header, offset, value)
+    return header + b''.join(bytes((rgba[i + 2], rgba[i + 1], rgba[i], rgba[i + 3])) for i in range(0, len(rgba), 4))
+
+
+def generate(destination):
+    destination.mkdir(parents=True, exist_ok=True)
+    opaque, alpha = pixels(), pixels(alpha=True)
+    binary_alpha = bytes(value if i % 4 != 3 else (255 if (i // 4) % 4 < 2 else 0)
+                         for i, value in enumerate(opaque))
+    files = {'opaque.rgba': opaque, 'alpha.rgba': alpha,
+             'opaque.png': png(16, 16, opaque), 'alpha.png': png(16, 16, alpha),
+             'binary-alpha.png': png(16, 16, binary_alpha), 'binary-alpha.rgba': binary_alpha,
+             'opaque.tga': tga(16, 16, opaque), 'rle.tga': tga(16, 16, opaque, True),
+             'opaque.bmp': bmp(16, 16, opaque), 'opaque.dib': bmp(16, 16, opaque, True),
+             'preserve.dds': dds(16, 16, opaque), 'preserve.DDS': dds(16, 16, opaque),
+             'npot.png': png(13, 9, pixels(13, 9)), 'broken.png': b'\x89PNG\r\n\x1a\nnot an image'}
+    solid = bytes((71, 131, 191, 255)) * 256
+    files.update({'solid.bmp': bmp(16, 16, solid), 'solid.rgba': solid})
+    for name, data in files.items():
+        (destination / name).write_bytes(data)
+    (destination / 'fixtures.json').write_text(json.dumps({'width': 16, 'height': 16, 'files': list(files)}, indent=2) + '\n')
+    return files
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('destination', type=Path)
+    args = parser.parse_args()
+    files = generate(args.destination)
+    assert files['preserve.dds'][:4] == b'DDS '
+    assert zlib.decompress(files['opaque.png'][41:-16]) == b''.join(b'\0' + pixels()[i:i + 64] for i in range(0, 1024, 64))
+    print('Generated %d deterministic texture fixtures' % len(files))
+
+
+if __name__ == '__main__':
+    main()

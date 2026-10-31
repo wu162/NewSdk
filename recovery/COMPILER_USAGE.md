@@ -12,9 +12,9 @@
 
 ## 1. 安装与检查
 
-本分支已验证的五文件 ZIP 位于 [功能验收归档40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929/artifacts/12916669037) 内 `artifacts/final-release/40915444929-1/NewModCompiler-Win32-Release.zip`（生产源码6d39f833）。本次通过 Actions 归档提供，未发布新的 Release；也可按仓库构建脚本自行编译。完整解压到单独目录，保留其中全部五个文件。不要只复制 EXE，也不要用 SDK 的原 Texture DLL 覆盖包内已适配的文件。
+本分支新构建将 Texture 编译器源码内建到 EXE，ZIP 只有三个运行文件：`NewModCompiler.exe`、`NewModCompiler.exe.config`、`antlr.runtime.dll`。完整解压到单独目录，保留三个文件；新实现的验收状态见 [续接入口](RESUME.md)。历史五文件包仍可从 [功能验收归档40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929/artifacts/12916669037) 内 `artifacts/final-release/40915444929-1/NewModCompiler-Win32-Release.zip` 获取（生产源码6d39f833）；该包使用原 Texture DLL 和补丁清单，保留其原布局。
 
-目标机器需要 Windows x86 兼容环境、.NET Framework 4.8、x86 VC80 CRT、与编译工具链匹配的 x86 VC 运行库以及 DirectX 9/D3DX。SDK 资源和 MOD 源码单独提供；工具 ZIP 不包含完整 SDK，也不下载游戏文件。
+目标机器需要 Windows x86 兼容环境、.NET Framework 4.8，以及与编译工具链匹配的 x86 VC 运行库。新构建的 Texture 不再需要原 DLL、VC80 CRT 或 DirectX 9/D3DX；历史五文件包仍需要这些依赖。SDK 资源和 MOD 源码单独提供；工具 ZIP 不包含完整 SDK，也不下载游戏文件。
 
 在 PowerShell 中进入工具目录，先执行：
 
@@ -162,7 +162,7 @@ BIG/SKUDEF 包缓存已移除；每次构建都会从本轮编译结果重新打
 | `PACKAGE_NAME_UNSUPPORTED` | 将 MOD 文件夹基名改为 ASCII 后使用 BIG |
 | `PACKAGE_NEUTRAL_REFERENCE_MISSING` | 关闭可选中立修复；只有环境已提供完整参考文件时才启用 |
 | `CORE_OPTION_UNSUPPORTED` | 按 CLI 兼容表移除未支持的旧选项，不能认为解析器认识名称就代表支持 |
-| doctor 失败 | 保留标准错误诊断，检查 SDK 路径及 .NET/VC/DirectX/包内五文件是否完整 |
+| doctor 失败 | 保留标准错误诊断，检查 SDK 路径、.NET/VC 运行库和包内三个运行文件是否完整；历史五文件包另需原 Texture 依赖 |
 
 `--fix-neutral-assets=true` 默认关闭，仅限包含 base 的 BIG；需要已有完整 Worldbuilder 参考文件。WBData 下载、提取和依赖其真实数据的验收已按要求取消，不会自动为你补齐。已有验证为组件差分及生产零插入链，不能当作完整游戏中立资产验收。
 

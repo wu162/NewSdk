@@ -76,9 +76,14 @@ public static class CompilerCacheIdentityProfile
             string runtime = Path.GetFullPath(args[0]), sdk = Path.GetFullPath(args[1]);
             string[] names = Directory.GetFiles(runtime);
             HashSet<string> required = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
-                "NewModCompiler.exe", "NewModCompiler.exe.config", "antlr.runtime.dll",
-                "BinaryAssetBuilder.TextureCompiler.dll", "BinaryAssetBuilder.TextureCompiler.dll.patch.json" };
-            Need(names.Length == 5, "Accepted runtime directory must contain exactly five files");
+                "NewModCompiler.exe", "NewModCompiler.exe.config", "antlr.runtime.dll" };
+            // The pinned diagnostic driver can still supply the historical DLL package.
+            if (names.Length == 5)
+            {
+                required.Add("BinaryAssetBuilder.TextureCompiler.dll");
+                required.Add("BinaryAssetBuilder.TextureCompiler.dll.patch.json");
+            }
+            Need(names.Length == required.Count, "Accepted runtime directory must contain exactly its three source-runtime or five historical files");
             foreach (string path in names) Need(required.Remove(Path.GetFileName(path)), "Unexpected runtime file");
             result["diagnosticOrder"] = "Source-equivalent identity first+5warm; enumerate/guard/hash components 5each. First means first call within this standalone helper, not a production method, cold process or disk.";
             string first = null;
