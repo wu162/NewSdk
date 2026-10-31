@@ -77,3 +77,14 @@ CtrlBreak、构建缓存、输入根原 BAB 差分、音频/W3X 缓存载荷及�
 首轮未到达完整 mymod 原 SDK、最终三文件 ZIP 和完整 Upheaval 22 组，修复后必须
 取得新候选的完整成功结果。新增旧版本回调测试也因前面的保存失败用例提前失败而
 未执行，不计为正式通过。
+
+修复候选 `44b5fd01` 的 [Windows 41202545747](https://github.com/wu162/NewSdk/actions/runs/41202545747)
+通过上述首轮失败组，新增版本回调用例也已在 Debug/Release 正式执行；仅原有
+`original-partial-retry` 会话用例失败。重试产物与禁用缓存对照原字节相同，但
+前一个有效 Include 尚未 Owner 确认就因后续 XML 错误被 Dispose，导致部分会话
+没有可复用的完成文档。[第二轮身份与范围](../evidence/refactor/asset-pipeline/41202545747-1/summary.json)。
+
+修复仅在原有 `psc:true`、启用会话缓存且非冻结/取消时，先收尾已闭合且未失败
+文档的既派发工作，再保存部分会话。失败根文档不得完成缓存回调，未开始且不被
+成功文档依赖的 IO 不再分发；没有新编译注册、Manifest 或 BIG。`psc:false`、
+冻结及取消保留既有清理，原部分保存和重试断言保持不变。

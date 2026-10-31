@@ -153,6 +153,16 @@ public class DocumentProcessor
 		});
 	}
 
+	private static void FailDocumentVersion(ExecutionDocumentVersion version)
+	{
+		version.Failed = true;
+		foreach (var scope in version.Outputs.Values)
+		{
+			if (!scope.IsCompleted) scope.IsFailed = true;
+			scope.Completions.Clear();
+		}
+	}
+
 	private void TryCompleteDocumentVersion(AssetDeclarationDocument document, ExecutionDocumentVersion version)
 	{
 		if (version.Failed || document.Processing || !version.CompletionRequested ||
@@ -661,7 +671,7 @@ public class DocumentProcessor
 		}
 		catch
 		{
-			if (_ExecutionDocuments.TryGetValue(assetDeclarationDocument, out var failedVersion)) failedVersion.Failed = true;
+			if (_ExecutionDocuments.TryGetValue(assetDeclarationDocument, out var failedVersion)) FailDocumentVersion(failedVersion);
 			throw;
 		}
 		finally
@@ -672,7 +682,7 @@ public class DocumentProcessor
 				if (_ExecutionDocuments.TryGetValue(assetDeclarationDocument, out var version))
 				{
 					try { TryCompleteDocumentVersion(assetDeclarationDocument, version); }
-					catch { version.Failed = true; throw; }
+					catch { FailDocumentVersion(version); throw; }
 				}
 			}
 			finally
@@ -775,7 +785,7 @@ public class DocumentProcessor
 		if (_ExecutionDocuments.TryGetValue(document, out var version))
 		{
 			foreach (var scope in version.Outputs.Values)
-				if (scope.IsFailed) { version.Failed = true; break; }
+				if (scope.IsFailed) { FailDocumentVersion(version); break; }
 			if (version.FrontendPrepared && !version.Finalized && !version.Failed && document.State != DocumentState.None)
 				return document;
 		}

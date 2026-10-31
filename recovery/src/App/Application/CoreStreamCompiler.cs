@@ -633,9 +633,19 @@ namespace NewModCompiler.Application
                 savedSessionCache = null;
                 failure = error is BuildFailure || error is OperationCanceledException ? error :
                     Failure(ExitCode.Compilation, "CORE_COMPILE_FAILED", error);
+                bool savePartial = processingStarted && !sessionSaved && sessionCacheEnabled && partialSessionCache && !freezeSessionCache;
+                if (savePartial && execution != null)
+                {
+                    // An owner XML error can follow an independent included
+                    // document whose accepted workers are still committing.
+                    // Confirm successful closed documents before saving their
+                    // partial session; no output stream is published here.
+                    try { execution.CompleteAcceptedWorkOnFailure(); }
+                    catch (Exception completionError) { AddCleanupFailure(ref failure, completionError, ExitCode.Compilation, "CORE_PARTIAL_BACKEND_COMPLETE_FAILED"); }
+                }
                 try { if (execution != null) execution.Dispose(); }
                 catch (Exception joinError) { AddCleanupFailure(ref failure, joinError, ExitCode.Compilation, "CORE_BACKEND_JOIN_FAILED"); }
-                if (processingStarted && !sessionSaved && sessionCacheEnabled && partialSessionCache && !freezeSessionCache)
+                if (savePartial)
                 {
                     try { SaveLegacySession(cache, streamSettings, currentFiles, CancellationToken.None); partialSessionsSaved++; }
                     catch (Exception saveError) { AddCleanupFailure(ref failure, saveError, ExitCode.Output, "CORE_PARTIAL_CACHE_SAVE_FAILED"); }

@@ -95,7 +95,7 @@ namespace NewModCompiler.Application
         BackendResourcePolicy resources;
         int capacity, ioCapacity, nextIdentity;
         long budget, retained, nextSample;
-        bool disposed, failed, pumping;
+        bool disposed, failed, pumping, completingAcceptedOnly;
 
         enum WorkState { Running, Ready, Committing, Completed }
         sealed class PhysicalWork
@@ -487,6 +487,7 @@ namespace NewModCompiler.Application
                         {
                             if (slots == 0) break;
                             if (work.State != WorkState.Ready || !work.Subscribers[0].Verified) continue;
+                            if (completingAcceptedOnly && !RequiredForPartialCompletion(work)) continue;
                             string cdata = work.Prepared == null ? work.Declaration.CustomDataPath : work.Prepared.Declaration.CustomDataPath;
                             long start = Start();
                             try { work.Commit = work.Asset.PrepareCommit(work.Location, work.Buffer, cdata); }
@@ -587,6 +588,27 @@ namespace NewModCompiler.Application
             Check();
             foreach (var document in documents.ToArray())
                 if (ReferenceEquals(document.OutputManager, outputManager)) WaitDocument(document);
+        }
+        // An owner XML failure can occur after an included document has closed
+        // its frontend. Finish that already accepted work before partial-session
+        // saving; failed/cancelled workers still take the discard-and-join path.
+        // This boundary never registers work or publishes a stream manifest.
+        internal void CompleteAcceptedWorkOnFailure()
+        {
+            if (disposed || failed || cancellation.IsCancellationRequested) return;
+            completingAcceptedOnly = true;
+            try
+            {
+                foreach (var document in documents.ToArray())
+                    if (document.IsClosed && !document.IsCompleted && !document.IsFailed) WaitDocument(document);
+            }
+            finally { completingAcceptedOnly = false; }
+        }
+        bool RequiredForPartialCompletion(PhysicalWork work)
+        {
+            foreach (var request in work.Subscribers)
+                if (request.Document.IsClosed && !request.Document.IsFailed) return true;
+            return false;
         }
         public void Flush()
         {
