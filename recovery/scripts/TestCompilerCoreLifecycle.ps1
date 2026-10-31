@@ -2,7 +2,8 @@
 param(
     [Parameter(Mandatory=$true)][string]$CompilerDirectory,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
-    [ValidateRange(30,900)][int]$FixtureTimeoutSeconds=180
+    [ValidateRange(30,900)][int]$FixtureTimeoutSeconds=180,
+    [string[]]$FixtureNames=@()
 )
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/CompilerValidation.Common.ps1"
@@ -45,6 +46,8 @@ function Invoke-LifecycleFixture([string]$Executable,[string[]]$Arguments,[strin
 Push-Location $root
 try {
     $state.sourceCommit=(git rev-parse HEAD).Trim()
+    $state.binarySourceCommit=$state.sourceCommit
+    $state.testSourceCommit=if($env:COMPILER_TEST_SOURCE_COMMIT){$env:COMPILER_TEST_SOURCE_COMMIT}else{$state.sourceCommit}
     $state.workRoot=$work
     if(!$state.runId){$state.runId='local-'+[Guid]::NewGuid().ToString('N')}
     $state.runnerSha256=Hash $PSCommandPath
@@ -69,6 +72,15 @@ try {
         @{name='CompilerBackendLifecycle';marker='PASS BackendLifecycle:'},
         @{name='CompilerApplicationBuild';marker='PASS ApplicationBuild:';timeoutSeconds=600}
     )
+    $state.allFixtureNames=@($fixtures|ForEach-Object{$_.name})
+    $state.fixtureSelection='all'
+    if($FixtureNames.Count -gt 0){
+        if(@($FixtureNames|Select-Object -Unique).Count -ne $FixtureNames.Count){throw 'Duplicate requested lifecycle fixture'}
+        foreach($name in $FixtureNames){if($state.allFixtureNames -cnotcontains $name){throw "Unknown requested lifecycle fixture: $name"}}
+        $fixtures=@($fixtures|Where-Object{$_.name -cin $FixtureNames})
+        $state.fixtureSelection='selected'
+        $state.scope+='; selected fixtures only: '+($FixtureNames -join ',')
+    }
     $state.fixtures=@($fixtures|ForEach-Object{
         @{name=$_.name;path=('recovery/tests/'+$_.name+'.cs');sha256=(Hash ('recovery/tests/'+$_.name+'.cs'))}
     })
@@ -132,6 +144,9 @@ try {
                 if(!(Select-String -LiteralPath "$fixtureOut/runtime.log" -SimpleMatch $fixture.marker -Quiet)){throw 'Core lifecycle success marker missing'}
                 $result=Get-Content -LiteralPath $resultPath -Raw|ConvertFrom-Json
                 if(!$result.succeeded -or $result.sourceCommit -cne $state.sourceCommit -or $result.runId -cne $state.runId){throw 'Core lifecycle result identity or success mismatch'}
+                $result|Add-Member -Force -NotePropertyName binarySourceCommit -NotePropertyValue $state.binarySourceCommit
+                $result|Add-Member -Force -NotePropertyName testSourceCommit -NotePropertyValue $state.testSourceCommit
+                $result|ConvertTo-Json -Depth 20|Set-Content -LiteralPath $resultPath
                 if(@($result.checks).Count -eq 0 -or ($result.checks -is [ValueType] -and $result.checks -le 0)){throw 'Lifecycle fixture assertion coverage missing'}
                 if($fixture.name -eq 'CompilerCoreLifecycle' -and @($result.tests).Count -lt 4){throw 'Real Core lifecycle case groups missing'}
                 if($fixture.name -in @('CompilerBackendLifecycle','CompilerApplicationBuild') -and @($result.tests).Count -eq 0){throw 'Targeted backend/application case groups missing'}
@@ -166,7 +181,7 @@ try {
     foreach($input in $state.schemaInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK schema input changed during lifecycle validation'}}
     foreach($input in $state.sdkFixtureInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK fixture/config input changed during lifecycle validation'}}
     if($fixtureFailures.Count -ne 0){throw ($fixtureFailures -join "`n")}
-    $state.succeeded=$true;$state.status='passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate'
+    $state.succeeded=$true;$state.status='passed '+$state.fixtureSelection+' targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate'
     $global:LASTEXITCODE=0
 } catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally {

@@ -1,3 +1,13 @@
+# 当前：冷/热缓存性能优化已验收，PR #38 待审
+
+分支 `perf/compiler-cold-hot-cache` / [PR #38](https://github.com/wu162/NewSdk/pull/38)。已同步目标FLA基线 `074bf768`，组合源码 `e2dba3c3`，[Windows 41169755141](https://github.com/wu162/NewSdk/actions/runs/41169755141) 全success：Debug/Release、真实FLA/AS、Core/CLI/取消、64worker/缓存、完整mymod原BAB、五文件ZIP及22个完整Upheaval样本。原归档、十运行文件和两个ZIP已下载核验。
+
+最新UI基线同机jobs4：完整MOD冷36.723→33.501秒(-8.78%)、热2.273→1.691秒(-25.63%)，24/24样本通过；扩容+49152Armor正式off冷70.806→61.259秒(-13.48%)、热10.099→6.594秒(-34.71%)。扩容全部18正式+2补充通过，随后基线detailed在720秒总预算耗尽时终止，运行failed保留，候选detailed未测；不把整组标通过。38进程增量诊断通过，含未使用Define与仅丢会话元数据。全部已完成对照产物原字节一致，冷n=3/热n=6、OS页缓存未控。
+
+[实现/全部原始计量与限制](docs/COMPILER_COLD_HOT_OPTIMIZATION.md)、[深入源码优先级](docs/COMPILER_CACHE_SOURCE_ANALYSIS.md)、[上传热缓存文档对照](docs/HOT_CACHE_REFERENCE_RECONCILIATION.md)。共享schema/成功会话、原512字符/ANSI哈希缓冲、Schema事实缓存和纯查询/纯写索引精简已落地；继承粒度、父DOM与稳定排序的后续边界另列。未经用户批准不合并，禁止强推。
+
+下一轮优先优化修改后的前端范围：收窄instance依赖→请求内父实例快照→引用处理；[待办与执行节奏](docs/HOT_CACHE_REFERENCE_RECONCILIATION.md)、[可直接使用的提示词](docs/HOT_CACHE_NEXT_ROUND_PROMPT.md)。多数有效时间用于成组实现，中途短场景、收口集中验收；必要检查通过后停止扩测，复用有效证据，压缩重复归档。无修改纯热态收益不代表编辑收益，现有增量诊断尚无稳定多样本提速结论。
+
 # 当前：FLA / AS 直接 MOD 四流插件（验收通过，PR #36 待审）
 
 用户指定 `recovery/legacy-sdk-cache` / `665468cb`；成果在 `feat/fla-direct-mod`，

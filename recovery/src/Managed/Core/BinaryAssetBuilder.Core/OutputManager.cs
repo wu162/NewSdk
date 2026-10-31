@@ -11,9 +11,11 @@ public class OutputManager
 
 	private static Tracer _Tracer = Tracer.GetTracer("Output Manager", "Provides manifest serialization functionality");
 
-	private IDictionary<string, OutputAsset> _OldOutputInstances = new SortedDictionary<string, OutputAsset>();
+	private IDictionary<string, OutputAsset> _OldOutputInstances = new Dictionary<string, OutputAsset>(StringComparer.Ordinal);
 
-	private IDictionary<string, BinaryAsset> _Assets = new SortedDictionary<string, BinaryAsset>();
+	// FileBase is a fixed hexadecimal content identity. Output order comes
+	// from document.OutputInstances, not the order of these lookup tables.
+	private IDictionary<string, BinaryAsset> _Assets = new Dictionary<string, BinaryAsset>(StringComparer.Ordinal);
 
 	private int _AssetFileCount;
 
@@ -171,7 +173,7 @@ public class OutputManager
 		}
 		_BasePatchStream = basePatchStream;
 		_BasePatchStreamRelativePath = baseStreamRelativePath;
-		_BasePatchStreamAssets = new SortedDictionary<string, AssetHeader>();
+		_BasePatchStreamAssets = new Dictionary<string, AssetHeader>(StringComparer.Ordinal);
 		Asset[] assets = manifest.Assets;
 		foreach (Asset asset in assets)
 		{

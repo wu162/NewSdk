@@ -341,13 +341,15 @@ print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMP
         $cachedOut=Join-Path $modeWork 'cache';$plainOut=Join-Path $modeWork 'plain'
         $script:contents='base,apt';$script:expectedArtifacts=8
         $plain=RunCli 'disabled' $mod $plainOut $false;Cache $plain 'disabled'
-        $cold=RunCli 'cold' $mod $cachedOut $true;Cache $cold 'cold';SameOutputs $plain $cold;$script:hotParseCeiling=$cold.report.cache.xmlParse
+        $cold=RunCli 'cold' $mod $cachedOut $true -Extra @('--performance','summary');Cache $cold 'cold';SameOutputs $plain $cold;$script:hotParseCeiling=$cold.report.cache.xmlParse
+        Need ((@($cold.report.performance.counters|Where-Object name -eq 'cache.session.memoryReuse'|Measure-Object value -Sum).Sum) -eq 1) 'Second cold stream did not reuse the saved in-memory session'
         $publishedBefore=PublishedTimes $cachedOut
         $cacheTimes=@{}
         foreach($file in Get-ChildItem -LiteralPath $cachedOut -File -Recurse){
             if($file.Name -like 'BinaryAssetBuilder.SessionCache.xml*' -or (Within (Join-Path $cachedOut '.NewModCompiler') $file.FullName)){$cacheTimes[$file.FullName]=$file.LastWriteTimeUtc.Ticks}
         }
-        $hot=RunCli 'hot' $mod $cachedOut $true;Cache $hot 'hot';SameOutputs $plain $hot
+        $hot=RunCli 'hot' $mod $cachedOut $true -Extra @('--performance','summary');Cache $hot 'hot';SameOutputs $plain $hot
+        Need ((@($hot.report.performance.counters|Where-Object name -eq 'cache.session.memoryReuse'|Measure-Object value -Sum).Sum) -eq 1) 'Second hot stream reparsed the shared saved session'
         LinkedHot $hot $publishedBefore
         foreach($path in $cacheTimes.Keys){Need ([IO.File]::GetLastWriteTimeUtc($path).Ticks -eq $cacheTimes[$path]) 'Hot build rewrote unchanged SessionCache or CDATA'}
         $plainBefore=PublishedTimes $plainOut

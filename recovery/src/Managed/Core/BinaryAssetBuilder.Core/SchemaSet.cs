@@ -10,6 +10,14 @@ namespace BinaryAssetBuilder.Core;
 
 public class SchemaSet
 {
+	internal enum InstanceValueKind { None, WeakReference, AssetReference, FileReference, Hashable }
+
+	internal sealed class InstanceTypeMetadata
+	{
+		internal InstanceValueKind Kind;
+		internal string TypeIdText;
+	}
+
 	private class SchemaHashTable : SortedDictionary<XmlSchema, uint>
 	{
 	}
@@ -45,6 +53,8 @@ public class SchemaSet
 	private XmlSchemaType _XmlFileReferenceType;
 
 	private IDictionary<XmlSchemaType, bool> _HashableTypes;
+	private Dictionary<XmlSchemaType, InstanceTypeMetadata> _InstanceTypeMetadata;
+	private Dictionary<XmlSchemaAnnotated, string> _ReferenceTypeNames;
 
 	private IDictionary<string, string> _SchemaPaths;
 
@@ -95,6 +105,36 @@ public class SchemaSet
 	public bool IsHashableType(XmlSchemaType type)
 	{
 		return _HashableTypes.ContainsKey(type);
+	}
+
+	// These facts belong to the compiled schema snapshot, not to an XML node.
+	// Most nodes share a small set of types; classify each inheritance chain once.
+	internal InstanceTypeMetadata GetInstanceTypeMetadata(XmlSchemaType type)
+	{
+		if (_InstanceTypeMetadata.TryGetValue(type, out var metadata)) return metadata;
+		var kind = InstanceValueKind.None;
+		if (XmlSchemaType.IsDerivedFrom(type, _XmlWeakReferenceType, XmlSchemaDerivationMethod.None)) kind = InstanceValueKind.WeakReference;
+		else if (XmlSchemaType.IsDerivedFrom(type, _XmlAssetReferenceType, XmlSchemaDerivationMethod.None)) kind = InstanceValueKind.AssetReference;
+		else if (XmlSchemaType.IsDerivedFrom(type, _XmlFileReferenceType, XmlSchemaDerivationMethod.None)) kind = InstanceValueKind.FileReference;
+		else if (IsHashableType(type)) kind = InstanceValueKind.Hashable;
+		metadata = new InstanceTypeMetadata {
+			Kind = kind,
+			TypeIdText = type.Name == null ? null : HashProvider.GetCaseSensitiveSymbolHash(type.Name).ToString()
+		};
+		_InstanceTypeMetadata.Add(type, metadata);
+		return metadata;
+	}
+
+	internal string GetReferenceTypeName(XmlSchemaAnnotated declaration)
+	{
+		if (_ReferenceTypeNames.TryGetValue(declaration, out var typeName)) return typeName;
+		if (declaration.UnhandledAttributes != null)
+			foreach (XmlAttribute attribute in declaration.UnhandledAttributes)
+				if (attribute.NamespaceURI == "uri:ea.com:eala:asset:schema" && attribute.LocalName == "refType")
+				{ typeName = attribute.Value; break; }
+		// Absence is a schema fact too; do not rescan the same declaration.
+		_ReferenceTypeNames.Add(declaration, typeName);
+		return typeName;
 	}
 
 	private void ReadSchema(string baseDirectory, string schemaFile)
@@ -340,6 +380,8 @@ public class SchemaSet
 		_InheritanceMap = new SortedDictionary<string, StringCollection>();
 		_DependencyTree = new SortedDictionary<uint, DependencyList>();
 		_HashableTypes = new Dictionary<XmlSchemaType, bool>();
+		_InstanceTypeMetadata = new Dictionary<XmlSchemaType, InstanceTypeMetadata>();
+		_ReferenceTypeNames = new Dictionary<XmlSchemaAnnotated, string>();
 		try
 		{
 			previousPaths.Add(Path.GetFullPath(Settings.Current.SchemaPath));

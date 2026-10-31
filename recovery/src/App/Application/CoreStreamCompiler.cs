@@ -40,6 +40,7 @@ namespace NewModCompiler.Application
         bool compressedSessionCache = true, partialSessionCache = true, freezeSessionCache, alwaysTouchCache;
         int partialSessionsSaved;
         LegacyCacheStore legacyStore;
+        SessionCache savedSessionCache;
         int buildCacheHits, buildCacheMisses, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile;
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
@@ -550,13 +551,26 @@ namespace NewModCompiler.Application
                 }
                 using (request.Performance.Measure("core.string-hashes")) hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                 using (request.Performance.Measure("cache.load")) {
-                cache = new SessionCache();
                 if (sessionCacheEnabled)
                 {
                     string sessionPath = Path.Combine(settings.SessionCacheDirectory, LegacyCacheStore.SessionName);
                     try
                     {
-                        cache.LoadCacheFrom(packageRestored ? legacyStore.SessionPath : null, sessionPath);
+                        // The session lock and path belong to this request. After
+                        // a successful stream, reuse exactly the saved BAB state
+                        // instead of reparsing the same full session for each APT
+                        // and metadata stream. InitializeCache still resets every
+                        // document and checks file/schema/processor invalidation.
+                        if (packageRestored && savedSessionCache != null)
+                        {
+                            cache = savedSessionCache;
+                            request.Performance.RecordCounter("cache.session.memoryReuse");
+                        }
+                        else
+                        {
+                            cache = new SessionCache();
+                            cache.LoadCacheFrom(packageRestored ? legacyStore.SessionPath : null, sessionPath);
+                        }
                         cache.InitializeCache(new List<string>(), schemas.ContentIdentity);
                         if (packageRestored && !cache.HasCachedState)
                             throw new InvalidDataException("The restored session has an incompatible format.");
@@ -575,6 +589,7 @@ namespace NewModCompiler.Application
                         // filter IL in the mixed C++/CLI link input.
                         if (!packageRestored) throw;
                         request.Performance.RecordCounter("cache.session.invalidState");
+                        savedSessionCache = null;
                         // Treat malformed serialized state as one cold miss. No
                         // intermediate/cdata bytes from the bad package survive.
                         // Loading older document data can register strings before
@@ -589,7 +604,7 @@ namespace NewModCompiler.Application
                     }
                     if (packageRestored) sessionPackageHits++; else sessionPackageMisses++;
                 }
-                else { request.Performance.RecordCounter("cache.session.disabled"); cache.InitializeCache(new List<string>(), schemas.ContentIdentity); }
+                else { request.Performance.RecordCounter("cache.session.disabled"); cache = new SessionCache(); cache.InitializeCache(new List<string>(), schemas.ContentIdentity); }
                 }
                 cache.AssetCompilersVersion = compilers.Registry.AssetBuilderPluginsVersion;
                 processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
@@ -615,6 +630,7 @@ namespace NewModCompiler.Application
             }
             catch (Exception error)
             {
+                savedSessionCache = null;
                 failure = error is BuildFailure || error is OperationCanceledException ? error :
                     Failure(ExitCode.Compilation, "CORE_COMPILE_FAILED", error);
                 try { if (execution != null) execution.Dispose(); }
@@ -656,7 +672,10 @@ namespace NewModCompiler.Application
                 }
                 }
             }
-            if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
+            if (failure != null) { savedSessionCache = null; ExceptionDispatchInfo.Capture(failure).Throw(); }
+            // Frozen sessions retain their on-disk snapshot. Failed/partial
+            // streams never authorize the next stream's in-memory reuse.
+            savedSessionCache = sessionSaved ? cache : null;
             return artifacts;
         }
 
@@ -711,6 +730,7 @@ namespace NewModCompiler.Application
             try { DisposeProviders(); }
             finally {
                 try {
+                    savedSessionCache = null;
                     if (legacyStore != null) legacyStore.Dispose();
                 } finally { ReleaseLease(); }
             }

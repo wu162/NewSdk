@@ -213,6 +213,27 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Existing bounded performance levels and original byte gates with current Release
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        timeout-minutes: 2
+        shell: pwsh
+        run: |
+          python recovery/scripts/TestCompilerPerformance.py --exe recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe --sdk SDK --output "recovery/evidence/refactor/performance/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" --work "$env:RUNNER_TEMP/performance-work" --source-commit $env:GITHUB_SHA --budget 60 --timeout 10
+          if($LASTEXITCODE -ne 0){throw 'Existing bounded performance validation failed'}
+      - name: Existing hot-cache sizes dependencies and report schemas with current Release
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        timeout-minutes: 3
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/refactor/hot-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/TestCompilerHotCache.py --build-directory recovery/artifacts/core-lifecycle-product/Release --work "$env:RUNNER_TEMP/hot-cache-work" --output $out --source-commit $env:GITHUB_SHA --budget 120 --timeout 15
+          $result=$LASTEXITCODE
+          if(Test-Path "$out/validation.md"){Get-Content "$out/validation.md"|Add-Content $env:GITHUB_STEP_SUMMARY}
+          if($result -ne 0){throw 'Existing expanded hot-cache matrix or public report schema failed; partial evidence retained'}
+      - name: Current FLA integration with optimized Core and session caches
+        if: ${{ !cancelled() && env.CLI_REUSE != 'true' && steps.product.outputs.cliEnabled == 'true' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerUi.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/ui-integration/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Full certified backend production cache and jobs matrix
         if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
         shell: pwsh
@@ -350,6 +371,9 @@ jobs:
             recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/backend-parallel-performance/**
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/ui-integration/**
             recovery/evidence/refactor/backend-parallel/**
             recovery/artifacts/final-release/**
             recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}

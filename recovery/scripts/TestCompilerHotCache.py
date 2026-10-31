@@ -223,6 +223,8 @@ def run(args):
     if os.name == 'nt':
         ctypes.windll.kernel32.SetErrorMode(0x0001 | 0x0002 | 0x8000)
     repo = Path(__file__).resolve().parents[2]
+    from jsonschema import Draft202012Validator
+    report_validator = Draft202012Validator(json.loads((repo / 'recovery/protocol/build-report.schema.json').read_text()))
     work, out = Path(args.work).resolve(), Path(args.output).resolve()
     need(not work.exists() and not out.exists(), 'Refusing to overwrite work/evidence')
     work.mkdir(parents=True)
@@ -281,6 +283,8 @@ def run(args):
                     if (destination / name).exists():
                         shutil.copy2(destination / name, evidence / name)
             report = json.loads((evidence / 'build-report.json').read_text(encoding='utf-8-sig'))
+            report_validator.validate(report)
+            row['reportSchemaValid'] = True
             if performance != 'off':
                 counters = report['performance']['counters']
                 row['counters'] = {c['name']: c['value'] for c in counters if c['streamId'] == 'base/Mod'}
@@ -350,9 +354,9 @@ def run(args):
             if generation in ('xml', 'animation', 'inheritance', 'defines'):
                 need(counts.get('dependency.include.affectedDocuments', 0) > 0, 'Include change did not report propagation')
             if generation in ('inheritance', 'defines'):
-                # An instance Include is itself a file dependency: that earlier
-                # check must win when base.xml bytes change. A definitions-only
-                # all Include instead reaches the defines/inheritance checks.
+                # Instance Includes retain whole-file content dependencies, so
+                # a changed parent file invalidates its consumers before the
+                # inheritance check. Definitions use their actual read values.
                 need(counts.get('cache.invalidation.' + ('dependentFileChanged' if generation == 'inheritance' else 'definesChanged'), 0) > 0,
                      'Missing dependency-driven reload reason: ' + generation)
                 need(counts.get('dependency.propagation.documents', 0) > 0, 'Missing dependency-invalidated documents')

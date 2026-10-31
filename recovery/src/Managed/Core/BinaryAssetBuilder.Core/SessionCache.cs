@@ -11,17 +11,8 @@ namespace BinaryAssetBuilder.Core;
 [Serializable]
 public class SessionCache : ISessionCache
 {
-	private class FileConfig
-	{
-		public FileItem LastCached;
-
-		public List<FileItem> All = new List<FileItem>();
-	}
-
 	private class CurrentState
 	{
-		public IDictionary<string, FileConfig> FileConfigs;
-
 		public IDictionary<string, FileItem> Files;
 
 		public DateTime Created;
@@ -32,7 +23,6 @@ public class SessionCache : ISessionCache
 
 		public void FromScratch()
 		{
-			FileConfigs = new SortedDictionary<string, FileConfig>();
 			Files = new SortedDictionary<string, FileItem>();
 			Created = DateTime.Now;
 			AssetCompilersVersion = 0u;
@@ -40,7 +30,7 @@ public class SessionCache : ISessionCache
 
 		public void FromLast(LastState last)
 		{
-			FileConfigs = new SortedDictionary<string, FileConfig>();
+			using var performance = PerformanceScope.Measure("cache.from-last");
 			Files = new SortedDictionary<string, FileItem>();
 			Created = last.Created;
 			AssetCompilersVersion = last.AssetCompilersVersion;
@@ -49,16 +39,6 @@ public class SessionCache : ISessionCache
 			foreach (FileItem fileItem in files)
 			{
 				string text = fileItem.HashItem.Path.ToLower();
-				if (!FileConfigs.TryGetValue(text, out var value))
-				{
-					value = new FileConfig();
-					FileConfigs[text] = value;
-				}
-				value.All.Add(fileItem);
-				if (fileItem.Document != null)
-				{
-					value.LastCached = fileItem;
-				}
 				string postfix = GetPostfix(fileItem.HashItem.BuildConfiguration, fileItem.HashItem.TargetPlatform);
 				Files[text + postfix] = fileItem;
 			}
@@ -288,6 +268,7 @@ public class SessionCache : ISessionCache
 
 	public void InitializeCache(List<string> knownChangedFiles, string schemaIdentity)
 	{
+		using var performance = PerformanceScope.Measure("cache.initialize");
 		// Completed documents can skip XSD validation while plugin TypeHash /
 		// ProcessingHash stay constant. Revalidate changed schema constraints;
 		// original BAB imports have no schema attribute.
@@ -319,6 +300,7 @@ public class SessionCache : ISessionCache
 
 	private void checkFiles(List<string> knownChangedFiles)
 	{
+		using var performance = PerformanceScope.Measure("cache.check-files");
 		bool flag = knownChangedFiles.Count == 0;
 		if (_Last == null)
 		{
@@ -465,7 +447,6 @@ public class SessionCache : ISessionCache
 		path = path.ToLower();
 		configuration = configuration?.ToLower();
 		string key = path + GetPostfix(configuration, platform);
-		string key2 = path;
 		documentItem = null;
 		if (!_Current.Files.TryGetValue(key, out documentItem))
 		{
@@ -475,28 +456,12 @@ public class SessionCache : ISessionCache
 			{
 				_Current.Files[key] = documentItem;
 				HasChanges = true;
-				if (!_Current.FileConfigs.TryGetValue(key2, out var value))
-				{
-					value = new FileConfig();
-					_Current.FileConfigs[key2] = value;
-				}
-				value.All.Add(documentItem);
-				if (documentItem.Document != null)
-				{
-					value.LastCached = documentItem;
-				}
 			}
 		}
 		if (autoCreateDocument && documentItem.Document == null)
 		{
 			documentItem.Document = new AssetDeclarationDocument();
 			HasChanges = true;
-			if (!_Current.FileConfigs.TryGetValue(key2, out var value2))
-			{
-				value2 = new FileConfig();
-				_Current.FileConfigs[key2] = value2;
-			}
-			value2.LastCached = documentItem;
 		}
 		return documentItem.HashItem.Exists;
 	}

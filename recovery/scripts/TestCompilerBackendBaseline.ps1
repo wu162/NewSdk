@@ -6,7 +6,8 @@ param(
     [ValidateRange(15,600)][int]$TimeoutSeconds=180,
     [ValidateRange(1,3)][int]$ExpectedCaseCount=2,
     [string]$CacheExportDirectory,
-    [switch]$CompressedCacheExport
+    [switch]$CompressedCacheExport,
+    [string]$FixtureRunId
 )
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/CompilerCliOutputs.ps1"
@@ -111,7 +112,13 @@ try {
     $source=(& git -C $root rev-parse HEAD).Trim()
     if($LASTEXITCODE -ne 0){throw 'Cannot determine current source commit'}
     $fixture=Get-Content -LiteralPath $FixtureResult -Raw|ConvertFrom-Json
-    if(!$fixture.succeeded -or $fixture.sourceCommit -cne $source -or $fixture.runId -cne $state.runId){throw 'Backend fixture success/source/run identity mismatch'}
+    $expectedFixtureRun=if($FixtureRunId){$FixtureRunId}else{$state.runId}
+    if(!$fixture.succeeded -or $fixture.sourceCommit -cne $source -or $fixture.runId -cne $expectedFixtureRun){throw 'Backend fixture success/source/run identity mismatch'}
+    $state.fixtureRunId=$expectedFixtureRun
+    if($fixture.transportedFromRunId){
+        if($fixture.transportedFromRunId -cne $expectedFixtureRun -or $fixture.originalResultSha256 -cnotmatch '^[0-9a-f]{64}$'){throw 'Transported fixture original identity differs'}
+        $state.originalFixtureSha256=$fixture.originalResultSha256
+    }
     if(@($fixture.baselineCases).Count -ne $ExpectedCaseCount){throw "Expected $ExpectedCaseCount successful selected fixture stream oracle cases"}
     $state.sourceCommit=$source
     $state.fixtureScope=$fixture.scope;$state.expectedCaseCount=$ExpectedCaseCount

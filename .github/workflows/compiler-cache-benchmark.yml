@@ -9,15 +9,55 @@ on:
       - 'recovery/tests/test_cache_benchmark.py'
       - 'recovery/tests/test_prepare_cache_benchmark.py'
   workflow_dispatch:
+    inputs:
+      candidate_run_id:
+        description: 'Optional successful lifecycle run for same-VM baseline/candidate pairing'
+        required: false
+        type: string
+      candidate_source:
+        description: 'Full production source SHA from the paired candidate run'
+        required: false
+        type: string
+      measurement_mode:
+        description: 'Cold/hot throughput, bounded synthetic edits, or complete Upheaval large edits'
+        required: false
+        type: choice
+        options: [throughput, incremental, upheaval-edits]
+        default: throughput
+      edit_group:
+        description: 'Complete Upheaval edits: all groups, or one independent group for a targeted run'
+        required: false
+        type: choice
+        options: [all, A, B]
+        default: all
+      armor_partitions:
+        description: 'Additional reachable Armor partitions for paired mode (0 is untouched full Upheaval)'
+        required: false
+        type: choice
+        options: ['0', '1', '2', '4', '6', '8']
+        default: '0'
 permissions:
   contents: read
   actions: read
 concurrency:
-  group: cache-benchmark-${{ github.ref }}-${{ github.sha }}
+  group: cache-benchmark-${{ github.ref }}-${{ github.sha }}-${{ inputs.candidate_run_id }}-${{ inputs.armor_partitions }}-${{ inputs.measurement_mode }}-${{ inputs.edit_group }}
   cancel-in-progress: false
 jobs:
+  paired:
+    if: github.event_name == 'workflow_dispatch' && inputs.candidate_run_id != ''
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario_group: ${{ fromJSON(inputs.measurement_mode == 'upheaval-edits' && (inputs.edit_group == 'A' && '["A"]' || inputs.edit_group == 'B' && '["B"]' || '["A","B"]') || '["single"]') }}
+    uses: ./.github/workflows/compiler-cache-paired.yml
+    with:
+      candidate_run_id: ${{ inputs.candidate_run_id }}
+      candidate_source: ${{ inputs.candidate_source }}
+      armor_partitions: ${{ inputs.armor_partitions }}
+      measurement_mode: ${{ inputs.measurement_mode }}
+      scenario_group: ${{ matrix.scenario_group }}
   benchmark:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[cache-benchmark]')
+    if: (github.event_name == 'workflow_dispatch' && inputs.candidate_run_id == '') || contains(github.event.head_commit.message, '[cache-benchmark]')
     runs-on: windows-2022
     timeout-minutes: 8
     env:

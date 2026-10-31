@@ -354,6 +354,10 @@ public class InstanceDeclaration : IXmlSerializable
 		}
 	}
 
+	// Reenter a saved session through the same lazy initialization used after
+	// ReadXml. Per-stream XML, resolved references and CDATA paths are transient.
+	internal void ResetState() { _Current = null; }
+
 	public void InitializePrecompiled(Asset asset)
 	{
 		_Current = new CurrentState(null);
