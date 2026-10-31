@@ -17,10 +17,20 @@ using BinaryAssetBuilder.Core;
 public static class TextureCommonFormats
 {
     static readonly List<object> Cases = new List<object>();
+    static readonly List<object> Failures = new List<object>();
     static int Checks;
     static string Root;
     static IAssetBuilderPlugin Plugin;
     static void Need(bool value, string message) { ++Checks; if (!value) throw new Exception(message); }
+    static void Run(string name, Action action)
+    {
+        try { action(); }
+        catch (Exception error)
+        {
+            Failures.Add(new { name, error = error.ToString() });
+            Console.Error.WriteLine("FAIL common-format case " + name + ": " + error.Message);
+        }
+    }
     static uint U32(byte[] b, int at) { return BitConverter.ToUInt32(b, at); }
     static ushort U16(byte[] b, int at) { return BitConverter.ToUInt16(b, at); }
     static string Hash(byte[] b) { using (var h = SHA256.Create()) return BitConverter.ToString(h.ComputeHash(b)).Replace("-", "").ToLowerInvariant(); }
@@ -203,44 +213,50 @@ public static class TextureCommonFormats
             Need(own == Assembly.GetEntryAssembly(), "Core must belong to validation entry EXE");
             Need(typeof(Recovered.Compiler.Texture.Plugin).Assembly == own, "Texture plugin must belong to validation entry EXE");
             Need(!File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BinaryAssetBuilder.TextureCompiler.dll")), "Legacy texture DLL deployed");
-            using (var bitmap = new Bitmap(Path.Combine(Root, "solid.bmp"))) bitmap.Save(Path.Combine(Root, "solid.jpg"), ImageFormat.Jpeg);
             Plugin = new Recovered.Compiler.Texture.Plugin(); Plugin.Initialize(null, TargetPlatform.Win32);
             try
             {
+                Run("jpeg-fixture-preparation", delegate { using (var bitmap = new Bitmap(Path.Combine(Root, "solid.bmp"))) bitmap.Save(Path.Combine(Root, "solid.jpg"), ImageFormat.Jpeg); });
                 foreach (string file in new[] { "opaque.png", "opaque.tga", "rle.tga", "opaque.bmp", "opaque.dib", "indexed.png", "indexed.bmp", "indexed.dib" })
-                    Check(file, "A8R8G8B8", "opaque.rgba", false, false, 0, 0);
-                Check("alpha.png", "A8R8G8B8", "alpha.rgba", true, true, 0, 0);
+                    Run(file + "/A8R8G8B8", delegate { Check(file, "A8R8G8B8", "opaque.rgba", false, false, 0, 0); });
+                Run("alpha.png/raw-on-demand", delegate { Check("alpha.png", "A8R8G8B8", "alpha.rgba", true, true, 0, 0); });
                 foreach (string format in new[] { "X8R8G8B8", "R5G6B5", "DXT1", "DXT3", "DXT5" })
-                    Check("opaque.png", format, "opaque.rgba", true, false, 8, 0);
-                Check("alpha.png", "DXT3", "alpha.rgba", true, false, 8, 17);
-                Check("alpha.png", "DXT5", "alpha.rgba", true, true, 8, 32);
-                Check("binary-alpha.png", "DXT1A", "binary-alpha.rgba", true, false, 0, 0);
-                Check("solid.jpg", "A8R8G8B8", "solid.rgba", false, false, 8, 0);
-                foreach (string format in new[] { "A8R8G8B8", "DXT1", "DXT3", "DXT5" }) SolidMips(format);
+                    Run("opaque.png/" + format, delegate { Check("opaque.png", format, "opaque.rgba", true, false, 8, 0); });
+                Run("alpha.png/DXT3", delegate { Check("alpha.png", "DXT3", "alpha.rgba", true, false, 8, 17); });
+                Run("alpha.png/DXT5-on-demand", delegate { Check("alpha.png", "DXT5", "alpha.rgba", true, true, 8, 32); });
+                Run("binary-alpha.png/DXT1A", delegate { Check("binary-alpha.png", "DXT1A", "binary-alpha.rgba", true, false, 0, 0); });
+                Run("solid.jpg/A8R8G8B8", delegate { Check("solid.jpg", "A8R8G8B8", "solid.rgba", false, false, 8, 0); });
+                foreach (string format in new[] { "A8R8G8B8", "DXT1", "DXT3", "DXT5" })
+                    Run("solid.png/all-mips/" + format, delegate { SolidMips(format); });
                 foreach (string file in new[] { "preserve.dds", "preserve.DDS" }) foreach (bool demand in new[] { false, true })
-                {
+                Run(file + "/passthrough/on-demand=" + demand, delegate {
                     byte[] input = File.ReadAllBytes(Path.Combine(Root, file));
                     Need(input.SequenceEqual(Compile(file, "DXT5", true, demand, "StandardTexture")), "DDS passthrough changed bytes");
                     Cases.Add(new { file, onDemand = demand, preservedBytes = input.Length, ddsSha256 = Hash(input) });
-                }
-                byte[] npot = Compile("npot.png", "DXT1", true, false, "StandardTexture");
-                int w = (int)U32(npot, 16), h = (int)U32(npot, 12);
-                Need(w == 16 && h == 16, "13x9 NPOT source must round up to 16x16"); Dds(npot, "DXT1", true, w, h);
-                Cases.Add(new { file = "npot.png", resizedWidth = w, resizedHeight = h, ddsSha256 = Hash(npot) });
+                });
+                Run("npot.png/DXT1", delegate {
+                    byte[] npot = Compile("npot.png", "DXT1", true, false, "StandardTexture");
+                    int w = (int)U32(npot, 16), h = (int)U32(npot, 12);
+                    Need(w == 16 && h == 16, "13x9 NPOT source must round up to 16x16"); Dds(npot, "DXT1", true, w, h);
+                    Cases.Add(new { file = "npot.png", resizedWidth = w, resizedHeight = h, ddsSha256 = Hash(npot) });
+                });
                 foreach (var pair in new[] { new[] { "opaque.png", "DXT1" }, new[] { "binary-alpha.png", "DXT3" }, new[] { "alpha.png", "DXT5" } })
-                {
+                Run(pair[0] + "/default-format-inference", delegate {
                     byte[] inferred = Compile(pair[0], "DXT1", false, false, "StandardTexture"); Dds(inferred, pair[1], false, 16, 16);
                     Cases.Add(new { file = pair[0], requestedFormat = "DXT1", inferredFormat = pair[1] });
-                }
-                Reject("missing.tga", "StandardTexture"); Reject("broken.png", "StandardTexture"); Reject("opaque.png", "CubeTexture");
-                Plugin.ReInitialize(null, TargetPlatform.Win32); Check("opaque.tga", "A8R8G8B8", "opaque.rgba", false, false, 0, 0);
-                Need(!AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == "BinaryAssetBuilder.TextureCompiler"), "Legacy texture assembly loaded");
+                });
+                Run("missing-input-rejection", delegate { Reject("missing.tga", "StandardTexture"); });
+                Run("corrupt-input-rejection", delegate { Reject("broken.png", "StandardTexture"); });
+                Run("raster-cube-rejection", delegate { Reject("opaque.png", "CubeTexture"); });
+                Run("reuse-after-errors", delegate { Plugin.ReInitialize(null, TargetPlatform.Win32); Check("opaque.tga", "A8R8G8B8", "opaque.rgba", false, false, 0, 0); });
+                Run("assembly-ownership", delegate { Need(!AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == "BinaryAssetBuilder.TextureCompiler"), "Legacy texture assembly loaded"); });
             }
             finally { ((IDisposable)Plugin).Dispose(); }
+            Need(Failures.Count == 0, "Common-format matrix failed in " + Failures.Count + " independent cases; see failures array");
             state["status"] = "passed"; state["cases"] = Cases; state["assertions"] = Checks;
             Console.WriteLine("PASS built-in texture common formats: " + Cases.Count + " cases, " + Checks + " assertions"); return 0;
         }
         catch (Exception error) { state["status"] = "failed"; state["error"] = error.ToString(); Console.Error.WriteLine(error); return 1; }
-        finally { state["cases"] = Cases; state["assertions"] = Checks; if (args.Length == 2) File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(state), new UTF8Encoding(false)); }
+        finally { state["cases"] = Cases; state["failures"] = Failures; state["assertions"] = Checks; if (args.Length == 2) File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(state), new UTF8Encoding(false)); }
     }
 }

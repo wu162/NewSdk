@@ -13,7 +13,7 @@ Common input/output coverage:
 | --- | --- |
 | DDS, including uppercase `.DDS` | Complete bytes copied without recompression, preserving existing cube/volume DDS |
 | TGA | Recovered raw/RLE true-color, grayscale and indexed decoders |
-| PNG, BMP, DIB | Recovered decoders first; other standard PNG/BMP variants use Windows GDI+ |
+| PNG, BMP, DIB | Recovered direct-color decoders and managed BI_RGB indexed BMP/DIB (1/4/8-bit); other standard PNG/BMP variants use Windows GDI+ |
 | JPEG, GIF, TIFF | Windows GDI+ decoder; GIF/TIFF use the first frame |
 | PPM | Managed P3/P6 reader, including 8/16-bit big-endian P6 samples |
 
@@ -39,7 +39,8 @@ The recovered decoder/raw/mip/packer/catalog source was copied from its
 `Managed` directory. `Plugin.Metadata.cs`, `Plugin.Dds.cs`, `Plugin.Images.cs`,
 `TextureImageLoader.cs`, `TextureDdsEncoder.cs` and the S3 call boundary were
 adapted for this monolithic host. `TextureBlockCompression.cs` is the independent
-managed BC1 encoder. Public S3 upstream notices, fingerprints and compatibility
+managed BC1 encoder; `TextureIndexedBmpDecoder.cs` decodes standard indexed
+BMP/DIB palette, packed indices, padded rows and top-down/bottom-up storage. Public S3 upstream notices, fingerprints and compatibility
 patch notes are preserved in `recovery/src/Native/Texture/PublicS3`.
 
 Build the S3 native translation unit with `/arch:SSE2 /fp:strict`. Windows x86

@@ -326,7 +326,7 @@ jobs:
       # P7 only adds the explicit BIG apt/maps path; accepted P5/P6 full-mymod
       # loose evidence is reused while all affected product/cache/CLI groups run.
       - name: Complete mymod original BAB and production SDK differential
-        if: ${{ success() && steps.session.outcome == 'success' && env.CLI_REUSE != 'true' && !contains(github.event.head_commit.message, '[refactor-p7-big]') }}
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && steps.session.outcome == 'success' && env.CLI_REUSE != 'true' && !contains(github.event.head_commit.message, '[refactor-p7-big]') }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/sdk-mymod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TimeoutSeconds 600

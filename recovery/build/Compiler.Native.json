@@ -226,6 +226,7 @@
     "recovery/src/Plugin/Texture/TextureTriangleMipEncoder.cs",
     "recovery/src/Plugin/Texture/TextureVolume.cs",
     "recovery/src/Plugin/Texture/TextureVolumeMipEncoder.cs",
-    "recovery/src/Plugin/Texture/TextureVolumeRawDdsEncoder.cs"
+    "recovery/src/Plugin/Texture/TextureVolumeRawDdsEncoder.cs",
+    "recovery/src/Plugin/Texture/TextureIndexedBmpDecoder.cs"
   ]
 }

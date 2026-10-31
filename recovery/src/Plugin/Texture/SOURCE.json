@@ -80,7 +80,8 @@
     "TextureDxtSampleBlockEncoder.cs"
   ],
   "newSources": [
-    "TextureBlockCompression.cs"
+    "TextureBlockCompression.cs",
+    "TextureIndexedBmpDecoder.cs"
   ],
   "runtimeNativeDlls": []
 }

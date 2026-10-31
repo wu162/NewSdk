@@ -11,11 +11,16 @@ $CompilerDirectory=(Resolve-Path $CompilerDirectory).Path
 if(Test-Path $OutputDirectory){throw "Refusing to overwrite common texture evidence: $OutputDirectory"}
 $out=(New-Item -ItemType Directory $OutputDirectory).FullName
 $work=Join-Path ([IO.Path]::GetTempPath()) ('texture-common-'+[Guid]::NewGuid().ToString('N'))
-$state=@{schemaVersion=1;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';configurations=@();productionCli=@();scope='Common formats through production plugin objects and real MOD CLI; independent DDS/BC decode, Core schema/file preprocessing, cache invalidation, missing-input retry; no game runtime claim'}
-function Invoke-CommonTool([string]$Command,[string[]]$Arguments,[string]$Directory,[string]$Log){
+$state=@{schemaVersion=1;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';configurations=@();productionCli=@();failures=@();scope='Common formats through production plugin objects and real MOD CLI; independent DDS/BC decode, Core schema/file preprocessing, cache invalidation, missing-input retry; no game runtime claim'}
+function Invoke-CommonTool([string]$Command,[string[]]$Arguments,[string]$Directory,[string]$Log,[bool]$CollectFailure=$false){
     Push-Location $Directory
     try{& $Command @Arguments *> $Log;$code=$LASTEXITCODE}finally{Pop-Location}
-    if($code -ne 0){Get-Content $Log -Tail 80|Out-Host;throw "Texture common-format tool failed: $Command (exit $code)"}
+    if($code -ne 0){Get-Content $Log -Tail 80|Out-Host;if(!$CollectFailure){throw "Texture common-format tool failed: $Command (exit $code)"}}
+    if($CollectFailure){return $code}
+}
+function Record-TextureFailure([string]$Configuration,[string]$Scope,[string]$ErrorText){
+    $script:state.failures+=@{configuration=$Configuration;scope=$Scope;error=$ErrorText}
+    Write-Host "FAIL common texture $Configuration/$Scope`: $ErrorText"
 }
 function Need([bool]$Condition,[string]$Message){if(!$Condition){throw $Message}}
 function Hash([string]$Path){(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
@@ -66,28 +71,41 @@ try{
     $fixtures=Join-Path $work '中文纹理 fixtures'
     Invoke-CommonTool 'python' @($generator,$fixtures) $root "$out/generate.log"
     $state.fixtureInputs=@(Get-ChildItem $fixtures -File|Sort-Object Name|ForEach-Object{@{name=$_.Name;bytes=$_.Length;sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
-    $script:cliControl=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
+    try{$script:cliControl=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')}
+    catch{Record-TextureFailure 'shared' 'cli-controller' $_.Exception.ToString()}
     $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
     foreach($mode in @('Debug','Release')){
         $evidence=(New-Item -ItemType Directory "$out/$mode").FullName
+        $component=@{configuration=$mode;passed=$false};$state.configurations+=,$component
+        $run=$null
+        try{
         $clean=Join-Path $work "$mode/clean"
         $run=Initialize-CompilerValidationRun (Join-Path $CompilerDirectory $mode) $clean $mode $state.sourceCommit
         $fixture=Join-Path $clean 'TextureCommonFormats.exe'
         Invoke-CommonTool $csc @('/nologo','/codepage:65001','/platform:x86','/r:System.Core.dll','/r:System.Xml.dll','/r:System.Drawing.dll','/r:System.Web.Extensions.dll',"/r:$($run.exe)","/out:$fixture",$source) $root "$evidence/fixture-build.log"
         $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','TextureCommonFormats.exe')
         if(@(Get-ChildItem -LiteralPath $clean -Force|Where-Object{$_.PSIsContainer -or $_.Name -notin $allowed}).Count -ne 0){throw 'Unexpected common-format validation deployment entry'}
-        Invoke-CommonTool $run.exe @($fixture,$fixtures,"$evidence/results.json") $clean "$evidence/runtime.log"
+        $componentExit=Invoke-CommonTool $run.exe @($fixture,$fixtures,"$evidence/results.json") $clean "$evidence/runtime.log" $true
         $results=Get-Content "$evidence/results.json" -Raw|ConvertFrom-Json
-        if($results.status -cne 'passed' -or @($results.cases).Count -lt 20){throw 'Common-format matrix incomplete'}
-        Complete-CompilerValidationRun $run
-        $state.configurations+=@{configuration=$mode;passed=$true;caseCount=@($results.cases).Count;assertions=$results.assertions;resultSha256=(Get-FileHash "$evidence/results.json" -Algorithm SHA256).Hash.ToLowerInvariant();exeSha256=$run.productExeSha256;validationHostSha256=$run.validationHostSha256;sameProductionObjects=$true;legacyTextureDllPresent=$false}
+        $component.caseCount=@($results.cases).Count;$component.assertions=$results.assertions;$component.resultSha256=Hash "$evidence/results.json"
+        $component.failures=@($results.failures);$component.processExit=$componentExit
+        $component.exeSha256=$run.productExeSha256;$component.validationHostSha256=$run.validationHostSha256;$component.sameProductionObjects=$true;$component.legacyTextureDllPresent=$false
+        if($componentExit -ne 0 -or $results.status -cne 'passed' -or @($results.cases).Count -ne 31){throw 'Common-format component matrix failed or incomplete; see results.json failures array'}
+        $component.passed=$true
+        }catch{$component.error=$_.Exception.ToString();Record-TextureFailure $mode 'component' $component.error}
+        finally{
+            if($run){try{Complete-CompilerValidationRun $run}catch{$component.passed=$false;Record-TextureFailure $mode 'component-runtime-identity' $_.Exception.ToString()}}
+        }
+        $script:cliMode=@{configuration=$mode;passed=$false;cases=@()};$state.productionCli+=,$cliMode
+        try{
         $script:cliEvidence=(New-Item -ItemType Directory "$evidence/cli").FullName
         $modeWork=(New-Item -ItemType Directory "$work/$mode/production").FullName
         $script:cliRuntime=(New-Item -ItemType Directory "$modeWork/runtime").FullName
         foreach($name in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$name") -Destination $cliRuntime}
         $script:cliExe=Join-Path $cliRuntime 'NewModCompiler.exe'
-        Need ((Hash $cliExe) -ceq $run.productExeSha256 -and @(Get-ChildItem -LiteralPath $cliRuntime -Force).Count -eq 3) 'Common-format production runtime differs from built product'
-        $script:cliMode=@{configuration=$mode;passed=$false;exeSha256=(Hash $cliExe);cases=@()};$state.productionCli+=,$cliMode
+        $product=Get-Content -LiteralPath (Join-Path $CompilerDirectory "$mode/build.json") -Raw|ConvertFrom-Json
+        Need ($product.sourceCommit -ceq $state.sourceCommit -and $product.configuration -ceq $mode -and (Hash $cliExe) -ceq $product.exeSha256 -and @(Get-ChildItem -LiteralPath $cliRuntime -Force).Count -eq 3) 'Common-format production runtime differs from built product'
+        $cliMode.exeSha256=Hash $cliExe
         $script:cliSdk=(New-Item -ItemType Directory "$modeWork/sdk").FullName
         New-Item -ItemType Directory "$cliSdk/tools","$cliSdk/Schemas"|Out-Null
         Copy-Item -LiteralPath "$root/SDK/Schemas/xsd" -Destination "$cliSdk/Schemas" -Recurse
@@ -125,8 +143,10 @@ try{
         [IO.File]::WriteAllBytes($image,$before)
         $retry=Run-TextureCli 'restored-retry' $cached;Equal-TextureOutputs $changed.files $retry.files
         $cliMode.passed=$true;$cliMode.schemaDefaultsExercised=$true;$cliMode.nonAsciiModPath=$true;$cliMode.onlyDependentTextureRecompiled=$true;$cliMode.failureRetryPassed=$true
+        }catch{$cliMode.error=$_.Exception.ToString();Record-TextureFailure $mode 'production-cli' $cliMode.error}
     }
-    if((Get-FileHash "$out/Debug/results.json" -Algorithm SHA256).Hash -cne (Get-FileHash "$out/Release/results.json" -Algorithm SHA256).Hash){throw 'Debug/Release common-format outputs differ'}
+    if(@($state.configurations|Where-Object{$_.passed}).Count -eq 2 -and (Hash "$out/Debug/results.json") -cne (Hash "$out/Release/results.json")){Record-TextureFailure 'Debug/Release' 'component-output-equality' 'Debug/Release common-format outputs differ'}
+    Need ($state.failures.Count -eq 0) "Common texture validation failed in $($state.failures.Count) scopes; see failures and per-mode results"
     $state.status='passed';$global:LASTEXITCODE=0
     Write-Host 'PASS common texture formats Debug/Release: independent DDS decode plus real seven-asset CLI defaults/cold/warm/single-image invalidation/no-cache equality/missing-image retry; no original texture DLL.'
 }catch{$state.status='failed';$state.error=$_.Exception.ToString();throw}

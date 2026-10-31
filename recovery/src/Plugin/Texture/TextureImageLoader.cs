@@ -19,8 +19,13 @@ namespace Recovered.Compiler.Texture
             try
             {
                 if (TexturePngDecoder.IsPng(data)) return TexturePngDecoder.Decode(data);
-                if (TextureBmpDecoder.IsBmp(data)) return TextureBmpDecoder.Decode(data);
-                if (dib) return TextureDibDecoder.Decode(data);
+                if (TextureBmpDecoder.IsBmp(data))
+                    return TextureIndexedBmpDecoder.CanDecode(data) ? ResizeIfNeeded(TextureIndexedBmpDecoder.Decode(data)) : TextureBmpDecoder.Decode(data);
+                if (dib)
+                {
+                    byte[] bmp = DibEnvelope(data);
+                    return TextureIndexedBmpDecoder.CanDecode(bmp) ? ResizeIfNeeded(TextureIndexedBmpDecoder.Decode(bmp)) : TextureDibDecoder.Decode(data);
+                }
             }
             catch (NotSupportedException)
             {
