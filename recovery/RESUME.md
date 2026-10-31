@@ -1,6 +1,6 @@
 # 当前：修改后构建依赖/快照/引用优化已实现，集中验收中
 
-继续同一 `perf/compiler-cold-hot-cache` / [PR #38](https://github.com/wu162/NewSdk/pull/38)，仍未合并。生产组 `8e8cf766`，[Windows 41174952443](https://github.com/wu162/NewSdk/actions/runs/41174952443) 运行中，尚未验收；`e2dba3c3` 仍是已验收基线。已接入实际父实例/祖先物理绑定闭包、旧 v18 安全读取及 v19 写入、成功原节点请求内快照、引用遍历/Schema 类型及路径复用。快照仍保留父 OwnerDocument；局部 XML 仍整文档前端。详见[本轮短报告](docs/HOT_CACHE_EDIT_OPTIMIZATION.md)。待集中验收终态后复用其 Release 做父有效字段/无关兄弟各三组同机 off 配对；未通过不标完成。禁止强推，未经用户明确批准不合并。
+继续同一 `perf/compiler-cold-hot-cache` / [PR #38](https://github.com/wu162/NewSdk/pull/38)，仍未合并。生产组 `8e8cf766`；[首轮 41174952443](https://github.com/wu162/NewSdk/actions/runs/41174952443) failed 保留（既有独立组通过，三新探针和旧性能断言需修正）。测试已修、生产闭包未变，复用原 D/R 产物的[修复验收 41176937044](https://github.com/wu162/NewSdk/actions/runs/41176937044) 运行中，尚未验收；`e2dba3c3` 仍是已验收基线。已接入实际父实例/祖先物理绑定闭包、旧 v18 安全读取及 v19 写入、成功原节点请求内快照、引用遍历/Schema 类型及路径复用。快照仍保留父 OwnerDocument；局部 XML 仍整文档前端。详见[本轮短报告](docs/HOT_CACHE_EDIT_OPTIMIZATION.md)。待验收终态后复用同一 Release 做父有效字段/无关兄弟各三组同机 off 配对；未通过不标完成。禁止强推，未经用户明确批准不合并。
 
 # 上轮：冷/热缓存性能优化已验收，PR #38 待审
 
