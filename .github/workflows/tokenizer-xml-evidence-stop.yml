@@ -1,0 +1,44 @@
+name: Preserve completed XML evidence and stop replaced product checks
+on:
+  push:
+    branches: [perf/gameobject-weapon-plugins]
+    paths: ['.github/workflows/tokenizer-xml-evidence-stop.yml']
+permissions:
+  contents: read
+  actions: write
+jobs:
+  preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Stop only after independent XML and replacement production success
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: python
+        run: |
+          import json, subprocess, time
+          prefix = 'repos/wu162/NewSdk/actions/runs/'
+          def read(run):
+              return json.loads(subprocess.check_output(['gh', 'api', prefix + str(run)], text=True))
+          final = read(41146357892)
+          assert final['head_sha'] == 'd60904bcb4fcdc6b02ff78db6b66410568543f57'
+          assert final['conclusion'] == 'success', 'Replacement product must already have succeeded'
+          for attempt in range(40):
+              old = read(41145352024)
+              assert old['head_sha'] == 'd457f99a56c3fb4a1baf94bb84c0466f243a4d95'
+              if old['status'] == 'completed':
+                  print('Ancestor already completed; no cancellation requested')
+                  break
+              jobs = json.loads(subprocess.check_output(['gh', 'api', prefix + '41145352024/jobs'], text=True))
+              steps = jobs['jobs'][0]['steps']
+              matrix = next(s for s in steps if s['name'] == 'All 63 shared-helper XML original differential matrices')
+              if matrix['conclusion'] == 'success':
+                  subprocess.run(['gh', 'api', '-X', 'POST', prefix + '41145352024/cancel'], check=True)
+                  print('XML independently succeeded; replaced product checks stopped. Existing always-upload step preserves evidence.')
+                  break
+              if matrix['conclusion'] in ('failure', 'cancelled', 'timed_out'):
+                  raise RuntimeError('XML did not succeed; refusing to cancel or reuse')
+              print('Waiting for all 63 original XML matrices to succeed', flush=True)
+              time.sleep(20)
+          else:
+              raise RuntimeError('XML still running; no cancellation requested')
